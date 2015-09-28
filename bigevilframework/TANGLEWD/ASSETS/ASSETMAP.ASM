@@ -1,0 +1,100 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2014
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+
+    ; ************************************
+    ; Palettes
+    ; ************************************
+	include 'assets\palettes\sonic.asm'
+	include 'assets\palettes\pal_lvl1.asm'
+	include 'assets\palettes\pal_fuzl.asm'
+	include 'assets\palettes\pal_nest.asm'
+	
+	; ************************************
+    ; Font tiles
+    ; ************************************
+	include 'assets\fonts\pixelfnt.asm'
+	
+	; ************************************
+    ; Sprite tiles
+    ; ************************************
+	include 'assets\sprites\sonic.asm'
+	include 'assets\sprites\spr_fuzl.asm'
+	include 'assets\sprites\leaf.asm'
+	include 'assets\sprites\vines.asm'
+	
+	; ************************************
+    ; Level tiles
+    ; ************************************
+	include 'assets\tiles\til_lvl1.asm'
+	
+	; ************************************
+    ; Level maps
+    ; ************************************
+	include 'assets\maps\map_lvl1.asm'
+	
+	; ************************************
+    ; Collision tiles
+    ; ************************************
+	include 'assets\collisn\ctl_lvl1.asm'
+	
+	; ************************************
+    ; Collision maps
+    ; ************************************
+	include 'assets\collisn\cmp_lvl1.asm'
+	
+	; ************************************
+    ; Game objects
+    ; ************************************
+	include 'assets\gameobj\lvl1_obj.asm'
+	
+	; ************************************
+    ; Animation data
+    ; ************************************
+	include 'assets\anims\sonic.asm'
+	include 'assets\anims\fuzzl.asm'
+	include 'assets\anims\leaf.asm'
+
+	; ************************************
+    ; Level list
+    ; ************************************
+	include 'assets\levels.asm'
+	
+	; ************************************
+    ; Art asset VRAM mapping
+    ; ************************************
+	rsset 0
+Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
+Tiles_Player1VRAM:   rs.b (tiles_sonic_size_b)
+Tiles_Player2VRAM:   rs.b (tiles_sonic_size_b)
+Tiles_Fuzzl1VRAM:    rs.b (tiles_fuzzl_size_b)
+Tiles_Fuzzl2VRAM:    rs.b (tiles_fuzzl_size_b)
+Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
+LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
+
+	; ************************************
+    ; Art asset tile IDs
+    ; ************************************
+Tiles_PixelFont_ID: equ (Tiles_PixelFontVRAM/32)
+Tiles_Player1_ID:   equ (Tiles_Player1VRAM/32)
+Tiles_Player2_ID:   equ (Tiles_Player2VRAM/32)
+Tiles_Fuzzl1_ID:    equ (Tiles_Fuzzl1VRAM/32)
+Tiles_Fuzzl2_ID:    equ (Tiles_Fuzzl2VRAM/32)
+Tiles_Leaf1_ID:     equ (Tiles_Leaf1VRAM/32)
+Tiles_Leaf2_ID:     equ (Tiles_Leaf2VRAM/32)
+Tiles_Leaf3_ID:     equ (Tiles_Leaf3VRAM/32)
+Tiles_Vines_ID:     equ (Tiles_VinesVRAM/32)
+Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
+
+	; ************************************
+    ; Palette IDs
+    ; ************************************
+PaletteId_World0		 equ 0x0
+PaletteId_Fuzzl1		 equ 0x1
+PaletteId_Fuzzl2		 equ 0x2
+PaletteId_Player		 equ 0x3

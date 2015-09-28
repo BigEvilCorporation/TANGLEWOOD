@@ -1,0 +1,429 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2014
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   level.asm - Level asset loading, scrolling, state, collision
+;==============================================================
+
+LevelLoad:
+	
+	; Fetch current level addr
+	move.l (CurrentLevel), a1
+
+	;TODO: Move to LoadGlobalData
+	lea Pal_Sonic_Yellow, a0
+	move.l #PaletteId_Player, d0
+	jsr LoadPalette
+	
+	lea palette_fuzzl_red, a0
+	move.l #PaletteId_Fuzzl1, d0
+	jsr LoadPalette
+	
+	lea palette_fuzzl_green, a0
+	move.l #PaletteId_Fuzzl2, d0
+	jsr LoadPalette
+	
+	jsr LevelLoadPalettes
+	jsr LevelLoadArt
+	jsr LevelLoadMap
+	
+	jsr LevelCreatePlayers
+	jsr LevelCreateGameObjects
+	jsr LevelLoadGameObjArt
+	
+	rts
+
+LevelLoadPalettes:
+	; a1 --- Level struct address
+	
+	move.b Level_NumPalettes(a1), d6; Num palettes to d6
+	subi.b #0x1, d6					; -1 for loop
+	move.l #PaletteId_World0, d0	; First level palette offset to d0
+	@PaletteLoop:
+	move.b d0, -(sp)				; Backup palette index
+	move.l Level_PalettesAddr(a1), a0	; First palette addr to a0
+	jsr LoadPalette			
+	move.b (sp)+, d0				; Restore palette index
+	addi.w #0x1, d0					
+	dbra d6, @PaletteLoop			; LoadPalette leaves incremented palette address in a0
+	
+	rts
+	
+LevelLoadArt:
+
+	lea      tiles_lvl1, a0       ; Move tiles address to a0
+	move.l   #LevelMapVRAM, d0      ; Move VRAM dest address to d0
+	move.l   #tiles_lvl1_size_t, d1 ; Move number of tiles to d1
+	jsr      LoadTiles
+	
+	rts
+	
+LevelLoadMap:
+	
+	;==============================================================
+
+	; Initial camera pos X to world scroll
+	move.l #Player1StartPosWorldX, d0
+	sub.l  #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
+	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0		; Centre on player
+	jsr    CameraPosToWorldScrollX
+	move.l d0, WorldScrollX
+
+	; Set inital scroll X
+	neg.l  d0						; To camera space
+	lsr.l  #0x8, d0					; To screen space
+	jsr    SetHScrollPlaneA
+
+	; Set initial streamed column
+	divu   #0x8, d0
+	move.w d0, MapStreamLoadedCol
+
+	;==============================================================
+
+	; Initial camera pos Y to world scroll
+	move.l #Player1StartPosWorldY, d0
+	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
+	add.l  #(Player1Height*SubpixelsPerPixel)/2, d0		; Centre on player
+	jsr    CameraPosToWorldScrollY
+	move.l d0, WorldScrollY
+
+	; Set initial scroll Y
+	lsr.l  #0x8, d0					; To screen space
+	jsr    SetVScrollPlaneA
+
+	; Set initial streamed row (starting from bottom, streaming rows upwards)
+	divu   #0x8, d0
+	add.w  #MapStreamHeight, d0
+	move.w d0, MapStreamLoadedrow
+
+	;==============================================================
+
+	; Stream rows, bottom to top
+	add.l  #(MapStreamHeight*SubpixelsPerPixel), WorldScrollY
+
+	move.l #(MapStreamHeight-1), d2
+	@Loop:
+	sub.l  #(8*SubpixelsPerPixel), WorldScrollY
+	move.l d2, -(sp)
+	jsr    StreamRows
+	move.l (sp)+, d2
+	dbra   d2, @Loop
+
+	;==============================================================
+	
+	rts
+	
+LevelLoadGameObjArt:
+
+	; GameObjLoadMultiSprite:
+	; a0 --- GameObj address
+	; a1 --- Tileset address
+	; a2 --- Multi-sprite dimentions bits array address
+	; a3 --- Multi-sprite tiles per subsprite array address
+	; d0 (l) VRAM address
+	; d1 (w) Num tiles
+	; d2 (w) Sprite W/H dimentions
+	; d3 (b) Palette ID
+
+	; Player 1
+	move.l #GameObjArray_Players, a0
+	lea    Tiles_Sonic, a1
+	lea    sprite_sonic_subsprite_dimensions_bits, a2
+	lea    sprite_sonic_subsprite_dimensions, a3
+	lea    sprite_sonic_numtiles_per_subsprite, a4
+	move.l #Tiles_Player1VRAM, d0
+	move.l #tiles_sonic_size_t, d1
+	move.b #sprite_sonic_size_subsprites, d2
+	move.w #sprite_sonic_dimensions, d3
+	move.b #PaletteID_Player, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Fuzzls, a0
+	lea    Tiles_Fuzzl, a1
+	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
+	lea    sprite_fuzzl_subsprite_dimensions, a3
+	lea    sprite_fuzzl_numtiles_per_subsprite, a4
+	move.l #Tiles_Fuzzl1VRAM, d0
+	move.l #tiles_fuzzl_size_t, d1
+	move.b #sprite_fuzzl_size_subsprites, d2
+	move.w #sprite_fuzzl_dimensions, d3
+	move.b #PaletteID_Fuzzl1, d4
+	jsr    GameObjLoadMultiSprite
+	
+	move.l #GameObjArray_Fuzzls+Fuzzl_Struct_Size, a0
+	lea    Tiles_Fuzzl, a1
+	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
+	lea    sprite_fuzzl_subsprite_dimensions, a3
+	lea    sprite_fuzzl_numtiles_per_subsprite, a4
+	move.l #Tiles_Fuzzl2VRAM, d0
+	move.l #tiles_fuzzl_size_t, d1
+	move.b #sprite_fuzzl_size_subsprites, d2
+	move.w #sprite_fuzzl_dimensions, d3
+	move.b #PaletteID_Fuzzl2, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Leaves, a0
+	lea    tiles_leaf, a1
+	lea    sprite_leaf_subsprite_dimensions_bits, a2
+	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_numtiles_per_subsprite, a4
+	move.l #Tiles_Leaf1VRAM, d0
+	move.l #tiles_leaf_size_t, d1
+	move.b #sprite_leaf_size_subsprites, d2
+	move.w #sprite_leaf_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Leaves+Leaf_Struct_Size, a0
+	lea    tiles_leaf, a1
+	lea    sprite_leaf_subsprite_dimensions_bits, a2
+	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_numtiles_per_subsprite, a4
+	move.l #Tiles_Leaf2VRAM, d0
+	move.l #tiles_leaf_size_t, d1
+	move.b #sprite_leaf_size_subsprites, d2
+	move.w #sprite_leaf_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Leaves+(Leaf_Struct_Size*2), a0
+	lea    tiles_leaf, a1
+	lea    sprite_leaf_subsprite_dimensions_bits, a2
+	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_numtiles_per_subsprite, a4
+	move.l #Tiles_Leaf3VRAM, d0
+	move.l #tiles_leaf_size_t, d1
+	move.b #sprite_leaf_size_subsprites, d2
+	move.w #sprite_leaf_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Obstacles, a0
+	lea    tiles_vines, a1
+	lea    sprite_vines_subsprite_dimensions_bits, a2
+	lea    sprite_vines_subsprite_dimensions, a3
+	lea    sprite_vines_numtiles_per_subsprite, a4
+	move.l #Tiles_VinesVRAM, d0
+	move.l #tiles_vines_size_t, d1
+	move.b #sprite_vines_size_subsprites, d2
+	move.w #sprite_vines_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+
+	move.l #GameObjArray_Obstacles+Obstacle_Struct_Size, a0
+	lea    tiles_vines, a1
+	lea    sprite_vines_subsprite_dimensions_bits, a2
+	lea    sprite_vines_subsprite_dimensions, a3
+	lea    sprite_vines_numtiles_per_subsprite, a4
+	move.l #Tiles_VinesVRAM, d0
+	move.l #tiles_vines_size_t, d1
+	move.b #sprite_vines_size_subsprites, d2
+	move.w #sprite_vines_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+	
+	rts
+	
+LevelCreateGameObjects:
+
+	; Fuzzls
+	move.l #GameObjArray_Fuzzls, a0
+	jsr    LoadGameObjects_Fuzzl
+	
+	; Fuzzl nests
+	move.l #GameObjArray_Nests, a0
+	jsr    LoadGameObjects_Nest
+
+	; Flues
+	move.l #GameObjArray_Flues, a0
+	jsr    LoadGameObjects_Flue
+
+	; Obstacles
+	move.l #GameObjArray_Obstacles, a0
+	jsr    LoadGameObjects_Obstacle
+
+	; Fuzzl colours
+	; TODO: Per-instance params
+	lea    GameObjArray_Fuzzls, a0
+	move.b #ColourRed, Fuzzl_Colour(a0)
+	
+	rts
+
+LevelCreatePlayers:
+
+	; Player 1
+	move.l #Player1, a0
+
+	jsr     PlayerInit
+	
+	move.l  #Player1StartPosWorldX, GameObj_WorldPosX(a0)
+	move.l  #Player1StartPosWorldY, GameObj_WorldPosY(a0)
+	move.w  #Player1Width, GameObj_Width(a0)
+	move.w  #Player1Height, GameObj_Height(a0)
+	move.w  #Player1MaxVelXWalk, GameObj_MaxVelX(a0)
+	move.w  #Player1MaxVelYUp, GameObj_MaxVelYUp(a0)
+	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
+	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
+	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
+	move.w  #Player1ProbeFloorLen, GameObj_FloorProbeLen(a0)
+
+	move.w  #Player1StepHeight, Character_StepHeight(a0)
+	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.w  #Player1AccelWalk, Character_AccelWalk(a0)
+	move.w  #Player1AccelRun, Character_AccelRun(a0)
+	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
+	move.w  #Player1DecelForced, Character_DecelForced(a0)
+	move.w  #Player1JumpVel, Character_JumpVel(a0)
+	move.w  #Player1JumpCancelVel, Character_JumpCancelVel(a0)
+	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
+	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
+	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
+
+	rts
+
+LevelUpdateGameObjs:
+
+	move.l (CurrentLevel), a1
+	
+	; TODO: This needs a macro, or vtable or something
+	
+	; Players
+	move.l #GameObjArray_Players, a0
+	move.l #Player_MaxGameObjs-1, d0
+	@CharLoop:
+	move.l d0, -(sp)
+	jsr PlayerUpdate
+	move.l (sp)+, d0
+	add.l  #Player_Struct_Size, a0
+	dbra   d0, @CharLoop
+	
+	; Fuzzls
+	move.l #GameObjArray_Fuzzls, a0
+	move.l #gameobjects_Fuzzl_count-1, d0	; TODO: Count from level info
+	@FuzzlLoop:
+	move.l d0, -(sp)
+	jsr FuzzlUpdate
+	move.l (sp)+, d0
+	add.l  #Fuzzl_Struct_Size, a0
+	dbra   d0, @FuzzlLoop
+
+	; Flues
+	move.l #GameObjArray_Flues, a0
+	move.l #gameobjects_Flue_count-1, d0	; TODO: Count from level info
+	@FlueLoop:
+	move.l d0, -(sp)
+	jsr FlueUpdate
+	move.l (sp)+, d0
+	add.l  #Flue_Struct_Size, a0
+	dbra   d0, @FlueLoop
+
+	; Leaves
+	move.l #GameObjArray_Leaves, a0
+	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
+	@LeafLoop:
+	move.l d0, -(sp)
+	jsr LeafUpdate
+	move.l (sp)+, d0
+	add.l  #Leaf_Struct_Size, a0
+	dbra   d0, @LeafLoop
+
+	; Obstacles
+	move.l #GameObjArray_Obstacles, a0
+	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
+	@ObstacleLoop:
+	move.l d0, -(sp)
+	jsr ObstacleUpdate
+	move.l (sp)+, d0
+	add.l  #Obstacle_Struct_Size, a0
+	dbra   d0, @ObstacleLoop
+	
+	rts
+	
+LevelDrawGameObjs:
+
+	; Characters
+	move.l #GameObjArray_Players, a0
+	move.l #Player_MaxGameObjs-1, d0
+	@CharLoop:
+	move.l d0, -(sp)
+	jsr PlayerDraw
+	move.l (sp)+, d0
+	add.l  #Player_Struct_Size, a0
+	dbra   d0, @CharLoop
+	
+	; Fuzzls
+	move.l #GameObjArray_Fuzzls, a0
+	move.l #gameobjects_Fuzzl_count-1, d0	; TODO: Count from level info
+	@FuzzlLoop:
+	move.l d0, -(sp)
+	jsr FuzzlDraw
+	move.l (sp)+, d0
+	add.l  #Fuzzl_Struct_Size, a0
+	dbra   d0, @FuzzlLoop
+
+	; Leaves
+	move.l #GameObjArray_Leaves, a0
+	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
+	@LeafLoop:
+	move.l d0, -(sp)
+	jsr LeafDraw
+	move.l (sp)+, d0
+	add.l  #Leaf_Struct_Size, a0
+	dbra   d0, @LeafLoop
+
+	; Obstacles
+	move.l #GameObjArray_Obstacles, a0
+	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
+	@ObstacleLoop:
+	move.l d0, -(sp)
+	jsr ObstacleDraw
+	move.l (sp)+, d0
+	add.l  #Obstacle_Struct_Size, a0
+	dbra   d0, @ObstacleLoop
+	
+	rts
+	
+LevelReset:
+
+	; System
+	move.w  #0x0, Gamepad1PrevState
+	move.w  #0x0, Gamepad2PrevState
+	
+	; Time of Day
+	move.l  #palette_lvl1_day,		TimeOfDayPalettes+(size_long*0)	; Day
+	move.l  #palette_lvl1_dusk,		TimeOfDayPalettes+(size_long*1)	; Dusk
+	move.l  #palette_lvl1_night,	TimeOfDayPalettes+(size_long*2)	; Night
+	move.l  #palette_lvl1_dawn,		TimeOfDayPalettes+(size_long*3)	; Dawn
+	move.b  #TimeOfDay_Day, TimeOfDay
+	
+	; Switching palettes
+	lea     SwitchingPalettesP1, a0
+	move.l  #Pal_Sonic_Yellow, (a0)+; Drained
+	move.l  #Pal_Sonic_Red, (a0)+	; Orange
+	move.l  #Pal_Sonic_Red, (a0)+	; Red
+	move.l  #Pal_Sonic_Blue, (a0)+	; Blue
+	move.l  #Pal_Sonic_Green, (a0)+	; Green
+	move.l  #Pal_Sonic_Yellow, (a0)+; Yellow
+	
+	; World
+	move.w  #Gravity, LevelGravity
+	move.w  #0x0, TimeOfDayShiftDelay
+	
+	; Camera
+	move.l  #0x0, WorldScrollX
+	move.l  #0x0, WorldScrollY
+	move.l  #CameraStartPosWorldX, CameraWorldPosX
+	move.l  #CameraStartPosWorldY, CameraWorldPosY
+	move.l  #Player1, CameraTargetGameObjX
+	move.l  #Player1, CameraTargetGameObjY
+	
+	; Set BG colour (level palette 1, colour 0)
+	move.w #0x8700, d1
+	move.b #PaletteId_World0, d1
+	lsl.b  #0x4, d1
+	move.w d1, vdp_control
+	
+	rts
