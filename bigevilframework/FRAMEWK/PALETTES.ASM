@@ -1,0 +1,51 @@
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   SEGA Genesis Framework (c) Matt Phillips 2014
+;==============================================================
+;   palettes.asm - Palette loading and manipulation
+;==============================================================
+
+LoadPalette:
+    ; d0 (b) Palette index
+	; a0 --- Palette ROM address
+
+	mulu.w #size_palette_b, d0         ; Colour index to CRAM destination address
+	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d0				; Shift lower word back
+	swap    d0                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_cram_write, d0 ; OR in CRAM write command
+	move.l  d0, vdp_control        	; Move dest address to VDP control port
+
+	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette in words (-1 for loop counter)
+	@PaletteCopy:
+	move.w (a0)+, vdp_data          ; Move word to CRAM
+	dbra.w d0, @PaletteCopy
+
+	rts
+	
+LoadPaletteDMA:
+	; d0 (b) Palette index
+	; a0 --- Palette ROM address
+
+	mulu.w #size_palette_b, d0	; Palette index to CRAM destination address
+	move.w #size_palette_w, d1	; Palette size to copy (in words)
+	jsr VDPDMACopyCRAM			; DMA copy
+	
+	rts
+
+ReadPalette;
+    ; d0 (b) Palette index
+	; a0 --- Dest RAM address
+
+	mulu.w #size_palette_b, d0        ; Colour index to CRAM source address
+	swap   d0                      ; Move address to upper word
+	ori.l  #vdp_read_palettes, d0  ; OR CRAM read command
+	move.l d0, vdp_control         ; Send dest address to VDP
+
+	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette (-1 for loop counter)
+	@PaletteCopy:
+	move.w vdp_data, (a0)+       ; Move word from CRAM
+	dbra.w d0, @PaletteCopy
+
+	rts
