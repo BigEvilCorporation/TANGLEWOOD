@@ -79,3 +79,4 @@ Player1ProbeLedgeY  equ 0x02			  ; Ledge detection probe position Y
 ;   Object counts
 ;==============================================================
 Player_MaxGameObjs equ 0x1
+Pickup_MaxGameObjs equ 0x1

@@ -42,6 +42,7 @@
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\physics.asm'
+	include '..\gamelib\pickup.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\stream.asm'
 
