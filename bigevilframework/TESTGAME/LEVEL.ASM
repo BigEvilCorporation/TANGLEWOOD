@@ -187,6 +187,16 @@ LevelUpdateGameObjs:
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
 	
+	; Pickups
+	move.l #GameObjArray_Pickups, a0
+	move.l #Pickup_MaxGameObjs-1, d0
+	@PickupLoop:
+	move.l d0, -(sp)
+	jsr PickupUpdate
+	move.l (sp)+, d0
+	add.l  #Pickup_Struct_Size, a0
+	dbra   d0, @PickupLoop
+	
 	rts
 	
 LevelDrawGameObjs:
@@ -200,6 +210,16 @@ LevelDrawGameObjs:
 	move.l (sp)+, d0
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
+	
+	; Pickups
+	move.l #GameObjArray_Pickups, a0
+	move.l #Pickup_MaxGameObjs-1, d0
+	@PickupLoop:
+	move.l d0, -(sp)
+	jsr PickupDraw
+	move.l (sp)+, d0
+	add.l  #Pickup_Struct_Size, a0
+	dbra   d0, @PickupLoop
 	
 	rts
 	
