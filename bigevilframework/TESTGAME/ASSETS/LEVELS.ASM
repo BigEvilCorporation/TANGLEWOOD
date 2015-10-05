@@ -17,3 +17,17 @@ Lvl1_GreenHill:
 	dc.b 0x1					; Num palettes
 	
 	even
+
+Lvl1_GreenHillLarge:
+
+	dc.l tiles_lvl2				; Tileset
+	dc.l map_lvl2				; Map
+	dc.l collisiontiles_lvl2	; Collision tileset
+	dc.l collisionmap_lvl2		; Collision map
+	dc.l palette_lvl2			; Palettes
+	dc.w map_lvl2_width			; Map width
+	dc.w map_lvl2_height		; Map height
+	dc.w tiles_lvl2_size_t		; Num tiles
+	dc.b 0x1					; Num palettes
+	
+	even

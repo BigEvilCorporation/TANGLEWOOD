@@ -9,6 +9,7 @@
     ; ************************************
 	include 'assets\palettes\sonic.asm'
 	include 'assets\palettes\pal_lvl1.asm'
+	include 'assets\palettes\pal_lvl2.asm'
 	
 	; ************************************
     ; Font tiles
@@ -24,6 +25,7 @@
     ; Level tiles
     ; ************************************
 	include 'assets\tiles\til_lvl1.asm'
+	include 'assets\tiles\til_lvl2.asm'
 	
 	; ************************************
     ; Level maps
@@ -34,16 +36,19 @@
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
+	include 'assets\collisn\ctl_lvl2.asm'
 	
 	; ************************************
     ; Collision maps
     ; ************************************
 	include 'assets\collisn\cmp_lvl1.asm'
+	include 'assets\collisn\cmp_lvl2.asm'
 	
 	; ************************************
     ; Game objects
     ; ************************************
 	include 'assets\gameobj\lvl1_obj.asm'
+	include 'assets\gameobj\lvl2_obj.asm'
 	
 	; ************************************
     ; Animation data
