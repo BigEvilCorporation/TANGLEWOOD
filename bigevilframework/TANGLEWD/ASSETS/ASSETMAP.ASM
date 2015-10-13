@@ -75,7 +75,7 @@
 	; ************************************
     ; Game objects
     ; ************************************
-	include 'assets\gameobj\lvl1_obj.asm'
+	include 'assets\gameobj\obj_lvl1.asm'
 
 	ENDIF
 
@@ -102,18 +102,9 @@ LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
 	ENDIF
 
 	; ************************************
-    ; Art asset tile IDs
+    ; Static art asset tile IDs
     ; ************************************
 Tiles_PixelFont_ID: equ (Tiles_PixelFontVRAM/32)
-;Tiles_Player1_ID:   equ (Tiles_Player1VRAM/32)
-;Tiles_Player2_ID:   equ (Tiles_Player2VRAM/32)
-;Tiles_Fuzzl1_ID:    equ (Tiles_Fuzzl1VRAM/32)
-;Tiles_Fuzzl2_ID:    equ (Tiles_Fuzzl2VRAM/32)
-;Tiles_Leaf1_ID:     equ (Tiles_Leaf1VRAM/32)
-;Tiles_Leaf2_ID:     equ (Tiles_Leaf2VRAM/32)
-;Tiles_Leaf3_ID:     equ (Tiles_Leaf3VRAM/32)
-;Tiles_Vines_ID:     equ (Tiles_VinesVRAM/32)
-;Tiles_Firefly_ID:   equ (Tiles_FireflyVRAM/32)
 Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
 
 	; ************************************

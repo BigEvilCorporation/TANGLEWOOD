@@ -9,11 +9,7 @@
 ; ************************************
 ; Start of RAM
 ; ************************************
-	;IFD DEBUG
-	;rsset 0x00100000	; For Cross Product MegaCD, leave space for ROM
-	;ELSE
 	rsset 0x00FF0000
-	;ENDIF
 
 ; ************************************
 ; Framework stuff

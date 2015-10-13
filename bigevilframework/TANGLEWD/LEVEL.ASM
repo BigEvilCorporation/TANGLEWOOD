@@ -52,13 +52,10 @@ LevelLoadPalettes:
 	
 LevelLoadArt:
 
-	;lea      tiles_lvl1, a0       ; Move tiles address to a0
-	;move.l   #LevelMapVRAM, d0      ; Move VRAM dest address to d0
-	;move.l   #tiles_lvl1_size_t, d1 ; Move number of tiles to d1
-	;jsr      LoadTiles
+	clr.l d1
 
 	move.l Level_TilesAddr(a1), a0 ; Move tiles address to a0
-	move.l Level_NumTiles(a1), d1  ; Move number of tiles to d1
+	move.w Level_NumTiles(a1), d1  ; Move number of tiles to d1
 	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
 	
 	jsr    LoadTiles

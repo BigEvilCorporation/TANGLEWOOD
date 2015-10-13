@@ -13,7 +13,8 @@ Flue_Height			equ 0x40
 Flue_BoundsExtendX	equ 0x08
 Flue_HoldDelay		equ 0x0040
 Flue_EjectForceX	equ 0x0000
-Flue_EjectForceY	equ 0x0A00
+;Flue_EjectForceY	equ 0x0A00
+Flue_EjectForceY	equ 0x0C00
 
 ; Struct
 	rsset (GameObj_Struct_Size)
