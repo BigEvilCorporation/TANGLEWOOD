@@ -41,6 +41,7 @@
 	include '..\gamelib\colour.asm'
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
+	include '..\gamelib\pickup.asm'
 	include '..\gamelib\physics.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\stream.asm'
@@ -76,7 +77,11 @@ __main:
 	jsr      LoadTiles
 
 	; Set first level
+	IFD DEBUG
+	move.l #Tst1_Forest, CurrentLevel
+	ELSE
 	move.l #Lvl1_Tanglewood, CurrentLevel
+	ENDIF
 	
 	; Load assets
 	jsr LevelLoad
@@ -138,7 +143,7 @@ __vsync:
 	; ************************************
 	; Data includes
 	; ************************************
-	
+
 	; Include framework data
 	include '..\framewk\initdata.asm'
 	include '..\framewk\globals.asm'
@@ -151,5 +156,8 @@ __vsync:
 
 	; Include game art
 	include 'assets\assetmap.asm'
+
+	; Include binaries last
+	include 'assets\binaries.asm'
 
 __end    ; Very last line, end of ROM address

@@ -52,10 +52,16 @@ LevelLoadPalettes:
 	
 LevelLoadArt:
 
-	lea      tiles_lvl1, a0       ; Move tiles address to a0
-	move.l   #LevelMapVRAM, d0      ; Move VRAM dest address to d0
-	move.l   #tiles_lvl1_size_t, d1 ; Move number of tiles to d1
-	jsr      LoadTiles
+	;lea      tiles_lvl1, a0       ; Move tiles address to a0
+	;move.l   #LevelMapVRAM, d0      ; Move VRAM dest address to d0
+	;move.l   #tiles_lvl1_size_t, d1 ; Move number of tiles to d1
+	;jsr      LoadTiles
+
+	move.l Level_TilesAddr(a1), a0 ; Move tiles address to a0
+	move.l Level_NumTiles(a1), d1  ; Move number of tiles to d1
+	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
+	
+	jsr    LoadTiles
 	
 	rts
 	
@@ -139,6 +145,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Player, d4
 	jsr    GameObjLoadMultiSprite
 
+	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
@@ -163,6 +170,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Fuzzl2, d4
 	jsr    GameObjLoadMultiSprite
 
+	; Leaves
 	move.l #GameObjArray_Leaves, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
@@ -199,6 +207,10 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
 
+	; Vines
+	move.w #gameobjects_obstacle_count, d0
+	cmp.w  #0x0, d0
+	beq    @NoObstacles
 	move.l #GameObjArray_Obstacles, a0
 	lea    tiles_vines, a1
 	lea    sprite_vines_subsprite_dimensions_bits, a2
@@ -222,6 +234,29 @@ LevelLoadGameObjArt:
 	move.w #sprite_vines_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
+	@NoObstacles:
+
+	; Fireflies
+	move.l #GameObjArray_Fireflies, a0
+	move.l #gameobjects_Firefly_count-1, d1
+	move.l #Tiles_fireflyVRAM, d0
+	@FireflyLoop:
+	movem.l d0-d1/a0, -(sp)
+	
+	lea    tiles_firefly, a1
+	lea    sprite_firefly_subsprite_dimensions_bits, a2
+	lea    sprite_firefly_subsprite_dimensions, a3
+	lea    sprite_firefly_numtiles_per_subsprite, a4
+	move.l #tiles_firefly_size_t, d1
+	move.b #sprite_firefly_size_subsprites, d2
+	move.w #sprite_firefly_dimensions, d3
+	move.b #PaletteId_Fuzzl1, d4
+	jsr    GameObjLoadMultiSprite
+
+	movem.l (sp)+, d0-d1/a0
+	add.l  #Firefly_Struct_Size, a0
+	add.l  #tiles_firefly_size_b, d0
+	dbra   d1, @FireflyLoop
 	
 	rts
 	
@@ -242,6 +277,19 @@ LevelCreateGameObjects:
 	; Obstacles
 	move.l #GameObjArray_Obstacles, a0
 	jsr    LoadGameObjects_Obstacle
+
+	; Fireflies
+	move.l #GameObjArray_Fireflies, a0
+	jsr    LoadGameObjects_Firefly
+
+	; Leaves
+	; TODO: Leaf generator
+	move.l #GameObjArray_Leaves, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
 
 	; Fuzzl colours
 	; TODO: Per-instance params
@@ -331,6 +379,9 @@ LevelUpdateGameObjs:
 	dbra   d0, @LeafLoop
 
 	; Obstacles
+	move.w #gameobjects_obstacle_count, d0
+	cmp.w  #0x0, d0
+	beq    @NoObstacles
 	move.l #GameObjArray_Obstacles, a0
 	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
 	@ObstacleLoop:
@@ -339,6 +390,17 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Obstacle_Struct_Size, a0
 	dbra   d0, @ObstacleLoop
+	@NoObstacles:
+
+	; Fireflies
+	move.l #GameObjArray_Fireflies, a0
+	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
+	@FireflyLoop:
+	move.l d0, -(sp)
+	jsr FireflyUpdate
+	move.l (sp)+, d0
+	add.l  #Firefly_Struct_Size, a0
+	dbra   d0, @FireflyLoop
 	
 	rts
 	
@@ -375,6 +437,9 @@ LevelDrawGameObjs:
 	dbra   d0, @LeafLoop
 
 	; Obstacles
+	move.w #gameobjects_obstacle_count, d0
+	cmp.w  #0x0, d0
+	beq    @NoObstacles
 	move.l #GameObjArray_Obstacles, a0
 	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
 	@ObstacleLoop:
@@ -383,6 +448,17 @@ LevelDrawGameObjs:
 	move.l (sp)+, d0
 	add.l  #Obstacle_Struct_Size, a0
 	dbra   d0, @ObstacleLoop
+	@NoObstacles:
+
+	; Fireflies
+	move.l #GameObjArray_Fireflies, a0
+	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
+	@FireflyLoop:
+	move.l d0, -(sp)
+	jsr FireflyDraw
+	move.l (sp)+, d0
+	add.l  #Firefly_Struct_Size, a0
+	dbra   d0, @FireflyLoop
 	
 	rts
 	

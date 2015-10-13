@@ -563,4 +563,3 @@ GameObjDraw:
 
 	@End:
  rts
- 

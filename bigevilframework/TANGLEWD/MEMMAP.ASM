@@ -8,8 +8,12 @@
 
 ; ************************************
 ; Start of RAM
-; ************************************	
+; ************************************
+	;IFD DEBUG
+	;rsset 0x00100000	; For Cross Product MegaCD, leave space for ROM
+	;ELSE
 	rsset 0x00FF0000
+	;ENDIF
 
 ; ************************************
 ; Framework stuff
@@ -78,7 +82,7 @@ SwitchingPalettesP1 rs.l NumSwitchingColours
 ; Game objects
 ; ************************************
 GameObjArray_Players rs.b (Player_Struct_Size*Player_MaxGameObjs)
-;GameObjArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxGameObjs)
+GameObjArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxGameObjs)
 GameObjArray_Flues      rs.b (Flue_Struct_Size*Flue_MaxGameObjs)
 GameObjArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxGameObjs)
 GameObjArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxGameObjs)

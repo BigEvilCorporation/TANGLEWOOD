@@ -8,6 +8,8 @@
 
 ; Constants
 Nest_MaxGameObjs  equ 0x8
+Nest_Width        equ 0x0010
+Nest_Height       equ 0x0008
 
 ; Struct
 	rsset (GameObj_Struct_Size)
@@ -23,8 +25,8 @@ NestInit:
 	; Default state
 	move.b #0x0, GameObj_Active(a0)
 	move.b #0x0, GameObj_Visible(a0)	; Nest graphics are baked into the level
-	move.w #FuzzlNestWidth, GameObj_Width(a0)
-	move.w #FuzzlNestHeight, GameObj_Height(a0)
+	move.w #Nest_Width, GameObj_Width(a0)
+	move.w #Nest_Height, GameObj_Height(a0)
 	move.b #0x0, Nest_Occupied(a0)
 
 	rts

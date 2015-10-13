@@ -32,6 +32,7 @@ PlayerUpdate:
 	; Interaction
 	jsr PlayerInteract_Fuzzls
 	jsr PlayerInteract_Obstacles
+	jsr PlayerInteract_Fireflies
 	
 	rts
 
@@ -122,7 +123,7 @@ PlayerInteract_Fuzzls:
 	move.l GameObj_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
 	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
-	add.l  #(FuzzlWidth*SubpixelsPerPixel)/2, d1 ; Fuzzl X centre
+	add.l  #(Fuzzl_Width*SubpixelsPerPixel)/2, d1 ; Fuzzl X centre
 	move.w GameObj_VelX(a0), d2			; Player velocity X
 	cmp.l  d0, d1
 	bgt    @LeftOfFuzzl
@@ -135,10 +136,10 @@ PlayerInteract_Fuzzls:
 	move.l GameObj_WorldPosX(a0), d0	; Player X
 	add.l  #Player1PushBorder, d0
 	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
-	add.l  #(FuzzlWidth*SubpixelsPerPixel), d1 ; Fuzzl right
+	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 ; Fuzzl right
 	cmp.l  d0, d1
 	blt    @NotPenetratingLeft
-	sub.l  #(FuzzlWidth*SubpixelsPerPixel), d0
+	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
 	move.l d0, GameObj_WorldPosX(a1)
 	@NotPenetratingLeft:
 	bra    @PushingFuzzl
@@ -212,6 +213,10 @@ PlayerInteract_Obstacles:
 	; a1 --- Level addr
 	
 	move.l a1, -(sp)
+
+	move.w #gameobjects_obstacle_count, d0	; TODO: Count from level info
+	cmp.w  #0x0, d0
+	beq    @NoObstacles
 	
 	; Check all obstacles
 	move.l #GameObjArray_Obstacles, a1
@@ -311,7 +316,33 @@ PlayerInteract_Obstacles:
 	dbra d6, @ObstacleLoop
 
 	move.l (sp)+, a1
+
+	@NoObstacles:
 	
+	rts
+
+PlayerInteract_Fireflies:
+
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.l a0, -(sp)
+	move.l a1, -(sp)
+
+	; Check player against all Fireflies in level
+	move.l a0, a1						; Player in a1
+	move.l #GameObjArray_Fireflies, a0	; Firefly in a0
+	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
+	@FireflyLoop:
+	movem.l d0-d1/a0-a1, -(sp)
+	jsr FireflyTestObj
+	movem.l (sp)+, d0-d1/a0-a1
+	add.l  #Firefly_Struct_Size, a0
+	dbra   d0, @FireflyLoop
+
+	move.l (sp)+, a1
+	move.l (sp)+, a0
+
 	rts
 
 PlayerDraw:

@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   leaf.asm - The Fuzzl's lovely warm home
+;   leaf.asm - Slow floating leaf, decoration only
 ;==============================================================
 
 ; Constants
@@ -42,11 +42,8 @@ LeafInit:
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.w #Leaf_Width, GameObj_Width(a0)
 	move.w #Leaf_Height, GameObj_Height(a0)
-	move.w #tiles_leaf_size_t, GameObj_TilesetSize(a0)
-	move.b #sprite_leaf_size_subsprites, GameObj_NumSubSprites(a0)
-	move.w #sprite_leaf_dimensions, GameObj_Dimensions(a0)
-	move.l #sprite_leaf_subsprite_dimensions, GameObj_SubSpriteDimArr(a0)
-	move.l #tiles_leaf, GameObj_TilesetAddr(a0)
+	
+	; Default anim
 	move.l #Anim_LeafFall, AnimObj_AnimDataAddr(a0)
 	move.b #Anim_LeafFall_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_LeafFall_SizeB, AnimObj_AnimLength(a0)

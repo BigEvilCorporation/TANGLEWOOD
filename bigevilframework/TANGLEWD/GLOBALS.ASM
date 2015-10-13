@@ -28,7 +28,14 @@ SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
 
 ; World
 Gravity			         equ 0x0030
+
+	; TODO: add to level params
+	IFD DEBUG
+GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Height
+	ELSE
 GroundHeightScreen       equ (map_lvl1_height*8)+SpritePlaneBorderY+Player1Height
+	ENDIF
+
 GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
 
 ; Time of day
@@ -102,43 +109,6 @@ Player1ColourChangeSpeed equ 0x0030
 
 ; TEMP
 Player1PushBorder equ 0xA*SubpixelsPerPixel
-
-; Fuzzls
-FuzzlWidth        equ 0x0010
-FuzzlHeight       equ 0x0010
-FuzzlStepHeight   equ 0x3
-FuzzlProbeFloorX  equ (FuzzlWidth/2)  ; Floor detection probe position X
-FuzzlProbeFloorY  equ (FuzzlHeight-FuzzlStepHeight)   ; Floor detection probe position Y
-FuzzlProbeFloorLen equ FuzzlStepHeight*2  ; Floor probe length (multiplied by Y velocity)
-FuzzlMaxVelX	  equ 0x0100
-FuzzlDecel		  equ 0x02
-FuzzlBounceDelay  equ 0x40
-FuzzlBounceVelHappy    equ 0x0280
-FuzzlBounceVelStartled equ 0x0100
-FuzzlAnimSpeedVelocityDiv equ 0x0004
-FuzzlAnimSpeedBounce equ 0x40
-FuzzlEyeWatchDistance equ 0x0050	; Min distance from player to start watching
-FuzzlEyeWatchQuadSize equ 0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
-
-; Nests
-FuzzlNestWidth        equ 0x0010
-FuzzlNestHeight       equ 0x0008
-
-; TEST
-FuzzlNestStartPosScreenX equ ((map_lvl1_width*8)-0x20)
-FuzzlNestStartPosScreenY equ GroundHeightScreen-FuzzlNestHeight-0x8
-FuzzlNestStartPosWorldX  equ FuzzlNestStartPosScreenX*SubpixelsPerPixel
-FuzzlNestStartPosWorldY  equ FuzzlNestStartPosScreenY*SubpixelsPerPixel
-
-Fuzzl1StartPosWorldX  equ 0x00022400
-Fuzzl1StartPosWorldY  equ 0x00002D00
-Fuzzl1StartPosScreenX equ Fuzzl1StartPosWorldX/SubpixelsPerPixel
-Fuzzl1StartPosScreenY equ Fuzzl1StartPosWorldY/SubpixelsPerPixel
-
-Fuzzl2StartPosWorldX  equ 0x0002A500
-Fuzzl2StartPosWorldY  equ 0x00002D00
-Fuzzl2StartPosScreenX equ Fuzzl1StartPosWorldX/SubpixelsPerPixel
-Fuzzl2StartPosScreenY equ Fuzzl1StartPosWorldY/SubpixelsPerPixel
 
 ;==============================================================
 ;   Object counts

@@ -29,7 +29,7 @@ Exception:
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE
    ENDIF
 
-   stop #$2700 ; Halt CPU
+   stop #0x2700 ; Halt CPU
    rte
 
 NullInterrupt:

@@ -3,11 +3,11 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   pickup.asm - Simple pickup object
+;   pickup.asm - Simple animated pickup object
 ;==============================================================
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (AnimObj_Struct_Size)
 ;--------------------------
 Pickup_Taken        rs.b 1
 ;--------------------------
@@ -15,7 +15,11 @@ Pickup_Struct_Pad   rs.b 3	; Alignment padding
 Pickup_Struct_Size  rs.b 0
 
 PickupInit:
-	jsr GameObjInit
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr AnimObjInit
 
 	; Default state
 	move.b #0x1, GameObj_Active(a0)
@@ -26,11 +30,19 @@ PickupInit:
 	rts
 
 PickupUpdate:
-	jsr GameObjUpdate
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr AnimObjUpdate
 	rts
 
 PickupDraw:
-	jsr GameObjDraw
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr AnimObjDraw
 	rts
 	
 PickupTestObj:
@@ -40,7 +52,7 @@ PickupTestObj:
 	
 	; Test bounds intersection
 	jsr   TestGameObjBoxIntersectBox
-	cmp.b #0x0,d0
+	cmp.b #0x0, d0
 	beq   @NoIntersection
 	
 	; Intersection, disable and mark as picked up

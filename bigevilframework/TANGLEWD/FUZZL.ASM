@@ -7,11 +7,26 @@
 ;==============================================================
 
 ; Constants
-Fuzzl_MaxGameObjs	equ 0x8
-Fuzzl_Width			equ 0x10
-Fuzzl_Height		equ 0x10
-Fuzzl_MaxVelYUp		equ 0x0600
-Fuzzl_MaxVelYDown	equ 0x0600
+Fuzzl_MaxGameObjs			equ 0x8
+Fuzzl_Width					equ 0x10
+Fuzzl_Height				equ 0x10
+Fuzzl_MaxVelYUp				equ 0x0600
+Fuzzl_MaxVelYDown			equ 0x0600
+Fuzzl_Width					equ 0x0010
+Fuzzl_Height				equ 0x0010
+Fuzzl_StepHeight			equ 0x3
+Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
+Fuzzl_ProbeFloorY			equ (Fuzzl_Height-Fuzzl_StepHeight)   ; Floor detection probe position Y
+Fuzzl_ProbeFloorLen			equ Fuzzl_StepHeight*2  ; Floor probe length (multiplied by Y velocity)
+Fuzzl_MaxVelX				equ 0x0100
+Fuzzl_Decel					equ 0x02
+Fuzzl_BounceDelay			equ 0x40
+Fuzzl_BounceVelHappy		equ 0x0280
+Fuzzl_BounceVelStartled		equ 0x0100
+Fuzzl_AnimSpeedVelocityDiv	equ 0x0004
+Fuzzl_AnimSpeedBounce equ	0x40
+Fuzzl_EyeWatchDistance equ	0x0050	; Min distance from player to start watching
+Fuzzl_EyeWatchQuadSize equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
@@ -72,11 +87,11 @@ FuzzlInit:
 	move.b  #0x1, GameObj_Visible(a0)
 	move.w  #Fuzzl_Width, GameObj_Width(a0)
 	move.w  #Fuzzl_Height, GameObj_Height(a0)
-	move.w  #FuzzlMaxVelX, GameObj_MaxVelX(a0)
-	move.w  #FuzzlDecel, GameObj_DecelX(a0)
-	move.w  #FuzzlProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #FuzzlProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #FuzzlProbeFloorLen, GameObj_FloorProbeLen(a0)
+	move.w  #Fuzzl_MaxVelX, GameObj_MaxVelX(a0)
+	move.w  #Fuzzl_Decel, GameObj_DecelX(a0)
+	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
+	move.w  #Fuzzl_ProbeFloorY, GameObj_FloorProbeY(a0)
+	move.w  #Fuzzl_ProbeFloorLen, GameObj_FloorProbeLen(a0)
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
@@ -125,7 +140,7 @@ FuzzlUpdate:
 	move.w d2, d1
 	
 	jsr VectorDistSq					; Calc distance
-	cmp.l #FuzzlEyeWatchDistance*FuzzlEyeWatchDistance, d0	; Result sq'd in d0
+	cmp.l #Fuzzl_EyeWatchDistance*Fuzzl_EyeWatchDistance, d0	; Result sq'd in d0
 	bgt   @OutOfPlayerRange
 
 	; Check if already watching player
@@ -136,7 +151,7 @@ FuzzlUpdate:
 	bset.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
 
 	; Do a little startled bounce
-	move.w #FuzzlBounceVelStartled, GameObj_VelY(a0)
+	move.w #Fuzzl_BounceVelStartled, GameObj_VelY(a0)
 
 	bra @InitialState
 
@@ -148,7 +163,7 @@ FuzzlUpdate:
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0
-	divs.w #FuzzlAnimSpeedVelocityDiv, d0
+	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
 	move.b d0, AnimObj_AnimSpeed(a0)
 
 	; Check all nests
@@ -250,11 +265,11 @@ FuzzlUpdateBounce:
 	
 	; Check if bounce timer has elapsed
 	move.b Fuzzl_BounceTimer(a0), d0
-	cmp.b  #FuzzlBounceDelay, d0
+	cmp.b  #Fuzzl_BounceDelay, d0
 	bne    @NoBounceThisFrame
 	
 	; Bounce!
-	move.w #FuzzlBounceVelHappy, GameObj_VelY(a0)
+	move.w #Fuzzl_BounceVelHappy, GameObj_VelY(a0)
 	
 	; Restart timer
 	move.b #0x0, Fuzzl_BounceTimer(a0)
@@ -265,7 +280,7 @@ FuzzlUpdateBounce:
 	move.b GameObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
 	beq    @OnFloor
-	move.b #FuzzlAnimSpeedBounce, AnimObj_AnimSpeed(a0)
+	move.b #Fuzzl_AnimSpeedBounce, AnimObj_AnimSpeed(a0)
 	bra    @End
 	@OnFloor:
 	move.b #0x0, AnimObj_AnimSpeed(a0)
@@ -300,12 +315,12 @@ FuzzlUpdateEyes:
 
 	move.l GameObj_WorldPosX(a0), d2	; Fuzzl X
 	lsr.l  #0x8, d2						; Screen space
-	add.l  #(FuzzlWidth/2), d2			; Centre
+	add.l  #(Fuzzl_Width/2), d2			; Centre
 	move.w d2, d1
 	swap d1
 	move.l GameObj_WorldPosY(a0), d2	; Fuzzl Y
 	lsr.l  #0x8, d2						; Screen space
-	add.l  #(FuzzlHeight/2), d2			; Centre
+	add.l  #(Fuzzl_Height/2), d2			; Centre
 	move.w d2, d1
 
 	jsr VectorSub
@@ -317,7 +332,7 @@ FuzzlUpdateEyes:
 	
 	and.l  #0x0000FFFF, d0	; Get Y
 	ext.l  d0				; Sign extend
-	divs.w #FuzzlEyeWatchQuadSize, d0	; Y to grid size
+	divs.w #Fuzzl_EyeWatchQuadSize, d0	; Y to grid size
 	and.l  #0x0000FFFF, d0				; Discard remainder
 	ext.l  d0			; Sign extend
 	move.l #-1, d1		; -1, 0 or 1
@@ -331,7 +346,7 @@ FuzzlUpdateEyes:
 	clr.w  d0
 	swap   d0
 	ext.l  d0			; Sign extend
-	divs.w #FuzzlEyeWatchQuadSize, d0	; X to grid size
+	divs.w #Fuzzl_EyeWatchQuadSize, d0	; X to grid size
 	and.l  #0x0000FFFF, d0				; Discard remainder
 	ext.l  d0			; Sign extend
 	move.l #-1, d1		; -1, 0 or 1
