@@ -77,7 +77,8 @@ SwitchingPalettesP1 rs.l NumSwitchingColours
 ; ************************************
 ; Game objects
 ; ************************************
-GameObjArray_Players rs.b (Player_Struct_Size*Player_MaxGameObjs)
+GameObjArray_Players    rs.b (Player_Struct_Size*Player_MaxGameObjs)
+GameObjArray_Monsters   rs.b (Monster_Struct_Size*Monster_MaxGameObjs)
 GameObjArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxGameObjs)
 GameObjArray_Flues      rs.b (Flue_Struct_Size*Flue_MaxGameObjs)
 GameObjArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxGameObjs)

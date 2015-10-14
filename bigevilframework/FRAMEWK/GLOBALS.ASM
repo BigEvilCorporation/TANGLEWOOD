@@ -59,6 +59,34 @@ reset_exp				equ 0x00A10008
 reset_button			equ 0x00A1000C
 
 ; ************************************
+; Status register
+; ************************************
+status_reg_trace		equ (1<<15)
+status_reg_unused1		equ (1<<14)
+status_reg_supervisor	equ (1<<13)
+status_reg_unused2		equ (1<<12)
+status_reg_unused3		equ (1<<11)
+status_reg_int2			equ (1<<10)
+status_reg_int1			equ (1<<9)
+status_reg_int0			equ (1<<8)
+status_reg_unused4		equ (1<<7)
+status_reg_unused5		equ (1<<6)
+status_reg_unused6		equ (1<<5)
+status_reg_ccr_exttend	equ (1<<4)
+status_reg_ccr_negative	equ (1<<3)
+status_reg_ccr_zero		equ (1<<2)
+status_reg_ccr_overflow	equ (1<<1)
+status_reg_ccr_carry	equ (1<<0)
+
+status_reg_int_disable	equ (status_reg_int0|status_reg_int1|status_reg_int2)
+
+	IFD DEBUG
+status_reg_init			equ (status_reg_supervisor|status_reg_int0|status_reg_int1|status_reg_trace)
+	ELSE
+status_reg_init			equ (status_reg_supervisor|status_reg_int0|status_reg_int1)
+	ENDIF
+
+; ************************************
 ; Z80
 ; ************************************
 z80_bus_request			equ 0x00A11100
@@ -72,6 +100,7 @@ vdp_plane_width         equ 0x0040 ; 64 tiles X
 vdp_plane_height        equ 0x0020 ; 32 tiles Y
 vdp_plane_border_x      equ (vdp_plane_width-(screen_width/8))/2
 vdp_plane_border_y      equ (vdp_plane_height-(screen_height/8))/2
+vdp_max_tiles           equ (0xC000/size_tile_b)
 
 vdp_num_registers		equ 0x18
 
@@ -197,3 +226,36 @@ vdp_read_tiles          equ 0x00000000 ; Legacy, do not use
 vdp_read_plane_a		equ 0x00000003 ; Legacy, do not use
 vdp_read_sprite_table   equ 0x30000003 ; Legacy, do not use
 vdp_read_vscroll        equ 0x00000010 ; Legacy, do not use
+
+	inform 0,""
+	inform 0,"-----------------------------------"
+	inform 0,"BIG EVIL FRAMEWORK"
+	inform 0,"Matt Phillips (c) 2015"
+	inform 0,"http://www.bigevilcorporation.co.uk"
+	inform 0,"-----------------------------------"
+	inform 0,""
+	inform 0,"-----------------------------------"
+	IFD DEBUG
+	inform 0,"Build config: DEBUG"
+	ELSE
+	IFD FINAL
+	inform 0,"Build config: FINAL"
+	ELSE
+	inform 0,"Build config: EMULATOR"
+	ENDIF
+	ENDIF
+	inform 0,"-----------------------------------"
+	inform 0,"RAM start: 0x%h", ram_start
+	inform 0,"RAM size: 0x%h", size_ram_b
+	inform 0,"Stack top: 0x%h", stack_top
+	inform 0,"VDP screen width: %d",screen_width
+	inform 0,"VDP screen height: %d",screen_height
+	inform 0,"VDP scroll width: %d tiles",vdp_plane_width
+	inform 0,"VDP scroll height: %d tiles",vdp_plane_height
+	inform 0,"VDP max tiles: %d",vdp_max_tiles
+	inform 0,"VDP plane A addr: 0x%h",vram_addr_plane_a
+	inform 0,"VDP plane B addr: 0x%h",vram_addr_plane_b
+	inform 0,"VDP sprite tbl addr: 0x%h",vram_addr_sprite_table
+	inform 0,"VDP hscroll addr: 0x%h",vram_addr_hscroll
+	inform 0,"-----------------------------------"
+	inform 0,""

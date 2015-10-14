@@ -13,7 +13,7 @@
 ;------------------------------
 GameObj_WorldPosX        rs.l 1	; Position X (world space)
 GameObj_WorldPosY        rs.l 1	; Position Y (world space)
-GameObj_SubSpriteDimArr rs.l 1	; Subsprite size array address
+GameObj_SubSpriteDimArr  rs.l 1	; Subsprite size array address
 GameObj_TilesetAddr      rs.l 1	; Art tiles ROM address
 GameObj_VRAMAddr         rs.l 1	; Art tiles VRAM address
 GameObj_LastFloor     	 rs.l 1 ; Last detected floor height

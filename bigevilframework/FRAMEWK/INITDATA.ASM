@@ -35,7 +35,7 @@ VDPRegisters:
    dc.b 0x00 ; 9: Unused
    dc.b 0x01 ; 10: Frequency of Horiz. interrupt in Rasters (number of lines travelled by the beam)
    dc.b 0x00 ; 11: External interrupts off, V scroll fullscreen, H scroll fullscreen
-   dc.b 0x81 ; 12: Shadows and highlights off, interlace off, H40 mode (320 x 240 screen res)
+   dc.b 0x81 ; 12: Shadows and highlights off, interlace off, H40 mode (320 x 224 screen res)
    dc.b 0x3F ; 13: Horiz. scroll table at VRAM 0xFC00 (bits 0-5)
    dc.b 0x00 ; 14: Unused
    dc.b 0x02 ; 15: Autoincrement 2 bytes

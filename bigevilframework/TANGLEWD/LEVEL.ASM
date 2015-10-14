@@ -16,12 +16,12 @@ LevelLoad:
 	move.l #PaletteId_Player, d0
 	jsr LoadPalette
 	
-	lea palette_fuzzl_red, a0
-	move.l #PaletteId_Fuzzl1, d0
+	lea palette_monster, a0
+	move.l #PaletteId_Monster, d0
 	jsr LoadPalette
-	
-	lea palette_fuzzl_green, a0
-	move.l #PaletteId_Fuzzl2, d0
+
+	lea palette_fuzzl_red, a0
+	move.l #PaletteId_Fuzzl, d0
 	jsr LoadPalette
 	
 	jsr LevelLoadPalettes
@@ -142,6 +142,19 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Player, d4
 	jsr    GameObjLoadMultiSprite
 
+	; Monsters
+	move.l #GameObjArray_Monsters, a0
+	lea    tiles_monster, a1
+	lea    sprite_monster_subsprite_dimensions_bits, a2
+	lea    sprite_monster_subsprite_dimensions, a3
+	lea    sprite_monster_numtiles_per_subsprite, a4
+	move.l #tiles_monsterVRAM, d0
+	move.l #tiles_monster_size_t, d1
+	move.b #sprite_monster_size_subsprites, d2
+	move.w #sprite_monster_dimensions, d3
+	move.b #PaletteID_Monster, d4
+	jsr    GameObjLoadMultiSprite
+
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
 	lea    Tiles_Fuzzl, a1
@@ -152,7 +165,7 @@ LevelLoadGameObjArt:
 	move.l #tiles_fuzzl_size_t, d1
 	move.b #sprite_fuzzl_size_subsprites, d2
 	move.w #sprite_fuzzl_dimensions, d3
-	move.b #PaletteID_Fuzzl1, d4
+	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
 	
 	move.l #GameObjArray_Fuzzls+Fuzzl_Struct_Size, a0
@@ -164,7 +177,7 @@ LevelLoadGameObjArt:
 	move.l #tiles_fuzzl_size_t, d1
 	move.b #sprite_fuzzl_size_subsprites, d2
 	move.w #sprite_fuzzl_dimensions, d3
-	move.b #PaletteID_Fuzzl2, d4
+	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
 
 	; Leaves
@@ -247,7 +260,7 @@ LevelLoadGameObjArt:
 	move.l #tiles_firefly_size_t, d1
 	move.b #sprite_firefly_size_subsprites, d2
 	move.w #sprite_firefly_dimensions, d3
-	move.b #PaletteId_Fuzzl1, d4
+	move.b #PaletteId_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
 
 	movem.l (sp)+, d0-d1/a0
@@ -258,6 +271,10 @@ LevelLoadGameObjArt:
 	rts
 	
 LevelCreateGameObjects:
+
+	; Monsters
+	move.l #GameObjArray_Monsters, a0
+	jsr    LoadGameObjects_Monster
 
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -344,6 +361,16 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
+
+	; Monsters
+	move.l #GameObjArray_Monsters, a0
+	move.l #Monster_MaxGameObjs-1, d0
+	@MonsterLoop:
+	move.l d0, -(sp)
+	jsr MonsterUpdate
+	move.l (sp)+, d0
+	add.l  #Monster_Struct_Size, a0
+	dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -403,7 +430,7 @@ LevelUpdateGameObjs:
 	
 LevelDrawGameObjs:
 
-	; Characters
+	; Players
 	move.l #GameObjArray_Players, a0
 	move.l #Player_MaxGameObjs-1, d0
 	@CharLoop:
@@ -412,6 +439,16 @@ LevelDrawGameObjs:
 	move.l (sp)+, d0
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
+
+	; Monsters
+	move.l #GameObjArray_Monsters, a0
+	move.l #Monster_MaxGameObjs-1, d0
+	@MonsterLoop:
+	move.l d0, -(sp)
+	jsr MonsterDraw
+	move.l (sp)+, d0
+	add.l  #Monster_Struct_Size, a0
+	dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0

@@ -88,3 +88,12 @@ Firefly_12:
 	add.l #Firefly_Struct_Size, a0
 	rts
 
+gameobjects_Monster_count equ 1
+LoadGameObjects_Monster:
+Monster_14:
+	jsr MonsterInit
+	move.l #0x00010800, GameObj_WorldPosX(a0)
+	move.l #0x00018800, GameObj_WorldPosY(a0)
+	add.l #Monster_Struct_Size, a0
+	rts
+

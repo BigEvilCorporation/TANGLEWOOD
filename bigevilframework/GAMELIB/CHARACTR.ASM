@@ -6,13 +6,39 @@
 ;   character.asm - Character structure and routines
 ;==============================================================
 
-;==============================================================
+; ************************************
+; Constants
+; ************************************
+CharacterAnimIdx_Idle	equ 0
+CharacterAnimIdx_Run	equ 1
+CharacterAnimIdx_Walk	equ 2
+CharacterAnimIdx_Jump	equ 3
+CharacterAnimIdx_Hang	equ 4
+CharacterAnimIdx_Push	equ 5
+; ---------------------------
+Character_NumAnims		equ 6
+
+; ************************************
+; Character animation struct
+; ************************************
+
+	rsset 0
+CharacterAnim_Addr		  rs.l 1
+CharacterAnim_Speed		  rs.b 1
+CharacterAnim_Length	  rs.b 1
+CharacterAnim_Looping	  rs.b 1
+;-------------------------------
+CharacterAnim_Struct_Pad  rs.b 1
+CharacterAnim_Struct_Size rs.b 0
+
+; ************************************
 ; Character struct
-;==============================================================
+; ************************************
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
+Character_Animations	rs.b (CharacterAnim_Struct_Size*Character_NumAnims)
 Character_LastLedgeX	rs.l 1
 Character_LastLedgeY	rs.l 1
 Character_ProbeLedgeX	rs.w 1
@@ -32,7 +58,7 @@ Character_Running		rs.b 1
 Character_Jumping		rs.b 1
 Character_Pushing		rs.b 1
 Character_Interacting	rs.b 1
-;--------------------------
+;-----------------------------
 Character_Struct_Pad    rs.b 3
 Character_Struct_Size   rs.b 0
 
@@ -239,83 +265,51 @@ CharacterUpdateAnimState:
 	
 	@InterruptibleAnim:
 	@AnimFinished:
-	
+
+	move.l #CharacterAnimIdx_Hang, d1
 	move.b Character_OnLedge(a0), d0	; If player on ledge, set hanging anim
 	cmp.b  #0x1, d0
-	beq    @AnimHang
+	beq    @SetAnim
 	
+	move.l #CharacterAnimIdx_Jump, d1
 	move.b Character_Jumping(a0), d0	; If player is jumping, set jump anim
 	cmp.b  #0x1, d0
-	beq    @AnimJump
+	beq    @SetAnim
 	
+	move.l #CharacterAnimIdx_Push, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
 	cmp.b  #0x1, d0
-	beq    @AnimPush
+	beq    @SetAnim
 	
-	move.w GameObj_VelX(a0), d0		; If X velocity == 0, set idle anim
+	move.l #CharacterAnimIdx_Idle, d1
+	move.w GameObj_VelX(a0), d0			; If X velocity == 0, set idle anim
 	cmp.w  #0x0, d0
-	beq    @AnimIdle
-	
-	move.b Character_Running(a0), d0	; If player not running, set walking anim
-	cmp.b  #0x0, d0
-	beq    @AnimWalk
+	beq    @SetAnim
 
-	@AnimRun:
-	
-	; TODO: Don't clear subframe when switching from walking
-	move.l #Anim_SonicRun, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicRun_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicRun_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
-	
-	@AnimWalk:
-	
-	; TODO: Don't clear subframe when switching from running
-	move.l #Anim_SonicWalk, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicWalk_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicWalk_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
-	
-	@AnimJump:
-	
-	move.l #Anim_SonicJump, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicJump_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicJump_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
-	
-	@AnimPush:
-	
-	move.l #Anim_SonicPush, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicPush_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicPush_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
-	
-	@AnimHang:
-	
-	move.l #Anim_SonicHang, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicHang_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicHang_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
+	move.l #CharacterAnimIdx_Run, d1
+	move.b Character_Running(a0), d0	; If player running, set run anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
 
-	@AnimIdle:
-	
-	move.l #Anim_SonicIdle, AnimObj_AnimDataAddr(a0)
-	move.b #Anim_SonicIdle_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicIdle_SizeB, AnimObj_AnimLength(a0)
+	move.l #CharacterAnimIdx_Walk, d1	; Player not running, set walk anim
+
+	@SetAnim:
+
+	; Get anim struct address from character
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	mulu   #CharacterAnim_Struct_Size, d1
+	add.l  d1, a2
+
+	; Load anim params
+	move.l CharacterAnim_Addr(a2), AnimObj_AnimDataAddr(a0)
+	move.b CharacterAnim_Speed(a2), AnimObj_AnimSpeed(a0)
+	move.b CharacterAnim_Length(a2), AnimObj_AnimLength(a0)
+	move.b CharacterAnim_Looping(a2), AnimObj_Looping(a0)
+
+	; Set anim playing
 	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
-	jmp    @EndAnim
-	
+
 	@EndAnim:
 	
 	; Check if changed

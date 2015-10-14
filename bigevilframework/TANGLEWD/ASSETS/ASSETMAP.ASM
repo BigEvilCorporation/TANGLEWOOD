@@ -16,6 +16,7 @@
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_fuzl.asm'
 	include 'assets\palettes\pal_nest.asm'
+	include 'assets\palettes\pal_mnst.asm'
 	
 	; ************************************
     ; Font tiles
@@ -27,6 +28,7 @@
     ; ************************************
 	include 'assets\sprites\firefly.asm'
 	include 'assets\sprites\leaf.asm'
+	include 'assets\sprites\monster.asm'
 	include 'assets\sprites\sonic.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\vines.asm'
@@ -37,6 +39,7 @@
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
+	include 'assets\anims\monster.asm'
 	include 'assets\anims\sonic.asm'
 
 	IFD DEBUG
@@ -80,19 +83,17 @@
 	ENDIF
 
 	; ************************************
-    ; Art asset VRAM mapping
-    ; ************************************
-	rsset 0
+	; Art asset VRAM mapping - Bank 0
+	; ************************************
+Tile_Bank0_Size_t:     equ vdp_max_tiles
+Tile_Bank0_Size_b:     equ (Tile_Bank0_Size_t*size_tile_b)
+Tile_Bank0_Start:    equ (vram_addr_tiles)
+
+	rsset Tile_Bank0_Start
 Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (tiles_sonic_size_b)
-Tiles_Player2VRAM:   rs.b (tiles_sonic_size_b)
-Tiles_Fuzzl1VRAM:    rs.b (tiles_fuzzl_size_b)
-Tiles_Fuzzl2VRAM:    rs.b (tiles_fuzzl_size_b)
-Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
-Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
-Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
-Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
-Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxGameObjs)
+;Tiles_Player2VRAM:   rs.b (tiles_sonic_size_b)
+Tiles_MonsterVRAM:   rs.b (tiles_monster_size_b)
 
 	; TODO: Reserve max level size
 	IFD DEBUG
@@ -101,16 +102,58 @@ LevelMapVRAM:        rs.b (tiles_tst1_size_b)
 LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
 	ENDIF
 
+; -------------------------
+Tiles_Bank0_End:     rs.b 0
+Tiles_Bank0_Count    equ (Tiles_Bank0_End/size_tile_b)
+; -------------------------
+
 	; ************************************
-    ; Static art asset tile IDs
-    ; ************************************
+	; Art asset VRAM mapping - Bank 1
+	; ************************************
+Tile_Bank1_Size_b:   equ 0x1000
+Tile_Bank1_Size_t:   equ (0x1000/size_tile_b)
+Tile_Bank1_Start:    equ (vram_addr_plane_a+Tile_Bank1_Size_b)	; Spare space at VDP 0xD000-0xE000
+
+	rsset Tile_Bank1_Start
+Tiles_Fuzzl1VRAM:    rs.b (tiles_fuzzl_size_b)
+Tiles_Fuzzl2VRAM:    rs.b (tiles_fuzzl_size_b)
+Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
+Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
+Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxGameObjs)
+
+; -------------------------
+Tiles_Bank1_End:     rs.b 0
+Tiles_Bank1_Count    equ ((Tiles_Bank1_End-Tile_Bank1_Start)/size_tile_b)
+; -------------------------
+
+	; ************************************
+	; Warn about tile count overflows
+	; ************************************
+	inform 0,"-----------------------------------"
+	inform 0,"VDP tile count (bank 0): %d / %d", Tiles_Bank0_Count,Tile_Bank0_Size_t
+	inform 0,"VDP tile count (bank 1): %d / %d", Tiles_Bank1_Count,Tile_Bank1_Size_t
+	inform 0,"-----------------------------------"
+
+	if (Tiles_Bank0_Count>Tile_Bank0_Size_t)
+	inform 2,'VDP tile bank 0 count overflow (count: %d, max: %d)',Tiles_Bank0_Count,Tile_Bank0_Size_t
+	endif
+
+	if (Tiles_Bank1_Count>Tile_Bank1_Size_t)
+	inform 2,'VDP tile bank 1 count overflow (count: %d, max: %d)',Tiles_Bank1_Count,Tile_Bank1_Size_t
+	endif
+
+	; ************************************
+	; Static art asset tile IDs
+	; ************************************
 Tiles_PixelFont_ID: equ (Tiles_PixelFontVRAM/32)
 Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
 
 	; ************************************
-    ; Palette IDs
-    ; ************************************
-PaletteId_World0		 equ 0x0
-PaletteId_Fuzzl1		 equ 0x1
-PaletteId_Fuzzl2		 equ 0x2
-PaletteId_Player		 equ 0x3
+	; Palette IDs
+	; ************************************
+PaletteId_World0		equ 0x0
+PaletteId_Monster		equ 0x1
+PaletteId_Fuzzl			equ 0x2
+PaletteId_Player		equ 0x3

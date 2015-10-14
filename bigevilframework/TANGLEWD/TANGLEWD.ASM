@@ -55,13 +55,14 @@
 	include 'flue.asm'
 	include 'fuzzl.asm'
 	include 'leaf.asm'
+	include 'monster.asm'
 	include 'nest.asm'
 	include 'obstacle.asm'
+	include 'player.asm'
 	
 	; Include game code
 	include 'input.asm'
 	include 'level.asm'
-	include 'player.asm'
 	
 	include 'tod.asm'
 
@@ -98,7 +99,12 @@ __main:
 GameLoop:
 
 	; Wait for vsync
-	jsr WaitVSync
+	;jsr WaitVSync
+
+	; Disable H/VINT
+	move.w sr, d0
+	ori.w  #status_reg_int_disable, d0
+	move.w d0, sr
 
 	; Read and process gamepad input
 	jsr UpdateInput
@@ -108,6 +114,12 @@ GameLoop:
 	
 	; Update game objects
 	jsr LevelUpdateGameObjs
+
+	; Enable H/VINT
+	move.w sr, d0
+	andi.w #0xF0FF, d0
+	ori.w  #(status_reg_int0|status_reg_int1), d0
+	move.w d0, sr
 
 	; Back to top
 	jmp GameLoop

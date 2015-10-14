@@ -49,21 +49,11 @@ EntryPoint:
 
 	; Cleanup registers
 	move.l  #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0
-	movem.l (a0), d1-d7/a1-a6  ; Multiple move zero to all registers (except sp)
+	movem.l (a0), d0-d7/a1-a6  ; Multiple move zero to all registers (except sp)
 	move.l  #0x00000000, a0    ; Clear a0
 	
-	IFD DEBUG
-	; Set interrupt level 3 (+ TRACE for debugger)
-	move.w sr, d0		; Get original sr set by debugging hardware
-	andi.w #0xF8FF, d0	; INT level 3 (all interrupts)
-	ori.w  #0x0300, d0	; TRACE bit for debugger
-	move.w d0, sr
-	ELSE
-	; Set interrupt level 3
-	move.w  #0x2300, sr	; INT level 3 (all interrupts)
-	ENDIF
-
-	clr.l  d0			; Clear d0
+	; Init status register
+	move.w  #status_reg_init, sr	; INT level 3 (all interrupts) + supervisor + trace (if debug)
 
 	; ************************************
 	; Main

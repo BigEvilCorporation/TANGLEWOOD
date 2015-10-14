@@ -6,7 +6,53 @@
 ;   player.asm - Player specific movement and mechanics
 ;==============================================================
 
+; ************************************
+; Constants
+; ************************************
+Player_MaxGameObjs equ 0x1
+
+; Player dimensions
+Player1Width	  equ 0x0028
+Player1Height	  equ 0x0028
+
+; Player starting positions - TODO: From spawn point
+Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)
+Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
+;Player1StartPosScreenY equ (screen_height/2)-(Player1Height/2)
+;Player1StartPosScreenY equ ScrollPlaneBorderY+0x20
+Player1StartPosWorldX  equ Player1StartPosScreenX*SubpixelsPerPixel
+Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
+
+; Player movement (all values must be divisors of SubpixelsPerPixel)
+Player1MaxVelXWalk equ 0x0100 ; Player 1 max X walking velocity
+Player1MaxVelXRun  equ 0x0300 ; Player 1 max X running velocity
+Player1MaxVelYUp   equ 0x0600 ; Player 1 max Y velocity up
+Player1MaxVelYDown equ 0x0600 ; Player 1 max Y velocity down
+Player1AccelWalk   equ 0x0004 ; Player 1 walking acceleration
+Player1AccelRun    equ 0x0008 ; Player 1 running acceleration
+Player1DecelIdle   equ 0x0010 ; Player 1 deceleration if left alone
+Player1DecelForced equ 0x0020 ; Player 1 deceleration if input opposite direction
+Player1JumpVel	   equ 0x0600 ; Player 1 jump velocity impulse
+Player1JumpCancelVel equ 0x0100 ; Player 1 velocity to cancel jump
+Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no limit on down vel)
+
+; Player collision probes
+Player1StepHeight	equ 0x3
+Player1ProbeFloorX  equ (Player1Width/2)  ; Floor detection probe position X
+Player1ProbeFloorY  equ (Player1Height-Player1StepHeight)   ; Floor detection probe position Y
+Player1ProbeFloorLen equ Player1StepHeight*2  ; Floor probe length (multiplied by Y velocity)
+Player1ProbeLedgeX  equ 0x1F			  ; Ledge detection probe position X
+Player1ProbeLedgeY  equ 0x02			  ; Ledge detection probe position Y
+
+; Player colour change
+Player1ColourChangeSpeed equ 0x0030
+
+; TEMP
+Player1PushBorder equ 0xA*SubpixelsPerPixel
+
+; ************************************
 ; Struct
+; ************************************
 	rsset (Character_Struct_Size)
 ;--------------------------
 Player_Colour        rs.b 1
@@ -14,11 +60,67 @@ Player_Colour        rs.b 1
 Player_Struct_Pad    rs.b 3
 Player_Struct_Size   rs.b 0
 
+; ************************************
+; Subroutines
+; ************************************
 PlayerInit:
 	; Base functionality
 	jsr CharacterInit
 
+	; Setup default state
 	move.b  #ColourYellow, Player_Colour(a0)
+
+	; Setup default character animations
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+
+	; Idle
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.l #Anim_SonicIdle, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicIdle_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicIdle_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
+	
+	; Run
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Run), a3
+	move.l #Anim_SonicRun, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicRun_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicRun_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
+
+	; Walk
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Walk), a3
+	move.l #Anim_SonicWalk, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicWalk_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicWalk_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
+
+	; Jump
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Jump), a3
+	move.l #Anim_SonicJump, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicJump_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicJump_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
+
+	; Hang
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Hang), a3
+	move.l #Anim_SonicHang, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicHang_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicHang_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
+
+	; Push
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Push), a3
+	move.l #Anim_SonicPush, CharacterAnim_Addr(a3)
+	move.b #Anim_SonicPush_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_SonicPush_SizeB, CharacterAnim_Length(a3)
+	move.b #0x1, CharacterAnim_Looping(a3)
 
 	rts
 
@@ -33,6 +135,15 @@ PlayerUpdate:
 	jsr PlayerInteract_Fuzzls
 	jsr PlayerInteract_Obstacles
 	jsr PlayerInteract_Fireflies
+	
+	rts
+
+PlayerDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Base functionality
+	jsr CharacterDraw
 	
 	rts
 
@@ -343,13 +454,4 @@ PlayerInteract_Fireflies:
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 
-	rts
-
-PlayerDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	; Base functionality
-	jsr CharacterDraw
-	
 	rts
