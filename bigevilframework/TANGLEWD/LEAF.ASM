@@ -182,6 +182,9 @@ LeafUpdate:
 	muls   #((Anim_LeafFall_SizeB*SubframesPerFrame)/256), d2 ; To anim range
 	add.l  #((Anim_LeafFall_SizeB*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
 	move.l d2, AnimObj_AnimSubFrame(a0)
+
+	; Mark as dirty
+	move.b #0x1, AnimObj_Dirty(a0)
 	
 	jsr AnimObjUpdate
 	

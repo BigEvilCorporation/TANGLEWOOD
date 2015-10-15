@@ -11,15 +11,16 @@
 ;==============================================================
 	rsset (GameObj_Struct_Size)
 ;--------------------------
-AnimObj_AnimSubFrame rs.l 1
-AnimObj_AnimDataAddr rs.l 1
-AnimObj_AnimSpeed    rs.b 1
-AnimObj_AnimLength   rs.b 1
-AnimObj_Playing  	 rs.b 1
-AnimObj_Looping  	 rs.b 1
-;--------------------------
-AnimObj_Struct_Pad   rs.b 0
-AnimObj_Struct_Size  rs.b 0
+AnimObj_AnimSubFrame     rs.l 1
+AnimObj_AnimDataAddr     rs.l 1
+AnimObj_AnimSpeed        rs.b 1
+AnimObj_AnimLength       rs.b 1
+AnimObj_Playing  	     rs.b 1
+AnimObj_Looping  	     rs.b 1
+AnimObj_Dirty		     rs.b 1
+;------------------------------
+AnimObj_Struct_Pad       rs.b 3
+AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
 
@@ -32,6 +33,7 @@ AnimObjInit:
 	move.b #0x0, AnimObj_AnimLength(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Looping(a0)
+	move.b #0x0, AnimObj_Dirty(a0)
 	rts
 
 AnimObjDraw:
@@ -57,10 +59,16 @@ AnimObjDraw:
 	; Get anim speed
 	clr.l  d0
 	move.b AnimObj_AnimSpeed(a0), d0
+
+	; Check if dirty (new anim, set regardless of speed)
+	cmp.b  #0x0, AnimObj_Dirty(a0)
+	bne    @SkipSpeedTest
 	
-	; TODO: Skip if speed == 0 (need a way to mark as 'dirty' if anim data has changed)
-	;cmp.b  #0x0, d0
-	;beq    @NoAnim
+	; Skip if speed == 0
+	cmp.b  #0x0, d0
+	beq    @ZeroSpeed
+
+	@SkipSpeedTest:
 	
 	; Sign extend speed up to longword
 	ext.w  d0
@@ -90,13 +98,19 @@ AnimObjDraw:
 	
 	@LoopingAnim:
 	@NotAtEnd:
-	
+
 	lsr.l  #0x8, d1 ; Prev subframes to frames
 	lsr.l  #0x8, d2 ; New subframes to frames
+
+	; Check if dirty (new anim, set regardless of frame change)
+	cmp.b  #0x0, AnimObj_Dirty(a0)
+	bne    @SkipFrameCheck
 	
-	; TODO: Skip if no change in frame # (need a way to mark as 'dirty' if anim data has changed)
-	;cmp.l  d1, d2
-	;beq    @NoAnim  ; Branch if no frame change
+	; Skip if no change in frame # (need a way to mark as 'dirty' if anim data has changed)
+	cmp.l  d1, d2
+	beq    @NoFrameChange  ; Branch if no frame change
+
+	@SkipFrameCheck:
 	
 	; Frame advanced, upload new tile
 	move.l GameObj_VRAMAddr(a0), d0
@@ -105,10 +119,12 @@ AnimObjDraw:
 	move.l AnimObj_AnimDataAddr(a0), a1
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr SetSpriteAnimFrame
+
 	@NoAnim:
-	
+	@ZeroSpeed:
 	@Inactive:
 	@NotPlaying:
+	@NoFrameChange:
 	
 	move.l (sp)+, a1
 	move.l (sp)+, a0

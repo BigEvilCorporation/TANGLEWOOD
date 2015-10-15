@@ -361,7 +361,12 @@ FuzzlUpdateEyes:
 	; Get anim frame
 	lea    Fuzzl_Eye_Frame_Table, a2
 	add.l  d0, a2
+
+	; Set anim frame
 	move.l (a2), AnimObj_AnimSubFrame(a0)
+
+	; Mark as dirty
+	move.b #0x1, AnimObj_Dirty(a0)
 	
 	rts
 

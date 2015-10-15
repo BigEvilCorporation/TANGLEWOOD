@@ -252,7 +252,7 @@ CharacterApplySpriteFlip:
 	
 CharacterUpdateAnimState:
 
-	move.l AnimObj_AnimDataAddr(a0), a2 ; Backup anim to test for changes
+	move.l AnimObj_AnimDataAddr(a0), a3 ; Backup anim to test for changes
 	
 	move.b AnimObj_Looping(a0), d0
 	cmp.b  #0x0, d0						; If playing a looping anim, anim is interruptible
@@ -307,19 +307,21 @@ CharacterUpdateAnimState:
 	move.b CharacterAnim_Length(a2), AnimObj_AnimLength(a0)
 	move.b CharacterAnim_Looping(a2), AnimObj_Looping(a0)
 
-	; Set anim playing
-	move.b #0x1, AnimObj_Playing(a0)
-
 	@EndAnim:
 	
 	; Check if changed
-	move.l AnimObj_AnimDataAddr(a0), a2
-	move.l AnimObj_AnimDataAddr(a0), a3
-	cmp.l  a2, a3
+	move.l AnimObj_AnimDataAddr(a0), a4
+	cmp.l  a3, a4
 	beq    @NoChange
 	
 	; New anim, clear subframe
 	move.l #0x0, AnimObj_AnimSubframe(a0)
+
+	; Set playing
+	move.b #0x1, AnimObj_Playing(a0)
+
+	; Mark as dirty
+	move.b #0x1, AnimObj_Dirty(a0)
 	
 	@NoChange:
 	

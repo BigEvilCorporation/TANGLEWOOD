@@ -122,8 +122,8 @@ gameobjects_Monster_count equ 1
 LoadGameObjects_Monster:
 Monster_19:
 	jsr MonsterInit
-	move.l #0x00017000, GameObj_WorldPosX(a0)
-	move.l #0x0002d800, GameObj_WorldPosY(a0)
+	move.l #0x0008d800, GameObj_WorldPosX(a0)
+	move.l #0x00029800, GameObj_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 

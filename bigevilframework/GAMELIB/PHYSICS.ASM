@@ -179,3 +179,36 @@ TestGameObjBoxInsideBox:
 	jsr TestBoxInsideBox
 	
 	rts
+
+GameObjectDistSq:
+	; d0 (l) Return value
+	; a0 --- GameObj 1
+	; a1 --- GameObj 2
+
+	; Obj 1 X
+	move.l GameObj_WorldPosX(a0), d0	; X
+	lsr.l  #0x8, d0						; To screen space
+	swap   d0							; In upper word d1
+	
+	; Obj 1 Y
+	move.l GameObj_WorldPosY(a0), d2	; Y
+	lsr.l  #0x8, d2						; To screen space
+	move.w d2, d0						; In lower word d1
+	
+	; Obj 2 X
+	move.l GameObj_WorldPosX(a1), d1	; X
+	lsr.l  #0x8, d1						; To screen space
+	swap   d1							; In upper word d1
+	
+	; Obj 2 Y
+	move.l GameObj_WorldPosY(a1), d2	; Y
+	lsr.l  #0x8, d2						; To screen space
+	move.w d2, d1						; In lower word d1
+
+	jsr    VectorDistSq
+
+	; Result back to world space
+	and.l  #0x0000FFFF, d0
+	lsl.l  #0x8, d0
+
+	rts

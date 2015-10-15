@@ -16,7 +16,7 @@
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_fuzl.asm'
 	include 'assets\palettes\pal_nest.asm'
-	include 'assets\palettes\pal_mnst.asm'
+	include 'assets\palettes\pal_takk.asm'
 	
 	; ************************************
     ; Font tiles
@@ -27,11 +27,11 @@
     ; Sprite tiles
     ; ************************************
 	include 'assets\sprites\firefly.asm'
-	include 'assets\sprites\leaf.asm'
-	include 'assets\sprites\monster.asm'
-	include 'assets\sprites\sonic.asm'
+		include 'assets\sprites\sonic.asm'
 	include 'assets\sprites\spr_fuzl.asm'
-	include 'assets\sprites\vines.asm'
+	include 'assets\sprites\spr_leaf.asm'
+	include 'assets\sprites\spr_takk.asm'
+	include 'assets\sprites\spr_vine.asm'
 	
 	; ************************************
 	; Animation data

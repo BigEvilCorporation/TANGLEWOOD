@@ -99,7 +99,7 @@ __main:
 GameLoop:
 
 	; Wait for vsync
-	;jsr WaitVSync
+	jsr WaitVSync
 
 	; Disable H/VINT
 	move.w sr, d0
@@ -146,7 +146,9 @@ __vsync:
 	jsr LevelDrawGameObjs
 
 	; NOT FOR RELEASE
+	IFD DEBUG
 	; jsr DebugDraw
+	ENDIF
 
 	@NoVSync:
 
