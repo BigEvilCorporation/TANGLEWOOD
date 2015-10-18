@@ -17,46 +17,46 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 sprite_monster_subsprite_dimensions:
 	dc.w 0x0404
 	dc.w 0x0404
+	dc.w 0x0402
 	dc.w 0x0404
 	dc.w 0x0404
+	dc.w 0x0402
 	dc.w 0x0404
 	dc.w 0x0404
+	dc.w 0x0402
 	dc.w 0x0404
 	dc.w 0x0404
-	dc.w 0x0404
-	dc.w 0x0404
-	dc.w 0x0404
-	dc.w 0x0404
+	dc.w 0x0402
 	even
 
 ; Subsprite dimension bits (for sprite descs)
 sprite_monster_subsprite_dimensions_bits:
 	dc.b (%00001111)
 	dc.b (%00001111)
+	dc.b (%00001101)
 	dc.b (%00001111)
 	dc.b (%00001111)
+	dc.b (%00001101)
 	dc.b (%00001111)
 	dc.b (%00001111)
+	dc.b (%00001101)
 	dc.b (%00001111)
 	dc.b (%00001111)
-	dc.b (%00001111)
-	dc.b (%00001111)
-	dc.b (%00001111)
-	dc.b (%00001111)
+	dc.b (%00001101)
 	even
 	
 ; Num tiles per subsprite (for sprite descs)
 sprite_monster_numtiles_per_subsprite:
 	dc.b 0x10
 	dc.b 0x10
+	dc.b 0x08
 	dc.b 0x10
 	dc.b 0x10
+	dc.b 0x08
 	dc.b 0x10
 	dc.b 0x10
+	dc.b 0x08
 	dc.b 0x10
 	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
+	dc.b 0x08
 	even

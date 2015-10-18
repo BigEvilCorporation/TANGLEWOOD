@@ -12,7 +12,7 @@
     ; ************************************
     ; Palettes
     ; ************************************
-	include 'assets\palettes\sonic.asm'
+	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_fuzl.asm'
 	include 'assets\palettes\pal_nest.asm'
@@ -27,7 +27,7 @@
     ; Sprite tiles
     ; ************************************
 	include 'assets\sprites\firefly.asm'
-		include 'assets\sprites\sonic.asm'
+		include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
 	include 'assets\sprites\spr_takk.asm'
@@ -40,7 +40,7 @@
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\monster.asm'
-	include 'assets\anims\sonic.asm'
+	include 'assets\anims\nymn.asm'
 
 	IFD DEBUG
 
@@ -91,8 +91,8 @@ Tile_Bank0_Start:    equ (vram_addr_tiles)
 
 	rsset Tile_Bank0_Start
 Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
-Tiles_Player1VRAM:   rs.b (tiles_sonic_size_b)
-;Tiles_Player2VRAM:   rs.b (tiles_sonic_size_b)
+Tiles_Player1VRAM:   rs.b (tiles_nymn_size_b)
+;Tiles_Player2VRAM:   rs.b (tiles_nymn_size_b)
 Tiles_MonsterVRAM:   rs.b (tiles_monster_size_b)
 
 	; TODO: Reserve max level size

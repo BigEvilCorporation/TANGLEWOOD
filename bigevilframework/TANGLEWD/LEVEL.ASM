@@ -12,7 +12,7 @@ LevelLoad:
 	move.l (CurrentLevel), a1
 
 	;TODO: Move to LoadGlobalData
-	lea Pal_Sonic_Yellow, a0
+	lea Pal_Nymn_Yellow, a0
 	move.l #PaletteId_Player, d0
 	jsr LoadPalette
 	
@@ -131,14 +131,14 @@ LevelLoadGameObjArt:
 
 	; Player 1
 	move.l #GameObjArray_Players, a0
-	lea    Tiles_Sonic, a1
-	lea    sprite_sonic_subsprite_dimensions_bits, a2
-	lea    sprite_sonic_subsprite_dimensions, a3
-	lea    sprite_sonic_numtiles_per_subsprite, a4
+	lea    Tiles_Nymn, a1
+	lea    sprite_nymn_subsprite_dimensions_bits, a2
+	lea    sprite_nymn_subsprite_dimensions, a3
+	lea    sprite_nymn_numtiles_per_subsprite, a4
 	move.l #Tiles_Player1VRAM, d0
-	move.l #tiles_sonic_size_t, d1
-	move.b #sprite_sonic_size_subsprites, d2
-	move.w #sprite_sonic_dimensions, d3
+	move.l #tiles_nymn_size_t, d1
+	move.b #sprite_nymn_size_subsprites, d2
+	move.w #sprite_nymn_dimensions, d3
 	move.b #PaletteID_Player, d4
 	jsr    GameObjLoadMultiSprite
 
@@ -511,12 +511,12 @@ LevelReset:
 	
 	; Switching palettes
 	lea     SwitchingPalettesP1, a0
-	move.l  #Pal_Sonic_Yellow, (a0)+; Drained
-	move.l  #Pal_Sonic_Red, (a0)+	; Orange
-	move.l  #Pal_Sonic_Red, (a0)+	; Red
-	move.l  #Pal_Sonic_Blue, (a0)+	; Blue
-	move.l  #Pal_Sonic_Green, (a0)+	; Green
-	move.l  #Pal_Sonic_Yellow, (a0)+; Yellow
+	move.l  #Pal_Nymn_Yellow, (a0)+; Drained
+	move.l  #Pal_Nymn_Red, (a0)+	; Orange
+	move.l  #Pal_Nymn_Red, (a0)+	; Red
+	move.l  #Pal_Nymn_Blue, (a0)+	; Blue
+	move.l  #Pal_Nymn_Green, (a0)+	; Green
+	move.l  #Pal_Nymn_Yellow, (a0)+; Yellow
 	
 	; World
 	move.w  #Gravity, LevelGravity

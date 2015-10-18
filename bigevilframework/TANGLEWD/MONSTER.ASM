@@ -12,7 +12,7 @@
 Monster_MaxGameObjs equ 0x1
 
 Monster_Width	equ 0x0080
-Monster_Height	equ 0x0060
+Monster_Height	equ 0x0050
 
 Monster_MaxVelXWalk equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun  equ 0x0300   ; Max X running velocity

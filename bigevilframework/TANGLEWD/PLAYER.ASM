@@ -77,49 +77,49 @@ PlayerInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_SonicIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicIdle_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnIdle, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnIdle_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnIdle_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 	
 	; Run
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_SonicRun, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicRun_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicRun_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnRun, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnRun_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnRun_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 
 	; Walk
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_SonicWalk, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicWalk_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicWalk_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnWalk, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnWalk_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnWalk_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 
 	; Jump
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_SonicJump, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicJump_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicJump_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnJump, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnJump_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnJump_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 
 	; Hang
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_SonicHang, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicHang_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicHang_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnHang, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnHang_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnHang_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 
 	; Push
 	move.l a2, a3
 	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_SonicPush, CharacterAnim_Addr(a3)
-	move.b #Anim_SonicPush_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_SonicPush_SizeB, CharacterAnim_Length(a3)
+	move.l #Anim_NymnPush, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnPush_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnPush_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
 
 	rts
@@ -169,10 +169,10 @@ PlayerBeginColourSwitch:
 	movem.l (sp)+, d0/d3
 	
 	; Start animation
-	move.l #Anim_SonicSwitch, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_NymnSwitch, AnimObj_AnimDataAddr(a0)
 	move.l #0x0, AnimObj_AnimSubframe(a0)
-	move.b #Anim_SonicSwitch_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_SonicSwitch_SizeB, AnimObj_AnimLength(a0)
+	move.b #Anim_NymnSwitch_Speed, AnimObj_AnimSpeed(a0)
+	move.b #Anim_NymnSwitch_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Looping(a0)
 	

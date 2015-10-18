@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-gameobjects_lvl1:
+gameobjects:
 gameobjects_Fuzzl_count equ 2
 LoadGameObjects_Fuzzl:
 Fuzzl_1:
