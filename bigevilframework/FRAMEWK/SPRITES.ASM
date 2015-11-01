@@ -446,6 +446,10 @@ SetSpriteAnimFrame:
 	add.l  d4, d2          ; Add to sprite data address
 	move.l d2, a0          ; Back to address register
 
+	IFD DEBUG
 	jsr LoadTiles          ; New tile address is in a0, VRAM address already in d0, num tiles already in d1 - jump straight to load tiles
+	ELSE
+	jsr LoadTilesDMA
+	ENDIF
 
 	rts

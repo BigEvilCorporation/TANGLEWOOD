@@ -181,10 +181,16 @@ LeafUpdate:
 	add.w  #0x00FF, d2	; Sine value to 0-256 range
 	muls   #((Anim_LeafFall_SizeB*SubframesPerFrame)/256), d2 ; To anim range
 	add.l  #((Anim_LeafFall_SizeB*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
+	move.l AnimObj_AnimSubFrame(a0), d3
 	move.l d2, AnimObj_AnimSubFrame(a0)
 
-	; Mark as dirty
+	; If anim frame changed, mark as dirty
+	lsr    #0x8, d2
+	lsr    #0x8, d3
+	cmp.l  d2, d3
+	beq    @NoAnimChange
 	move.b #0x1, AnimObj_Dirty(a0)
+	@NoAnimChange:
 	
 	jsr AnimObjUpdate
 	

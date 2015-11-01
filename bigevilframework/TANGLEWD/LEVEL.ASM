@@ -58,7 +58,11 @@ LevelLoadArt:
 	move.w Level_NumTiles(a1), d1  ; Move number of tiles to d1
 	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
 	
+	IFD DEBUG
 	jsr    LoadTiles
+	ELSE
+	jsr    LoadTilesDMA
+	ENDIF
 	
 	rts
 	

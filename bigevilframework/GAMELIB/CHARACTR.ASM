@@ -58,8 +58,9 @@ Character_Running		rs.b 1
 Character_Jumping		rs.b 1
 Character_Pushing		rs.b 1
 Character_Interacting	rs.b 1
+Character_UpdateAnim	rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 3
+Character_Struct_Pad    rs.b 2
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -78,6 +79,7 @@ CharacterInit:
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_Interacting(a0)
+	move.b #0x1, Character_UpdateAnim(a0)
 
 	rts
 	
@@ -101,7 +103,11 @@ CharacterUpdate:
  
 	jsr CharacterFindLedge
 	jsr CharacterApplySpriteFlip
-	jsr CharacterUpdateAnimState
+
+	cmp.b #0x0, Character_UpdateAnim(a0)
+	beq   @ManualAnim
+	jsr   CharacterUpdateAnimState
+	@ManualAnim:
 	
 	rts
 

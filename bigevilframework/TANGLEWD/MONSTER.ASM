@@ -162,6 +162,8 @@ MonsterUpdate:
 	beq   @InCave
 	cmp.b #MonsterState_Chasing, d0
 	beq   @Chasing
+	cmp.b #MonsterState_Attacking, d0
+	beq   @Attacking
 
 	; ************************************
 	; In cave
@@ -169,7 +171,7 @@ MonsterUpdate:
 	@InCave:
 
 	; Wait for player
-	jsr MonsterWaitForPlayer
+	jsr MonsterUpdateWaitForPlayer
 	bra @EndStateMachine
 
 	; ************************************
@@ -178,7 +180,16 @@ MonsterUpdate:
 	@Chasing:
 
 	; Track player
-	jsr MonsterTrackPlayer
+	jsr MonsterUpdateTrackPlayer
+	bra @EndStateMachine
+
+	; ************************************
+	; Attacking
+	; ************************************
+	@Attacking:
+
+	; Attack
+	jsr MonsterUpdateBite
 	bra @EndStateMachine
 
 	@EndStateMachine:
@@ -200,7 +211,7 @@ MonsterDraw:
 	
 	rts
 
-MonsterWaitForPlayer:
+MonsterUpdateWaitForPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
@@ -237,13 +248,22 @@ MonsterWaitForPlayer:
 
 	; Within range, emerge from cave
 	; TODO: Emerge state
-	move.b #MonsterState_Chasing, Monster_State(a0)
+	jsr   MonsterStartTrackPlayer
 
 	@OutOfPlayerRange:
 
 	rts
 
-MonsterTrackPlayer:
+MonsterStartTrackPlayer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set chase state
+	move.b #MonsterState_Chasing, Monster_State(a0)
+
+	rts
+
+MonsterUpdateTrackPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
@@ -280,10 +300,12 @@ MonsterTrackPlayer:
 	cmp.l  d0, d3		; Left of monster vs. right of player (+ swipe distance)
 	blt    @RightOfPlayer
 
-	; Within swipe distance, set attacking state
+	; Within swipe distance, stop chasing
 	move.b #0x0, Character_Running(a0)
 	jsr CharacterCancelXMovement
-	;move.b MonsterState_Attacking, Monster_State(a0)
+
+	; Attack
+	jsr    MonsterStartBite
 	bra @End
 
 	@LeftOfPlayer:
@@ -305,8 +327,44 @@ MonsterTrackPlayer:
 	; Lost player, back to search state
 	move.b #0x0, Character_Running(a0)
 	jsr CharacterCancelXMovement
-	move.b MonsterState_Wandering, Monster_State(a0)
+	;move.b MonsterState_Wandering, Monster_State(a0)
 
 	@End:
+
+	rts
+
+MonsterStartBite:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set attack state
+	move.b #MonsterState_Attacking, Monster_State(a0)
+
+	; Set bite animation
+	move.l #Anim_MonsterBite, AnimObj_AnimDataAddr(a0)
+	move.b #Anim_MonsterBite_Speed, AnimObj_AnimSpeed(a0)
+	move.b #Anim_MonsterBite_SizeB, AnimObj_AnimLength(a0)
+	move.b #0x0, AnimObj_Looping(a1)
+
+	; Manually control anim
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	rts
+
+MonsterUpdateBite:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Wait for bite anim to finish
+	cmp.b  #0x0, AnimObj_Looping(a3)
+	bne    @AnimPlaying
+
+	; Pass anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
+
+	; Back to chase state
+	jsr    MonsterStartTrackPlayer
+
+	@AnimPlaying:
 
 	rts

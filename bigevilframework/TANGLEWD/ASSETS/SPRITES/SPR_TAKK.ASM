@@ -13,6 +13,9 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 
 	; Include the remaining sprite sets
 
+	; Bite anim
+	include 'assets\sprites\takk_1.asm'
+
 ; Subsprite dimensions
 sprite_monster_subsprite_dimensions:
 	dc.w 0x0404
