@@ -468,7 +468,7 @@ GameObjDraw:
 	move.w GameObj_Width(a0), d3
 	move.b GameObj_FlippedX(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosX
+	jsr SetMultiSpritePosX_Queued
 	move.l (sp)+, a1
 	
 	; Y pos world space to sprite space
@@ -499,7 +499,7 @@ GameObjDraw:
 	move.w GameObj_Height(a0), d3
 	move.b GameObj_FlippedY(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosY
+	jsr SetMultiSpritePosY_Queued
 	move.l (sp)+, a1
 	
 	;==============================================================
@@ -548,7 +548,7 @@ GameObjDraw:
 	move.w GameObj_Width(a0), d3
 	move.b GameObj_FlippedX(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosX
+	jsr SetMultiSpritePosX_Queued
 	move.l (sp)+, a1
 
 	move.l a1, -(sp)
@@ -558,7 +558,7 @@ GameObjDraw:
 	move.w GameObj_Height(a0), d3
 	move.b GameObj_FlippedY(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosY
+	jsr SetMultiSpritePosY_Queued
 	move.l (sp)+, a1
 
 	@End:

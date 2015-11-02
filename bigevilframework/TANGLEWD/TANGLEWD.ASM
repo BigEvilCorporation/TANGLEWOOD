@@ -25,7 +25,9 @@
 	include '..\framewk\tmss.asm'
 	include '..\framewk\palettes.asm'
 	include '..\framewk\planes.asm'
+	include '..\framewk\queue.asm'
 	include '..\framewk\vdp.asm'
+	include '..\framewk\vdpqueue.asm'
 	include '..\framewk\z80.asm'
 	; include '..\framewk\sequencr.asm'
 
@@ -89,6 +91,10 @@ __main:
 
 	; Reset all positions/velocities
 	jsr LevelReset
+	
+	jsr PaletteLerpUpdate
+	jsr UpdateCamera
+	jsr UpdateMapStreaming
 
 	; Ready
 	move.b #0x1, RenderEnabled
@@ -114,6 +120,9 @@ GameLoop:
 	
 	; Update game objects
 	jsr LevelUpdateGameObjs
+	
+	; Draw game objects
+	jsr LevelDrawGameObjs
 
 	; Enable H/VINT
 	move.w sr, d0
@@ -134,16 +143,16 @@ __vsync:
 	beq    @NoVSync
 
 	; Update palette lerping
-	jsr PaletteLerpUpdate
+	;jsr PaletteLerpUpdate
 	
 	; Update camera
-	jsr UpdateCamera
+	;jsr UpdateCamera
 		
 	; Update map streaming
-	jsr UpdateMapStreaming
+	;jsr UpdateMapStreaming
 	
-	; Draw game objects
-	jsr LevelDrawGameObjs
+	; Execute VDP job queue
+	jsr VDP_ExecuteQueue
 
 	; NOT FOR RELEASE
 	IFD DEBUG

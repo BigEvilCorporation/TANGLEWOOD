@@ -18,6 +18,8 @@ hblank_counter      rs.l 1
 vblank_counter      rs.l 1
 audio_clock         rs.l 1
 rand_seed           rs.l 1
+vdp_jobqueue		rs.b Queue_Struct_Size
+vdp_jobqueue_array  rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
 
 ; ************************************
 ; GameLib stuff

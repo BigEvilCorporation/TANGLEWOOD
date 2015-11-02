@@ -9,7 +9,7 @@
 	rsset 0
 ;------------------------------
 Queue_MaxSize            rs.w 1 ; Queue max elements
-Queue_ElementSizeBytes   rs.w 1 ; Element size in bytes
+Queue_ElementSizeLong    rs.w 1 ; Element size in longwords
 Queue_ProducerIndex      rs.w 1	; Producer position
 Queue_ConsumerIndex      rs.w 1 ; Consumer position
 Queue_Data               rs.b 0 ; Array is expected to be allocated at end of struct
@@ -19,7 +19,11 @@ Queue_Struct_Size        rs.b 0
 
 Queue_Init:
 	; a0 --- Queue struct address
-	
+	; d0 (w) Queue max size
+	; d1 (w) Queue element size (longs)
+
+	move.w d0, Queue_MaxSize(a0)	
+	move.w d1, Queue_ElementSizeLong(a0)	
 	move.w #0x0, Queue_ProducerIndex(a0)
 	move.w #0x0, Queue_ConsumerIndex(a0)
 	
@@ -30,22 +34,24 @@ Queue_Push:
 	; a1 --- Address to copy element from
 	
 	; Get producer index
+	clr.l  d0
 	move.w Queue_ProducerIndex(a0), d0
 	move.w d0, d2
 	
 	; Get address into array
 	clr.l  d1
-	move.w Queue_ElementSizeBytes(a0), d1
-	mulu   d1, d0
-	add.l  Queue_Data, d0
-	move.l a0, a2
-	add.l  d1, a2
+	move.w Queue_ElementSizeLong(a0), d1	; Get element size
+	mulu   d1, d0							; Mul by index
+	mulu   #size_long, d0					; To bytes
+	add.l  #Queue_Data, d0					; Add queue data offset
+	move.l a0, a2							; Get queue address
+	add.l  d0, a2							; Add element address offset
 	
 	; Copy data
-	sub.w  #0x1, d0
+	sub.w  #0x1, d1
 	@CopyLp:
-	move.b (a2)+, (a1)+
-	dbra.w d0, @CopyLp
+	move.l (a1)+, (a2)+
+	dbra.w d1, @CopyLp
 	
 	; Increment and wrap producer index
 	addi.w #0x1, d2
@@ -64,22 +70,24 @@ Queue_Pop:
 	; a1 --- Address to copy element to
 	
 	; Get consumer index
+	clr.l  d0
 	move.w Queue_ConsumerIndex(a0), d0
 	move.w d0, d2
 	
 	; Get address into array
 	clr.l  d1
-	move.w Queue_ElementSizeBytes(a0), d1
-	mulu   d1, d0
-	add.l  Queue_Data, d0
-	move.l a0, a2
-	add.l  d1, a2
+	move.w Queue_ElementSizeLong(a0), d1	; Get element size
+	mulu   d1, d0							; Mul by index
+	mulu   #size_long, d0					; To bytes
+	add.l  #Queue_Data, d0					; Add queue data offset
+	move.l a0, a2							; Get queue address
+	add.l  d0, a2							; Add element address offset
 	
 	; Copy data
-	sub.w  #0x1, d0
+	sub.w  #0x1, d1
 	@CopyLp:
-	move.b (a2)+, (a1)+
-	dbra.w d0, @CopyLp
+	move.l (a2)+, (a1)+
+	dbra.w d1, @CopyLp
 	
 	; Increment and wrap consumer index
 	addi.w #0x1, d2
@@ -93,8 +101,13 @@ Queue_Pop:
 	
 	rts
 	
-Queue_Size:
+Queue_GetSize:
 	; a0 --- Queue struct address
 	; d0 (w) OUT: Queue size
 	
+	move.w Queue_ProducerIndex(a0), d0
+	move.w Queue_ConsumerIndex(a0), d1
+	sub.w  d1, d0
+	
 	rts
+	
