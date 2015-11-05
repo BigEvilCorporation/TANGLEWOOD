@@ -20,25 +20,27 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn_4.asm'
 	include 'assets\sprites\nymn_5.asm'
 	include 'assets\sprites\nymn_6.asm'
-	
-	; Jump
 	include 'assets\sprites\nymn_7.asm'
 	include 'assets\sprites\nymn_8.asm'
+	
+	; Jump
 	include 'assets\sprites\nymn_9.asm'
 	include 'assets\sprites\nymn_10.asm'
+	include 'assets\sprites\nymn_11.asm'
+	include 'assets\sprites\nymn_12.asm'
 	
 	; Hang
-	include 'assets\sprites\nymn_11.asm'
+	include 'assets\sprites\nymn_13.asm'
 	
 	; Push
-	include 'assets\sprites\nymn_12.asm'
-	include 'assets\sprites\nymn_13.asm'
 	include 'assets\sprites\nymn_14.asm'
 	include 'assets\sprites\nymn_15.asm'
-	
-	; Super Nymn switch
 	include 'assets\sprites\nymn_16.asm'
 	include 'assets\sprites\nymn_17.asm'
+	
+	; Super Nymn switch
+	include 'assets\sprites\nymn_18.asm'
+	include 'assets\sprites\nymn_19.asm'
 
 ; Subsprite dimensions
 sprite_nymn_subsprite_dimensions:
