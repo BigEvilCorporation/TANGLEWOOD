@@ -45,7 +45,7 @@ EntryPoint:
 	jsr InitEXTPort
 
 	; Init VDP job queue
-	jsr VDP_QueueInit
+	jsr VDPQueue_Init
 	
 	; Init random number generator
 	jsr RandInit

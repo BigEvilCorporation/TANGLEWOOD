@@ -57,12 +57,7 @@ LevelLoadArt:
 	move.l Level_TilesAddr(a1), a0 ; Move tiles address to a0
 	move.w Level_NumTiles(a1), d1  ; Move number of tiles to d1
 	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
-	
-	IFD DEBUG
 	jsr    LoadTiles
-	ELSE
-	jsr    LoadTilesDMA
-	ENDIF
 	
 	rts
 	
@@ -434,6 +429,9 @@ LevelUpdateGameObjs:
 	
 LevelDrawGameObjs:
 
+	; Clear sprite links, build list as each object renderered
+	move.w #0x0, prev_sprite_link
+	
 	; Players
 	move.l #GameObjArray_Players, a0
 	move.l #Player_MaxGameObjs-1, d0

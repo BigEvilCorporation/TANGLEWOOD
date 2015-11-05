@@ -24,7 +24,7 @@ Player1StartPosWorldX  equ Player1StartPosScreenX*SubpixelsPerPixel
 Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
 
 ; Player movement (all values must be divisors of SubpixelsPerPixel)
-Player1MaxVelXWalk equ 0x0080 ; Player 1 max X walking velocity
+Player1MaxVelXWalk equ 0x0100 ; Player 1 max X walking velocity
 Player1MaxVelXRun  equ 0x0300 ; Player 1 max X running velocity
 Player1MaxVelYUp   equ 0x0600 ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x0600 ; Player 1 max Y velocity down

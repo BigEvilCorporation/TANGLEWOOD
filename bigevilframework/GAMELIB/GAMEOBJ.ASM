@@ -38,13 +38,14 @@ GameObj_FlippedX         rs.b 1	; Sprite flip X
 GameObj_FlippedY         rs.b 1	; Sprite flip Y
 GameObj_Active           rs.b 1	; Can update
 GameObj_Visible          rs.b 1	; Is visible (hidden in sprite border if not)
+GameObj_SpriteLinked     rs.b 1	; Is sprite linked (use as last frame visibility test)
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_Solid			 rs.b 1 ; Object is solid
 
 ;------------------------------
-GameObj_Struct_Pad       rs.b 2
+GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
 
 ;==============================================================
@@ -62,6 +63,7 @@ GameObjInit:
 	
 	move.b #0x1, GameObj_Active(a0)
 	move.b #0x1, GameObj_Visible(a0)
+	move.b #0x0, GameObj_SpriteLinked(a0)
 	move.b #0x1, GameObj_HasPhysics(a0)
 
 	rts
@@ -435,6 +437,8 @@ GameObjDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; TODO: Only if moved/flipped/unhidden
+	
 	; Check if visible
 	move.b GameObj_Visible(a0), d0
 	cmp.b  #0x0, d0
@@ -447,19 +451,11 @@ GameObjDraw:
 	add.l  d2, d1					; Scroll space to screen space (subpixels)
 	divs.w #SubpixelsPerPixel, d1	; Screen space (subpixels) to pixels
 
-	; Clamp to sprite space
+	; Check if out of bounds
 	cmp.w  #0x0, d1
-	blt    @ClampLeft
+	blt    @OutOfBounds
 	cmp.w  #SpritePlaneWidth, d1
-	bgt    @ClampRight
-	bra    @ClampXEnd
-	@ClampRight:
-	move.w #SpritePlaneWidth, d1
-	bra    @ClampXEnd
-	@ClampLeft:
-	move.w #0x0, d1
-	bra    @ClampXEnd
-	@ClampXEnd:
+	bgt    @OutOfBounds
 	
 	; Set X position
 	move.l a1, -(sp)
@@ -468,7 +464,8 @@ GameObjDraw:
 	move.w GameObj_Width(a0), d3
 	move.b GameObj_FlippedX(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosX_Queued
+	lea    SetMultiSpritePosX, a5
+	jsr    VDPQueue_PushJob
 	move.l (sp)+, a1
 	
 	; Y pos world space to sprite space
@@ -478,19 +475,11 @@ GameObjDraw:
 	add.l  d2, d1					; Scroll space to screen space (subpixels)
 	divs.w #SubpixelsPerPixel, d1	; Screen space (subpixels) to pixels
 
-	; Clamp to sprite space
+	; Check if out of bounds
 	cmp.w  #0x0, d1
-	blt    @ClampTop
+	blt    @OutOfBounds
 	cmp.w  #SpritePlaneHeight, d1
-	bgt    @ClampBottom
-	bra    @ClampYEnd
-	@ClampBottom:
-	move.w #SpritePlaneHeight, d1
-	bra    @ClampYEnd
-	@ClampTop:
-	move.w #0x0, d1
-	bra    @ClampYEnd
-	@ClampYEnd:
+	bgt    @OutOfBounds
 	
 	; Set Y position
 	move.l a1, -(sp)
@@ -499,8 +488,31 @@ GameObjDraw:
 	move.w GameObj_Height(a0), d3
 	move.b GameObj_FlippedY(a0), d4
 	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosY_Queued
+	lea    SetMultiSpritePosY, a5
+	jsr    VDPQueue_PushJob
 	move.l (sp)+, a1
+	
+	;==============================================================
+	
+	; Sprite is visible - link to prev in list
+	move.b GameObj_SpriteID(a0), d1 		; This id
+	clr.l  d3
+	move.b GameObj_NumSubSprites(a0), d3
+	subi.b #0x1, d3
+	@SubSpriteLinkLp:
+	move.b (prev_sprite_link), d0			; Prev id	
+	move.l d1, -(sp)
+	cmp.b  #0x0, d1
+	beq    @FirstSprite						; TODO: What if sprite #0 is invisible?
+	jsr    LinkSprite						; Link sprite with prev
+	@FirstSprite:
+	move.l (sp)+, d1
+	move.b d1, prev_sprite_link				; Set as next
+	addi.b #0x1, d1							; Next subsprite
+	dbra   d3, @SubSpriteLinkLp
+	
+	; Sprite linked
+	move.b #0x1, GameObj_SpriteLinked(a0)
 	
 	;==============================================================
 	
@@ -539,27 +551,26 @@ GameObjDraw:
 	jmp     @End
 
 	@Invisible:
-
-	; Move inside sprite border
-	move.l a1, -(sp)
-	clr.l  d1
-	move.b GameObj_SpriteID(a0), d0
-	move.w GameObj_Dimensions(a0), d2
-	move.w GameObj_Width(a0), d3
-	move.b GameObj_FlippedX(a0), d4
-	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosX_Queued
-	move.l (sp)+, a1
-
-	move.l a1, -(sp)
-	clr.l  d1
-	move.b GameObj_SpriteID(a0), d0
-	move.w GameObj_Dimensions(a0), d2
-	move.w GameObj_Height(a0), d3
-	move.b GameObj_FlippedY(a0), d4
-	move.l GameObj_SubSpriteDimArr(a0), a1
-	jsr SetMultiSpritePosY_Queued
-	move.l (sp)+, a1
-
+	@OutOfBounds:
+	
+	; Sprite isn't visible - unlink from sprite list
+	cmp.b  #0x0, GameObj_SpriteLinked(a0)	; Check if already unlinked first
+	beq    @Unlinked
+	move.b GameObj_SpriteID(a0), d0			; This id
+	clr.l  d3
+	move.b GameObj_NumSubSprites(a0), d3
+	subi.b #0x1, d3
+	@SubSpriteUnlinkLp:
+	move.b #0x0, d1							; Next id
+	move.l d0, -(sp)
+	jsr    LinkSprite						; Unlink
+	move.l (sp)+, d0
+	addi.b #0x1, d0					;		 Next subsprite
+	dbra   d3, @SubSpriteUnlinkLp
+	@Unlinked:
+	
+	; Sprite unlinked
+	move.b #0x0, GameObj_SpriteLinked(a0)
+	
 	@End:
  rts

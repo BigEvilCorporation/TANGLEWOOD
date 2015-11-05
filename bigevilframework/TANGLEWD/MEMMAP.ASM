@@ -14,17 +14,24 @@
 ; ************************************
 ; Framework stuff
 ; ************************************
-hblank_counter      rs.l 1
-vblank_counter      rs.l 1
-audio_clock         rs.l 1
-rand_seed           rs.l 1
-vdp_jobqueue		rs.b Queue_Struct_Size
-vdp_jobqueue_array  rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
+hblank_counter        rs.l 1
+vblank_counter        rs.l 1
+audio_clock           rs.l 1
+rand_seed             rs.l 1
+
+; ************************************
+; VDP job queue
+; ************************************
+vdp_queue_jobarray    rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
+vdp_queue_produceridx rs.l 1
+vdp_queue_consumeridx rs.l 1
+
 
 ; ************************************
 ; GameLib stuff
 ; ************************************
 next_sprite_index   rs.w 1
+prev_sprite_link    rs.w 1
 
 ; ************************************
 ; Game init

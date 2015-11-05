@@ -45,6 +45,11 @@ AnimObjDraw:
 	
 	; Base functionality
 	jsr GameObjDraw
+	
+	; Check if sprite linked
+	move.b GameObj_SpriteLinked(a0), d0
+	cmp.b  #0x0, d0
+	beq    @Invisible
 
 	; Check if gameobj active
 	move.b GameObj_Active(a0), d0
@@ -54,7 +59,7 @@ AnimObjDraw:
 	; Check if anim playing
 	move.b AnimObj_Playing(a0), d0
 	cmp.b  #0x0, d0
-	beq    @NotPLaying
+	beq    @NotPlaying
 	
 	; Get anim speed
 	clr.l  d0
@@ -120,6 +125,7 @@ AnimObjDraw:
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr SetSpriteAnimFrame
 
+	@Invisible:
 	@NoAnim:
 	@ZeroSpeed:
 	@Inactive:

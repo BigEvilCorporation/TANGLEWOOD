@@ -22,20 +22,6 @@ LoadTiles:
 	
 	rts
 	
-LoadTiles_Queued:
-	; a0 - Tiles address (l)
-	; d0 - VRAM address (l)
-	; d1 - Num tiles (w)
-	
-	; TODO: Reg backup/restore macro
-	movem.l d0-d7/a0-a4, -(sp)
-	move.l  sp, a1
-	move.l  #LoadTiles, a2
-	jsr     VDP_AddTaskToQueue
-	movem.l (sp)+, d0-d7/a0-a4
-	
-	rts
-	
 LoadTilesDMA:
 	; a0 - Tiles address (l)
 	; d0 - VRAM address (l)
@@ -83,7 +69,7 @@ LinkSprite:
 	and.l   #0x000000FF, d0
 	and.l   #0x000000FF, d1
 	
-	mulu.w  #size_spritedesc, d0          ; Offset into sprite table
+	mulu.w  #size_spritedesc, d0         ; Offset into sprite table
 	addi.w  #0x2, d0                     ; Byte 2 holds dimensions, byte 3 holds next index
 	swap    d0                           ; To upper word
 	
@@ -132,34 +118,6 @@ SetSpritePosY:
 	
 	move.l	d3, vdp_control			; Set dest address
 	move.w	d1, vdp_data			; Move Y pos to data port
-	
-	rts
-	
-SetSpritePosX_Queued:
-	; Set sprite X position
-	; d0 (b) - Sprite ID
-	; d1 (w) - X coord
-	
-	; TODO: Reg backup/restore macro
-	movem.l d0-d7/a0-a4, -(sp)
-	move.l  sp, a1
-	move.l  #SetSpritePosX, a2
-	jsr     VDP_AddTaskToQueue
-	movem.l (sp)+, d0-d7/a0-a4
-	
-	rts
-	
-SetSpritePosY_Queued:
-	; Set sprite Y position
-	; d0 (b) - Sprite ID
-	; d1 (w) - Y coord
-	
-	; TODO: Reg backup/restore macro
-	movem.l d0-d7/a0-a4, -(sp)
-	move.l  sp, a1
-	move.l  #SetSpritePosY, a2
-	jsr     VDP_AddTaskToQueue
-	movem.l (sp)+, d0-d7/a0-a4
 	
 	rts
 
@@ -302,42 +260,6 @@ SetMultiSpritePosY:
 
 	rts
 
-SetMultiSpritePosX_Queued:
-	; Set sprite X position
-	; d0 (b)  - Sprite ID
-	; d1 (w)  - X coord
-	; d2 (bb) - Sprite dimensions (width/height in subsprites)
-	; d3 (w)  - Sprite width (pixels)
-	; d4 (b)  - X flipped
-	; a1 ---- - Subsprite dimensions array
-	
-	; TODO: Reg backup/restore macro
-	movem.l d0-d7/a0-a4, -(sp)
-	move.l  sp, a1
-	move.l  #SetMultiSpritePosX, a2
-	jsr     VDP_AddTaskToQueue
-	movem.l (sp)+, d0-d7/a0-a4
-	
-	rts
-	
-SetMultiSpritePosY_Queued:
-	; Set sprite Y position
-	; d0 (b)  - Sprite ID
-	; d1 (w)  - Y coord
-	; d2 (bb) - Sprite dimensions (width/height in subsprites)
-	; d3 (w)  - Sprite height (pixels)
-	; d4 (b)  - Y flipped
-	; a1 ---- - Subsprite dimensions array
-	
-	; TODO: Reg backup/restore macro
-	movem.l d0-d7/a0-a4, -(sp)
-	move.l  sp, a1
-	move.l  #SetMultiSpritePosY, a2
-	jsr     VDP_AddTaskToQueue
-	movem.l (sp)+, d0-d7/a0-a4
-	
-	rts
-	
 SetMultiSpriteHFlipOn:
 	; d0 (w) - Sprite ID
 	; d1 (b) - Num sub-sprites
@@ -507,12 +429,12 @@ SetSpriteAnimFrame:
 	; a0 --- Address of sprite data (ROM)
 	; a1 --- Address of animation data (byte array) (ROM)
 
-	and.l #0x0000FFFF, d2
-	and.l #0x000000FF, d3
-	clr.l d4
+	and.l  #0x0000FFFF, d2
+	and.l  #0x000000FF, d3
+	clr.l  d4
 
-	divu  d3, d2           ; Div frame count against num anim frames
-	swap  d2			   ; Remainder to lower word
+	divu   d3, d2           ; Div frame count against num anim frames
+	swap   d2			   ; Remainder to lower word
 
 	move.b (a1,d2.w), d3   ; Get frame index from anim data array
 
@@ -524,10 +446,13 @@ SetSpriteAnimFrame:
 	add.l  d4, d2          ; Add to sprite data address
 	move.l d2, a0          ; Back to address register
 
+	; New tile address is in a0, VRAM address already in d0, num tiles already in d1 - add job to VDP queue
 	IFD DEBUG
-	jsr LoadTiles_Queued   ; New tile address is in a0, VRAM address already in d0, num tiles already in d1 - jump straight to load tiles
+	lea    LoadTiles, a5
+	jsr    VDPQueue_PushJob
 	ELSE
-	jsr LoadTilesDMA
+	lea    LoadTilesDMA, a5
+	jsr    VDPQueue_PushJob
 	ENDIF
 
 	rts

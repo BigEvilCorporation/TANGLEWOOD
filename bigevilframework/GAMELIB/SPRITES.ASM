@@ -136,15 +136,6 @@ AddSubSprite:
 	
 	; Free stack
 	add.l  #Sprite_Struct_Size, sp
-
-	; Link sprite with prev (if not the first in list)
-	cmp.w  #0x0, d4
-	beq    @NoLink
-	move.w d4, d1   ; Next ID
-	move.w d4, d0
-	sub.w  #0x1, d0 ; Prev ID
-	jsr    LinkSprite
-	@NoLink:
 	
 	; Increment sprite counter
 	add.w  #0x1, d4

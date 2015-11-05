@@ -10,7 +10,7 @@ Anim_NymnWalk:
 	dc.b 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8
 Anim_NymnWalk_End
 Anim_NymnWalk_SizeB: equ (Anim_NymnWalk_End-Anim_NymnWalk)
-Anim_NymnWalk_Speed: equ 0x18
+Anim_NymnWalk_Speed: equ 0x20
 
 	Even
 	
@@ -18,7 +18,7 @@ Anim_NymnRun:
 	dc.b 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8
 Anim_NymnRun_End
 Anim_NymnRun_SizeB: equ (Anim_NymnRun_End-Anim_NymnRun)
-Anim_NymnRun_Speed: equ 0x28
+Anim_NymnRun_Speed: equ 0x30
 
 	Even
 	

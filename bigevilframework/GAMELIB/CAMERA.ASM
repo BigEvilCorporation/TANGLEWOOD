@@ -76,7 +76,8 @@ UpdateCamera:
 	; Scroll X
 	neg.l   d0							; To camera space
 	lsr.l   #0x8, d0					; To screen space
-	jsr SetHScrollPlaneA
+	lea     SetHScrollPlaneA, a5
+	jsr 	VDPQueue_PushJob
 
 	; Y to world scroll
 	move.l  (CameraWorldPosY), d0
@@ -85,7 +86,8 @@ UpdateCamera:
 
 	; Scroll Y
 	lsr.l   #0x8, d0					; To screen space
-	jsr SetVScrollPlaneA
+	lea     SetVScrollPlaneA, a5
+	jsr 	VDPQueue_PushJob
 	
 	rts
 

@@ -217,7 +217,8 @@ PaletteLerpUpdateNextComponent:
 	move.l a0, -(sp)
 	move.b PaletteLerp_PaletteIdx(a0), d0
 	add.l  #PaletteLerp_Buffer, a0	; Offset into struct to palette buffer
-	jsr    LoadPaletteDMA
+	lea    LoadPaletteDMA, a5
+	jsr    VDPQueue_PushJob
 	move.l (sp)+, a0
 	
 	; =====================================================================
