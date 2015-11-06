@@ -98,7 +98,7 @@ CameraPosToWorldScrollX:
 	; Scroll X safe border (only scroll beyond these bounds)
 	cmp.l   #CameraScrollSafeBorderX, d0
 	blt     @ClampLeft
-	clr.l   d1							; cmp.l	#(((map_lvl1_width*8)*SubpixelsPerPixel)-CameraScrollSafeBorderX), d0
+	clr.l   d1
 	move.w  Level_MapWidth(a1), d1
 	mulu    #0x8, d1
 	lsl.l   #0x8, d1

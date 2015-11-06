@@ -110,23 +110,23 @@ GameLoop:
 	; Read and process gamepad input
 	jsr UpdateInput
 	
-	; Update time of day
-	jsr UpdateTimeOfday
-	
 	; Update game objects
 	jsr LevelUpdateGameObjs
-	
-	; Draw game objects
-	jsr LevelDrawGameObjs
-	
-	; Update palette lerping
-	jsr PaletteLerpUpdate
 	
 	; Update camera
 	jsr UpdateCamera
 	
+	; Draw game objects
+	jsr LevelDrawGameObjs
+	
 	; Update map streaming
 	jsr UpdateMapStreaming
+	
+	; Update time of day
+	jsr UpdateTimeOfday
+	
+	; Update palette lerping
+	jsr PaletteLerpUpdate
 
 	; Enable H/VINT
 	move.w sr, d0

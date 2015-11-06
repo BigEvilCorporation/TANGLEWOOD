@@ -522,14 +522,16 @@ GameObjDraw:
 	beq    @NoFlipX
 	jmp    @FlipX
 	@NoFlipX:
-	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip off
-	move.b  GameObj_NumSubSprites(a0), d1
-	jsr     SetMultiSpriteHFlipOff
-	jmp     @EndFlipX
+	move.b GameObj_SpriteID(a0), d0		; Set sprite flip off
+	move.b GameObj_NumSubSprites(a0), d1
+	lea    SetMultiSpriteHFlipOff, a5
+	jsr    VDPQueue_PushJob
+	jmp    @EndFlipX
 	@FlipX:
-	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip on
-	move.b  GameObj_NumSubSprites(a0), d1
-	jsr     SetMultiSpriteHFlipOn
+	move.b GameObj_SpriteID(a0), d0		; Set sprite flip on
+	move.b GameObj_NumSubSprites(a0), d1
+	lea    SetMultiSpriteHFlipOn, a5
+	jsr    VDPQueue_PushJob
 	@EndFlipX:
 	
 	; Y sprite flipping
@@ -540,12 +542,14 @@ GameObjDraw:
 	@NoFlipY:
 	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip off
 	move.b  GameObj_NumSubSprites(a0), d1
-	;jsr     SpriteVFlipOff
+	;lea    SpriteVFlipOff, a5
+	;jsr    VDPQueue_PushJob
 	jmp     @EndFlipY
 	@FlipY:
 	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip on
 	move.b  GameObj_NumSubSprites(a0), d1
-	;jsr     SpriteVFlipOn
+	;lea    SpriteVFlipOn, a5
+	;jsr    VDPQueue_PushJob
 	@EndFlipY:
 
 	jmp     @End
