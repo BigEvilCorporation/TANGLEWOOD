@@ -33,12 +33,7 @@ vdp_queue_consumeridx rs.l 1
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
 
-; ************************************
-; Game init
-; ************************************
-RenderEnabled       rs.b 1
-
-__padding00			rs.b 1
+__padding00			rs.b 0
 
 ; ************************************
 ; World

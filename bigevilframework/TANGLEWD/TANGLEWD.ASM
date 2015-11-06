@@ -91,9 +91,6 @@ __main:
 	; Reset all positions/velocities
 	jsr LevelReset
 
-	; Ready
-	move.b #0x1, RenderEnabled
-
 	; ************************************
 	; Main game loop
 	; ************************************
@@ -101,11 +98,6 @@ GameLoop:
 
 	; Wait for vsync
 	jsr WaitVSync
-
-	; Disable H/VINT
-	move.w sr, d0
-	ori.w  #status_reg_int_disable, d0
-	move.w d0, sr
 
 	; Read and process gamepad input
 	jsr UpdateInput
@@ -128,12 +120,6 @@ GameLoop:
 	; Update palette lerping
 	jsr PaletteLerpUpdate
 
-	; Enable H/VINT
-	move.w sr, d0
-	andi.w #0xF0FF, d0
-	ori.w  #(status_reg_int0|status_reg_int1), d0
-	move.w d0, sr
-
 	; Back to top
 	jmp GameLoop
 
@@ -142,10 +128,6 @@ GameLoop:
 	; ************************************
 __vsync:
 
-	move.b (RenderEnabled), d0
-	cmp.b  #0x0, d0
-	beq    @NoVSync
-
 	; Execute VDP job queue
 	jsr VDPQueue_ExecuteAll
 
@@ -153,8 +135,6 @@ __vsync:
 	IFD DEBUG
 	; jsr DebugDraw
 	ENDIF
-
-	@NoVSync:
 
 	rts
 
