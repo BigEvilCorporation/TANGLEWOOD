@@ -6,18 +6,6 @@
 ;   sprites.asm - Sprite utils
 ;==============================================================
 
-	rsset 0
-;------------------------
-Sprite_CoordY        rs.w 1
-Sprite_Dimensions    rs.b 1
-Sprite_NextID        rs.b 1
-Sprite_PrioPalFlipID rs.w 1 ; Priority (bit 15), palette (bits 14-13), v/h flip (bits 12 and 11), tile ID (bits 10-0)
-Sprite_CoordX        rs.w 1
-;------------------------
-Sprite_Struct_Size rs.b 0
-
-;==============================================================
-
 AddSprite:
 	; d0 (bb) Width/height (in subsprites)
 	; d1 (ww) X/Y coord
@@ -119,7 +107,7 @@ AddSubSprite:
 	move.w d1, Sprite_CoordY(sp)      ; Y coord
 	swap d1
 	move.w d1, Sprite_CoordX(sp)      ; X coord
-	move.b d0, Sprite_Dimensions(sp)  ; Dimensions
+	move.b d0, Sprite_Dimensions_NextID(sp)  ; Dimensions (first byte in word))
 	move.b #0x0, Sprite_NextID(sp)    ; Next ID
 
 	; Flipping, palette ID, priority and tile ID
@@ -127,7 +115,7 @@ AddSubSprite:
 	and.w  #%0000000000000011, d3		; Palette in bottom two bits
 	ror.w  #0x3, d3						; Palette to bits 13-14
 	or.w   d2, d3						; OR tile ID with palette
-	move.w d3, Sprite_PrioPalFlipID(sp)	; Write to struct
+	move.w d3, Sprite_Prio_Pal_Flip_TileID(sp)	; Write to struct
 	
 	; Load sprite
 	move.l sp, a0
@@ -142,6 +130,4 @@ AddSubSprite:
 	move.w d4, (next_sprite_index) ; Keep counter
 	
 	rts
-	
-ClearAllSprites:
-	rts
+

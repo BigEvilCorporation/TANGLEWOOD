@@ -1,3 +1,24 @@
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   SEGA Genesis Framework (c) Matt Phillips 2014
+;==============================================================
+;   sprites.asm - Sprite routines
+;==============================================================
+
+	rsset 0
+;---------------------------------
+Sprite_CoordY        		rs.w 1
+Sprite_Dimensions_NextID    rs.b 1 ; Dimensions (bits 15-8),
+Sprite_NextID				rs.b 1 ;  + next sprite ID (bits 7-0)
+Sprite_Prio_Pal_Flip_TileID rs.b 1 ; Priority (bit 15), palette (bits 14-13),
+Sprite_Flip_TileID			rs.b 1 ;  + v/h flip (bits 12 and 11), tile ID (bits 10-0)
+Sprite_CoordX        		rs.w 1
+;---------------------------------
+Sprite_Struct_Size			rs.b 0
+
+;==============================================================
+
 LoadTiles:
 	; a0 - Tiles address (l)
 	; d0 - VRAM address (l)
@@ -69,20 +90,20 @@ LinkSprite:
 	and.l   #0x000000FF, d0
 	and.l   #0x000000FF, d1
 	
-	mulu.w  #size_spritedesc, d0         ; Offset into sprite table
-	addi.w  #0x2, d0                     ; Byte 2 holds dimensions, byte 3 holds next index
-	swap    d0                           ; To upper word
+	mulu.w  #size_spritedesc, d0          ; Offset into sprite table
+	addi.w  #Sprite_Dimensions_NextID, d0 ; Byte 2 holds dimensions, byte 3 holds next index
+	swap    d0                            ; To upper word
 	
-	move.l  d0, d2                       ; Backup d2
-	or.l    #vdp_read_sprite_table, d2   ; Add to read address
-	move.l	d2, vdp_control              ; Set read address
-	move.w  vdp_data, d2                 ; Read word from VDP
+	move.l  d0, d2                        ; Backup d2
+	or.l    #vdp_read_sprite_table, d2    ; Add to read address
+	move.l	d2, vdp_control               ; Set read address
+	move.w  vdp_data, d2                  ; Read word from VDP
 
-	move.b  d1, d2       				 ; Set next sprite ID
+	move.b  d1, d2       				  ; Set next sprite ID
 
-	or.l    #vdp_write_sprite_table, d0  ; Add write address to offset
-	move.l	d0, vdp_control              ; Set dest address
-	move.w  d2, vdp_data                 ; Write word back
+	or.l    #vdp_write_sprite_table, d0   ; Add write address to offset
+	move.l	d0, vdp_control               ; Set dest address
+	move.w  d2, vdp_data                  ; Write word back
 	
 	rts
 
@@ -94,8 +115,8 @@ SetSpritePosX:
 	clr.l	d3						; Clear d3
 	move.b	d0, d3					; Move sprite ID to d3
 	
-	mulu.w	#size_spritedesc, d3		; Sprite array offset
-	add.b	#0x6, d3				; X coord offset
+	mulu.w	#size_spritedesc, d3	; Sprite array offset
+	add.w	#Sprite_CoordX, d3		; X coord offset
 	swap	d3						; Move to upper word
 	or.l	#vdp_write_sprite_table, d3	; Add to sprite attr table
 	
@@ -112,7 +133,7 @@ SetSpritePosY:
 	clr.l	d3						; Clear d3
 	move.b	d0, d3					; Move sprite ID to d3
 	
-	mulu.w	#size_spritedesc, d3		; Sprite array offset
+	mulu.w	#size_spritedesc, d3	; Sprite array offset
 	swap	d3						; Move to upper word
 	or.l	#vdp_write_sprite_table, d3	; Add to sprite attr table
 	
@@ -165,8 +186,8 @@ SetMultiSpritePosX:
 			clr.l	d7						; Clear d7
 			move.b	d0, d7					; Move sprite ID to d7
 	
-			mulu.w	#size_spritedesc, d7		; Sprite array offset
-			add.b	#0x6, d7				; X coord offset
+			mulu.w	#size_spritedesc, d7	; Sprite array offset
+			add.b	#Sprite_CoordX, d7		; X coord offset
 			swap	d7						; Move to upper word
 			or.l	#vdp_write_sprite_table, d7	; Add to sprite attr table
 	
@@ -270,7 +291,7 @@ SetMultiSpriteHFlipOn:
 	clr.l   d2
 	move.b  d0, d2
 	mulu.w  #size_spritedesc, d2          ; Offset into sprite table
-	addi.w  #0x4, d2                     ; Bytes 4 and 5 hold flipping/palette/priority/ID
+	addi.w  #Sprite_Prio_Pal_Flip_TileID, d2 ; Bytes 4 and 5 hold flipping/palette/priority/ID
 	add.l   #vram_addr_sprite_table, d2	 ; Add VRAM address offset
 	rol.l   #0x2, d2					 ; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d2					 ; Shift lower word back
@@ -302,7 +323,7 @@ SetMultiSpriteHFlipOff:
 	clr.l   d2
 	move.b  d0, d2
 	mulu.w  #size_spritedesc, d2          ; Offset into sprite table
-	addi.w  #0x4, d2                     ; Bytes 4 and 5 hold flipping/palette/priority/ID
+	addi.w  #Sprite_Prio_Pal_Flip_TileID, d2 ; Bytes 4 and 5 hold flipping/palette/priority/ID
 	add.l   #vram_addr_sprite_table, d2	 ; Add VRAM address offset
 	rol.l   #0x2, d2					 ; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d2					 ; Shift lower word back

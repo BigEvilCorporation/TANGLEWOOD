@@ -67,26 +67,30 @@ __start:
 	dc.l   NullInterrupt   ; Unused (reserved)
 	dc.l   NullInterrupt   ; Unused (reserved)
 
-        ; Mega-CD
+    ; Mega-CD
 
-        dc.b "SEGADISCSYSTEM  "
-        dc.b "CDBOOTLOADR",0
-        dc.w 0x0100
-        dc.w 0x0001
-        dc.b "SEGACD BOOT",0
-        dc.w 0x0001
-        dc.w 0x0000
-        dc.l 0x00000800 ; Main CPU ROM offset
-        dc.l 0x00000800 ; Main CPU ROM size
-        dc.l 0x00000000 ; Main CPU ROM start offset
-        dc.l 0x00000000 ; Main CPU work RAM size
-        dc.l 0x00001000 ; Sub CPU ROM offset
-        dc.l 0x00007000 ; Sub CPU ROM size
-        dc.l 0x00000000 ; Sub CPU ROM start offset
-        dc.l 0x00000000 ; Sub CPU ROM work RAM size
-        dc.b "09102014" ; Date
+	IFD DEBUG
+	
+    dc.b "SEGADISCSYSTEM  "
+    dc.b "CDBOOTLOADR",0
+    dc.w 0x0100
+    dc.w 0x0001
+    dc.b "SEGACD BOOT",0
+    dc.w 0x0001
+    dc.w 0x0000
+    dc.l 0x00000800 ; Main CPU ROM offset
+    dc.l 0x00000800 ; Main CPU ROM size
+    dc.l 0x00000000 ; Main CPU ROM start offset
+    dc.l 0x00000000 ; Main CPU work RAM size
+    dc.l 0x00001000 ; Sub CPU ROM offset
+    dc.l 0x00007000 ; Sub CPU ROM size
+    dc.l 0x00000000 ; Sub CPU ROM start offset
+    dc.l 0x00000000 ; Sub CPU ROM work RAM size
+    dc.b "09102014" ; Date
+	
+	ENDIF
 
-        ; Genesis
+    ; Genesis
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
 	dc.b "(C)SEGA 1992.SEP"                                                                 ; Copyrght holder and release date
@@ -106,5 +110,5 @@ __start:
 	dc.l 0x00000000                                                                                 ; Unused
 	dc.l 0x00000000                                                                                 ; Unused
 	dc.b "                                        "                 ; Notes (unused)
-	dc.b "JUE             "                                                                 ; Country codes
+	dc.b "  E             "                                                                 ; Country codes
 
