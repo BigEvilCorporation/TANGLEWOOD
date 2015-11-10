@@ -12,7 +12,7 @@
 Player_MaxGameObjs equ 0x1
 
 ; Player dimensions
-Player1Width	  equ 0x0028
+Player1Width	  equ 0x0038
 Player1Height	  equ 0x0028
 
 ; Player starting positions - TODO: From spawn point
@@ -44,6 +44,9 @@ Player1ProbeFloorLen equ Player1StepHeight*2  ; Floor probe length (multiplied b
 Player1ProbeLedgeX  equ 0x1F			  ; Ledge detection probe position X
 Player1ProbeLedgeY  equ 0x02			  ; Ledge detection probe position Y
 
+; Walk to run transition velocity
+Player1WalkToRunVel equ 0x0200
+
 ; Player colour change
 Player1ColourChangeSpeed equ 0x0030
 
@@ -68,6 +71,7 @@ PlayerInit:
 	jsr CharacterInit
 
 	; Setup default state
+	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 	move.b  #ColourYellow, Player_Colour(a0)
 
 	; Setup default character animations
@@ -97,6 +101,14 @@ PlayerInit:
 	move.b #Anim_NymnWalk_Speed, CharacterAnim_Speed(a3)
 	move.b #Anim_NymnWalk_SizeB, CharacterAnim_Length(a3)
 	move.b #0x1, CharacterAnim_Looping(a3)
+	
+	; Walk to run transition
+	move.l a2, a3
+	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_WalkToRun), a3
+	move.l #Anim_NymnWalkToRun, CharacterAnim_Addr(a3)
+	move.b #Anim_NymnWalkToRun_Speed, CharacterAnim_Speed(a3)
+	move.b #Anim_NymnWalkToRun_SizeB, CharacterAnim_Length(a3)
+	move.b #0x0, CharacterAnim_Looping(a3)
 
 	; Jump
 	move.l a2, a3

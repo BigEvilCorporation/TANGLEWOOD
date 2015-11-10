@@ -196,9 +196,6 @@ MonsterUpdate:
 	
 	; Base functionality
 	jsr CharacterUpdate
-
-	; TEMP: Disable animation, too large to fit into a VINT!
-	move.b #0x0, AnimObj_Playing(a0)
 	
 	rts
 

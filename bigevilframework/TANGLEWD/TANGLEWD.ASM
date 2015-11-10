@@ -72,6 +72,9 @@
 	; ************************************
 __main:
 
+	; Disable vint during loading
+	move.b #0x0, vint_enabled
+
 	; Load debug draw font
 	lea      Tiles_PixelFont, a0
 	move.l   #Tiles_PixelFontVRAM, d0
@@ -88,8 +91,14 @@ __main:
 	; Load assets
 	jsr LevelLoad
 
+	; Flush VDP queue
+	jsr VDPQueue_ExecuteAll
+	
 	; Reset all positions/velocities
 	jsr LevelReset
+	
+	; Enable VINT
+	move.b #0x1, vint_enabled
 
 	; ************************************
 	; Main game loop
@@ -126,7 +135,7 @@ GameLoop:
 	; ************************************
 	; Rendering
 	; ************************************
-__vsync:
+__vinterrupt:
 
 	; Execute VDP job queue
 	jsr VDPQueue_ExecuteAll

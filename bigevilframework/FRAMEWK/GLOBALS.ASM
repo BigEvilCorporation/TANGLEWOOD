@@ -161,6 +161,10 @@ vdp_status_hblank          equ 0x2    ; Horizontal blanking
 vdp_status_dma             equ 0x1    ; DMA in progress
 vdp_status_pal             equ 0x0    ; PAL mode flag
 
+; VDP general register bits
+vdp_reg1_enablevint		   equ 0x20
+vdp_reg1_enabledisplay     equ 0x40
+
 ; ************************************
 ; PSG
 ; ************************************

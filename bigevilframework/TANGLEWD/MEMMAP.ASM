@@ -18,6 +18,9 @@ hblank_counter        rs.l 1
 vblank_counter        rs.l 1
 audio_clock           rs.l 1
 rand_seed             rs.l 1
+vint_enabled		  rs.b 1
+
+__padding00			  rs.b 3
 
 ; ************************************
 ; VDP job queue
@@ -26,14 +29,11 @@ vdp_queue_jobarray    rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
 vdp_queue_produceridx rs.l 1
 vdp_queue_consumeridx rs.l 1
 
-
 ; ************************************
 ; GameLib stuff
 ; ************************************
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
-
-__padding00			rs.b 0
 
 ; ************************************
 ; World

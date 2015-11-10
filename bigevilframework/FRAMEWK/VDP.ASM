@@ -201,3 +201,20 @@ VDPDMACopyCRAM:
 	move.w  d4, vdp_control
 
 	rts
+
+	EnableDisplay:
+		move.w #(0x8100|VDPReg1|vdp_reg1_enabledisplay), vdp_control
+		rts
+		
+	DisableDisplay:
+		move.w #(0x8100|VDPReg1&~vdp_reg1_enabledisplay), vdp_control
+		rts
+		
+	EnableVINT:
+		move.w #(0x8100|VDPReg1|vdp_reg1_enablevint), vdp_control
+		rts
+		
+	DisableVINT:
+		move.w #(0x8100|VDPReg1&~vdp_reg1_enablevint), vdp_control
+		rts
+		

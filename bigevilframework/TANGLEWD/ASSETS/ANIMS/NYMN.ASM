@@ -15,15 +15,23 @@ Anim_NymnWalk_Speed: equ 0x20
 	Even
 	
 Anim_NymnRun:
-	dc.b 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8
+	dc.b 0x9, 0xA, 0xB, 0xC, 0xD
 Anim_NymnRun_End
 Anim_NymnRun_SizeB: equ (Anim_NymnRun_End-Anim_NymnRun)
 Anim_NymnRun_Speed: equ 0x30
 
 	Even
 	
+Anim_NymnWalkToRun:
+	dc.b 0xE
+Anim_NymnWalkToRun_End
+Anim_NymnWalkToRun_SizeB: equ (Anim_NymnWalkToRun_End-Anim_NymnWalkToRun)
+Anim_NymnWalkToRun_Speed: equ 0x30
+
+	Even
+	
 Anim_NymnJump:
-	dc.b 0x9, 0xA, 0xB, 0xC
+	dc.b 0x0
 Anim_NymnJump_End
 Anim_NymnJump_SizeB: equ (Anim_NymnJump_End-Anim_NymnJump)
 Anim_NymnJump_Speed: equ 0x40
@@ -31,7 +39,7 @@ Anim_NymnJump_Speed: equ 0x40
 	Even
 	
 Anim_NymnHang:
-	dc.b 0xD
+	dc.b 0x0
 Anim_NymnHang_End
 Anim_NymnHang_SizeB: equ (Anim_NymnHang_End-Anim_NymnHang)
 Anim_NymnHang_Speed: equ 0x40
@@ -39,7 +47,7 @@ Anim_NymnHang_Speed: equ 0x40
 	Even
 	
 Anim_NymnPush:
-	dc.b 0x0E, 0x10, 0x11, 0x12
+	dc.b 0x0
 Anim_NymnPush_End
 Anim_NymnPush_SizeB: equ (Anim_NymnPush_End-Anim_NymnPush)
 Anim_NymnPush_Speed: equ 0x10
@@ -47,7 +55,7 @@ Anim_NymnPush_Speed: equ 0x10
 	Even
 	
 Anim_NymnSwitch:
-	dc.b 0x12, 0x13
+	dc.b 0x0
 Anim_NymnSwitch_End
 Anim_NymnSwitch_SizeB: equ (Anim_NymnSwitch_End-Anim_NymnSwitch)
 Anim_NymnSwitch_Speed: equ 0x10

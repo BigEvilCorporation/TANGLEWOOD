@@ -27,7 +27,7 @@
     ; Sprite tiles
     ; ************************************
 	include 'assets\sprites\firefly.asm'
-	include 'assets\sprites\nymn.asm'
+	include 'assets\sprites\nymn\nymn.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
 	include 'assets\sprites\spr_takk.asm'

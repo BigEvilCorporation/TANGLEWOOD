@@ -17,10 +17,15 @@ VBlankInterrupt:
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE
    ENDIF
 
+   cmp.b #0x0, (vint_enabled)
+   beq   @VINTDisabled
+   
    ; Jump to game rendering subroutine
    movem.l d0-d7/a0-a6, -(sp)
-   jsr __vsync
+   jsr __vinterrupt
    movem.l (sp)+, d0-d7/a0-a6
+   
+   @VINTDisabled:
 
    rte
 

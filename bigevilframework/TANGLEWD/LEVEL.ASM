@@ -142,17 +142,17 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	lea    tiles_monster, a1
-	lea    sprite_monster_subsprite_dimensions_bits, a2
-	lea    sprite_monster_subsprite_dimensions, a3
-	lea    sprite_monster_numtiles_per_subsprite, a4
-	move.l #tiles_monsterVRAM, d0
-	move.l #tiles_monster_size_t, d1
-	move.b #sprite_monster_size_subsprites, d2
-	move.w #sprite_monster_dimensions, d3
-	move.b #PaletteID_Monster, d4
-	jsr    GameObjLoadMultiSprite
+	;move.l #GameObjArray_Monsters, a0
+	;lea    tiles_monster, a1
+	;lea    sprite_monster_subsprite_dimensions_bits, a2
+	;lea    sprite_monster_subsprite_dimensions, a3
+	;lea    sprite_monster_numtiles_per_subsprite, a4
+	;move.l #tiles_monsterVRAM, d0
+	;move.l #tiles_monster_size_t, d1
+	;move.b #sprite_monster_size_subsprites, d2
+	;move.w #sprite_monster_dimensions, d3
+	;move.b #PaletteID_Monster, d4
+	;jsr    GameObjLoadMultiSprite
 
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -272,8 +272,8 @@ LevelLoadGameObjArt:
 LevelCreateGameObjects:
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	jsr    LoadGameObjects_Monster
+	;move.l #GameObjArray_Monsters, a0
+	;jsr    LoadGameObjects_Monster
 
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -362,14 +362,14 @@ LevelUpdateGameObjs:
 	dbra   d0, @CharLoop
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	move.l #Monster_MaxGameObjs-1, d0
-	@MonsterLoop:
-	move.l d0, -(sp)
-	jsr MonsterUpdate
-	move.l (sp)+, d0
-	add.l  #Monster_Struct_Size, a0
-	dbra   d0, @MonsterLoop
+	;move.l #GameObjArray_Monsters, a0
+	;move.l #Monster_MaxGameObjs-1, d0
+	;@MonsterLoop:
+	;move.l d0, -(sp)
+	;jsr MonsterUpdate
+	;move.l (sp)+, d0
+	;add.l  #Monster_Struct_Size, a0
+	;dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -443,14 +443,14 @@ LevelDrawGameObjs:
 	dbra   d0, @CharLoop
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	move.l #Monster_MaxGameObjs-1, d0
-	@MonsterLoop:
-	move.l d0, -(sp)
-	jsr MonsterDraw
-	move.l (sp)+, d0
-	add.l  #Monster_Struct_Size, a0
-	dbra   d0, @MonsterLoop
+	;move.l #GameObjArray_Monsters, a0
+	;move.l #Monster_MaxGameObjs-1, d0
+	;@MonsterLoop:
+	;move.l d0, -(sp)
+	;jsr MonsterDraw
+	;move.l (sp)+, d0
+	;add.l  #Monster_Struct_Size, a0
+	;dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -473,18 +473,18 @@ LevelDrawGameObjs:
 	dbra   d0, @LeafLoop
 
 	; Obstacles
-	move.w #gameobjects_obstacle_count, d0
-	cmp.w  #0x0, d0
-	beq    @NoObstacles
-	move.l #GameObjArray_Obstacles, a0
-	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
-	@ObstacleLoop:
-	move.l d0, -(sp)
-	jsr ObstacleDraw
-	move.l (sp)+, d0
-	add.l  #Obstacle_Struct_Size, a0
-	dbra   d0, @ObstacleLoop
-	@NoObstacles:
+	;move.w #gameobjects_obstacle_count, d0
+	;cmp.w  #0x0, d0
+	;beq    @NoObstacles
+	;move.l #GameObjArray_Obstacles, a0
+	;move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
+	;@ObstacleLoop:
+	;move.l d0, -(sp)
+	;jsr ObstacleDraw
+	;move.l (sp)+, d0
+	;add.l  #Obstacle_Struct_Size, a0
+	;dbra   d0, @ObstacleLoop
+	;@NoObstacles:
 
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
@@ -505,8 +505,14 @@ LevelReset:
 	move.w  #0x0, Gamepad2PrevState
 	
 	; Time of Day
+	;move.l  #palette_lvl1_day,		TimeOfDayPalettes+(size_long*0)	; Day
+	;move.l  #palette_lvl1_dusk,		TimeOfDayPalettes+(size_long*1)	; Dusk
+	;move.l  #palette_lvl1_night,	TimeOfDayPalettes+(size_long*2)	; Night
+	;move.l  #palette_lvl1_dawn,		TimeOfDayPalettes+(size_long*3)	; Dawn
+	;move.b  #TimeOfDay_Day, TimeOfDay
+	
 	move.l  #palette_lvl1_day,		TimeOfDayPalettes+(size_long*0)	; Day
-	move.l  #palette_lvl1_dusk,		TimeOfDayPalettes+(size_long*1)	; Dusk
+	move.l  #palette_lvl1_dawn,		TimeOfDayPalettes+(size_long*1)	; Dusk
 	move.l  #palette_lvl1_night,	TimeOfDayPalettes+(size_long*2)	; Night
 	move.l  #palette_lvl1_dawn,		TimeOfDayPalettes+(size_long*3)	; Dawn
 	move.b  #TimeOfDay_Day, TimeOfDay

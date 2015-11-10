@@ -40,7 +40,7 @@ GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
 
 ; Time of day
 TimeOfDayCycleSpeed		 equ (0x1<<0x8) ; Subframes (1 frame per tick)
-TimeOfDayCycleDelay		 equ 0x0800     ; Frames
+TimeOfDayCycleDelay		 equ 0x0900     ; Frames
 
 TimeOfDay_Day			 equ 0x0
 TimeOfDay_Dusk			 equ 0x1

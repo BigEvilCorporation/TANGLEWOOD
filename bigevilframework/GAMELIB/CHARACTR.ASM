@@ -9,14 +9,15 @@
 ; ************************************
 ; Constants
 ; ************************************
-CharacterAnimIdx_Idle	equ 0
-CharacterAnimIdx_Run	equ 1
-CharacterAnimIdx_Walk	equ 2
-CharacterAnimIdx_Jump	equ 3
-CharacterAnimIdx_Hang	equ 4
-CharacterAnimIdx_Push	equ 5
-; ---------------------------
-Character_NumAnims		equ 6
+CharacterAnimIdx_Idle		equ 0
+CharacterAnimIdx_Run		equ 1
+CharacterAnimIdx_Walk		equ 2
+CharacterAnimIdx_Jump		equ 3
+CharacterAnimIdx_Hang		equ 4
+CharacterAnimIdx_Push		equ 5
+CharacterAnimIdx_WalkToRun	equ 6
+; -------------------------------
+Character_NumAnims			equ 7
 
 ; ************************************
 ; Character animation struct
@@ -48,6 +49,7 @@ Character_JumpCancelVel	rs.w 1
 Character_MaxGrabUpVel	rs.w 1
 Character_MaxVelXRun	rs.w 1
 Character_MaxVelXWalk	rs.w 1
+Character_WalkToRunVel	rs.w 1
 Character_AccelRun		rs.w 1
 Character_AccelWalk		rs.w 1
 Character_DecelIdle		rs.w 1
@@ -59,8 +61,9 @@ Character_Jumping		rs.b 1
 Character_Pushing		rs.b 1
 Character_Interacting	rs.b 1
 Character_UpdateAnim	rs.b 1
+Character_AnimIdx	    rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 2
+Character_Struct_Pad    rs.b 3
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -293,14 +296,32 @@ CharacterUpdateAnimState:
 	beq    @SetAnim
 
 	move.l #CharacterAnimIdx_Run, d1
-	move.b Character_Running(a0), d0	; If player running, set run anim
-	cmp.b  #0x1, d0
+	move.w GameObj_VelX(a0), d0			; If X velocity > WalkToRun speed, set run anim
+	cmp.w  Character_WalkToRunVel(a0), d0
+	bgt    @Running
+	neg.w  d0
+	cmp.w  Character_WalkToRunVel(a0), d0
+	bgt    @Running
+	bra    @Walking
+	
+	@Running:
+	move.l #CharacterAnimIdx_Run, d1
+	cmp.b  #CharacterAnimIdx_Run, Character_AnimIdx(a0)			; If already running, set run anim
 	beq    @SetAnim
-
+	cmp.b  #CharacterAnimIdx_WalkToRun, Character_AnimIdx(a0)	; If transition finished, set run anim
+	beq    @SetAnim
+	move.l #CharacterAnimIdx_WalkToRun, d1						; else start transition
+	bra    @SetAnim
+	
+	
+	@Walking:
 	move.l #CharacterAnimIdx_Walk, d1	; Player not running, set walk anim
 
 	@SetAnim:
 
+	; Set anim index
+	move.b d1, Character_AnimIdx(a0)
+	
 	; Get anim struct address from character
 	move.l a0, a2
 	add.l  #Character_Animations, a2
