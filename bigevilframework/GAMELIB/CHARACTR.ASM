@@ -54,7 +54,6 @@ Character_AccelRun		rs.w 1
 Character_AccelWalk		rs.w 1
 Character_DecelIdle		rs.w 1
 Character_DecelForced	rs.w 1
-Character_StepHeight	rs.w 1
 Character_OnLedge		rs.b 1
 Character_Running		rs.b 1
 Character_Jumping		rs.b 1
@@ -274,28 +273,44 @@ CharacterUpdateAnimState:
 	
 	@InterruptibleAnim:
 	@AnimFinished:
+	
+	clr.l  d1
 
-	move.l #CharacterAnimIdx_Hang, d1
+	; =====================================================================
+	; Hanging
+	; =====================================================================
+	move.b #CharacterAnimIdx_Hang, d1
 	move.b Character_OnLedge(a0), d0	; If player on ledge, set hanging anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	
-	move.l #CharacterAnimIdx_Jump, d1
+	; =====================================================================
+	; Jumping
+	; =====================================================================
+	move.b #CharacterAnimIdx_Jump, d1
 	move.b Character_Jumping(a0), d0	; If player is jumping, set jump anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	
-	move.l #CharacterAnimIdx_Push, d1
+	; =====================================================================
+	; Pushing
+	; =====================================================================
+	move.b #CharacterAnimIdx_Push, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	
-	move.l #CharacterAnimIdx_Idle, d1
+	; =====================================================================
+	; Idle
+	; =====================================================================
+	move.b #CharacterAnimIdx_Idle, d1
 	move.w GameObj_VelX(a0), d0			; If X velocity == 0, set idle anim
 	cmp.w  #0x0, d0
 	beq    @SetAnim
 
-	move.l #CharacterAnimIdx_Run, d1
+	; =====================================================================
+	; Running/Walking
+	; =====================================================================
 	move.w GameObj_VelX(a0), d0			; If X velocity > WalkToRun speed, set run anim
 	cmp.w  Character_WalkToRunVel(a0), d0
 	bgt    @Running
@@ -304,18 +319,30 @@ CharacterUpdateAnimState:
 	bgt    @Running
 	bra    @Walking
 	
+	; Running
 	@Running:
-	move.l #CharacterAnimIdx_Run, d1
-	cmp.b  #CharacterAnimIdx_Run, Character_AnimIdx(a0)			; If already running, set run anim
+	
+	; If transitioning from walking/jumping anim, set transition anim first
+	move.b #CharacterAnimIdx_WalkToRun, d1
+	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a0)
 	beq    @SetAnim
-	cmp.b  #CharacterAnimIdx_WalkToRun, Character_AnimIdx(a0)	; If transition finished, set run anim
+	cmp.b  #CharacterAnimIdx_Jump, Character_AnimIdx(a0)
 	beq    @SetAnim
-	move.l #CharacterAnimIdx_WalkToRun, d1						; else start transition
+	
+	; else set running anim
+	move.b #CharacterAnimIdx_Run, d1
 	bra    @SetAnim
 	
-	
+	; Walking
 	@Walking:
-	move.l #CharacterAnimIdx_Walk, d1	; Player not running, set walk anim
+	
+	; If transitioning from running anim, set transition anim first
+	move.b #CharacterAnimIdx_WalkToRun, d1
+	cmp.b  #CharacterAnimIdx_Run, Character_AnimIdx(a0)
+	beq    @SetAnim
+	
+	; else set walking anim
+	move.b #CharacterAnimIdx_Walk, d1
 
 	@SetAnim:
 

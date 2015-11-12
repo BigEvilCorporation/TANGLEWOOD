@@ -128,6 +128,7 @@ vdp_cmd_vsram_read		equ 0x00000010
 ; VDP memory access commands (DMA)
 vdp_cmd_dma_vram_write  equ 0x40000080
 vdp_cmd_dma_cram_write  equ 0xC0000080
+vdp_cmd_dma_vsram_write equ 0x40000090
 
 ; VDP DMA modes
 vdp_dma_mode_write		equ 0x00
@@ -162,8 +163,8 @@ vdp_status_dma             equ 0x1    ; DMA in progress
 vdp_status_pal             equ 0x0    ; PAL mode flag
 
 ; VDP general register bits
-vdp_reg1_enablevint		   equ 0x20
-vdp_reg1_enabledisplay     equ 0x40
+vdp_reg1_enablevint		   equ 0x10
+vdp_reg1_enabledisplay     equ 0x20
 
 ; ************************************
 ; PSG

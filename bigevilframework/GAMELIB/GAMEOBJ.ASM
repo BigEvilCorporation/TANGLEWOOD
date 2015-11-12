@@ -32,6 +32,7 @@ GameObj_MaxVelYDown		 rs.w 1 ; Max Y velocity down
 GameObj_FloorProbeX		 rs.w 1 ; Floor probe X offset
 GameObj_FloorProbeY		 rs.w 1 ; Floor probe Y offset
 GameObj_FloorProbeLen    rs.w 1 ; Floor probe length
+GameObj_StepHeight	     rs.w 1 ; Step height
 GameObj_SpriteID         rs.b 1	; First sub-sprite ID
 GameObj_NumSubSprites    rs.b 1	; Num sub-sprites
 GameObj_FlippedX         rs.b 1	; Sprite flip X
@@ -136,17 +137,30 @@ GameObjUpdate:
 	cmp.b  #0x0, d0
 	beq    @NoPhysics
 
+	; Apply acceleration
 	jsr GameObjApplyAccelDecel
+	
+	; Apply X velocity before finding floor
+	jsr GameObjApplyVelocityX
+	
+	; Apply gravity and find floor
 	jsr GameObjApplyGravity
 	jsr GameObjFindFloor
-	jsr GameObjApplyVelocity
+	
+	; Apply Y velocity and correct for floor collision
+	jsr GameObjApplyVelocityY
 	jsr GameObjCollisionCorrection
+	
+	; Clamp pos to level space
 	jsr GameObjClampPos
+	
 	bra @End
 
 	@NoPhysics:
 
-	jsr GameObjApplyVelocity
+	; No physics, just do the basics
+	jsr GameObjApplyVelocityX
+	jsr GameObjApplyVelocityY
 	jsr GameObjClampPos
 	
 	@Inactive:
@@ -167,7 +181,7 @@ GameObjApplyAccelDecel:
 	
 	; Apply acceleration
 	move.w GameObj_VelX(a0), d1	; Fetch X velocity from RAM
-	add.w  d0, d1					; Add X acceleration
+	add.w  d0, d1				; Add X acceleration
 	move.w d1, GameObj_VelX(a0)	; Back to RAM
 	
 	; Check if past max velocity
@@ -178,6 +192,22 @@ GameObjApplyAccelDecel:
 	cmp.w  d0, d1				; Compare
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
 	jmp    @EndAccelDecel		; Within bounds
+	
+	IFD VEL_CLAMP
+	
+	move.w GameObj_MaxVelX(a0), d0	; Get max velocity +ve
+	cmp.w  d0, d1				; Compare
+	bgt    @ClampX			    ; (BGT is signed comparison)
+	neg.w  d0					; Get max velocity -ve
+	cmp.w  d0, d1				; Compare
+	blt    @ClampX			    ; (BLT is signed comparison)
+	jmp    @EndAccelDecel		; Within bounds
+	
+	@ClampX:
+	move.w d0, GameObj_VelX(a0)
+	jmp    @EndAccelDecel
+	
+	ENDIF
 	
 	@IdleXDecel:
 	
@@ -235,22 +265,26 @@ GameObjApplyGravity:
 	
 	rts
 	
-GameObjApplyVelocity:
+GameObjApplyVelocityX:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
 	; Move player X by velocity
 	clr.l  d0
-	move.w GameObj_VelX(a0), d0		; Get velocity
+	move.w GameObj_VelX(a0), d0			; Get velocity
 	ext.l  d0							; Sign extend word to long
 	move.l GameObj_WorldPosX(a0), d1	; Get pos
 	add.l d0, d1						; Add velocity to pos
 	move.l d1, GameObj_WorldPosX(a0)
+
+	rts
 	
-	; =====================================================================
+GameObjApplyVelocityY:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 	
 	; Move player Y by velocity
-	move.w GameObj_VelY(a0), d0		; Fetch Y pos from RAM
+	move.w GameObj_VelY(a0), d0			; Fetch Y pos from RAM
 	ext.l  d0							; Sign extend word to long
 	move.l GameObj_WorldPosY(a0), d1	; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
@@ -334,7 +368,7 @@ GameObjCollisionCorrection:
 	; Check if close to floor
 	move.b #0x0, GameObj_CloseToFloor(a0)				; Clear player close to floor flag
 	clr.l  d3
-	move.w Character_StepHeight(a0), d3
+	move.w GameObj_StepHeight(a0), d3
 	lsl.l  #0x8, d3
 	sub.l  d3, d2	; Raise floor by step height
 	cmp.l  d2, d1										; Check if player is on or under floor-step height
@@ -352,11 +386,17 @@ GameObjFindFloor:
 	; Fetch last floor test result
 	move.l GameObj_LastFloor(a0), d2
 	
-	; Check if zero or positive Y velocity (don't bother finding floor)
+	; Check if positive Y velocity (don't bother finding floor)
 	move.w GameObj_VelY(a0), d3
 	cmp.w  #0x0, d3
-	bge    @EndFloorTest
-
+	bgt    @EndFloorTest
+	
+	; Check if zero X and Y velocity (don't bother finding floor)
+	swap   d3
+	move.w GameObj_VelX(a0), d3
+	cmp.l  #0x0, d3
+	beq    @EndFloorTest
+	
 	; Floor collision probe length
 	neg.w  d3								; Negate Y velocity
 	lsr.w  #0x8, d3							; Subpixels to pixels
@@ -446,10 +486,13 @@ GameObjDraw:
 	
 	; X pos world space to sprite space
 	move.l GameObj_WorldPosX(a0), d1
+	divs.w #SubpixelsPerPixel, d1
+	
 	move.l (WorldScrollX), d2
-	neg.l  d2						; Camera space to scroll space
-	add.l  d2, d1					; Scroll space to screen space (subpixels)
-	divs.w #SubpixelsPerPixel, d1	; Screen space (subpixels) to pixels
+	divs.w #SubpixelsPerPixel, d2
+	
+	neg.l  d2		; Camera space to scroll space
+	add.l  d2, d1	; Scroll space to screen space (subpixels)
 
 	; Check if out of bounds
 	cmp.w  #0x0, d1
@@ -470,10 +513,13 @@ GameObjDraw:
 	
 	; Y pos world space to sprite space
 	move.l GameObj_WorldPosY(a0), d1
+	divs.w #SubpixelsPerPixel, d1
+	
 	move.l (WorldScrollY), d2
-	neg.l  d2						; Camera space to scroll space
-	add.l  d2, d1					; Scroll space to screen space (subpixels)
-	divs.w #SubpixelsPerPixel, d1	; Screen space (subpixels) to pixels
+	divs.w #SubpixelsPerPixel, d2
+	
+	neg.w  d2		; Camera space to scroll space
+	add.w  d2, d1	; Scroll space to screen space (subpixels)
 
 	; Check if out of bounds
 	cmp.w  #0x0, d1
@@ -500,10 +546,10 @@ GameObjDraw:
 	move.b GameObj_NumSubSprites(a0), d3
 	subi.b #0x1, d3
 	@SubSpriteLinkLp:
-	move.b (prev_sprite_link), d0			; Prev id	
+	move.b (prev_sprite_link), d0			; Prev id
 	move.l d1, -(sp)
 	cmp.b  #0x0, d1
-	beq    @FirstSprite						; TODO: What if sprite #0 is invisible?
+	beq    @FirstSprite						; Not first sprite
 	jsr    LinkSprite						; Link sprite with prev
 	@FirstSprite:
 	move.l (sp)+, d1
@@ -557,20 +603,23 @@ GameObjDraw:
 	@Invisible:
 	@OutOfBounds:
 	
-	; Sprite isn't visible - unlink from sprite list
+	; Sprite isn't visible - unlink first sprite from list
 	cmp.b  #0x0, GameObj_SpriteLinked(a0)	; Check if already unlinked first
 	beq    @Unlinked
+	
 	move.b GameObj_SpriteID(a0), d0			; This id
-	clr.l  d3
-	move.b GameObj_NumSubSprites(a0), d3
-	subi.b #0x1, d3
-	@SubSpriteUnlinkLp:
 	move.b #0x0, d1							; Next id
-	move.l d0, -(sp)
 	jsr    LinkSprite						; Unlink
-	move.l (sp)+, d0
-	addi.b #0x1, d0					;		 Next subsprite
-	dbra   d3, @SubSpriteUnlinkLp
+
+	; Can't unlink first sprite, move to border
+	move.b GameObj_SpriteID(a0), d0
+	cmp.b  #0x0, d0
+	bne    @NotFirstSprite
+	move.w #0x0, d1
+	lea    SetSpritePosX, a5
+	jsr    VDPQueue_PushJob
+	@NotFirstSprite:
+	
 	@Unlinked:
 	
 	; Sprite unlinked

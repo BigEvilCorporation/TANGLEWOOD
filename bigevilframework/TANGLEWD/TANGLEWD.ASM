@@ -97,8 +97,11 @@ __main:
 	; Reset all positions/velocities
 	jsr LevelReset
 	
-	; Enable VINT
-	move.b #0x1, vint_enabled
+	; Clear counters
+	move.l #0x0, hblank_counter
+	move.l #0x0, vblank_counter
+	move.l #0x0, frame_counter_update
+	move.l #0x0, frame_counter_render
 
 	; ************************************
 	; Main game loop
@@ -107,6 +110,9 @@ GameLoop:
 
 	; Wait for vsync
 	jsr WaitVSync
+	
+	; Disable vint whilst updating
+	move.b #0x0, vint_enabled
 
 	; Read and process gamepad input
 	jsr UpdateInput
@@ -128,6 +134,12 @@ GameLoop:
 	
 	; Update palette lerping
 	jsr PaletteLerpUpdate
+	
+	; Update frame counter
+	addi.l #0x1, frame_counter_update
+	
+	; Enable VINT
+	move.b #0x1, vint_enabled
 
 	; Back to top
 	jmp GameLoop
@@ -142,8 +154,11 @@ __vinterrupt:
 
 	; NOT FOR RELEASE
 	IFD DEBUG
-	; jsr DebugDraw
+	;jsr DebugDraw
 	ENDIF
+	
+	; Update frame counter
+	addi.l #0x1, frame_counter_render
 
 	rts
 

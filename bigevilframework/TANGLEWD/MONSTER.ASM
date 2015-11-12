@@ -77,8 +77,8 @@ MonsterInit:
 	move.w  #Monster_ProbeFloorX, GameObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Monster_ProbeFloorLen, GameObj_FloorProbeLen(a0)
-
-	move.w  #Monster_StepHeight, Character_StepHeight(a0)
+	move.w  #Monster_StepHeight, GameObj_StepHeight(a0)
+	
 	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)

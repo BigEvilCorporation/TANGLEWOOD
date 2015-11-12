@@ -59,77 +59,62 @@ Obstacle_7:
 	add.l #Obstacle_Struct_Size, a0
 	rts
 
-gameobjects_Firefly_count equ 14
+gameobjects_Firefly_count equ 11
 LoadGameObjects_Firefly:
-Firefly_20:
-	jsr FireflyInit
-	move.l #0x00010800, GameObj_WorldPosX(a0)
-	move.l #0x0002d000, GameObj_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_21:
-	jsr FireflyInit
-	move.l #0x00011800, GameObj_WorldPosX(a0)
-	move.l #0x0002d800, GameObj_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_22:
+Firefly_8:
 	jsr FireflyInit
 	move.l #0x00011000, GameObj_WorldPosX(a0)
-	move.l #0x0002e000, GameObj_WorldPosY(a0)
+	move.l #0x00019800, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_23:
+Firefly_9:
 	jsr FireflyInit
-	move.l #0x0002f000, GameObj_WorldPosX(a0)
-	move.l #0x0002e800, GameObj_WorldPosY(a0)
+	move.l #0x00013800, GameObj_WorldPosX(a0)
+	move.l #0x0001a000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_24:
+Firefly_10:
 	jsr FireflyInit
-	move.l #0x0002f800, GameObj_WorldPosX(a0)
-	move.l #0x0002f000, GameObj_WorldPosY(a0)
+	move.l #0x0000c000, GameObj_WorldPosX(a0)
+	move.l #0x0001e800, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_25:
+Firefly_11:
 	jsr FireflyInit
-	move.l #0x00030800, GameObj_WorldPosX(a0)
-	move.l #0x0002f000, GameObj_WorldPosY(a0)
+	move.l #0x0000d800, GameObj_WorldPosX(a0)
+	move.l #0x0001e000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_28:
+Firefly_12:
 	jsr FireflyInit
-	move.l #0x00052000, GameObj_WorldPosX(a0)
-	move.l #0x0002e800, GameObj_WorldPosY(a0)
+	move.l #0x0000f000, GameObj_WorldPosX(a0)
+	move.l #0x0001d800, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_38:
+Firefly_13:
 	jsr FireflyInit
-	move.l #0x00098000, GameObj_WorldPosX(a0)
-	move.l #0x0002a800, GameObj_WorldPosY(a0)
+	move.l #0x00054000, GameObj_WorldPosX(a0)
+	move.l #0x00013000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_32:
+Firefly_14:
 	jsr FireflyInit
-	move.l #0x0004c800, GameObj_WorldPosX(a0)
-	move.l #0x0002e800, GameObj_WorldPosY(a0)
+	move.l #0x00055000, GameObj_WorldPosX(a0)
+	move.l #0x00012000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_33:
+Firefly_15:
 	jsr FireflyInit
-	move.l #0x0004d000, GameObj_WorldPosX(a0)
-	move.l #0x0002e000, GameObj_WorldPosY(a0)
+	move.l #0x00055800, GameObj_WorldPosX(a0)
+	move.l #0x00012800, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_39:
+Firefly_16:
 	jsr FireflyInit
-	move.l #0x00097800, GameObj_WorldPosX(a0)
-	move.l #0x0002b000, GameObj_WorldPosY(a0)
+	move.l #0x00085000, GameObj_WorldPosX(a0)
+	move.l #0x00013800, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_35:
+Firefly_17:
 	jsr FireflyInit
-	move.l #0x0005a000, GameObj_WorldPosX(a0)
-	move.l #0x0002f000, GameObj_WorldPosY(a0)
+	move.l #0x00086000, GameObj_WorldPosX(a0)
+	move.l #0x00013000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_36:
+Firefly_18:
 	jsr FireflyInit
-	move.l #0x00059800, GameObj_WorldPosX(a0)
-	move.l #0x0002e000, GameObj_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_37:
-	jsr FireflyInit
-	move.l #0x00097800, GameObj_WorldPosX(a0)
-	move.l #0x0002a000, GameObj_WorldPosY(a0)
+	move.l #0x00086800, GameObj_WorldPosX(a0)
+	move.l #0x00014000, GameObj_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 

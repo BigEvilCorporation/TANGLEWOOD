@@ -14,13 +14,19 @@
 ; ************************************
 ; Framework stuff
 ; ************************************
-hblank_counter        rs.l 1
-vblank_counter        rs.l 1
 audio_clock           rs.l 1
 rand_seed             rs.l 1
 vint_enabled		  rs.b 1
 
 __padding00			  rs.b 3
+
+; ************************************
+; Counters
+; ************************************
+hblank_counter        rs.l 1
+vblank_counter        rs.l 1
+frame_counter_update  rs.l 1
+frame_counter_render  rs.l 1
 
 ; ************************************
 ; VDP job queue
@@ -70,7 +76,7 @@ MapStreamNumRows	 rs.w 1
 Gamepad1PrevState   rs.w 1
 Gamepad2PrevState   rs.w 1
 
-__padding02			rs.b 2
+; __padding02			rs.b 2
 
 ; Palette lerping
 PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
@@ -89,5 +95,7 @@ GameObjArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxGameObjs)
 GameObjArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxGameObjs)
 GameObjArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxGameObjs)
 GameObjArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxGameObjs)
+
+
 
 __endOfMemoryMap	rs.b 0

@@ -23,7 +23,7 @@ PickupInit:
 
 	; Default state
 	move.b #0x1, GameObj_Active(a0)
-	move.b #0x1, GameObj_Visible(a0)	; Nest graphics are baked into the level
+	move.b #0x1, GameObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.b #0x0, Pickup_Taken(a0)
 

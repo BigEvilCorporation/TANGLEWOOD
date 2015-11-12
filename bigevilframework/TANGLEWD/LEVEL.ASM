@@ -142,17 +142,17 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;lea    tiles_monster, a1
-	;lea    sprite_monster_subsprite_dimensions_bits, a2
-	;lea    sprite_monster_subsprite_dimensions, a3
-	;lea    sprite_monster_numtiles_per_subsprite, a4
-	;move.l #tiles_monsterVRAM, d0
-	;move.l #tiles_monster_size_t, d1
-	;move.b #sprite_monster_size_subsprites, d2
-	;move.w #sprite_monster_dimensions, d3
-	;move.b #PaletteID_Monster, d4
-	;jsr    GameObjLoadMultiSprite
+	move.l #GameObjArray_Monsters, a0
+	lea    tiles_monster, a1
+	lea    sprite_monster_subsprite_dimensions_bits, a2
+	lea    sprite_monster_subsprite_dimensions, a3
+	lea    sprite_monster_numtiles_per_subsprite, a4
+	move.l #tiles_monsterVRAM, d0
+	move.l #tiles_monster_size_t, d1
+	move.b #sprite_monster_size_subsprites, d2
+	move.w #sprite_monster_dimensions, d3
+	move.b #PaletteID_Monster, d4
+	jsr    GameObjLoadMultiSprite
 
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -272,8 +272,8 @@ LevelLoadGameObjArt:
 LevelCreateGameObjects:
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;jsr    LoadGameObjects_Monster
+	move.l #GameObjArray_Monsters, a0
+	jsr    LoadGameObjects_Monster
 
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -315,33 +315,7 @@ LevelCreatePlayers:
 
 	; Player 1
 	move.l #Player1, a0
-
 	jsr     PlayerInit
-	
-	move.l  #Player1StartPosWorldX, GameObj_WorldPosX(a0)
-	move.l  #Player1StartPosWorldY, GameObj_WorldPosY(a0)
-	move.w  #Player1Width, GameObj_Width(a0)
-	move.w  #Player1Height, GameObj_Height(a0)
-	move.w  #Player1MaxVelXWalk, GameObj_MaxVelX(a0)
-	move.w  #Player1MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
-	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Player1ProbeFloorLen, GameObj_FloorProbeLen(a0)
-
-	move.w  #Player1StepHeight, Character_StepHeight(a0)
-	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Player1AccelWalk, Character_AccelWalk(a0)
-	move.w  #Player1AccelRun, Character_AccelRun(a0)
-	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
-	move.w  #Player1DecelForced, Character_DecelForced(a0)
-	move.w  #Player1JumpVel, Character_JumpVel(a0)
-	move.w  #Player1JumpCancelVel, Character_JumpCancelVel(a0)
-	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
-	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	rts
 
@@ -362,14 +336,14 @@ LevelUpdateGameObjs:
 	dbra   d0, @CharLoop
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;move.l #Monster_MaxGameObjs-1, d0
-	;@MonsterLoop:
-	;move.l d0, -(sp)
-	;jsr MonsterUpdate
-	;move.l (sp)+, d0
-	;add.l  #Monster_Struct_Size, a0
-	;dbra   d0, @MonsterLoop
+	move.l #GameObjArray_Monsters, a0
+	move.l #Monster_MaxGameObjs-1, d0
+	@MonsterLoop:
+	move.l d0, -(sp)
+	jsr MonsterUpdate
+	move.l (sp)+, d0
+	add.l  #Monster_Struct_Size, a0
+	dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -380,7 +354,7 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Fuzzl_Struct_Size, a0
 	dbra   d0, @FuzzlLoop
-
+    
 	; Flues
 	move.l #GameObjArray_Flues, a0
 	move.l #gameobjects_Flue_count-1, d0	; TODO: Count from level info
@@ -390,7 +364,7 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Flue_Struct_Size, a0
 	dbra   d0, @FlueLoop
-
+    
 	; Leaves
 	move.l #GameObjArray_Leaves, a0
 	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
@@ -400,7 +374,7 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Leaf_Struct_Size, a0
 	dbra   d0, @LeafLoop
-
+    
 	; Obstacles
 	move.w #gameobjects_obstacle_count, d0
 	cmp.w  #0x0, d0
@@ -414,13 +388,13 @@ LevelUpdateGameObjs:
 	add.l  #Obstacle_Struct_Size, a0
 	dbra   d0, @ObstacleLoop
 	@NoObstacles:
-
+    
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
 	@FireflyLoop:
 	move.l d0, -(sp)
-	jsr FireflyUpdate
+	;jsr FireflyUpdate
 	move.l (sp)+, d0
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
@@ -443,14 +417,14 @@ LevelDrawGameObjs:
 	dbra   d0, @CharLoop
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;move.l #Monster_MaxGameObjs-1, d0
-	;@MonsterLoop:
-	;move.l d0, -(sp)
-	;jsr MonsterDraw
-	;move.l (sp)+, d0
-	;add.l  #Monster_Struct_Size, a0
-	;dbra   d0, @MonsterLoop
+	move.l #GameObjArray_Monsters, a0
+	move.l #Monster_MaxGameObjs-1, d0
+	@MonsterLoop:
+	move.l d0, -(sp)
+	jsr MonsterDraw
+	move.l (sp)+, d0
+	add.l  #Monster_Struct_Size, a0
+	dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
@@ -461,7 +435,7 @@ LevelDrawGameObjs:
 	move.l (sp)+, d0
 	add.l  #Fuzzl_Struct_Size, a0
 	dbra   d0, @FuzzlLoop
-
+    
 	; Leaves
 	move.l #GameObjArray_Leaves, a0
 	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
@@ -471,21 +445,21 @@ LevelDrawGameObjs:
 	move.l (sp)+, d0
 	add.l  #Leaf_Struct_Size, a0
 	dbra   d0, @LeafLoop
-
+    
 	; Obstacles
-	;move.w #gameobjects_obstacle_count, d0
-	;cmp.w  #0x0, d0
-	;beq    @NoObstacles
-	;move.l #GameObjArray_Obstacles, a0
-	;move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
-	;@ObstacleLoop:
-	;move.l d0, -(sp)
-	;jsr ObstacleDraw
-	;move.l (sp)+, d0
-	;add.l  #Obstacle_Struct_Size, a0
-	;dbra   d0, @ObstacleLoop
-	;@NoObstacles:
-
+	move.w #gameobjects_obstacle_count, d0
+	cmp.w  #0x0, d0
+	beq    @NoObstacles
+	move.l #GameObjArray_Obstacles, a0
+	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
+	@ObstacleLoop:
+	move.l d0, -(sp)
+	jsr ObstacleDraw
+	move.l (sp)+, d0
+	add.l  #Obstacle_Struct_Size, a0
+	dbra   d0, @ObstacleLoop
+	@NoObstacles:
+    
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info

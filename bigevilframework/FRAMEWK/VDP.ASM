@@ -32,7 +32,7 @@ ClearVRAM:
 	move.w #0x93FF, vdp_control     ; Set bytes to fill (lo) (reg 19)
 	move.w #0x94FF, vdp_control     ; Set bytes to fill (hi) (reg 20)
 	move.w #0x9780, vdp_control     ; Set DMA to Fill (reg 23, bits 0-1)
-	move.l #0x40000080, vdp_control ; Set destination address
+	move.l #vdp_cmd_dma_vram_write, vdp_control ; Set destination address
 	move.w #0x0, vdp_data           ; Value to write
 
 	@WaitForDMA_vram:                    
@@ -47,7 +47,7 @@ ClearVSRAM:
 	move.w #0x9350, vdp_control     ; Set bytes to fill (lo) (reg 19)
 	move.w #0x9400, vdp_control     ; Set bytes to fill (hi) (reg 20)
 	move.w #0x9780, vdp_control     ; Set DMA to Fill (reg 23, bits 0-1)
-	move.l #0x40000090, vdp_control ; Set destination address
+	move.l #vdp_cmd_dma_vsram_write, vdp_control ; Set destination address
 	move.w #0x0, vdp_data           ; Value to write
 
 	@WaitForDMA_vsram:                    
@@ -56,7 +56,6 @@ ClearVSRAM:
 	bne.s  @WaitForDMA_vsram
 
 	move.w #0x8F02, vdp_control     ; Set autoincrement to 2 bytes
-	move.w #0x8ADF, vdp_control     ; Set H interrupt timing
 	
 	rts
 	
@@ -202,19 +201,19 @@ VDPDMACopyCRAM:
 
 	rts
 
-	EnableDisplay:
-		move.w #(0x8100|VDPReg1|vdp_reg1_enabledisplay), vdp_control
-		rts
+EnableDisplay:
+	move.w #(0x8100|VDPReg1|vdp_reg1_enabledisplay), vdp_control
+	rts
 		
-	DisableDisplay:
-		move.w #(0x8100|VDPReg1&~vdp_reg1_enabledisplay), vdp_control
-		rts
+DisableDisplay:
+	move.w #(0x8100|VDPReg1&~vdp_reg1_enabledisplay), vdp_control
+	rts
 		
-	EnableVINT:
-		move.w #(0x8100|VDPReg1|vdp_reg1_enablevint), vdp_control
-		rts
+EnableVINT:
+	move.w #(0x8100|VDPReg1|vdp_reg1_enablevint), vdp_control
+	rts
 		
-	DisableVINT:
-		move.w #(0x8100|VDPReg1&~vdp_reg1_enablevint), vdp_control
-		rts
+DisableVINT:
+	move.w #(0x8100|VDPReg1&~vdp_reg1_enablevint), vdp_control
+	rts
 		

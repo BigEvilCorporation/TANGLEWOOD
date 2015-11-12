@@ -6,10 +6,6 @@
 ;   interpts.asm - Interrupts and exceptions
 ;==============================================================
 
-HBlankInterrupt:
-   addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
-   rte
-
 VBlankInterrupt:
    addi.l #0x1, vblank_counter    ; Increment vinterrupt counter
 
@@ -17,7 +13,7 @@ VBlankInterrupt:
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE
    ENDIF
 
-   cmp.b #0x0, (vint_enabled)
+   cmp.b #0x0, vint_enabled
    beq   @VINTDisabled
    
    ; Jump to game rendering subroutine
@@ -29,6 +25,10 @@ VBlankInterrupt:
 
    rte
 
+ HBlankInterrupt:
+   addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
+   rte
+   
 Exception:
    IFD DEBUG
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE

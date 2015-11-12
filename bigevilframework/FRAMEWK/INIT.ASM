@@ -12,10 +12,9 @@ EntryPoint:
 	IFD DEBUG
 	; Cross Products MegaCD kit
 	jsr ConnectDebugger
-	ENDIF
-
 	; For MegaCD - restore HINT vector
 	jsr MCD_RestoreHINT
+	ENDIF
 
 	; Test reset state
 	tst.w reset_exp    ; Test expansion reset
