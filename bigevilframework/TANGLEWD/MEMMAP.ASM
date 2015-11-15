@@ -21,6 +21,21 @@ vint_enabled		  rs.b 1
 __padding00			  rs.b 3
 
 ; ************************************
+; Profiler
+; ************************************
+	IFD DEBUG
+profile_pending		  rs.b 1
+profile_finished	  rs.b 1
+profile_active		  rs.b 1
+__padding			  rs.b 1
+profile_currblock	  rs.l 1
+profile_nextblock	  rs.l 1
+profile_resultblocks  rs.b (ProfileBlockStructSize*ProfileMaxBlocks)
+profile_blockstack	  rs.l (ProfileMaxBlocks*2)
+profile_blockstackptr rs.l 1
+	ENDIF
+	
+; ************************************
 ; Counters
 ; ************************************
 hblank_counter        rs.l 1

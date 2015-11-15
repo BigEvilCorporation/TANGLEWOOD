@@ -31,7 +31,8 @@
 	; include '..\framewk\sequencr.asm'
 
 	IFD DEBUG
-	include '..\framewk\debugger.asm'  ; NOT FOR RELEASE
+	include '..\framewk\debugger.asm'	; NOT FOR RELEASE
+	include '..\framewk\profile.asm'	; NOT FOR RELEASE
 	ENDIF
 
 	; Include GameLib code
@@ -48,7 +49,7 @@
 	include '..\gamelib\stream.asm'
 
 	IFD DEBUG
-	include '..\gamelib\debug.asm'  ; NOT FOR RELEASE
+	include '..\gamelib\debug.asm'		; NOT FOR RELEASE
 	ENDIF
 
 	; Include GameObject derivatives
@@ -113,12 +114,18 @@ GameLoop:
 	
 	; Disable vint whilst updating
 	move.b #0x0, vint_enabled
+	
+	; Profiler frame start
+	jsr Profile_BeginFrame
 
 	; Read and process gamepad input
 	jsr UpdateInput
 	
 	; Update game objects
+	lea Str_GameObjUpdate, a0
+	jsr Profile_PushScope
 	jsr LevelUpdateGameObjs
+	jsr Profile_PopScope
 	
 	; Update camera
 	jsr UpdateCamera
@@ -134,6 +141,9 @@ GameLoop:
 	
 	; Update palette lerping
 	jsr PaletteLerpUpdate
+	
+	; Profiler frame end
+	jsr Profile_EndFrame
 	
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
@@ -155,6 +165,7 @@ __vinterrupt:
 	; NOT FOR RELEASE
 	IFD DEBUG
 	;jsr DebugDraw
+	jsr Profile_DrawResults
 	ENDIF
 	
 	; Update frame counter

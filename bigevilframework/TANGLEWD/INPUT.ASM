@@ -42,6 +42,19 @@ HandlePlayerInput:
 	; d1 (w) Gamepad prev input bits
 	
 	; =====================================================================
+	; Debug
+	; =====================================================================
+	IFD DEBUG
+	btst #pad_button_start, d0	; Check start pressed
+	bne  @EndStart
+	btst #pad_button_start, d1	; Check start not already held
+	beq  @EndStart
+	jsr  Profile_CaptureFrame	; Start frame profile
+	jmp  @EndStart
+	@EndStart:
+	ENDIF
+	
+	; =====================================================================
 	; C - interact
 	; =====================================================================
 	

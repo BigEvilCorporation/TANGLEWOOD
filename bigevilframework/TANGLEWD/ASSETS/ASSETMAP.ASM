@@ -81,6 +81,11 @@
 	include 'assets\gameobj\obj_lvl1.asm'
 
 	ENDIF
+	
+	; ************************************
+    ; Strings
+    ; ************************************
+	include 'assets\strings.asm'
 
 	; ************************************
 	; Art asset VRAM mapping - Bank 0
