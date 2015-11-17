@@ -85,7 +85,6 @@ VDPQueue_ExecuteJob:
 VDPQueue_ExecuteAll:
 
 	; Get queue size
-	clr.l  d0
 	move.l (vdp_queue_produceridx), d0
 	move.l (vdp_queue_consumeridx), d1
 	sub.l  d1, d0
@@ -105,6 +104,14 @@ VDPQueue_ExecuteAll:
 	dbra   d0, @QueueLp
 	
 	@QueueEmpty:
+	
+	rts
+	
+VDPQueue_GetSize:
+	; d0 - OUT - Queue size
+	move.l (vdp_queue_produceridx), d0
+	move.l (vdp_queue_consumeridx), d1
+	sub.l  d1, d0
 	
 	rts
 	

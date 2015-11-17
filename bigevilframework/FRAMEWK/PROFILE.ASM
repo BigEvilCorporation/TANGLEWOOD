@@ -7,12 +7,13 @@
 ;==============================================================
 
 ; Constants
-ProfileMaxBlocks		equ 0x20
-ProfileBlockMaxChildren	equ 0x04
-ProfileDrawX			equ 0x2
-ProfileDrawY			equ 0x2
-ProfileDrawTabSpaces	equ 0x2
-ProfileDrawLineSpaces	equ 0x1
+ProfileMaxBlocks		equ 0x10
+ProfileBlockMaxChildren	equ 0x08
+ProfileDrawX			equ 0x02
+ProfileDrawY			equ 0x02
+ProfileDrawTabSpaces	equ 0x01
+ProfileDrawLineSpaces	equ 0x01
+ProfileDrawTimeColumn	equ 0x14
 
 ; Profile block structure
 	rsset 0
@@ -38,6 +39,9 @@ Profile_BeginFrame:
 	move.b #0x0, profile_pending
 	move.b #0x0, profile_finished
 	move.b #0x1, profile_active
+	
+	; Wait for start of drawing (using hblank timings)
+	jsr    WaitDrawBegin
 	
 	; Push root block
 	lea    Str_Frame, a0
@@ -72,24 +76,25 @@ Profile_PushScope:
 	cmp.b  #0x0, profile_active
 	beq    @Inactive
 	
+	movem.l d0-d7/a0-a6, -(sp)
+	
 	; Allocate new block
-	move.l (profile_nextblock), a1
-	addi.l #ProfileBlockStructSize, profile_nextblock
+	move.l (profile_nextfreeblock), a1
+	addi.l #ProfileBlockStructSize, profile_nextfreeblock
 	
 	; Set string and start time
 	move.l a0, ProfileBlockName(a1)
 	move.l (hblank_counter), ProfileBlockStartTime(a1)
-	
 	; Link as child of current block
+	
 	move.l (profile_currblock), a2
 	cmp.l  a1, a2
 	beq    @FirstBlock
-	clr.w  d0
+	clr.l  d0
 	move.b ProfileBlockChildCount(a2), d0
 	addi.b #0x1, ProfileBlockChildCount(a2)
-	move.l a2, a3
-	addi.l #ProfileBlockChildAddrs, a3
-	move.l a1, (a3,d0.w)	; a3=array addr, d0=index into array
+	mulu   #size_long, d0
+	move.l a1, ProfileBlockChildAddrs(a2, d0.l)
 	@FirstBlock:
 	
 	; Set as current block
@@ -105,6 +110,8 @@ Profile_PushScope:
 	move.l a1, (a3)+
 	move.l a3, profile_blockstackptr
 	
+	movem.l (sp)+, d0-d7/a0-a6
+	
 	@Inactive:
 	
 	rts
@@ -116,6 +123,8 @@ Profile_PopScope:
 	cmp.b  #0x0, profile_active
 	beq    @Inactive
 	
+	movem.l d0-d7/a0-a6, -(sp)
+	
 	; Pop child block from block stack
 	move.l (profile_blockstackptr), a3
 	move.l -(a3), a1
@@ -126,8 +135,10 @@ Profile_PopScope:
 	
 	; Pop parent block from block stack
 	move.l (profile_blockstackptr), a3
-	move.l -(a3), profile_nextblock
+	move.l -(a3), profile_currblock
 	move.l a3, profile_blockstackptr
+	
+	movem.l (sp)+, d0-d7/a0-a6
 	
 	@Inactive:
 	
@@ -136,15 +147,22 @@ Profile_PopScope:
 Profile_CaptureFrame:
 	; Captures the next profiling frame
 	; No args
+	; Note: d0-d1/a0 from input code, don't trample
 	
-	; Clear root block
-	lea    profile_resultblocks, a0
-	move.b #0x0, ProfileBlockChildCount(a0)
+	; Clear blocks
+	lea    profile_resultblocks, a1
+	move.l #ProfileMaxBlocks-1, d2
+	@Lp:
+	move.b #0x0, ProfileBlockChildCount(a1)
+	add.l  #ProfileBlockStructSize, a1
+	dbra   d2, @Lp
 	
 	; Reset stacks
-	move.l a0, profile_currblock
-	move.l a0, profile_nextblock
-	move.l #profile_blockstack, profile_blockstackptr
+	lea    profile_resultblocks, a1
+	move.l a1, profile_currblock
+	move.l a1, profile_nextfreeblock
+	lea    profile_blockstack, a1
+	move.l a1, profile_blockstackptr
 	
 	; Start capturing at next Profile_BeginFrame
 	move.b #0x1, profile_pending
@@ -162,9 +180,9 @@ Profile_DrawResults:
 	move.l #profile_resultblocks, a0
 	
 	; Set initial X/Y coord
-	move.w #ProfileDrawX, d0
-	swap   d0
-	move.w #ProfileDrawY, d0
+	move.b #ProfileDrawX, d0
+	lsl.w  #0x8, d0
+	move.b #ProfileDrawY, d0
 	
 	; Traverse all blocks in hierarchy
 	jsr    Profile_DrawBlockRecursive
@@ -176,7 +194,7 @@ Profile_DrawResults:
 Profile_DrawBlockRecursive:
 	; Recursively draws a single results block
 	; a0 ---- Block address
-	; d0 (ww) X/Y coord
+	; d0 (bb) X/Y coord
 	
 	; Draw block name string
 	move.l a0, -(sp)
@@ -191,9 +209,36 @@ Profile_DrawBlockRecursive:
 	move.l (sp)+, a0
 	
 	; Draw time
+	move.l a0, -(sp)
+	move.l d0, -(sp)
+	
+	sub.l  #0x10, sp				; Alloc string space
+	move.l sp, a4
+	move.l d0, -(sp)
+	move.l ProfileBlockEndTime(a0), d0 ; Get time
+	sub.l  ProfileBlockStartTime(a0), d0
+	move.l a4, a0
+	jsr    ItoA_Hex_l				; Convert to string
+	move.l (sp)+, d0
+	
+	ror.w  #0x8, d0
+	move.b #ProfileDrawTimeColumn, d0 ; X/Y coord
+	rol.w  #0x8, d0
+	move.w d0, d1
+	
+	move.l a4, a0					; String
+	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.b #0x0, d2					; Palette
+	move.b #0x0, d3					; Plane A
+	jsr    DrawTextToPlane			; Draw
+	
+	add.l  #0x10, sp				; Free string space
+	
+	move.l (sp)+, d0
+	move.l (sp)+, a0
 	
 	; Next line
-	add.w  #ProfileDrawLineSpaces, d0
+	add.b  #ProfileDrawLineSpaces, d0
 	
 	; Backup curr block address
 	move.l a0, -(sp)
@@ -215,9 +260,9 @@ Profile_DrawBlockRecursive:
 	move.l (a1), a0
 	
 	; Next tab
-	swap   d0
-	add.w  #ProfileDrawTabSpaces, d0
-	swap   d0
+	ror.w  #0x8, d0
+	add.b  #ProfileDrawTabSpaces, d0
+	rol.w  #0x8, d0
 	
 	move.l a0, -(sp)
 	move.l a1, -(sp)
@@ -231,12 +276,12 @@ Profile_DrawBlockRecursive:
 	move.l (sp)+, a0
 	
 	; Prev tab
-	swap   d0
-	sub.w  #ProfileDrawTabSpaces, d0
-	swap   d0
+	ror.w  #0x8, d0
+	sub.b  #ProfileDrawTabSpaces, d0
+	rol.w  #0x8, d0
 	
 	; Next child ptr
-	addi.l #size_word, a1
+	addi.l #size_long, a1
 
 	; Loop
 	dbra   d2, @ChildLp

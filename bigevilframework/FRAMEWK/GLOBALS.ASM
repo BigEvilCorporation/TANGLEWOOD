@@ -106,6 +106,7 @@ vdp_num_registers		equ 0x18
 
 vdp_control             equ 0x00C00004
 vdp_data                equ 0x00C00000
+vdp_hcounter			equ 0x00C00008
 
 ; **************************************************************************************************************
 ; To make VDP command:

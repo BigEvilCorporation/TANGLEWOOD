@@ -7,30 +7,40 @@
 ;==============================================================
 
 WaitVBlankStart:
-	move.w  vdp_control, d0	; Move VDP status word to d0
-	btst    #0x3, d0     	; vblank state in bit 3
-	beq     WaitVBlankStart ; Branch if equal (to zero)
+	move.w  vdp_control, d0			; Move VDP status word to d0
+	btst    #vdp_status_vblank, d0	; vblank state in bit 3
+	beq     WaitVBlankStart 		; Branch if equal (to zero)
 	rts
 
 WaitVBlankEnd:
-	move.w  vdp_control, d0	; Move VDP status word to d0
-	btst    #0x3, d0     	; vblank state in bit 3
-	bne     WaitVBlankEnd   ; Branch if not equal (to zero)
+	move.w  vdp_control, d0			; Move VDP status word to d0
+	btst    #vdp_status_vblank, d0	; vblank state in bit 3
+	bne     WaitVBlankEnd   		; Branch if not equal (to zero)
 	rts
 
 WaitVSync:
 	@WaitStart:
 	move.w  vdp_control, d0
-	btst    #0x3, d0
+	btst    #vdp_status_vblank, d0
 	beq     @WaitStart
 	
 	@WaitEnd:
 	move.w  vdp_control, d0
-	btst    #0x3, d0
+	btst    #vdp_status_vblank, d0
 	bne     @WaitEnd
 	
 	rts
 
+WaitDrawBegin:
+
+	; Wait for first HCOUNTER
+	@Wait:
+	move.w  vdp_hcounter, d0	; H/V counter
+	cmp.b   #0x1, d0			; H counter in bottom byte
+	bne		@Wait
+	
+	rts
+	
 WaitFrames:
 	; d0 - Number of frames to wait
 

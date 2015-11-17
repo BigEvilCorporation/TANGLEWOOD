@@ -325,6 +325,14 @@ LevelUpdateGameObjs:
 	
 	; TODO: This needs a macro, or vtable or something
 	
+	IFD DEBUG
+	lea Str_GameObjs, a0
+	jsr Profile_PushScope
+	
+	lea Str_Players, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Players
 	move.l #GameObjArray_Players, a0
 	move.l #Player_MaxGameObjs-1, d0
@@ -334,7 +342,14 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
+	
+	IFD DEBUG
+	jsr Profile_PopScope
 
+	lea Str_Monsters, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Monsters
 	move.l #GameObjArray_Monsters, a0
 	move.l #Monster_MaxGameObjs-1, d0
@@ -345,6 +360,13 @@ LevelUpdateGameObjs:
 	add.l  #Monster_Struct_Size, a0
 	dbra   d0, @MonsterLoop
 	
+	IFD DEBUG
+	jsr Profile_PopScope
+	
+	lea Str_Fuzzls, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
 	move.l #gameobjects_Fuzzl_count-1, d0	; TODO: Count from level info
@@ -354,7 +376,14 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Fuzzl_Struct_Size, a0
 	dbra   d0, @FuzzlLoop
+	
+	IFD DEBUG
+	jsr Profile_PopScope
     
+	lea Str_Flues, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Flues
 	move.l #GameObjArray_Flues, a0
 	move.l #gameobjects_Flue_count-1, d0	; TODO: Count from level info
@@ -364,7 +393,14 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Flue_Struct_Size, a0
 	dbra   d0, @FlueLoop
+	
+	IFD DEBUG
+	jsr Profile_PopScope
     
+	lea Str_Leaves, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Leaves
 	move.l #GameObjArray_Leaves, a0
 	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
@@ -374,6 +410,13 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Leaf_Struct_Size, a0
 	dbra   d0, @LeafLoop
+	
+	IFD DEBUG
+	jsr Profile_PopScope
+    
+	lea Str_Obstacles, a0
+	jsr Profile_PushScope
+	ENDIF
     
 	; Obstacles
 	move.w #gameobjects_obstacle_count, d0
@@ -389,6 +432,13 @@ LevelUpdateGameObjs:
 	dbra   d0, @ObstacleLoop
 	@NoObstacles:
     
+	IFD DEBUG
+	jsr Profile_PopScope
+	
+	lea Str_Fireflies, a0
+	jsr Profile_PushScope
+	ENDIF
+	
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
@@ -398,6 +448,12 @@ LevelUpdateGameObjs:
 	move.l (sp)+, d0
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
+	
+	IFD DEBUG
+	jsr Profile_PopScope
+	
+	jsr Profile_PopScope
+	ENDIF
 	
 	rts
 	

@@ -109,23 +109,19 @@ __main:
 	; ************************************
 GameLoop:
 
-	; Wait for vsync
-	jsr WaitVSync
-	
 	; Disable vint whilst updating
 	move.b #0x0, vint_enabled
 	
+	IFD DEBUG
 	; Profiler frame start
 	jsr Profile_BeginFrame
+	ENDIF
 
 	; Read and process gamepad input
 	jsr UpdateInput
 	
 	; Update game objects
-	lea Str_GameObjUpdate, a0
-	jsr Profile_PushScope
 	jsr LevelUpdateGameObjs
-	jsr Profile_PopScope
 	
 	; Update camera
 	jsr UpdateCamera
@@ -142,14 +138,33 @@ GameLoop:
 	; Update palette lerping
 	jsr PaletteLerpUpdate
 	
-	; Profiler frame end
-	jsr Profile_EndFrame
-	
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
 	
 	; Enable VINT
 	move.b #0x1, vint_enabled
+	
+	IFD DEBUG
+	lea Str_Render, a0
+	jsr Profile_PushScope
+	
+	; Execute VDP job queue
+	jsr VDPQueue_ExecuteAll
+	
+	jsr Profile_PopScope
+	ENDIF
+	
+	; Wait for VDP job queue
+	@WaitVDPQueue:
+	jsr   VDPQueue_GetSize
+	cmp.l #0x0, d0
+	bne   @WaitVDPQueue
+	
+	IFD DEBUG
+	; Profiler frame end
+	jsr Profile_EndFrame
+	jsr Profile_DrawResults
+	ENDIF
 
 	; Back to top
 	jmp GameLoop
@@ -159,13 +174,16 @@ GameLoop:
 	; ************************************
 __vinterrupt:
 
+	IFND DEBUG
+	
 	; Execute VDP job queue
 	jsr VDPQueue_ExecuteAll
+	
+	ENDIF
 
 	; NOT FOR RELEASE
 	IFD DEBUG
 	;jsr DebugDraw
-	jsr Profile_DrawResults
 	ENDIF
 	
 	; Update frame counter
