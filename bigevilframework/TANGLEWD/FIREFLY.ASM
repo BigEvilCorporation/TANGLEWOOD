@@ -28,9 +28,17 @@ Firefly_Struct_Size  rs.b 0+2 ; Alignment padding
 FireflyInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
+	
 	; Base functionality
 	jsr PickupInit
+
+	; Set update and render routines
+	move.l #FireflyUpdate, GameObj_UpdateRoutine(a0)
+	move.l #PickupDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	jsr GameObjAddToUpdateList
+	jsr GameObjAddToRenderList
 
 	; Default state
 	move.w #Firefly_Width, GameObj_Width(a0)
@@ -79,15 +87,6 @@ FireflyUpdate:
 
 	@NotPickedUp:
 	@TimerRunning:
-
-	rts
-
-FireflyDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr PickupDraw
 
 	rts
 

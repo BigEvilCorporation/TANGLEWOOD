@@ -27,7 +27,17 @@ Flue_Struct_Pad   rs.b 3	; Alignment padding
 Flue_Struct_Size  rs.b 0
 
 FlueInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base init
 	jsr GameObjInit
+	
+	; Set update routine
+	move.l #FlueUpdate, GameObj_UpdateRoutine(a0)
+	
+	; Add to update list
+	jsr GameObjAddToUpdateList
 
 	; Default state
 	move.b #0x0, GameObj_Active(a0)

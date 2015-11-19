@@ -122,6 +122,17 @@ GameObjArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxGameObjs)
 GameObjArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxGameObjs)
 GameObjArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxGameObjs)
 
+; ************************************
+; Game object lists
+; ************************************
+GameObjListHead_Update	rs.l 1
+GameObjListTail_Update	rs.l 1
+GameObjListSize_Update	rs.l 1
+
+GameObjListHead_Render	rs.l 1
+GameObjListTail_Render	rs.l 1
+GameObjListSize_Render	rs.l 1
+
 reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"

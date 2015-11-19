@@ -70,6 +70,7 @@ Character_Struct_Size   rs.b 0
 ;==============================================================
 
 CharacterInit:
+
 	; Base functionality
 	jsr AnimObjInit
 

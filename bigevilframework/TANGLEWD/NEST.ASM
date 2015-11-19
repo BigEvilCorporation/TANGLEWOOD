@@ -20,6 +20,10 @@ Nest_Struct_Pad   rs.b 3	; Alignment padding
 Nest_Struct_Size  rs.b 0
 
 NestInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Base init
 	jsr GameObjInit
 
 	; Default state

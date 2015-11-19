@@ -20,7 +20,19 @@ Obstacle_Struct_Pad   rs.b 3	; Alignment padding
 Obstacle_Struct_Size  rs.b 0
 
 ObstacleInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Base init
 	jsr GameObjInit
+	
+	; Set update and render routines
+	move.l #GameObjUpdate, GameObj_UpdateRoutine(a0)
+	move.l #GameObjDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	jsr GameObjAddToUpdateList
+	jsr GameObjAddToRenderList
 
 	; Default state
 	move.b #0x1, GameObj_Active(a0)
@@ -30,21 +42,5 @@ ObstacleInit:
 	move.w #Obstacle_Width, GameObj_Width(a0)
 	move.w #Obstacle_Height, GameObj_Height(a0)
 	move.b #ColourRed, Obstacle_Colour(a0)
-
-	rts
-
-ObstacleUpdate:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	jsr GameObjUpdate
-
-	rts
-
-ObstacleDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	jsr GameObjDraw
 
 	rts

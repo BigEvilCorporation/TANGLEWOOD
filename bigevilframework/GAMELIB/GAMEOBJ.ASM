@@ -11,6 +11,12 @@
 ;==============================================================
 	rsset 0
 ;------------------------------
+GameObj_UpdateRoutine	 rs.l 1 ; Update subroutine address
+GameObj_RenderRoutine	 rs.l 1 ; Render subroutine address
+;------------------------------
+GameObj_UpdateNext		 rs.l 1 ; Next in update linked list
+GameObj_RenderNext		 rs.l 1 ; Next in render linked list
+;------------------------------
 GameObj_WorldPosX        rs.l 1	; Position X (world space)
 GameObj_WorldPosY        rs.l 1	; Position Y (world space)
 GameObj_SubSpriteOffArr  rs.l 1	; Subsprite position offsets array address
@@ -50,6 +56,56 @@ GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
 
+;==============================================================
+; Add game objs to update/render lists
+;==============================================================
+
+GameObjAddToUpdateList:
+	; a0 --- GameObjAddr
+	
+	; If first in list, set as head and tail
+	cmp.l  #0x0, (GameObjListHead_Update)
+	bne    @HasHead
+	move.l a0, GameObjListHead_Update
+	move.l a0, GameObjListTail_Update
+	bra    @End
+	@HasHead:
+	
+	; else link to current tail, then set as current tail
+	move.l (GameObjListTail_Update), a1
+	move.l a0, GameObj_UpdateNext(a1)
+	move.l a0, GameObjListTail_Update
+	
+	@End:
+	
+	; Increment count
+	addi.l #0x1, GameObjListSize_Update
+	
+	rts
+
+GameObjAddToRenderList:
+	; a0 --- GameObjAddr
+	
+	; If first in list, set as head and tail
+	cmp.l  #0x0, (GameObjListHead_Render)
+	bne    @HasHead
+	move.l a0, GameObjListHead_Render
+	move.l a0, GameObjListTail_Render
+	bra    @End
+	@HasHead:
+	
+	; else link to current tail, then set as current tail
+	move.l (GameObjListTail_Render), a1
+	move.l a0, GameObj_RenderNext(a1)
+	move.l a0, GameObjListTail_Render
+	
+	@End:
+	
+	; Increment count
+	addi.l #0x1, GameObjListSize_Render
+	
+	rts
+	
 ;==============================================================
 
 GameObjInit:

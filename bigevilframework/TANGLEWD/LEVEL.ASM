@@ -323,135 +323,26 @@ LevelUpdateGameObjs:
 
 	move.l (CurrentLevel), a1
 	
-	; TODO: This needs a macro, or vtable or something
-	
 	IFD DEBUG
 	lea Str_GameObjs, a0
 	jsr Profile_PushScope
-	
-	lea Str_Players, a0
-	jsr Profile_PushScope
 	ENDIF
-	
-	; Players
-	move.l #GameObjArray_Players, a0
-	move.l #Player_MaxGameObjs-1, d0
-	@CharLoop:
-	move.l d0, -(sp)
-	jsr PlayerUpdate
-	move.l (sp)+, d0
-	add.l  #Player_Struct_Size, a0
-	dbra   d0, @CharLoop
-	
+
+	move.l (GameObjListSize_Update), d0	 ; Get gameobj list size
+	cmp.l  #0x0, d0
+	beq    @NoGameObjs					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (GameObjListHead_Update), a0	 ; Get list head
+	@GameObjLp:							 ; For all objs in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l GameObj_UpdateRoutine(a0), a2 ; Get update routine
+	jsr    (a2)							 ; Execute update routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l GameObj_UpdateNext(a0), a0	 ; Get next ptr
+	dbra   d0, @GameObjLp				 ; Loop
+	@NoGameObjs:
+
 	IFD DEBUG
-	jsr Profile_PopScope
-    
-	lea Str_Monsters, a0
-	jsr Profile_PushScope
-	ENDIF
-	
-	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;move.l #Monster_MaxGameObjs-1, d0
-	;@MonsterLoop:
-	;move.l d0, -(sp)
-	;jsr MonsterUpdate
-	;move.l (sp)+, d0
-	;add.l  #Monster_Struct_Size, a0
-	;dbra   d0, @MonsterLoop
-	
-	IFD DEBUG
-	jsr Profile_PopScope
-	
-	lea Str_Fuzzls, a0
-	jsr Profile_PushScope
-	ENDIF
-	
-	; Fuzzls
-	move.l #GameObjArray_Fuzzls, a0
-	move.l #gameobjects_Fuzzl_count-1, d0	; TODO: Count from level info
-	@FuzzlLoop:
-	move.l d0, -(sp)
-	jsr FuzzlUpdate
-	move.l (sp)+, d0
-	add.l  #Fuzzl_Struct_Size, a0
-	dbra   d0, @FuzzlLoop
-	
-	IFD DEBUG
-	jsr Profile_PopScope
-    
-	lea Str_Flues, a0
-	jsr Profile_PushScope
-	ENDIF
-	
-	; Flues
-	move.l #GameObjArray_Flues, a0
-	move.l #gameobjects_Flue_count-1, d0	; TODO: Count from level info
-	@FlueLoop:
-	move.l d0, -(sp)
-	jsr FlueUpdate
-	move.l (sp)+, d0
-	add.l  #Flue_Struct_Size, a0
-	dbra   d0, @FlueLoop
-	
-	IFD DEBUG
-	jsr Profile_PopScope
-    
-	lea Str_Leaves, a0
-	jsr Profile_PushScope
-	ENDIF
-	
-	; Leaves
-	move.l #GameObjArray_Leaves, a0
-	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
-	@LeafLoop:
-	move.l d0, -(sp)
-	jsr LeafUpdate
-	move.l (sp)+, d0
-	add.l  #Leaf_Struct_Size, a0
-	dbra   d0, @LeafLoop
-	
-	IFD DEBUG
-	jsr Profile_PopScope
-    
-	lea Str_Obstacles, a0
-	jsr Profile_PushScope
-	ENDIF
-    
-	; Obstacles
-	move.w #gameobjects_obstacle_count, d0
-	cmp.w  #0x0, d0
-	beq    @NoObstacles
-	move.l #GameObjArray_Obstacles, a0
-	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
-	@ObstacleLoop:
-	move.l d0, -(sp)
-	jsr ObstacleUpdate
-	move.l (sp)+, d0
-	add.l  #Obstacle_Struct_Size, a0
-	dbra   d0, @ObstacleLoop
-	@NoObstacles:
-    
-	IFD DEBUG
-	jsr Profile_PopScope
-	
-	lea Str_Fireflies, a0
-	jsr Profile_PushScope
-	ENDIF
-	
-	; Fireflies
-	move.l #GameObjArray_Fireflies, a0
-	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
-	@FireflyLoop:
-	move.l d0, -(sp)
-	jsr FireflyUpdate
-	move.l (sp)+, d0
-	add.l  #Firefly_Struct_Size, a0
-	dbra   d0, @FireflyLoop
-	
-	IFD DEBUG
-	jsr Profile_PopScope
-	
 	jsr Profile_PopScope
 	ENDIF
 	
@@ -459,69 +350,19 @@ LevelUpdateGameObjs:
 	
 LevelDrawGameObjs:
 	
-	; Players
-	move.l #GameObjArray_Players, a0
-	move.l #Player_MaxGameObjs-1, d0
-	@CharLoop:
-	move.l d0, -(sp)
-	jsr PlayerDraw
-	move.l (sp)+, d0
-	add.l  #Player_Struct_Size, a0
-	dbra   d0, @CharLoop
-
-	; Monsters
-	;move.l #GameObjArray_Monsters, a0
-	;move.l #Monster_MaxGameObjs-1, d0
-	;@MonsterLoop:
-	;move.l d0, -(sp)
-	;jsr MonsterDraw
-	;move.l (sp)+, d0
-	;add.l  #Monster_Struct_Size, a0
-	;dbra   d0, @MonsterLoop
-	
-	; Fuzzls
-	move.l #GameObjArray_Fuzzls, a0
-	move.l #gameobjects_Fuzzl_count-1, d0	; TODO: Count from level info
-	@FuzzlLoop:
-	move.l d0, -(sp)
-	jsr FuzzlDraw
-	move.l (sp)+, d0
-	add.l  #Fuzzl_Struct_Size, a0
-	dbra   d0, @FuzzlLoop
-    
-	; Leaves
-	move.l #GameObjArray_Leaves, a0
-	move.l #gameobjects_leaf_count-1, d0	; TODO: Count from level info
-	@LeafLoop:
-	move.l d0, -(sp)
-	jsr LeafDraw
-	move.l (sp)+, d0
-	add.l  #Leaf_Struct_Size, a0
-	dbra   d0, @LeafLoop
-    
-	; Obstacles
-	move.w #gameobjects_obstacle_count, d0
-	cmp.w  #0x0, d0
-	beq    @NoObstacles
-	move.l #GameObjArray_Obstacles, a0
-	move.l #gameobjects_Obstacle_count-1, d0	; TODO: Count from level info
-	@ObstacleLoop:
-	move.l d0, -(sp)
-	jsr ObstacleDraw
-	move.l (sp)+, d0
-	add.l  #Obstacle_Struct_Size, a0
-	dbra   d0, @ObstacleLoop
-	@NoObstacles:
-    
-	; Fireflies
-	move.l #GameObjArray_Fireflies, a0
-	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
-	@FireflyLoop:
-	move.l d0, -(sp)
-	jsr FireflyDraw
-	move.l (sp)+, d0
-	add.l  #Firefly_Struct_Size, a0
-	dbra   d0, @FireflyLoop
+	move.l (GameObjListSize_Render), d0	 ; Get gameobj list size
+	cmp.l  #0x0, d0
+	beq    @NoGameObjs					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (GameObjListHead_Render), a0	 ; Get list head
+	@GameObjLp:							 ; For all objs in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l GameObj_RenderRoutine(a0), a2 ; Get render routine
+	jsr    (a2)							 ; Execute render routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l GameObj_RenderNext(a0), a0	 ; Get next ptr
+	dbra   d0, @GameObjLp				 ; Loop
+	@NoGameObjs:
 	
 	rts
 	

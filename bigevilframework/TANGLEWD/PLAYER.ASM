@@ -70,8 +70,19 @@ Player_Struct_Size   rs.b 0
 ; Subroutines
 ; ************************************
 PlayerInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
 	; Base functionality
 	jsr CharacterInit
+	
+	; Set update and render routines
+	move.l #PlayerUpdate, GameObj_UpdateRoutine(a0)
+	move.l #CharacterDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	jsr GameObjAddToUpdateList
+	jsr GameObjAddToRenderList
 
 	; Setup default state
 	move.l  #Player1StartPosWorldX, GameObj_WorldPosX(a0)
@@ -175,15 +186,6 @@ PlayerUpdate:
 	jsr PlayerInteract_Fuzzls
 	jsr PlayerInteract_Obstacles
 	jsr PlayerInteract_Fireflies
-	
-	rts
-
-PlayerDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	; Base functionality
-	jsr CharacterDraw
 	
 	rts
 

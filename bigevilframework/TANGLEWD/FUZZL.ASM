@@ -78,7 +78,15 @@ FuzzlInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr     AnimObjInit
+	jsr    AnimObjInit
+	
+	; Set update and render routines
+	move.l #FuzzlUpdate, GameObj_UpdateRoutine(a0)
+	move.l #AnimObjDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	jsr GameObjAddToUpdateList
+	jsr GameObjAddToRenderList
 	
 	; Default state
 	move.b  #0x0, Fuzzl_State_Bits(a0)
@@ -95,15 +103,6 @@ FuzzlInit:
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
-
-	rts
-
-FuzzlDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr AnimObjDraw
 
 	rts
 	

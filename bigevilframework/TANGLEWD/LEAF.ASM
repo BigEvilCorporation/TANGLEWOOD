@@ -34,7 +34,19 @@ Leaf_Struct_Pad      rs.b 1	; Alignment padding
 Leaf_Struct_Size     rs.b 0
 
 LeafInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Base init
 	jsr AnimObjInit
+	
+	; Set update and render routines
+	move.l #LeafUpdate, GameObj_UpdateRoutine(a0)
+	move.l #AnimObjDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	jsr GameObjAddToUpdateList
+	jsr GameObjAddToRenderList
 
 	; Default state
 	move.b #0x0, GameObj_Active(a0)
@@ -209,11 +221,3 @@ LeafUpdate:
 
 	rts
 
-LeafDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr AnimObjDraw
-
-	rts

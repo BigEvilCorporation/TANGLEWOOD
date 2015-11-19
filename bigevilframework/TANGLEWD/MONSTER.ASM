@@ -64,8 +64,19 @@ Monster_Struct_Size   rs.b 0
 ; Subroutines
 ; ************************************
 MonsterInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
 	; Base functionality
 	jsr CharacterInit
+	
+	; Set update and render routines
+	move.l #MonsterUpdate, GameObj_UpdateRoutine(a0)
+	move.l #CharacterDraw, GameObj_RenderRoutine(a0)
+	
+	; Add to update and render lists
+	;jsr GameObjAddToUpdateList
+	;jsr GameObjAddToRenderList
 
 	; Default properties
 	move.w  #Monster_Width, GameObj_Width(a0)
@@ -196,15 +207,6 @@ MonsterUpdate:
 	
 	; Base functionality
 	jsr CharacterUpdate
-	
-	rts
-
-MonsterDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	; Base functionality
-	jsr CharacterDraw
 	
 	rts
 
