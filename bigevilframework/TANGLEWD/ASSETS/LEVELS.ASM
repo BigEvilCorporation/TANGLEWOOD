@@ -28,7 +28,7 @@ Tst1_Forest:
 	; ************************************
 	; Game levels
 	; ************************************
-Lvl1_Tanglewood:
+Lvl1_HarlequinForest:
 
 	dc.l tiles_lvl1				; Tileset
 	dc.l map_lvl1				; Map

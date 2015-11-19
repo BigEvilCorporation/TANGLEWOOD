@@ -48,6 +48,9 @@ EntryPoint:
 	
 	; Init random number generator
 	jsr RandInit
+	
+	; Init ECHO sound driver
+	jsr Echo_Init
 
 	; Cleanup registers
 	move.l  #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0

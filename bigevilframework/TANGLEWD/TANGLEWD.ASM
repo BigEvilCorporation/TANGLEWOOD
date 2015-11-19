@@ -29,6 +29,7 @@
 	include '..\framewk\vdpqueue.asm'
 	include '..\framewk\z80.asm'
 	; include '..\framewk\sequencr.asm'
+	include '..\framewk\echo\echo.asm'
 
 	IFD DEBUG
 	include '..\framewk\debugger.asm'	; NOT FOR RELEASE
@@ -103,6 +104,12 @@ __main:
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
+	
+	;lea SFX_Test, a0
+	;jsr Echo_PlaySFX
+	
+	lea BGM_Midnas, a0
+	jsr Echo_PlayBGM
 
 	; ************************************
 	; Main game loop
@@ -232,8 +239,10 @@ __vinterrupt:
 	; Include game art
 	include 'assets\assetmap.asm'
 
-	; Include binaries last
+	; Include game art binaries
 	include 'assets\binaries.asm'
 	
+	; Include sound driver binary last
+	include '..\framewk\echo\echodrv.asm'
 
 __end    ; Very last line, end of ROM address

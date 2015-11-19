@@ -83,6 +83,12 @@
 	ENDIF
 	
 	; ************************************
+	; Audio
+	; ************************************
+	include 'assets\sfx\testsfx.asm'
+	include 'assets\music\testbgm.asm'
+	
+	; ************************************
     ; Strings
     ; ************************************
 	include 'assets\strings.asm'
