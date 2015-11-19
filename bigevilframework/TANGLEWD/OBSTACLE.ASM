@@ -29,11 +29,6 @@ ObstacleInit:
 	move.b #0x1, GameObj_Solid(a0)
 	move.w #Obstacle_Width, GameObj_Width(a0)
 	move.w #Obstacle_Height, GameObj_Height(a0)
-	move.l #Tiles_VinesVRAM, GameObj_VRAMAddr(a0)
-	move.w #tiles_vines_size_t, GameObj_TilesetSize(a0)
-	move.b #sprite_vines_size_subsprites, GameObj_NumSubSprites(a0)
-	move.w #sprite_vines_dimensions, GameObj_Dimensions(a0)
-	move.l #sprite_vines_subsprite_dimensions, GameObj_SubSpriteDimArr(a0)
 	move.b #ColourRed, Obstacle_Colour(a0)
 
 	rts

@@ -117,14 +117,17 @@ AnimObjDraw:
 
 	@SkipFrameCheck:
 	
-	; Frame advanced, upload new tile
+	; Anim frame updated
+	move.b  #0x0, AnimObj_Dirty(a0)
+	
+	; Frame advanced, + DMA new tiles to VRAM
 	move.l GameObj_VRAMAddr(a0), d0
 	move.w GameObj_TilesetSize(a0), d1
 	move.b AnimObj_AnimLength(a0), d3
 	move.l AnimObj_AnimDataAddr(a0), a1
 	move.l GameObj_TilesetAddr(a0), a0
-	jsr SetSpriteAnimFrame
-
+	jsr    SetSpriteAnimFrame
+	
 	@Invisible:
 	@NoAnim:
 	@ZeroSpeed:

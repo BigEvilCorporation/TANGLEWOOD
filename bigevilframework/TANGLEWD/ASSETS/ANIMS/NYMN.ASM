@@ -31,7 +31,7 @@ Anim_NymnWalkToRun_Speed: equ 0x30
 	Even
 	
 Anim_NymnJump:
-	dc.b 0x0
+	dc.b 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16
 Anim_NymnJump_End
 Anim_NymnJump_SizeB: equ (Anim_NymnJump_End-Anim_NymnJump)
 Anim_NymnJump_Speed: equ 0x40

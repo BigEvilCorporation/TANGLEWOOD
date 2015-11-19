@@ -35,18 +35,27 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\walk2run.asm'
 	
 	; Jump
+	include 'assets\sprites\nymn\jump_0.asm'
+	include 'assets\sprites\nymn\jump_1.asm'
+	include 'assets\sprites\nymn\jump_2.asm'
+	include 'assets\sprites\nymn\jump_3.asm'
+	include 'assets\sprites\nymn\jump_4.asm'
+	include 'assets\sprites\nymn\jump_5.asm'
+	include 'assets\sprites\nymn\jump_6.asm'
+	include 'assets\sprites\nymn\jump_7.asm'
+	
 	; Hang
 	; Push
 	; Colour switch
 
-; Subsprite dimensions
-sprite_nymn_subsprite_dimensions:
-	dc.w 0x0404	; Top-left     (4x4)
-	dc.w 0x0401	; Bottom-left  (4x1)
-	dc.w 0x0304	; Top-right    (3x4)
-	dc.w 0x0301	; Bottom-right (3x1)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_nymn_subsprite_pos_offsets:
+	dc.w 0x0000, 0x1800	; Top-left     (4x4)
+	dc.w 0x0020, 0x1820	; Bottom-left  (4x1)
+	dc.w 0x2000, 0x0000	; Top-right    (3x4)
+	dc.w 0x2020, 0x0020	; Bottom-right (3x1)
 	even
-
+	
 ; Subsprite dimension bits (for sprite descs)
 sprite_nymn_subsprite_dimensions_bits:
 	dc.b (%00001111)	; Top-left     (4x4)

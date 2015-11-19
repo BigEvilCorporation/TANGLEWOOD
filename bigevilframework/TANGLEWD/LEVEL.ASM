@@ -132,7 +132,7 @@ LevelLoadGameObjArt:
 	move.l #GameObjArray_Players, a0
 	lea    Tiles_Nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
-	lea    sprite_nymn_subsprite_dimensions, a3
+	lea    sprite_nymn_subsprite_pos_offsets, a3
 	lea    sprite_nymn_numtiles_per_subsprite, a4
 	move.l #Tiles_Player1VRAM, d0
 	move.l #tiles_nymn_size_t, d1
@@ -142,23 +142,23 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	lea    tiles_monster, a1
-	lea    sprite_monster_subsprite_dimensions_bits, a2
-	lea    sprite_monster_subsprite_dimensions, a3
-	lea    sprite_monster_numtiles_per_subsprite, a4
-	move.l #tiles_monsterVRAM, d0
-	move.l #tiles_monster_size_t, d1
-	move.b #sprite_monster_size_subsprites, d2
-	move.w #sprite_monster_dimensions, d3
-	move.b #PaletteID_Monster, d4
-	jsr    GameObjLoadMultiSprite
-
+	;move.l #GameObjArray_Monsters, a0
+	;lea    tiles_monster, a1
+	;lea    sprite_monster_subsprite_dimensions_bits, a2
+	;lea    sprite_monster_subsprite_pos_offsets, a3
+	;lea    sprite_monster_numtiles_per_subsprite, a4
+	;move.l #tiles_monsterVRAM, d0
+	;move.l #tiles_monster_size_t, d1
+	;move.b #sprite_monster_size_subsprites, d2
+	;move.w #sprite_monster_dimensions, d3
+	;move.b #PaletteID_Monster, d4
+	;jsr    GameObjLoadMultiSprite
+    
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_dimensions, a3
+	lea    sprite_fuzzl_subsprite_pos_offsets, a3
 	lea    sprite_fuzzl_numtiles_per_subsprite, a4
 	move.l #Tiles_Fuzzl1VRAM, d0
 	move.l #tiles_fuzzl_size_t, d1
@@ -170,7 +170,7 @@ LevelLoadGameObjArt:
 	move.l #GameObjArray_Fuzzls+Fuzzl_Struct_Size, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_dimensions, a3
+	lea    sprite_fuzzl_subsprite_pos_offsets, a3
 	lea    sprite_fuzzl_numtiles_per_subsprite, a4
 	move.l #Tiles_Fuzzl2VRAM, d0
 	move.l #tiles_fuzzl_size_t, d1
@@ -178,12 +178,12 @@ LevelLoadGameObjArt:
 	move.w #sprite_fuzzl_dimensions, d3
 	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	; Leaves
 	move.l #GameObjArray_Leaves, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_subsprite_pos_offsets, a3
 	lea    sprite_leaf_numtiles_per_subsprite, a4
 	move.l #Tiles_Leaf1VRAM, d0
 	move.l #tiles_leaf_size_t, d1
@@ -191,11 +191,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	move.l #GameObjArray_Leaves+Leaf_Struct_Size, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_subsprite_pos_offsets, a3
 	lea    sprite_leaf_numtiles_per_subsprite, a4
 	move.l #Tiles_Leaf2VRAM, d0
 	move.l #tiles_leaf_size_t, d1
@@ -203,11 +203,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	move.l #GameObjArray_Leaves+(Leaf_Struct_Size*2), a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_dimensions, a3
+	lea    sprite_leaf_subsprite_pos_offsets, a3
 	lea    sprite_leaf_numtiles_per_subsprite, a4
 	move.l #Tiles_Leaf3VRAM, d0
 	move.l #tiles_leaf_size_t, d1
@@ -215,7 +215,7 @@ LevelLoadGameObjArt:
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	; Vines
 	move.w #gameobjects_obstacle_count, d0
 	cmp.w  #0x0, d0
@@ -223,7 +223,7 @@ LevelLoadGameObjArt:
 	move.l #GameObjArray_Obstacles, a0
 	lea    tiles_vines, a1
 	lea    sprite_vines_subsprite_dimensions_bits, a2
-	lea    sprite_vines_subsprite_dimensions, a3
+	lea    sprite_vines_subsprite_pos_offsets, a3
 	lea    sprite_vines_numtiles_per_subsprite, a4
 	move.l #Tiles_VinesVRAM, d0
 	move.l #tiles_vines_size_t, d1
@@ -231,11 +231,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_vines_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	move.l #GameObjArray_Obstacles+Obstacle_Struct_Size, a0
 	lea    tiles_vines, a1
 	lea    sprite_vines_subsprite_dimensions_bits, a2
-	lea    sprite_vines_subsprite_dimensions, a3
+	lea    sprite_vines_subsprite_pos_offsets, a3
 	lea    sprite_vines_numtiles_per_subsprite, a4
 	move.l #Tiles_VinesVRAM, d0
 	move.l #tiles_vines_size_t, d1
@@ -244,7 +244,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
 	@NoObstacles:
-
+    
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d1
@@ -254,14 +254,14 @@ LevelLoadGameObjArt:
 	
 	lea    tiles_firefly, a1
 	lea    sprite_firefly_subsprite_dimensions_bits, a2
-	lea    sprite_firefly_subsprite_dimensions, a3
+	lea    sprite_firefly_subsprite_pos_offsets, a3
 	lea    sprite_firefly_numtiles_per_subsprite, a4
 	move.l #tiles_firefly_size_t, d1
 	move.b #sprite_firefly_size_subsprites, d2
 	move.w #sprite_firefly_dimensions, d3
 	move.b #PaletteId_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
-
+    
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Firefly_Struct_Size, a0
 	add.l  #tiles_firefly_size_b, d0
@@ -272,9 +272,9 @@ LevelLoadGameObjArt:
 LevelCreateGameObjects:
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	jsr    LoadGameObjects_Monster
-
+	;move.l #GameObjArray_Monsters, a0
+	;jsr    LoadGameObjects_Monster
+    
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0
 	jsr    LoadGameObjects_Fuzzl
@@ -282,19 +282,19 @@ LevelCreateGameObjects:
 	; Fuzzl nests
 	move.l #GameObjArray_Nests, a0
 	jsr    LoadGameObjects_Nest
-
+    
 	; Flues
 	move.l #GameObjArray_Flues, a0
 	jsr    LoadGameObjects_Flue
-
+    
 	; Obstacles
 	move.l #GameObjArray_Obstacles, a0
 	jsr    LoadGameObjects_Obstacle
-
+    
 	; Fireflies
 	move.l #GameObjArray_Fireflies, a0
 	jsr    LoadGameObjects_Firefly
-
+    
 	; Leaves
 	; TODO: Leaf generator
 	move.l #GameObjArray_Leaves, a0
@@ -303,7 +303,7 @@ LevelCreateGameObjects:
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
-
+    
 	; Fuzzl colours
 	; TODO: Per-instance params
 	lea    GameObjArray_Fuzzls, a0
@@ -345,20 +345,20 @@ LevelUpdateGameObjs:
 	
 	IFD DEBUG
 	jsr Profile_PopScope
-
+    
 	lea Str_Monsters, a0
 	jsr Profile_PushScope
 	ENDIF
 	
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	move.l #Monster_MaxGameObjs-1, d0
-	@MonsterLoop:
-	move.l d0, -(sp)
-	jsr MonsterUpdate
-	move.l (sp)+, d0
-	add.l  #Monster_Struct_Size, a0
-	dbra   d0, @MonsterLoop
+	;move.l #GameObjArray_Monsters, a0
+	;move.l #Monster_MaxGameObjs-1, d0
+	;@MonsterLoop:
+	;move.l d0, -(sp)
+	;jsr MonsterUpdate
+	;move.l (sp)+, d0
+	;add.l  #Monster_Struct_Size, a0
+	;dbra   d0, @MonsterLoop
 	
 	IFD DEBUG
 	jsr Profile_PopScope
@@ -444,7 +444,7 @@ LevelUpdateGameObjs:
 	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
 	@FireflyLoop:
 	move.l d0, -(sp)
-	;jsr FireflyUpdate
+	jsr FireflyUpdate
 	move.l (sp)+, d0
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
@@ -458,9 +458,6 @@ LevelUpdateGameObjs:
 	rts
 	
 LevelDrawGameObjs:
-
-	; Clear sprite links, build list as each object renderered
-	move.w #0x0, prev_sprite_link
 	
 	; Players
 	move.l #GameObjArray_Players, a0
@@ -473,14 +470,14 @@ LevelDrawGameObjs:
 	dbra   d0, @CharLoop
 
 	; Monsters
-	move.l #GameObjArray_Monsters, a0
-	move.l #Monster_MaxGameObjs-1, d0
-	@MonsterLoop:
-	move.l d0, -(sp)
-	jsr MonsterDraw
-	move.l (sp)+, d0
-	add.l  #Monster_Struct_Size, a0
-	dbra   d0, @MonsterLoop
+	;move.l #GameObjArray_Monsters, a0
+	;move.l #Monster_MaxGameObjs-1, d0
+	;@MonsterLoop:
+	;move.l d0, -(sp)
+	;jsr MonsterDraw
+	;move.l (sp)+, d0
+	;add.l  #Monster_Struct_Size, a0
+	;dbra   d0, @MonsterLoop
 	
 	; Fuzzls
 	move.l #GameObjArray_Fuzzls, a0

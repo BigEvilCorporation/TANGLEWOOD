@@ -657,12 +657,12 @@ tiles_vines_size_t	equ (tiles_vines_size_b/32)	; Size in tiles
 sprite_vines_dimensions: 		equ 0x0104	; 1x4 subsprites
 sprite_vines_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 
-; Subsprite dimensions
-sprite_vines_subsprite_dimensions:
-	dc.w 0x0404	; 1     (4x4)
-	dc.w 0x0404	; 2     (4x4)
-	dc.w 0x0404	; 3     (4x4)
-	dc.w 0x0404	; 4     (4x4)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_vines_subsprite_pos_offsets:
+	dc.w 0x0000, 0x0000
+	dc.w 0x0020, 0x0020
+	dc.w 0x0040, 0x0040
+	dc.w 0x0060, 0x0060
 	even
 
 ; Subsprite dimension bits (for sprite descs)

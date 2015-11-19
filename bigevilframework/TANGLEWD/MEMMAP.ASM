@@ -52,10 +52,20 @@ vdp_queue_produceridx rs.l 1
 vdp_queue_consumeridx rs.l 1
 
 ; ************************************
+; VDP sprite table
+; ************************************
+vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
+
+; ************************************
 ; GameLib stuff
 ; ************************************
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
+
+; ************************************
+; Art decompression/scratch buffer
+; ************************************
+art_scratch_buffer  rs.b ArtScratchBufferSize
 
 ; ************************************
 ; World
@@ -112,6 +122,12 @@ GameObjArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxGameObjs)
 GameObjArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxGameObjs)
 GameObjArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxGameObjs)
 
+reserved_ram_size		rs.b 0
 
+	inform 0,"-----------------------------------"
+	inform 0,"Reserved RAM: %d bytes (%dkb)", reserved_ram_size, (reserved_ram_size/1024)
+	inform 0,"Scratch buffer: %d bytes (%dkb)", ArtScratchBufferSize, (ArtScratchBufferSize/1024)
+	inform 0,"-----------------------------------"
+	inform 0,""
 
 __endOfMemoryMap	rs.b 0

@@ -28,6 +28,7 @@ size_palette_b:		equ 0x20
 size_palette_w:		equ (size_palette_b/size_word)
 
 size_tile_b			equ 0x20
+size_tile_w			equ (size_tile_b/size_word)
 size_tile_n			equ (size_tile_b*2)
 
 size_screen_n:		equ (screen_width*screen_height)	;  Size in nybbles/pixels
@@ -101,6 +102,7 @@ vdp_plane_height        equ 0x0020 ; 32 tiles Y
 vdp_plane_border_x      equ (vdp_plane_width-(screen_width/8))/2
 vdp_plane_border_y      equ (vdp_plane_height-(screen_height/8))/2
 vdp_max_tiles           equ (0xC000/size_tile_b)
+vdp_max_sprites			equ 0x40
 
 vdp_num_registers		equ 0x18
 

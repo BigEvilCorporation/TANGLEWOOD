@@ -233,6 +233,11 @@ sprite_firefly_size_subsprites:	equ 1		; Sprite size in 4x4 subsprites
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_firefly_subsprite_pos_offsets:
+	dc.w 0x0000, 0x0000	; Top-left     (1x1)
+	even
+	
 ; Subsprite dimensions
 sprite_firefly_subsprite_dimensions:
 	dc.w 0x0101	; Top-left     (1x1)

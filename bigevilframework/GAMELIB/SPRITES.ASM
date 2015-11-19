@@ -95,39 +95,30 @@ AddSubSprite:
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
 	
-	; TODO: Support flipping/priority
-	
-	; Alloc sprite on stack
-	sub.l  #Sprite_Struct_Size, sp
+	; TODO: Support priority
 	
 	; Alloc sprite ID
 	move.w (next_sprite_index), d4
+	add.w  #0x1, (next_sprite_index)
 	
-	; Build struct
-	move.w d1, Sprite_CoordY(sp)      ; Y coord
+	; Offset into sprite table
+	lea     vdp_sprite_table, a0
+	mulu.w  #size_spritedesc, d4          
+	add.l   d4, a0
+	
+	; Set values
+	move.w d1, Sprite_CoordY(a0)      ; Y coord
 	swap d1
-	move.w d1, Sprite_CoordX(sp)      ; X coord
-	move.b d0, Sprite_Dimensions_NextID(sp)  ; Dimensions (first byte in word))
-	move.b #0x0, Sprite_NextID(sp)    ; Next ID
+	move.w d1, Sprite_CoordX(a0)      ; X coord
+	move.b d0, Sprite_Dimensions_NextID(a0)  ; Dimensions (first byte in word)
+	move.b #0x0, Sprite_NextID(a0)    ; Next ID
 
 	; Flipping, palette ID, priority and tile ID
 	; Bit pattern: LPPV HTTT TTTT TTTT (L=Lo/Hi priority, P=Palette, V=VFlip, H=HFlip, T-TileId)
 	and.w  #%0000000000000011, d3		; Palette in bottom two bits
 	ror.w  #0x3, d3						; Palette to bits 13-14
 	or.w   d2, d3						; OR tile ID with palette
-	move.w d3, Sprite_Prio_Pal_Flip_TileID(sp)	; Write to struct
-	
-	; Load sprite
-	move.l sp, a0
-	move.b d4, d0
-	jsr    LoadSpriteTable
-	
-	; Free stack
-	add.l  #Sprite_Struct_Size, sp
-	
-	; Increment sprite counter
-	add.w  #0x1, d4
-	move.w d4, (next_sprite_index) ; Keep counter
+	move.w d3, Sprite_Prio_Pal_Flip_TileIDhi(a0)
 	
 	rts
 

@@ -16,6 +16,22 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 	; Bite anim
 	include 'assets\sprites\takk_1.asm'
 
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_monster_subsprite_pos_offsets:
+	dc.w 0x0000, 0x6000
+	dc.w 0x0020, 0x6020
+	dc.w 0x0040, 0x6040
+	dc.w 0x2000, 0x4000
+	dc.w 0x2020, 0x4020
+	dc.w 0x2040, 0x4040
+	dc.w 0x4000, 0x2000
+	dc.w 0x4020, 0x2020
+	dc.w 0x4040, 0x2040
+	dc.w 0x6000, 0x0000
+	dc.w 0x6020, 0x0020
+	dc.w 0x6040, 0x0040
+	even
+	
 ; Subsprite dimensions
 sprite_monster_subsprite_dimensions:
 	dc.w 0x0404

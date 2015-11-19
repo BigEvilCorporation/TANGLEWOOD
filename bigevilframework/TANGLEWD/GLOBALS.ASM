@@ -4,7 +4,10 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 ;   globals.asm - Game constants
-;==============================================================	
+;==============================================================
+
+; Art decompresioj buffer size (needs to be at least the size of largest asset)
+ArtScratchBufferSize	 equ (1024*10)
 
 ; Sprite plane border (pixels/nybbles)
 SpritePlaneWidth		 equ 0x0200

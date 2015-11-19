@@ -828,9 +828,9 @@ sprite_fuzzl_size_subsprites:	equ 1		; Sprite size in 4x4 subsprites
 	dc.l	0x65441000
 	dc.l	0x53100000
 	
-; Subsprite dimensions
-sprite_fuzzl_subsprite_dimensions:
-	dc.w 0x0202	; Top-left     (2x2)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_fuzzl_subsprite_pos_offsets:
+	dc.w 0x0000, 0x0000	; Top-left     (2x2)
 	even
 
 ; Subsprite dimension bits (for sprite descs)

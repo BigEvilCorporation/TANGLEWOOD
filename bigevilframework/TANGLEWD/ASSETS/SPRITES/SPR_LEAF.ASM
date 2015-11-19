@@ -349,6 +349,10 @@ sprite_leaf_size_subsprites:	equ 1		; Sprite size in 4x4 subsprites
 
 * --------------------------
 
+; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
+sprite_leaf_subsprite_pos_offsets:
+	dc.w 0x0000, 0x0000	; Top-left     (2x2)
+	even
 	
 ; Subsprite dimensions
 sprite_leaf_subsprite_dimensions:

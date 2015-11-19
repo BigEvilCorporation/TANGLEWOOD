@@ -13,7 +13,8 @@
 ;------------------------------
 GameObj_WorldPosX        rs.l 1	; Position X (world space)
 GameObj_WorldPosY        rs.l 1	; Position Y (world space)
-GameObj_SubSpriteDimArr  rs.l 1	; Subsprite size array address
+GameObj_SubSpriteOffArr  rs.l 1	; Subsprite position offsets array address
+GameObj_SubSpriteOffArrF rs.l 1	; Subsprite position offsets array address (flipped)
 GameObj_TilesetAddr      rs.l 1	; Art tiles ROM address
 GameObj_VRAMAddr         rs.l 1	; Art tiles VRAM address
 GameObj_LastFloor     	 rs.l 1 ; Last detected floor height
@@ -73,7 +74,7 @@ GameObjLoadMultiSprite:
 	; a0 --- GameObj address
 	; a1 --- Tileset address
 	; a2 --- Multi-sprite subsprite dimentions bits array address
-	; a3 --- Multi-sprite subsprite dimentions array address
+	; a3 --- Multi-sprite subsprite position offsets array address
 	; a4 --- Multi-sprite tiles per subsprite array address
 	; d0 (l) VRAM address
 	; d1 (w) Num tiles
@@ -82,7 +83,7 @@ GameObjLoadMultiSprite:
 	; d4 (b) Palette ID
 
 	move.l a1, GameObj_TilesetAddr(a0)
-	move.l a3, GameObj_SubSpriteDimArr(a0)
+	move.l a3, GameObj_SubSpriteOffArr(a0)
 	move.l d0, GameObj_VRAMAddr(a0)
 	move.w d1, GameObj_TilesetSize(a0)
 	move.b d2, GameObj_NumSubSprites(a0)
@@ -102,7 +103,7 @@ GameObjLoadMultiSprite:
 	;  d1 (ww) X/Y coord
 	;  d2 (w)  First tile index
 	;  d3 (b)  Palette
-	;  a0 ---- Subsprite dimensions array (b * numSubsprites)
+	;  a0 ---- Subsprite dimensions bits array (b * numSubsprites)
 	;  a1 ---- Num tiles per subsprite array (b * numSubsprites)
 	movem.l  a0-a3/d0-d2, -(sp)
 	move.w d0, d5			; Backup d0
@@ -500,15 +501,16 @@ GameObjDraw:
 	cmp.w  #SpritePlaneWidth, d1
 	bgt    @OutOfBounds
 	
-	; Set X position
+	; Set X position and flipping
 	move.l a1, -(sp)
+	move.l a0, -(sp)
 	move.b GameObj_SpriteID(a0), d0
-	move.w GameObj_Dimensions(a0), d2
+	move.b GameObj_NumSubSprites(a0), d2
 	move.w GameObj_Width(a0), d3
 	move.b GameObj_FlippedX(a0), d4
-	move.l GameObj_SubSpriteDimArr(a0), a1
-	lea    SetMultiSpritePosX, a5
-	jsr    VDPQueue_PushJob
+	move.l GameObj_SubSpriteOffArr(a0), a1
+	jsr    SetMultiSpritePosX
+	move.l (sp)+, a0
 	move.l (sp)+, a1
 	
 	; Y pos world space to sprite space
@@ -529,76 +531,45 @@ GameObjDraw:
 	
 	; Set Y position
 	move.l a1, -(sp)
+	move.l a0, -(sp)
 	move.b GameObj_SpriteID(a0), d0
-	move.w GameObj_Dimensions(a0), d2
+	move.b GameObj_NumSubSprites(a0), d2
 	move.w GameObj_Height(a0), d3
 	move.b GameObj_FlippedY(a0), d4
-	move.l GameObj_SubSpriteDimArr(a0), a1
-	lea    SetMultiSpritePosY, a5
-	jsr    VDPQueue_PushJob
+	move.l GameObj_SubSpriteOffArr(a0), a1
+	jsr    SetMultiSpritePosY
+	move.l (sp)+, a0
 	move.l (sp)+, a1
 	
 	;==============================================================
 	
 	; Sprite is visible - link to prev in list
+	clr.w  d1
 	move.b GameObj_SpriteID(a0), d1 		; This id
 	clr.l  d3
 	move.b GameObj_NumSubSprites(a0), d3
 	subi.b #0x1, d3
+	
+	move.l a0, -(sp)
 	@SubSpriteLinkLp:
-	move.b (prev_sprite_link), d0			; Prev id
+	move.w (prev_sprite_link), d0			; Prev id
 	move.l d1, -(sp)
 	cmp.b  #0x0, d1
 	beq    @FirstSprite						; Not first sprite
 	jsr    LinkSprite						; Link sprite with prev
 	@FirstSprite:
 	move.l (sp)+, d1
-	move.b d1, prev_sprite_link				; Set as next
+	move.w d1, prev_sprite_link				; Set as next
 	addi.b #0x1, d1							; Next subsprite
 	dbra   d3, @SubSpriteLinkLp
+	move.l (sp)+, a0
 	
 	; Sprite linked
 	move.b #0x1, GameObj_SpriteLinked(a0)
 	
+	jmp    @End
+	
 	;==============================================================
-	
-	; X sprite flipping
-	move.b GameObj_FlippedX(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NoFlipX
-	jmp    @FlipX
-	@NoFlipX:
-	move.b GameObj_SpriteID(a0), d0		; Set sprite flip off
-	move.b GameObj_NumSubSprites(a0), d1
-	lea    SetMultiSpriteHFlipOff, a5
-	jsr    VDPQueue_PushJob
-	jmp    @EndFlipX
-	@FlipX:
-	move.b GameObj_SpriteID(a0), d0		; Set sprite flip on
-	move.b GameObj_NumSubSprites(a0), d1
-	lea    SetMultiSpriteHFlipOn, a5
-	jsr    VDPQueue_PushJob
-	@EndFlipX:
-	
-	; Y sprite flipping
-	move.b GameObj_FlippedY(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NoFlipY
-	jmp    @FlipY
-	@NoFlipY:
-	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip off
-	move.b  GameObj_NumSubSprites(a0), d1
-	;lea    SpriteVFlipOff, a5
-	;jsr    VDPQueue_PushJob
-	jmp     @EndFlipY
-	@FlipY:
-	move.b  GameObj_SpriteID(a0), d0		; Set sprite flip on
-	move.b  GameObj_NumSubSprites(a0), d1
-	;lea    SpriteVFlipOn, a5
-	;jsr    VDPQueue_PushJob
-	@EndFlipY:
-
-	jmp     @End
 
 	@Invisible:
 	@OutOfBounds:
@@ -609,15 +580,18 @@ GameObjDraw:
 	
 	move.b GameObj_SpriteID(a0), d0			; This id
 	move.b #0x0, d1							; Next id
+	move.l a0, -(sp)
 	jsr    LinkSprite						; Unlink
+	move.l (sp)+, a0
 
 	; Can't unlink first sprite, move to border
 	move.b GameObj_SpriteID(a0), d0
 	cmp.b  #0x0, d0
 	bne    @NotFirstSprite
 	move.w #0x0, d1
-	lea    SetSpritePosX, a5
-	jsr    VDPQueue_PushJob
+	move.l a0, -(sp)
+	jsr    SetSpritePosX
+	move.l (sp)+, a0
 	@NotFirstSprite:
 	
 	@Unlinked:

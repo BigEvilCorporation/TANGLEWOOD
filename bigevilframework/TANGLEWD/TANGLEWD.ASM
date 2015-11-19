@@ -109,8 +109,8 @@ __main:
 	; ************************************
 GameLoop:
 
-	; Disable vint whilst updating
-	move.b #0x0, vint_enabled
+	; Begin frame
+	jsr RenderBeginFrame
 	
 	IFD DEBUG
 	; Profiler frame start
@@ -138,27 +138,8 @@ GameLoop:
 	; Update palette lerping
 	jsr PaletteLerpUpdate
 	
-	; Update frame counter
-	addi.l #0x1, frame_counter_update
-	
-	; Enable VINT
-	move.b #0x1, vint_enabled
-	
-	IFD DEBUG
-	lea Str_Render, a0
-	jsr Profile_PushScope
-	
-	; Execute VDP job queue
-	jsr VDPQueue_ExecuteAll
-	
-	jsr Profile_PopScope
-	ENDIF
-	
-	; Wait for VDP job queue
-	@WaitVDPQueue:
-	jsr   VDPQueue_GetSize
-	cmp.l #0x0, d0
-	bne   @WaitVDPQueue
+	; Render
+	jsr RenderEndFrame
 	
 	IFD DEBUG
 	; Profiler frame end
@@ -171,6 +152,49 @@ GameLoop:
 
 	; ************************************
 	; Rendering
+	; ************************************
+RenderBeginFrame:
+
+	; Disable vint
+	move.b #0x0, vint_enabled
+	
+	; Clear sprite links
+	move.w #0x0, prev_sprite_link
+	
+	rts
+	
+RenderEndFrame:
+
+	; Update frame counter
+	addi.l #0x1, frame_counter_update
+	
+	; DMA the sprite table
+	lea    vdp_sprite_table, a0
+	move.w #vram_addr_sprite_table, d0
+	move.w (next_sprite_index), d1
+	mulu.w #Sprite_Struct_Size, d1
+	jsr VPDDMACopyVRAM
+	
+	; Enable VINT
+	move.b #0x1, vint_enabled
+	
+	IFD DEBUG
+	lea Str_Render, a0
+	jsr Profile_PushScope
+	jsr VDPQueue_ExecuteAll
+	jsr Profile_PopScope
+	ENDIF
+	
+	; Wait for VDP job queue
+	@WaitVDPQueue:
+	jsr   VDPQueue_GetSize
+	cmp.l #0x0, d0
+	bne   @WaitVDPQueue
+	
+	rts
+	
+	; ************************************
+	; VINT
 	; ************************************
 __vinterrupt:
 
@@ -210,5 +234,6 @@ __vinterrupt:
 
 	; Include binaries last
 	include 'assets\binaries.asm'
+	
 
 __end    ; Very last line, end of ROM address
