@@ -86,7 +86,7 @@ __main:
 	IFD DEBUG
 	move.l #Tst1_Forest, CurrentLevel
 	ELSE
-	move.l #Lvl1_Tanglewood, CurrentLevel
+	move.l #Lvl1_HarlequinForest, CurrentLevel
 	ENDIF
 	
 	; Load assets
@@ -112,22 +112,19 @@ GameLoop:
 	; Begin frame
 	jsr RenderBeginFrame
 	
-	IFD DEBUG
-	; Profiler frame start
-	jsr Profile_BeginFrame
-	ENDIF
+	move.l (CurrentLevel), a1
 
 	; Read and process gamepad input
 	jsr UpdateInput
 	
 	; Update game objects
-	jsr LevelUpdateGameObjs
+	jsr GameObjUpdateAll
 	
 	; Update camera
 	jsr UpdateCamera
 	
 	; Draw game objects
-	jsr LevelDrawGameObjs
+	jsr GameObjRenderAll
 	
 	; Update map streaming
 	jsr UpdateMapStreaming
@@ -138,14 +135,8 @@ GameLoop:
 	; Update palette lerping
 	jsr PaletteLerpUpdate
 	
-	; Render
+	; End frame
 	jsr RenderEndFrame
-	
-	IFD DEBUG
-	; Profiler frame end
-	jsr Profile_EndFrame
-	jsr Profile_DrawResults
-	ENDIF
 
 	; Back to top
 	jmp GameLoop
@@ -161,6 +152,11 @@ RenderBeginFrame:
 	; Clear sprite links
 	move.w #0x0, prev_sprite_link
 	
+	IFD DEBUG
+	; Profiler frame start
+	jsr Profile_BeginFrame
+	ENDIF
+	
 	rts
 	
 RenderEndFrame:
@@ -168,28 +164,20 @@ RenderEndFrame:
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
 	
-	; DMA the sprite table
-	lea    vdp_sprite_table, a0
-	move.w #vram_addr_sprite_table, d0
-	move.w (next_sprite_index), d1
-	mulu.w #Sprite_Struct_Size, d1
-	jsr VPDDMACopyVRAM
-	
 	; Enable VINT
 	move.b #0x1, vint_enabled
-	
-	IFD DEBUG
-	lea Str_Render, a0
-	jsr Profile_PushScope
-	jsr VDPQueue_ExecuteAll
-	jsr Profile_PopScope
-	ENDIF
 	
 	; Wait for VDP job queue
 	@WaitVDPQueue:
 	jsr   VDPQueue_GetSize
 	cmp.l #0x0, d0
 	bne   @WaitVDPQueue
+	
+	IFD DEBUG
+	; Profiler frame end
+	jsr Profile_EndFrame
+	jsr Profile_DrawResults
+	ENDIF
 	
 	rts
 	
@@ -198,11 +186,23 @@ RenderEndFrame:
 	; ************************************
 __vinterrupt:
 
-	IFND DEBUG
+	; DMA the sprite table
+	lea    vdp_sprite_table, a0
+	move.w #vram_addr_sprite_table, d0
+	move.w (next_sprite_index), d1
+	mulu.w #Sprite_Struct_Size, d1
+	jsr    VPDDMACopyVRAM
+	
+	IFD DEBUG
+	lea Str_Render, a0
+	jsr Profile_PushScope
+	ENDIF
 	
 	; Execute VDP job queue
 	jsr VDPQueue_ExecuteAll
 	
+	IFD DEBUG
+	jsr Profile_PopScope
 	ENDIF
 
 	; NOT FOR RELEASE

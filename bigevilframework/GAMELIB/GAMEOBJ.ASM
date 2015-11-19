@@ -57,7 +57,7 @@ GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
 
 ;==============================================================
-; Add game objs to update/render lists
+; Game object update/render lists
 ;==============================================================
 
 GameObjAddToUpdateList:
@@ -103,6 +103,53 @@ GameObjAddToRenderList:
 	
 	; Increment count
 	addi.l #0x1, GameObjListSize_Render
+	
+	rts
+	
+GameObjUpdateAll:
+	; a1 --- Level address
+	
+	IFD DEBUG
+	lea Str_GameObjs, a0
+	jsr Profile_PushScope
+	ENDIF
+
+	move.l (GameObjListSize_Update), d0	 ; Get gameobj list size
+	cmp.l  #0x0, d0
+	beq    @NoGameObjs					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (GameObjListHead_Update), a0	 ; Get list head
+	@GameObjLp:							 ; For all objs in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l GameObj_UpdateRoutine(a0), a2 ; Get update routine
+	jsr    (a2)							 ; Execute update routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l GameObj_UpdateNext(a0), a0	 ; Get next ptr
+	dbra   d0, @GameObjLp				 ; Loop
+	@NoGameObjs:
+
+	IFD DEBUG
+	jsr Profile_PopScope
+	ENDIF
+	
+	rts
+	
+GameObjRenderAll:
+	; a1 --- Level address
+	
+	move.l (GameObjListSize_Render), d0	 ; Get gameobj list size
+	cmp.l  #0x0, d0
+	beq    @NoGameObjs					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (GameObjListHead_Render), a0	 ; Get list head
+	@GameObjLp:							 ; For all objs in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l GameObj_RenderRoutine(a0), a2 ; Get render routine
+	jsr    (a2)							 ; Execute render routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l GameObj_RenderNext(a0), a0	 ; Get next ptr
+	dbra   d0, @GameObjLp				 ; Loop
+	@NoGameObjs:
 	
 	rts
 	
