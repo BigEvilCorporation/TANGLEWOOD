@@ -108,7 +108,8 @@ __main:
 	;lea SFX_Test, a0
 	;jsr Echo_PlaySFX
 	
-	lea BGM_Midnas, a0
+	lea bgm_titles, a0
+	;lea BGM_Midnas, a0
 	jsr Echo_PlayBGM
 
 	; ************************************
