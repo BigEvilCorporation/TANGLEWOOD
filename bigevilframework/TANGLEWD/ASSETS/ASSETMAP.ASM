@@ -12,6 +12,9 @@
     ; ************************************
     ; Palettes
     ; ************************************
+	include 'assets\palettes\bec_logo.asm'
+	include 'assets\palettes\twd_logo.asm'
+	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_fuzl.asm'
@@ -47,6 +50,10 @@
 	; ************************************
 	; Test maps
 	; ************************************
+	include 'assets\tiles\bec_logo.asm'
+	include 'assets\tiles\twd_logo.asm'
+	include 'assets\maps\bec_logo.asm'
+	include 'assets\maps\twd_logo.asm'
 	include 'assets\tiles\til_tst1.asm'
 	include 'assets\maps\map_tst1.asm'
 	include 'assets\collisn\ctl_tst1.asm'
@@ -58,11 +65,15 @@
 	; ************************************
     ; Level tiles
     ; ************************************
+	include 'assets\tiles\bec_logo.asm'
+	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 	
 	; ************************************
     ; Level maps
     ; ************************************
+	include 'assets\maps\bec_logo.asm'
+	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
 	
 	; ************************************
@@ -166,6 +177,13 @@ Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
 	; ************************************
 	; Palette IDs
 	; ************************************
+; Intro logos
+PaletteId_BigEvilLogo	equ 0x0
+
+; Main menu
+PaletteId_TanglewoodLogo equ 0x0
+
+; Gameplay
 PaletteId_World0		equ 0x0
 PaletteId_Monster		equ 0x1
 PaletteId_Fuzzl			equ 0x2

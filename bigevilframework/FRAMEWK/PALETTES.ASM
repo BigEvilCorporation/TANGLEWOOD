@@ -10,7 +10,7 @@ LoadPalette:
     ; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
-	mulu.w #size_palette_b, d0         ; Colour index to CRAM destination address
+	mulu.w #size_palette_b, d0      ; Colour index to CRAM destination address
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
@@ -34,7 +34,35 @@ LoadPaletteDMA:
 	
 	rts
 
-ReadPalette;
+ClearPalettes:
+
+	move.l #0x3, d0
+	@PaletteLp:
+	move.l d0, -(sp)
+	jsr    ClearPalette
+	move.l (sp)+, d0
+	dbra   d0, @PaletteLp
+
+	rts
+	
+ClearPalette:
+	; d0 (b) Palette index
+	
+	mulu.w #size_palette_b, d0      ; Colour index to CRAM destination address
+	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d0				; Shift lower word back
+	swap    d0                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_cram_write, d0 ; OR in CRAM write command
+	move.l  d0, vdp_control        	; Move dest address to VDP control port
+
+	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette in words (-1 for loop counter)
+	@PaletteClr:
+	move.w #0x0, vdp_data          ; Move word to CRAM
+	dbra.w d0, @PaletteClr
+	
+	rts
+	
+ReadPalette:
     ; d0 (b) Palette index
 	; a0 --- Dest RAM address
 

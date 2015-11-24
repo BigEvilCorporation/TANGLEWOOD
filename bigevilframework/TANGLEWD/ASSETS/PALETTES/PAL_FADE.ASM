@@ -1,0 +1,98 @@
+;===============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2014
+;===============================================================
+;   http://www.bigevilcorporation.co.uk
+;===============================================================
+;   pal_fade.asm - Palettes for fades
+;===============================================================	
+
+palette_fade_black:
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.w	0x0000
+	
+palette_fade_white:
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	dc.w	0x0FFF
+	
+palette_fade_red:
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	dc.w	0x000F
+	
+palette_fade_green:
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	dc.w	0x00F0
+	
+palette_fade_blue:
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	dc.w	0x0F00
+	

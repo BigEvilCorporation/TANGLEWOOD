@@ -68,6 +68,11 @@ prev_sprite_link    rs.w 1
 art_scratch_buffer  rs.b ArtScratchBufferSize
 
 ; ************************************
+; Timers
+; ************************************
+TimerLogoFade		rs.l 1
+
+; ************************************
 ; World
 ; ************************************
 CurrentLevel		rs.l 1
@@ -109,6 +114,8 @@ PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
 
 ; Switching colour palettes - player 1
 SwitchingPalettesP1 rs.l NumSwitchingColours
+
+GameStatePtr			rs.l 1
 
 ; ************************************
 ; Game objects

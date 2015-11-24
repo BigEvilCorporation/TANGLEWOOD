@@ -32,11 +32,15 @@ LevelLoad:
 	jsr LevelCreateGameObjects
 	jsr LevelLoadGameObjArt
 	
+	; Flush VDP queue
+	jsr VDPQueue_ExecuteAll
+	
 	rts
 
 LevelLoadPalettes:
 	; a1 --- Level struct address
 	
+	clr.l  d6
 	move.b Level_NumPalettes(a1), d6; Num palettes to d6
 	subi.b #0x1, d6					; -1 for loop
 	move.l #PaletteId_World0, d0	; First level palette offset to d0

@@ -42,6 +42,7 @@
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
 	include '..\gamelib\colour.asm'
+	include '..\gamelib\state.asm'
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\pickup.asm'
@@ -63,6 +64,11 @@
 	include 'obstacle.asm'
 	include 'player.asm'
 	
+	; Include game states
+	include 'gameplay.asm'
+	include 'logos.asm'
+	include 'mainmenu.asm'
+	
 	; Include game code
 	include 'input.asm'
 	include 'level.asm'
@@ -83,34 +89,15 @@ __main:
 	move.l   #Tiles_PixelFontSizeT, d1
 	jsr      LoadTiles
 
-	; Set first level
-	IFD DEBUG
-	move.l #Tst1_Forest, CurrentLevel
-	ELSE
-	move.l #Lvl1_HarlequinForest, CurrentLevel
-	ENDIF
-	
-	; Load assets
-	jsr LevelLoad
-
-	; Flush VDP queue
-	jsr VDPQueue_ExecuteAll
-	
-	; Reset all positions/velocities
-	jsr LevelReset
-	
 	; Clear counters
 	move.l #0x0, hblank_counter
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
 	
-	;lea SFX_Test, a0
-	;jsr Echo_PlaySFX
-	
-	lea bgm_titles, a0
-	;lea BGM_Midnas, a0
-	jsr Echo_PlayBGM
+	; Enter first game state
+	lea GameStateLogos, a0
+	jsr GameStateEnter
 
 	; ************************************
 	; Main game loop
@@ -120,25 +107,11 @@ GameLoop:
 	; Begin frame
 	jsr RenderBeginFrame
 	
-	move.l (CurrentLevel), a1
-
-	; Read and process gamepad input
-	jsr UpdateInput
+	; Update current state
+	jsr GameStateUpdate
 	
-	; Update game objects
-	jsr GameObjUpdateAll
-	
-	; Update camera
-	jsr UpdateCamera
-	
-	; Draw game objects
-	jsr GameObjRenderAll
-	
-	; Update map streaming
-	jsr UpdateMapStreaming
-	
-	; Update time of day
-	jsr UpdateTimeOfday
+	; Render current state
+	jsr GameStateRender
 	
 	; Update palette lerping
 	jsr PaletteLerpUpdate
@@ -172,14 +145,17 @@ RenderEndFrame:
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
 	
+	; Get current render counter
+	move.l (frame_counter_render), d0
+	
 	; Enable VINT
 	move.b #0x1, vint_enabled
 	
-	; Wait for VDP job queue
-	@WaitVDPQueue:
-	jsr   VDPQueue_GetSize
-	cmp.l #0x0, d0
-	bne   @WaitVDPQueue
+	; Wait for next render
+	@WaitForVINT:
+	move.l (frame_counter_render), d1
+	cmp.l  d0, d1
+	beq    @WaitForVINT
 	
 	IFD DEBUG
 	; Profiler frame end
@@ -195,11 +171,14 @@ RenderEndFrame:
 __vinterrupt:
 
 	; DMA the sprite table
+	cmp.w  #0x0, prev_sprite_link
+	beq    @NoSprites
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
 	move.w (next_sprite_index), d1
 	mulu.w #Sprite_Struct_Size, d1
 	jsr    VPDDMACopyVRAM
+	@NoSprites:
 	
 	IFD DEBUG
 	lea Str_Render, a0

@@ -1,0 +1,69 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2014
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   gameplay.asm - Gameplay game state
+;==============================================================	
+
+GameStateGameplay:
+	dc.l Gameplay_Enter
+	dc.l Gameplay_Exit
+	dc.l Gameplay_Update
+	dc.l Gameplay_Render
+	
+Gameplay_Enter:
+
+	; Set first level
+	IFD DEBUG
+	move.l #Tst1_Forest, CurrentLevel
+	ELSE
+	move.l #Lvl1_HarlequinForest, CurrentLevel
+	ENDIF
+	
+	; Disable vint during state change
+	move.b #0x0, vint_enabled
+	
+	; Load assets
+	jsr LevelLoad
+	
+	; Reset all positions/velocities
+	jsr LevelReset
+	
+	rts
+	
+Gameplay_Exit:
+	rts
+	
+Gameplay_Update:
+
+	; Set current level ptr
+	move.l (CurrentLevel), a1
+
+	; Read and process gamepad input
+	jsr UpdateInput
+	
+	; Update game objects
+	jsr GameObjUpdateAll
+	
+	rts
+	
+Gameplay_Render:
+
+	; Set current level ptr
+	move.l (CurrentLevel), a1
+	
+	; Update camera
+	jsr UpdateCamera
+	
+	; Draw game objects
+	jsr GameObjRenderAll
+	
+	; Update map streaming
+	jsr UpdateMapStreaming
+	
+	; Update time of day
+	jsr UpdateTimeOfday
+	
+	rts
+	
