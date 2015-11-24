@@ -50,6 +50,7 @@ EntryPoint:
 	jsr RandInit
 	
 	; Init ECHO sound driver
+	lea echo_instruments, a0
 	jsr Echo_Init
 
 	; Cleanup registers

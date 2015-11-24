@@ -85,6 +85,7 @@
 	; ************************************
 	; Audio
 	; ************************************
+	include 'assets\music\instrs.asm'
 	include 'assets\sfx\testsfx.asm'
 	include 'assets\music\testbgm.asm'
 	include 'assets\music\titles.asm'
