@@ -7,7 +7,7 @@
 	IFD DEBUG
 	; Profiler strings
 Str_Frame:		dc.b "FRAME",0
-Str_GameObjs:	dc.b "GAMEOBJS",0
+Str_Entities:	dc.b "ENTITIES",0
 Str_Players:	dc.b "PLAYERS",0
 Str_Leaves:		dc.b "LEAVES",0
 Str_Fuzzls:		dc.b "FUZZLS",0

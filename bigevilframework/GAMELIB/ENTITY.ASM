@@ -1,0 +1,120 @@
+;==============================================================
+;   BIG EVIL FRAMEWORK - Matt Phillips (c) 2015
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   entity.asm - Basic positional entity
+;==============================================================
+
+	rsset 0
+;-----------------------------
+Entity_UpdateRoutine	rs.l 1 ; Update subroutine address
+Entity_RenderRoutine	rs.l 1 ; Render subroutine address
+;-----------------------------
+Entity_UpdateNext		rs.l 1 ; Next in update linked list
+Entity_RenderNext		rs.l 1 ; Next in render linked list
+;-----------------------------
+Entity_WorldPosX        rs.l 1	; Position X (world space)
+Entity_WorldPosY        rs.l 1	; Position Y (world space)
+Entity_Width            rs.w 1	; Width (pixels)
+Entity_Height           rs.w 1	; Height(pixels)
+;-----------------------------
+Entity_Struct_Size		rs.b 0
+
+;==============================================================
+; Game object update/render lists
+;==============================================================
+
+EntityAddToUpdateList:
+	; a0 --- GameObjAddr
+	
+	; If first in list, set as head and tail
+	cmp.l  #0x0, (EntityListHead_Update)
+	bne    @HasHead
+	move.l a0, EntityListHead_Update
+	move.l a0, EntityListTail_Update
+	bra    @End
+	@HasHead:
+	
+	; else link to current tail, then set as current tail
+	move.l (EntityListTail_Update), a1
+	move.l a0, Entity_UpdateNext(a1)
+	move.l a0, EntityListTail_Update
+	
+	@End:
+	
+	; Increment count
+	addi.l #0x1, EntityListSize_Update
+	
+	rts
+
+EntityAddToRenderList:
+	; a0 --- GameObjAddr
+	
+	; If first in list, set as head and tail
+	cmp.l  #0x0, (EntityListHead_Render)
+	bne    @HasHead
+	move.l a0, EntityListHead_Render
+	move.l a0, EntityListTail_Render
+	bra    @End
+	@HasHead:
+	
+	; else link to current tail, then set as current tail
+	move.l (EntityListTail_Render), a1
+	move.l a0, Entity_RenderNext(a1)
+	move.l a0, EntityListTail_Render
+	
+	@End:
+	
+	; Increment count
+	addi.l #0x1, EntityListSize_Render
+	
+	rts
+	
+EntityUpdateAll:
+	; a1 --- Level address
+	
+	IFD DEBUG
+	lea Str_Entities, a0
+	jsr Profile_PushScope
+	ENDIF
+
+	move.l (EntityListSize_Update), d0	 ; Get entity list size
+	cmp.l  #0x0, d0
+	beq    @NoEntities					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (EntityListHead_Update), a0	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l Entity_UpdateRoutine(a0), a2  ; Get update routine
+	jsr    (a2)							 ; Execute update routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l Entity_UpdateNext(a0), a0	 ; Get next ptr
+	dbra   d0, @EntityLp				 ; Loop
+	@NoEntities:
+
+	IFD DEBUG
+	jsr Profile_PopScope
+	ENDIF
+	
+	rts
+	
+EntityRenderAll:
+	; a1 --- Level address
+	
+	move.l (EntityListSize_Render), d0	 ; Get entity list size
+	cmp.l  #0x0, d0
+	beq    @NoEntities					 ; Skip if nothing to do
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (EntityListHead_Render), a0	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	move.l d0, -(sp)					 ; Backup counter
+	move.l Entity_RenderRoutine(a0), a2  ; Get render routine
+	jsr    (a2)							 ; Execute render routine
+	move.l (sp)+, d0					 ; Restore counter
+	move.l Entity_RenderNext(a0), a0	 ; Get next ptr
+	dbra   d0, @EntityLp				 ; Loop
+	@NoEntities:
+	
+	rts
+	

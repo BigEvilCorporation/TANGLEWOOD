@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Fuzzl_MaxGameObjs			equ 0x8
+Fuzzl_MaxEntities			equ 0x8
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelYUp				equ 0x0600
@@ -81,20 +81,20 @@ FuzzlInit:
 	jsr    AnimObjInit
 	
 	; Set update and render routines
-	move.l #FuzzlUpdate, GameObj_UpdateRoutine(a0)
-	move.l #AnimObjDraw, GameObj_RenderRoutine(a0)
+	move.l #FuzzlUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr GameObjAddToUpdateList
-	jsr GameObjAddToRenderList
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 	
 	; Default state
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #0x1, GameObj_Active(a0)
 	move.b  #0x1, GameObj_Visible(a0)
-	move.w  #Fuzzl_Width, GameObj_Width(a0)
-	move.w  #Fuzzl_Height, GameObj_Height(a0)
+	move.w  #Fuzzl_Width, Entity_Width(a0)
+	move.w  #Fuzzl_Height, Entity_Height(a0)
 	move.w  #Fuzzl_MaxVelX, GameObj_MaxVelX(a0)
 	move.w  #Fuzzl_Decel, GameObj_DecelX(a0)
 	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
@@ -121,20 +121,20 @@ FuzzlUpdate:
 	beq    @MovedFromInitialPos
 
 	; Check if Fuzzl is far from player
-	move.l GameObj_WorldPosX(a0), d2	; Fuzzl X
+	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
 	swap d0
-	move.l GameObj_WorldPosY(a0), d2	; Fuzzl Y
+	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
 	
 	lea Player1, a2
-	move.l GameObj_WorldPosX(a2), d2	; Player X
+	move.l Entity_WorldPosX(a2), d2	; Player X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	swap d1
-	move.l GameObj_WorldPosY(a2), d2	; Player Y
+	move.l Entity_WorldPosY(a2), d2	; Player Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	
@@ -166,8 +166,8 @@ FuzzlUpdate:
 	move.b d0, AnimObj_AnimSpeed(a0)
 
 	; Check all nests
-	move.l #GameObjArray_Nests, a1
-	move.l #Nest_MaxGameObjs-1, d6
+	move.l #EntityArray_Nests, a1
+	move.l #Nest_MaxEntities-1, d6
 	@NestLoop:
 	
 	; Check if nest is occupied
@@ -185,7 +185,7 @@ FuzzlUpdate:
 	beq   @NestNotInRange
 	
 	; Touching nest, snap to into position
-	move.l GameObj_WorldPosX(a1), GameObj_WorldPosX(a0)
+	move.l Entity_WorldPosX(a1), Entity_WorldPosX(a0)
 	
 	; Zero X velocity
 	move.w #0x0, GameObj_VelX(a0)
@@ -302,22 +302,22 @@ FuzzlUpdateEyes:
 
 	; Translate player to Fuzzl space
 	lea Player1, a2
-	move.l GameObj_WorldPosX(a2), d2	; Player X
+	move.l Entity_WorldPosX(a2), d2	; Player X
 	lsr.l  #0x8, d2						; Screen space
 	add.l  #(Player1Width/2), d2		; Centre
 	move.w d2, d0
 	swap d0
-	move.l GameObj_WorldPosY(a2), d2	; Player Y
+	move.l Entity_WorldPosY(a2), d2	; Player Y
 	lsr.l  #0x8, d2						; Screen space
 	add.l  #(Player1Height/2), d2		; Centre
 	move.w d2, d0
 
-	move.l GameObj_WorldPosX(a0), d2	; Fuzzl X
+	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
 	lsr.l  #0x8, d2						; Screen space
 	add.l  #(Fuzzl_Width/2), d2			; Centre
 	move.w d2, d1
 	swap d1
-	move.l GameObj_WorldPosY(a0), d2	; Fuzzl Y
+	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
 	lsr.l  #0x8, d2						; Screen space
 	add.l  #(Fuzzl_Height/2), d2			; Centre
 	move.w d2, d1

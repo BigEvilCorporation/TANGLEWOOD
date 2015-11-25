@@ -84,45 +84,45 @@ TestGameObjBoxIntersectBox:
 	; a1 --- GameObj 2
 	
 	; Obj 1 min X
-	move.l GameObj_WorldPosX(a0), d1	; X
+	move.l Entity_WorldPosX(a0), d1	; X
 	lsr.l  #0x8, d1						; To screen space
 	move.w d1, d2						; Copy for max
 	swap   d1							; In upper word d1
 	
 	; Obj 1 max X
-	move.w GameObj_Width(a0), d3		; Width
+	move.w Entity_Width(a0), d3		; Width
 	add.w  d3, d2						; Fuzzl X max
 	swap   d2							; In upper word d2
 	
 	; Obj 1 min Y
-	move.l GameObj_WorldPosY(a0), d3	; Y
+	move.l Entity_WorldPosY(a0), d3	; Y
 	lsr.l  #0x8, d3						; To screen space
 	move.w d3, d2						; Copy for max
 	move.w d3, d1						; In lower word d1
 	
 	; Obj 1 max Y
-	move.w GameObj_Height(a0), d3		; Height
+	move.w Entity_Height(a0), d3		; Height
 	add.w  d3, d2						; Fuzzl Y max
 	
 	; Obj 2 min X
-	move.l GameObj_WorldPosX(a1), d3	; X
+	move.l Entity_WorldPosX(a1), d3	; X
 	lsr.l  #0x8, d3						; To screen space
 	move.w d3, d4						; Copy for max
 	swap   d3							; In upper word d1
 	
 	; Obj 2 max X
-	move.w GameObj_Width(a1), d5		; Width
+	move.w Entity_Width(a1), d5		; Width
 	add.w  d5, d4						; Fuzzl X max
 	swap   d4							; In upper word d2
 	
 	; Obj 2 min Y
-	move.l GameObj_WorldPosY(a1), d5	; Y
+	move.l Entity_WorldPosY(a1), d5	; Y
 	lsr.l  #0x8, d5						; To screen space
 	move.w d5, d4						; Copy for max
 	move.w d5, d3						; In lower word d1
 	
 	; Obj 2 max Y
-	move.w GameObj_Height(a1), d5		; Height
+	move.w Entity_Height(a1), d5		; Height
 	add.w  d5, d4						; Fuzzl Y max
 	
 	jsr TestBoxIntersectBox
@@ -135,45 +135,45 @@ TestGameObjBoxInsideBox:
 	; a1 --- GameObj 2
 	
 	; Obj 1 min X
-	move.l GameObj_WorldPosX(a0), d1	; X
+	move.l Entity_WorldPosX(a0), d1	; X
 	lsr.l  #0x8, d1						; To screen space
 	move.w d1, d2						; Copy for max
 	swap   d1							; In upper word d1
 	
 	; Obj 1 max X
-	move.w GameObj_Width(a0), d3		; Width
+	move.w Entity_Width(a0), d3		; Width
 	add.w  d3, d2						; Fuzzl X max
 	swap   d2							; In upper word d2
 	
 	; Obj 1 min Y
-	move.l GameObj_WorldPosY(a0), d3	; Y
+	move.l Entity_WorldPosY(a0), d3	; Y
 	lsr.l  #0x8, d3						; To screen space
 	move.w d3, d2						; Copy for max
 	move.w d3, d1						; In lower word d1
 	
 	; Obj 1 max Y
-	move.w GameObj_Height(a0), d3		; Height
+	move.w Entity_Height(a0), d3		; Height
 	add.w  d3, d2						; Fuzzl Y max
 	
 	; Obj 2 min X
-	move.l GameObj_WorldPosX(a1), d3	; X
+	move.l Entity_WorldPosX(a1), d3	; X
 	lsr.l  #0x8, d3						; To screen space
 	move.w d3, d4						; Copy for max
 	swap   d3							; In upper word d1
 	
 	; Obj 2 max X
-	move.w GameObj_Width(a1), d5		; Width
+	move.w Entity_Width(a1), d5		; Width
 	add.w  d5, d4						; Fuzzl X max
 	swap   d4							; In upper word d2
 	
 	; Obj 2 min Y
-	move.l GameObj_WorldPosY(a1), d5	; Y
+	move.l Entity_WorldPosY(a1), d5	; Y
 	lsr.l  #0x8, d5						; To screen space
 	move.w d5, d4						; Copy for max
 	move.w d5, d3						; In lower word d1
 	
 	; Obj 2 max Y
-	move.w GameObj_Height(a1), d5		; Height
+	move.w Entity_Height(a1), d5		; Height
 	add.w  d5, d4						; Fuzzl Y max
 	
 	jsr TestBoxInsideBox
@@ -186,22 +186,22 @@ GameObjectDistSq:
 	; a1 --- GameObj 2
 
 	; Obj 1 X
-	move.l GameObj_WorldPosX(a0), d0	; X
+	move.l Entity_WorldPosX(a0), d0	; X
 	lsr.l  #0x8, d0						; To screen space
 	swap   d0							; In upper word d1
 	
 	; Obj 1 Y
-	move.l GameObj_WorldPosY(a0), d2	; Y
+	move.l Entity_WorldPosY(a0), d2	; Y
 	lsr.l  #0x8, d2						; To screen space
 	move.w d2, d0						; In lower word d1
 	
 	; Obj 2 X
-	move.l GameObj_WorldPosX(a1), d1	; X
+	move.l Entity_WorldPosX(a1), d1	; X
 	lsr.l  #0x8, d1						; To screen space
 	swap   d1							; In upper word d1
 	
 	; Obj 2 Y
-	move.l GameObj_WorldPosY(a1), d2	; Y
+	move.l Entity_WorldPosY(a1), d2	; Y
 	lsr.l  #0x8, d2						; To screen space
 	move.w d2, d1						; In lower word d1
 

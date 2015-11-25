@@ -115,30 +115,31 @@ PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
 ; Switching colour palettes - player 1
 SwitchingPalettesP1 rs.l NumSwitchingColours
 
+; Current game state
 GameStatePtr			rs.l 1
 
 ; ************************************
-; Game objects
+; Entity linked lists
 ; ************************************
-GameObjArray_Players    rs.b (Player_Struct_Size*Player_MaxGameObjs)
-GameObjArray_Monsters   rs.b (Monster_Struct_Size*Monster_MaxGameObjs)
-GameObjArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxGameObjs)
-GameObjArray_Flues      rs.b (Flue_Struct_Size*Flue_MaxGameObjs)
-GameObjArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxGameObjs)
-GameObjArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxGameObjs)
-GameObjArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxGameObjs)
-GameObjArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxGameObjs)
+EntityListHead_Update	rs.l 1
+EntityListTail_Update	rs.l 1
+EntityListSize_Update	rs.l 1
+
+EntityListHead_Render	rs.l 1
+EntityListTail_Render	rs.l 1
+EntityListSize_Render	rs.l 1
 
 ; ************************************
-; Game object lists
+; Entities
 ; ************************************
-GameObjListHead_Update	rs.l 1
-GameObjListTail_Update	rs.l 1
-GameObjListSize_Update	rs.l 1
-
-GameObjListHead_Render	rs.l 1
-GameObjListTail_Render	rs.l 1
-GameObjListSize_Render	rs.l 1
+EntityArray_Players    rs.b (Player_Struct_Size*Player_MaxEntities)
+EntityArray_Monsters   rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+EntityArray_Flues      rs.b (Flue_Struct_Size*Flue_MaxEntities)
+EntityArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
+EntityArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
+EntityArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxEntities)
+EntityArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
 
 reserved_ram_size		rs.b 0
 

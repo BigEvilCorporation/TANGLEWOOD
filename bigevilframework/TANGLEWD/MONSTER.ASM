@@ -9,7 +9,7 @@
 ; ************************************
 ; Constants
 ; ************************************
-Monster_MaxGameObjs equ 0x1
+Monster_MaxEntities equ 0x1
 
 Monster_Width	equ 0x0080
 Monster_Height	equ 0x0050
@@ -71,16 +71,16 @@ MonsterInit:
 	jsr CharacterInit
 	
 	; Set update and render routines
-	move.l #MonsterUpdate, GameObj_UpdateRoutine(a0)
-	move.l #CharacterDraw, GameObj_RenderRoutine(a0)
+	move.l #MonsterUpdate, Entity_UpdateRoutine(a0)
+	move.l #CharacterDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	;jsr GameObjAddToUpdateList
-	;jsr GameObjAddToRenderList
+	;jsr EntityAddToUpdateList
+	;jsr EntityAddToRenderList
 
 	; Default properties
-	move.w  #Monster_Width, GameObj_Width(a0)
-	move.w  #Monster_Height, GameObj_Height(a0)
+	move.w  #Monster_Width, Entity_Width(a0)
+	move.w  #Monster_Height, Entity_Height(a0)
 	move.w  #Monster_MaxVelXRun, GameObj_MaxVelX(a0)
 	move.w  #Monster_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Monster_MaxVelYDown, GameObj_MaxVelYDown(a0)
@@ -219,20 +219,20 @@ MonsterUpdateWaitForPlayer:
 	move.l #Player1, a2
 	;jsr    GameObjectDistSq
 
-	move.l GameObj_WorldPosX(a0), d2	; Fuzzl X
+	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
 	swap d0
-	move.l GameObj_WorldPosY(a0), d2	; Fuzzl Y
+	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
 	
 	lea Player1, a2
-	move.l GameObj_WorldPosX(a2), d2	; Player X
+	move.l Entity_WorldPosX(a2), d2	; Player X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	swap d1
-	move.l GameObj_WorldPosY(a2), d2	; Player Y
+	move.l Entity_WorldPosY(a2), d2	; Player Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	
@@ -272,14 +272,14 @@ MonsterUpdateTrackPlayer:
 	; Check if within Y tolerance of player
 
 	; Get left positions
-	move.l GameObj_WorldPosX(a0), d0	; Left of monster
-	move.l GameObj_WorldPosX(a2), d1	; Left of player
+	move.l Entity_WorldPosX(a0), d0	; Left of monster
+	move.l Entity_WorldPosX(a2), d1	; Left of player
 
 	; Get widths
 	clr.l  d4
 	clr.l  d5
-	move.w GameObj_Width(a0), d4
-	move.w GameObj_Width(a2), d5
+	move.w Entity_Width(a0), d4
+	move.w Entity_Width(a2), d5
 	mulu   #SubPixelsPerPixel, d4
 	mulu   #SubPixelsPerPixel, d5
 

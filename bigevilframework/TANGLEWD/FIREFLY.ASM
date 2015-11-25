@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Firefly_MaxGameObjs  equ 0x12
+Firefly_MaxEntities  equ 0x12
 Firefly_Width        equ 0x8
 Firefly_Height       equ 0x8
 Firefly_ResetTime    equ 0x0100
@@ -33,16 +33,16 @@ FireflyInit:
 	jsr PickupInit
 
 	; Set update and render routines
-	move.l #FireflyUpdate, GameObj_UpdateRoutine(a0)
-	move.l #PickupDraw, GameObj_RenderRoutine(a0)
+	move.l #FireflyUpdate, Entity_UpdateRoutine(a0)
+	move.l #PickupDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr GameObjAddToUpdateList
-	jsr GameObjAddToRenderList
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 
 	; Default state
-	move.w #Firefly_Width, GameObj_Width(a0)
-	move.w #Firefly_Height, GameObj_Height(a0)
+	move.w #Firefly_Width, Entity_Width(a0)
+	move.w #Firefly_Height, Entity_Height(a0)
 	move.w #0x0, Firefly_ResetTimer(a0)
 	move.b #ColourRed, Firefly_Colour(a0)
 	move.b #0x1, Firefly_Pickup_Value(a0)

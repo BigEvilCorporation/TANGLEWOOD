@@ -142,12 +142,12 @@ CharacterFindLedge:
 	; Heading left - check for left edge, and invert probe X pos
 	move.b #col_bit_ledge_lhs, d1
 	clr.l  d2
-	move.w GameObj_Width(a0), d2
+	move.w Entity_Width(a0), d2
 	sub.w  Character_ProbeLedgeX(a0), d2
 	@NoProbeInv:
 	
 	; Find ledge
-	move.l GameObj_WorldPosX(a0), d0 ; Get player pos X
+	move.l Entity_WorldPosX(a0), d0 ; Get player pos X
 	lsr.l  #0x8, d0					; To sprite space
 	sub.w  #SpritePlaneBorderX, d0	; To screen space
 	add.l  d2, d0					; Ledge probe X position (in d2, may be flipped)
@@ -161,7 +161,7 @@ CharacterFindLedge:
 	bge    @OutOfBounds
 
 	swap   d0
-	move.l GameObj_WorldPosY(a0), d2 ; Get player pos Y
+	move.l Entity_WorldPosY(a0), d2 ; Get player pos Y
 	lsr.l  #0x8, d2					; To sprite space
 	clr.l  d2
 	sub.w  #SpritePlaneBorderY, d2	; To screen space
@@ -207,7 +207,7 @@ CharacterFindLedge:
 	cmp.b  #0x0, d0
 	beq    @NoProbeInv2
 	clr.l  d1
-	move.w GameObj_Width(a0), d1
+	move.w Entity_Width(a0), d1
 	sub.w  Character_ProbeLedgeX(a0), d1
 	@NoProbeInv2:
 	
@@ -232,8 +232,8 @@ CharacterFindLedge:
 	beq	   @EndLedgeCorrection
 	
 	; On ledge, fix player position
-	move.l Character_LastLedgeX(a0), GameObj_WorldPosX(a0)
-	move.l Character_LastLedgeY(a0), GameObj_WorldPosY(a0)
+	move.l Character_LastLedgeX(a0), Entity_WorldPosX(a0)
+	move.l Character_LastLedgeY(a0), Entity_WorldPosY(a0)
 	
 	; Clear velocity
 	move.w #0x0, GameObj_VelX(a0)

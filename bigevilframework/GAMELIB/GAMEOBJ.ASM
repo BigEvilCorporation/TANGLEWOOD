@@ -7,25 +7,14 @@
 ;==============================================================
 
 ;==============================================================
-; GameObject base
+; GameObject
 ;==============================================================
-	rsset 0
-;------------------------------
-GameObj_UpdateRoutine	 rs.l 1 ; Update subroutine address
-GameObj_RenderRoutine	 rs.l 1 ; Render subroutine address
-;------------------------------
-GameObj_UpdateNext		 rs.l 1 ; Next in update linked list
-GameObj_RenderNext		 rs.l 1 ; Next in render linked list
-;------------------------------
-GameObj_WorldPosX        rs.l 1	; Position X (world space)
-GameObj_WorldPosY        rs.l 1	; Position Y (world space)
+	rsset Entity_Struct_Size
 GameObj_SubSpriteOffArr  rs.l 1	; Subsprite position offsets array address
 GameObj_SubSpriteOffArrF rs.l 1	; Subsprite position offsets array address (flipped)
 GameObj_TilesetAddr      rs.l 1	; Art tiles ROM address
 GameObj_VRAMAddr         rs.l 1	; Art tiles VRAM address
 GameObj_LastFloor     	 rs.l 1 ; Last detected floor height
-GameObj_Width            rs.w 1	; Width (sprite draw space)
-GameObj_Height           rs.w 1	; Height(sprite draw space)
 GameObj_TilesetSize      rs.w 1	; Art tiles size (bytes)
 GameObj_Dimensions       rs.w 1	; Width/height in subsprite
 GameObj_AccelX  		 rs.w 1 ; X acceleration
@@ -51,107 +40,9 @@ GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_Solid			 rs.b 1 ; Object is solid
-
 ;------------------------------
 GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
-
-;==============================================================
-; Game object update/render lists
-;==============================================================
-
-GameObjAddToUpdateList:
-	; a0 --- GameObjAddr
-	
-	; If first in list, set as head and tail
-	cmp.l  #0x0, (GameObjListHead_Update)
-	bne    @HasHead
-	move.l a0, GameObjListHead_Update
-	move.l a0, GameObjListTail_Update
-	bra    @End
-	@HasHead:
-	
-	; else link to current tail, then set as current tail
-	move.l (GameObjListTail_Update), a1
-	move.l a0, GameObj_UpdateNext(a1)
-	move.l a0, GameObjListTail_Update
-	
-	@End:
-	
-	; Increment count
-	addi.l #0x1, GameObjListSize_Update
-	
-	rts
-
-GameObjAddToRenderList:
-	; a0 --- GameObjAddr
-	
-	; If first in list, set as head and tail
-	cmp.l  #0x0, (GameObjListHead_Render)
-	bne    @HasHead
-	move.l a0, GameObjListHead_Render
-	move.l a0, GameObjListTail_Render
-	bra    @End
-	@HasHead:
-	
-	; else link to current tail, then set as current tail
-	move.l (GameObjListTail_Render), a1
-	move.l a0, GameObj_RenderNext(a1)
-	move.l a0, GameObjListTail_Render
-	
-	@End:
-	
-	; Increment count
-	addi.l #0x1, GameObjListSize_Render
-	
-	rts
-	
-GameObjUpdateAll:
-	; a1 --- Level address
-	
-	IFD DEBUG
-	lea Str_GameObjs, a0
-	jsr Profile_PushScope
-	ENDIF
-
-	move.l (GameObjListSize_Update), d0	 ; Get gameobj list size
-	cmp.l  #0x0, d0
-	beq    @NoGameObjs					 ; Skip if nothing to do
-	subi.l #0x1, d0						 ; -1 for loop
-	move.l (GameObjListHead_Update), a0	 ; Get list head
-	@GameObjLp:							 ; For all objs in list
-	move.l d0, -(sp)					 ; Backup counter
-	move.l GameObj_UpdateRoutine(a0), a2 ; Get update routine
-	jsr    (a2)							 ; Execute update routine
-	move.l (sp)+, d0					 ; Restore counter
-	move.l GameObj_UpdateNext(a0), a0	 ; Get next ptr
-	dbra   d0, @GameObjLp				 ; Loop
-	@NoGameObjs:
-
-	IFD DEBUG
-	jsr Profile_PopScope
-	ENDIF
-	
-	rts
-	
-GameObjRenderAll:
-	; a1 --- Level address
-	
-	move.l (GameObjListSize_Render), d0	 ; Get gameobj list size
-	cmp.l  #0x0, d0
-	beq    @NoGameObjs					 ; Skip if nothing to do
-	subi.l #0x1, d0						 ; -1 for loop
-	move.l (GameObjListHead_Render), a0	 ; Get list head
-	@GameObjLp:							 ; For all objs in list
-	move.l d0, -(sp)					 ; Backup counter
-	move.l GameObj_RenderRoutine(a0), a2 ; Get render routine
-	jsr    (a2)							 ; Execute render routine
-	move.l (sp)+, d0					 ; Restore counter
-	move.l GameObj_RenderNext(a0), a0	 ; Get next ptr
-	dbra   d0, @GameObjLp				 ; Loop
-	@NoGameObjs:
-	
-	rts
 	
 ;==============================================================
 
@@ -377,9 +268,9 @@ GameObjApplyVelocityX:
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0			; Get velocity
 	ext.l  d0							; Sign extend word to long
-	move.l GameObj_WorldPosX(a0), d1	; Get pos
+	move.l Entity_WorldPosX(a0), d1	; Get pos
 	add.l d0, d1						; Add velocity to pos
-	move.l d1, GameObj_WorldPosX(a0)
+	move.l d1, Entity_WorldPosX(a0)
 
 	rts
 	
@@ -390,9 +281,9 @@ GameObjApplyVelocityY:
 	; Move player Y by velocity
 	move.w GameObj_VelY(a0), d0			; Fetch Y pos from RAM
 	ext.l  d0							; Sign extend word to long
-	move.l GameObj_WorldPosY(a0), d1	; Get Y pos
+	move.l Entity_WorldPosY(a0), d1	; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
-	move.l d1, GameObj_WorldPosY(a0)	; Put new Y pos back in RAM
+	move.l d1, Entity_WorldPosY(a0)	; Put new Y pos back in RAM
 	
 	rts
 
@@ -401,7 +292,7 @@ GameObjClampPos:
 	; a1 --- Level addr
 
 	clr.l  d1
-	move.l GameObj_WorldPosY(a0), d0
+	move.l Entity_WorldPosY(a0), d0
 	move.w Level_MapHeight(a1), d1
 	mulu   #0x8, d1						; Tiles to pixels
 	add.l  #SpritePlaneBorderY*2, d1	; To sprite space
@@ -413,18 +304,18 @@ GameObjClampPos:
 	bra    @EndYClamp
 
 	@ClampYBottom:
-	move.l d1, GameObj_WorldPosY(a0)
+	move.l d1, Entity_WorldPosY(a0)
 	move.w #0x0, GameObj_VelY(a0)
 	bra    @EndYClamp
 
 	@ClampYTop:
-	move.l #0x0, GameObj_WorldPosY(a0)
+	move.l #0x0, Entity_WorldPosY(a0)
 	move.w #0x0, GameObj_VelY(a0)
 
 	@EndYClamp:
 
 	clr.l  d1
-	move.l GameObj_WorldPosX(a0), d0
+	move.l Entity_WorldPosX(a0), d0
 	move.w Level_MapWidth(a1), d1
 	mulu   #0x8, d1						; Tiles to pixels
 	add.l  #SpritePlaneBorderX*2, d1	; To sprite space
@@ -436,12 +327,12 @@ GameObjClampPos:
 	bra    @EndXClamp
 
 	@ClampXRight:
-	move.l d1, GameObj_WorldPosX(a0)
+	move.l d1, Entity_WorldPosX(a0)
 	move.w #0x0, GameObj_VelX(a0)
 	bra    @EndXClamp
 
 	@ClampXLeft:
-	move.l #0x0, GameObj_WorldPosX(a0)
+	move.l #0x0, Entity_WorldPosX(a0)
 	move.w #0x0, GameObj_VelX(a0)
 
 	@EndXClamp:
@@ -455,9 +346,9 @@ GameObjCollisionCorrection:
 	; Correct player pos if on floor
 	clr.l  d3
 	move.b #0x0, GameObj_OnFloor(a0)				; Clear player on floor flag
-	move.l GameObj_WorldPosY(a0), d1				; Get Y pos
+	move.l Entity_WorldPosY(a0), d1				; Get Y pos
 	move.l GameObj_LastFloor(a0), d2				; Get last found floor
-	move.w GameObj_Height(a0), d3					; Get gameobj height
+	move.w Entity_Height(a0), d3					; Get gameobj height
 	lsl.l  #0x8, d3									; Height to world space
 	sub.l  d3, d2									; Floor to player space
 	cmp.l  d2, d1									; Check if player is on or under floor
@@ -466,7 +357,7 @@ GameObjCollisionCorrection:
 	move.w #0x0, GameObj_VelY(a0)					; Zero player's Y velocity
 	move.b #0x1, GameObj_OnFloor(a0)				; Set player on floor flag
 	move.b #0x1, GameObj_CloseToFloor(a0)			; Set player close to floor flag
-	move.l d1, GameObj_WorldPosY(a0)				; Put new Y pos back in RAM
+	move.l d1, Entity_WorldPosY(a0)				; Put new Y pos back in RAM
 	@AboveFloor:
 
 	; Check if close to floor
@@ -510,7 +401,7 @@ GameObjFindFloor:
 	
 	; Find floor
 	move.l #0x0, GameObj_LastFloor(a0)		; Clear last found floor
-	move.l GameObj_WorldPosX(a0), d1		; Get player pos X
+	move.l Entity_WorldPosX(a0), d1		; Get player pos X
 	lsr.l  #0x8, d1							; To sprite space
 	sub.w  #SpritePlaneBorderX, d1			; To screen space
 	clr.l  d3
@@ -526,7 +417,7 @@ GameObjFindFloor:
 	bge    @OutOfBounds
 
 	swap   d1								; X to upper word
-	move.l GameObj_WorldPosY(a0), d2		; Get player pos Y
+	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
 	lsr.l  #0x8, d2							; To sprite space
 	sub.w  #SpritePlaneBorderY, d2			; To screen space
 	move.w GameObj_FloorProbeY(a0), d3		; Get floor probe Y offset
@@ -589,7 +480,7 @@ GameObjDraw:
 	beq    @Invisible
 	
 	; X pos world space to sprite space
-	move.l GameObj_WorldPosX(a0), d1
+	move.l Entity_WorldPosX(a0), d1
 	divs.w #SubpixelsPerPixel, d1
 	
 	move.l (WorldScrollX), d2
@@ -609,7 +500,7 @@ GameObjDraw:
 	move.l a0, -(sp)
 	move.b GameObj_SpriteID(a0), d0
 	move.b GameObj_NumSubSprites(a0), d2
-	move.w GameObj_Width(a0), d3
+	move.w Entity_Width(a0), d3
 	move.b GameObj_FlippedX(a0), d4
 	move.l GameObj_SubSpriteOffArr(a0), a1
 	jsr    SetMultiSpritePosX
@@ -617,7 +508,7 @@ GameObjDraw:
 	move.l (sp)+, a1
 	
 	; Y pos world space to sprite space
-	move.l GameObj_WorldPosY(a0), d1
+	move.l Entity_WorldPosY(a0), d1
 	divs.w #SubpixelsPerPixel, d1
 	
 	move.l (WorldScrollY), d2
@@ -637,7 +528,7 @@ GameObjDraw:
 	move.l a0, -(sp)
 	move.b GameObj_SpriteID(a0), d0
 	move.b GameObj_NumSubSprites(a0), d2
-	move.w GameObj_Height(a0), d3
+	move.w Entity_Height(a0), d3
 	move.b GameObj_FlippedY(a0), d4
 	move.l GameObj_SubSpriteOffArr(a0), a1
 	jsr    SetMultiSpritePosY

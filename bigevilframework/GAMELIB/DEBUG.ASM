@@ -80,7 +80,7 @@ DebugDraw:
     ;
 	;; Get player X
 	;lea    Player1, a2
-	;move.l GameObj_WorldPosX(a2), d0
+	;move.l Entity_WorldPosX(a2), d0
     ;
 	;; To string
 	;move.l a4, a0
@@ -108,7 +108,7 @@ DebugDraw:
     ;
 	;; Get player Y
 	;lea    Player1, a2
-	;move.l GameObj_WorldPosY(a2), d0
+	;move.l Entity_WorldPosY(a2), d0
     ;
 	;; To string
 	;move.l a4, a0

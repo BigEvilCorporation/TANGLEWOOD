@@ -16,9 +16,9 @@ UpdateCamera:
 	cmp.l   #0x0, a0
 	beq     @NoCameraTargetX
 	clr.l   d1
-	move.l  GameObj_WorldPosX(a0), d0	; Get GameObj X
+	move.l  Entity_WorldPosX(a0), d0	; Get GameObj X
 	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
-	move.w  GameObj_Width(a0), d1		; Get GameObj width
+	move.w  Entity_Width(a0), d1		; Get GameObj width
 	mulu    #SubpixelsPerPixel, d1		; Width to world space
 	lsr.w   #0x1, d1					; Centre on GameObj
 	add.l   d1, d0
@@ -44,9 +44,9 @@ UpdateCamera:
 	cmp.l   #0x0, a0
 	beq     @NoCameraTargetY
 	clr.l   d1
-	move.l  GameObj_WorldPosY(a0), d0	; Get GameObj Y
+	move.l  Entity_WorldPosY(a0), d0	; Get GameObj Y
 	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	move.w  GameObj_Height(a0), d1		; Get GameObj height
+	move.w  Entity_Height(a0), d1		; Get GameObj height
 	mulu    #SubpixelsPerPixel, d1		; Height to world space
 	lsr.w   #0x1, d1					; Centre on GameObj
 	add.l   d1, d0

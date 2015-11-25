@@ -37,6 +37,7 @@
 	ENDIF
 
 	; Include GameLib code
+	include '..\gamelib\entity.asm'
 	include '..\gamelib\gameobj.asm'
 	include '..\gamelib\animobj.asm'
 	include '..\gamelib\camera.asm'
@@ -66,8 +67,10 @@
 	
 	; Include game states
 	include 'gameplay.asm'
+	IFND DEBUG
 	include 'logos.asm'
 	include 'mainmenu.asm'
+	ENDIF
 	
 	; Include game code
 	include 'input.asm'
@@ -96,7 +99,11 @@ __main:
 	move.l #0x0, frame_counter_render
 	
 	; Enter first game state
+	IFD DEBUG
+	lea GameStateGameplay, a0
+	ELSE
 	lea GameStateLogos, a0
+	ENDIF
 	jsr GameStateEnter
 
 	; ************************************

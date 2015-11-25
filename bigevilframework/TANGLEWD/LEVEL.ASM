@@ -133,7 +133,7 @@ LevelLoadGameObjArt:
 	; d3 (b) Palette ID
 
 	; Player 1
-	move.l #GameObjArray_Players, a0
+	move.l #EntityArray_Players, a0
 	lea    Tiles_Nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
 	lea    sprite_nymn_subsprite_pos_offsets, a3
@@ -146,7 +146,7 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
+	;move.l #EntityArray_Monsters, a0
 	;lea    tiles_monster, a1
 	;lea    sprite_monster_subsprite_dimensions_bits, a2
 	;lea    sprite_monster_subsprite_pos_offsets, a3
@@ -159,7 +159,7 @@ LevelLoadGameObjArt:
 	;jsr    GameObjLoadMultiSprite
     
 	; Fuzzls
-	move.l #GameObjArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzls, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
 	lea    sprite_fuzzl_subsprite_pos_offsets, a3
@@ -171,7 +171,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
 	
-	move.l #GameObjArray_Fuzzls+Fuzzl_Struct_Size, a0
+	move.l #EntityArray_Fuzzls+Fuzzl_Struct_Size, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
 	lea    sprite_fuzzl_subsprite_pos_offsets, a3
@@ -184,7 +184,7 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
     
 	; Leaves
-	move.l #GameObjArray_Leaves, a0
+	move.l #EntityArray_Leaves, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -196,7 +196,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
     
-	move.l #GameObjArray_Leaves+Leaf_Struct_Size, a0
+	move.l #EntityArray_Leaves+Leaf_Struct_Size, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -208,7 +208,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
     
-	move.l #GameObjArray_Leaves+(Leaf_Struct_Size*2), a0
+	move.l #EntityArray_Leaves+(Leaf_Struct_Size*2), a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -224,7 +224,7 @@ LevelLoadGameObjArt:
 	move.w #gameobjects_obstacle_count, d0
 	cmp.w  #0x0, d0
 	beq    @NoObstacles
-	move.l #GameObjArray_Obstacles, a0
+	move.l #EntityArray_Obstacles, a0
 	lea    tiles_vines, a1
 	lea    sprite_vines_subsprite_dimensions_bits, a2
 	lea    sprite_vines_subsprite_pos_offsets, a3
@@ -236,7 +236,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
     
-	move.l #GameObjArray_Obstacles+Obstacle_Struct_Size, a0
+	move.l #EntityArray_Obstacles+Obstacle_Struct_Size, a0
 	lea    tiles_vines, a1
 	lea    sprite_vines_subsprite_dimensions_bits, a2
 	lea    sprite_vines_subsprite_pos_offsets, a3
@@ -250,7 +250,7 @@ LevelLoadGameObjArt:
 	@NoObstacles:
     
 	; Fireflies
-	move.l #GameObjArray_Fireflies, a0
+	move.l #EntityArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d1
 	move.l #Tiles_fireflyVRAM, d0
 	@FireflyLoop:
@@ -276,32 +276,32 @@ LevelLoadGameObjArt:
 LevelCreateGameObjects:
 
 	; Monsters
-	;move.l #GameObjArray_Monsters, a0
+	;move.l #EntityArray_Monsters, a0
 	;jsr    LoadGameObjects_Monster
     
 	; Fuzzls
-	move.l #GameObjArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzls, a0
 	jsr    LoadGameObjects_Fuzzl
 	
 	; Fuzzl nests
-	move.l #GameObjArray_Nests, a0
+	move.l #EntityArray_Nests, a0
 	jsr    LoadGameObjects_Nest
     
 	; Flues
-	move.l #GameObjArray_Flues, a0
+	move.l #EntityArray_Flues, a0
 	jsr    LoadGameObjects_Flue
     
 	; Obstacles
-	move.l #GameObjArray_Obstacles, a0
+	move.l #EntityArray_Obstacles, a0
 	jsr    LoadGameObjects_Obstacle
     
 	; Fireflies
-	move.l #GameObjArray_Fireflies, a0
+	move.l #EntityArray_Fireflies, a0
 	jsr    LoadGameObjects_Firefly
     
 	; Leaves
 	; TODO: Leaf generator
-	move.l #GameObjArray_Leaves, a0
+	move.l #EntityArray_Leaves, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
@@ -310,7 +310,7 @@ LevelCreateGameObjects:
     
 	; Fuzzl colours
 	; TODO: Per-instance params
-	lea    GameObjArray_Fuzzls, a0
+	lea    EntityArray_Fuzzls, a0
 	move.b #ColourRed, Fuzzl_Colour(a0)
 	
 	rts

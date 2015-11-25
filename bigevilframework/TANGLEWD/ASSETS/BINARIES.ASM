@@ -9,10 +9,6 @@
 	; ************************************
 	; Test maps
 	; ************************************
-tiles_bigevil_logo:
-	incbin 'assets\tiles\bec_logo.bin'
-tiles_tanglewood_logo:
-	incbin 'assets\tiles\twd_logo.bin'
 tiles_tst1:
 	incbin 'assets\tiles\til_tst1.bin'
 collisiontiles_tst1:

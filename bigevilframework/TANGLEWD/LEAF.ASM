@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Leaf_MaxGameObjs   equ 0x3
+Leaf_MaxEntities   equ 0x3
 Leaf_Width         equ 0x8
 Leaf_Height        equ 0x8
 Leaf_FallVelocity  equ -0x18
@@ -41,19 +41,19 @@ LeafInit:
 	jsr AnimObjInit
 	
 	; Set update and render routines
-	move.l #LeafUpdate, GameObj_UpdateRoutine(a0)
-	move.l #AnimObjDraw, GameObj_RenderRoutine(a0)
+	move.l #LeafUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr GameObjAddToUpdateList
-	jsr GameObjAddToRenderList
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 
 	; Default state
 	move.b #0x0, GameObj_Active(a0)
 	move.b #0x0, GameObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
-	move.w #Leaf_Width, GameObj_Width(a0)
-	move.w #Leaf_Height, GameObj_Height(a0)
+	move.w #Leaf_Width, Entity_Width(a0)
+	move.w #Leaf_Height, Entity_Height(a0)
 	
 	; Default anim
 	move.l #Anim_LeafFall, AnimObj_AnimDataAddr(a0)
@@ -94,7 +94,7 @@ LeafUpdate:
 	mulu   #SubPixelsPerPixel, d0
 	add.l  (WorldScrollX), d0
 	sub.l  #(Leaf_WindowBorderX*SubPixelsPerPixel), d0
-	move.l d0, GameObj_WorldPosX(a0)
+	move.l d0, Entity_WorldPosX(a0)
 	move.l d0, Leaf_StartPosWorldX(a0)
 
 	; If X is within viewable rect
@@ -109,7 +109,7 @@ LeafUpdate:
 	; start from top of scroll plane
 	move.l (WorldScrollY), d0
 	add.l  #((SpritePlaneBorderY-Leaf_WindowBorderY)*SubPixelsPerPixel), d0
-	move.l d0, GameObj_WorldPosY(a0)
+	move.l d0, Entity_WorldPosY(a0)
 	bra    @EndViewTest
 
 	@OutOfView:
@@ -123,7 +123,7 @@ LeafUpdate:
 	mulu   #SubPixelsPerPixel, d0
 	add.l  (WorldScrollY), d0
 	sub.l  #(Leaf_WindowBorderY*SubPixelsPerPixel), d0
-	move.l d0, GameObj_WorldPosY(a0)
+	move.l d0, Entity_WorldPosY(a0)
 	
 	@EndViewTest:
 
@@ -134,7 +134,7 @@ LeafUpdate:
 	@AlreadyActive:
 	
 	; Check if out of bounds
-	move.l GameObj_WorldPosX(a0), d0
+	move.l Entity_WorldPosX(a0), d0
 	add.l  #WorldToLeafWindowX, d0
 	sub.l  (WorldScrollX), d0
 	cmp.l  #0x0, d0
@@ -142,7 +142,7 @@ LeafUpdate:
 	cmp.l  #(Leaf_WindowWidth*SubPixelsPerPixel), d0
 	bgt    @OutOfBounds
 
-	move.l GameObj_WorldPosY(a0), d0
+	move.l Entity_WorldPosY(a0), d0
 	add.l  #WorldToLeafWindowY, d0
 	sub.l  (WorldScrollY), d0
 	cmp.l  #0x0, d0
@@ -187,7 +187,7 @@ LeafUpdate:
 	muls   #((Leaf_FloatWidth*SubPixelsPerPixel)/256), d0 ; To X range
 	move.l Leaf_StartPosWorldX(a0), d1                    ; Offset X pos
 	add.l  d1, d0
-	move.l d0, GameObj_WorldPosX(a0)
+	move.l d0, Entity_WorldPosX(a0)
 
 	; Update animation frame
 	add.w  #0x00FF, d2	; Sine value to 0-256 range

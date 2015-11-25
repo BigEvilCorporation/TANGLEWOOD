@@ -9,7 +9,7 @@
 ; ************************************
 ; Constants
 ; ************************************
-Player_MaxGameObjs equ 0x1
+Player_MaxEntities equ 0x1
 
 ; Player dimensions
 Player1Width	  equ 0x0038
@@ -77,18 +77,18 @@ PlayerInit:
 	jsr CharacterInit
 	
 	; Set update and render routines
-	move.l #PlayerUpdate, GameObj_UpdateRoutine(a0)
-	move.l #CharacterDraw, GameObj_RenderRoutine(a0)
+	move.l #PlayerUpdate, Entity_UpdateRoutine(a0)
+	move.l #CharacterDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr GameObjAddToUpdateList
-	jsr GameObjAddToRenderList
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 
 	; Setup default state
-	move.l  #Player1StartPosWorldX, GameObj_WorldPosX(a0)
-	move.l  #Player1StartPosWorldY, GameObj_WorldPosY(a0)
-	move.w  #Player1Width, GameObj_Width(a0)
-	move.w  #Player1Height, GameObj_Height(a0)
+	move.l  #Player1StartPosWorldX, Entity_WorldPosX(a0)
+	move.l  #Player1StartPosWorldY, Entity_WorldPosY(a0)
+	move.w  #Player1Width, Entity_Width(a0)
+	move.w  #Player1Height, Entity_Height(a0)
 	move.w  #Player1MaxVelXWalk, GameObj_MaxVelX(a0)
 	move.w  #Player1MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
@@ -244,7 +244,7 @@ PlayerInteract_Fuzzls:
 	beq    @PlayerOffFloor
 	
 	; Check all Fuzzls
-	move.l #GameObjArray_Fuzzls, a1
+	move.l #EntityArray_Fuzzls, a1
 	move.l #gameobjects_Fuzzl_count-1, d6
 	@FuzzlLoop:
 	
@@ -273,9 +273,9 @@ PlayerInteract_Fuzzls:
 	bne    @Home
 	
 	; In range and not in a nest, check which side of Fuzzl
-	move.l GameObj_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
+	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
 	add.l  #(Fuzzl_Width*SubpixelsPerPixel)/2, d1 ; Fuzzl X centre
 	move.w GameObj_VelX(a0), d2			; Player velocity X
 	cmp.l  d0, d1
@@ -286,14 +286,14 @@ PlayerInteract_Fuzzls:
 	bgt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the left, correct penetration
-	move.l GameObj_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #Player1PushBorder, d0
-	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
+	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
 	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 ; Fuzzl right
 	cmp.l  d0, d1
 	blt    @NotPenetratingLeft
 	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
-	move.l d0, GameObj_WorldPosX(a1)
+	move.l d0, Entity_WorldPosX(a1)
 	@NotPenetratingLeft:
 	bra    @PushingFuzzl
 	
@@ -303,13 +303,13 @@ PlayerInteract_Fuzzls:
 	blt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the right, correct penetration
-	move.l GameObj_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel), d0 ; Player right
 	sub.l  #Player1PushBorder, d0
-	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
+	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
 	cmp.l  d0, d1
 	bgt    @NotPenetratingRight
-	move.l d0, GameObj_WorldPosX(a1)
+	move.l d0, Entity_WorldPosX(a1)
 	@NotPenetratingRight:
 
 	@PushingFuzzl:
@@ -372,7 +372,7 @@ PlayerInteract_Obstacles:
 	beq    @NoObstacles
 	
 	; Check all obstacles
-	move.l #GameObjArray_Obstacles, a1
+	move.l #EntityArray_Obstacles, a1
 	move.l #gameobjects_Obstacle_count-1, d6
 	@ObstacleLoop:
 	
@@ -393,9 +393,9 @@ PlayerInteract_Obstacles:
 	beq   @NotInRange
 
 	; Check which side of obstacle
-	move.l GameObj_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l GameObj_WorldPosX(a1), d1	; Fuzzl X
+	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
 	add.l  #(Obstacle_Width*SubpixelsPerPixel)/2, d1 ; Obstacle X centre
 	move.w GameObj_VelX(a0), d2			; Player velocity X
 	cmp.l  d0, d1
@@ -406,13 +406,13 @@ PlayerInteract_Obstacles:
 	bgt    @NotPenetrating
 	
 	; Moving to the left, correct penetration
-	move.l GameObj_WorldPosX(a0), d0	; Player X
-	move.l GameObj_WorldPosX(a1), d1	; Obstacle X
+	move.l Entity_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a1), d1	; Obstacle X
 	add.l  #(Obstacle_Width*SubpixelsPerPixel), d1 ; Obstacle right
 	cmp.l  d0, d1
 	blt    @NotPenetrating
 	;sub.l  #(Obstacle_Width*SubpixelsPerPixel), d0
-	;move.l d0, GameObj_WorldPosX(a1)
+	;move.l d0, Entity_WorldPosX(a1)
 	move.w #0x0, GameObj_VelX(a0)
 	@NotPenetratingLeft:
 	bra    @NotPenetrating
@@ -423,12 +423,12 @@ PlayerInteract_Obstacles:
 	blt    @NotPenetrating
 	
 	; Pushing Fuzzl to the right, correct penetration
-	move.l GameObj_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel), d0 ; Player right
-	move.l GameObj_WorldPosX(a1), d1	; Obstacle X
+	move.l Entity_WorldPosX(a1), d1	; Obstacle X
 	cmp.l  d0, d1
 	bgt    @NotPenetratingRight
-	;move.l d0, GameObj_WorldPosX(a1)
+	;move.l d0, Entity_WorldPosX(a1)
 	move.w #0x0, GameObj_VelX(a0)
 	@NotPenetratingRight:
 
@@ -484,7 +484,7 @@ PlayerInteract_Fireflies:
 
 	; Check player against all Fireflies in level
 	move.l a0, a1						; Player in a1
-	move.l #GameObjArray_Fireflies, a0	; Firefly in a0
+	move.l #EntityArray_Fireflies, a0	; Firefly in a0
 	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
 	@FireflyLoop:
 	movem.l d0-d1/a0-a1, -(sp)

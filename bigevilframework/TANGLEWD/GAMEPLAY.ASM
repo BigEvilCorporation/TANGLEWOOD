@@ -44,7 +44,7 @@ Gameplay_Update:
 	jsr UpdateInput
 	
 	; Update game objects
-	jsr GameObjUpdateAll
+	jsr EntityUpdateAll
 	
 	rts
 	
@@ -57,7 +57,7 @@ Gameplay_Render:
 	jsr UpdateCamera
 	
 	; Draw game objects
-	jsr GameObjRenderAll
+	jsr EntityRenderAll
 	
 	; Update map streaming
 	jsr UpdateMapStreaming

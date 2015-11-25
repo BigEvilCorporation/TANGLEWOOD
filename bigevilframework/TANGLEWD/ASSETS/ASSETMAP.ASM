@@ -145,7 +145,7 @@ Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
-Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxGameObjs)
+Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxEntities)
 
 ; -------------------------
 Tiles_Bank1_End:     rs.b 0
