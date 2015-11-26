@@ -21,12 +21,13 @@ Fuzzl_ProbeFloorLen			equ Fuzzl_StepHeight*2  ; Floor probe length (multiplied b
 Fuzzl_MaxVelX				equ 0x0100
 Fuzzl_Decel					equ 0x02
 Fuzzl_BounceDelay			equ 0x40
-Fuzzl_BounceVelHappy		equ 0x0280
+Fuzzl_BounceVelHappy		equ 0x0180
 Fuzzl_BounceVelStartled		equ 0x0100
 Fuzzl_AnimSpeedVelocityDiv	equ 0x0004
-Fuzzl_AnimSpeedBounce equ	0x40
-Fuzzl_EyeWatchDistance equ	0x0050	; Min distance from player to start watching
-Fuzzl_EyeWatchQuadSize equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
+Fuzzl_AnimSpeedBounce       equ	0x40
+Fuzzl_EyeWatchDistanceStart equ	0x0050	; Distance from player to start watching
+Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
+Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
@@ -138,9 +139,17 @@ FuzzlUpdate:
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	
-	jsr VectorDistSq					; Calc distance
-	cmp.l #Fuzzl_EyeWatchDistance*Fuzzl_EyeWatchDistance, d0	; Result sq'd in d0
-	bgt   @OutOfPlayerRange
+	jsr VectorDistSq					; Calc distance (result sq'd in d0)
+	
+	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outter distance
+	bne    @CheckOutterDist
+	cmp.l  #Fuzzl_EyeWatchDistanceStart*Fuzzl_EyeWatchDistanceStart, d0	; check inner distance
+	bgt    @OutOfPlayerRange
+	bra    @EndDistCheck
+	@CheckOutterDist:
+	cmp.l  #Fuzzl_EyeWatchDistanceStop*Fuzzl_EyeWatchDistanceStop, d0	; else check outter distance
+	bgt    @OutOfPlayerRange
+	@EndDistCheck:
 
 	; Check if already watching player
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
@@ -372,6 +381,9 @@ FuzzlUpdateEyes:
 FuzzlUpdateAnimation:
 	; a0-- - GameObj addr
 	; a1-- - Level addr
+	
+	; Get original anim
+	move.l AnimObj_AnimDataAddr(a0), a2
 
 	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)	; If asleep, set sleeping anim
 	bne    @AnimSleep
@@ -448,4 +460,12 @@ FuzzlUpdateAnimation:
 	jmp    @EndAnim
 	
 	@EndAnim:
+	
+	; If anim changed, mark as dirty
+	move.l AnimObj_AnimDataAddr(a0), a3
+	cmp.l  a2, a3
+	beq    @NoChange
+	move.b #0x1, AnimObj_Dirty(a0)
+	@NoChange:
+	
 	rts

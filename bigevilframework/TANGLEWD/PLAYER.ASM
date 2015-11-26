@@ -18,8 +18,6 @@ Player1Height	  equ 0x0028
 ; Player starting positions - TODO: From spawn point
 Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)
 Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
-;Player1StartPosScreenY equ (screen_height/2)-(Player1Height/2)
-;Player1StartPosScreenY equ ScrollPlaneBorderY+0x20
 Player1StartPosWorldX  equ Player1StartPosScreenX*SubpixelsPerPixel
 Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
 
@@ -54,7 +52,9 @@ Player1WalkToRunVel equ 0x0200
 Player1ColourChangeSpeed equ 0x0030
 
 ; TEMP
-Player1PushBorder equ 0xA*SubpixelsPerPixel
+Player1PushBoundsWidth	equ 0xA
+Player1PushBoundsMinX	equ ((Player1Width/2)-(Player1PushBoundsWidth/2))
+Player1PushBoundsMaxX	equ ((Player1Width/2)+(Player1PushBoundsWidth/2))
 
 ; ************************************
 ; Struct
@@ -261,7 +261,32 @@ PlayerInteract_Fuzzls:
 	; Check if within bounds
 	; TODO: Use interaction box size, not exact bounds
 	move.l d6, -(sp)
-	jsr TestGameObjBoxIntersectBox
+	
+	; Get player interact box pos X min
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinX, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxX, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	; Get Fuzzl bounds
+	jsr    GetGameObjBoundsA1D2D3
+	
+	; Test box intersection
+	jsr TestBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0
@@ -286,10 +311,10 @@ PlayerInteract_Fuzzls:
 	bgt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #Player1PushBorder, d0
-	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
-	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 ; Fuzzl right
+	move.l Entity_WorldPosX(a0), d0							; Player X
+	add.l  #(Player1PushBoundsMinX*SubpixelsPerPixel), d0	; Push box left
+	move.l Entity_WorldPosX(a1), d1							; Fuzzl X
+	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 			; Fuzzl right
 	cmp.l  d0, d1
 	blt    @NotPenetratingLeft
 	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
@@ -303,10 +328,9 @@ PlayerInteract_Fuzzls:
 	blt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel), d0 ; Player right
-	sub.l  #Player1PushBorder, d0
-	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
+	move.l Entity_WorldPosX(a0), d0							; Player X
+	add.l  #(Player1PushBoundsMaxX*SubpixelsPerPixel), d0	; Push box right
+	move.l Entity_WorldPosX(a1), d1							; Fuzzl left
 	cmp.l  d0, d1
 	bgt    @NotPenetratingRight
 	move.l d0, Entity_WorldPosX(a1)
