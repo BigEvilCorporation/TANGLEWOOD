@@ -14,10 +14,10 @@ Fuzzl_MaxVelYUp				equ 0x0600
 Fuzzl_MaxVelYDown			equ 0x0600
 Fuzzl_Width					equ 0x0010
 Fuzzl_Height				equ 0x0010
-Fuzzl_StepHeight			equ 0x3
+Fuzzl_StepHeight			equ 0x6	; Used to determine if close to floor for pushing, so exaggerate it a bit
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
-Fuzzl_ProbeFloorY			equ (Fuzzl_Height-Fuzzl_StepHeight)   ; Floor detection probe position Y
-Fuzzl_ProbeFloorLen			equ Fuzzl_StepHeight*2  ; Floor probe length (multiplied by Y velocity)
+Fuzzl_ProbeFloorY			equ (Fuzzl_Height-(Fuzzl_Height/4))   ; Floor detection probe position Y
+Fuzzl_ProbeFloorLen			equ (Fuzzl_Height-Fuzzl_ProbeFloorY+Fuzzl_StepHeight)  ; Floor probe length (multiplied by Y velocity)
 Fuzzl_MaxVelX				equ 0x0100
 Fuzzl_Decel					equ 0x02
 Fuzzl_BounceDelay			equ 0x40
@@ -98,6 +98,7 @@ FuzzlInit:
 	move.w  #Fuzzl_Height, Entity_Height(a0)
 	move.w  #Fuzzl_MaxVelX, GameObj_MaxVelX(a0)
 	move.w  #Fuzzl_Decel, GameObj_DecelX(a0)
+	move.w  #Fuzzl_StepHeight, GameObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Fuzzl_ProbeFloorLen, GameObj_FloorProbeLen(a0)

@@ -47,10 +47,10 @@ Anim_NymnHang_Speed: equ 0x40
 	Even
 	
 Anim_NymnPush:
-	dc.b 0x0
+	dc.b 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E
 Anim_NymnPush_End
 Anim_NymnPush_SizeB: equ (Anim_NymnPush_End-Anim_NymnPush)
-Anim_NymnPush_Speed: equ 0x10
+Anim_NymnPush_Speed: equ 0x20
 
 	Even
 	

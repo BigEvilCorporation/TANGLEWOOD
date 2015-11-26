@@ -5,6 +5,8 @@
 ;==============================================================
 ;   tanglewd.asm - includes, setup, game flow, main loop
 ;==============================================================
+
+__start
 	
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
@@ -233,3 +235,10 @@ __vinterrupt:
 	include '..\framewk\echo\echodrv.asm'
 
 __end    ; Very last line, end of ROM address
+
+	inform 0,""
+	inform 0,"-----------------------------------"
+	inform 0,"ROM total size: %d bytes (%dkb)", (__end-__start), ((__end-__start)/1024)
+	inform 0,"-----------------------------------"
+	inform 0,""
+	

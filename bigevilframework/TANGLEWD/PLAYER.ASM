@@ -40,8 +40,8 @@ Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no li
 ; Player collision probes
 Player1StepHeight	 equ 0x3
 Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
-Player1ProbeFloorY   equ (Player1Height-(Player1Height/4))  ; Floor detection probe position Y
-Player1ProbeFloorLen equ (Player1Height-Player1ProbeFloorY+Player1StepHeight); Floor probe length (multiplied by Y velocity)
+Player1ProbeFloorY   equ (Player1Height-Player1StepHeight) ;(Player1Height-(Player1Height/4))  ; Floor detection probe position Y
+Player1ProbeFloorLen equ Player1StepHeight*2 ;(Player1Height-Player1ProbeFloorY+Player1StepHeight); Floor probe length (multiplied by Y velocity)
 Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
@@ -52,9 +52,14 @@ Player1WalkToRunVel equ 0x0200
 Player1ColourChangeSpeed equ 0x0030
 
 ; TEMP
-Player1PushBoundsWidth	equ 0xA
-Player1PushBoundsMinX	equ ((Player1Width/2)-(Player1PushBoundsWidth/2))
-Player1PushBoundsMaxX	equ ((Player1Width/2)+(Player1PushBoundsWidth/2))
+Player1PushBoundsWidthInner	equ 0x10
+Player1PushBoundsWidthOuter equ 0x20
+Player1PushBoundsMinXInner	equ ((Player1Width/2)-(Player1PushBoundsWidthInner/2))
+Player1PushBoundsMaxXInner	equ ((Player1Width/2)+(Player1PushBoundsWidthInner/2))
+Player1PushBoundsMinXOuter	equ ((Player1Width/2)-(Player1PushBoundsWidthOuter/2))
+Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2))
+
+Player1_PushAnimSpeedVelocityDiv equ 0x0004
 
 ; ************************************
 ; Struct
@@ -229,6 +234,9 @@ PlayerInteract_Fuzzls:
 	; a1 --- Level addr
 	
 	move.l a1, -(sp)
+
+	; Check if pushing, for inner or outer interaction box
+	move.b Character_Pushing(a0), d1
 	
 	; Not pushing by default
 	move.b #0x0, Character_Pushing(a0)
@@ -248,6 +256,11 @@ PlayerInteract_Fuzzls:
 	move.l #gameobjects_Fuzzl_count-1, d6
 	@FuzzlLoop:
 	
+	; Check if on screen
+	move.b GameObj_SpriteLinked(a1), d0
+	cmp.b  #0x0, d0
+	beq    @NotVisible
+	
 	; Check if active
 	move.b GameObj_Active(a1), d0
 	cmp.b  #0x0, d0
@@ -259,28 +272,58 @@ PlayerInteract_Fuzzls:
 	beq    @FuzzlOffFloor
 	
 	; Check if within bounds
-	; TODO: Use interaction box size, not exact bounds
 	move.l d6, -(sp)
 	
-	; Get player interact box pos X min
+	; If already pushing, check if stopped pushing using outer box
+	; (to stop anim flickering if it strays out by 1 pixel))
+	cmp.b #0x0, d1
+	bne   @Pushing
+	
+	; Get player interact box pos X min (inner)
 	move.l Entity_WorldPosX(a0), d1
 	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinX, d1
+	add.w  #Player1PushBoundsMinXInner, d1
 	swap   d1
 	; Get player Y min
 	move.l Entity_WorldPosY(a0), d2
 	lsr.l  #0x8, d2
 	move.w d2, d1
-	; Get player interact box pos X max
+	; Get player interact box pos X max (inner)
 	move.l Entity_WorldPosX(a0), d2
 	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxX, d2
+	add.w  #Player1PushBoundsMaxXInner, d2
 	swap   d2
 	; Get player Y max
 	move.l Entity_WorldPosY(a0), d3
 	lsr.l  #0x8, d3
 	add.w  Entity_Height(a0), d3
 	move.w d3, d2
+	
+	bra    @GetFuzzlBounds
+	
+	@Pushing:
+	
+	; Get player interact box pos X min (outer)
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinXOuter, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max (outer)
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxXOuter, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	@GetFuzzlBounds:
 	
 	; Get Fuzzl bounds
 	jsr    GetGameObjBoundsA1D2D3
@@ -311,10 +354,10 @@ PlayerInteract_Fuzzls:
 	bgt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0							; Player X
-	add.l  #(Player1PushBoundsMinX*SubpixelsPerPixel), d0	; Push box left
-	move.l Entity_WorldPosX(a1), d1							; Fuzzl X
-	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 			; Fuzzl right
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
+	move.l Entity_WorldPosX(a1), d1								; Fuzzl X
+	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 				; Fuzzl right
 	cmp.l  d0, d1
 	blt    @NotPenetratingLeft
 	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
@@ -328,9 +371,9 @@ PlayerInteract_Fuzzls:
 	blt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0							; Player X
-	add.l  #(Player1PushBoundsMaxX*SubpixelsPerPixel), d0	; Push box right
-	move.l Entity_WorldPosX(a1), d1							; Fuzzl left
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
+	move.l Entity_WorldPosX(a1), d1								; Fuzzl left
 	cmp.l  d0, d1
 	bgt    @NotPenetratingRight
 	move.l d0, Entity_WorldPosX(a1)
@@ -345,6 +388,16 @@ PlayerInteract_Fuzzls:
 	
 	; Set its velocity to match
 	move.w d2, GameObj_VelX(a1)
+	
+	; Scale roll anim speed based on velocity
+	clr.l  d0
+	move.w GameObj_VelX(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @Fwd
+	neg.w  d0
+	@Fwd:
+	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
+	move.b d0, AnimObj_AnimSpeed(a0)
 	
 	bra @End
 	
@@ -367,11 +420,25 @@ PlayerInteract_Fuzzls:
 	bra @End
 
 	@NotInRange:
+	
+	nop
+	bra @NextFuzzl
+	
 	@FuzzlOffFloor:
+	
+	nop
+	bra @NextFuzzl
+	
 	@NotPushingFuzzl:
+	
+	nop
+	bra @NextFuzzl
+	
+	@NotVisible:
 	@NotActive:
 	@NoColour:
 	@NoColourMatch:
+	@NextFuzzl:
 	
 	; Next Fuzzl
 	add.l #Fuzzl_Struct_Size, a1
