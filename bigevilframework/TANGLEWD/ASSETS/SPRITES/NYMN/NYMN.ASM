@@ -45,7 +45,17 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\jump_7.asm'
 	
 	; Hang
+	
 	; Push
+	include 'assets\sprites\nymn\push_0.asm'
+	include 'assets\sprites\nymn\push_1.asm'
+	include 'assets\sprites\nymn\push_2.asm'
+	include 'assets\sprites\nymn\push_3.asm'
+	include 'assets\sprites\nymn\push_4.asm'
+	include 'assets\sprites\nymn\push_5.asm'
+	include 'assets\sprites\nymn\push_6.asm'
+	include 'assets\sprites\nymn\push_7.asm'
+	
 	; Colour switch
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
