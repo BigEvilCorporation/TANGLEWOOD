@@ -15,6 +15,8 @@ GameObj_SubSpriteOffArrF rs.l 1	; Subsprite position offsets array address (flip
 GameObj_TilesetAddr      rs.l 1	; Art tiles ROM address
 GameObj_VRAMAddr         rs.l 1	; Art tiles VRAM address
 GameObj_LastFloor     	 rs.l 1 ; Last detected floor height
+GameObj_DrawOffsetX		 rs.w 1 ; Sprite draw offset X (pixels)
+GameObj_DrawOffsetY		 rs.w 1 ; Sprite draw offset Y (pixels)
 GameObj_TilesetSize      rs.w 1	; Art tiles size (bytes)
 GameObj_Dimensions       rs.w 1	; Width/height in subsprite
 GameObj_AccelX  		 rs.w 1 ; X acceleration

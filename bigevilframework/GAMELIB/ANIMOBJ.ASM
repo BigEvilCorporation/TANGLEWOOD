@@ -12,11 +12,12 @@
 	rsset (GameObj_Struct_Size)
 ;--------------------------
 AnimObj_AnimSubFrame     rs.l 1
-AnimObj_AnimDataAddr     rs.l 1
-AnimObj_AnimSpeed        rs.b 1
-AnimObj_AnimLength       rs.b 1
+AnimObj_CurrentAnim		 rs.l 1
+AnimObj_AnimDataAddr     rs.l 1	; TODO: Deprecate, use CurrentAnim addr
+AnimObj_AnimSpeed        rs.b 1	; TODO: Deprecate, use CurrentAnim addr
+AnimObj_AnimLength       rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_Playing  	     rs.b 1
-AnimObj_Looping  	     rs.b 1
+AnimObj_Looping  	     rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_Dirty		     rs.b 1
 ;------------------------------
 AnimObj_Struct_Pad       rs.b 3
@@ -148,6 +149,41 @@ AnimObjUpdate:
 	
 	rts
 
+AnimObjSetAnimation:
+	; a0 --- AnimObj addr
+	; a1 --- Anim address
+	
+	; Get current anim
+	move.l AnimObj_CurrentAnim(a0), a2
+	
+	; Check if changed
+	cmp.l  a1, a2
+	beq    @NoChange
+	
+	; New anim, clear subframe
+	move.l #0x0, AnimObj_AnimSubframe(a0)
+
+	; Set playing
+	move.b #0x1, AnimObj_Playing(a0)
+
+	; Mark as dirty
+	move.b #0x1, AnimObj_Dirty(a0)
+	
+	; TODO - if offset/numtiles changed, mark for DMA clear
+	
+	; Load anim params - TODO: Deprecate
+	move.l Animation_Addr(a1), AnimObj_AnimDataAddr(a0)
+	move.b Animation_Speed(a1), AnimObj_AnimSpeed(a0)
+	move.b Animation_Length(a1), AnimObj_AnimLength(a0)
+	move.b Animation_Looping(a1), AnimObj_Looping(a0)
+	
+	; Set current anim
+	move.l a1, AnimObj_CurrentAnim(a0)
+	
+	@NoChange:
+	
+	rts
+	
 AnimObjGetCurrentFrame:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr

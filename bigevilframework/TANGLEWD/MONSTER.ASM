@@ -114,51 +114,51 @@ MonsterInit:
 
 	; Idle
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	; Run
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Jump
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Hang
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Push
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_MonsterIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_MonsterIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
+	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	rts
 

@@ -39,6 +39,7 @@ __start
 	ENDIF
 
 	; Include GameLib code
+	include '..\gamelib\anim.asm'
 	include '..\gamelib\entity.asm'
 	include '..\gamelib\gameobj.asm'
 	include '..\gamelib\animobj.asm'
@@ -104,7 +105,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

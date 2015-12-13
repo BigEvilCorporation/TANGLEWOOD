@@ -124,59 +124,59 @@ PlayerInit:
 
 	; Idle
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_NymnIdle, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnIdle_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnIdle_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.l #Anim_NymnIdle, Animation_Addr(a3)
+	move.b #Anim_NymnIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	; Run
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_NymnRun, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnRun_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnRun_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
+	move.l #Anim_NymnRun, Animation_Addr(a3)
+	move.b #Anim_NymnRun_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnRun_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_NymnWalk, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnWalk_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnWalk_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
+	move.l #Anim_NymnWalk, Animation_Addr(a3)
+	move.b #Anim_NymnWalk_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnWalk_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	; Walk to run transition
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	move.l #Anim_NymnWalkToRun, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnWalkToRun_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnWalkToRun_SizeB, CharacterAnim_Length(a3)
-	move.b #0x0, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
+	move.l #Anim_NymnWalkToRun, Animation_Addr(a3)
+	move.b #Anim_NymnWalkToRun_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnWalkToRun_SizeB, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
 
 	; Jump
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_NymnJump, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnJump_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnJump_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
+	move.l #Anim_NymnJump, Animation_Addr(a3)
+	move.b #Anim_NymnJump_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnJump_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Hang
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_NymnHang, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnHang_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnHang_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
+	move.l #Anim_NymnHang, Animation_Addr(a3)
+	move.b #Anim_NymnHang_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnHang_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Push
 	move.l a2, a3
-	add.l  #(CharacterAnim_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_NymnPush, CharacterAnim_Addr(a3)
-	move.b #Anim_NymnPush_Speed, CharacterAnim_Speed(a3)
-	move.b #Anim_NymnPush_SizeB, CharacterAnim_Length(a3)
-	move.b #0x1, CharacterAnim_Looping(a3)
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
+	move.l #Anim_NymnPush, Animation_Addr(a3)
+	move.b #Anim_NymnPush_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnPush_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	rts
 
