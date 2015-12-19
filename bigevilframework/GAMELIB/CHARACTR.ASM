@@ -340,7 +340,7 @@ CharacterUpdateAnimState:
 	; Get anim struct address from character
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Character_Animations, a2
+	add.l  #Character_Animations, a1
 	mulu   #Animation_Struct_Size, d1
 	add.l  d1, a1
 	

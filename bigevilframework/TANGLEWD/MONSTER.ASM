@@ -115,7 +115,7 @@ MonsterInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -123,7 +123,7 @@ MonsterInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -131,7 +131,7 @@ MonsterInit:
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -139,7 +139,7 @@ MonsterInit:
 	; Jump
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -147,7 +147,7 @@ MonsterInit:
 	; Hang
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -155,7 +155,7 @@ MonsterInit:
 	; Push
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_MonsterIdle, Animation_Addr(a3)
+	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -340,7 +340,7 @@ MonsterStartBite:
 	move.b #MonsterState_Attacking, Monster_State(a0)
 
 	; Set bite animation
-	move.l #Anim_MonsterBite, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_MonsterBite, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_MonsterBite_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_MonsterBite_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x0, AnimObj_Looping(a1)

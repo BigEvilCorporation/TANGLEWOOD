@@ -55,9 +55,9 @@ Anim_NymnPush_Speed: equ 0x20
 	Even
 	
 Anim_NymnSwitch:
-	dc.b 0x0
+	dc.b 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26
 Anim_NymnSwitch_End
 Anim_NymnSwitch_SizeB: equ (Anim_NymnSwitch_End-Anim_NymnSwitch)
-Anim_NymnSwitch_Speed: equ 0x10
+Anim_NymnSwitch_Speed: equ 0x20
 
 	Even

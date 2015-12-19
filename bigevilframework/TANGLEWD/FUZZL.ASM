@@ -384,7 +384,7 @@ FuzzlUpdateAnimation:
 	; a1-- - Level addr
 	
 	; Get original anim
-	move.l AnimObj_AnimDataAddr(a0), a2
+	move.l AnimObj_KeyframesAddr(a0), a2
 
 	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)	; If asleep, set sleeping anim
 	bne    @AnimSleep
@@ -416,7 +416,7 @@ FuzzlUpdateAnimation:
 
 	@AnimSleep:
 
-	move.l #Anim_FuzzlSleep, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FuzzlSleep, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_FuzzlSleep_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_FuzzlSleep_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -425,7 +425,7 @@ FuzzlUpdateAnimation:
 
 	@AnimIdle:
 
-	move.l #Anim_FuzzlIdle, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FuzzlIdle, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_FuzzlIdle_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_FuzzlIdle_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -434,7 +434,7 @@ FuzzlUpdateAnimation:
 
 	@AnimWatch:
 
-	move.l #Anim_FuzzlEyes, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FuzzlEyes, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_FuzzlEyes_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_FuzzlEyes_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -444,7 +444,7 @@ FuzzlUpdateAnimation:
 
 	@AnimRoll:
 
-	move.l #Anim_FuzzlRoll, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FuzzlRoll, AnimObj_KeyframesAddr(a0)
 	; Anim speed handled in FuzzlUpdate
 	move.b #Anim_FuzzlRoll_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -453,7 +453,7 @@ FuzzlUpdateAnimation:
 
 	@AnimBounce:
 
-	move.l #Anim_FuzzlBounce, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FuzzlBounce, AnimObj_KeyframesAddr(a0)
 	; Anim speed handled in FuzzlUpdateBounce
 	move.b #Anim_FuzzlBounce_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -463,7 +463,7 @@ FuzzlUpdateAnimation:
 	@EndAnim:
 	
 	; If anim changed, mark as dirty
-	move.l AnimObj_AnimDataAddr(a0), a3
+	move.l AnimObj_KeyframesAddr(a0), a3
 	cmp.l  a2, a3
 	beq    @NoChange
 	move.b #0x1, AnimObj_Dirty(a0)

@@ -125,7 +125,7 @@ PlayerInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_NymnIdle, Animation_Addr(a3)
+	move.l #Anim_NymnIdle, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -133,7 +133,7 @@ PlayerInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_NymnRun, Animation_Addr(a3)
+	move.l #Anim_NymnRun, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnRun_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnRun_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -141,7 +141,7 @@ PlayerInit:
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_NymnWalk, Animation_Addr(a3)
+	move.l #Anim_NymnWalk, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnWalk_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnWalk_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -149,7 +149,7 @@ PlayerInit:
 	; Walk to run transition
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	move.l #Anim_NymnWalkToRun, Animation_Addr(a3)
+	move.l #Anim_NymnWalkToRun, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnWalkToRun_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnWalkToRun_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
@@ -157,7 +157,7 @@ PlayerInit:
 	; Jump
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_NymnJump, Animation_Addr(a3)
+	move.l #Anim_NymnJump, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnJump_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnJump_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -165,7 +165,7 @@ PlayerInit:
 	; Hang
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_NymnHang, Animation_Addr(a3)
+	move.l #Anim_NymnHang, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnHang_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnHang_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -173,7 +173,7 @@ PlayerInit:
 	; Push
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_NymnPush, Animation_Addr(a3)
+	move.l #Anim_NymnPush, Animation_KeyframesAddr(a3)
 	move.b #Anim_NymnPush_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnPush_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -216,7 +216,7 @@ PlayerBeginColourSwitch:
 	movem.l (sp)+, d0/d3
 	
 	; Start animation
-	move.l #Anim_NymnSwitch, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_NymnSwitch, AnimObj_KeyframesAddr(a0)
 	move.l #0x0, AnimObj_AnimSubframe(a0)
 	move.b #Anim_NymnSwitch_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_NymnSwitch_SizeB, AnimObj_AnimLength(a0)

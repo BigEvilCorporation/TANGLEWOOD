@@ -48,7 +48,7 @@ FireflyInit:
 	move.b #0x1, Firefly_Pickup_Value(a0)
 
 	; Default anim
-	move.l #Anim_FireflyIdle, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_FireflyIdle, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_FireflyIdle_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_FireflyIdle_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)

@@ -56,7 +56,7 @@ LeafInit:
 	move.w #Leaf_Height, Entity_Height(a0)
 	
 	; Default anim
-	move.l #Anim_LeafFall, AnimObj_AnimDataAddr(a0)
+	move.l #Anim_LeafFall, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_LeafFall_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_LeafFall_SizeB, AnimObj_AnimLength(a0)
 	move.b #0x1, AnimObj_Playing(a0)

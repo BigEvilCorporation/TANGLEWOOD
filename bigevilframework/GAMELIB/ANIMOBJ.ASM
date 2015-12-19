@@ -13,7 +13,7 @@
 ;--------------------------
 AnimObj_AnimSubFrame     rs.l 1
 AnimObj_CurrentAnim		 rs.l 1
-AnimObj_AnimDataAddr     rs.l 1	; TODO: Deprecate, use CurrentAnim addr
+AnimObj_KeyframesAddr     rs.l 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_AnimSpeed        rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_AnimLength       rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_Playing  	     rs.b 1
@@ -28,7 +28,7 @@ AnimObj_Struct_Size      rs.b 0
 AnimObjInit:
 	jsr GameObjInit
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
-	move.l #0x0, AnimObj_AnimDataAddr(a0)
+	move.l #0x0, AnimObj_KeyframesAddr(a0)
 	move.l #0x0, GameObj_TilesetAddr(a0)
 	move.b #0x0, AnimObj_AnimSpeed(a0)
 	move.b #0x0, AnimObj_AnimLength(a0)
@@ -125,7 +125,7 @@ AnimObjDraw:
 	move.l GameObj_VRAMAddr(a0), d0
 	move.w GameObj_TilesetSize(a0), d1
 	move.b AnimObj_AnimLength(a0), d3
-	move.l AnimObj_AnimDataAddr(a0), a1
+	move.l AnimObj_KeyframesAddr(a0), a1
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr    SetSpriteAnimFrame
 	
@@ -172,7 +172,7 @@ AnimObjSetAnimation:
 	; TODO - if offset/numtiles changed, mark for DMA clear
 	
 	; Load anim params - TODO: Deprecate
-	move.l Animation_Addr(a1), AnimObj_AnimDataAddr(a0)
+	move.l Animation_KeyframesAddr(a1), AnimObj_KeyframesAddr(a0)
 	move.b Animation_Speed(a1), AnimObj_AnimSpeed(a0)
 	move.b Animation_Length(a1), AnimObj_AnimLength(a0)
 	move.b Animation_Looping(a1), AnimObj_Looping(a0)
