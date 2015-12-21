@@ -16,6 +16,7 @@ Tst1_Forest:
 	dc.l collisiontiles_tst1	; Collision tileset
 	dc.l collisionmap_tst1		; Collision map
 	dc.l palette_lvl1_day		; Palettes
+	dc.w Gravity				; Default gravity
 	dc.w map_tst1_width			; Map width
 	dc.w map_tst1_height		; Map height
 	dc.w tiles_tst1_size_t		; Num tiles
@@ -35,6 +36,7 @@ Lvl1_HarlequinForest:
 	dc.l collisiontiles_lvl1	; Collision tileset
 	dc.l collisionmap_lvl1		; Collision map
 	dc.l palette_lvl1_day		; Palettes
+	dc.w Gravity				; Default gravity
 	dc.w map_lvl1_width			; Map width
 	dc.w map_lvl1_height		; Map height
 	dc.w tiles_lvl1_size_t		; Num tiles

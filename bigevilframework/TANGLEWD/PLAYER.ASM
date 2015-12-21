@@ -51,6 +51,9 @@ Player1WalkToRunVel equ 0x0200
 ; Player colour change
 Player1ColourChangeSpeed equ 0x0030
 
+; Glide ability
+Player1GlideGravity	 equ 0x0008
+
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
 Player1PushBoundsWidthOuter equ 0x20
@@ -169,6 +172,14 @@ PlayerInit:
 	move.b #Anim_NymnHang_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnHang_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	
+	; Glide
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Glide), a3
+	move.l #Anim_NymnGlide, Animation_KeyframesAddr(a3)
+	move.b #Anim_NymnGlide_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnGlide_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	; Push
 	move.l a2, a3
@@ -191,6 +202,9 @@ PlayerUpdate:
 	jsr PlayerInteract_Fuzzls
 	jsr PlayerInteract_Obstacles
 	jsr PlayerInteract_Fireflies
+	
+	; Special colour abilities
+	jsr PlayerColourAbility
 	
 	rts
 
@@ -223,6 +237,63 @@ PlayerBeginColourSwitch:
 	move.b #0x1, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Looping(a0)
 	
+	rts
+	
+PlayerColourAbility:
+
+	; Get colour
+	move.b Player_Colour(a0), d0
+	
+	cmp.b #ColourRed, d0
+	beq   @Red
+	cmp.b #ColourYellow, d0
+	beq   @Yellow
+	cmp.b #ColourGreen, d0
+	beq   @Green
+	cmp.b #ColourBlue, d0
+	beq   @Blue
+	bra   @NoColour
+	
+	@Red:
+	bra   @End
+	
+	@Yellow:
+	
+	; If in air
+	move.b GameObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	bne    @ResetGlide
+	
+	; If interacting
+	move.b Character_Interacting(a0), d0
+	cmp.b  #0x0, d0
+	beq    @ResetGlide
+	
+	; If -ve Y velocity
+	move.w GameObj_VelY(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @ResetGlide
+	
+	; Gliding
+	move.b #0x1, Character_Gliding(a0)
+	move.w #Player1GlideGravity, GameObj_Gravity(a0)
+	bra   @End
+	
+	@ResetGlide:
+	; Not gliding
+	move.b #0x0, Character_Gliding(a0)
+	move.w Level_Gravity(a1), GameObj_Gravity(a0)
+	bra   @End
+	
+	@Green:
+	bra   @End
+	
+	@Blue:
+	bra   @End
+	
+	@NoColour:
+	@End:
+
 	rts
 
 ;==============================================================
@@ -420,20 +491,8 @@ PlayerInteract_Fuzzls:
 	bra @End
 
 	@NotInRange:
-	
-	nop
-	bra @NextFuzzl
-	
 	@FuzzlOffFloor:
-	
-	nop
-	bra @NextFuzzl
-	
 	@NotPushingFuzzl:
-	
-	nop
-	bra @NextFuzzl
-	
 	@NotVisible:
 	@NotActive:
 	@NoColour:

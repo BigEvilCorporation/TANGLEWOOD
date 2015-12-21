@@ -14,10 +14,11 @@ CharacterAnimIdx_Run		equ 1
 CharacterAnimIdx_Walk		equ 2
 CharacterAnimIdx_Jump		equ 3
 CharacterAnimIdx_Hang		equ 4
-CharacterAnimIdx_Push		equ 5
-CharacterAnimIdx_WalkToRun	equ 6
+CharacterAnimIdx_Glide		equ 5
+CharacterAnimIdx_Push		equ 6
+CharacterAnimIdx_WalkToRun	equ 7
 ; -------------------------------
-Character_NumAnims			equ 7
+Character_NumAnims			equ 8
 
 ; ************************************
 ; Character struct
@@ -45,11 +46,12 @@ Character_OnLedge		rs.b 1
 Character_Running		rs.b 1
 Character_Jumping		rs.b 1
 Character_Pushing		rs.b 1
+Character_Gliding		rs.b 1
 Character_Interacting	rs.b 1
 Character_UpdateAnim	rs.b 1
 Character_AnimIdx	    rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 3
+Character_Struct_Pad    rs.b 2
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -269,6 +271,14 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Hang, d1
 	move.b Character_OnLedge(a0), d0	; If player on ledge, set hanging anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
+	; Gliding
+	; =====================================================================
+	move.b #CharacterAnimIdx_Glide, d1
+	move.b Character_Gliding(a0), d0	; If player is gliding, set glide anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	

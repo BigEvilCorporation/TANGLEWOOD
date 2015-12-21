@@ -19,6 +19,7 @@ GameObj_DrawOffsetX		 rs.w 1 ; Sprite draw offset X (pixels)
 GameObj_DrawOffsetY		 rs.w 1 ; Sprite draw offset Y (pixels)
 GameObj_TilesetSize      rs.w 1	; Art tiles size (bytes)
 GameObj_Dimensions       rs.w 1	; Width/height in subsprite
+GameObj_Gravity  		 rs.w 1 ; Gravity
 GameObj_AccelX  		 rs.w 1 ; X acceleration
 GameObj_AccelY  		 rs.w 1 ; Y acceleration
 GameObj_DecelX  		 rs.w 1 ; X deceleration
@@ -43,13 +44,14 @@ GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_Solid			 rs.b 1 ; Object is solid
 ;------------------------------
-GameObj_Struct_Pad       rs.b 1
+GameObj_Struct_Pad       rs.b 3
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
 
 GameObjInit:
 	; a0 --- GameObj addr
+	; a1 --- Level addr
 	
 	move.l a0, -(sp)
 	move.w #(GameObj_Struct_Size/size_long)-1, d0
@@ -63,6 +65,8 @@ GameObjInit:
 	move.b #0x1, GameObj_Visible(a0)
 	move.b #0x0, GameObj_SpriteLinked(a0)
 	move.b #0x1, GameObj_HasPhysics(a0)
+	
+	move.w Level_Gravity(a1), GameObj_Gravity(a0)
 
 	rts
 
@@ -250,7 +254,7 @@ GameObjApplyGravity:
 	; Apply gravity
 	clr.l  d0
 	move.w GameObj_VelY(a0), d0
-	move.w (LevelGravity), d1
+	move.w GameObj_Gravity(a0), d1
 	sub.w  d1, d0
 	clr.w d2
 	sub.w GameObj_MaxVelYDown(a0), d2
