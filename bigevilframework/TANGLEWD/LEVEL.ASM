@@ -12,7 +12,7 @@ LevelLoad:
 	move.l (CurrentLevel), a1
 
 	;TODO: Move to LoadGlobalData
-	lea Pal_Nymn_Yellow, a0
+	lea Pal_Nymn_Red, a0
 	move.l #PaletteId_Player, d0
 	jsr LoadPalette
 	
@@ -20,7 +20,7 @@ LevelLoad:
 	move.l #PaletteId_Monster, d0
 	jsr LoadPalette
 
-	lea palette_fuzzl_red, a0
+	lea palette_fuzzl_yellow, a0
 	move.l #PaletteId_Fuzzl, d0
 	jsr LoadPalette
 	
@@ -307,11 +307,6 @@ LevelCreateGameObjects:
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
-    
-	; Fuzzl colours
-	; TODO: Per-instance params
-	lea    EntityArray_Fuzzls, a0
-	move.b #ColourRed, Fuzzl_Colour(a0)
 	
 	rts
 

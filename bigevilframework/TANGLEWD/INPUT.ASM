@@ -60,8 +60,6 @@ HandlePlayerInput:
 	
 	btst #pad_button_c, d0  	; Check C button
 	bne  @NoC	                ; Branch if button off
-	jsr  CharacterCancelRun		; Can't run whilst interacting
-	jsr  CharacterCancelJump	; Can't jump whilst interacting
 	jsr  CharacterStartInteract ; Start interaction
 	jmp  @EndC
 	@NoC:

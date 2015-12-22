@@ -63,7 +63,7 @@ Anim_NymnSwitch_Speed: equ 0x20
 	Even
 
 Anim_NymnGlide:
-	dc.b 0x0
+	dc.b 0x27
 Anim_NymnGlide_End
 Anim_NymnGlide_SizeB: equ (Anim_NymnGlide_End-Anim_NymnGlide)
 Anim_NymnGlide_Speed: equ 0x0

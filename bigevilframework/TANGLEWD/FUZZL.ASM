@@ -104,7 +104,7 @@ FuzzlInit:
 	move.w  #Fuzzl_ProbeFloorLen, GameObj_FloorProbeLen(a0)
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.b  #ColourRed, Fuzzl_Colour(a0)
+	move.b  #ColourYellow, Fuzzl_Colour(a0)
 
 	rts
 	

@@ -65,6 +65,11 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\switch_5.asm'
 	include 'assets\sprites\nymn\switch_6.asm'
 	include 'assets\sprites\nymn\switch_7.asm'
+	
+	; Glide
+	;include 'assets\sprites\nymn\glide_0.asm'
+	;include 'assets\sprites\nymn\glide_1.asm'
+	include 'assets\sprites\nymn\glide_2.asm'
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
 sprite_nymn_subsprite_pos_offsets:

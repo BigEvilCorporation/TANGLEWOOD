@@ -46,13 +46,14 @@ Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
 ; Walk to run transition velocity
-Player1WalkToRunVel equ 0x0200
+Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
-Player1ColourChangeSpeed equ 0x0030
+Player1ColourChangeSpeed 	equ 0x0030
 
 ; Glide ability
-Player1GlideGravity	 equ 0x0008
+Player1MaxGlideVelocityX	equ Player1MaxVelXRun
+Player1MaxGlideVelocityY	equ 0x01*SubpixelsPerPixel
 
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
@@ -119,7 +120,7 @@ PlayerInit:
 	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
 	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 
-	move.b  #ColourYellow, Player_Colour(a0)
+	move.b  #ColourRed, Player_Colour(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -254,9 +255,15 @@ PlayerColourAbility:
 	beq   @Blue
 	bra   @NoColour
 	
+	; ************************************
+	; Red
+	; ************************************
 	@Red:
 	bra   @End
 	
+	; ************************************
+	; Yellow
+	; ************************************
 	@Yellow:
 	
 	; If in air
@@ -275,23 +282,31 @@ PlayerColourAbility:
 	bgt    @ResetGlide
 	
 	; Gliding
-	move.b #0x1, Character_Gliding(a0)
-	move.w #Player1GlideGravity, GameObj_Gravity(a0)
+	move.b #0x1, Character_Gliding(a0)						; Set gliding
+	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
+	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
 	bra   @End
 	
-	@ResetGlide:
-	; Not gliding
-	move.b #0x0, Character_Gliding(a0)
-	move.w Level_Gravity(a1), GameObj_Gravity(a0)
-	bra   @End
-	
+	; ************************************
+	; Green
+	; ************************************
 	@Green:
 	bra   @End
 	
+	; ************************************
+	; Blue
+	; ************************************
 	@Blue:
 	bra   @End
 	
 	@NoColour:
+	@ResetGlide:
+	
+	; Reset gliding
+	move.b #0x0, Character_Gliding(a0)
+	move.w #Player1MaxVelXWalk, GameObj_MaxVelX(a0)			; Reset max velocity
+	move.w #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	
 	@End:
 
 	rts
@@ -411,7 +426,11 @@ PlayerInteract_Fuzzls:
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
 	bne    @Home
 	
-	; In range and not in a nest, check which side of Fuzzl
+	; In range and not in a nest, begin interaction with Fuzzl - cancel run/jump movement
+	jsr  CharacterCancelRun
+	jsr  CharacterCancelJump
+	
+	; Check which side of Fuzzl
 	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
 	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
@@ -572,7 +591,7 @@ PlayerInteract_Obstacles:
 	cmp.w  #0x0, d2
 	blt    @NotPenetrating
 	
-	; Pushing Fuzzl to the right, correct penetration
+	; Moving to the right, correct penetration
 	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel), d0 ; Player right
 	move.l Entity_WorldPosX(a1), d1	; Obstacle X
@@ -582,6 +601,9 @@ PlayerInteract_Obstacles:
 	move.w #0x0, GameObj_VelX(a0)
 	@NotPenetratingRight:
 
+	; Penetrating obstacle, cancel run
+	jsr  CharacterCancelRun
+	
 	@NotPenetrating:
 	
 	; Check if character is interacting

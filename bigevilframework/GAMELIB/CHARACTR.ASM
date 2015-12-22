@@ -496,6 +496,11 @@ CharacterCancelJump:
 	cmp.b  #0x0, d4
 	beq    @NotJumping
 	
+	; Check if not gliding
+	move.b Character_Gliding(a0), d4
+	cmp.b  #0x0, d4
+	bne    @Gliding
+	
 	; Check if Y vel is greater than min jump cancel vel
 	move.w GameObj_VelY(a0), d4
 	cmp.w  Character_JumpCancelVel(a0), d4
@@ -505,6 +510,7 @@ CharacterCancelJump:
 	move.w Character_JumpCancelVel(a0), GameObj_VelY(a0)
 	
 	@NotJumping:
+	@Gliding:
 	@VelTooLow:
 	
 	rts
@@ -531,12 +537,19 @@ CharacterStartRun:
 CharacterCancelRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	
+	; If on floor
+	move.b GameObj_CloseToFloor(a0), d2
+	cmp.b  #0x0, d2
+	beq    @InAir
 
 	; Set max walking velocity
 	move.w Character_MaxVelXWalk(a0), GameObj_MaxVelX(a0)
 	
 	; Clear running flag
 	move.b #0x0, Character_Running(a0)
+	
+	@InAir:
 	
 	rts
 	
