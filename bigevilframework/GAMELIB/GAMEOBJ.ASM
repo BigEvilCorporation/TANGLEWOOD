@@ -30,7 +30,6 @@ GameObj_MaxVelYUp		 rs.w 1 ; Max Y velocity up
 GameObj_MaxVelYDown		 rs.w 1 ; Max Y velocity down
 GameObj_FloorProbeX		 rs.w 1 ; Floor probe X offset
 GameObj_FloorProbeY		 rs.w 1 ; Floor probe Y offset
-GameObj_FloorProbeLen    rs.w 1 ; Floor probe length
 GameObj_StepHeight	     rs.w 1 ; Step height
 GameObj_SpriteID         rs.b 1	; First sub-sprite ID
 GameObj_NumSubSprites    rs.b 1	; Num sub-sprites
@@ -44,7 +43,7 @@ GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_Solid			 rs.b 1 ; Object is solid
 ;------------------------------
-GameObj_Struct_Pad       rs.b 3
+GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -140,16 +139,19 @@ GameObjUpdate:
 
 	; Apply acceleration
 	jsr GameObjApplyAccelDecel
+	jsr GameObjApplyGravity
 	
 	; Apply X velocity before finding floor
 	jsr GameObjApplyVelocityX
+	jsr GameObjApplyVelocityY
+	
 	
 	; Apply gravity and find floor
-	jsr GameObjApplyGravity
+	
 	jsr GameObjFindFloor
 	
 	; Apply Y velocity and correct for floor collision
-	jsr GameObjApplyVelocityY
+	
 	jsr GameObjCollisionCorrection
 	
 	; Clamp pos to level space
@@ -352,29 +354,29 @@ GameObjCollisionCorrection:
 	; Correct player pos if on floor
 	clr.l  d3
 	move.b #0x0, GameObj_OnFloor(a0)				; Clear player on floor flag
-	move.l Entity_WorldPosY(a0), d1				; Get Y pos
+	move.l Entity_WorldPosY(a0), d1					; Get Y pos
 	move.l GameObj_LastFloor(a0), d2				; Get last found floor
-	move.w Entity_Height(a0), d3					; Get gameobj height
+	move.w GameObj_FloorProbeY(a0), d3				; Get floor probe Y offset
 	lsl.l  #0x8, d3									; Height to world space
-	sub.l  d3, d2									; Floor to player space
-	cmp.l  d2, d1									; Check if player is on or under floor
+	sub.l  d3, d2									; Floor to probe space
+	cmp.l  d2, d1									; Check if probe is on or under floor
 	blt    @AboveFloor
 	move.l d2, d1 									; Collision with ground, correct player's Y pos
 	move.w #0x0, GameObj_VelY(a0)					; Zero player's Y velocity
 	move.b #0x1, GameObj_OnFloor(a0)				; Set player on floor flag
 	move.b #0x1, GameObj_CloseToFloor(a0)			; Set player close to floor flag
-	move.l d1, Entity_WorldPosY(a0)				; Put new Y pos back in RAM
+	move.l d1, Entity_WorldPosY(a0)					; Put new Y pos back in RAM
 	@AboveFloor:
 
 	; Check if close to floor
-	move.b #0x0, GameObj_CloseToFloor(a0)				; Clear player close to floor flag
+	move.b #0x0, GameObj_CloseToFloor(a0)			; Clear player close to floor flag
 	clr.l  d3
 	move.w GameObj_StepHeight(a0), d3
 	lsl.l  #0x8, d3
-	sub.l  d3, d2	; Raise floor by step height
-	cmp.l  d2, d1										; Check if player is on or under floor-step height
+	sub.l  d3, d2									; Raise floor by step height
+	cmp.l  d2, d1									; Check if player is on or under floor-step height
 	blt    @End
-	move.b #0x1, GameObj_CloseToFloor(a0)				; Set player close to floor flag
+	move.b #0x1, GameObj_CloseToFloor(a0)			; Set player close to floor flag
 
 	@End:
 
@@ -397,17 +399,10 @@ GameObjFindFloor:
 	move.w GameObj_VelX(a0), d3
 	cmp.l  #0x0, d3
 	beq    @EndFloorTest
-	
-	; Floor collision probe length
-	neg.w  d3								; Negate Y velocity
-	lsr.w  #0x8, d3							; Subpixels to pixels
-	add.w  #0x1, d3							; Always at least ProbeLen*1
-	move.w GameObj_FloorProbeLen(a0), d0	; Get probe length
-	mulu   d3, d0							; Mul probe length by Y velocity
-	
+
 	; Find floor
 	move.l #0x0, GameObj_LastFloor(a0)		; Clear last found floor
-	move.l Entity_WorldPosX(a0), d1		; Get player pos X
+	move.l Entity_WorldPosX(a0), d1			; Get player pos X
 	lsr.l  #0x8, d1							; To sprite space
 	sub.w  #SpritePlaneBorderX, d1			; To screen space
 	clr.l  d3
@@ -418,12 +413,13 @@ GameObjFindFloor:
 	cmp.w  #0x0, d1
 	blt    @OutOfBounds
 	move.w Level_MapWidth(a1), d2
+	sub.w  #0x1, d2
 	mulu   #0x8, d2
 	cmp.w  d2, d1
 	bge    @OutOfBounds
 
 	swap   d1								; X to upper word
-	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
+	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
 	lsr.l  #0x8, d2							; To sprite space
 	sub.w  #SpritePlaneBorderY, d2			; To screen space
 	move.w GameObj_FloorProbeY(a0), d3		; Get floor probe Y offset
@@ -434,6 +430,7 @@ GameObjFindFloor:
 	cmp.w  #0x0, d1
 	blt    @OutOfBounds
 	move.w Level_MapHeight(a1), d2
+	sub.w  #0x1, d2
 	mulu   #0x8, d2
 	cmp.w  d2, d1
 	bge    @OutOfBounds
@@ -446,22 +443,22 @@ GameObjFindFloor:
 	move.w Level_MapHeight(a1), d2			; Map height to d2 lo
 	move.l Level_ColMapAddr(a1), a0			; Collision map to a0
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
-	jsr    FindFloor
+	jsr    GetFloorHeight
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 	
-	cmp.w  #0x0, d1					; Y return value in d1
+	cmp.w  #0x0, d0							; Y return value in d0
 	bne    @FoundFloor
 
 	@OutOfBounds:
-	move.l #GroundHeightWorld, d2   ; No floor or gameobj out of bounds, use default ground Y
+	move.l #GroundHeightWorld, d2   		; No floor or gameobj out of bounds, use default ground Y
 	bra	   @EndFloorTest
 	
 	@FoundFloor:
 	clr.l  d2
-	move.w d1, d2
-	add.w  #SpritePlaneBorderY, d2		; Back to sprite space
-	lsl.l  #0x8, d2						; Back to world space
+	move.w d0, d2
+	add.w  #SpritePlaneBorderY, d2			; Back to sprite space
+	lsl.l  #0x8, d2							; Back to world space
 	
 	; Check if out of bounds
 	cmp.l  #GroundHeightWorld, d2

@@ -8,54 +8,39 @@
 
 
 gameobjects_lvl1:
-gameobjects_Fuzzl_count equ 2
+gameobjects_Fuzzl_count equ 1
 LoadGameObjects_Fuzzl:
-Fuzzl_1:
+Fuzzl_22:
 	jsr FuzzlInit
-	move.l #0x0009b000, Entity_WorldPosX(a0)
-	move.l #0x00011800, Entity_WorldPosY(a0)
-	add.l #Fuzzl_Struct_Size, a0
-Fuzzl_2:
-	jsr FuzzlInit
-	move.l #0x00061000, Entity_WorldPosX(a0)
+	move.l #0x00061800, Entity_WorldPosX(a0)
 	move.l #0x00012000, Entity_WorldPosY(a0)
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_Nest_count equ 2
+gameobjects_Nest_count equ 1
 LoadGameObjects_Nest:
-Nest_3:
+Nest_25:
 	jsr NestInit
-	move.l #0x0003f000, Entity_WorldPosX(a0)
-	move.l #0x00019000, Entity_WorldPosY(a0)
-	add.l #Nest_Struct_Size, a0
-Nest_4:
-	jsr NestInit
-	move.l #0x0001d800, Entity_WorldPosX(a0)
-	move.l #0x0001b800, Entity_WorldPosY(a0)
+	move.l #0x0004f000, Entity_WorldPosX(a0)
+	move.l #0x00020000, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
 	rts
 
 gameobjects_Flue_count equ 1
 LoadGameObjects_Flue:
-Flue_5:
+Flue_21:
 	jsr FlueInit
-	move.l #0x0003c000, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
+	move.l #0x0008f000, Entity_WorldPosX(a0)
+	move.l #0x0002f000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_Obstacle_count equ 2
+gameobjects_Obstacle_count equ 1
 LoadGameObjects_Obstacle:
-Obstacle_6:
+Obstacle_23:
 	jsr ObstacleInit
-	move.l #0x0009f800, Entity_WorldPosX(a0)
-	move.l #0x00029800, Entity_WorldPosY(a0)
-	add.l #Obstacle_Struct_Size, a0
-Obstacle_7:
-	jsr ObstacleInit
-	move.l #0x0009c800, Entity_WorldPosX(a0)
-	move.l #0x00029800, Entity_WorldPosY(a0)
+	move.l #0x00008000, Entity_WorldPosX(a0)
+	move.l #0x00008000, Entity_WorldPosY(a0)
 	add.l #Obstacle_Struct_Size, a0
 	rts
 
@@ -120,10 +105,10 @@ Firefly_18:
 
 gameobjects_Monster_count equ 1
 LoadGameObjects_Monster:
-Monster_19:
+Monster_24:
 	jsr MonsterInit
-	move.l #0x0008d800, Entity_WorldPosX(a0)
-	move.l #0x00029800, Entity_WorldPosY(a0)
+	move.l #0x00016800, Entity_WorldPosX(a0)
+	move.l #0x00018800, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 

@@ -40,6 +40,9 @@ size_screen_t:		equ (size_screen_b/size_tile_b)		;  Size in tiles
 size_plane_t:		equ (vdp_plane_width*vdp_plane_height)
 size_plane_b:		equ (size_plane_t*size_tile_b)
 
+size_collision_tile_b equ 0x8
+size_collision_tile_w equ (size_tile_b/size_word)
+
 ; ************************************
 ; RAM
 ; ************************************

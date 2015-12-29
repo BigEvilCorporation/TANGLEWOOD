@@ -29,7 +29,6 @@ Monster_MaxGrabUpVel  equ 0x0300 ; Max up velocity character can grab a ledge (n
 Monster_StepHeight		equ 0x3
 Monster_ProbeFloorX		equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeFloorY		equ (Monster_Height-Monster_StepHeight)   ; Floor detection probe position Y
-Monster_ProbeFloorLen	equ Monster_StepHeight*2  ; Floor probe length (multiplied by Y velocity)
 Monster_ProbeLedgeX		equ 0x1F	; Ledge detection probe position X
 Monster_ProbeLedgeY		equ 0x02	; Ledge detection probe position Y
 
@@ -87,7 +86,6 @@ MonsterInit:
 	move.w  #Monster_DecelIdle, GameObj_DecelX(a0)
 	move.w  #Monster_ProbeFloorX, GameObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Monster_ProbeFloorLen, GameObj_FloorProbeLen(a0)
 	move.w  #Monster_StepHeight, GameObj_StepHeight(a0)
 	
 	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)

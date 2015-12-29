@@ -41,7 +41,6 @@ Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no li
 Player1StepHeight	 equ 0x3
 Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
 Player1ProbeFloorY   equ (Player1Height-Player1StepHeight) ;(Player1Height-(Player1Height/4))  ; Floor detection probe position Y
-Player1ProbeFloorLen equ Player1StepHeight*2 ;(Player1Height-Player1ProbeFloorY+Player1StepHeight); Floor probe length (multiplied by Y velocity)
 Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
@@ -104,7 +103,6 @@ PlayerInit:
 	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Player1ProbeFloorLen, GameObj_FloorProbeLen(a0)
 	move.w  #Player1StepHeight, GameObj_StepHeight(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
