@@ -146,17 +146,17 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 
 	; Monsters
-	;move.l #EntityArray_Monsters, a0
-	;lea    tiles_monster, a1
-	;lea    sprite_monster_subsprite_dimensions_bits, a2
-	;lea    sprite_monster_subsprite_pos_offsets, a3
-	;lea    sprite_monster_numtiles_per_subsprite, a4
-	;move.l #tiles_monsterVRAM, d0
-	;move.l #tiles_monster_size_t, d1
-	;move.b #sprite_monster_size_subsprites, d2
-	;move.w #sprite_monster_dimensions, d3
-	;move.b #PaletteID_Monster, d4
-	;jsr    GameObjLoadMultiSprite
+	move.l #EntityArray_Monsters, a0
+	lea    tiles_monster, a1
+	lea    sprite_monster_subsprite_dimensions_bits, a2
+	lea    sprite_monster_subsprite_pos_offsets, a3
+	lea    sprite_monster_numtiles_per_subsprite, a4
+	move.l #tiles_monsterVRAM, d0
+	move.l #tiles_monster_size_t, d1
+	move.b #sprite_monster_size_subsprites, d2
+	move.w #sprite_monster_dimensions, d3
+	move.b #PaletteID_Monster, d4
+	jsr    GameObjLoadMultiSprite
     
 	; Fuzzls
 	move.l #EntityArray_Fuzzls, a0
@@ -276,8 +276,8 @@ LevelLoadGameObjArt:
 LevelCreateGameObjects:
 
 	; Monsters
-	;move.l #EntityArray_Monsters, a0
-	;jsr    LoadGameObjects_Monster
+	move.l #EntityArray_Monsters, a0
+	jsr    LoadGameObjects_Monster
     
 	; Fuzzls
 	move.l #EntityArray_Fuzzls, a0

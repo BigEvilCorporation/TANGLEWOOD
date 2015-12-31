@@ -108,7 +108,7 @@ LoadGameObjects_Monster:
 Monster_24:
 	jsr MonsterInit
 	move.l #0x00016800, Entity_WorldPosX(a0)
-	move.l #0x00018800, Entity_WorldPosY(a0)
+	move.l #0x0002f000, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 

@@ -74,8 +74,8 @@ MonsterInit:
 	move.l #CharacterDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	;jsr EntityAddToUpdateList
-	;jsr EntityAddToRenderList
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)
@@ -121,17 +121,17 @@ MonsterInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.l #Anim_MonsterWalk, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterWalk_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterWalk_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.l #Anim_MonsterWalk, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterWalk_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterWalk_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Jump
@@ -302,7 +302,7 @@ MonsterUpdateTrackPlayer:
 	jsr CharacterCancelXMovement
 
 	; Attack
-	jsr    MonsterStartBite
+	;jsr    MonsterStartBite
 	bra @End
 
 	@LeftOfPlayer:
