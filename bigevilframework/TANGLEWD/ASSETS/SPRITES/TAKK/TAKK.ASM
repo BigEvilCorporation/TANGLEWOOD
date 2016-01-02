@@ -13,6 +13,8 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 
 	; Include the remaining sprite sets
 	
+	IFND DEBUG
+	
 	; Walk
 	include 'assets\sprites\takk\walk_1.asm'
 	include 'assets\sprites\takk\walk_2.asm'
@@ -21,6 +23,8 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\takk\walk_5.asm'
 	include 'assets\sprites\takk\walk_6.asm'
 	include 'assets\sprites\takk\walk_7.asm'
+	
+	ENDIF
 
 	; Bite anim
 	include 'assets\sprites\takk\bite_0.asm'

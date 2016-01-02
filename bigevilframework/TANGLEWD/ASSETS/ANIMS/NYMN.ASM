@@ -70,3 +70,12 @@ Anim_NymnGlide_Speed: equ 0x0
 
 	Even
 	
+Anim_NymnDead:
+	;dc.b 0x28
+	dc.b 0x17
+Anim_NymnDead_End
+Anim_NymnDead_SizeB: equ (Anim_NymnDead_End-Anim_NymnDead)
+Anim_NymnDead_Speed: equ 0x0
+
+	Even
+	

@@ -132,6 +132,14 @@ PlayerInit:
 	move.b #Anim_NymnIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
+	; Dead
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
+	move.l #Anim_NymnDead, Animation_KeyframesAddr(a3)
+	move.b #Anim_NymnDead_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnDead_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3

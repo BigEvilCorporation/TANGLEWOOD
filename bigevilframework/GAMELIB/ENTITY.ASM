@@ -37,8 +37,8 @@ EntityAddToUpdateList:
 	@HasHead:
 	
 	; else link to current tail, then set as current tail
-	move.l (EntityListTail_Update), a1
-	move.l a0, Entity_UpdateNext(a1)
+	move.l (EntityListTail_Update), a3
+	move.l a0, Entity_UpdateNext(a3)
 	move.l a0, EntityListTail_Update
 	
 	@End:
@@ -60,8 +60,8 @@ EntityAddToRenderList:
 	@HasHead:
 	
 	; else link to current tail, then set as current tail
-	move.l (EntityListTail_Render), a1
-	move.l a0, Entity_RenderNext(a1)
+	move.l (EntityListTail_Render), a3
+	move.l a0, Entity_RenderNext(a3)
 	move.l a0, EntityListTail_Render
 	
 	@End:

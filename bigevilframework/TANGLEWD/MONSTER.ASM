@@ -36,7 +36,14 @@ Monster_PlayerTrackYWindow	equ Monster_Height
 ;Monster_AlertDistance		equ (0x0050*SubPixelsPerPixel)
 Monster_AlertDistance		equ 0x0080
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
-Monster_SwipeDistance		equ (0x10*SubPixelsPerPixel)
+Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
+
+; Attack damages
+Monster_BiteDamage		equ 0xFF
+Monster_SwipeDamage		equ 0xFF
+
+; Event keyframes
+Monster_AnimFrame_Bite	equ 0x2
 
 ; ************************************
 ; States
@@ -104,7 +111,6 @@ MonsterInit:
 	move.b  #0x1, GameObj_Active(a0)
 	move.b  #0x1, GameObj_Visible(a0)
 	move.b  #ColourRed, Monster_Colour(a0)
-	move.b  #MonsterState_InCave, Monster_State(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -121,9 +127,9 @@ MonsterInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterWalk, Animation_KeyframesAddr(a3)
-	move.b #Anim_MonsterWalk_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterWalk_SizeB, Animation_Length(a3)
+	move.l #Anim_MonsterRun, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterRun_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterRun_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
@@ -157,6 +163,9 @@ MonsterInit:
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	
+	; Init default state
+	jsr MonsterStartWaitForPlayer
 
 	rts
 
@@ -208,13 +217,27 @@ MonsterUpdate:
 	
 	rts
 
+MonsterStartWaitForPlayer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	move.b  #MonsterState_InCave, Monster_State(a0)
+	
+	rts
+	
 MonsterUpdateWaitForPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Get player 1
+	move.l #Player1, a2
+	
+	; If player dead, don't bother
+	cmp.b  #0x0, Character_Health(a2)
+	beq    @PlayerDead
+
 	; Get distance to player
 	;move.l a1, -(sp)
-	move.l #Player1, a2
 	;jsr    GameObjectDistSq
 
 	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
@@ -247,6 +270,7 @@ MonsterUpdateWaitForPlayer:
 	; TODO: Emerge state
 	jsr   MonsterStartTrackPlayer
 
+	@PlayerDead:
 	@OutOfPlayerRange:
 
 	rts
@@ -266,6 +290,10 @@ MonsterUpdateTrackPlayer:
 	
 	; Get player 1 addr
 	move.l #Player1, a2
+	
+	; If player dead, don't bother
+	cmp.b  #0x0, Character_Health(a2)
+	beq    @PlayerDead
 
 	; Check if within Y tolerance of player
 
@@ -287,44 +315,47 @@ MonsterUpdateTrackPlayer:
 	add.l  d4, d2						; Right of monster
 	add.l  d5, d3						; Right of player
 
-	; Expand player bounds by swipe distance
-	sub.l  #Monster_SwipeDistance, d1	; Left of player - swipe distance
-	add.l  #Monster_SwipeDistance, d3	; Right of player + swipe distance
+	; Expand player bounds by attack distance
+	sub.l  #Monster_AttackDistance, d1	; Left of player - attack distance
+	add.l  #Monster_AttackDistance, d3	; Right of player + attack distance
 	
-	cmp.l  d2, d1		; Right of monster vs. left of player (- swipe distance)
+	cmp.l  d2, d1		; Right of monster vs. left of player (- attack distance)
 	bgt    @LeftOfPlayer
 
-	cmp.l  d0, d3		; Left of monster vs. right of player (+ swipe distance)
+	cmp.l  d0, d3		; Left of monster vs. right of player (+ attack distance)
 	blt    @RightOfPlayer
 
-	; Within swipe distance, stop chasing
+	; Within attack distance, stop chasing
 	move.b #0x0, Character_Running(a0)
-	jsr CharacterCancelXMovement
+	jsr    CharacterCancelXMovement
 
 	; Attack
-	;jsr    MonsterStartBite
-	bra @End
+	jsr    MonsterStartBite
+	bra    @End
 
 	@LeftOfPlayer:
 
 	; Run towards player
 	move.b #0x1, Character_Running(a0)
-	jsr CharacterMoveRight
-	bra @End
+	jsr    CharacterMoveRight
+	bra    @End
 
 	@RightOfPlayer:
 
 	; Run towards player
 	move.b #0x1, Character_Running(a0)
-	jsr CharacterMoveLeft
-	bra @End
+	jsr    CharacterMoveLeft
+	bra    @End
 
+	@PlayerDead:
 	@LostPlayer:
 
-	; Lost player, back to search state
+	; Lost player, or player dead, back to search state
 	move.b #0x0, Character_Running(a0)
-	jsr CharacterCancelXMovement
-	;move.b MonsterState_Wandering, Monster_State(a0)
+	jsr    CharacterCancelXMovement
+	
+	; TODO - Search state
+	jsr    MonsterStartWaitForPlayer
 
 	@End:
 
@@ -341,7 +372,7 @@ MonsterStartBite:
 	move.l #Anim_MonsterBite, AnimObj_KeyframesAddr(a0)
 	move.b #Anim_MonsterBite_Speed, AnimObj_AnimSpeed(a0)
 	move.b #Anim_MonsterBite_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x0, AnimObj_Looping(a1)
+	move.b #0x0, AnimObj_Looping(a0)
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)
@@ -352,16 +383,37 @@ MonsterUpdateBite:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Wait for bite anim to finish
-	cmp.b  #0x0, AnimObj_Looping(a3)
-	bne    @AnimPlaying
+	; Check if end frame reached
+	move.l  AnimObj_AnimSubframe(a0), d0; Get anim subframe
+	lsr.l  #0x8, d0 					; Subframes to frames
+	cmp.b  #Anim_MonsterBite_SizeB, d0
+	beq    @AnimFinished
+	
+	; Check if attack frame reached
+	cmp.b  #Monster_AnimFrame_Bite, d0
+	bne    @End
+	
+	; On attack frame
+	
+	; TODO - Check if player still in range on attack frame
+	
+	; Deal damage to player
+	move.l a0, -(sp)
+	move.l #Player1, a0
+	move.b #Monster_BiteDamage, d0
+	jsr    CharacterDealDamage
+	move.l (sp)+, a0
+	
+	bra    @End
 
+	@AnimFinished:
+	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
-
+	
 	; Back to chase state
 	jsr    MonsterStartTrackPlayer
-
-	@AnimPlaying:
+	
+	@End:
 
 	rts

@@ -10,15 +10,16 @@
 ; Constants
 ; ************************************
 CharacterAnimIdx_Idle		equ 0
-CharacterAnimIdx_Run		equ 1
-CharacterAnimIdx_Walk		equ 2
-CharacterAnimIdx_Jump		equ 3
-CharacterAnimIdx_Hang		equ 4
-CharacterAnimIdx_Glide		equ 5
-CharacterAnimIdx_Push		equ 6
-CharacterAnimIdx_WalkToRun	equ 7
+CharacterAnimIdx_Dead		equ 1
+CharacterAnimIdx_Run		equ 2
+CharacterAnimIdx_Walk		equ 3
+CharacterAnimIdx_Jump		equ 4
+CharacterAnimIdx_Hang		equ 5
+CharacterAnimIdx_Glide		equ 6
+CharacterAnimIdx_Push		equ 7
+CharacterAnimIdx_WalkToRun	equ 8
 ; -------------------------------
-Character_NumAnims			equ 8
+Character_NumAnims			equ 9
 
 ; ************************************
 ; Character struct
@@ -50,8 +51,10 @@ Character_Gliding		rs.b 1
 Character_Interacting	rs.b 1
 Character_UpdateAnim	rs.b 1
 Character_AnimIdx	    rs.b 1
+Character_Health        rs.b 1
+Character_Dead          rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 2
+Character_Struct_Pad    rs.b 0
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -72,6 +75,8 @@ CharacterInit:
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_Interacting(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
+	move.b #0xFF, Character_Health(a0)
+	move.b #0x0, Character_Dead(a0)
 
 	rts
 	
@@ -100,6 +105,45 @@ CharacterUpdate:
 	beq   @ManualAnim
 	jsr   CharacterUpdateAnimState
 	@ManualAnim:
+	
+	rts
+	
+CharacterDealDamage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) Damage to deal
+	
+	; TODO - Damage/death anim type
+	
+	; Get current health
+	move.b Character_Health(a0), d1
+	
+	; If already dead, do nothing
+	cmp.b  #0x0, d1
+	beq    @AlreadyDead
+	
+	; Subtract health
+	sub.b  d0, d1
+	bcc    @NoClamp	; Branch if Carry Clear (did not wrap to zero)
+	move.b #0x0, d1	; Clamp to 0
+	@NoClamp:
+	move.b d1, Character_Health(a0)
+	
+	; Check if depleted
+	cmp.b  #0x0, d1
+	bne    @StillAlive
+	
+	; Health reached zero, character is dead
+	move.b #0x1, Character_Dead(a0)
+	
+	; Cancel all actions
+	jsr CharacterCancelXMovement
+	jsr CharacterCancelRun
+	jsr CharacterCancelJump
+	jsr CharacterCancelInteract
+	
+	@AlreadyDead:
+	@StillAlive:
 	
 	rts
 
@@ -267,6 +311,14 @@ CharacterUpdateAnimState:
 	clr.l  d1
 
 	; =====================================================================
+	; Dead
+	; =====================================================================
+	move.b #CharacterAnimIdx_Dead, d1
+	move.b Character_Dead(a0), d0		; If player dead, set death anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
 	; Hanging
 	; =====================================================================
 	move.b #CharacterAnimIdx_Hang, d1
@@ -384,6 +436,11 @@ CharacterMoveLeft:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @End
+	
 	; Check if player on ledge
 	move.b Character_OnLedge(a0), d4
 	cmp.b  #0x1, d4
@@ -421,6 +478,11 @@ CharacterMoveLeft:
 CharacterMoveRight:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @End
 	
 	; Check if player on ledge
 	move.b Character_OnLedge(a0), d4
@@ -462,6 +524,11 @@ CharacterStartJump:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @Dead
+	
 	; Check if player is interacting
 	move.b Character_Interacting(a0), d4
 	cmp.b  #0x1, d4
@@ -483,6 +550,7 @@ CharacterStartJump:
 	move.w Character_JumpVel(a0), GameObj_VelY(a0)
 	move.b #0x1, Character_Jumping(a0)
 	
+	@Dead:
 	@CantJump:
 	
 	rts
@@ -490,6 +558,11 @@ CharacterStartJump:
 CharacterCancelJump:	
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @Dead
 	
 	; Check if jumping
 	move.b Character_Jumping(a0), d4
@@ -509,6 +582,7 @@ CharacterCancelJump:
 	; Cancel jump
 	move.w Character_JumpCancelVel(a0), GameObj_VelY(a0)
 	
+	@Dead:
 	@NotJumping:
 	@Gliding:
 	@VelTooLow:
@@ -518,6 +592,11 @@ CharacterCancelJump:
 CharacterStartRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @Dead
 	
 	; Check if player is interacting
 	move.b Character_Interacting(a0), d4
@@ -530,6 +609,7 @@ CharacterStartRun:
 	; Set running flag
 	move.b #0x1, Character_Running(a0)
 	
+	@Dead:
 	@CantRun:
 	
 	rts
@@ -557,7 +637,14 @@ CharacterStartInteract:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	; Check if player dead
+	move.b Character_Dead(a0), d4
+	cmp.b  #0x1, d4
+	beq    @Dead
+	
 	move.b #0x1, Character_Interacting(a0)
+	
+	@Dead:
 	
 	rts
 	
