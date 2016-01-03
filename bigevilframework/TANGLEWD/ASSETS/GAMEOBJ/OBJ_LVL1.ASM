@@ -26,21 +26,31 @@ Nest_25:
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_Flue_count equ 1
+gameobjects_Flue_count equ 2
 LoadGameObjects_Flue:
 Flue_21:
 	jsr FlueInit
 	move.l #0x0008f000, Entity_WorldPosX(a0)
 	move.l #0x0002f000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
+Flue_41:
+	jsr FlueInit
+	move.l #0x000c1800, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_Obstacle_count equ 1
+gameobjects_Obstacle_count equ 2
 LoadGameObjects_Obstacle:
-Obstacle_27:
+Obstacle_33:
 	jsr ObstacleInit
-	move.l #0x0009f800, Entity_WorldPosX(a0)
-	move.l #0x00008000, Entity_WorldPosY(a0)
+	move.l #0x000bf800, Entity_WorldPosX(a0)
+	move.l #0x00029800, Entity_WorldPosY(a0)
+	add.l #Obstacle_Struct_Size, a0
+Obstacle_34:
+	jsr ObstacleInit
+	move.l #0x000bf800, Entity_WorldPosX(a0)
+	move.l #0x00021800, Entity_WorldPosY(a0)
 	add.l #Obstacle_Struct_Size, a0
 	rts
 
@@ -105,10 +115,10 @@ Firefly_18:
 
 gameobjects_Monster_count equ 1
 LoadGameObjects_Monster:
-Monster_28:
+Monster_40:
 	jsr MonsterInit
-	move.l #0x00099800, Entity_WorldPosX(a0)
-	move.l #0x0002b800, Entity_WorldPosY(a0)
+	move.l #0x00121800, Entity_WorldPosX(a0)
+	move.l #0x0002b000, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 

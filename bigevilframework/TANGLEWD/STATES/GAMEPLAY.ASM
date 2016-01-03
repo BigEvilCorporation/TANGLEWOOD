@@ -39,12 +39,23 @@ Gameplay_Update:
 
 	; Set current level ptr
 	move.l (CurrentLevel), a1
-
+	
 	; Read and process gamepad input
 	jsr UpdateInput
 	
 	; Update game objects
 	jsr EntityUpdateAll
+	
+	; Check if player is dead
+	move.l #Player1, a2
+	cmp.b  #0x0, Character_Dead(a2)
+	beq    @PlayerAlive
+	
+	; Player dead, enter fail state
+	lea    GameStateFail, a0
+	jsr    GameStateEnter
+	
+	@PlayerAlive:
 	
 	rts
 	

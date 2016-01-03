@@ -71,6 +71,18 @@ EntityAddToRenderList:
 	
 	rts
 	
+EntityClearUpdateList:
+	move.l  #0x0, EntityListHead_Update
+	move.l  #0x0, EntityListTail_Update
+	move.l  #0x0, EntityListSize_Update
+	rts
+	
+EntityClearRenderList:
+	move.l  #0x0, EntityListHead_Render
+	move.l  #0x0, EntityListTail_Render
+	move.l  #0x0, EntityListSize_Render
+	rts
+	
 EntityUpdateAll:
 	; a1 --- Level address
 	

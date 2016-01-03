@@ -37,6 +37,7 @@ Monster_PlayerTrackYWindow	equ Monster_Height
 Monster_AlertDistance		equ 0x0080
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
+Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 ; Attack damages
 Monster_BiteDamage		equ 0xFF
@@ -314,6 +315,14 @@ MonsterUpdateTrackPlayer:
 	; If player dead, don't bother
 	cmp.b  #0x0, Character_Health(a2)
 	beq    @PlayerDead
+	
+	; If player inactive, don't bother
+	cmp.b  #0x0, GameObj_Active(a2)
+	beq    @PlayerInactive
+	
+	; If player is being flung using a flue/bounce pad, don't bother
+	cmp.w  #Monster_AttackMaxPlayerVel, GameObj_VelY(a2)
+	bge    @PlayerBeingFlung
 
 	; Check if within Y tolerance of player
 
@@ -368,6 +377,8 @@ MonsterUpdateTrackPlayer:
 	bra    @End
 
 	@PlayerDead:
+	@PlayerInactive:
+	@PlayerBeingFlung:
 	@LostPlayer:
 
 	; Lost player, or player dead, back to search state

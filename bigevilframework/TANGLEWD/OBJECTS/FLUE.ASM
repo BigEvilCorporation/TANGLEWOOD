@@ -103,6 +103,12 @@ FlueUpdate:
 	; TODO: All GameObjs
 	; Check if player 1 is inside the flue
 	lea Player1, a1
+	
+	; Check if player dead
+	move.b Character_Dead(a1), d4
+	cmp.b  #0x1, d4
+	beq    @PlayerDead
+	
 	jsr FlueTestGameObjInside
 
 	cmp.b #0x0, d0
@@ -136,6 +142,7 @@ FlueUpdate:
 	; Decrement eject timer
 	sub.w  #0x1, Flue_HoldTimer(a0)
 
+	@PlayerDead:
 	@End:
 
 	move.l (sp)+, a1

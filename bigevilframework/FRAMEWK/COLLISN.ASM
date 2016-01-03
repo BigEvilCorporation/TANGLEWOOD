@@ -28,7 +28,7 @@ GetCollisionTile:
 	add.l  d1, d3					; Add X offset
 	
 	; Fetch collision tile ID from RAM
-	clr.l  d2
+	clr.l  d0
 	lsl.l  #0x1, d3					; Tile offset to words
 	add.l  d3, a0					; Offset ptr, needed for next tile
 	move.w (a0), d0					; Fetch map tile
@@ -70,6 +70,7 @@ GetFloorHeight:
 	; Get collision tile
 	move.l d1, -(sp)
 	swap   d2				; Map width to d2
+	andi.l #0x0000FFFF, d2	; Clear height
 	jsr    GetCollisionTile
 	move.l (sp)+, d1
 	

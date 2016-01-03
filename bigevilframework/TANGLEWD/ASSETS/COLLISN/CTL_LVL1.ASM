@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-collisiontiles_lvl1_size_b	equ 0x00000950	; Size in bytes
+collisiontiles_lvl1_size_b	equ 0x00000E78	; Size in bytes
 collisiontiles_lvl1_size_w	equ (collisiontiles_lvl1_size_b/2)	; Size in words
 collisiontiles_lvl1_size_l	equ (collisiontiles_lvl1_size_b/4)	; Size in longwords
 collisiontiles_lvl1_size_t	equ (collisiontiles_lvl1_size_b/32)	; Size in tiles

@@ -59,20 +59,21 @@ __start
 	ENDIF
 
 	; Include GameObject derivatives
-	include 'firefly.asm'
-	include 'flue.asm'
-	include 'fuzzl.asm'
-	include 'leaf.asm'
-	include 'monster.asm'
-	include 'nest.asm'
-	include 'obstacle.asm'
-	include 'player.asm'
+	include 'objects\firefly.asm'
+	include 'objects\flue.asm'
+	include 'objects\fuzzl.asm'
+	include 'objects\leaf.asm'
+	include 'objects\monster.asm'
+	include 'objects\nest.asm'
+	include 'objects\obstacle.asm'
+	include 'objects\player.asm'
 	
 	; Include game states
-	include 'gameplay.asm'
+	include 'states\fail.asm'
+	include 'states\gameplay.asm'
 	IFND DEBUG
-	include 'logos.asm'
-	include 'mainmenu.asm'
+	include 'states\logos.asm'
+	include 'states\mainmenu.asm'
 	ENDIF
 	
 	; Include game code

@@ -47,6 +47,23 @@ PaletteLerpStart:
 	
 	rts
 	
+PaletteLerpStartAll:
+	; a0 --- Target palette ROM address
+	; d1 (w) Lerp speed (animation subframes per frame)
+	; d2 (b) Colour range min
+	; d3 (b) Colour range max
+	
+	move.l #0x0, d0
+	jsr    PaletteLerpStart
+	move.l #0x1, d0
+	jsr    PaletteLerpStart
+	move.l #0x2, d0
+	jsr    PaletteLerpStart
+	move.l #0x3, d0
+	jsr    PaletteLerpStart
+	
+	rts
+	
 PaletteLerpUpdate:
 
 	lea PaletteLerp_Array, a0

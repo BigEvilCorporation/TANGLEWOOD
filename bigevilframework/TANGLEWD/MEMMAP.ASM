@@ -71,6 +71,7 @@ art_scratch_buffer  rs.b ArtScratchBufferSize
 ; Timers
 ; ************************************
 TimerLogoFade		rs.l 1
+TimerFailReset		rs.l 1
 
 ; ************************************
 ; World
@@ -107,8 +108,6 @@ MapStreamNumRows	 rs.w 1
 Gamepad1PrevState   rs.w 1
 Gamepad2PrevState   rs.w 1
 
-; __padding02			rs.b 2
-
 ; Palette lerping
 PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
 
@@ -116,7 +115,9 @@ PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
 SwitchingPalettesP1 rs.l NumSwitchingColours
 
 ; Current game state
-GameStatePtr			rs.l 1
+GameStatePtr		rs.l 1
+
+;__padding02			rs.b 3
 
 ; ************************************
 ; Entity linked lists

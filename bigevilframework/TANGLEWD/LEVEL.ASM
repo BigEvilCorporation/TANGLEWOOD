@@ -10,7 +10,16 @@ LevelLoad:
 	
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
+	
+	; Reset sprites
+	move.w #0x0, next_sprite_index
+	
+	; Reset entities
+	jsr    EntityClearUpdateList
+	jsr    EntityClearRenderList
 
+	IFD DEBUG
+	
 	;TODO: Move to LoadGlobalData
 	lea Pal_Nymn_Red, a0
 	move.l #PaletteId_Player, d0
@@ -19,10 +28,48 @@ LevelLoad:
 	lea palette_monster, a0
 	move.l #PaletteId_Monster, d0
 	jsr LoadPalette
-
+    
 	lea palette_fuzzl_yellow, a0
 	move.l #PaletteId_Fuzzl, d0
 	jsr LoadPalette
+	
+	ELSE
+	
+	; Load all black palettes
+	lea    palette_fade_black, a0
+	move.l #PaletteId_World0, d0
+	jsr    LoadPalette
+	
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Player, d0
+	jsr    LoadPalette
+	
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Monster, d0
+	jsr    LoadPalette
+	
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Fuzzl, d0
+	jsr    LoadPalette
+	
+	; Set palettes for fade up
+	move.w #LevelFadeUpSpeed, d1
+	move.b #0x0, d2
+	move.b #0xF, d3
+	
+	lea    Pal_Nymn_Red, a0
+	move.l #PaletteId_Player, d0
+	jsr    PaletteLerpStart
+	
+	lea    palette_monster, a0
+	move.l #PaletteId_Monster, d0
+	jsr    PaletteLerpStart
+	
+	lea    palette_fuzzl_yellow, a0
+	move.l #PaletteId_Fuzzl, d0
+	jsr    PaletteLerpStart
+	
+	ENDIF
 	
 	jsr LevelLoadPalettes
 	jsr LevelLoadArt
@@ -47,7 +94,20 @@ LevelLoadPalettes:
 	@PaletteLoop:
 	move.b d0, -(sp)				; Backup palette index
 	move.l Level_PalettesAddr(a1), a0	; First palette addr to a0
-	jsr LoadPalette			
+	
+	IFD DEBUG
+	
+	jsr    LoadPalette			
+	
+	ELSE
+	
+	move.w #LevelFadeUpSpeed, d1
+	move.b #0x0, d2
+	move.b #0xF, d3
+	jsr    PaletteLerpStart
+	
+	ENDIF
+	
 	move.b (sp)+, d0				; Restore palette index
 	addi.w #0x1, d0					
 	dbra d6, @PaletteLoop			; LoadPalette leaves incremented palette address in a0
