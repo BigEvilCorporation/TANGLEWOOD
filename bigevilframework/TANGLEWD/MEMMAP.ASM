@@ -141,6 +141,7 @@ EntityArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxEntities)
 EntityArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
+EntityArray_Boulders   rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 
 reserved_ram_size		rs.b 0
 

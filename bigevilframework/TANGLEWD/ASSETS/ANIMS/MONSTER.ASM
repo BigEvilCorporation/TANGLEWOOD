@@ -5,6 +5,14 @@ Anim_MonsterIdle_SizeB: equ (Anim_MonsterIdle_End-Anim_MonsterIdle)
 Anim_MonsterIdle_Speed: equ 0x0
 
 	Even
+	
+Anim_MonsterDead:
+	dc.b 0x9
+Anim_MonsterDead_End
+Anim_MonsterDead_SizeB: equ (Anim_MonsterDead_End-Anim_MonsterDead)
+Anim_MonsterDead_Speed: equ 0x0
+
+	Even
 
 	IFD DEBUG
 	

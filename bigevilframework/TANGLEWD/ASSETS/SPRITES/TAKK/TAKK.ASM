@@ -26,8 +26,11 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 	
 	ENDIF
 
-	; Bite anim
+	; Bite
 	include 'assets\sprites\takk\bite_0.asm'
+	
+	; Dead
+	include 'assets\sprites\takk\dead.asm'
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
 sprite_monster_subsprite_pos_offsets:

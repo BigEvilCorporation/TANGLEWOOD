@@ -309,6 +309,19 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
 	@NoObstacles:
     
+	; Boulders
+	move.l #EntityArray_Boulders, a0
+	lea    Tiles_Boulder, a1
+	lea    sprite_Boulder_subsprite_dimensions_bits, a2
+	lea    sprite_Boulder_subsprite_pos_offsets, a3
+	lea    sprite_Boulder_numtiles_per_subsprite, a4
+	move.l #Tiles_BoulderVRAM, d0
+	move.l #tiles_Boulder_size_t, d1
+	move.b #sprite_Boulder_size_subsprites, d2
+	move.w #sprite_Boulder_dimensions, d3
+	move.b #PaletteId_World0, d4
+	jsr    GameObjLoadMultiSprite
+	
 	; Fireflies
 	move.l #EntityArray_Fireflies, a0
 	move.l #gameobjects_Firefly_count-1, d1
@@ -354,6 +367,10 @@ LevelCreateGameObjects:
 	; Obstacles
 	move.l #EntityArray_Obstacles, a0
 	jsr    LoadGameObjects_Obstacle
+	
+	; Boulders
+	move.l #EntityArray_Boulders, a0
+	jsr    LoadGameObjects_Boulder
     
 	; Fireflies
 	move.l #EntityArray_Fireflies, a0

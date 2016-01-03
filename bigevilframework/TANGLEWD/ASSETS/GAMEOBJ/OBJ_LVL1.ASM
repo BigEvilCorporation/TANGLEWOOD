@@ -33,9 +33,9 @@ Flue_21:
 	move.l #0x0008f000, Entity_WorldPosX(a0)
 	move.l #0x0002f000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue_41:
+Flue_44:
 	jsr FlueInit
-	move.l #0x000c1800, Entity_WorldPosX(a0)
+	move.l #0x000f2800, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
@@ -120,5 +120,14 @@ Monster_40:
 	move.l #0x00121800, Entity_WorldPosX(a0)
 	move.l #0x0002b000, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
+	rts
+
+gameobjects_Boulder_count equ 1
+LoadGameObjects_Boulder:
+Boulder_43:
+	jsr BoulderInit
+	move.l #0x000f2000, Entity_WorldPosX(a0)
+	move.l #0x00013800, Entity_WorldPosY(a0)
+	add.l #Boulder_Struct_Size, a0
 	rts
 

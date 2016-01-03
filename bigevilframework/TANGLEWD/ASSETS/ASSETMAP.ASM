@@ -30,15 +30,17 @@
     ; Sprite tiles
     ; ************************************
 	include 'assets\sprites\nymn\nymn.asm'
+	include 'assets\sprites\takk\takk.asm'
+	include 'assets\sprites\spr_bldr.asm'
 	include 'assets\sprites\spr_ffly.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
-	include 'assets\sprites\takk\takk.asm'
 	include 'assets\sprites\spr_vine.asm'
 	
 	; ************************************
 	; Animation data
 	; ************************************
+	include 'assets\anims\boulder.asm'
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
@@ -143,6 +145,7 @@ Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
+Tiles_BoulderVRAM:   rs.b (tiles_boulder_size_b*Boulder_MaxEntities)
 Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxEntities)
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0

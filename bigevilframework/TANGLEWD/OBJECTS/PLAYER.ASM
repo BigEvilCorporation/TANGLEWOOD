@@ -204,10 +204,14 @@ PlayerUpdate:
 	
 	; Base functionality
 	jsr CharacterUpdate
+	
+	; Not pushing by default
+	move.b #0x0, Character_Pushing(a0)
 
 	; Interaction
 	jsr PlayerInteract_Fuzzls
 	jsr PlayerInteract_Obstacles
+	jsr PlayerInteract_Boulders
 	jsr PlayerInteract_Fireflies
 	
 	; Special colour abilities
@@ -329,9 +333,6 @@ PlayerInteract_Fuzzls:
 
 	; Check if pushing, for inner or outer interaction box
 	move.b Character_Pushing(a0), d1
-	
-	; Not pushing by default
-	move.b #0x0, Character_Pushing(a0)
 	
 	; Character must be interacting
 	move.b Character_Interacting(a0), d0
@@ -527,6 +528,189 @@ PlayerInteract_Fuzzls:
 	; Next Fuzzl
 	add.l #Fuzzl_Struct_Size, a1
 	dbra d6, @FuzzlLoop
+	
+	@NotInteracting:
+	@PlayerOffFloor:
+	@End:
+	
+	move.l (sp)+, a1
+	
+	rts
+	
+PlayerInteract_Boulders:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	move.l a1, -(sp)
+
+	; Check if pushing, for inner or outer interaction box
+	move.b Character_Pushing(a0), d1
+	
+	; Character must be interacting
+	move.b Character_Interacting(a0), d0
+	cmp.b  #0x0, d0
+	beq    @NotInteracting
+	
+	; Character must be close to floor to interact with a Boulder
+	move.b GameObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	beq    @PlayerOffFloor
+	
+	; Check all Boulders
+	move.l #EntityArray_Boulders, a1
+	move.l #gameobjects_Boulder_count-1, d6
+	@BoulderLoop:
+	
+	; Check if on screen
+	move.b GameObj_SpriteLinked(a1), d0
+	cmp.b  #0x0, d0
+	beq    @NotVisible
+	
+	; Check if active
+	move.b GameObj_Active(a1), d0
+	cmp.b  #0x0, d0
+	beq    @NotActive
+	
+	; Check if close to floor
+	move.b GameObj_CloseToFloor(a1), d0
+	cmp.b  #0x0, d0
+	beq    @BoulderOffFloor
+	
+	; Check if within bounds
+	move.l d6, -(sp)
+	
+	; If already pushing, check if stopped pushing using outer box
+	; (to stop anim flickering if it strays out by 1 pixel))
+	cmp.b #0x0, d1
+	bne   @Pushing
+	
+	; Get player interact box pos X min (inner)
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinXInner, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max (inner)
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxXInner, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	bra    @GetBoulderBounds
+	
+	@Pushing:
+	
+	; Get player interact box pos X min (outer)
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinXOuter, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max (outer)
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxXOuter, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	@GetBoulderBounds:
+	
+	; Get Boulder bounds
+	jsr    GetGameObjBoundsA1D2D3
+	
+	; Test box intersection
+	jsr TestBoxIntersectBox
+	move.l (sp)+, d6
+	
+	; Result in d0
+	cmp.b #0x0, d0
+	beq   @NotInRange
+
+	; Begin interaction with Boulder - cancel run/jump movement
+	jsr  CharacterCancelRun
+	jsr  CharacterCancelJump
+	
+	; Check which side of Boulder
+	move.l Entity_WorldPosX(a0), d0	; Player X
+	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
+	move.l Entity_WorldPosX(a1), d1	; Boulder X
+	add.l  #(Boulder_Width*SubpixelsPerPixel)/2, d1 ; Boulder X centre
+	move.w GameObj_VelX(a0), d2			; Player velocity X
+	cmp.l  d0, d1
+	bgt    @LeftOfBoulder
+	
+	; On right hand side of Boulder, check if heading towards it
+	cmp.w  #0x0, d2
+	bgt    @NotPushingBoulder
+	
+	; Pushing Boulder to the left, correct penetration
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
+	move.l Entity_WorldPosX(a1), d1								; Boulder X
+	add.l  #(Boulder_Width*SubpixelsPerPixel), d1 				; Boulder right
+	cmp.l  d0, d1
+	blt    @NotPenetratingLeft
+	sub.l  #(Boulder_Width*SubpixelsPerPixel), d0
+	move.l d0, Entity_WorldPosX(a1)
+	@NotPenetratingLeft:
+	bra    @PushingBoulder
+	
+	@LeftOfBoulder:
+	; On left hand side of Boulder, check if heading towards it
+	cmp.w  #0x0, d2
+	blt    @NotPushingBoulder
+	
+	; Pushing Boulder to the right, correct penetration
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
+	move.l Entity_WorldPosX(a1), d1								; Boulder left
+	cmp.l  d0, d1
+	bgt    @NotPenetratingRight
+	move.l d0, Entity_WorldPosX(a1)
+	@NotPenetratingRight:
+
+	@PushingBoulder:
+	
+	; Pushing the Boulder, set its velocity to match
+	move.w d2, GameObj_VelX(a1)
+	
+	; Scale roll anim speed based on velocity
+	clr.l  d0
+	move.w GameObj_VelX(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @Fwd
+	neg.w  d0
+	@Fwd:
+	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
+	move.b d0, AnimObj_AnimSpeed(a0)
+	
+	bra @End
+
+	@NotInRange:
+	@BoulderOffFloor:
+	@NotPushingBoulder:
+	@NotVisible:
+	@NotActive:
+	@NextBoulder:
+	
+	; Next Boulder
+	add.l #Boulder_Struct_Size, a1
+	dbra d6, @BoulderLoop
 	
 	@NotInteracting:
 	@PlayerOffFloor:

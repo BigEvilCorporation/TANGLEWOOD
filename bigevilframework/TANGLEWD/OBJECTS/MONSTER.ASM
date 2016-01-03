@@ -133,6 +133,14 @@ MonsterInit:
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
+	; Dead
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
+	move.l #Anim_MonsterDead, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterDead_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterDead_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
@@ -193,6 +201,10 @@ MonsterInit:
 MonsterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; If dead, do nothing
+	cmp.b  #0x0, Character_Dead(a0)
+	bne    @Dead
 
 	; Determine state
 	move.b Monster_State(a0), d0
@@ -232,6 +244,8 @@ MonsterUpdate:
 	bra @EndStateMachine
 
 	@EndStateMachine:
+	
+	@Dead:
 	
 	; Base functionality
 	jsr CharacterUpdate

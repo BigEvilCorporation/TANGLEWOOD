@@ -97,3 +97,12 @@ Monster_16:
 	add.l #Monster_Struct_Size, a0
 	rts
 
+gameobjects_Boulder_count equ 1
+LoadGameObjects_Boulder:
+Boulder_17:
+	jsr BoulderInit
+	move.l #0x00032000, Entity_WorldPosX(a0)
+	move.l #0x0000c800, Entity_WorldPosY(a0)
+	add.l #Boulder_Struct_Size, a0
+	rts
+
