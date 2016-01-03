@@ -56,10 +56,18 @@ MonsterState_Attacking	equ 0x5
 MonsterState_Wandering	equ 0x6
 
 ; ************************************
+; Animations
+; ************************************
+MonsterAnimIdx_Bite		equ 0
+; -------------------------------
+Monster_NumAnims		equ 1
+
+; ************************************
 ; Struct
 ; ************************************
 	rsset (Character_Struct_Size)
 ;--------------------------
+Monster_Animations	  rs.b (Animation_Struct_Size*Monster_NumAnims)
 Monster_Colour        rs.b 1
 Monster_State         rs.b 1
 ;--------------------------
@@ -163,6 +171,18 @@ MonsterInit:
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	
+	; Setup bespoke character animations
+	move.l a0, a2
+	add.l  #Monster_Animations, a2
+	
+	; Bite
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Bite), a3
+	move.l #Anim_MonsterBite, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterBite_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterBite_SizeB, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
 	
 	; Init default state
 	jsr MonsterStartWaitForPlayer
@@ -368,11 +388,14 @@ MonsterStartBite:
 	; Set attack state
 	move.b #MonsterState_Attacking, Monster_State(a0)
 
-	; Set bite animation
-	move.l #Anim_MonsterBite, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_MonsterBite_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_MonsterBite_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x0, AnimObj_Looping(a0)
+	; Start bite animation
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Monster_Animations, a1
+	move.l #(MonsterAnimIdx_Bite*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l (sp)+, a1
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)

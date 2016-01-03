@@ -37,9 +37,9 @@ Flue_21:
 
 gameobjects_Obstacle_count equ 1
 LoadGameObjects_Obstacle:
-Obstacle_23:
+Obstacle_27:
 	jsr ObstacleInit
-	move.l #0x00008000, Entity_WorldPosX(a0)
+	move.l #0x0009f800, Entity_WorldPosX(a0)
 	move.l #0x00008000, Entity_WorldPosY(a0)
 	add.l #Obstacle_Struct_Size, a0
 	rts
@@ -105,10 +105,10 @@ Firefly_18:
 
 gameobjects_Monster_count equ 1
 LoadGameObjects_Monster:
-Monster_24:
+Monster_28:
 	jsr MonsterInit
-	move.l #0x00016800, Entity_WorldPosX(a0)
-	move.l #0x0002f000, Entity_WorldPosY(a0)
+	move.l #0x00099800, Entity_WorldPosX(a0)
+	move.l #0x0002b800, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 
