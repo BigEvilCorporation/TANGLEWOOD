@@ -27,6 +27,11 @@ ReadPadA:
 	nop						   ; 2-NOP delay to respond to change
 	nop
 	move.b  pad_data_a, d0     ; Read byte
+	
+	; Invert and mask
+	neg.w   d0
+	sub.w   #0x1, d0
+	andi.w  #pad_button_all, d0
 
 	rts
 	
@@ -42,5 +47,10 @@ ReadPadB:
 	nop						   ; 2-NOP delay to respond to change
 	nop
 	move.b  pad_data_b, d0     ; Read byte
+	
+	; Invert and mask
+	neg.w   d0
+	sub.w   #0x1, d0
+	andi.w  #pad_button_all, d0
 
 	rts

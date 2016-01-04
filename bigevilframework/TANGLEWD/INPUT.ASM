@@ -42,16 +42,32 @@ HandlePlayerInput:
 	; d1 (w) Gamepad prev input bits
 	
 	; =====================================================================
-	; Debug
+	; Debug button combos
 	; =====================================================================
+	IFND FINAL
+	
 	IFD DEBUG
-	btst #pad_button_start, d0	; Check start pressed
-	bne  @EndStart
-	btst #pad_button_start, d1	; Check start not already held
-	beq  @EndStart
-	jsr  Profile_CaptureFrame	; Start frame profile
-	jmp  @EndStart
-	@EndStart:
+	; A+Start = profile frame
+	cmp.w  #DebugButtonCombo_Profiler, d0
+	bne    @NoProfileCombo
+	cmp.w  #DebugButtonCombo_Profiler, d1
+	beq    @NoProfileCombo
+	jsr    Profile_CaptureFrame
+	bra    @EndDebugInput
+	@NoProfileCombo:
+	ENDIF
+	
+	; A+B+C+Start = kill player
+	cmp.w  #DebugButtonCombo_KillPlayer, d0
+	bne    @NoPlayerKillCombo
+	cmp.w  #DebugButtonCombo_KillPlayer, d1
+	beq    @NoPlayerKillCombo
+	move.b #0xFF, d0
+	jsr    CharacterDealDamage
+	bra    @EndDebugInput
+	@NoPlayerKillCombo:
+	
+	@EndDebugInput:
 	ENDIF
 	
 	; =====================================================================
@@ -59,7 +75,7 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	btst #pad_button_c, d0  	; Check C button
-	bne  @NoC	                ; Branch if button off
+	beq  @NoC	                ; Branch if button off
 	jsr  CharacterStartInteract ; Start interaction
 	jmp  @EndC
 	@NoC:
@@ -71,7 +87,7 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	btst #pad_button_a, d0      ; Check A button
-	bne  @NoA                   ; Branch if button off
+	beq  @NoA                   ; Branch if button off
 	jsr  CharacterStartRun		; Run
 	jmp  @EndA
 	@NoA:
@@ -84,14 +100,14 @@ HandlePlayerInput:
 	
 	; Move left
 	btst #pad_button_right, d0  ; Check right button
-	bne  @NoRight               ; Branch if button off
+	beq  @NoRight               ; Branch if button off
 	jsr  CharacterMoveRight
 	jmp  @XHandled
 	@NoRight:
 	
 	; Move right
 	btst #pad_button_left, d0   ; Check left button
-	bne  @NoLeft                ; Branch if button off
+	beq  @NoLeft                ; Branch if button off
 	jsr  CharacterMoveLeft
 	jmp  @XHandled
 	@NoLeft:
@@ -105,14 +121,14 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	btst #pad_button_b, d0		; Check jump pressed
-	bne  @NoB
+	beq  @NoB
 	btst #pad_button_b, d1		; Check jump not already held
-	beq  @EndB
+	bne  @EndB
 	jsr  CharacterStartJump		; Jump
 	jmp  @EndB
 	@NoB:
 	btst #pad_button_b, d1		; Check not already released
-	bne  @EndB
+	beq  @EndB
 	jsr  CharacterCancelJump	; Cancel jump
 	@EndB:
 	

@@ -198,6 +198,8 @@ pad_button_b            equ 0x4
 pad_button_c            equ 0x5
 pad_button_start        equ 0xD
 
+pad_button_all			equ 0x303F
+
 ; ************************************
 ; Mega-CD
 ; ************************************

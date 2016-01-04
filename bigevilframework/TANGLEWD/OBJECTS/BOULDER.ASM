@@ -20,7 +20,7 @@ Boulder_Decel				equ 0x0008
 
 Boulder_AnimSpeedVelDiv		equ 0x0004
 
-Boulder_MinDamageYVel		equ 0x0100	; Min downward velocity to deal damage to characters
+Boulder_MinDamageYVel		equ 0x0500	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 
 ;==============================================================
@@ -83,7 +83,7 @@ BoulderUpdate:
 	
 	; If Y vel > min damage vel
 	cmp.w  #-Boulder_MinDamageYVel, GameObj_VelY(a0)
-	blt    @NotFalling
+	bge    @NotFalling
 	
 	move.l a1, -(sp)
 	
