@@ -43,6 +43,12 @@ Gameplay_Update:
 	; Read and process gamepad input
 	jsr UpdateInput
 	
+	IFND FINAL
+	; No update if in debug move mode
+	cmp.b #0x0, DebugMoveObjectMode
+	bne   @NoUpdate
+	ENDIF
+	
 	; Update game objects
 	jsr EntityUpdateAll
 	
@@ -55,6 +61,7 @@ Gameplay_Update:
 	lea    GameStateFail, a0
 	jsr    GameStateEnter
 	
+	@NoUpdate:
 	@PlayerAlive:
 	
 	rts

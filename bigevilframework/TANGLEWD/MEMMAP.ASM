@@ -117,7 +117,13 @@ SwitchingPalettesP1 rs.l NumSwitchingColours
 ; Current game state
 GameStatePtr		rs.l 1
 
-;__padding02			rs.b 3
+; ************************************
+; Debug stuff
+; ************************************
+	IFND FINAL
+DebugMoveObjectMode     rs.b 1
+__padding02			    rs.b 3
+	ENDIF
 
 ; ************************************
 ; Entity linked lists

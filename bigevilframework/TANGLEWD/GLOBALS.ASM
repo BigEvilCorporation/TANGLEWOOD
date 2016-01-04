@@ -80,6 +80,10 @@ Player2 				 equ (EntityArray_Players+Player_Struct_Size)
 ; Debug button combos
 	IFND FINAL
 DebugButtonCombo_Profiler	equ 0x3000 ;(pad_button_a|pad_button_start)								; A+Start = profile frame
+DebugButtonCombo_MoveObject	equ 0x2030 ;(pad_button_b|pad_button_c|pad_button_start)				; B+C+Start = move object
 DebugButtonCombo_KillPlayer	equ 0x3030 ;(pad_button_a|pad_button_b|pad_button_c|pad_button_start)	; A+B+C+Start = kill player
+
+DebugMoveMode_Speed1		equ 0x0060
+DebugMoveMode_Speed2		equ 0x0400
 	ENDIF
 	
