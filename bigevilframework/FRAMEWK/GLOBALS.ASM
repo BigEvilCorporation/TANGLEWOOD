@@ -214,14 +214,11 @@ mcd_bios_addr_4 equ 0x0041AD00 ; LaserActive
 mcd_sig_offset equ 0x6D
 
 ; ************************************
-; Terrain/collision bits
+; Terrain/collision tile id/flags
 ; ************************************
-col_bit_floor 	  equ 0x0
-col_bit_ledge_rhs equ 0x1
-col_bit_ledge_lhs equ 0x2
-col_bit_wall  	  equ 0x3
-
-
+col_tile_mask_flags	  	  equ 0xE000
+col_tile_mask_tileid	  equ 0x1FFF
+col_tile_flag_solid 	  equ (1<<13)
 
 ; ************************************
 ; Legacy VDP write longs - do not use
