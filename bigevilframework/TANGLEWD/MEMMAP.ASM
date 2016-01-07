@@ -118,6 +118,12 @@ SwitchingPalettesP1 rs.l NumSwitchingColours
 GameStatePtr		rs.l 1
 
 ; ************************************
+; Checkpoints
+; ************************************
+LastActivatedCheckpoint      rs.l 1
+CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
+
+; ************************************
 ; Debug stuff
 ; ************************************
 	IFND FINAL

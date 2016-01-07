@@ -22,6 +22,9 @@ Nest_Struct_Size  rs.b 0
 NestInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; Base init
+	jsr    GameObjInit
 
 	move.w #Nest_Width, Entity_Width(a0)
 	move.w #Nest_Height, Entity_Height(a0)

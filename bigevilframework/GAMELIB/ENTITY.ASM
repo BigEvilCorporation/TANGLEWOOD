@@ -10,6 +10,7 @@
 ;-----------------------------
 Entity_UpdateRoutine	rs.l 1 ; Update subroutine address
 Entity_RenderRoutine	rs.l 1 ; Render subroutine address
+Entity_SerialiseRoutine	rs.l 1 ; Save/load subroutine address
 ;-----------------------------
 Entity_UpdateNext		rs.l 1 ; Next in update linked list
 Entity_RenderNext		rs.l 1 ; Next in render linked list
@@ -71,6 +72,29 @@ EntityAddToRenderList:
 	
 	rts
 	
+EntityAddToSerialiseList:
+	; a0 --- GameObjAddr
+	
+	; If first in list, set as head and tail
+	cmp.l  #0x0, (EntityListHead_Serialise)
+	bne    @HasHead
+	move.l a0, EntityListHead_Serialise
+	move.l a0, EntityListTail_Serialise
+	bra    @End
+	@HasHead:
+	
+	; else link to current tail, then set as current tail
+	move.l (EntityListTail_Serialise), a3
+	move.l a0, Entity_SerialiseNext(a3)
+	move.l a0, EntityListTail_Serialise
+	
+	@End:
+	
+	; Increment count
+	addi.l #0x1, EntityListSize_Serialise
+	
+	rts
+	
 EntityClearUpdateList:
 	move.l  #0x0, EntityListHead_Update
 	move.l  #0x0, EntityListTail_Update
@@ -81,6 +105,12 @@ EntityClearRenderList:
 	move.l  #0x0, EntityListHead_Render
 	move.l  #0x0, EntityListTail_Render
 	move.l  #0x0, EntityListSize_Render
+	rts
+	
+EntityClearSerialiseList:
+	move.l  #0x0, EntityListHead_Serialise
+	move.l  #0x0, EntityListTail_Serialise
+	move.l  #0x0, EntityListSize_Serialise
 	rts
 	
 EntityUpdateAll:
@@ -129,4 +159,25 @@ EntityRenderAll:
 	@NoEntities:
 	
 	rts
+
 	
+EntitySerialiseAll:
+	; a1 --- Level address
+	; a2 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+	
+	move.l (EntityListSize_Serialise), d0	; Get entity list size
+	cmp.l  #0x0, d0
+	beq    @NoEntities					 	; Skip if nothing to do
+	subi.l #0x1, d0						 	; -1 for loop
+	move.l (EntityListHead_Serialise), a0	; Get list head
+	@EntityLp:							 	; For all entities in list
+	move.l d0, -(sp)					 	; Backup counter
+	move.l Entity_SerialiseRoutine(a0), a2  ; Get Serialise routine
+	jsr    (a2)							 	; Execute Serialise routine
+	move.l (sp)+, d0					 	; Restore counter
+	move.l Entity_SerialiseNext(a0), a0	 	; Get next ptr
+	dbra   d0, @EntityLp				 	; Loop
+	@NoEntities:
+	
+	rts
