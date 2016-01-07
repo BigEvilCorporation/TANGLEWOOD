@@ -14,7 +14,8 @@ GameObj_SubSpriteOffArr  rs.l 1	; Subsprite position offsets array address
 GameObj_SubSpriteOffArrF rs.l 1	; Subsprite position offsets array address (flipped)
 GameObj_TilesetAddr      rs.l 1	; Art tiles ROM address
 GameObj_VRAMAddr         rs.l 1	; Art tiles VRAM address
-GameObj_LastFloor     	 rs.l 1 ; Last detected floor height
+GameObj_LastWall     	 rs.l 1 ; Last detected wall X
+GameObj_LastFloor     	 rs.l 1 ; Last detected floor Y
 GameObj_DrawOffsetX		 rs.w 1 ; Sprite draw offset X (pixels)
 GameObj_DrawOffsetY		 rs.w 1 ; Sprite draw offset Y (pixels)
 GameObj_TilesetSize      rs.w 1	; Art tiles size (bytes)
@@ -141,17 +142,16 @@ GameObjUpdate:
 	jsr GameObjApplyAccelDecel
 	jsr GameObjApplyGravity
 	
-	; Apply X velocity before finding floor
-	jsr GameObjApplyVelocityX
-	jsr GameObjApplyVelocityY
+	; Apply velocity
+	jsr GameObjApplyVelocity
 	
-	
-	; Apply gravity and find floor
-	
+	; Find floor
 	jsr GameObjFindFloor
 	
-	; Apply Y velocity and correct for floor collision
+	; Find wall
+	jsr GameObjFindWall
 	
+	; Correct for floor/wall collision
 	jsr GameObjCollisionCorrection
 	
 	; Clamp pos to level space
@@ -162,8 +162,7 @@ GameObjUpdate:
 	@NoPhysics:
 
 	; No physics, just do the basics
-	jsr GameObjApplyVelocityX
-	jsr GameObjApplyVelocityY
+	jsr GameObjApplyVelocity
 	jsr GameObjClampPos
 	
 	@Inactive:
@@ -268,7 +267,7 @@ GameObjApplyGravity:
 	
 	rts
 	
-GameObjApplyVelocityX:
+GameObjApplyVelocity:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
@@ -279,12 +278,6 @@ GameObjApplyVelocityX:
 	move.l Entity_WorldPosX(a0), d1	; Get pos
 	add.l d0, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
-
-	rts
-	
-GameObjApplyVelocityY:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
 	
 	; Move player Y by velocity
 	move.w GameObj_VelY(a0), d0			; Fetch Y pos from RAM
@@ -292,7 +285,7 @@ GameObjApplyVelocityY:
 	move.l Entity_WorldPosY(a0), d1	; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)	; Put new Y pos back in RAM
-	
+
 	rts
 
 GameObjClampPos:
@@ -375,10 +368,48 @@ GameObjCollisionCorrection:
 	lsl.l  #0x8, d3
 	sub.l  d3, d2									; Raise floor by step height
 	cmp.l  d2, d1									; Check if player is on or under floor-step height
-	blt    @End
+	blt    @NotCloseToFloor
 	move.b #0x1, GameObj_CloseToFloor(a0)			; Set player close to floor flag
-
-	@End:
+	@NotCloseToFloor:
+	
+	;==============================================================
+	
+	; Get last wall collided with
+	move.l GameObj_LastWall(a0), d0
+	cmp.l  #0x0, d0
+	beq    @NoWallFound
+	
+	; Determine X direction
+	move.w GameObj_VelX(a0), d1
+	cmp.w  #0x0, d1
+	blt    @HeadingLeft
+	bgt    @HeadingRight
+	bra    @HeadingNowhere
+	
+	@HeadingLeft:
+	
+	; Heading left, clamp
+	move.l d0, Entity_WorldPosX(a0)
+	bra    @EndWallClamp
+	
+	@HeadingRight:
+	
+	; Heading right, translate wall to gameobj space
+	clr.l  d2
+	move.w Entity_Width(a0), d2
+	lsl.l  #0x8, d2
+	sub.l  d2, d0
+	
+	; Clamp
+	move.l d0, Entity_WorldPosX(a0)
+	
+	@EndWallClamp:
+	
+	; Cancel X velocity
+	move.w #0x0, GameObj_VelX(a0)
+	
+	@NoWallFound:
+	@HeadingNowhere:
 
 	rts
 	
@@ -388,6 +419,8 @@ GameObjFindFloor:
 
 	; Fetch last floor test result
 	move.l GameObj_LastFloor(a0), d2
+	
+	;==============================================================
 	
 	; Check if positive Y velocity (don't bother finding floor)
 	move.w GameObj_VelY(a0), d3
@@ -400,8 +433,12 @@ GameObjFindFloor:
 	cmp.l  #0x0, d3
 	beq    @EndFloorTest
 
-	; Find floor
-	move.l #0x0, GameObj_LastFloor(a0)		; Clear last found floor
+	; Clear last found floor
+	move.l #0x0, GameObj_LastFloor(a0)
+	
+	;==============================================================
+	
+	; Get floor probe X
 	move.l Entity_WorldPosX(a0), d1			; Get player pos X
 	lsr.l  #0x8, d1							; To sprite space
 	sub.w  #SpritePlaneBorderX, d1			; To screen space
@@ -411,13 +448,15 @@ GameObjFindFloor:
 
 	; Check if X within collision map bounds
 	cmp.w  #0x0, d1
-	blt    @OutOfBounds
+	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
-	sub.w  #0x1, d2
 	mulu   #0x8, d2
 	cmp.w  d2, d1
-	bge    @OutOfBounds
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
 
+	; Get floor probe Y
 	swap   d1								; X to upper word
 	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
 	lsr.l  #0x8, d2							; To sprite space
@@ -428,12 +467,14 @@ GameObjFindFloor:
 
 	; Check if Y within collision map bounds
 	cmp.w  #0x0, d1
-	blt    @OutOfBounds
+	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	sub.w  #0x1, d2
 	mulu   #0x8, d2
 	cmp.w  d2, d1
-	bge    @OutOfBounds
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
 	
 	move.l a0, -(sp)
 	move.l a1, -(sp)
@@ -443,16 +484,20 @@ GameObjFindFloor:
 	move.w Level_MapHeight(a1), d2			; Map height to d2 lo
 	move.l Level_ColMapAddr(a1), a0			; Collision map to a0
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
-	jsr    GetFloorHeight
+	jsr    GetTerrainHeight
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 	
 	cmp.w  #0x0, d0							; Y return value in d0
 	bne    @FoundFloor
+	
+	;==============================================================
 
-	@OutOfBounds:
+	@ProbeOutOfBounds:
 	move.l #GroundHeightWorld, d2   		; No floor or gameobj out of bounds, use default ground Y
 	bra	   @EndFloorTest
+	
+	;==============================================================
 	
 	@FoundFloor:
 	clr.l  d2
@@ -465,18 +510,121 @@ GameObjFindFloor:
 	ble    @EndFloorTest
 	move.l #GroundHeightWorld, d2
 	
+	;==============================================================
+	
 	@EndFloorTest:
 	
 	move.l d2, GameObj_LastFloor(a0)		; Store last found floor
 	
 	rts
 	
+GameObjFindWall:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Clear last found wall
+	move.l #0x0, GameObj_LastWall(a0)
+	
+	;==============================================================
+	
+	; Determine direction
+	move.w GameObj_VelX(a0), d3
+	cmp.w  #0x0, d3
+	blt    @HeadingLeft
+	bgt    @HeadingRight
+	bra    @HeadingNowhere
+	
+	@HeadingLeft:
+	
+	; Get X, left hand side
+	move.l Entity_WorldPosX(a0), d1		; Get player pos X
+	lsr.l  #0x8, d1						; To sprite space
+	sub.w  #SpritePlaneBorderX, d1		; To screen space
+	
+	bra    @EndHeadingTest
+	
+	@HeadingRight:
+	
+	; Get X, right hand side
+	move.l Entity_WorldPosX(a0), d1		; Get player pos X
+	lsr.l  #0x8, d1						; To sprite space
+	sub.w  #SpritePlaneBorderX, d1		; To screen space
+	add.w  Entity_Width(a0), d1			; Right hand side
+
+	@EndHeadingTest:
+	
+	; Check if X within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapWidth(a1), d2
+	mulu   #0x8, d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+	
+	; Get floor probe Y
+	swap   d1							; X to upper word
+	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
+	lsr.l  #0x8, d2						; To sprite space
+	sub.w  #SpritePlaneBorderY, d2		; To screen space
+	move.w GameObj_FloorProbeY(a0), d3	; Get floor probe Y offset
+	add.l  d3, d2						; Add to Y pos
+	move.w d2, d1						; Player pos XY (screen space) to d1
+
+	; Check if Y within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapHeight(a1), d2
+	sub.w  #0x1, d2
+	mulu   #0x8, d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+	
+	; Get collision flags for tile at probe pos
+	move.l a0, -(sp)
+	clr.l  d2
+	move.w Level_MapWidth(a1), d2
+	move.l Level_ColMapAddr(a1), a0		; Collision map to a0
+	jsr	   GetCollisionTileFlags
+	move.l (sp)+, a0
+	
+	; Check if wall
+	andi.w #col_tile_flag_solid, d0
+	cmp.w  #0x0, d0
+	beq    @NoWallFound
+	
+	;==============================================================
+	
+	; Wall found - tile X in d4, translate to world space
+	mulu   #0x8, d4						; Tiles to pixels
+	add.w  #SpritePlaneBorderY, d4		; Pixels to screen space
+	lsl.l  #0x8, d4						; Screen space to sprite space
+	
+	; If heading left, use right hand side of tile
+	move.w GameObj_VelX(a0), d3
+	cmp.w  #0x0, d3
+	bgt    @LeftOfTile
+	add.w  #(0x8*SubPixelsPerPixel), d4
+	@LeftOfTile:
+	
+	; Result
+	move.l d4, GameObj_LastWall(a0)
+	
+	;==============================================================
+	
+	@HeadingNowhere:
+	@ProbeOutOfBounds:
+	@NoWallFound:
+
+	rts
+	
 GameObjDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; TODO: Only if moved/flipped/unhidden
-	
 	; Check if visible
 	move.b GameObj_Visible(a0), d0
 	cmp.b  #0x0, d0

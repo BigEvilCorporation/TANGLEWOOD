@@ -14,6 +14,7 @@ Entity_SerialiseRoutine	rs.l 1 ; Save/load subroutine address
 ;-----------------------------
 Entity_UpdateNext		rs.l 1 ; Next in update linked list
 Entity_RenderNext		rs.l 1 ; Next in render linked list
+Entity_SerialiseNext	rs.l 1 ; Next in serialise linked list
 ;-----------------------------
 Entity_WorldPosX        rs.l 1	; Position X (world space)
 Entity_WorldPosY        rs.l 1	; Position Y (world space)
@@ -181,3 +182,4 @@ EntitySerialiseAll:
 	@NoEntities:
 	
 	rts
+	

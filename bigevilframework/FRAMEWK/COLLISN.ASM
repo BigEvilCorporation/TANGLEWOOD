@@ -50,23 +50,30 @@ GetCollisionTileFlags:
 	; d0 (w)  : OUT: Tile flags
 	; d1 (ww) : XY coord (pixels, scroll space)
 	; d2 (w)  : Map width (tiles)
+	; d3 (w)  : OUT: Tile pos X (tiles)
+	; d4 (w)  : OUT: Tile pos Y (tiles)
+	
+	clr.l  d3
+	clr.l  d4
+	clr.l  d5
 	
 	; Convert XY coord to tile offset
-	clr.l  d3
-	move.w d1, d3					; Y to d3
-	divu   #0x8, d3					; To tiles
-	and.l  #0x0000FFFF, d3			; Clear remainder
-	mulu   d2, d3 					; To Y offset
+	move.w d1, d4					; Y to d4
+	divu   #0x8, d4					; To tiles
+	and.l  #0x0000FFFF, d4			; Clear remainder
+	mulu   d2, d4 					; To Y offset
+	move.l d4, d5					; To d5 (to get tile index)
 	clr.w  d1
 	swap   d1						; X to lower d1
 	divu   #0x8, d1					; To tiles
 	and.l  #0x0000FFFF, d1			; Clear remainder
-	add.l  d1, d3					; Add X offset
+	move.l d1, d4					; To d4 (for return val)
+	add.l  d1, d5					; Add X offset to get tile index
 	
 	; Fetch collision tile ID from RAM
 	clr.l  d0
-	lsl.l  #0x1, d3					; Tile offset to words
-	add.l  d3, a0					; Offset ptr, needed for next tile
+	lsl.l  #0x1, d5					; Tile offset to words
+	add.l  d5, a0					; Offset ptr, needed for next tile
 	move.w (a0), d0					; Fetch map tile
 	
 	; Mask out id
@@ -74,7 +81,7 @@ GetCollisionTileFlags:
 	
 	rts
 
-GetFloorHeight:
+GetTerrainHeight:
 	; a0 ---- : Collision map data addr
 	; a1 ---- : Collision tileset data addr
 	; d0 (w)  : Return - floor height, or -1

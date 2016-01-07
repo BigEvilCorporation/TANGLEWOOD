@@ -134,13 +134,17 @@ __padding02			    rs.b 3
 ; ************************************
 ; Entity linked lists
 ; ************************************
-EntityListHead_Update	rs.l 1
-EntityListTail_Update	rs.l 1
-EntityListSize_Update	rs.l 1
+EntityListHead_Update	 rs.l 1
+EntityListTail_Update	 rs.l 1
+EntityListSize_Update	 rs.l 1
+                         
+EntityListHead_Render	 rs.l 1
+EntityListTail_Render	 rs.l 1
+EntityListSize_Render	 rs.l 1
 
-EntityListHead_Render	rs.l 1
-EntityListTail_Render	rs.l 1
-EntityListSize_Render	rs.l 1
+EntityListHead_Serialise rs.l 1
+EntityListTail_Serialise rs.l 1
+EntityListSize_Serialise rs.l 1
 
 ; ************************************
 ; Entities

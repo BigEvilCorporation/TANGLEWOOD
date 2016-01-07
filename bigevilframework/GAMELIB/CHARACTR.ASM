@@ -136,10 +136,14 @@ CharacterDealDamage:
 	move.b #0x1, Character_Dead(a0)
 	
 	; Cancel all actions
-	jsr CharacterCancelXMovement
-	jsr CharacterCancelRun
-	jsr CharacterCancelJump
-	jsr CharacterCancelInteract
+	jsr    CharacterCancelXMovement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+	jsr    CharacterCancelInteract
+	
+	; Cancel velocity
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
 	
 	@AlreadyDead:
 	@StillAlive:

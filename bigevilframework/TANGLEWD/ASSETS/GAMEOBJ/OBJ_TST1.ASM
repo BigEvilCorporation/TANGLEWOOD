@@ -45,16 +45,11 @@ Flue_2:
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_Obstacle_count equ 2
+gameobjects_Obstacle_count equ 1
 LoadGameObjects_Obstacle:
-Obstacle_1:
+Obstacle_18:
 	jsr ObstacleInit
-	move.l #0x00040000, Entity_WorldPosX(a0)
-	move.l #0x00016800, Entity_WorldPosY(a0)
-	add.l #Obstacle_Struct_Size, a0
-Obstacle_7:
-	jsr ObstacleInit
-	move.l #0x0003d000, Entity_WorldPosX(a0)
+	move.l #0x0001c000, Entity_WorldPosX(a0)
 	move.l #0x00016800, Entity_WorldPosY(a0)
 	add.l #Obstacle_Struct_Size, a0
 	rts
