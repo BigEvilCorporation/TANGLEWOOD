@@ -1,7 +1,7 @@
 tiles_monster:
 
 	; Use first sprite set as size template
-	include 'assets\sprites\takk\walk_0.asm'
+	include 'assets\sprites\takk\emerge.asm'
 
 tiles_monster_end                                       ;  Tiles end address
 
@@ -16,6 +16,7 @@ sprite_monster_size_subsprites:	equ 12		; Sprite size in 4x4 subsprites
 	IFND DEBUG
 	
 	; Walk
+	include 'assets\sprites\takk\walk_0.asm'
 	include 'assets\sprites\takk\walk_1.asm'
 	include 'assets\sprites\takk\walk_2.asm'
 	include 'assets\sprites\takk\walk_3.asm'
