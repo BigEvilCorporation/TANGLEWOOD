@@ -68,6 +68,7 @@ __start
 	include 'objects\nest.asm'
 	include 'objects\obstacle.asm'
 	include 'objects\player.asm'
+	include 'objects\trigger.asm'
 	
 	; Include game states
 	include 'states\fail.asm'

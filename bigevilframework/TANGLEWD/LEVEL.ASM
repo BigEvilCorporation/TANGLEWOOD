@@ -348,6 +348,10 @@ LevelLoadGameObjArt:
 	
 LevelCreateGameObjects:
 
+	; Trigger boxes
+	move.l #EntityArray_Triggers, a0
+	jsr    LoadGameObjects_TriggerBox
+	
 	; Monsters
 	move.l #EntityArray_Monsters, a0
 	jsr    LoadGameObjects_Monster

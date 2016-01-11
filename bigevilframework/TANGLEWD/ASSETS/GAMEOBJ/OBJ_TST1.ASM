@@ -42,6 +42,7 @@ Flue_2:
 	jsr FlueInit
 	move.l #0x00018000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
+	move.w #0x0E00, Flue_EjectForceY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
@@ -99,5 +100,17 @@ Boulder_17:
 	move.l #0x00032000, Entity_WorldPosX(a0)
 	move.l #0x0000c800, Entity_WorldPosY(a0)
 	add.l #Boulder_Struct_Size, a0
+	rts
+
+gameobjects_TriggerBox_count equ 1
+LoadGameObjects_TriggerBox:
+TriggerBox_19:
+	jsr TriggerBoxInit
+	move.l #0x00020000, Entity_WorldPosX(a0)
+	move.l #0x00016800, Entity_WorldPosY(a0)
+	move.l #LoadPalette, TriggerBox_Routine(a0)
+	move.l #PaletteId_World0, TriggerBox_RegisterD0(a0)
+	move.l #palette_lvl1_dusk, TriggerBox_RegisterA0(a0)
+	add.l #TriggerBox_Struct_Size, a0
 	rts
 

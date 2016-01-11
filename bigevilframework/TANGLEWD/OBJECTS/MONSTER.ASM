@@ -9,35 +9,38 @@
 ; ************************************
 ; Constants
 ; ************************************
-Monster_MaxEntities equ 0x1
+Monster_MaxEntities   equ 0x1
 
-Monster_Width	equ 0x0080
-Monster_Height	equ 0x0050
+Monster_Width	      equ 0x0080
+Monster_Height	      equ 0x0050
 
-Monster_MaxVelXWalk equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun  equ 0x0300   ; Max X running velocity
-Monster_MaxVelYUp	equ 0x0600   ; Max Y velocity up
-Monster_MaxVelYDown	equ 0x0600   ; Max Y velocity down
-Monster_AccelWalk   equ 0x0002   ; Walking acceleration
-Monster_AccelRun    equ 0x0003   ; Running acceleration
-Monster_DecelIdle   equ 0x0020   ; Deceleration if left alone
-Monster_DecelForced equ 0x0040   ; Deceleration if input opposite direction
-Monster_JumpVel	    equ 0x0600   ; Jump velocity impulse
-Monster_JumpCancelVel equ 0x0100 ; Velocity to cancel jump
-Monster_MaxGrabUpVel  equ 0x0300 ; Max up velocity character can grab a ledge (no limit on down vel)
+Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
+Monster_MaxVelXRun    equ 0x0300   ; Max X running velocity
+Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
+Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
+Monster_AccelWalk     equ 0x0002   ; Walking acceleration
+Monster_AccelRun      equ 0x0003   ; Running acceleration
+Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
+Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
+Monster_JumpVel	      equ 0x0600   ; Jump velocity impulse
+Monster_JumpCancelVel equ 0x0100   ; Velocity to cancel jump
+Monster_MaxGrabUpVel  equ 0x0300   ; Max up velocity character can grab a ledge (no limit on down vel)
 
-Monster_StepHeight		equ 0x3
-Monster_ProbeFloorX		equ (Monster_Width/2)  ; Floor detection probe position X
-Monster_ProbeFloorY		equ (Monster_Height-Monster_StepHeight)   ; Floor detection probe position Y
-Monster_ProbeLedgeX		equ 0x1F	; Ledge detection probe position X
-Monster_ProbeLedgeY		equ 0x02	; Ledge detection probe position Y
+Monster_StepHeight	  equ 0x3
+Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
+Monster_ProbeFloorY	  equ (Monster_Height-Monster_StepHeight)   ; Floor detection probe position Y
+Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
+Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerTrackYWindow	equ Monster_Height
 ;Monster_AlertDistance		equ (0x0050*SubPixelsPerPixel)
-Monster_AlertDistance		equ 0x0080
+Monster_AlertDistance		equ 0x0030
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
+
+; Emerge palette lerp speed
+Monster_EmergePalLerpSpeed  equ (0x1<<0x8)
 
 ; Attack damages
 Monster_BiteDamage		equ 0xFF
@@ -59,9 +62,10 @@ MonsterState_Wandering	equ 0x6
 ; ************************************
 ; Animations
 ; ************************************
-MonsterAnimIdx_Bite		equ 0
+MonsterAnimIdx_Eyes		equ 0
+MonsterAnimIdx_Bite		equ 1
 ; -------------------------------
-Monster_NumAnims		equ 1
+Monster_NumAnims		equ 2
 
 ; ************************************
 ; Struct
@@ -185,6 +189,14 @@ MonsterInit:
 	move.l a0, a2
 	add.l  #Monster_Animations, a2
 	
+	; In cave
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Eyes), a3
+	move.l #Anim_MonsterEyes, Animation_KeyframesAddr(a3)
+	move.b #Anim_MonsterEyes_Speed, Animation_Speed(a3)
+	move.b #Anim_MonsterEyes_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
 	; Bite
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Bite), a3
@@ -193,8 +205,8 @@ MonsterInit:
 	move.b #Anim_MonsterBite_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
-	; Init default state
-	jsr MonsterStartWaitForPlayer
+	; Begin initial state
+	jsr    MonsterStartWaitForPlayer
 
 	rts
 
@@ -211,6 +223,8 @@ MonsterUpdate:
 
 	cmp.b #MonsterState_InCave, d0
 	beq   @InCave
+	cmp.b #MonsterState_Emerging, d0
+	beq   @Emerging
 	cmp.b #MonsterState_Chasing, d0
 	beq   @Chasing
 	cmp.b #MonsterState_Attacking, d0
@@ -223,6 +237,15 @@ MonsterUpdate:
 
 	; Wait for player
 	jsr MonsterUpdateWaitForPlayer
+	bra @EndStateMachine
+	
+	; ************************************
+	; Emerging from cave
+	; ************************************
+	@Emerging:
+
+	; Update palette lerp
+	jsr MonsterUpdateEmergeFromCave
 	bra @EndStateMachine
 
 	; ************************************
@@ -243,20 +266,39 @@ MonsterUpdate:
 	jsr MonsterUpdateBite
 	bra @EndStateMachine
 
-	@EndStateMachine:
-	
+	; ************************************
+	; Dead
+	; ************************************
 	@Dead:
+	
+	; Make sure animation control is returned to the character
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	@EndStateMachine:
 	
 	; Base functionality
 	jsr CharacterUpdate
 	
 	rts
-
+	
 MonsterStartWaitForPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Set in cave state
 	move.b  #MonsterState_InCave, Monster_State(a0)
+
+	; Start eye tracking animation
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Monster_Animations, a1
+	move.l #(MonsterAnimIdx_Eyes*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l (sp)+, a1
+
+	; Manually control anim
+	move.b #0x0, Character_UpdateAnim(a0)
 	
 	rts
 	
@@ -278,35 +320,66 @@ MonsterUpdateWaitForPlayer:
 	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
-	swap d0
+	swap   d0
 	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d0
 	
-	lea Player1, a2
+	lea    Player1, a2
 	move.l Entity_WorldPosX(a2), d2	; Player X
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
-	swap d1
+	swap   d1
 	move.l Entity_WorldPosY(a2), d2	; Player Y
 	lsr.l  #0x8, d2						; Screen space
 	move.w d2, d1
 	
-	jsr VectorDistSq					; Calc distance
-	;cmp.l #Fuzzl_EyeWatchDistance*Fuzzl_EyeWatchDistance, d0	; Result sq'd in d0
-	;bgt   @OutOfPlayerRange
-
-	;move.l (sp)+, a1
+	jsr   VectorDistSq					; Calc distance
 
 	cmp.l #Monster_AlertDistanceSq, d0
 	bgt   @OutOfPlayerRange
 
 	; Within range, emerge from cave
-	; TODO: Emerge state
-	jsr   MonsterStartTrackPlayer
+	jsr   MonsterStartEmergeFromCave
 
 	@PlayerDead:
 	@OutOfPlayerRange:
+
+	rts
+	
+MonsterStartEmergeFromCave:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set emerge state
+	move.b #MonsterState_Emerging, Monster_State(a0)
+	
+	; Start palette lerp
+	move.l a0, -(sp)
+	lea    palette_monster, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x0, d2
+	move.b #0xF, d3
+	jsr    PaletteLerpStart
+	move.l (sp)+, a0
+
+	rts
+	
+MonsterUpdateEmergeFromCave:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Wait for palette lerp finish
+	lea    PaletteLerp_Array, a2
+	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
+	cmp.w  #0x0, PaletteLerp_Speed(a2)
+	bne    @Lerping
+	
+	; Start chasing player
+	jsr    MonsterStartTrackPlayer
+	
+	@Lerping:
 
 	rts
 
@@ -316,6 +389,9 @@ MonsterStartTrackPlayer:
 
 	; Set chase state
 	move.b #MonsterState_Chasing, Monster_State(a0)
+	
+	; Pass anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
 
 	rts
 
@@ -400,7 +476,7 @@ MonsterUpdateTrackPlayer:
 	jsr    CharacterCancelXMovement
 	
 	; TODO - Search state
-	jsr    MonsterStartWaitForPlayer
+	;jsr    MonsterStartWaitForPlayer
 
 	@End:
 
@@ -432,7 +508,7 @@ MonsterUpdateBite:
 	; a1 --- Level addr
 
 	; Check if end frame reached
-	move.l  AnimObj_AnimSubframe(a0), d0; Get anim subframe
+	move.l AnimObj_AnimSubframe(a0), d0; Get anim subframe
 	lsr.l  #0x8, d0 					; Subframes to frames
 	cmp.b  #Anim_MonsterBite_SizeB, d0
 	beq    @AnimFinished

@@ -138,13 +138,13 @@ FuzzlUpdate:
 	
 	jsr VectorDistSq					; Calc distance (result sq'd in d0)
 	
-	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outter distance
-	bne    @CheckOutterDist
+	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outer distance
+	bne    @CheckOuterDist
 	cmp.l  #Fuzzl_EyeWatchDistanceStart*Fuzzl_EyeWatchDistanceStart, d0	; check inner distance
 	bgt    @OutOfPlayerRange
 	bra    @EndDistCheck
-	@CheckOutterDist:
-	cmp.l  #Fuzzl_EyeWatchDistanceStop*Fuzzl_EyeWatchDistanceStop, d0	; else check outter distance
+	@CheckOuterDist:
+	cmp.l  #Fuzzl_EyeWatchDistanceStop*Fuzzl_EyeWatchDistanceStop, d0	; else check outer distance
 	bgt    @OutOfPlayerRange
 	@EndDistCheck:
 

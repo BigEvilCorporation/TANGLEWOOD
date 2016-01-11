@@ -7,24 +7,24 @@
 ;==============================================================
 
 ; Constants
-Flue_MaxEntities	equ 0x8
-Flue_Width			equ 0x40
-Flue_Height			equ 0x40
-Flue_BoundsExtendX	equ 0x08
-Flue_HoldDelay		equ 0x0040
-Flue_EjectForceX	equ 0x0000
-;Flue_EjectForceY	equ 0x0A00
-;Flue_EjectForceY	equ 0x0C00
-Flue_EjectForceY	equ 0x0E00
+Flue_MaxEntities		equ 0x8
+Flue_Width				equ 0x40
+Flue_Height				equ 0x40
+Flue_BoundsExtendX		equ 0x08
+Flue_HoldDelay			equ 0x0040
+Flue_DefaultEjectForceX	equ 0x0000
+Flue_DefaultEjectForceY	equ 0x0E00
 
 ; Struct
 	rsset (Entity_Struct_Size)
 ;--------------------------
 Flue_HeldGameObj	rs.l 1	; GameObj being held
 Flue_HoldTimer		rs.w 1	; Hold timer
+Flue_EjectForceX	rs.w 1	; Eject force X
+Flue_EjectForceY	rs.w 1	; Eject force Y
 Flue_Ejecting		rs.b 1	; Currently ejecting the held GameObj
 ;--------------------------
-Flue_Struct_Pad   rs.b 3	; Alignment padding
+Flue_Struct_Pad   rs.b 1	; Alignment padding
 Flue_Struct_Size  rs.b 0
 
 FlueInit:
@@ -46,6 +46,8 @@ FlueInit:
 	move.l #0x0, Flue_HeldGameObj(a0)
 	move.w #0x0, Flue_HoldTimer(a0)
 	move.b #0x0, Flue_Ejecting(a0)
+	move.w #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
+	move.w #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
 
 	rts
 
@@ -72,8 +74,8 @@ FlueUpdate:
 	bne    @TimerRunning
 
 	; Timer elapsed, eject GameObj
-	move.w #Flue_EjectForceX, GameObj_VelX(a1)
-	move.w #Flue_EjectForceY, GameObj_VelY(a1)
+	move.w Flue_EjectForceX(a0), GameObj_VelX(a1)
+	move.w Flue_EjectForceY(a0), GameObj_VelY(a1)
 	move.b #0x1, Flue_Ejecting(a0)
 
 	; Snap to X centre
