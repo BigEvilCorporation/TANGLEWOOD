@@ -12,9 +12,8 @@ Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelYUp				equ 0x0600
 Fuzzl_MaxVelYDown			equ 0x0600
-Fuzzl_StepHeight			equ 0x3
+Fuzzl_StepHeight			equ 0x6
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
-Fuzzl_ProbeFloorY			equ (Fuzzl_Height-Fuzzl_StepHeight)   ; Floor detection probe position Y
 Fuzzl_MaxVelX				equ 0x0100
 Fuzzl_Decel					equ 0x02
 Fuzzl_BounceDelay			equ 0x40
@@ -97,7 +96,6 @@ FuzzlInit:
 	move.w  #Fuzzl_Decel, GameObj_DecelX(a0)
 	move.w  #Fuzzl_StepHeight, GameObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Fuzzl_ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.b  #ColourYellow, Fuzzl_Colour(a0)

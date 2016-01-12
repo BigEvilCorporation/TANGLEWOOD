@@ -15,7 +15,7 @@ Tst1_Forest:
 	dc.l map_tst1				; Map
 	dc.l collisiontiles_tst1	; Collision tileset
 	dc.l collisionmap_tst1		; Collision map
-	dc.l palette_lvl1_day		; Palettes
+	dc.l palette_lvl1_dawn		; Palettes
 	dc.w Gravity				; Default gravity
 	dc.w map_tst1_width			; Map width
 	dc.w map_tst1_height		; Map height

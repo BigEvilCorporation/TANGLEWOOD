@@ -13,7 +13,7 @@ Player_MaxEntities equ 0x1
 
 ; Player dimensions
 Player1Width	  equ 0x0038
-Player1Height	  equ 0x0028
+Player1Height	  equ 0x0030
 
 ; Player starting positions - TODO: From spawn point
 Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)
@@ -38,9 +38,8 @@ Player1JumpCancelVel equ 0x0100 ; Player 1 velocity to cancel jump
 Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Player collision probes
-Player1StepHeight	 equ 0x3
+Player1StepHeight	 equ 0x6
 Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
-Player1ProbeFloorY   equ (Player1Height-Player1StepHeight) ;(Player1Height-(Player1Height/4))  ; Floor detection probe position Y
 Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
@@ -102,7 +101,6 @@ PlayerInit:
 	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Player1StepHeight, GameObj_StepHeight(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)

@@ -19,10 +19,10 @@ Fuzzl_22:
 
 gameobjects_Nest_count equ 1
 LoadGameObjects_Nest:
-Nest_25:
+Nest_45:
 	jsr NestInit
-	move.l #0x0004f000, Entity_WorldPosX(a0)
-	move.l #0x00020000, Entity_WorldPosY(a0)
+	move.l #0x0003d000, Entity_WorldPosX(a0)
+	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
 	rts
 
@@ -129,5 +129,9 @@ Boulder_43:
 	move.l #0x000f2000, Entity_WorldPosX(a0)
 	move.l #0x00013800, Entity_WorldPosY(a0)
 	add.l #Boulder_Struct_Size, a0
+	rts
+
+gameobjects_TriggerBox_count equ 0
+LoadGameObjects_TriggerBox:
 	rts
 

@@ -99,7 +99,6 @@ GetTerrainHeight:
 	swap   d3		; Remainder to lower d3
 	sub.w  d3, d6	; Sub from Y coord
 	addi.w #0x8, d6	; + 1 tile
-	move.w d6, d1	; Use as probe Y
 	
 	@NextTile:
 	
