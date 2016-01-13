@@ -470,7 +470,6 @@ GameObjFindFloor:
 	cmp.w  #0x0, d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
-	sub.w  #0x1, d2
 	mulu   #0x8, d2
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds

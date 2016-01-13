@@ -115,10 +115,11 @@ Firefly_18:
 
 gameobjects_Monster_count equ 1
 LoadGameObjects_Monster:
-Monster_40:
+Monster_47:
 	jsr MonsterInit
-	move.l #0x00121800, Entity_WorldPosX(a0)
-	move.l #0x0002b000, Entity_WorldPosY(a0)
+	move.l #0x00187000, Entity_WorldPosX(a0)
+	move.l #0x0002e800, Entity_WorldPosY(a0)
+	move.b #0x1, GameObj_FlippedX(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 

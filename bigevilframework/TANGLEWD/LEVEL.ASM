@@ -61,7 +61,7 @@ LevelLoad:
 	move.l #PaletteId_Player, d0
 	jsr    PaletteLerpStart
 	
-	lea    palette_monster_incave, a0
+	lea    palette_monster_eyes, a0
 	move.l #PaletteId_Monster, d0
 	jsr    PaletteLerpStart
 	
