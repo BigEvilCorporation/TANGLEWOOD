@@ -14,6 +14,7 @@ __start
 	; Include Framework code
 	include '..\framewk\init.asm'
 	
+	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
@@ -117,7 +118,7 @@ __main:
 	; Main game loop
 	; ************************************
 GameLoop:
-
+	
 	; Begin frame
 	jsr RenderBeginFrame
 	
@@ -199,8 +200,11 @@ __vinterrupt:
 	jsr Profile_PushScope
 	ENDIF
 	
+	; Execute DMA job queue
+	jsr    VDPDMAQueue_ExecuteAll
+	
 	; Execute VDP job queue
-	jsr VDPQueue_ExecuteAll
+	jsr    VDPQueue_ExecuteAll
 	
 	IFD DEBUG
 	jsr Profile_PopScope

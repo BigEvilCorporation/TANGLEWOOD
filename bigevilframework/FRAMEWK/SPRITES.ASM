@@ -228,12 +228,12 @@ SetMultiSpritePosY:
 SetSpriteAnimFrame:
 	; Sets sprite frame from animation data and frame index, uploads tiles to VRAM
 
+	; a0 --- Address of sprite data (ROM)
+	; a1 --- Address of animation data (byte array) (ROM)
 	; d0 (l) Sprite address (VRAM)
 	; d1 (w) Size of one sprite frame (in tiles)
 	; d2 (w) Animation frame
 	; d3 (b) Number of anim frames
-	; a0 --- Address of sprite data (ROM)
-	; a1 --- Address of animation data (byte array) (ROM)
 
 	and.l  #0x0000FFFF, d2
 	and.l  #0x000000FF, d3
@@ -269,11 +269,14 @@ SetSpriteAnimFrame:
 	
 	; DMA from scratch buffer
 	lea     art_scratch_buffer, a0
+	jsr     VPDDMACopyVRAM
+	
+	ELSE
+	
+	; Add DMA job
+	mulu.w  #size_tile_w, d1
+	jsr     VDPDMAQueue_AddJob
 	
 	ENDIF
-	
-	; DMA to VRAM
-	mulu.w  #size_tile_w, d1
-	jsr     VPDDMACopyVRAM
 	
 	rts

@@ -91,19 +91,19 @@ VPDDMACopyVRAM:
 	clr.l  d3
 	
 	; Address byte 0 (register 15)
-	lsr.l  #0x1, d2		; Ignore first bit (address is always even)
+	lsr.l  #0x1, d2					; Ignore first bit (address is always even)
 	move.w #0x9500, d3
 	move.b d2, d3
 	move.w d3, vdp_control
 	
 	; Address byte 1 (register 16)
-	lsr.l  #0x8, d2		; Next byte
+	lsr.l  #0x8, d2					; Next byte
 	move.w #0x9600, d3
 	move.b d2, d3
 	move.w d3, vdp_control
 	
 	; Address byte 2 + DMA mode (register 17)
-	lsr.l  #0x8, d2		; Next byte
+	lsr.l  #0x8, d2					; Next byte
 	move.w #0x9700, d3
 	move.b d2, d3
 	andi.b #vdp_dma_addr_mask_write, d3	; Top byte mask (to fit DMA mode)
@@ -117,12 +117,12 @@ VPDDMACopyVRAM:
 	ori.l   #vdp_cmd_dma_vram_write, d0 ; OR in VRAM+DMA write command
 	
 	; Read and backup VDP reg 1
-	move.w (VDPRegisters), d4	; VDP regs
-	andi.w #0x00FF, d4 			; Second reg
+	move.w  (VDPRegisters), d4		; VDP regs
+	andi.w  #0x00FF, d4 			; Second reg
 	
 	; Enable DMA
-	ori.w #0x8110, d4  ; Set register 1 + DMA bit (5)
-	move.w d4, vdp_control
+	ori.w   #0x8110, d4  			; Set register 1 + DMA bit (5)
+	move.w  d4, vdp_control
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -130,7 +130,7 @@ VPDDMACopyVRAM:
 	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
 	
 	; Disable DMA
-	andi.b  #0xEF, d4 ; Clear DMA bit (5)
+	andi.b  #0xEF, d4 				; Clear DMA bit (5)
 	move.w  d4, vdp_control
 	
 	rts
@@ -157,19 +157,19 @@ VDPDMACopyCRAM:
 	clr.l  d3
 	
 	; Address byte 0 (register 15)
-	lsr.l  #0x1, d2		; Ignore first bit (address is always even)
+	lsr.l  #0x1, d2					; Ignore first bit (address is always even)
 	move.w #0x9500, d3
 	move.b d2, d3
 	move.w d3, vdp_control
 	
 	; Address byte 1 (register 16)
-	lsr.l  #0x8, d2		; Next byte
+	lsr.l  #0x8, d2					; Next byte
 	move.w #0x9600, d3
 	move.b d2, d3
 	move.w d3, vdp_control
 	
 	; Address byte 2 + DMA mode (register 17)
-	lsr.l  #0x8, d2		; Next byte
+	lsr.l  #0x8, d2					; Next byte
 	move.w #0x9700, d3
 	move.b d2, d3
 	andi.b #vdp_dma_addr_mask_write, d3	; Top byte mask (to fit DMA mode)
@@ -183,12 +183,12 @@ VDPDMACopyCRAM:
 	ori.l   #vdp_cmd_dma_cram_write, d0 ; OR in CRAM+DMA write command
 	
 	; Read and backup VDP reg 1
-	move.w (VDPRegisters), d4	; VDP regs
-	andi.w #0x00FF, d4 			; Second reg
+	move.w  (VDPRegisters), d4		; VDP regs
+	andi.w  #0x00FF, d4 			; Second reg
 	
 	; Enable DMA
-	ori.w #0x8110, d4  ; Set register 1 + DMA bit (5)
-	move.w d4, vdp_control
+	ori.w   #0x8110, d4  			; Set register 1 + DMA bit (5)
+	move.w  d4, vdp_control
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -196,7 +196,7 @@ VDPDMACopyCRAM:
 	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
 	
 	; Disable DMA
-	andi.b  #0xEF, d4 ; Clear DMA bit (5)
+	andi.b  #0xEF, d4 				; Clear DMA bit (5)
 	move.w  d4, vdp_control
 
 	rts

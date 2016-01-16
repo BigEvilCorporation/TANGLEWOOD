@@ -52,6 +52,14 @@ vdp_queue_produceridx rs.l 1
 vdp_queue_consumeridx rs.l 1
 
 ; ************************************
+; VDP DMA queue
+; ************************************
+vdp_dma_queue		  rs.b (VDPDMAJob_Struct_Size*VDPDmaQueue_MaxSize)
+vdp_dma_queue_size    rs.w 1
+
+__padding			  rs.b 2
+
+; ************************************
 ; VDP sprite table
 ; ************************************
 vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
