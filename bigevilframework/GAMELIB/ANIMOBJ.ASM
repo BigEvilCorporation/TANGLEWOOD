@@ -13,7 +13,7 @@
 ;--------------------------
 AnimObj_AnimSubFrame     rs.l 1
 AnimObj_CurrentAnim		 rs.l 1
-AnimObj_KeyframesAddr     rs.l 1	; TODO: Deprecate, use CurrentAnim addr
+AnimObj_KeyframesAddr    rs.l 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_AnimSpeed        rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_AnimLength       rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_Playing  	     rs.b 1
@@ -41,12 +41,6 @@ AnimObjDraw:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
 	
-	move.l a0, -(sp)
-	move.l a1, -(sp)
-	
-	; Base functionality
-	jsr GameObjDraw
-	
 	; Check if sprite linked
 	move.b GameObj_SpriteLinked(a0), d0
 	cmp.b  #0x0, d0
@@ -61,6 +55,11 @@ AnimObjDraw:
 	move.b AnimObj_Playing(a0), d0
 	cmp.b  #0x0, d0
 	beq    @NotPlaying
+	
+	; Get current anim
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoAnim
 	
 	; Get anim speed
 	clr.l  d0
@@ -122,12 +121,38 @@ AnimObjDraw:
 	move.b  #0x0, AnimObj_Dirty(a0)
 	
 	; Frame advanced, + DMA new tiles to VRAM
+	move.l a0, -(sp)
+	move.l a1, -(sp)
+	move.l a2, -(sp)
+	move.l d2, -(sp)
 	move.l GameObj_VRAMAddr(a0), d0
 	move.w GameObj_TilesetSize(a0), d1
 	move.b AnimObj_AnimLength(a0), d3
 	move.l AnimObj_KeyframesAddr(a0), a1
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr    SetSpriteAnimFrame
+	move.l (sp)+, d2
+	move.l (sp)+, a2
+	move.l (sp)+, a1
+	move.l (sp)+, a0
+	
+	; X position track
+	move.l Animation_AnimTrackPositionX(a2), a3	; Get X position keyframe track
+	cmp.l  #0x0, a3
+	beq    @NoTrackPosX
+	clr.l  d3
+	move.b AnimObj_AnimLength(a0), d3	; Get anim length
+	divu   d3, d2          				; Div frame count against num anim frames
+	clr.w  d2							; Clear exponent
+	swap   d2			   				; Remainder to lower word
+	;lsl.w  #0x1, d2		   				; Words to bytes
+	move.b (a3,d2.w), d3   				; Get value from anim track
+	;ext.l  d3			   				; Sign extend
+	lsl.l  #0x8, d3		  				; Pixels to world space
+	add.l  d3, Entity_WorldPosX(a0)		; Offset X pos
+	@NoTrackPosX:
+	
+	; Y position track
 	
 	@Invisible:
 	@NoAnim:
@@ -136,8 +161,9 @@ AnimObjDraw:
 	@NotPlaying:
 	@NoFrameChange:
 	
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	; Base functionality
+	jsr GameObjDraw
+	
 	rts
 	
 AnimObjUpdate:
@@ -172,7 +198,7 @@ AnimObjSetAnimation:
 	; TODO - if offset/numtiles changed, mark for DMA clear
 	
 	; Load anim params - TODO: Deprecate
-	move.l Animation_KeyframesAddr(a1), AnimObj_KeyframesAddr(a0)
+	move.l Animation_AnimTrackSpriteFrame(a1), AnimObj_KeyframesAddr(a0)
 	move.b Animation_Speed(a1), AnimObj_AnimSpeed(a0)
 	move.b Animation_Length(a1), AnimObj_AnimLength(a0)
 	move.b Animation_Looping(a1), AnimObj_Looping(a0)

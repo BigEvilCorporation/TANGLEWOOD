@@ -130,7 +130,9 @@ MonsterInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -138,7 +140,9 @@ MonsterInit:
 	; Dead
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
-	move.l #Anim_MonsterDead, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterDead, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterDead_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterDead_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -146,7 +150,9 @@ MonsterInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterRun, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterRun, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterRun_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterRun_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -154,7 +160,9 @@ MonsterInit:
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_MonsterWalk, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterWalk, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterWalk_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterWalk_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -162,7 +170,9 @@ MonsterInit:
 	; Jump
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -170,7 +180,9 @@ MonsterInit:
 	; Hang
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -178,7 +190,9 @@ MonsterInit:
 	; Push
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_MonsterIdle, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -190,7 +204,9 @@ MonsterInit:
 	; In cave
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Eyes), a3
-	move.l #Anim_MonsterEyes, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterEyes, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterEyes_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterEyes_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -198,7 +214,9 @@ MonsterInit:
 	; Bite
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Bite), a3
-	move.l #Anim_MonsterBite, Animation_KeyframesAddr(a3)
+	move.l #Anim_MonsterBite, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterBite_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterBite_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)

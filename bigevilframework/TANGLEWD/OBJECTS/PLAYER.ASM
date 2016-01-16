@@ -125,7 +125,9 @@ PlayerInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_NymnIdle, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnIdle_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnIdle_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -133,15 +135,19 @@ PlayerInit:
 	; Dead
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
-	move.l #Anim_NymnDead, Animation_KeyframesAddr(a3)
-	move.b #Anim_NymnDead_Speed, Animation_Speed(a3)
-	move.b #Anim_NymnDead_SizeB, Animation_Length(a3)
+	move.l #Anim_NymnDeath_Default, Animation_AnimTrackSpriteFrame(a3)
+	move.l #Anim_NymnDeath_Default_PosX, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_NymnDeath_Default_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnDeath_Default_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_NymnRun, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnRun, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnRun_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnRun_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -149,7 +155,9 @@ PlayerInit:
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_NymnWalk, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnWalk, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnWalk_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnWalk_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -157,7 +165,9 @@ PlayerInit:
 	; Walk to run transition
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	move.l #Anim_NymnWalkToRun, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnWalkToRun, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnWalkToRun_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnWalkToRun_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
@@ -165,7 +175,9 @@ PlayerInit:
 	; Jump
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_NymnJump, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnJump, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnJump_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnJump_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -173,7 +185,9 @@ PlayerInit:
 	; Hang
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_NymnHang, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnHang, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnHang_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnHang_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -181,7 +195,9 @@ PlayerInit:
 	; Glide
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Glide), a3
-	move.l #Anim_NymnGlide, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnGlide, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnGlide_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnGlide_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -189,7 +205,9 @@ PlayerInit:
 	; Push
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_NymnPush, Animation_KeyframesAddr(a3)
+	move.l #Anim_NymnPush, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnPush_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnPush_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
