@@ -11,13 +11,9 @@
 ;==============================================================
 	rsset (GameObj_Struct_Size)
 ;--------------------------
-AnimObj_AnimSubFrame     rs.l 1
 AnimObj_CurrentAnim		 rs.l 1
-AnimObj_KeyframesAddr    rs.l 1	; TODO: Deprecate, use CurrentAnim addr
-AnimObj_AnimSpeed        rs.b 1	; TODO: Deprecate, use CurrentAnim addr
-AnimObj_AnimLength       rs.b 1	; TODO: Deprecate, use CurrentAnim addr
+AnimObj_AnimSubFrame     rs.l 1
 AnimObj_Playing  	     rs.b 1
-AnimObj_Looping  	     rs.b 1	; TODO: Deprecate, use CurrentAnim addr
 AnimObj_Dirty		     rs.b 1
 ;------------------------------
 AnimObj_Struct_Pad       rs.b 3
@@ -27,13 +23,10 @@ AnimObj_Struct_Size      rs.b 0
 
 AnimObjInit:
 	jsr GameObjInit
+	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
-	move.l #0x0, AnimObj_KeyframesAddr(a0)
 	move.l #0x0, GameObj_TilesetAddr(a0)
-	move.b #0x0, AnimObj_AnimSpeed(a0)
-	move.b #0x0, AnimObj_AnimLength(a0)
 	move.b #0x0, AnimObj_Playing(a0)
-	move.b #0x0, AnimObj_Looping(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
 	rts
 
@@ -63,7 +56,7 @@ AnimObjDraw:
 	
 	; Get anim speed
 	clr.l  d0
-	move.b AnimObj_AnimSpeed(a0), d0
+	move.b Animation_Speed(a2), d0
 
 	; Check if dirty (new anim, set regardless of speed)
 	cmp.b  #0x0, AnimObj_Dirty(a0)
@@ -85,12 +78,12 @@ AnimObjDraw:
 	move.l d2, AnimObj_AnimSubframe(a0) ; Subframe back to RAM
 	
 	; If non-looping anim
-	move.b AnimObj_Looping(a0), d0
+	move.b Animation_Looping(a2), d0
 	cmp.b  #0x1, d0
 	beq    @LoopingAnim
 
 	clr.l  d3
-	move.b AnimObj_AnimLength(a0), d3	; Get anim length
+	move.b Animation_Length(a2), d3	; Get anim length
 	lsl.l  #0x8, d3 ; To subframes
 	
 	; Check if not at end
@@ -127,8 +120,8 @@ AnimObjDraw:
 	move.l d2, -(sp)
 	move.l GameObj_VRAMAddr(a0), d0
 	move.w GameObj_TilesetSize(a0), d1
-	move.b AnimObj_AnimLength(a0), d3
-	move.l AnimObj_KeyframesAddr(a0), a1
+	move.b Animation_Length(a2), d3
+	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr    SetSpriteAnimFrame
 	move.l (sp)+, d2
@@ -141,7 +134,7 @@ AnimObjDraw:
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
 	clr.l  d3
-	move.b AnimObj_AnimLength(a0), d3	; Get anim length
+	move.b Animation_Length(a0), d3	; Get anim length
 	divu   d3, d2          				; Div frame count against num anim frames
 	clr.w  d2							; Clear exponent
 	swap   d2			   				; Remainder to lower word
@@ -195,14 +188,6 @@ AnimObjSetAnimation:
 	; Mark as dirty
 	move.b #0x1, AnimObj_Dirty(a0)
 	
-	; TODO - if offset/numtiles changed, mark for DMA clear
-	
-	; Load anim params - TODO: Deprecate
-	move.l Animation_AnimTrackSpriteFrame(a1), AnimObj_KeyframesAddr(a0)
-	move.b Animation_Speed(a1), AnimObj_AnimSpeed(a0)
-	move.b Animation_Length(a1), AnimObj_AnimLength(a0)
-	move.b Animation_Looping(a1), AnimObj_Looping(a0)
-	
 	; Set current anim
 	move.l a1, AnimObj_CurrentAnim(a0)
 	
@@ -214,14 +199,23 @@ AnimObjGetCurrentFrame:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
 	; d0 (b) Return val - anim frame
+	
+	clr.l  d0
 
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoAnim
+	
 	move.l AnimObj_AnimSubFrame(a0), d0
-	move.b AnimObj_AnimLength(a0), d1
+	move.b Animation_Length(a2), d1
+	
 	lsr.l  #0x8, d0		; Subframes to frames
-	and.l #0x0000FFFF, d0
-	and.l #0x000000FF, d1
+	and.l  #0x0000FFFF, d0
+	and.l  #0x000000FF, d1
 
 	divu  d1, d0		; Div frame count against num anim frames
-	swap  d0			; Remainder to lower word
+	swap   d0			; Remainder to lower word
+	
+	@NoAnim:
 
 	rts

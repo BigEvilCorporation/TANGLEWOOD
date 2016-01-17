@@ -27,7 +27,7 @@ Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
-
+Boulder_Animation	 rs.b (Animation_Struct_Size)
 ;--------------------------
 Boulder_Struct_Pad   rs.b 0   ; Alignment padding
 Boulder_Struct_Size  rs.b 0
@@ -61,23 +61,32 @@ BoulderInit:
 	move.w  #Boulder_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Boulder_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	
-	; Roll animation
-	move.l  #Anim_BoulderRoll, AnimObj_KeyframesAddr(a0)
-	move.b  #Anim_BoulderRoll_SizeB, AnimObj_AnimLength(a0)
+	; Init roll animation
+	move.l  a0, a2
+	add.l   #Boulder_Animation, a2
+	move.l  #Anim_BoulderRoll, Animation_AnimTrackSpriteFrame(a2)
+	move.b  #Anim_BoulderRoll_SizeB, Animation_Length(a2)
+	move.b  #0x1, Animation_Looping(a2)
+	
+	; Set animation
+	move.l  a2, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
-	move.b  #0x1, AnimObj_Looping(a0)
 
 	rts
 	
 BoulderUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; Get animation
+	move.l  a0, a2
+	add.l   #Boulder_Animation, a2
 
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0
 	divs.w #Boulder_AnimSpeedVelDiv, d0
-	move.b d0, AnimObj_AnimSpeed(a0)
+	move.b d0, Animation_Speed(a2)
 	
 	; If Y vel > min damage vel
 	cmp.w  #-Boulder_MinDamageYVel, GameObj_VelY(a0)

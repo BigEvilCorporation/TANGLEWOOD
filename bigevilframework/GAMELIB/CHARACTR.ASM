@@ -170,7 +170,10 @@ CharacterUpdateAnimState:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.b AnimObj_Looping(a0), d0
+	;Get current animation
+	move.l AnimObj_CurrentAnim(a0), a2
+	
+	move.b Animation_Looping(a2), d0
 	cmp.b  #0x0, d0						; If playing a looping anim, anim is interruptible
 	bne    @InterruptibleAnim
 	

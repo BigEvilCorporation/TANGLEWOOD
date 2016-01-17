@@ -63,11 +63,17 @@ Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2)
 
 Player1_PushAnimSpeedVelocityDiv equ 0x0004
 
+; Animations
+PlayerAnimIdx_Switch equ 0
+; ------------------------
+PlayerAnimIdx_Max    equ 1
+
 ; ************************************
 ; Struct
 ; ************************************
 	rsset (Character_Struct_Size)
 ;--------------------------
+Player_Animations	 rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_Colour        rs.b 1
 ;--------------------------
 Player_Struct_Pad    rs.b 3
@@ -211,6 +217,21 @@ PlayerInit:
 	move.b #Anim_NymnPush_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnPush_SizeB, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	
+	; Setup custom animations
+	move.l a0, a2
+	add.l  #Player_Animations, a2
+	
+	; Colour switch
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Switch), a3
+	move.l #Anim_NymnSwitch, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_NymnSwitch_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnSwitch_SizeB, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	
 
 	rts
 
@@ -257,12 +278,13 @@ PlayerBeginColourSwitch:
 	movem.l (sp)+, d0/d3
 	
 	; Start animation
-	move.l #Anim_NymnSwitch, AnimObj_KeyframesAddr(a0)
-	move.l #0x0, AnimObj_AnimSubframe(a0)
-	move.b #Anim_NymnSwitch_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_NymnSwitch_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x0, AnimObj_Looping(a0)
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Switch*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l (sp)+, a1
 	
 	rts
 	
@@ -510,7 +532,10 @@ PlayerInteract_Fuzzls:
 	neg.w  d0
 	@Fwd:
 	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
-	move.b d0, AnimObj_AnimSpeed(a0)
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	move.b d0, Animation_Speed(a2)
 	
 	bra @End
 	
@@ -713,7 +738,10 @@ PlayerInteract_Boulders:
 	neg.w  d0
 	@Fwd:
 	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
-	move.b d0, AnimObj_AnimSpeed(a0)
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	move.b d0, Animation_Speed(a2)
 	
 	bra @End
 

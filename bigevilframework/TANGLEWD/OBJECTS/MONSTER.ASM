@@ -145,7 +145,7 @@ MonsterInit:
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_MonsterDead_Speed, Animation_Speed(a3)
 	move.b #Anim_MonsterDead_SizeB, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	move.b #0x0, Animation_Looping(a3)
 	
 	; Run
 	move.l a2, a3

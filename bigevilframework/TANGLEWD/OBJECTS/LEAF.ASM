@@ -26,6 +26,7 @@ gameobjects_leaf_count equ 0x3
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
+Leaf_Animation	 rs.b (Animation_Struct_Size)
 Leaf_StartPosWorldX  rs.l 1
 Leaf_ResetTimer      rs.w 1
 Leaf_SineStep        rs.b 1
@@ -54,13 +55,18 @@ LeafInit:
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
+
+	; Init fall animation
+	move.l  a0, a2
+	add.l   #Leaf_Animation, a2
+	move.l  #Anim_LeafFall, Animation_AnimTrackSpriteFrame(a2)
+	move.b  #Anim_LeafFall_Speed, Animation_Speed(a2)
+	move.b  #Anim_LeafFall_SizeB, Animation_Length(a2)
+	move.b  #0x1, Animation_Looping(a2)
 	
-	; Default anim
-	move.l #Anim_LeafFall, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_LeafFall_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_LeafFall_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	; Set animation
+	move.l  a2, AnimObj_CurrentAnim(a0)
+	move.b  #0x1, AnimObj_Playing(a0)
 
 	jsr    RandLong
 	move.b d0, Leaf_SineStep(a0)	; 0-255

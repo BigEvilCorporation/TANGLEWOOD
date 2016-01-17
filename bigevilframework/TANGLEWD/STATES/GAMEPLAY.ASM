@@ -81,7 +81,7 @@ Gameplay_Render:
 	jsr UpdateMapStreaming
 	
 	; Update time of day
-	;jsr UpdateTimeOfday
+	jsr UpdateTimeOfday
 	
 	rts
 	

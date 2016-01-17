@@ -17,6 +17,7 @@ Firefly_ResetTime    equ 0x0100
 ; Struct
 	rsset (Pickup_Struct_Size)
 ;--------------------------
+Firefly_Animation	 rs.b (Animation_Struct_Size)
 Firefly_ResetTimer   rs.w 1
 Firefly_Colour       rs.b 1
 Firefly_Pickup_Value rs.b 1
@@ -46,13 +47,18 @@ FireflyInit:
 	move.w #0x0, Firefly_ResetTimer(a0)
 	move.b #ColourRed, Firefly_Colour(a0)
 	move.b #0x1, Firefly_Pickup_Value(a0)
-
+	
 	; Default anim
-	move.l #Anim_FireflyIdle, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_FireflyIdle_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_FireflyIdle_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l  a0, a2
+	add.l   #Firefly_Animation, a2
+	move.l  #Anim_FireflyIdle, Animation_AnimTrackSpriteFrame(a2)
+	move.b  #Anim_FireflyIdle_Speed, Animation_Speed(a2)
+	move.b  #Anim_FireflyIdle_SizeB, Animation_Length(a2)
+	move.b  #0x1, Animation_Looping(a2)
+	
+	; Set animation
+	move.l  a2, AnimObj_CurrentAnim(a0)
+	move.b  #0x1, AnimObj_Playing(a0)
 
 	; Random anim start frame
 	jsr    RandLong

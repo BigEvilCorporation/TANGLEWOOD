@@ -56,17 +56,27 @@ Fuzzl_Eye_Frame_Table:
 	dc.l Fuzzl_Eye_Frame_BottomMiddle
 	dc.l Fuzzl_Eye_Frame_BottomRight
 
+; Animations
+FuzzlAnimIdx_Idle		equ 0
+FuzzlAnimIdx_Watch		equ 1
+FuzzlAnimIdx_Roll		equ 2
+FuzzlAnimIdx_Bounce		equ 3
+FuzzlAnimIdx_Sleep		equ 4
+; -------------------------------
+Fuzzl_NumAnims		    equ 5
+
 ;==============================================================
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
+Fuzzl_Animations	rs.b (Animation_Struct_Size*Fuzzl_NumAnims)
 Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
 Fuzzl_State_Bits    rs.b 1	; Fuzzl states
 Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
 ;--------------------------
-Fuzzl_Struct_Pad   rs.b 1   ; Alignment padding
-Fuzzl_Struct_Size  rs.b 0
+Fuzzl_Struct_Pad    rs.b 1  ; Alignment padding
+Fuzzl_Struct_Size   rs.b 0
 
 ;==============================================================
 
@@ -99,6 +109,60 @@ FuzzlInit:
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.b  #ColourYellow, Fuzzl_Colour(a0)
+	
+	; Setup animations
+	move.l a0, a2
+	add.l  #Fuzzl_Animations, a2
+	
+	; Idle
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
+	move.l #Anim_FuzzlIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_FuzzlIdle_Speed, Animation_Speed(a3)
+	move.b #Anim_FuzzlIdle_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Watch
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
+	move.l #Anim_FuzzlEyes, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_FuzzlEyes_Speed, Animation_Speed(a3)
+	move.b #Anim_FuzzlEyes_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Roll
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
+	move.l #Anim_FuzzlRoll, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_FuzzlRoll_Speed, Animation_Speed(a3)
+	move.b #Anim_FuzzlRoll_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Bounce
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
+	move.l #Anim_FuzzlRoll, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_FuzzlRoll_Speed, Animation_Speed(a3)
+	move.b #Anim_FuzzlRoll_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Sleep
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
+	move.l #Anim_FuzzlSleep, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_FuzzlSleep_Speed, Animation_Speed(a3)
+	move.b #Anim_FuzzlSleep_SizeB, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 
 	rts
 	
@@ -167,7 +231,10 @@ FuzzlUpdate:
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
-	move.b d0, AnimObj_AnimSpeed(a0)
+	move.l a0, a2
+	add.l  #Fuzzl_Animations, a2
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	move.b d0, Animation_Speed(a2)
 
 	; Check all nests
 	move.l #EntityArray_Nests, a1
@@ -280,13 +347,17 @@ FuzzlUpdateBounce:
 	@NoBounceThisFrame:
 	
 	; Set anim speed if off ground
+	move.l a0, a2
+	add.l  #Fuzzl_Animations, a2
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+
 	move.b GameObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
 	beq    @OnFloor
-	move.b #Fuzzl_AnimSpeedBounce, AnimObj_AnimSpeed(a0)
+	move.b #Fuzzl_AnimSpeedBounce, Animation_Speed(a2)
 	bra    @End
 	@OnFloor:
-	move.b #0x0, AnimObj_AnimSpeed(a0)
+	move.b #0x0, Animation_Speed(a2)
 	bra    @End
 
 	@NoColour:
@@ -376,9 +447,6 @@ FuzzlUpdateEyes:
 FuzzlUpdateAnimation:
 	; a0-- - GameObj addr
 	; a1-- - Level addr
-	
-	; Get original anim
-	move.l AnimObj_KeyframesAddr(a0), a2
 
 	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)	; If asleep, set sleeping anim
 	bne    @AnimSleep
@@ -409,58 +477,35 @@ FuzzlUpdateAnimation:
 	@EndTODCheck2:
 
 	@AnimSleep:
-
-	move.l #Anim_FuzzlSleep, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_FuzzlSleep_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_FuzzlSleep_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l #FuzzlAnimIdx_Sleep, d0
 	jmp    @EndAnim
 
 	@AnimIdle:
-
-	move.l #Anim_FuzzlIdle, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_FuzzlIdle_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_FuzzlIdle_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l #FuzzlAnimIdx_Idle, d0
 	jmp    @EndAnim
 
 	@AnimWatch:
-
-	move.l #Anim_FuzzlEyes, AnimObj_KeyframesAddr(a0)
-	move.b #Anim_FuzzlEyes_Speed, AnimObj_AnimSpeed(a0)
-	move.b #Anim_FuzzlEyes_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l #FuzzlAnimIdx_Watch, d0
 	jsr    FuzzlUpdateEyes
 	jmp    @EndAnim
 
 	@AnimRoll:
-
-	move.l #Anim_FuzzlRoll, AnimObj_KeyframesAddr(a0)
-	; Anim speed handled in FuzzlUpdate
-	move.b #Anim_FuzzlRoll_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l #FuzzlAnimIdx_Roll, d0
 	jmp    @EndAnim
 
 	@AnimBounce:
-
-	move.l #Anim_FuzzlBounce, AnimObj_KeyframesAddr(a0)
-	; Anim speed handled in FuzzlUpdateBounce
-	move.b #Anim_FuzzlBounce_SizeB, AnimObj_AnimLength(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Looping(a0)
+	move.l #FuzzlAnimIdx_Bounce, d0
 	jmp    @EndAnim
 	
 	@EndAnim:
 	
-	; If anim changed, mark as dirty
-	move.l AnimObj_KeyframesAddr(a0), a3
-	cmp.l  a2, a3
-	beq    @NoChange
-	move.b #0x1, AnimObj_Dirty(a0)
+	; Set anim
+	move.l a0, a1
+	add.l  #Fuzzl_Animations, a1
+	mulu   #Animation_Struct_Size, d0
+	add.l  d0, a1
+	jsr    AnimObjSetAnimation
+	
 	@NoChange:
 	
 	rts
