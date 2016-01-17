@@ -11,6 +11,7 @@ Leaf_MaxEntities   equ 0x3
 Leaf_Width         equ 0x8
 Leaf_Height        equ 0x8
 Leaf_FallVelocity  equ -0x18
+Leaf_SinSpeed      equ (0x1<<0x8)
 Leaf_FloatWidth    equ 0x0020
 Leaf_WindowWidth   equ (vdp_plane_width*8)
 Leaf_WindowHeight  equ (vdp_plane_height*8)
@@ -29,9 +30,9 @@ gameobjects_leaf_count equ 0x3
 Leaf_Animation	 rs.b (Animation_Struct_Size)
 Leaf_StartPosWorldX  rs.l 1
 Leaf_ResetTimer      rs.w 1
-Leaf_SineStep        rs.b 1
+Leaf_SineStep        rs.w 1
 ;--------------------------
-Leaf_Struct_Pad      rs.b 1	; Alignment padding
+Leaf_Struct_Pad      rs.b 0	; Alignment padding
 Leaf_Struct_Size     rs.b 0
 
 LeafInit:
@@ -112,7 +113,7 @@ LeafUpdate:
 	cmp.l  d0, d1
 	blt    @OutOfView
 
-	; start from top of scroll plane
+	; Start from top of scroll plane
 	move.l (WorldScrollY), d0
 	add.l  #((SpritePlaneBorderY-Leaf_WindowBorderY)*SubPixelsPerPixel), d0
 	move.l d0, Entity_WorldPosY(a0)
@@ -170,22 +171,34 @@ LeafUpdate:
 	
 	@WithinBounds:
 
-	; Increment sine step
+	; Wrap sine step
 	clr.l  d0
 	clr.l  d1
-	move.b Leaf_SineStep(a0), d0
-	cmp.w  #0xFF, d0		; Wrap from 255 to 0
-	blo    @Inc				; Unsigned comparison
-	move.b #0x0, d0
+	move.w Leaf_SineStep(a0), d0
+	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
+	blo    @Inc					; Unsigned comparison
+	move.w #0x0, d0
 	@Inc:
-	add.b  #0x1, d0
-	move.b d0, Leaf_SineStep(a0)
+	
+	; Get speed
+	move.w #Leaf_SinSpeed, d1
+	
+	; Apply speed div
+	clr.l  d2
+	ext.l  d1						; Sign extend word to long
+	move.b GameObj_SpeedDiv(a0), d2
+	divs   d2, d1
+	
+	; Increment sin step
+	add.w  d1, d0
+	move.w d0, Leaf_SineStep(a0)
 
 	; Get sine value from table
 	lea    sintable, a2
+	lsr.w  #0x8, d0					; Subframes to frames
 	add.l  d0, a2
 	move.b (a2), d0
-	move.b d0, d2	; Backup for animation frame
+	move.b d0, d2					; Backup for animation frame
 	ext.w  d0
 	ext.l  d0
 

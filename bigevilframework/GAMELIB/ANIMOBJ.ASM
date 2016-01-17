@@ -13,10 +13,11 @@
 ;--------------------------
 AnimObj_CurrentAnim		 rs.l 1
 AnimObj_AnimSubFrame     rs.l 1
+AnimObj_SpeedDiv  	     rs.b 1
 AnimObj_Playing  	     rs.b 1
 AnimObj_Dirty		     rs.b 1
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 3
+AnimObj_Struct_Pad       rs.b 2
 AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
@@ -26,6 +27,7 @@ AnimObjInit:
 	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
 	move.l #0x0, GameObj_TilesetAddr(a0)
+	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
 	rts
@@ -70,6 +72,14 @@ AnimObjDraw:
 	
 	; Sign extend speed up to longword
 	ext.w  d0
+	ext.l  d0
+	
+	; Speed div
+	clr.l  d1
+	move.b AnimObj_SpeedDiv(a0), d1
+	divs   d1, d0
+	
+	; Sign extend speed up to longword
 	ext.l  d0
 	
 	move.l AnimObj_AnimSubframe(a0), d2 ; Get current subframe from RAM

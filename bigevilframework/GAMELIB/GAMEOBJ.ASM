@@ -42,8 +42,9 @@ GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_Solid			 rs.b 1 ; Object is solid
+GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 ;------------------------------
-GameObj_Struct_Pad       rs.b 3
+GameObj_Struct_Pad       rs.b 2
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -64,6 +65,7 @@ GameObjInit:
 	move.b #0x1, GameObj_Visible(a0)
 	move.b #0x0, GameObj_SpriteLinked(a0)
 	move.b #0x1, GameObj_HasPhysics(a0)
+	move.b #0x1, GameObj_SpeedDiv(a0)
 	
 	move.w Level_Gravity(a1), GameObj_Gravity(a0)
 
@@ -180,6 +182,12 @@ GameObjApplyAccelDecel:
 	cmp.w  #0x0, d0					; Check if accelerating
 	beq    @IdleXDecel				; X controls idle, decelerate
 	
+	; Apply speed div
+	clr.l  d1
+	ext.l  d0						; Sign extend word to long
+	move.b GameObj_SpeedDiv(a0), d1
+	divs   d1, d0
+	
 	; Apply acceleration
 	move.w GameObj_VelX(a0), d1	; Fetch X velocity from RAM
 	add.w  d0, d1				; Add X acceleration
@@ -228,6 +236,13 @@ GameObjApplyAccelDecel:
 	; Decelerate from positive X velocity towards 0
 	@DecelFromPos:
 	move.w GameObj_DecelX(a0), d1
+	
+	; Apply speed div
+	clr.l  d2
+	ext.l  d1						; Sign extend word to long
+	move.b GameObj_SpeedDiv(a0), d2
+	divs   d2, d1
+	
 	sub.w d1, GameObj_VelX(a0)
 	cmp.w #0x0, GameObj_VelX(a0)				; Clamp to 0
 	bge @EndAccelDecel
@@ -237,6 +252,13 @@ GameObjApplyAccelDecel:
 	; Decelerate from negative X velocity towards 0
 	@DecelFromNeg:
 	move.w GameObj_DecelX(a0), d1
+	
+	; Apply speed div
+	clr.l  d2
+	ext.l  d1						; Sign extend word to long
+	move.b GameObj_SpeedDiv(a0), d2
+	divs   d2, d1
+	
 	add.w d1, GameObj_VelX(a0)
 	cmp.w #0x0, GameObj_VelX(a0)				; Clamp to 0
 	ble @EndAccelDecel
@@ -255,6 +277,13 @@ GameObjApplyGravity:
 	clr.l  d0
 	move.w GameObj_VelY(a0), d0
 	move.w GameObj_Gravity(a0), d1
+	
+	; Apply speed div
+	clr.l  d2
+	ext.l  d1						; Sign extend word to long
+	move.b GameObj_SpeedDiv(a0), d2
+	divs   d2, d1
+	
 	sub.w  d1, d0
 	clr.w d2
 	sub.w GameObj_MaxVelYDown(a0), d2
@@ -274,16 +303,30 @@ GameObjApplyVelocity:
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0			; Get velocity
 	ext.l  d0							; Sign extend word to long
-	move.l Entity_WorldPosX(a0), d1	; Get pos
+	
+	; Apply speed div
+	clr.l  d1
+	move.b GameObj_SpeedDiv(a0), d1
+	divs   d1, d0
+	
+	ext.l  d0							; Sign extend word to long
+	move.l Entity_WorldPosX(a0), d1		; Get pos
 	add.l d0, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
 	
 	; Move player Y by velocity
 	move.w GameObj_VelY(a0), d0			; Fetch Y pos from RAM
 	ext.l  d0							; Sign extend word to long
-	move.l Entity_WorldPosY(a0), d1	; Get Y pos
+	
+	; Apply speed div
+	clr.l  d1
+	move.b GameObj_SpeedDiv(a0), d1
+	divs   d1, d0
+	
+	ext.l  d0							; Sign extend word to long
+	move.l Entity_WorldPosY(a0), d1		; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
-	move.l d1, Entity_WorldPosY(a0)	; Put new Y pos back in RAM
+	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
 
 	rts
 
