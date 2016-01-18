@@ -3,8 +3,14 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   globals.asm - Framework constants
+;   globals.asm - Gamelib constants
 ;==============================================================
+
+; Entity types
+entity_type_gameobj   equ (1<<0)
+entity_type_animobj   equ (1<<1)
+entity_type_character equ (1<<2)
+entity_type_pickup    equ (1<<3)
 
 ; Serialisation
 serialise_dir_in	equ 0x0

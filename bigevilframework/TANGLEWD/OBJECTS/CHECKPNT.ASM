@@ -23,6 +23,9 @@ CheckpointInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Set type
+	addi.l #entity_type_checkpoint, Entity_TypeBits(a0)
+	
 	; Set update and serialise routines
 	move.l #CheckpointUpdate, Entity_UpdateRoutine(a0)
 	move.l #CheckpointSerialise, Entity_SerialiseRoutine(a0)

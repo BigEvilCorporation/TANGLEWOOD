@@ -26,6 +26,9 @@ ObstacleInit:
 	; Base init
 	jsr GameObjInit
 	
+	; Set type
+	addi.l #entity_type_obstacle, Entity_TypeBits(a0)
+	
 	; Set update and render routines
 	move.l #GameObjUpdate, Entity_UpdateRoutine(a0)
 	move.l #GameObjDraw, Entity_RenderRoutine(a0)

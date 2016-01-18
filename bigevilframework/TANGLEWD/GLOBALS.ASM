@@ -6,8 +6,18 @@
 ;   globals.asm - Game constants
 ;==============================================================
 
-; Art decompresioj buffer size (needs to be at least the size of largest asset)
-ArtScratchBufferSize	 equ (1024*10)
+; Entity types
+entity_type_boulder		 equ (1<<16)
+entity_type_checkpoint	 equ (1<<17)
+entity_type_firefly		 equ (1<<18)
+entity_type_flue		 equ (1<<19)
+entity_type_fuzzl		 equ (1<<20)
+entity_type_leaf		 equ (1<<21)
+entity_type_monster		 equ (1<<22)
+entity_type_nest		 equ (1<<23)
+entity_type_obstacle	 equ (1<<24)
+entity_type_player		 equ (1<<25)
+entity_type_trigger		 equ (1<<26)
 
 ; Sprite plane border (pixels/nybbles)
 SpritePlaneWidth		 equ 0x0200

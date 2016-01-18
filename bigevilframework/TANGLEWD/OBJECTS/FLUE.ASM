@@ -31,6 +31,9 @@ FlueInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Set type
+	addi.l #entity_type_flue, Entity_TypeBits(a0)
+
 	; Set update routine
 	move.l #FlueUpdate, Entity_UpdateRoutine(a0)
 	

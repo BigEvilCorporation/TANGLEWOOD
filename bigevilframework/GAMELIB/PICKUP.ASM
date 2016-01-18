@@ -20,6 +20,9 @@ PickupInit:
 
 	; Base functionality
 	jsr AnimObjInit
+	
+	; Set type
+	addi.l #entity_type_pickup, Entity_TypeBits(a0)
 
 	; Default state
 	move.b #0x1, GameObj_Active(a0)

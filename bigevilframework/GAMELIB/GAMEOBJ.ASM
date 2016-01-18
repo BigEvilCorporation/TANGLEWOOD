@@ -61,6 +61,9 @@ GameObjInit:
 	dbra   d0, @ClrLp
 	move.l (sp)+, a0
 	
+	; Set type
+	addi.l #entity_type_gameobj, Entity_TypeBits(a0)
+	
 	move.b #0x1, GameObj_Active(a0)
 	move.b #0x1, GameObj_Visible(a0)
 	move.b #0x0, GameObj_SpriteLinked(a0)

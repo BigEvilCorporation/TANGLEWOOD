@@ -53,6 +53,9 @@ Player1ColourChangeSpeed 	equ 0x0030
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
 Player1MaxGlideVelocityY	equ 0x01*SubpixelsPerPixel
 
+; Time ability
+Player1SlowTimeDiv			equ 0x10
+
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
 Player1PushBoundsWidthOuter equ 0x20
@@ -61,7 +64,7 @@ Player1PushBoundsMaxXInner	equ ((Player1Width/2)+(Player1PushBoundsWidthInner/2)
 Player1PushBoundsMinXOuter	equ ((Player1Width/2)-(Player1PushBoundsWidthOuter/2))
 Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2))
 
-Player1_PushAnimSpeedVelocityDiv equ 0x0004
+Player1PushAnimSpeedVelocityDiv equ 0x0004
 
 ; Animations
 PlayerAnimIdx_Switch equ 0
@@ -87,7 +90,10 @@ PlayerInit:
 	; a1 --- Level addr
 	
 	; Base functionality
-	jsr CharacterInit
+	jsr    CharacterInit
+	
+	; Set type
+	addi.l #entity_type_player, Entity_TypeBits(a0)
 	
 	; Set update and render routines
 	move.l #PlayerUpdate, Entity_UpdateRoutine(a0)
@@ -293,21 +299,21 @@ PlayerColourAbility:
 	; Get colour
 	move.b Player_Colour(a0), d0
 	
-	cmp.b #ColourRed, d0
-	beq   @Red
-	cmp.b #ColourYellow, d0
-	beq   @Yellow
-	cmp.b #ColourGreen, d0
-	beq   @Green
-	cmp.b #ColourBlue, d0
-	beq   @Blue
-	bra   @NoColour
+	cmp.b  #ColourRed, d0
+	beq    @Red
+	cmp.b  #ColourYellow, d0
+	beq    @Yellow
+	cmp.b  #ColourGreen, d0
+	beq    @Green
+	cmp.b  #ColourBlue, d0
+	beq    @Blue
+	bra    @NoColour
 	
 	; ************************************
 	; Red
 	; ************************************
 	@Red:
-	bra   @End
+	bra    @End
 	
 	; ************************************
 	; Yellow
@@ -333,28 +339,92 @@ PlayerColourAbility:
 	move.b #0x1, Character_Gliding(a0)						; Set gliding
 	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
 	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
-	bra   @End
+	bra    @End
 	
-	; ************************************
-	; Green
-	; ************************************
-	@Green:
-	bra   @End
-	
-	; ************************************
-	; Blue
-	; ************************************
-	@Blue:
-	bra   @End
-	
-	@NoColour:
 	@ResetGlide:
 	
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
 	move.w #Player1MaxVelXWalk, GameObj_MaxVelX(a0)			; Reset max velocity
 	move.w #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	bra    @End
 	
+	; ************************************
+	; Green
+	; ************************************
+	@Green:
+	
+	; If interacting
+	move.b Character_Interacting(a0), d0
+	cmp.b  #0x0, d0
+	beq    @SpeedUp
+	
+	; Slow down global time
+	cmp.b  #Player1SlowTimeDiv, GlobalTimeDiv
+	beq    @End
+	addi.b #0x1, GlobalTimeDiv
+	bra    @ApplyTime
+	
+	@SpeedUp:
+	
+	; Speed up
+	cmp.b  #0x1, GlobalTimeDiv
+	beq    @End
+	subi.b #0x1, GlobalTimeDiv
+	
+	@ApplyTime:
+	
+	; Apply to all GameObjs and AnimObjs (except players)
+	
+	; TODO: Pointer array per entity type
+	move.b (GlobalTimeDiv), d0
+	move.l (EntityListSize_Update), d1	 ; Get entity list size
+	subi.l #0x1, d1						 ; -1 for loop
+	move.l (EntityListHead_Update), a2	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	
+	; Check type
+	move.l Entity_TypeBits(a2), d2
+	
+	; Check if player obj
+	move.l d2, d3
+	andi.l #entity_type_player, d3
+	cmp.l  #0x0, d3
+	bne    @PlayerObj
+	
+	; Check if game obj
+	move.l d2, d3
+	andi.l #entity_type_gameobj, d3
+	cmp.l  #0x0, d3
+	beq    @NotGameObj
+	
+	; Entity is a game obj
+	move.b d0, GameObj_SpeedDiv(a2)
+	
+	; Check if animobj
+	move.l d2, d3
+	andi.l #entity_type_animobj, d3
+	cmp.l  #0x0, d3
+	beq    @NotAnimObj
+	
+	; Entity is an anim obj
+	move.b d0, AnimObj_SpeedDiv(a2)
+	
+	@PlayerObj:
+	@NotGameObj:
+	@NotAnimObj:
+	move.l Entity_UpdateNext(a2), a2	 ; Get next ptr
+	dbra   d1, @EntityLp				 ; Loop
+	
+	bra    @End
+	
+	; ************************************
+	; Blue
+	; ************************************
+	@Blue:
+	bra    @End
+	
+	@NoColour:
 	@End:
 
 	rts
@@ -531,7 +601,7 @@ PlayerInteract_Fuzzls:
 	bgt    @Fwd
 	neg.w  d0
 	@Fwd:
-	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
+	divs.w #Player1PushAnimSpeedVelocityDiv, d0
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
@@ -737,7 +807,7 @@ PlayerInteract_Boulders:
 	bgt    @Fwd
 	neg.w  d0
 	@Fwd:
-	divs.w #Player1_PushAnimSpeedVelocityDiv, d0
+	divs.w #Player1PushAnimSpeedVelocityDiv, d0
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2

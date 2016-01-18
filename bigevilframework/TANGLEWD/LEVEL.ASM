@@ -427,6 +427,9 @@ LevelReset:
 	move.l  #Pal_Nymn_Green, (a0)+	; Green
 	move.l  #Pal_Nymn_Yellow, (a0)+; Yellow
 	
+	; Colour abilities
+	move.b  #0x1, GlobalTimeDiv
+	
 	; World
 	move.w  #Gravity, LevelGravity
 	move.w  #0x0, TimeOfDayShiftDelay

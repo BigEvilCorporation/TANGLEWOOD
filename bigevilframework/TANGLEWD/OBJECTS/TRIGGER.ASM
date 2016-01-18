@@ -34,6 +34,9 @@ TriggerBoxInit:
 	; Base init
 	jsr GameObjInit
 	
+	; Set type
+	addi.l #entity_type_trigger, Entity_TypeBits(a0)
+	
 	; Set update routine
 	move.l #TriggerBoxUpdate, Entity_UpdateRoutine(a0)
 	

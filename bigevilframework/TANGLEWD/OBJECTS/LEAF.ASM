@@ -42,6 +42,9 @@ LeafInit:
 	; Base init
 	jsr AnimObjInit
 	
+	; Set type
+	addi.l #entity_type_leaf, Entity_TypeBits(a0)
+	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)

@@ -8,21 +8,33 @@
 
 
 gameobjects_lvl1:
-gameobjects_Fuzzl_count equ 1
+gameobjects_Fuzzl_count equ 2
 LoadGameObjects_Fuzzl:
 Fuzzl_22:
 	jsr FuzzlInit
 	move.l #0x00061800, Entity_WorldPosX(a0)
 	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	add.l #Fuzzl_Struct_Size, a0
+Fuzzl_48:
+	jsr FuzzlInit
+	move.l #0x000e8000, Entity_WorldPosX(a0)
+	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.b #ColourGreen, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_Nest_count equ 1
+gameobjects_Nest_count equ 2
 LoadGameObjects_Nest:
 Nest_45:
 	jsr NestInit
 	move.l #0x0003d000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
+	add.l #Nest_Struct_Size, a0
+Nest_49:
+	jsr NestInit
+	move.l #0x000ce000, Entity_WorldPosX(a0)
+	move.l #0x00018800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
 	rts
 

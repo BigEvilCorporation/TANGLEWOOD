@@ -25,7 +25,11 @@ NestInit:
 	
 	; Base init
 	jsr    GameObjInit
+	
+	; Set type
+	addi.l #entity_type_nest, Entity_TypeBits(a0)
 
+	; Set default state
 	move.w #Nest_Width, Entity_Width(a0)
 	move.w #Nest_Height, Entity_Height(a0)
 	move.b #0x0, Nest_Occupied(a0)

@@ -35,10 +35,17 @@ LoadTiles:
 	and.l   #0x0000FFFF, d1
 	sub.w	#0x1, d1				; Num tiles - 1
 	@CharCopy:
-	move.w	#0x07, d2				; 8 longwords in tile
-	@LongCopy:
-	move.l	(a0)+, vdp_data			; Copy one line of tile to VDP data port
-	dbra	d2, @LongCopy
+	
+	; 8 longwords in tile
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	
 	dbra	d1, @CharCopy
 	
 	rts
@@ -252,31 +259,17 @@ SetSpriteAnimFrame:
 	add.l  d4, d2          ; Add to sprite data address
 	move.l d2, a0          ; Back to address register
 
-	IFND DMA_FROM_CART
+	IFD DMA_FROM_CART
 
-	; Can't DMA from cart, copy to scratch buffer first
-	lea     art_scratch_buffer, a1
-	
-	; Copy tiles to scratch buffer
-	move.w  d1, d2
-	sub.w	#0x1, d2			; Num tiles - 1
-	@TileLp:
-	movem.l (a0), d3-d6/a3-a6	; Copy whole tile to regs (32 bytes = 8 regs)
-	movem.l d3-d6/a3-a6, (a1)	; Copy whole tile to dest address
-	add.l   #size_tile_b, a0	; Increment source address
-	add.l   #size_tile_b, a1	; Increment dest address
-	dbra	d2, @TileLp
-	
-	; DMA from scratch buffer
-	lea     art_scratch_buffer, a0
-	jsr     VPDDMACopyVRAM
-	
-	ELSE
-	
 	; Add DMA job
 	mulu.w  #size_tile_w, d1
 	jsr     VDPDMAQueue_AddJob
 	jsr     VDPDMAQueue_ExecuteAll
+	
+	ELSE
+	
+	; Can't DMA from cart, load inline
+	jsr    LoadTiles
 	
 	ENDIF
 	

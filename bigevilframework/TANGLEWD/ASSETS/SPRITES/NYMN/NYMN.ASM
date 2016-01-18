@@ -74,8 +74,6 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\glide_2.asm'
 	include 'assets\sprites\nymn\glide_3.asm'
 	
-	ENDIF
-	
 	; Dead
 	include 'assets\sprites\nymn\dead_0.asm'
 	include 'assets\sprites\nymn\dead_1.asm'
@@ -92,6 +90,8 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\dead_12.asm'
 	include 'assets\sprites\nymn\dead_13.asm'
 	include 'assets\sprites\nymn\dead_14.asm'
+	
+	ENDIF
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
 sprite_nymn_subsprite_pos_offsets:

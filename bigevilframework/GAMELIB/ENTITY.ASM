@@ -8,6 +8,8 @@
 
 	rsset 0
 ;-----------------------------
+Entity_TypeBits         rs.l 1 ; Entity type bits
+;-----------------------------
 Entity_UpdateRoutine	rs.l 1 ; Update subroutine address
 Entity_RenderRoutine	rs.l 1 ; Render subroutine address
 Entity_SerialiseRoutine	rs.l 1 ; Save/load subroutine address

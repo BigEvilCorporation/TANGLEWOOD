@@ -17,19 +17,25 @@ AnimObj_SpeedDiv  	     rs.b 1
 AnimObj_Playing  	     rs.b 1
 AnimObj_Dirty		     rs.b 1
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 2
+AnimObj_Struct_Pad       rs.b 1
 AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
 
 AnimObjInit:
 	jsr GameObjInit
+	
+	; Set type
+	addi.l #entity_type_animobj, Entity_TypeBits(a0)
+	
+	; Set default state
 	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
 	move.l #0x0, GameObj_TilesetAddr(a0)
 	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
+	
 	rts
 
 AnimObjDraw:

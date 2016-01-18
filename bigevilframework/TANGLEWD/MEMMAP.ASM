@@ -27,7 +27,7 @@ __padding00			  rs.b 3
 profile_pending		  rs.b 1
 profile_finished	  rs.b 1
 profile_active		  rs.b 1
-__padding			  rs.b 1
+__padding01 		  rs.b 1
 profile_currblock	  rs.l 1
 profile_nextfreeblock rs.l 1
 profile_resultblocks  rs.b (ProfileBlockStructSize*ProfileMaxBlocks)
@@ -57,7 +57,7 @@ vdp_queue_consumeridx rs.l 1
 vdp_dma_queue		  rs.b (VDPDMAJob_Struct_Size*VDPDmaQueue_MaxSize)
 vdp_dma_queue_size    rs.w 1
 
-__padding			  rs.b 2
+__padding02 		  rs.b 2
 
 ; ************************************
 ; VDP sprite table
@@ -69,11 +69,6 @@ vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
 ; ************************************
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
-
-; ************************************
-; Art decompression/scratch buffer
-; ************************************
-art_scratch_buffer  rs.b ArtScratchBufferSize
 
 ; ************************************
 ; Timers
@@ -90,7 +85,7 @@ TimeOfDayShiftDelay rs.w 1
 TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night
 
-__padding01			rs.b 3
+__padding03			rs.b 3
 
 ; ************************************
 ; Camera, V/H scroll and map streaming
@@ -113,17 +108,17 @@ MapStreamNumRows	 rs.w 1
 ; ************************************
 ; Game globals
 ; ************************************
-Gamepad1PrevState   rs.w 1
-Gamepad2PrevState   rs.w 1
+Gamepad1PrevState    rs.w 1
+Gamepad2PrevState    rs.w 1
 
 ; Palette lerping
-PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
+PaletteLerp_Array    rs.b (PaletteLerp_Struct_Size*num_palettes)
 
 ; Switching colour palettes - player 1
-SwitchingPalettesP1 rs.l NumSwitchingColours
+SwitchingPalettesP1  rs.l NumSwitchingColours
 
 ; Current game state
-GameStatePtr		rs.l 1
+GameStatePtr		 rs.l 1
 
 ; ************************************
 ; Checkpoints
@@ -132,11 +127,18 @@ LastActivatedCheckpoint      rs.l 1
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
+; Colour abilities
+; ************************************
+GlobalTimeDiv			 rs.b 1
+
+__padding04			     rs.b 3
+
+; ************************************
 ; Debug stuff
 ; ************************************
 	IFND FINAL
-DebugMoveObjectMode     rs.b 1
-__padding02			    rs.b 3
+DebugMoveObjectMode      rs.b 1
+__padding05			     rs.b 3
 	ENDIF
 
 ; ************************************
@@ -172,7 +174,6 @@ reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"
 	inform 0,"Reserved RAM: %d bytes (%dkb)", reserved_ram_size, (reserved_ram_size/1024)
-	inform 0,"Scratch buffer: %d bytes (%dkb)", ArtScratchBufferSize, (ArtScratchBufferSize/1024)
 	inform 0,"-----------------------------------"
 	inform 0,""
 

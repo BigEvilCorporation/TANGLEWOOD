@@ -47,12 +47,13 @@ __start
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
 	include '..\gamelib\colour.asm'
-	include '..\gamelib\state.asm'
+	include '..\gamelib\globals.asm'
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\pickup.asm'
 	include '..\gamelib\physics.asm'
 	include '..\gamelib\sprites.asm'
+	include '..\gamelib\state.asm'
 	include '..\gamelib\stream.asm'
 
 	IFD DEBUG

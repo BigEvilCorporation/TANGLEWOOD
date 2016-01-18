@@ -87,6 +87,9 @@ FuzzlInit:
 	; Base init
 	jsr    AnimObjInit
 	
+	; Set type
+	addi.l #entity_type_fuzzl, Entity_TypeBits(a0)
+	
 	; Set update and render routines
 	move.l #FuzzlUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
@@ -108,7 +111,7 @@ FuzzlInit:
 	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
 	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.b  #ColourYellow, Fuzzl_Colour(a0)
+	move.b  #ColourRed, Fuzzl_Colour(a0)
 	
 	; Setup animations
 	move.l a0, a2
