@@ -120,7 +120,7 @@ AnimObjDraw:
 	cmp.b  #0x0, AnimObj_Dirty(a0)
 	bne    @SkipFrameCheck
 	
-	; Skip if no change in frame # (need a way to mark as 'dirty' if anim data has changed)
+	; Skip if no change in frame #
 	cmp.l  d1, d2
 	beq    @NoFrameChange  ; Branch if no frame change
 

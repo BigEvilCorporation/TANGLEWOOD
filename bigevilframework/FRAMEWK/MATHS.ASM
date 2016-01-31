@@ -83,14 +83,12 @@ VectorDistSq:
 	
 	sub.w  d1, d0	; Vec2.y - Vec1.y
 	move.w d0, d2
-	ext.l  d2  
 	muls   d2, d2	; Square
 	
 	swap   d0
 	swap   d1
 	
 	sub.w  d1, d0	; Vec2.x - Vec1.x
-	ext.l  d0
 	muls   d0, d0	; Square
 	
 	add.l  d2, d0

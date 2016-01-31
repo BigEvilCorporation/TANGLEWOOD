@@ -147,6 +147,7 @@ SetMultiSpritePosX:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
+	andi.w  #0x00FF, d0
 	mulu.w  #size_spritedesc, d0          
 	add.l   d0, a0
 	
@@ -204,6 +205,7 @@ SetMultiSpritePosY:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
+	andi.w  #0x00FF, d0
 	mulu.w  #size_spritedesc, d0          
 	add.l   d0, a0
 	

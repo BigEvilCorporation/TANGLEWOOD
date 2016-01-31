@@ -333,27 +333,10 @@ MonsterUpdateWaitForPlayer:
 	beq    @PlayerDead
 
 	; Get distance to player
-	;move.l a1, -(sp)
-	;jsr    GameObjectDistSq
-
-	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d0
-	swap   d0
-	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d0
-	
-	lea    Player1, a2
-	move.l Entity_WorldPosX(a2), d2	; Player X
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d1
-	swap   d1
-	move.l Entity_WorldPosY(a2), d2	; Player Y
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d1
-	
-	jsr   VectorDistSq					; Calc distance
+	move.l a1, -(sp)
+	move.l #Player1, a1
+	jsr    GameObjectDistSq
+	move.l (sp)+, a1
 
 	cmp.l #Monster_AlertDistanceSq, d0
 	bgt   @OutOfPlayerRange

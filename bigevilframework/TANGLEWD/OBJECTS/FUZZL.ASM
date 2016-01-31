@@ -184,24 +184,10 @@ FuzzlUpdate:
 	beq    @MovedFromInitialPos
 
 	; Check if Fuzzl is far from player
-	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d0
-	swap d0
-	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d0
-	
-	lea Player1, a2
-	move.l Entity_WorldPosX(a2), d2	; Player X
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d1
-	swap d1
-	move.l Entity_WorldPosY(a2), d2	; Player Y
-	lsr.l  #0x8, d2						; Screen space
-	move.w d2, d1
-	
-	jsr VectorDistSq					; Calc distance (result sq'd in d0)
+	move.l a1, -(sp)
+	move.l #Player1, a1
+	jsr    GameObjectDistSq
+	move.l (sp)+, a1
 	
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outer distance
 	bne    @CheckOuterDist
