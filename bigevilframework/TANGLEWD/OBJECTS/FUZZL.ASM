@@ -488,8 +488,8 @@ FuzzlUpdateAnimation:
 	jmp    @EndAnim
 
 	@AnimWatch:
-	move.l #FuzzlAnimIdx_Watch, d0
 	jsr    FuzzlUpdateEyes
+	move.l #FuzzlAnimIdx_Watch, d0
 	jmp    @EndAnim
 
 	@AnimRoll:

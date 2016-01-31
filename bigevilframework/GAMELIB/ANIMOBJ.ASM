@@ -150,7 +150,7 @@ AnimObjDraw:
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
 	clr.l  d3
-	move.b Animation_Length(a0), d3	; Get anim length
+	move.b Animation_Length(a2), d3	; Get anim length
 	divu   d3, d2          				; Div frame count against num anim frames
 	clr.w  d2							; Clear exponent
 	swap   d2			   				; Remainder to lower word
