@@ -352,7 +352,7 @@ FuzzlUpdateBounce:
 	; Set anim speed if off ground
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a2
 
 	move.b GameObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
