@@ -31,6 +31,7 @@
     ; Level maps
     ; ************************************
 	include 'assets\maps\map_lvl1.asm'
+	include 'assets\maps\map_lvl2.asm'
 	
 	; ************************************
     ; Collision tiles

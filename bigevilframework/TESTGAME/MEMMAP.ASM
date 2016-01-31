@@ -71,7 +71,7 @@ PaletteLerp_Array   rs.b (PaletteLerp_Struct_Size*num_palettes)
 ; ************************************
 ; Game objects
 ; ************************************
-GameObjArray_Players rs.b (Player_Struct_Size*Player_MaxGameObjs)
-GameObjArray_Pickups rs.b (Pickup_Struct_Size*Pickup_MaxGameObjs)
+EntityArray_Players rs.b (Player_Struct_Size*Player_MaxEntities)
+;EntityArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 
 __endOfMemoryMap	rs.b 0

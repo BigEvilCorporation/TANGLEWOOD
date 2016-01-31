@@ -42,7 +42,7 @@ MapStreamWidth	 		 equ vdp_plane_width
 MapStreamHeight	 		 equ vdp_plane_height
 
 ; Global player addresses
-Player1 				 equ (GameObjArray_Players)
+Player1 				 equ (EntityArray_Players)
 
 ; Player dimensions
 Player1Width	  equ 0x0028
@@ -78,5 +78,4 @@ Player1ProbeLedgeY  equ 0x02			  ; Ledge detection probe position Y
 ;==============================================================
 ;   Object counts
 ;==============================================================
-Player_MaxGameObjs equ 0x1
-Pickup_MaxGameObjs equ 0x1
+Player_MaxEntities equ 0x1

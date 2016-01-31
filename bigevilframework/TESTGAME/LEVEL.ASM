@@ -119,7 +119,7 @@ LevelLoadGameObjArt:
 	; d3 (b) Palette ID
 
 	; Player 1
-	move.l #GameObjArray_Players, a0
+	move.l #EntityArray_Players, a0
 	lea    Tiles_Sonic, a1
 	lea    sprite_sonic_subsprite_dimensions_bits, a2
 	lea    sprite_sonic_subsprite_dimensions, a3
@@ -137,33 +137,7 @@ LevelCreatePlayers:
 
 	; Player 1
 	move.l #Player1, a0
-
 	jsr     PlayerInit
-	
-	move.l  #Player1StartPosWorldX, GameObj_WorldPosX(a0)
-	move.l  #Player1StartPosWorldY, GameObj_WorldPosY(a0)
-	move.w  #Player1Width, GameObj_Width(a0)
-	move.w  #Player1Height, GameObj_Height(a0)
-	move.w  #Player1MaxVelXWalk, GameObj_MaxVelX(a0)
-	move.w  #Player1MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
-	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Player1ProbeFloorLen, GameObj_FloorProbeLen(a0)
-
-	move.w  #Player1StepHeight, Character_StepHeight(a0)
-	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Player1AccelWalk, Character_AccelWalk(a0)
-	move.w  #Player1AccelRun, Character_AccelRun(a0)
-	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
-	move.w  #Player1DecelForced, Character_DecelForced(a0)
-	move.w  #Player1JumpVel, Character_JumpVel(a0)
-	move.w  #Player1JumpCancelVel, Character_JumpCancelVel(a0)
-	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
-	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	rts
 	
@@ -178,8 +152,8 @@ LevelUpdateGameObjs:
 	; TODO: This needs a macro, or vtable or something
 	
 	; Characters
-	move.l #GameObjArray_Players, a0
-	move.l #Player_MaxGameObjs-1, d0
+	move.l #EntityArray_Players, a0
+	move.l #Player_MaxEntities-1, d0
 	@CharLoop:
 	move.l d0, -(sp)
 	jsr PlayerUpdate
@@ -187,39 +161,19 @@ LevelUpdateGameObjs:
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
 	
-	; Pickups
-	move.l #GameObjArray_Pickups, a0
-	move.l #Pickup_MaxGameObjs-1, d0
-	@PickupLoop:
-	move.l d0, -(sp)
-	jsr PickupUpdate
-	move.l (sp)+, d0
-	add.l  #Pickup_Struct_Size, a0
-	dbra   d0, @PickupLoop
-	
 	rts
 	
 LevelDrawGameObjs:
 
 	; Players
-	move.l #GameObjArray_Players, a0
-	move.l #Player_MaxGameObjs-1, d0
+	move.l #EntityArray_Players, a0
+	move.l #Player_MaxEntities-1, d0
 	@CharLoop:
 	move.l d0, -(sp)
 	jsr PlayerDraw
 	move.l (sp)+, d0
 	add.l  #Player_Struct_Size, a0
 	dbra   d0, @CharLoop
-	
-	; Pickups
-	move.l #GameObjArray_Pickups, a0
-	move.l #Pickup_MaxGameObjs-1, d0
-	@PickupLoop:
-	move.l d0, -(sp)
-	jsr PickupDraw
-	move.l (sp)+, d0
-	add.l  #Pickup_Struct_Size, a0
-	dbra   d0, @PickupLoop
 	
 	rts
 	

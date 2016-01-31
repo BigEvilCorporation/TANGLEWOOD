@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   watershd.asm - includes, setup, game flow, main loop
+;   testgame.asm - includes, setup, game flow, main loop
 ;==============================================================
 	
 	; Include SEGA Genesis ROM header and CPU vector table
@@ -42,7 +42,6 @@
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\physics.asm'
-	include '..\gamelib\pickup.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\stream.asm'
 
@@ -69,7 +68,8 @@ __main:
 	jsr      LoadTiles
 
 	; Set first level
-	move.l #Lvl1_GreenHill, CurrentLevel
+	;move.l #Lvl1_GreenHill, CurrentLevel
+	move.l #Lvl1_GreenHillLarge, CurrentLevel
 	
 	; Load assets
 	jsr LevelLoad
