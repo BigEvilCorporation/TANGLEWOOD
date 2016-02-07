@@ -248,7 +248,8 @@ PlayerUpdate:
 	; Base functionality
 	jsr CharacterUpdate
 	
-	; Not pushing by default
+	; Get and clear prev pushing state
+	move.b Character_Pushing(a0), d1
 	move.b #0x0, Character_Pushing(a0)
 
 	; Interaction
@@ -436,11 +437,9 @@ PlayerColourAbility:
 PlayerInteract_Fuzzls:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d1 --- Prev pushing state
 	
 	move.l a1, -(sp)
-
-	; Check if pushing, for inner or outer interaction box
-	move.b Character_Pushing(a0), d1
 	
 	; Character must be interacting
 	move.b Character_Interacting(a0), d0
@@ -448,9 +447,10 @@ PlayerInteract_Fuzzls:
 	beq    @NotInteracting
 	
 	; Character must be close to floor to interact with a Fuzzl
-	move.b GameObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
-	beq    @PlayerOffFloor
+	; TODO - CloseToFloor a bit erratic, needs debugging
+	;move.b GameObj_CloseToFloor(a0), d0
+	;cmp.b  #0x0, d0
+	;beq    @PlayerOffFloor
 	
 	; Check all Fuzzls
 	move.l #EntityArray_Fuzzls, a1
@@ -468,12 +468,14 @@ PlayerInteract_Fuzzls:
 	beq    @NotActive
 	
 	; Check if close to floor
-	move.b GameObj_CloseToFloor(a1), d0
-	cmp.b  #0x0, d0
-	beq    @FuzzlOffFloor
+	; TODO - CloseToFloor a bit erratic, needs debugging
+	;move.b GameObj_CloseToFloor(a1), d0
+	;cmp.b  #0x0, d0
+	;beq    @FuzzlOffFloor
 	
 	; Check if within bounds
 	move.l d6, -(sp)
+	move.l d1, -(sp)
 	
 	; If already pushing, check if stopped pushing using outer box
 	; (to stop anim flickering if it strays out by 1 pixel))
@@ -527,35 +529,35 @@ PlayerInteract_Fuzzls:
 	@GetFuzzlBounds:
 	
 	; Get Fuzzl bounds
-	jsr    GetGameObjBoundsA1D2D3
+	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
-	jsr TestBoxIntersectBox
+	jsr    TestBoxIntersectBox
+	move.l (sp)+, d1
 	move.l (sp)+, d6
 	
 	; Result in d0
-	cmp.b #0x0, d0
-	beq   @NotInRange
+	cmp.b  #0x0, d0
+	beq    @NotInRange
 
 	; In range, check if fuzzl is in its nest
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
 	bne    @Home
 	
 	; In range and not in a nest, begin interaction with Fuzzl - cancel run/jump movement
-	jsr  CharacterCancelRun
-	jsr  CharacterCancelJump
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
 	
 	; Check which side of Fuzzl
 	move.l Entity_WorldPosX(a0), d0	; Player X
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
 	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
 	add.l  #(Fuzzl_Width*SubpixelsPerPixel)/2, d1 ; Fuzzl X centre
-	move.w GameObj_VelX(a0), d2			; Player velocity X
 	cmp.l  d0, d1
-	bgt    @LeftOfFuzzl
+	bge    @LeftOfFuzzl
 	
 	; On right hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, d2
+	cmp.w  #0x0, GameObj_VelX(a0)
 	bgt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the left, correct penetration
@@ -564,7 +566,7 @@ PlayerInteract_Fuzzls:
 	move.l Entity_WorldPosX(a1), d1								; Fuzzl X
 	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 				; Fuzzl right
 	cmp.l  d0, d1
-	blt    @NotPenetratingLeft
+	ble    @NotPenetratingLeft
 	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
 	move.l d0, Entity_WorldPosX(a1)
 	@NotPenetratingLeft:
@@ -572,7 +574,7 @@ PlayerInteract_Fuzzls:
 	
 	@LeftOfFuzzl:
 	; On left hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, d2
+	cmp.w  #0x0, GameObj_VelX(a0)
 	blt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the right, correct penetration
@@ -580,7 +582,7 @@ PlayerInteract_Fuzzls:
 	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
 	move.l Entity_WorldPosX(a1), d1								; Fuzzl left
 	cmp.l  d0, d1
-	bgt    @NotPenetratingRight
+	bge    @NotPenetratingRight
 	move.l d0, Entity_WorldPosX(a1)
 	@NotPenetratingRight:
 
@@ -592,9 +594,9 @@ PlayerInteract_Fuzzls:
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a1)
 	
 	; Set its velocity to match
-	move.w d2, GameObj_VelX(a1)
+	move.w GameObj_VelX(a0), GameObj_VelX(a1)
 	
-	; Scale roll anim speed based on velocity
+	; Scale push anim speed based on velocity
 	clr.l  d0
 	move.w GameObj_VelX(a0), d0
 	cmp.w  #0x0, d0
@@ -607,7 +609,7 @@ PlayerInteract_Fuzzls:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.b d0, Animation_Speed(a2)
 	
-	bra @End
+	bra    @End
 	
 	@Home:
 	; Check if fuzzl still has its colour
@@ -621,11 +623,10 @@ PlayerInteract_Fuzzls:
 	beq    @NoColourMatch
 	
 	; Fuzzl is home, is in range, and has its colour - take its colour
-	; TODO: Compare colour, choose correct palette
 	move.b d0, Player_Colour(a0)
-	jsr PlayerBeginColourSwitch
+	jsr    PlayerBeginColourSwitch
 	
-	bra @End
+	bra    @End
 
 	@NotInRange:
 	@FuzzlOffFloor:
@@ -651,11 +652,9 @@ PlayerInteract_Fuzzls:
 PlayerInteract_Boulders:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d1 --- Prev pushing state
 	
 	move.l a1, -(sp)
-
-	; Check if pushing, for inner or outer interaction box
-	move.b Character_Pushing(a0), d1
 	
 	; Character must be interacting
 	move.b Character_Interacting(a0), d0
@@ -742,7 +741,7 @@ PlayerInteract_Boulders:
 	@GetBoulderBounds:
 	
 	; Get Boulder bounds
-	jsr    GetGameObjBoundsA1D2D3
+	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
 	jsr TestBoxIntersectBox

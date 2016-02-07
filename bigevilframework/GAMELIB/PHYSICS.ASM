@@ -83,8 +83,8 @@ TestGameObjBoxIntersectBox:
 	; a0 --- GameObj 1
 	; a1 --- GameObj 2
 	
-	jsr GetGameObjBoundsA0D0D1
-	jsr GetGameObjBoundsA1D2D3
+	jsr GetGameObjBoundsA0D1D2
+	jsr GetGameObjBoundsA1D3D4
 	jsr TestBoxIntersectBox
 	
 	rts
@@ -94,8 +94,8 @@ TestGameObjBoxInsideBox:
 	; a0 --- GameObj 1
 	; a1 --- GameObj 2
 	
-	jsr GetGameObjBoundsA0D0D1
-	jsr GetGameObjBoundsA1D2D3
+	jsr GetGameObjBoundsA0D1D2
+	jsr GetGameObjBoundsA1D3D4
 	jsr TestBoxInsideBox
 	
 	rts
@@ -128,8 +128,9 @@ GameObjectDistSq:
 	jsr    VectorDistSq
 
 	rts
-GetGameObjBoundsA0D0D1:
-	; d0/d1 (ww) Return value
+	
+GetGameObjBoundsA0D1D2:
+	; d1/d2 (ww) Return value
 	; a0 --- GameObj
 	
 	; Obj 1 min X
@@ -155,8 +156,8 @@ GetGameObjBoundsA0D0D1:
 	
 	rts
 	
-GetGameObjBoundsA1D2D3:
-	; d2/d3 (ww) Return value
+GetGameObjBoundsA1D3D4:
+	; d3/d4 (ww) Return value
 	; a1 --- GameObj
 	
 	; Obj 2 min X
