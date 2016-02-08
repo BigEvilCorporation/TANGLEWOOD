@@ -173,6 +173,7 @@ GameObjectDistSq:
 	jsr    VectorDistSq
 
 	rts
+	
 GetGameObjBoundsA0D1D2:
 	; d1/d2 (ww) Return value
 	; a0 --- GameObj
