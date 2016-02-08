@@ -66,6 +66,12 @@ Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2)
 
 Player1PushAnimSpeedVelocityDiv equ 0x0004
 
+; Interaction types
+Player_Interaction_None		equ 0x0
+Player_Interaction_Fuzzl	equ 0x1
+Player_Interaction_Boulder	equ 0x2
+Player_Interaction_Ability	equ 0x3
+
 ; Animations
 PlayerAnimIdx_Switch equ 0
 ; ------------------------
@@ -75,12 +81,14 @@ PlayerAnimIdx_Max    equ 1
 ; Struct
 ; ************************************
 	rsset (Character_Struct_Size)
-;--------------------------
-Player_Animations	 rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
-Player_Colour        rs.b 1
-;--------------------------
-Player_Struct_Pad    rs.b 3
-Player_Struct_Size   rs.b 0
+;----------------------------
+Player_Animations	   rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
+Player_InteractObject  rs.l 1	; Object player is interacting with
+Player_InteractionType rs.b 1	; Current interaction type
+Player_Colour          rs.b 1
+;----------------------------
+Player_Struct_Pad      rs.b 2
+Player_Struct_Size     rs.b 0
 
 ; ************************************
 ; Subroutines
@@ -129,6 +137,8 @@ PlayerInit:
 	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
+	move.l  #0x0, Player_InteractObject(a0)
+	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -246,20 +256,39 @@ PlayerUpdate:
 	; a1 --- Level addr
 	
 	; Base functionality
-	jsr CharacterUpdate
+	jsr    CharacterUpdate
 	
 	; Get and clear prev pushing state
 	move.b Character_Pushing(a0), d1
 	move.b #0x0, Character_Pushing(a0)
 
-	; Interaction
-	jsr PlayerInteract_Fuzzls
-	jsr PlayerInteract_Obstacles
-	jsr PlayerInteract_Boulders
-	jsr PlayerInteract_Fireflies
+	; Test for obstacles and pickups
+	jsr    PlayerTest_Obstacles
+	jsr    PlayerTest_Fireflies
 	
-	; Special colour abilities
-	jsr PlayerColourAbility
+	; Process interactions
+	move.b Player_InteractionType(a0), d0
+	cmp.b  #Player_Interaction_Fuzzl, d0
+	beq    @InteractFuzzl
+	cmp.b  #Player_Interaction_Boulder, d0
+	beq    @InteractBoulder
+	
+	; Not interacting, process special colour ability
+	jsr    PlayerColourAbility
+	bra    @NotInteracting
+	
+	@InteractFuzzl:
+	move.l Player_InteractObject(a0), a2
+	jsr    PlayerInteract_Fuzzl
+	bra    @Interacting
+	
+	@InteractBoulder:
+	move.l Player_InteractObject(a0), a2
+	jsr    PlayerInteract_Boulder
+	bra    @Interacting
+	
+	@Interacting:
+	@NotInteracting:
 	
 	rts
 
@@ -434,23 +463,62 @@ PlayerColourAbility:
 ; Player interaction routines
 ;==============================================================
 
-PlayerInteract_Fuzzls:
+PlayerStartInteract:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	; Check if player dead
+	cmp.b  #0x1, Character_Dead(a0)
+	beq    @Dead
+	
+	; Check if already interacting
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @AlreadyInteracting
+	
+	; Test for interactible objects in order of preference
+	jsr    PlayerInteractTest_Fuzzls
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
+	
+	jsr    PlayerInteractTest_Boulders
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
+	
+	; Test for special colour abilities
+	cmp.b  #ColourRed, Player_Colour(a0)
+	beq    @NoColourAbility
+	
+	; Performing colour ability
+	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
+	move.b #0x1, Character_Interacting(a0)
+	
+	@Dead:
+	@AlreadyInteracting:
+	@FoundInteraction:
+	@NoColourAbility:
+	
+	rts
+	
+PlayerCancelInteract:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	move.b #Player_Interaction_None, Player_InteractionType(a0)
+	move.l #0x0, Player_InteractObject(a0)
+	move.b #0x0, Character_Interacting(a0)
+	
+	rts
+	
+PlayerInteractTest_Fuzzls:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; d1 --- Prev pushing state
 	
 	move.l a1, -(sp)
 	
-	; Character must be interacting
-	move.b Character_Interacting(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NotInteracting
-	
 	; Character must be close to floor to interact with a Fuzzl
-	; TODO - CloseToFloor a bit erratic, needs debugging
-	;move.b GameObj_CloseToFloor(a0), d0
-	;cmp.b  #0x0, d0
-	;beq    @PlayerOffFloor
+	move.b GameObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	beq    @PlayerOffFloor
 	
 	; Check all Fuzzls
 	move.l #EntityArray_Fuzzls, a1
@@ -468,19 +536,13 @@ PlayerInteract_Fuzzls:
 	beq    @NotActive
 	
 	; Check if close to floor
-	; TODO - CloseToFloor a bit erratic, needs debugging
-	;move.b GameObj_CloseToFloor(a1), d0
-	;cmp.b  #0x0, d0
-	;beq    @FuzzlOffFloor
+	move.b GameObj_CloseToFloor(a1), d0
+	cmp.b  #0x0, d0
+	beq    @FuzzlOffFloor
 	
 	; Check if within bounds
 	move.l d6, -(sp)
 	move.l d1, -(sp)
-	
-	; If already pushing, check if stopped pushing using outer box
-	; (to stop anim flickering if it strays out by 1 pixel))
-	cmp.b #0x0, d1
-	bne   @Pushing
 	
 	; Get player interact box pos X min (inner)
 	move.l Entity_WorldPosX(a0), d1
@@ -502,9 +564,87 @@ PlayerInteract_Fuzzls:
 	add.w  Entity_Height(a0), d3
 	move.w d3, d2
 	
-	bra    @GetFuzzlBounds
+	; Get Fuzzl bounds
+	jsr    GetGameObjBoundsA1D3D4
 	
-	@Pushing:
+	; Test box intersection
+	jsr    TestBoxIntersectBox
+	move.l (sp)+, d1
+	move.l (sp)+, d6
+	
+	; Result in d0
+	cmp.b  #0x0, d0
+	beq    @NotInRange
+
+	; In range, check if fuzzl is in its nest
+	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
+	bne    @FuzzlHome
+	
+	; In range and not in a nest, begin interaction with Fuzzl
+	move.b #0x1, Character_Interacting(a0)
+	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
+	move.l a1, Player_InteractObject(a0)
+	
+	; Cancel run/jump movement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+	
+	bra    @End
+	
+	@FuzzlHome:
+	
+	; Check if fuzzl still has its colour
+	move.b Fuzzl_Colour(a1), d0
+	cmp.b  #ColourDrained, d0
+	beq    @NoColour
+	
+	; Check if Fuzzl's colour matches player
+	move.b Player_Colour(a0), d1
+	cmp.b  d0, d1
+	beq    @NoColourMatch
+	
+	; Fuzzl is home, is in range, and has its colour - take its colour
+	move.b d0, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+	
+	; Interacting until button depressed
+	move.b #0x1, Character_Interacting(a0)
+	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
+	move.l a1, Player_InteractObject(a0)
+	
+	bra    @End
+
+	@NotInRange:
+	@FuzzlOffFloor:
+	@NotPushingFuzzl:
+	@NotVisible:
+	@NotActive:
+	@NoColour:
+	@NoColourMatch:
+	@NextFuzzl:
+	
+	; Next Fuzzl
+	add.l #Fuzzl_Struct_Size, a1
+	dbra d6, @FuzzlLoop
+	
+	@NotInteracting:
+	@PlayerOffFloor:
+	@End:
+	
+	move.l (sp)+, a1
+	
+	rts
+
+PlayerInteract_Fuzzl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Fuzzl addr
+	
+	move.l a1, -(sp)
+	move.l a2, a1
+	
+	; Check if within bounds
+	move.l d6, -(sp)
 	
 	; Get player interact box pos X min (outer)
 	move.l Entity_WorldPosX(a0), d1
@@ -526,14 +666,11 @@ PlayerInteract_Fuzzls:
 	add.w  Entity_Height(a0), d3
 	move.w d3, d2
 	
-	@GetFuzzlBounds:
-	
 	; Get Fuzzl bounds
 	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
 	jsr    TestBoxIntersectBox
-	move.l (sp)+, d1
 	move.l (sp)+, d6
 	
 	; Result in d0
@@ -542,11 +679,7 @@ PlayerInteract_Fuzzls:
 
 	; In range, check if fuzzl is in its nest
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
-	bne    @Home
-	
-	; In range and not in a nest, begin interaction with Fuzzl - cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
+	bne    @FuzzlHome
 	
 	; Check which side of Fuzzl
 	move.l Entity_WorldPosX(a0), d0	; Player X
@@ -608,58 +741,20 @@ PlayerInteract_Fuzzls:
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.b d0, Animation_Speed(a2)
-	
-	bra    @End
-	
-	@Home:
-	; Check if fuzzl still has its colour
-	move.b Fuzzl_Colour(a1), d0
-	cmp.b  #ColourDrained, d0
-	beq    @NoColour
-	
-	; Check if Fuzzl's colour matches player
-	move.b Player_Colour(a0), d1
-	cmp.b  d0, d1
-	beq    @NoColourMatch
-	
-	; Fuzzl is home, is in range, and has its colour - take its colour
-	move.b d0, Player_Colour(a0)
-	jsr    PlayerBeginColourSwitch
-	
-	bra    @End
 
+	@FuzzlHome:
 	@NotInRange:
-	@FuzzlOffFloor:
 	@NotPushingFuzzl:
-	@NotVisible:
-	@NotActive:
-	@NoColour:
-	@NoColourMatch:
-	@NextFuzzl:
-	
-	; Next Fuzzl
-	add.l #Fuzzl_Struct_Size, a1
-	dbra d6, @FuzzlLoop
-	
-	@NotInteracting:
-	@PlayerOffFloor:
-	@End:
 	
 	move.l (sp)+, a1
 	
 	rts
 	
-PlayerInteract_Boulders:
+PlayerInteractTest_Boulders:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; d1 --- Prev pushing state
 	
 	move.l a1, -(sp)
-	
-	; Character must be interacting
-	move.b Character_Interacting(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NotInteracting
 	
 	; Character must be close to floor to interact with a Boulder
 	move.b GameObj_CloseToFloor(a0), d0
@@ -689,11 +784,6 @@ PlayerInteract_Boulders:
 	; Check if within bounds
 	move.l d6, -(sp)
 	
-	; If already pushing, check if stopped pushing using outer box
-	; (to stop anim flickering if it strays out by 1 pixel))
-	cmp.b #0x0, d1
-	bne   @Pushing
-	
 	; Get player interact box pos X min (inner)
 	move.l Entity_WorldPosX(a0), d1
 	lsr.l  #0x8, d1
@@ -714,10 +804,55 @@ PlayerInteract_Boulders:
 	add.w  Entity_Height(a0), d3
 	move.w d3, d2
 	
-	bra    @GetBoulderBounds
+	; Get Boulder bounds
+	jsr    GetGameObjBoundsA1D3D4
 	
-	@Pushing:
+	; Test box intersection
+	jsr    TestBoxIntersectBox
+	move.l (sp)+, d6
 	
+	; Result in d0
+	cmp.b  #0x0, d0
+	beq    @NotInRange
+
+	; Begin interaction with boulder
+	move.b #Player_Interaction_Boulder, Player_InteractionType(a0)
+	move.l a1, Player_InteractObject(a0)
+	move.b #0x1, Character_Interacting(a0)
+	
+	; Cancel run/jump movement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+
+	@NotInRange:
+	@BoulderOffFloor:
+	@NotVisible:
+	@NotActive:
+	@NextBoulder:
+	
+	; Next Boulder
+	add.l #Boulder_Struct_Size, a1
+	dbra d6, @BoulderLoop
+	
+	@NotInteracting:
+	@PlayerOffFloor:
+	@End:
+	
+	move.l (sp)+, a1
+	
+	rts
+	
+PlayerInteract_Boulder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Boulder addr
+	
+	move.l a1, -(sp)
+	move.l a2, a1
+	
+	; Check if within bounds
+	move.l d6, -(sp)
+
 	; Get player interact box pos X min (outer)
 	move.l Entity_WorldPosX(a0), d1
 	lsr.l  #0x8, d1
@@ -738,22 +873,16 @@ PlayerInteract_Boulders:
 	add.w  Entity_Height(a0), d3
 	move.w d3, d2
 	
-	@GetBoulderBounds:
-	
 	; Get Boulder bounds
 	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
-	jsr TestBoxIntersectBox
+	jsr    TestBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0
 	cmp.b #0x0, d0
 	beq   @NotInRange
-
-	; Begin interaction with Boulder - cancel run/jump movement
-	jsr  CharacterCancelRun
-	jsr  CharacterCancelJump
 	
 	; Check which side of Boulder
 	move.l Entity_WorldPosX(a0), d0	; Player X
@@ -812,28 +941,15 @@ PlayerInteract_Boulders:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.b d0, Animation_Speed(a2)
 	
-	bra @End
-
 	@NotInRange:
-	@BoulderOffFloor:
 	@NotPushingBoulder:
-	@NotVisible:
-	@NotActive:
-	@NextBoulder:
-	
-	; Next Boulder
-	add.l #Boulder_Struct_Size, a1
-	dbra d6, @BoulderLoop
-	
-	@NotInteracting:
-	@PlayerOffFloor:
 	@End:
 	
 	move.l (sp)+, a1
 	
 	rts
 	
-PlayerInteract_Obstacles:
+PlayerTest_Obstacles:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
@@ -949,7 +1065,7 @@ PlayerInteract_Obstacles:
 	
 	rts
 
-PlayerInteract_Fireflies:
+PlayerTest_Fireflies:
 
 	; a0 --- GameObj addr
 	; a1 --- Level addr

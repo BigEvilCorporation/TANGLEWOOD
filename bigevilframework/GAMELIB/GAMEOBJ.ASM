@@ -206,7 +206,7 @@ GameObjApplyAccelDecel:
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
 	jmp    @EndAccelDecel		; Within bounds
 	
-	IFD VEL_CLAMP
+	;IFD VEL_CLAMP
 	
 	move.w GameObj_MaxVelX(a0), d0	; Get max velocity +ve
 	cmp.w  d0, d1				; Compare
@@ -220,7 +220,7 @@ GameObjApplyAccelDecel:
 	move.w d0, GameObj_VelX(a0)
 	jmp    @EndAccelDecel
 	
-	ENDIF
+	;ENDIF
 	
 	@IdleXDecel:
 	

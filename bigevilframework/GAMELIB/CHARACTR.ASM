@@ -142,7 +142,7 @@ CharacterDealDamage:
 	jsr    CharacterCancelXMovement
 	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
-	jsr    CharacterCancelInteract
+	move.b #0x0, Character_Interacting(a0)
 	
 	; Cancel velocity
 	move.w #0x0, GameObj_VelX(a0)
@@ -513,25 +513,3 @@ CharacterCancelRun:
 	
 	rts
 	
-CharacterStartInteract:
-	; a0 --- GameObj addr
-	; NB: Gamepad state in d0-d1, leave alone
-	
-	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
-	beq    @Dead
-	
-	move.b #0x1, Character_Interacting(a0)
-	
-	@Dead:
-	
-	rts
-	
-CharacterCancelInteract:
-	; a0 --- GameObj addr
-	; NB: Gamepad state in d0-d1, leave alone
-	
-	move.b #0x0, Character_Interacting(a0)
-	
-	rts
