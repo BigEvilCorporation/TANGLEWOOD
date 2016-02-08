@@ -527,7 +527,7 @@ PlayerInteract_Fuzzls:
 	@GetFuzzlBounds:
 	
 	; Get Fuzzl bounds
-	jsr    GetGameObjBoundsA1D2D3
+	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
 	jsr TestBoxIntersectBox
@@ -742,7 +742,7 @@ PlayerInteract_Boulders:
 	@GetBoulderBounds:
 	
 	; Get Boulder bounds
-	jsr    GetGameObjBoundsA1D2D3
+	jsr    GetGameObjBoundsA1D3D4
 	
 	; Test box intersection
 	jsr TestBoxIntersectBox

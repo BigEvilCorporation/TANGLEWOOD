@@ -112,8 +112,8 @@ BoulderUpdate:
 	bne    @NextMonster
 	
 	; Bounds check
-	jsr   GetGameObjBoundsA0D0D1
-	jsr   GetGameObjBoundsA1D2D3
+	jsr   GetGameObjBoundsA0D1D2
+	jsr   GetGameObjBoundsA1D3D4
 	jsr   TestBoxIntersectBox
 	cmp.b #0x0, d0
 	beq   @NextMonster

@@ -31,12 +31,19 @@ Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
-Monster_PlayerTrackYWindow	equ Monster_Height
+Monster_PlayerVisibilityBoxX	equ 0x0200
+Monster_PlayerVisibilityBoxY	equ 0x0100
+
 ;Monster_AlertDistance		equ (0x0050*SubPixelsPerPixel)
 Monster_AlertDistance		equ 0x0030
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
+
+; Search state
+Monster_SearchRandMaxDist	equ 0x00FF	; Max distance for random X search pos (pixels)
+Monster_SearchRandMaskDelay	equ 0x00FF	; Mask for random delay between walks
+Monster_NearTargetDistance	equ (0x20*SubPixelsPerPixel)
 
 ; Emerge palette lerp speed
 Monster_EmergePalLerpSpeed  equ (0x1<<0x8)
@@ -72,10 +79,12 @@ Monster_NumAnims		equ 2
 	rsset (Character_Struct_Size)
 ;--------------------------
 Monster_Animations	  rs.b (Animation_Struct_Size*Monster_NumAnims)
+Monster_SearchTargetX rs.l 1
+Monster_SearchDelay	  rs.w 1
 Monster_Colour        rs.b 1
 Monster_State         rs.b 1
 ;--------------------------
-Monster_Struct_Pad    rs.b 2
+Monster_Struct_Pad    rs.b 0
 Monster_Struct_Size   rs.b 0
 
 ; ************************************
@@ -125,6 +134,8 @@ MonsterInit:
 	move.b  #0x1, GameObj_Active(a0)
 	move.b  #0x1, GameObj_Visible(a0)
 	move.b  #ColourRed, Monster_Colour(a0)
+	move.l  #0x0, Monster_SearchTargetX(a0)
+	move.w  #0x0, Monster_SearchDelay(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -248,6 +259,8 @@ MonsterUpdate:
 	beq   @Chasing
 	cmp.b #MonsterState_Attacking, d0
 	beq   @Attacking
+	cmp.b #MonsterState_Wandering, d0
+	beq   @Wandering
 
 	; ************************************
 	; In cave
@@ -284,6 +297,15 @@ MonsterUpdate:
 	; Attack
 	jsr MonsterUpdateBite
 	bra @EndStateMachine
+	
+	; ************************************
+	; Searching
+	; ************************************
+	@Wandering:
+
+	; Wander around
+	jsr MonsterUpdateSearchForPlayer
+	bra @EndStateMachine
 
 	; ************************************
 	; Dead
@@ -297,6 +319,51 @@ MonsterUpdate:
 	
 	; Base functionality
 	jsr CharacterUpdate
+	
+	rts
+	
+MonsterCheckPlayerVisible:
+	; d0 --- Return value
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Get monster visibility bounds X
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
+	move.w d1, d2
+	add.w  #(Monster_PlayerVisibilityBoxX/2), d2
+	swap   d1
+	swap   d2
+	
+	; Get monster visibility bounds Y
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d3
+	move.w d3, d1
+	move.w d3, d2
+	add.w  #(Monster_PlayerVisibilityBoxY/2), d2
+	
+	; Get player 1
+	move.l #Player1, a2
+	
+	; Get player centre X
+	move.l Entity_WorldPosX(a2), d3
+	lsr.l  #0x8, d3
+	move.w Entity_Width(a2), d4
+	lsr.w  #0x1, d4
+	add.w  d4, d3
+	swap   d3
+	
+	; Get player centre Y
+	move.l Entity_WorldPosY(a2), d4
+	lsr.l  #0x8, d4
+	move.w Entity_Height(a2), d5
+	lsr.w  #0x1, d5
+	add.w  d5, d4
+	move.w d4, d3
+	
+	jsr    TestPointInsideBox
 	
 	rts
 	
@@ -379,18 +446,141 @@ MonsterUpdateEmergeFromCave:
 	bne    @Lerping
 	
 	; Start chasing player
-	jsr    MonsterStartTrackPlayer
+	;jsr    MonsterStartTrackPlayer
+	jsr    MonsterStartSearchForPlayer
 	
 	@Lerping:
 
 	rts
+	
+MonsterStartSearchForPlayer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set wandering state
+	move.b  #MonsterState_Wandering, Monster_State(a0)
+	
+	; Start walking
+	jsr     CharacterCancelRun
+	
+	rts
 
+MonsterUpdateSearchForPlayer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Get player 1 addr
+	move.l #Player1, a2
+	
+	; If player dead, search around
+	cmp.b  #0x0, Character_Health(a2)
+	beq    @Searching
+	
+	; If player inactive, search around
+	cmp.b  #0x0, GameObj_Active(a2)
+	beq    @Searching
+	
+	; Check if player is within tracking window
+	;jsr    MonsterCheckPlayerVisible
+	;cmp.b  #0x0, d0
+	;beq    @Searching
+	
+	; Player visible, enter chase state
+	;jsr    MonsterStartTrackPlayer
+	;bra    @End
+	
+	@Searching:
+	
+	; If we have a target X
+	move.l Monster_SearchTargetX(a0), d0
+	cmp.l  #0x0, d0
+	bne    @HasTargetX
+	
+	; Get a random target X (-255 - 255)
+	jsr    RandLong								; Rand long
+	divu   #(Monster_SearchRandMaxDist*2), d0	; Div / max*2
+	clr.w  d0									; Clear exponent
+	swap   d0									; Remainder to lower word (0 - 512)
+	sub.w  #Monster_SearchRandMaxDist, d0		; Shift down to -255 - 255
+	muls   #SubPixelsPerPixel, d0				; To subpixels
+	add.l  Entity_WorldPosX(a0), d0				; Add to current X
+	
+	; Clamp to screen bounds
+	cmp.l  #0x0, d0								; Clamp screen left
+	bgt    @NoClampLeft
+	move.l #0x0, d0
+	@NoClampLeft:
+	clr.l  d1
+	move.w Level_MapWidth(a1), d1				; Clamp screen right
+	mulu   #0x8, d1								; Tiles to pixels
+	lsl.l  #0x8, d1								; Pixels to subpixels
+	cmp.l  d1, d0
+	blt    @NoClampRight
+	move.l d1, d0
+	@NoClampRight:
+	
+	; Set new target X
+	move.l d0, Monster_SearchTargetX(a0)
+	
+	@HasTargetX:
+	
+	; Check if in delay state
+	cmp.w  #0x0, Monster_SearchDelay(a0)
+	beq    @Move
+	
+	; Count down delay
+	sub.w  #0x1, Monster_SearchDelay(a0)
+	bra    @End
+	
+	@Move:
+	
+	; Check if hit a wall
+	cmp.b  #0x0, GameObj_HitWall(a0)
+	bne    @HitWall
+	
+	; Check if near target
+	move.l Entity_WorldPosX(a0), d0
+	sub.l  d1, d0
+	cmp.l  #0x0, d0
+	blt    @Pos
+	neg.l  d0
+	@Pos:
+	cmp.l  #Monster_NearTargetDistance, d1
+	blt    @ReachedTarget
+	
+	; Move towards target X
+	cmp.l  #0x0, d0
+	bgt    @MoveRight
+	
+	@MoveLeft:
+	jsr    CharacterMoveLeft
+	bra    @End
+	
+	@MoveRight:
+	jsr    CharacterMoveRight
+	bra    @End
+	
+	@HitWall:
+	@ReachedTarget:
+	
+	; Target reached or wall hit, randomise delay timer
+	jsr    RandLong
+	andi.l #Monster_SearchRandMaskDelay, d0
+	move.w d0, Monster_SearchDelay(a0)
+	
+	@End:
+	
+	rts
+	
 MonsterStartTrackPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
 	; Set chase state
 	move.b #MonsterState_Chasing, Monster_State(a0)
+	
+	; Start running
+	jsr    CharacterStartRun
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
@@ -417,6 +607,11 @@ MonsterUpdateTrackPlayer:
 	bge    @PlayerBeingFlung
 
 	; Check if within Y tolerance of player
+	move.l Entity_WorldPosY(a0), d0	; Top of monster
+	move.l Entity_WorldPosY(a2), d1	; Top of player
+	sub.l  d1, d0
+	cmp.l  #Monster_PlayerVisibilityBoxY, d0
+	bgt    @LostPlayer
 
 	; Get left positions
 	move.l Entity_WorldPosX(a0), d0	; Left of monster
@@ -451,7 +646,7 @@ MonsterUpdateTrackPlayer:
 	jsr    CharacterCancelXMovement
 
 	; Attack
-	jsr    MonsterStartBite
+	;jsr    MonsterStartBite
 	bra    @End
 
 	@LeftOfPlayer:

@@ -41,10 +41,11 @@ GameObj_SpriteLinked     rs.b 1	; Is sprite linked (use as last frame visibility
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
+GameObj_HitWall			 rs.b 1 ; Object is touching a wall
 GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 ;------------------------------
-GameObj_Struct_Pad       rs.b 2
+GameObj_Struct_Pad       rs.b 1
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -421,6 +422,9 @@ GameObjCollisionCorrection:
 	
 	;==============================================================
 	
+	; Clear hit wall flag
+	move.b #0x0, GameObj_HitWall(a0)
+	
 	; Get last wall collided with
 	move.l GameObj_LastWall(a0), d0
 	cmp.l  #0x0, d0
@@ -451,6 +455,9 @@ GameObjCollisionCorrection:
 	move.l d0, Entity_WorldPosX(a0)
 	
 	@EndWallClamp:
+	
+	; Wall hit
+	move.b #0x1, GameObj_HitWall(a0)
 	
 	; Cancel X velocity
 	move.w #0x0, GameObj_VelX(a0)
