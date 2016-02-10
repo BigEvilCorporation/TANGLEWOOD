@@ -467,6 +467,9 @@ PlayerStartInteract:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	move.l d0, -(sp)
+	move.l d1, -(sp)
+	
 	; Check if player dead
 	cmp.b  #0x1, Character_Dead(a0)
 	beq    @Dead
@@ -496,6 +499,9 @@ PlayerStartInteract:
 	@AlreadyInteracting:
 	@FoundInteraction:
 	@NoColourAbility:
+	
+	move.l (sp)+, d1
+	move.l (sp)+, d0
 	
 	rts
 	

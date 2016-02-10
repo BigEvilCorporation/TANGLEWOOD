@@ -96,7 +96,8 @@ DebugButtonCombo_Profiler	equ 0x3000 ;(pad_button_a|pad_button_start)								; A
 DebugButtonCombo_MoveObject	equ 0x2030 ;(pad_button_b|pad_button_c|pad_button_start)				; B+C+Start = move object
 DebugButtonCombo_KillPlayer	equ 0x3030 ;(pad_button_a|pad_button_b|pad_button_c|pad_button_start)	; A+B+C+Start = kill player
 
-DebugMoveMode_Speed1		equ 0x0060
-DebugMoveMode_Speed2		equ 0x0400
+DebugMoveMode_Speed			equ 0x0060
+DebugMoveMode_SpeedMulA		equ 0x0A
+DebugMoveMode_SpeedMulB		equ 0x04
 	ENDIF
 	

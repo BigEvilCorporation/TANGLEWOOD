@@ -87,13 +87,21 @@ HandlePlayerInput:
 	; Handle debug move mode
 	cmp.b  #0x0, DebugMoveObjectMode
 	beq    @MoveModeDisabled
+
+	; Default move speed
+	move.l #DebugMoveMode_Speed, d3
 	
-	; A = change object move speed
-	move.l #DebugMoveMode_Speed1, d3
+	; A = mul object move speed
 	btst #pad_button_a, d0
-	beq  @NoDbgA
-	move.l #DebugMoveMode_Speed2, d3
-	@NoDbgA:
+	beq  @NoDbgMoveA
+	mulu #DebugMoveMode_SpeedMulA, d3
+	@NoDbgMoveA:
+	
+	; B = mul object move speed
+	btst #pad_button_b, d0
+	beq  @NoDbgMoveB
+	mulu #DebugMoveMode_SpeedMulB, d3
+	@NoDbgMoveB:
 	
 	; TODO: Entity selection + set camera follow
 

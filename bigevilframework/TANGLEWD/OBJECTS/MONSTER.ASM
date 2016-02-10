@@ -42,7 +42,7 @@ Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung us
 
 ; Search state
 Monster_SearchRandMaxDist	equ 0x00FF	; Max distance for random X search pos (pixels)
-Monster_SearchRandMaskDelay	equ 0x00FF	; Mask for random delay between walks
+Monster_SearchRandMaskDelay	equ 0x007F	; Mask for random delay between walks
 Monster_NearTargetDistance	equ (0x20*SubPixelsPerPixel)
 
 ; Emerge palette lerp speed
@@ -463,6 +463,9 @@ MonsterStartSearchForPlayer:
 	; Start walking
 	jsr     CharacterCancelRun
 	
+	; Give anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
+	
 	rts
 
 MonsterUpdateSearchForPlayer:
@@ -498,12 +501,23 @@ MonsterUpdateSearchForPlayer:
 	
 	; Get a random target X (-255 - 255)
 	jsr    RandLong								; Rand long
+	andi.l #0xFFFF, d0							; Avoid overflow
 	divu   #(Monster_SearchRandMaxDist*2), d0	; Div / max*2
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
 	sub.w  #Monster_SearchRandMaxDist, d0		; Shift down to -255 - 255
 	muls   #SubPixelsPerPixel, d0				; To subpixels
-	add.l  Entity_WorldPosX(a0), d0				; Add to current X
+	
+	; Add min dist
+	move.l  #Monster_NearTargetDistance, d1
+	cmp.l  #0x0, d0								; If rand target negative
+	bgt    @PosTarget
+	neg.l  d1									; Make min dist negative
+	@PosTarget:
+	add.l  d1, d0
+	
+	; Add current X pos
+	add.l  Entity_WorldPosX(a0), d0
 	
 	; Clamp to screen bounds
 	cmp.l  #0x0, d0								; Clamp screen left
@@ -525,11 +539,13 @@ MonsterUpdateSearchForPlayer:
 	@HasTargetX:
 	
 	; Check if in delay state
-	cmp.w  #0x0, Monster_SearchDelay(a0)
+	move.w Monster_SearchDelay(a0), d1
+	cmp.w  #0x0, d1
 	beq    @Move
 	
 	; Count down delay
-	sub.w  #0x1, Monster_SearchDelay(a0)
+	sub.w  #0x1, d1
+	move.w d1, Monster_SearchDelay(a0)
 	bra    @End
 	
 	@Move:
@@ -539,17 +555,18 @@ MonsterUpdateSearchForPlayer:
 	bne    @HitWall
 	
 	; Check if near target
-	move.l Entity_WorldPosX(a0), d0
-	sub.l  d1, d0
-	cmp.l  #0x0, d0
-	blt    @Pos
-	neg.l  d0
+	move.l Entity_WorldPosX(a0), d1
+	sub.l  d1, d0							; Get distance to target
+	move.l d0, d3
+	cmp.l  #0x0, d0							; If negative
+	bgt    @Pos
+	neg.l  d0								; Make positive
 	@Pos:
-	cmp.l  #Monster_NearTargetDistance, d1
+	cmp.l  #Monster_NearTargetDistance, d0	; Test distance
 	blt    @ReachedTarget
 	
 	; Move towards target X
-	cmp.l  #0x0, d0
+	cmp.l  #0x0, d3
 	bgt    @MoveRight
 	
 	@MoveLeft:
@@ -563,7 +580,10 @@ MonsterUpdateSearchForPlayer:
 	@HitWall:
 	@ReachedTarget:
 	
-	; Target reached or wall hit, randomise delay timer
+	; Target reached or wall hit, stop moving
+	jsr    CharacterCancelXMovement
+	
+	; Randomise delay timer
 	jsr    RandLong
 	andi.l #Monster_SearchRandMaskDelay, d0
 	move.w d0, Monster_SearchDelay(a0)
