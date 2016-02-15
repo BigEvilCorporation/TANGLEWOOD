@@ -41,8 +41,9 @@ Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 ; Search state
-Monster_SearchRandMaxDist	equ 0x00FF	; Max distance for random X search pos (pixels)
-Monster_SearchRandMaskDelay	equ 0x007F	; Mask for random delay between walks
+Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
+Monster_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
+Monster_SearchRandDelayMin	equ 0x0018	; Min rand delay between walks
 Monster_NearTargetDistance	equ (0x20*SubPixelsPerPixel)
 
 ; Emerge palette lerp speed
@@ -446,8 +447,7 @@ MonsterUpdateEmergeFromCave:
 	bne    @Lerping
 	
 	; Start chasing player
-	;jsr    MonsterStartTrackPlayer
-	jsr    MonsterStartSearchForPlayer
+	jsr    MonsterStartTrackPlayer
 	
 	@Lerping:
 
@@ -484,13 +484,13 @@ MonsterUpdateSearchForPlayer:
 	beq    @Searching
 	
 	; Check if player is within tracking window
-	;jsr    MonsterCheckPlayerVisible
-	;cmp.b  #0x0, d0
-	;beq    @Searching
+	jsr    MonsterCheckPlayerVisible
+	cmp.b  #0x0, d0
+	beq    @Searching
 	
 	; Player visible, enter chase state
-	;jsr    MonsterStartTrackPlayer
-	;bra    @End
+	jsr    MonsterStartTrackPlayer
+	bra    @End
 	
 	@Searching:
 	
@@ -502,10 +502,10 @@ MonsterUpdateSearchForPlayer:
 	; Get a random target X (-255 - 255)
 	jsr    RandLong								; Rand long
 	andi.l #0xFFFF, d0							; Avoid overflow
-	divu   #(Monster_SearchRandMaxDist*2), d0	; Div / max*2
+	divu   #(Monster_SearchRandDistMax*2), d0	; Div / max*2
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
-	sub.w  #Monster_SearchRandMaxDist, d0		; Shift down to -255 - 255
+	sub.w  #Monster_SearchRandDistMax, d0		; Shift down to -255 - 255
 	muls   #SubPixelsPerPixel, d0				; To subpixels
 	
 	; Add min dist
@@ -585,8 +585,12 @@ MonsterUpdateSearchForPlayer:
 	
 	; Randomise delay timer
 	jsr    RandLong
-	andi.l #Monster_SearchRandMaskDelay, d0
+	andi.l #Monster_SearchRandDelayMask, d0
+	add.w  #Monster_SearchRandDelayMin, d0
 	move.w d0, Monster_SearchDelay(a0)
+	
+	; Reset target pos
+	move.l #0x0, Monster_SearchTargetX(a0)
 	
 	@End:
 	
@@ -666,7 +670,7 @@ MonsterUpdateTrackPlayer:
 	jsr    CharacterCancelXMovement
 
 	; Attack
-	;jsr    MonsterStartBite
+	jsr    MonsterStartBite
 	bra    @End
 
 	@LeftOfPlayer:
@@ -692,8 +696,8 @@ MonsterUpdateTrackPlayer:
 	move.b #0x0, Character_Running(a0)
 	jsr    CharacterCancelXMovement
 	
-	; TODO - Search state
-	;jsr    MonsterStartWaitForPlayer
+	; Back to search state
+	jsr    MonsterStartSearchForPlayer
 
 	@End:
 
