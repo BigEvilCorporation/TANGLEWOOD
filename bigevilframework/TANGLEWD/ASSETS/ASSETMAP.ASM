@@ -31,7 +31,7 @@
     ; ************************************
 	include 'assets\sprites\nymn\nymn.asm'
 	include 'assets\sprites\takk\takk.asm'
-	include 'assets\sprites\spr_bldr.asm'
+	include 'assets\sprites\boulder\boulder.asm'
 	include 'assets\sprites\spr_ffly.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
@@ -114,10 +114,11 @@ Tile_Bank0_Size_b:     equ (Tile_Bank0_Size_t*size_tile_b)
 Tile_Bank0_Start:    equ (vram_addr_tiles)
 ;---------------------------------------------------------
 	rsset Tile_Bank0_Start
-Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
+Tiles_PixelFontVRAM: rs.b 0 ;(Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (tiles_nymn_size_b)
 ;Tiles_Player2VRAM:   rs.b (tiles_nymn_size_b)
 Tiles_MonsterVRAM:   rs.b (tiles_monster_size_b)
+Tiles_BoulderVRAM:   rs.b (tiles_boulder_size_b*Boulder_MaxEntities)
 
 	; TODO: Reserve max level size
 	IFD DEBUG
@@ -145,7 +146,6 @@ Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
-Tiles_BoulderVRAM:   rs.b (tiles_boulder_size_b*Boulder_MaxEntities)
 Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxEntities)
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0
