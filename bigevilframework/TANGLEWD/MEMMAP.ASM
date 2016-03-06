@@ -173,7 +173,7 @@ EntityArray_Triggers   rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"
-	inform 0,"Reserved RAM: %d bytes (%dkb)", reserved_ram_size, (reserved_ram_size/1024)
+	inform 0,"Reserved RAM: %d bytes (%dkb)", reserved_ram_size, (reserved_ram_size/(1024*1024))
 	inform 0,"-----------------------------------"
 	inform 0,""
 

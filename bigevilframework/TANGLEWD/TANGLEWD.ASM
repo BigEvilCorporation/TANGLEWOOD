@@ -16,6 +16,7 @@ __start
 	
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
+	include '..\framewk\exceptn.asm'
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
 	include '..\framewk\maths.asm'

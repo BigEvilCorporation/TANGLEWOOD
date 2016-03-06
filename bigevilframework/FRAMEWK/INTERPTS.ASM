@@ -28,14 +28,6 @@ VBlankInterrupt:
  HBlankInterrupt:
    addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
    rte
-   
-Exception:
-   IFD DEBUG
-   TRAP #0 ; Sync with debugger - NOT FOR RELEASE
-   ENDIF
-
-   stop #0x2700 ; Halt CPU
-   rte
 
 NullInterrupt:
    rte

@@ -14,18 +14,29 @@ Flue_BoundsExtendX		equ 0x08
 Flue_HoldDelay			equ 0x0040
 Flue_DefaultEjectForceX	equ 0x0000
 Flue_DefaultEjectForceY	equ 0x0E00
+Flue_MaxOccupants		equ 0x2
+Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
 
-; Struct
+; Occupant struct
+	rsset 0
+;---------------------------------
+FlueOccupant_ObjAddr		rs.l 1	; Occupant GameObj address
+FlueOccupant_HoldTimer		rs.w 1	; Hold timer
+FlueOccupant_Ejecting		rs.b 1	; Currently ejecting the held GameObj
+;---------------------------------
+FlueOccupant_Struct_Pad   	rs.b 1	; Alignment padding
+FlueOccupant_Struct_Size  	rs.b 0
+
+; Flue struct
+
 	rsset (Entity_Struct_Size)
 ;--------------------------
-Flue_HeldGameObj	rs.l 1	; GameObj being held
-Flue_HoldTimer		rs.w 1	; Hold timer
+Flue_Occupants		rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
 Flue_EjectForceX	rs.w 1	; Eject force X
 Flue_EjectForceY	rs.w 1	; Eject force Y
-Flue_Ejecting		rs.b 1	; Currently ejecting the held GameObj
 ;--------------------------
-Flue_Struct_Pad   rs.b 1	; Alignment padding
-Flue_Struct_Size  rs.b 0
+Flue_Struct_Pad   	rs.b 0	; Alignment padding
+Flue_Struct_Size  	rs.b 0
 
 FlueInit:
 	; a0 --- GameObj addr
@@ -46,9 +57,6 @@ FlueInit:
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	
-	move.l #0x0, Flue_HeldGameObj(a0)
-	move.w #0x0, Flue_HoldTimer(a0)
-	move.b #0x0, Flue_Ejecting(a0)
 	move.w #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
 	move.w #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
 
@@ -60,26 +68,46 @@ FlueUpdate:
 
 	move.l a0, -(sp)
 	move.l a1, -(sp)
+	
+	move.l a0, a2
+	add.l  #Flue_Occupants, a2
+	move.l #(Flue_MaxOccupants-1), d0
+	@OccupantLp:
+	move.l d0, -(sp)
+	jsr    FlueOccupantUpdate
+	move.l (sp)+, d0
+	add.l  #FlueOccupant_Struct_Size, a2
+	dbra   d0, @OccupantLp
 
+	move.l (sp)+, a1
+	move.l (sp)+, a0
+
+	jsr GameObjUpdate
+	rts
+	
+FlueOccupantUpdate:
+	; a0 --- GameObj addr
+	; a2 --- Occupant desc address
+	
 	; Check if holding a GameObj
-	move.l Flue_HeldGameObj(a0), a1
+	move.l FlueOccupant_ObjAddr(a2), a1
 	cmp.l  #0x0, a1
 	beq    @NotHolding
 
 	; Check if still ejecting a GameObj
-	move.b Flue_Ejecting(a0), d0
+	move.b FlueOccupant_Ejecting(a2), d0
 	cmp.b  #0x0, d0
 	bne    @StillEjecting
 
 	; Check if timer elapsed
-	move.w Flue_HoldTimer(a0), d0
+	move.w FlueOccupant_HoldTimer(a2), d0
 	cmp.w  #0x0, d0
 	bne    @TimerRunning
 
 	; Timer elapsed, eject GameObj
 	move.w Flue_EjectForceX(a0), GameObj_VelX(a1)
 	move.w Flue_EjectForceY(a0), GameObj_VelY(a1)
-	move.b #0x1, Flue_Ejecting(a0)
+	move.b #0x1, FlueOccupant_Ejecting(a2)
 
 	; Snap to X centre
 	clr.l  d1
@@ -95,65 +123,130 @@ FlueUpdate:
 	; Snap to Y top
 	move.l Entity_WorldPosY(a0), Entity_WorldPosY(a1)
 
-	; Set jumping
-	move.b #0x1, Character_Jumping(a1)
+	;; If a character
+	;
+	;; Set jumping
+	;move.b #0x1, Character_Jumping(a1)
 
 	; Visible and active
 	move.b #0x1, GameObj_Visible(a1)
 	move.b #0x1, GameObj_Active(a1)
-
-	@NotHolding:
+	
 	@StillEjecting:
-
-	; TODO: All GameObjs
-	; Check if player 1 is inside the flue
-	lea Player1, a1
 	
-	; Check if player dead
-	move.b Character_Dead(a1), d4
-	cmp.b  #0x1, d4
-	beq    @PlayerDead
+	;; If character
+	;
+	;; Check if dead
+	;move.b Character_Dead(a1), d4
+	;cmp.b  #0x1, d4
+	;beq    @PlayerDead
 	
-	jsr FlueTestGameObjInside
+	; Check if inside the flue
+	jsr	   FlueTestGameObjInside
 
-	cmp.b #0x0, d0
-	beq   @Outside
+	cmp.b  #0x0, d0
+	beq    @Outside
 
-	; Player inside, check if they were being ejecting
-	move.b  Flue_Ejecting(a0), d0
-	cmp.b   #0x0, d0
-	bne     @End
+	; Object inside, check if they were being ejected
+	move.b FlueOccupant_Ejecting(a2), d0
+	cmp.b  #0x0, d0
+	bne    @End
+	bra    @AlreadyHolding
+	
+	@NotHolding:
+	
+	; Not holding anything yet, check if an object is inside
+	jsr    FlueFindOccupant
+	cmp.l  #0x0, a1
+	beq    @NoOccupantFound
+	
+	@AlreadyHolding:
 
-	; Player inside and not yet ejected, set invisible and hold in place
+	; Object inside and not yet ejected, set invisible and hold in place
 	move.b #0x0, GameObj_Visible(a1)
 	move.b #0x0, GameObj_Active(a1)
 
 	; Set current gameobj ptr
-	move.l a1, Flue_HeldGameObj(a0)
+	move.l a1, FlueOccupant_ObjAddr(a2)
 
 	; Start timer
-	move.w #Flue_HoldDelay, Flue_HoldTimer(a0)
+	move.w #Flue_HoldDelay, FlueOccupant_HoldTimer(a2)
 
 	bra    @End
 
 	@Outside:
 	; Player fully clear of box, no longer ejecting
-	move.b #0x0, Flue_Ejecting(a0)
-	move.l #0x0, Flue_HeldGameObj(a0)
+	move.b #0x0, FlueOccupant_Ejecting(a2)
+	move.l #0x0, FlueOccupant_ObjAddr(a2)
 
 	bra    @End
 
 	@TimerRunning:
 	; Decrement eject timer
-	sub.w  #0x1, Flue_HoldTimer(a0)
+	sub.w  #0x1, FlueOccupant_HoldTimer(a2)
 
-	@PlayerDead:
+	@NoOccupantFound:
+	;@PlayerDead:
 	@End:
+	
+	rts
+	
+FlueFindOccupant:
+	; a0 --- GameObj addr
+	; a2 --- Occupant desc address
 
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	; Search all entities
+	; TODO: Slow, sort entities into type lists
+	move.l (EntityListSize_Update), d0	 ; Get entity list size
+	subi.l #0x1, d0						 ; -1 for loop
+	move.l (EntityListHead_Update), a3	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	move.l d0, -(sp)					 ; Backup counter
 
-	jsr GameObjUpdate
+	; Check entity type
+	move.l Entity_TypeBits(a3), d0
+	andi.l #Flue_OccupantTypes, d0
+	cmp.l  #0x0, d0
+	beq    @NextEntity
+	
+	;; If character
+	;
+	;; Check if dead
+	;move.b Character_Dead(a1), d4
+	;cmp.b  #0x1, d4
+	;beq    @PlayerDead
+	
+	; Check if inside the flue
+	move.l a3, a1
+	jsr	   FlueTestGameObjInside
+	move.l #0x0, a1
+
+	cmp.b  #0x0, d0
+	beq    @Outside
+
+	; Object inside, check if already held
+	move.l a0, a4
+	add.l  #Flue_Occupants, a4
+	move.l #(Flue_MaxOccupants-1), d1
+	@OccupantLp:
+	cmp.l  FlueOccupant_ObjAddr(a4), a3
+	beq    @AlreadyHeld
+	add.l  #FlueOccupant_Struct_Size, a4
+	dbra   d1, @OccupantLp
+	
+	; New occupant found
+	move.l a3, a1
+	bra    @NewOccupantFound
+	
+	@AlreadyHeld:
+	@Outside:
+	@NextEntity:
+	move.l (sp)+, d0					 ; Restore entity counter
+	move.l Entity_UpdateNext(a0), a3	 ; Get next ptr
+	dbra   d0, @EntityLp				 ; Loop
+	
+	@NewOccupantFound:
+	
 	rts
 
 FlueTestGameObjInside:
