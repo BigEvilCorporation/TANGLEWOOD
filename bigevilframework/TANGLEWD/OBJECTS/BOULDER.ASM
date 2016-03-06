@@ -8,8 +8,8 @@
 
 ; Constants
 Boulder_MaxEntities			equ 0x1
-Boulder_Width				equ 0x20
-Boulder_Height				equ 0x20
+Boulder_Width				equ 0x40
+Boulder_Height				equ 0x40
 Boulder_MaxVelYUp			equ 0x0600
 Boulder_MaxVelYDown			equ 0x0600
 Boulder_StepHeight			equ 0x4
@@ -17,7 +17,7 @@ Boulder_ProbeFloorX			equ (Boulder_Width/2)  					; Floor detection probe positi
 Boulder_MaxVelX				equ 0x0100
 Boulder_Decel				equ 0x0008
 
-Boulder_AnimSpeedVelDiv		equ 0x0004
+Boulder_AnimSpeedVelDiv		equ 0x0008
 
 Boulder_MinDamageYVel		equ 0x0500	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
