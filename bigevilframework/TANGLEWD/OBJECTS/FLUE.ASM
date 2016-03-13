@@ -123,23 +123,35 @@ FlueOccupantUpdate:
 	; Snap to Y top
 	move.l Entity_WorldPosY(a0), Entity_WorldPosY(a1)
 
-	;; If a character
-	;
-	;; Set jumping
-	;move.b #0x1, Character_Jumping(a1)
+	; TEMP: Objects should check their own upwards velocities, or only support characters? This is a bit hacky
+	
+	; If character
+	move.l Entity_TypeBits(a1), d1
+	btst.l #entity_type_character, d1
+	beq    @NotCharacter 
+	
+	; Set jumping
+	move.b #0x1, Character_Jumping(a1)
+	
+	@NotCharacter:
+	
+	; If Fuzzl
+	move.l Entity_TypeBits(a1), d1
+	andi.l #entity_type_fuzzl, d1
+	cmp.l  #0x0, d1
+	beq    @NotFuzzl 
+	
+	; Set flinging
+	bset.b #Fuzzl_State_Fling, Fuzzl_State_bits(a1)
+	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a1)
+	
+	@NotFuzzl:
 
 	; Visible and active
 	move.b #0x1, GameObj_Visible(a1)
 	move.b #0x1, GameObj_Active(a1)
 	
 	@StillEjecting:
-	
-	;; If character
-	;
-	;; Check if dead
-	;move.b Character_Dead(a1), d4
-	;cmp.b  #0x1, d4
-	;beq    @PlayerDead
 	
 	; Check if inside the flue
 	jsr	   FlueTestGameObjInside
@@ -186,7 +198,6 @@ FlueOccupantUpdate:
 	sub.w  #0x1, FlueOccupant_HoldTimer(a2)
 
 	@NoOccupantFound:
-	;@PlayerDead:
 	@End:
 	
 	rts
@@ -201,27 +212,34 @@ FlueFindOccupant:
 	subi.l #0x1, d0						 ; -1 for loop
 	move.l (EntityListHead_Update), a3	 ; Get list head
 	@EntityLp:							 ; For all entities in list
-	move.l d0, -(sp)					 ; Backup counter
 
 	; Check entity type
-	move.l Entity_TypeBits(a3), d0
-	andi.l #Flue_OccupantTypes, d0
-	cmp.l  #0x0, d0
+	move.l Entity_TypeBits(a3), d1
+	andi.l #Flue_OccupantTypes, d1
+	cmp.l  #0x0, d1
 	beq    @NextEntity
 	
-	;; If character
-	;
-	;; Check if dead
-	;move.b Character_Dead(a1), d4
-	;cmp.b  #0x1, d4
-	;beq    @PlayerDead
+	; If character
+	move.l Entity_TypeBits(a3), d1
+	btst.l #entity_type_character, d1
+	beq    @NotCharacter 
+	
+	; Check if dead
+	move.b Character_Dead(a1), d4
+	cmp.b  #0x1, d4
+	beq    @CharacterDead
+	
+	@NotCharacter:
 	
 	; Check if inside the flue
-	move.l a3, a1
+	move.l a3, a1						 ; GameObj to a1
+	move.l d0, -(sp)					 ; Backup entity counter
 	jsr	   FlueTestGameObjInside
-	move.l #0x0, a1
+	move.b d0, d1
+	move.l (sp)+, d0					 ; Restore entity counter
+	move.l #0x0, a1						 ; Clear a1 again, it's the return val
 
-	cmp.b  #0x0, d0
+	cmp.b  #0x0, d1
 	beq    @Outside
 
 	; Object inside, check if already held
@@ -240,9 +258,9 @@ FlueFindOccupant:
 	
 	@AlreadyHeld:
 	@Outside:
+	@CharacterDead:
 	@NextEntity:
-	move.l (sp)+, d0					 ; Restore entity counter
-	move.l Entity_UpdateNext(a0), a3	 ; Get next ptr
+	move.l Entity_UpdateNext(a3), a3	 ; Get next ptr
 	dbra   d0, @EntityLp				 ; Loop
 	
 	@NewOccupantFound:
@@ -255,6 +273,8 @@ FlueTestGameObjInside:
 	; a1 --- GameObj 2
 	
 	; Obj 1 min X
+	nop
+	nop
 	move.l Entity_WorldPosX(a0), d1	; X
 	lsr.l  #0x8, d1						; To screen space
 	move.w d1, d2						; Copy for max

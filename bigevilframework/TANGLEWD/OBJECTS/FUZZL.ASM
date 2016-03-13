@@ -24,6 +24,8 @@ Fuzzl_AnimSpeedBounce       equ	0x40
 Fuzzl_EyeWatchDistanceStart equ	0x0050	; Distance from player to start watching
 Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
 Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
+Fuzzl_FlingVelocity			equ 0x0004	; Upward velocity to determine if being flung (by a Flue or otherwise)
+Fuzzl_FlingRollSpeed		equ 0x80
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
@@ -32,6 +34,7 @@ Fuzzl_State_Watching equ 0x02 ; Seen player, eyes following
 Fuzzl_State_Rolling  equ 0x03 ; Being rolled by player
 Fuzzl_State_Home     equ 0x04 ; In a nest
 Fuzzl_State_Bouncing equ 0x05 ; Bouncing to alert player to take colour
+Fuzzl_State_Fling	 equ 0x06 ; Being flung up in the air
 
 ; Eye anim subframes
 Fuzzl_Eye_Frame_TopMiddle    equ (0x0<<0x8)
@@ -284,6 +287,18 @@ FuzzlUpdate:
 	bclr.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
 
 	@NotHome:
+	
+	; If being flung, check if on floor
+	btst  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
+	beq   @NotBeingFlung
+	
+	cmp.b #0x0, GameObj_OnFloor(a0)
+	beq   @End
+	
+	; On floor, finished flinging
+	bclr  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
+	
+	@NotBeingFlung:
 	@InitialState:
 	@End:
 	
@@ -439,15 +454,18 @@ FuzzlUpdateAnimation:
 
 	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)	; If asleep, set sleeping anim
 	bne    @AnimSleep
-
-	btst.b #Fuzzl_State_Watching, Fuzzl_State_Bits(a0)	; If watching player, handle eye behaviour
-	bne    @AnimWatch
-
+	
 	btst.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)	; If being rolled, set rolling anim
 	bne    @AnimRoll
 
 	btst.b #Fuzzl_State_Bouncing, Fuzzl_State_Bits(a0)	; If bouncing, set bounce anim
 	bne    @AnimBounce
+	
+	btst.b #Fuzzl_State_Fling, Fuzzl_State_Bits(a0)		; If being flung, set roll anim
+	bne    @AnimFling
+	
+	btst.b #Fuzzl_State_Watching, Fuzzl_State_Bits(a0)	; If watching player, handle eye behaviour
+	bne    @AnimWatch
 
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)		; If home (and not bouncing), set idle anim (or go to sleep)
 	move.b (TimeOfDay), d0
@@ -480,6 +498,14 @@ FuzzlUpdateAnimation:
 
 	@AnimRoll:
 	move.l #FuzzlAnimIdx_Roll, d0
+	jmp    @EndAnim
+	
+	@AnimFling:
+	move.l #FuzzlAnimIdx_Roll, d0
+	move.l a0, a2
+	add.l  #Fuzzl_Animations, a2
+	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	move.b #Fuzzl_FlingRollSpeed, Animation_Speed(a2)
 	jmp    @EndAnim
 
 	@AnimBounce:
