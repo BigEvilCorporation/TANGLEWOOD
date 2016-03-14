@@ -19,6 +19,7 @@ __start
 	include '..\framewk\exceptn.asm'
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
+	include '..\framewk\macros.asm'
 	include '..\framewk\maths.asm'
 	include '..\framewk\megacd.asm'
 	include '..\framewk\memory.asm'

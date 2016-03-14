@@ -14,6 +14,8 @@ sprite_boulder_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 
 ; Remaining tiles
 
+	IFND DEBUG
+	
 	include 'assets\sprites\boulder\boulder1.asm'
 	include 'assets\sprites\boulder\boulder2.asm'
 	include 'assets\sprites\boulder\boulder3.asm'
@@ -21,6 +23,8 @@ sprite_boulder_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\boulder\boulder5.asm'
 	include 'assets\sprites\boulder\boulder6.asm'
 	include 'assets\sprites\boulder\boulder7.asm'
+	
+	ENDIF
 	
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped (bb)
 sprite_boulder_subsprite_pos_offsets:

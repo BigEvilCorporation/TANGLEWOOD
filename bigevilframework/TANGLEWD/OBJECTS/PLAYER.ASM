@@ -274,7 +274,7 @@ PlayerUpdate:
 	beq    @InteractBoulder
 	
 	; Not interacting, process special colour ability
-	jsr    PlayerColourAbility
+	jsr    PlayerUpdateColourAbility
 	bra    @NotInteracting
 	
 	@InteractFuzzl:
@@ -324,7 +324,169 @@ PlayerBeginColourSwitch:
 	
 	rts
 	
-PlayerColourAbility:
+PlayerStartColourAbility:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	PUSHL  a0
+	PUSHL  a1
+	PUSHL  d0
+	PUSHL  d1
+	
+	; Get colour
+	move.b Player_Colour(a0), d0
+	
+	cmp.b  #ColourRed, d0
+	beq    @Red
+	cmp.b  #ColourYellow, d0
+	beq    @Yellow
+	cmp.b  #ColourGreen, d0
+	beq    @Green
+	cmp.b  #ColourBlue, d0
+	beq    @Blue
+	bra    @NoColour
+	
+	; ************************************
+	; Red
+	; ************************************
+	@Red:
+	bra    @End
+	
+	; ************************************
+	; Yellow - glide
+	; ************************************
+	@Yellow:
+	bra    @End
+	
+	; ************************************
+	; Green - time slow
+	; ************************************
+	@Green:
+	
+	; Greyscale all palettes (take avg. of all components) and start lerp
+	lea    TimeSlowPaletteBackup, a0
+	move.l #(num_palettes-1), d7
+	@PaletteLp:
+	PUSHL  a0
+	move.l d7, d0
+	jsr    ReadPalette			; Read palette to backup buffer
+	POPL   a0
+
+	; Loop through component words
+	move.l #(size_palette_b/size_word)-1, d0
+	@PaletteCopyLp:
+	move.w (a0)+, d1			; Copy components
+	
+	; Split into bytes
+	move.w d1, d2
+	move.w d1, d3
+	lsr.w  #0x4, d2
+	lsr.w  #0x8, d3
+	andi.w #0xF, d0 ; Red
+	andi.w #0xF, d1 ; Green
+	andi.w #0xF, d2 ; Blue
+	
+	; Sum
+	add.w  d2, d1
+	add.w  d3, d1
+	
+	; Avg.
+	andi.l #0xFFFF, d1
+	divu   #0x3, d1
+	
+	; Copy result to all 3 components
+	clr.w  d2
+	or.b d1, d2		; Red
+	lsl.w  #0x4, d2
+	or.b d1, d2		; Green
+	lsl.w  #0x4, d2
+	or.b d1, d2		; Blue
+	
+	PUSHW  d2					; Push to stack for lerp
+	dbra   d0, @PaletteCopyLp
+	
+	; Begin palette lerp
+	move.l sp, a1					; Palette data on stack
+	PUSHL  a0						; Backup a0
+	move.l d7, d0					; Palette idx
+	move.w #TimeOfDayCycleSpeed, d1	; Speed
+	move.b #0x0, d2					; First colour
+	move.b #0xF, d3					; Last colour
+	move.l a1, a0					; Palette data addr
+	jsr    PaletteLerpStart
+	POPL   a0						; Restore a0
+	
+	FREESTACKB size_palette_b	; Free stack
+	dbra   d7, @PaletteLp		; Next palette
+
+	bra    @End
+	
+	; ************************************
+	; Blue
+	; ************************************
+	@Blue:
+	bra    @End
+	
+	@NoColour:
+	@End:
+	
+	POPL d1
+	POPL d0
+	POPL a1
+	POPL a0
+	
+	rts
+	
+PlayerStopColourAbility:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	; Get colour
+	move.b Player_Colour(a0), d0
+	
+	cmp.b  #ColourRed, d0
+	beq    @Red
+	cmp.b  #ColourYellow, d0
+	beq    @Yellow
+	cmp.b  #ColourGreen, d0
+	beq    @Green
+	cmp.b  #ColourBlue, d0
+	beq    @Blue
+	bra    @NoColour
+	
+	; ************************************
+	; Red
+	; ************************************
+	@Red:
+	bra    @End
+	
+	; ************************************
+	; Yellow - glide
+	; ************************************
+	@Yellow:
+	bra    @End
+	
+	; ************************************
+	; Green - time slow
+	; ************************************
+	@Green:
+	
+	; Start previous palette lerp
+	
+	bra    @End
+	
+	; ************************************
+	; Blue
+	; ************************************
+	@Blue:
+	bra    @End
+	
+	@NoColour:
+	@End:
+	
+	rts
+	
+PlayerUpdateColourAbility:
 
 	; Get colour
 	move.b Player_Colour(a0), d0
@@ -346,7 +508,7 @@ PlayerColourAbility:
 	bra    @End
 	
 	; ************************************
-	; Yellow
+	; Yellow - glide
 	; ************************************
 	@Yellow:
 	
@@ -380,7 +542,7 @@ PlayerColourAbility:
 	bra    @End
 	
 	; ************************************
-	; Green
+	; Green - time slow
 	; ************************************
 	@Green:
 	
@@ -492,6 +654,7 @@ PlayerStartInteract:
 	beq    @NoColourAbility
 	
 	; Performing colour ability
+	jsr    PlayerStartColourAbility
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	move.b #0x1, Character_Interacting(a0)
 	
@@ -512,6 +675,7 @@ PlayerCancelInteract:
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	move.l #0x0, Player_InteractObject(a0)
 	move.b #0x0, Character_Interacting(a0)
+	jsr    PlayerStopColourAbility
 	
 	rts
 	

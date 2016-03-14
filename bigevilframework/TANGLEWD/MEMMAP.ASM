@@ -133,6 +133,9 @@ GlobalTimeDiv			 rs.b 1
 
 __padding04			     rs.b 3
 
+; Time slow ability palette backup
+TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
+
 ; ************************************
 ; Debug stuff
 ; ************************************

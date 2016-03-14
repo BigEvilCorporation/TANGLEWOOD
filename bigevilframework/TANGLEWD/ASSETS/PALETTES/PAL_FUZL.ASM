@@ -69,3 +69,4 @@ palette_fuzzl_yellow:
 	dc.w	0x5aa
 	dc.w	0x0bc
 	dc.w	0xcdd
+	
