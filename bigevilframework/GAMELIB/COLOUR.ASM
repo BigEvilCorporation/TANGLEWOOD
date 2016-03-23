@@ -8,9 +8,9 @@
 
 	rsset 0
 ;------------------------------
-PaletteLerp_DstAddr			rs.l 1
+PaletteLerp_BufferCur		rs.b 0x20	; Current palette  ; TODO: why won't size_palette_b evaluate here?
+PaletteLerp_BufferTrg		rs.b 0x20   ; Target palette
 PaletteLerp_SubFrame		rs.l 1
-PaletteLerp_Buffer			rs.b 0x20	; TODO: why won't size_palette_b evaluate here?
 PaletteLerp_Speed			rs.w 1
 PaletteLerp_PaletteIdx		rs.b 1
 PaletteLerp_ColourIdx		rs.b 1
@@ -23,7 +23,7 @@ PaletteLerp_Struct_Pad		rs.b 3
 PaletteLerp_Struct_Size		rs.b 0
 
 PaletteLerpStart:
-	; a0 --- Target palette ROM address
+	; a0 --- Target palette address
 	; d0 (b) Palette index
 	; d1 (w) Lerp speed (animation subframes per frame)
 	; d2 (b) Colour range min
@@ -36,7 +36,6 @@ PaletteLerpStart:
 	mulu   #PaletteLerp_Struct_Size, d5
 	add.l  d5, a2
 	
-	move.l a0, PaletteLerp_DstAddr(a2)
 	move.b d0, PaletteLerp_PaletteIdx(a2)
 	move.w d1, PaletteLerp_Speed(a2)
 	move.b d2, PaletteLerp_ColourMin(a2)
@@ -45,10 +44,23 @@ PaletteLerpStart:
 	move.b #0x0, PaletteLerp_ColourIdx(a2)
 	move.b #0x0, PaletteLerp_ComponentIdx(a2)
 	
+	; Copy target palette into target buffer
+	PUSHL   a2
+	move.l  #(size_palette_b/size_long), d6
+	add.l   #PaletteLerp_BufferTrg, a2
+	MEMCPYL a2, a0, d6
+	POPL    a2
+	
+	; Fetch current palette from CRAM into current buffer
+	andi.l #0xFF, d0
+	move.l a2, a0
+	add.l  #PaletteLerp_BufferCur, a0
+	jsr    ReadPalette
+	
 	rts
 	
 PaletteLerpStartAll:
-	; a0 --- Target palette ROM address
+	; a0 --- Target palette address
 	; d1 (w) Lerp speed (animation subframes per frame)
 	; d2 (b) Colour range min
 	; d3 (b) Colour range max
@@ -101,20 +113,11 @@ PaletteLerpUpdateNextComponent:
 
 	; =====================================================================
 	
-	; Fetch current palette from VDP into scratch buffer
-	clr.l  d0
-	move.l a0, -(sp)
-	move.b PaletteLerp_PaletteIdx(a0), d0
-	add.l  #PaletteLerp_Buffer, a0	; Offset into struct to palette buffer
-	jsr    ReadPalette
-	move.l (sp)+, a0
-
-	; =====================================================================
-	
 	; Check if lerp finished
+	move.l a0, a1
 	move.l a0, a2
-	add.l  #PaletteLerp_Buffer, a2			; Offset into struct to palette buffer
-	move.l PaletteLerp_DstAddr(a0), a1
+	add.l  #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
+	add.l  #PaletteLerp_BufferCur, a2		; Offset into struct to current palette buffer
 
 	move.b PaletteLerp_ColourMin(a0), d0	; Offset into palettes to start of range
 	move.b d0, d1
@@ -175,10 +178,11 @@ PaletteLerpUpdateNextComponent:
 	mulu.w #0x4, d2							; Component idx to bit
 	
 	; =====================================================================
-		
+	
+	move.l a0, a1
 	move.l a0, a2
-	add.l  #PaletteLerp_Buffer, a2		; Scratch buffer addr (RAM)
-	move.l PaletteLerp_DstAddr(a0), a1	; Target palette addr (ROM)
+	add.l  #PaletteLerp_BufferTrg, a1		; Target buffer addr
+	add.l  #PaletteLerp_BufferCur, a2		; Source buffer addr
 	
 	clr.l  d4							; Clear working regs
 	clr.l  d5
@@ -233,7 +237,7 @@ PaletteLerpUpdateNextComponent:
 	clr.l  d0
 	move.l a0, -(sp)
 	move.b PaletteLerp_PaletteIdx(a0), d0
-	add.l  #PaletteLerp_Buffer, a0	; Offset into struct to palette buffer
+	add.l  #PaletteLerp_BufferCur, a0	; Offset into struct to palette buffer
 	lea    LoadPaletteDMA, a5
 	jsr    VDPQueue_PushJob
 	move.l (sp)+, a0

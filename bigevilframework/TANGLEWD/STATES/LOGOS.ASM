@@ -76,6 +76,10 @@ Logos_Update:
 	move.w PaletteLerp_Speed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
+
+	; If already done fade to black
+	cmp.w  #0x0, (TimerLogoFade)
+	bne    @FadedOut
 	
 	; Wait for timeout
 	move.w (TimerLogoFade), d0
@@ -84,13 +88,6 @@ Logos_Update:
 	cmp.w  #LogosDelayTime, d0
 	blt    @NotElapsed
 	
-	; If already done fade to black
-	lea    PaletteLerp_Array, a0
-	move.l PaletteLerp_DstAddr(a0), a1
-	lea    palette_fade_black, a2
-	cmp.l  a1, a2
-	beq    @FadedOut
-
 	; Begin fade to black
 	lea    palette_fade_black, a0
 	move.l #PaletteId_BigEvilLogo, d0

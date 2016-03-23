@@ -43,6 +43,7 @@ __start
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
+	include '..\gamelib\effects.asm'
 	include '..\gamelib\entity.asm'
 	include '..\gamelib\gameobj.asm'
 	include '..\gamelib\animobj.asm'

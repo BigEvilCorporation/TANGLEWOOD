@@ -363,61 +363,14 @@ PlayerStartColourAbility:
 	; ************************************
 	@Green:
 	
-	; Greyscale all palettes (take avg. of all components) and start lerp
+	; Backup world palette
 	lea    TimeSlowPaletteBackup, a0
-	move.l #(num_palettes-1), d7
-	@PaletteLp:
-	PUSHL  a0
-	move.l d7, d0
-	jsr    ReadPalette			; Read palette to backup buffer
-	POPL   a0
-
-	; Loop through component words
-	move.l #(size_palette_b/size_word)-1, d0
-	@PaletteCopyLp:
-	move.w (a0)+, d1			; Copy components
+	move.l #PaletteId_World0, d0
+	jsr    ReadPalette
 	
-	; Split into bytes
-	move.w d1, d2
-	move.w d1, d3
-	lsr.w  #0x4, d2
-	lsr.w  #0x8, d3
-	andi.w #0xF, d0 ; Red
-	andi.w #0xF, d1 ; Green
-	andi.w #0xF, d2 ; Blue
-	
-	; Sum
-	add.w  d2, d1
-	add.w  d3, d1
-	
-	; Avg.
-	andi.l #0xFFFF, d1
-	divu   #0x3, d1
-	
-	; Copy result to all 3 components
-	clr.w  d2
-	or.b d1, d2		; Red
-	lsl.w  #0x4, d2
-	or.b d1, d2		; Green
-	lsl.w  #0x4, d2
-	or.b d1, d2		; Blue
-	
-	PUSHW  d2					; Push to stack for lerp
-	dbra   d0, @PaletteCopyLp
-	
-	; Begin palette lerp
-	move.l sp, a1					; Palette data on stack
-	PUSHL  a0						; Backup a0
-	move.l d7, d0					; Palette idx
-	move.w #TimeOfDayCycleSpeed, d1	; Speed
-	move.b #0x0, d2					; First colour
-	move.b #0xF, d3					; Last colour
-	move.l a1, a0					; Palette data addr
-	jsr    PaletteLerpStart
-	POPL   a0						; Restore a0
-	
-	FREESTACKB size_palette_b	; Free stack
-	dbra   d7, @PaletteLp		; Next palette
+	; Greyscale world palette
+	move.l #PaletteId_World0, d0
+	jsr    StartEffectGreyscale
 
 	bra    @End
 	

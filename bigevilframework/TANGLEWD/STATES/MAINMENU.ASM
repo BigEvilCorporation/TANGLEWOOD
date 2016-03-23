@@ -72,11 +72,8 @@ MainMenu_Update:
 	bne    @Fading
 	
 	; If already started fade to black
-	lea    PaletteLerp_Array, a0
-	move.l PaletteLerp_DstAddr(a0), a1
-	lea    palette_fade_black, a2
-	cmp.l  a1, a2
-	beq    @FadedOut
+	cmp.w  #0x0, (TimerLogoFade)
+	bne    @FadedOut
 	
 	; Wait for start button press
 	jsr    ReadPadA
