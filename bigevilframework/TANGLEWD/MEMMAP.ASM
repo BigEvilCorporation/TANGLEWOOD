@@ -84,8 +84,9 @@ LevelGravity   	    rs.w 1
 TimeOfDayShiftDelay rs.w 1
 TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night
+TimeOfDayEnabled    rs.b 1
 
-__padding03			rs.b 3
+__padding03			rs.b 2
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

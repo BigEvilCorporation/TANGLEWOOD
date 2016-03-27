@@ -81,14 +81,15 @@ PlayerAnimIdx_Max    equ 1
 ; Struct
 ; ************************************
 	rsset (Character_Struct_Size)
-;----------------------------
-Player_Animations	   rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
-Player_InteractObject  rs.l 1	; Object player is interacting with
-Player_InteractionType rs.b 1	; Current interaction type
-Player_Colour          rs.b 1
-;----------------------------
-Player_Struct_Pad      rs.b 2
-Player_Struct_Size     rs.b 0
+;---------------------------------
+Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
+Player_InteractObject  		rs.l 1	; Object player is interacting with
+Player_InteractionType 		rs.b 1	; Current interaction type
+Player_Colour          		rs.b 1
+Player_ActiveColourAbility	rs.b 1
+;---------------------------------
+Player_Struct_Pad      		rs.b 1
+Player_Struct_Size     		rs.b 0
 
 ; ************************************
 ; Subroutines
@@ -137,6 +138,7 @@ PlayerInit:
 	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
+	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 
@@ -363,14 +365,31 @@ PlayerStartColourAbility:
 	; ************************************
 	@Green:
 	
-	; Backup world palette
-	lea    TimeSlowPaletteBackup, a0
+	; Backup palettes
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
 	move.l #PaletteId_World0, d0
 	jsr    ReadPalette
 	
-	; Greyscale world palette
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
+	move.l #PaletteId_Monster, d0
+	jsr    ReadPalette
+	
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
+	move.l #PaletteId_Fuzzl, d0
+	jsr    ReadPalette
+	
+	; Greyscale palettes
 	move.l #PaletteId_World0, d0
 	jsr    StartEffectGreyscale
+	
+	move.l #PaletteId_Monster, d0
+	jsr    StartEffectGreyscale
+	
+	move.l #PaletteId_Fuzzl, d0
+	jsr    StartEffectGreyscale
+	
+	; Disable time of day (else world palette may reset)
+	move.b #0x0, (TimeOfDayEnabled)
 
 	bra    @End
 	
@@ -387,6 +406,8 @@ PlayerStartColourAbility:
 	POPL d0
 	POPL a1
 	POPL a0
+	
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	
 	rts
 	
@@ -424,7 +445,27 @@ PlayerStopColourAbility:
 	; ************************************
 	@Green:
 	
-	; Start previous palette lerp
+	; Reset palette
+	PUSHL  a0
+	move.w #TimeOfDayCycleSpeed, d1		; Speed
+	move.b #0x0, d2						; First colour
+	move.b #0xF, d3						; Last colour
+	
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0	; Palette address
+	move.l #PaletteId_World0, d0		; Palette idx
+	jsr    PaletteLerpStart
+	
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0	; Palette address
+	move.l #PaletteId_Monster, d0		; Palette idx
+	jsr    PaletteLerpStart
+	
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0	; Palette address
+	move.l #PaletteId_Fuzzl, d0		; Palette idx
+	jsr    PaletteLerpStart
+	POPL   a0
+	
+	; Re-enable time of day
+	move.b #0x1, (TimeOfDayEnabled)
 	
 	bra    @End
 	
@@ -436,6 +477,8 @@ PlayerStopColourAbility:
 	
 	@NoColour:
 	@End:
+	
+	move.b  0x0, Player_ActiveColourAbility(a0)
 	
 	rts
 	
@@ -607,6 +650,8 @@ PlayerStartInteract:
 	beq    @NoColourAbility
 	
 	; Performing colour ability
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	bne    @ColourAbilityActive
 	jsr    PlayerStartColourAbility
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	move.b #0x1, Character_Interacting(a0)
@@ -615,6 +660,7 @@ PlayerStartInteract:
 	@AlreadyInteracting:
 	@FoundInteraction:
 	@NoColourAbility:
+	@ColourAbilityActive:
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -628,7 +674,11 @@ PlayerCancelInteract:
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	move.l #0x0, Player_InteractObject(a0)
 	move.b #0x0, Character_Interacting(a0)
+	
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	beq    @NoColourAbility
 	jsr    PlayerStopColourAbility
+	@NoColourAbility:
 	
 	rts
 	

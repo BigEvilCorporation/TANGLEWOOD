@@ -75,3 +75,7 @@ StartEffectGreyscale:
 	
 	rts
 	
+StopEffectGreyscale:
+	; d0 (b) - Palette idx
+	
+	rts

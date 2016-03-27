@@ -417,6 +417,7 @@ LevelReset:
 	move.l  #palette_lvl1_night,	TimeOfDayPalettes+(size_long*2)	; Night
 	move.l  #palette_lvl1_dawn,		TimeOfDayPalettes+(size_long*3)	; Dawn
 	move.b  #TimeOfDay_Day, TimeOfDay
+	move.b  #0x1, TimeOfDayEnabled
 	
 	; Switching palettes
 	lea     SwitchingPalettesP1, a0

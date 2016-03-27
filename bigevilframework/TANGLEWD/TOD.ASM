@@ -8,6 +8,9 @@
 
 UpdateTimeOfDay:
 
+	cmp.b  #0x0, (TimeOfDayEnabled)
+	beq    @TODDisabled
+
 	; Check if TOD delay finished
 	move.w (TimeOfDayShiftDelay), d0
 	add.w  #0x1, d0
@@ -39,6 +42,7 @@ UpdateTimeOfDay:
 	
 	jsr PaletteLerpStart
 	
+	@TODDisabled:
 	@NoTODChange:
 	
 	rts
