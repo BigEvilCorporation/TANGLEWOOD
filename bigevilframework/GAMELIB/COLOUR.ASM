@@ -19,7 +19,7 @@ PaletteLerp_ColourMin		rs.b 1
 PaletteLerp_ColourMax		rs.b 1
 
 ;------------------------------
-PaletteLerp_Struct_Pad		rs.b 3
+PaletteLerp_Struct_Pad		rs.b 1
 PaletteLerp_Struct_Size		rs.b 0
 
 PaletteLerpStart:
