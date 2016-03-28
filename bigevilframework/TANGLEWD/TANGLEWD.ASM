@@ -76,12 +76,17 @@ __start
 	include 'objects\trigger.asm'
 	
 	; Include game states
+	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\gameplay.asm'
 	IFND DEBUG
 	include 'states\logos.asm'
 	include 'states\mainmenu.asm'
 	ENDIF
+	
+	; Include levels
+	include 'levels\level1.asm'
+	include 'levels\level2.asm'
 	
 	; Include game code
 	include 'input.asm'
@@ -108,6 +113,13 @@ __main:
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
+	
+	; Set first level
+	IFD DEBUG
+	move.l #Tst1_Forest, CurrentLevel
+	ELSE
+	move.l #Lvl1_HarlequinForest, CurrentLevel
+	ENDIF
 	
 	; Enter first game state
 	IFD DEBUG

@@ -17,6 +17,18 @@ LevelLoad:
 	; Reset entities
 	jsr    EntityClearUpdateList
 	jsr    EntityClearRenderList
+	
+	; Reset entity counts
+	move.w #0x0, EntityCount_Players
+	move.w #0x0, EntityCount_Monsters
+	move.w #0x0, EntityCount_Fireflies
+	move.w #0x0, EntityCount_Flues
+	move.w #0x0, EntityCount_Fuzzls
+	move.w #0x0, EntityCount_Leaves
+	move.w #0x0, EntityCount_Nests
+	move.w #0x0, EntityCount_Obstacles
+	move.w #0x0, EntityCount_Boulders
+	move.w #0x0, EntityCount_Triggers
 
 	IFD DEBUG
 	
@@ -281,7 +293,7 @@ LevelLoadGameObjArt:
 	jsr    GameObjLoadMultiSprite
     
 	; Vines
-	move.w #gameobjects_obstacle_count, d0
+	move.w (EntityCount_Obstacles), d0
 	cmp.w  #0x0, d0
 	beq    @NoObstacles
 	move.l #EntityArray_Obstacles, a0
@@ -324,7 +336,8 @@ LevelLoadGameObjArt:
 	
 	; Fireflies
 	move.l #EntityArray_Fireflies, a0
-	move.l #gameobjects_Firefly_count-1, d1
+	move.w (EntityCount_Fireflies), d1
+	sub.w  #0x1, d1
 	move.l #Tiles_fireflyVRAM, d0
 	@FireflyLoop:
 	movem.l d0-d1/a0, -(sp)
@@ -350,35 +363,35 @@ LevelCreateGameObjects:
 
 	; Trigger boxes
 	move.l #EntityArray_Triggers, a0
-	jsr    LoadGameObjects_TriggerBox
+	jsr    LoadGameObjects_lvl1_TriggerBox
 	
 	; Monsters
 	move.l #EntityArray_Monsters, a0
-	jsr    LoadGameObjects_Monster
+	jsr    LoadGameObjects_lvl1_Monster
     
 	; Fuzzls
 	move.l #EntityArray_Fuzzls, a0
-	jsr    LoadGameObjects_Fuzzl
+	jsr    LoadGameObjects_lvl1_Fuzzl
 	
 	; Fuzzl nests
 	move.l #EntityArray_Nests, a0
-	jsr    LoadGameObjects_Nest
+	jsr    LoadGameObjects_lvl1_Nest
     
 	; Flues
 	move.l #EntityArray_Flues, a0
-	jsr    LoadGameObjects_Flue
+	jsr    LoadGameObjects_lvl1_Flue
     
 	; Obstacles
 	move.l #EntityArray_Obstacles, a0
-	jsr    LoadGameObjects_Obstacle
+	jsr    LoadGameObjects_lvl1_Obstacle
 	
 	; Boulders
 	move.l #EntityArray_Boulders, a0
-	jsr    LoadGameObjects_Boulder
+	jsr    LoadGameObjects_lvl1_Boulder
     
 	; Fireflies
 	move.l #EntityArray_Fireflies, a0
-	jsr    LoadGameObjects_Firefly
+	jsr    LoadGameObjects_lvl1_Firefly
     
 	; Leaves
 	; TODO: Leaf generator

@@ -74,8 +74,9 @@ Player_Interaction_Ability	equ 0x3
 
 ; Animations
 PlayerAnimIdx_Switch equ 0
+PlayerAnimIdx_Sleep  equ 1
 ; ------------------------
-PlayerAnimIdx_Max    equ 1
+PlayerAnimIdx_Max    equ 2
 
 ; ************************************
 ; Struct
@@ -250,7 +251,16 @@ PlayerInit:
 	move.b #Anim_NymnSwitch_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
-
+	; Sleep
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Sleep), a3
+	move.l #Anim_NymnSleep, Animation_AnimTrackSpriteFrame(a3)
+	move.l #Anim_NymnSleep_PosX, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_NymnSleep_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnSleep_SizeB, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	
 	rts
 
 PlayerUpdate:
@@ -291,6 +301,30 @@ PlayerUpdate:
 	
 	@Interacting:
 	@NotInteracting:
+	
+	rts
+	
+PlayerBeginSleep:
+	; a0 --- Character address
+	
+	; Cancel all actions
+	jsr    CharacterCancelXMovement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+	move.b #0x0, Character_Interacting(a0)
+	
+	; Cancel velocity
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
+	
+	; Start animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
 	
 	rts
 
@@ -695,7 +729,8 @@ PlayerInteractTest_Fuzzls:
 	
 	; Check all Fuzzls
 	move.l #EntityArray_Fuzzls, a1
-	move.l #gameobjects_Fuzzl_count-1, d6
+	move.w (EntityCount_Fuzzls), d6
+	subi.w #0x1, d6
 	@FuzzlLoop:
 	
 	; Check if on screen
@@ -936,7 +971,8 @@ PlayerInteractTest_Boulders:
 	
 	; Check all Boulders
 	move.l #EntityArray_Boulders, a1
-	move.l #gameobjects_Boulder_count-1, d6
+	move.w (EntityCount_Boulders), d6
+	sub.w  #0x1, d6
 	@BoulderLoop:
 	
 	; Check if on screen
@@ -1128,13 +1164,14 @@ PlayerTest_Obstacles:
 	
 	move.l a1, -(sp)
 
-	move.w #gameobjects_obstacle_count, d0	; TODO: Count from level info
+	move.w (EntityCount_Obstacles), d0
 	cmp.w  #0x0, d0
 	beq    @NoObstacles
 	
 	; Check all obstacles
 	move.l #EntityArray_Obstacles, a1
-	move.l #gameobjects_Obstacle_count-1, d6
+	move.w (EntityCount_Obstacles), d6
+	sub.w  #0x1, d6
 	@ObstacleLoop:
 	
 	; Check if solid
@@ -1249,7 +1286,8 @@ PlayerTest_Fireflies:
 	; Check player against all Fireflies in level
 	move.l a0, a1						; Player in a1
 	move.l #EntityArray_Fireflies, a0	; Firefly in a0
-	move.l #gameobjects_Firefly_count-1, d0	; TODO: Count from level info
+	move.w (EntityCount_Fireflies), d0
+	sub.w  #0x1, d0
 	@FireflyLoop:
 	movem.l d0-d1/a0-a1, -(sp)
 	jsr FireflyTestObj

@@ -28,6 +28,7 @@ ObstacleInit:
 	
 	; Set type
 	addi.l #entity_type_obstacle, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Obstacles
 	
 	; Set update and render routines
 	move.l #GameObjUpdate, Entity_UpdateRoutine(a0)

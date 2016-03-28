@@ -21,9 +21,6 @@ Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
 
-; TEMP
-gameobjects_leaf_count equ 0x3
-
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
@@ -44,6 +41,7 @@ LeafInit:
 	
 	; Set type
 	addi.l #entity_type_leaf, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Leaves
 	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)

@@ -43,6 +43,7 @@ BoulderInit:
 	
 	; Set type
 	addi.l #entity_type_boulder, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Boulders
 	
 	; Set update and render routines
 	move.l #BoulderUpdate, Entity_UpdateRoutine(a0)
@@ -99,7 +100,8 @@ BoulderUpdate:
 	
 	; Check if squishing a monster
 	move.l #EntityArray_Monsters, a1
-	move.l #gameobjects_Monster_count-1, d6
+	move.w (EntityCount_Monsters), d6
+	sub.w  #0x1, d6
 	@MonsterLoop:
 	move.l d6, -(sp)
 	

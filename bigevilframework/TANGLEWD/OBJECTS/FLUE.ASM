@@ -44,6 +44,7 @@ FlueInit:
 
 	; Set type
 	addi.l #entity_type_flue, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Flues
 
 	; Set update routine
 	move.l #FlueUpdate, Entity_UpdateRoutine(a0)

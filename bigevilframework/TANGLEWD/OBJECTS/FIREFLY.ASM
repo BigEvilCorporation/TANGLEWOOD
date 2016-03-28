@@ -35,6 +35,7 @@ FireflyInit:
 	
 	; Set type
 	addi.l #entity_type_firefly, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Fireflies
 
 	; Set update and render routines
 	move.l #FireflyUpdate, Entity_UpdateRoutine(a0)

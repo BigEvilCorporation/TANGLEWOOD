@@ -8,24 +8,20 @@
 
 
 gameobjects_lvl1:
-gameobjects_Fuzzl_count equ 2
-LoadGameObjects_Fuzzl:
+LoadGameObjects_lvl1_Fuzzl:
 Fuzzl_22:
 	jsr FuzzlInit
 	move.l #0x00061800, Entity_WorldPosX(a0)
 	move.l #0x00012000, Entity_WorldPosY(a0)
-	move.b #ColourYellow, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
 Fuzzl_48:
 	jsr FuzzlInit
 	move.l #0x000e8000, Entity_WorldPosX(a0)
 	move.l #0x0000d000, Entity_WorldPosY(a0)
-	move.b #ColourGreen, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_Nest_count equ 2
-LoadGameObjects_Nest:
+LoadGameObjects_lvl1_Nest:
 Nest_45:
 	jsr NestInit
 	move.l #0x0003d000, Entity_WorldPosX(a0)
@@ -38,8 +34,7 @@ Nest_49:
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_Flue_count equ 2
-LoadGameObjects_Flue:
+LoadGameObjects_lvl1_Flue:
 Flue_21:
 	jsr FlueInit
 	move.l #0x0008f000, Entity_WorldPosX(a0)
@@ -52,8 +47,7 @@ Flue_44:
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_Obstacle_count equ 2
-LoadGameObjects_Obstacle:
+LoadGameObjects_lvl1_Obstacle:
 Obstacle_33:
 	jsr ObstacleInit
 	move.l #0x000bf800, Entity_WorldPosX(a0)
@@ -66,8 +60,7 @@ Obstacle_34:
 	add.l #Obstacle_Struct_Size, a0
 	rts
 
-gameobjects_Firefly_count equ 11
-LoadGameObjects_Firefly:
+LoadGameObjects_lvl1_Firefly:
 Firefly_8:
 	jsr FireflyInit
 	move.l #0x00011000, Entity_WorldPosX(a0)
@@ -125,18 +118,15 @@ Firefly_18:
 	add.l #Firefly_Struct_Size, a0
 	rts
 
-gameobjects_Monster_count equ 1
-LoadGameObjects_Monster:
+LoadGameObjects_lvl1_Monster:
 Monster_47:
 	jsr MonsterInit
 	move.l #0x00187000, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
-	move.b #0x1, GameObj_FlippedX(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 
-gameobjects_Boulder_count equ 1
-LoadGameObjects_Boulder:
+LoadGameObjects_lvl1_Boulder:
 Boulder_50:
 	jsr BoulderInit
 	move.l #0x000f0000, Entity_WorldPosX(a0)
@@ -144,7 +134,12 @@ Boulder_50:
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_TriggerBox_count equ 0
-LoadGameObjects_TriggerBox:
+LoadGameObjects_lvl1_TriggerBox:
+TriggerBox_51:
+	jsr TriggerBoxInit
+	move.l #0x001c1000, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #Lvl1_End, TriggerBox_Routine(a0)
+	add.l #TriggerBox_Struct_Size, a0
 	rts
 

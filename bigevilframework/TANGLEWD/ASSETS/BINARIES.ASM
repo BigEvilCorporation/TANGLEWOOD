@@ -33,12 +33,16 @@ tiles_tanglewood_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
 	incbin 'assets\tiles\til_lvl1.bin'
+tiles_lvl2:
+	incbin 'assets\tiles\til_lvl2.bin'
 
 	; ************************************
 	; Collision tilesets
 	; ************************************
 collisiontiles_lvl1:
 	incbin 'assets\collisn\ctl_lvl1.bin'
+collisiontiles_lvl2:
+	incbin 'assets\collisn\ctl_lvl2.bin'
 
 	; ************************************
 	; Maps
@@ -49,11 +53,15 @@ map_tanglewood_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:
 	incbin 'assets\maps\map_lvl1.bin'
+map_lvl2:
+	incbin 'assets\maps\map_lvl2.bin'
 
 	; ************************************
 	; Collision maps
 	; ************************************
 collisionmap_lvl1:
 	incbin 'assets\collisn\cmp_lvl1.bin'
+collisionmap_lvl2:
+	incbin 'assets\collisn\cmp_lvl2.bin'
 
 	ENDIF

@@ -4,11 +4,6 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
-	; ************************************
-    ; Level list
-    ; ************************************
-	include 'assets\levels.asm'
-
     ; ************************************
     ; Palettes
     ; ************************************
@@ -66,6 +61,7 @@
 	include 'assets\tiles\bec_logo.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
+	include 'assets\tiles\til_lvl2.asm'
 	
 	; ************************************
     ; Level maps
@@ -73,21 +69,25 @@
 	include 'assets\maps\bec_logo.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
+	include 'assets\maps\map_lvl2.asm'
 	
 	; ************************************
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
+	include 'assets\collisn\ctl_lvl2.asm'
 	
 	; ************************************
     ; Collision maps
     ; ************************************
 	include 'assets\collisn\cmp_lvl1.asm'
+	include 'assets\collisn\cmp_lvl2.asm'
 	
 	; ************************************
     ; Game objects
     ; ************************************
 	include 'assets\gameobj\obj_lvl1.asm'
+	include 'assets\gameobj\obj_lvl2.asm'
 
 	ENDIF
 	
@@ -109,8 +109,8 @@
 ;---------------------------------------------------------
 ; Bank 0
 ;---------------------------------------------------------
-Tile_Bank0_Size_t:     equ vdp_max_tiles
-Tile_Bank0_Size_b:     equ (Tile_Bank0_Size_t*size_tile_b)
+Tile_Bank0_Size_t:   equ vdp_max_tiles
+Tile_Bank0_Size_b:   equ (Tile_Bank0_Size_t*size_tile_b)
 Tile_Bank0_Start:    equ (vram_addr_tiles)
 ;---------------------------------------------------------
 	rsset Tile_Bank0_Start

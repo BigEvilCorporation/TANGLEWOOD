@@ -13,13 +13,6 @@ GameStateGameplay:
 	dc.l Gameplay_Render
 	
 Gameplay_Enter:
-
-	; Set first level
-	IFD DEBUG
-	move.l #Tst1_Forest, CurrentLevel
-	ELSE
-	move.l #Lvl1_HarlequinForest, CurrentLevel
-	ENDIF
 	
 	; Disable vint during state change
 	move.b #0x0, vint_enabled
@@ -29,6 +22,11 @@ Gameplay_Enter:
 	
 	; Reset all positions/velocities
 	jsr LevelReset
+	
+	; Init level
+	move.l (CurrentLevel), a1
+	move.l Level_InitRoutine(a1), a2
+	jsr    (a2)
 	
 	rts
 	
@@ -41,16 +39,20 @@ Gameplay_Update:
 	move.l (CurrentLevel), a1
 	
 	; Read and process gamepad input
-	jsr UpdateInput
+	jsr    UpdateInput
 	
 	IFND FINAL
 	; No update if in debug move mode
-	cmp.b #0x0, DebugMoveObjectMode
-	bne   @NoUpdate
+	cmp.b  #0x0, DebugMoveObjectMode
+	bne    @NoUpdate
 	ENDIF
 	
 	; Update game objects
-	jsr EntityUpdateAll
+	jsr    EntityUpdateAll
+	
+	; Update level
+	move.l Level_UpdateRoutine(a1), a2
+	jsr    (a2)
 	
 	; Check if player is dead
 	move.l #Player1, a2

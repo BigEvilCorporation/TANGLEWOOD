@@ -36,6 +36,7 @@ TriggerBoxInit:
 	
 	; Set type
 	addi.l #entity_type_trigger, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Triggers
 	
 	; Set update routine
 	move.l #TriggerBoxUpdate, Entity_UpdateRoutine(a0)
@@ -59,6 +60,10 @@ TriggerBoxUpdate:
 	; a1 --- Level addr
 	
 	move.l a1, -(sp)
+	
+	; Check if enabled
+	cmp.b  #0x0, GameObj_Active(a0)
+	beq    @Inactive
 	
 	; Check if box can be triggered multiple times
 	cmp.b  #0x0, TriggerBox_TriggerOnce(a0)
@@ -102,6 +107,7 @@ TriggerBoxUpdate:
 	; Player outside, not triggered
 	move.b #0x0, TriggerBox_Triggered(a0)
 	
+	@Inactive:
 	@Triggered:
 	
 	move.l (sp)+, a1

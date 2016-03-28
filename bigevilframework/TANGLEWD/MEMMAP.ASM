@@ -75,6 +75,7 @@ prev_sprite_link    rs.w 1
 ; ************************************
 TimerLogoFade		rs.l 1
 TimerFailReset		rs.l 1
+TimerEndLevelReset	rs.l 1
 
 ; ************************************
 ; World
@@ -173,6 +174,17 @@ EntityArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxEntities)
 EntityArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
 EntityArray_Boulders   rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Triggers   rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
+
+EntityCount_Players    rs.w 1
+EntityCount_Monsters   rs.w 1
+EntityCount_Fireflies  rs.w 1
+EntityCount_Flues      rs.w 1
+EntityCount_Fuzzls     rs.w 1
+EntityCount_Leaves     rs.w 1
+EntityCount_Nests      rs.w 1
+EntityCount_Obstacles  rs.w 1
+EntityCount_Boulders   rs.w 1
+EntityCount_Triggers   rs.w 1
 
 reserved_ram_size		rs.b 0
 
