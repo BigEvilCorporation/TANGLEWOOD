@@ -326,6 +326,9 @@ PlayerBeginSleep:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
 	rts
 
 PlayerBeginColourSwitch:

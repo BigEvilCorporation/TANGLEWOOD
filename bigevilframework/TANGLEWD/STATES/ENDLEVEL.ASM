@@ -20,25 +20,31 @@ GameStateEndLevel:
 ; ************************************
 GameStateEndLevel_FadeDownPalette	equ palette_fade_white
 GameStateEndLevel_FadeDownSpeed		equ (0x1<<0x8) ; Subframes (1 frame per tick)
-GameStateEndLevel_ResetTimer		equ 0x0200
+GameStateEndLevel_SleepTime			equ 0x0100
+GameStateEndLevel_ResetTime			equ 0x0100
+
+EndLevelPhase_Sleep					equ 0x1
+EndLevelPhase_Fade					equ 0x2
+
+; ************************************
+; Struct
+; ************************************
+	rsset	0x0
+;---------------------------------
+EndLevelState_Timer			rs.w 1
+EndLevelState_Phase			rs.b 1
+;---------------------------------
+EndLevelState_Struct_Pad	rs.b 1
+EndLevelState_Struct_Size	rs.b 0
+;---------------------------------
 	
 EndLevel_Enter:
 
-	; Reset timer
-	move.l #GameStateEndLevel_ResetTimer, TimerEndLevelReset
+	lea    GameStateEndLevelData, a2
 	
-	; Begin fade down - all palettes except player
-	move.l #GameStateEndLevel_FadeDownPalette, a0
-	move.w #GameStateEndLevel_FadeDownSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
-	
-	move.b #PaletteId_World0, d0
-	jsr    PaletteLerpStart
-	move.b #PaletteId_Monster, d0
-	jsr    PaletteLerpStart
-	move.b #PaletteId_Fuzzl, d0
-	jsr    PaletteLerpStart
+	; Set sleep phase and begin timer
+	move.b #EndLevelPhase_Sleep, EndLevelState_Phase(a2)
+	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
 	
 	rts
 	
@@ -53,15 +59,52 @@ EndLevel_Update:
 	; Update game objects
 	jsr    EntityUpdateAll
 	
+	; Get state data
+	lea    GameStateEndLevelData, a2
+	
+	; Check phase
+	cmp.b  #EndLevelPhase_Sleep, EndLevelState_Phase(a2)
+	beq    @SleepPhase
+	cmp.b  #EndLevelPhase_Fade, EndLevelState_Phase(a2)
+	beq    @FadePhase
+	
+	@SleepPhase:
+	
 	; Update timer
-	move.l (TimerEndLevelReset), d0
-	sub.l  #0x1, d0
-	move.l d0, TimerEndLevelReset
-	cmp.l  #0x0, d0
+	move.w EndLevelState_Timer(a2), d0
+	sub.w  #0x1, d0
+	move.w d0, EndLevelState_Timer(a2)
+	cmp.w  #0x0, d0
+	bne    @TimerRunning
+	
+	; Timer elapsed, set fade phase and begin timer
+	move.b #EndLevelPhase_Fade, EndLevelState_Phase(a2)
+	move.w #GameStateEndLevel_ResetTime, EndLevelState_Timer(a2)
+	
+	; Begin fade down - all palettes except player
+	move.l #GameStateEndLevel_FadeDownPalette, a0
+	move.w #GameStateEndLevel_FadeDownSpeed, d1
+	move.b #0x0, d2
+	move.b #0xF, d3
+	
+	move.b #PaletteId_World0, d0
+	jsr    PaletteLerpStart
+	move.b #PaletteId_Monster, d0
+	jsr    PaletteLerpStart
+	move.b #PaletteId_Fuzzl, d0
+	jsr    PaletteLerpStart
+	
+	@FadePhase:
+	
+	; Update timer
+	move.w EndLevelState_Timer(a2), d0
+	sub.w  #0x1, d0
+	move.w d0, EndLevelState_Timer(a2)
+	cmp.w  #0x0, d0
 	bne    @TimerRunning
 	
 	; Timer elapsed, set next level
-	move.l Level_NextLevel(a0), CurrentLevel
+	move.l Level_NextLevel(a1), CurrentLevel
 	
 	cmp.l  #0x0, CurrentLevel
 	beq    @EndOfGame

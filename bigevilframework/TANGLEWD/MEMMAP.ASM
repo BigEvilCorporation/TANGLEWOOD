@@ -75,7 +75,6 @@ prev_sprite_link    rs.w 1
 ; ************************************
 TimerLogoFade		rs.l 1
 TimerFailReset		rs.l 1
-TimerEndLevelReset	rs.l 1
 
 ; ************************************
 ; World
@@ -121,6 +120,9 @@ SwitchingPalettesP1  rs.l NumSwitchingColours
 
 ; Current game state
 GameStatePtr		 rs.l 1
+
+; Game state data
+GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 
 ; ************************************
 ; Checkpoints

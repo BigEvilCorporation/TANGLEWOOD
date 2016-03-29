@@ -140,6 +140,7 @@ TriggerBox_51:
 	move.l #0x001c1000, Entity_WorldPosX(a0)
 	move.l #0x0002d000, Entity_WorldPosY(a0)
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
 

@@ -67,7 +67,7 @@ TriggerBoxUpdate:
 	
 	; Check if box can be triggered multiple times
 	cmp.b  #0x0, TriggerBox_TriggerOnce(a0)
-	bne    @TriggerMultiple
+	beq    @TriggerMultiple
 	
 	; Check if already triggered
 	cmp.b  #0x0, TriggerBox_Triggered(a0)
@@ -101,6 +101,8 @@ TriggerBoxUpdate:
 	jsr    (a2)
 	move.l (sp)+, a1
 	move.l (sp)+, a0
+	
+	bra    @Triggered
 	
 	@NoIntersect:
 	
