@@ -47,7 +47,7 @@ Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
-Player1ColourChangeSpeed 	equ 0x0030
+Player1ColourChangeSpeed 	equ 0x0008
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun

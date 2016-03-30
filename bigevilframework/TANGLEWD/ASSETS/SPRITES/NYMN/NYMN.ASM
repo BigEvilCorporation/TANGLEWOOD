@@ -1,3 +1,6 @@
+
+AnimFrame_NymnIdle equ 0
+
 Tiles_Nymn:
 
 	; Use first sprite set as size template
@@ -7,7 +10,7 @@ Tiles_Nymn:
 Tiles_NymnEnd                                       ;  Tiles end address
 
 tiles_nymn_size_b: equ (Tiles_NymnEnd-Tiles_Nymn)   ; Sprite size in bytes
-tiles_nymn_size_t: equ (tiles_nymn_size_b/32)       ; Sprite size in tiles
+tiles_nymn_size_t: equ (tiles_nymn_size_b/size_tile_b)       ; Sprite size in tiles
 
 sprite_nymn_dimensions:			equ 0x0202	; 2x2 subsprites
 sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
@@ -15,6 +18,7 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	; Include the remaining sprite sets
 	
 	; Walk
+AnimFrame_NymnWalk equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\walk_0.asm'
 	include 'assets\sprites\nymn\walk_1.asm'
 	include 'assets\sprites\nymn\walk_2.asm'
@@ -25,6 +29,7 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\walk_7.asm'
 	
 	; Run
+AnimFrame_NymnRun equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\run_0.asm'
 	include 'assets\sprites\nymn\run_1.asm'
 	include 'assets\sprites\nymn\run_2.asm'
@@ -32,9 +37,11 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\run_4.asm'
 	
 	; Walk to run
+AnimFrame_NymnWalkToRun equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\walk2run.asm'
 	
 	; Jump
+AnimFrame_NymnJump equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\jump_0.asm'
 	include 'assets\sprites\nymn\jump_1.asm'
 	include 'assets\sprites\nymn\jump_2.asm'
@@ -49,6 +56,7 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	; Hang
 	
 	; Push
+AnimFrame_NymnPush equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\push_0.asm'
 	include 'assets\sprites\nymn\push_1.asm'
 	include 'assets\sprites\nymn\push_2.asm'
@@ -59,6 +67,7 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\push_7.asm'
 	
 	; Colour switch
+AnimFrame_NymnSwitch equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\switch_0.asm'
 	include 'assets\sprites\nymn\switch_1.asm'
 	include 'assets\sprites\nymn\switch_2.asm'
@@ -67,14 +76,22 @@ sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 	include 'assets\sprites\nymn\switch_5.asm'
 	include 'assets\sprites\nymn\switch_6.asm'
 	include 'assets\sprites\nymn\switch_7.asm'
+	include 'assets\sprites\nymn\switch_8.asm'
+	include 'assets\sprites\nymn\switch_9.asm'
+	include 'assets\sprites\nymn\switch_10.asm'
+	include 'assets\sprites\nymn\switch_11.asm'
+	include 'assets\sprites\nymn\switch_12.asm'
+	include 'assets\sprites\nymn\switch_13.asm'
 	
 	; Glide
+AnimFrame_NymnGlide equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\glide_0.asm'
 	include 'assets\sprites\nymn\glide_1.asm'
 	include 'assets\sprites\nymn\glide_2.asm'
 	include 'assets\sprites\nymn\glide_3.asm'
 	
 	; Dead
+AnimFrame_NymnDead equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\dead_0.asm'
 	include 'assets\sprites\nymn\dead_1.asm'
 	include 'assets\sprites\nymn\dead_2.asm'

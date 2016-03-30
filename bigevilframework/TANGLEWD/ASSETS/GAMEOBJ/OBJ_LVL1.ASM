@@ -13,11 +13,13 @@ Fuzzl_22:
 	jsr FuzzlInit
 	move.l #0x00061800, Entity_WorldPosX(a0)
 	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
 Fuzzl_48:
 	jsr FuzzlInit
 	move.l #0x000e8000, Entity_WorldPosX(a0)
 	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.b #ColourGreen, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
