@@ -16,7 +16,7 @@ Player1Width	  equ 0x0038
 Player1Height	  equ 0x0030
 
 ; Player starting positions - TODO: From spawn point
-Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)
+Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)+100
 Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
 Player1StartPosWorldX  equ Player1StartPosScreenX*SubpixelsPerPixel
 Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
