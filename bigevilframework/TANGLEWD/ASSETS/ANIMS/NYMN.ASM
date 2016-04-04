@@ -148,23 +148,29 @@ Anim_NymnDeath_Fall_Speed: equ 0x30
 	Even
 	
 Anim_NymnSleep:
-	dc.b AnimFrame_NymnDead+0
-	dc.b AnimFrame_NymnDead+1
-	dc.b AnimFrame_NymnDead+2
-	dc.b AnimFrame_NymnDead+3
-	dc.b AnimFrame_NymnDead+4
-	dc.b AnimFrame_NymnDead+5
-	dc.b AnimFrame_NymnDead+6
-	dc.b AnimFrame_NymnDead+7
-	dc.b AnimFrame_NymnDead+8
-	dc.b AnimFrame_NymnDead+9
-	dc.b AnimFrame_NymnDead+10
-	dc.b AnimFrame_NymnDead+11
-	dc.b AnimFrame_NymnDead+12
-	dc.b AnimFrame_NymnDead+13
+	dc.b AnimFrame_NymnSleep+0
+	dc.b AnimFrame_NymnSleep+1
+	dc.b AnimFrame_NymnSleep+2
+	dc.b AnimFrame_NymnSleep+3
+	dc.b AnimFrame_NymnSleep+4
+	dc.b AnimFrame_NymnSleep+5
+	dc.b AnimFrame_NymnSleep+6
+	dc.b AnimFrame_NymnSleep+7
+	dc.b AnimFrame_NymnSleep+8
+	dc.b AnimFrame_NymnSleep+9
+	dc.b AnimFrame_NymnSleep+10
+	dc.b AnimFrame_NymnSleep+11
+	dc.b AnimFrame_NymnSleep+12
+	dc.b AnimFrame_NymnSleep+13
+	dc.b AnimFrame_NymnSleep+13
+	dc.b AnimFrame_NymnSleep+13
+	dc.b AnimFrame_NymnSleep+14
+	dc.b AnimFrame_NymnSleep+15
+	dc.b AnimFrame_NymnSleep+16
+	dc.b AnimFrame_NymnSleep+17
 Anim_NymnSleep_End
 Anim_NymnSleep_PosX:
-	dc.b 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00
+	dc.b 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 Anim_NymnSleep_SizeB: equ (Anim_NymnSleep_End-Anim_NymnSleep)
 Anim_NymnSleep_Speed: equ 0x20
 
