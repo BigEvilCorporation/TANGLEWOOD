@@ -43,6 +43,9 @@ HandlePlayerInput:
 	; d0 (w) Gamepad input bits
 	; d1 (w) Gamepad prev input bits
 	
+	PUSHL  a0
+	PUSHL  a1
+	
 	; =====================================================================
 	; Debug button combos
 	; =====================================================================
@@ -55,7 +58,7 @@ HandlePlayerInput:
 	cmp.w  #DebugButtonCombo_Profiler, d1
 	beq    @NoProfileCombo
 	jsr    Profile_CaptureFrame
-	bra    @EndDebugInput
+	bra    @SkipInput
 	@NoProfileCombo:
 	ENDIF
 	
@@ -66,8 +69,17 @@ HandlePlayerInput:
 	beq    @NoPlayerKillCombo
 	move.b #0xFF, d0
 	jsr    CharacterDealDamage
-	bra    @EndDebugInput
+	bra    @SkipInput
 	@NoPlayerKillCombo:
+	
+	; A+B+Start = complete level
+	cmp.w  #DebugButtonCombo_CompleteLevel, d0
+	bne    @NoCompleteLevelCombo
+	cmp.w  #DebugButtonCombo_CompleteLevel, d1
+	beq    @NoCompleteLevelCombo
+	jsr    Lvl1_End
+	bra    @SkipInput
+	@NoCompleteLevelCombo:
 	
 	; B+C+Start = move object mode
 	cmp.w  #DebugButtonCombo_MoveObject, d0
@@ -77,11 +89,11 @@ HandlePlayerInput:
 	cmp.b  #0x0, DebugMoveObjectMode
 	beq    @EnableMoveMode
 	move.b #0x0, DebugMoveObjectMode
-	bra    @EndMoveModeSwitch
+	bra    @SkipInput
 	@EnableMoveMode:
 	move.b #0x1, DebugMoveObjectMode
 	@EndMoveModeSwitch:
-	bra    @EndDebugInput
+	bra    @SkipInput
 	@NoMoveModeCombo:
 	
 	; Handle debug move mode
@@ -199,5 +211,8 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	@SkipInput:
+	
+	POPL a1
+	POPL a0
 	
 	rts

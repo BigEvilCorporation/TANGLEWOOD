@@ -16,6 +16,11 @@ sprite_nymn_dimensions:			equ 0x0202	; 2x2 subsprites
 sprite_nymn_size_subsprites:	equ 4		; Sprite size in 4x4 subsprites
 
 	; Include the remaining sprite sets
+	include 'assets\sprites\nymn\idle_1.asm'
+	include 'assets\sprites\nymn\idle_2.asm'
+	include 'assets\sprites\nymn\idle_3.asm'
+	include 'assets\sprites\nymn\idle_4.asm'
+	include 'assets\sprites\nymn\idle_5.asm'
 	
 	; Walk
 AnimFrame_NymnWalk equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
@@ -52,6 +57,28 @@ AnimFrame_NymnJump equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\jump_7.asm'
 	
 	IFND DEBUG
+	
+	; Sleep
+AnimFrame_NymnSleep equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
+	include 'assets\sprites\nymn\sleep_0.asm'
+	;include 'assets\sprites\nymn\sleep_1.asm'
+	include 'assets\sprites\nymn\sleep_2.asm'
+	include 'assets\sprites\nymn\sleep_3.asm'
+	include 'assets\sprites\nymn\sleep_4.asm'
+	include 'assets\sprites\nymn\sleep_5.asm'
+	include 'assets\sprites\nymn\sleep_6.asm'
+	include 'assets\sprites\nymn\sleep_7.asm'
+	include 'assets\sprites\nymn\sleep_8.asm'
+	include 'assets\sprites\nymn\sleep_9.asm'
+	include 'assets\sprites\nymn\sleep_10.asm'
+	include 'assets\sprites\nymn\sleep_11.asm'
+	include 'assets\sprites\nymn\sleep_12.asm'
+	include 'assets\sprites\nymn\sleep_13.asm'
+	include 'assets\sprites\nymn\sleep_14.asm'
+	include 'assets\sprites\nymn\sleep_15.asm'
+	include 'assets\sprites\nymn\sleep_16.asm'
+	include 'assets\sprites\nymn\sleep_17.asm'
+	include 'assets\sprites\nymn\sleep_18.asm'
 	
 	; Hang
 	
@@ -107,28 +134,6 @@ AnimFrame_NymnDead equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\dead_12.asm'
 	include 'assets\sprites\nymn\dead_13.asm'
 	include 'assets\sprites\nymn\dead_14.asm'
-	
-	; Sleep
-AnimFrame_NymnSleep equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
-	include 'assets\sprites\nymn\sleep_0.asm'
-	include 'assets\sprites\nymn\sleep_1.asm'
-	include 'assets\sprites\nymn\sleep_2.asm'
-	include 'assets\sprites\nymn\sleep_3.asm'
-	include 'assets\sprites\nymn\sleep_4.asm'
-	include 'assets\sprites\nymn\sleep_5.asm'
-	include 'assets\sprites\nymn\sleep_6.asm'
-	include 'assets\sprites\nymn\sleep_7.asm'
-	include 'assets\sprites\nymn\sleep_8.asm'
-	include 'assets\sprites\nymn\sleep_9.asm'
-	include 'assets\sprites\nymn\sleep_10.asm'
-	include 'assets\sprites\nymn\sleep_11.asm'
-	include 'assets\sprites\nymn\sleep_12.asm'
-	include 'assets\sprites\nymn\sleep_13.asm'
-	include 'assets\sprites\nymn\sleep_14.asm'
-	include 'assets\sprites\nymn\sleep_15.asm'
-	include 'assets\sprites\nymn\sleep_16.asm'
-	include 'assets\sprites\nymn\sleep_17.asm'
-	include 'assets\sprites\nymn\sleep_18.asm'
 	
 	ENDIF
 

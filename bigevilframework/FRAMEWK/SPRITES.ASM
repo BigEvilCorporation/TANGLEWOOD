@@ -266,7 +266,6 @@ SetSpriteAnimFrame:
 	; Add DMA job
 	mulu.w  #size_tile_w, d1
 	jsr     VDPDMAQueue_AddJob
-	jsr     VDPDMAQueue_ExecuteAll
 	
 	ELSE
 	

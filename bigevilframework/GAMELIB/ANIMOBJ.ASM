@@ -154,9 +154,9 @@ AnimObjDraw:
 	divu   d3, d2          				; Div frame count against num anim frames
 	clr.w  d2							; Clear exponent
 	swap   d2			   				; Remainder to lower word
-	;lsl.w  #0x1, d2		   				; Words to bytes
 	move.b (a3,d2.w), d3   				; Get value from anim track
-	;ext.l  d3			   				; Sign extend
+	ext.w  d3			   				; Sign extend
+	ext.l  d3			   				; Sign extend
 	lsl.l  #0x8, d3		  				; Pixels to world space
 	add.l  d3, Entity_WorldPosX(a0)		; Offset X pos
 	@NoTrackPosX:
