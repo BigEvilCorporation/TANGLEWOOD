@@ -73,10 +73,11 @@ Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
 
 ; Animations
-PlayerAnimIdx_Switch equ 0
-PlayerAnimIdx_Sleep  equ 1
-; ------------------------
-PlayerAnimIdx_Max    equ 2
+PlayerAnimIdx_Switch  equ 0
+PlayerAnimIdx_LieDown equ 1
+PlayerAnimIdx_Sleep   equ 2
+; -------------------------
+PlayerAnimIdx_Max     equ 3
 
 ; ************************************
 ; Struct
@@ -88,8 +89,9 @@ Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
+Player_Sleeping         	rs.b 1
 ;---------------------------------
-Player_Struct_Pad      		rs.b 1
+Player_Struct_Pad      		rs.b 0
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -142,6 +144,7 @@ PlayerInit:
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
+	move.b  #0x0, Player_Sleeping(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -251,15 +254,25 @@ PlayerInit:
 	move.b #Anim_NymnSwitch_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
+	; LieDown
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
+	move.l #Anim_NymnLieDown, Animation_AnimTrackSpriteFrame(a3)
+	move.l #Anim_NymnLieDown_PosX, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #Anim_NymnLieDown_Speed, Animation_Speed(a3)
+	move.b #Anim_NymnLieDown_SizeB, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	
 	; Sleep
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Sleep), a3
 	move.l #Anim_NymnSleep, Animation_AnimTrackSpriteFrame(a3)
-	move.l #Anim_NymnSleep_PosX, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #Anim_NymnSleep_Speed, Animation_Speed(a3)
 	move.b #Anim_NymnSleep_SizeB, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	rts
 
@@ -277,6 +290,13 @@ PlayerUpdate:
 	; Test for obstacles and pickups
 	jsr    PlayerTest_Obstacles
 	jsr    PlayerTest_Fireflies
+	
+	; Process sleep state
+	cmp.b  #0x0, Player_Sleeping(a0)
+	beq    @NotSleeping
+	jsr    PlayerUpdateSleep
+	
+	@NotSleeping:
 	
 	; Process interactions
 	move.b Player_InteractionType(a0), d0
@@ -321,13 +341,35 @@ PlayerBeginSleep:
 	PUSHL  a1
 	move.l a0, a1
 	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	move.l #(PlayerAnimIdx_LieDown*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
+	
+	; Start sleep state
+	move.b #0x1, Player_Sleeping(a0)
+	
+	rts
+	
+PlayerUpdateSleep:
+	; a0 --- Character address
+	
+	; If animation finished, run looping sleep anim
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	bne    @LyingDown
+	
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	@LyingDown:
 	
 	rts
 

@@ -20,7 +20,7 @@ GameStateEndLevel:
 ; ************************************
 GameStateEndLevel_FadeDownPalette	equ palette_fade_white
 GameStateEndLevel_FadeDownSpeed		equ (0x1<<0x8) ; Subframes (1 frame per tick)
-GameStateEndLevel_SleepTime			equ 0x0100
+GameStateEndLevel_SleepTime			equ 0x0180
 GameStateEndLevel_ResetTime			equ 0x0100
 
 EndLevelPhase_Sleep					equ 0x1

@@ -58,27 +58,35 @@ AnimFrame_NymnJump equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	
 	IFND DEBUG
 	
+	; Lie down
+AnimFrame_NymnLieDown equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
+	include 'assets\sprites\nymn\lie_0.asm'
+	include 'assets\sprites\nymn\lie_1.asm'
+	include 'assets\sprites\nymn\lie_2.asm'
+	include 'assets\sprites\nymn\lie_3.asm'
+	include 'assets\sprites\nymn\lie_4.asm'
+	include 'assets\sprites\nymn\lie_5.asm'
+	include 'assets\sprites\nymn\lie_6.asm'
+	include 'assets\sprites\nymn\lie_7.asm'
+	include 'assets\sprites\nymn\lie_8.asm'
+	include 'assets\sprites\nymn\lie_9.asm'
+	include 'assets\sprites\nymn\lie_10.asm'
+	include 'assets\sprites\nymn\lie_11.asm'
+	include 'assets\sprites\nymn\lie_12.asm'
+	include 'assets\sprites\nymn\lie_13.asm'
+	include 'assets\sprites\nymn\lie_14.asm'
+	include 'assets\sprites\nymn\lie_15.asm'
+	include 'assets\sprites\nymn\lie_16.asm'
+	include 'assets\sprites\nymn\lie_17.asm'
+	
 	; Sleep
 AnimFrame_NymnSleep equ ((*-Tiles_Nymn)/tiles_nymn_size_b)
 	include 'assets\sprites\nymn\sleep_0.asm'
-	;include 'assets\sprites\nymn\sleep_1.asm'
+	include 'assets\sprites\nymn\sleep_1.asm'
 	include 'assets\sprites\nymn\sleep_2.asm'
 	include 'assets\sprites\nymn\sleep_3.asm'
 	include 'assets\sprites\nymn\sleep_4.asm'
 	include 'assets\sprites\nymn\sleep_5.asm'
-	include 'assets\sprites\nymn\sleep_6.asm'
-	include 'assets\sprites\nymn\sleep_7.asm'
-	include 'assets\sprites\nymn\sleep_8.asm'
-	include 'assets\sprites\nymn\sleep_9.asm'
-	include 'assets\sprites\nymn\sleep_10.asm'
-	include 'assets\sprites\nymn\sleep_11.asm'
-	include 'assets\sprites\nymn\sleep_12.asm'
-	include 'assets\sprites\nymn\sleep_13.asm'
-	include 'assets\sprites\nymn\sleep_14.asm'
-	include 'assets\sprites\nymn\sleep_15.asm'
-	include 'assets\sprites\nymn\sleep_16.asm'
-	include 'assets\sprites\nymn\sleep_17.asm'
-	include 'assets\sprites\nymn\sleep_18.asm'
 	
 	; Hang
 	
