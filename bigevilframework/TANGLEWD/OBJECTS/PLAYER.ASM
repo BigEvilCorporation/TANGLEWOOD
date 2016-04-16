@@ -33,13 +33,14 @@ Player1MaxVelXRun  equ 0x03*SubpixelsPerPixel  ; Player 1 max X running velocity
 Player1MaxVelYUp   equ 0x06*SubpixelsPerPixel  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x06*SubpixelsPerPixel  ; Player 1 max Y velocity down
 
-Player1JumpVel	     equ 0x0600 ; Player 1 jump velocity impulse
-Player1JumpCancelVel equ 0x0100 ; Player 1 velocity to cancel jump
-Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no limit on down vel)
+Player1JumpVel	     equ 0x06*SubpixelsPerPixel ; Player 1 jump velocity impulse
+Player1JumpCancelVel equ 0x01*SubpixelsPerPixel ; Player 1 velocity to cancel jump
+Player1MaxGrabUpVel  equ 0x03*SubpixelsPerPixel ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Player collision probes
-Player1StepHeight	 equ 0x6
+Player1StepHeight	 equ 0x3
 Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
+Player1ProbeFloorY   equ (Player1Height-8)  ; Floor detection probe position Y
 Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
@@ -125,6 +126,7 @@ PlayerInit:
 	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
 	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
+	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Player1StepHeight, GameObj_StepHeight(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)

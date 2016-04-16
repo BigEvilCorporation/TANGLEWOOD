@@ -486,6 +486,9 @@ CharacterStartRun:
 	; Set max running velocity
 	move.w Character_MaxVelXRun(a0), GameObj_MaxVelX(a0)
 	
+	; Snap to floor if within step height
+	move.b #0x1, GameObj_SnapToFloor(a0)
+	
 	; Set running flag
 	move.b #0x1, Character_Running(a0)
 	
@@ -505,6 +508,9 @@ CharacterCancelRun:
 
 	; Set max walking velocity
 	move.w Character_MaxVelXWalk(a0), GameObj_MaxVelX(a0)
+	
+	; Disable snap to floor
+	move.b #0x0, GameObj_SnapToFloor(a0)
 	
 	; Clear running flag
 	move.b #0x0, Character_Running(a0)
