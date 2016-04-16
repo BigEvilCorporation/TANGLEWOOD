@@ -13,7 +13,8 @@ Boulder_Height				equ 0x40
 Boulder_MaxVelYUp			equ 0x0600
 Boulder_MaxVelYDown			equ 0x0600
 Boulder_StepHeight			equ 0x4
-Boulder_ProbeFloorX			equ (Boulder_Width/2)  					; Floor detection probe position X
+Boulder_ProbeFloorX			equ (Boulder_Width/2)	; Floor detection probe position X
+Boulder_ProbeFloorY			equ (Boulder_Height-8)	; Floor detection probe position X
 Boulder_MaxVelX				equ 0x0100
 Boulder_Decel				equ 0x0008
 
@@ -62,6 +63,7 @@ BoulderInit:
 	move.w  #Boulder_Decel, GameObj_DecelX(a0)
 	move.w  #Boulder_StepHeight, GameObj_StepHeight(a0)
 	move.w  #Boulder_ProbeFloorX, GameObj_FloorProbeX(a0)
+	move.w  #Boulder_ProbeFloorY, GameObj_FloorProbeY(a0)
 	move.w  #Boulder_MaxVelYUp, GameObj_MaxVelYUp(a0)
 	move.w  #Boulder_MaxVelYDown, GameObj_MaxVelYDown(a0)
 	
