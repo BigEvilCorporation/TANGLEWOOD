@@ -518,6 +518,7 @@ GameObjFindFloor:
 	move.w Entity_Height(a0), d3			; Get height
 	add.l  d3, d2							; Get floor probe
 	move.w d2, d1							; Player pos XY (screen space) to d1
+	sub.w  GameObj_StepHeight(a0), d1		; Sub step height
 
 	; Check if Y within collision map bounds
 	cmp.w  #0x0, d1

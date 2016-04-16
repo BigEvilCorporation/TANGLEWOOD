@@ -10,16 +10,17 @@ __start
 	
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
+	
+	; Include macros
+	include '..\framewk\macros.asm'
 
 	; Include Framework code
 	include '..\framewk\init.asm'
-	
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
 	include '..\framewk\exceptn.asm'
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
-	include '..\framewk\macros.asm'
 	include '..\framewk\maths.asm'
 	include '..\framewk\megacd.asm'
 	include '..\framewk\memory.asm'

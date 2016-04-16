@@ -6,8 +6,9 @@
 ;   collision.asm - Collision data loading, collision tests
 ;==============================================================
 
-heightmap_column_blank	equ 0x0
-heightmap_column_solid	equ 0x8
+heightmap_column_blank		equ 0x0
+heightmap_column_solid		equ 0x8
+heightmap_max_search_tiles	equ 0x2
 
 GetTerrainTile:
 	; a0 ---- : Collision map data addr
@@ -100,12 +101,16 @@ GetTerrainHeight:
 	sub.w  d3, d6	; Sub from Y coord
 	addi.w #0x8, d6	; + 1 tile
 	
+	; Clear total blank tiles skipped
+	clr.l  d5
+	
 	@NextTile:
 	
-	move.l a0, -(sp)
-	move.l a1, -(sp)
-	move.l d1, -(sp)
-	move.l d2, -(sp)
+	PUSHL a0
+	PUSHL a1
+	PUSHL d1
+	PUSHL d2
+	PUSHL d5
 	
 	; Get terrain tile
 	move.l d1, -(sp)
@@ -128,23 +133,36 @@ GetTerrainHeight:
 	move.b (a1), d0	; Get height value
 	add.w  d0, d7	; Add to total found height
 	
-	move.l (sp)+, d2
-	move.l (sp)+, d1
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	POPL d5
+	POPL d2
+	POPL d1
+	POPL a1
+	POPL a0
 	
-	; If solid, search next tile up
+	; If solid tile, search next tile up
 	cmp.b  #heightmap_column_solid, d0
-	bne    @BelowMaxHeight
+	beq    @SolidTile
 	
-	sub.w  #0x8, d1		; Next tile upwards
-	bra    @NextTile	; Search again
+	; If blank total result, search next tile down
+	cmp.w  #heightmap_column_blank, d7
+	beq    @EmptyTile
 	
-	@BelowMaxHeight:
+	; Valid height found
+	bra    @HeightFound
 	
-	; Total found height from all tiles in d7
-	cmp.w  #heightmap_column_blank, d7	; If blank, no height
-	beq    @NoHeight
+	@SolidTile:
+	sub.w  #0x8, d1							; Next tile upwards
+	bra    @NextTile						; Search again
+	
+	@EmptyTile:
+	cmp.b  #heightmap_max_search_tiles, d5	; Check if reached max tile search
+	beq    @NoHeight						; Bail if reached
+	addq.b #0x1, d5							; Increment blank tiles skipped
+	add.w  #0x8, d1							; Next search tile downwards
+	add.w  #0x8, d6							; Next top Y offset downwards
+	bra    @NextTile						; Search again
+	
+	@HeightFound:
 	
 	; Sub from Y (heightmap Y values are +ve, coord sys Y is -ve)
 	sub.w  d7, d6
