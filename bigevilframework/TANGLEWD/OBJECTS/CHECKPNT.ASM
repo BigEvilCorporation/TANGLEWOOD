@@ -25,6 +25,7 @@ CheckpointInit:
 	
 	; Set type
 	addi.l #entity_type_checkpoint, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Checkpoints
 	
 	; Set update and serialise routines
 	move.l #CheckpointUpdate, Entity_UpdateRoutine(a0)
@@ -45,13 +46,16 @@ CheckpointUpdate:
 	; a1 --- Level addr
 	
 	; If not already active
-	cmp.b #0x0, Checkpoint_Activated(a0)
-	beq   @Inactive:
+	; TODO: Remove from entity update list completely
+	cmp.b  #0x0, Checkpoint_Activated(a0)
+	beq    @Inactive
 	
 	; If player reaches checkpoint X pos, it is activated
-	lea   Player1, a2
-	cmp.l Entity_WorldPosX(a0), Entity_WorldPosX(a2)
-	bgt   @NotReached
+	lea    Player1, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosX(a2), d1
+	cmp.l  d0, d1
+	bgt    @NotReached
 	
 	; Checkpoint activated
 	move.b #0x1, Checkpoint_Activated(a0)
@@ -60,7 +64,7 @@ CheckpointUpdate:
 	move.l a0, LastActivatedCheckpoint
 	
 	; Save game state
-	jsr    SaveGameState
+	; jsr    SaveGameState
 	
 	@Inactive:
 	@NotReached:
@@ -74,3 +78,4 @@ CheckpointSerialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
 	rts
+	

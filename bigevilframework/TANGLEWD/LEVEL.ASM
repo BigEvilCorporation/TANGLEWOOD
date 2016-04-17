@@ -85,11 +85,14 @@ LevelLoad:
 	
 	jsr LevelLoadPalettes
 	jsr LevelLoadArt
-	jsr LevelLoadMap
 	
 	jsr LevelCreatePlayers
 	jsr LevelCreateGameObjects
 	jsr LevelLoadGameObjArt
+	
+	; Stream map last, needs player pos
+	; TODO: In Gameplay_Enter() to account for checkpoints, move somewhere more appropriate
+	; jsr LevelPreStreamMap
 	
 	; Flush VDP queue
 	jsr VDPQueue_ExecuteAll
@@ -137,12 +140,16 @@ LevelLoadArt:
 	
 	rts
 	
-LevelLoadMap:
+LevelPreStreamMap:
+	
+	PUSHL  a0
+	PUSHL  a1
 	
 	;==============================================================
 
 	; Initial camera pos X to world scroll
-	move.l #Player1StartPosWorldX, d0
+	move.l #Player1, a0
+	move.l Entity_WorldPosX(a0), d0
 	sub.l  #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollX
@@ -160,9 +167,10 @@ LevelLoadMap:
 	;==============================================================
 
 	; Initial camera pos Y to world scroll
-	move.l #Player1StartPosWorldY, d0
+	move.l #Player1, a0
+	move.l Entity_WorldPosY(a0), d0
 	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	add.l  #(Player1Height*SubpixelsPerPixel)/2, d0		; Centre on player
+	add.l  #(Player1Height*SubpixelsPerPixel)*2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollY
 	move.l d0, WorldScrollY
 
@@ -189,6 +197,9 @@ LevelLoadMap:
 	dbra   d2, @Loop
 
 	;==============================================================
+	
+	POPL   a1
+	POPL   a0
 	
 	rts
 	
@@ -364,6 +375,10 @@ LevelCreateGameObjects:
 	; Trigger boxes
 	move.l #EntityArray_Triggers, a0
 	jsr    LoadGameObjects_lvl1_TriggerBox
+	
+	; Checkpoints
+	move.l #EntityArray_Checkpoints, a0
+	jsr    LoadGameObjects_lvl1_Checkpoint
 	
 	; Monsters
 	move.l #EntityArray_Monsters, a0

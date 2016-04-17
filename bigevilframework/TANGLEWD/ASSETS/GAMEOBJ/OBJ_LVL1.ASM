@@ -66,17 +66,17 @@ Obstacle_34:
 	add.l #Obstacle_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Firefly_count equ 11
+gameobjects_lvl1_Firefly_count equ 9
 LoadGameObjects_lvl1_Firefly:
-Firefly_8:
+Firefly_18:
 	jsr FireflyInit
-	move.l #0x00011000, Entity_WorldPosX(a0)
-	move.l #0x00019800, Entity_WorldPosY(a0)
+	move.l #0x00086800, Entity_WorldPosX(a0)
+	move.l #0x00014000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_9:
+Firefly_17:
 	jsr FireflyInit
-	move.l #0x00013800, Entity_WorldPosX(a0)
-	move.l #0x0001a000, Entity_WorldPosY(a0)
+	move.l #0x00086000, Entity_WorldPosX(a0)
+	move.l #0x00013000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_10:
 	jsr FireflyInit
@@ -113,16 +113,6 @@ Firefly_16:
 	move.l #0x00085000, Entity_WorldPosX(a0)
 	move.l #0x00013800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_17:
-	jsr FireflyInit
-	move.l #0x00086000, Entity_WorldPosX(a0)
-	move.l #0x00013000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_18:
-	jsr FireflyInit
-	move.l #0x00086800, Entity_WorldPosX(a0)
-	move.l #0x00014000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
 	rts
 
 gameobjects_lvl1_Monster_count equ 1
@@ -153,5 +143,14 @@ TriggerBox_51:
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
+	rts
+
+gameobjects_lvl1_Checkpoint_count equ 1
+LoadGameObjects_lvl1_Checkpoint:
+Checkpoint_52:
+	jsr CheckpointInit
+	move.l #0x00011000, Entity_WorldPosX(a0)
+	move.l #0x00018000, Entity_WorldPosY(a0)
+	add.l #Checkpoint_Struct_Size, a0
 	rts
 

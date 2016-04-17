@@ -28,6 +28,33 @@ Gameplay_Enter:
 	move.l Level_InitRoutine(a1), a2
 	jsr    (a2)
 	
+	; Get player 1
+	move.l #Player1, a0
+	
+	; Get first checkpoint
+	cmp.w  #0x0, EntityCount_Checkpoints
+	beq    @NoCheckpoints
+	lea    EntityArray_Checkpoints, a2
+	
+	; Set as activated
+	move.b #0x1, Checkpoint_Activated(a2)
+	
+	; Set player pos from checkpoint
+	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	
+	; Re-stream map
+	; TODO: Work this into level init
+	jsr    LevelPreStreamMap
+	
+	@NoCheckpoints:
+	
+	; Snap to floor
+	jsr    GameObjSnapToFloor
+	
+	; Begin snoozing
+	jsr    PlayerBeginIdleSnooze
+	
 	rts
 	
 Gameplay_Exit:

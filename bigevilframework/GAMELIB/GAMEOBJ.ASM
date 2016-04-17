@@ -414,7 +414,6 @@ GameObjCollisionCorrection:
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	move.w #0x0, GameObj_VelY(a0)					; Zero object's Y velocity
 	move.b #0x1, GameObj_OnFloor(a0)				; Set object on floor flag
-	move.b #0x1, GameObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, GameObj_CloseToFloor(a0)			; Set object close to floor flag
 	bra    @EndFloorTest
 	@AboveFloor:
@@ -689,6 +688,28 @@ GameObjFindWall:
 	@ProbeOutOfBounds:
 	@NoWallFound:
 
+	rts
+	
+GameObjSnapToFloor:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	jsr    GameObjFindFloor
+
+	move.l GameObj_LastFloor(a0), d2		; Get last found floor
+	beq    @NoFloorFound
+	
+	move.l Entity_WorldPosY(a0), d1			; Get Y pos
+	move.w Entity_Height(a0), d3			; Get height
+	lsl.l  #0x8, d3							; Height to world space
+	sub.l  d3, d2							; Floor to floor probe space
+	move.l d2, Entity_WorldPosY(a0) 		; Set Y pos
+	move.w #0x0, GameObj_VelY(a0)			; Zero object's Y velocity
+	move.b #0x1, GameObj_OnFloor(a0)		; Set object on floor flag
+	move.b #0x1, GameObj_CloseToFloor(a0)	; Set object close to floor flag
+	
+	@NoFloorFound:
+	
 	rts
 	
 GameObjDraw:

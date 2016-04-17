@@ -90,9 +90,10 @@ Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
-Player_Sleeping         	rs.b 1
+Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
+Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 ;---------------------------------
-Player_Struct_Pad      		rs.b 0
+Player_Struct_Pad      		rs.b 3
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -150,6 +151,7 @@ PlayerInit:
 	move.l  #0x0, Player_InteractObject(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 	move.b  #0x0, Player_Sleeping(a0)
+	move.b  #0x0, Player_Snoozing(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -259,7 +261,7 @@ PlayerInit:
 	move.b #Anim_NymnSwitch_SizeB, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
-	; LieDown
+	; Lie down
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
 	move.l #Anim_NymnLieDown, Animation_AnimTrackSpriteFrame(a3)
@@ -296,12 +298,16 @@ PlayerUpdate:
 	jsr    PlayerTest_Obstacles
 	jsr    PlayerTest_Fireflies
 	
-	; Process sleep state
+	; Process sleep/snooze states
 	cmp.b  #0x0, Player_Sleeping(a0)
 	beq    @NotSleeping
 	jsr    PlayerUpdateSleep
-	
 	@NotSleeping:
+	
+	cmp.b  #0x0, Player_Snoozing(a0)
+	beq    @NotSnoozing
+	jsr    PlayerUpdateIdleSnooze
+	@NotSnoozing:
 	
 	; Process interactions
 	move.b Player_InteractionType(a0), d0
@@ -375,6 +381,59 @@ PlayerUpdateSleep:
 	POPL   a1
 	
 	@LyingDown:
+	
+	rts
+	
+PlayerBeginIdleSnooze:
+	; a0 --- Character address
+	
+	; Cancel all actions
+	jsr    CharacterCancelXMovement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+	move.b #0x0, Character_Interacting(a0)
+	
+	; Cancel velocity
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
+	
+	; Start sleep anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	; Start snooze state
+	move.b #0x1, Player_Snoozing(a0)
+	
+	rts
+	
+PlayerUpdateIdleSnooze:
+	; a0 --- Character address
+	
+	; If X velocity changed
+	cmp.w  #0x0, GameObj_VelX(a0)
+	bne    @EndSnooze
+
+	; If Y velocity upward
+	cmp.w  #0x0, GameObj_VelY(a0)
+	bgt    @EndSnooze
+	
+	bra    @StillSnoozing
+	
+	@EndSnooze:
+	
+	; Release anim control, stop snoozing
+	move.b #0x1, Character_UpdateAnim(a0)
+	move.b #0x0, Player_Snoozing(a0)
+	
+	@StillSnoozing:
 	
 	rts
 

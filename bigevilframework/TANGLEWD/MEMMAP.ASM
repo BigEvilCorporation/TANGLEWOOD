@@ -166,27 +166,29 @@ EntityListSize_Serialise rs.l 1
 ; ************************************
 ; Entities
 ; ************************************
-EntityArray_Players    rs.b (Player_Struct_Size*Player_MaxEntities)
-EntityArray_Monsters   rs.b (Monster_Struct_Size*Monster_MaxEntities)
-EntityArray_Fireflies  rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
-EntityArray_Flues      rs.b (Flue_Struct_Size*Flue_MaxEntities)
-EntityArray_Fuzzls     rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
-EntityArray_Leaves     rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
-EntityArray_Nests      rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_Obstacles  rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
-EntityArray_Boulders   rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
-EntityArray_Triggers   rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
+EntityArray_Players     rs.b (Player_Struct_Size*Player_MaxEntities)
+EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
+EntityArray_Fuzzls      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
+EntityArray_Leaves      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
+EntityArray_Nests       rs.b (Nest_Struct_Size*Nest_MaxEntities)
+EntityArray_Obstacles   rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
+EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
+EntityArray_Triggers    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
+EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
 
-EntityCount_Players    rs.w 1
-EntityCount_Monsters   rs.w 1
-EntityCount_Fireflies  rs.w 1
-EntityCount_Flues      rs.w 1
-EntityCount_Fuzzls     rs.w 1
-EntityCount_Leaves     rs.w 1
-EntityCount_Nests      rs.w 1
-EntityCount_Obstacles  rs.w 1
-EntityCount_Boulders   rs.w 1
-EntityCount_Triggers   rs.w 1
+EntityCount_Players     rs.w 1
+EntityCount_Monsters    rs.w 1
+EntityCount_Fireflies   rs.w 1
+EntityCount_Flues       rs.w 1
+EntityCount_Fuzzls      rs.w 1
+EntityCount_Leaves      rs.w 1
+EntityCount_Nests       rs.w 1
+EntityCount_Obstacles   rs.w 1
+EntityCount_Boulders    rs.w 1
+EntityCount_Triggers    rs.w 1
+EntityCount_Checkpoints rs.w 1
 
 reserved_ram_size		rs.b 0
 

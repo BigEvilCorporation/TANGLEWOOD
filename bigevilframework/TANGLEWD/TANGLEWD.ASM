@@ -66,6 +66,7 @@ __start
 
 	; Include GameObject derivatives
 	include 'objects\boulder.asm'
+	include 'objects\checkpnt.asm'
 	include 'objects\firefly.asm'
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
