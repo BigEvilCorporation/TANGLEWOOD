@@ -115,6 +115,9 @@ PlayerInit:
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
+	
+	; Update when out of view
+	move.b  #0x1, GameObj_UpdateOutOfView(a0)
 
 	; Setup default state
 	move.l  #Player1StartPosWorldX, Entity_WorldPosX(a0)

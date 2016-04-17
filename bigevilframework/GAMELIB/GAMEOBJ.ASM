@@ -40,6 +40,7 @@ GameObj_Active           rs.b 1	; Can update
 GameObj_Visible          rs.b 1	; Is visible (hidden in sprite border if not)
 GameObj_SpriteLinked     rs.b 1	; Is sprite linked (use as last frame visibility test)
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
+GameObj_UpdateOutOfView	 rs.b 1 ; GameObj can update even when out of view (sprite not linked on last render)
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_HitWall			 rs.b 1 ; Object is touching a wall
@@ -47,7 +48,7 @@ GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 GameObj_SnapToFloor		 rs.b 1 ; Object should snap to floor if within step height
 ;------------------------------
-GameObj_Struct_Pad       rs.b 0
+GameObj_Struct_Pad       rs.b 3
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -141,6 +142,13 @@ GameObjUpdate:
 	cmp.b  #0x0, d0
 	beq    @Inactive
 	
+	; If not configured to update out of view, and out of view, jump to end
+	cmp.b  #0x0, GameObj_UpdateOutOfView(a0)
+	bne    @UpdateOutOfView
+	cmp.b  #0x0, GameObj_SpriteLinked(a0)
+	beq    @OutOfView
+	@UpdateOutOfView:
+	
 	move.b GameObj_HasPhysics(a0), d0
 	cmp.b  #0x0, d0
 	beq    @NoPhysics
@@ -173,6 +181,7 @@ GameObjUpdate:
 	jsr GameObjClampPos
 	
 	@Inactive:
+	@OutOfView:
 	@End:
 	
 	move.l a1, (sp)+
