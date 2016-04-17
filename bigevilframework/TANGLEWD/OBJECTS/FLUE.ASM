@@ -128,11 +128,14 @@ FlueOccupantUpdate:
 	
 	; If character
 	move.l Entity_TypeBits(a1), d1
-	btst.l #entity_type_character, d1
+	andi.l #entity_type_character, d1
+	cmp.l  #0x0, d1
 	beq    @NotCharacter 
 	
 	; Set jumping
 	move.b #0x1, Character_Jumping(a1)
+	
+	bra    @NotFuzzl
 	
 	@NotCharacter:
 	
