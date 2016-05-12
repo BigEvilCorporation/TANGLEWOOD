@@ -217,7 +217,7 @@ LevelLoadGameObjArt:
 
 	; Player 1
 	move.l #EntityArray_Players, a0
-	lea    Tiles_Nymn, a1
+	lea    spritesheets_nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
 	lea    sprite_nymn_subsprite_pos_offsets, a3
 	lea    sprite_nymn_numtiles_per_subsprite, a4

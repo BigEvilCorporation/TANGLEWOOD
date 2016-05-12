@@ -31,6 +31,8 @@
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
 	include 'assets\sprites\spr_vine.asm'
+
+	include 'assets\testspr\nymn.asm'
 	
 	; ************************************
 	; Animation data
@@ -41,6 +43,8 @@
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\monster.asm'
 	include 'assets\anims\nymn.asm'
+	
+	include 'assets\testanim\nymn.asm'
 
 	IFD DEBUG
 

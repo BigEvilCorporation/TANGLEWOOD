@@ -137,6 +137,7 @@ AnimObjDraw:
 	move.l GameObj_VRAMAddr(a0), d0
 	move.w GameObj_TilesetSize(a0), d1
 	move.b Animation_Length(a2), d3
+	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l GameObj_TilesetAddr(a0), a0
 	jsr    SetSpriteAnimFrame

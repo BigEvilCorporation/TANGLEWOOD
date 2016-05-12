@@ -1,13 +1,13 @@
 Anim_NymnIdle:
-	dc.b AnimFrame_NymnIdle+0
-	dc.b AnimFrame_NymnIdle+0
-	dc.b AnimFrame_NymnIdle+0
-	dc.b AnimFrame_NymnIdle+0
-	dc.b AnimFrame_NymnIdle+1
-	dc.b AnimFrame_NymnIdle+2
-	dc.b AnimFrame_NymnIdle+3
-	dc.b AnimFrame_NymnIdle+4
-	dc.b AnimFrame_NymnIdle+5
+	dc.b spritesheet_nymn_idle_frameoffset+0
+	dc.b spritesheet_nymn_idle_frameoffset+0
+	dc.b spritesheet_nymn_idle_frameoffset+0
+	dc.b spritesheet_nymn_idle_frameoffset+0
+	dc.b spritesheet_nymn_idle_frameoffset+1
+	dc.b spritesheet_nymn_idle_frameoffset+2
+	dc.b spritesheet_nymn_idle_frameoffset+3
+	dc.b spritesheet_nymn_idle_frameoffset+4
+	dc.b spritesheet_nymn_idle_frameoffset+5
 Anim_NymnIdle_End
 Anim_NymnIdle_SizeB: equ (Anim_NymnIdle_End-Anim_NymnIdle)
 Anim_NymnIdle_Speed: equ 0x04
@@ -15,14 +15,14 @@ Anim_NymnIdle_Speed: equ 0x04
 	Even
 
 Anim_NymnWalk:
-	dc.b AnimFrame_NymnWalk+0
-	dc.b AnimFrame_NymnWalk+1
-	dc.b AnimFrame_NymnWalk+2
-	dc.b AnimFrame_NymnWalk+3
-	dc.b AnimFrame_NymnWalk+4
-	dc.b AnimFrame_NymnWalk+5
-	dc.b AnimFrame_NymnWalk+6
-	dc.b AnimFrame_NymnWalk+7
+	dc.b spritesheet_nymn_walk_frameoffset+0
+	dc.b spritesheet_nymn_walk_frameoffset+1
+	dc.b spritesheet_nymn_walk_frameoffset+2
+	dc.b spritesheet_nymn_walk_frameoffset+3
+	dc.b spritesheet_nymn_walk_frameoffset+4
+	dc.b spritesheet_nymn_walk_frameoffset+5
+	dc.b spritesheet_nymn_walk_frameoffset+6
+	dc.b spritesheet_nymn_walk_frameoffset+7
 Anim_NymnWalk_End
 Anim_NymnWalk_SizeB: equ (Anim_NymnWalk_End-Anim_NymnWalk)
 Anim_NymnWalk_Speed: equ 0x20
@@ -30,11 +30,11 @@ Anim_NymnWalk_Speed: equ 0x20
 	Even
 	
 Anim_NymnRun:
-	dc.b AnimFrame_NymnRun+0
-	dc.b AnimFrame_NymnRun+1
-	dc.b AnimFrame_NymnRun+2
-	dc.b AnimFrame_NymnRun+3
-	dc.b AnimFrame_NymnRun+4
+	dc.b spritesheet_nymn_run_frameoffset+0
+	dc.b spritesheet_nymn_run_frameoffset+1
+	dc.b spritesheet_nymn_run_frameoffset+2
+	dc.b spritesheet_nymn_run_frameoffset+3
+	dc.b spritesheet_nymn_run_frameoffset+4
 Anim_NymnRun_End
 Anim_NymnRun_SizeB: equ (Anim_NymnRun_End-Anim_NymnRun)
 Anim_NymnRun_Speed: equ 0x30
@@ -42,7 +42,7 @@ Anim_NymnRun_Speed: equ 0x30
 	Even
 	
 Anim_NymnWalkToRun:
-	dc.b AnimFrame_NymnWalkToRun
+	dc.b spritesheet_nymn_walktorun_frameoffset+0
 Anim_NymnWalkToRun_End
 Anim_NymnWalkToRun_SizeB: equ (Anim_NymnWalkToRun_End-Anim_NymnWalkToRun)
 Anim_NymnWalkToRun_Speed: equ 0x30
@@ -50,14 +50,14 @@ Anim_NymnWalkToRun_Speed: equ 0x30
 	Even
 	
 Anim_NymnJump:
-	dc.b AnimFrame_NymnJump+0
-	dc.b AnimFrame_NymnJump+1
-	dc.b AnimFrame_NymnJump+2
-	dc.b AnimFrame_NymnJump+3
-	dc.b AnimFrame_NymnJump+4
-	dc.b AnimFrame_NymnJump+5
-	dc.b AnimFrame_NymnJump+6
-	dc.b AnimFrame_NymnJump+7
+	dc.b spritesheet_nymn_jump_frameoffset+0
+	dc.b spritesheet_nymn_jump_frameoffset+1
+	dc.b spritesheet_nymn_jump_frameoffset+2
+	dc.b spritesheet_nymn_jump_frameoffset+3
+	dc.b spritesheet_nymn_jump_frameoffset+4
+	dc.b spritesheet_nymn_jump_frameoffset+5
+	dc.b spritesheet_nymn_jump_frameoffset+6
+	dc.b spritesheet_nymn_jump_frameoffset+7
 Anim_NymnJump_End
 Anim_NymnJump_SizeB: equ (Anim_NymnJump_End-Anim_NymnJump)
 Anim_NymnJump_Speed: equ 0x40
@@ -73,14 +73,14 @@ Anim_NymnHang_Speed: equ 0x40
 	Even
 	
 Anim_NymnPush:
-	dc.b AnimFrame_NymnPush+0
-	dc.b AnimFrame_NymnPush+1
-	dc.b AnimFrame_NymnPush+2
-	dc.b AnimFrame_NymnPush+3
-	dc.b AnimFrame_NymnPush+4
-	dc.b AnimFrame_NymnPush+5
-	dc.b AnimFrame_NymnPush+6
-	dc.b AnimFrame_NymnPush+7
+	dc.b spritesheet_nymn_push_frameoffset+0
+	dc.b spritesheet_nymn_push_frameoffset+1
+	dc.b spritesheet_nymn_push_frameoffset+2
+	dc.b spritesheet_nymn_push_frameoffset+3
+	dc.b spritesheet_nymn_push_frameoffset+4
+	dc.b spritesheet_nymn_push_frameoffset+5
+	dc.b spritesheet_nymn_push_frameoffset+6
+	dc.b spritesheet_nymn_push_frameoffset+7
 Anim_NymnPush_End
 Anim_NymnPush_SizeB: equ (Anim_NymnPush_End-Anim_NymnPush)
 Anim_NymnPush_Speed: equ 0x20
@@ -88,19 +88,19 @@ Anim_NymnPush_Speed: equ 0x20
 	Even
 	
 Anim_NymnSwitch:
-	dc.b AnimFrame_NymnSwitch+0
-	dc.b AnimFrame_NymnSwitch+1
-	dc.b AnimFrame_NymnSwitch+2
-	dc.b AnimFrame_NymnSwitch+3
-	dc.b AnimFrame_NymnSwitch+4
-	dc.b AnimFrame_NymnSwitch+5
-	dc.b AnimFrame_NymnSwitch+6
-	dc.b AnimFrame_NymnSwitch+7
-	dc.b AnimFrame_NymnSwitch+8
-	dc.b AnimFrame_NymnSwitch+9
-	dc.b AnimFrame_NymnSwitch+10
-	dc.b AnimFrame_NymnSwitch+11
-	dc.b AnimFrame_NymnSwitch+12
+	dc.b spritesheet_nymn_colourswitch_frameoffset+0
+	dc.b spritesheet_nymn_colourswitch_frameoffset+1
+	dc.b spritesheet_nymn_colourswitch_frameoffset+2
+	dc.b spritesheet_nymn_colourswitch_frameoffset+3
+	dc.b spritesheet_nymn_colourswitch_frameoffset+4
+	dc.b spritesheet_nymn_colourswitch_frameoffset+5
+	dc.b spritesheet_nymn_colourswitch_frameoffset+6
+	dc.b spritesheet_nymn_colourswitch_frameoffset+7
+	dc.b spritesheet_nymn_colourswitch_frameoffset+8
+	dc.b spritesheet_nymn_colourswitch_frameoffset+9
+	dc.b spritesheet_nymn_colourswitch_frameoffset+10
+	dc.b spritesheet_nymn_colourswitch_frameoffset+11
+	dc.b spritesheet_nymn_colourswitch_frameoffset+12
 Anim_NymnSwitch_End
 Anim_NymnSwitch_SizeB: equ (Anim_NymnSwitch_End-Anim_NymnSwitch)
 Anim_NymnSwitch_Speed: equ 0x20
@@ -108,10 +108,10 @@ Anim_NymnSwitch_Speed: equ 0x20
 	Even
 
 Anim_NymnGlide:
-	dc.b AnimFrame_NymnGlide+0
-	dc.b AnimFrame_NymnGlide+1
-	dc.b AnimFrame_NymnGlide+2
-	dc.b AnimFrame_NymnGlide+3
+	dc.b spritesheet_nymn_glide_frameoffset+0
+	dc.b spritesheet_nymn_glide_frameoffset+1
+	dc.b spritesheet_nymn_glide_frameoffset+2
+	dc.b spritesheet_nymn_glide_frameoffset+3
 Anim_NymnGlide_End
 Anim_NymnGlide_SizeB: equ (Anim_NymnGlide_End-Anim_NymnGlide)
 Anim_NymnGlide_Speed: equ 0x30
@@ -119,20 +119,20 @@ Anim_NymnGlide_Speed: equ 0x30
 	Even
 	
 Anim_NymnDeath_Default:
-	dc.b AnimFrame_NymnDead+0
-	dc.b AnimFrame_NymnDead+1
-	dc.b AnimFrame_NymnDead+2
-	dc.b AnimFrame_NymnDead+3
-	dc.b AnimFrame_NymnDead+4
-	dc.b AnimFrame_NymnDead+5
-	dc.b AnimFrame_NymnDead+6
-	dc.b AnimFrame_NymnDead+7
-	dc.b AnimFrame_NymnDead+8
-	dc.b AnimFrame_NymnDead+9
-	dc.b AnimFrame_NymnDead+10
-	dc.b AnimFrame_NymnDead+11
-	dc.b AnimFrame_NymnDead+12
-	dc.b AnimFrame_NymnDead+13
+	dc.b spritesheet_nymn_death_frameoffset+0
+	dc.b spritesheet_nymn_death_frameoffset+1
+	dc.b spritesheet_nymn_death_frameoffset+2
+	dc.b spritesheet_nymn_death_frameoffset+3
+	dc.b spritesheet_nymn_death_frameoffset+4
+	dc.b spritesheet_nymn_death_frameoffset+5
+	dc.b spritesheet_nymn_death_frameoffset+6
+	dc.b spritesheet_nymn_death_frameoffset+7
+	dc.b spritesheet_nymn_death_frameoffset+8
+	dc.b spritesheet_nymn_death_frameoffset+9
+	dc.b spritesheet_nymn_death_frameoffset+10
+	dc.b spritesheet_nymn_death_frameoffset+11
+	dc.b spritesheet_nymn_death_frameoffset+12
+	dc.b spritesheet_nymn_death_frameoffset+13
 Anim_NymnDeath_Default_End
 Anim_NymnDeath_Default_PosX:
 	dc.b 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00
@@ -156,25 +156,25 @@ Anim_NymnDeath_Fall_Speed: equ 0x30
 	Even
 	
 Anim_NymnLieDown:
-	dc.b AnimFrame_NymnLieDown+0
-	dc.b AnimFrame_NymnLieDown+1
-	dc.b AnimFrame_NymnLieDown+2
-	dc.b AnimFrame_NymnLieDown+3
-	dc.b AnimFrame_NymnLieDown+4
-	dc.b AnimFrame_NymnLieDown+5
-	dc.b AnimFrame_NymnLieDown+6
-	dc.b AnimFrame_NymnLieDown+7
-	dc.b AnimFrame_NymnLieDown+8
-	dc.b AnimFrame_NymnLieDown+9
-	dc.b AnimFrame_NymnLieDown+10
-	dc.b AnimFrame_NymnLieDown+11
-	dc.b AnimFrame_NymnLieDown+12
-	dc.b AnimFrame_NymnLieDown+13
-	dc.b AnimFrame_NymnLieDown+13
-	dc.b AnimFrame_NymnLieDown+13
-	dc.b AnimFrame_NymnLieDown+14
-	dc.b AnimFrame_NymnLieDown+15
-	dc.b AnimFrame_NymnLieDown+16
+	dc.b spritesheet_nymn_laydown_frameoffset+0
+	dc.b spritesheet_nymn_laydown_frameoffset+1
+	dc.b spritesheet_nymn_laydown_frameoffset+2
+	dc.b spritesheet_nymn_laydown_frameoffset+3
+	dc.b spritesheet_nymn_laydown_frameoffset+4
+	dc.b spritesheet_nymn_laydown_frameoffset+5
+	dc.b spritesheet_nymn_laydown_frameoffset+6
+	dc.b spritesheet_nymn_laydown_frameoffset+7
+	dc.b spritesheet_nymn_laydown_frameoffset+8
+	dc.b spritesheet_nymn_laydown_frameoffset+9
+	dc.b spritesheet_nymn_laydown_frameoffset+10
+	dc.b spritesheet_nymn_laydown_frameoffset+11
+	dc.b spritesheet_nymn_laydown_frameoffset+12
+	dc.b spritesheet_nymn_laydown_frameoffset+13
+	dc.b spritesheet_nymn_laydown_frameoffset+13
+	dc.b spritesheet_nymn_laydown_frameoffset+13
+	dc.b spritesheet_nymn_laydown_frameoffset+14
+	dc.b spritesheet_nymn_laydown_frameoffset+15
+	dc.b spritesheet_nymn_laydown_frameoffset+16
 Anim_NymnLieDown_End
 Anim_NymnLieDown_PosX:
 	dc.b 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
@@ -209,15 +209,15 @@ Anim_NymnRestToSleep_Speed: equ 0x18
 	Even
 	
 Anim_NymnSleep:
-	dc.b AnimFrame_NymnSleep+0
-	dc.b AnimFrame_NymnSleep+0
-	dc.b AnimFrame_NymnSleep+0
-	dc.b AnimFrame_NymnSleep+0
-	dc.b AnimFrame_NymnSleep+1
-	dc.b AnimFrame_NymnSleep+2
-	dc.b AnimFrame_NymnSleep+3
-	dc.b AnimFrame_NymnSleep+4
-	dc.b AnimFrame_NymnSleep+5
+	dc.b spritesheet_nymn_sleep_frameoffset+0
+	dc.b spritesheet_nymn_sleep_frameoffset+0
+	dc.b spritesheet_nymn_sleep_frameoffset+0
+	dc.b spritesheet_nymn_sleep_frameoffset+0
+	dc.b spritesheet_nymn_sleep_frameoffset+1
+	dc.b spritesheet_nymn_sleep_frameoffset+2
+	dc.b spritesheet_nymn_sleep_frameoffset+3
+	dc.b spritesheet_nymn_sleep_frameoffset+4
+	dc.b spritesheet_nymn_sleep_frameoffset+5
 Anim_NymnSleep_End
 Anim_NymnSleep_SizeB: equ (Anim_NymnSleep_End-Anim_NymnSleep)
 Anim_NymnSleep_Speed: equ 0x0C

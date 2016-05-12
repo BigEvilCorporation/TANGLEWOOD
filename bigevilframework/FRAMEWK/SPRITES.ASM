@@ -243,22 +243,24 @@ SetSpriteAnimFrame:
 	; d1 (w) Size of one sprite frame (in tiles)
 	; d2 (w) Animation frame
 	; d3 (b) Number of anim frames
+	; d4 (w) First frame offset
 
 	and.l  #0x0000FFFF, d2
 	and.l  #0x000000FF, d3
-	clr.l  d4
+	clr.l  d5
 
 	divu   d3, d2          ; Div frame count against num anim frames
 	swap   d2			   ; Remainder to lower word
 
 	move.b (a1,d2.w), d3   ; Get frame index from anim data array
+	add.w  d4, d3		   ; Add first frame offset
 
 	; spriteDataAddr = spriteDataAddr + (sizeOfFrame * newTileID)
 	move.l a0, d2          ; Move sprite data ROM address to d2 (can't do maths on address registers)
-	move.w d1, d4          ; Move size of one sprite frame (in tiles) to d4 (can't trash d1, it's needed later)
-	mulu   #size_tile_b, d4 ; Multiply by size of one tile
-	mulu   d3, d4          ; Multiply with new frame index to get new ROM offset (result in d4)
-	add.l  d4, d2          ; Add to sprite data address
+	move.w d1, d5          ; Move size of one sprite frame (in tiles) to d4 (can't trash d1, it's needed later)
+	mulu   #size_tile_b, d5 ; Multiply by size of one tile
+	mulu   d3, d5          ; Multiply with new frame index to get new ROM offset (result in d4)
+	add.l  d5, d2          ; Add to sprite data address
 	move.l d2, a0          ; Back to address register
 
 	IFD DMA_FROM_CART
