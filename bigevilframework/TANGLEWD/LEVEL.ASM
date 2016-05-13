@@ -70,6 +70,7 @@ LevelLoad:
 	move.b #0xF, d3
 	
 	lea    Pal_Nymn_Red, a0
+	;lea    palette_nymn, a0
 	move.l #PaletteId_Player, d0
 	jsr    PaletteLerpStart
 	
@@ -222,9 +223,9 @@ LevelLoadGameObjArt:
 	lea    sprite_nymn_subsprite_pos_offsets, a3
 	lea    sprite_nymn_numtiles_per_subsprite, a4
 	move.l #Tiles_Player1VRAM, d0
-	move.l #tiles_nymn_size_t, d1
+	move.l #sprite_nymn_size_t, d1
 	move.b #sprite_nymn_size_subsprites, d2
-	move.w #sprite_nymn_dimensions, d3
+	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteID_Player, d4
 	jsr    GameObjLoadMultiSprite
 
