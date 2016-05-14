@@ -24,9 +24,9 @@
 	; ************************************
     ; Sprite tiles
     ; ************************************
-	include 'assets\sprites\nymn.asm'
-	include 'assets\sprites\takk\takk.asm'
 	include 'assets\sprites\boulder\boulder.asm'
+	include 'assets\sprites\djakk.asm'
+	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\spr_ffly.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
@@ -36,10 +36,10 @@
 	; Animation data
 	; ************************************
 	include 'assets\anims\boulder.asm'
+	include 'assets\anims\djakk.asm'
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
-	include 'assets\anims\monster.asm'
 	include 'assets\anims\nymn.asm'
 
 	IFD DEBUG
@@ -117,7 +117,7 @@ Tile_Bank0_Start:    equ (vram_addr_tiles)
 Tiles_PixelFontVRAM: rs.b 0 ;(Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
 ;Tiles_Player2VRAM:   rs.b (tiles_nymn_size_b)
-Tiles_MonsterVRAM:   rs.b (tiles_monster_size_b)
+Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (tiles_boulder_size_b*Boulder_MaxEntities)
 
 	; TODO: Reserve max level size

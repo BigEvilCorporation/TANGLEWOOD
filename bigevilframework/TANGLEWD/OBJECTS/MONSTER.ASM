@@ -151,71 +151,45 @@ MonsterInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_djakk_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #spriteanim_djakk_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Dead
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
-	move.l #Anim_MonsterDead, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_djakk_death_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_bite_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterDead_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterDead_SizeB, Animation_Length(a3)
+	move.b #spriteanim_djakk_bite_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_bite_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.l #Anim_MonsterRun, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_djakk_run_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterRun_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterRun_SizeB, Animation_Length(a3)
+	move.b #spriteanim_djakk_run_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.l #Anim_MonsterWalk, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_djakk_walk_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_walk_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterWalk_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterWalk_SizeB, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-
-	; Jump
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-
-	; Hang
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-
-	; Push
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	move.l #Anim_MonsterIdle, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterIdle_SizeB, Animation_Length(a3)
+	move.b #spriteanim_djakk_walk_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_walk_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Setup bespoke character animations
@@ -223,23 +197,24 @@ MonsterInit:
 	add.l  #Monster_Animations, a2
 	
 	; In cave
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Eyes), a3
-	move.l #Anim_MonsterEyes, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterEyes_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterEyes_SizeB, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	;move.l a2, a3
+	;add.l  #(Animation_Struct_Size*MonsterAnimIdx_Eyes), a3
+	;move.l #Anim_MonsterEyes, Animation_AnimTrackSpriteFrame(a3)
+	;move.l #0x0, Animation_AnimTrackPositionX(a3)
+	;move.l #0x0, Animation_AnimTrackPositionY(a3)
+	;move.b #Anim_MonsterEyes_Speed, Animation_Speed(a3)
+	;move.b #Anim_MonsterEyes_SizeB, Animation_Length(a3)
+	;move.b #0x1, Animation_Looping(a3)
 	
 	; Bite
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Bite), a3
-	move.l #Anim_MonsterBite, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_djakk_bite_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_bite_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_MonsterBite_Speed, Animation_Speed(a3)
-	move.b #Anim_MonsterBite_SizeB, Animation_Length(a3)
+	move.b #spriteanim_djakk_bite_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_bite_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
 	; Begin initial state
@@ -737,7 +712,7 @@ MonsterUpdateBite:
 	; Check if end frame reached
 	move.l AnimObj_AnimSubframe(a0), d0; Get anim subframe
 	lsr.l  #0x8, d0 					; Subframes to frames
-	cmp.b  #Anim_MonsterBite_SizeB, d0
+	cmp.b  #spriteanim_djakk_bite_numframes, d0
 	beq    @AnimFinished
 	
 	; Check if attack frame reached
