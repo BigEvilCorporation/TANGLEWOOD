@@ -53,6 +53,8 @@ map_tanglewood_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:
 	incbin 'assets\maps\map_lvl1.bin'
+map_lvl1_bg:
+	incbin 'assets\maps\lvl1_bg.bin'
 map_lvl2:
 	incbin 'assets\maps\map_lvl2.bin'
 

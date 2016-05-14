@@ -199,6 +199,14 @@ LevelPreStreamMap:
 
 	;==============================================================
 	
+	;Load BG map
+	lea    map_lvl1_bg, a0
+	move.l #map_lvl1_bg_size_w, d0
+	move.l #0x0, d1
+	move.l #0x0, d2
+	move.l #PaletteId_World0, d3
+	jsr    LoadMapPlaneB
+	
 	POPL   a1
 	POPL   a0
 	

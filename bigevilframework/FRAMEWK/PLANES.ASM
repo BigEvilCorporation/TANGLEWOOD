@@ -63,6 +63,38 @@ LoadMapPlaneA:
 	dbra.w  d0, @Copy              ; Loop
 
     rts
+	
+LoadMapPlaneB:
+    ; a0 (l) - Map address (ROM)
+	; d0 (w) - Size in words
+	; d1 (b) - Y offset
+	; d2 (w) - First tile ID
+	; d3 (b) - Palette ID
+
+	mulu.w  #0x0040, d1            ; Multiply Y offset by line width (in words)
+
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	add.l   #vram_addr_plane_b, d1	; Add VRAM address offset
+	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d1				; Shift lower word back
+	swap    d1                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+	move.l  d1, vdp_control        	; Move dest address to VDP control port
+
+	rol.l   #0x08, d3              ; Shift palette ID to bits 14-15
+	rol.l   #0x05, d3              ; Can only rol 8 bits at a time
+
+	subq.w  #0x01, d0              ; Num words in d0, minus 1 for counter
+	
+	@Copy:
+	move.w  (a0)+, d4              ; Move tile ID from map data to lower d4
+	and.l   #%0011111111111111, d4 ; Mask out original palette ID
+	or.l    d3, d4                 ; Replace with our own
+	add.w   d2, d4                 ; Add first tile offset to d4
+	move.w  d4, vdp_data           ; Move to VRAM
+	dbra.w  d0, @Copy              ; Loop
+
+    rts
 
 LoadMapSegmentPlaneA:
     ; a0 (l)  Map data address (ROM)
@@ -162,12 +194,24 @@ LoadMapSegmentPlaneA:
 	
 SetHScrollPlaneA:
 	; d0 (w) HScroll value
-	move.l #vdp_write_hscroll, vdp_control
+	move.l #vdp_write_hscroll_a, vdp_control
 	move.w d0, vdp_data
 	rts
 
 SetVScrollPlaneA:
 	; d0 (w) VScroll value
-	move.l #vdp_write_vscroll, vdp_control
+	move.l #vdp_write_vscroll_a, vdp_control
+	move.w d0, vdp_data
+	rts
+	
+SetHScrollPlaneB:
+	; d0 (w) HScroll value
+	move.l #vdp_write_hscroll_b, vdp_control
+	move.w d0, vdp_data
+	rts
+
+SetVScrollPlaneB:
+	; d0 (w) VScroll value
+	move.l #vdp_write_vscroll_b, vdp_control
 	move.w d0, vdp_data
 	rts

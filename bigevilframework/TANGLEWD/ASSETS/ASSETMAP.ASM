@@ -69,6 +69,7 @@
 	include 'assets\maps\bec_logo.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
+	include 'assets\maps\lvl1_bg.asm'
 	include 'assets\maps\map_lvl2.asm'
 	
 	; ************************************

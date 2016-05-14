@@ -228,8 +228,10 @@ vdp_write_palettes		equ 0xC0000000 ; Legacy, do not use
 vdp_write_tiles			equ 0x40000000 ; Legacy, do not use
 vdp_write_plane_a		equ 0x40000003 ; Legacy, do not use
 vdp_write_sprite_table	equ 0x70000003 ; Legacy, do not use
-vdp_write_hscroll       equ 0x7C000003 ; Legacy, do not use
-vdp_write_vscroll       equ 0x40000010 ; Legacy, do not use
+vdp_write_hscroll_a     equ 0x7C000003 ; Legacy, do not use
+vdp_write_vscroll_a     equ 0x40000010 ; Legacy, do not use
+vdp_write_hscroll_b     equ 0x7C020003 ; Legacy, do not use
+vdp_write_vscroll_b     equ 0x40020010 ; Legacy, do not use
 
 vdp_read_palettes		equ 0x00000020 ; Legacy, do not use
 vdp_read_tiles          equ 0x00000000 ; Legacy, do not use
