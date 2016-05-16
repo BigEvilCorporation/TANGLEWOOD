@@ -27,7 +27,7 @@ VBlankInterrupt:
    rte
 
 HBlankInterrupt:
-	movem.l d0-d2, -(sp)
+	;movem.l d0-d2, -(sp)
 
 	; If letterbox top or bottom, turn off display
 	;move.w (hline_counter), d0
@@ -40,26 +40,26 @@ HBlankInterrupt:
 	;;cmp.w  #(screen_height-0x10), (hline_counter)
 	;ble    @ScreenOff
 	
-	move.w (hline_counter), d0
-	andi.w #0x1, d0
-	cmp.w  #0x1, d0
-	beq    @ScreenOff
+	;move.w (hline_counter), d0
+	;andi.w #0x1, d0
+	;cmp.w  #0x1, d0
+	;beq    @ScreenOff
 	
 	; Outside letterbox lines, screen on
 	;move.w #0x8174, vdp_control
 	;move.w #0x8014, vdp_control
 	
-	bra     @EndLetterbox
+	;bra     @EndLetterbox
 	
-	@ScreenOff:
+	;@ScreenOff:
 	
 	; Inside letterbox lines, screen off
 	;move.w #0x8134, vdp_control
 	;move.w #0x8015, vdp_control
 	
-	@EndLetterbox:
+	;@EndLetterbox:
 	
-	movem.l (sp)+, d0-d2
+	;movem.l (sp)+, d0-d2
 	
    addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
    addi.w #0x1, hline_counter     ; Increment h-line counter

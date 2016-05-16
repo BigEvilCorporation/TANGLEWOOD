@@ -155,18 +155,18 @@ LevelPreStreamMap:
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollX
 	move.l d0, WorldScrollX
-
+    
 	; Set inital scroll X
 	neg.l  d0						; To camera space
 	lsr.l  #0x8, d0					; To screen space
 	jsr    SetHScrollPlaneA
-
+    
 	; Set initial streamed column
 	divu   #0x8, d0
 	move.w d0, MapStreamLoadedCol
-
+    
 	;==============================================================
-
+    
 	; Initial camera pos Y to world scroll
 	move.l #Player1, a0
 	move.l Entity_WorldPosY(a0), d0
@@ -174,21 +174,21 @@ LevelPreStreamMap:
 	add.l  #(Player1Height*SubpixelsPerPixel)*2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollY
 	move.l d0, WorldScrollY
-
+    
 	; Set initial scroll Y
 	lsr.l  #0x8, d0					; To screen space
 	jsr    SetVScrollPlaneA
-
+    
 	; Set initial streamed row (starting from bottom, streaming rows upwards)
 	divu   #0x8, d0
 	add.w  #MapStreamHeight, d0
 	move.w d0, MapStreamLoadedrow
-
+    
 	;==============================================================
-
+    
 	; Stream rows, bottom to top
 	add.l  #(MapStreamHeight*SubpixelsPerPixel), WorldScrollY
-
+    
 	move.l #(MapStreamHeight-1), d2
 	@Loop:
 	sub.l  #(8*SubpixelsPerPixel), WorldScrollY
@@ -203,7 +203,7 @@ LevelPreStreamMap:
 	lea    map_lvl1_bg, a0
 	move.l #map_lvl1_bg_size_w, d0
 	move.l #0x0, d1
-	move.l #0x0, d2
+	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
 	jsr    LoadMapPlaneB
 	

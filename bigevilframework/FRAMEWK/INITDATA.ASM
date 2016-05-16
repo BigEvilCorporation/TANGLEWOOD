@@ -33,7 +33,7 @@ VDPReg6:   dc.b 0x00 ; 6: Unused
 VDPReg7:   dc.b 0x00 ; 7: Background colour - bits 0-3 = colour, bits 4-5 = palette
 VDPReg8:   dc.b 0x00 ; 8: Unused
 VDPReg9:   dc.b 0x00 ; 9: Unused
-VDPRegA:   dc.b 0x00 ; 10: Frequency of Horiz. interrupt in Rasters (number of lines travelled by the beam)
+VDPRegA:   dc.b 0xFF ; 10: Frequency of Horiz. interrupt in Rasters (number of lines travelled by the beam)
 VDPRegB:   dc.b 0x00 ; 11: External interrupts off, V scroll fullscreen, H scroll fullscreen
 VDPRegC:   dc.b 0x81 ; 12: Shadows and highlights off, interlace off, H40 mode (320 x 224 screen res)
 VDPRegD:   dc.b 0x3F ; 13: Horiz. scroll table at VRAM 0xFC00 (bits 0-5)
