@@ -205,7 +205,7 @@ LevelPreStreamMap:
 	move.l #0x0, d1
 	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
-	jsr    LoadMapPlaneB
+	;jsr    LoadMapPlaneB
 	
 	POPL   a1
 	POPL   a0

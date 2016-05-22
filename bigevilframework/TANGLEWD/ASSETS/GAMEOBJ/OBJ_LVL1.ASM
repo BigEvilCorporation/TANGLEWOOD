@@ -117,9 +117,9 @@ Firefly_16:
 
 gameobjects_lvl1_Monster_count equ 1
 LoadGameObjects_lvl1_Monster:
-Monster_47:
+Monster_52:
 	jsr MonsterInit
-	move.l #0x00187000, Entity_WorldPosX(a0)
+	move.l #0x0019c800, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
 	move.b #0x1, GameObj_FlippedX(a0)
 	add.l #Monster_Struct_Size, a0
@@ -136,10 +136,10 @@ Boulder_50:
 
 gameobjects_lvl1_TriggerBox_count equ 1
 LoadGameObjects_lvl1_TriggerBox:
-TriggerBox_51:
+TriggerBox_53:
 	jsr TriggerBoxInit
-	move.l #0x001bd800, Entity_WorldPosX(a0)
-	move.l #0x00026000, Entity_WorldPosY(a0)
+	move.l #0x001c0800, Entity_WorldPosX(a0)
+	move.l #0x0002c000, Entity_WorldPosY(a0)
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
@@ -147,9 +147,9 @@ TriggerBox_51:
 
 gameobjects_lvl1_Checkpoint_count equ 1
 LoadGameObjects_lvl1_Checkpoint:
-Checkpoint_52:
+Checkpoint_58:
 	jsr CheckpointInit
-	move.l #0x00011000, Entity_WorldPosX(a0)
+	move.l #0x00010800, Entity_WorldPosX(a0)
 	move.l #0x00018000, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
