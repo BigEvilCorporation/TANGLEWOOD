@@ -127,20 +127,36 @@ Monster_52:
 
 gameobjects_lvl1_Boulder_count equ 1
 LoadGameObjects_lvl1_Boulder:
-Boulder_50:
+Boulder_64:
 	jsr BoulderInit
-	move.l #0x000f0000, Entity_WorldPosX(a0)
-	move.l #0x00011800, Entity_WorldPosY(a0)
+	move.l #0x00138000, Entity_WorldPosX(a0)
+	move.l #0x00024000, Entity_WorldPosY(a0)
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_TriggerBox_count equ 1
+gameobjects_lvl1_TriggerBox_count equ 3
 LoadGameObjects_lvl1_TriggerBox:
 TriggerBox_53:
 	jsr TriggerBoxInit
 	move.l #0x001c0800, Entity_WorldPosX(a0)
 	move.l #0x0002c000, Entity_WorldPosY(a0)
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
+TriggerBox_59:
+	jsr TriggerBoxInit
+	move.l #0x000b8000, Entity_WorldPosX(a0)
+	move.l #0x0000f800, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
+TriggerBox_60:
+	jsr TriggerBoxInit
+	move.l #0x00125800, Entity_WorldPosX(a0)
+	move.l #0x00029800, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts

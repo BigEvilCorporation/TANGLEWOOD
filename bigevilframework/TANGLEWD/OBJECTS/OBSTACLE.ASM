@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Obstacle_MaxEntities  equ 0x2
+Obstacle_MaxEntities  equ 0x3
 Obstacle_Width        equ 0x0010
 Obstacle_Height       equ 0x0080
 

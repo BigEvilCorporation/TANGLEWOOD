@@ -26,6 +26,17 @@ UpdateTimeOfDay:
 	bne    @NoWrap
 	move.b #0x0, d0
 	@NoWrap:
+	
+	jsr SetTimeOfDay
+	
+	@TODDisabled:
+	@NoTODChange:
+	
+	rts
+	
+SetTimeOfDay:
+	; d0 (b) Time of Day
+	
 	move.b d0, TimeOfDay
 	
 	andi.l #0x000000FF, d0
@@ -42,12 +53,7 @@ UpdateTimeOfDay:
 	
 	jsr PaletteLerpStart
 	
-	@TODDisabled:
-	@NoTODChange:
-	
 	rts
-	
-	
 	
 	
 ;   *only on Opposite Day
