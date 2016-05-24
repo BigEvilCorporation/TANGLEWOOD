@@ -12,70 +12,75 @@ UpdateCamera:
 	move.l  (CurrentLevel), a1
 
 	; Update camera pos from target gameobj
-	move.l  (CameraTargetGameObjX), a0
+	move.l  (CameraTargetGameObj), a0
 	cmp.l   #0x0, a0
-	beq     @NoCameraTargetX
+	beq     @NoCameraTarget
 	clr.l   d1
 	
 	; Get target X/Y
 	ENTITY_GETCENTREX d0, a0
-	;ENTITY_GETCENTREY d1, a0
+	ENTITY_GETCENTREY d1, a0
 	
-	; Sprite to camera space
+	; Sprite space to camera space
 	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d0
-	;sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d1
+	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d1
+	
+	clr.l   d2
+	move.l  (CameraTargetLerpSource), a2
+	cmp.l   #0x0, a2
+	beq     @NoLerp
+	
+	; Get lerp source X/Y
+	ENTITY_GETCENTREX d2, a2
+	ENTITY_GETCENTREY d3, a2
+	
+	; Get lerp T
+	clr.l  d4
+	move.w (CameraTargetLerpTime), d4
+	
+	TOPIXELS d0
+	TOPIXELS d1
+	TOPIXELS d2
+	TOPIXELS d3
+	
+	; Lerp towards target
+	LERP_INT1024 d0,d2,d0,d4,d5
+	LERP_INT1024 d1,d3,d1,d4,d5
+	
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	TOSUBPIXELS d2
+	TOSUBPIXELS d3
+	
+	; Update lerp
+	cmp.w  #1024, CameraTargetLerpTime
+	beq    @EndLerp
+	move.w (CameraTargetLerpSpeed), d2
+	add.w  d2, CameraTargetLerpTime
+
+	@EndLerp:
+	@NoLerp:
 
 	; Clamp to X bounds
-	move.l #0x0, d1
-	clr.l  d2
-	move.w Level_MapWidth(a1), d2
-	mulu   #0x8, d2					; Map width to tiles
-	lsl.l  #0x8, d2					; Map width to camera space
-	CLAMP  d0, d1, d2
+	move.l #0x0, d2
+	clr.l  d3
+	move.w Level_MapWidth(a1), d3
+	mulu   #0x8, d3					; Map width to tiles
+	lsl.l  #0x8, d3					; Map width to camera space
+	CLAMP  d0, d2, d3
 	
-	;cmp.l  #0x0, d0
-	;bge    @WithinBoundsLeft
-	;move.l #0x0, d0
-	;@WithinBoundsLeft:
-	;clr.l  d2
-	;move.w Level_MapWidth(a1), d2
-	;mulu   #0x8, d2					; Map width to tiles
-	;lsl.l  #0x8, d2					; Map width to camera space
-	;cmp.l  d2, d0
-	;blt    @WithinBoundsRight
-	;move.w d2, d0
-	;@WithinBoundsRight:
+	; Clamp to Y bounds
+	move.l #0x0, d2
+	clr.l  d3
+	move.w Level_MapHeight(a1), d3
+	mulu   #0x8, d3					; Map height to tiles
+	lsl.l  #0x8, d3					; Map height to camera space
+	CLAMP  d1, d2, d3
 
 	move.l  d0, CameraWorldPosX
-	@NoCameraTargetX:
+	move.l  d1, CameraWorldPosY
 	
-	move.l  (CameraTargetGameObjY), a0
-	cmp.l   #0x0, a0
-	beq     @NoCameraTargetY
-	clr.l   d1
-	move.l  Entity_WorldPosY(a0), d0	; Get GameObj Y
-	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	move.w  Entity_Height(a0), d1		; Get GameObj height
-	mulu    #SubpixelsPerPixel, d1		; Height to world space
-	lsr.w   #0x1, d1					; Centre on GameObj
-	add.l   d1, d0
-
-	; Clamp to Y bounds
-	cmp.l  #0x0, d0
-	bge    @WithinBoundsTop
-	move.l #0x0, d0
-	@WithinBoundsTop:
-	clr.l  d2
-	move.w Level_MapHeight(a1), d2
-	mulu   #0x8, d2					; Map height to tiles
-	lsl.l  #0x8, d2					; Map height to camera space
-	cmp.l  d2, d0
-	blt    @WithinBoundsBottom
-	move.w d2, d0
-	@WithinBoundsBottom:
-
-	move.l  d0, CameraWorldPosY
-	@NoCameraTargetY:
+	@NoCameraTarget:
 
 	; X to world scroll
 	move.l  (CameraWorldPosX), d0

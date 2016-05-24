@@ -191,8 +191,7 @@ LevelReset:
 	move.l  #0x0, WorldScrollY
 	move.l  #CameraStartPosWorldX, CameraWorldPosX
 	move.l  #CameraStartPosWorldY, CameraWorldPosY
-	move.l  #Player1, CameraTargetGameObjX
-	move.l  #Player1, CameraTargetGameObjY
+	move.l  #Player1, CameraTargetGameObj
 	
 	; Set BG colour (level palette 1, colour 0)
 	move.w #0x8700, d1

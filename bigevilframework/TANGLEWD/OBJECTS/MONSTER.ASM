@@ -408,7 +408,9 @@ MonsterStartEmergeFromCave:
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
 	move.b #0x0, Player1ControlEnabled
-	move.l a0, CameraTargetGameObjX
+	move.l a0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #0x8, CameraTargetLerpSpeed
 	
 	; Start palette lerp
 	move.l a0, -(sp)
@@ -425,7 +427,7 @@ MonsterStartEmergeFromCave:
 MonsterUpdateEmergeFromCave:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
+
 	; Wait for palette lerp finish
 	lea    PaletteLerp_Array, a2
 	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
@@ -433,7 +435,9 @@ MonsterUpdateEmergeFromCave:
 	bne    @Lerping
 	
 	move.b #0x1, Player1ControlEnabled
-	move.l #Player1, CameraTargetGameObjX
+	move.l #Player1, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #0x1, CameraTargetLerpSpeed
 	
 	; Start chasing player
 	jsr    MonsterStartTrackPlayer
