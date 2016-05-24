@@ -93,30 +93,31 @@ __padding03			rs.b 2
 ; ************************************
 ; Camera, V/H scroll and map streaming
 ; ************************************
-WorldScrollX		 rs.l 1
-WorldScrollY		 rs.l 1
-CameraWorldPosX		 rs.l 1
-CameraWorldPosY		 rs.l 1
-CameraTargetGameObjX rs.l 1
-CameraTargetGameObjY rs.l 1
-MapStreamLoadedCol   rs.w 1
-MapStreamLoadedRow   rs.w 1
-MapStreamSrcLeft	 rs.w 1
-MapStreamSrcTop	 	 rs.w 1
-MapStreamDestLeft	 rs.w 1
-MapStreamDestTop	 rs.w 1
-MapStreamNumCols	 rs.w 1
-MapStreamNumRows	 rs.w 1
+WorldScrollX		  rs.l 1
+WorldScrollY		  rs.l 1
+CameraWorldPosX		  rs.l 1
+CameraWorldPosY		  rs.l 1
+CameraTargetGameObjX  rs.l 1
+CameraTargetGameObjY  rs.l 1
+CameraTargetLerpSpeed rs.w 1
+MapStreamLoadedCol    rs.w 1
+MapStreamLoadedRow    rs.w 1
+MapStreamSrcLeft	  rs.w 1
+MapStreamSrcTop	 	  rs.w 1
+MapStreamDestLeft	  rs.w 1
+MapStreamDestTop	  rs.w 1
+MapStreamNumCols	  rs.w 1
+MapStreamNumRows	  rs.w 1
 
 ; ************************************
 ; Game globals
 ; ************************************
-Gamepad1PrevState     rs.w 1
-Gamepad2PrevState     rs.w 1
-Player1ControlEnabled rs.b 1
-Player2ControlEnabled rs.b 1
-
-__padding030		  rs.b 2
+Gamepad1PrevState      rs.w 1
+Gamepad2PrevState      rs.w 1
+Player1ControlEnabled  rs.b 1
+Player2ControlEnabled  rs.b 1
+                       
+__padding030		   rs.b 0
 
 ; Palette lerping
 PaletteLerp_Array    rs.b (PaletteLerp_Struct_Size*num_palettes)

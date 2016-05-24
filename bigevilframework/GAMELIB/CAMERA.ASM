@@ -16,26 +16,35 @@ UpdateCamera:
 	cmp.l   #0x0, a0
 	beq     @NoCameraTargetX
 	clr.l   d1
-	move.l  Entity_WorldPosX(a0), d0	; Get GameObj X
-	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
-	move.w  Entity_Width(a0), d1		; Get GameObj width
-	mulu    #SubpixelsPerPixel, d1		; Width to world space
-	lsr.w   #0x1, d1					; Centre on GameObj
-	add.l   d1, d0
+	
+	; Get target X/Y
+	ENTITY_GETCENTREX d0, a0
+	;ENTITY_GETCENTREY d1, a0
+	
+	; Sprite to camera space
+	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d0
+	;sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d1
 
 	; Clamp to X bounds
-	cmp.l  #0x0, d0
-	bge    @WithinBoundsLeft
-	move.l #0x0, d0
-	@WithinBoundsLeft:
+	move.l #0x0, d1
 	clr.l  d2
 	move.w Level_MapWidth(a1), d2
 	mulu   #0x8, d2					; Map width to tiles
 	lsl.l  #0x8, d2					; Map width to camera space
-	cmp.l  d2, d0
-	blt    @WithinBoundsRight
-	move.w d2, d0
-	@WithinBoundsRight:
+	CLAMP  d0, d1, d2
+	
+	;cmp.l  #0x0, d0
+	;bge    @WithinBoundsLeft
+	;move.l #0x0, d0
+	;@WithinBoundsLeft:
+	;clr.l  d2
+	;move.w Level_MapWidth(a1), d2
+	;mulu   #0x8, d2					; Map width to tiles
+	;lsl.l  #0x8, d2					; Map width to camera space
+	;cmp.l  d2, d0
+	;blt    @WithinBoundsRight
+	;move.w d2, d0
+	;@WithinBoundsRight:
 
 	move.l  d0, CameraWorldPosX
 	@NoCameraTargetX:

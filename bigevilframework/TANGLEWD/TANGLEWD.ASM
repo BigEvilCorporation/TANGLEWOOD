@@ -11,7 +11,7 @@ __start
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
 	
-	; Include macros
+	; Include Framework macros
 	include '..\framewk\macros.asm'
 
 	; Include Framework code
@@ -41,6 +41,9 @@ __start
 	include '..\framewk\debugger.asm'	; NOT FOR RELEASE
 	include '..\framewk\profile.asm'	; NOT FOR RELEASE
 	ENDIF
+	
+	; Include GameLib macros
+	include '..\gamelib\macros.asm'
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
