@@ -12,8 +12,16 @@ UpdateInput:
 	; Pad A
 	; =====================================================================
 	
+	move.w #0x0, d0
+	
+	cmp.b  #0x0, Player1ControlEnabled
+	beq    @NoControl
+	
 	; Read pad A
 	jsr ReadPadA
+	
+	@NoControl:
+	
 	move.w (Gamepad1PrevState), d1
 	
 	; Player 1 movement

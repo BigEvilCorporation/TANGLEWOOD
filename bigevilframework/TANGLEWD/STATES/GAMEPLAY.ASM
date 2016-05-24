@@ -55,6 +55,9 @@ Gameplay_Enter:
 	; Begin snoozing
 	jsr    PlayerBeginIdleSnooze
 	
+	; Enable player 1 control
+	move.b #0x1, Player1ControlEnabled
+	
 	rts
 	
 Gameplay_Exit:

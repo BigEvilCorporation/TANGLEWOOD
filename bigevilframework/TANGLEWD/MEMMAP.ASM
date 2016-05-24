@@ -111,8 +111,12 @@ MapStreamNumRows	 rs.w 1
 ; ************************************
 ; Game globals
 ; ************************************
-Gamepad1PrevState    rs.w 1
-Gamepad2PrevState    rs.w 1
+Gamepad1PrevState     rs.w 1
+Gamepad2PrevState     rs.w 1
+Player1ControlEnabled rs.b 1
+Player2ControlEnabled rs.b 1
+
+__padding030		  rs.b 2
 
 ; Palette lerping
 PaletteLerp_Array    rs.b (PaletteLerp_Struct_Size*num_palettes)

@@ -15,11 +15,11 @@ Monster_Width	      equ 0x0080
 Monster_Height	      equ 0x0050
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x0300   ; Max X running velocity
+Monster_MaxVelXRun    equ 0x0330   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
-Monster_AccelRun      equ 0x0003   ; Running acceleration
+Monster_AccelRun      equ 0x0005   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
 Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
 Monster_JumpVel	      equ 0x0600   ; Jump velocity impulse
@@ -32,11 +32,10 @@ Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
 Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
-Monster_PlayerVisibilityBoxX	equ 0x0200
-Monster_PlayerVisibilityBoxY	equ 0x0100
+Monster_PlayerVisibilityBoxX	equ 0x0600
+Monster_PlayerVisibilityBoxY	equ 0x0048
 
-;Monster_AlertDistance		equ (0x0050*SubPixelsPerPixel)
-Monster_AlertDistance		equ 0x0030
+Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
@@ -312,19 +311,20 @@ MonsterCheckPlayerVisible:
 	; Get monster visibility bounds X
 	move.l Entity_WorldPosX(a0), d1
 	lsr.l  #0x8, d1
-	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
 	move.w d1, d2
-	add.w  #(Monster_PlayerVisibilityBoxX/2), d2
+	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
+	add.w  #(Monster_Width/2)+(Monster_PlayerVisibilityBoxX/2), d2
+	
 	swap   d1
 	swap   d2
 	
 	; Get monster visibility bounds Y
 	move.l Entity_WorldPosY(a0), d3
 	lsr.l  #0x8, d3
-	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d3
 	move.w d3, d1
 	move.w d3, d2
-	add.w  #(Monster_PlayerVisibilityBoxY/2), d2
+	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
+	add.w  #(Monster_Height/2)+(Monster_PlayerVisibilityBoxY/2), d2
 	
 	; Get player 1
 	move.l #Player1, a2
@@ -405,6 +405,11 @@ MonsterStartEmergeFromCave:
 	; Set emerge state
 	move.b #MonsterState_Emerging, Monster_State(a0)
 	
+	; Block player control and set as camera target
+	; TODO: Use cutscene code
+	move.b #0x0, Player1ControlEnabled
+	move.l a0, CameraTargetGameObjX
+	
 	; Start palette lerp
 	move.l a0, -(sp)
 	lea    palette_monster, a0
@@ -426,6 +431,9 @@ MonsterUpdateEmergeFromCave:
 	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
 	cmp.w  #0x0, PaletteLerp_Speed(a2)
 	bne    @Lerping
+	
+	move.b #0x1, Player1ControlEnabled
+	move.l #Player1, CameraTargetGameObjX
 	
 	; Start chasing player
 	jsr    MonsterStartTrackPlayer
@@ -611,12 +619,10 @@ MonsterUpdateTrackPlayer:
 	cmp.w  #Monster_AttackMaxPlayerVel, GameObj_VelY(a2)
 	bge    @PlayerBeingFlung
 
-	; Check if within Y tolerance of player
-	move.l Entity_WorldPosY(a0), d0	; Top of monster
-	move.l Entity_WorldPosY(a2), d1	; Top of player
-	sub.l  d1, d0
-	cmp.l  #Monster_PlayerVisibilityBoxY, d0
-	bgt    @LostPlayer
+	; Check if player is within tracking window
+	jsr    MonsterCheckPlayerVisible
+	cmp.b  #0x0, d0
+	beq    @LostPlayer
 
 	; Get left positions
 	move.l Entity_WorldPosX(a0), d0	; Left of monster
