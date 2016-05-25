@@ -15,11 +15,11 @@ Monster_Width	      equ 0x0080
 Monster_Height	      equ 0x0050
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x0330   ; Max X running velocity
+Monster_MaxVelXRun    equ 0x0350   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
-Monster_AccelRun      equ 0x0005   ; Running acceleration
+Monster_AccelRun      equ 0x0006   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
 Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
 Monster_JumpVel	      equ 0x0600   ; Jump velocity impulse
@@ -32,8 +32,8 @@ Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
 Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
-Monster_PlayerVisibilityBoxX	equ 0x0600
-Monster_PlayerVisibilityBoxY	equ 0x0038
+Monster_PlayerVisibilityBoxX	equ 0x0800
+Monster_PlayerVisibilityBoxY	equ 0x0080
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
@@ -71,8 +71,9 @@ MonsterState_Wandering	equ 0x6
 ; ************************************
 MonsterAnimIdx_Eyes		equ 0
 MonsterAnimIdx_Bite		equ 1
+MonsterAnimIdx_Roar		equ 2
 ; -------------------------------
-Monster_NumAnims		equ 2
+Monster_NumAnims		equ 3
 
 ; ************************************
 ; Struct
@@ -216,6 +217,17 @@ MonsterInit:
 	move.b #spriteanim_djakk_bite_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	
+	; Roar
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Roar), a3
+	move.w #spritesheet_djakk_bite_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_roar_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_djakk_roar_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_roar_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	
 	; Begin initial state
 	jsr    MonsterStartWaitForPlayer
 
@@ -236,6 +248,8 @@ MonsterUpdate:
 	beq   @InCave
 	cmp.b #MonsterState_Emerging, d0
 	beq   @Emerging
+	cmp.b #MonsterState_Roaring, d0
+	beq   @Roaring
 	cmp.b #MonsterState_Chasing, d0
 	beq   @Chasing
 	cmp.b #MonsterState_Attacking, d0
@@ -259,6 +273,15 @@ MonsterUpdate:
 
 	; Update palette lerp
 	jsr MonsterUpdateEmergeFromCave
+	bra @EndStateMachine
+	
+	; ************************************
+	; Roaring at player
+	; ************************************
+	@Roaring:
+
+	; Update roar state
+	jsr MonsterUpdateRoaring
 	bra @EndStateMachine
 
 	; ************************************
@@ -408,9 +431,14 @@ MonsterStartEmergeFromCave:
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
 	move.b #0x0, Player1ControlEnabled
+	move.l #Player1, CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
-	move.w #0x8, CameraTargetLerpSpeed
+	move.w #0x10, CameraTargetLerpSpeed
+	
+	; Cut player X velocity
+	move.l #Player1, a2
+	move.w #0x0, GameObj_VelX(a2)
 	
 	; Start palette lerp
 	move.l a0, -(sp)
@@ -435,15 +463,74 @@ MonsterUpdateEmergeFromCave:
 	bne    @Lerping
 	
 	move.b #0x1, Player1ControlEnabled
+	move.l a0, CameraTargetLerpSource
 	move.l #Player1, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
-	move.w #0x1, CameraTargetLerpSpeed
+	move.w #0x10, CameraTargetLerpSpeed
 	
-	; Start chasing player
-	jsr    MonsterStartTrackPlayer
+	; Start roaring at player
+	jsr    MonsterStartRoaring
 	
 	@Lerping:
 
+	rts
+	
+MonsterStartRoaring:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set roaring state
+	move.b #MonsterState_Roaring, Monster_State(a0)
+	
+	; Cut X velocity
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_AccelX(a0)
+	
+	; Turn to face player
+	move.l #Player1, a2
+	ENTITY_GETCENTREX d0, a0
+	ENTITY_GETCENTREX d1, a2
+	cmp.l  d0, d1
+	bgt    @RightOfPlayer
+	move.b #0x1, GameObj_FlippedX(a0)
+	bra    @EndFlip
+	@RightOfPlayer:
+	move.b #0x0, GameObj_FlippedX(a0)
+	@EndFlip:
+	
+	; Start roar animation
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Monster_Animations, a1
+	move.l #(MonsterAnimIdx_Roar*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l #0x0, AnimObj_AnimSubFrame(a0)
+	move.b #0x1, AnimObj_Playing(a0)
+	move.b #0x1, AnimObj_Dirty(a0)
+	move.l (sp)+, a1
+
+	; Manually control anim
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	rts
+	
+MonsterUpdateRoaring:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Check if anim finished
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	bne    @AnimPlaying
+	
+	; Pass anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Back to chase state
+	jsr    MonsterStartTrackPlayer
+	
+	@AnimPlaying:
+	
 	rts
 	
 MonsterStartSearchForPlayer:
@@ -481,8 +568,8 @@ MonsterUpdateSearchForPlayer:
 	cmp.b  #0x0, d0
 	beq    @Searching
 	
-	; Player visible, enter chase state
-	jsr    MonsterStartTrackPlayer
+	; Player visible, roar and chase
+	jsr    MonsterStartRoaring
 	bra    @End
 	
 	@Searching:

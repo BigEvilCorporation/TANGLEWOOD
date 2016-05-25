@@ -44,6 +44,15 @@ spriteanim_djakk_bite_track_frames:
 spriteanim_djakk_bite_track_posx:
 
 	Even
+	
+spriteanim_djakk_roar:
+spriteanim_djakk_roar_numframes: equ 0x7
+spriteanim_djakk_roar_speed: equ 0x1E
+spriteanim_djakk_roar_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
+spriteanim_djakk_roar_track_posx:
+
+	Even
 
 spriteanim_djakk_death:
 spriteanim_djakk_death_numframes: equ 0x1

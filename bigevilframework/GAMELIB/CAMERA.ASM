@@ -34,6 +34,10 @@ UpdateCamera:
 	ENTITY_GETCENTREX d2, a2
 	ENTITY_GETCENTREY d3, a2
 	
+	; Sprite space to camera space
+	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d2
+	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d3
+	
 	; Get lerp T
 	clr.l  d4
 	move.w (CameraTargetLerpTime), d4
@@ -54,11 +58,15 @@ UpdateCamera:
 	
 	; Update lerp
 	cmp.w  #1024, CameraTargetLerpTime
-	beq    @EndLerp
-	move.w (CameraTargetLerpSpeed), d2
+	beq    @FinishedLerp
+	move.w (CameraTargetLerpSpeed), d2	; Increment lerp time
 	add.w  d2, CameraTargetLerpTime
-
+	bra    @EndLerp
+	@FinishedLerp:
+	move.l #0x0, CameraTargetLerpSource
+	move.w #0x0, CameraTargetLerpSpeed
 	@EndLerp:
+	
 	@NoLerp:
 
 	; Clamp to X bounds

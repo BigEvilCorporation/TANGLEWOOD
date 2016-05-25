@@ -9,7 +9,7 @@
 ; Copy memory (longwords)
 ENTITY_GETCENTREX: macro destreg,addrreg
 	clr.l   \destreg
-	move.w  Entity_Width(a0), \destreg
+	move.w  Entity_Width(\addrreg), \destreg
 	mulu    #SubpixelsPerPixel, \destreg
 	lsr.l   #0x1, \destreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg
@@ -17,7 +17,7 @@ ENTITY_GETCENTREX: macro destreg,addrreg
 	
 ENTITY_GETCENTREY: macro destreg,addrreg
 	clr.l   \destreg
-	move.w  Entity_Height(a0), \destreg
+	move.w  Entity_Height(\addrreg), \destreg
 	mulu    #SubpixelsPerPixel, \destreg
 	lsr.l   #0x1, \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
