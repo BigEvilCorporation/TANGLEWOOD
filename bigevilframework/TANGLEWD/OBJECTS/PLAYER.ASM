@@ -178,6 +178,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_death_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_death_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Run
 	move.l a2, a3
@@ -269,6 +270,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_colourswitch_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_colourswitch_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Lay down
 	move.l a2, a3
@@ -280,6 +282,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_laydown_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_laydown_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Sleep
 	move.l a2, a3
@@ -291,6 +294,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_sleep_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_sleep_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
 	
 	rts
 
@@ -355,10 +359,6 @@ PlayerBeginSleep:
 	jsr    CharacterCancelJump
 	move.b #0x0, Character_Interacting(a0)
 	
-	; Cancel velocity
-	move.w #0x0, GameObj_VelX(a0)
-	move.w #0x0, GameObj_VelY(a0)
-	
 	; Start animation
 	PUSHL  a1
 	move.l a0, a1
@@ -403,10 +403,6 @@ PlayerBeginIdleSnooze:
 	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
 	move.b #0x0, Character_Interacting(a0)
-	
-	; Cancel velocity
-	move.w #0x0, GameObj_VelX(a0)
-	move.w #0x0, GameObj_VelY(a0)
 	
 	; Start sleep anim
 	PUSHL  a1

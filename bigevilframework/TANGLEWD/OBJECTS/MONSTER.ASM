@@ -15,7 +15,7 @@ Monster_Width	      equ 0x0080
 Monster_Height	      equ 0x0050
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x0350   ; Max X running velocity
+Monster_MaxVelXRun    equ 0x0330   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
@@ -44,6 +44,7 @@ Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung us
 Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
 Monster_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
 Monster_SearchRandDelayMin	equ 0x0018	; Min rand delay between walks
+Monster_SearchRandDelayInit equ 0x0040  ; Initial delay for first walk
 Monster_NearTargetDistance	equ (0x20*SubPixelsPerPixel)
 
 ; Emerge palette lerp speed
@@ -85,8 +86,9 @@ Monster_SearchTargetX rs.l 1
 Monster_SearchDelay	  rs.w 1
 Monster_Colour        rs.b 1
 Monster_State         rs.b 1
+Monster_BlockingCtrl  rs.b 1
 ;--------------------------
-Monster_Struct_Pad    rs.b 0
+Monster_Struct_Pad    rs.b 3
 Monster_Struct_Size   rs.b 0
 
 ; ************************************
@@ -163,12 +165,13 @@ MonsterInit:
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
 	move.w #spritesheet_djakk_death_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_djakk_bite_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_djakk_death_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_djakk_bite_speed, Animation_Speed(a3)
-	move.b #spriteanim_djakk_bite_numframes, Animation_Length(a3)
+	move.b #spriteanim_djakk_death_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_death_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Run
 	move.l a2, a3
@@ -216,6 +219,7 @@ MonsterInit:
 	move.b #spriteanim_djakk_bite_speed, Animation_Speed(a3)
 	move.b #spriteanim_djakk_bite_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Roar
 	move.l a2, a3
@@ -227,6 +231,7 @@ MonsterInit:
 	move.b #spriteanim_djakk_roar_speed, Animation_Speed(a3)
 	move.b #spriteanim_djakk_roar_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Begin initial state
 	jsr    MonsterStartWaitForPlayer
@@ -370,6 +375,14 @@ MonsterCheckPlayerVisible:
 	
 	jsr    TestPointInsideBox
 	
+	cmp.b  #0x0, d0
+	beq    @NotSeen
+	
+	; Set as last found player pos
+	move.l Entity_WorldPosX(a2), Monster_SearchTargetX(a0)
+	
+	@NotSeen:
+	
 	rts
 	
 MonsterStartWaitForPlayer:
@@ -431,6 +444,7 @@ MonsterStartEmergeFromCave:
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
 	move.b #0x0, Player1ControlEnabled
+	move.b #0x1, Monster_BlockingCtrl(a0)
 	move.l #Player1, CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
@@ -439,6 +453,7 @@ MonsterStartEmergeFromCave:
 	; Cut player X velocity
 	move.l #Player1, a2
 	move.w #0x0, GameObj_VelX(a2)
+	move.w #0x0, GameObj_AccelX(a2)
 	
 	; Start palette lerp
 	move.l a0, -(sp)
@@ -462,12 +477,6 @@ MonsterUpdateEmergeFromCave:
 	cmp.w  #0x0, PaletteLerp_Speed(a2)
 	bne    @Lerping
 	
-	move.b #0x1, Player1ControlEnabled
-	move.l a0, CameraTargetLerpSource
-	move.l #Player1, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #0x10, CameraTargetLerpSpeed
-	
 	; Start roaring at player
 	jsr    MonsterStartRoaring
 	
@@ -481,10 +490,6 @@ MonsterStartRoaring:
 	
 	; Set roaring state
 	move.b #MonsterState_Roaring, Monster_State(a0)
-	
-	; Cut X velocity
-	move.w #0x0, GameObj_VelX(a0)
-	move.w #0x0, GameObj_AccelX(a0)
 	
 	; Turn to face player
 	move.l #Player1, a2
@@ -523,6 +528,20 @@ MonsterUpdateRoaring:
 	cmp.b  #0x0, AnimObj_Playing(a0)
 	bne    @AnimPlaying
 	
+	; Finish mini-cutscene if playing (release player control and camera)
+	cmp.b  #0x0, Monster_BlockingCtrl(a0)
+	beq    @NotBlockingPlayerCtrl
+	
+	move.b #0x1, Player1ControlEnabled
+	move.l a0, CameraTargetLerpSource
+	move.l #Player1, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #0x10, CameraTargetLerpSpeed
+	
+	move.b #0x0, Monster_BlockingCtrl(a0)
+	
+	@NotBlockingPlayerCtrl:
+	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
 	
@@ -545,6 +564,9 @@ MonsterStartSearchForPlayer:
 	
 	; Give anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Set initial delay before first walk
+	move.w #Monster_SearchRandDelayInit, Monster_SearchDelay(a0)
 	
 	rts
 
@@ -743,10 +765,19 @@ MonsterUpdateTrackPlayer:
 	cmp.l  d0, d3		; Left of monster vs. right of player (+ attack distance)
 	blt    @RightOfPlayer
 
-	; Within attack distance, stop chasing
+	; Within min chase range, stop chasing
 	move.b #0x0, Character_Running(a0)
 	jsr    CharacterCancelXMovement
 
+	; Attack if bounds intersect
+	PUSHL  a1
+	move.l a2, a1
+	jsr    TestGameObjBoxIntersectBox
+	POPL   a1
+	
+	cmp.b  #0x0, d0
+	beq    @End
+	
 	; Attack
 	jsr    MonsterStartBite
 	bra    @End

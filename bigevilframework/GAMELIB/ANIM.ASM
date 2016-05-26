@@ -21,6 +21,7 @@ Animation_FirstFrameOffset	   rs.w 1 ; Offset (in frames) from start of tile dat
 Animation_Speed		           rs.b 1
 Animation_Length	           rs.b 1
 Animation_Looping	           rs.b 1
+Animation_ZeroVelocity		   rs.b 1
 ;------------------------------------
-Animation_Struct_Pad           rs.b 3
+Animation_Struct_Pad           rs.b 2
 Animation_Struct_Size          rs.b 0

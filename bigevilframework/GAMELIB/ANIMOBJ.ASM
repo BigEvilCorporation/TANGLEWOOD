@@ -42,10 +42,16 @@ AnimObjDraw:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
 	
+	; Check if visibility test should be skipped
+	cmp.b  #0x0, GameObj_UpdateOutOfView(a0)
+	bne    @SkipVisibilityTest
+	
 	; Check if sprite linked
 	move.b GameObj_SpriteLinked(a0), d0
 	cmp.b  #0x0, d0
 	beq    @Invisible
+	
+	@SkipVisibilityTest:
 
 	; Check if gameobj active
 	move.b GameObj_Active(a0), d0
@@ -179,6 +185,24 @@ AnimObjDraw:
 AnimObjUpdate:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
+	
+	; Get current animation
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoAnim
+	
+	; Check if velocity is to be cancelled
+	cmp.b #0x0, Animation_ZeroVelocity(a2)
+	beq   @NoVelCancel
+	
+	; Cancel out acceleration + velocity
+	move.w #0x0, GameObj_AccelX(a0)
+	move.w #0x0, GameObj_AccelY(a0)
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
+	
+	@NoVelCancel:
+	@NoAnim:
 	
 	; Base functionality
 	jsr GameObjUpdate

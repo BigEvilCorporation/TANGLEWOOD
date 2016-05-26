@@ -83,7 +83,6 @@ FlueUpdate:
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 
-	jsr GameObjUpdate
 	rts
 	
 FlueOccupantUpdate:
