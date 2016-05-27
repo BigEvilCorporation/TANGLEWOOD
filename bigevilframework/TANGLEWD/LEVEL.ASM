@@ -89,6 +89,12 @@ LevelLoad:
 	
 	jsr LevelCreatePlayers
 	jsr LevelCreateGameObjects
+	
+	; Init level
+	move.l (CurrentLevel), a1
+	move.l Level_InitRoutine(a1), a2
+	jsr    (a2)
+	
 	jsr LevelLoadGameObjArt
 	
 	; Stream map last, needs player pos
@@ -225,6 +231,8 @@ LevelLoadGameObjArt:
 	; d3 (b) Palette ID
 
 	; Player 1
+	cmp.w  #0x0, EntityCount_Players
+	beq    @NoPlayers
 	move.l #EntityArray_Players, a0
 	lea    spritesheets_nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
@@ -236,8 +244,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteID_Player, d4
 	jsr    GameObjLoadMultiSprite
+	@NoPlayers:
 
 	; Monsters
+	cmp.w  #0x0, EntityCount_Monsters
+	beq    @NoMonsters
 	move.l #EntityArray_Monsters, a0
 	lea    spritesheets_djakk, a1
 	lea    sprite_djakk_subsprite_dimensions_bits, a2
@@ -249,8 +260,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_djakk_widthheight_subsprites, d3
 	move.b #PaletteID_Monster, d4
 	jsr    GameObjLoadMultiSprite
+	@NoMonsters:
     
 	; Fuzzls
+	cmp.w  #0x0, EntityCount_Fuzzls
+	beq    @NoFuzzls
 	move.l #EntityArray_Fuzzls, a0
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
@@ -274,8 +288,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_fuzzl_dimensions, d3
 	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
+	@NoFuzzls:
     
 	; Leaves
+	cmp.w  #0x0, EntityCount_Leaves
+	beq    @NoLeaves
 	move.l #EntityArray_Leaves, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
@@ -311,10 +328,10 @@ LevelLoadGameObjArt:
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
+	@NoLeaves:
     
 	; Vines
-	move.w (EntityCount_Obstacles), d0
-	cmp.w  #0x0, d0
+	cmp.w  #0x0, EntityCount_Obstacles
 	beq    @NoObstacles
 	move.l #EntityArray_Obstacles, a0
 	lea    tiles_vines, a1
@@ -342,6 +359,8 @@ LevelLoadGameObjArt:
 	@NoObstacles:
     
 	; Boulders
+	cmp.w  #0x0, EntityCount_Boulders
+	beq    @NoBoulders
 	move.l #EntityArray_Boulders, a0
 	lea    Tiles_Boulder, a1
 	lea    sprite_Boulder_subsprite_dimensions_bits, a2
@@ -353,8 +372,11 @@ LevelLoadGameObjArt:
 	move.w #sprite_Boulder_dimensions, d3
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
+	@NoBoulders:
 	
 	; Fireflies
+	cmp.w  #0x0, EntityCount_Fireflies
+	beq    @NoFireflies
 	move.l #EntityArray_Fireflies, a0
 	move.w (EntityCount_Fireflies), d1
 	sub.w  #0x1, d1
@@ -376,55 +398,13 @@ LevelLoadGameObjArt:
 	add.l  #Firefly_Struct_Size, a0
 	add.l  #tiles_firefly_size_b, d0
 	dbra   d1, @FireflyLoop
+	@NoFireflies:
 	
 	rts
 	
 LevelCreateGameObjects:
 
-	; Trigger boxes
-	move.l #EntityArray_Triggers, a0
-	jsr    LoadGameObjects_lvl1_TriggerBox
-	
-	; Checkpoints
-	move.l #EntityArray_Checkpoints, a0
-	jsr    LoadGameObjects_lvl1_Checkpoint
-	
-	; Monsters
-	move.l #EntityArray_Monsters, a0
-	jsr    LoadGameObjects_lvl1_Monster
-    
-	; Fuzzls
-	move.l #EntityArray_Fuzzls, a0
-	jsr    LoadGameObjects_lvl1_Fuzzl
-	
-	; Fuzzl nests
-	move.l #EntityArray_Nests, a0
-	jsr    LoadGameObjects_lvl1_Nest
-    
-	; Flues
-	move.l #EntityArray_Flues, a0
-	jsr    LoadGameObjects_lvl1_Flue
-    
-	; Obstacles
-	move.l #EntityArray_Obstacles, a0
-	jsr    LoadGameObjects_lvl1_Obstacle
-	
-	; Boulders
-	move.l #EntityArray_Boulders, a0
-	jsr    LoadGameObjects_lvl1_Boulder
-    
-	; Fireflies
-	move.l #EntityArray_Fireflies, a0
-	jsr    LoadGameObjects_lvl1_Firefly
-    
-	; Leaves
-	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
+	; Moved to respective Level#_Init()
 	
 	rts
 

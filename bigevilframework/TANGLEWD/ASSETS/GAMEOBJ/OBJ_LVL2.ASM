@@ -36,4 +36,7 @@ LoadGameObjects_lvl2_Boulder:
 
 LoadGameObjects_lvl2_TriggerBox:
 	rts
+	
+LoadGameObjects_lvl2_Checkpoint:
+	rts
 

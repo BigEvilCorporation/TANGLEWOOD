@@ -108,6 +108,7 @@ PlayerInit:
 	
 	; Set type
 	addi.l #entity_type_player, Entity_TypeBits(a0)
+	addi.w #0x1, EntityCount_Players
 	
 	; Set update and render routines
 	move.l #PlayerUpdate, Entity_UpdateRoutine(a0)

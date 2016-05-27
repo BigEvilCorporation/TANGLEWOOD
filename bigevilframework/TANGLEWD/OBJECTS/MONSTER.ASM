@@ -33,11 +33,11 @@ Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerVisibilityBoxX	equ 0x0800
-Monster_PlayerVisibilityBoxY	equ 0x0080
+Monster_PlayerVisibilityBoxY	equ 0x0100
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
-Monster_AttackDistance		equ (0x10*SubPixelsPerPixel)
+Monster_AttackDistance		equ (0x01*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 ; Search state

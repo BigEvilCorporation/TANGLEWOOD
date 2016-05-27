@@ -26,6 +26,51 @@ Lvl1_HarlequinForest:
 	
 Lvl1_Init:
 
+	; Trigger boxes
+	move.l #EntityArray_Triggers, a0
+	jsr    LoadGameObjects_lvl1_TriggerBox
+	
+	; Checkpoints
+	move.l #EntityArray_Checkpoints, a0
+	jsr    LoadGameObjects_lvl1_Checkpoint
+	
+	; Monsters
+	move.l #EntityArray_Monsters, a0
+	jsr    LoadGameObjects_lvl1_Monster
+    
+	; Fuzzls
+	move.l #EntityArray_Fuzzls, a0
+	jsr    LoadGameObjects_lvl1_Fuzzl
+	
+	; Fuzzl nests
+	move.l #EntityArray_Nests, a0
+	jsr    LoadGameObjects_lvl1_Nest
+    
+	; Flues
+	move.l #EntityArray_Flues, a0
+	jsr    LoadGameObjects_lvl1_Flue
+    
+	; Obstacles
+	move.l #EntityArray_Obstacles, a0
+	jsr    LoadGameObjects_lvl1_Obstacle
+	
+	; Boulders
+	move.l #EntityArray_Boulders, a0
+	jsr    LoadGameObjects_lvl1_Boulder
+    
+	; Fireflies
+	move.l #EntityArray_Fireflies, a0
+	jsr    LoadGameObjects_lvl1_Firefly
+    
+	; Leaves
+	; TODO: Leaf generator
+	move.l #EntityArray_Leaves, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
+
 	; Disable end level trigger box
 	
 	rts

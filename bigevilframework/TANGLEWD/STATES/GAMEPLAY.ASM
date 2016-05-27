@@ -23,10 +23,8 @@ Gameplay_Enter:
 	; Reset all positions/velocities
 	jsr LevelReset
 	
-	; Init level
+	; Get level id
 	move.l (CurrentLevel), a1
-	move.l Level_InitRoutine(a1), a2
-	jsr    (a2)
 	
 	; Get player 1
 	move.l #Player1, a0
