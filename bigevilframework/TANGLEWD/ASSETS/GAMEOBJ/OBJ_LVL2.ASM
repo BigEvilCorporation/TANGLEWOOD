@@ -7,13 +7,16 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-gameobjects_Lvl2:
+gameobjects_lvl2:
+gameobjects_lvl2_Fuzzl_count equ 0
 LoadGameObjects_lvl2_Fuzzl:
 	rts
 
+gameobjects_lvl2_Nest_count equ 0
 LoadGameObjects_lvl2_Nest:
 	rts
 
+gameobjects_lvl2_Flue_count equ 1
 LoadGameObjects_lvl2_Flue:
 Flue_1:
 	jsr FlueInit
@@ -22,21 +25,27 @@ Flue_1:
 	add.l #Flue_Struct_Size, a0
 	rts
 
+gameobjects_lvl2_Obstacle_count equ 0
 LoadGameObjects_lvl2_Obstacle:
 	rts
 
+gameobjects_lvl2_Firefly_count equ 0
 LoadGameObjects_lvl2_Firefly:
 	rts
 
+gameobjects_lvl2_Monster_count equ 0
 LoadGameObjects_lvl2_Monster:
 	rts
 
+gameobjects_lvl2_Boulder_count equ 0
 LoadGameObjects_lvl2_Boulder:
 	rts
 
+gameobjects_lvl2_TriggerBox_count equ 0
 LoadGameObjects_lvl2_TriggerBox:
 	rts
-	
+
+gameobjects_lvl2_Checkpoint_count equ 0
 LoadGameObjects_lvl2_Checkpoint:
 	rts
 
