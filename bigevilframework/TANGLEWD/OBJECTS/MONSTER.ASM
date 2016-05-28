@@ -33,7 +33,7 @@ Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerVisibilityBoxX	equ 0x0800
-Monster_PlayerVisibilityBoxY	equ 0x0100
+Monster_PlayerVisibilityBoxY	equ 0x0080
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
