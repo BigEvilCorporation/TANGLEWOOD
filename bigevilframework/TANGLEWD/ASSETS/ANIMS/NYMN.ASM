@@ -36,6 +36,15 @@ spriteanim_nymn_laydown_track_posx:
 
 	Even
 
+spriteanim_nymn_wake:
+spriteanim_nymn_wake_numframes: equ 0x10
+spriteanim_nymn_wake_speed: equ 0x14
+spriteanim_nymn_wake_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA
+spriteanim_nymn_wake_track_posx:
+
+	Even
+
 spriteanim_nymn_push:
 spriteanim_nymn_push_numframes: equ 0x8
 spriteanim_nymn_push_speed: equ 0x28

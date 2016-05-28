@@ -24,6 +24,8 @@ Lvl2_HarlequinForestAct2:
 	
 	even
 	
+	rts
+	
 Lvl2_Init:
 
 	; Trigger boxes

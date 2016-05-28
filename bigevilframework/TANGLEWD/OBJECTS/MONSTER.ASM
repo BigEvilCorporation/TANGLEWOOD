@@ -224,7 +224,7 @@ MonsterInit:
 	; Roar
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Roar), a3
-	move.w #spritesheet_djakk_bite_frameoffset, Animation_FirstFrameOffset(a3)
+	move.w #spritesheet_djakk_roar_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_djakk_roar_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)

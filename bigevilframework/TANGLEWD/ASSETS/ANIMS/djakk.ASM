@@ -18,6 +18,15 @@ spriteanim_djakk_idle_track_posx:
 
 	Even
 
+spriteanim_djakk_roar:
+spriteanim_djakk_roar_numframes: equ 0x7
+spriteanim_djakk_roar_speed: equ 0x20
+spriteanim_djakk_roar_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
+spriteanim_djakk_roar_track_posx:
+
+	Even
+
 spriteanim_djakk_run:
 spriteanim_djakk_run_numframes: equ 0x8
 spriteanim_djakk_run_speed: equ 0x28
@@ -42,15 +51,6 @@ spriteanim_djakk_bite_speed: equ 0x1E
 spriteanim_djakk_bite_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 spriteanim_djakk_bite_track_posx:
-
-	Even
-	
-spriteanim_djakk_roar:
-spriteanim_djakk_roar_numframes: equ 0x7
-spriteanim_djakk_roar_speed: equ 0x1E
-spriteanim_djakk_roar_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
-spriteanim_djakk_roar_track_posx:
 
 	Even
 

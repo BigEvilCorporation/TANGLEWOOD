@@ -77,8 +77,9 @@ Player_Interaction_Ability	equ 0x3
 PlayerAnimIdx_Switch  equ 0
 PlayerAnimIdx_LieDown equ 1
 PlayerAnimIdx_Sleep   equ 2
+PlayerAnimIdx_Wake    equ 3
 ; -------------------------
-PlayerAnimIdx_Max     equ 3
+PlayerAnimIdx_Max     equ 4
 
 ; ************************************
 ; Struct
@@ -297,14 +298,23 @@ PlayerInit:
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x0, Animation_ZeroVelocity(a3)
 	
+	; Wake up
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Wake), a3
+	move.w #spritesheet_nymn_wake_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_wake_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_wake_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_wake_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
 	rts
 
 PlayerUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	; Base functionality
-	jsr    CharacterUpdate
 	
 	; Get and clear prev pushing state
 	move.b Character_Pushing(a0), d1
@@ -348,6 +358,9 @@ PlayerUpdate:
 	
 	@Interacting:
 	@NotInteracting:
+	
+	; Base functionality
+	jsr    CharacterUpdate
 	
 	rts
 	
@@ -437,9 +450,24 @@ PlayerUpdateIdleSnooze:
 	
 	@EndSnooze:
 	
-	; Release anim control, stop snoozing
+	; Release looping anim control, stop snoozing
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0x0, Player_Snoozing(a0)
+	
+	; Cancel out the velocity used to wake up
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
+	move.w #0x0, GameObj_AccelX(a0)
+	move.w #0x0, GameObj_AccelY(a0)
+	
+	; Start wake anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
 	
 	@StillSnoozing:
 	
@@ -1278,9 +1306,9 @@ PlayerInteract_Boulder:
 PlayerTest_Obstacles:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	move.l a1, -(sp)
 
+	PUSHL  a1
+	
 	move.w (EntityCount_Obstacles), d0
 	cmp.w  #0x0, d0
 	beq    @NoObstacles
@@ -1384,11 +1412,11 @@ PlayerTest_Obstacles:
 	
 	; Next obstacle
 	add.l #Obstacle_Struct_Size, a1
-	dbra d6, @ObstacleLoop
-
-	move.l (sp)+, a1
+	dbra  d6, @ObstacleLoop
 
 	@NoObstacles:
+	
+	POPL  a1
 	
 	rts
 
@@ -1397,13 +1425,16 @@ PlayerTest_Fireflies:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.l a0, -(sp)
-	move.l a1, -(sp)
+	PUSHL  a0
+	PUSHL  a1
+	
+	move.w (EntityCount_Fireflies), d0
+	cmp.w  #0x0, d0
+	beq    @NoFireflies
 
 	; Check player against all Fireflies in level
 	move.l a0, a1						; Player in a1
 	move.l #EntityArray_Fireflies, a0	; Firefly in a0
-	move.w (EntityCount_Fireflies), d0
 	sub.w  #0x1, d0
 	@FireflyLoop:
 	movem.l d0-d1/a0-a1, -(sp)
@@ -1411,8 +1442,10 @@ PlayerTest_Fireflies:
 	movem.l (sp)+, d0-d1/a0-a1
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
+	
+	@NoFireflies:
 
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	POPL   a1
+	POPL   a0
 
 	rts
