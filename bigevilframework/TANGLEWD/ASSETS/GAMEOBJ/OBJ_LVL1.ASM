@@ -40,15 +40,15 @@ Nest_49:
 
 gameobjects_lvl1_Flue_count equ 2
 LoadGameObjects_lvl1_Flue:
-Flue_21:
-	jsr FlueInit
-	move.l #0x0008f000, Entity_WorldPosX(a0)
-	move.l #0x0002f000, Entity_WorldPosY(a0)
-	add.l #Flue_Struct_Size, a0
 Flue_44:
 	jsr FlueInit
 	move.l #0x000f2800, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Flue_66:
+	jsr FlueInit
+	move.l #0x00068000, Entity_WorldPosX(a0)
+	move.l #0x0002f800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 

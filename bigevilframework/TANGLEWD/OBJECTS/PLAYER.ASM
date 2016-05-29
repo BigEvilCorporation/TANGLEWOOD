@@ -617,6 +617,12 @@ PlayerStopColourAbility:
 	; Yellow - glide
 	; ************************************
 	@Yellow:
+	
+	; Reset gliding
+	move.b #0x0, Character_Gliding(a0)
+	move.w #Player1MaxVelXWalk, GameObj_MaxVelX(a0)			; Reset max velocity
+	move.w #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	
 	bra    @End
 	
 	; ************************************
@@ -690,30 +696,24 @@ PlayerUpdateColourAbility:
 	; If in air
 	move.b GameObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
-	bne    @ResetGlide
+	bne    @NoGlide
 	
 	; If interacting
 	move.b Character_Interacting(a0), d0
 	cmp.b  #0x0, d0
-	beq    @ResetGlide
+	beq    @NoGlide
 	
 	; If -ve Y velocity
 	move.w GameObj_VelY(a0), d0
 	cmp.w  #0x0, d0
-	bgt    @ResetGlide
+	bgt    @NoGlide
 	
 	; Gliding
 	move.b #0x1, Character_Gliding(a0)						; Set gliding
 	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
 	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
-	bra    @End
 	
-	@ResetGlide:
-	
-	; Reset gliding
-	move.b #0x0, Character_Gliding(a0)
-	move.w #Player1MaxVelXWalk, GameObj_MaxVelX(a0)			; Reset max velocity
-	move.w #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	@NoGlide:
 	bra    @End
 	
 	; ************************************
