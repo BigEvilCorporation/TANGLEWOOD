@@ -110,11 +110,12 @@ LevelLoadPalettes:
 	; a1 --- Level struct address
 	
 	clr.l  d6
-	move.b Level_NumPalettes(a1), d7; Num palettes to d6
-	subi.b #0x1, d7					; -1 for loop
-	move.l #PaletteId_World0, d0	; First level palette offset to d0
+	clr.l  d7
+	move.b Level_NumPalettes(a1), d7	; Num palettes to d6
+	subi.b #0x1, d7						; -1 for loop
+	move.l #PaletteId_World0, d0		; First level palette offset to d0
 	@PaletteLoop:
-	move.b d0, -(sp)				; Backup palette index
+	PUSHL  d0							; Backup palette index
 	move.l Level_PalettesAddr(a1), a0	; First palette addr to a0
 	
 	IFD DEBUG
@@ -130,9 +131,9 @@ LevelLoadPalettes:
 	
 	ENDIF
 	
-	move.b (sp)+, d0				; Restore palette index
+	POPL   d0							; Restore palette index
 	addi.w #0x1, d0					
-	dbra d7, @PaletteLoop			; LoadPalette leaves incremented palette address in a0
+	dbra d7, @PaletteLoop				; LoadPalette leaves incremented palette address in a0
 	
 	rts
 	

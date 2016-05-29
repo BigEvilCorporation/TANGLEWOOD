@@ -61,7 +61,7 @@ Logos_Enter:
 	jsr    VDPQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #0x0, TimerLogoFade
+	move.l #LogosDelayTime, TimerLogoFade
 	
 	rts
 	
@@ -78,15 +78,15 @@ Logos_Update:
 	bne    @Fading
 
 	; If already done fade to black
-	cmp.w  #0x0, (TimerLogoFade)
-	bne    @FadedOut
+	cmp.l  #0x0, TimerLogoFade
+	beq    @FadedOut
 	
 	; Wait for timeout
-	move.w (TimerLogoFade), d0
-	add.w  #0x1, d0
-	move.w d0, TimerLogoFade
-	cmp.w  #LogosDelayTime, d0
-	blt    @NotElapsed
+	move.l (TimerLogoFade), d0
+	sub.l  #0x1, d0
+	move.l d0, TimerLogoFade
+	cmp.l  #0x1, d0
+	bne    @NotElapsed
 	
 	; Begin fade to black
 	lea    palette_fade_black, a0
@@ -96,6 +96,9 @@ Logos_Update:
 	move.l #0xF, d3
 	jsr    PaletteLerpStart
 	bra    @End
+	
+	; Mark end of sequence
+	move.l #0x0, TimerLogoFade
 	
 	@FadedOut:
 	

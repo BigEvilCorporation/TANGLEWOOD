@@ -54,8 +54,8 @@ MainMenu_Enter:
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
 	
-	; Reset timer
-	move.l #0x0, TimerLogoFade
+	; Use timer as fading out flag
+	move.l #0x1, TimerLogoFade
 	
 	rts
 	
@@ -72,13 +72,13 @@ MainMenu_Update:
 	bne    @Fading
 	
 	; If already started fade to black
-	cmp.w  #0x0, (TimerLogoFade)
-	bne    @FadedOut
+	cmp.l  #0x0, TimerLogoFade
+	beq    @FadedOut
 	
 	; Wait for start button press
 	jsr    ReadPadA
 	btst  #pad_button_start, d0	; Check start pressed
-	bne   @End
+	beq   @End
 
 	; Begin fade to black
 	lea    palette_fade_black, a0
@@ -87,6 +87,9 @@ MainMenu_Update:
 	move.l #0x0, d2
 	move.l #0xF, d3
 	jsr    PaletteLerpStart
+	
+	; Mark fading out
+	move.l #0x0, TimerLogoFade
 	
 	; Fade out music
 	jsr    Echo_FadeBGM
