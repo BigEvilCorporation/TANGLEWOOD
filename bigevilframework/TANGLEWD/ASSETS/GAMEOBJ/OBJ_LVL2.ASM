@@ -16,13 +16,8 @@ gameobjects_lvl2_Nest_count equ 0
 LoadGameObjects_lvl2_Nest:
 	rts
 
-gameobjects_lvl2_Flue_count equ 1
+gameobjects_lvl2_Flue_count equ 0
 LoadGameObjects_lvl2_Flue:
-Flue_1:
-	jsr FlueInit
-	move.l #0x00018000, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
-	add.l #Flue_Struct_Size, a0
 	rts
 
 gameobjects_lvl2_Obstacle_count equ 0
@@ -45,7 +40,12 @@ gameobjects_lvl2_TriggerBox_count equ 0
 LoadGameObjects_lvl2_TriggerBox:
 	rts
 
-gameobjects_lvl2_Checkpoint_count equ 0
+gameobjects_lvl2_Checkpoint_count equ 1
 LoadGameObjects_lvl2_Checkpoint:
+Checkpoint_66:
+	jsr CheckpointInit
+	move.l #0x0000c800, Entity_WorldPosX(a0)
+	move.l #0x00011800, Entity_WorldPosY(a0)
+	add.l #Checkpoint_Struct_Size, a0
 	rts
 
