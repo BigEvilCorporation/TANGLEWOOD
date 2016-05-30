@@ -34,10 +34,10 @@ Flue_67:
 	move.l #0x0020a000, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue_70:
+Flue_71:
 	jsr FlueInit
 	move.l #0x00040000, Entity_WorldPosX(a0)
-	move.l #0x00031800, Entity_WorldPosY(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
