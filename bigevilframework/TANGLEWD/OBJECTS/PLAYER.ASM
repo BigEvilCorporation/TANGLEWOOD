@@ -296,7 +296,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_sleep_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_sleep_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
-	move.b #0x0, Animation_ZeroVelocity(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Wake up
 	move.l a2, a3
@@ -537,6 +537,22 @@ PlayerStartColourAbility:
 	; Yellow - glide
 	; ************************************
 	@Yellow:
+
+	; If in air
+	move.b GameObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	bne    @End
+	
+	; If -ve Y velocity
+	move.w GameObj_VelY(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @End
+	
+	; Gliding
+	move.b #0x1, Character_Gliding(a0)						; Set gliding
+	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
+	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
+	
 	bra    @End
 	
 	; ************************************
@@ -693,27 +709,24 @@ PlayerUpdateColourAbility:
 	; ************************************
 	@Yellow:
 	
+	; If active colour ability
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	beq    @End
+	
 	; If in air
 	move.b GameObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
-	bne    @NoGlide
-	
-	; If interacting
-	move.b Character_Interacting(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NoGlide
+	bne    @EndGlide
 	
 	; If -ve Y velocity
 	move.w GameObj_VelY(a0), d0
 	cmp.w  #0x0, d0
-	bgt    @NoGlide
+	bgt    @EndGlide
 	
-	; Gliding
-	move.b #0x1, Character_Gliding(a0)						; Set gliding
-	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
-	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
+	bra    @End
 	
-	@NoGlide:
+	@EndGlide:
+	jsr    PlayerStopColourAbility
 	bra    @End
 	
 	; ************************************
@@ -792,6 +805,7 @@ PlayerUpdateColourAbility:
 	bra    @End
 	
 	@NoColour:
+	@NotInteracting:
 	@End:
 
 	rts
