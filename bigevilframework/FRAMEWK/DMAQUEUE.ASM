@@ -33,6 +33,15 @@ VDPDMAQueue_AddJob:
 	mulu   #VDPDMAJob_Struct_Size, d2
 	add.l  d2, a1
 	
+	; If block crosses a 128kb boundary, split into two jobs
+	; (but simpler to do with 64kb,can just use masks)
+	move.l a0, d2
+	andi.l #0xFFFF0000, d2
+	andi.l #0x0000FFFF, d1
+	add.l  d1, d2
+	cmp.l  #0x0000FFFF, d2
+	blt    @SplitJobs
+	
 	; Set properties
 	move.l a0, VDPDMAJob_SourceAddr(a1)
 	move.w d0, VDPDMAJob_DestAddr(a1)
@@ -40,6 +49,16 @@ VDPDMAQueue_AddJob:
 	
 	; Increment queue size
 	addi.w #0x1, vdp_dma_queue_size
+	
+	bra    @End
+	
+	@SplitJobs:
+	
+	; TODO
+	
+	;nop
+	
+	@End:
 	
 	rts
 	

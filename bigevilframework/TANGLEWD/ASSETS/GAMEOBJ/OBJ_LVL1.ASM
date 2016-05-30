@@ -8,7 +8,7 @@
 
 
 gameobjects_lvl1:
-gameobjects_lvl1_Fuzzl_count equ 2
+gameobjects_lvl1_Fuzzl_count equ 1
 LoadGameObjects_lvl1_Fuzzl:
 Fuzzl_22:
 	jsr FuzzlInit
@@ -16,54 +16,29 @@ Fuzzl_22:
 	move.l #0x00012000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
-Fuzzl_48:
-	jsr FuzzlInit
-	move.l #0x000e8000, Entity_WorldPosX(a0)
-	move.l #0x0000d000, Entity_WorldPosY(a0)
-	move.b #ColourGreen, Fuzzl_Colour(a0)
-	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Nest_count equ 2
+gameobjects_lvl1_Nest_count equ 1
 LoadGameObjects_lvl1_Nest:
 Nest_45:
 	jsr NestInit
 	move.l #0x0003d000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
-Nest_49:
-	jsr NestInit
-	move.l #0x000ce000, Entity_WorldPosX(a0)
-	move.l #0x00018800, Entity_WorldPosY(a0)
-	add.l #Nest_Struct_Size, a0
 	rts
 
 gameobjects_lvl1_Flue_count equ 2
 LoadGameObjects_lvl1_Flue:
-Flue_44:
+Flue_67:
 	jsr FlueInit
-	move.l #0x000f2800, Entity_WorldPosX(a0)
+	move.l #0x0020a000, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue_66:
+Flue_70:
 	jsr FlueInit
-	move.l #0x00068000, Entity_WorldPosX(a0)
-	move.l #0x0002f800, Entity_WorldPosY(a0)
+	move.l #0x00040000, Entity_WorldPosX(a0)
+	move.l #0x00031800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-	rts
-
-gameobjects_lvl1_Obstacle_count equ 2
-LoadGameObjects_lvl1_Obstacle:
-Obstacle_33:
-	jsr ObstacleInit
-	move.l #0x000bf800, Entity_WorldPosX(a0)
-	move.l #0x00029800, Entity_WorldPosY(a0)
-	add.l #Obstacle_Struct_Size, a0
-Obstacle_34:
-	jsr ObstacleInit
-	move.l #0x000bf800, Entity_WorldPosX(a0)
-	move.l #0x00021800, Entity_WorldPosY(a0)
-	add.l #Obstacle_Struct_Size, a0
 	rts
 
 gameobjects_lvl1_Firefly_count equ 9
@@ -136,11 +111,12 @@ Boulder_65:
 
 gameobjects_lvl1_TriggerBox_count equ 3
 LoadGameObjects_lvl1_TriggerBox:
-TriggerBox_53:
+TriggerBox_60:
 	jsr TriggerBoxInit
-	move.l #0x001c0800, Entity_WorldPosX(a0)
-	move.l #0x0002c000, Entity_WorldPosY(a0)
-	move.l #Lvl1_End, TriggerBox_Routine(a0)
+	move.l #0x00125800, Entity_WorldPosX(a0)
+	move.l #0x00029800, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 TriggerBox_59:
@@ -151,12 +127,11 @@ TriggerBox_59:
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
-TriggerBox_60:
+TriggerBox_68:
 	jsr TriggerBoxInit
-	move.l #0x00125800, Entity_WorldPosX(a0)
-	move.l #0x00029800, Entity_WorldPosY(a0)
-	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
-	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
+	move.l #0x0022e800, Entity_WorldPosX(a0)
+	move.l #0x0000f000, Entity_WorldPosY(a0)
+	move.l #Lvl1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
@@ -168,5 +143,19 @@ Checkpoint_58:
 	move.l #0x00010800, Entity_WorldPosX(a0)
 	move.l #0x00018000, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
+	rts
+
+gameobjects_lvl1_WaterBody_count equ 2
+LoadGameObjects_lvl1_WaterBody:
+WaterBody_66:
+	jsr WaterBodyInit
+	move.l #0x0014b800, Entity_WorldPosX(a0)
+	move.l #0x00031800, Entity_WorldPosY(a0)
+	add.l #WaterBody_Struct_Size, a0
+WaterBody_69:
+	jsr WaterBodyInit
+	move.l #0x001ec000, Entity_WorldPosX(a0)
+	move.l #0x00032800, Entity_WorldPosY(a0)
+	add.l #WaterBody_Struct_Size, a0
 	rts
 

@@ -44,6 +44,7 @@ Character_AccelWalk		rs.w 1
 Character_DecelIdle		rs.w 1
 Character_DecelForced	rs.w 1
 Character_OnLedge		rs.b 1
+Character_InWater		rs.b 1
 Character_Running		rs.b 1
 Character_Jumping		rs.b 1
 Character_Pushing		rs.b 1
@@ -54,7 +55,7 @@ Character_AnimIdx	    rs.b 1
 Character_Health        rs.b 1
 Character_Dead          rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 0
+Character_Struct_Pad    rs.b 3
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -73,6 +74,7 @@ CharacterInit:
 	move.l #0x0, Character_LastLedgeX(a0)
 	move.l #0x0, Character_LastLedgeY(a0)
 	move.b #0x0, Character_OnLedge(a0)
+	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, Character_Running(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
@@ -100,6 +102,15 @@ CharacterUpdate:
 	beq    @OffFloor
 	move.b #0x0, Character_Jumping(a0) ; On floor, no longer jumping
 	@OffFloor:
+	
+	; If in water and running, cancel run
+	cmp.b  #0x0, Character_InWater(a0)
+	beq    @NotInWater
+	cmp.b  #0x0, Character_Jumping(a0)
+	beq    @NotJumping
+	jsr    CharacterCancelJump
+	@NotInWater:
+	@NotJumping:
  
 	jsr CharacterApplySpriteFlip
 
@@ -418,6 +429,11 @@ CharacterStartJump:
 	move.b Character_OnLedge(a0), d4
 	cmp.b  #0x1, d4
 	beq    @CanJump
+	
+	; Check if player in water
+	move.b Character_InWater(a0), d4
+	cmp.b  #0x0, d4
+	bne    @CantJump
 	
 	; Check if player close enough to floor to jump
 	move.b GameObj_CloseToFloor(a0), d4

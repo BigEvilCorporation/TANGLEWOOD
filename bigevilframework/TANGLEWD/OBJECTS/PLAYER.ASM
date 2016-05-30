@@ -320,8 +320,7 @@ PlayerUpdate:
 	move.b Character_Pushing(a0), d1
 	move.b #0x0, Character_Pushing(a0)
 
-	; Test for obstacles and pickups
-	jsr    PlayerTest_Obstacles
+	; Test for pickups
 	jsr    PlayerTest_Fireflies
 	
 	; Process sleep/snooze states
@@ -1314,123 +1313,6 @@ PlayerInteract_Boulder:
 	@End:
 	
 	move.l (sp)+, a1
-	
-	rts
-	
-PlayerTest_Obstacles:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	PUSHL  a1
-	
-	move.w (EntityCount_Obstacles), d0
-	cmp.w  #0x0, d0
-	beq    @NoObstacles
-	
-	; Check all obstacles
-	move.l #EntityArray_Obstacles, a1
-	move.w (EntityCount_Obstacles), d6
-	sub.w  #0x1, d6
-	@ObstacleLoop:
-	
-	; Check if solid
-	move.b GameObj_Solid(a1), d0
-	cmp.b  #0x0, d0
-	beq    @ObstacleOpen
-	
-	; Block player
-	; TODO: Use interaction radius
-	; TODO: Move to physics solids checking
-	move.l d6, -(sp)
-	jsr TestGameObjBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b #0x0, d0
-	beq   @NotInRange
-
-	; Check which side of obstacle
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
-	add.l  #(Obstacle_Width*SubpixelsPerPixel)/2, d1 ; Obstacle X centre
-	move.w GameObj_VelX(a0), d2			; Player velocity X
-	cmp.l  d0, d1
-	bgt    @LeftOfObstacle
-	
-	; On right hand side of obstacle, check if heading towards it
-	cmp.w  #0x0, d2
-	bgt    @NotPenetrating
-	
-	; Moving to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	move.l Entity_WorldPosX(a1), d1	; Obstacle X
-	add.l  #(Obstacle_Width*SubpixelsPerPixel), d1 ; Obstacle right
-	cmp.l  d0, d1
-	blt    @NotPenetrating
-	;sub.l  #(Obstacle_Width*SubpixelsPerPixel), d0
-	;move.l d0, Entity_WorldPosX(a1)
-	move.w #0x0, GameObj_VelX(a0)
-	@NotPenetratingLeft:
-	bra    @NotPenetrating
-	
-	@LeftOfObstacle:
-	; On left hand side of obstacle, check if heading towards it
-	cmp.w  #0x0, d2
-	blt    @NotPenetrating
-	
-	; Moving to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel), d0 ; Player right
-	move.l Entity_WorldPosX(a1), d1	; Obstacle X
-	cmp.l  d0, d1
-	bgt    @NotPenetratingRight
-	;move.l d0, Entity_WorldPosX(a1)
-	move.w #0x0, GameObj_VelX(a0)
-	@NotPenetratingRight:
-
-	; Penetrating obstacle, cancel run
-	jsr  CharacterCancelRun
-	
-	@NotPenetrating:
-	
-	; Check if character is interacting
-	move.b Character_Interacting(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NotInteracting
-	
-	; Check if character is close to floor
-	move.b GameObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
-	beq    @PlayerOffFloor
-	
-	; Check if the correct colour
-	move.b Player_Colour(a0), d0
-	move.b Obstacle_Colour(a1), d1
-	cmp.b  d0, d1
-	bne    @WrongColour
-	
-	; Success, open this blocker up
-	move.b #0x0, GameObj_Solid(a1)
-	move.b #0x0, GameObj_Visible(a1)	; TODO: Unblock animation
-	
-	; but it costs the character its colour
-	move.b #ColourDrained, Player_Colour(a0)
-	jsr PlayerBeginColourSwitch
-	
-	@ObstacleOpen:
-	@NotInRange:
-	@WrongColour:
-	@NotInteracting:
-	@PlayerOffFloor:
-	
-	; Next obstacle
-	add.l #Obstacle_Struct_Size, a1
-	dbra  d6, @ObstacleLoop
-
-	@NoObstacles:
-	
-	POPL  a1
 	
 	rts
 

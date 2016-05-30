@@ -76,9 +76,9 @@ __start
 	include 'objects\leaf.asm'
 	include 'objects\monster.asm'
 	include 'objects\nest.asm'
-	include 'objects\obstacle.asm'
 	include 'objects\player.asm'
 	include 'objects\trigger.asm'
+	include 'objects\waterbdy.asm'
 	
 	; Include game states
 	include 'states\endlevel.asm'
