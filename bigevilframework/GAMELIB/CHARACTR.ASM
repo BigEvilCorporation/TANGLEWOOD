@@ -513,8 +513,6 @@ CharacterStartRun:
 	bne    @CantRun
 
 	; Set max running velocity
-	move.w Character_MaxVelXRun(a0), d5
-	move.w GameObj_MaxVelX(a0), d6
 	move.w Character_MaxVelXRun(a0), GameObj_MaxVelX(a0)
 	
 	; Snap to floor if within step height

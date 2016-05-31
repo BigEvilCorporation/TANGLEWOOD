@@ -38,9 +38,11 @@ Monster_PlayerLostSightTime		equ 0x0180
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
-Monster_MinChaseDistance	equ (0x0030*SubPixelsPerPixel)
 Monster_AttackDistance		equ (0x01*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
+
+Monster_MinChaseDistance	equ (0x0020*SubPixelsPerPixel) ;((screen_width/2)*SubPixelsPerPixel)
+Monster_OutOfDistSpeedMul	equ 0x8
 
 ; Search state
 Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
@@ -749,6 +751,22 @@ MonsterUpdateTrackPlayer:
 	jsr    MonsterCheckPlayerVisible
 	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
 	bge    @LostPlayer
+	
+	; Speed up if out of min chase dist
+	ENTITY_GETCENTREX d0, a0				; Get monster centre
+	ENTITY_GETCENTREX d1, a2				; Get player centre
+	sub.l  d0, d1							; Calc distance
+	
+	cmp.l  #Monster_MinChaseDistance, d1
+	bgt    @OutsideMaxChaseDist
+	cmp.l  #-Monster_MinChaseDistance, d1
+	blt    @OutsideMaxChaseDist
+	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	bra    @EndMaxChaseDist
+	@OutsideMaxChaseDist:
+	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
+	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), GameObj_VelX(a0)
+	@EndMaxChaseDist:
 
 	; Get left positions
 	move.l Entity_WorldPosX(a0), d0	; Left of monster
@@ -779,7 +797,7 @@ MonsterUpdateTrackPlayer:
 	blt    @RightOfPlayer
 
 	; Within min chase range, stop chasing
-	move.b #0x0, Character_Running(a0)
+	jsr    CharacterCancelRun
 	jsr    CharacterCancelXMovement
 
 	; Attack if bounds intersect
@@ -796,37 +814,16 @@ MonsterUpdateTrackPlayer:
 	bra    @End
 
 	@LeftOfPlayer:
-	
-	; Snap to min distance
-	;ENTITY_GETCENTREX d0, a0
-	;ENTITY_GETCENTREX d1, a1
-	;move.l d1, d2
-	;sub.l  d0, d1
-	;cmp.l  #Monster_MinChaseDistance, d1
-	;ble    @WithinMaxChaseDistL
-	;sub.l  #Monster_MinChaseDistance-0x0010, d2
-	;move.l d2, Entity_WorldPosX(a0)
-	;@WithinMaxChaseDistL:
 
 	; Run towards player
-	move.b #0x1, Character_Running(a0)
+	jsr    CharacterStartRun
 	jsr    CharacterMoveRight
 	bra    @End
 
 	@RightOfPlayer:
-	
-	ENTITY_GETRIGHT d0, a0
-	ENTITY_GETRIGHT d1, a2
-	move.l d1, d2
-	sub.l  d1, d0
-	cmp.l  #Monster_MinChaseDistance, d0
-	ble    @WithinMaxChaseDistR
-	add.l  #Monster_MinChaseDistance-0x0010, d2
-	move.l d2, Entity_WorldPosX(a0)
-	@WithinMaxChaseDistR:
 
 	; Run towards player
-	move.b #0x1, Character_Running(a0)
+	jsr    CharacterStartRun
 	jsr    CharacterMoveLeft
 	bra    @End
 
@@ -836,7 +833,7 @@ MonsterUpdateTrackPlayer:
 	@LostPlayer:
 
 	; Lost player, or player dead, back to search state
-	move.b #0x0, Character_Running(a0)
+	jsr    CharacterStartRun
 	jsr    CharacterCancelXMovement
 	
 	; Back to search state
