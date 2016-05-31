@@ -26,9 +26,9 @@ LevelLoad:
 	move.w #0x0, EntityCount_Fuzzls
 	move.w #0x0, EntityCount_Leaves
 	move.w #0x0, EntityCount_Nests
-	move.w #0x0, EntityCount_Obstacles
 	move.w #0x0, EntityCount_Boulders
 	move.w #0x0, EntityCount_Triggers
+	move.w #0x0, EntityCount_WaterBodies
 
 	IFD DEBUG
 	
@@ -278,17 +278,17 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Fuzzl, d4
 	jsr    GameObjLoadMultiSprite
 	
-	move.l #EntityArray_Fuzzls+Fuzzl_Struct_Size, a0
-	lea    Tiles_Fuzzl, a1
-	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_pos_offsets, a3
-	lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	move.l #Tiles_Fuzzl2VRAM, d0
-	move.l #tiles_fuzzl_size_t, d1
-	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_dimensions, d3
-	move.b #PaletteID_Fuzzl, d4
-	jsr    GameObjLoadMultiSprite
+	;move.l #EntityArray_Fuzzls+Fuzzl_Struct_Size, a0
+	;lea    Tiles_Fuzzl, a1
+	;lea    sprite_fuzzl_subsprite_dimensions_bits, a2
+	;lea    sprite_fuzzl_subsprite_pos_offsets, a3
+	;lea    sprite_fuzzl_numtiles_per_subsprite, a4
+	;move.l #Tiles_Fuzzl2VRAM, d0
+	;move.l #tiles_fuzzl_size_t, d1
+	;move.b #sprite_fuzzl_size_subsprites, d2
+	;move.w #sprite_fuzzl_dimensions, d3
+	;move.b #PaletteID_Fuzzl, d4
+	;jsr    GameObjLoadMultiSprite
 	@NoFuzzls:
     
 	; Leaves
@@ -330,34 +330,6 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    GameObjLoadMultiSprite
 	@NoLeaves:
-    
-	; Vines
-	cmp.w  #0x0, EntityCount_Obstacles
-	beq    @NoObstacles
-	move.l #EntityArray_Obstacles, a0
-	lea    tiles_vines, a1
-	lea    sprite_vines_subsprite_dimensions_bits, a2
-	lea    sprite_vines_subsprite_pos_offsets, a3
-	lea    sprite_vines_numtiles_per_subsprite, a4
-	move.l #Tiles_VinesVRAM, d0
-	move.l #tiles_vines_size_t, d1
-	move.b #sprite_vines_size_subsprites, d2
-	move.w #sprite_vines_dimensions, d3
-	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
-    
-	move.l #EntityArray_Obstacles+Obstacle_Struct_Size, a0
-	lea    tiles_vines, a1
-	lea    sprite_vines_subsprite_dimensions_bits, a2
-	lea    sprite_vines_subsprite_pos_offsets, a3
-	lea    sprite_vines_numtiles_per_subsprite, a4
-	move.l #Tiles_VinesVRAM, d0
-	move.l #tiles_vines_size_t, d1
-	move.b #sprite_vines_size_subsprites, d2
-	move.w #sprite_vines_dimensions, d3
-	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
-	@NoObstacles:
     
 	; Boulders
 	cmp.w  #0x0, EntityCount_Boulders

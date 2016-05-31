@@ -51,10 +51,6 @@ Lvl2_Init:
 	; Flues
 	move.l #EntityArray_Flues, a0
 	jsr    LoadGameObjects_lvl2_Flue
-    
-	; Obstacles
-	move.l #EntityArray_Obstacles, a0
-	jsr    LoadGameObjects_lvl2_Obstacle
 	
 	; Boulders
 	move.l #EntityArray_Boulders, a0
@@ -63,6 +59,10 @@ Lvl2_Init:
 	; Fireflies
 	move.l #EntityArray_Fireflies, a0
 	jsr    LoadGameObjects_lvl2_Firefly
+	
+	; Water bodies
+	;move.l #EntityArray_WaterBodies, a0
+	;jsr    LoadGameObjects_lvl2_WaterBody
     
 	; Leaves
 	; TODO: Leaf generator

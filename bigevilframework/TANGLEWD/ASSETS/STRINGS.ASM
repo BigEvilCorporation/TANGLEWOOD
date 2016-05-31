@@ -14,7 +14,6 @@ Str_Fuzzls:		dc.b "FUZZLS",0
 Str_Fireflies:	dc.b "FIREFLIES",0
 Str_Monsters:	dc.b "MONSTERS",0
 Str_Flues:		dc.b "FLUES",0
-Str_Obstacles:	dc.b "OBSTACLES",0
 Str_Render:		dc.b "RENDER",0
 	ENDIF
 	

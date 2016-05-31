@@ -181,10 +181,10 @@ EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzls      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_Leaves      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nests       rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_Obstacles   rs.b (Obstacle_Struct_Size*Obstacle_MaxEntities)
 EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Triggers    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
+EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
 
 EntityCount_Players     rs.w 1
 EntityCount_Monsters    rs.w 1
@@ -193,10 +193,10 @@ EntityCount_Flues       rs.w 1
 EntityCount_Fuzzls      rs.w 1
 EntityCount_Leaves      rs.w 1
 EntityCount_Nests       rs.w 1
-EntityCount_Obstacles   rs.w 1
 EntityCount_Boulders    rs.w 1
 EntityCount_Triggers    rs.w 1
 EntityCount_Checkpoints rs.w 1
+EntityCount_WaterBodies rs.w 1
 
 reserved_ram_size		rs.b 0
 

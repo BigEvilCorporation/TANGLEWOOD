@@ -30,7 +30,6 @@
 	include 'assets\sprites\spr_ffly.asm'
 	include 'assets\sprites\spr_fuzl.asm'
 	include 'assets\sprites\spr_leaf.asm'
-	include 'assets\sprites\spr_vine.asm'
 	
 	; ************************************
 	; Animation data
@@ -146,7 +145,6 @@ Tiles_Fuzzl2VRAM:    rs.b (tiles_fuzzl_size_b)
 Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
-Tiles_VinesVRAM:     rs.b (tiles_vines_size_b)
 Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxEntities)
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0
