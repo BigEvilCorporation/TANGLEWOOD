@@ -6,7 +6,6 @@
 ;   macros.asm - Utility macros
 ;==============================================================
 
-; Copy memory (longwords)
 ENTITY_GETCENTREX: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
@@ -21,6 +20,17 @@ ENTITY_GETCENTREY: macro destreg,addrreg
 	mulu    #SubpixelsPerPixel, \destreg
 	lsr.l   #0x1, \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
+	endm
+
+ENTITY_GETLEFT: macro destreg,addrreg
+	move.l   Entity_WorldPosX(\addrreg), \destreg
+	endm
+	
+ENTITY_GETRIGHT: macro destreg,addrreg
+	clr.l   \destreg
+	move.w  Entity_Width(\addrreg), \destreg
+	mulu    #SubpixelsPerPixel, \destreg
+	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
 
 TOSUBPIXELS: macro destreg

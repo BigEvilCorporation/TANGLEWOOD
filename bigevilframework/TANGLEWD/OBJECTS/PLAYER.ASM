@@ -34,6 +34,7 @@ Player1MaxVelYUp   equ 0x06*SubpixelsPerPixel  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x06*SubpixelsPerPixel  ; Player 1 max Y velocity down
 
 Player1JumpVel	     equ 0x06*SubpixelsPerPixel ; Player 1 jump velocity impulse
+Player1JumpVelWater	 equ 0x02*SubpixelsPerPixel ; Player 1 jump velocity impulse from water
 Player1JumpCancelVel equ 0x01*SubpixelsPerPixel ; Player 1 velocity to cancel jump
 Player1MaxGrabUpVel  equ 0x03*SubpixelsPerPixel ; Max up velocity player can grab a ledge (no limit on down vel)
 
@@ -142,6 +143,7 @@ PlayerInit:
 	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
 	move.w  #Player1DecelForced, Character_DecelForced(a0)
 	move.w  #Player1JumpVel, Character_JumpVel(a0)
+	move.w  #Player1JumpVelWater, Character_JumpVelWater(a0)
 	move.w  #Player1JumpCancelVel, Character_JumpCancelVel(a0)
 	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
@@ -321,7 +323,10 @@ PlayerUpdate:
 	move.b #0x0, Character_Pushing(a0)
 
 	; Test for pickups
-	jsr    PlayerTest_Fireflies
+	jsr    PlayerInteractTest_Fireflies
+	
+	; Test for water
+	jsr    PlayerInteractTest_Water
 	
 	; Process sleep/snooze states
 	cmp.b  #0x0, Player_Sleeping(a0)
@@ -1316,7 +1321,7 @@ PlayerInteract_Boulder:
 	
 	rts
 
-PlayerTest_Fireflies:
+PlayerInteractTest_Fireflies:
 
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1344,4 +1349,41 @@ PlayerTest_Fireflies:
 	POPL   a1
 	POPL   a0
 
+	rts
+
+		
+PlayerInteractTest_Water:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	PUSHL  a1
+	
+	; Reset in water
+	move.b #0x0, Character_InWater(a0)
+	
+	; Check all water bodies
+	move.l #EntityArray_WaterBodies, a1
+	move.w (EntityCount_WaterBodies), d6
+	subi.w #0x1, d6
+	@BodyLoop:
+	
+	; Check player vs. box
+	jsr    TestGameObjBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NoIntersect
+	
+	; Player inside
+	move.b #0x1, Character_InWater(a0)
+	bra    @Found
+	
+	@NoIntersect:
+	
+	; Next body
+	add.l #WaterBody_Struct_Size, a1
+	dbra d6, @BodyLoop
+	
+	@Found:
+	
+	POPL  a1
+	
 	rts

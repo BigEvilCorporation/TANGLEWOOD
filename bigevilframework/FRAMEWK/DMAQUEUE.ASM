@@ -40,7 +40,7 @@ VDPDMAQueue_AddJob:
 	andi.l #0x0000FFFF, d1
 	add.l  d1, d2
 	cmp.l  #0x0000FFFF, d2
-	blt    @SplitJobs
+	;blt    @SplitJobs
 	
 	; Set properties
 	move.l a0, VDPDMAJob_SourceAddr(a1)

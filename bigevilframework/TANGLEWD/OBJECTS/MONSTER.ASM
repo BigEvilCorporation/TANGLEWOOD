@@ -32,11 +32,13 @@ Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
 Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
 Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
-Monster_PlayerVisibilityBoxX	equ 0x0800
+Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
+Monster_PlayerLostSightTime		equ 0x0180
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
+Monster_MinChaseDistance	equ (0x0030*SubPixelsPerPixel)
 Monster_AttackDistance		equ (0x01*SubPixelsPerPixel)
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
@@ -81,15 +83,16 @@ Monster_NumAnims		equ 3
 ; ************************************
 	rsset (Character_Struct_Size)
 ;--------------------------
-Monster_Animations	  rs.b (Animation_Struct_Size*Monster_NumAnims)
-Monster_SearchTargetX rs.l 1
-Monster_SearchDelay	  rs.w 1
-Monster_Colour        rs.b 1
-Monster_State         rs.b 1
-Monster_BlockingCtrl  rs.b 1
-;--------------------------
-Monster_Struct_Pad    rs.b 3
-Monster_Struct_Size   rs.b 0
+Monster_Animations	   rs.b (Animation_Struct_Size*Monster_NumAnims)
+Monster_SearchTargetX  rs.l 1
+Monster_SearchDelay	   rs.w 1
+Monster_LoseSightTimer rs.w 1
+Monster_Colour         rs.b 1
+Monster_State          rs.b 1
+Monster_BlockingCtrl   rs.b 1
+;----------------------------
+Monster_Struct_Pad     rs.b 1
+Monster_Struct_Size    rs.b 0
 
 ; ************************************
 ; Subroutines
@@ -381,7 +384,17 @@ MonsterCheckPlayerVisible:
 	; Set as last found player pos
 	move.l Entity_WorldPosX(a2), Monster_SearchTargetX(a0)
 	
+	; Clear lost sight timer
+	move.w #0x0, Monster_LoseSightTimer(a0)
+	
+	bra    @End
+	
 	@NotSeen:
+	
+	; Increment lost timer
+	add.w  #0x1, Monster_LoseSightTimer(a0)
+	
+	@End:
 	
 	rts
 	
@@ -734,8 +747,8 @@ MonsterUpdateTrackPlayer:
 
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
-	cmp.b  #0x0, d0
-	beq    @LostPlayer
+	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
+	bge    @LostPlayer
 
 	; Get left positions
 	move.l Entity_WorldPosX(a0), d0	; Left of monster
@@ -783,6 +796,17 @@ MonsterUpdateTrackPlayer:
 	bra    @End
 
 	@LeftOfPlayer:
+	
+	; Snap to min distance
+	;ENTITY_GETCENTREX d0, a0
+	;ENTITY_GETCENTREX d1, a1
+	;move.l d1, d2
+	;sub.l  d0, d1
+	;cmp.l  #Monster_MinChaseDistance, d1
+	;ble    @WithinMaxChaseDistL
+	;sub.l  #Monster_MinChaseDistance-0x0010, d2
+	;move.l d2, Entity_WorldPosX(a0)
+	;@WithinMaxChaseDistL:
 
 	; Run towards player
 	move.b #0x1, Character_Running(a0)
@@ -790,6 +814,16 @@ MonsterUpdateTrackPlayer:
 	bra    @End
 
 	@RightOfPlayer:
+	
+	ENTITY_GETRIGHT d0, a0
+	ENTITY_GETRIGHT d1, a2
+	move.l d1, d2
+	sub.l  d1, d0
+	cmp.l  #Monster_MinChaseDistance, d0
+	ble    @WithinMaxChaseDistR
+	add.l  #Monster_MinChaseDistance-0x0010, d2
+	move.l d2, Entity_WorldPosX(a0)
+	@WithinMaxChaseDistR:
 
 	; Run towards player
 	move.b #0x1, Character_Running(a0)

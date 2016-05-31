@@ -26,46 +26,10 @@ WaterBodyInit:
 	; Set type
 	addi.l #entity_type_waterbody, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_WaterBodies
-	
-	; Set update routine
-	move.l #WaterBodyUpdate, Entity_UpdateRoutine(a0)
-	
-	; Add to update list
-	jsr EntityAddToUpdateList
 
 	; Default state
 	move.w #WaterBody_Width, Entity_Width(a0)
 	move.w #WaterBody_Height, Entity_Height(a0)
 
-	rts
-
-WaterBodyUpdate:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	move.l a1, -(sp)
-	
-	; Check player vs. box
-	move.l #Player1, a1
-	jsr    TestGameObjBoxIntersectBox
-	cmp.b  #0x0, d0
-	beq    @NoIntersect
-	
-	; Player inside
-	; TODO: Support multiple bodies
-	move.b #0x1, Character_InWater(a0)
-	
-	bra    @End
-	
-	@NoIntersect:
-	
-	; Player outside
-	; TODO: Support multiple bodies
-	move.b #0x0, Character_InWater(a0)
-	
-	@End:
-	
-	move.l (sp)+, a1
-	
 	rts
 	

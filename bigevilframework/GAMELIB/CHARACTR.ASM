@@ -34,6 +34,7 @@ Character_LastLedgeY	rs.l 1
 Character_ProbeLedgeX	rs.w 1
 Character_ProbeLedgeY	rs.w 1
 Character_JumpVel		rs.w 1
+Character_JumpVelWater	rs.w 1
 Character_JumpCancelVel	rs.w 1
 Character_MaxGrabUpVel	rs.w 1
 Character_MaxVelXRun	rs.w 1
@@ -55,7 +56,7 @@ Character_AnimIdx	    rs.b 1
 Character_Health        rs.b 1
 Character_Dead          rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 3
+Character_Struct_Pad    rs.b 1
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -106,9 +107,9 @@ CharacterUpdate:
 	; If in water and running, cancel run
 	cmp.b  #0x0, Character_InWater(a0)
 	beq    @NotInWater
-	cmp.b  #0x0, Character_Jumping(a0)
+	cmp.b  #0x0, Character_Running(a0)
 	beq    @NotJumping
-	jsr    CharacterCancelJump
+	jsr    CharacterCancelRun
 	@NotInWater:
 	@NotJumping:
  
@@ -430,11 +431,6 @@ CharacterStartJump:
 	cmp.b  #0x1, d4
 	beq    @CanJump
 	
-	; Check if player in water
-	move.b Character_InWater(a0), d4
-	cmp.b  #0x0, d4
-	bne    @CantJump
-	
 	; Check if player close enough to floor to jump
 	move.b GameObj_CloseToFloor(a0), d4
 	cmp.b  #0x0, d4
@@ -442,12 +438,24 @@ CharacterStartJump:
 
 	@CanJump:
 	
+	; Check if player in water
+	move.b Character_InWater(a0), d4
+	cmp.b  #0x0, d4
+	bne    @InWater
+	
 	; Jump
 	move.w Character_JumpVel(a0), GameObj_VelY(a0)
+	move.b #0x1, Character_Jumping(a0)
+	bra    @End
+	
+	@InWater:
+	; Jump from water
+	move.w Character_JumpVelWater(a0), GameObj_VelY(a0)
 	move.b #0x1, Character_Jumping(a0)
 	
 	@Dead:
 	@CantJump:
+	@End:
 	
 	rts
 	
@@ -498,6 +506,11 @@ CharacterStartRun:
 	move.b Character_Interacting(a0), d4
 	cmp.b  #0x1, d4
 	beq    @CantRun
+	
+	; Check if player in water
+	move.b Character_InWater(a0), d4
+	cmp.b  #0x0, d4
+	bne    @CantRun
 
 	; Set max running velocity
 	move.w Character_MaxVelXRun(a0), d5
