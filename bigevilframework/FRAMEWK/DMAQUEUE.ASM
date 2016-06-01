@@ -24,7 +24,7 @@ VDPDMAJob_Struct_Size    rs.b 0
 VDPDMAQueue_AddJob:
 	; a0 --- - Source addr (68k space)
 	; d0 (w) - Dest addr (VRAM space)
-	; d1 (w) - Data size (bytes)
+	; d1 (w) - Data size (words)
 	
 	; Get next queue element
 	lea    vdp_dma_queue, a1
@@ -34,13 +34,12 @@ VDPDMAQueue_AddJob:
 	add.l  d2, a1
 	
 	; If block crosses a 128kb boundary, split into two jobs
-	; (but simpler to do with 64kb,can just use masks)
+	; (but simpler to do with 64kb, can just use carry flag)
 	move.l a0, d2
-	andi.l #0xFFFF0000, d2
-	andi.l #0x0000FFFF, d1
-	add.l  d1, d2
-	cmp.l  #0x0000FFFF, d2
-	;blt    @SplitJobs
+	move.w d1, d3
+	lsl.w  #0x1, d3		; Words to bytes
+	add.w  d3, d2		; Add size to lower 16 bits of address
+	bcs    @SplitJobs	; Branch if Carry Set (result overflowed across 16 bit boundary)
 	
 	; Set properties
 	move.l a0, VDPDMAJob_SourceAddr(a1)
@@ -54,9 +53,27 @@ VDPDMAQueue_AddJob:
 	
 	@SplitJobs:
 	
-	; TODO
+	; Job 1
+	move.l a0, d2
+	move.l a0, d3
+	andi.l #0xFFFF0000, d3	; Align source address down to 64kb boundary
+	add.l  #0x00010000, d3	; Align up
+	sub.l  d2, d3			; Get size difference from original address
+	move.l d3, d4
+	lsr.l  #0x1, d4			; Size diff to words
+	move.l a0, VDPDMAJob_SourceAddr(a1)
+	move.w d0, VDPDMAJob_DestAddr(a1)
+	move.w d4, VDPDMAJob_SizeWords(a1)
+	addi.w #0x1, vdp_dma_queue_size
 	
-	;nop
+	; Job 2
+	add.l  d3, a0			; Offset source address (bytes)
+	add.w  d3, d0			; Offset dest address (bytes)
+	sub.w  d4, d1			; Subtract size (words)
+	move.l a0, VDPDMAJob_SourceAddr(a1)
+	move.w d0, VDPDMAJob_DestAddr(a1)
+	move.w d1, VDPDMAJob_SizeWords(a1)
+	addi.w #0x1, vdp_dma_queue_size
 	
 	@End:
 	
