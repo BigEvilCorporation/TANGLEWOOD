@@ -38,11 +38,12 @@ Monster_PlayerLostSightTime		equ 0x0180
 
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
-Monster_AttackDistance		equ (0x01*SubPixelsPerPixel)
-Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
-Monster_MinChaseDistance	equ (0x0020*SubPixelsPerPixel) ;((screen_width/2)*SubPixelsPerPixel)
+Monster_MinChaseDistance	equ ((Monster_Width/2)*SubPixelsPerPixel)
+Monster_MaxChaseDistance	equ (screen_width*SubPixelsPerPixel)
 Monster_OutOfDistSpeedMul	equ 0x8
+
+Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 ; Search state
 Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
@@ -92,8 +93,9 @@ Monster_LoseSightTimer rs.w 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
 Monster_BlockingCtrl   rs.b 1
+Monster_CatchingUp     rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 1
+Monster_Struct_Pad     rs.b 0
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -150,6 +152,8 @@ MonsterInit:
 	move.b  #ColourRed, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
+	move.b  #0x0, Monster_BlockingCtrl(a0)
+	move.b  #0x0, Monster_CatchingUp(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -752,50 +756,53 @@ MonsterUpdateTrackPlayer:
 	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
 	bge    @LostPlayer
 	
-	; Speed up if out of min chase dist
+	;==============================================================
+	
+	; Get player + monster pos
 	ENTITY_GETCENTREX d0, a0				; Get monster centre
 	ENTITY_GETCENTREX d1, a2				; Get player centre
+	
+	; Speed up if out of min chase dist
 	sub.l  d0, d1							; Calc distance
 	
-	cmp.l  #Monster_MinChaseDistance, d1
-	bgt    @OutsideMaxChaseDist
-	cmp.l  #-Monster_MinChaseDistance, d1
-	blt    @OutsideMaxChaseDist
-	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
-	bra    @EndMaxChaseDist
-	@OutsideMaxChaseDist:
+	; Check if outside max chase distance
+	cmp.l  #Monster_MaxChaseDistance, d1
+	bgt    @OutsideMaxChaseDistL
+	cmp.l  #-Monster_MaxChaseDistance, d1
+	blt    @OutsideMaxChaseDistR
+	
+	; Within max chase dist
+	cmp.b  #0x0, Monster_CatchingUp(a0)
+	beq    @WithinMaxChaseDist
+	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	move.w #Monster_MaxVelXRun, GameObj_VelX(a0)
+	move.b #0x0, Monster_CatchingUp(a0)
+	bra    @WithinMaxChaseDist
+	
+	@OutsideMaxChaseDistL:
+	; Outside max chase dist (to the left), speed up to catch up
 	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
 	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), GameObj_VelX(a0)
-	@EndMaxChaseDist:
-
-	; Get left positions
-	move.l Entity_WorldPosX(a0), d0	; Left of monster
-	move.l Entity_WorldPosX(a2), d1	; Left of player
-
-	; Get widths
-	clr.l  d4
-	clr.l  d5
-	move.w Entity_Width(a0), d4
-	move.w Entity_Width(a2), d5
-	mulu   #SubPixelsPerPixel, d4
-	mulu   #SubPixelsPerPixel, d5
-
-	; Get right positions
-	move.l d0, d2
-	move.l d1, d3
-	add.l  d4, d2						; Right of monster
-	add.l  d5, d3						; Right of player
-
-	; Expand player bounds by attack distance
-	sub.l  #Monster_AttackDistance, d1	; Left of player - attack distance
-	add.l  #Monster_AttackDistance, d3	; Right of player + attack distance
+	move.b #0x1, Monster_CatchingUp(a0)
+	bra    @EndMaxDistCheck
 	
-	cmp.l  d2, d1		; Right of monster vs. left of player (- attack distance)
-	bgt    @LeftOfPlayer
-
-	cmp.l  d0, d3		; Left of monster vs. right of player (+ attack distance)
-	blt    @RightOfPlayer
-
+	@OutsideMaxChaseDistR:
+	; Outside max chase dist (to the right), speed up to catch up
+	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
+	move.w #-(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), GameObj_VelX(a0)
+	move.b #0x1, Monster_CatchingUp(a0)
+	
+	@WithinMaxChaseDist:
+	@EndMaxDistCheck:
+	
+	;==============================================================
+	
+	; Check if within min chase distance
+	cmp.l  #Monster_MinChaseDistance, d1
+	bgt    @OutsideMinChaseDist
+	cmp.l  #-Monster_MinChaseDistance, d1
+	blt    @OutsideMinChaseDist
+	
 	; Within min chase range, stop chasing
 	jsr    CharacterCancelRun
 	jsr    CharacterCancelXMovement
@@ -812,7 +819,13 @@ MonsterUpdateTrackPlayer:
 	; Attack
 	jsr    MonsterStartBite
 	bra    @End
-
+	
+	@OutsideMinChaseDist:
+	
+	; Outside min chase distance, continue chasing
+	cmp.l  #0x0, d1
+	blt    @RightOfPlayer
+	
 	@LeftOfPlayer:
 
 	; Run towards player
@@ -826,6 +839,8 @@ MonsterUpdateTrackPlayer:
 	jsr    CharacterStartRun
 	jsr    CharacterMoveLeft
 	bra    @End
+	
+	;==============================================================
 
 	@PlayerDead:
 	@PlayerInactive:
