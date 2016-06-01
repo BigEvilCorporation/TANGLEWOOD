@@ -50,6 +50,7 @@ Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ 0x0008
+Player1ColourChangeTimeout	equ 0x0380
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
@@ -89,13 +90,14 @@ PlayerAnimIdx_Max     equ 4
 ;---------------------------------
 Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_InteractObject  		rs.l 1	; Object player is interacting with
+Player_ColourChangeTimer	rs.w 1
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 ;---------------------------------
-Player_Struct_Pad      		rs.b 3
+Player_Struct_Pad      		rs.b 1
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -153,6 +155,7 @@ PlayerInit:
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
+	move.w  #0x0, Player_ColourChangeTimer(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
@@ -480,8 +483,8 @@ PlayerUpdateIdleSnooze:
 PlayerBeginColourSwitch:
 	; a0 --- Character address
 	
-	movem.l d0/d3, -(sp)
-	move.l  a0, -(sp)
+	PUSHL  d0/d3
+	PUSHL  a0/a1
 
 	lea    SwitchingPalettesP1, a1	; Get palette array	
 	clr.l  d0
@@ -495,17 +498,26 @@ PlayerBeginColourSwitch:
 	move.b #0xE, d3					; Range max
 	jsr    PaletteLerpStart			; Begin palette lerp
 	
-	move.l  (sp)+, a0
-	movem.l (sp)+, d0/d3
+	POPL   a0/a1
+	POPL   d0/d3
+	
+	; If not switching to red
+	cmp.b  #ColourRed, Player_Colour(a0)
+	beq    @Red
 	
 	; Start animation
-	move.l a1, -(sp)
+	PUSHL  a1
 	move.l a0, a1
 	add.l  #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Switch*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
-	move.l (sp)+, a1
+	POPL   a1
+	
+	; Start countdown timer
+	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
+	
+	@Red:
 	
 	rts
 	
@@ -811,6 +823,20 @@ PlayerUpdateColourAbility:
 	@NoColour:
 	@NotInteracting:
 	@End:
+	
+	; If not red, countdown
+	cmp.b #ColourRed, Player_Colour(a0)
+	beq   @NoTimeout
+	sub.w #0x1, Player_ColourChangeTimer(a0)
+	bne   @TimerRunning
+	
+	; Timer elapsed, switch back to red
+	jsr    PlayerStopColourAbility
+	move.b #ColourRed, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+	
+	@NoTimeout:
+	@TimerRunning:
 
 	rts
 
