@@ -93,9 +93,9 @@
     ; Genesis
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
-	dc.b "(C)SEGA 1992.SEP"                                                                 ; Copyrght holder and release date
-	dc.b "YOUR GAME HERE                                  " ; Domestic name
-	dc.b "YOUR GAME HERE                                  " ; International name
+	dc.b "(C)BIG EVIL CORP"                                                                 ; Copyrght holder and release date
+	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0001 F)             " ; Domestic name
+	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0001 F)             " ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
 	dc.w 0x0000                                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
