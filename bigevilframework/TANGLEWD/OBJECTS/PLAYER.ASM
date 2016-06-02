@@ -565,8 +565,9 @@ PlayerStartColourAbility:
 	bgt    @End
 	
 	; Gliding
-	move.b #0x1, Character_Gliding(a0)						; Set gliding
-	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)	; Set max glide velocity
+	move.b #0x1, Character_Gliding(a0)							; Set gliding
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)	; Set ability active
+	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)		; Set max glide velocity
 	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
 	
 	bra    @End
@@ -601,6 +602,9 @@ PlayerStartColourAbility:
 	
 	; Disable time of day (else world palette may reset)
 	move.b #0x0, (TimeOfDayEnabled)
+	
+	; Set ability active
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 
 	bra    @End
 	
@@ -617,8 +621,6 @@ PlayerStartColourAbility:
 	POPL d0
 	POPL a1
 	POPL a0
-	
-	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	
 	rts
 	
@@ -695,7 +697,7 @@ PlayerStopColourAbility:
 	@NoColour:
 	@End:
 	
-	move.b  0x0, Player_ActiveColourAbility(a0)
+	move.b #0x0, Player_ActiveColourAbility(a0)
 	
 	rts
 	
@@ -855,11 +857,9 @@ PlayerStartInteract:
 	cmp.b  #0x1, Character_Dead(a0)
 	beq    @Dead
 	
-	; Check if already interacting
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @AlreadyInteracting
+	;==============================================================
 	
-	; Test for interactible objects in order of preference
+	; Check continuously interactible objects
 	jsr    PlayerInteractTest_Fuzzls
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
@@ -867,6 +867,8 @@ PlayerStartInteract:
 	jsr    PlayerInteractTest_Boulders
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
+	
+	;==============================================================
 	
 	; Test for special colour abilities
 	cmp.b  #ColourRed, Player_Colour(a0)
@@ -877,7 +879,8 @@ PlayerStartInteract:
 	bne    @ColourAbilityActive
 	jsr    PlayerStartColourAbility
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
-	move.b #0x1, Character_Interacting(a0)
+	
+	;==============================================================
 	
 	@Dead:
 	@AlreadyInteracting:

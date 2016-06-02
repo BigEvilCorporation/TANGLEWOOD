@@ -208,8 +208,6 @@ HandlePlayerInput:
 	
 	btst #pad_button_c, d0  	; Check C button
 	beq  @NoC	                ; Branch if button off
-	btst #pad_button_c, d1		; Check C not already held
-	bne  @EndC
 	jsr  PlayerStartInteract 	; Start interaction
 	jmp  @EndC
 	@NoC:
