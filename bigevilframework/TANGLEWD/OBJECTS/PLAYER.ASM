@@ -922,6 +922,8 @@ PlayerInteractTest_Fuzzls:
 	; Check all Fuzzls
 	move.l #EntityArray_Fuzzls, a1
 	move.w (EntityCount_Fuzzls), d6
+	cmp.w  #0x0, d6
+	beq    @NoFuzzls
 	subi.w #0x1, d6
 	@FuzzlLoop:
 	
@@ -1027,6 +1029,7 @@ PlayerInteractTest_Fuzzls:
 	add.l #Fuzzl_Struct_Size, a1
 	dbra d6, @FuzzlLoop
 	
+	@NoFuzzls:
 	@NotInteracting:
 	@PlayerOffFloor:
 	@End:
@@ -1164,6 +1167,8 @@ PlayerInteractTest_Boulders:
 	; Check all Boulders
 	move.l #EntityArray_Boulders, a1
 	move.w (EntityCount_Boulders), d6
+	cmp.w  #0x0, d6
+	beq    @NoBoulders
 	sub.w  #0x1, d6
 	@BoulderLoop:
 	
@@ -1236,6 +1241,7 @@ PlayerInteractTest_Boulders:
 	dbra d6, @BoulderLoop
 	
 	@NotInteracting:
+	@NoBoulders:
 	@PlayerOffFloor:
 	@End:
 	
@@ -1393,6 +1399,8 @@ PlayerInteractTest_Water:
 	; Check all water bodies
 	move.l #EntityArray_WaterBodies, a1
 	move.w (EntityCount_WaterBodies), d6
+	cmp.w  #0x0, d6
+	beq    @NoWaterBodies
 	subi.w #0x1, d6
 	@BodyLoop:
 	
@@ -1411,6 +1419,7 @@ PlayerInteractTest_Water:
 	add.l #WaterBody_Struct_Size, a1
 	dbra d6, @BodyLoop
 	
+	@NoWaterBodies:
 	@Found:
 	
 	POPL  a1

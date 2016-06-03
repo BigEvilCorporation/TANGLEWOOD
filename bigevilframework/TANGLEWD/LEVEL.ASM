@@ -162,6 +162,7 @@ LevelPreStreamMap:
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollX
 	move.l d0, WorldScrollX
+	move.l d0, d1
     
 	; Set inital scroll X
 	neg.l  d0						; To camera space
@@ -169,8 +170,9 @@ LevelPreStreamMap:
 	jsr    SetHScrollPlaneA
     
 	; Set initial streamed column
-	divu   #0x8, d0
-	move.w d0, MapStreamLoadedCol
+	lsr.l  #0x8, d1					; To screen space
+	divu   #0x8, d1					; To tiles
+	move.w d1, MapStreamLoadedCol
     
 	;==============================================================
     
@@ -187,7 +189,7 @@ LevelPreStreamMap:
 	jsr    SetVScrollPlaneA
     
 	; Set initial streamed row (starting from bottom, streaming rows upwards)
-	divu   #0x8, d0
+	divu   #0x8, d0					; To tiles
 	add.w  #MapStreamHeight, d0
 	move.w d0, MapStreamLoadedrow
     
