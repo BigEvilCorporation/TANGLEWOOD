@@ -40,6 +40,7 @@ GameObj_Active           rs.b 1	; Can update
 GameObj_Visible          rs.b 1	; Is visible (hidden in sprite border if not)
 GameObj_SpriteLinked     rs.b 1	; Is sprite linked (use as last frame visibility test)
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
+GameObj_CollideWalls	 rs.b 1 ; Collides with walls
 GameObj_UpdateOutOfView	 rs.b 1 ; GameObj can update even when out of view (sprite not linked on last render)
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
@@ -48,7 +49,7 @@ GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 GameObj_SnapToFloor		 rs.b 1 ; Object should snap to floor if within step height
 ;------------------------------
-GameObj_Struct_Pad       rs.b 3
+GameObj_Struct_Pad       rs.b 2
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -72,6 +73,7 @@ GameObjInit:
 	move.b #0x1, GameObj_Visible(a0)
 	move.b #0x0, GameObj_SpriteLinked(a0)
 	move.b #0x1, GameObj_HasPhysics(a0)
+	move.b #0x1, GameObj_CollideWalls(a0)
 	move.b #0x1, GameObj_SpeedDiv(a0)
 	
 	move.w Level_Gravity(a1), GameObj_Gravity(a0)
@@ -164,7 +166,10 @@ GameObjUpdate:
 	jsr GameObjFindFloor
 	
 	; Find wall
+	cmp.b #0x0, GameObj_CollideWalls(a0)
+	beq   @NoCheckWall
 	jsr GameObjFindWall
+	@NoCheckWall:
 	
 	; Correct for floor/wall collision
 	jsr GameObjCollisionCorrection

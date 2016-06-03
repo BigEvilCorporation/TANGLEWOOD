@@ -149,6 +149,11 @@ __padding04			     rs.b 3
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; ************************************
+; Level runtime data
+; ************************************
+LevelData_1				 rs.b Lvl1Data_Struct_Size
+
+; ************************************
 ; Debug stuff
 ; ************************************
 	IFND FINAL

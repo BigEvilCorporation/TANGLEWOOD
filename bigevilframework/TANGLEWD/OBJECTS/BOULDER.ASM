@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Boulder_MaxEntities			equ 0x1
+Boulder_MaxEntities			equ 0x2
 Boulder_Width				equ 0x40
 Boulder_Height				equ 0x40
 Boulder_MaxVelYUp			equ 0x0600
@@ -15,7 +15,7 @@ Boulder_MaxVelYDown			equ 0x0600
 Boulder_StepHeight			equ 0x4
 Boulder_ProbeFloorX			equ (Boulder_Width/2)	; Floor detection probe position X
 Boulder_ProbeFloorY			equ (Boulder_Height-8)	; Floor detection probe position X
-Boulder_MaxVelX				equ 0x0100
+Boulder_MaxVelX				equ 0x0800
 Boulder_Decel				equ 0x0008
 
 Boulder_AnimSpeedVelDiv		equ 0x0008
@@ -103,6 +103,8 @@ BoulderUpdate:
 	; Check if squishing a monster
 	move.l #EntityArray_Monsters, a1
 	move.w (EntityCount_Monsters), d6
+	cmp.w  #0x0, d6
+	beq    @NoMonsters
 	sub.w  #0x1, d6
 	@MonsterLoop:
 	move.l d6, -(sp)
@@ -134,6 +136,7 @@ BoulderUpdate:
 	add.l #Monster_Struct_Size, a1
 	dbra  d6, @MonsterLoop
 	
+	@NoMonsters:
 	@EndMonsterLoop:
 	
 	move.l (sp)+, a1
@@ -144,3 +147,4 @@ BoulderUpdate:
 	jsr    AnimObjUpdate
 
 	rts
+	

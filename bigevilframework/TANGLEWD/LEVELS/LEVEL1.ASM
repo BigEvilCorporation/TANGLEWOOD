@@ -6,6 +6,9 @@
 ;   level1.asm - Level 1 - Herlequin Forest Act 1
 ;==============================================================	
 
+; ************************************
+; Static data
+; ************************************
 Lvl1_HarlequinForest:
 
 	dc.l tiles_lvl1				; Tileset
@@ -23,6 +26,24 @@ Lvl1_HarlequinForest:
 	dc.b 0x1					; Num palettes
 	
 	even
+	
+; ************************************
+; Runtime data
+; ************************************
+	rsset 0
+Lvl1Data_ActiveCutscene			rs.b 1
+;---------------------------------
+Lvl1Data_Struct_Pad      		rs.b 3
+Lvl1Data_Struct_Size     		rs.b 0
+
+; ************************************
+; Constants
+; ************************************
+Lvl1Cutscene_BoulderRoll		equ 1
+
+Lvl1_BoulderCamSpeedTo			equ 0x04
+Lvl1_BoulderCamSpeedFrom		equ 0x04
+Lvl1_BoulderAccel				equ 0x2
 	
 Lvl1_Init:
 
@@ -77,6 +98,21 @@ Lvl1_Init:
 	
 Lvl1_Update:
 
+	; Check if cutscene playing
+	move.l #LevelData_1, a2
+	cmp.b  #0x0, Lvl1Data_ActiveCutscene(a2)
+	beq    @NoCutscene
+	cmp.b  #Lvl1Cutscene_BoulderRoll, Lvl1Data_ActiveCutscene(a2)
+	beq    @Cutscene1
+	
+	; Cutscene 1 - boulder roll
+	@Cutscene1:
+	jsr    Lvl1_UpdateCutscene_BoulderRoll
+	bra    @ProcessedCutscene
+	
+	@NoCutscene:
+	@ProcessedCutscene:
+
 	; Check if monster has been killed
 	
 	; Enable end level trigger box
@@ -94,6 +130,79 @@ Lvl1_End:
 	; Begin end of level gamestate
 	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
+	
+	rts
+	
+Lvl1_StartCutscene_BoulderRoll:
+
+	; Block player control
+	move.b #0x0, Player1ControlEnabled
+	
+	; Get boulder
+	move.l #Boulder_72_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Set boulder as camera target
+	move.l a3, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	
+	; Set player as camera lerp source
+	move.l #Player1, CameraTargetLerpSource
+	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
+	
+	; Roll right
+	move.w #Lvl1_BoulderAccel, GameObj_AccelX(a3)
+	
+	; Set active cutscene
+	move.l #LevelData_1, a2
+	move.b #Lvl1Cutscene_BoulderRoll, Lvl1Data_ActiveCutscene(a2)
+	
+	rts
+	
+Lvl1_EndCutscene_BoulderRoll:
+	
+	; Get boulder
+	move.l #Boulder_72_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Set player as camera target
+	move.l #Player1, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	
+	; Set boulder as camera lerp source
+	move.l a3, CameraTargetLerpSource
+	move.w #Lvl1_BoulderCamSpeedFrom, CameraTargetLerpSpeed
+	
+	; Restore player control
+	move.b #0x1, Player1ControlEnabled
+	
+	; End cutscene
+	move.l #LevelData_1, a2
+	move.b #0x0, Lvl1Data_ActiveCutscene(a2)
+	
+	rts
+	
+Lvl1_UpdateCutscene_BoulderRoll:
+
+	; Get boulder
+	move.l #Boulder_72_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Check if hit wall
+	cmp.b  #0x0, GameObj_HitWall(a3)
+	beq    @End
+	
+	; Hit wall, reverse direction and finish cutscene
+	move.w #-Lvl1_BoulderAccel, GameObj_AccelX(a3)
+	jsr    Lvl1_EndCutscene_BoulderRoll
+
+	@End:
 	
 	rts
 	
