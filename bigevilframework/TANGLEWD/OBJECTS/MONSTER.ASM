@@ -50,7 +50,7 @@ Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pix
 Monster_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
 Monster_SearchRandDelayMin	equ 0x0018	; Min rand delay between walks
 Monster_SearchRandDelayInit equ 0x0040  ; Initial delay for first walk
-Monster_NearTargetDistance	equ (0x20*SubPixelsPerPixel)
+Monster_NearTargetDistance	equ (0x04*SubPixelsPerPixel)
 
 ; Emerge palette lerp speed
 Monster_EmergePalLerpSpeed  equ (0x1<<0x8)
@@ -367,19 +367,13 @@ MonsterCheckPlayerVisible:
 	move.l #Player1, a2
 	
 	; Get player centre X
-	move.l Entity_WorldPosX(a2), d3
+	ENTITY_GETCENTREX d3, a2
 	lsr.l  #0x8, d3
-	move.w Entity_Width(a2), d4
-	lsr.w  #0x1, d4
-	add.w  d4, d3
 	swap   d3
 	
 	; Get player centre Y
-	move.l Entity_WorldPosY(a2), d4
+	ENTITY_GETCENTREY d4, a2
 	lsr.l  #0x8, d4
-	move.w Entity_Height(a2), d5
-	lsr.w  #0x1, d5
-	add.w  d5, d4
 	move.w d4, d3
 	
 	jsr    TestPointInsideBox
@@ -388,7 +382,8 @@ MonsterCheckPlayerVisible:
 	beq    @NotSeen
 	
 	; Set as last found player pos
-	move.l Entity_WorldPosX(a2), Monster_SearchTargetX(a0)
+	ENTITY_GETCENTREX d0, a2
+	move.l d0, Monster_SearchTargetX(a0)
 	
 	; Clear lost sight timer
 	move.w #0x0, Monster_LoseSightTimer(a0)
@@ -676,7 +671,7 @@ MonsterUpdateSearchForPlayer:
 	bne    @HitWall
 	
 	; Check if near target
-	move.l Entity_WorldPosX(a0), d1
+	ENTITY_GETCENTREX d1, a0
 	sub.l  d1, d0							; Get distance to target
 	move.l d0, d3
 	cmp.l  #0x0, d0							; If negative
