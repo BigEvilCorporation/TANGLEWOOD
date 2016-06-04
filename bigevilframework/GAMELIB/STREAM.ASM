@@ -21,6 +21,7 @@ StreamRows:
 
 	; Calc required row from cam pos
 	move.l  (WorldScrollY), d1			; Get world scroll Y position
+	add.l  (CameraShakeOffsetY), d1		; Add shake offset
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
 	
@@ -43,6 +44,7 @@ StreamRows:
 	
 	; Source rect left in upper d0
 	move.l  (WorldScrollX), d1			; Get world scroll X position
+	add.l  (CameraShakeOffsetX), d1		; Add shake offset
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
 	swap	d0
@@ -132,6 +134,7 @@ StreamColumns:
 
 	; Calc required col from cam pos
 	move.l  (WorldScrollX), d1			; Get world scroll X position
+	add.l  (CameraShakeOffsetX), d1		; Add shake offset
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
 	
@@ -163,6 +166,7 @@ StreamColumns:
 	
 	; Source rect top in lower d0
 	move.l  (WorldScrollY), d3		; Get world scroll Y position
+	add.l  (CameraShakeOffsetY), d3		; Add shake offset
 	lsr.l   #0x8, d3				; To screen space
 	divu    #0x8, d3				; To tiles
 	move.w	d3, d0					; To lower d0

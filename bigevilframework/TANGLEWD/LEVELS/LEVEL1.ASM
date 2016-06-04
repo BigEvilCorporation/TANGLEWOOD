@@ -44,6 +44,8 @@ Lvl1Cutscene_BoulderRoll		equ 1
 Lvl1_BoulderCamSpeedTo			equ 0x04
 Lvl1_BoulderCamSpeedFrom		equ 0x04
 Lvl1_BoulderAccel				equ 0x2
+Lvl1_CamShakeSpeed				equ (0x30<<0x8)
+Lvl1_CamShakeAmplitude			equ 0x4
 	
 Lvl1_Init:
 
@@ -155,6 +157,10 @@ Lvl1_StartCutscene_BoulderRoll:
 	; Roll right
 	move.w #Lvl1_BoulderAccel, GameObj_AccelX(a3)
 	
+	; Start camera shake
+	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
+	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+	
 	; Set active cutscene
 	move.l #LevelData_1, a2
 	move.b #Lvl1Cutscene_BoulderRoll, Lvl1Data_ActiveCutscene(a2)
@@ -162,6 +168,10 @@ Lvl1_StartCutscene_BoulderRoll:
 	rts
 	
 Lvl1_EndCutscene_BoulderRoll:
+	
+	; Stop camera shake
+	move.w #0x0, CameraShakeSpeedY
+	move.w #0x0, CameraShakeAmpY
 	
 	; Get boulder
 	move.l #Boulder_72_idx, d0

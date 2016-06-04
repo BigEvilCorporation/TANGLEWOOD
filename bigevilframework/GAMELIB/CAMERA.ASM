@@ -15,6 +15,9 @@ UpdateCamera:
 	move.l  (CameraTargetGameObj), a0
 	cmp.l   #0x0, a0
 	beq     @NoCameraTarget
+	
+	;==============================================================
+	
 	clr.l   d1
 	
 	; Get target X/Y
@@ -68,6 +71,8 @@ UpdateCamera:
 	@EndLerp:
 	
 	@NoLerp:
+	
+	;==============================================================
 
 	; Clamp to X bounds
 	move.l #0x0, d2
@@ -89,11 +94,48 @@ UpdateCamera:
 	move.l  d1, CameraWorldPosY
 	
 	@NoCameraTarget:
+	
+	;==============================================================
+	
+	; Camera shake X
+	cmp.w #0x0, CameraShakeSpeedX
+	beq   @NoShakeX
+	
+	; Get sine
+	clr.l  d0
+	move.w (CameraShakeSinX), d0
+	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
+	blo    @NoWrapX				; Unsigned comparison
+	move.w #0x0, d0
+	@NoWrapX:
+	
+	; Get sine value from table
+	lea    sintable, a2
+	lsr.w  #0x8, d0					; Subframes to frames
+	add.l  d0, a2
+	move.b (a2), d0
+	ext.w  d0
+	ext.l  d0
+	
+	; Mul by amplitude
+	muls (CameraShakeAmpX), d0
+	
+	; Set offset
+	move.l d0, CameraShakeOffsetX
+	
+	; Advance sine step
+	move.w (CameraShakeSpeedX), d0
+	add.w d0, CameraShakeSinX
+	
+	@NoShakeX:
+	
+	;==============================================================
 
 	; X to world scroll
 	move.l  (CameraWorldPosX), d0
 	jsr     CameraPosToWorldScrollX
 	move.l  d0, WorldScrollX			; Keep world scroll X
+	add.l  (CameraShakeOffsetX), d0		; Add shake offset
 	
 	; Scroll X - plane A
 	neg.l   d0							; To camera space
@@ -106,11 +148,48 @@ UpdateCamera:
 	lsr.w   #0x1, d0
 	lea     SetHScrollPlaneB, a5
 	jsr 	VDPQueue_PushJob
+	
+	;==============================================================
+	
+	; Camera shake Y
+	cmp.w #0x0, CameraShakeSpeedY
+	beq   @NoShakeY
+	
+	; Get sine
+	clr.l  d0
+	move.w (CameraShakeSinY), d0
+	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
+	blo    @NoWrapY				; Unsigned comparison
+	move.w #0x0, d0
+	@NoWrapY:
+	
+	; Get sine value from table
+	lea    sintable, a2
+	lsr.w  #0x8, d0					; Subframes to frames
+	add.l  d0, a2
+	move.b (a2), d0
+	ext.w  d0
+	ext.l  d0
+	
+	; Mul by amplitude
+	muls (CameraShakeAmpY), d0
+	
+	; Set offset
+	move.l d0, CameraShakeOffsetY
+	
+	; Advance sine step
+	move.w (CameraShakeSpeedY), d0
+	add.w d0, CameraShakeSinY
+	
+	@NoShakeY:
+	
+	;==============================================================
 
 	; Y to world scroll
 	move.l  (CameraWorldPosY), d0
 	jsr     CameraPosToWorldScrollY
 	move.l  d0, WorldScrollY			; Keep world scroll Y
+	add.l  (CameraShakeOffsetY), d0		; Add shake offset
 
 	; Scroll Y
 	lsr.l   #0x8, d0					; To screen space

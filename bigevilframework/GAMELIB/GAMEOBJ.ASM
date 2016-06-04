@@ -730,7 +730,8 @@ GameObjDraw:
 	move.l Entity_WorldPosX(a0), d1
 	divs.w #SubpixelsPerPixel, d1
 	
-	move.l (WorldScrollX), d2
+	move.l (WorldScrollX), d2			; Get camera pos X
+	add.l  (CameraShakeOffsetX), d2		; Add shake offset
 	divs.w #SubpixelsPerPixel, d2
 	
 	neg.l  d2		; Camera space to scroll space
@@ -758,7 +759,8 @@ GameObjDraw:
 	move.l Entity_WorldPosY(a0), d1
 	divs.w #SubpixelsPerPixel, d1
 	
-	move.l (WorldScrollY), d2
+	move.l (WorldScrollY), d2			; Get camera Y
+	add.l  (CameraShakeOffsetY), d2		; Add shake offset
 	divs.w #SubpixelsPerPixel, d2
 	
 	neg.w  d2		; Camera space to scroll space
