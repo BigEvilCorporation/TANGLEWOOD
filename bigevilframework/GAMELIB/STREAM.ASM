@@ -11,20 +11,42 @@ UpdateMapStreaming:
 	; Level to a1
 	move.l  (CurrentLevel), a1
 
-	jsr StreamRows
+	; Stream all pending rows
+	@RowLoop:
+	move.l  (WorldScrollY), d1			; Get world scroll Y position
+	add.l   (CameraShakeOffsetY), d1	; Add shake offset
+	lsr.l   #0x8, d1					; To screen space
+	divu    #0x8, d1					; To tiles
+	cmp.w   (MapStreamLoadedRow), d1
+	beq     @NoPendingRows
+	
+	jsr     StreamRows
+	bra     @RowLoop
+	
+	@NoPendingRows:
+	
+	;==============================================================
+	
+	; Stream all pending cols
+	@ColLoop:
+	move.l  (WorldScrollX), d1			; Get world scroll X position
+	add.l   (CameraShakeOffsetX), d1	; Add shake offset
+	lsr.l   #0x8, d1					; To screen space
+	divu    #0x8, d1					; To tiles
+	cmp.w   (MapStreamLoadedCol), d1
+	beq     @NoPendingCols
+	
 	jsr StreamColumns
+	bra     @ColLoop
+	
+	@NoPendingCols:
 	
 	rts
 	
 StreamRows:
 	; a1 --- Level addr
+	; d1 (w) Target row
 
-	; Calc required row from cam pos
-	move.l  (WorldScrollY), d1			; Get world scroll Y position
-	add.l  (CameraShakeOffsetY), d1		; Add shake offset
-	lsr.l   #0x8, d1					; To screen space
-	divu    #0x8, d1					; To tiles
-	
 	; Check streaming direction
 	move.w  (MapStreamLoadedRow), d0
 	cmp.w   d0, d1
@@ -131,13 +153,8 @@ StreamRows:
 	
 StreamColumns:
 	; a1 --- Level addr
+	; d1 (w) Target cols
 
-	; Calc required col from cam pos
-	move.l  (WorldScrollX), d1			; Get world scroll X position
-	add.l  (CameraShakeOffsetX), d1		; Add shake offset
-	lsr.l   #0x8, d1					; To screen space
-	divu    #0x8, d1					; To tiles
-	
 	; Check streaming direction
 	move.w  (MapStreamLoadedCol), d0
 	cmp.w   d0, d1
