@@ -157,6 +157,14 @@ __padding04			     rs.b 3
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; ************************************
+; Audio
+; ************************************
+AmbientSFX				 rs.l 4 ; AmbientSFXCount
+AmbientSFXTimer			 rs.w 1
+
+__padding06			     rs.b 2
+
+; ************************************
 ; Level runtime data
 ; ************************************
 LevelData_1				 rs.b Lvl1Data_Struct_Size

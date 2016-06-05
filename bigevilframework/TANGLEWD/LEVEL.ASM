@@ -90,6 +90,8 @@ LevelLoad:
 	jsr LevelCreatePlayers
 	jsr LevelCreateGameObjects
 	
+	jsr LevelAddSFX
+	
 	; Init level
 	move.l (CurrentLevel), a1
 	move.l Level_InitRoutine(a1), a2
@@ -398,6 +400,16 @@ LevelCreatePlayers:
 	; Player 1
 	move.l #Player1, a0
 	jsr     PlayerInit
+
+	rts
+	
+LevelAddSFX:
+
+	lea    AmbientSFX, a2
+	move.l #SFX_Chirp1, (a2)+
+	move.l #SFX_Chirp2, (a2)+
+	move.l #SFX_Chirp3, (a2)+
+	move.l #SFX_Chirp4, (a2)+
 
 	rts
 	

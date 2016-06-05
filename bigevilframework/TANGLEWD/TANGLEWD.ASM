@@ -36,6 +36,7 @@ __start
 	include '..\framewk\z80.asm'
 	; include '..\framewk\sequencr.asm'
 	include '..\framewk\echo\echo.asm'
+	include '..\framewk\echo\esf.asm'
 
 	IFD DEBUG
 	include '..\framewk\debugger.asm'	; NOT FOR RELEASE
@@ -94,6 +95,7 @@ __start
 	include 'levels\level2.asm'
 	
 	; Include game code
+	include 'audio.asm'
 	include 'input.asm'
 	include 'level.asm'
 	

@@ -96,6 +96,7 @@
 	; ************************************
 	include 'assets\music\instrs.asm'
 	include 'assets\music\titles.asm'
+	include 'assets\sfx\sfx.asm'
 	
 	; ************************************
     ; Strings
