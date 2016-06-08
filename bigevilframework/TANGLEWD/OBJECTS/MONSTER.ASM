@@ -36,6 +36,9 @@ Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
 Monster_PlayerLostSightTime		equ 0x0180
 
+Monster_RumbleSoundDist  	equ 0x0200
+Monster_RumbleSoundDistSq	equ (Monster_RumbleSoundDist*Monster_RumbleSoundDist)
+
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 
@@ -94,8 +97,9 @@ Monster_Colour         rs.b 1
 Monster_State          rs.b 1
 Monster_BlockingCtrl   rs.b 1
 Monster_CatchingUp     rs.b 1
+Monster_RumblePlayed   rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 0
+Monster_Struct_Pad     rs.b 3
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -154,6 +158,7 @@ MonsterInit:
 	move.w  #0x0, Monster_SearchDelay(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
+	move.b  #0x0, Monster_RumblePlayed(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -436,7 +441,26 @@ MonsterUpdateWaitForPlayer:
 	move.l #Player1, a1
 	jsr    GameObjectDistSq
 	move.l (sp)+, a1
+	
+	; Check if within rumble sound dist
+	cmp.l  #Monster_RumbleSoundDistSq, d0
+	bgt    @OutOfRumbleSoundRange
+	
+	; If not already playing, begin playback
+	cmp.b  #0x0, Monster_RumblePlayed(a0)
+	bne    @Playing
+	
+	lea    bgm_monsterbass, a0
+	jsr    Echo_PlayBGM
+	move.b #0x1, Monster_RumblePlayed(a0)
+	
+	@Playing:
+	
+	; Adjust volume based on distance
+	
+	@OutOfRumbleSoundRange:
 
+	; Check if within alert dist
 	cmp.l #Monster_AlertDistanceSq, d0
 	bgt   @OutOfPlayerRange
 

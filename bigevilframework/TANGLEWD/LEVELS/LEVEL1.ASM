@@ -31,16 +31,38 @@ Lvl1_HarlequinForest:
 ; Runtime data
 ; ************************************
 	rsset 0
-Lvl1Data_ActiveCutscene			rs.b 1
+Lvl1Data_ActiveCutscene1		rs.b 1	; TODO: Use cutscene system
+Lvl1Data_ActiveCutscene2		rs.b 1
+Lvl1Data_ActiveCutscene3		rs.b 1
+Lvl1Data_WakeUpStage			rs.b 1
+Lvl1Data_WakeUpTimer			rs.w 1
 ;---------------------------------
-Lvl1Data_Struct_Pad      		rs.b 3
+Lvl1Data_Struct_Pad      		rs.b 2
 Lvl1Data_Struct_Size     		rs.b 0
 
 ; ************************************
-; Constants
+; Cutscene constants
+; TODO: Use cutscene system
 ; ************************************
-Lvl1Cutscene_BoulderRoll		equ 1
 
+; Nymn wake up sequence
+Lvl1_NymnWakeStageSleep1		equ 0	; Sleeping at level start
+Lvl1_NymnWakeStageShake1		equ 1	; Ground shakes
+Lvl1_NymnWakeStageWake1			equ 2	; Nymn raises his head and goes back to sleep
+Lvl1_NymnWakeStageShake2		equ 3	; Ground shakes again
+Lvl1_NymnWakeStageWake2			equ 4	; Nymn wakes up fully and player gains control
+Lvl1_NymnWakeShakeTime			equ 0x0060
+
+Lvl1_NymnWakeStageChangeTime1	equ 0x0100
+Lvl1_NymnWakeStageChangeTime2	equ 0x0060
+Lvl1_NymnWakeStageChangeTime3	equ 0x0130
+Lvl1_NymnWakeStageChangeTime4	equ 0x0060
+
+; Scared friend cutscene
+Lvl1_ScaredFriendRunSpeed  		equ 0x04*SubpixelsPerPixel
+Lvl1_ScaredFriendRunAnimSpeed	equ 0x38
+
+; Boulder roll cutscene
 Lvl1_BoulderCamSpeedTo			equ 0x04
 Lvl1_BoulderCamSpeedFrom		equ 0x04
 Lvl1_BoulderAccel				equ 0x2
@@ -93,31 +115,35 @@ Lvl1_Init:
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
-
-	; Disable end level trigger box
+	
+	; Start Nymn sleep sequence
+	jsr    Lvl1_StartCutscene_NymnWake
 	
 	rts
 	
 Lvl1_Update:
 
-	; Check if cutscene playing
+	; Check if cutscenes playing
+	; TODO: Use cutscene system
 	move.l #LevelData_1, a2
-	cmp.b  #0x0, Lvl1Data_ActiveCutscene(a2)
-	beq    @NoCutscene
-	cmp.b  #Lvl1Cutscene_BoulderRoll, Lvl1Data_ActiveCutscene(a2)
-	beq    @Cutscene1
 	
-	; Cutscene 1 - boulder roll
-	@Cutscene1:
+	; Cutscene 1 - Ground shake + nymn wake
+	cmp.b  #0x0, Lvl1Data_ActiveCutscene1(a2)
+	beq    @NoCutscene1
+	jsr    Lvl1_UpdateCutscene_NymnWake
+	@NoCutscene1:
+	
+	; Cutscene 2 - friend flee towards home
+	cmp.b  #0x0, Lvl1Data_ActiveCutscene2(a2)
+	beq    @NoCutscene2
+	jsr    Lvl1_UpdateCutscene_FriendFleeing
+	@NoCutscene2:
+	
+	; Cutscene 3 - boulder roll
+	cmp.b  #0x0, Lvl1Data_ActiveCutscene3(a2)
+	beq    @NoCutscene3
 	jsr    Lvl1_UpdateCutscene_BoulderRoll
-	bra    @ProcessedCutscene
-	
-	@NoCutscene:
-	@ProcessedCutscene:
-
-	; Check if monster has been killed
-	
-	; Enable end level trigger box
+	@NoCutscene3:
 
 	rts
 	
@@ -132,6 +158,238 @@ Lvl1_End:
 	; Begin end of level gamestate
 	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
+	
+	rts
+
+	; TODO: Use cutscene system
+Lvl1_StartCutscene_NymnWake:
+
+	; Get player 1
+	move.l #Player1, a0
+	
+	; Disable player 1 control
+	move.b #0x0, Player1ControlEnabled
+	
+	; Start sleep anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	; Set active cutscene
+	move.l #LevelData_1, a2
+	move.b #0x1, Lvl1Data_ActiveCutscene1(a2)
+	
+	; Begin sequence
+	move.b #Lvl1_NymnWakeStageSleep1 , Lvl1Data_WakeUpStage(a2)
+	
+	; Start timer
+	move.w #Lvl1_NymnWakeStageChangeTime1, Lvl1Data_WakeUpTimer(a2) 
+	
+	rts
+	
+Lvl1_EndCutscene_NymnWake:
+
+	; Enable player 1 control
+	move.b #0x1, Player1ControlEnabled
+	
+	; Release animation control
+	move.l #Player1, a0
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Disable cutscene
+	move.b #0x0, Lvl1Data_ActiveCutscene1(a2)
+	
+	rts
+	
+Lvl1_UpdateCutscene_NymnWake:
+
+	; Process timer
+	move.l #LevelData_1, a2
+	move.w Lvl1Data_WakeUpTimer(a2), d0
+	sub.w  #0x1, Lvl1Data_WakeUpTimer(a2)
+	cmp.w  #0x0, d0
+	bne    @TimerRunning
+	
+	; Advance cutscene stage
+	add.b  #0x1, Lvl1Data_WakeUpStage(a2)
+	
+	; Determine new stage
+	move.b Lvl1Data_WakeUpStage(a2), d0
+	
+	cmp.b  #Lvl1_NymnWakeStageShake1, d0
+	beq    @NymnWakeStageShake1
+	cmp.b  #Lvl1_NymnWakeStageWake1, d0
+	beq    @NymnWakeStageWake1
+	cmp.b  #Lvl1_NymnWakeStageShake2, d0
+	beq    @NymnWakeStageShake2
+	cmp.b  #Lvl1_NymnWakeStageWake2, d0
+	beq    @NymnWakeStageWake2
+	
+	;==============================================================	
+	
+	@NymnWakeStageShake1:
+	
+	; Ground shakes
+	move.w #Lvl1_NymnWakeShakeTime, CameraShakeTimer
+	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
+	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+	
+	move.w #Lvl1_NymnWakeStageChangeTime2, Lvl1Data_WakeUpTimer(a2)
+	bra    @End
+	
+	;==============================================================	
+	
+	@NymnWakeStageWake1:
+	
+	; Nymn raises head, then goes back to sleep
+	PUSHL  a1
+	PUSHL  a2
+	move.l #Player1, a0
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_WakeSleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a2
+	POPL   a1
+	
+	move.w #Lvl1_NymnWakeStageChangeTime3, Lvl1Data_WakeUpTimer(a2)
+	bra    @End
+	
+	;==============================================================	
+	
+	@NymnWakeStageShake2:
+	
+	; Ground shakes
+	move.w #Lvl1_NymnWakeShakeTime, CameraShakeTimer
+	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
+	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+	
+	move.w #Lvl1_NymnWakeStageChangeTime4, Lvl1Data_WakeUpTimer(a2)
+	bra    @End
+	
+	;==============================================================	
+	
+	@NymnWakeStageWake2:
+	
+	; Nymn wakes up fully
+	PUSHL  a1
+	PUSHL  a2
+	move.l #Player1, a0
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a2
+	POPL   a1
+	
+	; Done
+	jsr    Lvl1_EndCutscene_NymnWake
+	
+	;==============================================================	
+	
+	@TimerRunning:
+	@End:
+	
+	rts
+		   
+	; TODO: Use cutscene system
+Lvl1_StartCutscene_FriendFleeing:
+
+	PUSHL  a0
+	PUSHL  a1
+	PUSHL  a2
+	PUSHL  a3
+	PUSHL  a4
+	
+	; Create actor
+	move.l #EntityArray_Actors, a0
+	jsr    ActorInit
+	
+	; Override max run velocity
+	move.w #Lvl1_ScaredFriendRunSpeed, Character_MaxVelXRun(a0)
+	
+	; Override run anim speed
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
+	move.b #Lvl1_ScaredFriendRunAnimSpeed, Animation_Speed(a3)
+	
+	; Ignore walls
+	move.b #0x0, GameObj_CollideWalls(a0)
+
+	; Load sprite sheet (using Djakk VRAM space)
+	lea    spritesheets_nymn, a1
+	lea    sprite_nymn_subsprite_dimensions_bits, a2
+	lea    sprite_nymn_subsprite_pos_offsets, a3
+	lea    sprite_nymn_numtiles_per_subsprite, a4
+	move.l #Tiles_MonsterVRAM, d0
+	move.l #sprite_nymn_size_t, d1
+	move.b #sprite_nymn_size_subsprites, d2
+	move.w #sprite_nymn_widthheight_subsprites, d3
+	move.b #PaletteId_Monster, d4
+	jsr    GameObjLoadMultiSprite
+	
+	; Load palette
+	lea    Pal_Nymn_Blue, a0
+	move.l #PaletteId_Monster, d0
+	jsr    LoadPalette
+	
+	; Position actor one screen to the right of Player 1
+	; TODO: Use PosMarker
+	move.l #EntityArray_Actors, a0
+	move.l #Player1, a1
+	ENTITY_GETCENTREX d0, a1
+	add.l  #((screen_width/2)*SubpixelsPerPixel), d0
+	move.l d0, Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a1), Entity_WorldPosY(a0)
+	
+	; Start running
+	jsr    CharacterStartRun
+	
+	; Start at max velocity
+	move.w #-Lvl1_ScaredFriendRunSpeed, GameObj_VelX(a0)
+	
+	; Set active cutscene
+	move.l #LevelData_1, a2
+	move.b #0x1, Lvl1Data_ActiveCutscene2(a2)
+	
+	POPL   a4
+	POPL   a3
+	POPL   a2
+	POPL   a1
+	POPL   a0
+	
+	rts
+	
+Lvl1_EndCutscene_FriendFleeing:
+
+	; Unlink actor from update/render lists
+	
+	; Reload Djakk sprite sheet
+	
+	; Reload Djakk palette
+	
+	rts
+	
+	; TODO: Use cutscene system
+Lvl1_UpdateCutscene_FriendFleeing:
+
+	; Run left
+	move.l #EntityArray_Actors, a0
+	jsr    CharacterMoveleft
+	
+	; Check if actor is 1 screen to the left of Player 1
+	
+	; Done
 	
 	rts
 	
@@ -163,7 +421,7 @@ Lvl1_StartCutscene_BoulderRoll:
 	
 	; Set active cutscene
 	move.l #LevelData_1, a2
-	move.b #Lvl1Cutscene_BoulderRoll, Lvl1Data_ActiveCutscene(a2)
+	move.b #0x1, Lvl1Data_ActiveCutscene3(a2)
 	
 	rts
 	
@@ -192,7 +450,7 @@ Lvl1_EndCutscene_BoulderRoll:
 	
 	; End cutscene
 	move.l #LevelData_1, a2
-	move.b #0x0, Lvl1Data_ActiveCutscene(a2)
+	move.b #0x0, Lvl1Data_ActiveCutscene3(a2)
 	
 	rts
 	

@@ -9,7 +9,7 @@
 ; ************************************
 ; Constants
 ; ************************************
-Player_MaxEntities equ 0x1
+Player_MaxEntities equ 0x2
 
 ; Player dimensions
 Player1Width	  equ 0x0038
@@ -76,12 +76,13 @@ Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
 
 ; Animations
-PlayerAnimIdx_Switch  equ 0
-PlayerAnimIdx_LieDown equ 1
-PlayerAnimIdx_Sleep   equ 2
-PlayerAnimIdx_Wake    equ 3
-; -------------------------
-PlayerAnimIdx_Max     equ 4
+PlayerAnimIdx_Switch    equ 0
+PlayerAnimIdx_LieDown   equ 1
+PlayerAnimIdx_Sleep     equ 2	; Sleep loop
+PlayerAnimIdx_Wake      equ 3	; Wakes up fully and stands up
+PlayerAnimIdx_WakeSleep equ 4	; Raises head, pauses, then goes back to sleep
+; ---------------------------
+PlayerAnimIdx_Max       equ 5
 
 ; ************************************
 ; Struct
@@ -312,6 +313,18 @@ PlayerInit:
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_wake_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_wake_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
+	; Raise head then back to sleep
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_wakesleep), a3
+	move.w #spritesheet_nymn_wake_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_wakesleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_wakesleep_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_wakesleep_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	

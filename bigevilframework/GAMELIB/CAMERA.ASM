@@ -196,6 +196,27 @@ UpdateCamera:
 	lea     SetVScrollPlaneA, a5
 	jsr 	VDPQueue_PushJob
 	
+	;==============================================================
+	
+	; Update camera shake timer
+	move.w  (CameraShakeTimer), d0
+	cmp.w   #0x0, d0
+	beq     @NoTimer
+	sub.w   #0x1, d0
+	move.w  d0, CameraShakeTimer
+	cmp.w   #0x0, d0
+	bne     @TimerRunning
+	
+	; Timer elapsed
+	move.w  #-1, CameraShakeTimer
+	move.w  #0x0, CameraShakeSpeedX
+	move.w  #0x0, CameraShakeSpeedY
+	move.l  #0x0, CameraShakeOffsetX
+	move.l  #0x0, CameraShakeOffsetY
+	
+	@NoTimer:
+	@TimerRunning:
+	
 	rts
 
 CameraPosToWorldScrollX:

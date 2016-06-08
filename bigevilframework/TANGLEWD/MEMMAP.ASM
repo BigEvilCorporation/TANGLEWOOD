@@ -109,6 +109,7 @@ CameraShakeSpeedX	   rs.w 1
 CameraShakeSpeedY	   rs.w 1
 CameraShakeAmpX	   	   rs.w 1
 CameraShakeAmpY	       rs.w 1
+CameraShakeTimer       rs.w 1
 MapStreamLoadedCol     rs.w 1
 MapStreamLoadedRow     rs.w 1
 MapStreamSrcLeft	   rs.w 1
@@ -117,6 +118,8 @@ MapStreamDestLeft	   rs.w 1
 MapStreamDestTop	   rs.w 1
 MapStreamNumCols	   rs.w 1
 MapStreamNumRows	   rs.w 1
+
+__padding061		   rs.b 2
 
 ; ************************************
 ; Game globals
@@ -196,6 +199,7 @@ EntityListSize_Serialise rs.l 1
 ; Entities
 ; ************************************
 EntityArray_Players     rs.b (Player_Struct_Size*Player_MaxEntities)
+EntityArray_Actors      rs.b (Actor_Struct_Size*Actor_MaxEntities)
 EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
 EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
@@ -208,6 +212,7 @@ EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
 EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
 
 EntityCount_Players     rs.w 1
+EntityCount_Actors      rs.w 1
 EntityCount_Monsters    rs.w 1
 EntityCount_Fireflies   rs.w 1
 EntityCount_Flues       rs.w 1

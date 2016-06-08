@@ -69,6 +69,7 @@ __start
 	ENDIF
 
 	; Include GameObject derivatives
+	include 'objects\actor.asm'
 	include 'objects\boulder.asm'
 	include 'objects\checkpnt.asm'
 	include 'objects\firefly.asm'

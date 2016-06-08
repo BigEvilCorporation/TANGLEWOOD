@@ -50,12 +50,6 @@ Gameplay_Enter:
 	; Snap to floor
 	jsr    GameObjSnapToFloor
 	
-	; Begin snoozing
-	jsr    PlayerBeginIdleSnooze
-	
-	; Enable player 1 control
-	move.b #0x1, Player1ControlEnabled
-	
 	rts
 	
 Gameplay_Exit:
@@ -81,6 +75,9 @@ Gameplay_Update:
 	; Update level
 	move.l Level_UpdateRoutine(a1), a2
 	jsr    (a2)
+	
+	; Update audio
+	;jsr    UpdateAmbientAudio
 	
 	; Check if player is dead
 	move.l #Player1, a2

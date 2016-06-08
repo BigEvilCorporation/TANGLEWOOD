@@ -19,6 +19,7 @@ entity_type_obstacle	 equ (1<<24)
 entity_type_player		 equ (1<<25)
 entity_type_trigger		 equ (1<<26)
 entity_type_waterbody	 equ (1<<27)
+entity_type_actor		 equ (1<<28)
 
 ; Sprite plane border (pixels/nybbles)
 SpritePlaneWidth		 equ 0x0200

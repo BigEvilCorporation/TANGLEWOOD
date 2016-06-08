@@ -114,7 +114,7 @@ Boulder_72_idx	equ 0x1
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_TriggerBox_count equ 4
+gameobjects_lvl1_TriggerBox_count equ 5
 LoadGameObjects_lvl1_TriggerBox:
 TriggerBox_60_idx	equ 0x0
 	jsr TriggerBoxInit
@@ -144,6 +144,13 @@ TriggerBox_74_idx	equ 0x3
 	move.l #0x0004f000, Entity_WorldPosX(a0)
 	move.l #0x00028800, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
+TriggerBox_75_idx	equ 0x4
+	jsr TriggerBoxInit
+	move.l #0x00081000, Entity_WorldPosX(a0)
+	move.l #0x0002b800, Entity_WorldPosY(a0)
+	move.l #Lvl1_StartCutscene_FriendFleeing, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
