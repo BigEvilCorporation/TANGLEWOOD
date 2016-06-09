@@ -105,6 +105,28 @@ LinkSprite:
 	move.b  d1, Sprite_NextID(a0)
 	
 	rts
+	
+ClearSpriteLinks:
+
+	; Get sprite table
+	lea     vdp_sprite_table, a0
+	
+	; Offset to next sprite ID
+	add.l   #Sprite_NextID, a0
+	
+	; Loop all sprites in table
+	move.w  #vdp_max_sprites-1, d0
+	@SpriteLp:
+	
+	; Clear next sprite ID
+	move.b  #0x0, (a0)
+	
+	; Next sprite
+	add.l   #size_spritedesc, a0
+	
+	dbra    d0, @SpriteLp
+	
+	rts
 
 SetSpritePosX:
 	; Set sprite X position

@@ -20,6 +20,7 @@ LevelLoad:
 	
 	; Reset entity counts
 	move.w #0x0, EntityCount_Players
+	move.w #0x0, EntityCount_Actors
 	move.w #0x0, EntityCount_Monsters
 	move.w #0x0, EntityCount_Fireflies
 	move.w #0x0, EntityCount_Flues

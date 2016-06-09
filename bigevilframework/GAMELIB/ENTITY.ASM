@@ -18,10 +18,10 @@ Entity_UpdateNext		rs.l 1 ; Next in update linked list
 Entity_RenderNext		rs.l 1 ; Next in render linked list
 Entity_SerialiseNext	rs.l 1 ; Next in serialise linked list
 ;-----------------------------
-Entity_WorldPosX        rs.l 1	; Position X (world space)
-Entity_WorldPosY        rs.l 1	; Position Y (world space)
-Entity_Width            rs.w 1	; Width (pixels)
-Entity_Height           rs.w 1	; Height(pixels)
+Entity_WorldPosX        rs.l 1 ; Position X (world space)
+Entity_WorldPosY        rs.l 1 ; Position Y (world space)
+Entity_Width            rs.w 1 ; Width (pixels)
+Entity_Height           rs.w 1 ; Height(pixels)
 ;-----------------------------
 Entity_Struct_Size		rs.b 0
 
@@ -30,7 +30,7 @@ Entity_Struct_Size		rs.b 0
 ;==============================================================
 
 EntityAddToUpdateList:
-	; a0 --- GameObjAddr
+	; a0 --- Entity addr
 	
 	; If first in list, set as head and tail
 	cmp.l  #0x0, (EntityListHead_Update)
@@ -53,7 +53,7 @@ EntityAddToUpdateList:
 	rts
 
 EntityAddToRenderList:
-	; a0 --- GameObjAddr
+	; a0 --- Entity addr
 	
 	; If first in list, set as head and tail
 	cmp.l  #0x0, (EntityListHead_Render)
@@ -76,7 +76,7 @@ EntityAddToRenderList:
 	rts
 	
 EntityAddToSerialiseList:
-	; a0 --- GameObjAddr
+	; a0 --- Entity addr
 	
 	; If first in list, set as head and tail
 	cmp.l  #0x0, (EntityListHead_Serialise)
@@ -95,6 +95,108 @@ EntityAddToSerialiseList:
 	
 	; Increment count
 	addi.l #0x1, EntityListSize_Serialise
+	
+	rts
+	
+EntityRemoveFromUpdateList:
+	; a0 --- Entity addr
+	
+	move.l  #0x0, a4
+	
+	move.l (EntityListHead_Update), a3	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	cmp.l  a0, a3						 ; Check if entity to remove
+	beq    @Found
+	move.l a3, a4						 ; Backup prev
+	move.l Entity_UpdateNext(a3), a3	 ; Get next ptr
+	bra    @EntityLp
+	
+	@Found:
+	
+	cmp.l  #0x0, a4
+	beq    @NewHead
+	
+	; Link next with prev
+	move.l Entity_UpdateNext(a0), Entity_UpdateNext(a4)
+	bra    @End
+	
+	@NewHead:
+	
+	; Removed entity was head, set new head
+	move.l Entity_UpdateNext(a0), EntityListHead_Update
+	
+	@End:
+	
+	; Decrement count
+	subi.l #0x1, EntityListSize_Update
+	
+	rts
+	
+EntityRemoveFromRenderList:
+	; a0 --- Entity addr
+	
+	move.l  #0x0, a4
+	
+	move.l (EntityListHead_Render), a3	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	cmp.l  a0, a3						 ; Check if entity to remove
+	beq    @Found
+	move.l a3, a4						 ; Backup prev
+	move.l Entity_RenderNext(a3), a3	 ; Get next ptr
+	bra    @EntityLp
+	
+	@Found:
+	
+	cmp.l  #0x0, a4
+	beq    @NewHead
+	
+	; Link next with prev
+	move.l Entity_RenderNext(a0), Entity_RenderNext(a4)
+	bra    @End
+	
+	@NewHead:
+	
+	; Removed entity was head, set new head
+	move.l Entity_RenderNext(a0), EntityListHead_Render
+	
+	@End:
+	
+	; Decrement count
+	subi.l #0x1, EntityListSize_Render
+	
+	rts
+	
+EntityRemoveFromSerialiseList:
+	; a0 --- Entity addr
+	
+	move.l  #0x0, a4
+	
+	move.l (EntityListHead_Serialise), a3 ; Get list head
+	@EntityLp:							  ; For all entities in list
+	cmp.l  a0, a3						  ; Check if entity to remove
+	beq    @Found
+	move.l a3, a4						  ; Backup prev
+	move.l Entity_SerialiseNext(a3), a3	  ; Get next ptr
+	bra    @EntityLp
+	
+	@Found:
+	
+	cmp.l  #0x0, a4
+	beq    @NewHead
+	
+	; Link next with prev
+	move.l Entity_SerialiseNext(a0), Entity_SerialiseNext(a4)
+	bra    @End
+	
+	@NewHead:
+	
+	; Removed entity was head, set new head
+	move.l Entity_SerialiseNext(a0), EntityListHead_Serialise
+	
+	@End:
+	
+	; Decrement count
+	subi.l #0x1, EntityListSize_Serialise
 	
 	rts
 	

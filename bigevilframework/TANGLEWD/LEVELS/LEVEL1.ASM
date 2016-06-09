@@ -306,11 +306,10 @@ Lvl1_StartCutscene_FriendFleeing:
 
 	PUSHL  a0
 	PUSHL  a1
-	PUSHL  a2
-	PUSHL  a3
-	PUSHL  a4
 	
 	; Create actor
+	; TODO: Add to end of actor list
+	; TODO: Store actor ptr
 	move.l #EntityArray_Actors, a0
 	jsr    ActorInit
 	
@@ -343,8 +342,9 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.l #PaletteId_Monster, d0
 	jsr    LoadPalette
 	
-	; Position actor one screen to the right of Player 1
+	; Position actor half a screen to the right of Player 1
 	; TODO: Use PosMarker
+	; TODO: Store actor ptr
 	move.l #EntityArray_Actors, a0
 	move.l #Player1, a1
 	ENTITY_GETCENTREX d0, a1
@@ -362,9 +362,6 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.l #LevelData_1, a2
 	move.b #0x1, Lvl1Data_ActiveCutscene2(a2)
 	
-	POPL   a4
-	POPL   a3
-	POPL   a2
 	POPL   a1
 	POPL   a0
 	
@@ -372,24 +369,65 @@ Lvl1_StartCutscene_FriendFleeing:
 	
 Lvl1_EndCutscene_FriendFleeing:
 
-	; Unlink actor from update/render lists
+	; Delete actor
+	; TODO: Store actor ptr
+	move.l #EntityArray_Actors, a0
+	jsr    ActorShutdown
 	
 	; Reload Djakk sprite sheet
+	cmp.w  #0x0, EntityCount_Monsters
+	beq    @NoMonsters
+	move.l #EntityArray_Monsters, a0
+	lea    spritesheets_djakk, a1
+	lea    sprite_djakk_subsprite_dimensions_bits, a2
+	lea    sprite_djakk_subsprite_pos_offsets, a3
+	lea    sprite_djakk_numtiles_per_subsprite, a4
+	move.l #tiles_monsterVRAM, d0
+	move.l #sprite_djakk_size_t, d1
+	move.b #sprite_djakk_size_subsprites, d2
+	move.w #sprite_djakk_widthheight_subsprites, d3
+	move.b #PaletteID_Monster, d4
+	jsr    GameObjLoadMultiSprite
+	@NoMonsters:
 	
 	; Reload Djakk palette
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Monster, d0
+	jsr    LoadPalette
+	
+	; Finished cutscene
+	move.l #LevelData_1, a2
+	move.b #0x0, Lvl1Data_ActiveCutscene2(a2)
 	
 	rts
 	
 	; TODO: Use cutscene system
 Lvl1_UpdateCutscene_FriendFleeing:
 
+	PUSHL  a0
+	PUSHL  a1
+	PUSHL  a2
+
 	; Run left
 	move.l #EntityArray_Actors, a0
 	jsr    CharacterMoveleft
 	
-	; Check if actor is 1 screen to the left of Player 1
+	; Check if actor is half a screen to the left of Player 1
+	move.l #Player1, a1
+	ENTITY_GETCENTREX d0, a0
+	ENTITY_GETCENTREX d1, a1
+	sub.l  d0, d1
+	cmp.l  #((screen_width/2)*SubpixelsPerPixel), d1
+	blt    @StillRunning 
 	
 	; Done
+	jsr    Lvl1_EndCutscene_FriendFleeing
+	
+	@StillRunning:
+	
+	POPL   a2
+	POPL   a1
+	POPL   a0
 	
 	rts
 	

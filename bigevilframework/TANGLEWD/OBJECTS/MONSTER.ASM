@@ -450,8 +450,12 @@ MonsterUpdateWaitForPlayer:
 	cmp.b  #0x0, Monster_RumblePlayed(a0)
 	bne    @Playing
 	
+	PUSHL  a0
 	lea    bgm_monsterbass, a0
 	jsr    Echo_PlayBGM
+	POPL   a0
+	
+	; Set played
 	move.b #0x1, Monster_RumblePlayed(a0)
 	
 	@Playing:

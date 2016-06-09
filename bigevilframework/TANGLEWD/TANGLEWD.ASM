@@ -170,6 +170,9 @@ RenderBeginFrame:
 	move.b #0x0, vint_enabled
 	
 	; Clear sprite links
+	jsr    ClearSpriteLinks
+	
+	; Clear last linked
 	move.w #0x0, prev_sprite_link
 	
 	IFD DEBUG
