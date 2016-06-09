@@ -59,8 +59,12 @@ Lvl1_NymnWakeStageChangeTime3	equ 0x0130
 Lvl1_NymnWakeStageChangeTime4	equ 0x0060
 
 ; Scared friend cutscene
-Lvl1_ScaredFriendRunSpeed  		equ 0x04*SubpixelsPerPixel
-Lvl1_ScaredFriendRunAnimSpeed	equ 0x40
+Lvl1_ScaredFriend1RunSpeed  	equ 0x04*SubpixelsPerPixel
+Lvl1_ScaredFriend2RunSpeed  	equ 0x05*SubpixelsPerPixel
+Lvl1_ScaredFriend1RunAnimSpeed	equ 0x35
+Lvl1_ScaredFriend2RunAnimSpeed	equ 0x40
+Lvl1_ScaredFriend1XOffset		equ (screen_width*SubpixelsPerPixel)
+Lvl1_ScaredFriend2XOffset		equ Lvl1_ScaredFriend1XOffset
 
 ; Boulder roll cutscene
 Lvl1_BoulderCamSpeedTo			equ 0x04
@@ -307,25 +311,51 @@ Lvl1_StartCutscene_FriendFleeing:
 	PUSHL  a0
 	PUSHL  a1
 	
-	; Create actor
+	; Create actors
 	; TODO: Add to end of actor list
 	; TODO: Store actor ptr
 	move.l #EntityArray_Actors, a0
 	jsr    ActorInit
+	add.l  #Actor_Struct_Size, a0
+	jsr    ActorInit
 	
-	; Override max run velocity
-	move.w #Lvl1_ScaredFriendRunSpeed, Character_MaxVelXRun(a0)
+	; Override max run velocity and ignore walls
+	move.l #EntityArray_Actors, a0
+	move.w #Lvl1_ScaredFriend1RunSpeed, Character_MaxVelXRun(a0)
+	move.b #0x0, GameObj_CollideWalls(a0)
+	
+	add.l  #Actor_Struct_Size, a0
+	move.w #Lvl1_ScaredFriend2RunSpeed, Character_MaxVelXRun(a0)
+	move.b #0x0, GameObj_CollideWalls(a0)
 	
 	; Override run anim speed
+	move.l #EntityArray_Actors, a0
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
-	move.b #Lvl1_ScaredFriendRunAnimSpeed, Animation_Speed(a2)
+	move.b #Lvl1_ScaredFriend1RunAnimSpeed, Animation_Speed(a2)
 	
-	; Ignore walls
-	move.b #0x0, GameObj_CollideWalls(a0)
+	add.l  #Actor_Struct_Size, a0
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
+	move.b #Lvl1_ScaredFriend2RunAnimSpeed, Animation_Speed(a2)
 
-	; Load sprite sheet (using Djakk VRAM space)
+	; Load actor 1 sprite sheet (using Player 2 VRAM space and Fuzzl palette)
+	move.l #EntityArray_Actors, a0
+	lea    spritesheets_nymn, a1
+	lea    sprite_nymn_subsprite_dimensions_bits, a2
+	lea    sprite_nymn_subsprite_pos_offsets, a3
+	lea    sprite_nymn_numtiles_per_subsprite, a4
+	move.l #Tiles_Player2VRAM, d0
+	move.l #sprite_nymn_size_t, d1
+	move.b #sprite_nymn_size_subsprites, d2
+	move.w #sprite_nymn_widthheight_subsprites, d3
+	move.b #PaletteId_Fuzzl, d4
+	jsr    GameObjLoadMultiSprite
+	
+	; Load actor 2 sprite sheet (using Djakk VRAM space and palette)
+	add.l  #Actor_Struct_Size, a0
 	lea    spritesheets_nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
 	lea    sprite_nymn_subsprite_pos_offsets, a3
@@ -337,18 +367,22 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.b #PaletteId_Monster, d4
 	jsr    GameObjLoadMultiSprite
 	
-	; Load palette
+	; Load palettes	
+	lea    Pal_Nymn_Green, a0
+	move.l #PaletteId_Fuzzl, d0
+	jsr    LoadPalette
+	
 	lea    Pal_Nymn_Blue, a0
 	move.l #PaletteId_Monster, d0
 	jsr    LoadPalette
 	
-	; Position actor half a screen to the right of Player 1
+	; Position actor 1 (offset from player)
 	; TODO: Use PosMarker
 	; TODO: Store actor ptr
 	move.l #EntityArray_Actors, a0
 	move.l #Player1, a1
 	ENTITY_GETCENTREX d0, a1
-	add.l  #((screen_width/2)*SubpixelsPerPixel), d0
+	add.l  #Lvl1_ScaredFriend1XOffset, d0
 	move.l d0, Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a1), Entity_WorldPosY(a0)
 	
@@ -356,7 +390,23 @@ Lvl1_StartCutscene_FriendFleeing:
 	jsr    CharacterStartRun
 	
 	; Start at max velocity
-	move.w #-Lvl1_ScaredFriendRunSpeed, GameObj_VelX(a0)
+	move.w #-Lvl1_ScaredFriend1RunSpeed, GameObj_VelX(a0)
+	
+	; Position actor 2 (offset from player)
+	; TODO: Use PosMarker
+	; TODO: Store actor ptr
+	add.l  #Actor_Struct_Size, a0
+	move.l #Player1, a1
+	ENTITY_GETCENTREX d0, a1
+	add.l  #Lvl1_ScaredFriend2XOffset, d0
+	move.l d0, Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a1), Entity_WorldPosY(a0)
+	
+	; Start running
+	jsr    CharacterStartRun
+	
+	; Start at max velocity
+	move.w #-Lvl1_ScaredFriend2RunSpeed, GameObj_VelX(a0)
 	
 	; Set active cutscene
 	move.l #LevelData_1, a2
@@ -369,9 +419,11 @@ Lvl1_StartCutscene_FriendFleeing:
 	
 Lvl1_EndCutscene_FriendFleeing:
 
-	; Delete actor
+	; Delete actors
 	; TODO: Store actor ptr
 	move.l #EntityArray_Actors, a0
+	jsr    ActorShutdown
+	add.l  #Actor_Struct_Size, a0
 	jsr    ActorShutdown
 	
 	; Reload Djakk sprite sheet
@@ -395,6 +447,11 @@ Lvl1_EndCutscene_FriendFleeing:
 	move.l #PaletteId_Monster, d0
 	jsr    LoadPalette
 	
+	; Reload Fuzz; palette
+	lea    palette_fuzzl_yellow, a0
+	move.l #PaletteId_Fuzzl, d0
+	jsr    LoadPalette
+	
 	; Finished cutscene
 	move.l #LevelData_1, a2
 	move.b #0x0, Lvl1Data_ActiveCutscene2(a2)
@@ -411,8 +468,19 @@ Lvl1_UpdateCutscene_FriendFleeing:
 	; Run left
 	move.l #EntityArray_Actors, a0
 	jsr    CharacterMoveleft
+	add.l  #Actor_Struct_Size, a0
+	jsr    CharacterMoveleft
 	
-	; Check if actor is one screen to the left of Player 1
+	; Check if actors are one screen to the left of Player 1
+	move.l #EntityArray_Actors, a0
+	move.l #Player1, a1
+	ENTITY_GETCENTREX d0, a0
+	ENTITY_GETCENTREX d1, a1
+	sub.l  d0, d1
+	cmp.l  #(screen_width*SubpixelsPerPixel), d1
+	blt    @StillRunning 
+	
+	add.l  #Actor_Struct_Size, a0
 	move.l #Player1, a1
 	ENTITY_GETCENTREX d0, a0
 	ENTITY_GETCENTREX d1, a1
