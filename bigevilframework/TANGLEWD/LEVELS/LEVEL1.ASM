@@ -60,7 +60,7 @@ Lvl1_NymnWakeStageChangeTime4	equ 0x0060
 
 ; Scared friend cutscene
 Lvl1_ScaredFriendRunSpeed  		equ 0x04*SubpixelsPerPixel
-Lvl1_ScaredFriendRunAnimSpeed	equ 0x38
+Lvl1_ScaredFriendRunAnimSpeed	equ 0x40
 
 ; Boulder roll cutscene
 Lvl1_BoulderCamSpeedTo			equ 0x04
@@ -320,7 +320,7 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
-	move.b #Lvl1_ScaredFriendRunAnimSpeed, Animation_Speed(a3)
+	move.b #Lvl1_ScaredFriendRunAnimSpeed, Animation_Speed(a2)
 	
 	; Ignore walls
 	move.b #0x0, GameObj_CollideWalls(a0)
@@ -412,12 +412,12 @@ Lvl1_UpdateCutscene_FriendFleeing:
 	move.l #EntityArray_Actors, a0
 	jsr    CharacterMoveleft
 	
-	; Check if actor is half a screen to the left of Player 1
+	; Check if actor is one screen to the left of Player 1
 	move.l #Player1, a1
 	ENTITY_GETCENTREX d0, a0
 	ENTITY_GETCENTREX d1, a1
 	sub.l  d0, d1
-	cmp.l  #((screen_width/2)*SubpixelsPerPixel), d1
+	cmp.l  #(screen_width*SubpixelsPerPixel), d1
 	blt    @StillRunning 
 	
 	; Done
