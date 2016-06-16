@@ -51,7 +51,7 @@ GetMCDType:
         jsr CompareString
         cmp.b #0x0, d0
         bne @NotType1
-        move.l #0x1, d1 ; Found type 1
+        move.l #0x1, d0 ; Found type 1
         rts
 
         @NotType1:
@@ -60,7 +60,7 @@ GetMCDType:
         jsr CompareString
         cmp.b #0x0, d0
         bne @NotType2
-        move.l #0x2, d1 ; Found type 2
+        move.l #0x2, d0 ; Found type 2
         rts
 
         @NotType2:
@@ -69,7 +69,7 @@ GetMCDType:
         jsr CompareString
         cmp.b #0x0, d0
         bne @NotType3
-        move.l #0x3, d1 ; Found type 3
+        move.l #0x3, d0 ; Found type 3
         rts
 
         @NotType3:
@@ -78,7 +78,7 @@ GetMCDType:
         jsr CompareString
         cmp.b #0x0, d0
         bne @NotType4
-        move.l #0x4, d1 ; Found type 4
+        move.l #0x4, d0 ; Found type 4
         rts
 
         @NotType4:
