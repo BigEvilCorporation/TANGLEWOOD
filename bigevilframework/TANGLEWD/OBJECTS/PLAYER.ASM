@@ -242,6 +242,17 @@ PlayerInit:
 	;move.b #Anim_NymnHang_SizeB, Animation_Length(a3)
 	;move.b #0x1, Animation_Looping(a3)
 	
+	; Water wade
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WaterWade), a3
+	move.w #spritesheet_nymn_wade_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_wade_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_wade_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_wade_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
 	; Glide
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Glide), a3
@@ -280,18 +291,6 @@ PlayerInit:
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
-	; Lay down
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
-	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_laydown_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_laydown_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_laydown_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	move.b #0x1, Animation_ZeroVelocity(a3)
-	
 	; Sleep
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Sleep), a3
@@ -304,10 +303,22 @@ PlayerInit:
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
+	; Lay down
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
+	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_laydown_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_laydown_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_laydown_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
 	; Wake up
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Wake), a3
-	move.w #spritesheet_nymn_wake_frameoffset, Animation_FirstFrameOffset(a3)
+	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_wake_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
@@ -319,7 +330,7 @@ PlayerInit:
 	; Raise head then back to sleep
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_wakesleep), a3
-	move.w #spritesheet_nymn_wake_frameoffset, Animation_FirstFrameOffset(a3)
+	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_wakesleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
