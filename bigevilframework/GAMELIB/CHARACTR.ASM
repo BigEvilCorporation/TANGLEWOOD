@@ -18,8 +18,9 @@ CharacterAnimIdx_Hang		equ 5
 CharacterAnimIdx_Glide		equ 6
 CharacterAnimIdx_Push		equ 7
 CharacterAnimIdx_WalkToRun	equ 8
+CharacterAnimIdx_WaterWade	equ 9
 ; -------------------------------
-Character_NumAnims			equ 9
+Character_NumAnims			equ 10
 
 ; ************************************
 ; Character struct
@@ -239,6 +240,14 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Push, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
+	; In water
+	; =====================================================================
+	move.b #CharacterAnimIdx_WaterWade, d1
+	move.b Character_InWater(a0), d0	; If player in water, set water wade anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	
