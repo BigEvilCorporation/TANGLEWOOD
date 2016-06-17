@@ -23,8 +23,9 @@ TriggerBox_RegisterA0	rs.l 1	; A Regs
 TriggerBox_RegisterA1	rs.l 1
 TriggerBox_Triggered	rs.b 1	; Box has been triggered
 TriggerBox_TriggerOnce	rs.b 1	; Trigger once
+TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis
 ;--------------------------
-TriggerBox_Struct_Pad   rs.b 2	; Alignment padding
+TriggerBox_Struct_Pad   rs.b 1	; Alignment padding
 TriggerBox_Struct_Size  rs.b 0
 
 TriggerBoxInit:
@@ -75,11 +76,31 @@ TriggerBoxUpdate:
 	
 	@TriggerMultiple:
 	
-	; Check player vs. box
+	;Get player
 	move.l #Player1, a1
+	
+	cmp.b  #0x0, TriggerBox_XOnly(a0)
+	bne    @TestXOnly
+	
+	; Check player vs. box intersection
 	jsr    TestGameObjBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
+	bra    @Intersect
+	
+	@TestXOnly:
+	
+	; Check player vs. box intersection on X axis only
+	jsr    TestGameObjBoxIntersectBoxX
+	cmp.b  #0x0, d0
+	beq    @NoIntersect
+	bra    @Intersect
+	
+	@TestYOnly:
+	
+	; TODO
+	
+	@Intersect:
 	
 	; Check if already triggered
 	cmp.b  #0x0, TriggerBox_Triggered(a0)

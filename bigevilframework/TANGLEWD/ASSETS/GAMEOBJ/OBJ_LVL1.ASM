@@ -123,6 +123,7 @@ TriggerBox_60_idx	equ 0x0
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 TriggerBox_59_idx	equ 0x1
 	jsr TriggerBoxInit
@@ -138,6 +139,7 @@ TriggerBox_73_idx	equ 0x2
 	move.l #0x0000f000, Entity_WorldPosY(a0)
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 TriggerBox_74_idx	equ 0x3
 	jsr TriggerBoxInit
@@ -152,6 +154,7 @@ TriggerBox_75_idx	equ 0x4
 	move.l #0x0002b800, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_FriendFleeing, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
 

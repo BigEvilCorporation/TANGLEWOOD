@@ -41,6 +41,30 @@ TestBoxIntersectBox:
 	; Fail
 	@NoIntersect:
 	rts
+	
+TestBoxIntersectBoxX:
+	; d0 (b)  Return value: 0 = no collision, 1 = collision
+	; d1 (w) Box 1 min X
+	; d2 (w) Box 1 max X
+	; d3 (w) Box 2 min X
+	; d4 (w) Box 2 max X
+	
+	move.b #0x0, d0
+	
+	; If maxX1 < minX2, bail
+	cmp.w d2, d3
+	bgt @NoIntersect
+		
+	; If minX1 > maxX2, bail
+	cmp.w d1, d4
+	blt @NoIntersect
+	
+	; Success
+	move.b #0x1, d0
+	
+	; Fail
+	@NoIntersect:
+	rts
 
 TestBoxInsideBox:
 	; d0 (b)  Return value: 0 = box 2 outside box 1, 1 = box 2 inside box 1
@@ -121,6 +145,23 @@ TestGameObjBoxIntersectBox:
 	jsr GetGameObjBoundsA0D1D2
 	jsr GetGameObjBoundsA1D3D4
 	jsr TestBoxIntersectBox
+	
+	rts
+	
+TestGameObjBoxIntersectBoxX:
+	; d0 (b) Return value
+	; a0 --- GameObj 1
+	; a1 --- GameObj 2
+	
+	jsr GetGameObjBoundsA0D1D2
+	jsr GetGameObjBoundsA1D3D4
+	
+	swap d1
+	swap d2
+	swap d3
+	swap d4
+	
+	jsr TestBoxIntersectBoxX
 	
 	rts
 	
