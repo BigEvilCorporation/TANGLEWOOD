@@ -102,6 +102,30 @@ TestBoxInsideBox:
 	@Outside:
 	rts
 	
+TestBoxInsideBoxX:
+	; d0 (b)  Return value: 0 = box 2 X outside box 1 X, 1 = box 2 X inside box 1 X
+	; d1 (w) Box 1 min X (outside box)
+	; d2 (w) Box 1 max X
+	; d3 (w) Box 2 min X (inside box)
+	; d4 (w) Box 2 max X
+	
+	move.b #0x0, d0
+
+	; If minX1 > minX2, bail
+	cmp.w d1, d3
+	blt @Outside
+	
+	; If maxX1 < maxX2, bail
+	cmp.w d2, d4
+	bgt @Outside
+	
+	; Success
+	move.b #0x1, d0
+	
+	; Fail
+	@Outside:
+	rts
+	
 TestPointInsideBox:
 	; d0 (b)  Return value: 0 = point outside box, 1 = point inside box
 	; d1 (ww) Box min XY
@@ -173,6 +197,23 @@ TestEntityBoxInsideBox:
 	jsr GetEntityBoundsA0D1D2
 	jsr GetEntityBoundsA1D3D4
 	jsr TestBoxInsideBox
+	
+	rts
+	
+TestEntityBoxInsideBoxX:
+	; d0 (b) Return value
+	; a0 --- Entity 1
+	; a1 --- Entity 2
+	
+	jsr GetEntityBoundsA0D1D2
+	jsr GetEntityBoundsA1D3D4
+	
+	swap d1
+	swap d2
+	swap d3
+	swap d4
+	
+	jsr TestBoxInsideBoxX
 	
 	rts
 	

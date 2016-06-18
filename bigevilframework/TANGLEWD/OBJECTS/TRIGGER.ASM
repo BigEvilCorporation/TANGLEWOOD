@@ -23,10 +23,18 @@ TriggerBox_RegisterA0	rs.l 1	; A Regs
 TriggerBox_RegisterA1	rs.l 1
 TriggerBox_Triggered	rs.b 1	; Box has been triggered
 TriggerBox_TriggerOnce	rs.b 1	; Trigger once
-TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis
+TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis - TODO: Implement all intersection types below
 ;--------------------------
 TriggerBox_Struct_Pad   rs.b 1	; Alignment padding
 TriggerBox_Struct_Size  rs.b 0
+
+; Intersection types
+TriggerType_Intersect	equ 0x1 ; TODO - Player intersects trigger box
+TriggerType_Contained	equ 0x2	; Player fully inside trigger box
+TriggerType_IntersectX	equ 0x3	; TODO - Player intersects trigger box on X axis only
+TriggerType_IntersectY	equ 0x4	; TODO - Player intersects trigger box on Y axis only
+TriggerType_ContainedX	equ 0x5 ; Player fully inside trigger box on X axis only
+TriggerType_ContainedY	equ 0x6	; TODO - Player fully inside trigger box on Y axis only
 
 TriggerBoxInit:
 	; a0 --- GameObj addr
@@ -77,16 +85,16 @@ TriggerBoxUpdate:
 	cmp.b  #0x0, TriggerBox_XOnly(a0)
 	bne    @TestXOnly
 	
-	; Check player vs. box intersection
-	jsr    TestEntityBoxIntersectBox
+	; Check player inside trigger box
+	jsr    TestEntityBoxInsideBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect
 	
 	@TestXOnly:
 	
-	; Check player vs. box intersection on X axis only
-	jsr    TestEntityBoxIntersectBoxX
+	; Check player inside trigger box on X axis only
+	jsr    TestEntityBoxInsideBoxX
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect
