@@ -16,6 +16,9 @@ spriteanim_djakk_idle_track_frames:
 	dc.b 0x0
 spriteanim_djakk_idle_track_posx:
 
+spriteanim_djakk_idle_track_posy:
+
+
 	Even
 
 spriteanim_djakk_roar:
@@ -24,6 +27,9 @@ spriteanim_djakk_roar_speed: equ 0x20
 spriteanim_djakk_roar_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
 spriteanim_djakk_roar_track_posx:
+
+spriteanim_djakk_roar_track_posy:
+
 
 	Even
 
@@ -34,6 +40,9 @@ spriteanim_djakk_run_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 spriteanim_djakk_run_track_posx:
 
+spriteanim_djakk_run_track_posy:
+
+
 	Even
 
 spriteanim_djakk_emerge:
@@ -42,6 +51,9 @@ spriteanim_djakk_emerge_speed: equ 0x1
 spriteanim_djakk_emerge_track_frames:
 	dc.b 0x0
 spriteanim_djakk_emerge_track_posx:
+
+spriteanim_djakk_emerge_track_posy:
+
 
 	Even
 
@@ -52,6 +64,9 @@ spriteanim_djakk_bite_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 spriteanim_djakk_bite_track_posx:
 
+spriteanim_djakk_bite_track_posy:
+
+
 	Even
 
 spriteanim_djakk_death:
@@ -61,6 +76,9 @@ spriteanim_djakk_death_track_frames:
 	dc.b 0x0
 spriteanim_djakk_death_track_posx:
 
+spriteanim_djakk_death_track_posy:
+
+
 	Even
 
 spriteanim_djakk_walk:
@@ -69,6 +87,9 @@ spriteanim_djakk_walk_speed: equ 0x14
 spriteanim_djakk_walk_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 spriteanim_djakk_walk_track_posx:
+
+spriteanim_djakk_walk_track_posy:
+
 
 	Even
 
