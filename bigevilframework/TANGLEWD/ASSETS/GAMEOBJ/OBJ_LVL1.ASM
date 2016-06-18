@@ -8,7 +8,7 @@
 
 
 gameobjects_lvl1:
-gameobjects_lvl1_Fuzzl_count equ 1
+gameobjects_lvl1_Fuzzl_count equ 0x1
 LoadGameObjects_lvl1_Fuzzl:
 Fuzzl_22_idx	equ 0x0
 	jsr FuzzlInit
@@ -18,7 +18,7 @@ Fuzzl_22_idx	equ 0x0
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Nest_count equ 1
+gameobjects_lvl1_Nest_count equ 0x1
 LoadGameObjects_lvl1_Nest:
 Nest_45_idx	equ 0x0
 	jsr NestInit
@@ -27,7 +27,7 @@ Nest_45_idx	equ 0x0
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Flue_count equ 2
+gameobjects_lvl1_Flue_count equ 0x2
 LoadGameObjects_lvl1_Flue:
 Flue_67_idx	equ 0x0
 	jsr FlueInit
@@ -41,7 +41,7 @@ Flue_71_idx	equ 0x1
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Firefly_count equ 9
+gameobjects_lvl1_Firefly_count equ 0xa
 LoadGameObjects_lvl1_Firefly:
 Firefly_18_idx	equ 0x0
 	jsr FireflyInit
@@ -53,20 +53,20 @@ Firefly_17_idx	equ 0x1
 	move.l #0x0011c000, Entity_WorldPosX(a0)
 	move.l #0x00013000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_10_idx	equ 0x2
+Firefly_81_idx	equ 0x2
 	jsr FireflyInit
-	move.l #0x000a2000, Entity_WorldPosX(a0)
+	move.l #0x0005f000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_11_idx	equ 0x3
+Firefly_80_idx	equ 0x3
 	jsr FireflyInit
-	move.l #0x000a3800, Entity_WorldPosX(a0)
-	move.l #0x0001e000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_12_idx	equ 0x4
-	jsr FireflyInit
-	move.l #0x000a5000, Entity_WorldPosX(a0)
+	move.l #0x00060000, Entity_WorldPosX(a0)
 	move.l #0x0001d800, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_79_idx	equ 0x4
+	jsr FireflyInit
+	move.l #0x00061800, Entity_WorldPosX(a0)
+	move.l #0x0001e000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_13_idx	equ 0x5
 	jsr FireflyInit
@@ -88,9 +88,14 @@ Firefly_16_idx	equ 0x8
 	move.l #0x0011b000, Entity_WorldPosX(a0)
 	move.l #0x00013800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
+Firefly_78_idx	equ 0x9
+	jsr FireflyInit
+	move.l #0x00062000, Entity_WorldPosX(a0)
+	move.l #0x0001e800, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Monster_count equ 1
+gameobjects_lvl1_Monster_count equ 0x1
 LoadGameObjects_lvl1_Monster:
 Monster_52_idx	equ 0x0
 	jsr MonsterInit
@@ -100,7 +105,7 @@ Monster_52_idx	equ 0x0
 	add.l #Monster_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Boulder_count equ 2
+gameobjects_lvl1_Boulder_count equ 0x2
 LoadGameObjects_lvl1_Boulder:
 Boulder_65_idx	equ 0x0
 	jsr BoulderInit
@@ -114,7 +119,7 @@ BoulderIntro_idx	equ 0x1
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_TriggerBox_count equ 5
+gameobjects_lvl1_TriggerBox_count equ 0x4
 LoadGameObjects_lvl1_TriggerBox:
 TriggerBox_60_idx	equ 0x0
 	jsr TriggerBoxInit
@@ -144,32 +149,24 @@ TriggerBox_73_idx	equ 0x2
 	add.l #TriggerBox_Struct_Size, a0
 TriggerCutseneBoulder_idx	equ 0x3
 	jsr TriggerBoxInit
-	move.l #0x0004f000, Entity_WorldPosX(a0)
-	move.l #0x00028800, Entity_WorldPosY(a0)
+	move.l #0x00051000, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
-TriggerBox_75_idx	equ 0x4
-	jsr TriggerBoxInit
-	move.l #0x00088800, Entity_WorldPosX(a0)
-	move.l #0x0002b800, Entity_WorldPosY(a0)
-	move.l #Lvl1_StartCutscene_FriendFleeing, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	add.l #TriggerBox_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Checkpoint_count equ 1
+gameobjects_lvl1_Checkpoint_count equ 0x1
 LoadGameObjects_lvl1_Checkpoint:
 Checkpoint_58_idx	equ 0x0
 	jsr CheckpointInit
-	move.l #0x000a6000, Entity_WorldPosX(a0)
-	move.l #0x00018000, Entity_WorldPosY(a0)
+	move.l #0x00069000, Entity_WorldPosX(a0)
+	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_WaterBody_count equ 2
+gameobjects_lvl1_WaterBody_count equ 0x2
 LoadGameObjects_lvl1_WaterBody:
 WaterBody_66_idx	equ 0x0
 	jsr WaterBodyInit
@@ -183,7 +180,7 @@ WaterBody_69_idx	equ 0x1
 	add.l #WaterBody_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Location_count equ 2
+gameobjects_lvl1_Location_count equ 0x2
 LoadGameObjects_lvl1_Location:
 LocIntroActor2_idx	equ 0x0
 	jsr LocationInit
