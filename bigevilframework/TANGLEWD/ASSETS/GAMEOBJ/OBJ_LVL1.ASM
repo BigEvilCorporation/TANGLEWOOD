@@ -181,3 +181,7 @@ WaterBody_69_idx	equ 0x1
 	add.l #WaterBody_Struct_Size, a0
 	rts
 
+gameobjects_lvl1_Location_count equ 0
+LoadGameObjects_lvl1_Location:
+	rts
+
