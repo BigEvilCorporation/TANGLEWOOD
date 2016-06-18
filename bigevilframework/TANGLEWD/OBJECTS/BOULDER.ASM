@@ -26,7 +26,7 @@ Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 ;==============================================================
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Boulder_Animation	 rs.b (Animation_Struct_Size)
 ;--------------------------
@@ -40,7 +40,7 @@ BoulderInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    GameObjInit
+	jsr    PhysicsObjInit
 	
 	; Set type
 	addi.l #entity_type_boulder, Entity_TypeBits(a0)
@@ -59,13 +59,13 @@ BoulderInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
-	move.w  #Boulder_MaxVelX, GameObj_MaxVelX(a0)
-	move.w  #Boulder_Decel, GameObj_DecelX(a0)
-	move.w  #Boulder_StepHeight, GameObj_StepHeight(a0)
-	move.w  #Boulder_ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Boulder_ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Boulder_MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Boulder_MaxVelYDown, GameObj_MaxVelYDown(a0)
+	move.w  #Boulder_MaxVelX, PhysicsObj_MaxVelX(a0)
+	move.w  #Boulder_Decel, PhysicsObj_DecelX(a0)
+	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #Boulder_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.w  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	
 	; Init roll animation
 	move.l  a0, a2
@@ -90,12 +90,12 @@ BoulderUpdate:
 
 	; Roll anim speed based on velocity
 	clr.l  d0
-	move.w GameObj_VelX(a0), d0
+	move.w PhysicsObj_VelX(a0), d0
 	divs.w #Boulder_AnimSpeedVelDiv, d0
 	move.b d0, Animation_Speed(a2)
 	
 	; If Y vel > min damage vel
-	cmp.w  #-Boulder_MinDamageYVel, GameObj_VelY(a0)
+	cmp.w  #-Boulder_MinDamageYVel, PhysicsObj_VelY(a0)
 	bge    @NotFalling
 	
 	move.l a1, -(sp)
@@ -144,7 +144,7 @@ BoulderUpdate:
 	@NotFalling:
 
 	; Base functionality
-	jsr    GameObjUpdate
+	jsr    PhysicsObjUpdate
 
 	rts
 	

@@ -22,7 +22,7 @@ WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Leaf_Animation	 rs.b (Animation_Struct_Size)
 Leaf_StartPosWorldX  rs.l 1
@@ -37,7 +37,7 @@ LeafInit:
 	; a1 --- Level addr
 	
 	; Base init
-	jsr GameObjInit
+	jsr PhysicsObjInit
 	
 	; Set type
 	addi.l #entity_type_leaf, Entity_TypeBits(a0)
@@ -54,7 +54,7 @@ LeafInit:
 	; Default state
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
-	move.b #0x0, GameObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
 
@@ -187,7 +187,7 @@ LeafUpdate:
 	; Apply speed div
 	clr.l  d2
 	ext.l  d1						; Sign extend word to long
-	move.b GameObj_SpeedDiv(a0), d2
+	move.b PhysicsObj_SpeedDiv(a0), d2
 	divs   d2, d1
 	
 	; Increment sin step
@@ -224,7 +224,7 @@ LeafUpdate:
 	move.b #0x1, AnimObj_Dirty(a0)
 	@NoAnimChange:
 	
-	jsr GameObjUpdate
+	jsr PhysicsObjUpdate
 	
 	bra @End
 	
@@ -237,7 +237,7 @@ LeafUpdate:
 	@End:
 
 	; Set velocity
-	move.w #Leaf_FallVelocity, GameObj_VelY(a0)
+	move.w #Leaf_FallVelocity, PhysicsObj_VelY(a0)
 
 	rts
 

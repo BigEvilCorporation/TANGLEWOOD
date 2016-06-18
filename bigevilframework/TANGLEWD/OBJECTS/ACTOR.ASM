@@ -56,7 +56,6 @@ Actor_Struct_Size     		rs.b 0
 ; Subroutines
 ; ************************************
 ActorInit:
-	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
 	; Base functionality
@@ -80,13 +79,13 @@ ActorInit:
 	; Setup default state
 	move.w  #ActorWidth, Entity_Width(a0)
 	move.w  #ActorHeight, Entity_Height(a0)
-	move.w  #ActorMaxVelXWalk, GameObj_MaxVelX(a0)
-	move.w  #ActorMaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #ActorMaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.w  #ActorDecelIdle, GameObj_DecelX(a0)
-	move.w  #ActorProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #ActorProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #ActorStepHeight, GameObj_StepHeight(a0)
+	move.w  #ActorMaxVelXWalk, PhysicsObj_MaxVelX(a0)
+	move.w  #ActorMaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.w  #ActorMaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.w  #ActorDecelIdle, PhysicsObj_DecelX(a0)
+	move.w  #ActorProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #ActorProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #ActorStepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.w  #ActorMaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #ActorMaxVelXRun, Character_MaxVelXRun(a0)
@@ -153,7 +152,6 @@ ActorInit:
 	rts
 	
 ActorShutdown:
-	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
 	; Remove from update and render lists

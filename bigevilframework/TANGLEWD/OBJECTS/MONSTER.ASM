@@ -130,13 +130,13 @@ MonsterInit:
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)
 	move.w  #Monster_Height, Entity_Height(a0)
-	move.w  #Monster_MaxVelXRun, GameObj_MaxVelX(a0)
-	move.w  #Monster_MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Monster_MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.w  #Monster_DecelIdle, GameObj_DecelX(a0)
-	move.w  #Monster_ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Monster_ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Monster_StepHeight, GameObj_StepHeight(a0)
+	move.w  #Monster_MaxVelXRun, PhysicsObj_MaxVelX(a0)
+	move.w  #Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.w  #Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.w  #Monster_DecelIdle, PhysicsObj_DecelX(a0)
+	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
@@ -494,8 +494,8 @@ MonsterStartEmergeFromCave:
 	
 	; Cut player X velocity
 	move.l #Player1, a2
-	move.w #0x0, GameObj_VelX(a2)
-	move.w #0x0, GameObj_AccelX(a2)
+	move.w #0x0, PhysicsObj_VelX(a2)
+	move.w #0x0, PhysicsObj_AccelX(a2)
 	
 	; Start palette lerp
 	move.l a0, -(sp)
@@ -701,7 +701,7 @@ MonsterUpdateSearchForPlayer:
 	@Move:
 	
 	; Check if hit a wall
-	cmp.b  #0x0, GameObj_HitWall(a0)
+	cmp.b  #0x0, PhysicsObj_HitWall(a0)
 	bne    @HitWall
 	
 	; Check if near target
@@ -777,7 +777,7 @@ MonsterUpdateTrackPlayer:
 	beq    @PlayerInactive
 	
 	; If player is being flung using a flue/bounce pad, don't bother
-	cmp.w  #Monster_AttackMaxPlayerVel, GameObj_VelY(a2)
+	cmp.w  #Monster_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
 	bge    @PlayerBeingFlung
 
 	; Check if player is within tracking window
@@ -804,21 +804,21 @@ MonsterUpdateTrackPlayer:
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	beq    @WithinMaxChaseDist
 	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
-	move.w #Monster_MaxVelXRun, GameObj_VelX(a0)
+	move.w #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
 	move.b #0x0, Monster_CatchingUp(a0)
 	bra    @WithinMaxChaseDist
 	
 	@OutsideMaxChaseDistL:
 	; Outside max chase dist (to the left), speed up to catch up
 	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
-	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), GameObj_VelX(a0)
+	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), PhysicsObj_VelX(a0)
 	move.b #0x1, Monster_CatchingUp(a0)
 	bra    @EndMaxDistCheck
 	
 	@OutsideMaxChaseDistR:
 	; Outside max chase dist (to the right), speed up to catch up
 	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
-	move.w #-(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), GameObj_VelX(a0)
+	move.w #-(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), PhysicsObj_VelX(a0)
 	move.b #0x1, Monster_CatchingUp(a0)
 	
 	@WithinMaxChaseDist:

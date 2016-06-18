@@ -34,7 +34,7 @@
 	ENDIF
 
 	; Include GameLib code
-	include '..\gamelib\gameobj.asm'
+	include '..\gamelib\PhysicsObj.asm'
 	include '..\gamelib\animobj.asm'
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
@@ -49,7 +49,7 @@
 	include '..\gamelib\debug.asm'  ; NOT FOR RELEASE
 	ENDIF
 
-	; Include GameObject derivatives
+	; Include PhysicsObject derivatives
 	
 	; Include game code
 	include 'input.asm'
@@ -92,7 +92,7 @@ GameLoop:
 	jsr UpdateInput
 	
 	; Update game objects
-	jsr LevelUpdateGameObjs
+	jsr LevelUpdatePhysicsObjs
 
 	; Back to top
 	jmp GameLoop
@@ -116,7 +116,7 @@ __vsync:
 	jsr UpdateMapStreaming
 	
 	; Draw game objects
-	jsr LevelDrawGameObjs
+	jsr LevelDrawPhysicsObjs
 
 	; NOT FOR RELEASE
 	IFD DEBUG

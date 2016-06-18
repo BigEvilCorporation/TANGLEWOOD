@@ -22,7 +22,7 @@ Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupa
 ;---------------------------------
 FlueOccupant_ObjAddr		rs.l 1	; Occupant GameObj address
 FlueOccupant_HoldTimer		rs.w 1	; Hold timer
-FlueOccupant_Ejecting		rs.b 1	; Currently ejecting the held GameObj
+FlueOccupant_Ejecting		rs.b 1	; Currently ejecting the held PhysicsObj
 ;---------------------------------
 FlueOccupant_Struct_Pad   	rs.b 1	; Alignment padding
 FlueOccupant_Struct_Size  	rs.b 0
@@ -89,12 +89,12 @@ FlueOccupantUpdate:
 	; a0 --- GameObj addr
 	; a2 --- Occupant desc address
 	
-	; Check if holding a GameObj
+	; Check if holding a PhysicsObj
 	move.l FlueOccupant_ObjAddr(a2), a1
 	cmp.l  #0x0, a1
 	beq    @NotHolding
 
-	; Check if still ejecting a GameObj
+	; Check if still ejecting a PhysicsObj
 	move.b FlueOccupant_Ejecting(a2), d0
 	cmp.b  #0x0, d0
 	bne    @StillEjecting
@@ -104,9 +104,9 @@ FlueOccupantUpdate:
 	cmp.w  #0x0, d0
 	bne    @TimerRunning
 
-	; Timer elapsed, eject GameObj
-	move.w Flue_EjectForceX(a0), GameObj_VelX(a1)
-	move.w Flue_EjectForceY(a0), GameObj_VelY(a1)
+	; Timer elapsed, eject PhysicsObj
+	move.w Flue_EjectForceX(a0), PhysicsObj_VelX(a1)
+	move.w Flue_EjectForceY(a0), PhysicsObj_VelY(a1)
 	move.b #0x1, FlueOccupant_Ejecting(a2)
 
 	; Snap to X centre
@@ -157,7 +157,7 @@ FlueOccupantUpdate:
 	@StillEjecting:
 	
 	; Check if inside the flue
-	jsr	   FlueTestGameObjInside
+	jsr	   FlueTestPhysicsObjInside
 
 	cmp.b  #0x0, d0
 	beq    @Outside
@@ -235,9 +235,9 @@ FlueFindOccupant:
 	@NotCharacter:
 	
 	; Check if inside the flue
-	move.l a3, a1						 ; GameObj to a1
+	move.l a3, a1						 ; PhysicsObj to a1
 	move.l d0, -(sp)					 ; Backup entity counter
-	jsr	   FlueTestGameObjInside
+	jsr	   FlueTestPhysicsObjInside
 	move.b d0, d1
 	move.l (sp)+, d0					 ; Restore entity counter
 	move.l #0x0, a1						 ; Clear a1 again, it's the return val
@@ -270,10 +270,10 @@ FlueFindOccupant:
 	
 	rts
 
-FlueTestGameObjInside:
+FlueTestPhysicsObjInside:
 	; d0 (b) Return value
-	; a0 --- GameObj 1
-	; a1 --- GameObj 2
+	; a0 --- PhysicsObj 1
+	; a1 --- PhysicsObj 2
 	
 	; Obj 1 min X
 	nop

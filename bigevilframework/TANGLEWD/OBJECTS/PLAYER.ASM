@@ -131,13 +131,13 @@ PlayerInit:
 	move.l  #Player1StartPosWorldY, Entity_WorldPosY(a0)
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
-	move.w  #Player1MaxVelXWalk, GameObj_MaxVelX(a0)
-	move.w  #Player1MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
-	move.w  #Player1DecelIdle, GameObj_DecelX(a0)
-	move.w  #Player1ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Player1ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Player1StepHeight, GameObj_StepHeight(a0)
+	move.w  #Player1MaxVelXWalk, PhysicsObj_MaxVelX(a0)
+	move.w  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.w  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
+	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
@@ -470,11 +470,11 @@ PlayerUpdateIdleSnooze:
 	; a0 --- Character address
 	
 	; If X velocity changed
-	cmp.w  #0x0, GameObj_VelX(a0)
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
 	bne    @EndSnooze
 
 	; If Y velocity upward
-	cmp.w  #0x0, GameObj_VelY(a0)
+	cmp.w  #0x0, PhysicsObj_VelY(a0)
 	bgt    @EndSnooze
 	
 	bra    @StillSnoozing
@@ -486,10 +486,10 @@ PlayerUpdateIdleSnooze:
 	move.b #0x0, Player_Snoozing(a0)
 	
 	; Cancel out the velocity used to wake up
-	move.w #0x0, GameObj_VelX(a0)
-	move.w #0x0, GameObj_VelY(a0)
-	move.w #0x0, GameObj_AccelX(a0)
-	move.w #0x0, GameObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
 	
 	; Start wake anim
 	PUSHL  a1
@@ -516,7 +516,7 @@ PlayerBeginColourSwitch:
 	mulu   #size_address, d0		; To offset
 	add.l  d0, a1					
 	move.l (a1), a0					; Get new palette address
-	move.l #PaletteId_Player, d0	; Get destination palette ID - TODO: From GameObj
+	move.l #PaletteId_Player, d0	; Get destination palette ID - TODO: From PhysicsObj
 	move.l #Player1ColourChangeSpeed, d1	; Get switch speed - TODO: From Character
 	move.b #0x0, d2					; Range min
 	move.b #0xE, d3					; Range max
@@ -579,20 +579,20 @@ PlayerStartColourAbility:
 	@Yellow:
 
 	; If in air
-	move.b GameObj_CloseToFloor(a0), d0
+	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	bne    @End
 	
 	; If -ve Y velocity
-	move.w GameObj_VelY(a0), d0
+	move.w PhysicsObj_VelY(a0), d0
 	cmp.w  #0x0, d0
 	bgt    @End
 	
 	; Gliding
 	move.b #0x1, Character_Gliding(a0)							; Set gliding
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)	; Set ability active
-	move.w #Player1MaxGlideVelocityX, GameObj_MaxVelX(a0)		; Set max glide velocity
-	move.w #Player1MaxGlideVelocityY, GameObj_MaxVelYDown(a0)
+	move.w #Player1MaxGlideVelocityX, PhysicsObj_MaxVelX(a0)		; Set max glide velocity
+	move.w #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
 	
 	bra    @End
 	
@@ -678,8 +678,8 @@ PlayerStopColourAbility:
 	
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
-	move.w #Player1MaxVelXWalk, GameObj_MaxVelX(a0)			; Reset max velocity
-	move.w #Player1MaxVelYDown, GameObj_MaxVelYDown(a0)
+	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelX(a0)			; Reset max velocity
+	move.w #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	
 	bra    @End
 	
@@ -756,12 +756,12 @@ PlayerUpdateColourAbility:
 	beq    @End
 	
 	; If in air
-	move.b GameObj_CloseToFloor(a0), d0
+	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	bne    @EndGlide
 	
 	; If -ve Y velocity
-	move.w GameObj_VelY(a0), d0
+	move.w PhysicsObj_VelY(a0), d0
 	cmp.w  #0x0, d0
 	bgt    @EndGlide
 	
@@ -796,7 +796,7 @@ PlayerUpdateColourAbility:
 	
 	@ApplyTime:
 	
-	; Apply to all GameObjs and AnimObjs (except players)
+	; Apply to all PhysicsObjs and AnimObjs (except players)
 	
 	; TODO: Pointer array per entity type
 	move.b (GlobalTimeDiv), d0
@@ -816,12 +816,12 @@ PlayerUpdateColourAbility:
 	
 	; Check if game obj
 	move.l d2, d3
-	andi.l #entity_type_gameobj, d3
+	andi.l #entity_type_physicsobj, d3
 	cmp.l  #0x0, d3
-	beq    @NotGameObj
+	beq    @NotPhysicsObj
 	
 	; Entity is a game obj
-	move.b d0, GameObj_SpeedDiv(a2)
+	move.b d0, PhysicsObj_SpeedDiv(a2)
 	
 	; Check if animobj
 	move.l d2, d3
@@ -833,7 +833,7 @@ PlayerUpdateColourAbility:
 	move.b d0, AnimObj_SpeedDiv(a2)
 	
 	@PlayerObj:
-	@NotGameObj:
+	@NotPhysicsObj:
 	@NotAnimObj:
 	move.l Entity_UpdateNext(a2), a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
@@ -939,7 +939,7 @@ PlayerInteractTest_Fuzzls:
 	move.l a1, -(sp)
 	
 	; Character must be close to floor to interact with a Fuzzl
-	move.b GameObj_CloseToFloor(a0), d0
+	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
 	
@@ -962,7 +962,7 @@ PlayerInteractTest_Fuzzls:
 	beq    @NotActive
 	
 	; Check if close to floor
-	move.b GameObj_CloseToFloor(a1), d0
+	move.b PhysicsObj_CloseToFloor(a1), d0
 	cmp.b  #0x0, d0
 	beq    @FuzzlOffFloor
 	
@@ -1117,7 +1117,7 @@ PlayerInteract_Fuzzl:
 	bge    @LeftOfFuzzl
 	
 	; On right hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, GameObj_VelX(a0)
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
 	bgt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the left, correct penetration
@@ -1134,7 +1134,7 @@ PlayerInteract_Fuzzl:
 	
 	@LeftOfFuzzl:
 	; On left hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, GameObj_VelX(a0)
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
 	blt    @NotPushingFuzzl
 	
 	; Pushing Fuzzl to the right, correct penetration
@@ -1154,11 +1154,11 @@ PlayerInteract_Fuzzl:
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a1)
 	
 	; Set its velocity to match
-	move.w GameObj_VelX(a0), GameObj_VelX(a1)
+	move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a1)
 	
 	; Scale push anim speed based on velocity
 	clr.l  d0
-	move.w GameObj_VelX(a0), d0
+	move.w PhysicsObj_VelX(a0), d0
 	cmp.w  #0x0, d0
 	bgt    @Fwd
 	neg.w  d0
@@ -1184,7 +1184,7 @@ PlayerInteractTest_Boulders:
 	move.l a1, -(sp)
 	
 	; Character must be close to floor to interact with a Boulder
-	move.b GameObj_CloseToFloor(a0), d0
+	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
 	
@@ -1207,7 +1207,7 @@ PlayerInteractTest_Boulders:
 	beq    @NotActive
 	
 	; Check if close to floor
-	move.b GameObj_CloseToFloor(a1), d0
+	move.b PhysicsObj_CloseToFloor(a1), d0
 	cmp.b  #0x0, d0
 	beq    @BoulderOffFloor
 	
@@ -1320,7 +1320,7 @@ PlayerInteract_Boulder:
 	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
 	move.l Entity_WorldPosX(a1), d1	; Boulder X
 	add.l  #(Boulder_Width*SubpixelsPerPixel)/2, d1 ; Boulder X centre
-	move.w GameObj_VelX(a0), d2			; Player velocity X
+	move.w PhysicsObj_VelX(a0), d2			; Player velocity X
 	cmp.l  d0, d1
 	bgt    @LeftOfBoulder
 	
@@ -1357,11 +1357,11 @@ PlayerInteract_Boulder:
 	@PushingBoulder:
 	
 	; Pushing the Boulder, set its velocity to match
-	move.w d2, GameObj_VelX(a1)
+	move.w d2, PhysicsObj_VelX(a1)
 	
 	; Scale roll anim speed based on velocity
 	clr.l  d0
-	move.w GameObj_VelX(a0), d0
+	move.w PhysicsObj_VelX(a0), d0
 	cmp.w  #0x0, d0
 	bgt    @Fwd
 	neg.w  d0

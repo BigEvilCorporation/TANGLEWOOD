@@ -14,9 +14,9 @@ LevelLoad:
 	jsr LevelLoadPalettes
 	jsr LevelLoadArt
 	jsr LevelLoadMap
-	jsr LevelCreateGameObjects
+	jsr LevelCreatePhysicsObjects
 	jsr LevelCreatePlayers
-	jsr LevelLoadGameObjArt
+	jsr LevelLoadPhysicsObjArt
 	
 	rts
 
@@ -106,7 +106,7 @@ LevelLoadMap:
 	
 	rts
 	
-LevelLoadGameObjArt:
+LevelLoadPhysicsObjArt:
 
 	; SpriteObjLoad:
 	; a0 --- GameObj address
@@ -141,11 +141,11 @@ LevelCreatePlayers:
 
 	rts
 	
-LevelCreateGameObjects:
+LevelCreatePhysicsObjects:
 	
 	rts
 
-LevelUpdateGameObjs:
+LevelUpdatePhysicsObjs:
 
 	move.l (CurrentLevel), a1
 	
@@ -163,7 +163,7 @@ LevelUpdateGameObjs:
 	
 	rts
 	
-LevelDrawGameObjs:
+LevelDrawPhysicsObjs:
 
 	; Players
 	move.l #EntityArray_Players, a0
@@ -191,7 +191,7 @@ LevelReset:
 	move.l  #0x0, WorldScrollY
 	move.l  #CameraStartPosWorldX, CameraWorldPosX
 	move.l  #CameraStartPosWorldY, CameraWorldPosY
-	move.l  #Player1, CameraTargetGameObj
+	move.l  #Player1, CameraTargetPhysicsObj
 	
 	; Set BG colour (level palette 1, colour 0)
 	move.w #0x8700, d1

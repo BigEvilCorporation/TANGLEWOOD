@@ -72,7 +72,7 @@ Fuzzl_NumAnims		    equ 5
 ;==============================================================
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Fuzzl_Animations	rs.b (Animation_Struct_Size*Fuzzl_NumAnims)
 Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
@@ -89,7 +89,7 @@ FuzzlInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    GameObjInit
+	jsr    PhysicsObjInit
 	
 	; Set type
 	addi.l #entity_type_fuzzl, Entity_TypeBits(a0)
@@ -110,13 +110,13 @@ FuzzlInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Fuzzl_Width, Entity_Width(a0)
 	move.w  #Fuzzl_Height, Entity_Height(a0)
-	move.w  #Fuzzl_MaxVelX, GameObj_MaxVelX(a0)
-	move.w  #Fuzzl_Decel, GameObj_DecelX(a0)
-	move.w  #Fuzzl_StepHeight, GameObj_StepHeight(a0)
-	move.w  #Fuzzl_ProbeFloorX, GameObj_FloorProbeX(a0)
-	move.w  #Fuzzl_ProbeFloorY, GameObj_FloorProbeY(a0)
-	move.w  #Fuzzl_MaxVelYUp, GameObj_MaxVelYUp(a0)
-	move.w  #Fuzzl_MaxVelYDown, GameObj_MaxVelYDown(a0)
+	move.w  #Fuzzl_MaxVelX, PhysicsObj_MaxVelX(a0)
+	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
+	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	
 	; Setup animations
@@ -213,7 +213,7 @@ FuzzlUpdate:
 	bset.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
 
 	; Do a little startled bounce
-	move.w #Fuzzl_BounceVelStartled, GameObj_VelY(a0)
+	move.w #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
 
 	bra @InitialState
 
@@ -224,7 +224,7 @@ FuzzlUpdate:
 
 	; Roll anim speed based on velocity
 	clr.l  d0
-	move.w GameObj_VelX(a0), d0
+	move.w PhysicsObj_VelX(a0), d0
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
@@ -254,7 +254,7 @@ FuzzlUpdate:
 	move.l Entity_WorldPosX(a1), Entity_WorldPosX(a0)
 	
 	; Zero X velocity
-	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
 	
 	; Fuzzl is home
 	bset.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
@@ -295,7 +295,7 @@ FuzzlUpdate:
 	btst  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
 	beq   @NotBeingFlung
 	
-	cmp.b #0x0, GameObj_OnFloor(a0)
+	cmp.b #0x0, PhysicsObj_OnFloor(a0)
 	beq   @End
 	
 	; On floor, finished flinging
@@ -311,7 +311,7 @@ FuzzlUpdate:
 	move.l (sp)+, a1
 
 	; Base functionality
-	jsr GameObjUpdate
+	jsr PhysicsObjUpdate
 
 	rts
 	
@@ -346,7 +346,7 @@ FuzzlUpdateBounce:
 	bne    @NoBounceThisFrame
 	
 	; Bounce!
-	move.w #Fuzzl_BounceVelHappy, GameObj_VelY(a0)
+	move.w #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
 	
 	; Restart timer
 	move.b #0x0, Fuzzl_BounceTimer(a0)
@@ -358,7 +358,7 @@ FuzzlUpdateBounce:
 	add.l  #Fuzzl_Animations, a2
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a2
 
-	move.b GameObj_OnFloor(a0), d0
+	move.b PhysicsObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
 	beq    @OnFloor
 	move.b #Fuzzl_AnimSpeedBounce, Animation_Speed(a2)

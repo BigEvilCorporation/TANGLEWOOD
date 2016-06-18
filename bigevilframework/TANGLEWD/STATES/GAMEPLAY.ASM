@@ -48,7 +48,7 @@ Gameplay_Enter:
 	@NoCheckpoints:
 	
 	; Snap to floor
-	jsr    GameObjSnapToFloor
+	jsr    PhysicsObjSnapToFloor
 	
 	rts
 	

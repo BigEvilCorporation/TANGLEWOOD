@@ -326,11 +326,11 @@ Lvl1_StartCutscene_FriendFleeing:
 	; Override max run velocity and ignore walls
 	move.l #EntityArray_Actors, a0
 	move.w #Lvl1_ScaredFriend1RunSpeed, Character_MaxVelXRun(a0)
-	move.b #0x0, GameObj_CollideWalls(a0)
+	move.b #0x0, PhysicsObj_CollideWalls(a0)
 	
 	add.l  #Actor_Struct_Size, a0
 	move.w #Lvl1_ScaredFriend2RunSpeed, Character_MaxVelXRun(a0)
-	move.b #0x0, GameObj_CollideWalls(a0)
+	move.b #0x0, PhysicsObj_CollideWalls(a0)
 	
 	; Override run anim speed
 	move.l #EntityArray_Actors, a0
@@ -394,7 +394,7 @@ Lvl1_StartCutscene_FriendFleeing:
 	jsr    CharacterStartRun
 	
 	; Start at max velocity
-	move.w #-Lvl1_ScaredFriend1RunSpeed, GameObj_VelX(a0)
+	move.w #-Lvl1_ScaredFriend1RunSpeed, PhysicsObj_VelX(a0)
 	
 	; Position actor 2 (offset from player)
 	; TODO: Use PosMarker
@@ -410,7 +410,7 @@ Lvl1_StartCutscene_FriendFleeing:
 	jsr    CharacterStartRun
 	
 	; Start at max velocity
-	move.w #-Lvl1_ScaredFriend2RunSpeed, GameObj_VelX(a0)
+	move.w #-Lvl1_ScaredFriend2RunSpeed, PhysicsObj_VelX(a0)
 	
 	; Set active cutscene
 	move.l #LevelData_1, a2
@@ -523,7 +523,7 @@ Lvl1_StartCutscene_BoulderRoll:
 	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
 	
 	; Roll right
-	move.w #Lvl1_BoulderAccel, GameObj_AccelX(a3)
+	move.w #Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
 	
 	; Start camera shake
 	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
@@ -573,11 +573,11 @@ Lvl1_UpdateCutscene_BoulderRoll:
 	add.l  d0, a3
 	
 	; Check if hit wall
-	cmp.b  #0x0, GameObj_HitWall(a3)
+	cmp.b  #0x0, PhysicsObj_HitWall(a3)
 	beq    @End
 	
 	; Hit wall, reverse direction and finish cutscene
-	move.w #-Lvl1_BoulderAccel, GameObj_AccelX(a3)
+	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
 	jsr    Lvl1_EndCutscene_BoulderRoll
 
 	@End:

@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Pickup_Taken        rs.b 1
 ;--------------------------
@@ -19,7 +19,7 @@ PickupInit:
 	; a1 --- Level addr
 
 	; Base functionality
-	jsr GameObjInit
+	jsr PhysicsObjInit
 	
 	; Set type
 	addi.l #entity_type_pickup, Entity_TypeBits(a0)
@@ -27,7 +27,7 @@ PickupInit:
 	; Default state
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
-	move.b #0x0, GameObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	move.b #0x0, Pickup_Taken(a0)
 
 	rts
@@ -37,7 +37,7 @@ PickupUpdate:
 	; a1 --- Level addr
 
 	; Base functionality
-	jsr GameObjUpdate
+	jsr PhysicsObjUpdate
 	rts
 
 PickupDraw:
