@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	rsset (GameObj_Struct_Size)
 ;--------------------------
 Pickup_Taken        rs.b 1
 ;--------------------------
@@ -19,7 +19,7 @@ PickupInit:
 	; a1 --- Level addr
 
 	; Base functionality
-	jsr AnimObjInit
+	jsr GameObjInit
 	
 	; Set type
 	addi.l #entity_type_pickup, Entity_TypeBits(a0)
@@ -37,7 +37,7 @@ PickupUpdate:
 	; a1 --- Level addr
 
 	; Base functionality
-	jsr AnimObjUpdate
+	jsr GameObjUpdate
 	rts
 
 PickupDraw:

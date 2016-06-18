@@ -12,7 +12,7 @@ TriggerBox_Width        equ 0x0080
 TriggerBox_Height       equ 0x0080
 
 ; Struct
-	rsset (GameObj_Struct_Size)
+	rsset (Entity_Struct_Size)
 ;--------------------------
 TriggerBox_Routine      rs.l 1	; Subroutine address
 TriggerBox_RegisterD0	rs.l 1	; D Regs
@@ -32,9 +32,6 @@ TriggerBoxInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Base init
-	jsr GameObjInit
-	
 	; Set type
 	addi.l #entity_type_trigger, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Triggers
@@ -47,8 +44,6 @@ TriggerBoxInit:
 
 	; Default state
 	move.b #0x1, Entity_Active(a0)
-	move.b #0x0, SpriteObj_Visible(a0)
-	move.b #0x0, GameObj_HasPhysics(a0)
 	move.w #TriggerBox_Width, Entity_Width(a0)
 	move.w #TriggerBox_Height, Entity_Height(a0)
 	move.b #0x0, TriggerBox_Triggered(a0)

@@ -75,7 +75,7 @@ ActorInit:
 	jsr EntityAddToRenderList
 	
 	; Update when out of view
-	move.b  #0x1, GameObj_UpdateOutOfView(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Setup default state
 	move.w  #ActorWidth, Entity_Width(a0)

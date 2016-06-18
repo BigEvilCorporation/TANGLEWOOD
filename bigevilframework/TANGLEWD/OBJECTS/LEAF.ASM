@@ -22,7 +22,7 @@ WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	rsset (GameObj_Struct_Size)
 ;--------------------------
 Leaf_Animation	 rs.b (Animation_Struct_Size)
 Leaf_StartPosWorldX  rs.l 1
@@ -37,7 +37,7 @@ LeafInit:
 	; a1 --- Level addr
 	
 	; Base init
-	jsr AnimObjInit
+	jsr GameObjInit
 	
 	; Set type
 	addi.l #entity_type_leaf, Entity_TypeBits(a0)
@@ -224,7 +224,7 @@ LeafUpdate:
 	move.b #0x1, AnimObj_Dirty(a0)
 	@NoAnimChange:
 	
-	jsr AnimObjUpdate
+	jsr GameObjUpdate
 	
 	bra @End
 	

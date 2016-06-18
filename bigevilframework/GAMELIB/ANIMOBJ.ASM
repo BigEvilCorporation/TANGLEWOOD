@@ -9,21 +9,26 @@
 ;==============================================================
 ; Animated GameObject base
 ;==============================================================
-	rsset (GameObj_Struct_Size)
+	rsset (SpriteObj_Struct_Size)
 ;--------------------------
-AnimObj_CurrentAnim		 rs.l 1
-AnimObj_AnimSubFrame     rs.l 1
-AnimObj_SpeedDiv  	     rs.b 1
-AnimObj_Playing  	     rs.b 1
-AnimObj_Dirty		     rs.b 1
+AnimObj_CurrentAnim		 rs.l 1 ; Current Animation data
+AnimObj_AnimSubFrame     rs.l 1 ; Current subframe
+AnimObj_SpeedDiv  	     rs.b 1 ; Anim speed div
+AnimObj_Playing  	     rs.b 1 ; Anim currently playing
+AnimObj_Dirty		     rs.b 1 ; Anim needs stepping forcefully
+AnimObj_UpdateOutOfView	 rs.b 1 ; Anim can update even when out of view (sprite not linked on last render)
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 1
+AnimObj_Struct_Pad       rs.b 2
 AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
 
 AnimObjInit:
-	jsr GameObjInit
+	; a0 --- AnimObj addr
+	; a1 --- Level addr
+	
+	; Init base
+	jsr SpriteObjInit
 	
 	; Set type
 	addi.l #entity_type_animobj, Entity_TypeBits(a0)
@@ -31,7 +36,6 @@ AnimObjInit:
 	; Set default state
 	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
-	move.l #0x0, SpriteObj_TilesetAddr(a0)
 	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
@@ -43,7 +47,7 @@ AnimObjDraw:
 	; a1 --- Level addr
 	
 	; Check if visibility test should be skipped
-	cmp.b  #0x0, GameObj_UpdateOutOfView(a0)
+	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	bne    @SkipVisibilityTest
 	
 	; Check if sprite linked
@@ -179,33 +183,6 @@ AnimObjDraw:
 	
 	; Base functionality
 	jsr SpriteObjDraw
-	
-	rts
-	
-AnimObjUpdate:
-	; a0 --- AnimObj addr
-	; a1 --- Level addr
-	
-	; Get current animation
-	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.l  #0x0, a2
-	beq    @NoAnim
-	
-	; Check if velocity is to be cancelled
-	cmp.b #0x0, Animation_ZeroVelocity(a2)
-	beq   @NoVelCancel
-	
-	; Cancel out acceleration + velocity
-	move.w #0x0, GameObj_AccelX(a0)
-	move.w #0x0, GameObj_AccelY(a0)
-	move.w #0x0, GameObj_VelX(a0)
-	move.w #0x0, GameObj_VelY(a0)
-	
-	@NoVelCancel:
-	@NoAnim:
-	
-	; Base functionality
-	jsr GameObjUpdate
 	
 	rts
 

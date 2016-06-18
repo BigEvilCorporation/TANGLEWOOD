@@ -27,7 +27,7 @@ Character_NumAnims			equ 10
 ; ************************************
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	rsset (GameObj_Struct_Size)
 ;--------------------------
 Character_Animations	rs.b (Animation_Struct_Size*Character_NumAnims)
 Character_LastLedgeX	rs.l 1
@@ -67,7 +67,7 @@ Character_Struct_Size   rs.b 0
 CharacterInit:
 
 	; Base functionality
-	jsr AnimObjInit
+	jsr GameObjInit
 	
 	; Set type
 	addi.l #entity_type_character, Entity_TypeBits(a0)
@@ -96,7 +96,7 @@ CharacterUpdate:
 	; a1 --- Level addr
 	
 	; Base functionality
-	jsr AnimObjUpdate
+	jsr GameObjUpdate
 	
 	; If on floor, no longer jumping
 	move.b GameObj_OnFloor(a0), d0

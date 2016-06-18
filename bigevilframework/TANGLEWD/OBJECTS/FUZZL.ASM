@@ -72,7 +72,7 @@ Fuzzl_NumAnims		    equ 5
 ;==============================================================
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	rsset (GameObj_Struct_Size)
 ;--------------------------
 Fuzzl_Animations	rs.b (Animation_Struct_Size*Fuzzl_NumAnims)
 Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
@@ -89,7 +89,7 @@ FuzzlInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    AnimObjInit
+	jsr    GameObjInit
 	
 	; Set type
 	addi.l #entity_type_fuzzl, Entity_TypeBits(a0)
@@ -311,7 +311,7 @@ FuzzlUpdate:
 	move.l (sp)+, a1
 
 	; Base functionality
-	jsr AnimObjUpdate
+	jsr GameObjUpdate
 
 	rts
 	

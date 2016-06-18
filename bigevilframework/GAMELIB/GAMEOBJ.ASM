@@ -9,7 +9,7 @@
 ;==============================================================
 ; GameObject
 ;==============================================================
-	rsset SpriteObj_Struct_Size
+	rsset AnimObj_Struct_Size
 GameObj_LastWall     	 rs.l 1 ; Last detected wall X
 GameObj_LastFloor     	 rs.l 1 ; Last detected floor Y
 GameObj_Gravity  		 rs.w 1 ; Gravity
@@ -26,7 +26,6 @@ GameObj_FloorProbeY		 rs.w 1 ; Floor probe Y offset
 GameObj_StepHeight	     rs.w 1 ; Step height
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 GameObj_CollideWalls	 rs.b 1 ; Collides with walls
-GameObj_UpdateOutOfView	 rs.b 1 ; GameObj can update even when out of view (sprite not linked on last render)
 GameObj_OnFloor			 rs.b 1 ; Object is on floor
 GameObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 GameObj_HitWall			 rs.b 1 ; Object is touching a wall
@@ -34,7 +33,7 @@ GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 GameObj_SnapToFloor		 rs.b 1 ; Object should snap to floor if within step height
 ;------------------------------
-GameObj_Struct_Pad       rs.b 3
+GameObj_Struct_Pad       rs.b 0
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -52,7 +51,7 @@ GameObjInit:
 	move.l (sp)+, a0
 	
 	; Init base
-	jsr    SpriteObjInit
+	jsr    AnimObjInit
 	
 	; Set type
 	addi.l #entity_type_gameobj, Entity_TypeBits(a0)
@@ -79,7 +78,7 @@ GameObjUpdate:
 	beq    @Inactive
 	
 	; If not configured to update out of view, and out of view, jump to end
-	cmp.b  #0x0, GameObj_UpdateOutOfView(a0)
+	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	bne    @UpdateOutOfView
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
 	beq    @OutOfView
@@ -88,6 +87,27 @@ GameObjUpdate:
 	move.b GameObj_HasPhysics(a0), d0
 	cmp.b  #0x0, d0
 	beq    @NoPhysics
+	
+	; Get current animation
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoAnim
+	
+	; Check if velocity is to be cancelled
+	cmp.b #0x0, Animation_ZeroVelocity(a2)
+	beq   @NoVelCancel
+	
+	; Cancel out acceleration + velocity
+	move.w #0x0, GameObj_AccelX(a0)
+	move.w #0x0, GameObj_AccelY(a0)
+	move.w #0x0, GameObj_VelX(a0)
+	move.w #0x0, GameObj_VelY(a0)
+	
+	; Bail
+	bra    @NoPhysics
+	
+	@NoVelCancel:
+	@NoAnim:
 
 	; Apply acceleration
 	jsr GameObjApplyAccelDecel
@@ -110,6 +130,9 @@ GameObjUpdate:
 	
 	; Clamp pos to level space
 	jsr GameObjClampPos
+	
+	; Base functionality
+	jsr SpriteObjUpdate
 	
 	bra @End
 

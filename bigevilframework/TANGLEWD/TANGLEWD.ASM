@@ -45,14 +45,16 @@ __start
 	
 	; Include GameLib macros
 	include '..\gamelib\macros.asm'
+	
+	; Include Entity derivatives in inheritance order
+	include '..\gamelib\entity.asm'
+	include '..\gamelib\sprtobj.asm'
+	include '..\gamelib\animobj.asm'
+	include '..\gamelib\gameobj.asm'
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
 	include '..\gamelib\effects.asm'
-	include '..\gamelib\entity.asm'
-	include '..\gamelib\sprtobj.asm'
-	include '..\gamelib\gameobj.asm'
-	include '..\gamelib\animobj.asm'
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
 	include '..\gamelib\colour.asm'

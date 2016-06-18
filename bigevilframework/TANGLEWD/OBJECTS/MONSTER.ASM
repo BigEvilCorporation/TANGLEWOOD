@@ -125,7 +125,7 @@ MonsterInit:
 	jsr EntityAddToRenderList
 	
 	; Update when out of view
-	move.b  #0x1, GameObj_UpdateOutOfView(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)

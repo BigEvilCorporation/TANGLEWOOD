@@ -26,7 +26,7 @@ Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 ;==============================================================
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	rsset (GameObj_Struct_Size)
 ;--------------------------
 Boulder_Animation	 rs.b (Animation_Struct_Size)
 ;--------------------------
@@ -40,7 +40,7 @@ BoulderInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    AnimObjInit
+	jsr    GameObjInit
 	
 	; Set type
 	addi.l #entity_type_boulder, Entity_TypeBits(a0)
@@ -144,7 +144,7 @@ BoulderUpdate:
 	@NotFalling:
 
 	; Base functionality
-	jsr    AnimObjUpdate
+	jsr    GameObjUpdate
 
 	rts
 	

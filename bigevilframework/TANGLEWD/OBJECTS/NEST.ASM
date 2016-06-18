@@ -23,9 +23,6 @@ NestInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Base init
-	jsr    GameObjInit
-	
 	; Set type
 	addi.l #entity_type_nest, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Nests
