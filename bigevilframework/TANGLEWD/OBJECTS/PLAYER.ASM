@@ -296,8 +296,8 @@ PlayerInit:
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Sleep), a3
 	move.w #spritesheet_nymn_sleep_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_sleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.l #spriteanim_nymn_sleep_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_sleep_track_posy, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_sleep_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_sleep_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -308,8 +308,8 @@ PlayerInit:
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
 	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_laydown_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.l #spriteanim_nymn_laydown_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_laydown_track_posy, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_laydown_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_laydown_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
@@ -320,8 +320,8 @@ PlayerInit:
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Wake), a3
 	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_wake_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.l #spriteanim_nymn_wake_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_wake_track_posy, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_wake_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_wake_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
@@ -332,8 +332,8 @@ PlayerInit:
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_wakesleep), a3
 	move.w #spritesheet_nymn_laydown_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_wakesleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.l #spriteanim_nymn_wakesleep_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_wakesleep_track_posy, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_wakesleep_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_wakesleep_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
