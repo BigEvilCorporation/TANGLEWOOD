@@ -957,7 +957,7 @@ PlayerInteractTest_Fuzzls:
 	beq    @NotVisible
 	
 	; Check if active
-	move.b GameObj_Active(a1), d0
+	move.b Entity_Active(a1), d0
 	cmp.b  #0x0, d0
 	beq    @NotActive
 	
@@ -991,7 +991,7 @@ PlayerInteractTest_Fuzzls:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    GetGameObjBoundsA1D3D4
+	jsr    GetEntityBoundsA1D3D4
 	
 	; Test box intersection
 	jsr    TestBoxIntersectBox
@@ -1094,7 +1094,7 @@ PlayerInteract_Fuzzl:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    GetGameObjBoundsA1D3D4
+	jsr    GetEntityBoundsA1D3D4
 	
 	; Test box intersection
 	jsr    TestBoxIntersectBox
@@ -1202,7 +1202,7 @@ PlayerInteractTest_Boulders:
 	beq    @NotVisible
 	
 	; Check if active
-	move.b GameObj_Active(a1), d0
+	move.b Entity_Active(a1), d0
 	cmp.b  #0x0, d0
 	beq    @NotActive
 	
@@ -1235,7 +1235,7 @@ PlayerInteractTest_Boulders:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    GetGameObjBoundsA1D3D4
+	jsr    GetEntityBoundsA1D3D4
 	
 	; Test box intersection
 	jsr    TestBoxIntersectBox
@@ -1305,7 +1305,7 @@ PlayerInteract_Boulder:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    GetGameObjBoundsA1D3D4
+	jsr    GetEntityBoundsA1D3D4
 	
 	; Test box intersection
 	jsr    TestBoxIntersectBox
@@ -1429,7 +1429,7 @@ PlayerInteractTest_Water:
 	@BodyLoop:
 	
 	; Check player vs. box
-	jsr    TestGameObjBoxIntersectBox
+	jsr    TestEntityBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	

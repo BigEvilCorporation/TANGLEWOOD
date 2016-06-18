@@ -22,7 +22,9 @@ Entity_WorldPosX        rs.l 1 ; Position X (world space)
 Entity_WorldPosY        rs.l 1 ; Position Y (world space)
 Entity_Width            rs.w 1 ; Width (pixels)
 Entity_Height           rs.w 1 ; Height(pixels)
+Entity_Active           rs.b 1 ; Active flag
 ;-----------------------------
+Entity_Struct_Pad		rs.b 3
 Entity_Struct_Size		rs.b 0
 
 ;==============================================================

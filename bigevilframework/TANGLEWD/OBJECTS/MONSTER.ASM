@@ -151,7 +151,7 @@ MonsterInit:
 	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	; Default state
-	move.b  #0x1, GameObj_Active(a0)
+	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.b  #ColourRed, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
@@ -439,7 +439,7 @@ MonsterUpdateWaitForPlayer:
 	; Get distance to player
 	move.l a1, -(sp)
 	move.l #Player1, a1
-	jsr    GameObjectDistSq
+	jsr    EntityDistSq
 	move.l (sp)+, a1
 	
 	; Check if within rumble sound dist
@@ -630,7 +630,7 @@ MonsterUpdateSearchForPlayer:
 	beq    @Searching
 	
 	; If player inactive, search around
-	cmp.b  #0x0, GameObj_Active(a2)
+	cmp.b  #0x0, Entity_Active(a2)
 	beq    @Searching
 	
 	; Check if player is within tracking window
@@ -773,7 +773,7 @@ MonsterUpdateTrackPlayer:
 	beq    @PlayerDead
 	
 	; If player inactive, don't bother
-	cmp.b  #0x0, GameObj_Active(a2)
+	cmp.b  #0x0, Entity_Active(a2)
 	beq    @PlayerInactive
 	
 	; If player is being flung using a flue/bounce pad, don't bother
@@ -839,7 +839,7 @@ MonsterUpdateTrackPlayer:
 	; Attack if bounds intersect
 	PUSHL  a1
 	move.l a2, a1
-	jsr    TestGameObjBoxIntersectBox
+	jsr    TestEntityBoxIntersectBox
 	POPL   a1
 	
 	cmp.b  #0x0, d0

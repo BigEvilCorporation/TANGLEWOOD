@@ -54,7 +54,7 @@ AnimObjDraw:
 	@SkipVisibilityTest:
 
 	; Check if gameobj active
-	move.b GameObj_Active(a0), d0
+	move.b Entity_Active(a0), d0
 	cmp.b  #0x0, d0
 	beq    @Inactive
 	

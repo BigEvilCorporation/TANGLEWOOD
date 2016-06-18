@@ -25,7 +25,7 @@ PickupInit:
 	addi.l #entity_type_pickup, Entity_TypeBits(a0)
 
 	; Default state
-	move.b #0x1, GameObj_Active(a0)
+	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.b #0x0, Pickup_Taken(a0)
@@ -54,12 +54,12 @@ PickupTestObj:
 	; d0 (b) Out - picked up
 	
 	; Test bounds intersection
-	jsr   TestGameObjBoxIntersectBox
+	jsr   TestEntityBoxIntersectBox
 	cmp.b #0x0, d0
 	beq   @NoIntersection
 	
 	; Intersection, disable and mark as picked up
-	move.b #0x0, GameObj_Active(a0)
+	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 	move.b #0x1, Pickup_Taken(a0)
 	

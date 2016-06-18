@@ -46,7 +46,7 @@ TriggerBoxInit:
 	jsr EntityAddToUpdateList
 
 	; Default state
-	move.b #0x1, GameObj_Active(a0)
+	move.b #0x1, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.w #TriggerBox_Width, Entity_Width(a0)
@@ -63,7 +63,7 @@ TriggerBoxUpdate:
 	move.l a1, -(sp)
 	
 	; Check if enabled
-	cmp.b  #0x0, GameObj_Active(a0)
+	cmp.b  #0x0, Entity_Active(a0)
 	beq    @Inactive
 	
 	; Check if box can be triggered multiple times
@@ -83,7 +83,7 @@ TriggerBoxUpdate:
 	bne    @TestXOnly
 	
 	; Check player vs. box intersection
-	jsr    TestGameObjBoxIntersectBox
+	jsr    TestEntityBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect
@@ -91,7 +91,7 @@ TriggerBoxUpdate:
 	@TestXOnly:
 	
 	; Check player vs. box intersection on X axis only
-	jsr    TestGameObjBoxIntersectBoxX
+	jsr    TestEntityBoxIntersectBoxX
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect

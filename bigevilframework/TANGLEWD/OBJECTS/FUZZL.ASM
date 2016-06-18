@@ -106,7 +106,7 @@ FuzzlInit:
 	; Default state
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
-	move.b  #0x1, GameObj_Active(a0)
+	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Fuzzl_Width, Entity_Width(a0)
 	move.w  #Fuzzl_Height, Entity_Height(a0)
@@ -192,7 +192,7 @@ FuzzlUpdate:
 	; Check if Fuzzl is far from player
 	move.l a1, -(sp)
 	move.l #Player1, a1
-	jsr    GameObjectDistSq
+	jsr    EntityDistSq
 	move.l (sp)+, a1
 	
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outer distance
@@ -243,7 +243,7 @@ FuzzlUpdate:
 	
 	; Check if touching a nest
 	move.l d6, -(sp)
-	jsr TestGameObjBoxIntersectBox
+	jsr TestEntityBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0

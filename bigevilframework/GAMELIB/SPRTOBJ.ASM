@@ -37,20 +37,22 @@ SpriteObjInit:
 	; Set type
 	addi.l #entity_type_spriteobj, Entity_TypeBits(a0)
 	
-	move.l #0x1, SpriteObj_SubSpriteOffArr
-	move.l #0x1, SpriteObj_SubSpriteOffArrF
-	move.l #0x1, SpriteObj_TilesetAddr
-	move.l #0x1, SpriteObj_VRAMAddr 
-	move.w #0x1, SpriteObj_DrawOffsetX
-	move.w #0x1, SpriteObj_DrawOffsetY
-	move.w #0x1, SpriteObj_TilesetSize
-	move.w #0x1, SpriteObj_Dimensions
-	move.b #0x1, SpriteObj_SpriteID
-	move.b #0x1, SpriteObj_NumSubSprites
-	move.b #0x1, SpriteObj_FlippedX
-	move.b #0x1, SpriteObj_FlippedY    
-	move.b #0x1, SpriteObj_Visible
-	move.b #0x1, SpriteObj_SpriteLinked
+	; Set default state
+	move.b #0x1, Entity_Active(a0)
+	move.l #0x0, SpriteObj_SubSpriteOffArr(a0)
+	move.l #0x0, SpriteObj_SubSpriteOffArrF(a0)
+	move.l #0x0, SpriteObj_TilesetAddr(a0)
+	move.l #0x0, SpriteObj_VRAMAddr(a0)
+	move.w #0x0, SpriteObj_DrawOffsetX(a0)
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+	move.w #0x0, SpriteObj_TilesetSize(a0)
+	move.w #0x0, SpriteObj_Dimensions(a0)
+	move.b #0x0, SpriteObj_SpriteID(a0)
+	move.b #0x0, SpriteObj_NumSubSprites(a0)
+	move.b #0x0, SpriteObj_FlippedX(a0)
+	move.b #0x0, SpriteObj_FlippedY(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+	move.b #0x0, SpriteObj_SpriteLinked(a0)
 
 	rts
 	

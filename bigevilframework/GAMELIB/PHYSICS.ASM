@@ -137,24 +137,24 @@ TestPointInsideBox:
 	@Outside:
 	rts
 	
-TestGameObjBoxIntersectBox:
+TestEntityBoxIntersectBox:
 	; d0 (b) Return value
-	; a0 --- GameObj 1
-	; a1 --- GameObj 2
+	; a0 --- Entity 1
+	; a1 --- Entity 2
 	
-	jsr GetGameObjBoundsA0D1D2
-	jsr GetGameObjBoundsA1D3D4
+	jsr GetEntityBoundsA0D1D2
+	jsr GetEntityBoundsA1D3D4
 	jsr TestBoxIntersectBox
 	
 	rts
 	
-TestGameObjBoxIntersectBoxX:
+TestEntityBoxIntersectBoxX:
 	; d0 (b) Return value
-	; a0 --- GameObj 1
-	; a1 --- GameObj 2
+	; a0 --- Entity 1
+	; a1 --- Entity 2
 	
-	jsr GetGameObjBoundsA0D1D2
-	jsr GetGameObjBoundsA1D3D4
+	jsr GetEntityBoundsA0D1D2
+	jsr GetEntityBoundsA1D3D4
 	
 	swap d1
 	swap d2
@@ -165,31 +165,31 @@ TestGameObjBoxIntersectBoxX:
 	
 	rts
 	
-TestGameObjBoxInsideBox:
+TestEntityBoxInsideBox:
 	; d0 (b) Return value
-	; a0 --- GameObj 1
-	; a1 --- GameObj 2
+	; a0 --- Entity 1
+	; a1 --- Entity 2
 	
-	jsr GetGameObjBoundsA0D1D2
-	jsr GetGameObjBoundsA1D3D4
+	jsr GetEntityBoundsA0D1D2
+	jsr GetEntityBoundsA1D3D4
 	jsr TestBoxInsideBox
 	
 	rts
 	
-TestGameObjPointInsideBounds:
+TestEntityPointInsideBounds:
 	; d0 (b)  Return value
 	; d3 (ww) Point XY
-	; a0 ---- GameObj
+	; a0 ---- Entity
 	
-	jsr GetGameObjBoundsA0D1D2
+	jsr GetEntityBoundsA0D1D2
 	jsr TestPointInsideBox
 	
 	rts
 
-GameObjectDistSq:
+EntityDistSq:
 	; d0 (l) Return value (pixel space)
-	; a0 --- GameObj 1
-	; a1 --- GameObj 2
+	; a0 --- Entity 1
+	; a1 --- Entity 2
 
 	; Obj 1 X
 	move.l Entity_WorldPosX(a0), d0	; X
@@ -215,9 +215,9 @@ GameObjectDistSq:
 
 	rts
 	
-GetGameObjBoundsA0D1D2:
+GetEntityBoundsA0D1D2:
 	; d1/d2 (ww) Return value
-	; a0 --- GameObj
+	; a0 --- Entity
 	
 	; Obj 1 min X
 	move.l Entity_WorldPosX(a0), d1		; X
@@ -242,9 +242,9 @@ GetGameObjBoundsA0D1D2:
 	
 	rts
 	
-GetGameObjBoundsA1D3D4:
+GetEntityBoundsA1D3D4:
 	; d3/d4 (ww) Return value
-	; a1 --- GameObj
+	; a1 --- Entity
 	
 	; Obj 2 min X
 	move.l Entity_WorldPosX(a1), d3		; X

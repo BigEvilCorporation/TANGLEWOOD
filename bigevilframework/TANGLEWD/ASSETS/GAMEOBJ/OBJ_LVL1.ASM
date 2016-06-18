@@ -96,7 +96,7 @@ Monster_52_idx	equ 0x0
 	jsr MonsterInit
 	move.l #0x00232800, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
-	move.b #0x1, GameObj_FlippedX(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 
@@ -107,7 +107,7 @@ Boulder_65_idx	equ 0x0
 	move.l #0x001a8000, Entity_WorldPosX(a0)
 	move.l #0x00026000, Entity_WorldPosY(a0)
 	add.l #Boulder_Struct_Size, a0
-Boulder_72_idx	equ 0x1
+BoulderIntro_idx	equ 0x1
 	jsr BoulderInit
 	move.l #0x0002b800, Entity_WorldPosX(a0)
 	move.l #0x0000f000, Entity_WorldPosY(a0)

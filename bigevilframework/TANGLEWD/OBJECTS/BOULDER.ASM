@@ -55,7 +55,7 @@ BoulderInit:
 	jsr    EntityAddToRenderList
 	
 	; Default state
-	move.b  #0x1, GameObj_Active(a0)
+	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
@@ -110,7 +110,7 @@ BoulderUpdate:
 	move.l d6, -(sp)
 	
 	; Check monster active
-	cmp.b  #0x0, GameObj_Active(a1)
+	cmp.b  #0x0, Entity_Active(a1)
 	beq    @NextMonster
 	
 	; Check monster alive
@@ -118,8 +118,8 @@ BoulderUpdate:
 	bne    @NextMonster
 	
 	; Bounds check
-	jsr   GetGameObjBoundsA0D1D2
-	jsr   GetGameObjBoundsA1D3D4
+	jsr   GetEntityBoundsA0D1D2
+	jsr   GetEntityBoundsA1D3D4
 	jsr   TestBoxIntersectBox
 	cmp.b #0x0, d0
 	beq   @NextMonster

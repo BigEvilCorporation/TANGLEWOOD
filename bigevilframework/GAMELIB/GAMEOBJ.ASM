@@ -24,7 +24,6 @@ GameObj_MaxVelYDown		 rs.w 1 ; Max Y velocity down
 GameObj_FloorProbeX		 rs.w 1 ; Floor probe X offset
 GameObj_FloorProbeY		 rs.w 1 ; Floor probe Y offset
 GameObj_StepHeight	     rs.w 1 ; Step height
-GameObj_Active           rs.b 1	; Can update
 GameObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 GameObj_CollideWalls	 rs.b 1 ; Collides with walls
 GameObj_UpdateOutOfView	 rs.b 1 ; GameObj can update even when out of view (sprite not linked on last render)
@@ -35,7 +34,7 @@ GameObj_Solid			 rs.b 1 ; Object is solid
 GameObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 GameObj_SnapToFloor		 rs.b 1 ; Object should snap to floor if within step height
 ;------------------------------
-GameObj_Struct_Pad       rs.b 2
+GameObj_Struct_Pad       rs.b 3
 GameObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -58,7 +57,6 @@ GameObjInit:
 	; Set type
 	addi.l #entity_type_gameobj, Entity_TypeBits(a0)
 	
-	move.b #0x1, GameObj_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 	move.b #0x1, GameObj_HasPhysics(a0)
@@ -76,7 +74,7 @@ GameObjUpdate:
 	move.l a1, -(sp)
 	
 	; If inactive, jump to end
-	move.b GameObj_Active(a0), d0
+	move.b Entity_Active(a0), d0
 	cmp.b  #0x0, d0
 	beq    @Inactive
 	

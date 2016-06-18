@@ -27,7 +27,7 @@ Firefly_Struct_Size  rs.b 0+2 ; Alignment padding
 ;==============================================================
 
 FireflyInit:
-	; a0 --- GameObj addr
+	; a0 --- Firefly addr
 	; a1 --- Level addr
 	
 	; Base functionality
@@ -75,7 +75,7 @@ FireflyInit:
 	rts
 
 FireflyUpdate:
-	; a0 --- GameObj addr
+	; a0 --- Firefly addr
 	; a1 --- Level addr
 
 	; Base functionality
@@ -91,7 +91,7 @@ FireflyUpdate:
 	bne   @TimerRunning
 
 	; Timer elapsed, reset pickup
-	move.b #0x1, GameObj_Active(a0)
+	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, Pickup_Taken(a0)
 
