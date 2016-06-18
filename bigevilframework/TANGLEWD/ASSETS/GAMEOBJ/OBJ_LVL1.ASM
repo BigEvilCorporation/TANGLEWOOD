@@ -125,32 +125,34 @@ TriggerBox_60_idx	equ 0x0
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
-TriggerBox_59_idx	equ 0x1
+TriggerTODDusk_idx	equ 0x1
 	jsr TriggerBoxInit
 	move.l #0x0014e000, Entity_WorldPosX(a0)
 	move.l #0x0000f800, Entity_WorldPosY(a0)
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 TriggerBox_73_idx	equ 0x2
 	jsr TriggerBoxInit
-	move.l #0x002c9000, Entity_WorldPosX(a0)
-	move.l #0x0000f000, Entity_WorldPosY(a0)
+	move.l #0x002c3000, Entity_WorldPosX(a0)
+	move.l #0x0000f800, Entity_WorldPosY(a0)
 	move.l #Lvl1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
-TriggerBox_74_idx	equ 0x3
+TriggerCutseneBoulder_idx	equ 0x3
 	jsr TriggerBoxInit
 	move.l #0x0004f000, Entity_WorldPosX(a0)
 	move.l #0x00028800, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 TriggerBox_75_idx	equ 0x4
 	jsr TriggerBoxInit
-	move.l #0x00081000, Entity_WorldPosX(a0)
+	move.l #0x00088800, Entity_WorldPosX(a0)
 	move.l #0x0002b800, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_FriendFleeing, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -162,7 +164,7 @@ gameobjects_lvl1_Checkpoint_count equ 1
 LoadGameObjects_lvl1_Checkpoint:
 Checkpoint_58_idx	equ 0x0
 	jsr CheckpointInit
-	move.l #0x000a6800, Entity_WorldPosX(a0)
+	move.l #0x000a6000, Entity_WorldPosX(a0)
 	move.l #0x00018000, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
