@@ -110,6 +110,10 @@ Lvl1_Init:
 	; Water bodies
 	move.l #EntityArray_WaterBodies, a0
 	jsr    LoadGameObjects_lvl1_WaterBody
+	
+	; Locations
+	;move.l #EntityArray_Locations, a0
+	;jsr    LoadGameObjects_lvl1_Location
     
 	; Leaves
 	; TODO: Leaf generator
@@ -352,7 +356,7 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.b #sprite_nymn_size_subsprites, d2
 	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteId_Fuzzl, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	
 	; Load actor 2 sprite sheet (using Djakk VRAM space and palette)
 	add.l  #Actor_Struct_Size, a0
@@ -365,7 +369,7 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.b #sprite_nymn_size_subsprites, d2
 	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteId_Monster, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	
 	; Load palettes	
 	lea    Pal_Nymn_Green, a0
@@ -439,7 +443,7 @@ Lvl1_EndCutscene_FriendFleeing:
 	move.b #sprite_djakk_size_subsprites, d2
 	move.w #sprite_djakk_widthheight_subsprites, d3
 	move.b #PaletteID_Monster, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	@NoMonsters:
 	
 	; Reload Djakk palette
@@ -505,7 +509,7 @@ Lvl1_StartCutscene_BoulderRoll:
 	move.b #0x0, Player1ControlEnabled
 	
 	; Get boulder
-	move.l #Boulder_72_idx, d0
+	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulders, a3
 	add.l  d0, a3
@@ -538,7 +542,7 @@ Lvl1_EndCutscene_BoulderRoll:
 	move.w #0x0, CameraShakeAmpY
 	
 	; Get boulder
-	move.l #Boulder_72_idx, d0
+	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulders, a3
 	add.l  d0, a3
@@ -563,7 +567,7 @@ Lvl1_EndCutscene_BoulderRoll:
 Lvl1_UpdateCutscene_BoulderRoll:
 
 	; Get boulder
-	move.l #Boulder_72_idx, d0
+	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulders, a3
 	add.l  d0, a3

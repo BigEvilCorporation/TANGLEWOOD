@@ -107,7 +107,7 @@ FuzzlInit:
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #0x1, GameObj_Active(a0)
-	move.b  #0x1, GameObj_Visible(a0)
+	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Fuzzl_Width, Entity_Width(a0)
 	move.w  #Fuzzl_Height, Entity_Height(a0)
 	move.w  #Fuzzl_MaxVelX, GameObj_MaxVelX(a0)

@@ -54,7 +54,7 @@ FlueInit:
 
 	; Default state
 	move.b #0x0, GameObj_Active(a0)
-	move.b #0x0, GameObj_Visible(a0)	; Flue graphics are baked into the level
+	move.b #0x0, SpriteObj_Visible(a0)	; Flue graphics are baked into the level
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	
@@ -151,7 +151,7 @@ FlueOccupantUpdate:
 	@NotFuzzl:
 
 	; Visible and active
-	move.b #0x1, GameObj_Visible(a1)
+	move.b #0x1, SpriteObj_Visible(a1)
 	move.b #0x1, GameObj_Active(a1)
 	
 	@StillEjecting:
@@ -178,7 +178,7 @@ FlueOccupantUpdate:
 	@AlreadyHolding:
 
 	; Object inside and not yet ejected, set invisible and hold in place
-	move.b #0x0, GameObj_Visible(a1)
+	move.b #0x0, SpriteObj_Visible(a1)
 	move.b #0x0, GameObj_Active(a1)
 
 	; Set current gameobj ptr

@@ -63,6 +63,10 @@ Lvl2_Init:
 	; Water bodies
 	;move.l #EntityArray_WaterBodies, a0
 	;jsr    LoadGameObjects_lvl2_WaterBody
+	
+	; Locations
+	;move.l #EntityArray_Locations, a0
+	;jsr    LoadGameObjects_lvl2_Location
     
 	; Leaves
 	; TODO: Leaf generator

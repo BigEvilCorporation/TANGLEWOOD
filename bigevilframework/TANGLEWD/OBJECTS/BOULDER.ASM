@@ -56,7 +56,7 @@ BoulderInit:
 	
 	; Default state
 	move.b  #0x1, GameObj_Active(a0)
-	move.b  #0x1, GameObj_Visible(a0)
+	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
 	move.w  #Boulder_MaxVelX, GameObj_MaxVelX(a0)

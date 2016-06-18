@@ -174,10 +174,10 @@ CharacterApplySpriteFlip:
 	beq    @NoFlip
 	blt    @FlipLeft
 	@FlipRight:
-	move.b #0x0, GameObj_FlippedX(a0)
+	move.b #0x0, SpriteObj_FlippedX(a0)
 	jmp    @NoFlip
 	@FlipLeft:
-	move.b #0x1, GameObj_FlippedX(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	@NoFlip:
 	
 	rts

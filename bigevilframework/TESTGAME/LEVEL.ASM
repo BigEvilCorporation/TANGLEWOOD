@@ -108,7 +108,7 @@ LevelLoadMap:
 	
 LevelLoadGameObjArt:
 
-	; GameObjLoadMultiSprite:
+	; SpriteObjLoad:
 	; a0 --- GameObj address
 	; a1 --- Tileset address
 	; a2 --- Multi-sprite dimentions bits array address
@@ -129,7 +129,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_sonic_size_subsprites, d2
 	move.w #sprite_sonic_dimensions, d3
 	move.b #PaletteID_Player, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	
 	rts
 

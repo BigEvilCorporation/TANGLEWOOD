@@ -50,6 +50,7 @@ __start
 	include '..\gamelib\anim.asm'
 	include '..\gamelib\effects.asm'
 	include '..\gamelib\entity.asm'
+	include '..\gamelib\sprtobj.asm'
 	include '..\gamelib\gameobj.asm'
 	include '..\gamelib\animobj.asm'
 	include '..\gamelib\camera.asm'
@@ -76,6 +77,7 @@ __start
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\leaf.asm'
+	include 'objects\location.asm'
 	include 'objects\monster.asm'
 	include 'objects\nest.asm'
 	include 'objects\player.asm'
@@ -133,8 +135,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
-	;lea GameStateGameplay, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

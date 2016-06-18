@@ -26,7 +26,7 @@ PickupInit:
 
 	; Default state
 	move.b #0x1, GameObj_Active(a0)
-	move.b #0x1, GameObj_Visible(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.b #0x0, Pickup_Taken(a0)
 
@@ -60,7 +60,7 @@ PickupTestObj:
 	
 	; Intersection, disable and mark as picked up
 	move.b #0x0, GameObj_Active(a0)
-	move.b #0x0, GameObj_Visible(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 	move.b #0x1, Pickup_Taken(a0)
 	
 	@NoIntersection:

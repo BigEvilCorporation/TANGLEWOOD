@@ -30,6 +30,7 @@ LevelLoad:
 	move.w #0x0, EntityCount_Boulders
 	move.w #0x0, EntityCount_Triggers
 	move.w #0x0, EntityCount_WaterBodies
+	move.w #0x0, EntityCount_Locations
 
 	IFD DEBUG
 	
@@ -226,7 +227,7 @@ LevelPreStreamMap:
 	
 LevelLoadGameObjArt:
 
-	; GameObjLoadMultiSprite:
+	; SpriteObjLoad:
 	; a0 --- GameObj address
 	; a1 --- Tileset address
 	; a2 --- Multi-sprite dimentions bits array address
@@ -249,7 +250,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_nymn_size_subsprites, d2
 	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteID_Player, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	@NoPlayers:
 
 	; Monsters
@@ -265,7 +266,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_djakk_size_subsprites, d2
 	move.w #sprite_djakk_widthheight_subsprites, d3
 	move.b #PaletteID_Monster, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	@NoMonsters:
     
 	; Fuzzls
@@ -281,7 +282,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_fuzzl_size_subsprites, d2
 	move.w #sprite_fuzzl_dimensions, d3
 	move.b #PaletteID_Fuzzl, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	
 	;move.l #EntityArray_Fuzzls+Fuzzl_Struct_Size, a0
 	;lea    Tiles_Fuzzl, a1
@@ -293,7 +294,7 @@ LevelLoadGameObjArt:
 	;move.b #sprite_fuzzl_size_subsprites, d2
 	;move.w #sprite_fuzzl_dimensions, d3
 	;move.b #PaletteID_Fuzzl, d4
-	;jsr    GameObjLoadMultiSprite
+	;jsr    SpriteObjLoad
 	@NoFuzzls:
     
 	; Leaves
@@ -309,7 +310,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_leaf_size_subsprites, d2
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
     
 	move.l #EntityArray_Leaves+Leaf_Struct_Size, a0
 	lea    tiles_leaf, a1
@@ -321,7 +322,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_leaf_size_subsprites, d2
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
     
 	move.l #EntityArray_Leaves+(Leaf_Struct_Size*2), a0
 	lea    tiles_leaf, a1
@@ -333,7 +334,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_leaf_size_subsprites, d2
 	move.w #sprite_leaf_dimensions, d3
 	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	@NoLeaves:
     
 	; Boulders
@@ -354,7 +355,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_Boulder_size_subsprites, d2
 	move.w #sprite_Boulder_dimensions, d3
 	move.b #PaletteId_World0, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
 	
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Boulder_Struct_Size, a0
@@ -380,7 +381,7 @@ LevelLoadGameObjArt:
 	move.b #sprite_firefly_size_subsprites, d2
 	move.w #sprite_firefly_dimensions, d3
 	move.b #PaletteId_Fuzzl, d4
-	jsr    GameObjLoadMultiSprite
+	jsr    SpriteObjLoad
     
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Firefly_Struct_Size, a0

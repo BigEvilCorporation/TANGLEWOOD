@@ -31,7 +31,7 @@ AnimObjInit:
 	; Set default state
 	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
-	move.l #0x0, GameObj_TilesetAddr(a0)
+	move.l #0x0, SpriteObj_TilesetAddr(a0)
 	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
@@ -47,7 +47,7 @@ AnimObjDraw:
 	bne    @SkipVisibilityTest
 	
 	; Check if sprite linked
-	move.b GameObj_SpriteLinked(a0), d0
+	move.b SpriteObj_SpriteLinked(a0), d0
 	cmp.b  #0x0, d0
 	beq    @Invisible
 	
@@ -140,12 +140,12 @@ AnimObjDraw:
 	move.l a1, -(sp)
 	move.l a2, -(sp)
 	move.l d2, -(sp)
-	move.l GameObj_VRAMAddr(a0), d0
-	move.w GameObj_TilesetSize(a0), d1
+	move.l SpriteObj_VRAMAddr(a0), d0
+	move.w SpriteObj_TilesetSize(a0), d1
 	move.b Animation_Length(a2), d3
 	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
-	move.l GameObj_TilesetAddr(a0), a0
+	move.l SpriteObj_TilesetAddr(a0), a0
 	jsr    SetSpriteAnimFrame
 	move.l (sp)+, d2
 	move.l (sp)+, a2
@@ -178,7 +178,7 @@ AnimObjDraw:
 	@NoFrameChange:
 	
 	; Base functionality
-	jsr GameObjDraw
+	jsr SpriteObjDraw
 	
 	rts
 	

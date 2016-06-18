@@ -210,6 +210,7 @@ EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Triggers    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
 EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
+EntityArray_Locations rs.b (Location_Struct_Size*Location_MaxEntities)
 
 EntityCount_Players     rs.w 1
 EntityCount_Actors      rs.w 1
@@ -223,6 +224,7 @@ EntityCount_Boulders    rs.w 1
 EntityCount_Triggers    rs.w 1
 EntityCount_Checkpoints rs.w 1
 EntityCount_WaterBodies rs.w 1
+EntityCount_Locations   rs.w 1
 
 reserved_ram_size		rs.b 0
 

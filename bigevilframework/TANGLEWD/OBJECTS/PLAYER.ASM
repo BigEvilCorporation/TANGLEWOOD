@@ -952,7 +952,7 @@ PlayerInteractTest_Fuzzls:
 	@FuzzlLoop:
 	
 	; Check if on screen
-	move.b GameObj_SpriteLinked(a1), d0
+	move.b SpriteObj_SpriteLinked(a1), d0
 	cmp.b  #0x0, d0
 	beq    @NotVisible
 	
@@ -1197,7 +1197,7 @@ PlayerInteractTest_Boulders:
 	@BoulderLoop:
 	
 	; Check if on screen
-	move.b GameObj_SpriteLinked(a1), d0
+	move.b SpriteObj_SpriteLinked(a1), d0
 	cmp.b  #0x0, d0
 	beq    @NotVisible
 	

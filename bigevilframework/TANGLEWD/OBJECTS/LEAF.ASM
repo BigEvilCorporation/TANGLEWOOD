@@ -53,7 +53,7 @@ LeafInit:
 
 	; Default state
 	move.b #0x0, GameObj_Active(a0)
-	move.b #0x0, GameObj_Visible(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 	move.b #0x0, GameObj_HasPhysics(a0)
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
@@ -137,7 +137,7 @@ LeafUpdate:
 
 	; Activate
 	move.b #0x1, GameObj_Active(a0)
-	move.b #0x1, GameObj_Visible(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
 	
 	@AlreadyActive:
 	
@@ -163,7 +163,7 @@ LeafUpdate:
 	
 	; Out of bounds, disable and reset timer
 	move.b #0x0, GameObj_Active(a0)
-	move.b #0x0, GameObj_Visible(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 	
 	jsr    RandLong
 	and.w  #0x003F, d0	; 0-128

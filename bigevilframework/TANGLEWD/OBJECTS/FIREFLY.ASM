@@ -92,7 +92,7 @@ FireflyUpdate:
 
 	; Timer elapsed, reset pickup
 	move.b #0x1, GameObj_Active(a0)
-	move.b #0x1, GameObj_Visible(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, Pickup_Taken(a0)
 
 	@NotPickedUp:
