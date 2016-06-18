@@ -30,10 +30,9 @@ PhysicsObj_OnFloor		 rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
 PhysicsObj_HitWall		 rs.b 1 ; Object is touching a wall
 PhysicsObj_Solid		 rs.b 1 ; Object is solid
-PhysicsObj_SpeedDiv	     rs.b 1 ; Accel/velocity div
 PhysicsObj_SnapToFloor	 rs.b 1 ; Object should snap to floor if within step height
 ;------------------------------
-PhysicsObj_Struct_Pad    rs.b 0
+PhysicsObj_Struct_Pad    rs.b 3
 PhysicsObj_Struct_Size   rs.b 0
 	
 ;==============================================================
@@ -60,7 +59,7 @@ PhysicsObjInit:
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
-	move.b #0x1, PhysicsObj_SpeedDiv(a0)
+	move.b #0x1, AnimObj_SpeedDiv(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -162,7 +161,7 @@ PhysicsObjApplyAccelDecel:
 	; Apply speed div
 	clr.l  d1
 	ext.l  d0						; Sign extend word to long
-	move.b PhysicsObj_SpeedDiv(a0), d1
+	move.b AnimObj_SpeedDiv(a0), d1
 	divs   d1, d0
 	
 	; Apply acceleration
@@ -217,7 +216,7 @@ PhysicsObjApplyAccelDecel:
 	; Apply speed div
 	clr.l  d2
 	ext.l  d1						; Sign extend word to long
-	move.b PhysicsObj_SpeedDiv(a0), d2
+	move.b AnimObj_SpeedDiv(a0), d2
 	divs   d2, d1
 	
 	sub.w d1, PhysicsObj_VelX(a0)
@@ -233,7 +232,7 @@ PhysicsObjApplyAccelDecel:
 	; Apply speed div
 	clr.l  d2
 	ext.l  d1						; Sign extend word to long
-	move.b PhysicsObj_SpeedDiv(a0), d2
+	move.b AnimObj_SpeedDiv(a0), d2
 	divs   d2, d1
 	
 	add.w d1, PhysicsObj_VelX(a0)
@@ -258,7 +257,7 @@ PhysicsObjApplyGravity:
 	; Apply speed div
 	clr.l  d2
 	ext.l  d1						; Sign extend word to long
-	move.b PhysicsObj_SpeedDiv(a0), d2
+	move.b AnimObj_SpeedDiv(a0), d2
 	divs   d2, d1
 	
 	sub.w  d1, d0
@@ -283,7 +282,7 @@ PhysicsObjApplyVelocity:
 	
 	; Apply speed div
 	clr.l  d1
-	move.b PhysicsObj_SpeedDiv(a0), d1
+	move.b AnimObj_SpeedDiv(a0), d1
 	divs   d1, d0
 	
 	ext.l  d0							; Sign extend word to long
@@ -297,7 +296,7 @@ PhysicsObjApplyVelocity:
 	
 	; Apply speed div
 	clr.l  d1
-	move.b PhysicsObj_SpeedDiv(a0), d1
+	move.b AnimObj_SpeedDiv(a0), d1
 	divs   d1, d0
 	
 	ext.l  d0							; Sign extend word to long

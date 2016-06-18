@@ -796,7 +796,7 @@ PlayerUpdateColourAbility:
 	
 	@ApplyTime:
 	
-	; Apply to all PhysicsObjs and AnimObjs (except players)
+	; Apply to all AnimObjs (except players)
 	
 	; TODO: Pointer array per entity type
 	move.b (GlobalTimeDiv), d0
@@ -813,15 +813,6 @@ PlayerUpdateColourAbility:
 	andi.l #entity_type_player, d3
 	cmp.l  #0x0, d3
 	bne    @PlayerObj
-	
-	; Check if game obj
-	move.l d2, d3
-	andi.l #entity_type_physicsobj, d3
-	cmp.l  #0x0, d3
-	beq    @NotPhysicsObj
-	
-	; Entity is a game obj
-	move.b d0, PhysicsObj_SpeedDiv(a2)
 	
 	; Check if animobj
 	move.l d2, d3

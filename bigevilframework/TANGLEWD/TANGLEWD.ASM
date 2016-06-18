@@ -50,7 +50,7 @@ __start
 	include '..\gamelib\entity.asm'
 	include '..\gamelib\sprtobj.asm'
 	include '..\gamelib\animobj.asm'
-	include '..\gamelib\gameobj.asm'
+	include '..\gamelib\physobj.asm'
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
