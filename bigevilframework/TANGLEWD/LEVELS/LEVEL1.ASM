@@ -112,8 +112,8 @@ Lvl1_Init:
 	jsr    LoadGameObjects_lvl1_WaterBody
 	
 	; Locations
-	;move.l #EntityArray_Locations, a0
-	;jsr    LoadGameObjects_lvl1_Location
+	move.l #EntityArray_Locations, a0
+	jsr    LoadGameObjects_lvl1_Location
     
 	; Leaves
 	; TODO: Leaf generator
@@ -380,15 +380,24 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.l #PaletteId_Monster, d0
 	jsr    LoadPalette
 	
-	; Position actor 1 (offset from player)
-	; TODO: Use PosMarker
-	; TODO: Store actor ptr
+	; Position actor 1
+	move.l #LocIntroActor1_idx, d0
+	mulu   #Location_Struct_Size, d0
+	move.l #EntityArray_Locations, a1
+	add.l  d0, a1
+	ENTITY_GETLEFT d0, a1
+	ENTITY_GETBOTTOM d1, a1
+	
+	clr.l  d2
 	move.l #EntityArray_Actors, a0
-	move.l #Player1, a1
-	ENTITY_GETCENTREX d0, a1
-	add.l  #Lvl1_ScaredFriend1XOffset, d0
+	move.w Entity_Height(a0), d2
+	mulu   #SubpixelsPerPixel, d2
+	sub.l  d2, d1
 	move.l d0, Entity_WorldPosX(a0)
-	move.l Entity_WorldPosY(a1), Entity_WorldPosY(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
 	
 	; Start running
 	jsr    CharacterStartRun
@@ -397,14 +406,23 @@ Lvl1_StartCutscene_FriendFleeing:
 	move.w #-Lvl1_ScaredFriend1RunSpeed, PhysicsObj_VelX(a0)
 	
 	; Position actor 2 (offset from player)
-	; TODO: Use PosMarker
-	; TODO: Store actor ptr
+	move.l #LocIntroActor2_idx, d0
+	mulu   #Location_Struct_Size, d0
+	move.l #EntityArray_Locations, a1
+	add.l  d0, a1
+	ENTITY_GETLEFT d0, a1
+	ENTITY_GETBOTTOM d1, a1
+	
+	clr.l  d2
 	add.l  #Actor_Struct_Size, a0
-	move.l #Player1, a1
-	ENTITY_GETCENTREX d0, a1
-	add.l  #Lvl1_ScaredFriend2XOffset, d0
+	move.w Entity_Height(a0), d2
+	mulu   #SubpixelsPerPixel, d2
+	sub.l  d2, d1
 	move.l d0, Entity_WorldPosX(a0)
-	move.l Entity_WorldPosY(a1), Entity_WorldPosY(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
 	
 	; Start running
 	jsr    CharacterStartRun

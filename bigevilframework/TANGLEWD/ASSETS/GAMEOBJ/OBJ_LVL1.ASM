@@ -181,7 +181,17 @@ WaterBody_69_idx	equ 0x1
 	add.l #WaterBody_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Location_count equ 0
+gameobjects_lvl1_Location_count equ 2
 LoadGameObjects_lvl1_Location:
+LocIntroActor2_idx	equ 0x0
+	jsr LocationInit
+	move.l #0x0009b000, Entity_WorldPosX(a0)
+	move.l #0x00033000, Entity_WorldPosY(a0)
+	add.l #Location_Struct_Size, a0
+LocIntroActor1_idx	equ 0x1
+	jsr LocationInit
+	move.l #0x00097000, Entity_WorldPosX(a0)
+	move.l #0x00033000, Entity_WorldPosY(a0)
+	add.l #Location_Struct_Size, a0
 	rts
 

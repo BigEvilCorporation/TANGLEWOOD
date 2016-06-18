@@ -32,6 +32,17 @@ ENTITY_GETRIGHT: macro destreg,addrreg
 	mulu    #SubpixelsPerPixel, \destreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
+	
+ENTITY_GETTOP: macro destreg,addrreg
+	move.l   Entity_WorldPosY(\addrreg), \destreg
+	endm
+	
+ENTITY_GETBOTTOM: macro destreg,addrreg
+	clr.l   \destreg
+	move.w  Entity_Height(\addrreg), \destreg
+	mulu    #SubpixelsPerPixel, \destreg
+	add.l   Entity_WorldPosY(\addrreg), \destreg
+	endm
 
 TOSUBPIXELS: macro destreg
 	lsl.l   #0x8, \destreg
