@@ -23,15 +23,29 @@ Boulder_AnimSpeedVelDiv		equ 0x0008
 Boulder_MinDamageYVel		equ 0x0500	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 
+Boulder_MinCrackYVel		equ 0x0500	; Min downward velocity to crack open on floor collision 
+
+;==============================================================
+
+; Animations
+BoulderAnimIdx_Roll    equ 0
+BoulderAnimIdx_crack   equ 1
+; --------------------------
+BoulderAnimIdx_Max     equ 2
+
 ;==============================================================
 
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
-Boulder_Animation	 rs.b (Animation_Struct_Size)
+Boulder_Animations	 rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
+Boulder_LastVelY     rs.w 1	; Last recorded velocity
+Boulder_LastOnFloor  rs.b 1	; Last recorded OnFloor flag
+Boulder_Cracked		 rs.b 1	; Cracked open, awaiting respawn
 ;--------------------------
 Boulder_Struct_Pad   rs.b 0   ; Alignment padding
 Boulder_Struct_Size  rs.b 0
+;--------------------------
 
 ;==============================================================
 
@@ -66,17 +80,41 @@ BoulderInit:
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.w  #0x0, Boulder_LastVelY(a0)
+	move.b  #0x1, Boulder_LastOnFloor(a0)
 	
-	; Init roll animation
-	move.l  a0, a2
-	add.l   #Boulder_Animation, a2
-	move.l  #Anim_BoulderRoll, Animation_AnimTrackSpriteFrame(a2)
-	move.b  #Anim_BoulderRoll_SizeB, Animation_Length(a2)
-	move.b  #0x1, Animation_Looping(a2)
+	; Setup animations
+	move.l a0, a2
+	add.l  #Boulder_Animations, a2
 	
-	; Set animation
-	move.l  a2, AnimObj_CurrentAnim(a0)
-	move.b  #0x1, AnimObj_Playing(a0)
+	; Roll
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a3
+	move.w #spritesheet_boulder_roll_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_boulder_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_boulder_roll_speed, Animation_Speed(a3)
+	move.b #spriteanim_boulder_roll_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Crack
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_crack), a3
+	move.w #spritesheet_boulder_crack_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_boulder_crack_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_boulder_crack_speed, Animation_Speed(a3)
+	move.b #spriteanim_boulder_crack_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	
+	; Start roll animation
+	PUSHL  a1
+	move.l a2, a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	rts
 	
@@ -84,9 +122,52 @@ BoulderUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Get animation
-	move.l  a0, a2
-	add.l   #Boulder_Animation, a2
+	; If not already cracked
+	cmp.b  #0x0, Boulder_Cracked(a0)
+	bne    @Cracked
+	
+	; If on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	beq    @InAir
+	
+	; On floor, check if not previously on floor
+	cmp.b  #0x0, Boulder_LastOnFloor(a0)
+	bne    @PrevOnFloor
+	
+	; Just hit the floor, check the last recorded Y velocity
+	cmp.w  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
+	bge    @LowVel
+	
+	; Hit the floor at a large enough velocity to crack open, start crack animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Boulder_Animations, a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_crack), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Set as cracked
+	move.b #0x1, Boulder_Cracked(a0)
+	
+	; Cancel X velocity
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	
+	; Bail
+	bra    @Cracked
+	
+	@InAir:
+	@PrevOnFloor:
+	@LowVel:
+	
+	; Record current Y vel and on OnFloor flag
+	move.w PhysicsObj_VelY(a0), Boulder_LastVelY(a0)
+	move.b PhysicsObj_OnFloor(a0), Boulder_LastOnFloor(a0)
+	
+	; Get roll animation
+	move.l a0, a2
+	add.l  #Boulder_Animations, a2
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a2
 
 	; Roll anim speed based on velocity
 	clr.l  d0
@@ -141,6 +222,7 @@ BoulderUpdate:
 	
 	move.l (sp)+, a1
 	
+	@Cracked:
 	@NotFalling:
 
 	; Base functionality

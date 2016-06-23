@@ -218,7 +218,7 @@ LevelPreStreamMap:
 	move.l #0x0, d1
 	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
-	;jsr    LoadMapPlaneB
+	jsr    LoadMapPlaneB
 	
 	POPL   a1
 	POPL   a0
@@ -336,7 +336,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
 	@NoLeaves:
-    
+
 	; Boulders
 	cmp.w  #0x0, EntityCount_Boulders
 	beq    @NoBoulders
@@ -347,20 +347,20 @@ LevelLoadGameObjArt:
 	@BoulderLoop:
 	movem.l d0-d1/a0, -(sp)
 	
-	lea    Tiles_Boulder, a1
-	lea    sprite_Boulder_subsprite_dimensions_bits, a2
-	lea    sprite_Boulder_subsprite_pos_offsets, a3
-	lea    sprite_Boulder_numtiles_per_subsprite, a4
-	move.l #tiles_Boulder_size_t, d1
-	move.b #sprite_Boulder_size_subsprites, d2
-	move.w #sprite_Boulder_dimensions, d3
+	lea    spritesheets_boulder, a1
+	lea    sprite_boulder_subsprite_dimensions_bits, a2
+	lea    sprite_boulder_subsprite_pos_offsets, a3
+	lea    sprite_boulder_numtiles_per_subsprite, a4
+	move.l #sprite_boulder_size_t, d1
+	move.b #sprite_boulder_size_subsprites, d2
+	move.w #sprite_boulder_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
 	
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Boulder_Struct_Size, a0
-	add.l  #tiles_boulder_size_b, d0
-	dbra   d1, @BoulderLoop
+	add.l  #sprite_boulder_size_b, d0
+	;dbra   d1, @BoulderLoop
 	@NoBoulders:
 	
 	; Fireflies
@@ -459,9 +459,7 @@ LevelReset:
 	move.l  #Player1, CameraTargetGameObj
 	
 	; Set BG colour (level palette 1, colour 0)
-	move.w #0x8700, d1
-	move.b #PaletteId_World0, d1
-	lsl.b  #0x4, d1
+	move.w #0x8700|(PaletteId_World0<<4), d1
 	move.w d1, vdp_control
 	
 	rts

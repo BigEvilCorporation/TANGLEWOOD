@@ -1187,6 +1187,10 @@ PlayerInteractTest_Boulders:
 	sub.w  #0x1, d6
 	@BoulderLoop:
 	
+	; Check if not cracked
+	cmp.b  #0x0, Boulder_Cracked(a1)
+	bne    @Cracked
+	
 	; Check if on screen
 	move.b SpriteObj_SpriteLinked(a1), d0
 	cmp.b  #0x0, d0
@@ -1245,6 +1249,7 @@ PlayerInteractTest_Boulders:
 	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
 
+	@Cracked:
 	@NotInRange:
 	@BoulderOffFloor:
 	@NotVisible:
