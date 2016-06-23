@@ -1275,9 +1275,13 @@ PlayerInteract_Boulder:
 	; a2 --- Boulder addr
 	
 	move.l a1, -(sp)
-	move.l a2, a1
+	
+	; Check if not cracked
+	cmp.b  #0x0, Boulder_Cracked(a2)
+	bne    @Cracked
 	
 	; Check if within bounds
+	move.l a2, a1
 	move.l d6, -(sp)
 
 	; Get player interact box pos X min (outer)
@@ -1368,6 +1372,7 @@ PlayerInteract_Boulder:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.b d0, Animation_Speed(a2)
 	
+	@Cracked:
 	@NotInRange:
 	@NotPushingBoulder:
 	@End:

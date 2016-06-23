@@ -39,6 +39,8 @@ BoulderAnimIdx_Max     equ 2
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Boulder_Animations	 rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
+Boulder_SpawnX		 rs.l 1	; Spawn pos, for resetting after being cracked
+Boulder_SpawnY		 rs.l 1
 Boulder_LastVelY     rs.w 1	; Last recorded velocity
 Boulder_LastOnFloor  rs.b 1	; Last recorded OnFloor flag
 Boulder_Cracked		 rs.b 1	; Cracked open, awaiting respawn
@@ -100,7 +102,7 @@ BoulderInit:
 	
 	; Crack
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_crack), a3
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a3
 	move.w #spritesheet_boulder_crack_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_boulder_crack_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
@@ -124,7 +126,38 @@ BoulderUpdate:
 	
 	; If not already cracked
 	cmp.b  #0x0, Boulder_Cracked(a0)
-	bne    @Cracked
+	beq    @NotCracked
+	
+	; Cracked, check if out of view
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	bne    @InView
+	
+	; Out of view, move back to spawn pos
+	move.l Boulder_SpawnX(a0), Entity_WorldPosX(a0)
+	move.l Boulder_SpawnY(a0), Entity_WorldPosY(a0)
+	
+	; Start rolling animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Boulder_Animations, a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Reset
+	move.w #0x0, Boulder_LastVelY(a0)
+	move.b #0x1, Boulder_LastOnFloor(a0)
+	move.b #0x0, Boulder_Cracked(a0)
+	
+	@NotCracked:
+	
+	; If spawn pos not already recorded, take it
+	; TODO: Use post-init?
+	cmp.l  #0x0, Boulder_SpawnX(a0)
+	bne    @SpawnPosRecorded
+	move.l Entity_WorldPosX(a0), Boulder_SpawnX(a0)
+	move.l Entity_WorldPosY(a0), Boulder_SpawnY(a0)
+	@SpawnPosRecorded:
 	
 	; If on floor
 	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
@@ -142,7 +175,7 @@ BoulderUpdate:
 	PUSHL  a1
 	move.l a0, a1
 	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_crack), a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -222,6 +255,7 @@ BoulderUpdate:
 	
 	move.l (sp)+, a1
 	
+	@InView:
 	@Cracked:
 	@NotFalling:
 
