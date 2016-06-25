@@ -43,9 +43,10 @@ Boulder_SpawnX		 rs.l 1	; Spawn pos, for resetting after being cracked
 Boulder_SpawnY		 rs.l 1
 Boulder_LastVelY     rs.w 1	; Last recorded velocity
 Boulder_LastOnFloor  rs.b 1	; Last recorded OnFloor flag
+Boulder_CanCrack	 rs.b 1 ; Can be cracked/respawned
 Boulder_Cracked		 rs.b 1	; Cracked open, awaiting respawn
 ;--------------------------
-Boulder_Struct_Pad   rs.b 0   ; Alignment padding
+Boulder_Struct_Pad   rs.b 3   ; Alignment padding
 Boulder_Struct_Size  rs.b 0
 ;--------------------------
 
@@ -84,6 +85,8 @@ BoulderInit:
 	move.w  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #0x0, Boulder_LastVelY(a0)
 	move.b  #0x1, Boulder_LastOnFloor(a0)
+	move.b  #0x0, Boulder_Cracked(a0)
+	move.b  #0x1, Boulder_CanCrack(a0)
 	
 	; Setup animations
 	move.l a0, a2
@@ -123,6 +126,10 @@ BoulderInit:
 BoulderUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; If unbreakable
+	cmp.b  #0x0, Boulder_CanCrack(a0)
+	beq    @Unbreakable
 	
 	; If not already cracked
 	cmp.b  #0x0, Boulder_Cracked(a0)
@@ -189,6 +196,7 @@ BoulderUpdate:
 	; Bail
 	bra    @Cracked
 	
+	@Unbreakable:
 	@InAir:
 	@PrevOnFloor:
 	@LowVel:

@@ -360,7 +360,7 @@ LevelLoadGameObjArt:
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Boulder_Struct_Size, a0
 	add.l  #sprite_boulder_size_b, d0
-	;dbra   d1, @BoulderLoop
+	dbra   d1, @BoulderLoop
 	@NoBoulders:
 	
 	; Fireflies

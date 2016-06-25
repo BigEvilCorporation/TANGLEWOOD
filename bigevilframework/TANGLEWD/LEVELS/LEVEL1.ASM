@@ -532,6 +532,9 @@ Lvl1_StartCutscene_BoulderRoll:
 	move.l #EntityArray_Boulders, a3
 	add.l  d0, a3
 	
+	; Set as unbreakable
+	move.b #0x0, Boulder_CanCrack(a3)
+	
 	; Set boulder as camera target
 	move.l a3, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
