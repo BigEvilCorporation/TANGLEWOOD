@@ -157,10 +157,12 @@ AnimObjDraw:
 	move.l (sp)+, a0
 	
 	; X position track
+	PUSHL  d2
 	move.l #0x0, SpriteObj_DrawOffsetX(a0)		; Reset X position offset
 	move.l Animation_AnimTrackPositionX(a2), a3	; Get X position keyframe track
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
+	
 	clr.l  d3
 	move.b Animation_Length(a2), d3		; Get anim length
 	divu   d3, d2          				; Div frame count against num anim frames
@@ -168,10 +170,39 @@ AnimObjDraw:
 	swap   d2			   				; Remainder to lower word
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	ext.w  d3			   				; Sign extend
-	move.w  d3, SpriteObj_DrawOffsetX(a0) ; Offset X pos
+	move.w d3, SpriteObj_DrawOffsetX(a0) ; Offset X pos
+	
 	@NoTrackPosX:
+	POPL   d2
 	
 	; Y position track
+	
+	; SFX track
+	PUSHL  a0
+	PUSHL  d2
+	move.l Animation_AnimTrackSFX(a2), a3	; Get SFX keyframe track
+	cmp.l  #0x0, a3
+	beq    @NoTrackSFX
+	
+	clr.l  d3
+	move.b Animation_Length(a2), d3		; Get anim length
+	divu   d3, d2          				; Div frame count against num anim frames
+	clr.w  d2							; Clear exponent
+	swap   d2			   				; Remainder to lower word
+	mulu   #size_long, d2				; To ptr size
+	add.l  d2, a3						; Offset to SFX address
+	move.l (a3), d3						; Get SFX address from anim track
+	cmp.l  #0x0, d3
+	beq    @NoSFX
+	
+								; Play SFX
+	move.l d3, a0
+	jsr    Echo_PlaySFX
+	
+	@NoTrackSFX:
+	@NoSFX:
+	POPL   d2
+	POPL   a0
 	
 	@Invisible:
 	@NoAnim:

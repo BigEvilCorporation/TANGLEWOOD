@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; ************************************
-; Constants
+; Animation ids
 ; ************************************
 CharacterAnimIdx_Idle		equ 0
 CharacterAnimIdx_Dead		equ 1
@@ -23,6 +23,13 @@ CharacterAnimIdx_WaterWade	equ 9
 Character_NumAnims			equ 10
 
 ; ************************************
+; SFX ids
+; ************************************
+CharacterSFXIdx_Land		equ 0
+; -------------------------------
+Character_NumSFX			equ 1
+
+; ************************************
 ; Character struct
 ; ************************************
 
@@ -30,6 +37,7 @@ Character_NumAnims			equ 10
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Character_Animations	rs.b (Animation_Struct_Size*Character_NumAnims)
+Character_SFX			rs.l Character_NumSFX
 Character_LastLedgeX	rs.l 1
 Character_LastLedgeY	rs.l 1
 Character_ProbeLedgeX	rs.w 1
@@ -56,8 +64,9 @@ Character_UpdateAnim	rs.b 1
 Character_AnimIdx	    rs.b 1
 Character_Health        rs.b 1
 Character_Dead          rs.b 1
+Character_PrevOnFloor	rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 1
+Character_Struct_Pad    rs.b 0
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -84,6 +93,7 @@ CharacterInit:
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
+	move.b #0x1, Character_PrevOnFloor(a0)
 
 	rts
 	
@@ -99,11 +109,34 @@ CharacterUpdate:
 	jsr PhysicsObjUpdate
 	
 	; If on floor, no longer jumping
-	move.b PhysicsObj_OnFloor(a0), d0
-	cmp.b  #0x0, d0
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
 	beq    @OffFloor
-	move.b #0x0, Character_Jumping(a0) ; On floor, no longer jumping
+	move.b Character_Jumping(a0), d0
+	move.b #0x0, Character_Jumping(a0)
+	
+	; Check if previously on floor
+	cmp.b  #0x0, Character_PrevOnFloor(a0)
+	bne    @PrevOnFloor
+	
+	; If character was jumping, just landed
+	cmp.b  #0x0, d0
+	beq    @WasntJumping
+	
+	; Play land SFX
+	move.l a0, a2
+	add.l  #Character_SFX, a2
+	add.l  #CharacterSFXIdx_Land, a2
+	cmp.l  #0x0, (a2)
+	beq    @NoLandSFX
+	PUSHL  a0
+	move.l (a2), a0
+	jsr    Echo_PlaySFX
+	POPL   a0
+	@NoLandSFX:
+	
 	@OffFloor:
+	@PrevOnFloor:
+	@WasntJumping:
 	
 	; If in water and running, cancel run
 	cmp.b  #0x0, Character_InWater(a0)
@@ -120,6 +153,9 @@ CharacterUpdate:
 	beq   @ManualAnim
 	jsr   CharacterUpdateAnimState
 	@ManualAnim:
+	
+	; Update prev on floor flag
+	move.b PhysicsObj_OnFloor(a0), Character_PrevOnFloor(a0)
 	
 	rts
 	
@@ -455,6 +491,7 @@ CharacterStartJump:
 	; Jump
 	move.w Character_JumpVel(a0), PhysicsObj_VelY(a0)
 	move.b #0x1, Character_Jumping(a0)
+	
 	bra    @End
 	
 	@InWater:

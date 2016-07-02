@@ -125,6 +125,8 @@ PlayerInit:
 	
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	
+	;==============================================================
 
 	; Setup default state
 	move.l  #Player1StartPosWorldX, Entity_WorldPosX(a0)
@@ -160,6 +162,19 @@ PlayerInit:
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
+	
+	;==============================================================
+	
+	; Setup default SFX
+	move.l a0, a2
+	add.l  #Character_SFX, a2
+	
+	; Land
+	move.l a2, a3
+	add.l  #CharacterSFXIdx_Land, a3
+	move.l #SFX_Land, (a3)
+	
+	;==============================================================
 
 	; Setup default character animations
 	move.l a0, a2
@@ -195,6 +210,7 @@ PlayerInit:
 	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.l #spriteanim_nymn_run_track_sfx, Animation_AnimTrackSFX(a3)
 	move.b #spriteanim_nymn_run_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -274,6 +290,8 @@ PlayerInit:
 	move.b #spriteanim_nymn_push_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_push_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+	
+	;==============================================================
 	
 	; Setup custom animations
 	move.l a0, a2

@@ -154,6 +154,12 @@ FlueOccupantUpdate:
 	move.b #0x1, SpriteObj_Visible(a1)
 	move.b #0x1, Entity_Active(a1)
 	
+	; Play SFX
+	PUSHL  a0
+	lea    SFX_FlueOut, a0
+	jsr    Echo_PlaySFX
+	POPL   a0
+	
 	@StillEjecting:
 	
 	; Check if inside the flue
@@ -257,6 +263,13 @@ FlueFindOccupant:
 	
 	; New occupant found
 	move.l a3, a1
+	
+	; Play SFX
+	PUSHL  a0
+	lea    SFX_FlueIn, a0
+	jsr    Echo_PlaySFX
+	POPL   a0
+	
 	bra    @NewOccupantFound
 	
 	@AlreadyHeld:

@@ -45,9 +45,9 @@ Logos_Enter:
 	move.l #PaletteId_BigEvilLogo, d5	; d5 (b)  Palette ID
 	jsr    LoadMapSegmentPlaneA
 	
-	; Start titles theme
+	; Start title theme
 	lea    bgm_titles, a0
-	jsr    Echo_PlayBGM
+	;jsr    Echo_PlayBGM
 	
 	; Begin fade up
 	lea    palette_bec_logo, a0

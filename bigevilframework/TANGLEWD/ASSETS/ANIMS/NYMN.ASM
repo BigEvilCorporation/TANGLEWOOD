@@ -87,6 +87,9 @@ spriteanim_nymn_run_track_frames:
 spriteanim_nymn_run_track_posx:
 
 spriteanim_nymn_run_track_posy:
+	Even
+spriteanim_nymn_run_track_sfx:
+	dc.l 0x0, SFX_Footstep1, SFX_Footstep2, SFX_Footstep2, 0x0
 
 
 	Even
