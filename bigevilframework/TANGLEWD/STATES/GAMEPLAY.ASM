@@ -50,6 +50,10 @@ Gameplay_Enter:
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
 	
+	; Start level intro tune
+	lea    bgm_lvlintro, a0
+	jsr    Echo_PlayBGM
+	
 	rts
 	
 Gameplay_Exit:
@@ -77,7 +81,7 @@ Gameplay_Update:
 	jsr    (a2)
 	
 	; Update audio
-	;jsr    UpdateAmbientAudio
+	jsr    UpdateAmbientAudio
 	
 	; Check if player is dead
 	move.l #Player1, a2

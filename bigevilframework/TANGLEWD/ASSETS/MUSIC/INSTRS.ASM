@@ -5,33 +5,46 @@
 ;==============================================================
 
 echo_instruments:
-    Echo_ListEntry Instr_Flute        ; $00
-    Echo_ListEntry Instr_Sweet        ; $01
-    Echo_ListEntry Instr_AddChimesB   ; $02
-    Echo_ListEntry Instr_SinesPad     ; $03
-	Echo_ListEntry Instr_Djakk_Roar   ; $04
-	Echo_ListEntry Instr_Footstep1    ; $05
-	Echo_ListEntry Instr_Footstep2    ; $06
-	Echo_ListEntry Instr_Footstep3    ; $07
-	Echo_ListEntry Instr_Footstep4    ; $08
-	Echo_ListEntry Instr_Land	      ; $09
-	Echo_ListEntry Instr_Chirp1   	  ; $0A
-	Echo_ListEntry Instr_Chirp2   	  ; $0B
-	Echo_ListEntry Instr_Chirp3   	  ; $0C
-	Echo_ListEntry Instr_Chirp4  	  ; $0D
-	Echo_ListEntry Instr_FlueIn  	  ; $0E
-	Echo_ListEntry Instr_FlueOut  	  ; $0F
+    Echo_ListEntry Instr_00           ; $00
+    Echo_ListEntry Instr_01           ; $01
+    Echo_ListEntry Instr_02   	   	  ; $02
+	Echo_ListEntry Instr_Djakk_Roar   ; $03
+	Echo_ListEntry Instr_Footstep1    ; $04
+	Echo_ListEntry Instr_Footstep2    ; $05
+	Echo_ListEntry Instr_Footstep3    ; $06
+	Echo_ListEntry Instr_Footstep4    ; $07
+	Echo_ListEntry Instr_Land	      ; $08
+	Echo_ListEntry Instr_Chirp1   	  ; $09
+	Echo_ListEntry Instr_Chirp2   	  ; $0A
+	Echo_ListEntry Instr_Chirp3   	  ; $0B
+	Echo_ListEntry Instr_Chirp4  	  ; $0C
+	Echo_ListEntry Instr_FlueIn  	  ; $0D
+	Echo_ListEntry Instr_FlueOut  	  ; $0E
+	Echo_ListEntry Instr_0F  		  ; $0F
+	Echo_ListEntry Instr_10  		  ; $10
+	Echo_ListEntry Instr_11  		  ; $11
+	Echo_ListEntry Instr_12  		  ; $12
     Echo_ListEnd
 
-	; Intro theme
-Instr_Flute:
+	; Main menu theme
+Instr_00:
 	incbin 'assets\music\instrs\instr_00.eif'
-Instr_Sweet:
+Instr_01:
 	incbin 'assets\music\instrs\instr_01.eif'
-Instr_AddChimesB:
+Instr_02:
 	incbin 'assets\music\instrs\instr_02.eif'
-Instr_SinesPad:
-	incbin 'assets\music\instrs\instr_03.eif'
+	
+	; Level intro theme
+Instr_0F:
+	incbin 'assets\music\instrs\instr_0F.eif'
+Instr_10:
+	incbin 'assets\music\instrs\instr_10.eif'
+Instr_11:
+	incbin 'assets\music\instrs\instr_11.eif'
+	
+	; Intro ground rumble cutscene
+Instr_12:
+	incbin 'assets\music\instrs\instr_12.eif'
 	
 	; Footstep SFX
 Instr_Footstep1:

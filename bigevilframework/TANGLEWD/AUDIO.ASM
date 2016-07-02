@@ -29,7 +29,7 @@ UpdateAmbientAudio:
 	move.l (a0), a0
 
 	; Play
-	jsr    Echo_PlaySFX
+	PLAYSFX a0
 	
 	; Get next random time
 	jsr    RandLong				; Rand long

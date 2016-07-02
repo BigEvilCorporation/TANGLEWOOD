@@ -62,7 +62,7 @@ MainMenu_Enter:
 MainMenu_Exit:
 	
 	; Stop BGM
-	;jsr    Echo_StopBGM
+	jsr    Echo_StopBGM
 	
 	rts
 	

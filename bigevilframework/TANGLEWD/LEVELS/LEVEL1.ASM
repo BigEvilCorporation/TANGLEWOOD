@@ -53,7 +53,7 @@ Lvl1_NymnWakeStageShake2		equ 3	; Ground shakes again
 Lvl1_NymnWakeStageWake2			equ 4	; Nymn wakes up fully and player gains control
 Lvl1_NymnWakeShakeTime			equ 0x0060
 
-Lvl1_NymnWakeStageChangeTime1	equ 0x0100
+Lvl1_NymnWakeStageChangeTime1	equ 0x0200
 Lvl1_NymnWakeStageChangeTime2	equ 0x0060
 Lvl1_NymnWakeStageChangeTime3	equ 0x0130
 Lvl1_NymnWakeStageChangeTime4	equ 0x0060
@@ -249,6 +249,9 @@ Lvl1_UpdateCutscene_NymnWake:
 	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
 	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
 	
+	lea    bgm_cut_introrumble, a0
+	jsr    Echo_PlayBGM
+	
 	move.w #Lvl1_NymnWakeStageChangeTime2, Lvl1Data_WakeUpTimer(a2)
 	bra    @End
 	
@@ -279,6 +282,9 @@ Lvl1_UpdateCutscene_NymnWake:
 	move.w #Lvl1_NymnWakeShakeTime, CameraShakeTimer
 	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
 	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+	
+	lea    bgm_cut_introrumble, a0
+	jsr    Echo_PlayBGM
 	
 	move.w #Lvl1_NymnWakeStageChangeTime4, Lvl1Data_WakeUpTimer(a2)
 	bra    @End
