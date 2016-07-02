@@ -194,10 +194,8 @@ AnimObjDraw:
 	move.l (a3), d3						; Get SFX address from anim track
 	cmp.l  #0x0, d3
 	beq    @NoSFX
-	
-								; Play SFX
-	move.l d3, a0
-	jsr    Echo_PlaySFX
+
+	PLAYSFX d3	; Play SFX (TODO: exlusive and non-exclusive modes)
 	
 	@NoTrackSFX:
 	@NoSFX:
