@@ -14,25 +14,25 @@ SFX_Djakk_Roar:
 	ESF_NoteOn ESF_PCM, PCM_InstrIndex+0
 	ESF_Stop
 	
-SFX_Footstep1:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+1
-	ESF_Stop
-	
-SFX_Footstep2:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
-	ESF_Stop
-	
-SFX_Footstep3:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+3
-	ESF_Stop
-	
-SFX_Footstep4:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+4
-	ESF_Stop
+;SFX_Footstep1:
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+1
+;	ESF_Stop
+;	
+;SFX_Footstep2:
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
+;	ESF_Stop
+;	
+;SFX_Footstep3:
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+3
+;	ESF_Stop
+;	
+;SFX_Footstep4:
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+4
+;	ESF_Stop
 
-SFX_Land:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+5
-	ESF_Stop
+;SFX_Land:
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+5
+;	ESF_Stop
 	
 SFX_Chirp1:
 	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
@@ -63,7 +63,25 @@ SFX_FireflyCollect:
 	include 'assets\SFX\objects\firefly.asm'
 	
 SFX_FuzzlDrop:
-	include 'assets\SFX\objects\fuzldrop.asm'
+	include 'assets\SFX\fuzzl\fuzldrop.asm'
+	
+SFX_FuzzlAlert:
+	include 'assets\SFX\fuzzl\fuzlalrt.asm'
 	
 SFX_NymnColourSwitch:
 	include 'assets\SFX\nymn\switch.asm'
+	
+SFX_Footstep1:
+	include 'assets\SFX\fstep\fstep2.asm'
+	
+SFX_Footstep2:
+	include 'assets\SFX\fstep\fstep2.asm'
+	
+SFX_Footstep3:
+	include 'assets\SFX\fstep\fstep2.asm'
+	
+SFX_Footstep4:
+	include 'assets\SFX\fstep\fstep2.asm'
+	
+SFX_Land:
+	include 'assets\SFX\fstep\land.asm'

@@ -23,6 +23,8 @@ echo_instruments:
 	Echo_ListEntry InstrSFX05
 	Echo_ListEntry InstrSFX06
 	Echo_ListEntry InstrSFX07
+	Echo_ListEntry InstrSFX08
+	Echo_ListEntry InstrSFX09
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -35,7 +37,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x0E
+PCM_InstrIndex	equ 0x10
 
 	; Music
 InstrMusic00:
@@ -68,6 +70,10 @@ InstrSFX06:
 	incbin 'assets\sfx\instrs\instr_0c.eif'
 InstrSFX07:
 	incbin 'assets\sfx\instrs\instr_0d.eif'
+InstrSFX08:
+	incbin 'assets\sfx\instrs\instr_0e.eif'
+InstrSFX09:
+	incbin 'assets\sfx\instrs\instr_0f.eif'
 	
 	; PCM
 PCM00:

@@ -215,6 +215,9 @@ FuzzlUpdate:
 
 	; Do a little startled bounce
 	move.w #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
+	
+	; Play alert SFX
+	PLAYSFX_HIGHPRIO #SFX_FuzzlAlert
 
 	bra @InitialState
 
