@@ -81,6 +81,7 @@ Gameplay_Update:
 	jsr    (a2)
 	
 	; Update audio
+	jsr	   UpdateBGMTimer
 	jsr    UpdateAmbientAudio
 	
 	; Check if player is dead

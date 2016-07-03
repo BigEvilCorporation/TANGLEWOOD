@@ -6,12 +6,30 @@
 ;   audio.asm - footsteps, ambience, etc
 ;==============================================================
 
-AmbientSFXRandTimerMin	equ 0x0200
-AmbientSFXRandTimerMax	equ 0x0400
+AmbientSFXRandTimerMin	equ 0x0600
+AmbientSFXRandTimerMax	equ 0x0A00
+
+UpdateBGMTimer:
+
+	; If already zero, not running
+	cmp.w #0x0, BGMOffTimer
+	beq   @TimerElapsed
+	
+	; Decrement timer and check again
+	sub.w #0x1, BGMOffTimer
+	cmp.w #0x0, BGMOffTimer
+	bne   @TimerElapsed
+	
+	; Elapsed this frame, stop BGMOffTimer
+	jsr   Echo_StopBGM
+	
+	@TimerElapsed:
+	@TimerRunning:
+	
 
 UpdateAmbientAudio:
 
-	; Chekc if timer running
+	; Chech if timer running
 	cmp.w #0x0, AmbientSFXTimer
 	bne   @TimerRunning
 	

@@ -164,8 +164,9 @@ TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 ; ************************************
 AmbientSFX				 rs.l 4 ; AmbientSFXCount
 AmbientSFXTimer			 rs.w 1
+BGMOffTimer				 rs.w 1
 
-__padding06			     rs.b 2
+; __padding06			     rs.b 0
 
 ; ************************************
 ; Level runtime data
