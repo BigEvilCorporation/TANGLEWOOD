@@ -11,43 +11,43 @@ bgm_cut_introrumble:
 	include 'assets\SFX\cutscn\rumble.asm'
 
 SFX_Djakk_Roar:
-	ESF_NoteOn ESF_PCM, 0x09
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+0
 	ESF_Stop
 	
 SFX_Footstep1:
-	ESF_NoteOn ESF_PCM, 0x0A
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+1
 	ESF_Stop
 	
 SFX_Footstep2:
-	ESF_NoteOn ESF_PCM, 0x0B
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
 	ESF_Stop
 	
 SFX_Footstep3:
-	ESF_NoteOn ESF_PCM, 0x0C
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+3
 	ESF_Stop
 	
 SFX_Footstep4:
-	ESF_NoteOn ESF_PCM, 0x0D
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+4
 	ESF_Stop
 
 SFX_Land:
-	ESF_NoteOn ESF_PCM, 0x0E
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+5
 	ESF_Stop
 	
 SFX_Chirp1:
-	ESF_NoteOn ESF_PCM, 0x0F
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
 	ESF_Stop
 	
 SFX_Chirp2:
-	ESF_NoteOn ESF_PCM, 0x0F
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
 	ESF_Stop
 	
 SFX_Chirp3:
-	ESF_NoteOn ESF_PCM, 0x0F
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
 	ESF_Stop
 	
 SFX_Chirp4:
-	ESF_NoteOn ESF_PCM, 0x0F
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
 	ESF_Stop
 
 SFX_FlueIn:
@@ -55,3 +55,9 @@ SFX_FlueIn:
 	
 SFX_FlueOut:
 	include 'assets\SFX\objects\flue_out.asm'
+	
+SFX_BoulderBreak:
+	include 'assets\SFX\objects\bldbreak.asm'
+
+SFX_FireflyCollect:
+	include 'assets\SFX\objects\firefly.asm'

@@ -20,6 +20,7 @@ Boulder_Decel				equ 0x0008
 
 Boulder_AnimSpeedVelDiv		equ 0x0008
 
+Boulder_HitGroundSFXVel		equ 0x0500	; Min downward velocity to play thud SFX
 Boulder_MinDamageYVel		equ 0x0500	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 
@@ -267,8 +268,45 @@ BoulderUpdate:
 	@Cracked:
 	@NotFalling:
 
+	; Store current floor flag and Y velocity to check landing
+	move.b PhysicsObj_OnFloor(a0), d0
+	move.w PhysicsObj_VelY(a0), d1
+	PUSHL  d0
+	PUSHL  d1
+	
 	; Base functionality
 	jsr    PhysicsObjUpdate
+	
+	; Retrieve floor flag and Y velocity
+	POPL   d1
+	POPL   d0
+	
+	; Check if on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	beq    @SFXInAir
+	
+	; Check if previously on floor
+	cmp.b  #0x0, d0
+	bne    @SFXPrevOnFloor
+	
+	; If hit floor at landing velocity
+	cmp.w  #-Boulder_HitGroundSFXVel, d1
+	bge    @SFXLowVel
+	
+	; Play land SFX
+	cmp.b  #0x0, Boulder_CanCrack(a0)
+	beq    @PlayLandSFX
+	; Smash SFX
+	PLAYSFX_LOWPRIO #SFX_BoulderBreak
+	bra    @SFXEnd
+	@PlayLandSFX:
+	; Land SFX - TODO
+	PLAYSFX_LOWPRIO #SFX_BoulderBreak
+	
+	@SFXEnd:
+	@SFXInAir:
+	@SFXPrevOnFloor:
+	@SFXLowVel:
 
 	rts
 	

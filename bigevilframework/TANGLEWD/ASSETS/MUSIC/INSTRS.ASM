@@ -7,64 +7,72 @@
 echo_instruments:
 
 	; Music
-    Echo_ListEntry Instr00
-    Echo_ListEntry Instr01
-    Echo_ListEntry Instr02
-	Echo_ListEntry Instr03
-	Echo_ListEntry Instr04
-	Echo_ListEntry Instr05
+    Echo_ListEntry InstrMusic00
+    Echo_ListEntry InstrMusic01
+    Echo_ListEntry InstrMusic02
+	Echo_ListEntry InstrMusic03
+	Echo_ListEntry InstrMusic04
+	Echo_ListEntry InstrMusic05
 	
 	; SFX
-	Echo_ListEntry Instr06
-	Echo_ListEntry Instr07
-	Echo_ListEntry Instr08
+	Echo_ListEntry InstrSFX00
+	Echo_ListEntry InstrSFX01
+	Echo_ListEntry InstrSFX02
+	Echo_ListEntry InstrSFX03
+	Echo_ListEntry InstrSFX04
 	
 	; PCM
-	Echo_ListEntry Instr09
-	Echo_ListEntry Instr0A
-	Echo_ListEntry Instr0B
-	Echo_ListEntry Instr0C
-	Echo_ListEntry Instr0D
-	Echo_ListEntry Instr0E
-	Echo_ListEntry Instr0F
+	Echo_ListEntry PCM00
+	Echo_ListEntry PCM01
+	Echo_ListEntry PCM02
+	Echo_ListEntry PCM03
+	Echo_ListEntry PCM04
+	Echo_ListEntry PCM05
+	Echo_ListEntry PCM06
 	
     Echo_ListEnd
+	
+PCM_InstrIndex	equ 0x0B
 
 	; Music
-Instr00:
+InstrMusic00:
 	incbin 'assets\music\instrs\instr_00.eif'
-Instr01:
+InstrMusic01:
 	incbin 'assets\music\instrs\instr_01.eif'
-Instr02:
+InstrMusic02:
 	incbin 'assets\music\instrs\instr_02.eif'
-Instr03:
+InstrMusic03:
 	incbin 'assets\music\instrs\instr_03.eif'
-Instr04:
+InstrMusic04:
 	incbin 'assets\music\instrs\instr_04.eif'
-Instr05:
+InstrMusic05:
 	incbin 'assets\music\instrs\instr_05.eif'
 	
 	; SFX
-Instr06:
+InstrSFX00:
 	incbin 'assets\sfx\instrs\instr_06.eif'
-Instr07:
+InstrSFX01:
 	incbin 'assets\sfx\instrs\instr_07.eif'
-Instr08:
+InstrSFX02:
 	incbin 'assets\sfx\instrs\instr_08.eif'
+InstrSFX03:
+	incbin 'assets\sfx\instrs\instr_09.eif'
+InstrSFX04:
+	incbin 'assets\sfx\instrs\instr_0A.eif'
 	
 	; PCM
-Instr09:
+PCM00:
 	incbin 'assets\sfx\djakk\roar.ewf'
-Instr0A:
+PCM01:
 	incbin 'assets\sfx\fstep\fstep1.ewf'
-Instr0B:
+PCM02:
 	incbin 'assets\sfx\fstep\fstep2.ewf'
-Instr0C:
+PCM03:
 	incbin 'assets\sfx\fstep\fstep3.ewf'
-Instr0D:
+PCM04:
 	incbin 'assets\sfx\fstep\fstep4.ewf'
-Instr0E:
+PCM05:
 	incbin 'assets\sfx\fstep\land.ewf'
-Instr0F:
+PCM06:
 	incbin 'assets\sfx\ambience\chirp1.ewf'
 	

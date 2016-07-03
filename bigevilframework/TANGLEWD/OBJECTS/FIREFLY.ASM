@@ -103,17 +103,31 @@ FireflyUpdate:
 FireflyTestObj:
 	; a0 --- Pickup address
 	; a1 --- Test object address
+	
+	cmp.b  #0x0, Entity_Active(a0)
+	beq    @AlreadyPickedUp
 
 	; Base functionality
 	jsr PickupTestObj
+	
+	; Restore active flag
+	;POPL   d0
 
-	; If picked up
-	cmp.b #0x0, d0
-	beq   @NotPickedUp
+	; If picked up this frame
+	cmp.b  #0x0, Entity_Active(a0)
+	bne    @NotPickedUp
 
 	; Reset timer
 	move.w #Firefly_ResetTime, Firefly_ResetTimer(a0)
+	
+	; If picked up this frame
+	;cmp.b  #0x0, d0
+	;beq    @AlreadypickedUp
+	
+	; Play SFX
+	PLAYSFX_HIGHPRIO #SFX_FireflyCollect
 
 	@NotPickedUp:
+	@AlreadypickedUp:
 
 	rts
