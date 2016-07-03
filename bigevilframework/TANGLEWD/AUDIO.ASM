@@ -47,7 +47,7 @@ UpdateAmbientAudio:
 	move.l (a0), a0
 
 	; Play
-	PLAYSFX a0
+	PLAYSFX_LOWPRIO a0
 	
 	; Get next random time
 	jsr    RandLong				; Rand long
@@ -55,6 +55,7 @@ UpdateAmbientAudio:
 	divu   #(AmbientSFXRandTimerMax-AmbientSFXRandTimerMin), d0	; Div / range
 	clr.w  d0					; Clear exponent
 	swap   d0					; Remainder to lower word
+	add.w  #AmbientSFXRandTimerMin, d0	; Add min
 	move.w d0, AmbientSFXTimer	; To timer
 	
 	@TimerRunning:

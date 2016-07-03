@@ -558,10 +558,7 @@ MonsterStartRoaring:
 	move.l (sp)+, a1
 	
 	; Start roar SFX
-	PUSHL  a0
-	lea    SFX_Djakk_Roar, a0
-	jsr	   Echo_PlaySFX
-	POPL   a0
+	PLAYSFX_HIGHPRIO #SFX_Djakk_Roar
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)

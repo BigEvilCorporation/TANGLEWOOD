@@ -7,5 +7,5 @@ bgm_lvlintro:
 	include 'assets\music\tracks\lvlintro.asm'
 
 bgm_monsterbass:
-	incbin 'assets\music\tracks\lowbass.esf'
-	
+	dc.b 0xFF ;incbin 'assets\music\tracks\lowbass.esf'
+	even

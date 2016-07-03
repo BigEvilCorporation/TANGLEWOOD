@@ -155,7 +155,7 @@ FlueOccupantUpdate:
 	move.b #0x1, Entity_Active(a1)
 	
 	; Play SFX
-	PLAYSFX_EX #SFX_FlueOut
+	PLAYSFX_HIGHPRIO #SFX_FlueOut
 	
 	@StillEjecting:
 	
@@ -262,7 +262,7 @@ FlueFindOccupant:
 	move.l a3, a1
 	
 	; Play SFX
-	PLAYSFX_EX #SFX_FlueIn
+	PLAYSFX_HIGHPRIO #SFX_FlueIn
 	
 	bra    @NewOccupantFound
 	

@@ -52,22 +52,23 @@ TOPIXELS: macro destreg
 	lsr.l   #0x8, \destreg
 	endm
 	
-	; Play SFX non-excusively (won't play if already playing)
-PLAYSFX: macro sfxAddr
+	; Play SFX non-excusively (won't play if already playing or sound system busy)
+PLAYSFX_LOWPRIO: macro sfxAddr
 	PUSHL a0
 	PUSHL d0
 	jsr   Echo_GetStatus
-	btst  #0x0, d0
-	bne   @ALREADY_PLAYING\@
+	andi.w #0x8001, d0		; Bit 1 = SFX playing, bit 15 = Echo busy
+	cmp.w #0x0, d0
+	bne   @BUSY\@
 	move.l \sfxAddr, a0
 	jsr   Echo_PlaySFX
-	@ALREADY_PLAYING\@:
+	@BUSY\@:
 	POPL  d0
 	POPL  a0
 	endm
 	
 	; Play SFX exclusively (replaces current SFX)
-PLAYSFX_EX: macro sfxAddr
+PLAYSFX_HIGHPRIO: macro sfxAddr
 	PUSHL a0
 	move.l \sfxAddr, a0
 	jsr   Echo_PlaySFX

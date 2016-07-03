@@ -195,7 +195,7 @@ AnimObjDraw:
 	cmp.l  #0x0, d3
 	beq    @NoSFX
 
-	PLAYSFX d3	; Play SFX (TODO: exlusive and non-exclusive modes)
+	PLAYSFX_LOWPRIO d3	; Play SFX (TODO: exlusive and non-exclusive modes)
 	
 	@NoTrackSFX:
 	@NoSFX:

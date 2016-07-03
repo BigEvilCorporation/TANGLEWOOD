@@ -7,6 +7,11 @@
 ;==============================================================
 
 ; ************************************
+; Constants
+; ************************************
+Character_LandVel		    equ 0x0300
+
+; ************************************
 ; Animation ids
 ; ************************************
 CharacterAnimIdx_Idle		equ 0
@@ -64,9 +69,8 @@ Character_UpdateAnim	rs.b 1
 Character_AnimIdx	    rs.b 1
 Character_Health        rs.b 1
 Character_Dead          rs.b 1
-Character_PrevOnFloor	rs.b 1
 ;-----------------------------
-Character_Struct_Pad    rs.b 0
+Character_Struct_Pad    rs.b 1
 Character_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -93,7 +97,6 @@ CharacterInit:
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
-	move.b #0x1, Character_PrevOnFloor(a0)
 
 	rts
 	
@@ -105,22 +108,31 @@ CharacterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Store current floor flag and Y velocity to check landing
+	move.b PhysicsObj_OnFloor(a0), d0
+	move.w PhysicsObj_VelY(a0), d1
+	PUSHL  d0
+	PUSHL  d1
+	
 	; Base functionality
 	jsr PhysicsObjUpdate
+	
+	; Retrieve floor flag and Y velocity
+	POPL   d1
+	POPL   d0
 	
 	; If on floor, no longer jumping
 	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
 	beq    @OffFloor
-	move.b Character_Jumping(a0), d0
 	move.b #0x0, Character_Jumping(a0)
 	
 	; Check if previously on floor
-	cmp.b  #0x0, Character_PrevOnFloor(a0)
+	cmp.b  #0x0, d0
 	bne    @PrevOnFloor
 	
-	; If character was jumping, just landed
-	cmp.b  #0x0, d0
-	beq    @WasntJumping
+	; If hit floor at landing velocity
+	cmp.w  #-Character_LandVel, d1
+	bge    @LowVel
 	
 	; Play land SFX
 	move.l a0, a2
@@ -128,15 +140,12 @@ CharacterUpdate:
 	add.l  #CharacterSFXIdx_Land, a2
 	cmp.l  #0x0, (a2)
 	beq    @NoLandSFX
-	PUSHL  a0
-	move.l (a2), a0
-	jsr    Echo_PlaySFX
-	POPL   a0
+	PLAYSFX_LOWPRIO (a2)
 	@NoLandSFX:
 	
 	@OffFloor:
 	@PrevOnFloor:
-	@WasntJumping:
+	@LowVel:
 	
 	; If in water and running, cancel run
 	cmp.b  #0x0, Character_InWater(a0)
@@ -153,9 +162,6 @@ CharacterUpdate:
 	beq   @ManualAnim
 	jsr   CharacterUpdateAnimState
 	@ManualAnim:
-	
-	; Update prev on floor flag
-	move.b PhysicsObj_OnFloor(a0), Character_PrevOnFloor(a0)
 	
 	rts
 	
