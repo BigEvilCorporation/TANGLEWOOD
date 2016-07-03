@@ -61,3 +61,9 @@ SFX_BoulderBreak:
 
 SFX_FireflyCollect:
 	include 'assets\SFX\objects\firefly.asm'
+	
+SFX_FuzzlDrop:
+	include 'assets\SFX\objects\fuzldrop.asm'
+	
+SFX_NymnColourSwitch:
+	include 'assets\SFX\nymn\switch.asm'

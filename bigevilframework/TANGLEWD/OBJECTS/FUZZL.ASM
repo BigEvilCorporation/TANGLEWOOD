@@ -26,7 +26,8 @@ Fuzzl_EyeWatchDistanceStart equ	0x0050	; Distance from player to start watching
 Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
 Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
 Fuzzl_FlingVelocity			equ 0x0004	; Upward velocity to determine if being flung (by a Flue or otherwise)
-Fuzzl_FlingRollSpeed		equ 0x80
+Fuzzl_FlingRollSpeed        equ 0x80
+Fuzzl_HitGroundSFXVel		equ 0x0200	; Min downward velocity to play thud SFX
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
@@ -309,9 +310,39 @@ FuzzlUpdate:
 	jsr FuzzlUpdateAnimation
 	
 	move.l (sp)+, a1
+	
+	; Store current floor flag and Y velocity to check landing
+	move.b PhysicsObj_OnFloor(a0), d0
+	move.w PhysicsObj_VelY(a0), d1
+	PUSHL  d0
+	PUSHL  d1
 
 	; Base functionality
 	jsr PhysicsObjUpdate
+	
+	; Retrieve floor flag and Y velocity
+	POPL   d1
+	POPL   d0
+	
+	; Check if on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	beq    @SFXInAir
+	
+	; Check if previously on floor
+	cmp.b  #0x0, d0
+	bne    @SFXPrevOnFloor
+	
+	; If hit floor at landing velocity
+	cmp.w  #-Fuzzl_HitGroundSFXVel, d1
+	bge    @SFXLowVel
+	
+	; Play land SFX
+	PLAYSFX_LOWPRIO #SFX_FuzzlDrop
+	
+	@SFXEnd:
+	@SFXInAir:
+	@SFXPrevOnFloor:
+	@SFXLowVel:
 
 	rts
 	

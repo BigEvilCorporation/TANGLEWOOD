@@ -556,6 +556,9 @@ PlayerBeginColourSwitch:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
+	; Play SFX
+	PLAYSFX_HIGHPRIO #SFX_NymnColourSwitch
+	
 	; Start countdown timer
 	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
 	
