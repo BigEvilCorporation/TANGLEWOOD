@@ -179,8 +179,10 @@ FuzzlInit:
 FuzzlUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	move.l a1, -(sp)
+	
+	; Don't update if out of view
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	beq    @OutOfView
 	
 	; Check if Fuzzl is home
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
@@ -191,10 +193,10 @@ FuzzlUpdate:
 	beq    @MovedFromInitialPos
 
 	; Check if Fuzzl is far from player
-	move.l a1, -(sp)
+	PUSHL  a1
 	move.l #Player1, a1
 	jsr    EntityDistSq
-	move.l (sp)+, a1
+	POPL   a1
 	
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outer distance
 	bne    @CheckOuterDist
@@ -236,26 +238,29 @@ FuzzlUpdate:
 	move.b d0, Animation_Speed(a2)
 
 	; Check all nests
-	move.l #EntityArray_Nests, a1
+	move.l #EntityArray_Nests, a3
 	move.l #Nest_MaxEntities-1, d6
 	@NestLoop:
 	
 	; Check if nest is occupied
-	move.b Nest_Occupied(a1), d0
+	move.b Nest_Occupied(a3), d0
 	cmp.b  #0x1, d0
 	beq    @NestOccupied
 	
 	; Check if touching a nest
-	move.l d6, -(sp)
+	PUSHL a1
+	PUSHL d6
+	move.l a3, a1
 	jsr TestEntityBoxIntersectBox
-	move.l (sp)+, d6
+	POPL  d6
+	POPL  a1
 	
 	; Result in d0
 	cmp.b #0x0, d0
 	beq   @NestNotInRange
 	
 	; Touching nest, snap to into position
-	move.l Entity_WorldPosX(a1), Entity_WorldPosX(a0)
+	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
 	
 	; Zero X velocity
 	move.w #0x0, PhysicsObj_VelX(a0)
@@ -267,7 +272,10 @@ FuzzlUpdate:
 	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 	
 	; Nest is occupied
-	move.b #0x1, Nest_Occupied(a1)
+	move.b #0x1, Nest_Occupied(a3)
+	
+	; Play enter nest SFX
+	PLAYSFX_HIGHPRIO #SFX_FuzzlInNest
 	
 	; Finish
 	bra @End
@@ -276,7 +284,7 @@ FuzzlUpdate:
 	@NestOccupied:
 	
 	; Next nest
-	add.l #Nest_Struct_Size, a1
+	add.l #Nest_Struct_Size, a3
 	dbra d6, @NestLoop
 	
 	; Not home
@@ -312,8 +320,6 @@ FuzzlUpdate:
 	; Update animation
 	jsr FuzzlUpdateAnimation
 	
-	move.l (sp)+, a1
-	
 	; Store current floor flag and Y velocity to check landing
 	move.b PhysicsObj_OnFloor(a0), d0
 	move.w PhysicsObj_VelY(a0), d1
@@ -346,6 +352,8 @@ FuzzlUpdate:
 	@SFXInAir:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
+	
+	@OutOfView:
 
 	rts
 	
@@ -381,6 +389,9 @@ FuzzlUpdateBounce:
 	
 	; Bounce!
 	move.w #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
+	
+	; Play jump SFX
+	PLAYSFX_HIGHPRIO #SFX_FuzzlJump
 	
 	; Restart timer
 	move.b #0x0, Fuzzl_BounceTimer(a0)
@@ -552,11 +563,13 @@ FuzzlUpdateAnimation:
 	@EndAnim:
 	
 	; Set anim
+	PUSHL  a1
 	move.l a0, a1
 	add.l  #Fuzzl_Animations, a1
 	mulu   #Animation_Struct_Size, d0
 	add.l  d0, a1
 	jsr    AnimObjSetAnimation
+	POPL   a1
 	
 	@NoChange:
 	

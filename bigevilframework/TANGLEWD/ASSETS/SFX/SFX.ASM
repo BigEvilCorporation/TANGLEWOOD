@@ -68,6 +68,12 @@ SFX_FuzzlDrop:
 SFX_FuzzlAlert:
 	include 'assets\SFX\fuzzl\fuzlalrt.asm'
 	
+SFX_FuzzlInNest:
+	include 'assets\SFX\fuzzl\fuzlnest.asm'
+	
+SFX_FuzzlJump:
+	include 'assets\SFX\fuzzl\fuzljump.asm'
+	
 SFX_NymnColourSwitch:
 	include 'assets\SFX\nymn\switch.asm'
 	
