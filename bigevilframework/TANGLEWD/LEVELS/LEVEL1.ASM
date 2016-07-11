@@ -150,7 +150,7 @@ Lvl1_Update:
 	; Cutscene 3 - boulder roll
 	cmp.b  #0x0, Lvl1Data_ActiveCutscene3(a2)
 	beq    @NoCutscene3
-	;jsr    Lvl1_UpdateCutscene_BoulderRoll
+	jsr    Lvl1_UpdateCutscene_BoulderRoll
 	@NoCutscene3:
 
 	rts
@@ -530,95 +530,95 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	POPL   a0
 ;	
 ;	rts
-;	
-;Lvl1_StartCutscene_BoulderRoll:
-;
-;	; Block player control
-;	move.b #0x0, Player1ControlEnabled
-;	
-;	; Get boulder
-;	move.l #BoulderIntro_idx, d0
-;	mulu   #Boulder_Struct_Size, d0
-;	move.l #EntityArray_Boulders, a3
-;	add.l  d0, a3
-;	
-;	; Set as unbreakable
-;	move.b #0x0, Boulder_CanCrack(a3)
-;	
-;	; Set boulder as camera target
-;	move.l a3, CameraTargetGameObj
-;	move.w #0x0, CameraTargetLerpTime
-;	
-;	; Set player as camera lerp source
-;	move.l #Player1, CameraTargetLerpSource
-;	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
-;	
-;	; Roll right
-;	move.w #Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
-;	
-;	; Start camera shake
-;	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
-;	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
-;	
-;	; Start audio
-;	lea    bgm_cut_introrumble, a0
-;	jsr    Echo_PlayBGM
-;	
-;	; Set active cutscene
-;	move.l #LevelData_1, a2
-;	move.b #0x1, Lvl1Data_ActiveCutscene3(a2)
-;	
-;	rts
-;	
-;Lvl1_EndCutscene_BoulderRoll:
-;	
-;	; Stop camera shake
-;	move.w #0x0, CameraShakeSpeedY
-;	move.w #0x0, CameraShakeAmpY
-;	
-;	; Stop audio
-;	jsr    Echo_StopBGM
-;	
-;	; Get boulder
-;	move.l #BoulderIntro_idx, d0
-;	mulu   #Boulder_Struct_Size, d0
-;	move.l #EntityArray_Boulders, a3
-;	add.l  d0, a3
-;	
-;	; Set player as camera target
-;	move.l #Player1, CameraTargetGameObj
-;	move.w #0x0, CameraTargetLerpTime
-;	
-;	; Set boulder as camera lerp source
-;	move.l a3, CameraTargetLerpSource
-;	move.w #Lvl1_BoulderCamSpeedFrom, CameraTargetLerpSpeed
-;	
-;	; Restore player control
-;	move.b #0x1, Player1ControlEnabled
-;	
-;	; End cutscene
-;	move.l #LevelData_1, a2
-;	move.b #0x0, Lvl1Data_ActiveCutscene3(a2)
-;	
-;	rts
-;	
-;Lvl1_UpdateCutscene_BoulderRoll:
-;
-;	; Get boulder
-;	move.l #BoulderIntro_idx, d0
-;	mulu   #Boulder_Struct_Size, d0
-;	move.l #EntityArray_Boulders, a3
-;	add.l  d0, a3
-;	
-;	; Check if hit wall
-;	cmp.b  #0x0, PhysicsObj_HitWall(a3)
-;	beq    @End
-;	
-;	; Hit wall, reverse direction and finish cutscene
-;	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
-;	jsr    Lvl1_EndCutscene_BoulderRoll
-;
-;	@End:
-;	
-;	rts
-;	
+
+Lvl1_StartCutscene_BoulderRoll:
+
+	; Block player control
+	move.b #0x0, Player1ControlEnabled
+	
+	; Get boulder
+	move.l #BoulderIntro_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Set as unbreakable
+	move.b #0x0, Boulder_CanCrack(a3)
+	
+	; Set boulder as camera target
+	move.l a3, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	
+	; Set player as camera lerp source
+	move.l #Player1, CameraTargetLerpSource
+	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
+	
+	; Roll right
+	move.w #Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
+	
+	; Start camera shake
+	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
+	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+	
+	; Start audio
+	lea    bgm_cut_introrumble, a0
+	jsr    Echo_PlayBGM
+	
+	; Set active cutscene
+	move.l #LevelData_1, a2
+	move.b #0x1, Lvl1Data_ActiveCutscene3(a2)
+	
+	rts
+	
+Lvl1_EndCutscene_BoulderRoll:
+	
+	; Stop camera shake
+	move.w #0x0, CameraShakeSpeedY
+	move.w #0x0, CameraShakeAmpY
+	
+	; Stop audio
+	jsr    Echo_StopBGM
+	
+	; Get boulder
+	move.l #BoulderIntro_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Set player as camera target
+	move.l #Player1, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	
+	; Set boulder as camera lerp source
+	move.l a3, CameraTargetLerpSource
+	move.w #Lvl1_BoulderCamSpeedFrom, CameraTargetLerpSpeed
+	
+	; Restore player control
+	move.b #0x1, Player1ControlEnabled
+	
+	; End cutscene
+	move.l #LevelData_1, a2
+	move.b #0x0, Lvl1Data_ActiveCutscene3(a2)
+	
+	rts
+	
+Lvl1_UpdateCutscene_BoulderRoll:
+
+	; Get boulder
+	move.l #BoulderIntro_idx, d0
+	mulu   #Boulder_Struct_Size, d0
+	move.l #EntityArray_Boulders, a3
+	add.l  d0, a3
+	
+	; Check if hit wall
+	cmp.b  #0x0, PhysicsObj_HitWall(a3)
+	beq    @End
+	
+	; Hit wall, reverse direction and finish cutscene
+	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
+	jsr    Lvl1_EndCutscene_BoulderRoll
+
+	@End:
+	
+	rts
+	
