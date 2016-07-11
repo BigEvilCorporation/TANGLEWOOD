@@ -144,13 +144,13 @@ Lvl1_Update:
 	; Cutscene 2 - friend flee towards home
 	cmp.b  #0x0, Lvl1Data_ActiveCutscene2(a2)
 	beq    @NoCutscene2
-	jsr    Lvl1_UpdateCutscene_FriendFleeing
+	;jsr    Lvl1_UpdateCutscene_FriendFleeing
 	@NoCutscene2:
 	
 	; Cutscene 3 - boulder roll
 	cmp.b  #0x0, Lvl1Data_ActiveCutscene3(a2)
 	beq    @NoCutscene3
-	jsr    Lvl1_UpdateCutscene_BoulderRoll
+	;jsr    Lvl1_UpdateCutscene_BoulderRoll
 	@NoCutscene3:
 
 	rts
@@ -320,305 +320,305 @@ Lvl1_UpdateCutscene_NymnWake:
 	rts
 		   
 	; TODO: Use cutscene system
-Lvl1_StartCutscene_FriendFleeing:
-
-	PUSHL  a0
-	PUSHL  a1
-	
-	; Create actors
-	; TODO: Add to end of actor list
-	; TODO: Store actor ptr
-	move.l #EntityArray_Actors, a0
-	jsr    ActorInit
-	add.l  #Actor_Struct_Size, a0
-	jsr    ActorInit
-	
-	; Override max run velocity and ignore walls
-	move.l #EntityArray_Actors, a0
-	move.w #Lvl1_ScaredFriend1RunSpeed, Character_MaxVelXRun(a0)
-	move.b #0x0, PhysicsObj_CollideWalls(a0)
-	
-	add.l  #Actor_Struct_Size, a0
-	move.w #Lvl1_ScaredFriend2RunSpeed, Character_MaxVelXRun(a0)
-	move.b #0x0, PhysicsObj_CollideWalls(a0)
-	
-	; Override run anim speed
-	move.l #EntityArray_Actors, a0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
-	move.b #Lvl1_ScaredFriend1RunAnimSpeed, Animation_Speed(a2)
-	
-	add.l  #Actor_Struct_Size, a0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
-	move.b #Lvl1_ScaredFriend2RunAnimSpeed, Animation_Speed(a2)
-
-	; Load actor 1 sprite sheet (using Player 2 VRAM space and Fuzzl palette)
-	move.l #EntityArray_Actors, a0
-	lea    spritesheets_nymn, a1
-	lea    sprite_nymn_subsprite_dimensions_bits, a2
-	lea    sprite_nymn_subsprite_pos_offsets, a3
-	lea    sprite_nymn_numtiles_per_subsprite, a4
-	move.l #Tiles_Player2VRAM, d0
-	move.l #sprite_nymn_size_t, d1
-	move.b #sprite_nymn_size_subsprites, d2
-	move.w #sprite_nymn_widthheight_subsprites, d3
-	move.b #PaletteId_Fuzzl, d4
-	jsr    SpriteObjLoad
-	
-	; Load actor 2 sprite sheet (using Djakk VRAM space and palette)
-	add.l  #Actor_Struct_Size, a0
-	lea    spritesheets_nymn, a1
-	lea    sprite_nymn_subsprite_dimensions_bits, a2
-	lea    sprite_nymn_subsprite_pos_offsets, a3
-	lea    sprite_nymn_numtiles_per_subsprite, a4
-	move.l #Tiles_MonsterVRAM, d0
-	move.l #sprite_nymn_size_t, d1
-	move.b #sprite_nymn_size_subsprites, d2
-	move.w #sprite_nymn_widthheight_subsprites, d3
-	move.b #PaletteId_Monster, d4
-	jsr    SpriteObjLoad
-	
-	; Load palettes	
-	lea    Pal_Nymn_Green, a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    LoadPalette
-	
-	lea    Pal_Nymn_Blue, a0
-	move.l #PaletteId_Monster, d0
-	jsr    LoadPalette
-	
-	; Position actor 1
-	move.l #LocIntroActor1_idx, d0
-	mulu   #Location_Struct_Size, d0
-	move.l #EntityArray_Locations, a1
-	add.l  d0, a1
-	ENTITY_GETLEFT d0, a1
-	ENTITY_GETBOTTOM d1, a1
-	
-	clr.l  d2
-	move.l #EntityArray_Actors, a0
-	move.w Entity_Height(a0), d2
-	mulu   #SubpixelsPerPixel, d2
-	sub.l  d2, d1
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-	
-	; Snap to floor
-	jsr    PhysicsObjSnapToFloor
-	
-	; Start running
-	jsr    CharacterStartRun
-	
-	; Start at max velocity
-	move.w #-Lvl1_ScaredFriend1RunSpeed, PhysicsObj_VelX(a0)
-	
-	; Position actor 2 (offset from player)
-	move.l #LocIntroActor2_idx, d0
-	mulu   #Location_Struct_Size, d0
-	move.l #EntityArray_Locations, a1
-	add.l  d0, a1
-	ENTITY_GETLEFT d0, a1
-	ENTITY_GETBOTTOM d1, a1
-	
-	clr.l  d2
-	add.l  #Actor_Struct_Size, a0
-	move.w Entity_Height(a0), d2
-	mulu   #SubpixelsPerPixel, d2
-	sub.l  d2, d1
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-	
-	; Snap to floor
-	jsr    PhysicsObjSnapToFloor
-	
-	; Start running
-	jsr    CharacterStartRun
-	
-	; Start at max velocity
-	move.w #-Lvl1_ScaredFriend2RunSpeed, PhysicsObj_VelX(a0)
-	
-	; Set active cutscene
-	move.l #LevelData_1, a2
-	move.b #0x1, Lvl1Data_ActiveCutscene2(a2)
-	
-	POPL   a1
-	POPL   a0
-	
-	rts
-	
-Lvl1_EndCutscene_FriendFleeing:
-
-	; Delete actors
-	; TODO: Store actor ptr
-	move.l #EntityArray_Actors, a0
-	jsr    ActorShutdown
-	add.l  #Actor_Struct_Size, a0
-	jsr    ActorShutdown
-	
-	; Reload Djakk sprite sheet
-	cmp.w  #0x0, EntityCount_Monsters
-	beq    @NoMonsters
-	move.l #EntityArray_Monsters, a0
-	lea    spritesheets_djakk, a1
-	lea    sprite_djakk_subsprite_dimensions_bits, a2
-	lea    sprite_djakk_subsprite_pos_offsets, a3
-	lea    sprite_djakk_numtiles_per_subsprite, a4
-	move.l #tiles_monsterVRAM, d0
-	move.l #sprite_djakk_size_t, d1
-	move.b #sprite_djakk_size_subsprites, d2
-	move.w #sprite_djakk_widthheight_subsprites, d3
-	move.b #PaletteID_Monster, d4
-	jsr    SpriteObjLoad
-	@NoMonsters:
-	
-	; Reload Djakk palette
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Monster, d0
-	jsr    LoadPalette
-	
-	; Reload Fuzz; palette
-	lea    palette_fuzzl_yellow, a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    LoadPalette
-	
-	; Finished cutscene
-	move.l #LevelData_1, a2
-	move.b #0x0, Lvl1Data_ActiveCutscene2(a2)
-	
-	rts
-	
-	; TODO: Use cutscene system
-Lvl1_UpdateCutscene_FriendFleeing:
-
-	PUSHL  a0
-	PUSHL  a1
-	PUSHL  a2
-
-	; Run left
-	move.l #EntityArray_Actors, a0
-	jsr    CharacterMoveleft
-	add.l  #Actor_Struct_Size, a0
-	jsr    CharacterMoveleft
-	
-	; Check if actors are one screen to the left of Player 1
-	move.l #EntityArray_Actors, a0
-	move.l #Player1, a1
-	ENTITY_GETCENTREX d0, a0
-	ENTITY_GETCENTREX d1, a1
-	sub.l  d0, d1
-	cmp.l  #(screen_width*SubpixelsPerPixel), d1
-	blt    @StillRunning 
-	
-	add.l  #Actor_Struct_Size, a0
-	move.l #Player1, a1
-	ENTITY_GETCENTREX d0, a0
-	ENTITY_GETCENTREX d1, a1
-	sub.l  d0, d1
-	cmp.l  #(screen_width*SubpixelsPerPixel), d1
-	blt    @StillRunning 
-	
-	; Done
-	jsr    Lvl1_EndCutscene_FriendFleeing
-	
-	@StillRunning:
-	
-	POPL   a2
-	POPL   a1
-	POPL   a0
-	
-	rts
-	
-Lvl1_StartCutscene_BoulderRoll:
-
-	; Block player control
-	move.b #0x0, Player1ControlEnabled
-	
-	; Get boulder
-	move.l #BoulderIntro_idx, d0
-	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
-	add.l  d0, a3
-	
-	; Set as unbreakable
-	move.b #0x0, Boulder_CanCrack(a3)
-	
-	; Set boulder as camera target
-	move.l a3, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	
-	; Set player as camera lerp source
-	move.l #Player1, CameraTargetLerpSource
-	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
-	
-	; Roll right
-	move.w #Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
-	
-	; Start camera shake
-	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
-	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
-	
-	; Start audio
-	lea    bgm_cut_introrumble, a0
-	jsr    Echo_PlayBGM
-	
-	; Set active cutscene
-	move.l #LevelData_1, a2
-	move.b #0x1, Lvl1Data_ActiveCutscene3(a2)
-	
-	rts
-	
-Lvl1_EndCutscene_BoulderRoll:
-	
-	; Stop camera shake
-	move.w #0x0, CameraShakeSpeedY
-	move.w #0x0, CameraShakeAmpY
-	
-	; Stop audio
-	jsr    Echo_StopBGM
-	
-	; Get boulder
-	move.l #BoulderIntro_idx, d0
-	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
-	add.l  d0, a3
-	
-	; Set player as camera target
-	move.l #Player1, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	
-	; Set boulder as camera lerp source
-	move.l a3, CameraTargetLerpSource
-	move.w #Lvl1_BoulderCamSpeedFrom, CameraTargetLerpSpeed
-	
-	; Restore player control
-	move.b #0x1, Player1ControlEnabled
-	
-	; End cutscene
-	move.l #LevelData_1, a2
-	move.b #0x0, Lvl1Data_ActiveCutscene3(a2)
-	
-	rts
-	
-Lvl1_UpdateCutscene_BoulderRoll:
-
-	; Get boulder
-	move.l #BoulderIntro_idx, d0
-	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
-	add.l  d0, a3
-	
-	; Check if hit wall
-	cmp.b  #0x0, PhysicsObj_HitWall(a3)
-	beq    @End
-	
-	; Hit wall, reverse direction and finish cutscene
-	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
-	jsr    Lvl1_EndCutscene_BoulderRoll
-
-	@End:
-	
-	rts
-	
+;Lvl1_StartCutscene_FriendFleeing:
+;
+;	PUSHL  a0
+;	PUSHL  a1
+;	
+;	; Create actors
+;	; TODO: Add to end of actor list
+;	; TODO: Store actor ptr
+;	move.l #EntityArray_Actors, a0
+;	jsr    ActorInit
+;	add.l  #Actor_Struct_Size, a0
+;	jsr    ActorInit
+;	
+;	; Override max run velocity and ignore walls
+;	move.l #EntityArray_Actors, a0
+;	move.w #Lvl1_ScaredFriend1RunSpeed, Character_MaxVelXRun(a0)
+;	move.b #0x0, PhysicsObj_CollideWalls(a0)
+;	
+;	add.l  #Actor_Struct_Size, a0
+;	move.w #Lvl1_ScaredFriend2RunSpeed, Character_MaxVelXRun(a0)
+;	move.b #0x0, PhysicsObj_CollideWalls(a0)
+;	
+;	; Override run anim speed
+;	move.l #EntityArray_Actors, a0
+;	move.l a0, a2
+;	add.l  #Character_Animations, a2
+;	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
+;	move.b #Lvl1_ScaredFriend1RunAnimSpeed, Animation_Speed(a2)
+;	
+;	add.l  #Actor_Struct_Size, a0
+;	move.l a0, a2
+;	add.l  #Character_Animations, a2
+;	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
+;	move.b #Lvl1_ScaredFriend2RunAnimSpeed, Animation_Speed(a2)
+;
+;	; Load actor 1 sprite sheet (using Player 2 VRAM space and Fuzzl palette)
+;	move.l #EntityArray_Actors, a0
+;	lea    spritesheets_nymn, a1
+;	lea    sprite_nymn_subsprite_dimensions_bits, a2
+;	lea    sprite_nymn_subsprite_pos_offsets, a3
+;	lea    sprite_nymn_numtiles_per_subsprite, a4
+;	move.l #Tiles_Player2VRAM, d0
+;	move.l #sprite_nymn_size_t, d1
+;	move.b #sprite_nymn_size_subsprites, d2
+;	move.w #sprite_nymn_widthheight_subsprites, d3
+;	move.b #PaletteId_Fuzzl, d4
+;	jsr    SpriteObjLoad
+;	
+;	; Load actor 2 sprite sheet (using Djakk VRAM space and palette)
+;	add.l  #Actor_Struct_Size, a0
+;	lea    spritesheets_nymn, a1
+;	lea    sprite_nymn_subsprite_dimensions_bits, a2
+;	lea    sprite_nymn_subsprite_pos_offsets, a3
+;	lea    sprite_nymn_numtiles_per_subsprite, a4
+;	move.l #Tiles_MonsterVRAM, d0
+;	move.l #sprite_nymn_size_t, d1
+;	move.b #sprite_nymn_size_subsprites, d2
+;	move.w #sprite_nymn_widthheight_subsprites, d3
+;	move.b #PaletteId_Monster, d4
+;	jsr    SpriteObjLoad
+;	
+;	; Load palettes	
+;	lea    Pal_Nymn_Green, a0
+;	move.l #PaletteId_Fuzzl, d0
+;	jsr    LoadPalette
+;	
+;	lea    Pal_Nymn_Blue, a0
+;	move.l #PaletteId_Monster, d0
+;	jsr    LoadPalette
+;	
+;	; Position actor 1
+;	move.l #LocIntroActor1_idx, d0
+;	mulu   #Location_Struct_Size, d0
+;	move.l #EntityArray_Locations, a1
+;	add.l  d0, a1
+;	ENTITY_GETLEFT d0, a1
+;	ENTITY_GETBOTTOM d1, a1
+;	
+;	clr.l  d2
+;	move.l #EntityArray_Actors, a0
+;	move.w Entity_Height(a0), d2
+;	mulu   #SubpixelsPerPixel, d2
+;	sub.l  d2, d1
+;	move.l d0, Entity_WorldPosX(a0)
+;	move.l d1, Entity_WorldPosY(a0)
+;	
+;	; Snap to floor
+;	jsr    PhysicsObjSnapToFloor
+;	
+;	; Start running
+;	jsr    CharacterStartRun
+;	
+;	; Start at max velocity
+;	move.w #-Lvl1_ScaredFriend1RunSpeed, PhysicsObj_VelX(a0)
+;	
+;	; Position actor 2 (offset from player)
+;	move.l #LocIntroActor2_idx, d0
+;	mulu   #Location_Struct_Size, d0
+;	move.l #EntityArray_Locations, a1
+;	add.l  d0, a1
+;	ENTITY_GETLEFT d0, a1
+;	ENTITY_GETBOTTOM d1, a1
+;	
+;	clr.l  d2
+;	add.l  #Actor_Struct_Size, a0
+;	move.w Entity_Height(a0), d2
+;	mulu   #SubpixelsPerPixel, d2
+;	sub.l  d2, d1
+;	move.l d0, Entity_WorldPosX(a0)
+;	move.l d1, Entity_WorldPosY(a0)
+;	
+;	; Snap to floor
+;	jsr    PhysicsObjSnapToFloor
+;	
+;	; Start running
+;	jsr    CharacterStartRun
+;	
+;	; Start at max velocity
+;	move.w #-Lvl1_ScaredFriend2RunSpeed, PhysicsObj_VelX(a0)
+;	
+;	; Set active cutscene
+;	move.l #LevelData_1, a2
+;	move.b #0x1, Lvl1Data_ActiveCutscene2(a2)
+;	
+;	POPL   a1
+;	POPL   a0
+;	
+;	rts
+;	
+;Lvl1_EndCutscene_FriendFleeing:
+;
+;	; Delete actors
+;	; TODO: Store actor ptr
+;	move.l #EntityArray_Actors, a0
+;	jsr    ActorShutdown
+;	add.l  #Actor_Struct_Size, a0
+;	jsr    ActorShutdown
+;	
+;	; Reload Djakk sprite sheet
+;	cmp.w  #0x0, EntityCount_Monsters
+;	beq    @NoMonsters
+;	move.l #EntityArray_Monsters, a0
+;	lea    spritesheets_djakk, a1
+;	lea    sprite_djakk_subsprite_dimensions_bits, a2
+;	lea    sprite_djakk_subsprite_pos_offsets, a3
+;	lea    sprite_djakk_numtiles_per_subsprite, a4
+;	move.l #tiles_monsterVRAM, d0
+;	move.l #sprite_djakk_size_t, d1
+;	move.b #sprite_djakk_size_subsprites, d2
+;	move.w #sprite_djakk_widthheight_subsprites, d3
+;	move.b #PaletteID_Monster, d4
+;	jsr    SpriteObjLoad
+;	@NoMonsters:
+;	
+;	; Reload Djakk palette
+;	lea    palette_fade_black, a0
+;	move.l #PaletteId_Monster, d0
+;	jsr    LoadPalette
+;	
+;	; Reload Fuzz; palette
+;	lea    palette_fuzzl_yellow, a0
+;	move.l #PaletteId_Fuzzl, d0
+;	jsr    LoadPalette
+;	
+;	; Finished cutscene
+;	move.l #LevelData_1, a2
+;	move.b #0x0, Lvl1Data_ActiveCutscene2(a2)
+;	
+;	rts
+;	
+;	; TODO: Use cutscene system
+;Lvl1_UpdateCutscene_FriendFleeing:
+;
+;	PUSHL  a0
+;	PUSHL  a1
+;	PUSHL  a2
+;
+;	; Run left
+;	move.l #EntityArray_Actors, a0
+;	jsr    CharacterMoveleft
+;	add.l  #Actor_Struct_Size, a0
+;	jsr    CharacterMoveleft
+;	
+;	; Check if actors are one screen to the left of Player 1
+;	move.l #EntityArray_Actors, a0
+;	move.l #Player1, a1
+;	ENTITY_GETCENTREX d0, a0
+;	ENTITY_GETCENTREX d1, a1
+;	sub.l  d0, d1
+;	cmp.l  #(screen_width*SubpixelsPerPixel), d1
+;	blt    @StillRunning 
+;	
+;	add.l  #Actor_Struct_Size, a0
+;	move.l #Player1, a1
+;	ENTITY_GETCENTREX d0, a0
+;	ENTITY_GETCENTREX d1, a1
+;	sub.l  d0, d1
+;	cmp.l  #(screen_width*SubpixelsPerPixel), d1
+;	blt    @StillRunning 
+;	
+;	; Done
+;	jsr    Lvl1_EndCutscene_FriendFleeing
+;	
+;	@StillRunning:
+;	
+;	POPL   a2
+;	POPL   a1
+;	POPL   a0
+;	
+;	rts
+;	
+;Lvl1_StartCutscene_BoulderRoll:
+;
+;	; Block player control
+;	move.b #0x0, Player1ControlEnabled
+;	
+;	; Get boulder
+;	move.l #BoulderIntro_idx, d0
+;	mulu   #Boulder_Struct_Size, d0
+;	move.l #EntityArray_Boulders, a3
+;	add.l  d0, a3
+;	
+;	; Set as unbreakable
+;	move.b #0x0, Boulder_CanCrack(a3)
+;	
+;	; Set boulder as camera target
+;	move.l a3, CameraTargetGameObj
+;	move.w #0x0, CameraTargetLerpTime
+;	
+;	; Set player as camera lerp source
+;	move.l #Player1, CameraTargetLerpSource
+;	move.w #Lvl1_BoulderCamSpeedTo, CameraTargetLerpSpeed
+;	
+;	; Roll right
+;	move.w #Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
+;	
+;	; Start camera shake
+;	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
+;	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
+;	
+;	; Start audio
+;	lea    bgm_cut_introrumble, a0
+;	jsr    Echo_PlayBGM
+;	
+;	; Set active cutscene
+;	move.l #LevelData_1, a2
+;	move.b #0x1, Lvl1Data_ActiveCutscene3(a2)
+;	
+;	rts
+;	
+;Lvl1_EndCutscene_BoulderRoll:
+;	
+;	; Stop camera shake
+;	move.w #0x0, CameraShakeSpeedY
+;	move.w #0x0, CameraShakeAmpY
+;	
+;	; Stop audio
+;	jsr    Echo_StopBGM
+;	
+;	; Get boulder
+;	move.l #BoulderIntro_idx, d0
+;	mulu   #Boulder_Struct_Size, d0
+;	move.l #EntityArray_Boulders, a3
+;	add.l  d0, a3
+;	
+;	; Set player as camera target
+;	move.l #Player1, CameraTargetGameObj
+;	move.w #0x0, CameraTargetLerpTime
+;	
+;	; Set boulder as camera lerp source
+;	move.l a3, CameraTargetLerpSource
+;	move.w #Lvl1_BoulderCamSpeedFrom, CameraTargetLerpSpeed
+;	
+;	; Restore player control
+;	move.b #0x1, Player1ControlEnabled
+;	
+;	; End cutscene
+;	move.l #LevelData_1, a2
+;	move.b #0x0, Lvl1Data_ActiveCutscene3(a2)
+;	
+;	rts
+;	
+;Lvl1_UpdateCutscene_BoulderRoll:
+;
+;	; Get boulder
+;	move.l #BoulderIntro_idx, d0
+;	mulu   #Boulder_Struct_Size, d0
+;	move.l #EntityArray_Boulders, a3
+;	add.l  d0, a3
+;	
+;	; Check if hit wall
+;	cmp.b  #0x0, PhysicsObj_HitWall(a3)
+;	beq    @End
+;	
+;	; Hit wall, reverse direction and finish cutscene
+;	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
+;	jsr    Lvl1_EndCutscene_BoulderRoll
+;
+;	@End:
+;	
+;	rts
+;	
