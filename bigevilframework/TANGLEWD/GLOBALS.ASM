@@ -93,6 +93,9 @@ Player2 				 equ (EntityArray_Players+Player_Struct_Size)
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb
 
+; Demo timer
+DemoTimeout3Min			 equ (60*60*3)
+
 ; Debug button combos
 	IFND FINAL
 DebugButtonCombo_Profiler		equ 0x3000 ;(pad_button_a|pad_button_start)								; A+Start = profile frame

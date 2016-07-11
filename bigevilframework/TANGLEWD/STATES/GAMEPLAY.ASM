@@ -59,6 +59,9 @@ Gameplay_Enter:
 	lea    bgm_lvlintro, a0
 	jsr    Echo_PlayBGM
 	
+	; Start demo timer
+	move.l #DemoTimeout3Min, TimerDemoReset
+	
 	rts
 	
 Gameplay_Exit:
@@ -100,6 +103,28 @@ Gameplay_Update:
 	
 	@NoUpdate:
 	@PlayerAlive:
+	
+	; Player movement resets demo timer
+	move.l #Player1, a2
+	cmp.w  #0x0, PhysicsObj_VelX(a2)
+	bne    @ResetDemoTimer
+	cmp.w  #0x0, PhysicsObj_VelY(a2)
+	bne    @ResetDemoTimer
+	
+	; Check if demo timer elapsed
+	cmp.l  #0x0, TimerDemoReset
+	beq    @NoDemoTimer
+	sub.l  #0x1, TimerDemoReset
+	cmp.l  #0x0, TimerDemoReset
+	bne    @DemoTimerRunning
+	lea    GameStateLogos, a0
+	jsr    GameStateEnter
+	
+	@ResetDemoTimer:
+	move.l #DemoTimeout3Min, TimerDemoReset
+	
+	@NoDemoTimer:
+	@DemoTimerRunning:
 	
 	rts
 	

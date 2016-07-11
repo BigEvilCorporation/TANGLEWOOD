@@ -77,6 +77,7 @@ prev_sprite_link    rs.w 1
 ; ************************************
 TimerLogoFade		rs.l 1
 TimerFailReset		rs.l 1
+TimerDemoReset      rs.l 1
 
 ; ************************************
 ; World
