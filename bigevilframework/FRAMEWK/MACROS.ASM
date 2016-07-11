@@ -43,6 +43,14 @@ MEMCPYL: macro destreg,sourcereg,countreg
 	move.l (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
 	endm
+	
+; Zero memory (longwords)
+MEMZEROL: macro addressreg,countreg
+	subi.l #0x1, \countreg
+	@MEMZEROL_LP\@:
+	move.l #0x0, (\addressreg)+
+	dbra   \countreg, @MEMZEROL_LP\@
+	endm
 
 ; Clamp value between A and B
 CLAMP: macro valuereg,minreg,maxreg

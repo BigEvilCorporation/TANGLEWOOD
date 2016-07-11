@@ -17,6 +17,11 @@ Gameplay_Enter:
 	; Disable vint during state change
 	move.b #0x0, vint_enabled
 	
+	; Reset
+	PUSHL  a0
+	jsr    GameStateReset
+	POPL   a0
+	
 	; Load assets
 	jsr LevelLoad
 	

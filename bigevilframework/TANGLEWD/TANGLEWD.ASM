@@ -97,7 +97,7 @@ __start
 	
 	; Include levels
 	include 'levels\level1.asm'
-	include 'levels\level2.asm'
+	; include 'levels\level2.asm'
 	
 	; Include game code
 	include 'audio.asm'
@@ -137,8 +137,7 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	;lea GameStateLogos, a0
-	lea GameStateGameplay, a0
+	lea GameStateLogos, a0
 	ENDIF
 	jsr GameStateEnter
 

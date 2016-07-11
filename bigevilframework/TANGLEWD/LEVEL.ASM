@@ -6,13 +6,43 @@
 ;   level.asm - Level asset loading, scrolling, state, collision
 ;==============================================================
 
-LevelLoad:
+GameStateReset:
 	
-	; Fetch current level addr
-	move.l (CurrentLevel), a1
+	; Flush VDP queue
+	jsr    VDPQueue_ExecuteAll
 	
-	; Reset sprites
+	; Clear all palettes
+	jsr    ClearPalettes
+	
+	; Reset scrolling
+	move.l #0x0, WorldScrollX
+	move.l #0x0, WorldScrollY
+	move.w #0x0, d0
+	jsr    SetHScrollPlaneA
+	jsr    SetHScrollPlaneB
+	jsr    SetVScrollPlaneA
+	jsr    SetVScrollPlaneB
+	
+	; Reset camera
+	move.l #0x0, CameraWorldPosX
+	move.l #0x0, CameraWorldPosY
+	move.l #0x0, CameraTargetGameObj
+	
+	; Reset streaming
+	move.w #0x0, MapStreamLoadedCol
+	move.w #0x0, MapStreamLoadedRow
+	
+	; Clear local sprite table
 	move.w #0x0, next_sprite_index
+	lea    vdp_sprite_table, a0
+	move.l #(Sprite_Struct_Size*vdp_max_sprites)/size_long, d0
+	MEMZEROL a0, d0
+	
+	; DMA to VDP
+	lea    vdp_sprite_table, a0
+	move.w #vram_addr_sprite_table, d0
+	move.w (Sprite_Struct_Size*vdp_max_sprites), d1
+	jsr    VPDDMACopyVRAM
 	
 	; Reset entities
 	jsr    EntityClearUpdateList
@@ -31,6 +61,19 @@ LevelLoad:
 	move.w #0x0, EntityCount_Triggers
 	move.w #0x0, EntityCount_WaterBodies
 	move.w #0x0, EntityCount_Locations
+	
+	; Stop BGM
+	jsr    Echo_StopBGM
+	
+	; Flush VDP queue
+	jsr    VDPQueue_ExecuteAll
+	
+	rts
+
+LevelLoad:
+	
+	; Fetch current level addr
+	move.l (CurrentLevel), a1
 
 	IFD DEBUG
 	
@@ -218,7 +261,7 @@ LevelPreStreamMap:
 	move.l #0x0, d1
 	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
-	jsr    LoadMapPlaneB
+	; jsr    LoadMapPlaneB
 	
 	POPL   a1
 	POPL   a0

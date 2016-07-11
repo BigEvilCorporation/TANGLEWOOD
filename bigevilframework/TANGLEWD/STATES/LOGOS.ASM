@@ -19,8 +19,13 @@ GameStateLogos:
 	
 Logos_Enter:
 
-	; Clear all palettes
-	jsr    ClearPalettes
+	; Disable vint during state change
+	move.b #0x0, vint_enabled
+
+	; Reset
+	PUSHL  a0
+	jsr    GameStateReset
+	POPL   a0
 	
 	; Set BG colour
 	move.w #0x8700, d1
@@ -47,7 +52,7 @@ Logos_Enter:
 	
 	; Start title theme
 	lea    bgm_titles, a0
-	;jsr    Echo_PlayBGM
+	jsr    Echo_PlayBGM
 	
 	; Begin fade up
 	lea    palette_bec_logo, a0
