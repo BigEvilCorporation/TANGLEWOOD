@@ -4,7 +4,9 @@
 ;   http://www.bigevilcorporation.co.uk
 ;===============================================================
 ;   tod.asm - Realtime day/night cycle, puts CryEngine to shame*
-;===============================================================	
+;===============================================================
+
+TODMaxColours	equ 0xA
 
 UpdateTimeOfDay:
 
@@ -20,6 +22,15 @@ UpdateTimeOfDay:
 	move.w #0x0, TimeOfDayShiftDelay
 	
 	; Cycle time of day
+	jsr    CycleTimeOfDay
+	
+	@TODDisabled:
+	@NoTODChange:
+	
+	rts
+	
+CycleTimeOfDay:
+
 	move.b (TimeOfDay), d0
 	add.b  #0x1, d0
 	cmp.b  #TimeOfDay_NumCycles, d0
@@ -28,9 +39,6 @@ UpdateTimeOfDay:
 	@NoWrap:
 	
 	jsr SetTimeOfDay
-	
-	@TODDisabled:
-	@NoTODChange:
 	
 	rts
 	
@@ -49,7 +57,7 @@ SetTimeOfDay:
 	move.b #PaletteId_World0, d0
 	move.w #TimeOfDayCycleSpeed, d1
 	move.b #0x0, d2
-	move.b #0x6, d3
+	move.b #TODMaxColours, d3
 	
 	jsr PaletteLerpStart
 	
