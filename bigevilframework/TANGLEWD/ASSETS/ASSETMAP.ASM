@@ -8,6 +8,7 @@
     ; Palettes
     ; ************************************
 	include 'assets\palettes\bec_logo.asm'
+	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\twd_logo.asm'
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
@@ -58,6 +59,7 @@
     ; Level tiles
     ; ************************************
 	include 'assets\tiles\bec_logo.asm'
+	include 'assets\tiles\controls.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 	; include 'assets\tiles\til_lvl2.asm'
@@ -66,6 +68,7 @@
     ; Level maps
     ; ************************************
 	include 'assets\maps\bec_logo.asm'
+	include 'assets\maps\controls.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
 	include 'assets\maps\lvl1_bg.asm'
@@ -166,6 +169,9 @@ PaletteId_BigEvilLogo	equ 0x0
 
 ; Main menu
 PaletteId_TanglewoodLogo equ 0x0
+
+; Controls screen
+PaletteId_ControlsScreen equ 0x0
 
 ; Gameplay
 PaletteId_World0		equ 0x0

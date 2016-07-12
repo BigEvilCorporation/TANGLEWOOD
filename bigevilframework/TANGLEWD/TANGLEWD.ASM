@@ -87,6 +87,7 @@ __start
 	include 'objects\waterbdy.asm'
 	
 	; Include game states
+	include 'states\controls.asm'
 	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\gameplay.asm'

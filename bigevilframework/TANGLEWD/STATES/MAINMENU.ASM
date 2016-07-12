@@ -61,9 +61,6 @@ MainMenu_Enter:
 	
 MainMenu_Exit:
 	
-	; Stop BGM
-	jsr    Echo_StopBGM
-	
 	rts
 	
 MainMenu_Update:
@@ -100,8 +97,8 @@ MainMenu_Update:
 	
 	@FadedOut:
 	
-	; Enter game state
-	lea GameStateGameplay, a0
+	; Enter controls screen state
+	lea GameStateControlsScreen, a0
 	jsr GameStateEnter
 	
 	@Fading:
