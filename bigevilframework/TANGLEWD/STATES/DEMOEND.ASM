@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-DemoEndStateDelayTime	equ 0x0200
+DemoEndStateDelayTime	equ 0x0280
 DemoEndStateFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 DemoEndStateNumColours	equ 0xE ; For palette lerping
 
