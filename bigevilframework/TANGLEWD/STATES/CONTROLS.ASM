@@ -9,6 +9,7 @@
 ; Constants
 ControlsScreenDelayTime	equ 0x0180
 ControlsScreenFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+ControlsScreenNumColours	equ 0xE ; For palette lerping
 
 GameStateControlsScreen:
 	dc.l ControlsScreen_Enter
@@ -59,7 +60,7 @@ ControlsScreen_Enter:
 	move.l #PaletteId_ControlsScreen, d0
 	move.l #ControlsScreenFadeTime, d1
 	move.l #0x0, d2
-	move.l #0x7, d3
+	move.l #ControlsScreenNumColours, d3
 	jsr    PaletteLerpStart
 	
 	; Flush VDP queue
@@ -98,7 +99,7 @@ ControlsScreen_Update:
 	move.l #PaletteId_ControlsScreen, d0
 	move.l #ControlsScreenFadeTime, d1
 	move.l #0x0, d2
-	move.l #0xF, d3
+	move.l #ControlsScreenNumColours, d3
 	jsr    PaletteLerpStart
 	bra    @End
 	
