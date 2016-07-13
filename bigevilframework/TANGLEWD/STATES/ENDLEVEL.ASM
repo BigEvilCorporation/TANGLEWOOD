@@ -116,10 +116,9 @@ EndLevel_Update:
 	
 	@EndOfGame:
 	
-	; Reset to first level and return to main menu
-	; TODO: End game/credits state
+	; Reset to first level and head to demo end screen
 	move.l #Lvl1_HarlequinForest, CurrentLevel
-	lea    GameStateLogos, a0
+	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
 	
 	@TimerRunning:

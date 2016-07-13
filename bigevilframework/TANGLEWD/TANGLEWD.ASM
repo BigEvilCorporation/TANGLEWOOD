@@ -88,6 +88,7 @@ __start
 	
 	; Include game states
 	include 'states\controls.asm'
+	include 'states\demoend.asm'
 	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\gameplay.asm'

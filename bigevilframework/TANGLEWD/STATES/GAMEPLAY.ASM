@@ -117,7 +117,7 @@ Gameplay_Update:
 	sub.l  #0x1, TimerDemoReset
 	cmp.l  #0x0, TimerDemoReset
 	bne    @DemoTimerRunning
-	lea    GameStateLogos, a0
+	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
 	
 	@ResetDemoTimer:

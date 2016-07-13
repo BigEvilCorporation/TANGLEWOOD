@@ -31,6 +31,8 @@ tiles_bigevil_logo:
 	incbin 'assets\tiles\bec_logo.bin'
 tiles_controls_screen:
 	incbin 'assets\tiles\controls.bin'
+tiles_demoend_screen:
+	incbin 'assets\tiles\demoend.bin'
 tiles_tanglewood_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
@@ -53,6 +55,8 @@ map_bigevil_logo:
 	incbin 'assets\maps\bec_logo.bin'
 map_controls_screen:
 	incbin 'assets\maps\controls.bin'
+map_demoend_screen:
+	incbin 'assets\maps\demoend.bin'
 map_tanglewood_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:
