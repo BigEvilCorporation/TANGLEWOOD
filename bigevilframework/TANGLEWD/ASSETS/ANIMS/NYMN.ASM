@@ -168,7 +168,7 @@ spriteanim_nymn_idle_track_posy:
 
 spriteanim_nymn_walktorun:
 spriteanim_nymn_walktorun_numframes: equ 0x1
-spriteanim_nymn_walktorun_speed: equ 0x19
+spriteanim_nymn_walktorun_speed: equ 0x28
 spriteanim_nymn_walktorun_track_frames:
 	dc.b 0x0
 spriteanim_nymn_walktorun_track_posx:
