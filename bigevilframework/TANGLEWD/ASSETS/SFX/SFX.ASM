@@ -89,5 +89,8 @@ SFX_Footstep3:
 SFX_Footstep4:
 	include 'assets\SFX\fstep\fstep2.asm'
 	
+SFX_FootstepBig:
+	include 'assets\SFX\fstep\fstepbig.asm'
+	
 SFX_Land:
 	include 'assets\SFX\fstep\land.asm'

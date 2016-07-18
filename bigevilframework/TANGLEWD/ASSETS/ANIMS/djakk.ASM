@@ -41,7 +41,9 @@ spriteanim_djakk_run_track_frames:
 spriteanim_djakk_run_track_posx:
 
 spriteanim_djakk_run_track_posy:
-
+	Even
+spriteanim_djakk_run_track_sfx:
+	dc.l 0x0, SFX_FootstepBig, SFX_FootstepBig, 0x0, 0x0, SFX_FootstepBig, SFX_FootstepBig, 0x0
 
 	Even
 

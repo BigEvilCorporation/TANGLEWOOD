@@ -140,6 +140,7 @@ MonsterInit:
 	
 	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	move.w  #Monster_MaxVelXWalk, Character_WalkToRunVel(a0)
 	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)
 	move.w  #Monster_AccelRun, Character_AccelRun(a0)
 	move.w  #Monster_DecelIdle, Character_DecelIdle(a0)
@@ -192,6 +193,7 @@ MonsterInit:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
 	move.w #spritesheet_djakk_run_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_djakk_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_djakk_run_track_sfx, Animation_AnimTrackSFX(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_djakk_run_speed, Animation_Speed(a3)
@@ -203,6 +205,7 @@ MonsterInit:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
 	move.w #spritesheet_djakk_walk_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_djakk_walk_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackSFX(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_djakk_walk_speed, Animation_Speed(a3)
