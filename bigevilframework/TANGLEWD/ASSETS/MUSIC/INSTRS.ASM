@@ -34,9 +34,6 @@ echo_instruments:
 	Echo_ListEntry PCM01
 	Echo_ListEntry PCM02
 	Echo_ListEntry PCM03
-	Echo_ListEntry PCM04
-	Echo_ListEntry PCM05
-	Echo_ListEntry PCM06
 	
     Echo_ListEnd
 	
@@ -88,15 +85,9 @@ InstrSFX12:
 PCM00:
 	incbin 'assets\sfx\djakk\roar.ewf'
 PCM01:
-	incbin 'assets\sfx\fstep\fstep1.ewf'
+	incbin 'assets\sfx\djakk\bite.ewf'
 PCM02:
-	incbin 'assets\sfx\fstep\fstep2.ewf'
-PCM03:
-	incbin 'assets\sfx\fstep\fstep3.ewf'
-PCM04:
-	incbin 'assets\sfx\fstep\fstep4.ewf'
-PCM05:
 	incbin 'assets\sfx\fstep\land.ewf'
-PCM06:
+PCM03:
 	incbin 'assets\sfx\ambience\chirp1.ewf'
 	
