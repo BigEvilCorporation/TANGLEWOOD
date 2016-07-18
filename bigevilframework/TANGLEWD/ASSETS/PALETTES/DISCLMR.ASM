@@ -7,20 +7,20 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-palette_demoend:
-	dc.w	0x0000
+palette_demodisclaimer:
 	dc.w	0x0000
 	dc.w	0x0222
-	dc.w	0x0420
-	dc.w	0x0244
-	dc.w	0x0444
+	dc.w	0x0242
 	dc.w	0x0444
 	dc.w	0x0C62
 	dc.w	0x0666
-	dc.w	0x0C86
+	dc.w	0x0666
 	dc.w	0x0888
-	dc.w	0x04A8
+	dc.w	0x0888
+	dc.w	0x0888
 	dc.w	0x0AAA
+	dc.w	0x0AAA
+	dc.w	0x0ACA
 	dc.w	0x0CCC
 	dc.w	0x0EEE
 	dc.w	0x0000

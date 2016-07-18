@@ -97,8 +97,8 @@ MainMenu_Update:
 	
 	@FadedOut:
 	
-	; Enter controls screen state
-	lea GameStateControlsScreen, a0
+	; Enter demo disclaimer state
+	lea GameStateDemoDisclaimerScreen, a0
 	jsr GameStateEnter
 	
 	@Fading:

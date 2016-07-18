@@ -9,6 +9,7 @@
     ; ************************************
 	include 'assets\palettes\bec_logo.asm'
 	include 'assets\palettes\controls.asm'
+	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
 	include 'assets\palettes\twd_logo.asm'
 	include 'assets\palettes\pal_fade.asm'
@@ -61,6 +62,7 @@
     ; ************************************
 	include 'assets\tiles\bec_logo.asm'
 	include 'assets\tiles\controls.asm'
+	include 'assets\tiles\disclmr.asm'
 	include 'assets\tiles\demoend.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
@@ -71,6 +73,7 @@
     ; ************************************
 	include 'assets\maps\bec_logo.asm'
 	include 'assets\maps\controls.asm'
+	include 'assets\maps\disclmr.asm'
 	include 'assets\maps\demoend.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
@@ -172,6 +175,9 @@ PaletteId_BigEvilLogo	 equ 0x0
 
 ; Main menu
 PaletteId_TanglewoodLogo equ 0x0
+
+; Demo disclaimer screen
+PaletteId_DemoDisclaimerScreen   equ 0x0
 
 ; Controls screen
 PaletteId_ControlsScreen equ 0x0
