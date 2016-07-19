@@ -46,6 +46,11 @@ EndLevel_Enter:
 	move.b #EndLevelPhase_Sleep, EndLevelState_Phase(a2)
 	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
 	
+		
+	; Start end of level theme
+	lea    bgm_lvloutro, a0
+	jsr    Echo_PlayBGM
+	
 	rts
 	
 EndLevel_Exit:

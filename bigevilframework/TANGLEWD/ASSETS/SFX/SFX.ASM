@@ -25,15 +25,15 @@ SFX_Chirp1:
 	ESF_Stop
 	
 SFX_Chirp2:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+3
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
 	ESF_Stop
 	
 SFX_Chirp3:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+4
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
 	ESF_Stop
 	
 SFX_Chirp4:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+5
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
 	ESF_Stop
 	
 ; FM SFX

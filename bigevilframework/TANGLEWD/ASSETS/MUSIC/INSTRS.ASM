@@ -13,6 +13,7 @@ echo_instruments:
 	Echo_ListEntry InstrMusic03
 	Echo_ListEntry InstrMusic04
 	Echo_ListEntry InstrMusic05
+	Echo_ListEntry InstrMusic06
 	
 	; SFX
 	Echo_ListEntry InstrSFX00
@@ -33,7 +34,6 @@ echo_instruments:
 	Echo_ListEntry PCM00
 	Echo_ListEntry PCM01
 	Echo_ListEntry PCM02
-	Echo_ListEntry PCM03
 	
     Echo_ListEnd
 	
@@ -52,26 +52,28 @@ InstrMusic04:
 	incbin 'assets\music\instrs\instr_04.eif'
 InstrMusic05:
 	incbin 'assets\music\instrs\instr_05.eif'
+InstrMusic06:
+	incbin 'assets\music\instrs\instr_06.eif'
 	
 	; SFX
 InstrSFX00:
-	incbin 'assets\sfx\instrs\instr_06.eif'
-InstrSFX01:
 	incbin 'assets\sfx\instrs\instr_07.eif'
-InstrSFX02:
+InstrSFX01:
 	incbin 'assets\sfx\instrs\instr_08.eif'
-InstrSFX03:
+InstrSFX02:
 	incbin 'assets\sfx\instrs\instr_09.eif'
-InstrSFX04:
+InstrSFX03:
 	incbin 'assets\sfx\instrs\instr_0a.eif'
-InstrSFX05:
+InstrSFX04:
 	incbin 'assets\sfx\instrs\instr_0b.eif'
-InstrSFX06:
+InstrSFX05:
 	incbin 'assets\sfx\instrs\instr_0c.eif'
-InstrSFX07:
+InstrSFX06:
 	incbin 'assets\sfx\instrs\instr_0d.eif'
-InstrSFX08:
+InstrSFX07:
 	incbin 'assets\sfx\instrs\instr_0e.eif'
+InstrSFX08:
+	incbin 'assets\sfx\instrs\instr_0f.eif'
 InstrSFX09:
 	incbin 'assets\sfx\instrs\instr_0f.eif'
 InstrSFX10:
@@ -87,7 +89,5 @@ PCM00:
 PCM01:
 	incbin 'assets\sfx\djakk\bite.ewf'
 PCM02:
-	incbin 'assets\sfx\fstep\land.ewf'
-PCM03:
 	incbin 'assets\sfx\ambience\chirp1.ewf'
 	

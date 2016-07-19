@@ -68,6 +68,10 @@ GameStateReset:
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
 	
+	; Reset Echo
+	lea echo_instruments, a0
+	jsr Echo_Init
+	
 	rts
 
 LevelLoad:
