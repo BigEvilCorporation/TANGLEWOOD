@@ -469,10 +469,8 @@
 ; Pattern $01, Row 57; 
 ; Pattern $01, Row 58; 
 ; Pattern $01, Row 59; 
-	dc.b $fe, $30	; Delay
-	dc.b $10		; Note off channel FM 1
 ; Pattern $02, Row 0; 
-	dc.b $fe, $10	; Delay
+	dc.b $fe, $40	; Delay
 	dc.b $00, $47	; Note D#2 on channel FM 1
 	dc.b $f0, $c0	; Set params for channel FM 1
 	dc.b $11		; Note off channel FM 2
@@ -924,7 +922,68 @@
 ; Pattern $03, Row 57; 
 ; Pattern $03, Row 58; 
 ; Pattern $03, Row 59; 
-	dc.b $fe, $30	; Delay
-	dc.b $10		; Note off channel FM 1
-	dc.b $fe, $10	; Delay
+; Pattern $04, Row 0; 
+; Pattern $04, Row 1; 
+; Pattern $04, Row 2; 
+; Pattern $04, Row 3; 
+; Pattern $04, Row 4; 
+; Pattern $04, Row 5; 
+; Pattern $04, Row 6; 
+; Pattern $04, Row 7; 
+; Pattern $04, Row 8; 
+; Pattern $04, Row 9; 
+; Pattern $04, Row 10; 
+; Pattern $04, Row 11; 
+; Pattern $04, Row 12; 
+; Pattern $04, Row 13; 
+; Pattern $04, Row 14; 
+; Pattern $04, Row 15; 
+; Pattern $04, Row 16; 
+; Pattern $04, Row 17; 
+; Pattern $04, Row 18; 
+; Pattern $04, Row 19; 
+; Pattern $04, Row 20; 
+; Pattern $04, Row 21; 
+; Pattern $04, Row 22; 
+; Pattern $04, Row 23; 
+; Pattern $04, Row 24; 
+; Pattern $04, Row 25; 
+; Pattern $04, Row 26; 
+; Pattern $04, Row 27; 
+; Pattern $04, Row 28; 
+; Pattern $04, Row 29; 
+; Pattern $04, Row 30; 
+; Pattern $04, Row 31; 
+; Pattern $04, Row 32; 
+; Pattern $04, Row 33; 
+; Pattern $04, Row 34; 
+; Pattern $04, Row 35; 
+; Pattern $04, Row 36; 
+; Pattern $04, Row 37; 
+; Pattern $04, Row 38; 
+; Pattern $04, Row 39; 
+; Pattern $04, Row 40; 
+; Pattern $04, Row 41; 
+; Pattern $04, Row 42; 
+; Pattern $04, Row 43; 
+; Pattern $04, Row 44; 
+; Pattern $04, Row 45; 
+; Pattern $04, Row 46; 
+; Pattern $04, Row 47; 
+; Pattern $04, Row 48; 
+; Pattern $04, Row 49; 
+; Pattern $04, Row 50; 
+; Pattern $04, Row 51; 
+; Pattern $04, Row 52; 
+; Pattern $04, Row 53; 
+; Pattern $04, Row 54; 
+; Pattern $04, Row 55; 
+; Pattern $04, Row 56; 
+; Pattern $04, Row 57; 
+; Pattern $04, Row 58; 
+; Pattern $04, Row 59; 
+	dc.b $fe, $00	; Delay
+	dc.b $fe, $00	; Delay
+	dc.b $fe, $00	; Delay
+	dc.b $fe, $00	; Delay
 	dc.b $ff	; The End
