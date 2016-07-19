@@ -79,5 +79,29 @@
 ; Pattern $00, Row 69; 
 ; Pattern $00, Row 70; 
 ; Pattern $00, Row 71; 
-	dc.b $fe, $90	; Delay
+; Pattern $00, Row 72; 
+; Pattern $00, Row 73; 
+; Pattern $00, Row 74; 
+; Pattern $00, Row 75; 
+; Pattern $00, Row 76; 
+; Pattern $00, Row 77; 
+; Pattern $00, Row 78; 
+; Pattern $00, Row 79; 
+; Pattern $00, Row 80; 
+; Pattern $00, Row 81; 
+; Pattern $00, Row 82; 
+; Pattern $00, Row 83; 
+; Pattern $00, Row 84; 
+; Pattern $00, Row 85; 
+; Pattern $00, Row 86; 
+; Pattern $00, Row 87; 
+; Pattern $00, Row 88; 
+; Pattern $00, Row 89; 
+; Pattern $00, Row 90; 
+; Pattern $00, Row 91; 
+; Pattern $00, Row 92; 
+; Pattern $00, Row 93; 
+; Pattern $00, Row 94; 
+; Pattern $00, Row 95; 
+	dc.b $fe, $d8	; Delay
 	dc.b $ff	; The End
