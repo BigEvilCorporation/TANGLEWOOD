@@ -356,178 +356,508 @@
 	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 56; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 57; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 58; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 59; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 60; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 61; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 62; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $00, Row 63; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 0; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 1; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 2; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 4; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 5; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 6; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 7; 
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $01	; Delay
-	dc.b $20, $7e	; Set volume for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 8; 
-	dc.b $fe, $7b	; Delay
-	dc.b $10		; Note off channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 9; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 10; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 11; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 12; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 13; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 14; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 15; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 16; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 17; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 18; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 19; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 20; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 21; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 22; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 23; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 24; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 25; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 26; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 27; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 28; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 29; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 30; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 31; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 32; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 33; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 34; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 35; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 36; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 37; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 38; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 39; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 40; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 41; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 42; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 43; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 44; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 45; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 46; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 47; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 48; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 49; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 50; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 51; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 52; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 53; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 54; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 55; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 56; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 57; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 58; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 59; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 60; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 61; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 62; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 ; Pattern $01, Row 63; 
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $fe, $00	; Delay
-	dc.b $fe, $4a	; Delay
-	dc.b $10		; Note off channel FM 1
-	dc.b $11		; Note off channel FM 2
-	dc.b $12		; Note off channel FM 3
 	dc.b $fe, $06	; Delay
 	dc.b $ff	; The End
