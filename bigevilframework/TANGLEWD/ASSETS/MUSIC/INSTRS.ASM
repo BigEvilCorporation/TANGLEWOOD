@@ -37,7 +37,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x13
+PCM_InstrIndex	equ 0x14
 
 	; Music
 InstrMusic00:
