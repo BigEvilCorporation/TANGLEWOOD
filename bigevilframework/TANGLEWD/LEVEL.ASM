@@ -208,9 +208,8 @@ LevelPreStreamMap:
 
 	; Initial camera pos X to world scroll
 	move.l #Player1, a0
-	move.l Entity_WorldPosX(a0), d0
+	ENTITY_GETCENTREX d0, a0
 	sub.l  #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
-	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0		; Centre on player
 	jsr    CameraPosToWorldScrollX
 	move.l d0, WorldScrollX
 	move.l d0, d1
@@ -229,9 +228,9 @@ LevelPreStreamMap:
     
 	; Initial camera pos Y to world scroll
 	move.l #Player1, a0
-	move.l Entity_WorldPosY(a0), d0
+	ENTITY_GETCENTREY d0, a0
 	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	add.l  #(Player1Height*SubpixelsPerPixel)*2, d0		; Centre on player
+	;sub.l  #(SubpixelsPerPixel*8), d0
 	jsr    CameraPosToWorldScrollY
 	move.l d0, WorldScrollY
     
@@ -239,23 +238,15 @@ LevelPreStreamMap:
 	lsr.l  #0x8, d0					; To screen space
 	jsr    SetVScrollPlaneA
     
-	; Set initial streamed row (starting from bottom, streaming rows upwards)
+	; Set initial streamed row + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	divu   #0x8, d0					; To tiles
 	add.w  #MapStreamHeight, d0
 	move.w d0, MapStreamLoadedrow
     
 	;==============================================================
     
-	; Stream rows, bottom to top
-	add.l  #(MapStreamHeight*SubpixelsPerPixel), WorldScrollY
-    
-	move.l #(MapStreamHeight-1), d2
-	@Loop:
-	sub.l  #(8*SubpixelsPerPixel), WorldScrollY
-	move.l d2, -(sp)
-	jsr    StreamRows
-	move.l (sp)+, d2
-	dbra   d2, @Loop
+	; Stream initial map section
+	jsr    UpdateMapStreaming
 
 	;==============================================================
 	

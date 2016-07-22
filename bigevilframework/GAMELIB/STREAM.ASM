@@ -36,7 +36,7 @@ UpdateMapStreaming:
 	cmp.w   (MapStreamLoadedCol), d1
 	beq     @NoPendingCols
 	
-	jsr StreamColumns
+	jsr     StreamColumns
 	bra     @ColLoop
 	
 	@NoPendingCols:
