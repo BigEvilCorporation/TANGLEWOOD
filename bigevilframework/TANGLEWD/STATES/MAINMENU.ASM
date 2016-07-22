@@ -9,6 +9,17 @@
 ; Constants
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 
+; ************************************
+; Struct
+; ************************************
+	rsset	0x0
+;---------------------------------
+MainMenuState_NextState		rs.l 1
+;---------------------------------
+MainMenuState_Struct_Pad	rs.b 0
+MainMenuState_Struct_Size	rs.b 0
+;---------------------------------
+
 GameStateMainMenu:
 	dc.l MainMenu_Enter
 	dc.l MainMenu_Exit
@@ -65,6 +76,9 @@ MainMenu_Exit:
 	
 MainMenu_Update:
 
+	; Get menu data
+	lea    GameStateMainMenuData, a2
+	
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
 	move.w PaletteLerp_Speed(a0), d0
@@ -75,10 +89,22 @@ MainMenu_Update:
 	cmp.l  #0x0, TimerLogoFade
 	beq    @FadedOut
 	
-	; Wait for start button press
+	; Check start button
+	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
 	jsr    ReadPadA
-	btst  #pad_button_start, d0	; Check start pressed
-	beq   @End
+	btst   #pad_button_start, d0
+	bne    @StartGame
+	
+	; Check C button
+	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
+	jsr    ReadPadA
+	btst   #pad_button_c, d0
+	bne    @StartSoundTest
+	
+	bra    @End
+	
+	@StartGame:
+	@StartSoundTest:
 
 	; Begin fade to black
 	lea    palette_fade_black, a0
@@ -97,9 +123,9 @@ MainMenu_Update:
 	
 	@FadedOut:
 	
-	; Enter demo disclaimer state
-	lea GameStateDemoDisclaimerScreen, a0
-	jsr GameStateEnter
+	; Enter next state
+	move.l MainMenuState_NextState(a2), a0
+	jsr    GameStateEnter
 	
 	@Fading:
 	@NotElapsed:

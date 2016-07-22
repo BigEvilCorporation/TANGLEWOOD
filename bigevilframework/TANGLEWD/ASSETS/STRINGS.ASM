@@ -17,5 +17,7 @@ Str_Flues:		dc.b "FLUES",0
 Str_Render:		dc.b "RENDER",0
 	ENDIF
 	
+Str_SoundTestLabel	dc.b "SOUND ID: ",0
+	
 	even
 	

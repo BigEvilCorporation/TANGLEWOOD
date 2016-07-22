@@ -35,6 +35,8 @@ tiles_demodisclaimer_screen:
 	incbin 'assets\tiles\disclmr.bin'
 tiles_demoend_screen:
 	incbin 'assets\tiles\demoend.bin'
+tiles_soundtest:
+	incbin 'assets\tiles\soundtst.bin'
 tiles_tanglewood_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
@@ -61,6 +63,8 @@ map_demodisclaimer_screen:
 	incbin 'assets\maps\disclmr.bin'
 map_demoend_screen:
 	incbin 'assets\maps\demoend.bin'
+map_soundtest:
+	incbin 'assets\maps\soundtst.bin'
 map_tanglewood_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:

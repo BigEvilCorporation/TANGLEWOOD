@@ -11,6 +11,7 @@
 	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
+	include 'assets\palettes\soundtst.asm'
 	include 'assets\palettes\twd_logo.asm'
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
@@ -64,6 +65,7 @@
 	include 'assets\tiles\controls.asm'
 	include 'assets\tiles\disclmr.asm'
 	include 'assets\tiles\demoend.asm'
+	include 'assets\tiles\soundtst.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 	; include 'assets\tiles\til_lvl2.asm'
@@ -75,6 +77,7 @@
 	include 'assets\maps\controls.asm'
 	include 'assets\maps\disclmr.asm'
 	include 'assets\maps\demoend.asm'
+	include 'assets\maps\soundtst.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
 	include 'assets\maps\lvl1_bg.asm'
@@ -175,6 +178,10 @@ PaletteId_BigEvilLogo	 equ 0x0
 
 ; Main menu
 PaletteId_TanglewoodLogo equ 0x0
+
+; Sound test
+PaletteId_SoundTest 	 equ 0x0
+PaletteId_SoundTestText	 equ 0x1
 
 ; Demo disclaimer screen
 PaletteId_DemoDisclaimerScreen   equ 0x0

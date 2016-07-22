@@ -96,6 +96,7 @@ __start
 	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\gameplay.asm'
+	include 'states\soundtst.asm'
 	IFND DEBUG
 	include 'states\logos.asm'
 	include 'states\mainmenu.asm'
