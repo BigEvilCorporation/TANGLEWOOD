@@ -173,6 +173,11 @@ vdp_reg1_enablevint		   equ 0x10
 vdp_reg1_enabledisplay     equ 0x20
 
 ; ************************************
+; HINT effects
+; ************************************
+hint_max_size			   equ 0x0100
+
+; ************************************
 ; PSG
 ; ************************************
 psg_control             equ 0x00C00011

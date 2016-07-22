@@ -11,6 +11,9 @@ __start
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
 	
+	; Include interrupts
+	include 'interpts.asm'
+	
 	; Include Framework macros
 	include '..\framewk\macros.asm'
 
@@ -116,6 +119,10 @@ __main:
 
 	; Disable vint during loading
 	move.b #0x0, vint_enabled
+	
+	; Load letterbox horizontal interrupt routine
+	lea HBlankInterrupt_Letterbox, a0
+	;jsr LoadInterruptHBlank
 
 	; Load debug draw font
 	lea      Tiles_PixelFont, a0

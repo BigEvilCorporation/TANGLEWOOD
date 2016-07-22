@@ -8,6 +8,10 @@
 
 InitVDP:
 
+	; Load empty horizontal interrupt routine
+	lea HBlankInterrupt_Blank, a0
+	jsr LoadInterruptHBlank
+
 	; Set VDP registers
 	move.l #VDPRegisters, a0   		  ; Load address of register table into a0
 	move.l #(vdp_num_registers-1), d0 ; 24 registers to write (-1 for loop counter)

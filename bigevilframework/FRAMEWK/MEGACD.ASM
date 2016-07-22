@@ -88,7 +88,7 @@ GetMCDType:
 MCD_RestoreHINT:
         ; Put HINT vector back into the table
         move.l #SubCPU_int, (0xFFFFFD08).w
-        move.w #HBlankInterrupt, (0x00A12006).l
+        move.w #HBlankInterrupt_Blank, (0x00A12006).l
         move.l #SubCPU_rte, (0xFFFFFD0E).w
 
 		rts
@@ -98,7 +98,7 @@ InitMCD_Mode1:
 
         ; Put HINT vector back into the table
         move.l #SubCPU_int, (0xFFFFFD08).w
-        move.w #HBlankInterrupt, (0x00A12006).l
+        move.w #HBlankInterrupt_Blank, (0x00A12006).l
         move.l #SubCPU_rte, (0xFFFFFD0E).w
 
         ; Reset gate array
