@@ -15,6 +15,13 @@ UpdateMapStreaming:
 	@RowLoop:
 	move.l  (WorldScrollY), d1			; Get world scroll Y position
 	add.l   (CameraShakeOffsetY), d1	; Add shake offset
+	
+	; Clamp scroll value + camera shake
+	cmp.l  #0x0, d1
+	bge    @NoClampY
+	move.l  (WorldScrollY), d1
+	@NoClampY:
+	
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
 	cmp.w   (MapStreamLoadedRow), d1
@@ -31,6 +38,13 @@ UpdateMapStreaming:
 	@ColLoop:
 	move.l  (WorldScrollX), d1			; Get world scroll X position
 	add.l   (CameraShakeOffsetX), d1	; Add shake offset
+	
+	; Clamp scroll value + camera shake
+	cmp.l  #0x0, d1
+	bge    @NoClampX
+	move.l  (WorldScrollX), d1
+	@NoClampX:
+	
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
 	cmp.w   (MapStreamLoadedCol), d1
@@ -65,10 +79,14 @@ StreamRows:
 	@Stream:
 	
 	; Source rect left in upper d0
-	move.l  (WorldScrollX), d1			; Get world scroll X position
-	add.l  (CameraShakeOffsetX), d1		; Add shake offset
-	lsr.l   #0x8, d1					; To screen space
-	divu    #0x8, d1					; To tiles
+	move.l  (WorldScrollX), d1		; Get world scroll X position
+	add.l  (CameraShakeOffsetX), d1	; Add shake offset
+	cmp.l  #0x0, d1					; Clamp scroll value + camera shake
+	bge    @NoClampX
+	move.l  (WorldScrollX), d1
+	@NoClampX:
+	lsr.l   #0x8, d1				; To screen space
+	divu    #0x8, d1				; To tiles
 	swap	d0
 	move.w	d1, d0
 	
@@ -183,7 +201,11 @@ StreamColumns:
 	
 	; Source rect top in lower d0
 	move.l  (WorldScrollY), d3		; Get world scroll Y position
-	add.l  (CameraShakeOffsetY), d3		; Add shake offset
+	add.l  (CameraShakeOffsetY), d3	; Add shake offset
+	cmp.l  #0x0, d3					; Clamp scroll value + camera shake
+	bge    @NoClampY
+	move.l  (WorldScrollY), d3
+	@NoClampY:
 	lsr.l   #0x8, d3				; To screen space
 	divu    #0x8, d3				; To tiles
 	move.w	d3, d0					; To lower d0
