@@ -153,8 +153,7 @@ Tile_Bank1_Size_t:   equ (0x1000/size_tile_b)
 Tile_Bank1_Start:    equ (vram_addr_plane_a+Tile_Bank1_Size_b)	; Spare space at VDP 0xD000-0xE000
 ;---------------------------------------------------------
 	rsset Tile_Bank1_Start
-Tiles_Fuzzl1VRAM:    rs.b (tiles_fuzzl_size_b)
-Tiles_Fuzzl2VRAM:    rs.b (tiles_fuzzl_size_b)
+Tiles_FuzzlVRAM:     rs.b (tiles_fuzzl_size_b*Fuzzl_MaxEntities)
 Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)

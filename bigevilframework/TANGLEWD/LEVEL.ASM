@@ -311,28 +311,26 @@ LevelLoadGameObjArt:
 	cmp.w  #0x0, EntityCount_Fuzzls
 	beq    @NoFuzzls
 	move.l #EntityArray_Fuzzls, a0
+	move.w (EntityCount_Fuzzls), d1
+	sub.w  #0x1, d1
+	move.l #Tiles_FuzzlVRAM, d0
+	@FuzzlLoop:
+	movem.l d0-d1/a0, -(sp)
+	
 	lea    Tiles_Fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
 	lea    sprite_fuzzl_subsprite_pos_offsets, a3
 	lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	move.l #Tiles_Fuzzl1VRAM, d0
 	move.l #tiles_fuzzl_size_t, d1
 	move.b #sprite_fuzzl_size_subsprites, d2
 	move.w #sprite_fuzzl_dimensions, d3
 	move.b #PaletteID_Fuzzl, d4
 	jsr    SpriteObjLoad
 	
-	;move.l #EntityArray_Fuzzls+Fuzzl_Struct_Size, a0
-	;lea    Tiles_Fuzzl, a1
-	;lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	;lea    sprite_fuzzl_subsprite_pos_offsets, a3
-	;lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	;move.l #Tiles_Fuzzl2VRAM, d0
-	;move.l #tiles_fuzzl_size_t, d1
-	;move.b #sprite_fuzzl_size_subsprites, d2
-	;move.w #sprite_fuzzl_dimensions, d3
-	;move.b #PaletteID_Fuzzl, d4
-	;jsr    SpriteObjLoad
+	movem.l (sp)+, d0-d1/a0
+	add.l  #Fuzzl_Struct_Size, a0
+	add.l  #tiles_fuzzl_size_b, d0
+	dbra   d1, @FuzzlLoop
 	@NoFuzzls:
     
 	; Leaves

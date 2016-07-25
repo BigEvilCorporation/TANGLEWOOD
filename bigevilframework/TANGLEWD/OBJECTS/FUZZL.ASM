@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Fuzzl_MaxEntities			equ 0x8
+Fuzzl_MaxEntities			equ 0x3
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelYUp				equ 0x0600
@@ -184,6 +184,11 @@ FuzzlUpdate:
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
 	beq    @OutOfView
 	
+	; Fuzzls sleep at night
+	move.b (TimeOfDay), d0
+	cmp.b  #TimeOfDay_Night, d0
+	beq    @Asleep
+	
 	; Check if Fuzzl is home
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
 	bne    @Home
@@ -313,6 +318,7 @@ FuzzlUpdate:
 	; On floor, finished flinging
 	bclr  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
 	
+	@Asleep:
 	@NotBeingFlung:
 	@InitialState:
 	@End:

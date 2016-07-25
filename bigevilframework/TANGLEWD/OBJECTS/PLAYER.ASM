@@ -1082,6 +1082,11 @@ PlayerInteract_Fuzzl:
 	move.l a1, -(sp)
 	move.l a2, a1
 	
+	; Fuzzls sleep at night
+	move.b (TimeOfDay), d0
+	cmp.b  #TimeOfDay_Night, d0
+	beq    @Asleep
+	
 	; Check if within bounds
 	move.l d6, -(sp)
 	
@@ -1181,6 +1186,7 @@ PlayerInteract_Fuzzl:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.b d0, Animation_Speed(a2)
 
+	@Asleep:
 	@FuzzlHome:
 	@NotInRange:
 	@NotPushingFuzzl:
