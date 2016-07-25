@@ -9,9 +9,7 @@
 ; Constants
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 
-; ************************************
 ; Struct
-; ************************************
 	rsset	0x0
 ;---------------------------------
 MainMenuState_NextState		rs.l 1
@@ -39,13 +37,13 @@ MainMenu_Enter:
 	
 	; Load tiles
 	clr.l d1
-	lea    tiles_tanglewood_logo, a0
+	lea    tiles_twd_logo, a0
 	move.w #tiles_twd_logo_size_t, d1
 	move.l #LevelMapVRAM, d0
 	jsr    LoadTiles
 	
 	; Load map
-    lea    map_tanglewood_logo, a0		; a0 (l)  Map data address (ROM)
+    lea    map_twd_logo, a0		; a0 (l)  Map data address (ROM)
 	move.l #0x00000000, d0				; d0 (ww) Source top/left (tiles)
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_twd_logo_width<<16)|map_twd_logo_height), d2		; d2 (ww) Segment width/height (tiles)
@@ -55,11 +53,11 @@ MainMenu_Enter:
 	jsr    LoadMapSegmentPlaneA
 	
 	; Begin fade up
-	lea    palette_tanglewood_logo, a0
+	lea    palette_twd_logo, a0
 	move.l #PaletteId_TanglewoodLogo, d0
 	move.l #MainMenuFadeTime, d1
 	move.l #0x0, d2
-	move.l #0x7, d3
+	move.l #0xF, d3
 	jsr    PaletteLerpStart
 	
 	; Flush VDP queue
@@ -89,15 +87,16 @@ MainMenu_Update:
 	cmp.l  #0x0, TimerLogoFade
 	beq    @FadedOut
 	
+	; Read pad
+	jsr    ReadPadA
+	
 	; Check start button
 	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
-	jsr    ReadPadA
 	btst   #pad_button_start, d0
 	bne    @StartGame
 	
 	; Check C button
 	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
-	jsr    ReadPadA
 	btst   #pad_button_c, d0
 	bne    @StartSoundTest
 	

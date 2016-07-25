@@ -37,7 +37,7 @@ tiles_demoend_screen:
 	incbin 'assets\tiles\demoend.bin'
 tiles_soundtest:
 	incbin 'assets\tiles\soundtst.bin'
-tiles_tanglewood_logo:
+tiles_twd_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
 	incbin 'assets\tiles\til_lvl1.bin'
@@ -65,7 +65,7 @@ map_demoend_screen:
 	incbin 'assets\maps\demoend.bin'
 map_soundtest:
 	incbin 'assets\maps\soundtst.bin'
-map_tanglewood_logo:
+map_twd_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:
 	incbin 'assets\maps\map_lvl1.bin'
