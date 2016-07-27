@@ -74,8 +74,10 @@ CameraScrollSafeBorderX  equ ((screen_width/2)*SubpixelsPerPixel)
 CameraScrollSafeBorderY	 equ ((screen_height/2)*SubpixelsPerPixel)
 
 ; Streaming
-MapStreamWidth	 		 equ vdp_plane_width
-MapStreamHeight	 		 equ vdp_plane_height
+MapStreamBorderX		 equ 0x1
+MapStreamBorderY		 equ 0x1
+MapStreamWidth	 		 equ (screen_width/8)+(MapStreamBorderX*2)
+MapStreamHeight	 		 equ (screen_height/8)+(MapStreamBorderY*2)
 
 ; World switching colour types
 ColourDrained			 equ 0x0

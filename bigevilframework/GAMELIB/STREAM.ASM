@@ -10,9 +10,10 @@ UpdateMapStreaming:
 	
 	; Level to a1
 	move.l  (CurrentLevel), a1
-
-	; Stream all pending rows
-	@RowLoop:
+	
+	;==============================================================
+	
+	; Calculate rows remaining
 	move.l  (WorldScrollY), d1			; Get world scroll Y position
 	add.l   (CameraShakeOffsetY), d1	; Add shake offset
 	
@@ -24,40 +25,89 @@ UpdateMapStreaming:
 	
 	lsr.l   #0x8, d1					; To screen space
 	divu    #0x8, d1					; To tiles
-	cmp.w   (MapStreamLoadedRow), d1
+	move.w  d1, d2
+	sub.w   (MapStreamLoadedRow), d2
+	cmp.w   #0x0, d2
+	bge     @NumRowsPositive
+	neg.w   d2
+	@NumRowsPositive:
+	
+	;==============================================================
+	
+	; Calculate cols remaining
+	move.l  (WorldScrollX), d3			; Get world scroll X position
+	add.l   (CameraShakeOffsetX), d3	; Add shake offset
+	
+	; Clamp scroll value + camera shake
+	cmp.l  #0x0, d3
+	bge    @NoClampX
+	move.l  (WorldScrollX), d3
+	@NoClampX:
+	
+	lsr.l   #0x8, d3					; To screen space
+	divu    #0x8, d3					; To tiles
+	move.w  d3, d4
+	sub.w   (MapStreamLoadedCol), d4
+	cmp.w   #0x0, d4
+	bge     @NumColsPositive
+	neg.w   d4
+	@NumColsPositive:
+	
+	;==============================================================
+	
+	; Process one row followed by one col at a time
+	@WorkLoop:
+	
+	cmp.w   #0x0, d2
 	beq     @NoPendingRows
 	
-	jsr     StreamRows
-	bra     @RowLoop
+	; Stream next pending row
+	PUSHL   d1
+	PUSHL   d2
+	PUSHL   d3
+	PUSHL   d4
+	jsr     MapStreamNextRow
+	POPL    d4
+	POPL    d3
+	POPL    d2
+	POPL    d1
+	
+	sub.w   #0x1, d2
 	
 	@NoPendingRows:
 	
 	;==============================================================
 	
-	; Stream all pending cols
-	@ColLoop:
-	move.l  (WorldScrollX), d1			; Get world scroll X position
-	add.l   (CameraShakeOffsetX), d1	; Add shake offset
-	
-	; Clamp scroll value + camera shake
-	cmp.l  #0x0, d1
-	bge    @NoClampX
-	move.l  (WorldScrollX), d1
-	@NoClampX:
-	
-	lsr.l   #0x8, d1					; To screen space
-	divu    #0x8, d1					; To tiles
-	cmp.w   (MapStreamLoadedCol), d1
+	cmp.w   #0x0, d4
 	beq     @NoPendingCols
 	
-	jsr     StreamColumns
-	bra     @ColLoop
+	; Stream next pending col
+	PUSHL   d1
+	PUSHL   d2
+	PUSHL   d3
+	PUSHL   d4
+	move.w  d3, d1
+	jsr     MapStreamNextColumn
+	POPL    d4
+	POPL    d3
+	POPL    d2
+	POPL    d1
+	
+	sub.w   #0x1, d4
 	
 	@NoPendingCols:
 	
+	;==============================================================
+	
+	; Loop until all pending rows and cols processed
+	cmp.w   #0x0, d2
+	bne     @WorkLoop
+	cmp.w   #0x0, d4
+	bne     @WorkLoop
+	
 	rts
 	
-StreamRows:
+MapStreamNextRow:
 	; a1 --- Level addr
 	; d1 (w) Target row
 
@@ -169,7 +219,7 @@ StreamRows:
 	@End:
 	rts
 	
-StreamColumns:
+MapStreamNextColumn:
 	; a1 --- Level addr
 	; d1 (w) Target cols
 

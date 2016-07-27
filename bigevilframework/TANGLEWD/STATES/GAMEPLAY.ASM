@@ -46,14 +46,13 @@ Gameplay_Enter:
 	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
 	
-	; Re-stream map
-	; TODO: Work this into level init
-	jsr    LevelPreStreamMap
-	
 	@NoCheckpoints:
 	
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
+	
+	; Pre-stream map
+	jsr    LevelPreStreamMap
 	
 	; Start level intro tune
 	lea    bgm_lvlintro, a0

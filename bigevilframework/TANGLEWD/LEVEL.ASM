@@ -219,10 +219,10 @@ LevelPreStreamMap:
 	lsr.l  #0x8, d0					; To screen space
 	jsr    SetHScrollPlaneA
     
-	; Set initial streamed column
+	; Set initial streamed rect
 	lsr.l  #0x8, d1					; To screen space
 	divu   #0x8, d1					; To tiles
-	move.w d1, MapStreamLoadedCol
+	move.w d1, MapStreamLoadedRow
     
 	;==============================================================
     
@@ -230,7 +230,6 @@ LevelPreStreamMap:
 	move.l #Player1, a0
 	ENTITY_GETCENTREY d0, a0
 	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	;sub.l  #(SubpixelsPerPixel*8), d0
 	jsr    CameraPosToWorldScrollY
 	move.l d0, WorldScrollY
     
@@ -241,12 +240,13 @@ LevelPreStreamMap:
 	; Set initial streamed row + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	divu   #0x8, d0					; To tiles
 	add.w  #MapStreamHeight, d0
-	move.w d0, MapStreamLoadedrow
+	move.w d0, MapStreamLoadedCol
     
 	;==============================================================
     
 	; Stream initial map section
-	jsr    UpdateMapStreaming
+	; TODO - Results differ from first call in Gameplay_Update, leaving out for now
+	;jsr    UpdateMapStreaming
 
 	;==============================================================
 	
