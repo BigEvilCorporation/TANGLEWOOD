@@ -286,14 +286,6 @@ CharacterUpdateAnimState:
 	beq    @SetAnim
 	
 	; =====================================================================
-	; In water
-	; =====================================================================
-	move.b #CharacterAnimIdx_WaterWade, d1
-	move.b Character_InWater(a0), d0	; If player in water, set water wade anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
-	
-	; =====================================================================
 	; Idle
 	; =====================================================================
 	move.b #CharacterAnimIdx_Idle, d1
@@ -332,6 +324,11 @@ CharacterUpdateAnimState:
 	; If transitioning from running anim, set transition anim first
 	move.b #CharacterAnimIdx_WalkToRun, d1
 	cmp.b  #CharacterAnimIdx_Run, Character_AnimIdx(a0)
+	beq    @SetAnim
+	
+	; else if in water, set water wade anim
+	move.b #CharacterAnimIdx_WaterWade, d1
+	cmp.b  #0x1, Character_InWater(a0)
 	beq    @SetAnim
 	
 	; else set walking anim
