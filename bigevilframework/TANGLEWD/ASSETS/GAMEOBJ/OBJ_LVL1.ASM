@@ -10,18 +10,18 @@
 gameobjects_lvl1:
 gameobjects_lvl1_Fuzzl_count equ 0x3
 LoadGameObjects_lvl1_Fuzzl:
-Fuzzl_22_idx	equ 0x0
+Fuzzl_Yellow_idx	equ 0x0
 	jsr FuzzlInit
 	move.l #0x000f7800, Entity_WorldPosX(a0)
 	move.l #0x00012000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
-Fuzzl_110_idx	equ 0x1
+Fuzzl_Green_idx	equ 0x1
 	jsr FuzzlInit
 	move.l #0x0028f800, Entity_WorldPosX(a0)
 	move.l #0x00016000, Entity_WorldPosY(a0)
 	add.l #Fuzzl_Struct_Size, a0
-Fuzzl_111_idx	equ 0x2
+Fuzzl_Blue_idx	equ 0x2
 	jsr FuzzlInit
 	move.l #0x0029a800, Entity_WorldPosX(a0)
 	move.l #0x00013000, Entity_WorldPosY(a0)
@@ -122,7 +122,7 @@ Firefly_107_idx	equ 0xc
 
 gameobjects_lvl1_Monster_count equ 0x1
 LoadGameObjects_lvl1_Monster:
-Monster_52_idx	equ 0x0
+Djakk_idx	equ 0x0
 	jsr MonsterInit
 	move.l #0x00232800, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
@@ -144,7 +144,7 @@ BoulderIntro_idx	equ 0x1
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_TriggerBox_count equ 0x4
+gameobjects_lvl1_TriggerBox_count equ 0x5
 LoadGameObjects_lvl1_TriggerBox:
 TriggerBox_60_idx	equ 0x0
 	jsr TriggerBoxInit
@@ -177,6 +177,14 @@ TriggerCutseneBoulder_idx	equ 0x3
 	move.l #0x00051000, Entity_WorldPosX(a0)
 	move.l #0x00029000, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	add.l #TriggerBox_Struct_Size, a0
+Trigger_NearEndLevel_idx	equ 0x4
+	jsr TriggerBoxInit
+	move.l #0x00298000, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #Lvl1_Trigger_NearEndLevel, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0

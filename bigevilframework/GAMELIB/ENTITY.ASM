@@ -228,19 +228,19 @@ EntityUpdateAll:
 	jsr Profile_PushScope
 	ENDIF
 
-	move.l (EntityListSize_Update), d0	 ; Get entity list size
-	cmp.l  #0x0, d0
+	cmp.l  #0x0, EntityListSize_Update
 	beq    @NoEntities					 ; Skip if nothing to do
-	subi.l #0x1, d0						 ; -1 for loop
+	
 	move.l (EntityListHead_Update), a0	 ; Get list head
 	@EntityLp:							 ; For all entities in list
-	move.l d0, -(sp)					 ; Backup counter
 	move.l Entity_UpdateRoutine(a0), a2  ; Get update routine
 	jsr    (a2)							 ; Execute update routine
-	move.l (sp)+, d0					 ; Restore counter
 	move.l Entity_UpdateNext(a0), a0	 ; Get next ptr
-	dbra   d0, @EntityLp				 ; Loop
+	cmp.l  #0x0, a0
+	bne    @EntityLp
+	
 	@NoEntities:
+	
 
 	IFD DEBUG
 	jsr Profile_PopScope
@@ -251,18 +251,17 @@ EntityUpdateAll:
 EntityRenderAll:
 	; a1 --- Level address
 	
-	move.l (EntityListSize_Render), d0	 ; Get entity list size
-	cmp.l  #0x0, d0
+	cmp.l  #0x0, EntityListSize_Render
 	beq    @NoEntities					 ; Skip if nothing to do
-	subi.l #0x1, d0						 ; -1 for loop
+	
 	move.l (EntityListHead_Render), a0	 ; Get list head
 	@EntityLp:							 ; For all entities in list
-	move.l d0, -(sp)					 ; Backup counter
 	move.l Entity_RenderRoutine(a0), a2  ; Get render routine
 	jsr    (a2)							 ; Execute render routine
-	move.l (sp)+, d0					 ; Restore counter
 	move.l Entity_RenderNext(a0), a0	 ; Get next ptr
-	dbra   d0, @EntityLp				 ; Loop
+	cmp.l  #0x0, a0
+	bne    @EntityLp
+	
 	@NoEntities:
 	
 	rts
@@ -273,18 +272,17 @@ EntitySerialiseAll:
 	; a2 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
-	move.l (EntityListSize_Serialise), d0	; Get entity list size
-	cmp.l  #0x0, d0
+	cmp.l  #0x0, EntityListSize_Serialise
 	beq    @NoEntities					 	; Skip if nothing to do
-	subi.l #0x1, d0						 	; -1 for loop
+
 	move.l (EntityListHead_Serialise), a0	; Get list head
 	@EntityLp:							 	; For all entities in list
-	move.l d0, -(sp)					 	; Backup counter
 	move.l Entity_SerialiseRoutine(a0), a2  ; Get Serialise routine
 	jsr    (a2)							 	; Execute Serialise routine
-	move.l (sp)+, d0					 	; Restore counter
 	move.l Entity_SerialiseNext(a0), a0	 	; Get next ptr
-	dbra   d0, @EntityLp				 	; Loop
+	cmp.l  #0x0, a0
+	bne    @EntityLp
+	
 	@NoEntities:
 	
 	rts
