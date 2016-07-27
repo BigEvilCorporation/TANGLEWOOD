@@ -21,7 +21,7 @@ GameStateEndLevel:
 GameStateEndLevel_FadeDownPalette	equ palette_fade_white
 GameStateEndLevel_FadeDownSpeed		equ (0x1<<0x8) ; Subframes (1 frame per tick)
 GameStateEndLevel_SleepTime			equ 0x0180
-GameStateEndLevel_ResetTime			equ 0x0100
+GameStateEndLevel_ResetTime			equ 0x0200
 
 EndLevelPhase_Sleep					equ 0x1
 EndLevelPhase_Fade					equ 0x2
@@ -86,17 +86,13 @@ EndLevel_Update:
 	move.b #EndLevelPhase_Fade, EndLevelState_Phase(a2)
 	move.w #GameStateEndLevel_ResetTime, EndLevelState_Timer(a2)
 	
-	; Begin fade down - all palettes except player
+	; Begin fade down of level palette (all objects should be out of view)
 	move.l #GameStateEndLevel_FadeDownPalette, a0
 	move.w #GameStateEndLevel_FadeDownSpeed, d1
 	move.b #0x0, d2
 	move.b #0xF, d3
 	
 	move.b #PaletteId_World0, d0
-	jsr    PaletteLerpStart
-	move.b #PaletteId_Monster, d0
-	jsr    PaletteLerpStart
-	move.b #PaletteId_Fuzzl, d0
 	jsr    PaletteLerpStart
 	
 	@FadePhase:
