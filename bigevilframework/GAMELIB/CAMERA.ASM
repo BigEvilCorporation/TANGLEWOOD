@@ -220,6 +220,13 @@ UpdateCamera:
 	
 	; Offset 2-cell bottom border
 	add.w   #((vdp_plane_height*8)-screen_height), d0
+	
+	; Clamp top
+	cmp.w   #(vdp_plane_height*8), d0
+	bgt     @NoClampPlaneB
+	move.w  #(vdp_plane_height*8), d0
+	@NoClampPlaneB:
+	
 	lea     SetVScrollPlaneB, a5
 	jsr 	VDPQueue_PushJob
 	
