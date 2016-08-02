@@ -148,6 +148,7 @@ GameStatePtr		 rs.l 1
 
 ; Game state data
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
+GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 
 ; ************************************

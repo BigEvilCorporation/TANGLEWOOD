@@ -9,6 +9,16 @@
 ; Constants
 SoundTestFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 
+; Struct
+	rsset	0x0
+;---------------------------------
+SoundTestState_SoundId		rs.w 1
+SoundTestState_PrevPadState rs.w 1
+;---------------------------------
+SoundTestState_Struct_Pad	rs.b 0
+SoundTestState_Struct_Size	rs.b 0
+;---------------------------------
+
 GameStateSoundTest:
 	dc.l SoundTest_Enter
 	dc.l SoundTest_Exit
@@ -80,6 +90,9 @@ SoundTest_Exit:
 	
 SoundTest_Update:
 
+	; Get menu data
+	lea    GameStateSoundTestData, a2
+
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
 	move.w PaletteLerp_Speed(a0), d0
@@ -90,10 +103,24 @@ SoundTest_Update:
 	cmp.l  #0x0, TimerLogoFade
 	beq    @FadedOut
 	
-	; Wait for start button press
+	; Read pad
 	jsr    ReadPadA
-	btst  #pad_button_start, d0	; Check start pressed
-	beq   @End
+	
+	; Handle menu controls
+	move.w SoundTestState_PrevPadState(a2), d1
+	
+	btst   #pad_button_right, d0
+	beq    @NoRight
+	btst   #pad_button_right, d1
+	bne    @NoRight
+	add.w  #0x1, SoundTestState_SoundId(a2)
+	@NoRight:
+	
+	; Handle start button
+	btst   #pad_button_start, d0
+	beq    @End
+	
+	move.w d0, SoundTestState_PrevPadState(a2)
 
 	; Begin fade to black
 	lea    palette_fade_black, a0
@@ -131,6 +158,9 @@ SoundTest_Update:
 	
 SoundTest_Render:
 
+	; Get menu data
+	lea    GameStateSoundTestData, a2
+	
 	PUSHL a0
 	lea    Str_SoundTestLabel, a0
 	move.w #Tiles_PixelFont_ID, d0		; String
@@ -138,6 +168,20 @@ SoundTest_Render:
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
 	jsr    DrawTextToPlane
+	POPL  a0
+	
+	PUSHL a0
+	sub.l  #0x8, sp
+	move.w SoundTestState_SoundId(a2), d0
+	move.l sp, a0
+	jsr    ItoA_Hex_w
+	
+	move.w #Tiles_PixelFont_ID, d0		; String
+	move.w #0x1210, d1					; X/Y coord
+	move.b #PaletteId_SoundTestText, d2	; Palette
+	move.b #0x0, d3						; Plane
+	jsr    DrawTextToPlane
+	add.l  #0x8, sp
 	POPL  a0
 	
 	rts
