@@ -125,9 +125,14 @@ UpdateCamera:
 	
 	; Advance sine step
 	move.w (CameraShakeSpeedX), d0
-	add.w d0, CameraShakeSinX
+	add.w  d0, CameraShakeSinX
+	
+	bra    @ShakeX
 	
 	@NoShakeX:
+	move.l #0x0, CameraShakeOffsetX
+	
+	@ShakeX:
 	
 	;==============================================================
 
@@ -180,7 +185,12 @@ UpdateCamera:
 	move.w (CameraShakeSpeedY), d0
 	add.w d0, CameraShakeSinY
 	
+	bra    @ShakeY
+	
 	@NoShakeY:
+	move.l #0x0, CameraShakeOffsetY
+	
+	@ShakeY:
 	
 	;==============================================================
 
