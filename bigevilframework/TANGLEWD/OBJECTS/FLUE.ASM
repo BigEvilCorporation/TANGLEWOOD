@@ -16,6 +16,7 @@ Flue_DefaultEjectForceX	equ 0x0000
 Flue_DefaultEjectForceY	equ 0x0E00
 Flue_MaxOccupants		equ 0x2
 Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
+Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
 
 ; Occupant struct
 	rsset 0
@@ -31,12 +32,13 @@ FlueOccupant_Struct_Size  	rs.b 0
 
 	rsset (Entity_Struct_Size)
 ;--------------------------
-Flue_Occupants		rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
-Flue_EjectForceX	rs.w 1	; Eject force X
-Flue_EjectForceY	rs.w 1	; Eject force Y
-;--------------------------
-Flue_Struct_Pad   	rs.b 0	; Alignment padding
-Flue_Struct_Size  	rs.b 0
+Flue_Occupants			rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
+Flue_EjectForceX		rs.w 1	; Eject force X
+Flue_EjectForceY		rs.w 1	; Eject force Y
+Flue_OccupantCheckTimer	rs.w 1
+;-----------------------------
+Flue_Struct_Pad   		rs.b 2	; Alignment padding
+Flue_Struct_Size  		rs.b 0
 
 FlueInit:
 	; a0 --- GameObj addr
@@ -60,6 +62,9 @@ FlueInit:
 	
 	move.w #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
 	move.w #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
+	
+	; Stagger occupant checks for performance
+	move.w (EntityCount_Flues), Flue_OccupantCheckTimer(a0)
 
 	rts
 
@@ -173,6 +178,13 @@ FlueOccupantUpdate:
 	
 	@NotHolding:
 	
+	; Only check for occupants every n frames
+	subi.w #0x1, Flue_OccupantCheckTimer(a0)
+	beq    @NoOccupantCheck
+	
+	; Reset timer
+	move.w #Flue_OccupantCheckFreq, Flue_OccupantCheckTimer(a0)
+	
 	; Not holding anything yet, check if an object is inside
 	jsr    FlueFindOccupant
 	cmp.l  #0x0, a1
@@ -200,9 +212,11 @@ FlueOccupantUpdate:
 	bra    @End
 
 	@TimerRunning:
+	
 	; Decrement eject timer
 	sub.w  #0x1, FlueOccupant_HoldTimer(a2)
 
+	@NoOccupantCheck:
 	@NoOccupantFound:
 	@End:
 	
