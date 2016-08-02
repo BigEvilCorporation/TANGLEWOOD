@@ -237,6 +237,10 @@ FlueFindOccupant:
 	
 	@NotCharacter:
 	
+	; Check active
+	cmp.b  #0x0, Entity_Active(a3)
+	beq    @NextEntity
+	
 	; Check if inside the flue
 	move.l a3, a1						 ; PhysicsObj to a1
 	move.l d0, -(sp)					 ; Backup entity counter

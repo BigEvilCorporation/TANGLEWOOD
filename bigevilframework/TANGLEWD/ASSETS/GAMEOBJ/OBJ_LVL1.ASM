@@ -28,26 +28,37 @@ Fuzzl_Blue_idx	equ 0x2
 	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Nest_count equ 0x1
+gameobjects_lvl1_Nest_count equ 0x2
 LoadGameObjects_lvl1_Nest:
 Nest_45_idx	equ 0x0
 	jsr NestInit
 	move.l #0x000d3000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
+Nest_114_idx	equ 0x1
+	jsr NestInit
+	move.l #0x0012d000, Entity_WorldPosX(a0)
+	move.l #0x0001f000, Entity_WorldPosY(a0)
+	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Flue_count equ 0x2
+gameobjects_lvl1_Flue_count equ 0x3
 LoadGameObjects_lvl1_Flue:
-Flue_67_idx	equ 0x0
+Flue3_HighForce_idx	equ 0x0
 	jsr FlueInit
 	move.l #0x002a0000, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue_71_idx	equ 0x1
+Flue1_HighForce_idx	equ 0x1
 	jsr FlueInit
 	move.l #0x000d6000, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Flue2_LowForce_idx	equ 0x2
+	jsr FlueInit
+	move.l #0x00125000, Entity_WorldPosX(a0)
+	move.l #0x0002f000, Entity_WorldPosY(a0)
+	move.w #0x0A80, Flue_EjectForceY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
@@ -78,20 +89,20 @@ Firefly_79_idx	equ 0x4
 	move.l #0x00061800, Entity_WorldPosX(a0)
 	move.l #0x0001e000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_13_idx	equ 0x5
+Firefly_107_idx	equ 0x5
 	jsr FireflyInit
-	move.l #0x000ea000, Entity_WorldPosX(a0)
+	move.l #0x0014b000, Entity_WorldPosX(a0)
 	move.l #0x00013000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_14_idx	equ 0x6
+Firefly_105_idx	equ 0x6
 	jsr FireflyInit
-	move.l #0x000eb000, Entity_WorldPosX(a0)
-	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.l #0x00145800, Entity_WorldPosX(a0)
+	move.l #0x00011800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_15_idx	equ 0x7
+Firefly_112_idx	equ 0x7
 	jsr FireflyInit
-	move.l #0x000eb800, Entity_WorldPosX(a0)
-	move.l #0x00012800, Entity_WorldPosY(a0)
+	move.l #0x00134000, Entity_WorldPosX(a0)
+	move.l #0x0000f000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_102_idx	equ 0x8
 	jsr FireflyInit
@@ -103,20 +114,20 @@ Firefly_78_idx	equ 0x9
 	move.l #0x00062000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_112_idx	equ 0xa
+Firefly_116_idx	equ 0xa
 	jsr FireflyInit
-	move.l #0x00134000, Entity_WorldPosX(a0)
-	move.l #0x0000f000, Entity_WorldPosY(a0)
+	move.l #0x0018d800, Entity_WorldPosX(a0)
+	move.l #0x00021800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_105_idx	equ 0xb
+Firefly_117_idx	equ 0xb
 	jsr FireflyInit
-	move.l #0x00145800, Entity_WorldPosX(a0)
-	move.l #0x00011800, Entity_WorldPosY(a0)
+	move.l #0x0018f800, Entity_WorldPosX(a0)
+	move.l #0x00022800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_107_idx	equ 0xc
+Firefly_118_idx	equ 0xc
 	jsr FireflyInit
-	move.l #0x0014b000, Entity_WorldPosX(a0)
-	move.l #0x00013000, Entity_WorldPosY(a0)
+	move.l #0x0018e800, Entity_WorldPosX(a0)
+	move.l #0x00022800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 
@@ -157,8 +168,8 @@ TriggerBox_60_idx	equ 0x0
 	add.l #TriggerBox_Struct_Size, a0
 TriggerTODDusk_idx	equ 0x1
 	jsr TriggerBoxInit
-	move.l #0x0014e000, Entity_WorldPosX(a0)
-	move.l #0x0000f800, Entity_WorldPosY(a0)
+	move.l #0x0013a800, Entity_WorldPosX(a0)
+	move.l #0x00029800, Entity_WorldPosY(a0)
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)

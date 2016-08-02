@@ -14,6 +14,9 @@ GameStateReset:
 	; Clear all palettes
 	jsr    ClearPalettes
 	
+	; Clear Plane B
+	jsr    ClearMapPlaneB
+	
 	; Reset scrolling
 	move.l #0x0, WorldScrollX
 	move.l #0x0, WorldScrollY
