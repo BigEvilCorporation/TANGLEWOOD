@@ -192,6 +192,29 @@ LoadMapSegmentPlaneA:
 	
 	rts
 	
+ClearMapPlaneB:
+
+	;move.w #vram_addr_plane_b, d0
+	;move.w #vdp_plane_size_t, d1
+	;move.w #0x0, d2
+	;jsr    VPDDMAFillVRAM
+	
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	move.l   #vram_addr_plane_b, d1	; Add VRAM address offset
+	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d1				; Shift lower word back
+	swap    d1                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+	move.l  d1, vdp_control        	; Move dest address to VDP control port
+
+	move.w  #vdp_plane_size_t, d0  ; Num words in d0, minus 1 for counter
+	
+	@Copy:
+	move.w  #0x0, vdp_data           ; Move to VRAM
+	dbra.w  d0, @Copy              ; Loop
+	
+	rts
+	
 SetHScrollPlaneA:
 	; d0 (w) HScroll value
 	move.l #vdp_write_hscroll_a, vdp_control

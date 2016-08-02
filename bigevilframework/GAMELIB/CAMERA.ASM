@@ -201,6 +201,7 @@ UpdateCamera:
 	; Translate WorldScrollY to screen space with safe borders
 	clr.l   d1
 	move.l  (WorldScrollY), d0
+	add.l   (CameraShakeOffsetY), d0
 	move.w  Level_MapHeight(a1), d1
 	mulu    #0x8, d1
 	lsl.l   #0x8, d1

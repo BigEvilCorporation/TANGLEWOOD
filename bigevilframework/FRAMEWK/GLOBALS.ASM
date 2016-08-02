@@ -102,6 +102,8 @@ z80_ram_start			equ 0x00A00000
 ; ************************************
 vdp_plane_width         equ 0x0040 ; 64 tiles X
 vdp_plane_height        equ 0x0020 ; 32 tiles Y
+vdp_plane_size_t		equ (vdp_plane_width*vdp_plane_height)
+vdp_plane_size_b		equ (vdp_plane_size_t*size_word)
 vdp_plane_border_x      equ (vdp_plane_width-(screen_width/8))/2
 vdp_plane_border_y      equ (vdp_plane_height-(screen_height/8))/2
 vdp_max_tiles           equ (0xC000/size_tile_b)
