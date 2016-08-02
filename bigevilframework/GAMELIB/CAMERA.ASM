@@ -144,7 +144,6 @@ UpdateCamera:
 	jsr 	VDPQueue_PushJob
 	
 	; Scroll X - plane B
-	;divu    #0x2, d0
 	lsr.w   #0x1, d0
 	lea     SetHScrollPlaneB, a5
 	jsr 	VDPQueue_PushJob
@@ -191,10 +190,43 @@ UpdateCamera:
 	move.l  d0, WorldScrollY			; Keep world scroll Y
 	add.l  (CameraShakeOffsetY), d0		; Add shake offset
 
-	; Scroll Y
+	; Scroll Y - plane A
 	lsr.l   #0x8, d0					; To screen space
 	lea     SetVScrollPlaneA, a5
 	jsr 	VDPQueue_PushJob
+	
+	; Scroll Y - plane B
+	; HACK - Works for Tanglewood's 90-high foreground plane, needs a better implementation
+	
+	; Translate WorldScrollY to screen space with safe borders
+	clr.l   d1
+	move.l  (WorldScrollY), d0
+	move.w  Level_MapHeight(a1), d1
+	mulu    #0x8, d1
+	lsl.l   #0x8, d1
+	sub.l   #CameraScrollSafeBorderY, d1
+	sub.l   #(screen_height/2)*SubPixelsPerPixel, d1
+	
+	; Invert scroll, offset from bottom of screen
+	sub.l   d0, d1
+	lsr.l   #0x8, d1
+	move.w  d1, d0
+	neg.w   d0
+	divu    #0x8, d0
+	
+	; Div/2 to keep scroll bounds within 90-high plane A
+	lsr.w   #0x1, d0
+	
+	; Offset 2-cell bottom border
+	add.w   #((vdp_plane_height*8)-screen_height), d0
+	lea     SetVScrollPlaneB, a5
+	jsr 	VDPQueue_PushJob
+	
+	
+	; |-------------------------------------| d1
+	; |------------------------|              d2
+	;                           <-----------> sub d2,d1
+	; 
 	
 	;==============================================================
 	
