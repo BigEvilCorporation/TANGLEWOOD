@@ -6,7 +6,7 @@
 ;   memory.asm - RAM routines
 ;==============================================================
 
-ClearRAM:
+RAM_Clear:
 
 	move.l (sp), d0			   ; Backup subroutine return address from stack
 	move.l #ram_start, a0      ; Start address

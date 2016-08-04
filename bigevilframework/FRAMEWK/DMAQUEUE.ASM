@@ -21,7 +21,7 @@ VDPDMAJob_Struct_Size    rs.b 0
 ;------------------------------
 
 ; Routines
-VDPDMAQueue_AddJob:
+VDP_DMAQueue_AddJob:
 	; a0 --- - Source addr (68k space)
 	; d0 (w) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
@@ -80,7 +80,7 @@ VDPDMAQueue_AddJob:
 	
 	rts
 	
-VDPDMAQueue_ExecuteAll:
+VDP_DMAQueue_ExecuteAll:
 
 	; Get queue address
 	lea    vdp_dma_queue, a1
@@ -96,7 +96,7 @@ VDPDMAQueue_ExecuteAll:
 	move.l VDPDMAJob_SourceAddr(a1), a0
 	move.w VDPDMAJob_DestAddr(a1), d0
 	move.w VDPDMAJob_SizeWords(a1), d1
-	jsr    VPDDMACopyVRAM
+	jsr    VDP_DMACopyVRAM
 	addi.l #VDPDMAJob_Struct_Size, a1
 	dbra   d5, @QueueLoop
 	

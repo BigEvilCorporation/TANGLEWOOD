@@ -30,6 +30,7 @@ __start
 	include '..\framewk\psg.asm'
 	include '..\framewk\sprites.asm'
 	include '..\framewk\text.asm'
+	include '..\framewk\tiles.asm'
 	include '..\framewk\timing.asm'
 	include '..\framewk\tmss.asm'
 	include '..\framewk\palettes.asm'
@@ -123,13 +124,13 @@ __main:
 	
 	; Load letterbox horizontal interrupt routine
 	lea HBlankInterrupt_Letterbox, a0
-	;jsr LoadInterruptHBlank
+	;jsr INT_LoadHBlank
 
 	; Load debug draw font
 	lea      Tiles_PixelFont, a0
 	move.l   #Tiles_PixelFontVRAM, d0
 	move.l   #Tiles_PixelFontSizeT, d1
-	jsr      LoadTiles
+	jsr      VDP_LoadTiles
 
 	; Clear counters
 	move.l #0x0, hblank_counter
@@ -184,14 +185,14 @@ RenderBeginFrame:
 	move.b #0x0, vint_enabled
 	
 	; Clear sprite links
-	jsr    ClearSpriteLinks
+	jsr    SPR_ClearAllLinks
 	
 	; Clear last linked
 	move.w #0x0, prev_sprite_link
 	
 	IFD DEBUG
 	; Profiler frame start
-	jsr Profile_BeginFrame
+	jsr DBG_Profile_BeginFrame
 	ENDIF
 	
 	rts
@@ -215,8 +216,8 @@ RenderEndFrame:
 	
 	IFD DEBUG
 	; Profiler frame end
-	jsr Profile_EndFrame
-	jsr Profile_DrawResults
+	jsr DBG_Profile_EndFrame
+	jsr DBG_Profile_DrawResults
 	ENDIF
 	
 	rts
@@ -233,22 +234,22 @@ __vinterrupt:
 	move.w #vram_addr_sprite_table, d0
 	move.w (next_sprite_index), d1
 	mulu.w #Sprite_Struct_Size, d1
-	jsr    VPDDMACopyVRAM
+	jsr    VDP_DMACopyVRAM
 	@NoSprites:
 	
 	IFD DEBUG
 	lea Str_Render, a0
-	jsr Profile_PushScope
+	jsr DBG_Profile_PushScope
 	ENDIF
 	
 	; Execute DMA job queue
-	jsr    VDPDMAQueue_ExecuteAll
+	jsr    VDP_DMAQueue_ExecuteAll
 	
 	; Execute VDP job queue
 	jsr    VDPQueue_ExecuteAll
 	
 	IFD DEBUG
-	jsr Profile_PopScope
+	jsr DBG_Profile_PopScope
 	ENDIF
 
 	; NOT FOR RELEASE

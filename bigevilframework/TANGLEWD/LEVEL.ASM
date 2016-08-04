@@ -12,19 +12,19 @@ GameStateReset:
 	jsr    VDPQueue_ExecuteAll
 	
 	; Clear all palettes
-	jsr    ClearPalettes
+	jsr    PAL_ClearAll
 	
 	; Clear Plane B
-	jsr    ClearMapPlaneB
+	jsr    VDP_ClearMapPlaneB
 	
 	; Reset scrolling
 	move.l #0x0, WorldScrollX
 	move.l #0x0, WorldScrollY
 	move.w #0x0, d0
-	jsr    SetHScrollPlaneA
-	jsr    SetHScrollPlaneB
-	jsr    SetVScrollPlaneA
-	jsr    SetVScrollPlaneB
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetHScrollPlaneB
+	jsr    VDP_SetVScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
 	
 	; Reset camera
 	move.l #0x0, CameraWorldPosX
@@ -45,7 +45,7 @@ GameStateReset:
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
 	move.w (Sprite_Struct_Size*vdp_max_sprites), d1
-	jsr    VPDDMACopyVRAM
+	jsr    VDP_DMACopyVRAM
 	
 	; Reset entities
 	jsr    EntityClearUpdateList
@@ -87,34 +87,34 @@ LevelLoad:
 	;TODO: Move to LoadGlobalData
 	lea Pal_Nymn_Red, a0
 	move.l #PaletteId_Player, d0
-	jsr LoadPalette
+	jsr PAL_Load
 	
 	lea palette_monster_incave, a0
 	move.l #PaletteId_Monster, d0
-	jsr LoadPalette
+	jsr PAL_Load
     
 	lea palette_fuzzl_yellow, a0
 	move.l #PaletteId_Fuzzl, d0
-	jsr LoadPalette
+	jsr PAL_Load
 	
 	ELSE
 	
 	; Load all black palettes
 	lea    palette_fade_black, a0
 	move.l #PaletteId_World0, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Player, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Monster, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Fuzzl, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	; Set palettes for fade up
 	move.w #LevelFadeUpSpeed, d1
@@ -174,7 +174,7 @@ LevelLoadPalettes:
 	
 	IFD DEBUG
 	
-	jsr    LoadPalette			
+	jsr    PAL_Load			
 	
 	ELSE
 	
@@ -187,7 +187,7 @@ LevelLoadPalettes:
 	
 	POPL   d0							; Restore palette index
 	addi.w #0x1, d0					
-	dbra d7, @PaletteLoop				; LoadPalette leaves incremented palette address in a0
+	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0
 	
 	rts
 	
@@ -198,7 +198,7 @@ LevelLoadArt:
 	move.l Level_TilesAddr(a1), a0 ; Move tiles address to a0
 	move.w Level_NumTiles(a1), d1  ; Move number of tiles to d1
 	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	rts
 	
@@ -220,7 +220,7 @@ LevelPreStreamMap:
 	; Set inital scroll X
 	neg.l  d0						; To camera space
 	lsr.l  #0x8, d0					; To screen space
-	jsr    SetHScrollPlaneA
+	jsr    VDP_SetHScrollPlaneA
     
 	; Set initial streamed rect
 	lsr.l  #0x8, d1					; To screen space
@@ -238,7 +238,7 @@ LevelPreStreamMap:
     
 	; Set initial scroll Y
 	lsr.l  #0x8, d0					; To screen space
-	jsr    SetVScrollPlaneA
+	jsr    VDP_SetVScrollPlaneA
     
 	; Set initial streamed row + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	divu   #0x8, d0					; To tiles
@@ -259,7 +259,7 @@ LevelPreStreamMap:
 	move.l #0x0, d1
 	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
-	jsr    LoadMapPlaneB
+	jsr    VDP_LoadMapPlaneB
 	
 	POPL   a1
 	POPL   a0

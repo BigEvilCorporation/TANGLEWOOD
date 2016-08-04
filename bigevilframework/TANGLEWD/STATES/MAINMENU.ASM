@@ -27,7 +27,7 @@ GameStateMainMenu:
 MainMenu_Enter:
 
 	; Clear all palettes
-	jsr    ClearPalettes
+	jsr    PAL_ClearAll
 	
 	; Set BG colour
 	move.w #0x8700, d1
@@ -40,7 +40,7 @@ MainMenu_Enter:
 	lea    tiles_twd_logo, a0
 	move.w #tiles_twd_logo_size_t, d1
 	move.l #LevelMapVRAM, d0
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	; Load map
     lea    map_twd_logo, a0		; a0 (l)  Map data address (ROM)
@@ -50,7 +50,7 @@ MainMenu_Enter:
 	move.w #map_twd_logo_width, d3		; d3 (w)  Source map total width (tiles)
 	move.w #Tiles_LevelMap_ID, d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_TanglewoodLogo, d5; d5 (b)  Palette ID
-	jsr    LoadMapSegmentPlaneA
+	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Begin fade up
 	lea    palette_twd_logo, a0
@@ -88,7 +88,7 @@ MainMenu_Update:
 	beq    @FadedOut
 	
 	; Read pad
-	jsr    ReadPadA
+	jsr    PAD_ReadPadA
 	
 	; Check start button
 	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)

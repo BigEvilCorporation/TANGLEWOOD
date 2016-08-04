@@ -650,7 +650,7 @@ MonsterUpdateSearchForPlayer:
 	bne    @HasTargetX
 	
 	; Get a random target X (-255 - 255)
-	jsr    RandLong								; Rand long
+	jsr    RND_GenerateLong								; Rand long
 	andi.l #0xFFFF, d0							; Avoid overflow
 	divu   #(Monster_SearchRandDistMax*2), d0	; Div / max*2
 	clr.w  d0									; Clear exponent
@@ -734,7 +734,7 @@ MonsterUpdateSearchForPlayer:
 	jsr    CharacterCancelXMovement
 	
 	; Randomise delay timer
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	andi.l #Monster_SearchRandDelayMask, d0
 	add.w  #Monster_SearchRandDelayMin, d0
 	move.w d0, Monster_SearchDelay(a0)

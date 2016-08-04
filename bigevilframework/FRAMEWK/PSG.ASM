@@ -6,7 +6,7 @@
 ;   psg.asm - PSG initialisation and control
 ;==============================================================
 
-InitPSG:
+PSG_Init:
 
 	move.l #PSGInitData, a0    ; Load address of PSG data into a0
 	move.l #0x03, d0           ; 4 bytes of data

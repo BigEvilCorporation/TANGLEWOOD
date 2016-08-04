@@ -28,7 +28,7 @@ GameStateSoundTest:
 SoundTest_Enter:
 
 	; Clear all palettes
-	jsr    ClearPalettes
+	jsr    PAL_ClearAll
 	
 	; Set BG colour
 	move.w #0x8700, d1
@@ -41,7 +41,7 @@ SoundTest_Enter:
 	lea    tiles_soundtest, a0
 	move.w #tiles_soundtest_size_t, d1
 	move.l #LevelMapVRAM, d0
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	; Load map
     lea    map_soundtest, a0		; a0 (l)  Map data address (ROM)
@@ -51,14 +51,14 @@ SoundTest_Enter:
 	move.w #map_soundtest_width, d3		; d3 (w)  Source map total width (tiles)
 	move.w #Tiles_LevelMap_ID, d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_SoundTest, d5; d5 (b)  Palette ID
-	jsr    LoadMapSegmentPlaneA
+	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Load font
 	PUSHL  a0
 	lea    Tiles_PixelFont, a0
 	move.w #Tiles_PixelFontVRAM, d0
 	move.w #Tiles_PixelFontSizeT, d1
-	jsr    LoadFont
+	jsr    TXT_LoadFont
 	POPL   a0
 	
 	; Begin fade up
@@ -104,7 +104,7 @@ SoundTest_Update:
 	beq    @FadedOut
 	
 	; Read pad
-	jsr    ReadPadA
+	jsr    PAD_ReadPadA
 	
 	; Handle menu controls
 	move.w SoundTestState_PrevPadState(a2), d1
@@ -167,20 +167,20 @@ SoundTest_Render:
 	move.w #0x0810, d1					; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	POPL  a0
 	
 	PUSHL a0
 	sub.l  #0x8, sp
 	move.w SoundTestState_SoundId(a2), d0
 	move.l sp, a0
-	jsr    ItoA_Hex_w
+	jsr    TXT_ItoA_Hex_w
 	
 	move.w #Tiles_PixelFont_ID, d0		; String
 	move.w #0x1210, d1					; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	add.l  #0x8, sp
 	POPL  a0
 	

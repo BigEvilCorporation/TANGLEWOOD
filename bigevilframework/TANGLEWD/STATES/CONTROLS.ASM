@@ -39,7 +39,7 @@ ControlsScreen_Enter:
 	lea    tiles_controls_screen, a0
 	move.w #tiles_controls_size_t, d1
 	move.l #LevelMapVRAM, d0
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	; Load map
     lea    map_controls_screen, a0			; a0 (l)  Map data address (ROM)
@@ -49,7 +49,7 @@ ControlsScreen_Enter:
 	move.w #map_controls_width, d3		; d3 (w)  Source map total width (tiles)
 	move.w #Tiles_LevelMap_ID, d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_ControlsScreen, d5	; d5 (b)  Palette ID
-	jsr    LoadMapSegmentPlaneA
+	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Begin fade up
 	lea    palette_controls, a0

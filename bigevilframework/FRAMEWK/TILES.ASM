@@ -1,0 +1,48 @@
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   SEGA Genesis Framework (c) Matt Phillips 2016
+;==============================================================
+;   tiles.asm - Tile loading routines
+;==============================================================
+
+VDP_LoadTiles:
+	; a0 - Tiles address (l)
+	; d0 - VRAM address (l)
+	; d1 - Num tiles (w)
+
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	add.l   #vram_addr_tiles, d0	; Add VRAM address offset
+	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d0				; Shift lower word back
+	swap    d0                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d0 ; OR in VRAM write command
+	move.l  d0, vdp_control        	; Move dest address to VDP control port
+	
+	and.l   #0x0000FFFF, d1
+	sub.w	#0x1, d1				; Num tiles - 1
+	@CharCopy:
+	
+	; 8 longwords in tile
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	move.l	(a0)+, vdp_data
+	
+	dbra	d1, @CharCopy
+	
+	rts
+	
+VDP_LoadTilesDMA:
+	; a0 - Tiles address (l)
+	; d0 - VRAM address (l)
+	; d1 - Num tiles (w)
+
+	mulu #size_tile_b/2, d1	; Tiles to words
+	jsr  VDP_DMACopyVRAM		; DMA copy
+	
+	rts

@@ -384,11 +384,11 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	; Load palettes	
 ;	lea    Pal_Nymn_Green, a0
 ;	move.l #PaletteId_Fuzzl, d0
-;	jsr    LoadPalette
+;	jsr    PAL_Load
 ;	
 ;	lea    Pal_Nymn_Blue, a0
 ;	move.l #PaletteId_Monster, d0
-;	jsr    LoadPalette
+;	jsr    PAL_Load
 ;	
 ;	; Position actor 1
 ;	move.l #LocIntroActor1_idx, d0
@@ -477,12 +477,12 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	; Reload Djakk palette
 ;	lea    palette_fade_black, a0
 ;	move.l #PaletteId_Monster, d0
-;	jsr    LoadPalette
+;	jsr    PAL_Load
 ;	
 ;	; Reload Fuzz; palette
 ;	lea    palette_fuzzl_yellow, a0
 ;	move.l #PaletteId_Fuzzl, d0
-;	jsr    LoadPalette
+;	jsr    PAL_Load
 ;	
 ;	; Finished cutscene
 ;	move.l #LevelData_1, a2
@@ -657,7 +657,7 @@ Lvl1_Trigger_NearEndLevel:
 	
 	lea    palette_fuzzl_green, a0
 	move.l #PaletteID_Fuzzl, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	; Load Blue Fuzzl gfx (reuse Djakk palette)
 	move.l #Fuzzl_Blue_idx, d0
@@ -679,7 +679,7 @@ Lvl1_Trigger_NearEndLevel:
 	
 	lea    palette_fuzzl_blue, a0
 	move.l #PaletteID_Monster, d0
-	jsr    LoadPalette
+	jsr    PAL_Load
 	
 	POPL   a1
 	POPL   a0

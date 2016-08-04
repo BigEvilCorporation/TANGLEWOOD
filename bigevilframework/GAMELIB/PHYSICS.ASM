@@ -252,7 +252,7 @@ EntityDistSq:
 	lsr.l  #0x8, d2						; To screen space
 	move.w d2, d1						; In lower word d1
 
-	jsr    VectorDistSq
+	jsr    VEC2_DistSq
 
 	rts
 	

@@ -514,7 +514,7 @@ PhysicsObjFindFloor:
 	move.w Level_MapHeight(a1), d2			; Map height to d2 lo
 	move.l Level_ColMapAddr(a1), a0			; Collision map to a0
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
-	jsr    GetTerrainHeight
+	jsr    PHYS_GetTerrainHeight
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 	
@@ -618,7 +618,7 @@ PhysicsObjFindWall:
 	clr.l  d2
 	move.w Level_MapWidth(a1), d2
 	move.l Level_ColMapAddr(a1), a0		; Collision map to a0
-	jsr	   GetCollisionTileFlags
+	jsr	   PHYS_GetCollisionTileFlags
 	move.l (sp)+, a0
 	
 	; Check if wall

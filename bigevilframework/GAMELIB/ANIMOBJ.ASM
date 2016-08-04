@@ -150,7 +150,7 @@ AnimObjDraw:
 	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l SpriteObj_TilesetAddr(a0), a0
-	jsr    SetSpriteAnimFrame
+	jsr    SPR_LoadAnimFrame
 	move.l (sp)+, d2
 	move.l (sp)+, a2
 	move.l (sp)+, a1

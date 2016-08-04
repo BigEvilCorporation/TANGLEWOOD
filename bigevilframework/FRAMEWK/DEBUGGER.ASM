@@ -10,7 +10,7 @@
 MSCSITrap   equ 0x108008
 MSCSIExcept equ 0x10800C
 
-ConnectDebugger:
+DBG_ConnectDebugger:
 
    move.b d0, 0x108000 ; Allow write to SNASM RAM
    move.l #0x02<<24+MSCSIExcept, 8+(4*0)

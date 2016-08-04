@@ -55,7 +55,7 @@ PaletteLerpStart:
 	andi.l #0xFF, d0
 	move.l a2, a0
 	add.l  #PaletteLerp_BufferCur, a0
-	jsr    ReadPalette
+	jsr    PAL_Read
 	
 	rts
 	
@@ -238,7 +238,7 @@ PaletteLerpUpdateNextComponent:
 	move.l a0, -(sp)
 	move.b PaletteLerp_PaletteIdx(a0), d0
 	add.l  #PaletteLerp_BufferCur, a0	; Offset into struct to palette buffer
-	lea    LoadPaletteDMA, a5
+	lea    PAL_LoadDMA, a5
 	jsr    VDPQueue_PushJob
 	move.l (sp)+, a0
 	

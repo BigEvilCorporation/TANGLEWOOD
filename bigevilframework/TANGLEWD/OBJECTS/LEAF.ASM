@@ -69,9 +69,9 @@ LeafInit:
 	move.l  a2, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	move.b d0, Leaf_SineStep(a0)	; 0-255
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	and.w  #0x03FF, d0
 	move.w d0, Leaf_ResetTimer(a0)	; 0-1024
 
@@ -92,7 +92,7 @@ LeafUpdate:
 	bne    @Inactive
 	
 	; Calc random X starting position
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
 	divu   #Leaf_WindowWidth, d0	; Mod by WindowWidth
 	clr.w  d0
@@ -121,7 +121,7 @@ LeafUpdate:
 
 	@OutOfView:
 	; else calc random Y starting pos
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
 	divu   #Leaf_WindowHeight, d0	; Mod by bounds height
 	clr.w  d0
@@ -164,7 +164,7 @@ LeafUpdate:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 	
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	and.w  #0x003F, d0	; 0-128
 	move.w d0, Leaf_ResetTimer(a0)
 	bra    @End

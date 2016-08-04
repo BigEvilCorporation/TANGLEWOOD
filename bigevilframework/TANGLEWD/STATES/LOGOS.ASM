@@ -38,7 +38,7 @@ Logos_Enter:
 	lea    tiles_bigevil_logo, a0
 	move.w #tiles_bec_logo_size_t, d1
 	move.l #LevelMapVRAM, d0
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	; Load map
     lea    map_bigevil_logo, a0			; a0 (l)  Map data address (ROM)
@@ -48,7 +48,7 @@ Logos_Enter:
 	move.w #map_bec_logo_width, d3		; d3 (w)  Source map total width (tiles)
 	move.w #Tiles_LevelMap_ID, d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_BigEvilLogo, d5	; d5 (b)  Palette ID
-	jsr    LoadMapSegmentPlaneA
+	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Start title theme
 	lea    bgm_titles, a0

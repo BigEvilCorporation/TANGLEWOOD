@@ -65,7 +65,7 @@ FireflyInit:
 	move.b  #0x1, AnimObj_Playing(a0)
 
 	; Random anim start frame
-	jsr    RandLong
+	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
 	divu   #(Anim_FireflyIdle_SizeB*SubframesPerFrame), d0	; Mod by anim length
 	clr.w  d0

@@ -3,69 +3,69 @@
 	; Sega Megadrive ROM header
 	; ******************************************************************
 	dc.l   stack_top       ; Initial stack pointer value
-	dc.l   EntryPoint      ; Start of program
-	dc.l   Exception       ; Bus error
-	dc.l   Exception       ; Address error
-	dc.l   Exception       ; Illegal instruction
-	dc.l   Exception       ; Division by zero
-	dc.l   Exception       ; CHK exception
-	dc.l   Exception       ; TRAPV exception
-	dc.l   Exception       ; Privilege violation
-	dc.l   NullInterrupt   ; TRACE exception
-	dc.l   NullInterrupt   ; Line-A emulator
-	dc.l   NullInterrupt   ; Line-F emulator
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Spurious exception
-	dc.l   NullInterrupt   ; IRQ level 1
-	dc.l   NullInterrupt   ; IRQ level 2
-	dc.l   NullInterrupt   ; IRQ level 3
+	dc.l   CPU_EntryPoint      ; Start of program
+	dc.l   CPU_Exception       ; Bus error
+	dc.l   CPU_Exception       ; Address error
+	dc.l   CPU_Exception       ; Illegal instruction
+	dc.l   CPU_Exception       ; Division by zero
+	dc.l   CPU_Exception       ; CHK CPU_Exception
+	dc.l   CPU_Exception       ; TRAPV CPU_Exception
+	dc.l   CPU_Exception       ; Privilege violation
+	dc.l   INT_Null   ; TRACE exception
+	dc.l   INT_Null   ; Line-A emulator
+	dc.l   INT_Null   ; Line-F emulator
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Spurious exception
+	dc.l   INT_Null   ; IRQ level 1
+	dc.l   INT_Null   ; IRQ level 2
+	dc.l   INT_Null   ; IRQ level 3
 	dc.l   HBlankInterrupt ; IRQ level 4 (horizontal retrace interrupt)
-	dc.l   NullInterrupt   ; IRQ level 5
-	dc.l   VBlankInterrupt ; IRQ level 6 (vertical retrace interrupt)
-	dc.l   NullInterrupt   ; IRQ level 7
-	dc.l   NullInterrupt   ; TRAP #00 exception
-	dc.l   NullInterrupt   ; TRAP #01 exception
-	dc.l   NullInterrupt   ; TRAP #02 exception
-	dc.l   NullInterrupt   ; TRAP #03 exception
-	dc.l   NullInterrupt   ; TRAP #04 exception
-	dc.l   NullInterrupt   ; TRAP #05 exception
-	dc.l   NullInterrupt   ; TRAP #06 exception
-	dc.l   NullInterrupt   ; TRAP #07 exception
-	dc.l   NullInterrupt   ; TRAP #08 exception
-	dc.l   NullInterrupt   ; TRAP #09 exception
-	dc.l   NullInterrupt   ; TRAP #10 exception
-	dc.l   NullInterrupt   ; TRAP #11 exception
-	dc.l   NullInterrupt   ; TRAP #12 exception
-	dc.l   NullInterrupt   ; TRAP #13 exception
-	dc.l   NullInterrupt   ; TRAP #14 exception
-	dc.l   NullInterrupt   ; TRAP #15 exception
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
-	dc.l   NullInterrupt   ; Unused (reserved)
+	dc.l   INT_Null   ; IRQ level 5
+	dc.l   INT_VBlank ; IRQ level 6 (vertical retrace interrupt)
+	dc.l   INT_Null   ; IRQ level 7
+	dc.l   INT_Null   ; TRAP #00 exception
+	dc.l   INT_Null   ; TRAP #01 exception
+	dc.l   INT_Null   ; TRAP #02 exception
+	dc.l   INT_Null   ; TRAP #03 exception
+	dc.l   INT_Null   ; TRAP #04 exception
+	dc.l   INT_Null   ; TRAP #05 exception
+	dc.l   INT_Null   ; TRAP #06 exception
+	dc.l   INT_Null   ; TRAP #07 exception
+	dc.l   INT_Null   ; TRAP #08 exception
+	dc.l   INT_Null   ; TRAP #09 exception
+	dc.l   INT_Null   ; TRAP #10 exception
+	dc.l   INT_Null   ; TRAP #11 exception
+	dc.l   INT_Null   ; TRAP #12 exception
+	dc.l   INT_Null   ; TRAP #13 exception
+	dc.l   INT_Null   ; TRAP #14 exception
+	dc.l   INT_Null   ; TRAP #15 exception
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
+	dc.l   INT_Null   ; Unused (reserved)
 
     ; Mega-CD
 

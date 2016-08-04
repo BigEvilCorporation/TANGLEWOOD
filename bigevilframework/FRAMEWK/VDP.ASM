@@ -6,11 +6,11 @@
 ;   vdp.asm - VDP initialisation and control
 ;==============================================================
 
-InitVDP:
+VDP_Init:
 
 	; Load empty horizontal interrupt routine
-	lea HBlankInterrupt_Blank, a0
-	jsr LoadInterruptHBlank
+	lea INT_HBlank, a0
+	jsr INT_LoadHBlank
 
 	; Set VDP registers
 	move.l #VDPRegisters, a0   		  ; Load address of register table into a0
@@ -24,13 +24,13 @@ InitVDP:
 	dbra d0, @CopyVDP
 	
 	; Clear VDP memory
-	jsr ClearVRAM
-	jsr ClearCRAM
-	jsr ClearVSRAM
+	jsr VDP_ClearVRAM
+	jsr VDP_ClearCRAM
+	jsr VDP_ClearVSRAM
 
 	rts
 	
-ClearVRAM:
+VDP_ClearVRAM:
 
 	move.w #0x8F01, vdp_control     ; Set autoincrement to 1 byte
 	move.w #0x93FF, vdp_control     ; Set bytes to fill (lo) (reg 19)
@@ -46,7 +46,7 @@ ClearVRAM:
 	
 	rts
 	
-ClearVSRAM:
+VDP_ClearVSRAM:
 
 	move.w #0x9350, vdp_control     ; Set bytes to fill (lo) (reg 19)
 	move.w #0x9400, vdp_control     ; Set bytes to fill (hi) (reg 20)
@@ -63,7 +63,7 @@ ClearVSRAM:
 	
 	rts
 	
-ClearCRAM:
+VDP_ClearCRAM:
 
 	move.l #vdp_write_palettes, vdp_control ; Write to palette memory
 	move.l #0x3F, d1                        ; CRAM size (in words)
@@ -73,7 +73,7 @@ ClearCRAM:
 	
 	rts
 
-VPDDMACopyVRAM:
+VDP_DMACopyVRAM:
 	; a0 --- Source address (RAM/ROM)
 	; d0 (w) Dest address (VRAM)
 	; d1 (w) Size (in words)
@@ -139,7 +139,7 @@ VPDDMACopyVRAM:
 	
 	rts
 	
-VDPDMACopyCRAM:
+VDP_DMACopyCRAM:
 	; a0 --- Source address (RAM/ROM)
 	; d0 (w) Dest address (CRAM)
 	; d1 (w) Size (in words)
@@ -205,19 +205,19 @@ VDPDMACopyCRAM:
 
 	rts
 
-EnableDisplay:
+VDP_EnableDisplay:
 	move.w #(0x8100|VDPReg1|vdp_reg1_enabledisplay), vdp_control
 	rts
 		
-DisableDisplay:
+VDP_DisableDisplay:
 	move.w #(0x8100|VDPReg1&~vdp_reg1_enabledisplay), vdp_control
 	rts
 		
-EnableVINT:
+VDP_EnableVINT:
 	move.w #(0x8100|VDPReg1|vdp_reg1_enablevint), vdp_control
 	rts
 		
-DisableVINT:
+VDP_DisableVINT:
 	move.w #(0x8100|VDPReg1&~vdp_reg1_enablevint), vdp_control
 	rts
 		

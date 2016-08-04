@@ -28,7 +28,7 @@ ProfileBlockStructPad	rs.b 3
 ProfileBlockStructSize	rs.b 0
 ;-----------------------------
 
-Profile_BeginFrame:
+DBG_Profile_BeginFrame:
 	; Marks the start of a profiling frame
 	; No args
 	
@@ -41,17 +41,17 @@ Profile_BeginFrame:
 	move.b #0x1, profile_active
 	
 	; Wait for start of drawing (using hblank timings)
-	jsr    WaitDrawBegin
+	jsr    VDP_WaitDrawBegin
 	
 	; Push root block
 	lea    Str_Frame, a0
-	jsr    Profile_PushScope
+	jsr    DBG_Profile_PushScope
 	
 	@Inactive:
 	
 	rts
 	
-Profile_EndFrame:
+DBG_Profile_EndFrame:
 	; Marks the end of a profiling frame
 	; No args
 	
@@ -59,7 +59,7 @@ Profile_EndFrame:
 	beq    @Inactive
 	
 	; Pop root block
-	jsr    Profile_PopScope
+	jsr    DBG_Profile_PopScope
 	
 	; Capture frame finished
 	move.b #0x0, profile_active
@@ -69,7 +69,7 @@ Profile_EndFrame:
 	
 	rts
 	
-Profile_PushScope:
+DBG_Profile_PushScope:
 	; Marks the start of a named profiling section
 	; a0 --- Address of scope name string
 	
@@ -116,7 +116,7 @@ Profile_PushScope:
 	
 	rts
 	
-Profile_PopScope:
+DBG_Profile_PopScope:
 	; Marks the end of a profiling section
 	; No args
 	
@@ -144,7 +144,7 @@ Profile_PopScope:
 	
 	rts
 	
-Profile_CaptureFrame:
+DBG_Profile_CaptureFrame:
 	; Captures the next profiling frame
 	; No args
 	; Note: d0-d1/a0 from input code, don't trample
@@ -164,12 +164,12 @@ Profile_CaptureFrame:
 	lea    profile_blockstack, a1
 	move.l a1, profile_blockstackptr
 	
-	; Start capturing at next Profile_BeginFrame
+	; Start capturing at next DBG_Profile_BeginFrame
 	move.b #0x1, profile_pending
 	
 	rts
 	
-Profile_DrawResults:
+DBG_Profile_DrawResults:
 	; Renders the results of the last profiling capture
 	; No args
 	
@@ -185,13 +185,13 @@ Profile_DrawResults:
 	move.b #ProfileDrawY, d0
 	
 	; Traverse all blocks in hierarchy
-	jsr    Profile_DrawBlockRecursive
+	jsr    DBG_Profile_DrawBlockRecursive
 	
 	@NoResults:
 	
 	rts
 	
-Profile_DrawBlockRecursive:
+DBG_Profile_DrawBlockRecursive:
 	; Recursively draws a single results block
 	; a0 ---- Block address
 	; d0 (bb) X/Y coord
@@ -204,7 +204,7 @@ Profile_DrawBlockRecursive:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane			; Draw
+	jsr    TXT_DrawPlane			; Draw
 	move.l (sp)+, d0
 	move.l (sp)+, a0
 	
@@ -218,7 +218,7 @@ Profile_DrawBlockRecursive:
 	move.l ProfileBlockEndTime(a0), d0 ; Get time
 	sub.l  ProfileBlockStartTime(a0), d0
 	move.l a4, a0
-	jsr    ItoA_Hex_l				; Convert to string
+	jsr    TXT_ItoA_Hex_l				; Convert to string
 	move.l (sp)+, d0
 	
 	ror.w  #0x8, d0
@@ -230,7 +230,7 @@ Profile_DrawBlockRecursive:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane			; Draw
+	jsr    TXT_DrawPlane			; Draw
 	
 	add.l  #0x10, sp				; Free string space
 	
@@ -269,7 +269,7 @@ Profile_DrawBlockRecursive:
 	move.l d2, -(sp)
 	
 	; Draw child
-	jsr    Profile_DrawBlockRecursive
+	jsr    DBG_Profile_DrawBlockRecursive
 	
 	move.l (sp)+, d2
 	move.l (sp)+, a1

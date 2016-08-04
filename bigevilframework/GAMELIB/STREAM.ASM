@@ -192,7 +192,7 @@ MapStreamNextRow:
 	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
 	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
-	lea     LoadMapSegmentPlaneA, a5
+	lea     VDP_LoadMapSegmentPlaneA, a5
 	jsr     VDPQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
@@ -303,7 +303,7 @@ MapStreamNextColumn:
 	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
 	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
-	lea     LoadMapSegmentPlaneA, a5
+	lea     VDP_LoadMapSegmentPlaneA, a5
 	jsr     VDPQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow

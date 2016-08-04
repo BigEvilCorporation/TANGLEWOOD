@@ -44,7 +44,7 @@ strcmp_end:
 ; (looks at MCD signature in BIOS header)
 ; d0 - Return value: BIOS index if MCD present, 0 if not
 
-GetMCDType:
+MCD_GetHardwareType:
         ; Check BIOS signature 1
         lea mcd_sig_1, a0
         lea mcd_bios_addr_1+mcd_sig_offset, a1
@@ -87,19 +87,19 @@ GetMCDType:
 
 MCD_RestoreHINT:
         ; Put HINT vector back into the table
-        move.l #SubCPU_int, (0xFFFFFD08).w
-        move.w #HBlankInterrupt_Blank, (0x00A12006).l
-        move.l #SubCPU_rte, (0xFFFFFD0E).w
+        move.l #MCD_SubCPU_int, (0xFFFFFD08).w
+        move.w #INT_HBlank, (0x00A12006).l
+        move.l #MCD_SubCPU_rte, (0xFFFFFD0E).w
 
 		rts
 
 ; Initialise MegaCD in Mode 1 (boot from cartridge)
-InitMCD_Mode1:
+MCD_InitMode1:
 
         ; Put HINT vector back into the table
-        move.l #SubCPU_int, (0xFFFFFD08).w
-        move.w #HBlankInterrupt_Blank, (0x00A12006).l
-        move.l #SubCPU_rte, (0xFFFFFD0E).w
+        move.l #MCD_SubCPU_int, (0xFFFFFD08).w
+        move.w #INT_HBlank, (0x00A12006).l
+        move.l #MCD_SubCPU_rte, (0xFFFFFD0E).w
 
         ; Reset gate array
         move.l 0xFF00, 0x00A12002
@@ -127,8 +127,8 @@ InitMCD_Mode1:
         rts
 
 
-SubCPU_int:
+MCD_SubCPU_int:
         bset #0x0, (0x00A12000).l
 
-SubCPU_rte:
+MCD_SubCPU_rte:
         rte

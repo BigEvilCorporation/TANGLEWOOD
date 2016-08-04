@@ -6,7 +6,7 @@
 ;   planes.asm - Plane A/B map loading and scrolling
 ;==============================================================
 
-SetCellPlaneA:
+VDP_SetCellPlaneA:
 	; d0 (w) - Tile ID
 	; d1 (ww)- XY coord (in tiles)
 	; d2 (b) - Palette
@@ -32,7 +32,7 @@ SetCellPlaneA:
 	
 	rts
 	
-LoadMapPlaneA:
+VDP_LoadMapPlaneA:
     ; a0 (l) - Map address (ROM)
 	; d0 (w) - Size in words
 	; d1 (b) - Y offset
@@ -64,7 +64,7 @@ LoadMapPlaneA:
 
     rts
 	
-LoadMapPlaneB:
+VDP_LoadMapPlaneB:
     ; a0 (l) - Map address (ROM)
 	; d0 (w) - Size in words
 	; d1 (b) - Y offset
@@ -96,7 +96,7 @@ LoadMapPlaneB:
 
     rts
 
-LoadMapSegmentPlaneA:
+VDP_LoadMapSegmentPlaneA:
     ; a0 (l)  Map data address (ROM)
 	; d0 (ww) Source top/left (tiles)
 	; d1 (ww) Destination top/left (tiles)
@@ -192,7 +192,7 @@ LoadMapSegmentPlaneA:
 	
 	rts
 	
-ClearMapPlaneB:
+VDP_ClearMapPlaneB:
 
 	;move.w #vram_addr_plane_b, d0
 	;move.w #vdp_plane_size_t, d1
@@ -215,25 +215,25 @@ ClearMapPlaneB:
 	
 	rts
 	
-SetHScrollPlaneA:
+VDP_SetHScrollPlaneA:
 	; d0 (w) HScroll value
 	move.l #vdp_write_hscroll_a, vdp_control
 	move.w d0, vdp_data
 	rts
 
-SetVScrollPlaneA:
+VDP_SetVScrollPlaneA:
 	; d0 (w) VScroll value
 	move.l #vdp_write_vscroll_a, vdp_control
 	move.w d0, vdp_data
 	rts
 	
-SetHScrollPlaneB:
+VDP_SetHScrollPlaneB:
 	; d0 (w) HScroll value
 	move.l #vdp_write_hscroll_b, vdp_control
 	move.w d0, vdp_data
 	rts
 
-SetVScrollPlaneB:
+VDP_SetVScrollPlaneB:
 	; d0 (w) VScroll value
 	move.l #vdp_write_vscroll_b, vdp_control
 	move.w d0, vdp_data

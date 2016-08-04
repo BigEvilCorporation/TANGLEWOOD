@@ -6,7 +6,7 @@
 ;   palettes.asm - Palette loading and manipulation
 ;==============================================================
 
-LoadPalette:
+PAL_Load:
     ; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
@@ -24,28 +24,44 @@ LoadPalette:
 
 	rts
 	
-LoadPaletteDMA:
+PAL_LoadDMA:
 	; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
 	mulu.w #size_palette_b, d0	; Palette index to CRAM destination address
 	move.w #size_palette_w, d1	; Palette size to copy (in words)
-	jsr VDPDMACopyCRAM			; DMA copy
+	jsr VDP_DMACopyCRAM			; DMA copy
 	
 	rts
+	
+PAL_Read:
+    ; d0 (b) Palette index
+	; a0 --- Dest RAM address
 
-ClearPalettes:
+	mulu.w #size_palette_b, d0        ; Colour index to CRAM source address
+	swap   d0                      ; Move address to upper word
+	ori.l  #vdp_read_palettes, d0  ; OR CRAM read command
+	move.l d0, vdp_control         ; Send dest address to VDP
+
+	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette (-1 for loop counter)
+	@PaletteCopy:
+	move.w vdp_data, (a0)+       ; Move word from CRAM
+	dbra.w d0, @PaletteCopy
+
+	rts
+
+PAL_ClearAll:
 
 	move.l #0x3, d0
 	@PaletteLp:
 	move.l d0, -(sp)
-	jsr    ClearPalette
+	jsr    PAL_Clear
 	move.l (sp)+, d0
 	dbra   d0, @PaletteLp
 
 	rts
 	
-ClearPalette:
+PAL_Clear:
 	; d0 (b) Palette index
 	
 	mulu.w #size_palette_b, d0      ; Colour index to CRAM destination address
@@ -60,20 +76,4 @@ ClearPalette:
 	move.w #0x0, vdp_data          ; Move word to CRAM
 	dbra.w d0, @PaletteClr
 	
-	rts
-	
-ReadPalette:
-    ; d0 (b) Palette index
-	; a0 --- Dest RAM address
-
-	mulu.w #size_palette_b, d0        ; Colour index to CRAM source address
-	swap   d0                      ; Move address to upper word
-	ori.l  #vdp_read_palettes, d0  ; OR CRAM read command
-	move.l d0, vdp_control         ; Send dest address to VDP
-
-	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette (-1 for loop counter)
-	@PaletteCopy:
-	move.w vdp_data, (a0)+       ; Move word from CRAM
-	dbra.w d0, @PaletteCopy
-
 	rts

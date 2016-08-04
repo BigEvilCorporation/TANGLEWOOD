@@ -110,7 +110,7 @@ TriggerBox_19:
 	jsr TriggerBoxInit
 	move.l #0x00020000, Entity_WorldPosX(a0)
 	move.l #0x00016800, Entity_WorldPosY(a0)
-	move.l #LoadPalette, TriggerBox_Routine(a0)
+	move.l #PAL_Load, TriggerBox_Routine(a0)
 	move.l #PaletteId_World0, TriggerBox_RegisterD0(a0)
 	move.l #palette_lvl1_dusk, TriggerBox_RegisterA0(a0)
 	add.l #TriggerBox_Struct_Size, a0

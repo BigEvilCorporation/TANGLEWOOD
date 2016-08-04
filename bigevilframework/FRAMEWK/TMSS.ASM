@@ -6,7 +6,7 @@
 ;   tmss.asm - TMSS checks and initialisation
 ;==============================================================
 
-InitTMSS:
+VDP_WriteTMSS:
 
 	move.b hardware_ver_address, d0 ; Move Megadrive hardware version to d0
 	andi.b #0x0F, d0             ; The version is stored in last four bits, so mask it with 0F

@@ -18,7 +18,7 @@ DebugDraw:
 	move.l (hblank_counter), d0
 	; To string
 	move.l a4, a0
-	jsr    ItoA_Hex_l
+	jsr    TXT_ItoA_Hex_l
 	move.w  #debugdraw_playerpos_text_x, d1
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y, d1
@@ -26,13 +26,13 @@ DebugDraw:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	
 	move.l sp, a4
 	move.l (vblank_counter), d0
 	; To string
 	move.l a4, a0
-	jsr    ItoA_Hex_l
+	jsr    TXT_ItoA_Hex_l
 	move.w  #debugdraw_playerpos_text_x, d1
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x1, d1
@@ -40,13 +40,13 @@ DebugDraw:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	
 	move.l sp, a4
 	move.l (frame_counter_update), d0
 	; To string
 	move.l a4, a0
-	jsr    ItoA_Hex_l
+	jsr    TXT_ItoA_Hex_l
 	move.w  #debugdraw_playerpos_text_x, d1
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x2, d1
@@ -54,13 +54,13 @@ DebugDraw:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	
 	move.l sp, a4
 	move.l (frame_counter_render), d0
 	; To string
 	move.l a4, a0
-	jsr    ItoA_Hex_l
+	jsr    TXT_ItoA_Hex_l
 	move.w  #debugdraw_playerpos_text_x, d1
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x3, d1
@@ -68,7 +68,7 @@ DebugDraw:
 	move.w #Tiles_PixelFont_ID, d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
-	jsr    DrawTextToPlane
+	jsr    TXT_DrawPlane
 	
 	; Free string space
 	add.l  #0x10, sp
@@ -84,7 +84,7 @@ DebugDraw:
     ;
 	;; To string
 	;move.l a4, a0
-	;jsr    ItoA_Hex_l
+	;jsr    TXT_ItoA_Hex_l
 	;
 	;; Translate scroll pos to tile space
 	;move.l (WorldScrollX), d1
@@ -104,7 +104,7 @@ DebugDraw:
 	;move.b #0x0, d2					; Palette
 	;move.b #0x0, d3					; Plane A
     ;
-	;jsr    DrawTextToPlane
+	;jsr    TXT_DrawPlane
     ;
 	;; Get player Y
 	;lea    Player1, a2
@@ -112,7 +112,7 @@ DebugDraw:
     ;
 	;; To string
 	;move.l a4, a0
-	;jsr    ItoA_Hex_l
+	;jsr    TXT_ItoA_Hex_l
 	;
 	;; Translate scroll pos to tile space
 	;move.l (WorldScrollX), d1
@@ -132,7 +132,7 @@ DebugDraw:
 	;move.b #0x0, d2					; Palette
 	;move.b #0x0, d3					; Plane A
     ;
-	;jsr    DrawTextToPlane
+	;jsr    TXT_DrawPlane
     ;
 	;; Free string space
 	;add.l  #0x10, sp

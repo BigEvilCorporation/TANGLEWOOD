@@ -10,7 +10,7 @@ heightmap_column_blank		equ 0x0
 heightmap_column_solid		equ 0x8
 heightmap_max_search_tiles	equ 0x2
 
-GetTerrainTile:
+PHYS_GetTerrainTile:
 	; a0 ---- : Collision map data addr
 	; a1 ---- : Collision tileset data addr / OUT: collision tile addr
 	; d0 (w)  : OUT: Tile flags
@@ -46,7 +46,7 @@ GetTerrainTile:
 	
 	rts
 	
-GetCollisionTileFlags:
+PHYS_GetCollisionTileFlags:
 	; a0 ---- : Collision map data addr
 	; d0 (w)  : OUT: Tile flags
 	; d1 (ww) : XY coord (pixels, scroll space)
@@ -82,7 +82,7 @@ GetCollisionTileFlags:
 	
 	rts
 
-GetTerrainHeight:
+PHYS_GetTerrainHeight:
 	; a0 ---- : Collision map data addr
 	; a1 ---- : Collision tileset data addr
 	; d0 (w)  : Return - floor height, or -1
@@ -116,7 +116,7 @@ GetTerrainHeight:
 	move.l d1, -(sp)
 	swap   d2				; Map width to d2
 	andi.l #0x0000FFFF, d2	; Clear height
-	jsr    GetTerrainTile
+	jsr    PHYS_GetTerrainTile
 	move.l (sp)+, d1
 	
 	; Get X offset into tile

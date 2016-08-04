@@ -7,47 +7,47 @@
 ;==============================================================
 
 ; Entry point address set in ROM header
-EntryPoint:
+CPU_EntryPoint:
 
 	IFD DEBUG
 	; Cross Products MegaCD kit
-	jsr ConnectDebugger
+	jsr DBG_ConnectDebugger
 	; For MegaCD - restore HINT vector
 	jsr MCD_RestoreHINT
 	ENDIF
 
 	; Test reset state
 	tst.w reset_exp    ; Test expansion reset
-	bne Main           ; Branch if Not Equal (to zero) - to Main
+	bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
 	tst.w reset_button ; Test reset button
-	bne Main           ; Branch if Not Equal (to zero) - to Main
+	bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
    
 	; Clear RAM
-	jsr ClearRAM
+	jsr RAM_Clear
 
 	; Write TMSS
-	jsr InitTMSS
+	jsr VDP_WriteTMSS
 
 	; Init Z80
 	jsr InitZ80
 
 	; Init PSG
-	jsr InitPSG
+	jsr PSG_Init
 	
 	; Init VDP
-	jsr InitVDP
+	jsr VDP_Init
 
 	; Init gamepad ports
-	jsr InitGamepads
+	jsr PAD_InitGamepads
 	
 	; Init EXT port
-	jsr InitEXTPort
+	jsr PAD_InitEXTPort
 
 	; Init VDP job queue
 	jsr VDPQueue_Init
 	
 	; Init random number generator
-	jsr RandInit
+	jsr RND_Init
 	
 	; Init ECHO sound driver
 	lea echo_instruments, a0
@@ -66,8 +66,8 @@ EntryPoint:
 	move.w  #status_reg_init, sr	; INT level 3 (all interrupts) + supervisor + trace (if debug)
 
 	; ************************************
-	; Main
+	; CPU_Main
 	; ************************************
-Main:
+CPU_Main:
 
 	jmp __main ; Begin external main

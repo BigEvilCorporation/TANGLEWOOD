@@ -34,7 +34,7 @@ UpdateAmbientAudio:
 	bne   @TimerRunning
 	
 	; Timer elapsed, get random SFX index
-	jsr    RandLong				; Rand long
+	jsr    RND_GenerateLong				; Rand long
 	andi.l #0xFFFF, d0			; Avoid overflow
 	divu   #AmbientSFXCount, d0	; Div / range
 	clr.w  d0					; Clear exponent
@@ -50,7 +50,7 @@ UpdateAmbientAudio:
 	PLAYSFX_LOWPRIO a0
 	
 	; Get next random time
-	jsr    RandLong				; Rand long
+	jsr    RND_GenerateLong				; Rand long
 	andi.l #0xFFFF, d0			; Avoid overflow
 	divu   #(AmbientSFXRandTimerMax-AmbientSFXRandTimerMin), d0	; Div / range
 	clr.w  d0					; Clear exponent

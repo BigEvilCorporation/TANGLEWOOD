@@ -225,7 +225,7 @@ EntityUpdateAll:
 	
 	IFD DEBUG
 	lea Str_Entities, a0
-	jsr Profile_PushScope
+	jsr DBG_Profile_PushScope
 	ENDIF
 
 	cmp.l  #0x0, EntityListSize_Update
@@ -243,7 +243,7 @@ EntityUpdateAll:
 	
 
 	IFD DEBUG
-	jsr Profile_PopScope
+	jsr DBG_Profile_PopScope
 	ENDIF
 	
 	rts

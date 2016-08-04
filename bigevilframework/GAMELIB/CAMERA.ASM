@@ -145,12 +145,12 @@ UpdateCamera:
 	; Scroll X - plane A
 	neg.l   d0							; To camera space
 	lsr.l   #0x8, d0					; To screen space
-	lea     SetHScrollPlaneA, a5
+	lea     VDP_SetHScrollPlaneA, a5
 	jsr 	VDPQueue_PushJob
 	
 	; Scroll X - plane B
 	lsr.w   #0x1, d0
-	lea     SetHScrollPlaneB, a5
+	lea     VDP_SetHScrollPlaneB, a5
 	jsr 	VDPQueue_PushJob
 	
 	;==============================================================
@@ -202,7 +202,7 @@ UpdateCamera:
 
 	; Scroll Y - plane A
 	lsr.l   #0x8, d0					; To screen space
-	lea     SetVScrollPlaneA, a5
+	lea     VDP_SetVScrollPlaneA, a5
 	jsr 	VDPQueue_PushJob
 	
 	; Scroll Y - plane B
@@ -237,7 +237,7 @@ UpdateCamera:
 	move.w  #(vdp_plane_height*8), d0
 	@NoClampPlaneB:
 	
-	lea     SetVScrollPlaneB, a5
+	lea     VDP_SetVScrollPlaneB, a5
 	jsr 	VDPQueue_PushJob
 	
 	

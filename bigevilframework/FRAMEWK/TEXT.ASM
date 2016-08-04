@@ -6,7 +6,7 @@
 ;   text.asm - Font loading and text display
 ;==============================================================
 
-LoadFont:
+TXT_LoadFont:
    ; a0 - Font address (l)
    ; d0 - VRAM address (w)
    ; d1 - Num chars (w)
@@ -25,7 +25,7 @@ LoadFont:
 
    rts
 
-DrawTextToPlane:
+TXT_DrawPlane:
 	; a0 (l) - String address
 	; d0 (w) - First tile ID of font
 	; d1 (bb)- XY coord (in tiles)
@@ -75,7 +75,7 @@ DrawTextToPlane:
 	@End:
 	rts
 
-ItoA_Hex_w:
+TXT_ItoA_Hex_w:
 	; Converts a word to hex ASCII
 	; a0 --- In: String address
 	; d0 (w) In: Number to convert
@@ -112,7 +112,7 @@ ItoA_Hex_w:
 
 	rts
 
-ItoA_Hex_l:
+TXT_ItoA_Hex_l:
 	; Converts a longword to hex ASCII
 	; a0 --- In: String address
 	; d0 (l) In: Number to convert

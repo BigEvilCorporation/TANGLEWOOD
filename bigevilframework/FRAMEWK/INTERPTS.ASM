@@ -6,20 +6,20 @@
 ;   interpts.asm - Interrupts and exceptions
 ;==============================================================
 
-LoadInterruptHBlank:
+INT_LoadHBlank:
 	; a0 --- Interrupt address
 	
-	jsr DisableVINT
+	jsr VDP_DisableVINT
 	
 	lea HBlankInterrupt, a1
 	move.l #(hint_max_size/size_long), d0
 	MEMCPYL a1,a0,d0
 	
-	jsr EnableVINT
+	jsr VDP_EnableVINT
 	
 	rts
 
-VBlankInterrupt:
+INT_VBlank:
    addi.l #0x1, vblank_counter    ; Increment vinterrupt counter
    move.w #0x0, hline_counter	  ; Clear h-line counter
 
@@ -39,10 +39,10 @@ VBlankInterrupt:
 
    rte
 
-HBlankInterrupt_Blank:
+INT_HBlank:
    addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
    addi.w #0x1, hline_counter     ; Increment h-line counter
    rte
 
-NullInterrupt:
+INT_Null:
    rte

@@ -19,48 +19,7 @@ Sprite_Struct_Size			rs.b 0
 
 ;==============================================================
 
-LoadTiles:
-	; a0 - Tiles address (l)
-	; d0 - VRAM address (l)
-	; d1 - Num tiles (w)
-
-	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
-	add.l   #vram_addr_tiles, d0	; Add VRAM address offset
-	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
-	lsr.w   #0x2, d0				; Shift lower word back
-	swap    d0                     	; Swap address hi/lo
-	ori.l   #vdp_cmd_vram_write, d0 ; OR in VRAM write command
-	move.l  d0, vdp_control        	; Move dest address to VDP control port
-	
-	and.l   #0x0000FFFF, d1
-	sub.w	#0x1, d1				; Num tiles - 1
-	@CharCopy:
-	
-	; 8 longwords in tile
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	move.l	(a0)+, vdp_data
-	
-	dbra	d1, @CharCopy
-	
-	rts
-	
-LoadTilesDMA:
-	; a0 - Tiles address (l)
-	; d0 - VRAM address (l)
-	; d1 - Num tiles (w)
-
-	mulu #size_tile_b/2, d1	; Tiles to words
-	jsr  VPDDMACopyVRAM		; DMA copy
-	
-	rts
-
-LoadSpriteTable:
+VDP_LoadSpriteTable:
 	; a0 --- Sprite data address
 	; d0 (b) Sprite index
 
@@ -75,7 +34,7 @@ LoadSpriteTable:
 	
 	rts
 	
-LoadSpriteTables:
+VDP_LoadSpriteTables:
 	; a0 --- Sprite data address
 	; d0 (b) Number of sprites
 
@@ -90,7 +49,7 @@ LoadSpriteTables:
 	
 	rts
 	
-LinkSprite:
+SPR_Link:
 	; d0 (b) Prev index
 	; d1 (b) Next index
 	
@@ -106,7 +65,7 @@ LinkSprite:
 	
 	rts
 	
-ClearSpriteLinks:
+SPR_ClearAllLinks:
 
 	; Get sprite table
 	lea     vdp_sprite_table, a0
@@ -128,7 +87,7 @@ ClearSpriteLinks:
 	
 	rts
 
-SetSpritePosX:
+SPR_SetPosX:
 	; Set sprite X position
 	; d0 (b) - Sprite ID
 	; d1 (w) - X coord
@@ -143,7 +102,7 @@ SetSpritePosX:
 
 	rts
 		
-SetSpritePosY:
+SPR_SetPosY:
 	; Set sprite Y position
 	; d0 (b) - Sprite ID
 	; d1 (w) - Y coord
@@ -158,7 +117,7 @@ SetSpritePosY:
 	
 	rts
 
-SetMultiSpritePosX:
+SPR_SetMultiPosX:
 	; Set sprite X position
 	; d0 (b)  - Sprite ID
 	; d1 (w)  - X coord
@@ -217,7 +176,7 @@ SetMultiSpritePosX:
 
 	rts
 
-SetMultiSpritePosY:
+SPR_SetMultiPosY:
 	; Set sprite Y position
 	; d0 (b)  - Sprite ID
 	; d1 (w)  - Y coord
@@ -256,7 +215,7 @@ SetMultiSpritePosY:
 
 	rts
 
-SetSpriteAnimFrame:
+SPR_LoadAnimFrame:
 	; Sets sprite frame from animation data and frame index, uploads tiles to VRAM
 
 	; a0 --- Address of sprite data (ROM)
@@ -289,12 +248,12 @@ SetSpriteAnimFrame:
 
 	; Add DMA job
 	mulu.w  #size_tile_w, d1
-	jsr     VDPDMAQueue_AddJob
+	jsr     VDP_DMAQueue_AddJob
 	
 	ELSE
 	
 	; Can't DMA from cart, load inline
-	jsr    LoadTiles
+	jsr    VDP_LoadTiles
 	
 	ENDIF
 	

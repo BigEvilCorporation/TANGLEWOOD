@@ -27,11 +27,11 @@ Clamp:
 	@End:
 	rts
 
-RandInit:
+RND_Init:
 	move.l #0x26121985, rand_seed
 	rts
 
-RandLong:
+RND_GenerateLong:
 	move.l (rand_seed),D0
 	btst   #1,D0
 	sne    D1
@@ -49,7 +49,7 @@ RandLong:
 	move.l D0,rand_seed
 	rts
 
-VectorAdd:
+VEC2_Add:
 	; d0 (ww) In: Vec1 XY, Out: Vec3 XY
 	; d1 (ww) In: Vec2 XY
 
@@ -61,7 +61,7 @@ VectorAdd:
 
 	rts
 
-VectorSub:
+VEC2_Sub:
 	; d0 (ww) In: Vec1 XY, Out: Vec3 XY
 	; d1 (ww) In: Vec2 XY
 
@@ -73,7 +73,7 @@ VectorSub:
 
 	rts
 
-VectorDistSq:
+VEC2_DistSq:
 	; d0 (ww) In: Vec1 XY, Out: squared distance
 	; d1 (ww) In: Vec2 XY
 
@@ -95,7 +95,7 @@ VectorDistSq:
 	
 	rts
 
-VectorDot:
+VEC2_Dot:
 	; d0 (ww) In: Vec1 XY, Out: Dot product
 	; d1 (ww) In: Vec2 XY
 

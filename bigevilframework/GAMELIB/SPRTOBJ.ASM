@@ -77,13 +77,13 @@ SpriteObjLoad:
 	
 	;==============================================================
 
-	; LoadTiles:
+	; VDP_LoadTiles:
 	;  a0 - Tiles address (l)
 	;  d0 - VRAM address (l)
 	;  d1 - Num tiles (w)
 	movem.l  a0-a3/d0-d2, -(sp)
 	move.l   a1, a0
-	jsr      LoadTiles
+	jsr      VDP_LoadTiles
 	movem.l  (sp)+, a0-a3/d0-d2
 
 	;==============================================================
@@ -160,7 +160,7 @@ SpriteObjDraw:
 	move.w Entity_Width(a0), d3
 	move.b SpriteObj_FlippedX(a0), d4
 	move.l SpriteObj_SubSpriteOffArr(a0), a1
-	jsr    SetMultiSpritePosX
+	jsr    SPR_SetMultiPosX
 	move.l (sp)+, a0
 	move.l (sp)+, a1
 	
@@ -194,7 +194,7 @@ SpriteObjDraw:
 	move.w Entity_Height(a0), d3
 	move.b SpriteObj_FlippedY(a0), d4
 	move.l SpriteObj_SubSpriteOffArr(a0), a1
-	jsr    SetMultiSpritePosY
+	jsr    SPR_SetMultiPosY
 	move.l (sp)+, a0
 	move.l (sp)+, a1
 	
@@ -213,7 +213,7 @@ SpriteObjDraw:
 	move.l d1, -(sp)
 	cmp.b  #0x0, d1
 	beq    @FirstSprite						; Not first sprite
-	jsr    LinkSprite						; Link sprite with prev
+	jsr    SPR_Link						; Link sprite with prev
 	@FirstSprite:
 	move.l (sp)+, d1
 	move.w d1, prev_sprite_link				; Set as next
@@ -238,7 +238,7 @@ SpriteObjDraw:
 	move.b SpriteObj_SpriteID(a0), d0			; This id
 	move.b #0x0, d1							; Next id
 	move.l a0, -(sp)
-	jsr    LinkSprite						; Unlink
+	jsr    SPR_Link						; Unlink
 	move.l (sp)+, a0
 
 	; Can't unlink first sprite, move to border
@@ -247,7 +247,7 @@ SpriteObjDraw:
 	bne    @NotFirstSprite
 	move.w #0x0, d1
 	move.l a0, -(sp)
-	jsr    SetSpritePosX
+	jsr    SPR_SetPosX
 	move.l (sp)+, a0
 	@NotFirstSprite:
 	

@@ -455,7 +455,7 @@ FuzzlUpdateEyes:
 	add.l  #(Fuzzl_Height/2), d2			; Centre
 	move.w d2, d1
 
-	jsr VectorSub
+	jsr VEC2_Sub
 
 	; Backup for divs
 	move.l d0, d4

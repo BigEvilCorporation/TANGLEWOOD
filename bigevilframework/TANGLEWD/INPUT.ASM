@@ -18,7 +18,7 @@ UpdateInput:
 	beq    @NoControl
 	
 	; Read pad A
-	jsr ReadPadA
+	jsr PAD_ReadPadA
 	
 	@NoControl:
 	
@@ -35,7 +35,7 @@ UpdateInput:
 	; =====================================================================
 	
 	; Read pad B
-	;jsr ReadPadB
+	;jsr PAD_ReadPadB
 	;move.w (Gamepad2PrevState), d1
 	
 	; Player 2 movement
@@ -65,7 +65,7 @@ HandlePlayerInput:
 	bne    @NoProfileCombo
 	cmp.w  #DebugButtonCombo_Profiler, d1
 	beq    @NoProfileCombo
-	jsr    Profile_CaptureFrame
+	jsr    DBG_Profile_CaptureFrame
 	bra    @SkipInput
 	@NoProfileCombo:
 	ENDIF

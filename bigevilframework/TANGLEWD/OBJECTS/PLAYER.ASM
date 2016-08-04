@@ -625,15 +625,15 @@ PlayerStartColourAbility:
 	; Backup palettes
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
 	move.l #PaletteId_World0, d0
-	jsr    ReadPalette
+	jsr    PAL_Read
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
 	move.l #PaletteId_Monster, d0
-	jsr    ReadPalette
+	jsr    PAL_Read
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
 	move.l #PaletteId_Fuzzl, d0
-	jsr    ReadPalette
+	jsr    PAL_Read
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0

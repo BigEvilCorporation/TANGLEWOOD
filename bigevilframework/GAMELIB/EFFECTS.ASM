@@ -22,7 +22,7 @@ StartEffectGreyscale:
 	; Read source palette
 	PUSHL  a0
 	PUSHL  d0
-	jsr    ReadPalette
+	jsr    PAL_Read
 	POPL   d0
 	POPL   a0
 

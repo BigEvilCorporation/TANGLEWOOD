@@ -78,7 +78,7 @@ Exception_Msgs:
 	dc.b "UNHANDLED EXCEPTION:",0,0,0,0
 	even
 
-Exception:
+CPU_Exception:
 
 	; CPU has already pushed these regs:
 	; PC reg (longword)
@@ -94,18 +94,18 @@ Exception:
 	movem.l d0-d7/a0-a6, -(sp)
 	
 	; Re-initialise VDP
-	jsr     InitVDP
+	jsr     VDP_Init
 	
 	; Load exception font
 	lea     Exception_Font, a0
 	move.l  #Exception_FontAddr, d0
 	move.l  #Exception_FontSize, d1
-	jsr     LoadTiles
+	jsr     VDP_LoadTiles
 	
 	; Load exception palette
 	lea     Exception_Palette, a0
 	move.l  #0x0, d0
-	jsr     LoadPalette
+	jsr     PAL_Load
 	
 	; Draw error message
 	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
@@ -117,7 +117,7 @@ Exception:
 	move.w  #Exception_FontTileId, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
-	jsr     DrawTextToPlane
+	jsr     TXT_DrawPlane
 	
 	; Draw all regs
 	move.w  #Exception_RegPosY, d6
@@ -139,7 +139,7 @@ Exception:
 	
 	; Reg value to string
 	move.l  a4, a0
-	jsr     ItoA_Hex_l
+	jsr     TXT_ItoA_Hex_l
 	sub.l   #size_long, a4				; String addr back to reg name offset
 	
 	move.w  #Exception_RegPosX, d1		; X coord
@@ -150,7 +150,7 @@ Exception:
 	move.w  #Exception_FontTileId, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
-	jsr     DrawTextToPlane
+	jsr     TXT_DrawPlane
 	
 	; Free string space
 	add.l   #0x10, sp

@@ -6,19 +6,19 @@
 ;   timing.asm - Timers, counters, frames
 ;==============================================================
 
-WaitVBlankStart:
+VDP_WaitVBlankStart:
 	move.w  vdp_control, d0			; Move VDP status word to d0
 	btst    #vdp_status_vblank, d0	; vblank state in bit 3
-	beq     WaitVBlankStart 		; Branch if equal (to zero)
+	beq     VDP_WaitVBlankStart 		; Branch if equal (to zero)
 	rts
 
-WaitVBlankEnd:
+VDP_WaitVBlankEnd:
 	move.w  vdp_control, d0			; Move VDP status word to d0
 	btst    #vdp_status_vblank, d0	; vblank state in bit 3
-	bne     WaitVBlankEnd   		; Branch if not equal (to zero)
+	bne     VDP_WaitVBlankEnd   		; Branch if not equal (to zero)
 	rts
 
-WaitVSync:
+VDP_WaitVSync:
 	@WaitStart:
 	move.w  vdp_control, d0
 	btst    #vdp_status_vblank, d0
@@ -31,7 +31,7 @@ WaitVSync:
 	
 	rts
 
-WaitDrawBegin:
+VDP_WaitDrawBegin:
 
 	; Wait for first HCOUNTER
 	@Wait:
@@ -41,7 +41,7 @@ WaitDrawBegin:
 	
 	rts
 	
-WaitFrames:
+VDP_WaitFrames:
 	; d0 - Number of frames to wait
 
 	move.l  vblank_counter, d1 ; Get start vblank count

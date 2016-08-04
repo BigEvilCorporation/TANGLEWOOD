@@ -6,16 +6,16 @@
 ;   gamepad.asm - Gamepad reading
 ;==============================================================
 
-InitGamepads:
+PAD_InitGamepads:
 	move.b #pad_byte_latch, pad_ctrl_a  ; Controller port 1 CTRL
 	move.b #pad_byte_latch, pad_ctrl_b  ; Controller port 2 CTRL
 	rts
 	
-InitEXTPort:
+PAD_InitEXTPort:
 	move.b #pad_byte_latch, pad_ctrl_c  ; EXP port CTRL
 	rts
 	
-ReadPadA:
+PAD_ReadPadA:
 	; d0 (w) - Pad A return result (00SA0000 00CBRLDU)
 	
 	move.b  #0x0, pad_data_a   ; Set port to read byte 0
@@ -35,7 +35,7 @@ ReadPadA:
 
 	rts
 	
-ReadPadB:
+PAD_ReadPadB:
 	; d0 (w) - Pad B return result (00SA0000 00CBRLDU)
 	
 	move.b  #0x0, pad_data_b   ; Set port to read byte 0
