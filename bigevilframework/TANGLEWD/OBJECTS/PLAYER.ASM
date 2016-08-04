@@ -538,7 +538,7 @@ PlayerBeginColourSwitch:
 	move.l #Player1ColourChangeSpeed, d1	; Get switch speed - TODO: From Character
 	move.b #0x0, d2					; Range min
 	move.b #0xE, d3					; Range max
-	jsr    PaletteLerpStart			; Begin palette lerp
+	jsr    PAL_LerpStart			; Begin palette lerp
 	
 	POPL   a0/a1
 	POPL   d0/d3
@@ -637,13 +637,13 @@ PlayerStartColourAbility:
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
-	jsr    StartEffectGreyscale
+	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Monster, d0
-	jsr    StartEffectGreyscale
+	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Fuzzl, d0
-	jsr    StartEffectGreyscale
+	jsr    VFX_StartScreenEffectGreyscale
 	
 	; Disable time of day (else world palette may reset)
 	move.b #0x0, (TimeOfDayEnabled)
@@ -717,15 +717,15 @@ PlayerStopColourAbility:
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0	; Palette address
 	move.l #PaletteId_World0, d0		; Palette idx
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0	; Palette address
 	move.l #PaletteId_Monster, d0		; Palette idx
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0	; Palette address
 	move.l #PaletteId_Fuzzl, d0		; Palette idx
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	POPL   a0
 	
 	; Re-enable time of day
@@ -1003,10 +1003,10 @@ PlayerInteractTest_Fuzzls:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    GetEntityBoundsA1D3D4
+	jsr    PHYS_GetEntityBoundsA1D3D4
 	
 	; Test box intersection
-	jsr    TestBoxIntersectBox
+	jsr    PHYS_TestBoxIntersectBox
 	move.l (sp)+, d1
 	move.l (sp)+, d6
 	
@@ -1111,10 +1111,10 @@ PlayerInteract_Fuzzl:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    GetEntityBoundsA1D3D4
+	jsr    PHYS_GetEntityBoundsA1D3D4
 	
 	; Test box intersection
-	jsr    TestBoxIntersectBox
+	jsr    PHYS_TestBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0
@@ -1257,10 +1257,10 @@ PlayerInteractTest_Boulders:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    GetEntityBoundsA1D3D4
+	jsr    PHYS_GetEntityBoundsA1D3D4
 	
 	; Test box intersection
-	jsr    TestBoxIntersectBox
+	jsr    PHYS_TestBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0
@@ -1332,10 +1332,10 @@ PlayerInteract_Boulder:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    GetEntityBoundsA1D3D4
+	jsr    PHYS_GetEntityBoundsA1D3D4
 	
 	; Test box intersection
-	jsr    TestBoxIntersectBox
+	jsr    PHYS_TestBoxIntersectBox
 	move.l (sp)+, d6
 	
 	; Result in d0
@@ -1457,7 +1457,7 @@ PlayerInteractTest_Water:
 	@BodyLoop:
 	
 	; Check player vs. box
-	jsr    TestEntityBoxIntersectBox
+	jsr    PHYS_TestEntityBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	

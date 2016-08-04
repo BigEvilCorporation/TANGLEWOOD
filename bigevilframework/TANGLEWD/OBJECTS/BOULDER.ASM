@@ -241,9 +241,9 @@ BoulderUpdate:
 	bne    @NextMonster
 	
 	; Bounds check
-	jsr   GetEntityBoundsA0D1D2
-	jsr   GetEntityBoundsA1D3D4
-	jsr   TestBoxIntersectBox
+	jsr   PHYS_GetEntityBoundsA0D1D2
+	jsr   PHYS_GetEntityBoundsA1D3D4
+	jsr   PHYS_TestBoxIntersectBox
 	cmp.b #0x0, d0
 	beq   @NextMonster
 	

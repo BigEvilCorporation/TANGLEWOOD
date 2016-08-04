@@ -59,7 +59,7 @@ SetTimeOfDay:
 	move.b #0x0, d2
 	move.b #TODMaxColours, d3
 	
-	jsr PaletteLerpStart
+	jsr PAL_LerpStart
 	
 	rts
 	

@@ -57,7 +57,7 @@ DemoEndState_Enter:
 	move.l #DemoEndStateFadeTime, d1
 	move.l #0x0, d2
 	move.l #DemoEndStateNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -96,7 +96,7 @@ DemoEndState_Update:
 	move.l #DemoEndStateFadeTime, d1
 	move.l #0x0, d2
 	move.l #DemoEndStateNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	bra    @End
 	
 	; Mark end of sequence

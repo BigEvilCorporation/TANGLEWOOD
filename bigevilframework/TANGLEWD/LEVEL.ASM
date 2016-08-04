@@ -124,15 +124,15 @@ LevelLoad:
 	lea    Pal_Nymn_Red, a0
 	;lea    palette_nymn, a0
 	move.l #PaletteId_Player, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    palette_monster_eyes, a0
 	move.l #PaletteId_Monster, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    palette_fuzzl_yellow, a0
 	move.l #PaletteId_Fuzzl, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	ENDIF
 	
@@ -181,7 +181,7 @@ LevelLoadPalettes:
 	move.w #LevelFadeUpSpeed, d1
 	move.b #0x0, d2
 	move.b #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	ENDIF
 	
@@ -213,7 +213,7 @@ LevelPreStreamMap:
 	move.l #Player1, a0
 	ENTITY_GETCENTREX d0, a0
 	sub.l  #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
-	jsr    CameraPosToWorldScrollX
+	jsr    CAM_PosToWorldScrollX
 	move.l d0, WorldScrollX
 	move.l d0, d1
     
@@ -233,7 +233,7 @@ LevelPreStreamMap:
 	move.l #Player1, a0
 	ENTITY_GETCENTREY d0, a0
 	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	jsr    CameraPosToWorldScrollY
+	jsr    CAM_PosToWorldScrollY
 	move.l d0, WorldScrollY
     
 	; Set initial scroll Y
@@ -249,7 +249,7 @@ LevelPreStreamMap:
     
 	; Stream initial map section
 	; TODO - Results differ from first call in Gameplay_Update, leaving out for now
-	;jsr    UpdateMapStreaming
+	;jsr    MAP_UpdateStreaming
 
 	;==============================================================
 	

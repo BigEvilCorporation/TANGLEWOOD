@@ -54,7 +54,7 @@ PickupTestObj:
 	; d0 (b) Out - picked up
 	
 	; Test bounds intersection
-	jsr   TestEntityBoxIntersectBox
+	jsr   PHYS_TestEntityBoxIntersectBox
 	cmp.b #0x0, d0
 	beq   @NoIntersection
 	

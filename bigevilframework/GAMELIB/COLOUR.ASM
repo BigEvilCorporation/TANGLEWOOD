@@ -22,7 +22,7 @@ PaletteLerp_ColourMax		rs.b 1
 PaletteLerp_Struct_Pad		rs.b 1
 PaletteLerp_Struct_Size		rs.b 0
 
-PaletteLerpStart:
+PAL_LerpStart:
 	; a0 --- Target palette address
 	; d0 (b) Palette index
 	; d1 (w) Lerp speed (animation subframes per frame)
@@ -59,31 +59,31 @@ PaletteLerpStart:
 	
 	rts
 	
-PaletteLerpStartAll:
+PAL_LerpStartAll:
 	; a0 --- Target palette address
 	; d1 (w) Lerp speed (animation subframes per frame)
 	; d2 (b) Colour range min
 	; d3 (b) Colour range max
 	
 	move.l #0x0, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.l #0x1, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.l #0x2, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.l #0x3, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	rts
 	
-PaletteLerpUpdate:
+PAL_LerpUpdate:
 
 	lea PaletteLerp_Array, a0
 	move.l #num_palettes-1, d0
 	@PaletteLerpLp:
 	move.l a0, -(sp)
 	move.l d0, -(sp)
-	jsr PaletteLerpUpdateNextComponent
+	jsr PAL_LerpUpdateNextComponent
 	move.l (sp)+, d0
 	move.l (sp)+, a0
 	add.l  #PaletteLerp_Struct_Size, a0
@@ -91,7 +91,7 @@ PaletteLerpUpdate:
 
 	rts
 
-PaletteLerpUpdateNextComponent:
+PAL_LerpUpdateNextComponent:
 	; a0 --- Address of PaletteLerp struct to update
 
 	clr.l  d0

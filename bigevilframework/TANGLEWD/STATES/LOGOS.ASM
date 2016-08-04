@@ -60,7 +60,7 @@ Logos_Enter:
 	move.l #LogosFadeTime, d1
 	move.l #0x0, d2
 	move.l #0x7, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -99,7 +99,7 @@ Logos_Update:
 	move.l #LogosFadeTime, d1
 	move.l #0x0, d2
 	move.l #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	bra    @End
 	
 	; Mark end of sequence

@@ -88,7 +88,7 @@ SpriteObjLoad:
 
 	;==============================================================
 	
-	; AddSprite:
+	; SPR_AddMultiSprite:
 	;  d0 (bb) Width/height (in subsprites)
 	;  d1 (ww) X/Y coord
 	;  d2 (w)  First tile index
@@ -104,7 +104,7 @@ SpriteObjLoad:
 	move.b d4, d3			; Palette
 	move.l a2, a0			; Dimension bits array to a0
 	move.l a4, a1			; Tiles per sprite array to a1
-	jsr    AddSprite		; Add and link sprite
+	jsr    SPR_AddMultiSprite		; Add and link sprite
 	move.b d0, d4			; Sprite ID in d0
 	movem.l  (sp)+, a0-a3/d0-d2
 	

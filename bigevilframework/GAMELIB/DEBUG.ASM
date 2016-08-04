@@ -9,7 +9,7 @@
 debugdraw_playerpos_text_x equ 0x8
 debugdraw_playerpos_text_y equ 0x1
 
-DebugDraw:
+DBG_DebugDraw:
 
 	; Alloc string space
 	sub.l  #0x10, sp

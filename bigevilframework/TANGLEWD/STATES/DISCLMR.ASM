@@ -57,7 +57,7 @@ DemoDisclaimerScreen_Enter:
 	move.l #DemoDisclaimerScreenFadeTime, d1
 	move.l #0x0, d2
 	move.l #DemoDisclaimerScreenNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -96,7 +96,7 @@ DemoDisclaimerScreen_Update:
 	move.l #DemoDisclaimerScreenFadeTime, d1
 	move.l #0x0, d2
 	move.l #DemoDisclaimerScreenNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	bra    @End
 	
 	; Mark end of sequence

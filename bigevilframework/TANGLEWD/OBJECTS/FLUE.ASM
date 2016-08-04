@@ -346,6 +346,6 @@ FlueTestPhysicsObjInside:
 	move.w Entity_Height(a1), d5		; Height
 	add.w  d5, d4						; Fuzzl Y max
 	
-	jsr TestBoxInsideBox
+	jsr PHYS_TestBoxInsideBox
 	
 	rts

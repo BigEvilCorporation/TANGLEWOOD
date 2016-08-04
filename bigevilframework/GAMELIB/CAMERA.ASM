@@ -6,7 +6,7 @@
 ;   camera.asm - V/H scroll routines and virtual camera logic
 ;==============================================================
 
-UpdateCamera:
+CAM_Update:
 
 	; Level to a1
 	move.l  (CurrentLevel), a1
@@ -138,7 +138,7 @@ UpdateCamera:
 
 	; X to world scroll
 	move.l  (CameraWorldPosX), d0
-	jsr     CameraPosToWorldScrollX
+	jsr     CAM_PosToWorldScrollX
 	move.l  d0, WorldScrollX			; Keep world scroll X
 	add.l  (CameraShakeOffsetX), d0		; Add shake offset
 	
@@ -196,7 +196,7 @@ UpdateCamera:
 
 	; Y to world scroll
 	move.l  (CameraWorldPosY), d0
-	jsr     CameraPosToWorldScrollY
+	jsr     CAM_PosToWorldScrollY
 	move.l  d0, WorldScrollY			; Keep world scroll Y
 	add.l  (CameraShakeOffsetY), d0		; Add shake offset
 
@@ -269,7 +269,7 @@ UpdateCamera:
 	
 	rts
 
-CameraPosToWorldScrollX:
+CAM_PosToWorldScrollX:
 	; a1 --- Level address
 	; d0 (l) Camera world pos X
 
@@ -295,7 +295,7 @@ CameraPosToWorldScrollX:
 
 	rts
 
-CameraPosToWorldScrollY:
+CAM_PosToWorldScrollY:
 	; a1 --- Level address
 	; d0 (l) Camera world pos Y
 

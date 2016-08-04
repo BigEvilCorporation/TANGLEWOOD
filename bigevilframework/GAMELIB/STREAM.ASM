@@ -6,7 +6,7 @@
 ;   stream.asm - Map streaming logic
 ;==============================================================
 
-UpdateMapStreaming:
+MAP_UpdateStreaming:
 	
 	; Level to a1
 	move.l  (CurrentLevel), a1
@@ -66,7 +66,7 @@ UpdateMapStreaming:
 	PUSHL   d2
 	PUSHL   d3
 	PUSHL   d4
-	jsr     MapStreamNextRow
+	jsr     MAP_StreamNextRow
 	POPL    d4
 	POPL    d3
 	POPL    d2
@@ -87,7 +87,7 @@ UpdateMapStreaming:
 	PUSHL   d3
 	PUSHL   d4
 	move.w  d3, d1
-	jsr     MapStreamNextColumn
+	jsr     MAP_StreamNextColumn
 	POPL    d4
 	POPL    d3
 	POPL    d2
@@ -107,7 +107,7 @@ UpdateMapStreaming:
 	
 	rts
 	
-MapStreamNextRow:
+MAP_StreamNextRow:
 	; a1 --- Level addr
 	; d1 (w) Target row
 
@@ -219,7 +219,7 @@ MapStreamNextRow:
 	@End:
 	rts
 	
-MapStreamNextColumn:
+MAP_StreamNextColumn:
 	; a1 --- Level addr
 	; d1 (w) Target cols
 

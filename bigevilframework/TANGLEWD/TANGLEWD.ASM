@@ -168,7 +168,7 @@ GameLoop:
 	jsr GameStateRender
 	
 	; Update palette lerping
-	jsr PaletteLerpUpdate
+	jsr PAL_LerpUpdate
 	
 	; End frame
 	jsr RenderEndFrame
@@ -254,7 +254,7 @@ __vinterrupt:
 
 	; NOT FOR RELEASE
 	IFD DEBUG
-	;jsr DebugDraw
+	;jsr DBG_DebugDraw
 	ENDIF
 	
 	; Update frame counter

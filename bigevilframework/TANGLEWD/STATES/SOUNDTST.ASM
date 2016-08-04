@@ -67,14 +67,14 @@ SoundTest_Enter:
 	move.l #SoundTestFadeTime, d1
 	move.l #0x0, d2
 	move.l #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    palette_fade_white, a0
 	move.l #PaletteId_SoundTestText, d0
 	move.l #SoundTestFadeTime, d1
 	move.l #0x0, d2
 	move.l #0x1, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -128,14 +128,14 @@ SoundTest_Update:
 	move.l #SoundTestFadeTime, d1
 	move.l #0x0, d2
 	move.l #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	lea    palette_fade_black, a0
 	move.l #PaletteId_SoundTestText, d0
 	move.l #SoundTestFadeTime, d1
 	move.l #0x0, d2
 	move.l #0x1, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade

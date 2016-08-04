@@ -6,7 +6,7 @@
 ;   physics.asm - Physics routines
 ;==============================================================
 
-TestBoxIntersectBox:
+PHYS_TestBoxIntersectBox:
 	; d0 (b)  Return value: 0 = no collision, 1 = collision
 	; d1 (ww) Box 1 min XY
 	; d2 (ww) Box 1 max XY
@@ -42,7 +42,7 @@ TestBoxIntersectBox:
 	@NoIntersect:
 	rts
 	
-TestBoxIntersectBoxX:
+PHYS_TestBoxIntersectBoxX:
 	; d0 (b)  Return value: 0 = no collision, 1 = collision
 	; d1 (w) Box 1 min X
 	; d2 (w) Box 1 max X
@@ -66,7 +66,7 @@ TestBoxIntersectBoxX:
 	@NoIntersect:
 	rts
 
-TestBoxInsideBox:
+PHYS_TestBoxInsideBox:
 	; d0 (b)  Return value: 0 = box 2 outside box 1, 1 = box 2 inside box 1
 	; d1 (ww) Box 1 min XY (outside box)
 	; d2 (ww) Box 1 max XY
@@ -102,7 +102,7 @@ TestBoxInsideBox:
 	@Outside:
 	rts
 	
-TestBoxInsideBoxX:
+PHYS_TestBoxInsideBoxX:
 	; d0 (b)  Return value: 0 = box 2 X outside box 1 X, 1 = box 2 X inside box 1 X
 	; d1 (w) Box 1 min X (outside box)
 	; d2 (w) Box 1 max X
@@ -126,7 +126,7 @@ TestBoxInsideBoxX:
 	@Outside:
 	rts
 	
-TestPointInsideBox:
+PHYS_TestPointInsideBox:
 	; d0 (b)  Return value: 0 = point outside box, 1 = point inside box
 	; d1 (ww) Box min XY
 	; d2 (ww) Box max XY
@@ -161,73 +161,73 @@ TestPointInsideBox:
 	@Outside:
 	rts
 	
-TestEntityBoxIntersectBox:
+PHYS_TestEntityBoxIntersectBox:
 	; d0 (b) Return value
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr GetEntityBoundsA0D1D2
-	jsr GetEntityBoundsA1D3D4
-	jsr TestBoxIntersectBox
+	jsr PHYS_GetEntityBoundsA0D1D2
+	jsr PHYS_GetEntityBoundsA1D3D4
+	jsr PHYS_TestBoxIntersectBox
 	
 	rts
 	
-TestEntityBoxIntersectBoxX:
+PHYS_TestEntityBoxIntersectBoxX:
 	; d0 (b) Return value
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr GetEntityBoundsA0D1D2
-	jsr GetEntityBoundsA1D3D4
+	jsr PHYS_GetEntityBoundsA0D1D2
+	jsr PHYS_GetEntityBoundsA1D3D4
 	
 	swap d1
 	swap d2
 	swap d3
 	swap d4
 	
-	jsr TestBoxIntersectBoxX
+	jsr PHYS_TestBoxIntersectBoxX
 	
 	rts
 	
-TestEntityBoxInsideBox:
+PHYS_TestEntityBoxInsideBox:
 	; d0 (b) Return value
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr GetEntityBoundsA0D1D2
-	jsr GetEntityBoundsA1D3D4
-	jsr TestBoxInsideBox
+	jsr PHYS_GetEntityBoundsA0D1D2
+	jsr PHYS_GetEntityBoundsA1D3D4
+	jsr PHYS_TestBoxInsideBox
 	
 	rts
 	
-TestEntityBoxInsideBoxX:
+PHYS_TestEntityBoxInsideBoxX:
 	; d0 (b) Return value
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr GetEntityBoundsA0D1D2
-	jsr GetEntityBoundsA1D3D4
+	jsr PHYS_GetEntityBoundsA0D1D2
+	jsr PHYS_GetEntityBoundsA1D3D4
 	
 	swap d1
 	swap d2
 	swap d3
 	swap d4
 	
-	jsr TestBoxInsideBoxX
+	jsr PHYS_TestBoxInsideBoxX
 	
 	rts
 	
-TestEntityPointInsideBounds:
+PHYS_TestEntityPointInsideBounds:
 	; d0 (b)  Return value
 	; d3 (ww) Point XY
 	; a0 ---- Entity
 	
-	jsr GetEntityBoundsA0D1D2
-	jsr TestPointInsideBox
+	jsr PHYS_GetEntityBoundsA0D1D2
+	jsr PHYS_TestPointInsideBox
 	
 	rts
 
-EntityDistSq:
+PHYS_EntityDistSq:
 	; d0 (l) Return value (pixel space)
 	; a0 --- Entity 1
 	; a1 --- Entity 2
@@ -256,7 +256,7 @@ EntityDistSq:
 
 	rts
 	
-GetEntityBoundsA0D1D2:
+PHYS_GetEntityBoundsA0D1D2:
 	; d1/d2 (ww) Return value
 	; a0 --- Entity
 	
@@ -283,7 +283,7 @@ GetEntityBoundsA0D1D2:
 	
 	rts
 	
-GetEntityBoundsA1D3D4:
+PHYS_GetEntityBoundsA1D3D4:
 	; d3/d4 (ww) Return value
 	; a1 --- Entity
 	

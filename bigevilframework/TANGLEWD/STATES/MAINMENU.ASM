@@ -58,7 +58,7 @@ MainMenu_Enter:
 	move.l #MainMenuFadeTime, d1
 	move.l #0x0, d2
 	move.l #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -111,7 +111,7 @@ MainMenu_Update:
 	move.l #MainMenuFadeTime, d1
 	move.l #0x0, d2
 	move.l #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade

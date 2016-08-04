@@ -57,7 +57,7 @@ ControlsScreen_Enter:
 	move.l #ControlsScreenFadeTime, d1
 	move.l #0x0, d2
 	move.l #ControlsScreenNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
 	jsr    VDPQueue_ExecuteAll
@@ -96,7 +96,7 @@ ControlsScreen_Update:
 	move.l #ControlsScreenFadeTime, d1
 	move.l #0x0, d2
 	move.l #ControlsScreenNumColours, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	bra    @End
 	
 	; Mark end of sequence

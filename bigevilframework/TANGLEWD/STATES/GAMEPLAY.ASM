@@ -133,13 +133,13 @@ Gameplay_Render:
 	move.l (CurrentLevel), a1
 	
 	; Update camera
-	jsr UpdateCamera
+	jsr CAM_Update
 	
 	; Draw game objects
 	jsr EntityRenderAll
 	
 	; Update map streaming
-	jsr UpdateMapStreaming
+	jsr MAP_UpdateStreaming
 	
 	rts
 	

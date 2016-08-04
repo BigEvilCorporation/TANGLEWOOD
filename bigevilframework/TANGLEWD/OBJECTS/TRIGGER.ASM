@@ -86,7 +86,7 @@ TriggerBoxUpdate:
 	bne    @TestXOnly
 	
 	; Check player inside trigger box
-	jsr    TestEntityBoxInsideBox
+	jsr    PHYS_TestEntityBoxInsideBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect
@@ -94,7 +94,7 @@ TriggerBoxUpdate:
 	@TestXOnly:
 	
 	; Check player inside trigger box on X axis only
-	jsr    TestEntityBoxInsideBoxX
+	jsr    PHYS_TestEntityBoxInsideBoxX
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect

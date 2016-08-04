@@ -384,7 +384,7 @@ MonsterCheckPlayerVisible:
 	lsr.l  #0x8, d4
 	move.w d4, d3
 	
-	jsr    TestPointInsideBox
+	jsr    PHYS_TestPointInsideBox
 	
 	cmp.b  #0x0, d0
 	beq    @NotSeen
@@ -442,7 +442,7 @@ MonsterUpdateWaitForPlayer:
 	; Get distance to player
 	move.l a1, -(sp)
 	move.l #Player1, a1
-	jsr    EntityDistSq
+	jsr    PHYS_EntityDistSq
 	move.l (sp)+, a1
 	
 	; Check if within rumble sound dist
@@ -507,7 +507,7 @@ MonsterStartEmergeFromCave:
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x0, d2
 	move.b #0xF, d3
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.l (sp)+, a0
 
 	rts
@@ -839,7 +839,7 @@ MonsterUpdateTrackPlayer:
 	; Attack if bounds intersect
 	PUSHL  a1
 	move.l a2, a1
-	jsr    TestEntityBoxIntersectBox
+	jsr    PHYS_TestEntityBoxIntersectBox
 	POPL   a1
 	
 	cmp.b  #0x0, d0

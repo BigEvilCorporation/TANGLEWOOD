@@ -93,7 +93,7 @@ EndLevel_Update:
 	move.b #0xF, d3
 	
 	move.b #PaletteId_World0, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	@FadePhase:
 	

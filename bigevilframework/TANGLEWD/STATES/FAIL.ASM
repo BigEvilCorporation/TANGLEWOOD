@@ -34,11 +34,11 @@ Fail_Enter:
 	move.b #0xF, d3
 	
 	move.b #PaletteId_World0, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.b #PaletteId_Monster, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	move.b #PaletteId_Fuzzl, d0
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	rts
 	

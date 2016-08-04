@@ -200,7 +200,7 @@ FuzzlUpdate:
 	; Check if Fuzzl is far from player
 	PUSHL  a1
 	move.l #Player1, a1
-	jsr    EntityDistSq
+	jsr    PHYS_EntityDistSq
 	POPL   a1
 	
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)	; If already watching player, check outer distance
@@ -256,7 +256,7 @@ FuzzlUpdate:
 	PUSHL a1
 	PUSHL d6
 	move.l a3, a1
-	jsr TestEntityBoxIntersectBox
+	jsr PHYS_TestEntityBoxIntersectBox
 	POPL  d6
 	POPL  a1
 	

@@ -6,7 +6,7 @@
 ;   effects.asm - Screen effects
 ;==============================================================
 
-StartEffectGreyscale:
+VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	
 	; Alloc source/dest palette space on stack
@@ -67,7 +67,7 @@ StartEffectGreyscale:
 	move.w #TimeOfDayCycleSpeed, d1	; Speed
 	move.b #0x0, d2					; First colour
 	move.b #0xF, d3					; Last colour
-	jsr    PaletteLerpStart
+	jsr    PAL_LerpStart
 	
 	; Free source/dest palette space
 	FREESTACKB size_palette_b
@@ -75,7 +75,7 @@ StartEffectGreyscale:
 	
 	rts
 	
-StopEffectGreyscale:
+VFX_StopScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	
 	rts

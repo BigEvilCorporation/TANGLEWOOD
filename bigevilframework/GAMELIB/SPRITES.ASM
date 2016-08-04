@@ -6,7 +6,7 @@
 ;   sprites.asm - Sprite utils
 ;==============================================================
 
-AddSprite:
+SPR_AddMultiSprite:
 	; d0 (bb) Width/height (in subsprites)
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
@@ -47,12 +47,12 @@ AddSprite:
 			; Backup a0
 			move.l a0, -(sp)
 			
-			; AddSubSprite
+			; SPR_AddSubSprite
 			; d0 (b)  Dimensions
 			; d1 (ww) X/Y coord
 			; d2 (w)  First tile index
 			; d3 (b)  Palette
-			jsr AddSubSprite
+			jsr SPR_AddSubSprite
 
 			; Restore regs
 			move.l (sp)+, a0
@@ -89,7 +89,7 @@ AddSprite:
 	
 	rts
 	
-AddSubSprite:
+SPR_AddSubSprite:
 	; d0 (b)  Dimensions
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
