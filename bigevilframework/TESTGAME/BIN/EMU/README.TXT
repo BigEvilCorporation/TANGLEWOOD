@@ -1,1 +1,0 @@
-Output directory for emulator compatible builds, with debug options

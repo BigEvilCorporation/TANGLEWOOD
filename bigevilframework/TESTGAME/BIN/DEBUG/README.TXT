@@ -1,1 +1,0 @@
-Output directory for SNBUG68K COF format files
