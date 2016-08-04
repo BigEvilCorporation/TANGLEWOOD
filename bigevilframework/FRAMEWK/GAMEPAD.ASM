@@ -6,7 +6,7 @@
 ;   gamepad.asm - Gamepad reading
 ;==============================================================
 
-PAD_InitGamepads:
+PAD_Init:
 	move.b #pad_byte_latch, pad_ctrl_a  ; Controller port 1 CTRL
 	move.b #pad_byte_latch, pad_ctrl_b  ; Controller port 2 CTRL
 	rts

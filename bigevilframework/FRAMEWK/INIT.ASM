@@ -38,7 +38,7 @@ CPU_EntryPoint:
 	jsr VDP_Init
 
 	; Init gamepad ports
-	jsr PAD_InitGamepads
+	jsr PAD_Init
 	
 	; Init EXT port
 	jsr PAD_InitEXTPort
