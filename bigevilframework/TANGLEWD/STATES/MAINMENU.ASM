@@ -61,7 +61,7 @@ MainMenu_Enter:
 	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
-	jsr    VDPQueue_ExecuteAll
+	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Use timer as fading out flag
 	move.l #0x1, TimerLogoFade

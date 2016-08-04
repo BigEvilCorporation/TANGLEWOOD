@@ -246,7 +246,7 @@ __vinterrupt:
 	jsr    VDP_DMAQueue_ExecuteAll
 	
 	; Execute VDP job queue
-	jsr    VDPQueue_ExecuteAll
+	jsr    VDP_JobQueue_ExecuteAll
 	
 	IFD DEBUG
 	jsr DBG_Profile_PopScope

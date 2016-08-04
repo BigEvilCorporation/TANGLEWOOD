@@ -146,12 +146,12 @@ CAM_Update:
 	neg.l   d0							; To camera space
 	lsr.l   #0x8, d0					; To screen space
 	lea     VDP_SetHScrollPlaneA, a5
-	jsr 	VDPQueue_PushJob
+	jsr 	VDP_JobQueue_PushJob
 	
 	; Scroll X - plane B
 	lsr.w   #0x1, d0
 	lea     VDP_SetHScrollPlaneB, a5
-	jsr 	VDPQueue_PushJob
+	jsr 	VDP_JobQueue_PushJob
 	
 	;==============================================================
 	
@@ -203,7 +203,7 @@ CAM_Update:
 	; Scroll Y - plane A
 	lsr.l   #0x8, d0					; To screen space
 	lea     VDP_SetVScrollPlaneA, a5
-	jsr 	VDPQueue_PushJob
+	jsr 	VDP_JobQueue_PushJob
 	
 	; Scroll Y - plane B
 	; HACK - Works for Tanglewood's 90-high foreground plane, needs a better implementation
@@ -238,7 +238,7 @@ CAM_Update:
 	@NoClampPlaneB:
 	
 	lea     VDP_SetVScrollPlaneB, a5
-	jsr 	VDPQueue_PushJob
+	jsr 	VDP_JobQueue_PushJob
 	
 	
 	; |-------------------------------------| d1

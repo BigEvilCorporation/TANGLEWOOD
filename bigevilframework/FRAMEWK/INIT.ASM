@@ -44,7 +44,7 @@ CPU_EntryPoint:
 	jsr PAD_InitEXTPort
 
 	; Init VDP job queue
-	jsr VDPQueue_Init
+	jsr VDP_JobQueue_Init
 	
 	; Init random number generator
 	jsr RND_Init

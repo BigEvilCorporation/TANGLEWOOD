@@ -239,7 +239,7 @@ PAL_LerpUpdateNextComponent:
 	move.b PaletteLerp_PaletteIdx(a0), d0
 	add.l  #PaletteLerp_BufferCur, a0	; Offset into struct to palette buffer
 	lea    PAL_LoadDMA, a5
-	jsr    VDPQueue_PushJob
+	jsr    VDP_JobQueue_PushJob
 	move.l (sp)+, a0
 	
 	; =====================================================================

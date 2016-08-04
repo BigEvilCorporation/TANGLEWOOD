@@ -9,7 +9,7 @@
 GameStateReset:
 	
 	; Flush VDP queue
-	jsr    VDPQueue_ExecuteAll
+	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Clear all palettes
 	jsr    PAL_ClearAll
@@ -69,7 +69,7 @@ GameStateReset:
 	jsr    Echo_StopBGM
 	
 	; Flush VDP queue
-	jsr    VDPQueue_ExecuteAll
+	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset Echo
 	lea echo_instruments, a0
@@ -156,7 +156,7 @@ LevelLoad:
 	; jsr LevelPreStreamMap
 	
 	; Flush VDP queue
-	jsr VDPQueue_ExecuteAll
+	jsr VDP_JobQueue_ExecuteAll
 	
 	rts
 

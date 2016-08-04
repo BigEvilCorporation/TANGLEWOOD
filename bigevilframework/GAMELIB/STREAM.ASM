@@ -193,7 +193,7 @@ MAP_StreamNextRow:
 	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
 	lea     VDP_LoadMapSegmentPlaneA, a5
-	jsr     VDPQueue_PushJob
+	jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	move.l	(sp)+, a1 	; Level data
@@ -304,7 +304,7 @@ MAP_StreamNextColumn:
 	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
 	lea     VDP_LoadMapSegmentPlaneA, a5
-	jsr     VDPQueue_PushJob
+	jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	move.l	(sp)+, a1 	; Level data
