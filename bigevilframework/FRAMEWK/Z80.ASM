@@ -6,7 +6,7 @@
 ;   z80.asm - Z80 initialisation and control
 ;==============================================================
 
-InitZ80:
+Z80_Init:
 
 	move.w #0x0100, z80_bus_request ; Request access to the Z80 bus, by writing 0x0100 into the BUSREQ port
 	move.w #0x0100, z80_bus_reset   ; Hold the Z80 in a reset state, by writing 0x0100 into the RESET port

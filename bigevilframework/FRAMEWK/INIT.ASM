@@ -29,7 +29,7 @@ CPU_EntryPoint:
 	jsr VDP_WriteTMSS
 
 	; Init Z80
-	jsr InitZ80
+	jsr Z80_Init
 
 	; Init PSG
 	jsr PSG_Init
