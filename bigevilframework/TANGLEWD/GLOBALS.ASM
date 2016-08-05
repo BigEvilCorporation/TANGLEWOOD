@@ -38,9 +38,11 @@ SubspriteMaxHeight		equ 0x20
 
 ; Subpixels
 SubpixelsPerPixel 		 equ 0x0100	; Uses bit shift to transform - don't change
+SubpixelShift			 equ 0x8
 
 ; Subframes
 SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
+SubframeShift			 equ 0x8
 
 ; World
 Gravity			         equ 0x0030

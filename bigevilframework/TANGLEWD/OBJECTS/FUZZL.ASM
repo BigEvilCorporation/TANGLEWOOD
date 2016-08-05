@@ -433,29 +433,16 @@ FuzzlUpdateEyes:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Translate player to Fuzzl space
 	lea Player1, a2
-	move.l Entity_WorldPosX(a2), d2	; Player X
-	lsr.l  #0x8, d2						; Screen space
-	add.l  #(Player1Width/2), d2		; Centre
-	move.w d2, d0
-	swap d0
-	move.l Entity_WorldPosY(a2), d2	; Player Y
-	lsr.l  #0x8, d2						; Screen space
-	add.l  #(Player1Height/2), d2		; Centre
-	move.w d2, d0
+	
+	; Get Fuzzl centre
+	ENTITY_GETCENTREVEC2 d1, d2, a0
+	
+	; Get player centre
+	ENTITY_GETCENTREVEC2 d0, d2, a2
 
-	move.l Entity_WorldPosX(a0), d2	; Fuzzl X
-	lsr.l  #0x8, d2						; Screen space
-	add.l  #(Fuzzl_Width/2), d2			; Centre
-	move.w d2, d1
-	swap d1
-	move.l Entity_WorldPosY(a0), d2	; Fuzzl Y
-	lsr.l  #0x8, d2						; Screen space
-	add.l  #(Fuzzl_Height/2), d2			; Centre
-	move.w d2, d1
-
-	jsr VEC2_Sub
+	; Translate player to Fuzzl space
+	VEC2_SUB d1, d0
 
 	; Backup for divs
 	move.l d0, d4

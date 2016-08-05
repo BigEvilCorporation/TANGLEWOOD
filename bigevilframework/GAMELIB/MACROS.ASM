@@ -21,6 +21,25 @@ ENTITY_GETCENTREY: macro destreg,addrreg
 	lsr.l   #0x1, \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
+	
+ENTITY_GETCENTREVEC2: macro destreg,tmpreg,addrreg
+	clr.l   \destreg
+	clr.l   \tmpreg
+	move.w  Entity_Width(\addrreg), \destreg		; Get width/height in pixels
+	move.w  Entity_Height(\addrreg), \tmpreg
+	;lsl.l   #SubpixelShift-1, \destreg				; To subpixels + div/2
+	;lsl.l   #SubpixelShift-1, \tmpreg
+	lsl.l   #0x7, \destreg				; To subpixels + div/2
+	lsl.l   #0x7, \tmpreg
+	add.l   Entity_WorldPosX(\addrreg), \destreg	; Add world pos
+	add.l   Entity_WorldPosY(\addrreg), \tmpreg
+	;lsr.l   #SubpixelShift, \destreg				; To pixels
+	;lsr.l   #SubpixelShift, \tmpreg
+	lsr.l   #0x8, \destreg				; To pixels
+	lsr.l   #0x8, \tmpreg
+	swap    \destreg								; Assemble vector
+	move.w  \tmpreg, \destreg
+	endm
 
 ENTITY_GETLEFT: macro destreg,addrreg
 	move.l   Entity_WorldPosX(\addrreg), \destreg

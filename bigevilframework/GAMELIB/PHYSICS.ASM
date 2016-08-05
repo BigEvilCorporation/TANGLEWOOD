@@ -252,7 +252,7 @@ PHYS_EntityDistSq:
 	lsr.l  #0x8, d2						; To screen space
 	move.w d2, d1						; In lower word d1
 
-	jsr    VEC2_DistSq
+	VEC2_DISTSQ d0, d1, d2
 
 	rts
 	

@@ -48,67 +48,44 @@ RND_GenerateLong:
 	addx.l D0,D0
 	move.l D0,rand_seed
 	rts
-
-VEC2_Add:
-	; d0 (ww) In: Vec1 XY, Out: Vec3 XY
-	; d1 (ww) In: Vec2 XY
-
-	add.w d1, d0	; Vec2.y - Vec1.y
-	swap  d0
-	swap  d1
-	add.w d1, d0	; Vec2.x - Vec1.x
-	swap  d0
-
-	rts
-
-VEC2_Sub:
-	; d0 (ww) In: Vec1 XY, Out: Vec3 XY
-	; d1 (ww) In: Vec2 XY
-
-	sub.w d1, d0	; Vec2.y - Vec1.y
-	swap  d0
-	swap  d1
-	sub.w d1, d0	; Vec2.x - Vec1.x
-	swap  d0
-
-	rts
-
-VEC2_DistSq:
-	; d0 (ww) In: Vec1 XY, Out: squared distance
-	; d1 (ww) In: Vec2 XY
-
-	; Dist = sq(v2.x - v1.x) + sq(v2.y - v1.y)
 	
-	clr.l  d2
-	
-	sub.w  d1, d0	; Vec2.y - Vec1.y
-	move.w d0, d2
-	muls   d2, d2	; Square
-	
-	swap   d0
-	swap   d1
-	
-	sub.w  d1, d0	; Vec2.x - Vec1.x
-	muls   d0, d0	; Square
-	
-	add.l  d2, d0
-	
-	rts
+VEC2_ADD: macro vec1,vec2
+    add.w \vec1, \vec2	; Vec2.y + Vec1.y
+	swap  \vec1
+	swap  \vec2
+	add.w \vec1, \vec2	; Vec2.x + Vec1.x
+	swap  \vec1
+	swap  \vec2
+    endm
 
-VEC2_Dot:
-	; d0 (ww) In: Vec1 XY, Out: Dot product
-	; d1 (ww) In: Vec2 XY
+VEC2_SUB: macro vec1,vec2
+    sub.w \vec1, \vec2	; Vec2.y - Vec1.y
+	swap  \vec1
+	swap  \vec2
+	sub.w \vec1, \vec2	; Vec2.x - Vec1.x
+	swap  \vec1
+	swap  \vec2
+    endm
+	
+VEC2_DISTSQ: macro vec1,vec2,tmpreg
+	; DistSq = sq(v2.x - v1.x) + sq(v2.y - v1.y)
+    clr.l  \tmpreg
+	sub.w  \vec2, \vec1		; Vec2.y - Vec1.y
+	move.w \vec1, \tmpreg
+	muls   \tmpreg, \tmpreg	; Square
+	swap   \vec1
+	swap   \vec2
+	sub.w  \vec2, \vec1		; Vec2.x - Vec1.x
+	muls   \vec1, \vec1		; Square
+	add.l  \tmpreg, \vec1
+    endm
 
+VEC2_DOT: macro vec1,vec2,tmpreg
 	; Dot = (v1.x * v2.x + v1.y * v2.y)
-
-	move.w  d0, d2
-	muls.w  d1, d2	; Vec2.y * Vec1.y (result is longword in d2)
-	
-	swap    d0
-	swap    d1
-	
-	muls.w  d1, d0	; Vec2.x * Vec1.x (result is longword in d0)
-	
-	add.l   d2, d0	; Add
-
-	rts
+	move.w  \vec1, \tmpreg
+	muls.w  \vec2, \tmpreg	; Vec2.y * Vec1.y
+	swap    \vec1
+	swap    \vec2
+	muls.w  \vec2, \vec1	; Vec2.x * Vec1.x
+	add.l   \tmpreg, \vec1	; Add
+    endm
