@@ -15,11 +15,11 @@ Monster_Width	      equ 0x0080
 Monster_Height	      equ 0x0050
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x0330   ; Max X running velocity
+Monster_MaxVelXRun    equ 0x0440   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
-Monster_AccelRun      equ 0x0006   ; Running acceleration
+Monster_AccelRun      equ 0x0010   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
 Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
 Monster_JumpVel	      equ 0x0600   ; Jump velocity impulse
@@ -34,7 +34,7 @@ Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
-Monster_PlayerLostSightTime		equ 0x0180
+Monster_PlayerLostSightTime		equ 0x0100
 
 Monster_RumbleSoundDist  	equ 0x0200
 Monster_RumbleSoundDistSq	equ (Monster_RumbleSoundDist*Monster_RumbleSoundDist)
