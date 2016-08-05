@@ -456,7 +456,7 @@ FuzzlUpdateEyes:
 	ext.l  d0			; Sign extend
 	move.l #-1, d1		; -1, 0 or 1
 	move.l #1, d2
-	jsr    Clamp
+	CLAMP  d0, d1, d2
 	add.l  #0x1, d0		; 0, 1 or 2
 	mulu   #0x3, d0		; Y offset into table
 	move.l d0, d3
@@ -470,7 +470,7 @@ FuzzlUpdateEyes:
 	ext.l  d0			; Sign extend
 	move.l #-1, d1		; -1, 0 or 1
 	move.l #1, d2
-	jsr    Clamp
+	CLAMP  d0, d1, d2
 	add.l  #0x1, d0		; 0, 1 or 2
 
 	add.l  d3, d0		; Add X offset into table

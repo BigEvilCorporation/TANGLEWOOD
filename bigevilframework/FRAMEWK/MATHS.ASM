@@ -6,27 +6,6 @@
 ;   maths.asm - Maths routines
 ;==============================================================
 
-Clamp:
-	; Slow and dirty branched clamp (signed)
-	; d0 (l) In: Value to clamp, Out: Clamped value
-	; d1 (l) In: Min bound
-	; d2 (l) In: Max bound
-
-	cmp.l  d0, d1
-	ble    @WithinMin
-	move.l d1, d0
-	bra    @End
-	@WithinMin:
-
-	cmp.l  d0, d2
-	bge    @WithinMax
-	move.l d2, d0
-	bra    @End
-	@WithinMax:
-
-	@End:
-	rts
-
 RND_Init:
 	move.l #0x26121985, rand_seed
 	rts
