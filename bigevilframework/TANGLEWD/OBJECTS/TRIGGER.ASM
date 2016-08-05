@@ -86,7 +86,9 @@ TriggerBoxUpdate:
 	bne    @TestXOnly
 	
 	; Check player inside trigger box
-	jsr    PHYS_TestEntityBoxInsideBox
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxInsideBox
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	bra    @Intersect

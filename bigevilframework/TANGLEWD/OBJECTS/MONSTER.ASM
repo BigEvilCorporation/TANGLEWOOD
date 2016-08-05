@@ -839,7 +839,9 @@ MonsterUpdateTrackPlayer:
 	; Attack if bounds intersect
 	PUSHL  a1
 	move.l a2, a1
-	jsr    PHYS_TestEntityBoxIntersectBox
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
 	cmp.b  #0x0, d0

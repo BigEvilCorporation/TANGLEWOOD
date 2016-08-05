@@ -256,7 +256,9 @@ FuzzlUpdate:
 	PUSHL a1
 	PUSHL d6
 	move.l a3, a1
-	jsr PHYS_TestEntityBoxIntersectBox
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr   PHYS_TestBoxIntersectBox
 	POPL  d6
 	POPL  a1
 	

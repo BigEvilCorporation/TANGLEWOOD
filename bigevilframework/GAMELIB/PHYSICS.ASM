@@ -161,17 +161,6 @@ PHYS_TestPointInsideBox:
 	@Outside:
 	rts
 	
-PHYS_TestEntityBoxIntersectBox:
-	; d0 (b) Return value
-	; a0 --- Entity 1
-	; a1 --- Entity 2
-	
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr PHYS_TestBoxIntersectBox
-	
-	rts
-	
 PHYS_TestEntityBoxIntersectBoxX:
 	; d0 (b) Return value
 	; a0 --- Entity 1
@@ -189,17 +178,6 @@ PHYS_TestEntityBoxIntersectBoxX:
 	
 	rts
 	
-PHYS_TestEntityBoxInsideBox:
-	; d0 (b) Return value
-	; a0 --- Entity 1
-	; a1 --- Entity 2
-	
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr PHYS_TestBoxInsideBox
-	
-	rts
-	
 PHYS_TestEntityBoxInsideBoxX:
 	; d0 (b) Return value
 	; a0 --- Entity 1
@@ -214,16 +192,6 @@ PHYS_TestEntityBoxInsideBoxX:
 	swap d4
 	
 	jsr PHYS_TestBoxInsideBoxX
-	
-	rts
-	
-PHYS_TestEntityPointInsideBounds:
-	; d0 (b)  Return value
-	; d3 (ww) Point XY
-	; a0 ---- Entity
-	
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	jsr PHYS_TestPointInsideBox
 	
 	rts
 
