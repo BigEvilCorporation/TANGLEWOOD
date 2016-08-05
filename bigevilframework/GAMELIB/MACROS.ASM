@@ -62,6 +62,29 @@ ENTITY_GETBOTTOM: macro destreg,addrreg
 	mulu    #SubpixelsPerPixel, \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
+	
+ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
+	; Obj 1 min X
+	move.l Entity_WorldPosX(\addrreg), \topleftreg	; X
+	lsr.l  #0x8, \topleftreg						; To screen space
+	move.w \topleftreg, \bottomrightreg				; Copy for max
+	swap   \topleftreg								; In upper word d1
+	
+	; Obj 1 max X
+	move.w Entity_Width(\addrreg), \tempreg			; Width
+	add.w  \tempreg, \bottomrightreg				; Object X max
+	swap   \bottomrightreg							; In upper word d2
+	
+	; Obj 1 min Y
+	move.l Entity_WorldPosY(\addrreg), \tempreg		; Y
+	lsr.l  #0x8, \tempreg							; To screen space
+	move.w \tempreg, \bottomrightreg				; Copy for max
+	move.w \tempreg, \topleftreg					; In lower word d1
+	
+	; Obj 1 max Y
+	move.w Entity_Height(\addrreg), \tempreg		; Height
+	add.w  \tempreg, \bottomrightreg				; Object Y max
+	endm
 
 TOSUBPIXELS: macro destreg
 	lsl.l   #0x8, \destreg

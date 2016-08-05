@@ -1003,7 +1003,7 @@ PlayerInteractTest_Fuzzls:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	; Test box intersection
 	jsr    PHYS_TestBoxIntersectBox
@@ -1111,7 +1111,7 @@ PlayerInteract_Fuzzl:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	jsr    PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	; Test box intersection
 	jsr    PHYS_TestBoxIntersectBox
@@ -1257,7 +1257,7 @@ PlayerInteractTest_Boulders:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	; Test box intersection
 	jsr    PHYS_TestBoxIntersectBox
@@ -1332,7 +1332,7 @@ PlayerInteract_Boulder:
 	move.w d3, d2
 	
 	; Get Boulder bounds
-	jsr    PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	; Test box intersection
 	jsr    PHYS_TestBoxIntersectBox

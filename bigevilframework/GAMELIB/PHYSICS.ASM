@@ -166,8 +166,8 @@ PHYS_TestEntityBoxIntersectBox:
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr PHYS_GetEntityBoundsA0D1D2
-	jsr PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr PHYS_TestBoxIntersectBox
 	
 	rts
@@ -177,8 +177,8 @@ PHYS_TestEntityBoxIntersectBoxX:
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr PHYS_GetEntityBoundsA0D1D2
-	jsr PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	swap d1
 	swap d2
@@ -194,8 +194,8 @@ PHYS_TestEntityBoxInsideBox:
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr PHYS_GetEntityBoundsA0D1D2
-	jsr PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr PHYS_TestBoxInsideBox
 	
 	rts
@@ -205,8 +205,8 @@ PHYS_TestEntityBoxInsideBoxX:
 	; a0 --- Entity 1
 	; a1 --- Entity 2
 	
-	jsr PHYS_GetEntityBoundsA0D1D2
-	jsr PHYS_GetEntityBoundsA1D3D4
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
 	
 	swap d1
 	swap d2
@@ -222,7 +222,7 @@ PHYS_TestEntityPointInsideBounds:
 	; d3 (ww) Point XY
 	; a0 ---- Entity
 	
-	jsr PHYS_GetEntityBoundsA0D1D2
+	ENTITY_GETBOUNDS d1,d2,d3,a0
 	jsr PHYS_TestPointInsideBox
 	
 	rts
@@ -256,56 +256,3 @@ PHYS_EntityDistSq:
 
 	rts
 	
-PHYS_GetEntityBoundsA0D1D2:
-	; d1/d2 (ww) Return value
-	; a0 --- Entity
-	
-	; Obj 1 min X
-	move.l Entity_WorldPosX(a0), d1		; X
-	lsr.l  #0x8, d1						; To screen space
-	move.w d1, d2						; Copy for max
-	swap   d1							; In upper word d1
-	
-	; Obj 1 max X
-	move.w Entity_Width(a0), d3			; Width
-	add.w  d3, d2						; Fuzzl X max
-	swap   d2							; In upper word d2
-	
-	; Obj 1 min Y
-	move.l Entity_WorldPosY(a0), d3		; Y
-	lsr.l  #0x8, d3						; To screen space
-	move.w d3, d2						; Copy for max
-	move.w d3, d1						; In lower word d1
-	
-	; Obj 1 max Y
-	move.w Entity_Height(a0), d3		; Height
-	add.w  d3, d2						; Fuzzl Y max
-	
-	rts
-	
-PHYS_GetEntityBoundsA1D3D4:
-	; d3/d4 (ww) Return value
-	; a1 --- Entity
-	
-	; Obj 2 min X
-	move.l Entity_WorldPosX(a1), d3		; X
-	lsr.l  #0x8, d3						; To screen space
-	move.w d3, d4						; Copy for max
-	swap   d3							; In upper word d1
-	
-	; Obj 2 max X
-	move.w Entity_Width(a1), d5			; Width
-	add.w  d5, d4						; Fuzzl X max
-	swap   d4							; In upper word d2
-	
-	; Obj 2 min Y
-	move.l Entity_WorldPosY(a1), d5		; Y
-	lsr.l  #0x8, d5						; To screen space
-	move.w d5, d4						; Copy for max
-	move.w d5, d3						; In lower word d1
-	
-	; Obj 2 max Y
-	move.w Entity_Height(a1), d5		; Height
-	add.w  d5, d4						; Fuzzl Y max
-	
-	rts
