@@ -357,6 +357,9 @@ PlayerInit:
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
+	; Running by default
+	jsr    CharacterStartRun
+	
 	rts
 
 PlayerUpdate:

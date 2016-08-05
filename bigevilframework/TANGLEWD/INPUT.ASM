@@ -175,15 +175,15 @@ HandlePlayerInput:
 	@XHandled:
 	
 	; =====================================================================
-	; A - hold to run instead of walk
+	; A - hold to walk instead of run
 	; =====================================================================
 	
 	btst #pad_button_a, d0      ; Check A button
 	beq  @NoA                   ; Branch if button off
-	jsr  CharacterStartRun		; Run
+	jsr  CharacterCancelRun		; Cancel run
 	jmp  @EndA
 	@NoA:
-	jsr  CharacterCancelRun		; Cancel run
+	jsr  CharacterStartRun		; Run
 	@EndA:
 	
 	; =====================================================================
