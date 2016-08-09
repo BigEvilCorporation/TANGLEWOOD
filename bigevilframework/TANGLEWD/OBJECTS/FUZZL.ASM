@@ -127,51 +127,56 @@ FuzzlInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
-	move.l #Anim_FuzzlIdle, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_fuzzl_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_fuzzl_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_FuzzlIdle_Speed, Animation_Speed(a3)
-	move.b #Anim_FuzzlIdle_SizeB, Animation_Length(a3)
+	move.b #spriteanim_fuzzl_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_fuzzl_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Watch
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
-	move.l #Anim_FuzzlEyes, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_fuzzl_eyes_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_fuzzl_eyes_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_FuzzlEyes_Speed, Animation_Speed(a3)
-	move.b #Anim_FuzzlEyes_SizeB, Animation_Length(a3)
+	move.b #spriteanim_fuzzl_eyes_speed, Animation_Speed(a3)
+	move.b #spriteanim_fuzzl_eyes_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Roll
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
-	move.l #Anim_FuzzlRoll, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_fuzzl_roll_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_fuzzl_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_FuzzlRoll_Speed, Animation_Speed(a3)
-	move.b #Anim_FuzzlRoll_SizeB, Animation_Length(a3)
+	move.b #spriteanim_fuzzl_roll_speed, Animation_Speed(a3)
+	move.b #spriteanim_fuzzl_roll_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Bounce
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
-	move.l #Anim_FuzzlRoll, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_fuzzl_roll_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_fuzzl_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_FuzzlRoll_Speed, Animation_Speed(a3)
-	move.b #Anim_FuzzlRoll_SizeB, Animation_Length(a3)
+	move.b #spriteanim_fuzzl_roll_speed, Animation_Speed(a3)
+	move.b #spriteanim_fuzzl_roll_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
-	
+
 	; Sleep
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
-	move.l #Anim_FuzzlSleep, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_fuzzl_sleep_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_fuzzl_sleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #Anim_FuzzlSleep_Speed, Animation_Speed(a3)
-	move.b #Anim_FuzzlSleep_SizeB, Animation_Length(a3)
+	move.b #spriteanim_fuzzl_sleep_speed, Animation_Speed(a3)
+	move.b #spriteanim_fuzzl_sleep_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	rts

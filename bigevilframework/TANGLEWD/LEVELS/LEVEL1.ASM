@@ -643,19 +643,19 @@ Lvl1_Trigger_NearEndLevel:
 	move.l #EntityArray_Fuzzls, a0
 	add.l  d0, a0
 	
-	lea    Tiles_Fuzzl, a1
+	lea    spritesheets_fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
 	lea    sprite_fuzzl_subsprite_pos_offsets, a3
 	lea    sprite_fuzzl_numtiles_per_subsprite, a4
 	move.l #Tiles_FuzzlVRAM, d0
-	add.l  #(Fuzzl_Green_idx*tiles_fuzzl_size_b), d0
-	move.l #tiles_fuzzl_size_t, d1
+	add.l  #(Fuzzl_Green_idx*sprite_fuzzl_size_b), d0
+	move.l #sprite_fuzzl_size_t, d1
 	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_dimensions, d3
+	move.w #sprite_fuzzl_widthheight_subsprites, d3
 	move.b #PaletteID_Fuzzl, d4
 	jsr    SpriteObjLoad
 	
-	lea    palette_fuzzl_green, a0
+	lea    palette_fuzzl_red, a0
 	move.l #PaletteID_Fuzzl, d0
 	jsr    PAL_Load
 	
@@ -665,15 +665,15 @@ Lvl1_Trigger_NearEndLevel:
 	move.l #EntityArray_Fuzzls, a0
 	add.l  d0, a0
 	
-	lea    Tiles_Fuzzl, a1
+	lea    spritesheets_fuzzl, a1
 	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
 	lea    sprite_fuzzl_subsprite_pos_offsets, a3
 	lea    sprite_fuzzl_numtiles_per_subsprite, a4
 	move.l #Tiles_FuzzlVRAM, d0
-	add.l  #(Fuzzl_Blue_idx*tiles_fuzzl_size_b), d0
-	move.l #tiles_fuzzl_size_t, d1
+	add.l  #(Fuzzl_Blue_idx*sprite_fuzzl_size_b), d0
+	move.l #sprite_fuzzl_size_t, d1
 	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_dimensions, d3
+	move.w #sprite_fuzzl_widthheight_subsprites, d3
 	move.b #PaletteID_Monster, d4
 	jsr    SpriteObjLoad
 	
