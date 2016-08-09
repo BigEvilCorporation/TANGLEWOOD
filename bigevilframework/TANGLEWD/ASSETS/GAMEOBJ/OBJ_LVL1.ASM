@@ -155,7 +155,7 @@ BoulderIntro_idx	equ 0x1
 	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_TriggerBox_count equ 0x5
+gameobjects_lvl1_TriggerBox_count equ 0x6
 LoadGameObjects_lvl1_TriggerBox:
 TriggerBox_60_idx	equ 0x0
 	jsr TriggerBoxInit
@@ -197,6 +197,14 @@ Trigger_NearEndLevel_idx	equ 0x4
 	move.l #0x0002d000, Entity_WorldPosY(a0)
 	move.l #Lvl1_Trigger_NearEndLevel, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	add.l #TriggerBox_Struct_Size, a0
+TriggerCancelColour_idx	equ 0x5
+	jsr TriggerBoxInit
+	move.l #0x00213800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #Lvl1_Trigger_NearCave, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_triggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts

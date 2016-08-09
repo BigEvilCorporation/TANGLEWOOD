@@ -622,6 +622,21 @@ Lvl1_UpdateCutscene_BoulderRoll:
 	
 	rts
 	
+Lvl1_Trigger_NearCave:
+
+	PUSHL  a0
+	PUSHL  a1
+	
+	move.l #Player1, a0
+	jsr    PlayerStopColourAbility
+	move.b #ColourRed, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+	
+	POPL   a1
+	POPL   a0
+	
+	rts
+	
 Lvl1_Trigger_NearEndLevel:
 
 	PUSHL  a0
