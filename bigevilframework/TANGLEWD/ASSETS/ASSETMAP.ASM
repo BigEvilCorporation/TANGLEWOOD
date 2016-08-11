@@ -68,7 +68,7 @@
 	include 'assets\tiles\soundtst.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
-	; include 'assets\tiles\til_lvl2.asm'
+	include 'assets\tiles\til_lvl2.asm'
 	
 	; ************************************
     ; Level maps
@@ -81,25 +81,25 @@
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
 	include 'assets\maps\lvl1_bg.asm'
-	; include 'assets\maps\map_lvl2.asm'
+	include 'assets\maps\map_lvl2.asm'
 	
 	; ************************************
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
-	; include 'assets\collisn\ctl_lvl2.asm'
+	include 'assets\collisn\ctl_lvl2.asm'
 	
 	; ************************************
     ; Collision maps
     ; ************************************
 	include 'assets\collisn\cmp_lvl1.asm'
-	; include 'assets\collisn\cmp_lvl2.asm'
+	include 'assets\collisn\cmp_lvl2.asm'
 	
 	; ************************************
     ; Game objects
     ; ************************************
 	include 'assets\gameobj\obj_lvl1.asm'
-	; include 'assets\gameobj\obj_lvl2.asm'
+	include 'assets\gameobj\obj_lvl2.asm'
 
 	ENDIF
 	

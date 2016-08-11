@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_lvl2_size_b	equ 0x00007BC0	; Size in bytes
-tiles_lvl2_size_w	equ (tiles_lvl2_size_b/2)	; Size in words
-tiles_lvl2_size_l	equ (tiles_lvl2_size_b/4)	; Size in longwords
-tiles_lvl2_size_t	equ (tiles_lvl2_size_b/32)	; Size in tiles
+tiles_Lvl2_size_b	equ 0x00007260	; Size in bytes
+tiles_Lvl2_size_w	equ (tiles_Lvl2_size_b/2)	; Size in words
+tiles_Lvl2_size_l	equ (tiles_Lvl2_size_b/4)	; Size in longwords
+tiles_Lvl2_size_t	equ (tiles_Lvl2_size_b/32)	; Size in tiles

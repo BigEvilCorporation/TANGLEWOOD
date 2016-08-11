@@ -61,8 +61,8 @@ Lvl2_Init:
 	jsr    LoadGameObjects_lvl2_Firefly
 	
 	; Water bodies
-	;move.l #EntityArray_WaterBodies, a0
-	;jsr    LoadGameObjects_lvl2_WaterBody
+	move.l #EntityArray_WaterBodies, a0
+	jsr    LoadGameObjects_lvl2_WaterBody
 	
 	; Locations
 	;move.l #EntityArray_Locations, a0
@@ -80,5 +80,8 @@ Lvl2_Init:
 	rts
 	
 Lvl2_Update:
+	rts
+	
+Lvl2_Trigger_End:
 	rts
 	

@@ -105,7 +105,7 @@ __start
 	
 	; Include levels
 	include 'levels\level1.asm'
-	; include 'levels\level2.asm'
+	include 'levels\level2.asm'
 	
 	; Include game code
 	include 'audio.asm'
