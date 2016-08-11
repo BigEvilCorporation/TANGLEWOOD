@@ -89,8 +89,9 @@ EndLevel_Update:
 	; Begin fade down of level palette (all objects should be out of view)
 	move.l #GameStateEndLevel_FadeDownPalette, a0
 	move.w #GameStateEndLevel_FadeDownSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	
 	move.b #PaletteId_World0, d0
 	jsr    PAL_LerpStart

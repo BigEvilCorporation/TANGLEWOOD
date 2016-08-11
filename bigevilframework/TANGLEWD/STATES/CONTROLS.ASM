@@ -55,8 +55,9 @@ ControlsScreen_Enter:
 	lea    palette_controls, a0
 	move.l #PaletteId_ControlsScreen, d0
 	move.l #ControlsScreenFadeTime, d1
-	move.l #0x0, d2
-	move.l #ControlsScreenNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #ControlsScreenNumColours, d4
 	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
@@ -75,7 +76,7 @@ ControlsScreen_Update:
 
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_Speed(a0), d0
+	move.w PaletteLerp_UpdateSpeed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
 
@@ -94,8 +95,9 @@ ControlsScreen_Update:
 	lea    palette_fade_black, a0
 	move.l #PaletteId_ControlsScreen, d0
 	move.l #ControlsScreenFadeTime, d1
-	move.l #0x0, d2
-	move.l #ControlsScreenNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #ControlsScreenNumColours, d4
 	jsr    PAL_LerpStart
 	bra    @End
 	

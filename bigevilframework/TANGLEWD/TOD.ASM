@@ -56,8 +56,9 @@ SetTimeOfDay:
 	; Start palette lerp
 	move.b #PaletteId_World0, d0
 	move.w #TimeOfDayCycleSpeed, d1
-	move.b #0x0, d2
-	move.b #TODMaxColours, d3
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #TODMaxColours, d4
 	
 	jsr PAL_LerpStart
 	

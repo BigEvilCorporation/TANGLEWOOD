@@ -9,7 +9,7 @@
 ; Constants
 DemoEndStateDelayTime	equ 0x0280
 DemoEndStateFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
-DemoEndStateNumColours	equ 0xE ; For palette lerping
+DemoEndStateNumColours	equ 0xF ; For palette lerping
 
 GameStateDemoEnd:
 	dc.l DemoEndState_Enter
@@ -55,8 +55,9 @@ DemoEndState_Enter:
 	lea    palette_DemoEnd, a0
 	move.l #PaletteId_DemoEndState, d0
 	move.l #DemoEndStateFadeTime, d1
-	move.l #0x0, d2
-	move.l #DemoEndStateNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #DemoEndStateNumColours, d4
 	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
@@ -75,7 +76,7 @@ DemoEndState_Update:
 
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_Speed(a0), d0
+	move.w PaletteLerp_UpdateSpeed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
 
@@ -94,8 +95,9 @@ DemoEndState_Update:
 	lea    palette_fade_black, a0
 	move.l #PaletteId_DemoEndState, d0
 	move.l #DemoEndStateFadeTime, d1
-	move.l #0x0, d2
-	move.l #DemoEndStateNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #DemoEndStateNumColours, d4
 	jsr    PAL_LerpStart
 	bra    @End
 	

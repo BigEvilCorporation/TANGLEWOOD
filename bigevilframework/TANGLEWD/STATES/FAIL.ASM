@@ -30,8 +30,9 @@ Fail_Enter:
 	; Begin fade down - all palettes except player
 	move.l #GameStateFail_FadeDownPalette, a0
 	move.w #GameStateFail_FadeDownSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	
 	move.b #PaletteId_World0, d0
 	jsr    PAL_LerpStart

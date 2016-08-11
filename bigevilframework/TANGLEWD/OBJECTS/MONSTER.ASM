@@ -505,8 +505,9 @@ MonsterStartEmergeFromCave:
 	lea    palette_monster, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	jsr    PAL_LerpStart
 	move.l (sp)+, a0
 
@@ -519,7 +520,7 @@ MonsterUpdateEmergeFromCave:
 	; Wait for palette lerp finish
 	lea    PaletteLerp_Array, a2
 	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
-	cmp.w  #0x0, PaletteLerp_Speed(a2)
+	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
 	; Start roaring at player

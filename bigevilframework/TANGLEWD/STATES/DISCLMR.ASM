@@ -9,7 +9,7 @@
 ; Constants
 DemoDisclaimerScreenDelayTime	equ 0x0180
 DemoDisclaimerScreenFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
-DemoDisclaimerScreenNumColours	equ 0xE ; For palette lerping
+DemoDisclaimerScreenNumColours	equ 0xF ; For palette lerping
 
 GameStateDemoDisclaimerScreen:
 	dc.l DemoDisclaimerScreen_Enter
@@ -55,8 +55,9 @@ DemoDisclaimerScreen_Enter:
 	lea    palette_DemoDisclaimer, a0
 	move.l #PaletteId_DemoDisclaimerScreen, d0
 	move.l #DemoDisclaimerScreenFadeTime, d1
-	move.l #0x0, d2
-	move.l #DemoDisclaimerScreenNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #DemoDisclaimerScreenNumColours, d4
 	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
@@ -75,7 +76,7 @@ DemoDisclaimerScreen_Update:
 
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_Speed(a0), d0
+	move.w PaletteLerp_UpdateSpeed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
 
@@ -94,8 +95,9 @@ DemoDisclaimerScreen_Update:
 	lea    palette_fade_black, a0
 	move.l #PaletteId_DemoDisclaimerScreen, d0
 	move.l #DemoDisclaimerScreenFadeTime, d1
-	move.l #0x0, d2
-	move.l #DemoDisclaimerScreenNumColours, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #DemoDisclaimerScreenNumColours, d4
 	jsr    PAL_LerpStart
 	bra    @End
 	

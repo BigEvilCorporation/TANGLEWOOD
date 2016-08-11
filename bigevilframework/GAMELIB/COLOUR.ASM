@@ -7,27 +7,28 @@
 ;==============================================================
 
 	rsset 0
-;------------------------------
-PaletteLerp_BufferCur		rs.b 0x20	; Current palette  ; TODO: why won't size_palette_b evaluate here?
-PaletteLerp_BufferTrg		rs.b 0x20   ; Target palette
-PaletteLerp_SubFrame		rs.l 1
-PaletteLerp_Speed			rs.w 1
-PaletteLerp_PaletteIdx		rs.b 1
-PaletteLerp_ColourIdx		rs.b 1
-PaletteLerp_ComponentIdx	rs.b 1
-PaletteLerp_ColourMin		rs.b 1
-PaletteLerp_ColourMax		rs.b 1
-
-;------------------------------
-PaletteLerp_Struct_Pad		rs.b 1
-PaletteLerp_Struct_Size		rs.b 0
+;-------------------------------------
+PaletteLerp_BufferCur			rs.b 0x20	; Current palette  ; TODO: why won't size_palette_b evaluate here?
+PaletteLerp_BufferTrg			rs.b 0x20   ; Target palette
+PaletteLerp_SubFrame			rs.l 1
+PaletteLerp_UpdateSpeed			rs.w 1		; Update speed (in subframes)
+PaletteLerp_TicksPerUpdate		rs.b 1		; Number of ticks (components to advance) per update
+PaletteLerp_PaletteIdx			rs.b 1
+PaletteLerp_ColourIdx			rs.b 1
+PaletteLerp_ComponentIdx		rs.b 1
+PaletteLerp_ColourMin			rs.b 1
+PaletteLerp_ColourMax			rs.b 1
+;-------------------------------------
+PaletteLerp_Struct_Pad			rs.b 0
+PaletteLerp_Struct_Size			rs.b 0
 
 PAL_LerpStart:
 	; a0 --- Target palette address
 	; d0 (b) Palette index
-	; d1 (w) Lerp speed (animation subframes per frame)
-	; d2 (b) Colour range min
-	; d3 (b) Colour range max
+	; d1 (w) Update speed (animation subframes per frame)
+	; d2 (b) Ticks per update (num components to advance)
+	; d3 (b) Colour range min
+	; d4 (b) Colour range max
 
 	lea    PaletteLerp_Array, a2
 
@@ -37,9 +38,10 @@ PAL_LerpStart:
 	add.l  d5, a2
 	
 	move.b d0, PaletteLerp_PaletteIdx(a2)
-	move.w d1, PaletteLerp_Speed(a2)
-	move.b d2, PaletteLerp_ColourMin(a2)
-	move.b d3, PaletteLerp_ColourMax(a2)
+	move.w d1, PaletteLerp_UpdateSpeed(a2)
+	move.b d2, PaletteLerp_TicksPerUpdate(a2)
+	move.b d3, PaletteLerp_ColourMin(a2)
+	move.b d4, PaletteLerp_ColourMax(a2)
 	move.l #0x0, PaletteLerp_SubFrame(a2)
 	move.b #0x0, PaletteLerp_ColourIdx(a2)
 	move.b #0x0, PaletteLerp_ComponentIdx(a2)
@@ -61,9 +63,10 @@ PAL_LerpStart:
 	
 PAL_LerpStartAll:
 	; a0 --- Target palette address
-	; d1 (w) Lerp speed (animation subframes per frame)
-	; d2 (b) Colour range min
-	; d3 (b) Colour range max
+	; d1 (w) Update speed (animation subframes per frame)
+	; d2 (b) Ticks per update (num components to advance)
+	; d3 (b) Colour range min
+	; d4 (b) Colour range max
 	
 	move.l #0x0, d0
 	jsr    PAL_LerpStart
@@ -95,7 +98,7 @@ PAL_LerpUpdateNextComponent:
 	; a0 --- Address of PaletteLerp struct to update
 
 	clr.l  d0
-	move.w PaletteLerp_Speed(a0), d0		; Get lerp speed
+	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
 	cmp.w  #0x0, d0						; Return if disabled
 	beq    @End
 	
@@ -113,24 +116,31 @@ PAL_LerpUpdateNextComponent:
 
 	; =====================================================================
 	
+	; Loop through ticks
+	clr.w  d0
+	move.b PaletteLerp_TicksPerUpdate(a0), d0
+	subi.w #0x1, d0
+	
+	@NextTick:
+	
 	; Check if lerp finished
 	move.l a0, a1
 	move.l a0, a2
 	add.l  #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
 	add.l  #PaletteLerp_BufferCur, a2		; Offset into struct to current palette buffer
 
-	move.b PaletteLerp_ColourMin(a0), d0	; Offset into palettes to start of range
-	move.b d0, d1
+	move.b PaletteLerp_ColourMin(a0), d3	; Offset into palettes to start of range
+	move.b d3, d1
 	and.l  #0xFF, d1
 	mulu   #size_word, d1
 	add.l  d1, a1
 	add.l  d1, a2
 
-	clr.l  d0
-	move.b PaletteLerp_ColourMax(a0), d0
+	clr.l  d3
+	move.b PaletteLerp_ColourMax(a0), d3
 	move.b PaletteLerp_ColourMin(a0), d1
-	sub.b  d1, d0		; (max - min) colours
-	sub.b  #0x1, d0	; -1 for loop
+	sub.b  d1, d3		; (max - min) colours
+	sub.b  #0x1, d3	; -1 for loop
 	@PaletteCompareLp:
 	move.w (a1)+, d1
 	move.w (a2)+, d2
@@ -138,16 +148,17 @@ PAL_LerpUpdateNextComponent:
 	and.w  #%0000111011101110, d2
 	cmp.w  d1, d2
 	bne    @NextComponent		; If colours differ, there's still work to do
-	cmp.b  PaletteLerp_ColourMax(a0), d0
-	dbra   d0, @PaletteCompareLp
+	cmp.b  PaletteLerp_ColourMax(a0), d3
+	dbra   d3, @PaletteCompareLp
 	
 	; Reset and disable lerp
 	move.b #0x0, PaletteLerp_ColourIdx(a0)
 	move.b #0x0, PaletteLerp_ComponentIdx(a0)
-	move.w #0x0, PaletteLerp_Speed(a0)
+	move.w #0x0, PaletteLerp_UpdateSpeed(a0)
+	move.b #0x0, PaletteLerp_TicksPerUpdate(a0)
 	
 	; Finished
-	bra    @End
+	bra    @WriteNewPalette
 	
 	; =====================================================================
 	
@@ -229,6 +240,8 @@ PAL_LerpUpdateNextComponent:
 	
 	rol.w  d2, d3						; Shift scratch component back into place
 	move.w d3, (a2)						; Write colour back to scratch buffer
+	
+	dbra   d0, @NextTick				; Next tick
 	
 	; =====================================================================
 	

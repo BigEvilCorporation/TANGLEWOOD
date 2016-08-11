@@ -57,7 +57,9 @@ GroundHeightScreen       equ (map_lvl1_height*8)+SpritePlaneBorderY+Player1Heigh
 GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
 
 ; Faders
-LevelFadeUpSpeed		 equ (0x1<<0x8) ; Subframes (1 frame per tick)
+LevelFadeUpSpeed		 	equ (0x1<<0x8) ; Subframes (1 frame per tick)
+DefaultFadeSpeed		 	equ (0x1<<0x8)
+DefaultFadeTicksPerUpdate	equ 0x3
 
 ; Time of day
 TimeOfDayCycleSpeed		 equ (0x1<<0x8) ; Subframes (1 frame per tick)

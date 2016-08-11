@@ -56,8 +56,9 @@ MainMenu_Enter:
 	lea    palette_twd_logo, a0
 	move.l #PaletteId_TanglewoodLogo, d0
 	move.l #MainMenuFadeTime, d1
-	move.l #0x0, d2
-	move.l #0xF, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
 	jsr    PAL_LerpStart
 	
 	; Flush VDP queue
@@ -79,7 +80,7 @@ MainMenu_Update:
 	
 	; Wait for fade to finish
 	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_Speed(a0), d0
+	move.w PaletteLerp_UpdateSpeed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
 	
@@ -109,8 +110,9 @@ MainMenu_Update:
 	lea    palette_fade_black, a0
 	move.l #PaletteId_TanglewoodLogo, d0
 	move.l #MainMenuFadeTime, d1
-	move.l #0x0, d2
-	move.l #0xF, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
 	jsr    PAL_LerpStart
 	
 	; Mark fading out

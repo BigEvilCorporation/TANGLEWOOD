@@ -539,8 +539,9 @@ PlayerBeginColourSwitch:
 	move.l (a1), a0					; Get new palette address
 	move.l #PaletteId_Player, d0	; Get destination palette ID - TODO: From PhysicsObj
 	move.l #Player1ColourChangeSpeed, d1	; Get switch speed - TODO: From Character
-	move.b #0x0, d2					; Range min
-	move.b #0xE, d3					; Range max
+	move.b #0x1, d2					; Ticks per update
+	move.b #0x0, d3					; Range min
+	move.b #0xE, d4					; Range max
 	jsr    PAL_LerpStart			; Begin palette lerp
 	
 	POPL   a0/a1
@@ -715,8 +716,9 @@ PlayerStopColourAbility:
 	; Reset palette
 	PUSHL  a0
 	move.w #TimeOfDayCycleSpeed, d1		; Speed
-	move.b #0x0, d2						; First colour
-	move.b #0xF, d3						; Last colour
+	move.b #0x1, d2						; Ticks per update
+	move.b #0x0, d3						; First colour
+	move.b #0xF, d4						; Last colour
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0	; Palette address
 	move.l #PaletteId_World0, d0		; Palette idx

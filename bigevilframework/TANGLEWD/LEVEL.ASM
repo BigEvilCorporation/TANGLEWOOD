@@ -118,8 +118,9 @@ LevelLoad:
 	
 	; Set palettes for fade up
 	move.w #LevelFadeUpSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	
 	lea    Pal_Nymn_Red, a0
 	;lea    palette_nymn, a0
@@ -179,8 +180,9 @@ LevelLoadPalettes:
 	ELSE
 	
 	move.w #LevelFadeUpSpeed, d1
-	move.b #0x0, d2
-	move.b #0xF, d3
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	jsr    PAL_LerpStart
 	
 	ENDIF
