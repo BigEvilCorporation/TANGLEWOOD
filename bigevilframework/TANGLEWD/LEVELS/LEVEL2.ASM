@@ -12,7 +12,7 @@ Lvl2_HarlequinForestAct2:
 	dc.l map_lvl2				; Map
 	dc.l collisiontiles_lvl2	; Collision tileset
 	dc.l collisionmap_lvl2		; Collision map
-	dc.l palette_lvl1_day		; Palettes
+	dc.l palette_lvl2			; Palettes
 	dc.l Lvl2_Init				; Init routine
 	dc.l Lvl2_Update			; Update routine
 	dc.l 0x0					; Next level

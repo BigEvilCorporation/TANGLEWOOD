@@ -16,6 +16,7 @@
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_lvl1.asm'
+	include 'assets\palettes\pal_lvl2.asm'
 	include 'assets\palettes\pal_fuzl.asm'
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
