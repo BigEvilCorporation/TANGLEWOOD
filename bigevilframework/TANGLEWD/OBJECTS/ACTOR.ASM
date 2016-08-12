@@ -62,7 +62,7 @@ ActorInit:
 	jsr    CharacterInit
 	
 	; Set type
-	addi.l #entity_type_actor, Entity_TypeBits(a0)
+	ori.l  #entity_type_actor, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Actors
 	
 	; Set update and render routines

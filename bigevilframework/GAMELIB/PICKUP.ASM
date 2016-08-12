@@ -22,7 +22,7 @@ PickupInit:
 	jsr PhysicsObjInit
 	
 	; Set type
-	addi.l #entity_type_pickup, Entity_TypeBits(a0)
+	ori.l  #entity_type_pickup, Entity_TypeBits(a0)
 
 	; Default state
 	move.b #0x1, Entity_Active(a0)

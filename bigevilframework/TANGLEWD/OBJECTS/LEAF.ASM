@@ -40,7 +40,7 @@ LeafInit:
 	jsr AnimObjInit
 	
 	; Set type
-	addi.l #entity_type_leaf, Entity_TypeBits(a0)
+	ori.l  #entity_type_leaf, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Leaves
 	
 	; Set update and render routines

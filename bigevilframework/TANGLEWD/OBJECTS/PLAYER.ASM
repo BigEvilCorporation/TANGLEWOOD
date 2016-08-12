@@ -112,7 +112,7 @@ PlayerInit:
 	jsr    CharacterInit
 	
 	; Set type
-	addi.l #entity_type_player, Entity_TypeBits(a0)
+	ori.l  #entity_type_player, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Players
 	
 	; Set update and render routines
@@ -626,6 +626,8 @@ PlayerStartColourAbility:
 	; ************************************
 	@Green:
 	
+	PUSHL  a0
+	
 	; Backup palettes
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
 	move.l #PaletteId_World0, d0
@@ -648,6 +650,8 @@ PlayerStartColourAbility:
 	
 	move.l #PaletteId_Fuzzl, d0
 	jsr    VFX_StartScreenEffectGreyscale
+	
+	POPL a0
 	
 	; Disable time of day (else world palette may reset)
 	move.b #0x0, (TimeOfDayEnabled)
@@ -802,9 +806,8 @@ PlayerUpdateColourAbility:
 	; ************************************
 	@Green:
 	
-	; If interacting
-	move.b Character_Interacting(a0), d0
-	cmp.b  #0x0, d0
+	; If active colour ability
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @SpeedUp
 	
 	; Slow down global time

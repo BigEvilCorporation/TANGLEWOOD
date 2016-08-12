@@ -34,7 +34,7 @@ FireflyInit:
 	jsr PickupInit
 	
 	; Set type
-	addi.l #entity_type_firefly, Entity_TypeBits(a0)
+	ori.l  #entity_type_firefly, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Fireflies
 
 	; Set update and render routines

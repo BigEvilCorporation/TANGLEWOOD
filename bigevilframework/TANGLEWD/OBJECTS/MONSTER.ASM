@@ -113,7 +113,7 @@ MonsterInit:
 	jsr CharacterInit
 	
 	; Set type
-	addi.l #entity_type_monster, Entity_TypeBits(a0)
+	ori.l  #entity_type_monster, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Monsters
 	
 	; Set update and render routines

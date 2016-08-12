@@ -35,7 +35,7 @@ SpriteObjInit:
 	; a1 --- Level addr
 	
 	; Set type
-	addi.l #entity_type_spriteobj, Entity_TypeBits(a0)
+	ori.l  #entity_type_spriteobj, Entity_TypeBits(a0)
 	
 	; Set default state
 	move.b #0x1, Entity_Active(a0)

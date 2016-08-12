@@ -45,7 +45,7 @@ FlueInit:
 	; a1 --- Level addr
 
 	; Set type
-	addi.l #entity_type_flue, Entity_TypeBits(a0)
+	ori.l  #entity_type_flue, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Flues
 
 	; Set update routine

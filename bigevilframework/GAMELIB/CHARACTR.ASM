@@ -83,7 +83,7 @@ CharacterInit:
 	jsr PhysicsObjInit
 	
 	; Set type
-	addi.l #entity_type_character, Entity_TypeBits(a0)
+	ori.l  #entity_type_character, Entity_TypeBits(a0)
 
 	; Default state
 	move.l #0x0, Character_LastLedgeX(a0)

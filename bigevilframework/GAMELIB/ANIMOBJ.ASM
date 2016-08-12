@@ -31,7 +31,7 @@ AnimObjInit:
 	jsr SpriteObjInit
 	
 	; Set type
-	addi.l #entity_type_animobj, Entity_TypeBits(a0)
+	ori.l  #entity_type_animobj, Entity_TypeBits(a0)
 	
 	; Set default state
 	move.l #0x0, AnimObj_CurrentAnim(a0)

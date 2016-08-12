@@ -53,13 +53,12 @@ PhysicsObjInit:
 	jsr    AnimObjInit
 	
 	; Set type
-	addi.l #entity_type_physicsobj, Entity_TypeBits(a0)
+	ori.l  #entity_type_physicsobj, Entity_TypeBits(a0)
 	
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
-	move.b #0x1, AnimObj_SpeedDiv(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
