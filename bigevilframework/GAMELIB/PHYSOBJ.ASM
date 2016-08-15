@@ -23,6 +23,8 @@ PhysicsObj_MaxVelYUp	 rs.w 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	 rs.w 1 ; Max Y velocity down
 PhysicsObj_FloorProbeX	 rs.w 1 ; Floor probe X offset
 PhysicsObj_FloorProbeY	 rs.w 1 ; Floor probe Y offset
+PhysicsObj_BounceX		 rs.w 1 ; Bounce X (reflection div)
+PhysicsObj_BounceY		 rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	 rs.w 1 ; Step height
 PhysicsObj_HasPhysics    rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 PhysicsObj_CollideWalls	 rs.b 1 ; Collides with walls
@@ -57,6 +59,8 @@ PhysicsObjInit:
 	
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
+	move.w #0x0, PhysicsObj_BounceX(a0)
+	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	
@@ -372,9 +376,19 @@ PhysicsObjCollisionCorrection:
 	cmp.l  d2, d1									; Check if probe is on or under floor
 	blt    @AboveFloor
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
-	move.w #0x0, PhysicsObj_VelY(a0)					; Zero object's Y velocity
+	
+	clr.w  d0										; Zero Y velocity by default
+	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
+	cmp.w  #0x0, d1
+	beq    @NoBounceY
+	move.w PhysicsObj_VelY(a0), d0
+	neg.w  d0										; Negate Y velocity
+	divs   d1, d0									; Div by bounce
+	@NoBounceY:
+	move.w d0, PhysicsObj_VelY(a0)
+	
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
-	move.b #0x1, PhysicsObj_CloseToFloor(a0)			; Set object close to floor flag
+	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
 	bra    @EndFloorTest
 	@AboveFloor:
 
@@ -434,8 +448,15 @@ PhysicsObjCollisionCorrection:
 	; Wall hit
 	move.b #0x1, PhysicsObj_HitWall(a0)
 	
-	; Cancel X velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
+	clr.w  d0										; Zero X velocity by default
+	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
+	cmp.w  #0x0, d1
+	beq    @NoBounceX
+	move.w PhysicsObj_VelX(a0), d0
+	neg.w  d0										; Negate X velocity
+	divs   d1, d0									; Div by bounce
+	@NoBounceX:
+	move.w d0, PhysicsObj_VelX(a0)
 	
 	@NoWallFound:
 	@HeadingNowhere:
