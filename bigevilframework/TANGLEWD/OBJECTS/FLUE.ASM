@@ -17,6 +17,7 @@ Flue_DefaultEjectForceY	equ 0x0E00
 Flue_MaxOccupants		equ 0x2
 Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
 Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
+Flue_CameraLerpSpeed	equ 0x10
 
 ; Occupant struct
 	rsset 0
@@ -24,14 +25,16 @@ Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
 FlueOccupant_ObjAddr		rs.l 1	; Occupant GameObj address
 FlueOccupant_HoldTimer		rs.w 1	; Hold timer
 FlueOccupant_Ejecting		rs.b 1	; Currently ejecting the held PhysicsObj
+FlueOccupant_CameraOwner	rs.b 1 	; Occupant owned the camera before lerping to output flue
 ;---------------------------------
-FlueOccupant_Struct_Pad   	rs.b 1	; Alignment padding
+FlueOccupant_Struct_Pad   	rs.b 0	; Alignment padding
 FlueOccupant_Struct_Size  	rs.b 0
 
 ; Flue struct
 
 	rsset (Entity_Struct_Size)
 ;--------------------------
+Flue_OutputFlue			rs.l 1	; Linked flue to output occupant
 Flue_Occupants			rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
 Flue_EjectForceX		rs.w 1	; Eject force X
 Flue_EjectForceY		rs.w 1	; Eject force Y
@@ -57,6 +60,7 @@ FlueInit:
 	; Default state
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)	; Flue graphics are baked into the level
+	move.l #0x0, Flue_OutputFlue(a0)
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	
@@ -94,30 +98,44 @@ FlueOccupantUpdate:
 	; a0 --- GameObj addr
 	; a2 --- Occupant desc address
 	
-	; Check if holding a PhysicsObj
+	; Check if holding an occupant
 	move.l FlueOccupant_ObjAddr(a2), a1
 	cmp.l  #0x0, a1
 	beq    @NotHolding
 
-	; Check if still ejecting a PhysicsObj
+	; Check if still ejecting an occupant
 	move.b FlueOccupant_Ejecting(a2), d0
 	cmp.b  #0x0, d0
 	bne    @StillEjecting
+	
+	; If occupant was camera owner, wait for camera lerp
+	cmp.b  #0x0, FlueOccupant_CameraOwner(a2)
+	beq    @NotLerpingCamera
+	cmp.l  #0x0, CameraTargetLerpSource
+	bne    @LerpingCamera
+	@NotLerpingCamera:
 
 	; Check if timer elapsed
 	move.w FlueOccupant_HoldTimer(a2), d0
 	cmp.w  #0x0, d0
 	bne    @TimerRunning
 
-	; Timer elapsed, eject PhysicsObj
+	; Timer elapsed, eject occupant
 	move.w Flue_EjectForceX(a0), PhysicsObj_VelX(a1)
 	move.w Flue_EjectForceY(a0), PhysicsObj_VelY(a1)
 	move.b #0x1, FlueOccupant_Ejecting(a2)
+	
+	; If linked to another flue, use that pos for output
+	move.l a0, a3
+	cmp.l  #0x0, Flue_OutputFlue(a0)
+	beq    @NoLinkedFlue
+	move.l Flue_OutputFlue(a0), a3
+	@NoLinkedFlue:
 
 	; Snap to X centre
 	clr.l  d1
-	move.l Entity_WorldPosX(a0), d0
-	move.w Entity_Width(a0), d1
+	move.l Entity_WorldPosX(a3), d0
+	move.w Entity_Width(a3), d1
 	lsl.l  #0x7, d1	; Screen to world / 2
 	add.l  d1, d0
 	move.w Entity_Width(a1), d1
@@ -126,7 +144,7 @@ FlueOccupantUpdate:
 	move.l d0, Entity_WorldPosX(a1)
 
 	; Snap to Y top
-	move.l Entity_WorldPosY(a0), Entity_WorldPosY(a1)
+	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a1)
 
 	; TEMP: Objects should check their own upwards velocities, or only support characters? This is a bit hacky
 	
@@ -138,6 +156,15 @@ FlueOccupantUpdate:
 	
 	; Set jumping
 	move.b #0x1, Character_Jumping(a1)
+	
+	; If occupant was camera owner, give back control
+	cmp.b  #0x0, FlueOccupant_CameraOwner(a2)
+	beq    @NotCameraOwner
+	move.l a1, CameraTargetGameObj
+	move.l #0x0, CameraTargetLerpSource
+	move.w #0x0, CameraTargetLerpTime
+	move.w #0x0, CameraTargetLerpSpeed
+	@NotCameraOwner:
 	
 	bra    @NotFuzzl
 	
@@ -201,6 +228,27 @@ FlueOccupantUpdate:
 
 	; Start timer
 	move.w #Flue_HoldDelay, FlueOccupant_HoldTimer(a2)
+	
+	; If linked to another flue, use as camera lerp target
+	move.l Flue_OutputFlue(a0), a3
+	cmp.l  #0x0, a3
+	beq    @NotCameraTarget
+	
+	; If occupant is also the camera target
+	move.l (CameraTargetGameObj), a4
+	cmp.l  a1, a4
+	bne    @NotCameraTarget
+	
+	; Lerp camera towards output flue
+	move.l a1, CameraTargetLerpSource
+	move.l a3, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Flue_CameraLerpSpeed, CameraTargetLerpSpeed
+	
+	; Occupant was camera owner
+	move.b #0x1, FlueOccupant_CameraOwner(a2)
+	
+	@NotCameraTarget:
 
 	bra    @End
 
@@ -218,6 +266,7 @@ FlueOccupantUpdate:
 
 	@NoOccupantCheck:
 	@NoOccupantFound:
+	@LerpingCamera:
 	@End:
 	
 	rts
