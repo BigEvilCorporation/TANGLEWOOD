@@ -56,6 +56,7 @@ TriggerBoxInit:
 	move.w #TriggerBox_Height, Entity_Height(a0)
 	move.b #0x0, TriggerBox_Triggered(a0)
 	move.b #0x0, TriggerBox_TriggerOnce(a0)
+	move.b #0x0, TriggerBox_XOnly(a0)
 
 	rts
 

@@ -49,9 +49,8 @@ gameobjects_Lvl2_Monster_count equ 0x1
 LoadGameObjects_Lvl2_Monster:
 Djakk_Lvl2_idx	equ 0x0
 	jsr MonsterInit
-	move.l #0x0010c000, Entity_WorldPosX(a0)
+	move.l #0x00113000, Entity_WorldPosX(a0)
 	move.l #0x0002a000, Entity_WorldPosY(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
 
@@ -59,13 +58,20 @@ gameobjects_Lvl2_Boulder_count equ 0x0
 LoadGameObjects_Lvl2_Boulder:
 	rts
 
-gameobjects_Lvl2_TriggerBox_count equ 0x1
+gameobjects_Lvl2_TriggerBox_count equ 0x2
 LoadGameObjects_Lvl2_TriggerBox:
 Trigger_EndLvl2_idx	equ 0x0
 	jsr TriggerBoxInit
-	move.l #0x001ad800, Entity_WorldPosX(a0)
+	move.l #0x001ab000, Entity_WorldPosX(a0)
 	move.l #0x00013800, Entity_WorldPosY(a0)
 	move.l #Lvl2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
+TriggerBox_Lvl2_WakeDjakk_idx	equ 0x1
+	jsr TriggerBoxInit
+	move.l #0x0011c000, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
+	move.l #Lvl2_Trigger_WakeDjakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
@@ -74,7 +80,7 @@ gameobjects_Lvl2_Checkpoint_count equ 0x1
 LoadGameObjects_Lvl2_Checkpoint:
 Lvl2Start_idx	equ 0x0
 	jsr CheckpointInit
-	move.l #0x0000c800, Entity_WorldPosX(a0)
+	move.l #0x0000b800, Entity_WorldPosX(a0)
 	move.l #0x00027800, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts

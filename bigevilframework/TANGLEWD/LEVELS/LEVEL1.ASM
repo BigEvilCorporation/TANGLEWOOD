@@ -124,8 +124,24 @@ Lvl1_Init:
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
 	
+	;==============================================================
+	
+	;Load BG map
+	lea    map_lvl1_bg, a0
+	move.l #map_lvl1_bg_size_w, d0
+	move.l #0x0, d1
+	move.l #Tiles_LevelMap_ID, d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadMapPlaneB
+	
+	;==============================================================
+	
 	; Start Nymn sleep sequence
 	jsr    Lvl1_StartCutscene_NymnWake
+	
+	; Start level intro tune
+	lea    bgm_lvlintro, a0
+	jsr    Echo_PlayBGM
 	
 	rts
 	

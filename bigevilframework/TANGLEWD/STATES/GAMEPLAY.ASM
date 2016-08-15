@@ -54,12 +54,8 @@ Gameplay_Enter:
 	; Pre-stream map
 	jsr    LevelPreStreamMap
 	
-	; Start level intro tune
-	lea    bgm_lvlintro, a0
-	jsr    Echo_PlayBGM
-	
 	; Start demo timer
-	move.l #DemoTimeout3Min, TimerDemoReset
+	move.l #DemoTimeout, TimerDemoReset
 	
 	rts
 	
@@ -120,7 +116,7 @@ Gameplay_Update:
 	jsr    GameStateEnter
 	
 	@ResetDemoTimer:
-	move.l #DemoTimeout3Min, TimerDemoReset
+	move.l #DemoTimeout, TimerDemoReset
 	
 	@NoDemoTimer:
 	@DemoTimerRunning:

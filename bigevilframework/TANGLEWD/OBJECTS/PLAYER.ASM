@@ -658,6 +658,9 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+	
+	; Player can't run
+	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
 	bra    @End
 	
@@ -739,6 +742,30 @@ PlayerStopColourAbility:
 	
 	; Re-enable time of day
 	move.b #0x1, (TimeOfDayEnabled)
+	
+	; Re-enable run
+	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	
+	move.l (EntityListSize_Update), d1	 ; Get entity list size
+	subi.l #0x1, d1						 ; -1 for loop
+	move.l (EntityListHead_Update), a2	 ; Get list head
+	@EntityLp:							 ; For all entities in list
+	
+	; Check type
+	move.l Entity_TypeBits(a2), d2
+	
+	; Check if animobj
+	move.l d2, d3
+	andi.l #entity_type_animobj, d3
+	cmp.l  #0x0, d3
+	beq    @NotAnimObj
+	
+	; Entity is an anim obj
+	move.b #0x1, AnimObj_SpeedDiv(a2)
+	
+	@NotAnimObj:
+	move.l Entity_UpdateNext(a2), a2	 ; Get next ptr
+	dbra   d1, @EntityLp				 ; Loop
 	
 	bra    @End
 	

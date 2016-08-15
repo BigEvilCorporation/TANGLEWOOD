@@ -8,7 +8,7 @@
 
 
 palette_Lvl2:
-	dc.w	0x000E
+	dc.w	0x0200
 	dc.w	0x0200
 	dc.w	0x0A40
 	dc.w	0x0EC0

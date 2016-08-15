@@ -24,7 +24,14 @@ Lvl2_HarlequinForestAct2:
 	
 	even
 	
-	rts
+; ************************************
+; Runtime data
+; ************************************
+	rsset 0
+Lvl2Data_WaitingInput			rs.b 1
+;---------------------------------
+Lvl2Data_Struct_Pad      		rs.b 3
+Lvl2Data_Struct_Size     		rs.b 0
 	
 Lvl2_Init:
 
@@ -77,11 +84,104 @@ Lvl2_Init:
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
 	
+	; Don't bother with Djakk fade from black
+	lea palette_monster, a0
+	move.l #PaletteId_Monster, d0
+	jsr PAL_Load
+	
+	PUSHL  a0
+	PUSHL  a1
+	
+	; Get player 1
+	move.l #Player1, a0
+	
+	; Disable player 1 control
+	move.b #0x0, Player1ControlEnabled
+	
+	; Start sleep anim
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	move.l #LevelData_2, a2
+	move.b #0x1, Lvl2Data_WaitingInput(a2)
+	
+	POPL   a1
+	POPL   a0
+	
 	rts
 	
 Lvl2_Update:
+
+	move.l #LevelData_2, a2
+	cmp.b #0x0, Lvl2Data_WaitingInput(a2)
+	beq    @FinishedLevelStartSequence
+	
+	; Read pad
+	jsr    PAD_ReadPadA
+	
+	; Check for input
+	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
+	cmp.w  #0x0, d0
+	beq   @NoInput
+	
+	; Start wake up sequence
+	PUSHL  a1
+	PUSHL  a2
+	move.l #Player1, a0
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a2
+	POPL   a1
+	
+	; Enable player 1 control
+	move.b #0x1, Player1ControlEnabled
+	
+	; Release animation control
+	move.l #Player1, a0
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Done
+	move.b #0x0, Lvl2Data_WaitingInput(a2)
+	
+	@FinishedLevelStartSequence:
+	@NoInput:
+	
 	rts
 	
 Lvl2_Trigger_End:
+
+	; Nymn sleep
+	PUSHL  a0
+	move.l #Player1, a0
+	jsr    PlayerBeginSleep
+	POPL   a0
+	
+	; Begin end of level gamestate
+	lea    GameStateEndLevel, a0
+	jsr    GameStateEnter
+	
+	rts
+	
+Lvl2_Trigger_WakeDjakk:
+
+	PUSHL  a0
+	
+	move.l #Djakk_Lvl2_idx, d0
+	mulu   #Monster_Struct_Size, d0
+	move.l #EntityArray_Monsters, a0
+	add.l  d0, a0
+	jsr    MonsterStartEmergeFromCave
+	
+	POPL   a0
+	
 	rts
 	
