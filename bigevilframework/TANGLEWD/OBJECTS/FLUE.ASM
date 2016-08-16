@@ -11,13 +11,13 @@ Flue_MaxEntities		equ 0x8
 Flue_Width				equ 0x40
 Flue_Height				equ 0x40
 Flue_BoundsExtendX		equ 0x08
-Flue_HoldDelay			equ 0x0040
+Flue_HoldDelay			equ 0x0020
 Flue_DefaultEjectForceX	equ 0x0000
 Flue_DefaultEjectForceY	equ 0x0E00
 Flue_MaxOccupants		equ 0x2
 Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
 Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
-Flue_CameraLerpSpeed	equ 0x10
+Flue_CameraLerpSpeed	equ 0x8
 
 ; Occupant struct
 	rsset 0

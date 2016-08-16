@@ -8,7 +8,7 @@
 
 
 gameobjects_Lvl2:
-gameobjects_Lvl2_Fuzzl_count equ 0x1
+gameobjects_Lvl2_Fuzzl_count equ 0x2
 LoadGameObjects_Lvl2_Fuzzl:
 Lvl2Fuzzl_Green_idx	equ 0x0
 	jsr FuzzlInit
@@ -16,28 +16,44 @@ Lvl2Fuzzl_Green_idx	equ 0x0
 	move.l #0x0000d000, Entity_WorldPosY(a0)
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
+Lvl2_FuzzlYellow_idx	equ 0x1
+	jsr FuzzlInit
+	move.l #0x000f6800, Entity_WorldPosX(a0)
+	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_Lvl2_Nest_count equ 0x1
+gameobjects_Lvl2_Nest_count equ 0x2
 LoadGameObjects_Lvl2_Nest:
-Nest_3_idx	equ 0x0
+Nest_15_idx	equ 0x0
 	jsr NestInit
-	move.l #0x000f5800, Entity_WorldPosX(a0)
-	move.l #0x0001b800, Entity_WorldPosY(a0)
+	move.l #0x00182800, Entity_WorldPosX(a0)
+	move.l #0x0001a800, Entity_WorldPosY(a0)
+	add.l #Nest_Struct_Size, a0
+Nest_17_idx	equ 0x1
+	jsr NestInit
+	move.l #0x0011a000, Entity_WorldPosX(a0)
+	move.l #0x00017800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_Lvl2_Flue_count equ 0x2
+gameobjects_Lvl2_Flue_count equ 0x3
 LoadGameObjects_Lvl2_Flue:
-Flue1_idx	equ 0x0
+Lvl2_Flue_A_idx	equ 0x0
 	jsr FlueInit
 	move.l #0x00100000, Entity_WorldPosX(a0)
 	move.l #0x0002f800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue2_idx	equ 0x1
+Lvl2_Flue_B_idx	equ 0x1
 	jsr FlueInit
 	move.l #0x0017c000, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Lvl2_Flue_D_idx	equ 0x2
+	jsr FlueInit
+	move.l #0x0010c000, Entity_WorldPosX(a0)
+	move.l #0x0002f800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
@@ -54,16 +70,21 @@ Djakk_Lvl2_idx	equ 0x0
 	add.l #Monster_Struct_Size, a0
 	rts
 
-gameobjects_Lvl2_Boulder_count equ 0x0
+gameobjects_Lvl2_Boulder_count equ 0x1
 LoadGameObjects_Lvl2_Boulder:
+Boulder_18_idx	equ 0x0
+	jsr BoulderInit
+	move.l #0x000fa000, Entity_WorldPosX(a0)
+	move.l #0x00018000, Entity_WorldPosY(a0)
+	add.l #Boulder_Struct_Size, a0
 	rts
 
 gameobjects_Lvl2_TriggerBox_count equ 0x2
 LoadGameObjects_Lvl2_TriggerBox:
 Trigger_EndLvl2_idx	equ 0x0
 	jsr TriggerBoxInit
-	move.l #0x001ab000, Entity_WorldPosX(a0)
-	move.l #0x00013800, Entity_WorldPosY(a0)
+	move.l #0x0022f000, Entity_WorldPosX(a0)
+	move.l #0x0001b800, Entity_WorldPosY(a0)
 	move.l #Lvl2_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0

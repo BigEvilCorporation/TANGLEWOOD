@@ -7,8 +7,8 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_Lvl2_size_b	equ 0x000278D0	; Size in bytes
+map_Lvl2_size_b	equ 0x00034BC0	; Size in bytes
 map_Lvl2_size_w	equ (map_Lvl2_size_b/2)	; Size in words
 map_Lvl2_size_l	equ (map_Lvl2_size_b/4)	; Size in longwords
-map_Lvl2_width	equ 0x384
+map_Lvl2_width	equ 0x4B0
 map_Lvl2_height	equ 0x5A
