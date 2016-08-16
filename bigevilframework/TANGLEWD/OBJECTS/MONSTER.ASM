@@ -95,11 +95,12 @@ Monster_SearchDelay	   rs.w 1
 Monster_LoseSightTimer rs.w 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
+Monster_DoIntro		   rs.b 1
 Monster_BlockingCtrl   rs.b 1
 Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 3
+Monster_Struct_Pad     rs.b 2
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -160,6 +161,7 @@ MonsterInit:
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
+	move.b  #0x1, Monster_DoIntro(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -353,6 +355,13 @@ MonsterCheckPlayerVisible:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Get player 1
+	move.l #Player1, a2
+	
+	; Check not cloaked
+	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
+	beq    @PlayerCloaked
+	
 	; Get monster visibility bounds X
 	move.l Entity_WorldPosX(a0), d1
 	lsr.l  #0x8, d1
@@ -370,9 +379,6 @@ MonsterCheckPlayerVisible:
 	move.w d3, d2
 	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
 	add.w  #(Monster_Height/2)+(Monster_PlayerVisibilityBoxY/2), d2
-	
-	; Get player 1
-	move.l #Player1, a2
 	
 	; Get player centre X
 	ENTITY_GETCENTREX d3, a2
@@ -398,6 +404,7 @@ MonsterCheckPlayerVisible:
 	
 	bra    @End
 	
+	@PlayerCloaked:
 	@NotSeen:
 	
 	; Increment lost timer
@@ -438,6 +445,10 @@ MonsterUpdateWaitForPlayer:
 	; If player dead, don't bother
 	cmp.b  #0x0, Character_Health(a2)
 	beq    @PlayerDead
+	
+	; If player cloaked, don't bother
+	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
+	beq    @PlayerCloaked
 
 	; Get distance to player
 	move.l a1, -(sp)
@@ -471,10 +482,17 @@ MonsterUpdateWaitForPlayer:
 	cmp.l #Monster_AlertDistanceSq, d0
 	bgt   @OutOfPlayerRange
 
-	; Within range, emerge from cave
-	jsr   MonsterStartEmergeFromCave
+	; Within range
+	cmp.b #0x0, Monster_DoIntro(a0)
+	beq   @RoarState
+	jsr   MonsterStartEmergeFromCave	; Start emerge sequence
+	bra   @EndEmergeState
+	@RoarState:
+	jsr   MonsterStartRoaring			; Skip straight to roar state
+	@EndEmergeState:
 
 	@PlayerDead:
+	@PlayerCloaked:
 	@OutOfPlayerRange:
 
 	rts
@@ -634,6 +652,10 @@ MonsterUpdateSearchForPlayer:
 	cmp.b  #0x0, Entity_Active(a2)
 	beq    @Searching
 	
+	; If player is cloaked, search around
+	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
+	beq    @Searching
+	
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
 	cmp.b  #0x0, d0
@@ -777,6 +799,10 @@ MonsterUpdateTrackPlayer:
 	cmp.b  #0x0, Entity_Active(a2)
 	beq    @PlayerInactive
 	
+	; If player is cloaked, don't bother
+	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
+	beq    @PlayerCloaked
+	
 	; If player is being flung using a flue/bounce pad, don't bother
 	cmp.w  #Monster_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
 	bge    @PlayerBeingFlung
@@ -877,6 +903,7 @@ MonsterUpdateTrackPlayer:
 	@PlayerDead:
 	@PlayerInactive:
 	@PlayerBeingFlung:
+	@PlayerCloaked:
 	@LostPlayer:
 
 	; Lost player, or player dead, back to search state
