@@ -1205,6 +1205,9 @@ PlayerInteract_Fuzzl:
 	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a1)
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a1)
 	
+	; Set to update when out of view until used
+	move.b #0x1, AnimObj_UpdateOutOfView(a1)
+	
 	; Set its velocity to match
 	move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a1)
 	

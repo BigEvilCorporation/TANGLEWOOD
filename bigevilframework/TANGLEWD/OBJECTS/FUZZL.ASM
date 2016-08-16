@@ -124,6 +124,9 @@ FuzzlInit:
 	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	
+	; Don't update when out of view until used
+	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
+	
 	; Setup animations
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
@@ -190,8 +193,11 @@ FuzzlUpdate:
 	; a1 --- Level addr
 	
 	; Don't update if out of view
+	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
+	bne    @SkipUpdateTest
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
 	beq    @OutOfView
+	@SkipUpdateTest:
 	
 	; Fuzzls sleep at night
 	move.b (TimeOfDay), d0
@@ -289,6 +295,9 @@ FuzzlUpdate:
 	
 	; Nest is occupied
 	move.b #0x1, Nest_Occupied(a3)
+	
+	; Don't update when out of view
+	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	
 	; Play enter nest SFX
 	PLAYSFX_HIGHPRIO #SFX_FuzzlInNest
