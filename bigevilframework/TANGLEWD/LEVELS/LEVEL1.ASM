@@ -15,7 +15,7 @@ Lvl1_HarlequinForest:
 	dc.l map_lvl1				; Map
 	dc.l collisiontiles_lvl1	; Collision tileset
 	dc.l collisionmap_lvl1		; Collision map
-	dc.l palette_lvl1_day		; Palettes
+	dc.l Lvl1_DefaultPalettes	; Palettes
 	dc.l Lvl1_Init				; Init routine
 	dc.l Lvl1_Update			; Update routine
 	dc.l Lvl2_HarlequinForestAct2 ; Next level
@@ -23,7 +23,15 @@ Lvl1_HarlequinForest:
 	dc.w map_lvl1_width			; Map width
 	dc.w map_lvl1_height		; Map height
 	dc.w tiles_lvl1_size_t		; Num tiles
-	dc.b 0x1					; Num palettes
+	
+	even
+	
+Lvl1_DefaultPalettes:
+
+	dc.l palette_lvl1_day		; World
+	dc.l 0x0					; Djakk (black by default, fades up when approached)
+	dc.l palette_fuzzl_yellow	; Fuzzl
+	dc.l Pal_Nymn_Red			; Player
 	
 	even
 	

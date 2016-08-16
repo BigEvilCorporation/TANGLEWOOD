@@ -81,67 +81,11 @@ LevelLoad:
 	
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
-
-	IFD DEBUG
-	
-	;TODO: Move to LoadGlobalData
-	lea Pal_Nymn_Red, a0
-	move.l #PaletteId_Player, d0
-	jsr PAL_Load
-	
-	lea palette_monster_incave, a0
-	move.l #PaletteId_Monster, d0
-	jsr PAL_Load
-    
-	lea palette_fuzzl_yellow, a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr PAL_Load
-	
-	ELSE
-	
-	; Load all black palettes
-	lea    palette_fade_black, a0
-	move.l #PaletteId_World0, d0
-	jsr    PAL_Load
-	
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Player, d0
-	jsr    PAL_Load
-	
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Monster, d0
-	jsr    PAL_Load
-	
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    PAL_Load
-	
-	; Set palettes for fade up
-	move.w #LevelFadeUpSpeed, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.b #0x0, d3
-	move.b #0xF, d4
-	
-	lea    Pal_Nymn_Red, a0
-	;lea    palette_nymn, a0
-	move.l #PaletteId_Player, d0
-	jsr    PAL_LerpStart
-	
-	lea    palette_monster_eyes, a0
-	move.l #PaletteId_Monster, d0
-	jsr    PAL_LerpStart
-	
-	lea    palette_fuzzl_yellow, a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    PAL_LerpStart
-	
-	ENDIF
 	
 	jsr LevelLoadPalettes
 	jsr LevelLoadArt
 	
 	jsr LevelCreatePlayers
-	jsr LevelCreateGameObjects
 	
 	jsr LevelAddSFX
 	
@@ -166,12 +110,14 @@ LevelLoadPalettes:
 	
 	clr.l  d6
 	clr.l  d7
-	move.b Level_NumPalettes(a1), d7	; Num palettes to d6
-	subi.b #0x1, d7						; -1 for loop
+	move.b #0x3, d7						; Num palettes to d7 (-1)
 	move.l #PaletteId_World0, d0		; First level palette offset to d0
+	move.l Level_PalettesAddr(a1), a3	; First palette addr to a3
 	@PaletteLoop:
 	PUSHL  d0							; Backup palette index
-	move.l Level_PalettesAddr(a1), a0	; First palette addr to a0
+	move.l (a3)+, a0					; Get palette address
+	cmp.l  #0x0, a0
+	beq    @SkipPalette
 	
 	IFD DEBUG
 	
@@ -180,13 +126,14 @@ LevelLoadPalettes:
 	ELSE
 	
 	move.w #LevelFadeUpSpeed, d1
-	move.b #0x1, d2
+	move.b #DefaultFadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    PAL_LerpStart
 	
 	ENDIF
 	
+	@SkipPalette:
 	POPL   d0							; Restore palette index
 	addi.w #0x1, d0					
 	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0
@@ -419,12 +366,6 @@ LevelLoadGameObjArt:
 	add.l  #tiles_firefly_size_b, d0
 	dbra   d1, @FireflyLoop
 	@NoFireflies:
-	
-	rts
-	
-LevelCreateGameObjects:
-
-	; Moved to respective Level#_Init()
 	
 	rts
 

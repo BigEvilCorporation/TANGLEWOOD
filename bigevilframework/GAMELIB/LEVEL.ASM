@@ -20,7 +20,6 @@ Level_Gravity			rs.w 1
 Level_MapWidth			rs.w 1
 Level_MapHeight			rs.w 1
 Level_NumTiles			rs.w 1
-Level_NumPalettes		rs.b 1
 ;-----------------------------
-Level_Struct_Pad		rs.b 3
+Level_Struct_Pad		rs.b 2
 Level_Struct_Size		rs.b 0

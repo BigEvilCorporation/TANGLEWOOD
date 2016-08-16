@@ -12,7 +12,7 @@ Lvl2_HarlequinForestAct2:
 	dc.l map_lvl2				; Map
 	dc.l collisiontiles_lvl2	; Collision tileset
 	dc.l collisionmap_lvl2		; Collision map
-	dc.l palette_lvl2			; Palettes
+	dc.l Lvl2_DefaultPalettes	; Palettes
 	dc.l Lvl2_Init				; Init routine
 	dc.l Lvl2_Update			; Update routine
 	dc.l 0x0					; Next level
@@ -20,7 +20,15 @@ Lvl2_HarlequinForestAct2:
 	dc.w map_lvl2_width			; Map width
 	dc.w map_lvl2_height		; Map height
 	dc.w tiles_lvl2_size_t		; Num tiles
-	dc.b 0x1					; Num palettes
+	
+	even
+	
+Lvl2_DefaultPalettes:
+
+	dc.l palette_lvl2			; World
+	dc.l palette_monster		; Djakk
+	dc.l palette_fuzzl_green	; Fuzzl
+	dc.l Pal_Nymn_Red			; Player
 	
 	even
 	
@@ -84,13 +92,31 @@ Lvl2_Init:
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
 	
-	; Don't bother with Djakk fade from black
-	lea palette_monster, a0
-	move.l #PaletteId_Monster, d0
-	jsr PAL_Load
+	;==============================================================
 	
-	PUSHL  a0
-	PUSHL  a1
+	; Don't bother with Djakk emerge sequence
+	move.l #Djakk_Lvl2_idx, d0
+	mulu   #Monster_Struct_Size, d0
+	move.l #EntityArray_Monsters, a0
+	add.l  d0, a0
+	move.b #0x0, Monster_DoIntro(a0)
+	
+	;==============================================================
+	
+	; Link Flue A with Flue B
+	move.l #Lvl2_Flue_A_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flues, a0
+	add.l  d0, a0
+	
+	move.l #Lvl2_Flue_B_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flues, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
+	
+	;==============================================================
 	
 	; Get player 1
 	move.l #Player1, a0
@@ -111,8 +137,7 @@ Lvl2_Init:
 	move.l #LevelData_2, a2
 	move.b #0x1, Lvl2Data_WaitingInput(a2)
 	
-	POPL   a1
-	POPL   a0
+	;==============================================================
 	
 	rts
 	
@@ -179,7 +204,7 @@ Lvl2_Trigger_WakeDjakk:
 	mulu   #Monster_Struct_Size, d0
 	move.l #EntityArray_Monsters, a0
 	add.l  d0, a0
-	jsr    MonsterStartEmergeFromCave
+	jsr    MonsterStartTrackPlayer
 	
 	POPL   a0
 	
