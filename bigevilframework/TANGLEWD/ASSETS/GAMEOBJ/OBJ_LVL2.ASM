@@ -10,13 +10,13 @@
 gameobjects_Lvl2:
 gameobjects_Lvl2_Fuzzl_count equ 0x2
 LoadGameObjects_Lvl2_Fuzzl:
-Lvl2Fuzzl_Green_idx	equ 0x0
+Lvl2_Fuzzl_Green_idx	equ 0x0
 	jsr FuzzlInit
 	move.l #0x000b4000, Entity_WorldPosX(a0)
 	move.l #0x0000d000, Entity_WorldPosY(a0)
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	add.l #Fuzzl_Struct_Size, a0
-Lvl2_FuzzlYellow_idx	equ 0x1
+Lvl2_Fuzzl_Yellow_idx	equ 0x1
 	jsr FuzzlInit
 	move.l #0x000f6800, Entity_WorldPosX(a0)
 	move.l #0x0000d000, Entity_WorldPosY(a0)
