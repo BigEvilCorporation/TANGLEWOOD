@@ -254,6 +254,9 @@ BoulderUpdate:
 	jsr    CharacterDealDamage
 	move.l (sp)+, a0
 	
+	; Disable crack/respawn
+	move.b #0x0, Boulder_CanCrack(a0)
+	
 	@NextMonster:
 	move.l (sp)+, d6
 	add.l #Monster_Struct_Size, a1
