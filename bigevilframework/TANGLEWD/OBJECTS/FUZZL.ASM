@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Fuzzl_MaxEntities			equ 0x3
+Fuzzl_MaxEntities			equ 0x4
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelYUp				equ 0x0600
@@ -51,32 +51,32 @@ Fuzzl_Spritesheets:
 
 	; Spritesheet/animation tables
 Fuzzl_Spritesheets_Red:
-	dc.l spritesheet_fuzzl_red_idle_frameoffset
-	dc.l spritesheet_fuzzl_red_eyes_frameoffset
-	dc.l spritesheet_fuzzl_red_roll_frameoffset
-	dc.l spritesheet_fuzzl_red_roll_frameoffset
-	dc.l spritesheet_fuzzl_red_sleep_frameoffset
+	dc.w spritesheet_fuzzl_red_idle_frameoffset
+	dc.w spritesheet_fuzzl_red_eyes_frameoffset
+	dc.w spritesheet_fuzzl_red_roll_frameoffset
+	dc.w spritesheet_fuzzl_red_roll_frameoffset
+	dc.w spritesheet_fuzzl_red_sleep_frameoffset
 
 Fuzzl_Spritesheets_Blue:
-	dc.l spritesheet_fuzzl_blue_idle_frameoffset
-	dc.l spritesheet_fuzzl_blue_eyes_frameoffset
-	dc.l spritesheet_fuzzl_blue_roll_frameoffset
-	dc.l spritesheet_fuzzl_blue_roll_frameoffset
-	dc.l spritesheet_fuzzl_blue_sleep_frameoffset
+	dc.w spritesheet_fuzzl_blue_idle_frameoffset
+	dc.w spritesheet_fuzzl_blue_eyes_frameoffset
+	dc.w spritesheet_fuzzl_blue_roll_frameoffset
+	dc.w spritesheet_fuzzl_blue_roll_frameoffset
+	dc.w spritesheet_fuzzl_blue_sleep_frameoffset
 
 Fuzzl_Spritesheets_Green:
-	dc.l spritesheet_fuzzl_green_idle_frameoffset
-	dc.l spritesheet_fuzzl_green_eyes_frameoffset
-	dc.l spritesheet_fuzzl_green_roll_frameoffset
-	dc.l spritesheet_fuzzl_green_roll_frameoffset
-	dc.l spritesheet_fuzzl_green_sleep_frameoffset
+	dc.w spritesheet_fuzzl_green_idle_frameoffset
+	dc.w spritesheet_fuzzl_green_eyes_frameoffset
+	dc.w spritesheet_fuzzl_green_roll_frameoffset
+	dc.w spritesheet_fuzzl_green_roll_frameoffset
+	dc.w spritesheet_fuzzl_green_sleep_frameoffset
 	
 Fuzzl_Spritesheets_Yellow:
-	dc.l spritesheet_fuzzl_yellow_idle_frameoffset
-	dc.l spritesheet_fuzzl_yellow_eyes_frameoffset
-	dc.l spritesheet_fuzzl_yellow_roll_frameoffset
-	dc.l spritesheet_fuzzl_yellow_roll_frameoffset
-	dc.l spritesheet_fuzzl_yellow_sleep_frameoffset
+	dc.w spritesheet_fuzzl_yellow_idle_frameoffset
+	dc.w spritesheet_fuzzl_yellow_eyes_frameoffset
+	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
+	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
+	dc.w spritesheet_fuzzl_yellow_sleep_frameoffset
 
 ; Eye anim subframes
 Fuzzl_Eye_Frame_TopMiddle    equ (0x0<<0x8)
@@ -234,41 +234,33 @@ FuzzlSetColour:
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
 	
-	; Get sprite sheet table addr
+	; Get sprite sheet table addr for colour
 	lea    Fuzzl_Spritesheets, a4
 	andi.l #0x000000FF, d0
 	mulu   #size_long, d0
 	add.l  d0, a4
+	move.l (a4), a4
 	
+	; Get sprite sheet addrs for animations
 	move.l a2, a3
-	move.l a4, a5
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
-	add.l  #(size_long*FuzzlAnimIdx_Idle), a5
-	move.w (a5), Animation_FirstFrameOffset(a3)
+	move.w (FuzzlAnimIdx_Idle*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	move.l a4, a5
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
-	add.l  #(size_long*FuzzlAnimIdx_Watch), a5
-	move.w (a5), Animation_FirstFrameOffset(a3)
+	move.w (FuzzlAnimIdx_Watch*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	move.l a4, a5
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
-	add.l  #(size_long*FuzzlAnimIdx_Roll), a5
-	move.w (a5), Animation_FirstFrameOffset(a3)
+	move.w (FuzzlAnimIdx_Roll*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	move.l a4, a5
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
-	add.l  #(size_long*FuzzlAnimIdx_Bounce), a5
-	move.w (a5), Animation_FirstFrameOffset(a3)
+	move.w (FuzzlAnimIdx_Bounce*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	move.l a4, a5
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
-	add.l  #(size_long*FuzzlAnimIdx_Sleep), a5
-	move.w (a5), Animation_FirstFrameOffset(a3)
+	move.w (FuzzlAnimIdx_Sleep*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	; Mark anim dirty
 	move.b #0x1, AnimObj_Dirty(a0)

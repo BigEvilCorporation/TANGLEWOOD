@@ -30,7 +30,7 @@ Lvl1_DefaultPalettes:
 
 	dc.l palette_lvl1_day		; World
 	dc.l 0x0					; Djakk (black by default, fades up when approached)
-	dc.l palette_fuzzl_yellow	; Fuzzl
+	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
 	
 	even
@@ -141,6 +141,30 @@ Lvl1_Init:
 	move.l #Tiles_LevelMap_ID, d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadMapPlaneB
+	
+	;==============================================================
+	
+	; Set Fuzzl colours
+	move.l #Fuzzl_Yellow_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourYellow, d0
+	jsr    FuzzlSetColour
+	
+	move.l #Fuzzl_Green_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourGreen, d0
+	jsr    FuzzlSetColour
+	
+	move.l #Fuzzl_Blue_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourBlue, d0
+	jsr    FuzzlSetColour
 	
 	;==============================================================
 	
@@ -662,65 +686,5 @@ Lvl1_Trigger_NearCave:
 	rts
 	
 Lvl1_Trigger_NearEndLevel:
-
-	PUSHL  a0
-	PUSHL  a1
-
-	; Remove Djakk from update/render lists
-	move.l #Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monsters, a0
-	add.l  d0, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-	move.b #0x0, Entity_Active(a0)
-	subi.w #0x1, EntityCount_Monsters
-	
-	; Load Green Fuzzl gfx (reuse Yellow Fuzzl palette)
-	move.l #Fuzzl_Green_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
-	add.l  d0, a0
-	
-	lea    spritesheets_fuzzl, a1
-	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_pos_offsets, a3
-	lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	move.l #Tiles_FuzzlVRAM, d0
-	add.l  #(Fuzzl_Green_idx*sprite_fuzzl_size_b), d0
-	move.l #sprite_fuzzl_size_t, d1
-	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_widthheight_subsprites, d3
-	move.b #PaletteID_Fuzzl, d4
-	jsr    SpriteObjLoad
-	
-	lea    palette_fuzzl_red, a0
-	move.l #PaletteID_Fuzzl, d0
-	jsr    PAL_Load
-	
-	; Load Blue Fuzzl gfx (reuse Djakk palette)
-	move.l #Fuzzl_Blue_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
-	add.l  d0, a0
-	
-	lea    spritesheets_fuzzl, a1
-	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_pos_offsets, a3
-	lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	move.l #Tiles_FuzzlVRAM, d0
-	add.l  #(Fuzzl_Blue_idx*sprite_fuzzl_size_b), d0
-	move.l #sprite_fuzzl_size_t, d1
-	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_widthheight_subsprites, d3
-	move.b #PaletteID_Monster, d4
-	jsr    SpriteObjLoad
-	
-	lea    palette_fuzzl_blue, a0
-	move.l #PaletteID_Monster, d0
-	jsr    PAL_Load
-	
-	POPL   a1
-	POPL   a0
 
 	rts

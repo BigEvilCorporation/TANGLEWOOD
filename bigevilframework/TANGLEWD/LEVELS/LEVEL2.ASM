@@ -27,7 +27,7 @@ Lvl2_DefaultPalettes:
 
 	dc.l palette_lvl2			; World
 	dc.l palette_monster		; Djakk
-	dc.l palette_fuzzl_green	; Fuzzl
+	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
 	
 	even
@@ -100,6 +100,23 @@ Lvl2_Init:
 	move.l #EntityArray_Monsters, a0
 	add.l  d0, a0
 	move.b #0x0, Monster_DoIntro(a0)
+	
+	;==============================================================
+	
+	; Set Fuzzl colours
+	move.l #Lvl2_Fuzzl_Yellow_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourYellow, d0
+	jsr    FuzzlSetColour
+	
+	move.l #Lvl2_Fuzzl_Green_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourGreen, d0
+	jsr    FuzzlSetColour
 	
 	;==============================================================
 	
