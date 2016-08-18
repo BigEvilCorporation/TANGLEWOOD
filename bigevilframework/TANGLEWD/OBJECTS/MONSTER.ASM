@@ -23,7 +23,8 @@ Monster_AccelRun      equ 0x0007   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
 Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
 Monster_JumpVel	      equ 0x0600   ; Jump velocity impulse
-Monster_JumpCancelVel equ 0x0100   ; Velocity to cancel jump
+Monster_JumpCancelVelLo equ 0x0100   ; Velocity to cancel jump min
+Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
 Monster_MaxGrabUpVel  equ 0x0300   ; Max up velocity character can grab a ledge (no limit on down vel)
 
 Monster_StepHeight	  equ 0x3
@@ -147,7 +148,8 @@ MonsterInit:
 	move.w  #Monster_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Monster_DecelForced, Character_DecelForced(a0)
 	move.w  #Monster_JumpVel, Character_JumpVel(a0)
-	move.w  #Monster_JumpCancelVel, Character_JumpCancelVel(a0)
+	move.w  #Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.w  #Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
 	move.w  #Monster_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Monster_ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)

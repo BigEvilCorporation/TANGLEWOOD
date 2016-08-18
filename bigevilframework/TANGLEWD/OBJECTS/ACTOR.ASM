@@ -29,7 +29,8 @@ ActorMaxVelYDown 	equ 0x06*SubpixelsPerPixel ; Actor max Y velocity down
 
 ActorJumpVel		equ 0x06*SubpixelsPerPixel ; Actor jump velocity impulse
 ActorJumpVelWater	equ 0x02*SubpixelsPerPixel ; Actor jump velocity impulse from water
-ActorJumpCancelVel	equ 0x01*SubpixelsPerPixel ; Actor velocity to cancel jump
+ActorJumpCancelVelLo equ 0x01*SubpixelsPerPixel ; Actor velocity to cancel jump min
+ActorJumpCancelVelHi equ ActorMaxVelYUp			; Actor velocity to cancel jump max
 ActorMaxGrabUpVel	equ 0x03*SubpixelsPerPixel ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Actor collision probes
@@ -95,7 +96,8 @@ ActorInit:
 	move.w  #ActorDecelForced, Character_DecelForced(a0)
 	move.w  #ActorJumpVel, Character_JumpVel(a0)
 	move.w  #ActorJumpVelWater, Character_JumpVelWater(a0)
-	move.w  #ActorJumpCancelVel, Character_JumpCancelVel(a0)
+	move.w  #ActorJumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.w  #ActorJumpCancelVelHi, Character_JumpCancelVelHi(a0)
 	move.w  #ActorMaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #ActorProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #ActorProbeLedgeY, Character_ProbeLedgeY(a0)

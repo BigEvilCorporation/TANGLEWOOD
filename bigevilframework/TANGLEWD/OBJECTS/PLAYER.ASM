@@ -35,7 +35,8 @@ Player1MaxVelYDown equ 0x0600  ; Player 1 max Y velocity down
 
 Player1JumpVel	     equ 0x0600 ; Player 1 jump velocity impulse
 Player1JumpVelWater	 equ 0x0200 ; Player 1 jump velocity impulse from water
-Player1JumpCancelVel equ 0x0100 ; Player 1 velocity to cancel jump
+Player1JumpCancelVelLo equ 0x0100 ; Player 1 velocity to cancel jump min
+Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
 Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Player collision probes
@@ -149,7 +150,8 @@ PlayerInit:
 	move.w  #Player1DecelForced, Character_DecelForced(a0)
 	move.w  #Player1JumpVel, Character_JumpVel(a0)
 	move.w  #Player1JumpVelWater, Character_JumpVelWater(a0)
-	move.w  #Player1JumpCancelVel, Character_JumpCancelVel(a0)
+	move.w  #Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.w  #Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0)
 	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)

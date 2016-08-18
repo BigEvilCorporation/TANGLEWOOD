@@ -41,37 +41,38 @@ Character_NumSFX			equ 1
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
-Character_Animations	rs.b (Animation_Struct_Size*Character_NumAnims)
-Character_SFX			rs.l Character_NumSFX
-Character_LastLedgeX	rs.l 1
-Character_LastLedgeY	rs.l 1
-Character_ProbeLedgeX	rs.w 1
-Character_ProbeLedgeY	rs.w 1
-Character_JumpVel		rs.w 1
-Character_JumpVelWater	rs.w 1
-Character_JumpCancelVel	rs.w 1
-Character_MaxGrabUpVel	rs.w 1
-Character_MaxVelXRun	rs.w 1
-Character_MaxVelXWalk	rs.w 1
-Character_WalkToRunVel	rs.w 1
-Character_AccelRun		rs.w 1
-Character_AccelWalk		rs.w 1
-Character_DecelIdle		rs.w 1
-Character_DecelForced	rs.w 1
-Character_OnLedge		rs.b 1
-Character_InWater		rs.b 1
-Character_Running		rs.b 1
-Character_Jumping		rs.b 1
-Character_Pushing		rs.b 1
-Character_Gliding		rs.b 1
-Character_Interacting	rs.b 1
-Character_UpdateAnim	rs.b 1
-Character_AnimIdx	    rs.b 1
-Character_Health        rs.b 1
-Character_Dead          rs.b 1
-;-----------------------------
-Character_Struct_Pad    rs.b 1
-Character_Struct_Size   rs.b 0
+Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
+Character_SFX				rs.l Character_NumSFX
+Character_LastLedgeX		rs.l 1
+Character_LastLedgeY		rs.l 1
+Character_ProbeLedgeX		rs.w 1
+Character_ProbeLedgeY		rs.w 1
+Character_JumpVel			rs.w 1
+Character_JumpVelWater		rs.w 1
+Character_JumpCancelVelLo	rs.w 1
+Character_JumpCancelVelHi	rs.w 1
+Character_MaxGrabUpVel		rs.w 1
+Character_MaxVelXRun		rs.w 1
+Character_MaxVelXWalk		rs.w 1
+Character_WalkToRunVel		rs.w 1
+Character_AccelRun			rs.w 1
+Character_AccelWalk			rs.w 1
+Character_DecelIdle			rs.w 1
+Character_DecelForced		rs.w 1
+Character_OnLedge			rs.b 1
+Character_InWater			rs.b 1
+Character_Running			rs.b 1
+Character_Jumping			rs.b 1
+Character_Pushing			rs.b 1
+Character_Gliding			rs.b 1
+Character_Interacting		rs.b 1
+Character_UpdateAnim		rs.b 1
+Character_AnimIdx	    	rs.b 1
+Character_Health        	rs.b 1
+Character_Dead          	rs.b 1
+;---------------------------------
+Character_Struct_Pad    	rs.b 3
+Character_Struct_Size   	rs.b 0
 
 ;==============================================================
 ; Character initialisation
@@ -529,16 +530,21 @@ CharacterCancelJump:
 	
 	; Check if Y vel is greater than min jump cancel vel
 	move.w PhysicsObj_VelY(a0), d4
-	cmp.w  Character_JumpCancelVel(a0), d4
+	cmp.w  Character_JumpCancelVelLo(a0), d4
 	ble    @VelTooLow
 	
+	; Check if Y vel is lower than max jump cancel vel
+	cmp.w  Character_JumpCancelVelHi(a0), d4
+	bge    @VelTooHigh
+	
 	; Cancel jump
-	move.w Character_JumpCancelVel(a0), PhysicsObj_VelY(a0)
+	move.w Character_JumpCancelVelLo(a0), PhysicsObj_VelY(a0)
 	
 	@Dead:
 	@NotJumping:
 	@Gliding:
 	@VelTooLow:
+	@VelTooHigh:
 	
 	rts
 	
