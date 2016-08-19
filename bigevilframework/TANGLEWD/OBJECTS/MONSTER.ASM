@@ -94,6 +94,7 @@ Monster_Animations	   rs.b (Animation_Struct_Size*Monster_NumAnims)
 Monster_SearchTargetX  rs.l 1
 Monster_SearchDelay	   rs.w 1
 Monster_LoseSightTimer rs.w 1
+Monster_CatchUpSpeedMul rs.w 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
 Monster_DoIntro		   rs.b 1
@@ -101,7 +102,7 @@ Monster_BlockingCtrl   rs.b 1
 Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 2
+Monster_Struct_Pad     rs.b 0
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -160,6 +161,7 @@ MonsterInit:
 	move.b  #ColourRed, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
+	move.w  #Monster_OutOfDistSpeedMul, Monster_CatchUpSpeedMul(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
@@ -814,6 +816,10 @@ MonsterUpdateTrackPlayer:
 	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
 	bge    @LostPlayer
 	
+	; Check if hit a wall
+	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	bne    @HitWall
+	
 	;==============================================================
 	
 	; Get player + monster pos
@@ -838,17 +844,19 @@ MonsterUpdateTrackPlayer:
 	bra    @WithinMaxChaseDist
 	
 	@OutsideMaxChaseDistL:
-	; Outside max chase dist (to the left), speed up to catch up
-	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
-	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), PhysicsObj_VelX(a0)
+	@OutsideMaxChaseDistR:
+	
+	; Outside max chase dist, multiply speed to catch up
+	move.w Character_MaxVelXRun(a0), d0
+	muls   Monster_CatchUpSpeedMul(a0), d0
+	move.w d0, PhysicsObj_VelX(a0)
+	cmp.w  #0x0, d0
+	bge    @NotNeg
+	neg.w  d0
+	@NotNeg:
+	move.w d0, Character_MaxVelXRun(a0)
 	move.b #0x1, Monster_CatchingUp(a0)
 	bra    @EndMaxDistCheck
-	
-	@OutsideMaxChaseDistR:
-	; Outside max chase dist (to the right), speed up to catch up
-	move.w #(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), Character_MaxVelXRun(a0)
-	move.w #-(Monster_MaxVelXRun*Monster_OutOfDistSpeedMul), PhysicsObj_VelX(a0)
-	move.b #0x1, Monster_CatchingUp(a0)
 	
 	@WithinMaxChaseDist:
 	@EndMaxDistCheck:
@@ -907,6 +915,7 @@ MonsterUpdateTrackPlayer:
 	@PlayerBeingFlung:
 	@PlayerCloaked:
 	@LostPlayer:
+	@HitWall:
 
 	; Lost player, or player dead, back to search state
 	jsr    CharacterStartRun

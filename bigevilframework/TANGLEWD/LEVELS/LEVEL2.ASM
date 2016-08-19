@@ -101,6 +101,9 @@ Lvl2_Init:
 	add.l  d0, a0
 	move.b #0x0, Monster_DoIntro(a0)
 	
+	; Lower catch-up speed mul (or he'll bust through walls)
+	move.w #0x2, Monster_CatchUpSpeedMul(a0)
+	
 	;==============================================================
 	
 	; Set Fuzzl colours
@@ -127,6 +130,19 @@ Lvl2_Init:
 	add.l  d0, a0
 	
 	move.l #Lvl2_Flue_B_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flues, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
+	
+	; Link Flue D with Flue E
+	move.l #Lvl2_Flue_D_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flues, a0
+	add.l  d0, a0
+	
+	move.l #Lvl2_Flue_E_idx, d0
 	mulu   #Flue_Struct_Size, d0
 	move.l #EntityArray_Flues, a1
 	add.l  d0, a1

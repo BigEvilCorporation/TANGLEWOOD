@@ -38,7 +38,7 @@ Nest_17_idx	equ 0x1
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_Lvl2_Flue_count equ 0x3
+gameobjects_Lvl2_Flue_count equ 0x5
 LoadGameObjects_Lvl2_Flue:
 Lvl2_Flue_A_idx	equ 0x0
 	jsr FlueInit
@@ -50,10 +50,20 @@ Lvl2_Flue_B_idx	equ 0x1
 	move.l #0x0017c000, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Lvl2_Flue_D_idx	equ 0x2
+Lvl2_Flue_C_idx	equ 0x2
 	jsr FlueInit
 	move.l #0x0010c000, Entity_WorldPosX(a0)
 	move.l #0x0002f800, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Lvl2_Flue_E_idx	equ 0x3
+	jsr FlueInit
+	move.l #0x0004c000, Entity_WorldPosX(a0)
+	move.l #0x0002d800, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Lvl2_Flue_D_idx	equ 0x4
+	jsr FlueInit
+	move.l #0x001a4000, Entity_WorldPosX(a0)
+	move.l #0x0002e800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
