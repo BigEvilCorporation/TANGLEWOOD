@@ -7,6 +7,7 @@
 ;==============================================================
 
 MAP_UpdateStreaming:
+	; d0 (b) Process VDP queue immediately (for initial loading)
 	
 	; Level to a1
 	move.l  (CurrentLevel), a1
@@ -62,6 +63,7 @@ MAP_UpdateStreaming:
 	beq     @NoPendingRows
 	
 	; Stream next pending row
+	PUSHL   d0
 	PUSHL   d1
 	PUSHL   d2
 	PUSHL   d3
@@ -71,6 +73,7 @@ MAP_UpdateStreaming:
 	POPL    d3
 	POPL    d2
 	POPL    d1
+	POPL	d0
 	
 	sub.w   #0x1, d2
 	
@@ -82,6 +85,7 @@ MAP_UpdateStreaming:
 	beq     @NoPendingCols
 	
 	; Stream next pending col
+	PUSHL   d0
 	PUSHL   d1
 	PUSHL   d2
 	PUSHL   d3
@@ -92,10 +96,21 @@ MAP_UpdateStreaming:
 	POPL    d3
 	POPL    d2
 	POPL    d1
+	POPL	d0
 	
 	sub.w   #0x1, d4
 	
 	@NoPendingCols:
+	
+	;==============================================================
+	
+	; Process the VDP job queue immediately if required
+	cmp.b   #0x0, d0
+	beq     @NoFlush
+	PUSHALL
+	jsr     VDP_JobQueue_ExecuteAll
+	POPALL
+	@NoFlush:
 	
 	;==============================================================
 	
