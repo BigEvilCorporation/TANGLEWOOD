@@ -26,6 +26,16 @@ POPL: macro reg
     move.l (sp)+, \reg
     endm
 	
+; Stack push all regs
+PUSHALL: macro
+	 movem.l d0-d7/a0-a6, -(sp)
+	 endm
+	 
+; Stack pop all regs
+POPALL: macro
+	movem.l (sp)+, d0-d7/a0-a6
+	endm
+	
 ; Stack alloc (bytes)
 ALLOCSTACKB: macro bytes
 	sub.l  #\bytes, sp
@@ -93,4 +103,10 @@ LERP_INT1024: macro destreg,A,B,T,tempreg
 	lsr.l  #0x8,\B			; (A*(1024-T) + B * T) >> 10
 	lsr.l  #0x2,\B
 	move.l \B,\destreg
+	endm
+
+RAISE_EXCEPTION: macro errcode
+	move.l #(\errcode)<<0x10, a5	; Err code byte to upper a5
+	move.w #0x1, a5		; Odd address to cause exception
+	move.l (a5), a5		; Punch it
 	endm

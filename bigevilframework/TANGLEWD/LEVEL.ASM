@@ -8,8 +8,9 @@
 
 GameStateReset:
 	
-	; Flush VDP queue
+	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
+	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	; Clear all palettes
 	jsr    PAL_ClearAll
@@ -68,8 +69,9 @@ GameStateReset:
 	; Stop BGM
 	jsr    Echo_StopBGM
 	
-	; Flush VDP queue
+	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
+	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	; Reset Echo
 	lea echo_instruments, a0
@@ -100,8 +102,9 @@ LevelLoad:
 	; TODO: In Gameplay_Enter() to account for checkpoints, move somewhere more appropriate
 	; jsr LevelPreStreamMap
 	
-	; Flush VDP queue
-	jsr VDP_JobQueue_ExecuteAll
+	; Flush VDP job/DMA queues
+	jsr    VDP_JobQueue_ExecuteAll
+	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	rts
 
@@ -158,47 +161,31 @@ LevelPreStreamMap:
 	
 	;==============================================================
 
-	; Initial camera pos X to world scroll
-	move.l #Player1, a0
-	ENTITY_GETCENTREX d0, a0
-	sub.l  #(SpritePlaneBorderX*SubpixelsPerPixel), d0	; To camera space
-	jsr    CAM_PosToWorldScrollX
-	move.l d0, WorldScrollX
-	move.l d0, d1
-    
-	; Set inital scroll X
-	neg.l  d0						; To camera space
-	lsr.l  #0x8, d0					; To screen space
-	jsr    VDP_SetHScrollPlaneA
-    
-	; Set initial streamed rect
+	; Tick camera first
+	jsr    CAM_Update
+	
+	; Set initial streamed col
+	move.l WorldScrollX, d1
 	lsr.l  #0x8, d1					; To screen space
 	divu   #0x8, d1					; To tiles
 	move.w d1, MapStreamLoadedRow
-    
-	;==============================================================
-    
-	; Initial camera pos Y to world scroll
-	move.l #Player1, a0
-	ENTITY_GETCENTREY d0, a0
-	sub.l  #(SpritePlaneBorderY*SubpixelsPerPixel), d0	; To camera space
-	jsr    CAM_PosToWorldScrollY
-	move.l d0, WorldScrollY
-    
-	; Set initial scroll Y
+
+	; Set initial streamed row
+	move.l WorldScrollY, d0
 	lsr.l  #0x8, d0					; To screen space
-	jsr    VDP_SetVScrollPlaneA
-    
-	; Set initial streamed row + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	divu   #0x8, d0					; To tiles
-	add.w  #MapStreamHeight, d0
+	add.w  #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	move.w d0, MapStreamLoadedCol
     
 	;==============================================================
     
-	; Stream initial map section
-	; TODO - Results differ from first call in Gameplay_Update, leaving out for now
-	;jsr    MAP_UpdateStreaming
+	; Stream initial map section (and process VDP queue immediately)
+	move.b #0x1, d0
+	jsr    MAP_UpdateStreaming
+	
+	; Flush VDP job/DMA queues
+	jsr    VDP_JobQueue_ExecuteAll
+	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	POPL   a1
 	POPL   a0

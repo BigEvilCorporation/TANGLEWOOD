@@ -34,6 +34,20 @@ VDP_JobQueue_PushJob:
 	; Get producer index
 	clr.l  d7
 	move.l (vdp_queue_produceridx), d7
+	
+	IFND FINAL
+	PUSHL  d0
+	PUSHL  d7
+	move.l (vdp_queue_consumeridx), d0
+	sub.l  d0, d7
+	cmp.l  #VDPQueue_MaxSize, d7
+	bne    @NotFull
+	RAISE_EXCEPTION 0xFF
+	@NotFull:
+	POPL   d7
+	POPL   d0
+	ENDIF
+	
 	divu   #VDPQueue_MaxSize, d7
 	clr.w  d7
 	swap   d7

@@ -31,9 +31,9 @@ INT_VBlank:
    beq   @VINTDisabled
    
    ; Jump to game rendering subroutine
-   movem.l d0-d7/a0-a6, -(sp)
+   PUSHALL
    jsr __vinterrupt
-   movem.l (sp)+, d0-d7/a0-a6
+   POPALL
    
    @VINTDisabled:
 

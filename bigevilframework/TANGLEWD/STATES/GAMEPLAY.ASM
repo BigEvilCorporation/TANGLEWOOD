@@ -134,7 +134,8 @@ Gameplay_Render:
 	; Draw game objects
 	jsr EntityRenderAll
 	
-	; Update map streaming
+	; Update map streaming (don't flush VDP queue)
+	move.b #0x0, d0
 	jsr MAP_UpdateStreaming
 	
 	rts

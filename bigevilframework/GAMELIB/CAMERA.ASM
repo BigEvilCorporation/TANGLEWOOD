@@ -240,12 +240,6 @@ CAM_Update:
 	lea     VDP_SetVScrollPlaneB, a5
 	jsr 	VDP_JobQueue_PushJob
 	
-	
-	; |-------------------------------------| d1
-	; |------------------------|              d2
-	;                           <-----------> sub d2,d1
-	; 
-	
 	;==============================================================
 	
 	; Update camera shake timer
