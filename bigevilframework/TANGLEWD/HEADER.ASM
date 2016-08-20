@@ -93,22 +93,22 @@
     ; Genesis
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
-	dc.b "(C)BIG EVIL CORP"                                                                 ; Copyrght holder and release date
-	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0.0.9 F)            " ; Domestic name
-	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0.0.9 F)            " ; International name
+	dc.b "(C)BIG EVIL CORP"                                                                 ; Copyright holder and release date
+	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0.0.11 P)           " ; Domestic name
+	dc.b "TANGLEWOOD (PROTOTYPE BUILD 0.0.11 P)           " ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
-	dc.w 0x0000                                                                                             ; Checksum
+	dc.w 0x0000                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
-	dc.l __start                                                                                 ; Start address of ROM
-	dc.l __end-1                                                                                              ; End address of ROM
-	dc.l ram_start                                                                                  ; Start address of RAM
-	dc.l ram_end                                                                                    ; End address of RAM
-	dc.l 0x00000000                                                                                 ; SRAM enabled
-	dc.l 0x00000000                                                                                 ; Unused
-	dc.l 0x00000000                                                                                 ; Start address of SRAM
-	dc.l 0x00000000                                                                                 ; End address of SRAM
-	dc.l 0x00000000                                                                                 ; Unused
-	dc.l 0x00000000                                                                                 ; Unused
+	dc.l __start                                                                            ; Start address of ROM
+	dc.l __end-1                                                                            ; End address of ROM
+	dc.l ram_start                                                                          ; Start address of RAM
+	dc.l ram_end                                                                            ; End address of RAM
+	dc.l 0x00000000                                                                         ; SRAM enabled
+	dc.l 0x00000000                                                                         ; Unused
+	dc.l 0x00000000                                                                         ; Start address of SRAM
+	dc.l 0x00000000                                                                         ; End address of SRAM
+	dc.l 0x00000000                                                                         ; Unused
+	dc.l 0x00000000                                                                         ; Unused
 	dc.b "                                        "                 ; Notes (unused)
 	dc.b "  E             "                                                                 ; Country codes
 
