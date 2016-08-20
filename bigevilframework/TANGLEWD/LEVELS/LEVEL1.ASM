@@ -660,12 +660,21 @@ Lvl1_UpdateCutscene_BoulderRoll:
 	
 	; Check if hit wall
 	cmp.b  #0x0, PhysicsObj_HitWall(a3)
-	beq    @End
+	beq    @IncreaseVel
 	
 	; Hit wall, reverse direction and finish cutscene
 	move.w #-Lvl1_BoulderAccel, PhysicsObj_AccelX(a3)
 	jsr    Lvl1_EndCutscene_BoulderRoll
+	
+	bra    @End
 
+	@IncreaseVel:
+	
+	; Increase velocity
+	move.w PhysicsObj_VelX(a3), d0
+	add.w  #0x1, d0
+	move.w d0, PhysicsObj_VelX(a3)
+	
 	@End:
 	
 	rts
