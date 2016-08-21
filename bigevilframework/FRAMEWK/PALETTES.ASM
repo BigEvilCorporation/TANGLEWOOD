@@ -42,11 +42,17 @@ PAL_Read:
 	swap   d0                      ; Move address to upper word
 	ori.l  #vdp_read_palettes, d0  ; OR CRAM read command
 	move.l d0, vdp_control         ; Send dest address to VDP
+	
+	PUSHL  d1
 
 	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette (-1 for loop counter)
 	@PaletteCopy:
-	move.w vdp_data, (a0)+       ; Move word from CRAM
+	move.w vdp_data, d1       		; Move word from CRAM
+	andi.w #%0000111011101110, d1	; Mask to get colour components only
+	move.w d1, (a0)+				; To RAM
 	dbra.w d0, @PaletteCopy
+	
+	POPL   d1
 
 	rts
 
