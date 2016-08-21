@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_demodisclaimer_size_b	equ 0x00003140	; Size in bytes
+tiles_demodisclaimer_size_b	equ 0x00000C80	; Size in bytes
 tiles_demodisclaimer_size_w	equ (tiles_demodisclaimer_size_b/2)	; Size in words
 tiles_demodisclaimer_size_l	equ (tiles_demodisclaimer_size_b/4)	; Size in longwords
 tiles_demodisclaimer_size_t	equ (tiles_demodisclaimer_size_b/32)	; Size in tiles
