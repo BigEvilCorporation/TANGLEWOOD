@@ -413,6 +413,9 @@ PlayerUpdate:
 	@Interacting:
 	@NotInteracting:
 	
+	; If landing a jump, allow falling down holes
+	move.b Character_Jumping(a0), PhysicsObj_FallThroughHoles(a0)
+	
 	; Base functionality
 	jsr    CharacterUpdate
 	

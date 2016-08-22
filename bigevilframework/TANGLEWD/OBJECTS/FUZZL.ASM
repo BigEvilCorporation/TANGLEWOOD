@@ -165,6 +165,9 @@ FuzzlInit:
 	; Don't update when out of view until used
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	
+	; Always fall down holes
+	move.b  #0x1, PhysicsObj_FallThroughHoles(a0)
+	
 	; Setup animations
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2

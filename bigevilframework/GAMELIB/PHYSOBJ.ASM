@@ -10,32 +10,33 @@
 ; PhysicsObject
 ;==============================================================
 	rsset AnimObj_Struct_Size
-PhysicsObj_LastWall      rs.l 1 ; Last detected wall X
-PhysicsObj_LastFloor     rs.l 1 ; Last detected floor Y
-PhysicsObj_Gravity  	 rs.w 1 ; Gravity
-PhysicsObj_AccelX  		 rs.w 1 ; X acceleration
-PhysicsObj_AccelY  		 rs.w 1 ; Y acceleration
-PhysicsObj_DecelX  		 rs.w 1 ; X deceleration
-PhysicsObj_VelX    		 rs.w 1 ; X velocity
-PhysicsObj_VelY    		 rs.w 1 ; Y velocity
-PhysicsObj_MaxVelX 		 rs.w 1 ; Max X velocity
-PhysicsObj_MaxVelYUp	 rs.w 1 ; Max Y velocity up
-PhysicsObj_MaxVelYDown	 rs.w 1 ; Max Y velocity down
-PhysicsObj_FloorProbeX	 rs.w 1 ; Floor probe X offset
-PhysicsObj_FloorProbeY	 rs.w 1 ; Floor probe Y offset
-PhysicsObj_BounceX		 rs.w 1 ; Bounce X (reflection div)
-PhysicsObj_BounceY		 rs.w 1 ; Bounce Y (reflection div)
-PhysicsObj_StepHeight	 rs.w 1 ; Step height
-PhysicsObj_HasPhysics    rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
-PhysicsObj_CollideWalls	 rs.b 1 ; Collides with walls
-PhysicsObj_OnFloor		 rs.b 1 ; Object is on floor
-PhysicsObj_CloseToFloor	 rs.b 1 ; Object is close to floor (dist < step height)
-PhysicsObj_HitWall		 rs.b 1 ; Object is touching a wall
-PhysicsObj_Solid		 rs.b 1 ; Object is solid
-PhysicsObj_SnapToFloor	 rs.b 1 ; Object should snap to floor if within step height
-;------------------------------
-PhysicsObj_Struct_Pad    rs.b 3
-PhysicsObj_Struct_Size   rs.b 0
+PhysicsObj_LastWall         rs.l 1 ; Last detected wall X
+PhysicsObj_LastFloor        rs.l 1 ; Last detected floor Y
+PhysicsObj_Gravity  	    rs.w 1 ; Gravity
+PhysicsObj_AccelX  		    rs.w 1 ; X acceleration
+PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
+PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
+PhysicsObj_VelX    		    rs.w 1 ; X velocity
+PhysicsObj_VelY    		    rs.w 1 ; Y velocity
+PhysicsObj_MaxVelX 		    rs.w 1 ; Max X velocity
+PhysicsObj_MaxVelYUp	    rs.w 1 ; Max Y velocity up
+PhysicsObj_MaxVelYDown	    rs.w 1 ; Max Y velocity down
+PhysicsObj_FloorProbeX	    rs.w 1 ; Floor probe X offset
+PhysicsObj_FloorProbeY	    rs.w 1 ; Floor probe Y offset
+PhysicsObj_BounceX		    rs.w 1 ; Bounce X (reflection div)
+PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
+PhysicsObj_StepHeight	    rs.w 1 ; Step height
+PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
+PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
+PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
+PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
+PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
+PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
+PhysicsObj_Solid		    rs.b 1 ; Object is solid
+PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
+;---------------------------------
+PhysicsObj_Struct_Pad       rs.b 2
+PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
 
@@ -63,6 +64,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
+	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -538,13 +540,25 @@ PhysicsObjFindFloor:
 	move.l (sp)+, a1
 	move.l (sp)+, a0
 	
-	cmp.w  #0x0, d0							; Y return value in d0
+	;==============================================================
+	
+	cmp.b  #0x0, PhysicsObj_FallThroughHoles(a0)
+	beq    @NoHoleCheck						; Check if set to care about holes
+	
+	andi.w #col_tile_flag_hole, d3			; Flags in d3, check if a hole was found
+	cmp.w  #0x0, d3
+	bne    @HoleFound
+	
+	@NoHoleCheck:
+	@NoHoleFound:
+	cmp.w  #0x0, d0							; Floor height value in d0
 	bne    @FoundFloor
 	
 	;==============================================================
 
 	@ProbeOutOfBounds:
-	move.l #GroundHeightWorld, d2   		; No floor or PhysicsObj out of bounds, use default ground Y
+	@HoleFound:
+	move.l #GroundHeightWorld, d2   		; No floor, hole found, or probe out of bounds, use default ground Y
 	bra	   @EndFloorTest
 	
 	;==============================================================

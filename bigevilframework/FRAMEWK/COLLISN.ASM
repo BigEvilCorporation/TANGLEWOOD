@@ -85,9 +85,10 @@ PHYS_GetCollisionTileFlags:
 PHYS_GetTerrainHeight:
 	; a0 ---- : Collision map data addr
 	; a1 ---- : Collision tileset data addr
-	; d0 (w)  : Return - floor height, or -1
+	; d0 (w)  : OUT: Floor height, or -1
 	; d1 (ww) : Probe XY coord (pixels, scroll space)
 	; d2 (ww) : Map W/H (tiles)
+	; d3 (w)  : OUT: Tile flags
 	
 	; Clear highest found height
 	clr.w  d7
@@ -110,14 +111,16 @@ PHYS_GetTerrainHeight:
 	PUSHL a1
 	PUSHL d1
 	PUSHL d2
+	PUSHL d3
 	PUSHL d5
 	
 	; Get terrain tile
-	move.l d1, -(sp)
+	PUSHL  d1
 	swap   d2				; Map width to d2
 	andi.l #0x0000FFFF, d2	; Clear height
 	jsr    PHYS_GetTerrainTile
-	move.l (sp)+, d1
+	move.w d0, d4			; Backup tile flags to d4
+	POPL   d1
 	
 	; Get X offset into tile
 	move.l d1, d2	; Backup d1
@@ -134,6 +137,7 @@ PHYS_GetTerrainHeight:
 	add.w  d0, d7	; Add to total found height
 	
 	POPL d5
+	POPL d3
 	POPL d2
 	POPL d1
 	POPL a1
@@ -152,6 +156,7 @@ PHYS_GetTerrainHeight:
 	
 	@SolidTile:
 	sub.w  #0x8, d1							; Next tile upwards
+	move.w d4, d3							; Backup last valid tile flags
 	bra    @NextTile						; Search again
 	
 	@EmptyTile:
@@ -163,6 +168,12 @@ PHYS_GetTerrainHeight:
 	bra    @NextTile						; Search again
 	
 	@HeightFound:
+	
+	; If valid tile (not defaulted here from blank/solid tile)
+	cmp.w  #0x0, d0
+	beq    @UseOldFlags
+	move.w d4, d3		; Flags to d3
+	@UseOldFlags:
 	
 	; Sub from Y (heightmap Y values are +ve, coord sys Y is -ve)
 	sub.w  d7, d6
