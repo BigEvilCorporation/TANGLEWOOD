@@ -11,6 +11,7 @@
 	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
+	include 'assets\palettes\firefly.asm'
 	include 'assets\palettes\fuzzl.asm'
 	include 'assets\palettes\soundtst.asm'
 	include 'assets\palettes\twd_logo.asm'
@@ -31,9 +32,9 @@
     ; ************************************
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
+	include 'assets\sprites\firefly.asm'
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\nymn.asm'
-	include 'assets\sprites\spr_ffly.asm'
 	include 'assets\sprites\spr_leaf.asm'
 	
 	; ************************************
@@ -158,7 +159,7 @@ Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
 Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
-Tiles_FireflyVRAM:   rs.b (tiles_firefly_size_b*Firefly_MaxEntities)
+Tiles_FireflyVRAM:   rs.b (sprite_firefly_size_b*Firefly_MaxEntities)
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0
 Tiles_Bank1_Count    equ ((Tiles_Bank1_End-Tile_Bank1_Start)/size_tile_b)

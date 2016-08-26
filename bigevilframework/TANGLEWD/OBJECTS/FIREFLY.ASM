@@ -53,21 +53,24 @@ FireflyInit:
 	move.b #0x1, Firefly_Pickup_Value(a0)
 	
 	; Default anim
-	move.l  a0, a2
-	add.l   #Firefly_Animation, a2
-	move.l  #Anim_FireflyIdle, Animation_AnimTrackSpriteFrame(a2)
-	move.b  #Anim_FireflyIdle_Speed, Animation_Speed(a2)
-	move.b  #Anim_FireflyIdle_SizeB, Animation_Length(a2)
-	move.b  #0x1, Animation_Looping(a2)
+	move.l  a0, a3
+	add.l   #Firefly_Animation, a3
+	move.w #spritesheet_firefly_red_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_firefly_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_firefly_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_firefly_idle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	; Set animation
-	move.l  a2, AnimObj_CurrentAnim(a0)
+	move.l  a3, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 
 	; Random anim start frame
 	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
-	divu   #(Anim_FireflyIdle_SizeB*SubframesPerFrame), d0	; Mod by anim length
+	divu   #(spriteanim_firefly_idle_numframes*SubframesPerFrame), d0	; Mod by anim length
 	clr.w  d0
 	swap   d0
 	move.l d0, AnimObj_AnimSubFrame(a0)

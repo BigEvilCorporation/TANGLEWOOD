@@ -1,9 +1,23 @@
-Anim_FireflyIdle:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
-	dc.b 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF
-	dc.b 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16
-Anim_FireflyIdle_End
-Anim_FireflyIdle_SizeB: equ (Anim_FireflyIdle_End-Anim_FireflyIdle)
-Anim_FireflyIdle_Speed: equ 0x60
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   Created with BEEhive - the complete art tool for SEGA Mega Drive
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   http://www.bigevilcorporation.co.uk
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   BEEhive and SEGA Genesis Framework (c) Matt Phillips 2015
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+
+
+spriteanims_firefly:
+
+spriteanim_firefly_idle:
+spriteanim_firefly_idle_numframes: equ 0x14
+spriteanim_firefly_idle_speed: equ 0x7F
+spriteanim_firefly_idle_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11, 0x12, 0x13
+spriteanim_firefly_idle_track_posx:
+
+spriteanim_firefly_idle_track_posy:
+
 
 	Even
+
