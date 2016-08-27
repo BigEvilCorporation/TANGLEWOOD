@@ -20,13 +20,11 @@ PHYS_GetTerrainTile:
 	; Convert XY coord to tile offset
 	clr.l  d3
 	move.w d1, d3					; Y to d3
-	divu   #0x8, d3					; To tiles
-	and.l  #0x0000FFFF, d3			; Clear remainder
+	PIXELS2TILES d3					; To tiles
 	mulu   d2, d3 					; To Y offset
 	clr.w  d1
 	swap   d1						; X to lower d1
-	divu   #0x8, d1					; To tiles
-	and.l  #0x0000FFFF, d1			; Clear remainder
+	PIXELS2TILES d1					; To tiles
 	add.l  d1, d3					; Add X offset
 	
 	; Fetch collision tile ID from RAM
@@ -41,7 +39,7 @@ PHYS_GetTerrainTile:
 	andi.l #col_tile_mask_tileid, d1
 	
 	; Get collision tile addr
-	mulu   #size_collision_tile_b, d1
+	lsl.w  #0x3, d1 				; Index to collision tile (8 bytes)
 	add.l  d1, a1 
 	
 	rts
@@ -60,14 +58,12 @@ PHYS_GetCollisionTileFlags:
 	
 	; Convert XY coord to tile offset
 	move.w d1, d4					; Y to d4
-	divu   #0x8, d4					; To tiles
-	and.l  #0x0000FFFF, d4			; Clear remainder
+	PIXELS2TILES d4					; To tiles
 	mulu   d2, d4 					; To Y offset
 	move.l d4, d5					; To d5 (to get tile index)
 	clr.w  d1
 	swap   d1						; X to lower d1
-	divu   #0x8, d1					; To tiles
-	and.l  #0x0000FFFF, d1			; Clear remainder
+	PIXELS2TILES d1					; To tiles
 	move.l d1, d4					; To d4 (for return val)
 	add.l  d1, d5					; Add X offset to get tile index
 	
@@ -97,8 +93,7 @@ PHYS_GetTerrainHeight:
 	clr.l  d3
 	move.w d1, d3
 	move.w d1, d6
-	divu   #0x8, d3	; Y coord to nearest tile
-	swap   d3		; Remainder to lower d3
+	andi.w #0x7, d3	; Y coord to nearest tile remainder
 	sub.w  d3, d6	; Sub from Y coord
 	addi.w #0x8, d6	; + 1 tile
 	
@@ -126,9 +121,7 @@ PHYS_GetTerrainHeight:
 	move.l d1, d2	; Backup d1
 	clr.w  d1		; Clear Y
 	swap   d1		; X to lower word
-	divu   #0x8, d1	; Div by tile width
-	clr.w  d1		; Clear exponent
-	swap   d1		; Remainder to lower word
+	andi.w #0x7, d1	; Div by tile width remainder
 	
 	; Get height
 	clr.l  d0		; Clear return reg
