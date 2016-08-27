@@ -81,7 +81,7 @@ spriteanim_nymn_push_track_posy:
 
 spriteanim_nymn_run:
 spriteanim_nymn_run_numframes: equ 0x5
-spriteanim_nymn_run_speed: equ 0x28
+spriteanim_nymn_run_speed: equ 0x30
 spriteanim_nymn_run_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 spriteanim_nymn_run_track_posx:
@@ -96,7 +96,7 @@ spriteanim_nymn_run_track_sfx:
 
 spriteanim_nymn_walk:
 spriteanim_nymn_walk_numframes: equ 0x8
-spriteanim_nymn_walk_speed: equ 0x1E
+spriteanim_nymn_walk_speed: equ 0x20
 spriteanim_nymn_walk_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 spriteanim_nymn_walk_track_posx:
@@ -120,7 +120,7 @@ spriteanim_nymn_death_track_posy:
 
 spriteanim_nymn_jump:
 spriteanim_nymn_jump_numframes: equ 0x8
-spriteanim_nymn_jump_speed: equ 0x32
+spriteanim_nymn_jump_speed: equ 0x40
 spriteanim_nymn_jump_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 spriteanim_nymn_jump_track_posx:
@@ -156,7 +156,7 @@ spriteanim_nymn_wade_track_posy:
 
 spriteanim_nymn_idle:
 spriteanim_nymn_idle_numframes: equ 0x6
-spriteanim_nymn_idle_speed: equ 0x2
+spriteanim_nymn_idle_speed: equ 0x4
 spriteanim_nymn_idle_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
 spriteanim_nymn_idle_track_posx:
