@@ -338,19 +338,19 @@ LevelLoadGameObjArt:
 	@FireflyLoop:
 	movem.l d0-d1/a0, -(sp)
 	
-	lea    tiles_firefly, a1
+	lea    spritesheets_firefly, a1
 	lea    sprite_firefly_subsprite_dimensions_bits, a2
 	lea    sprite_firefly_subsprite_pos_offsets, a3
 	lea    sprite_firefly_numtiles_per_subsprite, a4
-	move.l #tiles_firefly_size_t, d1
+	move.l #sprite_firefly_size_t, d1
 	move.b #sprite_firefly_size_subsprites, d2
-	move.w #sprite_firefly_dimensions, d3
+	move.w #sprite_firefly_widthheight_subsprites, d3
 	move.b #PaletteId_Fuzzl, d4
 	jsr    SpriteObjLoad
     
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Firefly_Struct_Size, a0
-	add.l  #tiles_firefly_size_b, d0
+	add.l  #sprite_firefly_size_b, d0
 	dbra   d1, @FireflyLoop
 	@NoFireflies:
 	

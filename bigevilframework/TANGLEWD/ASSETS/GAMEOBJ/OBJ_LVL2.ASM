@@ -111,7 +111,7 @@ gameobjects_Lvl2_Checkpoint_count equ 0x1
 LoadGameObjects_Lvl2_Checkpoint:
 Lvl2Start_idx	equ 0x0
 	jsr CheckpointInit
-	move.l #0x00017800, Entity_WorldPosX(a0)
+	move.l #0x0000b800, Entity_WorldPosX(a0)
 	move.l #0x00027800, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
