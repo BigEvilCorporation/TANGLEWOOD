@@ -25,7 +25,7 @@ MAP_UpdateStreaming:
 	@NoClampY:
 	
 	lsr.l   #0x8, d1					; To screen space
-	divu    #0x8, d1					; To tiles
+	PIXELS2TILES d1						; To tiles
 	move.w  d1, d2
 	sub.w   (MapStreamLoadedRow), d2
 	cmp.w   #0x0, d2
@@ -46,7 +46,7 @@ MAP_UpdateStreaming:
 	@NoClampX:
 	
 	lsr.l   #0x8, d3					; To screen space
-	divu    #0x8, d3					; To tiles
+	PIXELS2TILES d3						; To tiles
 	move.w  d3, d4
 	sub.w   (MapStreamLoadedCol), d4
 	cmp.w   #0x0, d4
@@ -151,7 +151,7 @@ MAP_StreamNextRow:
 	move.l  (WorldScrollX), d1
 	@NoClampX:
 	lsr.l   #0x8, d1				; To screen space
-	divu    #0x8, d1				; To tiles
+	PIXELS2TILES d1					; To tiles
 	swap	d0
 	move.w	d1, d0
 	
@@ -272,7 +272,7 @@ MAP_StreamNextColumn:
 	move.l  (WorldScrollY), d3
 	@NoClampY:
 	lsr.l   #0x8, d3				; To screen space
-	divu    #0x8, d3				; To tiles
+	PIXELS2TILES d3					; To tiles
 	move.w	d3, d0					; To lower d0
 	
 	; Dest rect top in lower d1

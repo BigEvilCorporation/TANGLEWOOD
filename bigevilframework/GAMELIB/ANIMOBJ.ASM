@@ -189,7 +189,7 @@ AnimObjDraw:
 	divu   d3, d2          				; Div frame count against num anim frames
 	clr.w  d2							; Clear exponent
 	swap   d2			   				; Remainder to lower word
-	mulu   #size_long, d2				; To ptr size
+	lsl.w  #0x2, d2						; To ptr size
 	add.l  d2, a3						; Offset to SFX address
 	move.l (a3), d3						; Get SFX address from anim track
 	cmp.l  #0x0, d3

@@ -37,7 +37,7 @@ TXT_DrawPlane:
 	mulu.w   #vdp_plane_width, d4   ; Multiply Y by line width (H40 mode - 64 tiles horizontally) to get Y offset
 	ror.l    #0x8, d1               ; Shift X coord from upper to lower byte of d1
 	add.b    d1, d4                 ; Add X coord to offset
-	mulu.w   #0x2, d4               ; Convert to words
+	lsl.w    #0x1, d4               ; Convert to words
 
 	cmp.b   #0x0, d3
 	bne     @PlaneB

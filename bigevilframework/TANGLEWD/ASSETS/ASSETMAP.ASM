@@ -11,7 +11,6 @@
 	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
-	include 'assets\palettes\firefly.asm'
 	include 'assets\palettes\fuzzl.asm'
 	include 'assets\palettes\soundtst.asm'
 	include 'assets\palettes\twd_logo.asm'

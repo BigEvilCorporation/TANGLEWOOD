@@ -167,13 +167,13 @@ LevelPreStreamMap:
 	; Set initial streamed col
 	move.l WorldScrollX, d1
 	lsr.l  #0x8, d1					; To screen space
-	divu   #0x8, d1					; To tiles
+	PIXELS2TILES d1					; To tiles
 	move.w d1, MapStreamLoadedRow
 
 	; Set initial streamed row
 	move.l WorldScrollY, d0
 	lsr.l  #0x8, d0					; To screen space
-	divu   #0x8, d0					; To tiles
+	PIXELS2TILES d0					; To tiles
 	add.w  #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	move.w d0, MapStreamLoadedCol
     

@@ -240,7 +240,7 @@ FuzzlSetColour:
 	; Get sprite sheet table addr for colour
 	lea    Fuzzl_Spritesheets, a4
 	andi.l #0x000000FF, d0
-	mulu   #size_long, d0
+	lsl.l  #0x2, d0			; To longwords
 	add.l  d0, a4
 	move.l (a4), a4
 	

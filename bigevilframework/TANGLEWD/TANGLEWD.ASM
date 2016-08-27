@@ -233,7 +233,7 @@ __vinterrupt:
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
 	move.w (next_sprite_index), d1
-	mulu.w #Sprite_Struct_Size, d1
+	lsl.w  #0x3, d1					; Mul by sprite struct size (8 bytes)
 	jsr    VDP_DMACopyVRAM
 	@NoSprites:
 	

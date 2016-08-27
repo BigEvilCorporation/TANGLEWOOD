@@ -15,7 +15,7 @@ Sprite_Prio_Pal_Flip_TileIDHi rs.b 1 ; Priority (bit 15), palette (bits 14-13), 
 Sprite_TileIDLo               rs.b 1 ;  + tile ID lo (bits 7-0)
 Sprite_CoordX        		  rs.w 1
 ;---------------------------------
-Sprite_Struct_Size			rs.b 0
+Sprite_Struct_Size			  rs.b 0
 
 ;==============================================================
 
@@ -24,7 +24,7 @@ VDP_LoadSpriteTable:
 	; d0 (b) Sprite index
 
 	and.l   #0x000000FF, d0
-	mulu.w  #size_spritedesc, d0         ; Offset into sprite table
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	swap    d0                           ; To upper word
 	or.l    #vdp_write_sprite_table, d0  ; Add to write address
 	move.l	d0, vdp_control				 ; Set read address
@@ -57,7 +57,7 @@ SPR_Link:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	mulu.w  #size_spritedesc, d0          
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)          
 	add.l   d0, a0
 	
 	; Set next sprite ID
@@ -94,7 +94,7 @@ SPR_SetPosX:
 
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	mulu.w  #size_spritedesc, d0          
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)         
 	add.l   d0, a0
 	
 	; Set X coord
@@ -109,7 +109,7 @@ SPR_SetPosY:
 
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	mulu.w  #size_spritedesc, d0          
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)       
 	add.l   d0, a0
 	
 	; Set Y coord
@@ -129,7 +129,7 @@ SPR_SetMultiPosX:
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
 	andi.w  #0x00FF, d0
-	mulu.w  #size_spritedesc, d0          
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	add.l   d0, a0
 	
 	; Shift flip flag for OR'ing with priority byte
@@ -187,7 +187,7 @@ SPR_SetMultiPosY:
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
 	andi.w  #0x00FF, d0
-	mulu.w  #size_spritedesc, d0          
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	add.l   d0, a0
 	
 	; Loop subsprites
@@ -239,7 +239,7 @@ SPR_LoadAnimFrame:
 	; spriteDataAddr = spriteDataAddr + (sizeOfFrame * newTileID)
 	move.l a0, d2          ; Move sprite data ROM address to d2 (can't do maths on address registers)
 	move.w d1, d5          ; Move size of one sprite frame (in tiles) to d4 (can't trash d1, it's needed later)
-	mulu   #size_tile_b, d5 ; Multiply by size of one tile
+	lsl.w  #0x5, d5 	   ; Multiply by size of one tile (32 bytes)
 	mulu   d3, d5          ; Multiply with new frame index to get new ROM offset (result in d4)
 	add.l  d5, d2          ; Add to sprite data address
 	move.l d2, a0          ; Back to address register
@@ -247,7 +247,7 @@ SPR_LoadAnimFrame:
 	IFD DMA_FROM_CART
 
 	; Add DMA job
-	mulu.w  #size_tile_w, d1
+	lsl.w   #0x4, d1	   ; Tile index to words (32 bytes, 16 words)
 	jsr     VDP_DMAQueue_AddJob
 	
 	ELSE

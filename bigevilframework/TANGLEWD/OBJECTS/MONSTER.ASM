@@ -703,7 +703,7 @@ MonsterUpdateSearchForPlayer:
 	@NoClampLeft:
 	clr.l  d1
 	move.w Level_MapWidth(a1), d1				; Clamp screen right
-	mulu   #0x8, d1								; Tiles to pixels
+	TILES2PIXELS d1								; Tiles to pixels
 	lsl.l  #0x8, d1								; Pixels to subpixels
 	cmp.l  d1, d0
 	blt    @NoClampRight

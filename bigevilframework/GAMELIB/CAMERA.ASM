@@ -78,7 +78,7 @@ CAM_Update:
 	move.l #0x0, d2
 	clr.l  d3
 	move.w Level_MapWidth(a1), d3
-	mulu   #0x8, d3					; Map width to tiles
+	lsl.l  #0x3, d3					; Map width to tiles
 	lsl.l  #0x8, d3					; Map width to camera space
 	CLAMP  d0, d2, d3
 	
@@ -86,7 +86,7 @@ CAM_Update:
 	move.l #0x0, d2
 	clr.l  d3
 	move.w Level_MapHeight(a1), d3
-	mulu   #0x8, d3					; Map height to tiles
+	lsl.l  #0x3, d3					; Map height to tiles
 	lsl.l  #0x8, d3					; Map height to camera space
 	CLAMP  d1, d2, d3
 
@@ -213,8 +213,8 @@ CAM_Update:
 	move.l  (WorldScrollY), d0
 	add.l   (CameraShakeOffsetY), d0
 	move.w  Level_MapHeight(a1), d1
-	mulu    #0x8, d1
-	lsl.l   #0x8, d1
+	lsl.l   #0x3, d1	; To tiles
+	lsl.l   #0x8, d1	; To camera space
 	sub.l   #CameraScrollSafeBorderY, d1
 	sub.l   #(screen_height/2)*SubPixelsPerPixel, d1
 	
@@ -223,7 +223,7 @@ CAM_Update:
 	lsr.l   #0x8, d1
 	move.w  d1, d0
 	neg.w   d0
-	divu    #0x8, d0
+	PIXELS2TILES d0
 	
 	; Div/2 to keep scroll bounds within 90-high plane A
 	lsr.w   #0x1, d0
@@ -272,8 +272,8 @@ CAM_PosToWorldScrollX:
 	blt     @ClampLeft
 	clr.l   d1
 	move.w  Level_MapWidth(a1), d1
-	mulu    #0x8, d1
-	lsl.l   #0x8, d1
+	lsl.l   #0x3, d1	; To tiles
+	lsl.l   #0x8, d1	; To camera space
 	sub.l   #CameraScrollSafeBorderX, d1
 	cmp.l	d1, d0
 	bgt		@ClampRight
@@ -298,8 +298,8 @@ CAM_PosToWorldScrollY:
 	blt     @ClampTop
 	clr.l   d1
 	move.w  Level_MapHeight(a1), d1
-	mulu    #0x8, d1
-	lsl.l   #0x8, d1
+	lsl.l   #0x3, d1	; To tiles
+	lsl.l   #0x8, d1	; To camera space
 	sub.l   #CameraScrollSafeBorderY, d1
 	cmp.l	d1, d0
 	bgt		@ClampBottom

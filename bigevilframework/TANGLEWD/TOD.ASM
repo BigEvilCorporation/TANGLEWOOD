@@ -48,7 +48,7 @@ SetTimeOfDay:
 	move.b d0, TimeOfDay
 	
 	andi.l #0x000000FF, d0
-	mulu.w #size_long, d0	; Bytes to longs
+	lsl.w  #0x2, d0			; Bytes to longs
 	lea    TimeOfDayPalettes, a0
 	add.l  d0, a0			; Get pointer address
 	move.l (a0), a0			; Get palette address

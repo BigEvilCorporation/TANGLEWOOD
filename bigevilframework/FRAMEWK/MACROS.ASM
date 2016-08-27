@@ -104,6 +104,14 @@ LERP_INT1024: macro destreg,A,B,T,tempreg
 	lsr.l  #0x2,\B
 	move.l \B,\destreg
 	endm
+	
+PIXELS2TILES: macro reg
+	lsr.w  #0x3, \reg
+	endm
+	
+TILES2PIXELS: macro reg
+	lsl.w  #0x3, \reg
+	endm
 
 RAISE_EXCEPTION: macro errcode
 	move.l #(\errcode)<<0x10, a5	; Err code byte to upper a5

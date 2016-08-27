@@ -42,7 +42,7 @@ VDP_LoadTilesDMA:
 	; d0 - VRAM address (l)
 	; d1 - Num tiles (w)
 
-	mulu #size_tile_b/2, d1	; Tiles to words
+	lsl.w   #0x4, d1			; Num tiles to words (32 bytes, 16 words)
 	jsr  VDP_DMACopyVRAM		; DMA copy
 	
 	rts

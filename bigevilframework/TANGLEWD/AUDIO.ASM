@@ -34,12 +34,12 @@ UpdateAmbientAudio:
 	bne   @TimerRunning
 	
 	; Timer elapsed, get random SFX index
-	jsr    RND_GenerateLong				; Rand long
+	jsr    RND_GenerateLong		; Rand long
 	andi.l #0xFFFF, d0			; Avoid overflow
 	divu   #AmbientSFXCount, d0	; Div / range
 	clr.w  d0					; Clear exponent
 	swap   d0					; Remainder to lower word
-	mulu   #size_long, d0		; To pointer offset
+	lsl.w  #0x2, d0				; To pointer offset
 	
 	; Get SFX pointer
 	lea    AmbientSFX, a0

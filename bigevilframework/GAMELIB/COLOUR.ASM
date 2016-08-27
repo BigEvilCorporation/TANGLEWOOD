@@ -109,8 +109,8 @@ PAL_LerpUpdateNextComponent:
 	move.l d1, d3						; Keep subframe as prev
 	add.l  d0, d1						; Advance subframe
 	move.l d1, PaletteLerp_SubFrame(a0)	; Back to RAM
-	divu.w #0x8, d1						; Subframes to frames
-	divu.w #0x8, d3
+	lsr.w  #0x3, d1						; Subframes to frames
+	lsr.w  #0x3, d3
 	cmp.w  d1, d3						; If frame changed
 	beq    @End
 
@@ -132,7 +132,7 @@ PAL_LerpUpdateNextComponent:
 	move.b PaletteLerp_ColourMin(a0), d3	; Offset into palettes to start of range
 	move.b d3, d1
 	and.l  #0xFF, d1
-	mulu   #size_word, d1
+	lsl.l  #0x1, d1	; To words
 	add.l  d1, a1
 	add.l  d1, a2
 
@@ -185,8 +185,8 @@ PAL_LerpUpdateNextComponent:
 	move.b d2, PaletteLerp_ComponentIdx(a0)	; Component index back to RAM
 	andi.l #0x000000FF, d1
 	andi.l #0x000000FF, d2
-	mulu.w #size_word, d1					; Colour idx to colour offset
-	mulu.w #0x4, d2							; Component idx to bit
+	lsl.l  #0x1, d1							; Colour idx to colour offset
+	lsl.l  #0x2, d2							; Component idx to bit
 	
 	; =====================================================================
 	

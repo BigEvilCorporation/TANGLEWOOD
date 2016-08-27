@@ -98,7 +98,7 @@ LeafUpdate:
 	clr.w  d0
 	swap   d0
 	add.l  #SpritePlaneBorderX, d0
-	mulu   #SubPixelsPerPixel, d0
+	TOSUBPIXELS d0
 	add.l  (WorldScrollX), d0
 	sub.l  #(Leaf_WindowBorderX*SubPixelsPerPixel), d0
 	move.l d0, Entity_WorldPosX(a0)
@@ -127,7 +127,7 @@ LeafUpdate:
 	clr.w  d0
 	swap   d0
 	add.l  #SpritePlaneBorderY, d0
-	mulu   #SubPixelsPerPixel, d0
+	TOSUBPIXELS d0
 	add.l  (WorldScrollY), d0
 	sub.l  #(Leaf_WindowBorderY*SubPixelsPerPixel), d0
 	move.l d0, Entity_WorldPosY(a0)

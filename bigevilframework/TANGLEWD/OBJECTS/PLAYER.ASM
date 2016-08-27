@@ -539,7 +539,7 @@ PlayerBeginColourSwitch:
 	lea    SwitchingPalettesP1, a1	; Get palette array	
 	clr.l  d0
 	move.b Player_Colour(a0), d0	; Get colour type
-	mulu   #size_address, d0		; To offset
+	lsl.l  #0x2, d0					; To address offset
 	add.l  d0, a1					
 	move.l (a1), a0					; Get new palette address
 	move.l #PaletteId_Player, d0	; Get destination palette ID - TODO: From PhysicsObj

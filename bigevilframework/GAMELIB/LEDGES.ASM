@@ -20,13 +20,11 @@ FindLedge:
 	; Convert XY coord to tile offset
 	clr.l  d3
 	move.w d0, d3					; Y to d3
-	divu   #0x8, d3					; To tiles
-	and.l  #0x0000FFFF, d3			; Clear remainder
+	PIXELS2TILES d3					; To tiles
 	mulu   d2, d3 					; To Y offset (map width in d2)
 	clr.w  d0
 	swap   d0						; X to lower d1
-	divu   #0x8, d0					; To tiles
-	and.l  #0x0000FFFF, d0			; Clear remainder
+	PIXELS2TILES d0					; To tiles
 	add.l  d0, d3					; Add X offset
 	move.l d3, d0					; Backup for return val
 	
@@ -81,13 +79,13 @@ FindLedge:
 	; Y coord to nybbles
 	move.l d0, d1
 	and.l  #0x0000FFFF, d1
-	mulu   #0x8, d1
+	lsl.l  #0x3, d1
 	add.w  d6, d1					; Add Y offset
 	
 	; X coord to nybbles
 	clr.w  d0
 	swap   d0
-	mulu   #0x8, d0
+	lsl.l  #0x3, d0
 	add.w  d5, d0	; Add X offset
 	swap   d0		; X in upper word
 	move.w d1, d0	; Y in lower word

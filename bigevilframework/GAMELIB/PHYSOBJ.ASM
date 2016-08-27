@@ -318,7 +318,7 @@ PhysicsObjClampPos:
 	clr.l  d1
 	move.l Entity_WorldPosY(a0), d0
 	move.w Level_MapHeight(a1), d1
-	mulu   #0x8, d1						; Tiles to pixels
+	TILES2PIXELS d1						; Tiles to pixels
 	add.l  #SpritePlaneBorderY*2, d1	; To sprite space
 	lsl.l  #0x8, d1						; To world space
 	cmp.l  d1, d0
@@ -341,7 +341,7 @@ PhysicsObjClampPos:
 	clr.l  d1
 	move.l Entity_WorldPosX(a0), d0
 	move.w Level_MapWidth(a1), d1
-	mulu   #0x8, d1						; Tiles to pixels
+	TILES2PIXELS d1						; Tiles to pixels
 	add.l  #SpritePlaneBorderX*2, d1	; To sprite space
 	lsl.l  #0x8, d1						; To world space
 	cmp.l  d1, d0
@@ -502,7 +502,7 @@ PhysicsObjFindFloor:
 	cmp.w  #0x0, d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
-	mulu   #0x8, d2
+	TILES2PIXELS d2
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds
 	
@@ -522,7 +522,7 @@ PhysicsObjFindFloor:
 	cmp.w  #0x0, d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
-	mulu   #0x8, d2
+	TILES2PIXELS d2
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds
 	
@@ -621,7 +621,7 @@ PhysicsObjFindWall:
 	cmp.w  #0x0, d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
-	mulu   #0x8, d2
+	TILES2PIXELS d2
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds
 	
@@ -641,7 +641,7 @@ PhysicsObjFindWall:
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	sub.w  #0x1, d2
-	mulu   #0x8, d2
+	TILES2PIXELS d2
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds
 	
@@ -663,7 +663,7 @@ PhysicsObjFindWall:
 	;==============================================================
 	
 	; Wall found - tile X in d4, translate to world space
-	mulu   #0x8, d4						; Tiles to pixels
+	TILES2PIXELS d4						; Tiles to pixels
 	add.w  #SpritePlaneBorderY, d4		; Pixels to screen space
 	lsl.l  #0x8, d4						; Screen space to sprite space
 	
