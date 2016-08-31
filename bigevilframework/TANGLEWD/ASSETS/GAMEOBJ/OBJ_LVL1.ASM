@@ -116,18 +116,18 @@ Firefly_78_idx	equ 0x9
 	add.l #Firefly_Struct_Size, a0
 Firefly_116_idx	equ 0xa
 	jsr FireflyInit
-	move.l #0x0018d800, Entity_WorldPosX(a0)
-	move.l #0x00021800, Entity_WorldPosY(a0)
+	move.l #0x0017c000, Entity_WorldPosX(a0)
+	move.l #0x00021000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_117_idx	equ 0xb
 	jsr FireflyInit
-	move.l #0x0018f800, Entity_WorldPosX(a0)
-	move.l #0x00022800, Entity_WorldPosY(a0)
+	move.l #0x0017d000, Entity_WorldPosX(a0)
+	move.l #0x00023800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_118_idx	equ 0xc
 	jsr FireflyInit
-	move.l #0x0018e800, Entity_WorldPosX(a0)
-	move.l #0x00022800, Entity_WorldPosY(a0)
+	move.l #0x0017e000, Entity_WorldPosX(a0)
+	move.l #0x00022000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 
@@ -145,8 +145,8 @@ gameobjects_lvl1_Boulder_count equ 0x2
 LoadGameObjects_lvl1_Boulder:
 Boulder_65_idx	equ 0x0
 	jsr BoulderInit
-	move.l #0x001a8000, Entity_WorldPosX(a0)
-	move.l #0x00026000, Entity_WorldPosY(a0)
+	move.l #0x0018a800, Entity_WorldPosX(a0)
+	move.l #0x00023000, Entity_WorldPosY(a0)
 	add.l #Boulder_Struct_Size, a0
 BoulderIntro_idx	equ 0x1
 	jsr BoulderInit
