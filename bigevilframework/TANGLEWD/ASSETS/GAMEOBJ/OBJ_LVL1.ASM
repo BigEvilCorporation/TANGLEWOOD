@@ -62,7 +62,7 @@ Flue2_LowForce_idx	equ 0x2
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Firefly_count equ 0xd
+gameobjects_lvl1_Firefly_count equ 0x11
 LoadGameObjects_lvl1_Firefly:
 Firefly_104_idx	equ 0x0
 	jsr FireflyInit
@@ -76,18 +76,18 @@ Firefly_103_idx	equ 0x1
 	add.l #Firefly_Struct_Size, a0
 Firefly_81_idx	equ 0x2
 	jsr FireflyInit
-	move.l #0x0005f000, Entity_WorldPosX(a0)
-	move.l #0x0001e800, Entity_WorldPosY(a0)
+	move.l #0x00061000, Entity_WorldPosX(a0)
+	move.l #0x00022800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_80_idx	equ 0x3
 	jsr FireflyInit
-	move.l #0x00060000, Entity_WorldPosX(a0)
-	move.l #0x0001d800, Entity_WorldPosY(a0)
+	move.l #0x00063000, Entity_WorldPosX(a0)
+	move.l #0x00022000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_79_idx	equ 0x4
 	jsr FireflyInit
-	move.l #0x00061800, Entity_WorldPosX(a0)
-	move.l #0x0001e000, Entity_WorldPosY(a0)
+	move.l #0x00066000, Entity_WorldPosX(a0)
+	move.l #0x00018000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_107_idx	equ 0x5
 	jsr FireflyInit
@@ -111,8 +111,8 @@ Firefly_102_idx	equ 0x8
 	add.l #Firefly_Struct_Size, a0
 Firefly_78_idx	equ 0x9
 	jsr FireflyInit
-	move.l #0x00062000, Entity_WorldPosX(a0)
-	move.l #0x0001e800, Entity_WorldPosY(a0)
+	move.l #0x00067000, Entity_WorldPosX(a0)
+	move.l #0x00017800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_116_idx	equ 0xa
 	jsr FireflyInit
@@ -128,6 +128,26 @@ Firefly_118_idx	equ 0xc
 	jsr FireflyInit
 	move.l #0x0017e000, Entity_WorldPosX(a0)
 	move.l #0x00022000, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_120_idx	equ 0xd
+	jsr FireflyInit
+	move.l #0x00087000, Entity_WorldPosX(a0)
+	move.l #0x0000f000, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_121_idx	equ 0xe
+	jsr FireflyInit
+	move.l #0x00088000, Entity_WorldPosX(a0)
+	move.l #0x0000e800, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_124_idx	equ 0xf
+	jsr FireflyInit
+	move.l #0x0028a800, Entity_WorldPosX(a0)
+	move.l #0x0001a000, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_123_idx	equ 0x10
+	jsr FireflyInit
+	move.l #0x0028b800, Entity_WorldPosX(a0)
+	move.l #0x0001b000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 
@@ -213,7 +233,7 @@ gameobjects_lvl1_Checkpoint_count equ 0x1
 LoadGameObjects_lvl1_Checkpoint:
 Checkpoint_58_idx	equ 0x0
 	jsr CheckpointInit
-	move.l #0x00069000, Entity_WorldPosX(a0)
+	move.l #0x00068800, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
