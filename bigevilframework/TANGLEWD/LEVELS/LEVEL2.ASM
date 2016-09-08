@@ -8,9 +8,9 @@
 
 Lvl2_HarlequinForestAct2:
 
-	dc.l tiles_lvl2				; Tileset
+	dc.l tiles_lvl1				; Tileset
 	dc.l map_lvl2				; Map
-	dc.l collisiontiles_lvl2	; Collision tileset
+	dc.l collisiontiles_lvl1	; Collision tileset
 	dc.l collisionmap_lvl2		; Collision map
 	dc.l Lvl2_DefaultPalettes	; Palettes
 	dc.l Lvl2_Init				; Init routine
@@ -19,13 +19,13 @@ Lvl2_HarlequinForestAct2:
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl2_width			; Map width
 	dc.w map_lvl2_height		; Map height
-	dc.w tiles_lvl2_size_t		; Num tiles
+	dc.w tiles_lvl1_size_t		; Num tiles
 	
 	even
 	
 Lvl2_DefaultPalettes:
 
-	dc.l palette_lvl2			; World
+	dc.l palette_lvl1_night		; World
 	dc.l palette_monster		; Djakk
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player

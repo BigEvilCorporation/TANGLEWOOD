@@ -7,8 +7,8 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-collisionmap_Lvl2_size_b	equ 0x00034BC0	; Size in bytes
-collisionmap_Lvl2_size_w	equ (collisionmap_Lvl2_size_b/2)	; Size in words
-collisionmap_Lvl2_size_l	equ (collisionmap_Lvl2_size_b/4)	; Size in longwords
-collisionmap_Lvl2_width	equ 0x4B0
-collisionmap_Lvl2_height	equ 0x5A
+collisionmap_lvl2_size_b	equ 0x00034BC0	; Size in bytes
+collisionmap_lvl2_size_w	equ (collisionmap_lvl2_size_b/2)	; Size in words
+collisionmap_lvl2_size_l	equ (collisionmap_lvl2_size_b/4)	; Size in longwords
+collisionmap_lvl2_width	equ 0x4B0
+collisionmap_lvl2_height	equ 0x5A

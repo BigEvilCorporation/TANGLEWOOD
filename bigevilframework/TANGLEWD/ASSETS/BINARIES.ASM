@@ -41,16 +41,12 @@ tiles_twd_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
 	incbin 'assets\tiles\til_lvl1.bin'
-tiles_lvl2:
-	incbin 'assets\tiles\til_lvl2.bin'
 
 	; ************************************
 	; Collision tilesets
 	; ************************************
 collisiontiles_lvl1:
 	incbin 'assets\collisn\ctl_lvl1.bin'
-collisiontiles_lvl2:
-	incbin 'assets\collisn\ctl_lvl2.bin'
 
 	; ************************************
 	; Maps

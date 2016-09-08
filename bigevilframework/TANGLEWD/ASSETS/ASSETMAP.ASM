@@ -17,7 +17,6 @@
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_lvl1.asm'
-	include 'assets\palettes\pal_lvl2.asm'
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
 	
@@ -69,7 +68,6 @@
 	include 'assets\tiles\soundtst.asm'
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
-	include 'assets\tiles\til_lvl2.asm'
 	
 	; ************************************
     ; Level maps
@@ -88,7 +86,6 @@
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
-	include 'assets\collisn\ctl_lvl2.asm'
 	
 	; ************************************
     ; Collision maps
