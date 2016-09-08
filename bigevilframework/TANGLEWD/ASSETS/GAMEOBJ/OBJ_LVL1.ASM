@@ -62,12 +62,12 @@ Flue2_LowForce_idx	equ 0x2
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Firefly_count equ 0x11
+gameobjects_lvl1_Firefly_count equ 0xc
 LoadGameObjects_lvl1_Firefly:
-Firefly_104_idx	equ 0x0
+Firefly_124_idx	equ 0x0
 	jsr FireflyInit
-	move.l #0x00141000, Entity_WorldPosX(a0)
-	move.l #0x00010800, Entity_WorldPosY(a0)
+	move.l #0x0028a800, Entity_WorldPosX(a0)
+	move.l #0x0001a000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_103_idx	equ 0x1
 	jsr FireflyInit
@@ -89,10 +89,10 @@ Firefly_79_idx	equ 0x4
 	move.l #0x00066000, Entity_WorldPosX(a0)
 	move.l #0x00018000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_107_idx	equ 0x5
+Firefly_121_idx	equ 0x5
 	jsr FireflyInit
-	move.l #0x0014b000, Entity_WorldPosX(a0)
-	move.l #0x00013000, Entity_WorldPosY(a0)
+	move.l #0x0008b000, Entity_WorldPosX(a0)
+	move.l #0x00015000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 Firefly_105_idx	equ 0x6
 	jsr FireflyInit
@@ -104,50 +104,25 @@ Firefly_112_idx	equ 0x7
 	move.l #0x00134000, Entity_WorldPosX(a0)
 	move.l #0x0000f000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_102_idx	equ 0x8
-	jsr FireflyInit
-	move.l #0x00138800, Entity_WorldPosX(a0)
-	move.l #0x0000e800, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_78_idx	equ 0x9
-	jsr FireflyInit
-	move.l #0x00067000, Entity_WorldPosX(a0)
-	move.l #0x00017800, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_116_idx	equ 0xa
-	jsr FireflyInit
-	move.l #0x0017c000, Entity_WorldPosX(a0)
-	move.l #0x00021000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_117_idx	equ 0xb
-	jsr FireflyInit
-	move.l #0x0017d000, Entity_WorldPosX(a0)
-	move.l #0x00023800, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_118_idx	equ 0xc
-	jsr FireflyInit
-	move.l #0x0017e000, Entity_WorldPosX(a0)
-	move.l #0x00022000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_120_idx	equ 0xd
-	jsr FireflyInit
-	move.l #0x00087000, Entity_WorldPosX(a0)
-	move.l #0x0000f000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_121_idx	equ 0xe
-	jsr FireflyInit
-	move.l #0x00088000, Entity_WorldPosX(a0)
-	move.l #0x0000e800, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_124_idx	equ 0xf
-	jsr FireflyInit
-	move.l #0x0028a800, Entity_WorldPosX(a0)
-	move.l #0x0001a000, Entity_WorldPosY(a0)
-	add.l #Firefly_Struct_Size, a0
-Firefly_123_idx	equ 0x10
+Firefly_123_idx	equ 0x8
 	jsr FireflyInit
 	move.l #0x0028b800, Entity_WorldPosX(a0)
 	move.l #0x0001b000, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_120_idx	equ 0x9
+	jsr FireflyInit
+	move.l #0x0008c000, Entity_WorldPosX(a0)
+	move.l #0x00016000, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_116_idx	equ 0xa
+	jsr FireflyInit
+	move.l #0x00162000, Entity_WorldPosX(a0)
+	move.l #0x00025800, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+Firefly_117_idx	equ 0xb
+	jsr FireflyInit
+	move.l #0x00164000, Entity_WorldPosX(a0)
+	move.l #0x00025000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 
@@ -205,8 +180,8 @@ TriggerBox_73_idx	equ 0x2
 	add.l #TriggerBox_Struct_Size, a0
 TriggerCutseneBoulder_idx	equ 0x3
 	jsr TriggerBoxInit
-	move.l #0x00051000, Entity_WorldPosX(a0)
-	move.l #0x00029000, Entity_WorldPosY(a0)
+	move.l #0x00058000, Entity_WorldPosX(a0)
+	move.l #0x00025000, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
