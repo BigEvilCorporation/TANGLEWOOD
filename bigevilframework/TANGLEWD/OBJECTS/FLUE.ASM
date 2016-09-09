@@ -156,6 +156,7 @@ FlueOccupantUpdate:
 	
 	; Set jumping
 	move.b #0x1, Character_Jumping(a1)
+	move.b #0x0, Character_Falling(a1)
 	
 	; If occupant was camera owner, give back control
 	cmp.b  #0x0, FlueOccupant_CameraOwner(a2)
