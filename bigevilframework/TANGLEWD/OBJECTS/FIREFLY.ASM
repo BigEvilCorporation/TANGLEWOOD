@@ -127,6 +127,10 @@ FireflyTestObj:
 	;cmp.b  #0x0, d0
 	;beq    @AlreadypickedUp
 	
+	; Stop updating and rendering
+	jsr     EntityRemoveFromUpdateList
+	jsr     EntityRemoveFromRenderList
+	
 	; Play SFX
 	PLAYSFX_HIGHPRIO #SFX_FireflyCollect
 
