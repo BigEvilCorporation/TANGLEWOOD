@@ -326,11 +326,11 @@ CharacterUpdateAnimState:
 	; Running
 	@Running:
 	
-	; If transitioning from walking/jumping anim, set transition anim first
+	; If transitioning from walking/falling anim, set transition anim first
 	move.b #CharacterAnimIdx_WalkToRun, d1
 	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a0)
 	beq    @SetAnim
-	cmp.b  #CharacterAnimIdx_Jump, Character_AnimIdx(a0)
+	cmp.b  #CharacterAnimIdx_Fall, Character_AnimIdx(a0)
 	beq    @SetAnim
 	
 	; else set running anim
