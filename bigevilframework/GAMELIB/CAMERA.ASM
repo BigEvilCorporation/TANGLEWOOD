@@ -223,7 +223,7 @@ CAM_Update:
 	lsr.l   #0x8, d1
 	move.w  d1, d0
 	neg.w   d0
-	PIXELS2TILES d0
+	divs    #0x8, d0
 	
 	; Div/2 to keep scroll bounds within 90-high plane A
 	lsr.w   #0x1, d0
