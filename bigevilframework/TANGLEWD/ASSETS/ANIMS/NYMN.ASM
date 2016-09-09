@@ -67,6 +67,18 @@ spriteanim_nymn_wake_track_posy:
 
 	Even
 
+spriteanim_nymn_fall:
+spriteanim_nymn_fall_numframes: equ 0x4
+spriteanim_nymn_fall_speed: equ 0x14
+spriteanim_nymn_fall_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3
+spriteanim_nymn_fall_track_posx:
+
+spriteanim_nymn_fall_track_posy:
+
+
+	Even
+
 spriteanim_nymn_push:
 spriteanim_nymn_push_numframes: equ 0x8
 spriteanim_nymn_push_speed: equ 0x28
@@ -156,7 +168,7 @@ spriteanim_nymn_wade_track_posy:
 
 spriteanim_nymn_idle:
 spriteanim_nymn_idle_numframes: equ 0x6
-spriteanim_nymn_idle_speed: equ 0x4
+spriteanim_nymn_idle_speed: equ 0x2
 spriteanim_nymn_idle_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
 spriteanim_nymn_idle_track_posx:

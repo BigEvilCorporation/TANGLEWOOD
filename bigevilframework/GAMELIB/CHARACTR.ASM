@@ -10,6 +10,7 @@
 ; Constants
 ; ************************************
 Character_LandVel		    equ 0x0300
+Character_FallVel		    equ 0x0180
 
 ; ************************************
 ; Animation ids
@@ -22,10 +23,11 @@ CharacterAnimIdx_Jump		equ 4
 CharacterAnimIdx_Hang		equ 5
 CharacterAnimIdx_Glide		equ 6
 CharacterAnimIdx_Push		equ 7
-CharacterAnimIdx_WalkToRun	equ 8
-CharacterAnimIdx_WaterWade	equ 9
+CharacterAnimIdx_Fall		equ 8
+CharacterAnimIdx_WalkToRun	equ 9
+CharacterAnimIdx_WaterWade	equ 10
 ; -------------------------------
-Character_NumAnims			equ 10
+Character_NumAnims			equ 11
 
 ; ************************************
 ; SFX ids
@@ -63,6 +65,7 @@ Character_OnLedge			rs.b 1
 Character_InWater			rs.b 1
 Character_Running			rs.b 1
 Character_Jumping			rs.b 1
+Character_Falling			rs.b 1
 Character_Pushing			rs.b 1
 Character_Gliding			rs.b 1
 Character_Interacting		rs.b 1
@@ -71,7 +74,7 @@ Character_AnimIdx	    	rs.b 1
 Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 ;---------------------------------
-Character_Struct_Pad    	rs.b 3
+Character_Struct_Pad    	rs.b 2
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -122,10 +125,11 @@ CharacterUpdate:
 	POPL   d1
 	POPL   d0
 	
-	; If on floor, no longer jumping
+	; If on floor, no longer jumping or falling
 	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
 	beq    @OffFloor
 	move.b #0x0, Character_Jumping(a0)
+	move.b #0x0, Character_Falling(a0)
 	
 	; Check if previously on floor
 	cmp.b  #0x0, d0
@@ -147,6 +151,12 @@ CharacterUpdate:
 	@OffFloor:
 	@PrevOnFloor:
 	@LowVel:
+	
+	; If Y vel < falling vel, set as falling
+	cmp.w  #-Character_FallVel, d1
+	bge    @NotFalling
+	move.b #0x1, Character_Falling(a0)
+	@NotFalling:
 	
 	; If in water and running, cancel run
 	cmp.b  #0x0, Character_InWater(a0)
@@ -267,6 +277,14 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Glide, d1
 	move.b Character_Gliding(a0), d0	; If player is gliding, set glide anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
+	; Falling
+	; =====================================================================
+	move.b #CharacterAnimIdx_Fall, d1
+	move.b Character_Falling(a0), d0	; If player is falling, set jump anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	

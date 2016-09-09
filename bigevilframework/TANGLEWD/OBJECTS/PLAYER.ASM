@@ -31,7 +31,7 @@ Player1DecelForced equ 0x0030 ; Player 1 deceleration if input opposite directio
 Player1MaxVelXWalk equ 0x0120  ; Player 1 max X walking velocity
 Player1MaxVelXRun  equ 0x0300  ; Player 1 max X running velocity
 Player1MaxVelYUp   equ 0x0600  ; Player 1 max Y velocity up
-Player1MaxVelYDown equ 0x0600  ; Player 1 max Y velocity down
+Player1MaxVelYDown equ 0x1000  ; Player 1 max Y velocity down
 
 Player1JumpVel	     equ 0x0600 ; Player 1 jump velocity impulse
 Player1JumpVelWater	 equ 0x0200 ; Player 1 jump velocity impulse from water
@@ -248,6 +248,17 @@ PlayerInit:
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_jump_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_jump_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Fall
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Fall), a3
+	move.w #spritesheet_nymn_fall_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_fall_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_fall_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_fall_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Hang
