@@ -281,18 +281,18 @@ CharacterUpdateAnimState:
 	beq    @SetAnim
 	
 	; =====================================================================
-	; Falling
-	; =====================================================================
-	move.b #CharacterAnimIdx_Fall, d1
-	move.b Character_Falling(a0), d0	; If player is falling, set jump anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
-	
-	; =====================================================================
 	; Jumping
 	; =====================================================================
 	move.b #CharacterAnimIdx_Jump, d1
 	move.b Character_Jumping(a0), d0	; If player is jumping, set jump anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
+	; Falling
+	; =====================================================================
+	move.b #CharacterAnimIdx_Fall, d1
+	move.b Character_Falling(a0), d0	; If player is falling, set jump anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	
@@ -326,9 +326,11 @@ CharacterUpdateAnimState:
 	; Running
 	@Running:
 	
-	; If transitioning from walking/falling anim, set transition anim first
+	; If transitioning from walking/jumping/falling anim, set transition anim first
 	move.b #CharacterAnimIdx_WalkToRun, d1
 	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a0)
+	beq    @SetAnim
+	cmp.b  #CharacterAnimIdx_Jump, Character_AnimIdx(a0)
 	beq    @SetAnim
 	cmp.b  #CharacterAnimIdx_Fall, Character_AnimIdx(a0)
 	beq    @SetAnim
