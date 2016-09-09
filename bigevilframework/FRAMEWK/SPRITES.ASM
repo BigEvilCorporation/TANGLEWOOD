@@ -94,6 +94,7 @@ SPR_SetPosX:
 
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
+	andi.l  #0x000000FF, d0
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)         
 	add.l   d0, a0
 	
@@ -109,6 +110,7 @@ SPR_SetPosY:
 
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
+	andi.l  #0x000000FF, d0
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)       
 	add.l   d0, a0
 	
@@ -128,7 +130,7 @@ SPR_SetMultiPosX:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	andi.w  #0x00FF, d0
+	andi.l  #0x000000FF, d0
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	add.l   d0, a0
 	
@@ -186,7 +188,7 @@ SPR_SetMultiPosY:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	andi.w  #0x00FF, d0
+	andi.l  #0x000000FF, d0
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	add.l   d0, a0
 	
