@@ -97,6 +97,7 @@ __start
 	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\gameplay.asm'
+	include 'states\pause.asm'
 	include 'states\soundtst.asm'
 	IFND DEBUG
 	include 'states\logos.asm'
@@ -125,12 +126,15 @@ __main:
 	; Load letterbox horizontal interrupt routine
 	lea HBlankInterrupt_Letterbox, a0
 	;jsr INT_LoadHBlank
+	
+	; Init game state stack
+	move.l #GameStateStack, GameStateStackPtr
 
 	; Load debug draw font
-	lea      Tiles_PixelFont, a0
-	move.l   #Tiles_PixelFontVRAM, d0
-	move.l   #Tiles_PixelFontSizeT, d1
-	jsr      VDP_LoadTiles
+	lea    Tiles_PixelFont, a0
+	move.l #Tiles_PixelFontVRAM, d0
+	move.l #Tiles_PixelFontSizeT, d1
+	jsr    VDP_LoadTiles
 
 	; Clear counters
 	move.l #0x0, hblank_counter

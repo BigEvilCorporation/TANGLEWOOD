@@ -153,6 +153,17 @@ HandlePlayerInput:
 	ENDIF
 	
 	; =====================================================================
+	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
+	; =====================================================================
+	btst #pad_button_start, d0
+	beq  @NoStart
+	btst #pad_button_start, d1
+	bne  @NoStart
+	lea  GameStatePause, a0
+	jsr  GamestatePush
+	@NoStart:
+	
+	; =====================================================================
 	; Left/Right - X movement
 	; =====================================================================
 	

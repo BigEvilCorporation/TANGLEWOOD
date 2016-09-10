@@ -146,8 +146,13 @@ SwitchingPalettesP1  rs.l NumSwitchingColours
 ; Current game state
 GameStatePtr		 rs.l 1
 
+; Game state stack
+GameStateStackPtr	 rs.l 1
+GameStateStack       rs.l (GameStateStackSize)
+
 ; Game state data
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
+GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 

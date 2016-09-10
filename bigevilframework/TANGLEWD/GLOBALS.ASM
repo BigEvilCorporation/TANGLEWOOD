@@ -102,6 +102,9 @@ CheckpointSerialiseBlockSize equ 0x0400 ; 1kb
 ; Demo timer
 DemoTimeout				 equ 0x0 ; (60*60*3)
 
+; Game state stack
+GameStateStackSize		 equ 0x4
+
 ; Debug button combos
 	IFND FINAL
 DebugButtonCombo_Profiler		equ 0x3000 ;(pad_button_a|pad_button_start)								; A+Start = profile frame
