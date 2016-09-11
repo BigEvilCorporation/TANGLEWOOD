@@ -25,12 +25,24 @@ Pause_Enter:
 
 	lea    GameStatePauseData, a0
 	
+	; Backup current pad state
 	jsr    PAD_ReadPadA
 	move.w d0, PauseState_PrevPadState(a0)
+	
+	; Create temp firefly
+	
+	; Begin greyscale effect
+	
+	; Draw text
 	
 	rts
 	
 Pause_Exit:
+
+	; Release greyscale effect
+	
+	; Delete temp firefly
+	
 	rts
 	
 Pause_Update:
@@ -59,8 +71,13 @@ Pause_Update:
 	; Backup prev pad state
 	move.w d0, PauseState_PrevPadState(a0)
 	
+	; Update temp firefly
+	
 	rts
 	
-Pause_Render:	
+Pause_Render:
+
+	; Draw temp firefly
+	
 	rts
 	
