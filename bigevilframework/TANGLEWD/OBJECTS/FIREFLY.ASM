@@ -131,6 +131,9 @@ FireflyTestObj:
 	jsr     EntityRemoveFromUpdateList
 	jsr     EntityRemoveFromRenderList
 	
+	; Increment global counter
+	addi.w  #0x1, FireflyPickupCount
+	
 	; Play SFX
 	PLAYSFX_HIGHPRIO #SFX_FireflyCollect
 

@@ -6,14 +6,21 @@
 ;   effects.asm - Screen effects
 ;==============================================================
 
+VFXGreyscaleLerp	equ 0x0
+VFXGreyscaleInst	equ 0x1
+
 VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
+	; d1 (b) - Lerped (0) or instant (1)
 	
 	; Alloc source/dest palette space on stack
 	ALLOCSTACKB size_palette_b
 	move.l sp, a0
 	ALLOCSTACKB size_palette_b
 	move.l sp, a1
+	
+	; Push lerp param
+	PUSHL  d1
 	
 	; Palette index and dest address backup
 	move.l d0, d7
@@ -61,6 +68,12 @@ VFX_StartScreenEffectGreyscale:
 	POPL   d0
 	dbra   d0, @PaletteCopyLp
 	
+	; Pop lerp param
+	POPL   d1
+	
+	cmp.b  #VFXGreyscaleLerp, d1
+	bne    @Instant
+	
 	; Begin palette lerp
 	move.l a3, a0					; Dest palette address
 	move.l d7, d0					; Palette idx
@@ -69,6 +82,16 @@ VFX_StartScreenEffectGreyscale:
 	move.b #0x0, d3					; First colour
 	move.b #0xF, d4					; Last colour
 	jsr    PAL_LerpStart
+	bra    @EndLoadPalette
+	
+	@Instant:
+	
+	; Load palette
+	move.l a3, a0					; Dest palette address
+	move.l d7, d0					; Palette idx
+	jsr    PAL_LoadDMA
+	
+	@EndLoadPalette:
 	
 	; Free source/dest palette space
 	FREESTACKB size_palette_b

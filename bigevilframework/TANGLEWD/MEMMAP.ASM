@@ -169,8 +169,13 @@ GlobalTimeDiv			 rs.b 1
 
 __padding04			     rs.b 3
 
-; Time slow ability palette backup
+; Time slow effect palette backup
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
+
+; Firefly count
+FireflyPickupCount		 rs.w 1
+
+__padding06			     rs.b 2
 
 ; ************************************
 ; Audio
@@ -178,8 +183,6 @@ TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 AmbientSFX				 rs.l 4 ; AmbientSFXCount
 AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
-
-; __padding06			     rs.b 0
 
 ; ************************************
 ; Level runtime data

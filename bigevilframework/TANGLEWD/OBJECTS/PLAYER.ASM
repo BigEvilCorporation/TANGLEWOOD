@@ -659,12 +659,15 @@ PlayerStartColourAbility:
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
+	move.b #VFXGreyscaleLerp, d1
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Monster, d0
+	move.b #VFXGreyscaleLerp, d1
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Fuzzl, d0
+	move.b #VFXGreyscaleLerp, d1
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	POPL a0
