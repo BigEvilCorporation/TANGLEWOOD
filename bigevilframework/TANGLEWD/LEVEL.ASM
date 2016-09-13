@@ -45,7 +45,7 @@ GameStateReset:
 	; DMA to VDP
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
-	move.w (Sprite_Struct_Size*vdp_max_sprites), d1
+	move.w #(Sprite_Struct_Size*vdp_max_sprites), d1
 	jsr    VDP_DMACopyVRAM
 	
 	; Reset entities
