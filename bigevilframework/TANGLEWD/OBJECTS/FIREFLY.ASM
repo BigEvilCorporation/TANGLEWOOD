@@ -76,6 +76,15 @@ FireflyInit:
 	move.l d0, AnimObj_AnimSubFrame(a0)
 
 	rts
+	
+FireflyShutdown:
+	; a0 --- Firefly addr
+	
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	subi.w #0x1, EntityCount_Fireflies
+	
+	rts
 
 FireflyUpdate:
 	; a0 --- Firefly addr

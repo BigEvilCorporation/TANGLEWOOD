@@ -16,6 +16,7 @@ GameStatePause:
 	rsset	0x0
 ;---------------------------------
 PauseState_PaletteBackup	rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
+PauseState_Firefly			rs.b Firefly_Struct_Size
 PauseState_PrevPadState		rs.w 1
 ;---------------------------------
 PauseState_Struct_Pad		rs.b 3
@@ -85,7 +86,6 @@ Pause_Enter:
 	
 	POPL a0
 	
-	; Draw text
 	; Alloc string space
 	sub.l   #0x10, sp
 	move.l  sp, a0
@@ -109,6 +109,29 @@ Pause_Enter:
 	add.l   #0x10, sp
 		
 	; Create temp firefly
+	lea    GameStatePauseData, a0
+	addi.l #PauseState_Firefly, a0
+	jsr    FireflyInit
+
+	move.l #Tiles_fireflyVRAM, d0
+	move.l (EntityCount_Fireflies), d0
+	subi.l #0x1, d0
+	mulu   #sprite_firefly_size_b, d0
+	
+	lea    spritesheets_firefly, a1
+	lea    sprite_firefly_subsprite_dimensions_bits, a2
+	lea    sprite_firefly_subsprite_pos_offsets, a3
+	lea    sprite_firefly_numtiles_per_subsprite, a4
+	
+	move.l #sprite_firefly_size_t, d1
+	move.b #sprite_firefly_size_subsprites, d2
+	move.w #sprite_firefly_widthheight_subsprites, d3
+	move.b #PaletteId_Fuzzl, d4
+	jsr    SpriteObjLoad
+	
+	lea    Player1, a3
+	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a0)
 	
 	POPL    a1
 	POPL    a0
@@ -143,6 +166,9 @@ Pause_Exit:
 	POPL   a0
 	
 	; Delete temp firefly
+	lea    GameStatePauseData, a0
+	addi.l #PauseState_Firefly, a0
+	jsr    FireflyShutdown
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
@@ -178,12 +204,24 @@ Pause_Update:
 	move.w d0, PauseState_PrevPadState(a0)
 	
 	; Update temp firefly
+	lea    GameStatePauseData, a0
+	addi.l #PauseState_Firefly, a0
+	move.l Entity_UpdateRoutine(a0), a3
+	jsr    (a3)
 	
 	rts
 	
 Pause_Render:
 
+	PUSHL  a0
+	
 	; Draw temp firefly
+	lea    GameStatePauseData, a0
+	addi.l #PauseState_Firefly, a0
+	move.l Entity_RenderRoutine(a0), a3
+	jsr    (a3)
+	
+	POPL   a0
 	
 	rts
 	
