@@ -125,7 +125,7 @@ Tile_Bank0_Size_b:   equ (Tile_Bank0_Size_t*size_tile_b)
 Tile_Bank0_Start:    equ (vram_addr_tiles)
 ;---------------------------------------------------------
 	rsset Tile_Bank0_Start
-Tiles_PixelFontVRAM: rs.b 0 ;(Tiles_PixelFontSizeB)
+Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)

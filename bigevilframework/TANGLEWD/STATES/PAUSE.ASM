@@ -21,17 +21,26 @@ PauseState_PrevPadState		rs.w 1
 PauseState_Struct_Pad		rs.b 3
 PauseState_Struct_Size		rs.b 0
 ;---------------------------------
+
+PauseText_Font			equ Tiles_PixelFont
+PauseText_FontSize		equ Tiles_PixelFontSizeT
+PauseText_FontAddr		equ Tiles_PixelFontVRAM
+PauseText_FontTileId	equ (PauseText_FontAddr/size_tile_b)
+PauseText_Palette		equ 0x0
+PauseText_PosX			equ 0x04
+PauseText_PosY			equ 0x04
 	
 Pause_Enter:
 
+	PUSHL  a0
+	PUSHL  a1
+	
 	lea    GameStatePauseData, a0
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
 	jsr    PAD_ReadPadA
 	move.w d0, PauseState_PrevPadState(a0)
-	
-	; Create temp firefly
 	
 	; Begin greyscale effect
 	PUSHL  a0
@@ -77,6 +86,32 @@ Pause_Enter:
 	POPL a0
 	
 	; Draw text
+	; Alloc string space
+	sub.l   #0x10, sp
+	move.l  sp, a0
+	
+	; Firefly count to string
+	move.w  (FireflyPickupCount), d0
+	jsr     TXT_ItoA_Hex_w
+	addi.l  #0x6, a0
+	move.b  #'/', (a0)+
+	move.w  (EntityCount_Fireflies), d0
+	jsr     TXT_ItoA_Hex_w
+	subi.l  #0x7, a0
+	
+	move.w  #PauseText_FontTileId, d0	; Font VDP address
+	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
+	move.b  #PauseText_Palette, d2		; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+	
+	; Free string space
+	add.l   #0x10, sp
+		
+	; Create temp firefly
+	
+	POPL    a1
+	POPL    a0
 	
 	rts
 	
