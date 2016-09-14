@@ -240,6 +240,9 @@ LeafUpdate:
 	move.w d0, Leaf_ResetTimer(a0)
 	
 	@End:
+	
+	; Base functionality
+	jsr    AnimObjUpdate
 
 	rts
 

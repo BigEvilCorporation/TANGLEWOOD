@@ -135,9 +135,6 @@ PhysicsObjUpdate:
 	; Clamp pos to level space
 	jsr PhysicsObjClampPos
 	
-	; Base functionality
-	jsr SpriteObjUpdate
-	
 	bra @End
 
 	@NoPhysics:
@@ -151,6 +148,9 @@ PhysicsObjUpdate:
 	@End:
 	
 	move.l a1, (sp)+
+	
+	; Base functionality
+	jsr AnimObjUpdate
 	
 	rts
 	

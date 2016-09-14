@@ -17,7 +17,7 @@ Exception_MsgPosY		equ 0x01
 Exception_RegPosX		equ 0x04
 Exception_RegPosY		equ 0x03
 Exception_LineSpace		equ 0x01
-Exception_RegCount		equ 0x12	; 18 regs (0a-06 + d0-d7 + SP + SR + PC)
+Exception_RegCount		equ 0x12	; 18 regs (a0-a6 + d0-d7 + SP + SR + PC)
 
 ExceptionType_Address		equ 0x0
 ExceptionType_Bus			equ 0x1

@@ -215,11 +215,8 @@ Pause_Render:
 
 	PUSHL  a0
 	
-	; Draw temp firefly
-	lea    GameStatePauseData, a0
-	addi.l #PauseState_Firefly, a0
-	move.l Entity_RenderRoutine(a0), a3
-	jsr    (a3)
+	; Draw game objects
+	jsr EntityRenderAll
 	
 	POPL   a0
 	

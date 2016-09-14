@@ -15,10 +15,11 @@ AnimObj_CurrentAnim		 rs.l 1 ; Current Animation data
 AnimObj_AnimSubFrame     rs.l 1 ; Current subframe
 AnimObj_SpeedDiv  	     rs.b 1 ; Anim speed div
 AnimObj_Playing  	     rs.b 1 ; Anim currently playing
-AnimObj_Dirty		     rs.b 1 ; Anim needs stepping forcefully
+AnimObj_Dirty		     rs.b 1 ; Anim needs stepping forceufully
+AnimObj_UploadFrame		 rs.b 1 ; Frame needs uploading to VRAM
 AnimObj_UpdateOutOfView	 rs.b 1 ; Anim can update even when out of view (sprite not linked on last render)
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 2
+AnimObj_Struct_Pad       rs.b 1
 AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
@@ -39,12 +40,16 @@ AnimObjInit:
 	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
+	move.b #0x0, AnimObj_UploadFrame(a0)
 	
 	rts
-
-AnimObjDraw:
+	
+AnimObjUpdate:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
+	
+	; Base functionality
+	jsr    SpriteObjUpdate
 	
 	; Check if visibility test should be skipped
 	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
@@ -125,25 +130,51 @@ AnimObjDraw:
 
 	lsr.l  #0x8, d1 ; Prev subframes to frames
 	lsr.l  #0x8, d2 ; New subframes to frames
-
-	; Check if dirty (new anim, set regardless of frame change)
+	
+	; If dirty, skip frame change test
 	cmp.b  #0x0, AnimObj_Dirty(a0)
-	bne    @SkipFrameCheck
+	bne    @SkipFrameCmp
 	
 	; Skip if no change in frame #
 	cmp.l  d1, d2
 	beq    @NoFrameChange  ; Branch if no frame change
-
-	@SkipFrameCheck:
 	
-	; Anim frame updated
-	move.b  #0x0, AnimObj_Dirty(a0)
+	@SkipFrameCmp:
+	
+	; Anim frame needs uploading to VRAM
+	move.b  #0x1, AnimObj_UploadFrame(a0)
+	
+	@Invisible:
+	@NoAnim:
+	@ZeroSpeed:
+	@Inactive:
+	@NotPlaying:
+	@NoFrameChange:
+
+	rts
+
+AnimObjDraw:
+	; a0 --- AnimObj addr
+	; a1 --- Level addr
+	
+	; Check if frame needs uploading to VRAM
+	cmp.b  #0x0, AnimObj_UploadFrame(a0)
+	beq    @NoFrameChange
+	
+	; Get current anim
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoAnim
+	
+	; Get current frame
+	move.l AnimObj_AnimSubframe(a0), d2
+	lsr.l  #0x8, d2 					; To frames
 	
 	; Frame advanced, + DMA new tiles to VRAM
-	move.l a0, -(sp)
-	move.l a1, -(sp)
-	move.l a2, -(sp)
-	move.l d2, -(sp)
+	PUSHL  a0
+	PUSHL  a1
+	PUSHL  a2
+	PUSHL  d2
 	move.l SpriteObj_VRAMAddr(a0), d0
 	move.w SpriteObj_TilesetSize(a0), d1
 	move.b Animation_Length(a2), d3
@@ -151,10 +182,10 @@ AnimObjDraw:
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l SpriteObj_TilesetAddr(a0), a0
 	jsr    SPR_LoadAnimFrame
-	move.l (sp)+, d2
-	move.l (sp)+, a2
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	POPL   d2
+	POPL   a2
+	POPL   a1
+	POPL   a0
 	
 	; X position track
 	PUSHL  d2
@@ -178,7 +209,6 @@ AnimObjDraw:
 	; Y position track
 	
 	; SFX track
-	PUSHL  a0
 	PUSHL  d2
 	move.l Animation_AnimTrackSFX(a2), a3	; Get SFX keyframe track
 	cmp.l  #0x0, a3
@@ -194,20 +224,18 @@ AnimObjDraw:
 	move.l (a3), d3						; Get SFX address from anim track
 	cmp.l  #0x0, d3
 	beq    @NoSFX
-
+    
 	PLAYSFX_HIGHPRIO d3	; Play SFX (TODO: exlusive and non-exclusive modes)
 	
 	@NoTrackSFX:
 	@NoSFX:
 	POPL   d2
-	POPL   a0
 	
-	@Invisible:
-	@NoAnim:
-	@ZeroSpeed:
-	@Inactive:
-	@NotPlaying:
 	@NoFrameChange:
+	@NoAnim:
+	
+	; Frame uploaded
+	move.b  #0x0, AnimObj_UploadFrame(a0)
 	
 	; Base functionality
 	jsr SpriteObjDraw
