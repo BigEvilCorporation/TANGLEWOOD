@@ -115,19 +115,29 @@ EntityRemoveFromUpdateList:
 	
 	@Found:
 	
+	; Check if new head
 	cmp.l  #0x0, a4
 	beq    @NewHead
 	
 	; Link next with prev
 	move.l Entity_UpdateNext(a0), Entity_UpdateNext(a4)
-	bra    @End
+	bra    @EndLink
 	
 	@NewHead:
 	
 	; Removed entity was head, set new head
 	move.l Entity_UpdateNext(a0), EntityListHead_Update
 	
-	@End:
+	@EndLink:
+	
+	; Check if new tail
+	cmp.l   #0x0, Entity_UpdateNext(a0)
+	bne     @NotTail
+	
+	; Removed entity was tail, set new tail
+	move.l  a4, EntityListTail_Update
+	
+	@NotTail:
 	
 	; Decrement count
 	subi.l #0x1, EntityListSize_Update
@@ -149,19 +159,29 @@ EntityRemoveFromRenderList:
 	
 	@Found:
 	
+	; Check if new head
 	cmp.l  #0x0, a4
 	beq    @NewHead
 	
 	; Link next with prev
 	move.l Entity_RenderNext(a0), Entity_RenderNext(a4)
-	bra    @End
+	bra    @EndLink
 	
 	@NewHead:
 	
 	; Removed entity was head, set new head
 	move.l Entity_RenderNext(a0), EntityListHead_Render
 	
-	@End:
+	@EndLink:
+	
+	; Check if new tail
+	cmp.l   #0x0, Entity_RenderNext(a0)
+	bne     @NotTail
+	
+	; Removed entity was tail, set new tail
+	move.l  a4, EntityListTail_Render
+	
+	@NotTail:
 	
 	; Decrement count
 	subi.l #0x1, EntityListSize_Render
@@ -183,19 +203,29 @@ EntityRemoveFromSerialiseList:
 	
 	@Found:
 	
+	; Check if new head
 	cmp.l  #0x0, a4
 	beq    @NewHead
 	
 	; Link next with prev
 	move.l Entity_SerialiseNext(a0), Entity_SerialiseNext(a4)
-	bra    @End
+	bra    @EndLink
 	
 	@NewHead:
 	
 	; Removed entity was head, set new head
 	move.l Entity_SerialiseNext(a0), EntityListHead_Serialise
 	
-	@End:
+	@EndLink:
+	
+	; Check if new tail
+	cmp.l   #0x0, Entity_SerialiseNext(a0)
+	bne     @NotTail
+	
+	; Removed entity was tail, set new tail
+	move.l  a4, EntityListTail_Serialise
+	
+	@NotTail:
 	
 	; Decrement count
 	subi.l #0x1, EntityListSize_Serialise
