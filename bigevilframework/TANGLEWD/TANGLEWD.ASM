@@ -191,9 +191,6 @@ RenderBeginFrame:
 	; Clear sprite links
 	jsr    SPR_ClearAllLinks
 	
-	; Clear last linked
-	move.w #0x0, prev_sprite_link
-	
 	IFD DEBUG
 	; Profiler frame start
 	jsr DBG_Profile_BeginFrame
@@ -232,12 +229,9 @@ RenderEndFrame:
 __vinterrupt:
 
 	; DMA the sprite table
-	cmp.w  #0x0, prev_sprite_link
-	beq    @NoSprites
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
-	move.w (next_sprite_index), d1
-	lsl.w  #0x3, d1					; Mul by sprite struct size (8 bytes)
+	move.w #(Sprite_Struct_Size*vdp_max_sprites), d1
 	jsr    VDP_DMACopyVRAM
 	@NoSprites:
 	

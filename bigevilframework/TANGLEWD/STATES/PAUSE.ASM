@@ -19,7 +19,7 @@ PauseState_PaletteBackup	rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate
 PauseState_Firefly			rs.b Firefly_Struct_Size
 PauseState_PrevPadState		rs.w 1
 ;---------------------------------
-PauseState_Struct_Pad		rs.b 3
+PauseState_Struct_Pad		rs.b 2
 PauseState_Struct_Size		rs.b 0
 ;---------------------------------
 
@@ -140,6 +140,9 @@ Pause_Enter:
 	
 Pause_Exit:
 
+	PUSHL  a0
+	PUSHL  a1
+
 	; Reset palettes
 	PUSHL  a0
 
@@ -170,15 +173,24 @@ Pause_Exit:
 	addi.l #PauseState_Firefly, a0
 	jsr    FireflyShutdown
 	
+	; HACK: only if last allocated sprite
+	subi.w #0x1, (next_sprite_index)
+	
 	; Backup current pad state
 	; TODO: Handle input reads globally
 	jsr    PAD_ReadPadA
 	move.w d0, Gamepad1PrevState
 	
+	POPL   a1
+	POPL   a0
+	
 	rts
 	
 Pause_Update:
 
+	PUSHL  a0
+	PUSHL  a1
+	
 	lea    GameStatePauseData, a0
 
 	; Read pad
@@ -209,15 +221,20 @@ Pause_Update:
 	move.l Entity_UpdateRoutine(a0), a3
 	jsr    (a3)
 	
+	POPL   a1
+	POPL   a0
+	
 	rts
 	
 Pause_Render:
 
 	PUSHL  a0
+	PUSHL  a1
 	
 	; Draw game objects
 	jsr EntityRenderAll
 	
+	POPL   a1
 	POPL   a0
 	
 	rts

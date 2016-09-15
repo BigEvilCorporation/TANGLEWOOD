@@ -76,6 +76,9 @@ vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
 ; ************************************
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
+sprite_link_count   rs.b 1
+
+__padding32 		rs.b 3
 
 ; ************************************
 ; Timers

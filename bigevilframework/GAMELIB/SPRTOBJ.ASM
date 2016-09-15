@@ -115,12 +115,6 @@ SpriteObjLoad:
 
 	rts
 	
-SpriteObjUpdate:
-	; a0 --- SpriteObj addr
-	; a1 --- Level addr
-	
-	rts
-	
 SpriteObjDraw:
 	; a0 --- SpriteObj addr
 	; a1 --- Level addr
@@ -213,7 +207,7 @@ SpriteObjDraw:
 	move.l d1, -(sp)
 	cmp.b  #0x0, d1
 	beq    @FirstSprite						; Not first sprite
-	jsr    SPR_Link						; Link sprite with prev
+	jsr    SPR_Link							; Link sprite with prev
 	@FirstSprite:
 	move.l (sp)+, d1
 	move.w d1, prev_sprite_link				; Set as next
@@ -224,6 +218,9 @@ SpriteObjDraw:
 	; Sprite linked
 	move.b #0x1, SpriteObj_SpriteLinked(a0)
 	
+	; Increment link count
+	addi.b #0x1, sprite_link_count
+	
 	jmp    @End
 	
 	;==============================================================
@@ -231,27 +228,15 @@ SpriteObjDraw:
 	@Invisible:
 	@OutOfBounds:
 	
-	; Sprite isn't visible - unlink first sprite from list
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)	; Check if already unlinked first
-	beq    @Unlinked
-	
-	move.b SpriteObj_SpriteID(a0), d0			; This id
-	move.b #0x0, d1							; Next id
-	move.l a0, -(sp)
-	jsr    SPR_Link						; Unlink
-	move.l (sp)+, a0
-
 	; Can't unlink first sprite, move to border
-	move.b SpriteObj_SpriteID(a0), d0
-	cmp.b  #0x0, d0
-	bne    @NotFirstSprite
-	move.w #0x0, d1
-	move.l a0, -(sp)
-	jsr    SPR_SetPosX
-	move.l (sp)+, a0
+    move.b SpriteObj_SpriteID(a0), d0
+    cmp.b  #0x0, d0
+    bne    @NotFirstSprite
+    move.w #0x0, d1
+    PUSHL  a0
+    jsr    SPR_SetPosX
+    POPL   a0
 	@NotFirstSprite:
-	
-	@Unlinked:
 	
 	; Sprite unlinked
 	move.b #0x0, SpriteObj_SpriteLinked(a0)

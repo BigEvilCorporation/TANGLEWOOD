@@ -85,6 +85,12 @@ SPR_ClearAllLinks:
 	
 	dbra    d0, @SpriteLp
 	
+	; Clear count
+	move.b  #0x0, sprite_link_count
+	
+	; Clear last linked
+	move.w  #0x0, prev_sprite_link
+	
 	rts
 
 SPR_SetPosX:

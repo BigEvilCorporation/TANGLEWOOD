@@ -40,16 +40,21 @@ EndLevelState_Struct_Size	rs.b 0
 	
 EndLevel_Enter:
 
+	PUSHL  a0
+	PUSHL  a1
+	
 	lea    GameStateEndLevelData, a2
 	
 	; Set sleep phase and begin timer
 	move.b #EndLevelPhase_Sleep, EndLevelState_Phase(a2)
 	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
-	
 		
 	; Start end of level theme
 	lea    bgm_lvloutro, a0
 	jsr    Echo_PlayBGM
+	
+	POPL   a1
+	POPL   a0
 	
 	rts
 	
@@ -58,6 +63,9 @@ EndLevel_Exit:
 	
 EndLevel_Update:
 
+	PUSHL  a0
+	PUSHL  a1
+	
 	; Set current level ptr
 	move.l (CurrentLevel), a1
 	
@@ -126,15 +134,24 @@ EndLevel_Update:
 	@TimerRunning:
 	@End:
 	
+	POPL   a1
+	POPL   a0
+	
 	rts
 	
 EndLevel_Render:
 
+	PUSHL  a0
+	PUSHL  a1
+	
 	; Set current level ptr
 	move.l (CurrentLevel), a1
 	
 	; Draw game objects
 	jsr EntityRenderAll
+	
+	POPL   a1
+	POPL   a0
 	
 	rts
 	
