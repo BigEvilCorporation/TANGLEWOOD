@@ -6,7 +6,7 @@
 ;   level3.asm - Level 3 - Harlequin Forest Act 3
 ;==============================================================	
 
-Lvl2_HarlequinForestAct3:
+Lvl3_HarlequinForestAct3:
 
 	dc.l tiles_lvl1				; Tileset
 	dc.l map_lvl3				; Map
@@ -91,6 +91,25 @@ Lvl3_Init:
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
+	
+	;==============================================================
+	
+	; Set Fuzzl colours
+	move.l #Lvl3_Fuzzl_Yellow_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourYellow, d0
+	jsr    FuzzlSetColour
+	
+	;==============================================================
+	
+	; Disable Djakk lost player timeout
+	move.l #Lvl3_Djakk_idx, d0
+	mulu   #Monster_Struct_Size, d0
+	move.l #EntityArray_Monsters, a0
+	add.l  d0, a0
+	move.w #-1, Monster_LoseSightTimer(a0)
 	
 	;==============================================================
 	

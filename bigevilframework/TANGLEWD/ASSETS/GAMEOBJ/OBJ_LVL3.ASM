@@ -8,16 +8,32 @@
 
 
 gameobjects_lvl3:
-gameobjects_lvl3_Fuzzl_count equ 0x0
+gameobjects_lvl3_Fuzzl_count equ 0x1
 LoadGameObjects_lvl3_Fuzzl:
+Lvl3_Fuzzl_Yellow_idx	equ 0x0
+	jsr FuzzlInit
+	move.l #0x001b6800, Entity_WorldPosX(a0)
+	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_Nest_count equ 0x0
+gameobjects_lvl3_Nest_count equ 0x1
 LoadGameObjects_lvl3_Nest:
+Nest_11_idx	equ 0x0
+	jsr NestInit
+	move.l #0x001a5800, Entity_WorldPosX(a0)
+	move.l #0x0002a000, Entity_WorldPosY(a0)
+	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_Flue_count equ 0x0
+gameobjects_lvl3_Flue_count equ 0x1
 LoadGameObjects_lvl3_Flue:
+Flue_13_idx	equ 0x0
+	jsr FlueInit
+	move.l #0x0029f800, Entity_WorldPosX(a0)
+	move.l #0x0002f800, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
 	rts
 
 gameobjects_lvl3_Firefly_count equ 0x0
@@ -26,7 +42,7 @@ LoadGameObjects_lvl3_Firefly:
 
 gameobjects_lvl3_Monster_count equ 0x1
 LoadGameObjects_lvl3_Monster:
-Monster_6_idx	equ 0x0
+Lvl3_Djakk_idx	equ 0x0
 	jsr MonsterInit
 	move.l #0x00089800, Entity_WorldPosX(a0)
 	move.l #0x0002d000, Entity_WorldPosY(a0)
@@ -50,7 +66,7 @@ Checkpoint_5_idx	equ 0x0
 	add.l #Checkpoint_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_WaterBody_count equ 0x2
+gameobjects_lvl3_WaterBody_count equ 0x5
 LoadGameObjects_lvl3_WaterBody:
 WaterBody_3_idx	equ 0x0
 	jsr WaterBodyInit
@@ -61,6 +77,21 @@ WaterBody_4_idx	equ 0x1
 	jsr WaterBodyInit
 	move.l #0x0018b800, Entity_WorldPosX(a0)
 	move.l #0x00032800, Entity_WorldPosY(a0)
+	add.l #WaterBody_Struct_Size, a0
+WaterBody_8_idx	equ 0x2
+	jsr WaterBodyInit
+	move.l #0x001c7800, Entity_WorldPosX(a0)
+	move.l #0x00031800, Entity_WorldPosY(a0)
+	add.l #WaterBody_Struct_Size, a0
+WaterBody_9_idx	equ 0x3
+	jsr WaterBodyInit
+	move.l #0x001df800, Entity_WorldPosX(a0)
+	move.l #0x00031800, Entity_WorldPosY(a0)
+	add.l #WaterBody_Struct_Size, a0
+WaterBody_10_idx	equ 0x4
+	jsr WaterBodyInit
+	move.l #0x001f7800, Entity_WorldPosX(a0)
+	move.l #0x00031800, Entity_WorldPosY(a0)
 	add.l #WaterBody_Struct_Size, a0
 	rts
 
