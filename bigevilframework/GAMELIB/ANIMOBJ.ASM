@@ -163,6 +163,11 @@ AnimObjDraw:
 	
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
+	
+	; Get length
+	move.b Animation_Length(a2), d3
+	cmp.b  #0x0, d3
+	beq    @ZeroLength
 
 	; Get subframe
 	move.l AnimObj_AnimSubframe(a0), d2
@@ -177,7 +182,6 @@ AnimObjDraw:
 	move.l d2, -(sp)
 	move.l SpriteObj_VRAMAddr(a0), d0
 	move.w SpriteObj_TilesetSize(a0), d1
-	move.b Animation_Length(a2), d3
 	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l SpriteObj_TilesetAddr(a0), a0
@@ -234,6 +238,7 @@ AnimObjDraw:
 	POPL   a0
 	
 	@NoNewFrame:
+	@ZeroLength:
 	
 	; Done
 	move.b #0x0, AnimObj_UploadFrame(a0)
