@@ -15,7 +15,7 @@ Lvl2_HarlequinForestAct2:
 	dc.l Lvl2_DefaultPalettes	; Palettes
 	dc.l Lvl2_Init				; Init routine
 	dc.l Lvl2_Update			; Update routine
-	dc.l 0x0					; Next level
+	dc.l Lvl2_HarlequinForestAct3	; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl2_width			; Map width
 	dc.w map_lvl2_height		; Map height

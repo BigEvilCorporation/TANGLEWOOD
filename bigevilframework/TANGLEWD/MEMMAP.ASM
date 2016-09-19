@@ -192,6 +192,7 @@ BGMOffTimer				 rs.w 1
 ; ************************************
 LevelData_1				 rs.b Lvl1Data_Struct_Size
 LevelData_2				 rs.b Lvl2Data_Struct_Size
+LevelData_3				 rs.b Lvl3Data_Struct_Size
 
 ; ************************************
 ; Debug stuff

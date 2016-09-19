@@ -65,10 +65,12 @@ map_twd_logo:
 	incbin 'assets\maps\twd_logo.bin'
 map_lvl1:
 	incbin 'assets\maps\map_lvl1.bin'
-map_lvl1_bg:
-	incbin 'assets\maps\lvl1_bg.bin'
 map_lvl2:
 	incbin 'assets\maps\map_lvl2.bin'
+map_lvl3:
+	incbin 'assets\maps\map_lvl3.bin'
+map_lvl1_bg:
+	incbin 'assets\maps\lvl1_bg.bin'
 
 	; ************************************
 	; Collision maps
@@ -77,5 +79,7 @@ collisionmap_lvl1:
 	incbin 'assets\collisn\cmp_lvl1.bin'
 collisionmap_lvl2:
 	incbin 'assets\collisn\cmp_lvl2.bin'
+collisionmap_lvl3:
+	incbin 'assets\collisn\cmp_lvl3.bin'
 
 	ENDIF
