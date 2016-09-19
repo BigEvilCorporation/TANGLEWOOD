@@ -161,6 +161,7 @@ MonsterInit:
 	move.b  #ColourRed, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
+	move.w  #0x0, Monster_LoseSightTimer(a0)
 	move.w  #Monster_OutOfDistSpeedMul, Monster_CatchUpSpeedMul(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
@@ -404,6 +405,8 @@ MonsterCheckPlayerVisible:
 	move.l d0, Monster_SearchTargetX(a0)
 	
 	; Clear lost sight timer
+	cmp.w  #-1, Monster_LoseSightTimer(a0)
+	beq    @NoTimer
 	move.w #0x0, Monster_LoseSightTimer(a0)
 	
 	bra    @End
@@ -412,8 +415,11 @@ MonsterCheckPlayerVisible:
 	@NotSeen:
 	
 	; Increment lost timer
+	cmp.w  #-1, Monster_LoseSightTimer(a0)
+	beq    @NoTimer
 	add.w  #0x1, Monster_LoseSightTimer(a0)
 	
+	@NoTimer:
 	@End:
 	
 	rts
@@ -813,8 +819,13 @@ MonsterUpdateTrackPlayer:
 
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
+	
+	; Check if lost player timeout reached
+	cmp.w  #-1, Monster_LoseSightTimer(a0)
+	beq    @NoTimer
 	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
 	bge    @LostPlayer
+	@NoTimer:
 	
 	; Check if hit a wall
 	cmp.b  #0x0, PhysicsObj_HitWall(a0)
