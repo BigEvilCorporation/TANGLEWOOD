@@ -27,12 +27,17 @@ Nest_11_idx	equ 0x0
 	add.l #Nest_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_Flue_count equ 0x1
+gameobjects_lvl3_Flue_count equ 0x2
 LoadGameObjects_lvl3_Flue:
 Flue_13_idx	equ 0x0
 	jsr FlueInit
 	move.l #0x0029f800, Entity_WorldPosX(a0)
 	move.l #0x0002f800, Entity_WorldPosY(a0)
+	add.l #Flue_Struct_Size, a0
+Flue_14_idx	equ 0x1
+	jsr FlueInit
+	move.l #0x00077800, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
@@ -44,7 +49,7 @@ gameobjects_lvl3_Monster_count equ 0x1
 LoadGameObjects_lvl3_Monster:
 Lvl3_Djakk_idx	equ 0x0
 	jsr MonsterInit
-	move.l #0x00089800, Entity_WorldPosX(a0)
+	move.l #0x00081800, Entity_WorldPosX(a0)
 	move.l #0x0002d000, Entity_WorldPosY(a0)
 	add.l #Monster_Struct_Size, a0
 	rts
@@ -53,8 +58,15 @@ gameobjects_lvl3_Boulder_count equ 0x0
 LoadGameObjects_lvl3_Boulder:
 	rts
 
-gameobjects_lvl3_TriggerBox_count equ 0x0
+gameobjects_lvl3_TriggerBox_count equ 0x1
 LoadGameObjects_lvl3_TriggerBox:
+Lvl3_Trigger_Djakk_idx	equ 0x0
+	jsr TriggerBoxInit
+	move.l #0x00095800, Entity_WorldPosX(a0)
+	move.l #0x0002b800, Entity_WorldPosY(a0)
+	move.l #Lvl3_Trigger_WakeDjakk, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
 	rts
 
 gameobjects_lvl3_Checkpoint_count equ 0x1

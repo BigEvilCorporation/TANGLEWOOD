@@ -26,7 +26,7 @@ Lvl3_HarlequinForestAct3:
 Lvl3_DefaultPalettes:
 
 	dc.l palette_lvl1_night		; World
-	dc.l palette_monster		; Djakk
+	dc.l 0x0					; Djakk (black by default, fades up when approached)
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
 	
@@ -174,6 +174,23 @@ Lvl3_Update:
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
+	
+	rts
+	
+Lvl3_Trigger_WakeDjakk:
+
+	PUSHL  a0
+	
+	move.l #Lvl3_Djakk_idx, d0
+	mulu   #Monster_Struct_Size, d0
+	move.l #EntityArray_Monsters, a0
+	add.l  d0, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartEmergeFromCave
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
 	
 	rts
 	
