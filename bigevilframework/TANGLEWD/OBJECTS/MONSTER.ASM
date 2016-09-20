@@ -840,6 +840,10 @@ MonsterUpdateTrackPlayer:
 	; Speed up if out of min chase dist
 	sub.l  d0, d1							; Calc distance
 	
+	; If out of view, check max chase dist
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	bne    @InView
+	
 	; Check if outside max chase distance
 	cmp.l  #Monster_MaxChaseDistance, d1
 	bgt    @OutsideMaxChaseDistL
@@ -858,19 +862,18 @@ MonsterUpdateTrackPlayer:
 	@OutsideMaxChaseDistR:
 	
 	; Outside max chase dist, multiply speed to catch up
+	cmp.b  #0x0, Monster_CatchingUp(a0)
+	bne    @SpeedBoostApplied
 	move.w Character_MaxVelXRun(a0), d0
-	muls   Monster_CatchUpSpeedMul(a0), d0
-	move.w d0, PhysicsObj_VelX(a0)
-	cmp.w  #0x0, d0
-	bge    @NotNeg
-	neg.w  d0
-	@NotNeg:
-	move.w d0, Character_MaxVelXRun(a0)
-	move.b #0x1, Monster_CatchingUp(a0)
+	mulu   Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
+	move.w d0, Character_MaxVelXRun(a0)		; Set new max velocity
+	move.b #0x1, Monster_CatchingUp(a0)		; Set catching up
 	bra    @EndMaxDistCheck
 	
+	@InView:
 	@WithinMaxChaseDist:
 	@EndMaxDistCheck:
+	@SpeedBoostApplied:
 	
 	;==============================================================
 	
