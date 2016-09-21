@@ -54,17 +54,29 @@ Lvl3_Djakk_idx	equ 0x0
 	add.l #Monster_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_Boulder_count equ 0x0
+gameobjects_lvl3_Boulder_count equ 0x1
 LoadGameObjects_lvl3_Boulder:
+Boulder_16_idx	equ 0x0
+	jsr BoulderInit
+	move.l #0x002b1000, Entity_WorldPosX(a0)
+	move.l #0x00021800, Entity_WorldPosY(a0)
+	add.l #Boulder_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_TriggerBox_count equ 0x1
+gameobjects_lvl3_TriggerBox_count equ 0x2
 LoadGameObjects_lvl3_TriggerBox:
 Lvl3_Trigger_Djakk_idx	equ 0x0
 	jsr TriggerBoxInit
 	move.l #0x00095800, Entity_WorldPosX(a0)
 	move.l #0x0002b800, Entity_WorldPosY(a0)
 	move.l #Lvl3_Trigger_WakeDjakk, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	add.l #TriggerBox_Struct_Size, a0
+Lvl3_TriggerBoxEnd_idx	equ 0x1
+	jsr TriggerBoxInit
+	move.l #0x002e7800, Entity_WorldPosX(a0)
+	move.l #0x00014800, Entity_WorldPosY(a0)
+	move.l #Lvl3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	add.l #TriggerBox_Struct_Size, a0
 	rts
