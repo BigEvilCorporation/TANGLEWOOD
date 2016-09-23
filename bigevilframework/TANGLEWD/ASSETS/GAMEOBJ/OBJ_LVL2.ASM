@@ -26,12 +26,12 @@ Lvl2_Fuzzl_Yellow_idx	equ 0x1
 
 gameobjects_lvl2_Nest_count equ 0x2
 LoadGameObjects_lvl2_Nest:
-Nest_3_idx	equ 0x0
+lvl2Nest_3_idx	equ 0x0
 	jsr NestInit
 	move.l #0x00182800, Entity_WorldPosX(a0)
 	move.l #0x0001a800, Entity_WorldPosY(a0)
 	add.l #Nest_Struct_Size, a0
-Nest_4_idx	equ 0x1
+lvl2Nest_4_idx	equ 0x1
 	jsr NestInit
 	move.l #0x0011e000, Entity_WorldPosX(a0)
 	move.l #0x00018000, Entity_WorldPosY(a0)
@@ -55,7 +55,7 @@ Lvl2_Flue_D_idx	equ 0x2
 	move.l #0x001a4000, Entity_WorldPosX(a0)
 	move.l #0x0002e800, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
-Flue_16_idx	equ 0x3
+lvl2Flue_16_idx	equ 0x3
 	jsr FlueInit
 	move.l #0x00118000, Entity_WorldPosX(a0)
 	move.l #0x00030000, Entity_WorldPosY(a0)
@@ -69,52 +69,52 @@ Lvl2_Flue_A_idx	equ 0x4
 
 gameobjects_lvl2_Firefly_count equ 0xa
 LoadGameObjects_lvl2_Firefly:
-Firefly_18_idx	equ 0x0
+lvl2Firefly_18_idx	equ 0x0
 	jsr FireflyInit
 	move.l #0x00046800, Entity_WorldPosX(a0)
 	move.l #0x0001c800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_19_idx	equ 0x1
+lvl2Firefly_19_idx	equ 0x1
 	jsr FireflyInit
 	move.l #0x00045800, Entity_WorldPosX(a0)
 	move.l #0x0001c000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_20_idx	equ 0x2
+lvl2Firefly_20_idx	equ 0x2
 	jsr FireflyInit
 	move.l #0x0006a000, Entity_WorldPosX(a0)
 	move.l #0x0001d800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_21_idx	equ 0x3
+lvl2Firefly_21_idx	equ 0x3
 	jsr FireflyInit
 	move.l #0x00069000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_22_idx	equ 0x4
+lvl2Firefly_22_idx	equ 0x4
 	jsr FireflyInit
 	move.l #0x000b6000, Entity_WorldPosX(a0)
 	move.l #0x0001f800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_23_idx	equ 0x5
+lvl2Firefly_23_idx	equ 0x5
 	jsr FireflyInit
 	move.l #0x000cf800, Entity_WorldPosX(a0)
 	move.l #0x0001f000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_24_idx	equ 0x6
+lvl2Firefly_24_idx	equ 0x6
 	jsr FireflyInit
 	move.l #0x000ca000, Entity_WorldPosX(a0)
 	move.l #0x00011000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_25_idx	equ 0x7
+lvl2Firefly_25_idx	equ 0x7
 	jsr FireflyInit
 	move.l #0x00147800, Entity_WorldPosX(a0)
 	move.l #0x00014000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_26_idx	equ 0x8
+lvl2Firefly_26_idx	equ 0x8
 	jsr FireflyInit
 	move.l #0x001e2000, Entity_WorldPosX(a0)
 	move.l #0x0001e000, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
-Firefly_27_idx	equ 0x9
+lvl2Firefly_27_idx	equ 0x9
 	jsr FireflyInit
 	move.l #0x001e4000, Entity_WorldPosX(a0)
 	move.l #0x0001e800, Entity_WorldPosY(a0)
@@ -132,7 +132,7 @@ Djakk_Lvl2_idx	equ 0x0
 
 gameobjects_lvl2_Boulder_count equ 0x1
 LoadGameObjects_lvl2_Boulder:
-Boulder_11_idx	equ 0x0
+lvl2Boulder_11_idx	equ 0x0
 	jsr BoulderInit
 	move.l #0x0010a800, Entity_WorldPosX(a0)
 	move.l #0x00024800, Entity_WorldPosY(a0)
@@ -168,7 +168,7 @@ Lvl2Start_idx	equ 0x0
 
 gameobjects_lvl2_WaterBody_count equ 0x1
 LoadGameObjects_lvl2_WaterBody:
-WaterBody_15_idx	equ 0x0
+lvl2WaterBody_15_idx	equ 0x0
 	jsr WaterBodyInit
 	move.l #0x0014c000, Entity_WorldPosX(a0)
 	move.l #0x00033000, Entity_WorldPosY(a0)
