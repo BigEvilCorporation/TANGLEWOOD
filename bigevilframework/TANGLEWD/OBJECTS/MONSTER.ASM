@@ -925,18 +925,18 @@ MonsterUpdateTrackPlayer:
 	;==============================================================
 
 	@PlayerDead:
+	@LostPlayer:
+	
+	; Lost player, or player dead, back to search state
+	jsr    MonsterStartSearchForPlayer
+	
 	@PlayerInactive:
 	@PlayerBeingFlung:
-	@PlayerCloaked:
-	@LostPlayer:
 	@HitWall:
-
-	; Lost player, or player dead, back to search state
+	@PlayerCloaked:
+	
 	jsr    CharacterStartRun
 	jsr    CharacterCancelXMovement
-	
-	; Back to search state
-	jsr    MonsterStartSearchForPlayer
 
 	@End:
 
