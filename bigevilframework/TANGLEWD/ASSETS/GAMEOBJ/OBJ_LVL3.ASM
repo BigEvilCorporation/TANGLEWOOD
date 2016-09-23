@@ -53,11 +53,11 @@ lvl3Flue_14_idx	equ 0x1
 lvl3Flue_40_idx	equ 0x2
 	jsr FlueInit
 	move.l #0x0016f800, Entity_WorldPosX(a0)
-	move.l #0x00033000, Entity_WorldPosY(a0)
+	move.l #0x00032000, Entity_WorldPosY(a0)
 	add.l #Flue_Struct_Size, a0
 	rts
 
-gameobjects_lvl3_Firefly_count equ 0xe
+gameobjects_lvl3_Firefly_count equ 0xf
 LoadGameObjects_lvl3_Firefly:
 lvl3Firefly_18_idx	equ 0x0
 	jsr FireflyInit
@@ -128,6 +128,11 @@ lvl3Firefly_34_idx	equ 0xd
 	jsr FireflyInit
 	move.l #0x001ea000, Entity_WorldPosX(a0)
 	move.l #0x0001a800, Entity_WorldPosY(a0)
+	add.l #Firefly_Struct_Size, a0
+lvl3Firefly_41_idx	equ 0xe
+	jsr FireflyInit
+	move.l #0x00171000, Entity_WorldPosX(a0)
+	move.l #0x0002f800, Entity_WorldPosY(a0)
 	add.l #Firefly_Struct_Size, a0
 	rts
 
