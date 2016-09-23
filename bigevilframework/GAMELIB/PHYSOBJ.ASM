@@ -664,14 +664,15 @@ PhysicsObjFindWall:
 	
 	; Wall found - tile X in d4, translate to world space
 	TILES2PIXELS d4						; Tiles to pixels
-	add.w  #SpritePlaneBorderY, d4		; Pixels to screen space
+	add.w  #SpritePlaneBorderX, d4		; Pixels to screen space
 	lsl.l  #0x8, d4						; Screen space to sprite space
 	
 	; If heading left, use right hand side of tile
+	clr.l  d3
 	move.w PhysicsObj_VelX(a0), d3
 	cmp.w  #0x0, d3
 	bgt    @LeftOfTile
-	add.w  #(0x8*SubPixelsPerPixel), d4
+	add.l  #(0x8*SubPixelsPerPixel), d4
 	@LeftOfTile:
 	
 	; Result
