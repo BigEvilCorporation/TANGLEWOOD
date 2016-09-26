@@ -14,14 +14,16 @@ GameStatePause:
 	
 ; Struct
 	rsset	0x0
-;---------------------------------
-PauseState_PaletteBackup	rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
-PauseState_Firefly			rs.b Firefly_Struct_Size
-PauseState_PrevPadState		rs.w 1
-;---------------------------------
-PauseState_Struct_Pad		rs.b 2
-PauseState_Struct_Size		rs.b 0
-;---------------------------------
+;----------------------------------
+PauseState_PaletteBackup	 rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
+PauseState_Firefly			 rs.b Firefly_Struct_Size
+PauseState_PrevPadState		 rs.w 1
+PauseState_TextSpritesID     rs.w 1
+PauseState_TextSpritesCount  rs.w 1
+;----------------------------------
+PauseState_Struct_Pad		 rs.b 2
+PauseState_Struct_Size		 rs.b 0
+;----------------------------------
 
 PauseText_Font			equ Tiles_PixelFont
 PauseText_FontSize		equ Tiles_PixelFontSizeT
@@ -100,17 +102,21 @@ Pause_Enter:
 	jsr     TXT_ItoA_w					; To string
 	
 	move.w  #PauseText_FontTileId, d0	; Font VDP address
-	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
+	move.l  #(((PauseText_PosX*8)<<16)|(PauseText_PosY*8)), d1		; X/Y coord
 	move.b  #PauseText_Palette, d2		; Palette index
 	move.b  #0x0, d3					; Plane A
 	move.l  a1, a0						; String
-	jsr     TXT_DrawPlane
+	jsr     TXT_DrawSprites
 	
 	; Free string space
 	add.l   #0x10, sp
+	
+	; Store text sprites ID/count
+	lea    GameStatePauseData, a0
+	move.w d3, PauseState_TextSpritesID(a0)
+	move.w d4, PauseState_TextSpritesCount(a0)
 		
 	; Create temp firefly
-	lea    GameStatePauseData, a0
 	addi.l #PauseState_Firefly, a0
 	jsr    FireflyInit
 
@@ -234,6 +240,33 @@ Pause_Render:
 	
 	; Draw game objects
 	jsr EntityRenderAll
+	
+	; Draw text
+	lea    GameStatePauseData, a0
+	
+	move.w PauseState_TextSpritesID(a0), d1 ; Next id
+	move.w PauseState_TextSpritesCount(a0), d2
+	
+	subi.w #0x1, d2
+	@TextLp:
+	
+	PUSHL  a0
+	
+	move.w (prev_sprite_link), d0			; Prev id
+	PUSHL  d0
+	PUSHL  d1
+	jsr    SPR_Link							; Link sprite with prev
+	POPL   d1
+	POPL   d0
+	move.w d1, prev_sprite_link				; Set as next_sprite_index
+	addi.b #0x1, sprite_link_count			; Increment link count
+	
+	; Next sprite
+	addi.w #0x1, d1
+	
+	POPL   a0
+	
+	dbra   d2, @TextLp
 	
 	POPL   a1
 	POPL   a0

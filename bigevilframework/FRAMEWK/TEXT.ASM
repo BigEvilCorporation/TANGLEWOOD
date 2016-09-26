@@ -28,7 +28,7 @@ TXT_LoadFont:
 TXT_DrawPlane:
 	; a0 (l) - String address
 	; d0 (w) - First tile ID of font
-	; d1 (bb)- XY coord (in tiles)
+	; d1 (ww)- XY coord (in tiles)
 	; d2 (b) - Palette
 	; d3 (b) - Plane (0=A, 1=B)
 
@@ -73,6 +73,68 @@ TXT_DrawPlane:
 	jmp      @CharCopy              ; Next character
 
 	@End:
+	rts
+	
+TXT_DrawSprites:
+	; a0 (l) - String address
+	; d0 (w) - First tile ID of font
+	; d1 (ww)- XY coord (in tiles)
+	; d2 (b) - Palette
+	; d3 (w) - OUT: First sprite ID
+	; d4 (b) - OUT: Sprites created
+	
+	; To sprite space
+	swap     d1
+	;mulu.w   #0x8, d1
+	add.w    #0x80, d1
+	swap     d1
+	;mulu.w   #0x8, d1
+	add.w    #0x80, d1
+	
+	; Fetch first sprte ID
+	move.w (next_sprite_index), d3
+	
+	; Clear counter
+	clr.w    d4
+	
+	lea      ASCIIMap, a1           ; Load address of ASCII map into a1
+	clr.w    d2
+
+	@CharCopy:
+	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
+	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
+	beq      @End                   ; If byte was zero, branch to end
+
+	PUSHL    d4
+	
+	sub.b    #ASCIIStart, d2        ; Subtract first ASCII code to get table entry index
+	move.b   (a1,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
+	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
+	
+	PUSHL    a0
+	PUSHL    d0
+	PUSHL    d1
+	PUSHL    d2
+	PUSHL    d3
+	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
+	move.w   d4, d2					; Spite tile index
+	move.w   d2, d3					; Sprite palette
+	jsr      SPR_AddSubSprite
+	POPL     d3
+	POPL     d2
+	POPL     d1
+	POPL     d0
+	POPL     a0
+	
+	POPL     d4
+	
+	addi.l   #0x00080000, d1		; Spacing
+	addi.b   #0x1, d4				; Increment counter
+	
+	jmp      @CharCopy              ; Next character
+
+	@End:
+	
 	rts
 
 TXT_ItoA_Hex_w:
