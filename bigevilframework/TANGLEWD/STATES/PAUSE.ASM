@@ -89,20 +89,21 @@ Pause_Enter:
 	; Alloc string space
 	sub.l   #0x10, sp
 	move.l  sp, a0
+	move.l  a0, a1
 	
 	; Firefly count to string
-	move.w  (FireflyPickupCount), d0
-	jsr     TXT_ItoA_Hex_w
-	addi.l  #0x6, a0
-	move.b  #'/', (a0)+
-	move.w  (EntityCount_Fireflies), d0
-	jsr     TXT_ItoA_Hex_w
-	subi.l  #0x7, a0
+	move.w  (FireflyPickupCount), d0	; Get collected firefly count
+	jsr     TXT_ItoA_w					; To string
+	subi.l  #0x1, a0					; Remove terminator
+	move.b  #'/', (a0)+					; Append '/'
+	move.w  (EntityCount_Fireflies), d0	; Get total firefly count
+	jsr     TXT_ItoA_w					; To string
 	
 	move.w  #PauseText_FontTileId, d0	; Font VDP address
 	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
 	move.b  #PauseText_Palette, d2		; Palette index
 	move.b  #0x0, d3					; Plane A
+	move.l  a1, a0						; String
 	jsr     TXT_DrawPlane
 	
 	; Free string space

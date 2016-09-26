@@ -148,3 +148,34 @@ TXT_ItoA_Hex_l:
 	move.b #'0', -(a0)
 
 	rts
+	
+TXT_ItoA_w:
+	; Converts a word to decimal ASCII (10-base, max 5 digits)
+	; a0 --- In: String address
+	; d0 (w) In: Number to convert
+	
+	; Clear digit counter
+	clr.l  d1
+	
+	@Loop:
+	addi.w #0x1, d1
+	move.w d0, d2
+	andi.l #0x0000FFFF, d2
+	divu   #10, d2		; Div/10
+	swap   d2			; Remainder
+	add.b  #ASCIINumericOffset, d2	; In numeric range (0 - 9)
+	move.b d2, -(sp)	; To stack
+	andi.l #0x0000FFFF, d0
+	divu   #10, d0		; Next digit
+	bne    @Loop		; If not 0, more work to do
+	
+	; Copy bytes back from stack to string
+	subi.w #0x1, d1
+	@CopyLp:
+	move.b (sp)+, (a0)+
+	dbra   d1, @CopyLp
+	
+	; Zero terminate
+	move.b #0x0, (a0)+
+
+	rts
