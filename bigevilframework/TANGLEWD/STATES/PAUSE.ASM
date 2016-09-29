@@ -29,9 +29,11 @@ PauseText_Font			equ Tiles_PixelFont
 PauseText_FontSize		equ Tiles_PixelFontSizeT
 PauseText_FontAddr		equ Tiles_PixelFontVRAM
 PauseText_FontTileId	equ (PauseText_FontAddr/size_tile_b)
-PauseText_Palette		equ 0x0
-PauseText_PosX			equ 0x04
-PauseText_PosY			equ 0x04
+PauseText_FontPaletteId	equ PaletteId_Monster	; Least used palette
+PauseText_FontColourIdx	equ	0x1
+PauseText_FontColour	equ 0x0EEE
+PauseText_PosX			equ (screen_width-(8*8))
+PauseText_PosY			equ (screen_height-(4*8))
 	
 Pause_Enter:
 
@@ -86,6 +88,17 @@ Pause_Enter:
 	move.b #VFXGreyscaleInst, d1
 	jsr    VFX_StartScreenEffectGreyscale
 	
+	; Hack: Set font colour directly
+	ALLOCSTACKB size_palette_b
+	move.l sp, a0
+	move.l #PauseText_FontPaletteId, d0
+	jsr    PAL_Read
+	move.l sp, a0
+	move.l #PauseText_FontPaletteId, d0
+	move.w #PauseText_FontColour, (PauseText_FontColourIdx*2)(a0)
+	jsr    PAL_LoadDMA
+	FREESTACKB size_palette_b
+	
 	POPL a0
 	
 	; Alloc string space
@@ -102,8 +115,8 @@ Pause_Enter:
 	jsr     TXT_ItoA_w					; To string
 	
 	move.w  #PauseText_FontTileId, d0	; Font VDP address
-	move.l  #(((PauseText_PosX*8)<<16)|(PauseText_PosY*8)), d1		; X/Y coord
-	move.b  #PauseText_Palette, d2		; Palette index
+	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
+	move.b  #PauseText_FontPaletteId, d2	; Palette index
 	move.b  #0x0, d3					; Plane A
 	move.l  a1, a0						; String
 	jsr     TXT_DrawSprites
@@ -136,9 +149,12 @@ Pause_Enter:
 	move.b #PaletteId_Fuzzl, d4
 	jsr    SpriteObjLoad
 	
-	lea    Player1, a3
-	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
-	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a0)
+	move.l (WorldScrollX), d0
+	move.l (WorldScrollY), d1
+	add.l  #((PauseText_PosX+SpritePlaneBorderX-Firefly_Width-4)*SubpixelsPerPixel), d0
+	add.l  #((PauseText_PosY+SpritePlaneBorderY-(Firefly_Height/2))*SubpixelsPerPixel), d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
 	
 	POPL    a1
 	POPL    a0
@@ -180,8 +196,11 @@ Pause_Exit:
 	addi.l #PauseState_Firefly, a0
 	jsr    FireflyShutdown
 	
-	; HACK: only if last allocated sprite
+	; HACK: only if last allocated sprites
+	lea    GameStatePauseData, a0
 	subi.w #0x1, (next_sprite_index)
+	move.w PauseState_TextSpritesCount(a0), d0
+	sub.w  d0, (next_sprite_index)
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally

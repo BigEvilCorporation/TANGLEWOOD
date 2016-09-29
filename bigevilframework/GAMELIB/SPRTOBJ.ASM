@@ -137,8 +137,7 @@ SpriteObjDraw:
 	add.l  (CameraShakeOffsetX), d2		; Add shake offset
 	divs.w #SubpixelsPerPixel, d2
 	
-	neg.l  d2		; Camera space to scroll space
-	add.l  d2, d1	; Scroll space to screen space (subpixels)
+	sub.l  d2, d1	; Scroll space to screen space (subpixels)
 
 	; Check if out of bounds
 	cmp.w  #0x0, d1
@@ -171,8 +170,7 @@ SpriteObjDraw:
 	add.l  (CameraShakeOffsetY), d2		; Add shake offset
 	divs.w #SubpixelsPerPixel, d2
 	
-	neg.w  d2		; Camera space to scroll space
-	add.w  d2, d1	; Scroll space to screen space (subpixels)
+	sub.w  d2, d1	; Scroll space to screen space (subpixels)
 
 	; Check if out of bounds
 	cmp.w  #0x0, d1

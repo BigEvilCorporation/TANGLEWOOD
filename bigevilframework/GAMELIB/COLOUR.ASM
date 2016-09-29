@@ -8,8 +8,9 @@
 
 	rsset 0
 ;-------------------------------------
+PaletteLerp_BufferSrc			rs.b 0x20	; Source palette  ; TODO: why won't size_palette_b evaluate here?
 PaletteLerp_BufferCur			rs.b 0x20	; Current palette  ; TODO: why won't size_palette_b evaluate here?
-PaletteLerp_BufferTrg			rs.b 0x20   ; Target palette
+PaletteLerp_BufferTrg			rs.b 0x20   ; Target palette  ; TODO: why won't size_palette_b evaluate here?
 PaletteLerp_SubFrame			rs.l 1
 PaletteLerp_UpdateSpeed			rs.w 1		; Update speed (in subframes)
 PaletteLerp_TicksPerUpdate		rs.b 1		; Number of ticks (components to advance) per update
@@ -29,6 +30,9 @@ PAL_LerpStart:
 	; d2 (b) Ticks per update (num components to advance)
 	; d3 (b) Colour range min
 	; d4 (b) Colour range max
+	
+	; Cancel existing lerp
+	jsr    PAL_LerpCancel
 
 	lea    PaletteLerp_Array, a2
 
@@ -55,9 +59,18 @@ PAL_LerpStart:
 	
 	; Fetch current palette from CRAM into current buffer
 	andi.l #0xFF, d0
+	
+	PUSHL  d0
+	move.l a2, a0
+	add.l  #PaletteLerp_BufferSrc, a0
+	jsr    PAL_Read
+	POPL   d0
+	
+	PUSHL  d0
 	move.l a2, a0
 	add.l  #PaletteLerp_BufferCur, a0
 	jsr    PAL_Read
+	POPL   d0
 	
 	rts
 	
@@ -76,6 +89,31 @@ PAL_LerpStartAll:
 	jsr    PAL_LerpStart
 	move.l #0x3, d0
 	jsr    PAL_LerpStart
+	
+	rts
+	
+PAL_LerpCancel:
+	; d0 (b) Palette index
+	
+	PUSHALL
+	
+	lea    PaletteLerp_Array, a0
+
+	and.l  #0x000000FF, d0
+	mulu   #PaletteLerp_Struct_Size, d0
+	add.l  d0, a0
+	
+	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a0)
+	beq    @NoActiveLerp
+
+	move.w #0x0, PaletteLerp_UpdateSpeed(a0)
+	
+	addi.l #PaletteLerp_BufferSrc, a0
+	jsr    PAL_LoadDMA
+	
+	@NoActiveLerp:
+	
+	POPALL
 	
 	rts
 	

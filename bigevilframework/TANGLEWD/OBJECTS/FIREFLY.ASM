@@ -8,8 +8,8 @@
 
 ; Constants
 Firefly_MaxEntities  equ 0x18
-Firefly_Width        equ 0x8
-Firefly_Height       equ 0x8
+Firefly_Width        equ 0x10
+Firefly_Height       equ 0x10
 Firefly_ResetTime    equ 0x0100
 
 ;==============================================================

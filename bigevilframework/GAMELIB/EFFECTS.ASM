@@ -13,6 +13,12 @@ VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	; d1 (b) - Lerped (0) or instant (1)
 	
+	; Cancel existing lerp
+	cmp.b  #VFXGreyscaleLerp, d1
+	bne    @NotLerping
+	jsr    PAL_LerpCancel
+	@NotLerping:
+	
 	; Alloc source/dest palette space on stack
 	ALLOCSTACKB size_palette_b
 	move.l sp, a0

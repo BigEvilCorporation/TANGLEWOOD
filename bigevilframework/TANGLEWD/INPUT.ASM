@@ -155,12 +155,18 @@ HandlePlayerInput:
 	; =====================================================================
 	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
 	; =====================================================================
-	btst #pad_button_start, d0
-	beq  @NoStart
-	btst #pad_button_start, d1
-	bne  @NoStart
-	lea  GameStatePause, a0
-	jsr  GamestatePush
+	btst  #pad_button_start, d0
+	beq   @NoStart
+	btst  #pad_button_start, d1
+	bne   @NoStart
+	PUSHL a0
+	PUSHL d0
+	PUSHL d1
+	lea   GameStatePause, a0
+	jsr   GamestatePush
+	POPL  d1
+	POPL  d0
+	POPL  a0
 	@NoStart:
 	
 	; =====================================================================

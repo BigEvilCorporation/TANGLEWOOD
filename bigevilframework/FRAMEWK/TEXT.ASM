@@ -78,17 +78,18 @@ TXT_DrawPlane:
 TXT_DrawSprites:
 	; a0 (l) - String address
 	; d0 (w) - First tile ID of font
-	; d1 (ww)- XY coord (in tiles)
+	; d1 (ww)- XY coord (in pixels)
 	; d2 (b) - Palette
 	; d3 (w) - OUT: First sprite ID
 	; d4 (b) - OUT: Sprites created
 	
+	; Backup palette
+	move.b   d2, d5
+	
 	; To sprite space
 	swap     d1
-	;mulu.w   #0x8, d1
 	add.w    #0x80, d1
 	swap     d1
-	;mulu.w   #0x8, d1
 	add.w    #0x80, d1
 	
 	; Fetch first sprte ID
@@ -116,10 +117,12 @@ TXT_DrawSprites:
 	PUSHL    d1
 	PUSHL    d2
 	PUSHL    d3
+	PUSHL    d5
 	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
 	move.w   d4, d2					; Spite tile index
-	move.w   d2, d3					; Sprite palette
+	move.w   d5, d3					; Sprite palette
 	jsr      SPR_AddSubSprite
+	POPL     d5
 	POPL     d3
 	POPL     d2
 	POPL     d1

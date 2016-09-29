@@ -406,6 +406,9 @@ LevelReset:
 	; Colour abilities
 	move.b  #0x1, GlobalTimeDiv
 	
+	; Fireflies
+	move.w  #0x0, FireflyPickupCount
+	
 	; World
 	move.w  #Gravity, LevelGravity
 	move.w  #0x0, TimeOfDayShiftDelay
