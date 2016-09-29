@@ -96,6 +96,9 @@ Gameplay_Update:
 	lea    GameStateFail, a0
 	jsr    GameStateEnter
 	
+	; Increment death counter
+	addi.w #0x1, DeathCount
+	
 	@NoUpdate:
 	@PlayerAlive:
 	

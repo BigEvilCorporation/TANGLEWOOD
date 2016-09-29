@@ -42,10 +42,12 @@ Lvl1_DefaultPalettes:
 Lvl1Data_ActiveCutscene1		rs.b 1	; TODO: Use cutscene system
 Lvl1Data_ActiveCutscene2		rs.b 1
 Lvl1Data_ActiveCutscene3		rs.b 1
+Lvl1Data_WaitingInput			rs.b 1
+Lvl1Data_BoulderCutsceneDone	rs.b 1
 Lvl1Data_WakeUpStage			rs.b 1
 Lvl1Data_WakeUpTimer			rs.w 1
 ;---------------------------------
-Lvl1Data_Struct_Pad      		rs.b 2
+Lvl1Data_Struct_Pad      		rs.b 0
 Lvl1Data_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -168,12 +170,43 @@ Lvl1_Init:
 	
 	;==============================================================
 	
+	cmp.w  #0x0, (DeathCount)
+	bne    @DoneIntro
+	
 	; Start Nymn sleep sequence
 	jsr    Lvl1_StartCutscene_NymnWake
 	
 	; Start level intro tune
 	lea    bgm_lvlintro, a0
 	jsr    Echo_PlayBGM
+	
+	move.l #LevelData_1, a2
+	move.b #0x0, Lvl1Data_WaitingInput(a2)
+	
+	bra    @End
+	
+	@DoneIntro:
+	
+	; Already died at least once, skip intro
+	move.l #Player1, a0
+	
+	; Disable player 1 control
+	move.b #0x0, Player1ControlEnabled
+	
+	; Start sleep anim
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	move.l #LevelData_1, a2
+	move.b #0x1, Lvl1Data_WaitingInput(a2)
+	
+	@End:
 	
 	rts
 	
@@ -200,6 +233,44 @@ Lvl1_Update:
 	beq    @NoCutscene3
 	jsr    Lvl1_UpdateCutscene_BoulderRoll
 	@NoCutscene3:
+	
+	; Check waiting for input
+	move.l #LevelData_1, a2
+	cmp.b #0x0, Lvl1Data_WaitingInput(a2)
+	beq    @FinishedLevelStartSequence
+	
+	; Read pad
+	jsr    PAD_ReadPadA
+	
+	; Check for input
+	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
+	cmp.w  #0x0, d0
+	beq   @NoInput
+	
+	; Start wake up sequence
+	PUSHL  a1
+	PUSHL  a2
+	move.l #Player1, a0
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a2
+	POPL   a1
+	
+	; Enable player 1 control
+	move.b #0x1, Player1ControlEnabled
+	
+	; Release animation control
+	move.l #Player1, a0
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Done
+	move.b #0x0, Lvl1Data_WaitingInput(a2)
+	
+	@FinishedLevelStartSequence:
+	@NoInput:
 
 	rts
 	

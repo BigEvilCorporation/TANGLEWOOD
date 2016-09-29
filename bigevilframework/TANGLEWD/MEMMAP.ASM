@@ -178,7 +178,10 @@ TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 ; Firefly count
 FireflyPickupCount		 rs.w 1
 
-__padding06			     rs.b 2
+; Death count
+DeathCount				 rs.w 1
+
+; __padding06			     rs.b 0
 
 ; ************************************
 ; Audio
