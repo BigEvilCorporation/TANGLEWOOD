@@ -746,16 +746,22 @@ PlayerStopColourAbility:
 	move.b #0x0, d3						; First colour
 	move.b #0xF, d4						; Last colour
 	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0	; Palette address
+	move.l Level_PalettesAddr(a1), a3
+	add.l  #(size_long*PaletteId_World0), a3
+	move.l (a3), a0
 	move.l #PaletteId_World0, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0	; Palette address
+	move.l Level_PalettesAddr(a1), a3
+	add.l  #(size_long*PaletteId_Monster), a3
+	move.l (a3), a0
 	move.l #PaletteId_Monster, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0	; Palette address
-	move.l #PaletteId_Fuzzl, d0		; Palette idx
+	move.l Level_PalettesAddr(a1), a3
+	add.l  #(size_long*PaletteId_Fuzzl), a3
+	move.l (a3), a0
+	move.l #PaletteId_Fuzzl, d0			; Palette idx
 	jsr    PAL_LerpStart
 	POPL   a0
 	
