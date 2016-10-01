@@ -180,7 +180,7 @@ lvl1TriggerBox_73_idx	equ 0x2
 	add.l #TriggerBox_Struct_Size, a0
 TriggerCutseneBoulder_idx	equ 0x3
 	jsr TriggerBoxInit
-	move.l #0x00058000, Entity_WorldPosX(a0)
+	move.l #0x00059000, Entity_WorldPosX(a0)
 	move.l #0x00025000, Entity_WorldPosY(a0)
 	move.l #Lvl1_StartCutscene_BoulderRoll, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
