@@ -109,8 +109,8 @@ PAL_LerpUpdateNextComponent:
 	move.l d1, d3						; Keep subframe as prev
 	add.l  d0, d1						; Advance subframe
 	move.l d1, PaletteLerp_SubFrame(a0)	; Back to RAM
-	lsr.w  #0x3, d1						; Subframes to frames
-	lsr.w  #0x3, d3
+	lsr.w  #fade_frame_shift, d1		; Subframes to frames
+	lsr.w  #fade_frame_shift, d3
 	cmp.w  d1, d3						; If frame changed
 	beq    @End
 
@@ -140,7 +140,6 @@ PAL_LerpUpdateNextComponent:
 	move.b PaletteLerp_ColourMax(a0), d3
 	move.b PaletteLerp_ColourMin(a0), d1
 	sub.b  d1, d3		; (max - min) colours
-	sub.b  #0x1, d3	; -1 for loop
 	@PaletteCompareLp:
 	move.w (a1)+, d1
 	move.w (a2)+, d2
@@ -148,7 +147,6 @@ PAL_LerpUpdateNextComponent:
 	and.w  #%0000111011101110, d2
 	cmp.w  d1, d2
 	bne    @NextComponent		; If colours differ, there's still work to do
-	cmp.b  PaletteLerp_ColourMax(a0), d3
 	dbra   d3, @PaletteCompareLp
 	
 	; Reset and disable lerp

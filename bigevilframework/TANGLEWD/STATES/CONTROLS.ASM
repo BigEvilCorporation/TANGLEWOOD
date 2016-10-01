@@ -8,7 +8,7 @@
 
 ; Constants
 ControlsScreenDelayTime	equ 0x0180
-ControlsScreenFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+ControlsScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 ControlsScreenNumColours	equ 0xE ; For palette lerping
 
 GameStateControlsScreen:

@@ -8,7 +8,7 @@
 
 ; Constants
 DemoDisclaimerScreenDelayTime	equ 0x0180
-DemoDisclaimerScreenFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+DemoDisclaimerScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 DemoDisclaimerScreenNumColours	equ 0xF ; For palette lerping
 
 GameStateDemoDisclaimerScreen:

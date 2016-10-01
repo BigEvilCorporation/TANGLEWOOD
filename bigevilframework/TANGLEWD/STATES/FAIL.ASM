@@ -19,7 +19,7 @@ GameStateFail:
 ; Constants
 ; ************************************
 GameStateFail_FadeDownPalette	equ palette_fade_black
-GameStateFail_FadeDownSpeed		equ (0x1<<0x8) ; Subframes (1 frame per tick)
+GameStateFail_FadeDownSpeed		equ (0x1<<fade_frame_shift) ; Subframes (1 frames per tick)
 GameStateFail_ResetTimer		equ 0x0100
 	
 Fail_Enter:

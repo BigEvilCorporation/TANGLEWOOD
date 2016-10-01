@@ -19,7 +19,7 @@ GameStateEndLevel:
 ; Constants
 ; ************************************
 GameStateEndLevel_FadeDownPalette	equ palette_fade_white
-GameStateEndLevel_FadeDownSpeed		equ (0x1<<0x8) ; Subframes (1 frame per tick)
+GameStateEndLevel_FadeDownSpeed		equ (0x1<<fade_frame_shift) ; Subframes (1 frames per tick)
 GameStateEndLevel_SleepTime			equ 0x0180
 GameStateEndLevel_ResetTime			equ 0x0200
 

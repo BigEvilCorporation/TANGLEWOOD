@@ -8,7 +8,7 @@
 
 ; Constants
 DemoEndStateDelayTime	equ 0x0280
-DemoEndStateFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+DemoEndStateFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 DemoEndStateNumColours	equ 0xF ; For palette lerping
 
 GameStateDemoEnd:

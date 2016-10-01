@@ -154,6 +154,7 @@ GameStateStackPtr	 rs.l 1
 GameStateStack       rs.l (GameStateStackSize)
 
 ; Game state data
+GameStateLogoData			 rs.b LogoState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateSoundTestData		 rs.b SoundTestState_Struct_Size

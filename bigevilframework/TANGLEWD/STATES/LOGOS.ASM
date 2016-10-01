@@ -7,8 +7,11 @@
 ;==============================================================
 
 ; Constants
-LogosDelayTime	equ 0x00F0
-LogosFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+LogosDelayTime			equ 0x00F0
+LogosFadeTime			equ (0x1<<fade_frame_shift)
+LogosFadeTimeLetters	equ (0x1<<fade_frame_shift)/2
+LogosNextColourDelay	equ 0x0008
+LogosMaxColours			equ 0xC
 
 GameStateLogos:
 	dc.l Logos_Enter
@@ -16,6 +19,16 @@ GameStateLogos:
 	dc.l Logos_Update
 	dc.l Logos_Render
 	dc.l Logos_Render
+	
+; Struct
+	rsset	0x0
+;-------------------------------
+LogoState_NextColourTimer rs.w 1
+LogoState_CurrColourIdx	  rs.b 1
+;-------------------------------
+LogoState_Struct_Pad	  rs.b 1
+LogoState_Struct_Size	  rs.b 0
+;-------------------------------
 	
 Logos_Enter:
 
@@ -54,20 +67,13 @@ Logos_Enter:
 	lea    bgm_titles, a0
 	jsr    Echo_PlayBGM
 	
-	; Begin fade up
-	lea    palette_bec_logo, a0
-	move.l #PaletteId_BigEvilLogo, d0
-	move.l #LogosFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0x7, d4
-	jsr    PAL_LerpStart
-	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
 	
-	; Reset timer
+	; Reset timers
+	lea    GameStateLogoData, a3
 	move.l #LogosDelayTime, TimerLogoFade
+	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)
 	
 	rts
 	
@@ -77,13 +83,42 @@ Logos_Exit:
 	
 Logos_Update:
 
-	; Wait for fade to finish
+	; Process colour fade timer
+	lea    GameStateLogoData, a3
+	cmp.b  #LogosMaxColours, LogoState_CurrColourIdx(a3)
+	beq    @FadeOut
+	
+	subi.w #0x1, LogoState_NextColourTimer(a3)
+	cmp.w  #0x0, LogoState_NextColourTimer(a3)
+	bne    @ColourTimerRunning
+	
+	; Next colour
+	addi.b #0x1, LogoState_CurrColourIdx(a3)
+	
+	; Reset timer
+	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)
+	
+	; Start lerping palette, up to CurrColourIdx
+	lea    palette_bec_logo, a0
+	move.l #PaletteId_BigEvilLogo, d0
+	move.l #LogosFadeTimeLetters, d1
+	move.b #0x3, d2
+	move.l #0x0, d3
+	clr.l  d4
+	move.b LogoState_CurrColourIdx(a3), d4
+	jsr    PAL_LerpStart
+	
+	bra    @End
+
+	@FadeOut:
+	
+	; Wait for fade in to finish
 	lea    PaletteLerp_Array, a0
 	move.w PaletteLerp_UpdateSpeed(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Fading
 
-	; If already done fade to black
+	; If already done, fade to black
 	cmp.l  #0x0, TimerLogoFade
 	beq    @FadedOut
 	
@@ -113,6 +148,7 @@ Logos_Update:
 	lea GameStateMainMenu, a0
 	jsr GameStateEnter
 	
+	@ColourTimerRunning:
 	@Fading:
 	@NotElapsed:
 	@End:
