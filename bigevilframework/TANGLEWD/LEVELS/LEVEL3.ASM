@@ -102,6 +102,14 @@ Lvl3_Init:
 	move.b #ColourYellow, d0
 	jsr    FuzzlSetColour
 	
+	; Set Fuzzl colours
+	move.l #Lvl3_Fuzzl_Green_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourGreen, d0
+	jsr    FuzzlSetColour
+	
 	;==============================================================
 	
 	; Disable Djakk lost player timeout
