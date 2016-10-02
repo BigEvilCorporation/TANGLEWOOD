@@ -1102,6 +1102,9 @@ PlayerInteractTest_Fuzzls:
 	beq    @NoColourMatch
 	
 	; Fuzzl is home, is in range, and has its colour - take its colour
+	PUSHL  d0
+	jsr    PlayerStopColourAbility
+	POPL   d0
 	move.b d0, Player_Colour(a0)
 	jsr    PlayerBeginColourSwitch
 	
