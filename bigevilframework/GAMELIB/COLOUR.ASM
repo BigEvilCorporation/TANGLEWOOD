@@ -109,8 +109,13 @@ PAL_LerpUpdateNextComponent:
 	move.l d1, d3						; Keep subframe as prev
 	add.l  d0, d1						; Advance subframe
 	move.l d1, PaletteLerp_SubFrame(a0)	; Back to RAM
-	lsr.w  #fade_frame_shift, d1		; Subframes to frames
-	lsr.w  #fade_frame_shift, d3
+	
+	; SNASM68K bug - assembles to lsr.w d4,d0
+	;lsr.w  #fade_frame_shift, d1
+	;lsr.w  #fade_frame_shift, d3
+	lsr.w  #0x6, d1						; Subframes to frames
+	lsr.w  #0x6, d3
+	
 	cmp.w  d1, d3						; If frame changed
 	beq    @End
 

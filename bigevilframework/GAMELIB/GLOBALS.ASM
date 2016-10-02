@@ -18,4 +18,4 @@ serialise_dir_in		equ 0x0
 serialise_dir_out		equ 0x1
 
 ; Faders
-fade_frame_shift		equ 0x3
+fade_frame_shift		equ 0x6

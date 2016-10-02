@@ -78,7 +78,7 @@ VFX_StartScreenEffectGreyscale:
 	move.l a3, a0					; Dest palette address
 	move.l d7, d0					; Palette idx
 	move.w #TimeOfDayCycleSpeed, d1	; Speed
-	move.b #(0x1<<fade_frame_shift), d2	; Ticks per update
+	move.b #0x1, d2					; Ticks per update
 	move.b #0x0, d3					; First colour
 	move.b #0xF, d4					; Last colour
 	jsr    PAL_LerpStart

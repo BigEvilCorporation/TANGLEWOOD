@@ -8,7 +8,7 @@
 
 ; Constants
 LogosDelayTime			equ 0x00F0
-LogosFadeTime			equ (0x1<<fade_frame_shift)
+LogosFadeTime			equ (0x2<<fade_frame_shift)
 LogosFadeTimeLetters	equ (0x1<<fade_frame_shift)/2
 LogosNextColourDelay	equ 0x0008
 LogosMaxColours			equ 0xC
