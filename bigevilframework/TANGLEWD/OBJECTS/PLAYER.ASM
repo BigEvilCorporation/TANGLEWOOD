@@ -1008,15 +1008,13 @@ PlayerInteractTest_Fuzzls:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.l a1, -(sp)
-	
 	; Character must be close to floor to interact with a Fuzzl
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
 	
 	; Check all Fuzzls
-	move.l #EntityArray_Fuzzls, a1
+	move.l #EntityArray_Fuzzls, a3
 	move.w (EntityCount_Fuzzls), d6
 	cmp.w  #0x0, d6
 	beq    @NoFuzzls
@@ -1024,17 +1022,17 @@ PlayerInteractTest_Fuzzls:
 	@FuzzlLoop:
 	
 	; Check if on screen
-	move.b SpriteObj_SpriteLinked(a1), d0
+	move.b SpriteObj_SpriteLinked(a3), d0
 	cmp.b  #0x0, d0
 	beq    @NotVisible
 	
 	; Check if active
-	move.b Entity_Active(a1), d0
+	move.b Entity_Active(a3), d0
 	cmp.b  #0x0, d0
 	beq    @NotActive
 	
 	; Check if close to floor
-	move.b PhysicsObj_CloseToFloor(a1), d0
+	move.b PhysicsObj_CloseToFloor(a3), d0
 	cmp.b  #0x0, d0
 	beq    @FuzzlOffFloor
 	
@@ -1063,7 +1061,7 @@ PlayerInteractTest_Fuzzls:
 	move.w d3, d2
 	
 	; Get Fuzzl bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
+	ENTITY_GETBOUNDS d3,d4,d5,a3
 	
 	; Test box intersection
 	jsr    PHYS_TestBoxIntersectBox
@@ -1075,13 +1073,13 @@ PlayerInteractTest_Fuzzls:
 	beq    @NotInRange
 
 	; In range, check if fuzzl is in its nest
-	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
+	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a3)
 	bne    @FuzzlHome
 	
 	; In range and not in a nest, begin interaction with Fuzzl
 	move.b #0x1, Character_Interacting(a0)
 	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
-	move.l a1, Player_InteractObject(a0)
+	move.l a3, Player_InteractObject(a0)
 	
 	; Cancel run/jump movement
 	jsr    CharacterCancelRun
@@ -1092,7 +1090,7 @@ PlayerInteractTest_Fuzzls:
 	@FuzzlHome:
 	
 	; Check if fuzzl still has its colour
-	move.b Fuzzl_Colour(a1), d0
+	move.b Fuzzl_Colour(a3), d0
 	cmp.b  #ColourDrained, d0
 	beq    @NoColour
 	
@@ -1111,7 +1109,7 @@ PlayerInteractTest_Fuzzls:
 	; Interacting until button depressed
 	move.b #0x1, Character_Interacting(a0)
 	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
-	move.l a1, Player_InteractObject(a0)
+	move.l a3, Player_InteractObject(a0)
 	
 	bra    @End
 
@@ -1125,15 +1123,13 @@ PlayerInteractTest_Fuzzls:
 	@NextFuzzl:
 	
 	; Next Fuzzl
-	add.l #Fuzzl_Struct_Size, a1
+	add.l #Fuzzl_Struct_Size, a3
 	dbra d6, @FuzzlLoop
 	
 	@NoFuzzls:
 	@NotInteracting:
 	@PlayerOffFloor:
 	@End:
-	
-	move.l (sp)+, a1
 	
 	rts
 
