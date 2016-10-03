@@ -427,6 +427,17 @@ PlayerUpdate:
 	; If landing a jump, allow falling down holes
 	move.b Character_Jumping(a0), PhysicsObj_FallThroughHoles(a0)
 	
+	; If dead and not red, switch back
+	cmp.b  #0x0, Character_Dead(a0)
+	beq    @NotDead
+	cmp.b  #ColourRed, Player_Colour(a0)
+	beq    @Red
+	jsr    PlayerStopColourAbility
+	move.b #ColourRed, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+	@NotDead:
+	@Red:
+	
 	; Base functionality
 	jsr    CharacterUpdate
 	
@@ -1106,7 +1117,7 @@ PlayerInteractTest_Fuzzls:
 	move.b d0, Player_Colour(a0)
 	jsr    PlayerBeginColourSwitch
 	
-	; Interacting until button depressed
+	; Interacting until button depressed (to filter ability being triggered immediately)
 	move.b #0x1, Character_Interacting(a0)
 	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
 	move.l a3, Player_InteractObject(a0)

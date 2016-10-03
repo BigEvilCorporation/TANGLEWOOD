@@ -58,13 +58,22 @@ PhysicsObjInit:
 	; Set type
 	ori.l  #entity_type_physicsobj, Entity_TypeBits(a0)
 	
-	move.b #0x1, SpriteObj_Visible(a0)
-	move.b #0x0, SpriteObj_SpriteLinked(a0)
+	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_DecelX(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
+	move.b #0x0, PhysicsObj_OnFloor(a0)
+	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.b #0x0, PhysicsObj_HitWall(a0)
+	move.b #0x0, PhysicsObj_Solid(a0)
+	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -314,7 +323,7 @@ PhysicsObjApplyVelocity:
 PhysicsObjClampPos:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
+	
 	clr.l  d1
 	move.l Entity_WorldPosY(a0), d0
 	move.w Level_MapHeight(a1), d1
@@ -368,10 +377,12 @@ PhysicsObjCollisionCorrection:
 	; a1 --- Level addr
 
 	; Correct object pos if on floor
+	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
+	cmp.l  #0x0, d2
+	beq    @Uninitialised							; First frame, uninitialised
 	clr.l  d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
 	move.l Entity_WorldPosY(a0), d1					; Get Y pos
-	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	move.w Entity_Height(a0), d3					; Get height
 	lsl.l  #0x8, d3									; Height to world space
 	sub.l  d3, d2									; Floor to floor probe space
@@ -383,7 +394,9 @@ PhysicsObjCollisionCorrection:
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	cmp.w  #0x0, d1
 	beq    @NoBounceY
-	move.w PhysicsObj_VelY(a0), d0
+	move.w PhysicsObj_VelY(a0), d0					; Check if heading down
+	cmp.w  #0x0, d0
+	bgt    @NoBounceY
 	neg.w  d0										; Negate Y velocity
 	divs   d1, d0									; Div by bounce
 	@NoBounceY:
@@ -407,6 +420,7 @@ PhysicsObjCollisionCorrection:
 	beq    @SnapToFloorDisabled
 	add.l  d3, d2
 	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
+	@Uninitialised:
 	@NotCloseToFloor:
 	@EndFloorTest:
 	@SnapToFloorDisabled:

@@ -97,6 +97,7 @@ CharacterInit:
 	move.b #0x0, Character_Running(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
+	move.b #0x0, Character_Gliding(a0)
 	move.b #0x0, Character_Interacting(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
