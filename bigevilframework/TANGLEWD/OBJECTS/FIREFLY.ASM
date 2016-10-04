@@ -10,12 +10,11 @@
 Firefly_MaxEntities  equ 0x18
 Firefly_Width        equ 0x10
 Firefly_Height       equ 0x10
-Firefly_ResetTime    equ 0x0100
 
 ;==============================================================
 
 ; Struct
-	rsset (Pickup_Struct_Size)
+	rsset (AnimObj_Struct_Size)
 ;--------------------------
 Firefly_Animation	 rs.b (Animation_Struct_Size)
 Firefly_ResetTimer   rs.w 1
@@ -31,15 +30,15 @@ FireflyInit:
 	; a1 --- Level addr
 	
 	; Base functionality
-	jsr PickupInit
+	jsr AnimObjInit
 	
 	; Set type
 	ori.l  #entity_type_firefly, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Fireflies
 
 	; Set update and render routines
-	move.l #FireflyUpdate, Entity_UpdateRoutine(a0)
-	move.l #PickupDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
@@ -86,32 +85,6 @@ FireflyShutdown:
 	
 	rts
 
-FireflyUpdate:
-	; a0 --- Firefly addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr PickupUpdate
-
-	; Check if picked up
-	cmp.b #0x0, Pickup_Taken(a0)
-	beq   @NotPickedUp
-
-	; Decrement timer
-	sub.w #0x1, Firefly_ResetTimer(a0)
-	cmp.w #0x0, Firefly_ResetTimer(a0)
-	bne   @TimerRunning
-
-	; Timer elapsed, reset pickup
-	move.b #0x1, Entity_Active(a0)
-	move.b #0x1, SpriteObj_Visible(a0)
-	move.b #0x0, Pickup_Taken(a0)
-
-	@NotPickedUp:
-	@TimerRunning:
-
-	rts
-
 FireflyTestObj:
 	; a0 --- Pickup address
 	; a1 --- Test object address
@@ -119,34 +92,28 @@ FireflyTestObj:
 	cmp.b  #0x0, Entity_Active(a0)
 	beq    @AlreadyPickedUp
 
-	; Base functionality
-	jsr PickupTestObj
-	
-	; Restore active flag
-	;POPL   d0
-
-	; If picked up this frame
-	cmp.b  #0x0, Entity_Active(a0)
-	bne    @NotPickedUp
-
-	; Reset timer
-	move.w #Firefly_ResetTime, Firefly_ResetTimer(a0)
-	
-	; If picked up this frame
-	;cmp.b  #0x0, d0
-	;beq    @AlreadypickedUp
+	; Test bounds intersection
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NoIntersection
 	
 	; Stop updating and rendering
-	jsr     EntityRemoveFromUpdateList
-	jsr     EntityRemoveFromRenderList
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	
+	; Inactive
+	move.b #0x0, Entity_Active(a0)
 	
 	; Increment global counter
-	addi.w  #0x1, FireflyPickupCount
+	addi.w #0x1, FireflyPickupCount
 	
 	; Play SFX
 	PLAYSFX_HIGHPRIO #SFX_FireflyCollect
 
 	@NotPickedUp:
 	@AlreadypickedUp:
+	@NoIntersection:
 
 	rts
