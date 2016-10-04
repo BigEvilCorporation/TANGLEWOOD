@@ -48,20 +48,12 @@ AnimObjUpdate:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
 	
-	; If sprite linked or configured to update out of view
+	; If sprite linked or configured to update out of view, and active, and playing
 	move.b AnimObj_UpdateOutOfView(a0), d0
 	or.b   SpriteObj_SpriteLinked(a0), d0
-	beq    @Invisible
-
-	; Check if gameobj active
-	move.b Entity_Active(a0), d0
-	cmp.b  #0x0, d0
-	beq    @Inactive
-	
-	; Check if anim playing
-	move.b AnimObj_Playing(a0), d0
-	cmp.b  #0x0, d0
-	beq    @NotPlaying
+	and.b  Entity_Active(a0), d0
+	and.b  AnimObj_Playing(a0), d0
+	beq    @InvisibleOrInactive
 	
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
@@ -69,7 +61,6 @@ AnimObjUpdate:
 	beq    @NoAnim
 	
 	; Get anim speed
-	clr.l  d0
 	move.b Animation_Speed(a2), d0
 
 	; Check if dirty (new anim, set regardless of speed)
@@ -83,12 +74,13 @@ AnimObjUpdate:
 	@SkipSpeedTest:
 	
 	; Sign extend speed up to longword
+	andi.w #0x00FF, d0
 	ext.w  d0
 	ext.l  d0
 	
 	; Speed div
-	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
+	andi.l #0x000000FF, d1
 	divs   d1, d0
 	
 	; Sign extend speed up to longword
@@ -114,7 +106,7 @@ AnimObjUpdate:
 	
 	; End of non-looping anim, stop playing
 	move.b #0x0, AnimObj_Playing(a0)
-	bra    @NotPlaying
+	bra    @EndLoop
 	
 	@LoopingAnim:
 	@NotAtEnd:
@@ -135,11 +127,10 @@ AnimObjUpdate:
 	; New frame needs uploading to VRAM
 	move.b #0x1, AnimObj_UploadFrame(a0)
 	
-	@Invisible:
+	@InvisibleOrInactive:
 	@NoAnim:
 	@ZeroSpeed:
-	@Inactive:
-	@NotPlaying:
+	@EndLoop:
 	@NoFrameChange:
 	
 	; No longer dirty
@@ -150,7 +141,7 @@ AnimObjUpdate:
 AnimObjDraw:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
-	
+
 	; Check if new frame needs uploading to VRAM
 	cmp.b  #0x0, AnimObj_UploadFrame(a0)
 	beq    @NoNewFrame
@@ -170,20 +161,14 @@ AnimObjDraw:
 	lsr.l  #0x8, d2
 	
 	; Frame advanced, + DMA new tiles to VRAM
-	move.l a0, -(sp)
-	move.l a1, -(sp)
-	move.l a2, -(sp)
-	move.l d2, -(sp)
+	movem.l d2/a0-a2, -(sp)
 	move.l SpriteObj_VRAMAddr(a0), d0
 	move.w SpriteObj_TilesetSize(a0), d1
 	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
 	move.l SpriteObj_TilesetAddr(a0), a0
 	jsr    SPR_LoadAnimFrame
-	move.l (sp)+, d2
-	move.l (sp)+, a2
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	movem.l (sp)+, d2/a0-a2
 	
 	; X position track
 	PUSHL  d2
@@ -223,7 +208,7 @@ AnimObjDraw:
 	move.l (a3), d3						; Get SFX address from anim track
 	cmp.l  #0x0, d3
 	beq    @NoSFX
-
+    
 	PLAYSFX_HIGHPRIO d3	; Play SFX (TODO: exlusive and non-exclusive modes)
 	
 	@NoTrackSFX:

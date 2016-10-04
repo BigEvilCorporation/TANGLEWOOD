@@ -56,12 +56,12 @@ SPR_Link:
 	and.l   #0x000000FF, d0
 	
 	; Offset into sprite table
-	lea     vdp_sprite_table, a0
+	lea     vdp_sprite_table, a3
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)          
-	add.l   d0, a0
+	add.l   d0, a3
 	
 	; Set next sprite ID
-	move.b  d1, Sprite_NextID(a0)
+	move.b  d1, Sprite_NextID(a3)
 	
 	rts
 	
@@ -236,7 +236,6 @@ SPR_LoadAnimFrame:
 
 	and.l  #0x0000FFFF, d2
 	and.l  #0x000000FF, d3
-	clr.l  d5
 
 	divu   d3, d2          ; Div frame count against num anim frames
 	swap   d2			   ; Remainder to lower word
@@ -247,6 +246,7 @@ SPR_LoadAnimFrame:
 	; spriteDataAddr = spriteDataAddr + (sizeOfFrame * newTileID)
 	move.l a0, d2          ; Move sprite data ROM address to d2 (can't do maths on address registers)
 	move.w d1, d5          ; Move size of one sprite frame (in tiles) to d4 (can't trash d1, it's needed later)
+	and.l  #0x0000FFFF, d5
 	lsl.w  #0x5, d5 	   ; Multiply by size of one tile (32 bytes)
 	mulu   d3, d5          ; Multiply with new frame index to get new ROM offset (result in d4)
 	add.l  d5, d2          ; Add to sprite data address

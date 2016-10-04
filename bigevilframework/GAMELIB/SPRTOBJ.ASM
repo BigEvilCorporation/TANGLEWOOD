@@ -128,14 +128,16 @@ SpriteObjDraw:
 	
 	; X pos world space to sprite space
 	move.l Entity_WorldPosX(a0), d1
-	divs.w #SubpixelsPerPixel, d1
+	;lsr.l  #SubpixelShift, d1	; SNASM68K bug - assembles as lsr #8,d0
+	lsr.l  #0x8, d1
 	
 	; Add draw offset (animation, etc)
 	add.w  SpriteObj_DrawOffsetX(a0), d1
 	
 	move.l (WorldScrollX), d2			; Get camera pos X
 	add.l  (CameraShakeOffsetX), d2		; Add shake offset
-	divs.w #SubpixelsPerPixel, d2
+	;lsr.l  #SubpixelShift, d2			; SNASM68K bug - assembles as lsr #8,d0
+	lsr.l  #0x8, d2
 	
 	sub.l  d2, d1	; Scroll space to screen space (subpixels)
 
@@ -145,73 +147,74 @@ SpriteObjDraw:
 	cmp.w  #SpritePlaneWidth, d1
 	bgt    @OutOfBounds
 	
+	;==============================================================
+	
+	; Y pos world space to sprite space
+	move.l Entity_WorldPosY(a0), d3
+	;lsr.l  #SubpixelShift, d3	; SNASM68K bug - assembles as lsr #8,d0
+	lsr.l  #0x8, d3
+	
+	; Add draw offset (animation, etc)
+	add.w  SpriteObj_DrawOffsetY(a0), d3
+	
+	move.l (WorldScrollY), d2			; Get camera Y
+	add.l  (CameraShakeOffsetY), d2		; Add shake offset
+	;lsr.l  #SubpixelShift, d2			; SNASM68K bug - assembles as lsr #8,d0
+	lsr.l  #0x8, d2
+	
+	sub.w  d2, d3	; Scroll space to screen space (subpixels)
+
+	; Check if out of bounds
+	cmp.w  #0x0, d3
+	blt    @OutOfBounds
+	cmp.w  #SpritePlaneHeight, d3
+	bgt    @OutOfBounds
+	
+	;==============================================================
+	
 	; Set X position and flipping
-	move.l a1, -(sp)
-	move.l a0, -(sp)
+	movem.l d3/a0-a1, -(sp)
 	move.b SpriteObj_SpriteID(a0), d0
 	move.b SpriteObj_NumSubSprites(a0), d2
 	move.w Entity_Width(a0), d3
 	move.b SpriteObj_FlippedX(a0), d4
 	move.l SpriteObj_SubSpriteOffArr(a0), a1
 	jsr    SPR_SetMultiPosX
-	move.l (sp)+, a0
-	move.l (sp)+, a1
+	movem.l (sp)+, d3/a0-a1
 	
 	;==============================================================
 	
-	; Y pos world space to sprite space
-	move.l Entity_WorldPosY(a0), d1
-	divs.w #SubpixelsPerPixel, d1
-	
-	; Add draw offset (animation, etc)
-	add.w  SpriteObj_DrawOffsetY(a0), d1
-	
-	move.l (WorldScrollY), d2			; Get camera Y
-	add.l  (CameraShakeOffsetY), d2		; Add shake offset
-	divs.w #SubpixelsPerPixel, d2
-	
-	sub.w  d2, d1	; Scroll space to screen space (subpixels)
-
-	; Check if out of bounds
-	cmp.w  #0x0, d1
-	blt    @OutOfBounds
-	cmp.w  #SpritePlaneHeight, d1
-	bgt    @OutOfBounds
-	
 	; Set Y position
-	move.l a1, -(sp)
-	move.l a0, -(sp)
+	movem.l a0-a1, -(sp)
+	move.w d3, d1
 	move.b SpriteObj_SpriteID(a0), d0
 	move.b SpriteObj_NumSubSprites(a0), d2
 	move.w Entity_Height(a0), d3
 	move.b SpriteObj_FlippedY(a0), d4
 	move.l SpriteObj_SubSpriteOffArr(a0), a1
 	jsr    SPR_SetMultiPosY
-	move.l (sp)+, a0
-	move.l (sp)+, a1
+	movem.l (sp)+, a0-a1
 	
 	;==============================================================
 	
 	; Sprite is visible - link to prev in list
-	clr.w  d1
 	move.b SpriteObj_SpriteID(a0), d1 		; This id
-	clr.l  d3
 	move.b SpriteObj_NumSubSprites(a0), d3
 	subi.b #0x1, d3
+	andi.w #0x00FF, d1
+	andi.w #0x00FF, d3
 	
-	move.l a0, -(sp)
 	@SubSpriteLinkLp:
 	move.w (prev_sprite_link), d0			; Prev id
-	move.l d1, -(sp)
+	PUSHL  d1
 	cmp.b  #0x0, d1
 	beq    @FirstSprite						; Not first sprite
 	jsr    SPR_Link							; Link sprite with prev
 	@FirstSprite:
-	move.l (sp)+, d1
+	POPL   d1
 	move.w d1, prev_sprite_link				; Set as next
 	addi.b #0x1, d1							; Next subsprite
 	dbra   d3, @SubSpriteLinkLp
-	move.l (sp)+, a0
 	
 	; Sprite linked
 	move.b #0x1, SpriteObj_SpriteLinked(a0)
