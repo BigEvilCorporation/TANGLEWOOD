@@ -1032,20 +1032,11 @@ PlayerInteractTest_Fuzzls:
 	subi.w #0x1, d6
 	@FuzzlLoop:
 	
-	; Check if on screen
+	; Check if on screen, active, and close to floor
 	move.b SpriteObj_SpriteLinked(a3), d0
-	cmp.b  #0x0, d0
-	beq    @NotVisible
-	
-	; Check if active
-	move.b Entity_Active(a3), d0
-	cmp.b  #0x0, d0
-	beq    @NotActive
-	
-	; Check if close to floor
-	move.b PhysicsObj_CloseToFloor(a3), d0
-	cmp.b  #0x0, d0
-	beq    @FuzzlOffFloor
+	and.b  Entity_Active(a3), d0
+	and.b  PhysicsObj_CloseToFloor(a3), d0
+	beq    @NextFuzzl
 	
 	; Check if within bounds
 	move.l d6, -(sp)
@@ -1125,10 +1116,7 @@ PlayerInteractTest_Fuzzls:
 	bra    @End
 
 	@NotInRange:
-	@FuzzlOffFloor:
 	@NotPushingFuzzl:
-	@NotVisible:
-	@NotActive:
 	@NoColour:
 	@NoColourMatch:
 	@NextFuzzl:
@@ -1272,12 +1260,12 @@ PlayerInteractTest_Boulders:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.l a1, -(sp)
-	
 	; Character must be close to floor to interact with a Boulder
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
+	
+	PUSHL  a1
 	
 	; Check all Boulders
 	move.l #EntityArray_Boulders, a1
@@ -1287,24 +1275,15 @@ PlayerInteractTest_Boulders:
 	sub.w  #0x1, d6
 	@BoulderLoop:
 	
+	; Check if on screen, active, and close to floor
+	move.b SpriteObj_SpriteLinked(a1), d0
+	and.b  Entity_Active(a1), d0
+	and.b  PhysicsObj_CloseToFloor(a1), d0
+	beq    @NextBoulder
+	
 	; Check if not cracked
 	cmp.b  #0x0, Boulder_Cracked(a1)
 	bne    @Cracked
-	
-	; Check if on screen
-	move.b SpriteObj_SpriteLinked(a1), d0
-	cmp.b  #0x0, d0
-	beq    @NotVisible
-	
-	; Check if active
-	move.b Entity_Active(a1), d0
-	cmp.b  #0x0, d0
-	beq    @NotActive
-	
-	; Check if close to floor
-	move.b PhysicsObj_CloseToFloor(a1), d0
-	cmp.b  #0x0, d0
-	beq    @BoulderOffFloor
 	
 	; Check if within bounds
 	move.l d6, -(sp)
@@ -1351,21 +1330,20 @@ PlayerInteractTest_Boulders:
 
 	@Cracked:
 	@NotInRange:
-	@BoulderOffFloor:
-	@NotVisible:
-	@NotActive:
 	@NextBoulder:
 	
 	; Next Boulder
 	add.l #Boulder_Struct_Size, a1
-	dbra d6, @BoulderLoop
+	dbra  d6, @BoulderLoop
 	
 	@NotInteracting:
 	@NoBoulders:
-	@PlayerOffFloor:
 	@End:
 	
-	move.l (sp)+, a1
+	POPL  a1
+	
+	@PlayerOffFloor:
+
 	
 	rts
 	

@@ -274,12 +274,10 @@ FuzzlUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Don't update if out of view
-	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
-	bne    @SkipUpdateTest
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	; If sprite linked or configured to update out of view
+	move.b AnimObj_UpdateOutOfView(a0), d0
+	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @OutOfView
-	@SkipUpdateTest:
 	
 	; Fuzzls sleep at night
 	move.b (TimeOfDay), d0

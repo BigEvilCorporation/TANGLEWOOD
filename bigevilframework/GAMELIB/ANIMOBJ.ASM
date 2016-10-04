@@ -48,16 +48,10 @@ AnimObjUpdate:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
 	
-	; Check if visibility test should be skipped
-	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
-	bne    @SkipVisibilityTest
-	
-	; Check if sprite linked
-	move.b SpriteObj_SpriteLinked(a0), d0
-	cmp.b  #0x0, d0
+	; If sprite linked or configured to update out of view
+	move.b AnimObj_UpdateOutOfView(a0), d0
+	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @Invisible
-	
-	@SkipVisibilityTest:
 
 	; Check if gameobj active
 	move.b Entity_Active(a0), d0

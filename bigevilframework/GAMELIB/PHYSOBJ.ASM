@@ -83,22 +83,15 @@ PhysicsObjUpdate:
  	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.l a1, -(sp)
+	; If sprite linked or configured to update out of view, and active
+	move.b AnimObj_UpdateOutOfView(a0), d0
+	or.b   SpriteObj_SpriteLinked(a0), d0
+	and.b  Entity_Active(a0), d0
+	beq    @InvisibleOrInactive
 	
-	; If inactive, jump to end
-	move.b Entity_Active(a0), d0
-	cmp.b  #0x0, d0
-	beq    @Inactive
+	PUSHL  a1
 	
-	; If not configured to update out of view, and out of view, jump to end
-	cmp.b  #0x0, AnimObj_UpdateOutOfView(a0)
-	bne    @UpdateOutOfView
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
-	beq    @OutOfView
-	@UpdateOutOfView:
-	
-	move.b PhysicsObj_HasPhysics(a0), d0
-	cmp.b  #0x0, d0
+	cmp.b  #0x0, PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
 	
 	; Get current animation
@@ -152,11 +145,11 @@ PhysicsObjUpdate:
 	jsr PhysicsObjApplyVelocity
 	jsr PhysicsObjClampPos
 	
-	@Inactive:
-	@OutOfView:
 	@End:
 	
-	move.l a1, (sp)+
+	POPL  a1
+	
+	@InvisibleOrInactive:
 	
 	; Base functionality
 	jsr AnimObjUpdate

@@ -51,7 +51,7 @@ SpriteObjInit:
 	move.b #0x0, SpriteObj_NumSubSprites(a0)
 	move.b #0x0, SpriteObj_FlippedX(a0)
 	move.b #0x0, SpriteObj_FlippedY(a0)
-	move.b #0x0, SpriteObj_Visible(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 
 	rts
