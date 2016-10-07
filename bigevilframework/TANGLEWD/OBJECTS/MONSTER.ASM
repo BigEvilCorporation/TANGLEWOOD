@@ -17,7 +17,7 @@ Monster_Height	      equ 0x0050
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x0330   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
-Monster_MaxVelYDown	  equ 0x0600   ; Max Y velocity down
+Monster_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
 Monster_AccelRun      equ 0x0007   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone

@@ -11,7 +11,7 @@ Fuzzl_MaxEntities			equ 0x4
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelYUp				equ 0x0600
-Fuzzl_MaxVelYDown			equ 0x0600
+Fuzzl_MaxVelYDown			equ (0x8*SubpixelsPerPixel)
 Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
 Fuzzl_ProbeFloorY   		equ (Fuzzl_Height-8) ; Floor detection probe position Y

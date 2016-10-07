@@ -25,7 +25,7 @@ ActorDecelForced 	equ 0x0020 ; Actor deceleration if input opposite direction
 ActorMaxVelXWalk 	equ 0x01*SubpixelsPerPixel ; Actor max X walking velocity
 ActorMaxVelXRun  	equ 0x03*SubpixelsPerPixel ; Actor max X running velocity
 ActorMaxVelYUp   	equ 0x06*SubpixelsPerPixel ; Actor max Y velocity up
-ActorMaxVelYDown 	equ 0x06*SubpixelsPerPixel ; Actor max Y velocity down
+ActorMaxVelYDown 	equ 0x08*SubpixelsPerPixel ; Actor max Y velocity down
 
 ActorJumpVel		equ 0x06*SubpixelsPerPixel ; Actor jump velocity impulse
 ActorJumpVelWater	equ 0x02*SubpixelsPerPixel ; Actor jump velocity impulse from water
