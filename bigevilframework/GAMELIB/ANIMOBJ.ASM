@@ -127,14 +127,14 @@ AnimObjUpdate:
 	; New frame needs uploading to VRAM
 	move.b #0x1, AnimObj_UploadFrame(a0)
 	
+	; No longer dirty
+	move.b  #0x0, AnimObj_Dirty(a0)
+	
 	@InvisibleOrInactive:
 	@NoAnim:
 	@ZeroSpeed:
 	@EndLoop:
 	@NoFrameChange:
-	
-	; No longer dirty
-	move.b  #0x0, AnimObj_Dirty(a0)
 	
 	rts
 
@@ -216,11 +216,11 @@ AnimObjDraw:
 	POPL   d2
 	POPL   a0
 	
-	@NoNewFrame:
-	@ZeroLength:
-	
 	; Done
 	move.b #0x0, AnimObj_UploadFrame(a0)
+	
+	@NoNewFrame:
+	@ZeroLength:
 	
 	; Base functionality
 	jsr SpriteObjDraw
