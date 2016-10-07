@@ -981,9 +981,16 @@ MonsterUpdateBite:
 	cmp.b  #Monster_AnimFrame_Bite, d0
 	bne    @End
 	
-	; On attack frame
+	; On attack frame, check if player still in range on attack frame
+	PUSHL  a1
+	move.l #Player1, a1
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   a1
 	
-	; TODO - Check if player still in range on attack frame
+	cmp.b  #0x0, d0
+	beq    @OutOfHitBox
 	
 	; Deal damage to player
 	move.l a0, -(sp)
@@ -1002,6 +1009,7 @@ MonsterUpdateBite:
 	; Back to chase state
 	jsr    MonsterStartTrackPlayer
 	
+	@OutOfHitBox:
 	@End:
 
 	rts
