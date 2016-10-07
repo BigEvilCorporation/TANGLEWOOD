@@ -35,7 +35,7 @@ Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
-Monster_PlayerLostSightTime		equ 0x0100
+Monster_PlayerLostSightTime		equ 0x0180
 
 Monster_RumbleSoundDist  	equ 0x0200
 Monster_RumbleSoundDistSq	equ (Monster_RumbleSoundDist*Monster_RumbleSoundDist)
@@ -929,6 +929,7 @@ MonsterUpdateTrackPlayer:
 	
 	; Lost player, or player dead, back to search state
 	jsr    MonsterStartSearchForPlayer
+	bra    @End
 	
 	@PlayerInactive:
 	@PlayerBeingFlung:
