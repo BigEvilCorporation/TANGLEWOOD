@@ -164,6 +164,8 @@ GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 ; Checkpoints
 ; ************************************
 LastActivatedCheckpoint      rs.l 1
+LastSaveVersion				 rs.w 1
+__padding041			     rs.b 2
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************

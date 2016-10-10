@@ -299,7 +299,7 @@ EntityRenderAll:
 	
 EntitySerialiseAll:
 	; a1 --- Level address
-	; a2 --- Stream ptr
+	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	cmp.l  #0x0, EntityListSize_Serialise

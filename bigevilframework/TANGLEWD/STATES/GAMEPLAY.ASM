@@ -31,28 +31,48 @@ Gameplay_Enter:
 	; Get level id
 	move.l (CurrentLevel), a1
 	
-	; Get player 1
-	move.l #Player1, a0
+	;==============================================================
+	
+	; Check save version
+	cmp.w  #0x0, LastSaveVersion
+	beq    @NoSave
+	
+	; Load saved game
+	jsr    LoadGame
+	bra    @LoadedSave
+	
+	@NoSave:
 	
 	; Get first checkpoint
 	cmp.w  #0x0, EntityCount_Checkpoints
 	beq    @NoCheckpoints
 	lea    EntityArray_Checkpoints, a2
 	
-	; Set as activated
+	; Set as activated, don't allow it to instigate a save
 	move.b #0x1, Checkpoint_Activated(a2)
+	
+	; Get player 1
+	move.l #Player1, a0
 	
 	; Set player pos from checkpoint
 	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
 	
+	@LoadedSave:
 	@NoCheckpoints:
+	
+	;==============================================================
+	
+	; Get player 1
+	move.l #Player1, a0
 	
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
 	
 	; Pre-stream map
 	jsr    LevelPreStreamMap
+	
+	;==============================================================
 	
 	; Start demo timer
 	move.l #DemoTimeout, TimerDemoReset

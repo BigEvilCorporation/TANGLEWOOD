@@ -79,6 +79,8 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	move.w Entity_Height(\addrreg), \tempreg		; Height
 	add.w  \tempreg, \bottomrightreg				; Object Y max
 	endm
+	
+;==============================================================
 
 TOSUBPIXELS: macro destreg
 	lsl.l   #0x8, \destreg
@@ -87,6 +89,8 @@ TOSUBPIXELS: macro destreg
 TOPIXELS: macro destreg
 	lsr.l   #0x8, \destreg
 	endm
+	
+;==============================================================
 	
 	; Play SFX non-excusively (won't play if already playing or sound system busy)
 PLAYSFX_LOWPRIO: macro sfxAddr
@@ -110,4 +114,40 @@ PLAYSFX_HIGHPRIO: macro sfxAddr
 	jsr   Echo_PlaySFX
 	POPL  a0
 	endm
+	
+;==============================================================
+	
+	; Save byte
+SAVEB: macro reg
+    move.b \reg, (a3)+
+	addi.l #0x3, a3
+    endm
+	
+	; Save word
+SAVEW: macro reg
+    move.w \reg, (a3)+
+	addi.l #0x2, a3
+    endm
+	
+	; Save long
+SAVEL: macro reg
+    move.l \reg, (a3)+
+    endm
+	
+	; Load byte
+LOADB: macro reg
+    move.b (a3)+, \reg
+	addi.l #0x3, a3
+    endm
+	
+	; Load word
+LOADW: macro reg
+    move.w (a3)+, \reg
+	addi.l #0x2, a3
+    endm
+	
+	; Load long
+LOADL: macro reg
+    move.l (a3)+, \reg
+    endm
 	

@@ -51,6 +51,7 @@ GameStateReset:
 	; Reset entities
 	jsr    EntityClearUpdateList
 	jsr    EntityClearRenderList
+	jsr    EntityClearSerialiseList
 	
 	; Reset entity counts
 	move.w #0x0, EntityCount_Players

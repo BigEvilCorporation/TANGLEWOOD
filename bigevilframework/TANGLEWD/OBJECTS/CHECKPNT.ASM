@@ -48,14 +48,14 @@ CheckpointUpdate:
 	; If not already active
 	; TODO: Remove from entity update list completely
 	cmp.b  #0x0, Checkpoint_Activated(a0)
-	beq    @Inactive
+	bne    @AlreadyActivated
 	
 	; If player reaches checkpoint X pos, it is activated
 	lea    Player1, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosX(a2), d1
 	cmp.l  d0, d1
-	bgt    @NotReached
+	blt    @NotReached
 	
 	; Checkpoint activated
 	move.b #0x1, Checkpoint_Activated(a0)
@@ -64,9 +64,9 @@ CheckpointUpdate:
 	move.l a0, LastActivatedCheckpoint
 	
 	; Save game state
-	; jsr    SaveGameState
+	jsr    SaveGame
 	
-	@Inactive:
+	@AlreadyActivated:
 	@NotReached:
 	
 	rts
@@ -74,8 +74,29 @@ CheckpointUpdate:
 CheckpointSerialise:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- Stream ptr
+	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEB Checkpoint_Activated(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADB Checkpoint_Activated(a0)
+	
+	;==============================================================
+	
+	@End:
+	
 	rts
 	
