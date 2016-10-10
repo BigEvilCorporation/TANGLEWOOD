@@ -451,8 +451,6 @@ PlayerSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
-	; Base functionality
-
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	

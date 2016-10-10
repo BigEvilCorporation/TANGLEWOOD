@@ -14,6 +14,7 @@ GameStateFail:
 	dc.l Fail_Exit
 	dc.l Fail_Update
 	dc.l Fail_Render
+	dc.l 0x0
 	
 ; ************************************
 ; Constants

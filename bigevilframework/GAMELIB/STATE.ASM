@@ -7,12 +7,13 @@
 ;==============================================================
 
 	rsset 0
-GameState_EnterRoutine	rs.l 1
-GameState_ExitRoutine	rs.l 1
-GameState_UpdateRoutine	rs.l 1
-GameState_RenderRoutine	rs.l 1
-;-----------------------------
-GameState_StructSize	rs.b 0
+GameState_EnterRoutine		rs.l 1
+GameState_ExitRoutine		rs.l 1
+GameState_UpdateRoutine		rs.l 1
+GameState_RenderRoutine		rs.l 1
+GameState_SerialiseRoutine	rs.l 1
+;---------------------------------
+GameState_StructSize		rs.b 0
 
 ; Enter new game state (and exit previous), then set as current state
 GameStateEnter:
@@ -82,3 +83,11 @@ GameStateRender:
 	jsr    (a1)
 	rts
 	
+GameStateSerialise:
+	move.l (GameStatePtr), a0
+	move.l GameState_SerialiseRoutine(a0), a1
+	cmp.l  #0x0, a1
+	beq    @NoSerialise
+	jsr    (a1)
+	@NoSerialise:
+	rts

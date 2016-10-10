@@ -11,6 +11,7 @@ GameStateGameplay:
 	dc.l Gameplay_Exit
 	dc.l Gameplay_Update
 	dc.l Gameplay_Render
+	dc.l Gameplay_Serialise
 	
 Gameplay_Enter:
 	
@@ -160,6 +161,34 @@ Gameplay_Render:
 	; Update map streaming (don't flush VDP queue)
 	move.b #0x0, d0
 	jsr MAP_UpdateStreaming
+	
+	rts
+	
+Gameplay_Serialise:
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+	
+	; Serialise globals
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	@Saving:
+	SAVEW (FireflyPickupCount)
+	bra   @End
+
+	@Loading:
+	LOADW (FireflyPickupCount)
+	@End:
+	
+	; Serialise level
+	PUSHL  a1
+	PUSHL  a2
+	move.l (CurrentLevel), a1
+	move.l Level_SerialiseRoutine(a1), a2
+	jsr    (a2)
+	POPL   a2
+	POPL   a1
 	
 	rts
 	

@@ -14,6 +14,7 @@ GameStateEndLevel:
 	dc.l EndLevel_Exit
 	dc.l EndLevel_Update
 	dc.l EndLevel_Render
+	dc.l 0x0
 	
 ; ************************************
 ; Constants

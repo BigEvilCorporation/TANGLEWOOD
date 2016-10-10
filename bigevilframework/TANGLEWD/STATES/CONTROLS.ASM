@@ -17,6 +17,7 @@ GameStateControlsScreen:
 	dc.l ControlsScreen_Update
 	dc.l ControlsScreen_Render
 	dc.l ControlsScreen_Render
+	dc.l 0x0
 	
 ControlsScreen_Enter:
 

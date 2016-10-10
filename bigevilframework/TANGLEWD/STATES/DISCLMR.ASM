@@ -17,6 +17,7 @@ GameStateDemoDisclaimerScreen:
 	dc.l DemoDisclaimerScreen_Update
 	dc.l DemoDisclaimerScreen_Render
 	dc.l DemoDisclaimerScreen_Render
+	dc.l 0x0
 	
 DemoDisclaimerScreen_Enter:
 

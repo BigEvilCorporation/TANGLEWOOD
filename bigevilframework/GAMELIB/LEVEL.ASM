@@ -15,6 +15,7 @@ Level_ColMapAddr		rs.l 1
 Level_PalettesAddr		rs.l 1
 Level_InitRoutine		rs.l 1
 Level_UpdateRoutine		rs.l 1
+Level_SerialiseRoutine	rs.l 1
 Level_NextLevel			rs.l 1
 Level_Gravity			rs.w 1
 Level_MapWidth			rs.w 1

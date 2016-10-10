@@ -18,6 +18,7 @@ Lvl1_HarlequinForest:
 	dc.l Lvl1_DefaultPalettes	; Palettes
 	dc.l Lvl1_Init				; Init routine
 	dc.l Lvl1_Update			; Update routine
+	dc.l Lvl1_Serialise			; Serialise routine
 	dc.l Lvl2_HarlequinForestAct2 ; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl1_width			; Map width
@@ -43,11 +44,10 @@ Lvl1Data_ActiveCutscene1		rs.b 1	; TODO: Use cutscene system
 Lvl1Data_ActiveCutscene2		rs.b 1
 Lvl1Data_ActiveCutscene3		rs.b 1
 Lvl1Data_WaitingInput			rs.b 1
-Lvl1Data_BoulderCutsceneDone	rs.b 1
 Lvl1Data_WakeUpStage			rs.b 1
 Lvl1Data_WakeUpTimer			rs.w 1
 ;---------------------------------
-Lvl1Data_Struct_Pad      		rs.b 0
+Lvl1Data_Struct_Pad      		rs.b 3
 Lvl1Data_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -272,6 +272,13 @@ Lvl1_Update:
 	@FinishedLevelStartSequence:
 	@NoInput:
 
+	rts
+	
+Lvl1_Serialise:
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+	
 	rts
 	
 Lvl1_End:

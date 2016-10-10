@@ -36,13 +36,15 @@ FireflyInit:
 	ori.l  #entity_type_firefly, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Fireflies
 
-	; Set update and render routines
+	; Set update, render and serialise routines
 	move.l #AnimObjUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #FireflySerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
+	jsr EntityAddToSerialiseList
 
 	; Default state
 	move.w #Firefly_Width, Entity_Width(a0)
@@ -84,6 +86,37 @@ FireflyShutdown:
 	subi.w #0x1, EntityCount_Fireflies
 	
 	rts
+	
+FireflySerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEB Entity_Active(a0)
+	SAVEB SpriteObj_Visible(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADB Entity_Active(a0)
+	LOADB SpriteObj_Visible(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts
 
 FireflyTestObj:
 	; a0 --- Pickup address
@@ -103,8 +136,9 @@ FireflyTestObj:
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	
-	; Inactive
+	; Inactive and invisible
 	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 	
 	; Increment global counter
 	addi.w #0x1, FireflyPickupCount

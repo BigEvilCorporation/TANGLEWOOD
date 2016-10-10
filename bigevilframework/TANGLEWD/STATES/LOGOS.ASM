@@ -19,6 +19,7 @@ GameStateLogos:
 	dc.l Logos_Update
 	dc.l Logos_Render
 	dc.l Logos_Render
+	dc.l 0x0
 	
 ; Struct
 	rsset	0x0

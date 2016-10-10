@@ -122,10 +122,12 @@ MonsterInit:
 	; Set update and render routines
 	move.l #MonsterUpdate, Entity_UpdateRoutine(a0)
 	move.l #CharacterDraw, Entity_RenderRoutine(a0)
+	move.l #MonsterSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
+	jsr EntityAddToSerialiseList
 	
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
@@ -352,6 +354,39 @@ MonsterUpdate:
 	
 	; Base functionality
 	jsr CharacterUpdate
+	
+	rts
+	
+MonsterSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	SAVEB Monster_State(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	LOADB Monster_State(a0)
+	
+	;==============================================================
+	
+	@End:
 	
 	rts
 	

@@ -23,6 +23,7 @@ GameStateMainMenu:
 	dc.l MainMenu_Exit
 	dc.l MainMenu_Update
 	dc.l MainMenu_Render
+	dc.l 0x0
 	
 MainMenu_Enter:
 

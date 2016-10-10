@@ -24,6 +24,7 @@ GameStateSoundTest:
 	dc.l SoundTest_Exit
 	dc.l SoundTest_Update
 	dc.l SoundTest_Render
+	dc.l 0x0
 	
 SoundTest_Enter:
 

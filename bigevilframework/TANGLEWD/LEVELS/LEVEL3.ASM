@@ -15,6 +15,7 @@ Lvl3_HarlequinForestAct3:
 	dc.l Lvl3_DefaultPalettes	; Palettes
 	dc.l Lvl3_Init				; Init routine
 	dc.l Lvl3_Update			; Update routine
+	dc.l Lvl3_Serialise			; Serialise routine
 	dc.l 0x0					; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl3_width			; Map width
@@ -182,6 +183,13 @@ Lvl3_Update:
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
+	
+	rts
+	
+Lvl3_Serialise:
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 	

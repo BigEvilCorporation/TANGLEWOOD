@@ -17,6 +17,7 @@ GameStateDemoEnd:
 	dc.l DemoEndState_Update
 	dc.l DemoEndState_Render
 	dc.l DemoEndState_Render
+	dc.l 0x0
 	
 DemoEndState_Enter:
 

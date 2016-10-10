@@ -11,6 +11,7 @@ GameStatePause:
 	dc.l Pause_Exit
 	dc.l Pause_Update
 	dc.l Pause_Render
+	dc.l 0x0
 	
 ; Struct
 	rsset	0x0

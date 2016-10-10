@@ -44,11 +44,13 @@ TriggerBoxInit:
 	ori.l  #entity_type_trigger, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Triggers
 	
-	; Set update routine
+	; Set update and serialise routines
 	move.l #TriggerBoxUpdate, Entity_UpdateRoutine(a0)
+	move.l #TriggerBoxSerialise, Entity_SerialiseRoutine(a0)
 	
-	; Add to update list
+	; Add to update and serialise lists
 	jsr EntityAddToUpdateList
+	jsr EntityAddToSerialiseList
 
 	; Default state
 	move.b #0x1, Entity_Active(a0)
@@ -140,6 +142,35 @@ TriggerBoxUpdate:
 	@Triggered:
 	
 	move.l (sp)+, a1
+	
+	rts
+	
+TriggerBoxSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEB TriggerBox_Triggered(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADB TriggerBox_Triggered(a0)
+	
+	;==============================================================
+	
+	@End:
 	
 	rts
 	
