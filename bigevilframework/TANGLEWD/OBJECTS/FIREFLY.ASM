@@ -83,6 +83,7 @@ FireflyShutdown:
 	
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromSerialiseList
 	subi.w #0x1, EntityCount_Fireflies
 	
 	rts

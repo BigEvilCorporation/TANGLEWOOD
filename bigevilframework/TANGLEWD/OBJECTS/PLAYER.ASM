@@ -116,15 +116,13 @@ PlayerInit:
 	ori.l  #entity_type_player, Entity_TypeBits(a0)
 	addi.w #0x1, EntityCount_Players
 	
-	; Set update, render and serialise routines
+	; Set update and render routines
 	move.l #PlayerUpdate, Entity_UpdateRoutine(a0)
 	move.l #CharacterDraw, Entity_RenderRoutine(a0)
-	move.l #PlayerSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
-	jsr EntityAddToSerialiseList
 	
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
@@ -442,37 +440,6 @@ PlayerUpdate:
 	
 	; Base functionality
 	jsr    CharacterUpdate
-	
-	rts
-	
-PlayerSerialise:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a3 --- Stream ptr
-	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
-	
-	cmp.b #serialise_dir_in, d1
-	beq   @Loading
-	
-	;==============================================================
-	
-	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
-	
-	bra  @End
-	
-	;==============================================================
-	
-	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
-	
-	;==============================================================
-	
-	@End:
 	
 	rts
 	

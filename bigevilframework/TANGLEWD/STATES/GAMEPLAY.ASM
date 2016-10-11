@@ -40,14 +40,23 @@ Gameplay_Enter:
 	
 	; Load saved game
 	jsr    LoadGame
-	bra    @LoadedSave
 	
 	@NoSave:
 	
-	; Get first checkpoint
+	;==============================================================
+	
 	cmp.w  #0x0, EntityCount_Checkpoints
 	beq    @NoCheckpoints
+	
+	; Get last activated checkpoint
+	move.l (LastActivatedCheckpoint), a2
+	cmp.l  #0x0, a2
+	bne    @ValidCheckpoint
+	
+	; No checkpoints activated, get first
 	lea    EntityArray_Checkpoints, a2
+	
+	@ValidCheckpoint:
 	
 	; Set as activated, don't allow it to instigate a save
 	move.b #0x1, Checkpoint_Activated(a2)
@@ -58,8 +67,7 @@ Gameplay_Enter:
 	; Set player pos from checkpoint
 	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
-	
-	@LoadedSave:
+
 	@NoCheckpoints:
 	
 	;==============================================================
@@ -174,18 +182,20 @@ Gameplay_Serialise:
 	beq   @Loading
 	
 	@Saving:
+	SAVEL (LastActivatedCheckpoint)
 	SAVEW (FireflyPickupCount)
 	SAVEB (TimeOfDay)
 	bra   @End
 
 	@Loading:
+	LOADL (LastActivatedCheckpoint)
 	LOADW (FireflyPickupCount)
 	LOADB (TimeOfDay)
 	
-	PUSHM  d1/a0-a3
+	PUSHM  d0-d1/a0-a3
 	move.b (TimeOfDay), d0
 	jsr    SetTimeOfDay
-	POPM   d1/a0-a3
+	POPM   d0-d1/a0-a3
 	@End:
 	
 	; Serialise level
