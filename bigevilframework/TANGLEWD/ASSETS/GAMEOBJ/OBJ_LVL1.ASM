@@ -204,7 +204,7 @@ TriggerCancelColour_idx	equ 0x5
 	add.l #TriggerBox_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_Checkpoint_count equ 0x2
+gameobjects_lvl1_Checkpoint_count equ 0x3
 LoadGameObjects_lvl1_Checkpoint:
 lvl1Checkpoint_58_idx	equ 0x0
 	jsr CheckpointInit
@@ -215,6 +215,11 @@ lvl1Checkpoint_125_idx	equ 0x1
 	jsr CheckpointInit
 	move.l #0x00091000, Entity_WorldPosX(a0)
 	move.l #0x0002f800, Entity_WorldPosY(a0)
+	add.l #Checkpoint_Struct_Size, a0
+lvl1Checkpoint_126_idx	equ 0x2
+	jsr CheckpointInit
+	move.l #0x00180000, Entity_WorldPosX(a0)
+	move.l #0x00024000, Entity_WorldPosY(a0)
 	add.l #Checkpoint_Struct_Size, a0
 	rts
 

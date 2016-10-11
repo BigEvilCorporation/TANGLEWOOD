@@ -25,6 +25,16 @@ PUSHL: macro reg
 POPL: macro reg
     move.l (sp)+, \reg
     endm
+
+; Stack push multiple regs
+PUSHM: macro regs
+	 movem.l \regs, -(sp)
+	 endm
+	 
+; Stack pop multiple regs
+POPM: macro regs
+	movem.l (sp)+, \regs
+	endm
 	
 ; Stack push all regs
 PUSHALL: macro

@@ -60,6 +60,10 @@ EndLevel_Enter:
 	rts
 	
 EndLevel_Exit:
+
+	; Finished with checkpoint data
+	move.w #0x0, LastSaveVersion
+	
 	rts
 	
 EndLevel_Update:

@@ -175,10 +175,17 @@ Gameplay_Serialise:
 	
 	@Saving:
 	SAVEW (FireflyPickupCount)
+	SAVEB (TimeOfDay)
 	bra   @End
 
 	@Loading:
 	LOADW (FireflyPickupCount)
+	LOADB (TimeOfDay)
+	
+	PUSHM  d1/a0-a3
+	move.b (TimeOfDay), d0
+	jsr    SetTimeOfDay
+	POPM   d1/a0-a3
 	@End:
 	
 	; Serialise level
