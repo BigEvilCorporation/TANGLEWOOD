@@ -95,6 +95,16 @@ Lvl2_Init:
 	
 	;==============================================================
 	
+	; Load BG map
+	lea    map_lvl1_bg, a0
+	move.l #map_lvl1_bg_size_w, d0
+	move.l #0x0, d1
+	move.l #Tiles_LevelMap_ID, d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadMapPlaneB
+	
+	;==============================================================
+	
 	; Don't bother with Djakk emerge sequence
 	move.l #Djakk_Lvl2_idx, d0
 	mulu   #Monster_Struct_Size, d0

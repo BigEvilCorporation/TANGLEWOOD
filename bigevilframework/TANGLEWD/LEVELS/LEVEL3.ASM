@@ -95,6 +95,16 @@ Lvl3_Init:
 	
 	;==============================================================
 	
+	; Load BG map
+	lea    map_lvl1_bg, a0
+	move.l #map_lvl1_bg_size_w, d0
+	move.l #0x0, d1
+	move.l #Tiles_LevelMap_ID, d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadMapPlaneB
+	
+	;==============================================================
+	
 	; Set Fuzzl colours
 	move.l #Lvl3_Fuzzl_Yellow_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0

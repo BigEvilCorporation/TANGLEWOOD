@@ -136,7 +136,7 @@ Lvl1_Init:
 	
 	;==============================================================
 	
-	;Load BG map
+	; Load BG map
 	lea    map_lvl1_bg, a0
 	move.l #map_lvl1_bg_size_w, d0
 	move.l #0x0, d1
