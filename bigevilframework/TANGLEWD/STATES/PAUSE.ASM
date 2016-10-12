@@ -157,6 +157,11 @@ Pause_Enter:
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	
+	; Set high sprite priority
+	move.b SpriteObj_SpriteID(a0), d0
+	move.b #0x1, d1
+	jsr    SPR_SetPriority
+	
 	POPL    a1
 	POPL    a0
 	

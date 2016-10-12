@@ -47,11 +47,14 @@ SPR_AddMultiSprite:
 			; Backup a0
 			move.l a0, -(sp)
 			
-			; SPR_AddSubSprite
+			; Priority
+			moveq  #0x0, d4
+			
 			; d0 (b)  Dimensions
 			; d1 (ww) X/Y coord
 			; d2 (w)  First tile index
 			; d3 (b)  Palette
+			; d4 (b)  Priority (0/1)
 			jsr SPR_AddSubSprite
 
 			; Restore regs
@@ -94,17 +97,18 @@ SPR_AddSubSprite:
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
+	; d4 (b)  Priority (0/1)
 	
 	; TODO: Support priority
 	
 	; Alloc sprite ID
-	move.w (next_sprite_index), d4
+	move.w (next_sprite_index), d5
 	add.w  #0x1, (next_sprite_index)
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
-	mulu.w  #size_spritedesc, d4          
-	add.l   d4, a0
+	mulu.w  #size_spritedesc, d5          
+	add.l   d5, a0
 	
 	; Set values
 	move.w d1, Sprite_CoordY(a0)      ; Y coord
@@ -115,9 +119,12 @@ SPR_AddSubSprite:
 
 	; Flipping, palette ID, priority and tile ID
 	; Bit pattern: LPPV HTTT TTTT TTTT (L=Lo/Hi priority, P=Palette, V=VFlip, H=HFlip, T-TileId)
-	and.w  #%0000000000000011, d3		; Palette in bottom two bits
+	andi.w #%0000000000000011, d3		; Palette in bottom two bits
+	andi.w #0x1, d4						; Priority bit
 	ror.w  #0x3, d3						; Palette to bits 13-14
+	ror.w  #0x1, d4						; Priority to bit 15
 	or.w   d2, d3						; OR tile ID with palette
+	or.w   d4, d3						; OR priority bit
 	move.w d3, Sprite_Prio_Pal_Flip_TileIDhi(a0)
 	
 	rts

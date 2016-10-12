@@ -222,6 +222,27 @@ SPR_SetMultiPosY:
 		dbra    d2, @SubspriteLp
 
 	rts
+	
+SPR_SetPriority:
+	; Set sprite draw priority
+	; d0 (b) - Sprite ID
+	; d1 (b) - Priority (0/1)
+	
+	; Offset into sprite table
+	lea     vdp_sprite_table, a0
+	andi.l  #0x000000FF, d0
+	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
+	add.l   d0, a0
+	
+	; Priority = top bit in byte
+	lsl.b   #0x7, d1
+	
+	move.b  Sprite_Prio_Pal_Flip_TileIDHi(a0), d2
+	andi.b  #0x7F, d2	; Clear top bit
+	or.b    d1, d2		; OR priority bit
+	move.b  d2, Sprite_Prio_Pal_Flip_TileIDHi(a0)
+	
+	rts
 
 SPR_LoadAnimFrame:
 	; Sets sprite frame from animation data and frame index, uploads tiles to VRAM

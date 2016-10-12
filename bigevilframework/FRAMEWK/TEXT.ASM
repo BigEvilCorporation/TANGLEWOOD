@@ -121,6 +121,7 @@ TXT_DrawSprites:
 	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
 	move.w   d4, d2					; Spite tile index
 	move.w   d5, d3					; Sprite palette
+	moveq    #0x1, d4				; Sprite priority
 	jsr      SPR_AddSubSprite
 	POPL     d5
 	POPL     d3
