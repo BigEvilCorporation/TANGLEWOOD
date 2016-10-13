@@ -113,7 +113,7 @@ __start
 	include 'audio.asm'
 	include 'input.asm'
 	include 'level.asm'
-	
+	include 'savegame.asm'
 	include 'tod.asm'
 
 	; ************************************
@@ -231,7 +231,7 @@ __vinterrupt:
 
 	; DMA the sprite table
 	lea    vdp_sprite_table, a0
-	move.w #vram_addr_sprite_table, d0
+	move.l #vram_addr_sprite_table, d0
 	move.w #(Sprite_Struct_Size*vdp_max_sprites), d1
 	jsr    VDP_DMACopyVRAM
 	@NoSprites:
