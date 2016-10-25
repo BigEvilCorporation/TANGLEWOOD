@@ -13,10 +13,6 @@ tiles_tst1:
 	incbin 'assets\tiles\til_tst1.bin'
 collisiontiles_tst1:
 	incbin 'assets\collisn\ctl_tst1.bin'
-map_bigevil_logo:
-	incbin 'assets\maps\bec_logo.bin'
-map_tanglewood_logo:
-	incbin 'assets\maps\twd_logo.bin'
 map_tst1:
 	incbin 'assets\maps\map_tst1.bin'
 collisionmap_tst1:

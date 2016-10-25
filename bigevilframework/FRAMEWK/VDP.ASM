@@ -13,12 +13,14 @@ VDP_Init:
 	jsr INT_LoadHBlank
 
 	; Set VDP registers
-	move.l #VDPRegisters, a0   		  ; Load address of register table into a0
+	move.l #VDPRegisters, a0   		  ; Load address of register init table into a0
+	move.l #vdp_regs, a1   		  	  ; Load address of local register state table into a1
 	move.l #(vdp_num_registers-1), d0 ; 24 registers to write (-1 for loop counter)
 	move.l #vdp_write_register, d1    ; 'Set register 0' command
 
 	@CopyVDP:
 	move.b (a0)+, d1           ; Move register value to lower byte of d1
+	move.b d1, (a1)+		   ; Move to local table
 	move.w d1, vdp_control     ; Write command and value to VDP control port
 	add.w #0x0100, d1          ; Increment register #
 	dbra d0, @CopyVDP
@@ -120,13 +122,12 @@ VDP_DMACopyVRAM:
 	swap    d0                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_dma_vram_write, d0 ; OR in VRAM+DMA write command
 	
-	; Read and backup VDP reg 1
-	move.w  (VDPRegisters), d4		; VDP regs
-	andi.w  #0x00FF, d4 			; Second reg
+	; Read VDP reg 1
+	VDPGETREG 1, d4
 	
 	; Enable DMA
-	ori.w   #0x8110, d4  			; Set register 1 + DMA bit (5)
-	move.w  d4, vdp_control
+	ori.w   #0x10, d4  			; Set register 1 + DMA bit (5)
+	VDPSETREG 1, d4
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -135,7 +136,7 @@ VDP_DMACopyVRAM:
 	
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	move.w  d4, vdp_control
+	VDPSETREG 1, d4
 	
 	rts
 	
@@ -186,13 +187,12 @@ VDP_DMACopyCRAM:
 	swap    d0                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_dma_cram_write, d0 ; OR in CRAM+DMA write command
 	
-	; Read and backup VDP reg 1
-	move.w  (VDPRegisters), d4		; VDP regs
-	andi.w  #0x00FF, d4 			; Second reg
+	; Read VDP reg 1
+	VDPGETREG 1, d4
 	
 	; Enable DMA
-	ori.w   #0x8110, d4  			; Set register 1 + DMA bit (5)
-	move.w  d4, vdp_control
+	ori.b   #0x10, d4  			; Set register 1 + DMA bit (5)
+	VDPSETREG 1, d4
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -201,7 +201,7 @@ VDP_DMACopyCRAM:
 	
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	move.w  d4, vdp_control
+	VDPSETREG 1, d4
 
 	rts
 

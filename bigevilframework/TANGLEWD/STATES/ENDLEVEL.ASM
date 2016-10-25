@@ -51,8 +51,10 @@ EndLevel_Enter:
 	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
 		
 	; Start end of level theme
+	IFND DEBUG
 	lea    bgm_lvloutro, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	POPL   a1
 	POPL   a0
@@ -133,9 +135,15 @@ EndLevel_Update:
 	@EndOfGame:
 	
 	; Reset to first level and head to demo end screen
+	IFD DEBUG
+	move.l #Tst1_Forest, CurrentLevel
+	lea    GameStateGameplay, a0
+	jsr    GameStateEnter
+	ELSE
 	move.l #Lvl1_HarlequinForest, CurrentLevel
 	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
+	ENDIF
 	
 	@TimerRunning:
 	@End:

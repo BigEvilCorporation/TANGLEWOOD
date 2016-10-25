@@ -6,6 +6,8 @@
 
 AmbientSFXCount		equ 0x04
 
+	IFND DEBUG
+
 ; Cutscene SFX tracks
 bgm_cut_introrumble:
 	include 'assets\SFX\cutscn\rumble.asm'
@@ -82,3 +84,6 @@ SFX_FootstepBig:
 	
 SFX_Land:
 	include 'assets\SFX\fstep\land.asm'
+
+		ENDIF
+		

@@ -168,6 +168,7 @@ PlayerInit:
 	;==============================================================
 	
 	; Setup default SFX
+	IFND DEBUG
 	move.l a0, a2
 	add.l  #Character_SFX, a2
 	
@@ -175,6 +176,7 @@ PlayerInit:
 	move.l a2, a3
 	add.l  #CharacterSFXIdx_Land, a3
 	move.l #SFX_Land, (a3)
+	ENDIF
 	
 	;==============================================================
 
@@ -212,7 +214,9 @@ PlayerInit:
 	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	IFND DEBUG
 	move.l #spriteanim_nymn_run_track_sfx, Animation_AnimTrackSFX(a3)
+	ENDIF
 	move.b #spriteanim_nymn_run_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
@@ -1260,6 +1264,8 @@ PlayerInteractTest_Boulders:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	IFND DEBUG
+	
 	; Character must be close to floor to interact with a Boulder
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
@@ -1344,6 +1350,7 @@ PlayerInteractTest_Boulders:
 	
 	@PlayerOffFloor:
 
+	ENDIF
 	
 	rts
 	
@@ -1351,6 +1358,8 @@ PlayerInteract_Boulder:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; a2 --- Boulder addr
+	
+	IFND DEBUG
 	
 	move.l a1, -(sp)
 	
@@ -1457,12 +1466,16 @@ PlayerInteract_Boulder:
 	
 	move.l (sp)+, a1
 	
+	ENDIF
+	
 	rts
 
 PlayerInteractTest_Fireflies:
 
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	IFND DEBUG
 
 	PUSHL  a0
 	PUSHL  a1
@@ -1486,6 +1499,8 @@ PlayerInteractTest_Fireflies:
 
 	POPL   a1
 	POPL   a0
+	
+	ENDIF
 
 	rts
 
@@ -1530,3 +1545,4 @@ PlayerInteractTest_Water:
 	POPL  a1
 	
 	rts
+	

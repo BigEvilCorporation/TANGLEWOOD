@@ -68,15 +68,19 @@ GameStateReset:
 	move.w #0x0, EntityCount_Locations
 	
 	; Stop BGM
+	IFND DEBUG
 	jsr    Echo_StopBGM
+	ENDIF
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
 	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	; Reset Echo
+	IFND DEBUG
 	lea echo_instruments, a0
 	jsr Echo_Init
+	ENDIF
 	
 	rts
 
@@ -222,6 +226,7 @@ LevelLoadGameObjArt:
 	@NoPlayers:
 
 	; Monsters
+	IFND DEBUG
 	cmp.w  #0x0, EntityCount_Monsters
 	beq    @NoMonsters
 	move.l #EntityArray_Monsters, a0
@@ -236,7 +241,8 @@ LevelLoadGameObjArt:
 	move.b #PaletteID_Monster, d4
 	jsr    SpriteObjLoad
 	@NoMonsters:
-    
+    ENDIF
+	
 	; Fuzzls
 	cmp.w  #0x0, EntityCount_Fuzzls
 	beq    @NoFuzzls
@@ -304,6 +310,7 @@ LevelLoadGameObjArt:
 	@NoLeaves:
 
 	; Boulders
+	IFND DEBUG
 	cmp.w  #0x0, EntityCount_Boulders
 	beq    @NoBoulders
 	move.l #EntityArray_Boulders, a0
@@ -328,8 +335,10 @@ LevelLoadGameObjArt:
 	add.l  #sprite_boulder_size_b, d0
 	dbra   d1, @BoulderLoop
 	@NoBoulders:
+	ENDIF
 	
 	; Fireflies
+	IFND DEBUG
 	cmp.w  #0x0, EntityCount_Fireflies
 	beq    @NoFireflies
 	move.l #EntityArray_Fireflies, a0
@@ -354,6 +363,7 @@ LevelLoadGameObjArt:
 	add.l  #sprite_firefly_size_b, d0
 	dbra   d1, @FireflyLoop
 	@NoFireflies:
+	ENDIF
 	
 	rts
 
@@ -367,11 +377,15 @@ LevelCreatePlayers:
 	
 LevelAddSFX:
 
+	IFND DEBUG
+	
 	lea    AmbientSFX, a2
 	move.l #SFX_Chirp1, (a2)+
 	move.l #SFX_Chirp2, (a2)+
 	move.l #SFX_Chirp3, (a2)+
 	move.l #SFX_Chirp4, (a2)+
+	
+	ENDIF
 
 	rts
 	
@@ -422,7 +436,7 @@ LevelReset:
 	move.l  #Player1, CameraTargetGameObj
 	
 	; Set BG colour (level palette 1, colour 0)
-	move.w #0x8700|(PaletteId_World0<<4), d1
-	move.w d1, vdp_control
+	move.w #(PaletteId_World0<<4), d0
+	VDPSETREG 7, d0
 	
 	rts

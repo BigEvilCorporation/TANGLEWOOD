@@ -11,11 +11,11 @@ __start
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
 	
-	; Include interrupts
-	include 'interpts.asm'
-	
 	; Include Framework macros
 	include '..\framewk\macros.asm'
+	
+	; Include interrupts
+	include 'interpts.asm'
 
 	; Include Framework code
 	include '..\framewk\init.asm'
@@ -76,38 +76,45 @@ __start
 	ENDIF
 
 	; Include GameObject derivatives
-	include 'objects\actor.asm'
+	IFND DEBUG
+	include 'objects\monster.asm'
 	include 'objects\boulder.asm'
-	include 'objects\checkpnt.asm'
 	include 'objects\firefly.asm'
+	ENDIF
+	include 'objects\actor.asm'
+	include 'objects\checkpnt.asm'
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\leaf.asm'
 	include 'objects\location.asm'
-	include 'objects\monster.asm'
 	include 'objects\nest.asm'
 	include 'objects\player.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'
 	
 	; Include game states
+	include 'states\gameplay.asm'
+	
+	IFND DEBUG
+	include 'states\endlevel.asm'
+	include 'states\fail.asm'
 	include 'states\controls.asm'
 	include 'states\disclmr.asm'
 	include 'states\demoend.asm'
-	include 'states\endlevel.asm'
-	include 'states\fail.asm'
-	include 'states\gameplay.asm'
-	include 'states\pause.asm'
 	include 'states\soundtst.asm'
-	IFND DEBUG
 	include 'states\logos.asm'
+	include 'states\pause.asm'
 	include 'states\mainmenu.asm'
 	ENDIF
 	
 	; Include levels
+	IFD DEBUG
+	include 'levels\testlvl1.asm'
+	ELSE
 	include 'levels\level1.asm'
 	include 'levels\level2.asm'
 	include 'levels\level3.asm'
+	ENDIF
 	
 	; Include game code
 	include 'audio.asm'

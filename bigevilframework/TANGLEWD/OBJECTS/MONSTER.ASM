@@ -510,8 +510,10 @@ MonsterUpdateWaitForPlayer:
 	bne    @Playing
 	
 	PUSHL  a0
+	IFND DEBUG
 	lea    bgm_monsterbass, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	POPL   a0
 	
 	; Set played

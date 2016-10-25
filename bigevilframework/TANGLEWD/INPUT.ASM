@@ -81,6 +81,7 @@ HandlePlayerInput:
 	@NoPlayerKillCombo:
 	
 	; A+B+Start = complete level
+	IFND DEBUG
 	cmp.w  #DebugButtonCombo_CompleteLevel, d0
 	bne    @NoCompleteLevelCombo
 	cmp.w  #DebugButtonCombo_CompleteLevel, d1
@@ -88,6 +89,7 @@ HandlePlayerInput:
 	jsr    Lvl1_End
 	bra    @SkipInput
 	@NoCompleteLevelCombo:
+	ENDIF
 	
 	; B+C+Start = move object mode
 	cmp.w  #DebugButtonCombo_MoveObject, d0
@@ -155,6 +157,7 @@ HandlePlayerInput:
 	; =====================================================================
 	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
 	; =====================================================================
+	IFND DEBUG
 	btst  #pad_button_start, d0
 	beq   @NoStart
 	btst  #pad_button_start, d1
@@ -168,6 +171,7 @@ HandlePlayerInput:
 	POPL  d0
 	POPL  a0
 	@NoStart:
+	ENDIF
 	
 	; =====================================================================
 	; Left/Right - X movement

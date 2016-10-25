@@ -122,8 +122,10 @@ Gameplay_Update:
 	beq    @PlayerAlive
 	
 	; Player dead, enter fail state
+	IFND DEBUG
 	lea    GameStateFail, a0
 	jsr    GameStateEnter
+	ENDIF
 	
 	; Increment death counter
 	addi.w #0x1, DeathCount
@@ -139,6 +141,7 @@ Gameplay_Update:
 	bne    @ResetDemoTimer
 	
 	; Check if demo timer elapsed
+	IFND DEBUG
 	cmp.l  #0x0, TimerDemoReset
 	beq    @NoDemoTimer
 	sub.l  #0x1, TimerDemoReset
@@ -146,6 +149,7 @@ Gameplay_Update:
 	bne    @DemoTimerRunning
 	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
+	ENDIF
 	
 	@ResetDemoTimer:
 	move.l #DemoTimeout, TimerDemoReset

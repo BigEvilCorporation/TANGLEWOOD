@@ -1,3 +1,5 @@
+	IFND DEBUG
+
 bgm_titles:
 	include 'assets\music\tracks\titles.asm'
 	
@@ -16,3 +18,6 @@ bgm_lvloutro:
 bgm_monsterbass:
 	dc.b 0xFF ;incbin 'assets\music\tracks\lowbass.esf'
 	even
+	
+	ENDIF
+	

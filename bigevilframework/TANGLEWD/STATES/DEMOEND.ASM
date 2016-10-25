@@ -30,10 +30,8 @@ DemoEndState_Enter:
 	POPL   a0
 	
 	; Set BG colour
-	move.w #0x8700, d1
-	move.b #PaletteId_DemoEndState, d1
-	lsl.b  #0x4, d1
-	move.w d1, vdp_control
+	move.w #(PaletteId_DemoEndState<<4), d0
+	VDPSETREG 7, d0
 	
 	; Load tiles
 	clr.l d1
@@ -70,6 +68,10 @@ DemoEndState_Enter:
 	rts
 	
 DemoEndState_Exit:
+	
+	; Finished with checkpoint data
+	move.l #0x0, LastActivatedCheckpoint
+	move.w #0x0, LastSaveVersion
 	
 	rts
 	

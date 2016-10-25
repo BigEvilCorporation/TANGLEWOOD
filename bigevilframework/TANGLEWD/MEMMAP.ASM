@@ -17,6 +17,11 @@
 HBlankInterrupt		  rs.b hint_max_size
 
 ; ************************************
+; VDP regs current state
+; ************************************
+vdp_regs			  rs.b vdp_num_registers
+
+; ************************************
 ; Framework stuff
 ; ************************************
 audio_clock           rs.l 1
@@ -154,11 +159,13 @@ GameStateStackPtr	 rs.l 1
 GameStateStack       rs.l (GameStateStackSize)
 
 ; Game state data
+	IFND DEBUG
 GameStateLogoData			 rs.b LogoState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
-GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
+GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
+	ENDIF
 
 ; ************************************
 ; Checkpoints
@@ -196,9 +203,11 @@ BGMOffTimer				 rs.w 1
 ; ************************************
 ; Level runtime data
 ; ************************************
+	IFND DEBUG
 LevelData_1				 rs.b Lvl1Data_Struct_Size
 LevelData_2				 rs.b Lvl2Data_Struct_Size
 LevelData_3				 rs.b Lvl3Data_Struct_Size
+	ENDIF
 
 ; ************************************
 ; Debug stuff
@@ -228,17 +237,19 @@ EntityListSize_Serialise rs.l 1
 ; ************************************
 EntityArray_Players     rs.b (Player_Struct_Size*Player_MaxEntities)
 EntityArray_Actors      rs.b (Actor_Struct_Size*Actor_MaxEntities)
-EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
-EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzls      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_Leaves      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nests       rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Triggers    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
 EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
 EntityArray_Locations rs.b (Location_Struct_Size*Location_MaxEntities)
+	IFND DEBUG
+EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
+EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+	ENDIF
 
 EntityCount_Players     rs.w 1
 EntityCount_Actors      rs.w 1

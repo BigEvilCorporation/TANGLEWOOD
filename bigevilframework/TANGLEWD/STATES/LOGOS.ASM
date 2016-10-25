@@ -42,10 +42,8 @@ Logos_Enter:
 	POPL   a0
 	
 	; Set BG colour
-	move.w #0x8700, d1
-	move.b #PaletteId_BigEvilLogo, d1
-	lsl.b  #0x4, d1
-	move.w d1, vdp_control
+	move.w #(PaletteId_BigEvilLogo<<4), d0
+	VDPSETREG 7, d0
 	
 	; Load tiles
 	clr.l d1
@@ -65,8 +63,10 @@ Logos_Enter:
 	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Start title theme
+	IFND DEBUG
 	lea    bgm_titles, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll

@@ -91,3 +91,4 @@ GameStateSerialise:
 	jsr    (a1)
 	@NoSerialise:
 	rts
+	

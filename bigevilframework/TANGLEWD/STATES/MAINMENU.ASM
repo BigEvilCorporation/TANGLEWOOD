@@ -31,10 +31,8 @@ MainMenu_Enter:
 	jsr    PAL_ClearAll
 	
 	; Set BG colour
-	move.w #0x8700, d1
-	move.b #PaletteId_TanglewoodLogo, d1
-	lsl.b  #0x4, d1
-	move.w d1, vdp_control
+	move.w #(PaletteId_TanglewoodLogo<<4), d0
+	VDPSETREG 7, d0
 	
 	; Load tiles
 	clr.l d1
@@ -169,7 +167,9 @@ MainMenu_Update:
 	move.l #0x0, TimerLogoFade
 	
 	; Fade out music
+	IFND DEBUG
 	jsr    Echo_FadeBGM
+	ENDIF
 	bra    @End
 	
 	@FadedOut:

@@ -177,8 +177,10 @@ Lvl1_Init:
 	jsr    Lvl1_StartCutscene_NymnWake
 	
 	; Start level intro tune
+	IFND DEBUG
 	lea    bgm_lvlintro, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	move.l #LevelData_1, a2
 	move.b #0x0, Lvl1Data_WaitingInput(a2)
@@ -375,8 +377,10 @@ Lvl1_UpdateCutscene_NymnWake:
 	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
 	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
 	
+	IFND DEBUG
 	lea    bgm_cut_introrumble, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	move.w #Lvl1_NymnWakeShakeTime, BGMOffTimer
 	
@@ -411,8 +415,10 @@ Lvl1_UpdateCutscene_NymnWake:
 	move.w #Lvl1_CamShakeSpeed, CameraShakeSpeedY
 	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
 	
+	IFND DEBUG
 	lea    bgm_cut_introrumble, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	move.w #Lvl1_NymnWakeShakeTime, BGMOffTimer
 	
@@ -687,8 +693,10 @@ Lvl1_StartCutscene_BoulderRoll:
 	move.w #Lvl1_CamShakeAmplitude, CameraShakeAmpY
 	
 	; Start audio
+	IFND DEBUG
 	lea    bgm_cut_introrumble, a0
 	jsr    Echo_PlayBGM
+	ENDIF
 	
 	; Set active cutscene
 	move.l #LevelData_1, a2
@@ -703,7 +711,9 @@ Lvl1_EndCutscene_BoulderRoll:
 	move.w #0x0, CameraShakeAmpY
 	
 	; Stop audio
+	IFND DEBUG
 	jsr    Echo_StopBGM
+	ENDIF
 	
 	; Get boulder
 	move.l #BoulderIntro_idx, d0

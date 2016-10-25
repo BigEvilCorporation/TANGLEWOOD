@@ -12,9 +12,10 @@ Tst1_Forest:
 	dc.l map_tst1				; Map
 	dc.l collisiontiles_tst1	; Collision tileset
 	dc.l collisionmap_tst1		; Collision map
-	dc.l palette_lvl1_dawn		; Palettes
+	dc.l Tst11_DefaultPalettes	; Palettes
 	dc.l Tst1_Init				; Init routine
 	dc.l Tst1_Update			; Update routine
+	dc.l Tst1_Serialise			; Serialise routine
 	dc.l 0x0					; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_tst1_width			; Map width
@@ -24,9 +25,38 @@ Tst1_Forest:
 	
 	even
 	
+Tst11_DefaultPalettes:
+
+	dc.l palette_tst1			; World
+	dc.l 0x0					; Djakk (black by default, fades up when approached)
+	dc.l palette_fuzzl			; Fuzzl
+	dc.l Pal_Nymn_Red			; Player
+	
+	even
+	
 Tst1_Init:
+
+	; Fuzzls
+	move.l #EntityArray_Fuzzls, a0
+	jsr    LoadGameObjects_tst1_Fuzzl
+	
+	; Leaves
+	; TODO: Leaf generator
+	move.l #EntityArray_Leaves, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
+	add.l  #Leaf_Struct_Size, a0
+	jsr    LeafInit
+	
+	; Enable player 1 control
+	move.b #0x1, Player1ControlEnabled
+	
 	rts
 	
 Tst1_Update:
+	rts
+	
+Tst1_Serialise:
 	rts
 	

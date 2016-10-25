@@ -94,6 +94,7 @@ TOPIXELS: macro destreg
 	
 	; Play SFX non-excusively (won't play if already playing or sound system busy)
 PLAYSFX_LOWPRIO: macro sfxAddr
+	IFND DEBUG
 	PUSHL a0
 	PUSHL d0
 	jsr   Echo_GetStatus
@@ -105,14 +106,17 @@ PLAYSFX_LOWPRIO: macro sfxAddr
 	@BUSY\@:
 	POPL  d0
 	POPL  a0
+	ENDIF
 	endm
 	
 	; Play SFX exclusively (replaces current SFX)
 PLAYSFX_HIGHPRIO: macro sfxAddr
+	IFND DEBUG
 	PUSHL a0
 	move.l \sfxAddr, a0
 	jsr   Echo_PlaySFX
 	POPL  a0
+	ENDIF
 	endm
 	
 ;==============================================================

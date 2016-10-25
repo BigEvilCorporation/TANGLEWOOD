@@ -4,6 +4,8 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
+	IFND DEBUG
+
 echo_instruments:
 
 	; Music
@@ -114,4 +116,7 @@ PCM01:
 	incbin 'assets\sfx\djakk\bite.ewf'
 PCM02:
 	incbin 'assets\sfx\ambience\chirp1.ewf'
+	
+	ENDIF
+	
 	

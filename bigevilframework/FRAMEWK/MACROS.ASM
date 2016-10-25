@@ -71,6 +71,19 @@ MEMZEROL: macro addressreg,countreg
 	move.l #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROL_LP\@
 	endm
+	
+; Set VDP register state (and update local table)
+VDPSETREG: macro regnum,valuereg
+	move.b \valuereg,(vdp_regs+\regnum)
+	andi.w #0x00FF,\valuereg
+	ori.w  #((0x80|(\regnum))<<8),\valuereg
+	move.w \valuereg, vdp_control
+	endm
+	
+; Get VDP register state from local table
+VDPGETREG: macro regnum,valuereg
+	move.b (vdp_regs+\regnum),\valuereg
+	endm
 
 ; Clamp value between A and B
 CLAMP: macro valuereg,minreg,maxreg
@@ -128,3 +141,4 @@ RAISE_EXCEPTION: macro errcode
 	move.w #0x1, a5		; Odd address to cause exception
 	move.l (a5), a5		; Punch it
 	endm
+	

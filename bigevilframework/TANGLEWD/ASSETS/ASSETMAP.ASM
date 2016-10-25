@@ -19,6 +19,9 @@
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
+	IFD DEBUG
+	include 'assets\palettes\pal_tst1.asm'
+	ENDIF
 	
 	; ************************************
     ; Font tiles
@@ -28,9 +31,11 @@
 	; ************************************
     ; Sprite tiles
     ; ************************************
+	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\firefly.asm'
+	ENDIF
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\spr_leaf.asm'
@@ -38,8 +43,10 @@
 	; ************************************
 	; Animation data
 	; ************************************
+	IFND DEBUG
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\djakk.asm'
+	ENDIF
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
@@ -131,8 +138,10 @@ Tile_Bank0_Start:    equ (vram_addr_tiles)
 Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
+	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
+	ENDIF
 
 	; TODO: Reserve max level size
 	IFD DEBUG
@@ -158,7 +167,9 @@ Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
 Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
+	IFND DEBUG
 Tiles_FireflyVRAM:   rs.b (sprite_firefly_size_b*Firefly_MaxEntities)
+	ENDIF
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0
 Tiles_Bank1_Count    equ ((Tiles_Bank1_End-Tile_Bank1_Start)/size_tile_b)

@@ -98,6 +98,7 @@ SpriteObjLoad:
 	movem.l  a0-a3/d0-d2, -(sp)
 	move.w d0, d5			; Backup d0
 	move.w d3, d0			; W/H to d0
+	andi.l #0x0000FFFF, d5
 	divu   #size_tile_b, d5	; Tile ID
 	move.w d5, d2			; To d2
 	move.l #0x00000000, d1	; X/Y offset
@@ -245,3 +246,4 @@ SpriteObjDraw:
 	@End:
 	
 	rts
+	

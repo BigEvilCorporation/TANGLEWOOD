@@ -21,7 +21,9 @@ UpdateBGMTimer:
 	bne   @TimerElapsed
 	
 	; Elapsed this frame, stop BGMOffTimer
+	IFND DEBUG
 	jsr   Echo_StopBGM
+	ENDIF
 	
 	@TimerElapsed:
 	@TimerRunning:
@@ -62,3 +64,4 @@ UpdateAmbientAudio:
 	sub.w #0x1, AmbientSFXTimer
 
 	rts
+	

@@ -100,9 +100,10 @@ spriteanim_nymn_run_track_posx:
 
 spriteanim_nymn_run_track_posy:
 	Even
+	IFND DEBUG
 spriteanim_nymn_run_track_sfx:
 	dc.l 0x0, SFX_Footstep1, SFX_Footstep2, SFX_Footstep2, 0x0
-
+	ENDIF
 
 	Even
 
