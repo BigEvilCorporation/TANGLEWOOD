@@ -73,6 +73,9 @@ DemoEndState_Exit:
 	move.l #0x0, LastActivatedCheckpoint
 	move.w #0x0, LastSaveVersion
 	
+	; Reset first level
+	move.l #Lvl1_HarlequinForest, CurrentLevel
+	
 	rts
 	
 DemoEndState_Update:
