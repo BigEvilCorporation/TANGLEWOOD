@@ -101,6 +101,7 @@ __start
 	include 'states\controls.asm'
 	include 'states\disclmr.asm'
 	include 'states\demoend.asm'
+	include 'states\kickstrt.asm'
 	include 'states\soundtst.asm'
 	include 'states\logos.asm'
 	include 'states\pause.asm'

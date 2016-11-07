@@ -8,6 +8,7 @@
     ; Palettes
     ; ************************************
 	include 'assets\palettes\bec_logo.asm'
+	include 'assets\palettes\ks_logo.asm'
 	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
@@ -74,6 +75,7 @@
 	include 'assets\tiles\demoend.asm'
 	include 'assets\tiles\soundtst.asm'
 	include 'assets\tiles\twd_logo.asm'
+	include 'assets\tiles\ks_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 	
 	; ************************************
@@ -85,6 +87,7 @@
 	include 'assets\maps\demoend.asm'
 	include 'assets\maps\soundtst.asm'
 	include 'assets\maps\twd_logo.asm'
+	include 'assets\maps\ks_logo.asm'
 	include 'assets\maps\map_lvl1.asm'
 	include 'assets\maps\map_lvl2.asm'
 	include 'assets\maps\map_lvl3.asm'
@@ -202,6 +205,9 @@ PaletteId_ControlsScreen equ 0x0
 
 ; Demo end state
 PaletteId_DemoEndState   equ 0x0
+
+; Kickstarter advert screen
+PaletteId_KSLogo	     equ 0x0
 
 ; Gameplay
 PaletteId_World0		equ 0x0

@@ -25,6 +25,8 @@ collisionmap_tst1:
 	; ************************************
 tiles_bigevil_logo:
 	incbin 'assets\tiles\bec_logo.bin'
+tiles_ks_logo:
+	incbin 'assets\tiles\ks_logo.bin'
 tiles_controls_screen:
 	incbin 'assets\tiles\controls.bin'
 tiles_demodisclaimer_screen:
@@ -49,6 +51,8 @@ collisiontiles_lvl1:
 	; ************************************
 map_bigevil_logo:
 	incbin 'assets\maps\bec_logo.bin'
+map_ks_logo:
+	incbin 'assets\maps\ks_logo.bin'
 map_controls_screen:
 	incbin 'assets\maps\controls.bin'
 map_demodisclaimer_screen:

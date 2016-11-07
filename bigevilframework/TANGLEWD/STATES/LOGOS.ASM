@@ -145,8 +145,8 @@ Logos_Update:
 	
 	@FadedOut:
 	
-	; Enter main menu state
-	lea GameStateMainMenu, a0
+	; Enter Kickstarter logo state
+	lea GameStateKickstarterScreen, a0
 	jsr GameStateEnter
 	
 	@ColourTimerRunning:
