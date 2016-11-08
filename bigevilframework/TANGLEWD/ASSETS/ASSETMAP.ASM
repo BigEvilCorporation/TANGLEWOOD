@@ -23,6 +23,9 @@
 	IFD DEBUG
 	include 'assets\palettes\pal_tst1.asm'
 	ENDIF
+	IFND FINAL
+	include 'assets\palettes\tst_lift.asm'
+	ENDIF
 	
 	; ************************************
     ; Font tiles
@@ -40,6 +43,7 @@
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\spr_leaf.asm'
+	include 'assets\sprites\lift.asm'
 	
 	; ************************************
 	; Animation data
@@ -78,6 +82,10 @@
 	include 'assets\tiles\ks_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 	
+	IFND FINAL
+	include 'assets\tiles\tst_lift.asm'
+	ENDIF
+	
 	; ************************************
     ; Level maps
     ; ************************************
@@ -93,10 +101,18 @@
 	include 'assets\maps\map_lvl3.asm'
 	include 'assets\maps\lvl1_bg.asm'
 	
+	IFND FINAL
+	include 'assets\maps\tst_lift.asm'
+	ENDIF
+	
 	; ************************************
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
+	
+	IFND FINAL
+	include 'assets\collisn\ctl_lift.asm'
+	ENDIF
 	
 	; ************************************
     ; Collision maps
@@ -105,12 +121,20 @@
 	include 'assets\collisn\cmp_lvl2.asm'
 	include 'assets\collisn\cmp_lvl3.asm'
 	
+	IFND FINAL
+	include 'assets\collisn\cmp_lift.asm'
+	ENDIF
+	
 	; ************************************
     ; Game objects
     ; ************************************
 	include 'assets\gameobj\obj_lvl1.asm'
 	include 'assets\gameobj\obj_lvl2.asm'
 	include 'assets\gameobj\obj_lvl3.asm'
+	
+	IFND FINAL
+	include 'assets\gameobj\tst_lift.asm'
+	ENDIF
 
 	ENDIF
 	
@@ -144,6 +168,7 @@ Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
 	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
+Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
 	ENDIF
 
 	; TODO: Reserve max level size

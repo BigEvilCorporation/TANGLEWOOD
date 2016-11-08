@@ -249,6 +249,7 @@ EntityArray_Locations rs.b (Location_Struct_Size*Location_MaxEntities)
 EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
 EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
 	ENDIF
 
 EntityCount_Players     rs.w 1
@@ -264,6 +265,7 @@ EntityCount_Triggers    rs.w 1
 EntityCount_Checkpoints rs.w 1
 EntityCount_WaterBodies rs.w 1
 EntityCount_Locations   rs.w 1
+EntityCount_Lifts	    rs.w 1
 
 reserved_ram_size		rs.b 0
 

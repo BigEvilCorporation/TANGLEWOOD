@@ -1,0 +1,13 @@
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   Created with BEEhive - the complete art tool for SEGA Mega Drive
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   http://www.bigevilcorporation.co.uk
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   BEEhive and SEGA Genesis Framework (c) Matt Phillips 2015
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+
+
+TerrainTiles_tst_lift_size_b	equ 0x000002E0	; Size in bytes
+TerrainTiles_tst_lift_size_w	equ (TerrainTiles_tst_lift_size_b/2)	; Size in words
+TerrainTiles_tst_lift_size_l	equ (TerrainTiles_tst_lift_size_b/4)	; Size in longwords
+TerrainTiles_tst_lift_size_t	equ (TerrainTiles_tst_lift_size_b/32)	; Size in tiles

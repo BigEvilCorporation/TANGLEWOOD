@@ -86,6 +86,7 @@ __start
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\leaf.asm'
+	include 'objects\lift.asm'
 	include 'objects\location.asm'
 	include 'objects\nest.asm'
 	include 'objects\player.asm'
@@ -115,6 +116,11 @@ __start
 	include 'levels\level1.asm'
 	include 'levels\level2.asm'
 	include 'levels\level3.asm'
+	
+	IFND FINAL
+	include 'levels\tst_lift.asm'
+	ENDIF
+	
 	ENDIF
 	
 	; Include game code
@@ -155,14 +161,16 @@ __main:
 	IFD DEBUG
 	move.l #Tst1_Forest, CurrentLevel
 	ELSE
-	move.l #Lvl1_HarlequinForest, CurrentLevel
+	;move.l #Lvl1_HarlequinForest, CurrentLevel
+	move.l #Lvl_TestLift, CurrentLevel
 	ENDIF
 	
 	; Enter first game state
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

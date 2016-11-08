@@ -337,6 +337,34 @@ LevelLoadGameObjArt:
 	@NoBoulders:
 	ENDIF
 	
+	; Lifts
+	IFND DEBUG
+	cmp.w  #0x0, EntityCount_Lifts
+	beq    @NoLifts
+	move.l #EntityArray_Lifts, a0
+	move.w (EntityCount_Lifts), d1
+	sub.w  #0x1, d1
+	move.l #Tiles_LiftVRAM, d0
+	@LiftLoop:
+	movem.l d0-d1/a0, -(sp)
+	
+	lea    spritesheets_Lift, a1
+	lea    sprite_Lift_subsprite_dimensions_bits, a2
+	lea    sprite_Lift_subsprite_pos_offsets, a3
+	lea    sprite_Lift_numtiles_per_subsprite, a4
+	move.l #sprite_Lift_size_t, d1
+	move.b #sprite_Lift_size_subsprites, d2
+	move.w #sprite_Lift_widthheight_subsprites, d3
+	move.b #PaletteId_World0, d4
+	jsr    SpriteObjLoad
+	
+	movem.l (sp)+, d0-d1/a0
+	add.l  #Lift_Struct_Size, a0
+	add.l  #sprite_Lift_size_b, d0
+	dbra   d1, @LiftLoop
+	@NoLifts:
+	ENDIF
+	
 	; Fireflies
 	IFND DEBUG
 	cmp.w  #0x0, EntityCount_Fireflies

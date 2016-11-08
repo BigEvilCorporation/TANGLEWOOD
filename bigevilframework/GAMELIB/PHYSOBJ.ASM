@@ -160,7 +160,7 @@ PhysicsObjApplyAccelDecel:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Check if accelerating
+	; Check if accelerating X
 	move.w PhysicsObj_AccelX(a0), d0	; Fetch X acceleration from RAM
 	cmp.w  #0x0, d0					; Check if accelerating
 	beq    @IdleXDecel				; X controls idle, decelerate
@@ -183,7 +183,7 @@ PhysicsObjApplyAccelDecel:
 	neg.w  d0					; Get max velocity -ve
 	cmp.w  d0, d1				; Compare
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
-	jmp    @EndAccelDecel		; Within bounds
+	bra    @EndAccelDecel		; Within bounds
 	
 	;IFD VEL_CLAMP
 	
@@ -193,11 +193,11 @@ PhysicsObjApplyAccelDecel:
 	neg.w  d0					; Get max velocity -ve
 	cmp.w  d0, d1				; Compare
 	blt    @ClampX			    ; (BLT is signed comparison)
-	jmp    @EndAccelDecel		; Within bounds
+	bra    @EndAccelDecel		; Within bounds
 	
 	@ClampX:
 	move.w d0, PhysicsObj_VelX(a0)
-	jmp    @EndAccelDecel
+	bra    @EndAccelDecel
 	
 	;ENDIF
 	
@@ -230,7 +230,7 @@ PhysicsObjApplyAccelDecel:
 	cmp.w #0x0, PhysicsObj_VelX(a0)				; Clamp to 0
 	bge @EndAccelDecel
 	move.w #0x0, PhysicsObj_VelX(a0)
-	jmp @EndAccelDecel
+	bra @EndAccelDecel
 	
 	; Decelerate from negative X velocity towards 0
 	@DecelFromNeg:
@@ -246,9 +246,43 @@ PhysicsObjApplyAccelDecel:
 	cmp.w #0x0, PhysicsObj_VelX(a0)				; Clamp to 0
 	ble @EndAccelDecel
 	move.w #0x0, PhysicsObj_VelX(a0)
-	jmp @EndAccelDecel
+	bra @EndAccelDecel
 	
 	@EndAccelDecel:
+	
+	;==============================================================
+	
+	; Check if accelerating Y
+	move.w PhysicsObj_AccelY(a0), d0	; Fetch Y acceleration from RAM
+	cmp.w  #0x0, d0					; Check if accelerating
+	beq    @IdleYDecel				; Y controls idle, decelerate
+	
+	; Apply speed div
+	clr.l  d1
+	ext.l  d0						; Sign extend word to long
+	move.b AnimObj_SpeedDiv(a0), d1
+	divs   d1, d0
+	
+	; Apply acceleration
+	move.w PhysicsObj_VelY(a0), d1	; Fetch Y velocity from RAM
+	add.w  d0, d1				; Add Y acceleration
+	move.w d1, PhysicsObj_VelY(a0)	; Back to RAM
+	
+	; Check if past max velocity
+	move.w PhysicsObj_MaxVelYUp(a0), d0		; Get max velocity +ve
+	cmp.w  d0, d1
+	bgt    @ClampY
+	move.w PhysicsObj_MaxVelYDown(a0), d0	; Get max velocity -ve
+	neg.w  d0
+	cmp.w  d0, d1
+	blt    @ClampY
+	bra    @EndAccelDecelY		; Within bounds
+	
+	@ClampY:
+	move.w d0, PhysicsObj_VelY(a0)
+	
+	@EndAccelDecelY:
+	@IdleYDecel:
 	
 	rts
 	
