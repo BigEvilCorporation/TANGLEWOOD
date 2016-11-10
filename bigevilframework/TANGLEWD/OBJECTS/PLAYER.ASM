@@ -75,6 +75,7 @@ Player_Interaction_None		equ 0x0
 Player_Interaction_Fuzzl	equ 0x1
 Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
+Player_Interaction_Lift 	equ 0x2
 
 ; Animations
 PlayerAnimIdx_Switch    equ 0
@@ -410,6 +411,8 @@ PlayerUpdate:
 	beq    @InteractFuzzl
 	cmp.b  #Player_Interaction_Boulder, d0
 	beq    @InteractBoulder
+	cmp.b  #Player_Interaction_Lift, d0
+	beq    @InteractLift
 	
 	; Not interacting, process special colour ability
 	jsr    PlayerUpdateColourAbility
@@ -423,6 +426,11 @@ PlayerUpdate:
 	@InteractBoulder:
 	move.l Player_InteractObject(a0), a2
 	jsr    PlayerInteract_Boulder
+	bra    @Interacting
+	
+	@InteractLift:
+	move.l Player_InteractObject(a0), a2
+	jsr    PlayerInteract_Lift
 	bra    @Interacting
 	
 	@Interacting:
@@ -979,6 +987,10 @@ PlayerStartInteract:
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
 	
+	jsr    PlayerInteractTest_Lifts
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
+	
 	;==============================================================
 	
 	; Test for special colour abilities
@@ -1462,6 +1474,207 @@ PlayerInteract_Boulder:
 	@Cracked:
 	@NotInRange:
 	@NotPushingBoulder:
+	@End:
+	
+	move.l (sp)+, a1
+	
+	ENDIF
+	
+	rts
+	
+PlayerInteractTest_Lifts:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	IFND DEBUG
+	
+	; Character must be close to floor to interact with a Lift
+	move.b PhysicsObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	beq    @PlayerOffFloor
+	
+	PUSHL  a1
+	
+	; Check all Lifts
+	move.l #EntityArray_Lifts, a1
+	move.w (EntityCount_Lifts), d6
+	cmp.w  #0x0, d6
+	beq    @NoLifts
+	sub.w  #0x1, d6
+	@LiftLoop:
+	
+	; Check if on screen, active
+	move.b SpriteObj_SpriteLinked(a1), d0
+	and.b  Entity_Active(a1), d0
+	beq    @NextLift
+	
+	; Check if within bounds
+	move.l d6, -(sp)
+	
+	; Get player interact box pos X min (inner)
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinXInner, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max (inner)
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxXInner, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	; Get Lift bounds
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	
+	; Test box intersection
+	jsr    PHYS_TestBoxIntersectBox
+	move.l (sp)+, d6
+	
+	; Result in d0
+	cmp.b  #0x0, d0
+	beq    @NotInRange
+
+	; Begin interaction with boulder
+	move.b #Player_Interaction_Lift, Player_InteractionType(a0)
+	move.l a1, Player_InteractObject(a0)
+	move.b #0x1, Character_Interacting(a0)
+	
+	; Cancel run/jump movement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+
+	@Cracked:
+	@NotInRange:
+	@NextLift:
+	
+	; Next Lift
+	add.l #Lift_Struct_Size, a1
+	dbra  d6, @LiftLoop
+	
+	@NotInteracting:
+	@NoLifts:
+	@End:
+	
+	POPL  a1
+	
+	@PlayerOffFloor:
+
+	ENDIF
+	
+	rts
+	
+PlayerInteract_Lift:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Lift addr
+	
+	IFND DEBUG
+	
+	move.l a1, -(sp)
+	
+	; Check if within bounds
+	move.l a2, a1
+	move.l d6, -(sp)
+
+	; Get player interact box pos X min (outer)
+	move.l Entity_WorldPosX(a0), d1
+	lsr.l  #0x8, d1
+	add.w  #Player1PushBoundsMinXOuter, d1
+	swap   d1
+	; Get player Y min
+	move.l Entity_WorldPosY(a0), d2
+	lsr.l  #0x8, d2
+	move.w d2, d1
+	; Get player interact box pos X max (outer)
+	move.l Entity_WorldPosX(a0), d2
+	lsr.l  #0x8, d2
+	add.w  #Player1PushBoundsMaxXOuter, d2
+	swap   d2
+	; Get player Y max
+	move.l Entity_WorldPosY(a0), d3
+	lsr.l  #0x8, d3
+	add.w  Entity_Height(a0), d3
+	move.w d3, d2
+	
+	; Get Lift bounds
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	
+	; Test box intersection
+	jsr    PHYS_TestBoxIntersectBox
+	move.l (sp)+, d6
+	
+	; Result in d0
+	cmp.b #0x0, d0
+	beq   @NotInRange
+	
+	; Check which side of Lift
+	move.l Entity_WorldPosX(a0), d0	; Player X
+	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
+	move.l Entity_WorldPosX(a1), d1	; Lift X
+	add.l  #(Lift_Width*SubpixelsPerPixel)/2, d1 ; Lift X centre
+	move.w PhysicsObj_VelX(a0), d2			; Player velocity X
+	cmp.l  d0, d1
+	bgt    @LeftOfLift
+	
+	; On right hand side of Lift, check if heading towards it
+	cmp.w  #0x0, d2
+	bgt    @NotPushingLift
+	
+	; Pushing Lift to the left, correct penetration
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
+	move.l Entity_WorldPosX(a1), d1								; Lift X
+	add.l  #(Lift_Width*SubpixelsPerPixel), d1 				; Lift right
+	cmp.l  d0, d1
+	blt    @NotPenetratingLeft
+	sub.l  #(Lift_Width*SubpixelsPerPixel), d0
+	move.l d0, Entity_WorldPosX(a1)
+	@NotPenetratingLeft:
+	bra    @PushingLift
+	
+	@LeftOfLift:
+	; On left hand side of Lift, check if heading towards it
+	cmp.w  #0x0, d2
+	blt    @NotPushingLift
+	
+	; Pushing Lift to the right, correct penetration
+	move.l Entity_WorldPosX(a0), d0								; Player X
+	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
+	move.l Entity_WorldPosX(a1), d1								; Lift left
+	cmp.l  d0, d1
+	bgt    @NotPenetratingRight
+	move.l d0, Entity_WorldPosX(a1)
+	@NotPenetratingRight:
+
+	@PushingLift:
+	
+	; Pushing the Lift, set its velocity to match
+	move.w d2, PhysicsObj_VelX(a1)
+	
+	; Scale roll anim speed based on velocity
+	clr.l  d0
+	move.w PhysicsObj_VelX(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @Fwd
+	neg.w  d0
+	@Fwd:
+	divs.w #Player1PushAnimSpeedVelocityDiv, d0
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	move.b d0, Animation_Speed(a2)
+	
+	@Cracked:
+	@NotInRange:
+	@NotPushingLift:
 	@End:
 	
 	move.l (sp)+, a1

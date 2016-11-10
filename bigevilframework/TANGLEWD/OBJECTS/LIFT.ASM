@@ -12,8 +12,10 @@ Lift_Width				equ 0x20
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
-Lift_Accel				equ 0x20+Gravity
+Lift_MaxVelX			equ 0x0100
+Lift_AccelY				equ 0x20+Gravity
 Lift_Decel				equ 0x02
+Lift_SwingAccelX		equ 0x10
 
 Lift_MaxSpeedUp			equ 0x0100+Gravity
 Lift_MaxSpeedDown		equ 0x0300
@@ -22,7 +24,8 @@ Lift_FloorHeight		equ 0x0008
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
-
+Lift_OriginX		rs.l 1
+Lift_OriginY		rs.l 1
 ;--------------------------
 Lift_Struct_Pad   	rs.b 2   ; Alignment padding
 Lift_Struct_Size  	rs.b 0
@@ -58,6 +61,7 @@ LiftInit:
 	move.w #Lift_Height, Entity_Height(a0)
 	move.w #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w #Lift_MaxVelX, PhysicsObj_MaxVelX(a0)
 	move.w #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.w #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 
@@ -68,6 +72,15 @@ LiftUpdate:
 	; a1 --- Level addr
 	
 	PUSHL  a1
+	
+	; If origin not already recorded, take it
+	; TODO: Use post-init?
+	cmp.l  #0x0, Lift_OriginX(a0)
+	bne    @OriginRecorded
+	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
+	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
+	add.l  #0x1000, Entity_WorldPosX(a0)
+	@OriginRecorded:
 	
 	; Cancel movement by default
 	move.w #0x0, PhysicsObj_AccelY(a0)
@@ -108,11 +121,40 @@ LiftUpdate:
 	move.b #0x0, Character_Jumping(a1)			; Not jumping
 	move.b #0x0, Character_Falling(a1)			; Not falling
 	
+	; Add X velocity
+	;move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a1)
+	
 	; Move
-	move.w #Lift_Accel, PhysicsObj_AccelY(a0)
+	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
 	
 	@PlayerHeadingUp:
 	@NotTouching:
+	
+	; Swing towards origin
+	move.l Lift_OriginX(a0), d0
+	move.l Entity_WorldPosX(a0), d1
+	sub.l  d1, d0
+	cmp.l  #0x0, d0
+	blt    @SwingRight
+	bgt    @SwingLeft
+	bra    @Resting
+	
+	@SwingLeft:
+	neg.l  d0
+	lsr.l  #0x8, d0
+	lsr.l  #0x4, d0
+	neg.w  d0
+	;move.w #Lift_SwingAccelX, d0
+	move.w d0, PhysicsObj_AccelX(a0)
+	bra    @Resting
+	
+	@SwingRight:
+	lsr.l  #0x8, d0
+	lsr.l  #0x4, d0
+	;move.w #-Lift_SwingAccelX, d0
+	move.w d0, PhysicsObj_AccelX(a0)
+	
+	@Resting:
 	
 	POPL   a1
 	
