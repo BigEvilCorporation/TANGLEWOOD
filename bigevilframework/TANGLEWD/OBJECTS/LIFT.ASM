@@ -15,11 +15,12 @@ Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
 Lift_MaxVelX			equ 0x0100
 Lift_AccelY				equ 0x20+Gravity
 Lift_Decel				equ 0x02
-Lift_SwingAccelX		equ 0x10
 
 Lift_MaxSpeedUp			equ 0x0100+Gravity
 Lift_MaxSpeedDown		equ 0x0300
 Lift_FloorHeight		equ 0x0008
+Lift_AirFriction		equ 0x0008
+Lift_PendulumDiv		equ 0x0880
 
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
@@ -79,8 +80,9 @@ LiftUpdate:
 	bne    @OriginRecorded
 	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
 	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
-	add.l  #0x1000, Entity_WorldPosX(a0)
 	@OriginRecorded:
+	
+	;==============================================================
 	
 	; Cancel movement by default
 	move.w #0x0, PhysicsObj_AccelY(a0)
@@ -130,6 +132,12 @@ LiftUpdate:
 	@PlayerHeadingUp:
 	@NotTouching:
 	
+	;==============================================================
+	
+	; If not on floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	bne    @OnFloor
+	
 	; Swing towards origin
 	move.l Lift_OriginX(a0), d0
 	move.l Entity_WorldPosX(a0), d1
@@ -140,21 +148,37 @@ LiftUpdate:
 	bra    @Resting
 	
 	@SwingLeft:
-	neg.l  d0
-	lsr.l  #0x8, d0
-	lsr.l  #0x4, d0
-	neg.w  d0
-	;move.w #Lift_SwingAccelX, d0
+	;neg.l  d0
+	;lsr.l  #0x8, d0
+	;lsr.l  #0x2, d0
+	;sub.w  #Lift_AirFriction, d0
+	divs   #Lift_PendulumDiv, d0
+	;neg.w  d0
 	move.w d0, PhysicsObj_AccelX(a0)
 	bra    @Resting
 	
 	@SwingRight:
-	lsr.l  #0x8, d0
-	lsr.l  #0x4, d0
-	;move.w #-Lift_SwingAccelX, d0
+	;neg.l  d0
+	;lsr.l  #0x8, d0
+	;neg.l  d0
+	;lsr.l  #0x2, d0
+	;sub.w  #Lift_AirFriction, d0
+	divs   #Lift_PendulumDiv, d0
+	;neg.w  d0
 	move.w d0, PhysicsObj_AccelX(a0)
 	
+	@OnFloor:
 	@Resting:
+	
+	;==============================================================
+	
+	; Don't fall beyond rope length
+	move.l Entity_WorldPosY(a0), d0
+	move.l Lift_OriginY(a0), d1
+	cmp.l  d0, d1
+	bge    @WithinRopeLength
+	move.l d1, Entity_WorldPosY(a0)
+	@WithinRopeLength:
 	
 	POPL   a1
 	
