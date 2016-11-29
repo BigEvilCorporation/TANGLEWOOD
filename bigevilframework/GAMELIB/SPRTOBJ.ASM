@@ -238,6 +238,15 @@ SpriteObjDraw:
     PUSHL  a0
     jsr    SPR_SetPosX
     POPL   a0
+	
+	; Set last linked
+	move.b SpriteObj_SpriteID(a0), d1
+	move.b SpriteObj_NumSubSprites(a0), d3
+	andi.w #0x00FF, d1
+	andi.w #0x00FF, d3
+	add.w  d1, d3
+	move.w d3, prev_sprite_link
+	
 	@NotFirstSprite:
 	
 	; Sprite unlinked

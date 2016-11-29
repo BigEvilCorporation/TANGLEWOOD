@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   lift.asm - Lift/hoist platform
+;   lift.asm - Lift/hoist platform with rope
 ;==============================================================
 
 ; Constants
@@ -14,23 +14,41 @@ Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
 Lift_MaxVelX			equ 0x0100
 Lift_AccelY				equ 0x20+Gravity
-Lift_Decel				equ 0x02
+Lift_DecelX				equ 0x08
 
-Lift_MaxSpeedUp			equ 0x0100+Gravity
-Lift_MaxSpeedDown		equ 0x0300
-Lift_FloorHeight		equ 0x0008
-Lift_AirFriction		equ 0x0008
-Lift_PendulumDiv		equ 0x0880
+Lift_MaxSpeedUp			equ 0x0100+Gravity	; Max speed hoisting up
+Lift_MaxSpeedDown		equ 0x0300			; Max speed falling down
+Lift_FloorHeight		equ 0x0008	; Height from platform bottom to treat as floor for characters
+Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
-; Struct
+Lift_RopeLength			equ 0x0100
+Lift_RopeNumSprites		equ (Lift_RopeLength/Rope_Height)
+
+Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*SubPixelsPerPixel
+Lift_RopePosOffsetY		equ -(Rope_Height)*SubPixelsPerPixel
+
+Lift_MaxRopeAnimFrameDist	equ Rope_Width*SubPixelsPerPixel
+
+RopeSegAngleFrameTable:
+	dc.b 10
+	dc.b 20
+	dc.b 30
+	dc.b 40
+
 	rsset (PhysicsObj_Struct_Size)
-;--------------------------
-Lift_OriginX		rs.l 1
-Lift_OriginY		rs.l 1
-;--------------------------
-Lift_Struct_Pad   	rs.b 2   ; Alignment padding
-Lift_Struct_Size  	rs.b 0
-;--------------------------
+;---------------------------------
+Lift_RopeSegments			rs.l Lift_RopeNumSprites
+Lift_OriginX				rs.l 1
+Lift_OriginY				rs.l 1
+Lift_RopeSpriteFirstID     	rs.w 1
+Lift_RopeSpritesCount  		rs.w 1
+;---------------------------------
+Lift_Struct_Pad   			rs.b 2   ; Alignment padding
+Lift_Struct_Size  			rs.b 0
+;---------------------------------
+
+	rsset (Entity_Struct_Size)
+;---------------------------------
 
 ;==============================================================
 
@@ -65,13 +83,124 @@ LiftInit:
 	move.w #Lift_MaxVelX, PhysicsObj_MaxVelX(a0)
 	move.w #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.w #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
+	move.w #Lift_DecelX, PhysicsObj_DecelX(a0)
+	
+	;==============================================================
+	
+	; Allocate rope segments
+	PUSHL  a0
+	PUSHL  a1
+	move.w #(Lift_RopeNumSprites-1), d1
+	move.l a0, a2
+	add.l  #Lift_RopeSegments, a2
+	@RopeInitLp:
+	
+	move.l (NextFreeRopeSegment), a0
+	move.l a0, (a2)+
+	
+	PUSHL  a2
+	PUSHL  d1
+	jsr    RopeSegmentInit
+	POPL   d1
+	POPL   a2
+	
+	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
+	dbra   d1, @RopeInitLp
+	POPL   a1
+	POPL   a0
 
+	rts
+	
+LiftLoadDefaultSprite:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (w) VRAM addr
+	
+	lea    spritesheets_Lift, a1
+	lea    sprite_Lift_subsprite_dimensions_bits, a2
+	lea    sprite_Lift_subsprite_pos_offsets, a3
+	lea    sprite_Lift_numtiles_per_subsprite, a4
+	move.l #sprite_Lift_size_t, d1
+	move.b #sprite_Lift_size_subsprites, d2
+	move.w #sprite_Lift_widthheight_subsprites, d3
+	move.b #PaletteId_World0, d4
+	jsr    SpriteObjLoad
+	
+	rts
+	
+LiftPositionRopeSegments:
+
+	; Get lift pos
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	
+	; Get lift origin X
+	move.l Lift_OriginX(a0), d2
+	
+	; Get X distance from origin
+	move.l d0, d3
+	sub.l  d2, d3
+	
+	; Add rope offset
+	add.l  #Lift_RopePosOffsetX, d0
+	add.l  #Lift_RopePosOffsetY, d1
+	
+	move.l a0, a2
+	add.l  #Lift_RopeSegments, a2
+	
+	move.w #(Lift_RopeNumSprites-1), d2
+	@RopePosLp:
+	
+	; Div rope segment offset
+	lsr.l  #0x8, d3
+	ext.l  d3
+	divs.w #0x2, d3
+	ext.l  d3
+	lsl.l  #0x8, d3
+	
+	; Subtract from X pos
+	sub.l  d3, d0
+	
+	move.l (a2)+, a3
+	move.l d0, Entity_WorldPosX(a3)
+	move.l d1, Entity_WorldPosY(a3)
+	sub.l  #(Rope_Height*SubPixelsPerPixel), d1
+	
+	; If +ve, flip sprite
+	move.l d3, d4
+	cmp.l  #0x0, d4
+	bgt    @NoFlip
+	neg.l  d4
+	move.b #0x0, SpriteObj_FlippedX(a3)
+	bra    @EndFlip
+	@NoFlip:
+	move.b #0x1, SpriteObj_FlippedX(a3)
+	@EndFlip:
+	
+	; Clamp to max dist for animation
+	CLAMP  d4, #0x0, #(Lift_MaxRopeAnimFrameDist-(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes))
+	
+	;frames = 10
+	;max dist = 100
+	;dist = 80
+	;div = maxdist/frames = 10
+	;frame = dist/div = 8
+	
+	divs.w #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
+	
+	; Set frame
+	lsl.l  #0x8, d4
+	move.l d4, AnimObj_AnimSubFrame(a3)
+	move.b #0x1, AnimObj_Dirty(a3)
+	
+	dbra   d2, @RopePosLp
+	
 	rts
 	
 LiftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
+
 	PUSHL  a1
 	
 	; If origin not already recorded, take it
@@ -134,6 +263,8 @@ LiftUpdate:
 	
 	;==============================================================
 	
+	clr.l  d3
+	
 	; If not on floor
 	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
 	bne    @OnFloor
@@ -148,27 +279,49 @@ LiftUpdate:
 	bra    @Resting
 	
 	@SwingLeft:
-	;neg.l  d0
-	;lsr.l  #0x8, d0
-	;lsr.l  #0x2, d0
-	;sub.w  #Lift_AirFriction, d0
-	divs   #Lift_PendulumDiv, d0
-	;neg.w  d0
-	move.w d0, PhysicsObj_AccelX(a0)
+	
+	; Only if vel < -Lift_PendulumMaxCorrectionVel
+	move.w PhysicsObj_VelX(a0), d1
+	cmp.w  #-Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
+	bgt    @NoDecelLeft
+	
+	add.w  #Lift_DecelX, PhysicsObj_VelX(a0)
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	ble    @Resting
+	move.w #0x0, PhysicsObj_VelX(a0)
+	bra    @Resting
+	
+	@NoDecelLeft:
+	
+	lsr.l  #0x8, d0
+	lsr.l  #0x4, d0
+	move.w d0, d3
 	bra    @Resting
 	
 	@SwingRight:
-	;neg.l  d0
-	;lsr.l  #0x8, d0
-	;neg.l  d0
-	;lsr.l  #0x2, d0
-	;sub.w  #Lift_AirFriction, d0
-	divs   #Lift_PendulumDiv, d0
-	;neg.w  d0
-	move.w d0, PhysicsObj_AccelX(a0)
+	
+	; Only if vel < Lift_PendulumMaxCorrectionVel
+	move.w PhysicsObj_VelX(a0), d1
+	cmp.w  #Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
+	blt    @NoDecelRight
+	
+	sub.w  #Lift_DecelX, PhysicsObj_VelX(a0)
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	bge    @Resting
+	move.w #0x0, PhysicsObj_VelX(a0)
+	bra    @Resting
+	
+	@NoDecelRight:
+	
+	neg.l  d0
+	lsr.l  #0x8, d0
+	lsr.l  #0x4, d0
+	neg.w  d0
+	move.w d0, d3
 	
 	@OnFloor:
 	@Resting:
+	move.w d3, PhysicsObj_AccelX(a0)
 	
 	;==============================================================
 	
@@ -184,6 +337,9 @@ LiftUpdate:
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
+	
+	; Reposition rope segments
+	jsr    LiftPositionRopeSegments
 	
 	rts
 	

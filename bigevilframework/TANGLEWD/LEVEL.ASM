@@ -82,6 +82,9 @@ GameStateReset:
 	jsr Echo_Init
 	ENDIF
 	
+	; Ropes
+	move.l  #EntityArray_Ropes, NextFreeRopeSegment
+	
 	rts
 
 LevelLoad:
@@ -348,21 +351,33 @@ LevelLoadGameObjArt:
 	@LiftLoop:
 	movem.l d0-d1/a0, -(sp)
 	
-	lea    spritesheets_Lift, a1
-	lea    sprite_Lift_subsprite_dimensions_bits, a2
-	lea    sprite_Lift_subsprite_pos_offsets, a3
-	lea    sprite_Lift_numtiles_per_subsprite, a4
-	move.l #sprite_Lift_size_t, d1
-	move.b #sprite_Lift_size_subsprites, d2
-	move.w #sprite_Lift_widthheight_subsprites, d3
-	move.b #PaletteId_World0, d4
-	jsr    SpriteObjLoad
+	jsr    LiftLoadDefaultSprite
 	
 	movem.l (sp)+, d0-d1/a0
 	add.l  #Lift_Struct_Size, a0
 	add.l  #sprite_Lift_size_b, d0
 	dbra   d1, @LiftLoop
 	@NoLifts:
+	ENDIF
+	
+	; Ropes
+	IFND DEBUG
+	cmp.w  #0x0, EntityCount_Ropes
+	beq    @NoRopes
+	move.l #EntityArray_Ropes, a0
+	move.w (EntityCount_Ropes), d1
+	sub.w  #0x1, d1
+	move.l #Tiles_RopeVRAM, d0
+	@RopeLoop:
+	movem.l d0-d1/a0, -(sp)
+	
+	jsr    RopeSegmentLoadDefaultSprite
+	
+	movem.l (sp)+, d0-d1/a0
+	add.l  #RopeSegment_Struct_Size, a0
+	add.l  #sprite_Rope_size_b, d0
+	dbra   d1, @RopeLoop
+	@NoRopes:
 	ENDIF
 	
 	; Fireflies

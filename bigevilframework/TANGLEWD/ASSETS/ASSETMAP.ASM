@@ -44,6 +44,7 @@
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\spr_leaf.asm'
 	include 'assets\sprites\lift.asm'
+	include 'assets\sprites\rope.asm'
 	
 	; ************************************
 	; Animation data
@@ -56,6 +57,7 @@
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
+	include 'assets\anims\rope.asm'
 
 	IFD DEBUG
 
@@ -169,13 +171,15 @@ Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
+Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 	ENDIF
 
 	; TODO: Reserve max level size
 	IFD DEBUG
 LevelMapVRAM:        rs.b (tiles_tst1_size_b)
 	ELSE
-LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
+;LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
+LevelMapVRAM:        rs.b (tiles_tst_lift_size_b)
 	ENDIF
 
 ;---------------------------------------------------------

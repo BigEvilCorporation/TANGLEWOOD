@@ -97,6 +97,14 @@ CLAMP: macro valuereg,minreg,maxreg
 	@WITHIN_MAX\@:
 	endm
 	
+; Get positive absolute
+ABS: macro valuereg
+	cmp.l #0x0, \valuereg
+	bge   @Pos\@
+	neg.l \valuereg
+	@Pos\@:
+	endm
+	
 ; Fixed-point (frac = 8) linear interpolation between A and B by T
 LERP_FIXED8: macro destreg,from,to,time
 	sub.l  \from,\to

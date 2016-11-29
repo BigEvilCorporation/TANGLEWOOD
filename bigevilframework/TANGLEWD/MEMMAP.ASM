@@ -191,6 +191,9 @@ FireflyPickupCount		 rs.w 1
 ; Death count
 DeathCount				 rs.w 1
 
+; Next rope segment to allocate
+NextFreeRopeSegment		 rs.l 1
+
 ; __padding06			     rs.b 0
 
 ; ************************************
@@ -250,6 +253,7 @@ EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
 EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
+EntityArray_Ropes       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
 	ENDIF
 
 EntityCount_Players     rs.w 1
@@ -266,6 +270,7 @@ EntityCount_Checkpoints rs.w 1
 EntityCount_WaterBodies rs.w 1
 EntityCount_Locations   rs.w 1
 EntityCount_Lifts	    rs.w 1
+EntityCount_Ropes	    rs.w 1
 
 reserved_ram_size		rs.b 0
 

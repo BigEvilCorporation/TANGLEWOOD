@@ -22,6 +22,7 @@ entity_type_waterbody	 equ (1<<27)
 entity_type_actor		 equ (1<<28)
 entity_type_location	 equ (1<<29)
 entity_type_lift		 equ (1<<30)
+entity_type_rope		 equ (1<<31)
 
 ; Sprite plane border (pixels/nybbles)
 SpritePlaneWidth		 equ 0x0200
