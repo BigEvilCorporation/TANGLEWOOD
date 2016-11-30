@@ -18,6 +18,7 @@ PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
 PhysicsObj_VelX    		    rs.w 1 ; X velocity
 PhysicsObj_VelY    		    rs.w 1 ; Y velocity
+PhysicsObj_PlatformVelX    	rs.w 1 ; X velocity of platform underneath object (cleared after application))
 PhysicsObj_MaxVelX 		    rs.w 1 ; Max X velocity
 PhysicsObj_MaxVelYUp	    rs.w 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	    rs.w 1 ; Max Y velocity down
@@ -64,6 +65,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_DecelX(a0)
 	move.w #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_PlatformVelX(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
@@ -103,11 +105,11 @@ PhysicsObjUpdate:
 	cmp.b #0x0, Animation_ZeroVelocity(a2)
 	beq   @NoVelCancel
 	
-	; Cancel out acceleration + velocity
+	; Cancel out acceleration + velocity (except platform velocity)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w PhysicsObj_PlatformVelX(a0), PhysicsObj_VelX(a0)
 	
 	; Bail
 	bra    @NoPhysics
@@ -153,6 +155,9 @@ PhysicsObjUpdate:
 	
 	; Base functionality
 	jsr AnimObjUpdate
+	
+	; Clear platform velocity
+	move.w #0x0, PhysicsObj_PlatformVelX(a0)
 	
 	rts
 	
@@ -318,21 +323,26 @@ PhysicsObjApplyVelocity:
 	
 	; Move player X by velocity
 	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0			; Get velocity
+	move.w PhysicsObj_VelX(a0), d0		; Get velocity
 	ext.l  d0							; Sign extend word to long
 	
 	; Apply speed div
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	divs   d1, d0
-	
 	ext.l  d0							; Sign extend word to long
+	
+	; Add platform velocity
+	move.w PhysicsObj_PlatformVelX(a0), d2
+	ext.l  d2
+	add.l  d2, d0
+	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
 	add.l d0, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
 	
 	; Move player Y by velocity
-	move.w PhysicsObj_VelY(a0), d0			; Fetch Y pos from RAM
+	move.w PhysicsObj_VelY(a0), d0		; Fetch Y pos from RAM
 	ext.l  d0							; Sign extend word to long
 	
 	; Apply speed div

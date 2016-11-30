@@ -29,12 +29,6 @@ Lift_RopePosOffsetY		equ -(Rope_Height)*SubPixelsPerPixel
 
 Lift_MaxRopeAnimFrameDist	equ Rope_Width*SubPixelsPerPixel
 
-RopeSegAngleFrameTable:
-	dc.b 10
-	dc.b 20
-	dc.b 30
-	dc.b 40
-
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
 Lift_RopeSegments			rs.l Lift_RopeNumSprites
@@ -177,18 +171,11 @@ LiftPositionRopeSegments:
 	move.b #0x1, SpriteObj_FlippedX(a3)
 	@EndFlip:
 	
-	; Clamp to max dist for animation
+	; Clamp to max dist (-1 frame) for animation
 	CLAMP  d4, #0x0, #(Lift_MaxRopeAnimFrameDist-(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes))
 	
-	;frames = 10
-	;max dist = 100
-	;dist = 80
-	;div = maxdist/frames = 10
-	;frame = dist/div = 8
-	
-	divs.w #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
-	
 	; Set frame
+	divs.w #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
 	lsl.l  #0x8, d4
 	move.l d4, AnimObj_AnimSubFrame(a3)
 	move.b #0x1, AnimObj_Dirty(a3)
@@ -252,8 +239,8 @@ LiftUpdate:
 	move.b #0x0, Character_Jumping(a1)			; Not jumping
 	move.b #0x0, Character_Falling(a1)			; Not falling
 	
-	; Add X velocity
-	;move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a1)
+	; Move player X with platorm
+	move.w PhysicsObj_VelX(a0), PhysicsObj_PlatformVelX(a1)
 	
 	; Move
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
