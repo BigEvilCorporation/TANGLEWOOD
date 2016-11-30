@@ -75,7 +75,7 @@ Player_Interaction_None		equ 0x0
 Player_Interaction_Fuzzl	equ 0x1
 Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
-Player_Interaction_Lift 	equ 0x2
+Player_Interaction_Lift 	equ 0x4
 
 ; Animations
 PlayerAnimIdx_Switch    equ 0
@@ -1217,10 +1217,9 @@ PlayerInteract_Fuzzl:
 	move.l Entity_WorldPosX(a1), d1								; Fuzzl X
 	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 				; Fuzzl right
 	cmp.l  d0, d1
-	ble    @NotPenetratingLeft
+	ble    @PushingFuzzl
 	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
 	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingLeft:
 	bra    @PushingFuzzl
 	
 	@LeftOfFuzzl:
@@ -1433,10 +1432,9 @@ PlayerInteract_Boulder:
 	move.l Entity_WorldPosX(a1), d1								; Boulder X
 	add.l  #(Boulder_Width*SubpixelsPerPixel), d1 				; Boulder right
 	cmp.l  d0, d1
-	blt    @NotPenetratingLeft
+	blt    @PushingBoulder
 	sub.l  #(Boulder_Width*SubpixelsPerPixel), d0
 	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingLeft:
 	bra    @PushingBoulder
 	
 	@LeftOfBoulder:
@@ -1542,7 +1540,7 @@ PlayerInteractTest_Lifts:
 	cmp.b  #0x0, d0
 	beq    @NotInRange
 
-	; Begin interaction with boulder
+	; Begin interaction with lift
 	move.b #Player_Interaction_Lift, Player_InteractionType(a0)
 	move.l a1, Player_InteractObject(a0)
 	move.b #0x1, Character_Interacting(a0)
@@ -1634,10 +1632,9 @@ PlayerInteract_Lift:
 	move.l Entity_WorldPosX(a1), d1								; Lift X
 	add.l  #(Lift_Width*SubpixelsPerPixel), d1 				; Lift right
 	cmp.l  d0, d1
-	blt    @NotPenetratingLeft
+	blt    @PushingLift
 	sub.l  #(Lift_Width*SubpixelsPerPixel), d0
 	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingLeft:
 	bra    @PushingLift
 	
 	@LeftOfLift:
@@ -1658,21 +1655,7 @@ PlayerInteract_Lift:
 	
 	; Pushing the Lift, set its velocity to match
 	move.w d2, PhysicsObj_VelX(a1)
-	
-	; Scale roll anim speed based on velocity
-	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
-	bgt    @Fwd
-	neg.w  d0
-	@Fwd:
-	divs.w #Player1PushAnimSpeedVelocityDiv, d0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
-	move.b d0, Animation_Speed(a2)
-	
-	@Cracked:
+
 	@NotInRange:
 	@NotPushingLift:
 	@End:
