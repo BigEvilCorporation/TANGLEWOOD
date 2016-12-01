@@ -418,7 +418,8 @@ PhysicsObjCollisionCorrection:
 	blt    @AboveFloor
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
-	clr.w  d0										; Zero Y velocity by default
+	clr.l  d0										; Zero Y velocity by default
+	clr.l  d1
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	cmp.w  #0x0, d1
 	beq    @NoBounceY
@@ -611,6 +612,7 @@ PhysicsObjFindFloor:
 	blt    @NextPlatform
 	
 	; Success
+	clr.l  d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	lsl.l  #0x8, d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
