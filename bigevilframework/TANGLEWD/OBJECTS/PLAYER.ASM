@@ -418,6 +418,8 @@ PlayerUpdate:
 	jsr    PlayerUpdateColourAbility
 	bra    @NotInteracting
 	
+	; TODO: Common 'pushable' object code, objects in separate pushable list,
+	; set Small/Large flags for player push anim, object's own Update() to handle anim based on velocity
 	@InteractFuzzl:
 	move.l Player_InteractObject(a0), a2
 	jsr    PlayerInteract_Fuzzl
@@ -726,6 +728,8 @@ PlayerStopColourAbility:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	rts
+	
 	; Get colour
 	move.b Player_Colour(a0), d0
 	
@@ -794,9 +798,9 @@ PlayerStopColourAbility:
 	; Re-enable run
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 	
-	move.l (EntityListSize_Update), d1	 ; Get entity list size
+	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subi.l #0x1, d1						 ; -1 for loop
-	move.l (EntityListHead_Update), a2	 ; Get list head
+	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	
 	; Check type
@@ -812,7 +816,7 @@ PlayerStopColourAbility:
 	move.b #0x1, AnimObj_SpeedDiv(a2)
 	
 	@NotAnimObj:
-	move.l Entity_UpdateNext(a2), a2	 ; Get next ptr
+	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
 	
 	bra    @End
@@ -831,6 +835,8 @@ PlayerStopColourAbility:
 	rts
 	
 PlayerUpdateColourAbility:
+
+	rts
 
 	; Get colour
 	move.b Player_Colour(a0), d0
@@ -903,10 +909,9 @@ PlayerUpdateColourAbility:
 	; Apply to all AnimObjs (except players)
 	
 	; TODO: Pointer array per entity type
-	move.b (GlobalTimeDiv), d0
-	move.l (EntityListSize_Update), d1	 ; Get entity list size
+	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subi.l #0x1, d1						 ; -1 for loop
-	move.l (EntityListHead_Update), a2	 ; Get list head
+	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	
 	; Check type
@@ -930,7 +935,7 @@ PlayerUpdateColourAbility:
 	@PlayerObj:
 	@NotPhysicsObj:
 	@NotAnimObj:
-	move.l Entity_UpdateNext(a2), a2	 ; Get next ptr
+	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
 	
 	bra    @End

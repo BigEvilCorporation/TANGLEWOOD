@@ -275,12 +275,14 @@ FlueOccupantUpdate:
 FlueFindOccupant:
 	; a0 --- GameObj addr
 	; a2 --- Occupant desc address
+	
+	rts
 
 	; Search all entities
 	; TODO: Slow, sort entities into type lists
-	move.l (EntityListSize_Update), d0	 ; Get entity list size
+	LIST_GET_SIZE EntityUpdate, d0	 	 ; Get entity list size
 	subi.l #0x1, d0						 ; -1 for loop
-	move.l (EntityListHead_Update), a3	 ; Get list head
+	LIST_GET_HEAD EntityUpdate, a3		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 
 	; Check entity type
@@ -338,7 +340,7 @@ FlueFindOccupant:
 	@Outside:
 	@CharacterDead:
 	@NextEntity:
-	move.l Entity_UpdateNext(a3), a3	 ; Get next ptr
+	LIST_GET_NEXT EntityUpdate,a3,a3	 ; Get next ptr
 	dbra   d0, @EntityLp				 ; Loop
 	
 	@NewOccupantFound:

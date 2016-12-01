@@ -176,6 +176,11 @@ __padding041			     rs.b 2
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
+; Physics platforms
+; ************************************
+	LINKED_LIST Platforms
+
+; ************************************
 ; Colour abilities
 ; ************************************
 GlobalTimeDiv			 rs.b 1
@@ -223,17 +228,9 @@ __padding05			     rs.b 3
 ; ************************************
 ; Entity linked lists
 ; ************************************
-EntityListHead_Update	 rs.l 1
-EntityListTail_Update	 rs.l 1
-EntityListSize_Update	 rs.l 1
-                         
-EntityListHead_Render	 rs.l 1
-EntityListTail_Render	 rs.l 1
-EntityListSize_Render	 rs.l 1
-
-EntityListHead_Serialise rs.l 1
-EntityListTail_Serialise rs.l 1
-EntityListSize_Serialise rs.l 1
+	LINKED_LIST EntityUpdate
+	LINKED_LIST EntityRender
+	LINKED_LIST EntitySerialise
 
 ; ************************************
 ; Entities

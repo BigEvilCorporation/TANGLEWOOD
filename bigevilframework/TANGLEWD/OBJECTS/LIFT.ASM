@@ -18,7 +18,7 @@ Lift_DecelX				equ 0x08
 
 Lift_MaxSpeedUp			equ 0x0100+Gravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x0300			; Max speed falling down
-Lift_FloorHeight		equ 0x0008	; Height from platform bottom to treat as floor for characters
+Lift_FloorHeight		equ 0x0007			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
 Lift_RopeLength			equ 0x0100
@@ -31,6 +31,7 @@ Lift_MaxRopeAnimFrameDist	equ Rope_Width*SubPixelsPerPixel
 
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
+Lift_Platform				rs.b Platform_Struct_Size
 Lift_RopeSegments			rs.l Lift_RopeNumSprites
 Lift_OriginX				rs.l 1
 Lift_OriginY				rs.l 1
@@ -70,6 +71,7 @@ LiftInit:
 	; Default state
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
+	move.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	move.w #Lift_Width, Entity_Width(a0)
 	move.w #Lift_Height, Entity_Height(a0)
 	move.w #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
@@ -78,6 +80,17 @@ LiftInit:
 	move.w #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.w #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 	move.w #Lift_DecelX, PhysicsObj_DecelX(a0)
+	
+	;==============================================================
+	
+	; Setup platform
+	move.l a0, a2
+	add.l  #Lift_Platform, a2
+	
+	move.w #Lift_Width, Platform_Width(a2)
+	
+	; Add to physics platforms list
+	LIST_APPEND_TAIL Platforms, a2, a3
 	
 	;==============================================================
 	
@@ -221,28 +234,7 @@ LiftUpdate:
 	cmp.b  #0x0, d0
 	beq    @NotTouching
 	
-	; Player touching lift, calc floor height
-	clr.l  d0
-	ENTITY_GETBOTTOM d0, a0
-	sub.l  #((Lift_FloorHeight-Player1StepHeight)*SubPixelsPerPixel), d0
-	
-	; Snap to new floor
-	clr.l  d3
-	move.l Entity_WorldPosY(a1), d1				; Get Y pos
-	move.w Entity_Height(a1), d3				; Get height
-	lsl.l  #0x8, d3								; Height to world space
-	sub.l  d3, d0								; Floor to floor probe space
-	move.l d0, Entity_WorldPosY(a1) 			; Set Y pos
-	move.w #0x0, PhysicsObj_VelY(a1)			; Zero object's Y velocity
-	move.b #0x1, PhysicsObj_OnFloor(a1)			; Set object on floor flag
-	move.b #0x1, PhysicsObj_CloseToFloor(a1)	; Set object close to floor flag
-	move.b #0x0, Character_Jumping(a1)			; Not jumping
-	move.b #0x0, Character_Falling(a1)			; Not falling
-	
-	; Move player X with platorm
-	move.w PhysicsObj_VelX(a0), PhysicsObj_PlatformVelX(a1)
-	
-	; Move
+	; Player touching lift, move up
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
 	
 	@PlayerHeadingUp:
@@ -320,10 +312,32 @@ LiftUpdate:
 	move.l d1, Entity_WorldPosY(a0)
 	@WithinRopeLength:
 	
+	;==============================================================
+	
 	POPL   a1
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
+	
+	;==============================================================
+	
+	; Reposition platform
+	move.l a0, a2
+	add.l  #Lift_Platform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	lsr.l  #0x8, d0
+	lsr.l  #0x8, d1
+	add.w  Entity_Height(a0), d1
+	sub.w  #Lift_FloorHeight, d1
+	move.w d0, Platform_PosX(a2)
+	move.w d1, Platform_PosY(a2)
+	
+	; Set platform velocity
+	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
+	
+	;==============================================================
 	
 	; Reposition rope segments
 	jsr    LiftPositionRopeSegments

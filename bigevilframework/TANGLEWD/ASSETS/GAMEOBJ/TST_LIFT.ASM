@@ -8,12 +8,22 @@
 
 
 gameobjects_tst_lift:
-gameobjects_tst_lift_Fuzzl_count equ 0x0
+gameobjects_tst_lift_Fuzzl_count equ 0x1
 LoadGameObjects_tst_lift_Fuzzl:
+tst_liftFuzzl_3_idx	equ 0x0
+	jsr FuzzlInit
+	move.l #0x00035000, Entity_WorldPosX(a0)
+	move.l #0x0000e000, Entity_WorldPosY(a0)
+	add.l #Fuzzl_Struct_Size, a0
 	rts
 
-gameobjects_tst_lift_Nest_count equ 0x0
+gameobjects_tst_lift_Nest_count equ 0x1
 LoadGameObjects_tst_lift_Nest:
+tst_liftNest_4_idx	equ 0x0
+	jsr NestInit
+	move.l #0x0000f800, Entity_WorldPosX(a0)
+	move.l #0x00012000, Entity_WorldPosY(a0)
+	add.l #Nest_Struct_Size, a0
 	rts
 
 gameobjects_tst_lift_Flue_count equ 0x0

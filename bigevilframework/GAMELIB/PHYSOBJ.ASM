@@ -18,7 +18,6 @@ PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
 PhysicsObj_VelX    		    rs.w 1 ; X velocity
 PhysicsObj_VelY    		    rs.w 1 ; Y velocity
-PhysicsObj_PlatformVelX    	rs.w 1 ; X velocity of platform underneath object (cleared after application))
 PhysicsObj_MaxVelX 		    rs.w 1 ; Max X velocity
 PhysicsObj_MaxVelYUp	    rs.w 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	    rs.w 1 ; Max Y velocity down
@@ -29,6 +28,7 @@ PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    rs.w 1 ; Step height
 PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
+PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
 PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
 PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
@@ -36,7 +36,7 @@ PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
 PhysicsObj_Solid		    rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 2
+PhysicsObj_Struct_Pad       rs.b 3
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -65,11 +65,11 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_DecelX(a0)
 	move.w #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_VelY(a0)
-	move.w #0x0, PhysicsObj_PlatformVelX(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
+	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
@@ -109,7 +109,6 @@ PhysicsObjUpdate:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_VelY(a0)
-	move.w PhysicsObj_PlatformVelX(a0), PhysicsObj_VelX(a0)
 	
 	; Bail
 	bra    @NoPhysics
@@ -155,9 +154,6 @@ PhysicsObjUpdate:
 	
 	; Base functionality
 	jsr AnimObjUpdate
-	
-	; Clear platform velocity
-	move.w #0x0, PhysicsObj_PlatformVelX(a0)
 	
 	rts
 	
@@ -331,11 +327,6 @@ PhysicsObjApplyVelocity:
 	move.b AnimObj_SpeedDiv(a0), d1
 	divs   d1, d0
 	ext.l  d0							; Sign extend word to long
-	
-	; Add platform velocity
-	move.w PhysicsObj_PlatformVelX(a0), d2
-	ext.l  d2
-	add.l  d2, d0
 	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
 	add.l d0, d1						; Add velocity to pos
@@ -578,6 +569,68 @@ PhysicsObjFindFloor:
 	bge    @ProbeOutOfBounds
 	
 	;==============================================================
+	; Find platform first
+	
+	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
+	beq   @NoPlatform
+	
+	LIST_GET_HEAD Platforms,a3		; Get list head
+	@PlatformLp:					; For all platforms in list
+	cmp.l  #0x0, a3
+	beq    @NoPlatform
+	
+	; Get platform Left and Right X
+	move.w Platform_PosX(a3), d2
+	sub.w  #SpritePlaneBorderX, d2			; To screen space
+	move.w d2, d3
+	add.w  Platform_Width(a3), d3
+	
+	; Get floor probe X
+	swap   d1
+	move.w d1, d0
+	swap   d1
+	
+	; Check if probe X within platform X-width
+	cmp.w  d0, d2
+	bgt    @NextPlatform
+	cmp.w  d0, d3
+	blt    @NextPlatform
+	
+	; Get platform top
+	move.w Platform_PosY(a3), d2
+	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	
+	; Get floor probe Y
+	move.w d1, d0
+	
+	; Check if platform Y is between probe Y and Y+search height
+	cmp.w  d2, d0
+	bgt    @NextPlatform
+	add.w  #(heightmap_max_search_tiles*8), d0
+	cmp.w  d2, d0
+	blt    @NextPlatform
+	
+	; Success
+	move.w Platform_PosY(a3), d2			; Get platform Y
+	lsl.l  #0x8, d2							; To world space
+	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
+	
+	; Add platform X velocity
+	move.w Platform_VelX(a3), d2
+	ext.l  d2
+	add.l  d2, Entity_WorldPosX(a0)
+
+	bra    @FoundPlatform
+	
+	@NextPlatform:
+	LIST_GET_NEXT Platforms,a3,a3	; Get next ptr
+	bra    @PlatformLp				; Loop
+	
+	@NoPlatform:
+	@EndPlatformSearch:
+	
+	;==============================================================
+	; Find floor
 	
 	move.l a0, -(sp)
 	move.l a1, -(sp)
@@ -630,6 +683,8 @@ PhysicsObjFindFloor:
 	@EndFloorTest:
 	
 	move.l d2, PhysicsObj_LastFloor(a0)		; Store last found floor
+	
+	@FoundPlatform:
 	
 	rts
 	

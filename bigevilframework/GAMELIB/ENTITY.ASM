@@ -14,9 +14,9 @@ Entity_UpdateRoutine	rs.l 1 ; Update subroutine address
 Entity_RenderRoutine	rs.l 1 ; Render subroutine address
 Entity_SerialiseRoutine	rs.l 1 ; Save/load subroutine address
 ;-----------------------------
-Entity_UpdateNext		rs.l 1 ; Next in update linked list
-Entity_RenderNext		rs.l 1 ; Next in render linked list
-Entity_SerialiseNext	rs.l 1 ; Next in serialise linked list
+	LINKED_LIST_NODE EntityUpdate ; Next in update linked list
+	LINKED_LIST_NODE EntityRender ; Next in render linked list
+	LINKED_LIST_NODE EntitySerialise ; Next in serialise linked list
 ;-----------------------------
 Entity_WorldPosX        rs.l 1 ; Position X (world space)
 Entity_WorldPosY        rs.l 1 ; Position Y (world space)
@@ -33,221 +33,46 @@ Entity_Struct_Size		rs.b 0
 
 EntityAddToUpdateList:
 	; a0 --- Entity addr
-	
-	; If first in list, set as head and tail
-	cmp.l  #0x0, (EntityListHead_Update)
-	bne    @HasHead
-	move.l a0, EntityListHead_Update
-	move.l a0, EntityListTail_Update
-	bra    @End
-	@HasHead:
-	
-	; else link to current tail, then set as current tail
-	move.l (EntityListTail_Update), a3
-	move.l a0, Entity_UpdateNext(a3)
-	move.l a0, EntityListTail_Update
-	
-	@End:
-	
-	; Increment count
-	addi.l #0x1, EntityListSize_Update
-	
+	LIST_APPEND_TAIL EntityUpdate,a0,a3
 	rts
 
 EntityAddToRenderList:
 	; a0 --- Entity addr
 	
-	; If first in list, set as head and tail
-	cmp.l  #0x0, (EntityListHead_Render)
-	bne    @HasHead
-	move.l a0, EntityListHead_Render
-	move.l a0, EntityListTail_Render
-	bra    @End
-	@HasHead:
-	
-	; else link to current tail, then set as current tail
-	move.l (EntityListTail_Render), a3
-	move.l a0, Entity_RenderNext(a3)
-	move.l a0, EntityListTail_Render
-	
-	@End:
-	
-	; Increment count
-	addi.l #0x1, EntityListSize_Render
+	LIST_APPEND_TAIL EntityRender,a0,a3
 	
 	rts
 	
 EntityAddToSerialiseList:
 	; a0 --- Entity addr
-	
-	; If first in list, set as head and tail
-	cmp.l  #0x0, (EntityListHead_Serialise)
-	bne    @HasHead
-	move.l a0, EntityListHead_Serialise
-	move.l a0, EntityListTail_Serialise
-	bra    @End
-	@HasHead:
-	
-	; else link to current tail, then set as current tail
-	move.l (EntityListTail_Serialise), a3
-	move.l a0, Entity_SerialiseNext(a3)
-	move.l a0, EntityListTail_Serialise
-	
-	@End:
-	
-	; Increment count
-	addi.l #0x1, EntityListSize_Serialise
-	
+	LIST_APPEND_TAIL EntitySerialise,a0,a3
 	rts
 	
 EntityRemoveFromUpdateList:
 	; a0 --- Entity addr
-	
-	move.l  #0x0, a4
-	
-	move.l (EntityListHead_Update), a3	 ; Get list head
-	@EntityLp:							 ; For all entities in list
-	cmp.l  a0, a3						 ; Check if entity to remove
-	beq    @Found
-	move.l a3, a4						 ; Backup prev
-	move.l Entity_UpdateNext(a3), a3	 ; Get next ptr
-	bra    @EntityLp
-	
-	@Found:
-	
-	; Check if new head
-	cmp.l  #0x0, a4
-	beq    @NewHead
-	
-	; Link next with prev
-	move.l Entity_UpdateNext(a0), Entity_UpdateNext(a4)
-	bra    @EndLink
-	
-	@NewHead:
-	
-	; Removed entity was head, set new head
-	move.l Entity_UpdateNext(a0), EntityListHead_Update
-	
-	@EndLink:
-	
-	; Check if new tail
-	cmp.l   #0x0, Entity_UpdateNext(a0)
-	bne     @NotTail
-	
-	; Removed entity was tail, set new tail
-	move.l  a4, EntityListTail_Update
-	
-	@NotTail:
-	
-	; Decrement count
-	subi.l #0x1, EntityListSize_Update
-	
+	LIST_REMOVE EntityUpdate,a0,a4,a3
 	rts
 	
 EntityRemoveFromRenderList:
 	; a0 --- Entity addr
-	
-	move.l  #0x0, a4
-	
-	move.l (EntityListHead_Render), a3	 ; Get list head
-	@EntityLp:							 ; For all entities in list
-	cmp.l  a0, a3						 ; Check if entity to remove
-	beq    @Found
-	move.l a3, a4						 ; Backup prev
-	move.l Entity_RenderNext(a3), a3	 ; Get next ptr
-	bra    @EntityLp
-	
-	@Found:
-	
-	; Check if new head
-	cmp.l  #0x0, a4
-	beq    @NewHead
-	
-	; Link next with prev
-	move.l Entity_RenderNext(a0), Entity_RenderNext(a4)
-	bra    @EndLink
-	
-	@NewHead:
-	
-	; Removed entity was head, set new head
-	move.l Entity_RenderNext(a0), EntityListHead_Render
-	
-	@EndLink:
-	
-	; Check if new tail
-	cmp.l   #0x0, Entity_RenderNext(a0)
-	bne     @NotTail
-	
-	; Removed entity was tail, set new tail
-	move.l  a4, EntityListTail_Render
-	
-	@NotTail:
-	
-	; Decrement count
-	subi.l #0x1, EntityListSize_Render
-	
+	LIST_REMOVE EntityRender,a0,a4,a3
 	rts
 	
 EntityRemoveFromSerialiseList:
 	; a0 --- Entity addr
-	
-	move.l  #0x0, a4
-	
-	move.l (EntityListHead_Serialise), a3 ; Get list head
-	@EntityLp:							  ; For all entities in list
-	cmp.l  a0, a3						  ; Check if entity to remove
-	beq    @Found
-	move.l a3, a4						  ; Backup prev
-	move.l Entity_SerialiseNext(a3), a3	  ; Get next ptr
-	bra    @EntityLp
-	
-	@Found:
-	
-	; Check if new head
-	cmp.l  #0x0, a4
-	beq    @NewHead
-	
-	; Link next with prev
-	move.l Entity_SerialiseNext(a0), Entity_SerialiseNext(a4)
-	bra    @EndLink
-	
-	@NewHead:
-	
-	; Removed entity was head, set new head
-	move.l Entity_SerialiseNext(a0), EntityListHead_Serialise
-	
-	@EndLink:
-	
-	; Check if new tail
-	cmp.l   #0x0, Entity_SerialiseNext(a0)
-	bne     @NotTail
-	
-	; Removed entity was tail, set new tail
-	move.l  a4, EntityListTail_Serialise
-	
-	@NotTail:
-	
-	; Decrement count
-	subi.l #0x1, EntityListSize_Serialise
-	
+	LIST_REMOVE EntitySerialise,a0,a4,a3
 	rts
 	
 EntityClearUpdateList:
-	move.l  #0x0, EntityListHead_Update
-	move.l  #0x0, EntityListTail_Update
-	move.l  #0x0, EntityListSize_Update
+	LIST_CLEAR EntityUpdate
 	rts
 	
 EntityClearRenderList:
-	move.l  #0x0, EntityListHead_Render
-	move.l  #0x0, EntityListTail_Render
-	move.l  #0x0, EntityListSize_Render
+	LIST_CLEAR EntityRender
 	rts
 	
 EntityClearSerialiseList:
-	move.l  #0x0, EntityListHead_Serialise
-	move.l  #0x0, EntityListTail_Serialise
-	move.l  #0x0, EntityListSize_Serialise
+	LIST_CLEAR EntitySerialise
 	rts
 	
 EntityUpdateAll:
@@ -258,19 +83,15 @@ EntityUpdateAll:
 	jsr DBG_Profile_PushScope
 	ENDIF
 
-	cmp.l  #0x0, EntityListSize_Update
-	beq    @NoEntities					 ; Skip if nothing to do
-	
-	move.l (EntityListHead_Update), a0	 ; Get list head
-	@EntityLp:							 ; For all entities in list
-	move.l Entity_UpdateRoutine(a0), a2  ; Get update routine
-	jsr    (a2)							 ; Execute update routine
-	move.l Entity_UpdateNext(a0), a0	 ; Get next ptr
+	LIST_GET_HEAD EntityUpdate,a0		; Get list head
+	@EntityLp:							; For all entities in list
 	cmp.l  #0x0, a0
-	bne    @EntityLp
-	
-	@NoEntities:
-	
+	beq    @ListEnd
+	move.l Entity_UpdateRoutine(a0), a2 ; Get update routine
+	jsr    (a2)							; Execute update routine
+	LIST_GET_NEXT EntityUpdate,a0,a0	; Get next ptr
+	bra    @EntityLp					; Loop
+	@ListEnd:
 
 	IFD DEBUG
 	jsr DBG_Profile_PopScope
@@ -281,18 +102,15 @@ EntityUpdateAll:
 EntityRenderAll:
 	; a1 --- Level address
 	
-	cmp.l  #0x0, EntityListSize_Render
-	beq    @NoEntities					 ; Skip if nothing to do
-	
-	move.l (EntityListHead_Render), a0	 ; Get list head
-	@EntityLp:							 ; For all entities in list
-	move.l Entity_RenderRoutine(a0), a2  ; Get render routine
-	jsr    (a2)							 ; Execute render routine
-	move.l Entity_RenderNext(a0), a0	 ; Get next ptr
+	LIST_GET_HEAD EntityRender,a0		; Get list head
+	@EntityLp:							; For all entities in list
 	cmp.l  #0x0, a0
-	bne    @EntityLp
-	
-	@NoEntities:
+	beq    @ListEnd
+	move.l Entity_RenderRoutine(a0), a2 ; Get Render routine
+	jsr    (a2)							; Execute Render routine
+	LIST_GET_NEXT EntityRender,a0,a0	; Get next ptr
+	bra    @EntityLp					; Loop
+	@ListEnd:
 	
 	rts
 
@@ -302,18 +120,15 @@ EntitySerialiseAll:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
-	cmp.l  #0x0, EntityListSize_Serialise
-	beq    @NoEntities					 	; Skip if nothing to do
-
-	move.l (EntityListHead_Serialise), a0	; Get list head
-	@EntityLp:							 	; For all entities in list
-	move.l Entity_SerialiseRoutine(a0), a2  ; Get Serialise routine
-	jsr    (a2)							 	; Execute Serialise routine
-	move.l Entity_SerialiseNext(a0), a0	 	; Get next ptr
+	LIST_GET_HEAD EntitySerialise,a0		; Get list head
+	@EntityLp:								; For all entities in list
 	cmp.l  #0x0, a0
-	bne    @EntityLp
-	
-	@NoEntities:
+	beq    @ListEnd
+	move.l Entity_SerialiseRoutine(a0), a2	; Get Serialise routine
+	jsr    (a2)								; Execute Serialise routine
+	LIST_GET_NEXT EntitySerialise,a0,a0		; Get next ptr
+	bra    @EntityLp						; Loop
+	@ListEnd:
 	
 	rts
 	
