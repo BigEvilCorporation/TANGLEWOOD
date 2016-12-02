@@ -81,6 +81,12 @@ LiftInit:
 	move.w #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 	move.w #Lift_DecelX, PhysicsObj_DecelX(a0)
 	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	
 	;==============================================================
 	
 	; Setup platform

@@ -164,6 +164,12 @@ FuzzlInit:
 	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	
 	; Don't update when out of view until used
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	

@@ -142,6 +142,7 @@ PlayerInit:
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
+	move.b  #0x0, PhysicsObj_Pushable(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
@@ -165,6 +166,17 @@ PlayerInit:
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
+	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	
+	;==============================================================
+	
+	; Register as pushing object
+	LIST_APPEND_TAIL PushingObjs, a0, a3
 	
 	;==============================================================
 	
@@ -411,8 +423,8 @@ PlayerUpdate:
 	beq    @InteractFuzzl
 	cmp.b  #Player_Interaction_Boulder, d0
 	beq    @InteractBoulder
-	cmp.b  #Player_Interaction_Lift, d0
-	beq    @InteractLift
+	;cmp.b  #Player_Interaction_Lift, d0
+	;beq    @InteractLift
 	
 	; Not interacting, process special colour ability
 	jsr    PlayerUpdateColourAbility
@@ -430,10 +442,10 @@ PlayerUpdate:
 	jsr    PlayerInteract_Boulder
 	bra    @Interacting
 	
-	@InteractLift:
-	move.l Player_InteractObject(a0), a2
-	jsr    PlayerInteract_Lift
-	bra    @Interacting
+	;@InteractLift:
+	;move.l Player_InteractObject(a0), a2
+	;jsr    PlayerInteract_Lift
+	;bra    @Interacting
 	
 	@Interacting:
 	@NotInteracting:

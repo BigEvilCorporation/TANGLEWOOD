@@ -223,4 +223,3 @@ PHYS_EntityDistSq:
 	VEC2_DISTSQ d0, d1, d2
 
 	rts
-	

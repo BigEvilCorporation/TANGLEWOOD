@@ -82,6 +82,28 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	
 ;==============================================================
 
+	; Gets min/max collision XY bounds (pixel space) from a PhysicsObj
+PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
+	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
+	lsr.l  #0x8, \minreg								; To pixel space
+	add.w  PhysicsObj_BoundsLeft(\addrreg), \minreg		; Add bounding box X offset
+	move.w \minreg, \maxreg								; Copy to right reg
+	add.w  PhysicsObj_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
+	
+	swap   \minreg
+	swap   \maxreg
+	
+	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
+	lsr.l  #0x8, \tmpreg								; To pixel space
+	add.w  PhysicsObj_BoundsLeft(\addrreg), \tmpreg		; Add bounding box Y offset
+	move.w \tmpreg, \minreg								; To Y
+	move.w \minreg, \maxreg								; Copy to bottom reg
+	add.w  PhysicsObj_BoundsHeight(\addrreg), \maxreg	; Add bounding box bottom
+	
+	endm
+	
+;==============================================================
+
 TOSUBPIXELS: macro destreg
 	lsl.l   #0x8, \destreg
 	endm
