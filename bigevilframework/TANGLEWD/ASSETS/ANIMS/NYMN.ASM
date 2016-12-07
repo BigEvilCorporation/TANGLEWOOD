@@ -21,6 +21,18 @@ spriteanim_nymn_sleep_track_posy:
 
 	Even
 
+spriteanim_nymn_pushheavy:
+spriteanim_nymn_pushheavy_numframes: equ 0x8
+spriteanim_nymn_pushheavy_speed: equ 0x1E
+spriteanim_nymn_pushheavy_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+spriteanim_nymn_pushheavy_track_posx:
+
+spriteanim_nymn_pushheavy_track_posy:
+
+
+	Even
+
 spriteanim_nymn_colourswitch:
 spriteanim_nymn_colourswitch_numframes: equ 0xE
 spriteanim_nymn_colourswitch_speed: equ 0x28
