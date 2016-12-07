@@ -15,6 +15,13 @@ Player_MaxEntities equ 0x2
 Player1Width	  equ 0x0038
 Player1Height	  equ 0x0030
 
+; Player collision bounds
+Player1BoundsWidth		equ 0x0010
+Player1BoundsHeight		equ 0x0030
+Player1BoundsOffsetX	equ (Player1Width/2)-(Player1BoundsWidth/2)
+Player1BoundsOffsetY	equ (Player1Height/2)-(Player1BoundsHeight/2)
+Player1PushBoundsOuterDist	equ 0x4
+
 ; Player starting positions - TODO: From spawn point
 Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)+100
 Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
@@ -76,6 +83,7 @@ Player_Interaction_Fuzzl	equ 0x1
 Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
 Player_Interaction_Lift 	equ 0x4
+Player_Interaction_Push		equ 0x5
 
 ; Animations
 PlayerAnimIdx_Switch    equ 0
@@ -168,10 +176,11 @@ PlayerInit:
 	move.b  #0x0, Player_Snoozing(a0)
 	
 	; Setup collision bounds
-	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
-	move.w  #0x0, PhysicsObj_BoundsTop(a0)
-	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
-	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	move.w  #Player1BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
+	move.w  #Player1BoundsOffsetY, PhysicsObj_BoundsTop(a0)
+	move.w  #Player1BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #Player1BoundsHeight, PhysicsObj_BoundsHeight(a0)
+	move.w  #Player1PushBoundsOuterDist, PhysicsObj_PushDetectOuter(a0)
 	
 	;==============================================================
 	
@@ -310,7 +319,7 @@ PlayerInit:
 	move.b #spriteanim_nymn_glide_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
-	; Push
+	; Push (light object)
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
 	move.w #spritesheet_nymn_push_frameoffset, Animation_FirstFrameOffset(a3)
@@ -319,6 +328,17 @@ PlayerInit:
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_push_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_push_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	; Push (heavy object)
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a3
+	move.w #spritesheet_nymn_pushheavy_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_pushheavy_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_pushheavy_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_pushheavy_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	;==============================================================
@@ -399,6 +419,7 @@ PlayerUpdate:
 	; Get and clear prev pushing state
 	move.b Character_Pushing(a0), d1
 	move.b #0x0, Character_Pushing(a0)
+	move.b #0x0, Character_PushingHeavy(a0)
 
 	; Test for pickups
 	jsr    PlayerInteractTest_Fireflies
@@ -425,6 +446,9 @@ PlayerUpdate:
 	beq    @InteractBoulder
 	;cmp.b  #Player_Interaction_Lift, d0
 	;beq    @InteractLift
+	
+	cmp.b  #Player_Interaction_Push, d0
+	beq    @Interacting
 	
 	; Not interacting, process special colour ability
 	jsr    PlayerUpdateColourAbility
@@ -989,24 +1013,42 @@ PlayerStartInteract:
 	move.l d0, -(sp)
 	move.l d1, -(sp)
 	
+	; Check if already interacting
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	bne    @AlreadyInteracting
+	
 	; Check if player dead
 	cmp.b  #0x1, Character_Dead(a0)
 	beq    @Dead
 	
 	;==============================================================
 	
+	; If near a pushable object
+	cmp.l  #0x0, PhysicsObj_LastPushingObj(a0)
+	beq    @NoPushablesNear
+	
+	; Start pushing
+	move.b #0x1, PhysicsObj_CanPush(a0)
+	move.b #0x1, Character_Pushing(a0)
+	move.b #Player_Interaction_Push, Player_InteractionType(a0)
+	
+	; Player can't run
+	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	
+	@NoPushablesNear:
+	
 	; Check continuously interactible objects
-	jsr    PlayerInteractTest_Fuzzls
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @FoundInteraction
-	
-	jsr    PlayerInteractTest_Boulders
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @FoundInteraction
-	
-	jsr    PlayerInteractTest_Lifts
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @FoundInteraction
+	;jsr    PlayerInteractTest_Fuzzls
+	;cmp.b  #0x1, Character_Interacting(a0)
+	;beq    @FoundInteraction
+	;
+	;jsr    PlayerInteractTest_Boulders
+	;cmp.b  #0x1, Character_Interacting(a0)
+	;beq    @FoundInteraction
+	;
+	;jsr    PlayerInteractTest_Lifts
+	;cmp.b  #0x1, Character_Interacting(a0)
+	;beq    @FoundInteraction
 	
 	;==============================================================
 	
@@ -1019,14 +1061,16 @@ PlayerStartInteract:
 	bne    @ColourAbilityActive
 	jsr    PlayerStartColourAbility
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
+	bra    @End
 	
 	;==============================================================
-	
+
 	@Dead:
 	@AlreadyInteracting:
 	@FoundInteraction:
 	@NoColourAbility:
 	@ColourAbilityActive:
+	@End:
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -1037,10 +1081,23 @@ PlayerCancelInteract:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
+	bne    @NotPushing
+	
+	; Stop pushing
+	move.b #0x0, PhysicsObj_CanPush(a0)
+	
+	; Restore walk speed
+	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	
+	@NotPushing:
+	
+	; Stop interacting
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	move.l #0x0, Player_InteractObject(a0)
 	move.b #0x0, Character_Interacting(a0)
 	
+	; Stop colour ability
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @NoColourAbility
 	jsr    PlayerStopColourAbility
@@ -1471,6 +1528,7 @@ PlayerInteract_Boulder:
 	@PushingBoulder:
 	
 	; Pushing the Boulder, set its velocity to match
+	move.b #0x1, Character_PushingHeavy(a0)
 	move.w d2, PhysicsObj_VelX(a1)
 	
 	; Scale roll anim speed based on velocity

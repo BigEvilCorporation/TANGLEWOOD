@@ -318,7 +318,7 @@ FuzzlUpdate:
 
 	; Check if already watching player
 	btst.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
-	bne    @InitialState
+	bne    @Watching
 
 	; Player within range and Fuzzl in initial state, watch player
 	bset.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
@@ -330,6 +330,16 @@ FuzzlUpdate:
 	PLAYSFX_HIGHPRIO #SFX_FuzzlAlert
 
 	bra @InitialState
+	
+	@Watching:
+	
+	; Check if being pushed
+	cmp.b  #0x0, PhysicsObj_BeingPushed(a0)
+	beq    @InitialState
+	
+	; Set rolling state
+	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
+	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 
 	@MovedFromInitialPos:
 

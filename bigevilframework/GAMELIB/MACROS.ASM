@@ -99,7 +99,19 @@ PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
 	add.w  PhysicsObj_BoundsHeight(\addrreg), \maxreg	; Add bounding box bottom
-	
+	endm
+
+;==============================================================
+
+PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
+	sub.w \sizereg,\minreg
+	add.w \sizereg,\maxreg
+	swap  \minreg
+	swap  \maxreg
+	sub.w \sizereg,\minreg
+	add.w \sizereg,\maxreg
+	swap  \minreg
+	swap  \maxreg
 	endm
 	
 ;==============================================================

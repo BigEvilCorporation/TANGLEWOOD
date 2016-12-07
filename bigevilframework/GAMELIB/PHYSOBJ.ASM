@@ -15,10 +15,12 @@
 ;---------------------------------
 PhysicsObj_LastWall         rs.l 1 ; Last detected wall X
 PhysicsObj_LastFloor        rs.l 1 ; Last detected floor Y
+PhysicsObj_LastPushingObj	rs.l 1 ; Last detected pushing object (within outer push bounds)
 PhysicsObj_BoundsLeft		rs.w 1 ; Collision bounds offset X
 PhysicsObj_BoundsTop		rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth		rs.w 1 ; Collision bounds offset width
 PhysicsObj_BoundsHeight		rs.w 1 ; Collision bounds offset height
+PhysicsObj_PushDetectOuter	rs.w 1 ; Collision bounds outer box extension size for push detection
 PhysicsObj_Gravity  	    rs.w 1 ; Gravity
 PhysicsObj_AccelX  		    rs.w 1 ; X acceleration
 PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
@@ -42,10 +44,11 @@ PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step heigh
 PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
 PhysicsObj_Solid		    rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
+PhysicsObj_CanPush			rs.b 1 ; Object can push pushable objects
 PhysicsObj_Pushable			rs.b 1 ; Object can be pushed by pushing objects (X only)
 PhysicsObj_BeingPushed		rs.b 1 ; Object is being pushed (X only)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 1
+PhysicsObj_Struct_Pad       rs.b 0
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -73,6 +76,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
 	move.w #0x0, PhysicsObj_BoundsHeight(a0)
+	move.w #0x8, PhysicsObj_PushDetectOuter(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)
@@ -89,6 +93,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
+	move.b #0x0, PhysicsObj_CanPush(a0)
 	move.b #0x1, PhysicsObj_Pushable(a0)
 	move.b #0x0, PhysicsObj_BeingPushed(a0)
 	
@@ -841,8 +846,15 @@ PhysicsObjHandlePushing:
 	; a0 --- PhysicsObj addr
 	; a1 --- Level addr
 	
+	; Reset push flag
+	move.b #0x0, PhysicsObj_BeingPushed(a0)
+	
 	; Get collision bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	
+	; Grow by push detect outer box extension
+	move.w PhysicsObj_PushDetectOuter(a0), d0
+	PHYSICS_GROWBOUNDS d1,d2,d0
 	
 	; Loop over pushing objects
 	LIST_GET_HEAD PushingObjs,a3	; Get list head
@@ -864,11 +876,24 @@ PhysicsObjHandlePushing:
 	cmp.b  #0x0, d0
 	beq    @NextPushingObj
 	
-	; Bounds intersect, determine direction from object centres
+	; Bounds intersect with outer bounds, set found push obj
+	move.l a0, PhysicsObj_LastPushingObj(a3)
+	
+	; Check if pusher can currently push
+	cmp.b  #0x0, PhysicsObj_CanPush(a3)
+	beq    @FoundPushingObj
+	
+	; Check inner bounds
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
+	cmp.b  #0x0, d0
+	beq    @FoundPushingObj
+	
+	; Determine push direction from object centres
 	ENTITY_GETCENTREX d5, a0
 	ENTITY_GETCENTREX d6, a3
-	
-	; Test
 	cmp.l  d5, d6
 	blt    @PushRight
 	
@@ -878,9 +903,6 @@ PhysicsObjHandlePushing:
 	sub.w  PhysicsObj_BoundsWidth(a0), d5	; Sub pushee's bounds width to get new left
 	sub.w  PhysicsObj_BoundsLeft(a0), d5	; Sub pushee's left bound to get new X pos
 	sub.w  #0x1, d5							; -1
-	andi.l #0x0000FFFF, d5					; To world space
-	lsl.l  #0x8, d5
-	move.l d5, Entity_WorldPosX(a0)			; Set new X position
 	
 	bra @EndPenetration
 	
@@ -891,19 +913,32 @@ PhysicsObjHandlePushing:
 	swap   d5								; Get pusher's right bound
 	add.w  PhysicsObj_BoundsLeft(a0), d5	; Add pushee's left bound to get new X pos
 	add.w  #0x1, d5							; +1
-	andi.l #0x0000FFFF, d5					; To world space
-	lsl.l  #0x8, d5
-	move.l d5, Entity_WorldPosX(a0)			; Set new X position
 	
 	@EndPenetration:
 	
+	; Set new X position
+	andi.l #0x0000FFFF, d5					; To world space
+	lsl.l  #0x8, d5
+	move.l d5, Entity_WorldPosX(a0)
+	
 	; Inherit X velocity
 	move.w PhysicsObj_VelX(a3), PhysicsObj_VelX(a0)
+	
+	; Set push flag
+	move.b #0x1, PhysicsObj_BeingPushed(a0)
 	
 	; Done
 	bra    @FoundPushingObj
 	
 	@NextPushingObj:
+	
+	; If this was the last pushing obj, clear it
+	move.l PhysicsObj_LastPushingObj(a3), a2
+	cmp.l  a0, a2
+	bne    @NoClear
+	move.l #0x0, PhysicsObj_LastPushingObj(a3)
+	@NoClear:
+	
 	LIST_GET_NEXT PushingObjs,a3,a3	; Get next ptr
 	bra    @PushingObjLp			; Loop
 	
