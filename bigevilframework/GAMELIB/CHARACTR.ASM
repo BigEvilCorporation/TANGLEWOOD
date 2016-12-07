@@ -23,11 +23,12 @@ CharacterAnimIdx_Jump		equ 4
 CharacterAnimIdx_Hang		equ 5
 CharacterAnimIdx_Glide		equ 6
 CharacterAnimIdx_Push		equ 7
-CharacterAnimIdx_Fall		equ 8
-CharacterAnimIdx_WalkToRun	equ 9
-CharacterAnimIdx_WaterWade	equ 10
+CharacterAnimIdx_PushHeavy	equ 8
+CharacterAnimIdx_Fall		equ 9
+CharacterAnimIdx_WalkToRun	equ 10
+CharacterAnimIdx_WaterWade	equ 11
 ; -------------------------------
-Character_NumAnims			equ 11
+Character_NumAnims			equ 12
 
 ; ************************************
 ; SFX ids
@@ -67,6 +68,7 @@ Character_Running			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
 Character_Pushing			rs.b 1
+Character_PushingHeavy		rs.b 1
 Character_Gliding			rs.b 1
 Character_Interacting		rs.b 1
 Character_UpdateAnim		rs.b 1
@@ -74,7 +76,7 @@ Character_AnimIdx	    	rs.b 1
 Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 ;---------------------------------
-Character_Struct_Pad    	rs.b 2
+Character_Struct_Pad    	rs.b 1
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -97,6 +99,7 @@ CharacterInit:
 	move.b #0x0, Character_Running(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
+	move.b #0x0, Character_PushingHeavy(a0)
 	move.b #0x0, Character_Gliding(a0)
 	move.b #0x0, Character_Interacting(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
@@ -298,10 +301,18 @@ CharacterUpdateAnimState:
 	beq    @SetAnim
 	
 	; =====================================================================
-	; Pushing
+	; Pushing (light object)
 	; =====================================================================
 	move.b #CharacterAnimIdx_Push, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+	
+	; =====================================================================
+	; Pushing (heavy object)
+	; =====================================================================
+	move.b #CharacterAnimIdx_PushHeavy, d1
+	move.b Character_PushingHeavy(a0), d0	; If player is pushing, set push anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	

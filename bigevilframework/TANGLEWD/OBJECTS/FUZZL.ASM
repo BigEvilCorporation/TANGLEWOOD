@@ -391,6 +391,9 @@ FuzzlUpdate:
 	; No longer being rolled
 	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 	
+	; Can no longer be pushed
+	move.b #0x0, PhysicsObj_CanPush(a0)
+	
 	; Nest is occupied
 	move.b #0x1, Nest_Occupied(a3)
 	

@@ -67,6 +67,9 @@ Player1MaxGlideVelocityY	equ 0x01*SubpixelsPerPixel
 ; Time ability
 Player1SlowTimeDiv			equ 0x10
 
+; Max object height to consider it 'heavy' (changes push anim)
+Player1MaxLightPushObjHeight	equ 0x10
+
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
 Player1PushBoundsWidthOuter equ 0x20
@@ -417,9 +420,9 @@ PlayerUpdate:
 	; a1 --- Level addr
 	
 	; Get and clear prev pushing state
-	move.b Character_Pushing(a0), d1
-	move.b #0x0, Character_Pushing(a0)
-	move.b #0x0, Character_PushingHeavy(a0)
+	;move.b Character_Pushing(a0), d1
+	;move.b #0x0, Character_Pushing(a0)
+	;move.b #0x0, Character_PushingHeavy(a0)
 
 	; Test for pickups
 	jsr    PlayerInteractTest_Fireflies
@@ -1028,9 +1031,18 @@ PlayerStartInteract:
 	beq    @NoPushablesNear
 	
 	; Start pushing
-	move.b #0x1, PhysicsObj_CanPush(a0)
-	move.b #0x1, Character_Pushing(a0)
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
+	move.b #0x1, PhysicsObj_CanPush(a0)
+	
+	; Determine if light or heavy object
+	move.l PhysicsObj_LastPushingObj(a0), a2
+	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
+	bgt    @HeavyObj
+	move.b #0x1, Character_Pushing(a0)
+	bra    @EndPush
+	@HeavyObj:
+	move.b #0x1, Character_PushingHeavy(a0)
+	@EndPush:
 	
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
@@ -1086,6 +1098,8 @@ PlayerCancelInteract:
 	
 	; Stop pushing
 	move.b #0x0, PhysicsObj_CanPush(a0)
+	move.b #0x0, Character_Pushing(a0)
+	move.b #0x0, Character_PushingHeavy(a0)
 	
 	; Restore walk speed
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
