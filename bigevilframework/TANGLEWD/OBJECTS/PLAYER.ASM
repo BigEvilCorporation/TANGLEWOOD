@@ -78,7 +78,8 @@ Player1PushBoundsMaxXInner	equ ((Player1Width/2)+(Player1PushBoundsWidthInner/2)
 Player1PushBoundsMinXOuter	equ ((Player1Width/2)-(Player1PushBoundsWidthOuter/2))
 Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2))
 
-Player1PushAnimSpeedVelocityDiv equ 0x0004
+Player1PushAnimSpeedVelocityDivLight equ 0x0004
+Player1PushAnimSpeedVelocityDivHeavy equ 0x0008
 
 ; Interaction types
 Player_Interaction_None		equ 0x0
@@ -418,11 +419,6 @@ PlayerInit:
 PlayerUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	; Get and clear prev pushing state
-	;move.b Character_Pushing(a0), d1
-	;move.b #0x0, Character_Pushing(a0)
-	;move.b #0x0, Character_PushingHeavy(a0)
 
 	; Test for pickups
 	jsr    PlayerInteractTest_Fireflies
@@ -441,38 +437,53 @@ PlayerUpdate:
 	jsr    PlayerUpdateIdleSnooze
 	@NotSnoozing:
 	
-	; Process interactions
-	move.b Player_InteractionType(a0), d0
-	cmp.b  #Player_Interaction_Fuzzl, d0
-	beq    @InteractFuzzl
-	cmp.b  #Player_Interaction_Boulder, d0
-	beq    @InteractBoulder
-	;cmp.b  #Player_Interaction_Lift, d0
-	;beq    @InteractLift
+	; Process push interaction
+	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
+	beq    @Pushing
 	
-	cmp.b  #Player_Interaction_Push, d0
-	beq    @Interacting
-	
-	; Not interacting, process special colour ability
+	; Not pushing, process special colour ability
 	jsr    PlayerUpdateColourAbility
 	bra    @NotInteracting
 	
-	; TODO: Common 'pushable' object code, objects in separate pushable list,
-	; set Small/Large flags for player push anim, object's own Update() to handle anim based on velocity
-	@InteractFuzzl:
-	move.l Player_InteractObject(a0), a2
-	jsr    PlayerInteract_Fuzzl
+	@Pushing:
+	
+	; Scale push anim speed based on velocity
+	clr.l  d0
+	move.w PhysicsObj_VelX(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @Fwd
+	neg.w  d0
+	@Fwd:
+	move.w d0, d1
+	
+	; Apply to light push anim
+	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	move.b d0, Animation_Speed(a2)
+	
+	; Apply to heavy push anim
+	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
+	move.b d1, Animation_Speed(a2)
+	
+	; If no push object, or no longer pushable, stop pushing
+	move.l PhysicsObj_LastPushingObj(a0), a2
+	cmp.l  #0x0, PhysicsObj_LastPushingObj(a0)
+	beq    @StopPushing
+	cmp.b  #0x0, PhysicsObj_Pushable(a2)
+	beq    @StopPushing
+	cmp.b  #0x0, PhysicsObj_CanPush(a0)
+	beq    @StopPushing
+	
+	; Still pushing
 	bra    @Interacting
 	
-	@InteractBoulder:
-	move.l Player_InteractObject(a0), a2
-	jsr    PlayerInteract_Boulder
-	bra    @Interacting
-	
-	;@InteractLift:
-	;move.l Player_InteractObject(a0), a2
-	;jsr    PlayerInteract_Lift
-	;bra    @Interacting
+	@StopPushing:
+	jsr    PlayerCancelInteract
 	
 	@Interacting:
 	@NotInteracting:
@@ -1047,6 +1058,8 @@ PlayerStartInteract:
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 	
+	bra    @FoundInteraction
+	
 	@NoPushablesNear:
 	
 	; Check continuously interactible objects
@@ -1344,7 +1357,7 @@ PlayerInteract_Fuzzl:
 	bgt    @Fwd
 	neg.w  d0
 	@Fwd:
-	divs.w #Player1PushAnimSpeedVelocityDiv, d0
+	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
@@ -1552,7 +1565,7 @@ PlayerInteract_Boulder:
 	bgt    @Fwd
 	neg.w  d0
 	@Fwd:
-	divs.w #Player1PushAnimSpeedVelocityDiv, d0
+	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2

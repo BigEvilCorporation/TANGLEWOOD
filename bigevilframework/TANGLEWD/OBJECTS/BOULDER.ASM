@@ -93,6 +93,12 @@ BoulderInit:
 	move.b  #0x0, Boulder_Cracked(a0)
 	move.b  #0x1, Boulder_CanCrack(a0)
 	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	
 	; Setup animations
 	move.l a0, a2
 	add.l  #Boulder_Animations, a2
@@ -160,6 +166,7 @@ BoulderUpdate:
 	move.w #0x0, Boulder_LastVelY(a0)
 	move.b #0x1, Boulder_LastOnFloor(a0)
 	move.b #0x0, Boulder_Cracked(a0)
+	move.b #0x1, PhysicsObj_Pushable(a0)
 	
 	@NotCracked:
 	
@@ -197,6 +204,9 @@ BoulderUpdate:
 	; Cancel X velocity
 	move.w #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
+	
+	; Can no longer be pushed
+	move.b #0x0, PhysicsObj_Pushable(a0)
 	
 	; Bail
 	bra    @Cracked

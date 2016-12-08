@@ -222,6 +222,9 @@ LiftUpdate:
 	; Cancel movement by default
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	
+	; Can push by default
+	move.b #0x1, PhysicsObj_Pushable(a0)
+	
 	; Check if player heading down
 	move.l #Player1, a1
 	cmp.w  #0x0, PhysicsObj_VelY(a1)
@@ -242,6 +245,9 @@ LiftUpdate:
 	
 	; Player touching lift, move up
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+	
+	; Can't push
+	move.b #0x0, PhysicsObj_Pushable(a0)
 	
 	@PlayerHeadingUp:
 	@NotTouching:

@@ -897,7 +897,11 @@ PhysicsObjHandlePushing:
 	cmp.l  d5, d6
 	blt    @PushRight
 	
-	; Being pushed to the left, correct penetration
+	; Can be pushed to the left, check pusher is facing left
+	cmp.b  #0x0, SpriteObj_FlippedX(a3)
+	beq    @NextPushingObj
+
+	; Correct penetration
 	move.l d3, d5
 	swap   d5								; Get pusher's left bound
 	sub.w  PhysicsObj_BoundsWidth(a0), d5	; Sub pushee's bounds width to get new left
@@ -908,7 +912,11 @@ PhysicsObjHandlePushing:
 	
 	@PushRight:
 	
-	; Being pushed to the right, correct penetration
+	; Can be pushed to the right, check pusher is facing right
+	cmp.b  #0x0, SpriteObj_FlippedX(a3)
+	bne    @NextPushingObj
+
+	; Correct penetration
 	move.l d4, d5
 	swap   d5								; Get pusher's right bound
 	add.w  PhysicsObj_BoundsLeft(a0), d5	; Add pushee's left bound to get new X pos
