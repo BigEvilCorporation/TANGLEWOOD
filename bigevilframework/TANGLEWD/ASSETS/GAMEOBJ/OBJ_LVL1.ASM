@@ -251,3 +251,16 @@ LocIntroActor1_idx	equ 0x1
 	add.l #Location_Struct_Size, a0
 	rts
 
+gameobjects_lvl1_Lift_count equ 0x0
+LoadGameObjects_lvl1_Lift:
+	rts
+
+gameobjects_lvl1_Djrake_count equ 0x1
+LoadGameObjects_lvl1_Djrake:
+lvl1Djrake_128_idx	equ 0x0
+	jsr DjrakeInit
+	move.l #0x00063800, Entity_WorldPosX(a0)
+	move.l #0x00015000, Entity_WorldPosY(a0)
+	add.l #Djrake_Struct_Size, a0
+	rts
+

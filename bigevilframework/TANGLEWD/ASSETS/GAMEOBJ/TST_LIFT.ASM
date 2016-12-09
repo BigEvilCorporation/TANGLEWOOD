@@ -38,8 +38,13 @@ gameobjects_tst_lift_Monster_count equ 0x0
 LoadGameObjects_tst_lift_Monster:
 	rts
 
-gameobjects_tst_lift_Boulder_count equ 0x0
+gameobjects_tst_lift_Boulder_count equ 0x1
 LoadGameObjects_tst_lift_Boulder:
+tst_liftBoulder_5_idx	equ 0x0
+	jsr BoulderInit
+	move.l #0x00031000, Entity_WorldPosX(a0)
+	move.l #0x00022800, Entity_WorldPosY(a0)
+	add.l #Boulder_Struct_Size, a0
 	rts
 
 gameobjects_tst_lift_TriggerBox_count equ 0x0
@@ -70,5 +75,14 @@ tst_liftLift_2_idx	equ 0x0
 	move.l #0x0001f000, Entity_WorldPosX(a0)
 	move.l #0x00023800, Entity_WorldPosY(a0)
 	add.l #Lift_Struct_Size, a0
+	rts
+
+gameobjects_tst_lift_Djrake_count equ 0x1
+LoadGameObjects_tst_lift_Djrake:
+tst_liftDjrake_8_idx	equ 0x0
+	jsr DjrakeInit
+	move.l #0x0002e800, Entity_WorldPosX(a0)
+	move.l #0x00012000, Entity_WorldPosY(a0)
+	add.l #Djrake_Struct_Size, a0
 	rts
 

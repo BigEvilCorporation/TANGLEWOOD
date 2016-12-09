@@ -27,7 +27,7 @@ Lvl_TestLift:
 Lvl_TestLift_DefaultPalettes:
 
 	dc.l palette_tst_lift			; World
-	dc.l 0x0						; Djakk
+	dc.l palette_Djrake				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -49,6 +49,10 @@ Lvl_TestLift_Init:
 	; Monsters
 	move.l #EntityArray_Monsters, a0
 	jsr    LoadGameObjects_tst_lift_Monster
+	
+	; Djrakes
+	move.l #EntityArray_Djrakes, a0
+	jsr    LoadGameObjects_tst_lift_Djrake
     
 	; Fuzzls
 	move.l #EntityArray_Fuzzls, a0

@@ -20,6 +20,7 @@
 	include 'assets\palettes\pal_lvl1.asm'
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
+	include 'assets\palettes\djrake.asm'
 	IFD DEBUG
 	include 'assets\palettes\pal_tst1.asm'
 	ENDIF
@@ -38,6 +39,7 @@
 	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
+	include 'assets\sprites\djrake.asm'
 	include 'assets\sprites\firefly.asm'
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
@@ -52,6 +54,7 @@
 	IFND DEBUG
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\djakk.asm'
+	include 'assets\anims\djrake.asm'
 	ENDIF
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
@@ -170,16 +173,16 @@ Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
 	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
-Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
-Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
+Tiles_LiftVRAM:   	 rs.b 0 ;(sprite_lift_size_b*Lift_MaxEntities)
+Tiles_RopeVRAM:   	 rs.b 0 ;(sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 	ENDIF
 
 	; TODO: Reserve max level size
 	IFD DEBUG
 LevelMapVRAM:        rs.b (tiles_tst1_size_b)
 	ELSE
-;LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
-LevelMapVRAM:        rs.b (tiles_tst_lift_size_b)
+LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
+;LevelMapVRAM:        rs.b (tiles_tst_lift_size_b)
 	ENDIF
 
 ;---------------------------------------------------------

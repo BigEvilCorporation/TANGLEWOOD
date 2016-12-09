@@ -246,6 +246,26 @@ LevelLoadGameObjArt:
 	@NoMonsters:
     ENDIF
 	
+	; Djrakes
+	;IFND DEBUG
+	;cmp.w  #0x0, EntityCount_Djrakes
+	;beq    @NoDjrakes
+	;move.l #EntityArray_Djrakes, a0
+	;lea    spritesheets_djrake, a1
+	;lea    sprite_djrake_subsprite_dimensions_bits, a2
+	;lea    sprite_djrake_subsprite_pos_offsets, a3
+	;lea    sprite_djrake_numtiles_per_subsprite, a4
+	;;move.l #tiles_DjrakeVRAM, d0
+	;move.l #tiles_MonsterVRAM, d0
+	;move.l #sprite_djrake_size_t, d1
+	;move.b #sprite_djrake_size_subsprites, d2
+	;move.w #sprite_djrake_widthheight_subsprites, d3
+	;;move.b #PaletteID_Djrake, d4
+	;move.b #PaletteID_Monster, d4
+	;jsr    SpriteObjLoad
+	;@NoDjrakes:
+    ;ENDIF
+	
 	; Fuzzls
 	cmp.w  #0x0, EntityCount_Fuzzls
 	beq    @NoFuzzls

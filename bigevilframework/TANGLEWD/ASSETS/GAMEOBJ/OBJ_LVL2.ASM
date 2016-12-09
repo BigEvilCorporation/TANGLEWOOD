@@ -179,3 +179,11 @@ gameobjects_lvl2_Location_count equ 0x0
 LoadGameObjects_lvl2_Location:
 	rts
 
+gameobjects_lvl2_Lift_count equ 0x0
+LoadGameObjects_lvl2_Lift:
+	rts
+
+gameobjects_lvl2_Djrake_count equ 0x0
+LoadGameObjects_lvl2_Djrake:
+	rts
+

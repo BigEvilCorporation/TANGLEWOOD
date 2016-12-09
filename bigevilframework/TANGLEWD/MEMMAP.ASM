@@ -248,6 +248,7 @@ EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
 EntityArray_Locations rs.b (Location_Struct_Size*Location_MaxEntities)
 	IFND DEBUG
 EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Djrakes    	rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
 EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
@@ -257,6 +258,7 @@ EntityArray_Ropes       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
 EntityCount_Players     rs.w 1
 EntityCount_Actors      rs.w 1
 EntityCount_Monsters    rs.w 1
+EntityCount_Djrakes	    rs.w 1
 EntityCount_Fireflies   rs.w 1
 EntityCount_Flues       rs.w 1
 EntityCount_Fuzzls      rs.w 1
