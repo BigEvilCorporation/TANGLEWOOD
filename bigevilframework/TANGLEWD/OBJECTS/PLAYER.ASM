@@ -70,6 +70,9 @@ Player1SlowTimeDiv			equ 0x10
 ; Max object height to consider it 'heavy' (changes push anim)
 Player1MaxLightPushObjHeight	equ 0x10
 
+; Num frames to wait before idle anim
+Player1IdleAnimWaitFrames	equ 0x0300
+
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
 Player1PushBoundsWidthOuter equ 0x20
@@ -90,13 +93,14 @@ Player_Interaction_Lift 	equ 0x4
 Player_Interaction_Push		equ 0x5
 
 ; Animations
-PlayerAnimIdx_Switch    equ 0
-PlayerAnimIdx_LieDown   equ 1
-PlayerAnimIdx_Sleep     equ 2	; Sleep loop
-PlayerAnimIdx_Wake      equ 3	; Wakes up fully and stands up
-PlayerAnimIdx_WakeSleep equ 4	; Raises head, pauses, then goes back to sleep
-; ---------------------------
-PlayerAnimIdx_Max       equ 5
+PlayerAnimIdx_Switch    	equ 0
+PlayerAnimIdx_LieDown   	equ 1
+PlayerAnimIdx_Sleep     	equ 2	; Sleep loop
+PlayerAnimIdx_Wake      	equ 3	; Wakes up fully and stands up
+PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
+PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
+; -------------------------------
+PlayerAnimIdx_Max       	equ 6
 
 ; ************************************
 ; Struct
@@ -106,13 +110,15 @@ PlayerAnimIdx_Max       equ 5
 Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_ColourChangeTimer	rs.w 1
+Player_IdleFrameCount		rs.w 1
+Player_IdleTimeoutCount		rs.w 1
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 ;---------------------------------
-Player_Struct_Pad      		rs.b 1
+Player_Struct_Pad      		rs.b 2
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -175,6 +181,8 @@ PlayerInit:
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.w  #0x0, Player_ColourChangeTimer(a0)
+	move.w  #0x0, Player_IdleFrameCount(a0)
+	move.b  #0x0, Player_IdleTimeoutCount(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
@@ -411,6 +419,18 @@ PlayerInit:
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
+	; Nervous look back
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a3
+	move.w #spritesheet_nymn_lookback_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_lookback_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_lookback_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_lookback_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
 	; Running by default
 	jsr    CharacterStartRun
 	
@@ -502,6 +522,9 @@ PlayerUpdate:
 	@NotDead:
 	@Red:
 	
+	; Process idle anim
+	jsr    PlayerUpdateIdleAnim
+	
 	; Base functionality
 	jsr    CharacterUpdate
 	
@@ -581,12 +604,8 @@ PlayerBeginIdleSnooze:
 PlayerUpdateIdleSnooze:
 	; a0 --- Character address
 	
-	; If X velocity changed
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
-	bne    @EndSnooze
-
-	; If Y velocity upward
-	cmp.w  #0x0, PhysicsObj_VelY(a0)
+	; If any button pressed
+	cmp.w  #0x0, Gamepad1State
 	bgt    @EndSnooze
 	
 	bra    @StillSnoozing
@@ -596,6 +615,7 @@ PlayerUpdateIdleSnooze:
 	; Release looping anim control, stop snoozing
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0x0, Player_Snoozing(a0)
+	move.b #0x0, Player_Sleeping(a0)
 	
 	; Cancel out the velocity used to wake up
 	move.w #0x0, PhysicsObj_VelX(a0)
@@ -613,6 +633,56 @@ PlayerUpdateIdleSnooze:
 	POPL   a1
 	
 	@StillSnoozing:
+	
+	rts
+	
+PlayerUpdateIdleAnim:
+	
+	; If in idle anim, check if one-shot idle anim should start
+	move.l a0, a2
+	add.l  #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a2
+	cmp.l  AnimObj_CurrentAnim(a0), a2
+	bne    @NotIdle
+	
+	add.w  #0x1, Player_IdleFrameCount(a0)							; Increment idle frame count
+	cmp.w  #Player1IdleAnimWaitFrames, Player_IdleFrameCount(a0)	; Check if hit threshold
+	bne    @EndIdle
+	
+	cmp.b  #0x1, Player_IdleTimeoutCount(a0)						; Check if second idle sequence
+	bne    @FirstTimeIdle
+	jsr    PlayerBeginSleep											; Start idle snooze instead
+	move.b #0x1, Player_Snoozing(a0)
+	move.b #0x0, Player_IdleTimeoutCount(a0)
+	bra    @End
+	@FirstTimeIdle:
+	
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a1
+	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
+	add.b  #0x1, Player_IdleTimeoutCount(a0)
+	POPL   a1
+	
+	@NotIdle:
+	move.w #0x0, Player_IdleFrameCount(a0)							; Not idling, reset counter
+	@EndIdle:
+	
+	; If in one-shot idle anim, any button press interrupts
+	move.l a0, a2
+	add.l  #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a2
+	cmp.l  AnimObj_CurrentAnim(a0), a2
+	bne    @NotOneShotIdle
+	cmp.w  #0x0, Gamepad1State
+	beq    @NotInterrupted
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a1
+	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
+	POPL   a1
+	@NotInterrupted:
+	@NotOneShotIdle:
+	
+	@End:
 	
 	rts
 

@@ -138,6 +138,8 @@ __padding061		   rs.b 2
 ; ************************************
 ; Game globals
 ; ************************************
+Gamepad1State      	   rs.w 1
+Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
 Player1ControlEnabled  rs.b 1

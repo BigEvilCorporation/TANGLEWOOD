@@ -22,6 +22,7 @@ UpdateInput:
 	
 	@NoControl:
 	
+	move.w d0, Gamepad1State
 	move.w (Gamepad1PrevState), d1
 	
 	; Player 1 movement
