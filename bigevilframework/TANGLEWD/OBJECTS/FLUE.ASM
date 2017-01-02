@@ -275,8 +275,6 @@ FlueOccupantUpdate:
 FlueFindOccupant:
 	; a0 --- GameObj addr
 	; a2 --- Occupant desc address
-	
-	rts
 
 	; Search all entities
 	; TODO: Slow, sort entities into type lists
@@ -353,8 +351,6 @@ FlueTestPhysicsObjInside:
 	; a1 --- PhysicsObj 2
 	
 	; Obj 1 min X
-	nop
-	nop
 	move.l Entity_WorldPosX(a0), d1	; X
 	lsr.l  #0x8, d1						; To screen space
 	move.w d1, d2						; Copy for max
