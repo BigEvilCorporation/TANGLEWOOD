@@ -21,7 +21,6 @@
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
 	include 'assets\palettes\djrake.asm'
-	include 'assets\palettes\djakk_bl.asm'
 	IFD DEBUG
 	include 'assets\palettes\pal_tst1.asm'
 	ENDIF

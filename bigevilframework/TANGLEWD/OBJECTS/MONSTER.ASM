@@ -1071,15 +1071,15 @@ MonsterStartTamed:
 	move.b #MonsterState_Tamed, Monster_State(a0)
 	
 	; Start palette lerp
-	move.l a0, -(sp)
-	lea    palette_djakk_blue, a0
-	move.l #PaletteId_Monster, d0
-	move.w #Monster_EmergePalLerpSpeed, d1
-	move.b #0x1, d2
-	move.b #0x0, d3
-	move.b #0xF, d4
-	jsr    PAL_LerpStart
-	move.l (sp)+, a0
+	;move.l a0, -(sp)
+	;lea    palette_djakk_blue, a0
+	;move.l #PaletteId_Monster, d0
+	;move.w #Monster_EmergePalLerpSpeed, d1
+	;move.b #0x1, d2
+	;move.b #0x0, d3
+	;move.b #0xF, d4
+	;jsr    PAL_LerpStart
+	;move.l (sp)+, a0
 	
 	; Stop running
 	jsr    CharacterCancelRun
