@@ -75,6 +75,7 @@ MonsterState_Roaring	equ 0x3
 MonsterState_Chasing	equ 0x4
 MonsterState_Attacking	equ 0x5
 MonsterState_Wandering	equ 0x6
+MonsterState_Tamed		equ 0x7
 
 ; ************************************
 ; Animations
@@ -287,6 +288,8 @@ MonsterUpdate:
 	beq   @Attacking
 	cmp.b #MonsterState_Wandering, d0
 	beq   @Wandering
+	cmp.b #MonsterState_Tamed, d0
+	beq   @Tamed
 
 	; ************************************
 	; In cave
@@ -340,6 +343,15 @@ MonsterUpdate:
 
 	; Wander around
 	jsr MonsterUpdateSearchForPlayer
+	bra @EndStateMachine
+	
+	; ************************************
+	; Tamed
+	; ************************************
+	@Tamed:
+
+	; Wander around
+	jsr MonsterUpdateTamed
 	bra @EndStateMachine
 
 	; ************************************
@@ -1049,4 +1061,37 @@ MonsterUpdateBite:
 	@OutOfHitBox:
 	@End:
 
+	rts
+	
+MonsterStartTamed:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set tamed state
+	move.b #MonsterState_Tamed, Monster_State(a0)
+	
+	; Start palette lerp
+	move.l a0, -(sp)
+	lea    palette_djakk_blue, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
+	jsr    PAL_LerpStart
+	move.l (sp)+, a0
+	
+	; Stop running
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelXMovement
+	
+	; Pass anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
+
+	rts
+
+MonsterUpdateTamed:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
 	rts

@@ -95,6 +95,16 @@ Lvl_TestLift_Init:
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
 	
+	;==============================================================
+	
+	; Set Fuzzl colours
+	move.l #TstLift_Fuzzl_Blue_idx, d0
+	mulu   #Fuzzl_Struct_Size, d0
+	move.l #EntityArray_Fuzzls, a0
+	add.l  d0, a0
+	move.b #ColourBlue, d0
+	jsr    FuzzlSetColour
+	
 	; Enable player 1 control
 	move.b #0x1, Player1ControlEnabled
 

@@ -82,8 +82,11 @@ GameStateReset:
 	jsr Echo_Init
 	ENDIF
 	
-	; Ropes
+	; Reset ropes
 	move.l  #EntityArray_Ropes, NextFreeRopeSegment
+	
+	; Reset pushables
+	LIST_CLEAR PushingObjs
 	
 	rts
 
@@ -247,24 +250,24 @@ LevelLoadGameObjArt:
     ENDIF
 	
 	; Djrakes
-	;IFND DEBUG
-	;cmp.w  #0x0, EntityCount_Djrakes
-	;beq    @NoDjrakes
-	;move.l #EntityArray_Djrakes, a0
-	;lea    spritesheets_djrake, a1
-	;lea    sprite_djrake_subsprite_dimensions_bits, a2
-	;lea    sprite_djrake_subsprite_pos_offsets, a3
-	;lea    sprite_djrake_numtiles_per_subsprite, a4
-	;;move.l #tiles_DjrakeVRAM, d0
-	;move.l #tiles_MonsterVRAM, d0
-	;move.l #sprite_djrake_size_t, d1
-	;move.b #sprite_djrake_size_subsprites, d2
-	;move.w #sprite_djrake_widthheight_subsprites, d3
-	;;move.b #PaletteID_Djrake, d4
-	;move.b #PaletteID_Monster, d4
-	;jsr    SpriteObjLoad
-	;@NoDjrakes:
-    ;ENDIF
+	IFND DEBUG
+	cmp.w  #0x0, EntityCount_Djrakes
+	beq    @NoDjrakes
+	move.l #EntityArray_Djrakes, a0
+	lea    spritesheets_djrake, a1
+	lea    sprite_djrake_subsprite_dimensions_bits, a2
+	lea    sprite_djrake_subsprite_pos_offsets, a3
+	lea    sprite_djrake_numtiles_per_subsprite, a4
+	;move.l #tiles_DjrakeVRAM, d0
+	move.l #tiles_MonsterVRAM, d0
+	move.l #sprite_djrake_size_t, d1
+	move.b #sprite_djrake_size_subsprites, d2
+	move.w #sprite_djrake_widthheight_subsprites, d3
+	;move.b #PaletteID_Djrake, d4
+	move.b #PaletteID_Monster, d4
+	jsr    SpriteObjLoad
+	@NoDjrakes:
+    ENDIF
 	
 	; Fuzzls
 	cmp.w  #0x0, EntityCount_Fuzzls
@@ -361,44 +364,44 @@ LevelLoadGameObjArt:
 	ENDIF
 	
 	; Lifts
-	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Lifts
-	beq    @NoLifts
-	move.l #EntityArray_Lifts, a0
-	move.w (EntityCount_Lifts), d1
-	sub.w  #0x1, d1
-	move.l #Tiles_LiftVRAM, d0
-	@LiftLoop:
-	movem.l d0-d1/a0, -(sp)
-	
-	jsr    LiftLoadDefaultSprite
-	
-	movem.l (sp)+, d0-d1/a0
-	add.l  #Lift_Struct_Size, a0
-	add.l  #sprite_Lift_size_b, d0
-	dbra   d1, @LiftLoop
-	@NoLifts:
-	ENDIF
+	;IFND DEBUG
+	;cmp.w  #0x0, EntityCount_Lifts
+	;beq    @NoLifts
+	;move.l #EntityArray_Lifts, a0
+	;move.w (EntityCount_Lifts), d1
+	;sub.w  #0x1, d1
+	;move.l #Tiles_LiftVRAM, d0
+	;@LiftLoop:
+	;movem.l d0-d1/a0, -(sp)
+	;
+	;jsr    LiftLoadDefaultSprite
+	;
+	;movem.l (sp)+, d0-d1/a0
+	;add.l  #Lift_Struct_Size, a0
+	;add.l  #sprite_Lift_size_b, d0
+	;dbra   d1, @LiftLoop
+	;@NoLifts:
+	;ENDIF
 	
 	; Ropes
-	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Ropes
-	beq    @NoRopes
-	move.l #EntityArray_Ropes, a0
-	move.w (EntityCount_Ropes), d1
-	sub.w  #0x1, d1
-	move.l #Tiles_RopeVRAM, d0
-	@RopeLoop:
-	movem.l d0-d1/a0, -(sp)
-	
-	jsr    RopeSegmentLoadDefaultSprite
-	
-	movem.l (sp)+, d0-d1/a0
-	add.l  #RopeSegment_Struct_Size, a0
-	add.l  #sprite_Rope_size_b, d0
-	dbra   d1, @RopeLoop
-	@NoRopes:
-	ENDIF
+	;IFND DEBUG
+	;cmp.w  #0x0, EntityCount_Ropes
+	;beq    @NoRopes
+	;move.l #EntityArray_Ropes, a0
+	;move.w (EntityCount_Ropes), d1
+	;sub.w  #0x1, d1
+	;move.l #Tiles_RopeVRAM, d0
+	;@RopeLoop:
+	;movem.l d0-d1/a0, -(sp)
+	;
+	;jsr    RopeSegmentLoadDefaultSprite
+	;
+	;movem.l (sp)+, d0-d1/a0
+	;add.l  #RopeSegment_Struct_Size, a0
+	;add.l  #sprite_Rope_size_b, d0
+	;dbra   d1, @RopeLoop
+	;@NoRopes:
+	;ENDIF
 	
 	; Fireflies
 	IFND DEBUG

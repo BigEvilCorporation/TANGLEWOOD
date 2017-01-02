@@ -73,6 +73,13 @@ Player1MaxLightPushObjHeight	equ 0x10
 ; Num frames to wait before idle anim
 Player1IdleAnimWaitFrames	equ 0x0300
 
+; Max monster taming distance
+Player1DjakkTamingDistance  equ	0x0100
+
+; Djakk saddle position
+Player1DjakkSaddleOffsetX	equ 0x0000
+Player1DjakkSaddleOffsetY	equ 0x0000
+
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
 Player1PushBoundsWidthOuter equ 0x20
@@ -91,6 +98,7 @@ Player_Interaction_Boulder	equ 0x2
 Player_Interaction_Ability	equ 0x3
 Player_Interaction_Lift 	equ 0x4
 Player_Interaction_Push		equ 0x5
+Player_Interaction_Ride		equ 0x6
 
 ; Animations
 PlayerAnimIdx_Switch    	equ 0
@@ -99,8 +107,9 @@ PlayerAnimIdx_Sleep     	equ 2	; Sleep loop
 PlayerAnimIdx_Wake      	equ 3	; Wakes up fully and stands up
 PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
 PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
+PlayerAnimIdx_Ride		 	equ 6	; Ride a Djakk
 ; -------------------------------
-PlayerAnimIdx_Max       	equ 6
+PlayerAnimIdx_Max       	equ 7
 
 ; ************************************
 ; Struct
@@ -430,6 +439,18 @@ PlayerInit:
 	move.b #spriteanim_nymn_lookback_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
+	
+	; Ride a Djakk
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Ride), a3
+	move.w #spritesheet_nymn_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_nymn_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_ridedjakk_track_posy, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_ridedjakk_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_ridedjakk_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
 	
 	; Running by default
 	jsr    CharacterStartRun
@@ -780,6 +801,9 @@ PlayerStartColourAbility:
 	move.w #Player1MaxGlideVelocityX, PhysicsObj_MaxVelX(a0)		; Set max glide velocity
 	move.w #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
 	
+	; Set ability active
+	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
+	
 	bra    @End
 	
 	; ************************************
@@ -822,6 +846,7 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
@@ -829,9 +854,89 @@ PlayerStartColourAbility:
 	bra    @End
 	
 	; ************************************
-	; Blue
+	; Blue - beast taming / ride Djakk
 	; ************************************
 	@Blue:
+	
+	; If not already riding a Djakk
+	cmp.b  #Player_Interaction_Ride, Player_InteractionType(a0)
+	beq    @Riding
+	
+	; Find a Djakk in range
+	PUSHL  a1
+	move.l #EntityArray_Monsters, a1
+	move.w (EntityCount_Monsters), d6
+	cmp.w  #0x0, d6
+	beq    @NoMonsters
+	sub.w  #0x1, d6
+	@MonsterLoop:
+	
+	; Check monster active
+	cmp.b  #0x0, Entity_Active(a1)
+	beq    @NextMonster
+	
+	; Check monster alive
+	cmp.b  #0x0, Character_Dead(a1)
+	bne    @NextMonster
+	
+	; Check monster within taming range
+	jsr    PHYS_EntityDistSq
+	cmp.l  #(Player1DjakkTamingDistance*Player1DjakkTamingDistance), d0
+	bgt    @NextMonster
+	
+	; Check monster tamed
+	cmp.b  #MonsterState_Tamed, Monster_State(a1)
+	beq    @Tamed
+	
+	; Tame it
+	PUSHL  a0
+	PUSHL  d6
+	move.l a1, a0
+	jsr    MonsterStartTamed
+	POPL   d6
+	POPL   a0
+	
+	; Riding needs a second Action button press, bail out
+	bra    @EndMonsterLoop
+		
+	@Tamed:
+
+	; Bounds check
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NextMonster
+	
+	; Ride it - set interacting obj + type
+	move.l a1, Player_InteractObject(a0)
+	move.b #Player_Interaction_Ride, Player_InteractionType(a0)
+		
+	; Begin ride animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Ride*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
+	; Done
+	bra    @EndMonsterLoop
+		
+	@NextMonster:
+	add.l #Monster_Struct_Size, a1
+	dbra  d6, @MonsterLoop
+	
+	@NoMonsters:
+	@EndMonsterLoop:
+	POPL  a1
+	
+	@Riding:
+	
 	bra    @End
 	
 	@NoColour:
@@ -847,8 +952,6 @@ PlayerStartColourAbility:
 PlayerStopColourAbility:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
-	
-	rts
 	
 	; Get colour
 	move.b Player_Colour(a0), d0
@@ -942,9 +1045,13 @@ PlayerStopColourAbility:
 	bra    @End
 	
 	; ************************************
-	; Blue
+	; Blue - beast taming / ride Djakk
 	; ************************************
 	@Blue:
+	
+	; Release control of anim updates
+	move.b #0x1, Character_UpdateAnim(a0)
+	
 	bra    @End
 	
 	@NoColour:
@@ -955,8 +1062,6 @@ PlayerStopColourAbility:
 	rts
 	
 PlayerUpdateColourAbility:
-
-	rts
 
 	; Get colour
 	move.b Player_Colour(a0), d0
@@ -1064,6 +1169,25 @@ PlayerUpdateColourAbility:
 	; Blue
 	; ************************************
 	@Blue:
+	
+	; If riding a Djakk
+	cmp.b #Player_Interaction_Ride, Player_InteractionType(a0)
+	bne   @NotRiding
+	
+	; Get Djakk
+	move.l Player_InteractObject(a0), a2
+	
+	; Snap to saddle position
+	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	
+	; Forward acceleration onto Djakk
+	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
+	
+	; Scale ride anim speed to velocity
+	
+	@NotRiding:
+	
 	bra    @End
 	
 	@NoColour:
@@ -1108,15 +1232,31 @@ PlayerStartInteract:
 	;==============================================================
 	
 	; If near a pushable object
-	cmp.l  #0x0, PhysicsObj_LastPushingObj(a0)
+	move.l PhysicsObj_LastPushingObj(a0), a2
+	cmp.l  #0x0, a2
 	beq    @NoPushablesNear
+	cmp.b  #0x0, PhysicsObj_Pushable(a2)
+	beq    @NoPushablesNear
+	
+	; If facing in the right direction
+	ENTITY_GETCENTREX d0, a0
+	ENTITY_GETCENTREX d1, a2
+	cmp.l  d0, d1
+	blt    @RightOfObj
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	bne    @NoPushablesNear
+	bra    @Pushing
+	@RightOfObj:
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoPushablesNear
+	
+	@Pushing:
 	
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
 	move.b #0x1, PhysicsObj_CanPush(a0)
 	
 	; Determine if light or heavy object
-	move.l PhysicsObj_LastPushingObj(a0), a2
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
 	bgt    @HeavyObj
 	move.b #0x1, Character_Pushing(a0)
@@ -1133,17 +1273,9 @@ PlayerStartInteract:
 	@NoPushablesNear:
 	
 	; Check continuously interactible objects
-	;jsr    PlayerInteractTest_Fuzzls
-	;cmp.b  #0x1, Character_Interacting(a0)
-	;beq    @FoundInteraction
-	;
-	;jsr    PlayerInteractTest_Boulders
-	;cmp.b  #0x1, Character_Interacting(a0)
-	;beq    @FoundInteraction
-	;
-	;jsr    PlayerInteractTest_Lifts
-	;cmp.b  #0x1, Character_Interacting(a0)
-	;beq    @FoundInteraction
+	jsr    PlayerInteractTest_Fuzzls
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
 	
 	;==============================================================
 	
@@ -1155,7 +1287,6 @@ PlayerStartInteract:
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	bne    @ColourAbilityActive
 	jsr    PlayerStartColourAbility
-	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	bra    @End
 	
 	;==============================================================
@@ -1206,62 +1337,22 @@ PlayerInteractTest_Fuzzls:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Character must be close to floor to interact with a Fuzzl
+	; Character must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
 	
-	; Check all Fuzzls
-	move.l #EntityArray_Fuzzls, a3
-	move.w (EntityCount_Fuzzls), d6
-	cmp.w  #0x0, d6
-	beq    @NoFuzzls
-	subi.w #0x1, d6
-	@FuzzlLoop:
+	; Check if near a pushable object
+	move.l PhysicsObj_LastPushingObj(a0), a3
+	cmp.l  #0x0, a2
+	beq    @NotNearPushableObj
 	
-	; Check if on screen, active, and close to floor
-	move.b SpriteObj_SpriteLinked(a3), d0
-	and.b  Entity_Active(a3), d0
-	and.b  PhysicsObj_CloseToFloor(a3), d0
-	beq    @NextFuzzl
-	
-	; Check if within bounds
-	move.l d6, -(sp)
-	move.l d1, -(sp)
-	
-	; Get player interact box pos X min (inner)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXInner, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (inner)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXInner, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Fuzzl bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a3
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d1
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b  #0x0, d0
-	beq    @NotInRange
+	; Check if that pushable object is a Fuzzl
+	move.l Entity_TypeBits(a3), d0
+	andi.l #entity_type_fuzzl, d0
+	beq    @NotNearFuzzl
 
-	; In range, check if fuzzl is in its nest
+	; Check if fuzzl is in its nest
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a3)
 	bne    @FuzzlHome
 	
@@ -1301,540 +1392,15 @@ PlayerInteractTest_Fuzzls:
 	move.l a3, Player_InteractObject(a0)
 	
 	bra    @End
-
+	
+	@PlayerOffFloor:
+	@NotNearPushableObj:
+	@NotNearFuzzl:
 	@NotInRange:
 	@NotPushingFuzzl:
 	@NoColour:
 	@NoColourMatch:
-	@NextFuzzl:
-	
-	; Next Fuzzl
-	add.l #Fuzzl_Struct_Size, a3
-	dbra d6, @FuzzlLoop
-	
-	@NoFuzzls:
-	@NotInteracting:
-	@PlayerOffFloor:
 	@End:
-	
-	rts
-
-PlayerInteract_Fuzzl:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a2 --- Fuzzl addr
-	
-	move.l a1, -(sp)
-	move.l a2, a1
-	
-	; Fuzzls sleep at night
-	move.b (TimeOfDay), d0
-	cmp.b  #TimeOfDay_Night, d0
-	beq    @Asleep
-	
-	; Check if within bounds
-	move.l d6, -(sp)
-	
-	; Get player interact box pos X min (outer)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXOuter, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (outer)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXOuter, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Fuzzl bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b  #0x0, d0
-	beq    @NotInRange
-
-	; In range, check if fuzzl is in its nest
-	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a1)
-	bne    @FuzzlHome
-	
-	; Check which side of Fuzzl
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l Entity_WorldPosX(a1), d1	; Fuzzl X
-	add.l  #(Fuzzl_Width*SubpixelsPerPixel)/2, d1 ; Fuzzl X centre
-	cmp.l  d0, d1
-	bge    @LeftOfFuzzl
-	
-	; On right hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
-	bgt    @NotPushingFuzzl
-	
-	; Pushing Fuzzl to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
-	move.l Entity_WorldPosX(a1), d1								; Fuzzl X
-	add.l  #(Fuzzl_Width*SubpixelsPerPixel), d1 				; Fuzzl right
-	cmp.l  d0, d1
-	ble    @PushingFuzzl
-	sub.l  #(Fuzzl_Width*SubpixelsPerPixel), d0
-	move.l d0, Entity_WorldPosX(a1)
-	bra    @PushingFuzzl
-	
-	@LeftOfFuzzl:
-	; On left hand side of Fuzzl, check if heading towards it
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
-	blt    @NotPushingFuzzl
-	
-	; Pushing Fuzzl to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
-	move.l Entity_WorldPosX(a1), d1								; Fuzzl left
-	cmp.l  d0, d1
-	bge    @NotPenetratingRight
-	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingRight:
-
-	@PushingFuzzl:
-	
-	; Pushing the Fuzzl
-	move.b #0x1, Character_Pushing(a0)
-	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a1)
-	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a1)
-	
-	; Set to update when out of view until used
-	move.b #0x1, AnimObj_UpdateOutOfView(a1)
-	
-	; Set its velocity to match
-	move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a1)
-	
-	; Scale push anim speed based on velocity
-	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
-	bgt    @Fwd
-	neg.w  d0
-	@Fwd:
-	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
-	move.b d0, Animation_Speed(a2)
-
-	@Asleep:
-	@FuzzlHome:
-	@NotInRange:
-	@NotPushingFuzzl:
-	
-	move.l (sp)+, a1
-	
-	rts
-	
-PlayerInteractTest_Boulders:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	IFND DEBUG
-	
-	; Character must be close to floor to interact with a Boulder
-	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
-	beq    @PlayerOffFloor
-	
-	PUSHL  a1
-	
-	; Check all Boulders
-	move.l #EntityArray_Boulders, a1
-	move.w (EntityCount_Boulders), d6
-	cmp.w  #0x0, d6
-	beq    @NoBoulders
-	sub.w  #0x1, d6
-	@BoulderLoop:
-	
-	; Check if on screen, active, and close to floor
-	move.b SpriteObj_SpriteLinked(a1), d0
-	and.b  Entity_Active(a1), d0
-	and.b  PhysicsObj_CloseToFloor(a1), d0
-	beq    @NextBoulder
-	
-	; Check if not cracked
-	cmp.b  #0x0, Boulder_Cracked(a1)
-	bne    @Cracked
-	
-	; Check if within bounds
-	move.l d6, -(sp)
-	
-	; Get player interact box pos X min (inner)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXInner, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (inner)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXInner, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Boulder bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b  #0x0, d0
-	beq    @NotInRange
-
-	; Begin interaction with boulder
-	move.b #Player_Interaction_Boulder, Player_InteractionType(a0)
-	move.l a1, Player_InteractObject(a0)
-	move.b #0x1, Character_Interacting(a0)
-	
-	; Cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
-
-	@Cracked:
-	@NotInRange:
-	@NextBoulder:
-	
-	; Next Boulder
-	add.l #Boulder_Struct_Size, a1
-	dbra  d6, @BoulderLoop
-	
-	@NotInteracting:
-	@NoBoulders:
-	@End:
-	
-	POPL  a1
-	
-	@PlayerOffFloor:
-
-	ENDIF
-	
-	rts
-	
-PlayerInteract_Boulder:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a2 --- Boulder addr
-	
-	IFND DEBUG
-	
-	move.l a1, -(sp)
-	
-	; Check if not cracked
-	cmp.b  #0x0, Boulder_Cracked(a2)
-	bne    @Cracked
-	
-	; Check if within bounds
-	move.l a2, a1
-	move.l d6, -(sp)
-
-	; Get player interact box pos X min (outer)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXOuter, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (outer)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXOuter, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Boulder bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b #0x0, d0
-	beq   @NotInRange
-	
-	; Check which side of Boulder
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l Entity_WorldPosX(a1), d1	; Boulder X
-	add.l  #(Boulder_Width*SubpixelsPerPixel)/2, d1 ; Boulder X centre
-	move.w PhysicsObj_VelX(a0), d2			; Player velocity X
-	cmp.l  d0, d1
-	bgt    @LeftOfBoulder
-	
-	; On right hand side of Boulder, check if heading towards it
-	cmp.w  #0x0, d2
-	bgt    @NotPushingBoulder
-	
-	; Pushing Boulder to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
-	move.l Entity_WorldPosX(a1), d1								; Boulder X
-	add.l  #(Boulder_Width*SubpixelsPerPixel), d1 				; Boulder right
-	cmp.l  d0, d1
-	blt    @PushingBoulder
-	sub.l  #(Boulder_Width*SubpixelsPerPixel), d0
-	move.l d0, Entity_WorldPosX(a1)
-	bra    @PushingBoulder
-	
-	@LeftOfBoulder:
-	; On left hand side of Boulder, check if heading towards it
-	cmp.w  #0x0, d2
-	blt    @NotPushingBoulder
-	
-	; Pushing Boulder to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
-	move.l Entity_WorldPosX(a1), d1								; Boulder left
-	cmp.l  d0, d1
-	bgt    @NotPenetratingRight
-	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingRight:
-
-	@PushingBoulder:
-	
-	; Pushing the Boulder, set its velocity to match
-	move.b #0x1, Character_PushingHeavy(a0)
-	move.w d2, PhysicsObj_VelX(a1)
-	
-	; Scale roll anim speed based on velocity
-	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
-	bgt    @Fwd
-	neg.w  d0
-	@Fwd:
-	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
-	move.b d0, Animation_Speed(a2)
-	
-	@Cracked:
-	@NotInRange:
-	@NotPushingBoulder:
-	@End:
-	
-	move.l (sp)+, a1
-	
-	ENDIF
-	
-	rts
-	
-PlayerInteractTest_Lifts:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	IFND DEBUG
-	
-	; Character must be close to floor to interact with a Lift
-	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
-	beq    @PlayerOffFloor
-	
-	PUSHL  a1
-	
-	; Check all Lifts
-	move.l #EntityArray_Lifts, a1
-	move.w (EntityCount_Lifts), d6
-	cmp.w  #0x0, d6
-	beq    @NoLifts
-	sub.w  #0x1, d6
-	@LiftLoop:
-	
-	; Check if on screen, active
-	move.b SpriteObj_SpriteLinked(a1), d0
-	and.b  Entity_Active(a1), d0
-	beq    @NextLift
-	
-	; Check if within bounds
-	move.l d6, -(sp)
-	
-	; Get player interact box pos X min (inner)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXInner, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (inner)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXInner, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Lift bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b  #0x0, d0
-	beq    @NotInRange
-
-	; Begin interaction with lift
-	move.b #Player_Interaction_Lift, Player_InteractionType(a0)
-	move.l a1, Player_InteractObject(a0)
-	move.b #0x1, Character_Interacting(a0)
-	
-	; Cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
-
-	@Cracked:
-	@NotInRange:
-	@NextLift:
-	
-	; Next Lift
-	add.l #Lift_Struct_Size, a1
-	dbra  d6, @LiftLoop
-	
-	@NotInteracting:
-	@NoLifts:
-	@End:
-	
-	POPL  a1
-	
-	@PlayerOffFloor:
-
-	ENDIF
-	
-	rts
-	
-PlayerInteract_Lift:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a2 --- Lift addr
-	
-	IFND DEBUG
-	
-	move.l a1, -(sp)
-	
-	; Check if within bounds
-	move.l a2, a1
-	move.l d6, -(sp)
-
-	; Get player interact box pos X min (outer)
-	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
-	add.w  #Player1PushBoundsMinXOuter, d1
-	swap   d1
-	; Get player Y min
-	move.l Entity_WorldPosY(a0), d2
-	lsr.l  #0x8, d2
-	move.w d2, d1
-	; Get player interact box pos X max (outer)
-	move.l Entity_WorldPosX(a0), d2
-	lsr.l  #0x8, d2
-	add.w  #Player1PushBoundsMaxXOuter, d2
-	swap   d2
-	; Get player Y max
-	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
-	add.w  Entity_Height(a0), d3
-	move.w d3, d2
-	
-	; Get Lift bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	
-	; Test box intersection
-	jsr    PHYS_TestBoxIntersectBox
-	move.l (sp)+, d6
-	
-	; Result in d0
-	cmp.b #0x0, d0
-	beq   @NotInRange
-	
-	; Check which side of Lift
-	move.l Entity_WorldPosX(a0), d0	; Player X
-	add.l  #(Player1Width*SubpixelsPerPixel)/2, d0 ; Player X centre
-	move.l Entity_WorldPosX(a1), d1	; Lift X
-	add.l  #(Lift_Width*SubpixelsPerPixel)/2, d1 ; Lift X centre
-	move.w PhysicsObj_VelX(a0), d2			; Player velocity X
-	cmp.l  d0, d1
-	bgt    @LeftOfLift
-	
-	; On right hand side of Lift, check if heading towards it
-	cmp.w  #0x0, d2
-	bgt    @NotPushingLift
-	
-	; Pushing Lift to the left, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMinXInner*SubpixelsPerPixel), d0	; Push box left
-	move.l Entity_WorldPosX(a1), d1								; Lift X
-	add.l  #(Lift_Width*SubpixelsPerPixel), d1 				; Lift right
-	cmp.l  d0, d1
-	blt    @PushingLift
-	sub.l  #(Lift_Width*SubpixelsPerPixel), d0
-	move.l d0, Entity_WorldPosX(a1)
-	bra    @PushingLift
-	
-	@LeftOfLift:
-	; On left hand side of Lift, check if heading towards it
-	cmp.w  #0x0, d2
-	blt    @NotPushingLift
-	
-	; Pushing Lift to the right, correct penetration
-	move.l Entity_WorldPosX(a0), d0								; Player X
-	add.l  #(Player1PushBoundsMaxXInner*SubpixelsPerPixel), d0	; Push box right
-	move.l Entity_WorldPosX(a1), d1								; Lift left
-	cmp.l  d0, d1
-	bgt    @NotPenetratingRight
-	move.l d0, Entity_WorldPosX(a1)
-	@NotPenetratingRight:
-
-	@PushingLift:
-	
-	; Pushing the Lift, set its velocity to match
-	move.w d2, PhysicsObj_VelX(a1)
-
-	@NotInRange:
-	@NotPushingLift:
-	@End:
-	
-	move.l (sp)+, a1
-	
-	ENDIF
 	
 	rts
 

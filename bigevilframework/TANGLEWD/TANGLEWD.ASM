@@ -14,6 +14,9 @@ __start
 	; Include Framework macros
 	include '..\framewk\macros.asm'
 	
+	; Include framework containers
+	include '..\framewk\linklist.asm'
+	
 	; Include interrupts
 	include 'interpts.asm'
 
@@ -66,6 +69,7 @@ __start
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\pickup.asm'
+	include '..\gamelib\platform.asm'
 	include '..\gamelib\physics.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\state.asm'
@@ -78,6 +82,7 @@ __start
 	; Include GameObject derivatives
 	IFND DEBUG
 	include 'objects\monster.asm'
+	include 'objects\djrake.asm'
 	include 'objects\boulder.asm'
 	include 'objects\firefly.asm'
 	ENDIF
@@ -86,6 +91,7 @@ __start
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\leaf.asm'
+	include 'objects\rope.asm'
 	include 'objects\lift.asm'
 	include 'objects\location.asm'
 	include 'objects\nest.asm'
@@ -161,16 +167,16 @@ __main:
 	IFD DEBUG
 	move.l #Tst1_Forest, CurrentLevel
 	ELSE
-	;move.l #Lvl1_HarlequinForest, CurrentLevel
-	move.l #Lvl_TestLift, CurrentLevel
+	move.l #Lvl1_HarlequinForest, CurrentLevel
+	;move.l #Lvl_TestLift, CurrentLevel
 	ENDIF
 	
 	; Enter first game state
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	;lea GameStateLogos, a0
-	lea GameStateGameplay, a0
+	lea GameStateLogos, a0
+	;lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

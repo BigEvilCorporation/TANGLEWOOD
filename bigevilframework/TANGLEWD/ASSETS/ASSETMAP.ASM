@@ -21,6 +21,7 @@
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
 	include 'assets\palettes\djrake.asm'
+	include 'assets\palettes\djakk_bl.asm'
 	IFD DEBUG
 	include 'assets\palettes\pal_tst1.asm'
 	ENDIF
@@ -173,8 +174,8 @@ Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
 	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
-Tiles_LiftVRAM:   	 rs.b 0 ;(sprite_lift_size_b*Lift_MaxEntities)
-Tiles_RopeVRAM:   	 rs.b 0 ;(sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
+;Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
+;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 	ENDIF
 
 	; TODO: Reserve max level size

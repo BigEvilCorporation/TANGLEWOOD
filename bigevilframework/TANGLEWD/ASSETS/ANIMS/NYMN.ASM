@@ -143,6 +143,18 @@ spriteanim_nymn_walk_track_posy:
 
 	Even
 
+spriteanim_nymn_ridedjakk:
+spriteanim_nymn_ridedjakk_numframes: equ 0x4
+spriteanim_nymn_ridedjakk_speed: equ 0x14
+spriteanim_nymn_ridedjakk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3
+spriteanim_nymn_ridedjakk_track_posx:
+
+spriteanim_nymn_ridedjakk_track_posy:
+
+
+	Even
+
 spriteanim_nymn_death:
 spriteanim_nymn_death_numframes: equ 0xF
 spriteanim_nymn_death_speed: equ 0x1E

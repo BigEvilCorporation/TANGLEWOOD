@@ -151,6 +151,7 @@ FuzzlInit:
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
+	move.b  #0x1, PhysicsObj_Pushable(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
 	move.w  #Fuzzl_Width, Entity_Width(a0)

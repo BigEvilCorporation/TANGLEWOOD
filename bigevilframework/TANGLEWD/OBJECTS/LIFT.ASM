@@ -72,6 +72,7 @@ LiftInit:
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, PhysicsObj_CollidePlatforms(a0)
+	move.b #0x1, PhysicsObj_Pushable(a0)
 	move.w #Lift_Width, Entity_Width(a0)
 	move.w #Lift_Height, Entity_Height(a0)
 	move.w #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
