@@ -94,7 +94,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	move.b #0x0, PhysicsObj_CanPush(a0)
-	move.b #0x1, PhysicsObj_Pushable(a0)
+	move.b #0x0, PhysicsObj_Pushable(a0)
 	move.b #0x0, PhysicsObj_BeingPushed(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
@@ -128,6 +128,7 @@ PhysicsObjUpdate:
 	; Cancel out acceleration + velocity (except platform velocity)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_VelY(a0)
 	
 	; Bail
