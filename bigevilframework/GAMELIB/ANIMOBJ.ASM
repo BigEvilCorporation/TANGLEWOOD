@@ -172,7 +172,7 @@ AnimObjDraw:
 	
 	; X position track
 	PUSHL  d2
-	move.l #0x0, SpriteObj_DrawOffsetX(a0)		; Reset X position offset
+	move.w #0x0, SpriteObj_DrawOffsetX(a0)		; Reset X position offset
 	move.l Animation_AnimTrackPositionX(a2), a3	; Get X position keyframe track
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
@@ -190,6 +190,24 @@ AnimObjDraw:
 	POPL   d2
 	
 	; Y position track
+	PUSHL  d2
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)		; Reset Y position offset
+	move.l Animation_AnimTrackPositionY(a2), a3	; Get Y position keyframe track
+	cmp.l  #0x0, a3
+	beq    @NoTrackPosY
+	
+	clr.l  d3
+	move.b Animation_Length(a2), d3		; Get anim length
+	divu   d3, d2          				; Div frame count against num anim frames
+	clr.w  d2							; Clear exponent
+	swap   d2			   				; Remainder to lower word
+	move.b (a3,d2.w), d3   				; Get value from anim track
+	neg.w  d3							; Correct for coord sys
+	ext.w  d3			   				; Sign extend
+	move.w d3, SpriteObj_DrawOffsetY(a0) ; Offset Y pos
+	
+	@NoTrackPosY:
+	POPL   d2
 	
 	; SFX track
 	PUSHL  a0

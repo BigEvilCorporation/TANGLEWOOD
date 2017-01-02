@@ -216,9 +216,7 @@ LevelLoadGameObjArt:
 	; d3 (b) Palette ID
 
 	; Player 1
-	cmp.w  #0x0, EntityCount_Players
-	beq    @NoPlayers
-	move.l #EntityArray_Players, a0
+	move.l #Player1, a0
 	lea    spritesheets_nymn, a1
 	lea    sprite_nymn_subsprite_dimensions_bits, a2
 	lea    sprite_nymn_subsprite_pos_offsets, a3
@@ -229,7 +227,19 @@ LevelLoadGameObjArt:
 	move.w #sprite_nymn_widthheight_subsprites, d3
 	move.b #PaletteID_Player, d4
 	jsr    SpriteObjLoad
-	@NoPlayers:
+	
+	; Player 2
+	move.l #Player2, a0
+	lea    spritesheets_echo, a1
+	lea    sprite_echo_subsprite_dimensions_bits, a2
+	lea    sprite_echo_subsprite_pos_offsets, a3
+	lea    sprite_echo_numtiles_per_subsprite, a4
+	move.l #Tiles_Player2VRAM, d0
+	move.l #sprite_echo_size_t, d1
+	move.b #sprite_echo_size_subsprites, d2
+	move.w #sprite_echo_widthheight_subsprites, d3
+	move.b #PaletteID_Player, d4
+	jsr    SpriteObjLoad
 
 	; Monsters
 	IFND DEBUG
@@ -437,7 +447,11 @@ LevelCreatePlayers:
 
 	; Player 1
 	move.l #Player1, a0
-	jsr     PlayerInit
+	jsr     NymnInit
+	
+	; Player 2
+	move.l #Player2, a0
+	;jsr     EchoInit
 
 	rts
 	

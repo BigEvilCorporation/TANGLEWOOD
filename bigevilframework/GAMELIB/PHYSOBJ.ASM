@@ -57,14 +57,6 @@ PhysicsObjInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.l a0, -(sp)
-	move.w #(PhysicsObj_Struct_Size/size_long)-1, d0
-	move.l #0x0, d1
-	@ClrLp:
-	move.l d1, (a0)+
-	dbra   d0, @ClrLp
-	move.l (sp)+, a0
-	
 	; Init base
 	jsr    AnimObjInit
 	

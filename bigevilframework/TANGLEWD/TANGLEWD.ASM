@@ -99,6 +99,10 @@ __start
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'
 	
+	; Include players
+	include 'objects\nymn.asm'
+	include 'objects\echo.asm'
+	
 	; Include game states
 	include 'states\gameplay.asm'
 	
@@ -175,8 +179,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
-	;lea GameStateGameplay, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

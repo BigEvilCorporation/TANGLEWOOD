@@ -27,6 +27,22 @@ Entity_Active           rs.b 1 ; Active flag
 Entity_Struct_Pad		rs.b 3
 Entity_Struct_Size		rs.b 0
 
+EntityInit:
+	; a0 --- SpriteObj addr
+	; a1 --- Level addr
+	
+	move.l #0x0, Entity_TypeBits(a0)      
+	move.l #0x0, Entity_UpdateRoutine(a0)
+	move.l #0x0, Entity_RenderRoutine(a0)
+	move.l #0x0, Entity_SerialiseRoutine(a0)
+	move.l #0x0, Entity_WorldPosX(a0)
+	move.l #0x0, Entity_WorldPosY(a0)
+	move.w #0x0, Entity_Width(a0)
+	move.w #0x0, Entity_Height(a0)
+	move.b #0x0, Entity_Active(a0)
+	
+	rts
+
 ;==============================================================
 ; Game object update/render lists
 ;==============================================================

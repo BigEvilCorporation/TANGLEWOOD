@@ -40,6 +40,7 @@
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
+	include 'assets\sprites\echo.asm'
 	include 'assets\sprites\firefly.asm'
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
@@ -55,6 +56,7 @@
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\djakk.asm'
 	include 'assets\anims\djrake.asm'
+	include 'assets\anims\echo.asm'
 	ENDIF
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
@@ -167,12 +169,10 @@ Tile_Bank0_Size_b:   equ (Tile_Bank0_Size_t*size_tile_b)
 Tile_Bank0_Start:    equ (vram_addr_tiles)
 ;---------------------------------------------------------
 	rsset Tile_Bank0_Start
-Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
 Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
-Tiles_Player2VRAM:   rs.b (sprite_nymn_size_b)
+Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
-Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 ;Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
 ;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 	ENDIF
@@ -193,12 +193,13 @@ Tiles_Bank0_Count    equ (Tiles_Bank0_End/size_tile_b)
 ;---------------------------------------------------------
 ; Bank 1
 ;---------------------------------------------------------
-Tile_Bank1_Size_b:   equ 0x1000
-Tile_Bank1_Size_t:   equ (0x1000/size_tile_b)
-Tile_Bank1_Start:    equ (vram_addr_plane_a+Tile_Bank1_Size_b)	; Spare space at VDP 0xD000-0xE000
+Tile_Bank1_Start:    equ 0xD000	; Spare space at VDP 0xD000-0xE000
+Tile_Bank1_End:      equ 0xE000
+Tile_Bank1_Size_b:   equ (Tile_Bank1_End-Tile_Bank1_Start)
+Tile_Bank1_Size_t:   equ (Tile_Bank1_Size_b/size_tile_b)
 ;---------------------------------------------------------
 	rsset Tile_Bank1_Start
-Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
+Tiles_PixelFontVRAM: rs.b (Tiles_PixelFontSizeB)
 Tiles_Leaf1VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf2VRAM:     rs.b (tiles_leaf_size_b)
 Tiles_Leaf3VRAM:     rs.b (tiles_leaf_size_b)
@@ -208,6 +209,37 @@ Tiles_FireflyVRAM:   rs.b (sprite_firefly_size_b*Firefly_MaxEntities)
 ;---------------------------------------------------------
 Tiles_Bank1_End:     rs.b 0
 Tiles_Bank1_Count    equ ((Tiles_Bank1_End-Tile_Bank1_Start)/size_tile_b)
+;---------------------------------------------------------
+
+;---------------------------------------------------------
+; Bank 2
+;---------------------------------------------------------
+Tile_Bank2_Start:    equ 0xF400	; Spare space at VDP 0xF400-0xFC00
+Tile_Bank2_End:      equ 0xFC00
+Tile_Bank2_Size_b:   equ (Tile_Bank2_End-Tile_Bank2_Start)
+Tile_Bank2_Size_t:   equ (Tile_Bank2_Size_b/size_tile_b)
+;---------------------------------------------------------
+	rsset Tile_Bank2_Start
+Tiles_Player2VRAM:   rs.b (sprite_echo_size_b)
+Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
+;---------------------------------------------------------
+Tiles_Bank2_End:     rs.b 0
+Tiles_Bank2_Count    equ ((Tiles_Bank2_End-Tile_Bank2_Start)/size_tile_b)
+;---------------------------------------------------------
+
+;---------------------------------------------------------
+; Bank 3
+;---------------------------------------------------------
+Tile_Bank3_Start:    equ 0xF000	; Spare space at VDP 0xF000-0xF400
+Tile_Bank3_End:      equ 0xF400
+Tile_Bank3_Size_b:   equ (Tile_Bank3_End-Tile_Bank3_Start)
+Tile_Bank3_Size_t:   equ (Tile_Bank3_Size_b/size_tile_b)
+;---------------------------------------------------------
+	rsset Tile_Bank3_Start
+
+;---------------------------------------------------------
+Tiles_Bank3_End:     rs.b 0
+Tiles_Bank3_Count    equ ((Tiles_Bank3_End-Tile_Bank3_Start)/size_tile_b)
 ;---------------------------------------------------------
 
 	; ************************************
@@ -253,6 +285,8 @@ PaletteId_Player		equ 0x3
 	inform 0,"-----------------------------------"
 	inform 0,"VDP tile count (bank 0): %d / %d", Tiles_Bank0_Count,Tile_Bank0_Size_t
 	inform 0,"VDP tile count (bank 1): %d / %d", Tiles_Bank1_Count,Tile_Bank1_Size_t
+	inform 0,"VDP tile count (bank 2): %d / %d", Tiles_Bank2_Count,Tile_Bank2_Size_t
+	inform 0,"VDP tile count (bank 3): %d / %d", Tiles_Bank3_Count,Tile_Bank3_Size_t
 	inform 0,"-----------------------------------"
 
 	if (Tiles_Bank0_Count>Tile_Bank0_Size_t)
@@ -261,5 +295,13 @@ PaletteId_Player		equ 0x3
 
 	if (Tiles_Bank1_Count>Tile_Bank1_Size_t)
 	inform 2,'VDP tile bank 1 count overflow (count: %d, max: %d)',Tiles_Bank1_Count,Tile_Bank1_Size_t
+	endif
+	
+	if (Tiles_Bank2_Count>Tile_Bank2_Size_t)
+	inform 2,'VDP tile bank 2 count overflow (count: %d, max: %d)',Tiles_Bank2_Count,Tile_Bank2_Size_t
+	endif
+	
+	if (Tiles_Bank3_Count>Tile_Bank3_Size_t)
+	inform 2,'VDP tile bank 3 count overflow (count: %d, max: %d)',Tiles_Bank3_Count,Tile_Bank3_Size_t
 	endif
 	

@@ -203,7 +203,7 @@ MonsterInit:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
 	move.w #spritesheet_djakk_run_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_djakk_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #spriteanim_djakk_run_track_sfx, Animation_AnimTrackSFX(a3)
+	;move.l #spriteanim_djakk_run_track_sfx, Animation_AnimTrackSFX(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_djakk_run_speed, Animation_Speed(a3)

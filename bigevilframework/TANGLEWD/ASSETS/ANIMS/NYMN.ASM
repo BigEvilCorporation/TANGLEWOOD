@@ -123,11 +123,7 @@ spriteanim_nymn_run_track_frames:
 spriteanim_nymn_run_track_posx:
 
 spriteanim_nymn_run_track_posy:
-	Even
-	IFND DEBUG
-spriteanim_nymn_run_track_sfx:
-	dc.l 0x0, SFX_Footstep1, SFX_Footstep2, SFX_Footstep2, 0x0
-	ENDIF
+
 
 	Even
 
@@ -175,6 +171,18 @@ spriteanim_nymn_jump_track_frames:
 spriteanim_nymn_jump_track_posx:
 
 spriteanim_nymn_jump_track_posy:
+
+
+	Even
+
+spriteanim_nymn_carryechowalk:
+spriteanim_nymn_carryechowalk_numframes: equ 0x8
+spriteanim_nymn_carryechowalk_speed: equ 0x20
+spriteanim_nymn_carryechowalk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+spriteanim_nymn_carryechowalk_track_posx:
+
+spriteanim_nymn_carryechowalk_track_posy:
 
 
 	Even
