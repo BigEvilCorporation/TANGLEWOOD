@@ -86,6 +86,13 @@ Gameplay_Enter:
 	; Start demo timer
 	move.l #DemoTimeout, TimerDemoReset
 	
+	PUSHALL
+	move.l #Player1, a0
+	move.l #Player2, a1
+	move.l Entity_WorldPosX(a0), Entity_WorldPosX(a1)
+	move.l Entity_WorldPosY(a0), Entity_WorldPosY(a1)
+	POPALL
+	
 	rts
 	
 Gameplay_Exit:

@@ -6,12 +6,23 @@
 ;   nymn.asm - The star of the show
 ;==============================================================
 
+; Animations
+NymnAnimIdx_PickupEcho    	equ 0
+; -------------------------------
+NymnAnimIdx_Max       		equ 1
+
+; Carry Echo state
+NymnCarryEcho_Inactive		equ 0
+NymnCarryEcho_Catching		equ 1
+NymnCarryEcho_Carrying		equ 2
+
 ; ************************************
 ; Struct
 ; ************************************
 	rsset (Player_Struct_Size)
 ;---------------------------------
-Nymn_Carrying				rs.b 1
+Nymn_Animations	   			rs.b (Animation_Struct_Size*NymnAnimIdx_Max)
+Nymn_CarryEchoState			rs.b 1
 ;---------------------------------
 Nymn_Struct_Pad      		rs.b 3
 Nymn_Struct_Size     		rs.b 0
@@ -37,7 +48,7 @@ NymnInit:
 	;==============================================================
 	
 	; Setup default state
-	move.b #0x0, Nymn_Carrying(a0)
+	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
 	
 	;==============================================================
 	
@@ -195,7 +206,7 @@ NymnInit:
 	
 	;==============================================================
 	
-	; Setup custom animations
+	; Setup player animations
 	move.l a0, a2
 	add.l  #Player_Animations, a2
 	
@@ -283,10 +294,67 @@ NymnInit:
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x0, Animation_ZeroVelocity(a3)
 	
+	;==============================================================
+	
+	; Setup Nymn specific animations
+	move.l a0, a2
+	add.l  #Nymn_Animations, a2
+	
+	; Pick up Echo
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*NymnAnimIdx_PickupEcho), a3
+	move.w #spritesheet_nymn_pickupecho_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_pickupecho_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_pickupecho_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_pickupecho_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
 	rts
 	
 NymnUpdate:
+
+	; Determine if carrying Echo
+	move.b Nymn_CarryEchoState(a0), d0
+	cmp.b  #NymnCarryEcho_Inactive, d0
+	beq    @NotCarrying
+	
+	; If carrying echo
+	cmp.b  #NymnCarryEcho_Carrying, d0
+	beq    @Carrying
+	
+	;==============================================================
+	
+	; Wait for Echo to begin landing
+	move.l #Player2, a2
+	cmp.b  #EchoMountNymn_Mounting, Echo_MountedState(a2)
+	bne    @WaitingToCatch
+	
+	;==============================================================
+	
+	; Echo has landed, play catch animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Nymn_Animations, a1
+	move.l #(NymnAnimIdx_PickupEcho*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Set carrying state
+	move.b #NymnCarryEcho_Carrying, Nymn_CarryEchoState(a0)
+	
+	;==============================================================
+	
+	@NotCarrying:
+	@Carrying:
+	@WaitingToCatch:
+	
+	; Base functionality
 	jsr PlayerUpdate
+	
 	rts
 	
 NymnBeginCarryEcho:
@@ -294,6 +362,17 @@ NymnBeginCarryEcho:
 	; Swap out idle and walk anims for carry versions
 	move.l a0, a2
 	add.l  #Character_Animations, a2
+	
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.w #spritesheet_nymn_carryechoidle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_carryechoidle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_carryechoidle_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_carryechoidle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
 	
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
@@ -306,10 +385,11 @@ NymnBeginCarryEcho:
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x0, Animation_ZeroVelocity(a3)
 	
-	; Set carrying
-	move.b #0x1, Nymn_Carrying(a0)
+	; Begin catching/carrying sequence
+	move.b #NymnCarryEcho_Catching, Nymn_CarryEchoState(a0)
 	
 	; Can't run
+	jsr    CharacterCancelRun
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
 	rts
@@ -319,6 +399,16 @@ NymnEndCarryEcho:
 	; Restore default idle and walk anims
 	move.l a0, a2
 	add.l  #Character_Animations, a2
+	
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.w #spritesheet_nymn_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_idle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
@@ -331,9 +421,10 @@ NymnEndCarryEcho:
 	move.b #0x1, Animation_Looping(a3)
 	
 	; No longer carrying
-	move.b #0x0, Nymn_Carrying(a0)
+	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
 	
 	; Can run
+	jsr    CharacterStartRun
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 
 	rts

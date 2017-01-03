@@ -142,7 +142,6 @@ PlayerInit:
 	
 	; Set type
 	ori.l  #entity_type_player, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Players
 	
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)

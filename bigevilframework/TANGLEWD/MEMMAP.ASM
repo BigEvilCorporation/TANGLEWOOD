@@ -238,7 +238,8 @@ __padding05			     rs.b 3
 ; ************************************
 ; Entities
 ; ************************************
-EntityArray_Players     rs.b (Player_Struct_Size*Player_MaxEntities)
+Entity_Nymn     		rs.b (Nymn_Struct_Size)
+Entity_Echo     		rs.b (Echo_Struct_Size)
 EntityArray_Actors      rs.b (Actor_Struct_Size*Actor_MaxEntities)
 EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzls      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
@@ -257,7 +258,6 @@ EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
 EntityArray_Ropes       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
 	ENDIF
 
-EntityCount_Players     rs.w 1
 EntityCount_Actors      rs.w 1
 EntityCount_Monsters    rs.w 1
 EntityCount_Djrakes	    rs.w 1

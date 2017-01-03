@@ -184,6 +184,10 @@ AnimObjDraw:
 	swap   d2			   				; Remainder to lower word
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	ext.w  d3			   				; Sign extend
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)	; If X flipped
+	beq    @NotFlippedX
+	neg.w  d3							; Negate X offset
+	@NotFlippedX:
 	move.w d3, SpriteObj_DrawOffsetX(a0) ; Offset X pos
 	
 	@NoTrackPosX:

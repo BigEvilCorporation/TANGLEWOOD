@@ -54,7 +54,6 @@ GameStateReset:
 	jsr    EntityClearSerialiseList
 	
 	; Reset entity counts
-	move.w #0x0, EntityCount_Players
 	move.w #0x0, EntityCount_Actors
 	move.w #0x0, EntityCount_Monsters
 	move.w #0x0, EntityCount_Fireflies
@@ -451,7 +450,7 @@ LevelCreatePlayers:
 	
 	; Player 2
 	move.l #Player2, a0
-	;jsr     EchoInit
+	jsr     EchoInit
 
 	rts
 	

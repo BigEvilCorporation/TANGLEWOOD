@@ -6,12 +6,25 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
+; Animations
+EchoAnimIdx_JumpToNymn    	equ 0
+EchoAnimIdx_MountNymn    	equ 1
+; -------------------------------
+EchoAnimIdx_Max       		equ 2
+
+; Mount/ride Nymn state
+EchoMountNymn_Inactive		equ 0
+EchoMountNymn_Jumping		equ 1
+EchoMountNymn_Mounting		equ 2
+EchoMountNymn_Riding		equ 3
+
 ; ************************************
 ; Struct
 ; ************************************
 	rsset (Player_Struct_Size)
 ;---------------------------------
-Echo_Carried				rs.b 1
+Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
+Echo_MountedState			rs.b 1
 ;---------------------------------
 Echo_Struct_Pad      		rs.b 3
 Echo_Struct_Size     		rs.b 0
@@ -37,7 +50,7 @@ EchoInit:
 	;==============================================================
 	
 	; Setup default state
-	move.b #0x0, Echo_Carried(a0)
+	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
 	;==============================================================
 	
@@ -148,19 +161,12 @@ EchoInit:
 	; Jump
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	;move.w #spritesheet_Echo_jump_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_jump_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_jump_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_jump_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_Echo_jump_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_jump_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
+	move.b #spriteanim_Echo_jump_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_jump_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; Fall
@@ -265,7 +271,7 @@ EchoInit:
 	
 	;==============================================================
 	
-	; Setup custom animations
+	; Setup player animations
 	move.l a0, a2
 	add.l  #Player_Animations, a2
 	
@@ -402,13 +408,97 @@ EchoInit:
 	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
+	;==============================================================
+	
+	; Setup Echo specific animations
+	move.l a0, a2
+	add.l  #Echo_Animations, a2
+	
+	; Jump up to Nymn (same anim as Jump but non-looping)
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*EchoAnimIdx_JumpToNymn), a3
+	move.w #spritesheet_echo_jump_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_echo_jumptonymn_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_echo_jumptonymn_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_echo_jumptonymn_track_posy, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_echo_jumptonymn_speed, Animation_Speed(a3)
+	move.b #spriteanim_echo_jumptonymn_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
+	; Mount Nymn
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*EchoAnimIdx_MountNymn), a3
+	move.w #spritesheet_echo_mountnymn_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_echo_mountnymn_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_echo_mountnymn_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_echo_mountnymn_track_posy, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_echo_mountnymn_speed, Animation_Speed(a3)
+	move.b #spriteanim_echo_mountnymn_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
+	
 	rts
 	
 EchoUpdate:
 
-	; If being carried
-	cmp.b #0x0, Echo_Carried(a0)
-	beq   @NotCarried
+	; If mounting Nymn
+	move.b Echo_MountedState(a0), d0
+	cmp.b #EchoMountNymn_Inactive, d0
+	beq   @NotMounted
+	
+	; If jumping up to Nymn
+	cmp.b #EchoMountNymn_Jumping, d0
+	beq   @Jumping
+	
+	; If landing on Nymn
+	cmp.b #EchoMountNymn_Mounting, d0
+	beq   @Landing
+	
+	; Finished mounting sequence
+	bra   @Riding
+	
+	;==============================================================
+	
+	@Jumping:
+	
+	; Wait for anim to finish
+	cmp.b #0x0, AnimObj_Playing(a0)
+	bne   @InSequence
+	
+	; Snap to Nymn's position
+	move.l #Player1, a3
+	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
+	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a0)
+	
+	; Set mounting anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Echo_Animations, a1
+	move.l #(EchoAnimIdx_MountNymn*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Set mounting state
+	move.b #EchoMountNymn_Mounting, Echo_MountedState(a0)
+	
+	bra   @InSequence
+	
+	;==============================================================
+	
+	@Landing:
+	
+	; Wait for anim to finish
+	cmp.b #0x0, AnimObj_Playing(a0)
+	bne   @InSequence
+	
+	; Set riding state
+	move.b #EchoMountNymn_Riding, Echo_MountedState(a0)
+	
+	;==============================================================
+	
+	@Riding:
 	
 	; Lock to Nymn's position
 	move.l #Player1, a3
@@ -456,6 +546,7 @@ EchoUpdate:
 	move.l d0, AnimObj_AnimSubFrame(a0)
 	move.b #0x1, AnimObj_Dirty(a0)
 	
+	@InSequence:
 	@AnimSynced:
 	
 	; Update animation only
@@ -465,7 +556,7 @@ EchoUpdate:
 	
 	;==============================================================
 	
-	@NotCarried:
+	@NotMounted:
 	
 	; Default update
 	jsr PlayerUpdate
@@ -481,6 +572,16 @@ EchoBeginCarried:
 	add.l  #Character_Animations, a2
 	
 	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_idle), a3
+	move.w #spritesheet_Echo_carriedidle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_carriedidle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_echo_carriedidle_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_echo_carriedidle_track_posy, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_Echo_carriedidle_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_carriedidle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	
+	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
 	move.w #spritesheet_Echo_carriedwalk_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_Echo_carriedwalk_track_frames, Animation_AnimTrackSpriteFrame(a3)
@@ -490,11 +591,21 @@ EchoBeginCarried:
 	move.b #spriteanim_Echo_carriedwalk_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
-	; Mark dirty
-	move.b #0x1, AnimObj_Dirty(a0)
+	; Snap to Nymn's direction
+	move.l #Player1, a3
+	move.b SpriteObj_FlippedX(a3), SpriteObj_FlippedX(a0)
 	
-	; Set carried
-	move.b #0x1, Echo_Carried(a0)
+	; Set jumping-to-Nymn anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Echo_Animations, a1
+	move.l #(EchoAnimIdx_JumpToNymn*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Start mounting sequence
+	move.b #EchoMountNymn_Jumping, Echo_MountedState(a0)
 
 	rts
 	
@@ -503,6 +614,16 @@ EchoEndCarried:
 	; Restore default idle and walk anims
 	move.l a0, a2
 	add.l  #Character_Animations, a2
+	
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
@@ -521,10 +642,10 @@ EchoEndCarried:
 	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
-	; Mark dirty
-	move.b #0x1, AnimObj_Dirty(a0)
+	; Jump off
+	jsr    CharacterStartJump
 	
-	; No longer carried
-	move.b #0x0, Echo_Carried(a0)
+	; No longer mounting
+	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 
 	rts

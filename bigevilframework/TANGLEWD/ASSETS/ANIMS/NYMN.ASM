@@ -103,6 +103,30 @@ spriteanim_nymn_lookback_track_posy:
 
 	Even
 
+spriteanim_nymn_carryechoidle:
+spriteanim_nymn_carryechoidle_numframes: equ 0x1
+spriteanim_nymn_carryechoidle_speed: equ 0x1
+spriteanim_nymn_carryechoidle_track_frames:
+	dc.b 0x0
+spriteanim_nymn_carryechoidle_track_posx:
+
+spriteanim_nymn_carryechoidle_track_posy:
+
+
+	Even
+
+spriteanim_nymn_pickupecho:
+spriteanim_nymn_pickupecho_numframes: equ 0x6
+spriteanim_nymn_pickupecho_speed: equ 0x1C
+spriteanim_nymn_pickupecho_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+spriteanim_nymn_pickupecho_track_posx:
+
+spriteanim_nymn_pickupecho_track_posy:
+
+
+	Even
+
 spriteanim_nymn_push:
 spriteanim_nymn_push_numframes: equ 0x8
 spriteanim_nymn_push_speed: equ 0x28
