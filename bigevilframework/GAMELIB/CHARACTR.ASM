@@ -44,6 +44,8 @@ Character_NumSFX			equ 1
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
+Character_InteractStart		rs.l 1	; Interact routine address
+Character_InteractCancel	rs.l 1	; Cancel interact routine address
 Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
 Character_SFX				rs.l Character_NumSFX
 Character_LastLedgeX		rs.l 1
@@ -92,6 +94,8 @@ CharacterInit:
 	ori.l  #entity_type_character, Entity_TypeBits(a0)
 
 	; Default state
+	move.l #0x0, Character_InteractStart(a0)
+	move.l #0x0, Character_InteractCancel(a0)
 	move.l #0x0, Character_LastLedgeX(a0)
 	move.l #0x0, Character_LastLedgeY(a0)
 	move.b #0x0, Character_OnLedge(a0)
@@ -635,3 +639,18 @@ CharacterCancelRun:
 	
 	rts
 	
+CharacterStartInteract:
+	move.l Character_InteractStart(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoInteract
+	jsr    (a2)
+	@NoInteract:
+	rts
+	
+CharacterCancelInteract:
+	move.l Character_InteractCancel(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoInteract
+	jsr    (a2)
+	@NoInteract:
+	rts

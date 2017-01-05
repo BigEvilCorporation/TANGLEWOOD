@@ -173,7 +173,7 @@ Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 	IFND DEBUG
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
-;Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
+Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
 ;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 	ENDIF
 

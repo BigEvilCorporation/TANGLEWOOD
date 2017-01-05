@@ -52,6 +52,10 @@ EchoInit:
 	; Setup default state
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
+	; Setup interaction routines
+	move.l #PlayerStartInteract, Character_InteractStart(a0)
+	move.l #PlayerCancelInteract, Character_InteractCancel(a0)
+	
 	;==============================================================
 	
 	; Setup default SFX
@@ -441,6 +445,8 @@ EchoInit:
 	rts
 	
 EchoUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; If mounting Nymn
 	move.b Echo_MountedState(a0), d0
@@ -566,6 +572,14 @@ EchoUpdate:
 	rts
 	
 EchoBeginCarried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Cancel velocity and acceleration
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle and walk anims for carried versions
 	move.l a0, a2
@@ -610,6 +624,14 @@ EchoBeginCarried:
 	rts
 	
 EchoEndCarried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Cancel velocity and acceleration
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle and walk anims
 	move.l a0, a2

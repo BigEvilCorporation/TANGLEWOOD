@@ -200,40 +200,13 @@ HandlePlayerInput:
 	; A - hold to walk instead of run
 	; =====================================================================
 	
-	; btst #pad_button_a, d0      ; Check A button
-	; beq  @NoA                   ; Branch if button off
-	; jsr  CharacterCancelRun		; Cancel run
-	; jmp  @EndA
-	; @NoA:
-	; jsr  CharacterStartRun		; Run
-	; @EndA:
-	
-	PUSHL a0
-	
-	btst #pad_button_a, d0
-	beq  @EndA
-	btst #pad_button_a, d1
-	bne  @EndA
-	
-	move.l #Player1, a0
-	cmp.b  #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
-	bne    @CancelCarry
-	
-	jsr    NymnBeginCarryEcho
-	move.l #Player2, a0
-	jsr    EchoBeginCarried
-	bra    @EndA
-	
-	@CancelCarry:
-	move.l #Player1, a0
-	jsr    NymnEndCarryEcho
-	move.l #Player2, a0
-	jsr    EchoEndCarried
-	
+	btst #pad_button_a, d0      ; Check A button
+	beq  @NoA                   ; Branch if button off
+	jsr  CharacterCancelRun		; Cancel run
 	jmp  @EndA
+	@NoA:
+	jsr  CharacterStartRun		; Run
 	@EndA:
-	
-	POPL a0
 	
 	; =====================================================================
 	; B - Jump
@@ -257,10 +230,10 @@ HandlePlayerInput:
 	
 	btst #pad_button_c, d0  	; Check C button
 	beq  @NoC	                ; Branch if button off
-	jsr  PlayerStartInteract 	; Start interaction
+	jsr  CharacterStartInteract	; Start interaction
 	jmp  @EndC
 	@NoC:
-	jsr  PlayerCancelInteract
+	jsr  CharacterCancelInteract
 	@EndC:
 	
 	; =====================================================================

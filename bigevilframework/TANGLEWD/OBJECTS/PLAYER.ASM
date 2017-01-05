@@ -99,6 +99,7 @@ Player_Interaction_Ability	equ 0x3
 Player_Interaction_Lift 	equ 0x4
 Player_Interaction_Push		equ 0x5
 Player_Interaction_Ride		equ 0x6
+Player_Interaction_Custom	equ 0x7
 
 ; Animations
 PlayerAnimIdx_Switch    	equ 0

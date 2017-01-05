@@ -50,6 +50,10 @@ NymnInit:
 	; Setup default state
 	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
 	
+	; Setup interaction routines
+	move.l #NymnStartInteract, Character_InteractStart(a0)
+	move.l #NymnCancelInteract, Character_InteractCancel(a0)
+	
 	;==============================================================
 	
 	; Setup default SFX
@@ -315,6 +319,8 @@ NymnInit:
 	rts
 	
 NymnUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Determine if carrying Echo
 	move.b Nymn_CarryEchoState(a0), d0
@@ -357,7 +363,95 @@ NymnUpdate:
 	
 	rts
 	
+NymnStartInteract:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	move.l d0, -(sp)
+	move.l d1, -(sp)
+	
+	; Check if already interacting
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	bne    @AlreadyInteracting
+	
+	; Check if player dead
+	cmp.b  #0x1, Character_Dead(a0)
+	beq    @Dead
+	
+	; Bounds test with Echo
+	move.l #Player2, a2
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @EchoNotFound
+	
+	; Near Echo, begin carry sequence
+	jsr    NymnBeginCarryEcho
+	
+	PUSHL  a0
+	move.l #Player2, a0
+	jsr    EchoBeginCarried
+	POPL   a0
+	
+	bra    @EchoFound
+	
+	@EchoNotFound:
+	
+	; Base functionality
+	jsr    PlayerStartInteract
+	
+	@AlreadyInteracting:
+	@Dead:
+	@EchoFound:
+	
+	move.l (sp)+, d1
+	move.l (sp)+, d0
+	
+	rts
+	
+NymnCancelInteract:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	move.l d0, -(sp)
+	move.l d1, -(sp)
+	
+	; If carrying Echo
+	cmp.b  #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
+	beq    @NotCarryingEcho
+	
+	; Put him down
+	jsr    NymnEndCarryEcho
+	
+	PUSHL  a0
+	move.l #Player2, a0
+	jsr    EchoEndCarried
+	POPL   a0
+	
+	bra    @CarryingEcho
+	
+	@NotCarryingEcho:
+	
+	; Base functionality
+	jsr    PlayerCancelInteract
+	
+	@CarryingEcho:
+	
+	move.l (sp)+, d1
+	move.l (sp)+, d0
+	
+	rts
+	
 NymnBeginCarryEcho:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Cancel velocity and acceleration
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle and walk anims for carry versions
 	move.l a0, a2
@@ -388,6 +482,9 @@ NymnBeginCarryEcho:
 	; Begin catching/carrying sequence
 	move.b #NymnCarryEcho_Catching, Nymn_CarryEchoState(a0)
 	
+	; Set interaction type
+	move.b #Player_Interaction_Custom, Player_InteractionType(a0)
+	
 	; Can't run
 	jsr    CharacterCancelRun
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
@@ -395,6 +492,14 @@ NymnBeginCarryEcho:
 	rts
 	
 NymnEndCarryEcho:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Cancel velocity and acceleration
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle and walk anims
 	move.l a0, a2
@@ -422,6 +527,9 @@ NymnEndCarryEcho:
 	
 	; No longer carrying
 	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
+	
+	; No longer interacting
+	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	
 	; Can run
 	jsr    CharacterStartRun
