@@ -10,7 +10,7 @@
 ; Constants
 ; ************************************
 Character_LandVel		    equ 0x0300
-Character_FallVel		    equ 0x0180
+Character_FallVel		    equ 0x0200
 
 ; ************************************
 ; Animation ids

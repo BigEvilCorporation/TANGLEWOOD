@@ -30,13 +30,13 @@ Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
 
 ; Player acceleration/deceleration
 Player1AccelWalk   equ 0x0006 ; Player 1 walking acceleration
-Player1AccelRun    equ 0x0008 ; Player 1 running acceleration
-Player1DecelIdle   equ 0x0010 ; Player 1 deceleration if left alone
+Player1AccelRun    equ 0x0014 ; Player 1 running acceleration
+Player1DecelIdle   equ 0x0016 ; Player 1 deceleration if left alone
 Player1DecelForced equ 0x0030 ; Player 1 deceleration if input opposite direction
 
 ; Player max velocities (all values must be divisors of SubpixelsPerPixel)
 Player1MaxVelXWalk equ 0x0120  ; Player 1 max X walking velocity
-Player1MaxVelXRun  equ 0x0300  ; Player 1 max X running velocity
+Player1MaxVelXRun  equ 0x0380  ; Player 1 max X running velocity
 Player1MaxVelYUp   equ 0x0600  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ (0x8*SubpixelsPerPixel)  ; Player 1 max Y velocity down (tile height)
 
@@ -1016,6 +1016,9 @@ PlayerStartInteract:
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 	
+	; Clamp to max velocity
+	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
+	
 	bra    @FoundInteraction
 	
 	@NoPushablesNear:
@@ -1065,6 +1068,9 @@ PlayerCancelInteract:
 	
 	; Restore walk speed
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	
+	; Restore max velocity clamp to use deceleration
+	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	
 	@NotPushing:
 	

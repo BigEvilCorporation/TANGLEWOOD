@@ -141,7 +141,7 @@ spriteanim_nymn_push_track_posy:
 
 spriteanim_nymn_run:
 spriteanim_nymn_run_numframes: equ 0x5
-spriteanim_nymn_run_speed: equ 0x30
+spriteanim_nymn_run_speed: equ 0x38
 spriteanim_nymn_run_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 spriteanim_nymn_run_track_posx:

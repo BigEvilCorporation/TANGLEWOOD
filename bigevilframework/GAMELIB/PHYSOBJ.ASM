@@ -47,8 +47,9 @@ PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step h
 PhysicsObj_CanPush			rs.b 1 ; Object can push pushable objects
 PhysicsObj_Pushable			rs.b 1 ; Object can be pushed by pushing objects (X only)
 PhysicsObj_BeingPushed		rs.b 1 ; Object is being pushed (X only)
+PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 0
+PhysicsObj_Struct_Pad       rs.b 3
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -88,6 +89,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_CanPush(a0)
 	move.b #0x0, PhysicsObj_Pushable(a0)
 	move.b #0x0, PhysicsObj_BeingPushed(a0)
+	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -196,6 +198,9 @@ PhysicsObjApplyAccelDecel:
 	add.w  d0, d1				; Add X acceleration
 	move.w d1, PhysicsObj_VelX(a0)	; Back to RAM
 	
+	cmp.b  #0x0, PhysicsObj_MaxVelClamp(a0)
+	bne    @ClampMaxVelX
+	
 	; Check if past max velocity
 	move.w PhysicsObj_MaxVelX(a0), d0	; Get max velocity +ve
 	cmp.w  d0, d1				; Compare
@@ -205,7 +210,7 @@ PhysicsObjApplyAccelDecel:
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
 	bra    @EndAccelDecel		; Within bounds
 	
-	;IFD VEL_CLAMP
+	@ClampMaxVelX:
 	
 	move.w PhysicsObj_MaxVelX(a0), d0	; Get max velocity +ve
 	cmp.w  d0, d1				; Compare
@@ -218,8 +223,6 @@ PhysicsObjApplyAccelDecel:
 	@ClampX:
 	move.w d0, PhysicsObj_VelX(a0)
 	bra    @EndAccelDecel
-	
-	;ENDIF
 	
 	@IdleXDecel:
 	

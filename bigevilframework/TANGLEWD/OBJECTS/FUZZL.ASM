@@ -15,7 +15,7 @@ Fuzzl_MaxVelYDown			equ (0x8*SubpixelsPerPixel)
 Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
 Fuzzl_ProbeFloorY   		equ (Fuzzl_Height-8) ; Floor detection probe position Y
-Fuzzl_MaxVelX				equ 0x0100
+Fuzzl_MaxVelX				equ 0x0120
 Fuzzl_Decel					equ 0x02
 Fuzzl_BounceX				equ 0x1
 Fuzzl_BounceY				equ 0x2
@@ -147,15 +147,14 @@ FuzzlInit:
 	jsr EntityAddToSerialiseList
 	
 	; Default state
-	move.b  #0x0, Fuzzl_State_Bits(a0)
-	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
+	move.w  #Fuzzl_Width, Entity_Width(a0)
+	move.w  #Fuzzl_Height, Entity_Height(a0)
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.b  #0x1, PhysicsObj_Pushable(a0)
+	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
-	move.w  #Fuzzl_Width, Entity_Width(a0)
-	move.w  #Fuzzl_Height, Entity_Height(a0)
 	move.w  #Fuzzl_MaxVelX, PhysicsObj_MaxVelX(a0)
 	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
@@ -163,6 +162,8 @@ FuzzlInit:
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #0x0, Fuzzl_State_Bits(a0)
+	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	
 	; Setup collision bounds
