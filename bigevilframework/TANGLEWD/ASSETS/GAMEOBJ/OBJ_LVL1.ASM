@@ -255,8 +255,8 @@ gameobjects_lvl1_BouncePlant_count equ 0x1
 LoadGameObjects_lvl1_BouncePlant:
 lvl1BouncePlant_127_idx	equ 0x0
 	jsr BouncePlantInit
-	move.l #0x00145000, Entity_WorldPosX(a0)
-	move.l #0x00030800, Entity_WorldPosY(a0)
+	move.l #0x00094800, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
 	add.l #BouncePlant_Struct_Size, a0
 	rts
 

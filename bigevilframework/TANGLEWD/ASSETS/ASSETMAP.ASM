@@ -181,6 +181,7 @@ Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
 ;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
+Tiles_PlantVRAM:     rs.b (sprite_plant_size_b*BouncePlant_MaxEntities)
 	ENDIF
 
 	; TODO: Reserve max level size
@@ -228,7 +229,6 @@ Tile_Bank2_Size_t:   equ (Tile_Bank2_Size_b/size_tile_b)
 	rsset Tile_Bank2_Start
 Tiles_Player2VRAM:   rs.b (sprite_echo_size_b)
 Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
-Tiles_PlantVRAM:     rs.b (sprite_plant_size_b)
 ;---------------------------------------------------------
 Tiles_Bank2_End:     rs.b 0
 Tiles_Bank2_Count    equ ((Tiles_Bank2_End-Tile_Bank2_Start)/size_tile_b)

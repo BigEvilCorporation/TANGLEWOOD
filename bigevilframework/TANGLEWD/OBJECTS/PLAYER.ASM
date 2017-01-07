@@ -214,6 +214,9 @@ PlayerUpdate:
 	
 	; Test for water
 	jsr    PlayerInteractTest_Water
+
+	; Test for bounce plants
+	jsr    PlayerInteractTest_BouncePlants
 	
 	; Process sleep/snooze states
 	cmp.b  #0x0, Player_Sleeping(a0)
@@ -1177,9 +1180,12 @@ PlayerInteractTest_Fireflies:
 	move.l #EntityArray_Fireflies, a0	; Firefly in a0
 	sub.w  #0x1, d0
 	@FireflyLoop:
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	beq    @NextFirefly
 	movem.l d0-d1/a0-a1, -(sp)
 	jsr FireflyTestObj
 	movem.l (sp)+, d0-d1/a0-a1
+	@NextFirefly:
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
 	
@@ -1234,3 +1240,79 @@ PlayerInteractTest_Water:
 	
 	rts
 	
+PlayerInteractTest_BouncePlants:
+
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	IFND DEBUG
+
+	; If player off floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	bne    @End
+	
+	move.w (EntityCount_Plants), d6
+	cmp.w  #0x0, d6
+	beq    @NoPlants
+	
+	; Get player collision bounds
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+
+	; Check player against all plants in level
+	move.l #EntityArray_Plants, a2		; Plant in a2
+	sub.w  #0x1, d6
+	@PlantLoop:
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	beq    @NextPlant
+	
+	; Get plant entity bounds
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	
+	; Check collision
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NextPlant
+	
+	; Collision with plant, check if heading towards bounce surface
+	; TODO: Variable plant orientations
+	move.w PhysicsObj_VelY(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @End
+
+	; Heading towards plant, calculate reflection vector
+	; TODO: Proper reflection vector
+	neg.w  d0
+
+	; Clamp to min launch velocity
+	; TODO: Use vector length
+	cmp.w  #BouncePlant_MinLaunchVelocity, d0
+	bgt    @NoClamp
+	move.w #BouncePlant_MinLaunchVelocity, d0
+	@NoClamp:
+
+	; Launch player
+	move.w d0, PhysicsObj_VelY(a0)
+	
+	; Set jumping and falling
+	move.b #0x1, Character_Jumping(a0)
+	move.b #0x0, Character_Falling(a0)
+
+	; Activate plant
+	PUSHL  a0
+	move.l a2, a0
+	jsr    BouncePlant_Activate
+	POPL   a0
+	
+	; Finished
+	bra    @End
+	
+	@NextPlant:
+	add.l  #Firefly_Struct_Size, a2
+	dbra   d6, @PlantLoop
+	
+	@NoPlants:
+	@End:
+	
+	ENDIF
+
+	rts

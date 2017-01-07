@@ -8,8 +8,10 @@
 
 ; Constants
 BouncePlant_MaxEntities	   equ 0x1
-BouncePlant_Width		   equ 0x18
-BouncePlant_Height		   equ 0x10
+BouncePlant_Width		   equ 0x30
+BouncePlant_Height		   equ 0x18
+
+BouncePlant_MinLaunchVelocity equ 0x0800
 
 ;==============================================================
 
@@ -25,8 +27,9 @@ BouncePlantAnimIdx_Max     equ 2
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
 BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
+BouncePlant_Active       rs.b 1
 ;--------------------------
-BouncePlant_Struct_Pad   rs.b 0   ; Alignment padding
+BouncePlant_Struct_Pad   rs.b 3   ; Alignment padding
 BouncePlant_Struct_Size  rs.b 0
 ;--------------------------
 
@@ -56,6 +59,7 @@ BouncePlantInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #BouncePlant_Width, Entity_Width(a0)
 	move.w  #BouncePlant_Height, Entity_Height(a0)
+	move.b  #0x0, BouncePlant_Active(a0)
 	
 	; Setup animation
 	move.l a0, a3
@@ -64,7 +68,7 @@ BouncePlantInit:
 	; Idle
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*BouncePlantAnimIdx_Idle), a3
-	move.w #spritesheet_plant_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.w #spritesheet_plant_sheet_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_plant_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
@@ -75,7 +79,7 @@ BouncePlantInit:
 	; Active
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*BouncePlantAnimIdx_Active), a3
-	move.w #spritesheet_plant_active_frameoffset, Animation_FirstFrameOffset(a3)
+	move.w #spritesheet_plant_sheet_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_plant_active_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
@@ -85,8 +89,10 @@ BouncePlantInit:
 	
 	; Start idle animation
 	PUSHL  a1
-	move.l a2, a1
-	add.l  #(Animation_Struct_Size*BouncePlantAnimIdx_Idle), a1
+	move.l a0, a1
+	add.l  #BouncePlant_Animations, a1
+	move.l #(BouncePlantAnimIdx_Idle*Animation_Struct_Size), d1
+	add.l  d1, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -95,5 +101,46 @@ BouncePlantInit:
 BouncePlantUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If active
+	cmp.b  #0x0, BouncePlant_Active(a0)
+	beq    @Inactive
+
+	; Wait for active anim to finish
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	bne    @StillActive
+
+	; Back to idle
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #BouncePlant_Animations, a1
+	move.l #(BouncePlantAnimIdx_Idle*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Set as inactive
+	move.b #0x0, BouncePlant_Active(a0)
+
+	@Inactive:
+	@StillActive:
 	
+	rts
+
+BouncePlant_Activate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set as active
+	move.b #0x1, BouncePlant_Active(a0)
+
+	; Start active anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #BouncePlant_Animations, a1
+	move.l #(BouncePlantAnimIdx_Active*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
 	rts
