@@ -11,7 +11,7 @@ spriteanims_echo:
 
 spriteanim_echo_mountnymn:
 spriteanim_echo_mountnymn_numframes: equ 0x6
-spriteanim_echo_mountnymn_speed: equ 0x1C
+spriteanim_echo_mountnymn_speed: equ 0x28
 spriteanim_echo_mountnymn_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
 spriteanim_echo_mountnymn_track_posx:

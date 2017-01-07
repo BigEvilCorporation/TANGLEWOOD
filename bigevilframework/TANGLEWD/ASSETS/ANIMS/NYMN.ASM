@@ -21,14 +21,26 @@ spriteanim_nymn_sleep_track_posy:
 
 	Even
 
-spriteanim_nymn_pushheavy:
-spriteanim_nymn_pushheavy_numframes: equ 0x8
-spriteanim_nymn_pushheavy_speed: equ 0x1E
-spriteanim_nymn_pushheavy_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
-spriteanim_nymn_pushheavy_track_posx:
+spriteanim_nymn_pickupecho:
+spriteanim_nymn_pickupecho_numframes: equ 0x7
+spriteanim_nymn_pickupecho_speed: equ 0x28
+spriteanim_nymn_pickupecho_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6
+spriteanim_nymn_pickupecho_track_posx:
 
-spriteanim_nymn_pushheavy_track_posy:
+spriteanim_nymn_pickupecho_track_posy:
+
+
+	Even
+
+spriteanim_nymn_ridedjakk:
+spriteanim_nymn_ridedjakk_numframes: equ 0x4
+spriteanim_nymn_ridedjakk_speed: equ 0x14
+spriteanim_nymn_ridedjakk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3
+spriteanim_nymn_ridedjakk_track_posx:
+
+spriteanim_nymn_ridedjakk_track_posy:
 
 
 	Even
@@ -79,6 +91,30 @@ spriteanim_nymn_wake_track_posy:
 
 	Even
 
+spriteanim_nymn_calllong:
+spriteanim_nymn_calllong_numframes: equ 0xF
+spriteanim_nymn_calllong_speed: equ 0x28
+spriteanim_nymn_calllong_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x6, 0x7, 0x8, 0x9
+spriteanim_nymn_calllong_track_posx:
+
+spriteanim_nymn_calllong_track_posy:
+
+
+	Even
+
+spriteanim_nymn_pushheavy:
+spriteanim_nymn_pushheavy_numframes: equ 0x8
+spriteanim_nymn_pushheavy_speed: equ 0x1E
+spriteanim_nymn_pushheavy_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+spriteanim_nymn_pushheavy_track_posx:
+
+spriteanim_nymn_pushheavy_track_posy:
+
+
+	Even
+
 spriteanim_nymn_fall:
 spriteanim_nymn_fall_numframes: equ 0x4
 spriteanim_nymn_fall_speed: equ 0x14
@@ -91,18 +127,6 @@ spriteanim_nymn_fall_track_posy:
 
 	Even
 
-spriteanim_nymn_lookback:
-spriteanim_nymn_lookback_numframes: equ 0x22
-spriteanim_nymn_lookback_speed: equ 0x28
-spriteanim_nymn_lookback_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x5, 0x5, 0x6, 0x6, 0x7, 0x7, 0x8, 0x8, 0x9, 0x9, 0xA
-spriteanim_nymn_lookback_track_posx:
-
-spriteanim_nymn_lookback_track_posy:
-
-
-	Even
-
 spriteanim_nymn_carryechoidle:
 spriteanim_nymn_carryechoidle_numframes: equ 0x1
 spriteanim_nymn_carryechoidle_speed: equ 0x1
@@ -111,18 +135,6 @@ spriteanim_nymn_carryechoidle_track_frames:
 spriteanim_nymn_carryechoidle_track_posx:
 
 spriteanim_nymn_carryechoidle_track_posy:
-
-
-	Even
-
-spriteanim_nymn_pickupecho:
-spriteanim_nymn_pickupecho_numframes: equ 0x6
-spriteanim_nymn_pickupecho_speed: equ 0x1C
-spriteanim_nymn_pickupecho_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
-spriteanim_nymn_pickupecho_track_posx:
-
-spriteanim_nymn_pickupecho_track_posy:
 
 
 	Even
@@ -151,6 +163,18 @@ spriteanim_nymn_run_track_posy:
 
 	Even
 
+spriteanim_nymn_lookback:
+spriteanim_nymn_lookback_numframes: equ 0x1B
+spriteanim_nymn_lookback_speed: equ 0x28
+spriteanim_nymn_lookback_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x3, 0x3, 0x3, 0x6, 0x6, 0x3, 0x6, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x4, 0x5, 0x6, 0x6, 0x6, 0x6, 0x7, 0x7, 0x8, 0x8
+spriteanim_nymn_lookback_track_posx:
+
+spriteanim_nymn_lookback_track_posy:
+
+
+	Even
+
 spriteanim_nymn_walk:
 spriteanim_nymn_walk_numframes: equ 0x8
 spriteanim_nymn_walk_speed: equ 0x20
@@ -159,18 +183,6 @@ spriteanim_nymn_walk_track_frames:
 spriteanim_nymn_walk_track_posx:
 
 spriteanim_nymn_walk_track_posy:
-
-
-	Even
-
-spriteanim_nymn_ridedjakk:
-spriteanim_nymn_ridedjakk_numframes: equ 0x4
-spriteanim_nymn_ridedjakk_speed: equ 0x14
-spriteanim_nymn_ridedjakk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
-spriteanim_nymn_ridedjakk_track_posx:
-
-spriteanim_nymn_ridedjakk_track_posy:
 
 
 	Even
@@ -199,18 +211,6 @@ spriteanim_nymn_jump_track_posy:
 
 	Even
 
-spriteanim_nymn_carryechowalk:
-spriteanim_nymn_carryechowalk_numframes: equ 0x8
-spriteanim_nymn_carryechowalk_speed: equ 0x20
-spriteanim_nymn_carryechowalk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
-spriteanim_nymn_carryechowalk_track_posx:
-
-spriteanim_nymn_carryechowalk_track_posy:
-
-
-	Even
-
 spriteanim_nymn_glide:
 spriteanim_nymn_glide_numframes: equ 0x4
 spriteanim_nymn_glide_speed: equ 0x19
@@ -232,6 +232,30 @@ spriteanim_nymn_wade_track_posx:
 
 spriteanim_nymn_wade_track_posy:
 
+
+	Even
+
+spriteanim_nymn_carryechowalk:
+spriteanim_nymn_carryechowalk_numframes: equ 0x8
+spriteanim_nymn_carryechowalk_speed: equ 0x20
+spriteanim_nymn_carryechowalk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+spriteanim_nymn_carryechowalk_track_posx:
+
+spriteanim_nymn_carryechowalk_track_posy:
+
+
+	Even
+
+spriteanim_nymn_mountdjakk:
+spriteanim_nymn_mountdjakk_numframes: equ 0xC
+spriteanim_nymn_mountdjakk_speed: equ 0x1E
+spriteanim_nymn_mountdjakk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB
+spriteanim_nymn_mountdjakk_track_posx:
+	dc.b 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+spriteanim_nymn_mountdjakk_track_posy:
+	dc.b 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x18, 0x18, 0x18
 
 	Even
 
