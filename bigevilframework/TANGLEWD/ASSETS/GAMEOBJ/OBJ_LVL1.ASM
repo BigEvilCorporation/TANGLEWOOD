@@ -251,12 +251,42 @@ LocIntroActor1_idx	equ 0x1
 	add.l #Location_Struct_Size, a0
 	rts
 
-gameobjects_lvl1_BouncePlant_count equ 0x1
+gameobjects_lvl1_BouncePlant_count equ 0x6
 LoadGameObjects_lvl1_BouncePlant:
-lvl1BouncePlant_127_idx	equ 0x0
+Plant_180_idx	equ 0x0
 	jsr BouncePlantInit
 	move.l #0x00094800, Entity_WorldPosX(a0)
 	move.l #0x00031000, Entity_WorldPosY(a0)
+	add.l #BouncePlant_Struct_Size, a0
+Plant_135_idx	equ 0x1
+	jsr BouncePlantInit
+	move.l #0x0009a800, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
+	add.l #BouncePlant_Struct_Size, a0
+Plant_45_idx	equ 0x2
+	jsr BouncePlantInit
+	move.l #0x0009a800, Entity_WorldPosX(a0)
+	move.l #0x00024800, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_45, BouncePlant_Orientation(a0)
+	add.l #BouncePlant_Struct_Size, a0
+Plant_315_idx	equ 0x3
+	jsr BouncePlantInit
+	move.l #0x0008a000, Entity_WorldPosX(a0)
+	move.l #0x00025000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_315, BouncePlant_Orientation(a0)
+	add.l #BouncePlant_Struct_Size, a0
+Plant_225_idx	equ 0x4
+	jsr BouncePlantInit
+	move.l #0x00089800, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
+	add.l #BouncePlant_Struct_Size, a0
+Plant_0_idx	equ 0x5
+	jsr BouncePlantInit
+	move.l #0x00092000, Entity_WorldPosX(a0)
+	move.l #0x00021800, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_0, BouncePlant_Orientation(a0)
 	add.l #BouncePlant_Struct_Size, a0
 	rts
 

@@ -1269,29 +1269,42 @@ PlayerInteractTest_BouncePlants:
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	
 	; Check collision
+	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
 	cmp.b  #0x0, d0
 	beq    @NextPlant
 	
+	; Calculate bounce vector
+	move.w PhysicsObj_VelX(a0), d0
+	swap   d0
+	move.w PhysicsObj_VelY(a0), d0
+	PUSHL  a0
+	move.l a2, a0
+	jsr    BouncePlant_GetBounceVector
+	POPL   a0
+
 	; Collision with plant, check if heading towards bounce surface
 	; TODO: Variable plant orientations
-	move.w PhysicsObj_VelY(a0), d0
-	cmp.w  #0x0, d0
-	bgt    @End
+	; move.w PhysicsObj_VelY(a0), d0
+	; cmp.w  #0x0, d0
+	; bgt    @End
 
 	; Heading towards plant, calculate reflection vector
 	; TODO: Proper reflection vector
-	neg.w  d0
-
-	; Clamp to min launch velocity
-	; TODO: Use vector length
-	cmp.w  #BouncePlant_MinLaunchVelocity, d0
-	bgt    @NoClamp
-	move.w #BouncePlant_MinLaunchVelocity, d0
-	@NoClamp:
+	; neg.w  d0
+; 
+	; ; Clamp to min launch velocity
+	; ; TODO: Use vector length
+	; cmp.w  #BouncePlant_MinLaunchVelocity, d0
+	; bgt    @NoClamp
+	; move.w #BouncePlant_MinLaunchVelocity, d0
+	; @NoClamp:
 
 	; Launch player
 	move.w d0, PhysicsObj_VelY(a0)
+	swap   d0
+	move.w d0, PhysicsObj_VelX(a0)
 	
 	; Set jumping and falling
 	move.b #0x1, Character_Jumping(a0)
@@ -1307,7 +1320,7 @@ PlayerInteractTest_BouncePlants:
 	bra    @End
 	
 	@NextPlant:
-	add.l  #Firefly_Struct_Size, a2
+	add.l  #BouncePlant_Struct_Size, a2
 	dbra   d6, @PlantLoop
 	
 	@NoPlants:

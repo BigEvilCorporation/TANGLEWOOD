@@ -68,3 +68,19 @@ VEC2_DOT: macro vec1,vec2,tmpreg
 	muls.w  \vec2, \vec1	; Vec2.x * Vec1.x
 	add.l   \tmpreg, \vec1	; Add
     endm
+
+VEC2_REFLECT: macro vec,norm,tmpreg1,tmpreg2,tmpreg3
+											; Reflect = vec - (2 * norm * (norm . vec))
+	move.l \vec, \tmpreg1
+	move.l \norm, \tmpreg2
+	VEC2_DOT  \tmpreg1, \tmpreg2, \tmpreg3	;                             (norm . vec)
+	muls.w #0x2, \norm						;                 (2 * norm.y)
+	muls.w \tmpreg1, \norm					;                           * (norm . vec)
+	sub.w  \norm, \vec						;           vec.y -
+	swap   \norm
+	muls.w #0x2, \norm						;                 (2 * norm.x)
+	muls.w \tmpreg1, \norm					;                           * (norm . vec)
+	sub.w  \norm, \vec						;           vec.x -
+	swap   \norm
+	endm
+	

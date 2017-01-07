@@ -7,11 +7,11 @@
 ;==============================================================
 
 ; Constants
-BouncePlant_MaxEntities	   equ 0x1
+BouncePlant_MaxEntities	   equ 0x6
 BouncePlant_Width		   equ 0x30
 BouncePlant_Height		   equ 0x18
-
-BouncePlant_MinLaunchVelocity equ 0x0800
+BouncePlant_LaunchForce     equ 0x0800
+BouncePlant_LaunchForceDiag equ 0x05A7 ; (BouncePlant_LaunchForce * 0.707)
 
 ;==============================================================
 
@@ -23,15 +23,52 @@ BouncePlantAnimIdx_Max     equ 2
 
 ;==============================================================
 
+; Orientation
+BouncePlantOrient_0        equ 0
+BouncePlantOrient_45       equ 1
+BouncePlantOrient_90       equ 2
+BouncePlantOrient_135      equ 3
+BouncePlantOrient_180      equ 4
+BouncePlantOrient_225      equ 5
+BouncePlantOrient_270      equ 6
+BouncePlantOrient_315      equ 7
+
+;==============================================================
+
+; Reflection masks
+BouncePlantReflectMasks:
+BouncePlantMask_0:		dc.l 0xFFFF0000	; Pointing down
+BouncePlantMask_45:		dc.l 0x00000000
+BouncePlantMask_90:		dc.l 0x0000FFFF	; Pointing left
+BouncePlantMask_135:	dc.l 0x00000000
+BouncePlantMask_180:	dc.l 0xFFFF0000	; Pointing up
+BouncePlantMask_225:	dc.l 0x00000000
+BouncePlantMask_270:	dc.l 0x0000FFFF	; Pointing right
+BouncePlantMask_315:	dc.l 0x00000000
+
+; Reflection vectors
+BouncePlantReflectVels:
+BouncePlantVel_0:		dc.l ((-BouncePlant_LaunchForce)&0xFFFF)
+BouncePlantVel_45:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
+BouncePlantVel_90:		dc.l ((-BouncePlant_LaunchForce<<16)&0xFFFF)
+BouncePlantVel_135:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
+BouncePlantVel_180:		dc.l (( BouncePlant_LaunchForce)&0xFFFF)
+BouncePlantVel_225:		dc.l (( BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
+BouncePlantVel_270:		dc.l (( BouncePlant_LaunchForce<<16)&0xFFFF)
+BouncePlantVel_315:		dc.l (( BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
+
+;==============================================================
+
 ; Struct
 	rsset (AnimObj_Struct_Size)
-;--------------------------
+;------------------------------
 BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
+BouncePlant_Orientation  rs.b 1
 BouncePlant_Active       rs.b 1
-;--------------------------
-BouncePlant_Struct_Pad   rs.b 3   ; Alignment padding
+;------------------------------
+BouncePlant_Struct_Pad   rs.b 2   ; Alignment padding
 BouncePlant_Struct_Size  rs.b 0
-;--------------------------
+;------------------------------
 
 ;==============================================================
 
@@ -59,6 +96,7 @@ BouncePlantInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #BouncePlant_Width, Entity_Width(a0)
 	move.w  #BouncePlant_Height, Entity_Height(a0)
+	move.b  #BouncePlantOrient_180, BouncePlant_Orientation(a0)
 	move.b  #0x0, BouncePlant_Active(a0)
 	
 	; Setup animation
@@ -142,5 +180,34 @@ BouncePlant_Activate:
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	rts
+
+BouncePlant_GetBounceVector:
+	; a0 ---- GameObj addr
+	; a1 ---- Level addr
+	; d0 (ww) in: XY vector to reflect
+	;         out: reflected vector
+
+	; Get orientation of plant
+	clr.l  d1
+	move.b BouncePlant_Orientation(a0), d1
+	lsl.l  #0x2, d1
+
+	; Get mask for this plant orientation
+	lea    BouncePlantReflectMasks, a3
+	add.l  d1, a3
+	move.l (a3), d2
+
+	; Get bounce vector for this plant orientation
+	lea    BouncePlantReflectVels, a3
+	add.l  d1, a3
+	move.l (a3), d3
+
+	; Mask out component to be applied
+	and.l  d2, d0
+
+	; Apply velocity
+	add.l  d3, d0
 
 	rts
