@@ -372,6 +372,34 @@ LevelLoadGameObjArt:
 	@NoBoulders:
 	ENDIF
 	
+	; Plants
+	IFND DEBUG
+	cmp.w  #0x0, EntityCount_Plants
+	beq    @NoPlants
+	move.l #EntityArray_Plants, a0
+	move.w (EntityCount_Plants), d1
+	sub.w  #0x1, d1
+	move.l #Tiles_PlantVRAM, d0
+	@PlantLoop:
+	movem.l d0-d1/a0, -(sp)
+	
+	lea    spritesheets_Plant, a1
+	lea    sprite_Plant_subsprite_dimensions_bits, a2
+	lea    sprite_Plant_subsprite_pos_offsets, a3
+	lea    sprite_Plant_numtiles_per_subsprite, a4
+	move.l #sprite_Plant_size_t, d1
+	move.b #sprite_Plant_size_subsprites, d2
+	move.w #sprite_Plant_widthheight_subsprites, d3
+	move.b #PaletteId_World0, d4
+	jsr    SpriteObjLoad
+	
+	movem.l (sp)+, d0-d1/a0
+	add.l  #BouncePlant_Struct_Size, a0
+	add.l  #sprite_Plant_size_b, d0
+	dbra   d1, @PlantLoop
+	@NoPlants:
+	ENDIF
+	
 	; Lifts
 	;IFND DEBUG
 	;cmp.w  #0x0, EntityCount_Lifts

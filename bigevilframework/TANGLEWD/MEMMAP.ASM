@@ -256,6 +256,7 @@ EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
 EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
 EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
 EntityArray_Ropes       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
+EntityArray_Plants      rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
 	ENDIF
 
 EntityCount_Actors      rs.w 1
@@ -273,6 +274,7 @@ EntityCount_WaterBodies rs.w 1
 EntityCount_Locations   rs.w 1
 EntityCount_Lifts	    rs.w 1
 EntityCount_Ropes	    rs.w 1
+EntityCount_Plants	    rs.w 1
 
 reserved_ram_size		rs.b 0
 

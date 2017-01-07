@@ -124,6 +124,10 @@ Lvl1_Init:
 	; Locations
 	move.l #EntityArray_Locations, a0
 	jsr    LoadGameObjects_lvl1_Location
+	
+	; Locations
+	move.l #EntityArray_Plants, a0
+	jsr    LoadGameObjects_lvl1_BouncePlant
     
 	; Leaves
 	; TODO: Leaf generator

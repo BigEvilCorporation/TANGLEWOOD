@@ -95,6 +95,7 @@ __start
 	include 'objects\lift.asm'
 	include 'objects\location.asm'
 	include 'objects\nest.asm'
+	include 'objects\plant.asm'
 	include 'objects\player.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'

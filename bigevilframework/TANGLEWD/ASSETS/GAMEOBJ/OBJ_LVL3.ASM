@@ -221,11 +221,7 @@ gameobjects_lvl3_Location_count equ 0x0
 LoadGameObjects_lvl3_Location:
 	rts
 
-gameobjects_lvl3_Lift_count equ 0x0
-LoadGameObjects_lvl3_Lift:
-	rts
-
-gameobjects_lvl3_Djrake_count equ 0x0
-LoadGameObjects_lvl3_Djrake:
+gameobjects_lvl3_BouncePlant_count equ 0x0
+LoadGameObjects_lvl3_BouncePlant:
 	rts
 

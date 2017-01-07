@@ -49,6 +49,9 @@
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\rope.asm'
 	
+	; Level props
+	include 'assets\sprites\L1\plant.asm'
+	
 	; ************************************
 	; Animation data
 	; ************************************
@@ -63,6 +66,9 @@
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rope.asm'
+	
+	; Level props
+	include 'assets\anims\L1\plant.asm'
 
 	IFD DEBUG
 
@@ -222,6 +228,7 @@ Tile_Bank2_Size_t:   equ (Tile_Bank2_Size_b/size_tile_b)
 	rsset Tile_Bank2_Start
 Tiles_Player2VRAM:   rs.b (sprite_echo_size_b)
 Tiles_FuzzlVRAM:     rs.b (sprite_fuzzl_size_b*Fuzzl_MaxEntities)
+Tiles_PlantVRAM:     rs.b (sprite_plant_size_b)
 ;---------------------------------------------------------
 Tiles_Bank2_End:     rs.b 0
 Tiles_Bank2_Count    equ ((Tiles_Bank2_End-Tile_Bank2_Start)/size_tile_b)
