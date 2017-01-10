@@ -6,6 +6,9 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
+; Constants
+EchoHowlDelay				equ 0x0030	; Delay between Nymn and Echo howling
+
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
 EchoAnimIdx_MountNymn    	equ 1
@@ -24,9 +27,10 @@ EchoMountNymn_Riding		equ 3
 	rsset (Player_Struct_Size)
 ;---------------------------------
 Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
+Echo_HowlTimer				rs.w 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 3
+Echo_Struct_Pad      		rs.b 1
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -50,6 +54,7 @@ EchoInit:
 	;==============================================================
 	
 	; Setup default state
+	move.w #0x0, Echo_HowlTimer(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
 	; Setup interaction routines
@@ -411,6 +416,18 @@ EchoInit:
 	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
 	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+
+	; Howl
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Howl), a3
+	move.w #spritesheet_echo_calllong_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_echo_calllong_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_echo_calllong_speed, Animation_Speed(a3)
+	move.b #spriteanim_echo_calllong_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
 	
 	;==============================================================
 	
@@ -566,6 +583,18 @@ EchoUpdate:
 	
 	; Default update
 	jsr PlayerUpdate
+
+	; Update howl timer
+	move.w Echo_HowlTimer(a0), d0
+	cmp.w  #0x0, d0
+	beq    @TimerNotRunning
+	sub.w  #0x1, d0
+	move.w d0, Echo_HowlTimer(a0)
+	cmp.w  #0x0, d0
+	bne    @TimerStillRunning
+	jsr    EchoHowl
+	@TimerStillRunning:
+	@TimerNotRunning:
 	
 	@Carried:
 	
@@ -669,5 +698,26 @@ EchoEndCarried:
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
+
+	rts
+
+EchoStartHowlTimer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	move.w #EchoHowlDelay, Echo_HowlTimer(a0)	
+	rts
+
+EchoHowl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set howling anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	rts

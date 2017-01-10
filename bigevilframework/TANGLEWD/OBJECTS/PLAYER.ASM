@@ -109,8 +109,9 @@ PlayerAnimIdx_Wake      	equ 3	; Wakes up fully and stands up
 PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
 PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
 PlayerAnimIdx_Ride		 	equ 6	; Ride a Djakk
+PlayerAnimIdx_Howl		 	equ 7	; Long howl
 ; -------------------------------
-PlayerAnimIdx_Max       	equ 7
+PlayerAnimIdx_Max       	equ 8
 
 ; ************************************
 ; Struct

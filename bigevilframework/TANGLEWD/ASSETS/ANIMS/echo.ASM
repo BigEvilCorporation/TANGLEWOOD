@@ -33,6 +33,18 @@ spriteanim_echo_idle_track_posy:
 
 	Even
 
+spriteanim_echo_calllong:
+spriteanim_echo_calllong_numframes: equ 0x11
+spriteanim_echo_calllong_speed: equ 0x28
+spriteanim_echo_calllong_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x8, 0x9
+spriteanim_echo_calllong_track_posx:
+
+spriteanim_echo_calllong_track_posy:
+
+
+	Even
+
 spriteanim_echo_carriedwalk:
 spriteanim_echo_carriedwalk_numframes: equ 0x8
 spriteanim_echo_carriedwalk_speed: equ 0x20

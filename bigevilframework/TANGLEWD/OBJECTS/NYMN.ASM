@@ -297,6 +297,18 @@ NymnInit:
 	move.b #spriteanim_nymn_ridedjakk_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x0, Animation_ZeroVelocity(a3)
+
+	; Howl
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Howl), a3
+	move.w #spritesheet_nymn_calllong_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_calllong_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_nymn_calllong_speed, Animation_Speed(a3)
+	move.b #spriteanim_nymn_calllong_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
 	
 	;==============================================================
 	
@@ -400,7 +412,22 @@ NymnStartInteract:
 	
 	; Base functionality
 	jsr    PlayerStartInteract
-	
+
+	; If no interaction started
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	bne    @AlreadyInteracting
+
+	; If at zero velocity
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	bne    @Moving
+	cmp.w  #0x0, PhysicsObj_VelY(a0)
+	bne    @Moving
+
+	; Howl
+	jsr    NymnHowl
+
+	@Moving:
+
 	@AlreadyInteracting:
 	@Dead:
 	@EchoFound:
@@ -534,5 +561,26 @@ NymnEndCarryEcho:
 	; Can run
 	jsr    CharacterStartRun
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+
+	rts
+
+NymnHowl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Start howling anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Start Echo's howl timer
+	PUSHL  a0
+	move.l #Player2, a0
+	jsr    EchoStartHowlTimer
+	POPL   a0
 
 	rts
