@@ -21,6 +21,9 @@
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\pal_takk.asm'
 	include 'assets\palettes\djrake.asm'
+
+	include 'assets\palettes\l1.asm'
+
 	IFD DEBUG
 	include 'assets\palettes\pal_tst1.asm'
 	ENDIF
@@ -94,6 +97,8 @@
 	include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\ks_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
+
+	include 'assets\tiles\l1.asm'
 	
 	IFND FINAL
 	include 'assets\tiles\tst_lift.asm'
@@ -113,6 +118,9 @@
 	include 'assets\maps\map_lvl2.asm'
 	include 'assets\maps\map_lvl3.asm'
 	include 'assets\maps\lvl1_bg.asm'
+
+	include 'assets\maps\l1bg.asm'
+	include 'assets\maps\l1a1.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift.asm'
@@ -122,6 +130,8 @@
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
+
+	include 'assets\collisn\tiles\l1.asm'
 	
 	IFND FINAL
 	include 'assets\collisn\ctl_lift.asm'
@@ -133,6 +143,8 @@
 	include 'assets\collisn\cmp_lvl1.asm'
 	include 'assets\collisn\cmp_lvl2.asm'
 	include 'assets\collisn\cmp_lvl3.asm'
+
+	include 'assets\collisn\maps\l1a1.asm'
 	
 	IFND FINAL
 	include 'assets\collisn\cmp_lift.asm'
@@ -144,6 +156,8 @@
 	include 'assets\gameobj\obj_lvl1.asm'
 	include 'assets\gameobj\obj_lvl2.asm'
 	include 'assets\gameobj\obj_lvl3.asm'
+
+	include 'assets\gameobj\l1a1.asm'
 	
 	IFND FINAL
 	include 'assets\gameobj\tst_lift.asm'

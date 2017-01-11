@@ -124,6 +124,7 @@ __start
 	IFD DEBUG
 	include 'levels\testlvl1.asm'
 	ELSE
+	include 'levels\l1a1.asm'
 	include 'levels\level1.asm'
 	include 'levels\level2.asm'
 	include 'levels\level3.asm'
@@ -172,7 +173,8 @@ __main:
 	IFD DEBUG
 	move.l #Tst1_Forest, CurrentLevel
 	ELSE
-	move.l #Lvl1_HarlequinForest, CurrentLevel
+	move.l #L1A1_HarlequinForest, CurrentLevel
+	;move.l #Lvl1_HarlequinForest, CurrentLevel
 	;move.l #Lvl_TestLift, CurrentLevel
 	ENDIF
 	

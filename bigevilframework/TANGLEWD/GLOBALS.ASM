@@ -53,7 +53,7 @@ Gravity			         equ 0x0030
 	IFD DEBUG
 GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Height
 	ELSE
-GroundHeightScreen       equ (map_lvl1_height*8)+SpritePlaneBorderY+Player1Height
+GroundHeightScreen       equ (map_l1a1_height*8)+SpritePlaneBorderY+Player1Height
 	ENDIF
 
 GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel

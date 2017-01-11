@@ -39,6 +39,9 @@ tiles_twd_logo:
 	incbin 'assets\tiles\twd_logo.bin'
 tiles_lvl1:
 	incbin 'assets\tiles\til_lvl1.bin'
+
+tiles_l1:
+	incbin 'assets\tiles\l1.bin'
 	
 	IFND FINAL
 tiles_tst_lift:
@@ -50,6 +53,9 @@ tiles_tst_lift:
 	; ************************************
 collisiontiles_lvl1:
 	incbin 'assets\collisn\ctl_lvl1.bin'
+
+collisiontiles_l1:
+	incbin 'assets\collisn\tiles\l1.bin'
 	
 	IFND FINAL
 collisiontiles_tst_lift:
@@ -81,6 +87,11 @@ map_lvl3:
 	incbin 'assets\maps\map_lvl3.bin'
 map_lvl1_bg:
 	incbin 'assets\maps\lvl1_bg.bin'
+
+map_l1a1:
+	incbin 'assets\maps\l1a1.bin'
+map_l1bg:
+	incbin 'assets\maps\l1bg.bin'
 	
 	IFND FINAL
 map_tst_lift:
@@ -96,6 +107,9 @@ collisionmap_lvl2:
 	incbin 'assets\collisn\cmp_lvl2.bin'
 collisionmap_lvl3:
 	incbin 'assets\collisn\cmp_lvl3.bin'
+
+collisionmap_l1a1:
+	incbin 'assets\collisn\maps\l1a1.bin'
 	
 	IFND FINAL
 collisionmap_tst_lift:
