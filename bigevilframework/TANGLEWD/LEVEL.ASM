@@ -383,19 +383,19 @@ LevelLoadGameObjArt:
 	@PlantLoop:
 	movem.l d0-d1/a0, -(sp)
 	
-	lea    spritesheets_Plant, a1
-	lea    sprite_Plant_subsprite_dimensions_bits, a2
-	lea    sprite_Plant_subsprite_pos_offsets, a3
-	lea    sprite_Plant_numtiles_per_subsprite, a4
-	move.l #sprite_Plant_size_t, d1
-	move.b #sprite_Plant_size_subsprites, d2
-	move.w #sprite_Plant_widthheight_subsprites, d3
+	lea    spritesheets_mushroom, a1
+	lea    sprite_mushroom_subsprite_dimensions_bits, a2
+	lea    sprite_mushroom_subsprite_pos_offsets, a3
+	lea    sprite_mushroom_numtiles_per_subsprite, a4
+	move.l #sprite_mushroom_size_t, d1
+	move.b #sprite_mushroom_size_subsprites, d2
+	move.w #sprite_mushroom_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
 	
 	movem.l (sp)+, d0-d1/a0
 	add.l  #BouncePlant_Struct_Size, a0
-	add.l  #sprite_Plant_size_b, d0
+	add.l  #sprite_mushroom_size_b, d0
 	dbra   d1, @PlantLoop
 	@NoPlants:
 	ENDIF

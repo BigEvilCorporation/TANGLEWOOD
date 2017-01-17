@@ -53,7 +53,7 @@
 	include 'assets\sprites\rope.asm'
 	
 	; Level props
-	include 'assets\sprites\L1\plant.asm'
+	include 'assets\sprites\L1\mushroom.asm'
 	
 	; ************************************
 	; Animation data
@@ -71,7 +71,7 @@
 	include 'assets\anims\rope.asm'
 	
 	; Level props
-	include 'assets\anims\L1\plant.asm'
+	include 'assets\anims\L1\mushroom.asm'
 
 	IFD DEBUG
 
@@ -195,7 +195,7 @@ Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 ;Tiles_LiftVRAM:   	 rs.b (sprite_lift_size_b*Lift_MaxEntities)
 ;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
-Tiles_PlantVRAM:     rs.b (sprite_plant_size_b*BouncePlant_MaxEntities)
+Tiles_PlantVRAM:     rs.b (sprite_mushroom_size_b*BouncePlant_MaxEntities)
 	ENDIF
 
 	; TODO: Reserve max level size
