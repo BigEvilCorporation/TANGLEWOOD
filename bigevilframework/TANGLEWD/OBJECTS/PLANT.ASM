@@ -81,7 +81,7 @@ BouncePlantInit:
 	
 	; Set type
 	;ori.l  #entity_type_BouncePlant, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Plants
+	addi.w #0x1, EntityCount_BouncePlant
 	
 	; Set update and render routines
 	move.l #BouncePlantUpdate, Entity_UpdateRoutine(a0)
@@ -133,6 +133,12 @@ BouncePlantInit:
 	;add.l  d1, a1
 	;jsr    AnimObjSetAnimation
 	;POPL   a1
+
+	rts
+
+BouncePlantLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 	

@@ -42,7 +42,7 @@ TriggerBoxInit:
 	
 	; Set type
 	ori.l  #entity_type_trigger, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Triggers
+	addi.w #0x1, EntityCount_TriggerBox
 	
 	; Set update and serialise routines
 	move.l #TriggerBoxUpdate, Entity_UpdateRoutine(a0)
@@ -59,6 +59,12 @@ TriggerBoxInit:
 	move.b #0x0, TriggerBox_Triggered(a0)
 	move.b #0x0, TriggerBox_TriggerOnce(a0)
 	move.b #0x0, TriggerBox_XOnly(a0)
+
+	rts
+
+TriggerBoxLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 

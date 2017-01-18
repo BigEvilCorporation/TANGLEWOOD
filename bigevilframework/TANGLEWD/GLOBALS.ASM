@@ -95,8 +95,8 @@ ColourYellow			 equ 0x5
 NumSwitchingColours		 equ 0x6
 
 ; Global player addresses
-Player1 				 equ (Entity_Nymn)
-Player2 				 equ (Entity_Echo)
+Player1 				 equ (EntityArray_Nymn)
+Player2 				 equ (EntityArray_Echo)
 
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb

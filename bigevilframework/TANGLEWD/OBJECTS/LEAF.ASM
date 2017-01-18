@@ -41,7 +41,7 @@ LeafInit:
 	
 	; Set type
 	ori.l  #entity_type_leaf, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Leaves
+	addi.w #0x1, EntityCount_Leaf
 	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)
@@ -74,6 +74,12 @@ LeafInit:
 	jsr    RND_GenerateLong
 	and.w  #0x03FF, d0
 	move.w d0, Leaf_ResetTimer(a0)	; 0-1024
+
+	rts
+
+LeafLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 

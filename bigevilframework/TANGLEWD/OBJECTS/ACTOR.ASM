@@ -64,7 +64,7 @@ ActorInit:
 	
 	; Set type
 	ori.l  #entity_type_actor, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Actors
+	addi.w #0x1, EntityCount_Actor
 	
 	; Set update and render routines
 	move.l #CharacterUpdate, Entity_UpdateRoutine(a0)
@@ -153,6 +153,12 @@ ActorInit:
 	
 	rts
 	
+ActorLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
+
 ActorShutdown:
 	; a1 --- Level addr
 	
@@ -160,7 +166,7 @@ ActorShutdown:
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	
-	subi.w #0x1, EntityCount_Actors
+	subi.w #0x1, EntityCount_Actor
 
 	rts
 	

@@ -16,6 +16,7 @@ Tst1_Forest:
 	dc.l Tst1_Init				; Init routine
 	dc.l Tst1_Update			; Update routine
 	dc.l Tst1_Serialise			; Serialise routine
+	dc.l 0x00000000				; Load game objects routine
 	dc.l 0x0					; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_tst1_width			; Map width
@@ -37,12 +38,12 @@ Tst11_DefaultPalettes:
 Tst1_Init:
 
 	; Fuzzls
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	jsr    LoadGameObjects_tst1_Fuzzl
 	
 	; Leaves
 	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit

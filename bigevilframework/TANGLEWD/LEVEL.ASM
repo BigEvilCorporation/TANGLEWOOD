@@ -54,17 +54,17 @@ GameStateReset:
 	jsr    EntityClearSerialiseList
 	
 	; Reset entity counts
-	move.w #0x0, EntityCount_Actors
-	move.w #0x0, EntityCount_Monsters
-	move.w #0x0, EntityCount_Fireflies
-	move.w #0x0, EntityCount_Flues
-	move.w #0x0, EntityCount_Fuzzls
-	move.w #0x0, EntityCount_Leaves
-	move.w #0x0, EntityCount_Nests
-	move.w #0x0, EntityCount_Boulders
-	move.w #0x0, EntityCount_Triggers
-	move.w #0x0, EntityCount_WaterBodies
-	move.w #0x0, EntityCount_Locations
+	move.w #0x0, EntityCount_Actor
+	move.w #0x0, EntityCount_Monster
+	move.w #0x0, EntityCount_Firefly
+	move.w #0x0, EntityCount_Flue
+	move.w #0x0, EntityCount_Fuzzl
+	move.w #0x0, EntityCount_Leaf
+	move.w #0x0, EntityCount_Nest
+	move.w #0x0, EntityCount_Boulder
+	move.w #0x0, EntityCount_TriggerBox
+	move.w #0x0, EntityCount_WaterBody
+	move.w #0x0, EntityCount_Location
 	
 	; Stop BGM
 	IFND DEBUG
@@ -82,7 +82,7 @@ GameStateReset:
 	ENDIF
 	
 	; Reset ropes
-	move.l  #EntityArray_Ropes, NextFreeRopeSegment
+	move.l  #EntityArray_Rope, NextFreeRopeSegment
 	
 	; Reset pushables
 	LIST_CLEAR PushingObjs
@@ -93,6 +93,11 @@ LevelLoad:
 	
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
+
+	; Load level game objects
+	move.l (CurrentLevel), a1
+	move.l Level_LoadGameObjsRoutine(a1), a2
+	jsr    (a2)
 	
 	jsr LevelLoadPalettes
 	jsr LevelLoadArt
@@ -102,7 +107,6 @@ LevelLoad:
 	jsr LevelAddSFX
 	
 	; Init level
-	move.l (CurrentLevel), a1
 	move.l Level_InitRoutine(a1), a2
 	jsr    (a2)
 	
@@ -242,9 +246,9 @@ LevelLoadGameObjArt:
 
 	; Monsters
 	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Monsters
+	cmp.w  #0x0, EntityCount_Monster
 	beq    @NoMonsters
-	move.l #EntityArray_Monsters, a0
+	move.l #EntityArray_Monster, a0
 	lea    spritesheets_djakk, a1
 	lea    sprite_djakk_subsprite_dimensions_bits, a2
 	lea    sprite_djakk_subsprite_pos_offsets, a3
@@ -260,9 +264,9 @@ LevelLoadGameObjArt:
 	
 	; Djrakes
 	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Djrakes
+	cmp.w  #0x0, EntityCount_Djrake
 	beq    @NoDjrakes
-	move.l #EntityArray_Djrakes, a0
+	move.l #EntityArray_Djrake, a0
 	lea    spritesheets_djrake, a1
 	lea    sprite_djrake_subsprite_dimensions_bits, a2
 	lea    sprite_djrake_subsprite_pos_offsets, a3
@@ -279,10 +283,10 @@ LevelLoadGameObjArt:
     ENDIF
 	
 	; Fuzzls
-	cmp.w  #0x0, EntityCount_Fuzzls
+	cmp.w  #0x0, EntityCount_Fuzzl
 	beq    @NoFuzzls
-	move.l #EntityArray_Fuzzls, a0
-	move.w (EntityCount_Fuzzls), d1
+	move.l #EntityArray_Fuzzl, a0
+	move.w (EntityCount_Fuzzl), d1
 	sub.w  #0x1, d1
 	move.l #Tiles_FuzzlVRAM, d0
 	@FuzzlLoop:
@@ -305,9 +309,9 @@ LevelLoadGameObjArt:
 	@NoFuzzls:
     
 	; Leaves
-	cmp.w  #0x0, EntityCount_Leaves
+	cmp.w  #0x0, EntityCount_Leaf
 	beq    @NoLeaves
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -319,7 +323,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
     
-	move.l #EntityArray_Leaves+Leaf_Struct_Size, a0
+	move.l #EntityArray_Leaf+Leaf_Struct_Size, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -331,7 +335,7 @@ LevelLoadGameObjArt:
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
     
-	move.l #EntityArray_Leaves+(Leaf_Struct_Size*2), a0
+	move.l #EntityArray_Leaf+(Leaf_Struct_Size*2), a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -346,10 +350,10 @@ LevelLoadGameObjArt:
 
 	; Boulders
 	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Boulders
+	cmp.w  #0x0, EntityCount_Boulder
 	beq    @NoBoulders
-	move.l #EntityArray_Boulders, a0
-	move.w (EntityCount_Boulders), d1
+	move.l #EntityArray_Boulder, a0
+	move.w (EntityCount_Boulder), d1
 	sub.w  #0x1, d1
 	move.l #Tiles_BoulderVRAM, d0
 	@BoulderLoop:
@@ -374,10 +378,10 @@ LevelLoadGameObjArt:
 	
 	; Plants
 	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Plants
+	cmp.w  #0x0, EntityCount_BouncePlant
 	beq    @NoPlants
-	move.l #EntityArray_Plants, a0
-	move.w (EntityCount_Plants), d1
+	move.l #EntityArray_BouncePlant, a0
+	move.w (EntityCount_BouncePlant), d1
 	sub.w  #0x1, d1
 	move.l #Tiles_PlantVRAM, d0
 	@PlantLoop:
@@ -402,10 +406,10 @@ LevelLoadGameObjArt:
 	
 	; Lifts
 	;IFND DEBUG
-	;cmp.w  #0x0, EntityCount_Lifts
+	;cmp.w  #0x0, EntityCount_Lift
 	;beq    @NoLifts
-	;move.l #EntityArray_Lifts, a0
-	;move.w (EntityCount_Lifts), d1
+	;move.l #EntityArray_Lift, a0
+	;move.w (EntityCount_Lift), d1
 	;sub.w  #0x1, d1
 	;move.l #Tiles_LiftVRAM, d0
 	;@LiftLoop:
@@ -422,10 +426,10 @@ LevelLoadGameObjArt:
 	
 	; Ropes
 	;IFND DEBUG
-	;cmp.w  #0x0, EntityCount_Ropes
+	;cmp.w  #0x0, EntityCount_Rope
 	;beq    @NoRopes
-	;move.l #EntityArray_Ropes, a0
-	;move.w (EntityCount_Ropes), d1
+	;move.l #EntityArray_Rope, a0
+	;move.w (EntityCount_Rope), d1
 	;sub.w  #0x1, d1
 	;move.l #Tiles_RopeVRAM, d0
 	;@RopeLoop:
@@ -442,10 +446,10 @@ LevelLoadGameObjArt:
 	
 	; Fireflies
 	IFND DEBUG
-	cmp.w  #0x0, EntityCount_Fireflies
+	cmp.w  #0x0, EntityCount_Firefly
 	beq    @NoFireflies
-	move.l #EntityArray_Fireflies, a0
-	move.w (EntityCount_Fireflies), d1
+	move.l #EntityArray_Firefly, a0
+	move.w (EntityCount_Firefly), d1
 	sub.w  #0x1, d1
 	move.l #Tiles_fireflyVRAM, d0
 	@FireflyLoop:

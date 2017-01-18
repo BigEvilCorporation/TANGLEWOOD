@@ -239,43 +239,43 @@ __padding05			     rs.b 3
 ; ************************************
 ; Entities
 ; ************************************
-Entity_Nymn     		rs.b (Nymn_Struct_Size)
-Entity_Echo     		rs.b (Echo_Struct_Size)
-EntityArray_Actors      rs.b (Actor_Struct_Size*Actor_MaxEntities)
-EntityArray_Flues       rs.b (Flue_Struct_Size*Flue_MaxEntities)
-EntityArray_Fuzzls      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
-EntityArray_Leaves      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
-EntityArray_Nests       rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_Triggers    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
-EntityArray_Checkpoints rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
-EntityArray_WaterBodies rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
-EntityArray_Locations rs.b (Location_Struct_Size*Location_MaxEntities)
+EntityArray_Nymn     		rs.b (Nymn_Struct_Size)
+EntityArray_Echo     		rs.b (Echo_Struct_Size)
+EntityArray_Actor      rs.b (Actor_Struct_Size*Actor_MaxEntities)
+EntityArray_Flue       rs.b (Flue_Struct_Size*Flue_MaxEntities)
+EntityArray_Fuzzl      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
+EntityArray_Leaf      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
+EntityArray_Nest       rs.b (Nest_Struct_Size*Nest_MaxEntities)
+EntityArray_TriggerBox    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
+EntityArray_Checkpoint rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
+EntityArray_WaterBody rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
+EntityArray_Location rs.b (Location_Struct_Size*Location_MaxEntities)
 	IFND DEBUG
-EntityArray_Monsters    rs.b (Monster_Struct_Size*Monster_MaxEntities)
-EntityArray_Djrakes    	rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
-EntityArray_Boulders    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
-EntityArray_Fireflies   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
-EntityArray_Lifts       rs.b (Lift_Struct_Size*Lift_MaxEntities)
-EntityArray_Ropes       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
-EntityArray_Plants      rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
+EntityArray_Monster    rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Djrake    	rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
+EntityArray_Boulder    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
+EntityArray_Firefly   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+EntityArray_Lift       rs.b (Lift_Struct_Size*Lift_MaxEntities)
+EntityArray_Rope       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
+EntityArray_BouncePlant      rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
 	ENDIF
 
-EntityCount_Actors      rs.w 1
-EntityCount_Monsters    rs.w 1
-EntityCount_Djrakes	    rs.w 1
-EntityCount_Fireflies   rs.w 1
-EntityCount_Flues       rs.w 1
-EntityCount_Fuzzls      rs.w 1
-EntityCount_Leaves      rs.w 1
-EntityCount_Nests       rs.w 1
-EntityCount_Boulders    rs.w 1
-EntityCount_Triggers    rs.w 1
-EntityCount_Checkpoints rs.w 1
-EntityCount_WaterBodies rs.w 1
-EntityCount_Locations   rs.w 1
-EntityCount_Lifts	    rs.w 1
-EntityCount_Ropes	    rs.w 1
-EntityCount_Plants	    rs.w 1
+EntityCount_Actor      rs.w 1
+EntityCount_Monster    rs.w 1
+EntityCount_Djrake	    rs.w 1
+EntityCount_Firefly   rs.w 1
+EntityCount_Flue       rs.w 1
+EntityCount_Fuzzl      rs.w 1
+EntityCount_Leaf      rs.w 1
+EntityCount_Nest       rs.w 1
+EntityCount_Boulder    rs.w 1
+EntityCount_TriggerBox    rs.w 1
+EntityCount_Checkpoint rs.w 1
+EntityCount_WaterBody rs.w 1
+EntityCount_Location   rs.w 1
+EntityCount_Lift	    rs.w 1
+EntityCount_Rope	    rs.w 1
+EntityCount_BouncePlant	    rs.w 1
 
 reserved_ram_size		rs.b 0
 

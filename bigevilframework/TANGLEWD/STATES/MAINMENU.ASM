@@ -53,7 +53,7 @@ MainMenu_Enter:
 	
 	; Create leaves
 	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
@@ -61,9 +61,9 @@ MainMenu_Enter:
 	jsr    LeafInit
 	
 	; Load leaf assets
-	cmp.w  #0x0, EntityCount_Leaves
+	cmp.w  #0x0, EntityCount_Leaf
 	beq    @NoLeaves
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -75,7 +75,7 @@ MainMenu_Enter:
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
 	
-	move.l #EntityArray_Leaves+Leaf_Struct_Size, a0
+	move.l #EntityArray_Leaf+Leaf_Struct_Size, a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
@@ -87,7 +87,7 @@ MainMenu_Enter:
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
     
-	move.l #EntityArray_Leaves+(Leaf_Struct_Size*2), a0
+	move.l #EntityArray_Leaf+(Leaf_Struct_Size*2), a0
 	lea    tiles_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3

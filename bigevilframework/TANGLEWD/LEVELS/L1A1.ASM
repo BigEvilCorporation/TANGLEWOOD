@@ -19,6 +19,7 @@ L1A1_HarlequinForest:
 	dc.l L1A1_Init				; Init routine
 	dc.l L1A1_Update			; Update routine
 	dc.l L1A1_Serialise			; Serialise routine
+	dc.l L1A1_LoadGameObjects	; Load game objects routine
 	dc.l 0x00000000				; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_L1A1_width			; Map width
@@ -46,54 +47,10 @@ L1A1Data_Struct_Pad      		rs.b 1
 L1A1Data_Struct_Size     		rs.b 0
 	
 L1A1_Init:
-
-	; Trigger boxes
-	move.l #EntityArray_Triggers, a0
-	jsr    LoadGameObjects_L1A1_TriggerBox
-	
-	; Checkpoints
-	move.l #EntityArray_Checkpoints, a0
-	jsr    LoadGameObjects_L1A1_Checkpoint
-	
-	; Monsters
-	move.l #EntityArray_Monsters, a0
-	jsr    LoadGameObjects_L1A1_Monster
-    
-	; Fuzzls
-	move.l #EntityArray_Fuzzls, a0
-	jsr    LoadGameObjects_L1A1_Fuzzl
-	
-	; Fuzzl nests
-	move.l #EntityArray_Nests, a0
-	jsr    LoadGameObjects_L1A1_Nest
-    
-	; Flues
-	move.l #EntityArray_Flues, a0
-	jsr    LoadGameObjects_L1A1_Flue
-	
-	; Boulders
-	move.l #EntityArray_Boulders, a0
-	jsr    LoadGameObjects_L1A1_Boulder
-    
-	; Fireflies
-	move.l #EntityArray_Fireflies, a0
-	jsr    LoadGameObjects_L1A1_Firefly
-	
-	; Water bodies
-	move.l #EntityArray_WaterBodies, a0
-	jsr    LoadGameObjects_L1A1_WaterBody
-	
-	; Locations
-	move.l #EntityArray_Locations, a0
-	jsr    LoadGameObjects_L1A1_Location
-	
-	; Locations
-	move.l #EntityArray_Plants, a0
-	jsr    LoadGameObjects_L1A1_BouncePlant
     
 	; Leaves
 	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit

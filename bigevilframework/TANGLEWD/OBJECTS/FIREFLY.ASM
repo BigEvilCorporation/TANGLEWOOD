@@ -34,7 +34,7 @@ FireflyInit:
 	
 	; Set type
 	ori.l  #entity_type_firefly, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Fireflies
+	addi.w #0x1, EntityCount_Firefly
 
 	; Set update, render and serialise routines
 	move.l #AnimObjUpdate, Entity_UpdateRoutine(a0)
@@ -77,6 +77,12 @@ FireflyInit:
 	move.l d0, AnimObj_AnimSubFrame(a0)
 
 	rts
+
+FireflyLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
 	
 FireflyShutdown:
 	; a0 --- Firefly addr
@@ -84,7 +90,7 @@ FireflyShutdown:
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	jsr    EntityRemoveFromSerialiseList
-	subi.w #0x1, EntityCount_Fireflies
+	subi.w #0x1, EntityCount_Firefly
 	
 	rts
 	

@@ -19,6 +19,7 @@ Lvl1_HarlequinForest:
 	dc.l Lvl1_Init				; Init routine
 	dc.l Lvl1_Update			; Update routine
 	dc.l Lvl1_Serialise			; Serialise routine
+	dc.l 0x00000000				; Load game objects routine
 	dc.l Lvl2_HarlequinForestAct2 ; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl1_width			; Map width
@@ -86,52 +87,52 @@ Lvl1_CamShakeAmplitude			equ 0x4
 Lvl1_Init:
 
 	; Trigger boxes
-	move.l #EntityArray_Triggers, a0
+	move.l #EntityArray_TriggerBox, a0
 	jsr    LoadGameObjects_lvl1_TriggerBox
 	
 	; Checkpoints
-	move.l #EntityArray_Checkpoints, a0
+	move.l #EntityArray_Checkpoint, a0
 	jsr    LoadGameObjects_lvl1_Checkpoint
 	
 	; Monsters
-	move.l #EntityArray_Monsters, a0
+	move.l #EntityArray_Monster, a0
 	jsr    LoadGameObjects_lvl1_Monster
     
 	; Fuzzls
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	jsr    LoadGameObjects_lvl1_Fuzzl
 	
 	; Fuzzl nests
-	move.l #EntityArray_Nests, a0
+	move.l #EntityArray_Nest, a0
 	jsr    LoadGameObjects_lvl1_Nest
     
 	; Flues
-	move.l #EntityArray_Flues, a0
+	move.l #EntityArray_Flue, a0
 	jsr    LoadGameObjects_lvl1_Flue
 	
 	; Boulders
-	move.l #EntityArray_Boulders, a0
+	move.l #EntityArray_Boulder, a0
 	jsr    LoadGameObjects_lvl1_Boulder
     
 	; Fireflies
-	move.l #EntityArray_Fireflies, a0
+	move.l #EntityArray_Firefly, a0
 	jsr    LoadGameObjects_lvl1_Firefly
 	
 	; Water bodies
-	move.l #EntityArray_WaterBodies, a0
+	move.l #EntityArray_WaterBody, a0
 	jsr    LoadGameObjects_lvl1_WaterBody
 	
 	; Locations
-	move.l #EntityArray_Locations, a0
+	move.l #EntityArray_Location, a0
 	jsr    LoadGameObjects_lvl1_Location
 	
 	; Locations
-	move.l #EntityArray_Plants, a0
+	move.l #EntityArray_BouncePlant, a0
 	jsr    LoadGameObjects_lvl1_BouncePlant
     
 	; Leaves
 	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
@@ -153,21 +154,21 @@ Lvl1_Init:
 	; Set Fuzzl colours
 	move.l #Fuzzl_Yellow_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourYellow, d0
 	jsr    FuzzlSetColour
 	
 	move.l #Fuzzl_Green_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourGreen, d0
 	jsr    FuzzlSetColour
 	
 	move.l #Fuzzl_Blue_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourBlue, d0
 	jsr    FuzzlSetColour
@@ -464,13 +465,13 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	; Create actors
 ;	; TODO: Add to end of actor list
 ;	; TODO: Store actor ptr
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	jsr    ActorInit
 ;	add.l  #Actor_Struct_Size, a0
 ;	jsr    ActorInit
 ;	
 ;	; Override max run velocity and ignore walls
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	move.w #Lvl1_ScaredFriend1RunSpeed, Character_MaxVelXRun(a0)
 ;	move.b #0x0, PhysicsObj_CollideWalls(a0)
 ;	
@@ -479,7 +480,7 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	move.b #0x0, PhysicsObj_CollideWalls(a0)
 ;	
 ;	; Override run anim speed
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	move.l a0, a2
 ;	add.l  #Character_Animations, a2
 ;	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a2
@@ -492,7 +493,7 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	move.b #Lvl1_ScaredFriend2RunAnimSpeed, Animation_Speed(a2)
 ;
 ;	; Load actor 1 sprite sheet (using Player 2 VRAM space and Fuzzl palette)
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	lea    spritesheets_nymn, a1
 ;	lea    sprite_nymn_subsprite_dimensions_bits, a2
 ;	lea    sprite_nymn_subsprite_pos_offsets, a3
@@ -529,13 +530,13 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	; Position actor 1
 ;	move.l #LocIntroActor1_idx, d0
 ;	mulu   #Location_Struct_Size, d0
-;	move.l #EntityArray_Locations, a1
+;	move.l #EntityArray_Location, a1
 ;	add.l  d0, a1
 ;	ENTITY_GETLEFT d0, a1
 ;	ENTITY_GETBOTTOM d1, a1
 ;	
 ;	clr.l  d2
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	move.w Entity_Height(a0), d2
 ;	mulu   #SubpixelsPerPixel, d2
 ;	sub.l  d2, d1
@@ -554,7 +555,7 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	; Position actor 2 (offset from player)
 ;	move.l #LocIntroActor2_idx, d0
 ;	mulu   #Location_Struct_Size, d0
-;	move.l #EntityArray_Locations, a1
+;	move.l #EntityArray_Location, a1
 ;	add.l  d0, a1
 ;	ENTITY_GETLEFT d0, a1
 ;	ENTITY_GETBOTTOM d1, a1
@@ -589,15 +590,15 @@ Lvl1_UpdateCutscene_NymnWake:
 ;
 ;	; Delete actors
 ;	; TODO: Store actor ptr
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	jsr    ActorShutdown
 ;	add.l  #Actor_Struct_Size, a0
 ;	jsr    ActorShutdown
 ;	
 ;	; Reload Djakk sprite sheet
-;	cmp.w  #0x0, EntityCount_Monsters
+;	cmp.w  #0x0, EntityCount_Monster
 ;	beq    @NoMonsters
-;	move.l #EntityArray_Monsters, a0
+;	move.l #EntityArray_Monster, a0
 ;	lea    spritesheets_djakk, a1
 ;	lea    sprite_djakk_subsprite_dimensions_bits, a2
 ;	lea    sprite_djakk_subsprite_pos_offsets, a3
@@ -634,13 +635,13 @@ Lvl1_UpdateCutscene_NymnWake:
 ;	PUSHL  a2
 ;
 ;	; Run left
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	jsr    CharacterMoveleft
 ;	add.l  #Actor_Struct_Size, a0
 ;	jsr    CharacterMoveleft
 ;	
 ;	; Check if actors are one screen to the left of Player 1
-;	move.l #EntityArray_Actors, a0
+;	move.l #EntityArray_Actor, a0
 ;	move.l #Player1, a1
 ;	ENTITY_GETCENTREX d0, a0
 ;	ENTITY_GETCENTREX d1, a1
@@ -675,7 +676,7 @@ Lvl1_StartCutscene_BoulderRoll:
 	; Get boulder
 	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
+	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3
 	
 	; Set as unbreakable
@@ -722,7 +723,7 @@ Lvl1_EndCutscene_BoulderRoll:
 	; Get boulder
 	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
+	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3
 	
 	; Set player as camera target
@@ -747,7 +748,7 @@ Lvl1_UpdateCutscene_BoulderRoll:
 	; Get boulder
 	move.l #BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
-	move.l #EntityArray_Boulders, a3
+	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3
 	
 	; Check if hit wall

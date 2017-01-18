@@ -16,6 +16,7 @@ Lvl2_HarlequinForestAct2:
 	dc.l Lvl2_Init				; Init routine
 	dc.l Lvl2_Update			; Update routine
 	dc.l Lvl2_Serialise			; Serialise routine
+	dc.l 0x00000000				; Load game objects routine
 	dc.l Lvl3_HarlequinForestAct3	; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl2_width			; Map width
@@ -45,48 +46,48 @@ Lvl2Data_Struct_Size     		rs.b 0
 Lvl2_Init:
 
 	; Trigger boxes
-	move.l #EntityArray_Triggers, a0
+	move.l #EntityArray_TriggerBox, a0
 	jsr    LoadGameObjects_lvl2_TriggerBox
 	
 	; Checkpoints
-	move.l #EntityArray_Checkpoints, a0
+	move.l #EntityArray_Checkpoint, a0
 	jsr    LoadGameObjects_lvl2_Checkpoint
 	
 	; Monsters
-	move.l #EntityArray_Monsters, a0
+	move.l #EntityArray_Monster, a0
 	jsr    LoadGameObjects_lvl2_Monster
     
 	; Fuzzls
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	jsr    LoadGameObjects_lvl2_Fuzzl
 	
 	; Fuzzl nests
-	move.l #EntityArray_Nests, a0
+	move.l #EntityArray_Nest, a0
 	jsr    LoadGameObjects_lvl2_Nest
     
 	; Flues
-	move.l #EntityArray_Flues, a0
+	move.l #EntityArray_Flue, a0
 	jsr    LoadGameObjects_lvl2_Flue
 	
 	; Boulders
-	move.l #EntityArray_Boulders, a0
+	move.l #EntityArray_Boulder, a0
 	jsr    LoadGameObjects_lvl2_Boulder
     
 	; Fireflies
-	move.l #EntityArray_Fireflies, a0
+	move.l #EntityArray_Firefly, a0
 	jsr    LoadGameObjects_lvl2_Firefly
 	
 	; Water bodies
-	move.l #EntityArray_WaterBodies, a0
+	move.l #EntityArray_WaterBody, a0
 	jsr    LoadGameObjects_lvl2_WaterBody
 	
 	; Locations
-	;move.l #EntityArray_Locations, a0
+	;move.l #EntityArray_Location, a0
 	;jsr    LoadGameObjects_lvl2_Location
     
 	; Leaves
 	; TODO: Leaf generator
-	move.l #EntityArray_Leaves, a0
+	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
@@ -108,7 +109,7 @@ Lvl2_Init:
 	; Don't bother with Djakk emerge sequence
 	move.l #Djakk_Lvl2_idx, d0
 	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monsters, a0
+	move.l #EntityArray_Monster, a0
 	add.l  d0, a0
 	move.b #0x0, Monster_DoIntro(a0)
 	
@@ -120,14 +121,14 @@ Lvl2_Init:
 	; Set Fuzzl colours
 	move.l #Lvl2_Fuzzl_Yellow_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourYellow, d0
 	jsr    FuzzlSetColour
 	
 	move.l #Lvl2_Fuzzl_Green_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzls, a0
+	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourGreen, d0
 	jsr    FuzzlSetColour
@@ -137,12 +138,12 @@ Lvl2_Init:
 	; Link Flue A with Flue B
 	move.l #Lvl2_Flue_A_idx, d0
 	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flues, a0
+	move.l #EntityArray_Flue, a0
 	add.l  d0, a0
 	
 	move.l #Lvl2_Flue_B_idx, d0
 	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flues, a1
+	move.l #EntityArray_Flue, a1
 	add.l  d0, a1
 	
 	move.l a1, Flue_OutputFlue(a0)
@@ -150,12 +151,12 @@ Lvl2_Init:
 	; Link Flue D with Flue E
 	move.l #Lvl2_Flue_D_idx, d0
 	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flues, a0
+	move.l #EntityArray_Flue, a0
 	add.l  d0, a0
 	
 	move.l #Lvl2_Flue_E_idx, d0
 	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flues, a1
+	move.l #EntityArray_Flue, a1
 	add.l  d0, a1
 	
 	move.l a1, Flue_OutputFlue(a0)
@@ -253,7 +254,7 @@ Lvl2_Trigger_WakeDjakk:
 	
 	move.l #Djakk_Lvl2_idx, d0
 	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monsters, a0
+	move.l #EntityArray_Monster, a0
 	add.l  d0, a0
 	jsr    MonsterStartTrackPlayer
 	

@@ -460,6 +460,12 @@ EchoInit:
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	rts
+
+EchoLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
 	
 EchoUpdate:
 	; a0 --- GameObj addr

@@ -329,6 +329,12 @@ NymnInit:
 	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	rts
+
+NymnLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
 	
 NymnUpdate:
 	; a0 --- GameObj addr

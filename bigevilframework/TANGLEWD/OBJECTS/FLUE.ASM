@@ -49,7 +49,7 @@ FlueInit:
 
 	; Set type
 	ori.l  #entity_type_flue, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Flues
+	addi.w #0x1, EntityCount_Flue
 
 	; Set update routine
 	move.l #FlueUpdate, Entity_UpdateRoutine(a0)
@@ -68,7 +68,13 @@ FlueInit:
 	move.w #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
 	
 	; Stagger occupant checks for performance
-	move.w (EntityCount_Flues), Flue_OccupantCheckTimer(a0)
+	move.w (EntityCount_Flue), Flue_OccupantCheckTimer(a0)
+
+	rts
+
+FlueLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 

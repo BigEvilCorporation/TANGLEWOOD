@@ -62,7 +62,7 @@ BoulderInit:
 	
 	; Set type
 	ori.l  #entity_type_boulder, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Boulders
+	addi.w #0x1, EntityCount_Boulder
 	
 	; Set update and render routines
 	move.l #BoulderUpdate, Entity_UpdateRoutine(a0)
@@ -132,6 +132,12 @@ BoulderInit:
 	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	rts
+
+BoulderLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 	
@@ -239,8 +245,8 @@ BoulderUpdate:
 	move.l a1, -(sp)
 	
 	; Check if squishing a monster
-	move.l #EntityArray_Monsters, a1
-	move.w (EntityCount_Monsters), d6
+	move.l #EntityArray_Monster, a1
+	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
 	beq    @NoMonsters
 	sub.w  #0x1, d6

@@ -56,7 +56,7 @@ LiftInit:
 	
 	; Set type
 	ori.l  #entity_type_lift, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Lifts
+	addi.w #0x1, EntityCount_Lift
 	
 	; Set update and render routines
 	move.l #LiftUpdate, Entity_UpdateRoutine(a0)
@@ -122,6 +122,12 @@ LiftInit:
 	dbra   d1, @RopeInitLp
 	POPL   a1
 	POPL   a0
+
+	rts
+
+LiftLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 	

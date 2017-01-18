@@ -616,8 +616,8 @@ PlayerStartColourAbility:
 	
 	; Find a Djakk in range
 	PUSHL  a1
-	move.l #EntityArray_Monsters, a1
-	move.w (EntityCount_Monsters), d6
+	move.l #EntityArray_Monster, a1
+	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
 	beq    @NoMonsters
 	sub.w  #0x1, d6
@@ -1172,13 +1172,13 @@ PlayerInteractTest_Fireflies:
 	PUSHL  a0
 	PUSHL  a1
 	
-	move.w (EntityCount_Fireflies), d0
+	move.w (EntityCount_Firefly), d0
 	cmp.w  #0x0, d0
 	beq    @NoFireflies
 
 	; Check player against all Fireflies in level
 	move.l a0, a1						; Player in a1
-	move.l #EntityArray_Fireflies, a0	; Firefly in a0
+	move.l #EntityArray_Firefly, a0	; Firefly in a0
 	sub.w  #0x1, d0
 	@FireflyLoop:
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
@@ -1210,8 +1210,8 @@ PlayerInteractTest_Water:
 	move.b #0x0, Character_InWater(a0)
 	
 	; Check all water bodies
-	move.l #EntityArray_WaterBodies, a1
-	move.w (EntityCount_WaterBodies), d6
+	move.l #EntityArray_WaterBody, a1
+	move.w (EntityCount_WaterBody), d6
 	cmp.w  #0x0, d6
 	beq    @NoWaterBodies
 	subi.w #0x1, d6
@@ -1252,7 +1252,7 @@ PlayerInteractTest_BouncePlants:
 	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
 	bne    @End
 	
-	move.w (EntityCount_Plants), d6
+	move.w (EntityCount_BouncePlant), d6
 	cmp.w  #0x0, d6
 	beq    @NoPlants
 	
@@ -1260,7 +1260,7 @@ PlayerInteractTest_BouncePlants:
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 
 	; Check player against all plants in level
-	move.l #EntityArray_Plants, a2		; Plant in a2
+	move.l #EntityArray_BouncePlant, a2		; Plant in a2
 	sub.w  #0x1, d6
 	@PlantLoop:
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)

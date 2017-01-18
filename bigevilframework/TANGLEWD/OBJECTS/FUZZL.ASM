@@ -134,7 +134,7 @@ FuzzlInit:
 	
 	; Set type
 	ori.l  #entity_type_fuzzl, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Fuzzls
+	addi.w #0x1, EntityCount_Fuzzl
 	
 	; Set update and render routines
 	move.l #FuzzlUpdate, Entity_UpdateRoutine(a0)
@@ -236,6 +236,12 @@ FuzzlInit:
 	move.b #spriteanim_fuzzl_yellow_sleep_speed, Animation_Speed(a3)
 	move.b #spriteanim_fuzzl_yellow_sleep_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
+
+	rts
+
+FuzzlLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 	
@@ -358,7 +364,7 @@ FuzzlUpdate:
 	move.b d0, Animation_Speed(a2)
 
 	; Check all nests
-	move.l #EntityArray_Nests, a3
+	move.l #EntityArray_Nest, a3
 	move.l #Nest_MaxEntities-1, d6
 	@NestLoop:
 	

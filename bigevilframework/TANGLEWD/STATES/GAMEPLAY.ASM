@@ -45,7 +45,7 @@ Gameplay_Enter:
 	
 	;==============================================================
 	
-	cmp.w  #0x0, EntityCount_Checkpoints
+	cmp.w  #0x0, EntityCount_Checkpoint
 	beq    @NoCheckpoints
 	
 	; Get last activated checkpoint
@@ -54,7 +54,7 @@ Gameplay_Enter:
 	bne    @ValidCheckpoint
 	
 	; No checkpoints activated, get first
-	lea    EntityArray_Checkpoints, a2
+	lea    EntityArray_Checkpoint, a2
 	
 	@ValidCheckpoint:
 	

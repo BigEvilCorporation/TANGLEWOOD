@@ -27,6 +27,13 @@ LocationInit:
 	
 	; Set type
 	ori.l  #entity_type_location, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Locations
+	addi.w #0x1, EntityCount_Location
 
 	rts
+
+LocationLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
+	

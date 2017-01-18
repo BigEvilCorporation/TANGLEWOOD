@@ -25,7 +25,7 @@ CheckpointInit:
 	
 	; Set type
 	ori.l  #entity_type_checkpoint, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Checkpoints
+	addi.w #0x1, EntityCount_Checkpoint
 	
 	; Set update and serialise routines
 	move.l #CheckpointUpdate, Entity_UpdateRoutine(a0)
@@ -38,6 +38,12 @@ CheckpointInit:
 	move.w #Checkpoint_Width, Entity_Width(a0)
 	move.w #Checkpoint_Height, Entity_Height(a0)
 	move.b #0x0, Checkpoint_Activated(a0)
+
+	rts
+
+CheckpointLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	rts
 

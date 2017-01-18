@@ -112,7 +112,7 @@ Pause_Enter:
 	jsr     TXT_ItoA_w					; To string
 	subi.l  #0x1, a0					; Remove terminator
 	move.b  #'/', (a0)+					; Append '/'
-	move.w  (EntityCount_Fireflies), d0	; Get total firefly count
+	move.w  (EntityCount_Firefly), d0	; Get total firefly count
 	jsr     TXT_ItoA_w					; To string
 	
 	move.w  #PauseText_FontTileId, d0	; Font VDP address
@@ -135,7 +135,7 @@ Pause_Enter:
 	jsr    FireflyInit
 
 	move.l #Tiles_fireflyVRAM, d0
-	move.l (EntityCount_Fireflies), d0
+	move.l (EntityCount_Firefly), d0
 	subi.l #0x1, d0
 	mulu   #sprite_firefly_size_b, d0
 	
