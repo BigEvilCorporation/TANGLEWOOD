@@ -10,8 +10,8 @@
 BouncePlant_MaxEntities	   equ 0x6
 BouncePlant_Width		   equ 0x18
 BouncePlant_Height		   equ 0x18
-BouncePlant_LaunchForce     equ 0x0800
-BouncePlant_LaunchForceDiag equ 0x05A7 ; (BouncePlant_LaunchForce * 0.707)
+BouncePlant_LaunchForce     equ 0x0A00
+BouncePlant_LaunchForceDiag equ 0x0711 ; (BouncePlant_LaunchForce * 0.707)
 
 ;==============================================================
 
@@ -35,6 +35,28 @@ BouncePlantOrient_315      equ 7
 
 ;==============================================================
 
+; Sprite sheet offsets
+BouncePlantSpriteSheetOffs:
+BouncePlantSpriteSheet_0:		dc.l spritesheet_mushroom_orient180_frameoffset
+BouncePlantSpriteSheet_45:		dc.l spritesheet_mushroom_orient225_frameoffset
+BouncePlantSpriteSheet_90:		dc.l spritesheet_mushroom_orient270_frameoffset
+BouncePlantSpriteSheet_135:		dc.l spritesheet_mushroom_orient225_frameoffset
+BouncePlantSpriteSheet_180:		dc.l spritesheet_mushroom_orient180_frameoffset
+BouncePlantSpriteSheet_225:		dc.l spritesheet_mushroom_orient225_frameoffset
+BouncePlantSpriteSheet_270:		dc.l spritesheet_mushroom_orient270_frameoffset
+BouncePlantSpriteSheet_315:		dc.l spritesheet_mushroom_orient225_frameoffset
+
+; Sprite flipping (XY)
+BouncePlantSpriteFlip:
+BouncePlantSpriteFlip_0:		dc.w 0x0001
+BouncePlantSpriteFlip_45:		dc.w 0x0101
+BouncePlantSpriteFlip_90:		dc.w 0x0100
+BouncePlantSpriteFlip_135:		dc.w 0x0100
+BouncePlantSpriteFlip_180:		dc.w 0x0000
+BouncePlantSpriteFlip_225:		dc.w 0x0000
+BouncePlantSpriteFlip_270:		dc.w 0x0001
+BouncePlantSpriteFlip_315:		dc.w 0x0001
+
 ; Reflection masks
 BouncePlantReflectMasks:
 BouncePlantMask_0:		dc.l 0xFFFF0000	; Pointing down
@@ -48,13 +70,13 @@ BouncePlantMask_315:	dc.l 0x00000000
 
 ; Reflection vectors
 BouncePlantReflectVels:
-BouncePlantVel_0:		dc.l ((-BouncePlant_LaunchForce)&0xFFFF)
+BouncePlantVel_0:		dc.l ((-BouncePlant_LaunchForce))
 BouncePlantVel_45:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_90:		dc.l ((-BouncePlant_LaunchForce<<16)&0xFFFF)
+BouncePlantVel_90:		dc.l ((-BouncePlant_LaunchForce<<16))
 BouncePlantVel_135:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_180:		dc.l (( BouncePlant_LaunchForce)&0xFFFF)
+BouncePlantVel_180:		dc.l (( BouncePlant_LaunchForce))
 BouncePlantVel_225:		dc.l (( BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_270:		dc.l (( BouncePlant_LaunchForce<<16)&0xFFFF)
+BouncePlantVel_270:		dc.l (( BouncePlant_LaunchForce<<16))
 BouncePlantVel_315:		dc.l (( BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
 
 ;==============================================================
@@ -145,9 +167,19 @@ BouncePlantLoadGfx:
 	; Alloc VRAM
 	move.w #sprite_mushroom_size_b, d0
 	jsr    VRAM_PoolAlloc
+
+	; Select sprite sheet based on orientation
+	clr.l  d1
+	move.b BouncePlant_Orientation(a0), d1
+	lsl.l  #0x2, d1
+	lea    BouncePlantSpriteSheetOffs, a3
+	add.l  d1, a3
+	move.l (a3), d1
+	mulu   #sprite_mushroom_size_b, d1
+	move.l #spritesheets_mushroom, a1
+	add.l  d1, a1
 	
 	; Load sprite sheet
-	lea    spritesheets_mushroom, a1
 	lea    sprite_mushroom_subsprite_dimensions_bits, a2
 	lea    sprite_mushroom_subsprite_pos_offsets, a3
 	lea    sprite_mushroom_numtiles_per_subsprite, a4
@@ -156,6 +188,17 @@ BouncePlantLoadGfx:
 	move.w #sprite_mushroom_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
+
+	; Configure sprite flipping based on orientation
+	clr.l  d1
+	move.b BouncePlant_Orientation(a0), d1
+	lsl.l  #0x1, d1
+	lea    BouncePlantSpriteFlip, a3
+	add.l  d1, a3
+	move.w (a3), d1
+	move.b d1, SpriteObj_FlippedY(a0)
+	lsr.w  #0x8, d1
+	move.b d1, SpriteObj_FlippedX(a0)
 
 	POPL   a1
 
