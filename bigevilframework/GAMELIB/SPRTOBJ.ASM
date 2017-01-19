@@ -233,22 +233,20 @@ SpriteObjDraw:
 	@Invisible:
 	@OutOfBounds:
 	
-	; Can't unlink first sprite, move to border
+	; Can't unlink first sprite
     move.b SpriteObj_SpriteID(a0), d0
     cmp.b  #0x0, d0
     bne    @NotFirstSprite
+
+	; Move to border
     move.w #0x0, d1
     PUSHL  a0
     jsr    SPR_SetPosX
     POPL   a0
 	
-	; Set last linked
-	move.b SpriteObj_SpriteID(a0), d1
-	move.b SpriteObj_NumSubSprites(a0), d3
-	andi.w #0x00FF, d1
-	andi.w #0x00FF, d3
-	add.w  d1, d3
-	move.w d3, prev_sprite_link
+	; Set last linked (only first subsprite needed)
+	move.b SpriteObj_SpriteID(a0), d0
+	move.w d0, prev_sprite_link
 	
 	@NotFirstSprite:
 	

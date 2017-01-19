@@ -6,7 +6,7 @@
 ;   vram.asm - VRAM allocation
 ;==============================================================
 
-VRAMPoolCount	equ 0x1
+VRAMPoolCount	equ 0x3
 
 ; VRAM pools in reverse size order
 VRAMDefaultPools:
@@ -46,8 +46,7 @@ VRAMPool_Struct_Size	rs.b 0
 
 VRAM_InitPools:
 
-	; lea VRAMDefaultPools, a0
-	lea VRAMPool1, a0
+	lea VRAMDefaultPools, a0
 	lea vram_pools, a1
 	move.w  #(VRAMPool_Struct_Size*VRAMPoolCount)/size_word, d0
 	MEMCPYW a1, a0, d0

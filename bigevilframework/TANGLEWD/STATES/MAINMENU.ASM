@@ -33,6 +33,11 @@ MainMenu_Enter:
 	; Set BG colour
 	move.w #(PaletteId_TanglewoodLogo<<4), d0
 	VDPSETREG 7, d0
+
+	; Alloc VRAM
+	move.w #tiles_twd_logo_size_b, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, vram_addr_leveltiles
 	
 	; Load tiles
 	clr.l d1
@@ -50,55 +55,6 @@ MainMenu_Enter:
 	move.w (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_TanglewoodLogo, d5; d5 (b)  Palette ID
 	jsr    VDP_LoadMapSegmentPlaneA
-	
-	; Create leaves
-	; TODO: Leaf generator
-	move.l #EntityArray_Leaf, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	
-	; Load leaf assets
-	cmp.w  #0x0, EntityCount_Leaf
-	beq    @NoLeaves
-	move.l #EntityArray_Leaf, a0
-	lea    tiles_leaf, a1
-	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_pos_offsets, a3
-	lea    sprite_leaf_numtiles_per_subsprite, a4
-	move.l #Tiles_Leaf1VRAM, d0
-	move.l #tiles_leaf_size_t, d1
-	move.b #sprite_leaf_size_subsprites, d2
-	move.w #sprite_leaf_dimensions, d3
-	move.b #PaletteId_World0, d4
-	jsr    SpriteObjLoad
-	
-	move.l #EntityArray_Leaf+Leaf_Struct_Size, a0
-	lea    tiles_leaf, a1
-	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_pos_offsets, a3
-	lea    sprite_leaf_numtiles_per_subsprite, a4
-	move.l #Tiles_Leaf2VRAM, d0
-	move.l #tiles_leaf_size_t, d1
-	move.b #sprite_leaf_size_subsprites, d2
-	move.w #sprite_leaf_dimensions, d3
-	move.b #PaletteId_World0, d4
-	jsr    SpriteObjLoad
-    
-	move.l #EntityArray_Leaf+(Leaf_Struct_Size*2), a0
-	lea    tiles_leaf, a1
-	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_pos_offsets, a3
-	lea    sprite_leaf_numtiles_per_subsprite, a4
-	move.l #Tiles_Leaf3VRAM, d0
-	move.l #tiles_leaf_size_t, d1
-	move.b #sprite_leaf_size_subsprites, d2
-	move.w #sprite_leaf_dimensions, d3
-	move.b #PaletteId_World0, d4
-	jsr    SpriteObjLoad
-	@NoLeaves:
 	
 	; Begin fade up
 	lea    palette_twd_logo, a0

@@ -159,8 +159,10 @@ __main:
 	move.l #GameStateStack, GameStateStackPtr
 
 	; Load debug draw font
+	move.l #Tiles_PixelFontSizeB, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, (vram_addr_systemfont)
 	lea    Tiles_PixelFont, a0
-	move.l #Tiles_PixelFontVRAM, d0
 	move.l #Tiles_PixelFontSizeT, d1
 	jsr    VDP_LoadTiles
 

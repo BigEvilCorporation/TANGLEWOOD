@@ -26,10 +26,7 @@ PauseState_Struct_Pad		 rs.b 2
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
-PauseText_Font			equ Tiles_PixelFont
 PauseText_FontSize		equ Tiles_PixelFontSizeT
-PauseText_FontAddr		equ Tiles_PixelFontVRAM
-PauseText_FontTileId	equ (PauseText_FontAddr/size_tile_b)
 PauseText_FontPaletteId	equ PaletteId_Monster	; Least used palette
 PauseText_FontColourIdx	equ	0x1
 PauseText_FontColour	equ 0x0EEE
@@ -115,7 +112,7 @@ Pause_Enter:
 	move.w  (EntityCount_Firefly), d0	; Get total firefly count
 	jsr     TXT_ItoA_w					; To string
 	
-	move.w  #PauseText_FontTileId, d0	; Font VDP address
+	move.w  (vram_addr_systemfont), d0	; Font VDP address
 	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
 	move.b  #PauseText_FontPaletteId, d2	; Palette index
 	move.b  #0x0, d3					; Plane A
@@ -134,10 +131,9 @@ Pause_Enter:
 	addi.l #PauseState_Firefly, a0
 	jsr    FireflyInit
 
-	move.l #Tiles_fireflyVRAM, d0
-	move.l (EntityCount_Firefly), d0
-	subi.l #0x1, d0
-	mulu   #sprite_firefly_size_b, d0
+	; TODO: This isn't freed :(
+	move.w #sprite_firefly_size_b, d0
+	jsr    VRAM_PoolAlloc
 	
 	lea    spritesheets_firefly, a1
 	lea    sprite_firefly_subsprite_dimensions_bits, a2

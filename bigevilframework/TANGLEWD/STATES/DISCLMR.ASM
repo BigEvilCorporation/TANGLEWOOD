@@ -32,6 +32,11 @@ DemoDisclaimerScreen_Enter:
 	; Set BG colour
 	move.w #(PaletteId_DemoDisclaimerScreen<<4), d0
 	VDPSETREG 7, d0
+
+	; Alloc VRAM
+	move.w #tiles_DemoDisclaimer_size_b, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, vram_addr_leveltiles
 	
 	; Load tiles
 	clr.l d1

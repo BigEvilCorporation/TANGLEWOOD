@@ -81,6 +81,7 @@ vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
 ; ************************************
 ; VRAM addresses
 ; ************************************
+vram_addr_systemfont  rs.w 1
 vram_addr_leveltiles  rs.w 1
 
 ; ************************************

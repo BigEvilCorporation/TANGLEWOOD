@@ -52,10 +52,13 @@ L1A1_Init:
 	; TODO: Leaf generator
 	move.l #EntityArray_Leaf, a0
 	jsr    LeafInit
+	jsr    LeafLoadGfx
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
+	jsr    LeafLoadGfx
 	add.l  #Leaf_Struct_Size, a0
 	jsr    LeafInit
+	jsr    LeafLoadGfx
 	
 	;==============================================================
 	

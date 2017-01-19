@@ -201,7 +201,7 @@ DBG_Profile_DrawBlockRecursive:
 	move.l d0, -(sp)
 	move.l d0, d1					; X/Y coord
 	move.l ProfileBlockName(a0), a0	; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane			; Draw
@@ -227,7 +227,7 @@ DBG_Profile_DrawBlockRecursive:
 	move.w d0, d1
 	
 	move.l a4, a0					; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane			; Draw

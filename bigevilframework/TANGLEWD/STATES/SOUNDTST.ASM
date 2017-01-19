@@ -34,6 +34,11 @@ SoundTest_Enter:
 	; Set BG colour
 	move.w #(PaletteId_SoundTest<<4), d0
 	VDPSETREG 7, d0
+
+	; Alloc VRAM
+	move.w #tiles_soundtest_size_b, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, vram_addr_leveltiles
 	
 	; Load tiles
 	clr.l d1
@@ -55,7 +60,7 @@ SoundTest_Enter:
 	; Load font
 	PUSHL  a0
 	lea    Tiles_PixelFont, a0
-	move.w #Tiles_PixelFontVRAM, d0
+	move.w (vram_addr_systemfont), d0
 	move.w #Tiles_PixelFontSizeT, d1
 	jsr    TXT_LoadFont
 	POPL   a0
@@ -168,7 +173,7 @@ SoundTest_Render:
 	
 	PUSHL a0
 	lea    Str_SoundTestLabel, a0
-	move.w #Tiles_PixelFont_ID, d0		; String
+	move.w (vram_addr_systemfont), d0		; String
 	move.w #0x0810, d1					; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
@@ -181,7 +186,7 @@ SoundTest_Render:
 	move.l sp, a0
 	jsr    TXT_ItoA_Hex_w
 	
-	move.w #Tiles_PixelFont_ID, d0		; String
+	move.w (vram_addr_systemfont), d0		; String
 	move.w #0x1210, d1					; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane

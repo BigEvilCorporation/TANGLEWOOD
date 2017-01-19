@@ -23,7 +23,7 @@ DBG_DebugDraw:
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y, d1
 	move.l a4, a0					; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane
@@ -37,7 +37,7 @@ DBG_DebugDraw:
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x1, d1
 	move.l a4, a0					; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane
@@ -51,7 +51,7 @@ DBG_DebugDraw:
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x2, d1
 	move.l a4, a0					; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane
@@ -65,7 +65,7 @@ DBG_DebugDraw:
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x3, d1
 	move.l a4, a0					; String
-	move.w #Tiles_PixelFont_ID, d0	; Font
+	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane
@@ -100,7 +100,7 @@ DBG_DebugDraw:
 	;move.w d2, d1
     ;
 	;move.l a4, a0					; String
-	;move.w #Tiles_PixelFont_ID, d0	; Font
+	;move.w (vram_addr_systemfont), d0	; Font
 	;move.b #0x0, d2					; Palette
 	;move.b #0x0, d3					; Plane A
     ;
@@ -128,7 +128,7 @@ DBG_DebugDraw:
 	;move.w d2, d1
     ;
 	;move.l a4, a0					; String
-	;move.w #Tiles_PixelFont_ID, d0	; Font
+	;move.w (vram_addr_systemfont), d0	; Font
 	;move.b #0x0, d2					; Palette
 	;move.b #0x0, d3					; Plane A
     ;

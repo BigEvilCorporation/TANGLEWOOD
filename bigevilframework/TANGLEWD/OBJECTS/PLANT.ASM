@@ -140,11 +140,24 @@ BouncePlantLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	PUSHL  a1
+
 	; Alloc VRAM
-	; d0 (w) Size (bytes)
-	; d1 (w) OUT: VRAM address
-	;move.w #0x1, d0
-	;jsr VRAM_PoolAlloc
+	move.w #sprite_mushroom_size_b, d0
+	jsr    VRAM_PoolAlloc
+	
+	; Load sprite sheet
+	lea    spritesheets_mushroom, a1
+	lea    sprite_mushroom_subsprite_dimensions_bits, a2
+	lea    sprite_mushroom_subsprite_pos_offsets, a3
+	lea    sprite_mushroom_numtiles_per_subsprite, a4
+	move.l #sprite_mushroom_size_t, d1
+	move.b #sprite_mushroom_size_subsprites, d2
+	move.w #sprite_mushroom_widthheight_subsprites, d3
+	move.b #PaletteId_World0, d4
+	jsr    SpriteObjLoad
+
+	POPL   a1
 
 	rts
 	
