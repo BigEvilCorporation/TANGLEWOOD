@@ -60,6 +60,11 @@ l1a1_BouncePlant_29_idx	equ 0x5
 l1a1_Nymn_count equ 0x1
 l1a1_Nymn_1_idx	equ 0x0
 
+l1a1_Echo_count equ 0x1
+l1a1_Echo_30_idx	equ 0x0
+
+l1a1_Leaf_count equ 0x0
+
 
 l1a1_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
@@ -233,6 +238,15 @@ l1a1_LoadGameObjects:
 	move.l #0x00015000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
+	move.l #EntityArray_Echo, a0
+	jsr EchoInit
+	move.l #0x0002f000, Entity_WorldPosX(a0)
+	move.l #0x00042800, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
+	add.l #Echo_Struct_Size, a0
+
+	move.l #EntityArray_Leaf, a0
 
 	rts
 

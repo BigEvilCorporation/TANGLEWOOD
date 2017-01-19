@@ -32,6 +32,8 @@ vint_enabled		  rs.b 1
 
 __padding00			  rs.b 3
 
+vram_pools			  rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
+
 ; ************************************
 ; Profiler
 ; ************************************
@@ -77,13 +79,18 @@ __padding02 		  rs.b 2
 vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
 
 ; ************************************
+; VRAM addresses
+; ************************************
+vram_addr_leveltiles  rs.w 1
+
+; ************************************
 ; GameLib stuff
 ; ************************************
 next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
 sprite_link_count   rs.b 1
 
-__padding32 		rs.b 3
+__padding32 		rs.b 1
 
 ; ************************************
 ; Timers

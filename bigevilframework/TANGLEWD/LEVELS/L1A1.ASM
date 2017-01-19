@@ -63,7 +63,7 @@ L1A1_Init:
 	lea    map_L1BG, a0
 	move.l #map_L1BG_size_w, d0
 	move.l #0x0, d1
-	move.l #Tiles_LevelMap_ID, d2
+	move.w (vram_addr_leveltiles), d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadMapPlaneB
 	

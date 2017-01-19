@@ -94,17 +94,14 @@ LevelLoad:
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
 
+	jsr LevelLoadPalettes
+	jsr LevelLoadArt
+	jsr LevelAddSFX
+
 	; Load level game objects
 	move.l (CurrentLevel), a1
 	move.l Level_LoadGameObjsRoutine(a1), a2
 	jsr    (a2)
-	
-	jsr LevelLoadPalettes
-	jsr LevelLoadArt
-	
-	jsr LevelCreatePlayers
-	
-	jsr LevelAddSFX
 	
 	; Init level
 	move.l Level_InitRoutine(a1), a2
@@ -159,11 +156,18 @@ LevelLoadPalettes:
 	
 LevelLoadArt:
 
+	clr.l d0
 	clr.l d1
 
-	move.l Level_TilesAddr(a1), a0 ; Move tiles address to a0
-	move.w Level_NumTiles(a1), d1  ; Move number of tiles to d1
-	move.l #LevelMapVRAM, d0       ; Move VRAM dest address to d0
+	; Alloc VRAM
+	move.w Level_NumTiles(a1), d0
+	mulu   #size_tile_b, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, vram_addr_leveltiles
+
+	; Load tiles
+	move.l Level_TilesAddr(a1), a0
+	move.w Level_NumTiles(a1), d1
 	jsr    VDP_LoadTiles
 	
 	rts
@@ -219,30 +223,30 @@ LevelLoadGameObjArt:
 	; d3 (b) Palette ID
 
 	; Player 1
-	move.l #Player1, a0
-	lea    spritesheets_nymn, a1
-	lea    sprite_nymn_subsprite_dimensions_bits, a2
-	lea    sprite_nymn_subsprite_pos_offsets, a3
-	lea    sprite_nymn_numtiles_per_subsprite, a4
-	move.l #Tiles_Player1VRAM, d0
-	move.l #sprite_nymn_size_t, d1
-	move.b #sprite_nymn_size_subsprites, d2
-	move.w #sprite_nymn_widthheight_subsprites, d3
-	move.b #PaletteID_Player, d4
-	jsr    SpriteObjLoad
+	;move.l #Player1, a0
+	;lea    spritesheets_nymn, a1
+	;lea    sprite_nymn_subsprite_dimensions_bits, a2
+	;lea    sprite_nymn_subsprite_pos_offsets, a3
+	;lea    sprite_nymn_numtiles_per_subsprite, a4
+	;move.l #Tiles_Player1VRAM, d0
+	;move.l #sprite_nymn_size_t, d1
+	;move.b #sprite_nymn_size_subsprites, d2
+	;move.w #sprite_nymn_widthheight_subsprites, d3
+	;move.b #PaletteID_Player, d4
+	;jsr    SpriteObjLoad
 	
 	; Player 2
-	move.l #Player2, a0
-	lea    spritesheets_echo, a1
-	lea    sprite_echo_subsprite_dimensions_bits, a2
-	lea    sprite_echo_subsprite_pos_offsets, a3
-	lea    sprite_echo_numtiles_per_subsprite, a4
-	move.l #Tiles_Player2VRAM, d0
-	move.l #sprite_echo_size_t, d1
-	move.b #sprite_echo_size_subsprites, d2
-	move.w #sprite_echo_widthheight_subsprites, d3
-	move.b #PaletteID_Player, d4
-	jsr    SpriteObjLoad
+	;move.l #Player2, a0
+	;lea    spritesheets_echo, a1
+	;lea    sprite_echo_subsprite_dimensions_bits, a2
+	;lea    sprite_echo_subsprite_pos_offsets, a3
+	;lea    sprite_echo_numtiles_per_subsprite, a4
+	;move.l #Tiles_Player2VRAM, d0
+	;move.l #sprite_echo_size_t, d1
+	;move.b #sprite_echo_size_subsprites, d2
+	;move.w #sprite_echo_widthheight_subsprites, d3
+	;move.b #PaletteID_Player, d4
+	;jsr    SpriteObjLoad
 
 	; Monsters
 	IFND DEBUG
@@ -472,18 +476,6 @@ LevelLoadGameObjArt:
 	@NoFireflies:
 	ENDIF
 	
-	rts
-
-LevelCreatePlayers:
-
-	; Player 1
-	move.l #Player1, a0
-	jsr     NymnInit
-	
-	; Player 2
-	move.l #Player2, a0
-	jsr     EchoInit
-
 	rts
 	
 LevelAddSFX:

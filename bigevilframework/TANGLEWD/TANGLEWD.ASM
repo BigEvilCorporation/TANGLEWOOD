@@ -40,6 +40,7 @@ __start
 	include '..\framewk\planes.asm'
 	include '..\framewk\vdp.asm'
 	include '..\framewk\vdpqueue.asm'
+	include '..\framewk\vram.asm'
 	include '..\framewk\z80.asm'
 	; include '..\framewk\sequencr.asm'
 	include '..\framewk\echo\echo.asm'

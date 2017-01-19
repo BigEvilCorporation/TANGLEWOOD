@@ -32,7 +32,7 @@ KickstarterScreen_Enter:
 	clr.l d1
 	lea    tiles_ks_logo, a0
 	move.w #tiles_ks_logo_size_t, d1
-	move.l #LevelMapVRAM, d0
+	move.w (vram_addr_leveltiles), d0
 	jsr    VDP_LoadTiles
 	
 	; Load map
@@ -41,7 +41,7 @@ KickstarterScreen_Enter:
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_ks_logo_width<<16)|map_ks_logo_height), d2		; d2 (ww) Segment width/height (tiles)
 	move.w #map_ks_logo_width, d3		; d3 (w)  Source map total width (tiles)
-	move.w #Tiles_LevelMap_ID, d4		; d4 (w)  Art tile ID
+	move.w (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
 	move.l #PaletteId_KSLogo, d5	; d5 (b)  Palette ID
 	jsr    VDP_LoadMapSegmentPlaneA
 	

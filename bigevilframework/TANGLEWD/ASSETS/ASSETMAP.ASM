@@ -189,6 +189,13 @@ Tile_Bank0_Size_b:   equ (Tile_Bank0_Size_t*size_tile_b)
 Tile_Bank0_Start:    equ (vram_addr_tiles)
 ;---------------------------------------------------------
 	rsset Tile_Bank0_Start
+	; TODO: Reserve max level size
+	IFD DEBUG
+LevelMapVRAM:        rs.b (tiles_tst1_size_b)
+	ELSE
+LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
+;LevelMapVRAM:        rs.b (tiles_tst_lift_size_b)
+
 Tiles_Player1VRAM:   rs.b (sprite_nymn_size_b)
 Tiles_BoulderVRAM:   rs.b (sprite_boulder_size_b*Boulder_MaxEntities)
 	IFND DEBUG
@@ -197,13 +204,7 @@ Tiles_MonsterVRAM:   rs.b (sprite_djakk_size_b)
 ;Tiles_RopeVRAM:   	 rs.b (sprite_rope_size_b*Lift_MaxEntities*Lift_RopeNumSprites)
 Tiles_PlantVRAM:     rs.b (sprite_mushroom_size_b*BouncePlant_MaxEntities)
 	ENDIF
-
-	; TODO: Reserve max level size
-	IFD DEBUG
-LevelMapVRAM:        rs.b (tiles_tst1_size_b)
-	ELSE
-LevelMapVRAM:        rs.b (tiles_lvl1_size_b)
-;LevelMapVRAM:        rs.b (tiles_tst_lift_size_b)
+	
 	ENDIF
 
 ;---------------------------------------------------------
@@ -267,7 +268,7 @@ Tiles_Bank3_Count    equ ((Tiles_Bank3_End-Tile_Bank3_Start)/size_tile_b)
 	; Static art asset tile IDs
 	; ************************************
 Tiles_PixelFont_ID: equ (Tiles_PixelFontVRAM/32)
-Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
+;Tiles_LevelMap_ID:  equ (LevelMapVRAM/32)
 
 	; ************************************
 	; Palette IDs

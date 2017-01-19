@@ -106,6 +106,7 @@ VDP_LoadMapSegmentPlaneA:
 	; d5 (b)  Palette ID
 	
 	and.l  #0x0000FFFF, d3
+	and.l  #0x0000FFFF, d4
 	
 	; Source top/left to tile offset (mul Y by total map width, add X)
 	clr.l  d6

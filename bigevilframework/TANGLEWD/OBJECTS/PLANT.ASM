@@ -140,6 +140,12 @@ BouncePlantLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Alloc VRAM
+	; d0 (w) Size (bytes)
+	; d1 (w) OUT: VRAM address
+	;move.w #0x1, d0
+	;jsr VRAM_PoolAlloc
+
 	rts
 	
 BouncePlantUpdate:

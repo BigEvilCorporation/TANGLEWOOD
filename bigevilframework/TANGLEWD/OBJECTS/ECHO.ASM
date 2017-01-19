@@ -465,6 +465,25 @@ EchoLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	PUSHL  a1
+
+	; Alloc VRAM
+	move.w #sprite_echo_size_b, d0
+	jsr    VRAM_PoolAlloc
+
+	lea    spritesheets_echo, a1
+	lea    sprite_echo_subsprite_dimensions_bits, a2
+	lea    sprite_echo_subsprite_pos_offsets, a3
+	lea    sprite_echo_numtiles_per_subsprite, a4
+	move.l #Tiles_Player2VRAM, d0
+	move.l #sprite_echo_size_t, d1
+	move.b #sprite_echo_size_subsprites, d2
+	move.w #sprite_echo_widthheight_subsprites, d3
+	move.b #PaletteID_Player, d4
+	jsr    SpriteObjLoad
+
+	POPL   a1
+
 	rts
 	
 EchoUpdate:

@@ -69,13 +69,18 @@ Exception_RegNames:
 	
 	; 24 byte strings
 Exception_Msgs:
-	dc.b "ADDRESS ERROR:      ",0,0,0,0
-	dc.b "BUS ERROR:          ",0,0,0,0
+	dc.b "ADDRESS ERROR  :(   ",0,0,0,0
+	dc.b "BUS ERROR  :(       ",0,0,0,0
 	dc.b "ILLEGAL INSTRUCTION:",0,0,0,0
-	dc.b "DIVIDE BY ZERO:     ",0,0,0,0
+	dc.b "DIVIDE BY ZERO  :(  ",0,0,0,0
 	dc.b "UNHANDLED INTERRUPT:",0,0,0,0
-	dc.b "UNHANDLED TRAP:     ",0,0,0,0
+	dc.b "UNHANDLED TRAP  :(  ",0,0,0,0
 	dc.b "UNHANDLED EXCEPTION:",0,0,0,0
+	even
+
+	; Error strings
+str_error_out_of_vram:
+	dc.b "OUT OF VRAM  :(",0
 	even
 
 CPU_Exception:
@@ -169,3 +174,124 @@ CPU_Exception:
 	@InfiniteLoop:
 	bra     @InfiniteLoop
 	
+DBG_DisplayError:
+	; a0 --- Error string
+
+	PUSHL   a0
+
+	; Re-initialise VDP
+	jsr     VDP_Init
+	
+	; Load exception font
+	lea     Exception_Font, a0
+	move.l  #Exception_FontAddr, d0
+	move.l  #Exception_FontSize, d1
+	jsr     VDP_LoadTiles
+	
+	; Load exception palette
+	lea     Exception_Palette, a0
+	move.l  #0x0, d0
+	jsr     PAL_Load
+
+	POPL    a0
+
+	; Draw error message
+	move.w  #Exception_FontTileId, d0	; Font VDP address
+	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	IFD DEBUG
+	TRAP    #0 ; Sync with debugger - NOT FOR RELEASE
+	ENDIF
+
+	stop    #0x2700 ; Halt CPU
+
+	; Hang (if HALT not implemented)
+	@InfiniteLoop:
+	bra     @InfiniteLoop
+
+	rts
+
+;DBG_OutOfVRAM:
+;
+;	PUSHL   a0
+;
+;	; Re-initialise VDP
+;	jsr     VDP_Init
+;	
+;	; Load exception font
+;	lea     Exception_Font, a0
+;	move.l  #Exception_FontAddr, d0
+;	move.l  #Exception_FontSize, d1
+;	jsr     VDP_LoadTiles
+;	
+;	; Load exception palette
+;	lea     Exception_Palette, a0
+;	move.l  #0x0, d0
+;	jsr     PAL_Load
+;
+;	; Set BG colour
+;	move.w #0x0, d0
+;	VDPSETREG 7, d0
+;
+;	POPL    a0
+;
+;	move.l #0x0, d0
+;	move.l #Exception_MsgPosY, d1
+;	jsr    DBG_PrintPoolStats
+;
+;	IFD DEBUG
+;	TRAP    #0 ; Sync with debugger - NOT FOR RELEASE
+;	ENDIF
+;
+;	stop    #0x2700 ; Halt CPU
+;
+;	; Hang (if HALT not implemented)
+;	@InfiniteLoop:
+;	bra     @InfiniteLoop
+;	rts
+;
+;DBG_PrintPoolStats:
+;	; d0 (b) Pool index
+;	; d1 (w) Y coord
+;
+;	; Get VRAM pool
+;	lea     vram_pools, a2
+;	andi.l  #0x000000FF, d0
+;	mulu    #VRAMPool_Struct_Size, d0
+;	add.l   d0, a2
+;
+;	; Alloc string space
+;	sub.l   #0x10, sp
+;	move.l  sp, a0
+;	move.l  a0, a1
+;	
+;	; Stats to string
+;	move.w  VRAMPool_FreeWords(a2), d0	; Get free words in pool
+;	jsr     TXT_ItoA_w					; To string
+;	subi.l  #0x1, a0					; Remove terminator
+;	move.b  #'/', (a0)+					; Append '/'
+;	move.w  VRAMPool_AllocatedWords(a2), d0	; Get total words in pool
+;	jsr     TXT_ItoA_w					; To string
+;	
+;	;move.w  #Exception_FontTileId, d0	; Font VDP address
+;	;swap    d1
+;	;move.w  #Exception_MsgPosX, d1		; X/Y coord
+;	;swap    d1
+;	;move.b  #0x0, d2					; Palette index
+;	;move.b  #0x0, d3					; Plane A
+;	;move.l  a1, a0						; String
+;	;jsr     TXT_DrawPlane
+;
+;	move.w  #Exception_FontTileId, d0	; Font VDP address
+;	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
+;	move.b  #0x0, d2					; Palette index
+;	move.b  #0x0, d3					; Plane A
+;	jsr     TXT_DrawPlane
+;	
+;	; Free string space
+;	add.l   #0x10, sp
+;
+;	rts

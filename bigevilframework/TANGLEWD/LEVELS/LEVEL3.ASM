@@ -100,7 +100,7 @@ Lvl3_Init:
 	lea    map_lvl1_bg, a0
 	move.l #map_lvl1_bg_size_w, d0
 	move.l #0x0, d1
-	move.l #Tiles_LevelMap_ID, d2
+	move.w (vram_addr_leveltiles), d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadMapPlaneB
 	

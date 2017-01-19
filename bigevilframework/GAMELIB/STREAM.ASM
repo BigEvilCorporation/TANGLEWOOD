@@ -205,7 +205,7 @@ MAP_StreamNextRow:
 	; Load map segment
 	move.l  Level_MapAddr(a1), a0   ; a0 ---  Source map address
 	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
-	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
+	move.w  (vram_addr_leveltiles), d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
 	lea     VDP_LoadMapSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob
@@ -316,7 +316,7 @@ MAP_StreamNextColumn:
 	; Load map segment
 	move.l  Level_MapAddr(a1), a0   ; a0 ---  Source map address
 	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
-	move.w  #Tiles_LevelMap_ID, d4 	; d4 (w)  Art tile ID
+	move.w  (vram_addr_leveltiles), d4 	; d4 (w)  Art tile ID
 	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
 	lea     VDP_LoadMapSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob

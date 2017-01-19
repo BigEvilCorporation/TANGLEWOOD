@@ -45,6 +45,9 @@ CPU_EntryPoint:
 
 	; Init VDP job queue
 	jsr VDP_JobQueue_Init
+
+	; Init VRAM pools
+	jsr VRAM_InitPools
 	
 	; Init random number generator
 	jsr RND_Init

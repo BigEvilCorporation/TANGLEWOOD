@@ -58,9 +58,17 @@ FREESTACKB: macro bytes
 	
 ; Copy memory (longwords)
 MEMCPYL: macro destreg,sourcereg,countreg
-	subi.l #0x1, \countreg
+	subi.w #0x1, \countreg
 	@MEMCPYL_LP\@:
 	move.l (\sourcereg)+, (\destreg)+
+	dbra   \countreg, @MEMCPYL_LP\@
+	endm
+
+; Copy memory (words)
+MEMCPYW: macro destreg,sourcereg,countreg
+	subi.w #0x1, \countreg
+	@MEMCPYL_LP\@:
+	move.w (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
 	endm
 	
