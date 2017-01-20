@@ -16,10 +16,10 @@ l1a1_Flue_count equ 0x2
 l1a1_Flue_21_idx	equ 0x0
 l1a1_Flue_22_idx	equ 0x1
 
-l1a1_Firefly_count equ 0x11
-l1a1_Firefly_3_idx	equ 0x0
-l1a1_Firefly_4_idx	equ 0x1
-l1a1_Firefly_5_idx	equ 0x2
+l1a1_Firefly_count equ 0x18
+l1a1_Firefly_36_idx	equ 0x0
+l1a1_Firefly_35_idx	equ 0x1
+l1a1_Firefly_34_idx	equ 0x2
 l1a1_Firefly_6_idx	equ 0x3
 l1a1_Firefly_7_idx	equ 0x4
 l1a1_Firefly_8_idx	equ 0x5
@@ -34,6 +34,13 @@ l1a1_Firefly_16_idx	equ 0xd
 l1a1_Firefly_17_idx	equ 0xe
 l1a1_Firefly_18_idx	equ 0xf
 l1a1_Firefly_19_idx	equ 0x10
+l1a1_Firefly_33_idx	equ 0x11
+l1a1_Firefly_37_idx	equ 0x12
+l1a1_Firefly_38_idx	equ 0x13
+l1a1_Firefly_39_idx	equ 0x14
+l1a1_Firefly_40_idx	equ 0x15
+l1a1_Firefly_41_idx	equ 0x16
+l1a1_Firefly_42_idx	equ 0x17
 
 l1a1_Monster_count equ 0x0
 
@@ -49,13 +56,14 @@ l1a1_WaterBody_20_idx	equ 0x0
 
 l1a1_Location_count equ 0x0
 
-l1a1_BouncePlant_count equ 0x6
+l1a1_BouncePlant_count equ 0x7
 l1a1_BouncePlant_23_idx	equ 0x0
 l1a1_BouncePlant_29_idx	equ 0x1
 l1a1_BouncePlant_25_idx	equ 0x2
 l1a1_l1a1_mushroom_135_idx	equ 0x3
 l1a1_BouncePlant_28_idx	equ 0x4
 l1a1_BouncePlant_31_idx	equ 0x5
+l1a1_BouncePlant_32_idx	equ 0x6
 
 l1a1_Nymn_count equ 0x1
 l1a1_Nymn_1_idx	equ 0x0
@@ -90,18 +98,18 @@ l1a1_LoadGameObjects:
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
-	move.l #0x0003f800, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
+	move.l #0x0003e000, Entity_WorldPosX(a0)
+	move.l #0x00034800, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00041800, Entity_WorldPosX(a0)
-	move.l #0x00030000, Entity_WorldPosY(a0)
+	move.l #0x00038000, Entity_WorldPosX(a0)
+	move.l #0x00037800, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00043800, Entity_WorldPosX(a0)
-	move.l #0x0002e000, Entity_WorldPosY(a0)
+	move.l #0x00038000, Entity_WorldPosX(a0)
+	move.l #0x0003d000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -174,6 +182,41 @@ l1a1_LoadGameObjects:
 	move.l #0x00043800, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0003e000, Entity_WorldPosX(a0)
+	move.l #0x00040800, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0003f800, Entity_WorldPosX(a0)
+	move.l #0x00030800, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0003a800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0003b800, Entity_WorldPosX(a0)
+	move.l #0x00027800, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x00044000, Entity_WorldPosX(a0)
+	move.l #0x00025000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0004f800, Entity_WorldPosX(a0)
+	move.l #0x00025000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x00055000, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
 
 	move.l #EntityArray_Monster, a0
 
@@ -210,8 +253,9 @@ l1a1_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00075800, Entity_WorldPosX(a0)
-	move.l #0x00042000, Entity_WorldPosY(a0)
+	move.l #0x00043800, Entity_WorldPosX(a0)
+	move.l #0x00033800, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
@@ -227,8 +271,14 @@ l1a1_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00056800, Entity_WorldPosX(a0)
+	move.l #0x00059000, Entity_WorldPosX(a0)
 	move.l #0x0002e000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00035800, Entity_WorldPosX(a0)
+	move.l #0x0002c000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
