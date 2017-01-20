@@ -120,6 +120,7 @@ PlayerAnimIdx_Max       	equ 8
 ;---------------------------------
 Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_InteractObject  		rs.l 1	; Object player is interacting with
+Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
@@ -182,6 +183,7 @@ PlayerInit:
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
+	move.l  #0x0, Player_LastBouncePlant(a0)
 	move.w  #0x0, Player_ColourChangeTimer(a0)
 	move.w  #0x0, Player_IdleFrameCount(a0)
 	move.b  #0x0, Player_IdleTimeoutCount(a0)
@@ -1247,10 +1249,6 @@ PlayerInteractTest_BouncePlants:
 	; a1 --- Level addr
 	
 	IFND DEBUG
-
-	; If player off floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
-	bne    @End
 	
 	move.w (EntityCount_BouncePlant), d6
 	cmp.w  #0x0, d6
@@ -1285,22 +1283,17 @@ PlayerInteractTest_BouncePlants:
 	jsr    BouncePlant_GetBounceVector
 	POPL   a0
 
-	; Collision with plant, check if heading towards bounce surface
-	; TODO: Variable plant orientations
-	; move.w PhysicsObj_VelY(a0), d0
-	; cmp.w  #0x0, d0
-	; bgt    @End
+	; Collision with plant, only test interaction conditions if it was hit this frame
+	move.l Player_LastBouncePlant(a0), a3
+	cmp.l  a2, a3
+	beq    @AlreadyInteracting
 
-	; Heading towards plant, calculate reflection vector
-	; TODO: Proper reflection vector
-	; neg.w  d0
-; 
-	; ; Clamp to min launch velocity
-	; ; TODO: Use vector length
-	; cmp.w  #BouncePlant_MinLaunchVelocity, d0
-	; bgt    @NoClamp
-	; move.w #BouncePlant_MinLaunchVelocity, d0
-	; @NoClamp:
+	; Set current plant
+	move.l a2, Player_LastBouncePlant(a0)
+
+	; Check if player off floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	bne    @End
 
 	; Launch player
 	move.w d0, PhysicsObj_VelY(a0)
@@ -1325,8 +1318,13 @@ PlayerInteractTest_BouncePlants:
 	dbra   d6, @PlantLoop
 	
 	@NoPlants:
+
+	; No plants touched, or interaction was successful - clear last used
+	move.l #0x0, Player_LastBouncePlant(a0)
+
+	@AlreadyInteracting:
 	@End:
-	
+
 	ENDIF
 
 	rts
