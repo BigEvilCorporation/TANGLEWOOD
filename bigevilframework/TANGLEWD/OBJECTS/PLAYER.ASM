@@ -22,6 +22,12 @@ Player1BoundsOffsetX	equ (Player1Width/2)-(Player1BoundsWidth/2)
 Player1BoundsOffsetY	equ (Player1Height/2)-(Player1BoundsHeight/2)
 Player1PushBoundsOuterDist	equ 0x4
 
+; Player collision bounds (in jump state)
+Player1BoundsJumpWidth		equ Player1Width-0x10
+Player1BoundsJumpHeight		equ Player1Height-0x10
+Player1BoundsJumpOffsetX	equ 0x08
+Player1BoundsJumpOffsetY	equ 0x08
+
 ; Player starting positions - TODO: From spawn point
 Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)+100
 Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
@@ -112,6 +118,27 @@ PlayerAnimIdx_Ride		 	equ 6	; Ride a Djakk
 PlayerAnimIdx_Howl		 	equ 7	; Long howl
 ; -------------------------------
 PlayerAnimIdx_Max       	equ 8
+
+; ************************************
+; Macros
+; ************************************
+PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
+	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
+	lsr.l  #0x8, \minreg								; To pixel space
+	add.w  #Player1BoundsJumpOffsetX, \minreg			; Add bounding box X offset
+	move.w \minreg, \maxreg								; Copy to right reg
+	add.w  #Player1BoundsJumpWidth, \maxreg				; Add bounding box right
+	
+	swap   \minreg
+	swap   \maxreg
+	
+	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
+	lsr.l  #0x8, \tmpreg								; To pixel space
+	add.w  #Player1BoundsJumpOffsetY, \tmpreg			; Add bounding box Y offset
+	move.w \tmpreg, \minreg								; To Y
+	move.w \minreg, \maxreg								; Copy to bottom reg
+	add.w  #Player1BoundsJumpHeight, \maxreg			; Add bounding box bottom
+	endm
 
 ; ************************************
 ; Struct
@@ -1254,8 +1281,8 @@ PlayerInteractTest_BouncePlants:
 	cmp.w  #0x0, d6
 	beq    @NoPlants
 	
-	; Get player collision bounds
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	; Get player collision bounds (assume jumping)
+	PLAYER_GETJUMPBOUNDS d1,d2,d5,a0
 
 	; Check player against all plants in level
 	move.l #EntityArray_BouncePlant, a2		; Plant in a2
@@ -1264,8 +1291,8 @@ PlayerInteractTest_BouncePlants:
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
 	beq    @NextPlant
 	
-	; Get plant entity bounds
-	ENTITY_GETBOUNDS d3,d4,d5,a2
+	; Get plant collision bounds
+	BOUNCEPLANT_GETBOUNDS d3,d4,d5,a2
 	
 	; Check collision
 	PUSHM  d1-d4

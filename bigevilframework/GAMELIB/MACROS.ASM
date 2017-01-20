@@ -95,7 +95,7 @@ PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	
 	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
 	lsr.l  #0x8, \tmpreg								; To pixel space
-	add.w  PhysicsObj_BoundsLeft(\addrreg), \tmpreg		; Add bounding box Y offset
+	add.w  PhysicsObj_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
 	add.w  PhysicsObj_BoundsHeight(\addrreg), \maxreg	; Add bounding box bottom

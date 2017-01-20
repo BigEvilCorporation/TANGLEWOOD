@@ -79,12 +79,49 @@ BouncePlantVel_225:		dc.l (( BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_La
 BouncePlantVel_270:		dc.l (( BouncePlant_LaunchForce<<16))
 BouncePlantVel_315:		dc.l (( BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
 
+; Bounds
+BouncePlantBounds:
+BouncePlantBounds_0:	dc.w 0x0000, BouncePlant_Height/2, BouncePlant_Width, BouncePlant_Height/2
+BouncePlantBounds_45:	dc.w 0x0008, 0x0000, 0x0010, 0x0010
+BouncePlantBounds_90:	dc.w 0x0000, 0x0000, BouncePlant_Width/2, BouncePlant_Height
+BouncePlantBounds_135:	dc.w 0x0000, 0x0000, 0x0010, 0x0010
+BouncePlantBounds_180:	dc.w 0x0000, 0x0000, BouncePlant_Width, BouncePlant_Height/2
+BouncePlantBounds_225:	dc.w 0x0000, 0x0008, 0x0010, 0x0010
+BouncePlantBounds_270:	dc.w BouncePlant_Width/2, 0x0000, BouncePlant_Width/2, BouncePlant_Height
+BouncePlantBounds_315:	dc.w 0x0008, 0x0008, 0x0010, 0x0010
+
+;==============================================================
+
+; Not a physics obj for optimisation, steal the bounds macro
+; TODO: Base Entity holds collision bounds?
+BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
+	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
+	lsr.l  #0x8, \minreg								; To pixel space
+	add.w  BouncePlant_BoundsLeft(\addrreg), \minreg	; Add bounding box X offset
+	move.w \minreg, \maxreg								; Copy to right reg
+	add.w  BouncePlant_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
+	
+	swap   \minreg
+	swap   \maxreg
+	
+	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
+	lsr.l  #0x8, \tmpreg								; To pixel space
+	add.w  BouncePlant_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
+	move.w \tmpreg, \minreg								; To Y
+	move.w \minreg, \maxreg								; Copy to bottom reg
+	add.w  BouncePlant_BoundsHeight(\addrreg), \maxreg	; Add bounding box bottom
+	endm
+
 ;==============================================================
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;------------------------------
 BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
+BouncePlant_BoundsLeft	 rs.w 1 ; Collision bounds offset X
+BouncePlant_BoundsTop	 rs.w 1 ; Collision bounds offset Y
+BouncePlant_BoundsWidth	 rs.w 1 ; Collision bounds offset width
+BouncePlant_BoundsHeight rs.w 1 ; Collision bounds offset height
 BouncePlant_Orientation  rs.b 1
 BouncePlant_Active       rs.b 1
 ;------------------------------
@@ -199,6 +236,17 @@ BouncePlantLoadGfx:
 	move.b d1, SpriteObj_FlippedY(a0)
 	lsr.w  #0x8, d1
 	move.b d1, SpriteObj_FlippedX(a0)
+
+	; Configure collision bounds based on orientation
+	clr.l  d1
+	move.b BouncePlant_Orientation(a0), d1
+	mulu   #(size_word*4), d1
+	lea    BouncePlantBounds, a3
+	add.l  d1, a3
+	move.w (a3)+, BouncePlant_BoundsLeft(a0)
+	move.w (a3)+, BouncePlant_BoundsTop(a0)
+	move.w (a3)+, BouncePlant_BoundsWidth(a0)
+	move.w (a3)+, BouncePlant_BoundsHeight(a0)
 
 	POPL   a1
 
