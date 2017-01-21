@@ -52,7 +52,9 @@ MainMenu_Enter:
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_twd_logo_width<<16)|map_twd_logo_height), d2		; d2 (ww) Segment width/height (tiles)
 	move.w #map_twd_logo_width, d3		; d3 (w)  Source map total width (tiles)
-	move.w (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
+	clr.l  d4
+	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
+	divu   #size_tile_b, d4
 	move.l #PaletteId_TanglewoodLogo, d5; d5 (b)  Palette ID
 	jsr    VDP_LoadMapSegmentPlaneA
 	

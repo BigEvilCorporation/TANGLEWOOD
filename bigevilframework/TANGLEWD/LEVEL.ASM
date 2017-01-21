@@ -17,6 +17,9 @@ GameStateReset:
 	
 	; Clear Plane B
 	jsr    VDP_ClearMapPlaneB
+
+	; Clear VRAM pools
+	jsr    VRAM_ClearPools
 	
 	; Reset scrolling
 	move.l #0x0, WorldScrollX
@@ -65,6 +68,9 @@ GameStateReset:
 	move.w #0x0, EntityCount_TriggerBox
 	move.w #0x0, EntityCount_WaterBody
 	move.w #0x0, EntityCount_Location
+	move.w #0x0, EntityCount_BouncePlant
+	move.w #0x0, EntityCount_Lift
+	move.w #0x0, EntityCount_Rope
 	
 	; Stop BGM
 	IFND DEBUG
@@ -86,6 +92,14 @@ GameStateReset:
 	
 	; Reset pushables
 	LIST_CLEAR PushingObjs
+
+	; Reload debug draw font
+	move.l #Tiles_PixelFontSizeB, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, (vram_addr_systemfont)
+	lea    Tiles_PixelFont, a0
+	move.l #Tiles_PixelFontSizeT, d1
+	jsr    VDP_LoadTiles
 	
 	rts
 
