@@ -16,7 +16,7 @@ Lvl2_HarlequinForestAct2:
 	dc.l Lvl2_Init				; Init routine
 	dc.l Lvl2_Update			; Update routine
 	dc.l Lvl2_Serialise			; Serialise routine
-	dc.l 0x00000000				; Load game objects routine
+	dc.l lvl2_LoadGameObjects	; Load game objects routine
 	dc.l Lvl3_HarlequinForestAct3	; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl2_width			; Map width
@@ -45,57 +45,6 @@ Lvl2Data_Struct_Size     		rs.b 0
 	
 Lvl2_Init:
 
-	; Trigger boxes
-	move.l #EntityArray_TriggerBox, a0
-	jsr    LoadGameObjects_lvl2_TriggerBox
-	
-	; Checkpoints
-	move.l #EntityArray_Checkpoint, a0
-	jsr    LoadGameObjects_lvl2_Checkpoint
-	
-	; Monsters
-	move.l #EntityArray_Monster, a0
-	jsr    LoadGameObjects_lvl2_Monster
-    
-	; Fuzzls
-	move.l #EntityArray_Fuzzl, a0
-	jsr    LoadGameObjects_lvl2_Fuzzl
-	
-	; Fuzzl nests
-	move.l #EntityArray_Nest, a0
-	jsr    LoadGameObjects_lvl2_Nest
-    
-	; Flues
-	move.l #EntityArray_Flue, a0
-	jsr    LoadGameObjects_lvl2_Flue
-	
-	; Boulders
-	move.l #EntityArray_Boulder, a0
-	jsr    LoadGameObjects_lvl2_Boulder
-    
-	; Fireflies
-	move.l #EntityArray_Firefly, a0
-	jsr    LoadGameObjects_lvl2_Firefly
-	
-	; Water bodies
-	move.l #EntityArray_WaterBody, a0
-	jsr    LoadGameObjects_lvl2_WaterBody
-	
-	; Locations
-	;move.l #EntityArray_Location, a0
-	;jsr    LoadGameObjects_lvl2_Location
-    
-	; Leaves
-	; TODO: Leaf generator
-	move.l #EntityArray_Leaf, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	
-	;==============================================================
-	
 	; Load BG map
 	lea    map_lvl1_bg, a0
 	move.l #map_lvl1_bg_size_w, d0
@@ -107,7 +56,7 @@ Lvl2_Init:
 	;==============================================================
 	
 	; Don't bother with Djakk emerge sequence
-	move.l #Djakk_Lvl2_idx, d0
+	move.l #Lvl2_Djakk_idx, d0
 	mulu   #Monster_Struct_Size, d0
 	move.l #EntityArray_Monster, a0
 	add.l  d0, a0
@@ -252,7 +201,7 @@ Lvl2_Trigger_WakeDjakk:
 
 	PUSHL  a0
 	
-	move.l #Djakk_Lvl2_idx, d0
+	move.l #Lvl2_Djakk_idx, d0
 	mulu   #Monster_Struct_Size, d0
 	move.l #EntityArray_Monster, a0
 	add.l  d0, a0

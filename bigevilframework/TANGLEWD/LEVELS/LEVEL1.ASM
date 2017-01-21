@@ -19,7 +19,7 @@ Lvl1_HarlequinForest:
 	dc.l Lvl1_Init				; Init routine
 	dc.l Lvl1_Update			; Update routine
 	dc.l Lvl1_Serialise			; Serialise routine
-	dc.l 0x00000000				; Load game objects routine
+	dc.l lvl1_LoadGameObjects	; Load game objects routine
 	dc.l Lvl2_HarlequinForestAct2 ; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl1_width			; Map width
@@ -85,61 +85,6 @@ Lvl1_CamShakeSpeed				equ (0x30<<0x8)
 Lvl1_CamShakeAmplitude			equ 0x4
 	
 Lvl1_Init:
-
-	; Trigger boxes
-	move.l #EntityArray_TriggerBox, a0
-	jsr    LoadGameObjects_lvl1_TriggerBox
-	
-	; Checkpoints
-	move.l #EntityArray_Checkpoint, a0
-	jsr    LoadGameObjects_lvl1_Checkpoint
-	
-	; Monsters
-	move.l #EntityArray_Monster, a0
-	jsr    LoadGameObjects_lvl1_Monster
-    
-	; Fuzzls
-	move.l #EntityArray_Fuzzl, a0
-	jsr    LoadGameObjects_lvl1_Fuzzl
-	
-	; Fuzzl nests
-	move.l #EntityArray_Nest, a0
-	jsr    LoadGameObjects_lvl1_Nest
-    
-	; Flues
-	move.l #EntityArray_Flue, a0
-	jsr    LoadGameObjects_lvl1_Flue
-	
-	; Boulders
-	move.l #EntityArray_Boulder, a0
-	jsr    LoadGameObjects_lvl1_Boulder
-    
-	; Fireflies
-	move.l #EntityArray_Firefly, a0
-	jsr    LoadGameObjects_lvl1_Firefly
-	
-	; Water bodies
-	move.l #EntityArray_WaterBody, a0
-	jsr    LoadGameObjects_lvl1_WaterBody
-	
-	; Locations
-	move.l #EntityArray_Location, a0
-	jsr    LoadGameObjects_lvl1_Location
-	
-	; Locations
-	move.l #EntityArray_BouncePlant, a0
-	jsr    LoadGameObjects_lvl1_BouncePlant
-    
-	; Leaves
-	; TODO: Leaf generator
-	move.l #EntityArray_Leaf, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	
-	;==============================================================
 	
 	; Load BG map
 	lea    map_lvl1_bg, a0
@@ -152,21 +97,21 @@ Lvl1_Init:
 	;==============================================================
 	
 	; Set Fuzzl colours
-	move.l #Fuzzl_Yellow_idx, d0
+	move.l #Lvl1_Fuzzl_Yellow_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
 	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourYellow, d0
 	jsr    FuzzlSetColour
 	
-	move.l #Fuzzl_Green_idx, d0
+	move.l #Lvl1_Fuzzl_Green_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
 	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
 	move.b #ColourGreen, d0
 	jsr    FuzzlSetColour
 	
-	move.l #Fuzzl_Blue_idx, d0
+	move.l #Lvl1_Fuzzl_Blue_idx, d0
 	mulu   #Fuzzl_Struct_Size, d0
 	move.l #EntityArray_Fuzzl, a0
 	add.l  d0, a0
@@ -674,7 +619,7 @@ Lvl1_StartCutscene_BoulderRoll:
 	move.b #0x0, Player1ControlEnabled
 	
 	; Get boulder
-	move.l #BoulderIntro_idx, d0
+	move.l #Lvl1_BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3
@@ -721,7 +666,7 @@ Lvl1_EndCutscene_BoulderRoll:
 	ENDIF
 	
 	; Get boulder
-	move.l #BoulderIntro_idx, d0
+	move.l #Lvl1_BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3
@@ -746,7 +691,7 @@ Lvl1_EndCutscene_BoulderRoll:
 Lvl1_UpdateCutscene_BoulderRoll:
 
 	; Get boulder
-	move.l #BoulderIntro_idx, d0
+	move.l #Lvl1_BoulderIntro_idx, d0
 	mulu   #Boulder_Struct_Size, d0
 	move.l #EntityArray_Boulder, a3
 	add.l  d0, a3

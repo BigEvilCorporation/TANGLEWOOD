@@ -16,7 +16,7 @@ Lvl3_HarlequinForestAct3:
 	dc.l Lvl3_Init				; Init routine
 	dc.l Lvl3_Update			; Update routine
 	dc.l Lvl3_Serialise			; Serialise routine
-	dc.l 0x00000000				; Load game objects routine
+	dc.l lvl3_LoadGameObjects	; Load game objects routine
 	dc.l 0x0					; Next level
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl3_width			; Map width
@@ -44,57 +44,6 @@ Lvl3Data_Struct_Pad      		rs.b 3
 Lvl3Data_Struct_Size     		rs.b 0
 	
 Lvl3_Init:
-
-	; Trigger boxes
-	move.l #EntityArray_TriggerBox, a0
-	jsr    LoadGameObjects_lvl3_TriggerBox
-	
-	; Checkpoints
-	move.l #EntityArray_Checkpoint, a0
-	jsr    LoadGameObjects_lvl3_Checkpoint
-	
-	; Monsters
-	move.l #EntityArray_Monster, a0
-	jsr    LoadGameObjects_lvl3_Monster
-    
-	; Fuzzls
-	move.l #EntityArray_Fuzzl, a0
-	jsr    LoadGameObjects_lvl3_Fuzzl
-	
-	; Fuzzl nests
-	move.l #EntityArray_Nest, a0
-	jsr    LoadGameObjects_lvl3_Nest
-    
-	; Flues
-	move.l #EntityArray_Flue, a0
-	jsr    LoadGameObjects_lvl3_Flue
-	
-	; Boulders
-	move.l #EntityArray_Boulder, a0
-	jsr    LoadGameObjects_lvl3_Boulder
-    
-	; Fireflies
-	move.l #EntityArray_Firefly, a0
-	jsr    LoadGameObjects_lvl3_Firefly
-	
-	; Water bodies
-	move.l #EntityArray_WaterBody, a0
-	jsr    LoadGameObjects_lvl3_WaterBody
-	
-	; Locations
-	;move.l #EntityArray_Location, a0
-	;jsr    LoadGameObjects_lvl3_Location
-    
-	; Leaves
-	; TODO: Leaf generator
-	move.l #EntityArray_Leaf, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	add.l  #Leaf_Struct_Size, a0
-	jsr    LeafInit
-	
-	;==============================================================
 	
 	; Load BG map
 	lea    map_lvl1_bg, a0

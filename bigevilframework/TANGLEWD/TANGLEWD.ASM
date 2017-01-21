@@ -176,8 +176,8 @@ __main:
 	IFD DEBUG
 	move.l #Tst1_Forest, CurrentLevel
 	ELSE
-	move.l #L1A1_HarlequinForest, CurrentLevel
-	;move.l #Lvl1_HarlequinForest, CurrentLevel
+	;move.l #L1A1_HarlequinForest, CurrentLevel
+	move.l #Lvl1_HarlequinForest, CurrentLevel
 	;move.l #Lvl_TestLift, CurrentLevel
 	ENDIF
 	
