@@ -185,8 +185,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
-	;lea GameStateGameplay, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 
