@@ -51,12 +51,7 @@ Gameplay_Enter:
 	; Get last activated checkpoint
 	move.l (LastActivatedCheckpoint), a2
 	cmp.l  #0x0, a2
-	bne    @ValidCheckpoint
-	
-	; No checkpoints activated, get first
-	lea    EntityArray_Checkpoint, a2
-	
-	@ValidCheckpoint:
+	beq    @NoCheckpoints
 	
 	; Set as activated, don't allow it to instigate a save
 	move.b #0x1, Checkpoint_Activated(a2)

@@ -84,7 +84,8 @@ Lvl1_Init:
 	
 	; Start level intro tune
 	IFND DEBUG
-	lea    bgm_lvlintro, a0
+	;lea    bgm_lvlintro, a0
+	lea    bgm_dawn, a0
 	jsr    Echo_PlayBGM
 	ENDIF
 	

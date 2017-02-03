@@ -27,7 +27,8 @@ Lvl2_HarlequinForestAct2:
 	
 Lvl2_DefaultPalettes:
 
-	dc.l palette_lvl1_night		; World
+	;dc.l palette_lvl1_night		; World
+	dc.l palette_lvl1_day		; World
 	dc.l palette_monster		; Djakk
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
@@ -104,6 +105,19 @@ Lvl2_Init:
 	add.l  d0, a0
 	
 	move.l #Lvl2_Flue_E_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
+	
+	; Link Flue F with Flue G
+	move.l #Lvl2_Flue_F_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a0
+	add.l  d0, a0
+	
+	move.l #Lvl2_Flue_G_idx, d0
 	mulu   #Flue_Struct_Size, d0
 	move.l #EntityArray_Flue, a1
 	add.l  d0, a1

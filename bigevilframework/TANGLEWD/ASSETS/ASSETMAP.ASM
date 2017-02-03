@@ -168,9 +168,9 @@
 	; ************************************
 	; Audio
 	; ************************************
-	include 'assets\music\instrs.asm'
-	include 'assets\music\music.asm'
-	include 'assets\sfx\sfx.asm'
+	include 'assets\audio\instrs.asm'
+	include 'assets\audio\music.asm'
+	include 'assets\audio\sfx.asm'
 	
 	; ************************************
     ; Strings

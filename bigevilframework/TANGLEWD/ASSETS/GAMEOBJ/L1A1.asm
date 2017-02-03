@@ -48,8 +48,7 @@ l1a1_Boulder_count equ 0x0
 
 l1a1_TriggerBox_count equ 0x0
 
-l1a1_Checkpoint_count equ 0x1
-l1a1_Checkpoint_26_idx	equ 0x0
+l1a1_Checkpoint_count equ 0x0
 
 l1a1_WaterBody_count equ 0x1
 l1a1_WaterBody_20_idx	equ 0x0
@@ -66,10 +65,9 @@ l1a1_BouncePlant_31_idx	equ 0x5
 l1a1_BouncePlant_32_idx	equ 0x6
 
 l1a1_Nymn_count equ 0x1
-l1a1_Nymn_1_idx	equ 0x0
+l1a1_nymn_idx	equ 0x0
 
-l1a1_Echo_count equ 0x1
-l1a1_Echo_30_idx	equ 0x0
+l1a1_Echo_count equ 0x0
 
 l1a1_Leaf_count equ 0x0
 
@@ -225,11 +223,6 @@ l1a1_LoadGameObjects:
 	move.l #EntityArray_TriggerBox, a0
 
 	move.l #EntityArray_Checkpoint, a0
-	jsr CheckpointInit
-	move.l #0x0007c000, Entity_WorldPosX(a0)
-	move.l #0x00020800, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	add.l #Checkpoint_Struct_Size, a0
 
 	move.l #EntityArray_WaterBody, a0
 	jsr WaterBodyInit
@@ -284,17 +277,12 @@ l1a1_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x0007c000, Entity_WorldPosX(a0)
+	move.l #0x0007c800, Entity_WorldPosX(a0)
 	move.l #0x00020800, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
 	move.l #EntityArray_Echo, a0
-	jsr EchoInit
-	move.l #0x0002f000, Entity_WorldPosX(a0)
-	move.l #0x00042800, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
-	add.l #Echo_Struct_Size, a0
 
 	move.l #EntityArray_Leaf, a0
 

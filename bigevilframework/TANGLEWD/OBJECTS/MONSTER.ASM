@@ -546,12 +546,12 @@ MonsterUpdateWaitForPlayer:
 	cmp.b  #0x0, Monster_RumblePlayed(a0)
 	bne    @Playing
 	
-	PUSHL  a0
 	IFND DEBUG
+	PUSHL  a0
 	lea    bgm_monsterbass, a0
 	jsr    Echo_PlayBGM
-	ENDIF
 	POPL   a0
+	ENDIF
 	
 	; Set played
 	move.b #0x1, Monster_RumblePlayed(a0)
@@ -865,6 +865,14 @@ MonsterStartTrackPlayer:
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
+
+	; Start chase theme
+	IFND DEBUG
+	PUSHL  a0
+	lea    bgm_boss1, a0
+	jsr    Echo_PlayBGM
+	POPL   a0
+	ENDIF
 
 	rts
 

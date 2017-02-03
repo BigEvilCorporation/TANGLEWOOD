@@ -46,6 +46,17 @@ SetTimeOfDay:
 	; d0 (b) Time of Day
 	
 	move.b d0, TimeOfDay
+
+	; TODO: All themes
+	cmp.b  #TimeOfDay_Night, d0
+	bne    @NotNight
+	IFND DEBUG
+	PUSHL  a0
+	lea    bgm_night, a0
+	jsr    Echo_PlayBGM
+	POPL   a0
+	ENDIF
+	@NotNight:
 	
 	andi.l #0x000000FF, d0
 	lsl.w  #0x2, d0			; Bytes to longs
@@ -61,7 +72,7 @@ SetTimeOfDay:
 	move.b #TODMaxColours, d4
 	
 	jsr PAL_LerpStart
-	
+
 	rts
 	
 	
