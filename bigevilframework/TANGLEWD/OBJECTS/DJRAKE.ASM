@@ -539,10 +539,8 @@ DjrakeUpdateWaitForPlayer:
 	bne    @Playing
 	
 	;PUSHL  a0
-	;IFND DEBUG
 	;lea    bgm_Djrakebass, a0
-	;jsr    Echo_PlayBGM
-	;ENDIF
+	;jsr    SND_PlayTrack
 	;POPL   a0
 	
 	; Set played

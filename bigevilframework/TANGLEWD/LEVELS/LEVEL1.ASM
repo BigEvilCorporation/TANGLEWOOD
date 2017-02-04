@@ -86,7 +86,7 @@ Lvl1_Init:
 	IFND DEBUG
 	;lea    bgm_lvlintro, a0
 	lea    bgm_dawn, a0
-	jsr    Echo_PlayBGM
+	jsr    SND_PlayTrack
 	ENDIF
 	
 	move.l #Player1, a0

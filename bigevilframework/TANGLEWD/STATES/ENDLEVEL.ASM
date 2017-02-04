@@ -51,10 +51,8 @@ EndLevel_Enter:
 	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
 		
 	; Start end of level theme
-	IFND DEBUG
 	lea    bgm_lvloutro, a0
-	jsr    Echo_PlayBGM
-	ENDIF
+	jsr    SND_PlayTrack
 	
 	POPL   a1
 	POPL   a0

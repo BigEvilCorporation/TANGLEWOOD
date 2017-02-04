@@ -52,11 +52,8 @@ CPU_EntryPoint:
 	; Init random number generator
 	jsr RND_Init
 	
-	; Init ECHO sound driver
-	IFND DEBUG
-	lea echo_instruments, a0
-	jsr Echo_Init
-	ENDIF
+	; Init sound driver
+	jsr SND_Init
 	
 	; Init letterbox
 	move.w #0x0, letterbox_top

@@ -131,12 +131,11 @@ PLAYSFX_LOWPRIO: macro sfxAddr
 	IFND DEBUG
 	PUSHL a0
 	PUSHL d0
-	jsr   Echo_GetStatus
-	andi.w #0x8001, d0		; Bit 1 = SFX playing, bit 15 = Echo busy
-	cmp.w #0x0, d0
+	jsr   SND_GetSFXBusy
+	cmp.b #0x0, d0
 	bne   @BUSY\@
 	move.l \sfxAddr, a0
-	jsr   Echo_PlaySFX
+	jsr   SND_PlaySFX
 	@BUSY\@:
 	POPL  d0
 	POPL  a0
@@ -148,7 +147,7 @@ PLAYSFX_HIGHPRIO: macro sfxAddr
 	IFND DEBUG
 	PUSHL a0
 	move.l \sfxAddr, a0
-	jsr   Echo_PlaySFX
+	jsr   SND_PlaySFX
 	POPL  a0
 	ENDIF
 	endm

@@ -70,10 +70,10 @@ Logos_Enter:
 	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Start title theme
-	IFND DEBUG
+	PUSHL  a0
 	lea    bgm_titles, a0
-	jsr    Echo_PlayBGM
-	ENDIF
+	jsr    SND_PlayTrack
+	POPL   a0
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll

@@ -25,6 +25,7 @@ __start
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
 	include '..\framewk\exceptn.asm'
+	include '..\framewk\fm.asm'
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
 	include '..\framewk\maths.asm'
@@ -38,6 +39,7 @@ __start
 	include '..\framewk\tmss.asm'
 	include '..\framewk\palettes.asm'
 	include '..\framewk\planes.asm'
+	include '..\framewk\sound.asm'
 	include '..\framewk\vdp.asm'
 	include '..\framewk\vdpqueue.asm'
 	include '..\framewk\vram.asm'
@@ -178,6 +180,7 @@ __main:
 	ELSE
 	;move.l #L1A1_HarlequinForest, CurrentLevel
 	move.l #Lvl1_HarlequinForest, CurrentLevel
+	;move.l #Lvl2_HarlequinForestAct2, CurrentLevel
 	;move.l #Lvl_TestLift, CurrentLevel
 	ENDIF
 	
@@ -185,8 +188,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	;lea GameStateLogos, a0
-	lea GameStateGameplay, a0
+	lea GameStateLogos, a0
+	;lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

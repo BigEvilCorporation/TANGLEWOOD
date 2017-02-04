@@ -21,9 +21,7 @@ UpdateBGMTimer:
 	bne   @TimerElapsed
 	
 	; Elapsed this frame, stop BGMOffTimer
-	IFND DEBUG
-	jsr   Echo_StopBGM
-	ENDIF
+	jsr   SND_StopTrack
 	
 	@TimerElapsed:
 	@TimerRunning:

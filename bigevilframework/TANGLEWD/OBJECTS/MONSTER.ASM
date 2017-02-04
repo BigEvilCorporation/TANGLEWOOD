@@ -549,7 +549,7 @@ MonsterUpdateWaitForPlayer:
 	IFND DEBUG
 	PUSHL  a0
 	lea    bgm_monsterbass, a0
-	jsr    Echo_PlayBGM
+	jsr    SND_PlayTrack
 	POPL   a0
 	ENDIF
 	
@@ -867,12 +867,10 @@ MonsterStartTrackPlayer:
 	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Start chase theme
-	IFND DEBUG
 	PUSHL  a0
 	lea    bgm_boss1, a0
-	jsr    Echo_PlayBGM
+	jsr    SND_PlayTrack
 	POPL   a0
-	ENDIF
 
 	rts
 

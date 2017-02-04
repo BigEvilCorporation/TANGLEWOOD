@@ -73,19 +73,14 @@ GameStateReset:
 	move.w #0x0, EntityCount_Rope
 	
 	; Stop BGM
-	IFND DEBUG
-	jsr    Echo_StopBGM
-	ENDIF
+	jsr    SND_StopTrack
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
 	jsr	   VDP_DMAQueue_ExecuteAll
 	
-	; Reset Echo
-	IFND DEBUG
-	lea echo_instruments, a0
-	jsr Echo_Init
-	ENDIF
+	; Reset sound driver
+	jsr    SND_init
 	
 	; Reset ropes
 	move.l  #EntityArray_Rope, NextFreeRopeSegment

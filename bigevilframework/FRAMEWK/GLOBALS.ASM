@@ -185,6 +185,16 @@ hint_max_size			   equ 0x0100
 psg_control             equ 0x00C00011
 
 ; ************************************
+; FM
+; ************************************
+
+fm_control				equ 0x00A04000
+fm_data					equ 0x00A04001
+fm_reg_timer_b			equ 0x26
+fm_timer_b_ntsc			equ 0xC9
+fm_timer_b_pal			equ 0xBD
+
+; ************************************
 ; Gamepad ports
 ; ************************************
 pad_data_a              equ 0x00A10003

@@ -50,12 +50,10 @@ SetTimeOfDay:
 	; TODO: All themes
 	cmp.b  #TimeOfDay_Night, d0
 	bne    @NotNight
-	IFND DEBUG
 	PUSHL  a0
 	lea    bgm_night, a0
-	jsr    Echo_PlayBGM
+	jsr    SND_PlayTrack
 	POPL   a0
-	ENDIF
 	@NotNight:
 	
 	andi.l #0x000000FF, d0
