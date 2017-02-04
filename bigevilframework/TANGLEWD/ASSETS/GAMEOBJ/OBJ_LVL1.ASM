@@ -51,11 +51,12 @@ lvl1_Djakk_idx	equ 0x0
 lvl1_Boulder_count equ 0x1
 lvl1_Boulder_147_idx	equ 0x0
 
-lvl1_TriggerBox_count equ 0x4
+lvl1_TriggerBox_count equ 0x5
 lvl1_TriggerBox_60_idx	equ 0x0
 lvl1_TriggerCancelColour_idx	equ 0x1
 lvl1_TriggerBox_73_idx	equ 0x2
 lvl1_Trigger_NearEndLevel_idx	equ 0x3
+lvl1_TriggerBox_182_idx	equ 0x4
 
 lvl1_Checkpoint_count equ 0x0
 
@@ -297,6 +298,15 @@ lvl1_LoadGameObjects:
 	move.l #0x00293000, Entity_WorldPosX(a0)
 	move.l #0x00028000, Entity_WorldPosY(a0)
 	move.l #Lvl1_Trigger_NearEndLevel, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x000f7000, Entity_WorldPosX(a0)
+	move.l #0x00028800, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
