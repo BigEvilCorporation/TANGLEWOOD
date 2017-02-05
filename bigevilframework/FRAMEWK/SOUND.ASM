@@ -43,15 +43,11 @@ SND_PlaySFX:
 
 	IFND DEBUG
 
+	; Stop prev SFX
+	jsr   Echo_StopSFX
+
 	; Play SFX
 	jsr   Echo_PlaySFX
-
-	; Set playback speed
-	; TODO: On a per track basis
-	;PUSHL  d0
-	;move.b #fm_timer_b_ntsc, d0
-	;jsr    FM_SetTimerB
-	;POPL   d0
 
 	ENDIF
 
@@ -70,7 +66,7 @@ SND_GetSFXBusy:
 	jsr    Echo_GetStatus
 	andi.w #0x8001, d0		; Bit 1 = SFX playing, bit 15 = Echo busy
 	cmp.w  #0x0, d0
-	beq    @Busy
+	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
 	@Busy:
@@ -87,4 +83,9 @@ SND_SetTrackVolume:
 	rts
 
 SND_SetSFXVolume:
+	rts
+
+SND_BeginFadeTrack:
+	; TODO
+	jsr SND_StopTrack
 	rts

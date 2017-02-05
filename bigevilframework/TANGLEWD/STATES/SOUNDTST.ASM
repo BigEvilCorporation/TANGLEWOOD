@@ -151,9 +151,7 @@ SoundTest_Update:
 	move.l #0x0, TimerLogoFade
 	
 	; Fade out music
-	IFND DEBUG
-	jsr    Echo_FadeBGM
-	ENDIF
+	jsr    SND_BeginFadeTrack
 	bra    @End
 	
 	@FadedOut:

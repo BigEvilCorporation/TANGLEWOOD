@@ -30,30 +30,30 @@ sprite_mushroom_numtiles_per_subsprite:
 	Even
 
 
-spritesheet_mushroom_orient180_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_mushroom_orient180_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_orient180_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_orient180_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_orient180_size_t		equ 0x09	; Size in tiles
+spritesheet_mushroom_mushroom_180_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_mushroom_mushroom_180_size_b		equ 0x120	; Size in bytes
+spritesheet_mushroom_mushroom_180_size_w		equ 0x90	; Size in words
+spritesheet_mushroom_mushroom_180_size_l		equ 0x48	; Size in longwords
+spritesheet_mushroom_mushroom_180_size_t		equ 0x09	; Size in tiles
 
 
-spritesheet_mushroom_orient225_frameoffset	equ 0x01	; Offset to first frame in sprite sheet
-spritesheet_mushroom_orient225_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_orient225_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_orient225_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_orient225_size_t		equ 0x09	; Size in tiles
+spritesheet_mushroom_mushroom_225_frameoffset	equ 0x01	; Offset to first frame in sprite sheet
+spritesheet_mushroom_mushroom_225_size_b		equ 0x120	; Size in bytes
+spritesheet_mushroom_mushroom_225_size_w		equ 0x90	; Size in words
+spritesheet_mushroom_mushroom_225_size_l		equ 0x48	; Size in longwords
+spritesheet_mushroom_mushroom_225_size_t		equ 0x09	; Size in tiles
 
 
-spritesheet_mushroom_orient270_frameoffset	equ 0x02	; Offset to first frame in sprite sheet
-spritesheet_mushroom_orient270_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_orient270_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_orient270_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_orient270_size_t		equ 0x09	; Size in tiles
+spritesheet_mushroom_mushroom_270_frameoffset	equ 0x02	; Offset to first frame in sprite sheet
+spritesheet_mushroom_mushroom_270_size_b		equ 0x120	; Size in bytes
+spritesheet_mushroom_mushroom_270_size_w		equ 0x90	; Size in words
+spritesheet_mushroom_mushroom_270_size_l		equ 0x48	; Size in longwords
+spritesheet_mushroom_mushroom_270_size_t		equ 0x09	; Size in tiles
 
 
 spritesheets_mushroom:
 
-spritesheet_mushroom_orient180:
+spritesheet_mushroom_mushroom_180:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -67,14 +67,14 @@ spritesheet_mushroom_orient180:
 	dc.l	0x00000000
 	dc.l	0x00000002
 	dc.l	0x00000212
-	dc.l	0x00001226
-	dc.l	0x00012266
-	dc.l	0x00126266
-	dc.l	0x00122266
-	dc.l	0x00122266
+	dc.l	0x00001227
+	dc.l	0x00012277
+	dc.l	0x00127277
+	dc.l	0x00122277
+	dc.l	0x00122277
 
-	dc.l	0x00126626
-	dc.l	0x00126622
+	dc.l	0x00127727
+	dc.l	0x00127722
 	dc.l	0x00012222
 	dc.l	0x00011221
 	dc.l	0x00000111
@@ -93,15 +93,15 @@ spritesheet_mushroom_orient180:
 
 	dc.l	0x00000000
 	dc.l	0x12222221
-	dc.l	0x666AA666
-	dc.l	0x6AAAAAA6
-	dc.l	0x6EEAAAEE
+	dc.l	0x777AA777
+	dc.l	0x7AAAAAA7
+	dc.l	0x7EEAAAEE
 	dc.l	0xEEEEAAEE
-	dc.l	0xEEEEAAA6
-	dc.l	0x6EE66666
+	dc.l	0xEEEEAAA7
+	dc.l	0x7EE77777
 
-	dc.l	0x66666666
-	dc.l	0x22666622
+	dc.l	0x77777777
+	dc.l	0x22777722
 	dc.l	0x22222222
 	dc.l	0x11111111
 	dc.l	0x14488441
@@ -121,13 +121,13 @@ spritesheet_mushroom_orient180:
 	dc.l	0x00000000
 	dc.l	0x20000000
 	dc.l	0x21200000
-	dc.l	0x62210000
-	dc.l	0x66221000
-	dc.l	0x66622100
-	dc.l	0x66622100
-	dc.l	0x66622100
+	dc.l	0x72210000
+	dc.l	0x77221000
+	dc.l	0x77722100
+	dc.l	0x77722100
+	dc.l	0x77722100
 
-	dc.l	0x6AA22100
+	dc.l	0x7AA22100
 	dc.l	0x2AA22100
 	dc.l	0x22221000
 	dc.l	0x12211000
@@ -138,7 +138,7 @@ spritesheet_mushroom_orient180:
 
 
 
-spritesheet_mushroom_orient225:
+spritesheet_mushroom_mushroom_225:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -149,17 +149,17 @@ spritesheet_mushroom_orient225:
 	dc.l	0x00000000
 	dc.l	0x00011112
 
-	dc.l	0x01126222
+	dc.l	0x01127222
 	dc.l	0x01222222
-	dc.l	0x16622666
-	dc.l	0x1662266E
-	dc.l	0x122266EE
-	dc.l	0x122266EE
-	dc.l	0x1112266E
-	dc.l	0x01112266
+	dc.l	0x17722777
+	dc.l	0x1772277E
+	dc.l	0x122277EE
+	dc.l	0x122277EE
+	dc.l	0x1112277E
+	dc.l	0x01112277
 
-	dc.l	0x00111266
-	dc.l	0x00141126
+	dc.l	0x00111277
+	dc.l	0x00141127
 	dc.l	0x018E8112
 	dc.l	0x44EEE811
 	dc.l	0x048E8841
@@ -177,19 +177,19 @@ spritesheet_mushroom_orient225:
 	dc.l	0x00000000
 
 	dc.l	0x11200000
-	dc.l	0x66210000
-	dc.l	0x6A622000
+	dc.l	0x77210000
+	dc.l	0x7A722000
 	dc.l	0xEAAA2200
 	dc.l	0xEEAAA210
-	dc.l	0xEEAAA622
-	dc.l	0xEAAAAA61
-	dc.l	0x6AAEEA61
+	dc.l	0xEEAAA722
+	dc.l	0xEAAAAA71
+	dc.l	0x7AAEEA71
 
-	dc.l	0x66AEEA62
-	dc.l	0x66666662
-	dc.l	0x66666662
-	dc.l	0x22666622
-	dc.l	0x122AA622
+	dc.l	0x77AEEA72
+	dc.l	0x77777772
+	dc.l	0x77777772
+	dc.l	0x22777722
+	dc.l	0x122AA722
 	dc.l	0x122AA221
 	dc.l	0x12222211
 	dc.l	0x01111100
@@ -223,27 +223,27 @@ spritesheet_mushroom_orient225:
 
 
 
-spritesheet_mushroom_orient270:
+spritesheet_mushroom_mushroom_270:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000011
 	dc.l	0x00001122
-	dc.l	0x00001266
-	dc.l	0x00012266
+	dc.l	0x00001277
+	dc.l	0x00012277
 	dc.l	0x00012222
-	dc.l	0x00011226
+	dc.l	0x00011227
 
-	dc.l	0x04111226
-	dc.l	0x48841226
-	dc.l	0x4EE41266
-	dc.l	0x8EE81266
-	dc.l	0x88881266
-	dc.l	0x48841266
-	dc.l	0x44441226
-	dc.l	0x04111226
+	dc.l	0x04111227
+	dc.l	0x48841227
+	dc.l	0x4EE41277
+	dc.l	0x8EE81277
+	dc.l	0x88881277
+	dc.l	0x48841277
+	dc.l	0x44441227
+	dc.l	0x04111227
 
-	dc.l	0x00011226
+	dc.l	0x00011227
 	dc.l	0x000122AA
 	dc.l	0x000122AA
 	dc.l	0x00001222
@@ -256,23 +256,23 @@ spritesheet_mushroom_orient270:
 	dc.l	0x00000000
 	dc.l	0x11100000
 	dc.l	0x22210000
-	dc.l	0x22621000
+	dc.l	0x22721000
 	dc.l	0x22222200
-	dc.l	0x66662100
-	dc.l	0x66666220
+	dc.l	0x77772100
+	dc.l	0x77777220
 
-	dc.l	0x6EE66610
-	dc.l	0xEEEEA620
-	dc.l	0xEEEEA620
-	dc.l	0x6EEAAA20
-	dc.l	0x6AAAAA20
-	dc.l	0x6AAAA620
-	dc.l	0x6AEEA620
-	dc.l	0x66EE6610
+	dc.l	0x7EE77710
+	dc.l	0xEEEEA720
+	dc.l	0xEEEEA720
+	dc.l	0x7EEAAA20
+	dc.l	0x7AAAAA20
+	dc.l	0x7AAAA720
+	dc.l	0x7AEEA720
+	dc.l	0x77EE7710
 
-	dc.l	0x66666220
-	dc.l	0x66662100
-	dc.l	0x66622200
+	dc.l	0x77777220
+	dc.l	0x77772100
+	dc.l	0x77722200
 	dc.l	0x22221000
 	dc.l	0x22210000
 	dc.l	0x11100000

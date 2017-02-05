@@ -15,6 +15,36 @@ ESF_PSG4    equ $0B         ; PSG noise channel
 ESF_PCM     equ $0C         ; PCM channel
 
 ;****************************************************************************
+; FM note frequency constants
+;****************************************************************************
+
+ESF_FMFREQ_C    equ 644
+ESF_FMFREQ_CS   equ 681
+ESF_FMFREQ_D    equ 722
+ESF_FMFREQ_DS   equ 765
+ESF_FMFREQ_E    equ 810
+ESF_FMFREQ_F    equ 858
+ESF_FMFREQ_FS   equ 910
+ESF_FMFREQ_G    equ 964
+ESF_FMFREQ_GS   equ 1021
+ESF_FMFREQ_A    equ 1081
+ESF_FMFREQ_AS   equ 1146
+ESF_FMFREQ_B    equ 1214
+
+ESF_FMFREQ_0    equ ESF_FMFREQ_C
+ESF_FMFREQ_1    equ ESF_FMFREQ_CS
+ESF_FMFREQ_2    equ ESF_FMFREQ_D
+ESF_FMFREQ_3    equ ESF_FMFREQ_DS
+ESF_FMFREQ_4    equ ESF_FMFREQ_E
+ESF_FMFREQ_5    equ ESF_FMFREQ_F
+ESF_FMFREQ_6    equ ESF_FMFREQ_FS
+ESF_FMFREQ_7    equ ESF_FMFREQ_G
+ESF_FMFREQ_8    equ ESF_FMFREQ_GS
+ESF_FMFREQ_9    equ ESF_FMFREQ_A
+ESF_FMFREQ_10   equ ESF_FMFREQ_AS
+ESF_FMFREQ_11   equ ESF_FMFREQ_B
+
+;****************************************************************************
 ; ESF_NoteOn
 ; Start playing a note.
 ;----------------------------------------------------------------------------
@@ -132,8 +162,7 @@ ESF_SetInstr macro
 ;****************************************************************************
 
 ESF_Lock macro
-    dc.b    $E0
-    dc.b    (\1)
+    dc.b    $E0+(\1)
     endm
 
 ;****************************************************************************
@@ -147,8 +176,14 @@ ESF_Lock macro
 ;****************************************************************************
 
 ESF_Delay macro
+    if      (\1)>0
+    if      (\1)<=$10
+    dc.b    $D0-1+(\1)
+    else
     dc.b    $FE
-    dc.b    (\1)
+    dc.b    (\1)&$FF
+    endc
+    endc
     endm
 
 ;****************************************************************************

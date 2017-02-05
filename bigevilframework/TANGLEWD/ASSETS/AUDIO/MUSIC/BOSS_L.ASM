@@ -1,3 +1,4 @@
+	dc.b $fd	; Set loop
 ; Pattern $00, Row 0; 
 	dc.b $40, $15	; Set instrument for channel FM 1
 	dc.b $00, $4f	; Note G-2 on channel FM 1
@@ -1917,4 +1918,5 @@
 	dc.b $fe, $03	; Delay
 	dc.b $15		; Note off channel FM 5
 	dc.b $fe, $04	; Delay
+	dc.b $fc	; Goto loop
 	dc.b $ff	; The End

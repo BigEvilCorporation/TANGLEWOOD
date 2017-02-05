@@ -37,14 +37,14 @@ BouncePlantOrient_315      equ 7
 
 ; Sprite sheet offsets
 BouncePlantSpriteSheetOffs:
-BouncePlantSpriteSheet_0:		dc.l spritesheet_mushroom_orient180_frameoffset
-BouncePlantSpriteSheet_45:		dc.l spritesheet_mushroom_orient225_frameoffset
-BouncePlantSpriteSheet_90:		dc.l spritesheet_mushroom_orient270_frameoffset
-BouncePlantSpriteSheet_135:		dc.l spritesheet_mushroom_orient225_frameoffset
-BouncePlantSpriteSheet_180:		dc.l spritesheet_mushroom_orient180_frameoffset
-BouncePlantSpriteSheet_225:		dc.l spritesheet_mushroom_orient225_frameoffset
-BouncePlantSpriteSheet_270:		dc.l spritesheet_mushroom_orient270_frameoffset
-BouncePlantSpriteSheet_315:		dc.l spritesheet_mushroom_orient225_frameoffset
+BouncePlantSpriteSheet_0:		dc.l spritesheet_mushroom_mushroom_180_frameoffset
+BouncePlantSpriteSheet_45:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
+BouncePlantSpriteSheet_90:		dc.l spritesheet_mushroom_mushroom_270_frameoffset
+BouncePlantSpriteSheet_135:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
+BouncePlantSpriteSheet_180:		dc.l spritesheet_mushroom_mushroom_180_frameoffset
+BouncePlantSpriteSheet_225:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
+BouncePlantSpriteSheet_270:		dc.l spritesheet_mushroom_mushroom_270_frameoffset
+BouncePlantSpriteSheet_315:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
 
 ; Sprite flipping (XY)
 BouncePlantSpriteFlip:

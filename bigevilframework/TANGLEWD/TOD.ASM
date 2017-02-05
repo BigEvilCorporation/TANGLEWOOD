@@ -47,7 +47,7 @@ SetTimeOfDay:
 	
 	move.b d0, TimeOfDay
 
-	; TODO: All themes
+	; TODO: Bit messy, shove this into an array or something
 	cmp.b  #TimeOfDay_Night, d0
 	bne    @NotNight
 	PUSHL  a0
@@ -55,6 +55,14 @@ SetTimeOfDay:
 	jsr    SND_PlayTrack
 	POPL   a0
 	@NotNight:
+
+	cmp.b  #TimeOfDay_Dusk, d0
+	bne    @NotDusk
+	PUSHL  a0
+	lea    bgm_dusk, a0
+	jsr    SND_PlayTrack
+	POPL   a0
+	@NotDusk:
 	
 	andi.l #0x000000FF, d0
 	lsl.w  #0x2, d0			; Bytes to longs

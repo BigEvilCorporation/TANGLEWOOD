@@ -215,18 +215,6 @@ Echo_SetPCMRate:
     rts                             ; End of subroutine
 
 ;****************************************************************************
-; Echo_FadeBGM
-; Fades out BGM
-;****************************************************************************
-
-Echo_FadeBGM:
-    move.w  d0, -(sp)               ; Save register
-    move.b  #$08, d0                ; Command $08 = fade BGM
-    bsr     Echo_SendCommand        ; Send command to Echo
-    move.w  (sp)+, d0               ; Restore register
-    rts                    
-	
-;****************************************************************************
 ; Echo_GetStatus
 ; Gets the current status of Echo
 ;
@@ -268,27 +256,6 @@ Echo_ListEnd macro
     even                            ; Just in case...
     endm
 
-;****************************************************************************
-; Echo_GetLogState
-; Get the channel log state
-;
-; input a0.l ... Destination address (will be increased)
-;****************************************************************************
-Echo_GetLogState:
-	move.w d3,-(a7)
-	move.l a1,-(a7)
-	move.w #$2F,d3
-    Echo_Z80Request                 ; We need the Z80 bus
-    lea     ($A01F00), a1
-@loop
-	move.b	(a1)+,(a0)+
-	dbf d3, @loop
-    Echo_Z80Release                 ; Let the Z80 go!
-	move.l (a7)+,a1
-	move.w (a7)+,d3
-    rts                             ; End of subroutine
-
-	
 ;****************************************************************************
 ; Echo_Init
 ; Initializes Echo

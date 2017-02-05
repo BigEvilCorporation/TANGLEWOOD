@@ -78,6 +78,13 @@ MonsterState_Wandering	equ 0x6
 MonsterState_Tamed		equ 0x7
 
 ; ************************************
+; Music states
+; ************************************
+MonsterMusicState_Off		equ 0x0
+MonsterMusicState_Chase		equ 0x1
+MonsterMusicState_Search	equ 0x2
+
+; ************************************
 ; Animations
 ; ************************************
 MonsterAnimIdx_Eyes		equ 0
@@ -102,8 +109,9 @@ Monster_DoIntro		   rs.b 1
 Monster_BlockingCtrl   rs.b 1
 Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
+Monster_MusicState     rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 0
+Monster_Struct_Pad     rs.b 3
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -170,6 +178,7 @@ MonsterInit:
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
 	move.b  #0x1, Monster_DoIntro(a0)
+	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -386,6 +395,13 @@ MonsterUpdate:
 	
 	; Make sure animation control is returned to the character
 	move.b #0x1, Character_UpdateAnim(a0)
+
+	; End Music
+	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	beq    @NotPlaying
+	jsr    SND_BeginFadeTrack
+	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
+	@NotPlaying:
 	
 	@EndStateMachine:
 	
@@ -546,12 +562,10 @@ MonsterUpdateWaitForPlayer:
 	cmp.b  #0x0, Monster_RumblePlayed(a0)
 	bne    @Playing
 	
-	IFND DEBUG
 	PUSHL  a0
 	lea    bgm_monsterbass, a0
 	jsr    SND_PlayTrack
 	POPL   a0
-	ENDIF
 	
 	; Set played
 	move.b #0x1, Monster_RumblePlayed(a0)
@@ -718,6 +732,16 @@ MonsterStartSearchForPlayer:
 	
 	; Set initial delay before first walk
 	move.w #Monster_SearchRandDelayInit, Monster_SearchDelay(a0)
+
+	; Start search theme
+	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
+	beq    @TrackPlaying
+	PUSHL  a0
+	lea    bgm_boss1_search, a0
+	jsr    SND_PlayTrack
+	POPL   a0
+	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
+	@TrackPlaying:
 	
 	rts
 
@@ -867,10 +891,14 @@ MonsterStartTrackPlayer:
 	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Start chase theme
+	cmp.b  #MonsterMusicState_Chase, Monster_MusicState(a0)
+	beq    @TrackPlaying
 	PUSHL  a0
-	lea    bgm_boss1, a0
+	lea    bgm_boss1_chase, a0
 	jsr    SND_PlayTrack
 	POPL   a0
+	move.b #MonsterMusicState_Chase, Monster_MusicState(a0)
+	@TrackPlaying:
 
 	rts
 

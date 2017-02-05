@@ -18,8 +18,11 @@ bgm_dusk:
 bgm_night:
 	include 'assets\audio\music\night.asm'
 	
-bgm_boss1:
+bgm_boss1_chase:
 	include 'assets\audio\music\boss_l.asm'
+
+bgm_boss1_search:
+	include 'assets\audio\music\boss_q.asm'
 
 bgm_monsterbass:
 	dc.b 0xFF ;incbin 'assets\audio\music\lowbass.esf'

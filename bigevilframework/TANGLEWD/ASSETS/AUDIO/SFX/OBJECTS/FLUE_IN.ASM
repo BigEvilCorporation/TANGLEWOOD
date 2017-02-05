@@ -1,3 +1,4 @@
+	dc.b $e0		; Lock channel FM 1
 ; Pattern $00, Row 0; 
 	dc.b $40, $1f	; Set instrument for channel FM 1
 	dc.b $00, $83	; Note C#4 on channel FM 1

@@ -1,3 +1,4 @@
+	dc.b $e0		; Lock channel FM 1
 ; Pattern $00, Row 0; 
 	dc.b $40, $28	; Set instrument for channel FM 1
 	dc.b $20, $0f	; Set volume for channel FM 1
