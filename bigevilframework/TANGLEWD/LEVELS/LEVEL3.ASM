@@ -49,12 +49,12 @@ Lvl3Data_Struct_Size     		rs.b 0
 Lvl3_Init:
 	
 	; Load BG map
-	;lea    map_lvl1_bg, a0
-	;move.l #map_lvl1_bg_size_w, d0
-	;move.l #0x0, d1
-	;move.w (vram_addr_leveltiles), d2
-	;move.l #PaletteId_World0, d3
-	;jsr    VDP_LoadMapPlaneB
+	lea    map_blocks_l1bg, a0
+	lea    map_blockmap_l1bg, a1
+	move.l #(map_blockmap_lvl1_bg_width<<16)|map_blockmap_lvl1_bg_height, d1
+	move.w (vram_addr_leveltiles), d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadBlockMapPlaneB
 	
 	;==============================================================
 	
