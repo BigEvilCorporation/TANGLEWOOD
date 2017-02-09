@@ -9,7 +9,8 @@
 Lvl_TestLift:
 
 	dc.l tiles_tst_lift					; Tileset
-	dc.l map_tst_lift					; Map
+	dc.l 0x0 ;map_blocks_L1A1		; Blocks
+	dc.l 0x0 ;map_blockmap_L1A1		; Block map
 	dc.l collisiontiles_tst_lift		; Collision tileset
 	dc.l collisionmap_tst_lift			; Collision map
 	dc.l Lvl_TestLift_DefaultPalettes	; Palettes

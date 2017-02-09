@@ -115,16 +115,6 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 	endm
 	
 ;==============================================================
-
-TOSUBPIXELS: macro destreg
-	lsl.l   #0x8, \destreg
-	endm
-	
-TOPIXELS: macro destreg
-	lsr.l   #0x8, \destreg
-	endm
-	
-;==============================================================
 	
 	; Play SFX non-excusively (won't play if already playing or sound system busy)
 PLAYSFX_LOWPRIO: macro sfxAddr

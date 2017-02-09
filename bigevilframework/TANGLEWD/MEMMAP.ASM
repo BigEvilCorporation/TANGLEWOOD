@@ -223,7 +223,7 @@ BGMOffTimer				 rs.w 1
 ; Level runtime data
 ; ************************************
 	IFND DEBUG
-LevelData_L1A1			 rs.b L1A1Data_Struct_Size
+;LevelData_L1A1			 rs.b L1A1Data_Struct_Size
 LevelData_1				 rs.b Lvl1Data_Struct_Size
 LevelData_2				 rs.b Lvl2Data_Struct_Size
 LevelData_3				 rs.b Lvl3Data_Struct_Size

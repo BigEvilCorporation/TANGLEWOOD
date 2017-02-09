@@ -12,7 +12,8 @@
 L1A1_HarlequinForest:
 
 	dc.l tiles_L1				; Tileset
-	dc.l map_L1A1				; Map
+	dc.l 0x0 ;map_blocks_L1A1		; Blocks
+	dc.l 0x0 ;map_blockmap_L1A1		; Block map
 	dc.l collisiontiles_L1		; Collision tileset
 	dc.l collisionmap_L1A1		; Collision map
 	dc.l L1A1_DefaultPalettes	; Palettes

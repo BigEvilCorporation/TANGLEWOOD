@@ -96,8 +96,251 @@ VDP_LoadMapPlaneB:
 
     rts
 
+VDP_LoadBlockMapPlaneB:
+	; a0 (l)  - Block data address (ROM)
+	; a1 (l)  - Block map address (ROM)
+	; d1 (ww) - Map width/height (in blocks)
+	; d2 (w)  - First tile ID
+	; d3 (b)  - Palette ID
+
+	; Backup block address
+	move.l  a0, a2
+
+	; Row/col counters
+	move.w  d1, d4	; Y
+	swap    d1
+	move.w  d1, d5	; X
+	sub.w   #0x1, d4
+	sub.w   #0x1, d5
+
+	; X/Y coord
+	clr.l   d1
+
+	; Loop rows
+	@LoopY:
+
+		; Loop cols
+		move.w  d5, d6			; Reset X counter
+		andi.l  #0x0000FFFF, d1	; Reset X pos
+		@LoopX:
+
+			clr.l  d7
+			move.w (a1)+, d7		; Fetch next block ID
+			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
+			move.l a2, a0			; Get first block address
+			add.l  d7, a0			; Add block offset
+
+			PUSHM  a0-a1/d1-d6
+			jsr    VDP_LoadBlockPlaneB
+			POPM   a0-a1/d1-d6
+
+			; Increment X
+			add.l  #map_block_width<<16, d1
+
+		; Loop
+		dbra.w d6, @LoopX
+
+		; Increment Y
+		add.w  #map_block_height, d1
+
+	; Loop
+	dbra.w d4, @LoopY
+
+	rts
+
+VDP_LoadBlockPlaneA:
+    ; a0 (l)  - Block address (ROM)
+	; d1 (ww) - X/Y coord
+	; d2 (w)  - First tile ID
+	; d3 (b)  - Palette ID
+
+	; X/Y offset to destination address
+	clr.l   d4
+	move.w  d1, d4					; Y to d4
+	mulu    #vdp_plane_width, d4	; Multiply Y by line width
+	clr.w   d1						; Clear lower word
+	swap    d1						; X to lower word
+	add.l   d1, d4					; Add X offset
+	lsl.l   #0x1, d4				; Offset to bytes
+
+	rol.l   #0x08, d3				; Shift palette ID to bits 14-15
+	rol.l   #0x05, d3				; Can only rol 8 bits at a time
+
+	; For each row in block
+	move.w  #map_block_height-1, d5
+	@RowLoop:
+
+		; Fetch address offset
+		move.l  d4, d1
+
+		; Set VDP dest address
+		VDP_SETADDRESS d1, #vram_addr_plane_a, #vdp_cmd_vram_write
+
+		; For each col in block
+		move.w  #map_block_width-1, d0
+		@ColLoop:
+			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
+			and.l   #%0011111111111111, d1 ; Mask out original palette ID
+			or.l    d3, d1                 ; Replace with our own
+			add.w   d2, d1                 ; Add first tile offset to d1
+			move.w  d1, vdp_data           ; Move to VRAM
+		dbra.w  d0, @ColLoop               ; Loop
+
+		; Offset to next row
+		add.l   #vdp_plane_width*size_word, d4
+
+	; Loop to next row
+	dbra.w  d5, @RowLoop
+
+    rts
+
+VDP_LoadBlockPlaneB:
+    ; a0 (l)  - Block address (ROM)
+	; d1 (ww) - X/Y coord
+	; d2 (w)  - First tile ID
+	; d3 (b)  - Palette ID
+
+	; X/Y offset to destination address
+	clr.l   d4
+	move.w  d1, d4					; Y to d4
+	mulu    #vdp_plane_width, d4	; Multiply Y by line width
+	clr.w   d1						; Clear lower word
+	swap    d1						; X to lower word
+	add.l   d1, d4					; Add X offset
+	lsl.l   #0x1, d4				; Offset to bytes
+
+	rol.l   #0x08, d3				; Shift palette ID to bits 14-15
+	rol.l   #0x05, d3				; Can only rol 8 bits at a time
+
+	; For each row in block
+	move.w  #map_block_height-1, d5
+	@RowLoop:
+
+		; Fetch address offset
+		move.l  d4, d1
+
+		; Set VDP dest address
+		VDP_SETADDRESS d1, #vram_addr_plane_b, #vdp_cmd_vram_write
+
+		; For each col in block
+		move.w  #map_block_width-1, d0
+		@ColLoop:
+			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
+			and.l   #%0011111111111111, d1 ; Mask out original palette ID
+			or.l    d3, d1                 ; Replace with our own
+			add.w   d2, d1                 ; Add first tile offset to d1
+			move.w  d1, vdp_data           ; Move to VRAM
+		dbra.w  d0, @ColLoop               ; Loop
+
+		; Offset to next row
+		add.l   #vdp_plane_width*size_word, d4
+
+	; Loop to next row
+	dbra.w  d5, @RowLoop
+
+    rts
+
+VDP_LoadMapBlockSegmentPlaneA:
+    ; a0 (l)  Map blocks data address (ROM)
+	; a1 (l)  Map blockmap data address (ROM)
+	; d0 (ww) Source top/left (blocks)
+	; d1 (ww) Destination top/left (blocks)
+	; d2 (ww) Segment width/height (blocks)
+	; d3 (w)  Source map total width (blocks)
+	; d4 (w)  Art tile ID
+	; d5 (b)  Palette ID
+	
+	and.l  #0x0000FFFF, d3
+	and.l  #0x0000FFFF, d4
+	
+	; Source top/left to block map byte offset (mul Y by total map width, add X)
+	clr.l  d6
+	move.w d0, d6	; Y to d6
+	mulu   d3, d6	; To block offset
+	clr.w  d0
+	swap   d0		; X to lower word
+	add.l  d6, d0	; Add Y to X offset
+	lsl.l  #0x1, d0	; To byte offset
+	add.l  d0, a1	; Offset map address
+	
+	; Dest top/left to tile offset
+	lsl.l   #0x2, d1
+	
+	; Segment width to column counter
+	swap   d2
+	clr.l  d7
+	move.w d2, d7
+	sub.w  #0x1, d7
+	
+	; Segment height to row counter
+	clr.w  d2
+	swap   d2
+	sub.w  #0x1, d2
+	
+	; Total map width to bytes
+	lsl.w  #0x1, d3
+	
+	; Shift palette ID to bits 14-15
+	and.w  #0x00FF, d5
+	lsl.w  #0x08, d5
+	lsl.w  #0x05, d5
+
+	; Backup X coord to reset after every row
+	move.l d1, d6
+
+	; Backup source map address to reset after every row
+	move.l a1, a2
+
+	; Backup block data address
+	move.l  a0, a3
+	
+	; Loop rows
+	@RowLp:
+
+		; Loop columns
+		PUSHL d7
+		@ColumnLp:
+		
+			clr.l  d0
+			move.w (a2)+, d0		; Fetch next block ID
+			mulu   #map_block_width*map_block_height*size_word, d0	; To block offset
+			move.l a3, a0			; Get first block address
+			add.l  d0, a0			; Add block offset
+
+			; Load block
+			PUSHALL
+			; a0 (l)  - Block address (ROM)
+			; d1 (ww) - X/Y coord
+			move.l d4, d2	; d2 (w)  - First tile ID
+			move.b d5, d3	; d3 (b)  - Palette ID
+			jsr   VDP_LoadBlockPlaneA
+			POPALL
+
+			; Increment X coord
+			add.l #map_block_width<<16, d1
+		
+		dbra d7, @ColumnLp
+		POPL d7
+		
+		; Increment block map data address by 1 row (total block map width in bytes)
+		add.l d3, a1
+
+		; Reset block map ptr to start of row
+		move.l a1, a2
+		
+		; Increment dest Y coord
+		add.w  #map_block_height, d6
+
+		; Reset dest coords to start of row + new Y offset
+		move.l d6, d1
+		
+	dbra d2, @RowLp
+	
+	rts
+
 VDP_LoadMapSegmentPlaneA:
-    ; a0 (l)  Map data address (ROM)
+    ; a0 (l)  Map blocks data address (ROM)
+	; a1 (l)  Map blockmap data address (ROM)
 	; d0 (ww) Source top/left (tiles)
 	; d1 (ww) Destination top/left (tiles)
 	; d2 (ww) Segment width/height (tiles)

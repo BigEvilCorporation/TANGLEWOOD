@@ -9,7 +9,8 @@
 Lvl3_HarlequinForestAct3:
 
 	dc.l tiles_lvl1				; Tileset
-	dc.l map_lvl3				; Map
+	dc.l map_blocks_L1A3		; Blocks
+	dc.l map_blockmap_L1A3		; Block map
 	dc.l collisiontiles_lvl1	; Collision tileset
 	dc.l collisionmap_lvl3		; Collision map
 	dc.l Lvl3_DefaultPalettes	; Palettes
@@ -21,6 +22,8 @@ Lvl3_HarlequinForestAct3:
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl3_width			; Map width
 	dc.w map_lvl3_height		; Map height
+	dc.w map_blockmap_lvl3_width	; Map width (blocks)
+	dc.w map_blockmap_lvl3_height	; Map height (blocks)
 	dc.w tiles_lvl1_size_t		; Num tiles
 	
 	even
@@ -46,12 +49,12 @@ Lvl3Data_Struct_Size     		rs.b 0
 Lvl3_Init:
 	
 	; Load BG map
-	lea    map_lvl1_bg, a0
-	move.l #map_lvl1_bg_size_w, d0
-	move.l #0x0, d1
-	move.w (vram_addr_leveltiles), d2
-	move.l #PaletteId_World0, d3
-	jsr    VDP_LoadMapPlaneB
+	;lea    map_lvl1_bg, a0
+	;move.l #map_lvl1_bg_size_w, d0
+	;move.l #0x0, d1
+	;move.w (vram_addr_leveltiles), d2
+	;move.l #PaletteId_World0, d3
+	;jsr    VDP_LoadMapPlaneB
 	
 	;==============================================================
 	

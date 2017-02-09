@@ -45,6 +45,8 @@ PUSHALL: macro
 POPALL: macro
 	movem.l (sp)+, d0-d7/a0-a6
 	endm
+
+;==============================================================
 	
 ; Stack alloc (bytes)
 ALLOCSTACKB: macro bytes
@@ -56,6 +58,8 @@ FREESTACKB: macro bytes
 	add.l  #\bytes, sp
 	endm
 	
+;==============================================================
+
 ; Copy memory (longwords)
 MEMCPYL: macro destreg,sourcereg,countreg
 	subi.w #0x1, \countreg
@@ -79,6 +83,8 @@ MEMZEROL: macro addressreg,countreg
 	move.l #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROL_LP\@
 	endm
+
+;==============================================================
 	
 ; Set VDP register state (and update local table)
 VDPSETREG: macro regnum,valuereg
@@ -92,6 +98,18 @@ VDPSETREG: macro regnum,valuereg
 VDPGETREG: macro regnum,valuereg
 	move.b (vdp_regs+\regnum),\valuereg
 	endm
+
+VDP_SETADDRESS: macro destreg, baseaddr, optype
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	add.l   \baseaddr, \destreg		; Add VRAM address offset
+	rol.l   #0x2,\destreg			; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, \destreg			; Shift lower word back
+	swap    \destreg				; Swap address hi/lo
+	ori.l   \optype, \destreg		; OR in VRAM/CRAM/VSRAM write/read command
+	move.l  \destreg, vdp_control	; Move dest address to VDP control port
+	endm
+
+;==============================================================
 
 ; Clamp value between A and B
 CLAMP: macro valuereg,minreg,maxreg
@@ -112,6 +130,8 @@ ABS: macro valuereg
 	neg.l \valuereg
 	@Pos\@:
 	endm
+
+;==============================================================
 	
 ; Fixed-point (frac = 8) linear interpolation between A and B by T
 LERP_FIXED8: macro destreg,from,to,time
@@ -143,6 +163,16 @@ LERP_INT1024: macro destreg,A,B,T,tempreg
 	lsr.l  #0x2,\B
 	move.l \B,\destreg
 	endm
+
+;==============================================================
+
+TOSUBPIXELS: macro destreg
+	lsl.l   #0x8, \destreg
+	endm
+	
+TOPIXELS: macro destreg
+	lsr.l   #0x8, \destreg
+	endm
 	
 PIXELS2TILES: macro reg
 	lsr.w  #0x3, \reg
@@ -152,9 +182,18 @@ TILES2PIXELS: macro reg
 	lsl.w  #0x3, \reg
 	endm
 
+TILES2BLOCKS: macro reg
+	lsr.w  #0x2, \reg
+	endm
+	
+BLOCKS2TILES: macro reg
+	lsl.w  #0x2, \reg
+	endm
+
+;==============================================================
+
 RAISE_EXCEPTION: macro errcode
 	move.l #(\errcode)<<0x10, a5	; Err code byte to upper a5
 	move.w #0x1, a5		; Odd address to cause exception
 	move.l (a5), a5		; Punch it
 	endm
-	

@@ -53,7 +53,7 @@ Gravity			         equ 0x0030
 	IFD DEBUG
 GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Height
 	ELSE
-GroundHeightScreen       equ (map_l1a1_height*8)+SpritePlaneBorderY+Player1Height
+GroundHeightScreen       equ (map_lvl1_height*8)+SpritePlaneBorderY+Player1Height
 	ENDIF
 
 GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
@@ -82,8 +82,8 @@ CameraScrollSafeBorderY	 equ ((screen_height/2)*SubpixelsPerPixel)
 ; Streaming
 MapStreamBorderX		 equ 0x1
 MapStreamBorderY		 equ 0x1
-MapStreamWidth	 		 equ (screen_width/8)+(MapStreamBorderX*2)
-MapStreamHeight	 		 equ (screen_height/8)+(MapStreamBorderY*2)
+MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX*2)
+MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY*2)
 
 ; World switching colour types
 ColourDrained			 equ 0x0

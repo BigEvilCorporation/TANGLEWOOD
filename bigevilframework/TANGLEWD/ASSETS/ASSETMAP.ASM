@@ -114,27 +114,43 @@
 	include 'assets\maps\soundtst.asm'
 	include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\ks_logo.asm'
-	include 'assets\maps\map_lvl1.asm'
-	include 'assets\maps\map_lvl2.asm'
-	include 'assets\maps\map_lvl3.asm'
-	include 'assets\maps\lvl1_bg.asm'
+	;include 'assets\maps\map_lvl1.asm'
+	;include 'assets\maps\map_lvl2.asm'
+	;include 'assets\maps\map_lvl3.asm'
+	; include 'assets\maps\lvl1_bg.asm'
 
-	include 'assets\maps\l1bg.asm'
-	include 'assets\maps\l1a1.asm'
+	; include 'assets\maps\l1bg.asm'
+	; include 'assets\maps\l1a1.asm'
 	
 	IFND FINAL
-	include 'assets\maps\tst_lift.asm'
+	; include 'assets\maps\tst_lift.asm'
 	ENDIF
+
+	; ************************************
+	; Level block maps
+	; ************************************
+	include 'assets\maps\blockmap\l1a1.asm'
+	include 'assets\maps\blockmap\l1a2.asm'
+	include 'assets\maps\blockmap\l1a3.asm'
+	include 'assets\maps\blockmap\l1bg.asm'
+	
+	; ************************************
+	; Level blocks
+	; ************************************
+	include 'assets\maps\blocks\l1a1.asm'
+	include 'assets\maps\blocks\l1a2.asm'
+	include 'assets\maps\blocks\l1a3.asm'
+	include 'assets\maps\blocks\l1bg.asm'
 	
 	; ************************************
     ; Collision tiles
     ; ************************************
 	include 'assets\collisn\ctl_lvl1.asm'
 
-	include 'assets\collisn\tiles\l1.asm'
+	;include 'assets\collisn\tiles\l1.asm'
 	
 	IFND FINAL
-	include 'assets\collisn\ctl_lift.asm'
+	;include 'assets\collisn\ctl_lift.asm'
 	ENDIF
 	
 	; ************************************
@@ -144,10 +160,10 @@
 	include 'assets\collisn\cmp_lvl2.asm'
 	include 'assets\collisn\cmp_lvl3.asm'
 
-	include 'assets\collisn\maps\l1a1.asm'
+	;include 'assets\collisn\maps\l1a1.asm'
 	
 	IFND FINAL
-	include 'assets\collisn\cmp_lift.asm'
+	;include 'assets\collisn\cmp_lift.asm'
 	ENDIF
 	
 	; ************************************
@@ -157,10 +173,10 @@
 	include 'assets\gameobj\obj_lvl2.asm'
 	include 'assets\gameobj\obj_lvl3.asm'
 
-	include 'assets\gameobj\l1a1.asm'
+	;include 'assets\gameobj\l1a1.asm'
 	
 	IFND FINAL
-	include 'assets\gameobj\tst_lift.asm'
+	;include 'assets\gameobj\tst_lift.asm'
 	ENDIF
 
 	ENDIF

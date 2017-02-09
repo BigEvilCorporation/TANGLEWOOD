@@ -9,7 +9,8 @@
 Lvl2_HarlequinForestAct2:
 
 	dc.l tiles_lvl1				; Tileset
-	dc.l map_lvl2				; Map
+	dc.l map_blocks_L1A2		; Blocks
+	dc.l map_blockmap_L1A2		; Block map
 	dc.l collisiontiles_lvl1	; Collision tileset
 	dc.l collisionmap_lvl2		; Collision map
 	dc.l Lvl2_DefaultPalettes	; Palettes
@@ -21,6 +22,8 @@ Lvl2_HarlequinForestAct2:
 	dc.w Gravity				; Default gravity
 	dc.w map_lvl2_width			; Map width
 	dc.w map_lvl2_height		; Map height
+	dc.w map_blockmap_lvl2_width	; Map width (blocks)
+	dc.w map_blockmap_lvl2_height	; Map height (blocks)
 	dc.w tiles_lvl1_size_t		; Num tiles
 	
 	even
@@ -47,12 +50,12 @@ Lvl2Data_Struct_Size     		rs.b 0
 Lvl2_Init:
 
 	; Load BG map
-	lea    map_lvl1_bg, a0
-	move.l #map_lvl1_bg_size_w, d0
-	move.l #0x0, d1
-	move.w (vram_addr_leveltiles), d2
-	move.l #PaletteId_World0, d3
-	jsr    VDP_LoadMapPlaneB
+	;lea    map_lvl1_bg, a0
+	;move.l #map_lvl1_bg_size_w, d0
+	;move.l #0x0, d1
+	;move.w (vram_addr_leveltiles), d2
+	;move.l #PaletteId_World0, d3
+	;jsr    VDP_LoadMapPlaneB
 	
 	;==============================================================
 	

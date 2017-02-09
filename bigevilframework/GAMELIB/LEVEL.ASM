@@ -9,7 +9,8 @@
 	rsset 0
 ;---------------------------------
 Level_TilesAddr       		rs.l 1
-Level_MapAddr    			rs.l 1
+Level_BlocksAddr    		rs.l 1
+Level_BlockMapAddr    		rs.l 1
 Level_ColTilesAddr    		rs.l 1
 Level_ColMapAddr			rs.l 1
 Level_PalettesAddr			rs.l 1
@@ -21,6 +22,8 @@ Level_NextLevel				rs.l 1
 Level_Gravity				rs.w 1
 Level_MapWidth				rs.w 1
 Level_MapHeight				rs.w 1
+Level_MapWidthBlocks		rs.w 1
+Level_MapHeightBlocks		rs.w 1
 Level_NumTiles				rs.w 1
 ;---------------------------------
 Level_Struct_Pad			rs.b 2

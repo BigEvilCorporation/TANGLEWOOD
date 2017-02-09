@@ -9,7 +9,8 @@
 Tst1_Forest:
 
 	dc.l tiles_tst1				; Tileset
-	dc.l map_tst1				; Map
+	dc.l 0x0 ;map_blocks_L1A1		; Blocks
+	dc.l 0x0 ;map_blockmap_L1A1		; Block map
 	dc.l collisiontiles_tst1	; Collision tileset
 	dc.l collisionmap_tst1		; Collision map
 	dc.l Tst11_DefaultPalettes	; Palettes

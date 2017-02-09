@@ -79,24 +79,48 @@ map_soundtest:
 	incbin 'assets\maps\soundtst.bin'
 map_twd_logo:
 	incbin 'assets\maps\twd_logo.bin'
-map_lvl1:
-	incbin 'assets\maps\map_lvl1.bin'
-map_lvl2:
-	incbin 'assets\maps\map_lvl2.bin'
-map_lvl3:
-	incbin 'assets\maps\map_lvl3.bin'
-map_lvl1_bg:
-	incbin 'assets\maps\lvl1_bg.bin'
+;map_lvl1:
+;	incbin 'assets\maps\map_lvl1.bin'
+;map_lvl2:
+;	incbin 'assets\maps\map_lvl2.bin'
+;map_lvl3:
+;	incbin 'assets\maps\map_lvl3.bin'
+;map_lvl1_bg:
+;	incbin 'assets\maps\lvl1_bg.bin'
 
-map_l1a1:
-	incbin 'assets\maps\l1a1.bin'
-map_l1bg:
-	incbin 'assets\maps\l1bg.bin'
+;map_l1a1:
+;	incbin 'assets\maps\l1a1.bin'
+;map_l1bg:
+;	incbin 'assets\maps\l1bg.bin'
 	
 	IFND FINAL
 map_tst_lift:
 	incbin 'assets\maps\tst_lift.bin'
 	ENDIF
+
+	; ************************************
+	; Blocks
+	; ************************************
+map_blocks_l1a1:
+	incbin 'assets\maps\blocks\l1a1.bin'
+map_blocks_l1a2:
+	incbin 'assets\maps\blocks\l1a2.bin'
+map_blocks_l1a3:
+	incbin 'assets\maps\blocks\l1a3.bin'
+map_blocks_l1bg:
+	incbin 'assets\maps\blocks\l1bg.bin'
+
+	; ************************************
+	; Block Maps
+	; ************************************
+map_blockmap_l1a1:
+	incbin 'assets\maps\blockmap\l1a1.bin'
+map_blockmap_l1a2:
+	incbin 'assets\maps\blockmap\l1a2.bin'
+map_blockmap_l1a3:
+	incbin 'assets\maps\blockmap\l1a3.bin'
+map_blockmap_l1bg:
+	incbin 'assets\maps\blockmap\l1bg.bin'
 
 	; ************************************
 	; Collision maps
@@ -108,12 +132,12 @@ collisionmap_lvl2:
 collisionmap_lvl3:
 	incbin 'assets\collisn\cmp_lvl3.bin'
 
-collisionmap_l1a1:
-	incbin 'assets\collisn\maps\l1a1.bin'
+;collisionmap_l1a1:
+;	incbin 'assets\collisn\maps\l1a1.bin'
 	
 	IFND FINAL
-collisionmap_tst_lift:
-	incbin 'assets\collisn\cmp_lift.bin'
+;collisionmap_tst_lift:
+;	incbin 'assets\collisn\cmp_lift.bin'
 	ENDIF
 
 	ENDIF

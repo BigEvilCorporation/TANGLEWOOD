@@ -98,10 +98,18 @@ z80_bus_reset			equ 0x00A11200
 z80_ram_start			equ 0x00A00000
 
 ; ************************************
+; Streaming
+; ************************************
+map_block_width			equ 0x4
+map_block_height		equ 0x4
+
+; ************************************
 ; VDP
 ; ************************************
 vdp_plane_width         equ 0x0040 ; 64 tiles X
 vdp_plane_height        equ 0x0020 ; 32 tiles Y
+vdp_plane_width_blocks  equ (vdp_plane_width/map_block_width)
+vdp_plane_height_blocks equ (vdp_plane_height/map_block_height)
 vdp_plane_size_t		equ (vdp_plane_width*vdp_plane_height)
 vdp_plane_size_b		equ (vdp_plane_size_t*size_word)
 vdp_plane_border_x      equ (vdp_plane_width-(screen_width/8))/2

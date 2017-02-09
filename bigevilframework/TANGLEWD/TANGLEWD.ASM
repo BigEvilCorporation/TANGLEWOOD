@@ -127,13 +127,13 @@ __start
 	IFD DEBUG
 	include 'levels\testlvl1.asm'
 	ELSE
-	include 'levels\l1a1.asm'
+	; include 'levels\l1a1.asm'
 	include 'levels\level1.asm'
 	include 'levels\level2.asm'
 	include 'levels\level3.asm'
 	
 	IFND FINAL
-	include 'levels\tst_lift.asm'
+	; include 'levels\tst_lift.asm'
 	ENDIF
 	
 	ENDIF
@@ -188,8 +188,8 @@ __main:
 	IFD DEBUG
 	lea GameStateGameplay, a0
 	ELSE
-	lea GameStateLogos, a0
-	;lea GameStateGameplay, a0
+	;lea GameStateLogos, a0
+	lea GameStateGameplay, a0
 	ENDIF
 	jsr GameStateEnter
 

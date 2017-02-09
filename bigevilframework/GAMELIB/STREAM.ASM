@@ -24,8 +24,9 @@ MAP_UpdateStreaming:
 	move.l  (WorldScrollY), d1
 	@NoClampY:
 	
-	lsr.l   #0x8, d1					; To screen space
-	PIXELS2TILES d1						; To tiles
+	TOPIXELS     d1					; To screen space
+	PIXELS2TILES d1					; To tiles
+	TILES2BLOCKS d1					; To blocks
 	move.w  d1, d2
 	sub.w   (MapStreamLoadedRow), d2
 	cmp.w   #0x0, d2
@@ -45,8 +46,9 @@ MAP_UpdateStreaming:
 	move.l  (WorldScrollX), d3
 	@NoClampX:
 	
-	lsr.l   #0x8, d3					; To screen space
-	PIXELS2TILES d3						; To tiles
+	TOPIXELS     d3					; To screen space
+	PIXELS2TILES d3					; To tiles
+	TILES2BLOCKS d3					; To blocks
 	move.w  d3, d4
 	sub.w   (MapStreamLoadedCol), d4
 	cmp.w   #0x0, d4
@@ -63,17 +65,9 @@ MAP_UpdateStreaming:
 	beq     @NoPendingRows
 	
 	; Stream next pending row
-	PUSHL   d0
-	PUSHL   d1
-	PUSHL   d2
-	PUSHL   d3
-	PUSHL   d4
+	PUSHM   d0-d4
 	jsr     MAP_StreamNextRow
-	POPL    d4
-	POPL    d3
-	POPL    d2
-	POPL    d1
-	POPL	d0
+	POPM    d0-d4
 	
 	sub.w   #0x1, d2
 	
@@ -85,18 +79,10 @@ MAP_UpdateStreaming:
 	beq     @NoPendingCols
 	
 	; Stream next pending col
-	PUSHL   d0
-	PUSHL   d1
-	PUSHL   d2
-	PUSHL   d3
-	PUSHL   d4
+	PUSHM   d0-d4
 	move.w  d3, d1
 	jsr     MAP_StreamNextColumn
-	POPL    d4
-	POPL    d3
-	POPL    d2
-	POPL    d1
-	POPL	d0
+	POPM    d0-d4
 	
 	sub.w   #0x1, d4
 	
@@ -140,7 +126,7 @@ MAP_StreamNextRow:
 	@StreamBottom:
 	add.w   #0x1, d0				; Stream one row below last streamed
 	move.w  d0, MapStreamLoadedRow	; Last loaded row back to RAM
-	add.w   #MapStreamHeight-1, d0	; Offset to bottom of stream window
+	add.w   #MapStreamHeight-2, d0	; Offset to bottom of stream window
 	@Stream:
 	
 	; Source rect left in upper d0
@@ -150,8 +136,9 @@ MAP_StreamNextRow:
 	bge    @NoClampX
 	move.l  (WorldScrollX), d1
 	@NoClampX:
-	lsr.l   #0x8, d1				; To screen space
+	TOPIXELS     d1					; To screen space
 	PIXELS2TILES d1					; To tiles
+	TILES2BLOCKS d1					; To blocks
 	swap	d0
 	move.w	d1, d0
 	
@@ -159,13 +146,13 @@ MAP_StreamNextRow:
 	swap	d0
 	
 	; Dest rect left in upper d1
-	divu	#vdp_plane_width, d1	; Div/scroll width
+	divu	#vdp_plane_width_blocks, d1	; Div/scroll width
 	clr.w	d1						; Clear exponent (remainder in upper d1)
 	
 	; Dest rect top in lower d1
 	clr.l   d2
 	move.w	d0, d2					; Dest rect top to lower d2
-	divu    #vdp_plane_height, d2	; Div/scroll height
+	divu    #vdp_plane_height_blocks, d2	; Div/scroll height
 	clr.w	d2						; Clear exponent
 	swap	d2						; Remainder (modulus) to lower d1
 	move.w	d2, d1
@@ -179,11 +166,11 @@ MAP_StreamNextRow:
 	move.l	d1, d3
 	swap	d3
 	add.w	#MapStreamWidth, d3
-	cmp.w	#vdp_plane_width, d3
+	cmp.w	#vdp_plane_width_blocks, d3
 	ble		@WithinBounds
 	
 	; Clamp width to bounds
-	sub.w	#vdp_plane_width, d3
+	sub.w	#vdp_plane_width_blocks, d3
 	move.w	d3, d5		; Keep overflow
 	swap	d2
 	sub.w	d3, d2		; Truncate width
@@ -195,28 +182,19 @@ MAP_StreamNextRow:
 	@Loop:
 	
 	; Backup source/dest rects, width/height, loop counter and overflow
-	move.w	d5, -(sp)	; Overflow
-	move.w	d4, -(sp)	; Loop counter
-	move.l	d2, -(sp)	; W/H
-	move.l	d1, -(sp)	; Dest rect
-	move.l	d0, -(sp)	; Source rect
-	move.l	a1, -(sp)	; Level data
+	PUSHM   a0-a1/d0-d5
 	
 	; Load map segment
-	move.l  Level_MapAddr(a1), a0   ; a0 ---  Source map address
-	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
-	move.w  (vram_addr_leveltiles), d4 	; d4 (w)  Art tile ID
-	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
-	lea     VDP_LoadMapSegmentPlaneA, a5
+	move.w  Level_MapWidthBlocks(a1), d3		; d3 (w)  Source map total width (blocks)
+	move.l  Level_BlocksAddr(a1), a0			; a0 ---  Source blocks address
+	move.l  Level_BlockMapAddr(a1), a1			; a1 ---  Source block map address
+	move.w  (vram_addr_leveltiles), d4			; d4 (w)  Art tile ID
+	move.b  #PaletteId_World0, d5				; d5 (b)  Palette ID
+	lea     VDP_LoadMapBlockSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
-	move.l	(sp)+, a1 	; Level data
-	move.l	(sp)+, d0 	; Source rect
-	move.l	(sp)+, d1 	; Dest rect
-	move.l	(sp)+, d2 	; W/H
-	move.w	(sp)+, d4 	; Loop counter
-	move.w	(sp)+, d5 	; Overflow
+	POPM    a0-a1/d0-d5
 	
 	; Continue second half of row from left of scroll plane
 	swap	d0
@@ -258,7 +236,7 @@ MAP_StreamNextColumn:
 	; Dest rect left in upper d2
 	clr.l	d2
 	move.w	d0, d2					; Dest rect left to lower d2
-	divu    #vdp_plane_width, d2	; Div/scroll width
+	divu    #vdp_plane_width_blocks, d2	; Div/scroll width
 	clr.w	d2						; Clear exponent (remainder in upper d2)
 	
 	; Source rect left in upper d0
@@ -271,19 +249,20 @@ MAP_StreamNextColumn:
 	bge    @NoClampY
 	move.l  (WorldScrollY), d3
 	@NoClampY:
-	lsr.l   #0x8, d3				; To screen space
+	TOPIXELS     d3					; To screen space
 	PIXELS2TILES d3					; To tiles
+	TILES2BLOCKS d3					; To blocks
+	sub.w   #0x1, d3				; -1
 	move.w	d3, d0					; To lower d0
 	
 	; Dest rect top in lower d1
 	move.w	d3, d1
-	divu	#vdp_plane_height, d1	; Div/scroll height
+	divu	#vdp_plane_height_blocks, d1	; Div/scroll height
 	clr.w	d1						; Clear exponent
 	swap	d1						; Remainder to lower d1
 	
 	; Dest rect left to upper d1
 	or.l	d2, d1					
-	
 	move.w  #0x1, d2				; Streaming one col per frame (to load balance)
 	swap	d2
 	move.w	#MapStreamHeight, d2	; Stream whole height (TODO: don't include overlap)
@@ -292,11 +271,11 @@ MAP_StreamNextColumn:
 	move.w	#0x0, d4 ; Don't loop by default
 	move.w	d1, d3
 	add.w	#MapStreamHeight, d3
-	cmp.w	#vdp_plane_height, d3
+	cmp.w	#vdp_plane_height_blocks, d3
 	ble		@WithinBounds
 	
 	; Clamp height to bounds
-	sub.w	#vdp_plane_height, d3
+	sub.w	#vdp_plane_height_blocks, d3
 	move.w	d3, d5		; Keep overflow
 	sub.w	d3, d2		; Truncate height
 	move.w	#0x1, d4	; Loop for second half of column
@@ -306,28 +285,19 @@ MAP_StreamNextColumn:
 	@Loop:
 	
 	; Backup source/dest rects, width/height, loop counter and overflow
-	move.w	d5, -(sp)	; Overflow
-	move.w	d4, -(sp)	; Loop counter
-	move.l	d2, -(sp)	; W/H
-	move.l	d1, -(sp)	; Dest rect
-	move.l	d0, -(sp)	; Source rect
-	move.l	a1, -(sp)	; Level data
+	PUSHM   a0-a1/d0-d5
 	
 	; Load map segment
-	move.l  Level_MapAddr(a1), a0   ; a0 ---  Source map address
-	move.w  Level_MapWidth(a1), d3  ; d3 (w)  Source map total width (tiles)
-	move.w  (vram_addr_leveltiles), d4 	; d4 (w)  Art tile ID
-	move.b  #PaletteId_World0, d5  	; d5 (b)  Palette ID
-	lea     VDP_LoadMapSegmentPlaneA, a5
+	move.w  Level_MapWidthBlocks(a1), d3	; d3 (w)  Source map total width (blocks)
+	move.l  Level_BlocksAddr(a1), a0		; a0 ---  Source blocks address
+	move.l  Level_BlockMapAddr(a1), a1		; a1 ---  Source block map address
+	move.w  (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
+	move.b  #PaletteId_World0, d5			; d5 (b)  Palette ID
+	lea     VDP_LoadMapBlockSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
-	move.l	(sp)+, a1 	; Level data
-	move.l	(sp)+, d0 	; Source rect
-	move.l	(sp)+, d1 	; Dest rect
-	move.l	(sp)+, d2 	; W/H
-	move.w	(sp)+, d4 	; Loop counter
-	move.w	(sp)+, d5 	; Overflow
+	POPM    a0-a1/d0-d5
 	
 	; Continue second half of column from top of scroll plane
 	add.w	d2, d0		; Advance source top by last height
