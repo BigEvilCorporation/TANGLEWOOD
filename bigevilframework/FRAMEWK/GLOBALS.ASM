@@ -100,8 +100,8 @@ z80_ram_start			equ 0x00A00000
 ; ************************************
 ; Streaming
 ; ************************************
-map_block_width			equ 0x4
-map_block_height		equ 0x4
+map_block_width			equ 0x4		; Must be power-of-two
+map_block_height		equ 0x4		; Must be power-of-two
 
 ; ************************************
 ; VDP

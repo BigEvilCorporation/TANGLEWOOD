@@ -154,11 +154,18 @@
 	ENDIF
 	
 	; ************************************
-    ; Collision maps
-    ; ************************************
-	include 'assets\collisn\cmp_lvl1.asm'
-	include 'assets\collisn\cmp_lvl2.asm'
-	include 'assets\collisn\cmp_lvl3.asm'
+	; Collision block maps
+	; ************************************
+	include 'assets\collisn\blockmap\l1a1.asm'
+	include 'assets\collisn\blockmap\l1a2.asm'
+	include 'assets\collisn\blockmap\l1a3.asm'
+	
+	; ************************************
+	; Collision blocks
+	; ************************************
+	include 'assets\collisn\blocks\l1a1.asm'
+	include 'assets\collisn\blocks\l1a2.asm'
+	include 'assets\collisn\blocks\l1a3.asm'
 
 	;include 'assets\collisn\maps\l1a1.asm'
 	

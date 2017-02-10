@@ -659,10 +659,11 @@ PhysicsObjFindFloor:
 	move.l a0, -(sp)
 	move.l a1, -(sp)
 	clr.l  d2
-	move.w Level_MapWidth(a1), d2			; Map width to d2 hi
+	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
 	swap   d2
-	move.w Level_MapHeight(a1), d2			; Map height to d2 lo
-	move.l Level_ColMapAddr(a1), a0			; Collision map to a0
+	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
+	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
+	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
 	move.l (sp)+, a1
@@ -778,12 +779,14 @@ PhysicsObjFindWall:
 	;==============================================================
 	
 	; Get collision flags for tile at probe pos
-	move.l a0, -(sp)
+	PUSHM  a0-a1
 	clr.l  d2
-	move.w Level_MapWidth(a1), d2
-	move.l Level_ColMapAddr(a1), a0		; Collision map to a0
-	jsr	   PHYS_GetCollisionTileFlags
-	move.l (sp)+, a0
+	move.w Level_MapWidthBlocks(a1), d2
+	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
+	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	jsr	   PHYS_GetTerrainTile
+	POPM   a0-a1
 	
 	; Check if wall
 	andi.w #col_tile_flag_solid, d0
@@ -792,7 +795,8 @@ PhysicsObjFindWall:
 	
 	;==============================================================
 	
-	; Wall found - tile X in d4, translate to world space
+	; Wall found - tile X in d3, translate to world space
+	move.w d3, d4
 	TILES2PIXELS d4						; Tiles to pixels
 	add.w  #SpritePlaneBorderX, d4		; Pixels to screen space
 	lsl.l  #0x8, d4						; Screen space to sprite space

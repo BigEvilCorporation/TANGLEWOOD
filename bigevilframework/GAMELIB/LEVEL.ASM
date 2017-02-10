@@ -12,7 +12,8 @@ Level_TilesAddr       		rs.l 1
 Level_BlocksAddr    		rs.l 1
 Level_BlockMapAddr    		rs.l 1
 Level_ColTilesAddr    		rs.l 1
-Level_ColMapAddr			rs.l 1
+Level_ColMapBlocksAddr		rs.l 1
+Level_ColMapBlockMapAddr	rs.l 1
 Level_PalettesAddr			rs.l 1
 Level_InitRoutine			rs.l 1
 Level_UpdateRoutine			rs.l 1

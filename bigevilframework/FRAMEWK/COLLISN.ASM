@@ -11,27 +11,68 @@ heightmap_column_solid		equ 0x8
 heightmap_max_search_tiles	equ 0x2
 
 PHYS_GetTerrainTile:
-	; a0 ---- : Collision map data addr
+	; a0 ---- : Collision blocks data addr
 	; a1 ---- : Collision tileset data addr / OUT: collision tile addr
+	; a2 ---- : Collision block map data addr
 	; d0 (w)  : OUT: Tile flags
 	; d1 (ww) : XY coord (pixels, scroll space)
-	; d2 (w)  : Map width (tiles)
-	
-	; Convert XY coord to tile offset
+	; d2 (w)  : Map width (blocks)
+	; d3 (w)  : OUT: Tile pos X (tiles)
+	; d4 (w)  : OUT: Tile pos Y (tiles)
+
+	; XY coord to blocks + tile offset
 	clr.l  d3
+	clr.l  d4
 	move.w d1, d3					; Y to d3
 	PIXELS2TILES d3					; To tiles
+	move.w d3, d4					; Backup for tile offset
+	TILES2BLOCKS d3					; To blocks
 	mulu   d2, d3 					; To Y offset
-	clr.w  d1
+
 	swap   d1						; X to lower d1
-	PIXELS2TILES d1					; To tiles
-	add.l  d1, d3					; Add X offset
+
+	clr.l  d5
+	clr.l  d6
+	move.w d1, d5					; X to d5
+	PIXELS2TILES d5					; To tiles
+	move.w d5, d6					; Backup for tile offset
+	TILES2BLOCKS d5					; To blocks
+	add.w  d5, d3 					; Add to Y offset
+
+	; Backup tile X/Y for return values
+	move.w d4, d2	; Y to d2
+	move.w d6, d1	; X to d1
+
+	; Tile X/Y to block remainders
+	andi.w  #map_block_height-1, d4
+	andi.w  #map_block_width-1, d6
+
+	; Blocks to byte offset
+	lsl.l  #0x1, d3
+	add.l  d3, a2
+
+	; Fetch block ID from map
+	move.w (a2), d3
+
+	; Get block address
+	mulu   #map_block_width*map_block_height*size_word, d3
+	add.l  d3, a0
+
+	; Tile remainder to byte offset
+	mulu   #map_block_width, d4
+	add.w  d6, d4
+	lsl.l  #0x1, d4
+	add.l  d4, a0
+
+	; Restore tile X/Y for return values
+	clr.l  d3
+	clr.l  d4
+	move.w d1, d3	; X to d3
+	move.w d2, d4	; Y to d4
 	
-	; Fetch collision tile ID from RAM
+	; Fetch collision tile ID from block
 	clr.l  d0
-	lsl.l  #0x1, d3					; Tile offset to words
-	add.l  d3, a0					; Offset ptr, needed for next tile
-	move.w (a0), d0					; Fetch map tile
+	move.w (a0), d0
 	move.w d0, d1
 	
 	; Mask out id (to get address) and flags (to return)
@@ -40,50 +81,17 @@ PHYS_GetTerrainTile:
 	
 	; Get collision tile addr
 	lsl.w  #0x3, d1 				; Index to collision tile (8 bytes)
-	add.l  d1, a1 
-	
-	rts
-	
-PHYS_GetCollisionTileFlags:
-	; a0 ---- : Collision map data addr
-	; d0 (w)  : OUT: Tile flags
-	; d1 (ww) : XY coord (pixels, scroll space)
-	; d2 (w)  : Map width (tiles)
-	; d3 (w)  : OUT: Tile pos X (tiles)
-	; d4 (w)  : OUT: Tile pos Y (tiles)
-	
-	clr.l  d3
-	clr.l  d4
-	clr.l  d5
-	
-	; Convert XY coord to tile offset
-	move.w d1, d4					; Y to d4
-	PIXELS2TILES d4					; To tiles
-	mulu   d2, d4 					; To Y offset
-	move.l d4, d5					; To d5 (to get tile index)
-	clr.w  d1
-	swap   d1						; X to lower d1
-	PIXELS2TILES d1					; To tiles
-	move.l d1, d4					; To d4 (for return val)
-	add.l  d1, d5					; Add X offset to get tile index
-	
-	; Fetch collision tile ID from RAM
-	clr.l  d0
-	lsl.l  #0x1, d5					; Tile offset to words
-	add.l  d5, a0					; Offset ptr, needed for next tile
-	move.w (a0), d0					; Fetch map tile
-	
-	; Mask out id
-	andi.l #col_tile_mask_flags, d0
+	add.l  d1, a1
 	
 	rts
 
 PHYS_GetTerrainHeight:
-	; a0 ---- : Collision map data addr
+	; a0 ---- : Collision blocks data addr
 	; a1 ---- : Collision tileset data addr
+	; a2 ---- : Collision block map data addr
 	; d0 (w)  : OUT: Floor height, or -1
 	; d1 (ww) : Probe XY coord (pixels, scroll space)
-	; d2 (ww) : Map W/H (tiles)
+	; d2 (ww) : Map W/H (blocks)
 	; d3 (w)  : OUT: Tile flags
 	
 	; Clear highest found height
@@ -102,12 +110,7 @@ PHYS_GetTerrainHeight:
 	
 	@NextTile:
 	
-	PUSHL a0
-	PUSHL a1
-	PUSHL d1
-	PUSHL d2
-	PUSHL d3
-	PUSHL d5
+	PUSHM  a0-a2/d1-d6
 	
 	; Get terrain tile
 	PUSHL  d1
@@ -129,12 +132,7 @@ PHYS_GetTerrainHeight:
 	move.b (a1), d0	; Get height value
 	add.w  d0, d7	; Add to total found height
 	
-	POPL d5
-	POPL d3
-	POPL d2
-	POPL d1
-	POPL a1
-	POPL a0
+	POPM   a0-a2/d1-d6
 	
 	; If solid tile, search next tile up
 	cmp.b  #heightmap_column_solid, d0

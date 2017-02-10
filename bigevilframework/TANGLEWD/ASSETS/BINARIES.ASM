@@ -123,14 +123,24 @@ map_blockmap_l1bg:
 	incbin 'assets\maps\blockmap\l1bg.bin'
 
 	; ************************************
-	; Collision maps
+	; Collision blocks
 	; ************************************
-collisionmap_lvl1:
-	incbin 'assets\collisn\cmp_lvl1.bin'
-collisionmap_lvl2:
-	incbin 'assets\collisn\cmp_lvl2.bin'
-collisionmap_lvl3:
-	incbin 'assets\collisn\cmp_lvl3.bin'
+collisionmap_blocks_l1a1:
+	incbin 'assets\collisn\blocks\l1a1.bin'
+collisionmap_blocks_l1a2:
+	incbin 'assets\collisn\blocks\l1a2.bin'
+collisionmap_blocks_l1a3:
+	incbin 'assets\collisn\blocks\l1a3.bin'
+
+	; ************************************
+	; Collision block Maps
+	; ************************************
+collisionmap_blockmap_l1a1:
+	incbin 'assets\collisn\blockmap\l1a1.bin'
+collisionmap_blockmap_l1a2:
+	incbin 'assets\collisn\blockmap\l1a2.bin'
+collisionmap_blockmap_l1a3:
+	incbin 'assets\collisn\blockmap\l1a3.bin'
 
 ;collisionmap_l1a1:
 ;	incbin 'assets\collisn\maps\l1a1.bin'
