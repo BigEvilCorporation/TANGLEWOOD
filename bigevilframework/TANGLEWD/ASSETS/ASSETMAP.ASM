@@ -112,7 +112,7 @@
 	include 'assets\maps\disclmr.asm'
 	include 'assets\maps\demoend.asm'
 	include 'assets\maps\soundtst.asm'
-	include 'assets\maps\twd_logo.asm'
+	;include 'assets\maps\twd_logo.asm'
 	include 'assets\maps\ks_logo.asm'
 	;include 'assets\maps\map_lvl1.asm'
 	;include 'assets\maps\map_lvl2.asm'
@@ -127,16 +127,18 @@
 	ENDIF
 
 	; ************************************
-	; Level block maps
+	; Block maps
 	; ************************************
+	include 'assets\maps\blockmap\twd_logo.asm'
 	include 'assets\maps\blockmap\l1a1.asm'
 	include 'assets\maps\blockmap\l1a2.asm'
 	include 'assets\maps\blockmap\l1a3.asm'
 	include 'assets\maps\blockmap\l1bg.asm'
 	
 	; ************************************
-	; Level blocks
+	; Blocks
 	; ************************************
+	include 'assets\maps\blocks\twd_logo.asm'
 	include 'assets\maps\blocks\l1a1.asm'
 	include 'assets\maps\blocks\l1a2.asm'
 	include 'assets\maps\blocks\l1a3.asm'
@@ -176,6 +178,7 @@
 	; ************************************
     ; Game objects
     ; ************************************
+	include 'assets\gameobj\twd_logo.asm'
 	include 'assets\gameobj\obj_lvl1.asm'
 	include 'assets\gameobj\obj_lvl2.asm'
 	include 'assets\gameobj\obj_lvl3.asm'

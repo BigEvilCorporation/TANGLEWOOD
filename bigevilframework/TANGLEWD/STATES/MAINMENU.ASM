@@ -29,6 +29,13 @@ MainMenu_Enter:
 
 	; Clear all palettes
 	jsr    PAL_ClearAll
+
+	; Clear planes
+	jsr    VDP_ClearMapPlaneA
+	jsr    VDP_ClearMapPlaneB
+
+	; Clear VRAM pools
+	jsr    VRAM_ClearPools
 	
 	; Set BG colour
 	move.w #(PaletteId_TanglewoodLogo<<4), d0
@@ -47,20 +54,38 @@ MainMenu_Enter:
 	jsr    VDP_LoadTiles
 	
 	; Load map
-    lea    map_twd_logo, a0		; a0 (l)  Map data address (ROM)
-	move.l #0x00000000, d0				; d0 (ww) Source top/left (tiles)
-	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
-	move.l #((map_twd_logo_width<<16)|map_twd_logo_height), d2		; d2 (ww) Segment width/height (tiles)
-	move.w #map_twd_logo_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
-	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
-	divu   #size_tile_b, d4
-	move.l #PaletteId_TanglewoodLogo, d5; d5 (b)  Palette ID
-	jsr    VDP_LoadMapSegmentPlaneA
+	lea    map_blocks_twd_logo, a0
+	lea    map_blockmap_twd_logo, a1
+	move.l #(map_blockmap_twd_logo_width<<16)|map_blockmap_twd_logo_height, d1
+	move.w (vram_addr_leveltiles), d2
+	move.l #PaletteId_TanglewoodLogo, d3
+	jsr    VDP_LoadBlockMapPlaneA
+
+	; Load objects
+	jsr    twd_logo_LoadGameObjects
+	
+	; Start sleep anim
+	move.l #Player1, a0
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
 	
 	; Begin fade up
 	lea    palette_twd_logo, a0
 	move.l #PaletteId_TanglewoodLogo, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+
+	lea    Pal_Nymn_Red, a0
+	move.l #PaletteId_Player, d0
 	move.l #MainMenuFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3

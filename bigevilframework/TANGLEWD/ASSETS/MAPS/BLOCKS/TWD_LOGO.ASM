@@ -7,7 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_twd_logo_size_b	equ 0x00004140	; Size in bytes
-tiles_twd_logo_size_w	equ (tiles_twd_logo_size_b/2)	; Size in words
-tiles_twd_logo_size_l	equ (tiles_twd_logo_size_b/4)	; Size in longwords
-tiles_twd_logo_size_t	equ (tiles_twd_logo_size_b/32)	; Size in tiles
+map_blocks_twd_logo_size_b	equ 0x00000980	; Size in bytes
+map_blocks_twd_logo_size_w	equ (map_blocks_twd_logo_size_b/2)	; Size in words
+map_blocks_twd_logo_size_l	equ (map_blocks_twd_logo_size_b/4)	; Size in longwords

@@ -96,6 +96,58 @@ VDP_LoadMapPlaneB:
 
     rts
 
+VDP_LoadBlockMapPlaneA:
+	; a0 (l)  - Block data address (ROM)
+	; a1 (l)  - Block map address (ROM)
+	; d1 (ww) - Map width/height (in blocks)
+	; d2 (w)  - First tile ID
+	; d3 (b)  - Palette ID
+
+	; Backup block address
+	move.l  a0, a2
+
+	; Row/col counters
+	move.w  d1, d4	; Y
+	swap    d1
+	move.w  d1, d5	; X
+	sub.w   #0x1, d4
+	sub.w   #0x1, d5
+
+	; X/Y coord
+	clr.l   d1
+
+	; Loop rows
+	@LoopY:
+
+		; Loop cols
+		move.w  d5, d6			; Reset X counter
+		andi.l  #0x0000FFFF, d1	; Reset X pos
+		@LoopX:
+
+			clr.l  d7
+			move.w (a1)+, d7		; Fetch next block ID
+			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
+			move.l a2, a0			; Get first block address
+			add.l  d7, a0			; Add block offset
+
+			PUSHM  a0-a1/d1-d6
+			jsr    VDP_LoadBlockPlaneA
+			POPM   a0-a1/d1-d6
+
+			; Increment X
+			add.l  #map_block_width<<16, d1
+
+		; Loop
+		dbra.w d6, @LoopX
+
+		; Increment Y
+		add.w  #map_block_height, d1
+
+	; Loop
+	dbra.w d4, @LoopY
+
+	rts
+
 VDP_LoadBlockMapPlaneB:
 	; a0 (l)  - Block data address (ROM)
 	; a1 (l)  - Block map address (ROM)
@@ -435,7 +487,30 @@ VDP_LoadMapSegmentPlaneA:
 	dbra d2, @RowLp
 	
 	rts
+
+VDP_ClearMapPlaneA:
+
+	;move.w #vram_addr_plane_a, d0
+	;move.w #vdp_plane_size_t, d1
+	;move.w #0x0, d2
+	;jsr    VPDDMAFillVRAM
 	
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	move.l  #vram_addr_plane_a, d1	; Add VRAM address offset
+	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d1				; Shift lower word back
+	swap    d1                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+	move.l  d1, vdp_control        	; Move dest address to VDP control port
+
+	move.w  #vdp_plane_size_t, d0  ; Num words in d0, minus 1 for counter
+	
+	@Copy:
+	move.w  #0x0, vdp_data           ; Move to VRAM
+	dbra.w  d0, @Copy              ; Loop
+	
+	rts
+
 VDP_ClearMapPlaneB:
 
 	;move.w #vram_addr_plane_b, d0
@@ -444,7 +519,7 @@ VDP_ClearMapPlaneB:
 	;jsr    VPDDMAFillVRAM
 	
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
-	move.l   #vram_addr_plane_b, d1	; Add VRAM address offset
+	move.l  #vram_addr_plane_b, d1	; Add VRAM address offset
 	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo

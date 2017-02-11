@@ -77,8 +77,8 @@ map_demoend_screen:
 	incbin 'assets\maps\demoend.bin'
 map_soundtest:
 	incbin 'assets\maps\soundtst.bin'
-map_twd_logo:
-	incbin 'assets\maps\twd_logo.bin'
+;map_twd_logo:
+;	incbin 'assets\maps\twd_logo.bin'
 ;map_lvl1:
 ;	incbin 'assets\maps\map_lvl1.bin'
 ;map_lvl2:
@@ -101,6 +101,8 @@ map_tst_lift:
 	; ************************************
 	; Blocks
 	; ************************************
+map_blocks_twd_logo:
+	incbin 'assets\maps\blocks\twd_logo.bin'
 map_blocks_l1a1:
 	incbin 'assets\maps\blocks\l1a1.bin'
 map_blocks_l1a2:
@@ -113,6 +115,8 @@ map_blocks_l1bg:
 	; ************************************
 	; Block Maps
 	; ************************************
+map_blockmap_twd_logo:
+	incbin 'assets\maps\blockmap\twd_logo.bin'
 map_blockmap_l1a1:
 	incbin 'assets\maps\blockmap\l1a1.bin'
 map_blockmap_l1a2:
