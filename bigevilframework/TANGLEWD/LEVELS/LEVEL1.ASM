@@ -11,23 +11,24 @@
 ; ************************************
 Lvl1_HarlequinForest:
 
-	dc.l tiles_lvl1					; Tileset
-	dc.l map_blocks_L1A1			; Blocks
-	dc.l map_blockmap_L1A1			; Block map
-	dc.l collisiontiles_lvl1		; Collision tileset
-	dc.l collisionmap_lvl1			; Collision map
-	dc.l Lvl1_DefaultPalettes		; Palettes
-	dc.l Lvl1_Init					; Init routine
-	dc.l Lvl1_Update				; Update routine
-	dc.l Lvl1_Serialise				; Serialise routine
-	dc.l lvl1_LoadGameObjects		; Load game objects routine
-	dc.l Lvl2_HarlequinForestAct2	; Next level
-	dc.w Gravity					; Default gravity
-	dc.w map_lvl1_width				; Map width (tiles)
-	dc.w map_lvl1_height			; Map height (tiles)
-	dc.w map_blockmap_lvl1_width	; Map width (blocks)
-	dc.w map_blockmap_lvl1_height	; Map height (blocks)
-	dc.w tiles_lvl1_size_t			; Num tiles
+	dc.l tiles_lvl1						; Tileset
+	dc.l map_blocks_L1A1				; Blocks
+	dc.l map_blockmap_L1A1				; Block map
+	dc.l collisiontiles_lvl1			; Collision tileset
+	dc.l collisionmap_blocks_l1a1		; Collision blocks
+	dc.l collisionmap_blockmap_l1a1		; Collision block map
+	dc.l Lvl1_DefaultPalettes			; Palettes
+	dc.l Lvl1_Init						; Init routine
+	dc.l Lvl1_Update					; Update routine
+	dc.l Lvl1_Serialise					; Serialise routine
+	dc.l lvl1_LoadGameObjects			; Load game objects routine
+	dc.l Lvl2_HarlequinForestAct2		; Next level
+	dc.w Gravity						; Default gravity
+	dc.w map_lvl1_width					; Map width (tiles)
+	dc.w map_lvl1_height				; Map height (tiles)
+	dc.w map_blockmap_lvl1_width		; Map width (blocks)
+	dc.w map_blockmap_lvl1_height		; Map height (blocks)
+	dc.w tiles_lvl1_size_t				; Num tiles
 	
 	even
 	

@@ -12,7 +12,8 @@ Tst1_Forest:
 	dc.l 0x0 ;map_blocks_L1A1		; Blocks
 	dc.l 0x0 ;map_blockmap_L1A1		; Block map
 	dc.l collisiontiles_tst1	; Collision tileset
-	dc.l collisionmap_tst1		; Collision map
+	dc.l 0x0		; Collision blocks
+	dc.l 0x0		; Collision block map
 	dc.l Tst11_DefaultPalettes	; Palettes
 	dc.l Tst1_Init				; Init routine
 	dc.l Tst1_Update			; Update routine
