@@ -21,10 +21,18 @@ Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
 
+Leaf_NumVariations equ 0x2
+
+LeafFrameOffsets:
+	dc.w spritesheet_leaf_green_frameoffset
+	dc.w spritesheet_leaf_red_frameoffset
+	; dc.w spritesheet_leaf_turquoise_frameoffset
+	; dc.w spritesheet_leaf_brown_frameoffset
+
 ; Struct
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
-Leaf_Animation	 rs.b (Animation_Struct_Size)
+Leaf_Animation       rs.b (Animation_Struct_Size)
 Leaf_StartPosWorldX  rs.l 1
 Leaf_ResetTimer      rs.w 1
 Leaf_SineStep        rs.w 1
@@ -57,16 +65,31 @@ LeafInit:
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
 
-	; Init fall animation
-	move.l  a0, a2
-	add.l   #Leaf_Animation, a2
-	move.l  #Anim_LeafFall, Animation_AnimTrackSpriteFrame(a2)
-	move.b  #Anim_LeafFall_Speed, Animation_Speed(a2)
-	move.b  #Anim_LeafFall_SizeB, Animation_Length(a2)
-	move.b  #0x1, Animation_Looping(a2)
+	; Setup animation
+	move.l a0, a3
+	add.l  #BouncePlant_Animations, a3
+	
+	; Select next colour sheet in array
+	clr.l  d0
+	move.w (EntityCount_Leaf), d0
+	divu   #Leaf_NumVariations, d0
+	clr.w  d0
+	swap   d0
+	mulu   #size_word, d0
+	lea    LeafFrameOffsets, a2
+	add.l  d0, a2
+	move.w (a2), Animation_FirstFrameOffset(a3)
+
+	; Load anim
+	move.l #spriteanim_leaf_fall_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_leaf_fall_speed, Animation_Speed(a3)
+	move.b #spriteanim_leaf_fall_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
 	
 	; Set animation
-	move.l  a2, AnimObj_CurrentAnim(a0)
+	move.l  a3, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 
 	jsr    RND_GenerateLong
@@ -84,17 +107,17 @@ LeafLoadGfx:
 	PUSHL  a1
 	
 	; Alloc VRAM
-	move.w #tiles_leaf_size_b, d0
+	move.w #sprite_leaf_size_b, d0
 	jsr    VRAM_PoolAlloc
 
 	; Load sprite sheet
-	lea    tiles_leaf, a1
+	lea    spritesheets_leaf, a1
 	lea    sprite_leaf_subsprite_dimensions_bits, a2
 	lea    sprite_leaf_subsprite_pos_offsets, a3
 	lea    sprite_leaf_numtiles_per_subsprite, a4
-	move.l #tiles_leaf_size_t, d1
+	move.l #sprite_leaf_size_t, d1
 	move.b #sprite_leaf_size_subsprites, d2
-	move.w #sprite_leaf_dimensions, d3
+	move.w #sprite_leaf_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
 
@@ -235,8 +258,8 @@ LeafUpdate:
 
 	; Update animation frame
 	add.w  #0x00FF, d2	; Sine value to 0-256 range
-	muls   #((Anim_LeafFall_SizeB*SubframesPerFrame)/256), d2 ; To anim range
-	add.l  #((Anim_LeafFall_SizeB*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
+	muls   #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/256), d2 ; To anim range
+	add.l  #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
 	move.l AnimObj_AnimSubFrame(a0), d3
 	move.l d2, AnimObj_AnimSubFrame(a0)
 

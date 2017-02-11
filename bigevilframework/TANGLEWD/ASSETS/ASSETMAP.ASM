@@ -48,7 +48,7 @@
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\nymn.asm'
-	include 'assets\sprites\spr_leaf.asm'
+	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\rope.asm'
 	

@@ -1,7 +1,24 @@
-Anim_LeafFall:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
-Anim_LeafFall_End
-Anim_LeafFall_SizeB: equ (Anim_LeafFall_End-Anim_LeafFall)
-Anim_LeafFall_Speed: equ 0x00	; Controlled manually with sine wave
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   Created with BEEhive - the complete art tool for SEGA Mega Drive
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   http://www.bigevilcorporation.co.uk
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   BEEhive and SEGA Genesis Framework (c) Matt Phillips 2015
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+
+
+spriteanims_leaf:
+
+
+spriteanim_leaf_fall:
+spriteanim_leaf_fall_numframes: equ 0x5
+spriteanim_leaf_fall_speed: equ 0x1
+spriteanim_leaf_fall_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+spriteanim_leaf_fall_track_posx:
+
+spriteanim_leaf_fall_track_posy:
+
 
 	Even
+
