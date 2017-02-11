@@ -110,7 +110,8 @@ PHYS_GetTerrainHeight:
 	
 	@NextTile:
 	
-	PUSHM  a0-a2/d1-d6
+	PUSHM  a0-a2/d1-d3
+	PUSHM  d5-d6
 	
 	; Get terrain tile
 	PUSHL  d1
@@ -132,7 +133,8 @@ PHYS_GetTerrainHeight:
 	move.b (a1), d0	; Get height value
 	add.w  d0, d7	; Add to total found height
 	
-	POPM   a0-a2/d1-d6
+	POPM   d5-d6
+	POPM   a0-a2/d1-d3
 	
 	; If solid tile, search next tile up
 	cmp.b  #heightmap_column_solid, d0
