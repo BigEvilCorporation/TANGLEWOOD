@@ -25,8 +25,10 @@ collisionmap_tst1:
 	; ************************************
 tiles_bigevil_logo:
 	incbin 'assets\tiles\bec_logo.bin'
-tiles_ks_logo:
-	incbin 'assets\tiles\ks_logo.bin'
+;tiles_ks_logo:
+;	incbin 'assets\tiles\ks_logo.bin'
+tiles_megafounder_screen:
+	incbin 'assets\tiles\megafndr.bin'
 tiles_controls_screen:
 	incbin 'assets\tiles\controls.bin'
 tiles_demodisclaimer_screen:
@@ -67,8 +69,8 @@ collisiontiles_tst_lift:
 	; ************************************
 map_bigevil_logo:
 	incbin 'assets\maps\bec_logo.bin'
-map_ks_logo:
-	incbin 'assets\maps\ks_logo.bin'
+;map_ks_logo:
+;	incbin 'assets\maps\ks_logo.bin'
 map_controls_screen:
 	incbin 'assets\maps\controls.bin'
 map_demodisclaimer_screen:
@@ -98,6 +100,8 @@ map_soundtest:
 	; ************************************
 map_blocks_main_menu:
 	incbin 'assets\maps\blocks\mainmenu.bin'
+map_blocks_megafounder_screen:
+	incbin 'assets\maps\blocks\megafndr.bin'
 map_blocks_l1a1:
 	incbin 'assets\maps\blocks\l1a1.bin'
 map_blocks_l1a2:
@@ -117,6 +121,8 @@ map_blocks_tst_lift:
 	; ************************************
 map_blockmap_main_menu:
 	incbin 'assets\maps\blockmap\mainmenu.bin'
+map_blockmap_megafounder_screen:
+	incbin 'assets\maps\blockmap\megafndr.bin'
 map_blockmap_l1a1:
 	incbin 'assets\maps\blockmap\l1a1.bin'
 map_blockmap_l1a2:

@@ -113,7 +113,8 @@ DemoDisclaimerScreen_Update:
 	@FadedOut:
 	
 	; Enter controls screen state
-	lea GameStateControlsScreen, a0
+	;lea GameStateControlsScreen, a0
+	lea GameStateGameplay, a0
 	jsr GameStateEnter
 	
 	@Fading:

@@ -100,6 +100,7 @@ Player2 				 equ (EntityArray_Echo)
 
 ; Initial level/state
 InitialLevel			 equ Lvl1_HarlequinForest
+;InitialLevel			 equ Lvl_TestLift
 
 	IFD DEBUG
 InitialState			 equ  GameStateGameplay

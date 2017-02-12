@@ -8,11 +8,12 @@
     ; Palettes
     ; ************************************
 	include 'assets\palettes\bec_logo.asm'
-	include 'assets\palettes\ks_logo.asm'
+	;include 'assets\palettes\ks_logo.asm'
 	include 'assets\palettes\controls.asm'
 	include 'assets\palettes\disclmr.asm'
 	include 'assets\palettes\demoend.asm'
 	include 'assets\palettes\fuzzl.asm'
+	include 'assets\palettes\megafndr.asm'
 	include 'assets\palettes\soundtst.asm'
 	include 'assets\palettes\twd_logo.asm'
 	include 'assets\palettes\pal_fade.asm'
@@ -96,7 +97,8 @@
 	include 'assets\tiles\demoend.asm'
 	include 'assets\tiles\soundtst.asm'
 	;include 'assets\tiles\twd_logo.asm'
-	include 'assets\tiles\ks_logo.asm'
+	;include 'assets\tiles\ks_logo.asm'
+	include 'assets\tiles\megafndr.asm'
 	include 'assets\tiles\til_lvl1.asm'
 
 	include 'assets\tiles\l1.asm'
@@ -114,7 +116,7 @@
 	include 'assets\maps\demoend.asm'
 	include 'assets\maps\soundtst.asm'
 	;include 'assets\maps\twd_logo.asm'
-	include 'assets\maps\ks_logo.asm'
+	;include 'assets\maps\ks_logo.asm'
 	;include 'assets\maps\map_lvl1.asm'
 	;include 'assets\maps\map_lvl2.asm'
 	;include 'assets\maps\map_lvl3.asm'
@@ -127,6 +129,7 @@
 	; Block maps
 	; ************************************
 	include 'assets\maps\blockmap\mainmenu.asm'
+	include 'assets\maps\blockmap\megafndr.asm'
 	include 'assets\maps\blockmap\l1a1.asm'
 	include 'assets\maps\blockmap\l1a2.asm'
 	include 'assets\maps\blockmap\l1a3.asm'
@@ -140,6 +143,7 @@
 	; Blocks
 	; ************************************
 	include 'assets\maps\blocks\mainmenu.asm'
+	include 'assets\maps\blocks\megafndr.asm'
 	include 'assets\maps\blocks\l1a1.asm'
 	include 'assets\maps\blocks\l1a2.asm'
 	include 'assets\maps\blocks\l1a3.asm'
@@ -232,6 +236,9 @@ PaletteId_DemoEndState   equ 0x0
 
 ; Kickstarter advert screen
 PaletteId_KSLogo	     equ 0x0
+
+; Megafounder advert screen
+PaletteId_MegafounderScreen equ 0x0
 
 ; Gameplay
 PaletteId_World0		equ 0x0

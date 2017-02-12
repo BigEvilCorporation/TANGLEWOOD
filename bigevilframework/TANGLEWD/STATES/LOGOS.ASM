@@ -152,8 +152,8 @@ Logos_Update:
 	
 	@FadedOut:
 	
-	; Enter Kickstarter logo state
-	lea GameStateKickstarterScreen, a0
+	; Enter Megafounder screen state
+	lea GameStateMegafounderScreen, a0
 	jsr GameStateEnter
 	
 	@ColourTimerRunning:

@@ -93,8 +93,11 @@ LeafInit:
 	move.l  a3, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 
+	; Randomise sine step
 	jsr    RND_GenerateLong
 	move.b d0, Leaf_SineStep(a0)	; 0-255
+
+	; Randomise reset timer
 	jsr    RND_GenerateLong
 	and.w  #0x03FF, d0
 	move.w d0, Leaf_ResetTimer(a0)	; 0-1024
