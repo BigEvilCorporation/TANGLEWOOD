@@ -15,7 +15,8 @@ GameStateReset:
 	; Clear all palettes
 	jsr    PAL_ClearAll
 	
-	; Clear Plane B
+	; Clear planes
+	jsr    VDP_ClearMapPlaneA
 	jsr    VDP_ClearMapPlaneB
 
 	; Clear VRAM pools

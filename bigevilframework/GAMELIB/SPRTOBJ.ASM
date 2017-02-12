@@ -120,7 +120,12 @@ SpriteObjLoad:
 	move.b d4, SpriteObj_SpriteID(a0)	; Sprite ID in d0
 
 	rts
-	
+
+SpriteObjUpdate:
+	; a0 --- SpriteObj addr
+	; a1 --- Level addr
+	rts
+
 SpriteObjDraw:
 	; a0 --- SpriteObj addr
 	; a1 --- Level addr

@@ -51,6 +51,7 @@
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\rope.asm'
+	include 'assets\sprites\twd_logo.asm'
 	
 	; Level props
 	include 'assets\sprites\L1\mushroom.asm'
@@ -94,7 +95,7 @@
 	include 'assets\tiles\disclmr.asm'
 	include 'assets\tiles\demoend.asm'
 	include 'assets\tiles\soundtst.asm'
-	include 'assets\tiles\twd_logo.asm'
+	;include 'assets\tiles\twd_logo.asm'
 	include 'assets\tiles\ks_logo.asm'
 	include 'assets\tiles\til_lvl1.asm'
 
@@ -129,7 +130,7 @@
 	; ************************************
 	; Block maps
 	; ************************************
-	include 'assets\maps\blockmap\twd_logo.asm'
+	include 'assets\maps\blockmap\mainmenu.asm'
 	include 'assets\maps\blockmap\l1a1.asm'
 	include 'assets\maps\blockmap\l1a2.asm'
 	include 'assets\maps\blockmap\l1a3.asm'
@@ -138,7 +139,7 @@
 	; ************************************
 	; Blocks
 	; ************************************
-	include 'assets\maps\blocks\twd_logo.asm'
+	include 'assets\maps\blocks\mainmenu.asm'
 	include 'assets\maps\blocks\l1a1.asm'
 	include 'assets\maps\blocks\l1a2.asm'
 	include 'assets\maps\blocks\l1a3.asm'
@@ -178,7 +179,7 @@
 	; ************************************
     ; Game objects
     ; ************************************
-	include 'assets\gameobj\twd_logo.asm'
+	include 'assets\gameobj\mainmenu.asm'
 	include 'assets\gameobj\obj_lvl1.asm'
 	include 'assets\gameobj\obj_lvl2.asm'
 	include 'assets\gameobj\obj_lvl3.asm'
@@ -210,7 +211,7 @@
 PaletteId_BigEvilLogo	 equ 0x0
 
 ; Main menu
-PaletteId_TanglewoodLogo equ 0x0
+PaletteId_TanglewoodLogo equ 0x2
 
 ; Sound test
 PaletteId_SoundTest 	 equ 0x0
