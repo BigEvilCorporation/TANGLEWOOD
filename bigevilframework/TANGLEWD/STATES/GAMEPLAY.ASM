@@ -23,14 +23,21 @@ Gameplay_Enter:
 	jsr    GameStateReset
 	POPL   a0
 	
+	; Get level address
+	move.l (CurrentLevel), a1
+
+	; If none, get initial level
+	cmp.l  #0x0, a1
+	bne    @LevelSet
+	move.l #InitialLevel, a1
+	move.l a1, CurrentLevel
+	@LevelSet:
+
 	; Load assets
 	jsr LevelLoad
 	
 	; Reset all positions/velocities
 	jsr LevelReset
-	
-	; Get level id
-	move.l (CurrentLevel), a1
 	
 	;==============================================================
 	

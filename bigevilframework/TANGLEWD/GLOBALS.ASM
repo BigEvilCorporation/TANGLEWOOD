@@ -98,6 +98,16 @@ NumSwitchingColours		 equ 0x6
 Player1 				 equ (EntityArray_Nymn)
 Player2 				 equ (EntityArray_Echo)
 
+; Initial level/state
+InitialLevel			 equ Lvl1_HarlequinForest
+
+	IFD DEBUG
+InitialState			 equ  GameStateGameplay
+	ELSE
+InitialState			 equ  GameStateLogos
+;InitialState			 equ  GameStateGameplay
+	ENDIF
+
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb
 

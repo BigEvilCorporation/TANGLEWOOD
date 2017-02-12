@@ -133,6 +133,8 @@ MainMenu_Enter:
 	
 MainMenu_Exit:
 	
+	move.l #0x0, CurrentLevel
+
 	rts
 	
 MainMenu_Update:

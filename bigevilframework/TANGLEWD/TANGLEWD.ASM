@@ -174,23 +174,8 @@ __main:
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
 	
-	; Set first level
-	IFD DEBUG
-	move.l #Tst1_Forest, CurrentLevel
-	ELSE
-	;move.l #L1A1_HarlequinForest, CurrentLevel
-	move.l #Lvl1_HarlequinForest, CurrentLevel
-	;move.l #Lvl2_HarlequinForestAct2, CurrentLevel
-	;move.l #Lvl_TestLift, CurrentLevel
-	ENDIF
-	
 	; Enter first game state
-	IFD DEBUG
-	lea GameStateGameplay, a0
-	ELSE
-	lea GameStateLogos, a0
-	;lea GameStateGameplay, a0
-	ENDIF
+	move.l #InitialState, a0
 	jsr GameStateEnter
 
 	; ************************************
