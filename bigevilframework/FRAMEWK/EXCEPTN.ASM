@@ -12,12 +12,15 @@ Exception_FontAddr		equ 0x0000
 Exception_FontTileId	equ (Exception_FontAddr/size_tile_b)
 Exception_ColourBg		equ 0x0008
 Exception_ColourTxt		equ 0x0FFF
-Exception_MsgPosX		equ 0x04
+Exception_MsgPosX		equ 0x05
 Exception_MsgPosY		equ 0x01
-Exception_RegPosX		equ 0x04
+Exception_RegPosX		equ 0x01
 Exception_RegPosY		equ 0x03
+Exception_StackPosX		equ 0x013
+Exception_StackPosY		equ 0x03
 Exception_LineSpace		equ 0x01
 Exception_RegCount		equ 0x12	; 18 regs (a0-a6 + d0-d7 + SP + SR + PC)
+Exception_MaxStack		equ 0x08
 
 ExceptionType_Address		equ 0x0
 ExceptionType_Bus			equ 0x1
@@ -78,6 +81,10 @@ Exception_Msgs:
 	dc.b "UNHANDLED EXCEPTION:",0,0,0,0
 	even
 
+Exception_Str_Stack:
+	dc.b "STACK:",0
+	even
+
 	; Error strings
 str_error_out_of_vram:
 	dc.b "OUT OF VRAM  :(",0
@@ -97,6 +104,8 @@ CPU_Exception:
 	
 	; Push all registers to stack
 	movem.l d0-d7/a0-a6, -(sp)
+
+	;==============================================================
 	
 	; Re-initialise VDP
 	jsr     VDP_Init
@@ -111,6 +120,8 @@ CPU_Exception:
 	lea     Exception_Palette, a0
 	move.l  #0x0, d0
 	jsr     PAL_Load
+
+	;==============================================================
 	
 	; Draw error message
 	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
@@ -123,6 +134,8 @@ CPU_Exception:
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
 	jsr     TXT_DrawPlane
+
+	;==============================================================
 	
 	; Draw all regs
 	move.w  #Exception_RegPosY, d6
@@ -163,6 +176,57 @@ CPU_Exception:
 	add.l   #0x1, d7
 	cmp.l   #Exception_RegCount, d7
 	bne     @RegLoop
+
+	;==============================================================
+
+	; Draw stack label
+	move.l  #((Exception_StackPosX<<16)|Exception_StackPosY), d1	; XY coord
+	move.l  #0x0, d2
+	mulu    #0x18, d2
+	lea     Exception_Str_Stack, a0		; String
+	move.w  #Exception_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	; Unwind stack
+	move.w  #Exception_StackPosY+2, d6
+	move.l  #0x0, d7
+	@StackLoop:
+	
+	; Get next stack value
+	move.l  (sp)+, d0
+	cmp.l   #stack_top, d0
+	bne     @NotStackTop
+	move.l  #Exception_MaxStack-1, d7
+	@NotStackTop:
+
+	; Alloc string space
+	sub.l   #0x10, sp
+	move.l  sp, a4
+	
+	; Stack value to string
+	move.l  a4, a0
+	jsr     TXT_ItoA_Hex_l
+	
+	move.w  #Exception_StackPosX, d1	; X coord
+	swap    d1
+	move.w  d6, d1						; Y coord
+	add.w   #Exception_LineSpace, d6	; Next line
+	move.l  a4, a0						; String address
+	move.w  #Exception_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+	
+	; Free string space
+	add.l   #0x10, sp
+	
+	add.l   #0x1, d7
+	cmp.l   #Exception_MaxStack, d7
+	bne     @StackLoop
+
+	;==============================================================
 	
 	IFD DEBUG
 	TRAP    #0 ; Sync with debugger - NOT FOR RELEASE

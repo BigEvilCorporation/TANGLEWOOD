@@ -173,8 +173,8 @@ SoundTest_Render:
 	
 	PUSHL a0
 	lea    Str_SoundTestLabel, a0
-	move.w (vram_addr_systemfont), d0		; String
-	move.w #0x0810, d1					; X/Y coord
+	move.w (vram_addr_systemfont), d0	; String
+	move.l #0x00080010, d1				; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
 	jsr    TXT_DrawPlane
@@ -186,8 +186,8 @@ SoundTest_Render:
 	move.l sp, a0
 	jsr    TXT_ItoA_Hex_w
 	
-	move.w (vram_addr_systemfont), d0		; String
-	move.w #0x1210, d1					; X/Y coord
+	move.w (vram_addr_systemfont), d0	; String
+	move.l #0x00120010, d1				; X/Y coord
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
 	jsr    TXT_DrawPlane
