@@ -194,6 +194,5 @@ BLOCKS2TILES: macro reg
 
 RAISE_EXCEPTION: macro errcode
 	move.l #(\errcode)<<0x10, a5	; Err code byte to upper a5
-	move.w #0x1, a5		; Odd address to cause exception
-	move.l (a5), a5		; Punch it
+	illegal
 	endm
