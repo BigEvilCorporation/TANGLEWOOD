@@ -8,8 +8,8 @@
 
 ; Constants
 Boulder_MaxEntities			equ 0x2
-Boulder_Width				equ 0x40
-Boulder_Height				equ 0x40
+Boulder_Width				equ 0x38
+Boulder_Height				equ 0x38
 Boulder_MaxVelYUp			equ 0x0600
 Boulder_MaxVelYDown			equ 0x08*SubPixelsPerPixel
 Boulder_StepHeight			equ 0x4
