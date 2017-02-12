@@ -30,116 +30,228 @@ sprite_leaf_numtiles_per_subsprite:
 	Even
 
 
-spritesheet_leaf_red_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_leaf_brown_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_leaf_brown_size_b		equ 0xA0	; Size in bytes
+spritesheet_leaf_brown_size_w		equ 0x50	; Size in words
+spritesheet_leaf_brown_size_l		equ 0x28	; Size in longwords
+spritesheet_leaf_brown_size_t		equ 0x05	; Size in tiles
+
+
+spritesheet_leaf_red_frameoffset	equ 0x05	; Offset to first frame in sprite sheet
 spritesheet_leaf_red_size_b		equ 0xA0	; Size in bytes
 spritesheet_leaf_red_size_w		equ 0x50	; Size in words
 spritesheet_leaf_red_size_l		equ 0x28	; Size in longwords
 spritesheet_leaf_red_size_t		equ 0x05	; Size in tiles
 
 
-spritesheet_leaf_green_frameoffset	equ 0x05	; Offset to first frame in sprite sheet
+spritesheet_leaf_green_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
 spritesheet_leaf_green_size_b		equ 0xA0	; Size in bytes
 spritesheet_leaf_green_size_w		equ 0x50	; Size in words
 spritesheet_leaf_green_size_l		equ 0x28	; Size in longwords
 spritesheet_leaf_green_size_t		equ 0x05	; Size in tiles
 
 
+spritesheet_leaf_turquoise_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
+spritesheet_leaf_turquoise_size_b		equ 0xA0	; Size in bytes
+spritesheet_leaf_turquoise_size_w		equ 0x50	; Size in words
+spritesheet_leaf_turquoise_size_l		equ 0x28	; Size in longwords
+spritesheet_leaf_turquoise_size_t		equ 0x05	; Size in tiles
+
+
 spritesheets_leaf:
 
-spritesheet_leaf_red:
+spritesheet_leaf_brown:
 
-	dc.l	0x00330000
-	dc.l	0x03B82000
-	dc.l	0x3B882000
-	dc.l	0x38382000
-	dc.l	0x02832000
-	dc.l	0x00232000
+	dc.l	0x00440000
+	dc.l	0x04E82000
+	dc.l	0x4E882000
+	dc.l	0x48482000
+	dc.l	0x02842000
+	dc.l	0x00242000
 	dc.l	0x00022000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x03300000
-	dc.l	0x03B30000
-	dc.l	0x038B3000
-	dc.l	0x0288B300
-	dc.l	0x00238830
+	dc.l	0x04400000
+	dc.l	0x04E40000
+	dc.l	0x048E4000
+	dc.l	0x0288E400
+	dc.l	0x00248840
 	dc.l	0x00022220
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x02330000
+	dc.l	0x02440000
 	dc.l	0x02882220
-	dc.l	0x00228332
+	dc.l	0x00228442
 	dc.l	0x00002222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00002220
-	dc.l	0x0003B882
-	dc.l	0x003B8832
-	dc.l	0x02B83220
+	dc.l	0x0004E882
+	dc.l	0x004E8842
+	dc.l	0x02E84220
 	dc.l	0x02822000
 	dc.l	0x02200000
 
-	dc.l	0x00003300
-	dc.l	0x00028B30
-	dc.l	0x000288B3
-	dc.l	0x00028383
-	dc.l	0x00023820
-	dc.l	0x00023200
+	dc.l	0x00004400
+	dc.l	0x00028E40
+	dc.l	0x000288E4
+	dc.l	0x00028484
+	dc.l	0x00024820
+	dc.l	0x00024200
 	dc.l	0x00022000
+	dc.l	0x00000000
+
+
+
+spritesheet_leaf_red:
+
+	dc.l	0x00220000
+	dc.l	0x02A71000
+	dc.l	0x2A771000
+	dc.l	0x27271000
+	dc.l	0x01721000
+	dc.l	0x00121000
+	dc.l	0x00011000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x02200000
+	dc.l	0x02A20000
+	dc.l	0x027A2000
+	dc.l	0x0177A200
+	dc.l	0x00127720
+	dc.l	0x00011110
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01220000
+	dc.l	0x01771110
+	dc.l	0x00117221
+	dc.l	0x00001111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001110
+	dc.l	0x0002A771
+	dc.l	0x002A7721
+	dc.l	0x01A72110
+	dc.l	0x01711000
+	dc.l	0x01100000
+
+	dc.l	0x00002200
+	dc.l	0x00017A20
+	dc.l	0x000177A2
+	dc.l	0x00017272
+	dc.l	0x00012710
+	dc.l	0x00012100
+	dc.l	0x00011000
 	dc.l	0x00000000
 
 
 
 spritesheet_leaf_green:
 
+	dc.l	0x00550000
+	dc.l	0x05FC3000
+	dc.l	0x5FCC3000
+	dc.l	0x5C5C3000
+	dc.l	0x03C53000
+	dc.l	0x00353000
+	dc.l	0x00033000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x05500000
+	dc.l	0x05F50000
+	dc.l	0x05CF5000
+	dc.l	0x03CCF500
+	dc.l	0x0035CC50
+	dc.l	0x00033330
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x03550000
+	dc.l	0x03CC3330
+	dc.l	0x0033C553
+	dc.l	0x00003333
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00003330
+	dc.l	0x0005FCC3
+	dc.l	0x005FCC53
+	dc.l	0x03FC5330
+	dc.l	0x03C33000
+	dc.l	0x03300000
+
+	dc.l	0x00005500
+	dc.l	0x0003CF50
+	dc.l	0x0003CCF5
+	dc.l	0x0003C5C5
+	dc.l	0x00035C30
+	dc.l	0x00035300
+	dc.l	0x00033000
+	dc.l	0x00000000
+
+
+
+spritesheet_leaf_turquoise:
+
 	dc.l	0x00660000
-	dc.l	0x06FC4000
-	dc.l	0x6FCC4000
-	dc.l	0x6C6C4000
-	dc.l	0x04C64000
-	dc.l	0x00464000
-	dc.l	0x00044000
+	dc.l	0x06D93000
+	dc.l	0x6D993000
+	dc.l	0x69693000
+	dc.l	0x03963000
+	dc.l	0x00363000
+	dc.l	0x00033000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x06600000
-	dc.l	0x06F60000
-	dc.l	0x06CF6000
-	dc.l	0x04CCF600
-	dc.l	0x0046CC60
-	dc.l	0x00044440
+	dc.l	0x06D60000
+	dc.l	0x069D6000
+	dc.l	0x0399D600
+	dc.l	0x00369960
+	dc.l	0x00033330
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x04660000
-	dc.l	0x04CC4440
-	dc.l	0x0044C664
-	dc.l	0x00004444
+	dc.l	0x03660000
+	dc.l	0x03993330
+	dc.l	0x00339663
+	dc.l	0x00003333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00004440
-	dc.l	0x0006FCC4
-	dc.l	0x006FCC64
-	dc.l	0x04FC6440
-	dc.l	0x04C44000
-	dc.l	0x04400000
+	dc.l	0x00003330
+	dc.l	0x0006D993
+	dc.l	0x006D9963
+	dc.l	0x03D96330
+	dc.l	0x03933000
+	dc.l	0x03300000
 
 	dc.l	0x00006600
-	dc.l	0x0004CF60
-	dc.l	0x0004CCF6
-	dc.l	0x0004C6C6
-	dc.l	0x00046C40
-	dc.l	0x00046400
-	dc.l	0x00044000
+	dc.l	0x00039D60
+	dc.l	0x000399D6
+	dc.l	0x00039696
+	dc.l	0x00036930
+	dc.l	0x00036300
+	dc.l	0x00033000
 	dc.l	0x00000000
 
 

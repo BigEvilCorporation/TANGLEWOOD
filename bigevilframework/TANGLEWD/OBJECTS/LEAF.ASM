@@ -21,13 +21,13 @@ Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
 
-Leaf_NumVariations equ 0x2
+Leaf_NumVariations equ 0x4
 
 LeafFrameOffsets:
 	dc.w spritesheet_leaf_green_frameoffset
 	dc.w spritesheet_leaf_red_frameoffset
-	; dc.w spritesheet_leaf_turquoise_frameoffset
-	; dc.w spritesheet_leaf_brown_frameoffset
+	dc.w spritesheet_leaf_turquoise_frameoffset
+	dc.w spritesheet_leaf_brown_frameoffset
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
@@ -78,6 +78,7 @@ LeafInit:
 	mulu   #size_word, d0
 	lea    LeafFrameOffsets, a2
 	add.l  d0, a2
+	move.w (a2), d1
 	move.w (a2), Animation_FirstFrameOffset(a3)
 
 	; Load anim
