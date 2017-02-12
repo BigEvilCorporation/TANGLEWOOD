@@ -65,11 +65,13 @@ SpriteObjLoad:
 	; a2 --- Multi-sprite subsprite dimentions bits array address
 	; a3 --- Multi-sprite subsprite position offsets array address
 	; a4 --- Multi-sprite tiles per subsprite array address
-	; d0 (l) VRAM address
+	; d0 (w) VRAM address
 	; d1 (w) Num tiles
 	; d2 (b) Num subsprites
 	; d3 (w) Sprite W/H dimentions
 	; d4 (b) Palette ID
+
+	andi.l #0x0000FFFF, d0
 
 	move.l a1, SpriteObj_TilesetAddr(a0)
 	move.l a3, SpriteObj_SubSpriteOffArr(a0)

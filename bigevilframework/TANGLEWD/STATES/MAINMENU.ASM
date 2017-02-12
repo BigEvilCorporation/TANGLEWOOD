@@ -6,6 +6,30 @@
 ;   mainmenu.asm - Main Menu state
 ;==============================================================
 
+; Level data (menu contains game objects, so need to provide one)
+Lvl0_MainMenu:
+
+	dc.l tiles_twd_logo					; Tileset
+	dc.l map_blocks_twd_logo			; Blocks
+	dc.l map_blockmap_twd_logo			; Block map
+	dc.l 0x0							; Collision tileset
+	dc.l 0x0							; Collision blocks
+	dc.l 0x0							; Collision block map
+	dc.l 0x0							; Palettes
+	dc.l 0x0							; Init routine
+	dc.l 0x0							; Update routine
+	dc.l 0x0							; Serialise routine
+	dc.l 0x0							; Load game objects routine
+	dc.l 0x0							; Next level
+	dc.w 0x0							; Default gravity
+	dc.w map_twd_logo_width				; Map width (tiles)
+	dc.w map_twd_logo_height			; Map height (tiles)
+	dc.w map_blockmap_twd_logo_width	; Map width (blocks)
+	dc.w map_blockmap_twd_logo_height	; Map height (blocks)
+	dc.w tiles_twd_logo_size_t			; Num tiles
+	
+	even
+
 ; Constants
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 
@@ -61,11 +85,18 @@ MainMenu_Enter:
 	move.l #PaletteId_TanglewoodLogo, d3
 	jsr    VDP_LoadBlockMapPlaneA
 
+	; Set empty level (for game object processing)
+	move.l #Lvl0_MainMenu, CurrentLevel
+	move.l (CurrentLevel), a1
+
 	; Load objects
 	jsr    twd_logo_LoadGameObjects
+
+	; Disable Nymn physics (no terrain data)
+	move.l #Player1, a0
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	
 	; Start sleep anim
-	move.l #Player1, a0
 	move.l a0, a1
 	add.l  #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
@@ -162,6 +193,9 @@ MainMenu_Update:
 	@Fading:
 	@NotElapsed:
 	@End:
+
+	; Get level data
+	move.l (CurrentLevel), a1
 	
 	; Update game objects
 	jsr    EntityUpdateAll
@@ -170,6 +204,9 @@ MainMenu_Update:
 	
 MainMenu_Render:
 
+	; Get level data
+	move.l (CurrentLevel), a1
+	
 	; Draw game objects
 	jsr EntityRenderAll
 	

@@ -106,7 +106,7 @@ LeafLoadGfx:
 	; a1 --- Level addr
 
 	PUSHL  a1
-	
+
 	; Alloc VRAM
 	move.w #sprite_leaf_size_b, d0
 	jsr    VRAM_PoolAlloc

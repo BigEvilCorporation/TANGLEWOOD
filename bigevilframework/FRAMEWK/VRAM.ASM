@@ -13,27 +13,27 @@ VRAMDefaultPools:
 
 ; Spare space at VDP 0xF400-0xFC00
 VRAMPool3:
-	dc.w 	0xF400
-	dc.w 	0xFC00
-	dc.w 	(0xFC00-0xF400)
-	dc.w 	0x0000
-	dc.w 	0x0000
+	dc.w 	0xF400			; Start
+	dc.w 	0xFC00			; End
+	dc.w 	(0xFC00-0xF400)	; Size
+	dc.w 	0x0000			; Alloc'd
+	dc.w 	0x0000			; Free
 
 ; Spare space at VDP 0xD000-0xE000
 VRAMPool2:
-	dc.w 	0xD000
-	dc.w 	0xE000
-	dc.w 	(0xE000-0xD000)
-	dc.w 	0x0000
-	dc.w 	0x0000
+	dc.w 	0xD000			; Start
+	dc.w 	0xE000			; End
+	dc.w 	(0xE000-0xD000)	; Size
+	dc.w 	0x0000			; Alloc'd
+	dc.w 	0x0000			; Free
 
 ; Main pool
 VRAMPool1:
-	dc.w 	vram_addr_tiles
-	dc.w 	vram_addr_tiles+(vdp_max_tiles*size_tile_b)
-	dc.w 	(vdp_max_tiles*size_tile_b)
-	dc.w 	0x0000
-	dc.w 	0x0000
+	dc.w 	vram_addr_tiles	; Start
+	dc.w 	vram_addr_tiles+(vdp_max_tiles*size_tile_b)	; End
+	dc.w 	(vdp_max_tiles*size_tile_b)	; Size
+	dc.w 	0x0000			; Alloc'd
+	dc.w 	0x0000			; Free
 
 	rsset 0
 VRAMPool_Start			rs.w 1
