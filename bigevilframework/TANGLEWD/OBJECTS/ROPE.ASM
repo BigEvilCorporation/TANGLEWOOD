@@ -76,11 +76,17 @@ RopeSegmentInit:
 
 	rts
 	
-RopeSegmentLoadDefaultSprite:
+RopeSegmentLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; d0 (w) VRAM addr
+
+	PUSHL  a1
+
+	; Alloc VRAM
+	move.w #sprite_rope_size_b, d0
+	jsr    VRAM_PoolAlloc
 	
+	; Load sprite
 	lea    spritesheets_Rope, a1
 	lea    sprite_Rope_subsprite_dimensions_bits, a2
 	lea    sprite_Rope_subsprite_pos_offsets, a3
@@ -90,5 +96,7 @@ RopeSegmentLoadDefaultSprite:
 	move.w #sprite_Rope_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
+
+	POPL   a1
 	
 	rts

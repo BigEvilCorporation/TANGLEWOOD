@@ -122,10 +122,6 @@
 
 	; include 'assets\maps\l1bg.asm'
 	; include 'assets\maps\l1a1.asm'
-	
-	IFND FINAL
-	; include 'assets\maps\tst_lift.asm'
-	ENDIF
 
 	; ************************************
 	; Block maps
@@ -135,6 +131,10 @@
 	include 'assets\maps\blockmap\l1a2.asm'
 	include 'assets\maps\blockmap\l1a3.asm'
 	include 'assets\maps\blockmap\l1bg.asm'
+
+	IFND FINAL
+	include 'assets\maps\blockmap\tst_lift.asm'
+	ENDIF
 	
 	; ************************************
 	; Blocks
@@ -144,6 +144,10 @@
 	include 'assets\maps\blocks\l1a2.asm'
 	include 'assets\maps\blocks\l1a3.asm'
 	include 'assets\maps\blocks\l1bg.asm'
+
+	IFND FINAL
+	include 'assets\maps\blocks\tst_lift.asm'
+	ENDIF
 	
 	; ************************************
     ; Collision tiles
@@ -153,7 +157,7 @@
 	;include 'assets\collisn\tiles\l1.asm'
 	
 	IFND FINAL
-	;include 'assets\collisn\ctl_lift.asm'
+	include 'assets\collisn\ctl_lift.asm'
 	ENDIF
 	
 	; ************************************
@@ -187,7 +191,7 @@
 	;include 'assets\gameobj\l1a1.asm'
 	
 	IFND FINAL
-	;include 'assets\gameobj\tst_lift.asm'
+	include 'assets\gameobj\tst_lift.asm'
 	ENDIF
 
 	ENDIF

@@ -133,7 +133,7 @@ __start
 	include 'levels\level3.asm'
 	
 	IFND FINAL
-	; include 'levels\tst_lift.asm'
+	include 'levels\tst_lift.asm'
 	ENDIF
 	
 	ENDIF

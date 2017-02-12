@@ -102,8 +102,7 @@ LiftInit:
 	;==============================================================
 	
 	; Allocate rope segments
-	PUSHL  a0
-	PUSHL  a1
+	PUSHM  a0-a1
 	move.w #(Lift_RopeNumSprites-1), d1
 	move.l a0, a2
 	add.l  #Lift_RopeSegments, a2
@@ -112,16 +111,13 @@ LiftInit:
 	move.l (NextFreeRopeSegment), a0
 	move.l a0, (a2)+
 	
-	PUSHL  a2
-	PUSHL  d1
+	PUSHM  a2/d1
 	jsr    RopeSegmentInit
-	POPL   d1
-	POPL   a2
+	POPM   a2/d1
 	
 	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
 	dbra   d1, @RopeInitLp
-	POPL   a1
-	POPL   a0
+	POPM   a0-a1
 
 	rts
 
@@ -129,13 +125,13 @@ LiftLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	rts
-	
-LiftLoadDefaultSprite:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; d0 (w) VRAM addr
-	
+	PUSHL  a1
+
+	; Alloc VRAM
+	move.w #sprite_lift_size_b, d0
+	jsr    VRAM_PoolAlloc
+
+	; Load sprite
 	lea    spritesheets_Lift, a1
 	lea    sprite_Lift_subsprite_dimensions_bits, a2
 	lea    sprite_Lift_subsprite_pos_offsets, a3
@@ -145,7 +141,22 @@ LiftLoadDefaultSprite:
 	move.w #sprite_Lift_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
 	jsr    SpriteObjLoad
-	
+
+	; Load rope segments
+	PUSHM  a0-a1
+	move.w #(Lift_RopeNumSprites-1), d1
+	move.l a0, a2
+	add.l  #Lift_RopeSegments, a2
+	@RopeLp:
+	move.l (a2)+, a0
+	PUSHL  a2/d1
+	jsr    RopeSegmentLoadGfx
+	POPL   a2/d1
+	dbra   d1, @RopeLp
+	POPM   a0-a1
+
+	POPL   a1
+
 	rts
 	
 LiftPositionRopeSegments:

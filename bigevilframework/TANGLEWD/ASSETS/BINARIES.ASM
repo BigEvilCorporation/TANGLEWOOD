@@ -92,11 +92,6 @@ map_soundtest:
 ;	incbin 'assets\maps\l1a1.bin'
 ;map_l1bg:
 ;	incbin 'assets\maps\l1bg.bin'
-	
-	IFND FINAL
-map_tst_lift:
-	incbin 'assets\maps\tst_lift.bin'
-	ENDIF
 
 	; ************************************
 	; Blocks
@@ -112,6 +107,11 @@ map_blocks_l1a3:
 map_blocks_l1bg:
 	incbin 'assets\maps\blocks\l1bg.bin'
 
+	IFND FINAL
+map_blocks_tst_lift:
+	incbin 'assets\maps\blocks\tst_lift.bin'
+	ENDIF
+
 	; ************************************
 	; Block Maps
 	; ************************************
@@ -126,6 +126,11 @@ map_blockmap_l1a3:
 map_blockmap_l1bg:
 	incbin 'assets\maps\blockmap\l1bg.bin'
 
+	IFND FINAL
+map_blockmap_tst_lift:
+	incbin 'assets\maps\blockmap\tst_lift.bin'
+	ENDIF
+
 	; ************************************
 	; Collision blocks
 	; ************************************
@@ -135,6 +140,11 @@ collisionmap_blocks_l1a2:
 	incbin 'assets\collisn\blocks\l1a2.bin'
 collisionmap_blocks_l1a3:
 	incbin 'assets\collisn\blocks\l1a3.bin'
+
+	IFND FINAL
+collisionmap_blocks_tst_lift:
+	incbin 'assets\collisn\blocks\tst_lift.bin'
+	ENDIF
 
 	; ************************************
 	; Collision block Maps
@@ -146,12 +156,9 @@ collisionmap_blockmap_l1a2:
 collisionmap_blockmap_l1a3:
 	incbin 'assets\collisn\blockmap\l1a3.bin'
 
-;collisionmap_l1a1:
-;	incbin 'assets\collisn\maps\l1a1.bin'
-	
 	IFND FINAL
-;collisionmap_tst_lift:
-;	incbin 'assets\collisn\cmp_lift.bin'
+collisionmap_blockmap_tst_lift:
+	incbin 'assets\collisn\blockmap\tst_lift.bin'
 	ENDIF
 
 	ENDIF
