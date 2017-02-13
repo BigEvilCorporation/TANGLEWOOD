@@ -44,8 +44,9 @@ PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
 PhysicsObj_Solid		    rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
 PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
+PhysicsObj_Pushable			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 0
+PhysicsObj_Struct_Pad       rs.b 3
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -83,6 +84,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
+	move.b #0x0, PhysicsObj_Pushable(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -847,9 +849,13 @@ PhysicsObjFindPushable:
 	cmp.l  #0x0, a2
 	beq    @NoPushableObj
 	
+	; Check if can be pushed
+	cmp.b  #0x0, PhysicsObj_Pushable(a2)
+	beq    @NextPushingObj
+
 	; Can't collide with self
 	cmp.l  a0, a2
-	beq    @NextPushingObj
+	beq    @NextPushingObj 
 	
 	; Get pushable obj collision bounds
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
@@ -886,7 +892,11 @@ PhysicsObjPushObj:
 	; a0 --- PhysicsObj addr
 	; a1 --- Level addr
 	; a2 --- Pushable obj
-	; d0 (b) OUT: Outer bounds touching
+	; d0 (b) OUT: Outer bounds touching, and facing the right direction
+
+	; Check if can be pushed
+	cmp.b  #0x0, PhysicsObj_Pushable(a2)
+	beq    @CannotPush
 
 	; Get bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
@@ -900,26 +910,29 @@ PhysicsObjPushObj:
 	PHYSICS_GROWBOUNDS d3,d4,d0
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-
-	; Store for return value
-	move.b d0, d7
-	
-	; Check inner bounds
-	PUSHM  d1-d4
-	jsr    PHYS_TestBoxIntersectBox
-	POPM   d1-d4
 	cmp.b  #0x0, d0
-	beq    @CannotPush
+	beq    @OutOfOuterBounds
+
+	;==============================================================
 	
 	; Determine push direction from object centres
 	ENTITY_GETCENTREX d5, a0
 	ENTITY_GETCENTREX d6, a2
 	cmp.l  d6, d5
 	blt    @PushRight
+
+	;==============================================================
 	
 	; Can be pushed to the left, check pusher is facing left
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @CannotPush
+	beq    @WrongDirection
+
+	; Check inner bounds
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
+	cmp.b  #0x0, d0
+	beq    @OutOfInnerBounds
 
 	; Correct penetration
 	move.l d1, d5
@@ -929,12 +942,21 @@ PhysicsObjPushObj:
 	sub.w  #0x1, d5							; -1
 	
 	bra @EndPenetration
+
+	;==============================================================
 	
 	@PushRight:
 	
 	; Can be pushed to the right, check pusher is facing right
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	bne    @CannotPush
+	bne    @WrongDirection
+
+	; Check inner bounds
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
+	cmp.b  #0x0, d0
+	beq    @OutOfInnerBounds
 
 	; Correct penetration
 	move.l d2, d5
@@ -942,6 +964,8 @@ PhysicsObjPushObj:
 	add.w  PhysicsObj_BoundsLeft(a2), d5	; Add pushee's left bound to get new X pos
 	add.w  #0x1, d5							; +1
 	
+	;==============================================================
+
 	@EndPenetration:
 	
 	; Set new X position
@@ -951,10 +975,23 @@ PhysicsObjPushObj:
 	
 	; Inherit X velocity
 	move.w PhysicsObj_VelX(a0), PhysicsObj_VelX(a2)
-	
-	@CannotPush:
 
-	; Restore return value
-	move.b d7, d0
+	;==============================================================
+
+	@Pushing:
+	@OutOfInnerBounds:
+
+	; Within outer bounds and facing the right direction
+	move.b #0x1, d0
+	bra    @End
+
+	@CannotPush:
+	@OutOfOuterBounds:
+	@WrongDirection:
+
+	; Outside outer bounds or facing wrong direction
+	move.b #0x0, d0
+
+	@End:
 	
 	rts

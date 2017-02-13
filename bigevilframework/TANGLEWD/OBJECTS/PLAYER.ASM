@@ -73,8 +73,8 @@ Player1MaxGlideVelocityY	equ 0x01*SubpixelsPerPixel
 ; Time ability
 Player1SlowTimeDiv			equ 0x10
 
-; Max object height to consider it 'heavy' (changes push anim)
-Player1MaxLightPushObjHeight	equ 0x10
+; Anything taller than a Fuzzl is considered 'heavy' (changes push anim)
+Player1MaxLightPushObjHeight	equ Fuzzl_Height
 
 ; Num frames to wait before idle anim
 Player1IdleAnimWaitFrames	equ 0x0300
@@ -260,6 +260,9 @@ PlayerUpdate:
 	beq    @NotInteracting
 	jsr    PlayerUpdateInteract
 	@NotInteracting:
+
+	; Process special colour ability
+	jsr    PlayerUpdateColourAbility
 	
 	; If landing a jump, allow falling down holes
 	move.b Character_Jumping(a0), PhysicsObj_FallThroughHoles(a0)
@@ -1044,11 +1047,7 @@ PlayerUpdateInteract:
 
 	; Process push interaction
 	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
-	beq    @Pushing
-	
-	; Not pushing, process special colour ability
-	jsr    PlayerUpdateColourAbility
-	bra    @NotInteracting
+	bne    @NotInteracting
 	
 	@Pushing:
 
@@ -1127,32 +1126,35 @@ PlayerInteractTest_Fuzzls:
 	cmp.b  #0x0, d0
 	beq    @PlayerOffFloor
 	
-	; Check if near a pushable object
-	jsr    PhysicsObjFindPushable
-	cmp.l  #0x0, a2
-	beq    @NotNearPushableObj
+	move.w (EntityCount_Fuzzl), d6
+	cmp.w  #0x0, d6
+	beq    @NoFuzzls
 	
-	; Check if that pushable object is a Fuzzl
-	move.l Entity_TypeBits(a2), d0
-	andi.l #entity_type_fuzzl, d0
-	beq    @NotNearFuzzl
+	; Get player collision bounds
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+
+	; Check player against all Fuzzls in level
+	move.l #EntityArray_Fuzzl, a2
+	sub.w  #0x1, d6
+	@FuzzlLoop:
+
+	; Check on screen
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	beq    @NextFuzzl
 
 	; Check if fuzzl is in its nest
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
-	bne    @FuzzlHome
-	
-	; In range and not in a nest, begin interaction with Fuzzl
-	move.b #0x1, Character_Interacting(a0)
-	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
-	move.l a2, Player_InteractObject(a0)
-	
-	; Cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
-	
-	bra    @End
-	
-	@FuzzlHome:
+	beq    @NextFuzzl
+
+	; Get collision bounds
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+
+	; Check collision
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
+	cmp.b  #0x0, d0
+	beq    @NextFuzzl
 	
 	; Check if fuzzl still has its colour
 	move.b Fuzzl_Colour(a2), d0
@@ -1163,6 +1165,10 @@ PlayerInteractTest_Fuzzls:
 	move.b Player_Colour(a0), d1
 	cmp.b  d0, d1
 	beq    @NoColourMatch
+
+	; Cancel run/jump movement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
 	
 	; Fuzzl is home, is in range, and has its colour - take its colour
 	PUSHL  d0
@@ -1177,7 +1183,12 @@ PlayerInteractTest_Fuzzls:
 	move.l a3, Player_InteractObject(a0)
 	
 	bra    @End
+
+	@NextFuzzl:
+	add.l  #Fuzzl_Struct_Size, a2
+	dbra   d6, @FuzzlLoop
 	
+	@NoFuzzls:
 	@PlayerOffFloor:
 	@NotNearPushableObj:
 	@NotNearFuzzl:
@@ -1208,11 +1219,16 @@ PlayerInteractTest_Fireflies:
 	move.l #EntityArray_Firefly, a0	; Firefly in a0
 	sub.w  #0x1, d0
 	@FireflyLoop:
+
+	; Check on screen
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
 	beq    @NextFirefly
+
+	; Test collision
 	movem.l d0-d1/a0-a1, -(sp)
 	jsr FireflyTestObj
 	movem.l (sp)+, d0-d1/a0-a1
+
 	@NextFirefly:
 	add.l  #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
@@ -1286,6 +1302,8 @@ PlayerInteractTest_BouncePlants:
 	move.l #EntityArray_BouncePlant, a2		; Plant in a2
 	sub.w  #0x1, d6
 	@PlantLoop:
+
+	; Check on screen
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
 	beq    @NextPlant
 	

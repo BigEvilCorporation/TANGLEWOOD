@@ -427,7 +427,7 @@ EchoInit:
 	move.b #spriteanim_echo_calllong_speed, Animation_Speed(a3)
 	move.b #spriteanim_echo_calllong_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
-	move.b #0x0, Animation_ZeroVelocity(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	;==============================================================
 	

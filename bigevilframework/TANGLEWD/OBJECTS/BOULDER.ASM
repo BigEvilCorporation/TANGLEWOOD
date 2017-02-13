@@ -86,6 +86,7 @@ BoulderInit:
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #0x1, PhysicsObj_Pushable(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)
 	move.l  #0x0, Boulder_SpawnY(a0)
 	move.w  #0x0, Boulder_LastVelY(a0)
@@ -194,7 +195,7 @@ BoulderUpdate:
 	move.w #0x0, Boulder_LastVelY(a0)
 	move.b #0x1, Boulder_LastOnFloor(a0)
 	move.b #0x0, Boulder_Cracked(a0)
-	;move.b #0x1, PhysicsObj_Pushable(a0)
+	move.b #0x1, PhysicsObj_Pushable(a0)
 	
 	@NotCracked:
 	
@@ -234,7 +235,7 @@ BoulderUpdate:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	
 	; Can no longer be pushed
-	;move.b #0x0, PhysicsObj_Pushable(a0)
+	move.b #0x0, PhysicsObj_Pushable(a0)
 	
 	; Bail
 	bra    @Cracked
