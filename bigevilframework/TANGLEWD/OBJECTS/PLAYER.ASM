@@ -190,7 +190,6 @@ PlayerInit:
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
-	move.b  #0x0, PhysicsObj_Pushable(a0)
 	
 	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
@@ -227,9 +226,6 @@ PlayerInit:
 	
 	;==============================================================
 	
-	; Register as pushing object
-	LIST_APPEND_TAIL PushingObjs, a0, a3
-	
 	; Running by default
 	jsr    CharacterStartRun
 	
@@ -258,56 +254,11 @@ PlayerUpdate:
 	beq    @NotSnoozing
 	jsr    PlayerUpdateIdleSnooze
 	@NotSnoozing:
-	
-	; Process push interaction
-	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
-	beq    @Pushing
-	
-	; Not pushing, process special colour ability
-	jsr    PlayerUpdateColourAbility
-	bra    @NotInteracting
-	
-	@Pushing:
-	
-	; Scale push anim speed based on velocity
-	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
-	bgt    @Fwd
-	neg.w  d0
-	@Fwd:
-	move.w d0, d1
-	
-	; Apply to light push anim
-	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
-	move.b d0, Animation_Speed(a2)
-	
-	; Apply to heavy push anim
-	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
-	move.b d1, Animation_Speed(a2)
-	
-	; If no push object, or no longer pushable, stop pushing
-	move.l PhysicsObj_LastPushingObj(a0), a2
-	cmp.l  #0x0, PhysicsObj_LastPushingObj(a0)
-	beq    @StopPushing
-	cmp.b  #0x0, PhysicsObj_Pushable(a2)
-	beq    @StopPushing
-	cmp.b  #0x0, PhysicsObj_CanPush(a0)
-	beq    @StopPushing
-	
-	; Still pushing
-	bra    @Interacting
-	
-	@StopPushing:
-	jsr    PlayerCancelInteract
-	
-	@Interacting:
+
+	; Process interations
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	beq    @NotInteracting
+	jsr    PlayerUpdateInteract
 	@NotInteracting:
 	
 	; If landing a jump, allow falling down holes
@@ -1012,11 +963,9 @@ PlayerStartInteract:
 	
 	;==============================================================
 	
-	; If near a pushable object
-	move.l PhysicsObj_LastPushingObj(a0), a2
+	; Check if near a pushable object
+	jsr    PhysicsObjFindPushable
 	cmp.l  #0x0, a2
-	beq    @NoPushablesNear
-	cmp.b  #0x0, PhysicsObj_Pushable(a2)
 	beq    @NoPushablesNear
 	
 	; If facing in the right direction
@@ -1035,7 +984,7 @@ PlayerStartInteract:
 	
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
-	move.b #0x1, PhysicsObj_CanPush(a0)
+	move.l a2, Player_InteractObject(a0)
 	
 	; Determine if light or heavy object
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
@@ -1055,8 +1004,10 @@ PlayerStartInteract:
 	bra    @FoundInteraction
 	
 	@NoPushablesNear:
+
+	;==============================================================
 	
-	; Check continuously interactible objects
+	; Check for Fuzzls
 	jsr    PlayerInteractTest_Fuzzls
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
@@ -1086,6 +1037,54 @@ PlayerStartInteract:
 	move.l (sp)+, d0
 	
 	rts
+
+PlayerUpdateInteract:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Process push interaction
+	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
+	beq    @Pushing
+	
+	; Not pushing, process special colour ability
+	jsr    PlayerUpdateColourAbility
+	bra    @NotInteracting
+	
+	@Pushing:
+
+	; Push the object
+	move.l Player_InteractObject(a0), a2
+	jsr    PhysicsObjPushObj
+
+	; Outer bounds penetration flag in d0
+	move.b d0, Character_Pushing(a0)
+	
+	; Scale push anim speed based on velocity
+	clr.l  d0
+	move.w PhysicsObj_VelX(a0), d0
+	cmp.w  #0x0, d0
+	bgt    @Fwd
+	neg.w  d0
+	@Fwd:
+	move.w d0, d1
+	
+	; Apply to light push anim
+	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	move.b d0, Animation_Speed(a2)
+	
+	; Apply to heavy push anim
+	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
+	move.l a0, a2
+	add.l  #Character_Animations, a2
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
+	move.b d1, Animation_Speed(a2)
+
+	@NotInteracting:
+
+	rts
 	
 PlayerCancelInteract:
 	; a0 --- GameObj addr
@@ -1095,7 +1094,6 @@ PlayerCancelInteract:
 	bne    @NotPushing
 	
 	; Stop pushing
-	move.b #0x0, PhysicsObj_CanPush(a0)
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_PushingHeavy(a0)
 	
@@ -1130,23 +1128,23 @@ PlayerInteractTest_Fuzzls:
 	beq    @PlayerOffFloor
 	
 	; Check if near a pushable object
-	move.l PhysicsObj_LastPushingObj(a0), a3
+	jsr    PhysicsObjFindPushable
 	cmp.l  #0x0, a2
 	beq    @NotNearPushableObj
 	
 	; Check if that pushable object is a Fuzzl
-	move.l Entity_TypeBits(a3), d0
+	move.l Entity_TypeBits(a2), d0
 	andi.l #entity_type_fuzzl, d0
 	beq    @NotNearFuzzl
 
 	; Check if fuzzl is in its nest
-	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a3)
+	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
 	bne    @FuzzlHome
 	
 	; In range and not in a nest, begin interaction with Fuzzl
 	move.b #0x1, Character_Interacting(a0)
 	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
-	move.l a3, Player_InteractObject(a0)
+	move.l a2, Player_InteractObject(a0)
 	
 	; Cancel run/jump movement
 	jsr    CharacterCancelRun
@@ -1157,7 +1155,7 @@ PlayerInteractTest_Fuzzls:
 	@FuzzlHome:
 	
 	; Check if fuzzl still has its colour
-	move.b Fuzzl_Colour(a3), d0
+	move.b Fuzzl_Colour(a2), d0
 	cmp.b  #ColourDrained, d0
 	beq    @NoColour
 	

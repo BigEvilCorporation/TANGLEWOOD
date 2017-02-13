@@ -87,7 +87,7 @@ GameStateReset:
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
 	
 	; Reset pushables
-	LIST_CLEAR PushingObjs
+	LIST_CLEAR PushableObjs
 
 	; Reload debug draw font
 	move.l #Tiles_PixelFontSizeB, d0

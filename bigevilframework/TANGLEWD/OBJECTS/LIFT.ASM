@@ -72,7 +72,6 @@ LiftInit:
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, PhysicsObj_CollidePlatforms(a0)
-	move.b #0x1, PhysicsObj_Pushable(a0)
 	move.w #Lift_Width, Entity_Width(a0)
 	move.w #Lift_Height, Entity_Height(a0)
 	move.w #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
@@ -87,6 +86,9 @@ LiftInit:
 	move.w  #0x0, PhysicsObj_BoundsTop(a0)
 	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	; Register as pushable object
+	LIST_APPEND_TAIL PushableObjs, a0, a3
 	
 	;==============================================================
 	
@@ -241,7 +243,7 @@ LiftUpdate:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	
 	; Can push by default
-	move.b #0x1, PhysicsObj_Pushable(a0)
+	;move.b #0x1, PhysicsObj_Pushable(a0)
 	
 	; Check if player heading down
 	move.l #Player1, a1
@@ -265,7 +267,7 @@ LiftUpdate:
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
 	
 	; Can't push
-	move.b #0x0, PhysicsObj_Pushable(a0)
+	;move.b #0x0, PhysicsObj_Pushable(a0)
 	
 	@PlayerHeadingUp:
 	@NotTouching:

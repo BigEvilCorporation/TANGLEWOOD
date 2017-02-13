@@ -189,7 +189,7 @@ CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 ; Physics platforms
 ; ************************************
 	LINKED_LIST Platforms	 ; Moving platforms
-	LINKED_LIST PushingObjs	 ; Pushing objects
+	LINKED_LIST PushableObjs ; Pushable objects
 
 ; ************************************
 ; Colour abilities
