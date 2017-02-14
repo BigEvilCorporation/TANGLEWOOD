@@ -473,7 +473,8 @@ FuzzlUpdate:
 	beq   @End
 	
 	; On floor, finished flinging
-	bclr  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
+	bclr.b #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
+	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 	
 	@Asleep:
 	@NotBeingFlung:
