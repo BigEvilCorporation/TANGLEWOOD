@@ -929,7 +929,7 @@ PhysicsObjPushPullObj:
 
 	; If heading right, pulling
 	cmp.w  #0x0, PhysicsObj_VelX(a0)
-	blt    @PullingFromLeft
+	bgt    @PullingFromLeft
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -959,7 +959,7 @@ PhysicsObjPushPullObj:
 
 	; If heading left, pulling
 	cmp.w  #0x0, PhysicsObj_VelX(a0)
-	bgt    @PullingFromRight
+	blt    @PullingFromRight
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
