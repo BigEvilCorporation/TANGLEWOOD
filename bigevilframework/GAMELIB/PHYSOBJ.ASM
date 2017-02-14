@@ -901,6 +901,7 @@ PhysicsObjPushPullObj:
 	bne    @CanPush
 	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
 	bne    @CanPull
+	bra    @CannotPush
 
 	@CanPush:
 	@CanPull:
