@@ -80,7 +80,7 @@ LiftInit:
 	move.w  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
-	move.b  #0x1, PhysicsObj_Pushable(a0)
+	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -244,7 +244,7 @@ LiftUpdate:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	
 	; Can push by default
-	move.b #0x1, PhysicsObj_Pushable(a0)
+	move.b #0x1, PhysicsObj_CanBePushed(a0)
 	
 	; Check if player heading down
 	move.l #Player1, a1
@@ -268,7 +268,7 @@ LiftUpdate:
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
 	
 	; Can't push
-	move.b #0x0, PhysicsObj_Pushable(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	
 	@PlayerHeadingUp:
 	@NotTouching:

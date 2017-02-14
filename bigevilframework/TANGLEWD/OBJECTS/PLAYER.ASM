@@ -1059,8 +1059,26 @@ PlayerUpdateInteract:
 	jsr    PhysicsObjPushPullObj
 
 	; Outer bounds penetration flag in d0
-	move.b d0, Character_Pushing(a0)
-	move.b d0, Character_LockSpriteFlip(a0)
+	cmp.b  #0x0, d0
+	bne    @StillPushing
+
+	; No longer in range - clear pushing flags (but keep interaction flag until button depressed)
+	move.b #0x0, Character_Pushing(a0)
+	move.b #0x0, Character_PushingHeavy(a0)
+	move.b #0x0, Character_LockSpriteFlip(a0)
+	bra    @NotPushing
+
+	@StillPushing:
+
+	; Determine if light or heavy object
+	move.l Player_InteractObject(a0), a2
+	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
+	bgt    @HeavyObj
+	move.b #0x1, Character_Pushing(a0)
+	bra    @LightObj
+	@HeavyObj:
+	move.b #0x1, Character_PushingHeavy(a0)
+	@LightObj:
 	
 	; Scale push anim speed based on velocity
 	clr.l  d0
@@ -1085,6 +1103,7 @@ PlayerUpdateInteract:
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
 	move.b d1, Animation_Speed(a2)
 
+	@NotPushing:
 	@NotInteracting:
 
 	rts

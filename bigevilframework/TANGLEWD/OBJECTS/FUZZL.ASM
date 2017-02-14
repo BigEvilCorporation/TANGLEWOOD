@@ -161,7 +161,8 @@ FuzzlInit:
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.b  #0x1, PhysicsObj_Pushable(a0)
+	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
@@ -421,8 +422,9 @@ FuzzlUpdate:
 	; No longer being rolled
 	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 	
-	; Can no longer be pushed
-	move.b #0x0, PhysicsObj_Pushable(a0)
+	; Can no longer be pushed/pulled
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.b #0x0, PhysicsObj_CanBePulled(a0)
 	
 	; Nest is occupied
 	move.b #0x1, Nest_Occupied(a3)

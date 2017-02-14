@@ -44,9 +44,10 @@ PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
 PhysicsObj_Solid		    rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
 PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
-PhysicsObj_Pushable			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
+PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
+PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 3
+PhysicsObj_Struct_Pad       rs.b 2
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -84,7 +85,8 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
-	move.b #0x0, PhysicsObj_Pushable(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.b #0x0, PhysicsObj_CanBePulled(a0)
 	
 	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
@@ -850,7 +852,7 @@ PhysicsObjFindPushable:
 	beq    @NoPushableObj
 	
 	; Check if can be pushed
-	cmp.b  #0x0, PhysicsObj_Pushable(a2)
+	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @NextPushingObj
 
 	; Can't collide with self
@@ -895,8 +897,13 @@ PhysicsObjPushPullObj:
 	; d0 (b) OUT: Outer bounds touching, and facing the right direction
 
 	; Check if can be pushed/pulled
-	cmp.b  #0x0, PhysicsObj_Pushable(a2)
-	beq    @CannotPush
+	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	bne    @CanPush
+	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	bne    @CanPull
+
+	@CanPush:
+	@CanPull:
 
 	; Get bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
@@ -927,9 +934,19 @@ PhysicsObjPushPullObj:
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	beq    @WrongDirection
 
+	; Check if can be pulled
+	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	beq    @CannotPullLeft
+
 	; If heading right, pulling
 	cmp.w  #0x0, PhysicsObj_VelX(a0)
 	bgt    @PullingFromLeft
+
+	@CannotPullLeft:
+
+	; Check if can be pushed
+	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	beq    @CannotPushLeft
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -946,6 +963,8 @@ PhysicsObjPushPullObj:
 	sub.w  PhysicsObj_BoundsWidth(a2), d5	; Sub pushee's bounds width to get new left
 	sub.w  PhysicsObj_BoundsLeft(a2), d5	; Sub pushee's left bound to get new X pos
 	sub.w  #0x1, d5							; -1
+
+	@CannotPushLeft:
 	
 	bra @EndPenetration
 
@@ -957,9 +976,19 @@ PhysicsObjPushPullObj:
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	bne    @WrongDirection
 
+	; Check if can be pulled
+	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	beq    @CannotPullRight
+
 	; If heading left, pulling
 	cmp.w  #0x0, PhysicsObj_VelX(a0)
 	blt    @PullingFromRight
+
+	@CannotPullRight:
+
+	; Check if can be pushed
+	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	beq    @CannotPushRight
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -975,6 +1004,8 @@ PhysicsObjPushPullObj:
 	swap   d5								; Get pusher's right bound
 	add.w  PhysicsObj_BoundsLeft(a2), d5	; Add pushee's left bound to get new X pos
 	add.w  #0x1, d5							; +1
+
+	@CannotPushRight:
 	
 	;==============================================================
 
