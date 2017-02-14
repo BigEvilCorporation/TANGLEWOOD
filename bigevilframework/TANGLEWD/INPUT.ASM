@@ -182,14 +182,14 @@ HandlePlayerInput:
 	btst #pad_button_right, d0  ; Check right button
 	beq  @NoRight               ; Branch if button off
 	jsr  CharacterMoveRight
-	jmp  @XHandled
+	bra  @XHandled
 	@NoRight:
 	
 	; Move right
 	btst #pad_button_left, d0   ; Check left button
 	beq  @NoLeft                ; Branch if button off
 	jsr  CharacterMoveLeft
-	jmp  @XHandled
+	bra  @XHandled
 	@NoLeft:
 	
 	jsr CharacterCancelXMovement ; No Player1 X input
@@ -203,7 +203,7 @@ HandlePlayerInput:
 	btst #pad_button_a, d0      ; Check A button
 	beq  @NoA                   ; Branch if button off
 	jsr  CharacterCancelRun		; Cancel run
-	jmp  @EndA
+	bra  @EndA
 	@NoA:
 	jsr  CharacterStartRun		; Run
 	@EndA:
@@ -217,7 +217,7 @@ HandlePlayerInput:
 	btst #pad_button_b, d1		; Check jump not already held
 	bne  @EndB
 	jsr  CharacterStartJump		; Jump
-	jmp  @EndB
+	bra  @EndB
 	@NoB:
 	btst #pad_button_b, d1		; Check not already released
 	beq  @EndB
@@ -231,7 +231,7 @@ HandlePlayerInput:
 	btst #pad_button_c, d0  	; Check C button
 	beq  @NoC	                ; Branch if button off
 	jsr  CharacterStartInteract	; Start interaction
-	jmp  @EndC
+	bra  @EndC
 	@NoC:
 	jsr  CharacterCancelInteract
 	@EndC:

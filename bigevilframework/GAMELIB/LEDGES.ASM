@@ -48,7 +48,7 @@ FindLedge:
 	bne    @CheckNybbles
 	add.w  #0x8, d5					 ; Skip nybble counter by 8
 	dbra   d3, @ByteCheckLp			 ; No collision data in longword, loop
-	jmp    @EndOfData				 ; End of data
+	bra    @EndOfData				 ; End of data
 	
 	@CheckNybbles:
 	move.l #0x7, d4					 ; 8 nybbles per longword (-1 for loop counter)
@@ -64,7 +64,7 @@ FindLedge:
 	
 	@EndOfData:
 	move.l #0xFFFFFFFF, d0			 ; Ledge not found, set return val to -1
-	jmp    @Return
+	bra    @Return
 	
 	@LedgeFound:
 	

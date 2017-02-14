@@ -57,7 +57,7 @@ SequencerTest:
 	cmp.l d1, d0               ; Compare clock with note start time
 	bge @WithinStartTime       ; Branch if Greater or Equal
 	move.b #0x9F, psg_control  ; Not yet reached start time of note, silence channel 0
-	jmp @ProcessNote           ; Jump back to top to evaluate again
+	bra @ProcessNote           ; Jump back to top to evaluate again
 	
 	@WithinStartTime:          ; Within start time of note
 	
@@ -68,7 +68,7 @@ SequencerTest:
 	blt @WithinRelease         ; Branch if Less Than
 	move.b #0x9F, psg_control  ; End of note, silence channel 0
 	addi.l #0x6, a0            ; Increment a0 by 3 words
-	jmp @ProcessNote           ; Jump back to top to evaluate next note
+	bra @ProcessNote           ; Jump back to top to evaluate next note
 	
 	@WithinRelease:            ; Within release time of note
 	
@@ -124,7 +124,7 @@ SequencerTest:
 	or.b #0x90, d3             ; Latch bit ON, channel 0, attenuation bit ON
 	move.b d3, psg_control     ; Write to PSG port
 	
-	jmp @ProcessNote
+	bra @ProcessNote
 
 	rts
 

@@ -51,7 +51,7 @@ VDP_WaitFrames:
 	subx.l  d1, d2             ; Calc delta, result in d2
 	cmp.l   d0, d2             ; Compare with num frames
 	bge     @End               ; Branch to end if greater or equal to num frames
-	jmp     @Wait              ; Try again
+	bra     @Wait              ; Try again
 	
 	@End:
 	rts

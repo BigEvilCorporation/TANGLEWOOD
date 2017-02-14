@@ -231,7 +231,7 @@ PAL_LerpUpdateNextComponent:
 	; Components differ, add/sub to lerp towards target
 	@AddComponent:
 	addi.b #0x1, d5						; Add to component
-	jmp @WriteComponent
+	bra @WriteComponent
 	@SubComponent:
 	subi.b #0x1, d5						; Sub from component
 	

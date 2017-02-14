@@ -277,10 +277,10 @@ CAM_PosToWorldScrollX:
 	sub.l   #CameraScrollSafeBorderX, d1
 	cmp.l	d1, d0
 	bgt		@ClampRight
-	jmp		@EndClampX
+	bra		@EndClampX
 	@ClampLeft:
 	move.l  #CameraScrollSafeBorderX, d0	; Clamp to bounds
-	jmp		@EndClampX
+	bra		@EndClampX
 	@ClampRight:
 	move.l	d1, d0
 	@EndClampX:
@@ -303,10 +303,10 @@ CAM_PosToWorldScrollY:
 	sub.l   #CameraScrollSafeBorderY, d1
 	cmp.l	d1, d0
 	bgt		@ClampBottom
-	jmp		@EndClampY
+	bra		@EndClampY
 	@ClampTop:
 	move.l  #CameraScrollSafeBorderY, d0
-	jmp		@EndClampY
+	bra		@EndClampY
 	@ClampBottom:
 	move.l	d1, d0
 	@EndClampY:

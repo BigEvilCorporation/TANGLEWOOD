@@ -30,7 +30,7 @@ CompareString:
         beq strcmp_end   ; End of string, return
         
         addi #0x1, d3    ; Increment char counter
-        jmp @strchecklp
+        bra @strchecklp
 
 strcmp_diff:
         move.l d3, d0    ; Strings diff, move idx to return val

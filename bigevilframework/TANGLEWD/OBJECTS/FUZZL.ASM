@@ -710,20 +710,20 @@ FuzzlUpdateAnimation:
 
 	@AnimSleep:
 	move.l #FuzzlAnimIdx_Sleep, d0
-	jmp    @EndAnim
+	bra    @EndAnim
 
 	@AnimIdle:
 	move.l #FuzzlAnimIdx_Idle, d0
-	jmp    @EndAnim
+	bra    @EndAnim
 
 	@AnimWatch:
 	jsr    FuzzlUpdateEyes
 	move.l #FuzzlAnimIdx_Watch, d0
-	jmp    @EndAnim
+	bra    @EndAnim
 
 	@AnimRoll:
 	move.l #FuzzlAnimIdx_Roll, d0
-	jmp    @EndAnim
+	bra    @EndAnim
 	
 	@AnimFling:
 	move.l #FuzzlAnimIdx_Roll, d0
@@ -731,11 +731,11 @@ FuzzlUpdateAnimation:
 	add.l  #Fuzzl_Animations, a2
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
 	move.b #Fuzzl_FlingRollSpeed, Animation_Speed(a2)
-	jmp    @EndAnim
+	bra    @EndAnim
 
 	@AnimBounce:
 	move.l #FuzzlAnimIdx_Bounce, d0
-	jmp    @EndAnim
+	bra    @EndAnim
 	
 	@EndAnim:
 	

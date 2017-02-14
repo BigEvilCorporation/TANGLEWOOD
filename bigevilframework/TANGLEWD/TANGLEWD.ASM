@@ -200,7 +200,7 @@ GameLoop:
 	jsr RenderEndFrame
 
 	; Back to top
-	jmp GameLoop
+	bra GameLoop
 
 	; ************************************
 	; Rendering

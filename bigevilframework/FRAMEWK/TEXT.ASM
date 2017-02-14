@@ -70,7 +70,7 @@ TXT_DrawPlane:
 	move.b   (a1,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 	move.w   d4, vdp_data           ; Move palette and pattern IDs to VDP data port
-	jmp      @CharCopy              ; Next character
+	bra      @CharCopy              ; Next character
 
 	@End:
 	rts
@@ -135,7 +135,7 @@ TXT_DrawSprites:
 	addi.l   #0x00080000, d1		; Spacing
 	addi.b   #0x1, d4				; Increment counter
 	
-	jmp      @CharCopy              ; Next character
+	bra      @CharCopy              ; Next character
 
 	@End:
 	

@@ -233,7 +233,7 @@ SpriteObjDraw:
 	; Increment link count
 	addi.b #0x1, sprite_link_count
 	
-	jmp    @End
+	bra    @End
 	
 	;==============================================================
 
