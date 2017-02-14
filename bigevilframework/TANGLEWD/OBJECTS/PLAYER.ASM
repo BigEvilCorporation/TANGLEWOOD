@@ -988,6 +988,9 @@ PlayerStartInteract:
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
 	move.l a2, Player_InteractObject(a0)
+
+	; Lock orientation
+	move.b #0x1, Character_LockSpriteFlip(a0)
 	
 	; Determine if light or heavy object
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
@@ -1051,12 +1054,13 @@ PlayerUpdateInteract:
 	
 	@Pushing:
 
-	; Push the object
+	; Push/pull the object
 	move.l Player_InteractObject(a0), a2
-	jsr    PhysicsObjPushObj
+	jsr    PhysicsObjPushPullObj
 
 	; Outer bounds penetration flag in d0
 	move.b d0, Character_Pushing(a0)
+	move.b d0, Character_LockSpriteFlip(a0)
 	
 	; Scale push anim speed based on velocity
 	clr.l  d0
@@ -1095,6 +1099,9 @@ PlayerCancelInteract:
 	; Stop pushing
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_PushingHeavy(a0)
+	
+	; Restore sprite flip lock
+	move.b #0x0, Character_LockSpriteFlip(a0)
 	
 	; Restore walk speed
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)

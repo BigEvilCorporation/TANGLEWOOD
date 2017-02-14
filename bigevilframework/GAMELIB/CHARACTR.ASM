@@ -77,8 +77,9 @@ Character_UpdateAnim		rs.b 1
 Character_AnimIdx	    	rs.b 1
 Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
+Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 1
+Character_Struct_Pad    	rs.b 0
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -109,6 +110,7 @@ CharacterInit:
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
+	move.b #0x0, Character_LockSpriteFlip(a0)
 
 	rts
 	
@@ -175,7 +177,11 @@ CharacterUpdate:
 	@NotInWater:
 	@NotJumping:
  
-	jsr CharacterApplySpriteFlip
+	; If not locked, apply sprite flipping
+	cmp.b #0x0, Character_LockSpriteFlip(a0)
+	bne   @FlipLocked
+	jsr   CharacterApplySpriteFlip
+	@FlipLocked:
 
 	cmp.b #0x0, Character_UpdateAnim(a0)
 	beq   @ManualAnim
@@ -236,7 +242,7 @@ CharacterApplySpriteFlip:
 	blt    @FlipLeft
 	@FlipRight:
 	move.b #0x0, SpriteObj_FlippedX(a0)
-	jmp    @NoFlip
+	bra    @NoFlip
 	@FlipLeft:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	@NoFlip:

@@ -888,13 +888,13 @@ PhysicsObjFindPushable:
 
 	rts
 
-PhysicsObjPushObj:
+PhysicsObjPushPullObj:
 	; a0 --- PhysicsObj addr
 	; a1 --- Level addr
 	; a2 --- Pushable obj
 	; d0 (b) OUT: Outer bounds touching, and facing the right direction
 
-	; Check if can be pushed
+	; Check if can be pushed/pulled
 	cmp.b  #0x0, PhysicsObj_Pushable(a2)
 	beq    @CannotPush
 
@@ -923,16 +923,22 @@ PhysicsObjPushObj:
 
 	;==============================================================
 	
-	; Can be pushed to the left, check pusher is facing left
+	; Can be pushed/pulled to/from the left, check pusher is facing left
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	beq    @WrongDirection
 
-	; Check inner bounds
+	; If heading right, pulling
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	blt    @PullingFromLeft
+
+	; Pushing, check inner bounds
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
 	cmp.b  #0x0, d0
 	beq    @OutOfInnerBounds
+
+	@PullingFromLeft:
 
 	; Correct penetration
 	move.l d1, d5
@@ -947,16 +953,22 @@ PhysicsObjPushObj:
 	
 	@PushRight:
 	
-	; Can be pushed to the right, check pusher is facing right
+	; Can be pushed/pulled to/from the right, check pusher is facing right
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	bne    @WrongDirection
 
-	; Check inner bounds
+	; If heading left, pulling
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	bgt    @PullingFromRight
+
+	; Pushing, check inner bounds
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
 	cmp.b  #0x0, d0
 	beq    @OutOfInnerBounds
+
+	@PullingFromRight:
 
 	; Correct penetration
 	move.l d2, d5
