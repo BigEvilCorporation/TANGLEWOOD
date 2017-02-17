@@ -56,7 +56,7 @@ VDP_LoadMapPlaneA:
 	
 	@Copy:
 	move.w  (a0)+, d4              ; Move tile ID from map data to lower d4
-	and.l   #%0011111111111111, d4 ; Mask out original palette ID
+	and.l   #%1001111111111111, d4 ; Mask out original palette ID
 	or.l    d3, d4                 ; Replace with our own
 	add.w   d2, d4                 ; Add first tile offset to d4
 	move.w  d4, vdp_data           ; Move to VRAM
@@ -88,7 +88,7 @@ VDP_LoadMapPlaneB:
 	
 	@Copy:
 	move.w  (a0)+, d4              ; Move tile ID from map data to lower d4
-	and.l   #%0011111111111111, d4 ; Mask out original palette ID
+	and.l   #%1001111111111111, d4 ; Mask out original palette ID
 	or.l    d3, d4                 ; Replace with our own
 	add.w   d2, d4                 ; Add first tile offset to d4
 	move.w  d4, vdp_data           ; Move to VRAM
@@ -231,11 +231,20 @@ VDP_LoadBlockPlaneA:
 		; For each col in block
 		move.w  #map_block_width-1, d0
 		@ColLoop:
+
+			; ABBC DEEE EEEE EEEE
+			; A = Prio
+			; B = Palette
+			; C = Flip X
+			; D = Flip Y
+			; E = Tile ID
+
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
-			and.l   #%0011111111111111, d1 ; Mask out original palette ID
+			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
 			add.w   d2, d1                 ; Add first tile offset to d1
 			move.w  d1, vdp_data           ; Move to VRAM
+			
 		dbra.w  d0, @ColLoop               ; Loop
 
 		; Offset to next row
@@ -278,7 +287,7 @@ VDP_LoadBlockPlaneB:
 		move.w  #map_block_width-1, d0
 		@ColLoop:
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
-			and.l   #%0011111111111111, d1 ; Mask out original palette ID
+			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
 			add.w   d2, d1                 ; Add first tile offset to d1
 			move.w  d1, vdp_data           ; Move to VRAM

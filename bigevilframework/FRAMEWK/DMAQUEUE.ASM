@@ -25,6 +25,13 @@ VDP_DMAQueue_AddJob:
 	; a0 --- - Source addr (68k space)
 	; d0 (l) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
+
+	IFND FINAL
+	cmp.w #0x0, d1
+	bne   @NonZero
+	RAISE_EXCEPTION 0xEE
+	@NonZero:
+	ENDIF
 	
 	; Get next queue element
 	lea    vdp_dma_queue, a1
