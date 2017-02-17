@@ -52,6 +52,7 @@ EndLevel_Enter:
 		
 	; Start end of level theme
 	lea    bgm_lvloutro, a0
+	move.b #0x1, d0
 	jsr    SND_PlayTrack
 	
 	POPL   a1

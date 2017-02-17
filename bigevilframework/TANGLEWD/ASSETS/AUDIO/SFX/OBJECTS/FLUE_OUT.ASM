@@ -1,11 +1,11 @@
 	dc.b $e0		; Lock channel FM 1
 	dc.b $e1		; Lock channel FM 2
 ; Pattern $00, Row 0; 
-	dc.b $40, $20	; Set instrument for channel FM 1
+	dc.b $40, $27	; Set instrument for channel FM 1
 	dc.b $00, $63	; Note C#3 on channel FM 1
 ; Pattern $00, Row 1; 
 	dc.b $fe, $03	; Delay
-	dc.b $41, $20	; Set instrument for channel FM 2
+	dc.b $41, $27	; Set instrument for channel FM 2
 	dc.b $21, $1a	; Set volume for channel FM 2
 	dc.b $01, $87	; Note D#4 on channel FM 2
 ; Pattern $00, Row 2; 

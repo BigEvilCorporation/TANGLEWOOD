@@ -220,11 +220,7 @@
 ; Pattern $00, Row 98; 
 ; Pattern $00, Row 99; 
 ; Pattern $00, Row 100; 
-; Pattern $00, Row 101; 
-; Pattern $00, Row 102; 
-; Pattern $00, Row 103; 
-; Pattern $00, Row 104; 
-	dc.b $fe, $57	; Delay
+	dc.b $fe, $4b	; Delay
 	dc.b $10		; Note off channel FM 1
 	dc.b $11		; Note off channel FM 2
 	dc.b $12		; Note off channel FM 3

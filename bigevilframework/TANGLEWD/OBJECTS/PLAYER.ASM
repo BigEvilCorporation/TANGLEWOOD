@@ -939,6 +939,9 @@ PlayerUpdateColourAbility:
 	jsr    PlayerStopColourAbility
 	move.b #ColourRed, Player_Colour(a0)
 	jsr    PlayerBeginColourSwitch
+
+	; Play SFX
+	PLAYSFX_HIGHPRIO #SFX_NymnColourFade
 	
 	@NoTimeout:
 	@TimerRunning:

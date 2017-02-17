@@ -105,8 +105,8 @@ InitialLevel			 equ Lvl1_HarlequinForest
 	IFD DEBUG
 InitialState			 equ  GameStateGameplay
 	ELSE
-;InitialState			 equ  GameStateLogos
-InitialState			 equ  GameStateGameplay
+InitialState			 equ  GameStateLogos
+;InitialState			 equ  GameStateGameplay
 	ENDIF
 
 ; Checkpoint save

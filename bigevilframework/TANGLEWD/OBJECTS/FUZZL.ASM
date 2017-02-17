@@ -672,6 +672,13 @@ FuzzlUpdateEyes:
 	lea    Fuzzl_Eye_Frame_Table, a2
 	add.l  d0, a2
 
+	;move.l AnimObj_AnimSubFrame(a0), d3
+	;move.l (a2), d4
+	;cmp.l d3, d4
+	;bne   @noBreak
+	;nop
+	;@noBreak:
+
 	; Set anim frame
 	move.l (a2), AnimObj_AnimSubFrame(a0)
 

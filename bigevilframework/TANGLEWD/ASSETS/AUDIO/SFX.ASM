@@ -4,7 +4,7 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
-AmbientSFXCount		equ 0x04
+AmbientSFXCount		equ 0x02
 
 	IFND DEBUG
 
@@ -20,22 +20,6 @@ SFX_Djakk_Roar:
 	
 SFX_Djakk_Bite:
 	ESF_NoteOn ESF_PCM, PCM_InstrIndex+1
-	ESF_Stop
-	
-SFX_Chirp1:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
-	ESF_Stop
-	
-SFX_Chirp2:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
-	ESF_Stop
-	
-SFX_Chirp3:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
-	ESF_Stop
-	
-SFX_Chirp4:
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
 	ESF_Stop
 	
 ; FM SFX
@@ -66,6 +50,9 @@ SFX_FuzzlJump:
 	
 SFX_NymnColourSwitch:
 	include 'assets\audio\SFX\nymn\switch.asm'
+
+SFX_NymnColourFade:
+	include 'assets\audio\SFX\nymn\unswitch.asm'
 	
 SFX_Footstep1:
 	include 'assets\audio\SFX\fstep\fstep2.asm'
@@ -84,6 +71,18 @@ SFX_FootstepBig:
 	
 SFX_Land:
 	include 'assets\audio\SFX\fstep\land.asm'
+
+SFX_Ambience_Day1:
+	include 'assets\audio\SFX\ambience\day1.asm'
+	
+;SFX_Ambience_Day2:
+;	include 'assets\audio\SFX\ambience\day2.asm'
+	
+SFX_Ambience_Night1:
+	include 'assets\audio\SFX\ambience\night1.asm'
+	
+;SFX_Ambience_Night2:
+;	include 'assets\audio\SFX\ambience\night2.asm'
 
 		ENDIF
 		

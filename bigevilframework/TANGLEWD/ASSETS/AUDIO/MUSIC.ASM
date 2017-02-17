@@ -24,6 +24,12 @@ bgm_boss1_chase:
 bgm_boss1_search:
 	include 'assets\audio\music\boss_q.asm'
 
+bgm_cue_l1:
+	include 'assets\audio\music\cue_l1.asm'
+
+bgm_cue_l2:
+	include 'assets\audio\music\cue_l2.asm'
+
 bgm_monsterbass:
 	dc.b 0xFF ;incbin 'assets\audio\music\lowbass.esf'
 	even

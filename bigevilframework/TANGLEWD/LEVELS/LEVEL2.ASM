@@ -31,8 +31,7 @@ Lvl2_HarlequinForestAct2:
 	
 Lvl2_DefaultPalettes:
 
-	;dc.l palette_lvl1_night		; World
-	dc.l palette_lvl1_day		; World
+	dc.l palette_lvl1_night		; World
 	dc.l palette_monster		; Djakk
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player

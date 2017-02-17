@@ -29,8 +29,9 @@ rand_seed             rs.l 1
 letterbox_top		  rs.w 1
 letterbox_bottom	  rs.w 1
 vint_enabled		  rs.b 1
+audio_playback_locked rs.b 1
 
-__padding00			  rs.b 3
+__padding00			  rs.b 2
 
 vram_pools			  rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
 

@@ -6,7 +6,7 @@
 ;   tod.asm - Realtime day/night cycle, puts CryEngine to shame*
 ;===============================================================
 
-TODMaxColours	equ 0xA
+TODMaxColours	equ 0xF
 
 UpdateTimeOfDay:
 
@@ -50,19 +50,21 @@ SetTimeOfDay:
 	; TODO: Bit messy, shove this into an array or something
 	cmp.b  #TimeOfDay_Night, d0
 	bne    @NotNight
-	PUSHL  a0
+	PUSHL  a0/d0-d1
 	lea    bgm_night, a0
+	move.b #0x1, d0
 	jsr    SND_PlayTrack
-	POPL   a0
+	POPL   a0/d0-d1
 	@NotNight:
 
-	cmp.b  #TimeOfDay_Dusk, d0
-	bne    @NotDusk
-	PUSHL  a0
-	lea    bgm_dusk, a0
-	jsr    SND_PlayTrack
-	POPL   a0
-	@NotDusk:
+	;cmp.b  #TimeOfDay_Dusk, d0
+	;bne    @NotDusk
+	;PUSHL  a0/d0-d1
+	;lea    bgm_dusk, a0
+	;move.b #0x1, d0
+	;jsr    SND_PlayTrack
+	;POPL   a0/d0-d1
+	;@NotDusk:
 	
 	andi.l #0x000000FF, d0
 	lsl.w  #0x2, d0			; Bytes to longs

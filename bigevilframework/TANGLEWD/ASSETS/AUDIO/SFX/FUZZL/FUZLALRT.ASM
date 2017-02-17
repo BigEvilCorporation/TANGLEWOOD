@@ -1,6 +1,6 @@
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $46, $2a	; Set instrument for channel FM 6
+	dc.b $46, $31	; Set instrument for channel FM 6
 	dc.b $06, $a5	; Note D-5 on channel FM 6
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 
@@ -25,8 +25,10 @@
 ; Pattern $00, Row 13; 
 ; Pattern $00, Row 14; 
 ; Pattern $00, Row 15; 
+	dc.b $fe, $07	; Delay
+	dc.b $26, $3f	; Set volume for channel FM 6
 ; Pattern $00, Row 16; 
-	dc.b $fe, $08	; Delay
+	dc.b $fe, $01	; Delay
 	dc.b $16		; Note off channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $ff	; The End

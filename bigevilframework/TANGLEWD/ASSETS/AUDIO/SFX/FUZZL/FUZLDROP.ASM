@@ -1,6 +1,6 @@
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $46, $24	; Set instrument for channel FM 6
+	dc.b $46, $2b	; Set instrument for channel FM 6
 	dc.b $06, $61	; Note C-3 on channel FM 6
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 

@@ -562,10 +562,10 @@ MonsterUpdateWaitForPlayer:
 	cmp.b  #0x0, Monster_RumblePlayed(a0)
 	bne    @Playing
 	
-	PUSHL  a0
+	PUSHL  a0/d0-d1
 	lea    bgm_monsterbass, a0
 	jsr    SND_PlayTrack
-	POPL   a0
+	POPL   a0/d0-d1
 	
 	; Set played
 	move.b #0x1, Monster_RumblePlayed(a0)
@@ -736,10 +736,11 @@ MonsterStartSearchForPlayer:
 	; Start search theme
 	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
 	beq    @TrackPlaying
-	PUSHL  a0
+	PUSHL  a0/d0-d1
 	lea    bgm_boss1_search, a0
+	move.b #0x0, d0
 	jsr    SND_PlayTrack
-	POPL   a0
+	POPL   a0/d0-d1
 	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
 	@TrackPlaying:
 	
@@ -893,10 +894,11 @@ MonsterStartTrackPlayer:
 	; Start chase theme
 	cmp.b  #MonsterMusicState_Chase, Monster_MusicState(a0)
 	beq    @TrackPlaying
-	PUSHL  a0
+	PUSHL  a0/d0-d1
 	lea    bgm_boss1_chase, a0
+	move.b #0x0, d0
 	jsr    SND_PlayTrack
-	POPL   a0
+	POPL   a0/d0-d1
 	move.b #MonsterMusicState_Chase, Monster_MusicState(a0)
 	@TrackPlaying:
 
