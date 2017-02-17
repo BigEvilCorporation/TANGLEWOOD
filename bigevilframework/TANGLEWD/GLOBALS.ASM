@@ -53,7 +53,7 @@ Gravity			         equ 0x0030
 	IFD DEBUG
 GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Height
 	ELSE
-GroundHeightScreen       equ (map_lvl1_height*8)+SpritePlaneBorderY+Player1Height
+GroundHeightScreen       equ (map_L1A2_height*8)+SpritePlaneBorderY+Player1Height
 	ENDIF
 
 GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
@@ -99,7 +99,8 @@ Player1 				 equ (EntityArray_Nymn)
 Player2 				 equ (EntityArray_Echo)
 
 ; Initial level/state
-InitialLevel			 equ Lvl1_HarlequinForest
+;InitialLevel			 equ l1a2_HarlequinForestAct1
+InitialLevel			 equ l1a2_HarlequinForestAct2
 ;InitialLevel			 equ Lvl_TestLift
 
 	IFD DEBUG

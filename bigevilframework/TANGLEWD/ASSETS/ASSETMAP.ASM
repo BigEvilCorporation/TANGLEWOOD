@@ -3,43 +3,15 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-
-    ; ************************************
-    ; Palettes
-    ; ************************************
-	include 'assets\palettes\bec_logo.asm'
-	;include 'assets\palettes\ks_logo.asm'
-	include 'assets\palettes\controls.asm'
-	include 'assets\palettes\disclmr.asm'
-	include 'assets\palettes\demoend.asm'
-	include 'assets\palettes\fuzzl.asm'
-	include 'assets\palettes\megafndr.asm'
-	include 'assets\palettes\soundtst.asm'
-	include 'assets\palettes\twd_logo.asm'
-	include 'assets\palettes\pal_fade.asm'
-	include 'assets\palettes\pal_nymn.asm'
-	include 'assets\palettes\pal_lvl1.asm'
-	include 'assets\palettes\pal_nest.asm'
-	include 'assets\palettes\pal_takk.asm'
-	include 'assets\palettes\djrake.asm'
-
-	include 'assets\palettes\l1.asm'
-
-	IFD DEBUG
-	include 'assets\palettes\pal_tst1.asm'
-	ENDIF
-	IFND FINAL
-	include 'assets\palettes\tst_lift.asm'
-	ENDIF
 	
 	; ************************************
-    ; Font tiles
-    ; ************************************
+	; Font tiles
+	; ************************************
 	include 'assets\fonts\pixelfnt.asm'
 	
 	; ************************************
-    ; Sprite tiles
-    ; ************************************
+	; Sprite tilesheets
+	; ************************************
 	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
@@ -53,9 +25,20 @@
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\rope.asm'
 	include 'assets\sprites\twd_logo.asm'
-	
+
 	; Level props
 	include 'assets\sprites\L1\mushroom.asm'
+
+	; ************************************
+	; Sprite palettes
+	; ************************************
+	include 'assets\palettes\fuzzl.asm'
+	include 'assets\palettes\twd_logo.asm'
+	include 'assets\palettes\pal_fade.asm'
+	include 'assets\palettes\pal_nymn.asm'
+	include 'assets\palettes\pal_nest.asm'
+	include 'assets\palettes\pal_takk.asm'
+	include 'assets\palettes\djrake.asm'
 	
 	; ************************************
 	; Animation data
@@ -75,129 +58,117 @@
 	; Level props
 	include 'assets\anims\L1\mushroom.asm'
 
-	IFD DEBUG
-
 	; ************************************
-	; Test maps
+	; Tilesets
 	; ************************************
-	include 'assets\tiles\til_tst1.asm'
-	include 'assets\maps\map_tst1.asm'
-	include 'assets\collisn\ctl_tst1.asm'
-	include 'assets\collisn\cmp_tst1.asm'
-	include 'assets\gameobj\obj_tst1.asm'
+	include 'assets\maps\bec_logo\tiles.asm'
+	include 'assets\maps\controls\tiles.asm'
+	include 'assets\maps\disclmr\tiles.asm'
+	include 'assets\maps\demoend\tiles.asm'
+	include 'assets\maps\soundtst\tiles.asm'
+	include 'assets\maps\megafndr\tiles.asm'
 
-	ELSE
-
-	; ************************************
-    ; Level tiles
-    ; ************************************
-	include 'assets\tiles\bec_logo.asm'
-	include 'assets\tiles\controls.asm'
-	include 'assets\tiles\disclmr.asm'
-	include 'assets\tiles\demoend.asm'
-	include 'assets\tiles\soundtst.asm'
-	;include 'assets\tiles\twd_logo.asm'
-	;include 'assets\tiles\ks_logo.asm'
-	include 'assets\tiles\megafndr.asm'
-	include 'assets\tiles\til_lvl1.asm'
-
-	include 'assets\tiles\l1.asm'
+	; Levels
+	include 'assets\maps\l1\tiles.asm'
 	
 	IFND FINAL
-	include 'assets\tiles\tst_lift.asm'
+	include 'assets\maps\tst_lift\tiles.asm'
 	ENDIF
 	
 	; ************************************
-    ; Level maps
-    ; ************************************
-	include 'assets\maps\bec_logo.asm'
-	include 'assets\maps\controls.asm'
-	include 'assets\maps\disclmr.asm'
-	include 'assets\maps\demoend.asm'
-	include 'assets\maps\soundtst.asm'
-	;include 'assets\maps\twd_logo.asm'
-	;include 'assets\maps\ks_logo.asm'
-	;include 'assets\maps\map_lvl1.asm'
-	;include 'assets\maps\map_lvl2.asm'
-	;include 'assets\maps\map_lvl3.asm'
-	; include 'assets\maps\lvl1_bg.asm'
+	; Static screen maps
+	; ************************************
+	include 'assets\maps\bec_logo\map.asm'
+	include 'assets\maps\controls\map.asm'
+	include 'assets\maps\disclmr\map.asm'
+	include 'assets\maps\demoend\map.asm'
+	include 'assets\maps\soundtst\map.asm'
 
-	; include 'assets\maps\l1bg.asm'
-	; include 'assets\maps\l1a1.asm'
+	; ************************************
+	; Palettes
+	; ************************************
+	include 'assets\maps\megafndr\palette.asm'
+	include 'assets\maps\bec_logo\palette.asm'
+	include 'assets\maps\controls\palette.asm'
+	include 'assets\maps\disclmr\palette.asm'
+	include 'assets\maps\demoend\palette.asm'
+	include 'assets\maps\soundtst\palette.asm'
+	include 'assets\maps\l1\palette.asm'
+
+	IFND FINAL
+	include 'assets\maps\tst_lift\palette.asm'
+	ENDIF
 
 	; ************************************
 	; Block maps
 	; ************************************
-	include 'assets\maps\blockmap\mainmenu.asm'
-	include 'assets\maps\blockmap\megafndr.asm'
-	include 'assets\maps\blockmap\l1a1.asm'
-	include 'assets\maps\blockmap\l1a2.asm'
-	include 'assets\maps\blockmap\l1a3.asm'
-	include 'assets\maps\blockmap\l1bg.asm'
+	include 'assets\maps\mainmenu\blockmap.asm'
+	include 'assets\maps\megafndr\blockmap.asm'
+	;include 'assets\maps\l1\l1a1\blockmap.asm'
+	include 'assets\maps\l1\l1a2\blockmap.asm'
+	include 'assets\maps\l1\l1a3\blockmap.asm'
+	include 'assets\maps\l1\l1a4\blockmap.asm'
+	include 'assets\maps\l1\l1bg\blockmap.asm'
 
 	IFND FINAL
-	include 'assets\maps\blockmap\tst_lift.asm'
+	include 'assets\maps\tst_lift\blockmap.asm'
 	ENDIF
 	
 	; ************************************
 	; Blocks
 	; ************************************
-	include 'assets\maps\blocks\mainmenu.asm'
-	include 'assets\maps\blocks\megafndr.asm'
-	include 'assets\maps\blocks\l1a1.asm'
-	include 'assets\maps\blocks\l1a2.asm'
-	include 'assets\maps\blocks\l1a3.asm'
-	include 'assets\maps\blocks\l1bg.asm'
+	include 'assets\maps\mainmenu\blocks.asm'
+	include 'assets\maps\megafndr\blocks.asm'
+	;include 'assets\maps\l1\l1a1\blocks.asm'
+	include 'assets\maps\l1\l1a2\blocks.asm'
+	include 'assets\maps\l1\l1a3\blocks.asm'
+	include 'assets\maps\l1\l1a4\blocks.asm'
+	include 'assets\maps\l1\l1bg\blocks.asm'
 
 	IFND FINAL
-	include 'assets\maps\blocks\tst_lift.asm'
+	include 'assets\maps\tst_lift\blocks.asm'
 	ENDIF
 	
 	; ************************************
-    ; Collision tiles
-    ; ************************************
-	include 'assets\collisn\ctl_lvl1.asm'
-
-	;include 'assets\collisn\tiles\l1.asm'
+	; Collision tilesets
+	; ************************************
+	include 'assets\maps\l1\coltiles.asm'
 	
 	IFND FINAL
-	include 'assets\collisn\ctl_lift.asm'
+	include 'assets\maps\tst_lift\coltiles.asm'
 	ENDIF
 	
 	; ************************************
 	; Collision block maps
 	; ************************************
-	include 'assets\collisn\blockmap\l1a1.asm'
-	include 'assets\collisn\blockmap\l1a2.asm'
-	include 'assets\collisn\blockmap\l1a3.asm'
+	;include 'assets\maps\l1\l1a1\colmap.asm'
+	include 'assets\maps\l1\l1a2\colmap.asm'
+	include 'assets\maps\l1\l1a3\colmap.asm'
+	include 'assets\maps\l1\l1a4\colmap.asm'
 	
 	; ************************************
 	; Collision blocks
 	; ************************************
-	include 'assets\collisn\blocks\l1a1.asm'
-	include 'assets\collisn\blocks\l1a2.asm'
-	include 'assets\collisn\blocks\l1a3.asm'
-
-	;include 'assets\collisn\maps\l1a1.asm'
+	;include 'assets\maps\l1\l1a1\colblock.asm'
+	include 'assets\maps\l1\l1a2\colblock.asm'
+	include 'assets\maps\l1\l1a3\colblock.asm'
+	include 'assets\maps\l1\l1a4\colblock.asm'
 	
 	IFND FINAL
-	;include 'assets\collisn\cmp_lift.asm'
+	include 'assets\maps\tst_lift\colblock.asm'
 	ENDIF
 	
 	; ************************************
     ; Game objects
     ; ************************************
-	include 'assets\gameobj\mainmenu.asm'
-	include 'assets\gameobj\obj_lvl1.asm'
-	include 'assets\gameobj\obj_lvl2.asm'
-	include 'assets\gameobj\obj_lvl3.asm'
-
-	;include 'assets\gameobj\l1a1.asm'
+	include 'assets\maps\mainmenu\gameobj.asm'
+	;include 'assets\maps\l1\l1a1\gameobj.asm'
+	include 'assets\maps\l1\l1a2\gameobj.asm'
+	include 'assets\maps\l1\l1a3\gameobj.asm'
+	include 'assets\maps\l1\l1a4\gameobj.asm'
 	
 	IFND FINAL
-	include 'assets\gameobj\tst_lift.asm'
-	ENDIF
-
+	include 'assets\maps\tst_lift\gameobj.asm'
 	ENDIF
 	
 	; ************************************

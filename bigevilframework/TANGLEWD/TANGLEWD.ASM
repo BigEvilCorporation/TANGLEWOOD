@@ -126,12 +126,12 @@ __start
 	
 	; Include levels
 	IFD DEBUG
-	include 'levels\testlvl1.asm'
+	include 'levels\testl1a2.asm'
 	ELSE
 	; include 'levels\l1a1.asm'
-	include 'levels\level1.asm'
-	include 'levels\level2.asm'
-	include 'levels\level3.asm'
+	include 'levels\l1a2.asm'
+	include 'levels\l1a3.asm'
+	include 'levels\l1a4.asm'
 	
 	IFND FINAL
 	include 'levels\tst_lift.asm'

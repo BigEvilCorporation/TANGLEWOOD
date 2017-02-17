@@ -9,7 +9,7 @@
 ; Level data (menu contains game objects, so need to provide one)
 Lvl0_MainMenu:
 
-	dc.l tiles_lvl1						; Tileset
+	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_main_menu			; Blocks
 	dc.l map_blockmap_main_menu			; Block map
 	dc.l 0x0							; Collision tileset
@@ -26,7 +26,7 @@ Lvl0_MainMenu:
 	dc.w map_main_menu_height			; Map height (tiles)
 	dc.w map_blockmap_main_menu_width	; Map width (blocks)
 	dc.w map_blockmap_main_menu_height	; Map height (blocks)
-	dc.w tiles_lvl1_size_t				; Num tiles
+	dc.w tiles_l1_size_t				; Num tiles
 	
 	even
 
@@ -73,21 +73,21 @@ MainMenu_Enter:
 	VDPSETREG 7, d0
 
 	; Alloc VRAM
-	move.w #tiles_lvl1_size_b, d0
+	move.w #tiles_l1_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, vram_addr_leveltiles
 	
 	; Load tiles
 	clr.l d1
-	lea    tiles_lvl1, a0
-	move.w #tiles_lvl1_size_t, d1
+	lea    tiles_l1, a0
+	move.w #tiles_l1_size_t, d1
 	move.w (vram_addr_leveltiles), d0
 	jsr    VDP_LoadTiles
 
 	; Load BG map
 	lea    map_blocks_l1bg, a0
 	lea    map_blockmap_l1bg, a1
-	move.l #(map_blockmap_lvl1_bg_width<<16)|map_blockmap_lvl1_bg_height, d1
+	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
 	move.w (vram_addr_leveltiles), d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
@@ -201,7 +201,7 @@ MainMenu_Update:
 	blt    @StartedBgFade
 
 	; Start bg fade
-	lea    palette_lvl1_night, a0
+	lea    palette_l1_night, a0
 	move.l #PaletteId_World0, d0
 	move.l #MainMenuFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2

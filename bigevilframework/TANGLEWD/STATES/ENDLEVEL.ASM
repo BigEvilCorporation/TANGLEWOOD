@@ -134,15 +134,9 @@ EndLevel_Update:
 	@EndOfGame:
 	
 	; Reset to first level and head to demo end screen
-	IFD DEBUG
-	move.l #Tst1_Forest, CurrentLevel
-	lea    GameStateGameplay, a0
-	jsr    GameStateEnter
-	ELSE
-	move.l #Lvl1_HarlequinForest, CurrentLevel
+	move.l #InitialLevel, CurrentLevel
 	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
-	ENDIF
 	
 	@TimerRunning:
 	@End:

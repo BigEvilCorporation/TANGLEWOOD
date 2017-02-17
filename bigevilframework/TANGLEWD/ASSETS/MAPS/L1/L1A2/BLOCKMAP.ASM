@@ -1,0 +1,16 @@
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   Created with BEEhive - the complete art tool for SEGA Mega Drive
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   http://www.bigevilcorporation.co.uk
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   BEEhive and SEGA Genesis Framework (c) Matt Phillips 2015
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+
+
+map_blockmap_L1A2_size_b	equ 0x00004362	; Size in bytes
+map_blockmap_L1A2_size_w	equ (map_blockmap_L1A2_size_b/2)	; Size in words
+map_blockmap_L1A2_size_l	equ (map_blockmap_L1A2_size_b/4)	; Size in longwords
+map_L1A2_width	equ 0x5DC
+map_L1A2_height	equ 0x5C
+map_blockmap_L1A2_width	equ 0x177
+map_blockmap_L1A2_height	equ 0x17

@@ -81,7 +81,7 @@ DemoEndState_Exit:
 	move.w #0x0, LastSaveVersion
 	
 	; Reset first level
-	move.l #Lvl1_HarlequinForest, CurrentLevel
+	move.l #InitialLevel, CurrentLevel
 	
 	rts
 	
