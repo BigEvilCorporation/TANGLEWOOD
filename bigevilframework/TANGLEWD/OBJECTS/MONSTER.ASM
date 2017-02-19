@@ -399,6 +399,7 @@ MonsterUpdate:
 	; End Music
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 	beq    @NotPlaying
+	move.b #-1, d0
 	jsr    SND_BeginFadeTrack
 	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
 	@NotPlaying:

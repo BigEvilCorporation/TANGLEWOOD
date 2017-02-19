@@ -195,6 +195,9 @@ GameLoop:
 	
 	; Update palette lerping
 	jsr PAL_LerpUpdate
+
+	; Update audio
+	jsr SND_UpdateFader
 	
 	; End frame
 	jsr RenderEndFrame

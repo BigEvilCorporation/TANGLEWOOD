@@ -8,6 +8,7 @@
 
 ; Constants
 SoundTestFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
+SoundTestSoundFadeSpeed	equ -1
 
 ; Struct
 	rsset	0x0
@@ -151,6 +152,7 @@ SoundTest_Update:
 	move.l #0x0, TimerLogoFade
 	
 	; Fade out music
+	move.b #SoundTestSoundFadeSpeed, d0
 	jsr    SND_BeginFadeTrack
 	bra    @End
 	

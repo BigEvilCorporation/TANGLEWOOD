@@ -32,6 +32,7 @@ Lvl0_MainMenu:
 
 ; Constants
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+MainMenuSoundFadeSpeed	equ -1
 MenuBgFadeDelay		equ 0x0080
 MainMenuLogoPosX	equ 18*8*SubPixelsPerPixel
 MainMenuLogoPosY	equ 36*8*SubPixelsPerPixel
@@ -268,6 +269,7 @@ MainMenu_Update:
 	move.l #0x0, TimerLogoFade
 	
 	; Fade out music
+	move.b #MainMenuSoundFadeSpeed, d0
 	jsr    SND_BeginFadeTrack
 	bra    @End
 	
