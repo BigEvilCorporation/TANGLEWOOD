@@ -60,7 +60,7 @@ map_blocks_main_menu:
 map_blocks_megafounder_screen:
 	incbin 'assets\maps\megafndr\blocks.bin'
 map_blocks_l1a1:
-;	incbin 'assets\maps\l1\l1a1\blocks.bin'
+	incbin 'assets\maps\l1\l1a1\blocks.bin'
 map_blocks_l1a2:
 	incbin 'assets\maps\l1\l1a2\blocks.bin'
 map_blocks_l1a3:
@@ -83,7 +83,7 @@ map_blockmap_main_menu:
 map_blockmap_megafounder_screen:
 	incbin 'assets\maps\megafndr\blockmap.bin'
 map_blockmap_l1a1:
-;	incbin 'assets\maps\l1\l1a1\blockmap.bin'
+	incbin 'assets\maps\l1\l1a1\blockmap.bin'
 map_blockmap_l1a2:
 	incbin 'assets\maps\l1\l1a2\blockmap.bin'
 map_blockmap_l1a3:
@@ -102,7 +102,7 @@ map_blockmap_tst_lift:
 	; Collision blocks
 	; ************************************
 collisionmap_blocks_l1a1:
-;	incbin 'assets\maps\l1\l1a1\colblock.bin'
+	incbin 'assets\maps\l1\l1a1\colblock.bin'
 collisionmap_blocks_l1a2:
 	incbin 'assets\maps\l1\l1a2\colblock.bin'
 collisionmap_blocks_l1a3:
@@ -119,7 +119,7 @@ collisionmap_blocks_tst_lift:
 	; Collision block Maps
 	; ************************************
 collisionmap_blockmap_l1a1:
-;	incbin 'assets\maps\l1\l1a1\colmap.bin'
+	incbin 'assets\maps\l1\l1a1\colmap.bin'
 collisionmap_blockmap_l1a2:
 	incbin 'assets\maps\l1\l1a2\colmap.bin'
 collisionmap_blockmap_l1a3:

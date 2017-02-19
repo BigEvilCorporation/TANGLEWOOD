@@ -3,36 +3,36 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l1a2.asm - Level 1 - Harlequin Forest Act 2
+;   l1a1.asm - Level 1 - Harlequin Forest Act 1
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-l1a2_HarlequinForestAct2:
+l1a1_HarlequinForestAct1:
 
 	dc.l tiles_l1						; Tileset
-	dc.l map_blocks_l1a2				; Blocks
-	dc.l map_blockmap_l1a2				; Block map
+	dc.l map_blocks_l1a1				; Blocks
+	dc.l map_blockmap_l1a1				; Block map
 	dc.l collisiontiles_l1				; Collision tileset
-	dc.l collisionmap_blocks_l1a2		; Collision blocks
-	dc.l collisionmap_blockmap_l1a2		; Collision block map
-	dc.l l1a2_DefaultPalettes			; Palettes
-	dc.l l1a2_Init						; Init routine
-	dc.l l1a2_Update					; Update routine
-	dc.l l1a2_Serialise					; Serialise routine
-	dc.l l1a2_LoadGameObjects			; Load game objects routine
-	dc.l l1a3_HarlequinForestAct3		; Next level
+	dc.l collisionmap_blocks_l1a1		; Collision blocks
+	dc.l collisionmap_blockmap_l1a1		; Collision block map
+	dc.l l1a1_DefaultPalettes			; Palettes
+	dc.l l1a1_Init						; Init routine
+	dc.l l1a1_Update					; Update routine
+	dc.l l1a1_Serialise					; Serialise routine
+	dc.l l1a1_LoadGameObjects			; Load game objects routine
+	dc.l l1a2_HarlequinForestAct2		; Next level
 	dc.w Gravity						; Default gravity
-	dc.w map_l1a2_width					; Map width (tiles)
-	dc.w map_l1a2_height				; Map height (tiles)
-	dc.w map_blockmap_l1a2_width		; Map width (blocks)
-	dc.w map_blockmap_l1a2_height		; Map height (blocks)
+	dc.w map_l1a1_width					; Map width (tiles)
+	dc.w map_l1a1_height				; Map height (tiles)
+	dc.w map_blockmap_l1a1_width		; Map width (blocks)
+	dc.w map_blockmap_l1a1_height		; Map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
 	
 	even
 	
-l1a2_DefaultPalettes:
+l1a1_DefaultPalettes:
 
 	dc.l palette_l1_day				; World
 	dc.l 0x0						; Djakk (black by default, fades up when approached)
@@ -45,12 +45,12 @@ l1a2_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset 0
-l1a2Data_WaitingInput			rs.b 1
+l1a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-l1a2Data_Struct_Pad      		rs.b 3
-l1a2Data_Struct_Size     		rs.b 0
+l1a1Data_Struct_Pad      		rs.b 3
+l1a1Data_Struct_Size     		rs.b 0
 	
-l1a2_Init:
+l1a1_Init:
 	
 	; Load BG map
 	lea    map_blocks_l1bg, a0
@@ -62,30 +62,6 @@ l1a2_Init:
 	
 	;==============================================================
 	
-	; Set Fuzzl colours
-	move.l #l1a2_Fuzzl_Yellow_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourYellow, d0
-	jsr    FuzzlSetColour
-	
-	move.l #l1a2_Fuzzl_Green_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourGreen, d0
-	jsr    FuzzlSetColour
-	
-	move.l #l1a2_Fuzzl_Blue_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourBlue, d0
-	jsr    FuzzlSetColour
-	
-	;==============================================================
-	
 	; Start level intro tune
 	IFND DEBUG
 	;lea    bgm_lvlintro, a0
@@ -93,7 +69,7 @@ l1a2_Init:
 	move.b #0x1, d0
 	jsr    SND_PlayTrack
 	ENDIF
-	
+
 	move.l #Player1, a0
 	
 	; Disable player 1 control
@@ -110,17 +86,17 @@ l1a2_Init:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	move.l #LevelData_1, a2
-	move.b #0x1, l1a2Data_WaitingInput(a2)
+	move.b #0x1, l1a1Data_WaitingInput(a2)
 	
 	rts
 	
-l1a2_Update:
+l1a1_Update:
 
 	move.l #LevelData_1, a2
 	
 	; Check waiting for input
 	move.l #LevelData_1, a2
-	cmp.b #0x0, l1a2Data_WaitingInput(a2)
+	cmp.b #0x0, l1a1Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
 	; Read pad
@@ -151,21 +127,21 @@ l1a2_Update:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Done
-	move.b #0x0, l1a2Data_WaitingInput(a2)
+	move.b #0x0, l1a1Data_WaitingInput(a2)
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
 
 	rts
 	
-l1a2_Serialise:
+l1a1_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 	
-l1a2_End:
+l1a1_End:
 
 	; Nymn sleep
 	PUSHL  a0
@@ -178,22 +154,7 @@ l1a2_End:
 	jsr    GameStateEnter
 	
 	rts
-
-l1a2_Trigger_NearCave:
-
-	PUSHL  a0
-	PUSHL  a1
 	
-	move.l #Player1, a0
-	jsr    PlayerStopColourAbility
-	move.b #ColourRed, Player_Colour(a0)
-	jsr    PlayerBeginColourSwitch
-	
-	POPL   a1
-	POPL   a0
-	
-	rts
-	
-l1a2_Trigger_NearEndLevel:
+l1a1_Trigger_NearEndLevel:
 
 	rts

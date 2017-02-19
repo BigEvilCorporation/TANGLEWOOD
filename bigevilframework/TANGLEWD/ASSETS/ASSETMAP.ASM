@@ -104,7 +104,7 @@
 	; ************************************
 	include 'assets\maps\mainmenu\blockmap.asm'
 	include 'assets\maps\megafndr\blockmap.asm'
-	;include 'assets\maps\l1\l1a1\blockmap.asm'
+	include 'assets\maps\l1\l1a1\blockmap.asm'
 	include 'assets\maps\l1\l1a2\blockmap.asm'
 	include 'assets\maps\l1\l1a3\blockmap.asm'
 	include 'assets\maps\l1\l1a4\blockmap.asm'
@@ -119,7 +119,7 @@
 	; ************************************
 	include 'assets\maps\mainmenu\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
-	;include 'assets\maps\l1\l1a1\blocks.asm'
+	include 'assets\maps\l1\l1a1\blocks.asm'
 	include 'assets\maps\l1\l1a2\blocks.asm'
 	include 'assets\maps\l1\l1a3\blocks.asm'
 	include 'assets\maps\l1\l1a4\blocks.asm'
@@ -141,7 +141,7 @@
 	; ************************************
 	; Collision block maps
 	; ************************************
-	;include 'assets\maps\l1\l1a1\colmap.asm'
+	include 'assets\maps\l1\l1a1\colmap.asm'
 	include 'assets\maps\l1\l1a2\colmap.asm'
 	include 'assets\maps\l1\l1a3\colmap.asm'
 	include 'assets\maps\l1\l1a4\colmap.asm'
@@ -149,7 +149,7 @@
 	; ************************************
 	; Collision blocks
 	; ************************************
-	;include 'assets\maps\l1\l1a1\colblock.asm'
+	include 'assets\maps\l1\l1a1\colblock.asm'
 	include 'assets\maps\l1\l1a2\colblock.asm'
 	include 'assets\maps\l1\l1a3\colblock.asm'
 	include 'assets\maps\l1\l1a4\colblock.asm'
@@ -162,7 +162,7 @@
     ; Game objects
     ; ************************************
 	include 'assets\maps\mainmenu\gameobj.asm'
-	;include 'assets\maps\l1\l1a1\gameobj.asm'
+	include 'assets\maps\l1\l1a1\gameobj.asm'
 	include 'assets\maps\l1\l1a2\gameobj.asm'
 	include 'assets\maps\l1\l1a3\gameobj.asm'
 	include 'assets\maps\l1\l1a4\gameobj.asm'

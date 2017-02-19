@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   level3.asm - Level 3 - Harlequin Forest Act 3
+;   l1a4.asm - Level 1 - Harlequin Forest Act 4
 ;==============================================================	
 
 l1a4_HarlequinForestAct4:
