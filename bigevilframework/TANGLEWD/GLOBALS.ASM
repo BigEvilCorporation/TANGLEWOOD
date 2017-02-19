@@ -80,10 +80,10 @@ CameraScrollSafeBorderX  equ ((screen_width/2)*SubpixelsPerPixel)
 CameraScrollSafeBorderY	 equ ((screen_height/2)*SubpixelsPerPixel)
 
 ; Streaming
-MapStreamBorderX		 equ 0x1
+MapStreamBorderX		 equ 0x2
 MapStreamBorderY		 equ 0x1
-MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX*2)
-MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY*2)
+MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX)
+MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY)
 
 ; World switching colour types
 ColourDrained			 equ 0x0
@@ -99,15 +99,15 @@ Player1 				 equ (EntityArray_Nymn)
 Player2 				 equ (EntityArray_Echo)
 
 ; Initial level/state
-;InitialLevel			 equ l1a2_HarlequinForestAct1
-InitialLevel			 equ l1a2_HarlequinForestAct2
+InitialLevel			 equ l1a1_HarlequinForestAct1
+;InitialLevel			 equ l1a2_HarlequinForestAct2
 ;InitialLevel			 equ Lvl_TestLift
 
 	IFD DEBUG
 InitialState			 equ  GameStateGameplay
 	ELSE
-InitialState			 equ  GameStateLogos
-;InitialState			 equ  GameStateGameplay
+;InitialState			 equ  GameStateLogos
+InitialState			 equ  GameStateGameplay
 	ENDIF
 
 ; Checkpoint save
