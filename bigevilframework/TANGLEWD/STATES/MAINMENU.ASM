@@ -32,7 +32,7 @@ Lvl0_MainMenu:
 
 ; Constants
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
-MainMenuSoundFadeSpeed	equ -1
+MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
 MainMenuLogoPosX	equ 18*8*SubPixelsPerPixel
 MainMenuLogoPosY	equ 36*8*SubPixelsPerPixel

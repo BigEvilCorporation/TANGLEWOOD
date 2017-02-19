@@ -8,7 +8,7 @@
 
 ; Constants
 SoundTestFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
-SoundTestSoundFadeSpeed	equ -1
+SoundTestSoundFadeSpeed	equ -10
 
 ; Struct
 	rsset	0x0

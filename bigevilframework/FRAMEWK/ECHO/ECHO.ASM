@@ -254,8 +254,6 @@ Echo_SetVolume:
     Echo_Z80Request                 ; We need the Z80 bus
     movem.l d0-d1/a0-a1, -(sp)      ; Save registers
     
-    not.b   d0                      ; Volume is backwards
-    
     lea     @FMTable(pc), a0        ; Determine FM volume
     moveq   #0, d1
     move.b  d0, d1
@@ -285,7 +283,7 @@ Echo_SetVolume:
     move.b  d1, (a1)+                 ; PSG channel 3
     
     cmp.b   #$40, d0                ; Determine whether PCM should be enabled
-    scc.b   d1                        ; (we do an heuristic for enabling PCM
+    shs     d1                        ; (we do an heuristic for enabling PCM
     and.b   #1, d1                    ; based on the volume value)
     move.b  d1, (a1)+
     

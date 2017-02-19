@@ -164,9 +164,8 @@ SND_SetSFXVolume:
 	rts
 
 SND_BeginFadeTrack:
-	; d0 (b) - Fade speed (change per frame)
+	; d0 (b) - Fade speed (change per frame, linear)
 	; (+ve = set silent and begin fade up, -ve = set volume high and begin fade down)
-	; (applies value linearly, but result is exponential)
 
 	; Set fader speed
 	move.b d0, audio_fader_speed
