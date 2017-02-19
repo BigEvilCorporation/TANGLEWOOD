@@ -71,23 +71,6 @@ l1a3_Init:
 	
 	;==============================================================
 	
-	; Set Fuzzl colours
-	move.l #l1a3_Fuzzl_Yellow_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourYellow, d0
-	jsr    FuzzlSetColour
-	
-	move.l #l1a3_Fuzzl_Green_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourGreen, d0
-	jsr    FuzzlSetColour
-	
-	;==============================================================
-	
 	; Link Flue A with Flue B
 	move.l #l1a3_Flue_A_idx, d0
 	mulu   #Flue_Struct_Size, d0

@@ -62,30 +62,6 @@ l1a2_Init:
 	
 	;==============================================================
 	
-	; Set Fuzzl colours
-	move.l #l1a2_Fuzzl_Yellow_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourYellow, d0
-	jsr    FuzzlSetColour
-	
-	move.l #l1a2_Fuzzl_Green_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourGreen, d0
-	jsr    FuzzlSetColour
-	
-	move.l #l1a2_Fuzzl_Blue_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourBlue, d0
-	jsr    FuzzlSetColour
-	
-	;==============================================================
-	
 	; Start level intro tune
 	IFND DEBUG
 	;lea    bgm_lvlintro, a0

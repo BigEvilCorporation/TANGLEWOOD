@@ -59,24 +59,6 @@ l1a4_Init:
 	
 	;==============================================================
 	
-	; Set Fuzzl colours
-	move.l #l1a4_Fuzzl_Yellow_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourYellow, d0
-	jsr    FuzzlSetColour
-	
-	; Set Fuzzl colours
-	move.l #l1a4_Fuzzl_Green_idx, d0
-	mulu   #Fuzzl_Struct_Size, d0
-	move.l #EntityArray_Fuzzl, a0
-	add.l  d0, a0
-	move.b #ColourGreen, d0
-	jsr    FuzzlSetColour
-	
-	;==============================================================
-	
 	; Disable Djakk lost player timeout
 	move.l #l1a4_Djakk_idx, d0
 	mulu   #Monster_Struct_Size, d0

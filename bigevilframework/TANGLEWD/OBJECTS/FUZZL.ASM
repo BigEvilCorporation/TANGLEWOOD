@@ -264,6 +264,10 @@ FuzzlLoadGfx:
 	move.b #PaletteID_Fuzzl, d4
 	jsr    SpriteObjLoad
 
+	; Set initial colour anim offset
+	move.b Fuzzl_Colour(a0), d0
+	jsr    FuzzlSetColour
+
 	POPL   a1
 
 	rts
