@@ -126,23 +126,13 @@ MAP_StreamNextRow:
 	@StreamBottom:
 	add.w   #0x1, d0				; Stream one row below last streamed
 	move.w  d0, MapStreamLoadedRow	; Last loaded row back to RAM
-	add.w   #MapStreamHeight-2, d0	; Offset to bottom of stream window
+	add.w   #MapStreamHeight-MapStreamBorderY, d0	; Offset to bottom of stream window
 	@Stream:
-	
+
 	; Source rect left in upper d0
-	move.l  (WorldScrollX), d1		; Get world scroll X position
-	add.l  (CameraShakeOffsetX), d1	; Add shake offset
-	cmp.l  #0x0, d1					; Clamp scroll value + camera shake
-	bge    @NoClampX
-	move.l  (WorldScrollX), d1
-	@NoClampX:
-	TOPIXELS     d1					; To screen space
-	PIXELS2TILES d1					; To tiles
-	TILES2BLOCKS d1					; To blocks
 	swap	d0
-	move.w	d1, d0
-	
-	; Source rect top in lower d0
+	move.w  (MapStreamLoadedCol), d0
+	move.w	d0, d1
 	swap	d0
 	
 	; Dest rect left in upper d1
@@ -230,7 +220,7 @@ MAP_StreamNextColumn:
 	@StreamRight:
 	add.w   #0x1, d0				; Stream one col right of last streamed
 	move.w  d0, MapStreamLoadedCol	; Last loaded col back to RAM
-	add.w   #MapStreamWidth-1, d0	; Offset to right of stream window
+	add.w   #MapStreamWidth-MapStreamBorderX, d0	; Offset to right of stream window
 	@Stream:
 
 	; Dest rect left in upper d2
@@ -238,25 +228,13 @@ MAP_StreamNextColumn:
 	move.w	d0, d2					; Dest rect left to lower d2
 	divu    #vdp_plane_width_blocks, d2	; Div/scroll width
 	clr.w	d2						; Clear exponent (remainder in upper d2)
-	
-	; Source rect left in upper d0
-	swap	d0
-	
+
 	; Source rect top in lower d0
-	move.l  (WorldScrollY), d3		; Get world scroll Y position
-	add.l  (CameraShakeOffsetY), d3	; Add shake offset
-	cmp.l  #0x0, d3					; Clamp scroll value + camera shake
-	bge    @NoClampY
-	move.l  (WorldScrollY), d3
-	@NoClampY:
-	TOPIXELS     d3					; To screen space
-	PIXELS2TILES d3					; To tiles
-	TILES2BLOCKS d3					; To blocks
-	sub.w   #0x1, d3				; -1
-	move.w	d3, d0					; To lower d0
+	swap	d0
+	move.w  (MapStreamLoadedRow), d0
+	move.w  d0, d1
 	
 	; Dest rect top in lower d1
-	move.w	d3, d1
 	divu	#vdp_plane_height_blocks, d1	; Div/scroll height
 	clr.w	d1						; Clear exponent
 	swap	d1						; Remainder to lower d1
