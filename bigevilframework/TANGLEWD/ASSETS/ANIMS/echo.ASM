@@ -81,6 +81,18 @@ spriteanim_echo_colourswitch_track_posy:
 
 	Even
 
+spriteanim_echo_walk:
+spriteanim_echo_walk_numframes: equ 0x8
+spriteanim_echo_walk_speed: equ 0x20
+spriteanim_echo_walk_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+spriteanim_echo_walk_track_posx:
+
+spriteanim_echo_walk_track_posy:
+
+
+	Even
+
 spriteanim_echo_jumptonymn:
 spriteanim_echo_jumptonymn_numframes: equ 0x8
 spriteanim_echo_jumptonymn_speed: equ 0x40
@@ -124,18 +136,6 @@ spriteanim_echo_run_track_frames:
 spriteanim_echo_run_track_posx:
 
 spriteanim_echo_run_track_posy:
-
-
-	Even
-
-spriteanim_echo_walk:
-spriteanim_echo_walk_numframes: equ 0x8
-spriteanim_echo_walk_speed: equ 0x20
-spriteanim_echo_walk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
-spriteanim_echo_walk_track_posx:
-
-spriteanim_echo_walk_track_posy:
 
 
 	Even
