@@ -134,6 +134,7 @@ Instr35: incbin 'assets\audio\instrs\instr_35.eif'
 Instr36: incbin 'assets\audio\instrs\instr_36.eif'
 Instr37: incbin 'assets\audio\instrs\instr_37.eif'
 Instr38: incbin 'assets\audio\instrs\instr_38.eif'
+Instr39: incbin 'assets\audio\instrs\instr_39.eif'
 
 	
 	; PCM

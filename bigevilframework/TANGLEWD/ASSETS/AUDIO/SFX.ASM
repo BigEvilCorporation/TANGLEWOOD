@@ -35,6 +35,9 @@ SFX_BoulderBreak:
 
 SFX_FireflyCollect:
 	include 'assets\audio\SFX\objects\firefly.asm'
+
+SFX_MushroomBounce:
+	include 'assets\audio\SFX\objects\mushroom.asm'
 	
 SFX_FuzzlDrop:
 	include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
