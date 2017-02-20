@@ -113,59 +113,35 @@ EchoInit:
 	; Run
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	;move.w #spritesheet_Echo_run_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;IFND DEBUG
-	;move.l #spriteanim_Echo_run_track_sfx, Animation_AnimTrackSFX(a3)
-	;ENDIF
-	;move.b #spriteanim_Echo_run_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_run_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_Echo_run_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
+	move.b #spriteanim_Echo_run_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
 	; Walk
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	;move.w #spritesheet_Echo_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_walk_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_run_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_Echo_walk_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_walk_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
+	move.b #spriteanim_Echo_walk_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_walk_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
-	
+
 	; Walk to run transition
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	;move.w #spritesheet_Echo_walktorun_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_walktorun_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_walktorun_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_walktorun_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_Echo_walktorun_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_walktorun_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	move.b #spriteanim_Echo_walktorun_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_walktorun_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
 
 	; Jump
 	move.l a2, a3
@@ -287,21 +263,14 @@ EchoInit:
 	; Colour switch
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Switch), a3
-	;move.w #spritesheet_Echo_colourswitch_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_colourswitch_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_colourswitch_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_colourswitch_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.w #spritesheet_Echo_colourswitch_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_colourswitch_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	move.b #spriteanim_Echo_colourswitch_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_colourswitch_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Sleep
 	move.l a2, a3
