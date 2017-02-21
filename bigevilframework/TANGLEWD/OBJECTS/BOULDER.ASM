@@ -40,6 +40,7 @@ BoulderAnimIdx_Max     equ 2
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Boulder_Animations	 rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
+Boulder_Platform	 rs.b Platform_Struct_Size ; Moving platform on top of boulder
 Boulder_SpawnX		 rs.l 1	; Spawn pos, for resetting after being cracked
 Boulder_SpawnY		 rs.l 1
 Boulder_LastVelY     rs.w 1	; Last recorded velocity
@@ -102,6 +103,19 @@ BoulderInit:
 
 	; Register as pushable object
 	LIST_APPEND_TAIL PushableObjs, a0, a3
+
+	;==============================================================
+	
+	; Setup platform
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	
+	move.w #Boulder_Width, Platform_Width(a2)
+	
+	; Add to physics platforms list
+	LIST_APPEND_TAIL Platforms, a2, a3
+	
+	;==============================================================
 	
 	; Setup animations
 	move.l a0, a2
@@ -178,6 +192,8 @@ BoulderUpdate:
 	; Cracked, check if out of view
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
 	bne    @InView
+
+	;==============================================================
 	
 	; Out of view, move back to spawn pos
 	move.l Boulder_SpawnX(a0), Entity_WorldPosX(a0)
@@ -196,6 +212,8 @@ BoulderUpdate:
 	move.b #0x1, Boulder_LastOnFloor(a0)
 	move.b #0x0, Boulder_Cracked(a0)
 	move.b #0x1, PhysicsObj_CanBePushed(a0)
+
+	;==============================================================
 	
 	@NotCracked:
 	
@@ -206,6 +224,8 @@ BoulderUpdate:
 	move.l Entity_WorldPosX(a0), Boulder_SpawnX(a0)
 	move.l Entity_WorldPosY(a0), Boulder_SpawnY(a0)
 	@SpawnPosRecorded:
+
+	;==============================================================
 	
 	; If on floor
 	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
@@ -239,6 +259,8 @@ BoulderUpdate:
 	
 	; Bail
 	bra    @Cracked
+
+	;==============================================================
 	
 	@Unbreakable:
 	@InAir:
@@ -263,6 +285,8 @@ BoulderUpdate:
 	; If Y vel > min damage vel
 	cmp.w  #-Boulder_MinDamageYVel, PhysicsObj_VelY(a0)
 	bge    @NotFalling
+
+	;==============================================================
 	
 	move.l a1, -(sp)
 	
@@ -309,6 +333,8 @@ BoulderUpdate:
 	@EndMonsterLoop:
 	
 	move.l (sp)+, a1
+
+	;==============================================================
 	
 	@InView:
 	@Cracked:
@@ -322,6 +348,24 @@ BoulderUpdate:
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
+
+	;==============================================================
+	
+	; Reposition platform
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	lsr.l  #0x8, d0
+	lsr.l  #0x8, d1
+	move.w d0, Platform_PosX(a2)
+	move.w d1, Platform_PosY(a2)
+	
+	; Set platform velocity
+	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
+	
+	;==============================================================
 	
 	; Retrieve floor flag and Y velocity
 	POPL   d1
