@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blocks_L1A2_size_b	equ 0x00004620	; Size in bytes
+terrainmap_blocks_L1A2_size_b	equ 0x00003900	; Size in bytes
 terrainmap_blocks_L1A2_size_w	equ (terrainmap_blocks_L1A2_size_b/2)	; Size in words
 terrainmap_blocks_L1A2_size_l	equ (terrainmap_blocks_L1A2_size_b/4)	; Size in longwords
