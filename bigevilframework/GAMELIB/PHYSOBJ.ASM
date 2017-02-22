@@ -37,6 +37,7 @@ PhysicsObj_StepHeight	    rs.w 1 ; Step height
 PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
 PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
+PhysicsObj_CollideBarriers	rs.b 1 ; Collides with barriers
 PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
 PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
@@ -47,7 +48,7 @@ PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise us
 PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 2
+PhysicsObj_Struct_Pad       rs.b 1
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -78,6 +79,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
+	move.b #0x1, PhysicsObj_CollideBarriers(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
@@ -469,6 +471,9 @@ PhysicsObjCollisionCorrection:
 	
 	;==============================================================
 	
+	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	beq    @HeadingNowhere
+
 	; Clear hit wall flag
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	
@@ -482,7 +487,6 @@ PhysicsObjCollisionCorrection:
 	cmp.w  #0x0, d1
 	blt    @HeadingLeft
 	bgt    @HeadingRight
-	bra    @HeadingNowhere
 	
 	@HeadingLeft:
 	
@@ -716,9 +720,9 @@ PhysicsObjFindWall:
 	; Determine direction
 	move.w PhysicsObj_VelX(a0), d3
 	cmp.w  #0x0, d3
+	beq    @HeadingNowhere
 	blt    @HeadingLeft
-	bgt    @HeadingRight
-	bra    @HeadingNowhere
+	bgt    @HeadingRight	
 	
 	@HeadingLeft:
 	
@@ -768,6 +772,78 @@ PhysicsObjFindWall:
 	bge    @ProbeOutOfBounds
 	
 	;==============================================================
+	; Find barrier first
+	
+	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
+	beq   @NoBarrier
+	
+	LIST_GET_HEAD Barriers,a3		; Get list head
+	@BarrierLp:						; For all barriers in list
+	cmp.l  #0x0, a3
+	beq    @NoBarrier
+
+	; TODO: Ignore barriers shorter than PhysicsObj_MinWallHeight(a0)
+	move.w Barrier_Height(a3), d3
+	
+	; Get barrier Top and Bottom Y
+	move.w Barrier_PosY(a3), d2
+	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	add.w  d2, d3
+	
+	; Get wall probe Y
+	move.w d1, d0
+	
+	; Check if probe Y within barrier Y-height
+	cmp.w  d0, d2
+	bgt    @NextBarrier
+	cmp.w  d0, d3
+	blt    @NextBarrier
+	
+	; Get barrier X
+	move.w Barrier_PosX(a3), d2				; Get X
+	sub.w  #SpritePlaneBorderX, d2			; To screen space
+
+	; Get wall probe X
+	swap   d1
+	move.w d1, d0
+	swap   d1
+	
+	; Check if probe X is between barrier left and right
+	cmp.w  d2, d0							; Compare probe with barrier left
+	blt    @NextBarrier
+	add.w  Barrier_Width(a3), d2
+	cmp.w  d2, d0							; Compare probe with barrier right
+	bgt    @NextBarrier
+	
+	; Success
+	clr.l  d4
+	move.w Barrier_PosX(a3), d4				; Get barrier X
+
+	; If heading left, use right hand side of barrier
+	move.w PhysicsObj_VelX(a0), d3
+	cmp.w  #0x0, d3
+	bgt    @LeftOfBarrier
+	add.w  Barrier_Width(a3), d4
+	@LeftOfBarrier:
+
+	lsl.l  #0x8, d4							; To world space
+	
+	; Add barrier X velocity
+	move.w Barrier_VelX(a3), d2
+	ext.l  d2
+	add.l  d2, Entity_WorldPosX(a0)
+
+	bra    @FoundBarrier
+	
+	@NextBarrier:
+	LIST_GET_NEXT Barriers,a3,a3	; Get next ptr
+	bra    @BarrierLp				; Loop
+	
+	@NoBarrier:
+	@EndBarrierSearch:
+	
+	;==============================================================
+	; Find floor
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  a0-a1
@@ -788,17 +864,21 @@ PhysicsObjFindWall:
 	
 	; Wall found - tile X in d3, translate to world space
 	move.w d3, d4
-	TILES2PIXELS d4						; Tiles to pixels
-	add.w  #SpritePlaneBorderX, d4		; Pixels to screen space
-	lsl.l  #0x8, d4						; Screen space to sprite space
 	
 	; If heading left, use right hand side of tile
-	clr.l  d3
 	move.w PhysicsObj_VelX(a0), d3
 	cmp.w  #0x0, d3
 	bgt    @LeftOfTile
-	add.l  #(0x8*SubPixelsPerPixel), d4
+	add.w  #0x1, d4
 	@LeftOfTile:
+
+	TILES2PIXELS d4						; Tiles to pixels
+	add.w  #SpritePlaneBorderX, d4		; Pixels to screen space
+	lsl.l  #0x8, d4						; Screen space to object space
+
+	;==============================================================
+
+	@FoundBarrier:
 	
 	; Result
 	move.l d4, PhysicsObj_LastWall(a0)
@@ -945,9 +1025,11 @@ PhysicsObjPushPullObj:
 
 	@CannotPullLeft:
 
-	; Check if can be pushed
+	; Check if can be pushed, and not hitting wall
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
-	beq    @CannotPushLeft
+	beq    @CannotPush
+	cmp.b  #0x0, PhysicsObj_HitWall(a2)
+	bne    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -964,8 +1046,6 @@ PhysicsObjPushPullObj:
 	sub.w  PhysicsObj_BoundsWidth(a2), d5	; Sub pushee's bounds width to get new left
 	sub.w  PhysicsObj_BoundsLeft(a2), d5	; Sub pushee's left bound to get new X pos
 	sub.w  #0x1, d5							; -1
-
-	@CannotPushLeft:
 	
 	bra @EndPenetration
 
@@ -987,9 +1067,11 @@ PhysicsObjPushPullObj:
 
 	@CannotPullRight:
 
-	; Check if can be pushed
+	; Check if can be pushed, and not hitting wall
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
-	beq    @CannotPushRight
+	beq    @CannotPush
+	cmp.b  #0x0, PhysicsObj_HitWall(a2)
+	bne    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -1005,8 +1087,6 @@ PhysicsObjPushPullObj:
 	swap   d5								; Get pusher's right bound
 	add.w  PhysicsObj_BoundsLeft(a2), d5	; Add pushee's left bound to get new X pos
 	add.w  #0x1, d5							; +1
-
-	@CannotPushRight:
 	
 	;==============================================================
 

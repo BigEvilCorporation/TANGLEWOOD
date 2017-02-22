@@ -26,6 +26,10 @@ Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 
 Boulder_MinCrackYVel		equ 0x0500	; Min downward velocity to crack open on floor collision 
 
+Boulder_PlatformWidth		equ Boulder_Width/2	; Physics platform width
+Boulder_PlatformXOffset		equ (Boulder_Width-Boulder_PlatformWidth)/2	; Offset to platform from top of boulder
+Boulder_PlatformYOffset		equ 0x0008	; Offset to platform from top of boulder
+
 ;==============================================================
 
 ; Animations
@@ -110,7 +114,7 @@ BoulderInit:
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2
 	
-	move.w #Boulder_Width, Platform_Width(a2)
+	move.w #Boulder_PlatformWidth, Platform_Width(a2)
 	
 	; Add to physics platforms list
 	LIST_APPEND_TAIL Platforms, a2, a3
@@ -358,6 +362,8 @@ BoulderUpdate:
 	move.l Entity_WorldPosY(a0), d1
 	lsr.l  #0x8, d0
 	lsr.l  #0x8, d1
+	add.w  #Boulder_PlatformXOffset, d0
+	add.w  #Boulder_PlatformYOffset, d1
 	move.w d0, Platform_PosX(a2)
 	move.w d1, Platform_PosY(a2)
 	

@@ -67,6 +67,8 @@ L1A3_Leaf_47_idx	equ 0x0
 L1A3_Leaf_48_idx	equ 0x1
 L1A3_Leaf_49_idx	equ 0x2
 
+L1A3_Stone_count equ 0x0
+
 
 L1A3_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
@@ -261,6 +263,8 @@ L1A3_LoadGameObjects:
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
+	move.l #EntityArray_Stone, a0
 
 	rts
 

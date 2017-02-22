@@ -24,6 +24,7 @@
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\rope.asm'
+	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
 
 	; Level props

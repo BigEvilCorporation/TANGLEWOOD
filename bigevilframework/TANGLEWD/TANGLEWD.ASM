@@ -64,6 +64,7 @@ __start
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
+	include '..\gamelib\barrier.asm'
 	include '..\gamelib\effects.asm'
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
@@ -100,6 +101,7 @@ __start
 	include 'objects\nest.asm'
 	include 'objects\plant.asm'
 	include 'objects\player.asm'
+	include 'objects\stone.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'
 	

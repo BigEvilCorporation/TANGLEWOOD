@@ -69,6 +69,8 @@ L1A4_Echo_count equ 0x0
 
 L1A4_Leaf_count equ 0x0
 
+L1A4_Stone_count equ 0x0
+
 
 L1A4_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
@@ -276,6 +278,8 @@ L1A4_LoadGameObjects:
 	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_Leaf, a0
+
+	move.l #EntityArray_Stone, a0
 
 	rts
 

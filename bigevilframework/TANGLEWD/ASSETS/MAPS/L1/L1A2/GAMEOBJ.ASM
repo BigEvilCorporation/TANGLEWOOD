@@ -69,6 +69,10 @@ L1A2_Leaf_152_idx	equ 0x3
 L1A2_Leaf_155_idx	equ 0x4
 L1A2_Leaf_156_idx	equ 0x5
 
+L1A2_Stone_count equ 0x2
+L1A2_Stone_188_idx	equ 0x0
+L1A2_Stone_189_idx	equ 0x1
+
 
 L1A2_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
@@ -275,6 +279,18 @@ L1A2_LoadGameObjects:
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
+	move.l #EntityArray_Stone, a0
+	jsr StoneInit
+	move.l #0x000e8800, Entity_WorldPosX(a0)
+	move.l #0x00030800, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x00097000, Entity_WorldPosX(a0)
+	move.l #0x00030800, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	rts
 

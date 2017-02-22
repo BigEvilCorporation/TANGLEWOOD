@@ -77,7 +77,7 @@ Player1SlowTimeDiv			equ 0x10
 Player1MaxLightPushObjHeight	equ Fuzzl_Height
 
 ; Num frames to wait before idle anim
-Player1IdleAnimWaitFrames	equ 0x0300
+Player1IdleAnimWaitFrames	equ 0x0600
 
 ; Max monster taming distance
 Player1DjakkTamingDistance  equ	0x0100

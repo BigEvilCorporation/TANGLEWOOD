@@ -9,6 +9,7 @@
 heightmap_column_blank		equ 0x0
 heightmap_column_solid		equ 0x8
 heightmap_max_search_tiles	equ 0x2
+wall_max_search_tiles		equ 0x2
 
 PHYS_GetTerrainTile:
 	; a0 ---- : Collision blocks data addr

@@ -192,6 +192,7 @@ CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 ; Physics platforms
 ; ************************************
 	LINKED_LIST Platforms	 ; Moving platforms
+	LINKED_LIST Barriers	 ; Moving walls
 	LINKED_LIST PushableObjs ; Pushable objects
 
 ; ************************************
@@ -250,43 +251,45 @@ __padding05			     rs.b 3
 ; ************************************
 ; Entities
 ; ************************************
-EntityArray_Nymn     		rs.b (Nymn_Struct_Size)
-EntityArray_Echo     		rs.b (Echo_Struct_Size)
-EntityArray_Actor      rs.b (Actor_Struct_Size*Actor_MaxEntities)
-EntityArray_Flue       rs.b (Flue_Struct_Size*Flue_MaxEntities)
-EntityArray_Fuzzl      rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
-EntityArray_Leaf      rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
-EntityArray_Nest       rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_TriggerBox    rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
-EntityArray_Checkpoint rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
-EntityArray_WaterBody rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
-EntityArray_Location rs.b (Location_Struct_Size*Location_MaxEntities)
+EntityArray_Nymn        rs.b (Nymn_Struct_Size)
+EntityArray_Echo        rs.b (Echo_Struct_Size)
+EntityArray_Actor       rs.b (Actor_Struct_Size*Actor_MaxEntities)
+EntityArray_Flue        rs.b (Flue_Struct_Size*Flue_MaxEntities)
+EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
+EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
+EntityArray_Nest        rs.b (Nest_Struct_Size*Nest_MaxEntities)
+EntityArray_TriggerBox  rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
+EntityArray_Checkpoint  rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
+EntityArray_WaterBody   rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
+EntityArray_Location    rs.b (Location_Struct_Size*Location_MaxEntities)
 	IFND DEBUG
-EntityArray_Monster    rs.b (Monster_Struct_Size*Monster_MaxEntities)
-EntityArray_Djrake    	rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
-EntityArray_Boulder    rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
-EntityArray_Firefly   rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
-EntityArray_Lift       rs.b (Lift_Struct_Size*Lift_MaxEntities)
-EntityArray_Rope       rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
-EntityArray_BouncePlant      rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
+EntityArray_Monster     rs.b (Monster_Struct_Size*Monster_MaxEntities)
+EntityArray_Djrake      rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
+EntityArray_Boulder     rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
+EntityArray_Firefly     rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
+EntityArray_Lift        rs.b (Lift_Struct_Size*Lift_MaxEntities)
+EntityArray_Rope        rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
+EntityArray_BouncePlant rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
+EntityArray_Stone       rs.b (Stone_Struct_Size*Stone_MaxEntities)
 	ENDIF
 
-EntityCount_Actor      rs.w 1
-EntityCount_Monster    rs.w 1
-EntityCount_Djrake	    rs.w 1
-EntityCount_Firefly   rs.w 1
-EntityCount_Flue       rs.w 1
-EntityCount_Fuzzl      rs.w 1
-EntityCount_Leaf      rs.w 1
-EntityCount_Nest       rs.w 1
-EntityCount_Boulder    rs.w 1
-EntityCount_TriggerBox    rs.w 1
-EntityCount_Checkpoint rs.w 1
-EntityCount_WaterBody rs.w 1
-EntityCount_Location   rs.w 1
-EntityCount_Lift	    rs.w 1
-EntityCount_Rope	    rs.w 1
-EntityCount_BouncePlant	    rs.w 1
+EntityCount_Actor       rs.w 1
+EntityCount_Monster     rs.w 1
+EntityCount_Djrake      rs.w 1
+EntityCount_Firefly     rs.w 1
+EntityCount_Flue        rs.w 1
+EntityCount_Fuzzl       rs.w 1
+EntityCount_Leaf        rs.w 1
+EntityCount_Nest        rs.w 1
+EntityCount_Boulder     rs.w 1
+EntityCount_TriggerBox  rs.w 1
+EntityCount_Checkpoint  rs.w 1
+EntityCount_WaterBody   rs.w 1
+EntityCount_Location    rs.w 1
+EntityCount_Lift        rs.w 1
+EntityCount_Rope        rs.w 1
+EntityCount_BouncePlant	rs.w 1
+EntityCount_Stone       rs.w 1
 
 reserved_ram_size		rs.b 0
 

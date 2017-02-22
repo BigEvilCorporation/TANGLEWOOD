@@ -40,6 +40,8 @@ main_menu_Leaf_3_idx	equ 0x1
 main_menu_Leaf_4_idx	equ 0x2
 main_menu_Leaf_5_idx	equ 0x3
 
+main_menu_Stone_count equ 0x0
+
 
 main_menu_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
@@ -86,6 +88,8 @@ main_menu_LoadGameObjects:
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
+	move.l #EntityArray_Stone, a0
 
 	rts
 
