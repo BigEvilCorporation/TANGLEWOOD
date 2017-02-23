@@ -71,6 +71,10 @@ echo_instruments:
 	Echo_ListEntry PCM00
 	Echo_ListEntry PCM01
 	Echo_ListEntry PCM02
+	Echo_ListEntry PCM03
+	Echo_ListEntry PCM04
+	Echo_ListEntry PCM05
+	Echo_ListEntry PCM06
 	
     Echo_ListEnd
 	
@@ -141,6 +145,10 @@ Instr39: incbin 'assets\audio\instrs\instr_39.eif'
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'
 PCM01: incbin 'assets\audio\sfx\djakk\bite.ewf'
 PCM02: incbin 'assets\audio\sfx\ambience\chirp1.ewf'
+PCM03: incbin 'assets\audio\sfx\fstep\water1.ewf'
+PCM04: incbin 'assets\audio\sfx\fstep\water2.ewf'
+PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
+PCM06: incbin 'assets\audio\sfx\nymn\calllong.ewf'
 	
 	ENDIF
 	

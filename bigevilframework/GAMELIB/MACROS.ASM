@@ -123,6 +123,7 @@ PLAYSFX_LOWPRIO: macro sfxAddr
 	jsr   SND_GetSFXBusy
 	cmp.b #0x0, d0
 	bne   @BUSY\@
+	move.b #0x0, d0		; Non-exclusive
 	move.l \sfxAddr, a0
 	jsr   SND_PlaySFX
 	@BUSY\@:
@@ -134,6 +135,7 @@ PLAYSFX_LOWPRIO: macro sfxAddr
 PLAYSFX_HIGHPRIO: macro sfxAddr
 	IFND DEBUG
 	PUSHL a0/d0-d1
+	move.b #0x0, d0		; Non-exclusive
 	move.l \sfxAddr, a0
 	jsr   SND_PlaySFX
 	POPL  a0/d0-d1

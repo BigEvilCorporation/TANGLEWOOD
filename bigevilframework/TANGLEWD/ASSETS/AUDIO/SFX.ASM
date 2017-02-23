@@ -15,11 +15,45 @@ bgm_cut_introrumble:
 ; PCM SFX
 
 SFX_Djakk_Roar:
+	ESF_Lock ESF_PCM
 	ESF_NoteOn ESF_PCM, PCM_InstrIndex+0
+	ESF_Delay 93
 	ESF_Stop
 	
 SFX_Djakk_Bite:
+	ESF_Lock ESF_PCM
 	ESF_NoteOn ESF_PCM, PCM_InstrIndex+1
+	ESF_Delay 17
+	ESF_Stop
+
+SFX_Chirp1:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+2
+	ESF_Delay 91
+	ESF_Stop
+
+SFX_Footstep_Water1:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+3
+	ESF_Delay 37
+	ESF_Stop
+
+SFX_Footstep_Water2:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+4
+	ESF_Delay 23
+	ESF_Stop
+
+SFX_Footstep_Splash1:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+5
+	ESF_Delay 37
+	ESF_Stop
+
+SFX_Nymn_Call_Long:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
+	ESF_Delay 108
 	ESF_Stop
 	
 ; FM SFX

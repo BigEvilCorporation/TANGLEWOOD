@@ -12,6 +12,8 @@ SND_Init:
 	IFND DEBUG
 	lea echo_instruments, a0
 	jsr Echo_Init
+	move.l #0x03, d0
+	jsr Echo_SetPCMRate
 	move.b #0xFF, audio_volume_global
 	move.b #0x00, audio_fader_speed
 	ENDIF
@@ -66,22 +68,24 @@ SND_PlaySFX:
 
 	IFND DEBUG
 
+	move.b d0, d1
+
 	; If exclusivity held
 	cmp.b #0x0, audio_playback_locked
 	beq   @Unlocked
-
+;
 	; Check busy
 	jsr   SND_GetBusy
 	cmp.b #0x0, d0
 	bne   @Busy
-
+;
 	@Unlocked:
-
-	; Stop prev SFX
-	jsr   Echo_StopSFX
 
 	; Play SFX
 	jsr   Echo_PlaySFX
+
+	; Set exclusive
+	move.b d1, audio_playback_locked
 
 	@Busy:
 
@@ -100,8 +104,8 @@ SND_GetBusy:
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.w #0x8003, d0		; Bit 1 = SFX playing, bit 2 = BGM playing, bit 15 = Echo busy
-	cmp.w  #0x0, d0
+	andi.b #0x03, d0		; Bit 1 = SFX playing, bit 2 = BGM playing
+	cmp.b  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -117,8 +121,8 @@ SND_GetSFXBusy:
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.w #0x8001, d0		; Bit 1 = SFX playing, bit 15 = Echo busy
-	cmp.w  #0x0, d0
+	andi.b #0x01, d0		; Bit 1 = SFX playing
+	cmp.b  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -134,8 +138,8 @@ SND_GetTrackBusy:
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.w #0x8002, d0		; Bit 2 = BGM playing, bit 15 = Echo busy
-	cmp.w  #0x0, d0
+	andi.b #0x02, d0		; Bit 2 = BGM playing
+	cmp.b  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End

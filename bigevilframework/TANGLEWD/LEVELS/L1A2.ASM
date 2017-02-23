@@ -62,14 +62,6 @@ l1a2_Init:
 	
 	;==============================================================
 	
-	; Start level intro tune
-	IFND DEBUG
-	;lea    bgm_lvlintro, a0
-	lea    bgm_dawn, a0
-	move.b #0x1, d0
-	jsr    SND_PlayTrack
-	ENDIF
-	
 	move.l #Player1, a0
 	
 	; Disable player 1 control
