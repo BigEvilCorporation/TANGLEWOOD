@@ -1,2 +1,1 @@
 ..\ASSEMBLR\SNASM68K.EXE /p /k /o op+,os+,ow+,oz+,oaq+,osq+,omq+ /e RELEASE=1;DMA_FROM_CART=1 TANGLEWD.ASM,BIN\EMU\TANGLEWD,BIN\EMU\TANGLEWD,BIN\EMU\TANGLEWD > bin\buildemu.log
-..\ASSEMBLR\SNASM68K.EXE /sdb /p /k /o op+,os+,ow+,oz+,oaq+,osq+,omq+ /e RELEASE=1;DMA_FROM_CART=1 TANGLEWD.ASM,BIN\EMU\TANGLEWD.COF > bin\buildemu_cof.log
