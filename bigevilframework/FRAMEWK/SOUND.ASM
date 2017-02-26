@@ -12,8 +12,6 @@ SND_Init:
 	IFND DEBUG
 	lea echo_instruments, a0
 	jsr Echo_Init
-	move.l #0x03, d0
-	jsr Echo_SetPCMRate
 	move.b #0xFF, audio_volume_global
 	move.b #0x00, audio_fader_speed
 	ENDIF
