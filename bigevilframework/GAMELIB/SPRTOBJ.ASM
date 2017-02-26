@@ -70,6 +70,7 @@ SpriteObjLoad:
 	; d2 (b) Num subsprites
 	; d3 (w) Sprite W/H dimentions
 	; d4 (b) Palette ID
+	; d5 (b) Priority
 
 	andi.l #0x0000FFFF, d0
 
@@ -100,19 +101,20 @@ SpriteObjLoad:
 	;  d3 (b)  Palette
 	;  a0 ---- Subsprite dimensions bits array (b * numSubsprites)
 	;  a1 ---- Num tiles per subsprite array (b * numSubsprites)
-	movem.l  a0-a3/d0-d2, -(sp)
-	move.w d0, d5			; Backup d0
+	PUSHM  a0-a3/d0-d2
+	move.w d0, d6			; Backup d0
 	move.w d3, d0			; W/H to d0
-	andi.l #0x0000FFFF, d5
-	divu   #size_tile_b, d5	; Tile ID
-	move.w d5, d2			; To d2
+	andi.l #0x0000FFFF, d6
+	divu   #size_tile_b, d6	; Tile ID
+	move.w d6, d2			; To d2
 	move.l #0x00000000, d1	; X/Y offset
 	move.b d4, d3			; Palette
+	move.b d5, d4			; Priority
 	move.l a2, a0			; Dimension bits array to a0
 	move.l a4, a1			; Tiles per sprite array to a1
 	jsr    SPR_AddMultiSprite		; Add and link sprite
 	move.b d0, d4			; Sprite ID in d0
-	movem.l  (sp)+, a0-a3/d0-d2
+	POPM   a0-a3/d0-d2
 	
 	;==============================================================
 
@@ -245,10 +247,10 @@ SpriteObjDraw:
     cmp.b  #0x0, d0
     bne    @NotFirstSprite
 
-	; Move to border
+	; Move to Y border
     move.w #0x0, d1
     PUSHL  a0
-    jsr    SPR_SetPosX
+    jsr    SPR_SetPosY
     POPL   a0
 	
 	; Set last linked (only first subsprite needed)

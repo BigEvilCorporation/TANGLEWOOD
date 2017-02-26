@@ -11,6 +11,7 @@ SPR_AddMultiSprite:
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
+	; d4 (b)  Priority
 	; a0 ---- Subsprite dimensions array (b * numSubsprites)
 	; a1 ---- Num tiles per subsprite array (b * numSubsprites)
 
@@ -21,34 +22,27 @@ SPR_AddMultiSprite:
 	move.w d1, d6
 
 	; Loop cols
-	clr.l  d4
-	move.w d0, d4
-	lsr.w  #0x8, d4 ; Shift to get width
-	subq.b #0x1, d4 ; -1 for loop counter
+	clr.l  d5
+	move.w d0, d5
+	lsr.w  #0x8, d5 ; Shift to get width
+	subq.b #0x1, d5 ; -1 for loop counter
 	@ColLp:
 
 		; Loop rows
-		clr.l  d5
-		move.b d0, d5
-		subq.b #0x1, d5 ; -1 for loop counter
+		clr.l  d7
+		move.b d0, d7
+		subq.b #0x1, d7 ; -1 for loop counter
 		@RowLp:
+			; Backup counter
+			PUSHL d7
 
 			; Backup regs
-			move.l d0, -(sp)
-			move.l d1, -(sp)
-			move.l d2, -(sp)
-			move.l d3, -(sp)
-			move.l d4, -(sp)
-			move.l d5, -(sp)
-			move.l d6, -(sp)
+			PUSHM d0-d6
 
 			move.b (a0)+, d0	; Get next dimensions byte
 			
 			; Backup a0
-			move.l a0, -(sp)
-			
-			; Priority
-			moveq  #0x0, d4
+			PUSHL a0
 			
 			; d0 (b)  Dimensions
 			; d1 (ww) X/Y coord
@@ -57,15 +51,10 @@ SPR_AddMultiSprite:
 			; d4 (b)  Priority (0/1)
 			jsr SPR_AddSubSprite
 
+			POPL a0
+
 			; Restore regs
-			move.l (sp)+, a0
-			move.l (sp)+, d6
-			move.l (sp)+, d5
-			move.l (sp)+, d4
-			move.l (sp)+, d3
-			move.l (sp)+, d2
-			move.l (sp)+, d1
-			move.l (sp)+, d0
+			POPM d0-d6
 
 			; Add Y
 			add.w #SubspriteMaxHeight, d1
@@ -75,7 +64,8 @@ SPR_AddMultiSprite:
 			move.b (a1)+, d7
 			add.w  d7, d2
 
-			dbra d5, @RowLp
+			POPL d7
+			dbra d7, @RowLp
 
 		; Reset Y
 		move.w d6, d1
@@ -85,7 +75,7 @@ SPR_AddMultiSprite:
 		add.w #SubspriteMaxWidth, d1
 		swap d1
 
-		dbra d4, @ColLp
+		dbra d5, @ColLp
 
 	; Return first sprite index
 	move.w (sp)+, d0
@@ -98,8 +88,6 @@ SPR_AddSubSprite:
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
 	; d4 (b)  Priority (0/1)
-	
-	; TODO: Support priority
 	
 	; Alloc sprite ID
 	move.w (next_sprite_index), d5
