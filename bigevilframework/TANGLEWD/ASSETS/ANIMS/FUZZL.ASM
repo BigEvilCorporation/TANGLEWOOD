@@ -15,11 +15,14 @@ spriteanim_fuzzl_yellow_sleep_numframes: equ 0xA
 spriteanim_fuzzl_yellow_sleep_speed: equ 0xA
 spriteanim_fuzzl_yellow_sleep_track_frames:
 	dc.b 0x0, 0x0, 0x0, 0x0, 0x1, 0x2, 0x2, 0x2, 0x2, 0x1
+	Even
 spriteanim_fuzzl_yellow_sleep_track_posx:
 
+	Even
 spriteanim_fuzzl_yellow_sleep_track_posy:
 
-
+	Even
+spriteanim_fuzzl_yellow_sleep_track_sfx:
 	Even
 
 
@@ -31,11 +34,14 @@ spriteanim_fuzzl_yellow_roll_numframes: equ 0x8
 spriteanim_fuzzl_yellow_roll_speed: equ 0x1
 spriteanim_fuzzl_yellow_roll_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+	Even
 spriteanim_fuzzl_yellow_roll_track_posx:
 
+	Even
 spriteanim_fuzzl_yellow_roll_track_posy:
 
-
+	Even
+spriteanim_fuzzl_yellow_roll_track_sfx:
 	Even
 
 
@@ -49,11 +55,14 @@ spriteanim_fuzzl_yellow_eyes_numframes: equ 0x9
 spriteanim_fuzzl_yellow_eyes_speed: equ 0x1
 spriteanim_fuzzl_yellow_eyes_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8
+	Even
 spriteanim_fuzzl_yellow_eyes_track_posx:
 
+	Even
 spriteanim_fuzzl_yellow_eyes_track_posy:
 
-
+	Even
+spriteanim_fuzzl_yellow_eyes_track_sfx:
 	Even
 
 spriteanim_fuzzl_yellow_idle:
@@ -61,11 +70,14 @@ spriteanim_fuzzl_yellow_idle_numframes: equ 0x1
 spriteanim_fuzzl_yellow_idle_speed: equ 0x1
 spriteanim_fuzzl_yellow_idle_track_frames:
 	dc.b 0x0
+	Even
 spriteanim_fuzzl_yellow_idle_track_posx:
 
+	Even
 spriteanim_fuzzl_yellow_idle_track_posy:
 
-
+	Even
+spriteanim_fuzzl_yellow_idle_track_sfx:
 	Even
 
 

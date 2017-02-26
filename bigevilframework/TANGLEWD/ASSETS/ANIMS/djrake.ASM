@@ -14,10 +14,13 @@ spriteanim_djrake_idle_numframes: equ 0x1
 spriteanim_djrake_idle_speed: equ 0x1
 spriteanim_djrake_idle_track_frames:
 	dc.b 0x0
+	Even
 spriteanim_djrake_idle_track_posx:
 
+	Even
 spriteanim_djrake_idle_track_posy:
 
-
+	Even
+spriteanim_djrake_idle_track_sfx:
 	Even
 
