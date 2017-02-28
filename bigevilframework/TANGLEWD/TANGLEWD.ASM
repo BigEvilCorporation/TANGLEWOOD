@@ -75,6 +75,7 @@ __start
 	include '..\gamelib\pickup.asm'
 	include '..\gamelib\platform.asm'
 	include '..\gamelib\physics.asm'
+	include '..\gamelib\scnanim.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\state.asm'
 	include '..\gamelib\stream.asm'

@@ -85,6 +85,9 @@ MapStreamBorderY		 equ 0x1
 MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX)
 MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY)
 
+; Stamp/scene animations
+MaxStampAnims			 equ 0x8
+
 ; World switching colour types
 ColourDrained			 equ 0x0
 ColourOrange			 equ 0x1

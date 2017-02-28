@@ -59,6 +59,11 @@ l1a1_Init:
 	move.w (vram_addr_leveltiles), d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
+
+	;==============================================================
+
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
 	
 	;==============================================================
 	

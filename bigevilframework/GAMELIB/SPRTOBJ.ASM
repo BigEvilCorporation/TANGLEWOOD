@@ -132,6 +132,10 @@ SpriteObjDraw:
 	; a0 --- SpriteObj addr
 	; a1 --- Level addr
 
+	; Check if valid sprite ID
+	cmp.b  #0xFF, SpriteObj_SpriteID(a0)
+	beq    @InvalidSpriteId
+
 	; Check if visible
 	move.b SpriteObj_Visible(a0), d0
 	cmp.b  #0x0, d0
@@ -262,6 +266,7 @@ SpriteObjDraw:
 	; Sprite unlinked
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 	
+	@InvalidSpriteId:
 	@End:
 	
 	rts

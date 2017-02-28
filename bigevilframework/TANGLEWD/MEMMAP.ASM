@@ -147,6 +147,12 @@ MapStreamNumRows	   rs.w 1
 __padding061		   rs.b 2
 
 ; ************************************
+; Scene/stamp animations
+; ************************************
+StampAnimObjs		   rs.b (SceneAnim_Struct_Size*MaxStampAnims)
+StampAnims			   rs.b (Animation_Struct_Size*MaxStampAnims)
+
+; ************************************
 ; Game globals
 ; ************************************
 Gamepad1State      	   rs.w 1

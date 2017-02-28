@@ -42,7 +42,7 @@
 	include 'assets\palettes\djrake.asm'
 	
 	; ************************************
-	; Animation data
+	; Sprite animation data
 	; ************************************
 	IFND DEBUG
 	include 'assets\anims\boulder.asm'
@@ -75,6 +75,11 @@
 	IFND FINAL
 	include 'assets\maps\tst_lift\tiles.asm'
 	ENDIF
+
+	; ************************************
+	; Stamp animations
+	; ************************************
+	include 'assets\maps\l1\stmpanim.asm'
 	
 	; ************************************
 	; Static screen maps
