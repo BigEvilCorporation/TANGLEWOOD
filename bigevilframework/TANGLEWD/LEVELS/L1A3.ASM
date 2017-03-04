@@ -128,7 +128,7 @@ l1a3_Init:
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
 	
-	move.l #LevelData_2, a2
+	move.l #LevelData_L1A2, a2
 	move.b #0x1, l1a3Data_WaitingInput(a2)
 	
 	;==============================================================
@@ -137,7 +137,7 @@ l1a3_Init:
 	
 l1a3_Update:
 
-	move.l #LevelData_2, a2
+	move.l #LevelData_L1A2, a2
 	cmp.b #0x0, l1a3Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	

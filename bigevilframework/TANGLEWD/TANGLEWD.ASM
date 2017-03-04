@@ -128,18 +128,14 @@ __start
 	ENDIF
 	
 	; Include levels
-	IFD DEBUG
-	include 'levels\testl1a2.asm'
-	ELSE
 	include 'levels\l1a1.asm'
 	include 'levels\l1a2.asm'
 	include 'levels\l1a3.asm'
 	include 'levels\l1a4.asm'
+	include 'levels\l3a1.asm'
 	
 	IFND FINAL
 	include 'levels\tst_lift.asm'
-	ENDIF
-	
 	ENDIF
 	
 	; Include game code

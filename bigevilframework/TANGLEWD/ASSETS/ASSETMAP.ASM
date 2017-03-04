@@ -71,6 +71,7 @@
 
 	; Levels
 	include 'assets\maps\l1\tiles.asm'
+	include 'assets\maps\l3\tiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\tiles.asm'
@@ -99,7 +100,10 @@
 	include 'assets\maps\disclmr\palette.asm'
 	include 'assets\maps\demoend\palette.asm'
 	include 'assets\maps\soundtst\palette.asm'
+
+	; Levels
 	include 'assets\maps\l1\palette.asm'
+	include 'assets\maps\l3\palette.asm'
 
 	IFND FINAL
 	include 'assets\maps\tst_lift\palette.asm'
@@ -110,11 +114,17 @@
 	; ************************************
 	include 'assets\maps\mainmenu\blockmap.asm'
 	include 'assets\maps\megafndr\blockmap.asm'
+
+	; L1
 	include 'assets\maps\l1\l1a1\blockmap.asm'
 	include 'assets\maps\l1\l1a2\blockmap.asm'
 	include 'assets\maps\l1\l1a3\blockmap.asm'
 	include 'assets\maps\l1\l1a4\blockmap.asm'
 	include 'assets\maps\l1\l1bg\blockmap.asm'
+
+	; L3
+	include 'assets\maps\l3\l3a1\blockmap.asm'
+	include 'assets\maps\l3\l3bg\blockmap.asm'
 
 	IFND FINAL
 	include 'assets\maps\tst_lift\blockmap.asm'
@@ -125,11 +135,17 @@
 	; ************************************
 	include 'assets\maps\mainmenu\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
+
+	; L1
 	include 'assets\maps\l1\l1a1\blocks.asm'
 	include 'assets\maps\l1\l1a2\blocks.asm'
 	include 'assets\maps\l1\l1a3\blocks.asm'
 	include 'assets\maps\l1\l1a4\blocks.asm'
 	include 'assets\maps\l1\l1bg\blocks.asm'
+
+	; L3
+	include 'assets\maps\l3\l3a1\blocks.asm'
+	include 'assets\maps\l3\l3bg\blocks.asm'
 
 	IFND FINAL
 	include 'assets\maps\tst_lift\blocks.asm'
@@ -139,6 +155,7 @@
 	; Collision tilesets
 	; ************************************
 	include 'assets\maps\l1\coltiles.asm'
+	include 'assets\maps\l3\coltiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\coltiles.asm'
@@ -147,18 +164,28 @@
 	; ************************************
 	; Collision block maps
 	; ************************************
+
+	; L1
 	include 'assets\maps\l1\l1a1\colmap.asm'
 	include 'assets\maps\l1\l1a2\colmap.asm'
 	include 'assets\maps\l1\l1a3\colmap.asm'
 	include 'assets\maps\l1\l1a4\colmap.asm'
+
+	; L3
+	include 'assets\maps\l3\l3a1\colmap.asm'
 	
 	; ************************************
 	; Collision blocks
 	; ************************************
+
+	; L1
 	include 'assets\maps\l1\l1a1\colblock.asm'
 	include 'assets\maps\l1\l1a2\colblock.asm'
 	include 'assets\maps\l1\l1a3\colblock.asm'
 	include 'assets\maps\l1\l1a4\colblock.asm'
+
+	; L3
+	include 'assets\maps\l3\l3a1\colblock.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\colblock.asm'
@@ -168,10 +195,15 @@
     ; Game objects
     ; ************************************
 	include 'assets\maps\mainmenu\gameobj.asm'
+
+	; L1
 	include 'assets\maps\l1\l1a1\gameobj.asm'
 	include 'assets\maps\l1\l1a2\gameobj.asm'
 	include 'assets\maps\l1\l1a3\gameobj.asm'
 	include 'assets\maps\l1\l1a4\gameobj.asm'
+
+	; L3
+	include 'assets\maps\l3\l3a1\gameobj.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\gameobj.asm'

@@ -77,17 +77,17 @@ l1a2_Init:
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
 	
-	move.l #LevelData_1, a2
+	move.l #LevelData_L1A1, a2
 	move.b #0x1, l1a2Data_WaitingInput(a2)
 	
 	rts
 	
 l1a2_Update:
 
-	move.l #LevelData_1, a2
+	move.l #LevelData_L1A1, a2
 	
 	; Check waiting for input
-	move.l #LevelData_1, a2
+	move.l #LevelData_L1A1, a2
 	cmp.b #0x0, l1a2Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	

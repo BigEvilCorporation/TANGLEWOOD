@@ -84,7 +84,7 @@ l1a4_Init:
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
 	
-	move.l #LevelData_3, a2
+	move.l #LevelData_L1A3, a2
 	move.b #0x1, l1a4Data_WaitingInput(a2)
 	
 	;==============================================================
@@ -93,7 +93,7 @@ l1a4_Init:
 	
 l1a4_Update:
 
-	move.l #LevelData_3, a2
+	move.l #LevelData_L1A3, a2
 	cmp.b #0x0, l1a4Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
