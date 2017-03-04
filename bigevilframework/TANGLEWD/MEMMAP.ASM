@@ -241,6 +241,9 @@ LevelData_L1A4			 rs.b l1a4Data_Struct_Size
 
 ; L3
 LevelData_L3A1			 rs.b L3A1Data_Struct_Size
+
+; L4
+LevelData_L4A1			 rs.b L4A1Data_Struct_Size
 	ENDIF
 
 ; ************************************

@@ -3,38 +3,38 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l3a1.asm - Level 3 - Heritage Act 1
+;   l4a1.asm - Level 4 - Tethered Act 1
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-l3a1_HeritageAct1:
+l4a1_TetheredAct1:
 
-	dc.l tiles_l3						; Tileset
-	dc.l map_blocks_l3a1				; Blocks
-	dc.l map_blockmap_l3a1				; Block map
-	dc.l collisiontiles_l3				; Collision tileset
-	dc.l collisionmap_blocks_l3a1		; Collision blocks
-	dc.l collisionmap_blockmap_l3a1		; Collision block map
-	dc.l l3a1_DefaultPalettes			; Palettes
-	dc.l l3a1_Init						; Init routine
-	dc.l l3a1_Update					; Update routine
-	dc.l l3a1_Serialise					; Serialise routine
-	dc.l l3a1_LoadGameObjects			; Load game objects routine
-	dc.l 0x0 ;dc.l l3a2_HeritageAct2				; Next level
+	dc.l tiles_l4						; Tileset
+	dc.l map_blocks_l4a1				; Blocks
+	dc.l map_blockmap_l4a1				; Block map
+	dc.l collisiontiles_l4				; Collision tileset
+	dc.l collisionmap_blocks_l4a1		; Collision blocks
+	dc.l collisionmap_blockmap_l4a1		; Collision block map
+	dc.l l4a1_DefaultPalettes			; Palettes
+	dc.l l4a1_Init						; Init routine
+	dc.l l4a1_Update					; Update routine
+	dc.l l4a1_Serialise					; Serialise routine
+	dc.l l4a1_LoadGameObjects			; Load game objects routine
+	dc.l 0x0 ;dc.l l4a2_TetheredAct2				; Next level
 	dc.w Gravity						; Default gravity
-	dc.w map_l3a1_width					; Map width (tiles)
-	dc.w map_l3a1_height				; Map height (tiles)
-	dc.w map_blockmap_l3a1_width		; Map width (blocks)
-	dc.w map_blockmap_l3a1_height		; Map height (blocks)
-	dc.w tiles_l3_size_t				; Num tiles
+	dc.w map_l4a1_width					; Map width (tiles)
+	dc.w map_l4a1_height				; Map height (tiles)
+	dc.w map_blockmap_l4a1_width		; Map width (blocks)
+	dc.w map_blockmap_l4a1_height		; Map height (blocks)
+	dc.w tiles_l4_size_t				; Num tiles
 	
 	even
 	
-l3a1_DefaultPalettes:
+l4a1_DefaultPalettes:
 
-	dc.l palette_l3					; World
+	dc.l palette_l4					; World
 	dc.l 0x0						; Djakk (black by default, fades up when approached)
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
@@ -45,17 +45,17 @@ l3a1_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset 0
-l3a1Data_WaitingInput			rs.b 1
+l4a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-l3a1Data_Struct_Pad      		rs.b 3
-l3a1Data_Struct_Size     		rs.b 0
+l4a1Data_Struct_Pad      		rs.b 3
+l4a1Data_Struct_Size     		rs.b 0
 	
-l3a1_Init:
+l4a1_Init:
 	
 	; Load BG map
-	lea    map_blocks_l3bg, a0
-	lea    map_blockmap_l3bg, a1
-	move.l #(map_blockmap_l3bg_width<<16)|map_blockmap_l3bg_height, d1
+	lea    map_blocks_l4bg, a0
+	lea    map_blockmap_l4bg, a1
+	move.l #(map_blockmap_l4bg_width<<16)|map_blockmap_l4bg_height, d1
 	move.w (vram_addr_leveltiles), d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
@@ -63,7 +63,7 @@ l3a1_Init:
 	;==============================================================
 
 	; Load scene animations
-	jsr    l3_LoadSceneAnimations
+	jsr    l4_LoadSceneAnimations
 	
 	;==============================================================
 	
@@ -83,17 +83,17 @@ l3a1_Init:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	move.l #LevelData_L1A1, a2
-	move.b #0x1, l3a1Data_WaitingInput(a2)
+	move.b #0x1, l4a1Data_WaitingInput(a2)
 	
 	rts
 	
-l3a1_Update:
+l4a1_Update:
 
 	move.l #LevelData_L1A1, a2
 	
 	; Check waiting for input
 	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, l3a1Data_WaitingInput(a2)
+	cmp.b #0x0, l4a1Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
 	; Read pad
@@ -124,21 +124,21 @@ l3a1_Update:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Done
-	move.b #0x0, l3a1Data_WaitingInput(a2)
+	move.b #0x0, l4a1Data_WaitingInput(a2)
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
 
 	rts
 	
-l3a1_Serialise:
+l4a1_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 	
-l3a1_End:
+l4a1_End:
 
 	; Nymn sleep
 	PUSHL  a0

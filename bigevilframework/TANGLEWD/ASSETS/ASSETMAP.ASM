@@ -72,6 +72,7 @@
 	; Levels
 	include 'assets\maps\l1\tiles.asm'
 	include 'assets\maps\l3\tiles.asm'
+	include 'assets\maps\l4\tiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\tiles.asm'
@@ -81,6 +82,8 @@
 	; Stamp animations
 	; ************************************
 	include 'assets\maps\l1\stmpanim.asm'
+	include 'assets\maps\l3\stmpanim.asm'
+	include 'assets\maps\l4\stmpanim.asm'
 	
 	; ************************************
 	; Static screen maps
@@ -104,6 +107,7 @@
 	; Levels
 	include 'assets\maps\l1\palette.asm'
 	include 'assets\maps\l3\palette.asm'
+	include 'assets\maps\l4\palette.asm'
 
 	IFND FINAL
 	include 'assets\maps\tst_lift\palette.asm'
@@ -126,6 +130,10 @@
 	include 'assets\maps\l3\l3a1\blockmap.asm'
 	include 'assets\maps\l3\l3bg\blockmap.asm'
 
+	; L4
+	include 'assets\maps\l4\l4a1\blockmap.asm'
+	include 'assets\maps\l4\l4bg\blockmap.asm'
+
 	IFND FINAL
 	include 'assets\maps\tst_lift\blockmap.asm'
 	ENDIF
@@ -147,6 +155,10 @@
 	include 'assets\maps\l3\l3a1\blocks.asm'
 	include 'assets\maps\l3\l3bg\blocks.asm'
 
+	; L4
+	include 'assets\maps\l4\l4a1\blocks.asm'
+	include 'assets\maps\l4\l4bg\blocks.asm'
+
 	IFND FINAL
 	include 'assets\maps\tst_lift\blocks.asm'
 	ENDIF
@@ -156,6 +168,7 @@
 	; ************************************
 	include 'assets\maps\l1\coltiles.asm'
 	include 'assets\maps\l3\coltiles.asm'
+	include 'assets\maps\l4\coltiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\coltiles.asm'
@@ -173,6 +186,9 @@
 
 	; L3
 	include 'assets\maps\l3\l3a1\colmap.asm'
+
+	; L4
+	include 'assets\maps\l4\l4a1\colmap.asm'
 	
 	; ************************************
 	; Collision blocks
@@ -186,6 +202,9 @@
 
 	; L3
 	include 'assets\maps\l3\l3a1\colblock.asm'
+
+	; L4
+	include 'assets\maps\l4\l4a1\colblock.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\colblock.asm'
@@ -204,6 +223,9 @@
 
 	; L3
 	include 'assets\maps\l3\l3a1\gameobj.asm'
+
+	; L4
+	include 'assets\maps\l4\l4a1\gameobj.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\gameobj.asm'
