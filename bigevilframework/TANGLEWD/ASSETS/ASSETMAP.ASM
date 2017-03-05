@@ -71,6 +71,7 @@
 
 	; Levels
 	include 'assets\maps\l1\tiles.asm'
+	include 'assets\maps\l2\tiles.asm'
 	include 'assets\maps\l3\tiles.asm'
 	include 'assets\maps\l4\tiles.asm'
 	
@@ -82,6 +83,7 @@
 	; Stamp animations
 	; ************************************
 	include 'assets\maps\l1\stmpanim.asm'
+	include 'assets\maps\l2\stmpanim.asm'
 	include 'assets\maps\l3\stmpanim.asm'
 	include 'assets\maps\l4\stmpanim.asm'
 	
@@ -106,6 +108,7 @@
 
 	; Levels
 	include 'assets\maps\l1\palette.asm'
+	include 'assets\maps\l2\palette.asm'
 	include 'assets\maps\l3\palette.asm'
 	include 'assets\maps\l4\palette.asm'
 
@@ -125,6 +128,10 @@
 	include 'assets\maps\l1\l1a3\blockmap.asm'
 	include 'assets\maps\l1\l1a4\blockmap.asm'
 	include 'assets\maps\l1\l1bg\blockmap.asm'
+
+	; L2
+	include 'assets\maps\l2\l2a1\blockmap.asm'
+	include 'assets\maps\l2\l2bg\blockmap.asm'
 
 	; L3
 	include 'assets\maps\l3\l3a1\blockmap.asm'
@@ -150,6 +157,10 @@
 	include 'assets\maps\l1\l1a3\blocks.asm'
 	include 'assets\maps\l1\l1a4\blocks.asm'
 	include 'assets\maps\l1\l1bg\blocks.asm'
+
+	; L2
+	include 'assets\maps\l2\l2a1\blocks.asm'
+	include 'assets\maps\l2\l2bg\blocks.asm'
 
 	; L3
 	include 'assets\maps\l3\l3a1\blocks.asm'
@@ -184,6 +195,10 @@
 	include 'assets\maps\l1\l1a3\colmap.asm'
 	include 'assets\maps\l1\l1a4\colmap.asm'
 
+
+	; L2
+	include 'assets\maps\l2\l2a1\colmap.asm'
+
 	; L3
 	include 'assets\maps\l3\l3a1\colmap.asm'
 
@@ -199,6 +214,9 @@
 	include 'assets\maps\l1\l1a2\colblock.asm'
 	include 'assets\maps\l1\l1a3\colblock.asm'
 	include 'assets\maps\l1\l1a4\colblock.asm'
+
+	; L2
+	include 'assets\maps\l2\l2a1\colblock.asm'
 
 	; L3
 	include 'assets\maps\l3\l3a1\colblock.asm'
@@ -220,6 +238,9 @@
 	include 'assets\maps\l1\l1a2\gameobj.asm'
 	include 'assets\maps\l1\l1a3\gameobj.asm'
 	include 'assets\maps\l1\l1a4\gameobj.asm'
+
+	; L2
+	include 'assets\maps\l2\l2a1\gameobj.asm'
 
 	; L3
 	include 'assets\maps\l3\l3a1\gameobj.asm'

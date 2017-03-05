@@ -132,6 +132,7 @@ __start
 	include 'levels\l1a2.asm'
 	include 'levels\l1a3.asm'
 	include 'levels\l1a4.asm'
+	include 'levels\l2a1.asm'
 	include 'levels\l3a1.asm'
 	include 'levels\l4a1.asm'
 	

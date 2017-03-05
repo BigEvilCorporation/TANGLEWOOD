@@ -50,11 +50,12 @@ L1A2_WaterBody_143_idx	equ 0x3
 
 L1A2_Location_count equ 0x0
 
-L1A2_BouncePlant_count equ 0x4
+L1A2_BouncePlant_count equ 0x5
 L1A2_BouncePlant_158_idx	equ 0x0
 L1A2_BouncePlant_159_idx	equ 0x1
 L1A2_BouncePlant_148_idx	equ 0x2
 L1A2_BouncePlant_144_idx	equ 0x3
+L1A2_BouncePlant_190_idx	equ 0x4
 
 L1A2_Nymn_count equ 0x1
 L1A2_Nymn_137_idx	equ 0x0
@@ -193,8 +194,8 @@ L1A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x00044000, Entity_WorldPosX(a0)
-	move.l #0x00026800, Entity_WorldPosY(a0)
+	move.l #0x00020000, Entity_WorldPosX(a0)
+	move.l #0x0002a800, Entity_WorldPosY(a0)
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -241,13 +242,18 @@ L1A2_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00196800, Entity_WorldPosX(a0)
+	move.l #0x00193800, Entity_WorldPosX(a0)
 	move.l #0x0002d000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x00131800, Entity_WorldPosX(a0)
 	move.l #0x0002f000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x0006a800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
@@ -282,8 +288,8 @@ L1A2_LoadGameObjects:
 
 	move.l #EntityArray_Stone, a0
 	jsr StoneInit
-	move.l #0x000e8800, Entity_WorldPosX(a0)
-	move.l #0x00030800, Entity_WorldPosY(a0)
+	move.l #0x000d0000, Entity_WorldPosX(a0)
+	move.l #0x00032800, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit

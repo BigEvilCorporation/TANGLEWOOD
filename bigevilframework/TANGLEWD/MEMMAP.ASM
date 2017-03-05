@@ -239,6 +239,9 @@ LevelData_L1A2			 rs.b l1a2Data_Struct_Size
 LevelData_L1A3			 rs.b l1a3Data_Struct_Size
 LevelData_L1A4			 rs.b l1a4Data_Struct_Size
 
+; L2
+LevelData_L2A1			 rs.b L2A1Data_Struct_Size
+
 ; L3
 LevelData_L3A1			 rs.b L3A1Data_Struct_Size
 

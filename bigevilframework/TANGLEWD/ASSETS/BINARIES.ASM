@@ -23,6 +23,8 @@ tiles_soundtest:
 	; Levels
 tiles_l1:
 	incbin 'assets\maps\l1\tiles.bin'
+tiles_l2:
+	incbin 'assets\maps\l2\tiles.bin'
 tiles_l3:
 	incbin 'assets\maps\l3\tiles.bin'
 tiles_l4:
@@ -38,6 +40,8 @@ tiles_tst_lift:
 	; ************************************
 collisiontiles_l1:
 	incbin 'assets\maps\l1\coltiles.bin'
+collisiontiles_l2:
+	incbin 'assets\maps\l2\coltiles.bin'
 collisiontiles_l3:
 	incbin 'assets\maps\l3\coltiles.bin'
 collisiontiles_l4:
@@ -82,6 +86,12 @@ map_blocks_l1a4:
 map_blocks_l1bg:
 	incbin 'assets\maps\l1\l1bg\blocks.bin'
 
+	; L2
+map_blocks_l2a1:
+	incbin 'assets\maps\l2\l2a1\blocks.bin'
+map_blocks_l2bg:
+	incbin 'assets\maps\l2\l2bg\blocks.bin'
+
 	; L3
 map_blocks_l3a1:
 	incbin 'assets\maps\l3\l3a1\blocks.bin'
@@ -119,6 +129,12 @@ map_blockmap_l1a4:
 map_blockmap_l1bg:
 	incbin 'assets\maps\l1\l1bg\blockmap.bin'
 
+	; L2
+map_blockmap_l2a1:
+	incbin 'assets\maps\l2\l2a1\blockmap.bin'
+map_blockmap_l2bg:
+	incbin 'assets\maps\l2\l2bg\blockmap.bin'
+
 	; L3
 map_blockmap_l3a1:
 	incbin 'assets\maps\l3\l3a1\blockmap.bin'
@@ -150,6 +166,10 @@ collisionmap_blocks_l1a3:
 collisionmap_blocks_l1a4:
 	incbin 'assets\maps\l1\l1a4\colblock.bin'
 
+	; L2
+collisionmap_blocks_l2a1:
+	incbin 'assets\maps\l2\l2a1\colblock.bin'
+
 	; L3
 collisionmap_blocks_l3a1:
 	incbin 'assets\maps\l3\l3a1\colblock.bin'
@@ -176,6 +196,10 @@ collisionmap_blockmap_l1a3:
 	incbin 'assets\maps\l1\l1a3\colmap.bin'
 collisionmap_blockmap_l1a4:
 	incbin 'assets\maps\l1\l1a4\colmap.bin'
+
+	; L2
+collisionmap_blockmap_l2a1:
+	incbin 'assets\maps\l2\l2a1\colmap.bin'
 
 	; L3
 collisionmap_blockmap_l3a1:
