@@ -33,7 +33,8 @@ PhysicsObj_FloorProbeX	    rs.w 1 ; Floor probe X offset
 PhysicsObj_FloorProbeY	    rs.w 1 ; Floor probe Y offset
 PhysicsObj_BounceX		    rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
-PhysicsObj_StepHeight	    rs.w 1 ; Step height
+PhysicsObj_StepHeight	    rs.w 1 ; Max step height
+PhysicsObj_MinWallHeight    rs.w 1 ; Min wall height
 PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
 PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
@@ -76,6 +77,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
+	move.w #0x0, PhysicsObj_MinWallHeight(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
@@ -782,8 +784,11 @@ PhysicsObjFindWall:
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
 
-	; TODO: Ignore barriers shorter than PhysicsObj_MinWallHeight(a0)
+	; Ignore barriers shorter than PhysicsObj_MinWallHeight(a0)
 	move.w Barrier_Height(a3), d3
+	move.w PhysicsObj_MinWallHeight(a0), d4
+	cmp.w  d3, d4
+	bgt    @NextBarrier
 	
 	; Get barrier Top and Bottom Y
 	move.w Barrier_PosY(a3), d2

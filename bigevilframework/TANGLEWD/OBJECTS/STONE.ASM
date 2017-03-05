@@ -78,7 +78,7 @@ StoneInit:
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
 
 	; Register as pushable object
-	LIST_APPEND_TAIL PushableObjs, a0, a3
+	; LIST_APPEND_TAIL PushableObjs, a0, a3
 
 	;==============================================================
 	
