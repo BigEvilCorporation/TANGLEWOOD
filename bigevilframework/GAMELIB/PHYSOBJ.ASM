@@ -7,6 +7,13 @@
 ;==============================================================
 
 ;==============================================================
+; Constants
+;==============================================================
+PhysicsObjHitWallNone      equ 0x0
+PhysicsObjHitWallLeft      equ 0x1
+PhysicsObjHitWallRight     equ 0x2
+
+;==============================================================
 ; PhysicsObject
 ;==============================================================
 	rsset AnimObj_Struct_Size
@@ -42,7 +49,7 @@ PhysicsObj_CollideBarriers	rs.b 1 ; Collides with barriers
 PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
 PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
-PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall
+PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
 PhysicsObj_Solid		    rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
 PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
@@ -494,6 +501,10 @@ PhysicsObjCollisionCorrection:
 	
 	; Heading left, clamp
 	move.l d0, Entity_WorldPosX(a0)
+
+	; Wall hit
+	move.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	
 	bra    @EndWallClamp
 	
 	@HeadingRight:
@@ -506,11 +517,11 @@ PhysicsObjCollisionCorrection:
 	
 	; Clamp
 	move.l d0, Entity_WorldPosX(a0)
+
+	; Wall hit
+	move.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
 	
 	@EndWallClamp:
-	
-	; Wall hit
-	move.b #0x1, PhysicsObj_HitWall(a0)
 	
 	clr.w  d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
@@ -1030,11 +1041,11 @@ PhysicsObjPushPullObj:
 
 	@CannotPullLeft:
 
-	; Check if can be pushed, and not hitting wall
+	; Check if can be pushed, and not hitting wall to the left
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	cmp.b  #0x0, PhysicsObj_HitWall(a2)
-	bne    @CannotPush
+	cmp.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a2)
+	beq    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -1072,11 +1083,11 @@ PhysicsObjPushPullObj:
 
 	@CannotPullRight:
 
-	; Check if can be pushed, and not hitting wall
+	; Check if can be pushed, and not hitting wall to the right
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	cmp.b  #0x0, PhysicsObj_HitWall(a2)
-	bne    @CannotPush
+	cmp.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a2)
+	beq    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
