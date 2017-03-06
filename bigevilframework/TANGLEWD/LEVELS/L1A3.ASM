@@ -32,7 +32,7 @@ l1a3_HarlequinForestAct3:
 l1a3_DefaultPalettes:
 
 	dc.l palette_l1_night		; World
-	dc.l palette_monster		; Djakk
+	dc.l palette_djakk			; Djakk
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
 	

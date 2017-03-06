@@ -67,8 +67,20 @@ Monster_SwipeDamage		equ 0xFF
 Monster_AnimFrame_Bite	equ 0x2
 
 ; ************************************
+; Palettes
+; ************************************
+MonsterPalettes:
+	dc.l  palette_djakk_red		; Drained
+	dc.l  palette_djakk_red		; Orange
+	dc.l  palette_djakk_red		; Red
+	dc.l  palette_djakk_blue	; Blue
+	dc.l  palette_djakk_green	; Green
+	dc.l  palette_djakk_yellow	; Yellow
+
+; ************************************
 ; States
 ; ************************************
+MonsterState_Dead		equ 0x0
 MonsterState_InCave		equ 0x1
 MonsterState_Emerging	equ 0x2
 MonsterState_Roaring	equ 0x3
@@ -169,7 +181,8 @@ MonsterInit:
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
-	move.b  #ColourRed, Monster_Colour(a0)
+	;move.b  #ColourRed, Monster_Colour(a0)
+	move.b  #ColourYellow, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
 	move.w  #0x0, Monster_LoseSightTimer(a0)
@@ -179,6 +192,12 @@ MonsterInit:
 	move.b  #0x0, Monster_RumblePlayed(a0)
 	move.b  #0x1, Monster_DoIntro(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -304,13 +323,21 @@ MonsterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; If dead, do nothing
+	; If dead, but state not yet set, set it
+	; TODO: bit of a hack, may need a vtable for Die() in Character
 	cmp.b  #0x0, Character_Dead(a0)
-	bne    @Dead
+	beq    @NotDead
+	cmp.b  #MonsterState_Dead, Monster_State(a0)
+	beq    @DeadSet
+	jsr    MonsterDie
+	@NotDead:
+	@DeadSet:
 
 	; Determine state
 	move.b Monster_State(a0), d0
 
+	cmp.b #MonsterState_Dead, d0
+	beq   @Dead
 	cmp.b #MonsterState_InCave, d0
 	beq   @InCave
 	cmp.b #MonsterState_Emerging, d0
@@ -513,6 +540,67 @@ MonsterCheckPlayerVisible:
 	@End:
 	
 	rts
+
+MonsterDie:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set dead state
+	move.b  #MonsterState_Dead, Monster_State(a0)
+
+	; TODO: Start death anim
+
+	; Set initial power colour
+	jsr    MonsterRestoreColourPower
+
+	rts
+
+MonsterTakeColourPower:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Change to drained colour
+	PUSHL  d0/d3
+	PUSHL  a0/a1
+
+	move.l (MonsterPalettes+(ColourDrained*size_long)), a0	; Get new palette address
+	move.l #PaletteId_Monster, d0	; Get destination palette ID
+	move.l #Player1ColourChangeSpeed, d1	; Get switch speed
+	move.b #0x1, d2					; Ticks per update
+	move.b #0x0, d3					; Range min
+	move.b #0xE, d4					; Range max
+	jsr    PAL_LerpStart			; Begin palette lerp
+	
+	POPL   a0/a1
+	POPL   d0/d3
+
+	rts
+
+MonsterRestoreColourPower:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Restore original colour
+	PUSHL  d0/d3
+	PUSHL  a0/a1
+
+	lea    MonsterPalettes, a1		; Get palette array	
+	clr.l  d0
+	move.b Monster_Colour(a0), d0	; Get colour type
+	lsl.l  #0x2, d0					; To address offset
+	add.l  d0, a1					
+	move.l (a1), a0					; Get new palette address
+	move.l #PaletteId_Monster, d0	; Get destination palette ID
+	move.l #Player1ColourChangeSpeed, d1	; Get switch speed
+	move.b #0x1, d2					; Ticks per update
+	move.b #0x0, d3					; Range min
+	move.b #0xE, d4					; Range max
+	jsr    PAL_LerpStart			; Begin palette lerp
+	
+	POPL   a0/a1
+	POPL   d0/d3
+	
+	rts
 	
 MonsterStartWaitForPlayer:
 	; a0 --- GameObj addr
@@ -620,7 +708,7 @@ MonsterStartEmergeFromCave:
 	
 	; Start palette lerp
 	move.l a0, -(sp)
-	lea    palette_monster, a0
+	lea    palette_djakk, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x1, d2

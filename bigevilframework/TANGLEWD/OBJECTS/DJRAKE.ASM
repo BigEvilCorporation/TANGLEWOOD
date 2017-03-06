@@ -597,7 +597,7 @@ DjrakeStartEmergeFromCave:
 	move.l a0, -(sp)
 	lea    palette_Djrake, a0
 	;move.l #PaletteId_Djrake, d0
-	lea    palette_monster, a0
+	lea    palette_djakk, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Djrake_EmergePalLerpSpeed, d1
 	move.b #0x1, d2

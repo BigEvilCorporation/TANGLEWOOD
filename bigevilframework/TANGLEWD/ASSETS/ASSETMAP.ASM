@@ -38,7 +38,7 @@
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_nest.asm'
-	include 'assets\palettes\pal_takk.asm'
+	include 'assets\palettes\djakk.asm'
 	include 'assets\palettes\djrake.asm'
 	
 	; ************************************

@@ -106,7 +106,8 @@ Player_Interaction_Ability	equ 0x3
 Player_Interaction_Lift 	equ 0x4
 Player_Interaction_Push		equ 0x5
 Player_Interaction_Ride		equ 0x6
-Player_Interaction_Custom	equ 0x7
+Player_Interaction_Djakk	equ 0x7
+Player_Interaction_Custom	equ 0x8
 
 ; Animations
 PlayerAnimIdx_Switch    	equ 0
@@ -148,6 +149,7 @@ PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 ;---------------------------------
 Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_InteractObject  		rs.l 1	; Object player is interacting with
+Player_ColourPowerHost		rs.l 1	; Object player has stolen colour power from
 Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
@@ -707,7 +709,7 @@ PlayerStopColourAbility:
 	; Red
 	; ************************************
 	@Red:
-	bra    @End
+	bra    @ReturnColour
 	
 	; ************************************
 	; Yellow - glide
@@ -719,7 +721,7 @@ PlayerStopColourAbility:
 	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelX(a0)			; Reset max velocity
 	move.w #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	
-	bra    @End
+	bra    @ReturnColour
 	
 	; ************************************
 	; Green - time slow
@@ -779,7 +781,7 @@ PlayerStopColourAbility:
 	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
 	
-	bra    @End
+	bra    @ReturnColour
 	
 	; ************************************
 	; Blue - beast taming / ride Djakk
@@ -789,11 +791,36 @@ PlayerStopColourAbility:
 	; Release control of anim updates
 	move.b #0x1, Character_UpdateAnim(a0)
 	
-	bra    @End
+	bra    @ReturnColour
 	
+	@ReturnColour:
+
+	; Give colour back to host
+	; TODO: Something better than this
+	move.l Player_ColourPowerHost(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoHost
+
+	move.l Entity_TypeBits(a2), d1
+	andi.l #entity_type_monster, d1
+	cmp.l  #0x0, d1
+	bne    @Djakk
+
+	bra    @NoHost
+
+	@Djakk:
+	PUSHL  a0
+	move.l a2, a0
+	jsr    MonsterRestoreColourPower
+	POPL   a0
+	bra    @End
+
+	@NoHost:
+
 	@NoColour:
 	@End:
 	
+	move.l #0x0, Player_ColourPowerHost(a0)
 	move.b #0x0, Player_ActiveColourAbility(a0)
 	
 	rts
@@ -1022,6 +1049,13 @@ PlayerStartInteract:
 	jsr    PlayerInteractTest_Fuzzls
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
+
+	;==============================================================
+	
+	; Check for Djakks
+	jsr    PlayerInteractTest_Djakks
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
 	
 	;==============================================================
 	
@@ -1190,12 +1224,12 @@ PlayerInteractTest_Fuzzls:
 	; Check if fuzzl still has its colour
 	move.b Fuzzl_Colour(a2), d0
 	cmp.b  #ColourDrained, d0
-	beq    @NoColour
+	beq    @NextFuzzl
 	
 	; Check if Fuzzl's colour matches player
 	move.b Player_Colour(a0), d1
 	cmp.b  d0, d1
-	beq    @NoColourMatch
+	beq    @NextFuzzl
 
 	; Cancel run/jump movement
 	jsr    CharacterCancelRun
@@ -1203,15 +1237,23 @@ PlayerInteractTest_Fuzzls:
 	
 	; Fuzzl is home, is in range, and has its colour - take its colour
 	PUSHL  d0
+	PUSHL  a2
 	jsr    PlayerStopColourAbility
+	POPL   a2
 	POPL   d0
 	move.b d0, Player_Colour(a0)
+	
+	PUSHL  a2
+	move.b d0, Player_Colour(a0)
 	jsr    PlayerBeginColourSwitch
+	POPL   a2
+
+	move.l a2, Player_ColourPowerHost(a0)
 	
 	; Interacting until button depressed (to filter ability being triggered immediately)
 	move.b #0x1, Character_Interacting(a0)
 	move.b #Player_Interaction_Fuzzl, Player_InteractionType(a0)
-	move.l a3, Player_InteractObject(a0)
+	move.l a2, Player_InteractObject(a0)
 	
 	bra    @End
 
@@ -1221,12 +1263,98 @@ PlayerInteractTest_Fuzzls:
 	
 	@NoFuzzls:
 	@PlayerOffFloor:
-	@NotNearPushableObj:
-	@NotNearFuzzl:
-	@NotInRange:
 	@NotPushingFuzzl:
-	@NoColour:
-	@NoColourMatch:
+	@End:
+	
+	rts
+
+PlayerInteractTest_Djakks:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Character must be close to floor
+	move.b PhysicsObj_CloseToFloor(a0), d0
+	cmp.b  #0x0, d0
+	beq    @PlayerOffFloor
+	
+	move.w (EntityCount_Monster), d6
+	cmp.w  #0x0, d6
+	beq    @NoDjakks
+	
+	; Get player collision bounds
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+
+	; Check player against all Djakks in level
+	move.l #EntityArray_Monster, a2
+	sub.w  #0x1, d6
+	@DjakkLoop:
+
+	; Check on screen
+	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	beq    @NextDjakk
+
+	; Check Djakk is dead
+	cmp.b  #0x0, Character_Dead(a2)
+	beq    @NextDjakk
+
+	; Get collision bounds
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+
+	; Check collision
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBox
+	POPM   d1-d4
+	cmp.b  #0x0, d0
+	beq    @NextDjakk
+	
+	; Check if Djakk still has its colour
+	move.b Monster_Colour(a2), d0
+	cmp.b  #ColourDrained, d0
+	beq    @NextDjakk
+	
+	; Check if Djakk's colour matches player
+	move.b Player_Colour(a0), d1
+	cmp.b  d0, d1
+	beq    @NextDjakk
+
+	; Cancel run/jump movement
+	jsr    CharacterCancelRun
+	jsr    CharacterCancelJump
+	
+	; Take its colour
+	PUSHL  d0
+	PUSHL  a2
+	jsr    PlayerStopColourAbility
+	POPL   a2
+	POPL   d0
+
+	PUSHL  a2
+	move.b d0, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+	POPL   a2
+
+	PUSHL  a0
+	PUSHL  a2
+	move.l a2, a0
+	jsr    MonsterTakeColourPower
+	POPL   a2
+	POPL   a0
+
+	move.l a2, Player_ColourPowerHost(a0)
+	
+	; Interacting until button depressed (to filter ability being triggered immediately)
+	move.b #0x1, Character_Interacting(a0)
+	move.b #Player_Interaction_Djakk, Player_InteractionType(a0)
+	move.l a2, Player_InteractObject(a0)
+	
+	bra    @End
+
+	@NextDjakk:
+	add.l  #Monster_Struct_Size, a2
+	dbra   d6, @DjakkLoop
+	
+	@NoDjakks:
+	@PlayerOffFloor:
 	@End:
 	
 	rts
