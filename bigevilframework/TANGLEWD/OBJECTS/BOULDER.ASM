@@ -175,6 +175,7 @@ BoulderLoadGfx:
 	move.b #sprite_boulder_size_subsprites, d2
 	move.w #sprite_boulder_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1

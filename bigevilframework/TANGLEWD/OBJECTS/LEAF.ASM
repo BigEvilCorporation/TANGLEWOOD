@@ -123,6 +123,7 @@ LeafLoadGfx:
 	move.b #sprite_leaf_size_subsprites, d2
 	move.w #sprite_leaf_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
+	move.b #0x1, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1

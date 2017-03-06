@@ -144,6 +144,7 @@ Pause_Enter:
 	move.b #sprite_firefly_size_subsprites, d2
 	move.w #sprite_firefly_widthheight_subsprites, d3
 	move.b #PaletteId_Fuzzl, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 	
 	move.l (WorldScrollX), d0

@@ -130,6 +130,7 @@ MainMenu_Enter:
 	move.b #sprite_twd_logo_size_subsprites, d2
 	move.w #sprite_twd_logo_widthheight_subsprites, d3
 	move.b #PaletteId_TanglewoodLogo, d4
+	move.b #0x1, d5
 	jsr    SpriteObjLoad
 
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos

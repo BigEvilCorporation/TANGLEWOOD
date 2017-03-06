@@ -143,6 +143,7 @@ LiftLoadGfx:
 	move.b #sprite_Lift_size_subsprites, d2
 	move.w #sprite_Lift_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	; Load rope segments

@@ -262,6 +262,7 @@ FuzzlLoadGfx:
 	move.b #sprite_fuzzl_size_subsprites, d2
 	move.w #sprite_fuzzl_widthheight_subsprites, d3
 	move.b #PaletteID_Fuzzl, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	; Set initial colour anim offset

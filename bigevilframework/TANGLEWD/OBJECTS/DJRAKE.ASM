@@ -287,6 +287,7 @@ DjrakeLoadGfx:
 	move.w #sprite_djrake_widthheight_subsprites, d3
 	;move.b #PaletteID_Djrake, d4
 	move.b #PaletteID_Monster, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1

@@ -449,6 +449,7 @@ EchoLoadGfx:
 	move.b #sprite_echo_size_subsprites, d2
 	move.w #sprite_echo_widthheight_subsprites, d3
 	move.b #PaletteID_Player, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1

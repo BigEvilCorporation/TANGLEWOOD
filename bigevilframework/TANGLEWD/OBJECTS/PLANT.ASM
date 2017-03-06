@@ -224,6 +224,7 @@ BouncePlantLoadGfx:
 	move.b #sprite_mushroom_size_subsprites, d2
 	move.w #sprite_mushroom_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	; Configure sprite flipping based on orientation

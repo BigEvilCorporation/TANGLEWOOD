@@ -137,6 +137,7 @@ StoneLoadGfx:
 	move.b #sprite_Stone_size_subsprites, d2
 	move.w #sprite_Stone_widthheight_subsprites, d3
 	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1

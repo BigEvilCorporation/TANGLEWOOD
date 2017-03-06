@@ -293,6 +293,7 @@ MonsterLoadGfx:
 	move.b #sprite_djakk_size_subsprites, d2
 	move.w #sprite_djakk_widthheight_subsprites, d3
 	move.b #PaletteID_Monster, d4
+	move.b #0x0, d5
 	jsr    SpriteObjLoad
 
 	POPL   a1
