@@ -58,6 +58,11 @@ l1a3_Init:
 	jsr    VDP_LoadBlockMapPlaneB
 	
 	;==============================================================
+
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
+	
+	;==============================================================
 	
 	; Don't bother with Djakk emerge sequence
 	move.l #l1a3_Djakk_idx, d0

@@ -58,6 +58,11 @@ l1a4_Init:
 	jsr    VDP_LoadBlockMapPlaneB
 	
 	;==============================================================
+
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
+	
+	;==============================================================
 	
 	; Disable Djakk lost player timeout
 	move.l #l1a4_Djakk_idx, d0

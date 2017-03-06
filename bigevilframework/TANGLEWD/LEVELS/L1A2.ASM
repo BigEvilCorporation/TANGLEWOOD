@@ -61,6 +61,11 @@ l1a2_Init:
 	jsr    VDP_LoadBlockMapPlaneB
 	
 	;==============================================================
+
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
+	
+	;==============================================================
 	
 	move.l #Player1, a0
 	
@@ -160,8 +165,4 @@ l1a2_Trigger_NearCave:
 	POPL   a1
 	POPL   a0
 	
-	rts
-	
-l1a2_Trigger_NearEndLevel:
-
 	rts
