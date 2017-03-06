@@ -72,6 +72,8 @@ GameStateReset:
 	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Lift
 	move.w #0x0, EntityCount_Rope
+	move.w #0x0, EntityCount_BouncePlant
+	move.w #0x0, EntityCount_Stone
 	
 	; Stop BGM
 	jsr    SND_StopTrack
@@ -86,7 +88,9 @@ GameStateReset:
 	; Reset ropes
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
 	
-	; Reset pushables
+	; Reset linked lists
+	LIST_CLEAR Platforms
+	LIST_CLEAR Barriers
 	LIST_CLEAR PushableObjs
 
 	; Reload debug draw font
