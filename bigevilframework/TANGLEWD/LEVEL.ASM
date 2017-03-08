@@ -204,15 +204,15 @@ LevelPreStreamMap:
 	TOPIXELS     d1					; To screen space
 	PIXELS2TILES d1					; To tiles
 	TILES2BLOCKS d1					; To blocks
-	move.w d1, MapStreamLoadedRow
+	move.w d1, MapStreamLoadedCol
 
 	; Set initial streamed row
 	move.l WorldScrollY, d0
 	TOPIXELS     d0					; To screen space
 	PIXELS2TILES d0					; To tiles
 	TILES2BLOCKS d0					; To blocks
-	add.w  #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
-	move.w d0, MapStreamLoadedCol
+	add.w  #MapStreamHeight-1, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
+	move.w d0, MapStreamLoadedRow
     
 	;==============================================================
     

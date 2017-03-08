@@ -215,8 +215,9 @@ VDP_LoadBlockPlaneA:
 	add.l   d1, d4					; Add X offset
 	lsl.l   #0x1, d4				; Offset to bytes
 
-	rol.l   #0x08, d3				; Shift palette ID to bits 14-15
-	rol.l   #0x05, d3				; Can only rol 8 bits at a time
+	andi.l  #0xFF, d3
+	lsl.l   #0x08, d3				; Shift palette ID to bits 14-15
+	lsl.l   #0x05, d3				; Can only rol 8 bits at a time
 
 	; For each row in block
 	move.w  #map_block_height-1, d5
@@ -239,6 +240,7 @@ VDP_LoadBlockPlaneA:
 			; D = Flip Y
 			; E = Tile ID
 
+			clr.l   d1
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
 			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
@@ -270,8 +272,9 @@ VDP_LoadBlockPlaneB:
 	add.l   d1, d4					; Add X offset
 	lsl.l   #0x1, d4				; Offset to bytes
 
-	rol.l   #0x08, d3				; Shift palette ID to bits 14-15
-	rol.l   #0x05, d3				; Can only rol 8 bits at a time
+	andi.l  #0xFF, d3
+	lsl.l   #0x08, d3				; Shift palette ID to bits 14-15
+	lsl.l   #0x05, d3				; Can only rol 8 bits at a time
 
 	; For each row in block
 	move.w  #map_block_height-1, d5
@@ -286,6 +289,7 @@ VDP_LoadBlockPlaneB:
 		; For each col in block
 		move.w  #map_block_width-1, d0
 		@ColLoop:
+			clr.l   d1
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
 			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
