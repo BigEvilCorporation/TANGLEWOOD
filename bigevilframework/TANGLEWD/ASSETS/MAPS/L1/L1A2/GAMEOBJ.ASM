@@ -217,7 +217,7 @@ L1A2_LoadGameObjects:
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
-	move.l #0x000c2800, Entity_WorldPosX(a0)
+	move.l #0x000b2000, Entity_WorldPosX(a0)
 	move.l #0x0002f800, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
