@@ -15,7 +15,8 @@ Platform_PosY			rs.w 1
 Platform_VelX			rs.w 1
 Platform_VelY			rs.w 1
 Platform_Width			rs.w 1
+Platform_Active			rs.b 1
 ;---------------------------------
-Platform_Struct_Pad		rs.b 2
+Platform_Struct_Pad		rs.b 1
 Platform_Struct_Size	rs.b 0
 ;---------------------------------

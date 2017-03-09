@@ -114,6 +114,7 @@ BoulderInit:
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2
 	
+	move.b #0x1, Platform_Active(a2)
 	move.w #Boulder_PlatformWidth, Platform_Width(a2)
 	
 	; Add to physics platforms list
@@ -218,6 +219,11 @@ BoulderUpdate:
 	move.b #0x0, Boulder_Cracked(a0)
 	move.b #0x1, PhysicsObj_CanBePushed(a0)
 
+	; Enable platform
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	move.b #0x1, Platform_Active(a2)
+
 	;==============================================================
 	
 	@NotCracked:
@@ -244,23 +250,8 @@ BoulderUpdate:
 	cmp.w  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
 	bge    @LowVel
 	
-	; Hit the floor at a large enough velocity to crack open, start crack animation
-	PUSHL  a1
-	move.l a0, a1
-	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Set as cracked
-	move.b #0x1, Boulder_Cracked(a0)
-	
-	; Cancel X velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_AccelX(a0)
-	
-	; Can no longer be pushed
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	; Crack open
+	jsr    BoulderCrack
 	
 	; Bail
 	bra    @Cracked
@@ -320,11 +311,14 @@ BoulderUpdate:
 	beq   @NextMonster
 	
 	; Boulder hit a monster, deal damage
-	move.l a0, -(sp)
+	PUSHL  a0
 	move.l a1, a0
 	move.l #Boulder_HitDamage, d0
 	jsr    CharacterDealDamage
-	move.l (sp)+, a0
+	POPL   a0
+
+	; Crack open
+	jsr    BoulderCrack
 	
 	; Disable crack/respawn
 	move.b #0x0, Boulder_CanCrack(a0)
@@ -344,12 +338,6 @@ BoulderUpdate:
 	@InView:
 	@Cracked:
 	@NotFalling:
-
-	; Store current floor flag and Y velocity to check landing
-	move.b PhysicsObj_OnFloor(a0), d0
-	move.w PhysicsObj_VelY(a0), d1
-	PUSHL  d0
-	PUSHL  d1
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
@@ -372,39 +360,43 @@ BoulderUpdate:
 	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
 	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
 	
-	;==============================================================
-	
-	; Retrieve floor flag and Y velocity
-	POPL   d1
-	POPL   d0
-	
-	; Check if on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
-	beq    @SFXInAir
-	
-	; Check if previously on floor
-	cmp.b  #0x0, d0
-	bne    @SFXPrevOnFloor
-	
-	; If hit floor at landing velocity
-	cmp.w  #-Boulder_HitGroundSFXVel, d1
-	bge    @SFXLowVel
-	
-	; Play land SFX
-	cmp.b  #0x0, Boulder_CanCrack(a0)
-	beq    @PlayLandSFX
-	; Smash SFX
-	PLAYSFX_LOWPRIO #SFX_BoulderBreak
-	bra    @SFXEnd
-	@PlayLandSFX:
-	; Land SFX - TODO
-	PLAYSFX_LOWPRIO #SFX_BoulderBreak
-	
 	@SFXEnd:
 	@SFXInAir:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
 
+	rts
+
+BoulderCrack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Cancel X velocity
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+
+	; Set as cracked
+	move.b #0x1, Boulder_Cracked(a0)
+
+	; Can no longer be pushed
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+
+	; Disable platform
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	move.b #0x0, Platform_Active(a2)
+
+	; Start crack animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Boulder_Animations, a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Play crack SFX
+	PLAYSFX_LOWPRIO #SFX_BoulderBreak
+	
 	rts
 	
 BoulderSerialise:

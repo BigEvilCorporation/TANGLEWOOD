@@ -609,6 +609,10 @@ PhysicsObjFindFloor:
 	@PlatformLp:					; For all platforms in list
 	cmp.l  #0x0, a3
 	beq    @NoPlatform
+
+	; Check if active
+	cmp.b  #0x0, Platform_Active(a3)
+	beq    @NextPlatform
 	
 	; Get platform Left and Right X
 	move.w Platform_PosX(a3), d2
