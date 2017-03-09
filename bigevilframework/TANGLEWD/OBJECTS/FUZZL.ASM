@@ -488,6 +488,14 @@ FuzzlUpdate:
 	
 	; Update animation
 	jsr FuzzlUpdateAnimation
+
+	; Can only push if awake
+	move.b #0x1, d0
+	cmp.b  #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
+	bne    @Awake
+	move.b #0x0, d0
+	@Awake:
+	move.b d0, PhysicsObj_CanBePushed(a0)
 	
 	; Store current floor flag and Y velocity to check landing
 	move.b PhysicsObj_OnFloor(a0), d0
