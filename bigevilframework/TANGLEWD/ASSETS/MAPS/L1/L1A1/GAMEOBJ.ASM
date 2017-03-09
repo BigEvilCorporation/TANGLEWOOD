@@ -7,18 +7,29 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L1A1_Fuzzl_count equ 0x2
-L1A1_Fuzzl_Yellow_idx	equ 0x0
-L1A1_Fuzzl_41_idx	equ 0x1
+L1A1_Leaf_count equ 0x6
+L1A1_Leaf_35_idx	equ 0x0
+L1A1_Leaf_36_idx	equ 0x1
+L1A1_Leaf_37_idx	equ 0x2
+L1A1_Leaf_38_idx	equ 0x3
+L1A1_Leaf_39_idx	equ 0x4
+L1A1_Leaf_40_idx	equ 0x5
 
-L1A1_Nest_count equ 0x2
-L1A1_Nest_2_idx	equ 0x0
-L1A1_Nest_44_idx	equ 0x1
+L1A1_Nymn_count equ 0x1
+L1A1_Nymn_34_idx	equ 0x0
 
-L1A1_Flue_count equ 0x3
-L1A1_Flue_3_idx	equ 0x0
-L1A1_Flue_42_idx	equ 0x1
-L1A1_Flue_54_idx	equ 0x2
+L1A1_Echo_count equ 0x0
+
+L1A1_Monster_count equ 0x0
+
+L1A1_BouncePlant_count equ 0x7
+L1A1_BouncePlant_27_idx	equ 0x0
+L1A1_BouncePlant_28_idx	equ 0x1
+L1A1_BouncePlant_29_idx	equ 0x2
+L1A1_BouncePlant_53_idx	equ 0x3
+L1A1_BouncePlant_31_idx	equ 0x4
+L1A1_BouncePlant_32_idx	equ 0x5
+L1A1_BouncePlant_33_idx	equ 0x6
 
 L1A1_Firefly_count equ 0x19
 L1A1_Firefly_4_idx	equ 0x0
@@ -47,9 +58,22 @@ L1A1_Firefly_49_idx	equ 0x16
 L1A1_Firefly_50_idx	equ 0x17
 L1A1_Firefly_51_idx	equ 0x18
 
-L1A1_Monster_count equ 0x0
+L1A1_Fuzzl_count equ 0x2
+L1A1_Fuzzl_Yellow_idx	equ 0x0
+L1A1_Fuzzl_41_idx	equ 0x1
 
 L1A1_Boulder_count equ 0x0
+
+L1A1_Stone_count equ 0x0
+
+L1A1_Nest_count equ 0x2
+L1A1_Nest_2_idx	equ 0x0
+L1A1_Nest_44_idx	equ 0x1
+
+L1A1_Flue_count equ 0x3
+L1A1_Flue_3_idx	equ 0x0
+L1A1_Flue_42_idx	equ 0x1
+L1A1_Flue_54_idx	equ 0x2
 
 L1A1_TriggerBox_count equ 0x2
 L1A1_TriggerBox_43_idx	equ 0x0
@@ -63,74 +87,78 @@ L1A1_WaterBody_26_idx	equ 0x1
 
 L1A1_Location_count equ 0x0
 
-L1A1_BouncePlant_count equ 0x7
-L1A1_BouncePlant_27_idx	equ 0x0
-L1A1_BouncePlant_28_idx	equ 0x1
-L1A1_BouncePlant_29_idx	equ 0x2
-L1A1_BouncePlant_53_idx	equ 0x3
-L1A1_BouncePlant_31_idx	equ 0x4
-L1A1_BouncePlant_32_idx	equ 0x5
-L1A1_BouncePlant_33_idx	equ 0x6
-
-L1A1_Nymn_count equ 0x1
-L1A1_Nymn_34_idx	equ 0x0
-
-L1A1_Echo_count equ 0x0
-
-L1A1_Leaf_count equ 0x6
-L1A1_Leaf_35_idx	equ 0x0
-L1A1_Leaf_36_idx	equ 0x1
-L1A1_Leaf_37_idx	equ 0x2
-L1A1_Leaf_38_idx	equ 0x3
-L1A1_Leaf_39_idx	equ 0x4
-L1A1_Leaf_40_idx	equ 0x5
-
-L1A1_Stone_count equ 0x0
-
 
 L1A1_LoadGameObjects:
-	move.l #EntityArray_Fuzzl, a0
-	jsr FuzzlInit
-	move.l #0x000fa000, Entity_WorldPosX(a0)
+	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+
+	move.l #EntityArray_Nymn, a0
+	jsr NymnInit
+	move.l #0x00062800, Entity_WorldPosX(a0)
 	move.l #0x00014000, Entity_WorldPosY(a0)
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x001cf000, Entity_WorldPosX(a0)
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
+
+	move.l #EntityArray_Echo, a0
+
+	move.l #EntityArray_Monster, a0
+
+	move.l #EntityArray_BouncePlant, a0
+	jsr BouncePlantInit
+	move.l #0x00069000, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00039000, Entity_WorldPosX(a0)
+	move.l #0x0002e800, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x0001f800, Entity_WorldPosX(a0)
+	move.l #0x00028000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00229000, Entity_WorldPosX(a0)
 	move.l #0x0001b800, Entity_WorldPosY(a0)
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-
-	move.l #EntityArray_Nest, a0
-	jsr NestInit
-	move.l #0x000d1000, Entity_WorldPosX(a0)
-	move.l #0x00020800, Entity_WorldPosY(a0)
-	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
-	jsr NestInit
-	move.l #0x00225800, Entity_WorldPosX(a0)
-	move.l #0x0001c800, Entity_WorldPosY(a0)
-	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
-
-	move.l #EntityArray_Flue, a0
-	jsr FlueInit
-	move.l #0x000db000, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
-	jsr FlueInit
-	move.l #0x00211800, Entity_WorldPosX(a0)
-	move.l #0x0002e000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
-	jsr FlueInit
-	move.l #0x0012c800, Entity_WorldPosX(a0)
-	move.l #0x00030000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00081000, Entity_WorldPosX(a0)
+	move.l #0x0002e800, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00196800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x0005c000, Entity_WorldPosX(a0)
+	move.l #0x00019000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
@@ -259,9 +287,52 @@ L1A1_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-	move.l #EntityArray_Monster, a0
+	move.l #EntityArray_Fuzzl, a0
+	jsr FuzzlInit
+	move.l #0x000fa000, Entity_WorldPosX(a0)
+	move.l #0x00014000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x001cf000, Entity_WorldPosX(a0)
+	move.l #0x0001b800, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
+
+	move.l #EntityArray_Stone, a0
+
+	move.l #EntityArray_Nest, a0
+	jsr NestInit
+	move.l #0x000d1000, Entity_WorldPosX(a0)
+	move.l #0x00020800, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+	jsr NestInit
+	move.l #0x00225800, Entity_WorldPosX(a0)
+	move.l #0x0001c800, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+
+	move.l #EntityArray_Flue, a0
+	jsr FlueInit
+	move.l #0x000db000, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x00211800, Entity_WorldPosX(a0)
+	move.l #0x0002e000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x0012c800, Entity_WorldPosX(a0)
+	move.l #0x00030000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -298,77 +369,6 @@ L1A1_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	move.l #EntityArray_Location, a0
-
-	move.l #EntityArray_BouncePlant, a0
-	jsr BouncePlantInit
-	move.l #0x00069000, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00039000, Entity_WorldPosX(a0)
-	move.l #0x0002e800, Entity_WorldPosY(a0)
-	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x0001f800, Entity_WorldPosX(a0)
-	move.l #0x00028000, Entity_WorldPosY(a0)
-	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00229000, Entity_WorldPosX(a0)
-	move.l #0x0001b800, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00081000, Entity_WorldPosX(a0)
-	move.l #0x0002e800, Entity_WorldPosY(a0)
-	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00196800, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x0005c000, Entity_WorldPosX(a0)
-	move.l #0x00019000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-
-	move.l #EntityArray_Nymn, a0
-	jsr NymnInit
-	move.l #0x00062800, Entity_WorldPosX(a0)
-	move.l #0x00014000, Entity_WorldPosY(a0)
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
-
-	move.l #EntityArray_Echo, a0
-
-	move.l #EntityArray_Leaf, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-
-	move.l #EntityArray_Stone, a0
 
 	rts
 

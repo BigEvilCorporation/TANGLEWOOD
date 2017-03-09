@@ -7,13 +7,28 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L1A2_Fuzzl_count equ 0x2
-L1A2_Fuzzl_Blue_idx	equ 0x0
-L1A2_Fuzzl_Green_idx	equ 0x1
+L1A2_Leaf_count equ 0x6
+L1A2_Leaf_149_idx	equ 0x0
+L1A2_Leaf_150_idx	equ 0x1
+L1A2_Leaf_151_idx	equ 0x2
+L1A2_Leaf_152_idx	equ 0x3
+L1A2_Leaf_155_idx	equ 0x4
+L1A2_Leaf_156_idx	equ 0x5
 
-L1A2_Nest_count equ 0x0
+L1A2_Nymn_count equ 0x1
+L1A2_Nymn_137_idx	equ 0x0
 
-L1A2_Flue_count equ 0x0
+L1A2_Echo_count equ 0x0
+
+L1A2_Monster_count equ 0x1
+L1A2_Djakk_idx	equ 0x0
+
+L1A2_BouncePlant_count equ 0x5
+L1A2_BouncePlant_192_idx	equ 0x0
+L1A2_BouncePlant_190_idx	equ 0x1
+L1A2_BouncePlant_148_idx	equ 0x2
+L1A2_BouncePlant_144_idx	equ 0x3
+L1A2_BouncePlant_210_idx	equ 0x4
 
 L1A2_Firefly_count equ 0x13
 L1A2_Firefly_124_idx	equ 0x0
@@ -36,13 +51,24 @@ L1A2_Firefly_207_idx	equ 0x10
 L1A2_Firefly_208_idx	equ 0x11
 L1A2_Firefly_209_idx	equ 0x12
 
-L1A2_Monster_count equ 0x1
-L1A2_Djakk_idx	equ 0x0
+L1A2_Fuzzl_count equ 0x2
+L1A2_Fuzzl_Blue_idx	equ 0x0
+L1A2_Fuzzl_Green_idx	equ 0x1
 
 L1A2_Boulder_count equ 0x3
 L1A2_Boulder_147_idx	equ 0x0
 L1A2_Boulder_186_idx	equ 0x1
 L1A2_Boulder_203_idx	equ 0x2
+
+L1A2_Stone_count equ 0x4
+L1A2_Stone_188_idx	equ 0x0
+L1A2_Stone_189_idx	equ 0x1
+L1A2_Stone_204_idx	equ 0x2
+L1A2_Stone_205_idx	equ 0x3
+
+L1A2_Nest_count equ 0x0
+
+L1A2_Flue_count equ 0x0
 
 L1A2_TriggerBox_count equ 0x4
 L1A2_TriggerBox_60_idx	equ 0x0
@@ -61,49 +87,71 @@ L1A2_WaterBody_143_idx	equ 0x3
 
 L1A2_Location_count equ 0x0
 
-L1A2_BouncePlant_count equ 0x5
-L1A2_BouncePlant_192_idx	equ 0x0
-L1A2_BouncePlant_190_idx	equ 0x1
-L1A2_BouncePlant_148_idx	equ 0x2
-L1A2_BouncePlant_144_idx	equ 0x3
-L1A2_BouncePlant_210_idx	equ 0x4
-
-L1A2_Nymn_count equ 0x1
-L1A2_Nymn_137_idx	equ 0x0
-
-L1A2_Echo_count equ 0x0
-
-L1A2_Leaf_count equ 0x6
-L1A2_Leaf_149_idx	equ 0x0
-L1A2_Leaf_150_idx	equ 0x1
-L1A2_Leaf_151_idx	equ 0x2
-L1A2_Leaf_152_idx	equ 0x3
-L1A2_Leaf_155_idx	equ 0x4
-L1A2_Leaf_156_idx	equ 0x5
-
-L1A2_Stone_count equ 0x4
-L1A2_Stone_188_idx	equ 0x0
-L1A2_Stone_189_idx	equ 0x1
-L1A2_Stone_204_idx	equ 0x2
-L1A2_Stone_205_idx	equ 0x3
-
 
 L1A2_LoadGameObjects:
-	move.l #EntityArray_Fuzzl, a0
-	jsr FuzzlInit
-	move.l #0x00299000, Entity_WorldPosX(a0)
-	move.l #0x00012800, Entity_WorldPosY(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x0028f800, Entity_WorldPosX(a0)
-	move.l #0x00015000, Entity_WorldPosY(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
+	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
-	move.l #EntityArray_Nest, a0
+	move.l #EntityArray_Nymn, a0
+	jsr NymnInit
+	move.l #0x0000f000, Entity_WorldPosX(a0)
+	move.l #0x00030000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
 
-	move.l #EntityArray_Flue, a0
+	move.l #EntityArray_Echo, a0
+
+	move.l #EntityArray_Monster, a0
+	jsr MonsterInit
+	move.l #0x0025b000, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
+
+	move.l #EntityArray_BouncePlant, a0
+	jsr BouncePlantInit
+	move.l #0x0011f000, Entity_WorldPosX(a0)
+	move.l #0x00026800, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00066000, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00193800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x00125800, Entity_WorldPosX(a0)
+	move.l #0x0002f000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x0005b000, Entity_WorldPosX(a0)
+	move.l #0x00019000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
@@ -202,13 +250,17 @@ L1A2_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-	move.l #EntityArray_Monster, a0
-	jsr MonsterInit
-	move.l #0x0025b000, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
+	move.l #EntityArray_Fuzzl, a0
+	jsr FuzzlInit
+	move.l #0x00299000, Entity_WorldPosX(a0)
+	move.l #0x00012800, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x0028f800, Entity_WorldPosX(a0)
+	move.l #0x00015000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
@@ -226,6 +278,32 @@ L1A2_LoadGameObjects:
 	move.l #0x0001d800, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
+
+	move.l #EntityArray_Stone, a0
+	jsr StoneInit
+	move.l #0x000d0000, Entity_WorldPosX(a0)
+	move.l #0x00032800, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x00081000, Entity_WorldPosX(a0)
+	move.l #0x0002d800, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0028c800, Entity_WorldPosX(a0)
+	move.l #0x00022800, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x00273800, Entity_WorldPosX(a0)
+	move.l #0x00021000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+
+	move.l #EntityArray_Nest, a0
+
+	move.l #EntityArray_Flue, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -293,84 +371,6 @@ L1A2_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	move.l #EntityArray_Location, a0
-
-	move.l #EntityArray_BouncePlant, a0
-	jsr BouncePlantInit
-	move.l #0x0011f000, Entity_WorldPosX(a0)
-	move.l #0x00026800, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00066000, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00193800, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x00125800, Entity_WorldPosX(a0)
-	move.l #0x0002f000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x0005b000, Entity_WorldPosX(a0)
-	move.l #0x00019000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-
-	move.l #EntityArray_Nymn, a0
-	jsr NymnInit
-	move.l #0x0000f000, Entity_WorldPosX(a0)
-	move.l #0x00030000, Entity_WorldPosY(a0)
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
-
-	move.l #EntityArray_Echo, a0
-
-	move.l #EntityArray_Leaf, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-
-	move.l #EntityArray_Stone, a0
-	jsr StoneInit
-	move.l #0x000d0000, Entity_WorldPosX(a0)
-	move.l #0x00032800, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x00081000, Entity_WorldPosX(a0)
-	move.l #0x0002d800, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x0028c800, Entity_WorldPosX(a0)
-	move.l #0x00022800, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x00273800, Entity_WorldPosX(a0)
-	move.l #0x00021000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
 
 	rts
 

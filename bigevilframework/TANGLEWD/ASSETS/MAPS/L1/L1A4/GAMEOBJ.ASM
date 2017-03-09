@@ -7,18 +7,17 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L1A4_Fuzzl_count equ 0x2
-L1A4_Fuzzl_Yellow_idx	equ 0x0
-L1A4_Fuzzl_Green_idx	equ 0x1
+L1A4_Leaf_count equ 0x0
 
-L1A4_Nest_count equ 0x2
-L1A4_Nest_11_idx	equ 0x0
-L1A4_Nest_38_idx	equ 0x1
+L1A4_Nymn_count equ 0x1
+L1A4_Nymn_42_idx	equ 0x0
 
-L1A4_Flue_count equ 0x3
-L1A4_Flue_13_idx	equ 0x0
-L1A4_Flue_14_idx	equ 0x1
-L1A4_Flue_40_idx	equ 0x2
+L1A4_Echo_count equ 0x0
+
+L1A4_Monster_count equ 0x1
+L1A4_Djakk_idx	equ 0x0
+
+L1A4_BouncePlant_count equ 0x0
 
 L1A4_Firefly_count equ 0xf
 L1A4_Firefly_18_idx	equ 0x0
@@ -37,11 +36,23 @@ L1A4_Firefly_33_idx	equ 0xc
 L1A4_Firefly_34_idx	equ 0xd
 L1A4_Firefly_41_idx	equ 0xe
 
-L1A4_Monster_count equ 0x1
-L1A4_Djakk_idx	equ 0x0
+L1A4_Fuzzl_count equ 0x2
+L1A4_Fuzzl_Yellow_idx	equ 0x0
+L1A4_Fuzzl_Green_idx	equ 0x1
 
 L1A4_Boulder_count equ 0x1
 L1A4_Boulder_16_idx	equ 0x0
+
+L1A4_Stone_count equ 0x0
+
+L1A4_Nest_count equ 0x2
+L1A4_Nest_11_idx	equ 0x0
+L1A4_Nest_38_idx	equ 0x1
+
+L1A4_Flue_count equ 0x3
+L1A4_Flue_13_idx	equ 0x0
+L1A4_Flue_14_idx	equ 0x1
+L1A4_Flue_40_idx	equ 0x2
 
 L1A4_TriggerBox_count equ 0x3
 L1A4_Trigger_Djakk_idx	equ 0x0
@@ -60,61 +71,27 @@ L1A4_WaterBody_10_idx	equ 0x4
 
 L1A4_Location_count equ 0x0
 
-L1A4_BouncePlant_count equ 0x0
-
-L1A4_Nymn_count equ 0x1
-L1A4_Nymn_42_idx	equ 0x0
-
-L1A4_Echo_count equ 0x0
-
-L1A4_Leaf_count equ 0x0
-
-L1A4_Stone_count equ 0x0
-
 
 L1A4_LoadGameObjects:
-	move.l #EntityArray_Fuzzl, a0
-	jsr FuzzlInit
-	move.l #0x001b6800, Entity_WorldPosX(a0)
-	move.l #0x00012000, Entity_WorldPosY(a0)
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x00260800, Entity_WorldPosX(a0)
-	move.l #0x00015000, Entity_WorldPosY(a0)
-	move.b #ColourGreen, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
+	move.l #EntityArray_Leaf, a0
 
-	move.l #EntityArray_Nest, a0
-	jsr NestInit
-	move.l #0x001a5800, Entity_WorldPosX(a0)
-	move.l #0x0002a000, Entity_WorldPosY(a0)
-	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
-	jsr NestInit
-	move.l #0x0027e800, Entity_WorldPosX(a0)
-	move.l #0x00020800, Entity_WorldPosY(a0)
-	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
+	move.l #EntityArray_Nymn, a0
+	jsr NymnInit
+	move.l #0x00018000, Entity_WorldPosX(a0)
+	move.l #0x00031000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
 
-	move.l #EntityArray_Flue, a0
-	jsr FlueInit
-	move.l #0x0029f800, Entity_WorldPosX(a0)
-	move.l #0x0002f800, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
-	jsr FlueInit
-	move.l #0x00077800, Entity_WorldPosX(a0)
-	move.l #0x00029000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
-	jsr FlueInit
-	move.l #0x0016f800, Entity_WorldPosX(a0)
-	move.l #0x00032000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
+	move.l #EntityArray_Echo, a0
+
+	move.l #EntityArray_Monster, a0
+	jsr MonsterInit
+	move.l #0x00081800, Entity_WorldPosX(a0)
+	move.l #0x0002d000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
+
+	move.l #EntityArray_BouncePlant, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
@@ -193,12 +170,19 @@ L1A4_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-	move.l #EntityArray_Monster, a0
-	jsr MonsterInit
-	move.l #0x00081800, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
+	move.l #EntityArray_Fuzzl, a0
+	jsr FuzzlInit
+	move.l #0x001b6800, Entity_WorldPosX(a0)
+	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x00260800, Entity_WorldPosX(a0)
+	move.l #0x00015000, Entity_WorldPosY(a0)
+	move.b #ColourGreen, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
@@ -206,6 +190,37 @@ L1A4_LoadGameObjects:
 	move.l #0x00021800, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
+
+	move.l #EntityArray_Stone, a0
+
+	move.l #EntityArray_Nest, a0
+	jsr NestInit
+	move.l #0x001a5800, Entity_WorldPosX(a0)
+	move.l #0x0002a000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+	jsr NestInit
+	move.l #0x0027e800, Entity_WorldPosX(a0)
+	move.l #0x00020800, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+
+	move.l #EntityArray_Flue, a0
+	jsr FlueInit
+	move.l #0x0029f800, Entity_WorldPosX(a0)
+	move.l #0x0002f800, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x00077800, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x0016f800, Entity_WorldPosX(a0)
+	move.l #0x00032000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -265,21 +280,6 @@ L1A4_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	move.l #EntityArray_Location, a0
-
-	move.l #EntityArray_BouncePlant, a0
-
-	move.l #EntityArray_Nymn, a0
-	jsr NymnInit
-	move.l #0x00018000, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
-
-	move.l #EntityArray_Echo, a0
-
-	move.l #EntityArray_Leaf, a0
-
-	move.l #EntityArray_Stone, a0
 
 	rts
 
