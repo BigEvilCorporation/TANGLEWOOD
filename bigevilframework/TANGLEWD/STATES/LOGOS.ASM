@@ -71,7 +71,7 @@ Logos_Enter:
 	
 	; Start title theme
 	PUSHL  a0/d0-d1
-	lea    bgm_titles, a0
+	lea    track_bgm_titles, a0
 	jsr    SND_PlayTrack
 	POPL   a0/d0-d1
 	

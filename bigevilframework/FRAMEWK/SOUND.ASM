@@ -6,6 +6,35 @@
 ;   sound.asm - High level sound routines
 ;==============================================================
 
+; Track types in priority order
+Track_Type_Cue			equ 0x0	; One-shot music cue (interrupts BGM/ambience)
+Track_Type_BGM			equ 0x1	; Looping BGM
+Track_Type_Ambience		equ 0x2	; Background ambience (mutually exclusive with BGM)
+;------------------------------
+Track_Type_COUNT		equ 0x3
+
+Audio_NonExclusive		equ 0x0	; Non-excusive - plays alongside other SFX/tracks
+Audio_Exclusive			equ 0x1	; Exclusive track - disallows other tracks/SFX
+
+Audio_DefaultFadeSpeed	equ 0x1
+
+	rsset 0
+Track_Data				rs.l 1
+Track_Type				rs.b 1
+Track_Exclusive			rs.b 1
+;-----------------------------
+Track_Struct_Padding	rs.b 2
+Track_Struct_Size		rs.b 0
+
+	rsset 0
+SFX_Data				rs.l 1
+SFX_Priority			rs.b 1
+SFX_Exclusive			rs.b 1
+;-----------------------------
+SFX_Struct_Padding		rs.b 2
+SFX_Struct_Size			rs.b 0
+
+
 SND_Init:
 	; Initialises Echo sound system and sets default values
 
@@ -20,28 +49,47 @@ SND_Init:
 
 SND_PlayTrack:
 	; a0 --- Track address
-	; d0 (b) Exclusive
 	
 	IFND DEBUG
 
-	move.b d0, d1
+	PUSHL a1
 
-	; If exclusivity held
-	cmp.b #0x0, audio_playback_locked
-	beq   @Unlocked
+	;==============================================================
 
-	; Check busy
-	jsr   SND_GetBusy
-	cmp.b #0x0, d0
-	bne   @Busy
+	; If current track playing, fade out first
+	cmp.l  #0x0, audio_current_track
+	beq    @Free
 
-	@Unlocked:
+	; Queue track
+	clr.l  d0
+	move.b Track_Type(a0), d0
+	lsl.l  #0x2, d0
+	lea    audio_queued_tracks, a1
+	add.l  d0, a1
+	move.l a0, (a1)
+
+	; If exclusivity held, bail
+	cmp.b  #0x0, audio_playback_locked
+	bne    @Busy
+
+	; Begin fade out, then bail
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+	bra    @Busy
+
+	@Free:
+
+	;==============================================================
+
+	; Store current track
+	move.l a0, audio_current_track
+
+	; Set exclusivity
+	move.b Track_Exclusive(a0), audio_playback_locked
 
 	; Play track
+	move.l Track_Data(a0), a0
 	jsr    Echo_PlayBGM
-
-	; Set exclusive
-	move.b d1, audio_playback_locked
 
 	; Set playback speed
 	; TODO: On a per track basis
@@ -50,13 +98,18 @@ SND_PlayTrack:
 
 	@Busy:
 
+	POPL   a1
+
 	ENDIF
 
 	rts
 
 SND_StopTrack:
 	IFND DEBUG
+
 	jsr   Echo_StopBGM
+	move.l #0x0, audio_current_track
+
 	ENDIF
 	rts
 
@@ -69,18 +122,18 @@ SND_PlaySFX:
 	move.b d0, d1
 
 	; If exclusivity held
-	cmp.b #0x0, audio_playback_locked
-	beq   @Unlocked
+	cmp.b  #0x0, audio_playback_locked
+	beq    @Unlocked
 ;
 	; Check busy
-	jsr   SND_GetBusy
-	cmp.b #0x0, d0
-	bne   @Busy
+	jsr    SND_GetBusy
+	cmp.b  #0x0, d0
+	bne    @Busy
 ;
 	@Unlocked:
 
 	; Play SFX
-	jsr   Echo_PlaySFX
+	jsr    Echo_PlaySFX
 
 	; Set exclusive
 	move.b d1, audio_playback_locked
@@ -193,6 +246,11 @@ SND_BeginFadeTrack:
 
 	rts
 
+SND_Update:
+	jsr SND_UpdateFader
+	jsr SND_UpdateTrack
+	rts
+
 SND_UpdateFader:
 	; Updates fader
 
@@ -234,5 +292,63 @@ SND_UpdateFader:
 	jsr    SND_SetGlobalVolume
 
 	@End:
+
+	rts
+
+SND_UpdateTrack:
+
+	; Auto-stop tracks that have reach the end
+	cmp.l  #0x0, audio_current_track
+	beq    @EndStopCheck
+	jsr    SND_GetTrackBusy
+	cmp.b  #0x0, d0
+	bne    @EndStopCheck
+	move.l #0x0, audio_current_track
+	@EndStopCheck:
+
+	; Check if track stopped
+	cmp.l  #0x0, audio_current_track
+	bne    @Busy
+
+	; Determine next track
+	lea    audio_queued_tracks, a1
+	move.w #Track_Type_COUNT-1, d0
+	@TrackCheckLp:
+	cmp.l  #0x0, (a1)
+	bne    @FoundTrack
+	add.l  #size_long, a1
+	dbra   d0, @TrackCheckLp
+	bra    @Silence
+
+	@FoundTrack:
+
+	; Fetch track address
+	move.l (a1), a0
+
+	; Remove from queue
+	move.l #0x0, (a1)
+
+	; If ambience, fade up
+	cmp.b  #Track_Type_Ambience, Track_Type(a0)
+	bne    @ResetVolume
+
+	; Start fader
+	move.b #Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+	bra    @Play
+
+	@ResetVolume:
+
+	; else reset volume
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+
+	@Play:
+
+	; Play
+	jsr    SND_PlayTrack
+
+	@Busy:
+	@Silence:
 
 	rts

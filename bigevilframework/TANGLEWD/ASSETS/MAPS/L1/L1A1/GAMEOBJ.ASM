@@ -349,7 +349,7 @@ L1A1_LoadGameObjects:
 	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
-	move.l #bgm_cue_l1, TriggerBox_RegisterA0(a0)
+	move.l #track_bgm_cue_l1, TriggerBox_RegisterA0(a0)
 	move.l #0x1, TriggerBox_RegisterD0(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0

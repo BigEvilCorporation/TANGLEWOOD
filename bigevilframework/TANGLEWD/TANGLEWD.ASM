@@ -198,7 +198,7 @@ GameLoop:
 	jsr PAL_LerpUpdate
 
 	; Update audio
-	jsr SND_UpdateFader
+	jsr SND_Update
 	
 	; End frame
 	jsr RenderEndFrame

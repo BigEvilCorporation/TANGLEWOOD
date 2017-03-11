@@ -51,8 +51,7 @@ SetTimeOfDay:
 	cmp.b  #TimeOfDay_Night, d0
 	bne    @NotNight
 	PUSHL  a0/d0-d1
-	lea    bgm_night, a0
-	move.b #0x1, d0
+	lea    track_bgm_night, a0
 	jsr    SND_PlayTrack
 	POPL   a0/d0-d1
 	@NotNight:
@@ -60,8 +59,7 @@ SetTimeOfDay:
 	cmp.b  #TimeOfDay_Dusk, d0
 	bne    @NotDusk
 	PUSHL  a0/d0-d1
-	lea    bgm_dusk, a0
-	move.b #0x1, d0
+	lea    track_bgm_dusk, a0
 	jsr    SND_PlayTrack
 	POPL   a0/d0-d1
 	@NotDusk:

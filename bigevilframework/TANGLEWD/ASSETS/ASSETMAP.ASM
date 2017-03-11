@@ -256,7 +256,7 @@
 	; Audio
 	; ************************************
 	include 'assets\audio\instrs.asm'
-	include 'assets\audio\music.asm'
+	include 'assets\audio\tracks.asm'
 	include 'assets\audio\sfx.asm'
 	
 	; ************************************

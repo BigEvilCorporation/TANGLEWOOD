@@ -540,7 +540,7 @@ DjrakeUpdateWaitForPlayer:
 	bne    @Playing
 	
 	;PUSHL  a0/d0-d1
-	;lea    bgm_Djrakebass, a0
+	;lea    track_bgm_Djrakebass, a0
 	;jsr    SND_PlayTrack
 	;POPL   a0/d0-d1
 	

@@ -25,6 +25,8 @@ vdp_regs			  rs.b vdp_num_registers
 ; Framework stuff
 ; ************************************
 audio_clock           rs.l 1
+audio_current_track   rs.l 1
+audio_queued_tracks   rs.l Track_Type_COUNT
 rand_seed             rs.l 1
 letterbox_top		  rs.w 1
 letterbox_bottom	  rs.w 1
