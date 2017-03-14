@@ -451,10 +451,18 @@ NymnStartInteract:
 	cmp.w  #0x0, PhysicsObj_VelY(a0)
 	bne    @Moving
 
+	; If in idle state and not waiting on another anim
+	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)
+	bne    @NotIdle
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.b  #0x0, Animation_Looping(a2), d0
+	beq    @NotIdle
+
 	; Howl
 	jsr    NymnHowl
 
 	@Moving:
+	@NotIdle:
 
 	@AlreadyInteracting:
 	@Dead:
