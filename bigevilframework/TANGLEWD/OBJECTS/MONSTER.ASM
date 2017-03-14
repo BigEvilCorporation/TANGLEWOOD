@@ -27,6 +27,11 @@ Monster_JumpCancelVelLo equ 0x0100   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
 Monster_MaxGrabUpVel  equ 0x0300   ; Max up velocity character can grab a ledge (no limit on down vel)
 
+Monster_BoundsWidth		equ Monster_Width
+Monster_BoundsHeight	equ (Monster_Height-0x20)
+Monster_BoundsOffsetX	equ (Monster_Width/2)-(Monster_BoundsWidth/2)
+Monster_BoundsOffsetY	equ (Monster_Height/2)-(Monster_BoundsHeight/2)
+
 Monster_StepHeight	  equ 0x3
 Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
@@ -194,10 +199,10 @@ MonsterInit:
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
 	; Setup collision bounds
-	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
-	move.w  #0x0, PhysicsObj_BoundsTop(a0)
-	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
-	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	move.w  #Monster_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
+	move.w  #Monster_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
+	move.w  #Monster_BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #Monster_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 
 	; Setup default character animations
 	move.l a0, a2
@@ -1095,8 +1100,8 @@ MonsterUpdateTrackPlayer:
 	; Attack if bounds intersect
 	PUSHL  a1
 	move.l a2, a1
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
