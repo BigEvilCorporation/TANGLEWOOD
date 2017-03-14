@@ -1225,11 +1225,6 @@ PlayerInteractTest_Fuzzls:
 	move.b Fuzzl_Colour(a2), d0
 	cmp.b  #ColourDrained, d0
 	beq    @NextFuzzl
-	
-	; Check if Fuzzl's colour matches player
-	move.b Player_Colour(a0), d1
-	cmp.b  d0, d1
-	beq    @NextFuzzl
 
 	; Cancel run/jump movement
 	jsr    CharacterCancelRun
@@ -1310,11 +1305,6 @@ PlayerInteractTest_Djakks:
 	; Check if Djakk still has its colour
 	move.b Monster_Colour(a2), d0
 	cmp.b  #ColourDrained, d0
-	beq    @NextDjakk
-	
-	; Check if Djakk's colour matches player
-	move.b Player_Colour(a0), d1
-	cmp.b  d0, d1
 	beq    @NextDjakk
 
 	; Cancel run/jump movement
