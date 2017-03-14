@@ -85,6 +85,10 @@ MapStreamBorderY		 equ 0x1
 MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX)
 MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY)
 
+; Peek down/up
+CameraPeekSpeed	         equ 0x02*SubpixelsPerPixel
+CameraPeekMaxDist	     equ 0x30*SubpixelsPerPixel
+
 ; Stamp/scene animations
 MaxStampAnims			 equ 0x8
 
@@ -104,6 +108,7 @@ Player2 				 equ (EntityArray_Echo)
 ; Initial level/state
 ;InitialLevel			 equ l1a1_HarlequinForestAct1
 InitialLevel			 equ l1a2_HarlequinForestAct2
+;InitialLevel			 equ l2a1_StormWarningAct1
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
 ;InitialLevel			 equ Lvl_TestLift

@@ -6,6 +6,45 @@
 ;   camera.asm - V/H scroll routines and virtual camera logic
 ;==============================================================
 
+CAM_PeekUp:
+	move.l (CameraPeekOffsetY), d0
+	add.l  #-CameraPeekSpeed, d0
+	cmp.l  #-CameraPeekMaxDist, d0
+	bgt    @WithinRange
+	move.l #-CameraPeekMaxDist, d0
+	@WithinRange:
+	move.l d0, (CameraPeekOffsetY)
+	rts
+
+CAM_PeekDown:
+	move.l (CameraPeekOffsetY), d0
+	add.l  #CameraPeekSpeed, d0
+	cmp.l  #CameraPeekMaxDist, d0
+	blt    @WithinRange
+	move.l #CameraPeekMaxDist, d0
+	@WithinRange:
+	move.l d0, (CameraPeekOffsetY)
+	rts
+
+CAM_PeekReturn:
+	move.l (CameraPeekOffsetY), d0
+	cmp.l  #0x0, d0
+	beq    @End
+	blt    @Up
+	bgt    @Down
+
+	@Up:
+	add.l  #CameraPeekSpeed, d0
+	bra    @End
+
+	@Down:
+	add.l  #-CameraPeekSpeed, d0
+
+	@End:
+	move.l d0, (CameraPeekOffsetY)
+
+	rts
+
 CAM_Update:
 
 	; Level to a1
@@ -138,9 +177,9 @@ CAM_Update:
 
 	; X to world scroll
 	move.l  (CameraWorldPosX), d0
+	add.l   (CameraShakeOffsetX), d0		; Add shake offset
 	jsr     CAM_PosToWorldScrollX
 	move.l  d0, WorldScrollX			; Keep world scroll X
-	add.l  (CameraShakeOffsetX), d0		; Add shake offset
 	
 	; Scroll X - plane A
 	neg.l   d0							; To camera space
@@ -196,9 +235,10 @@ CAM_Update:
 
 	; Y to world scroll
 	move.l  (CameraWorldPosY), d0
+	add.l   (CameraShakeOffsetY), d0	; Add shake offset
+	add.l   (CameraPeekOffsetY), d0		; Add peek offset
 	jsr     CAM_PosToWorldScrollY
 	move.l  d0, WorldScrollY			; Keep world scroll Y
-	add.l  (CameraShakeOffsetY), d0		; Add shake offset
 
 	; Scroll Y - plane A
 	lsr.l   #0x8, d0					; To screen space
@@ -211,7 +251,6 @@ CAM_Update:
 	; Translate WorldScrollY to screen space with safe borders
 	clr.l   d1
 	move.l  (WorldScrollY), d0
-	add.l   (CameraShakeOffsetY), d0
 	move.w  Level_MapHeight(a1), d1
 	lsl.l   #0x3, d1	; To tiles
 	lsl.l   #0x8, d1	; To camera space

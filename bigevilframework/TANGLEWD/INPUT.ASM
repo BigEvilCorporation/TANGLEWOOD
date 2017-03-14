@@ -195,6 +195,35 @@ HandlePlayerInput:
 	jsr CharacterCancelXMovement ; No Player1 X input
 	
 	@XHandled:
+
+	; =====================================================================
+	; Up/Down - Y Peek
+	; =====================================================================
+
+	; Camera up
+	btst  #pad_button_up, d0
+	beq   @NoUp
+	PUSHL d0
+	jsr   CAM_PeekUp
+	POPL  d0
+	bra   @YHandled
+	@NoUp:
+	
+	; Camera down
+	btst  #pad_button_down, d0
+	beq   @NoDown
+	PUSHL d0
+	jsr   CAM_PeekDown
+	POPL  d0
+	bra   @YHandled
+	@NoDown:
+
+	; No up/down, return peek offset
+	PUSHL d0
+	jsr   CAM_PeekReturn
+	POPL  d0
+	
+	@YHandled:
 	
 	; =====================================================================
 	; A - hold to walk instead of run

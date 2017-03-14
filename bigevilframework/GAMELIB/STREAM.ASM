@@ -7,6 +7,7 @@
 ;==============================================================
 
 MAP_UpdateStreaming:
+	; a1 --- Level addr
 	; d0 (b) Process VDP queue immediately (for initial loading)
 	
 	; Level to a1
@@ -15,14 +16,7 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate rows remaining
-	move.l  (WorldScrollY), d1			; Get world scroll Y position
-	add.l   (CameraShakeOffsetY), d1	; Add shake offset
-	
-	; Clamp scroll value + camera shake
-	cmp.l  #0x0, d1
-	bge    @NoClampY
-	move.l  (WorldScrollY), d1
-	@NoClampY:
+	move.l  (WorldScrollY), d1		; Get world scroll Y position (incl. camera shake + peek offset)
 	
 	TOPIXELS     d1					; To screen space
 	PIXELS2TILES d1					; To tiles
@@ -37,14 +31,7 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate cols remaining
-	move.l  (WorldScrollX), d3			; Get world scroll X position
-	add.l   (CameraShakeOffsetX), d3	; Add shake offset
-	
-	; Clamp scroll value + camera shake
-	cmp.l  #0x0, d3
-	bge    @NoClampX
-	move.l  (WorldScrollX), d3
-	@NoClampX:
+	move.l  (WorldScrollX), d3		; Get world scroll X position (incl. camera shake + peek offset)
 	
 	TOPIXELS     d3					; To screen space
 	PIXELS2TILES d3					; To tiles

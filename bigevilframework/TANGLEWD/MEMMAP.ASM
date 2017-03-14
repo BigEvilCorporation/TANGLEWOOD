@@ -120,33 +120,34 @@ __padding03			rs.b 2
 ; ************************************
 ; Camera, V/H scroll and map streaming
 ; ************************************
-WorldScrollX		   rs.l 1
-WorldScrollY		   rs.l 1
-CameraWorldPosX		   rs.l 1
-CameraWorldPosY		   rs.l 1
-CameraShakeOffsetX	   rs.l 1
-CameraShakeOffsetY	   rs.l 1
-CameraTargetGameObj    rs.l 1
-CameraTargetLerpSource rs.l 1
-CameraTargetLerpTime   rs.w 1
-CameraTargetLerpSpeed  rs.w 1
-CameraShakeSinX	   	   rs.w 1
-CameraShakeSinY	       rs.w 1
-CameraShakeSpeedX	   rs.w 1
-CameraShakeSpeedY	   rs.w 1
-CameraShakeAmpX	   	   rs.w 1
-CameraShakeAmpY	       rs.w 1
-CameraShakeTimer       rs.w 1
-MapStreamLoadedCol     rs.w 1
-MapStreamLoadedRow     rs.w 1
-MapStreamSrcLeft	   rs.w 1
-MapStreamSrcTop	 	   rs.w 1
-MapStreamDestLeft	   rs.w 1
-MapStreamDestTop	   rs.w 1
-MapStreamNumCols	   rs.w 1
-MapStreamNumRows	   rs.w 1
+WorldScrollX		    rs.l 1
+WorldScrollY		    rs.l 1
+CameraWorldPosX		    rs.l 1
+CameraWorldPosY		    rs.l 1
+CameraShakeOffsetX	    rs.l 1
+CameraShakeOffsetY	    rs.l 1
+CameraPeekOffsetY       rs.l 1
+CameraTargetGameObj     rs.l 1
+CameraTargetLerpSource  rs.l 1
+CameraTargetLerpTime    rs.w 1
+CameraTargetLerpSpeed   rs.w 1
+CameraShakeSinX	   	    rs.w 1
+CameraShakeSinY	        rs.w 1
+CameraShakeSpeedX	    rs.w 1
+CameraShakeSpeedY	    rs.w 1
+CameraShakeAmpX	   	    rs.w 1
+CameraShakeAmpY	        rs.w 1
+CameraShakeTimer        rs.w 1
+MapStreamLoadedCol      rs.w 1
+MapStreamLoadedRow      rs.w 1
+MapStreamSrcLeft	    rs.w 1
+MapStreamSrcTop	 	    rs.w 1
+MapStreamDestLeft	    rs.w 1
+MapStreamDestTop	    rs.w 1
+MapStreamNumCols	    rs.w 1
+MapStreamNumRows	    rs.w 1
 
-__padding061		   rs.b 2
+__padding061		   rs.b 0
 
 ; ************************************
 ; Scene/stamp animations
