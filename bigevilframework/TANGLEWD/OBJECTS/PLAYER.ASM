@@ -1101,7 +1101,7 @@ PlayerUpdateInteract:
 	cmp.b  #0x0, d0
 	bne    @StillPushing
 
-	; No longer in range - clear pushing flags (but keep interaction flag until button depressed)
+	; Cannot be pushed/no longer in range - clear pushing flags (but keep interaction flag until button depressed)
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_PushingHeavy(a0)
 	move.b #0x0, Character_LockSpriteFlip(a0)

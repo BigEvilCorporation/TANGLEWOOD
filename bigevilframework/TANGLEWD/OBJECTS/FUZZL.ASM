@@ -489,12 +489,14 @@ FuzzlUpdate:
 	; Update animation
 	jsr FuzzlUpdateAnimation
 
-	; Can only push if awake
+	; Can only push if awake and not in nest
 	move.b #0x1, d0
-	cmp.b  #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
-	bne    @Awake
+	move.b Fuzzl_State_Bits(a0), d1
+	andi.b #(1<<Fuzzl_State_Home)|(1<<Fuzzl_State_Asleep), d1
+	cmp.b  #0x0, d1
+	beq    @CanPush
 	move.b #0x0, d0
-	@Awake:
+	@CanPush:
 	move.b d0, PhysicsObj_CanBePushed(a0)
 	
 	; Store current floor flag and Y velocity to check landing

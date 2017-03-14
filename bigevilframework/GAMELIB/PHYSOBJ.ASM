@@ -996,6 +996,9 @@ PhysicsObjPushPullObj:
 	; a2 --- Pushable obj
 	; d0 (b) OUT: Outer bounds touching, and facing the right direction
 
+	; Init return value
+	move.b #0x0, d0
+
 	; Check if can be pushed/pulled
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	bne    @CanPush
