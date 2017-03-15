@@ -32,7 +32,8 @@ L4A1_BouncePlant_count equ 0x0
 L4A1_Nymn_count equ 0x1
 L4A1_Nymn_1_idx	equ 0x0
 
-L4A1_Echo_count equ 0x0
+L4A1_Echo_count equ 0x1
+L4A1_Echo_2_idx	equ 0x0
 
 L4A1_Leaf_count equ 0x0
 
@@ -70,6 +71,11 @@ L4A1_LoadGameObjects:
 	add.l #Nymn_Struct_Size, a0
 
 	move.l #EntityArray_Echo, a0
+	jsr EchoInit
+	move.l #0x0003e800, Entity_WorldPosX(a0)
+	move.l #0x00010000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
+	add.l #Echo_Struct_Size, a0
 
 	move.l #EntityArray_Leaf, a0
 

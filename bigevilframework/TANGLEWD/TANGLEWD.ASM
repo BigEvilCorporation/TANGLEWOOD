@@ -135,6 +135,7 @@ __start
 	include 'levels\l2a1.asm'
 	include 'levels\l3a1.asm'
 	include 'levels\l4a1.asm'
+	include 'levels\l6a1.asm'
 	
 	IFND FINAL
 	include 'levels\tst_lift.asm'

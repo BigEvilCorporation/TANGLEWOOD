@@ -7,7 +7,11 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-TerrainTiles_L4_size_b	equ 0x00000378	; Size in bytes
-TerrainTiles_L4_size_w	equ (TerrainTiles_L4_size_b/2)	; Size in words
-TerrainTiles_L4_size_l	equ (TerrainTiles_L4_size_b/4)	; Size in longwords
-TerrainTiles_L4_size_t	equ (TerrainTiles_L4_size_b/32)	; Size in tiles
+L6_LoadSceneAnimations:
+	PUSHL  a1
+	lea    StampAnimObjs, a0
+	lea    StampAnims, a1
+
+	POPL   a1
+	rts
+

@@ -29,6 +29,8 @@ tiles_l3:
 	incbin 'assets\maps\l3\tiles.bin'
 tiles_l4:
 	incbin 'assets\maps\l4\tiles.bin'
+tiles_l6:
+	incbin 'assets\maps\l6\tiles.bin'
 	
 	IFND FINAL
 tiles_tst_lift:
@@ -46,6 +48,8 @@ collisiontiles_l3:
 	incbin 'assets\maps\l3\coltiles.bin'
 collisiontiles_l4:
 	incbin 'assets\maps\l4\coltiles.bin'
+collisiontiles_l6:
+	incbin 'assets\maps\l6\coltiles.bin'
 	
 	IFND FINAL
 collisiontiles_tst_lift:
@@ -104,6 +108,12 @@ map_blocks_l4a1:
 map_blocks_l4bg:
 	incbin 'assets\maps\l4\l4bg\blocks.bin'
 
+	; L6
+map_blocks_l6a1:
+	incbin 'assets\maps\l6\l6a1\blocks.bin'
+map_blocks_l6bg:
+	incbin 'assets\maps\l6\l6bg\blocks.bin'
+
 	IFND FINAL
 map_blocks_tst_lift:
 	incbin 'assets\maps\tst_lift\blocks.bin'
@@ -147,6 +157,12 @@ map_blockmap_l4a1:
 map_blockmap_l4bg:
 	incbin 'assets\maps\l4\l4bg\blockmap.bin'
 
+	; L6
+map_blockmap_l6a1:
+	incbin 'assets\maps\l6\l6a1\blockmap.bin'
+map_blockmap_l6bg:
+	incbin 'assets\maps\l6\l6bg\blockmap.bin'
+
 	IFND FINAL
 map_blockmap_tst_lift:
 	incbin 'assets\maps\tst_lift\blockmap.bin'
@@ -178,6 +194,10 @@ collisionmap_blocks_l3a1:
 collisionmap_blocks_l4a1:
 	incbin 'assets\maps\l4\l4a1\colblock.bin'
 
+	; L6
+collisionmap_blocks_l6a1:
+	incbin 'assets\maps\l6\l6a1\colblock.bin'
+
 	IFND FINAL
 collisionmap_blocks_tst_lift:
 	incbin 'assets\maps\tst_lift\colblock.bin'
@@ -208,6 +228,10 @@ collisionmap_blockmap_l3a1:
 	; L4
 collisionmap_blockmap_l4a1:
 	incbin 'assets\maps\l4\l4a1\colmap.bin'
+
+	; L6
+collisionmap_blockmap_l6a1:
+	incbin 'assets\maps\l6\l6a1\colmap.bin'
 
 	IFND FINAL
 collisionmap_blockmap_tst_lift:

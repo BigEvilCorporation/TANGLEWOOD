@@ -74,6 +74,7 @@
 	include 'assets\maps\l2\tiles.asm'
 	include 'assets\maps\l3\tiles.asm'
 	include 'assets\maps\l4\tiles.asm'
+	include 'assets\maps\l6\tiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\tiles.asm'
@@ -86,6 +87,7 @@
 	include 'assets\maps\l2\stmpanim.asm'
 	include 'assets\maps\l3\stmpanim.asm'
 	include 'assets\maps\l4\stmpanim.asm'
+	include 'assets\maps\l6\stmpanim.asm'
 	
 	; ************************************
 	; Static screen maps
@@ -111,6 +113,7 @@
 	include 'assets\maps\l2\palette.asm'
 	include 'assets\maps\l3\palette.asm'
 	include 'assets\maps\l4\palette.asm'
+	include 'assets\maps\l6\palette.asm'
 
 	IFND FINAL
 	include 'assets\maps\tst_lift\palette.asm'
@@ -141,6 +144,10 @@
 	include 'assets\maps\l4\l4a1\blockmap.asm'
 	include 'assets\maps\l4\l4bg\blockmap.asm'
 
+	; L6
+	include 'assets\maps\l6\l6a1\blockmap.asm'
+	include 'assets\maps\l6\l6bg\blockmap.asm'
+
 	IFND FINAL
 	include 'assets\maps\tst_lift\blockmap.asm'
 	ENDIF
@@ -170,6 +177,10 @@
 	include 'assets\maps\l4\l4a1\blocks.asm'
 	include 'assets\maps\l4\l4bg\blocks.asm'
 
+	; L6
+	include 'assets\maps\l6\l6a1\blocks.asm'
+	include 'assets\maps\l6\l6bg\blocks.asm'
+
 	IFND FINAL
 	include 'assets\maps\tst_lift\blocks.asm'
 	ENDIF
@@ -180,6 +191,7 @@
 	include 'assets\maps\l1\coltiles.asm'
 	include 'assets\maps\l3\coltiles.asm'
 	include 'assets\maps\l4\coltiles.asm'
+	include 'assets\maps\l6\coltiles.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\coltiles.asm'
@@ -195,7 +207,6 @@
 	include 'assets\maps\l1\l1a3\colmap.asm'
 	include 'assets\maps\l1\l1a4\colmap.asm'
 
-
 	; L2
 	include 'assets\maps\l2\l2a1\colmap.asm'
 
@@ -204,6 +215,9 @@
 
 	; L4
 	include 'assets\maps\l4\l4a1\colmap.asm'
+
+	; L6
+	include 'assets\maps\l6\l6a1\colmap.asm'
 	
 	; ************************************
 	; Collision blocks
@@ -223,6 +237,9 @@
 
 	; L4
 	include 'assets\maps\l4\l4a1\colblock.asm'
+
+	; L6
+	include 'assets\maps\l6\l6a1\colblock.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\colblock.asm'
@@ -247,6 +264,9 @@
 
 	; L4
 	include 'assets\maps\l4\l4a1\gameobj.asm'
+
+	; L6
+	include 'assets\maps\l6\l6a1\gameobj.asm'
 	
 	IFND FINAL
 	include 'assets\maps\tst_lift\gameobj.asm'
