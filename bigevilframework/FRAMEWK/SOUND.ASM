@@ -13,6 +13,12 @@ Track_Type_Ambience		equ 0x2	; Background ambience (mutually exclusive with BGM)
 ;------------------------------
 Track_Type_COUNT		equ 0x3
 
+; Track transition type
+Track_Transition_Crossfade	equ 0x0	; Fade track A out, fade in track B
+Track_Transition_Instant	equ 0x1	; Stop track A, begin track B
+Track_Transition_FadeDown	equ 0x2	; Fade track A out, begin track B
+Track_Transition_FadeUp		equ 0x3	; Stop track A, fade in track B
+
 Audio_NonExclusive		equ 0x0	; Non-excusive - plays alongside other SFX/tracks
 Audio_Exclusive			equ 0x1	; Exclusive track - disallows other tracks/SFX
 
@@ -22,8 +28,9 @@ Audio_DefaultFadeSpeed	equ 0x1
 Track_Data				rs.l 1
 Track_Type				rs.b 1
 Track_Exclusive			rs.b 1
+Track_Transition		rs.b 1
 ;-----------------------------
-Track_Struct_Padding	rs.b 2
+Track_Struct_Padding	rs.b 1
 Track_Struct_Size		rs.b 0
 
 	rsset 0
@@ -54,6 +61,21 @@ SND_PlayTrack:
 
 	PUSHL a1
 
+	; Queue address
+	move.l #0x0, a1
+
+	;==============================================================
+
+	; Auto-stop tracks that have reach the end
+	; TODO: done here due to delay between Echo_StartTrack and Echo_GetStatus returning Track Busy flag
+	cmp.l  #0x0, audio_current_track
+	beq    @EndStopCheck
+	jsr    SND_GetTrackBusy
+	cmp.b  #0x0, d0
+	bne    @EndStopCheck
+	move.l #0x0, audio_current_track
+	@EndStopCheck:
+
 	;==============================================================
 
 	; If current track playing, fade out first
@@ -72,14 +94,37 @@ SND_PlayTrack:
 	cmp.b  #0x0, audio_playback_locked
 	bne    @Busy
 
-	; Begin fade out, then bail
+	; Determine transition type
+	move.b Track_Transition(a0), d0
+	cmp.b  #Track_Transition_Instant, d0
+	beq    @StopPrev
+	cmp.b  #Track_Transition_FadeUp, d0
+	beq    @StopPrev
+
+	; All remaining transitions require fade out
 	move.b #-Audio_DefaultFadeSpeed, d0
 	jsr    SND_BeginFadeTrack
+
+	; Bail, wait for track to finish fading out
 	bra    @Busy
+
+	@StopPrev:
+
+	; Stop previous track instantly
+	jsr    SND_StopTrack
 
 	@Free:
 
 	;==============================================================
+
+	; If not ambience, remove from queue
+	cmp.l  #0x0, a1
+	beq    @NotQueued
+	cmp.b  #Track_Type_Ambience, Track_Type(a0)
+	beq    @Ambience
+	move.l #0x0, (a1)
+	@NotQueued:
+	@Ambience:
 
 	; Store current track
 	move.l a0, audio_current_track
@@ -96,6 +141,8 @@ SND_PlayTrack:
 	move.b #fm_timer_b_pal, d0
 	jsr    FM_SetTimerB
 
+	;==============================================================
+
 	@Busy:
 
 	POPL   a1
@@ -106,11 +153,19 @@ SND_PlayTrack:
 
 SND_StopTrack:
 	IFND DEBUG
-
 	jsr   Echo_StopBGM
 	move.l #0x0, audio_current_track
-
 	ENDIF
+	rts
+
+SND_ClearTracks:
+
+	lea    audio_queued_tracks, a1
+	move.w #Track_Type_COUNT-1, d0
+	@TrackLp:
+	move.l #0x0, (a1)
+	dbra   d0, @TrackLp
+
 	rts
 
 SND_PlaySFX:
@@ -278,7 +333,7 @@ SND_UpdateFader:
 	add.b  d0, d1
 	bcs    @NoClamp0
 	move.b #0x00, d0		; Turn fader off
-	move.b #0x00, d1		; Clamp vol
+	move.b #0xFF, d1		; Reset vol
 	jsr    SND_StopTrack	; Stop playback
 	@NoClamp0:
 
@@ -296,15 +351,6 @@ SND_UpdateFader:
 	rts
 
 SND_UpdateTrack:
-
-	; Auto-stop tracks that have reach the end
-	cmp.l  #0x0, audio_current_track
-	beq    @EndStopCheck
-	jsr    SND_GetTrackBusy
-	cmp.b  #0x0, d0
-	bne    @EndStopCheck
-	move.l #0x0, audio_current_track
-	@EndStopCheck:
 
 	; Check if track stopped
 	cmp.l  #0x0, audio_current_track
@@ -328,10 +374,16 @@ SND_UpdateTrack:
 	; Remove from queue
 	move.l #0x0, (a1)
 
-	; If ambience, fade up
-	cmp.b  #Track_Type_Ambience, Track_Type(a0)
-	bne    @ResetVolume
+	; Determine transition type
+	move.b Track_Transition(a0), d0
+	cmp.b  #Track_Transition_Crossfade, d0
+	beq    @FadeUp
+	cmp.b  #Track_Transition_FadeUp, d0
+	beq    @FadeUp
+	bra    @ResetVolume
 
+	@FadeUp:
+	
 	; Start fader
 	move.b #Audio_DefaultFadeSpeed, d0
 	jsr    SND_BeginFadeTrack

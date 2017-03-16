@@ -75,15 +75,15 @@ GameStateReset:
 	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Stone
 	
-	; Stop BGM
-	jsr    SND_StopTrack
-	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
 	jsr	   VDP_DMAQueue_ExecuteAll
 	
-	; Reset sound driver
-	jsr    SND_init
+	; Reset audio volume, stop current track, clear all tracks
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+	jsr    SND_StopTrack
+	jsr    SND_ClearTracks
 	
 	; Reset ropes
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
