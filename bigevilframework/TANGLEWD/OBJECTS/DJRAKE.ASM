@@ -658,7 +658,7 @@ DjrakeStartRoaring:
 	move.l (sp)+, a1
 	
 	; Start roar SFX
-	;PLAYSFX_HIGHPRIO #SFX_djrake_Roar
+	;PLAYSFX #SFX_djrake_Roar
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)
@@ -1031,7 +1031,7 @@ DjrakeStartBite:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	; Start bite SFX
-	;PLAYSFX_HIGHPRIO #SFX_djrake_Bite
+	;PLAYSFX #SFX_djrake_Bite
 
 	rts
 

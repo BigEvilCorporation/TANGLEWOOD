@@ -171,7 +171,7 @@ FireflyTestObj:
 	addi.w #0x1, FireflyPickupCount
 	
 	; Play SFX
-	PLAYSFX_HIGHPRIO #SFX_FireflyCollect
+	PLAYSFX #SFX_FireflyCollect
 
 	@NotPickedUp:
 	@AlreadypickedUp:

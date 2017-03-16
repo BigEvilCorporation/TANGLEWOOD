@@ -773,7 +773,7 @@ MonsterStartRoaring:
 	move.l (sp)+, a1
 	
 	; Start roar SFX
-	PLAYSFX_HIGHPRIO #SFX_Djakk_Roar
+	PLAYSFX #SFX_Djakk_Roar
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)
@@ -1173,7 +1173,7 @@ MonsterStartBite:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	; Start bite SFX
-	PLAYSFX_HIGHPRIO #SFX_Djakk_Bite
+	PLAYSFX #SFX_Djakk_Bite
 
 	rts
 

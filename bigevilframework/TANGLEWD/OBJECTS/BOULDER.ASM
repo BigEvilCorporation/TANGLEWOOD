@@ -395,7 +395,7 @@ BoulderCrack:
 	POPL   a1
 
 	; Play crack SFX
-	PLAYSFX_LOWPRIO #SFX_BoulderBreak
+	PLAYSFX #SFX_BoulderBreak
 	
 	rts
 	

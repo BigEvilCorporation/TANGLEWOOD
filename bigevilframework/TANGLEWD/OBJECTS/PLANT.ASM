@@ -290,7 +290,7 @@ BouncePlant_Activate:
 	move.b #0x1, BouncePlant_Active(a0)
 
 	; Play SFX
-	PLAYSFX_HIGHPRIO #SFX_MushroomBounce
+	PLAYSFX #SFX_MushroomBounce
 
 	; Start active anim
 	;PUSHL  a1

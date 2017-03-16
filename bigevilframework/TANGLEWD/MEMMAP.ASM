@@ -27,6 +27,7 @@ vdp_regs			  rs.b vdp_num_registers
 audio_clock           rs.l 1
 audio_current_track   rs.l 1
 audio_queued_tracks   rs.l Track_Type_COUNT
+audio_current_sfx     rs.l 1
 rand_seed             rs.l 1
 letterbox_top		  rs.w 1
 letterbox_bottom	  rs.w 1

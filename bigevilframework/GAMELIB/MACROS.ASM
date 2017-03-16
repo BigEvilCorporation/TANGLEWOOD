@@ -116,29 +116,13 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 	
 ;==============================================================
 	
-	; Play SFX non-excusively (won't play if already playing or sound system busy)
-PLAYSFX_LOWPRIO: macro sfxAddr
+	; Play SFX
+PLAYSFX: macro sfxAddr
 	IFND DEBUG
-	PUSHL a0/d0-d1
-	jsr   SND_GetSFXBusy
-	cmp.b #0x0, d0
-	bne   @BUSY\@
-	move.b #0x0, d0		; Non-exclusive
-	move.l \sfxAddr, a0
+	PUSHL a0
+	move.l \sfxaddr, a0
 	jsr   SND_PlaySFX
-	@BUSY\@:
-	POPL  a0/d0-d1
-	ENDIF
-	endm
-	
-	; Play SFX exclusively (replaces current SFX)
-PLAYSFX_HIGHPRIO: macro sfxAddr
-	IFND DEBUG
-	PUSHL a0/d0-d1
-	move.b #0x0, d0		; Non-exclusive
-	move.l \sfxAddr, a0
-	jsr   SND_PlaySFX
-	POPL  a0/d0-d1
+	POPL  a0
 	ENDIF
 	endm
 	

@@ -231,7 +231,7 @@ AnimObjDraw:
 	cmp.l  #0x0, d3
 	beq    @NoSFX
     
-	PLAYSFX_HIGHPRIO d3	; Play SFX (TODO: exlusive and non-exclusive modes)
+	PLAYSFX d3	; Play SFX (TODO: exlusive and non-exclusive modes)
 	
 	@NoTrackSFX:
 	@NoSFX:

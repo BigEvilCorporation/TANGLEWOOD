@@ -363,7 +363,7 @@ FuzzlUpdate:
 	move.w #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
 	
 	; Play alert SFX
-	PLAYSFX_HIGHPRIO #SFX_FuzzlAlert
+	PLAYSFX #SFX_FuzzlAlert
 
 	bra @InitialState
 	
@@ -442,7 +442,7 @@ FuzzlUpdate:
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	
 	; Play enter nest SFX
-	PLAYSFX_HIGHPRIO #SFX_FuzzlInNest
+	PLAYSFX #SFX_FuzzlInNest
 	
 	; Finish
 	bra @End
@@ -525,7 +525,7 @@ FuzzlUpdate:
 	bge    @SFXLowVel
 	
 	; Play land SFX
-	PLAYSFX_LOWPRIO #SFX_FuzzlDrop
+	PLAYSFX #SFX_FuzzlDrop
 	
 	@SFXEnd:
 	@SFXInAir:
@@ -603,7 +603,7 @@ FuzzlUpdateBounce:
 	move.w #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
 	
 	; Play jump SFX
-	PLAYSFX_HIGHPRIO #SFX_FuzzlJump
+	PLAYSFX #SFX_FuzzlJump
 	
 	; Restart timer
 	move.b #0x0, Fuzzl_BounceTimer(a0)

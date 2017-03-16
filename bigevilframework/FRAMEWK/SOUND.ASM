@@ -19,6 +19,10 @@ Track_Transition_Instant	equ 0x1	; Stop track A, begin track B
 Track_Transition_FadeDown	equ 0x2	; Fade track A out, begin track B
 Track_Transition_FadeUp		equ 0x3	; Stop track A, fade in track B
 
+; SFX priority clash
+SFX_PriorityClash_NoPlay	equ 0x0
+SFX_PriorityClash_Replace	equ 0x1
+
 Audio_NonExclusive		equ 0x0	; Non-excusive - plays alongside other SFX/tracks
 Audio_Exclusive			equ 0x1	; Exclusive track - disallows other tracks/SFX
 
@@ -37,8 +41,9 @@ Track_Struct_Size		rs.b 0
 SFX_Data				rs.l 1
 SFX_Priority			rs.b 1
 SFX_Exclusive			rs.b 1
+SFX_ClashBehaviour		rs.b 1
 ;-----------------------------
-SFX_Struct_Padding		rs.b 2
+SFX_Struct_Padding		rs.b 1
 SFX_Struct_Size			rs.b 0
 
 
@@ -170,30 +175,61 @@ SND_ClearTracks:
 
 SND_PlaySFX:
 	; a0 --- SFX address
-	; d0 (b) Exclusive
 
 	IFND DEBUG
 
-	move.b d0, d1
+	PUSHL  d0
+	PUSHL  a1
 
-	; If exclusivity held
-	cmp.b  #0x0, audio_playback_locked
-	beq    @Unlocked
-;
-	; Check busy
-	jsr    SND_GetBusy
+	; Auto-stop SFX that have reach the end
+	; TODO: done here due to delay between Echo_StartTrack and Echo_GetStatus returning SFX Busy flag
+	cmp.l  #0x0, audio_current_sfx
+	beq    @EndStopCheck
+	jsr    SND_GetSFXBusy
 	cmp.b  #0x0, d0
+	bne    @EndStopCheck
+	move.l #0x0, audio_current_sfx
+	@EndStopCheck:
+
+	; If SFX already playing
+	cmp.l  #0x0, audio_current_sfx
+	beq    @Free
+
+	; If exclusivity held, bail
+	cmp.b  #0x0, audio_playback_locked
 	bne    @Busy
-;
+
+	; Check priority
+	move.l (audio_current_sfx), a1
+	move.b SFX_Priority(a1), d0
+	cmp.b  SFX_Priority(a0), d0
+	blt    @Busy
+	bgt    @Replace
+
+	; Priorities clash
+	cmp.b  #SFX_PriorityClash_NoPlay, SFX_ClashBehaviour(a0)
+	beq    @Busy
+
+	@Free:
 	@Unlocked:
+	@Replace:
+
+	; Set current SFX
+	move.l a0, audio_current_sfx
+
+	; Set exclusivity
+	move.b SFX_Exclusive(a0), audio_playback_locked
+
+	; Get SFX data
+	move.l SFX_Data(a0), a0
 
 	; Play SFX
 	jsr    Echo_PlaySFX
 
-	; Set exclusive
-	move.b d1, audio_playback_locked
-
 	@Busy:
+
+	POPL   a1
+	POPL   d0
 
 	ENDIF
 
@@ -331,11 +367,11 @@ SND_UpdateFader:
 	@FadeDown:
 	; Fading down, clamp to 0 and stop
 	add.b  d0, d1
-	bcs    @NoClamp0
+	bcs    @NoClamp
 	move.b #0x00, d0		; Turn fader off
 	move.b #0xFF, d1		; Reset vol
 	jsr    SND_StopTrack	; Stop playback
-	@NoClamp0:
+	@NoClamp:
 
 	@Apply:
 

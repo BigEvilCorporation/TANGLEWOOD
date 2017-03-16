@@ -482,7 +482,7 @@ PlayerBeginColourSwitch:
 	POPL   a1
 	
 	; Play SFX
-	PLAYSFX_HIGHPRIO #SFX_NymnColourSwitch
+	PLAYSFX #SFX_NymnColourSwitch
 	
 	; Start countdown timer
 	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
@@ -970,7 +970,7 @@ PlayerUpdateColourAbility:
 	jsr    PlayerBeginColourSwitch
 
 	; Play SFX
-	PLAYSFX_HIGHPRIO #SFX_NymnColourFade
+	PLAYSFX #SFX_NymnColourFade
 	
 	@NoTimeout:
 	@TimerRunning:

@@ -155,7 +155,7 @@ CharacterUpdate:
 	add.l  #CharacterSFXIdx_Land, a2
 	cmp.l  #0x0, (a2)
 	beq    @NoLandSFX
-	PLAYSFX_LOWPRIO (a2)
+	PLAYSFX (a2)
 	@NoLandSFX:
 	
 	@OffFloor:

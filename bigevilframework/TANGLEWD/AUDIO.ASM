@@ -47,7 +47,7 @@ UpdateAmbientAudio:
 	move.l (a0), a0
 
 	; Play
-	PLAYSFX_LOWPRIO a0
+	PLAYSFX a0
 	
 	; Get next random time
 	jsr    RND_GenerateLong				; Rand long
