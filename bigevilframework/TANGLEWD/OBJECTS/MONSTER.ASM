@@ -11,8 +11,8 @@
 ; ************************************
 Monster_MaxEntities   equ 0x1
 
-Monster_Width	      equ 0x0080
-Monster_Height	      equ 0x0050
+Monster_Width	      equ 0x0088
+Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x03E0   ; Max X running velocity
