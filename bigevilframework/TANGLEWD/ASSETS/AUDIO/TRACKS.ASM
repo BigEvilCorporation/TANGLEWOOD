@@ -33,7 +33,7 @@ track_bgm_lvloutro:
 	dc.l	bgm_lvloutro
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
-	dc.b	Track_Transition_Crossfade
+	dc.b	Track_Transition_Instant
 	even
 
 track_bgm_dawn:

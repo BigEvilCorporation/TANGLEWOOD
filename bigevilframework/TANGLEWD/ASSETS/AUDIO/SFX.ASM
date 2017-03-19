@@ -86,6 +86,7 @@ SFX_Data_Ambience_Day1:		include 'assets\audio\SFX\ambience\day1.asm'
 ;SFX_Data_Ambience_Day2:	include 'assets\audio\SFX\ambience\day2.asm'
 SFX_Data_Ambience_Night1:	include 'assets\audio\SFX\ambience\night1.asm'
 ;SFX_Data_Ambience_Night2:	include 'assets\audio\SFX\ambience\night2.asm'
+	even
 
 SFX_FlueIn:
 	dc.l SFX_Data_FlueIn			; Data
