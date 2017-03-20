@@ -65,7 +65,7 @@ Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ (0x2<<fade_frame_shift)
-Player1ColourChangeTimeout	equ 0x0600
+Player1ColourChangeTimeout	equ 0x7FFF ;0x0600
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
@@ -84,8 +84,8 @@ Player1IdleAnimWaitFrames	equ 0x0600
 Player1DjakkTamingDistance  equ	0x0100
 
 ; Djakk saddle position
-Player1DjakkSaddleOffsetX	equ 0x0000
-Player1DjakkSaddleOffsetY	equ 0x0000
+Player1DjakkSaddleOffsetX	equ 0x0028*SubpixelsPerPixel
+Player1DjakkSaddleOffsetY	equ -0x0008*SubpixelsPerPixel
 
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
@@ -626,6 +626,9 @@ PlayerStartColourAbility:
 	; Check monster tamed
 	cmp.b  #MonsterState_Tamed, Monster_State(a1)
 	beq    @Tamed
+
+	; Howl
+	jsr    NymnHowl
 	
 	; Tame it
 	PUSHL  a0
@@ -649,6 +652,7 @@ PlayerStartColourAbility:
 	
 	; Ride it - set interacting obj + type
 	move.l a1, Player_InteractObject(a0)
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	move.b #Player_Interaction_Ride, Player_InteractionType(a0)
 		
 	; Begin ride animation
@@ -662,6 +666,9 @@ PlayerStartColourAbility:
 	
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
+
+	; Stop processing physics, inheriting pos/vel from monster
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	
 	; Done
 	bra    @EndMonsterLoop
@@ -790,6 +797,16 @@ PlayerStopColourAbility:
 	
 	; Release control of anim updates
 	move.b #0x1, Character_UpdateAnim(a0)
+
+	; Restore physics
+	move.b #0x1, PhysicsObj_HasPhysics(a0)
+
+	; Reset Djakk acceleration
+	move.l Player_InteractObject(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoDjakk
+	move.w #0x0, PhysicsObj_AccelX(a2)
+	@NoDjakk:
 	
 	bra    @ReturnColour
 	
@@ -942,13 +959,21 @@ PlayerUpdateColourAbility:
 	move.l Player_InteractObject(a0), a2
 	
 	; Snap to saddle position
-	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
-	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	move.l Entity_WorldPosX(a2), d0
+	move.l Entity_WorldPosY(a2), d1
+	add.l  #Player1DjakkSaddleOffsetX, d0
+	add.l  #Player1DjakkSaddleOffsetY, d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
 	
 	; Forward acceleration onto Djakk
 	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
 	
-	; Scale ride anim speed to velocity
+	; Match anim frame
+	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
+
+	; Match flipping
+	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
 	
 	@NotRiding:
 	
@@ -1169,16 +1194,16 @@ PlayerCancelInteract:
 	
 	@NotPushing:
 	
-	; Stop interacting
-	move.b #Player_Interaction_None, Player_InteractionType(a0)
-	move.l #0x0, Player_InteractObject(a0)
-	move.b #0x0, Character_Interacting(a0)
-	
 	; Stop colour ability
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @NoColourAbility
 	jsr    PlayerStopColourAbility
 	@NoColourAbility:
+
+	; Stop interacting
+	move.b #Player_Interaction_None, Player_InteractionType(a0)
+	move.l #0x0, Player_InteractObject(a0)
+	move.b #0x0, Character_Interacting(a0)
 	
 	rts
 	

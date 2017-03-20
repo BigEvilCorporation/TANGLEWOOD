@@ -409,6 +409,13 @@ NymnStartInteract:
 	
 	move.l d0, -(sp)
 	move.l d1, -(sp)
+
+	IFND TANGLWD_INCLUDE_ECHO
+
+	; Base functionality
+	jsr    PlayerStartInteract
+
+	ELSE ; TANGLWD_INCLUDE_ECHO
 	
 	; Check if already interacting
 	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
@@ -467,6 +474,8 @@ NymnStartInteract:
 	@AlreadyInteracting:
 	@Dead:
 	@EchoFound:
+
+	ENDIF ; TANGLWD_INCLUDE_ECHO
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -479,6 +488,13 @@ NymnCancelInteract:
 	
 	move.l d0, -(sp)
 	move.l d1, -(sp)
+
+	IFND TANGLWD_INCLUDE_ECHO
+
+	; Base functionality
+	jsr    PlayerCancelInteract
+
+	ELSE ; TANGLWD_INCLUDE_ECHO
 	
 	; If carrying Echo
 	cmp.b  #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
@@ -500,6 +516,8 @@ NymnCancelInteract:
 	jsr    PlayerCancelInteract
 	
 	@CarryingEcho:
+
+	ENDIF ; TANGLWD_INCLUDE_ECHO
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -509,6 +527,8 @@ NymnCancelInteract:
 NymnBeginCarryEcho:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IFD TANGLWD_INCLUDE_ECHO
 	
 	; Cancel velocity and acceleration
 	move.w #0x0, PhysicsObj_VelX(a0)
@@ -552,11 +572,15 @@ NymnBeginCarryEcho:
 	jsr    CharacterCancelRun
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
+	ENDIF ; TANGLWD_INCLUDE_ECHO
+
 	rts
 	
 NymnEndCarryEcho:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IFD TANGLWD_INCLUDE_ECHO
 	
 	; Cancel velocity and acceleration
 	move.w #0x0, PhysicsObj_VelX(a0)
@@ -598,6 +622,8 @@ NymnEndCarryEcho:
 	jsr    CharacterStartRun
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 
+	ENDIF ; TANGLWD_INCLUDE_ECHO
+
 	rts
 
 NymnHowl:
@@ -613,10 +639,14 @@ NymnHowl:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	IFD TANGLWD_INCLUDE_ECHO
+
 	; Start Echo's howl timer
 	PUSHL  a0
 	move.l #Player2, a0
 	jsr    EchoStartHowlTimer
 	POPL   a0
+
+	ENDIF ; TANGLWD_INCLUDE_ECHO
 
 	rts

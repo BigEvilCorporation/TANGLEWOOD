@@ -55,6 +55,8 @@ Monster_OutOfDistSpeedMul	equ 0x8
 
 Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
 
+Monster_GrowlDelay			equ 0x0030	; Delay between Nymn howling and Djakk responding when tamed
+
 ; Search state
 Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
 Monster_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
@@ -120,6 +122,7 @@ Monster_Animations	   rs.b (Animation_Struct_Size*Monster_NumAnims)
 Monster_SearchTargetX  rs.l 1
 Monster_SearchDelay	   rs.w 1
 Monster_LoseSightTimer rs.w 1
+Monster_GrowlTimer     rs.w 1
 Monster_CatchUpSpeedMul rs.w 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
@@ -192,6 +195,7 @@ MonsterInit:
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
 	move.w  #0x0, Monster_LoseSightTimer(a0)
+	move.w  #0x0, Monster_GrowlTimer(a0)
 	move.w  #Monster_OutOfDistSpeedMul, Monster_CatchUpSpeedMul(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
@@ -561,6 +565,27 @@ MonsterDie:
 
 	rts
 
+MonsterRoar:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Start roar animation
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Monster_Animations, a1
+	move.l #(MonsterAnimIdx_Roar*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l #0x0, AnimObj_AnimSubFrame(a0)
+	move.b #0x1, AnimObj_Playing(a0)
+	move.b #0x1, AnimObj_Dirty(a0)
+	move.l (sp)+, a1
+	
+	; Start roar SFX
+	PLAYSFX #SFX_Djakk_Roar
+
+	rts
+
 MonsterTakeColourPower:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -761,20 +786,8 @@ MonsterStartRoaring:
 	move.b #0x0, SpriteObj_FlippedX(a0)
 	@EndFlip:
 	
-	; Start roar animation
-	move.l a1, -(sp)
-	move.l a0, a1
-	add.l  #Monster_Animations, a1
-	move.l #(MonsterAnimIdx_Roar*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	move.l #0x0, AnimObj_AnimSubFrame(a0)
-	move.b #0x1, AnimObj_Playing(a0)
-	move.b #0x1, AnimObj_Dirty(a0)
-	move.l (sp)+, a1
-	
-	; Start roar SFX
-	PLAYSFX #SFX_Djakk_Roar
+	; Roar
+	jsr    MonsterRoar
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)
@@ -1242,6 +1255,9 @@ MonsterStartTamed:
 	;move.b #0xF, d4
 	;jsr    PAL_LerpStart
 	;move.l (sp)+, a0
+
+	; Start growl timer
+	move.w #Monster_GrowlDelay, Monster_GrowlTimer(a0)
 	
 	; Stand still
 	jsr    CharacterCancelXMovement
@@ -1258,4 +1274,16 @@ MonsterUpdateTamed:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Update growl timer
+	move.w Monster_GrowlTimer(a0), d0
+	cmp.w  #0x0, d0
+	beq    @TimerNotRunning
+	sub.w  #0x1, d0
+	move.w d0, Monster_GrowlTimer(a0)
+	cmp.w  #0x0, d0
+	bne    @TimerStillRunning
+	jsr    MonsterRoar
+	@TimerStillRunning:
+	@TimerNotRunning:
+
 	rts
