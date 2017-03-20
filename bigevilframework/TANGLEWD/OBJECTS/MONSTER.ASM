@@ -18,6 +18,7 @@ Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x03E0   ; Max X running velocity
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
+Monster_WalkToRunVel  equ 0x0300   ; Walk to run transition velocity
 Monster_AccelWalk     equ 0x0002   ; Walking acceleration
 Monster_AccelRun      equ 0x0010   ; Running acceleration
 Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
@@ -171,7 +172,7 @@ MonsterInit:
 	
 	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.w  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Monster_MaxVelXWalk, Character_WalkToRunVel(a0)
+	move.w  #Monster_WalkToRunVel, Character_WalkToRunVel(a0)
 	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)
 	move.w  #Monster_AccelRun, Character_AccelRun(a0)
 	move.w  #Monster_DecelIdle, Character_DecelIdle(a0)
@@ -1242,9 +1243,11 @@ MonsterStartTamed:
 	;jsr    PAL_LerpStart
 	;move.l (sp)+, a0
 	
-	; Stop running
-	jsr    CharacterCancelRun
+	; Stand still
 	jsr    CharacterCancelXMovement
+
+	; Allow running
+	jsr    CharacterStartRun
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
