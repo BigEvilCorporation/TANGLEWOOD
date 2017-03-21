@@ -116,10 +116,11 @@ PlayerAnimIdx_Sleep     	equ 2	; Sleep loop
 PlayerAnimIdx_Wake      	equ 3	; Wakes up fully and stands up
 PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
 PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
-PlayerAnimIdx_Ride		 	equ 6	; Ride a Djakk
-PlayerAnimIdx_Howl		 	equ 7	; Long howl
+PlayerAnimIdx_Mount		 	equ 6	; Mount a Djakk
+PlayerAnimIdx_Ride		 	equ 7	; Ride a Djakk
+PlayerAnimIdx_Howl		 	equ 8	; Long howl
 ; -------------------------------
-PlayerAnimIdx_Max       	equ 8
+PlayerAnimIdx_Max       	equ 9
 
 ; ************************************
 ; Macros
@@ -654,18 +655,33 @@ PlayerStartColourAbility:
 	move.l a1, Player_InteractObject(a0)
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	move.b #Player_Interaction_Ride, Player_InteractionType(a0)
-		
-	; Begin ride animation
+
+	; Zero accel/velocity
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+
+	; Snap to mount start pos
+	; TODO: Invert for flipping
+	move.l Entity_WorldPosX(a1), d0
+	add.l  #Player1DjakkSaddleOffsetX, d0
+	move.l d0, Entity_WorldPosX(a0)
+
+	; Match flipping
+	move.b SpriteObj_FlippedX(a1), SpriteObj_FlippedX(a0)
+
+	; Mount animation
 	PUSHL  a1
 	move.l a0, a1
 	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Ride*Animation_Struct_Size), d1
+	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
+		
+	; Set riding
+	move.b #0x1, Character_Riding(a0)
 
 	; Stop processing physics, inheriting pos/vel from monster
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
@@ -794,12 +810,12 @@ PlayerStopColourAbility:
 	; Blue - beast taming / ride Djakk
 	; ************************************
 	@Blue:
-	
-	; Release control of anim updates
-	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Restore physics
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
+
+	; Stop riding
+	move.b #0x0, Character_Riding(a0)
 
 	; Reset Djakk acceleration
 	move.l Player_InteractObject(a0), a2
@@ -954,6 +970,11 @@ PlayerUpdateColourAbility:
 	; If riding a Djakk
 	cmp.b #Player_Interaction_Ride, Player_InteractionType(a0)
 	bne   @NotRiding
+
+	; Wait for mount anim to finish
+	move.l AnimObj_CurrentAnim(a0), a2
+	cmp.b  #0x0, Animation_Looping(a2)
+	beq    @PlayingMountAnim
 	
 	; Get Djakk
 	move.l Player_InteractObject(a0), a2
@@ -974,7 +995,8 @@ PlayerUpdateColourAbility:
 
 	; Match flipping
 	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
-	
+
+	@PlayingMountAnim:
 	@NotRiding:
 	
 	bra    @End

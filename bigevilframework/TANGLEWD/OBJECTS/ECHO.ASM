@@ -218,6 +218,25 @@ EchoInit:
 	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
+	; Ride
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Ride), a3
+	;move.w #spritesheet_Echo_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
+	;move.l #spriteanim_Echo_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	;move.l #spriteanim_Echo_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)
+	;move.l #spriteanim_Echo_ridedjakk_track_posy, Animation_AnimTrackPositionY(a3)
+	;move.b #spriteanim_Echo_ridedjakk_speed, Animation_Speed(a3)
+	;move.b #spriteanim_Echo_ridedjakk_numframes, Animation_Length(a3)
+	;move.b #0x1, Animation_Looping(a3)
+	;move.b #0x0, Animation_ZeroVelocity(a3)
+	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
+	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+
 	; Push (light object)
 	move.l a2, a3
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
@@ -359,25 +378,6 @@ EchoInit:
 	;move.b #spriteanim_Echo_lookback_numframes, Animation_Length(a3)
 	;move.b #0x0, Animation_Looping(a3)
 	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Ride a Djakk
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Ride), a3
-	;move.w #spritesheet_Echo_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_ridedjakk_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_ridedjakk_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;move.b #0x0, Animation_ZeroVelocity(a3)
 	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)

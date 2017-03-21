@@ -27,8 +27,9 @@ CharacterAnimIdx_PushHeavy	equ 8
 CharacterAnimIdx_Fall		equ 9
 CharacterAnimIdx_WalkToRun	equ 10
 CharacterAnimIdx_WaterWade	equ 11
+CharacterAnimIdx_Ride		equ 12
 ; -------------------------------
-Character_NumAnims			equ 12
+Character_NumAnims			equ 13
 
 ; ************************************
 ; SFX ids
@@ -72,6 +73,7 @@ Character_Falling			rs.b 1
 Character_Pushing			rs.b 1
 Character_PushingHeavy		rs.b 1
 Character_Gliding			rs.b 1
+Character_Riding			rs.b 1
 Character_Interacting		rs.b 1
 Character_UpdateAnim		rs.b 1
 Character_AnimIdx	    	rs.b 1
@@ -79,7 +81,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 0
+Character_Struct_Pad    	rs.b 3
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -106,6 +108,7 @@ CharacterInit:
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_PushingHeavy(a0)
 	move.b #0x0, Character_Gliding(a0)
+	move.b #0x0, Character_Riding(a0)
 	move.b #0x0, Character_Interacting(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
@@ -291,6 +294,14 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Glide, d1
 	move.b Character_Gliding(a0), d0	; If player is gliding, set glide anim
+	cmp.b  #0x1, d0
+	beq    @SetAnim
+
+	; =====================================================================
+	; Riding
+	; =====================================================================
+	move.b #CharacterAnimIdx_Ride, d1
+	move.b Character_Riding(a0), d0		; If player is riding, set ride anim
 	cmp.b  #0x1, d0
 	beq    @SetAnim
 	

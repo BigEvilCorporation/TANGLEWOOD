@@ -1268,6 +1268,14 @@ MonsterStartTamed:
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
 
+	; End chase music
+	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	beq    @NotPlaying
+	move.b #-1, d0
+	jsr    SND_BeginFadeTrack
+	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
+	@NotPlaying:
+
 	rts
 
 MonsterUpdateTamed:
