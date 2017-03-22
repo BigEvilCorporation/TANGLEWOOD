@@ -16,6 +16,7 @@ Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x03E0   ; Max X running velocity
+Monster_MaxVelXRunTamed equ 0x04E0   ; Max X running velocity (when being ridden)
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
 Monster_WalkToRunVel  equ 0x0300   ; Walk to run transition velocity
@@ -1343,6 +1344,9 @@ MonsterStartBucking:
 	; Take anim control
 	move.b #0x0, Character_UpdateAnim(a0)
 
+	; Override run speed
+	move.w #Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0)
+
 	rts
 
 MonsterUpdateBucking:
@@ -1355,6 +1359,9 @@ MonsterUpdateBucking:
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
+
+	; Reset run speed
+	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
 	
 	; Roar and chase
 	jsr    MonsterStartRoaring

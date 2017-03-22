@@ -1060,10 +1060,10 @@ PlayerUpdateColourAbility:
 	; Match speed
 	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a2)
 	bne    @Galloping
-	move.b #0x2, Character_Riding(a0)
+	move.b #0x1, Character_Riding(a0)
 	bra    @Trotting
 	@Galloping:
-	move.b #0x1, Character_Riding(a0)
+	move.b #0x2, Character_Riding(a0)
 	@Trotting:
 
 	; Force dirty
