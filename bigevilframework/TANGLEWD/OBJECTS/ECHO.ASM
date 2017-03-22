@@ -220,7 +220,7 @@ EchoInit:
 
 	; Ride
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Ride), a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_RideTrot), a3
 	;move.w #spritesheet_Echo_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
 	;move.l #spriteanim_Echo_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	;move.l #spriteanim_Echo_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)

@@ -54,6 +54,21 @@ spriteanim_nymn_ridedjakk_track_posy:
 spriteanim_nymn_ridedjakk_track_sfx:
 	Even
 
+spriteanim_nymn_ridedjakkrun:
+spriteanim_nymn_ridedjakkrun_numframes: equ 0x5
+spriteanim_nymn_ridedjakkrun_speed: equ 0x1E
+spriteanim_nymn_ridedjakkrun_track_frames:
+	dc.b 0x3, 0x4, 0x5, 0x6, 0x7
+	Even
+spriteanim_nymn_ridedjakkrun_track_posx:
+	dc.b 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+spriteanim_nymn_ridedjakkrun_track_posy:
+	dc.b 0x2, 0x4, 0x7, 0x2, 0x0
+	Even
+spriteanim_nymn_ridedjakkrun_track_sfx:
+	Even
+
 spriteanim_nymn_colourswitch:
 spriteanim_nymn_colourswitch_numframes: equ 0xE
 spriteanim_nymn_colourswitch_speed: equ 0x28

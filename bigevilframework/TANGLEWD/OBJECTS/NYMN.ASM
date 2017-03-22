@@ -187,15 +187,27 @@ NymnInit:
 	move.b #spriteanim_nymn_glide_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 
-	; Ride
+	; Ride (trot)
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Ride), a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_RideTrot), a3
 	move.w #spritesheet_nymn_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #spriteanim_nymn_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)
 	move.l #spriteanim_nymn_ridedjakk_track_posy, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_ridedjakk_speed, Animation_Speed(a3)
+	move.b #0x0, Animation_Speed(a3)
 	move.b #spriteanim_nymn_ridedjakk_numframes, Animation_Length(a3)
+	move.b #0x1, Animation_Looping(a3)
+	move.b #0x0, Animation_ZeroVelocity(a3)
+
+	; Ride (gallop)
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*CharacterAnimIdx_RideGallop), a3
+	move.w #spritesheet_nymn_ridedjakkrun_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_nymn_ridedjakkrun_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #spriteanim_nymn_ridedjakkrun_track_posx, Animation_AnimTrackPositionX(a3)
+	move.l #spriteanim_nymn_ridedjakkrun_track_posy, Animation_AnimTrackPositionY(a3)
+	move.b #0x0, Animation_Speed(a3)
+	move.b #spriteanim_nymn_ridedjakkrun_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	move.b #0x0, Animation_ZeroVelocity(a3)
 

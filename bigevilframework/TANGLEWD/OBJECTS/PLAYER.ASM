@@ -117,10 +117,9 @@ PlayerAnimIdx_Wake      	equ 3	; Wakes up fully and stands up
 PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
 PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
 PlayerAnimIdx_Mount		 	equ 6	; Mount a Djakk
-PlayerAnimIdx_Ride		 	equ 7	; Ride a Djakk
-PlayerAnimIdx_Howl		 	equ 8	; Long howl
-; -------------------------------
-PlayerAnimIdx_Max       	equ 9
+PlayerAnimIdx_Howl		 	equ 7	; Long howl
+; --------------------------------
+PlayerAnimIdx_Max       	equ 8
 
 ; ************************************
 ; Macros
@@ -993,6 +992,18 @@ PlayerUpdateColourAbility:
 	; Match anim frame
 	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
 
+	; Match speed
+	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a2)
+	bne    @Galloping
+	move.b #0x2, Character_Riding(a0)
+	bra    @Trotting
+	@Galloping:
+	move.b #0x1, Character_Riding(a0)
+	@Trotting:
+
+	; Force dirty
+	move.b #0x1, AnimObj_Dirty(a0)
+
 	; Match flipping
 	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
 
@@ -1077,7 +1088,7 @@ PlayerStartInteract:
 	move.b #0x1, Character_Pushing(a0)
 	bra    @EndPush
 	@HeavyObj:
-	move.b #0x1, Character_PushingHeavy(a0)
+	move.b #0x2, Character_Pushing(a0)
 	@EndPush:
 	
 	; Player can't run
@@ -1150,7 +1161,6 @@ PlayerUpdateInteract:
 
 	; Cannot be pushed/no longer in range - clear pushing flags (but keep interaction flag until button depressed)
 	move.b #0x0, Character_Pushing(a0)
-	move.b #0x0, Character_PushingHeavy(a0)
 	move.b #0x0, Character_LockSpriteFlip(a0)
 	bra    @NotPushing
 
@@ -1163,7 +1173,7 @@ PlayerUpdateInteract:
 	move.b #0x1, Character_Pushing(a0)
 	bra    @LightObj
 	@HeavyObj:
-	move.b #0x1, Character_PushingHeavy(a0)
+	move.b #0x2, Character_Pushing(a0)
 	@LightObj:
 	
 	; Scale push anim speed based on velocity
@@ -1203,7 +1213,6 @@ PlayerCancelInteract:
 	
 	; Stop pushing
 	move.b #0x0, Character_Pushing(a0)
-	move.b #0x0, Character_PushingHeavy(a0)
 	
 	; Restore sprite flip lock
 	move.b #0x0, Character_LockSpriteFlip(a0)
