@@ -65,7 +65,7 @@ Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ (0x2<<fade_frame_shift)
-Player1ColourChangeTimeout	equ 0x7FFF ;0x0600
+Player1ColourChangeTimeout	equ 0x0600
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
@@ -86,6 +86,10 @@ Player1DjakkTamingDistance  equ	0x0100
 ; Djakk saddle position
 Player1DjakkSaddleOffsetX	equ 0x0028*SubpixelsPerPixel
 Player1DjakkSaddleOffsetY	equ -0x0008*SubpixelsPerPixel
+
+; Djakk buck player velocity
+Player1DjakkBuckVelocityX	equ 0x0400
+Player1DjakkBuckVelocityY	equ 0x0100
 
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
@@ -150,6 +154,7 @@ PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 Player_Animations	   		rs.b (Animation_Struct_Size*PlayerAnimIdx_Max)
 Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_ColourPowerHost		rs.l 1	; Object player has stolen colour power from
+Player_Pet					rs.l 1	; Current tamed creature
 Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
@@ -214,6 +219,7 @@ PlayerInit:
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.l  #0x0, Player_LastBouncePlant(a0)
+	move.l  #0x0, Player_Pet(a0)
 	move.w  #0x0, Player_ColourChangeTimer(a0)
 	move.w  #0x0, Player_IdleFrameCount(a0)
 	move.b  #0x0, Player_IdleTimeoutCount(a0)
@@ -637,6 +643,9 @@ PlayerStartColourAbility:
 	jsr    MonsterStartTamed
 	POPL   d6
 	POPL   a0
+
+	; Now a pet
+	move.l a1, Player_Pet(a0)
 	
 	; Riding needs a second Action button press, bail out
 	bra    @EndMonsterLoop
@@ -670,7 +679,7 @@ PlayerStartColourAbility:
 	; Match flipping
 	move.b SpriteObj_FlippedX(a1), SpriteObj_FlippedX(a0)
 
-	; Mount animation
+	; Ride ze Shoopuf
 	PUSHL  a1
 	move.l a0, a1
 	add.l  #Player_Animations, a1
@@ -813,17 +822,73 @@ PlayerStopColourAbility:
 	; Restore physics
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 
+	;==============================================================
+
+	; Reset pet acceleration
+	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoPet
+	move.w #0x0, PhysicsObj_AccelX(a2)
+
+	; If riding
+	cmp.b  #0x0, Character_Riding(a0)
+	beq    @NotRiding
+
 	; Stop riding
 	move.b #0x0, Character_Riding(a0)
 
-	; Reset Djakk acceleration
-	move.l Player_InteractObject(a0), a2
-	cmp.l  #0x0, a2
-	beq    @NoDjakk
-	move.w #0x0, PhysicsObj_AccelX(a2)
-	@NoDjakk:
+	; If voluntary, jump off
+	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	beq    @TimerElapsed
+	jsr    CharacterStartJump
+	bra    @EndBuckTest
+
+	@TimerElapsed:
+
+	; else monster bucks and throws player off
+	PUSHL  a0
+	move.l a2, a0
+	jsr    MonsterStartBucking
+	POPL   a0
+
+	; Buck = jump with overridden velocity
+	jsr    CharacterStartJump
+	move.w #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @BuckRight
+	move.w #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	bra    @EndBuck
+	@BuckRight:
+	move.w #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	@EndBuck:
+
+	@NotRiding:
+	@EndBuckTest:
+
+	;==============================================================
+
+	; If timer elapsed
+	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	bne    @PetStillTamed
+
+	; Pet no longer tamed
+	PUSHL  a0
+	move.l a1, a0
+	jsr    MonsterStartTrackPlayer
+	POPL   a0
+
+	; and it's no longer our friend
+	move.l #0x0, Player_Pet(a0)
+
+	@PetStillTamed:
+	@NoPet:
+
+	; Release interaction obj
+	move.l #0x0, Player_InteractObject(a0)
 	
 	bra    @ReturnColour
+
+	;==============================================================
 	
 	@ReturnColour:
 

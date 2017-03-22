@@ -96,6 +96,7 @@ MonsterState_Chasing	equ 0x4
 MonsterState_Attacking	equ 0x5
 MonsterState_Wandering	equ 0x6
 MonsterState_Tamed		equ 0x7
+MonsterState_Bucking	equ 0x8
 
 ; ************************************
 ; Music states
@@ -110,8 +111,9 @@ MonsterMusicState_Search	equ 0x2
 MonsterAnimIdx_Eyes		equ 0
 MonsterAnimIdx_Bite		equ 1
 MonsterAnimIdx_Roar		equ 2
+MonsterAnimIdx_Buck		equ 3
 ; -------------------------------
-Monster_NumAnims		equ 3
+Monster_NumAnims		equ 4
 
 ; ************************************
 ; Struct
@@ -297,6 +299,18 @@ MonsterInit:
 	move.b #spriteanim_djakk_roar_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
+
+	; Buck
+	move.l a2, a3
+	add.l  #(Animation_Struct_Size*MonsterAnimIdx_Buck), a3
+	move.w #spritesheet_djakk_throw_frameoffset, Animation_FirstFrameOffset(a3)
+	move.l #spriteanim_djakk_throw_track_frames, Animation_AnimTrackSpriteFrame(a3)
+	move.l #0x0, Animation_AnimTrackPositionX(a3)
+	move.l #0x0, Animation_AnimTrackPositionY(a3)
+	move.b #spriteanim_djakk_throw_speed, Animation_Speed(a3)
+	move.b #spriteanim_djakk_throw_numframes, Animation_Length(a3)
+	move.b #0x0, Animation_Looping(a3)
+	move.b #0x1, Animation_ZeroVelocity(a3)
 	
 	; Begin initial state
 	jsr    MonsterStartWaitForPlayer
@@ -362,6 +376,8 @@ MonsterUpdate:
 	beq   @Wandering
 	cmp.b #MonsterState_Tamed, d0
 	beq   @Tamed
+	cmp.b #MonsterState_Bucking, d0
+	beq   @Bucking
 
 	; ************************************
 	; In cave
@@ -422,8 +438,17 @@ MonsterUpdate:
 	; ************************************
 	@Tamed:
 
-	; Wander around
+	; Under player control
 	jsr MonsterUpdateTamed
+	bra @EndStateMachine
+
+	; ************************************
+	; Bucking
+	; ************************************
+	@Bucking:
+
+	; Wait for animation
+	jsr MonsterUpdateBucking
 	bra @EndStateMachine
 
 	; ************************************
@@ -1294,4 +1319,46 @@ MonsterUpdateTamed:
 	@TimerStillRunning:
 	@TimerNotRunning:
 
+	rts
+
+MonsterStartBucking:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set buck state
+	move.b #MonsterState_Bucking, Monster_State(a0)
+
+	; Start buck animation
+	move.l a1, -(sp)
+	move.l a0, a1
+	add.l  #Monster_Animations, a1
+	move.l #(MonsterAnimIdx_Buck*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.l #0x0, AnimObj_AnimSubFrame(a0)
+	move.b #0x1, AnimObj_Playing(a0)
+	move.b #0x1, AnimObj_Dirty(a0)
+	move.l (sp)+, a1
+
+	; Take anim control
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	rts
+
+MonsterUpdateBucking:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Check if anim finished
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	bne    @AnimPlaying
+	
+	; Pass anim control back to character
+	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; Roar and chase
+	jsr    MonsterStartRoaring
+	
+	@AnimPlaying:
+	
 	rts
