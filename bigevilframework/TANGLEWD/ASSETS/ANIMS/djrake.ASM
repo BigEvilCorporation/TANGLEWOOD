@@ -16,11 +16,12 @@ spriteanim_djrake_idle_track_frames:
 	dc.b 0x0
 	Even
 spriteanim_djrake_idle_track_posx:
-
+	dc.b 0x0
 	Even
 spriteanim_djrake_idle_track_posy:
-
+	dc.b 0x0
 	Even
 spriteanim_djrake_idle_track_sfx:
+	dc.l 0x0
 	Even
 
