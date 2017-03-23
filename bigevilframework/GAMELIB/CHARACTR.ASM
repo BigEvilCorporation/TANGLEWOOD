@@ -54,7 +54,8 @@ Character_LastLedgeX		rs.l 1
 Character_LastLedgeY		rs.l 1
 Character_ProbeLedgeX		rs.w 1
 Character_ProbeLedgeY		rs.w 1
-Character_JumpVel			rs.w 1
+Character_JumpVelX			rs.w 1
+Character_JumpVelY			rs.w 1
 Character_JumpVelWater		rs.w 1
 Character_JumpCancelVelLo	rs.w 1
 Character_JumpCancelVelHi	rs.w 1
@@ -81,7 +82,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 0
+Character_Struct_Pad    	rs.b 2
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -524,11 +525,18 @@ CharacterCancelXMovement:
 CharacterStartJump:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	PUSHM  d0-d1
 	
 	; Check if player dead
 	move.b Character_Dead(a0), d4
 	cmp.b  #0x1, d4
 	beq    @Dead
+
+	; Check if player is riding
+	move.b Character_Riding(a0), d4
+	cmp.b  #0x0, d4
+	bne    @CanJump
 	
 	; Check if player is interacting
 	move.b Character_Interacting(a0), d4
@@ -552,8 +560,23 @@ CharacterStartJump:
 	cmp.b  #0x0, d4
 	bne    @InWater
 	
-	; Jump
-	move.w Character_JumpVel(a0), PhysicsObj_VelY(a0)
+	; Set Y velocity
+	move.w Character_JumpVelY(a0), PhysicsObj_VelY(a0)
+
+	; Set min X velocity
+	move.w Character_JumpVelX(a0), d0
+	move.w PhysicsObj_VelX(a0), d1
+	cmp.w  #0x0, d1
+	bge    @Positive
+	neg.w  d0
+	neg.w  d1
+	@Positive:
+	cmp.w  d1, d0
+	blt    @EndXVel
+	move.w d0, PhysicsObj_VelX(a0)
+	@EndXVel:
+
+	; Set jumping
 	move.b #0x1, Character_Jumping(a0)
 	
 	bra    @End
@@ -566,12 +589,16 @@ CharacterStartJump:
 	@Dead:
 	@CantJump:
 	@End:
+
+	POPM   d0-d1
 	
 	rts
 	
 CharacterCancelJump:	
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	PUSHM  d0-d1
 	
 	; Check if player dead
 	move.b Character_Dead(a0), d4
@@ -605,12 +632,16 @@ CharacterCancelJump:
 	@Gliding:
 	@VelTooLow:
 	@VelTooHigh:
+
+	POPM   d0-d1
 	
 	rts
 	
 CharacterStartRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	PUSHM  d0-d1
 	
 	; Check if player dead
 	move.b Character_Dead(a0), d4
@@ -638,12 +669,16 @@ CharacterStartRun:
 	
 	@Dead:
 	@CantRun:
+
+	POPM   d0-d1
 	
 	rts
 	
 CharacterCancelRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	PUSHM  d0-d1
 	
 	; If on floor
 	move.b PhysicsObj_CloseToFloor(a0), d2
@@ -660,6 +695,8 @@ CharacterCancelRun:
 	move.b #0x0, Character_Running(a0)
 	
 	@InAir:
+
+	POPM   d0-d1
 	
 	rts
 	

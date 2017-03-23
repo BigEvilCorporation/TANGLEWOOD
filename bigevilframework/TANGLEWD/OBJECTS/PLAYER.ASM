@@ -46,7 +46,8 @@ Player1MaxVelXRun  equ 0x0380  ; Player 1 max X running velocity
 Player1MaxVelYUp   equ 0x0600  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x0800  ; Player 1 max Y velocity down (tile height)
 
-Player1JumpVel	     equ 0x0600 ; Player 1 jump velocity impulse
+Player1JumpVelX      equ 0x0000 ; Player 1 jump velocity impulse X
+Player1JumpVelY      equ 0x0600 ; Player 1 jump velocity impulse Y
 Player1JumpVelWater	 equ 0x0200 ; Player 1 jump velocity impulse from water
 Player1JumpCancelVelLo equ 0x0100 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
@@ -206,7 +207,8 @@ PlayerInit:
 	move.w  #Player1AccelRun, Character_AccelRun(a0)
 	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
 	move.w  #Player1DecelForced, Character_DecelForced(a0)
-	move.w  #Player1JumpVel, Character_JumpVel(a0)
+	move.w  #Player1JumpVelX, Character_JumpVelX(a0)
+	move.w  #Player1JumpVelY, Character_JumpVelY(a0)
 	move.w  #Player1JumpVelWater, Character_JumpVelWater(a0)
 	move.w  #Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0)
 	move.w  #Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0)

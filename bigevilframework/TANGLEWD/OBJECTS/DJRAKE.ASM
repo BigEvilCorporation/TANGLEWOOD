@@ -151,7 +151,7 @@ DjrakeInit:
 	move.w  #Djrake_AccelRun, Character_AccelRun(a0)
 	move.w  #Djrake_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Djrake_DecelForced, Character_DecelForced(a0)
-	move.w  #Djrake_JumpVel, Character_JumpVel(a0)
+	move.w  #Djrake_JumpVel, Character_JumpVelY(a0)
 	move.w  #Djrake_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
 	move.w  #Djrake_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
 	move.w  #Djrake_MaxGrabUpVel, Character_MaxGrabUpVel(a0)

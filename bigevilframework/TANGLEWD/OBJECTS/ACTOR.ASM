@@ -94,7 +94,7 @@ ActorInit:
 	move.w  #ActorAccelRun, Character_AccelRun(a0)
 	move.w  #ActorDecelIdle, Character_DecelIdle(a0)
 	move.w  #ActorDecelForced, Character_DecelForced(a0)
-	move.w  #ActorJumpVel, Character_JumpVel(a0)
+	move.w  #ActorJumpVel, Character_JumpVelY(a0)
 	move.w  #ActorJumpVelWater, Character_JumpVelWater(a0)
 	move.w  #ActorJumpCancelVelLo, Character_JumpCancelVelLo(a0)
 	move.w  #ActorJumpCancelVelHi, Character_JumpCancelVelHi(a0)
