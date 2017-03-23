@@ -33,7 +33,8 @@ PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
 PhysicsObj_VelX    		    rs.w 1 ; X velocity
 PhysicsObj_VelY    		    rs.w 1 ; Y velocity
-PhysicsObj_MaxVelX 		    rs.w 1 ; Max X velocity
+PhysicsObj_MaxVelFloorX 	rs.w 1 ; Max X velocity (on floor)
+PhysicsObj_MaxVelAirX 		rs.w 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    rs.w 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	    rs.w 1 ; Max Y velocity down
 PhysicsObj_FloorProbeX	    rs.w 1 ; Floor probe X offset
@@ -200,12 +201,21 @@ PhysicsObjApplyAccelDecel:
 	add.w  d0, d1				; Add X acceleration
 	move.w d1, PhysicsObj_VelX(a0)	; Back to RAM
 	
+	; Get max X velocity
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	beq    @AirVelocity
+	move.w PhysicsObj_MaxVelFloorX(a0), d0	; Get max velocity +ve
+	bra    @FloorVelocity
+	@AirVelocity:
+	move.w PhysicsObj_MaxVelAirX(a0), d0	; Get max velocity +ve
+	@FloorVelocity:
+
+	; Check clamp type
 	cmp.b  #0x0, PhysicsObj_MaxVelClamp(a0)
 	bne    @ClampMaxVelX
 	
 	; Check if past max velocity
-	move.w PhysicsObj_MaxVelX(a0), d0	; Get max velocity +ve
-	cmp.w  d0, d1				; Compare
+	cmp.w  d0, d1				; Compare velocity with max
 	bgt    @ClampSpeedDecel	    ; (BGT is signed comparison)
 	neg.w  d0					; Get max velocity -ve
 	cmp.w  d0, d1				; Compare
@@ -214,8 +224,7 @@ PhysicsObjApplyAccelDecel:
 	
 	@ClampMaxVelX:
 	
-	move.w PhysicsObj_MaxVelX(a0), d0	; Get max velocity +ve
-	cmp.w  d0, d1				; Compare
+	cmp.w  d0, d1				; Compare velocity with max
 	bgt    @ClampX			    ; (BGT is signed comparison)
 	neg.w  d0					; Get max velocity -ve
 	cmp.w  d0, d1				; Compare

@@ -10,12 +10,13 @@
 Fuzzl_MaxEntities			equ 0x4
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
+Fuzzl_MaxVelXFloor			equ 0x0120
+Fuzzl_MaxVelXAir			equ 0x0120
 Fuzzl_MaxVelYUp				equ 0x0600
 Fuzzl_MaxVelYDown			equ (0x8*SubpixelsPerPixel)
 Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
 Fuzzl_ProbeFloorY   		equ (Fuzzl_Height-8) ; Floor detection probe position Y
-Fuzzl_MaxVelX				equ 0x0120
 Fuzzl_Decel					equ 0x02
 Fuzzl_BounceX				equ 0x1
 Fuzzl_BounceY				equ 0x2
@@ -154,7 +155,8 @@ FuzzlInit:
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
-	move.w  #Fuzzl_MaxVelX, PhysicsObj_MaxVelX(a0)
+	move.w  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)

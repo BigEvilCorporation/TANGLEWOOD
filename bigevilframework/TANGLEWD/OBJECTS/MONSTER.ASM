@@ -16,6 +16,7 @@ Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x03E0   ; Max X running velocity
+Monster_MaxVelXAir    equ 0x04E0
 Monster_MaxVelXRunTamed equ 0x04E0   ; Max X running velocity (when being ridden)
 Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
 Monster_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
@@ -169,7 +170,8 @@ MonsterInit:
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)
 	move.w  #Monster_Height, Entity_Height(a0)
-	move.w  #Monster_MaxVelXRun, PhysicsObj_MaxVelX(a0)
+	move.w  #Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.w  #Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Monster_DecelIdle, PhysicsObj_DecelX(a0)

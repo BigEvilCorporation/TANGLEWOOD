@@ -136,7 +136,7 @@ DjrakeInit:
 	; Default properties
 	move.w  #Djrake_Width, Entity_Width(a0)
 	move.w  #Djrake_Height, Entity_Height(a0)
-	move.w  #Djrake_MaxVelXRun, PhysicsObj_MaxVelX(a0)
+	move.w  #Djrake_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Djrake_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Djrake_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Djrake_DecelIdle, PhysicsObj_DecelX(a0)

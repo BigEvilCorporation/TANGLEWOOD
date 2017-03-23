@@ -559,6 +559,10 @@ CharacterStartJump:
 	move.b Character_InWater(a0), d4
 	cmp.b  #0x0, d4
 	bne    @InWater
+
+	; Set off floor
+	move.b #0x0, PhysicsObj_OnFloor(a0)
+	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	
 	; Set Y velocity
 	move.w Character_JumpVelY(a0), PhysicsObj_VelY(a0)
@@ -566,10 +570,13 @@ CharacterStartJump:
 	; Set min X velocity
 	move.w Character_JumpVelX(a0), d0
 	move.w PhysicsObj_VelX(a0), d1
-	cmp.w  #0x0, d1
-	bge    @Positive
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @Positive
 	neg.w  d0
-	neg.w  d1
+	cmp.w  d1, d0
+	bgt    @EndXVel
+	move.w d0, PhysicsObj_VelX(a0)
+	bra    @EndXVel
 	@Positive:
 	cmp.w  d1, d0
 	blt    @EndXVel
@@ -659,7 +666,7 @@ CharacterStartRun:
 	bne    @CantRun
 
 	; Set max running velocity
-	move.w Character_MaxVelXRun(a0), PhysicsObj_MaxVelX(a0)
+	move.w Character_MaxVelXRun(a0), PhysicsObj_MaxVelFloorX(a0)
 	
 	; Snap to floor if within step height
 	move.b #0x1, PhysicsObj_SnapToFloor(a0)
@@ -686,7 +693,7 @@ CharacterCancelRun:
 	beq    @InAir
 
 	; Set max walking velocity
-	move.w Character_MaxVelXWalk(a0), PhysicsObj_MaxVelX(a0)
+	move.w Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
 	
 	; Disable snap to floor
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)

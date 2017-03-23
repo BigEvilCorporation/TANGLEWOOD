@@ -76,7 +76,7 @@ LiftInit:
 	move.w  #Lift_Height, Entity_Height(a0)
 	move.w  #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Lift_MaxVelX, PhysicsObj_MaxVelX(a0)
+	move.w  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)

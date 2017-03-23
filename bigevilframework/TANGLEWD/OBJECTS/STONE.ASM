@@ -61,7 +61,7 @@ StoneInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Stone_Width, Entity_Width(a0)
 	move.w  #Stone_Height, Entity_Height(a0)
-	move.w  #Stone_MaxVelX, PhysicsObj_MaxVelX(a0)
+	move.w  #Stone_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Stone_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Stone_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Stone_ProbeFloorX, PhysicsObj_FloorProbeX(a0)

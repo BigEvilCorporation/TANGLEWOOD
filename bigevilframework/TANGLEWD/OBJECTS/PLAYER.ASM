@@ -43,6 +43,7 @@ Player1DecelForced equ 0x0030 ; Player 1 deceleration if input opposite directio
 ; Player max velocities (all values must be divisors of SubpixelsPerPixel)
 Player1MaxVelXWalk equ 0x0120  ; Player 1 max X walking velocity
 Player1MaxVelXRun  equ 0x0380  ; Player 1 max X running velocity
+Player1MaxVelXAir  equ 0x0380  ; Player 1 max X velocity ina ir
 Player1MaxVelYUp   equ 0x0600  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x0800  ; Player 1 max Y velocity down (tile height)
 
@@ -192,7 +193,8 @@ PlayerInit:
 	move.l  #Player1StartPosWorldY, Entity_WorldPosY(a0)
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
-	move.w  #Player1MaxVelXWalk, PhysicsObj_MaxVelX(a0)
+	move.w  #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.w  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
@@ -545,7 +547,7 @@ PlayerStartColourAbility:
 	; Gliding
 	move.b #0x1, Character_Gliding(a0)							; Set gliding
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)	; Set ability active
-	move.w #Player1MaxGlideVelocityX, PhysicsObj_MaxVelX(a0)		; Set max glide velocity
+	move.w #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)		; Set max glide velocity
 	move.w #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
 	
 	; Set ability active
@@ -597,6 +599,7 @@ PlayerStartColourAbility:
 	
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
 
 	bra    @End
 	
@@ -751,7 +754,7 @@ PlayerStopColourAbility:
 	
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
-	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelX(a0)			; Reset max velocity
+	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	move.w #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	
 	bra    @ReturnColour
@@ -792,6 +795,7 @@ PlayerStopColourAbility:
 	
 	; Re-enable run
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.w #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subi.l #0x1, d1						 ; -1 for loop
@@ -1170,6 +1174,7 @@ PlayerStartInteract:
 	
 	; Player can't run
 	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
 	
 	; Clamp to max velocity
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -1296,6 +1301,7 @@ PlayerCancelInteract:
 	
 	; Restore walk speed
 	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.w #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	
 	; Restore max velocity clamp to use deceleration
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)

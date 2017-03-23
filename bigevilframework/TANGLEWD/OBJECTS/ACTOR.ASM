@@ -80,7 +80,7 @@ ActorInit:
 	; Setup default state
 	move.w  #ActorWidth, Entity_Width(a0)
 	move.w  #ActorHeight, Entity_Height(a0)
-	move.w  #ActorMaxVelXWalk, PhysicsObj_MaxVelX(a0)
+	move.w  #ActorMaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #ActorMaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.w  #ActorMaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #ActorDecelIdle, PhysicsObj_DecelX(a0)
