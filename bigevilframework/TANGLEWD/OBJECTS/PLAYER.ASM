@@ -1031,7 +1031,7 @@ PlayerUpdateColourAbility:
 	; ************************************
 	@Blue:
 	
-	; If riding a Djakk
+	; If riding a pet
 	cmp.b #Player_Interaction_Ride, Player_InteractionType(a0)
 	bne   @NotRiding
 
@@ -1040,8 +1040,8 @@ PlayerUpdateColourAbility:
 	cmp.b  #0x0, Animation_Looping(a2)
 	beq    @PlayingMountAnim
 	
-	; Get Djakk
-	move.l Player_InteractObject(a0), a2
+	; Get pet
+	move.l Player_Pet(a0), a2
 	
 	; Snap to saddle position
 	move.l Entity_WorldPosX(a2), d0
@@ -1051,8 +1051,18 @@ PlayerUpdateColourAbility:
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	
-	; Forward acceleration onto Djakk
+	; Forward acceleration onto pet
 	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
+
+	; Forward jump state
+	cmp.b  #0x0, Character_Jumping(a0)
+	beq    @NotJumping
+	PUSHL  a0
+	move.l a2, a0
+	jsr    CharacterStartJump
+	POPL   a0
+	move.b #0x0, Character_Jumping(a0)
+	@NotJumping:
 	
 	; Match anim frame
 	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
