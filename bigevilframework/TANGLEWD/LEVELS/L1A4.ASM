@@ -77,7 +77,7 @@ l1a4_Init:
 	move.l #Player1, a0
 	
 	; Disable player 1 control
-	move.b #0x0, Player1ControlEnabled
+	move.b #0x0, Player_ControlEnabled(a0)
 	
 	; Start sleep anim
 	move.l a0, a1
@@ -93,6 +93,10 @@ l1a4_Init:
 	move.b #0x1, l1a4Data_WaitingInput(a2)
 	
 	;==============================================================
+
+	move.l #Player1, a0
+	move.b #ColourBlue, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
 	
 	rts
 	
@@ -121,12 +125,13 @@ l1a4_Update:
 	jsr    AnimObjSetAnimation
 	POPL   a2
 	POPL   a1
+
+	move.l #Player1, a0
 	
 	; Enable player 1 control
-	move.b #0x1, Player1ControlEnabled
+	move.b #0x1, Player_ControlEnabled(a0)
 	
 	; Release animation control
-	move.l #Player1, a0
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Done

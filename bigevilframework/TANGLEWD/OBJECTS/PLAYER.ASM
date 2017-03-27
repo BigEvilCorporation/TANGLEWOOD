@@ -67,7 +67,7 @@ Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ (0x2<<fade_frame_shift)
-Player1ColourChangeTimeout	equ 0x0600
+Player1ColourChangeTimeout	equ 0x7FFF ;equ 0x0600
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
@@ -89,6 +89,9 @@ Player1DjakkTamingDistance  equ	0x0100
 Player1DjakkSaddleOffsetX	equ 0x0028*SubpixelsPerPixel
 Player1DjakkSaddleOffsetY	equ -0x0008*SubpixelsPerPixel
 
+; Mount camera lerp speed
+Player1MountCameraLerpSpeed	equ 0x10
+
 ; Djakk buck player velocity
 Player1DjakkBuckVelocityX	equ 0x0400
 Player1DjakkBuckVelocityY	equ 0x0100
@@ -103,6 +106,13 @@ Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2)
 
 Player1PushAnimSpeedVelocityDivLight equ 0x0004
 Player1PushAnimSpeedVelocityDivHeavy equ 0x0008
+
+; Mounting/riding state`
+Player_RideState_None		equ 0x0
+Player_RideState_Mounting	equ 0x1
+Player_RideState_CameraLerp	equ 0x2
+Player_RideState_Riding		equ 0x3
+Player_RideState_Jumping	equ 0x4
 
 ; Interaction types
 Player_Interaction_None		equ 0x0
@@ -161,13 +171,15 @@ Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
+Player_ControlEnabled		rs.b 1
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
+Player_RideState			rs.b 1
 ;---------------------------------
-Player_Struct_Pad      		rs.b 1
+Player_Struct_Pad      		rs.b 3
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -220,6 +232,7 @@ PlayerInit:
 	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
+	move.b  #0x1, Player_ControlEnabled(a0)
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.l  #0x0, Player_LastBouncePlant(a0)
@@ -607,13 +620,18 @@ PlayerStartColourAbility:
 	; Blue - beast taming / ride Djakk
 	; ************************************
 	@Blue:
+
+	PUSHL  a1
+
+	; Player must be on floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
 	
 	; If not already riding a Djakk
 	cmp.b  #Player_Interaction_Ride, Player_InteractionType(a0)
 	beq    @Riding
 	
 	; Find a Djakk in range
-	PUSHL  a1
 	move.l #EntityArray_Monster, a1
 	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
@@ -657,47 +675,26 @@ PlayerStartColourAbility:
 		
 	@Tamed:
 
+	; Must be on floor
+	cmp.b #0x0, PhysicsObj_CloseToFloor(a1)
+	beq   @NextMonster
+
+	; Wait for howl anim to finish
+	move.l a0, a3
+	add.l  #Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size), a3
+	cmp.l  AnimObj_CurrentAnim(a0), a3
+	beq    @PlayingHowlAnim
+
 	; Bounds check
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @NextMonster
-	
-	; Ride it - set interacting obj + type
-	move.l a1, Player_InteractObject(a0)
-	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
-	move.b #Player_Interaction_Ride, Player_InteractionType(a0)
-
-	; Zero accel/velocity
-	move.w #0x0, PhysicsObj_AccelX(a0)
-	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
-
-	; Snap to mount start pos
-	; TODO: Invert for flipping
-	move.l Entity_WorldPosX(a1), d0
-	add.l  #Player1DjakkSaddleOffsetX, d0
-	move.l d0, Entity_WorldPosX(a0)
-
-	; Match flipping
-	move.b SpriteObj_FlippedX(a1), SpriteObj_FlippedX(a0)
 
 	; Ride ze Shoopuf
-	PUSHL  a1
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	POPL   a1
-		
-	; Set riding
-	move.b #0x1, Character_Riding(a0)
-
-	; Stop processing physics, inheriting pos/vel from monster
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.l a1, a2
+	jsr    PlayerMountPet
 	
 	; Done
 	bra    @EndMonsterLoop
@@ -706,11 +703,13 @@ PlayerStartColourAbility:
 	add.l #Monster_Struct_Size, a1
 	dbra  d6, @MonsterLoop
 	
+	@InAir:
+	@PlayingHowlAnim:
 	@NoMonsters:
 	@EndMonsterLoop:
-	POPL  a1
-	
 	@Riding:
+
+	POPL  a1
 	
 	bra    @End
 	
@@ -752,6 +751,10 @@ PlayerStopColourAbility:
 	; ************************************
 	@Yellow:
 	
+	; If inactive, don't bother
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	beq    @ReturnColour
+
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
 	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
@@ -764,6 +767,10 @@ PlayerStopColourAbility:
 	; ************************************
 	@Green:
 	
+	; If inactive, don't bother
+	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	beq    @ReturnColour
+
 	; Reset palette
 	PUSHL  a0
 	move.w #TimeOfDayCycleSpeed, d1		; Speed
@@ -825,69 +832,19 @@ PlayerStopColourAbility:
 	; ************************************
 	@Blue:
 
-	; Restore physics
-	move.b #0x1, PhysicsObj_HasPhysics(a0)
-
-	;==============================================================
-
-	; Reset pet acceleration
-	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
-	beq    @NoPet
-	move.w #0x0, PhysicsObj_AccelX(a2)
-
 	; If riding
 	cmp.b  #0x0, Character_Riding(a0)
 	beq    @NotRiding
 
-	; Stop riding
-	move.b #0x0, Character_Riding(a0)
-
-	; If voluntary, jump off
+	; Dismount
 	cmp.w  #0x0, Player_ColourChangeTimer(a0)
-	beq    @TimerElapsed
-	jsr    CharacterStartJump
-	bra    @EndBuckTest
-
-	@TimerElapsed:
-
-	; else monster bucks and throws player off
-	PUSHL  a0
-	move.l a2, a0
-	jsr    MonsterStartBucking
-	POPL   a0
-
-	; Buck = jump with overridden velocity
-	jsr    CharacterStartJump
-	move.w #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @BuckRight
-	move.w #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
-	bra    @EndBuck
-	@BuckRight:
-	move.w #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
-	@EndBuck:
+	move.b #0x0, d0
+	bne    @VoluntaryDismount
+	move.b #0x1, d0
+	@VoluntaryDismount:
+	jsr    PlayerDismountPet
 
 	@NotRiding:
-	@EndBuckTest:
-
-	;==============================================================
-
-	; If timer elapsed
-	cmp.w  #0x0, Player_ColourChangeTimer(a0)
-	bne    @PetStillTamed
-
-	; Pet no longer tamed
-	PUSHL  a0
-	move.l a1, a0
-	jsr    MonsterStartTrackPlayer
-	POPL   a0
-
-	; and it's no longer our friend
-	move.l #0x0, Player_Pet(a0)
-
-	@PetStillTamed:
-	@NoPet:
 
 	; Release interaction obj
 	move.l #0x0, Player_InteractObject(a0)
@@ -1038,17 +995,395 @@ PlayerUpdateColourAbility:
 	@Blue:
 	
 	; If riding a pet
-	cmp.b #Player_Interaction_Ride, Player_InteractionType(a0)
-	bne   @NotRiding
+	cmp.b  #Player_Interaction_Ride, Player_InteractionType(a0)
+	bne    @NotRiding
 
-	; Wait for mount anim to finish
-	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.b  #0x0, Animation_Looping(a2)
-	beq    @PlayingMountAnim
+	; Update mount
+	jsr    PlayerUpdateMount
+
+	@NotRiding:
 	
+	bra    @End
+
+	;==============================================================
+	
+	@NoColour:
+	@NotInteracting:
+	@End:
+	
+	; If power elapsed, switch back to red
+	jsr   PlayerColourAbilityElapsed
+	cmp.b #0x0, d0
+	beq   @PowerStillActive
+
+	jsr    PlayerStopColourAbility
+	move.b #ColourRed, Player_Colour(a0)
+	jsr    PlayerBeginColourSwitch
+
+	; Play SFX
+	PLAYSFX #SFX_NymnColourFade
+	
+	@PowerStillActive:
+
+	rts
+
+PlayerColourAbilityElapsed:
+
+	; Init return val
+	move.b #0x0, d0
+
+	; Get colour
+	move.b Player_Colour(a0), d1
+
+	; If not red
+	cmp.b  #ColourRed, d1
+	beq    @NoPower
+
+	; If timer running
+	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	beq    @TimerElapsed
+
+	; Advance countdown
+	sub.w  #0x1, Player_ColourChangeTimer(a0)
+	bne    @TimerRunning
+
+	@TimerElapsed:
+
+	; Timer elapsed
+	move.b #0x1, d0
+
+	; If blue, check if player can dismount pet
+	cmp.b  #ColourBlue, d1
+	bne    @NotBlue
+	
+	jsr    PlayerCanDismountPet
+
+	@NotBlue:
+	@NoPet:
+	@PetOnFloor:
+
+	@TimerRunning:
+	@NoPower:
+
+	rts
+
+;==============================================================
+; Player mounting/riding routines
+;==============================================================
+
+PlayerMountPet:
+	; a0 --- Player address
+	; a2 --- Pet (character) address
+
+	; Ride it - set interacting obj + type
+	move.l a1, Player_InteractObject(a0)
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+	move.b #Player_Interaction_Ride, Player_InteractionType(a0)
+
+	; Zero accel/velocity
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+
+	; Clear jump flag
+	move.b #0x0, Character_Jumping(a0)
+
+	; Snap to mount start pos
+	; TODO: Invert for flipping
+	move.l Entity_WorldPosX(a2), d0
+	add.l  #Player1DjakkSaddleOffsetX, d0
+	move.l d0, Entity_WorldPosX(a0)
+
+	; Match flipping
+	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
+
+	; Start mount animation
+	PUSHL  a0-a2
+	move.l a0, a1
+	add.l  #Player_Animations, a1
+	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a0-a2
+		
+	; Set riding
+	move.b #0x1, Character_Riding(a0)
+
+	; Stop processing physics, inheriting pos/vel from monster
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
+
+	; Disable controls
+	move.b #0x0, Player_ControlEnabled(a0)
+
+	;==============================================================
+
+	; Player updates pet
+	PUSHL  a0
+	move.l a2, a0
+	jsr    EntityRemoveFromUpdateList
+	POPL   a0
+
+	; Prepare for camera lerp
+	ENTITY_GETCENTREX d2, a0
+	ENTITY_GETCENTREY d3, a0
+	move.l d2, CameraTargetLerpStartX
+	move.l d3, CameraTargetLerpStartY
+
+	; Set initial state
+	move.b #Player_RideState_Mounting, Player_RideState(a0)
+
+	rts
+
+PlayerDismountPet:
+	; a0 --- Character address
+	; d0 (b) 0 = Voluntary, 1 = Forced
+
 	; Get pet
 	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NotRiding
+
+	; Zero player acceleration and velocity
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
+
+	; Zero pet acceleration
+	move.w #0x0, PhysicsObj_AccelX(a2)
+	move.w #0x0, PhysicsObj_AccelY(a2)
+
+	; Jump off
+	PUSHM  a0-a2
+	jsr    CharacterStartJump
+	POPM   a0-a2
+
+	;==============================================================
+
+	; Restore pet update routine
+	PUSHM  a0-a2
+	move.l a2, a0
+	jsr    EntityAddToUpdateList
+	POPM   a0-a2
+
+	;==============================================================
+
+	; If involuntary dismount, monster bucks and throws player off
+	cmp.w  #0x0, d0
+	bne    @VoluntaryDismount
+
+	; Start monster buck state
+	PUSHM  a0-a2
+	move.l a2, a0
+	jsr    MonsterStartBucking
+	POPM   a0-a2
+
+	; Override player jump velocity
+	move.w #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @BuckRight
+	move.w #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	bra    @EndBuck
+	@BuckRight:
+	move.w #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	@EndBuck:
+
+	@NotRiding:
+	@VoluntaryDismount:
+
+	; If timer elapsed
+	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	bne    @PetStillTamed
+
+	; Pet no longer tamed
+	PUSHM  a0-a2
+	move.l a2, a0
+	jsr    MonsterStartTrackPlayer
+	POPM   a0-a2
+
+	; and it's no longer our friend
+	move.l #0x0, Player_Pet(a0)
+
+	@PetStillTamed:
+	@NoPet:
+
+	; Restore physics
+	move.b #0x1, PhysicsObj_HasPhysics(a0)
+
+	; Stop riding
+	move.b #0x0, Character_Riding(a0)
+
+	; Restore controls
+	move.b #0x1, Player_ControlEnabled(a0)
+
+	; Set mount state
+	move.b #Player_RideState_None, Player_RideState(a0)
+
+	rts
+
+PlayerUpdateMount:
+	; a0 --- Character address
+
+	; Get pet
+	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoPet
+
+	; Check state
+	move.b Player_RideState(a0), d0
+	cmp.b  #Player_RideState_Mounting, d0
+	beq    @StateMounting
+	cmp.b  #Player_RideState_CameraLerp, d0
+	beq    @StateCameraLerp
+	cmp.b  #Player_RideState_Riding, d0
+	beq    @StateRiding
+	cmp.b  #Player_RideState_Jumping, d0
+	beq    @StateJumping
+
+	;==============================================================
+
+	@StateMounting:
+
+	; Wait for mount anim to finish
+	move.l a0, a3
+	add.l  #Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size), a3
+	cmp.l  AnimObj_CurrentAnim(a0), a3
+	beq    @EndState
+
+	; Done, start ride anim
+	PUSHM  a0-a2
+	move.l a0, a1
+	add.l  #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
+	jsr    AnimObjSetAnimation
+	POPM   a0-a2
 	
+	; Snap player pos to saddle pos
+	jsr    PlayerSyncWithPet
+	
+	; Start camera lerp
+	move.l a0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Player1MountCameraLerpSpeed, CameraTargetLerpSpeed
+
+	; Set camera lerp state
+	move.b #Player_RideState_CameraLerp, Player_RideState(a0)
+
+	bra    @EndState
+
+	;==============================================================
+
+	@StateCameraLerp:
+
+	; Wait for camera lerp to finish
+	cmp.w  #0x0, (CameraTargetLerpSpeed)
+	bne    @EndState
+
+	; Done, start riding
+	move.b #Player_RideState_Riding, Player_RideState(a0)
+
+	; Enable controls
+	move.b #0x1, Player_ControlEnabled(a0)
+
+	bra    @EndState
+
+	;==============================================================
+
+	@StateRiding:
+
+	; Forward controls onto pet
+	jsr    PlayerForwardPetControls
+
+	; Update pet
+	PUSHALL
+	move.l a2, a0
+	jsr    MonsterUpdate
+	POPALL
+	
+	; Sync state with pet
+	jsr    PlayerSyncWithPet
+
+	bra    @EndState
+
+	;==============================================================
+
+	@StateJumping:
+
+	; Update pet
+	PUSHALL
+	move.l a2, a0
+	jsr    MonsterUpdate
+	POPALL
+	
+	; Sync state with pet
+	jsr    PlayerSyncWithPet
+
+	; If pet finished jumping, reset jump anim (non-looping anim, won't reset
+	; back to walk/run when finished because anim is updated manually)
+	cmp.b  #0x0, Character_Jumping(a2)
+	bne    @PetJumping
+
+	; Pet finished jumping, restore anim
+	PUSHM  a0-a2
+	move.l a0, a1
+	add.l  #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
+	jsr    AnimObjSetAnimation
+	POPM   a0-a2
+
+	move.w #0x0, SpriteObj_DrawOffsetX(a0)
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+
+	; Back to riding state
+	move.b #Player_RideState_Riding, Player_RideState(a0)
+
+	@PetJumping:
+
+	;==============================================================
+
+	@NoPet:
+	@EndState:
+
+	rts
+
+PlayerForwardPetControls:
+	; a0 --- Character address
+	; a2 --- Pet address
+
+	; Forward acceleration onto pet
+	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
+
+	; Forward jump state onto pet
+	cmp.b  #0x0, Character_Jumping(a0)
+	beq    @NotJumping
+
+	; Djakk jump
+	PUSHM  a0-a2
+	move.l a2, a0
+	jsr    CharacterStartJump
+	POPM   a0-a2
+
+	; Player jump anim
+	PUSHM  a0-a2
+	move.l a0, a1
+	add.l  #Character_Animations, a1
+	move.l #(CharacterAnimIdx_RideJump*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPM   a0-a2
+
+	; Reset jump flag
+	move.b #0x0, Character_Jumping(a0)
+
+	; Enter jump state
+	move.b #Player_RideState_Jumping, Player_RideState(a0)
+	@NotJumping:
+
+	rts
+
+PlayerSyncWithPet:
+	; a0 --- Character address
+	; a2 --- Pet address
+
 	; Snap to saddle position
 	move.l Entity_WorldPosX(a2), d0
 	move.l Entity_WorldPosY(a2), d1
@@ -1056,19 +1391,6 @@ PlayerUpdateColourAbility:
 	add.l  #Player1DjakkSaddleOffsetY, d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
-	
-	; Forward acceleration onto pet
-	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
-
-	; Forward jump state
-	cmp.b  #0x0, Character_Jumping(a0)
-	beq    @NotJumping
-	PUSHL  a0
-	move.l a2, a0
-	jsr    CharacterStartJump
-	POPL   a0
-	move.b #0x0, Character_Jumping(a0)
-	@NotJumping:
 	
 	; Match anim frame
 	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
@@ -1088,31 +1410,40 @@ PlayerUpdateColourAbility:
 	; Match flipping
 	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
 
-	@PlayingMountAnim:
-	@NotRiding:
-	
-	bra    @End
-	
-	@NoColour:
-	@NotInteracting:
-	@End:
-	
-	; If not red, countdown
-	cmp.b #ColourRed, Player_Colour(a0)
-	beq   @NoTimeout
-	sub.w #0x1, Player_ColourChangeTimer(a0)
-	bne   @TimerRunning
-	
-	; Timer elapsed, switch back to red
-	jsr    PlayerStopColourAbility
-	move.b #ColourRed, Player_Colour(a0)
-	jsr    PlayerBeginColourSwitch
+	rts
 
-	; Play SFX
-	PLAYSFX #SFX_NymnColourFade
-	
-	@NoTimeout:
-	@TimerRunning:
+PlayerCanDismountPet:
+	; a0 --- Character address
+	; d0 (b) Return val
+
+	; Can dismount if in riding state, and pet is on floor
+	move.b #0x1, d0
+
+	; Get pet
+	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoPet
+
+	; Check if riding pet
+	cmp.b  #Player_RideState_Riding, Player_RideState(a0)
+	beq    @InRidingState
+
+	; In mounting or jumping state, cannot dismount
+	move.b #0x0, d0
+	bra    @End
+
+	@InRidingState:
+
+	; Check if pet is on floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a2)
+	beq    @PetOnFloor
+
+	; Pet in air, cannot dismount
+	move.b #0x0, d0
+
+	@NoPet:
+	@PetOnFloor:
+	@End:
 
 	rts
 
@@ -1309,10 +1640,7 @@ PlayerCancelInteract:
 	@NotPushing:
 	
 	; Stop colour ability
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
-	beq    @NoColourAbility
 	jsr    PlayerStopColourAbility
-	@NoColourAbility:
 
 	; Stop interacting
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
@@ -1375,7 +1703,6 @@ PlayerInteractTest_Fuzzls:
 	jsr    PlayerStopColourAbility
 	POPL   a2
 	POPL   d0
-	move.b d0, Player_Colour(a0)
 	
 	PUSHL  a2
 	move.b d0, Player_Colour(a0)

@@ -581,7 +581,8 @@ DjrakeStartEmergeFromCave:
 	
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
-	move.b #0x0, Player1ControlEnabled
+	move.l #Player1, a2
+	move.b #0x0, Player_ControlEnabled(a2)
 	move.b #0x1, Djrake_BlockingCtrl(a0)
 	move.l #Player1, CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
@@ -677,7 +678,8 @@ DjrakeUpdateRoaring:
 	cmp.b  #0x0, Djrake_BlockingCtrl(a0)
 	beq    @NotBlockingPlayerCtrl
 	
-	move.b #0x1, Player1ControlEnabled
+	move.l #Player1, a2
+	move.b #0x1, Player_ControlEnabled(a2)
 	move.l a0, CameraTargetLerpSource
 	move.l #Player1, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime

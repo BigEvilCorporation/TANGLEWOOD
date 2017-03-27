@@ -68,13 +68,24 @@ CAM_Update:
 	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d1
 	
 	clr.l   d2
+
+	cmp.w   #0x0, (CameraTargetLerpSpeed)
+	beq     @NoLerp
+
+	; Get lerp source X/Y
+	move.l  (CameraTargetLerpStartX), d2
+	move.l  (CameraTargetLerpStartY), d3
+
+	; If lerp source object
 	move.l  (CameraTargetLerpSource), a2
 	cmp.l   #0x0, a2
-	beq     @NoLerp
+	beq     @NoLerpStartObj
 	
-	; Get lerp source X/Y
+	; Get lerp source X/Y from object
 	ENTITY_GETCENTREX d2, a2
 	ENTITY_GETCENTREY d3, a2
+
+	@NoLerpStartObj:
 	
 	; Sprite space to camera space
 	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d2
@@ -95,8 +106,6 @@ CAM_Update:
 	
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
-	TOSUBPIXELS d2
-	TOSUBPIXELS d3
 	
 	; Update lerp
 	cmp.w  #1024, CameraTargetLerpTime

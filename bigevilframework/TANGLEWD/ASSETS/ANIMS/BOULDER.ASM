@@ -26,18 +26,18 @@ spriteanim_boulder_roll_track_sfx:
 	Even
 
 spriteanim_boulder_crack:
-spriteanim_boulder_crack_numframes: equ 0x2
-spriteanim_boulder_crack_speed: equ 0x3C
+spriteanim_boulder_crack_numframes: equ 0x1
+spriteanim_boulder_crack_speed: equ 0x1
 spriteanim_boulder_crack_track_frames:
-	dc.b 0x0, 0x1
+	dc.b 0x0
 	Even
 spriteanim_boulder_crack_track_posx:
-	dc.b 0x0, 0x0
+	dc.b 0x0
 	Even
 spriteanim_boulder_crack_track_posy:
-	dc.b 0x0, 0x0
+	dc.b 0x0
 	Even
 spriteanim_boulder_crack_track_sfx:
-	dc.l 0x0, 0x0
+	dc.l 0x0
 	Even
 

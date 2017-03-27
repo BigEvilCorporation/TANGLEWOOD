@@ -227,7 +227,8 @@ MonsterInit:
 	move.l #spriteanim_djakk_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_djakk_idle_speed, Animation_Speed(a3)
+	;move.b #spriteanim_djakk_idle_speed, Animation_Speed(a3)
+	move.b #0x0, Animation_Speed(a3)
 	move.b #spriteanim_djakk_idle_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
@@ -767,7 +768,8 @@ MonsterStartEmergeFromCave:
 	
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
-	move.b #0x0, Player1ControlEnabled
+	move.l #Player1, a2
+	move.b #0x0, Player_ControlEnabled(a2)
 	move.b #0x1, Monster_BlockingCtrl(a0)
 	move.l #Player1, CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
@@ -848,7 +850,8 @@ MonsterUpdateRoaring:
 	cmp.b  #0x0, Monster_BlockingCtrl(a0)
 	beq    @NotBlockingPlayerCtrl
 	
-	move.b #0x1, Player1ControlEnabled
+	move.l #Player1, a2
+	move.b #0x1, Player_ControlEnabled(a2)
 	move.l a0, CameraTargetLerpSource
 	move.l #Player1, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime

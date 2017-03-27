@@ -29,8 +29,9 @@ CharacterAnimIdx_WalkToRun	equ 10
 CharacterAnimIdx_WaterWade	equ 11
 CharacterAnimIdx_RideTrot	equ 12
 CharacterAnimIdx_RideGallop	equ 13
+CharacterAnimIdx_RideJump	equ 14
 ; -------------------------------
-Character_NumAnims			equ 14
+Character_NumAnims			equ 15
 
 ; ************************************
 ; SFX ids

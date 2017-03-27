@@ -44,7 +44,7 @@ TEST:
 Lvl_TestLift_Init:
 	
 	; Enable player 1 control
-	move.b #0x1, Player1ControlEnabled
+	move.b #0x1, Player_ControlEnabled(a0)
 
 	rts
 	

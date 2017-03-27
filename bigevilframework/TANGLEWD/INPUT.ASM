@@ -14,13 +14,8 @@ UpdateInput:
 	
 	move.w #0x0, d0
 	
-	cmp.b  #0x0, Player1ControlEnabled
-	beq    @NoControl
-	
 	; Read pad A
 	jsr PAD_ReadPadA
-	
-	@NoControl:
 	
 	move.w d0, Gamepad1State
 	move.w (Gamepad1PrevState), d1
@@ -28,7 +23,10 @@ UpdateInput:
 	; Player 1 movement
 	move.l #Player1, a0
 	move.l (CurrentLevel), a1
-	jsr HandlePlayerInput
+	cmp.b  #0x0, Player_ControlEnabled(a0)
+	beq    @NoControlP1
+	jsr    HandlePlayerInput
+	@NoControlP1:
 	move.w d0, Gamepad1PrevState
 	
 	; =====================================================================
@@ -41,7 +39,10 @@ UpdateInput:
 	
 	; Player 2 movement
 	;move.l #Player2, a0
-	;jsr HandlePlayerInput
+	;cmp.b  #0x0, Player_ControlEnabled(a0)
+	;beq    @NoControlP2
+	;jsr    HandlePlayerInput
+	;@NoControlP2:
 	;move.w d0, Gamepad2PrevState
 	
 	rts

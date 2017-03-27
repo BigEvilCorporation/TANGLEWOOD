@@ -130,6 +130,8 @@ CameraShakeOffsetY	    rs.l 1
 CameraPeekOffsetY       rs.l 1
 CameraTargetGameObj     rs.l 1
 CameraTargetLerpSource  rs.l 1
+CameraTargetLerpStartX  rs.l 1
+CameraTargetLerpStartY  rs.l 1
 CameraTargetLerpTime    rs.w 1
 CameraTargetLerpSpeed   rs.w 1
 CameraShakeSinX	   	    rs.w 1
@@ -163,10 +165,6 @@ Gamepad1State      	   rs.w 1
 Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
-Player1ControlEnabled  rs.b 1
-Player2ControlEnabled  rs.b 1
-                       
-__padding030		   rs.b 2
 
 ; Palette lerping
 PaletteLerp_Array    rs.b (PaletteLerp_Struct_Size*num_palettes)

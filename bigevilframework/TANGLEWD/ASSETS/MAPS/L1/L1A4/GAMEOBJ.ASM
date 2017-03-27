@@ -190,7 +190,7 @@ L1A4_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x001b8000, Entity_WorldPosX(a0)
 	move.l #0x0000d800, Entity_WorldPosY(a0)
-	move.b #ColourYellow, Fuzzl_Colour(a0)
+	move.b #ColourBlue, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
