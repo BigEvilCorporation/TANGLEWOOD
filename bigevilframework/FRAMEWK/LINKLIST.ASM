@@ -40,6 +40,9 @@ LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 	move.l \objaddrreg, List_\name\_Tail
 	
 	@End\@:
+
+	; Ensure tail has no tail
+	move.l #0x0, List_\name\_Next(\objaddrreg)
 	
 	; Increment count
 	addi.l #0x1, List_\name\_Size
