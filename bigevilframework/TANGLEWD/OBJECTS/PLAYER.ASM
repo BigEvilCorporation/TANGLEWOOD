@@ -107,12 +107,11 @@ Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2)
 Player1PushAnimSpeedVelocityDivLight equ 0x0004
 Player1PushAnimSpeedVelocityDivHeavy equ 0x0008
 
-; Mounting/riding state`
+; Mounting/riding stategg
 Player_RideState_None		equ 0x0
 Player_RideState_Mounting	equ 0x1
-Player_RideState_CameraLerp	equ 0x2
-Player_RideState_Riding		equ 0x3
-Player_RideState_Jumping	equ 0x4
+Player_RideState_Riding		equ 0x2
+Player_RideState_Jumping	equ 0x3
 
 ; Interaction types
 Player_Interaction_None		equ 0x0
@@ -1234,8 +1233,6 @@ PlayerUpdateMount:
 	move.b Player_RideState(a0), d0
 	cmp.b  #Player_RideState_Mounting, d0
 	beq    @StateMounting
-	cmp.b  #Player_RideState_CameraLerp, d0
-	beq    @StateCameraLerp
 	cmp.b  #Player_RideState_Riding, d0
 	beq    @StateRiding
 	cmp.b  #Player_RideState_Jumping, d0
@@ -1265,19 +1262,6 @@ PlayerUpdateMount:
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
 	move.w #Player1MountCameraLerpSpeed, CameraTargetLerpSpeed
-
-	; Set camera lerp state
-	move.b #Player_RideState_CameraLerp, Player_RideState(a0)
-
-	bra    @EndState
-
-	;==============================================================
-
-	@StateCameraLerp:
-
-	; Wait for camera lerp to finish
-	cmp.w  #0x0, (CameraTargetLerpSpeed)
-	bne    @EndState
 
 	; Done, start riding
 	move.b #Player_RideState_Riding, Player_RideState(a0)
@@ -1318,20 +1302,16 @@ PlayerUpdateMount:
 	; Sync state with pet
 	jsr    PlayerSyncWithPet
 
+	; Cancel additional jump attempts
+	move.b #0x0, Character_Jumping(a0)
+
 	; If pet finished jumping, reset jump anim (non-looping anim, won't reset
 	; back to walk/run when finished because anim is updated manually)
 	cmp.b  #0x0, Character_Jumping(a2)
 	bne    @PetJumping
 
-	; Pet finished jumping, restore anim
-	PUSHM  a0-a2
-	move.l a0, a1
-	add.l  #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
-	jsr    AnimObjSetAnimation
-	POPM   a0-a2
-
-	move.w #0x0, SpriteObj_DrawOffsetX(a0)
-	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+	; Pet finished jumping, end anim
+	move.b #0x0, AnimObj_Playing(a0)
 
 	; Back to riding state
 	move.b #Player_RideState_Riding, Player_RideState(a0)
@@ -1356,11 +1336,18 @@ PlayerForwardPetControls:
 	cmp.b  #0x0, Character_Jumping(a0)
 	beq    @NotJumping
 
+	; If not already jumping
+	cmp.b  #Player_RideState_Jumping, Player_RideState(a0)
+	beq    @AlreadyJumping
+
 	; Djakk jump
 	PUSHM  a0-a2
 	move.l a2, a0
 	jsr    CharacterStartJump
 	POPM   a0-a2
+
+	; Reset anim frame, in case jumps overlapped
+	move.l #0x0, AnimObj_AnimSubFrame(a2)
 
 	; Player jump anim
 	PUSHM  a0-a2
@@ -1371,11 +1358,14 @@ PlayerForwardPetControls:
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 
+	; Enter jump state
+	move.b #Player_RideState_Jumping, Player_RideState(a0)
+	
+	@AlreadyJumping:
+
 	; Reset jump flag
 	move.b #0x0, Character_Jumping(a0)
 
-	; Enter jump state
-	move.b #Player_RideState_Jumping, Player_RideState(a0)
 	@NotJumping:
 
 	rts
@@ -1391,6 +1381,10 @@ PlayerSyncWithPet:
 	add.l  #Player1DjakkSaddleOffsetY, d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
+
+	; Zero velocity
+	move.w #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_VelY(a0)
 	
 	; Match anim frame
 	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
