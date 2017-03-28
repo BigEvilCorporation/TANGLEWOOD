@@ -1143,15 +1143,16 @@ PlayerDismountPet:
 	cmp.l  #0x0, a2
 	beq    @NotRiding
 
-	; Zero player acceleration and velocity
+	; Zero player acceleration
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
 
 	; Zero pet acceleration
 	move.w #0x0, PhysicsObj_AccelX(a2)
 	move.w #0x0, PhysicsObj_AccelY(a2)
+
+	; Inherit pet X velocity
+	move.w PhysicsObj_VelX(a2), PhysicsObj_VelX(a0)
 
 	; Jump off
 	PUSHM  a0-a2
@@ -1206,6 +1207,9 @@ PlayerDismountPet:
 
 	@PetStillTamed:
 	@NoPet:
+
+	; Stop ride animation
+	move.b #0x0, AnimObj_Playing(a0)
 
 	; Restore physics
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
