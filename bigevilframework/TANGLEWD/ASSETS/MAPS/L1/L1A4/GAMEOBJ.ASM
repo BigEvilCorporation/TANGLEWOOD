@@ -21,22 +21,17 @@ L1A4_BouncePlant_count equ 0x2
 L1A4_BouncePlant_43_idx	equ 0x0
 L1A4_BouncePlant_44_idx	equ 0x1
 
-L1A4_Firefly_count equ 0xf
+L1A4_Firefly_count equ 0xa
 L1A4_Firefly_18_idx	equ 0x0
 L1A4_Firefly_19_idx	equ 0x1
 L1A4_Firefly_20_idx	equ 0x2
 L1A4_Firefly_21_idx	equ 0x3
 L1A4_Firefly_22_idx	equ 0x4
-L1A4_Firefly_25_idx	equ 0x5
+L1A4_Lvl3_Firefly_13_idx	equ 0x5
 L1A4_Firefly_26_idx	equ 0x6
 L1A4_Firefly_27_idx	equ 0x7
 L1A4_Firefly_28_idx	equ 0x8
-L1A4_Firefly_35_idx	equ 0x9
-L1A4_Lvl3_Firefly_13_idx	equ 0xa
-L1A4_Firefly_36_idx	equ 0xb
-L1A4_Firefly_33_idx	equ 0xc
-L1A4_Firefly_34_idx	equ 0xd
-L1A4_Firefly_41_idx	equ 0xe
+L1A4_Firefly_41_idx	equ 0x9
 
 L1A4_Fuzzl_count equ 0x2
 L1A4_Fuzzl_Yellow_idx	equ 0x0
@@ -76,6 +71,10 @@ L1A4_WaterBody_9_idx	equ 0x3
 L1A4_WaterBody_10_idx	equ 0x4
 
 L1A4_Location_count equ 0x0
+
+L1A4_Deathbox_count equ 0x2
+L1A4_Deathbox_49_idx	equ 0x0
+L1A4_Deathbox_50_idx	equ 0x1
 
 
 L1A4_LoadGameObjects:
@@ -136,8 +135,8 @@ L1A4_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00215800, Entity_WorldPosX(a0)
-	move.l #0x00027800, Entity_WorldPosY(a0)
+	move.l #0x0029c800, Entity_WorldPosX(a0)
+	move.l #0x00029000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -153,31 +152,6 @@ L1A4_LoadGameObjects:
 	jsr FireflyInit
 	move.l #0x002cf800, Entity_WorldPosX(a0)
 	move.l #0x00026000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x001f6800, Entity_WorldPosX(a0)
-	move.l #0x0001f000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x0029c800, Entity_WorldPosX(a0)
-	move.l #0x00029000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x00207800, Entity_WorldPosX(a0)
-	move.l #0x00024000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x001e1800, Entity_WorldPosX(a0)
-	move.l #0x00017800, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x001ea000, Entity_WorldPosX(a0)
-	move.l #0x0001a800, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -316,6 +290,18 @@ L1A4_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	move.l #EntityArray_Location, a0
+
+	move.l #EntityArray_Deathbox, a0
+	jsr DeathboxInit
+	move.l #0x00220000, Entity_WorldPosX(a0)
+	move.l #0x00048800, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x00208000, Entity_WorldPosX(a0)
+	move.l #0x00048800, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 	rts
 

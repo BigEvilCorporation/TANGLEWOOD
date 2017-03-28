@@ -92,12 +92,6 @@ l1a4_Init:
 	move.l #LevelData_L1A3, a2
 	move.b #0x1, l1a4Data_WaitingInput(a2)
 	
-	;==============================================================
-
-	move.l #Player1, a0
-	move.b #ColourBlue, Player_Colour(a0)
-	jsr    PlayerBeginColourSwitch
-	
 	rts
 	
 l1a4_Update:

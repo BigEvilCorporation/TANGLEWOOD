@@ -74,6 +74,7 @@
 	include 'assets\maps\l2\tiles.asm'
 	include 'assets\maps\l3\tiles.asm'
 	include 'assets\maps\l4\tiles.asm'
+	include 'assets\maps\l5\tiles.asm'
 	include 'assets\maps\l6\tiles.asm'
 	
 	IFND FINAL
@@ -87,6 +88,7 @@
 	include 'assets\maps\l2\stmpanim.asm'
 	include 'assets\maps\l3\stmpanim.asm'
 	include 'assets\maps\l4\stmpanim.asm'
+	include 'assets\maps\l5\stmpanim.asm'
 	include 'assets\maps\l6\stmpanim.asm'
 	
 	; ************************************
@@ -113,6 +115,7 @@
 	include 'assets\maps\l2\palette.asm'
 	include 'assets\maps\l3\palette.asm'
 	include 'assets\maps\l4\palette.asm'
+	include 'assets\maps\l5\palette.asm'
 	include 'assets\maps\l6\palette.asm'
 
 	IFND FINAL
@@ -143,6 +146,10 @@
 	; L4
 	include 'assets\maps\l4\l4a1\blockmap.asm'
 	include 'assets\maps\l4\l4bg\blockmap.asm'
+
+	; L5
+	include 'assets\maps\l5\l5a1\blockmap.asm'
+	include 'assets\maps\l5\l5bg\blockmap.asm'
 
 	; L6
 	include 'assets\maps\l6\l6a1\blockmap.asm'
@@ -176,6 +183,10 @@
 	; L4
 	include 'assets\maps\l4\l4a1\blocks.asm'
 	include 'assets\maps\l4\l4bg\blocks.asm'
+
+	; L5
+	include 'assets\maps\l5\l5a1\blocks.asm'
+	include 'assets\maps\l5\l5bg\blocks.asm'
 
 	; L6
 	include 'assets\maps\l6\l6a1\blocks.asm'
@@ -216,6 +227,9 @@
 	; L4
 	include 'assets\maps\l4\l4a1\colmap.asm'
 
+	; L5
+	include 'assets\maps\l5\l5a1\colmap.asm'
+
 	; L6
 	include 'assets\maps\l6\l6a1\colmap.asm'
 	
@@ -237,6 +251,9 @@
 
 	; L4
 	include 'assets\maps\l4\l4a1\colblock.asm'
+
+	; L5
+	include 'assets\maps\l5\l5a1\colblock.asm'
 
 	; L6
 	include 'assets\maps\l6\l6a1\colblock.asm'
@@ -264,6 +281,9 @@
 
 	; L4
 	include 'assets\maps\l4\l4a1\gameobj.asm'
+
+	; L5
+	include 'assets\maps\l5\l5a1\gameobj.asm'
 
 	; L6
 	include 'assets\maps\l6\l6a1\gameobj.asm'

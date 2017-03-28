@@ -724,12 +724,13 @@ spriteanim_WaterAnim_ripple_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even
 spriteanim_WaterAnim_ripple_track_posx:
-
+	dc.b 0x0, 0x0, 0x0
 	Even
 spriteanim_WaterAnim_ripple_track_posy:
-
+	dc.b 0x0, 0x0, 0x0
 	Even
 spriteanim_WaterAnim_ripple_track_sfx:
+	dc.l 0x0, 0x0, 0x0
 	Even
 
 stamp_PlantStalksAnim:
@@ -1133,11 +1134,12 @@ spriteanim_PlantStalksAnim_plantmove_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even
 spriteanim_PlantStalksAnim_plantmove_track_posx:
-
+	dc.b 0x0, 0x0, 0x0
 	Even
 spriteanim_PlantStalksAnim_plantmove_track_posy:
-
+	dc.b 0x0, 0x0, 0x0
 	Even
 spriteanim_PlantStalksAnim_plantmove_track_sfx:
+	dc.l 0x0, 0x0, 0x0
 	Even
 

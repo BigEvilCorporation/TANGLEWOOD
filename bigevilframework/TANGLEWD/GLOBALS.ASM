@@ -112,6 +112,7 @@ InitialLevel			 equ l1a4_HarlequinForestAct4
 ;InitialLevel			 equ l2a1_StormWarningAct1
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
+;InitialLevel			 equ l5a1_BygoneAct1
 ;InitialLevel			 equ l6a1_DeadwoodAct1
 ;InitialLevel			 equ Lvl_TestLift
 

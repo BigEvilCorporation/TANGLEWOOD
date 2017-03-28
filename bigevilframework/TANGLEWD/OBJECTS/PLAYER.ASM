@@ -67,7 +67,7 @@ Player1WalkToRunVel  equ 0x0200
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ (0x2<<fade_frame_shift)
-Player1ColourChangeTimeout	equ 0x7FFF ;equ 0x0600
+Player1ColourChangeTimeout	equ 0x0600
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun

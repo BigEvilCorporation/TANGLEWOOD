@@ -87,6 +87,8 @@ L1A2_WaterBody_143_idx	equ 0x3
 
 L1A2_Location_count equ 0x0
 
+L1A2_Deathbox_count equ 0x0
+
 
 L1A2_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -371,6 +373,8 @@ L1A2_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	move.l #EntityArray_Location, a0
+
+	move.l #EntityArray_Deathbox, a0
 
 	rts
 

@@ -292,6 +292,7 @@ EntityArray_Lift        rs.b (Lift_Struct_Size*Lift_MaxEntities)
 EntityArray_Rope        rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
 EntityArray_BouncePlant rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
 EntityArray_Stone       rs.b (Stone_Struct_Size*Stone_MaxEntities)
+EntityArray_Deathbox    rs.b (Deathbox_Struct_Size*Deathbox_MaxEntities)
 	ENDIF
 
 EntityCount_Actor       rs.w 1
@@ -311,6 +312,7 @@ EntityCount_Lift        rs.w 1
 EntityCount_Rope        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
+EntityCount_Deathbox    rs.w 1
 
 reserved_ram_size		rs.b 0
 

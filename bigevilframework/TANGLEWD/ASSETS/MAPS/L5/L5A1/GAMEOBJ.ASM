@@ -7,63 +7,47 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-main_menu_Leaf_count equ 0x4
-main_menu_Leaf_2_idx	equ 0x0
-main_menu_Leaf_3_idx	equ 0x1
-main_menu_Leaf_4_idx	equ 0x2
-main_menu_Leaf_5_idx	equ 0x3
+L5A1_Leaf_count equ 0x0
 
-main_menu_Nymn_count equ 0x1
-main_menu_Nymn_1_idx	equ 0x0
+L5A1_Nymn_count equ 0x1
+L5A1_Nymn_1_idx	equ 0x0
 
-main_menu_Echo_count equ 0x0
+L5A1_Echo_count equ 0x0
 
-main_menu_Monster_count equ 0x0
+L5A1_Monster_count equ 0x0
 
-main_menu_BouncePlant_count equ 0x0
+L5A1_BouncePlant_count equ 0x0
 
-main_menu_Firefly_count equ 0x0
+L5A1_Firefly_count equ 0x0
 
-main_menu_Fuzzl_count equ 0x0
+L5A1_Fuzzl_count equ 0x0
 
-main_menu_Boulder_count equ 0x0
+L5A1_Boulder_count equ 0x0
 
-main_menu_Stone_count equ 0x0
+L5A1_Stone_count equ 0x0
 
-main_menu_Nest_count equ 0x0
+L5A1_Nest_count equ 0x0
 
-main_menu_Flue_count equ 0x0
+L5A1_Flue_count equ 0x0
 
-main_menu_TriggerBox_count equ 0x0
+L5A1_TriggerBox_count equ 0x0
 
-main_menu_Checkpoint_count equ 0x0
+L5A1_Checkpoint_count equ 0x0
 
-main_menu_WaterBody_count equ 0x0
+L5A1_WaterBody_count equ 0x0
 
-main_menu_Location_count equ 0x0
+L5A1_Location_count equ 0x0
 
-main_menu_Deathbox_count equ 0x0
+L5A1_Deathbox_count equ 0x0
 
 
-main_menu_LoadGameObjects:
+L5A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00009800, Entity_WorldPosX(a0)
-	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.l #0x00013000, Entity_WorldPosX(a0)
+	move.l #0x00016800, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 

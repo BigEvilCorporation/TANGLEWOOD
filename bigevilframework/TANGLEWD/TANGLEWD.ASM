@@ -93,6 +93,7 @@ __start
 	ENDIF
 	include 'objects\actor.asm'
 	include 'objects\checkpnt.asm'
+	include 'objects\deathbox.asm'
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\leaf.asm'
@@ -135,6 +136,7 @@ __start
 	include 'levels\l2a1.asm'
 	include 'levels\l3a1.asm'
 	include 'levels\l4a1.asm'
+	include 'levels\l5a1.asm'
 	include 'levels\l6a1.asm'
 	
 	IFND FINAL
