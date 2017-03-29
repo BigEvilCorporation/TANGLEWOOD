@@ -1233,6 +1233,10 @@ PlayerUpdateMount:
 	cmp.l  #0x0, a2
 	beq    @NoPet
 
+	; If pet dead, dismount immediately
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PetDead
+
 	; Check state
 	move.b Player_RideState(a0), d0
 	cmp.b  #Player_RideState_Mounting, d0
@@ -1321,6 +1325,16 @@ PlayerUpdateMount:
 	move.b #Player_RideState_Riding, Player_RideState(a0)
 
 	@PetJumping:
+
+	bra    @EndState
+
+	;==============================================================
+
+	@PetDead:
+
+	; Pet dead, dismount
+	move.b #0x0, d0
+	jsr    PlayerDismountPet
 
 	;==============================================================
 

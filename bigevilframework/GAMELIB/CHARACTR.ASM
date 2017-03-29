@@ -46,7 +46,9 @@ Character_NumSFX			equ 1
 
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
-;--------------------------
+;---------------------------------
+	LINKED_LIST_NODE Characters		; Linked list entry for characters
+;---------------------------------
 Character_InteractStart		rs.l 1	; Interact routine address
 Character_InteractCancel	rs.l 1	; Cancel interact routine address
 Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
@@ -97,6 +99,9 @@ CharacterInit:
 	
 	; Set type
 	ori.l  #entity_type_character, Entity_TypeBits(a0)
+
+	; Add to characters list
+	LIST_APPEND_TAIL Characters, a0, a3
 
 	; Default state
 	move.l #0x0, Character_InteractStart(a0)

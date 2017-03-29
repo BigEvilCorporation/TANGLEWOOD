@@ -89,6 +89,7 @@ GameStateReset:
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
 	
 	; Reset linked lists
+	LIST_CLEAR Characters
 	LIST_CLEAR Platforms
 	LIST_CLEAR Barriers
 	LIST_CLEAR PushableObjs

@@ -197,13 +197,6 @@ __padding041			     rs.b 2
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
-; Physics platforms
-; ************************************
-	LINKED_LIST Platforms	 ; Moving platforms
-	LINKED_LIST Barriers	 ; Moving walls
-	LINKED_LIST PushableObjs ; Pushable objects
-
-; ************************************
 ; Colour abilities
 ; ************************************
 GlobalTimeDiv			 rs.b 1
@@ -263,11 +256,19 @@ __padding05			     rs.b 3
 	ENDIF
 
 ; ************************************
-; Entity linked lists
+; Entity linked lists by function
 ; ************************************
 	LINKED_LIST EntityUpdate
 	LINKED_LIST EntityRender
 	LINKED_LIST EntitySerialise
+
+; ************************************
+; Entity lists by type
+; ************************************
+	LINKED_LIST Characters	 ; Characters
+	LINKED_LIST Platforms	 ; Moving platforms
+	LINKED_LIST Barriers	 ; Moving walls
+	LINKED_LIST PushableObjs ; Pushable objects
 
 ; ************************************
 ; Entities
