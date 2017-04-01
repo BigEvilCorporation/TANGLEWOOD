@@ -845,6 +845,26 @@ PlayerStopColourAbility:
 
 	@NotRiding:
 
+	; If timer elapsed
+	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	bne    @PetStillTamed
+
+	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoPet
+
+	; Pet no longer tamed
+	PUSHM  a0-a2
+	move.l a2, a0
+	jsr    MonsterStartTrackPlayer
+	POPM   a0-a2
+
+	; and it's no longer our friend
+	move.l #0x0, Player_Pet(a0)
+
+	@NoPet:
+	@PetStillTamed:
+
 	; Release interaction obj
 	move.l #0x0, Player_InteractObject(a0)
 	
@@ -1191,20 +1211,6 @@ PlayerDismountPet:
 
 	@NotRiding:
 	@VoluntaryDismount:
-
-	; If timer elapsed
-	cmp.w  #0x0, Player_ColourChangeTimer(a0)
-	bne    @PetStillTamed
-
-	; Pet no longer tamed
-	PUSHM  a0-a2
-	move.l a2, a0
-	jsr    MonsterStartTrackPlayer
-	POPM   a0-a2
-
-	; and it's no longer our friend
-	move.l #0x0, Player_Pet(a0)
-
 	@PetStillTamed:
 	@NoPet:
 
@@ -1712,7 +1718,8 @@ PlayerInteractTest_Fuzzls:
 	; Fuzzl is home, is in range, and has its colour - take its colour
 	PUSHL  d0
 	PUSHL  a2
-	jsr    PlayerStopColourAbility
+	move.w #0x0, Player_ColourChangeTimer(a0)	; Force old colour to lapse
+	jsr    PlayerStopColourAbility				; Stop ability
 	POPL   a2
 	POPL   d0
 	
@@ -1792,7 +1799,8 @@ PlayerInteractTest_Djakks:
 	; Take its colour
 	PUSHL  d0
 	PUSHL  a2
-	jsr    PlayerStopColourAbility
+	move.w #0x0, Player_ColourChangeTimer(a0)	; Force old colour to lapse
+	jsr    PlayerStopColourAbility				; Stop ability
 	POPL   a2
 	POPL   d0
 
