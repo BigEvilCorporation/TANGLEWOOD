@@ -64,8 +64,8 @@ CAM_Update:
 	ENTITY_GETCENTREY d1, a0
 	
 	; Sprite space to camera space
-	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d0
-	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d1
+	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d0
+	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d1
 	
 	clr.l   d2
 
@@ -88,8 +88,8 @@ CAM_Update:
 	@NoLerpStartObj:
 	
 	; Sprite space to camera space
-	sub.l   #(SpritePlaneBorderX*SubpixelsPerPixel), d2
-	sub.l   #(SpritePlaneBorderY*SubpixelsPerPixel), d3
+	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d2
+	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d3
 	
 	; Get lerp T
 	clr.l  d4
@@ -127,7 +127,7 @@ CAM_Update:
 	clr.l  d3
 	move.w Level_MapWidth(a1), d3
 	lsl.l  #0x3, d3					; Map width to tiles
-	lsl.l  #0x8, d3					; Map width to camera space
+	TOSUBPIXELS  d3					; Map width to camera space
 	CLAMP  d0, d2, d3
 	
 	; Clamp to Y bounds
@@ -135,7 +135,7 @@ CAM_Update:
 	clr.l  d3
 	move.w Level_MapHeight(a1), d3
 	lsl.l  #0x3, d3					; Map height to tiles
-	lsl.l  #0x8, d3					; Map height to camera space
+	TOSUBPIXELS  d3					; Map height to camera space
 	CLAMP  d1, d2, d3
 
 	move.l  d0, CameraWorldPosX
@@ -192,7 +192,7 @@ CAM_Update:
 	
 	; Scroll X - plane A
 	neg.l   d0							; To camera space
-	lsr.l   #0x8, d0					; To screen space
+	TOPIXELS d0					; To screen space
 	lea     VDP_SetHScrollPlaneA, a5
 	jsr 	VDP_JobQueue_PushJob
 	
@@ -250,40 +250,19 @@ CAM_Update:
 	move.l  d0, WorldScrollY			; Keep world scroll Y
 
 	; Scroll Y - plane A
-	lsr.l   #0x8, d0					; To screen space
+	TOPIXELS d0					; To screen space
 	lea     VDP_SetVScrollPlaneA, a5
 	jsr 	VDP_JobQueue_PushJob
 	
 	; Scroll Y - plane B
-	; HACK - Works for Tanglewood's 90-high foreground plane, needs a better implementation
-	
-	; Translate WorldScrollY to screen space with safe borders
+	; Translate Y scroll from plane A range (total map height) to plane B range (VDP height)
 	clr.l   d1
-	move.l  (WorldScrollY), d0
 	move.w  Level_MapHeight(a1), d1
-	lsl.l   #0x3, d1	; To tiles
-	lsl.l   #0x8, d1	; To camera space
-	sub.l   #CameraScrollSafeBorderY, d1
-	sub.l   #(screen_height/2)*SubPixelsPerPixel, d1
-	
-	; Invert scroll, offset from bottom of screen
-	sub.l   d0, d1
-	lsr.l   #0x8, d1
-	move.w  d1, d0
-	neg.w   d0
-	divs    #0x8, d0
-	
-	; Div/2 to keep scroll bounds within 90-high plane A
-	lsr.w   #0x1, d0
-	
-	; Offset 2-cell bottom border
-	add.w   #((vdp_plane_height*8)-screen_height), d0
-	
-	; Clamp top
-	cmp.w   #(vdp_plane_height*8), d0
-	bgt     @NoClampPlaneB
-	move.w  #(vdp_plane_height*8), d0
-	@NoClampPlaneB:
+	lsl.w   #0x3, d1	; Tiles to pixels
+
+	divu  #((vdp_plane_height/2)*8)-CameraScrollSafeBorderY, d1
+	andi.l #0x0000FFFF, d1
+	divu  d1, d0
 	
 	lea     VDP_SetVScrollPlaneB, a5
 	jsr 	VDP_JobQueue_PushJob
@@ -316,24 +295,24 @@ CAM_PosToWorldScrollX:
 	; d0 (l) Camera world pos X
 
 	; Scroll X safe border (only scroll beyond these bounds)
-	cmp.l   #CameraScrollSafeBorderX, d0
+	cmp.l   #CameraScrollSafeBorderX*subpixels_per_pixel, d0
 	blt     @ClampLeft
 	clr.l   d1
 	move.w  Level_MapWidth(a1), d1
 	lsl.l   #0x3, d1	; To tiles
-	lsl.l   #0x8, d1	; To camera space
-	sub.l   #CameraScrollSafeBorderX, d1
+	TOSUBPIXELS   d1	; To camera space
+	sub.l   #CameraScrollSafeBorderX*subpixels_per_pixel, d1
 	cmp.l	d1, d0
 	bgt		@ClampRight
 	bra		@EndClampX
 	@ClampLeft:
-	move.l  #CameraScrollSafeBorderX, d0	; Clamp to bounds
+	move.l  #CameraScrollSafeBorderX*subpixels_per_pixel, d0	; Clamp to bounds
 	bra		@EndClampX
 	@ClampRight:
 	move.l	d1, d0
 	@EndClampX:
 
-	sub.l   #(screen_width/2)*SubPixelsPerPixel, d0		; Centred
+	sub.l   #(screen_width/2)*subpixels_per_pixel, d0		; Centred
 
 	rts
 
@@ -342,23 +321,23 @@ CAM_PosToWorldScrollY:
 	; d0 (l) Camera world pos Y
 
 	; Scroll Y safe border (only scroll beyond these bounds)
-	cmp.l   #CameraScrollSafeBorderY, d0
+	cmp.l   #CameraScrollSafeBorderY*subpixels_per_pixel, d0
 	blt     @ClampTop
 	clr.l   d1
 	move.w  Level_MapHeight(a1), d1
 	lsl.l   #0x3, d1	; To tiles
-	lsl.l   #0x8, d1	; To camera space
-	sub.l   #CameraScrollSafeBorderY, d1
+	TOSUBPIXELS   d1	; To camera space
+	sub.l   #CameraScrollSafeBorderY*subpixels_per_pixel, d1
 	cmp.l	d1, d0
 	bgt		@ClampBottom
 	bra		@EndClampY
 	@ClampTop:
-	move.l  #CameraScrollSafeBorderY, d0
+	move.l  #CameraScrollSafeBorderY*subpixels_per_pixel, d0
 	bra		@EndClampY
 	@ClampBottom:
 	move.l	d1, d0
 	@EndClampY:
 
-	sub.l   #(screen_height/2)*SubPixelsPerPixel, d0		; Centred
+	sub.l   #(screen_height/2)*subpixels_per_pixel, d0		; Centred
 
 	rts

@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPQueue_MaxSize    equ 0x40  ; Queue max elements
+VDPQueue_MaxSize    equ 0x100  ; Queue max elements
 VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 
 ; Job struct

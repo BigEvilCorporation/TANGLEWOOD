@@ -9,8 +9,8 @@
 ; ************************************
 ; Constants
 ; ************************************
-Character_LandVel		    equ 0x0300
-Character_FallVel		    equ 0x0200
+Character_LandVel		    equ 0x030000
+Character_FallVel		    equ 0x020000
 
 ; ************************************
 ; Animation ids
@@ -53,19 +53,19 @@ Character_InteractStart		rs.l 1	; Interact routine address
 Character_InteractCancel	rs.l 1	; Cancel interact routine address
 Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
 Character_SFX				rs.l Character_NumSFX
+Character_JumpVelX			rs.l 1
+Character_JumpVelY			rs.l 1
+Character_JumpVelWater		rs.l 1
+Character_JumpCancelVelLo	rs.l 1
+Character_JumpCancelVelHi	rs.l 1
+Character_MaxGrabUpVel		rs.l 1
+Character_MaxVelXRun		rs.l 1
+Character_MaxVelXWalk		rs.l 1
+Character_WalkToRunVel		rs.l 1
 Character_LastLedgeX		rs.l 1
 Character_LastLedgeY		rs.l 1
 Character_ProbeLedgeX		rs.w 1
 Character_ProbeLedgeY		rs.w 1
-Character_JumpVelX			rs.w 1
-Character_JumpVelY			rs.w 1
-Character_JumpVelWater		rs.w 1
-Character_JumpCancelVelLo	rs.w 1
-Character_JumpCancelVelHi	rs.w 1
-Character_MaxGrabUpVel		rs.w 1
-Character_MaxVelXRun		rs.w 1
-Character_MaxVelXWalk		rs.w 1
-Character_WalkToRunVel		rs.w 1
 Character_AccelRun			rs.w 1
 Character_AccelWalk			rs.w 1
 Character_DecelIdle			rs.w 1
@@ -133,7 +133,7 @@ CharacterUpdate:
 	
 	; Store current floor flag and Y velocity to check landing
 	move.b PhysicsObj_OnFloor(a0), d0
-	move.w PhysicsObj_VelY(a0), d1
+	move.l PhysicsObj_VelY(a0), d1
 	PUSHL  d0
 	PUSHL  d1
 	
@@ -155,7 +155,7 @@ CharacterUpdate:
 	bne    @PrevOnFloor
 	
 	; If hit floor at landing velocity
-	cmp.w  #-Character_LandVel, d1
+	cmp.l  #-Character_LandVel, d1
 	bge    @LowVel
 	
 	; Play land SFX
@@ -172,7 +172,7 @@ CharacterUpdate:
 	@LowVel:
 	
 	; If Y vel < falling vel, set as falling
-	cmp.w  #-Character_FallVel, d1
+	cmp.l  #-Character_FallVel, d1
 	bge    @NotFalling
 	move.b #0x1, Character_Falling(a0)
 	@NotFalling:
@@ -234,8 +234,8 @@ CharacterDealDamage:
 	move.b #0x0, Character_Interacting(a0)
 	
 	; Cancel velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	
 	@AlreadyDead:
 	@StillAlive:
@@ -245,8 +245,8 @@ CharacterDealDamage:
 CharacterApplySpriteFlip:
 
 	; Sprite X flip direction
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
 	beq    @NoFlip
 	blt    @FlipLeft
 	@FlipRight:
@@ -355,18 +355,18 @@ CharacterUpdateAnimState:
 	; Idle
 	; =====================================================================
 	move.b #CharacterAnimIdx_Idle, d1
-	move.w PhysicsObj_VelX(a0), d0			; If X velocity == 0, set idle anim
-	cmp.w  #0x0, d0
+	move.l PhysicsObj_VelX(a0), d0			; If X velocity == 0, set idle anim
+	cmp.l  #0x0, d0
 	beq    @SetAnim
 
 	; =====================================================================
 	; Running/Walking
 	; =====================================================================
-	move.w PhysicsObj_VelX(a0), d0			; If X velocity > WalkToRun speed, set run anim
-	cmp.w  Character_WalkToRunVel(a0), d0
+	move.l PhysicsObj_VelX(a0), d0			; If X velocity > WalkToRun speed, set run anim
+	cmp.l  Character_WalkToRunVel(a0), d0
 	bgt    @Running
-	neg.w  d0
-	cmp.w  Character_WalkToRunVel(a0), d0
+	neg.l  d0
+	cmp.l  Character_WalkToRunVel(a0), d0
 	bgt    @Running
 	bra    @Walking
 	
@@ -455,8 +455,8 @@ CharacterMoveLeft:
 	beq    @End
 	
 	; Check if heading in opposite direction
-	move.w PhysicsObj_VelX(a0), d4
-	cmp.w  #0x0, d4
+	move.l PhysicsObj_VelX(a0), d4
+	cmp.l  #0x0, d4
 	bgt    @Decelerate
 	
 	; Check if running or walking
@@ -571,22 +571,22 @@ CharacterStartJump:
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	
 	; Set Y velocity
-	move.w Character_JumpVelY(a0), PhysicsObj_VelY(a0)
+	move.l Character_JumpVelY(a0), PhysicsObj_VelY(a0)
 
 	; Set min X velocity
-	move.w Character_JumpVelX(a0), d0
-	move.w PhysicsObj_VelX(a0), d1
+	move.l Character_JumpVelX(a0), d0
+	move.l PhysicsObj_VelX(a0), d1
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	beq    @Positive
-	neg.w  d0
-	cmp.w  d1, d0
+	neg.l  d0
+	cmp.l  d1, d0
 	bgt    @EndXVel
-	move.w d0, PhysicsObj_VelX(a0)
+	move.l d0, PhysicsObj_VelX(a0)
 	bra    @EndXVel
 	@Positive:
-	cmp.w  d1, d0
+	cmp.l  d1, d0
 	blt    @EndXVel
-	move.w d0, PhysicsObj_VelX(a0)
+	move.l d0, PhysicsObj_VelX(a0)
 	@EndXVel:
 
 	; Set jumping
@@ -596,7 +596,7 @@ CharacterStartJump:
 	
 	@InWater:
 	; Jump from water
-	move.w Character_JumpVelWater(a0), PhysicsObj_VelY(a0)
+	move.l Character_JumpVelWater(a0), PhysicsObj_VelY(a0)
 	move.b #0x1, Character_Jumping(a0)
 	
 	@Dead:
@@ -629,16 +629,16 @@ CharacterCancelJump:
 	bne    @Gliding
 	
 	; Check if Y vel is greater than min jump cancel vel
-	move.w PhysicsObj_VelY(a0), d4
-	cmp.w  Character_JumpCancelVelLo(a0), d4
+	move.l PhysicsObj_VelY(a0), d4
+	cmp.l  Character_JumpCancelVelLo(a0), d4
 	ble    @VelTooLow
 	
 	; Check if Y vel is lower than max jump cancel vel
-	cmp.w  Character_JumpCancelVelHi(a0), d4
+	cmp.l  Character_JumpCancelVelHi(a0), d4
 	bge    @VelTooHigh
 	
 	; Cancel jump
-	move.w Character_JumpCancelVelLo(a0), PhysicsObj_VelY(a0)
+	move.l Character_JumpCancelVelLo(a0), PhysicsObj_VelY(a0)
 	
 	@Dead:
 	@NotJumping:
@@ -672,7 +672,7 @@ CharacterStartRun:
 	bne    @CantRun
 
 	; Set max running velocity
-	move.w Character_MaxVelXRun(a0), PhysicsObj_MaxVelFloorX(a0)
+	move.l Character_MaxVelXRun(a0), PhysicsObj_MaxVelFloorX(a0)
 	
 	; Snap to floor if within step height
 	move.b #0x1, PhysicsObj_SnapToFloor(a0)
@@ -699,7 +699,7 @@ CharacterCancelRun:
 	beq    @InAir
 
 	; Set max walking velocity
-	move.w Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
+	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
 	
 	; Disable snap to floor
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)

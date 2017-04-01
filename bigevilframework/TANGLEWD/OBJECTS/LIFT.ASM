@@ -12,22 +12,22 @@ Lift_Width				equ 0x20
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
-Lift_MaxVelX			equ 0x0100
-Lift_AccelY				equ 0x20+Gravity
-Lift_DecelX				equ 0x08
+Lift_MaxVelX			equ 0x010000
+Lift_AccelY				equ 0x2000+Gravity
+Lift_DecelX				equ 0x0800
 
-Lift_MaxSpeedUp			equ 0x0100+Gravity	; Max speed hoisting up
-Lift_MaxSpeedDown		equ 0x0300			; Max speed falling down
+Lift_MaxSpeedUp			equ 0x010000+Gravity	; Max speed hoisting up
+Lift_MaxSpeedDown		equ 0x030000			; Max speed falling down
 Lift_FloorHeight		equ 0x0007			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
 Lift_RopeLength			equ 0x0100
 Lift_RopeNumSprites		equ (Lift_RopeLength/Rope_Height)
 
-Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*SubPixelsPerPixel
-Lift_RopePosOffsetY		equ -(Rope_Height)*SubPixelsPerPixel
+Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*subpixels_per_pixel
+Lift_RopePosOffsetY		equ -(Rope_Height)*subpixels_per_pixel
 
-Lift_MaxRopeAnimFrameDist	equ Rope_Width*SubPixelsPerPixel
+Lift_MaxRopeAnimFrameDist	equ Rope_Width
 
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
@@ -76,9 +76,9 @@ LiftInit:
 	move.w  #Lift_Height, Entity_Height(a0)
 	move.w  #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	
@@ -187,11 +187,11 @@ LiftPositionRopeSegments:
 	@RopePosLp:
 	
 	; Div rope segment offset
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	ext.l  d3
 	divs.w #0x2, d3
 	ext.l  d3
-	lsl.l  #0x8, d3
+	TOSUBPIXELS d3
 	
 	; Subtract from X pos
 	sub.l  d3, d0
@@ -199,7 +199,7 @@ LiftPositionRopeSegments:
 	move.l (a2)+, a3
 	move.l d0, Entity_WorldPosX(a3)
 	move.l d1, Entity_WorldPosY(a3)
-	sub.l  #(Rope_Height*SubPixelsPerPixel), d1
+	sub.l  #(Rope_Height*subpixels_per_pixel), d1
 	
 	; If +ve, flip sprite
 	move.l d3, d4
@@ -216,7 +216,7 @@ LiftPositionRopeSegments:
 	CLAMP  d4, #0x0, #(Lift_MaxRopeAnimFrameDist-(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes))
 	
 	; Set frame
-	divs.w #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
+	DIVS1616_LOSSY_FIXED #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
 	lsl.l  #0x8, d4
 	move.l d4, AnimObj_AnimSubFrame(a3)
 	move.b #0x1, AnimObj_Dirty(a3)
@@ -249,15 +249,15 @@ LiftUpdate:
 	
 	; Check if player heading down
 	move.l #Player1, a1
-	cmp.w  #0x0, PhysicsObj_VelY(a1)
+	cmp.l  #0x0, PhysicsObj_VelY(a1)
 	bgt    @PlayerHeadingUp
 	
 	; Check if player touching
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETCENTREX d3, a1
 	ENTITY_GETBOTTOM d4, a1
-	lsr.l  #0x8, d3
-	lsr.l  #0x8, d4
+	TOPIXELS d3
+	TOPIXELS d4
 	swap   d3
 	move.w d4, d3
 	jsr    PHYS_TestPointInsideBox
@@ -294,14 +294,14 @@ LiftUpdate:
 	@SwingLeft:
 	
 	; Only if vel < -Lift_PendulumMaxCorrectionVel
-	move.w PhysicsObj_VelX(a0), d1
-	cmp.w  #-Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
+	move.l PhysicsObj_VelX(a0), d1
+	cmp.l  #-Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
 	bgt    @NoDecelLeft
 	
-	add.w  #Lift_DecelX, PhysicsObj_VelX(a0)
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	add.l  #Lift_DecelX, PhysicsObj_VelX(a0)
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	ble    @Resting
-	move.w #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
 	bra    @Resting
 	
 	@NoDecelLeft:
@@ -314,14 +314,14 @@ LiftUpdate:
 	@SwingRight:
 	
 	; Only if vel < Lift_PendulumMaxCorrectionVel
-	move.w PhysicsObj_VelX(a0), d1
-	cmp.w  #Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
+	move.l PhysicsObj_VelX(a0), d1
+	cmp.l  #Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
 	blt    @NoDecelRight
 	
-	sub.w  #Lift_DecelX, PhysicsObj_VelX(a0)
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	sub.l  #Lift_DecelX, PhysicsObj_VelX(a0)
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	bge    @Resting
-	move.w #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
 	bra    @Resting
 	
 	@NoDecelRight:
@@ -360,16 +360,16 @@ LiftUpdate:
 	add.l  #Lift_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	lsr.l  #0x8, d0
-	lsr.l  #0x8, d1
-	add.w  Entity_Height(a0), d1
-	sub.w  #Lift_FloorHeight, d1
-	move.w d0, Platform_PosX(a2)
-	move.w d1, Platform_PosY(a2)
+	move.w Entity_Height(a0), d2
+	TOSUBPIXELS d2
+	add.l  d2, d1
+	sub.l  #Lift_FloorHeight*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
 	
 	; Set platform velocity
-	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
-	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
+	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
 	
 	;==============================================================
 	

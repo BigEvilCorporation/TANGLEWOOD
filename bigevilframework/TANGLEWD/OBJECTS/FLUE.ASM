@@ -12,8 +12,8 @@ Flue_Width				equ 0x40
 Flue_Height				equ 0x40
 Flue_BoundsExtendX		equ 0x08
 Flue_HoldDelay			equ 0x0020
-Flue_DefaultEjectForceX	equ 0x0000
-Flue_DefaultEjectForceY	equ 0x0E00
+Flue_DefaultEjectForceX	equ 0x000000
+Flue_DefaultEjectForceY	equ 0x0E0000
 Flue_MaxOccupants		equ 0x2
 Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
 Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
@@ -36,8 +36,8 @@ FlueOccupant_Struct_Size  	rs.b 0
 ;--------------------------
 Flue_OutputFlue			rs.l 1	; Linked flue to output occupant
 Flue_Occupants			rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
-Flue_EjectForceX		rs.w 1	; Eject force X
-Flue_EjectForceY		rs.w 1	; Eject force Y
+Flue_EjectForceX		rs.l 1	; Eject force X
+Flue_EjectForceY		rs.l 1	; Eject force Y
 Flue_OccupantCheckTimer	rs.w 1
 ;-----------------------------
 Flue_Struct_Pad   		rs.b 2	; Alignment padding
@@ -64,8 +64,8 @@ FlueInit:
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	
-	move.w #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
-	move.w #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
+	move.l #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
+	move.l #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
 	
 	; Stagger occupant checks for performance
 	move.w (EntityCount_Flue), Flue_OccupantCheckTimer(a0)
@@ -127,8 +127,10 @@ FlueOccupantUpdate:
 	bne    @TimerRunning
 
 	; Timer elapsed, eject occupant
-	move.w Flue_EjectForceX(a0), PhysicsObj_VelX(a1)
-	move.w Flue_EjectForceY(a0), PhysicsObj_VelY(a1)
+	move.l Flue_EjectForceX(a0), d0
+	move.l d0, PhysicsObj_VelX(a1)
+	move.l Flue_EjectForceY(a0), d0
+	move.l d0, PhysicsObj_VelY(a1)
 	move.b #0x1, FlueOccupant_Ejecting(a2)
 	
 	; If linked to another flue, use that pos for output
@@ -142,10 +144,12 @@ FlueOccupantUpdate:
 	clr.l  d1
 	move.l Entity_WorldPosX(a3), d0
 	move.w Entity_Width(a3), d1
-	lsl.l  #0x7, d1	; Screen to world / 2
+	TOSUBPIXELS d1				; To subpixels
+	lsr.l  #0x1, d1  			; div/2
 	add.l  d1, d0
 	move.w Entity_Width(a1), d1
-	lsl.l  #0x7, d1	; Screen to world / 2
+	TOSUBPIXELS d1				; To subpixels
+	lsr.l  #0x1, d1  			; div/2
 	sub.l  d1, d0
 	move.l d0, Entity_WorldPosX(a1)
 
@@ -357,21 +361,21 @@ FlueTestPhysicsObjInside:
 	; a1 --- PhysicsObj 2
 	
 	; Obj 1 min X
-	move.l Entity_WorldPosX(a0), d1	; X
-	lsr.l  #0x8, d1						; To screen space
+	move.l Entity_WorldPosX(a0), d1		; X
+	TOPIXELS d1							; To screen space
 	move.w d1, d2						; Copy for max
 	sub.w  #Flue_BoundsExtendX, d1		; Extend X bounds for Flue
 	swap   d1							; In upper word d1
 	
 	; Obj 1 max X
-	move.w Entity_Width(a0), d3		; Width
+	move.w Entity_Width(a0), d3			; Width
 	add.w  d3, d2						; Fuzzl X max
 	add.w  #Flue_BoundsExtendX, d2		; Extend X bounds for Flue
 	swap   d2							; In upper word d2
 	
 	; Obj 1 min Y
-	move.l Entity_WorldPosY(a0), d3	; Y
-	lsr.l  #0x8, d3						; To screen space
+	move.l Entity_WorldPosY(a0), d3		; Y
+	TOPIXELS d3							; To screen space
 	move.w d3, d2						; Copy for max
 	move.w d3, d1						; In lower word d1
 	
@@ -380,19 +384,19 @@ FlueTestPhysicsObjInside:
 	add.w  d3, d2						; Fuzzl Y max
 	
 	; Obj 2 min X
-	move.l Entity_WorldPosX(a1), d3	; X
-	lsr.l  #0x8, d3						; To screen space
+	move.l Entity_WorldPosX(a1), d3		; X
+	TOPIXELS d3							; To screen space
 	move.w d3, d4						; Copy for max
 	swap   d3							; In upper word d1
 	
 	; Obj 2 max X
-	move.w Entity_Width(a1), d5		; Width
+	move.w Entity_Width(a1), d5			; Width
 	add.w  d5, d4						; Fuzzl X max
 	swap   d4							; In upper word d2
 	
 	; Obj 2 min Y
-	move.l Entity_WorldPosY(a1), d5	; Y
-	lsr.l  #0x8, d5						; To screen space
+	move.l Entity_WorldPosY(a1), d5		; Y
+	TOPIXELS d5							; To screen space
 	move.w d5, d4						; Copy for max
 	move.w d5, d3						; In lower word d1
 	

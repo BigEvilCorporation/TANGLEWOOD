@@ -10,21 +10,21 @@
 Boulder_MaxEntities			equ 0x4
 Boulder_Width				equ 0x38
 Boulder_Height				equ 0x38
-Boulder_MaxVelYUp			equ 0x0600
-Boulder_MaxVelYDown			equ 0x08*SubPixelsPerPixel
+Boulder_MaxVelYUp			equ 0x06*subpixels_per_pixel
+Boulder_MaxVelYDown			equ 0x08*subpixels_per_pixel
 Boulder_StepHeight			equ 0x4
 Boulder_ProbeFloorX			equ (Boulder_Width/2)	; Floor detection probe position X
 Boulder_ProbeFloorY			equ (Boulder_Height-8)	; Floor detection probe position X
-Boulder_MaxVelX				equ 0x0800
-Boulder_Decel				equ 0x0008
+Boulder_MaxVelX				equ 0x080000
+Boulder_Decel				equ 0x000800
 
-Boulder_AnimSpeedVelDiv		equ 0x0008
+Boulder_AnimSpeedVelDiv		equ 0x0800
 
-Boulder_HitGroundSFXVel		equ 0x0500	; Min downward velocity to play thud SFX
-Boulder_MinDamageYVel		equ 0x0500	; Min downward velocity to deal damage to characters
+Boulder_HitGroundSFXVel		equ 0x050000	; Min downward velocity to play thud SFX
+Boulder_MinDamageYVel		equ 0x050000	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
 
-Boulder_MinCrackYVel		equ 0x0500	; Min downward velocity to crack open on floor collision 
+Boulder_MinCrackYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
 
 Boulder_PlatformWidth		equ Boulder_Width/2	; Physics platform width
 Boulder_PlatformXOffset		equ (Boulder_Width-Boulder_PlatformWidth)/2	; Offset to platform from top of boulder
@@ -84,13 +84,13 @@ BoulderInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
-	move.w  #Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Boulder_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Boulder_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)
 	move.l  #0x0, Boulder_SpawnY(a0)
@@ -247,7 +247,7 @@ BoulderUpdate:
 	bne    @PrevOnFloor
 	
 	; Just hit the floor, check the last recorded Y velocity
-	cmp.w  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
+	cmp.l  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
 	bge    @LowVel
 	
 	; Crack open
@@ -264,7 +264,7 @@ BoulderUpdate:
 	@LowVel:
 	
 	; Record current Y vel and on OnFloor flag
-	move.w PhysicsObj_VelY(a0), Boulder_LastVelY(a0)
+	move.l PhysicsObj_VelY(a0), Boulder_LastVelY(a0)
 	move.b PhysicsObj_OnFloor(a0), Boulder_LastOnFloor(a0)
 	
 	; Get roll animation
@@ -274,12 +274,15 @@ BoulderUpdate:
 
 	; Roll anim speed based on velocity
 	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
+	beq    @ZeroVel
 	divs.w #Boulder_AnimSpeedVelDiv, d0
+	@ZeroVel:
 	move.b d0, Animation_Speed(a2)
 	
 	; If Y vel > min damage vel
-	cmp.w  #-Boulder_MinDamageYVel, PhysicsObj_VelY(a0)
+	cmp.l  #-Boulder_MinDamageYVel, PhysicsObj_VelY(a0)
 	bge    @NotFalling
 
 	;==============================================================
@@ -349,16 +352,14 @@ BoulderUpdate:
 	add.l  #Boulder_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	lsr.l  #0x8, d0
-	lsr.l  #0x8, d1
-	add.w  #Boulder_PlatformXOffset, d0
-	add.w  #Boulder_PlatformYOffset, d1
-	move.w d0, Platform_PosX(a2)
-	move.w d1, Platform_PosY(a2)
+	add.l  #Boulder_PlatformXOffset*subpixels_per_pixel, d0
+	add.l  #Boulder_PlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
 	
 	; Set platform velocity
-	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
-	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
+	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
 	
 	@SFXEnd:
 	@SFXInAir:
@@ -372,7 +373,7 @@ BoulderCrack:
 	; a1 --- Level addr
 
 	; Cancel X velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 
 	; Set as cracked

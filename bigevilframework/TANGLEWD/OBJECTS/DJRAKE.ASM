@@ -14,18 +14,18 @@ Djrake_MaxEntities   equ 0x1
 Djrake_Width	      equ 0x0080
 Djrake_Height	      equ 0x0050
 
-Djrake_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Djrake_MaxVelXRun    equ 0x0330   ; Max X running velocity
-Djrake_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
-Djrake_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
-Djrake_AccelWalk     equ 0x0002   ; Walking acceleration
-Djrake_AccelRun      equ 0x0007   ; Running acceleration
-Djrake_DecelIdle     equ 0x0020   ; Deceleration if left alone
-Djrake_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
-Djrake_JumpVel	      equ 0x0600   ; Jump velocity impulse
-Djrake_JumpCancelVelLo equ 0x0100   ; Velocity to cancel jump min
+Djrake_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
+Djrake_MaxVelXRun    equ 0x033000   ; Max X running velocity
+Djrake_MaxVelYUp	  equ 0x060000   ; Max Y velocity up
+Djrake_MaxVelYDown	  equ 0x080000   ; Max Y velocity down
+Djrake_AccelWalk     equ 0x000200   ; Walking acceleration
+Djrake_AccelRun      equ 0x000700   ; Running acceleration
+Djrake_DecelIdle     equ 0x002000   ; Deceleration if left alone
+Djrake_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
+Djrake_JumpVel	      equ 0x060000   ; Jump velocity impulse
+Djrake_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Djrake_JumpCancelVelHi equ Djrake_MaxVelYUp   ; Velocity to cancel jump max
-Djrake_MaxGrabUpVel  equ 0x0300   ; Max up velocity character can grab a ledge (no limit on down vel)
+Djrake_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
 
 Djrake_StepHeight	  equ 0x3
 Djrake_ProbeFloorX	  equ (Djrake_Width/2)  ; Floor detection probe position X
@@ -37,24 +37,24 @@ Djrake_PlayerVisibilityBoxX	equ 0x2000
 Djrake_PlayerVisibilityBoxY	equ 0x0080
 Djrake_PlayerLostSightTime		equ 0x0180
 
-Djrake_RumbleSoundDist  	equ 0x0200
+Djrake_RumbleSoundDist  	equ 0x020000
 Djrake_RumbleSoundDistSq	equ (Djrake_RumbleSoundDist*Djrake_RumbleSoundDist)
 
-Djrake_AlertDistance		equ 0x0090
+Djrake_AlertDistance		equ 0x009000
 Djrake_AlertDistanceSq		equ (Djrake_AlertDistance*Djrake_AlertDistance)
 
-Djrake_MinChaseDistance	equ ((Djrake_Width/2)*SubPixelsPerPixel)
-Djrake_MaxChaseDistance	equ (screen_width*SubPixelsPerPixel)
+Djrake_MinChaseDistance	equ ((Djrake_Width/2)*subpixels_per_pixel)
+Djrake_MaxChaseDistance	equ (screen_width*subpixels_per_pixel)
 Djrake_OutOfDistSpeedMul	equ 0x8
 
-Djrake_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
+Djrake_AttackMaxPlayerVel	equ 0x090000	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 ; Search state
 Djrake_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pixels)
 Djrake_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
 Djrake_SearchRandDelayMin	equ 0x0018	; Min rand delay between walks
 Djrake_SearchRandDelayInit equ 0x0040  ; Initial delay for first walk
-Djrake_NearTargetDistance	equ (0x04*SubPixelsPerPixel)
+Djrake_NearTargetDistance	equ (0x04*subpixels_per_pixel)
 
 ; Emerge palette lerp speed
 Djrake_EmergePalLerpSpeed  equ (0x1<<0x8)
@@ -136,25 +136,25 @@ DjrakeInit:
 	; Default properties
 	move.w  #Djrake_Width, Entity_Width(a0)
 	move.w  #Djrake_Height, Entity_Height(a0)
-	move.w  #Djrake_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Djrake_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Djrake_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Djrake_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Djrake_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Djrake_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Djrake_DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Djrake_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Djrake_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Djrake_StepHeight, PhysicsObj_StepHeight(a0)
 	
-	move.w  #Djrake_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #Djrake_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Djrake_MaxVelXWalk, Character_WalkToRunVel(a0)
+	move.l  #Djrake_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Djrake_MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l  #Djrake_MaxVelXWalk, Character_WalkToRunVel(a0)
 	move.w  #Djrake_AccelWalk, Character_AccelWalk(a0)
 	move.w  #Djrake_AccelRun, Character_AccelRun(a0)
 	move.w  #Djrake_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Djrake_DecelForced, Character_DecelForced(a0)
-	move.w  #Djrake_JumpVel, Character_JumpVelY(a0)
-	move.w  #Djrake_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.w  #Djrake_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.w  #Djrake_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
+	move.l  #Djrake_JumpVel, Character_JumpVelY(a0)
+	move.l  #Djrake_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.l  #Djrake_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
+	move.l  #Djrake_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Djrake_ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Djrake_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
@@ -434,7 +434,7 @@ DjrakeCheckPlayerVisible:
 	
 	; Get Djrake visibility bounds X
 	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
+	TOPIXELS d1
 	move.w d1, d2
 	add.w  #(Djrake_Width/2)-(Djrake_PlayerVisibilityBoxX/2), d1
 	add.w  #(Djrake_Width/2)+(Djrake_PlayerVisibilityBoxX/2), d2
@@ -444,7 +444,7 @@ DjrakeCheckPlayerVisible:
 	
 	; Get Djrake visibility bounds Y
 	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	move.w d3, d1
 	move.w d3, d2
 	add.w  #(Djrake_Height/2)-(Djrake_PlayerVisibilityBoxY/2), d1
@@ -452,12 +452,12 @@ DjrakeCheckPlayerVisible:
 	
 	; Get player centre X
 	ENTITY_GETCENTREX d3, a2
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	swap   d3
 	
 	; Get player centre Y
 	ENTITY_GETCENTREY d4, a2
-	lsr.l  #0x8, d4
+	TOPIXELS d4
 	move.w d4, d3
 	
 	jsr    PHYS_TestPointInsideBox
@@ -591,7 +591,7 @@ DjrakeStartEmergeFromCave:
 	
 	; Cut player X velocity
 	move.l #Player1, a2
-	move.w #0x0, PhysicsObj_VelX(a2)
+	move.l #0x0, PhysicsObj_VelX(a2)
 	move.w #0x0, PhysicsObj_AccelX(a2)
 	
 	; Start palette lerp
@@ -759,7 +759,7 @@ DjrakeUpdateSearchForPlayer:
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
 	sub.w  #Djrake_SearchRandDistMax, d0		; Shift down to -255 - 255
-	muls   #SubPixelsPerPixel, d0				; To subpixels
+	TOSUBPIXELS d0								; To subpixels
 	
 	; Add min dist
 	move.l  #Djrake_NearTargetDistance, d1
@@ -780,7 +780,7 @@ DjrakeUpdateSearchForPlayer:
 	clr.l  d1
 	move.w Level_MapWidth(a1), d1				; Clamp screen right
 	TILES2PIXELS d1								; Tiles to pixels
-	lsl.l  #0x8, d1								; Pixels to subpixels
+	TOSUBPIXELS  d1								; Pixels to subpixels
 	cmp.l  d1, d0
 	blt    @NoClampRight
 	move.l d1, d0
@@ -884,7 +884,7 @@ DjrakeUpdateTrackPlayer:
 	beq    @PlayerCloaked
 	
 	; If player is being flung using a flue/bounce pad, don't bother
-	cmp.w  #Djrake_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
+	cmp.l  #Djrake_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
 	bge    @PlayerBeingFlung
 
 	; Check if player is within tracking window
@@ -923,8 +923,8 @@ DjrakeUpdateTrackPlayer:
 	; Within max chase dist
 	cmp.b  #0x0, Djrake_CatchingUp(a0)
 	beq    @WithinMaxChaseDist
-	move.w #Djrake_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
-	move.w #Djrake_MaxVelXRun, PhysicsObj_VelX(a0)
+	move.l #Djrake_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	move.l #Djrake_MaxVelXRun, PhysicsObj_VelX(a0)
 	move.b #0x0, Djrake_CatchingUp(a0)
 	bra    @WithinMaxChaseDist
 	
@@ -934,9 +934,9 @@ DjrakeUpdateTrackPlayer:
 	; Outside max chase dist, multiply speed to catch up
 	cmp.b  #0x0, Djrake_CatchingUp(a0)
 	bne    @SpeedBoostApplied
-	move.w Character_MaxVelXRun(a0), d0
+	move.l Character_MaxVelXRun(a0), d0
 	mulu   Djrake_CatchUpSpeedMul(a0), d0	; Mul max run velocity
-	move.w d0, Character_MaxVelXRun(a0)		; Set new max velocity
+	move.l d0, Character_MaxVelXRun(a0)		; Set new max velocity
 	move.b #0x1, Djrake_CatchingUp(a0)		; Set catching up
 	bra    @EndMaxDistCheck
 	

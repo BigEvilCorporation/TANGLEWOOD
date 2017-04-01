@@ -34,8 +34,8 @@ Lvl0_MainMenu:
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
-MainMenuLogoPosX	equ 18*8*SubPixelsPerPixel
-MainMenuLogoPosY	equ 36*8*SubPixelsPerPixel
+MainMenuLogoPosX	equ 18*8*subpixels_per_pixel
+MainMenuLogoPosY	equ 36*8*subpixels_per_pixel
 
 ; Struct
 	rsset	0x0

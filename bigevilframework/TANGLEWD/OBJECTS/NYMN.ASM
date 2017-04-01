@@ -489,9 +489,9 @@ NymnStartInteract:
 	bne    @AlreadyInteracting
 
 	; If at zero velocity
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	bne    @Moving
-	cmp.w  #0x0, PhysicsObj_VelY(a0)
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
 	bne    @Moving
 
 	; If in idle state and not waiting on another anim
@@ -567,8 +567,8 @@ NymnBeginCarryEcho:
 	IFD TANGLWD_INCLUDE_ECHO
 	
 	; Cancel velocity and acceleration
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
@@ -606,7 +606,7 @@ NymnBeginCarryEcho:
 	
 	; Can't run
 	jsr    CharacterCancelRun
-	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
 	ENDIF ; TANGLWD_INCLUDE_ECHO
 
@@ -619,8 +619,8 @@ NymnEndCarryEcho:
 	IFD TANGLWD_INCLUDE_ECHO
 	
 	; Cancel velocity and acceleration
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
@@ -656,7 +656,7 @@ NymnEndCarryEcho:
 	
 	; Can run
 	jsr    CharacterStartRun
-	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 
 	ENDIF ; TANGLWD_INCLUDE_ECHO
 

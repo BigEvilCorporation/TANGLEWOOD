@@ -10,8 +10,8 @@
 BouncePlant_MaxEntities	   equ 0x9
 BouncePlant_Width		   equ 0x18
 BouncePlant_Height		   equ 0x18
-BouncePlant_LaunchForce     equ 0x0A00
-BouncePlant_LaunchForceDiag equ 0x0711 ; (BouncePlant_LaunchForce * 0.707)
+BouncePlant_LaunchForce     equ 0x0A0000
+BouncePlant_LaunchForceDiag equ 0x071100 ; (BouncePlant_LaunchForce * 0.707)
 
 ;==============================================================
 
@@ -59,25 +59,25 @@ BouncePlantSpriteFlip_315:		dc.w 0x0001
 
 ; Reflection masks
 BouncePlantReflectMasks:
-BouncePlantMask_0:		dc.l 0xFFFF0000	; Pointing down
-BouncePlantMask_45:		dc.l 0x00000000
-BouncePlantMask_90:		dc.l 0x0000FFFF	; Pointing left
-BouncePlantMask_135:	dc.l 0x00000000
-BouncePlantMask_180:	dc.l 0xFFFF0000	; Pointing up
-BouncePlantMask_225:	dc.l 0x00000000
-BouncePlantMask_270:	dc.l 0x0000FFFF	; Pointing right
-BouncePlantMask_315:	dc.l 0x00000000
+BouncePlantMask_0:		dc.l 0xFFFFFFFF, 0x00000000	; Pointing down
+BouncePlantMask_45:		dc.l 0x00000000, 0x00000000
+BouncePlantMask_90:		dc.l 0x00000000, 0xFFFFFFFF	; Pointing left
+BouncePlantMask_135:	dc.l 0x00000000, 0x00000000
+BouncePlantMask_180:	dc.l 0xFFFFFFFF, 0x00000000	; Pointing up
+BouncePlantMask_225:	dc.l 0x00000000, 0x00000000
+BouncePlantMask_270:	dc.l 0x00000000, 0xFFFFFFFF	; Pointing right
+BouncePlantMask_315:	dc.l 0x00000000, 0x00000000
 
 ; Reflection vectors
 BouncePlantReflectVels:
-BouncePlantVel_0:		dc.l ((-BouncePlant_LaunchForce))
-BouncePlantVel_45:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_90:		dc.l ((-BouncePlant_LaunchForce<<16))
-BouncePlantVel_135:		dc.l ((-BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_180:		dc.l (( BouncePlant_LaunchForce))
-BouncePlantVel_225:		dc.l (( BouncePlant_LaunchForceDiag<<16))|(( BouncePlant_LaunchForceDiag)&0xFFFF)
-BouncePlantVel_270:		dc.l (( BouncePlant_LaunchForce<<16))
-BouncePlantVel_315:		dc.l (( BouncePlant_LaunchForceDiag<<16))|((-BouncePlant_LaunchForceDiag)&0xFFFF)
+BouncePlantVel_0:		dc.l  0x00000000, 				   -BouncePlant_LaunchForce
+BouncePlantVel_45:		dc.l -BouncePlant_LaunchForceDiag, -BouncePlant_LaunchForceDiag
+BouncePlantVel_90:		dc.l -BouncePlant_LaunchForce, 		0x00000000
+BouncePlantVel_135:		dc.l -BouncePlant_LaunchForceDiag, 	BouncePlant_LaunchForceDiag
+BouncePlantVel_180:		dc.l  0x00000000, 					BouncePlant_LaunchForce
+BouncePlantVel_225:		dc.l  BouncePlant_LaunchForceDiag, 	BouncePlant_LaunchForceDiag
+BouncePlantVel_270:		dc.l  BouncePlant_LaunchForce, 		0x00000000
+BouncePlantVel_315:		dc.l  BouncePlant_LaunchForceDiag, -BouncePlant_LaunchForceDiag
 
 ; Bounds
 BouncePlantBounds:
@@ -96,7 +96,7 @@ BouncePlantBounds_315:	dc.w 0x0008, 0x0008, 0x0010, 0x0010
 ; TODO: Base Entity holds collision bounds?
 BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	lsr.l  #0x8, \minreg								; To pixel space
+	TOPIXELS \minreg								; To pixel space
 	add.w  BouncePlant_BoundsLeft(\addrreg), \minreg	; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  BouncePlant_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
@@ -105,7 +105,7 @@ BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \maxreg
 	
 	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	lsr.l  #0x8, \tmpreg								; To pixel space
+	TOPIXELS \tmpreg								; To pixel space
 	add.w  BouncePlant_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
@@ -306,28 +306,33 @@ BouncePlant_Activate:
 BouncePlant_GetBounceVector:
 	; a0 ---- GameObj addr
 	; a1 ---- Level addr
-	; d0 (ww) in: XY vector to reflect
+	; d0 (l) in: X to reflect
 	;         out: reflected vector
+	; d1 (l) in: Y to reflect
 
 	; Get orientation of plant
-	clr.l  d1
-	move.b BouncePlant_Orientation(a0), d1
-	lsl.l  #0x2, d1
+	clr.l  d2
+	move.b BouncePlant_Orientation(a0), d2
+	lsl.l  #0x3, d2
 
 	; Get mask for this plant orientation
 	lea    BouncePlantReflectMasks, a3
-	add.l  d1, a3
-	move.l (a3), d2
+	add.l  d2, a3
+	move.l (a3)+, d3
+	move.l (a3)+, d4
+
+	; Mask out component to be applied
+	and.l  d3, d0
+	and.l  d4, d1
 
 	; Get bounce vector for this plant orientation
 	lea    BouncePlantReflectVels, a3
-	add.l  d1, a3
-	move.l (a3), d3
-
-	; Mask out component to be applied
-	and.l  d2, d0
+	add.l  d2, a3
+	move.l (a3)+, d3
+	move.l (a3)+, d4
 
 	; Apply velocity
 	add.l  d3, d0
+	add.l  d4, d1
 
 	rts

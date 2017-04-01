@@ -10,25 +10,25 @@
 Fuzzl_MaxEntities			equ 0x4
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
-Fuzzl_MaxVelXFloor			equ 0x0120
-Fuzzl_MaxVelXAir			equ 0x0120
-Fuzzl_MaxVelYUp				equ 0x0600
-Fuzzl_MaxVelYDown			equ (0x8*SubpixelsPerPixel)
+Fuzzl_MaxVelXFloor			equ 0x012000
+Fuzzl_MaxVelXAir			equ 0x012000
+Fuzzl_MaxVelYUp				equ 0x060000
+Fuzzl_MaxVelYDown			equ 0x080000
 Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
 Fuzzl_ProbeFloorY   		equ (Fuzzl_Height-8) ; Floor detection probe position Y
-Fuzzl_Decel					equ 0x02
+Fuzzl_Decel					equ 0x0200
 Fuzzl_BounceX				equ 0x1
 Fuzzl_BounceY				equ 0x2
 Fuzzl_BounceDelay			equ 0x40
-Fuzzl_BounceVelHappy		equ 0x0180
-Fuzzl_BounceVelStartled		equ 0x0100
-Fuzzl_AnimSpeedVelocityDiv	equ 0x0004
+Fuzzl_BounceVelHappy		equ 0x018000
+Fuzzl_BounceVelStartled		equ 0x010000
+Fuzzl_AnimSpeedVelocityDiv	equ 0x0400
 Fuzzl_AnimSpeedBounce       equ	0x40
 Fuzzl_EyeWatchDistanceStart equ	0x0050	; Distance from player to start watching
 Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
 Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
-Fuzzl_FlingVelocity			equ 0x0004	; Upward velocity to determine if being flung (by a Flue or otherwise)
+Fuzzl_FlingVelocity			equ 0x000400	; Upward velocity to determine if being flung (by a Flue or otherwise)
 Fuzzl_FlingRollSpeed        equ 0x80
 Fuzzl_HitGroundSFXVel		equ 0x0200	; Min downward velocity to play thud SFX
 
@@ -155,14 +155,14 @@ FuzzlInit:
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
-	move.w  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x0, Fuzzl_State_Bits(a0)
@@ -362,7 +362,7 @@ FuzzlUpdate:
 	bset.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
 
 	; Do a little startled bounce
-	move.w #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
+	move.l #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
 	
 	; Play alert SFX
 	PLAYSFX #SFX_FuzzlAlert
@@ -372,7 +372,7 @@ FuzzlUpdate:
 	@Watching:
 	
 	; Check if being pushed
-	cmp.w  #0x0, PhysicsObj_VelX(a0)
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	beq    @InitialState
 	
 	; Set rolling state
@@ -386,8 +386,11 @@ FuzzlUpdate:
 
 	; Roll anim speed based on velocity
 	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
+	beq    @ZeroVel
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
+	@ZeroVel:
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
@@ -421,7 +424,7 @@ FuzzlUpdate:
 	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
 	
 	; Zero X velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
 	
 	; Fuzzl is home
 	bset.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
@@ -434,8 +437,8 @@ FuzzlUpdate:
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
 
 	; Zero velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	
 	; Nest is occupied
 	move.b #0x1, Nest_Occupied(a3)
@@ -503,7 +506,7 @@ FuzzlUpdate:
 	
 	; Store current floor flag and Y velocity to check landing
 	move.b PhysicsObj_OnFloor(a0), d0
-	move.w PhysicsObj_VelY(a0), d1
+	move.l PhysicsObj_VelY(a0), d1
 	PUSHL  d0
 	PUSHL  d1
 
@@ -523,7 +526,7 @@ FuzzlUpdate:
 	bne    @SFXPrevOnFloor
 	
 	; If hit floor at landing velocity
-	cmp.w  #-Fuzzl_HitGroundSFXVel, d1
+	cmp.l  #-Fuzzl_HitGroundSFXVel, d1
 	bge    @SFXLowVel
 	
 	; Play land SFX
@@ -602,7 +605,7 @@ FuzzlUpdateBounce:
 	bne    @NoBounceThisFrame
 	
 	; Bounce!
-	move.w #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
+	move.l #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
 	
 	; Play jump SFX
 	PLAYSFX #SFX_FuzzlJump

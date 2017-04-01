@@ -600,8 +600,8 @@ EchoBeginCarried:
 	; a1 --- Level addr
 	
 	; Cancel velocity and acceleration
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
@@ -652,8 +652,8 @@ EchoEndCarried:
 	; a1 --- Level addr
 	
 	; Cancel velocity and acceleration
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 

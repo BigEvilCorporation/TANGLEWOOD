@@ -202,22 +202,22 @@ PHYS_EntityDistSq:
 
 	; Obj 1 X
 	move.l Entity_WorldPosX(a0), d0	; X
-	lsr.l  #0x8, d0						; To screen space
+	TOPIXELS d0							; To screen space
 	swap   d0							; In upper word d1
 	
 	; Obj 1 Y
 	move.l Entity_WorldPosY(a0), d2	; Y
-	lsr.l  #0x8, d2						; To screen space
+	TOPIXELS d2							; To screen space
 	move.w d2, d0						; In lower word d1
 	
 	; Obj 2 X
 	move.l Entity_WorldPosX(a1), d1	; X
-	lsr.l  #0x8, d1						; To screen space
+	TOPIXELS d1							; To screen space
 	swap   d1							; In upper word d1
 	
 	; Obj 2 Y
 	move.l Entity_WorldPosY(a1), d2	; Y
-	lsr.l  #0x8, d2						; To screen space
+	TOPIXELS d2							; To screen space
 	move.w d2, d1						; In lower word d1
 
 	VEC2_DISTSQ d0, d1, d2

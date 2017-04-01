@@ -64,7 +64,10 @@ L1A1_Fuzzl_41_idx	equ 0x1
 
 L1A1_Boulder_count equ 0x0
 
-L1A1_Stone_count equ 0x0
+L1A1_Stone_count equ 0x3
+L1A1_Stone_55_idx	equ 0x0
+L1A1_Stone_56_idx	equ 0x1
+L1A1_Stone_57_idx	equ 0x2
 
 L1A1_Nest_count equ 0x2
 L1A1_Nest_2_idx	equ 0x0
@@ -113,8 +116,8 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00062800, Entity_WorldPosX(a0)
-	move.l #0x00014000, Entity_WorldPosY(a0)
+	move.l #0x06280000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
@@ -124,181 +127,181 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_BouncePlant, a0
 	jsr BouncePlantInit
-	move.l #0x00069000, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #0x06900000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00039000, Entity_WorldPosX(a0)
-	move.l #0x0002e800, Entity_WorldPosY(a0)
+	move.l #0x03900000, Entity_WorldPosX(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x0001f800, Entity_WorldPosX(a0)
-	move.l #0x00028000, Entity_WorldPosY(a0)
+	move.l #0x01f80000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00229000, Entity_WorldPosX(a0)
-	move.l #0x0001b800, Entity_WorldPosY(a0)
+	move.l #0x22900000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00081000, Entity_WorldPosX(a0)
-	move.l #0x0002e800, Entity_WorldPosY(a0)
+	move.l #0x08100000, Entity_WorldPosX(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x00196800, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #0x19680000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x0005c000, Entity_WorldPosX(a0)
-	move.l #0x00019000, Entity_WorldPosY(a0)
+	move.l #0x05c00000, Entity_WorldPosX(a0)
+	move.l #0x01900000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
-	move.l #0x0013d000, Entity_WorldPosX(a0)
-	move.l #0x0000f800, Entity_WorldPosY(a0)
+	move.l #0x13d00000, Entity_WorldPosX(a0)
+	move.l #0x00f80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00134000, Entity_WorldPosX(a0)
-	move.l #0x0000f000, Entity_WorldPosY(a0)
+	move.l #0x13400000, Entity_WorldPosX(a0)
+	move.l #0x00f00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00145800, Entity_WorldPosX(a0)
-	move.l #0x00011800, Entity_WorldPosY(a0)
+	move.l #0x14580000, Entity_WorldPosX(a0)
+	move.l #0x01180000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0006d000, Entity_WorldPosX(a0)
-	move.l #0x00012000, Entity_WorldPosY(a0)
+	move.l #0x06d00000, Entity_WorldPosX(a0)
+	move.l #0x01200000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0006a800, Entity_WorldPosX(a0)
-	move.l #0x0001c800, Entity_WorldPosY(a0)
+	move.l #0x06a80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0005c800, Entity_WorldPosX(a0)
-	move.l #0x00011000, Entity_WorldPosY(a0)
+	move.l #0x05c80000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0005c000, Entity_WorldPosX(a0)
-	move.l #0x0000b800, Entity_WorldPosY(a0)
+	move.l #0x05c00000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00024000, Entity_WorldPosX(a0)
-	move.l #0x00024000, Entity_WorldPosY(a0)
+	move.l #0x02400000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0002a000, Entity_WorldPosX(a0)
-	move.l #0x00021000, Entity_WorldPosY(a0)
+	move.l #0x02a00000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0003f000, Entity_WorldPosX(a0)
-	move.l #0x0001a800, Entity_WorldPosY(a0)
+	move.l #0x03f00000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x000a1000, Entity_WorldPosX(a0)
-	move.l #0x00011000, Entity_WorldPosY(a0)
+	move.l #0x0a100000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x000ee000, Entity_WorldPosX(a0)
-	move.l #0x00013800, Entity_WorldPosY(a0)
+	move.l #0x0ee00000, Entity_WorldPosX(a0)
+	move.l #0x01380000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0015f800, Entity_WorldPosX(a0)
-	move.l #0x0002d000, Entity_WorldPosY(a0)
+	move.l #0x15f80000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00175800, Entity_WorldPosX(a0)
-	move.l #0x00011000, Entity_WorldPosY(a0)
+	move.l #0x17580000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x000dc800, Entity_WorldPosX(a0)
-	move.l #0x0002c000, Entity_WorldPosY(a0)
+	move.l #0x0dc80000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x000dc000, Entity_WorldPosX(a0)
-	move.l #0x00026000, Entity_WorldPosY(a0)
+	move.l #0x0dc00000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00089000, Entity_WorldPosX(a0)
-	move.l #0x00029000, Entity_WorldPosY(a0)
+	move.l #0x08900000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00093800, Entity_WorldPosX(a0)
-	move.l #0x00026800, Entity_WorldPosY(a0)
+	move.l #0x09380000, Entity_WorldPosX(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0026e000, Entity_WorldPosX(a0)
-	move.l #0x00012800, Entity_WorldPosY(a0)
+	move.l #0x26e00000, Entity_WorldPosX(a0)
+	move.l #0x01280000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x001fe800, Entity_WorldPosX(a0)
-	move.l #0x00019800, Entity_WorldPosY(a0)
+	move.l #0x1fe80000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x001f9800, Entity_WorldPosX(a0)
-	move.l #0x0001b000, Entity_WorldPosY(a0)
+	move.l #0x1f980000, Entity_WorldPosX(a0)
+	move.l #0x01b00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0024a800, Entity_WorldPosX(a0)
-	move.l #0x0000b800, Entity_WorldPosY(a0)
+	move.l #0x24a80000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00253000, Entity_WorldPosX(a0)
-	move.l #0x0000c000, Entity_WorldPosY(a0)
+	move.l #0x25300000, Entity_WorldPosX(a0)
+	move.l #0x00c00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0025d000, Entity_WorldPosX(a0)
-	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.l #0x25d00000, Entity_WorldPosX(a0)
+	move.l #0x00d00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x00266800, Entity_WorldPosX(a0)
-	move.l #0x0000f800, Entity_WorldPosY(a0)
+	move.l #0x26680000, Entity_WorldPosX(a0)
+	move.l #0x00f80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
 	move.l #EntityArray_Fuzzl, a0
 	jsr FuzzlInit
-	move.l #0x000fa000, Entity_WorldPosX(a0)
-	move.l #0x00014000, Entity_WorldPosY(a0)
+	move.l #0x0fa00000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x001cf000, Entity_WorldPosX(a0)
-	move.l #0x0001b800, Entity_WorldPosY(a0)
+	move.l #0x1cf00000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
@@ -306,53 +309,67 @@ L1A1_LoadGameObjects:
 	move.l #EntityArray_Boulder, a0
 
 	move.l #EntityArray_Stone, a0
+	jsr StoneInit
+	move.l #0x10680000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0b180000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0ce80000, Entity_WorldPosX(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	move.l #EntityArray_Nest, a0
 	jsr NestInit
-	move.l #0x000d1000, Entity_WorldPosX(a0)
-	move.l #0x00020800, Entity_WorldPosY(a0)
+	move.l #0x0d100000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
-	move.l #0x00225800, Entity_WorldPosX(a0)
-	move.l #0x0001c800, Entity_WorldPosY(a0)
+	move.l #0x22580000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 
 	move.l #EntityArray_Flue, a0
 	jsr FlueInit
-	move.l #0x000db000, Entity_WorldPosX(a0)
-	move.l #0x00031000, Entity_WorldPosY(a0)
+	move.l #0x0db00000, Entity_WorldPosX(a0)
+	move.l #0x03100000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x00211800, Entity_WorldPosX(a0)
-	move.l #0x0002e000, Entity_WorldPosY(a0)
+	move.l #0x21180000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x0012c800, Entity_WorldPosX(a0)
-	move.l #0x00030000, Entity_WorldPosY(a0)
+	move.l #0x12c80000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
-	move.l #0x0028f800, Entity_WorldPosX(a0)
-	move.l #0x00015000, Entity_WorldPosY(a0)
+	move.l #0x28f80000, Entity_WorldPosX(a0)
+	move.l #0x01500000, Entity_WorldPosY(a0)
 	move.l #L1A1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x001b3000, Entity_WorldPosX(a0)
-	move.l #0x00028800, Entity_WorldPosY(a0)
+	move.l #0x1b300000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
 	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
-	move.l #bgm_cue_l1, TriggerBox_RegisterA0(a0)
-	move.l #0x1, TriggerBox_RegisterD0(a0)
+	move.l #track_bgm_cue_l1, TriggerBox_RegisterA0(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
@@ -360,13 +377,13 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_WaterBody, a0
 	jsr WaterBodyInit
-	move.l #0x0008e800, Entity_WorldPosX(a0)
-	move.l #0x00031800, Entity_WorldPosY(a0)
+	move.l #0x08e80000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
 	jsr WaterBodyInit
-	move.l #0x00137000, Entity_WorldPosX(a0)
-	move.l #0x00030800, Entity_WorldPosY(a0)
+	move.l #0x13700000, Entity_WorldPosX(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
 

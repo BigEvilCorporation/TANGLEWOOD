@@ -38,16 +38,12 @@ ScrollPlaneBorderY       equ (vdp_plane_height-screen_height)/2
 SubspriteMaxWidth		equ 0x20
 SubspriteMaxHeight		equ 0x20
 
-; Subpixels
-SubpixelsPerPixel 		 equ 0x0100	; Uses bit shift to transform - don't change
-SubpixelShift			 equ 0x8
-
 ; Subframes
 SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
 SubframeShift			 equ 0x8
 
 ; World
-Gravity			         equ 0x0030
+Gravity			         equ 0x003000
 
 	; TODO: add to level params
 	IFD DEBUG
@@ -56,7 +52,7 @@ GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Heigh
 GroundHeightScreen       equ (map_L1A4_height*8)+SpritePlaneBorderY+Player1Height
 	ENDIF
 
-GroundHeightWorld  		 equ GroundHeightScreen*SubpixelsPerPixel
+GroundHeightWorld  		 equ GroundHeightScreen*subpixels_per_pixel
 
 ; Faders
 LevelFadeUpSpeed		 	equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
@@ -74,10 +70,10 @@ TimeOfDay_Dawn			 equ 0x3
 TimeOfDay_NumCycles		 equ 0x4
 
 ; Camera
-CameraStartPosWorldX	 equ ((screen_width/2)*SubpixelsPerPixel)
-CameraStartPosWorldY	 equ ((screen_height/2)*SubpixelsPerPixel)
-CameraScrollSafeBorderX  equ ((screen_width/2)*SubpixelsPerPixel)
-CameraScrollSafeBorderY	 equ ((screen_height/2)*SubpixelsPerPixel)
+CameraStartPosWorldX	 equ ((screen_width/2)*subpixels_per_pixel)
+CameraStartPosWorldY	 equ ((screen_height/2)*subpixels_per_pixel)
+CameraScrollSafeBorderX  equ (screen_width/2)
+CameraScrollSafeBorderY	 equ (screen_height/2)
 
 ; Streaming
 MapStreamBorderX		 equ 0x2
@@ -86,8 +82,8 @@ MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX)
 MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY)
 
 ; Peek down/up
-CameraPeekSpeed	         equ 0x02*SubpixelsPerPixel
-CameraPeekMaxDist	     equ 0x30*SubpixelsPerPixel
+CameraPeekSpeed	         equ 0x0200*subpixels_per_pixel
+CameraPeekMaxDist	     equ 0x3000*subpixels_per_pixel
 
 ; Stamp/scene animations
 MaxStampAnims			 equ 0x8
@@ -108,7 +104,8 @@ Player2 				 equ (EntityArray_Echo)
 ; Initial level/state
 ;InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l1a2_HarlequinForestAct2
-InitialLevel			 equ l1a4_HarlequinForestAct4
+InitialLevel			 equ l1a3_HarlequinForestAct3
+;InitialLevel			 equ l1a4_HarlequinForestAct4
 ;InitialLevel			 equ l2a1_StormWarningAct1
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
@@ -139,7 +136,7 @@ DebugButtonCombo_CompleteLevel	equ 0x3010 ;(pad_button_a|pad_button_b|pad_button
 DebugButtonCombo_MoveObject		equ 0x2030 ;(pad_button_b|pad_button_c|pad_button_start)				; B+C+Start = move object
 DebugButtonCombo_KillPlayer		equ 0x3030 ;(pad_button_a|pad_button_b|pad_button_c|pad_button_start)	; A+B+C+Start = kill player
 
-DebugMoveMode_Speed			equ 0x0060
+DebugMoveMode_Speed			equ 0x006000
 DebugMoveMode_SpeedMulA		equ 0x0A
 DebugMoveMode_SpeedMulB		equ 0x04
 	ENDIF

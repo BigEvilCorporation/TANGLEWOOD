@@ -137,9 +137,9 @@ Gameplay_Update:
 	
 	; Player movement resets demo timer
 	move.l #Player1, a2
-	cmp.w  #0x0, PhysicsObj_VelX(a2)
+	cmp.l  #0x0, PhysicsObj_VelX(a2)
 	bne    @ResetDemoTimer
-	cmp.w  #0x0, PhysicsObj_VelY(a2)
+	cmp.l  #0x0, PhysicsObj_VelY(a2)
 	bne    @ResetDemoTimer
 	
 	; Check if demo timer elapsed

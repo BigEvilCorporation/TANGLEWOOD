@@ -62,8 +62,8 @@ main_menu_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00009800, Entity_WorldPosX(a0)
-	move.l #0x0000d000, Entity_WorldPosY(a0)
+	move.l #0x00980000, Entity_WorldPosX(a0)
+	move.l #0x00d00000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 

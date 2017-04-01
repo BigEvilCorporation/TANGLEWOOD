@@ -145,15 +145,13 @@ SpriteObjDraw:
 	
 	; X pos world space to sprite space
 	move.l Entity_WorldPosX(a0), d1
-	;lsr.l  #SubpixelShift, d1	; SNASM68K bug - assembles as lsr #8,d0
-	lsr.l  #0x8, d1
+	TOPIXELS d1
 	
 	; Add draw offset (animation, etc)
 	add.w  SpriteObj_DrawOffsetX(a0), d1
 	
 	move.l (WorldScrollX), d2			; Get camera pos X (incl. camera shake + peek offset)
-	;lsr.l  #SubpixelShift, d2			; SNASM68K bug - assembles as lsr #8,d0
-	lsr.l  #0x8, d2
+	TOPIXELS d2
 	
 	sub.l  d2, d1	; Scroll space to screen space (subpixels)
 
@@ -167,15 +165,13 @@ SpriteObjDraw:
 	
 	; Y pos world space to sprite space
 	move.l Entity_WorldPosY(a0), d3
-	;lsr.l  #SubpixelShift, d3	; SNASM68K bug - assembles as lsr #8,d0
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	
 	; Add draw offset (animation, etc)
 	add.w  SpriteObj_DrawOffsetY(a0), d3
 	
 	move.l (WorldScrollY), d2			; Get camera Y (incl. camera shake + peek offset)
-	;lsr.l  #SubpixelShift, d2			; SNASM68K bug - assembles as lsr #8,d0
-	lsr.l  #0x8, d2
+	TOPIXELS d2
 	
 	sub.w  d2, d3	; Scroll space to screen space (subpixels)
 

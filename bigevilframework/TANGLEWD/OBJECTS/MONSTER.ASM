@@ -14,22 +14,22 @@ Monster_MaxEntities   equ 0x1
 Monster_Width	      equ 0x0090
 Monster_Height	      equ 0x0058
 
-Monster_MaxVelXWalk   equ 0x0100   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x03E0   ; Max X running velocity
-Monster_MaxVelXAir    equ 0x04E0
-Monster_MaxVelXRunTamed equ 0x04E0   ; Max X running velocity (when being ridden)
-Monster_MaxVelYUp	  equ 0x0600   ; Max Y velocity up
-Monster_MaxVelYDown	  equ (0x8*SubpixelsPerPixel)   ; Max Y velocity down
-Monster_WalkToRunVel  equ 0x0300   ; Walk to run transition velocity
-Monster_AccelWalk     equ 0x0002   ; Walking acceleration
-Monster_AccelRun      equ 0x0010   ; Running acceleration
-Monster_DecelIdle     equ 0x0020   ; Deceleration if left alone
-Monster_DecelForced   equ 0x0040   ; Deceleration if input opposite direction
-Monster_JumpVelX      equ 0x0600   ; Jump velocity impulse X
-Monster_JumpVelY      equ 0x0380   ; Jump velocity impulse Y
-Monster_JumpCancelVelLo equ 0x0100   ; Velocity to cancel jump min
+Monster_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
+Monster_MaxVelXRun    equ 0x03E000   ; Max X running velocity
+Monster_MaxVelXAir    equ 0x04E000
+Monster_MaxVelXRunTamed equ 0x04E000   ; Max X running velocity (when being ridden)
+Monster_MaxVelYUp	  equ 0x060000   ; Max Y velocity up
+Monster_MaxVelYDown	  equ 0x080000   ; Max Y velocity down
+Monster_WalkToRunVel  equ 0x030000   ; Walk to run transition velocity
+Monster_AccelWalk     equ 0x000200   ; Walking acceleration
+Monster_AccelRun      equ 0x001000   ; Running acceleration
+Monster_DecelIdle     equ 0x002000   ; Deceleration if left alone
+Monster_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
+Monster_JumpVelX      equ 0x090000   ; Jump velocity impulse X
+Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
+Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
-Monster_MaxGrabUpVel  equ 0x0300   ; Max up velocity character can grab a ledge (no limit on down vel)
+Monster_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
 
 Monster_BoundsWidth		equ Monster_Width
 Monster_BoundsHeight	equ (Monster_Height-0x40)
@@ -52,11 +52,11 @@ Monster_RumbleSoundDistSq	equ (Monster_RumbleSoundDist*Monster_RumbleSoundDist)
 Monster_AlertDistance		equ 0x0090
 Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 
-Monster_MinChaseDistance	equ ((Monster_Width/2)*SubPixelsPerPixel)
-Monster_MaxChaseDistance	equ (screen_width*SubPixelsPerPixel)
+Monster_MinChaseDistance	equ ((Monster_Width/2)*subpixels_per_pixel)
+Monster_MaxChaseDistance	equ (screen_width*subpixels_per_pixel)
 Monster_OutOfDistSpeedMul	equ 0x8
 
-Monster_AttackMaxPlayerVel	equ 0x0900	; Don't attack if player is being flung using a flue/bounce pad, etc
+Monster_AttackMaxPlayerVel	equ 0x090000	; Don't attack if player is being flung using a flue/bounce pad, etc
 
 Monster_GrowlDelay			equ 0x0030	; Delay between Nymn howling and Djakk responding when tamed
 
@@ -65,7 +65,7 @@ Monster_SearchRandDistMax	equ 0x00FF	; Max distance for random X search pos (pix
 Monster_SearchRandDelayMask	equ 0x007F	; Mask for random delay between walks
 Monster_SearchRandDelayMin	equ 0x0018	; Min rand delay between walks
 Monster_SearchRandDelayInit equ 0x0040  ; Initial delay for first walk
-Monster_NearTargetDistance	equ (0x04*SubPixelsPerPixel)
+Monster_NearTargetDistance	equ (0x04*subpixels_per_pixel)
 
 ; Emerge palette lerp speed
 Monster_EmergePalLerpSpeed  equ (0x1<<0x8)
@@ -170,27 +170,27 @@ MonsterInit:
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)
 	move.w  #Monster_Height, Entity_Height(a0)
-	move.w  #Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.w  #Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l  #Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Monster_DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
 	
-	move.w  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Monster_WalkToRunVel, Character_WalkToRunVel(a0)
+	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l  #Monster_WalkToRunVel, Character_WalkToRunVel(a0)
 	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)
 	move.w  #Monster_AccelRun, Character_AccelRun(a0)
 	move.w  #Monster_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Monster_DecelForced, Character_DecelForced(a0)
-	move.w  #Monster_JumpVelX, Character_JumpVelX(a0)
-	move.w  #Monster_JumpVelY, Character_JumpVelY(a0)
-	move.w  #Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.w  #Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.w  #Monster_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
+	move.l  #Monster_JumpVelX, Character_JumpVelX(a0)
+	move.l  #Monster_JumpVelY, Character_JumpVelY(a0)
+	move.l  #Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.l  #Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
+	move.l  #Monster_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Monster_ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
@@ -539,7 +539,7 @@ MonsterCheckPlayerVisible:
 	
 	; Get monster visibility bounds X
 	move.l Entity_WorldPosX(a0), d1
-	lsr.l  #0x8, d1
+	TOPIXELS d1
 	move.w d1, d2
 	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
 	add.w  #(Monster_Width/2)+(Monster_PlayerVisibilityBoxX/2), d2
@@ -549,7 +549,7 @@ MonsterCheckPlayerVisible:
 	
 	; Get monster visibility bounds Y
 	move.l Entity_WorldPosY(a0), d3
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	move.w d3, d1
 	move.w d3, d2
 	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
@@ -557,12 +557,12 @@ MonsterCheckPlayerVisible:
 	
 	; Get player centre X
 	ENTITY_GETCENTREX d3, a2
-	lsr.l  #0x8, d3
+	TOPIXELS d3
 	swap   d3
 	
 	; Get player centre Y
 	ENTITY_GETCENTREY d4, a2
-	lsr.l  #0x8, d4
+	TOPIXELS d4
 	move.w d4, d3
 	
 	jsr    PHYS_TestPointInsideBox
@@ -778,7 +778,7 @@ MonsterStartEmergeFromCave:
 	
 	; Cut player X velocity
 	move.l #Player1, a2
-	move.w #0x0, PhysicsObj_VelX(a2)
+	move.l #0x0, PhysicsObj_VelX(a2)
 	move.w #0x0, PhysicsObj_AccelX(a2)
 	
 	; Start palette lerp
@@ -941,7 +941,7 @@ MonsterUpdateSearchForPlayer:
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
 	sub.w  #Monster_SearchRandDistMax, d0		; Shift down to -255 - 255
-	muls   #SubPixelsPerPixel, d0				; To subpixels
+	TOSUBPIXELS d0								; To subpixels
 	
 	; Add min dist
 	move.l  #Monster_NearTargetDistance, d1
@@ -962,7 +962,7 @@ MonsterUpdateSearchForPlayer:
 	clr.l  d1
 	move.w Level_MapWidth(a1), d1				; Clamp screen right
 	TILES2PIXELS d1								; Tiles to pixels
-	lsl.l  #0x8, d1								; Pixels to subpixels
+	TOSUBPIXELS d1								; Pixels to subpixels
 	cmp.l  d1, d0
 	blt    @NoClampRight
 	move.l d1, d0
@@ -1076,7 +1076,7 @@ MonsterUpdateTrackPlayer:
 	beq    @PlayerCloaked
 	
 	; If player is being flung using a flue/bounce pad, don't bother
-	cmp.w  #Monster_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
+	cmp.l  #Monster_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
 	bge    @PlayerBeingFlung
 
 	; Check if player is within tracking window
@@ -1122,8 +1122,8 @@ MonsterUpdateTrackPlayer:
 	; Within max chase dist
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	beq    @WithinMaxChaseDist
-	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
-	move.w #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	move.l #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
 	move.b #0x0, Monster_CatchingUp(a0)
 	bra    @WithinMaxChaseDist
 	
@@ -1133,9 +1133,9 @@ MonsterUpdateTrackPlayer:
 	; Outside max chase dist, multiply speed to catch up
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	bne    @SpeedBoostApplied
-	move.w Character_MaxVelXRun(a0), d0
+	move.l Character_MaxVelXRun(a0), d0
 	mulu   Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
-	move.w d0, Character_MaxVelXRun(a0)		; Set new max velocity
+	move.l d0, Character_MaxVelXRun(a0)		; Set new max velocity
 	move.b #0x1, Monster_CatchingUp(a0)		; Set catching up
 	bra    @EndMaxDistCheck
 	
@@ -1364,7 +1364,7 @@ MonsterStartBucking:
 	move.b #0x0, Character_UpdateAnim(a0)
 
 	; Override run speed
-	move.w #Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0)
+	move.l #Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0)
 
 	rts
 
@@ -1380,7 +1380,7 @@ MonsterUpdateBucking:
 	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Reset run speed
-	move.w #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
 	
 	; Roar and chase
 	jsr    MonsterStartRoaring

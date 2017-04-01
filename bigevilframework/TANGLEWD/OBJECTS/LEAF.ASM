@@ -10,7 +10,7 @@
 Leaf_MaxEntities   equ 0x9
 Leaf_Width         equ 0x8
 Leaf_Height        equ 0x8
-Leaf_FallVelocity  equ -0x18
+Leaf_FallVelocity  equ -0x1800
 Leaf_SinSpeed      equ (0x1<<0x8)
 Leaf_FloatWidth    equ 0x0020
 Leaf_WindowWidth   equ (vdp_plane_width*8)
@@ -18,8 +18,8 @@ Leaf_WindowHeight  equ (vdp_plane_height*8)
 Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 
-WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*SubPixelsPerPixel
-WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*SubPixelsPerPixel
+WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*subpixels_per_pixel
+WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*subpixels_per_pixel
 
 Leaf_NumVariations equ 0x4
 
@@ -153,22 +153,22 @@ LeafUpdate:
 	add.l  #SpritePlaneBorderX, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollX), d0
-	sub.l  #(Leaf_WindowBorderX*SubPixelsPerPixel), d0
+	sub.l  #(Leaf_WindowBorderX*subpixels_per_pixel), d0
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d0, Leaf_StartPosWorldX(a0)
 
 	; If X is within viewable rect
 	move.l (WorldScrollX), d1
-	add.l  #(SpritePlaneBorderX*SubPixelsPerPixel), d1
+	add.l  #(SpritePlaneBorderX*subpixels_per_pixel), d1
 	cmp.l  d0, d1
 	bgt    @OutOfView
-	add.l  #(screen_width*SubPixelsPerPixel), d1
+	add.l  #(screen_width*subpixels_per_pixel), d1
 	cmp.l  d0, d1
 	blt    @OutOfView
 
 	; Start from top of scroll plane
 	move.l (WorldScrollY), d0
-	add.l  #((SpritePlaneBorderY-Leaf_WindowBorderY)*SubPixelsPerPixel), d0
+	add.l  #((SpritePlaneBorderY-Leaf_WindowBorderY)*subpixels_per_pixel), d0
 	move.l d0, Entity_WorldPosY(a0)
 	bra    @EndViewTest
 
@@ -182,7 +182,7 @@ LeafUpdate:
 	add.l  #SpritePlaneBorderY, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollY), d0
-	sub.l  #(Leaf_WindowBorderY*SubPixelsPerPixel), d0
+	sub.l  #(Leaf_WindowBorderY*subpixels_per_pixel), d0
 	move.l d0, Entity_WorldPosY(a0)
 	
 	@EndViewTest:
@@ -199,7 +199,7 @@ LeafUpdate:
 	sub.l  (WorldScrollX), d0
 	cmp.l  #0x0, d0
 	blt    @OutOfBounds
-	cmp.l  #(Leaf_WindowWidth*SubPixelsPerPixel), d0
+	cmp.l  #(Leaf_WindowWidth*subpixels_per_pixel), d0
 	bgt    @OutOfBounds
 
 	move.l Entity_WorldPosY(a0), d0
@@ -207,7 +207,7 @@ LeafUpdate:
 	sub.l  (WorldScrollY), d0
 	cmp.l  #0x0, d0
 	blt    @OutOfBounds
-	cmp.l  #(Leaf_WindowHeight*SubPixelsPerPixel), d0
+	cmp.l  #(Leaf_WindowHeight*subpixels_per_pixel), d0
 	bgt    @OutOfBounds
 	bra    @WithinBounds
 
@@ -256,7 +256,7 @@ LeafUpdate:
 	ext.l  d0
 
 	; Update X position
-	muls   #((Leaf_FloatWidth*SubPixelsPerPixel)/256), d0 ; To X range
+	muls   #((Leaf_FloatWidth*subpixels_per_pixel)/256), d0 ; To X range
 	move.l Leaf_StartPosWorldX(a0), d1                    ; Offset X pos
 	add.l  d1, d0
 	move.l d0, Entity_WorldPosX(a0)

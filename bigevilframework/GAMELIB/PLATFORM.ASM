@@ -10,10 +10,10 @@
 ;---------------------------------
 	LINKED_LIST_NODE Platforms ; Linked list entry
 ;---------------------------------
-Platform_PosX			rs.w 1
-Platform_PosY			rs.w 1
-Platform_VelX			rs.w 1
-Platform_VelY			rs.w 1
+Platform_PosX			rs.l 1
+Platform_PosY			rs.l 1
+Platform_VelX			rs.l 1
+Platform_VelY			rs.l 1
 Platform_Width			rs.w 1
 Platform_Active			rs.b 1
 ;---------------------------------

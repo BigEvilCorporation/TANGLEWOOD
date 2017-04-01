@@ -31,28 +31,28 @@ Player1BoundsJumpOffsetY	equ 0x08
 ; Player starting positions - TODO: From spawn point
 Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)+100
 Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
-Player1StartPosWorldX  equ Player1StartPosScreenX*SubpixelsPerPixel
-Player1StartPosWorldY  equ Player1StartPosScreenY*SubpixelsPerPixel
+Player1StartPosWorldX  equ Player1StartPosScreenX*subpixels_per_pixel
+Player1StartPosWorldY  equ Player1StartPosScreenY*subpixels_per_pixel
 
 ; Player acceleration/deceleration
-Player1AccelWalk   equ 0x0006 ; Player 1 walking acceleration
-Player1AccelRun    equ 0x0014 ; Player 1 running acceleration
-Player1DecelIdle   equ 0x0016 ; Player 1 deceleration if left alone
-Player1DecelForced equ 0x0030 ; Player 1 deceleration if input opposite direction
+Player1AccelWalk   equ 0x000600 ; Player 1 walking acceleration
+Player1AccelRun    equ 0x001400 ; Player 1 running acceleration
+Player1DecelIdle   equ 0x001600 ; Player 1 deceleration if left alone
+Player1DecelForced equ 0x003000 ; Player 1 deceleration if input opposite direction
 
-; Player max velocities (all values must be divisors of SubpixelsPerPixel)
-Player1MaxVelXWalk equ 0x0120  ; Player 1 max X walking velocity
-Player1MaxVelXRun  equ 0x0380  ; Player 1 max X running velocity
-Player1MaxVelXAir  equ 0x0380  ; Player 1 max X velocity ina ir
-Player1MaxVelYUp   equ 0x0600  ; Player 1 max Y velocity up
-Player1MaxVelYDown equ 0x0800  ; Player 1 max Y velocity down (tile height)
+; Player max velocities (all values must be divisors of subpixels_per_pixel)
+Player1MaxVelXWalk equ 0x012000  ; Player 1 max X walking velocity
+Player1MaxVelXRun  equ 0x038000  ; Player 1 max X running velocity
+Player1MaxVelXAir  equ 0x038000  ; Player 1 max X velocity ina ir
+Player1MaxVelYUp   equ 0x060000 ; Player 1 max Y velocity up
+Player1MaxVelYDown equ 0x080000  ; Player 1 max Y velocity down (tile height)
 
-Player1JumpVelX      equ 0x0000 ; Player 1 jump velocity impulse X
-Player1JumpVelY      equ 0x0600 ; Player 1 jump velocity impulse Y
-Player1JumpVelWater	 equ 0x0200 ; Player 1 jump velocity impulse from water
-Player1JumpCancelVelLo equ 0x0100 ; Player 1 velocity to cancel jump min
+Player1JumpVelX      equ 0x000000 ; Player 1 jump velocity impulse X
+Player1JumpVelY      equ 0x060000 ; Player 1 jump velocity impulse Y
+Player1JumpVelWater	 equ 0x020000 ; Player 1 jump velocity impulse from water
+Player1JumpCancelVelLo equ 0x010000 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
-Player1MaxGrabUpVel  equ 0x0300 ; Max up velocity player can grab a ledge (no limit on down vel)
+Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Player collision probes
 Player1StepHeight	 equ 0x3
@@ -63,7 +63,7 @@ Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
 ; Walk to run transition velocity
-Player1WalkToRunVel  equ 0x0200
+Player1WalkToRunVel  equ 0x020000
 
 ; Player colour change
 Player1ColourChangeSpeed 	equ (0x2<<fade_frame_shift)
@@ -71,7 +71,7 @@ Player1ColourChangeTimeout	equ 0x0600
 
 ; Glide ability
 Player1MaxGlideVelocityX	equ Player1MaxVelXRun
-Player1MaxGlideVelocityY	equ 0x01*SubpixelsPerPixel
+Player1MaxGlideVelocityY	equ 0x01*subpixels_per_pixel
 
 ; Time ability
 Player1SlowTimeDiv			equ 0x10
@@ -86,15 +86,15 @@ Player1IdleAnimWaitFrames	equ 0x0600
 Player1DjakkTamingDistance  equ	0x0100
 
 ; Djakk saddle position
-Player1DjakkSaddleOffsetX	equ 0x0028*SubpixelsPerPixel
-Player1DjakkSaddleOffsetY	equ -0x0008*SubpixelsPerPixel
+Player1DjakkSaddleOffsetX	equ 0x0028*subpixels_per_pixel
+Player1DjakkSaddleOffsetY	equ -0x0008*subpixels_per_pixel
 
 ; Mount camera lerp speed
 Player1MountCameraLerpSpeed	equ 0x10
 
 ; Djakk buck player velocity
-Player1DjakkBuckVelocityX	equ 0x0400
-Player1DjakkBuckVelocityY	equ 0x0100
+Player1DjakkBuckVelocityX	equ 0x040000
+Player1DjakkBuckVelocityY	equ 0x010000
 
 ; TEMP
 Player1PushBoundsWidthInner	equ 0x10
@@ -104,8 +104,8 @@ Player1PushBoundsMaxXInner	equ ((Player1Width/2)+(Player1PushBoundsWidthInner/2)
 Player1PushBoundsMinXOuter	equ ((Player1Width/2)-(Player1PushBoundsWidthOuter/2))
 Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2))
 
-Player1PushAnimSpeedVelocityDivLight equ 0x0004
-Player1PushAnimSpeedVelocityDivHeavy equ 0x0008
+Player1PushAnimSpeedVelocityDivLight equ 0x0400
+Player1PushAnimSpeedVelocityDivHeavy equ 0x0800
 
 ; Mounting/riding stategg
 Player_RideState_None		equ 0x0
@@ -141,7 +141,7 @@ PlayerAnimIdx_Max       	equ 8
 ; ************************************
 PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	lsr.l  #0x8, \minreg								; To pixel space
+	TOPIXELS \minreg								; To pixel space
 	add.w  #Player1BoundsJumpOffsetX, \minreg			; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  #Player1BoundsJumpWidth, \maxreg				; Add bounding box right
@@ -150,7 +150,7 @@ PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \maxreg
 	
 	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	lsr.l  #0x8, \tmpreg								; To pixel space
+	TOPIXELS \tmpreg								; To pixel space
 	add.w  #Player1BoundsJumpOffsetY, \tmpreg			; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
@@ -204,31 +204,31 @@ PlayerInit:
 	move.l  #Player1StartPosWorldY, Entity_WorldPosY(a0)
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
-	move.w  #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.w  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Player1MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	
-	move.w  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 	move.w  #Player1AccelWalk, Character_AccelWalk(a0)
 	move.w  #Player1AccelRun, Character_AccelRun(a0)
 	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
 	move.w  #Player1DecelForced, Character_DecelForced(a0)
-	move.w  #Player1JumpVelX, Character_JumpVelX(a0)
-	move.w  #Player1JumpVelY, Character_JumpVelY(a0)
-	move.w  #Player1JumpVelWater, Character_JumpVelWater(a0)
-	move.w  #Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.w  #Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.w  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
+	move.l  #Player1JumpVelX, Character_JumpVelX(a0)
+	move.l  #Player1JumpVelY, Character_JumpVelY(a0)
+	move.l  #Player1JumpVelWater, Character_JumpVelWater(a0)
+	move.l  #Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.l  #Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0)
+	move.l  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
-	move.w  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
+	move.l  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x1, Player_ControlEnabled(a0)
@@ -400,8 +400,8 @@ PlayerUpdateIdleSnooze:
 	move.b #0x0, Player_Sleeping(a0)
 	
 	; Cancel out the velocity used to wake up
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	
@@ -552,15 +552,15 @@ PlayerStartColourAbility:
 	bne    @End
 	
 	; If -ve Y velocity
-	move.w PhysicsObj_VelY(a0), d0
-	cmp.w  #0x0, d0
+	move.l PhysicsObj_VelY(a0), d0
+	cmp.l  #0x0, d0
 	bgt    @End
 	
 	; Gliding
 	move.b #0x1, Character_Gliding(a0)							; Set gliding
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)	; Set ability active
-	move.w #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)		; Set max glide velocity
-	move.w #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
+	move.l #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)		; Set max glide velocity
+	move.l #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
 	
 	; Set ability active
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
@@ -610,8 +610,8 @@ PlayerStartColourAbility:
 	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	
 	; Player can't run
-	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
-	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
+	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
 
 	bra    @End
 	
@@ -756,8 +756,8 @@ PlayerStopColourAbility:
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
-	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
-	move.w #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	
 	bra    @ReturnColour
 	
@@ -800,8 +800,8 @@ PlayerStopColourAbility:
 	move.b #0x1, (TimeOfDayEnabled)
 	
 	; Re-enable run
-	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subi.l #0x1, d1						 ; -1 for loop
@@ -920,8 +920,8 @@ PlayerUpdateColourAbility:
 	bne    @EndGlide
 	
 	; If -ve Y velocity
-	move.w PhysicsObj_VelY(a0), d0
-	cmp.w  #0x0, d0
+	move.l PhysicsObj_VelY(a0), d0
+	cmp.l  #0x0, d0
 	bgt    @EndGlide
 	
 	bra    @End
@@ -1082,8 +1082,8 @@ PlayerMountPet:
 	; Zero accel/velocity
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 
 	; Clear jump flag
 	move.b #0x0, Character_Jumping(a0)
@@ -1152,7 +1152,7 @@ PlayerDismountPet:
 	move.w #0x0, PhysicsObj_AccelY(a2)
 
 	; Inherit pet X velocity
-	move.w PhysicsObj_VelX(a2), PhysicsObj_VelX(a0)
+	move.l PhysicsObj_VelX(a2), PhysicsObj_VelX(a0)
 
 	; Jump off
 	PUSHM  a0-a2
@@ -1180,13 +1180,13 @@ PlayerDismountPet:
 	POPM   a0-a2
 
 	; Override player jump velocity
-	move.w #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
+	move.l #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
 	cmp.b  #0x0, SpriteObj_FlippedX(a0)
 	beq    @BuckRight
-	move.w #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	move.l #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
 	bra    @EndBuck
 	@BuckRight:
-	move.w #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	move.l #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
 	@EndBuck:
 
 	@NotRiding:
@@ -1401,8 +1401,8 @@ PlayerSyncWithPet:
 	move.l d1, Entity_WorldPosY(a0)
 
 	; Zero velocity
-	move.w #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	
 	; Match anim frame
 	move.l AnimObj_AnimSubFrame(a2), AnimObj_AnimSubFrame(a0)
@@ -1516,8 +1516,8 @@ PlayerStartInteract:
 	@EndPush:
 	
 	; Player can't run
-	move.w #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
-	move.w #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
+	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
 	
 	; Clamp to max velocity
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -1603,12 +1603,12 @@ PlayerUpdateInteract:
 	
 	; Scale push anim speed based on velocity
 	clr.l  d0
-	move.w PhysicsObj_VelX(a0), d0
-	cmp.w  #0x0, d0
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
 	bgt    @Fwd
-	neg.w  d0
+	neg.l  d0
 	@Fwd:
-	move.w d0, d1
+	move.l d0, d1
 	
 	; Apply to light push anim
 	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
@@ -1643,8 +1643,8 @@ PlayerCancelInteract:
 	move.b #0x0, Character_LockSpriteFlip(a0)
 	
 	; Restore walk speed
-	move.w #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	
 	; Restore max velocity clamp to use deceleration
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
@@ -1945,9 +1945,9 @@ PlayerInteractTest_BouncePlants:
 	beq    @NextPlant
 	
 	; Calculate bounce vector
-	move.w PhysicsObj_VelX(a0), d0
-	swap   d0
-	move.w PhysicsObj_VelY(a0), d0
+	move.l PhysicsObj_VelX(a0), d0
+	move.l PhysicsObj_VelY(a0), d1
+
 	PUSHL  a0
 	move.l a2, a0
 	jsr    BouncePlant_GetBounceVector
@@ -1966,9 +1966,8 @@ PlayerInteractTest_BouncePlants:
 	bne    @End
 
 	; Launch player
-	move.w d0, PhysicsObj_VelY(a0)
-	swap   d0
-	move.w d0, PhysicsObj_VelX(a0)
+	move.l d0, PhysicsObj_VelX(a0)
+	move.l d1, PhysicsObj_VelY(a0)
 	
 	; Set jumping and falling
 	move.b #0x1, Character_Jumping(a0)

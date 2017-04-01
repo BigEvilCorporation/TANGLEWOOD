@@ -43,6 +43,12 @@ size_plane_b:		equ (size_plane_t*size_tile_b)
 size_collision_tile_b equ 0x8
 size_collision_tile_w equ (size_tile_b/size_word)
 
+
+; ************************************
+; 16.16 precision
+; ************************************
+subpixels_per_pixel 	equ 0x00010000	; Uses bit shift to transform - don't change
+
 ; ************************************
 ; RAM
 ; ************************************

@@ -167,11 +167,13 @@ LERP_INT1024: macro destreg,A,B,T,tempreg
 ;==============================================================
 
 TOSUBPIXELS: macro destreg
-	lsl.l   #0x8, \destreg
+	swap   \destreg
+	move.w #0x0, \destreg
 	endm
 	
 TOPIXELS: macro destreg
-	lsr.l   #0x8, \destreg
+	move.w #0x0, \destreg
+	swap   \destreg
 	endm
 	
 PIXELS2TILES: macro reg
@@ -188,6 +190,29 @@ TILES2BLOCKS: macro reg
 	
 BLOCKS2TILES: macro reg
 	lsl.w  #0x2, \reg
+	endm
+
+;==============================================================
+
+; Lossy 16.16 fixed point divide (converts to 16.8)
+DIVS1616_LOSSY: macro div,reg
+	cmp.w  #0x1, \div
+	beq    @ONE\@
+	lsr.l  #0x8, \reg
+	divs.w \div,\reg
+	andi.l #0x0000FFFF, \reg
+	ext.l  \reg
+	lsl.l  #0x8, \reg
+	@ONE\@:
+	endm
+
+; With fixed divisor
+DIVS1616_LOSSY_FIXED: macro div,reg
+	lsr.l  #0x8, \reg
+	divs.w \div,\reg
+	andi.l #0x0000FFFF, \reg
+	ext.l  \reg
+	lsl.l  #0x8, \reg
 	endm
 
 ;==============================================================

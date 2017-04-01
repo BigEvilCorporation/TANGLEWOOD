@@ -16,22 +16,22 @@ ActorWidth	 		equ 0x0038
 ActorHeight	 		equ 0x0030
 
 ; Actor acceleration/deceleration
-ActorAccelWalk   	equ 0x0004 ; Actor walking acceleration
-ActorAccelRun    	equ 0x0008 ; Actor running acceleration
-ActorDecelIdle   	equ 0x0010 ; Actor deceleration if left alone
-ActorDecelForced 	equ 0x0020 ; Actor deceleration if input opposite direction
+ActorAccelWalk   	equ 0x000400 ; Actor walking acceleration
+ActorAccelRun    	equ 0x000800 ; Actor running acceleration
+ActorDecelIdle   	equ 0x001000 ; Actor deceleration if left alone
+ActorDecelForced 	equ 0x002000 ; Actor deceleration if input opposite direction
 
-; Actor max velocities (all values must be divisors of SubpixelsPerPixel)
-ActorMaxVelXWalk 	equ 0x01*SubpixelsPerPixel ; Actor max X walking velocity
-ActorMaxVelXRun  	equ 0x03*SubpixelsPerPixel ; Actor max X running velocity
-ActorMaxVelYUp   	equ 0x06*SubpixelsPerPixel ; Actor max Y velocity up
-ActorMaxVelYDown 	equ 0x08*SubpixelsPerPixel ; Actor max Y velocity down
+; Actor max velocities (all values must be divisors of subpixels_per_pixel)
+ActorMaxVelXWalk 	equ 0x01*subpixels_per_pixel ; Actor max X walking velocity
+ActorMaxVelXRun  	equ 0x03*subpixels_per_pixel ; Actor max X running velocity
+ActorMaxVelYUp   	equ 0x06*subpixels_per_pixel ; Actor max Y velocity up
+ActorMaxVelYDown 	equ 0x08*subpixels_per_pixel ; Actor max Y velocity down
 
-ActorJumpVel		equ 0x06*SubpixelsPerPixel ; Actor jump velocity impulse
-ActorJumpVelWater	equ 0x02*SubpixelsPerPixel ; Actor jump velocity impulse from water
-ActorJumpCancelVelLo equ 0x01*SubpixelsPerPixel ; Actor velocity to cancel jump min
+ActorJumpVel		equ 0x06*subpixels_per_pixel ; Actor jump velocity impulse
+ActorJumpVelWater	equ 0x02*subpixels_per_pixel ; Actor jump velocity impulse from water
+ActorJumpCancelVelLo equ 0x01*subpixels_per_pixel ; Actor velocity to cancel jump min
 ActorJumpCancelVelHi equ ActorMaxVelYUp			; Actor velocity to cancel jump max
-ActorMaxGrabUpVel	equ 0x03*SubpixelsPerPixel ; Max up velocity player can grab a ledge (no limit on down vel)
+ActorMaxGrabUpVel	equ 0x03*subpixels_per_pixel ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Actor collision probes
 ActorStepHeight		equ 0x3
@@ -41,7 +41,7 @@ ActorProbeLedgeX   	equ 0x1F			 ; Ledge detection probe position X
 ActorProbeLedgeY   	equ 0x02			 ; Ledge detection probe position Y
 
 ; Walk to run transition velocity
-ActorWalkToRunVel	equ 0x0200
+ActorWalkToRunVel	equ 0x020000
 
 ; ************************************
 ; Struct
@@ -80,28 +80,28 @@ ActorInit:
 	; Setup default state
 	move.w  #ActorWidth, Entity_Width(a0)
 	move.w  #ActorHeight, Entity_Height(a0)
-	move.w  #ActorMaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #ActorMaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #ActorMaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #ActorMaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #ActorMaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #ActorMaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #ActorDecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #ActorProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #ActorProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #ActorStepHeight, PhysicsObj_StepHeight(a0)
 	
-	move.w  #ActorMaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.w  #ActorMaxVelXRun, Character_MaxVelXRun(a0)
+	move.l  #ActorMaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #ActorMaxVelXRun, Character_MaxVelXRun(a0)
 	move.w  #ActorAccelWalk, Character_AccelWalk(a0)
 	move.w  #ActorAccelRun, Character_AccelRun(a0)
 	move.w  #ActorDecelIdle, Character_DecelIdle(a0)
 	move.w  #ActorDecelForced, Character_DecelForced(a0)
-	move.w  #ActorJumpVel, Character_JumpVelY(a0)
-	move.w  #ActorJumpVelWater, Character_JumpVelWater(a0)
-	move.w  #ActorJumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.w  #ActorJumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.w  #ActorMaxGrabUpVel, Character_MaxGrabUpVel(a0)
+	move.l  #ActorJumpVel, Character_JumpVelY(a0)
+	move.l  #ActorJumpVelWater, Character_JumpVelWater(a0)
+	move.l  #ActorJumpCancelVelLo, Character_JumpCancelVelLo(a0)
+	move.l  #ActorJumpCancelVelHi, Character_JumpCancelVelHi(a0)
+	move.l  #ActorMaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #ActorProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #ActorProbeLedgeY, Character_ProbeLedgeY(a0)
-	move.w  #ActorWalkToRunVel, Character_WalkToRunVel(a0)
+	move.l  #ActorWalkToRunVel, Character_WalkToRunVel(a0)
 	
 	; Setup default character animations
 	move.l a0, a2

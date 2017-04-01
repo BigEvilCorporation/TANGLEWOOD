@@ -10,13 +10,13 @@
 Stone_MaxEntities		equ 0x4
 Stone_Width				equ 0x10
 Stone_Height			equ 0x10
-Stone_MaxVelYUp			equ 0x0600
-Stone_MaxVelYDown		equ 0x08*SubPixelsPerPixel
+Stone_MaxVelYUp			equ 0x060000
+Stone_MaxVelYDown		equ 0x080000
 Stone_StepHeight		equ 0x4
 Stone_ProbeFloorX		equ (Stone_Width/2)		; Floor detection probe position X
 Stone_ProbeFloorY		equ (Stone_Height-8)	; Floor detection probe position X
-Stone_MaxVelX			equ 0x0800
-Stone_Decel				equ 0x0008
+Stone_MaxVelX			equ 0x080000
+Stone_Decel				equ 0x000800
 
 Stone_AnimSpeedVelDiv	equ 0x0008
 
@@ -61,13 +61,13 @@ StoneInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Stone_Width, Entity_Width(a0)
 	move.w  #Stone_Height, Entity_Height(a0)
-	move.w  #Stone_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.l  #Stone_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Stone_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Stone_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Stone_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Stone_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Stone_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.w  #Stone_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Stone_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Stone_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	
@@ -154,16 +154,12 @@ StoneUpdate:
 	; Reposition barrier
 	move.l a0, a2
 	add.l  #Stone_Barrier, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	lsr.l  #0x8, d0
-	lsr.l  #0x8, d1
-	move.w d0, Platform_PosX(a2)
-	move.w d1, Platform_PosY(a2)
+	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
 	
 	; Set barrier velocity
-	move.w PhysicsObj_VelX(a0), Platform_VelX(a2)
-	move.w PhysicsObj_VelY(a0), Platform_VelY(a2)
+	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
 
 	rts
 	

@@ -9,14 +9,16 @@
 ENTITY_GETCENTREX: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
-	lsl.l   #0x7, \destreg	; To subpixels + div/2
+	TOSUBPIXELS \destreg	; To subpixels
+	lsr.l   #0x1, \destreg  ; div/2
 	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
 	
 ENTITY_GETCENTREY: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Height(\addrreg), \destreg
-	lsl.l   #0x7, \destreg	; To subpixels + div/2
+	TOSUBPIXELS \destreg	; To subpixels
+	lsr.l   #0x1, \destreg  ; div/2
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
 	
@@ -25,12 +27,14 @@ ENTITY_GETCENTREVEC2: macro destreg,tmpreg,addrreg
 	clr.l   \tmpreg
 	move.w  Entity_Width(\addrreg), \destreg	; Get width/height in pixels
 	move.w  Entity_Height(\addrreg), \tmpreg
-	lsl.l   #0x7, \destreg						; To subpixels + div/2
-	lsl.l   #0x7, \tmpreg
+	TOSUBPIXELS \destreg						; To subpixels
+	TOSUBPIXELS \tmpreg
+	lsr.l   #0x1, \destreg						; div/2
+	lsr.l   #0x1, \tmpreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg; Add world pos
 	add.l   Entity_WorldPosY(\addrreg), \tmpreg
-	lsr.l   #0x8, \destreg						; To pixels
-	lsr.l   #0x8, \tmpreg
+	TOPIXELS \destreg							; To pixels
+	TOPIXELS \tmpreg
 	swap    \destreg							; Assemble vector
 	move.w  \tmpreg, \destreg
 	endm
@@ -42,7 +46,7 @@ ENTITY_GETLEFT: macro destreg,addrreg
 ENTITY_GETRIGHT: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
-	mulu    #SubpixelsPerPixel, \destreg
+	TOPIXELS \destreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
 	
@@ -53,14 +57,14 @@ ENTITY_GETTOP: macro destreg,addrreg
 ENTITY_GETBOTTOM: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Height(\addrreg), \destreg
-	mulu    #SubpixelsPerPixel, \destreg
+	TOPIXELS \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
 	
 ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	; Obj 1 min X
 	move.l Entity_WorldPosX(\addrreg), \topleftreg	; X
-	lsr.l  #0x8, \topleftreg						; To screen space
+	TOPIXELS \topleftreg							; To screen space
 	move.w \topleftreg, \bottomrightreg				; Copy for max
 	swap   \topleftreg								; In upper word d1
 	
@@ -71,7 +75,7 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	
 	; Obj 1 min Y
 	move.l Entity_WorldPosY(\addrreg), \tempreg		; Y
-	lsr.l  #0x8, \tempreg							; To screen space
+	TOPIXELS \tempreg								; To screen space
 	move.w \tempreg, \bottomrightreg				; Copy for max
 	move.w \tempreg, \topleftreg					; In lower word d1
 	
@@ -85,7 +89,7 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	; Gets min/max collision XY bounds (pixel space) from a PhysicsObj
 PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	lsr.l  #0x8, \minreg								; To pixel space
+	TOPIXELS \minreg									; To pixel space
 	add.w  PhysicsObj_BoundsLeft(\addrreg), \minreg		; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  PhysicsObj_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
@@ -94,7 +98,7 @@ PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \maxreg
 	
 	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	lsr.l  #0x8, \tmpreg								; To pixel space
+	TOPIXELS \tmpreg									; To pixel space
 	add.w  PhysicsObj_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
