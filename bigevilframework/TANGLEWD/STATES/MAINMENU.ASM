@@ -70,7 +70,7 @@ MainMenu_Enter:
 	;==============================================================
 	
 	; Set BG colour
-	move.w #(PaletteId_World0<<4), d0
+	move.w #(PaletteId_World0<<4)|0xD, d0
 	VDPSETREG 7, d0
 
 	; Alloc VRAM
