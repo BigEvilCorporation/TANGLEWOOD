@@ -30,7 +30,7 @@ Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
 Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
 Fuzzl_FlingVelocity			equ 0x000400	; Upward velocity to determine if being flung (by a Flue or otherwise)
 Fuzzl_FlingRollSpeed        equ 0x80
-Fuzzl_HitGroundSFXVel		equ 0x0200	; Min downward velocity to play thud SFX
+Fuzzl_HitGroundSFXVel		equ 0x020000	; Min downward velocity to play thud SFX
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
