@@ -71,18 +71,6 @@ SND_PlayTrack:
 
 	;==============================================================
 
-	; Auto-stop tracks that have reach the end
-	; TODO: done here due to delay between Echo_StartTrack and Echo_GetStatus returning Track Busy flag
-	cmp.l  #0x0, audio_current_track
-	beq    @EndStopCheck
-	jsr    SND_GetTrackBusy
-	cmp.b  #0x0, d0
-	bne    @EndStopCheck
-	move.l #0x0, audio_current_track
-	@EndStopCheck:
-
-	;==============================================================
-
 	; If current track playing, fade out first
 	cmp.l  #0x0, audio_current_track
 	beq    @Free
@@ -156,6 +144,23 @@ SND_PlayTrack:
 
 	rts
 
+SND_QueueTrack:
+	; a0 --- Track address
+
+	IFND DEBUG
+
+	; Queue track
+	clr.l  d0
+	move.b Track_Type(a0), d0
+	lsl.l  #0x2, d0
+	lea    audio_queued_tracks, a1
+	add.l  d0, a1
+	move.l a0, (a1)
+
+	ENDIF
+
+	rts
+
 SND_StopTrack:
 	IFND DEBUG
 	jsr   Echo_StopBGM
@@ -191,13 +196,13 @@ SND_PlaySFX:
 	move.l #0x0, audio_current_sfx
 	@EndStopCheck:
 
-	; If SFX already playing
-	cmp.l  #0x0, audio_current_sfx
-	beq    @Free
-
 	; If exclusivity held, bail
 	cmp.b  #0x0, audio_playback_locked
 	bne    @Busy
+
+	; If SFX already playing
+	cmp.l  #0x0, audio_current_sfx
+	beq    @Free
 
 	; Check priority
 	move.l (audio_current_sfx), a1
@@ -436,7 +441,23 @@ SND_UpdateTrack:
 	; Play
 	jsr    SND_PlayTrack
 
+	bra    @Played
+
 	@Busy:
 	@Silence:
+
+	; Auto-stop tracks that have reach the end
+	cmp.l  #0x0, audio_current_track
+	beq    @EndStopCheck
+	jsr    SND_GetTrackBusy
+	cmp.b  #0x0, d0
+	bne    @EndStopCheck
+	move.l #0x0, audio_current_track
+	move.b #0x0, audio_playback_locked
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+	@EndStopCheck:
+
+	@Played:
 
 	rts

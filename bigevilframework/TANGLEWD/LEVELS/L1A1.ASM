@@ -73,7 +73,7 @@ l1a1_Init:
 	lea    track_bgm_dawn, a0
 	jsr    SND_PlayTrack
 	lea    track_amb_l1_night, a0
-	jsr    SND_PlayTrack
+	jsr    SND_QueueTrack
 	ENDIF
 
 	move.l #Player1, a0
