@@ -954,23 +954,26 @@ PlayerUpdateColourAbility:
 	; Green - time slow
 	; ************************************
 	@Green:
+
+	; Get global time div
+	move.b (GlobalTimeDiv), d0
 	
 	; If active colour ability
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @SpeedUp
 	
 	; Slow down global time
-	cmp.b  #Player1SlowTimeDiv, GlobalTimeDiv
-	beq    @End
-	addi.b #0x1, GlobalTimeDiv
+	cmp.b  #Player1SlowTimeDiv, d0
+	beq    @EndTimeDiv
+	addi.b #0x1, d0
 	bra    @ApplyTime
 	
 	@SpeedUp:
 	
 	; Speed up
-	cmp.b  #0x1, GlobalTimeDiv
-	beq    @End
-	subi.b #0x1, GlobalTimeDiv
+	cmp.b  #0x1, d0
+	beq    @EndTimeDiv
+	subi.b #0x1, d0
 	
 	@ApplyTime:
 	
@@ -1005,6 +1008,11 @@ PlayerUpdateColourAbility:
 	@NotAnimObj:
 	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
+
+	@EndTimeDiv:
+
+	; Back to RAM
+	move.b d0, (GlobalTimeDiv)
 	
 	bra    @End
 	
