@@ -89,10 +89,10 @@ GameStateReset:
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
 	
 	; Reset linked lists
-	LIST_CLEAR Characters
-	LIST_CLEAR Platforms
-	LIST_CLEAR Barriers
-	LIST_CLEAR PushableObjs
+	LIST_CLEAR Characters,a4,a3
+	LIST_CLEAR Platforms,a4,a3
+	LIST_CLEAR Barriers,a4,a3
+	LIST_CLEAR PushableObjs,a4,a3
 
 	; Reload debug draw font
 	move.l #Tiles_PixelFontSizeB, d0

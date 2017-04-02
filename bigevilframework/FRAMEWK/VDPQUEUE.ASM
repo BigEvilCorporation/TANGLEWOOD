@@ -42,7 +42,7 @@ VDP_JobQueue_PushJob:
 	sub.l  d0, d7
 	cmp.l  #VDPQueue_MaxSize, d7
 	bne    @NotFull
-	RAISE_EXCEPTION 0xFF
+	RAISE_EXCEPTION error_vdp_queue_full
 	@NotFull:
 	POPL   d7
 	POPL   d0

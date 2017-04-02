@@ -16,14 +16,17 @@ __start
 	
 	; Include framework containers
 	include '..\framewk\linklist.asm'
+
+	; Ensure entry point is first (should be 0x200, after header)
+	include '..\framewk\init.asm'
 	
 	; Include interrupts
 	include 'interpts.asm'
 
 	; Include Framework code
-	include '..\framewk\init.asm'
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
+	include '..\framewk\errors.asm'
 	include '..\framewk\exceptn.asm'
 	include '..\framewk\fm.asm'
 	include '..\framewk\gamepad.asm'

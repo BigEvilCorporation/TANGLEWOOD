@@ -80,15 +80,15 @@ EntityRemoveFromSerialiseList:
 	rts
 	
 EntityClearUpdateList:
-	LIST_CLEAR EntityUpdate
+	LIST_CLEAR EntityUpdate,a4,a3
 	rts
 	
 EntityClearRenderList:
-	LIST_CLEAR EntityRender
+	LIST_CLEAR EntityRender,a4,a3
 	rts
 	
 EntityClearSerialiseList:
-	LIST_CLEAR EntitySerialise
+	LIST_CLEAR EntitySerialise,a4,a3
 	rts
 	
 EntityUpdateAll:

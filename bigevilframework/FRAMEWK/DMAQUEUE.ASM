@@ -29,7 +29,7 @@ VDP_DMAQueue_AddJob:
 	IFND FINAL
 	cmp.w #0x0, d1
 	bne   @NonZero
-	RAISE_EXCEPTION 0xEE
+	RAISE_EXCEPTION error_dma_queue_full
 	@NonZero:
 	ENDIF
 	

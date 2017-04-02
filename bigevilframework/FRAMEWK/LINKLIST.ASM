@@ -26,6 +26,31 @@ LIST_GET_SIZE: macro name,outreg
 	; Appends new link to the end of a list
 LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 
+	; Sanity check - make sure object isn't already in a list
+	IFND FINAL
+
+	; Check object's next ptr is null
+	cmp.l  #0x0, List_\name\_Next(\objaddrreg)
+	beq    @NoNextLink\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NoNextLink\@:
+
+	; Check object isn't the list head
+	move.l List_\name\_Head, \tempaddrreg
+	cmp.l  \objaddrreg, \tempaddrreg
+	bne    @NotHead\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NotHead\@:
+
+	; Check object isn't the list tail
+	move.l List_\name\_Tail, \tempaddrreg
+	cmp.l  \objaddrreg, \tempaddrreg
+	bne    @NotTail\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NotTail\@:
+
+	ENDIF
+
 	; If first in list, set as head and tail
 	cmp.l  #0x0, (List_\name\_Head)
 	bne    @HasHead\@
@@ -40,9 +65,6 @@ LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 	move.l \objaddrreg, List_\name\_Tail
 	
 	@End\@:
-
-	; Ensure tail has no tail
-	move.l #0x0, List_\name\_Next(\objaddrreg)
 	
 	; Increment count
 	addi.l #0x1, List_\name\_Size
@@ -54,13 +76,18 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 
 	move.l  #0x0, \tempaddrreg1
 	
-	move.l (List_\name\_Head), \tempaddrreg2	 				; Get list head
-	@EntityLp:							 					; For all entities in list
+	move.l (List_\name\_Head), \tempaddrreg2	 			; Get list head
+	@EntityLp\@:							 				; For all entities in list
 	cmp.l  \objaddrreg, \tempaddrreg2						; Check if entity to remove
 	beq    @Found
 	move.l \tempaddrreg2, \tempaddrreg1						; Backup prev
 	move.l List_\name\_Next(\tempaddrreg2), \tempaddrreg2	; Get next ptr
-	bra    @EntityLp
+	bra    @EntityLp\@
+
+	; Error, object wasn't in this list
+	IFND FINAL
+	RAISE_EXCEPTION error_obj_not_in_list
+	ENDIF
 	
 	@Found:
 	
@@ -88,13 +115,28 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 	
 	@NotTail:
 	
+	; Clear removed object's next link
+	move.l #0x0, List_\name\_Next(\objaddrreg)
+
 	; Decrement count
 	subi.l #0x1, List_\name\_Size
 	
 	endm
 	
 	; Clears list
-LIST_CLEAR: macro name
+LIST_CLEAR: macro name,tempaddrreg,tempaddrreg2
+
+	; Clear all links
+	move.l (List_\name\_Head), \tempaddrreg
+	@EntityLp\@:
+	cmp.l  #0x0, \tempaddrreg
+	beq    @End\@
+	move.l List_\name\_Next(\tempaddrreg), \tempaddrreg2
+	move.l #0x0, List_\name\_Next(\tempaddrreg)
+	move.l \tempaddrreg2, \tempaddrreg
+	bra    @EntityLp\@
+	@End\@:
+
 	move.l #0x0, List_\name\_Head
     move.l #0x0, List_\name\_Tail
     move.l #0x0, List_\name\_Size
