@@ -807,7 +807,8 @@ PhysicsObjFindWall:
 	bgt    @NextBarrier
 	
 	; Get barrier Top and Bottom Y
-	move.w Barrier_PosY(a3), d2
+	move.l Barrier_PosY(a3), d2
+	TOPIXELS d2
 	sub.w  #SpritePlaneBorderY, d2			; To screen space
 	add.w  d2, d3
 
@@ -824,7 +825,8 @@ PhysicsObjFindWall:
 	blt    @NextBarrier
 	
 	; Get barrier X
-	move.w Barrier_PosX(a3), d2				; Get X
+	move.l Barrier_PosX(a3), d2				; Get X
+	TOPIXELS d2
 	sub.w  #SpritePlaneBorderX, d2			; To screen space
 
 	; Get wall probe X
@@ -840,8 +842,8 @@ PhysicsObjFindWall:
 	bgt    @NextBarrier
 	
 	; Success
-	clr.l  d4
-	move.w Barrier_PosX(a3), d4				; Get barrier X
+	move.l Barrier_PosX(a3), d4				; Get barrier X
+	TOPIXELS d4
 
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d3
@@ -853,8 +855,7 @@ PhysicsObjFindWall:
 	TOSUBPIXELS d4							; To world space
 	
 	; Add barrier X velocity
-	move.w Barrier_VelX(a3), d2
-	ext.l  d2
+	move.l Barrier_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
 
 	bra    @FoundBarrier

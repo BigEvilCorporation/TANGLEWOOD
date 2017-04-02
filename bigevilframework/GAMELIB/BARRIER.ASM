@@ -10,10 +10,10 @@
 ;---------------------------------
 	LINKED_LIST_NODE Barriers ; Linked list entry
 ;---------------------------------
-Barrier_PosX			rs.w 1
-Barrier_PosY			rs.w 1
-Barrier_VelX			rs.w 1
-Barrier_VelY			rs.w 1
+Barrier_PosX			rs.l 1
+Barrier_PosY			rs.l 1
+Barrier_VelX			rs.l 1
+Barrier_VelY			rs.l 1
 Barrier_Width			rs.w 1
 Barrier_Height			rs.w 1
 Barrier_Thickness		rs.w 1

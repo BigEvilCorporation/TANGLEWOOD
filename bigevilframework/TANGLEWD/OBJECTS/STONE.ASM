@@ -154,12 +154,12 @@ StoneUpdate:
 	; Reposition barrier
 	move.l a0, a2
 	add.l  #Stone_Barrier, a2
-	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
+	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 	
 	; Set barrier velocity
-	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
-	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
+	move.l PhysicsObj_VelX(a0), Barrier_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Barrier_VelY(a2)
 
 	rts
 	
