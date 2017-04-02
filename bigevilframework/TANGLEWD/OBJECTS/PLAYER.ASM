@@ -674,9 +674,13 @@ PlayerStartColourAbility:
 		
 	@Tamed:
 
+	; Must be alive
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @NextMonster
+
 	; Must be on floor
-	cmp.b #0x0, PhysicsObj_CloseToFloor(a1)
-	beq   @NextMonster
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a1)
+	beq    @NextMonster
 
 	; Wait for howl anim to finish
 	move.l a0, a3
@@ -853,6 +857,10 @@ PlayerStopColourAbility:
 	cmp.l  #0x0, a2
 	beq    @NoPet
 
+	; If pet still alive
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PetDead
+
 	; Pet no longer tamed
 	PUSHM  a0-a2
 	move.l a2, a0
@@ -862,6 +870,7 @@ PlayerStopColourAbility:
 	; and it's no longer our friend
 	move.l #0x0, Player_Pet(a0)
 
+	@PetDead:
 	@NoPet:
 	@PetStillTamed:
 
@@ -1171,6 +1180,10 @@ PlayerDismountPet:
 	cmp.l  #0x0, a2
 	beq    @NotRiding
 
+	; Check riding
+	cmp.b  #0x0, Character_Riding(a0)
+	beq    @NotRiding
+
 	; Zero player acceleration
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
@@ -1181,6 +1194,11 @@ PlayerDismountPet:
 
 	; Inherit pet X velocity
 	move.l PhysicsObj_VelX(a2), PhysicsObj_VelX(a0)
+
+	; Clear last floor
+	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.b #0x0, PhysicsObj_OnFloor(a0)
+	move.l #0x0, PhysicsObj_LastFloor(a0)
 
 	; Jump off
 	PUSHM  a0-a2
@@ -1198,7 +1216,7 @@ PlayerDismountPet:
 	;==============================================================
 
 	; If involuntary dismount, monster bucks and throws player off
-	cmp.w  #0x0, d0
+	cmp.b  #0x0, d0
 	bne    @VoluntaryDismount
 
 	; Start monster buck state
