@@ -119,6 +119,21 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 	endm
 	
 ;==============================================================
+
+PHYSICS_HITFACINGWALL: macro objaddr
+	move.b #0x0, d0
+	cmp.b  #0x0, SpriteObj_FlippedX(\objaddr)
+	beq    @FacingRight\@
+	cmp.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(\objaddr)
+	beq    @HitWall\@
+	bra    @EndWallTest\@
+	@FacingRight\@:
+	cmp.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(\objaddr)
+	bne    @EndWallTest\@
+	@HitWall\@:
+	move.b #0x1, d0
+	@EndWallTest\@:
+	endm
 	
 	; Play SFX
 PLAYSFX: macro sfxAddr

@@ -986,7 +986,8 @@ MonsterUpdateSearchForPlayer:
 	@Move:
 	
 	; Check if hit a wall
-	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	cmp.b  #0x0, d0
 	bne    @HitWall
 	
 	; Check if near target
@@ -1090,15 +1091,9 @@ MonsterUpdateTrackPlayer:
 	@NoTimer:
 	
 	; Check if hit a wall
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @FacingRight
-	cmp.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
-	beq    @HitWall
-	bra    @EndWallTest
-	@FacingRight:
-	cmp.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
-	beq    @HitWall
-	@EndWallTest:
+	PHYSICS_HITFACINGWALL a0
+	cmp.b  #0x0, d0
+	bne    @HitWall
 	
 	;==============================================================
 	
