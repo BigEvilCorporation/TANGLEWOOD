@@ -40,11 +40,14 @@ L1A4_Fuzzl_Green_idx	equ 0x1
 L1A4_Boulder_count equ 0x1
 L1A4_Boulder_16_idx	equ 0x0
 
-L1A4_Stone_count equ 0x4
+L1A4_Stone_count equ 0x7
 L1A4_Stone_45_idx	equ 0x0
 L1A4_Stone_46_idx	equ 0x1
 L1A4_Stone_47_idx	equ 0x2
 L1A4_Stone_48_idx	equ 0x3
+L1A4_Stone_51_idx	equ 0x4
+L1A4_Stone_52_idx	equ 0x5
+L1A4_Stone_53_idx	equ 0x6
 
 L1A4_Nest_count equ 0x2
 L1A4_Nest_11_idx	equ 0x0
@@ -200,6 +203,21 @@ L1A4_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x18d00000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x2c080000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x25880000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x25800000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 

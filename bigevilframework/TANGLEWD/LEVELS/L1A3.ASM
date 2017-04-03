@@ -207,11 +207,20 @@ l1a3_Trigger_WakeDjakk:
 
 	PUSHL  a0
 	
+	; Get player 1
+	move.l #Player1, a2
+	
+	; Check not cloaked
+	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
+	beq    @PlayerCloaked
+
 	move.l #l1a3_Djakk_idx, d0
 	mulu   #Monster_Struct_Size, d0
 	move.l #EntityArray_Monster, a0
 	add.l  d0, a0
 	jsr    MonsterStartTrackPlayer
+
+	@PlayerCloaked:
 	
 	POPL   a0
 	
