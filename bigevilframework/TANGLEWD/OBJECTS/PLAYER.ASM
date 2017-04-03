@@ -107,11 +107,16 @@ Player1PushBoundsMaxXOuter	equ ((Player1Width/2)+(Player1PushBoundsWidthOuter/2)
 Player1PushAnimSpeedVelocityDivLight equ 0x0400
 Player1PushAnimSpeedVelocityDivHeavy equ 0x0800
 
-; Mounting/riding stategg
+; Mounting/riding state
 Player_RideState_None		equ 0x0
 Player_RideState_Mounting	equ 0x1
 Player_RideState_Riding		equ 0x2
 Player_RideState_Jumping	equ 0x3
+
+; Dismount type
+Player_Dismount_Voluntary	equ 0x0
+Player_Dismount_Timeout		equ 0x1
+Player_Dismount_PetDead		equ 0x2
 
 ; Interaction types
 Player_Interaction_None		equ 0x0
@@ -845,12 +850,13 @@ PlayerStopColourAbility:
 	beq    @NotRiding
 
 	; Dismount
+	move.b #Player_Dismount_Voluntary, d0
 	cmp.w  #0x0, Player_ColourChangeTimer(a0)
-	move.b #0x0, d0
 	bne    @VoluntaryDismount
-	move.b #0x1, d0
+	move.b #Player_Dismount_Timeout, d0
 	@VoluntaryDismount:
 	jsr    PlayerDismountPet
+	bra    @Dismounted
 
 	@NotRiding:
 
@@ -869,7 +875,7 @@ PlayerStopColourAbility:
 	; Pet no longer tamed
 	PUSHM  a0-a2
 	move.l a2, a0
-	jsr    MonsterStartTrackPlayer
+	jsr    MonsterStartRoaring
 	POPM   a0-a2
 
 	; and it's no longer our friend
@@ -878,6 +884,7 @@ PlayerStopColourAbility:
 	@PetDead:
 	@NoPet:
 	@PetStillTamed:
+	@Dismounted:
 
 	; Release interaction obj
 	move.l #0x0, Player_InteractObject(a0)
@@ -1206,23 +1213,25 @@ PlayerDismountPet:
 	move.l #0x0, PhysicsObj_LastFloor(a0)
 
 	; Jump off
-	PUSHM  a0-a2
+	PUSHM  d0/a0-a2
 	jsr    CharacterStartJump
-	POPM   a0-a2
+	POPM   d0/a0-a2
 
 	;==============================================================
 
 	; Restore pet update routine
-	PUSHM  a0-a2
+	PUSHM  d0/a0-a2
 	move.l a2, a0
 	jsr    EntityAddToUpdateList
-	POPM   a0-a2
+	POPM   d0/a0-a2
 
 	;==============================================================
 
 	; If involuntary dismount, monster bucks and throws player off
-	cmp.b  #0x0, d0
-	bne    @VoluntaryDismount
+	cmp.b  #Player_Dismount_Voluntary, d0
+	beq    @VoluntaryDismount
+	cmp.b  #Player_Dismount_PetDead, d0
+	beq    @PetDeadDismount
 
 	; Start monster buck state
 	PUSHM  a0-a2
@@ -1242,6 +1251,7 @@ PlayerDismountPet:
 
 	@NotRiding:
 	@VoluntaryDismount:
+	@PetDeadDismount:
 	@PetStillTamed:
 	@NoPet:
 
@@ -1370,7 +1380,7 @@ PlayerUpdateMount:
 	@PetDead:
 
 	; Pet dead, dismount
-	move.b #0x0, d0
+	move.b #Player_Dismount_PetDead, d0
 	jsr    PlayerDismountPet
 
 	;==============================================================
