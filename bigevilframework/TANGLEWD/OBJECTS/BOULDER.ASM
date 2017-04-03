@@ -47,7 +47,7 @@ Boulder_Animations	 rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
 Boulder_Platform	 rs.b Platform_Struct_Size ; Moving platform on top of boulder
 Boulder_SpawnX		 rs.l 1	; Spawn pos, for resetting after being cracked
 Boulder_SpawnY		 rs.l 1
-Boulder_LastVelY     rs.w 1	; Last recorded velocity
+Boulder_LastVelY     rs.l 1	; Last recorded velocity
 Boulder_LastOnFloor  rs.b 1	; Last recorded OnFloor flag
 Boulder_CanCrack	 rs.b 1 ; Can be cracked/respawned
 Boulder_Cracked		 rs.b 1	; Cracked open, awaiting respawn
@@ -94,7 +94,7 @@ BoulderInit:
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)
 	move.l  #0x0, Boulder_SpawnY(a0)
-	move.w  #0x0, Boulder_LastVelY(a0)
+	move.l  #0x0, Boulder_LastVelY(a0)
 	move.b  #0x1, Boulder_LastOnFloor(a0)
 	move.b  #0x0, Boulder_Cracked(a0)
 	move.b  #0x1, Boulder_CanCrack(a0)
@@ -214,7 +214,7 @@ BoulderUpdate:
 	POPL   a1
 	
 	; Reset
-	move.w #0x0, Boulder_LastVelY(a0)
+	move.l #0x0, Boulder_LastVelY(a0)
 	move.b #0x1, Boulder_LastOnFloor(a0)
 	move.b #0x0, Boulder_Cracked(a0)
 	move.b #0x1, PhysicsObj_CanBePushed(a0)
