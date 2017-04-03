@@ -37,6 +37,7 @@ Monster_BoundsOffsetX	equ (Monster_Width/2)-(Monster_BoundsWidth/2)
 Monster_BoundsOffsetY	equ (Monster_Height/2)-(Monster_BoundsHeight/2)
 
 Monster_StepHeight	  equ 0x3
+Monster_MinWallHeight equ 0x11				 ; High enough to avoid stones
 Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
 Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
@@ -178,6 +179,7 @@ MonsterInit:
 	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #Monster_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	
 	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
