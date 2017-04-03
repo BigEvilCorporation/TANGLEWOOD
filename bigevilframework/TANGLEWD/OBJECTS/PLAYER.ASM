@@ -172,13 +172,14 @@ Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
 Player_ControlEnabled		rs.b 1
 Player_InteractionType 		rs.b 1	; Current interaction type
+Player_InteractionToggle	rs.b 1	; If current interaction needs a button tap to disable
 Player_Colour          		rs.b 1
 Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
 ;---------------------------------
-Player_Struct_Pad      		rs.b 3
+Player_Struct_Pad      		rs.b 2
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -240,6 +241,7 @@ PlayerInit:
 	move.w  #0x0, Player_IdleFrameCount(a0)
 	move.b  #0x0, Player_IdleTimeoutCount(a0)
 	move.b  #Player_Interaction_None, Player_InteractionType(a0)
+	move.b  #0x0, Player_InteractionToggle(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
 	
@@ -698,6 +700,9 @@ PlayerStartColourAbility:
 	; Ride ze Shoopuf
 	move.l a1, a2
 	jsr    PlayerMountPet
+
+	; Use button toggle
+	move.b #0x1, Player_InteractionToggle(a0)
 	
 	; Done
 	bra    @EndMonsterLoop
@@ -1480,7 +1485,7 @@ PlayerCanDismountPet:
 
 	; Check if pet is on floor
 	cmp.b  #0x0, PhysicsObj_CloseToFloor(a2)
-	beq    @PetOnFloor
+	bne    @PetOnFloor
 
 	; Pet in air, cannot dismount
 	move.b #0x0, d0
@@ -1501,6 +1506,14 @@ PlayerStartInteract:
 	
 	move.l d0, -(sp)
 	move.l d1, -(sp)
+
+	; If toggle state, this is actually an end request
+	cmp.b  #0x0, Player_InteractionToggle(a0)
+	beq    @NoToggle
+	move.b #0x0, Player_InteractionToggle(a0)
+	jsr    PlayerCancelInteract
+	bra    @End
+	@NoToggle:
 	
 	; Check if already interacting
 	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
@@ -1664,6 +1677,10 @@ PlayerUpdateInteract:
 PlayerCancelInteract:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	; If toggle state, need another PlayerStartInteract to end
+	cmp.b  #0x0, Player_InteractionToggle(a0)
+	bne    @ButtonToggle
 	
 	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
 	bne    @NotPushing
@@ -1690,6 +1707,8 @@ PlayerCancelInteract:
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	move.l #0x0, Player_InteractObject(a0)
 	move.b #0x0, Character_Interacting(a0)
+
+	@ButtonToggle:
 	
 	rts
 	

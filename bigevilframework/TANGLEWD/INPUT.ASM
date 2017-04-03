@@ -168,7 +168,7 @@ HandlePlayerInput:
 	PUSHL d0
 	PUSHL d1
 	lea   GameStatePause, a0
-	jsr   GamestatePush
+	;jsr   GamestatePush
 	POPL  d1
 	POPL  d0
 	POPL  a0
@@ -258,12 +258,32 @@ HandlePlayerInput:
 	; C - interact
 	; =====================================================================
 	
-	btst #pad_button_c, d0  	; Check C button
-	beq  @NoC	                ; Branch if button off
+	; Check if current player interaction is using toggle behaviour
+	cmp.b  #0x0, Player_InteractionToggle(a0)
+	bne    @ToggleC
+
+	btst #pad_button_c, d0		; Check C button
+	beq  @NoC					; Branch if button off
 	jsr  CharacterStartInteract	; Start interaction
 	bra  @EndC
 	@NoC:
 	jsr  CharacterCancelInteract
+	bra  @EndC
+
+	@ToggleC:
+	
+	btst #pad_button_c, d0		; Check C pressed
+	beq  @NoToggleC
+	btst #pad_button_c, d1		; Check C not already held
+	bne  @EndToggleC
+	jsr  CharacterStartInteract	; Start interaction
+	bra  @EndToggleC
+	@NoToggleC:
+	btst #pad_button_c, d1		; Check C not already released
+	beq  @EndToggleC
+	jsr  CharacterCancelInteract
+	@EndToggleC:
+
 	@EndC:
 	
 	; =====================================================================
