@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Stone_MaxEntities		equ 0x4
+Stone_MaxEntities		equ 0x8
 Stone_Width				equ 0x10
 Stone_Height			equ 0x10
 Stone_MaxVelYUp			equ 0x060000
