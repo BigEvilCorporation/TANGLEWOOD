@@ -1280,10 +1280,16 @@ PlayerUpdateMount:
 	cmp.l  #0x0, a2
 	beq    @NoPet
 
-	; Check state
+	; Check in one of the riding states
 	move.b Player_RideState(a0), d0
 	cmp.b  #Player_RideState_None, d0
 	beq    @StateNone
+
+	; If pet dead, dismount immediately
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PetDead
+
+	; Check other states
 	cmp.b  #Player_RideState_Mounting, d0
 	beq    @StateMounting
 	cmp.b  #Player_RideState_Riding, d0
@@ -1294,10 +1300,6 @@ PlayerUpdateMount:
 	;==============================================================
 
 	@StateMounting:
-
-	; If pet dead, dismount immediately
-	cmp.b  #0x0, Character_Dead(a2)
-	bne    @PetDead
 
 	; Wait for mount anim to finish
 	move.l a0, a3
@@ -1331,10 +1333,6 @@ PlayerUpdateMount:
 	;==============================================================
 
 	@StateRiding:
-
-	; If pet dead, dismount immediately
-	cmp.b  #0x0, Character_Dead(a2)
-	bne    @PetDead
 
 	; Forward controls onto pet
 	jsr    PlayerForwardPetControls
