@@ -10,7 +10,7 @@
 L1A4_Leaf_count equ 0x0
 
 L1A4_Nymn_count equ 0x1
-L1A4_Nymn_42_idx	equ 0x0
+L1A4_Nymn_54_idx	equ 0x0
 
 L1A4_Echo_count equ 0x0
 
@@ -63,8 +63,7 @@ L1A4_Trigger_Djakk_idx	equ 0x0
 L1A4_TriggerBoxEnd_idx	equ 0x1
 L1A4_TriggerBox_39_idx	equ 0x2
 
-L1A4_Checkpoint_count equ 0x1
-L1A4_Checkpoint_5_idx	equ 0x0
+L1A4_Checkpoint_count equ 0x0
 
 L1A4_WaterBody_count equ 0x5
 L1A4_WaterBody_3_idx	equ 0x0
@@ -85,7 +84,7 @@ L1A4_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x01800000, Entity_WorldPosX(a0)
+	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x03100000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
@@ -274,11 +273,6 @@ L1A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	move.l #EntityArray_Checkpoint, a0
-	jsr CheckpointInit
-	move.l #0x00d00000, Entity_WorldPosX(a0)
-	move.l #0x03100000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	add.l #Checkpoint_Struct_Size, a0
 
 	move.l #EntityArray_WaterBody, a0
 	jsr WaterBodyInit
