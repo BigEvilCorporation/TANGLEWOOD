@@ -56,6 +56,17 @@ PAL_Read:
 
 	rts
 
+PAL_Copy:
+	; a0 --- Source palette
+	; a1 --- Dest address
+
+	move.l #(size_palette_b/size_long)-1, d0
+	@PaletteCopy:
+	move.l (a0)+, (a1)+
+	dbra.w d0, @PaletteCopy
+
+	rts
+
 PAL_ClearAll:
 
 	move.l #0x3, d0

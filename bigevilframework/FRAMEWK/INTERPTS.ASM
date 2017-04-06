@@ -44,5 +44,22 @@ INT_HBlank:
    addi.w #0x1, hline_counter     ; Increment h-line counter
    rte
 
+INT_HBlank_PaletteSwap:
+	;PUSHALL
+	;move.l #UnderwaterPalettes, a0
+	;move.w #PaletteId_Player*size_palette_b, d0
+	;move.w #size_palette_w, d1
+	;jsr VDP_DMACopyCRAM
+	;VDP_SETHINT 0xFF
+	;POPALL
+
+	; src, dest, len, into, cmd
+	PUSHW d0
+	VDP_DMA_CRAM UnderwaterPalettes, (PaletteId_Player*size_palette_b), size_palette_b, d0
+	POPW  d0
+	VDP_SETHINT 0xFF
+
+	rte
+
 INT_Null:
    rte

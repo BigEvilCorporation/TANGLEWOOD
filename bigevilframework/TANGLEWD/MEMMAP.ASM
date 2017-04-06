@@ -118,6 +118,12 @@ TimeOfDayEnabled    rs.b 1
 
 __padding03			rs.b 2
 
+OutOfWaterPalettes  rs.l num_palettes
+UnderwaterPalettes  rs.l num_palettes
+WaterLevel			rs.b 1	; Water level in HSCROLL
+
+__padding31			rs.b 3
+
 ; ************************************
 ; Camera, V/H scroll and map streaming
 ; ************************************

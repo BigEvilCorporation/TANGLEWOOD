@@ -220,4 +220,10 @@ VDP_EnableVINT:
 VDP_DisableVINT:
 	move.w #(0x8100|VDPReg1&~vdp_reg1_enablevint), vdp_control
 	rts
-		
+
+VDP_SetHINTFreq:
+	; d0 (b) HINT frequency
+	andi.w #0x00FF, d0
+	ori.w  #0x8A00, d0
+	move.w d0, vdp_control
+	rts

@@ -104,3 +104,44 @@ VFX_StopScreenEffectGreyscale:
 	
 	rts
 	
+VFX_CreateUnderwaterPalette:
+	; a0 --- Source palette addr
+	; a1 --- Dest palette addr
+
+	move.w #(size_palette_b/size_word)-1, d0
+	@Loop:
+
+	; Get colour
+	move.w (a0)+, d1
+
+	; Extract R/G/B commponents
+	move.w d1, d2
+	move.w d1, d3
+	andi.w #0x0F00, d1
+	andi.w #0x000F, d2
+	andi.w #0x00F0, d3
+	lsr.w  #0x4, d3
+
+	; Sub 1 from R if non-zero
+	cmp.b  #0x0, d2
+	beq    @NoSubRed
+	sub.b  #0x3, d2
+	@NoSubRed:
+
+	; Sub 1 from G if non-zero
+	cmp.b  #0x0, d3
+	beq    @NoSubGreen
+	sub.b  #0x3, d3
+	@NoSubGreen:
+
+	; Back to colour
+	lsl.w  #0x4, d3
+	or.w   d2, d1
+	or.w   d3, d1
+
+	; Write
+	move.w d1, (a1)+
+
+	dbra   d0, @Loop
+
+	rts

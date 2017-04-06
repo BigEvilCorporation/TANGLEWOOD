@@ -232,9 +232,9 @@ MainMenu_Update:
 	bne    @StartGame
 	
 	; Check C button
-	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
-	btst   #pad_button_c, d0
-	bne    @StartSoundTest
+	;move.l #GameStateSoundTest, MainMenuState_NextState(a2)
+	;btst   #pad_button_c, d0
+	;bne    @StartSoundTest
 	
 	bra    @End
 	

@@ -1946,6 +1946,9 @@ PlayerInteractTest_Water:
 	
 	; Reset in water
 	move.b #0x0, Character_InWater(a0)
+
+	; Reset water level
+	move.b #0xFF, WaterLevel
 	
 	; Check all water bodies
 	move.l #EntityArray_WaterBody, a1
@@ -1964,6 +1967,16 @@ PlayerInteractTest_Water:
 	
 	; Player inside
 	move.b #0x1, Character_InWater(a0)
+
+	; Set water level
+	move.l Entity_WorldPosY(a1), d3
+	TOPIXELS d3
+	move.l (WorldScrollY), d2
+	TOPIXELS d2
+	sub.w  d2, d3
+	sub.w  #SpritePlaneBorderY, d3
+	move.b d3, WaterLevel
+
 	bra    @Found
 	
 	@NoIntersect:

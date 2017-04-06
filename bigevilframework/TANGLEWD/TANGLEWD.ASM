@@ -162,8 +162,8 @@ __main:
 	move.b #0x0, vint_enabled
 	
 	; Load letterbox horizontal interrupt routine
-	lea HBlankInterrupt_Letterbox, a0
-	;jsr INT_LoadHBlank
+	lea INT_HBlank_PaletteSwap, a0
+	jsr INT_LoadHBlank
 	
 	; Init game state stack
 	move.l #GameStateStack, GameStateStackPtr
@@ -181,6 +181,12 @@ __main:
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
+
+	lea    Pal_Nymn_Red, a0
+	lea    UnderwaterPalettes, a1
+	jsr    VFX_CreateUnderwaterPalette
+	
+	move.b #0xFF, WaterLevel
 	
 	; Enter first game state
 	move.l #InitialState, a0
@@ -191,6 +197,8 @@ __main:
 	; ************************************
 GameLoop:
 	
+	VDP_DMA_CRAM Pal_Nymn_Red, (PaletteId_Player*size_palette_b), size_palette_b, d0
+
 	; Begin frame
 	jsr RenderBeginFrame
 	
@@ -231,6 +239,10 @@ RenderBeginFrame:
 	rts
 	
 RenderEndFrame:
+
+	; Set water level HINT
+	move.b (WaterLevel), d0
+	jsr VDP_SetHINTFreq
 
 	; Update frame counter
 	addi.l #0x1, frame_counter_update

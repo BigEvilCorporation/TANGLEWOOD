@@ -102,10 +102,10 @@ Player1 				 equ (EntityArray_Nymn)
 Player2 				 equ (EntityArray_Echo)
 
 ; Initial level/state
-;InitialLevel			 equ l1a1_HarlequinForestAct1
+InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l1a2_HarlequinForestAct2
 ;InitialLevel			 equ l1a3_HarlequinForestAct3
-InitialLevel			 equ l1a4_HarlequinForestAct4
+;InitialLevel			 equ l1a4_HarlequinForestAct4
 ;InitialLevel			 equ l2a1_StormWarningAct1
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
