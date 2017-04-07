@@ -17,25 +17,25 @@ VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	; d1 (b) - Lerped (0) or instant (1)
 	
-	; Alloc source/dest palette space on stack
-	ALLOCSTACKB size_palette_b
-	move.l sp, a0
+	; Backup palette idx
+	move.l d0, d7
+
+	; Get source palette address
+	lea     CurrentPalettes, a0
+	andi.l  #0xFF, d0
+	mulu    #size_palette_b, d0
+	add.l   d0, a0
+
+	; Alloc dest palette on stack
 	ALLOCSTACKB size_palette_b
 	move.l sp, a1
-	
+
 	; Push lerp param
 	PUSHL  d1
 	
-	; Palette index and dest address backup
-	move.l d0, d7
+	; Source/dest address backup
 	move.l a1, a3
-	
-	; Read source palette
-	PUSHL  a0
-	PUSHL  d0
-	jsr    PAL_Read
-	POPL   d0
-	POPL   a0
+	move.l a0, a4
 
 	; Loop through component words
 	move.l #(size_palette_b/size_word)-1, d0
@@ -89,16 +89,18 @@ VFX_StartScreenEffectGreyscale:
 	bra    @EndLoadPalette
 	
 	@Instant:
-	
-	; Load palette
-	move.l a3, a0					; Dest palette address
-	move.l d7, d0					; Palette idx
-	jsr    PAL_LoadDMA
-	
+
+	; Copy source to dest
+	move.l  #(size_palette_b/size_long), d6
+	MEMCPYL a4, a3, d6
+
+	; Mark palettes dirty
+	move.b #0x1, PalettesDirty
+	move.b #0x1, UnderwaterPalettesDirty
+
 	@EndLoadPalette:
-	
-	; Free source/dest palette space
-	FREESTACKB size_palette_b
+
+	; Free stack
 	FREESTACKB size_palette_b
 	
 	rts

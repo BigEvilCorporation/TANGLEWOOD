@@ -168,7 +168,7 @@ HandlePlayerInput:
 	PUSHL d0
 	PUSHL d1
 	lea   GameStatePause, a0
-	;jsr   GamestatePush
+	jsr   GamestatePush
 	POPL  d1
 	POPL  d0
 	POPL  a0

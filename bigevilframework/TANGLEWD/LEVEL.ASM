@@ -143,6 +143,15 @@ LevelLoad:
 LevelLoadPalettes:
 	; a1 --- Level struct address
 	
+	; Start black
+	move.l #((size_palette_b*num_palettes)/size_long), d0
+	lea    CurrentPalettes, a0
+	@Loop:
+	move.l #0x0, (a0)+
+	dbra   d0, @Loop
+	move.b #0x1, PalettesDirty
+	move.b #0x1, UnderwaterPalettesDirty
+
 	clr.l  d6
 	clr.l  d7
 	move.b #0x3, d7						; Num palettes to d7 (-1)
@@ -156,10 +165,11 @@ LevelLoadPalettes:
 	
 	IFD DEBUG
 	
-	jsr    PAL_Load			
+	jsr    PAL_Load
 	
 	ELSE
 	
+	; Fade all palettes up
 	move.w #LevelFadeUpSpeed, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.b #0x0, d3

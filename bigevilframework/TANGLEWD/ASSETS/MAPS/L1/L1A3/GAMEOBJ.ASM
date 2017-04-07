@@ -41,11 +41,12 @@ L1A3_Fuzzl_Yellow_idx	equ 0x1
 L1A3_Boulder_count equ 0x1
 L1A3_Boulder_11_idx	equ 0x0
 
-L1A3_Stone_count equ 0x4
+L1A3_Stone_count equ 0x5
 L1A3_Stone_54_idx	equ 0x0
 L1A3_Stone_55_idx	equ 0x1
 L1A3_Stone_56_idx	equ 0x2
 L1A3_Stone_57_idx	equ 0x3
+L1A3_Stone_59_idx	equ 0x4
 
 L1A3_Nest_count equ 0x2
 L1A3_Nest_3_idx	equ 0x0
@@ -200,6 +201,11 @@ L1A3_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x0fb80000, Entity_WorldPosX(a0)
 	move.l #0x02400000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x18f00000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 

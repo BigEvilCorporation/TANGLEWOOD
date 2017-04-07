@@ -583,16 +583,19 @@ PlayerStartColourAbility:
 	
 	; Backup palettes
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
-	move.l #PaletteId_World0, d0
-	jsr    PAL_Read
+	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
-	move.l #PaletteId_Monster, d0
-	jsr    PAL_Read
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
 	
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    PAL_Read
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0

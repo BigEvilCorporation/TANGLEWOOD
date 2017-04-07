@@ -49,25 +49,25 @@ Pause_Enter:
 	PUSHL  a0
 	
 	; Backup palettes
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_World0), a0
-	move.l #PaletteId_World0, d0
-	jsr    PAL_Read
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Player), a0
-	move.l #PaletteId_Player, d0
-	jsr    PAL_Read
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Monster), a0
-	move.l #PaletteId_Monster, d0
-	jsr    PAL_Read
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Fuzzl), a0
-	move.l #PaletteId_Fuzzl, d0
-	jsr    PAL_Read
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_World0), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Monster), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Fuzzl), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Player), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
@@ -172,25 +172,28 @@ Pause_Exit:
 	; Reset palettes
 	PUSHL  a0
 
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_World0), a0
-	move.l #PaletteId_World0, d0		; Palette idx
-	jsr    PAL_LoadDMA
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Player), a0
-	move.l #PaletteId_Player, d0		; Palette idx
-	jsr    PAL_LoadDMA
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Monster), a0
-	move.l #PaletteId_Monster, d0		; Palette idx
-	jsr    PAL_LoadDMA
-	
-	lea    (GameStatePauseData+PauseState_PaletteBackup), a0
-	add.l  #(size_palette_b*PaletteId_Fuzzl), a0
-	move.l #PaletteId_Fuzzl, d0			; Palette idx
-	jsr    PAL_LoadDMA
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_World0), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Monster), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Fuzzl), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Player), a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	move.b #0x1, PalettesDirty
+	move.b #0x1, UnderwaterPalettesDirty
 	
 	POPL   a0
 	
