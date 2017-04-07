@@ -32,7 +32,8 @@ PAL_LerpStart:
 
 	lea    PaletteLerp_Array, a2
 
-	and.l  #0x000000FF, 0
+	and.l  #0xFF, d0
+	and.l  #0xFF, d5
 	move.b d0, d5
 	mulu   #PaletteLerp_Struct_Size, d5
 	add.l  d5, a2
@@ -46,17 +47,16 @@ PAL_LerpStart:
 	move.b #0x0, PaletteLerp_ColourIdx(a2)
 	move.b #0x0, PaletteLerp_ComponentIdx(a2)
 	
+	; Set source palette
+	lea     CurrentPalettes, a3
+	mulu    #size_palette_b, d0
+	add.l   d0, a3
+	move.l  a3, PaletteLerp_CurrentAddr(a2)
+
 	; Copy target palette into target buffer
-	PUSHL   a2
 	move.l  #(size_palette_b/size_long), d6
 	add.l   #PaletteLerp_BufferTrg, a2
 	MEMCPYL a2, a0, d6
-	POPL    a2
-
-	; Set source palette
-	mulu    #size_palette_b, d0
-	add.l   #CurrentPalettes, d0
-	move.l  d0, PaletteLerp_CurrentAddr(a2)
 	
 	rts
 	

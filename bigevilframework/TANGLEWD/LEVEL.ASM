@@ -149,8 +149,8 @@ LevelLoadPalettes:
 	move.l #PaletteId_World0, d0		; First level palette offset to d0
 	move.l Level_PalettesAddr(a1), a3	; First palette addr to a3
 	@PaletteLoop:
-	PUSHL  d0							; Backup palette index
-	move.l (a3)+, a0					; Get palette address
+	PUSHM  d0/d7/a3
+	move.l (a3), a0					; Get palette address
 	cmp.l  #0x0, a0
 	beq    @SkipPalette
 	
@@ -169,8 +169,9 @@ LevelLoadPalettes:
 	ENDIF
 	
 	@SkipPalette:
-	POPL   d0							; Restore palette index
-	addi.w #0x1, d0					
+	POPM   d0/d7/a3
+	addi.w #0x1, d0
+	addi.l #size_long, a3
 	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0
 	
 	rts
