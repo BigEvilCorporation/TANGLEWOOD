@@ -87,16 +87,10 @@ Pause_Enter:
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	; Hack: Set font colour directly
-	ALLOCSTACKB size_palette_b
-	move.l sp, a0
-	move.l #PauseText_FontPaletteId, d0
-	jsr    PAL_Read
-	move.l sp, a0
-	move.l #PauseText_FontPaletteId, d0
-	move.w #PauseText_FontColour, (PauseText_FontColourIdx*2)(a0)
-	jsr    PAL_LoadDMA
-	FREESTACKB size_palette_b
-	
+	lea    CurrentPalettes+(size_palette_b*PauseText_FontPaletteId), a0
+	move.w #PauseText_FontColour, (PauseText_FontColourIdx*size_word)(a0)
+	move.b #0x1, PalettesDirty
+
 	POPL a0
 	
 	; Alloc string space
@@ -112,7 +106,9 @@ Pause_Enter:
 	move.w  (EntityCount_Firefly), d0	; Get total firefly count
 	jsr     TXT_ItoA_w					; To string
 	
+	clr.l   d0
 	move.w  (vram_addr_systemfont), d0	; Font VDP address
+	divu    #size_tile_b, d0
 	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
 	move.b  #PauseText_FontPaletteId, d2	; Palette index
 	move.b  #0x0, d3					; Plane A

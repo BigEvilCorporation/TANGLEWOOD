@@ -101,8 +101,7 @@ VRAM_PoolAlloc:
 	dbra   d1, @PoolLp
 
 	@Failure:
-	lea    str_error_out_of_vram, a0
-	jsr    DBG_DisplayError
+	RAISE_EXCEPTION error_out_of_vram
 
 	@Success:
 

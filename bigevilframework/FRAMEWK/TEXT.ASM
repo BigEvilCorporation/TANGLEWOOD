@@ -112,23 +112,13 @@ TXT_DrawSprites:
 	move.b   (a1,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 	
-	PUSHL    a0
-	PUSHL    d0
-	PUSHL    d1
-	PUSHL    d2
-	PUSHL    d3
-	PUSHL    d5
+	PUSHM    a0/d0-d5
 	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
 	move.w   d4, d2					; Spite tile index
 	move.w   d5, d3					; Sprite palette
 	moveq    #0x1, d4				; Sprite priority
 	jsr      SPR_AddSubSprite
-	POPL     d5
-	POPL     d3
-	POPL     d2
-	POPL     d1
-	POPL     d0
-	POPL     a0
+	POPM     a0/d0-d5
 	
 	POPL     d4
 	
