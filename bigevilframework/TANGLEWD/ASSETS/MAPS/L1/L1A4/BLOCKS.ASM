@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L1A4_size_b	equ 0x0000C9A0	; Size in bytes
+map_blocks_L1A4_size_b	equ 0x0000CAA0	; Size in bytes
 map_blocks_L1A4_size_w	equ (map_blocks_L1A4_size_b/2)	; Size in words
 map_blocks_L1A4_size_l	equ (map_blocks_L1A4_size_b/4)	; Size in longwords
