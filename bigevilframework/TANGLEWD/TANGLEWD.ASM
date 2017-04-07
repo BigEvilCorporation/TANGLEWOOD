@@ -181,12 +181,6 @@ __main:
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
-
-	lea    Pal_Nymn_Red, a0
-	lea    UnderwaterPalettes, a1
-	jsr    VFX_CreateUnderwaterPalette
-	
-	move.b #0xFF, WaterLevel
 	
 	; Enter first game state
 	move.l #InitialState, a0
@@ -196,8 +190,6 @@ __main:
 	; Main game loop
 	; ************************************
 GameLoop:
-	
-	VDP_DMA_CRAM Pal_Nymn_Red, (PaletteId_Player*size_palette_b), size_palette_b, d0
 
 	; Begin frame
 	jsr RenderBeginFrame
@@ -244,6 +236,22 @@ RenderEndFrame:
 	move.b (WaterLevel), d0
 	jsr VDP_SetHINTFreq
 
+	; Convert underwater palettes if dirty
+	cmp.b  #0x0, (UnderwaterPalettesDirty)
+	beq    @NotDirty
+	move.l #num_palettes-1, d0
+	lea    CurrentPalettes, a0
+	lea    UnderwaterPalettes, a1
+	@PaletteLp:
+	PUSHM  d0/a0-a1
+	jsr    VFX_CreateUnderwaterPalette
+	POPM   d0/a0-a1
+	add.l  #size_palette_b, a0
+	add.l  #size_palette_b, a1
+	dbra   d0, @PaletteLp
+	move.b #0x0, (UnderwaterPalettesDirty)
+	@NotDirty:
+
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
 	
@@ -283,6 +291,13 @@ __vinterrupt:
 	lea Str_Render, a0
 	jsr DBG_Profile_PushScope
 	ENDIF
+
+	; DMA palettes if dirty
+	cmp.b  #0x0, (PalettesDirty)
+	beq    @NotDirty
+	VDP_DMA_CRAM CurrentPalettes, 0x0000, (size_palette_b*num_palettes), d0
+	move.b #0x0, (PalettesDirty)
+	@NotDirty:
 	
 	; Execute DMA job queue
 	jsr    VDP_DMAQueue_ExecuteAll

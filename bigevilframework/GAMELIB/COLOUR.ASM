@@ -8,8 +8,8 @@
 
 	rsset 0
 ;-------------------------------------
-PaletteLerp_BufferCur			rs.b 0x20	; Current palette  ; TODO: why won't size_palette_b evaluate here?
 PaletteLerp_BufferTrg			rs.b 0x20   ; Target palette
+PaletteLerp_CurrentAddr			rs.l 1		; Source palette address
 PaletteLerp_SubFrame			rs.l 1
 PaletteLerp_UpdateSpeed			rs.w 1		; Update speed (in subframes)
 PaletteLerp_TicksPerUpdate		rs.b 1		; Number of ticks (components to advance) per update
@@ -32,8 +32,8 @@ PAL_LerpStart:
 
 	lea    PaletteLerp_Array, a2
 
+	and.l  #0x000000FF, 0
 	move.b d0, d5
-	and.l  #0x000000FF, d5
 	mulu   #PaletteLerp_Struct_Size, d5
 	add.l  d5, a2
 	
@@ -52,12 +52,11 @@ PAL_LerpStart:
 	add.l   #PaletteLerp_BufferTrg, a2
 	MEMCPYL a2, a0, d6
 	POPL    a2
-	
-	; Fetch current palette from CRAM into current buffer
-	andi.l #0xFF, d0
-	move.l a2, a0
-	add.l  #PaletteLerp_BufferCur, a0
-	jsr    PAL_Read
+
+	; Set source palette
+	mulu    #size_palette_b, d0
+	add.l   #CurrentPalettes, d0
+	move.l  d0, PaletteLerp_CurrentAddr(a2)
 	
 	rts
 	
@@ -132,7 +131,7 @@ PAL_LerpUpdateNextComponent:
 	move.l a0, a1
 	move.l a0, a2
 	add.l  #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
-	add.l  #PaletteLerp_BufferCur, a2		; Offset into struct to current palette buffer
+	move.l PaletteLerp_CurrentAddr(a0), a2	; Current palette
 
 	move.b PaletteLerp_ColourMin(a0), d3	; Offset into palettes to start of range
 	move.b d3, d1
@@ -161,7 +160,7 @@ PAL_LerpUpdateNextComponent:
 	move.b #0x0, PaletteLerp_TicksPerUpdate(a0)
 	
 	; Finished
-	bra    @WriteNewPalette
+	bra    @PaletteWritten
 	
 	; =====================================================================
 	
@@ -196,7 +195,7 @@ PAL_LerpUpdateNextComponent:
 	move.l a0, a1
 	move.l a0, a2
 	add.l  #PaletteLerp_BufferTrg, a1		; Target buffer addr
-	add.l  #PaletteLerp_BufferCur, a2		; Source buffer addr
+	move.l PaletteLerp_CurrentAddr(a0), a2	; Source palette addr
 	
 	clr.l  d4							; Clear working regs
 	clr.l  d5
@@ -248,17 +247,11 @@ PAL_LerpUpdateNextComponent:
 	
 	; =====================================================================
 	
-	; Write new palette
-	@WriteNewPalette:
-	clr.l  d0
-	move.l a0, -(sp)
-	move.b PaletteLerp_PaletteIdx(a0), d0
-	add.l  #PaletteLerp_BufferCur, a0	; Offset into struct to palette buffer
-	lea    PAL_LoadDMA, a5
-	jsr    VDP_JobQueue_PushJob
-	move.l (sp)+, a0
-	
-	; =====================================================================
+	@PaletteWritten:
+
+	; Set dirty
+	move.b #0x1, PalettesDirty
+	move.b #0x1, UnderwaterPalettesDirty
 
 	@End:
 

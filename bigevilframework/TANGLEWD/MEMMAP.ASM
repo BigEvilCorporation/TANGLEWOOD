@@ -118,12 +118,6 @@ TimeOfDayEnabled    rs.b 1
 
 __padding03			rs.b 2
 
-OutOfWaterPalettes  rs.l num_palettes
-UnderwaterPalettes  rs.l num_palettes
-WaterLevel			rs.b 1	; Water level in HSCROLL
-
-__padding31			rs.b 3
-
 ; ************************************
 ; Camera, V/H scroll and map streaming
 ; ************************************
@@ -171,19 +165,30 @@ Gamepad1State      	   rs.w 1
 Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
+WaterLevel             rs.b 1	; Current water level, sets HINT frequency
+PalettesDirty          rs.b 1	; Marks palettes for DMA
+UnderwaterPalettesDirty rs.b 1	; Marks underwater effect conversion
+
+__padding31            rs.b 1
+
+; Current palettes (DMA'd at end of frame)
+CurrentPalettes        rs.b (size_palette_b*num_palettes)
+
+; Underwater palettes (DMA'd during HINT)
+UnderwaterPalettes     rs.b (size_palette_b*num_palettes)
 
 ; Palette lerping
-PaletteLerp_Array    rs.b (PaletteLerp_Struct_Size*num_palettes)
+PaletteLerp_Array      rs.b (PaletteLerp_Struct_Size*num_palettes)
 
 ; Switching colour palettes - player 1
-SwitchingPalettesP1  rs.l NumSwitchingColours
+SwitchingPalettesP1    rs.l NumSwitchingColours
 
 ; Current game state
-GameStatePtr		 rs.l 1
+GameStatePtr           rs.l 1
 
 ; Game state stack
-GameStateStackPtr	 rs.l 1
-GameStateStack       rs.l (GameStateStackSize)
+GameStateStackPtr      rs.l 1
+GameStateStack         rs.l (GameStateStackSize)
 
 ; Game state data
 	IFND DEBUG

@@ -87,6 +87,9 @@ GameStateReset:
 	
 	; Reset ropes
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
+
+	; Reset water level
+	move.b #0xFF, WaterLevel
 	
 	; Reset linked lists
 	LIST_CLEAR Characters,a4,a3

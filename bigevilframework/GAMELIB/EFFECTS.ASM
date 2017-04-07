@@ -9,6 +9,10 @@
 VFXGreyscaleLerp	equ 0x0
 VFXGreyscaleInst	equ 0x1
 
+VFXUnderwaterSubR	equ 0x4
+VFXUnderwaterSubB	equ 0x4
+VFXUnderwaterSubG	equ 0x0
+
 VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	; d1 (b) - Lerped (0) or instant (1)
@@ -117,24 +121,41 @@ VFX_CreateUnderwaterPalette:
 	; Extract R/G/B commponents
 	move.w d1, d2
 	move.w d1, d3
-	andi.w #0x0F00, d1
-	andi.w #0x000F, d2
-	andi.w #0x00F0, d3
+	andi.w #0x0F00, d1	; Blue
+	andi.w #0x000F, d2	; Red
+	andi.w #0x00F0, d3	; Green
+	lsr.w  #0x8, d1
 	lsr.w  #0x4, d3
 
-	; Sub 1 from R if non-zero
-	cmp.b  #0x0, d2
-	beq    @NoSubRed
-	sub.b  #0x3, d2
-	@NoSubRed:
+	; Sub 1 from R
+	cmp.b  #VFXUnderwaterSubR, d2
+	ble    @ClampRed
+	sub.b  #VFXUnderwaterSubR, d2
+	bra    @EndRed
+	@ClampRed:
+	move.b #0x0, d2
+	@EndRed:
 
-	; Sub 1 from G if non-zero
-	cmp.b  #0x0, d3
-	beq    @NoSubGreen
-	sub.b  #0x3, d3
-	@NoSubGreen:
+	; Sub 1 from G
+	cmp.b  #VFXUnderwaterSubG, d3
+	ble    @ClampGreen
+	sub.b  #VFXUnderwaterSubG, d3
+	bra    @EndGreen
+	@ClampGreen:
+	move.b #0x0, d3
+	@EndGreen:
+
+	; Sub 1 from B
+	cmp.b  #VFXUnderwaterSubB, d1
+	ble    @ClampBlue
+	sub.b  #VFXUnderwaterSubB, d1
+	bra    @EndBlue
+	@ClampBlue:
+	move.b #0x0, d1
+	@EndBlue:
 
 	; Back to colour
+	lsl.w  #0x8, d1
 	lsl.w  #0x4, d3
 	or.w   d2, d1
 	or.w   d3, d1
