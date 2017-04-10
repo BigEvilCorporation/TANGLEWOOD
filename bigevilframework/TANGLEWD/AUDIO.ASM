@@ -9,6 +9,15 @@
 AmbientSFXRandTimerMin	equ 0x0600
 AmbientSFXRandTimerMax	equ 0x0A00
 
+StartAmbientTrack:
+	; Start playing an ambient track approriate for the environment
+
+	; TODO: Get ambient tracks from level data + TOD, choose random track + length
+	lea    track_amb_l1_night, a0
+	jsr    SND_PlayTrack
+
+	rts
+
 UpdateBGMTimer:
 
 	; If already zero, not running
@@ -26,6 +35,7 @@ UpdateBGMTimer:
 	@TimerElapsed:
 	@TimerRunning:
 	
+	rts
 
 UpdateAmbientAudio:
 
