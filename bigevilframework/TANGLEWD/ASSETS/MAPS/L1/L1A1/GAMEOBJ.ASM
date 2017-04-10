@@ -327,7 +327,7 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Nest, a0
 	jsr NestInit
-	move.l #0x0d100000, Entity_WorldPosX(a0)
+	move.l #0x0d180000, Entity_WorldPosX(a0)
 	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
