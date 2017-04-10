@@ -579,6 +579,9 @@ MonsterCheckPlayerVisible:
 	cmp.w  #-1, Monster_LoseSightTimer(a0)
 	beq    @NoTimer
 	move.w #0x0, Monster_LoseSightTimer(a0)
+
+	; Set return value
+	move.b  #0x1, d0
 	
 	bra    @End
 	
@@ -591,6 +594,10 @@ MonsterCheckPlayerVisible:
 	add.w  #0x1, Monster_LoseSightTimer(a0)
 	
 	@NoTimer:
+
+	; Set return value
+	move.b  #0x0, d0
+
 	@End:
 	
 	rts
