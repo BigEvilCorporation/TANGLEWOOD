@@ -30,11 +30,12 @@ Audio_DefaultFadeSpeed	equ 0x1
 
 	rsset 0
 Track_Data				rs.l 1
+Track_AutoStopTime		rs.w 1
 Track_Type				rs.b 1
 Track_Exclusive			rs.b 1
 Track_Transition		rs.b 1
 ;-----------------------------
-Track_Struct_Padding	rs.b 1
+Track_Struct_Padding	rs.b 3
 Track_Struct_Size		rs.b 0
 
 	rsset 0
@@ -125,14 +126,12 @@ SND_PlayTrack:
 	; Set exclusivity
 	move.b Track_Exclusive(a0), audio_playback_locked
 
+	; Set auto-stop timer
+	move.w Track_AutoStopTime(a0), audio_track_stop_timer
+
 	; Play track
 	move.l Track_Data(a0), a0
 	jsr    Echo_PlayBGM
-
-	; Set playback speed
-	; TODO: On a per track basis
-	move.b #fm_timer_b_pal, d0
-	jsr    FM_SetTimerB
 
 	;==============================================================
 
@@ -165,6 +164,7 @@ SND_StopTrack:
 	IFND DEBUG
 	jsr   Echo_StopBGM
 	move.l #0x0, audio_current_track
+	move.w #0x0, audio_track_stop_timer
 	ENDIF
 	rts
 
@@ -446,6 +446,42 @@ SND_UpdateTrack:
 	@Busy:
 	@Silence:
 
+	;==============================================================
+
+	; Auto-stop track if timer elapsed
+	move.w audio_track_stop_timer, d0
+	cmp.w  #0x0, d0
+	beq    @TimerNotRunning
+	sub.w  #0x1, d0
+	move.w d0, audio_track_stop_timer
+	bne    @TimerRunning
+
+	; Determine transition type
+	move.b Track_Transition(a0), d0
+	cmp.b  #Track_Transition_Crossfade, d0
+	beq    @FadeDown
+	cmp.b  #Track_Transition_FadeDown, d0
+	beq    @FadeDown
+	bra    @StopImmediate
+
+	@FadeDown:
+	
+	; Start fading down
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+	bra    @Stopped
+
+	@StopImmediate:
+
+	; else just stop track
+	jsr    SND_StopTrack
+
+	@Stopped:
+	@TimerRunning:
+	@TimerNotRunning:
+
+	;==============================================================
+
 	; Auto-stop tracks that have reach the end
 	cmp.l  #0x0, audio_current_track
 	beq    @EndStopCheck
@@ -457,6 +493,8 @@ SND_UpdateTrack:
 	move.b #0xFF, d0
 	jsr    SND_SetGlobalVolume
 	@EndStopCheck:
+
+	;==============================================================
 
 	@Played:
 

@@ -24,21 +24,28 @@ vdp_regs			  rs.b vdp_num_registers
 ; ************************************
 ; Framework stuff
 ; ************************************
-audio_clock           rs.l 1
-audio_current_track   rs.l 1
-audio_queued_tracks   rs.l Track_Type_COUNT
-audio_current_sfx     rs.l 1
-rand_seed             rs.l 1
-letterbox_top		  rs.w 1
-letterbox_bottom	  rs.w 1
-vint_enabled		  rs.b 1
-audio_volume_global   rs.b 1
-audio_fader_speed     rs.b 1
-audio_playback_locked rs.b 1
+rand_seed				rs.l 1
+letterbox_top			rs.w 1
+letterbox_bottom		rs.w 1
+vint_enabled			rs.b 1
 
-__padding00			  rs.b 0
+__padding00				rs.b 3
 
-vram_pools			  rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
+vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
+
+; ************************************
+; Audio
+; ************************************
+audio_clock				rs.l 1
+audio_current_track		rs.l 1
+audio_queued_tracks		rs.l Track_Type_COUNT
+audio_current_sfx		rs.l 1
+audio_track_stop_timer	rs.w 1
+audio_volume_global		rs.b 1
+audio_fader_speed		rs.b 1
+audio_playback_locked	rs.b 1
+
+__padding01				rs.b 3
 
 ; ************************************
 ; Profiler
