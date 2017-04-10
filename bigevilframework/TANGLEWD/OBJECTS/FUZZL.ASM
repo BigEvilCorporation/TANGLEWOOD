@@ -325,10 +325,9 @@ FuzzlUpdate:
 	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @OutOfView
 	
-	; Fuzzls sleep at night
-	move.b (TimeOfDay), d0
-	cmp.b  #TimeOfDay_Night, d0
-	beq    @Asleep
+	; Check if Fuzzl is asleep
+	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
+	bne    @Asleep
 	
 	; Check if Fuzzl is home
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
