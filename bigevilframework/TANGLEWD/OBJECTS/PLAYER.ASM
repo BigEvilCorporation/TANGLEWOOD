@@ -2001,6 +2001,15 @@ PlayerInteractTest_BouncePlants:
 	; a1 --- Level addr
 	
 	IFND DEBUG
+
+	; Check if player off floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	bne    @End
+
+	; Check player travelling towards plant platform
+	; TODO: Get bounce vector, dot test
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	bge    @End
 	
 	move.w (EntityCount_BouncePlant), d6
 	cmp.w  #0x0, d6
@@ -2044,10 +2053,6 @@ PlayerInteractTest_BouncePlants:
 
 	; Set current plant
 	move.l a2, Player_LastBouncePlant(a0)
-
-	; Check if player off floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
-	bne    @End
 
 	; Launch player
 	move.l d0, PhysicsObj_VelX(a0)
