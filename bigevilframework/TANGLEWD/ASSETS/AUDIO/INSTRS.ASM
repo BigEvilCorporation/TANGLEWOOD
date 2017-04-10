@@ -66,6 +66,13 @@ echo_instruments:
 	Echo_ListEntry Instr36
 	Echo_ListEntry Instr37
 	Echo_ListEntry Instr38
+	Echo_ListEntry Instr39
+	Echo_ListEntry Instr3A
+	Echo_ListEntry Instr3B
+	Echo_ListEntry Instr3C
+	Echo_ListEntry Instr3D
+	Echo_ListEntry Instr3E
+	Echo_ListEntry Instr3F
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -139,6 +146,12 @@ Instr36: incbin 'assets\audio\instrs\instr_36.eif'
 Instr37: incbin 'assets\audio\instrs\instr_37.eif'
 Instr38: incbin 'assets\audio\instrs\instr_38.eif'
 Instr39: incbin 'assets\audio\instrs\instr_39.eif'
+Instr3A: incbin 'assets\audio\instrs\instr_3A.eif'
+Instr3B: incbin 'assets\audio\instrs\instr_3B.eif'
+Instr3C: incbin 'assets\audio\instrs\instr_3C.eif'
+Instr3D: incbin 'assets\audio\instrs\instr_3D.eif'
+Instr3E: incbin 'assets\audio\instrs\instr_3E.eif'
+Instr3F: incbin 'assets\audio\instrs\instr_3F.eif'
 
 	
 	; PCM

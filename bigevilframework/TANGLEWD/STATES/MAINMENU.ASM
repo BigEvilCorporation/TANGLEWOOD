@@ -239,6 +239,10 @@ MainMenu_Update:
 	bra    @End
 	
 	@StartGame:
+
+	; Play SFX
+	PLAYSFX #SFX_UI_Press_Start
+
 	@StartSoundTest:
 
 	; Begin fade to black
