@@ -195,35 +195,35 @@ SFX_Footstep4:
 
 SFX_FootstepBig:
 	dc.l SFX_Data_FootstepBig		; Data
-	dc.b SFX_Priority_Footstep		; Priority
+	dc.b SFX_Priority_Footstep+3	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Water1:
 	dc.l SFX_Data_Footstep_Water1	; Data
-	dc.b SFX_Priority_Footstep		; Priority
+	dc.b SFX_Priority_Footstep+1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Water2:
 	dc.l SFX_Data_Footstep_Water2	; Data
-	dc.b SFX_Priority_Footstep		; Priority
+	dc.b SFX_Priority_Footstep+1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Splash1:
 	dc.l SFX_Data_Footstep_Splash1	; Data
-	dc.b SFX_Priority_Footstep		; Priority
+	dc.b SFX_Priority_Footstep+2	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Land:
 	dc.l SFX_Data_Land				; Data
-	dc.b SFX_Priority_Footstep		; Priority
+	dc.b SFX_Priority_Footstep+1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
