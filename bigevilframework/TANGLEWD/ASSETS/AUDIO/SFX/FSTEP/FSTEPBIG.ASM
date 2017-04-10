@@ -1,3 +1,4 @@
+	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e2		; Lock channel FM 3
 	dc.b $e4		; Lock channel FM 4
 ; Pattern $00, Row 0; 

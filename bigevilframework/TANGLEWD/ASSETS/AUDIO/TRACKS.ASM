@@ -17,6 +17,7 @@ bgm_monsterbass:	dc.b 0xFF ;incbin 'assets\audio\tracks\lowbass.esf'
 
 track_bgm_titles:
 	dc.l	bgm_titles
+	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Crossfade
@@ -24,6 +25,7 @@ track_bgm_titles:
 
 track_bgm_lvlintro:
 	dc.l	bgm_lvlintro
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
 	dc.b	Track_Transition_Crossfade
@@ -31,6 +33,7 @@ track_bgm_lvlintro:
 
 track_bgm_lvloutro:
 	dc.l	bgm_lvloutro
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
 	dc.b	Track_Transition_Instant
@@ -38,6 +41,7 @@ track_bgm_lvloutro:
 
 track_bgm_dawn:
 	dc.l	bgm_dawn
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
 	dc.b	Track_Transition_Crossfade
@@ -45,6 +49,7 @@ track_bgm_dawn:
 
 track_bgm_dusk:
 	dc.l	bgm_dusk
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
 	dc.b	Track_Transition_Crossfade
@@ -52,6 +57,7 @@ track_bgm_dusk:
 
 track_bgm_night:
 	dc.l	bgm_night
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_Exclusive
 	dc.b	Track_Transition_Crossfade
@@ -59,6 +65,7 @@ track_bgm_night:
 
 track_bgm_boss1_chase:
 	dc.l	bgm_boss1_chase
+	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Instant
@@ -66,6 +73,7 @@ track_bgm_boss1_chase:
 
 track_bgm_boss1_search:
 	dc.l	bgm_boss1_search
+	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Instant
@@ -80,6 +88,7 @@ track_bgm_cue_l1:
 
 track_bgm_cue_l2:
 	dc.l	bgm_cue_l2
+	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Crossfade
@@ -87,6 +96,7 @@ track_bgm_cue_l2:
 
 track_bgm_monsterbass:
 	dc.l	bgm_monsterbass
+	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Crossfade
@@ -94,6 +104,7 @@ track_bgm_monsterbass:
 
 track_amb_l1_day:
 	dc.l	bgm_amb_l1_day
+	dc.w	0x0
 	dc.b	Track_Type_Ambience
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Crossfade
@@ -101,6 +112,7 @@ track_amb_l1_day:
 
 track_amb_l1_night:
 	dc.l	bgm_amb_l1_night
+	dc.w	0x0A00
 	dc.b	Track_Type_Ambience
 	dc.b	Audio_NonExclusive
 	dc.b	Track_Transition_Crossfade

@@ -1,3 +1,4 @@
+	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $10		; Note off channel FM 1
 	dc.b $41, $1a	; Set instrument for channel FM 2
