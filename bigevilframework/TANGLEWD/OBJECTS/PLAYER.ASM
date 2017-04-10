@@ -1599,9 +1599,9 @@ PlayerStartInteract:
 	;==============================================================
 	
 	; Check for Djakks
-	jsr    PlayerInteractTest_Djakks
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @FoundInteraction
+	;jsr    PlayerInteractTest_Djakks
+	;cmp.b  #0x1, Character_Interacting(a0)
+	;beq    @FoundInteraction
 	
 	;==============================================================
 	

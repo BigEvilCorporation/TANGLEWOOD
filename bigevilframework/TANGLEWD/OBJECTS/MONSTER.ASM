@@ -199,8 +199,7 @@ MonsterInit:
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
-	;move.b  #ColourRed, Monster_Colour(a0)
-	move.b  #ColourYellow, Monster_Colour(a0)
+	move.b  #ColourDrained, Monster_Colour(a0)
 	move.l  #0x0, Monster_SearchTargetX(a0)
 	move.w  #0x0, Monster_SearchDelay(a0)
 	move.w  #0x0, Monster_LoseSightTimer(a0)
