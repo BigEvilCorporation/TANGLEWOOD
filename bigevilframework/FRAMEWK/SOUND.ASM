@@ -30,12 +30,13 @@ Audio_DefaultFadeSpeed	equ 0x1
 
 	rsset 0
 Track_Data				rs.l 1
+Track_ChannelMask		rs.w 1
 Track_AutoStopTime		rs.w 1
 Track_Type				rs.b 1
 Track_Exclusive			rs.b 1
 Track_Transition		rs.b 1
 ;-----------------------------
-Track_Struct_Padding	rs.b 3
+Track_Struct_Padding	rs.b 1
 Track_Struct_Size		rs.b 0
 
 	rsset 0
@@ -308,15 +309,15 @@ SND_SetGlobalVolume:
 
 	rts
 
-SND_SetTrackVolume:
-	rts
-
-SND_SetSFXVolume:
+SND_SetChannelVolume:
+	; d0 (b) - Volume (0 = quietest, 255 = loudest)
+	; d1 (b) - Channel
 	rts
 
 SND_BeginFadeTrack:
 	; d0 (b) - Fade speed (change per frame, linear)
-	; (+ve = set silent and begin fade up, -ve = set volume high and begin fade down)
+	;          (+ve = set silent and begin fade up, -ve = set volume high and begin fade down)
+	; d1 (w) - Channel mask
 
 	; Set fader speed
 	move.b d0, audio_fader_speed
@@ -454,6 +455,7 @@ SND_UpdateTrack:
 	beq    @TimerNotRunning
 	sub.w  #0x1, d0
 	move.w d0, audio_track_stop_timer
+	cmp.w  #0x0, d0
 	bne    @TimerRunning
 
 	; Determine transition type
