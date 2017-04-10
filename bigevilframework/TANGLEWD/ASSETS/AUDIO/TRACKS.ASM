@@ -50,8 +50,8 @@ track_bgm_dawn:
 	dc.w	0x01FF
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
-	dc.b	SFX_Priority_Lowest
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
 
@@ -60,8 +60,8 @@ track_bgm_dusk:
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
-	dc.b	SFX_Priority_Lowest
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Default
 	dc.b	Track_Transition_Crossfade
 	even
 
@@ -70,8 +70,8 @@ track_bgm_night:
 	dc.w	0x001F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
-	dc.b	SFX_Priority_Lowest
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Default
 	dc.b	Track_Transition_Crossfade
 	even
 
@@ -81,7 +81,7 @@ track_bgm_boss1_chase:
 	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_Lowest
+	dc.b	SFX_Priority_Footstep-1
 	dc.b	Track_Transition_Instant
 	even
 
@@ -91,7 +91,7 @@ track_bgm_boss1_search:
 	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_Lowest
+	dc.b	SFX_Priority_Footstep-1
 	dc.b	Track_Transition_Instant
 	even
 
