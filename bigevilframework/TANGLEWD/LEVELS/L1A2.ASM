@@ -66,6 +66,21 @@ l1a2_Init:
 	jsr    L1_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Link Flue B with Flue A
+	move.l #l1a2_Flue_B_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a0
+	add.l  d0, a0
+	
+	move.l #l1a2_Flue_A_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
+
+	;==============================================================
 	
 	move.l #Player1, a0
 	
