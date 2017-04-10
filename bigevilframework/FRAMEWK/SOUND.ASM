@@ -34,9 +34,10 @@ Track_ChannelMask		rs.w 1
 Track_AutoStopTime		rs.w 1
 Track_Type				rs.b 1
 Track_Exclusive			rs.b 1
+Track_PriorityOverSFX	rs.b 1
 Track_Transition		rs.b 1
 ;-----------------------------
-Track_Struct_Padding	rs.b 1
+Track_Struct_Padding	rs.b 0
 Track_Struct_Size		rs.b 0
 
 	rsset 0
@@ -197,13 +198,17 @@ SND_PlaySFX:
 	move.l #0x0, audio_current_sfx
 	@EndStopCheck:
 
+	;==============================================================
+
 	; If exclusivity held, bail
 	cmp.b  #0x0, audio_playback_locked
 	bne    @Busy
 
+	;==============================================================
+
 	; If SFX already playing
 	cmp.l  #0x0, audio_current_sfx
-	beq    @Free
+	beq    @CheckTrackPriority
 
 	; Check priority
 	move.l (audio_current_sfx), a1
@@ -216,9 +221,24 @@ SND_PlaySFX:
 	cmp.b  #SFX_PriorityClash_NoPlay, SFX_ClashBehaviour(a0)
 	beq    @Busy
 
-	@Free:
-	@Unlocked:
+	;==============================================================
+
+	@CheckTrackPriority:
 	@Replace:
+
+	; If track playing
+	cmp.l  #0x0, audio_current_track
+	beq    @Free
+
+	; Check priority
+	move.l (audio_current_track), a1
+	move.b Track_PriorityOverSFX(a1), d0
+	cmp.b  SFX_Priority(a0), d0
+	blt    @Busy
+
+	;==============================================================
+
+	@Free:
 
 	; Set current SFX
 	move.l a0, audio_current_sfx
@@ -247,13 +267,13 @@ SND_StopSFX:
 	ENDIF
 	rts
 
-SND_GetBusy:
-	; d0 (b) OUT: SFX/track playback busy
+SND_GetEchoBusy:
+	; d0 (b) OUT: Echo sound system busy
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.b #0x03, d0		; Bit 1 = SFX playing, bit 2 = BGM playing
-	cmp.b  #0x0, d0
+	andi.w #(1<<15), d0		; Bit 15 = Echo busy
+	cmp.w  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -269,8 +289,8 @@ SND_GetSFXBusy:
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.b #0x01, d0		; Bit 1 = SFX playing
-	cmp.b  #0x0, d0
+	andi.w #(1<<0), d0		; Bit 0 = SFX playing
+	cmp.w  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -286,8 +306,8 @@ SND_GetTrackBusy:
 
 	IFND DEBUG
 	jsr    Echo_GetStatus
-	andi.b #0x02, d0		; Bit 2 = BGM playing
-	cmp.b  #0x0, d0
+	andi.w #(1<<1), d0		; Bit 1 = BGM playing
+	cmp.w  #0x0, d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -487,6 +507,9 @@ SND_UpdateTrack:
 	; Auto-stop tracks that have reach the end
 	cmp.l  #0x0, audio_current_track
 	beq    @EndStopCheck
+	jsr    SND_GetEchoBusy	; If Echo is busy, check again later
+	cmp.b  #0x0, d0
+	bne    @EndStopCheck
 	jsr    SND_GetTrackBusy
 	cmp.b  #0x0, d0
 	bne    @EndStopCheck

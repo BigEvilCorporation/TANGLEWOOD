@@ -8,6 +8,7 @@ AmbientSFXCount		equ 0x02
 
 ; Default priorities
 SFX_Priority_Highest	equ 0x00
+SFX_Priority_Default	equ 0x30
 SFX_Priority_Ambience	equ 0x50
 SFX_Priority_Footstep	equ 0x60
 SFX_Priority_Lowest		equ 0x7F
@@ -91,77 +92,77 @@ SFX_Data_UI_Press_Start:	include 'assets\audio\SFX\ui\start.asm'
 
 SFX_FlueIn:
 	dc.l SFX_Data_FlueIn			; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FlueOut:
 	dc.l SFX_Data_FlueOut			; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_BoulderBreak:
 	dc.l SFX_Data_BoulderBreak		; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FireflyCollect:
 	dc.l SFX_Data_FireflyCollect	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_MushroomBounce:
 	dc.l SFX_Data_MushroomBounce	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FuzzlDrop:
 	dc.l SFX_Data_FuzzlDrop			; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Footstep		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FuzzlAlert:
 	dc.l SFX_Data_FuzzlAlert		; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FuzzlInNest:
 	dc.l SFX_Data_FuzzlInNest		; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_FuzzlJump
 	dc.l SFX_Data_FuzzlJump			; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_NymnColourSwitch:
 	dc.l SFX_Data_NymnColourSwitch	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_NymnColourFade
 	dc.l SFX_Data_NymnColourFade	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
@@ -196,35 +197,35 @@ SFX_Footstep4:
 
 SFX_FootstepBig:
 	dc.l SFX_Data_FootstepBig		; Data
-	dc.b SFX_Priority_Footstep+3	; Priority
+	dc.b SFX_Priority_Footstep-3	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Water1:
 	dc.l SFX_Data_Footstep_Water1	; Data
-	dc.b SFX_Priority_Footstep+1	; Priority
+	dc.b SFX_Priority_Footstep-1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Water2:
 	dc.l SFX_Data_Footstep_Water2	; Data
-	dc.b SFX_Priority_Footstep+1	; Priority
+	dc.b SFX_Priority_Footstep-1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Footstep_Splash1:
 	dc.l SFX_Data_Footstep_Splash1	; Data
-	dc.b SFX_Priority_Footstep+2	; Priority
+	dc.b SFX_Priority_Footstep-2	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Land:
 	dc.l SFX_Data_Land				; Data
-	dc.b SFX_Priority_Footstep+1	; Priority
+	dc.b SFX_Priority_Footstep-1	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
@@ -259,14 +260,14 @@ SFX_Ambience_Night1:
 
 SFX_Djakk_Roar:
 	dc.l SFX_Data_Djakk_Roar		; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Djakk_Bite:
 	dc.l SFX_Data_Djakk_Bite		; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
@@ -280,14 +281,14 @@ SFX_Chirp1:
 
 SFX_Nymn_Call_Long:
 	dc.l SFX_Data_Nymn_Call_Long	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_UI_Press_Start:
 	dc.l SFX_Data_UI_Press_Start	; Data
-	dc.b 0							; Priority
+	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
