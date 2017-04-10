@@ -85,7 +85,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x39
+PCM_InstrIndex	equ 0x40
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
