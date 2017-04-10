@@ -103,9 +103,7 @@ NymnInit:
 	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	IFND DEBUG
-	;move.l #spriteanim_nymn_run_track_sfx, Animation_AnimTrackSFX(a3)
-	ENDIF
+	move.l #spriteanim_nymn_run_track_sfx, Animation_AnimTrackSFX(a3)
 	move.b #spriteanim_nymn_run_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
