@@ -72,8 +72,6 @@ l1a1_Init:
 	;lea    track_bgm_lvlintro, a0
 	lea    track_bgm_dawn, a0
 	jsr    SND_PlayTrack
-	lea    track_amb_l1_night, a0
-	jsr    SND_QueueTrack
 	ENDIF
 
 	move.l #Player1, a0

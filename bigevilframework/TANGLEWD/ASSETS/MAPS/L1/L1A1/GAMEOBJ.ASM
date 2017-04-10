@@ -78,9 +78,10 @@ L1A1_Flue_3_idx	equ 0x0
 L1A1_Flue_42_idx	equ 0x1
 L1A1_Flue_54_idx	equ 0x2
 
-L1A1_TriggerBox_count equ 0x2
+L1A1_TriggerBox_count equ 0x3
 L1A1_TriggerBox_43_idx	equ 0x0
 L1A1_Trigger_CueMusic_idx	equ 0x1
+L1A1_TriggerAmbience1_idx	equ 0x2
 
 L1A1_Checkpoint_count equ 0x0
 
@@ -370,6 +371,14 @@ L1A1_LoadGameObjects:
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	move.l #track_bgm_cue_l1, TriggerBox_RegisterA0(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x08400000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
+	move.l #StartAmbientTrack, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
