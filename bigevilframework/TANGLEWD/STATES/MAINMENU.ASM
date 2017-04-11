@@ -240,7 +240,10 @@ MainMenu_Update:
 	
 	@StartGame:
 
-	; Play SFX
+	; Stop music
+	jsr    SND_StopTrack
+
+	; Play New Game SFX
 	PLAYSFX #SFX_UI_Press_Start
 
 	@StartSoundTest:
@@ -272,10 +275,7 @@ MainMenu_Update:
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade
-	
-	; Fade out music
-	move.b #MainMenuSoundFadeSpeed, d0
-	jsr    SND_BeginFadeTrack
+
 	bra    @End
 	
 	@FadedOut:
