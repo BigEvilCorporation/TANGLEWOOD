@@ -685,7 +685,7 @@ PlayerStartColourAbility:
 	@Tamed:
 
 	; Must be alive
-	cmp.b  #0x0, Character_Dead(a2)
+	cmp.b  #0x0, Character_Dead(a1)
 	bne    @NextMonster
 
 	; Must be on floor
