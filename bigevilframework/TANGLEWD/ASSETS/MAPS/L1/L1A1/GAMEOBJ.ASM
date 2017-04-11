@@ -331,7 +331,6 @@ L1A1_LoadGameObjects:
 	move.l #0x01500000, Entity_WorldPosY(a0)
 	move.l #L1A1_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
