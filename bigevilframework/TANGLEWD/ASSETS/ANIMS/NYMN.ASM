@@ -244,7 +244,8 @@ spriteanim_nymn_run_track_posy:
 	dc.b 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 spriteanim_nymn_run_track_sfx:
-	dc.l 0x0, SFX_Footstep1, 0x0, SFX_Footstep2, 0x0
+	dc.l 0x0, 0x0, SFX_Footstep1, SFX_Footstep2, SFX_Footstep3
+
 	Even
 
 spriteanim_nymn_lookback:
@@ -340,7 +341,7 @@ spriteanim_nymn_wade_track_posy:
 	dc.b 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 spriteanim_nymn_wade_track_sfx:
-	dc.l 0x0, 0x0, 0x0, SFX_Footstep_Water1, 0x0, 0x0, 0x0, SFX_Footstep_Water2
+	dc.l 0x0, SFX_Footstep_Water1, 0x0, 0x0, 0x0, SFX_Footstep_Water2, 0x0, 0x0
 	Even
 
 spriteanim_nymn_carryechowalk:
