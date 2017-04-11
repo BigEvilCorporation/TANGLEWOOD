@@ -1,14 +1,14 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
-	dc.b $e0		; Lock channel FM 1
-	dc.b $e1		; Lock channel FM 2
+	dc.b $e5		; Lock channel FM 5
+	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $40, $2b	; Set instrument for channel FM 1
-	dc.b $00, $63	; Note C#3 on channel FM 1
+	dc.b $45, $2b	; Set instrument for channel FM 5
+	dc.b $05, $63	; Note C#3 on channel FM 5
 ; Pattern $00, Row 1; 
 	dc.b $fe, $03	; Delay
-	dc.b $41, $2b	; Set instrument for channel FM 2
-	dc.b $21, $1a	; Set volume for channel FM 2
-	dc.b $01, $87	; Note D#4 on channel FM 2
+	dc.b $46, $2b	; Set instrument for channel FM 6
+	dc.b $26, $1a	; Set volume for channel FM 6
+	dc.b $06, $87	; Note D#4 on channel FM 6
 ; Pattern $00, Row 2; 
 ; Pattern $00, Row 3; 
 ; Pattern $00, Row 4; 
@@ -24,6 +24,6 @@
 ; Pattern $00, Row 14; 
 ; Pattern $00, Row 15; 
 	dc.b $fe, $2a	; Delay
-	dc.b $10		; Note off channel FM 1
+	dc.b $15		; Note off channel FM 5
 	dc.b $fe, $03	; Delay
 	dc.b $ff	; The End
