@@ -470,6 +470,9 @@ SND_UpdateTrack:
 	;==============================================================
 
 	; Auto-stop track if timer elapsed
+	move.l (audio_current_track), a0
+	cmp.l  #0x0, a0
+	beq    @NoCurrentTrack
 	move.w audio_track_stop_timer, d0
 	cmp.w  #0x0, d0
 	beq    @TimerNotRunning
@@ -498,6 +501,7 @@ SND_UpdateTrack:
 	; else just stop track
 	jsr    SND_StopTrack
 
+	@NoCurrentTrack:
 	@Stopped:
 	@TimerRunning:
 	@TimerNotRunning:
