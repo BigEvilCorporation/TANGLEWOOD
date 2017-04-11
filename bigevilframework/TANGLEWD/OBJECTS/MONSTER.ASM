@@ -895,7 +895,10 @@ MonsterStartSearchForPlayer:
 	; Set initial delay before first walk
 	move.w #Monster_SearchRandDelayInit, Monster_SearchDelay(a0)
 
-	; Start search theme
+	; Start search theme (if player not dead)
+	move.l #Player1, a2
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PlayerDead
 	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
 	beq    @TrackPlaying
 	PUSHL  a0/d0-d1
@@ -903,6 +906,7 @@ MonsterStartSearchForPlayer:
 	jsr    SND_PlayTrack
 	POPL   a0/d0-d1
 	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
+	@PlayerDead:
 	@TrackPlaying:
 	
 	rts
@@ -1126,7 +1130,13 @@ MonsterUpdateTrackPlayer:
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	beq    @WithinMaxChaseDist
 	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	bgt    @VelPositive
+	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	bra    @EndVelClamp
+	@VelPositive:
 	move.l #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	@EndVelClamp:
 	move.b #0x0, Monster_CatchingUp(a0)
 	bra    @WithinMaxChaseDist
 	
@@ -1265,11 +1275,22 @@ MonsterUpdateBite:
 	beq    @OutOfHitBox
 	
 	; Deal damage to player
-	move.l a0, -(sp)
+	PUSHL  a0
 	move.l #Player1, a0
 	move.b #Monster_BiteDamage, d0
 	jsr    CharacterDealDamage
-	move.l (sp)+, a0
+
+	; If player dead, stop attack music
+	cmp.b  #0x0, Character_Dead(a0)
+	beq    @PlayerNotDead
+	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	beq    @NotPlaying
+	move.b #-1, d0
+	jsr    SND_BeginFadeTrack
+	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
+	@NotPlaying:
+	@PlayerNotDead:
+	POPL   a0
 	
 	bra    @End
 
