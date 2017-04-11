@@ -82,6 +82,14 @@ Gameplay_Enter:
 	
 	; Pre-stream map
 	jsr    LevelPreStreamMap
+
+	; Apply velocity/acceleration from end of last act
+	move.l (EndOfActVelocity), PhysicsObj_VelX(a0)
+	move.w (EndOfActAcceleration), PhysicsObj_AccelX(a0)
+
+	; Clear
+	move.l #0x0, EndOfActVelocity
+	move.w #0x0, EndOfActAcceleration
 	
 	;==============================================================
 	

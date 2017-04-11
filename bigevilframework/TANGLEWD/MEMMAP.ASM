@@ -215,6 +215,12 @@ __padding041			     rs.b 2
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
+; Level/act transitions
+; ************************************
+EndOfActVelocity			 rs.l 1
+EndOfActAcceleration		 rs.w 1
+
+; ************************************
 ; Colour abilities
 ; ************************************
 GlobalTimeDiv			 rs.b 1
