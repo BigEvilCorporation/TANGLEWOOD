@@ -118,6 +118,7 @@ __start
 	include 'states\gameplay.asm'
 	
 	IFND DEBUG
+	include 'states\endact.asm'
 	include 'states\endlevel.asm'
 	include 'states\fail.asm'
 	include 'states\controls.asm'

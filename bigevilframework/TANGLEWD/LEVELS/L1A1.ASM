@@ -148,14 +148,8 @@ l1a1_Serialise:
 	
 l1a1_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l #Player1, a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts

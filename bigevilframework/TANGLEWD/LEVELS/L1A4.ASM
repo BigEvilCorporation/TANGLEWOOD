@@ -71,69 +71,10 @@ l1a4_Init:
 	add.l  d0, a0
 	move.w #-1, Monster_LoseSightTimer(a0)
 	
-	;==============================================================
-	
-	; Get player 1
-	move.l #Player1, a0
-	
-	; Disable player 1 control
-	move.b #0x0, Player_ControlEnabled(a0)
-	
-	; Start sleep anim
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	move.l #LevelData_L1A3, a2
-	move.b #0x1, l1a4Data_WaitingInput(a2)
-	
 	rts
 	
 l1a4_Update:
 
-	move.l #LevelData_L1A3, a2
-	cmp.b #0x0, l1a4Data_WaitingInput(a2)
-	beq    @FinishedLevelStartSequence
-	
-	; Read pad
-	jsr    PAD_ReadPadA
-	
-	; Check for input
-	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
-	cmp.w  #0x0, d0
-	beq   @NoInput
-	
-	; Start wake up sequence
-	PUSHL  a1
-	PUSHL  a2
-	move.l #Player1, a0
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	POPL   a2
-	POPL   a1
-
-	move.l #Player1, a0
-	
-	; Enable player 1 control
-	move.b #0x1, Player_ControlEnabled(a0)
-	
-	; Release animation control
-	move.b #0x1, Character_UpdateAnim(a0)
-	
-	; Done
-	move.b #0x0, l1a4Data_WaitingInput(a2)
-	
-	@FinishedLevelStartSequence:
-	@NoInput:
-	
 	rts
 	
 l1a4_Serialise:

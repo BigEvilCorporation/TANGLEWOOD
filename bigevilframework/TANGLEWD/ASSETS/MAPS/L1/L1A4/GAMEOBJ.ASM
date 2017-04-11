@@ -258,7 +258,7 @@ L1A4_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x2e300000, Entity_WorldPosX(a0)
+	move.l #0x2e500000, Entity_WorldPosX(a0)
 	move.l #0x01600000, Entity_WorldPosY(a0)
 	move.l #L1A4_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)

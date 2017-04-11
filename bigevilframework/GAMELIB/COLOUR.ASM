@@ -77,6 +77,23 @@ PAL_LerpStartAll:
 	jsr    PAL_LerpStart
 	
 	rts
+
+PAL_LerpActive:
+	; d0 (b) - Returns mask of active palette lerps
+
+	move.b #0x0, d0
+
+	lea PaletteLerp_Array, a0
+	move.l #num_palettes-1, d1
+	@PaletteLerpLp:
+	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a0)
+	beq    @Inactive
+	bset   d1, d0
+	@Inactive:
+	add.l  #PaletteLerp_Struct_Size, a0
+	dbra d1, @PaletteLerpLp
+
+	rts
 	
 PAL_LerpUpdate:
 

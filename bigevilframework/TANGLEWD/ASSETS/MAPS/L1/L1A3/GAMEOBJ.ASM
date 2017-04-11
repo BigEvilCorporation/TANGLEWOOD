@@ -261,8 +261,8 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
-	move.l #0x23d00000, Entity_WorldPosX(a0)
-	move.l #0x01b00000, Entity_WorldPosY(a0)
+	move.l #0x22f80000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
 	move.l #L1A3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx

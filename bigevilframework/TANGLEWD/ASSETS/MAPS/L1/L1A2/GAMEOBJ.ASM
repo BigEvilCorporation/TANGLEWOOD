@@ -280,8 +280,8 @@ L1A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x29600000, Entity_WorldPosX(a0)
-	move.l #0x02e80000, Entity_WorldPosY(a0)
+	move.l #0x26580000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
@@ -323,11 +323,10 @@ L1A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x2ee00000, Entity_WorldPosX(a0)
+	move.l #0x2e280000, Entity_WorldPosX(a0)
 	move.l #0x01300000, Entity_WorldPosY(a0)
 	move.l #L1A2_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit

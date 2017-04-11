@@ -79,71 +79,10 @@ l1a2_Init:
 	add.l  d0, a1
 	
 	move.l a1, Flue_OutputFlue(a0)
-
-	;==============================================================
-	
-	move.l #Player1, a0
-	
-	; Disable player 1 control
-	move.b #0x0, Player_ControlEnabled(a0)
-	
-	; Start sleep anim
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	move.l #LevelData_L1A1, a2
-	move.b #0x1, l1a2Data_WaitingInput(a2)
 	
 	rts
 	
 l1a2_Update:
-
-	move.l #LevelData_L1A1, a2
-	
-	; Check waiting for input
-	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, l1a2Data_WaitingInput(a2)
-	beq    @FinishedLevelStartSequence
-	
-	; Read pad
-	jsr    PAD_ReadPadA
-	
-	; Check for input
-	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
-	cmp.w  #0x0, d0
-	beq   @NoInput
-	
-	; Start wake up sequence
-	PUSHL  a1
-	PUSHL  a2
-	move.l #Player1, a0
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	POPL   a2
-	POPL   a1
-
-	move.l #Player1, a0
-	
-	; Enable player 1 control
-	move.b #0x1, Player_ControlEnabled(a0)
-	
-	; Release animation control
-	move.b #0x1, Character_UpdateAnim(a0)
-	
-	; Done
-	move.b #0x0, l1a2Data_WaitingInput(a2)
-	
-	@FinishedLevelStartSequence:
-	@NoInput:
 
 	rts
 	
@@ -156,14 +95,8 @@ l1a2_Serialise:
 	
 l1a2_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l #Player1, a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts
