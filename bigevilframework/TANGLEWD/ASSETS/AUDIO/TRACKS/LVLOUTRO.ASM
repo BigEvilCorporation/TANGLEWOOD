@@ -97,6 +97,10 @@
 ; Pattern $00, Row 30; 
 ; Pattern $00, Row 31; 
 ; Pattern $00, Row 32; 
+	dc.b $fe, $0b	; Delay
+	dc.b $18		; Note off channel PSG 1
+	dc.b $19		; Note off channel PSG 2
+	dc.b $1a		; Note off channel PSG 3
 ; Pattern $00, Row 33; 
 ; Pattern $00, Row 34; 
 ; Pattern $00, Row 35; 
@@ -128,12 +132,15 @@
 ; Pattern $00, Row 61; 
 ; Pattern $00, Row 62; 
 ; Pattern $00, Row 63; 
-	dc.b $fe, $77	; Delay
+	dc.b $fe, $6c	; Delay
 	dc.b $24, $0b	; Set volume for channel FM 4
 	dc.b $25, $09	; Set volume for channel FM 5
 	dc.b $26, $09	; Set volume for channel FM 6
 ; Pattern $00, Row 64; 
 	dc.b $fe, $04	; Delay
+	dc.b $10		; Note off channel FM 1
+	dc.b $11		; Note off channel FM 2
+	dc.b $12		; Note off channel FM 3
 	dc.b $14		; Note off channel FM 4
 	dc.b $15		; Note off channel FM 5
 	dc.b $16		; Note off channel FM 6
