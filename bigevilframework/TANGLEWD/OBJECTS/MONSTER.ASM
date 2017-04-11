@@ -217,6 +217,26 @@ MonsterInit:
 	move.w  #Monster_BoundsWidth, PhysicsObj_BoundsWidth(a0)
 	move.w  #Monster_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 
+	;==============================================================
+	
+	; Setup default SFX
+	IFND DEBUG
+	move.l a0, a2
+	add.l  #Character_SFX, a2
+	
+	; Land
+	move.l a2, a3
+	add.l  #CharacterSFXIdx_Land*size_long, a3
+	move.l #SFX_Land, (a3)
+
+	; Water splash
+	move.l a2, a3
+	add.l  #CharacterSFXIdx_WaterSplash*size_long, a3
+	move.l #SFX_Water_Splash1, (a3)
+	ENDIF
+
+	;==============================================================
+
 	; Setup default character animations
 	move.l a0, a2
 	add.l  #Character_Animations, a2

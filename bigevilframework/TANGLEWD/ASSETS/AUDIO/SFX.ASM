@@ -208,17 +208,24 @@ SFX_Footstep_Water1:
 	dc.l SFX_Data_Footstep_Water1	; Data
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 	even
 
 SFX_Footstep_Water2:
 	dc.l SFX_Data_Footstep_Water2	; Data
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	even
+
+SFX_Water_Splash1:
+	dc.l SFX_Data_Footstep_Splash1	; Data
+	dc.b SFX_Priority_Water			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
-SFX_Footstep_Splash1:
+SFX_Water_Jump:
 	dc.l SFX_Data_Footstep_Splash1	; Data
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity

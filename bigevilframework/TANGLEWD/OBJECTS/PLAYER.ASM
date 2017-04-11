@@ -1940,7 +1940,7 @@ PlayerInteractTest_Fireflies:
 
 	rts
 
-		
+	; TODO: Move to Character
 PlayerInteractTest_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1968,8 +1968,27 @@ PlayerInteractTest_Water:
 	cmp.b  #0x0, d0
 	beq    @NoIntersect
 	
-	; Player inside
+	; Player in water, check if not previously in water
+	cmp.b  #0x0, Character_InWater(a0)
+	bne    @PrevInWater
+
+	; Set in water
 	move.b #0x1, Character_InWater(a0)
+	
+	; If hit water at landing velocity
+	cmp.l  #-Character_LandVel, PhysicsObj_VelY(a0)
+	bge    @LowSplashVel
+	
+	; Play splash SFX
+	move.l a0, a2
+	add.l  #Character_SFX+(CharacterSFXIdx_WaterSplash*size_long), a2
+	cmp.l  #0x0, (a2)
+	beq    @NoSplashSFX
+	PLAYSFX (a2)
+	@NoSplashSFX:
+	
+	@PrevInWater:
+	@LowSplashVel:
 
 	; Set water level
 	move.l Entity_WorldPosY(a1), d3

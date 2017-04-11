@@ -63,8 +63,18 @@ NymnInit:
 	
 	; Land
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_Land, a3
+	add.l  #CharacterSFXIdx_Land*size_long, a3
 	move.l #SFX_Land, (a3)
+
+	; Water splash
+	move.l a2, a3
+	add.l  #CharacterSFXIdx_WaterSplash*size_long, a3
+	move.l #SFX_Water_Splash1, (a3)
+
+	; Water Jump
+	move.l a2, a3
+	add.l  #CharacterSFXIdx_WaterJump*size_long, a3
+	move.l #SFX_Water_Jump, (a3)
 	ENDIF
 	
 	;==============================================================

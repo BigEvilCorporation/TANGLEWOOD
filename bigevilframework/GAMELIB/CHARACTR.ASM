@@ -37,8 +37,10 @@ Character_NumAnims			equ 15
 ; SFX ids
 ; ************************************
 CharacterSFXIdx_Land		equ 0
+CharacterSFXIdx_WaterSplash	equ 1
+CharacterSFXIdx_WaterJump	equ 2
 ; -------------------------------
-Character_NumSFX			equ 1
+Character_NumSFX			equ 3
 
 ; ************************************
 ; Character struct
@@ -149,6 +151,8 @@ CharacterUpdate:
 	beq    @OffFloor
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Falling(a0)
+
+	; =====================================================================
 	
 	; Check if previously on floor
 	cmp.b  #0x0, d0
@@ -156,12 +160,11 @@ CharacterUpdate:
 	
 	; If hit floor at landing velocity
 	cmp.l  #-Character_LandVel, d1
-	bge    @LowVel
+	bge    @LowLandVel
 	
 	; Play land SFX
 	move.l a0, a2
-	add.l  #Character_SFX, a2
-	add.l  #CharacterSFXIdx_Land, a2
+	add.l  #Character_SFX+(CharacterSFXIdx_Land*size_long), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoLandSFX
 	PLAYSFX (a2)
@@ -169,7 +172,9 @@ CharacterUpdate:
 	
 	@OffFloor:
 	@PrevOnFloor:
-	@LowVel:
+	@LowLandVel:
+
+	; =====================================================================
 	
 	; If Y vel < falling vel, set as falling
 	cmp.l  #-Character_FallVel, d1
@@ -595,9 +600,18 @@ CharacterStartJump:
 	bra    @End
 	
 	@InWater:
+
 	; Jump from water
 	move.l Character_JumpVelWater(a0), PhysicsObj_VelY(a0)
 	move.b #0x1, Character_Jumping(a0)
+
+	; Play water jump SFX
+	move.l a0, a2
+	add.l  #Character_SFX+(CharacterSFXIdx_WaterJump*size_long), a2
+	cmp.l  #0x0, (a2)
+	beq    @NoWaterJumpSFX
+	PLAYSFX (a2)
+	@NoWaterJumpSFX:
 	
 	@Dead:
 	@CantJump:
