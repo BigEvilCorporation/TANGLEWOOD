@@ -18,7 +18,8 @@ VFX_StartScreenEffectGreyscale:
 	; d1 (b) - Lerped (0) or instant (1)
 	
 	; Backup palette idx
-	move.l d0, d7
+	clr.l  d7
+	move.b d0, d7
 
 	; Get source palette address
 	lea     CurrentPalettes, a0
@@ -94,9 +95,9 @@ VFX_StartScreenEffectGreyscale:
 	move.l  #(size_palette_b/size_long), d6
 	MEMCPYL a4, a3, d6
 
-	; Mark palettes dirty
-	move.b #0x1, PalettesDirty
-	move.b #0x1, UnderwaterPalettesDirty
+	; Mark palette dirty
+	bset   d7, DirtyPalettesMask
+	bset   d7, UnderwaterDirtyPalettesMask
 
 	@EndLoadPalette:
 

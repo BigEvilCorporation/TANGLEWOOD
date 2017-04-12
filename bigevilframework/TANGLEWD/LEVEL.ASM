@@ -149,8 +149,10 @@ LevelLoadPalettes:
 	@Loop:
 	move.l #0x0, (a0)+
 	dbra   d0, @Loop
-	move.b #0x1, PalettesDirty
-	move.b #0x1, UnderwaterPalettesDirty
+
+	; Set all palettes dirty
+	move.b #0xF, DirtyPalettesMask
+	move.b #0xF, UnderwaterDirtyPalettesMask
 
 	clr.l  d6
 	clr.l  d7

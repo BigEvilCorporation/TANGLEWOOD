@@ -98,15 +98,31 @@ PAL_LerpActive:
 PAL_LerpUpdate:
 
 	lea PaletteLerp_Array, a0
-	move.l #num_palettes-1, d0
+
+	; Manual loop, need actual palette index for bset
+	move.l #0x0, d0
 	@PaletteLerpLp:
-	move.l a0, -(sp)
-	move.l d0, -(sp)
+
+	; Tick palette lerp
+	PUSHM  d0/a0
 	jsr PAL_LerpUpdateNextComponent
-	move.l (sp)+, d0
-	move.l (sp)+, a0
+	move.b d0, d1
+	POPM   d0/a0
+
+	; Check if palette written to
+	cmp.b  #0x0, d1
+	beq    @PaletteNotWritten
+
+	; Palette written to, set dirty
+	bset   d0, (DirtyPalettesMask)
+	bset   d0, (UnderwaterDirtyPalettesMask)
+	@PaletteNotWritten:
+
+	; Next palette
 	add.l  #PaletteLerp_Struct_Size, a0
-	dbra d0, @PaletteLerpLp
+	add.b  #0x1, d0
+	cmp.b  #num_palettes, d0
+	bne    @PaletteLerpLp
 
 	rts
 
@@ -116,7 +132,7 @@ PAL_LerpUpdateNextComponent:
 	clr.l  d0
 	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
 	cmp.w  #0x0, d0						; Return if disabled
-	beq    @End
+	beq    @PaletteNotWritten
 	
 	; =====================================================================
 	
@@ -133,7 +149,7 @@ PAL_LerpUpdateNextComponent:
 	lsr.w  #0x6, d3
 	
 	cmp.w  d1, d3						; If frame changed
-	beq    @End
+	beq    @PaletteNotWritten
 
 	; =====================================================================
 	
@@ -261,14 +277,19 @@ PAL_LerpUpdateNextComponent:
 	move.w d3, (a2)						; Write colour back to scratch buffer
 	
 	dbra   d0, @NextTick				; Next tick
-	
+
 	; =====================================================================
 	
 	@PaletteWritten:
+	move.b #0x1, d0
+	bra    @End
 
-	; Set dirty
-	move.b #0x1, PalettesDirty
-	move.b #0x1, UnderwaterPalettesDirty
+	; =====================================================================
+
+	@PaletteNotWritten:
+	move.b #0x0, d0
+
+	; =====================================================================
 
 	@End:
 

@@ -89,7 +89,7 @@ Pause_Enter:
 	; Hack: Set font colour directly
 	lea    CurrentPalettes+(size_palette_b*PauseText_FontPaletteId), a0
 	move.w #PauseText_FontColour, (PauseText_FontColourIdx*size_word)(a0)
-	move.b #0x1, PalettesDirty
+	bset   #PauseText_FontPaletteId, DirtyPalettesMask
 
 	POPL a0
 	
@@ -188,8 +188,9 @@ Pause_Exit:
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	move.b #0x1, PalettesDirty
-	move.b #0x1, UnderwaterPalettesDirty
+	; Mark all palettes dirty
+	move.b #0xF, DirtyPalettesMask
+	move.b #0xF, UnderwaterDirtyPalettesMask
 	
 	POPL   a0
 	

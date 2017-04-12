@@ -51,7 +51,7 @@ INT_HBlank_PaletteSwap:
 	VDP_DMA_CRAM (UnderwaterPalettes+(PaletteId_Player*size_palette_b)), (PaletteId_Player*size_palette_b), size_palette_b, d0
 	POPW   d0
 	VDP_SETHINT 0xFF
-	move.b #0x1, (PalettesDirty)
+	bset.b #PaletteId_Player, (DirtyPalettesMask)
 
 	rte
 

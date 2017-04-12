@@ -173,8 +173,8 @@ Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
 WaterLevel             rs.b 1	; Current water level, sets HINT frequency
-PalettesDirty          rs.b 1	; Marks palettes for DMA
-UnderwaterPalettesDirty rs.b 1	; Marks underwater effect conversion
+DirtyPalettesMask      rs.b 1	; Marks palettes for DMA
+UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
 __padding31            rs.b 1
 

@@ -238,20 +238,24 @@ RenderEndFrame:
 	jsr VDP_SetHINTFreq
 
 	; Convert underwater palettes if dirty
-	cmp.b  #0x0, (UnderwaterPalettesDirty)
-	beq    @NotDirty
-	move.l #num_palettes-1, d0
+	move.l #0x0, d0
 	lea    CurrentPalettes, a0
 	lea    UnderwaterPalettes, a1
 	@PaletteLp:
+	btst.b d0, (UnderwaterDirtyPalettesMask)
+	beq    @NotDirty
 	PUSHM  d0/a0-a1
 	jsr    VFX_CreateUnderwaterPalette
 	POPM   d0/a0-a1
+	@NotDirty:
 	add.l  #size_palette_b, a0
 	add.l  #size_palette_b, a1
-	dbra   d0, @PaletteLp
-	move.b #0x0, (UnderwaterPalettesDirty)
-	@NotDirty:
+	add.b  #0x1, d0
+	cmp.b  #num_palettes, d0
+	bne    @PaletteLp
+
+	; Reset dirty palette mask
+	move.b #0x0, (UnderwaterDirtyPalettesMask)
 
 	; Update frame counter
 	addi.l #0x1, frame_counter_update
@@ -281,24 +285,35 @@ RenderEndFrame:
 	; ************************************
 __vinterrupt:
 
+	IFD DEBUG
+	lea Str_Render, a0
+	jsr DBG_Profile_PushScope
+	ENDIF
+
 	; DMA the sprite table
 	lea    vdp_sprite_table, a0
 	move.l #vram_addr_sprite_table, d0
 	move.w #(Sprite_Struct_Size*vdp_max_sprites), d1
 	jsr    VDP_DMACopyVRAM
 	@NoSprites:
-	
-	IFD DEBUG
-	lea Str_Render, a0
-	jsr DBG_Profile_PushScope
-	ENDIF
 
 	; DMA palettes if dirty
-	cmp.b  #0x0, (PalettesDirty)
+	move.l #0x0, d0
+	lea    CurrentPalettes, a0
+	@PaletteLp:
+	btst   d0, (DirtyPalettesMask)
 	beq    @NotDirty
-	VDP_DMA_CRAM CurrentPalettes, 0x0000, (size_palette_b*num_palettes), d0
-	move.b #0x0, (PalettesDirty)
+	PUSHM  d0/a0
+	jsr    PAL_LoadDMA
+	POPM   d0/a0
 	@NotDirty:
+	add.l  #size_palette_b, a0
+	add.b  #0x1, d0
+	cmp.b  #num_palettes, d0
+	bne    @PaletteLp
+
+	; Reset dirty palette mask
+	move.b #0x0, (DirtyPalettesMask)
 	
 	; Execute DMA job queue
 	jsr    VDP_DMAQueue_ExecuteAll
