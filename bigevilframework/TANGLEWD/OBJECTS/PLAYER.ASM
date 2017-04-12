@@ -59,6 +59,8 @@ Player1StepHeight	 equ 0x3
 Player1MinWallHeight equ 0x11				; High enough to avoid stones
 Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
 Player1ProbeFloorY   equ (Player1Height-8)  ; Floor detection probe position Y
+Player1ProbeCeilingX equ (Player1Width/2)   ; Ceiling detection probe position X
+Player1ProbeCeilingY equ (0x0008)           ; Ceiling detection probe position Y
 Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
 Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
 
@@ -217,6 +219,8 @@ PlayerInit:
 	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Player1ProbeCeilingX, PhysicsObj_CeilingProbeX(a0)
+	move.w  #Player1ProbeCeilingY, PhysicsObj_CeilingProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Player1MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	

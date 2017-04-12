@@ -249,7 +249,7 @@ mcd_sig_offset equ 0x6D
 ; ************************************
 col_tile_mask_flags	  	  equ 0xE000
 col_tile_mask_tileid	  equ 0x1FFF
-col_tile_flag_solid 	  equ (1<<13)	; Solid tile (wall + floor)
+col_tile_flag_solid 	  equ (1<<13)	; Solid tile (wall/floor/ceiling)
 col_tile_flag_hole	 	  equ (1<<14)	; Terrain can be ignored (for jumping down holes, etc)
 
 ; ************************************

@@ -22,6 +22,7 @@ PhysicsObjHitWallRight     equ 0x2
 ;---------------------------------
 PhysicsObj_LastWall         rs.l 1 ; Last detected wall X
 PhysicsObj_LastFloor        rs.l 1 ; Last detected floor Y
+PhysicsObj_LastCeiling      rs.l 1 ; Last detected ceiling Y
 PhysicsObj_VelX    		    rs.l 1 ; X velocity
 PhysicsObj_VelY    		    rs.l 1 ; Y velocity
 PhysicsObj_MaxVelFloorX 	rs.l 1 ; Max X velocity (on floor)
@@ -39,12 +40,15 @@ PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
 PhysicsObj_FloorProbeX	    rs.w 1 ; Floor probe X offset
 PhysicsObj_FloorProbeY	    rs.w 1 ; Floor probe Y offset
+PhysicsObj_CeilingProbeX    rs.w 1 ; Ceiling probe X offset
+PhysicsObj_CeilingProbeY    rs.w 1 ; Ceiling probe Y offset
 PhysicsObj_BounceX		    rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    rs.w 1 ; Max step height
 PhysicsObj_MinWallHeight    rs.w 1 ; Min wall height
 PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
 PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
+PhysicsObj_CollideCeilings  rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
 PhysicsObj_CollideBarriers	rs.b 1 ; Collides with barriers
 PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
@@ -57,7 +61,7 @@ PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise us
 PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 1
+PhysicsObj_Struct_Pad       rs.b 0
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -88,6 +92,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
+	move.b #0x1, PhysicsObj_CollideCeilings(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
 	move.b #0x1, PhysicsObj_CollideBarriers(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
@@ -149,6 +154,12 @@ PhysicsObjUpdate:
 	
 	; Find floor
 	jsr PhysicsObjFindFloor
+
+	; Find ceiling
+	cmp.b #0x0, PhysicsObj_CollideCeilings(a0)
+	beq   @NoCheckCeilings
+	jsr PhysicsObjFindCeiling
+	@NoCheckCeilings:
 	
 	; Find wall
 	cmp.b #0x0, PhysicsObj_CollideWalls(a0)
@@ -432,7 +443,13 @@ PhysicsObjCollisionCorrection:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Correct object pos if on floor
+	;==============================================================
+	; Correct floor collision
+
+	; If not moving on Y axis, skip floor and ceiling correction
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	beq    @HeadingNowhereY
+
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	cmp.l  #0x0, d2
 	beq    @Uninitialised							; First frame, uninitialised
@@ -483,9 +500,42 @@ PhysicsObjCollisionCorrection:
 	@SnapToFloorDisabled:
 	
 	;==============================================================
+	; Correct ceiling collision
+	
+	; Get last ceiling collided with
+	move.l PhysicsObj_LastCeiling(a0), d0
+	cmp.l  #0x0, d0
+	beq    @NoCeilingFound
+	
+	; Determine Y direction
+	move.l PhysicsObj_VelY(a0), d1
+	cmp.l  #0x0, d1
+	blt    @HeadingDown
+	
+	; Heading up, clamp
+	move.l Entity_WorldPosY(a0), d2
+	move.l d0, Entity_WorldPosY(a0)
+	
+	clr.l  d0										; Zero Y velocity by default
+	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
+	cmp.w  #0x0, d1
+	beq    @NoBounceCeil
+	move.l PhysicsObj_VelY(a0), d0
+	neg.l  d0										; Negate Y velocity
+	DIVS1616_LOSSY d1, d0							; Div by bounce
+	@NoBounceCeil:
+	move.l d0, PhysicsObj_VelY(a0)
+	
+	@NoCeilingFound:
+	@HeadingDown:
+
+	@HeadingNowhereY:
+
+	;==============================================================
+	; Correct wall collision
 	
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
-	beq    @HeadingNowhere
+	beq    @HeadingNowhereX
 
 	; Clear hit wall flag
 	move.b #0x0, PhysicsObj_HitWall(a0)
@@ -538,7 +588,7 @@ PhysicsObjCollisionCorrection:
 	move.l d0, PhysicsObj_VelX(a0)
 	
 	@NoWallFound:
-	@HeadingNowhere:
+	@HeadingNowhereX:
 
 	rts
 	
@@ -914,6 +964,101 @@ PhysicsObjFindWall:
 	@HeadingNowhere:
 	@ProbeOutOfBounds:
 	@NoWallFound:
+
+	rts
+
+PhysicsObjFindCeiling:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Fetch last ceiling test result
+	move.l PhysicsObj_LastCeiling(a0), d2
+	
+	;==============================================================
+	
+	; If positive or zero velocity, don't bother finding ceiling
+	move.l PhysicsObj_VelY(a0), d3
+	cmp.l  #0x0, d3
+	ble    @EndCeilingTest
+	
+	; If zero X and Y velocity, don't bother finding ceiling
+	or.l   PhysicsObj_VelX(a0), d3
+	beq    @EndCeilingTest
+
+	; Clear last found ceiling
+	move.l #0x0, PhysicsObj_LastCeiling(a0)
+	
+	;==============================================================
+	
+	; Get ceiling probe X
+	move.l Entity_WorldPosX(a0), d1			; Get player pos X
+	TOPIXELS d1								; To sprite space
+	sub.w  #SpritePlaneBorderX, d1			; To screen space
+	move.w PhysicsObj_CeilingProbeX(a0), d3	; Get ceiling probe X offset
+	add.w  d3, d1							; Add to X pos
+
+	; Check if X within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapWidth(a1), d2
+	TILES2PIXELS d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+
+	; Get ceiling probe Y
+	swap   d1								; X to upper word
+	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
+	TOPIXELS d2								; To sprite space
+	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	move.w PhysicsObj_CeilingProbeY(a0), d3	; Get ceiling probe Y offset
+	add.l  d3, d2							; Add to Y pos
+	move.w d2, d1							; Player pos XY (screen space) to d1
+
+	; Check if Y within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapHeight(a1), d2
+	TILES2PIXELS d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+	
+	; Get collision flags for tile at probe pos
+	PUSHM  a0-a1
+	clr.l  d2
+	move.w Level_MapWidthBlocks(a1), d2
+	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
+	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	jsr	   PHYS_GetTerrainTile
+	POPM   a0-a1
+	
+	; Check if solid
+	andi.w #col_tile_flag_solid, d0
+	cmp.w  #0x0, d0
+	beq    @NoCeilingFound
+	
+	;==============================================================
+	
+	; Ceiling found - tile Y in d4, translate to world space
+	TILES2PIXELS d4						; Tiles to pixels
+	add.l  #SpritePlaneBorderY, d4		; Pixels to screen space
+	TOSUBPIXELS d4						; Screen space to object space
+
+	;==============================================================
+	
+	@EndCeilingTest:
+
+	; Result
+	move.l d4, PhysicsObj_LastCeiling(a0)
+	
+	;==============================================================
+	
+	@ProbeOutOfBounds:
+	@NoCeilingFound:
 
 	rts
 	
