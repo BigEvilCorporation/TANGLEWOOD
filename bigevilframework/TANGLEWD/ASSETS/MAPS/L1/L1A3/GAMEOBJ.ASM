@@ -251,6 +251,7 @@ L1A3_LoadGameObjects:
 	jsr FlueInit
 	move.l #0x05900000, Entity_WorldPosX(a0)
 	move.l #0x01a80000, Entity_WorldPosY(a0)
+	move.w #0x0C, Flue_CameraLerpSpeed(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit

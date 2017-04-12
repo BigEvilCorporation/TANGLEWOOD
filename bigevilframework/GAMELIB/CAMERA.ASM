@@ -59,16 +59,19 @@ CAM_Update:
 	
 	clr.l   d1
 	
-	; Get target X/Y
+	; Get camera target X/Y
 	ENTITY_GETCENTREX d0, a0
 	ENTITY_GETCENTREY d1, a0
 	
 	; Sprite space to camera space
 	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d0
 	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d1
+
+	;==============================================================
 	
 	clr.l   d2
 
+	; If camera lerp active
 	cmp.w   #0x0, (CameraTargetLerpSpeed)
 	beq     @NoLerp
 
@@ -76,7 +79,7 @@ CAM_Update:
 	move.l  (CameraTargetLerpStartX), d2
 	move.l  (CameraTargetLerpStartY), d3
 
-	; If lerp source object
+	; If lerp source object set
 	move.l  (CameraTargetLerpSource), a2
 	cmp.l   #0x0, a2
 	beq     @NoLerpStartObj
@@ -86,14 +89,31 @@ CAM_Update:
 	ENTITY_GETCENTREY d3, a2
 
 	@NoLerpStartObj:
-	
-	; Sprite space to camera space
+
+	; Lerp target sprite space to camera space
 	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d2
 	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d3
-	
+
+	;==============================================================
+
 	; Get lerp T
 	clr.l  d4
 	move.w (CameraTargetLerpTime), d4
+
+	; Check if lerp finished
+	cmp.w  #1024, d4
+	blt    @LerpInProgress
+
+	; Disable lerp
+	move.l #0x0, CameraTargetLerpSource
+	move.w #0x0, CameraTargetLerpSpeed
+
+	; Finished
+	bra    @EndLerp
+
+	;==============================================================
+
+	@LerpInProgress:
 	
 	TOPIXELS d0
 	TOPIXELS d1
@@ -107,17 +127,11 @@ CAM_Update:
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
 	
-	; Update lerp
-	cmp.w  #1024, CameraTargetLerpTime
-	beq    @FinishedLerp
-	move.w (CameraTargetLerpSpeed), d2	; Increment lerp time
+	; Update lerp time
+	move.w (CameraTargetLerpSpeed), d2
 	add.w  d2, CameraTargetLerpTime
-	bra    @EndLerp
-	@FinishedLerp:
-	move.l #0x0, CameraTargetLerpSource
-	move.w #0x0, CameraTargetLerpSpeed
+
 	@EndLerp:
-	
 	@NoLerp:
 	
 	;==============================================================

@@ -17,7 +17,7 @@ Flue_DefaultEjectForceY	equ 0x0E0000
 Flue_MaxOccupants		equ 0x2
 Flue_OccupantTypes		equ (entity_type_player|entity_type_fuzzl)	; Accepted occupant entity types
 Flue_OccupantCheckFreq	equ 0x4	; Check for new occupants every n frames
-Flue_CameraLerpSpeed	equ 0x4
+Flue_DefaultCameraLerpSpeed	equ 0x4
 
 ; Occupant struct
 	rsset 0
@@ -39,8 +39,9 @@ Flue_Occupants			rs.b (FlueOccupant_Struct_Size*Flue_MaxOccupants)	; Occupants
 Flue_EjectForceX		rs.l 1	; Eject force X
 Flue_EjectForceY		rs.l 1	; Eject force Y
 Flue_OccupantCheckTimer	rs.w 1
+Flue_CameraLerpSpeed	rs.w 1
 ;-----------------------------
-Flue_Struct_Pad   		rs.b 2	; Alignment padding
+Flue_Struct_Pad   		rs.b 0	; Alignment padding
 Flue_Struct_Size  		rs.b 0
 
 FlueInit:
@@ -63,7 +64,7 @@ FlueInit:
 	move.l #0x0, Flue_OutputFlue(a0)
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
-	
+	move.w #Flue_DefaultCameraLerpSpeed, Flue_CameraLerpSpeed(a0)
 	move.l #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
 	move.l #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
 	
@@ -254,7 +255,7 @@ FlueOccupantUpdate:
 	move.l a1, CameraTargetLerpSource
 	move.l a3, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
-	move.w #Flue_CameraLerpSpeed, CameraTargetLerpSpeed
+	move.w Flue_CameraLerpSpeed(a0), CameraTargetLerpSpeed
 	
 	; Occupant was camera owner
 	move.b #0x1, FlueOccupant_CameraOwner(a2)
