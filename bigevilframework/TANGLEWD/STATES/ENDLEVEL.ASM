@@ -99,6 +99,13 @@ EndLevel_Update:
 	; Timer elapsed, set fade phase and begin timer
 	move.b #EndLevelPhase_Fade, EndLevelState_Phase(a2)
 	move.w #GameStateEndLevel_ResetTime, EndLevelState_Timer(a2)
+
+	; Set player sprite high prio (so fading environment doesn't mask)
+	PUSHL  a0
+	move.l #Player1, a0
+	move.b #0x1, d0
+	jsr    SpriteObj_SetDrawPriority
+	POPL   a0
 	
 	; Begin fade down of level palette (all objects should be out of view)
 	move.l #GameStateEndLevel_FadeDownPalette, a0

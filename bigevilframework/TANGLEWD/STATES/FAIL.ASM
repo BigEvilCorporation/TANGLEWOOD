@@ -27,6 +27,13 @@ Fail_Enter:
 
 	; Reset timer
 	move.l #GameStateFail_ResetTimer, TimerFailReset
+
+	; Set player sprite high prio (so fading environment doesn't mask)
+	PUSHL  a0
+	move.l #Player1, a0
+	move.b #0x1, d0
+	jsr    SpriteObj_SetDrawPriority
+	POPL   a0
 	
 	; Begin fade down - all palettes except player
 	move.l #GameStateFail_FadeDownPalette, a0

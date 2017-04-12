@@ -265,3 +265,21 @@ SpriteObjDraw:
 	
 	rts
 	
+SpriteObj_SetDrawPriority:
+	; a0 --- SpriteObj addr
+	; a1 --- Level addr
+	; d0 (b) Priority (0/1)
+
+	move.b d0, d1
+	clr.l  d0
+	clr.l  d2
+	move.b SpriteObj_NumSubSprites(a0), d2
+	move.b SpriteObj_SpriteID(a0), d0
+	@SubspriteLp:
+	PUSHM  d0-d2
+	jsr    SPR_SetPriority
+	POPM   d0-d2
+	add.b  #0x1, d0
+	dbra   d2, @SubspriteLp
+
+	rts
