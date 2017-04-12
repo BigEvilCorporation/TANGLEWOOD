@@ -139,7 +139,7 @@ L1A2_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x19380000, Entity_WorldPosX(a0)
+	move.l #0x19480000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
@@ -341,7 +341,7 @@ L1A2_LoadGameObjects:
 
 	move.l #EntityArray_Checkpoint, a0
 	jsr CheckpointInit
-	move.l #0x19500000, Entity_WorldPosX(a0)
+	move.l #0x19680000, Entity_WorldPosX(a0)
 	move.l #0x02b80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
