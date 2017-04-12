@@ -510,7 +510,7 @@ PhysicsObjCollisionCorrection:
 	; Determine Y direction
 	move.l PhysicsObj_VelY(a0), d1
 	cmp.l  #0x0, d1
-	blt    @HeadingDown
+	ble    @HeadingDown
 	
 	; Heading up, clamp
 	move.l Entity_WorldPosY(a0), d2
@@ -971,8 +971,8 @@ PhysicsObjFindCeiling:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Fetch last ceiling test result
-	move.l PhysicsObj_LastCeiling(a0), d2
+	; Cleat last ceiling found
+	move.l #0x0, PhysicsObj_LastCeiling(a0)
 	
 	;==============================================================
 	
@@ -984,9 +984,6 @@ PhysicsObjFindCeiling:
 	; If zero X and Y velocity, don't bother finding ceiling
 	or.l   PhysicsObj_VelX(a0), d3
 	beq    @EndCeilingTest
-
-	; Clear last found ceiling
-	move.l #0x0, PhysicsObj_LastCeiling(a0)
 	
 	;==============================================================
 	
