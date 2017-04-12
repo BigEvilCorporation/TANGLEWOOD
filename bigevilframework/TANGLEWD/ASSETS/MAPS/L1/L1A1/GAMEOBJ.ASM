@@ -22,14 +22,13 @@ L1A1_Echo_count equ 0x0
 
 L1A1_Monster_count equ 0x0
 
-L1A1_BouncePlant_count equ 0x7
+L1A1_BouncePlant_count equ 0x6
 L1A1_BouncePlant_62_idx	equ 0x0
 L1A1_BouncePlant_28_idx	equ 0x1
 L1A1_BouncePlant_29_idx	equ 0x2
 L1A1_BouncePlant_53_idx	equ 0x3
 L1A1_BouncePlant_32_idx	equ 0x4
 L1A1_BouncePlant_64_idx	equ 0x5
-L1A1_BouncePlant_66_idx	equ 0x6
 
 L1A1_Firefly_count equ 0x13
 L1A1_Firefly_4_idx	equ 0x0
@@ -57,21 +56,22 @@ L1A1_Fuzzl_Yellow_idx	equ 0x0
 L1A1_Fuzzl_41_idx	equ 0x1
 
 L1A1_Boulder_count equ 0x1
-L1A1_Boulder_61_idx	equ 0x0
+L1A1_Boulder_69_idx	equ 0x0
 
 L1A1_Stone_count equ 0x3
 L1A1_Stone_55_idx	equ 0x0
 L1A1_Stone_57_idx	equ 0x1
-L1A1_Stone_63_idx	equ 0x2
+L1A1_Stone_68_idx	equ 0x2
 
 L1A1_Nest_count equ 0x2
 L1A1_Nest_2_idx	equ 0x0
 L1A1_Nest_44_idx	equ 0x1
 
-L1A1_Flue_count equ 0x3
+L1A1_Flue_count equ 0x4
 L1A1_Flue_3_idx	equ 0x0
 L1A1_Flue_42_idx	equ 0x1
 L1A1_Flue_54_idx	equ 0x2
+L1A1_Flue_67_idx	equ 0x3
 
 L1A1_TriggerBox_count equ 0x3
 L1A1_TriggerBox_43_idx	equ 0x0
@@ -145,19 +145,14 @@ L1A1_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x19680000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
+	move.l #0x1b700000, Entity_WorldPosX(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x07400000, Entity_WorldPosX(a0)
 	move.l #0x01500000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x07400000, Entity_WorldPosX(a0)
-	move.l #0x02500000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
@@ -274,8 +269,8 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
-	move.l #0x03280000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x17a00000, Entity_WorldPosX(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
@@ -291,8 +286,8 @@ L1A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x01f00000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
+	move.l #0x16480000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
@@ -324,6 +319,11 @@ L1A1_LoadGameObjects:
 	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x06380000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -334,8 +334,8 @@ L1A1_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x19f00000, Entity_WorldPosX(a0)
-	move.l #0x02680000, Entity_WorldPosY(a0)
+	move.l #0x1ac80000, Entity_WorldPosX(a0)
+	move.l #0x01880000, Entity_WorldPosY(a0)
 	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
@@ -344,7 +344,7 @@ L1A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x07d00000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
 	move.l #StartAmbientTrack, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
