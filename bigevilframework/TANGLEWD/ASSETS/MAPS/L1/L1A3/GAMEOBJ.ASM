@@ -223,38 +223,38 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_Flue, a0
 	jsr FlueInit
-	move.l #0x0f000000, Entity_WorldPosX(a0)
+	move.l #0x0ef80000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x17a00000, Entity_WorldPosX(a0)
+	move.l #0x17980000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x1a200000, Entity_WorldPosX(a0)
+	move.l #0x1a180000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x11800000, Entity_WorldPosX(a0)
+	move.l #0x11780000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosX(a0)
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	move.l #0x0A0000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x05980000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosX(a0)
 	move.l #0x01a80000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x07300000, Entity_WorldPosX(a0)
+	move.l #0x07280000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0

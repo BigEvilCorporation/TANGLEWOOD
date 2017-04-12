@@ -8,7 +8,7 @@
 
 ; Constants
 Flue_MaxEntities		equ 0x8
-Flue_Width				equ 0x40
+Flue_Width				equ 0x50
 Flue_Height				equ 0x40
 Flue_BoundsExtendX		equ 0x08
 Flue_HoldDelay			equ 0x0020

@@ -310,17 +310,17 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Flue, a0
 	jsr FlueInit
-	move.l #0x0db00000, Entity_WorldPosX(a0)
+	move.l #0x0da80000, Entity_WorldPosX(a0)
 	move.l #0x03100000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x21180000, Entity_WorldPosX(a0)
+	move.l #0x21100000, Entity_WorldPosX(a0)
 	move.l #0x02e00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
-	move.l #0x12c80000, Entity_WorldPosX(a0)
+	move.l #0x12c00000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
