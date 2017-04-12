@@ -20,15 +20,20 @@ L1A2_Nymn_137_idx	equ 0x0
 
 L1A2_Echo_count equ 0x0
 
-L1A2_Monster_count equ 0x1
-L1A2_Djakk_idx	equ 0x0
-
 L1A2_BouncePlant_count equ 0x5
 L1A2_BouncePlant_210_idx	equ 0x0
 L1A2_BouncePlant_190_idx	equ 0x1
 L1A2_BouncePlant_148_idx	equ 0x2
 L1A2_BouncePlant_144_idx	equ 0x3
 L1A2_BouncePlant_215_idx	equ 0x4
+
+L1A2_Boulder_count equ 0x3
+L1A2_Boulder_147_idx	equ 0x0
+L1A2_Boulder_186_idx	equ 0x1
+L1A2_Boulder_203_idx	equ 0x2
+
+L1A2_Monster_count equ 0x1
+L1A2_Djakk_idx	equ 0x0
 
 L1A2_Firefly_count equ 0xc
 L1A2_Firefly_206_idx	equ 0x0
@@ -48,11 +53,6 @@ L1A2_Fuzzl_count equ 0x3
 L1A2_Fuzzl_Asleep2_idx	equ 0x0
 L1A2_Fuzzl_Asleep1_idx	equ 0x1
 L1A2_FuzzlYellow_idx	equ 0x2
-
-L1A2_Boulder_count equ 0x3
-L1A2_Boulder_147_idx	equ 0x0
-L1A2_Boulder_186_idx	equ 0x1
-L1A2_Boulder_203_idx	equ 0x2
 
 L1A2_Stone_count equ 0x6
 L1A2_Stone_188_idx	equ 0x0
@@ -119,14 +119,6 @@ L1A2_LoadGameObjects:
 
 	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Monster, a0
-	jsr MonsterInit
-	move.l #0x25b00000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
-
 	move.l #EntityArray_BouncePlant, a0
 	jsr BouncePlantInit
 	move.l #0x05b00000, Entity_WorldPosX(a0)
@@ -153,6 +145,31 @@ L1A2_LoadGameObjects:
 	move.l #0x02e00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
+	move.l #EntityArray_Boulder, a0
+	jsr BoulderInit
+	move.l #0x12d00000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
+	jsr BoulderInit
+	move.l #0x0b200000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
+	jsr BoulderInit
+	move.l #0x27500000, Entity_WorldPosX(a0)
+	move.l #0x01d80000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
+
+	move.l #EntityArray_Monster, a0
+	jsr MonsterInit
+	move.l #0x25b00000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
@@ -235,23 +252,6 @@ L1A2_LoadGameObjects:
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
-
-	move.l #EntityArray_Boulder, a0
-	jsr BoulderInit
-	move.l #0x12d00000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
-	jsr BoulderInit
-	move.l #0x0b200000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
-	jsr BoulderInit
-	move.l #0x27500000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
 
 	move.l #EntityArray_Stone, a0
 	jsr StoneInit

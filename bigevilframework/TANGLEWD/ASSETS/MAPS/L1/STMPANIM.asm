@@ -454,10 +454,10 @@ spriteanim_AnimPlants_ground_plant_anim_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even
 spriteanim_AnimPlants_ground_plant_anim_track_posx:
-	dc.b 0x0, 0x0, 0x0
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_AnimPlants_ground_plant_anim_track_posy:
-	dc.b 0x0, 0x0, 0x0
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_AnimPlants_ground_plant_anim_track_sfx:
 	dc.l 0x0, 0x0, 0x0
@@ -1053,10 +1053,10 @@ spriteanim_AnimWater_water_anim_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even
 spriteanim_AnimWater_water_anim_track_posx:
-	dc.b 0x0, 0x0, 0x0
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_AnimWater_water_anim_track_posy:
-	dc.b 0x0, 0x0, 0x0
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_AnimWater_water_anim_track_sfx:
 	dc.l 0x0, 0x0, 0x0

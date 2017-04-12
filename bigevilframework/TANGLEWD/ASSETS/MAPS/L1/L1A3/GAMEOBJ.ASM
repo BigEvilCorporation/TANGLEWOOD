@@ -17,14 +17,17 @@ L1A3_Nymn_30_idx	equ 0x0
 
 L1A3_Echo_count equ 0x0
 
-L1A3_Monster_count equ 0x1
-L1A3_Djakk_idx	equ 0x0
-
 L1A3_BouncePlant_count equ 0x4
 L1A3_BouncePlant_32_idx	equ 0x0
 L1A3_BouncePlant_33_idx	equ 0x1
 L1A3_BouncePlant_36_idx	equ 0x2
 L1A3_BouncePlant_44_idx	equ 0x3
+
+L1A3_Boulder_count equ 0x1
+L1A3_Boulder_11_idx	equ 0x0
+
+L1A3_Monster_count equ 0x1
+L1A3_Djakk_idx	equ 0x0
 
 L1A3_Firefly_count equ 0x6
 L1A3_Firefly_27_idx	equ 0x0
@@ -37,9 +40,6 @@ L1A3_Firefly_23_idx	equ 0x5
 L1A3_Fuzzl_count equ 0x2
 L1A3_Fuzzl_Green_idx	equ 0x0
 L1A3_Fuzzl_Yellow_idx	equ 0x1
-
-L1A3_Boulder_count equ 0x1
-L1A3_Boulder_11_idx	equ 0x0
 
 L1A3_Stone_count equ 0x5
 L1A3_Stone_54_idx	equ 0x0
@@ -96,13 +96,6 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Monster, a0
-	jsr MonsterInit
-	move.l #0x11200000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
-
 	move.l #EntityArray_BouncePlant, a0
 	jsr BouncePlantInit
 	move.l #0x04400000, Entity_WorldPosX(a0)
@@ -128,6 +121,20 @@ L1A3_LoadGameObjects:
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
+	move.l #EntityArray_Boulder, a0
+	jsr BoulderInit
+	move.l #0x10a80000, Entity_WorldPosX(a0)
+	move.l #0x02480000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
+
+	move.l #EntityArray_Monster, a0
+	jsr MonsterInit
+	move.l #0x11200000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
@@ -174,13 +181,6 @@ L1A3_LoadGameObjects:
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
-
-	move.l #EntityArray_Boulder, a0
-	jsr BoulderInit
-	move.l #0x10a80000, Entity_WorldPosX(a0)
-	move.l #0x02480000, Entity_WorldPosY(a0)
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
 
 	move.l #EntityArray_Stone, a0
 	jsr StoneInit

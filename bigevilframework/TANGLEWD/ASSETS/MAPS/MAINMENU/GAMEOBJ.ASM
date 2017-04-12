@@ -18,15 +18,15 @@ main_menu_Nymn_1_idx	equ 0x0
 
 main_menu_Echo_count equ 0x0
 
-main_menu_Monster_count equ 0x0
-
 main_menu_BouncePlant_count equ 0x0
+
+main_menu_Boulder_count equ 0x0
+
+main_menu_Monster_count equ 0x0
 
 main_menu_Firefly_count equ 0x0
 
 main_menu_Fuzzl_count equ 0x0
-
-main_menu_Boulder_count equ 0x0
 
 main_menu_Stone_count equ 0x0
 
@@ -69,15 +69,15 @@ main_menu_LoadGameObjects:
 
 	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Monster, a0
-
 	move.l #EntityArray_BouncePlant, a0
+
+	move.l #EntityArray_Boulder, a0
+
+	move.l #EntityArray_Monster, a0
 
 	move.l #EntityArray_Firefly, a0
 
 	move.l #EntityArray_Fuzzl, a0
-
-	move.l #EntityArray_Boulder, a0
 
 	move.l #EntityArray_Stone, a0
 
