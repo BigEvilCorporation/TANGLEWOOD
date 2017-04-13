@@ -215,36 +215,50 @@ L1A4_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x2b700000, Entity_WorldPosX(a0)
 	move.l #0x03d00000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2dd00000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2e380000, Entity_WorldPosX(a0)
 	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2db80000, Entity_WorldPosX(a0)
 	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2e380000, Entity_WorldPosX(a0)
 	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourBlue, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2c280000, Entity_WorldPosX(a0)
 	move.l #0x01a00000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x2be00000, Entity_WorldPosX(a0)
 	move.l #0x01d00000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourBlue, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 

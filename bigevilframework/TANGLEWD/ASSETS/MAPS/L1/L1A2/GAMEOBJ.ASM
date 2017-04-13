@@ -237,13 +237,13 @@ L1A2_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x29900000, Entity_WorldPosX(a0)
 	move.l #0x01280000, Entity_WorldPosY(a0)
-	move.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x28f80000, Entity_WorldPosX(a0)
 	move.l #0x01500000, Entity_WorldPosY(a0)
-	move.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
