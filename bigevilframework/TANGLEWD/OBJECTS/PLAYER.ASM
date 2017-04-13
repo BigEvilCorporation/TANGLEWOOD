@@ -124,12 +124,11 @@ Player_Dismount_PetDead		equ 0x2
 Player_Interaction_None		equ 0x0
 Player_Interaction_Fuzzl	equ 0x1
 Player_Interaction_Boulder	equ 0x2
-Player_Interaction_Ability	equ 0x3
-Player_Interaction_Lift 	equ 0x4
-Player_Interaction_Push		equ 0x5
-Player_Interaction_Ride		equ 0x6
-Player_Interaction_Djakk	equ 0x7
-Player_Interaction_Custom	equ 0x8
+Player_Interaction_Lift 	equ 0x3
+Player_Interaction_Push		equ 0x4
+Player_Interaction_Ride		equ 0x5
+Player_Interaction_Djakk	equ 0x6
+Player_Interaction_Custom	equ 0x7
 
 ; Animations
 PlayerAnimIdx_Switch    	equ 0
@@ -524,6 +523,9 @@ PlayerBeginColourSwitch:
 	
 	; Start countdown timer
 	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
+
+	; Start ability
+	jsr    PlayerStartColourAbility
 	
 	@Red:
 	
@@ -562,25 +564,8 @@ PlayerStartColourAbility:
 	; ************************************
 	@Yellow:
 
-	; If in air
-	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
-	bne    @End
-	
-	; If -ve Y velocity
-	move.l PhysicsObj_VelY(a0), d0
-	cmp.l  #0x0, d0
-	bgt    @End
-	
-	; Gliding
-	move.b #0x1, Character_Gliding(a0)							; Set gliding
-	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)	; Set ability active
-	move.l #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)		; Set max glide velocity
-	move.l #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
-	
 	; Set ability active
-	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
-	
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	bra    @End
 	
 	; ************************************
@@ -626,7 +611,6 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
-	move.b #Player_Interaction_Ability, Player_InteractionType(a0)
 	
 	; Player can't run
 	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
@@ -641,15 +625,7 @@ PlayerStartColourAbility:
 
 	PUSHL  a1
 
-	; Player must be on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
-	beq    @InAir
-	
-	; If not already riding a Djakk
-	cmp.b  #Player_Interaction_Ride, Player_InteractionType(a0)
-	beq    @Riding
-	
-	; Find a Djakk in range
+	; Find a Djakk
 	move.l #EntityArray_Monster, a1
 	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
@@ -665,18 +641,6 @@ PlayerStartColourAbility:
 	cmp.b  #0x0, Character_Dead(a1)
 	bne    @NextMonster
 	
-	; Check monster within taming range
-	jsr    PHYS_EntityDistSq
-	cmp.l  #(Player1DjakkTamingDistance*Player1DjakkTamingDistance), d0
-	bgt    @NextMonster
-	
-	; Check monster tamed
-	cmp.b  #MonsterState_Tamed, Monster_State(a1)
-	beq    @Tamed
-
-	; Howl
-	jsr    NymnHowl
-	
 	; Tame it
 	PUSHL  a0
 	PUSHL  d6
@@ -688,39 +652,6 @@ PlayerStartColourAbility:
 	; Now a pet
 	move.l a1, Player_Pet(a0)
 	
-	; Riding needs a second Action button press, bail out
-	bra    @EndMonsterLoop
-		
-	@Tamed:
-
-	; Must be alive
-	cmp.b  #0x0, Character_Dead(a1)
-	bne    @NextMonster
-
-	; Must be on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a1)
-	beq    @NextMonster
-
-	; Wait for howl anim to finish
-	move.l a0, a3
-	add.l  #Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size), a3
-	cmp.l  AnimObj_CurrentAnim(a0), a3
-	beq    @PlayingHowlAnim
-
-	; Bounds check
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
-	beq    @NextMonster
-
-	; Ride ze Shoopuf
-	move.l a1, a2
-	jsr    PlayerMountPet
-
-	; Use button toggle
-	move.b #0x1, Player_InteractionToggle(a0)
-	
 	; Done
 	bra    @EndMonsterLoop
 		
@@ -728,14 +659,13 @@ PlayerStartColourAbility:
 	add.l #Monster_Struct_Size, a1
 	dbra  d6, @MonsterLoop
 	
-	@InAir:
-	@PlayingHowlAnim:
 	@NoMonsters:
 	@EndMonsterLoop:
-	@Riding:
 
 	POPL  a1
 	
+	; Set ability active
+	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	bra    @End
 	
 	@NoColour:
@@ -782,8 +712,13 @@ PlayerStopColourAbility:
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
-	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	cmp.b  #0x0, Character_Running(a0)
+	beq    @Walking
+	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	bra    @ReturnColour
+	@Walking:
+	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	
 	bra    @ReturnColour
 	
@@ -968,19 +903,30 @@ PlayerUpdateColourAbility:
 	beq    @End
 	
 	; If in air
-	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
 	bne    @EndGlide
 	
 	; If -ve Y velocity
-	move.l PhysicsObj_VelY(a0), d0
-	cmp.l  #0x0, d0
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
 	bgt    @EndGlide
-	
+
+	; Can glide
+	move.b #0x1, Character_Gliding(a0)
+	move.l #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)	; Set max glide velocity
+	move.l #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
 	bra    @End
 	
 	@EndGlide:
-	jsr    PlayerStopColourAbility
+
+	; Can't glide
+	move.b #0x0, Character_Gliding(a0)
+	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	cmp.b  #0x0, Character_Running(a0)
+	beq    @Walking
+	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	bra    @End
+	@Walking:
+	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @End
 	
 	; ************************************
@@ -994,6 +940,9 @@ PlayerUpdateColourAbility:
 	; If active colour ability
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @SpeedUp
+
+	; Player can't run
+	jsr    CharacterCancelRun
 	
 	; Slow down global time
 	cmp.b  #Player1SlowTimeDiv, d0
@@ -1501,6 +1450,8 @@ PlayerCanDismountPet:
 	beq    @NoPet
 
 	; Check if riding pet
+	cmp.b  #Player_RideState_None, Player_RideState(a0)
+	beq    @NotRiding
 	cmp.b  #Player_RideState_Riding, Player_RideState(a0)
 	beq    @InRidingState
 
@@ -1518,6 +1469,7 @@ PlayerCanDismountPet:
 	move.b #0x0, d0
 
 	@NoPet:
+	@NotRiding:
 	@PetOnFloor:
 	@End:
 
@@ -1588,8 +1540,7 @@ PlayerStartInteract:
 	@EndPush:
 	
 	; Player can't run
-	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
-	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
+	jsr    CharacterCancelRun
 	
 	; Clamp to max velocity
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -1607,30 +1558,16 @@ PlayerStartInteract:
 
 	;==============================================================
 	
-	; Check for Djakks
-	;jsr    PlayerInteractTest_Djakks
-	;cmp.b  #0x1, Character_Interacting(a0)
-	;beq    @FoundInteraction
-	
-	;==============================================================
-	
-	; Test for special colour abilities
-	cmp.b  #ColourRed, Player_Colour(a0)
-	beq    @NoColourAbility
-	
-	; Performing colour ability
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
-	bne    @ColourAbilityActive
-	jsr    PlayerStartColourAbility
-	bra    @End
+	; Check for Pet
+	jsr    PlayerInteractTest_Pet
+	cmp.b  #0x1, Character_Interacting(a0)
+	beq    @FoundInteraction
 	
 	;==============================================================
 
 	@Dead:
 	@AlreadyInteracting:
 	@FoundInteraction:
-	@NoColourAbility:
-	@ColourAbilityActive:
 	@End:
 	
 	move.l (sp)+, d1
@@ -1662,6 +1599,9 @@ PlayerUpdateInteract:
 	bra    @NotPushing
 
 	@StillPushing:
+
+	; Player can't run
+	jsr    CharacterCancelRun
 
 	; Determine if light or heavy object
 	move.l Player_InteractObject(a0), a2
@@ -1708,7 +1648,10 @@ PlayerCancelInteract:
 	; If toggle state, need another PlayerStartInteract to end
 	cmp.b  #0x0, Player_InteractionToggle(a0)
 	bne    @ButtonToggle
+
+	;==============================================================
 	
+	; If pushing
 	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
 	bne    @NotPushing
 	
@@ -1726,9 +1669,20 @@ PlayerCancelInteract:
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	
 	@NotPushing:
-	
-	; Stop colour ability
-	jsr    PlayerStopColourAbility
+
+	;==============================================================
+
+	; If riding
+	cmp.b  #0x0, Character_Riding(a0)
+	beq    @NotRiding
+
+	; Dismount (voluntarily)
+	move.b #Player_Dismount_Voluntary, d0
+	jsr    PlayerDismountPet
+
+	@NotRiding:
+
+	;==============================================================
 
 	; Stop interacting
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
@@ -1820,90 +1774,58 @@ PlayerInteractTest_Fuzzls:
 	
 	rts
 
-PlayerInteractTest_Djakks:
+PlayerInteractTest_Pet:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Player must have beast taming ability
+	cmp.b  #ColourBlue, Player_Colour(a0)
+	bne    @CannotRide
+
+	; Player must have a pet
+	move.l Player_Pet(a0), a2
+	cmp.l  #0x0, a2
+	beq    @CannotRide
+
+	; Player must not already be riding
+	cmp.b  #0x0, Character_Riding(a0)
+	bne    @CannotRide
 	
-	; Character must be close to floor
+	; Player must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	cmp.b  #0x0, d0
-	beq    @PlayerOffFloor
-	
-	move.w (EntityCount_Monster), d6
-	cmp.w  #0x0, d6
-	beq    @NoDjakks
-	
-	; Get player collision bounds
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	beq    @CannotRide
 
-	; Check player against all Djakks in level
-	move.l #EntityArray_Monster, a2
-	sub.w  #0x1, d6
-	@DjakkLoop:
-
-	; Check on screen
+	; Pet must be on screen
 	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
-	beq    @NextDjakk
+	beq    @CannotRide
 
-	; Check Djakk is dead
+	; Pet must be alive
 	cmp.b  #0x0, Character_Dead(a2)
-	beq    @NextDjakk
+	bne    @CannotRide
 
-	; Get collision bounds
-	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	; Pet must be on floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a2)
+	beq    @CannotRide
 
-	; Check collision
-	PUSHM  d1-d4
+	; Pet must be tamed
+	cmp.b  #MonsterState_Tamed, Monster_State(a2)
+	bne    @CannotRide
+
+	; Bounds check
+	ENTITY_GETBOUNDS d1,d2,d5,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	POPM   d1-d4
 	cmp.b  #0x0, d0
-	beq    @NextDjakk
-	
-	; Check if Djakk still has its colour
-	move.b Monster_Colour(a2), d0
-	cmp.b  #ColourDrained, d0
-	beq    @NextDjakk
+	beq    @CannotRide
 
-	; Cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
-	
-	; Take its colour
-	PUSHL  d0
-	PUSHL  a2
-	move.w #0x0, Player_ColourChangeTimer(a0)	; Force old colour to lapse
-	jsr    PlayerStopColourAbility				; Stop ability
-	POPL   a2
-	POPL   d0
+	; Ride ze Shoopuf
+	jsr    PlayerMountPet
 
-	PUSHL  a2
-	move.b d0, Player_Colour(a0)
-	jsr    PlayerBeginColourSwitch
-	POPL   a2
-
-	PUSHL  a0
-	PUSHL  a2
-	move.l a2, a0
-	jsr    MonsterTakeColourPower
-	POPL   a2
-	POPL   a0
-
-	move.l a2, Player_ColourPowerHost(a0)
+	; Use button toggle type interaction
+	move.b #0x1, Player_InteractionToggle(a0)
 	
-	; Interacting until button depressed (to filter ability being triggered immediately)
-	move.b #0x1, Character_Interacting(a0)
-	move.b #Player_Interaction_Djakk, Player_InteractionType(a0)
-	move.l a2, Player_InteractObject(a0)
-	
-	bra    @End
-
-	@NextDjakk:
-	add.l  #Monster_Struct_Size, a2
-	dbra   d6, @DjakkLoop
-	
-	@NoDjakks:
-	@PlayerOffFloor:
-	@End:
+	@CannotRide:
 	
 	rts
 
