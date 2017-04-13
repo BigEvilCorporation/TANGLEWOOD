@@ -262,6 +262,11 @@ PlayerInit:
 	move.w  #Player1PushBoundsOuterDist, PhysicsObj_PushDetectOuter(a0)
 	
 	;==============================================================
+
+	; Add as potential flue occupant
+	jsr    FlueAddPotentialOccupant
+
+	;==============================================================
 	
 	; Running by default
 	jsr    CharacterStartRun

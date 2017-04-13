@@ -97,6 +97,9 @@ GameStateReset:
 
 	; Reset water level
 	move.b #0xFF, WaterLevel
+
+	; Reset potential flue occupants
+	move.b #0x0, FlueNumPotentialOccupants
 	
 	; Reset linked lists
 	LIST_CLEAR Characters,a4,a3

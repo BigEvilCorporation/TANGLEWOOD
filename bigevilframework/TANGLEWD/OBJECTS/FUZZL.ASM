@@ -120,8 +120,9 @@ Fuzzl_Animations	rs.b (Animation_Struct_Size*Fuzzl_NumAnims)
 Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
 Fuzzl_State_Bits    rs.b 1	; Fuzzl states
 Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
+Fuzzl_FlueOccupant  rs.b 1	; Registered as potential flue occupant
 ;--------------------------
-Fuzzl_Struct_Pad    rs.b 1  ; Alignment padding
+Fuzzl_Struct_Pad    rs.b 0  ; Alignment padding
 Fuzzl_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -168,6 +169,7 @@ FuzzlInit:
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
+	move.b  #0x0, Fuzzl_FlueOccupant(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -377,6 +379,13 @@ FuzzlUpdate:
 	; Set rolling state
 	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
+
+	; If not already registered as potential flue occupant, do it now
+	cmp.b  #0x0, Fuzzl_FlueOccupant(a0)
+	bne    @Registered
+	jsr    FlueAddPotentialOccupant
+	move.b #0x1, Fuzzl_FlueOccupant(a0)
+	@Registered:
 
 	@MovedFromInitialPos:
 

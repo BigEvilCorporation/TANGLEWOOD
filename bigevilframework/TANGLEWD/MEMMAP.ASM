@@ -206,6 +206,12 @@ GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 	ENDIF
 
+; Potential flue occupants list
+FluePotentialOccupants		 rs.l Flue_MaxPotentialOccupants
+FlueNumPotentialOccupants	 rs.b 1
+
+__padding06				     rs.b 3
+
 ; ************************************
 ; Checkpoints
 ; ************************************
@@ -238,8 +244,6 @@ DeathCount				 rs.w 1
 
 ; Next rope segment to allocate
 NextFreeRopeSegment		 rs.l 1
-
-; __padding06			     rs.b 0
 
 ; ************************************
 ; Audio

@@ -8,6 +8,7 @@
 
 ; Constants
 Flue_MaxEntities		equ 0x8
+Flue_MaxPotentialOccupants	equ 0x8
 Flue_Width				equ 0x50
 Flue_Height				equ 0x40
 Flue_BoundsExtendX		equ 0x08
@@ -287,12 +288,16 @@ FlueFindOccupant:
 	; a0 --- GameObj addr
 	; a2 --- Occupant desc address
 
-	; Search all entities
-	; TODO: Slow, sort entities into type lists
-	LIST_GET_SIZE EntityUpdate, d0	 	 ; Get entity list size
-	subi.l #0x1, d0						 ; -1 for loop
-	LIST_GET_HEAD EntityUpdate, a3		 ; Get list head
+	; Search all potential occupants
+	clr.l  d0
+	move.b (FlueNumPotentialOccupants), d0
+	cmp.b  #0x0, d0
+	beq    @NoPotentialOccupants
+	sub.b  #0x1, d0
+	lea    FluePotentialOccupants, a5
 	@EntityLp:							 ; For all entities in list
+
+	move.l (a5), a3
 
 	; Check entity type
 	move.l Entity_TypeBits(a3), d1
@@ -317,12 +322,12 @@ FlueFindOccupant:
 	beq    @NextEntity
 	
 	; Check if inside the flue
-	move.l a3, a1						 ; PhysicsObj to a1
-	move.l d0, -(sp)					 ; Backup entity counter
+	move.l a3, a1					; PhysicsObj to a1
+	PUSHL  d0						; Backup entity counter
 	jsr	   FlueTestPhysicsObjInside
 	move.b d0, d1
-	move.l (sp)+, d0					 ; Restore entity counter
-	move.l #0x0, a1						 ; Clear a1 again, it's the return val
+	POPL   d0						; Restore entity counter
+	move.l #0x0, a1					; Clear a1 again, it's the return val
 
 	cmp.b  #0x0, d1
 	beq    @Outside
@@ -349,9 +354,10 @@ FlueFindOccupant:
 	@Outside:
 	@CharacterDead:
 	@NextEntity:
-	LIST_GET_NEXT EntityUpdate,a3,a3	 ; Get next ptr
-	dbra   d0, @EntityLp				 ; Loop
+	add.l  #size_long, a5	 ; Get next ptr
+	dbra   d0, @EntityLp	 ; Loop
 	
+	@NoPotentialOccupants:
 	@NewOccupantFound:
 	
 	rts
@@ -407,4 +413,19 @@ FlueTestPhysicsObjInside:
 	
 	jsr PHYS_TestBoxInsideBox
 	
+	rts
+
+FlueAddPotentialOccupant:
+	; a0 --- Occupant to add
+
+	clr.l  d0
+	lea    FluePotentialOccupants, a2
+	move.b (FlueNumPotentialOccupants), d0
+	mulu.w #size_long, d0
+	add.l  d0, a2
+
+	move.l a0, (a2)
+
+	add.b  #0x1, (FlueNumPotentialOccupants)
+
 	rts
