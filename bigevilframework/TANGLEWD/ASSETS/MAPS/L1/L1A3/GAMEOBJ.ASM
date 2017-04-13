@@ -41,12 +41,13 @@ L1A3_Fuzzl_count equ 0x2
 L1A3_Fuzzl_Green_idx	equ 0x0
 L1A3_Fuzzl_Yellow_idx	equ 0x1
 
-L1A3_Stone_count equ 0x5
+L1A3_Stone_count equ 0x6
 L1A3_Stone_54_idx	equ 0x0
 L1A3_Stone_55_idx	equ 0x1
 L1A3_Stone_56_idx	equ 0x2
 L1A3_Stone_57_idx	equ 0x3
 L1A3_Stone_59_idx	equ 0x4
+L1A3_Stone_60_idx	equ 0x5
 
 L1A3_Nest_count equ 0x2
 L1A3_Nest_3_idx	equ 0x0
@@ -131,7 +132,7 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_Monster, a0
 	jsr MonsterInit
-	move.l #0x11200000, Entity_WorldPosX(a0)
+	move.l #0x11000000, Entity_WorldPosX(a0)
 	move.l #0x02900000, Entity_WorldPosY(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
@@ -204,15 +205,20 @@ L1A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x18f00000, Entity_WorldPosX(a0)
+	move.l #0x17e00000, Entity_WorldPosX(a0)
 	move.l #0x01a00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x15100000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
 	move.l #EntityArray_Nest, a0
 	jsr NestInit
-	move.l #0x18680000, Entity_WorldPosX(a0)
-	move.l #0x01b80000, Entity_WorldPosY(a0)
+	move.l #0x15c80000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit

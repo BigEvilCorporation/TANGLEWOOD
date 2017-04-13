@@ -14,13 +14,14 @@ L1A4_Nymn_54_idx	equ 0x0
 
 L1A4_Echo_count equ 0x0
 
-L1A4_BouncePlant_count equ 0x6
+L1A4_BouncePlant_count equ 0x7
 L1A4_BouncePlant_43_idx	equ 0x0
 L1A4_BouncePlant_44_idx	equ 0x1
 L1A4_BouncePlant_56_idx	equ 0x2
 L1A4_BouncePlant_57_idx	equ 0x3
 L1A4_BouncePlant_63_idx	equ 0x4
 L1A4_BouncePlant_64_idx	equ 0x5
+L1A4_BouncePlant_73_idx	equ 0x6
 
 L1A4_Boulder_count equ 0x1
 L1A4_Boulder_60_idx	equ 0x0
@@ -28,7 +29,7 @@ L1A4_Boulder_60_idx	equ 0x0
 L1A4_Monster_count equ 0x1
 L1A4_Djakk_idx	equ 0x0
 
-L1A4_Firefly_count equ 0x9
+L1A4_Firefly_count equ 0x8
 L1A4_Firefly_18_idx	equ 0x0
 L1A4_Firefly_19_idx	equ 0x1
 L1A4_Firefly_20_idx	equ 0x2
@@ -36,8 +37,7 @@ L1A4_Firefly_21_idx	equ 0x3
 L1A4_Firefly_22_idx	equ 0x4
 L1A4_Lvl3_Firefly_13_idx	equ 0x5
 L1A4_Firefly_26_idx	equ 0x6
-L1A4_Firefly_27_idx	equ 0x7
-L1A4_Firefly_41_idx	equ 0x8
+L1A4_Firefly_41_idx	equ 0x7
 
 L1A4_Fuzzl_count equ 0x9
 L1A4_Fuzzl_Yellow_idx	equ 0x0
@@ -137,6 +137,11 @@ L1A4_LoadGameObjects:
 	move.l #0x03880000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x28200000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
@@ -186,11 +191,6 @@ L1A4_LoadGameObjects:
 	jsr FireflyInit
 	move.l #0x26300000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x26900000, Entity_WorldPosX(a0)
-	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
