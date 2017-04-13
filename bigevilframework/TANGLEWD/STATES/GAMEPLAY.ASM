@@ -20,6 +20,7 @@ Gameplay_Enter:
 	
 	; Reset
 	PUSHL  a0
+	move.b #GamestateReset_ResetAudio, d0
 	jsr    GameStateReset
 	POPL   a0
 	

@@ -24,8 +24,9 @@ DemoEndState_Enter:
 	; Disable vint during state change
 	move.b #0x0, vint_enabled
 
-	; Reset
+	; Reset (but leave music playing)
 	PUSHL  a0
+	move.b #GamestateReset_LeaveAudio, d0
 	jsr    GameStateReset
 	POPL   a0
 	

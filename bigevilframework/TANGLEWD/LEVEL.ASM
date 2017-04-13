@@ -6,7 +6,20 @@
 ;   level.asm - Level asset loading, scrolling, state, collision
 ;==============================================================
 
+GamestateReset_LeaveAudio	equ 0
+GamestateReset_ResetAudio	equ 1
+
 GameStateReset:
+	; d0 (b) 1 = Reset audio, 0 = leave audio
+
+	; Reset audio volume, stop current track, clear all tracks
+	cmp.b  #GamestateReset_LeaveAudio, d0
+	beq    @LeaveAudio
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+	jsr    SND_StopTrack
+	jsr    SND_ClearTracks
+	@LeaveAudio:
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
@@ -78,12 +91,6 @@ GameStateReset:
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
 	jsr	   VDP_DMAQueue_ExecuteAll
-	
-	; Reset audio volume, stop current track, clear all tracks
-	move.b #0xFF, d0
-	jsr    SND_SetGlobalVolume
-	jsr    SND_StopTrack
-	jsr    SND_ClearTracks
 	
 	; Reset ropes
 	move.l  #EntityArray_Rope, NextFreeRopeSegment

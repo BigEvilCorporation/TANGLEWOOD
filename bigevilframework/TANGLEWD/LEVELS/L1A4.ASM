@@ -130,3 +130,23 @@ l1a4_Trigger_WakeDjakk:
 	
 	rts
 	
+l1a4_Trigger_FuzzlTreeEntrance:
+
+	PUSHL  a0
+
+	; Disarm Djakk if still alive (rare but possible)
+	move.l #l1a4_Djakk_idx, d0
+	mulu   #Monster_Struct_Size, d0
+	move.l #EntityArray_Monster, a0
+	add.l  d0, a0
+	jsr    MonsterDie
+
+	; Start 'Rain' track
+	IFND DEBUG
+	lea    track_bgm_cue_l2, a0
+	jsr    SND_PlayTrack
+	ENDIF
+
+	POPL   a0
+
+	rts
