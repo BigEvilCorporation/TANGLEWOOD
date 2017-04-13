@@ -98,7 +98,7 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_BouncePlant, a0
 	jsr BouncePlantInit
-	move.l #0x04400000, Entity_WorldPosX(a0)
+	move.l #0x04380000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
