@@ -18,11 +18,12 @@ GameStatePause:
 ;----------------------------------
 PauseState_PaletteBackup	 rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
 PauseState_Firefly			 rs.b Firefly_Struct_Size
+PauseState_VRAMAddr			 rs.w 1
 PauseState_PrevPadState		 rs.w 1
 PauseState_TextSpritesID     rs.w 1
 PauseState_TextSpritesCount  rs.w 1
 ;----------------------------------
-PauseState_Struct_Pad		 rs.b 2
+PauseState_Struct_Pad		 rs.b 0
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
@@ -128,14 +129,19 @@ Pause_Enter:
 	jsr    FireflyInit
 
 	; TODO: This isn't freed :(
+	move.w PauseState_VRAMAddr(a0), d0
+	cmp.w  #0x0, d0
+	bne    @Allocated
 	move.w #sprite_firefly_size_b, d0
 	jsr    VRAM_PoolAlloc
-	
+	move.w d0, PauseState_VRAMAddr(a0)
+	@Allocated:
+
+	; Load sprite sheet
 	lea    spritesheets_firefly, a1
 	lea    sprite_firefly_subsprite_dimensions_bits, a2
 	lea    sprite_firefly_subsprite_pos_offsets, a3
 	lea    sprite_firefly_numtiles_per_subsprite, a4
-	
 	move.l #sprite_firefly_size_t, d1
 	move.b #sprite_firefly_size_subsprites, d2
 	move.w #sprite_firefly_widthheight_subsprites, d3

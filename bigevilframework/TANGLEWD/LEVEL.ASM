@@ -114,6 +114,10 @@ GameStateReset:
 	lea    Tiles_PixelFont, a0
 	move.l #Tiles_PixelFontSizeT, d1
 	jsr    VDP_LoadTiles
+
+	; HACK: Clear pause state VRAM alloc
+	lea    GameStatePauseData, a2
+	move.w #0x0, PauseState_VRAMAddr(a2)
 	
 	rts
 
