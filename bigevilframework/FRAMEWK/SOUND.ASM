@@ -78,6 +78,10 @@ SND_PlayTrack:
 	cmp.l  #0x0, audio_current_track
 	beq    @Free
 
+	; If exclusivity held, bail
+	cmp.b  #0x0, audio_playback_locked
+	bne    @Busy
+
 	; Queue track
 	clr.l  d0
 	move.b Track_Type(a0), d0
@@ -85,10 +89,6 @@ SND_PlayTrack:
 	lea    audio_queued_tracks, a1
 	add.l  d0, a1
 	move.l a0, (a1)
-
-	; If exclusivity held, bail
-	cmp.b  #0x0, audio_playback_locked
-	bne    @Busy
 
 	; Determine transition type
 	move.b Track_Transition(a0), d0
