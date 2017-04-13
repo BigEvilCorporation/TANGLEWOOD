@@ -71,7 +71,7 @@ VRAM_ClearPools:
 
 VRAM_PoolAlloc:
 	; d0 (w) IN:  Size (bytes)
-	;    (l) OUT: VRAM address
+	;    (w) OUT: VRAM address
 
 	; Iterate all pools from small to large
 	lea vram_pools, a2

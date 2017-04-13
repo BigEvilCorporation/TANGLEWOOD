@@ -7,6 +7,7 @@
 ;==============================================================
 
 error_out_of_vram			equ 0x90
+error_out_of_sprites		equ 0x91
 
 error_dma_queue_full		equ 0xA0
 error_vdp_queue_full		equ 0xA1

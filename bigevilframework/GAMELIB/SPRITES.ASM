@@ -92,6 +92,12 @@ SPR_AddSubSprite:
 	; Alloc sprite ID
 	move.w (next_sprite_index), d5
 	add.w  #0x1, (next_sprite_index)
+
+	; Sanity check
+	cmp.w   #vdp_max_sprites, (next_sprite_index)
+	bne     @WithinLimit
+	RAISE_EXCEPTION error_out_of_sprites
+	@WithinLimit:
 	
 	; Offset into sprite table
 	lea     vdp_sprite_table, a0
