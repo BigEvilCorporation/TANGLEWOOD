@@ -87,6 +87,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_Rope
 	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Stone
+	move.w #0x0, EntityCount_VFX
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
@@ -134,6 +135,9 @@ LevelLoad:
 
 	; Load level SFX
 	jsr LevelAddSFX
+
+	; Load level VFX
+	jsr LevelLoadVFX
 
 	; Load level game objects
 	move.l (CurrentLevel), a1
@@ -271,6 +275,15 @@ LevelAddSFX:
 	;move.l #SFX_Chirp4, (a2)+
 	
 	ENDIF
+
+	rts
+
+LevelLoadVFX:
+
+	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
+	lea    vfx_spritesheet_water_splash, a2
+	lea    vfx_animation_water_splash_large, a3
+	jsr    VfxInit
 
 	rts
 	

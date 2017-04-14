@@ -1917,6 +1917,17 @@ PlayerInteractTest_Water:
 	beq    @NoSplashSFX
 	PLAYSFX (a2)
 	@NoSplashSFX:
+
+	; Play splash VFX
+	PUSHL  a0-a1
+	move.l Entity_WorldPosX(a0), d0	; Player X
+	move.l Entity_WorldPosY(a1), d1	; Water Y
+	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
+	move.w Entity_Height(a0), d2	; -splash height
+	TOSUBPIXELS d2
+	sub.l  d2, d1
+	jsr    VfxPlay
+	POPL   a0-a1
 	
 	@PrevInWater:
 	@LowSplashVel:

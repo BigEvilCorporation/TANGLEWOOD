@@ -55,6 +55,7 @@
 	include 'assets\sprites\rope.asm'
 	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
+	include 'assets\sprites\water.asm'
 
 	; ************************************
 	; Sprite palettes
@@ -83,6 +84,7 @@
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rope.asm'
+	include 'assets\anims\water.asm'
 
 	; ************************************
 	; Tilesets
@@ -131,6 +133,11 @@
 	include 'assets\audio\instrs.asm'
 	include 'assets\audio\tracks.asm'
 	include 'assets\audio\sfx.asm'
+
+	; ************************************
+	; VFX
+	; ************************************
+	include 'assets\vfx\water.asm'
 	
 	; ************************************
     ; Strings
@@ -170,3 +177,8 @@ PaletteId_World0		equ 0x0
 PaletteId_Monster		equ 0x1
 PaletteId_Fuzzl			equ 0x2
 PaletteId_Player		equ 0x3
+
+	; ************************************
+	; VFX IDs
+	; ************************************
+VfxId_WaterSplashLarge	equ 0x0

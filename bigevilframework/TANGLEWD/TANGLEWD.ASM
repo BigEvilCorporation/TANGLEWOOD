@@ -83,8 +83,10 @@ __start
 	include '..\gamelib\physics.asm'
 	include '..\gamelib\scnanim.asm'
 	include '..\gamelib\sprites.asm'
+	include '..\gamelib\sprsheet.asm'
 	include '..\gamelib\state.asm'
 	include '..\gamelib\stream.asm'
+	include '..\gamelib\vfx.asm'
 
 	IFD DEBUG
 	include '..\gamelib\debug.asm'		; NOT FOR RELEASE
