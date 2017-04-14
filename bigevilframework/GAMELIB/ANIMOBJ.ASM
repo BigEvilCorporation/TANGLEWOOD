@@ -255,10 +255,16 @@ AnimObjSetAnimation:
 	
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
+
+	; If not playing, reset
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	beq    @SkipChangeCheck
 	
 	; Check if changed
 	cmp.l  a1, a2
 	beq    @NoChange
+
+	@SkipChangeCheck:
 	
 	; New anim, clear subframe
 	move.l #0x0, AnimObj_AnimSubframe(a0)
