@@ -8,10 +8,13 @@
 
 __start
 	
+	; Include build config
+	include 'bldconf.asm'
+
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
 	
-	; Include Framework macros
+	; Include framework macros
 	include '..\framewk\macros.asm'
 	
 	; Include framework containers
@@ -23,7 +26,7 @@ __start
 	; Include interrupts
 	include 'interpts.asm'
 
-	; Include Framework code
+	; Include framework code
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\collisn.asm'
 	include '..\framewk\errors.asm'
@@ -133,18 +136,31 @@ __start
 	ENDIF
 	
 	; Include levels
+	IF INCLUDE_LEVEL_1
 	include 'levels\l1a1.asm'
 	include 'levels\l1a2.asm'
 	include 'levels\l1a3.asm'
 	include 'levels\l1a4.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_2
 	include 'levels\l2a1.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_3
 	include 'levels\l3a1.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_4
 	include 'levels\l4a1.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_5
 	include 'levels\l5a1.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_6
 	include 'levels\l6a1.asm'
-	
-	IFND FINAL
-	include 'levels\tst_lift.asm'
 	ENDIF
 	
 	; Include game code

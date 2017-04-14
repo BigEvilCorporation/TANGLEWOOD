@@ -59,10 +59,9 @@ HandlePlayerInput:
 	; =====================================================================
 	; Debug button combos
 	; =====================================================================
-	IFND FINAL
 
-	IFD DEBUG
 	; A+Start = profile frame
+	IF INCLUDE_PROFILER
 	cmp.w  #DebugButtonCombo_Profiler, d0
 	bne    @NoProfileCombo
 	cmp.w  #DebugButtonCombo_Profiler, d1
@@ -73,6 +72,7 @@ HandlePlayerInput:
 	ENDIF
 	
 	; A+B+C+Start = kill player
+	IF INCLUDE_DEBUG_DEATH
 	cmp.w  #DebugButtonCombo_KillPlayer, d0
 	bne    @NoPlayerKillCombo
 	cmp.w  #DebugButtonCombo_KillPlayer, d1
@@ -81,9 +81,10 @@ HandlePlayerInput:
 	jsr    CharacterDealDamage
 	bra    @SkipInput
 	@NoPlayerKillCombo:
+	ENDIF
 	
 	; A+B+Start = complete level
-	IFND DEBUG
+	IF INCLUDE_DEBUG_SKIPLEVEL
 	cmp.w  #DebugButtonCombo_CompleteLevel, d0
 	bne    @NoCompleteLevelCombo
 	cmp.w  #DebugButtonCombo_CompleteLevel, d1
@@ -94,6 +95,7 @@ HandlePlayerInput:
 	ENDIF
 	
 	; B+C+Start = move object mode
+	IF INCLUDE_DEBUG_FLY
 	cmp.w  #DebugButtonCombo_MoveObject, d0
 	bne    @NoMoveModeCombo
 	cmp.w  #DebugButtonCombo_MoveObject, d1
@@ -152,8 +154,6 @@ HandlePlayerInput:
 	bra    @SkipInput
 	
 	@MoveModeDisabled:
-	
-	@EndDebugInput:
 	ENDIF
 	
 	; =====================================================================

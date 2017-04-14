@@ -8,6 +8,33 @@
 	; Font tiles
 	; ************************************
 	include 'assets\fonts\pixelfnt.asm'
+
+	; ************************************
+	; Level assets
+	; ************************************
+	IF INCLUDE_LEVEL_1
+	include 'assets\levels\level1.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_2
+	include 'assets\levels\level2.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_3
+	include 'assets\levels\level3.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_4
+	include 'assets\levels\level4.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_5
+	include 'assets\levels\level5.asm'
+	ENDIF
+
+	IF INCLUDE_LEVEL_6
+	include 'assets\levels\level6.asm'
+	ENDIF
 	
 	; ************************************
 	; Sprite tilesheets
@@ -16,7 +43,9 @@
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
+	IF INCLUDE_CHARACTER_ECHO
 	include 'assets\sprites\echo.asm'
+	ENDIF
 	include 'assets\sprites\firefly.asm'
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
@@ -26,9 +55,6 @@
 	include 'assets\sprites\rope.asm'
 	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
-
-	; Level props
-	include 'assets\sprites\L1\mushroom.asm'
 
 	; ************************************
 	; Sprite palettes
@@ -48,16 +74,15 @@
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\djakk.asm'
 	include 'assets\anims\djrake.asm'
+	IF INCLUDE_CHARACTER_ECHO
 	include 'assets\anims\echo.asm'
+	ENDIF
 	ENDIF
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rope.asm'
-	
-	; Level props
-	include 'assets\anims\L1\mushroom.asm'
 
 	; ************************************
 	; Tilesets
@@ -69,28 +94,6 @@
 	include 'assets\maps\soundtst\tiles.asm'
 	include 'assets\maps\megafndr\tiles.asm'
 
-	; Levels
-	include 'assets\maps\l1\tiles.asm'
-	include 'assets\maps\l2\tiles.asm'
-	include 'assets\maps\l3\tiles.asm'
-	include 'assets\maps\l4\tiles.asm'
-	include 'assets\maps\l5\tiles.asm'
-	include 'assets\maps\l6\tiles.asm'
-	
-	IFND FINAL
-	include 'assets\maps\tst_lift\tiles.asm'
-	ENDIF
-
-	; ************************************
-	; Stamp animations
-	; ************************************
-	include 'assets\maps\l1\stmpanim.asm'
-	include 'assets\maps\l2\stmpanim.asm'
-	include 'assets\maps\l3\stmpanim.asm'
-	include 'assets\maps\l4\stmpanim.asm'
-	include 'assets\maps\l5\stmpanim.asm'
-	include 'assets\maps\l6\stmpanim.asm'
-	
 	; ************************************
 	; Static screen maps
 	; ************************************
@@ -110,187 +113,17 @@
 	include 'assets\maps\demoend\palette.asm'
 	include 'assets\maps\soundtst\palette.asm'
 
-	; Levels
-	include 'assets\maps\l1\palette.asm'
-	include 'assets\maps\l2\palette.asm'
-	include 'assets\maps\l3\palette.asm'
-	include 'assets\maps\l4\palette.asm'
-	include 'assets\maps\l5\palette.asm'
-	include 'assets\maps\l6\palette.asm'
-
-	IFND FINAL
-	include 'assets\maps\tst_lift\palette.asm'
-	ENDIF
-
-	; ************************************
-	; Block maps
-	; ************************************
-	include 'assets\maps\mainmenu\blockmap.asm'
-	include 'assets\maps\megafndr\blockmap.asm'
-
-	; L1
-	include 'assets\maps\l1\l1a1\blockmap.asm'
-	include 'assets\maps\l1\l1a2\blockmap.asm'
-	include 'assets\maps\l1\l1a3\blockmap.asm'
-	include 'assets\maps\l1\l1a4\blockmap.asm'
-	include 'assets\maps\l1\l1bg\blockmap.asm'
-
-	; L2
-	include 'assets\maps\l2\l2a1\blockmap.asm'
-	include 'assets\maps\l2\l2bg\blockmap.asm'
-
-	; L3
-	include 'assets\maps\l3\l3a1\blockmap.asm'
-	include 'assets\maps\l3\l3bg\blockmap.asm'
-
-	; L4
-	include 'assets\maps\l4\l4a1\blockmap.asm'
-	include 'assets\maps\l4\l4bg\blockmap.asm'
-
-	; L5
-	include 'assets\maps\l5\l5a1\blockmap.asm'
-	include 'assets\maps\l5\l5bg\blockmap.asm'
-
-	; L6
-	include 'assets\maps\l6\l6a1\blockmap.asm'
-	include 'assets\maps\l6\l6bg\blockmap.asm'
-
-	IFND FINAL
-	include 'assets\maps\tst_lift\blockmap.asm'
-	ENDIF
-	
 	; ************************************
 	; Blocks
 	; ************************************
 	include 'assets\maps\mainmenu\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
 
-	; L1
-	include 'assets\maps\l1\l1a1\blocks.asm'
-	include 'assets\maps\l1\l1a2\blocks.asm'
-	include 'assets\maps\l1\l1a3\blocks.asm'
-	include 'assets\maps\l1\l1a4\blocks.asm'
-	include 'assets\maps\l1\l1bg\blocks.asm'
-
-	; L2
-	include 'assets\maps\l2\l2a1\blocks.asm'
-	include 'assets\maps\l2\l2bg\blocks.asm'
-
-	; L3
-	include 'assets\maps\l3\l3a1\blocks.asm'
-	include 'assets\maps\l3\l3bg\blocks.asm'
-
-	; L4
-	include 'assets\maps\l4\l4a1\blocks.asm'
-	include 'assets\maps\l4\l4bg\blocks.asm'
-
-	; L5
-	include 'assets\maps\l5\l5a1\blocks.asm'
-	include 'assets\maps\l5\l5bg\blocks.asm'
-
-	; L6
-	include 'assets\maps\l6\l6a1\blocks.asm'
-	include 'assets\maps\l6\l6bg\blocks.asm'
-
-	IFND FINAL
-	include 'assets\maps\tst_lift\blocks.asm'
-	ENDIF
-	
 	; ************************************
-	; Collision tilesets
+	; Block maps
 	; ************************************
-	include 'assets\maps\l1\coltiles.asm'
-	include 'assets\maps\l3\coltiles.asm'
-	include 'assets\maps\l4\coltiles.asm'
-	include 'assets\maps\l6\coltiles.asm'
-	
-	IFND FINAL
-	include 'assets\maps\tst_lift\coltiles.asm'
-	ENDIF
-	
-	; ************************************
-	; Collision block maps
-	; ************************************
-
-	; L1
-	include 'assets\maps\l1\l1a1\colmap.asm'
-	include 'assets\maps\l1\l1a2\colmap.asm'
-	include 'assets\maps\l1\l1a3\colmap.asm'
-	include 'assets\maps\l1\l1a4\colmap.asm'
-
-	; L2
-	include 'assets\maps\l2\l2a1\colmap.asm'
-
-	; L3
-	include 'assets\maps\l3\l3a1\colmap.asm'
-
-	; L4
-	include 'assets\maps\l4\l4a1\colmap.asm'
-
-	; L5
-	include 'assets\maps\l5\l5a1\colmap.asm'
-
-	; L6
-	include 'assets\maps\l6\l6a1\colmap.asm'
-	
-	; ************************************
-	; Collision blocks
-	; ************************************
-
-	; L1
-	include 'assets\maps\l1\l1a1\colblock.asm'
-	include 'assets\maps\l1\l1a2\colblock.asm'
-	include 'assets\maps\l1\l1a3\colblock.asm'
-	include 'assets\maps\l1\l1a4\colblock.asm'
-
-	; L2
-	include 'assets\maps\l2\l2a1\colblock.asm'
-
-	; L3
-	include 'assets\maps\l3\l3a1\colblock.asm'
-
-	; L4
-	include 'assets\maps\l4\l4a1\colblock.asm'
-
-	; L5
-	include 'assets\maps\l5\l5a1\colblock.asm'
-
-	; L6
-	include 'assets\maps\l6\l6a1\colblock.asm'
-	
-	IFND FINAL
-	include 'assets\maps\tst_lift\colblock.asm'
-	ENDIF
-	
-	; ************************************
-    ; Game objects
-    ; ************************************
-	include 'assets\maps\mainmenu\gameobj.asm'
-
-	; L1
-	include 'assets\maps\l1\l1a1\gameobj.asm'
-	include 'assets\maps\l1\l1a2\gameobj.asm'
-	include 'assets\maps\l1\l1a3\gameobj.asm'
-	include 'assets\maps\l1\l1a4\gameobj.asm'
-
-	; L2
-	include 'assets\maps\l2\l2a1\gameobj.asm'
-
-	; L3
-	include 'assets\maps\l3\l3a1\gameobj.asm'
-
-	; L4
-	include 'assets\maps\l4\l4a1\gameobj.asm'
-
-	; L5
-	include 'assets\maps\l5\l5a1\gameobj.asm'
-
-	; L6
-	include 'assets\maps\l6\l6a1\gameobj.asm'
-	
-	IFND FINAL
-	include 'assets\maps\tst_lift\gameobj.asm'
-	ENDIF
+	include 'assets\maps\mainmenu\blockmap.asm'
+	include 'assets\maps\megafndr\blockmap.asm'
 	
 	; ************************************
 	; Audio

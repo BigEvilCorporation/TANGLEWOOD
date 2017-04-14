@@ -22,7 +22,11 @@ L5a1_BygoneAct1:
 	dc.l L5a1_Update					; Update routine
 	dc.l L5a1_Serialise					; Serialise routine
 	dc.l L5a1_LoadGameObjects			; Load game objects routine
-	dc.l 0x0 ;dc.l L5a2_BygoneAct2				; Next level
+	IF INCLUDE_LEVEL_6
+	dc.l L6a1_DeadwoodAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.w Gravity						; Default gravity
 	dc.w map_L5a1_width					; Map width (tiles)
 	dc.w map_L5a1_height				; Map height (tiles)

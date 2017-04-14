@@ -39,6 +39,8 @@ Echo_Struct_Size     		rs.b 0
 EchoInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IF INCLUDE_CHARACTER_ECHO
 	
 	; Base functionality
 	jsr    PlayerInit
@@ -437,12 +439,16 @@ EchoInit:
 	move.b #spriteanim_echo_mountnymn_numframes, Animation_Length(a3)
 	move.b #0x0, Animation_Looping(a3)
 	move.b #0x1, Animation_ZeroVelocity(a3)
+
+	ENDIF
 	
 	rts
 
 EchoLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IF INCLUDE_CHARACTER_ECHO
 
 	PUSHL  a1
 
@@ -463,6 +469,8 @@ EchoLoadGfx:
 	jsr    SpriteObjLoad
 
 	POPL   a1
+
+	ENDIF
 
 	rts
 	
@@ -608,6 +616,8 @@ EchoUpdate:
 EchoBeginCarried:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IF INCLUDE_CHARACTER_ECHO
 	
 	; Cancel velocity and acceleration
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -655,11 +665,15 @@ EchoBeginCarried:
 	; Start mounting sequence
 	move.b #EchoMountNymn_Jumping, Echo_MountedState(a0)
 
+	ENDIF
+
 	rts
 	
 EchoEndCarried:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IF INCLUDE_CHARACTER_ECHO
 	
 	; Cancel velocity and acceleration
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -703,6 +717,8 @@ EchoEndCarried:
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
+
+	ENDIF
 
 	rts
 

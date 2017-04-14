@@ -255,23 +255,26 @@ BGMOffTimer				 rs.w 1
 ; ************************************
 ; Level runtime data
 ; ************************************
-	IFND DEBUG
-; L1
+	IF INCLUDE_LEVEL_1
 LevelData_L1A1			 rs.b L1A1Data_Struct_Size
 LevelData_L1A2			 rs.b l1a2Data_Struct_Size
 LevelData_L1A3			 rs.b l1a3Data_Struct_Size
 LevelData_L1A4			 rs.b l1a4Data_Struct_Size
+	ENDIF
 
-; L2
+	IF INCLUDE_LEVEL_2
 LevelData_L2A1			 rs.b L2A1Data_Struct_Size
+	ENDIF
 
-; L3
+	IF INCLUDE_LEVEL_3
 LevelData_L3A1			 rs.b L3A1Data_Struct_Size
+	ENDIF
 
-; L4
+	IF INCLUDE_LEVEL_4
 LevelData_L4A1			 rs.b L4A1Data_Struct_Size
+	ENDIF
 
-; L6
+	IF INCLUDE_LEVEL_6
 LevelData_L6A1			 rs.b L6A1Data_Struct_Size
 	ENDIF
 

@@ -22,7 +22,11 @@ l3a1_HeritageAct1:
 	dc.l l3a1_Update					; Update routine
 	dc.l l3a1_Serialise					; Serialise routine
 	dc.l l3a1_LoadGameObjects			; Load game objects routine
-	dc.l 0x0 ;dc.l l3a2_HeritageAct2				; Next level
+	IF INCLUDE_LEVEL_4
+	dc.l l4a1_TetheredAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.w Gravity						; Default gravity
 	dc.w map_l3a1_width					; Map width (tiles)
 	dc.w map_l3a1_height				; Map height (tiles)

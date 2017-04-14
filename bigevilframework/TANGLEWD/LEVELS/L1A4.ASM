@@ -19,7 +19,11 @@ l1a4_HarlequinForestAct4:
 	dc.l l1a4_Update					; Update routine
 	dc.l l1a4_Serialise					; Serialise routine
 	dc.l l1a4_LoadGameObjects			; Load game objects routine
-	dc.l 0x0							; Next level
+	IF INCLUDE_LEVEL_2
+	dc.l l2a1_StormWarningAct1			; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.w Gravity						; Default gravity
 	dc.w map_l1a4_width					; Map width
 	dc.w map_l1a4_height				; Map height

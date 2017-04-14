@@ -22,7 +22,11 @@ l2a1_StormWarningAct1:
 	dc.l l2a1_Update					; Update routine
 	dc.l l2a1_Serialise					; Serialise routine
 	dc.l l2a1_LoadGameObjects			; Load game objects routine
-	dc.l 0x0 ;dc.l l2a2_StormWarningAct2				; Next level
+	IF INCLUDE_LEVEL_3
+	dc.l l3a1_HeritageAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.w Gravity						; Default gravity
 	dc.w map_l2a1_width					; Map width (tiles)
 	dc.w map_l2a1_height				; Map height (tiles)

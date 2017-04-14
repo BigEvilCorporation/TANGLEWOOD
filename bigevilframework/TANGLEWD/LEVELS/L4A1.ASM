@@ -22,7 +22,11 @@ l4a1_TetheredAct1:
 	dc.l l4a1_Update					; Update routine
 	dc.l l4a1_Serialise					; Serialise routine
 	dc.l l4a1_LoadGameObjects			; Load game objects routine
-	dc.l 0x0 ;dc.l l4a2_TetheredAct2				; Next level
+	IF INCLUDE_LEVEL_5
+	dc.l L5a1_BygoneAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.w Gravity						; Default gravity
 	dc.w map_l4a1_width					; Map width (tiles)
 	dc.w map_l4a1_height				; Map height (tiles)
