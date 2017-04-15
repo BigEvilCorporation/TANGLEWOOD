@@ -20,6 +20,7 @@ Boulder_Decel				equ 0x000800
 
 Boulder_AnimSpeedVelDiv		equ 0x0800
 
+Boulder_RollSFXVel			equ 0x002000
 Boulder_HitGroundSFXVel		equ 0x050000	; Min downward velocity to play thud SFX
 Boulder_MinDamageYVel		equ 0x050000	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF	; Damage dealt to characters

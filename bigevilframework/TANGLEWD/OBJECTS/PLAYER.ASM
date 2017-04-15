@@ -24,7 +24,7 @@ Player1PushBoundsOuterDist	equ 0x4
 
 ; Player collision bounds (in jump state)
 Player1BoundsJumpWidth		equ Player1Width-0x10
-Player1BoundsJumpHeight		equ Player1Height-0x10
+Player1BoundsJumpHeight		equ Player1Height-0x08
 Player1BoundsJumpOffsetX	equ 0x08
 Player1BoundsJumpOffsetY	equ 0x08
 
@@ -1550,10 +1550,10 @@ PlayerStartInteract:
 	; Determine if light or heavy object
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
 	bgt    @HeavyObj
-	move.b #0x1, Character_Pushing(a0)
+	move.b #Character_PushLight, Character_Pushing(a0)
 	bra    @EndPush
 	@HeavyObj:
-	move.b #0x2, Character_Pushing(a0)
+	move.b #Character_PushHeavy, Character_Pushing(a0)
 	@EndPush:
 	
 	; Player can't run
@@ -1610,6 +1610,16 @@ PlayerUpdateInteract:
 	cmp.b  #0x0, d0
 	bne    @StillPushing
 
+	;==============================================================
+	; HACK: Handle boulder roll SFX here for now
+	; TODO: Objects to handle their own roll SFX
+	cmp.b  #Character_PushHeavy, Character_Pushing(a0)
+	bne    @NoPushSFX
+	jsr    SND_StopSFX
+	@NoPushSFX:
+	; END HACK
+	;==============================================================
+
 	; Cannot be pushed/no longer in range - clear pushing flags (but keep interaction flag until button depressed)
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_LockSpriteFlip(a0)
@@ -1624,10 +1634,22 @@ PlayerUpdateInteract:
 	move.l Player_InteractObject(a0), a2
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
 	bgt    @HeavyObj
-	move.b #0x1, Character_Pushing(a0)
+	move.b #Character_PushLight, Character_Pushing(a0)
 	bra    @LightObj
 	@HeavyObj:
-	move.b #0x2, Character_Pushing(a0)
+	move.b #Character_PushHeavy, Character_Pushing(a0)
+	;==============================================================
+	; HACK: Handle boulder roll SFX here for now
+	; TODO: Objects to handle their own roll SFX
+	cmp.l   #Boulder_RollSFXVel, PhysicsObj_VelX(a2)
+	blt     @StopPushSFX
+	PLAYSFX #SFX_BoulderRoll
+	bra     @EndSFX
+	@StopPushSFX:
+	jsr     SND_StopSFX
+	@EndSFX:
+	; END HACK
+	;==============================================================
 	@LightObj:
 	
 	; Scale push anim speed based on velocity
@@ -1672,6 +1694,16 @@ PlayerCancelInteract:
 	cmp.b  #Player_Interaction_Push, Player_InteractionType(a0)
 	bne    @NotPushing
 	
+	;==============================================================
+	; HACK: Handle boulder roll SFX here for now
+	; TODO: Objects to handle their own roll SFX
+	cmp.b  #Character_PushHeavy, Character_Pushing(a0)
+	bne    @NoPushSFX
+	jsr    SND_StopSFX
+	@NoPushSFX:
+	; END HACK
+	;==============================================================
+
 	; Stop pushing
 	move.b #0x0, Character_Pushing(a0)
 	

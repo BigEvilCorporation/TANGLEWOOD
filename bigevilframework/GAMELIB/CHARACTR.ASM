@@ -12,6 +12,9 @@
 Character_LandVel		    equ 0x030000
 Character_FallVel		    equ 0x020000
 
+Character_PushLight			equ 0x1
+Character_PushHeavy			equ 0x2
+
 ; ************************************
 ; Animation ids
 ; ************************************
@@ -345,7 +348,7 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Push, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
-	cmp.b  #0x1, d0
+	cmp.b  #Character_PushLight, d0
 	beq    @SetAnim
 	
 	; =====================================================================
@@ -353,7 +356,7 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_PushHeavy, d1
 	move.b Character_Pushing(a0), d0	; If player is pushing, set push anim
-	cmp.b  #0x2, d0
+	cmp.b  #Character_PushHeavy, d0
 	beq    @SetAnim
 	
 	; =====================================================================

@@ -9,9 +9,11 @@
 ;==============================================================
 ; Constants
 ;==============================================================
-PhysicsObjHitWallNone      equ 0x0
-PhysicsObjHitWallLeft      equ 0x1
-PhysicsObjHitWallRight     equ 0x2
+PhysicsObjHitWallNone				equ 0x0
+PhysicsObjHitWallLeft				equ 0x1
+PhysicsObjHitWallRight				equ 0x2
+
+PhysiceObjDefaultPushBoundsOuter	equ 0x1
 
 ;==============================================================
 ; PhysicsObject
@@ -81,7 +83,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
 	move.w #0x0, PhysicsObj_BoundsHeight(a0)
-	move.w #0x8, PhysicsObj_PushDetectOuter(a0)
+	move.w #PhysiceObjDefaultPushBoundsOuter, PhysicsObj_PushDetectOuter(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)

@@ -73,6 +73,7 @@ echo_instruments:
 	Echo_ListEntry Instr3D
 	Echo_ListEntry Instr3E
 	Echo_ListEntry Instr3F
+	Echo_ListEntry Instr40
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -85,7 +86,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x40
+PCM_InstrIndex	equ 0x41
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -152,6 +153,7 @@ Instr3C: incbin 'assets\audio\instrs\instr_3C.eif'
 Instr3D: incbin 'assets\audio\instrs\instr_3D.eif'
 Instr3E: incbin 'assets\audio\instrs\instr_3E.eif'
 Instr3F: incbin 'assets\audio\instrs\instr_3F.eif'
+Instr40: incbin 'assets\audio\instrs\instr_40.eif'
 
 	
 	; PCM

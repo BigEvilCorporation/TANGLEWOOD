@@ -8,41 +8,41 @@
 	dc.b $e9		; Lock channel PSG 2
 	dc.b $ea		; Lock channel PSG 3
 ; Pattern $00, Row 0; 
-	dc.b $40, $3f	; Set instrument for channel FM 1
+	dc.b $40, $40	; Set instrument for channel FM 1
 	dc.b $20, $0b	; Set volume for channel FM 1
 	dc.b $00, $73	; Note A-3 on channel FM 1
 	dc.b $f0, $40	; Set params for channel FM 1
-	dc.b $45, $3f	; Set instrument for channel FM 5
+	dc.b $45, $40	; Set instrument for channel FM 5
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $05, $45	; Note D-2 on channel FM 5
 	dc.b $f5, $c0	; Set params for channel FM 5
-	dc.b $49, $3e	; Set instrument for channel PSG 2
+	dc.b $49, $3f	; Set instrument for channel PSG 2
 	dc.b $29, $03	; Set volume for channel PSG 2
 	dc.b $09, $20	; Note E-1 on channel PSG 2
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 
 	dc.b $fe, $02	; Delay
-	dc.b $41, $3f	; Set instrument for channel FM 2
+	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $21, $0b	; Set volume for channel FM 2
 	dc.b $01, $89	; Note E-4 on channel FM 2
 	dc.b $f1, $80	; Set params for channel FM 2
-	dc.b $4a, $3e	; Set instrument for channel PSG 3
+	dc.b $4a, $3f	; Set instrument for channel PSG 3
 	dc.b $2a, $03	; Set volume for channel PSG 3
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
 ; Pattern $00, Row 3; 
 ; Pattern $00, Row 4; 
 	dc.b $fe, $02	; Delay
-	dc.b $42, $3f	; Set instrument for channel FM 3
+	dc.b $42, $40	; Set instrument for channel FM 3
 	dc.b $22, $0b	; Set volume for channel FM 3
 	dc.b $02, $93	; Note A-4 on channel FM 3
 	dc.b $f2, $c0	; Set params for channel FM 3
-	dc.b $48, $3e	; Set instrument for channel PSG 1
+	dc.b $48, $3f	; Set instrument for channel PSG 1
 	dc.b $28, $03	; Set volume for channel PSG 1
 	dc.b $08, $32	; Note C#2 on channel PSG 1
 ; Pattern $00, Row 5; 
 ; Pattern $00, Row 6; 
 	dc.b $fe, $02	; Delay
-	dc.b $44, $3f	; Set instrument for channel FM 4
+	dc.b $44, $40	; Set instrument for channel FM 4
 	dc.b $24, $0b	; Set volume for channel FM 4
 	dc.b $04, $a5	; Note D-5 on channel FM 4
 	dc.b $f4, $40	; Set params for channel FM 4
