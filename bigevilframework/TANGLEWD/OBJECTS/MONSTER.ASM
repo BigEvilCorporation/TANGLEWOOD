@@ -238,6 +238,7 @@ MonsterInit:
 	;==============================================================
 
 	; Setup default character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 
@@ -302,6 +303,7 @@ MonsterInit:
 	move.b #0x0, Animation_Looping(a3)
 	
 	; Setup bespoke character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Monster_Animations, a2
 	

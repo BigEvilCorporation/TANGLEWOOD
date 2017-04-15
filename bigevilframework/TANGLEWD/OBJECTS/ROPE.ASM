@@ -54,6 +54,7 @@ RopeSegmentInit:
 	move.w #Rope_Height, Entity_Height(a0)
 	
 	; Setup animation
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #RopeSegment_Animations, a2
 

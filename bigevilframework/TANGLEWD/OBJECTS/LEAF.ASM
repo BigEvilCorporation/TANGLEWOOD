@@ -82,6 +82,7 @@ LeafInit:
 	move.w (a2), Animation_FirstFrameOffset(a3)
 
 	; Load anim
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l #spriteanim_leaf_fall_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
 	move.l #0x0, Animation_AnimTrackPositionY(a3)

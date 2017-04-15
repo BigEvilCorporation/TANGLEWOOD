@@ -89,6 +89,7 @@ EchoInit:
 	;==============================================================
 
 	; Setup default character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 
@@ -288,6 +289,7 @@ EchoInit:
 	;==============================================================
 	
 	; Setup player animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Player_Animations, a2
 	
@@ -413,6 +415,7 @@ EchoInit:
 	;==============================================================
 	
 	; Setup Echo specific animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Echo_Animations, a2
 	

@@ -174,6 +174,7 @@ DjrakeInit:
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 
 	; Setup default character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 
@@ -225,6 +226,7 @@ DjrakeInit:
 	;move.b #0x1, Animation_Looping(a3)
 	;
 	;; Setup bespoke character animations
+	;; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	;move.l a0, a2
 	;add.l  #Djrake_Animations, a2
 	;

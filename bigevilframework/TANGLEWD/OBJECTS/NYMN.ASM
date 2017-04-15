@@ -80,6 +80,7 @@ NymnInit:
 	;==============================================================
 
 	; Setup default character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 
@@ -256,6 +257,7 @@ NymnInit:
 	;==============================================================
 	
 	; Setup player animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Player_Animations, a2
 	
@@ -359,6 +361,7 @@ NymnInit:
 	;==============================================================
 	
 	; Setup Nymn specific animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Nymn_Animations, a2
 	

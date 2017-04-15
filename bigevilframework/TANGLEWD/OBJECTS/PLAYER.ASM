@@ -759,6 +759,9 @@ PlayerStopColourAbility:
 	
 	; Re-enable time of day
 	move.b #0x1, (TimeOfDayEnabled)
+
+	; Reset global time div
+	move.b #0x1, GlobalTimeDiv
 	
 	; Re-enable run
 	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
@@ -936,18 +939,23 @@ PlayerUpdateColourAbility:
 
 	; Get global time div
 	move.b (GlobalTimeDiv), d0
+
+	; If approaching end of timer, start speeding up
+	cmp.b #Player1SlowTimeDiv, Player_ColourChangeTimer(a0)
+	bgt   @SpeedUp
 	
-	; If active colour ability
+	; If colour ability inactive, start speeding up
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @SpeedUp
-
-	; Player can't run
-	jsr    CharacterCancelRun
 	
 	; Slow down global time
 	cmp.b  #Player1SlowTimeDiv, d0
 	beq    @EndTimeDiv
 	addi.b #0x1, d0
+
+	; Player can't run
+	jsr    CharacterCancelRun
+
 	bra    @ApplyTime
 	
 	@SpeedUp:
@@ -1526,6 +1534,15 @@ PlayerStartInteract:
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
 	move.l a2, Player_InteractObject(a0)
+
+	; If under time slow ability
+	cmp.b  #ColourGreen, Player_Colour(a0)
+	bne    @NoTimeSlow
+
+	; Touched objects are no longer affected by time slow
+	move.b #0x1, AnimObj_SpeedDiv(a2)
+
+	@NoTimeSlow:
 
 	; Lock orientation
 	move.b #0x1, Character_LockSpriteFlip(a0)

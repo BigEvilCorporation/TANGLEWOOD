@@ -54,6 +54,7 @@ FireflyInit:
 	move.b #0x1, Firefly_Pickup_Value(a0)
 	
 	; Default anim
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l  a0, a3
 	add.l   #Firefly_Animation, a3
 	move.w #spritesheet_firefly_red_frameoffset, Animation_FirstFrameOffset(a3)

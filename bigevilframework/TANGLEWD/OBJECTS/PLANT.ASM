@@ -159,6 +159,7 @@ BouncePlantInit:
 	move.b  #0x0, BouncePlant_Active(a0)
 	
 	; Setup animation
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a3
 	add.l  #BouncePlant_Animations, a3
 	

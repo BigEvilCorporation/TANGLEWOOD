@@ -28,5 +28,6 @@ vfx_animation_water_splash_large:
 	dc.b spriteanim_water_splash_large_numframes	; Length
 	dc.b 0x0										; Looping
 	dc.b 0x0										; Zero velocity
+	dc.b 0x1										; No speed scale
 
 	even

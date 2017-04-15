@@ -187,6 +187,7 @@ FuzzlInit:
 	LIST_APPEND_TAIL PushableObjs, a0, a3
 	
 	; Setup animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
 	

@@ -104,6 +104,7 @@ ActorInit:
 	move.l  #ActorWalkToRunVel, Character_WalkToRunVel(a0)
 	
 	; Setup default character animations
+	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 

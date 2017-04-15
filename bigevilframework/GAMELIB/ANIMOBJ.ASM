@@ -79,9 +79,14 @@ AnimObjUpdate:
 	ext.l  d0
 	
 	; Speed div
+	cmp.b  #0x0, Animation_NoSpeedScale(a2)
+	bne    @NoSpeedScale
 	move.b AnimObj_SpeedDiv(a0), d1
+	cmp.b  #0x1, d1
+	beq    @NoSpeedScale
 	andi.l #0x000000FF, d1
 	divs   d1, d0
+	@NoSpeedScale:
 	
 	; Sign extend speed up to longword
 	ext.l  d0
