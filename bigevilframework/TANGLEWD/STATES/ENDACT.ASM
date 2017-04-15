@@ -36,6 +36,15 @@ EndAct_Enter:
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    PAL_LerpStartAll
+
+	; If collected all fireflies, play victory outro
+	move.w (EntityCount_Firefly), d0
+	move.w (FireflyPickupCount), d1
+	cmp.w  d0, d1
+	bne    @NotCollectedAll
+	lea    track_bgm_actoutro_allfireflies, a0
+	jsr    SND_PlayTrack
+	@NotCollectedAll:
 	
 	rts
 	

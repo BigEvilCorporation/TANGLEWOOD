@@ -29,13 +29,15 @@ L1A3_Boulder_11_idx	equ 0x0
 L1A3_Monster_count equ 0x1
 L1A3_Djakk_idx	equ 0x0
 
-L1A3_Firefly_count equ 0x6
-L1A3_Firefly_27_idx	equ 0x0
+L1A3_Firefly_count equ 0x8
+L1A3_Firefly_23_idx	equ 0x0
 L1A3_Firefly_26_idx	equ 0x1
 L1A3_Firefly_24_idx	equ 0x2
 L1A3_Firefly_25_idx	equ 0x3
 L1A3_Firefly_22_idx	equ 0x4
-L1A3_Firefly_23_idx	equ 0x5
+L1A3_Firefly_61_idx	equ 0x5
+L1A3_Firefly_62_idx	equ 0x6
+L1A3_Firefly_63_idx	equ 0x7
 
 L1A3_Fuzzl_count equ 0x2
 L1A3_Fuzzl_Green_idx	equ 0x0
@@ -139,13 +141,13 @@ L1A3_LoadGameObjects:
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
-	move.l #0x1e500000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #0x0d000000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x1e180000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
+	move.l #0x08f00000, Entity_WorldPosX(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -164,8 +166,18 @@ L1A3_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0d000000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
+	move.l #0x06e00000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x1f080000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x1c180000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 

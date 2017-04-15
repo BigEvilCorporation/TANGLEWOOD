@@ -34,26 +34,15 @@ L1A1_Boulder_69_idx	equ 0x0
 
 L1A1_Monster_count equ 0x0
 
-L1A1_Firefly_count equ 0x13
-L1A1_Firefly_4_idx	equ 0x0
+L1A1_Firefly_count equ 0x8
+L1A1_Firefly_17_idx	equ 0x0
 L1A1_Firefly_5_idx	equ 0x1
-L1A1_Firefly_6_idx	equ 0x2
-L1A1_Firefly_7_idx	equ 0x3
-L1A1_Firefly_46_idx	equ 0x4
+L1A1_Firefly_12_idx	equ 0x2
+L1A1_Firefly_48_idx	equ 0x3
+L1A1_Firefly_18_idx	equ 0x4
 L1A1_Firefly_47_idx	equ 0x5
-L1A1_Firefly_50_idx	equ 0x6
+L1A1_Firefly_14_idx	equ 0x6
 L1A1_Firefly_60_idx	equ 0x7
-L1A1_Firefly_12_idx	equ 0x8
-L1A1_Firefly_13_idx	equ 0x9
-L1A1_Firefly_14_idx	equ 0xa
-L1A1_Firefly_15_idx	equ 0xb
-L1A1_Firefly_16_idx	equ 0xc
-L1A1_Firefly_17_idx	equ 0xd
-L1A1_Firefly_18_idx	equ 0xe
-L1A1_Firefly_19_idx	equ 0xf
-L1A1_Firefly_59_idx	equ 0x10
-L1A1_Firefly_48_idx	equ 0x11
-L1A1_Firefly_52_idx	equ 0x12
 
 L1A1_Fuzzl_count equ 0x2
 L1A1_Fuzzl_Yellow_idx	equ 0x0
@@ -173,52 +162,32 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Firefly, a0
 	jsr FireflyInit
-	move.l #0x13d00000, Entity_WorldPosX(a0)
+	move.l #0x17580000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x13a80000, Entity_WorldPosX(a0)
 	move.l #0x00f80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x13400000, Entity_WorldPosX(a0)
-	move.l #0x00f00000, Entity_WorldPosY(a0)
+	move.l #0x00f00000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x14580000, Entity_WorldPosX(a0)
-	move.l #0x01180000, Entity_WorldPosY(a0)
+	move.l #0x25280000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x06d00000, Entity_WorldPosX(a0)
-	move.l #0x01180000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x1fe80000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
+	move.l #0x0d800000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x1f980000, Entity_WorldPosX(a0)
-	move.l #0x01b00000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x25d00000, Entity_WorldPosX(a0)
-	move.l #0x00d00000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x03780000, Entity_WorldPosX(a0)
-	move.l #0x01400000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x00f00000, Entity_WorldPosX(a0)
-	move.l #0x02e80000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x04680000, Entity_WorldPosX(a0)
 	move.l #0x01b00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
@@ -228,43 +197,8 @@ L1A1_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0ee00000, Entity_WorldPosX(a0)
-	move.l #0x01380000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x15f80000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x17580000, Entity_WorldPosX(a0)
-	move.l #0x01100000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x0d800000, Entity_WorldPosX(a0)
-	move.l #0x02a80000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x0d880000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x03900000, Entity_WorldPosX(a0)
-	move.l #0x01b80000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x24a80000, Entity_WorldPosX(a0)
-	move.l #0x00b80000, Entity_WorldPosY(a0)
-	jsr FireflyLoadGfx
-	add.l #Firefly_Struct_Size, a0
-	jsr FireflyInit
-	move.l #0x26e00000, Entity_WorldPosX(a0)
-	move.l #0x01280000, Entity_WorldPosY(a0)
+	move.l #0x03780000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 

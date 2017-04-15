@@ -45,6 +45,16 @@ track_bgm_lvloutro:
 	dc.b	Track_Transition_Instant
 	even
 
+track_bgm_actoutro_allfireflies:
+	dc.l	bgm_lvlintro
+	dc.w	0x03DF
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_Exclusive
+	dc.b	SFX_Priority_Lowest
+	dc.b	Track_Transition_Instant
+	even
+
 track_bgm_dawn:
 	dc.l	bgm_dawn
 	dc.w	0x01FF

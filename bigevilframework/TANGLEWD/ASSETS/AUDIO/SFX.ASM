@@ -73,6 +73,7 @@ SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
+SFX_Data_FireflyCollectAll:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_MushroomBounce:	include 'assets\audio\SFX\objects\mushroom.asm'
 SFX_Data_FuzzlDrop:			include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
 SFX_Data_FuzzlAlert:		include 'assets\audio\SFX\fuzzl\fuzlalrt.asm'
@@ -123,6 +124,13 @@ SFX_BoulderBreak:
 
 SFX_FireflyCollect:
 	dc.l SFX_Data_FireflyCollect	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_FireflyCollectAll:
+	dc.l SFX_Data_FireflyCollectAll	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

@@ -69,7 +69,13 @@ Fail_Update:
 	cmp.l  #0x0, d0
 	bne    @TimerRunning
 	
-	; Timer elapsed, restart gameplay state
+	; Timer elapsed, reset audio
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+	jsr    SND_StopTrack
+	jsr    SND_ClearTracks
+
+	; Restart gameplay state
 	lea    GameStateGameplay, a0
 	jsr    GameStateEnter
 	

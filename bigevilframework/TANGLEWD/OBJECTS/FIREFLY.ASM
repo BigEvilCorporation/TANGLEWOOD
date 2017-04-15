@@ -172,7 +172,15 @@ FireflyTestObj:
 	addi.w #0x1, FireflyPickupCount
 	
 	; Play SFX
+	move.w (EntityCount_Firefly), d0
+	move.w (FireflyPickupCount), d1
+	cmp.w  d0, d1
+	beq    @CollectedAll
 	PLAYSFX #SFX_FireflyCollect
+	bra    @EndSFX
+	@CollectedAll:
+	PLAYSFX #SFX_FireflyCollectAll
+	@EndSFX:
 
 	@NotPickedUp:
 	@AlreadypickedUp:
