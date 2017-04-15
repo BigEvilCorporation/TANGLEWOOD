@@ -243,13 +243,13 @@ L1A1_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0dc80000, Entity_WorldPosX(a0)
-	move.l #0x02c00000, Entity_WorldPosY(a0)
+	move.l #0x0d800000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0dc00000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #0x0d880000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -313,8 +313,8 @@ L1A1_LoadGameObjects:
 
 	move.l #EntityArray_Flue, a0
 	jsr FlueInit
-	move.l #0x0da80000, Entity_WorldPosX(a0)
-	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #0x0d680000, Entity_WorldPosX(a0)
+	move.l #0x03200000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
