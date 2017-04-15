@@ -80,6 +80,32 @@ l1a4_Init:
 	add.l  d0, a1
 	
 	move.l a1, Flue_OutputFlue(a0)
+	
+	; Link secret area flue A with B
+	move.l #l1a4_Flue_Secret_A_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a0
+	add.l  d0, a0
+	
+	move.l #l1a4_Flue_Secret_B_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
+
+	; Link secret area flue C with D
+	move.l #l1a4_Flue_Secret_C_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a0
+	add.l  d0, a0
+	
+	move.l #l1a4_Flue_Secret_D_idx, d0
+	mulu   #Flue_Struct_Size, d0
+	move.l #EntityArray_Flue, a1
+	add.l  d0, a1
+	
+	move.l a1, Flue_OutputFlue(a0)
 
 	;==============================================================
 	

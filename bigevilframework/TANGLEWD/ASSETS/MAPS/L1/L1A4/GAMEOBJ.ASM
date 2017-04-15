@@ -29,7 +29,7 @@ L1A4_Boulder_60_idx	equ 0x0
 L1A4_Monster_count equ 0x1
 L1A4_Djakk_idx	equ 0x0
 
-L1A4_Firefly_count equ 0x8
+L1A4_Firefly_count equ 0x9
 L1A4_Firefly_18_idx	equ 0x0
 L1A4_Firefly_19_idx	equ 0x1
 L1A4_Firefly_20_idx	equ 0x2
@@ -37,7 +37,8 @@ L1A4_Firefly_21_idx	equ 0x3
 L1A4_Firefly_22_idx	equ 0x4
 L1A4_Lvl3_Firefly_13_idx	equ 0x5
 L1A4_Firefly_26_idx	equ 0x6
-L1A4_Firefly_41_idx	equ 0x7
+L1A4_Firefly_77_idx	equ 0x7
+L1A4_Firefly_76_idx	equ 0x8
 
 L1A4_Fuzzl_count equ 0x9
 L1A4_Fuzzl_Yellow_idx	equ 0x0
@@ -63,11 +64,14 @@ L1A4_Nest_count equ 0x2
 L1A4_Nest_11_idx	equ 0x0
 L1A4_Nest_38_idx	equ 0x1
 
-L1A4_Flue_count equ 0x4
+L1A4_Flue_count equ 0x7
 L1A4_Flue_EndLink_A_idx	equ 0x0
 L1A4_Flue_14_idx	equ 0x1
-L1A4_Flue_40_idx	equ 0x2
+L1A4_Flue_Secret_D_idx	equ 0x2
 L1A4_Flue_EndLink_B_idx	equ 0x3
+L1A4_Flue_Secret_A_idx	equ 0x4
+L1A4_Flue_Secret_B_idx	equ 0x5
+L1A4_Flue_Secret_C_idx	equ 0x6
 
 L1A4_TriggerBox_count equ 0x4
 L1A4_Trigger_Djakk_idx	equ 0x0
@@ -77,19 +81,18 @@ L1A4_Trigger_FuzzlTree_idx	equ 0x3
 
 L1A4_Checkpoint_count equ 0x0
 
-L1A4_WaterBody_count equ 0x6
+L1A4_WaterBody_count equ 0x4
 L1A4_WaterBody_3_idx	equ 0x0
 L1A4_WaterBody_4_idx	equ 0x1
 L1A4_WaterBody_8_idx	equ 0x2
-L1A4_WaterBody_9_idx	equ 0x3
-L1A4_WaterBody_10_idx	equ 0x4
-L1A4_WaterBody_55_idx	equ 0x5
+L1A4_WaterBody_55_idx	equ 0x3
 
 L1A4_Location_count equ 0x0
 
-L1A4_Deathbox_count equ 0x2
+L1A4_Deathbox_count equ 0x3
 L1A4_Deathbox_49_idx	equ 0x0
 L1A4_Deathbox_50_idx	equ 0x1
+L1A4_Deathbox_75_idx	equ 0x2
 
 
 L1A4_LoadGameObjects:
@@ -194,8 +197,13 @@ L1A4_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x16880000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
+	move.l #0x12100000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x15c00000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
@@ -333,6 +341,21 @@ L1A4_LoadGameObjects:
 	move.l #0x00090000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x1df80000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x15a00000, Entity_WorldPosX(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x12500000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -383,16 +406,6 @@ L1A4_LoadGameObjects:
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
 	jsr WaterBodyInit
-	move.l #0x1de00000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	jsr WaterBodyLoadGfx
-	add.l #WaterBody_Struct_Size, a0
-	jsr WaterBodyInit
-	move.l #0x1f600000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	jsr WaterBodyLoadGfx
-	add.l #WaterBody_Struct_Size, a0
-	jsr WaterBodyInit
 	move.l #0x2d980000, Entity_WorldPosX(a0)
 	move.l #0x04b80000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
@@ -408,6 +421,11 @@ L1A4_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x20800000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x1ea80000, Entity_WorldPosX(a0)
 	move.l #0x04880000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
