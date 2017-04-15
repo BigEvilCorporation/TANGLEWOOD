@@ -31,3 +31,31 @@ vfx_animation_water_splash_large:
 	dc.b 0x1										; No speed scale
 
 	even
+
+vfx_animation_water_splash_small:
+	dc.l spriteanim_water_splash_small_track_frames	; Sprite frame track
+	dc.l spriteanim_water_splash_small_track_posx	; Pos X track
+	dc.l spriteanim_water_splash_small_track_posy	; Pos Y track
+	dc.l spriteanim_water_splash_small_track_sfx	; SFX track
+	dc.w spritesheet_water_splash_frameoffset		; First frame offset
+	dc.b spriteanim_water_splash_small_speed		; Speed
+	dc.b spriteanim_water_splash_small_numframes	; Length
+	dc.b 0x0										; Looping
+	dc.b 0x0										; Zero velocity
+	dc.b 0x1										; No speed scale
+
+	even
+
+vfx_animation_water_splash_tiny:
+	dc.l spriteanim_water_splash_tiny_track_frames	; Sprite frame track
+	dc.l spriteanim_water_splash_tiny_track_posx	; Pos X track
+	dc.l spriteanim_water_splash_tiny_track_posy	; Pos Y track
+	dc.l spriteanim_water_splash_tiny_track_sfx	; SFX track
+	dc.w spritesheet_water_splash_frameoffset		; First frame offset
+	dc.b spriteanim_water_splash_tiny_speed		; Speed
+	dc.b spriteanim_water_splash_tiny_numframes	; Length
+	dc.b 0x0										; Looping
+	dc.b 0x0										; Zero velocity
+	dc.b 0x1										; No speed scale
+
+	even

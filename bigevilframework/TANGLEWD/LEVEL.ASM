@@ -282,7 +282,7 @@ LevelLoadVFX:
 
 	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
 	lea    vfx_spritesheet_water_splash, a2
-	lea    vfx_animation_water_splash_large, a3
+	lea    vfx_animation_water_splash_small, a3
 	jsr    VfxInit
 
 	rts

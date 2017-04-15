@@ -287,7 +287,7 @@ L1A3_LoadGameObjects:
 	move.l #EntityArray_WaterBody, a0
 	jsr WaterBodyInit
 	move.l #0x14a00000, Entity_WorldPosX(a0)
-	move.l #0x02e80000, Entity_WorldPosY(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
 
