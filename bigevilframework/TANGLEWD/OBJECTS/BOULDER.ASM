@@ -43,19 +43,20 @@ BoulderAnimIdx_Max     equ 2
 
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
-;--------------------------
-Boulder_Animations	 rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
-Boulder_Platform	 rs.b Platform_Struct_Size ; Moving platform on top of boulder
-Boulder_SpawnX		 rs.l 1	; Spawn pos, for resetting after being cracked
-Boulder_SpawnY		 rs.l 1
-Boulder_LastVelY     rs.l 1	; Last recorded velocity
-Boulder_LastOnFloor  rs.b 1	; Last recorded OnFloor flag
-Boulder_CanCrack	 rs.b 1 ; Can be cracked/respawned
-Boulder_Cracked		 rs.b 1	; Cracked open, awaiting respawn
-;--------------------------
-Boulder_Struct_Pad   rs.b 3   ; Alignment padding
-Boulder_Struct_Size  rs.b 0
-;--------------------------
+;-----------------------------
+Boulder_Animations		rs.b (Animation_Struct_Size*BoulderAnimIdx_Max)
+Boulder_Platform		rs.b Platform_Struct_Size ; Moving platform on top of boulder
+Boulder_SpawnX			rs.l 1	; Spawn pos, for resetting after being cracked
+Boulder_SpawnY			rs.l 1
+Boulder_LastVelY		rs.l 1	; Last recorded velocity
+Boulder_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
+Boulder_CanCrack		rs.b 1 ; Can be cracked/respawned
+Boulder_Cracked			rs.b 1	; Cracked open, awaiting respawn
+Boulder_RollSFXPlaying	rs.b 1
+;-----------------------------
+Boulder_Struct_Pad		rs.b 2   ; Alignment padding
+Boulder_Struct_Size		rs.b 0
+;-----------------------------
 
 ;==============================================================
 
@@ -99,6 +100,7 @@ BoulderInit:
 	move.b  #0x1, Boulder_LastOnFloor(a0)
 	move.b  #0x0, Boulder_Cracked(a0)
 	move.b  #0x1, Boulder_CanCrack(a0)
+	move.b  #0x0, Boulder_RollSFXPlaying(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -367,6 +369,27 @@ BoulderUpdate:
 	@SFXInAir:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
+
+	;==============================================================
+
+	; Play roll SFX
+	move.l  PhysicsObj_VelX(a0), d0
+	cmp.l   #Boulder_RollSFXVel, d0
+	bgt     @PlayRollSFX
+	cmp.l   #-Boulder_RollSFXVel, d0
+	blt     @PlayRollSFX
+	bra     @NoRollSFX
+	@PlayRollSFX:
+	PLAYSFX #SFX_BoulderRoll
+	move.b  #0x1, Boulder_RollSFXPlaying(a0)
+	bra     @EndRollSFX
+
+	@NoRollSFX:
+	cmp.b   #0x0, Boulder_RollSFXPlaying(a0)
+	beq     @EndRollSFX
+	jsr     SND_StopSFX
+	move.b  #0x0, Boulder_RollSFXPlaying(a0)
+	@EndRollSFX:
 
 	rts
 
