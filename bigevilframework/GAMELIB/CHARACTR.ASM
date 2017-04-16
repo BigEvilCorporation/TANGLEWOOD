@@ -75,6 +75,7 @@ Character_AccelRun			rs.w 1
 Character_AccelWalk			rs.w 1
 Character_DecelIdle			rs.w 1
 Character_DecelForced		rs.w 1
+Character_CanJump			rs.b 1
 Character_OnLedge			rs.b 1
 Character_InWater			rs.b 1
 Character_Running			rs.b 1
@@ -90,7 +91,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 2
+Character_Struct_Pad    	rs.b 1
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -113,6 +114,7 @@ CharacterInit:
 	move.l #0x0, Character_InteractCancel(a0)
 	move.l #0x0, Character_LastLedgeX(a0)
 	move.l #0x0, Character_LastLedgeY(a0)
+	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_OnLedge(a0)
 	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, Character_Running(a0)
@@ -541,6 +543,10 @@ CharacterStartJump:
 	; NB: Gamepad state in d0-d1, leave alone
 
 	PUSHM  d0-d1
+
+	; Check if player can jump
+	cmp.b #0x0, Character_CanJump(a0)
+	beq   @CantJump
 	
 	; Check if player dead
 	move.b Character_Dead(a0), d4

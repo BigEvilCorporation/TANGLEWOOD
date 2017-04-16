@@ -1558,6 +1558,9 @@ PlayerStartInteract:
 	
 	; Player can't run
 	jsr    CharacterCancelRun
+
+	; Player can't jump
+	move.b #0x0, Character_CanJump(a0)
 	
 	; Clamp to max velocity
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -1713,6 +1716,9 @@ PlayerCancelInteract:
 	; Restore walk speed
 	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+
+	; Restore jump
+	move.b #0x1, Character_CanJump(a0)
 	
 	; Restore max velocity clamp to use deceleration
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
