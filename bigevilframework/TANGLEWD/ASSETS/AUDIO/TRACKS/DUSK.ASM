@@ -355,7 +355,31 @@
 ; Pattern $00, Row 126; 
 ; Pattern $00, Row 127; 
 ; Pattern $00, Row 128; 
-	dc.b $fe, $38	; Delay
+; Pattern $00, Row 129; 
+; Pattern $00, Row 130; 
+; Pattern $00, Row 131; 
+; Pattern $00, Row 132; 
+; Pattern $00, Row 133; 
+; Pattern $00, Row 134; 
+; Pattern $00, Row 135; 
+; Pattern $00, Row 136; 
+; Pattern $00, Row 137; 
+; Pattern $00, Row 138; 
+; Pattern $00, Row 139; 
+; Pattern $00, Row 140; 
+; Pattern $00, Row 141; 
+; Pattern $00, Row 142; 
+; Pattern $00, Row 143; 
+; Pattern $00, Row 144; 
+; Pattern $00, Row 145; 
+; Pattern $00, Row 146; 
+; Pattern $00, Row 147; 
+; Pattern $00, Row 148; 
+; Pattern $00, Row 149; 
+; Pattern $00, Row 150; 
+; Pattern $00, Row 151; 
+; Pattern $00, Row 152; 
+	dc.b $fe, $8c	; Delay
 	dc.b $10		; Note off channel FM 1
 	dc.b $11		; Note off channel FM 2
 	dc.b $12		; Note off channel FM 3

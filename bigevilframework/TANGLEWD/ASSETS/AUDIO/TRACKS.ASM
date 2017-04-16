@@ -50,7 +50,7 @@ track_bgm_actoutro_allfireflies:
 	dc.w	0x03DF
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
+	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_Instant
 	even
@@ -81,7 +81,7 @@ track_bgm_night:
 	dc.w	0x0
 	dc.b	Track_Type_Cue
 	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_Crossfade
 	even
 
