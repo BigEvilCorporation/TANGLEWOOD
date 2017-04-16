@@ -141,9 +141,6 @@ PhysicsObjUpdate:
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	
-	; Bail
-	bra    @NoPhysics
-	
 	@NoVelCancel:
 	@NoAnim:
 
