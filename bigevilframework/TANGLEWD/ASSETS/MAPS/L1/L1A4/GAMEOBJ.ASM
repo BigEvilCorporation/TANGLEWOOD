@@ -23,8 +23,9 @@ L1A4_BouncePlant_63_idx	equ 0x4
 L1A4_BouncePlant_64_idx	equ 0x5
 L1A4_BouncePlant_73_idx	equ 0x6
 
-L1A4_Boulder_count equ 0x1
+L1A4_Boulder_count equ 0x2
 L1A4_Boulder_60_idx	equ 0x0
+L1A4_Boulder_80_idx	equ 0x1
 
 L1A4_Monster_count equ 0x1
 L1A4_Djakk_idx	equ 0x0
@@ -149,6 +150,11 @@ L1A4_LoadGameObjects:
 	jsr BoulderInit
 	move.l #0x27280000, Entity_WorldPosX(a0)
 	move.l #0x02d80000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
+	jsr BoulderInit
+	move.l #0x2a800000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
