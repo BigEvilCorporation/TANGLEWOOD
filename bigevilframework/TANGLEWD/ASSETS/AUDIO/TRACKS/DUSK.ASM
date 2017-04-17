@@ -1,12 +1,12 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
-	dc.b $40, $0d	; Set instrument for channel FM 1
+	dc.b $40, $16	; Set instrument for channel FM 1
 	dc.b $20, $02	; Set volume for channel FM 1
 	dc.b $00, $89	; Note E-4 on channel FM 1
-	dc.b $44, $0e	; Set instrument for channel FM 4
+	dc.b $44, $17	; Set instrument for channel FM 4
 	dc.b $24, $0b	; Set volume for channel FM 4
 	dc.b $04, $b3	; Note A-5 on channel FM 4
-	dc.b $46, $0e	; Set instrument for channel FM 6
+	dc.b $46, $17	; Set instrument for channel FM 6
 	dc.b $26, $12	; Set volume for channel FM 6
 	dc.b $06, $cd	; Note F#6 on channel FM 6
 ; Pattern $00, Row 1; 
@@ -26,13 +26,13 @@
 ; Pattern $00, Row 15; 
 ; Pattern $00, Row 16; 
 	dc.b $fe, $38	; Delay
-	dc.b $41, $0d	; Set instrument for channel FM 2
+	dc.b $41, $16	; Set instrument for channel FM 2
 	dc.b $21, $02	; Set volume for channel FM 2
 	dc.b $01, $77	; Note B-3 on channel FM 2
-	dc.b $42, $0e	; Set instrument for channel FM 3
+	dc.b $42, $17	; Set instrument for channel FM 3
 	dc.b $22, $12	; Set volume for channel FM 3
 	dc.b $02, $c9	; Note E-6 on channel FM 3
-	dc.b $45, $0e	; Set instrument for channel FM 5
+	dc.b $45, $17	; Set instrument for channel FM 5
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $c5	; Note D-6 on channel FM 5
 ; Pattern $00, Row 17; 
@@ -51,7 +51,7 @@
 ; Pattern $00, Row 30; 
 ; Pattern $00, Row 31; 
 	dc.b $fe, $34	; Delay
-	dc.b $41, $0e	; Set instrument for channel FM 2
+	dc.b $41, $17	; Set instrument for channel FM 2
 	dc.b $21, $02	; Set volume for channel FM 2
 	dc.b $01, $89	; Note E-4 on channel FM 2
 ; Pattern $00, Row 32; 
@@ -60,10 +60,10 @@
 	dc.b $06, $b7	; Note B-5 on channel FM 6
 ; Pattern $00, Row 33; 
 	dc.b $fe, $03	; Delay
-	dc.b $40, $0e	; Set instrument for channel FM 1
+	dc.b $40, $17	; Set instrument for channel FM 1
 	dc.b $20, $02	; Set volume for channel FM 1
 	dc.b $00, $a9	; Note E-5 on channel FM 1
-	dc.b $44, $0d	; Set instrument for channel FM 4
+	dc.b $44, $16	; Set instrument for channel FM 4
 	dc.b $24, $02	; Set volume for channel FM 4
 	dc.b $04, $61	; Note C-3 on channel FM 4
 ; Pattern $00, Row 34; 

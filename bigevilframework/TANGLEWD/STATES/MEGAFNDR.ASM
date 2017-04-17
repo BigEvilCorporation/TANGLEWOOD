@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-MegafounderScreenDelayTime	equ 0x0180
+MegafounderScreenDelayTime	equ 0x00B0
 MegafounderScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 MegafounderScreenNumColours	equ 0xF ; For palette lerping
 
