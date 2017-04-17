@@ -7,78 +7,112 @@
 ;==============================================================
 
 SPR_AddMultiSprite:
-	; d0 (bb) Width/height (in subsprites)
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
 	; d4 (b)  Priority
+	; d5 (b)  Flipped X
+	; d6 (b)  Num subsprites
 	; a0 ---- Subsprite dimensions array (b * numSubsprites)
 	; a1 ---- Num tiles per subsprite array (b * numSubsprites)
+	; a2 ---  Subsprite position offsets array (ww * numSubsprites)
 
-	; Returning next index
-	move.w (next_sprite_index), -(sp)
+	; If unflipped, offset pos array to read from upper word
+	cmp.b  #0x0, d5
+	bne    @FlippedX
+	sub.l  #size_word, a2
+	@FlippedX:
 
-	; Backup y
-	move.w d1, d6
+	; Combine palette/flip/priority flags
+	; Bit pattern: LPPV HTTT TTTT TTTT (L=Lo/Hi priority, P=Palette, V=VFlip, H=HFlip, T-TileId)
+	andi.w #0x3, d3		; Palette in bottom two bits of d3
+	andi.w #0x1, d4		; Priority in bottom bit of d4
+	andi.w #0x1, d5		; Flip X in bottom bit of d5
+	ror.w  #0x3, d3		; Palette to bits 13-14
+	ror.w  #0x1, d4		; Priority to bit 15
+	ror.w  #0x5, d5		; Flip X to bit 11
+	or.w   d4, d3		; Combine
+	or.w   d5, d3
 
-	; Loop cols
-	clr.l  d5
-	move.w d0, d5
-	lsr.w  #0x8, d5 ; Shift to get width
-	subq.b #0x1, d5 ; -1 for loop counter
-	@ColLp:
+	; Get next free sprite ID
+	move.w (next_sprite_index), d5
 
-		; Loop rows
-		clr.l  d7
-		move.b d0, d7
-		subq.b #0x1, d7 ; -1 for loop counter
-		@RowLp:
-			; Backup counter
-			PUSHL d7
+	; Backup for return val
+	move.w d5, d7
 
-			; Backup regs
-			PUSHM d0-d6
+	; Get sprite table
+	lea     vdp_sprite_table, a4
+	clr.l   d0
+	move.w  d5, d0
+	mulu.w  #Sprite_Struct_Size, d0
+	add.l   d0, a4
 
-			move.b (a0)+, d0	; Get next dimensions byte
-			
-			; Backup a0
-			PUSHL a0
-			
-			; d0 (b)  Dimensions
-			; d1 (ww) X/Y coord
-			; d2 (w)  First tile index
-			; d3 (b)  Palette
-			; d4 (b)  Priority (0/1)
-			jsr SPR_AddSubSprite
+	; Check if not first in table, link to prev
+	cmp.w   #0x0, d5
+	beq     @FirstInTable
+	move.b  d5, (-Sprite_Struct_Size+Sprite_NextID)(a4)
+	@FirstInTable:
 
-			POPL a0
+	; Backup X/Y
+	move.l d1, d4
 
-			; Restore regs
-			POPM d0-d6
+	; Loop subsprites
+	andi.w #0x00FF, d6
+	sub.b  #0x1, d6
+	@SubspriteLp:
 
-			; Add Y
-			add.w #SubspriteMaxHeight, d1
+		; Get dimensions
+		move.b (a0)+, d0
+	
+		; Get X/Y offset
+		move.l (a2)+, d1
 
-			; Add tile idx
-			clr.w  d7
-			move.b (a1)+, d7
-			add.w  d7, d2
+		; 0x0000XXYY to 0x00XX00YY
+		lsl.l  #0x8, d1
+		lsr.w  #0x8, d1
+		andi.l #0x00FF00FF, d1
 
-			POPL d7
-			dbra d7, @RowLp
+		; Add to coords
+		add.l  d4, d1
 
-		; Reset Y
-		move.w d6, d1
+		; OR tile ID with palette/flip/priority bits
+		andi.w #0xF800, d3
+		or.w   d2, d3
 
-		; Add X
+		; Next sprite ID
+		add.w  #0x1, d5
+		
+		; Write values to table entry
+		move.w d1, (a4)+	; Y
 		swap d1
-		add.w #SubspriteMaxWidth, d1
-		swap d1
+		move.b d0, (a4)+	; Dimensions
+		move.b d5, (a4)+	; Next link
+		move.w d3, (a4)+	; Tile ID and flags
+		move.w d1, (a4)+	; X
 
-		dbra d5, @ColLp
+		; Next tile idx
+		clr.w  d0
+		move.b (a1)+, d0
+		add.w  d0, d2
+
+		; Sanity check
+		IFND FINAL
+		cmp.w   #vdp_max_sprites, d5
+		bne     @WithinLimit
+		RAISE_EXCEPTION error_out_of_sprites
+		@WithinLimit:
+		ENDIF
+		
+		dbra    d6, @SubspriteLp
+
+	; Clear last link
+	move.b #0x0, (-Sprite_Struct_Size+Sprite_NextID)(a4)
+
+	; Write back next sprite index
+	move.w d5, (next_sprite_index)
 
 	; Return first sprite index
-	move.w (sp)+, d0
+	move.w d7, d0
 	
 	rts
 	
@@ -86,8 +120,7 @@ SPR_AddSubSprite:
 	; d0 (b)  Dimensions
 	; d1 (ww) X/Y coord
 	; d2 (w)  First tile index
-	; d3 (b)  Palette
-	; d4 (b)  Priority (0/1)
+	; d3 (w)  Palette/flip/priority bits
 	
 	; Alloc sprite ID
 	move.w (next_sprite_index), d5
@@ -99,27 +132,36 @@ SPR_AddSubSprite:
 	RAISE_EXCEPTION error_out_of_sprites
 	@WithinLimit:
 	
-	; Offset into sprite table
-	lea     vdp_sprite_table, a0
-	mulu.w  #size_spritedesc, d5          
-	add.l   d5, a0
+	; Check if first in table
+	cmp.w   #0x0, d5
+	beq     @FirstInTable
+
+	; Subsequent entry in sprite table, link to previous
+	lea     vdp_sprite_table, a4
+	move.w  d5, d6
+	sub.w   #0x1, d6
+	mulu.w  #size_spritedesc, d6
+	add.l   d6, a4
+	move.b  d5, Sprite_NextID(a4)
+	add.l   #size_spritedesc, a4
+
+	bra     @EndLink
+	@FirstInTable:
+
+	; First entry in sprite table
+	lea     vdp_sprite_table, a4
+
+	@EndLink:
 	
 	; Set values
-	move.w d1, Sprite_CoordY(a0)      ; Y coord
+	move.w d1, Sprite_CoordY(a4)      ; Y coord
 	swap d1
-	move.w d1, Sprite_CoordX(a0)      ; X coord
-	move.b d0, Sprite_Dimensions_NextID(a0)  ; Dimensions (first byte in word)
-	move.b #0x0, Sprite_NextID(a0)    ; Next ID
+	move.w d1, Sprite_CoordX(a4)      ; X coord
+	move.b d0, Sprite_Dimensions_NextID(a4)  ; Dimensions (first byte in word)
 
-	; Flipping, palette ID, priority and tile ID
-	; Bit pattern: LPPV HTTT TTTT TTTT (L=Lo/Hi priority, P=Palette, V=VFlip, H=HFlip, T-TileId)
-	andi.w #%0000000000000011, d3		; Palette in bottom two bits
-	andi.w #0x1, d4						; Priority bit
-	ror.w  #0x3, d3						; Palette to bits 13-14
-	ror.w  #0x1, d4						; Priority to bit 15
-	or.w   d2, d3						; OR tile ID with palette
-	or.w   d4, d3						; OR priority bit
-	move.w d3, Sprite_Prio_Pal_Flip_TileIDhi(a0)
+	; OR tile ID with palette/flip/priority bits
+	or.w   d2, d3
+	move.w d3, Sprite_Prio_Pal_Flip_TileIDhi(a4)
 	
 	rts
 

@@ -239,8 +239,13 @@ RenderBeginFrame:
 	; Disable vint
 	move.b #0x0, vint_enabled
 	
-	; Clear sprite links
-	jsr    SPR_ClearAllLinks
+	; Reset sprite link counter
+	move.w #0x0, next_sprite_index
+
+	; Move first sprite to border
+	move.w #0x0, d0
+	move.w #0x0, d1
+	jsr    SPR_SetPosY
 	
 	IFD DEBUG
 	; Profiler frame start
@@ -309,9 +314,12 @@ __vinterrupt:
 	ENDIF
 
 	; DMA the sprite table
+	move.w (next_sprite_index), d1
+	cmp.w  #0x0, d1
+	beq    @NoSprites
 	lea    vdp_sprite_table, a0
 	move.l #vram_addr_sprite_table, d0
-	move.w #(Sprite_Struct_Size*vdp_max_sprites), d1
+	mulu.w #Sprite_Struct_Size/size_word, d1
 	jsr    VDP_DMACopyVRAM
 	@NoSprites:
 
