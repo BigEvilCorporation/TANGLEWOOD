@@ -55,7 +55,7 @@ Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 
 Monster_MinChaseDistance	equ ((Monster_Width/2)*subpixels_per_pixel)
 Monster_MaxChaseDistance	equ (screen_width*subpixels_per_pixel)
-Monster_OutOfDistSpeedMul	equ 0x8
+Monster_OutOfDistSpeedMul	equ 0x6
 
 Monster_AttackMaxPlayerVel	equ 0x090000	; Don't attack if player is being flung using a flue/bounce pad, etc
 
@@ -1147,19 +1147,6 @@ MonsterUpdateTrackPlayer:
 	bgt    @OutsideMaxChaseDistL
 	cmp.l  #-Monster_MaxChaseDistance, d1
 	blt    @OutsideMaxChaseDistR
-	
-	; Within max chase dist
-	cmp.b  #0x0, Monster_CatchingUp(a0)
-	beq    @WithinMaxChaseDist
-	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
-	bgt    @VelPositive
-	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
-	bra    @EndVelClamp
-	@VelPositive:
-	move.l #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
-	@EndVelClamp:
-	move.b #0x0, Monster_CatchingUp(a0)
 	bra    @WithinMaxChaseDist
 	
 	@OutsideMaxChaseDistL:
@@ -1169,13 +1156,29 @@ MonsterUpdateTrackPlayer:
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	bne    @SpeedBoostApplied
 	move.l Character_MaxVelXRun(a0), d0
-	mulu   Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
+	TOPIXELS d0
+	mulu.w Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
+	TOSUBPIXELS d0
 	move.l d0, Character_MaxVelXRun(a0)		; Set new max velocity
 	move.b #0x1, Monster_CatchingUp(a0)		; Set catching up
 	bra    @EndMaxDistCheck
 	
 	@InView:
 	@WithinMaxChaseDist:
+
+	; Within max chase dist, reset catchup speed if applied
+	cmp.b  #0x0, Monster_CatchingUp(a0)
+	beq    @EndMaxDistCheck
+	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	bgt    @VelPositive
+	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	bra    @EndVelClamp
+	@VelPositive:
+	move.l #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	@EndVelClamp:
+	move.b #0x0, Monster_CatchingUp(a0)
+
 	@EndMaxDistCheck:
 	@SpeedBoostApplied:
 	
