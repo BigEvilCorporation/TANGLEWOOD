@@ -149,42 +149,38 @@ SpriteObjDraw:
 	
 	;==============================================================
 	
-	; X pos world space to sprite space
+	; X pos world space to screen space
 	move.l Entity_WorldPosX(a0), d1
 	TOPIXELS d1
-	
-	; Add draw offset (animation, etc)
-	add.w  SpriteObj_DrawOffsetX(a0), d1
-	
-	move.l (WorldScrollX), d2			; Get camera pos X (incl. camera shake + peek offset)
+	add.w  SpriteObj_DrawOffsetX(a0), d1	; Apply draw offset (animation, etc)
+	move.l (WorldScrollX), d2				; Get camera pos X (incl. camera shake + peek offset)
 	TOPIXELS d2
-	
-	sub.l  d2, d1	; Scroll space to screen space (subpixels)
+	sub.w  d2, d1							; Apply camera pos
 
 	; Check if out of bounds
-	cmp.w  #0x0, d1
+	move.w d1, d4
+	add.w  Entity_Width(a0), d4				; Get sprite right
+	cmp.w  #0x0, d4							; Check sprite right against left border
 	blt    @OutOfBounds
-	cmp.w  #SpritePlaneWidth, d1
+	cmp.w  #vdp_sprite_plane_width, d1		; Check sprite left against right border
 	bgt    @OutOfBounds
 	
 	;==============================================================
 	
-	; Y pos world space to sprite space
+	; Y pos world space to screen space
 	move.l Entity_WorldPosY(a0), d3
 	TOPIXELS d3
-	
-	; Add draw offset (animation, etc)
-	add.w  SpriteObj_DrawOffsetY(a0), d3
-	
-	move.l (WorldScrollY), d2			; Get camera Y (incl. camera shake + peek offset)
+	add.w  SpriteObj_DrawOffsetY(a0), d3	; Apply draw offset (animation, etc)
+	move.l (WorldScrollY), d2				; Get camera Y (incl. camera shake + peek offset)
 	TOPIXELS d2
-	
-	sub.w  d2, d3	; Scroll space to screen space (subpixels)
+	sub.w  d2, d3							; Apply camera pos
 
 	; Check if out of bounds
-	cmp.w  #0x0, d3
+	move.w d3, d4
+	add.w  Entity_Height(a0), d4			; Get sprite bottom
+	cmp.w  #0x0, d4							; Check sprite bottom against top border
 	blt    @OutOfBounds
-	cmp.w  #SpritePlaneHeight, d3
+	cmp.w  #vdp_sprite_plane_height, d3		; Check sprite top against bottom border
 	bgt    @OutOfBounds
 	
 	;==============================================================

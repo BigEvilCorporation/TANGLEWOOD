@@ -18,8 +18,8 @@ Leaf_WindowHeight  equ (vdp_plane_height*8)
 Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 
-WorldToLeafWindowX equ (Leaf_WindowBorderX-SpritePlaneBorderX)*subpixels_per_pixel
-WorldToLeafWindowY equ (Leaf_WindowBorderY-SpritePlaneBorderY)*subpixels_per_pixel
+WorldToLeafWindowX equ (Leaf_WindowBorderX-vdp_sprite_border_x)*subpixels_per_pixel
+WorldToLeafWindowY equ (Leaf_WindowBorderY-vdp_sprite_border_y)*subpixels_per_pixel
 
 Leaf_NumVariations equ 0x4
 
@@ -53,7 +53,7 @@ LeafInit:
 	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #LeafDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
@@ -151,7 +151,7 @@ LeafUpdate:
 	divu   #Leaf_WindowWidth, d0	; Mod by WindowWidth
 	clr.w  d0
 	swap   d0
-	add.l  #SpritePlaneBorderX, d0
+	add.l  #vdp_sprite_border_x, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollX), d0
 	sub.l  #(Leaf_WindowBorderX*subpixels_per_pixel), d0
@@ -160,7 +160,7 @@ LeafUpdate:
 
 	; If X is within viewable rect
 	move.l (WorldScrollX), d1
-	add.l  #(SpritePlaneBorderX*subpixels_per_pixel), d1
+	add.l  #(vdp_sprite_border_x*subpixels_per_pixel), d1
 	cmp.l  d0, d1
 	bgt    @OutOfView
 	add.l  #(screen_width*subpixels_per_pixel), d1
@@ -169,7 +169,7 @@ LeafUpdate:
 
 	; Start from top of scroll plane
 	move.l (WorldScrollY), d0
-	add.l  #((SpritePlaneBorderY-Leaf_WindowBorderY)*subpixels_per_pixel), d0
+	add.l  #((vdp_sprite_border_y-Leaf_WindowBorderY)*subpixels_per_pixel), d0
 	move.l d0, Entity_WorldPosY(a0)
 	bra    @EndViewTest
 
@@ -180,7 +180,7 @@ LeafUpdate:
 	divu   #Leaf_WindowHeight, d0	; Mod by bounds height
 	clr.w  d0
 	swap   d0
-	add.l  #SpritePlaneBorderY, d0
+	add.l  #vdp_sprite_border_y, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollY), d0
 	sub.l  #(Leaf_WindowBorderY*subpixels_per_pixel), d0
@@ -300,3 +300,6 @@ LeafUpdate:
 
 	rts
 
+LeafDraw:
+	jsr AnimObjDraw
+	rts

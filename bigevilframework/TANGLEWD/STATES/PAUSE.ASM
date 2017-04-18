@@ -151,8 +151,8 @@ Pause_Enter:
 	
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1
-	add.l  #((PauseText_PosX+SpritePlaneBorderX-Firefly_Width-4)*subpixels_per_pixel), d0
-	add.l  #((PauseText_PosY+SpritePlaneBorderY-(Firefly_Height/2))*subpixels_per_pixel), d1
+	add.l  #((PauseText_PosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
+	add.l  #((PauseText_PosY+vdp_sprite_border_y-(Firefly_Height/2))*subpixels_per_pixel), d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	

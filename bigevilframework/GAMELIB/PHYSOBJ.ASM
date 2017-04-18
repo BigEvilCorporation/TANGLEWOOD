@@ -394,7 +394,7 @@ PhysicsObjClampPos:
 	move.l Entity_WorldPosY(a0), d0
 	move.w Level_MapHeight(a1), d1
 	TILES2PIXELS d1						; Tiles to pixels
-	add.l  #SpritePlaneBorderY*2, d1	; To sprite space
+	add.l  #vdp_sprite_border_y*2, d1	; To sprite space
 	TOSUBPIXELS d1						; To world space
 	cmp.l  d1, d0
 	bgt    @ClampYBottom
@@ -417,7 +417,7 @@ PhysicsObjClampPos:
 	move.l Entity_WorldPosX(a0), d0
 	move.w Level_MapWidth(a1), d1
 	TILES2PIXELS d1						; Tiles to pixels
-	add.l  #SpritePlaneBorderX*2, d1	; To sprite space
+	add.l  #vdp_sprite_border_x*2, d1	; To sprite space
 	TOSUBPIXELS d1						; To world space
 	cmp.l  d1, d0
 	bgt    @ClampXRight
@@ -617,7 +617,7 @@ PhysicsObjFindFloor:
 	; Get floor probe X
 	move.l Entity_WorldPosX(a0), d1			; Get player pos X
 	TOPIXELS d1								; To sprite space
-	sub.w  #SpritePlaneBorderX, d1			; To screen space
+	sub.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
 
@@ -635,7 +635,7 @@ PhysicsObjFindFloor:
 	swap   d1								; X to upper word
 	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
 	TOPIXELS d2								; To sprite space
-	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
 	add.l  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
@@ -667,7 +667,7 @@ PhysicsObjFindFloor:
 	; Get platform Left and Right X
 	move.l Platform_PosX(a3), d2
 	TOPIXELS d2
-	sub.w  #SpritePlaneBorderX, d2			; To screen space
+	sub.w  #vdp_sprite_border_x, d2			; To screen space
 	move.w d2, d3
 	add.w  Platform_Width(a3), d3
 	
@@ -684,7 +684,7 @@ PhysicsObjFindFloor:
 	
 	; Get platform top
 	move.w Platform_PosY(a3), d2
-	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	
 	; Get floor probe Y
 	move.w d1, d0
@@ -757,7 +757,7 @@ PhysicsObjFindFloor:
 	@FoundFloor:
 	clr.l  d2
 	move.w d0, d2
-	add.w  #SpritePlaneBorderY, d2			; Back to sprite space
+	add.w  #vdp_sprite_border_y, d2			; Back to sprite space
 	TOSUBPIXELS d2							; Back to world space
 	
 	; Check if out of bounds
@@ -796,7 +796,7 @@ PhysicsObjFindWall:
 	; Get X, left hand side
 	move.l Entity_WorldPosX(a0), d1		; Get player pos X
 	TOPIXELS d1							; To sprite space
-	sub.w  #SpritePlaneBorderX, d1		; To screen space
+	sub.w  #vdp_sprite_border_x, d1		; To screen space
 	
 	bra    @EndHeadingTest
 	
@@ -805,7 +805,7 @@ PhysicsObjFindWall:
 	; Get X, right hand side
 	move.l Entity_WorldPosX(a0), d1		; Get player pos X
 	TOPIXELS d1							; To sprite space
-	sub.w  #SpritePlaneBorderX, d1		; To screen space
+	sub.w  #vdp_sprite_border_x, d1		; To screen space
 	add.w  Entity_Width(a0), d1			; Right hand side
 
 	@EndHeadingTest:
@@ -824,7 +824,7 @@ PhysicsObjFindWall:
 	swap   d1							; X to upper word
 	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
 	TOPIXELS d2							; To sprite space
-	sub.w  #SpritePlaneBorderY, d2		; To screen space
+	sub.w  #vdp_sprite_border_y, d2		; To screen space
 	move.w Entity_Height(a0), d3		; Get height
 	add.l  d3, d2						; Get floor probe
 	move.w d2, d1						; Player pos XY (screen space) to d1
@@ -859,7 +859,7 @@ PhysicsObjFindWall:
 	; Get barrier Top and Bottom Y
 	move.l Barrier_PosY(a3), d2
 	TOPIXELS d2
-	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	add.w  d2, d3
 
 	; + step height
@@ -877,7 +877,7 @@ PhysicsObjFindWall:
 	; Get barrier X
 	move.l Barrier_PosX(a3), d2				; Get X
 	TOPIXELS d2
-	sub.w  #SpritePlaneBorderX, d2			; To screen space
+	sub.w  #vdp_sprite_border_x, d2			; To screen space
 
 	; Get wall probe X
 	swap   d1
@@ -949,7 +949,7 @@ PhysicsObjFindWall:
 	@LeftOfTile:
 
 	TILES2PIXELS d4						; Tiles to pixels
-	add.l  #SpritePlaneBorderX, d4		; Pixels to screen space
+	add.l  #vdp_sprite_border_x, d4		; Pixels to screen space
 	TOSUBPIXELS d4						; Screen space to object space
 
 	;==============================================================
@@ -990,7 +990,7 @@ PhysicsObjFindCeiling:
 	; Get ceiling probe X
 	move.l Entity_WorldPosX(a0), d1			; Get player pos X
 	TOPIXELS d1								; To sprite space
-	sub.w  #SpritePlaneBorderX, d1			; To screen space
+	sub.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_CeilingProbeX(a0), d3	; Get ceiling probe X offset
 	add.w  d3, d1							; Add to X pos
 
@@ -1008,7 +1008,7 @@ PhysicsObjFindCeiling:
 	swap   d1								; X to upper word
 	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
 	TOPIXELS d2								; To sprite space
-	sub.w  #SpritePlaneBorderY, d2			; To screen space
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_CeilingProbeY(a0), d3	; Get ceiling probe Y offset
 	add.l  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
@@ -1042,7 +1042,7 @@ PhysicsObjFindCeiling:
 	
 	; Ceiling found - tile Y in d4, translate to world space
 	TILES2PIXELS d4						; Tiles to pixels
-	add.l  #SpritePlaneBorderY, d4		; Pixels to screen space
+	add.l  #vdp_sprite_border_y, d4		; Pixels to screen space
 	TOSUBPIXELS d4						; Screen space to object space
 
 	;==============================================================

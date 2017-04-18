@@ -1961,7 +1961,7 @@ PlayerInteractTest_Water:
 	move.l (WorldScrollY), d2
 	TOPIXELS d2
 	sub.w  d2, d3
-	sub.w  #SpritePlaneBorderY, d3
+	sub.w  #vdp_sprite_border_y, d3
 	move.b d3, WaterLevel
 
 	bra    @Found

@@ -61,9 +61,6 @@ SPR_AddMultiSprite:
 	sub.b  #0x1, d6
 	@SubspriteLp:
 
-		; Get dimensions
-		move.b (a0)+, d0
-	
 		; Get X/Y offset
 		move.l (a2)+, d1
 
@@ -75,6 +72,16 @@ SPR_AddMultiSprite:
 		; Add to coords
 		add.l  d4, d1
 
+		; Clamp to 1 on X axis (to avoid masking, and -ve pos wrapping back around)
+		move.l d1, d0
+		swap   d0
+		cmp.w  #0x1, d0
+		bgt    @NoClampX
+		move.w #0x1, d0
+		swap   d0
+		move.l d0, d1
+		@NoClampX:
+
 		; OR tile ID with palette/flip/priority bits
 		andi.w #0xF800, d3
 		or.w   d2, d3
@@ -85,7 +92,7 @@ SPR_AddMultiSprite:
 		; Write values to table entry
 		move.w d1, (a4)+	; Y
 		swap d1
-		move.b d0, (a4)+	; Dimensions
+		move.b (a0)+, (a4)+	; Dimensions
 		move.b d5, (a4)+	; Next link
 		move.w d3, (a4)+	; Tile ID and flags
 		move.w d1, (a4)+	; X

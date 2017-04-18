@@ -64,8 +64,8 @@ CAM_Update:
 	ENTITY_GETCENTREY d1, a0
 	
 	; Sprite space to camera space
-	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d0
-	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d1
+	sub.l   #(vdp_sprite_border_x*subpixels_per_pixel), d0
+	sub.l   #(vdp_sprite_border_y*subpixels_per_pixel), d1
 
 	;==============================================================
 	
@@ -91,8 +91,8 @@ CAM_Update:
 	@NoLerpStartObj:
 
 	; Lerp target sprite space to camera space
-	sub.l   #(SpritePlaneBorderX*subpixels_per_pixel), d2
-	sub.l   #(SpritePlaneBorderY*subpixels_per_pixel), d3
+	sub.l   #(vdp_sprite_border_x*subpixels_per_pixel), d2
+	sub.l   #(vdp_sprite_border_y*subpixels_per_pixel), d3
 
 	;==============================================================
 

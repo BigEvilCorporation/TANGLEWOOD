@@ -24,20 +24,6 @@ entity_type_location	 equ (1<<29)
 entity_type_lift		 equ (1<<30)
 entity_type_rope		 equ (1<<31)
 
-; Sprite plane border (pixels/nybbles)
-SpritePlaneWidth		 equ 0x0200
-SpritePlaneHeight		 equ 0x0200
-SpritePlaneBorderX       equ 0x0080 ; Note: Only left border
-SpritePlaneBorderY       equ 0x0080 ; Note: Only top border
-
-; Plane A/B border (pixels/nybbles)
-ScrollPlaneBorderX       equ (vdp_plane_width-screen_width)/2
-ScrollPlaneBorderY       equ (vdp_plane_height-screen_height)/2
-
-; Sprite/subsprite dimensions
-SubspriteMaxWidth		equ 0x20
-SubspriteMaxHeight		equ 0x20
-
 ; Subframes
 SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
 SubframeShift			 equ 0x8
@@ -47,9 +33,9 @@ Gravity			         equ 0x003000
 
 	; TODO: add to level params
 	IFD DEBUG
-GroundHeightScreen       equ (map_tst1_height*8)+SpritePlaneBorderY+Player1Height
+GroundHeightScreen       equ (map_tst1_height*8)+vdp_sprite_border_y+Player1Height
 	ELSE
-GroundHeightScreen       equ (map_L1A4_height*8)+SpritePlaneBorderY+Player1Height
+GroundHeightScreen       equ (map_L1A4_height*8)+vdp_sprite_border_y+Player1Height
 	ENDIF
 
 GroundHeightWorld  		 equ GroundHeightScreen*subpixels_per_pixel
@@ -116,8 +102,8 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 	IFD DEBUG
 InitialState			 equ  GameStateGameplay
 	ELSE
-InitialState			 equ  GameStateLogos
-;InitialState			 equ  GameStateGameplay
+;InitialState			 equ  GameStateLogos
+InitialState			 equ  GameStateGameplay
 	ENDIF
 
 ; Checkpoint save
