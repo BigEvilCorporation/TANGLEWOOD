@@ -153,6 +153,13 @@ l1a3_Trigger_WakeDjakk:
 	add.l  d0, a0
 	jsr    MonsterStartTrackPlayer
 
+	; Disable trigger box
+	move.l #l1a3_TriggerBox_WakeDjakk_idx, d0
+	mulu   #TriggerBox_Struct_Size, d0
+	move.l #EntityArray_TriggerBox, a0
+	add.l  d0, a0
+	move.b #0x0, Entity_Active(a0)
+
 	@PlayerCloaked:
 	
 	POPL   a0

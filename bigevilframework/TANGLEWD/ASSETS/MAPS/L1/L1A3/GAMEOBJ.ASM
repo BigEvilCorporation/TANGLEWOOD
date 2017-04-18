@@ -290,7 +290,6 @@ L1A3_LoadGameObjects:
 	move.l #0x11c00000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
 	move.l #L1A3_Trigger_WakeDjakk, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
