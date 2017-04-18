@@ -119,7 +119,7 @@ MainMenu_Enter:
 	jsr    EntityAddToUpdateList
 	jsr    EntityAddToRenderList
 
-	move.w #sprite_leaf_size_b, d0		; Alloc VRAM
+	move.w #sprite_twd_logo_size_b, d0		; Alloc VRAM
 	jsr    VRAM_PoolAlloc
 
 	lea    spritesheets_twd_logo, a1	; Load sprite sheet
@@ -135,6 +135,11 @@ MainMenu_Enter:
 
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
 	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)
+
+	;==============================================================
+
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
 
 	;==============================================================
 
