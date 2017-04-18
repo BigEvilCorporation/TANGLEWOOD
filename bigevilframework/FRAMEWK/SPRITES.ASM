@@ -249,12 +249,13 @@ SPR_LoadAnimFrame:
 
 	; a0 --- Address of sprite data (ROM)
 	; a1 --- Address of animation data (byte array) (ROM)
-	; d0 (l) Sprite address (VRAM)
+	; d0 (w) Sprite address (VRAM)
 	; d1 (w) Size of one sprite frame (in tiles)
 	; d2 (w) Animation frame
 	; d3 (b) Number of anim frames
 	; d4 (w) First frame offset
 
+	and.l  #0x0000FFFF, d0
 	and.l  #0x0000FFFF, d2
 	and.l  #0x000000FF, d3
 

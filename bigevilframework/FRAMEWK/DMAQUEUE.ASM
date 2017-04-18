@@ -13,10 +13,10 @@ VDPDMAQueue_MaxSize    equ 0x40  ; Queue max size
 	rsset 0
 ;------------------------------
 VDPDMAJob_SourceAddr     rs.l 1	; Source address (68k space)
-VDPDMAJob_DestAddr		 rs.l 1 ; Dest address (VRAM space)
+VDPDMAJob_DestAddr		 rs.w 1 ; Dest address (VRAM space)
 VDPDMAJob_SizeWords      rs.w 1 ; Data size (in words)
 ;------------------------------
-VDPDMAJob_Struct_Pad     rs.b 2
+VDPDMAJob_Struct_Pad     rs.b 0
 VDPDMAJob_Struct_Size    rs.b 0
 ;------------------------------
 
@@ -50,7 +50,7 @@ VDP_DMAQueue_AddJob:
 	
 	; Set properties
 	move.l a0, VDPDMAJob_SourceAddr(a1)
-	move.l d0, VDPDMAJob_DestAddr(a1)
+	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d1, VDPDMAJob_SizeWords(a1)
 	
 	; Increment queue size
@@ -69,17 +69,17 @@ VDP_DMAQueue_AddJob:
 	move.l d3, d4
 	lsr.l  #0x1, d4			; Size diff to words
 	move.l a0, VDPDMAJob_SourceAddr(a1)
-	move.l d0, VDPDMAJob_DestAddr(a1)
+	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d4, VDPDMAJob_SizeWords(a1)
 	addi.w #0x1, vdp_dma_queue_size
 	add.l  #VDPDMAJob_Struct_Size, a1
 	
 	; Job 2
 	add.l  d3, a0			; Offset source address (bytes)
-	add.l  d3, d0			; Offset dest address (bytes)
+	add.w  d3, d0			; Offset dest address (bytes)
 	sub.w  d4, d1			; Subtract size (words)
 	move.l a0, VDPDMAJob_SourceAddr(a1)
-	move.l d0, VDPDMAJob_DestAddr(a1)
+	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d1, VDPDMAJob_SizeWords(a1)
 	addi.w #0x1, vdp_dma_queue_size
 	
@@ -101,7 +101,7 @@ VDP_DMAQueue_ExecuteAll:
 	; Execute jobs
 	@QueueLoop:
 	move.l VDPDMAJob_SourceAddr(a1), a0
-	move.l VDPDMAJob_DestAddr(a1), d0
+	move.w VDPDMAJob_DestAddr(a1), d0
 	move.w VDPDMAJob_SizeWords(a1), d1
 	jsr    VDP_DMACopyVRAM
 	addi.l #VDPDMAJob_Struct_Size, a1

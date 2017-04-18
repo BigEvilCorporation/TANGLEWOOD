@@ -167,7 +167,7 @@ AnimObjDraw:
 	
 	; Frame advanced, + DMA new tiles to VRAM
 	movem.l d2/a0-a2, -(sp)
-	move.l SpriteObj_VRAMAddr(a0), d0
+	move.w SpriteObj_VRAMAddr(a0), d0
 	move.w SpriteObj_TilesetSize(a0), d1
 	move.w Animation_FirstFrameOffset(a2), d4
 	move.l Animation_AnimTrackSpriteFrame(a2), a1
