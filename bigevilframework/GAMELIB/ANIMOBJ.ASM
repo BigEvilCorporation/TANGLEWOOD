@@ -261,8 +261,9 @@ AnimObjSetAnimation:
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
 
-	; If not playing, reset
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	; If not playing and allowed to replay, reset
+	move.b AnimObj_Playing(a0), d0
+	or.b   Animation_NoReplay(a2), d0
 	beq    @SkipChangeCheck
 	
 	; Check if changed
