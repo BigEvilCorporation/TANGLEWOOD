@@ -9,9 +9,9 @@
 VFXGreyscaleLerp	equ 0x0
 VFXGreyscaleInst	equ 0x1
 
-VFXUnderwaterSubR	equ 0x4
-VFXUnderwaterSubB	equ 0x4
-VFXUnderwaterSubG	equ 0x0
+VFXUnderwaterSubR	equ 0x6
+VFXUnderwaterSubB	equ 0x6
+VFXUnderwaterSubG	equ 0x1
 
 VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
