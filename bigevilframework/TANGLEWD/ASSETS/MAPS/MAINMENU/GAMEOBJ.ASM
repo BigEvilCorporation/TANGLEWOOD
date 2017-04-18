@@ -20,7 +20,8 @@ main_menu_Nymn_1_idx	equ 0x0
 
 main_menu_Echo_count equ 0x0
 
-main_menu_BouncePlant_count equ 0x0
+main_menu_BouncePlant_count equ 0x1
+main_menu_BouncePlant_8_idx	equ 0x0
 
 main_menu_Boulder_count equ 0x0
 
@@ -30,7 +31,8 @@ main_menu_Firefly_count equ 0x0
 
 main_menu_Fuzzl_count equ 0x0
 
-main_menu_Stone_count equ 0x0
+main_menu_Stone_count equ 0x1
+main_menu_Stone_9_idx	equ 0x0
 
 main_menu_Nest_count equ 0x0
 
@@ -78,6 +80,11 @@ main_menu_LoadGameObjects:
 	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_BouncePlant, a0
+	jsr BouncePlantInit
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
 
@@ -88,6 +95,11 @@ main_menu_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
 
 	move.l #EntityArray_Stone, a0
+	jsr StoneInit
+	move.l #0x00f80000, Entity_WorldPosX(a0)
+	move.l #0x01480000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	move.l #EntityArray_Nest, a0
 
