@@ -93,7 +93,7 @@ SpriteObjLoad:
 
 	; VDP_LoadTiles:
 	;  a0 - Tiles address (l)
-	;  d0 - VRAM address (l)
+	;  d0 - VRAM address (w)
 	;  d1 - Num tiles (w)
 	PUSHM    a0-a3/d0-d3
 	move.l   a1, a0

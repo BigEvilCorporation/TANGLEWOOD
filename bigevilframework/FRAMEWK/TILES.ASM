@@ -8,10 +8,11 @@
 
 VDP_LoadTiles:
 	; a0 - Tiles address (l)
-	; d0 - VRAM address (l)
+	; d0 - VRAM address (w)
 	; d1 - Num tiles (w)
 
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	andi.l  #0x0000FFFF, d0
 	add.l   #vram_addr_tiles, d0	; Add VRAM address offset
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
