@@ -52,7 +52,7 @@ SceneAnimLoadStampAnim:
 	move.l d0, SpriteObj_VRAMAddr(a0)
 	move.w d1, SpriteObj_TilesetSize(a0)
 
-	; Invalidate as sprite
-	move.b #0xFF, SpriteObj_SpriteID(a0)
+	; Not a sprite
+	move.b #0x0, SpriteObj_Visible(a0)
 
 	rts

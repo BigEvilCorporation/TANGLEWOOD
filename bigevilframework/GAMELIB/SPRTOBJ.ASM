@@ -21,7 +21,6 @@ SpriteObj_DrawOffsetY	      rs.w 1   ; Sprite draw offset Y (pixels)
 SpriteObj_TilesetSize         rs.w 1	; Art tiles size (bytes)
 SpriteObj_Dimensions          rs.w 1	; Width/height in subsprite
 SpriteObj_TileID              rs.w 1	; First tile ID
-SpriteObj_SpriteID            rs.b 1	; First sub-sprite ID
 SpriteObj_Palette             rs.b 1	; Palette ID
 SpriteObj_Priority            rs.b 1	; Priority (0/1)
 SpriteObj_NumSubSprites       rs.b 1	; Num sub-sprites
@@ -30,7 +29,7 @@ SpriteObj_FlippedY            rs.b 1	; Sprite flip Y
 SpriteObj_Visible             rs.b 1	; Is visible (hidden in sprite border if not)
 SpriteObj_SpriteLinked        rs.b 1	; Is sprite linked (use as last frame visibility test)
 ;-----------------------------------
-SpriteObj_Struct_Pad          rs.b 2
+SpriteObj_Struct_Pad          rs.b 1
 SpriteObj_Struct_Size         rs.b 0
 ;-----------------------------------
 
@@ -53,7 +52,6 @@ SpriteObjInit:
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 	move.w #0x0, SpriteObj_TilesetSize(a0)
 	move.w #0x0, SpriteObj_Dimensions(a0)
-	move.b #0x0, SpriteObj_SpriteID(a0)
 	move.b #0x0, SpriteObj_NumSubSprites(a0)
 	move.b #0x0, SpriteObj_FlippedX(a0)
 	move.b #0x0, SpriteObj_FlippedY(a0)
@@ -101,11 +99,6 @@ SpriteObjLoad:
 	move.l   a1, a0
 	jsr      VDP_LoadTiles
 	POPM     a0-a3/d0-d3
-	
-	;==============================================================
-
-	; Set sprite ID
-	move.b d4, SpriteObj_SpriteID(a0)	; Sprite ID in d0
 
 	rts
 
@@ -137,11 +130,6 @@ SpriteObjAllocSprite:
 	jsr    SPR_AddMultiSprite
 	move.b d0, d4			; Sprite ID in d0
 	POPM   a0-a3/d0-d3
-	
-	;==============================================================
-
-	; Set sprite ID
-	move.b d4, SpriteObj_SpriteID(a0)	; Sprite ID in d0
 
 	rts
 
@@ -153,10 +141,6 @@ SpriteObjUpdate:
 SpriteObjDraw:
 	; a0 --- SpriteObj addr
 	; a1 --- Level addr
-
-	; Check if valid sprite ID
-	cmp.b  #0xFF, SpriteObj_SpriteID(a0)
-	beq    @InvalidSpriteId
 
 	; Check if visible
 	move.b SpriteObj_Visible(a0), d0
@@ -227,26 +211,6 @@ SpriteObjDraw:
 	; Sprite unlinked
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
 	
-	@InvalidSpriteId:
 	@End:
 	
-	rts
-	
-SpriteObj_SetDrawPriority:
-	; a0 --- SpriteObj addr
-	; a1 --- Level addr
-	; d0 (b) Priority (0/1)
-
-	move.b d0, d1
-	clr.l  d0
-	clr.l  d2
-	move.b SpriteObj_NumSubSprites(a0), d2
-	move.b SpriteObj_SpriteID(a0), d0
-	@SubspriteLp:
-	PUSHM  d0-d2
-	jsr    SPR_SetPriority
-	POPM   d0-d2
-	add.b  #0x1, d0
-	dbra   d2, @SubspriteLp
-
 	rts
