@@ -7,11 +7,13 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L1A2_Leaf_count equ 0x4
+L1A2_Leaf_count equ 0x6
 L1A2_Leaf_149_idx	equ 0x0
 L1A2_Leaf_150_idx	equ 0x1
 L1A2_Leaf_151_idx	equ 0x2
 L1A2_Leaf_152_idx	equ 0x3
+L1A2_Leaf_222_idx	equ 0x4
+L1A2_Leaf_223_idx	equ 0x5
 
 L1A2_Nymn_count equ 0x1
 L1A2_Nymn_137_idx	equ 0x0
@@ -85,6 +87,12 @@ L1A2_Deathbox_count equ 0x0
 
 L1A2_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
