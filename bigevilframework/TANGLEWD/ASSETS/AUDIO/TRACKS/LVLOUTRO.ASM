@@ -1,13 +1,13 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
-	dc.b $40, $10	; Set instrument for channel FM 1
+	dc.b $40, $0b	; Set instrument for channel FM 1
 	dc.b $20, $07	; Set volume for channel FM 1
 	dc.b $00, $43	; Note C#2 on channel FM 1
-	dc.b $44, $11	; Set instrument for channel FM 4
+	dc.b $44, $0c	; Set instrument for channel FM 4
 	dc.b $24, $07	; Set volume for channel FM 4
 	dc.b $04, $8b	; Note F-4 on channel FM 4
 	dc.b $f4, $40	; Set params for channel FM 4
-	dc.b $48, $12	; Set instrument for channel PSG 1
+	dc.b $48, $0d	; Set instrument for channel PSG 1
 	dc.b $28, $07	; Set volume for channel PSG 1
 	dc.b $08, $46	; Note B-2 on channel PSG 1
 ; Pattern $00, Row 1; 
@@ -15,22 +15,22 @@
 ; Pattern $00, Row 3; 
 ; Pattern $00, Row 4; 
 	dc.b $fe, $0e	; Delay
-	dc.b $49, $12	; Set instrument for channel PSG 2
+	dc.b $49, $0d	; Set instrument for channel PSG 2
 	dc.b $29, $07	; Set volume for channel PSG 2
 	dc.b $09, $44	; Note A#2 on channel PSG 2
 ; Pattern $00, Row 5; 
 	dc.b $fe, $03	; Delay
-	dc.b $4a, $12	; Set instrument for channel PSG 3
+	dc.b $4a, $0d	; Set instrument for channel PSG 3
 	dc.b $2a, $0a	; Set volume for channel PSG 3
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
 ; Pattern $00, Row 6; 
 ; Pattern $00, Row 7; 
 ; Pattern $00, Row 8; 
 	dc.b $fe, $0b	; Delay
-	dc.b $41, $10	; Set instrument for channel FM 2
+	dc.b $41, $0b	; Set instrument for channel FM 2
 	dc.b $21, $07	; Set volume for channel FM 2
 	dc.b $01, $55	; Note A#2 on channel FM 2
-	dc.b $45, $11	; Set instrument for channel FM 5
+	dc.b $45, $0c	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $05, $8d	; Note F#4 on channel FM 5
 	dc.b $f5, $80	; Set params for channel FM 5
@@ -64,10 +64,10 @@
 ; Pattern $00, Row 19; 
 ; Pattern $00, Row 20; 
 	dc.b $fe, $0b	; Delay
-	dc.b $42, $10	; Set instrument for channel FM 3
+	dc.b $42, $0b	; Set instrument for channel FM 3
 	dc.b $22, $07	; Set volume for channel FM 3
 	dc.b $02, $4d	; Note F#2 on channel FM 3
-	dc.b $46, $11	; Set instrument for channel FM 6
+	dc.b $46, $0c	; Set instrument for channel FM 6
 	dc.b $26, $07	; Set volume for channel FM 6
 	dc.b $06, $83	; Note C#4 on channel FM 6
 	dc.b $f6, $c0	; Set params for channel FM 6
