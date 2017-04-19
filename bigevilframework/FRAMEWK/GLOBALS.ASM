@@ -7,12 +7,18 @@
 ;==============================================================
 
 ; ************************************
+; Build #
+; ************************************
+build_date			dc.b '\#_day/\#_month/\#_year',0
+	even
+
+; ************************************
 ; Constants
 ; ************************************
-num_palettes			equ 0x4
+num_palettes		equ 0x4
 
-screen_width     		equ 0x0140 ; 320 (H40 mode)
-screen_height	        equ 0x00E0 ; 224 (V28 mode)
+screen_width		equ 0x0140 ; 320 (H40 mode)
+screen_height		equ 0x00E0 ; 224 (V28 mode)
 
 ; ************************************
 ; Sizes
@@ -189,7 +195,8 @@ vdp_status_dma             equ 0x1    ; DMA in progress
 vdp_status_pal             equ 0x0    ; PAL mode flag
 
 ; VDP general register bits
-vdp_reg1_enablevint		   equ 0x10
+vdp_reg0_enablehint		   equ 0x10
+vdp_reg1_enablevint		   equ 0x40
 vdp_reg1_enabledisplay     equ 0x20
 
 ; ************************************

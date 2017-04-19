@@ -212,6 +212,14 @@ VDP_EnableDisplay:
 VDP_DisableDisplay:
 	move.w #(0x8100|VDPReg1&~vdp_reg1_enabledisplay), vdp_control
 	rts
+
+VDP_EnableHINT:
+	move.w #(0x8000|VDPReg0|vdp_reg0_enablehint), vdp_control
+	rts
+		
+VDP_DisableHINT:
+	move.w #(0x8000|VDPReg0&~vdp_reg0_enablehint), vdp_control
+	rts
 		
 VDP_EnableVINT:
 	move.w #(0x8100|VDPReg1|vdp_reg1_enablevint), vdp_control

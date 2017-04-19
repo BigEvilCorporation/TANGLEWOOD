@@ -15,8 +15,9 @@ GameStateGameplay:
 	
 Gameplay_Enter:
 	
-	; Disable vint during state change
+	; Disable vint/hint during state change
 	move.b #0x0, vint_enabled
+	jsr    VDP_DisableHINT
 	
 	; Reset
 	PUSHL  a0
@@ -96,6 +97,9 @@ Gameplay_Enter:
 	
 	; Start demo timer
 	move.l #DemoTimeout, TimerDemoReset
+
+	; Restore hint
+	jsr    VDP_EnableHINT
 	
 	rts
 	
