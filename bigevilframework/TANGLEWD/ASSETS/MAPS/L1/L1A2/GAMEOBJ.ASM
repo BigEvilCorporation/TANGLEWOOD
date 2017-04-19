@@ -25,7 +25,7 @@ L1A2_BouncePlant_210_idx	equ 0x0
 L1A2_BouncePlant_190_idx	equ 0x1
 L1A2_BouncePlant_148_idx	equ 0x2
 L1A2_BouncePlant_144_idx	equ 0x3
-L1A2_BouncePlant_215_idx	equ 0x4
+L1A2_BouncePlant_224_idx	equ 0x4
 
 L1A2_Boulder_count equ 0x3
 L1A2_Boulder_147_idx	equ 0x0
@@ -137,8 +137,8 @@ L1A2_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x2a480000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x2a500000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
@@ -223,8 +223,8 @@ L1A2_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x2a680000, Entity_WorldPosX(a0)
-	move.l #0x02200000, Entity_WorldPosY(a0)
+	move.l #0x29f80000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
