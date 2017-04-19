@@ -173,8 +173,8 @@ L1A3_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0b600000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
+	move.l #0x0b900000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
@@ -224,8 +224,8 @@ L1A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x0fb80000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
+	move.l #0x10180000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
