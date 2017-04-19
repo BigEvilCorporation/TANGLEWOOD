@@ -6,6 +6,10 @@
 ;   macros.asm - Utility macros
 ;==============================================================
 
+ENTITY_GETBYNAME: macro typename,name,addrreg
+	move.l #EntityArray_\typename+(\name\_idx*\typename\_Struct_Size), \addrreg
+	endm
+
 ENTITY_GETCENTREX: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Width(\addrreg), \destreg

@@ -69,52 +69,52 @@ l1a4_Init:
 	;==============================================================
 
 	; Link Flue B with Flue A
-	move.l #l1a4_Flue_EndLink_A_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a4_Flue_EndLink_B_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a4_Flue_EndLink_A, a0
+	ENTITY_GETBYNAME Flue, l1a4_Flue_EndLink_B, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
 	; Link secret area flue A with B
-	move.l #l1a4_Flue_Secret_A_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a4_Flue_Secret_B_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_A, a0
+	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_B, a1
 	move.l a1, Flue_OutputFlue(a0)
 
 	; Link secret area flue C with D
-	move.l #l1a4_Flue_Secret_C_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a4_Flue_Secret_D_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_C, a0
+	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_D, a1
 	move.l a1, Flue_OutputFlue(a0)
 
 	;==============================================================
 	
 	; Disable Djakk lost player timeout
-	move.l #l1a4_Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monster, a0
-	add.l  d0, a0
+	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
 	move.w #-1, Monster_LoseSightTimer(a0)
+
+	;==============================================================
+
+	; Disable tree Fuzzls 1-6 until end, to improve performance
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl1, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl2, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl3, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl4, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl5, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl6, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	rts
 	
@@ -159,17 +159,56 @@ l1a4_Trigger_WakeDjakk:
 	POPL   a0
 	
 	rts
+
+l1a4_Trigger_DismountDjakk:
+
+	PUSHL  a0
+	move.l #Player1, a0
+	cmp.b  #0x0, Character_Riding(a0)
+	beq    @NotRiding
+
+	; Set power to expire next frame
+	move.w #0x1, Player_ColourChangeTimer(a0)
+
+	@NotRiding:
+	POPL   a0
+
+	rts
 	
 l1a4_Trigger_FuzzlTreeEntrance:
 
 	PUSHL  a0
 
-	; Disarm Djakk if still alive (rare but possible)
-	move.l #l1a4_Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monster, a0
-	add.l  d0, a0
+	; Disarm and disable Djakk if still alive (rare but possible)
+	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
 	jsr    MonsterDie
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
+	; Enable tree Fuzzls
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl1, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl2, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl3, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl4, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl5, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl6, a0
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
 
 	; Start 'Rain' track
 	IFND DEBUG
