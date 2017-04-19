@@ -12,18 +12,20 @@ GameStatePause:
 	dc.l Pause_Update
 	dc.l Pause_Render
 	dc.l 0x0
+
+GameStatePause_MaxStringLen	equ 0x8
 	
 ; Struct
 	rsset	0x0
 ;----------------------------------
 PauseState_PaletteBackup	 rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
 PauseState_Firefly			 rs.b Firefly_Struct_Size
+PauseState_TextTileBuff		 rs.b GameStatePause_MaxStringLen
 PauseState_VRAMAddr			 rs.w 1
 PauseState_PrevPadState		 rs.w 1
-PauseState_TextSpritesID     rs.w 1
-PauseState_TextSpritesCount  rs.w 1
+PauseState_TextSpritesCount  rs.b 1
 ;----------------------------------
-PauseState_Struct_Pad		 rs.b 0
+PauseState_Struct_Pad		 rs.b 3
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
@@ -109,20 +111,17 @@ Pause_Enter:
 	
 	clr.l   d0
 	move.w  (vram_addr_systemfont), d0	; Font VDP address
-	divu    #size_tile_b, d0
-	move.l  #((PauseText_PosX<<16)|PauseText_PosY), d1		; X/Y coord
-	move.b  #PauseText_FontPaletteId, d2	; Palette index
-	move.b  #0x0, d3					; Plane A
+	divu.w  #size_tile_b, d0
 	move.l  a1, a0						; String
-	jsr     TXT_DrawSprites
+	move.l  #GameStatePauseData+PauseState_TextTileBuff, a1	; Output tile ID buffer
+	jsr     TXT_CreateTileIDList
 	
 	; Free string space
 	add.l   #0x10, sp
 	
-	; Store text sprites ID/count
+	; Store text sprites count
 	lea    GameStatePauseData, a0
-	move.w d3, PauseState_TextSpritesID(a0)
-	move.w d4, PauseState_TextSpritesCount(a0)
+	move.b d0, PauseState_TextSpritesCount(a0)
 		
 	; Create temp firefly
 	addi.l #PauseState_Firefly, a0
@@ -203,12 +202,6 @@ Pause_Exit:
 	addi.l #PauseState_Firefly, a0
 	jsr    FireflyShutdown
 	
-	; HACK: only if last allocated sprites
-	lea    GameStatePauseData, a0
-	subi.w #0x1, (next_sprite_index)
-	move.w PauseState_TextSpritesCount(a0), d0
-	sub.w  d0, (next_sprite_index)
-	
 	; Backup current pad state
 	; TODO: Handle input reads globally
 	jsr    PAD_ReadPadA
@@ -267,32 +260,31 @@ Pause_Render:
 	; Draw game objects
 	jsr EntityRenderAll
 	
-	; Draw text
+	; Add all text glyphs for drawing
+	clr.l  d4
 	lea    GameStatePauseData, a0
-	
-	move.w PauseState_TextSpritesID(a0), d1 ; Next id
-	move.w PauseState_TextSpritesCount(a0), d2
-	
-	subi.w #0x1, d2
+	move.l #GameStatePauseData+PauseState_TextTileBuff, a1	; Tile ID buffer
+	move.b PauseState_TextSpritesCount(a0), d4				; Count
+	move.b #0x0, d0											; 1x1 sprite
+	move.l #(((PauseText_PosX+vdp_sprite_border_x)<<16)|(PauseText_PosY+vdp_sprite_border_y)), d1		; X/Y coord
+	move.w #((PauseText_FontPaletteId<<13)|1<<15), d3		; Palette/flip/priority bits
+	subi.w #0x1, d4
 	@TextLp:
+	PUSHL  d4
 	
-	PUSHL  a0
+	; Get tile idx
+	move.w (a1)+, d2
 	
-	move.w (prev_sprite_link), d0			; Prev id
-	PUSHL  d0
-	PUSHL  d1
-	jsr    SPR_Link							; Link sprite with prev
-	POPL   d1
-	POPL   d0
-	move.w d1, prev_sprite_link				; Set as next_sprite_index
-	addi.b #0x1, sprite_link_count			; Increment link count
-	
-	; Next sprite
-	addi.w #0x1, d1
-	
-	POPL   a0
-	
-	dbra   d2, @TextLp
+	; Create and link sprite
+	PUSHM  d0-d3/a0-a1
+	jsr    SPR_AddSubSprite
+	POPM   d0-d3/a0-a1
+
+	; Next X
+	add.l  #0x00080000, d1
+
+	POPL   d4
+	dbra   d4, @TextLp
 	
 	POPL   a1
 	POPL   a0

@@ -131,6 +131,43 @@ TXT_DrawSprites:
 	
 	rts
 
+TXT_CreateTileIDList:
+	; a0 --- - String address
+	; a1 --- - Buffer to write tile ID to (w)
+	; d0 (w) - IN: First tile ID of font
+	;    (b)   OUT: Num tile IDs written
+	
+	; Clear counter
+	clr.w    d4
+	
+	lea      ASCIIMap, a2           ; Load address of ASCII map into a1
+	clr.w    d2
+
+	@CharCopy:
+	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
+	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
+	beq      @End                   ; If byte was zero, branch to end
+
+	PUSHL    d4
+	
+	sub.b    #ASCIIStart, d2        ; Subtract first ASCII code to get table entry index
+	move.b   (a2,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
+	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
+
+	move.w   d4, (a1)+
+	
+	POPL     d4						; To buffer
+	
+	addi.b   #0x1, d4				; Increment counter
+	
+	bra      @CharCopy              ; Next character
+
+	@End:
+
+	move.b   d4, d0
+	
+	rts
+
 TXT_ItoA_Hex_w:
 	; Converts a word to hex ASCII
 	; a0 --- In: String address
