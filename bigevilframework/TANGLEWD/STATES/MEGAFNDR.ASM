@@ -16,7 +16,6 @@ GameStateMegafounderScreen:
 	dc.l MegafounderScreen_Exit
 	dc.l MegafounderScreen_Update
 	dc.l MegafounderScreen_Render
-	dc.l MegafounderScreen_Render
 	dc.l 0x0
 	
 MegafounderScreen_Enter:
@@ -82,9 +81,8 @@ MegafounderScreen_Exit:
 MegafounderScreen_Update:
 
 	; Wait for fade to finish
-	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_UpdateSpeed(a0), d0
-	cmp.w  #0x0, d0
+	jsr    PAL_LerpActive
+	cmp.b  #0x0, d0
 	bne    @Fading
 
 	; If already done fade to black

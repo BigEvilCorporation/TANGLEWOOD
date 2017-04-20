@@ -119,13 +119,21 @@
 	; Blocks
 	; ************************************
 	include 'assets\maps\mainmenu\blocks.asm'
+	include 'assets\maps\endlevel\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
 
 	; ************************************
 	; Block maps
 	; ************************************
 	include 'assets\maps\mainmenu\blockmap.asm'
+	include 'assets\maps\endlevel\blockmap.asm'
 	include 'assets\maps\megafndr\blockmap.asm'
+
+	; ************************************
+	; Game objects
+	; ************************************
+	include 'assets\maps\mainmenu\gameobj.asm'
+	include 'assets\maps\endlevel\gameobj.asm'
 	
 	; ************************************
 	; Audio

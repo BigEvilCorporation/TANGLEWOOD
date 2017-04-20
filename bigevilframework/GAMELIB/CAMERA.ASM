@@ -50,6 +50,10 @@ CAM_Update:
 	; Level to a1
 	move.l  (CurrentLevel), a1
 
+	; Store prev pos before taking new, to calculate velocity
+	move.l  (CameraWorldPosX), CameraPrevPosX
+	move.l  (CameraWorldPosY), CameraPrevPosY
+
 	; Update camera pos from target gameobj
 	move.l  (CameraTargetGameObj), a0
 	cmp.l   #0x0, a0
@@ -134,6 +138,52 @@ CAM_Update:
 	@EndLerp:
 	@NoLerp:
 	
+	;==============================================================
+
+	; Clamp X velocity to max
+	;move.l  d0, d4
+	;move.l  CameraPrevPosX, d3
+	;move.l  d3, d2
+	;sub.l   d2, d4
+	;cmp.l   #camera_max_vel_x, d4
+	;bgt     @ClampXVelPositive
+	;cmp.l   #-camera_max_vel_x, d4
+	;blt     @ClampXVelNegative
+	;bra     @EndClampXVel
+;
+	;@ClampXVelPositive:
+	;add.l   #camera_max_vel_x, d3
+	;move.l  d3, d0
+	;bra     @EndClampXVel
+;
+	;@ClampXVelNegative:
+	;add.l   #-camera_max_vel_x, d3
+	;move.l  d3, d0
+;
+	;@EndClampXVel:
+;
+	;; Clamp Y velocity to max
+	;move.l  d1, d4
+	;move.l  CameraPrevPosY, d3
+	;move.l  d3, d2
+	;sub.l   d2, d4
+	;cmp.l   #camera_max_vel_y, d4
+	;bgt     @ClampYVelPositive
+	;cmp.l   #-camera_max_vel_y, d4
+	;blt     @ClampYVelNegative
+	;bra     @EndClampYVel
+;
+	;@ClampYVelPositive:
+	;add.l   #camera_max_vel_y, d3
+	;move.l  d3, d1
+	;bra     @EndClampYVel
+;
+	;@ClampYVelNegative:
+	;add.l   #-camera_max_vel_y, d3
+	;move.l  d3, d1
+;
+	;@EndClampYVel:
+
 	;==============================================================
 
 	; Clamp to X bounds

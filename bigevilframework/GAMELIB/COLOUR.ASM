@@ -83,6 +83,8 @@ PAL_LerpActive:
 
 	move.b #0x0, d0
 
+	PUSHL  a0
+
 	lea PaletteLerp_Array, a0
 	move.l #num_palettes-1, d1
 	@PaletteLerpLp:
@@ -92,6 +94,8 @@ PAL_LerpActive:
 	@Inactive:
 	add.l  #PaletteLerp_Struct_Size, a0
 	dbra d1, @PaletteLerpLp
+
+	POPL   a0
 
 	rts
 	

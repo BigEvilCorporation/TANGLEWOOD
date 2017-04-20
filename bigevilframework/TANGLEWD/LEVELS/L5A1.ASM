@@ -22,6 +22,7 @@ L5a1_BygoneAct1:
 	dc.l L5a1_Update					; Update routine
 	dc.l L5a1_Serialise					; Serialise routine
 	dc.l L5a1_LoadGameObjects			; Load game objects routine
+	dc.l l5a1_End						; End routine
 	IF INCLUDE_LEVEL_6
 	dc.l L6a1_DeadwoodAct1				; Next level
 	ELSE
@@ -142,8 +143,11 @@ L5a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
+
+l5a1_End:
+	rts
 	
-L5a1_End:
+L5a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

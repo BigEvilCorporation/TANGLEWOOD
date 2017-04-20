@@ -22,6 +22,7 @@ l2a1_StormWarningAct1:
 	dc.l l2a1_Update					; Update routine
 	dc.l l2a1_Serialise					; Serialise routine
 	dc.l l2a1_LoadGameObjects			; Load game objects routine
+	dc.l l2a1_End						; End routine
 	IF INCLUDE_LEVEL_3
 	dc.l l3a1_HeritageAct1				; Next level
 	ELSE
@@ -142,8 +143,11 @@ l2a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
-	
+
 l2a1_End:
+	rts
+	
+l2a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

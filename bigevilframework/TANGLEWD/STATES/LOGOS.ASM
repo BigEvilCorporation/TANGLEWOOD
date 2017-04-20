@@ -122,9 +122,8 @@ Logos_Update:
 	@FadeOut:
 	
 	; Wait for fade in to finish
-	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_UpdateSpeed(a0), d0
-	cmp.w  #0x0, d0
+	jsr    PAL_LerpActive
+	cmp.b  #0x0, d0
 	bne    @Fading
 
 	; If already done, fade to black

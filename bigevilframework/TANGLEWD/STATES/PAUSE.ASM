@@ -20,7 +20,7 @@ GameStatePause_MaxStringLen	equ 0x8
 ;----------------------------------
 PauseState_PaletteBackup	 rs.b (0x20*4)	; TODO: why won't size_palette_b evaluate here? 
 PauseState_Firefly			 rs.b Firefly_Struct_Size
-PauseState_TextTileBuff		 rs.b GameStatePause_MaxStringLen
+PauseState_TextTileBuff		 rs.w GameStatePause_MaxStringLen
 PauseState_VRAMAddr			 rs.w 1
 PauseState_PrevPadState		 rs.w 1
 PauseState_TextSpritesCount  rs.b 1

@@ -132,6 +132,7 @@ __start
 	;include 'states\kickstrt.asm'
 	include 'states\megafndr.asm'
 	include 'states\soundtst.asm'
+	include 'states\score.asm'
 	include 'states\logos.asm'
 	include 'states\pause.asm'
 	include 'states\mainmenu.asm'

@@ -39,6 +39,8 @@ map_soundtest:
 	; ************************************
 map_blocks_main_menu:
 	incbin 'assets\maps\mainmenu\blocks.bin'
+map_blocks_end_level:
+	incbin 'assets\maps\endlevel\blocks.bin'
 map_blocks_megafounder_screen:
 	incbin 'assets\maps\megafndr\blocks.bin'
 
@@ -47,5 +49,7 @@ map_blocks_megafounder_screen:
 	; ************************************
 map_blockmap_main_menu:
 	incbin 'assets\maps\mainmenu\blockmap.bin'
+map_blockmap_end_level:
+	incbin 'assets\maps\endlevel\blockmap.bin'
 map_blockmap_megafounder_screen:
 	incbin 'assets\maps\megafndr\blockmap.bin'

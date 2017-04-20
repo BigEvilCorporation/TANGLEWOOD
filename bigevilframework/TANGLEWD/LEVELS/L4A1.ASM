@@ -22,6 +22,7 @@ l4a1_TetheredAct1:
 	dc.l l4a1_Update					; Update routine
 	dc.l l4a1_Serialise					; Serialise routine
 	dc.l l4a1_LoadGameObjects			; Load game objects routine
+	dc.l l4a1_End						; End routine
 	IF INCLUDE_LEVEL_5
 	dc.l L5a1_BygoneAct1				; Next level
 	ELSE
@@ -142,8 +143,11 @@ l4a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
-	
+
 l4a1_End:
+	rts
+	
+l4a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

@@ -27,7 +27,6 @@
 	include 'assets\maps\l1\l1a2\gameobj.asm'
 	include 'assets\maps\l1\l1a3\gameobj.asm'
 	include 'assets\maps\l1\l1a4\gameobj.asm'
-	include 'assets\maps\mainmenu\gameobj.asm'
 
 ;==============================================================
 ; Graphics tileset

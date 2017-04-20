@@ -22,6 +22,7 @@ l3a1_HeritageAct1:
 	dc.l l3a1_Update					; Update routine
 	dc.l l3a1_Serialise					; Serialise routine
 	dc.l l3a1_LoadGameObjects			; Load game objects routine
+	dc.l l3a1_End						; End routine
 	IF INCLUDE_LEVEL_4
 	dc.l l4a1_TetheredAct1				; Next level
 	ELSE
@@ -142,8 +143,11 @@ l3a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
-	
+
 l3a1_End:
+	rts
+	
+l3a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

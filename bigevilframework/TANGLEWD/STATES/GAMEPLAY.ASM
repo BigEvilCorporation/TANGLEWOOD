@@ -105,11 +105,23 @@ Gameplay_Enter:
 	rts
 	
 Gameplay_Exit:
+
+	; Notify level
+	move.l (CurrentLevel), a1
+	cmp.l  #0x0, a1
+	beq    @NoLevel
+	move.l Level_EndRoutine(a1), a2
+	cmp.l  #0x0, a2
+	beq    @NoEndRoutine
+	jsr    (a2)
+	@NoLevel:
+	@NoEndRoutine:
+
 	rts
 	
 Gameplay_Update:
 
-	; Set current level ptr
+	; Get current level ptr
 	move.l (CurrentLevel), a1
 	
 	; Read and process gamepad input

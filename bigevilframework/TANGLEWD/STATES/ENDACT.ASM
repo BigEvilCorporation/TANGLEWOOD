@@ -85,9 +85,8 @@ EndAct_Update:
 	
 	@EndOfGame:
 	
-	; Reset to first level and head to demo end screen
-	move.l #InitialLevel, CurrentLevel
-	lea    GameStateDemoEnd, a0
+	; Start firefly score state
+	lea    GameStateEndLevelScoreScreen, a0
 	jsr    GameStateEnter
 	
 	@End:

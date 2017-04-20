@@ -22,6 +22,7 @@ l1a1_HarlequinForestAct1:
 	dc.l l1a1_Update					; Update routine
 	dc.l l1a1_Serialise					; Serialise routine
 	dc.l l1a1_LoadGameObjects			; Load game objects routine
+	dc.l l1a1_End						; End routine
 	dc.l l1a2_HarlequinForestAct2		; Next level
 	dc.w Gravity						; Default gravity
 	dc.w map_l1a1_width					; Map width (tiles)
@@ -145,8 +146,16 @@ l1a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
-	
+
 l1a1_End:
+	; a1 --- Level addr
+
+	; TODO: Store in level data, handle in GameStateEndAct::Enter
+	move.w (FireflyPickupCount), FireflyPickupCountL1A1
+
+	rts
+	
+l1a1_Trigger_End:
 
 	; Begin end of act gamestate
 	lea    GameStateEndAct, a0

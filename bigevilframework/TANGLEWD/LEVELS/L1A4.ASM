@@ -19,6 +19,7 @@ l1a4_HarlequinForestAct4:
 	dc.l l1a4_Update					; Update routine
 	dc.l l1a4_Serialise					; Serialise routine
 	dc.l l1a4_LoadGameObjects			; Load game objects routine
+	dc.l l1a4_End						; End routine
 	IF INCLUDE_LEVEL_2
 	dc.l l2a1_StormWarningAct1			; Next level
 	ELSE
@@ -127,6 +128,14 @@ l1a4_Serialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
+	rts
+
+l1a4_End:
+	; a1 --- Level addr
+
+	; TODO: Store in level data, handle in GameStateEndAct::Enter
+	move.w (FireflyPickupCount), FireflyPickupCountL1A4
+
 	rts
 	
 l1a4_Trigger_End:

@@ -20,6 +20,7 @@ Lvl0_MainMenu:
 	dc.l 0x0							; Update routine
 	dc.l 0x0							; Serialise routine
 	dc.l 0x0							; Load game objects routine
+	dc.l 0x0							; End routine
 	dc.l 0x0							; Next level
 	dc.w 0x0							; Default gravity
 	dc.w map_main_menu_width			; Map width (tiles)
@@ -192,9 +193,8 @@ MainMenu_Update:
 	lea    GameStateMainMenuData, a2
 	
 	; Wait for fade to finish
-	lea    PaletteLerp_Array, a0
-	move.w PaletteLerp_UpdateSpeed(a0), d0
-	cmp.w  #0x0, d0
+	jsr    PAL_LerpActive
+	cmp.b  #0x0, d0
 	bne    @Fading
 	
 	; If already started fade to black

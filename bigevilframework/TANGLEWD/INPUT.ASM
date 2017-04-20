@@ -89,7 +89,8 @@ HandlePlayerInput:
 	bne    @NoCompleteLevelCombo
 	cmp.w  #DebugButtonCombo_CompleteLevel, d1
 	beq    @NoCompleteLevelCombo
-	jsr    l1a2_End
+	lea    GameStateEndAct, a0
+	jsr    GameStateEnter
 	bra    @SkipInput
 	@NoCompleteLevelCombo:
 	ENDIF

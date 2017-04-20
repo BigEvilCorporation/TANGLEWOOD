@@ -132,6 +132,8 @@ WorldScrollX		    rs.l 1
 WorldScrollY		    rs.l 1
 CameraWorldPosX		    rs.l 1
 CameraWorldPosY		    rs.l 1
+CameraPrevPosX		    rs.l 1
+CameraPrevPosY		    rs.l 1
 CameraShakeOffsetX	    rs.l 1
 CameraShakeOffsetY	    rs.l 1
 CameraPeekOffsetY       rs.l 1
@@ -204,6 +206,7 @@ GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
 GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
+GameStateEndLevelScoreData	 rs.b EndLevelScore_Struct_Size
 	ENDIF
 
 ; Potential flue occupants list
@@ -238,6 +241,14 @@ TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; Firefly count
 FireflyPickupCount		 rs.w 1
+
+; Firefly count per act
+; TODO: Store in level data (derive level data from common base)
+;       Level IDs, in array
+FireflyPickupCountL1A1	 rs.w 1
+FireflyPickupCountL1A2	 rs.w 1
+FireflyPickupCountL1A3	 rs.w 1
+FireflyPickupCountL1A4	 rs.w 1
 
 ; Death count
 DeathCount				 rs.w 1

@@ -27,6 +27,14 @@ GameStateReset:
 	
 	; Clear all palettes
 	jsr    PAL_ClearAll
+
+	; Clear palette cache
+	lea    CurrentPalettes, a0
+	move.l #(size_palette_b*num_palettes)/size_long, d0
+	MEMZEROL a0, d0
+	lea    UnderwaterPalettes, a0
+	move.l #(size_palette_b*num_palettes)/size_long, d0
+	MEMZEROL a0, d0
 	
 	; Clear planes
 	jsr    VDP_ClearMapPlaneA

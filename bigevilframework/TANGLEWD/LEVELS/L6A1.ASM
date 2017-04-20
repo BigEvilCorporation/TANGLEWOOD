@@ -22,6 +22,7 @@ L6a1_DeadwoodAct1:
 	dc.l L6a1_Update					; Update routine
 	dc.l L6a1_Serialise					; Serialise routine
 	dc.l L6a1_LoadGameObjects			; Load game objects routine
+	dc.l l6a1_End						; End routine
 	IF INCLUDE_LEVEL_7
 	dc.l l7a1_TurntailAct1				; Next level
 	ELSE
@@ -142,8 +143,11 @@ L6a1_Serialise:
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
-	
+
 L6a1_End:
+	rts
+	
+L6a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

@@ -19,3 +19,7 @@ serialise_dir_out		equ 0x1
 
 ; Faders
 fade_frame_shift		equ 0x6
+
+; Camera
+camera_max_vel_x		equ 0x00200000
+camera_max_vel_y		equ 0x00040000
