@@ -57,7 +57,7 @@ L1A4_TreeFuzzl4_idx	equ 0x6
 L1A4_TreeFuzzl6_idx	equ 0x7
 L1A4_TreeFuzzl5_idx	equ 0x8
 
-L1A4_Stone_count equ 0x7
+L1A4_Stone_count equ 0x8
 L1A4_Stone_45_idx	equ 0x0
 L1A4_Stone_46_idx	equ 0x1
 L1A4_Stone_47_idx	equ 0x2
@@ -65,6 +65,7 @@ L1A4_Stone_48_idx	equ 0x3
 L1A4_Stone_53_idx	equ 0x4
 L1A4_Stone_88_idx	equ 0x5
 L1A4_Stone_61_idx	equ 0x6
+L1A4_Stone_91_idx	equ 0x7
 
 L1A4_Nest_count equ 0x2
 L1A4_Nest_11_idx	equ 0x0
@@ -330,6 +331,11 @@ L1A4_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x27580000, Entity_WorldPosX(a0)
 	move.l #0x03080000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x28b80000, Entity_WorldPosX(a0)
+	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
