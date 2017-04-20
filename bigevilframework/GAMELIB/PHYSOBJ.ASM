@@ -152,6 +152,7 @@ PhysicsObjUpdate:
 	jsr PhysicsObjApplyVelocity
 	
 	; Find floor
+	move.b #0x0, d0
 	jsr PhysicsObjFindFloor
 
 	; Find ceiling
@@ -594,11 +595,16 @@ PhysicsObjCollisionCorrection:
 PhysicsObjFindFloor:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d0 (b) Forced (ignores velocity check)
 
 	; Fetch last floor test result
 	move.l PhysicsObj_LastFloor(a0), d2
 	
 	;==============================================================
+
+	; If forced, skip velocity checks
+	cmp.b  #0x0, d0
+	bne    @SkipVelocityCheck
 	
 	; Check if positive Y velocity (don't bother finding floor)
 	move.l PhysicsObj_VelY(a0), d3
@@ -608,6 +614,8 @@ PhysicsObjFindFloor:
 	; Check if zero X and Y velocity (don't bother finding floor)
 	or.l   PhysicsObj_VelX(a0), d3
 	beq    @EndFloorTest
+
+	@SkipVelocityCheck:
 
 	; Clear last found floor
 	move.l #0x0, PhysicsObj_LastFloor(a0)
@@ -1063,6 +1071,7 @@ PhysicsObjSnapToFloor:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	move.b #0x1, d0							; Force check regardless of velocity
 	jsr    PhysicsObjFindFloor
 
 	move.l PhysicsObj_LastFloor(a0), d2		; Get last found floor

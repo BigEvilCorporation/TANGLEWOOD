@@ -80,6 +80,7 @@ Gameplay_Enter:
 	move.l #Player1, a0
 	
 	; Snap to floor
+	move.l (CurrentLevel), a1
 	jsr    PhysicsObjSnapToFloor
 	
 	; Pre-stream map

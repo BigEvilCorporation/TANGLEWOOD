@@ -52,9 +52,9 @@ StoneInit:
 	move.l #StoneSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 	jsr    EntityAddToRenderList
-	jsr    EntityAddToSerialiseList
+	;jsr    EntityAddToSerialiseList
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -142,6 +142,15 @@ StoneLoadGfx:
 	jsr    SpriteObjLoad
 
 	POPL   a1
+
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
+	; Reposition barrier
+	move.l a0, a2
+	add.l  #Stone_Barrier, a2
+	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
+	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
 	rts
 

@@ -67,7 +67,7 @@ LeafInit:
 
 	; Setup animation
 	move.l a0, a3
-	add.l  #BouncePlant_Animations, a3
+	add.l  #Leaf_Animation, a3
 	
 	; Select next colour sheet in array
 	clr.l  d0

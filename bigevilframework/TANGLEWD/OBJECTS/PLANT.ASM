@@ -115,9 +115,10 @@ BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 ;==============================================================
 
 ; Struct
-	rsset (AnimObj_Struct_Size)
+	;rsset (AnimObj_Struct_Size)
+	rsset (SpriteObj_Struct_Size)
 ;------------------------------
-BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
+;BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
 BouncePlant_BoundsLeft	 rs.w 1 ; Collision bounds offset X
 BouncePlant_BoundsTop	 rs.w 1 ; Collision bounds offset Y
 BouncePlant_BoundsWidth	 rs.w 1 ; Collision bounds offset width
@@ -144,7 +145,8 @@ BouncePlantInit:
 	
 	; Set update and render routines
 	move.l #BouncePlantUpdate, Entity_UpdateRoutine(a0)
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	;move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
@@ -160,8 +162,8 @@ BouncePlantInit:
 	
 	; Setup animation
 	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a3
-	add.l  #BouncePlant_Animations, a3
+	;move.l a0, a3
+	;add.l  #BouncePlant_Animations, a3
 	
 	; Idle
 	;move.l a2, a3
@@ -280,6 +282,8 @@ BouncePlantUpdate:
 
 	@Inactive:
 	@StillActive:
+
+	;jsr AnimObjUpdate
 	
 	rts
 
