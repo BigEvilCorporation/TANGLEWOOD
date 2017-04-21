@@ -13,7 +13,7 @@ PhysicsObjHitWallNone				equ 0x0
 PhysicsObjHitWallLeft				equ 0x1
 PhysicsObjHitWallRight				equ 0x2
 
-PhysiceObjDefaultPushBoundsOuter	equ 0x4
+PhysiceObjDefaultPushBoundsOuter	equ 0x6
 
 ;==============================================================
 ; PhysicsObject
