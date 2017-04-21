@@ -137,7 +137,8 @@ BouncePlantInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    AnimObjInit
+	;jsr    AnimObjInit
+	jsr    SpriteObjInit
 	
 	; Set type
 	;ori.l  #entity_type_BouncePlant, Entity_TypeBits(a0)
