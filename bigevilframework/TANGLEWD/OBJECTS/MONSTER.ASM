@@ -624,6 +624,63 @@ MonsterCheckPlayerVisible:
 	
 	rts
 
+MonsterCheckBarrier:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHL  a0-a2
+
+	; Check for markers
+	LIST_GET_HEAD AIMarkers,a2	; Get list head
+	@MarkerLp:					; For all markers in list
+	cmp.l  #0x0, a2
+	beq    @ListEnd
+
+	; Check bounds
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NextMarker
+	
+	; Found, check heading in right direction
+	ENTITY_GETCENTREX d1, a0
+	ENTITY_GETCENTREX d2, a2
+	cmp.w  #0x0, PhysicsObj_AccelX(a0)
+	beq    @NextMarker
+	bgt    @HeadingRight
+	cmp.l  d1, d2
+	ble    @HitMarker
+	bra    @NextMarker
+	@HeadingRight:
+	cmp.l  d1, d2
+	bge    @NextMarker
+
+	@HitMarker:
+	move.b #0x1, d0
+
+	; Just in case...
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+
+	bra    @Found
+
+	@NextMarker:
+	
+	LIST_GET_NEXT AIMarkers,a2,a2	; Get next ptr
+	bra    @MarkerLp				; Loop
+	
+	@ListEnd:
+
+	; Not found
+	move.b #0x0, d0
+
+	@Found:
+
+	POPL   a0-a2
+
+	rts
+
 MonsterDie:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1023,6 +1080,11 @@ MonsterUpdateSearchForPlayer:
 	PHYSICS_HITFACINGWALL a0
 	cmp.b  #0x0, d0
 	bne    @HitWall
+
+	; Check if hit an AI barrier
+	jsr    MonsterCheckBarrier
+	cmp.b  #0x0, d0
+	bne    @HitWall
 	
 	; Check if near target
 	ENTITY_GETCENTREX d1, a0
@@ -1126,6 +1188,11 @@ MonsterUpdateTrackPlayer:
 	
 	; Check if hit a wall
 	PHYSICS_HITFACINGWALL a0
+	cmp.b  #0x0, d0
+	bne    @HitWall
+
+	; Check if hit an AI barrier
+	jsr    MonsterCheckBarrier
 	cmp.b  #0x0, d0
 	bne    @HitWall
 	

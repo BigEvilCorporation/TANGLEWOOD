@@ -84,6 +84,8 @@ L1A2_Location_count equ 0x0
 
 L1A2_Deathbox_count equ 0x0
 
+L1A2_AIMarker_count equ 0x0
+
 
 L1A2_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -347,6 +349,8 @@ L1A2_LoadGameObjects:
 	move.l #EntityArray_Location, a0
 
 	move.l #EntityArray_Deathbox, a0
+
+	move.l #EntityArray_AIMarker, a0
 
 	rts
 

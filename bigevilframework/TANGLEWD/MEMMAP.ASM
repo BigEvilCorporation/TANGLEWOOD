@@ -311,6 +311,7 @@ __padding05			     rs.b 3
 	LINKED_LIST Platforms	 ; Moving platforms
 	LINKED_LIST Barriers	 ; Moving walls
 	LINKED_LIST PushableObjs ; Pushable objects
+	LINKED_LIST AIMarkers	 ; AI markers
 
 ; ************************************
 ; Entities
@@ -318,6 +319,7 @@ __padding05			     rs.b 3
 EntityArray_Nymn        rs.b (Nymn_Struct_Size)
 EntityArray_Echo        rs.b (Echo_Struct_Size)
 EntityArray_Actor       rs.b (Actor_Struct_Size*Actor_MaxEntities)
+EntityArray_AIMarker    rs.b (AIMarker_Struct_Size*AIMarker_MaxEntities)
 EntityArray_Flue        rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
@@ -340,6 +342,7 @@ EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
 	ENDIF
 
 EntityCount_Actor       rs.w 1
+EntityCount_AIMarker    rs.w 1
 EntityCount_Monster     rs.w 1
 EntityCount_Djrake      rs.w 1
 EntityCount_Firefly     rs.w 1

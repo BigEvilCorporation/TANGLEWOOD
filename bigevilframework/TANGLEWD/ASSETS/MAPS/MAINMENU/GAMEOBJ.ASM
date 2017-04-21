@@ -48,6 +48,8 @@ main_menu_Location_count equ 0x0
 
 main_menu_Deathbox_count equ 0x0
 
+main_menu_AIMarker_count equ 0x0
+
 
 main_menu_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -114,6 +116,8 @@ main_menu_LoadGameObjects:
 	move.l #EntityArray_Location, a0
 
 	move.l #EntityArray_Deathbox, a0
+
+	move.l #EntityArray_AIMarker, a0
 
 	rts
 

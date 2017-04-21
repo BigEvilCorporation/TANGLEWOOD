@@ -103,6 +103,9 @@ L1A4_Deathbox_49_idx	equ 0x0
 L1A4_Deathbox_50_idx	equ 0x1
 L1A4_Deathbox_75_idx	equ 0x2
 
+L1A4_AIMarker_count equ 0x1
+L1A4_AIMarker_92_idx	equ 0x0
+
 
 L1A4_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -474,6 +477,13 @@ L1A4_LoadGameObjects:
 	move.l #0x04880000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
+	move.l #EntityArray_AIMarker, a0
+	jsr AIMarkerInit
+	move.l #0x1e500000, Entity_WorldPosX(a0)
+	move.l #0x03200000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 	rts
 

@@ -41,6 +41,8 @@ end_level_Location_count equ 0x0
 
 end_level_Deathbox_count equ 0x0
 
+end_level_AIMarker_count equ 0x0
+
 
 end_level_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -86,6 +88,8 @@ end_level_LoadGameObjects:
 	move.l #EntityArray_Location, a0
 
 	move.l #EntityArray_Deathbox, a0
+
+	move.l #EntityArray_AIMarker, a0
 
 	rts
 

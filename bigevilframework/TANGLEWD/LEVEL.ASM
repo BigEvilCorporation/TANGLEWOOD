@@ -80,6 +80,7 @@ GameStateReset:
 	
 	; Reset entity counts
 	move.w #0x0, EntityCount_Actor
+	move.w #0x0, EntityCount_AIMarker
 	move.w #0x0, EntityCount_Monster
 	move.w #0x0, EntityCount_Firefly
 	move.w #0x0, EntityCount_Flue
@@ -115,6 +116,7 @@ GameStateReset:
 	LIST_CLEAR Platforms,a4,a3
 	LIST_CLEAR Barriers,a4,a3
 	LIST_CLEAR PushableObjs,a4,a3
+	LIST_CLEAR AIMarkers,a4,a3
 
 	; Reload debug draw font
 	move.l #Tiles_PixelFontSizeB, d0
