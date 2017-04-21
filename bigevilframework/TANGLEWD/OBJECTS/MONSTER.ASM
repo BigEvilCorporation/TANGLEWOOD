@@ -650,11 +650,11 @@ MonsterCheckBarrier:
 	beq    @NextMarker
 	bgt    @HeadingRight
 	cmp.l  d1, d2
-	ble    @HitMarker
+	bge    @HitMarker
 	bra    @NextMarker
 	@HeadingRight:
 	cmp.l  d1, d2
-	bge    @NextMarker
+	ble    @NextMarker
 
 	@HitMarker:
 	move.b #0x1, d0
