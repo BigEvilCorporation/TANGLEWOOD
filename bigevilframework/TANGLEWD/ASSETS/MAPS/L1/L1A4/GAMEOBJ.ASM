@@ -480,7 +480,7 @@ L1A4_LoadGameObjects:
 
 	move.l #EntityArray_AIMarker, a0
 	jsr AIMarkerInit
-	move.l #0x1e500000, Entity_WorldPosX(a0)
+	move.l #0x1e580000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
