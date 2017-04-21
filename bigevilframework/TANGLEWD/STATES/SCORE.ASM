@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   score.asm - End of level firefly "score sheet"
+;   score.asm - Very ugly quick and temp hardcoded end of level firefly "score sheet"
 ;==============================================================
 
 ; Level data (screen contains game objects, so need to provide one)
@@ -47,12 +47,14 @@ EndLevelScore_TextFontSize		equ Tiles_PixelFontSizeT
 EndLevelScore_TextFontPaletteId	equ 0x1
 EndLevelScore_TextFontColourIdx	equ	0x1
 EndLevelScore_TextFontColour	equ 0x0EEE
-EndLevelScore_TitlePosX			equ (screen_width/2-((19/2)*8))
-EndLevelScore_TitlePosY			equ (2*8)
-EndLevelScore_TextPosX			equ (screen_width/2-(3*8))
-EndLevelScore_TextPosY			equ (4*8)
-EndLevelScore_TextSpacingY		equ (2*8)
-EndLevelScore_MaxStringLen		equ 0x18
+EndLevelScore_LevelPosX			equ ((screen_width/8/2)-(20/2))
+EndLevelScore_LevelPosY			equ 2
+EndLevelScore_TitlePosX			equ ((screen_width/8/2)-(18/2))
+EndLevelScore_TitlePosY			equ 4
+EndLevelScore_TextPosX			equ 8
+EndLevelScore_TextPosY			equ 8
+EndLevelScore_TextColumnX		equ 7
+EndLevelScore_TextSpacingY		equ 2
 
 ; Palette
 EndLevelScore_Palette:
@@ -74,26 +76,36 @@ EndLevelScore_Palette:
 	dc.w 0x0000
 
 ; Strings
-EndLevelString_title:
+; TODO: fetch from level data
+EndLevelString_Level:
+	dc.b '1 : HARLEQUIN FOREST',0
+	even
+
+EndLevelString_Title:
 	dc.b 'FIREFLIES COLLECTED',0
+	even
+
+EndLevelString_Act1:
+	dc.b 'ACT 1:',0
+	even
+
+EndLevelString_Act2:
+	dc.b 'ACT 2:',0
+	even
+
+EndLevelString_Act3:
+	dc.b 'ACT 3:',0
+	even
+
+EndLevelString_Act4:
+	dc.b 'ACT 4:',0
 	even
 	
 ; Struct
 	rsset	0x0
 ;----------------------------------
-EndLevelScore_Firefly			 rs.b Firefly_Struct_Size
-EndLevelScore_TextTileBuffTitle	 rs.w EndLevelScore_MaxStringLen
-EndLevelScore_TextTileBuffAct1	 rs.w EndLevelScore_MaxStringLen
-EndLevelScore_TextTileBuffAct2	 rs.w EndLevelScore_MaxStringLen
-EndLevelScore_TextTileBuffAct3	 rs.w EndLevelScore_MaxStringLen
-EndLevelScore_TextTileBuffAct4	 rs.w EndLevelScore_MaxStringLen
-EndLevelScore_TextSpritesCountT	 rs.b 1
-EndLevelScore_TextSpritesCount1	 rs.b 1
-EndLevelScore_TextSpritesCount2	 rs.b 1
-EndLevelScore_TextSpritesCount3	 rs.b 1
-EndLevelScore_TextSpritesCount4	 rs.b 1
 ;----------------------------------
-EndLevelScore_Struct_Pad		 rs.b 3
+EndLevelScore_Struct_Pad		 rs.b 0
 EndLevelScore_Struct_Size		 rs.b 0
 ;----------------------------------
 	
@@ -122,6 +134,14 @@ EndLevelScoreScreen_Enter:
 	move.w (vram_addr_leveltiles), d0
 	jsr    VDP_LoadTiles
 
+	; Load BG map
+	lea    map_blocks_l1bg, a0
+	lea    map_blockmap_l1bg, a1
+	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
+	move.w (vram_addr_leveltiles), d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadBlockMapPlaneB
+
 	; Load FG map
 	lea    map_blocks_end_level, a0
 	lea    map_blockmap_end_level, a1
@@ -148,61 +168,116 @@ EndLevelScoreScreen_Enter:
 	; Create text
 	lea    GameStateEndLevelScoreData, a0
 
-	; Title
-	PUSHL  a0
-	clr.l  d0
-	move.w (vram_addr_systemfont), d0	; Font VDP address
+	; Level
+	lea    EndLevelString_Level, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
 	divu.w #size_tile_b, d0
-	lea    EndLevelString_title, a0	; String
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffTitle, a1	; Output tile ID buffer
-	jsr    TXT_CreateTileIDList		; Create tile ID string
-	POPL   a0
+	move.l #(EndLevelScore_LevelPosX<<16)|EndLevelScore_LevelPosY, d1	; X/Y coord
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	jsr    TXT_DrawPlane
 
-	move.b d0, EndLevelScore_TextSpritesCountT(a0)
+	; Title
+	lea    EndLevelString_Title, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
+	divu.w #size_tile_b, d0
+	move.l #(EndLevelScore_TitlePosX<<16)|EndLevelScore_TitlePosY, d1	; X/Y coord
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	jsr    TXT_DrawPlane
+
+	move.l #(EndLevelScore_TextPosX<<16)|EndLevelScore_TextPosY, d1	; X/Y coord
 
 	; L1A1
 	; TODO: Store in level data
-	PUSHL  a0
-	move.w (FireflyPickupCountL1A1), d0; Get collected firefly count
-	move.w #L1A1_Firefly_count, d1	; Get total firefly count
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct1, a1	; Output tile ID buffer
-	jsr    EndLevelScoreScreen_CreateFireflyCountText
-	POPL   a0
+	lea    EndLevelString_Act1, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
+	divu.w #size_tile_b, d0
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	PUSHL  d1
+	jsr    TXT_DrawPlane
+	POPL   d1
 
-	move.b d0, EndLevelScore_TextSpritesCount1(a0)
+	add.l  #(EndLevelScore_TextColumnX<<16), d1
+
+	move.w (FireflyPickupCountL1A1), d0; Get collected firefly count
+	move.w #L1A1_Firefly_count, d2	; Get total firefly count
+	PUSHL  d1
+	jsr    EndLevelScoreScreen_DrawFireflyCountText
+	POPL   d1
+
+	swap   d1
+	move.w #EndLevelScore_TextPosX, d1
+	swap   d1
+	add.w  #EndLevelScore_TextSpacingY, d1
 
 	; L1A2
 	; TODO: Store in level data
-	PUSHL  a0
-	move.w (FireflyPickupCountL1A2), d0; Get collected firefly count
-	move.w #L1A2_Firefly_count, d1	; Get total firefly count
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct2, a1	; Output tile ID buffer
-	jsr    EndLevelScoreScreen_CreateFireflyCountText
-	POPL   a0
+	lea    EndLevelString_Act2, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
+	divu.w #size_tile_b, d0
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	PUSHL  d1
+	jsr    TXT_DrawPlane
+	POPL   d1
 
-	move.b d0, EndLevelScore_TextSpritesCount2(a0)
+	add.l  #(EndLevelScore_TextColumnX<<16), d1
+
+	move.w (FireflyPickupCountL1A2), d0; Get collected firefly count
+	move.w #L1A2_Firefly_count, d2	; Get total firefly count
+	PUSHL  d1
+	jsr    EndLevelScoreScreen_DrawFireflyCountText
+	POPL   d1
+
+	swap   d1
+	move.w #EndLevelScore_TextPosX, d1
+	swap   d1
+	add.w  #EndLevelScore_TextSpacingY, d1
 
 	; L1A3
 	; TODO: Store in level data
-	PUSHL  a0
-	move.w (FireflyPickupCountL1A3), d0; Get collected firefly count
-	move.w #L1A3_Firefly_count, d1	; Get total firefly count
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct3, a1	; Output tile ID buffer
-	jsr    EndLevelScoreScreen_CreateFireflyCountText
-	POPL   a0
+	lea    EndLevelString_Act3, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
+	divu.w #size_tile_b, d0
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	PUSHL  d1
+	jsr    TXT_DrawPlane
+	POPL   d1
 
-	move.b d0, EndLevelScore_TextSpritesCount3(a0)
+	add.l  #(EndLevelScore_TextColumnX<<16), d1
+
+	move.w (FireflyPickupCountL1A3), d0; Get collected firefly count
+	move.w #L1A3_Firefly_count, d2	; Get total firefly count
+	PUSHL  d1
+	jsr    EndLevelScoreScreen_DrawFireflyCountText
+	POPL   d1
+
+	swap   d1
+	move.w #EndLevelScore_TextPosX, d1
+	swap   d1
+	add.w  #EndLevelScore_TextSpacingY, d1
 
 	; L1A4
 	; TODO: Store in level data
-	PUSHL  a0
-	move.w (FireflyPickupCountL1A4), d0; Get collected firefly count
-	move.w #L1A4_Firefly_count, d1	; Get total firefly count
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct4, a1	; Output tile ID buffer
-	jsr    EndLevelScoreScreen_CreateFireflyCountText
-	POPL   a0
+	lea    EndLevelString_Act4, a0				; String
+	move.w (vram_addr_systemfont), d0			; Font tile ID
+	divu.w #size_tile_b, d0
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	PUSHL  d1
+	jsr    TXT_DrawPlane
+	POPL   d1
 
-	move.b d0, EndLevelScore_TextSpritesCount4(a0)
+	add.l  #(EndLevelScore_TextColumnX<<16), d1
+
+	move.w (FireflyPickupCountL1A4), d0; Get collected firefly count
+	move.w #L1A4_Firefly_count, d2	; Get total firefly count
+	PUSHL  d1
+	jsr    EndLevelScoreScreen_DrawFireflyCountText
+	POPL   d1
 
 	;==============================================================
 
@@ -311,135 +386,46 @@ EndLevelScoreScreen_Update:
 	
 EndLevelScoreScreen_Render:
 
-	PUSHL  a0
-	PUSHL  a1
-
-	lea    GameStateEndLevelScoreData, a0
-
-	move.l #(((EndLevelScore_TitlePosX+vdp_sprite_border_x)<<16)|(EndLevelScore_TitlePosY+vdp_sprite_border_y)), d1		; X/Y coord
-
-	; Title
-	; TODO: Store in level data
-	clr.l  d4
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffTitle, a1	; Tile ID buffer
-	move.b EndLevelScore_TextSpritesCountT(a0), d4							; Count
-	PUSHL  d1/a0
-	jsr    EndLevelScoreScreen_DrawText
-	POPL   d1/a0
-
-	add.l  #EndLevelScore_TextSpacingY, d1
-	
-	move.l #(((EndLevelScore_TextPosX+vdp_sprite_border_x)<<16)|(EndLevelScore_TextPosY+vdp_sprite_border_y)), d1		; X/Y coord
-
-	; L1A1
-	; TODO: Store in level data
-	clr.l  d4
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct1, a1	; Tile ID buffer
-	move.b EndLevelScore_TextSpritesCount1(a0), d4							; Count
-	PUSHL  d1/a0
-	jsr    EndLevelScoreScreen_DrawText
-	POPL   d1/a0
-
-	add.l  #EndLevelScore_TextSpacingY, d1
-
-	; L1A2
-	; TODO: Store in level data
-	clr.l  d4
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct2, a1	; Tile ID buffer
-	move.b EndLevelScore_TextSpritesCount2(a0), d4							; Count
-	PUSHL  d1/a0
-	jsr    EndLevelScoreScreen_DrawText
-	POPL   d1/a0
-
-	add.l  #EndLevelScore_TextSpacingY, d1
-
-	; L1A3
-	; TODO: Store in level data
-	clr.l  d4
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct3, a1	; Tile ID buffer
-	move.b EndLevelScore_TextSpritesCount3(a0), d4							; Count
-	PUSHL  d1/a0
-	jsr    EndLevelScoreScreen_DrawText
-	POPL   d1/a0
-
-	add.l  #EndLevelScore_TextSpacingY, d1
-
-	; L1A4
-	; TODO: Store in level data
-	clr.l  d4
-	move.l #GameStateEndLevelScoreData+EndLevelScore_TextTileBuffAct4, a1	; Tile ID buffer
-	move.b EndLevelScore_TextSpritesCount4(a0), d4							; Count
-	PUSHL  d1/a0
-	jsr    EndLevelScoreScreen_DrawText
-	POPL   d1/a0
-
-	add.l  #EndLevelScore_TextSpacingY, d1
-	
-	POPL   a1
-	POPL   a0
-
-	rts
-	
-EndLevelScoreScreen_CreateFireflyCountText:
-	; a1 --- Tile buffer
-	; d0 (w) Collected count
-	; d1 (w) Total Count
-
-	; Alloc string space
-	sub.l   #0x10, sp
-	move.l  sp, a0
-	move.l  a0, a2
-	
-	; Firefly count to string
-	PUSHL   d1
-	jsr     TXT_ItoA_w					; To string
-	POPL    d1
-	subi.l  #0x1, a0					; Remove terminator
-	move.b  #'/', (a0)+					; Append '/'
-	move.w  d1, d0
-	jsr     TXT_ItoA_w					; To string
-	
-	clr.l   d0
-	move.w  (vram_addr_systemfont), d0	; Font VDP address
-	divu.w  #size_tile_b, d0
-	move.l  a2, a0						; String
-	jsr     TXT_CreateTileIDList		; Create tile ID string
-	
-	; Free string space
-	add.l   #0x10, sp
-
-	rts
-
-EndLevelScoreScreen_DrawText:
-	; a1 --- Tile ID buffer
-	; d1 (l) X/Y pos
-	; d4 (b) Count
-
-	; Add all text glyphs for drawing
-	move.b #0x0, d0															; 1x1 sprite
-	move.w #((EndLevelScore_TextFontPaletteId<<13)|1<<15), d3				; Palette/flip/priority bits
-	subi.w #0x1, d4
-	@TextLp:
-	PUSHL  d4
-	
-	; Get tile idx
-	move.w (a1)+, d2
-	
-	; Create and link sprite
-	PUSHM  d0-d3/a0-a1
-	jsr    SPR_AddSubSprite
-	POPM   d0-d3/a0-a1
-
-	; Next X
-	add.l  #0x00080000, d1
-
-	POPL   d4
-	dbra   d4, @TextLp
-
 	; Get level data
 	move.l (CurrentLevel), a1
 	
 	; Draw game objects
 	jsr EntityRenderAll
+
+	rts
+	
+EndLevelScoreScreen_DrawFireflyCountText:
+	; d0 (w) Collected count
+	; d1 (ww) X/Y pos (tiles)
+	; d2 (w) Total Count
+
+	; Alloc string space
+	sub.l   #0x10, sp
+	move.l  sp, a0
+	move.l  a0, a2
+
+	PUSHL   d1
+	
+	; Firefly count to string
+	PUSHL   d2
+	jsr     TXT_ItoA_w					; To string
+	POPL    d2
+	subi.l  #0x1, a0					; Remove terminator
+	move.b  #'/', (a0)+					; Append '/'
+	move.w  d2, d0
+	jsr     TXT_ItoA_w					; To string
+
+	POPL    d1
+	
+	clr.l   d0
+	move.w  (vram_addr_systemfont), d0	; Font VDP address
+	divu.w  #size_tile_b, d0
+	move.l  a2, a0						; String
+	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
+	move.b #0x0, d3								; Plane A
+	jsr    TXT_DrawPlane
+	
+	; Free string space
+	add.l   #0x10, sp
 
 	rts
