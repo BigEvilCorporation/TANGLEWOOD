@@ -83,6 +83,7 @@ Logos_Enter:
 	lea    GameStateLogoData, a3
 	move.l #LogosDelayTime, TimerLogoFade
 	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)
+	move.b #0x0, LogoState_CurrColourIdx(a3)
 	
 	rts
 	
