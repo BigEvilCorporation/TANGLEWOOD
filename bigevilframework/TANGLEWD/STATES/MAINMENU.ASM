@@ -178,6 +178,12 @@ MainMenu_Enter:
 	; Start bg fade timer
 	lea    GameStateMainMenuData, a2
 	move.w #MenuBgFadeDelay, MainMenuState_FadeTimer(a2)
+
+	move.w #0x0, d0
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
 	
 	rts
 	
@@ -304,6 +310,12 @@ MainMenu_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	move.w #0x0, d0
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
 	
 	rts
 	
