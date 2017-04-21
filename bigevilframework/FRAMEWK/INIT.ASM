@@ -17,10 +17,10 @@ CPU_EntryPoint:
 	ENDIF
 
 	; Test reset state
-	tst.w reset_exp    ; Test expansion reset
-	bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
-	tst.w reset_button ; Test reset button
-	bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
+	;tst.w reset_exp    ; Test expansion reset
+	;bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
+	;tst.w reset_button ; Test reset button
+	;bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
    
 	; Clear RAM
 	jsr RAM_Clear
