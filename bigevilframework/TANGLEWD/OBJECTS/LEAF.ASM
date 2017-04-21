@@ -146,6 +146,8 @@ LeafUpdate:
 	bne    @Inactive
 	
 	; Calc random X starting position
+	move.l (frame_counter_render), d0
+	eor.l  d0, rand_seed
 	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
 	divu   #Leaf_WindowWidth, d0	; Mod by WindowWidth
