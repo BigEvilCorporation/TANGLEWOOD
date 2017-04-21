@@ -236,8 +236,8 @@ L1A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x15100000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #0x0f400000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
