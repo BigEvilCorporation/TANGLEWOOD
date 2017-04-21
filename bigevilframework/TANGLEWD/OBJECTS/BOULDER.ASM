@@ -373,6 +373,8 @@ BoulderUpdate:
 	;==============================================================
 
 	; Play roll SFX
+	cmp.b   #0x0, Boulder_Cracked(a0)
+	bne     @EndRollSFX
 	move.l  PhysicsObj_VelX(a0), d0
 	cmp.l   #Boulder_RollSFXVel, d0
 	bgt     @PlayRollSFX
