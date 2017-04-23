@@ -299,6 +299,9 @@ LevelLoadVFX:
 	
 LevelReset:
 
+	; Fetch current level addr
+	move.l (CurrentLevel), a1
+
 	; System
 	move.w  #0x0, Gamepad1PrevState
 	move.w  #0x0, Gamepad2PrevState
@@ -329,6 +332,11 @@ LevelReset:
 	; World
 	move.w  #Gravity, LevelGravity
 	move.w  #0x0, TimeOfDayShiftDelay
+	move.w  Level_MapHeight(a1), d0
+	TILES2PIXELS d0
+	add.l   vdp_sprite_border_y, d0
+	TOSUBPIXELS d0
+	move.l  d0, LevelGroundHeight
 	
 	; Camera
 	move.l  #0x0, WorldScrollX

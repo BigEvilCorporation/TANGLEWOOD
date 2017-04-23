@@ -757,7 +757,7 @@ PhysicsObjFindFloor:
 
 	@ProbeOutOfBounds:
 	@HoleFound:
-	move.l #GroundHeightWorld, d2   		; No floor, hole found, or probe out of bounds, use default ground Y
+	move.l (LevelGroundHeight), d2   		; No floor, hole found, or probe out of bounds, use default ground Y
 	bra	   @EndFloorTest
 	
 	;==============================================================
@@ -769,9 +769,10 @@ PhysicsObjFindFloor:
 	TOSUBPIXELS d2							; Back to world space
 	
 	; Check if out of bounds
-	cmp.l  #GroundHeightWorld, d2
+	move.l (LevelGroundHeight), d1
+	cmp.l  d1, d2
 	ble    @EndFloorTest
-	move.l #GroundHeightWorld, d2
+	move.l d1, d2
 	
 	;==============================================================
 	

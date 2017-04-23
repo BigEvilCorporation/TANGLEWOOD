@@ -117,6 +117,7 @@ TimerDemoReset      rs.l 1
 ; World
 ; ************************************
 CurrentLevel		rs.l 1
+LevelGroundHeight	rs.l 1
 LevelGravity   	    rs.w 1
 TimeOfDayShiftDelay rs.w 1
 TimeOfDayPalettes   rs.l TimeOfDay_NumCycles

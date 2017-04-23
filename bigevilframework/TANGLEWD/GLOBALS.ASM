@@ -31,15 +31,6 @@ SubframeShift			 equ 0x8
 ; World
 Gravity			         equ 0x003000
 
-	; TODO: add to level params
-	IFD DEBUG
-GroundHeightScreen       equ (map_tst1_height*8)+vdp_sprite_border_y+Player1Height
-	ELSE
-GroundHeightScreen       equ (map_L1A4_height*8)+vdp_sprite_border_y+Player1Height
-	ENDIF
-
-GroundHeightWorld  		 equ GroundHeightScreen*subpixels_per_pixel
-
 ; Faders
 LevelFadeUpSpeed		 	equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
 DefaultFadeSpeed		 	equ (0x1<<fade_frame_shift)
@@ -86,25 +77,6 @@ NumSwitchingColours		 equ 0x6
 ; Global player addresses
 Player1 				 equ (EntityArray_Nymn)
 Player2 				 equ (EntityArray_Echo)
-
-; Initial level/state
-InitialLevel			 equ l1a1_HarlequinForestAct1
-;InitialLevel			 equ l1a2_HarlequinForestAct2
-;InitialLevel			 equ l1a3_HarlequinForestAct3
-;InitialLevel			 equ l1a4_HarlequinForestAct4
-;InitialLevel			 equ l2a1_StormWarningAct1
-;InitialLevel			 equ l3a1_HeritageAct1
-;InitialLevel			 equ l4a1_TetheredAct1
-;InitialLevel			 equ l5a1_BygoneAct1
-;InitialLevel			 equ l6a1_DeadwoodAct1
-;InitialLevel			 equ Lvl_TestLift
-
-	IFD DEBUG
-InitialState			 equ  GameStateGameplay
-	ELSE
-InitialState			 equ  GameStateLogos
-;InitialState			 equ  GameStateGameplay
-	ENDIF
 
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb

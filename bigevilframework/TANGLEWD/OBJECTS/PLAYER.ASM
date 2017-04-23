@@ -28,12 +28,6 @@ Player1BoundsJumpHeight		equ Player1Height-0x08
 Player1BoundsJumpOffsetX	equ 0x08
 Player1BoundsJumpOffsetY	equ 0x08
 
-; Player starting positions - TODO: From spawn point
-Player1StartPosScreenX equ (screen_width/2)-(Player1Width/2)+100
-Player1StartPosScreenY equ GroundHeightScreen-Player1Height-0x80
-Player1StartPosWorldX  equ Player1StartPosScreenX*subpixels_per_pixel
-Player1StartPosWorldY  equ Player1StartPosScreenY*subpixels_per_pixel
-
 ; Player acceleration/deceleration
 Player1AccelWalk   equ 0x000600 ; Player 1 walking acceleration
 Player1AccelRun    equ 0x001400 ; Player 1 running acceleration
@@ -207,8 +201,6 @@ PlayerInit:
 	;==============================================================
 
 	; Setup default state
-	move.l  #Player1StartPosWorldX, Entity_WorldPosX(a0)
-	move.l  #Player1StartPosWorldY, Entity_WorldPosY(a0)
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
 	move.l  #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
