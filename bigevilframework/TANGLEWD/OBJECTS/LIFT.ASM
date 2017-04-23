@@ -90,6 +90,9 @@ LiftInit:
 
 	; Register as pushable object
 	LIST_APPEND_TAIL PushableObjs, a0, a3
+
+	; Update when out of view
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	
 	;==============================================================
 	

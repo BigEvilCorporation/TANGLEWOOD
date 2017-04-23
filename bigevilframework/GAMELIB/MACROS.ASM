@@ -50,7 +50,7 @@ ENTITY_GETLEFT: macro destreg,addrreg
 ENTITY_GETRIGHT: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
-	TOPIXELS \destreg
+	TOSUBPIXELS \destreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
 	
@@ -61,7 +61,7 @@ ENTITY_GETTOP: macro destreg,addrreg
 ENTITY_GETBOTTOM: macro destreg,addrreg
 	clr.l   \destreg
 	move.w  Entity_Height(\addrreg), \destreg
-	TOPIXELS \destreg
+	TOSUBPIXELS \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
 	
