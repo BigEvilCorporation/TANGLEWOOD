@@ -7,17 +7,28 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
+L2A1_Leaf_count equ 0x0
+
+L2A1_Nymn_count equ 0x1
+L2A1_Nymn_3_idx	equ 0x0
+
+L2A1_Echo_count equ 0x0
+
+L2A1_BouncePlant_count equ 0x0
+
+L2A1_Boulder_count equ 0x0
+
+L2A1_Monster_count equ 0x0
+
+L2A1_Firefly_count equ 0x0
+
 L2A1_Fuzzl_count equ 0x0
+
+L2A1_Stone_count equ 0x0
 
 L2A1_Nest_count equ 0x0
 
 L2A1_Flue_count equ 0x0
-
-L2A1_Firefly_count equ 0x0
-
-L2A1_Monster_count equ 0x0
-
-L2A1_Boulder_count equ 0x0
 
 L2A1_TriggerBox_count equ 0x0
 
@@ -27,30 +38,39 @@ L2A1_WaterBody_count equ 0x0
 
 L2A1_Location_count equ 0x0
 
-L2A1_BouncePlant_count equ 0x0
+L2A1_Deathbox_count equ 0x0
 
-L2A1_Nymn_count equ 0x1
-L2A1_Nymn_1_idx	equ 0x0
-
-L2A1_Echo_count equ 0x0
-
-L2A1_Leaf_count equ 0x0
-
-L2A1_Stone_count equ 0x0
+L2A1_Lift_count equ 0x1
+L2A1_Lift_2_idx	equ 0x0
 
 
 L2A1_LoadGameObjects:
+	move.l #EntityArray_Leaf, a0
+
+	move.l #EntityArray_Nymn, a0
+	jsr NymnInit
+	move.l #0x01300000, Entity_WorldPosX(a0)
+	move.l #0x07780000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
+
+	move.l #EntityArray_Echo, a0
+
+	move.l #EntityArray_BouncePlant, a0
+
+	move.l #EntityArray_Boulder, a0
+
+	move.l #EntityArray_Monster, a0
+
+	move.l #EntityArray_Firefly, a0
+
 	move.l #EntityArray_Fuzzl, a0
+
+	move.l #EntityArray_Stone, a0
 
 	move.l #EntityArray_Nest, a0
 
 	move.l #EntityArray_Flue, a0
-
-	move.l #EntityArray_Firefly, a0
-
-	move.l #EntityArray_Monster, a0
-
-	move.l #EntityArray_Boulder, a0
 
 	move.l #EntityArray_TriggerBox, a0
 
@@ -60,20 +80,14 @@ L2A1_LoadGameObjects:
 
 	move.l #EntityArray_Location, a0
 
-	move.l #EntityArray_BouncePlant, a0
+	move.l #EntityArray_Deathbox, a0
 
-	move.l #EntityArray_Nymn, a0
-	jsr NymnInit
-	move.l #0x00014800, Entity_WorldPosX(a0)
-	move.l #0x0001f800, Entity_WorldPosY(a0)
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
-
-	move.l #EntityArray_Echo, a0
-
-	move.l #EntityArray_Leaf, a0
-
-	move.l #EntityArray_Stone, a0
+	move.l #EntityArray_Lift, a0
+	jsr LiftInit
+	move.l #0x08400000, Entity_WorldPosX(a0)
+	move.l #0x07080000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 	rts
 
