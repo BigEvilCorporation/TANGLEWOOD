@@ -13,10 +13,10 @@ Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
 Lift_MaxVelX			equ 0x010000
-Lift_AccelY				equ 0x2000+Gravity
+Lift_AccelY				equ 0x2000+DefaultGravity
 Lift_DecelX				equ 0x0800
 
-Lift_MaxSpeedUp			equ 0x010000+Gravity	; Max speed hoisting up
+Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x030000			; Max speed falling down
 Lift_FloorHeight		equ 0x0007			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration

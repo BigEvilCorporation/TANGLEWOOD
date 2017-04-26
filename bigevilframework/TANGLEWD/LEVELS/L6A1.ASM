@@ -28,7 +28,7 @@ L6a1_DeadwoodAct1:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.w Gravity						; Default gravity
+	dc.l DefaultGravity						; Default gravity
 	dc.w map_L6a1_width					; Map width (tiles)
 	dc.w map_L6a1_height				; Map height (tiles)
 	dc.w map_blockmap_L6a1_width		; Map width (blocks)

@@ -25,7 +25,7 @@ l1a4_HarlequinForestAct4:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.w Gravity						; Default gravity
+	dc.l DefaultGravity						; Default gravity
 	dc.w map_l1a4_width					; Map width
 	dc.w map_l1a4_height				; Map height
 	dc.w map_blockmap_l1a4_width		; Map width (blocks)

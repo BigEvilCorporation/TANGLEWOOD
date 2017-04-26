@@ -36,7 +36,6 @@ PhysicsObj_BoundsTop		rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth		rs.w 1 ; Collision bounds offset width
 PhysicsObj_BoundsHeight		rs.w 1 ; Collision bounds offset height
 PhysicsObj_PushDetectOuter	rs.w 1 ; Collision bounds outer box extension size for push detection
-PhysicsObj_Gravity  	    rs.w 1 ; Gravity
 PhysicsObj_AccelX  		    rs.w 1 ; X acceleration
 PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
@@ -63,7 +62,7 @@ PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise us
 PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 0
+PhysicsObj_Struct_Pad       rs.b 2
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -106,8 +105,6 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
-	
-	move.w Level_Gravity(a1), PhysicsObj_Gravity(a0)
 
 	rts
 
@@ -337,9 +334,9 @@ PhysicsObjApplyGravity:
 	
 	; Apply gravity
 	clr.l  d0
+	lea    PhysicsWorld, a2
+	move.l PhysicsWorld_Gravity(a2), d1
 	move.l PhysicsObj_VelY(a0), d0
-	move.w PhysicsObj_Gravity(a0), d1
-	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
 	clr.l  d2
@@ -757,7 +754,8 @@ PhysicsObjFindFloor:
 
 	@ProbeOutOfBounds:
 	@HoleFound:
-	move.l (LevelGroundHeight), d2   		; No floor, hole found, or probe out of bounds, use default ground Y
+	lea    PhysicsWorld, a2
+	move.l PhysicsWorld_GroundHeight(a2), d2	; No floor, hole found, or probe out of bounds, use default ground Y
 	bra	   @EndFloorTest
 	
 	;==============================================================
@@ -769,7 +767,8 @@ PhysicsObjFindFloor:
 	TOSUBPIXELS d2							; Back to world space
 	
 	; Check if out of bounds
-	move.l (LevelGroundHeight), d1
+	lea    PhysicsWorld, a2
+	move.l PhysicsWorld_GroundHeight(a2), d1
 	cmp.l  d1, d2
 	ble    @EndFloorTest
 	move.l d1, d2

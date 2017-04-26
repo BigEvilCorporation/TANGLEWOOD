@@ -3,8 +3,18 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   physics.asm - Physics routines
+;   physics.asm - Physics world and routines
 ;==============================================================
+
+	rsset 0
+;---------------------------------
+PhysicsWorld_Gravity		rs.l 1
+PhysicsWorld_Wind			rs.l 1
+PhysicsWorld_GroundHeight	rs.l 1
+;---------------------------------
+PhysicsWorld_Struct_Pad		rs.b 0
+PhysicsWorld_Struct_Size	rs.b 0
+;---------------------------------
 
 PHYS_TestBoxIntersectBox:
 	; d0 (b)  Return value: 0 = no collision, 1 = collision

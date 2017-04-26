@@ -116,9 +116,8 @@ TimerDemoReset      rs.l 1
 ; ************************************
 ; World
 ; ************************************
+PhysicsWorld		rs.b PhysicsWorld_Struct_Size
 CurrentLevel		rs.l 1
-LevelGroundHeight	rs.l 1
-LevelGravity   	    rs.w 1
 TimeOfDayShiftDelay rs.w 1
 TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night

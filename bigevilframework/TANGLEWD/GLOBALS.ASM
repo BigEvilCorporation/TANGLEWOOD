@@ -29,7 +29,7 @@ SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
 SubframeShift			 equ 0x8
 
 ; World
-Gravity			         equ 0x003000
+DefaultGravity			 equ 0x00003000
 
 ; Faders
 LevelFadeUpSpeed		 	equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)

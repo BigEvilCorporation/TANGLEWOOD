@@ -24,7 +24,7 @@ l1a1_HarlequinForestAct1:
 	dc.l l1a1_LoadGameObjects			; Load game objects routine
 	dc.l l1a1_End						; End routine
 	dc.l l1a2_HarlequinForestAct2		; Next level
-	dc.w Gravity						; Default gravity
+	dc.l DefaultGravity						; Default gravity
 	dc.w map_l1a1_width					; Map width (tiles)
 	dc.w map_l1a1_height				; Map height (tiles)
 	dc.w map_blockmap_l1a1_width		; Map width (blocks)

@@ -21,7 +21,7 @@ Level_SerialiseRoutine		rs.l 1
 Level_LoadGameObjsRoutine	rs.l 1
 Level_EndRoutine			rs.l 1
 Level_NextLevel				rs.l 1
-Level_Gravity				rs.w 1
+Level_Gravity				rs.l 1
 Level_MapWidth				rs.w 1
 Level_MapHeight				rs.w 1
 Level_MapWidthBlocks		rs.w 1

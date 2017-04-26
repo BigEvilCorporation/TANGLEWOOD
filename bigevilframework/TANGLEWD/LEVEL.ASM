@@ -330,13 +330,17 @@ LevelReset:
 	move.w  #0x0, FireflyPickupCount
 	
 	; World
-	move.w  #Gravity, LevelGravity
 	move.w  #0x0, TimeOfDayShiftDelay
+
+	; Physics world
+	lea    PhysicsWorld, a2
+	move.l Level_Gravity(a1), PhysicsWorld_Gravity(a2)
+
 	move.w  Level_MapHeight(a1), d0
 	TILES2PIXELS d0
 	add.l   vdp_sprite_border_y, d0
 	TOSUBPIXELS d0
-	move.l  d0, LevelGroundHeight
+	move.l  d0, PhysicsWorld_GroundHeight(a2)
 	
 	; Camera
 	move.l  #0x0, WorldScrollX
