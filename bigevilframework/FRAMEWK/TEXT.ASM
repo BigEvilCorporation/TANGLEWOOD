@@ -6,27 +6,44 @@
 ;   text.asm - Font loading and text display
 ;==============================================================
 
+;==============================================================
+; Character map
+;==============================================================
+CharMap_ASCII_Start			equ 0x20 ; First ASCII code in table
+CharMap_ASCII_End			equ 0x7f ; Last ASCII code in table
+CharMap_ASCII_NumericOffset	equ 0x30
+CharMap_ASCII_AlphaOffset	equ 0x41
+CharMap_Size				equ (CharMap_ASCII_End-CharMap_ASCII_Start)
+CharMap_SizeT				equ (CharMap_Size)
+CharMap_SizeB				equ (CharMap_SizeT*size_tile_b)
+
+;==============================================================
+; Font testing
+;==============================================================
+FontTest_Font				equ tiles_twfont ; Tiles_PixelFont
+FontTest_FontBold			equ tiles_twfontb
+FontTest_FontSize			equ tiles_twfont_size_t ;Tiles_PixelFontSizeT
+FontTest_FontAddr			equ 0x0000
+FontTest_FontAddrBold		equ tiles_twfont_size_b
+FontTest_FontTileId			equ (FontTest_FontAddr/size_tile_b)
+FontTest_FontTileIdBold		equ (FontTest_FontAddrBold/size_tile_b)
+FontTest_ColourBg			equ 0x0008
+FontTest_ColourTxt			equ 0x0FFF
+FontTest_PosX				equ 0x01
+FontTest_PosY				equ 0x01
+FontTest_Linespacing		equ 0x01
+
 TXT_LoadFont:
-   ; a0 - Font address (l)
-   ; d0 - VRAM address (w)
-   ; d1 - Num chars (w)
+   ; a0 --- Font tileset
+   ; d0 (w) VRAM address
 
-   swap     d0                   ; Shift VRAM addr to upper word
-   add.l    #vdp_write_tiles, d0 ; VRAM write cmd + VRAM destination address
-   move.l   d0, vdp_control      ; Send address to VDP cmd port
-
-   subq.b   #0x1, d1             ; Num chars - 1
-   @CharCopy:
-   move.w   #0x07, d2            ; 8 longwords in tile
-   @LongCopy:
-   move.l   (a0)+, vdp_data      ; Copy one line of tile to VDP data port
-   dbra.w   d2, @LongCopy
-   dbra.w   d1, @CharCopy
+   move.l   #CharMap_SizeT, d1
+   jsr      VDP_LoadTiles
 
    rts
 
 TXT_DrawPlane:
-	; a0 (l) - String address
+	; a0 --- - String address
 	; d0 (w) - First tile ID of font
 	; d1 (ww)- XY coord (in tiles)
 	; d2 (b) - Palette
@@ -60,7 +77,6 @@ TXT_DrawPlane:
 	rol.l    #0x8, d4               ; Shift palette ID to bits 14 and 15 of d4
 	rol.l    #0x5, d4               ; Can only rol bits up to 8 places in one instruction
 
-	lea      ASCIIMap, a1           ; Load address of ASCII map into a1
 	clr.w    d2
 
 	@CharCopy:
@@ -68,9 +84,9 @@ TXT_DrawPlane:
 	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
 	beq      @End                   ; If byte was zero, branch to end
 
-	sub.b    #ASCIIStart, d2        ; Subtract first ASCII code to get table entry index
+	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile ID
 	andi.w   #0xF800, d4
-	move.b   (a1,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
+	move.b   d2, d4                 ; Move tile ID to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 	move.w   d4, vdp_data           ; Move palette and pattern IDs to VDP data port
 	bra      @CharCopy              ; Next character
@@ -111,8 +127,8 @@ TXT_DrawSprites:
 
 	PUSHL    d4
 	
-	sub.b    #ASCIIStart, d2        ; Subtract first ASCII code to get table entry index
-	move.b   (a1,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
+	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile ID
+	move.b   d2,        d4          ; Move tile ID to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 	
 	PUSHM    a0/d0-d5
@@ -142,8 +158,6 @@ TXT_CreateTileIDList:
 	
 	; Clear counter
 	clr.w    d4
-	
-	lea      ASCIIMap, a2           ; Load address of ASCII map into a1
 	clr.w    d2
 
 	@CharCopy:
@@ -153,8 +167,8 @@ TXT_CreateTileIDList:
 
 	PUSHL    d4
 	
-	sub.b    #ASCIIStart, d2        ; Subtract first ASCII code to get table entry index
-	move.b   (a2,d2.w), d4          ; Move tile ID from table (index in lower word of d2) to lower byte of d4
+	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile id
+	move.b   d2, d4                 ; Move tile ID to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 
 	move.w   d4, (a1)+
@@ -189,13 +203,13 @@ TXT_ItoA_Hex_w:
 	andi.b #0x0F, d3		; Bottom nybble
 	cmp.b  #0x9, d3
 	ble    @Numeric			; Branch if in numeric range
-	add.b  #(ASCIIAlphaOffset-0xA), d3	; In alpha range (A - F)
+	add.b  #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
 	move.b d3, -(a0)		; Back to string
 	lsr.w  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
 	bra    @End
 	@Numeric:
-	add.b  #ASCIINumericOffset, d3	; In numeric range (0 - 9)
+	add.b  #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
 	move.b d3, -(a0)		; Back to string
 	lsr.w  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
@@ -203,7 +217,7 @@ TXT_ItoA_Hex_w:
 	@End:
 
 	;0X
-	move.b #'X', -(a0)
+	move.b #'x', -(a0)
 	move.b #'0', -(a0)
 
 	rts
@@ -226,13 +240,13 @@ TXT_ItoA_Hex_l:
 	andi.b #0x0F, d3		; Bottom nybble
 	cmp.b  #0x9, d3
 	ble    @Numeric			; Branch if in numeric range
-	add.b  #(ASCIIAlphaOffset-0xA), d3	; In alpha range (A - F)
+	add.b  #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
 	move.b d3, -(a0)		; Back to string
 	lsr.l  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
 	bra    @End
 	@Numeric:
-	add.b  #ASCIINumericOffset, d3	; In numeric range (0 - 9)
+	add.b  #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
 	move.b d3, -(a0)		; Back to string
 	lsr.l  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
@@ -240,7 +254,7 @@ TXT_ItoA_Hex_l:
 	@End:
 
 	;0X
-	move.b #'X', -(a0)
+	move.b #'x', -(a0)
 	move.b #'0', -(a0)
 
 	rts
@@ -259,7 +273,7 @@ TXT_ItoA_w:
 	andi.l #0x0000FFFF, d2
 	divu   #10, d2		; Div/10
 	swap   d2			; Remainder
-	add.b  #ASCIINumericOffset, d2	; In numeric range (0 - 9)
+	add.b  #CharMap_ASCII_NumericOffset, d2	; In numeric range (0 - 9)
 	move.b d2, -(sp)	; To stack
 	andi.l #0x0000FFFF, d0
 	divu   #10, d0		; Next digit
@@ -273,6 +287,152 @@ TXT_ItoA_w:
 	
 	; Zero terminate
 	move.b #0x0, (a0)+
+
+	rts
+	
+TXT_FontTest:
+
+	; Load fonts
+	lea     FontTest_Font, a0
+	move.l  #FontTest_FontAddr, d0
+	move.l  #FontTest_FontSize, d1
+	jsr     TXT_LoadFont
+
+	lea     FontTest_FontBold, a0
+	move.l  #FontTest_FontAddrBold, d0
+	move.l  #FontTest_FontSize, d1
+	jsr     TXT_LoadFont
+	
+	; Load palette
+	lea     Exception_Palette, a0
+	move.l  #0x0, d0
+	jsr     PAL_Load
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*0)), d1	; XY coord
+	lea     FontTest_Msg1_A, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*1)), d1	; XY coord
+	lea     FontTest_Msg1_B, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*2)), d1	; XY coord
+	lea     FontTest_Msg1_C, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*4)), d1	; XY coord
+	lea     FontTest_Msg1_A, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*5)), d1	; XY coord
+	lea     FontTest_Msg1_B, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*6)), d1	; XY coord
+	lea     FontTest_Msg1_C, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*8)), d1	; XY coord
+	lea     FontTest_Msg2_A, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*9)), d1	; XY coord
+	lea     FontTest_Msg2_B, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*11)), d1	; XY coord
+	lea     FontTest_Msg2_A, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*12)), d1	; XY coord
+	lea     FontTest_Msg2_B, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*14)), d1	; XY coord
+	lea     FontTest_Msg3_A, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*15)), d1	; XY coord
+	lea     FontTest_Msg3_B, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*17)), d1	; XY coord
+	lea     FontTest_Msg3_A, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*18)), d1	; XY coord
+	lea     FontTest_Msg3_B, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	;==============================================================
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*20)), d1	; XY coord
+	lea     FontTest_Msg4, a0			; String address
+	move.w  #FontTest_FontTileId, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
+
+	move.l  #((FontTest_PosX<<16)|FontTest_PosY+(FontTest_Linespacing*22)), d1	; XY coord
+	lea     FontTest_Msg4, a0			; String address
+	move.w  #FontTest_FontTileIdBold, d0	; Font VDP address
+	move.b  #0x0, d2					; Palette index
+	move.b  #0x0, d3					; Plane A
+	jsr     TXT_DrawPlane
 
 	rts
 	

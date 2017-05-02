@@ -118,13 +118,12 @@ GameStateReset:
 	LIST_CLEAR PushableObjs,a4,a3
 	LIST_CLEAR AIMarkers,a4,a3
 
-	; Reload debug draw font
-	move.l #Tiles_PixelFontSizeB, d0
+	; Reload font
+	move.w #CharMap_SizeB, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, (vram_addr_systemfont)
-	lea    Tiles_PixelFont, a0
-	move.l #Tiles_PixelFontSizeT, d1
-	jsr    VDP_LoadTiles
+	lea    tiles_twfont, a0
+	jsr    TXT_LoadFont
 
 	; HACK: Clear pause state VRAM alloc
 	lea    GameStatePauseData, a2

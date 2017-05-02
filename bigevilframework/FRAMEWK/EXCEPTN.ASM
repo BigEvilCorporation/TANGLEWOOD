@@ -6,21 +6,24 @@
 ;   exceptn.asm - 68k exception handler
 ;==============================================================
 
-Exception_Font			equ Tiles_PixelFont
-Exception_FontSize		equ Tiles_PixelFontSizeT
-Exception_FontAddr		equ 0x0000
-Exception_FontTileId	equ (Exception_FontAddr/size_tile_b)
-Exception_ColourBg		equ 0x0008
-Exception_ColourTxt		equ 0x0FFF
-Exception_MsgPosX		equ 0x05
-Exception_MsgPosY		equ 0x01
-Exception_RegPosX		equ 0x01
-Exception_RegPosY		equ 0x03
-Exception_StackPosX		equ 0x013
-Exception_StackPosY		equ 0x03
-Exception_LineSpace		equ 0x01
-Exception_RegCount		equ 0x12	; 18 regs (a0-a6 + d0-d7 + SP + SR + PC)
-Exception_MaxStack		equ 0x10
+Exception_Font				equ tiles_twfont ; Tiles_PixelFont
+Exception_FontBold			equ tiles_twfontb
+Exception_FontSize			equ tiles_twfont_size_t ;Tiles_PixelFontSizeT
+Exception_FontAddr			equ 0x0000
+Exception_FontAddrBold		equ tiles_twfont_size_b
+Exception_FontTileId		equ (Exception_FontAddr/size_tile_b)
+Exception_FontTileIdBold	equ (Exception_FontAddrBold/size_tile_b)
+Exception_ColourBg			equ 0x0008
+Exception_ColourTxt			equ 0x0FFF
+Exception_MsgPosX			equ 0x05
+Exception_MsgPosY			equ 0x01
+Exception_RegPosX			equ 0x01
+Exception_RegPosY			equ 0x03
+Exception_StackPosX			equ 0x013
+Exception_StackPosY			equ 0x03
+Exception_LineSpace			equ 0x01
+Exception_RegCount			equ 0x12	; 18 regs (a0-a6 + d0-d7 + SP + SR + PC)
+Exception_MaxStack			equ 0x10
 
 ExceptionType_Address		equ 0x0
 ExceptionType_Bus			equ 0x1
@@ -110,11 +113,16 @@ CPU_Exception:
 	; Re-initialise VDP
 	jsr     VDP_Init
 	
-	; Load exception font
+	; Load exception fonts
 	lea     Exception_Font, a0
 	move.l  #Exception_FontAddr, d0
 	move.l  #Exception_FontSize, d1
-	jsr     VDP_LoadTiles
+	jsr     TXT_LoadFont
+
+	lea     Exception_FontBold, a0
+	move.l  #Exception_FontAddrBold, d0
+	move.l  #Exception_FontSize, d1
+	jsr     TXT_LoadFont
 	
 	; Load exception palette
 	lea     Exception_Palette, a0
@@ -125,12 +133,9 @@ CPU_Exception:
 	
 	; Draw error message
 	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
-	;move.l  d7, d1
-	move.l  #0x0, d2
-	mulu    #0x18, d2
 	lea     Exception_Msgs, a0			; Exception strings address
 	add.l   d2, a0						; String offset					
-	move.w  #Exception_FontTileId, d0	; Font VDP address
+	move.w  #Exception_FontTileIdBold, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
 	jsr     TXT_DrawPlane
@@ -184,7 +189,7 @@ CPU_Exception:
 	move.l  #0x0, d2
 	mulu    #0x18, d2
 	lea     Exception_Str_Stack, a0		; String
-	move.w  #Exception_FontTileId, d0	; Font VDP address
+	move.w  #Exception_FontTileIdBold, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
 	jsr     TXT_DrawPlane

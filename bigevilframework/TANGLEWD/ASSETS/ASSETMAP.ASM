@@ -8,6 +8,8 @@
 	; Font tiles
 	; ************************************
 	include 'assets\fonts\pixelfnt.asm'
+	include 'assets\fonts\tiles\twfont.asm'
+	include 'assets\fonts\tiles\twfontb.asm'
 
 	; ************************************
 	; Level assets

@@ -7,6 +7,10 @@
 	; ************************************
 	; Tilesets
 	; ************************************
+tiles_twfont:
+	incbin 'assets\fonts\tiles\twfont.bin'
+tiles_twfontb:
+	incbin 'assets\fonts\tiles\twfontb.bin'
 tiles_bigevil_logo:
 	incbin 'assets\maps\bec_logo\tiles.bin'
 tiles_megafounder_screen:

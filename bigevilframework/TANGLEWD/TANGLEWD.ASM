@@ -189,13 +189,12 @@ __main:
 	; Init game state stack
 	move.l #GameStateStack, GameStateStackPtr
 
-	; Load debug draw font
-	move.l #Tiles_PixelFontSizeB, d0
+	; Load font
+	move.w #CharMap_SizeB, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, (vram_addr_systemfont)
-	lea    Tiles_PixelFont, a0
-	move.l #Tiles_PixelFontSizeT, d1
-	jsr    VDP_LoadTiles
+	lea    tiles_twfont, a0
+	jsr    TXT_LoadFont
 
 	; Clear counters
 	move.l #0x0, hblank_counter

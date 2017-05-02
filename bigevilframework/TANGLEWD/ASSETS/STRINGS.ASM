@@ -16,6 +16,16 @@ Str_Monsters:	dc.b "MONSTERS",0
 Str_Flues:		dc.b "FLUES",0
 Str_Render:		dc.b "RENDER",0
 	ENDIF
+
+	; Font test
+FontTest_Msg1_A	dc.b "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
+FontTest_Msg1_B	dc.b "abcdefghijklmnopqrstuvwxyz",0
+FontTest_Msg1_C	dc.b "0123456789",0
+FontTest_Msg2_A	dc.b "The Quick Brown Fox Jumps",0
+FontTest_Msg2_B	dc.b "Over The Lazy Dog",0
+FontTest_Msg3_A	dc.b "Is this on? I made a Chronal",0
+FontTest_Msg3_B	dc.b "Accelerator, I'm sure I can do this.",0
+FontTest_Msg4	dc.b ".,!?=-[]/\$%&()#@^_{|}~'<>`:;",0
 	
 Str_SoundTestLabel	dc.b "SOUND ID: ",0
 	
