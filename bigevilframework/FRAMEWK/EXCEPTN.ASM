@@ -6,11 +6,11 @@
 ;   exceptn.asm - 68k exception handler
 ;==============================================================
 
-Exception_Font				equ tiles_twfont ; Tiles_PixelFont
-Exception_FontBold			equ tiles_twfontb
-Exception_FontSize			equ tiles_twfont_size_t ;Tiles_PixelFontSizeT
+Exception_Font				equ tiles_pxfont
+Exception_FontBold			equ tiles_pxfont
+Exception_FontSize			equ tiles_pxfont_size_t
 Exception_FontAddr			equ 0x0000
-Exception_FontAddrBold		equ tiles_twfont_size_b
+Exception_FontAddrBold		equ tiles_pxfont_size_b
 Exception_FontTileId		equ (Exception_FontAddr/size_tile_b)
 Exception_FontTileIdBold	equ (Exception_FontAddrBold/size_tile_b)
 Exception_ColourBg			equ 0x0008
@@ -134,7 +134,7 @@ CPU_Exception:
 	; Draw error message
 	move.l  #((Exception_MsgPosX<<16)|Exception_MsgPosY), d1	; XY coord
 	lea     Exception_Msgs, a0			; Exception strings address
-	add.l   d2, a0						; String offset					
+	; TODO: Select error type string
 	move.w  #Exception_FontTileIdBold, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
 	move.b  #0x0, d3					; Plane A
