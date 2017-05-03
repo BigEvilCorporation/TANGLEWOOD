@@ -47,7 +47,7 @@ EndLevelScore_TextFontSize		equ tiles_twfont_size_t
 EndLevelScore_TextFontPaletteId	equ 0x1
 EndLevelScore_TextFontColourIdx	equ	0x1
 EndLevelScore_TextFontColour	equ 0x0EEE
-EndLevelScore_LevelPosX			equ ((screen_width/8/2)-(20/2))
+EndLevelScore_LevelPosX			equ ((screen_width/8/2)-(27/2))
 EndLevelScore_LevelPosY			equ 2
 EndLevelScore_TitlePosX			equ ((screen_width/8/2)-(18/2))
 EndLevelScore_TitlePosY			equ 4
@@ -78,27 +78,27 @@ EndLevelScore_Palette:
 ; Strings
 ; TODO: fetch from level data
 EndLevelString_Level:
-	dc.b '1 : HARLEQUIN FOREST',0
+	dc.b 'Chapter 1: Harlequin Forest',0
 	even
 
 EndLevelString_Title:
-	dc.b 'FIREFLIES COLLECTED',0
+	dc.b 'Fireflies Collected',0
 	even
 
 EndLevelString_Act1:
-	dc.b 'ACT 1:',0
+	dc.b 'Act 1:',0
 	even
 
 EndLevelString_Act2:
-	dc.b 'ACT 2:',0
+	dc.b 'Act 2:',0
 	even
 
 EndLevelString_Act3:
-	dc.b 'ACT 3:',0
+	dc.b 'Act 3:',0
 	even
 
 EndLevelString_Act4:
-	dc.b 'ACT 4:',0
+	dc.b 'Act 4:',0
 	even
 	
 ; Struct
