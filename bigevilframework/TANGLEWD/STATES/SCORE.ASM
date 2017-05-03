@@ -43,7 +43,7 @@ GameStateEndLevelScoreScreen:
 	dc.l EndLevelScoreScreen_Render
 	dc.l 0x0
 
-EndLevelScore_TextFontSize		equ Tiles_PixelFontSizeT
+EndLevelScore_TextFontSize		equ tiles_twfont_size_t
 EndLevelScore_TextFontPaletteId	equ 0x1
 EndLevelScore_TextFontColourIdx	equ	0x1
 EndLevelScore_TextFontColour	equ 0x0EEE

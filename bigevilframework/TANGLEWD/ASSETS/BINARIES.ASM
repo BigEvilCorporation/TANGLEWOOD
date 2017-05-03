@@ -7,6 +7,8 @@
 	; ************************************
 	; Tilesets
 	; ************************************
+tiles_pxfont:
+	incbin 'assets\fonts\tiles\pxfont.bin'
 tiles_twfont:
 	incbin 'assets\fonts\tiles\twfont.bin'
 tiles_twfontb:

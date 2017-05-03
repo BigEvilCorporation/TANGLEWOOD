@@ -29,7 +29,7 @@ PauseState_Struct_Pad		 rs.b 3
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
-PauseText_FontSize		equ Tiles_PixelFontSizeT
+PauseText_FontSize		equ tiles_twfont_size_t
 PauseText_FontPaletteId	equ PaletteId_Monster	; Least used palette
 PauseText_FontColourIdx	equ	0x1
 PauseText_FontColour	equ 0x0EEE

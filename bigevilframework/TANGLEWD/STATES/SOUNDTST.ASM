@@ -62,9 +62,9 @@ SoundTest_Enter:
 	
 	; Load font
 	PUSHL  a0
-	lea    Tiles_PixelFont, a0
+	lea    tiles_twfont, a0
 	move.w (vram_addr_systemfont), d0
-	move.w #Tiles_PixelFontSizeT, d1
+	move.w #tiles_twfont_size_t, d1
 	jsr    TXT_LoadFont
 	POPL   a0
 	

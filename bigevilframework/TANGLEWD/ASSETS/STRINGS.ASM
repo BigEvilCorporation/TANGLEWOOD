@@ -25,7 +25,7 @@ FontTest_Msg2_A	dc.b "The Quick Brown Fox Jumps",0
 FontTest_Msg2_B	dc.b "Over The Lazy Dog",0
 FontTest_Msg3_A	dc.b "Is this on? I made a Chronal",0
 FontTest_Msg3_B	dc.b "Accelerator, I'm sure I can do this.",0
-FontTest_Msg4	dc.b ".,!?=-[]/\$%&()#@^_{|}~'<>`:;",0
+FontTest_Msg4	dc.b ".,!?=+-[]/\$%&()#@^_{|}~'<>`:;",0
 	
 Str_SoundTestLabel	dc.b "SOUND ID: ",0
 	
