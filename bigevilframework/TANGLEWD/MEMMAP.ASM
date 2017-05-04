@@ -118,12 +118,24 @@ TimerDemoReset      rs.l 1
 ; ************************************
 PhysicsWorld		rs.b PhysicsWorld_Struct_Size
 CurrentLevel		rs.l 1
+
+; ************************************
+; Time of day
+; ************************************
 TimeOfDayShiftDelay rs.w 1
 TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night
 TimeOfDayEnabled    rs.b 1
 
 __padding03			rs.b 2
+
+; ************************************
+; Weather
+; ************************************
+WindDelay			rs.w 1
+WindDuration		rs.w 1
+WindDelayTimer		rs.w 1
+WindDurationTimer	rs.w 1
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

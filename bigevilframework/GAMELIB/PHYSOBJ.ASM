@@ -31,6 +31,7 @@ PhysicsObj_MaxVelFloorX 	rs.l 1 ; Max X velocity (on floor)
 PhysicsObj_MaxVelAirX 		rs.l 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    rs.l 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	    rs.l 1 ; Max Y velocity down
+PhysicsObj_MinWindStrength rs.l 1 ; Min wind velocity affecting object
 PhysicsObj_BoundsLeft		rs.w 1 ; Collision bounds offset X
 PhysicsObj_BoundsTop		rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth		rs.w 1 ; Collision bounds offset width
@@ -347,6 +348,16 @@ PhysicsObjApplyWorldForces:
 	; Get gravity and wind
 	move.l PhysicsWorld_Wind(a2), d1
 	move.l PhysicsWorld_Gravity(a2), d2
+
+	; If wind strength is critical
+	move.l PhysicsObj_MinWindStrength(a0), d3
+	cmp.l  d3, d1
+	bge    @AffectedByWind
+	neg.l  d3
+	cmp.l  d3, d1
+	ble    @AffectedByWind
+	move.l #0x0, d1
+	@AffectedByWind:
 
 	; Apply floor friction to wind force
 	cmp.l  #0x0, d1

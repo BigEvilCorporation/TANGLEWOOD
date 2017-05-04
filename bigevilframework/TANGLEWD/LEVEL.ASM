@@ -330,11 +330,20 @@ LevelReset:
 	
 	; World
 	move.w  #0x0, TimeOfDayShiftDelay
+	move.w  #0x0, WindDelay
+	move.w  #0x0, WindDuration
+	move.w  #0x0, WindDelayTimer
+	move.w  #0x0, WindDurationTimer
+
+	; TEMP
+	move.w  #0x0080, WindDelay
+	move.w  #0x0080, WindDuration
+	move.w  #0x0080, WindDelayTimer
 
 	; Physics world
 	lea    PhysicsWorld, a2
 	move.l Level_Gravity(a1), PhysicsWorld_Gravity(a2)
-	move.l #-0x00001000, PhysicsWorld_Wind(a2)
+	move.l #0x0, PhysicsWorld_Wind(a2)
 
 	move.w  Level_MapHeight(a1), d0
 	TILES2PIXELS d0

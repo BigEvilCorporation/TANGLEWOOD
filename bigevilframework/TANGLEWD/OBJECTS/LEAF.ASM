@@ -58,7 +58,7 @@ LeafInit:
 	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)
-	move.l #LeafDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
@@ -150,6 +150,8 @@ LeafUpdate:
 	move.w Leaf_ResetTimer(a0), d0
 	cmp.w  #0x0, d0
 	bne    @Inactive
+
+	;==============================================================
 	
 	; Calc random X starting position
 	move.l (frame_counter_render), d0
@@ -201,6 +203,8 @@ LeafUpdate:
 	move.b #0x1, SpriteObj_Visible(a0)
 	
 	@AlreadyActive:
+
+	;==============================================================
 	
 	; Check if out of bounds
 	move.l Entity_WorldPosX(a0), d0
@@ -243,6 +247,8 @@ LeafUpdate:
 	bra    @End
 	
 	@WithinBounds:
+
+	;==============================================================
 
 	; Wrap sine step
 	clr.l  d0
@@ -294,6 +300,8 @@ LeafUpdate:
 	beq    @NoAnimChange
 	move.b #0x1, AnimObj_Dirty(a0)
 	@NoAnimChange:
+
+	;==============================================================
 	
 	; Drop under gravity
 	move.l   #Leaf_FallVelocity, d1
@@ -302,10 +310,14 @@ LeafUpdate:
 	ext.l  d1
 	sub.l  d1, Entity_WorldPosY(a0)
 
+	;==============================================================
+
 	; Add wind velocity and clamp
 	lea    PhysicsWorld, a2
-	move.l Leaf_VelX(a0), d0
 	move.l PhysicsWorld_Wind(a2), d1
+	cmp.l  #0x0, d1
+	beq    @DecelX
+	move.l Leaf_VelX(a0), d0
 	add.l  d1, d0
 
 	; Clamp
@@ -314,9 +326,41 @@ LeafUpdate:
 
 	; Apply
 	add.l  d0, Entity_WorldPosX(a0)
+
+	; Done
+	bra    @End
+
+	;==============================================================
+
+	@DecelX:
+
+	; Determine deceleration direction
+	cmp.l #0x0, PhysicsObj_VelX(a0)
+	beq @EndDecel		; No velocity
+	bgt @DecelFromPos	; Postive velocity
+	blt @DecelFromNeg	; Negative velocity
+	
+	; Decelerate from positive X velocity towards 0
+	@DecelFromPos:
+	sub.l #Leaf_DecelX, PhysicsObj_VelX(a0)
+	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	bge @EndDecel
+	move.l #0x0, PhysicsObj_VelX(a0)
+	bra @EndDecel
+	
+	; Decelerate from negative X velocity towards 0
+	@DecelFromNeg:
+	add.l #Leaf_DecelX, PhysicsObj_VelX(a0)
+	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	ble @EndDecel
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	@EndDecel:
 	
 	; Done
 	bra    @End
+
+	;==============================================================
 	
 	@Inactive:
 	
@@ -324,13 +368,11 @@ LeafUpdate:
 	sub.w  #0x1, d0
 	move.w d0, Leaf_ResetTimer(a0)
 	
+	;==============================================================
+
 	@End:
 	
 	; Base functionality
 	jsr    AnimObjUpdate
 
-	rts
-
-LeafDraw:
-	jsr AnimObjDraw
 	rts

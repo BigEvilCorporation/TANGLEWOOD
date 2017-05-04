@@ -139,6 +139,9 @@ Gameplay_Update:
 	; Update level
 	move.l Level_UpdateRoutine(a1), a2
 	jsr    (a2)
+
+	; Update weather
+	jsr    WeatherUpdate
 	
 	; Update audio
 	jsr	   UpdateBGMTimer

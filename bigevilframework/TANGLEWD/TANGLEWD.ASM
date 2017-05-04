@@ -173,6 +173,7 @@ __start
 	include 'level.asm'
 	include 'savegame.asm'
 	include 'tod.asm'
+	include 'weather.asm'
 
 	; ************************************
 	; Post-init entry point

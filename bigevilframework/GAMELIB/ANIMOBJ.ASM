@@ -279,9 +279,16 @@ AnimObjSetAnimation:
 	; Mark as dirty
 	move.b #0x1, AnimObj_Dirty(a0)
 
-	; Reset draw offset
+	; Reset draw offset if no offset tracks
+	cmp.l  #0x0, Animation_AnimTrackPositionX(a2)
+	bne    @HasTrackX
 	move.w #0x0, SpriteObj_DrawOffsetX(a0)
+	@HasTrackX:
+
+	cmp.l  #0x0, Animation_AnimTrackPositionY(a2)
+	bne    @HasTrackY
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+	@HasTrackY:
 	
 	; Set current anim
 	move.l a1, AnimObj_CurrentAnim(a0)
