@@ -7,22 +7,34 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L2A1_Leaf_count equ 0x0
+L2A1_Leaf_count equ 0x9
+L2A1_Leaf_7_idx	equ 0x0
+L2A1_Leaf_8_idx	equ 0x1
+L2A1_Leaf_9_idx	equ 0x2
+L2A1_Leaf_10_idx	equ 0x3
+L2A1_Leaf_11_idx	equ 0x4
+L2A1_Leaf_12_idx	equ 0x5
+L2A1_Leaf_13_idx	equ 0x6
+L2A1_Leaf_14_idx	equ 0x7
+L2A1_Leaf_15_idx	equ 0x8
 
 L2A1_Nymn_count equ 0x1
 L2A1_Nymn_3_idx	equ 0x0
 
 L2A1_Echo_count equ 0x0
 
-L2A1_BouncePlant_count equ 0x0
+L2A1_BouncePlant_count equ 0x1
+L2A1_BouncePlant_4_idx	equ 0x0
 
-L2A1_Boulder_count equ 0x0
+L2A1_Boulder_count equ 0x1
+L2A1_Boulder_6_idx	equ 0x0
 
 L2A1_Monster_count equ 0x0
 
 L2A1_Firefly_count equ 0x0
 
-L2A1_Fuzzl_count equ 0x0
+L2A1_Fuzzl_count equ 0x1
+L2A1_Fuzzl_5_idx	equ 0x0
 
 L2A1_Stone_count equ 0x0
 
@@ -46,25 +58,67 @@ L2A1_Lift_2_idx	equ 0x0
 
 L2A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
 	move.l #0x01300000, Entity_WorldPosX(a0)
-	move.l #0x07780000, Entity_WorldPosY(a0)
+	move.l #0x07800000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
 	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_BouncePlant, a0
+	jsr BouncePlantInit
+	move.l #0x04300000, Entity_WorldPosX(a0)
+	move.l #0x07980000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
 
 	move.l #EntityArray_Boulder, a0
+	jsr BoulderInit
+	move.l #0x03c80000, Entity_WorldPosX(a0)
+	move.l #0x07780000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
 
 	move.l #EntityArray_Monster, a0
 
 	move.l #EntityArray_Firefly, a0
 
 	move.l #EntityArray_Fuzzl, a0
+	jsr FuzzlInit
+	move.l #0x02c00000, Entity_WorldPosX(a0)
+	move.l #0x07800000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Stone, a0
 
@@ -84,8 +138,8 @@ L2A1_LoadGameObjects:
 
 	move.l #EntityArray_Lift, a0
 	jsr LiftInit
-	move.l #0x08400000, Entity_WorldPosX(a0)
-	move.l #0x07080000, Entity_WorldPosY(a0)
+	move.l #0x07e80000, Entity_WorldPosX(a0)
+	move.l #0x07100000, Entity_WorldPosY(a0)
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 
