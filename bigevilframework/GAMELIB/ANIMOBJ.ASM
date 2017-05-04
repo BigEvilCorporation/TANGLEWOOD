@@ -177,7 +177,6 @@ AnimObjDraw:
 	
 	; X position track
 	PUSHL  d2
-	move.w #0x0, SpriteObj_DrawOffsetX(a0)		; Reset X position offset
 	move.l Animation_AnimTrackPositionX(a2), a3	; Get X position keyframe track
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
@@ -200,7 +199,6 @@ AnimObjDraw:
 	
 	; Y position track
 	PUSHL  d2
-	move.w #0x0, SpriteObj_DrawOffsetY(a0)		; Reset Y position offset
 	move.l Animation_AnimTrackPositionY(a2), a3	; Get Y position keyframe track
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosY
@@ -280,6 +278,10 @@ AnimObjSetAnimation:
 
 	; Mark as dirty
 	move.b #0x1, AnimObj_Dirty(a0)
+
+	; Reset draw offset
+	move.w #0x0, SpriteObj_DrawOffsetX(a0)
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 	
 	; Set current anim
 	move.l a1, AnimObj_CurrentAnim(a0)

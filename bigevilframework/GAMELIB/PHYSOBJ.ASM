@@ -47,7 +47,9 @@ PhysicsObj_BounceX		    rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    rs.w 1 ; Max step height
 PhysicsObj_MinWallHeight    rs.w 1 ; Min wall height
-PhysicsObj_HasPhysics       rs.b 1 ; Uses acceleration, can fall under gravity, has drag, collides with floor
+PhysicsObj_Mass             rs.b 1 ; Object mass
+PhysicsObj_HasPhysics       rs.b 1 ; Uses physics
+PhysicsObj_CollideFloor	    rs.b 1 ; Collides with floor
 PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
 PhysicsObj_CollideCeilings  rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
@@ -62,7 +64,7 @@ PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise us
 PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 2
+PhysicsObj_Struct_Pad       rs.b 0
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -91,7 +93,9 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
+	move.b #0x1, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x1, PhysicsObj_CollideFloor(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	move.b #0x1, PhysicsObj_CollideCeilings(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
@@ -143,14 +147,19 @@ PhysicsObjUpdate:
 
 	; Apply acceleration
 	jsr PhysicsObjApplyAccelDecel
-	jsr PhysicsObjApplyGravity
+
+	; Apply gravity and wind
+	jsr PhysicsObjApplyWorldForces
 	
 	; Apply velocity
 	jsr PhysicsObjApplyVelocity
 	
 	; Find floor
+	cmp.b #0x0, PhysicsObj_CollideFloor(a0)
+	beq   @NoCheckFloor
 	move.b #0x0, d0
 	jsr PhysicsObjFindFloor
+	@NoCheckFloor:
 
 	; Find ceiling
 	cmp.b #0x0, PhysicsObj_CollideCeilings(a0)
@@ -328,29 +337,52 @@ PhysicsObjApplyAccelDecel:
 	
 	rts
 	
-PhysicsObjApplyGravity:
+PhysicsObjApplyWorldForces:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	; Apply gravity
-	clr.l  d0
+
+	; Get physics world
 	lea    PhysicsWorld, a2
-	move.l PhysicsWorld_Gravity(a2), d1
-	move.l PhysicsObj_VelY(a0), d0
 	
+	; Get gravity and wind
+	move.l PhysicsWorld_Wind(a2), d1
+	move.l PhysicsWorld_Gravity(a2), d2
+
+	; Apply floor friction to wind force
+	cmp.l  #0x0, d1
+	beq    @NoWind
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+	move.l d4, d0
+	clr.l  d3
+	move.b PhysicsObj_Mass(a0), d3
+	DIVS1616_LOSSY d3, d1
+	@NoWind:
+	@InAir:
+
 	; Apply speed div
-	clr.l  d2
-	move.b AnimObj_SpeedDiv(a0), d2
-	DIVS1616_LOSSY d2, d1
+	clr.l  d3
+	move.b AnimObj_SpeedDiv(a0), d3
+	DIVS1616_LOSSY d3, d1
+	DIVS1616_LOSSY d3, d2
+
+	; Get current velocity
+	move.l PhysicsObj_VelX(a0), d4
+	move.l PhysicsObj_VelY(a0), d5
 	
-	sub.l  d1, d0
-	clr.l d2
-	sub.l PhysicsObj_MaxVelYDown(a0), d2
-	cmp.l  d2, d0
-	bge.l  @EndGravity
-	move.l d2, d0
-	@EndGravity:
-	move.l d0, PhysicsObj_VelY(a0)
+	; Apply gravity and wind
+	add.l  d1, d4
+	sub.l  d2, d5
+
+	; Clamp Y
+	move.l PhysicsObj_MaxVelYUp(a0), d1
+	move.l PhysicsObj_MaxVelYDown(a0), d2
+	neg.l  d2
+	CLAMP d5, d2, d1
+	
+	; Set
+	move.l d4, PhysicsObj_VelX(a0)
+	move.l d5, PhysicsObj_VelY(a0)
 	
 	rts
 	

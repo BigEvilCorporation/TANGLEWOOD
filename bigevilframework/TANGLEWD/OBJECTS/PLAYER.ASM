@@ -15,6 +15,9 @@ Player_MaxEntities equ 0x2
 Player1Width	  equ 0x0038
 Player1Height	  equ 0x0030
 
+; Mass
+Player1Mass		  equ 0x3
+
 ; Player collision bounds
 Player1BoundsWidth		equ 0x0010
 Player1BoundsHeight		equ 0x0030
@@ -214,6 +217,7 @@ PlayerInit:
 	move.w  #Player1ProbeCeilingY, PhysicsObj_CeilingProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Player1MinWallHeight, PhysicsObj_MinWallHeight(a0)
+	move.b  #Player1Mass, PhysicsObj_Mass(a0)
 	
 	move.l  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Player1MaxVelXRun, Character_MaxVelXRun(a0)

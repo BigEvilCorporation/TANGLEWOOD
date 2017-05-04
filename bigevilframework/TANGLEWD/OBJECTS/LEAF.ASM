@@ -17,6 +17,10 @@ Leaf_WindowWidth   equ (vdp_plane_width*8)
 Leaf_WindowHeight  equ (vdp_plane_height*8)
 Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
+Leaf_MaxVelX       equ 0x040000
+Leaf_MaxVelY       equ Leaf_FallVelocity
+Leaf_DecelX        equ 0x003000
+Leaf_Mass          equ 0x1
 
 WorldToLeafWindowX equ (Leaf_WindowBorderX-vdp_sprite_border_x)*subpixels_per_pixel
 WorldToLeafWindowY equ (Leaf_WindowBorderY-vdp_sprite_border_y)*subpixels_per_pixel
@@ -33,6 +37,7 @@ LeafFrameOffsets:
 	rsset (AnimObj_Struct_Size)
 ;--------------------------
 Leaf_Animation       rs.b (Animation_Struct_Size)
+Leaf_VelX            rs.l 1
 Leaf_StartPosWorldX  rs.l 1
 Leaf_ResetTimer      rs.w 1
 Leaf_SineStep        rs.w 1
@@ -64,6 +69,7 @@ LeafInit:
 	move.b #0x0, SpriteObj_Visible(a0)
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
+	move.l #0x0, Leaf_VelX(a0)
 
 	; Setup animation
 	move.l a0, a3
@@ -220,6 +226,17 @@ LeafUpdate:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 	
+	; If blown off by wind, reset immediately to help exaggerate the wind effect
+	lea    PhysicsWorld, a2
+	move.l PhysicsWorld_Wind(a2), d1
+	cmp.l  #0x0, d1
+	beq    @NoWind
+	move.w #0x1, Leaf_ResetTimer(a0)
+	bra    @End
+
+	@NoWind:
+
+	; else set random reset timer
 	jsr    RND_GenerateLong
 	and.w  #0x003F, d0	; 0-128
 	move.w d0, Leaf_ResetTimer(a0)
@@ -258,11 +275,10 @@ LeafUpdate:
 	ext.w  d0
 	ext.l  d0
 
-	; Update X position
+	; Update X anim draw offset
 	muls   #((Leaf_FloatWidth*subpixels_per_pixel)/256), d0 ; To X range
-	move.l Leaf_StartPosWorldX(a0), d1                    ; Offset X pos
-	add.l  d1, d0
-	move.l d0, Entity_WorldPosX(a0)
+	TOPIXELS d0
+	move.w d0, SpriteObj_DrawOffsetX(a0)
 
 	; Update animation frame
 	add.w  #0x00FF, d2	; Sine value to 0-256 range
@@ -285,6 +301,19 @@ LeafUpdate:
 	divs   d2, d1
 	ext.l  d1
 	sub.l  d1, Entity_WorldPosY(a0)
+
+	; Add wind velocity and clamp
+	lea    PhysicsWorld, a2
+	move.l Leaf_VelX(a0), d0
+	move.l PhysicsWorld_Wind(a2), d1
+	add.l  d1, d0
+
+	; Clamp
+	CLAMP  d0, #-Leaf_MaxVelX, #Leaf_MaxVelX
+	move.l d0, Leaf_VelX(a0)
+
+	; Apply
+	add.l  d0, Entity_WorldPosX(a0)
 	
 	; Done
 	bra    @End

@@ -10,13 +10,14 @@
 Boulder_MaxEntities			equ 0x4
 Boulder_Width				equ 0x38
 Boulder_Height				equ 0x38
+Boulder_Mass				equ 0x8
 Boulder_MaxVelYUp			equ 0x06*subpixels_per_pixel
 Boulder_MaxVelYDown			equ 0x08*subpixels_per_pixel
 Boulder_StepHeight			equ 0x4
 Boulder_ProbeFloorX			equ (Boulder_Width/2)	; Floor detection probe position X
 Boulder_ProbeFloorY			equ (Boulder_Height-8)	; Floor detection probe position X
 Boulder_MaxVelX				equ 0x080000
-Boulder_Decel				equ 0x000800
+Boulder_Decel				equ 0x003000
 
 Boulder_AnimSpeedVelDiv		equ 0x0800
 
@@ -86,6 +87,7 @@ BoulderInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
+	move.b  #Boulder_Mass, PhysicsObj_Mass(a0)
 	move.l  #Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.w  #Boulder_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)

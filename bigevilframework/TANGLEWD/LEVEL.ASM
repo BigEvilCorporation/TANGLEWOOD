@@ -334,6 +334,7 @@ LevelReset:
 	; Physics world
 	lea    PhysicsWorld, a2
 	move.l Level_Gravity(a1), PhysicsWorld_Gravity(a2)
+	move.l #-0x00001000, PhysicsWorld_Wind(a2)
 
 	move.w  Level_MapHeight(a1), d0
 	TILES2PIXELS d0
