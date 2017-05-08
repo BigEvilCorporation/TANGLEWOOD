@@ -104,6 +104,10 @@ TXT_DrawSprites:
 	
 	; Backup palette
 	move.b   d2, d5
+
+	; Palette to bits 13-14
+	andi.w   #0xFF, d5
+	ror.w    #0x3, d5
 	
 	; To sprite space
 	swap     d1
@@ -116,8 +120,6 @@ TXT_DrawSprites:
 	
 	; Clear counter
 	clr.w    d4
-	
-	lea      ASCIIMap, a1           ; Load address of ASCII map into a1
 	clr.w    d2
 
 	@CharCopy:
@@ -128,12 +130,12 @@ TXT_DrawSprites:
 	PUSHL    d4
 	
 	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile ID
-	move.b   d2,        d4          ; Move tile ID to lower byte of d4
+	move.b   d2, d4                 ; Move tile ID to lower byte of d4
 	add.w    d0, d4                 ; Offset tile ID by first tile ID in font
 	
 	PUSHM    a0/d0-d5
 	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
-	move.w   d4, d2					; Spite tile index
+	move.w   d4, d2					; Sprite tile index
 	move.w   d5, d3					; Sprite palette
 	moveq    #0x1, d4				; Sprite priority
 	jsr      SPR_AddSubSprite

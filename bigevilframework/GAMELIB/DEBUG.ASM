@@ -9,6 +9,44 @@
 debugdraw_playerpos_text_x equ 0x8
 debugdraw_playerpos_text_y equ 0x1
 
+debugdraw_palette	equ 0x3
+
+DBG_DrawWord:
+	; d0 (w)  Word
+	; d1 (ww) Pos (sprite space)
+
+	ALLOCSTACKB 0x10
+	move.l sp, a0
+	PUSHL  d1
+	jsr    TXT_ItoA_Hex_w
+	POPL   d1
+	clr.l  d0
+	move.w (vram_addr_systemfont), d0
+	divu.w #size_tile_b, d0
+	move.b #debugdraw_palette, d2
+	jsr    TXT_DrawSprites
+	FREESTACKB 0x10
+
+	rts
+
+DBG_DrawLong:
+	; d0 (l)  Long
+	; d1 (ww) Pos (sprite space)
+
+	ALLOCSTACKB 0x10
+	move.l sp, a0
+	PUSHL  d1
+	jsr    TXT_ItoA_Hex_l
+	POPL   d1
+	clr.l  d0
+	move.w (vram_addr_systemfont), d0
+	divu.w #size_tile_b, d0
+	move.b #0x1, d2
+	jsr    TXT_DrawSprites
+	FREESTACKB 0x10
+
+	rts
+
 DBG_DebugDraw:
 
 	; Alloc string space

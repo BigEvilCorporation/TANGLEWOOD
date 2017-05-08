@@ -70,6 +70,7 @@ __start
 
 	; Include GameLib code
 	include '..\gamelib\anim.asm'
+	include '..\gamelib\debug.asm'
 	include '..\gamelib\barrier.asm'
 	include '..\gamelib\effects.asm'
 	include '..\gamelib\camera.asm'

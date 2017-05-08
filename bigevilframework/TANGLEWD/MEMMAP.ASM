@@ -132,10 +132,16 @@ __padding03			rs.b 2
 ; ************************************
 ; Weather
 ; ************************************
-WindDelay			rs.w 1
-WindDuration		rs.w 1
+WindAccel			rs.w 1
+WindMaxStrength		rs.w 1
 WindDelayTimer		rs.w 1
 WindDurationTimer	rs.w 1
+WindRandStrengthMin	rs.w 1
+WindRandStrengthMax	rs.w 1
+WindRandDurationMin	rs.w 1
+WindRandDurationMax	rs.w 1
+WindRandDelayMin	rs.w 1
+WindRandDelayMax	rs.w 1
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

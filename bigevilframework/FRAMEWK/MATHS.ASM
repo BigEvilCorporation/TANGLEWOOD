@@ -27,6 +27,43 @@ RND_GenerateLong:
 	addx.l D0,D0
 	move.l D0,rand_seed
 	rts
+
+RND_GenerateWordClamped:
+	; d0 (w) Out
+	; d1 (w) Min
+	; d2 (w) Max
+
+	PUSHL  d1-d2
+	jsr    RND_GenerateLong
+	POPL   d1-d2
+	clr.l  d3
+	andi.l #0xFFFF, d0
+	andi.l #0xFFFF, d1
+	andi.l #0xFFFF, d2
+	move.w d2, d3
+	sub.w  d1, d2	; Max-min
+	divu   d2, d0	; Rand to (max-min) range
+	swap   d0		; Remainder
+	add.w  d1, d0	; Add min
+
+	rts
+
+RND_Chance:
+	; d0 (w) IN: Percent chance of result being 1 or 0
+	;    (b) OUT: Result
+
+	move.w d0, d4
+	move.w #0, d1
+	move.w #100, d2
+	jsr    RND_GenerateWordClamped
+	move.w d0, d1
+	move.b #0x0, d0
+	cmp.w  d4, d1
+	bgt    @No
+	move.b #0x1, d0
+	@No:
+
+	rts
 	
 VEC2_ADD: macro vec1,vec2
     add.w \vec1, \vec2	; Vec2.y + Vec1.y

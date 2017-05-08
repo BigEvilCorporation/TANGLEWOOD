@@ -138,6 +138,24 @@ CLAMP: macro valuereg,minreg,maxreg
 	move.l \maxreg,\valuereg
 	@WITHIN_MAX\@:
 	endm
+
+; Clamp value between A and B, with unknown A/B order
+CLAMP_UNORDERED: macro valuereg,minreg,maxreg,tmpreg
+	cmp.l  \minreg, \maxreg
+	bgt    @CORRECT_ORDER\@
+	move.l \minreg, \tmpreg
+	move.l \maxreg, \minreg
+	move.l \tmpreg, \maxreg
+	@CORRECT_ORDER\@:
+	cmp.l  \minreg,\valuereg
+	bge    @WITHIN_MIN\@
+	move.l \minreg,\valuereg
+	@WITHIN_MIN\@:
+	cmp.l  \maxreg,\valuereg
+	ble    @WITHIN_MAX\@
+	move.l \maxreg,\valuereg
+	@WITHIN_MAX\@:
+	endm
 	
 ; Get positive absolute
 ABS: macro valuereg
@@ -174,6 +192,25 @@ DIVS1616_LOSSY_FIXED: macro div,reg
 	ext.l  \reg
 	lsl.l  #0x8, \reg
 	@ZERO\@:
+	endm
+
+;==============================================================
+
+; Matches sign of two regs
+MATCH_SIGN:	macro reg1,reg2
+	cmp.l   #0x0, \reg1		; If reg1 >= 0, positive
+	bgt     @POS1\@
+	@NEG1\@:
+	cmp.l   #0x0, \reg2		; If reg2 < 0, match
+	blt     @MATCH\@
+	neg.l   \reg2			; Mismatch, invert reg2
+	bra     @END\@
+	@POS1\@:
+	cmp.l   #0x0, \reg2		; If reg2 >= 0, match
+	bgt     @MATCH\@
+	neg.l   \reg2			; Mismatch, invert reg2
+	@MATCH\@:
+	@END\@:
 	endm
 
 ;==============================================================

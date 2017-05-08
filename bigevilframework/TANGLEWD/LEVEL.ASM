@@ -330,14 +330,23 @@ LevelReset:
 	
 	; World
 	move.w  #0x0, TimeOfDayShiftDelay
-	move.w  #0x0, WindDelay
-	move.w  #0x0, WindDuration
+
+	; Weather
+	move.l  #0x0, WindAccel
+	move.l  #0x0, WindMaxStrength
+	move.l  #0x0, WindRandStrengthMin
+	move.l  #0x0, WindRandStrengthMax
 	move.w  #0x0, WindDelayTimer
 	move.w  #0x0, WindDurationTimer
 
 	; TEMP
-	move.w  #0x0080, WindDelay
-	move.w  #0x0080, WindDuration
+	move.w  #0x0004, WindAccel
+	move.w  #0x0200, WindRandStrengthMin
+	move.w  #0x0400, WindRandStrengthMax
+	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
 	move.w  #0x0080, WindDelayTimer
 
 	; Physics world

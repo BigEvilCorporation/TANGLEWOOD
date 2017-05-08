@@ -19,7 +19,7 @@ Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 Leaf_MaxVelX       equ 0x040000
 Leaf_MaxVelY       equ Leaf_FallVelocity
-Leaf_DecelX        equ 0x003000
+Leaf_DecelX        equ 0x000300
 Leaf_Mass          equ 0x1
 
 WorldToLeafWindowX equ (Leaf_WindowBorderX-vdp_sprite_border_x)*subpixels_per_pixel
@@ -129,7 +129,7 @@ LeafLoadGfx:
 	move.l #sprite_leaf_size_t, d1
 	move.b #sprite_leaf_size_subsprites, d2
 	move.w #sprite_leaf_widthheight_subsprites, d3
-	move.b #PaletteId_World0, d4
+	move.b #0x1, d4 ; #PaletteId_World0, d4
 	move.b #0x1, d5
 	jsr    SpriteObjLoad
 
@@ -312,50 +312,53 @@ LeafUpdate:
 
 	;==============================================================
 
-	; Add wind velocity and clamp
+	; Get wind and current velocity
 	lea    PhysicsWorld, a2
+	move.l Leaf_VelX(a0), d0
 	move.l PhysicsWorld_Wind(a2), d1
 	cmp.l  #0x0, d1
-	beq    @DecelX
-	move.l Leaf_VelX(a0), d0
+	beq    @WindOff
+
+	; Apply and clamp
 	add.l  d1, d0
-
-	; Clamp
 	CLAMP  d0, #-Leaf_MaxVelX, #Leaf_MaxVelX
-	move.l d0, Leaf_VelX(a0)
 
-	; Apply
-	add.l  d0, Entity_WorldPosX(a0)
-
-	; Done
-	bra    @End
+	bra    @EndDecel
 
 	;==============================================================
 
-	@DecelX:
+	@WindOff:
 
 	; Determine deceleration direction
-	cmp.l #0x0, PhysicsObj_VelX(a0)
+	cmp.l #0x0, d0
 	beq @EndDecel		; No velocity
 	bgt @DecelFromPos	; Postive velocity
 	blt @DecelFromNeg	; Negative velocity
 	
 	; Decelerate from positive X velocity towards 0
 	@DecelFromPos:
-	sub.l #Leaf_DecelX, PhysicsObj_VelX(a0)
-	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	sub.l #Leaf_DecelX, d0
+	cmp.l #0x0, d0	; Clamp to 0
 	bge @EndDecel
-	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, d0
 	bra @EndDecel
 	
 	; Decelerate from negative X velocity towards 0
 	@DecelFromNeg:
-	add.l #Leaf_DecelX, PhysicsObj_VelX(a0)
-	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	add.l #Leaf_DecelX, d0
+	cmp.l #0x0, d0	; Clamp to 0
 	ble @EndDecel
-	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, d0
 	
 	@EndDecel:
+
+	;==============================================================
+	
+	; Set velocity
+	move.l d0, Leaf_VelX(a0)
+
+	; Apply velocity
+	add.l  d0, Entity_WorldPosX(a0)
 	
 	; Done
 	bra    @End
