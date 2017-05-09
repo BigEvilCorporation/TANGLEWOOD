@@ -166,6 +166,7 @@ MAP_StreamNextRow:
 	move.l  Level_BlocksAddr(a1), a0			; a0 ---  Source blocks address
 	move.l  Level_BlockMapAddr(a1), a1			; a1 ---  Source block map address
 	move.w  (vram_addr_leveltiles), d4			; d4 (w)  Art tile ID
+	divu    #size_tile_b, d4
 	move.b  #PaletteId_World0, d5				; d5 (b)  Palette ID
 	lea     VDP_LoadMapBlockSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob
@@ -257,6 +258,7 @@ MAP_StreamNextColumn:
 	move.l  Level_BlocksAddr(a1), a0		; a0 ---  Source blocks address
 	move.l  Level_BlockMapAddr(a1), a1		; a1 ---  Source block map address
 	move.w  (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
+	divu    #size_tile_b, d4
 	move.b  #PaletteId_World0, d5			; d5 (b)  Palette ID
 	lea     VDP_LoadMapBlockSegmentPlaneA, a5
 	jsr     VDP_JobQueue_PushJob

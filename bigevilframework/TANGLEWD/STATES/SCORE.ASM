@@ -139,6 +139,7 @@ EndLevelScoreScreen_Enter:
 	lea    map_blockmap_l1bg, a1
 	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
 	move.w (vram_addr_leveltiles), d2
+	divu   #size_tile_b, d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 
@@ -147,6 +148,7 @@ EndLevelScoreScreen_Enter:
 	lea    map_blockmap_end_level, a1
 	move.l #(map_blockmap_end_level_width<<16)|map_blockmap_end_level_height, d1
 	move.w (vram_addr_leveltiles), d2
+	divu   #size_tile_b, d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneA
 
