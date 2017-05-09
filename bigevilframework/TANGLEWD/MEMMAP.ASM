@@ -25,13 +25,21 @@ vdp_regs			  rs.b vdp_num_registers
 ; Framework stuff
 ; ************************************
 rand_seed				rs.l 1
-letterbox_top			rs.w 1
-letterbox_bottom		rs.w 1
 vint_enabled			rs.b 1
 
 __padding00				rs.b 3
 
 vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
+
+; ************************************
+; Raster effect data
+; ************************************
+raster_effect_update	rs.l 1	; Current effect update func
+raster_letterbox_top	rs.w 1	; Letterbox mode top border
+raster_letterbox_bottom	rs.w 1	; Letterbox mode bottom border
+raster_water_level		rs.b 1	; Current water level, sets HINT frequency
+
+__padding80				rs.b 3
 
 ; ************************************
 ; Audio
@@ -192,11 +200,10 @@ Gamepad1State      	   rs.w 1
 Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
-WaterLevel             rs.b 1	; Current water level, sets HINT frequency
 DirtyPalettesMask      rs.b 1	; Marks palettes for DMA
 UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
-__padding31            rs.b 1
+__padding31            rs.b 2
 
 ; Current palettes (DMA'd at end of frame)
 CurrentPalettes        rs.b (size_palette_b*num_palettes)

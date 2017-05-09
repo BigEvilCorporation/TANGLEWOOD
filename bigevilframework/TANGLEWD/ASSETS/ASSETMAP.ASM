@@ -188,6 +188,9 @@ PaletteId_Monster		equ 0x1
 PaletteId_Fuzzl			equ 0x2
 PaletteId_Player		equ 0x3
 
+; Underwater raster swap palette
+PaletteId_WaterRaster	equ PaletteId_Player
+
 	; ************************************
 	; VFX IDs
 	; ************************************

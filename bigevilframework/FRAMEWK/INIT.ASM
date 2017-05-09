@@ -54,10 +54,6 @@ CPU_EntryPoint:
 	
 	; Init sound driver
 	jsr SND_Init
-	
-	; Init letterbox
-	move.w #0x0, letterbox_top
-	move.w #screen_height, letterbox_bottom
 
 	; Cleanup registers
 	move.l  #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0

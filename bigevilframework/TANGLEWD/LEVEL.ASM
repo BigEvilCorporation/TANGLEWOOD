@@ -106,7 +106,7 @@ GameStateReset:
 	move.l  #EntityArray_Rope, NextFreeRopeSegment
 
 	; Reset water level
-	move.b #0xFF, WaterLevel
+	move.b #0xFF, raster_water_level
 
 	; Reset potential flue occupants
 	move.b #0x0, FlueNumPotentialOccupants

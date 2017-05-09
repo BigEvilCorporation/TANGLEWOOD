@@ -82,6 +82,7 @@ __start
 	include '..\gamelib\pickup.asm'
 	include '..\gamelib\platform.asm'
 	include '..\gamelib\physics.asm'
+	include '..\gamelib\raster.asm'
 	include '..\gamelib\scnanim.asm'
 	include '..\gamelib\sprites.asm'
 	include '..\gamelib\sprsheet.asm'
@@ -184,9 +185,8 @@ __main:
 	; Disable vint during loading
 	move.b #0x0, vint_enabled
 	
-	; Load letterbox horizontal interrupt routine
-	lea INT_HBlank_PaletteSwap, a0
-	jsr INT_LoadHBlank
+	; Load water level raster effect by default
+	jsr    RasterEffectUnderwaterInit
 	
 	; Init game state stack
 	move.l #GameStateStack, GameStateStackPtr
@@ -259,9 +259,12 @@ RenderBeginFrame:
 	
 RenderEndFrame:
 
-	; Set water level HINT
-	move.b (WaterLevel), d0
-	jsr VDP_SetHINTFreq
+	; Update current raster effect
+	move.l (raster_effect_update), a0
+	cmp.l  #0x0, a0
+	beq    @NoRasterEffect
+	jsr    (a0)
+	@NoRasterEffect:
 
 	; Convert underwater palettes if dirty
 	move.l #0x0, d0

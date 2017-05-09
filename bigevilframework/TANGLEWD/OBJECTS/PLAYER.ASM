@@ -1903,7 +1903,7 @@ PlayerInteractTest_Water:
 	move.b #0x0, Character_InWater(a0)
 
 	; Reset water level
-	move.b #0xFF, WaterLevel
+	move.b #0xFF, raster_water_level
 	
 	; Check all water bodies
 	move.l #EntityArray_WaterBody, a1
@@ -1960,7 +1960,7 @@ PlayerInteractTest_Water:
 	TOPIXELS d2
 	sub.w  d2, d3
 	sub.w  #vdp_sprite_border_y, d3
-	move.b d3, WaterLevel
+	move.b d3, raster_water_level
 
 	bra    @Found
 	
