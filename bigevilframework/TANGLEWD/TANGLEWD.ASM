@@ -187,6 +187,7 @@ __main:
 	
 	; Load water level raster effect by default
 	jsr    RasterEffectUnderwaterInit
+	;jsr    RasterEffectInterlacePlaneBInit
 	
 	; Init game state stack
 	move.l #GameStateStack, GameStateStackPtr
@@ -259,13 +260,6 @@ RenderBeginFrame:
 	
 RenderEndFrame:
 
-	; Update current raster effect
-	move.l (raster_effect_update), a0
-	cmp.l  #0x0, a0
-	beq    @NoRasterEffect
-	jsr    (a0)
-	@NoRasterEffect:
-
 	; Convert underwater palettes if dirty
 	move.l #0x0, d0
 	lea    CurrentPalettes, a0
@@ -318,6 +312,13 @@ __vinterrupt:
 	lea Str_Render, a0
 	jsr DBG_Profile_PushScope
 	ENDIF
+
+	; Update current raster effect
+	move.l (raster_effect_update), a0
+	cmp.l  #0x0, a0
+	beq    @NoRasterEffect
+	jsr    (a0)
+	@NoRasterEffect:
 
 	; DMA the sprite table
 	move.w (next_sprite_index), d1

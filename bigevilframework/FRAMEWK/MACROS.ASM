@@ -113,6 +113,11 @@ VDP_SETHINT macro line
 	move.w #(0x8A00|\line), vdp_control
 	endm
 
+VDP_SETVSCROLL_PLANEB macro scrollval
+	move.l #vdp_write_vscroll_b, vdp_control
+	move.w \scrollval, vdp_data
+	endm
+
 VDP_DMA_CRAM: macro src, dest, len, tmpreg
     move.l  #0x94009300|((\len)<<7&0x00FF0000)|((\len)>>1&0xFF), vdp_control
     move.l  #0x96009500|((\src)<<7&0x00FF0000)|((\src)>>1&0xFF), vdp_control

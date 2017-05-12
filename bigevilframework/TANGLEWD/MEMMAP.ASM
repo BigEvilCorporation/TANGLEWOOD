@@ -34,12 +34,18 @@ vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
 ; ************************************
 ; Raster effect data
 ; ************************************
-raster_effect_update	rs.l 1	; Current effect update func
-raster_letterbox_top	rs.w 1	; Letterbox mode top border
-raster_letterbox_bottom	rs.w 1	; Letterbox mode bottom border
-raster_water_level		rs.b 1	; Current water level, sets HINT frequency
+raster_effect_update		rs.l 1	; Current effect update func
+raster_letterbox_top		rs.w 1	; Letterbox mode top border
+raster_letterbox_bottom		rs.w 1	; Letterbox mode bottom border
+raster_interlace_scroll1_x	rs.w 1	; Interlaced scroll X (even line)
+raster_interlace_scroll1_y	rs.w 1	; Interlaced scroll Y (even line)
+raster_interlace_scroll2_x	rs.w 1	; Interlaced scroll X (odd line)
+raster_interlace_scroll2_y	rs.w 1	; Interlaced scroll Y (odd line)
+raster_interlace_scroll		rs.w 1
+raster_interlace_odd		rs.b 1	; Odd/even raster line
+raster_water_level			rs.b 1	; Current water level, sets HINT frequency
 
-__padding80				rs.b 3
+__padding80				rs.b 2
 
 ; ************************************
 ; Audio
@@ -150,6 +156,9 @@ WindRandDurationMin	rs.w 1
 WindRandDurationMax	rs.w 1
 WindRandDelayMin	rs.w 1
 WindRandDelayMax	rs.w 1
+RainCheckerboardOdd	rs.w 1
+RainScrollX			rs.w 1
+RainScrollY			rs.w 1
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

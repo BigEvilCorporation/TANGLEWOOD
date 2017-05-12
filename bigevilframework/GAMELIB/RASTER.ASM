@@ -24,15 +24,18 @@ RasterEffectLetterboxHINT:
 ;==============================================================
 
 RasterEffectUnderwaterInit:
+	; Set update func
 	move.l #RasterEffectUnderwaterUpdate, raster_effect_update
-	lea RasterEffectUnderwaterHINT, a0
-	jsr INT_LoadHBlank
+
+	; Set HINT
+	lea    RasterEffectUnderwaterHINT, a0
+	jsr    INT_LoadHBlank
 	rts
 
 RasterEffectUnderwaterUpdate:
 	; Set water level HINT
 	move.b (raster_water_level), d0
-	jsr VDP_SetHINTFreq
+	jsr    VDP_SetHINTFreq
 	rts
 
 RasterEffectUnderwaterHINT:
@@ -50,13 +53,45 @@ RasterEffectUnderwaterHINT:
 ;==============================================================
 
 RasterEffectInterlacePlaneBInit:
+	; Set update func
+	move.l #RasterEffectInterlacePlaneBUpdate, raster_effect_update
+
+	; Set HINT
+	lea    RasterEffectInterlacePlaneBHINT, a0
+	jsr    INT_LoadHBlank
+
+	; Set HINT frequency
+	move.w #0x0, d0
+	jsr    VDP_SetHINTFreq
+
 	rts
 
 RasterEffectInterlacePlaneBUpdate:
+
+	; Reset odd/even line
+	;move.b #0x0, raster_interlace_odd
+
+	; Half-page scroll val in lower word, 0 in upper
+	move.l #(8*32), raster_interlace_scroll
+
 	rts
 
 RasterEffectInterlacePlaneBHINT:
 
 	; Swap Plane B from upper to lower 32 tiles each scanline
+	cmp.b #0x0, raster_interlace_odd
+	beq   @Even
+
+	; Odd line
+	VDP_SETVSCROLL_PLANEB #(8*32)
+	move.b #0x0, raster_interlace_odd
+	bra   @End
+
+	@Even:
+
+	; Even line
+	VDP_SETVSCROLL_PLANEB #0x0000
+	move.b #0x1, raster_interlace_odd
+	@End:
 
 	rte

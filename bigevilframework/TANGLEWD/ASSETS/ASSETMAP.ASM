@@ -54,6 +54,7 @@
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
+	include 'assets\sprites\rain.asm'
 	include 'assets\sprites\rope.asm'
 	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
@@ -85,6 +86,7 @@
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
+	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
 	include 'assets\anims\water.asm'
 
@@ -147,6 +149,7 @@
 	; ************************************
 	; VFX
 	; ************************************
+	include 'assets\vfx\rain.asm'
 	include 'assets\vfx\water.asm'
 	
 	; ************************************
@@ -195,3 +198,4 @@ PaletteId_WaterRaster	equ PaletteId_Player
 	; VFX IDs
 	; ************************************
 VfxId_WaterSplashLarge	equ 0x0
+VfxId_RainHeavy			equ 0x1
