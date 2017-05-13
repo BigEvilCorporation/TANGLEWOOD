@@ -160,9 +160,9 @@ SpriteObjDraw:
 	; Check if out of bounds
 	move.w d1, d4
 	add.w  Entity_Width(a0), d4				; Get sprite right
-	cmp.w  #0x0, d4							; Check sprite right against left border
+	cmp.w  #vdp_sprite_border_x, d4			; Check sprite right against left border
 	blt    @OutOfBounds
-	cmp.w  #vdp_sprite_plane_width, d1		; Check sprite left against right border
+	cmp.w  #vdp_sprite_border_x+screen_width, d1	; Check sprite left against right border
 	bgt    @OutOfBounds
 	
 	;==============================================================
@@ -178,9 +178,9 @@ SpriteObjDraw:
 	; Check if out of bounds
 	move.w d3, d4
 	add.w  Entity_Height(a0), d4			; Get sprite bottom
-	cmp.w  #0x0, d4							; Check sprite bottom against top border
+	cmp.w  #vdp_sprite_border_y, d4			; Check sprite bottom against top border
 	blt    @OutOfBounds
-	cmp.w  #vdp_sprite_plane_height, d3		; Check sprite top against bottom border
+	cmp.w  #vdp_sprite_border_y+screen_height, d3	; Check sprite top against bottom border
 	bgt    @OutOfBounds
 	
 	;==============================================================
