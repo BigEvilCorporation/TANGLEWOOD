@@ -4,8 +4,8 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
-vfx_spritesheet_rain_heavy:
-	dc.l spritesheets_rain							; Tiles base address
+vfx_spritesheet_rain_light:
+	dc.l spritesheet_rain_light						; Tiles base address
 	dc.l sprite_rain_subsprite_dimensions_bits		; Subsprite dimensions array
 	dc.l sprite_rain_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.l sprite_rain_numtiles_per_subsprite			; Subsprite numtiles array
@@ -18,12 +18,12 @@ vfx_spritesheet_rain_heavy:
 
 	even
 
-vfx_animation_rain_heavy:
+vfx_animation_rain_light:
 	dc.l spriteanim_rain_fall_track_frames			; Sprite frame track
 	dc.l spriteanim_rain_fall_track_posx			; Pos X track
 	dc.l spriteanim_rain_fall_track_posy			; Pos Y track
 	dc.l spriteanim_rain_fall_track_sfx				; SFX track
-	dc.w spritesheet_rain_heavy_frameoffset			; First frame offset
+	dc.w spritesheet_rain_light_frameoffset			; First frame offset
 	dc.b spriteanim_rain_fall_speed					; Speed
 	dc.b spriteanim_rain_fall_numframes				; Length
 	dc.b 0x0										; Looping

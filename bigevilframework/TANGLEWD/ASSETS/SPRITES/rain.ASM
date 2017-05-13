@@ -30,160 +30,160 @@ sprite_rain_numtiles_per_subsprite:
 	Even
 
 
-spritesheet_rain_heavy_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_rain_heavy_size_b		equ 0x200	; Size in bytes
-spritesheet_rain_heavy_size_w		equ 0x100	; Size in words
-spritesheet_rain_heavy_size_l		equ 0x80	; Size in longwords
-spritesheet_rain_heavy_size_t		equ 0x10	; Size in tiles
+spritesheet_rain_light_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_rain_light_size_b		equ 0x200	; Size in bytes
+spritesheet_rain_light_size_w		equ 0x100	; Size in words
+spritesheet_rain_light_size_l		equ 0x80	; Size in longwords
+spritesheet_rain_light_size_t		equ 0x10	; Size in tiles
 
 
 spritesheets_rain:
 
-spritesheet_rain_heavy:
+spritesheet_rain_light:
 
-	dc.l	0x00010001
-	dc.l	0x00300010
-	dc.l	0x03000300
-	dc.l	0x30003000
-	dc.l	0x00030000
-	dc.l	0x00300000
-	dc.l	0x02000000
-	dc.l	0x20000002
-
-	dc.l	0x00001020
-	dc.l	0x00010000
-	dc.l	0x00300000
-	dc.l	0x03000003
-	dc.l	0x20000030
-	dc.l	0x00000300
-	dc.l	0x00003000
-	dc.l	0x00020000
-
-	dc.l	0x00200000
-	dc.l	0x02000100
-	dc.l	0x20003000
-	dc.l	0x00020001
-	dc.l	0x00000010
-	dc.l	0x00000300
-	dc.l	0x00003001
-	dc.l	0x00030030
-
-	dc.l	0x00200200
-	dc.l	0x02000000
-	dc.l	0x20000003
-	dc.l	0x00100020
-	dc.l	0x03000200
-	dc.l	0x20002000
-	dc.l	0x00020100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000010
-	dc.l	0x00000100
-	dc.l	0x00001000
-	dc.l	0x00030000
-	dc.l	0x00300002
-	dc.l	0x03000020
-	dc.l	0x20000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00100003
-	dc.l	0x01000030
-	dc.l	0x10000200
-	dc.l	0x00002000
-	dc.l	0x00020000
-	dc.l	0x00200000
-	dc.l	0x00001003
-	dc.l	0x00030030
-
-	dc.l	0x00200300
-	dc.l	0x00002000
-	dc.l	0x10020000
-	dc.l	0x00200010
-	dc.l	0x00000100
-	dc.l	0x00001000
-	dc.l	0x00010000
-	dc.l	0x00300000
-
-	dc.l	0x03000010
-	dc.l	0x30000300
-	dc.l	0x00003000
-	dc.l	0x00020000
-	dc.l	0x00200000
 	dc.l	0x00000000
-	dc.l	0x00100000
-	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00010000
-	dc.l	0x00100002
-	dc.l	0x03000100
-	dc.l	0x30001000
-	dc.l	0x00010010
-	dc.l	0x00100300
-	dc.l	0x03002000
-	dc.l	0x30000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000003
-	dc.l	0x00000020
-	dc.l	0x00000200
-	dc.l	0x00102000
-	dc.l	0x01020000
-	dc.l	0x10000001
-	dc.l	0x00000030
-	dc.l	0x00000300
+	dc.l	0x00000033
+	dc.l	0x00000233
+	dc.l	0x00000220
 
-	dc.l	0x00003000
-	dc.l	0x00020000
-	dc.l	0x00200000
-	dc.l	0x02001003
-	dc.l	0x00030030
-	dc.l	0x00200300
-	dc.l	0x00003000
-	dc.l	0x00020000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00200010
-	dc.l	0x02000100
-	dc.l	0x20003000
-	dc.l	0x00030000
-	dc.l	0x00300002
-	dc.l	0x02000020
-	dc.l	0x20000200
-	dc.l	0x00002000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x20000000
-	dc.l	0x00010010
-	dc.l	0x00300100
-	dc.l	0x02001000
-	dc.l	0x00010002
-	dc.l	0x00300020
-	dc.l	0x03000200
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00001000
+	dc.l	0x00010000
+	dc.l	0x00300000
+	dc.l	0x03000000
 	dc.l	0x30000000
-
-	dc.l	0x00000002
-	dc.l	0x00000020
-	dc.l	0x00000000
-	dc.l	0x01000100
-	dc.l	0x10003000
-	dc.l	0x00020002
+	dc.l	0x30000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00100001
-	dc.l	0x01000010
-	dc.l	0x10000300
-	dc.l	0x00003000
-	dc.l	0x00020001
-	dc.l	0x00200010
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000003
+	dc.l	0x00000030
+	dc.l	0x00003300
+	dc.l	0x00033300
+	dc.l	0x00233000
+	dc.l	0x00220000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000010
 	dc.l	0x00000100
-	dc.l	0x00000000
-
+	dc.l	0x00001000
 	dc.l	0x00030000
-	dc.l	0x00300001
-	dc.l	0x03010010
-	dc.l	0x30300100
-	dc.l	0x02003000
-	dc.l	0x00030001
-	dc.l	0x00300030
-	dc.l	0x02000200
+	dc.l	0x00300000
+
+	dc.l	0x03000000
+	dc.l	0x30000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 
 

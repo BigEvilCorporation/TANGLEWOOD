@@ -156,9 +156,7 @@ WindRandDurationMin	rs.w 1
 WindRandDurationMax	rs.w 1
 WindRandDelayMin	rs.w 1
 WindRandDelayMax	rs.w 1
-RainCheckerboardOdd	rs.w 1
-RainScrollX			rs.w 1
-RainScrollY			rs.w 1
+RainSpritePositions	rs.l RainNumSprites*2
 
 ; ************************************
 ; Camera, V/H scroll and map streaming
