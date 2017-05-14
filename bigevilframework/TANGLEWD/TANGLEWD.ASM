@@ -103,6 +103,7 @@ __start
 	ENDIF
 	include 'objects\actor.asm'
 	include 'objects\aimarker.asm'
+	include 'objects\button.asm'
 	include 'objects\checkpnt.asm'
 	include 'objects\deathbox.asm'
 	include 'objects\flue.asm'
