@@ -42,9 +42,6 @@ Lift_Struct_Pad   			rs.b 2   ; Alignment padding
 Lift_Struct_Size  			rs.b 0
 ;---------------------------------
 
-	rsset (Entity_Struct_Size)
-;---------------------------------
-
 ;==============================================================
 
 LiftInit:
@@ -108,22 +105,22 @@ LiftInit:
 	;==============================================================
 	
 	; Allocate rope segments
-	PUSHM  a0-a1
-	move.w #(Lift_RopeNumSprites-1), d1
-	move.l a0, a2
-	add.l  #Lift_RopeSegments, a2
-	@RopeInitLp:
-	
-	move.l (NextFreeRopeSegment), a0
-	move.l a0, (a2)+
-	
-	PUSHM  a2/d1
-	jsr    RopeSegmentInit
-	POPM   a2/d1
-	
-	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
-	dbra   d1, @RopeInitLp
-	POPM   a0-a1
+	;PUSHM  a0-a1
+	;move.w #(Lift_RopeNumSprites-1), d1
+	;move.l a0, a2
+	;add.l  #Lift_RopeSegments, a2
+	;@RopeInitLp:
+	;
+	;move.l (NextFreeRopeSegment), a0
+	;move.l a0, (a2)+
+	;
+	;PUSHM  a2/d1
+	;jsr    RopeSegmentInit
+	;POPM   a2/d1
+	;
+	;add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
+	;dbra   d1, @RopeInitLp
+	;POPM   a0-a1
 
 	rts
 
@@ -150,19 +147,23 @@ LiftLoadGfx:
 	jsr    SpriteObjLoad
 
 	; Load rope segments
-	PUSHM  a0-a1
-	move.w #(Lift_RopeNumSprites-1), d1
-	move.l a0, a2
-	add.l  #Lift_RopeSegments, a2
-	@RopeLp:
-	move.l (a2)+, a0
-	PUSHL  a2/d1
-	jsr    RopeSegmentLoadGfx
-	POPL   a2/d1
-	dbra   d1, @RopeLp
-	POPM   a0-a1
+	;PUSHM  a0-a1
+	;move.w #(Lift_RopeNumSprites-1), d1
+	;move.l a0, a2
+	;add.l  #Lift_RopeSegments, a2
+	;@RopeLp:
+	;move.l (a2)+, a0
+	;PUSHL  a2/d1
+	;jsr    RopeSegmentLoadGfx
+	;POPL   a2/d1
+	;dbra   d1, @RopeLp
+	;POPM   a0-a1
 
 	POPL   a1
+
+	; Get origin
+	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
+	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
 
 	rts
 	
@@ -227,57 +228,28 @@ LiftPositionRopeSegments:
 	dbra   d2, @RopePosLp
 	
 	rts
+
+LiftActivate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+
+	rts
+
+LiftStop:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.w #0x0, PhysicsObj_AccelY(a0)
+
+	rts
 	
 LiftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
 	PUSHL  a1
-	
-	; If origin not already recorded, take it
-	; TODO: Use post-init?
-	cmp.l  #0x0, Lift_OriginX(a0)
-	bne    @OriginRecorded
-	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
-	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
-	@OriginRecorded:
-	
-	;==============================================================
-	
-	; Cancel movement by default
-	move.w #0x0, PhysicsObj_AccelY(a0)
-	
-	; Can push by default
-	move.b #0x1, PhysicsObj_CanBePushed(a0)
-	
-	; Check if player heading down
-	move.l #Player1, a1
-	cmp.l  #0x0, PhysicsObj_VelY(a1)
-	bgt    @PlayerHeadingUp
-	
-	; Check if player touching
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETCENTREX d3, a1
-	ENTITY_GETBOTTOM d4, a1
-	TOPIXELS d3
-	TOPIXELS d4
-	swap   d3
-	move.w d4, d3
-	jsr    PHYS_TestPointInsideBox
-	
-	cmp.b  #0x0, d0
-	beq    @NotTouching
-	
-	; Player touching lift, move up
-	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
-	
-	; Can't push
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	
-	@PlayerHeadingUp:
-	@NotTouching:
-	
-	;==============================================================
 	
 	clr.l  d3
 	
@@ -377,7 +349,7 @@ LiftUpdate:
 	;==============================================================
 	
 	; Reposition rope segments
-	jsr    LiftPositionRopeSegments
+	;jsr    LiftPositionRopeSegments
 	
 	rts
 	

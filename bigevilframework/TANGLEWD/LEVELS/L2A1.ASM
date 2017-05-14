@@ -72,6 +72,30 @@ l2a1_Init:
 	jsr    l2_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Init weather
+	;jsr    RainInit
+
+	; Wind
+	;move.w  #0x0004, WindAccel
+	;move.w  #0x0200, WindRandStrengthMin
+	;move.w  #0x0400, WindRandStrengthMax
+	;move.w  #0x0120, WindRandDelayMin
+	;move.w  #0x0180, WindRandDelayMax
+	;move.w  #0x0180, WindRandDurationMin
+	;move.w  #0x0200, WindRandDurationMax
+	;move.w  #0x0080, WindDelayTimer
+
+	;==============================================================
+
+	; Connect button to lift
+	ENTITY_GETBYNAME Button, l2a1_Button1, a0
+	ENTITY_GETBYNAME Lift, l2a1_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivate, Button_OnDown(a0)
+	move.l #LiftStop, Button_OnUp(a0)
+
+	;==============================================================
 	
 	move.l #Player1, a0
 	
