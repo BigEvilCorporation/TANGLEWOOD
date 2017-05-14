@@ -12,7 +12,7 @@ Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelXFloor			equ 0x012000
 Fuzzl_MaxVelXAir			equ 0x012000
-Fuzzl_MaxVelYUp				equ 0x060000
+Fuzzl_MaxVelYUp				equ 0x100000
 Fuzzl_MaxVelYDown			equ 0x080000
 Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X

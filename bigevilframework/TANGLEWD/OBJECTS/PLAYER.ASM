@@ -41,7 +41,7 @@ Player1DecelForced equ 0x003000 ; Player 1 deceleration if input opposite direct
 Player1MaxVelXWalk equ 0x012000  ; Player 1 max X walking velocity
 Player1MaxVelXRun  equ 0x038000  ; Player 1 max X running velocity
 Player1MaxVelXAir  equ 0x038000  ; Player 1 max X velocity in air
-Player1MaxVelYUp   equ 0x060000 ; Player 1 max Y velocity up
+Player1MaxVelYUp   equ 0x100000  ; Player 1 max Y velocity up
 Player1MaxVelYDown equ 0x080000  ; Player 1 max Y velocity down (tile height)
 
 Player1JumpVelX      equ 0x000000 ; Player 1 jump velocity impulse X
