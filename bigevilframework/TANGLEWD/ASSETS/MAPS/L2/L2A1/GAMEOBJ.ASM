@@ -52,7 +52,10 @@ L2A1_Nest_31_idx	equ 0x2
 L2A1_Flue_count equ 0x1
 L2A1_Flue_24_idx	equ 0x0
 
-L2A1_TriggerBox_count equ 0x0
+L2A1_TriggerBox_count equ 0x3
+L2A1_TriggerWindSpeed2_idx	equ 0x0
+L2A1_TriggerWindSpeed3_idx	equ 0x1
+L2A1_TriggerWindSpeed1_idx	equ 0x2
 
 L2A1_Checkpoint_count equ 0x0
 
@@ -193,6 +196,27 @@ L2A1_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
+	jsr TriggerBoxInit
+	move.l #0x0bb00000, Entity_WorldPosX(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed2, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x0d180000, Entity_WorldPosX(a0)
+	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed3, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x09900000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed1, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 	move.l #EntityArray_Checkpoint, a0
 

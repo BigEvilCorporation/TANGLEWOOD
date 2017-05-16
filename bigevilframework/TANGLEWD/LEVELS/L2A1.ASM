@@ -77,14 +77,14 @@ l2a1_Init:
 	;jsr    RainInit
 
 	; Wind
-	;move.w  #0x0004, WindAccel
-	;move.w  #0x0200, WindRandStrengthMin
-	;move.w  #0x0400, WindRandStrengthMax
-	;move.w  #0x0120, WindRandDelayMin
-	;move.w  #0x0180, WindRandDelayMax
-	;move.w  #0x0180, WindRandDurationMin
-	;move.w  #0x0200, WindRandDurationMax
-	;move.w  #0x0080, WindDelayTimer
+	move.w  #0x0004, WindAccel
+	move.w  #0x0080, WindRandStrengthMin
+	move.w  #0x0100, WindRandStrengthMax
+	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
 
 	;==============================================================
 
@@ -170,6 +170,39 @@ l2a1_Serialise:
 	rts
 
 l2a1_End:
+	rts
+
+l2a1_Trigger_WindSpeed1:
+	move.w  #0x0004, WindAccel
+	move.w  #0x0100, WindRandStrengthMin
+	move.w  #0x0200, WindRandStrengthMax
+	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
+	rts
+
+l2a1_Trigger_WindSpeed2:
+	move.w  #0x0004, WindAccel
+	move.w  #0x0180, WindRandStrengthMin
+	move.w  #0x0280, WindRandStrengthMax
+	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
+	rts
+
+l2a1_Trigger_WindSpeed3:
+	move.w  #0x0004, WindAccel
+	move.w  #0x0300, WindRandStrengthMin
+	move.w  #0x0300, WindRandStrengthMax
+	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
 	rts
 	
 l2a1_Trigger_End:
