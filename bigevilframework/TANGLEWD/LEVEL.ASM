@@ -339,16 +339,6 @@ LevelReset:
 	move.w  #0x0, WindDelayTimer
 	move.w  #0x0, WindDurationTimer
 
-	; TEMP
-	move.w  #0x0004, WindAccel
-	move.w  #0x0200, WindRandStrengthMin
-	move.w  #0x0400, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-
 	; Physics world
 	lea    PhysicsWorld, a2
 	move.l Level_Gravity(a1), PhysicsWorld_Gravity(a2)
