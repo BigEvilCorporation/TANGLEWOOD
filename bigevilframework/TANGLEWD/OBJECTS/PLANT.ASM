@@ -221,15 +221,7 @@ BouncePlantLoadGfx:
 	add.l  d1, a1
 	
 	; Load sprite sheet
-	lea    sprite_mushroom_subsprite_dimensions_bits, a2
-	lea    sprite_mushroom_subsprite_pos_offsets, a3
-	lea    sprite_mushroom_numtiles_per_subsprite, a4
-	move.l #sprite_mushroom_size_t, d1
-	move.b #sprite_mushroom_size_subsprites, d2
-	move.w #sprite_mushroom_widthheight_subsprites, d3
-	move.b #PaletteId_World0, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
+	SPRITE_LOAD_DEFAULT mushroom,PaletteId_World0,0x0
 
 	; Configure sprite flipping based on orientation
 	clr.l  d1

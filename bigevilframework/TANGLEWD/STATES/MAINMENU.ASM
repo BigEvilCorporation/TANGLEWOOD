@@ -125,16 +125,8 @@ MainMenu_Enter:
 	move.w #sprite_twd_logo_size_b, d0		; Alloc VRAM
 	jsr    VRAM_PoolAlloc
 
-	lea    spritesheets_twd_logo, a1	; Load sprite sheet
-	lea    sprite_twd_logo_subsprite_dimensions_bits, a2
-	lea    sprite_twd_logo_subsprite_pos_offsets, a3
-	lea    sprite_twd_logo_numtiles_per_subsprite, a4
-	move.l #sprite_twd_logo_size_t, d1
-	move.b #sprite_twd_logo_size_subsprites, d2
-	move.w #sprite_twd_logo_widthheight_subsprites, d3
-	move.b #PaletteId_TanglewoodLogo, d4
-	move.b #0x1, d5
-	jsr    SpriteObjLoad
+	; Load sprite sheet
+	SPRITE_LOAD_DEFAULT twd_logo,PaletteId_TanglewoodLogo,0x0
 
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
 	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)

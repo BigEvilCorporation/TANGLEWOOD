@@ -130,21 +130,7 @@ LiftLoadGfx:
 
 	PUSHL  a1
 
-	; Alloc VRAM
-	move.w #sprite_lift_size_b, d0
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite
-	lea    spritesheets_Lift, a1
-	lea    sprite_Lift_subsprite_dimensions_bits, a2
-	lea    sprite_Lift_subsprite_pos_offsets, a3
-	lea    sprite_Lift_numtiles_per_subsprite, a4
-	move.l #sprite_Lift_size_t, d1
-	move.b #sprite_Lift_size_subsprites, d2
-	move.w #sprite_Lift_widthheight_subsprites, d3
-	move.b #PaletteId_World0, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
+	SPRITE_LOAD_DEFAULT lift,PaletteId_World0,0x0
 
 	; Load rope segments
 	;PUSHM  a0-a1

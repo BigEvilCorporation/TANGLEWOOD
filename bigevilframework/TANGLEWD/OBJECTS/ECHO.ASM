@@ -453,25 +453,7 @@ EchoLoadGfx:
 
 	IF INCLUDE_CHARACTER_ECHO
 
-	PUSHL  a1
-
-	; Alloc VRAM
-	move.w #sprite_echo_size_b, d0
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite sheet
-	lea    spritesheets_echo, a1
-	lea    sprite_echo_subsprite_dimensions_bits, a2
-	lea    sprite_echo_subsprite_pos_offsets, a3
-	lea    sprite_echo_numtiles_per_subsprite, a4
-	move.l #sprite_echo_size_t, d1
-	move.b #sprite_echo_size_subsprites, d2
-	move.w #sprite_echo_widthheight_subsprites, d3
-	move.b #PaletteID_Player, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
-
-	POPL   a1
+	SPRITE_LOAD_DEFAULT echo,PaletteId_Player,0x0
 
 	ENDIF
 

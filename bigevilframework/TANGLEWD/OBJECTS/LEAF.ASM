@@ -115,25 +115,7 @@ LeafLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	PUSHL  a1
-
-	; Alloc VRAM
-	move.w #sprite_leaf_size_b, d0
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite sheet
-	lea    spritesheets_leaf, a1
-	lea    sprite_leaf_subsprite_dimensions_bits, a2
-	lea    sprite_leaf_subsprite_pos_offsets, a3
-	lea    sprite_leaf_numtiles_per_subsprite, a4
-	move.l #sprite_leaf_size_t, d1
-	move.b #sprite_leaf_size_subsprites, d2
-	move.w #sprite_leaf_widthheight_subsprites, d3
-	move.b #0x1, d4 ; #PaletteId_World0, d4
-	move.b #0x1, d5
-	jsr    SpriteObjLoad
-
-	POPL   a1
+	SPRITE_LOAD_DEFAULT leaf,PaletteId_World0,0x0
 
 	rts
 

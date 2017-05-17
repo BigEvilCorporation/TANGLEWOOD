@@ -273,26 +273,7 @@ DjrakeLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	PUSHL  a1
-
-	; Alloc VRAM
-	move.w #sprite_djrake_size_b, d0
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite sheet
-	lea    spritesheets_djrake, a1
-	lea    sprite_djrake_subsprite_dimensions_bits, a2
-	lea    sprite_djrake_subsprite_pos_offsets, a3
-	lea    sprite_djrake_numtiles_per_subsprite, a4
-	move.l #sprite_djrake_size_t, d1
-	move.b #sprite_djrake_size_subsprites, d2
-	move.w #sprite_djrake_widthheight_subsprites, d3
-	;move.b #PaletteID_Djrake, d4
-	move.b #PaletteID_Monster, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
-
-	POPL   a1
+	SPRITE_LOAD_DEFAULT djrake,PaletteId_Monster,0x0
 
 	rts
 

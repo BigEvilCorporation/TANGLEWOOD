@@ -384,25 +384,7 @@ NymnLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	PUSHL  a1
-
-	; Alloc VRAM
-	move.w #sprite_nymn_size_b, d0
-	jsr    VRAM_PoolAlloc
-	
-	; Load sprite
-	lea    spritesheets_nymn, a1
-	lea    sprite_nymn_subsprite_dimensions_bits, a2
-	lea    sprite_nymn_subsprite_pos_offsets, a3
-	lea    sprite_nymn_numtiles_per_subsprite, a4
-	move.l #sprite_nymn_size_t, d1
-	move.b #sprite_nymn_size_subsprites, d2
-	move.w #sprite_nymn_widthheight_subsprites, d3
-	move.b #PaletteID_Player, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
-
-	POPL   a1
+	SPRITE_LOAD_DEFAULT nymn,PaletteId_Player,0x0
 
 	rts
 	

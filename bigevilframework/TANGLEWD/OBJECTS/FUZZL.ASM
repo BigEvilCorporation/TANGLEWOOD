@@ -252,29 +252,11 @@ FuzzlLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	PUSHL  a1
-
-	; Alloc VRAM
-	move.w #sprite_fuzzl_size_b, d0
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite sheet
-	lea    spritesheets_fuzzl, a1
-	lea    sprite_fuzzl_subsprite_dimensions_bits, a2
-	lea    sprite_fuzzl_subsprite_pos_offsets, a3
-	lea    sprite_fuzzl_numtiles_per_subsprite, a4
-	move.l #sprite_fuzzl_size_t, d1
-	move.b #sprite_fuzzl_size_subsprites, d2
-	move.w #sprite_fuzzl_widthheight_subsprites, d3
-	move.b #PaletteID_Fuzzl, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
+	SPRITE_LOAD_DEFAULT fuzzl,PaletteId_Fuzzl,0x0
 
 	; Set initial colour anim offset
 	move.b Fuzzl_Colour(a0), d0
 	jsr    FuzzlSetColour
-
-	POPL   a1
 
 	rts
 	

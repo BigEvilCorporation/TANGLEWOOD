@@ -137,16 +137,7 @@ Pause_Enter:
 	@Allocated:
 
 	; Load sprite sheet
-	lea    spritesheets_firefly, a1
-	lea    sprite_firefly_subsprite_dimensions_bits, a2
-	lea    sprite_firefly_subsprite_pos_offsets, a3
-	lea    sprite_firefly_numtiles_per_subsprite, a4
-	move.l #sprite_firefly_size_t, d1
-	move.b #sprite_firefly_size_subsprites, d2
-	move.w #sprite_firefly_widthheight_subsprites, d3
-	move.b #PaletteId_Fuzzl, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
+	SPRITE_LOAD_DEFAULT firefly,PaletteId_Fuzzl,0x0
 	
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1
