@@ -11,8 +11,7 @@ Button_MaxEntities		equ 0x2
 Button_Width			equ 0x20
 Button_Height			equ 0x08
 
-	;rsset (AnimObj_Struct_Size)
-	rsset (Entity_Struct_Size)
+	rsset (AnimObj_Struct_Size)
 ;---------------------------------
 Button_OnDown				rs.l 1
 Button_OnUp					rs.l 1
@@ -25,17 +24,20 @@ Button_Struct_Size			rs.b 0
 
 ButtonInit:
 
+	; Base init
+	jsr    AnimObjInit
+
 	; Set type
 	addi.w #0x1, EntityCount_Button
 	
 	; Set update and render routines
 	move.l #ButtonUpdate, Entity_UpdateRoutine(a0)
-	;move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	move.l #ButtonSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	;jsr    EntityAddToRenderList
+	jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 
 	; Default state
@@ -47,6 +49,11 @@ ButtonInit:
 	rts
 
 ButtonLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	SPRITE_LOAD_DEFAULT button,PaletteId_World0,0x0
+
 	rts
 
 ButtonUpdate:
@@ -105,6 +112,9 @@ ButtonUpdate:
 	@End:
 
 	POPL   a1
+
+	; Base functionality
+	jsr    SpriteObjupdate
 
 	rts
 

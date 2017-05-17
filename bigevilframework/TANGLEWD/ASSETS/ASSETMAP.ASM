@@ -43,6 +43,7 @@
 	; ************************************
 	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
+	include 'assets\sprites\button.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
 	IF INCLUDE_CHARACTER_ECHO
@@ -76,6 +77,7 @@
 	; ************************************
 	IFND DEBUG
 	include 'assets\anims\boulder.asm'
+	include 'assets\anims\button.asm'
 	include 'assets\anims\djakk.asm'
 	include 'assets\anims\djrake.asm'
 	IF INCLUDE_CHARACTER_ECHO

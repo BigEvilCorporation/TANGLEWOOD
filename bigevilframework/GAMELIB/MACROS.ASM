@@ -87,6 +87,26 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	move.w Entity_Height(\addrreg), \tempreg		; Height
 	add.w  \tempreg, \bottomrightreg				; Object Y max
 	endm
+
+;==============================================================
+
+	; Alloc VRAM and load sprite
+SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
+	PUSHM  d0-d5/a0-a2
+	move.w #sprite_\spritesheet\_size_b, d0
+	jsr    VRAM_PoolAlloc
+	lea    spritesheets_\spritesheet, a1
+	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
+	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
+	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
+	move.l #sprite_\spritesheet\_size_t, d1
+	move.b #sprite_\spritesheet\_size_subsprites, d2
+	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	move.b #\palette, d4
+	move.b #\prio, d5
+	jsr    SpriteObjLoad
+	POPL   d0-d5/a0-a2
+	endm
 	
 ;==============================================================
 
