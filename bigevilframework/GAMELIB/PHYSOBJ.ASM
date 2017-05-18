@@ -31,7 +31,7 @@ PhysicsObj_MaxVelFloorX 	rs.l 1 ; Max X velocity (on floor)
 PhysicsObj_MaxVelAirX 		rs.l 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    rs.l 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown	    rs.l 1 ; Max Y velocity down
-PhysicsObj_MinWindStrength rs.l 1 ; Min wind velocity affecting object
+PhysicsObj_MinWindStrength  rs.l 1 ; Min wind velocity affecting object
 PhysicsObj_BoundsLeft		rs.w 1 ; Collision bounds offset X
 PhysicsObj_BoundsTop		rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth		rs.w 1 ; Collision bounds offset width
@@ -56,6 +56,7 @@ PhysicsObj_CollideCeilings  rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
 PhysicsObj_CollideBarriers	rs.b 1 ; Collides with barriers
 PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
+PhysicsObj_AffectedByWind   rs.b 1 ; Gets pushed by wind force
 PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
 PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
@@ -65,7 +66,7 @@ PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise us
 PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 0
+PhysicsObj_Struct_Pad       rs.b 3
 PhysicsObj_Struct_Size      rs.b 0
 	
 ;==============================================================
@@ -344,10 +345,45 @@ PhysicsObjApplyWorldForces:
 
 	; Get physics world
 	lea    PhysicsWorld, a2
+
+	; Get speed div
+	clr.l  d6
+	move.b AnimObj_SpeedDiv(a0), d6
+
+	;==============================================================
+	; Apply gravity
 	
-	; Get gravity and wind
-	move.l PhysicsWorld_Wind(a2), d1
+	; Get gravity
 	move.l PhysicsWorld_Gravity(a2), d2
+
+	; Apply speed div
+	DIVS1616_LOSSY d6, d2
+
+	; Get current Y velocity
+	move.l PhysicsObj_VelY(a0), d5
+
+	; Apply gravity
+	sub.l  d2, d5
+
+	; Clamp Y
+	move.l PhysicsObj_MaxVelYUp(a0), d1
+	move.l PhysicsObj_MaxVelYDown(a0), d2
+	neg.l  d2
+	CLAMP d5, d2, d1
+
+	; Set
+	move.l d5, PhysicsObj_VelY(a0)
+
+	;==============================================================
+	; Apply wind
+
+	cmp.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	beq    @NotAffectedByWind
+
+	; Get wind
+	move.l PhysicsWorld_Wind(a2), d1
+	cmp.l  #0x0, d1
+	beq    @NoWind
 
 	; If wind strength is critical
 	move.l PhysicsObj_MinWindStrength(a0), d3
@@ -356,7 +392,7 @@ PhysicsObjApplyWorldForces:
 	neg.l  d3
 	cmp.l  d3, d1
 	ble    @AffectedByWind
-	move.l #0x0, d1
+	bra    @NotAffectedByWind
 	@AffectedByWind:
 
 	; Apply floor friction to wind force
@@ -368,32 +404,22 @@ PhysicsObjApplyWorldForces:
 	clr.l  d3
 	move.b PhysicsObj_Mass(a0), d3
 	DIVS1616_LOSSY d3, d1
-	@NoWind:
 	@InAir:
 
 	; Apply speed div
-	clr.l  d3
-	move.b AnimObj_SpeedDiv(a0), d3
-	DIVS1616_LOSSY d3, d1
-	DIVS1616_LOSSY d3, d2
+	DIVS1616_LOSSY d6, d1
 
-	; Get current velocity
+	; Get current X velocity
 	move.l PhysicsObj_VelX(a0), d4
-	move.l PhysicsObj_VelY(a0), d5
 	
-	; Apply gravity and wind
+	; Apply wind
 	add.l  d1, d4
-	sub.l  d2, d5
 
-	; Clamp Y
-	move.l PhysicsObj_MaxVelYUp(a0), d1
-	move.l PhysicsObj_MaxVelYDown(a0), d2
-	neg.l  d2
-	CLAMP d5, d2, d1
-	
 	; Set
 	move.l d4, PhysicsObj_VelX(a0)
-	move.l d5, PhysicsObj_VelY(a0)
+
+	@NoWind:
+	@NotAffectedByWind:
 	
 	rts
 	

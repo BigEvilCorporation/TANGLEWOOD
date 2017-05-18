@@ -166,6 +166,7 @@ FuzzlInit:
 	move.l  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
+	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
@@ -351,6 +352,9 @@ FuzzlUpdate:
 	; Play alert SFX
 	PLAYSFX #SFX_FuzzlAlert
 
+	; Affected by wind
+	move.b  #0x1, PhysicsObj_AffectedByWind(a0)
+
 	bra @InitialState
 	
 	@Watching:
@@ -426,6 +430,9 @@ FuzzlUpdate:
 	; Can no longer be pushed/pulled
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
+
+	; No longer affected by wind
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 
 	; Zero velocity
 	move.l #0x0, PhysicsObj_VelX(a0)

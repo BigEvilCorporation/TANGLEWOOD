@@ -16,8 +16,6 @@ Lift_MaxVelX			equ 0x010000
 Lift_AccelY				equ 0x2000+DefaultGravity
 Lift_DecelX				equ 0x0800
 
-Lift_MinWindStrength	equ 0x7FFFFFFF
-
 Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x003000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
@@ -82,9 +80,9 @@ LiftInit:
 	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
-	move.l  #Lift_MinWindStrength, PhysicsObj_MinWindStrength(a0)
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
