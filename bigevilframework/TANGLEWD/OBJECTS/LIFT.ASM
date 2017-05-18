@@ -8,7 +8,7 @@
 
 ; Constants
 Lift_MaxEntities		equ 0x2
-Lift_Width				equ 0x38
+Lift_Width				equ 0x40
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
@@ -32,7 +32,11 @@ Lift_MaxRopeAnimFrameDist	equ Rope_Width
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
 Lift_Platform				rs.b Platform_Struct_Size
+	IF LIFT_ROPE_SUPPORT_SWING
 Lift_RopeSegments			rs.l Lift_RopeNumSprites
+	ELSE
+Lift_RopeSegment			rs.b SpriteObj_Struct_Size
+	ENDIF
 Lift_OriginX				rs.l 1
 Lift_OriginY				rs.l 1
 Lift_RopeSpriteFirstID     	rs.w 1
@@ -57,7 +61,7 @@ LiftInit:
 	
 	; Set update and render routines
 	move.l #LiftUpdate, Entity_UpdateRoutine(a0)
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #LiftDraw, Entity_RenderRoutine(a0)
 	move.l #LiftSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -105,22 +109,39 @@ LiftInit:
 	;==============================================================
 	
 	; Allocate rope segments
-	;PUSHM  a0-a1
-	;move.w #(Lift_RopeNumSprites-1), d1
-	;move.l a0, a2
-	;add.l  #Lift_RopeSegments, a2
-	;@RopeInitLp:
-	;
-	;move.l (NextFreeRopeSegment), a0
-	;move.l a0, (a2)+
-	;
-	;PUSHM  a2/d1
-	;jsr    RopeSegmentInit
-	;POPM   a2/d1
-	;
-	;add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
-	;dbra   d1, @RopeInitLp
-	;POPM   a0-a1
+	PUSHM  a0-a1
+
+	IF LIFT_ROPE_SUPPORT_SWING
+
+	; Animated swinging rope segments
+	move.w #(Lift_RopeNumSprites-1), d1
+	move.l a0, a2
+	add.l  #Lift_RopeSegments, a2
+	@RopeInitLp:
+	
+	move.l (NextFreeRopeSegment), a0
+	move.l a0, (a2)+
+	
+	PUSHM  a2/d1
+	jsr    RopeSegmentInit
+	POPM   a2/d1
+	
+	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
+	dbra   d1, @RopeInitLp
+
+	ELSE
+
+	; Single static, reusable rope segment
+	add.l #Lift_RopeSegment, a0
+	jsr   SpriteObjInit
+	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
+	move.w #Rope_Width, Entity_Width(a0)
+	move.w #Rope_Height, Entity_Height(a0)
+
+	ENDIF
+
+	POPM   a0-a1
 
 	rts
 
@@ -133,17 +154,30 @@ LiftLoadGfx:
 	SPRITE_LOAD_DEFAULT lift,PaletteId_World0,0x0
 
 	; Load rope segments
-	;PUSHM  a0-a1
-	;move.w #(Lift_RopeNumSprites-1), d1
-	;move.l a0, a2
-	;add.l  #Lift_RopeSegments, a2
-	;@RopeLp:
-	;move.l (a2)+, a0
-	;PUSHL  a2/d1
-	;jsr    RopeSegmentLoadGfx
-	;POPL   a2/d1
-	;dbra   d1, @RopeLp
-	;POPM   a0-a1
+	IF LIFT_ROPE_SUPPORT_SWING
+
+	; Animated swinging rope segments
+	PUSHM  a0-a1
+	move.w #(Lift_RopeNumSprites-1), d1
+	move.l a0, a2
+	add.l  #Lift_RopeSegments, a2
+	@RopeLp:
+	move.l (a2)+, a0
+	PUSHL  a2/d1
+	jsr    RopeSegmentLoadGfx
+	POPL   a2/d1
+	dbra   d1, @RopeLp
+	POPM   a0-a1
+
+	ELSE
+
+	; Single static, reusable rope segment
+	PUSHL a0
+	add.l #Lift_RopeSegment, a0
+	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
+	POPL  a0
+
+	ENDIF
 
 	POPL   a1
 
@@ -152,6 +186,8 @@ LiftLoadGfx:
 	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
 
 	rts
+
+	IF LIFT_ROPE_SUPPORT_SWING
 	
 LiftPositionRopeSegments:
 
@@ -214,6 +250,8 @@ LiftPositionRopeSegments:
 	dbra   d2, @RopePosLp
 	
 	rts
+
+	ENDIF
 
 LiftActivate:
 	; a0 --- GameObj addr
@@ -335,8 +373,71 @@ LiftUpdate:
 	;==============================================================
 	
 	; Reposition rope segments
-	;jsr    LiftPositionRopeSegments
+	IF LIFT_ROPE_SUPPORT_SWING
+	jsr    LiftPositionRopeSegments
+	ENDIF
 	
+	rts
+
+LiftDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr    AnimObjDraw
+
+	;==============================================================
+
+	IF LIFT_ROPE_SUPPORT_SWING=0
+
+	PUSHL  a0
+
+	; Get lift pos
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+
+	; Add rope offset
+	add.l  #Lift_RopePosOffsetX, d0
+	add.l  #Lift_RopePosOffsetY, d1
+
+	; Re-draw rope segment until off screen
+	move.l (WorldScrollY), d4
+
+	; Get rope obj
+	add.l  #Lift_RopeSegment, a0
+
+	@RopeDrawLp:
+
+	; If out of sprites, bail
+	cmp.w  #vdp_max_sprites-1, next_sprite_index
+	beq    @OutOfSprites
+
+	; Set pos
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+
+	; Draw
+	PUSHM  d0-d4/a0-a2
+	jsr    SpriteObjDraw
+	POPM   d0-d4/a0-a2
+
+	; Next Y pos
+	sub.l  #Rope_Height*subpixels_per_pixel, d1
+
+	; If off screen, bail
+	cmp.l  d1, d4
+	bgt    @RopeDrawEnd
+
+	; Loop
+	bra    @RopeDrawLp
+
+	@OutOfSprites:
+	@RopeDrawEnd:
+
+	POPL   a0
+
+	ENDIF
+
 	rts
 	
 LiftSerialise:

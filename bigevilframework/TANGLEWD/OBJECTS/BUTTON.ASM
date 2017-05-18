@@ -89,6 +89,8 @@ ButtonLoadGfx:
 	rts
 
 ButtonUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Get button height
 	move.l Button_PressHeight(a0), d0
@@ -179,4 +181,9 @@ ButtonUpdate:
 	rts
 
 ButtonSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
 	rts

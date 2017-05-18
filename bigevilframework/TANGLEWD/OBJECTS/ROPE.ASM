@@ -6,9 +6,11 @@
 ;   rope.asm - Rope segment for lift/hoist
 ;==============================================================
 
+LIFT_ROPE_SUPPORT_SWING equ 0
+
 ; Constants
 Rope_MaxEntities		equ 0x8
-Rope_Width				equ 0x20
+Rope_Width				equ 0x40
 Rope_Height				equ 0x20
 
 ; Animations
@@ -54,6 +56,8 @@ RopeSegmentInit:
 	move.w #Rope_Height, Entity_Height(a0)
 	
 	; Setup animation
+	IF LIFT_ROPE_SUPPORT_SWING
+
 	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
 	move.l a0, a2
 	add.l  #RopeSegment_Animations, a2
@@ -74,6 +78,8 @@ RopeSegmentInit:
 	move.l a3, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	ENDIF
 
 	rts
 	
