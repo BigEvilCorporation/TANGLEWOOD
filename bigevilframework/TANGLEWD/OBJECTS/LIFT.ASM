@@ -16,12 +16,14 @@ Lift_MaxVelX			equ 0x010000
 Lift_AccelY				equ 0x2000+DefaultGravity
 Lift_DecelX				equ 0x0800
 
+Lift_MinWindStrength	equ 0x7FFFFFFF
+
 Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x003000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
-Lift_RopeLength			equ 0x0100
+Lift_RopeLength			equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLength/Rope_Height)
 
 Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*subpixels_per_pixel
@@ -80,6 +82,7 @@ LiftInit:
 	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Lift_MinWindStrength, PhysicsObj_MinWindStrength(a0)
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	
@@ -190,7 +193,6 @@ LiftLoadGfx:
 	rts
 
 	IF LIFT_ROPE_SUPPORT_SWING
-	
 LiftPositionRopeSegments:
 
 	; Get lift pos
@@ -347,9 +349,15 @@ LiftUpdate:
 	move.l Entity_WorldPosY(a0), d0
 	move.l Lift_OriginY(a0), d1
 	cmp.l  d0, d1
-	bge    @WithinRopeLength
+	bgt    @WithinRopeBottom
 	move.l d1, Entity_WorldPosY(a0)
-	@WithinRopeLength:
+	@WithinRopeBottom:
+
+	sub.l  #Lift_RopeLength, d1
+	cmp.l  d0, d1
+	blt    @WithinRopeTop
+	move.l d1, Entity_WorldPosY(a0)
+	@WithinRopeTop:
 	
 	;==============================================================
 	
