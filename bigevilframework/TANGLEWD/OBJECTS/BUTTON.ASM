@@ -13,6 +13,7 @@ Button_Height			equ 0x08
 
 	rsset (AnimObj_Struct_Size)
 ;---------------------------------
+Button_Animation			rs.b Animation_Struct_size
 Button_OnDown				rs.l 1
 Button_OnUp					rs.l 1
 Button_UserData				rs.l 1
@@ -52,7 +53,11 @@ ButtonLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Load sprite
 	SPRITE_LOAD_DEFAULT button,PaletteId_World0,0x0
+
+	; Load anim
+	ANIM_LOAD_DEFAULT button_button,button_press,Button_Animation,0,0,0,0
 
 	rts
 

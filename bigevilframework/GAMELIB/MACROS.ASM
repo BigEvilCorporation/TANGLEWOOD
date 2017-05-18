@@ -107,6 +107,23 @@ SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	jsr    SpriteObjLoad
 	POPL   d0-d5/a0-a2
 	endm
+
+ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
+	PUSHL  a0
+	add.l  #\arrayoffset, a0
+	add.l  #(Animation_Struct_Size*\index), a0
+	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
+	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
+	move.l #spriteanim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
+	move.l #spriteanim_\animname\_track_posy, Animation_AnimTrackPositionY(a0)
+	move.l #spriteanim_\animname\_track_sfx, Animation_AnimTrackSFX(a0)
+	move.b #spriteanim_\animname\_speed, Animation_Speed(a0)
+	move.b #spriteanim_\animname\_numframes, Animation_Length(a0)
+	move.b #\loop, Animation_Looping(a0)
+	move.b #\zerovel, Animation_ZeroVelocity(a0)
+	move.b #\noreplay, Animation_NoReplay(a0)
+	POPL   a0
+	endm
 	
 ;==============================================================
 
