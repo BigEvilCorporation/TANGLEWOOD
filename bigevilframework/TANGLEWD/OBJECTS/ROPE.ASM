@@ -79,7 +79,7 @@ RopeSegmentInit:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	rts
 	

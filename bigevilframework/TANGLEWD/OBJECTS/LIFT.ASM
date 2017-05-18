@@ -90,7 +90,9 @@ LiftInit:
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
 
 	; Register as pushable object
+	IF LIFT_ROPE_SUPPORT_SWING
 	LIST_APPEND_TAIL PushableObjs, a0, a3
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
@@ -129,7 +131,7 @@ LiftInit:
 	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
 	dbra   d1, @RopeInitLp
 
-	ELSE
+	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
 	; Single static, reusable rope segment
 	add.l #Lift_RopeSegment, a0
@@ -139,7 +141,7 @@ LiftInit:
 	move.w #Rope_Width, Entity_Width(a0)
 	move.w #Rope_Height, Entity_Height(a0)
 
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	POPM   a0-a1
 
@@ -169,7 +171,7 @@ LiftLoadGfx:
 	dbra   d1, @RopeLp
 	POPM   a0-a1
 
-	ELSE
+	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
 	; Single static, reusable rope segment
 	PUSHL a0
@@ -177,7 +179,7 @@ LiftLoadGfx:
 	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
 	POPL  a0
 
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	POPL   a1
 
@@ -251,7 +253,7 @@ LiftPositionRopeSegments:
 	
 	rts
 
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 LiftActivate:
 	; a0 --- GameObj addr
@@ -276,6 +278,8 @@ LiftUpdate:
 	PUSHL  a1
 	
 	clr.l  d3
+
+	IF LIFT_ROPE_SUPPORT_SWING
 	
 	; If not on floor
 	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
@@ -334,6 +338,8 @@ LiftUpdate:
 	@OnFloor:
 	@Resting:
 	move.w d3, PhysicsObj_AccelX(a0)
+
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 	
 	;==============================================================
 	
@@ -375,7 +381,7 @@ LiftUpdate:
 	; Reposition rope segments
 	IF LIFT_ROPE_SUPPORT_SWING
 	jsr    LiftPositionRopeSegments
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 	
 	rts
 
@@ -436,7 +442,7 @@ LiftDraw:
 
 	POPL   a0
 
-	ENDIF
+	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	rts
 	
