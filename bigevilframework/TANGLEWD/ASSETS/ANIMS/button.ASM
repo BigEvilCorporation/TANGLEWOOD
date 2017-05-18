@@ -11,7 +11,7 @@ spriteanims_button:
 
 spriteanim_button_press:
 spriteanim_button_press_numframes: equ 0x4
-spriteanim_button_press_speed: equ 0x14
+spriteanim_button_press_speed: equ 0x1
 spriteanim_button_press_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3
 	Even

@@ -132,6 +132,16 @@ Gameplay_Update:
 	cmp.b  #0x0, DebugMoveObjectMode
 	bne    @NoUpdate
 	ENDIF
+
+	; Clear all platforms
+	LIST_GET_HEAD Platforms,a3
+	@PlatformLp:
+	cmp.l  #0x0, a3
+	beq    @NoPlatform
+	move.b #0x0, Platform_Occupied(a3)
+	LIST_GET_NEXT Platforms,a3,a3
+	bra    @PlatformLp
+	@NoPlatform:
 	
 	; Update game objects
 	jsr    EntityUpdateAll

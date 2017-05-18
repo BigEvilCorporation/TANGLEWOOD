@@ -11,7 +11,7 @@ Button_MaxEntities		equ 0x2
 Button_Width			equ 0x40
 Button_Height			equ 0x08
 Button_PressSpeed		equ 0x00001000
-Button_PressHeightMax	equ 0x04*subpixels_per_pixel
+Button_PressHeightMax	equ 0x00030000
 
 	rsset (AnimObj_Struct_Size)
 ;---------------------------------
@@ -78,31 +78,32 @@ ButtonLoadGfx:
 	; Load anim
 	ANIM_LOAD_DEFAULT button_button,button_press,Button_Animation,0,0,0,0
 
+	; Set initial anim, override speed
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Button_Animation, a1
+	move.b #0x0, Animation_Speed(a1)
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
 	rts
 
 ButtonUpdate:
 
-	PUSHL  a1
+	; Get button height
+	move.l Button_PressHeight(a0), d0
+	move.l d0, d1
 
-	; Check if player heading down
-	move.l #Player1, a1
-	cmp.l  #0x0, PhysicsObj_VelY(a1)
-	bgt    @PlayerHeadingUp
-	
-	; Check if player touching
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETCENTREX d3, a1
-	ENTITY_GETBOTTOM d4, a1
-	TOPIXELS d3
-	TOPIXELS d4
-	swap   d3
-	move.w d4, d3
-	jsr    PHYS_TestPointInsideBox
-	
-	cmp.b  #0x0, d0
-	beq    @NotTouching
-	
-	; Player on button
+	; Check if platform occupied
+	move.l a0, a2
+	add.l  #Button_Platform, a2
+	cmp.b  #0x0, Platform_Occupied(a2)
+	beq    @Unoccupied
+
+	; Player on button, move platform down
+	add.l  #Button_PressSpeed, d0
+
+	; Filter trigger events
 	cmp.b  #0x0, Button_Pressed(a0)
 	bne    @End
 
@@ -117,10 +118,12 @@ ButtonUpdate:
 
 	bra    @End
 	
-	@PlayerHeadingUp:
-	@NotTouching:
+	@Unoccupied:
 
-	; Player off button
+	; Player off button, move platform up
+	sub.l  #Button_PressSpeed, d0
+
+	; Filter trigger events
 	cmp.b  #0x0, Button_Pressed(a0)
 	beq    @End
 
@@ -135,22 +138,43 @@ ButtonUpdate:
 
 	@End:
 
-	POPL   a1
+	;==============================================================
 
-	; Base functionality
-	jsr    SpriteObjupdate
+	; Clamp new button press height
+	CLAMP  d0, #0x0, #Button_PressHeightMax
+
+	; Store
+	move.l d0, Button_PressHeight(a0)
 
 	;==============================================================
-	
+
+	; Button height to anim frame
+	move.l d0, d2
+	TOPIXELS d1		; Each anim frame = 1 pixel move
+	TOPIXELS d2
+	cmp.l  d1, d2
+	beq    @NoChange
+	lsl.l  #0x8, d2 ; To anim subframes
+	move.l d2, AnimObj_AnimSubframe(a0)
+	move.b #0x1, AnimObj_Playing(a0)
+	move.b #0x1, AnimObj_Dirty(a0)
+	@NoChange:
+
+	;==============================================================
+
 	; Reposition platform
 	move.l a0, a2
 	add.l  #Button_Platform, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	;add.l  #Button_PlatformXOffset*subpixels_per_pixel, d0
-	;add.l  #Button_PlatformYOffset*subpixels_per_pixel, d1
-	move.l d0, Platform_PosX(a2)
-	move.l d1, Platform_PosY(a2)
+	move.l Entity_WorldPosX(a0), d1
+	move.l Entity_WorldPosY(a0), d2
+	add.l  d0, d2					; Add button press height
+	move.l d1, Platform_PosX(a2)
+	move.l d2, Platform_PosY(a2)
+
+	;==============================================================
+
+	; Base functionality
+	jsr    AnimObjupdate
 
 	rts
 

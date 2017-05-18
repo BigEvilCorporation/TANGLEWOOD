@@ -755,6 +755,9 @@ PhysicsObjFindFloor:
 	ext.l  d2
 	add.l  d2, Entity_WorldPosX(a0)
 
+	; Mark platform occupied
+	move.b #0x1, Platform_Occupied(a3)
+
 	bra    @FoundPlatform
 	
 	@NextPlatform:
