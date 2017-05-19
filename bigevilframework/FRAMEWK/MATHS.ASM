@@ -46,7 +46,7 @@ RND_GenerateWordClamped:
 	bne    @NonZero
 	move.w #0x1, d2
 	@NonZero:
-	divu   d2, d0	; Rand to (max-min) range
+	divs   d2, d0	; Rand to (max-min) range
 	swap   d0		; Remainder
 	add.w  d1, d0	; Add min
 

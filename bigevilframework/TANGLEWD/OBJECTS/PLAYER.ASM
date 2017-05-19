@@ -50,7 +50,8 @@ Player1JumpVelWater	 equ 0x020000 ; Player 1 jump velocity impulse from water
 Player1JumpCancelVelLo equ 0x010000 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
 Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)
-Player1MinWindStrength equ 0x00001100 ; Min wind strength before affecting player movement
+Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
+Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 
 ; Player collision probes
 Player1StepHeight	 equ 0x3
@@ -211,7 +212,8 @@ PlayerInit:
 	move.l  #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.l  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.l  #Player1MinWindStrength, PhysicsObj_MinWindStrength(a0)
+	move.l  #Player1WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
+	move.l  #Player1WindResistanceAir, PhysicsObj_WindResistanceAir(a0)
 	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)

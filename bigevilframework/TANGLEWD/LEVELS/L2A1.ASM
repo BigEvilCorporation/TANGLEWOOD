@@ -174,7 +174,7 @@ l2a1_End:
 
 l2a1_Trigger_WindSpeed1:
 	move.w  #0x0004, WindAccel
-	move.w  #0x0100, WindRandStrengthMin
+	move.w  #-0x0200, WindRandStrengthMin
 	move.w  #0x0200, WindRandStrengthMax
 	move.w  #0x0120, WindRandDelayMin
 	move.w  #0x0180, WindRandDelayMax
@@ -185,7 +185,7 @@ l2a1_Trigger_WindSpeed1:
 
 l2a1_Trigger_WindSpeed2:
 	move.w  #0x0004, WindAccel
-	move.w  #0x0180, WindRandStrengthMin
+	move.w  #-0x0280, WindRandStrengthMin
 	move.w  #0x0280, WindRandStrengthMax
 	move.w  #0x0120, WindRandDelayMin
 	move.w  #0x0180, WindRandDelayMax
@@ -195,12 +195,12 @@ l2a1_Trigger_WindSpeed2:
 	rts
 
 l2a1_Trigger_WindSpeed3:
-	move.w  #0x0004, WindAccel
-	move.w  #0x0300, WindRandStrengthMin
-	move.w  #0x0300, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
+	move.w  #0x0010, WindAccel
+	move.w  #0x0600, WindRandStrengthMin
+	move.w  #0x0700, WindRandStrengthMax
+	move.w  #0x0170, WindRandDelayMin
 	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
+	move.w  #0x01F0, WindRandDurationMin
 	move.w  #0x0200, WindRandDurationMax
 	move.w  #0x0080, WindDelayTimer
 	rts

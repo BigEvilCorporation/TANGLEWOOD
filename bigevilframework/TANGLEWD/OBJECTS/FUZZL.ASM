@@ -31,6 +31,8 @@ Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadran
 Fuzzl_FlingVelocity			equ 0x000400	; Upward velocity to determine if being flung (by a Flue or otherwise)
 Fuzzl_FlingRollSpeed        equ 0x80
 Fuzzl_HitGroundSFXVel		equ 0x020000	; Min downward velocity to play thud SFX
+Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
+Fuzzl_WindResistanceAir     equ 0x0020 ; Wind resistance (in air)
 
 ; State bits
 Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
@@ -158,6 +160,8 @@ FuzzlInit:
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
 	move.l  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	move.l  #Fuzzl_WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
+	move.l  #Fuzzl_WindResistanceAir, PhysicsObj_WindResistanceAir(a0)
 	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)

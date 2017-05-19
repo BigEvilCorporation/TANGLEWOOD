@@ -22,52 +22,53 @@ PhysiceObjDefaultPushBoundsOuter	equ 0x6
 ;---------------------------------
 	LINKED_LIST_NODE PushableObjs   ; Linked list entry for pushable objects
 ;---------------------------------
-PhysicsObj_LastWall         rs.l 1 ; Last detected wall X
-PhysicsObj_LastFloor        rs.l 1 ; Last detected floor Y
-PhysicsObj_LastCeiling      rs.l 1 ; Last detected ceiling Y
-PhysicsObj_VelX    		    rs.l 1 ; X velocity
-PhysicsObj_VelY    		    rs.l 1 ; Y velocity
-PhysicsObj_MaxVelFloorX 	rs.l 1 ; Max X velocity (on floor)
-PhysicsObj_MaxVelAirX 		rs.l 1 ; Max X velocity (in air)
-PhysicsObj_MaxVelYUp	    rs.l 1 ; Max Y velocity up
-PhysicsObj_MaxVelYDown	    rs.l 1 ; Max Y velocity down
-PhysicsObj_MinWindStrength  rs.l 1 ; Min wind velocity affecting object
-PhysicsObj_BoundsLeft		rs.w 1 ; Collision bounds offset X
-PhysicsObj_BoundsTop		rs.w 1 ; Collision bounds offset Y
-PhysicsObj_BoundsWidth		rs.w 1 ; Collision bounds offset width
-PhysicsObj_BoundsHeight		rs.w 1 ; Collision bounds offset height
-PhysicsObj_PushDetectOuter	rs.w 1 ; Collision bounds outer box extension size for push detection
-PhysicsObj_AccelX  		    rs.w 1 ; X acceleration
-PhysicsObj_AccelY  		    rs.w 1 ; Y acceleration
-PhysicsObj_DecelX  		    rs.w 1 ; X deceleration
-PhysicsObj_FloorProbeX	    rs.w 1 ; Floor probe X offset
-PhysicsObj_FloorProbeY	    rs.w 1 ; Floor probe Y offset
-PhysicsObj_CeilingProbeX    rs.w 1 ; Ceiling probe X offset
-PhysicsObj_CeilingProbeY    rs.w 1 ; Ceiling probe Y offset
-PhysicsObj_BounceX		    rs.w 1 ; Bounce X (reflection div)
-PhysicsObj_BounceY		    rs.w 1 ; Bounce Y (reflection div)
-PhysicsObj_StepHeight	    rs.w 1 ; Max step height
-PhysicsObj_MinWallHeight    rs.w 1 ; Min wall height
-PhysicsObj_Mass             rs.b 1 ; Object mass
-PhysicsObj_HasPhysics       rs.b 1 ; Uses physics
-PhysicsObj_CollideFloor	    rs.b 1 ; Collides with floor
-PhysicsObj_CollideWalls	    rs.b 1 ; Collides with walls
-PhysicsObj_CollideCeilings  rs.b 1 ; Collides with ceilings
-PhysicsObj_CollidePlatforms	rs.b 1 ; Collides with platforms
-PhysicsObj_CollideBarriers	rs.b 1 ; Collides with barriers
-PhysicsObj_FallThroughHoles rs.b 1 ; Ignores terrain tiles with 'hole' flag
-PhysicsObj_AffectedByWind   rs.b 1 ; Gets pushed by wind force
-PhysicsObj_OnFloor		    rs.b 1 ; Object is on floor
-PhysicsObj_CloseToFloor	    rs.b 1 ; Object is close to floor (dist < step height)
-PhysicsObj_HitWall		    rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
-PhysicsObj_Solid		    rs.b 1 ; Object is solid
-PhysicsObj_SnapToFloor	    rs.b 1 ; Object should snap to floor if within step height
-PhysicsObj_MaxVelClamp		rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
-PhysicsObj_CanBePushed		rs.b 1 ; Can be pushed (must also be in PushableObjs list)
-PhysicsObj_CanBePulled		rs.b 1 ; Can be pulled (must also be in PushableObjs list)
+PhysicsObj_LastWall         	rs.l 1 ; Last detected wall X
+PhysicsObj_LastFloor        	rs.l 1 ; Last detected floor Y
+PhysicsObj_LastCeiling      	rs.l 1 ; Last detected ceiling Y
+PhysicsObj_VelX    		    	rs.l 1 ; X velocity
+PhysicsObj_VelY    		    	rs.l 1 ; Y velocity
+PhysicsObj_MaxVelFloorX 		rs.l 1 ; Max X velocity (on floor)
+PhysicsObj_MaxVelAirX 			rs.l 1 ; Max X velocity (in air)
+PhysicsObj_MaxVelYUp	    	rs.l 1 ; Max Y velocity up
+PhysicsObj_MaxVelYDown			rs.l 1 ; Max Y velocity down
+PhysicsObj_WindResistanceFloor	rs.l 1 ; Wind resistance (on floor)
+PhysicsObj_WindResistanceAir	rs.l 1 ; Wind resistance (in air)
+PhysicsObj_BoundsLeft			rs.w 1 ; Collision bounds offset X
+PhysicsObj_BoundsTop			rs.w 1 ; Collision bounds offset Y
+PhysicsObj_BoundsWidth			rs.w 1 ; Collision bounds offset width
+PhysicsObj_BoundsHeight			rs.w 1 ; Collision bounds offset height
+PhysicsObj_PushDetectOuter		rs.w 1 ; Collision bounds outer box extension size for push detection
+PhysicsObj_AccelX  		    	rs.w 1 ; X acceleration
+PhysicsObj_AccelY  		    	rs.w 1 ; Y acceleration
+PhysicsObj_DecelX  		    	rs.w 1 ; X deceleration
+PhysicsObj_FloorProbeX	    	rs.w 1 ; Floor probe X offset
+PhysicsObj_FloorProbeY	    	rs.w 1 ; Floor probe Y offset
+PhysicsObj_CeilingProbeX    	rs.w 1 ; Ceiling probe X offset
+PhysicsObj_CeilingProbeY    	rs.w 1 ; Ceiling probe Y offset
+PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
+PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
+PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
+PhysicsObj_MinWallHeight    	rs.w 1 ; Min wall height
+PhysicsObj_Mass             	rs.b 1 ; Object mass
+PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
+PhysicsObj_CollideFloor	    	rs.b 1 ; Collides with floor
+PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls
+PhysicsObj_CollideCeilings  	rs.b 1 ; Collides with ceilings
+PhysicsObj_CollidePlatforms		rs.b 1 ; Collides with platforms
+PhysicsObj_CollideBarriers		rs.b 1 ; Collides with barriers
+PhysicsObj_FallThroughHoles 	rs.b 1 ; Ignores terrain tiles with 'hole' flag
+PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
+PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
+PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
+PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
+PhysicsObj_Solid		    	rs.b 1 ; Object is solid
+PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step height
+PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
+PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
+PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad       rs.b 3
-PhysicsObj_Struct_Size      rs.b 0
+PhysicsObj_Struct_Pad      		rs.b 3
+PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
 
@@ -92,6 +93,8 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_DecelX(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_WindResistanceFloor(a0)
+	move.l #0x0, PhysicsObj_WindResistanceAir(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
@@ -111,6 +114,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
+	move.b #0x1, PhysicsObj_AffectedByWind(a0)
 
 	rts
 
@@ -380,31 +384,27 @@ PhysicsObjApplyWorldForces:
 	cmp.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	beq    @NotAffectedByWind
 
-	; Get wind
+	; Get wind force
 	move.l PhysicsWorld_Wind(a2), d1
 	cmp.l  #0x0, d1
 	beq    @NoWind
 
-	; If wind strength is critical
-	move.l PhysicsObj_MinWindStrength(a0), d3
-	cmp.l  d3, d1
-	bge    @AffectedByWind
-	neg.l  d3
-	cmp.l  d3, d1
-	ble    @AffectedByWind
-	bra    @NotAffectedByWind
-	@AffectedByWind:
-
-	; Apply floor friction to wind force
-	cmp.l  #0x0, d1
-	beq    @NoWind
+	; Get wind resistance
+	move.l PhysicsObj_WindResistanceFloor(a0), d3
 	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
-	beq    @InAir
-	move.l d4, d0
-	clr.l  d3
-	move.b PhysicsObj_Mass(a0), d3
-	DIVS1616_LOSSY d3, d1
-	@InAir:
+	bne    @OnFloor
+	move.l PhysicsObj_WindResistanceAir(a0), d3
+	@OnFloor:
+
+	; Match sign
+	cmp.l  #0x0, d1
+	bge    @Positive
+	neg.l  d3
+	@Positive:
+
+	; Apply resistance, check if wind is strong enough
+	sub.l  d3, d1
+	bcs    @NotAffectedByWind
 
 	; Apply speed div
 	DIVS1616_LOSSY d6, d1

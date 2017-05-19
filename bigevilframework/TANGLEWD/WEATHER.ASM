@@ -280,14 +280,6 @@ WeatherUpdate:
 	jsr    RND_GenerateWordClamped
 	move.w d0, WindMaxStrength
 
-	; Random direction
-	move.w #50, d0
-	jsr    RND_Chance
-	cmp.b  #0x0, d0
-	beq    @PosDir
-	neg.w  WindMaxStrength
-	@PosDir:
-
 	; Calc rand duration
 	move.w (WindRandDurationMin), d1
 	move.w (WindRandDurationMax), d2
