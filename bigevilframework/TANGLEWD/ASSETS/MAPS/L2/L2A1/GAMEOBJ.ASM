@@ -23,12 +23,11 @@ L2A1_Nymn_3_idx	equ 0x0
 
 L2A1_Echo_count equ 0x0
 
-L2A1_BouncePlant_count equ 0x5
+L2A1_BouncePlant_count equ 0x4
 L2A1_BouncePlant_6_idx	equ 0x0
 L2A1_BouncePlant_7_idx	equ 0x1
 L2A1_BouncePlant_11_idx	equ 0x2
-L2A1_BouncePlant_12_idx	equ 0x3
-L2A1_BouncePlant_32_idx	equ 0x4
+L2A1_BouncePlant_32_idx	equ 0x3
 
 L2A1_Boulder_count equ 0x0
 
@@ -49,13 +48,16 @@ L2A1_Nest_27_idx	equ 0x0
 L2A1_Nest_26_idx	equ 0x1
 L2A1_Nest_31_idx	equ 0x2
 
-L2A1_Flue_count equ 0x1
+L2A1_Flue_count equ 0x2
 L2A1_Flue_24_idx	equ 0x0
+L2A1_Flue_39_idx	equ 0x1
 
-L2A1_TriggerBox_count equ 0x3
+L2A1_TriggerBox_count equ 0x5
 L2A1_TriggerWindSpeed2_idx	equ 0x0
 L2A1_TriggerWindSpeed3_idx	equ 0x1
 L2A1_TriggerWindSpeed1_idx	equ 0x2
+L2A1_TriggerWindSpeed4_idx	equ 0x3
+L2A1_TriggerLvlEnd_idx	equ 0x4
 
 L2A1_Checkpoint_count equ 0x0
 
@@ -128,11 +130,6 @@ L2A1_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x15c80000, Entity_WorldPosX(a0)
-	move.l #0x03c00000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
 	move.l #0x09f00000, Entity_WorldPosX(a0)
 	move.l #0x04300000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
@@ -158,8 +155,8 @@ L2A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x15e80000, Entity_WorldPosX(a0)
-	move.l #0x03200000, Entity_WorldPosY(a0)
+	move.l #0x17100000, Entity_WorldPosX(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
@@ -194,6 +191,11 @@ L2A1_LoadGameObjects:
 	move.l #0x05d00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
+	jsr FlueInit
+	move.l #0x15880000, Entity_WorldPosX(a0)
+	move.l #0x03c80000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
@@ -214,6 +216,20 @@ L2A1_LoadGameObjects:
 	move.l #0x09900000, Entity_WorldPosX(a0)
 	move.l #0x05400000, Entity_WorldPosY(a0)
 	move.l #l2a1_Trigger_WindSpeed1, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x12c00000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed4, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x18e00000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
