@@ -396,15 +396,18 @@ PhysicsObjApplyWorldForces:
 	move.l PhysicsObj_WindResistanceAir(a0), d3
 	@OnFloor:
 
-	; Match sign
+	; Apply resistance, check if wind is strong enough
 	cmp.l  #0x0, d1
 	bge    @Positive
-	neg.l  d3
+	add.l  d3, d1
+	cmp.l  #0x0, d1
+	bgt    @NotAffectedByWind
+	bra    @ApplyWind
 	@Positive:
-
-	; Apply resistance, check if wind is strong enough
 	sub.l  d3, d1
-	bcs    @NotAffectedByWind
+	cmp.l  #0x0, d1
+	blt    @NotAffectedByWind
+	@ApplyWind:
 
 	; Apply speed div
 	DIVS1616_LOSSY d6, d1
