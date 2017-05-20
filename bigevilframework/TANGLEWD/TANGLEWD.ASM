@@ -152,6 +152,7 @@ __start
 
 	IF INCLUDE_LEVEL_2
 	include 'levels\l2a1.asm'
+	include 'levels\l2a2.asm'
 	ENDIF
 
 	IF INCLUDE_LEVEL_3
