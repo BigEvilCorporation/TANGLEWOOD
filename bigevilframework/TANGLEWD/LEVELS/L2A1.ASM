@@ -204,7 +204,18 @@ l2a1_Trigger_WindSpeed3:
 	move.w  #0x0200, WindRandDurationMax
 	move.w  #0x0080, WindDelayTimer
 	rts
-	
+
+l2a1_Trigger_WindSpeed4:
+	move.w  #0x0010, WindAccel
+	move.w  #-0x0700, WindRandStrengthMin
+	move.w  #-0x0600, WindRandStrengthMax
+	move.w  #0x0170, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x01F0, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
+	rts
+
 l2a1_Trigger_End:
 
 	; Nymn sleep
