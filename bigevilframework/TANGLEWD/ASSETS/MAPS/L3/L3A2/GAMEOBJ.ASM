@@ -7,51 +7,51 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L3A1_Leaf_count equ 0x0
+L3A2_Leaf_count equ 0x0
 
-L3A1_Nymn_count equ 0x1
-L3A1_Nymn_1_idx	equ 0x0
+L3A2_Nymn_count equ 0x1
+L3A2_Nymn_1_idx	equ 0x0
 
-L3A1_Echo_count equ 0x0
+L3A2_Echo_count equ 0x0
 
-L3A1_BouncePlant_count equ 0x0
+L3A2_BouncePlant_count equ 0x0
 
-L3A1_Boulder_count equ 0x0
+L3A2_Boulder_count equ 0x0
 
-L3A1_Monster_count equ 0x0
+L3A2_Monster_count equ 0x0
 
-L3A1_Firefly_count equ 0x0
+L3A2_Firefly_count equ 0x0
 
-L3A1_Fuzzl_count equ 0x0
+L3A2_Fuzzl_count equ 0x0
 
-L3A1_Stone_count equ 0x0
+L3A2_Stone_count equ 0x0
 
-L3A1_Nest_count equ 0x0
+L3A2_Nest_count equ 0x0
 
-L3A1_Flue_count equ 0x0
+L3A2_Flue_count equ 0x0
 
-L3A1_TriggerBox_count equ 0x0
+L3A2_TriggerBox_count equ 0x0
 
-L3A1_Checkpoint_count equ 0x0
+L3A2_Checkpoint_count equ 0x0
 
-L3A1_WaterBody_count equ 0x0
+L3A2_WaterBody_count equ 0x0
 
-L3A1_Location_count equ 0x0
+L3A2_Location_count equ 0x0
 
-L3A1_Deathbox_count equ 0x0
+L3A2_Deathbox_count equ 0x0
 
-L3A1_Lift_count equ 0x0
+L3A2_Lift_count equ 0x0
 
-L3A1_Button_count equ 0x0
+L3A2_Button_count equ 0x0
 
 
-L3A1_LoadGameObjects:
+L3A2_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00b00000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x00a00000, Entity_WorldPosX(a0)
+	move.l #0x03780000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 

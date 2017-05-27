@@ -34,7 +34,7 @@ INCLUDE_DEBUG_DEATH		equ 0
 ; Levels
 INCLUDE_LEVEL_1			equ 1
 INCLUDE_LEVEL_2			equ 1
-INCLUDE_LEVEL_3			equ 0
+INCLUDE_LEVEL_3			equ 1
 INCLUDE_LEVEL_4			equ 0
 INCLUDE_LEVEL_5			equ 0
 INCLUDE_LEVEL_6			equ 0
@@ -53,8 +53,8 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l1a4_HarlequinForestAct4
 ;InitialLevel			 equ l2a1_StormWarningAct1
 ;InitialLevel			 equ l2a2_StormWarningAct2
-InitialLevel			 equ l2a3_StormWarningAct3
-;InitialLevel			 equ l3a1_HeritageAct1
+;InitialLevel			 equ l2a3_StormWarningAct3
+InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
 ;InitialLevel			 equ l5a1_BygoneAct1
 ;InitialLevel			 equ l6a1_DeadwoodAct1
