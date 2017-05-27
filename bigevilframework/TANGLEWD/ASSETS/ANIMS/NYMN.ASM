@@ -59,7 +59,7 @@ spriteanim_nymn_ridedjakk_track_sfx:
 
 spriteanim_nymn_push:
 spriteanim_nymn_push_numframes: equ 0x8
-spriteanim_nymn_push_speed: equ 0x1E
+spriteanim_nymn_push_speed: equ 0x28
 spriteanim_nymn_push_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 	Even

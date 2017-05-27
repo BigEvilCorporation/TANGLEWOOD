@@ -307,6 +307,8 @@ LevelData_L1A4			 rs.b l1a4Data_Struct_Size
 
 	IF INCLUDE_LEVEL_2
 LevelData_L2A1			 rs.b L2A1Data_Struct_Size
+LevelData_L2A2			 rs.b L2A2Data_Struct_Size
+LevelData_L2A3			 rs.b L2A3Data_Struct_Size
 	ENDIF
 
 	IF INCLUDE_LEVEL_3

@@ -24,6 +24,7 @@
 ;==============================================================
 	include 'assets\maps\l2\l2a1\gameobj.asm'
 	include 'assets\maps\l2\l2a2\gameobj.asm'
+	include 'assets\maps\l2\l2a3\gameobj.asm'
 
 ;==============================================================
 ; Graphics tileset
@@ -38,12 +39,15 @@ tiles_l2:
 ;==============================================================
 	include 'assets\maps\l2\l2a1\blocks.asm'
 	include 'assets\maps\l2\l2a2\blocks.asm'
+	include 'assets\maps\l2\l2a3\blocks.asm'
 	include 'assets\maps\l2\l2bg\blocks.asm'
 
 map_blocks_l2a1:
 	incbin 'assets\maps\l2\l2a1\blocks.bin'
 map_blocks_l2a2:
 	incbin 'assets\maps\l2\l2a2\blocks.bin'
+map_blocks_l2a3:
+	incbin 'assets\maps\l2\l2a3\blocks.bin'
 map_blocks_l2bg:
 	incbin 'assets\maps\l2\l2bg\blocks.bin'
 
@@ -52,12 +56,15 @@ map_blocks_l2bg:
 ;==============================================================
 	include 'assets\maps\l2\l2a1\blockmap.asm'
 	include 'assets\maps\l2\l2a2\blockmap.asm'
+	include 'assets\maps\l2\l2a3\blockmap.asm'
 	include 'assets\maps\l2\l2bg\blockmap.asm'
 
 map_blockmap_l2a1:
 	incbin 'assets\maps\l2\l2a1\blockmap.bin'
 map_blockmap_l2a2:
 	incbin 'assets\maps\l2\l2a2\blockmap.bin'
+map_blockmap_l2a3:
+	incbin 'assets\maps\l2\l2a3\blockmap.bin'
 map_blockmap_l2bg:
 	incbin 'assets\maps\l2\l2bg\blockmap.bin'
 
@@ -74,19 +81,25 @@ collisiontiles_l2:
 ;==============================================================
 	include 'assets\maps\l2\l2a1\colblock.asm'
 	include 'assets\maps\l2\l2a2\colblock.asm'
+	include 'assets\maps\l2\l2a3\colblock.asm'
 
 collisionmap_blocks_l2a1:
 	incbin 'assets\maps\l2\l2a1\colblock.bin'
 collisionmap_blocks_l2a2:
 	incbin 'assets\maps\l2\l2a2\colblock.bin'
+collisionmap_blocks_l2a3:
+	incbin 'assets\maps\l2\l2a3\colblock.bin'
 
 ;==============================================================
 ; Collision block maps
 ;==============================================================
 	include 'assets\maps\l2\l2a1\colmap.asm'
 	include 'assets\maps\l2\l2a2\colmap.asm'
+	include 'assets\maps\l2\l2a3\colmap.asm'
 
 collisionmap_blockmap_l2a1:
 	incbin 'assets\maps\l2\l2a1\colmap.bin'
 collisionmap_blockmap_l2a2:
 	incbin 'assets\maps\l2\l2a2\colmap.bin'
+collisionmap_blockmap_l2a3:
+	incbin 'assets\maps\l2\l2a3\colmap.bin'

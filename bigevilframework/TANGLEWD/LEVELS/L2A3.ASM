@@ -3,37 +3,41 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l2a1.asm - Level 2 - Storm Warning Act 1
+;   l2a3.asm - Level 32 - Storm Warning Act 3
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-l2a1_StormWarningAct1:
+l2a3_StormWarningAct3:
 
 	dc.l tiles_l2						; Tileset
-	dc.l map_blocks_l2a1				; Blocks
-	dc.l map_blockmap_l2a1				; Block map
+	dc.l map_blocks_l2a3				; Blocks
+	dc.l map_blockmap_l2a3				; Block map
 	dc.l collisiontiles_l2				; Collision tileset
-	dc.l collisionmap_blocks_l2a1		; Collision blocks
-	dc.l collisionmap_blockmap_l2a1		; Collision block map
-	dc.l l2a1_DefaultPalettes			; Palettes
-	dc.l l2a1_Init						; Init routine
-	dc.l l2a1_Update					; Update routine
-	dc.l l2a1_Serialise					; Serialise routine
-	dc.l l2a1_LoadGameObjects			; Load game objects routine
-	dc.l l2a1_End						; End routine
-	dc.l l2a2_StormWarningAct2			; Next level
+	dc.l collisionmap_blocks_l2a3		; Collision blocks
+	dc.l collisionmap_blockmap_l2a3		; Collision block map
+	dc.l l2a3_DefaultPalettes			; Palettes
+	dc.l l2a3_Init						; Init routine
+	dc.l l2a3_Update					; Update routine
+	dc.l l2a3_Serialise					; Serialise routine
+	dc.l l2a3_LoadGameObjects			; Load game objects routine
+	dc.l l2a3_End						; End routine
+	IF INCLUDE_LEVEL_3
+	dc.l l3a1_HeritageAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.l DefaultGravity					; Default gravity
-	dc.w map_l2a1_width					; Map width (tiles)
-	dc.w map_l2a1_height				; Map height (tiles)
-	dc.w map_blockmap_l2a1_width		; Map width (blocks)
-	dc.w map_blockmap_l2a1_height		; Map height (blocks)
+	dc.w map_l2a3_width					; Map width (tiles)
+	dc.w map_l2a3_height				; Map height (tiles)
+	dc.w map_blockmap_l2a3_width		; Map width (blocks)
+	dc.w map_blockmap_l2a3_height		; Map height (blocks)
 	dc.w tiles_l2_size_t				; Num tiles
 	
 	even
 	
-l2a1_DefaultPalettes:
+l2a3_DefaultPalettes:
 
 	dc.l palette_l2					; World
 	dc.l palette_l1					; Djakk (black by default, fades up when approached)
@@ -46,12 +50,12 @@ l2a1_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset 0
-l2a1Data_WaitingInput			rs.b 1
+l2a3Data_WaitingInput			rs.b 1
 ;---------------------------------
-l2a1Data_Struct_Pad      		rs.b 3
-l2a1Data_Struct_Size     		rs.b 0
+l2a3Data_Struct_Pad      		rs.b 3
+l2a3Data_Struct_Size     		rs.b 0
 	
-l2a1_Init:
+l2a3_Init:
 	
 	; Load BG map
 	lea    map_blocks_l2bg, a0
@@ -72,24 +76,14 @@ l2a1_Init:
 	; Init weather
 	;jsr    RainInit
 
-	; Wind
-	move.w  #0x0004, WindAccel
-	move.w  #0x0080, WindRandStrengthMin
-	move.w  #0x0100, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-
 	;==============================================================
 
 	; Connect button to lift
-	ENTITY_GETBYNAME Button, l2a1_Button1, a0
-	ENTITY_GETBYNAME Lift, l2a1_Lift1, a1
-	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	;ENTITY_GETBYNAME Button, l2a3_Button1, a0
+	;ENTITY_GETBYNAME Lift, l2a3_Lift1, a1
+	;move.l a1, Button_UserData(a0)
+	;move.l #LiftActivate, Button_OnDown(a0)
+	;move.l #LiftStop, Button_OnUp(a0)
 
 	;==============================================================
 	
@@ -108,18 +102,17 @@ l2a1_Init:
 	; Take control of anim updates
 	move.b #0x0, Character_UpdateAnim(a0)
 	
-	move.l #LevelData_L1A1, a2
-	move.b #0x1, l2a1Data_WaitingInput(a2)
+	move.l #LevelData_L2A3, a2
+	move.b #0x1, l2a3Data_WaitingInput(a2)
 	
 	rts
 	
-l2a1_Update:
+l2a3_Update:
 
-	move.l #LevelData_L1A1, a2
+	move.l #LevelData_L2A3, a2
 	
 	; Check waiting for input
-	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, l2a1Data_WaitingInput(a2)
+	cmp.b #0x0, l2a3Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
 	; Read pad
@@ -151,68 +144,24 @@ l2a1_Update:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Done
-	move.b #0x0, l2a1Data_WaitingInput(a2)
+	move.b #0x0, l2a3Data_WaitingInput(a2)
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
 
 	rts
 	
-l2a1_Serialise:
+l2a3_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 
-l2a1_End:
+l2a3_End:
 	rts
 
-l2a1_Trigger_WindSpeed1:
-	move.w  #0x0004, WindAccel
-	move.w  #-0x0200, WindRandStrengthMin
-	move.w  #0x0200, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-	rts
-
-l2a1_Trigger_WindSpeed2:
-	move.w  #0x0004, WindAccel
-	move.w  #-0x0280, WindRandStrengthMin
-	move.w  #0x0280, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-	rts
-
-l2a1_Trigger_WindSpeed3:
-	move.w  #0x0010, WindAccel
-	move.w  #0x0600, WindRandStrengthMin
-	move.w  #0x0700, WindRandStrengthMax
-	move.w  #0x0170, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x01F0, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-	rts
-
-l2a1_Trigger_WindSpeed4:
-	move.w  #0x0010, WindAccel
-	move.w  #-0x0900, WindRandStrengthMin
-	move.w  #-0x0A00, WindRandStrengthMax
-	move.w  #0x0170, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x01F0, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
-	rts
-
-l2a1_Trigger_End:
+l2a3_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0

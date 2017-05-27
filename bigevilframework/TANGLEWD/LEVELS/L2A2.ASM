@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l2a2.asm - Level 3 - Storm Warning Act 1
+;   l2a2.asm - Level 2 - Storm Warning Act 2
 ;==============================================================	
 
 ; ************************************
@@ -23,12 +23,8 @@ l2a2_StormWarningAct2:
 	dc.l l2a2_Serialise					; Serialise routine
 	dc.l l2a2_LoadGameObjects			; Load game objects routine
 	dc.l l2a2_End						; End routine
-	IF INCLUDE_LEVEL_3
-	dc.l l3a1_HeritageAct1				; Next level
-	ELSE
-	dc.l 0x00000000
-	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l l2a3_StormWarningAct3			; Next level
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l2a2_width					; Map width (tiles)
 	dc.w map_l2a2_height				; Map height (tiles)
 	dc.w map_blockmap_l2a2_width		; Map width (blocks)

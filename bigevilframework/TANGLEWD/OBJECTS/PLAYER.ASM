@@ -6,6 +6,8 @@
 ;   player.asm - Player specific movement and mechanics
 ;==============================================================
 
+PLAYER_DEBUG	equ 1
+
 ; ************************************
 ; Constants
 ; ************************************
@@ -324,6 +326,18 @@ PlayerUpdate:
 	
 	; Base functionality
 	jsr    CharacterUpdate
+
+	IF PLAYER_DEBUG
+
+	move.l Entity_WorldPosX(a0), d0
+	move.l #((8*8)<<16)|(4*8), d1
+	jsr    DBG_DrawLong
+
+	move.l Entity_WorldPosY(a0), d0
+	move.l #((8*8)<<16)|(5*8), d1
+	jsr    DBG_DrawLong
+
+	ENDIF
 	
 	rts
 	

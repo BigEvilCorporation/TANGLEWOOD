@@ -6,7 +6,7 @@
 ;   weather.asm - Wind, rain, thunder/lightning management
 ;===============================================================
 
-WIND_DEBUG	equ 1
+WIND_DEBUG	equ 0
 
 RainSpriteWidth			equ 0x20
 RainSpriteHeight		equ 0x20

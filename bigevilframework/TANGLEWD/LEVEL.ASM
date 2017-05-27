@@ -81,22 +81,22 @@ GameStateReset:
 	; Reset entity counts
 	move.w #0x0, EntityCount_Actor
 	move.w #0x0, EntityCount_AIMarker
-	move.w #0x0, EntityCount_Monster
+	move.w #0x0, EntityCount_Boulder
+	move.w #0x0, EntityCount_BouncePlant
+	move.w #0x0, EntityArray_Button
 	move.w #0x0, EntityCount_Firefly
 	move.w #0x0, EntityCount_Flue
 	move.w #0x0, EntityCount_Fuzzl
 	move.w #0x0, EntityCount_Leaf
-	move.w #0x0, EntityCount_Nest
-	move.w #0x0, EntityCount_Boulder
-	move.w #0x0, EntityCount_TriggerBox
-	move.w #0x0, EntityCount_WaterBody
-	move.w #0x0, EntityCount_Location
-	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Lift
+	move.w #0x0, EntityCount_Location
+	move.w #0x0, EntityCount_Monster
+	move.w #0x0, EntityCount_Nest
 	move.w #0x0, EntityCount_Rope
-	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Stone
+	move.w #0x0, EntityCount_TriggerBox
 	move.w #0x0, EntityCount_VFX
+	move.w #0x0, EntityCount_WaterBody
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll

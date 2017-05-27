@@ -51,7 +51,9 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l1a2_HarlequinForestAct2
 ;InitialLevel			 equ l1a3_HarlequinForestAct3
 ;InitialLevel			 equ l1a4_HarlequinForestAct4
-InitialLevel			 equ l2a1_StormWarningAct1
+;InitialLevel			 equ l2a1_StormWarningAct1
+;InitialLevel			 equ l2a2_StormWarningAct2
+InitialLevel			 equ l2a3_StormWarningAct3
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l4a1_TetheredAct1
 ;InitialLevel			 equ l5a1_BygoneAct1
