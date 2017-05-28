@@ -35,13 +35,14 @@ Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
 Fuzzl_WindResistanceAir     equ 0x0020 ; Wind resistance (in air)
 
 ; State bits
-Fuzzl_State_Initial  equ 0x00 ; Initial state (in initial position, not seen player)
-Fuzzl_State_Asleep   equ 0x01 ; Initial state (night time, sleeping)
-Fuzzl_State_Watching equ 0x02 ; Seen player, eyes following
-Fuzzl_State_Rolling  equ 0x03 ; Being rolled by player
-Fuzzl_State_Home     equ 0x04 ; In a nest
-Fuzzl_State_Bouncing equ 0x05 ; Bouncing to alert player to take colour
-Fuzzl_State_Fling	 equ 0x06 ; Being flung up in the air
+Fuzzl_State_Initial   equ 0x00 ; Initial state (in initial position, not seen player)
+Fuzzl_State_Asleep    equ 0x01 ; Initial state (night time, sleeping)
+Fuzzl_State_Watching  equ 0x02 ; Seen player, eyes following
+Fuzzl_State_Rolling   equ 0x03 ; Being rolled by player
+Fuzzl_State_Home      equ 0x04 ; In a nest
+Fuzzl_State_Bouncing  equ 0x05 ; Bouncing to alert player to take colour
+Fuzzl_State_Fling	  equ 0x06 ; Being flung up in the air
+Fuzzl_State_Generator equ 0x07 ; Inside a generator
 
 ; Spritesheet/colour ptr table
 Fuzzl_Spritesheets:
@@ -326,6 +327,10 @@ FuzzlUpdate:
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
 	bne    @Home
 
+	; Check if Fuzzl is in a generator
+	btst.b #Fuzzl_State_Generator, Fuzzl_State_Bits(a0)
+	bne    @InGenerator
+
 	; Check if Fuzzl has moved from initial position
 	btst.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	beq    @MovedFromInitialPos
@@ -398,71 +403,15 @@ FuzzlUpdate:
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
 	move.b d0, Animation_Speed(a2)
 
-	; Check all nests
-	move.l #EntityArray_Nest, a3
-	move.l #Nest_MaxEntities-1, d6
-	@NestLoop:
-	
-	; Check if nest is occupied
-	move.b Nest_Occupied(a3), d0
-	cmp.b  #0x1, d0
-	beq    @NestOccupied
-	
-	; Check if touching a nest
-	PUSHL a1
-	PUSHL d6
-	move.l a3, a1
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr   PHYS_TestBoxIntersectBox
-	POPL  d6
-	POPL  a1
-	
-	; Result in d0
-	cmp.b #0x0, d0
-	beq   @NestNotInRange
-	
-	; Touching nest, snap to into position
-	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
-	
-	; Zero X velocity
-	move.l #0x0, PhysicsObj_VelX(a0)
-	
-	; Fuzzl is home
-	bset.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
+	; Check if entering a nest
+	jsr    FuzzlFindNest
+	cmp.b  #0x0, d0
+	bne    @End
 
-	; No longer being rolled
-	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
-	
-	; Can no longer be pushed/pulled
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	move.b #0x0, PhysicsObj_CanBePulled(a0)
-
-	; No longer affected by wind
-	move.b #0x0, PhysicsObj_AffectedByWind(a0)
-
-	; Zero velocity
-	move.l #0x0, PhysicsObj_VelX(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	
-	; Nest is occupied
-	move.b #0x1, Nest_Occupied(a3)
-	
-	; Don't update when out of view
-	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
-	
-	; Play enter nest SFX
-	PLAYSFX #SFX_FuzzlInNest
-	
-	; Finish
-	bra @End
-
-	@NestNotInRange:
-	@NestOccupied:
-	
-	; Next nest
-	add.l #Nest_Struct_Size, a3
-	dbra d6, @NestLoop
+	; Check if entering a generator
+	jsr    FuzzlFindGenerator
+	cmp.b  #0x0, d0
+	bne    @End
 	
 	; Not home
 	bra @NotHome
@@ -494,15 +443,16 @@ FuzzlUpdate:
 	@Asleep:
 	@NotBeingFlung:
 	@InitialState:
+	@InGenerator:
 	@End:
 	
 	; Update animation
 	jsr FuzzlUpdateAnimation
 
-	; Can only push if awake and not in nest
+	; Can only push if awake and not in nest/generator
 	move.b #0x1, d0
 	move.b Fuzzl_State_Bits(a0), d1
-	andi.b #(1<<Fuzzl_State_Home)|(1<<Fuzzl_State_Asleep), d1
+	andi.b #(1<<Fuzzl_State_Home)|(1<<Fuzzl_State_Generator)|(1<<Fuzzl_State_Asleep), d1
 	cmp.b  #0x0, d1
 	beq    @CanPush
 	move.b #0x0, d0
@@ -577,6 +527,176 @@ FuzzlSerialise:
 	
 	@End:
 	
+	rts
+
+FuzzlFindNest:
+
+	; Return val
+	move.b  #0x0, d7
+
+	; Check all nests
+	move.l #EntityArray_Nest, a3
+	move.w (EntityCount_Nest), d6
+	cmp.w  #0x0, d6
+	beq    @NoNests
+	sub.w  #0x1, d6
+	@NestLoop:
+	
+	; Check if nest is occupied
+	move.b Nest_Occupied(a3), d0
+	cmp.b  #0x1, d0
+	beq    @NestOccupied
+	
+	; Check if touching a nest
+	PUSHL a1
+	PUSHL d6
+	move.l a3, a1
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr   PHYS_TestBoxIntersectBox
+	POPL  d6
+	POPL  a1
+	
+	; Result in d0
+	cmp.b #0x0, d0
+	beq   @NestNotInRange
+	
+	; Touching nest, snap to into position
+	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
+	
+	; Zero X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	; Fuzzl is home
+	bset.b #Fuzzl_State_Home, Fuzzl_State_Bits(a0)
+
+	; No longer being rolled
+	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
+	
+	; Can no longer be pushed/pulled
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.b #0x0, PhysicsObj_CanBePulled(a0)
+
+	; No longer affected by wind
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
+
+	; Zero velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	
+	; Nest is occupied
+	move.b #0x1, Nest_Occupied(a3)
+	
+	; Don't update when out of view
+	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
+	
+	; Play enter nest SFX
+	PLAYSFX #SFX_FuzzlInNest
+	
+	; Found nest, finish
+	move.b  #0x1, d7
+	bra @End
+
+	@NestNotInRange:
+	@NestOccupied:
+	
+	; Next nest
+	add.l #Nest_Struct_Size, a3
+	dbra d6, @NestLoop
+
+	@NoNests:
+	@End:
+
+	move.b d7, d0
+
+	rts
+
+FuzzlFindGenerator:
+
+	; Return val
+	move.b  #0x0, d7
+
+	; Check all generators
+	move.l #EntityArray_Generator, a3
+	move.w (EntityCount_Generator), d6
+	cmp.w  #0x0, d6
+	beq    @NoGenerators
+	sub.w  #0x1, d6
+	@GeneratorLoop:
+	
+	; Check if generator is occupied
+	cmp.l  #0x0, Generator_Fuzzl(a3)
+	bne    @NextGenerator
+	
+	; Check if touching a nest
+	PUSHL a1
+	PUSHL d6
+	move.l a3, a1
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr   PHYS_TestBoxIntersectBox
+	POPL  d6
+	POPL  a1
+	
+	; Result in d0
+	cmp.b #0x0, d0
+	beq   @NextGenerator
+	
+	; Touching nest, snap to into position
+	move.l Entity_WorldPosX(a3), d0
+	move.l Entity_WorldPosY(a3), d1
+	add.l  #((Generator_Width/2)-(Fuzzl_Width/2))*subpixels_per_pixel, d0
+	add.l  #((Generator_Height/2)-(Fuzzl_Height/2))*subpixels_per_pixel, d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+
+	; De-physicalise
+	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	
+	; Zero X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	; Set in generator state
+	bset.b #Fuzzl_State_Generator, Fuzzl_State_Bits(a0)
+
+	; No longer being rolled
+	bclr.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
+	
+	; Can no longer be pushed/pulled
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.b #0x0, PhysicsObj_CanBePulled(a0)
+
+	; No longer affected by wind
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
+
+	; Zero velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	
+	; Generator is occupied
+	move.l a0, Generator_Fuzzl(a3)
+	
+	; Don't update when out of view
+	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
+	
+	; Play enter generator SFX
+	PLAYSFX #SFX_FuzzlInNest
+	
+	; Found generator, finish
+	move.b  #0x1, d7
+	bra @End
+
+	@NextGenerator:
+	
+	; Next nest
+	add.l #Generator_Struct_Size, a3
+	dbra d6, @GeneratorLoop
+
+	@End:
+	@NoGenerators:
+
+	move.b d7, d0
+
 	rts
 	
 FuzzlUpdateBounce:
@@ -713,6 +833,9 @@ FuzzlUpdateAnimation:
 	bne    @AnimSleep
 	
 	btst.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)	; If being rolled, set rolling anim
+	bne    @AnimRoll
+
+	btst.b #Fuzzl_State_Generator, Fuzzl_State_Bits(a0)	; If in a generator, set rolling anim
 	bne    @AnimRoll
 
 	btst.b #Fuzzl_State_Bouncing, Fuzzl_State_Bits(a0)	; If bouncing, set bounce anim
