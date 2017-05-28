@@ -263,6 +263,9 @@ FuzzlLoadGfx:
 	move.b Fuzzl_Colour(a0), d0
 	jsr    FuzzlSetColour
 
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
 	rts
 	
 FuzzlSetColour:

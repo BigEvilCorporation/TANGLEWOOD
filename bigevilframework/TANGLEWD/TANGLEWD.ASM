@@ -108,6 +108,7 @@ __start
 	include 'objects\deathbox.asm'
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
+	include 'objects\fuzlcage.asm'
 	include 'objects\leaf.asm'
 	include 'objects\rope.asm'
 	include 'objects\lift.asm'

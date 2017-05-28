@@ -1,0 +1,344 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2017
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   fuzzlcage.asm - Pushable/breakable cage containing a Fuzzl
+;==============================================================
+
+; Constants
+FuzzlCage_MaxEntities		equ 0x4
+FuzzlCage_Width				equ 0x30
+FuzzlCage_Height			equ 0x28
+FuzzlCage_Mass				equ 0x8
+FuzzlCage_MaxVelYUp			equ 0x06*subpixels_per_pixel
+FuzzlCage_MaxVelYDown		equ 0x08*subpixels_per_pixel
+FuzzlCage_StepHeight		equ 0x4
+FuzzlCage_ProbeFloorX		equ (FuzzlCage_Width/2)		; Floor detection probe position X
+FuzzlCage_ProbeFloorY		equ (FuzzlCage_Height-8)	; Floor detection probe position X
+FuzzlCage_MaxVelX			equ 0x080000
+FuzzlCage_Decel				equ 0x003000
+
+FuzzlCage_PushSFXVel		equ 0x002000
+FuzzlCage_MinSmashYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
+
+FuzzlCage_PlatformWidth			equ FuzzlCage_Width	; Physics platform width
+FuzzlCage_UpperPlatformXOffset	equ (FuzzlCage_Width-FuzzlCage_PlatformWidth)/2	; Offset to platform from top of FuzzlCage
+FuzzlCage_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of FuzzlCage
+FuzzlCage_LowerPlatformXOffset	equ (FuzzlCage_Width-FuzzlCage_PlatformWidth)/2	; Offset to platform from top of FuzzlCage
+FuzzlCage_LowerPlatformYOffset	equ FuzzlCage_Height-4	; Offset to platform from top of FuzzlCage
+
+;==============================================================
+
+; Animations
+FuzzlCageAnimIdx_Smash   equ 0
+; --------------------------
+FuzzlCageAnimIdx_Max     equ 1
+
+;==============================================================
+
+; Struct
+	rsset (PhysicsObj_Struct_Size)
+;-----------------------------
+FuzzlCage_Animations		rs.b (Animation_Struct_Size*FuzzlCageAnimIdx_Max)
+FuzzlCage_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of FuzzlCage
+FuzzlCage_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of FuzzlCage
+FuzzlCage_LastVelY			rs.l 1	; Last recorded velocity
+FuzzlCage_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
+FuzzlCage_Smashed			rs.b 1	; Cracked open, awaiting respawn
+FuzzlCage_PushSFXPlaying	rs.b 1
+;-----------------------------
+FuzzlCage_Struct_Pad		rs.b 2   ; Alignment padding
+FuzzlCage_Struct_Size		rs.b 0
+;-----------------------------
+
+;==============================================================
+
+FuzzlCageInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base init
+	jsr    PhysicsObjInit
+	
+	; Set type
+	addi.w #0x1, EntityCount_FuzzlCage
+	
+	; Set update and render routines
+	move.l #FuzzlCageUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #FuzzlCageSerialise, Entity_SerialiseRoutine(a0)
+	
+	; Add to update and render lists
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    EntityAddToSerialiseList
+	
+	; Default state
+	move.b  #0x1, Entity_Active(a0)
+	move.b  #0x1, SpriteObj_Visible(a0)
+	move.w  #FuzzlCage_Width, Entity_Width(a0)
+	move.w  #FuzzlCage_Height, Entity_Height(a0)
+	move.b  #FuzzlCage_Mass, PhysicsObj_Mass(a0)
+	move.l  #FuzzlCage_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #FuzzlCage_Decel, PhysicsObj_DecelX(a0)
+	move.w  #FuzzlCage_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #FuzzlCage_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #FuzzlCage_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.l  #FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #FuzzlCage_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.l  #0x0, FuzzlCage_LastVelY(a0)
+	move.b  #0x1, FuzzlCage_LastOnFloor(a0)
+	move.b  #0x0, FuzzlCage_Smashed(a0)
+	move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
+	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	; Register as pushable object
+	LIST_APPEND_TAIL PushableObjs, a0, a3
+
+	;==============================================================
+	
+	; Setup platforms
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	move.l a0, Platform_Owner(a2)
+	move.b #0x1, Platform_Active(a2)
+	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
+
+	move.l a0, a2	
+	add.l  #FuzzlCage_LowerPlatform, a2
+	move.l a0, Platform_Owner(a2)
+	move.b #0x1, Platform_Active(a2)
+	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
+	
+	;==============================================================
+	; Setup animations
+
+	; Smash
+	ANIM_LOAD_DEFAULT fuzlcage_fuzzl_cage,fuzlcage_smash,FuzzlCage_Animations,FuzzlCageAnimIdx_Smash,0,0,0
+
+	rts
+
+FuzzlCageLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Load sprite
+	SPRITE_LOAD_DEFAULT FuzlCage,PaletteId_World0,0x0
+
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
+	; Reposition platforms and set velocities
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
+	add.l  #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	move.l #0x0, Platform_VelX(a2)
+	move.l #0x0, Platform_VelY(a2)
+
+	move.l a0, a2
+	add.l  #FuzzlCage_LowerPlatform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #FuzzlCage_LowerPlatformXOffset*subpixels_per_pixel, d0
+	add.l  #FuzzlCage_LowerPlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	move.l #0x0, Platform_VelX(a2)
+	move.l #0x0, Platform_VelY(a2)
+
+	rts
+	
+FuzzlCageUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; If not already smashed
+	cmp.b  #0x0, FuzzlCage_Smashed(a0)
+	bne    @Smashed
+	
+	; If on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	beq    @InAir
+	
+	; On floor, check if not previously on floor
+	cmp.b  #0x0, FuzzlCage_LastOnFloor(a0)
+	bne    @PrevOnFloor
+	
+	; Just hit the floor, check the last recorded Y velocity
+	cmp.l  #-FuzzlCage_MinSmashYVel, FuzzlCage_LastVelY(a0)
+	bge    @LowVel
+	
+	; Smash
+	jsr    FuzzlCageSmash
+	
+	; Bail
+	bra    @Smashed
+
+	;==============================================================
+	
+	@InAir:
+	@PrevOnFloor:
+	@LowVel:
+	
+	; Record current Y vel and on OnFloor flag
+	move.l PhysicsObj_VelY(a0), FuzzlCage_LastVelY(a0)
+	move.b PhysicsObj_OnFloor(a0), FuzzlCage_LastOnFloor(a0)
+
+	;==============================================================
+	
+	@InView:
+	@NotFalling:
+	
+	; Base functionality
+	jsr    PhysicsObjUpdate
+
+	;==============================================================
+	
+	; Reposition platforms and set velocities
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
+	add.l  #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
+
+	move.l a0, a2
+	add.l  #FuzzlCage_LowerPlatform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #FuzzlCage_LowerPlatformXOffset*subpixels_per_pixel, d0
+	add.l  #FuzzlCage_LowerPlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
+	
+	@SFXEnd:
+	@SFXInAir:
+	@SFXPrevOnFloor:
+	@SFXLowVel:
+
+	bra    @End
+
+	;==============================================================
+
+	; Play push SFX
+	; cmp.b   #0x0, FuzzlCage_Smashed(a0)
+	; bne     @EndRollSFX
+	; move.l  PhysicsObj_VelX(a0), d0
+	; cmp.l   #FuzzlCage_PushSFXVel, d0
+	; bgt     @PlayRollSFX
+	; cmp.l   #-FuzzlCage_PushSFXVel, d0
+	; blt     @PlayRollSFX
+	; bra     @NoRollSFX
+	; @PlayRollSFX:
+	; PLAYSFX #SFX_FuzzlCageRoll
+	; move.b  #0x1, FuzzlCage_PushSFXPlaying(a0)
+	; bra     @EndRollSFX
+
+	; @NoRollSFX:
+	; cmp.b   #0x0, FuzzlCage_PushSFXPlaying(a0)
+	; beq     @EndRollSFX
+	; jsr     SND_StopSFX
+	; move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
+	; @EndRollSFX:
+
+	@Smashed:
+
+	; No longer physical, just update animation
+	jsr    AnimObjUpdate
+
+	move.l a0, a2
+	add.l  #FuzzlCage_LowerPlatform, a2
+	move.l #0x0, Platform_VelX(a2)
+	move.l #0x0, Platform_VelY(a2)
+
+	@End:
+
+	rts
+
+FuzzlCageSmash:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Cancel X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)
+
+	; Set as smashed
+	move.b #0x1, FuzzlCage_Smashed(a0)
+
+	; Can no longer be pushed
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+
+	; Disable upper platform
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	move.b #0x0, Platform_Active(a2)
+
+	; Start smash animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #FuzzlCage_Animations, a1
+	add.l  #(Animation_Struct_Size*FuzzlCageAnimIdx_Smash), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Force set smash frame
+	move.l #0x1<<8, AnimObj_AnimSubFrame(a0)
+
+	; Play smash SFX
+	; PLAYSFX #SFX_FuzzlCageBreak
+	
+	rts
+	
+FuzzlCageSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	SAVEB FuzzlCage_Smashed(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	LOADB FuzzlCage_Smashed(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts

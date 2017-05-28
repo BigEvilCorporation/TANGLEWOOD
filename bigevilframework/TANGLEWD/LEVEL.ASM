@@ -87,6 +87,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_Firefly
 	move.w #0x0, EntityCount_Flue
 	move.w #0x0, EntityCount_Fuzzl
+	move.w #0x0, EntityCount_FuzzlCage
 	move.w #0x0, EntityCount_Leaf
 	move.w #0x0, EntityCount_Lift
 	move.w #0x0, EntityCount_Location

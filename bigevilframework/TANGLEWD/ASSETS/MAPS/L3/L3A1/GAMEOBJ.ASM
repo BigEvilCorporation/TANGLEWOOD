@@ -22,7 +22,11 @@ L3A1_Monster_count equ 0x0
 
 L3A1_Firefly_count equ 0x0
 
-L3A1_Fuzzl_count equ 0x0
+L3A1_FuzzlCage_count equ 0x1
+L3A1_FuzzlCage_2_idx	equ 0x0
+
+L3A1_Fuzzl_count equ 0x1
+L3A1_Fuzzl_3_idx	equ 0x0
 
 L3A1_Stone_count equ 0x0
 
@@ -65,7 +69,19 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Firefly, a0
 
+	move.l #EntityArray_FuzzlCage, a0
+	jsr FuzzlCageInit
+	move.l #0x01800000, Entity_WorldPosX(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
+	jsr FuzzlCageLoadGfx
+	add.l #FuzzlCage_Struct_Size, a0
+
 	move.l #EntityArray_Fuzzl, a0
+	jsr FuzzlInit
+	move.l #0x01900000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Stone, a0
 

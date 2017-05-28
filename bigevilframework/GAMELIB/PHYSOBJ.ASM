@@ -27,6 +27,10 @@ PhysicsObj_LastFloor        	rs.l 1 ; Last detected floor Y
 PhysicsObj_LastCeiling      	rs.l 1 ; Last detected ceiling Y
 PhysicsObj_VelX    		    	rs.l 1 ; X velocity
 PhysicsObj_VelY    		    	rs.l 1 ; Y velocity
+PhysicsObj_ImpulseX    		    rs.l 1 ; X impulse
+PhysicsObj_ImpulseY    		    rs.l 1 ; Y impulse
+PhysicsObj_LastAppliedVelX		rs.l 1 ; Last applies X velocity (+ impulse)
+PhysicsObj_LastAppliedVelY		rs.l 1 ; Last applies Y velocity (+ impulse)
 PhysicsObj_MaxVelFloorX 		rs.l 1 ; Max X velocity (on floor)
 PhysicsObj_MaxVelAirX 			rs.l 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    	rs.l 1 ; Max Y velocity up
@@ -83,6 +87,7 @@ PhysicsObjInit:
 	ori.l  #entity_type_physicsobj, Entity_TypeBits(a0)
 	
 	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.l #0x0, PhysicsObj_LastCeiling(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
@@ -93,6 +98,10 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_DecelX(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_ImpulseX(a0)
+	move.l #0x0, PhysicsObj_ImpulseY(a0)
+	move.l #0x0, PhysicsObj_LastAppliedVelX(a0)
+	move.l #0x0, PhysicsObj_LastAppliedVelY(a0)
 	move.l #0x0, PhysicsObj_WindResistanceFloor(a0)
 	move.l #0x0, PhysicsObj_WindResistanceAir(a0)
 	move.w #0x0, PhysicsObj_BounceX(a0)
@@ -432,6 +441,10 @@ PhysicsObjApplyVelocity:
 	
 	; Move player X by velocity
 	move.l PhysicsObj_VelX(a0), d0		; Fetch X vel from RAM
+
+	; Apply impulse and clear
+	add.l  PhysicsObj_ImpulseX(a0), d0
+	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	
 	; Apply speed div
 	clr.l  d1
@@ -441,9 +454,14 @@ PhysicsObjApplyVelocity:
 	move.l Entity_WorldPosX(a0), d1		; Get pos
 	add.l d0, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)	; Save for attached platforms/barriers
 	
 	; Move player Y by velocity
 	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
+
+	; Apply impulse and clear
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l #0x0, PhysicsObj_ImpulseY(a0)
 	
 	; Apply speed div
 	clr.l  d1
@@ -453,6 +471,7 @@ PhysicsObjApplyVelocity:
 	move.l Entity_WorldPosY(a0), d1		; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)	; Save for attached platforms/barriers
 
 	rts
 
@@ -519,6 +538,8 @@ PhysicsObjCollisionCorrection:
 	cmp.l  #0x0, PhysicsObj_VelY(a0)
 	beq    @HeadingNowhereY
 
+	move.b PhysicsObj_OnFloor(a0), d4
+
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	cmp.l  #0x0, d2
 	beq    @Uninitialised							; First frame, uninitialised
@@ -532,8 +553,11 @@ PhysicsObjCollisionCorrection:
 	blt    @AboveFloor
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
+	; If hit floor this frame, handle bounce
 	clr.l  d0										; Zero Y velocity by default
 	clr.l  d1
+	cmp.b  #0x0, d4
+	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	cmp.w  #0x0, d1
 	beq    @NoBounceY
@@ -543,8 +567,8 @@ PhysicsObjCollisionCorrection:
 	neg.l  d0										; Negate Y velocity
 	DIVS1616_LOSSY d1, d0							; Div by bounce
 	@NoBounceY:
-	move.l d0, PhysicsObj_VelY(a0)
-	
+
+	move.l d0, PhysicsObj_VelY(a0)					; Clear Y velocity
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
 	bra    @EndFloorTest
@@ -740,6 +764,11 @@ PhysicsObjFindFloor:
 	; Check if active
 	cmp.b  #0x0, Platform_Active(a3)
 	beq    @NextPlatform
+
+	; Ignore self
+	move.l Platform_Owner(a3), d2
+	cmp.l  a0, d2
+	beq    @NextPlatform
 	
 	; Get platform Left and Right X
 	move.l Platform_PosX(a3), d2
@@ -780,8 +809,7 @@ PhysicsObjFindFloor:
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
 	
 	; Add platform X velocity
-	move.w Platform_VelX(a3), d2
-	ext.l  d2
+	move.l Platform_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
 
 	; Mark platform occupied
@@ -1054,8 +1082,9 @@ PhysicsObjFindCeiling:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Cleat last ceiling found
+	; Clear last ceiling found
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
+	clr.l  d4
 	
 	;==============================================================
 	
@@ -1347,13 +1376,15 @@ PhysicsObjPushPullObj:
 
 	@EndPenetration:
 	
-	; Set new X position
-	andi.l #0x0000FFFF, d5					; To world space
-	TOSUBPIXELS d5
-	move.l d5, Entity_WorldPosX(a2)
-	
 	; Inherit X velocity
 	move.l PhysicsObj_VelX(a0), PhysicsObj_VelX(a2)
+
+	; Add penetration as X impulse
+	andi.l #0x0000FFFF, d5					; To world space
+	TOSUBPIXELS d5
+	move.l Entity_WorldPosX(a2), d4
+	sub.l  d4, d5
+	add.l  d5, PhysicsObj_ImpulseX(a2)
 
 	;==============================================================
 

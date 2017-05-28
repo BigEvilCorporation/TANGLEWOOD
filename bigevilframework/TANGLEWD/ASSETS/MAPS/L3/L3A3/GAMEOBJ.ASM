@@ -22,6 +22,8 @@ L3A3_Monster_count equ 0x0
 
 L3A3_Firefly_count equ 0x0
 
+L3A3_FuzzlCage_count equ 0x0
+
 L3A3_Fuzzl_count equ 0x0
 
 L3A3_Stone_count equ 0x0
@@ -64,6 +66,8 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Monster, a0
 
 	move.l #EntityArray_Firefly, a0
+
+	move.l #EntityArray_FuzzlCage, a0
 
 	move.l #EntityArray_Fuzzl, a0
 

@@ -52,6 +52,7 @@
 	include 'assets\sprites\firefly.asm'
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
+	include 'assets\sprites\fuzlcage.asm'
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
@@ -86,6 +87,7 @@
 	ENDIF
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
+	include 'assets\anims\fuzlcage.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rain.asm'

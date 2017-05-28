@@ -357,6 +357,7 @@ EntityArray_AIMarker    rs.b (AIMarker_Struct_Size*AIMarker_MaxEntities)
 EntityArray_Button      rs.b (Button_Struct_Size*Button_MaxEntities)
 EntityArray_Flue        rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
+EntityArray_FuzzlCage   rs.b (FuzzlCage_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nest        rs.b (Nest_Struct_Size*Nest_MaxEntities)
 EntityArray_TriggerBox  rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
@@ -384,6 +385,7 @@ EntityCount_Djrake      rs.w 1
 EntityCount_Firefly     rs.w 1
 EntityCount_Flue        rs.w 1
 EntityCount_Fuzzl       rs.w 1
+EntityCount_FuzzlCage   rs.w 1
 EntityCount_Leaf        rs.w 1
 EntityCount_Nest        rs.w 1
 EntityCount_Boulder     rs.w 1
