@@ -3,37 +3,41 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l3a2.asm - Level 3 - Heritage Act 2
+;   l3a3.asm - Level 3 - Heritage Act 3
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-l3a2_HeritageAct2:
+l3a3_HeritageAct3:
 
 	dc.l tiles_l3						; Tileset
-	dc.l map_blocks_l3a2				; Blocks
-	dc.l map_blockmap_l3a2				; Block map
+	dc.l map_blocks_l3a3				; Blocks
+	dc.l map_blockmap_l3a3				; Block map
 	dc.l collisiontiles_l3				; Collision tileset
-	dc.l collisionmap_blocks_l3a2		; Collision blocks
-	dc.l collisionmap_blockmap_l3a2		; Collision block map
-	dc.l l3a2_DefaultPalettes			; Palettes
-	dc.l l3a2_Init						; Init routine
-	dc.l l3a2_Update					; Update routine
-	dc.l l3a2_Serialise					; Serialise routine
-	dc.l l3a2_LoadGameObjects			; Load game objects routine
-	dc.l l3a2_End						; End routine
-	dc.l l3a3_HeritageAct3				; Next level
-	dc.l DefaultGravity					; Default gravity
-	dc.w map_l3a2_width					; Map width (tiles)
-	dc.w map_l3a2_height				; Map height (tiles)
-	dc.w map_blockmap_l3a2_width		; Map width (blocks)
-	dc.w map_blockmap_l3a2_height		; Map height (blocks)
+	dc.l collisionmap_blocks_l3a3		; Collision blocks
+	dc.l collisionmap_blockmap_l3a3		; Collision block map
+	dc.l l3a3_DefaultPalettes			; Palettes
+	dc.l l3a3_Init						; Init routine
+	dc.l l3a3_Update					; Update routine
+	dc.l l3a3_Serialise					; Serialise routine
+	dc.l l3a3_LoadGameObjects			; Load game objects routine
+	dc.l l3a3_End						; End routine
+	IF INCLUDE_LEVEL_4
+	dc.l l4a1_TetheredAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
+	dc.l DefaultGravity						; Default gravity
+	dc.w map_l3a3_width					; Map width (tiles)
+	dc.w map_l3a3_height				; Map height (tiles)
+	dc.w map_blockmap_l3a3_width		; Map width (blocks)
+	dc.w map_blockmap_l3a3_height		; Map height (blocks)
 	dc.w tiles_l3_size_t				; Num tiles
 	
 	even
 	
-l3a2_DefaultPalettes:
+l3a3_DefaultPalettes:
 
 	dc.l palette_l3					; World
 	dc.l 0x0						; Djakk (black by default, fades up when approached)
@@ -46,12 +50,12 @@ l3a2_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset 0
-l3a2Data_WaitingInput			rs.b 1
+l3a3Data_WaitingInput			rs.b 1
 ;---------------------------------
-l3a2Data_Struct_Pad      		rs.b 3
-l3a2Data_Struct_Size     		rs.b 0
+l3a3Data_Struct_Pad      		rs.b 3
+l3a3Data_Struct_Size     		rs.b 0
 	
-l3a2_Init:
+l3a3_Init:
 	
 	; Load BG map
 	lea    map_blocks_l3bg, a0
@@ -85,17 +89,17 @@ l3a2_Init:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	move.l #LevelData_L1A1, a2
-	move.b #0x1, l3a2Data_WaitingInput(a2)
+	move.b #0x1, l3a3Data_WaitingInput(a2)
 	
 	rts
 	
-l3a2_Update:
+l3a3_Update:
 
 	move.l #LevelData_L1A1, a2
 	
 	; Check waiting for input
 	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, l3a2Data_WaitingInput(a2)
+	cmp.b #0x0, l3a3Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
 	; Read pad
@@ -127,24 +131,24 @@ l3a2_Update:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Done
-	move.b #0x0, l3a2Data_WaitingInput(a2)
+	move.b #0x0, l3a3Data_WaitingInput(a2)
 	
 	@FinishedLevelStartSequence:
 	@NoInput:
 
 	rts
 	
-l3a2_Serialise:
+l3a3_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 
-l3a2_End:
+l3a3_End:
 	rts
 	
-l3a2_Trigger_End:
+l3a3_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0
