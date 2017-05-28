@@ -7,6 +7,21 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L3A2_size_b	equ 0x0000D260	; Size in bytes
-map_blocks_L3A2_size_w	equ (map_blocks_L3A2_size_b/2)	; Size in words
-map_blocks_L3A2_size_l	equ (map_blocks_L3A2_size_b/4)	; Size in longwords
+spriteanims_cogs:
+
+spriteanim_cogs_spin:
+spriteanim_cogs_spin_numframes: equ 0x2
+spriteanim_cogs_spin_speed: equ 0x28
+spriteanim_cogs_spin_track_frames:
+	dc.b 0x0, 0x1
+	Even
+spriteanim_cogs_spin_track_posx:
+	dc.b 0x00, 0x00
+	Even
+spriteanim_cogs_spin_track_posy:
+	dc.b 0x00, 0x00
+	Even
+spriteanim_cogs_spin_track_sfx:
+	dc.l 0x0, 0x0
+	Even
+

@@ -15,6 +15,8 @@ DBG_DrawWord:
 	; d0 (w)  Word
 	; d1 (ww) Pos (sprite space)
 
+	PUSHM  a0-a2/d0-d4
+
 	ALLOCSTACKB 0x10
 	move.l sp, a0
 	PUSHL  d1
@@ -27,11 +29,15 @@ DBG_DrawWord:
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10
 
+	POPM   a0-a2/d0-d4
+
 	rts
 
 DBG_DrawLong:
 	; d0 (l)  Long
 	; d1 (ww) Pos (sprite space)
+
+	PUSHM  a0-a2/d0-d4
 
 	ALLOCSTACKB 0x10
 	move.l sp, a0
@@ -44,6 +50,8 @@ DBG_DrawLong:
 	move.b #0x1, d2
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10
+
+	POPM   a0-a2/d0-d4
 
 	rts
 

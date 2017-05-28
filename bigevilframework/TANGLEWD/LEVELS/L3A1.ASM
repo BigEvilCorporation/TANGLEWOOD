@@ -68,6 +68,13 @@ l3a1_Init:
 	jsr    l3_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l3a1_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l3a1_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	;==============================================================
 	
 	move.l #Player1, a0
 	

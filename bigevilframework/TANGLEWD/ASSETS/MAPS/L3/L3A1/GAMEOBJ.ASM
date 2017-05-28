@@ -48,6 +48,15 @@ L3A1_Lift_count equ 0x0
 
 L3A1_Button_count equ 0x0
 
+L3A1_Crate_count equ 0x1
+L3A1_Crate_4_idx	equ 0x0
+
+L3A1_Generator_count equ 0x1
+L3A1_Generator1_idx	equ 0x0
+
+L3A1_Cogs_count equ 0x1
+L3A1_Cogs1_idx	equ 0x0
+
 
 L3A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -71,15 +80,15 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_FuzzlCage, a0
 	jsr FuzzlCageInit
-	move.l #0x01800000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
+	move.l #0x04900000, Entity_WorldPosX(a0)
+	move.l #0x04e00000, Entity_WorldPosY(a0)
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 
 	move.l #EntityArray_Fuzzl, a0
 	jsr FuzzlInit
-	move.l #0x01900000, Entity_WorldPosX(a0)
-	move.l #0x04700000, Entity_WorldPosY(a0)
+	move.l #0x04a00000, Entity_WorldPosX(a0)
+	move.l #0x04f00000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
@@ -102,6 +111,28 @@ L3A1_LoadGameObjects:
 	move.l #EntityArray_Lift, a0
 
 	move.l #EntityArray_Button, a0
+
+	move.l #EntityArray_Crate, a0
+	jsr CrateInit
+	move.l #0x03f00000, Entity_WorldPosX(a0)
+	move.l #0x05700000, Entity_WorldPosY(a0)
+	jsr CrateLoadGfx
+	add.l #Crate_Struct_Size, a0
+
+	move.l #EntityArray_Generator, a0
+	jsr GeneratorInit
+	move.l #0x03e00000, Entity_WorldPosX(a0)
+	move.l #0x05b80000, Entity_WorldPosY(a0)
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
+
+	move.l #EntityArray_Cogs, a0
+	jsr CogsInit
+	move.l #0x03b80000, Entity_WorldPosX(a0)
+	move.l #0x05480000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
 
 	rts
 

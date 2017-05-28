@@ -44,6 +44,8 @@
 	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\button.asm'
+	include 'assets\sprites\cogs.asm'
+	include 'assets\sprites\crate.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
 	IF INCLUDE_CHARACTER_ECHO
@@ -53,6 +55,7 @@
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\fuzlcage.asm'
+	include 'assets\sprites\generatr.asm'
 	include 'assets\sprites\nymn.asm'
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
@@ -79,6 +82,7 @@
 	IFND DEBUG
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\button.asm'
+	include 'assets\anims\cogs.asm'
 	include 'assets\anims\djakk.asm'
 	include 'assets\anims\djrake.asm'
 	IF INCLUDE_CHARACTER_ECHO
@@ -88,6 +92,7 @@
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\fuzlcage.asm'
+	include 'assets\anims\generatr.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rain.asm'
