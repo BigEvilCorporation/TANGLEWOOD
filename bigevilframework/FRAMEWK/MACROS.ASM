@@ -172,13 +172,13 @@ ABS: macro valuereg
 
 ;==============================================================
 
-; Lossy 16.16 fixed point divide (converts to 16.8)
+; Lossy 16.16 fixed point divide (converts to 24.8 to avoid overflow)
 DIVS1616_LOSSY: macro div,reg
 	cmp.w  #0x1, \div
 	beq    @ONE\@
-	cmp.w  #0x0, \reg
+	cmp.l  #0x0, \reg
 	beq    @ZERO\@
-	lsr.l  #0x8, \reg
+	asr.l  #0x8, \reg
 	divs.w \div,\reg
 	andi.l #0x0000FFFF, \reg
 	ext.l  \reg
@@ -187,11 +187,11 @@ DIVS1616_LOSSY: macro div,reg
 	@ZERO\@:
 	endm
 
-; With fixed divisor
+; With constant divisor
 DIVS1616_LOSSY_FIXED: macro div,reg
-	cmp.w  #0x0, \reg
+	cmp.l  #0x0, \reg
 	beq    @ZERO\@
-	lsr.l  #0x8, \reg
+	asr.l  #0x8, \reg
 	divs.w \div,\reg
 	andi.l #0x0000FFFF, \reg
 	ext.l  \reg
