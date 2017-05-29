@@ -7,7 +7,13 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L3A1_Leaf_count equ 0x0
+L3A1_Leaf_count equ 0x6
+L3A1_Leaf_8_idx	equ 0x0
+L3A1_Leaf_9_idx	equ 0x1
+L3A1_Leaf_10_idx	equ 0x2
+L3A1_Leaf_11_idx	equ 0x3
+L3A1_Leaf_12_idx	equ 0x4
+L3A1_Leaf_13_idx	equ 0x5
 
 L3A1_Nymn_count equ 0x1
 L3A1_Nymn_1_idx	equ 0x0
@@ -57,9 +63,30 @@ L3A1_Generator1_idx	equ 0x0
 L3A1_Cogs_count equ 0x1
 L3A1_Cogs1_idx	equ 0x0
 
+L3A1_Bridge_count equ 0x1
+L3A1_Bridge_7_idx	equ 0x0
+
 
 L3A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
@@ -133,6 +160,13 @@ L3A1_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
+
+	move.l #EntityArray_Bridge, a0
+	jsr BridgeInit
+	move.l #0x06780000, Entity_WorldPosX(a0)
+	move.l #0x05d00000, Entity_WorldPosY(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 	rts
 

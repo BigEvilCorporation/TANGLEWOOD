@@ -52,6 +52,8 @@ L3A3_Generator_count equ 0x0
 
 L3A3_Cogs_count equ 0x0
 
+L3A3_Bridge_count equ 0x0
+
 
 L3A3_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -102,6 +104,8 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Generator, a0
 
 	move.l #EntityArray_Cogs, a0
+
+	move.l #EntityArray_Bridge, a0
 
 	rts
 

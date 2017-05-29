@@ -83,6 +83,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_AIMarker
 	move.w #0x0, EntityCount_Boulder
 	move.w #0x0, EntityCount_BouncePlant
+	move.w #0x0, EntityCount_Bridge
 	move.w #0x0, EntityArray_Button
 	move.w #0x0, EntityArray_Cogs
 	move.w #0x0, EntityArray_Crate

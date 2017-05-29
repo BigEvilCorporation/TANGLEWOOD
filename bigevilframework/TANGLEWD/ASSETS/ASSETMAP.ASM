@@ -43,6 +43,7 @@
 	; ************************************
 	IFND DEBUG
 	include 'assets\sprites\boulder.asm'
+	include 'assets\sprites\bridge.asm'
 	include 'assets\sprites\button.asm'
 	include 'assets\sprites\cogs.asm'
 	include 'assets\sprites\crate.asm'

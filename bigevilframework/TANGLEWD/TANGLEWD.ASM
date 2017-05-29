@@ -103,6 +103,7 @@ __start
 	ENDIF
 	include 'objects\actor.asm'
 	include 'objects\aimarker.asm'
+	include 'objects\bridge.asm'
 	include 'objects\button.asm'
 	include 'objects\crate.asm'
 	include 'objects\checkpnt.asm'
@@ -386,6 +387,7 @@ __vinterrupt:
 	include '..\framewk\globals.asm'
 	include '..\framewk\charmap.asm'
 	include '..\framewk\sintable.asm'
+	include '..\framewk\costable.asm'
 
 	; Include game data
 	include 'globals.asm'
