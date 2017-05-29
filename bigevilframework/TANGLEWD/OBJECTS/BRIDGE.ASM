@@ -16,10 +16,11 @@ Bridge_NotchDiameter	equ 0x10
 Bridge_NumNotches		equ Bridge_Width/Bridge_NotchWidth
 Bridge_MaxNotchSpiralRadius	equ 0x20
 Bridge_MinNotchSpiralRadius	equ 0x10
+Bridge_UnrollSpeed		equ 0x28
 
-Bridge_PlatformWidth		equ Bridge_Width	; Physics platform width
-Bridge_UpperPlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
-Bridge_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
+Bridge_PlatformWidth	equ Bridge_Width	; Physics platform width
+Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
+Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 
 Bridge_SpiralCoords:
 	dc.b 0,0
@@ -96,6 +97,22 @@ BridgeLoadGfx:
 	; Load sprite
 	SPRITE_LOAD_DEFAULT Bridge,PaletteId_World0,0x0
 
+	; Setup platform (deactivated)
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.l a0, Platform_Owner(a2)
+	move.b #0x0, Platform_Active(a2)
+	move.w #Bridge_PlatformWidth, Platform_Width(a2)
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #Bridge_PlatformXOffset*subpixels_per_pixel, d0
+	add.l  #Bridge_PlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	move.l #0x0, Platform_VelX(a2)
+	move.l #0x0, Platform_VelY(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
+
 	rts
 	
 BridgeUpdate:
@@ -104,8 +121,45 @@ BridgeUpdate:
 	
 	; Base functionality
 	jsr    SpriteObjUpdate
+
+	clr.l  d4
+	move.w Bridge_UnrollPos(a0), d4
+
+	; TODO: Move to BridgeBeginRoll/BridgeBeginUnroll
+	move.l #Player1, a2
+	move.l Entity_WorldPosX(a2), d0
+	move.l Entity_WorldPosX(a0), d1
+	sub.l  d0, d1
+	cmp.l  #(Player1Width+0x10)*subpixels_per_pixel, d1
+	bgt    @NoUnroll
+
+	; Activate platform
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.b #0x1, Platform_Active(a2)
 	
-	add.w  #0x1, Bridge_UnrollPos(a0)
+	; Unroll
+	add.w  #Bridge_UnrollSpeed, d4
+
+	bra    @EndUnroll
+
+	@NoUnroll:
+
+	; Disable platform
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.b #0x0, Platform_Active(a2)
+
+	; Roll
+	sub.w  #Bridge_UnrollSpeed, d4
+
+	@EndUnroll:
+
+	; Clamp
+	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
+
+	; Apply
+	move.w d4, Bridge_UnrollPos(a0)
 
 	rts
 
@@ -128,71 +182,54 @@ BridgeDraw:
 	move.l #0x0, d2
 	@NotchDrawLp:
 
-	; Get notch idx
+	; Clear position offset
 	clr.l  d3
 	clr.l  d4
-	move.b d2, d3
 
-	; To X pos (as if straight)
-	;mulu   #Bridge_NotchWidth, d3
+	; Check if within flat or rolled section
+	clr.l  d7
+	move.w Bridge_UnrollPos(a0), d7
+	lsr.w  #0x8, d7
+	cmp.b  d2, d7
+	bge    @Flat
 
+	; Rolled section
 	lea    Bridge_SpiralCoords, a2
-	lsl.w  #0x1, d3
-	add.l  d3, a2
-	move.w (a2), d3
+	move.b d2, d3	; Get index
+	sub.b  d7, d3	; Offset spiral start by unroll pos
+	lsl.w  #0x1, d3	; 2 bytes per coord
+	add.l  d3, a2	; Offset into coord table
+	move.w (a2), d3	; Get coord
 	move.w d3, d4
-	lsr.w  #0x8, d3
-	andi.w #0xFF, d4
-	ext.w  d3
+	lsr.w  #0x8, d3	; X
+	andi.w #0xFF, d4; Y
+	ext.w  d3		; Sign extend
 	ext.w  d4
+	mulu   #Bridge_NotchWidth, d7 ; Add X offset
+	add.w  d7, d3
+	bra    @EndSpiral
 
-	; Sin/cos of current notch idx
-	; Translate to -127-127 range
-	;mulu   #sintablesize/Bridge_NumNotches, d3
-	;mulu   #costablesize/Bridge_NumNotches, d4
-	;
-	;; Lookup sin/cos
-	;lea    costable, a2
-	;lea    sintable, a3
-	;add.l  d3, a2
-	;add.l  d4, a3
-	;move.b (a2), d3
-	;move.b (a3), d4
-	;ext.w  d3
-	;ext.w  d4
-	;
-	;; To subpixels
+	@Flat:
+
+	; Flat X offset
+	clr.l  d7
+	move.b d2, d7
+	mulu   #Bridge_NotchWidth, d7
+	move.w d7, d3
+
+	@EndSpiral:
+
+	; To subpixels
 	TOSUBPIXELS d3
 	TOSUBPIXELS d4
-	;
-	;; Reduce radius to fit all notches together
-	;;clr.l  d7
-	;;move.b d2, d7
-	;;mulu   #(Bridge_MaxNotchSpiralRadius-Bridge_MinNotchSpiralRadius)/Bridge_NumNotches, d7
-	;
-	;clr.l  d7
-	;;move.w Bridge_UnrollPos(a0), d7
-	;;lsr.w  #0x8, d7
-	;move.b d2, d7
-	;add.w  #(sintablemax-sintablemin)/2/Bridge_MaxNotchSpiralRadius, d7
-	;
-	;DIVS1616_LOSSY d7, d3
-	;DIVS1616_LOSSY d7, d4
-	;
-	;; Get circle origin
-	move.l d5, d0
-	move.l d6, d1
-	;
-	;; Offset origin to bridge pos
-	;; sub.l  #(Bridge_MaxNotchSpiralRadius+Bridge_NotchWidth)*subpixels_per_pixel, d4
-	;
-	;; Add sin/cos offset
-	add.l  d3, d0
-	add.l  d4, d1
+
+	; Add circle origin
+	add.l  d5, d3
+	add.l  d6, d4
 
 	; Set pos
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
+	move.l d3, Entity_WorldPosX(a0)
+	move.l d4, Entity_WorldPosY(a0)
 
 	; Draw
 	PUSHM  d0-d2
