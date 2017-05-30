@@ -16,8 +16,8 @@ Barrier_VelX			rs.l 1
 Barrier_VelY			rs.l 1
 Barrier_Width			rs.w 1
 Barrier_Height			rs.w 1
-Barrier_Thickness		rs.w 1
+Barrier_Active			rs.b 1
 ;---------------------------------
-Barrier_Struct_Pad		rs.b 2
+Barrier_Struct_Pad		rs.b 3
 Barrier_Struct_Size		rs.b 0
 ;---------------------------------

@@ -110,8 +110,10 @@ ButtonUpdate:
 	bne    @End
 
 	; Trigger
-	PUSHL  a0
 	move.l Button_OnDown(a0), a2
+	cmp.l  #0x0, a2
+	beq    @End
+	PUSHL  a0
 	move.l Button_UserData(a0), a0
 	jsr    (a2)
 	POPL   a0
@@ -130,8 +132,10 @@ ButtonUpdate:
 	beq    @End
 
 	; Un-trigger
-	PUSHL  a0
 	move.l Button_OnUp(a0), a2
+	cmp.l  #0x0, a2
+	beq    @End
+	PUSHL  a0
 	move.l Button_UserData(a0), a0
 	jsr    (a2)
 	POPL   a0

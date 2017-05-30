@@ -961,6 +961,10 @@ PhysicsObjFindWall:
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
 
+	; Ignore inactive barriers
+	cmp.b  #0x0, Barrier_Active(a3)
+	beq    @NextBarrier
+
 	; Ignore barriers shorter than min wall height
 	move.w Barrier_Height(a3), d3
 	move.w PhysicsObj_MinWallHeight(a0), d4
