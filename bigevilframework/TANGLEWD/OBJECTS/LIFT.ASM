@@ -37,12 +37,12 @@ Lift_RopeSegments			rs.l Lift_RopeNumSprites
 	ELSE
 Lift_RopeSegment			rs.b SpriteObj_Struct_Size
 	ENDIF
-Lift_OriginX				rs.l 1
+Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
+Lift_OriginX				rs.l 1	; Origin (won't lower beyond this point)
 Lift_OriginY				rs.l 1
-Lift_RopeSpriteFirstID     	rs.w 1
-Lift_RopeSpritesCount  		rs.w 1
+Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 ;---------------------------------
-Lift_Struct_Pad   			rs.b 2   ; Alignment padding
+Lift_Struct_Pad   			rs.b 3  ; Alignment padding
 Lift_Struct_Size  			rs.b 0
 ;---------------------------------
 
@@ -83,6 +83,8 @@ LiftInit:
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	move.l  #0x0, Lift_CounterWeight(a0)
+	move.b  #0x1, Lift_RestrictHeight(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -134,9 +136,9 @@ LiftInit:
 
 	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
-	; Single static, reusable rope segment
-	add.l #Lift_RopeSegment, a0
-	jsr   SpriteObjInit
+	; Single, static, reusable rope segment
+	add.l  #Lift_RopeSegment, a0
+	jsr    SpriteObjInit
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.w #Rope_Width, Entity_Width(a0)
@@ -174,7 +176,7 @@ LiftLoadGfx:
 
 	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
-	; Single static, reusable rope segment
+	; Single, static, reusable rope segment
 	PUSHL a0
 	add.l #Lift_RopeSegment, a0
 	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
@@ -187,6 +189,35 @@ LiftLoadGfx:
 	; Get origin
 	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
 	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
+
+	rts
+
+LiftAttachCounterweightLift:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Counterweight lift addr
+
+	; Set counterweight
+	move.l  a2, Lift_CounterWeight(a0)
+
+	; Disable gravity
+	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
+	move.b  #0x0, PhysicsObj_AffectedByGravity(a2)
+
+	; Match up/down speeds
+	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a0)
+	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a2)
+	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a2)
+
+	; Disable height restriction
+	move.b  #0x0, Lift_RestrictHeight(a0)
+	move.b  #0x0, Lift_RestrictHeight(a2)
+
+	; HACK: Fixes off-screen counterweights
+	; TODO: Update each other
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a2)
 
 	rts
 
@@ -259,6 +290,7 @@ LiftActivate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Move lift up
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
 
 	rts
@@ -268,6 +300,77 @@ LiftStop:
 	; a1 --- Level addr
 
 	move.w #0x0, PhysicsObj_AccelY(a0)
+
+	rts
+
+LiftProcessCounterweight:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Counterweight lift addr
+
+	; Check this lift platform for occupant
+	move.l a0, a3
+	add.l  #Lift_Platform, a3
+	cmp.b  #0x0, Platform_Occupied(a3)
+	beq    @ThisLiftUnoccupied
+
+	; Occupied, check if on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	beq    @ThisLiftInAir
+
+	; On floor, stop both lifts
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a2)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelY(a2)
+	bra    @EndCounterweight
+
+	@ThisLiftInAir:
+
+	; In air, start moving lifts in opposite directions
+	move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
+	move.w #Lift_AccelY, PhysicsObj_AccelY(a2)
+	bra    @EndCounterweight
+
+	@ThisLiftUnoccupied:
+
+	;==============================================================
+
+	; Check other lift platform for occupant
+	move.l a2, a3
+	add.l  #Lift_Platform, a3
+	cmp.b  #0x0, Platform_Occupied(a3)
+	beq    @OtherLiftUnoccupied
+
+	; Occupied, check if on floor
+	cmp.b  #0x0, PhysicsObj_OnFloor(a2)
+	beq    @OtherLiftInAir
+
+	; On floor, stop both lifts
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a2)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelY(a2)
+	bra    @EndCounterweight
+
+	@OtherLiftInAir:
+	
+	; In air, start moving lifts in opposite directions
+	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+	move.w #-Lift_AccelY, PhysicsObj_AccelY(a2)
+	bra    @EndCounterweight
+
+	@OtherLiftUnoccupied:
+
+	;==============================================================
+
+	; Both lifts unoccupied, stop
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a2)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelY(a2)
+
+	@EndCounterweight:
 
 	rts
 	
@@ -340,8 +443,24 @@ LiftUpdate:
 	move.w d3, PhysicsObj_AccelX(a0)
 
 	ENDIF ; LIFT_ROPE_SUPPORT_SWING
+
+	;==============================================================
+
+	; Get counterweight
+	move.l Lift_CounterWeight(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoCounterweight
+
+	; Process counterweights
+	jsr    LiftProcessCounterweight
+	bra    @EndCounterweight
+
+	@NoCounterweight:
 	
 	;==============================================================
+
+	cmp.b  #0x0, Lift_RestrictHeight(a0)
+	beq    @NoRestrictHeight
 	
 	; Don't fall beyond rope length
 	move.l Entity_WorldPosY(a0), d0
@@ -356,8 +475,12 @@ LiftUpdate:
 	blt    @WithinRopeTop
 	move.l d1, Entity_WorldPosY(a0)
 	@WithinRopeTop:
+
+	@NoRestrictHeight:
 	
 	;==============================================================
+
+	@EndCounterweight:
 	
 	POPL   a1
 	

@@ -74,6 +74,10 @@ CrateInit:
 	move.l  #Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, Crate_PushSFXPlaying(a0)
+
+	; HACK: Fixes off-screen crates not holding buttons down
+	; TODO: Turn off-screen processing on/off if on platform
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)

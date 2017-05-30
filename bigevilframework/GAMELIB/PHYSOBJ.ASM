@@ -61,6 +61,7 @@ PhysicsObj_CollideCeilings  	rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms		rs.b 1 ; Collides with platforms
 PhysicsObj_CollideBarriers		rs.b 1 ; Collides with barriers
 PhysicsObj_FallThroughHoles 	rs.b 1 ; Ignores terrain tiles with 'hole' flag
+PhysicsObj_AffectedByGravity   	rs.b 1 ; Gets pushed by gravity force
 PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
 PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
@@ -71,7 +72,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 3
+PhysicsObj_Struct_Pad      		rs.b 2
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -123,6 +124,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
+	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b #0x1, PhysicsObj_AffectedByWind(a0)
 
 	rts
@@ -365,6 +367,9 @@ PhysicsObjApplyWorldForces:
 
 	;==============================================================
 	; Apply gravity
+
+	cmp.b  #0x0, PhysicsObj_AffectedByGravity(a0)
+	beq    @NotAffectedByGravity
 	
 	; Get gravity
 	move.l PhysicsWorld_Gravity(a2), d2
@@ -386,6 +391,8 @@ PhysicsObjApplyWorldForces:
 
 	; Set
 	move.l d5, PhysicsObj_VelY(a0)
+
+	@NotAffectedByGravity:
 
 	;==============================================================
 	; Apply wind

@@ -88,6 +88,11 @@ l3a1_Init:
 	move.l #BridgeBeginUnroll, Button_OnDown(a0)
 	move.l #BridgeBeginRoll, Button_OnUp(a0)
 
+	; Connect lifts to counterweights
+	ENTITY_GETBYNAME Lift, l3a1_Lift1, a0
+	ENTITY_GETBYNAME Lift, l3a1_Lift2, a2
+	jsr    LiftAttachCounterweightLift
+
 	;==============================================================
 	
 	move.l #Player1, a0

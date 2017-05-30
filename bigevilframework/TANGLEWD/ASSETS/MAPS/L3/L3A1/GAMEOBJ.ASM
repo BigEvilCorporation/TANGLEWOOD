@@ -17,7 +17,7 @@ L3A1_Leaf_13_idx	equ 0x5
 L3A1_Leaf_14_idx	equ 0x6
 
 L3A1_Nymn_count equ 0x1
-L3A1_Nymn_1_idx	equ 0x0
+L3A1_Nymn_21_idx	equ 0x0
 
 L3A1_Echo_count equ 0x0
 
@@ -51,7 +51,9 @@ L3A1_Location_count equ 0x0
 
 L3A1_Deathbox_count equ 0x0
 
-L3A1_Lift_count equ 0x0
+L3A1_Lift_count equ 0x2
+L3A1_Lift2_idx	equ 0x0
+L3A1_Lift1_idx	equ 0x1
 
 L3A1_Crate_count equ 0x1
 L3A1_Crate_4_idx	equ 0x0
@@ -95,8 +97,8 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00b00000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x00a80000, Entity_WorldPosX(a0)
+	move.l #0x04180000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
@@ -141,11 +143,21 @@ L3A1_LoadGameObjects:
 	move.l #EntityArray_Deathbox, a0
 
 	move.l #EntityArray_Lift, a0
+	jsr LiftInit
+	move.l #0x0d680000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
+	jsr LiftInit
+	move.l #0x0cb80000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 	move.l #EntityArray_Crate, a0
 	jsr CrateInit
-	move.l #0x03f00000, Entity_WorldPosX(a0)
-	move.l #0x05700000, Entity_WorldPosY(a0)
+	move.l #0x04800000, Entity_WorldPosX(a0)
+	move.l #0x05880000, Entity_WorldPosY(a0)
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 
