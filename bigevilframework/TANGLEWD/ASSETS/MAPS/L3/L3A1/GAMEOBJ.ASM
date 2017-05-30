@@ -7,13 +7,14 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L3A1_Leaf_count equ 0x6
+L3A1_Leaf_count equ 0x7
 L3A1_Leaf_8_idx	equ 0x0
 L3A1_Leaf_9_idx	equ 0x1
 L3A1_Leaf_10_idx	equ 0x2
 L3A1_Leaf_11_idx	equ 0x3
 L3A1_Leaf_12_idx	equ 0x4
 L3A1_Leaf_13_idx	equ 0x5
+L3A1_Leaf_14_idx	equ 0x6
 
 L3A1_Nymn_count equ 0x1
 L3A1_Nymn_1_idx	equ 0x0
@@ -52,8 +53,6 @@ L3A1_Deathbox_count equ 0x0
 
 L3A1_Lift_count equ 0x0
 
-L3A1_Button_count equ 0x0
-
 L3A1_Crate_count equ 0x1
 L3A1_Crate_4_idx	equ 0x0
 
@@ -64,11 +63,17 @@ L3A1_Cogs_count equ 0x1
 L3A1_Cogs1_idx	equ 0x0
 
 L3A1_Bridge_count equ 0x1
-L3A1_Bridge_7_idx	equ 0x0
+L3A1_Bridge1_idx	equ 0x0
+
+L3A1_Button_count equ 0x1
+L3A1_Button1_idx	equ 0x0
 
 
 L3A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
+	jsr LeafInit
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
@@ -137,8 +142,6 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Lift, a0
 
-	move.l #EntityArray_Button, a0
-
 	move.l #EntityArray_Crate, a0
 	jsr CrateInit
 	move.l #0x03f00000, Entity_WorldPosX(a0)
@@ -167,6 +170,13 @@ L3A1_LoadGameObjects:
 	move.l #0x05d00000, Entity_WorldPosY(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
+
+	move.l #EntityArray_Button, a0
+	jsr ButtonInit
+	move.l #0x06380000, Entity_WorldPosX(a0)
+	move.l #0x05c80000, Entity_WorldPosY(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
 
 	rts
 

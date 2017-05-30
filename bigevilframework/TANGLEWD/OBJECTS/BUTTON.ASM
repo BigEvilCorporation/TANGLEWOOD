@@ -11,7 +11,8 @@ Button_MaxEntities		equ 0x2
 Button_Width			equ 0x40
 Button_Height			equ 0x08
 Button_PressSpeed		equ 0x00001000
-Button_PressHeightMax	equ 0x00030000
+Button_PressHeightMaxActive		equ 0x00030000
+Button_PressHeightMaxInactive	equ 0x00010000
 
 	rsset (AnimObj_Struct_Size)
 ;---------------------------------
@@ -21,9 +22,10 @@ Button_PressHeight			rs.l 1
 Button_OnDown				rs.l 1
 Button_OnUp					rs.l 1
 Button_UserData				rs.l 1
+Button_Active				rs.b 1
 Button_Pressed				rs.b 1
 ;---------------------------------
-Button_Struct_Pad			rs.b 3   ; Alignment padding
+Button_Struct_Pad			rs.b 2   ; Alignment padding
 Button_Struct_Size			rs.b 0
 ;---------------------------------
 
@@ -50,6 +52,7 @@ ButtonInit:
 	move.w  #Button_Width, Entity_Width(a0)
 	move.w  #Button_Height, Entity_Height(a0)
 	move.l  #0x0, Button_PressHeight(a0)
+	move.b  #0x0, Button_Active(a0)
 	move.b  #0x0, Button_Pressed(a0)
 
 	;==============================================================
@@ -105,6 +108,10 @@ ButtonUpdate:
 	; Player on button, move platform down
 	add.l  #Button_PressSpeed, d0
 
+	; If active, trigger
+	cmp.b  #0x0, Button_Active(a0)
+	beq    @NoTrigger
+
 	; Filter trigger events
 	cmp.b  #0x0, Button_Pressed(a0)
 	bne    @End
@@ -118,7 +125,10 @@ ButtonUpdate:
 	jsr    (a2)
 	POPL   a0
 
+	; Set pressed
 	move.b #0x1, Button_Pressed(a0)
+
+	@NoTrigger:
 
 	bra    @End
 	
@@ -140,6 +150,7 @@ ButtonUpdate:
 	jsr    (a2)
 	POPL   a0
 
+	; Set depressed
 	move.b #0x0, Button_Pressed(a0)
 
 	@End:
@@ -147,7 +158,13 @@ ButtonUpdate:
 	;==============================================================
 
 	; Clamp new button press height
-	CLAMP  d0, #0x0, #Button_PressHeightMax
+	cmp.b  #0x0, Button_Active(a0)
+	beq    @InactiveClamp
+	CLAMP  d0, #0x0, #Button_PressHeightMaxActive
+	bra    @EndClamp
+	@InactiveClamp:
+	CLAMP  d0, #0x0, #Button_PressHeightMaxInactive
+	@EndClamp:
 
 	; Store
 	move.l d0, Button_PressHeight(a0)
@@ -189,5 +206,13 @@ ButtonSerialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	rts
+
+ButtonActivate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.b #0x1, Button_Active(a0)
 
 	rts

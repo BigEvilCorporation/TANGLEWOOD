@@ -44,8 +44,6 @@ L3A2_Deathbox_count equ 0x0
 
 L3A2_Lift_count equ 0x0
 
-L3A2_Button_count equ 0x0
-
 L3A2_Crate_count equ 0x0
 
 L3A2_Generator_count equ 0x0
@@ -53,6 +51,8 @@ L3A2_Generator_count equ 0x0
 L3A2_Cogs_count equ 0x0
 
 L3A2_Bridge_count equ 0x0
+
+L3A2_Button_count equ 0x0
 
 
 L3A2_LoadGameObjects:
@@ -97,8 +97,6 @@ L3A2_LoadGameObjects:
 
 	move.l #EntityArray_Lift, a0
 
-	move.l #EntityArray_Button, a0
-
 	move.l #EntityArray_Crate, a0
 
 	move.l #EntityArray_Generator, a0
@@ -106,6 +104,8 @@ L3A2_LoadGameObjects:
 	move.l #EntityArray_Cogs, a0
 
 	move.l #EntityArray_Bridge, a0
+
+	move.l #EntityArray_Button, a0
 
 	rts
 

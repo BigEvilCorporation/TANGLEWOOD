@@ -29,6 +29,8 @@ GeneratorAnimIdx_Max     equ 1
 Generator_Animations		rs.b (Animation_Struct_Size*GeneratorAnimIdx_Max)
 Generator_Cogs				rs.l 1
 Generator_Fuzzl				rs.l 1
+Generator_OnActivate		rs.l 1
+Generator_UserData			rs.l 1
 Generator_Running			rs.b 1
 ;-----------------------------
 Generator_Struct_Pad		rs.b 3   ; Alignment padding
@@ -64,6 +66,8 @@ GeneratorInit:
 	move.w  #Generator_Height, Entity_Height(a0)
 	move.l  #0x0, Generator_Cogs(a0)
 	move.l  #0x0, Generator_Fuzzl(a0)
+	move.l  #0x0, Generator_OnActivate(a0)
+	move.l  #0x0, Generator_UserData(a0)
 	move.b  #0x0, Generator_Running(a0)
 	
 	;==============================================================
@@ -116,6 +120,34 @@ GeneratorUpdate:
 	jsr    AnimObjUpdate
 
 	@NoFuzzl:
+
+	rts
+
+Generator_Activate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Fuzzl addr
+
+	cmp.b  #0x0, Generator_Running(a0)
+	bne    @AlreadyRunning
+
+	; Set Fuzzl
+	move.l a2, Generator_Fuzzl(a0)
+
+	; Set running
+	move.b #0x1, Generator_Running(a0)
+
+	; Fire callback
+	move.l Generator_OnActivate(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoCallback
+	PUSHL  a0
+	move.l Generator_UserData(a0), a0
+	jsr    (a2)
+	POPL   a0
+	@NoCallback:
+
+	@AlreadyRunning:
 
 	rts
 	

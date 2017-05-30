@@ -673,8 +673,12 @@ FuzzlFindGenerator:
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	
-	; Generator is occupied
-	move.l a0, Generator_Fuzzl(a3)
+	; Activate generator
+	PUSHM  a0-a3
+	move.l a0, a2	; Fuzzl to a2
+	move.l a3, a0	; Generator to a0
+	jsr    Generator_Activate
+	POPM   a0-a3
 	
 	; Don't update when out of view
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)

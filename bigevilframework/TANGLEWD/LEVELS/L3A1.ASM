@@ -74,6 +74,20 @@ l3a1_Init:
 	ENTITY_GETBYNAME Cogs, l3a1_Cogs1, a1
 	move.l a1, Generator_Cogs(a0)
 
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l3a1_Generator1, a0
+	ENTITY_GETBYNAME Button, l3a1_Button1, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l3a1_Button1, a0
+	ENTITY_GETBYNAME Bridge, l3a1_Bridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.l #BridgeBeginRoll, Button_OnUp(a0)
+
 	;==============================================================
 	
 	move.l #Player1, a0
