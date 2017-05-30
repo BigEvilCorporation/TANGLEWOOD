@@ -19,7 +19,7 @@ Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
 Leaf_MaxVelX       equ 0x040000
 Leaf_MaxVelY       equ Leaf_FallVelocity
-Leaf_DecelX        equ 0x000300
+Leaf_DecelX        equ 0x000600
 Leaf_Mass          equ 0x1
 
 WorldToLeafWindowX equ (Leaf_WindowBorderX-vdp_sprite_border_x)*subpixels_per_pixel
