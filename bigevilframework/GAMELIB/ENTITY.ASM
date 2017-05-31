@@ -58,9 +58,7 @@ EntityAddToUpdateList:
 
 EntityAddToRenderList:
 	; a0 --- Entity addr
-
 	LIST_APPEND_TAIL EntityRender,a0,a3
-	
 	rts
 	
 EntityAddToSerialiseList:

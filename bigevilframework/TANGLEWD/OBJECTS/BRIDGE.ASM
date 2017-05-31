@@ -51,6 +51,10 @@ Bridge_StateOpen		equ 1
 Bridge_StateRolling		equ 2
 Bridge_StateUnrolling	equ 3
 
+; Roll direction
+Bridge_RollUp			equ 0
+Bridge_RollDown			equ 1
+
 ;==============================================================
 
 ; Struct
@@ -59,9 +63,10 @@ Bridge_StateUnrolling	equ 3
 Bridge_Platform			rs.b Platform_Struct_Size	; Physics platform (when down)
 Bridge_Barrier			rs.b Barrier_Struct_Size	; Physic barrier (when up)
 Bridge_UnrollPos		rs.w 1
+Bridge_RollDirection	rs.b 1
 Bridge_State			rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 1   ; Alignment padding
+Bridge_Struct_Pad		rs.b 0   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -94,6 +99,7 @@ BridgeInit:
 	move.w  #Bridge_Height, Entity_Height(a0)
 	move.w  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
+	move.b  #Bridge_RollUp, Bridge_RollDirection(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -151,6 +157,21 @@ BridgeLoadGfx:
 	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 	move.l d0, Barrier_PosX(a2)
 	move.l d1, Barrier_PosY(a2)
+
+	; Disable barrier if rolling downwards
+	cmp.b  #Bridge_RollUp, Bridge_RollDirection(a0)
+	beq    @RollUp
+	move.b #0x0, Barrier_Active(a2)
+	@RollUp:
+
+	; Set initial state
+	cmp.b  #Bridge_StateClosed, Bridge_state(a0)
+	beq    @Closed
+	jsr    BridgeSnapOpen
+	bra    @End
+	@Closed:
+	jsr    BridgeSnapClosed
+	@End:
 
 	rts
 	
@@ -248,6 +269,10 @@ BridgeDraw:
 	andi.w #0xFF, d4; Y
 	ext.w  d3		; Sign extend
 	ext.w  d4
+	cmp.b  #Bridge_RollUp, Bridge_RollDirection(a0)	; If rolling down, invert Y
+	beq    @RollUp
+	neg.w  d4
+	@RollUp:
 	mulu   #Bridge_NotchWidth, d7 ; Add X offset
 	add.w  d7, d3
 	bra    @EndSpiral
@@ -327,12 +352,47 @@ BridgeSerialise:
 	
 	rts
 
+BridgeSnapOpen:
+
+	move.w #(Bridge_NumNotches<<8), Bridge_UnrollPos(a0)
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.b #0x1, Platform_Active(a2)
+	move.l a0, a2
+	add.l  #Bridge_Barrier, a2
+	move.b #0x0, Barrier_Active(a2)
+
+	move.b Bridge_StateOpen, Bridge_State(a0)
+
+	rts
+
+BridgeSnapClosed:
+
+	move.w #0x0, Bridge_UnrollPos(a0)
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.b #0x0, Platform_Active(a2)
+	move.l a0, a2
+
+	cmp.b  #Bridge_RollDown, Bridge_RollDirection(a0)
+	beq    @RollDown
+	add.l  #Bridge_Barrier, a2
+	move.b #0x1, Barrier_Active(a2)
+	@RollDown:
+
+	move.b Bridge_StateClosed, Bridge_State(a0)
+	
+	rts
+
 BridgeBeginRoll:
 
-	; Activate barrier
+	; Activate barrier (if rolling upwards)
+	cmp.b  #Bridge_RollDown, Bridge_RollDirection(a0)
+	beq    @RollDown
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
 	move.b #0x1, Barrier_Active(a2)
+	@RollDown:
 
 	; Set rolling state
 	move.b #Bridge_StateRolling, Bridge_State(a0)
@@ -354,9 +414,13 @@ BridgeBeginUnroll:
 BridgeUpdateRoll:
 
 	; Advance roll pos
+	clr.l  d3
 	clr.l  d4
+	move.b (GlobalTimeDiv), d3
+	move.l #Bridge_UnrollSpeed, d5
+	divs.w d3, d5
 	move.w Bridge_UnrollPos(a0), d4
-	sub.w  #Bridge_UnrollSpeed, d4
+	sub.w  d5, d4
 	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
 	move.w d4, Bridge_UnrollPos(a0)
 
@@ -364,13 +428,21 @@ BridgeUpdateRoll:
 	cmp.w  #0x0, d4
 	beq    @FinishedRolling
 
+	; Unroll pos to pixels
+	lsr.l  #0x8, d4
+	add.w  #0x1, d4
+	mulu   #Bridge_NotchWidth, d4
+
+	; Set platform width to unroll pos
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.w d4, Platform_Width(a2)
+
 	; Move barrier to unroll pos
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	lsr.l  #0x8, d4
-	mulu   #Bridge_NotchWidth, d4
 	TOSUBPIXELS d4
 	add.l  d4, d0
 	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
@@ -397,9 +469,13 @@ BridgeUpdateRoll:
 BridgeUpdateUnroll:
 
 	; Advance unroll pos
+	clr.l  d3
 	clr.l  d4
+	move.b (GlobalTimeDiv), d3
+	move.l #Bridge_UnrollSpeed, d5
+	divs.w d3, d5
 	move.w Bridge_UnrollPos(a0), d4
-	add.w  #Bridge_UnrollSpeed, d4
+	add.w  d5, d4
 	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
 	move.w d4, Bridge_UnrollPos(a0)
 
@@ -407,13 +483,21 @@ BridgeUpdateUnroll:
 	cmp.w  #(Bridge_NumNotches<<8), d4
 	beq    @FinishedUnrolling
 
+	; Unroll pos to pixels
+	lsr.l  #0x8, d4
+	add.w  #0x1, d4
+	mulu   #Bridge_NotchWidth, d4
+
+	; Set platform width to unroll pos
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.w d4, Platform_Width(a2)
+
 	; Move barrier to unroll pos
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	lsr.l  #0x8, d4
-	mulu   #Bridge_NotchWidth, d4
 	TOSUBPIXELS d4
 	add.l  d4, d0
 	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0

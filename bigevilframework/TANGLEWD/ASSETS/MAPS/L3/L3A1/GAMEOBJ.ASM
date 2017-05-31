@@ -29,18 +29,21 @@ L3A1_Monster_count equ 0x0
 
 L3A1_Firefly_count equ 0x0
 
-L3A1_FuzzlCage_count equ 0x2
+L3A1_FuzzlCage_count equ 0x3
 L3A1_FuzzlCage_2_idx	equ 0x0
 L3A1_FuzzlCage_26_idx	equ 0x1
+L3A1_FuzzlCage_31_idx	equ 0x2
 
-L3A1_Fuzzl_count equ 0x3
+L3A1_Fuzzl_count equ 0x4
 L3A1_Fuzzl_3_idx	equ 0x0
 L3A1_Fuzzl_27_idx	equ 0x1
 L3A1_Fuzzl_30_idx	equ 0x2
+L3A1_Fuzzl_32_idx	equ 0x3
 
 L3A1_Stone_count equ 0x0
 
-L3A1_Nest_count equ 0x0
+L3A1_Nest_count equ 0x1
+L3A1_Nest_33_idx	equ 0x0
 
 L3A1_Flue_count equ 0x0
 
@@ -219,8 +222,13 @@ L3A1_LoadGameObjects:
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 	jsr FuzzlCageInit
-	move.l #0x10d80000, Entity_WorldPosX(a0)
+	move.l #0x10c80000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
+	jsr FuzzlCageLoadGfx
+	add.l #FuzzlCage_Struct_Size, a0
+	jsr FuzzlCageInit
+	move.l #0x13400000, Entity_WorldPosX(a0)
+	move.l #0x03800000, Entity_WorldPosY(a0)
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 
@@ -231,19 +239,30 @@ L3A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x10e80000, Entity_WorldPosX(a0)
+	move.l #0x10d80000, Entity_WorldPosX(a0)
 	move.l #0x04600000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x12580000, Entity_WorldPosX(a0)
-	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.l #0x11980000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x13500000, Entity_WorldPosX(a0)
+	move.l #0x03900000, Entity_WorldPosY(a0)
+	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
 	move.l #EntityArray_Stone, a0
 
 	move.l #EntityArray_Nest, a0
+	jsr NestInit
+	move.l #0x11480000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 	move.l #EntityArray_Flue, a0
 
@@ -283,8 +302,8 @@ L3A1_LoadGameObjects:
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 	jsr GeneratorInit
-	move.l #0x11600000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
+	move.l #0x0f780000, Entity_WorldPosX(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 
@@ -296,8 +315,8 @@ L3A1_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 	jsr CogsInit
-	move.l #0x11780000, Entity_WorldPosX(a0)
-	move.l #0x03f00000, Entity_WorldPosY(a0)
+	move.l #0x0f900000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 
@@ -311,6 +330,7 @@ L3A1_LoadGameObjects:
 	move.l #0x0f680000, Entity_WorldPosX(a0)
 	move.l #0x04780000, Entity_WorldPosY(a0)
 	move.b #Bridge_RollDown, Bridge_RollDirection(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 
@@ -321,8 +341,8 @@ L3A1_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x10580000, Entity_WorldPosX(a0)
-	move.l #0x04700000, Entity_WorldPosY(a0)
+	move.l #0x10180000, Entity_WorldPosX(a0)
+	move.l #0x04380000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 
