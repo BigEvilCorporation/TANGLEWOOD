@@ -144,6 +144,17 @@ CLAMP: macro valuereg,minreg,maxreg
 	@WITHIN_MAX\@:
 	endm
 
+CLAMPW: macro valuereg,minreg,maxreg
+	cmp.w  \minreg,\valuereg
+	bge    @WITHIN_MIN\@
+	move.w \minreg,\valuereg
+	@WITHIN_MIN\@:
+	cmp.w  \maxreg,\valuereg
+	ble    @WITHIN_MAX\@
+	move.w \maxreg,\valuereg
+	@WITHIN_MAX\@:
+	endm
+
 ; Clamp value between A and B, with unknown A/B order
 CLAMP_UNORDERED: macro valuereg,minreg,maxreg,tmpreg
 	cmp.l  \minreg, \maxreg
