@@ -40,6 +40,10 @@ EntityInit:
 	move.w #0x0, Entity_Width(a0)
 	move.w #0x0, Entity_Height(a0)
 	move.b #0x0, Entity_Active(a0)
+
+	move.l #0x0, List_EntityUpdate_Next(a0)
+	move.l #0x0, List_EntityRender_Next(a0)
+	move.l #0x0, List_EntitySerialise_Next(a0)
 	
 	rts
 
@@ -54,7 +58,7 @@ EntityAddToUpdateList:
 
 EntityAddToRenderList:
 	; a0 --- Entity addr
-	
+
 	LIST_APPEND_TAIL EntityRender,a0,a3
 	
 	rts
