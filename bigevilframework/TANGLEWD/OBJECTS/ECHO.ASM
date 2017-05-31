@@ -61,8 +61,10 @@ EchoInit:
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
 	; Setup interaction routines
-	move.l #PlayerStartInteract, Character_InteractStart(a0)
-	move.l #PlayerCancelInteract, Character_InteractCancel(a0)
+	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
+	move.l #PlayerStopColourAbility, Character_InteractCancelA(a0)
+	move.l #PlayerStartInteract, Character_InteractStartB(a0)
+	move.l #PlayerCancelInteract, Character_InteractCancelB(a0)
 	
 	;==============================================================
 	

@@ -54,8 +54,10 @@ NymnInit:
 	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
 	
 	; Setup interaction routines
-	move.l #NymnStartInteract, Character_InteractStart(a0)
-	move.l #NymnCancelInteract, Character_InteractCancel(a0)
+	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
+	move.l #PlayerStopColourAbility, Character_InteractCancelA(a0)
+	move.l #NymnStartInteract, Character_InteractStartB(a0)
+	move.l #NymnCancelInteract, Character_InteractCancelB(a0)
 	
 	;==============================================================
 	

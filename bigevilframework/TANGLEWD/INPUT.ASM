@@ -228,15 +228,19 @@ HandlePlayerInput:
 	@YHandled:
 	
 	; =====================================================================
-	; A - hold to walk instead of run
+	; A - Interact type A
 	; =====================================================================
 	
-	btst #pad_button_a, d0      ; Check A button
-	beq  @NoA                   ; Branch if button off
-	jsr  CharacterCancelRun		; Cancel run
+	btst #pad_button_a, d0			; Check A pressed
+	beq  @NoA
+	btst #pad_button_a, d1			; Check A not already held
+	bne  @EndA
+	jsr  CharacterStartInteractA	; A
 	bra  @EndA
 	@NoA:
-	jsr  CharacterStartRun		; Run
+	btst #pad_button_a, d1			; Check not already released
+	beq  @EndA
+	jsr  CharacterCancelInteractA	; Cancel A
 	@EndA:
 	
 	; =====================================================================
@@ -256,19 +260,19 @@ HandlePlayerInput:
 	@EndB:
 	
 	; =====================================================================
-	; C - interact
+	; C - Interact type B
 	; =====================================================================
 	
 	; Check if current player interaction is using toggle behaviour
 	cmp.b  #0x0, Player_InteractionToggle(a0)
 	bne    @ToggleC
 
-	btst #pad_button_c, d0		; Check C button
-	beq  @NoC					; Branch if button off
-	jsr  CharacterStartInteract	; Start interaction
+	btst #pad_button_c, d0			; Check C button
+	beq  @NoC						; Branch if button off
+	jsr  CharacterStartInteractB	; Start interaction
 	bra  @EndC
 	@NoC:
-	jsr  CharacterCancelInteract
+	jsr  CharacterCancelInteractB
 	bra  @EndC
 
 	@ToggleC:
@@ -277,12 +281,12 @@ HandlePlayerInput:
 	beq  @NoToggleC
 	btst #pad_button_c, d1		; Check C not already held
 	bne  @EndToggleC
-	jsr  CharacterStartInteract	; Start interaction
+	jsr  CharacterStartInteractB	; Start interaction
 	bra  @EndToggleC
 	@NoToggleC:
 	btst #pad_button_c, d1		; Check C not already released
 	beq  @EndToggleC
-	jsr  CharacterCancelInteract
+	jsr  CharacterCancelInteractB
 	@EndToggleC:
 
 	@EndC:

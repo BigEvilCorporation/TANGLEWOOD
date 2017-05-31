@@ -54,8 +54,10 @@ Character_NumSFX			equ 3
 ;---------------------------------
 	LINKED_LIST_NODE Characters		; Linked list entry for characters
 ;---------------------------------
-Character_InteractStart		rs.l 1	; Interact routine address
-Character_InteractCancel	rs.l 1	; Cancel interact routine address
+Character_InteractStartA	rs.l 1	; Interact routine type A address
+Character_InteractCancelA	rs.l 1	; Cancel interact routine type A address
+Character_InteractStartB	rs.l 1	; Interact routine type B address
+Character_InteractCancelB	rs.l 1	; Cancel interact routine type B address
 Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
 Character_SFX				rs.l Character_NumSFX
 Character_JumpVelX			rs.l 1
@@ -110,8 +112,10 @@ CharacterInit:
 	LIST_APPEND_TAIL Characters, a0, a3
 
 	; Default state
-	move.l #0x0, Character_InteractStart(a0)
-	move.l #0x0, Character_InteractCancel(a0)
+	move.l #0x0, Character_InteractStartA(a0)
+	move.l #0x0, Character_InteractCancelA(a0)
+	move.l #0x0, Character_InteractStartB(a0)
+	move.l #0x0, Character_InteractCancelB(a0)
 	move.l #0x0, Character_LastLedgeX(a0)
 	move.l #0x0, Character_LastLedgeY(a0)
 	move.b #0x1, Character_CanJump(a0)
@@ -735,17 +739,33 @@ CharacterCancelRun:
 	POPM   d0-d1
 	
 	rts
-	
-CharacterStartInteract:
-	move.l Character_InteractStart(a0), a2
+
+CharacterStartInteractA:
+	move.l Character_InteractStartA(a0), a2
 	cmp.l  #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)
 	@NoInteract:
 	rts
 	
-CharacterCancelInteract:
-	move.l Character_InteractCancel(a0), a2
+CharacterCancelInteractA:
+	move.l Character_InteractCancelA(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoInteract
+	jsr    (a2)
+	@NoInteract:
+	rts
+
+CharacterStartInteractB:
+	move.l Character_InteractStartB(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoInteract
+	jsr    (a2)
+	@NoInteract:
+	rts
+	
+CharacterCancelInteractB:
+	move.l Character_InteractCancelB(a0), a2
 	cmp.l  #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)

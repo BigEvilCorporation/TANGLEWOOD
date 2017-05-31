@@ -194,6 +194,12 @@ FuzzlCageUpdate:
 	@PrevOnFloor:
 	@LowVel:
 	
+	; If being pushed, set to update out of view
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	beq    @InitialState
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	@InitialState:
+	
 	; Record current Y vel and on OnFloor flag
 	move.l PhysicsObj_VelY(a0), FuzzlCage_LastVelY(a0)
 	move.b PhysicsObj_OnFloor(a0), FuzzlCage_LastOnFloor(a0)
@@ -304,6 +310,9 @@ FuzzlCageSmash:
 
 	; Force set smash frame
 	move.l #0x1<<8, AnimObj_AnimSubFrame(a0)
+
+	; No longer update if out of view
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Play smash SFX
 	; PLAYSFX #SFX_FuzzlCageBreak

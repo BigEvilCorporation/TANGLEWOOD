@@ -379,6 +379,9 @@ FuzzlUpdate:
 	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 
+	; Update if out of view
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
 	; If not already registered as potential flue occupant, do it now
 	cmp.b  #0x0, Fuzzl_FlueOccupant(a0)
 	bne    @Registered

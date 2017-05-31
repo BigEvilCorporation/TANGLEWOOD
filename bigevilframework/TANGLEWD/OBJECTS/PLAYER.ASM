@@ -537,9 +537,6 @@ PlayerBeginColourSwitch:
 	
 	; Start countdown timer
 	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
-
-	; Start ability
-	jsr    PlayerStartColourAbility
 	
 	@Red:
 	
@@ -627,8 +624,7 @@ PlayerStartColourAbility:
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	
 	; Player can't run
-	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
-	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelAirX(a0)
+	jsr    CharacterCancelRun
 
 	bra    @End
 	
@@ -713,7 +709,7 @@ PlayerStopColourAbility:
 	; Red
 	; ************************************
 	@Red:
-	bra    @ReturnColour
+	bra    @End
 	
 	; ************************************
 	; Yellow - glide
@@ -744,6 +740,9 @@ PlayerStopColourAbility:
 	; If inactive, don't bother
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
+
+	; Restore run
+	jsr    CharacterStartRun
 
 	; Reset palette
 	PUSHL  a0
@@ -966,9 +965,6 @@ PlayerUpdateColourAbility:
 	cmp.b  #Player1SlowTimeDiv, d0
 	beq    @EndTimeDiv
 	addi.b #0x1, d0
-
-	; Player can't run
-	jsr    CharacterCancelRun
 
 	bra    @ApplyTime
 	
@@ -1695,9 +1691,8 @@ PlayerCancelInteract:
 	; Restore sprite flip lock
 	move.b #0x0, Character_LockSpriteFlip(a0)
 	
-	; Restore walk speed
-	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	; Restore run
+	jsr    CharacterStartRun
 
 	; Restore jump
 	move.b #0x1, Character_CanJump(a0)
@@ -1773,10 +1768,6 @@ PlayerInteractTest_Fuzzls:
 	move.b Fuzzl_Colour(a2), d0
 	cmp.b  #ColourDrained, d0
 	beq    @NextFuzzl
-
-	; Cancel run/jump movement
-	jsr    CharacterCancelRun
-	jsr    CharacterCancelJump
 	
 	; Fuzzl is home, is in range, and has its colour - take its colour
 	PUSHL  d0
