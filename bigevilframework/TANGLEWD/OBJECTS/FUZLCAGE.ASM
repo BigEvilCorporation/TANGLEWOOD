@@ -48,7 +48,7 @@ FuzzlCage_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
 FuzzlCage_Smashed			rs.b 1	; Cracked open, awaiting respawn
 FuzzlCage_PushSFXPlaying	rs.b 1
 ;-----------------------------
-FuzzlCage_Struct_Pad		rs.b 2   ; Alignment padding
+FuzzlCage_Struct_Pad		rs.b 1   ; Alignment padding
 FuzzlCage_Struct_Size		rs.b 0
 ;-----------------------------
 
