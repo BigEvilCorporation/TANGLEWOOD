@@ -6,6 +6,9 @@
 ;   nymn.asm - The star of the show
 ;==============================================================
 
+; Constants
+Nymn_MaxEntities			equ 1
+
 ; Animations
 NymnAnimIdx_PickupEcho    	equ 0
 ; -------------------------------

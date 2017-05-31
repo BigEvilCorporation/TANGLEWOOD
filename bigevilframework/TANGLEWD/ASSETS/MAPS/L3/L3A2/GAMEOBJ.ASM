@@ -55,6 +55,99 @@ L3A2_Bridge_count equ 0x0
 L3A2_Button_count equ 0x0
 
 
+	IF L3A2_Leaf_count>Leaf_MaxEntities
+	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L3A2_Leaf_count
+	ENDIF
+
+	IF L3A2_Nymn_count>Nymn_MaxEntities
+	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L3A2_Nymn_count
+	ENDIF
+
+	IF L3A2_Echo_count>Echo_MaxEntities
+	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L3A2_Echo_count
+	ENDIF
+
+	IF L3A2_BouncePlant_count>BouncePlant_MaxEntities
+	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L3A2_BouncePlant_count
+	ENDIF
+
+	IF L3A2_Boulder_count>Boulder_MaxEntities
+	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L3A2_Boulder_count
+	ENDIF
+
+	IF L3A2_Monster_count>Monster_MaxEntities
+	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L3A2_Monster_count
+	ENDIF
+
+	IF L3A2_Firefly_count>Firefly_MaxEntities
+	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L3A2_Firefly_count
+	ENDIF
+
+	IF L3A2_FuzzlCage_count>FuzzlCage_MaxEntities
+	inform 2,"Entity array overflow(FuzzlCage) - array size: 0x%d count : 0x%d",FuzzlCage_MaxEntities,L3A2_FuzzlCage_count
+	ENDIF
+
+	IF L3A2_Fuzzl_count>Fuzzl_MaxEntities
+	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L3A2_Fuzzl_count
+	ENDIF
+
+	IF L3A2_Stone_count>Stone_MaxEntities
+	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L3A2_Stone_count
+	ENDIF
+
+	IF L3A2_Nest_count>Nest_MaxEntities
+	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L3A2_Nest_count
+	ENDIF
+
+	IF L3A2_Flue_count>Flue_MaxEntities
+	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L3A2_Flue_count
+	ENDIF
+
+	IF L3A2_TriggerBox_count>TriggerBox_MaxEntities
+	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L3A2_TriggerBox_count
+	ENDIF
+
+	IF L3A2_Checkpoint_count>Checkpoint_MaxEntities
+	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L3A2_Checkpoint_count
+	ENDIF
+
+	IF L3A2_WaterBody_count>WaterBody_MaxEntities
+	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L3A2_WaterBody_count
+	ENDIF
+
+	IF L3A2_Location_count>Location_MaxEntities
+	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L3A2_Location_count
+	ENDIF
+
+	IF L3A2_Deathbox_count>Deathbox_MaxEntities
+	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L3A2_Deathbox_count
+	ENDIF
+
+	IF L3A2_Lift_count>Lift_MaxEntities
+	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L3A2_Lift_count
+	ENDIF
+
+	IF L3A2_Crate_count>Crate_MaxEntities
+	inform 2,"Entity array overflow(Crate) - array size: 0x%d count : 0x%d",Crate_MaxEntities,L3A2_Crate_count
+	ENDIF
+
+	IF L3A2_Generator_count>Generator_MaxEntities
+	inform 2,"Entity array overflow(Generator) - array size: 0x%d count : 0x%d",Generator_MaxEntities,L3A2_Generator_count
+	ENDIF
+
+	IF L3A2_Cogs_count>Cogs_MaxEntities
+	inform 2,"Entity array overflow(Cogs) - array size: 0x%d count : 0x%d",Cogs_MaxEntities,L3A2_Cogs_count
+	ENDIF
+
+	IF L3A2_Bridge_count>Bridge_MaxEntities
+	inform 2,"Entity array overflow(Bridge) - array size: 0x%d count : 0x%d",Bridge_MaxEntities,L3A2_Bridge_count
+	ENDIF
+
+	IF L3A2_Button_count>Button_MaxEntities
+	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L3A2_Button_count
+	ENDIF
+
+
 L3A2_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
 

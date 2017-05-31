@@ -7,6 +7,7 @@
 ;==============================================================
 
 ; Constants
+Echo_MaxEntities			equ 1
 EchoHowlDelay				equ 0x0030	; Delay between Nymn and Echo howling
 
 ; Animations
