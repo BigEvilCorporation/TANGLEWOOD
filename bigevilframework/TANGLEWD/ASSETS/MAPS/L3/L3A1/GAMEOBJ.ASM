@@ -144,13 +144,13 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Lift, a0
 	jsr LiftInit
-	move.l #0x0d680000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x0c400000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
-	move.l #0x0cb80000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x0b900000, Entity_WorldPosX(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 
