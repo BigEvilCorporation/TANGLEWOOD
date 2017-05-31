@@ -231,6 +231,22 @@ spriteanim_nymn_carryechoidle_track_sfx:
 	dc.l 0x0
 	Even
 
+spriteanim_nymn_lookup:
+spriteanim_nymn_lookup_numframes: equ 0x3
+spriteanim_nymn_lookup_speed: equ 0x14
+spriteanim_nymn_lookup_track_frames:
+	dc.b 0x0, 0x1, 0x2
+	Even
+spriteanim_nymn_lookup_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_nymn_lookup_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_nymn_lookup_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
 spriteanim_nymn_run:
 spriteanim_nymn_run_numframes: equ 0x5
 spriteanim_nymn_run_speed: equ 0x38
