@@ -411,7 +411,7 @@ EntityCount_VFX         rs.w 1
 reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"
-	inform 0,"Reserved RAM: %d bytes (%dkb)", reserved_ram_size, (reserved_ram_size/(1024*1024))
+	inform 0,"Reserved RAM: %d bytes (%dkb)", (reserved_ram_size-0x00FF0000), ((reserved_ram_size-0x00FF0000)/1024)
 	inform 0,"-----------------------------------"
 	inform 0,""
 
