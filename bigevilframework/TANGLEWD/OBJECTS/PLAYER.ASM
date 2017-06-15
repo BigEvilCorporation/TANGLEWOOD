@@ -18,7 +18,7 @@ Player1Width	  equ 0x0038
 Player1Height	  equ 0x0030
 
 ; Mass
-Player1Mass		  equ 0x3
+Player1Mass		  equ 0x6
 
 ; Player collision bounds
 Player1BoundsWidth		equ 0x0010
@@ -624,7 +624,7 @@ PlayerStartColourAbility:
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	
 	; Player can't run
-	jsr    CharacterCancelRun
+	;jsr    CharacterCancelRun
 
 	bra    @End
 	
@@ -742,7 +742,7 @@ PlayerStopColourAbility:
 	beq    @ReturnColour
 
 	; Restore run
-	jsr    CharacterStartRun
+	;jsr    CharacterStartRun
 
 	; Reset palette
 	PUSHL  a0

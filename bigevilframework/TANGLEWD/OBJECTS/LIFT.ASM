@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-Lift_MaxEntities		equ 0x4
+Lift_MaxEntities		equ 0x8
 Lift_Width				equ 0x40
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
@@ -308,19 +308,39 @@ LiftProcessCounterweight:
 	; a1 --- Level addr
 	; a2 --- Counterweight lift addr
 
-	; Check this lift platform for occupant
+	; Get total mass of both platforms
 	move.l a0, a3
 	add.l  #Lift_Platform, a3
-	cmp.b  #0x0, Platform_Occupied(a3)
-	beq    @ThisLiftUnoccupied
+	clr.l  d0
+	move.w Platform_TotalMass(a3), d0
 
-	; Occupied, check if on floor
+	move.l a2, a3
+	add.l  #Lift_Platform, a3
+	clr.l  d1
+	move.w Platform_TotalMass(a3), d1
+
+	; Apply diff as velocity
+	sub.w  d0, d1
+	swap   d1
+	move.l d1, PhysicsObj_VelY(a0)
+
+	; Negate for other platform
+	neg.l  d1
+	move.l d1, PhysicsObj_VelY(a2)
+
+	;==============================================================
+
+	; Check this lift platform for floor
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	bgt    @ThisLiftHeadingUp
+
+	; Check if on floor
 	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
 	beq    @ThisLiftInAir
 
 	; On floor, stop both lifts
-	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_AccelY(a2)
+	;move.w #0x0, PhysicsObj_AccelY(a0)
+	;move.w #0x0, PhysicsObj_AccelY(a2)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.l #0x0, PhysicsObj_VelY(a2)
 	bra    @EndCounterweight
@@ -328,27 +348,25 @@ LiftProcessCounterweight:
 	@ThisLiftInAir:
 
 	; In air, start moving lifts in opposite directions
-	move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
-	move.w #Lift_AccelY, PhysicsObj_AccelY(a2)
+	;move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
+	;move.w #Lift_AccelY, PhysicsObj_AccelY(a2)
 	bra    @EndCounterweight
 
-	@ThisLiftUnoccupied:
+	@ThisLiftHeadingUp:
 
 	;==============================================================
 
-	; Check other lift platform for occupant
-	move.l a2, a3
-	add.l  #Lift_Platform, a3
-	cmp.b  #0x0, Platform_Occupied(a3)
-	beq    @OtherLiftUnoccupied
+	; Check other lift platform for floor
+	cmp.l  #0x0, PhysicsObj_VelY(a2)
+	bgt    @OtherLiftHeadingUp
 
-	; Occupied, check if on floor
+	; Check if on floor
 	cmp.b  #0x0, PhysicsObj_OnFloor(a2)
 	beq    @OtherLiftInAir
 
 	; On floor, stop both lifts
-	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_AccelY(a2)
+	;move.w #0x0, PhysicsObj_AccelY(a0)
+	;move.w #0x0, PhysicsObj_AccelY(a2)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.l #0x0, PhysicsObj_VelY(a2)
 	bra    @EndCounterweight
@@ -356,19 +374,19 @@ LiftProcessCounterweight:
 	@OtherLiftInAir:
 	
 	; In air, start moving lifts in opposite directions
-	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
-	move.w #-Lift_AccelY, PhysicsObj_AccelY(a2)
+	;move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+	;move.w #-Lift_AccelY, PhysicsObj_AccelY(a2)
 	bra    @EndCounterweight
 
-	@OtherLiftUnoccupied:
+	@OtherLiftHeadingUp:
 
 	;==============================================================
 
 	; Both lifts unoccupied, stop
-	move.w #0x0, PhysicsObj_AccelY(a0)
-	move.w #0x0, PhysicsObj_AccelY(a2)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	move.l #0x0, PhysicsObj_VelY(a2)
+	;move.w #0x0, PhysicsObj_AccelY(a0)
+	;move.w #0x0, PhysicsObj_AccelY(a2)
+	;move.l #0x0, PhysicsObj_VelY(a0)
+	;move.l #0x0, PhysicsObj_VelY(a2)
 
 	@EndCounterweight:
 

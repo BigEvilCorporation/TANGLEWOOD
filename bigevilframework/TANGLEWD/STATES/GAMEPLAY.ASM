@@ -138,6 +138,7 @@ Gameplay_Update:
 	@PlatformLp:
 	cmp.l  #0x0, a3
 	beq    @NoPlatform
+	move.w #0x0, Platform_TotalMass(a3)
 	move.b #0x0, Platform_Occupied(a3)
 	LIST_GET_NEXT Platforms,a3,a3
 	bra    @PlatformLp

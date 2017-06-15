@@ -50,10 +50,13 @@ Bridge_StateClosed		equ 0
 Bridge_StateOpen		equ 1
 Bridge_StateRolling		equ 2
 Bridge_StateUnrolling	equ 3
+Bridge_StateDropping	equ 4
+Bridge_StateDropped		equ 5
 
-; Roll direction
-Bridge_RollUp			equ 0
-Bridge_RollDown			equ 1
+; Movement mode
+Bridge_ModeRollUp		equ 0
+Bridge_ModeRollDown		equ 1
+Bridge_ModeDrop			equ 2
 
 ;==============================================================
 
@@ -62,8 +65,9 @@ Bridge_RollDown			equ 1
 ;-----------------------------
 Bridge_Platform			rs.b Platform_Struct_Size	; Physics platform (when down)
 Bridge_Barrier			rs.b Barrier_Struct_Size	; Physic barrier (when up)
+Bridge_NotchYPos		rs.l Bridge_NumNotches		; Y position of notches (for drop mode)
 Bridge_UnrollPos		rs.w 1
-Bridge_RollDirection	rs.b 1
+Bridge_Mode	rs.b 1
 Bridge_State			rs.b 1
 ;-----------------------------
 Bridge_Struct_Pad		rs.b 0   ; Alignment padding
@@ -99,7 +103,7 @@ BridgeInit:
 	move.w  #Bridge_Height, Entity_Height(a0)
 	move.w  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
-	move.b  #Bridge_RollUp, Bridge_RollDirection(a0)
+	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -159,10 +163,16 @@ BridgeLoadGfx:
 	move.l d1, Barrier_PosY(a2)
 
 	; Disable barrier if rolling downwards
-	cmp.b  #Bridge_RollUp, Bridge_RollDirection(a0)
-	beq    @RollUp
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
+	bne    @NotRollingDown
 	move.b #0x0, Barrier_Active(a2)
-	@RollUp:
+	@NotRollingDown:
+
+	; Set open if dropping
+	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	bne    @NotDropping
+	move.b #Bridge_StateOpen, Bridge_state(a0)
+	@NotDropping:
 
 	; Set initial state
 	cmp.b  #Bridge_StateClosed, Bridge_state(a0)
@@ -206,12 +216,25 @@ BridgeUpdate:
 
 	;==============================================================
 
-	; Update roll/unroll
+	; If dropping, check for occupant and set drop state
+	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	bne    @NotDropping
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	cmp.b  #0x0, Platform_Occupied(a2)
+	bne    @Unoccupied
+	move.b #Bridge_StateDropping, Bridge_State(a0)
+	@Unoccupied:
+	@NotDropping:
+
+	; Update roll/unroll/drop
 	move.b Bridge_State(a0), d0
 	cmp.b  #Bridge_StateRolling, d0
 	beq    @Rolling
 	cmp.b  #Bridge_StateUnrolling, d0
 	beq    @Unrolling
+	cmp.b  #Bridge_StateDropping, d0
+	beq    @Dropping
 	bra    @End
 
 	@Rolling:
@@ -220,6 +243,10 @@ BridgeUpdate:
 
 	@Unrolling:
 	jsr    BridgeUpdateUnroll
+	bra    @End
+
+	@Dropping:
+	jsr    BridgeUpdateDropping
 
 	@End:
 
@@ -241,6 +268,10 @@ BridgeDraw:
 	PUSHM  d0-d1
 
 	;==============================================================
+
+	; Get Y pos array
+	move.l a0, a3
+	add.l  #Bridge_NotchYPos, a3
 
 	; Draw all notches
 	move.l #0x0, d2
@@ -269,7 +300,7 @@ BridgeDraw:
 	andi.w #0xFF, d4; Y
 	ext.w  d3		; Sign extend
 	ext.w  d4
-	cmp.b  #Bridge_RollUp, Bridge_RollDirection(a0)	; If rolling down, invert Y
+	cmp.b  #Bridge_ModeRollUp, Bridge_Mode(a0)	; If rolling down, invert Y
 	beq    @RollUp
 	neg.w  d4
 	@RollUp:
@@ -295,6 +326,9 @@ BridgeDraw:
 	add.l  d5, d3
 	add.l  d6, d4
 
+	; Add Y offset
+	add.l  (a3), d4
+
 	; Set pos
 	move.l d3, Entity_WorldPosX(a0)
 	move.l d4, Entity_WorldPosY(a0)
@@ -306,6 +340,7 @@ BridgeDraw:
 
 	; Loop
 	add.b  #0x1, d2
+	add.l  #size_long, a3
 	cmp.b  #Bridge_NumNotches, d2
 	bne    @NotchDrawLp
 
@@ -374,7 +409,7 @@ BridgeSnapClosed:
 	move.b #0x0, Platform_Active(a2)
 	move.l a0, a2
 
-	cmp.b  #Bridge_RollDown, Bridge_RollDirection(a0)
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @RollDown
 	add.l  #Bridge_Barrier, a2
 	move.b #0x1, Barrier_Active(a2)
@@ -387,7 +422,7 @@ BridgeSnapClosed:
 BridgeBeginRoll:
 
 	; Activate barrier (if rolling upwards)
-	cmp.b  #Bridge_RollDown, Bridge_RollDirection(a0)
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @RollDown
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
@@ -516,6 +551,48 @@ BridgeUpdateUnroll:
 
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
+
+	@End:
+
+	rts
+
+BridgeUpdateDropping:
+
+	; Advance drop pos
+	clr.l  d3
+	clr.l  d4
+	move.b (GlobalTimeDiv), d3
+	move.l #Bridge_UnrollSpeed, d5
+	divs.w d3, d5
+	move.w Bridge_UnrollPos(a0), d4
+	sub.w  d5, d4
+	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
+	move.w d4, Bridge_UnrollPos(a0)
+
+	; If at end, disable platform and set dropped state
+	cmp.w  #(Bridge_NumNotches<<8), d4
+	beq    @FinishedDropping
+
+	; For each notch up to drop pos, fall under gravity
+	lsr.l  #0x8, d4
+	move.l a0, a2
+	add.l  #Bridge_NotchYPos, a2
+	move.l Level_Gravity(a1), d0
+
+	@NotchLp:
+	add.l  d0, (a2)
+	add.l  #size_long, a2
+	dbra   d4, @NotchLp
+
+	@FinishedDropping:
+
+	; Disable platform
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.b #0x0, Platform_Active(a2)
+
+	; Set dropped state
+	move.b #Bridge_StateDropped, Bridge_State(a0)
 
 	@End:
 

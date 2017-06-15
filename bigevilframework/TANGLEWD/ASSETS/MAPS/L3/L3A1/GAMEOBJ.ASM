@@ -361,7 +361,7 @@ L3A1_LoadGameObjects:
 	jsr BridgeInit
 	move.l #0x0f680000, Entity_WorldPosX(a0)
 	move.l #0x04780000, Entity_WorldPosY(a0)
-	move.b #Bridge_RollDown, Bridge_RollDirection(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0

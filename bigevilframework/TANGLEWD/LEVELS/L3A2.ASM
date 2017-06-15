@@ -68,6 +68,32 @@ l3a2_Init:
 	jsr    l3_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l3a2_Button1, a0
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #l3a2_RollBridgeComboOpen, Button_OnDown(a0)
+	move.l #l3a2_RollBridgeComboClose, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	; Connect lifts to counterweights
+	ENTITY_GETBYNAME Lift, l3a2_Lift1, a0
+	ENTITY_GETBYNAME Lift, l3a2_Lift2, a2
+	jsr    LiftAttachCounterweightLift
+
+	ENTITY_GETBYNAME Lift, l3a2_Lift3, a0
+	ENTITY_GETBYNAME Lift, l3a2_Lift4, a2
+	jsr    LiftAttachCounterweightLift
+
+	; HACK: Update boulder out of view to keep counterweight down
+	ENTITY_GETBYNAME Boulder, l3a2_Boulder1, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	ENTITY_GETBYNAME Boulder, l3a2_Boulder2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	;==============================================================
 	
 	move.l #Player1, a0
 	
@@ -142,6 +168,31 @@ l3a2_Serialise:
 	rts
 
 l3a2_End:
+	rts
+
+l3a2_RollBridgeComboOpen:
+
+	PUSHL  a0
+
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
+	jsr    BridgeBeginUnroll
+
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
+	jsr    BridgeBeginRoll
+
+	POPL   a0
+
+	rts
+
+l3a2_RollBridgeComboClose:
+
+	PUSHL  a0
+
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
+	jsr    BridgeBeginRoll
+
+	POPL   a0
+
 	rts
 	
 l3a2_Trigger_End:

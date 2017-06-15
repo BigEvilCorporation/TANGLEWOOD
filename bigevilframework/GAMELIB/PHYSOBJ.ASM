@@ -819,6 +819,11 @@ PhysicsObjFindFloor:
 	move.l Platform_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
 
+	; Add occupant mass
+	clr.w  d2
+	move.b PhysicsObj_Mass(a0), d2
+	add.w  d2, Platform_TotalMass(a3)
+
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
 

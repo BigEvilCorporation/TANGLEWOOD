@@ -10,7 +10,7 @@
 Boulder_MaxEntities			equ 0x4
 Boulder_Width				equ 0x38
 Boulder_Height				equ 0x38
-Boulder_Mass				equ 0x8
+Boulder_Mass				equ 0x4
 Boulder_MaxVelYUp			equ 0x06*subpixels_per_pixel
 Boulder_MaxVelYDown			equ 0x08*subpixels_per_pixel
 Boulder_StepHeight			equ 0x4
