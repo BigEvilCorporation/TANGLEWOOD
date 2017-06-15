@@ -117,7 +117,7 @@ ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,norep
 	move.l #spriteanim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
 	move.l #spriteanim_\animname\_track_posy, Animation_AnimTrackPositionY(a0)
 	move.l #spriteanim_\animname\_track_sfx, Animation_AnimTrackSFX(a0)
-	move.b #spriteanim_\animname\_speed, Animation_Speed(a0)
+	move.w #spriteanim_\animname\_speed, Animation_Speed(a0)
 	move.b #spriteanim_\animname\_numframes, Animation_Length(a0)
 	move.b #\loop, Animation_Looping(a0)
 	move.b #\zerovel, Animation_ZeroVelocity(a0)

@@ -11,7 +11,7 @@ spriteanims_rain:
 
 spriteanim_rain_fall:
 spriteanim_rain_fall_numframes: equ 0x1
-spriteanim_rain_fall_speed: equ 0x1
+spriteanim_rain_fall_speed: equ 0x5
 spriteanim_rain_fall_track_frames:
 	dc.b 0x0
 	Even

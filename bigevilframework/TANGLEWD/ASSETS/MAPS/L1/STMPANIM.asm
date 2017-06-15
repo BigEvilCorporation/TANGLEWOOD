@@ -20,10 +20,11 @@ L1_LoadSceneAnimations:
 	lea    spritesheets_AnimPlants, a2
 	move.l #stampanimsheet_AnimPlants_size_t, d1
 	jsr    SceneAnimLoadStampAnim
+
 	; Set scene animations
 	move.w #stampanimsheet_AnimPlants_ground_plant_anim_frameoffset, Animation_FirstFrameOffset(a1)
 	move.l #spriteanim_AnimPlants_ground_plant_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
-	move.b #spriteanim_AnimPlants_ground_plant_anim_speed, Animation_Speed(a1)
+	move.w #spriteanim_AnimPlants_ground_plant_anim_speed, Animation_Speed(a1)
 	move.b #spriteanim_AnimPlants_ground_plant_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
 	jsr    AnimObjSetAnimation
@@ -39,10 +40,11 @@ L1_LoadSceneAnimations:
 	lea    spritesheets_AnimWater, a2
 	move.l #stampanimsheet_AnimWater_size_t, d1
 	jsr    SceneAnimLoadStampAnim
+
 	; Set scene animations
 	move.w #stampanimsheet_AnimWater_water_anim_frameoffset, Animation_FirstFrameOffset(a1)
 	move.l #spriteanim_AnimWater_water_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
-	move.b #spriteanim_AnimWater_water_anim_speed, Animation_Speed(a1)
+	move.w #spriteanim_AnimWater_water_anim_speed, Animation_Speed(a1)
 	move.b #spriteanim_AnimWater_water_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
 	jsr    AnimObjSetAnimation
@@ -449,7 +451,7 @@ stampanims_AnimPlants:
 
 spriteanim_AnimPlants_ground_plant_anim:
 spriteanim_AnimPlants_ground_plant_anim_numframes: equ 0x3
-spriteanim_AnimPlants_ground_plant_anim_speed: equ 0x8
+spriteanim_AnimPlants_ground_plant_anim_speed: equ 0x5
 spriteanim_AnimPlants_ground_plant_anim_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even
@@ -1048,7 +1050,7 @@ stampanims_AnimWater:
 
 spriteanim_AnimWater_water_anim:
 spriteanim_AnimWater_water_anim_numframes: equ 0x3
-spriteanim_AnimWater_water_anim_speed: equ 0x18
+spriteanim_AnimWater_water_anim_speed: equ 0x19
 spriteanim_AnimWater_water_anim_track_frames:
 	dc.b 0x0, 0x1, 0x2
 	Even

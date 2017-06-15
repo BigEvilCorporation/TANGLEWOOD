@@ -103,55 +103,6 @@ ActorInit:
 	move.w  #ActorProbeLedgeY, Character_ProbeLedgeY(a0)
 	move.l  #ActorWalkToRunVel, Character_WalkToRunVel(a0)
 	
-	; Setup default character animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-
-	; Idle
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.w #spritesheet_nymn_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Run
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.w #spritesheet_nymn_run_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_run_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Walk
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.w #spritesheet_nymn_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_walk_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Walk to run transition
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	move.w #spritesheet_nymn_walktorun_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_walktorun_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_walktorun_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_walktorun_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	
 	rts
 	
 ActorLoadGfx:

@@ -63,15 +63,7 @@ RopeSegmentInit:
 	add.l  #RopeSegment_Animations, a2
 
 	; Default swing
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*RopeSegmentAnimIdx_Swing), a3
-	move.w #spritesheet_rope_rope_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_rope_swing_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #0x0, Animation_Speed(a3)
-	move.b #spriteanim_rope_swing_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT rope_rope,rope_swing,RopeSegment_Animations,RopeSegmentAnimIdx_Swing,1,0,0
 	
 	; Set default swing anim
 	PUSHL  a1

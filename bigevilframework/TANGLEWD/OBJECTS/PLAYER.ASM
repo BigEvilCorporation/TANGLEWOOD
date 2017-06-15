@@ -1657,14 +1657,14 @@ PlayerUpdateInteract:
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
-	move.b d0, Animation_Speed(a2)
+	move.w d0, Animation_Speed(a2)
 	
 	; Apply to heavy push anim
 	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
-	move.b d1, Animation_Speed(a2)
+	move.w d1, Animation_Speed(a2)
 
 	@NotPushing:
 	@NotInteracting:

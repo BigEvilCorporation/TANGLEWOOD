@@ -349,30 +349,8 @@ NymnBeginCarryEcho:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle and walk anims for carry versions
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.w #spritesheet_nymn_carryechoidle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_carryechoidle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_carryechoidle_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_carryechoidle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	move.b #0x0, Animation_ZeroVelocity(a3)
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.w #spritesheet_nymn_carryechowalk_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_carryechowalk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_carryechowalk_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_carryechowalk_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	move.b #0x0, Animation_ZeroVelocity(a3)
+	ANIM_LOAD_DEFAULT nymn_carryechoidle,nymn_carryechoidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT nymn_carryechowalk,nymn_carryechowalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	
 	; Begin catching/carrying sequence
 	move.b #NymnCarryEcho_Catching, Nymn_CarryEchoState(a0)
@@ -401,6 +379,9 @@ NymnEndCarryEcho:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle and walk anims
+	ANIM_LOAD_DEFAULT nymn_idle,nymn_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT nymn_walk,nymn_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+
 	move.l a0, a2
 	add.l  #Character_Animations, a2
 	
@@ -412,16 +393,6 @@ NymnEndCarryEcho:
 	move.l #0x0, Animation_AnimTrackPositionY(a3)
 	move.b #spriteanim_nymn_idle_speed, Animation_Speed(a3)
 	move.b #spriteanim_nymn_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.w #spritesheet_nymn_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_nymn_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_nymn_walk_speed, Animation_Speed(a3)
-	move.b #spriteanim_nymn_run_numframes, Animation_Length(a3)
 	move.b #0x1, Animation_Looping(a3)
 	
 	; No longer carrying

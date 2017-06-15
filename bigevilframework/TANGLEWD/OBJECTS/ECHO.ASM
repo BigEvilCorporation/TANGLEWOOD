@@ -91,360 +91,86 @@ EchoInit:
 	
 	;==============================================================
 
+	;==============================================================
 	; Setup default character animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Character_Animations, a2
 
 	; Idle
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Dead
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
-	;move.w #spritesheet_Echo_death_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_death_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_death_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_death_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_death_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_death_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Run
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	move.w #spritesheet_Echo_run_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_run_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_run_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
-	; Walk
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.w #spritesheet_Echo_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_walk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_walk_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_walk_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	; Dead
+	ANIM_LOAD_DEFAULT Echo_death,Echo_death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
+
+	; Run
+	ANIM_LOAD_DEFAULT Echo_run,Echo_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+
+	; Run
+	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Walk to run transition
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WalkToRun), a3
-	move.w #spritesheet_Echo_walktorun_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_walktorun_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_walktorun_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_walktorun_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_walktorun,Echo_walktorun,Character_Animations,CharacterAnimIdx_WalkToRun,0,0,0
 
 	; Jump
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Jump), a3
-	move.w #spritesheet_Echo_jump_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_jump_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_jump_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_jump_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Fall
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Fall), a3
-	;move.w #spritesheet_Echo_fall_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_fall_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_fall_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_fall_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_jump,Echo_jump,Character_Animations,CharacterAnimIdx_Jump,1,0,0
 
-	; Hang
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*CharacterAnimIdx_Hang), a3
-	;move.l #Anim_EchoHang, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #Anim_EchoHang_Speed, Animation_Speed(a3)
-	;move.b #Anim_EchoHang_SizeB, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
+	; Fall
+	ANIM_LOAD_DEFAULT Echo_fall,Echo_fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
 	
 	; Water wade
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_WaterWade), a3
-	;move.w #spritesheet_Echo_wade_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_wade_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_wade_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_wade_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Glide
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Glide), a3
-	;move.w #spritesheet_Echo_glide_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_glide_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_glide_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_glide_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_wade,Echo_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 
-	; Ride
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_RideTrot), a3
-	;move.w #spritesheet_Echo_ridedjakk_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_ridedjakk_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_ridedjakk_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_ridedjakk_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;move.b #0x0, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	; Glide
+	ANIM_LOAD_DEFAULT Echo_glide,Echo_glide,Character_Animations,CharacterAnimIdx_Glide,1,0,0
+
+	; Ride (trot)
+	ANIM_LOAD_DEFAULT Echo_ridedjakk,Echo_ridedjakk,Character_Animations,CharacterAnimIdx_RideTrot,1,0,0
+
+	; Ride (gallop)
+	ANIM_LOAD_DEFAULT Echo_ridedjakkrun,Echo_ridedjakkrun,Character_Animations,CharacterAnimIdx_RideGallop,1,0,0
+
+	; Ride (jump)
+	ANIM_LOAD_DEFAULT Echo_ridedjakkjump,Echo_ridedjakkjump,Character_Animations,CharacterAnimIdx_RideJump,1,0,0
 
 	; Push (light object)
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a3
-	;move.w #spritesheet_Echo_push_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_push_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_push_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_push_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_push,Echo_push,Character_Animations,CharacterAnimIdx_Push,1,0,0
 	
 	; Push (heavy object)
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a3
-	;move.w #spritesheet_Echo_pushheavy_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_pushheavy_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_pushheavy_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_pushheavy_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
+	ANIM_LOAD_DEFAULT Echo_pushheavy,Echo_pushheavy,Character_Animations,CharacterAnimIdx_PushHeavy,1,0,0
+
 	;==============================================================
-	
 	; Setup player animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Player_Animations, a2
-	
+
 	; Colour switch
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Switch), a3
-	move.w #spritesheet_Echo_colourswitch_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_colourswitch_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_colourswitch_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_colourswitch_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	move.b #0x1, Animation_ZeroVelocity(a3)
+	ANIM_LOAD_DEFAULT Echo_colourswitch,Echo_colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
 	
 	; Sleep
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Sleep), a3
-	;move.w #spritesheet_Echo_sleep_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_sleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_sleep_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_sleep_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_sleep_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_sleep_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_sleep,Echo_sleep,Player_Animations,PlayerAnimIdx_Sleep,1,1,0
 	
 	; Lay down
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_LieDown), a3
-	;move.w #spritesheet_Echo_laydown_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_laydown_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_laydown_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_laydown_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_laydown_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_laydown_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
+	ANIM_LOAD_DEFAULT Echo_laydown,Echo_laydown,Player_Animations,PlayerAnimIdx_LieDown,0,1,0
+
 	; Wake up
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Wake), a3
-	;move.w #spritesheet_Echo_laydown_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_wake_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_wake_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_wake_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_wake_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_wake_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_laydown,Echo_wake,Player_Animations,PlayerAnimIdx_Wake,0,1,0
 	
 	; Raise head then back to sleep
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_wakesleep), a3
-	;move.w #spritesheet_Echo_laydown_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_wakesleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_Echo_wakesleep_track_posx, Animation_AnimTrackPositionX(a3)
-	;move.l #spriteanim_Echo_wakesleep_track_posy, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_wakesleep_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_wakesleep_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_laydown,Echo_wakesleep,Player_Animations,PlayerAnimIdx_WakeSleep,0,1,0
 	
 	; Nervous look back
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a3
-	;move.w #spritesheet_Echo_lookback_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_lookback_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_lookback_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_lookback_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_lookback,Echo_lookback,Player_Animations,PlayerAnimIdx_IdleLookBack,0,1,0
+	
+	; Mount a Djakk
+	ANIM_LOAD_DEFAULT Echo_mountdjakk,Echo_mountdjakk,Player_Animations,PlayerAnimIdx_Mount,0,1,0
 
 	; Howl
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*PlayerAnimIdx_Howl), a3
-	move.w #spritesheet_echo_calllong_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_echo_calllong_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_echo_calllong_speed, Animation_Speed(a3)
-	move.b #spriteanim_echo_calllong_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	move.b #0x1, Animation_ZeroVelocity(a3)
+	ANIM_LOAD_DEFAULT Echo_calllong,Echo_calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
 	
 	;==============================================================
-	
 	; Setup Echo specific animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Echo_Animations, a2
-	
+
 	; Jump up to Nymn (same anim as Jump but non-looping)
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*EchoAnimIdx_JumpToNymn), a3
-	move.w #spritesheet_echo_jump_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_echo_jumptonymn_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #spriteanim_echo_jumptonymn_track_posx, Animation_AnimTrackPositionX(a3)
-	move.l #spriteanim_echo_jumptonymn_track_posy, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_echo_jumptonymn_speed, Animation_Speed(a3)
-	move.b #spriteanim_echo_jumptonymn_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	move.b #0x1, Animation_ZeroVelocity(a3)
-	
+	ANIM_LOAD_DEFAULT echo_jump,echo_jump,Echo_Animations,EchoAnimIdx_JumpToNymn,0,1,0
+
 	; Mount Nymn
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*EchoAnimIdx_MountNymn), a3
-	move.w #spritesheet_echo_mountnymn_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_echo_mountnymn_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #spriteanim_echo_mountnymn_track_posx, Animation_AnimTrackPositionX(a3)
-	move.l #spriteanim_echo_mountnymn_track_posy, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_echo_mountnymn_speed, Animation_Speed(a3)
-	move.b #spriteanim_echo_mountnymn_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
-	move.b #0x1, Animation_ZeroVelocity(a3)
+	ANIM_LOAD_DEFAULT echo_mountnymn,echo_mountnymn,Echo_Animations,EchoAnimIdx_MountNymn,0,1,0
 
 	ENDIF
 	
@@ -614,28 +340,8 @@ EchoBeginCarried:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle and walk anims for carried versions
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_idle), a3
-	move.w #spritesheet_Echo_carriedidle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_carriedidle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #spriteanim_echo_carriedidle_track_posx, Animation_AnimTrackPositionX(a3)
-	move.l #spriteanim_echo_carriedidle_track_posy, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_carriedidle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_carriedidle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	move.w #spritesheet_Echo_carriedwalk_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_carriedwalk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #spriteanim_echo_carriedwalk_track_posx, Animation_AnimTrackPositionX(a3)
-	move.l #spriteanim_echo_carriedwalk_track_posy, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_carriedwalk_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_carriedwalk_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_carriedidle,Echo_carriedidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	
 	; Snap to Nymn's direction
 	move.l #Player1, a3
@@ -670,35 +376,8 @@ EchoEndCarried:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle and walk anims
-	move.l a0, a2
-	add.l  #Character_Animations, a2
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	;move.w #spritesheet_Echo_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Echo_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Echo_walk_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Echo_run_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	move.w #spritesheet_Echo_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_Echo_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_Echo_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_Echo_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	
 	; Jump off
 	jsr    CharacterStartJump

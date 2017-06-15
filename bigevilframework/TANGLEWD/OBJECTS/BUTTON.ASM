@@ -85,7 +85,7 @@ ButtonLoadGfx:
 	PUSHL  a1
 	move.l a0, a1
 	add.l  #Button_Animation, a1
-	move.b #0x0, Animation_Speed(a1)
+	move.w #0x0, Animation_Speed(a1)
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

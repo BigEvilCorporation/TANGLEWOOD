@@ -103,8 +103,77 @@ L1A4_Deathbox_49_idx	equ 0x0
 L1A4_Deathbox_50_idx	equ 0x1
 L1A4_Deathbox_75_idx	equ 0x2
 
-L1A4_AIMarker_count equ 0x1
-L1A4_AIMarker_92_idx	equ 0x0
+L1A4_Lift_count equ 0x1
+L1A4_Lift_92_idx	equ 0x0
+
+
+	IF L1A4_Leaf_count>Leaf_MaxEntities
+	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L1A4_Leaf_count
+	ENDIF
+
+	IF L1A4_Nymn_count>Nymn_MaxEntities
+	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L1A4_Nymn_count
+	ENDIF
+
+	IF L1A4_Echo_count>Echo_MaxEntities
+	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L1A4_Echo_count
+	ENDIF
+
+	IF L1A4_BouncePlant_count>BouncePlant_MaxEntities
+	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L1A4_BouncePlant_count
+	ENDIF
+
+	IF L1A4_Boulder_count>Boulder_MaxEntities
+	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L1A4_Boulder_count
+	ENDIF
+
+	IF L1A4_Monster_count>Monster_MaxEntities
+	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L1A4_Monster_count
+	ENDIF
+
+	IF L1A4_Firefly_count>Firefly_MaxEntities
+	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L1A4_Firefly_count
+	ENDIF
+
+	IF L1A4_Fuzzl_count>Fuzzl_MaxEntities
+	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L1A4_Fuzzl_count
+	ENDIF
+
+	IF L1A4_Stone_count>Stone_MaxEntities
+	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L1A4_Stone_count
+	ENDIF
+
+	IF L1A4_Nest_count>Nest_MaxEntities
+	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L1A4_Nest_count
+	ENDIF
+
+	IF L1A4_Flue_count>Flue_MaxEntities
+	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L1A4_Flue_count
+	ENDIF
+
+	IF L1A4_TriggerBox_count>TriggerBox_MaxEntities
+	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L1A4_TriggerBox_count
+	ENDIF
+
+	IF L1A4_Checkpoint_count>Checkpoint_MaxEntities
+	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L1A4_Checkpoint_count
+	ENDIF
+
+	IF L1A4_WaterBody_count>WaterBody_MaxEntities
+	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L1A4_WaterBody_count
+	ENDIF
+
+	IF L1A4_Location_count>Location_MaxEntities
+	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L1A4_Location_count
+	ENDIF
+
+	IF L1A4_Deathbox_count>Deathbox_MaxEntities
+	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L1A4_Deathbox_count
+	ENDIF
+
+	IF L1A4_Lift_count>Lift_MaxEntities
+	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L1A4_Lift_count
+	ENDIF
 
 
 L1A4_LoadGameObjects:
@@ -478,12 +547,12 @@ L1A4_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 
-	move.l #EntityArray_AIMarker, a0
-	jsr AIMarkerInit
+	move.l #EntityArray_Lift, a0
+	jsr LiftInit
 	move.l #0x1e580000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 	rts
 

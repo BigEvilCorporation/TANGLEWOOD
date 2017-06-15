@@ -174,96 +174,10 @@ DjrakeInit:
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 
 	; Setup default character animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Character_Animations, a2
 
 	; Idle
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
-	move.w #spritesheet_djrake_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_djrake_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_djrake_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_djrake_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
-	; Dead
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*CharacterAnimIdx_Dead), a3
-	;move.w #spritesheet_djrake_death_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_djrake_death_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_djrake_death_speed, Animation_Speed(a3)
-	;move.b #spriteanim_djrake_death_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	;
-	;; Run
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*CharacterAnimIdx_Run), a3
-	;move.w #spritesheet_djrake_run_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_djrake_run_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #spriteanim_djrake_run_track_sfx, Animation_AnimTrackSFX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_djrake_run_speed, Animation_Speed(a3)
-	;move.b #spriteanim_djrake_run_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-    ;
-	;; Walk
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*CharacterAnimIdx_Walk), a3
-	;move.w #spritesheet_djrake_walk_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_djrake_walk_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackSFX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_djrake_walk_speed, Animation_Speed(a3)
-	;move.b #spriteanim_djrake_walk_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;
-	;; Setup bespoke character animations
-	;; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	;move.l a0, a2
-	;add.l  #Djrake_Animations, a2
-	;
-	;; In cave
-	;;move.l a2, a3
-	;;add.l  #(Animation_Struct_Size*DjrakeAnimIdx_Eyes), a3
-	;;move.l #Anim_DjrakeEyes, Animation_AnimTrackSpriteFrame(a3)
-	;;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;;move.b #Anim_DjrakeEyes_Speed, Animation_Speed(a3)
-	;;move.b #Anim_DjrakeEyes_SizeB, Animation_Length(a3)
-	;;move.b #0x1, Animation_Looping(a3)
-	;
-	;; Bite
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*DjrakeAnimIdx_Bite), a3
-	;move.w #spritesheet_djrake_bite_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_djrake_bite_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_djrake_bite_speed, Animation_Speed(a3)
-	;move.b #spriteanim_djrake_bite_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	;
-	;; Roar
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*DjrakeAnimIdx_Roar), a3
-	;move.w #spritesheet_djrake_roar_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_djrake_roar_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_djrake_roar_speed, Animation_Speed(a3)
-	;move.b #spriteanim_djrake_roar_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;move.b #0x1, Animation_ZeroVelocity(a3)
-	;
+	ANIM_LOAD_DEFAULT djrake_idle,djrake_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
 	;; Begin initial state
 	;jsr    DjrakeStartWaitForPlayer
 

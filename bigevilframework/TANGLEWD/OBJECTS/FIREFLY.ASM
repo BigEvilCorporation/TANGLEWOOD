@@ -54,18 +54,11 @@ FireflyInit:
 	move.b #0x1, Firefly_Pickup_Value(a0)
 	
 	; Default anim
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l  a0, a3
-	add.l   #Firefly_Animation, a3
-	move.w #spritesheet_firefly_red_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_firefly_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_firefly_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_firefly_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT firefly_red,firefly_idle,Firefly_Animation,0,1,0,0
 	
 	; Set animation
+	move.l  a0, a3
+	add.l   #Firefly_Animation, a3
 	move.l  a3, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 

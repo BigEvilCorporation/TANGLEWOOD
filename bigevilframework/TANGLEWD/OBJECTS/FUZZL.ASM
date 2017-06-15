@@ -193,64 +193,21 @@ FuzzlInit:
 	LIST_APPEND_TAIL PushableObjs, a0, a3
 	
 	; Setup animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Fuzzl_Animations, a2
-	
+
 	; Idle
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
-	move.w #spritesheet_fuzzl_blue_idle_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_fuzzl_yellow_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_fuzzl_yellow_idle_speed, Animation_Speed(a3)
-	move.b #spriteanim_fuzzl_yellow_idle_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT fuzzl_blue_idle,fuzzl_yellow_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	
 	; Watch
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
-	move.w #spritesheet_fuzzl_blue_eyes_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_fuzzl_yellow_eyes_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_fuzzl_yellow_eyes_speed, Animation_Speed(a3)
-	move.b #spriteanim_fuzzl_yellow_eyes_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
+	ANIM_LOAD_DEFAULT fuzzl_blue_eyes,fuzzl_yellow_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+
 	; Roll
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
-	move.w #spritesheet_fuzzl_blue_roll_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_fuzzl_yellow_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_fuzzl_yellow_roll_speed, Animation_Speed(a3)
-	move.b #spriteanim_fuzzl_yellow_roll_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
-	
+	ANIM_LOAD_DEFAULT fuzzl_blue_roll,fuzzl_yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+
 	; Bounce
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
-	move.w #spritesheet_fuzzl_blue_roll_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_fuzzl_yellow_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_fuzzl_yellow_roll_speed, Animation_Speed(a3)
-	move.b #spriteanim_fuzzl_yellow_roll_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT fuzzl_blue_roll,fuzzl_yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
 
 	; Sleep
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
-	move.w #spritesheet_fuzzl_blue_sleep_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_fuzzl_yellow_sleep_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_fuzzl_yellow_sleep_speed, Animation_Speed(a3)
-	move.b #spriteanim_fuzzl_yellow_sleep_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT fuzzl_blue_sleep,fuzzl_yellow_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
 
 	rts
 
@@ -404,7 +361,7 @@ FuzzlUpdate:
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
-	move.b d0, Animation_Speed(a2)
+	move.w d0, Animation_Speed(a2)
 
 	; Check if entering a nest
 	jsr    FuzzlFindNest
@@ -755,10 +712,10 @@ FuzzlUpdateBounce:
 	move.b PhysicsObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
 	beq    @OnFloor
-	move.b #Fuzzl_AnimSpeedBounce, Animation_Speed(a2)
+	move.w #Fuzzl_AnimSpeedBounce, Animation_Speed(a2)
 	bra    @End
 	@OnFloor:
-	move.b #0x0, Animation_Speed(a2)
+	move.w #0x0, Animation_Speed(a2)
 	bra    @End
 
 	@NoColour:
@@ -892,7 +849,7 @@ FuzzlUpdateAnimation:
 	move.l a0, a2
 	add.l  #Fuzzl_Animations, a2
 	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
-	move.b #Fuzzl_FlingRollSpeed, Animation_Speed(a2)
+	move.w #Fuzzl_FlingRollSpeed, Animation_Speed(a2)
 	bra    @EndAnim
 
 	@AnimBounce:

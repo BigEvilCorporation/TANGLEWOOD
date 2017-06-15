@@ -126,37 +126,18 @@ BoulderInit:
 	LIST_APPEND_TAIL Platforms, a2, a3
 	
 	;==============================================================
-	
 	; Setup animations
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	add.l  #Boulder_Animations, a2
-	
+
 	; Roll
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a3
-	move.w #spritesheet_boulder_roll_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_boulder_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_boulder_roll_speed, Animation_Speed(a3)
-	move.b #spriteanim_boulder_roll_numframes, Animation_Length(a3)
-	move.b #0x1, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT boulder_roll,boulder_roll,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
 	
 	; Crack
-	move.l a2, a3
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a3
-	move.w #spritesheet_boulder_crack_frameoffset, Animation_FirstFrameOffset(a3)
-	move.l #spriteanim_boulder_crack_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	move.l #0x0, Animation_AnimTrackPositionX(a3)
-	move.l #0x0, Animation_AnimTrackPositionY(a3)
-	move.b #spriteanim_boulder_crack_speed, Animation_Speed(a3)
-	move.b #spriteanim_boulder_crack_numframes, Animation_Length(a3)
-	move.b #0x0, Animation_Looping(a3)
+	ANIM_LOAD_DEFAULT boulder_crack,boulder_crack,Boulder_Animations,BoulderAnimIdx_Roll,0,0,0
 	
 	; Start roll animation
 	PUSHL  a1
-	move.l a2, a1
+	move.l a0, a1
+	add.l  #Boulder_Animations, a1
 	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -267,7 +248,7 @@ BoulderUpdate:
 	beq    @ZeroVel
 	divs.w #Boulder_AnimSpeedVelDiv, d0
 	@ZeroVel:
-	move.b d0, Animation_Speed(a2)
+	move.w d0, Animation_Speed(a2)
 	
 	; If Y vel > min damage vel
 	cmp.l  #-Boulder_MinDamageYVel, PhysicsObj_VelY(a0)

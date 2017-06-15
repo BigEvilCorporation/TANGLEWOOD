@@ -162,40 +162,7 @@ BouncePlantInit:
 	move.b  #0x0, BouncePlant_Active(a0)
 	
 	; Setup animation
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	;move.l a0, a3
-	;add.l  #BouncePlant_Animations, a3
-	
-	; Idle
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*BouncePlantAnimIdx_Idle), a3
-	;move.w #spritesheet_plant_sheet_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_plant_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_plant_idle_speed, Animation_Speed(a3)
-	;move.b #spriteanim_plant_idle_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;
-	;; Active
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*BouncePlantAnimIdx_Active), a3
-	;move.w #spritesheet_plant_sheet_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_plant_active_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_plant_active_speed, Animation_Speed(a3)
-	;move.b #spriteanim_plant_active_numframes, Animation_Length(a3)
-	;move.b #0x0, Animation_Looping(a3)
-	;
-	;; Start idle animation
-	;PUSHL  a1
-	;move.l a0, a1
-	;add.l  #BouncePlant_Animations, a1
-	;move.l #(BouncePlantAnimIdx_Idle*Animation_Struct_Size), d1
-	;add.l  d1, a1
-	;jsr    AnimObjSetAnimation
-	;POPL   a1
+	; TODO
 
 	rts
 
@@ -221,7 +188,15 @@ BouncePlantLoadGfx:
 	add.l  d1, a1
 	
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT mushroom,PaletteId_World0,0x0
+	lea    sprite_mushroom_subsprite_dimensions_bits, a2
+	lea    sprite_mushroom_subsprite_pos_offsets, a3
+	lea    sprite_mushroom_numtiles_per_subsprite, a4
+	move.l #sprite_mushroom_size_t, d1
+	move.b #sprite_mushroom_size_subsprites, d2
+	move.w #sprite_mushroom_widthheight_subsprites, d3
+	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
+	jsr    SpriteObjLoad
 
 	; Configure sprite flipping based on orientation
 	clr.l  d1

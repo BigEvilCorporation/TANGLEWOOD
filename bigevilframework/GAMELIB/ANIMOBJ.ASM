@@ -61,7 +61,7 @@ AnimObjUpdate:
 	beq    @NoAnim
 	
 	; Get anim speed
-	move.b Animation_Speed(a2), d0
+	move.w Animation_Speed(a2), d0
 
 	; Check if dirty (new anim, set regardless of speed)
 	cmp.b  #0x0, AnimObj_Dirty(a0)
@@ -74,8 +74,6 @@ AnimObjUpdate:
 	@SkipSpeedTest:
 	
 	; Sign extend speed up to longword
-	andi.w #0x00FF, d0
-	ext.w  d0
 	ext.l  d0
 	
 	; Speed div

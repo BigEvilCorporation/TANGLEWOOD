@@ -11,7 +11,7 @@ spriteanims_djakk:
 
 spriteanim_djakk_run:
 spriteanim_djakk_run_numframes: equ 0x5
-spriteanim_djakk_run_speed: equ 0x26
+spriteanim_djakk_run_speed: equ 0x28
 spriteanim_djakk_run_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 	Even
@@ -27,7 +27,7 @@ spriteanim_djakk_run_track_sfx:
 
 spriteanim_djakk_death:
 spriteanim_djakk_death_numframes: equ 0x1
-spriteanim_djakk_death_speed: equ 0x1
+spriteanim_djakk_death_speed: equ 0x5
 spriteanim_djakk_death_track_frames:
 	dc.b 0x0
 	Even
@@ -43,7 +43,7 @@ spriteanim_djakk_death_track_sfx:
 
 spriteanim_djakk_emerge:
 spriteanim_djakk_emerge_numframes: equ 0x1
-spriteanim_djakk_emerge_speed: equ 0x1
+spriteanim_djakk_emerge_speed: equ 0x5
 spriteanim_djakk_emerge_track_frames:
 	dc.b 0x0
 	Even
@@ -59,7 +59,7 @@ spriteanim_djakk_emerge_track_sfx:
 
 spriteanim_djakk_roar:
 spriteanim_djakk_roar_numframes: equ 0x7
-spriteanim_djakk_roar_speed: equ 0x1C
+spriteanim_djakk_roar_speed: equ 0x1E
 spriteanim_djakk_roar_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
 	Even
@@ -75,7 +75,7 @@ spriteanim_djakk_roar_track_sfx:
 
 spriteanim_djakk_bite:
 spriteanim_djakk_bite_numframes: equ 0x5
-spriteanim_djakk_bite_speed: equ 0x2F
+spriteanim_djakk_bite_speed: equ 0x33
 spriteanim_djakk_bite_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 	Even
@@ -91,7 +91,7 @@ spriteanim_djakk_bite_track_sfx:
 
 spriteanim_djakk_jump:
 spriteanim_djakk_jump_numframes: equ 0x7
-spriteanim_djakk_jump_speed: equ 0x26
+spriteanim_djakk_jump_speed: equ 0x28
 spriteanim_djakk_jump_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6
 	Even
@@ -123,7 +123,7 @@ spriteanim_djakk_walk_track_sfx:
 
 spriteanim_djakk_throw:
 spriteanim_djakk_throw_numframes: equ 0x9
-spriteanim_djakk_throw_speed: equ 0x26
+spriteanim_djakk_throw_speed: equ 0x28
 spriteanim_djakk_throw_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x3, 0x3, 0x4, 0x5
 	Even
@@ -139,7 +139,7 @@ spriteanim_djakk_throw_track_sfx:
 
 spriteanim_djakk_idle:
 spriteanim_djakk_idle_numframes: equ 0x1
-spriteanim_djakk_idle_speed: equ 0x1
+spriteanim_djakk_idle_speed: equ 0x5
 spriteanim_djakk_idle_track_frames:
 	dc.b 0x0
 	Even

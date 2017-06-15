@@ -95,28 +95,8 @@ StoneInit:
 	
 	;==============================================================
 	
-	;; Setup animations
-	;; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	;move.l a0, a2
-	;add.l  #Stone_Animations, a2
-	;
-	;; Roll
-	;move.l a2, a3
-	;add.l  #(Animation_Struct_Size*StoneAnimIdx_Roll), a3
-	;move.w #spritesheet_Stone_roll_frameoffset, Animation_FirstFrameOffset(a3)
-	;move.l #spriteanim_Stone_roll_track_frames, Animation_AnimTrackSpriteFrame(a3)
-	;move.l #0x0, Animation_AnimTrackPositionX(a3)
-	;move.l #0x0, Animation_AnimTrackPositionY(a3)
-	;move.b #spriteanim_Stone_roll_speed, Animation_Speed(a3)
-	;move.b #spriteanim_Stone_roll_numframes, Animation_Length(a3)
-	;move.b #0x1, Animation_Looping(a3)
-	;
-	;; Start roll animation
-	;PUSHL  a1
-	;move.l a2, a1
-	;add.l  #(Animation_Struct_Size*StoneAnimIdx_Roll), a1
-	;jsr    AnimObjSetAnimation
-	;POPL   a1
+	; Setup animations
+	; TODO
 
 	rts
 

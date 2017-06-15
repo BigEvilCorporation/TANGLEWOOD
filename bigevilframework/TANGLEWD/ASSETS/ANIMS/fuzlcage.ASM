@@ -11,7 +11,7 @@ spriteanims_fuzlcage:
 
 spriteanim_fuzlcage_smash:
 spriteanim_fuzlcage_smash_numframes: equ 0x2
-spriteanim_fuzlcage_smash_speed: equ 0x1
+spriteanim_fuzlcage_smash_speed: equ 0x5
 spriteanim_fuzlcage_smash_track_frames:
 	dc.b 0x0, 0x1
 	Even
