@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-WaterBody_MaxEntities  equ 0x2
+WaterBody_MaxEntities  equ 0x4
 WaterBody_Width        equ 0x0180
 WaterBody_Height       equ 0x0028
 
