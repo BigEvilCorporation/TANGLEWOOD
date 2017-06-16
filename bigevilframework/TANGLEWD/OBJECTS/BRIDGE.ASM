@@ -294,6 +294,8 @@ BridgeDraw:
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
 	beq    @Flat
 
+	;==============================================================
+
 	; Check if within flat or rolled section
 	clr.l  d7
 	move.w Bridge_UnrollPos(a0), d7
@@ -321,6 +323,8 @@ BridgeDraw:
 	add.w  d7, d3
 	bra    @EndSpiral
 
+	;==============================================================
+
 	@Flat:
 
 	; Flat X offset
@@ -335,7 +339,22 @@ BridgeDraw:
 	TOSUBPIXELS d3
 	TOSUBPIXELS d4
 
-	; Add circle origin
+	;==============================================================
+
+	; If flipped on X axis, origin at right-hand side
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NotFlipped
+
+	; Invert X offset
+	move.l #(Bridge_Width-Bridge_NotchWidth)*subpixels_per_pixel, d7
+	sub.l  d3, d7
+	move.l d7, d3
+
+	@NotFlipped:
+
+	;==============================================================
+
+	; Add origin
 	add.l  d5, d3
 	add.l  d6, d4
 
@@ -542,7 +561,25 @@ BridgeUpdateRoll:
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	TOSUBPIXELS d4
+
+	; Invert X if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoInvertX
+	move.l #Bridge_Width*subpixels_per_pixel, d7
+	sub.l  d4, d7
+	move.l d7, d4
+	@NoInvertX:
+
 	add.l  d4, d0
+
+	; Apply to platform pos if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NotFlippedX
+	move.l a0, a3
+	add.l  #Bridge_Platform, a3
+	move.l d0, Platform_PosX(a3)
+	@NotFlippedX:
+
 	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
 	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 	move.l d0, Barrier_PosX(a2)
@@ -598,7 +635,25 @@ BridgeUpdateUnroll:
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	TOSUBPIXELS d4
+
+	; Invert X if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoInvertX
+	move.l #Bridge_Width*subpixels_per_pixel, d7
+	sub.l  d4, d7
+	move.l d7, d4
+	@NoInvertX:
+
 	add.l  d4, d0
+
+	; Apply to platform pos if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NotFlippedX
+	move.l a0, a3
+	add.l  #Bridge_Platform, a3
+	move.l d0, Platform_PosX(a3)
+	@NotFlippedX:
+
 	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
 	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 	move.l d0, Barrier_PosX(a2)
@@ -666,6 +721,15 @@ BridgeUpdateDropping:
 	sub.w  d4, d5
 	move.w d5, Platform_Width(a2)
 	TOSUBPIXELS d4						; To world space
+
+	; Invert X if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoInvertX
+	move.l #Bridge_Width*subpixels_per_pixel, d7
+	sub.l  d4, d7
+	move.l d7, d4
+	@NoInvertX:
+	
 	move.l Entity_WorldPosX(a0), d1		; Set position
 	add.l  d4, d1
 	move.l d1, Platform_PosX(a2)
