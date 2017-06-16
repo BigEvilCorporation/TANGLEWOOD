@@ -18,15 +18,15 @@ Bridge_NotchDiameter	equ 0x10
 Bridge_NumNotches		equ Bridge_Width/Bridge_NotchWidth
 Bridge_MaxNotchSpiralRadius	equ 0x20
 Bridge_MinNotchSpiralRadius	equ 0x10
-Bridge_UnrollSpeed		equ 0x28
-Bridge_DropSpeed		equ 0x20
+Bridge_UnrollSpeed		equ 0x00038000	; Approx player run speed
+Bridge_DropSpeed		equ 0x00030000	; Just under player run speed
 
 Bridge_PlatformWidth	equ Bridge_Width	; Physics platform width
 Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
 Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 
-Bridge_BarrierWidth		equ 0x08
-Bridge_BarrierHeight	equ 0x40
+Bridge_BarrierWidth		equ 0x30	; Width of roll
+Bridge_BarrierHeight	equ 0x50	; Height of blocking barrier
 Bridge_BarrierXOffset	equ 0x0
 Bridge_BarrierYOffset	equ Bridge_Height-Bridge_BarrierHeight
 
@@ -68,8 +68,8 @@ Bridge_Platform			rs.b Platform_Struct_Size	; Physics platform (when down)
 Bridge_Barrier			rs.b Barrier_Struct_Size	; Physic barrier (when up)
 Bridge_NotchYPos		rs.l Bridge_NumNotches		; Y positions of notches (for drop mode)
 Bridge_NotchYVel		rs.l Bridge_NumNotches		; Y velocities of notches (for drop mode)
-Bridge_Speed			rs.w 1
-Bridge_UnrollPos		rs.w 1
+Bridge_UnrollPos		rs.l 1
+Bridge_Speed			rs.l 1
 Bridge_Mode				rs.b 1
 Bridge_State			rs.b 1
 ;-----------------------------
@@ -104,7 +104,7 @@ BridgeInit:
 	move.b  #0x1, SpriteObj_Visible(a0)
 	move.w  #Bridge_Width, Entity_Width(a0)
 	move.w  #Bridge_Height, Entity_Height(a0)
-	move.w  #0x0, Bridge_UnrollPos(a0)
+	move.l  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
 	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
 
@@ -282,6 +282,12 @@ BridgeDraw:
 	move.l a0, a3
 	add.l  #Bridge_NotchYPos, a3
 
+	; Roll pos to notch index
+	clr.l  d7
+	move.l Bridge_UnrollPos(a0), d7
+	TOPIXELS d7
+	divu   #Bridge_NotchWidth, d7
+
 	; Draw all notches
 	move.l #0x0, d2
 	@NotchDrawLp:
@@ -297,9 +303,6 @@ BridgeDraw:
 	;==============================================================
 
 	; Check if within flat or rolled section
-	clr.l  d7
-	move.w Bridge_UnrollPos(a0), d7
-	lsr.w  #0x8, d7
 	cmp.b  d2, d7
 	bge    @Flat
 
@@ -319,8 +322,9 @@ BridgeDraw:
 	beq    @RollUp
 	neg.w  d4
 	@RollUp:
-	mulu   #Bridge_NotchWidth, d7 ; Add X offset
-	add.w  d7, d3
+	move.l d7, d1
+	mulu   #Bridge_NotchWidth, d1 ; Add X offset
+	add.w  d1, d3
 	bra    @EndSpiral
 
 	;==============================================================
@@ -328,10 +332,10 @@ BridgeDraw:
 	@Flat:
 
 	; Flat X offset
-	clr.l  d7
-	move.b d2, d7
-	mulu   #Bridge_NotchWidth, d7
-	move.w d7, d3
+	clr.l  d1
+	move.b d2, d1
+	mulu   #Bridge_NotchWidth, d1
+	move.w d1, d3
 
 	@EndSpiral:
 
@@ -346,9 +350,9 @@ BridgeDraw:
 	beq    @NotFlipped
 
 	; Invert X offset
-	move.l #(Bridge_Width-Bridge_NotchWidth)*subpixels_per_pixel, d7
-	sub.l  d3, d7
-	move.l d7, d3
+	move.l #(Bridge_Width-Bridge_NotchWidth)*subpixels_per_pixel, d1
+	sub.l  d3, d1
+	move.l d1, d3
 
 	@NotFlipped:
 
@@ -366,9 +370,9 @@ BridgeDraw:
 	move.l d4, Entity_WorldPosY(a0)
 
 	; Draw
-	PUSHM  d0-d2
+	PUSHM  d0-d2/d7
 	jsr    SpriteObjDraw
-	POPM   d0-d2
+	POPM   d0-d2/d7
 
 	; Loop
 	add.b  #0x1, d2
@@ -401,7 +405,7 @@ BridgeSerialise:
 	@Saving:
 	
 	SAVEB Bridge_State(a0)
-	SAVEW Bridge_UnrollPos(a0)
+	SAVEL Bridge_UnrollPos(a0)
 	
 	bra  @End
 	
@@ -410,7 +414,7 @@ BridgeSerialise:
 	@Loading:
 	
 	LOADB Bridge_State(a0)
-	LOADW Bridge_UnrollPos(a0)
+	LOADL Bridge_UnrollPos(a0)
 	
 	;==============================================================
 	
@@ -421,7 +425,7 @@ BridgeSerialise:
 BridgeSnapOpen:
 
 	; Set unroll pos at end
-	move.w #(Bridge_NumNotches<<8), Bridge_UnrollPos(a0)
+	move.l #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), Bridge_UnrollPos(a0)
 
 	; Activate platform
 	move.l a0, a2
@@ -442,7 +446,7 @@ BridgeSnapOpen:
 BridgeSnapClosed:
 
 	; Reset unroll pos
-	move.w #0x0, Bridge_UnrollPos(a0)
+	move.l #0x0, Bridge_UnrollPos(a0)
 
 	; Disable platform
 	move.l a0, a2
@@ -466,7 +470,7 @@ BridgeSnapClosed:
 BridgeSetDropMode:
 
 	; Use roll pos for drop pos
-	move.w #0x0, Bridge_UnrollPos(a0)
+	move.l #0x0, Bridge_UnrollPos(a0)
 
 	; Activate platform
 	move.l a0, a2
@@ -495,7 +499,7 @@ BridgeBeginRoll:
 	@RollDown:
 
 	; Set speed
-	move.w #Bridge_UnrollSpeed, Bridge_Speed(a0)
+	move.l #Bridge_UnrollSpeed, Bridge_Speed(a0)
 
 	; Set rolling state
 	move.b #Bridge_StateRolling, Bridge_State(a0)
@@ -510,7 +514,7 @@ BridgeBeginUnroll:
 	move.b #0x1, Platform_Active(a2)
 
 	; Set speed
-	move.w #Bridge_UnrollSpeed, Bridge_Speed(a0)
+	move.l #Bridge_UnrollSpeed, Bridge_Speed(a0)
 
 	; Set unrolling state
 	move.b #Bridge_StateUnrolling, Bridge_State(a0)
@@ -520,7 +524,7 @@ BridgeBeginUnroll:
 BridgeBeginDrop:
 
 	; Set speed
-	move.w #Bridge_DropSpeed, Bridge_Speed(a0)
+	move.l #Bridge_DropSpeed, Bridge_Speed(a0)
 
 	; Set drop state
 	move.b #Bridge_StateDropping, Bridge_State(a0)
@@ -534,58 +538,17 @@ BridgeUpdateRoll:
 	clr.l  d4
 	clr.l  d5
 	move.b (GlobalTimeDiv), d3
-	move.w Bridge_Speed(a0), d5
-	divs.w d3, d5
-	move.w Bridge_UnrollPos(a0), d4
-	sub.w  d5, d4
-	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
-	move.w d4, Bridge_UnrollPos(a0)
+	move.l Bridge_Speed(a0), d5
+	DIVS1616_LOSSY d3, d5
+	move.l Bridge_UnrollPos(a0), d4
+	sub.l  d5, d4
+	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
+	move.l d4, Bridge_UnrollPos(a0)
 
 	; If at start, disable platform and set closed state
-	cmp.w  #0x0, d4
+	cmp.l  #0x0, d4
 	beq    @FinishedRolling
-
-	; Unroll pos to pixels
-	lsr.l  #0x8, d4
-	add.w  #0x1, d4
-	mulu   #Bridge_NotchWidth, d4
-
-	; Set platform width to unroll pos
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.w d4, Platform_Width(a2)
-
-	; Move barrier to unroll pos
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	TOSUBPIXELS d4
-
-	; Invert X if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @NoInvertX
-	move.l #Bridge_Width*subpixels_per_pixel, d7
-	sub.l  d4, d7
-	move.l d7, d4
-	@NoInvertX:
-
-	add.l  d4, d0
-
-	; Apply to platform pos if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @NotFlippedX
-	move.l a0, a3
-	add.l  #Bridge_Platform, a3
-	move.l d0, Platform_PosX(a3)
-	@NotFlippedX:
-
-	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
-	move.l d0, Barrier_PosX(a2)
-	move.l d1, Barrier_PosY(a2)
-
-	bra    @End
+	bra    @StillRolling
 
 	@FinishedRolling:
 
@@ -597,7 +560,11 @@ BridgeUpdateRoll:
 	; Set closed state
 	move.b #Bridge_StateClosed, Bridge_State(a0)
 
-	@End:
+	@StillRolling:
+
+	; Set barrier and platform pos
+	move.l Bridge_UnrollPos(a0), d4
+	jsr    BridgeUpdateBarrierPlatformPos
 
 	rts
 
@@ -608,58 +575,17 @@ BridgeUpdateUnroll:
 	clr.l  d4
 	clr.l  d5
 	move.b (GlobalTimeDiv), d3
-	move.w Bridge_Speed(a0), d5
-	divs.w d3, d5
-	move.w Bridge_UnrollPos(a0), d4
-	add.w  d5, d4
-	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
-	move.w d4, Bridge_UnrollPos(a0)
+	move.l Bridge_Speed(a0), d5
+	DIVS1616_LOSSY d3, d5
+	move.l Bridge_UnrollPos(a0), d4
+	add.l  d5, d4
+	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
+	move.l d4, Bridge_UnrollPos(a0)
 
 	; If at end, disable platform and set closed state
-	cmp.w  #(Bridge_NumNotches<<8), d4
+	cmp.l  #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), d4
 	beq    @FinishedUnrolling
-
-	; Unroll pos to pixels
-	lsr.l  #0x8, d4
-	add.w  #0x1, d4
-	mulu   #Bridge_NotchWidth, d4
-
-	; Set platform width to unroll pos
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.w d4, Platform_Width(a2)
-
-	; Move barrier to unroll pos
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	TOSUBPIXELS d4
-
-	; Invert X if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @NoInvertX
-	move.l #Bridge_Width*subpixels_per_pixel, d7
-	sub.l  d4, d7
-	move.l d7, d4
-	@NoInvertX:
-
-	add.l  d4, d0
-
-	; Apply to platform pos if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
-	beq    @NotFlippedX
-	move.l a0, a3
-	add.l  #Bridge_Platform, a3
-	move.l d0, Platform_PosX(a3)
-	@NotFlippedX:
-
-	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
-	move.l d0, Barrier_PosX(a2)
-	move.l d1, Barrier_PosY(a2)
-
-	bra    @End
+	bra    @StillUnrolling
 
 	@FinishedUnrolling:
 
@@ -671,7 +597,62 @@ BridgeUpdateUnroll:
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 
-	@End:
+	@StillUnrolling:
+
+	; Set barrier and platform pos
+	move.l Bridge_UnrollPos(a0), d4
+	jsr    BridgeUpdateBarrierPlatformPos
+
+	rts
+
+BridgeUpdateBarrierPlatformPos:
+	; d4 - Unroll pos
+
+	; Unroll pos to pixels
+	TOPIXELS d4
+	add.w  #0x1, d4
+
+	; Set platform width to unroll pos
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.w d4, Platform_Width(a2)
+
+	; To world space
+	TOSUBPIXELS d4
+
+	; Add inverted X offset if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoInvertX
+	move.l #Bridge_Width*subpixels_per_pixel, d7
+	sub.l  d4, d7
+	move.l d7, d4
+	move.l Entity_WorldPosX(a0), d0
+	add.l  d4, d0
+	move.l d0, Platform_PosX(a2)
+	@NoInvertX:
+
+	; Move barrier to unroll pos
+	move.l a0, a2
+	add.l  #Bridge_Barrier, a2
+	move.l Barrier_PosX(a2), d3
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  d4, d0
+	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
+	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
+
+	; Sub barrier width if flipped
+	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	beq    @NoFlipX
+	sub.l  #Bridge_BarrierWidth*subpixels_per_pixel, d0
+	@NoFlipX:
+
+	move.l d0, Barrier_PosX(a2)
+	move.l d1, Barrier_PosY(a2)
+
+	; Calc barrier velocity
+	sub.l  d3, d0
+	move.l d0, Barrier_VelX(a2)
 
 	rts
 
@@ -682,15 +663,16 @@ BridgeUpdateDropping:
 	clr.l  d4
 	clr.l  d5
 	move.b (GlobalTimeDiv), d3
-	move.w Bridge_Speed(a0), d5
-	divs.w d3, d5
-	move.w Bridge_UnrollPos(a0), d4
-	add.w  d5, d4
-	CLAMPW d4,#0x0,#(Bridge_NumNotches<<8)
-	move.w d4, Bridge_UnrollPos(a0)
+	move.l Bridge_Speed(a0), d5
+	DIVS1616_LOSSY d3, d5
+	move.l Bridge_UnrollPos(a0), d4
+	add.l  d5, d4
+	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
+	move.l d4, Bridge_UnrollPos(a0)
 
 	; For each notch up to drop pos, fall under gravity
-	lsr.l  #0x8, d4
+	TOPIXELS d4
+	divu.w #Bridge_NotchWidth, d4
 	move.l a0, a2
 	move.l a0, a3
 	add.l  #Bridge_NotchYVel, a2
@@ -705,14 +687,13 @@ BridgeUpdateDropping:
 	dbra   d4, @NotchLp
 
 	; If at end, disable platform
-	cmp.w  #(Bridge_NumNotches<<8), d4
+	move.l Bridge_UnrollPos(a0), d4
+	cmp.l  #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), d4
 	beq    @FinishedDropping
 
 	; Unroll pos to pixels
-	move.w Bridge_UnrollPos(a0), d4
-	lsr.l  #0x8, d4
+	TOPIXELS d4
 	add.w  #0x1, d4
-	mulu   #Bridge_NotchWidth, d4
 
 	; Reposition platform and set width
 	move.l a0, a2

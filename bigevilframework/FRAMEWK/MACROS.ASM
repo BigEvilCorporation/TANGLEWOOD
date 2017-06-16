@@ -144,6 +144,17 @@ CLAMP: macro valuereg,minreg,maxreg
 	@WITHIN_MAX\@:
 	endm
 
+CLAMPL: macro valuereg,minreg,maxreg
+	cmp.l  \minreg,\valuereg
+	bge    @WITHIN_MIN\@
+	move.l \minreg,\valuereg
+	@WITHIN_MIN\@:
+	cmp.l  \maxreg,\valuereg
+	ble    @WITHIN_MAX\@
+	move.l \maxreg,\valuereg
+	@WITHIN_MAX\@:
+	endm
+
 CLAMPW: macro valuereg,minreg,maxreg
 	cmp.w  \minreg,\valuereg
 	bge    @WITHIN_MIN\@

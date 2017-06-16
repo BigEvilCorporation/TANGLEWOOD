@@ -633,9 +633,6 @@ PhysicsObjCollisionCorrection:
 
 	;==============================================================
 	; Correct wall collision
-	
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
-	beq    @HeadingNowhereX
 
 	; Clear hit wall flag
 	move.b #0x0, PhysicsObj_HitWall(a0)
@@ -688,7 +685,6 @@ PhysicsObjCollisionCorrection:
 	move.l d0, PhysicsObj_VelX(a0)
 	
 	@NoWallFound:
-	@HeadingNowhereX:
 
 	rts
 	
@@ -1085,12 +1081,18 @@ PhysicsObjFindWall:
 	
 	; Result
 	move.l d4, PhysicsObj_LastWall(a0)
+	bra    @End
 	
 	;==============================================================
 	
 	@HeadingNowhere:
+
+	; Not heading left/rightm check moving barriers instead
+	jsr     PhysicsObjFindMovingBarrier
+
 	@ProbeOutOfBounds:
 	@NoWallFound:
+	@End:
 
 	rts
 
@@ -1184,6 +1186,204 @@ PhysicsObjFindCeiling:
 	
 	@ProbeOutOfBounds:
 	@NoCeilingFound:
+
+	rts
+
+PhysicsObjFindMovingBarrier:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
+	beq   @NoBarrier
+
+	;==============================================================
+	
+	; Get floor probe Y
+	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
+	TOPIXELS d2							; To sprite space
+	sub.w  #vdp_sprite_border_y, d2		; To screen space
+	move.w Entity_Height(a0), d3		; Get height
+	add.l  d3, d2						; Get floor probe
+	move.w d2, d1						; Player pos XY (screen space) to d1
+	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
+
+	; Check if Y within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapHeight(a1), d2
+	sub.w  #0x1, d2
+	TILES2PIXELS d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+
+	;==============================================================
+	
+	LIST_GET_HEAD Barriers,a3		; Get list head
+	@BarrierLp:						; For all barriers in list
+	cmp.l  #0x0, a3
+	beq    @NoBarrier
+
+	; Ignore inactive barriers
+	cmp.b  #0x0, Barrier_Active(a3)
+	beq    @NextBarrier
+
+	; Ignore stationary barriers
+	move.l Barrier_VelX(a3), d2
+	cmp.l  #0x0, d2
+	beq    @NextBarrier
+
+	; Ignore barriers shorter than min wall height
+	move.w Barrier_Height(a3), d3
+	move.w PhysicsObj_MinWallHeight(a0), d4
+	cmp.w  d3, d4
+	bgt    @NextBarrier
+
+	;==============================================================
+	
+	; Determine barrier direction
+	move.l Barrier_VelX(a3), d3
+	cmp.l  #0x0, d3
+	beq    @NextBarrier
+	blt    @HeadingLeft
+	bgt    @HeadingRight
+	
+	@HeadingRight:
+
+	; Get probe X, left hand side
+	move.l Entity_WorldPosX(a0), d2		; Get player pos X
+	TOPIXELS d2							; To sprite space
+	sub.w  #vdp_sprite_border_x, d2		; To screen space
+	
+	bra    @EndHeadingTest
+	
+	@HeadingLeft:
+	
+	; Get probe X, right hand side
+	move.l Entity_WorldPosX(a0), d2		; Get player pos X
+	TOPIXELS d2							; To sprite space
+	sub.w  #vdp_sprite_border_x, d2		; To screen space
+	add.w  Entity_Width(a0), d2			; Right hand side
+
+	@EndHeadingTest:
+	
+	; Check if X within collision map bounds
+	cmp.w  #0x0, d2
+	blt    @ProbeOutOfBounds
+	move.w Level_MapWidth(a1), d3
+	TILES2PIXELS d3
+	cmp.w  d3, d2
+	bge    @NextBarrier
+
+	swap   d1
+	move.w d2, d1	; X to upper d1
+	swap   d1		; Y to lower d1
+	
+	;==============================================================
+	
+	; Get barrier Top and Bottom Y
+	move.l Barrier_PosY(a3), d2
+	move.w Barrier_Height(a3), d3
+	TOPIXELS d2
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
+	add.w  d2, d3
+
+	; + step height
+	add.w  PhysicsObj_StepHeight(a0), d3
+	
+	; Get wall probe Y
+	move.w d1, d0
+	
+	; Check if probe Y within barrier Y-height
+	cmp.w  d0, d2		; Top
+	bgt    @NextBarrier
+	cmp.w  d0, d3		; Bottom + step height
+	blt    @NextBarrier
+	
+	; Get barrier X
+	move.l Barrier_PosX(a3), d2				; Get X
+	TOPIXELS d2
+	sub.w  #vdp_sprite_border_x, d2			; To screen space
+
+	; Get wall probe X
+	swap   d1
+	move.w d1, d0
+	swap   d1
+	
+	; Check if probe X is between barrier left and right
+	cmp.w  d2, d0							; Compare probe with barrier left
+	blt    @NextBarrier
+	add.w  Barrier_Width(a3), d2
+	cmp.w  d2, d0							; Compare probe with barrier right
+	bgt    @NextBarrier
+	
+	; Success
+	move.l Barrier_PosX(a3), d4				; Get barrier X
+	TOPIXELS d4
+
+	; If heading left, use right hand side of barrier
+	move.l Barrier_VelX(a3), d3
+	cmp.l  #0x0, d3
+	blt    @LeftOfBarrier
+	add.w  Barrier_Width(a3), d4
+	@LeftOfBarrier:
+
+	TOSUBPIXELS d4							; To world space
+	
+	; Add barrier X velocity
+	move.l Barrier_VelX(a3), d2
+	add.l  d2, Entity_WorldPosX(a0)
+
+	bra    @FoundBarrier
+
+	@NextBarrier:
+	LIST_GET_NEXT Barriers,a3,a3	; Get next ptr
+	bra    @BarrierLp				; Loop
+
+	;==============================================================
+
+	@FoundBarrier:
+
+	; Determine X direction
+	move.l Barrier_VelX(a3), d1
+	cmp.l  #0x0, d1
+	blt    @BarrierHeadingLeft
+	bgt    @BarrierHeadingRight
+	
+	@BarrierHeadingRight:
+	
+	; Heading right, clamp object left
+	move.l d4, Entity_WorldPosX(a0)
+
+	; Wall hit
+	move.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	
+	bra    @EndWallClamp
+	
+	@BarrierHeadingLeft:
+	
+	; Heading left, clamp object right
+	clr.l  d2
+	move.w Entity_Width(a0), d2
+	TOSUBPIXELS d2
+	sub.l  d2, d4
+	
+	; Clamp
+	move.l d4, Entity_WorldPosX(a0)
+
+	; Wall hit
+	move.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	
+	@EndWallClamp:
+	
+	; Zero X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	@NoWallFound:
+
+	;==============================================================
+	
+	@NoBarrier:
+	@ProbeOutOfBounds:
 
 	rts
 	
