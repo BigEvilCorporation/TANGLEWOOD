@@ -50,9 +50,11 @@ L3A2_WaterBody_count equ 0x0
 
 L3A2_Location_count equ 0x0
 
-L3A2_Deathbox_count equ 0x2
+L3A2_Deathbox_count equ 0x4
 L3A2_Deathbox_24_idx	equ 0x0
 L3A2_Deathbox_25_idx	equ 0x1
+L3A2_Deathbox_26_idx	equ 0x2
+L3A2_Deathbox_27_idx	equ 0x3
 
 L3A2_Lift_count equ 0x4
 L3A2_Lift1_idx	equ 0x0
@@ -268,6 +270,16 @@ L3A2_LoadGameObjects:
 	jsr DeathboxInit
 	move.l #0x0a880000, Entity_WorldPosX(a0)
 	move.l #0x04b00000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x04700000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x05c80000, Entity_WorldPosX(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 
