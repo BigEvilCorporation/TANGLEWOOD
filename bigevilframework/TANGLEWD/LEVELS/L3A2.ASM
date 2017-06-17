@@ -175,7 +175,7 @@ l3a2_RollBridgeComboOpen:
 	PUSHL  a0
 
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
-	jsr    BridgeBeginUnroll
+	jsr    BridgeBeginRoll
 
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
 	jsr    BridgeBeginRoll
@@ -189,7 +189,7 @@ l3a2_RollBridgeComboClose:
 	PUSHL  a0
 
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
-	jsr    BridgeBeginRoll
+	jsr    BridgeBeginUnroll
 
 	POPL   a0
 

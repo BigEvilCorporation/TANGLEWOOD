@@ -27,9 +27,10 @@ L3A2_Firefly_count equ 0x0
 
 L3A2_FuzzlCage_count equ 0x0
 
-L3A2_Fuzzl_count equ 0x2
+L3A2_Fuzzl_count equ 0x3
 L3A2_FuzzlGreen1_idx	equ 0x0
 L3A2_FuzzlGreen2_idx	equ 0x1
+L3A2_Fuzzl_28_idx	equ 0x2
 
 L3A2_Stone_count equ 0x3
 L3A2_Stone_6_idx	equ 0x0
@@ -50,11 +51,12 @@ L3A2_WaterBody_count equ 0x0
 
 L3A2_Location_count equ 0x0
 
-L3A2_Deathbox_count equ 0x4
+L3A2_Deathbox_count equ 0x5
 L3A2_Deathbox_24_idx	equ 0x0
 L3A2_Deathbox_25_idx	equ 0x1
 L3A2_Deathbox_26_idx	equ 0x2
 L3A2_Deathbox_27_idx	equ 0x3
+L3A2_Deathbox_29_idx	equ 0x4
 
 L3A2_Lift_count equ 0x4
 L3A2_Lift1_idx	equ 0x0
@@ -188,7 +190,7 @@ L3A2_LoadGameObjects:
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
 	move.l #0x10e00000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
@@ -217,8 +219,13 @@ L3A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x11480000, Entity_WorldPosX(a0)
-	move.l #0x03400000, Entity_WorldPosY(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
 	move.b #ColourGreen, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x0e780000, Entity_WorldPosX(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
@@ -264,12 +271,12 @@ L3A2_LoadGameObjects:
 	move.l #EntityArray_Deathbox, a0
 	jsr DeathboxInit
 	move.l #0x09080000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x0a880000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
@@ -280,6 +287,11 @@ L3A2_LoadGameObjects:
 	jsr DeathboxInit
 	move.l #0x05c80000, Entity_WorldPosX(a0)
 	move.l #0x04d00000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x02f00000, Entity_WorldPosX(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 
@@ -328,7 +340,7 @@ L3A2_LoadGameObjects:
 	add.l #Bridge_Struct_Size, a0
 	jsr BridgeInit
 	move.l #0x10b80000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
@@ -336,6 +348,8 @@ L3A2_LoadGameObjects:
 	move.l #0x0e280000, Entity_WorldPosX(a0)
 	move.l #0x04400000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollUp, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 
