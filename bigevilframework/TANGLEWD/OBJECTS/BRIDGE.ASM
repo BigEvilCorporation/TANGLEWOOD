@@ -21,6 +21,9 @@ Bridge_MinNotchSpiralRadius	equ 0x10
 Bridge_UnrollSpeed		equ 0x00038000	; Approx player run speed
 Bridge_DropSpeed		equ 0x00030000	; Just under player run speed
 
+Bridge_DropCamShakeVel	equ 0x4000
+Bridge_DropCamShakeAmp	equ 0x0100
+
 Bridge_PlatformWidth	equ Bridge_Width	; Physics platform width
 Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
 Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
@@ -225,8 +228,8 @@ BridgeUpdate:
 	; If dropping, check for occupant and begin drop
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
 	bne    @NotDropMode
-	cmp.b  #Bridge_StateDropping, Bridge_State(a0)
-	beq    @AlreadyDropping
+	cmp.b  #Bridge_Stateopen, Bridge_State(a0)
+	bne    @AlreadyDropping
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
 	cmp.b  #0x0, Platform_Occupied(a2)
@@ -243,6 +246,8 @@ BridgeUpdate:
 	cmp.b  #Bridge_StateUnrolling, d0
 	beq    @Unrolling
 	cmp.b  #Bridge_StateDropping, d0
+	beq    @Dropping
+	cmp.b  #Bridge_StateDropped, d0
 	beq    @Dropping
 	bra    @End
 
@@ -529,6 +534,14 @@ BridgeBeginDrop:
 	; Set drop state
 	move.b #Bridge_StateDropping, Bridge_State(a0)
 
+	; Begin camera shake
+	move.w #0x0, d0
+	move.w #Bridge_DropCamShakeVel, d1
+	move.w #0x0, d2
+	move.w #Bridge_DropCamShakeAmp, d3
+	move.w #0x0, d4
+	jsr    CAM_StartCameraShake
+
 	rts
 
 BridgeUpdateRoll:
@@ -679,12 +692,22 @@ BridgeUpdateDropping:
 	add.l  #Bridge_NotchYPos, a3
 	move.l Level_Gravity(a1), d0
 
+	cmp.w  #0x0, d4
+	beq    @FirstNotch
+	sub.w  #0x1, d4
 	@NotchLp:
 	move.l (a2), d1		; Vel to a2
 	add.l  d0, d1		; Add gravity to vel
 	move.l d1, (a2)+	; Back to array
 	add.l  d1, (a3)+	; Add to pos
 	dbra   d4, @NotchLp
+	@FirstNotch:
+
+	; TODO: If last piece is off screen, disable update/render
+
+	; If already dropped, done here
+	cmp.b  #Bridge_StateDropped, Bridge_State(a0)
+	beq    @End
 
 	; If at end, disable platform
 	move.l Bridge_UnrollPos(a0), d4
@@ -723,6 +746,12 @@ BridgeUpdateDropping:
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
 	move.b #0x0, Platform_Active(a2)
+
+	; Stop camera shake
+	jsr    CAM_StopCameraShake
+
+	; Set dropped state
+	move.b #Bridge_StateDropped, Bridge_State(a0)
 
 	@End:
 

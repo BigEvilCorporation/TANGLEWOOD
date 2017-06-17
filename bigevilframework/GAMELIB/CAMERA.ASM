@@ -45,6 +45,31 @@ CAM_PeekReturn:
 
 	rts
 
+CAM_StartCameraShake:
+	; d0 (w) Velocity X
+	; d1 (w) Velocity Y
+	; d2 (w) Amplitude X
+	; d3 (w) Amplitude Y
+	; d4 (w) Timeout (frames)
+
+	move.w d0, CameraShakeSpeedX
+	move.w d1, CameraShakeSpeedY
+	move.w d2, CameraShakeAmpX
+	move.w d3, CameraShakeAmpY
+	move.w d4, CameraShakeTimer
+
+	rts
+
+CAM_StopCameraShake:
+
+	move.w #0x0, CameraShakeSpeedX
+	move.w #0x0, CameraShakeSpeedY
+	move.w #0x0, CameraShakeAmpX
+	move.w #0x0, CameraShakeAmpY
+	move.w #0x0, CameraShakeTimer
+
+	rts
+
 CAM_Update:
 
 	; Level to a1
