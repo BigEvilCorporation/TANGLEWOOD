@@ -16,10 +16,12 @@ L3A2_Echo_count equ 0x0
 
 L3A2_BouncePlant_count equ 0x0
 
-L3A2_Boulder_count equ 0x3
-L3A2_Boulder_17_idx	equ 0x0
+L3A2_Log_count equ 0x1
+L3A2_Log1_idx	equ 0x0
+
+L3A2_Boulder_count equ 0x2
+L3A2_Boulder2_idx	equ 0x0
 L3A2_Boulder1_idx	equ 0x1
-L3A2_Boulder2_idx	equ 0x2
 
 L3A2_Monster_count equ 0x0
 
@@ -94,6 +96,10 @@ L3A2_Button1_idx	equ 0x0
 
 	IF L3A2_BouncePlant_count>BouncePlant_MaxEntities
 	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L3A2_BouncePlant_count
+	ENDIF
+
+	IF L3A2_Log_count>Log_MaxEntities
+	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L3A2_Log_count
 	ENDIF
 
 	IF L3A2_Boulder_count>Boulder_MaxEntities
@@ -187,20 +193,22 @@ L3A2_LoadGameObjects:
 
 	move.l #EntityArray_BouncePlant, a0
 
-	move.l #EntityArray_Boulder, a0
-	jsr BoulderInit
+	move.l #EntityArray_Log, a0
+	jsr LogInit
 	move.l #0x10e00000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
+
+	move.l #EntityArray_Boulder, a0
+	jsr BoulderInit
+	move.l #0x0af00000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
 	move.l #0x09b80000, Entity_WorldPosX(a0)
 	move.l #0x04100000, Entity_WorldPosY(a0)
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
-	jsr BoulderInit
-	move.l #0x0af00000, Entity_WorldPosX(a0)
-	move.l #0x03580000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
@@ -342,6 +350,7 @@ L3A2_LoadGameObjects:
 	move.l #0x10b80000, Entity_WorldPosX(a0)
 	move.l #0x03380000, Entity_WorldPosY(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 	jsr BridgeInit

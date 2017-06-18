@@ -23,6 +23,8 @@ L3A1_Echo_count equ 0x0
 
 L3A1_BouncePlant_count equ 0x0
 
+L3A1_Log_count equ 0x0
+
 L3A1_Boulder_count equ 0x0
 
 L3A1_Monster_count equ 0x0
@@ -101,6 +103,10 @@ L3A1_Button3_idx	equ 0x2
 
 	IF L3A1_BouncePlant_count>BouncePlant_MaxEntities
 	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L3A1_BouncePlant_count
+	ENDIF
+
+	IF L3A1_Log_count>Log_MaxEntities
+	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L3A1_Log_count
 	ENDIF
 
 	IF L3A1_Boulder_count>Boulder_MaxEntities
@@ -214,6 +220,8 @@ L3A1_LoadGameObjects:
 	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_BouncePlant, a0
+
+	move.l #EntityArray_Log, a0
 
 	move.l #EntityArray_Boulder, a0
 

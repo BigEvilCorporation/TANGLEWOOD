@@ -1,0 +1,252 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2017
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   Log.asm - Pushable/rolling log, can crush at high speed
+;==============================================================
+
+; Constants
+Log_MaxEntities			equ 0x4
+Log_Width				equ 0x38
+Log_Height				equ 0x38
+Log_Mass				equ 0x4
+Log_MaxVelX				equ 0x080000
+Log_MaxVelYUp			equ 0x06*subpixels_per_pixel
+Log_MaxVelYDown			equ 0x08*subpixels_per_pixel
+Log_Decel				equ 0x003000
+Log_StepHeight			equ 0x4
+Log_ProbeFloorX			equ (Log_Width/2)	; Floor detection probe position X
+Log_ProbeFloorY			equ (Log_Height-8)	; Floor detection probe position X
+
+Log_AnimSpeedVelDiv		equ 0x0800
+
+Log_RollSFXVel			equ 0x002000
+Log_HitGroundSFXVel		equ 0x050000	; Min Y velocity to play thud SFX
+Log_MinDamageXVel		equ 0x050000	; Min X velocity to deal damage to characters
+Log_MinDamageYVel		equ 0x050000	; Min Y velocity to deal damage to characters
+Log_HitDamage			equ 0xFF		; Damage dealt to characters
+
+Log_PlatformWidth		equ Log_Width/2	; Physics platform width
+Log_PlatformXOffset		equ (Log_Width-Log_PlatformWidth)/2	; Offset to platform from top of Log
+Log_PlatformYOffset		equ 0x0008	; Offset to platform from top of Log
+
+;==============================================================
+
+; Animations
+LogAnimIdx_Roll    equ 0
+; --------------------------
+LogAnimIdx_Max     equ 1
+
+;==============================================================
+
+; Struct
+	rsset (PhysicsObj_Struct_Size)
+;-----------------------------
+Log_Animations		rs.b (Animation_Struct_Size*LogAnimIdx_Max)
+Log_Platform		rs.b Platform_Struct_Size ; Moving platform on top of Log
+Log_FloorRollAccel	rs.w 1
+Log_RollSFXPlaying	rs.b 1
+;-----------------------------
+Log_Struct_Pad		rs.b 1   ; Alignment padding
+Log_Struct_Size		rs.b 0
+;-----------------------------
+
+;==============================================================
+
+LogInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base init
+	jsr    PhysicsObjInit
+	
+	; Set type
+	addi.w #0x1, EntityCount_Log
+	
+	; Set update and render routines
+	move.l #LogUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #LogSerialise, Entity_SerialiseRoutine(a0)
+	
+	; Add to update and render lists
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    EntityAddToSerialiseList
+	
+	; Default state
+	move.b  #0x1, Entity_Active(a0)
+	move.b  #0x1, SpriteObj_Visible(a0)
+	move.w  #Log_Width, Entity_Width(a0)
+	move.w  #Log_Height, Entity_Height(a0)
+	move.b  #Log_Mass, PhysicsObj_Mass(a0)
+	move.l  #Log_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #Log_Decel, PhysicsObj_DecelX(a0)
+	move.w  #Log_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #Log_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Log_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.l  #Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #0x0, PhysicsObj_CanBePushed(a0)
+	move.w  #0x0, Log_FloorRollAccel(a0)
+	move.b  #0x0, Log_RollSFXPlaying(a0)
+	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	; Register as pushable object
+	LIST_APPEND_TAIL PushableObjs, a0, a3
+
+	;==============================================================
+	
+	; Setup platform
+	move.l a0, a2
+	add.l  #Log_Platform, a2
+	
+	move.b #0x1, Platform_Active(a2)
+	move.w #Log_PlatformWidth, Platform_Width(a2)
+	
+	; Add to physics platforms list
+	LIST_APPEND_TAIL Platforms, a2, a3
+	
+	;==============================================================
+	; Setup animations
+
+	; Roll
+	;ANIM_LOAD_DEFAULT Log_roll,Log_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT Boulder_roll,Boulder_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
+	
+	; Start roll animation
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Log_Animations, a1
+	add.l  #(Animation_Struct_Size*LogAnimIdx_Roll), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	rts
+
+LogLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	;SPRITE_LOAD_DEFAULT Log,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Boulder,PaletteId_World0,0x0
+
+	rts
+	
+LogUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Get roll animation
+	move.l a0, a2
+	add.l  #Log_Animations, a2
+	add.l  #(Animation_Struct_Size*LogAnimIdx_Roll), a2
+
+	; Roll anim speed based on velocity
+	clr.l  d0
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
+	beq    @ZeroVel
+	divs.w #Log_AnimSpeedVelDiv, d0
+	@ZeroVel:
+	move.w d0, Animation_Speed(a2)
+
+	;==============================================================
+
+	; If on floor, set roll accel
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+	move.w Log_FloorRollAccel(a0), PhysicsObj_AccelX(a0)
+	@InAir:
+
+	; If hit a wall, clear accel
+	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	beq    @NotHitWall
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, Log_FloorRollAccel(a0)
+	@NotHitWall:
+	
+	; Base functionality
+	jsr    PhysicsObjUpdate
+
+	;==============================================================
+	
+	; Reposition platform
+	move.l a0, a2
+	add.l  #Log_Platform, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #Log_PlatformXOffset*subpixels_per_pixel, d0
+	add.l  #Log_PlatformYOffset*subpixels_per_pixel, d1
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
+	
+	; Set platform velocity
+	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
+
+	;==============================================================
+
+	; If X vel over threshold, check if damaging player
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #Log_MinDamageXVel, d0
+	bge    @DealDamage
+	cmp.l  #-Log_MinDamageXVel, d0
+	ble    @DealDamage
+	bra    @NoDamage
+
+	@DealDamage:
+	
+	; Check if touching player
+	move.l #Player1, a2
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @NoDamage
+
+	; Deal damage
+	move.l #Log_HitDamage, d0
+	jsr    CharacterDealDamage
+
+	@NoDamage:
+
+	rts
+
+LogSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	SAVEW Log_FloorRollAccel(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	LOADW Log_FloorRollAccel(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts

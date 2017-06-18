@@ -114,6 +114,7 @@ __start
 	include 'objects\generatr.asm'
 	include 'objects\gen_cogs.asm'
 	include 'objects\leaf.asm'
+	include 'objects\log.asm'
 	include 'objects\rope.asm'
 	include 'objects\lift.asm'
 	include 'objects\location.asm'

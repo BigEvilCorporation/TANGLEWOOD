@@ -180,6 +180,9 @@ l3a2_RollBridgeComboOpen:
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
 	jsr    BridgeBeginRoll
 
+	ENTITY_GETBYNAME Log, l3a2_Log1, a0
+	move.w #-0x0800, Log_FloorRollAccel(a0)
+
 	POPL   a0
 
 	rts

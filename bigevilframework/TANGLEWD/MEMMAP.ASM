@@ -363,6 +363,7 @@ EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_FuzzlCage   rs.b (FuzzlCage_Struct_Size*FuzzlCage_MaxEntities)
 EntityArray_Generator   rs.b (Generator_Struct_Size*Generator_MaxEntities)
 EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
+EntityArray_Log        rs.b (Log_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nest        rs.b (Nest_Struct_Size*Nest_MaxEntities)
 EntityArray_TriggerBox  rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 EntityArray_Checkpoint  rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
@@ -395,6 +396,7 @@ EntityCount_Fuzzl       rs.w 1
 EntityCount_FuzzlCage   rs.w 1
 EntityCount_Generator   rs.w 1
 EntityCount_Leaf        rs.w 1
+EntityCount_Log         rs.w 1
 EntityCount_Nest        rs.w 1
 EntityCount_Boulder     rs.w 1
 EntityCount_TriggerBox  rs.w 1

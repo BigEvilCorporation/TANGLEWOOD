@@ -95,6 +95,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_Leaf
 	move.w #0x0, EntityCount_Lift
 	move.w #0x0, EntityCount_Location
+	move.w #0x0, EntityCount_Log
 	move.w #0x0, EntityCount_Monster
 	move.w #0x0, EntityCount_Nest
 	move.w #0x0, EntityCount_Rope
