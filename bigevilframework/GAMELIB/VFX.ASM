@@ -39,10 +39,10 @@ VfxInit:
 	move.l #VfxUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 
-	PUSHL  a0-a3
+	PUSHM  a0-a3
 	jsr    EntityAddToUpdateList
 	jsr    EntityAddToRenderList
-	POPL   a0-a3
+	POPM   a0-a3
 
 	; Set width/height
 	move.w SpriteSheet_WidthHeightTiles(a2), d0
@@ -58,12 +58,12 @@ VfxInit:
 	; Alloc VRAM
 	move.w SpriteSheet_SizeTiles(a2), d0
 	mulu.w #size_tile_b, d0
-	PUSHL  a0-a3
+	PUSHM  a0-a3
 	jsr    VRAM_PoolAlloc
-	POPL   a0-a3
+	POPM   a0-a3
 
 	; Load sprite
-	PUSHL  a0-a3
+	PUSHM  a0-a3
 	move.l SpriteSheet_TileDataAddr(a2), a1
 	move.l SpriteSheet_SubspriteOffsetArrAddr(a2), a3
 	move.l SpriteSheet_TileCountArrAddr(a2), a4
@@ -74,14 +74,14 @@ VfxInit:
 	move.b SpriteSheet_Priority(a2), d5
 	move.l SpriteSheet_DimensionsArrAddr(a2), a2
 	jsr    SpriteObjLoad
-	POPL   a0-a3
+	POPM   a0-a3
 
 	; Copy animation
-	PUSHL  a0-a3
+	PUSHM  a0-a3
 	add.l  #VfxObj_Animation, a0
 	move.l #Animation_Struct_Size/size_long, d0
 	MEMCPYL a0, a3, d0
-	POPL   a0-a3
+	POPM   a0-a3
 
 	rts
 

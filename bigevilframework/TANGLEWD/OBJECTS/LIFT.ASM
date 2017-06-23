@@ -168,9 +168,9 @@ LiftLoadGfx:
 	add.l  #Lift_RopeSegments, a2
 	@RopeLp:
 	move.l (a2)+, a0
-	PUSHL  a2/d1
+	PUSHM  a2/d1
 	jsr    RopeSegmentLoadGfx
-	POPL   a2/d1
+	POPM   a2/d1
 	dbra   d1, @RopeLp
 	POPM   a0-a1
 

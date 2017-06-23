@@ -50,18 +50,18 @@ SetTimeOfDay:
 	; TODO: Bit messy, shove this into an array or something
 	cmp.b  #TimeOfDay_Night, d0
 	bne    @NotNight
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_night, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	@NotNight:
 
 	cmp.b  #TimeOfDay_Dusk, d0
 	bne    @NotDusk
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_dusk, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	@NotDusk:
 	
 	andi.l #0x000000FF, d0

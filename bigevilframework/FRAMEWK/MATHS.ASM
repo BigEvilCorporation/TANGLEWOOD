@@ -33,9 +33,9 @@ RND_GenerateWordClamped:
 	; d1 (w) Min
 	; d2 (w) Max
 
-	PUSHL  d1-d2
+	PUSHM  d1-d2
 	jsr    RND_GenerateLong
-	POPL   d1-d2
+	POPM   d1-d2
 	clr.l  d3
 	andi.l #0xFFFF, d0
 	andi.l #0xFFFF, d1

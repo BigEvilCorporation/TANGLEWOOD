@@ -71,10 +71,10 @@ Logos_Enter:
 	jsr    VDP_LoadMapSegmentPlaneA
 	
 	; Start title theme
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_titles, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll

@@ -436,10 +436,10 @@ DjrakeUpdateWaitForPlayer:
 	cmp.b  #0x0, Djrake_RumblePlayed(a0)
 	bne    @Playing
 	
-	;PUSHL  a0/d0-d1
+	;PUSHM  a0/d0-d1
 	;lea    track_bgm_Djrakebass, a0
 	;jsr    SND_PlayTrack
-	;POPL   a0/d0-d1
+	;POPM   a0/d0-d1
 	
 	; Set played
 	move.b #0x1, Djrake_RumblePlayed(a0)
