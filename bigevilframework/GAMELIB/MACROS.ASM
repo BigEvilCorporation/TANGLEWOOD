@@ -105,7 +105,7 @@ SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	move.b #\palette, d4
 	move.b #\prio, d5
 	jsr    SpriteObjLoad
-	POPL   d0-d5/a0-a2
+	POPM   d0-d5/a0-a2
 	endm
 
 ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
