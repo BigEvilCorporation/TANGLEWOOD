@@ -525,7 +525,7 @@ MonsterCheckBarrier:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	PUSHL  a0-a2
+	PUSHM  a0-a2
 
 	; Check for markers
 	LIST_GET_HEAD AIMarkers,a2	; Get list head
@@ -574,7 +574,7 @@ MonsterCheckBarrier:
 
 	@Found:
 
-	POPL   a0-a2
+	POPM   a0-a2
 
 	rts
 
@@ -618,8 +618,8 @@ MonsterTakeColourPower:
 	; a1 --- Level addr
 
 	; Change to drained colour
-	PUSHL  d0/d3
-	PUSHL  a0/a1
+	PUSHM  d0/d3
+	PUSHM  a0/a1
 
 	move.l (MonsterPalettes+(ColourDrained*size_long)), a0	; Get new palette address
 	move.l #PaletteId_Monster, d0	; Get destination palette ID
@@ -629,8 +629,8 @@ MonsterTakeColourPower:
 	move.b #0xE, d4					; Range max
 	jsr    PAL_LerpStart			; Begin palette lerp
 	
-	POPL   a0/a1
-	POPL   d0/d3
+	POPM   a0/a1
+	POPM   d0/d3
 
 	rts
 
@@ -639,8 +639,8 @@ MonsterRestoreColourPower:
 	; a1 --- Level addr
 
 	; Restore original colour
-	PUSHL  d0/d3
-	PUSHL  a0/a1
+	PUSHM  d0/d3
+	PUSHM  a0/a1
 
 	lea    MonsterPalettes, a1		; Get palette array	
 	clr.l  d0
@@ -655,8 +655,8 @@ MonsterRestoreColourPower:
 	move.b #0xE, d4					; Range max
 	jsr    PAL_LerpStart			; Begin palette lerp
 	
-	POPL   a0/a1
-	POPL   d0/d3
+	POPM   a0/a1
+	POPM   d0/d3
 	
 	rts
 	
@@ -710,10 +710,10 @@ MonsterUpdateWaitForPlayer:
 	cmp.b  #0x0, Monster_RumblePlayed(a0)
 	bne    @Playing
 	
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_monsterbass, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	
 	; Set played
 	move.b #0x1, Monster_RumblePlayed(a0)
@@ -877,10 +877,10 @@ MonsterStartSearchForPlayer:
 	bne    @PlayerDead
 	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
 	beq    @TrackPlaying
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_boss1_search, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
 	@PlayerDead:
 	@TrackPlaying:
@@ -1041,10 +1041,10 @@ MonsterStartTrackPlayer:
 	; Start chase theme
 	cmp.b  #MonsterMusicState_Chase, Monster_MusicState(a0)
 	beq    @TrackPlaying
-	PUSHL  a0/d0-d1
+	PUSHM  a0/d0-d1
 	lea    track_bgm_boss1_chase, a0
 	jsr    SND_PlayTrack
-	POPL   a0/d0-d1
+	POPM   a0/d0-d1
 	move.b #MonsterMusicState_Chase, Monster_MusicState(a0)
 	@TrackPlaying:
 

@@ -500,8 +500,8 @@ PlayerUpdateIdleAnim:
 PlayerBeginColourSwitch:
 	; a0 --- Character address
 	
-	PUSHL  d0/d3
-	PUSHL  a0/a1
+	PUSHM  d0/d3
+	PUSHM  a0/a1
 
 	lea    SwitchingPalettesP1, a1	; Get palette array	
 	clr.l  d0
@@ -516,8 +516,8 @@ PlayerBeginColourSwitch:
 	move.b #0xE, d4					; Range max
 	jsr    PAL_LerpStart			; Begin palette lerp
 	
-	POPL   a0/a1
-	POPL   d0/d3
+	POPM   a0/a1
+	POPM   d0/d3
 	
 	; If not switching to red
 	cmp.b  #ColourRed, Player_Colour(a0)
@@ -1126,13 +1126,13 @@ PlayerMountPet:
 	move.b SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
 
 	; Start mount animation
-	PUSHL  a0-a2
+	PUSHM  a0-a2
 	move.l a0, a1
 	add.l  #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
-	POPL   a0-a2
+	POPM   a0-a2
 		
 	; Set riding
 	move.b #0x1, Character_Riding(a0)
@@ -1947,7 +1947,7 @@ PlayerInteractTest_Water:
 	@NoSplashSFX:
 
 	; Play splash VFX
-	PUSHL  a0-a1
+	PUSHM  a0-a1
 	move.l Entity_WorldPosX(a0), d0	; Player X
 	move.l Entity_WorldPosY(a1), d1	; Water Y
 	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
@@ -1955,7 +1955,7 @@ PlayerInteractTest_Water:
 	TOSUBPIXELS d2
 	sub.l  d2, d1
 	jsr    VfxPlay
-	POPL   a0-a1
+	POPM   a0-a1
 	
 	@PrevInWater:
 	@LowSplashVel:
