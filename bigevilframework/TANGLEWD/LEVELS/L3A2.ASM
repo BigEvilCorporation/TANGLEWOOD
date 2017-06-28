@@ -190,6 +190,10 @@ l3a2_LogRollBegin:
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
 
+	; Update Fuzzl out of view so it falls off the bridge properly
+	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlGreen2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
 	POPL   a0
 
 	rts

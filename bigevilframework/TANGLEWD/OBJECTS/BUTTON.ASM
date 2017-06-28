@@ -13,6 +13,7 @@ Button_Height			equ 0x08
 Button_PressSpeed		equ 0x00001000
 Button_PressHeightMaxActive		equ 0x00030000
 Button_PressHeightMaxInactive	equ 0x00010000
+Button_MinMass			equ 0x4	; Minimum mass required to push the button
 
 	rsset (AnimObj_Struct_Size)
 ;---------------------------------
@@ -102,8 +103,8 @@ ButtonUpdate:
 	; Check if platform occupied
 	move.l a0, a2
 	add.l  #Button_Platform, a2
-	cmp.b  #0x0, Platform_Occupied(a2)
-	beq    @Unoccupied
+	cmp.w  #Button_MinMass, Platform_TotalMass(a2)
+	blt    @Unoccupied
 
 	; Player on button, move platform down
 	add.l  #Button_PressSpeed, d0

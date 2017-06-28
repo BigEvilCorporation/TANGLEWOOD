@@ -33,6 +33,7 @@ Fuzzl_FlingRollSpeed        equ 0x80
 Fuzzl_HitGroundSFXVel		equ 0x020000	; Min downward velocity to play thud SFX
 Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
 Fuzzl_WindResistanceAir     equ 0x0020 ; Wind resistance (in air)
+Fuzzl_Mass					equ 0x0001
 
 ; State bits
 Fuzzl_State_Initial   equ 0x00 ; Initial state (in initial position, not seen player)
@@ -159,6 +160,7 @@ FuzzlInit:
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
+	move.w  #Fuzzl_Mass, PhysicsObj_Mass(a0)
 	move.l  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.l  #Fuzzl_WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
