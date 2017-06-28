@@ -11,7 +11,7 @@ BRIDGE_PROXIMITY_DEBUG	equ 0
 ; Constants
 Bridge_MaxEntities		equ 0x4
 Bridge_Width			equ 0xC0
-Bridge_Height			equ 0x10
+Bridge_Height			equ 0x40
 Bridge_NotchWidth		equ 0x10
 Bridge_NotchHeight		equ 0x10
 Bridge_NotchDiameter	equ 0x10
@@ -32,6 +32,9 @@ Bridge_BarrierWidth		equ 0x30	; Width of roll
 Bridge_BarrierHeight	equ 0x50	; Height of blocking barrier
 Bridge_BarrierXOffset	equ 0x0
 Bridge_BarrierYOffset	equ Bridge_Height-Bridge_BarrierHeight
+
+Bridge_ViewBoundsOffsetX	equ 0x0000
+Bridge_ViewBoundsOffsetY	equ 0x0020
 
 Bridge_SpiralCoords:
 	dc.b 0,0
@@ -75,8 +78,9 @@ Bridge_UnrollPos		rs.l 1
 Bridge_Speed			rs.l 1
 Bridge_Mode				rs.b 1
 Bridge_State			rs.b 1
+Bridge_InView			rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 2   ; Alignment padding
+Bridge_Struct_Pad		rs.b 1   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -110,6 +114,7 @@ BridgeInit:
 	move.l  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
 	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
+	move.b  #0x0, Bridge_InView(a0)
 
 	; Zero Y offsets and velocities
 	move.l  a0, a2
@@ -197,6 +202,17 @@ BridgeLoadGfx:
 BridgeUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Manual view test (can't use sprite link state)
+	move.b  #0x0, Bridge_InView(a0)
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d1
+	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	beq    @OutOfView
+	move.b  #0x1, Bridge_InView(a0)
 	
 	; Base functionality
 	jsr    SpriteObjUpdate
@@ -263,12 +279,16 @@ BridgeUpdate:
 	jsr    BridgeUpdateDropping
 
 	@End:
+	@OutOfView:
 
 	rts
 
 BridgeDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	cmp.b  #0x0, Bridge_InView(a0)
+	beq    @OutOfView
 
 	PUSHL  a0
 
@@ -393,6 +413,8 @@ BridgeDraw:
 	move.l d1, Entity_WorldPosY(a0)
 
 	POPL   a0
+
+	@OutOfView:
 
 	rts
 

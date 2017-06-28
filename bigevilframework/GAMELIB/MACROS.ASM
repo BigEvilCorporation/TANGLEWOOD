@@ -90,6 +90,35 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 
 ;==============================================================
 
+CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
+	; Left/right
+	move.l (CameraWorldPosX), \topleftreg			; X centre
+	TOPIXELS \topleftreg							; To screen space
+	move.w \topleftreg, \bottomrightreg
+	sub.w  #(screen_width/2), \topleftreg			; Left border
+	add.w  #(screen_width/2), \bottomrightreg		; Right border
+
+	add.w  #vdp_sprite_border_x, \topleftreg
+	add.w  #vdp_sprite_border_y, \bottomrightreg
+
+	swap   \topleftreg								; X to upper word
+	swap   \bottomrightreg
+	
+	; Top/bottom
+	move.l (CameraWorldPosY), \tempreg				; Y centre
+	TOPIXELS \tempreg								; To screen space
+	move.w \tempreg, \topleftreg
+	move.w \tempreg, \bottomrightreg
+	sub.w  #(screen_height/2), \topleftreg			; Top border
+	add.w  #(screen_height/2), \bottomrightreg		; Bottom border
+
+	add.w  #vdp_sprite_border_x, \topleftreg
+	add.w  #vdp_sprite_border_y, \bottomrightreg
+
+	endm
+
+;==============================================================
+
 	; Alloc VRAM and load sprite
 SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	PUSHM  d0-d5/a0-a2
