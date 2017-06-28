@@ -121,14 +121,20 @@ HandlePlayerInput:
 	; A = mul object move speed
 	btst #pad_button_a, d0
 	beq  @NoDbgMoveA
-	mulu #DebugMoveMode_SpeedMulA, d3
+	lsl.l #0x4, d3
 	@NoDbgMoveA:
 	
 	; B = mul object move speed
 	btst #pad_button_b, d0
 	beq  @NoDbgMoveB
-	mulu #DebugMoveMode_SpeedMulB, d3
+	lsl.l #0x1, d3
 	@NoDbgMoveB:
+	
+	; C = mul object move speed
+	btst #pad_button_c, d0
+	beq  @NoDbgMoveC
+	lsl.l #0x1, d3
+	@NoDbgMoveC:
 	
 	; TODO: Entity selection + set camera follow
 
