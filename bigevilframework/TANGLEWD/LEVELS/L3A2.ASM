@@ -41,6 +41,9 @@ l3a2_DefaultPalettes:
 	dc.l Pal_Nymn_Red				; Player
 	
 	even
+
+; Rolling log hazard
+L3A2_LogRollAccel	equ 0x0800
 	
 ; ************************************
 ; Runtime data
@@ -73,8 +76,12 @@ l3a2_Init:
 	ENTITY_GETBYNAME Button, l3a2_Button1, a0
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #l3a2_RollBridgeComboOpen, Button_OnDown(a0)
-	move.l #l3a2_RollBridgeComboClose, Button_OnUp(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.l #BridgeBeginUnroll, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	ENTITY_GETBYNAME Button, l3a2_Button2, a0
+	move.l #l3a2_LogRollBegin, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 
 	; Connect lifts to counterweights
@@ -170,29 +177,18 @@ l3a2_Serialise:
 l3a2_End:
 	rts
 
-l3a2_RollBridgeComboOpen:
+l3a2_LogRollBegin:
 
 	PUSHL  a0
 
-	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
-	jsr    BridgeBeginRoll
-
+	;Roll bridge
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
 	jsr    BridgeBeginRoll
 
+	; Set log rolling, update out of view
 	ENTITY_GETBYNAME Log, l3a2_Log1, a0
-	move.w #-0x0800, Log_FloorRollAccel(a0)
-
-	POPL   a0
-
-	rts
-
-l3a2_RollBridgeComboClose:
-
-	PUSHL  a0
-
-	ENTITY_GETBYNAME Bridge, l3a2_RollBridge1, a0
-	jsr    BridgeBeginUnroll
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
 
 	POPL   a0
 

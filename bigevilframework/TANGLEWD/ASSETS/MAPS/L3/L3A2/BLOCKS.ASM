@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L3A2_size_b	equ 0x0000E020	; Size in bytes
+map_blocks_L3A2_size_b	equ 0x0000E3A0	; Size in bytes
 map_blocks_L3A2_size_w	equ (map_blocks_L3A2_size_b/2)	; Size in words
 map_blocks_L3A2_size_l	equ (map_blocks_L3A2_size_b/4)	; Size in longwords
