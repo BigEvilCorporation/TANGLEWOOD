@@ -11,10 +11,10 @@ Log_MaxEntities			equ 0x4
 Log_Width				equ 0x38
 Log_Height				equ 0x38
 Log_Mass				equ 0x4
-Log_MaxVelX				equ 0x080000
+Log_MaxVelX				equ 0x050000
 Log_MaxVelYUp			equ 0x06*subpixels_per_pixel
 Log_MaxVelYDown			equ 0x08*subpixels_per_pixel
-Log_Decel				equ 0x003000
+Log_Decel				equ 0x000800
 Log_StepHeight			equ 0x4
 Log_ProbeFloorX			equ (Log_Width/2)	; Floor detection probe position X
 Log_ProbeFloorY			equ (Log_Height-8)	; Floor detection probe position X
@@ -23,13 +23,13 @@ Log_AnimSpeedVelDiv		equ 0x0800
 
 Log_RollSFXVel			equ 0x002000
 Log_HitGroundSFXVel		equ 0x050000	; Min Y velocity to play thud SFX
-Log_MinDamageXVel		equ 0x050000	; Min X velocity to deal damage to characters
+Log_MinDamageXVel		equ 0x020000	; Min X velocity to deal damage to characters
 Log_MinDamageYVel		equ 0x050000	; Min Y velocity to deal damage to characters
 Log_HitDamage			equ 0xFF		; Damage dealt to characters
 
 Log_PlatformWidth		equ Log_Width/2	; Physics platform width
 Log_PlatformXOffset		equ (Log_Width-Log_PlatformWidth)/2	; Offset to platform from top of Log
-Log_PlatformYOffset		equ 0x0008	; Offset to platform from top of Log
+Log_PlatformYOffset		equ 0x0000		; Offset to platform from top of Log
 
 ;==============================================================
 
@@ -116,8 +116,7 @@ LogInit:
 	; Setup animations
 
 	; Roll
-	;ANIM_LOAD_DEFAULT Log_roll,Log_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
-	ANIM_LOAD_DEFAULT Boulder_roll,Boulder_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT Log_roll,Log_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
 	
 	; Start roll animation
 	PUSHL  a1
@@ -133,8 +132,7 @@ LogLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	;SPRITE_LOAD_DEFAULT Log,PaletteId_World0,0x0
-	SPRITE_LOAD_DEFAULT Boulder,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Log,PaletteId_World0,0x0
 
 	rts
 	
@@ -164,11 +162,13 @@ LogUpdate:
 	move.w Log_FloorRollAccel(a0), PhysicsObj_AccelX(a0)
 	@InAir:
 
-	; If hit a wall, clear accel
+	; If hit a wall, clear accel, can be pushed
 	cmp.b  #0x0, PhysicsObj_HitWall(a0)
 	beq    @NotHitWall
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, Log_FloorRollAccel(a0)
+	move.b #0x1, PhysicsObj_CanBePushed(a0)
+	move.b #0x0, AnimObj_UpdateOutOfView(a0)
 	@NotHitWall:
 	
 	; Base functionality
@@ -211,8 +211,11 @@ LogUpdate:
 	beq    @NoDamage
 
 	; Deal damage
+	PUSHL  a0
+	move.l #Player1, a0
 	move.l #Log_HitDamage, d0
 	jsr    CharacterDealDamage
+	POPL   a0
 
 	@NoDamage:
 
