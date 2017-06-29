@@ -84,6 +84,27 @@ l3a2_Init:
 	move.l #l3a2_LogRollBegin, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 
+	ENTITY_GETBYNAME Button, l3a2_Button3, a0
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge3, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.l #BridgeBeginUnroll, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	ENTITY_GETBYNAME Button, l3a2_Button5, a0
+	ENTITY_GETBYNAME Bridge, l3a2_RollBridge4, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.l #BridgeBeginRoll, Button_OnUp(a0)
+
+	; Connect buttons to lifts
+	ENTITY_GETBYNAME Button, l3a2_Button4, a0
+	ENTITY_GETBYNAME Lift, l3a2_Lift5, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivate, Button_OnDown(a0)
+	move.l #LiftStop, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
 	; Connect lifts to counterweights
 	ENTITY_GETBYNAME Lift, l3a2_Lift1, a0
 	ENTITY_GETBYNAME Lift, l3a2_Lift2, a2
@@ -92,6 +113,18 @@ l3a2_Init:
 	ENTITY_GETBYNAME Lift, l3a2_Lift3, a0
 	ENTITY_GETBYNAME Lift, l3a2_Lift4, a2
 	jsr    LiftAttachCounterweightLift
+
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l3a2_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l3a2_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l3a2_Generator1, a0
+	ENTITY_GETBYNAME Button, l3a2_Button5, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
 
 	; HACK: Update boulder out of view to keep counterweight down
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder1, a0
@@ -185,9 +218,10 @@ l3a2_LogRollBegin:
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
 	jsr    BridgeBeginRoll
 
-	; Set log rolling, update out of view
+	; Set log rolling, update out of view, not pushable
 	ENTITY_GETBYNAME Log, l3a2_Log1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
 
 	; Update Fuzzl out of view so it falls off the bridge properly

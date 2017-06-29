@@ -87,7 +87,7 @@ LogInit:
 	move.w  #Log_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.l  #Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.b  #0x0, PhysicsObj_CanBePushed(a0)
+	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.w  #0x0, Log_FloorRollAccel(a0)
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	

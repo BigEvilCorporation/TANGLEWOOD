@@ -9,7 +9,7 @@
 BRIDGE_PROXIMITY_DEBUG	equ 0
 
 ; Constants
-Bridge_MaxEntities		equ 0x4
+Bridge_MaxEntities		equ 0x6
 Bridge_Width			equ 0xC0
 Bridge_Height			equ 0x40
 Bridge_NotchWidth		equ 0x10
