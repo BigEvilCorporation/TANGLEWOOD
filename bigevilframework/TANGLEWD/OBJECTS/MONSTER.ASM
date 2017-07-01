@@ -30,6 +30,7 @@ Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
 Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
 Monster_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
+Monster_Mass		  equ 0x00A0
 
 Monster_BoundsWidth		equ Monster_Width
 Monster_BoundsHeight	equ (Monster_Height-0x40)
@@ -180,6 +181,7 @@ MonsterInit:
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Monster_MinWallHeight, PhysicsObj_MinWallHeight(a0)
+	move.b  #Monster_Mass, PhysicsObj_Mass(a0)
 	
 	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
@@ -242,7 +244,7 @@ MonsterInit:
 	ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	
 	; Dead
-	ANIM_LOAD_DEFAULT djakk_death,djakk_death,Character_Animations,CharacterAnimIdx_Dead,1,0,0
+	ANIM_LOAD_DEFAULT djakk_death,djakk_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
 	
 	; Run
 	ANIM_LOAD_DEFAULT djakk_run,djakk_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
@@ -260,10 +262,10 @@ MonsterInit:
 	;ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	
 	; Bite
-	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,0,0
+	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
 	
 	; Roar
-	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,0,0
+	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
 
 	; Buck
 	ANIM_LOAD_DEFAULT djakk_throw,djakk_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
