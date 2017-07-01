@@ -74,6 +74,25 @@ l3a3_Init:
 
 	;==============================================================
 
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l3a3_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l3a3_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l3a3_Generator1, a0
+	ENTITY_GETBYNAME Button, l3a3_Button4, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to caged
+	ENTITY_GETBYNAME Button, l3a3_Button4, a0
+	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3Cage1Raise, Button_OnDown(a0)
+	move.b #0x1, Button_Active(a0)
+
 	; Connect twin buttons to bridge handler
 	ENTITY_GETBYNAME Button, l3a3_Button1, a0
 	move.l a1, Button_UserData(a0)
@@ -98,6 +117,12 @@ l3a3_Init:
 	; Reset combo button
 	move.l #LevelData_L3A3, a2
 	move.b #0x0, l3a3Data_ComboButtonCount(a2)
+
+	; TEMP
+	; Don't bother with caged Djakk emerge sequence
+	ENTITY_GETBYNAME Monster, l3a3_DjakkCaged1, a0
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Entity_Active(a0)
 	
 	rts
 	
@@ -170,6 +195,16 @@ l3a3ComboButtonDeactivated:
 	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge1, a0
 	jsr   BridgeBeginUnroll
 	POPL  a0
+
+	rts
+
+l3a3Cage1Raise:
+
+	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l3a3_DjakkCaged1, a0
+	move.b #0x1, Entity_Active(a0)
+	jsr    MonsterStartEmergeFromCave
+	POPL   a0
 
 	rts
 

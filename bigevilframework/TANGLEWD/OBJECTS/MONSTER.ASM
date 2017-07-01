@@ -286,6 +286,9 @@ MonsterLoadGfx:
 MonsterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	cmp.b  #0x0, Entity_Active(a0)
+	beq    @Inactive
 	
 	; If dead, but state not yet set, set it
 	; TODO: bit of a hack, may need a vtable for Die() in Character
@@ -408,6 +411,7 @@ MonsterUpdate:
 	@NotPlaying:
 	
 	@EndStateMachine:
+	@Inactive:
 	
 	; Base functionality
 	jsr CharacterUpdate
