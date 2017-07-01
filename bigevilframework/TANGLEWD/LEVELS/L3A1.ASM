@@ -205,14 +205,8 @@ l3a1_End:
 	
 l3a1_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l #Player1, a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts

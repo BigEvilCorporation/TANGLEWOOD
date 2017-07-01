@@ -59,7 +59,7 @@ L3A2_Nest_45_idx	equ 0x2
 L3A2_Flue_count equ 0x0
 
 L3A2_TriggerBox_count equ 0x1
-L3A2_TriggerBox_57_idx	equ 0x0
+L3A2_TriggerBox_End_idx	equ 0x0
 
 L3A2_Checkpoint_count equ 0x0
 
@@ -364,6 +364,9 @@ L3A2_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x1bb00000, Entity_WorldPosX(a0)
 	move.l #0x04e80000, Entity_WorldPosY(a0)
+	move.l #l3a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
