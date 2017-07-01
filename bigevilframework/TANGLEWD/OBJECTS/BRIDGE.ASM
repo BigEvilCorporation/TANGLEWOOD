@@ -11,7 +11,7 @@ BRIDGE_PROXIMITY_DEBUG	equ 0
 ; Constants
 Bridge_MaxEntities		equ 0x6
 Bridge_Width			equ 0xC0
-Bridge_Height			equ 0x40
+Bridge_Height			equ 0x80
 Bridge_NotchWidth		equ 0x10
 Bridge_NotchHeight		equ 0x10
 Bridge_NotchDiameter	equ 0x10
@@ -34,7 +34,7 @@ Bridge_BarrierXOffset	equ 0x0
 Bridge_BarrierYOffset	equ Bridge_Height-Bridge_BarrierHeight
 
 Bridge_ViewBoundsOffsetX	equ 0x0000
-Bridge_ViewBoundsOffsetY	equ 0x0020
+Bridge_ViewBoundsOffsetY	equ -0x0040
 
 Bridge_SpiralCoords:
 	dc.b 0,0

@@ -21,7 +21,8 @@ L3A3_Log_count equ 0x0
 
 L3A3_Boulder_count equ 0x0
 
-L3A3_Monster_count equ 0x0
+L3A3_Monster_count equ 0x1
+L3A3_Monster_3_idx	equ 0x0
 
 L3A3_Firefly_count equ 0x0
 
@@ -29,7 +30,8 @@ L3A3_FuzzlCage_count equ 0x0
 
 L3A3_Fuzzl_count equ 0x0
 
-L3A3_Stone_count equ 0x0
+L3A3_Stone_count equ 0x1
+L3A3_Stone_5_idx	equ 0x0
 
 L3A3_Nest_count equ 0x0
 
@@ -45,17 +47,24 @@ L3A3_Location_count equ 0x0
 
 L3A3_Deathbox_count equ 0x0
 
-L3A3_Lift_count equ 0x0
+L3A3_Lift_count equ 0x1
+L3A3_Lift1_idx	equ 0x0
 
-L3A3_Crate_count equ 0x0
+L3A3_Crate_count equ 0x1
+L3A3_Crate_6_idx	equ 0x0
 
 L3A3_Generator_count equ 0x0
 
 L3A3_Cogs_count equ 0x0
 
-L3A3_Bridge_count equ 0x0
+L3A3_Bridge_count equ 0x2
+L3A3_DropBridge1_idx	equ 0x0
+L3A3_DrawBridge1_idx	equ 0x1
 
-L3A3_Button_count equ 0x0
+L3A3_Button_count equ 0x3
+L3A3_Button2_idx	equ 0x0
+L3A3_Button1_idx	equ 0x1
+L3A3_Button3_idx	equ 0x2
 
 
 	IF L3A3_Leaf_count>Leaf_MaxEntities
@@ -160,14 +169,14 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x16c80000, Entity_WorldPosX(a0)
-	move.l #0x06900000, Entity_WorldPosY(a0)
+	move.l #0x00c00000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
 	move.l #EntityArray_Echo, a0
 	jsr EchoInit
-	move.l #0x15180000, Entity_WorldPosX(a0)
+	move.l #0x16900000, Entity_WorldPosX(a0)
 	move.l #0x06900000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
@@ -179,6 +188,11 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Boulder, a0
 
 	move.l #EntityArray_Monster, a0
+	jsr MonsterInit
+	move.l #0x03980000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
 
 	move.l #EntityArray_Firefly, a0
 
@@ -187,6 +201,11 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Fuzzl, a0
 
 	move.l #EntityArray_Stone, a0
+	jsr StoneInit
+	move.l #0x0a780000, Entity_WorldPosX(a0)
+	move.l #0x06480000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	move.l #EntityArray_Nest, a0
 
@@ -203,16 +222,58 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Deathbox, a0
 
 	move.l #EntityArray_Lift, a0
+	jsr LiftInit
+	move.l #0x0d380000, Entity_WorldPosX(a0)
+	move.l #0x06d00000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 	move.l #EntityArray_Crate, a0
+	jsr CrateInit
+	move.l #0x09a00000, Entity_WorldPosX(a0)
+	move.l #0x06300000, Entity_WorldPosY(a0)
+	jsr CrateLoadGfx
+	add.l #Crate_Struct_Size, a0
 
 	move.l #EntityArray_Generator, a0
 
 	move.l #EntityArray_Cogs, a0
 
 	move.l #EntityArray_Bridge, a0
+	jsr BridgeInit
+	move.l #0x02c00000, Entity_WorldPosX(a0)
+	move.l #0x05100000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeDrop, Bridge_Mode(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
+	jsr BridgeInit
+	move.l #0x06180000, Entity_WorldPosX(a0)
+	move.l #0x06d00000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 	move.l #EntityArray_Button, a0
+	jsr ButtonInit
+	move.l #0x06d80000, Entity_WorldPosX(a0)
+	move.l #0x06c80000, Entity_WorldPosY(a0)
+	move.b #0x1, Button_Active(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x05d80000, Entity_WorldPosX(a0)
+	move.l #0x06c80000, Entity_WorldPosY(a0)
+	move.b #0x1, Button_Active(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x0c580000, Entity_WorldPosX(a0)
+	move.l #0x07500000, Entity_WorldPosY(a0)
+	move.b #0x1, Button_Active(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
 
 	rts
 

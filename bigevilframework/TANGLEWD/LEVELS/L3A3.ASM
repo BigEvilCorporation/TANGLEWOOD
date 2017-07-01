@@ -51,8 +51,9 @@ l3a3_DefaultPalettes:
 ; ************************************
 	rsset 0
 l3a3Data_WaitingInput			rs.b 1
+l3a3Data_ComboButtonCount		rs.b 1
 ;---------------------------------
-l3a3Data_Struct_Pad      		rs.b 3
+l3a3Data_Struct_Pad      		rs.b 2
 l3a3Data_Struct_Size     		rs.b 0
 	
 l3a3_Init:
@@ -70,6 +71,33 @@ l3a3_Init:
 
 	; Load scene animations
 	jsr    l3_LoadSceneAnimations
+
+	;==============================================================
+
+	; Connect twin buttons to bridge handler
+	ENTITY_GETBYNAME Button, l3a3_Button1, a0
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3ComboButton1Down, Button_OnDown(a0)
+	move.l #l3a3ComboButton1Up, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	ENTITY_GETBYNAME Button, l3a3_Button2, a0
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3ComboButton2Down, Button_OnDown(a0)
+	move.l #l3a3ComboButton2Up, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	; Connect buttons to lifts
+	ENTITY_GETBYNAME Button, l3a3_Button3, a0
+	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivate, Button_OnDown(a0)
+	move.l #LiftStop, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	; Reset combo button
+	move.l #LevelData_L3A3, a2
+	move.b #0x0, l3a3Data_ComboButtonCount(a2)
 	
 	rts
 	
@@ -86,7 +114,65 @@ l3a3_Serialise:
 
 l3a3_End:
 	rts
-	
+
+l3a3ComboButton1Down:
+
+	move.l #LevelData_L3A3, a2
+	add.b  #0x1, l3a3Data_ComboButtonCount(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButtonCount(a2)
+	bne    @NotEnoughButtons
+	jsr    l3a3ComboButtonActivated
+	@NotEnoughButtons:
+
+	rts
+
+l3a3ComboButton1Up:
+
+	move.l #LevelData_L3A3, a2
+	sub.b  #0x1, l3a3Data_ComboButtonCount(a2)
+	jsr    l3a3ComboButtonDeactivated
+
+	rts
+
+l3a3ComboButton2Down:
+
+	move.l #LevelData_L3A3, a2
+	add.b  #0x1, l3a3Data_ComboButtonCount(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButtonCount(a2)
+	bne    @NotEnoughButtons
+	jsr    l3a3ComboButtonActivated
+	@NotEnoughButtons:
+
+	rts
+
+l3a3ComboButton2Up:
+
+	move.l #LevelData_L3A3, a2
+	sub.b  #0x1, l3a3Data_ComboButtonCount(a2)
+	jsr    l3a3ComboButtonDeactivated
+
+	rts
+
+l3a3ComboButtonActivated:
+
+	PUSHL a0
+	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge1, a0
+	jsr   BridgeBeginRoll
+	POPL  a0
+
+	rts
+
+l3a3ComboButtonDeactivated:
+
+	PUSHL a0
+	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge1, a0
+	jsr   BridgeBeginUnroll
+	POPL  a0
+
+	rts
+
 l3a3_Trigger_End:
 
 	; Nymn sleep
