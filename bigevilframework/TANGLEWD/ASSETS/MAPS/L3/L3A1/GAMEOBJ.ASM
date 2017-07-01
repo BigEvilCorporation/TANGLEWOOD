@@ -79,9 +79,10 @@ L3A1_Cogs1_idx	equ 0x0
 L3A1_Cogs2_idx	equ 0x1
 L3A1_Cogs3_idx	equ 0x2
 
-L3A1_Bridge_count equ 0x2
+L3A1_Bridge_count equ 0x3
 L3A1_Bridge1_idx	equ 0x0
 L3A1_Bridge2_idx	equ 0x1
+L3A1_Bridge_45_idx	equ 0x2
 
 L3A1_Button_count equ 0x3
 L3A1_Button1_idx	equ 0x0
@@ -212,7 +213,7 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
-	move.l #0x00a80000, Entity_WorldPosX(a0)
+	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x04180000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
@@ -371,6 +372,12 @@ L3A1_LoadGameObjects:
 	move.l #0x04780000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
+	jsr BridgeInit
+	move.l #0x02300000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeDrop, Bridge_Mode(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 
