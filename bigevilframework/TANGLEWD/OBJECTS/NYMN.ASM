@@ -10,9 +10,10 @@
 Nymn_MaxEntities			equ 1
 
 ; Animations
-NymnAnimIdx_PickupEcho    	equ 0
+NymnAnimIdx_GreetEcho    	equ 0
+NymnAnimIdx_PickupEcho    	equ 1
 ; -------------------------------
-NymnAnimIdx_Max       		equ 1
+NymnAnimIdx_Max       		equ 2
 
 ; Carry Echo state
 NymnCarryEcho_Inactive		equ 0
@@ -157,6 +158,9 @@ NymnInit:
 	;==============================================================
 	; Setup Nymn specific animations
 
+	; Greet up Echo
+	ANIM_LOAD_DEFAULT nymn_greetecho,nymn_greetecho,Nymn_Animations,NymnAnimIdx_GreetEcho,0,1,0
+	
 	; Pick up Echo
 	ANIM_LOAD_DEFAULT nymn_pickupecho,nymn_pickupecho,Nymn_Animations,NymnAnimIdx_PickupEcho,0,1,0
 	
