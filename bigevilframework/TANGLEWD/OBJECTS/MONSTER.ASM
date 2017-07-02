@@ -9,7 +9,7 @@
 ; ************************************
 ; Constants
 ; ************************************
-Monster_MaxEntities   equ 0x2
+Monster_MaxEntities   equ 0x3
 
 Monster_Width	      equ 0x0090
 Monster_Height	      equ 0x0058

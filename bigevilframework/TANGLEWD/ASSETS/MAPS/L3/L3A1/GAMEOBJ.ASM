@@ -52,7 +52,9 @@ L3A1_Flue_count equ 0x0
 L3A1_TriggerBox_count equ 0x1
 L3A1_TriggerBox_End_idx	equ 0x0
 
-L3A1_Checkpoint_count equ 0x0
+L3A1_Checkpoint_count equ 0x2
+L3A1_Checkpoint_46_idx	equ 0x0
+L3A1_Checkpoint_47_idx	equ 0x1
 
 L3A1_WaterBody_count equ 0x0
 
@@ -290,6 +292,16 @@ L3A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	move.l #EntityArray_Checkpoint, a0
+	jsr CheckpointInit
+	move.l #0x07600000, Entity_WorldPosX(a0)
+	move.l #0x05a00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
+	jsr CheckpointInit
+	move.l #0x0e080000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
 
 	move.l #EntityArray_WaterBody, a0
 

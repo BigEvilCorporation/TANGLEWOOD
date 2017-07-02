@@ -51,9 +51,10 @@ l3a3_DefaultPalettes:
 ; ************************************
 	rsset 0
 l3a3Data_WaitingInput			rs.b 1
-l3a3Data_ComboButtonCount		rs.b 1
+l3a3Data_ComboButton1Count		rs.b 1
+l3a3Data_ComboButton2Count		rs.b 1
 ;---------------------------------
-l3a3Data_Struct_Pad      		rs.b 2
+l3a3Data_Struct_Pad      		rs.b 1
 l3a3Data_Struct_Size     		rs.b 0
 	
 l3a3_Init:
@@ -106,6 +107,18 @@ l3a3_Init:
 	move.l #l3a3ComboButton2Up, Button_OnUp(a0)
 	move.b #0x1, Button_Active(a0)
 
+	ENTITY_GETBYNAME Button, l3a3_Button5, a0
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3ComboButton5Down, Button_OnDown(a0)
+	move.l #l3a3ComboButton5Up, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
+	ENTITY_GETBYNAME Button, l3a3_Button6, a0
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3ComboButton6Down, Button_OnDown(a0)
+	move.l #l3a3ComboButton6Up, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+
 	; Connect buttons to lifts
 	ENTITY_GETBYNAME Button, l3a3_Button3, a0
 	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
@@ -116,7 +129,8 @@ l3a3_Init:
 
 	; Reset combo button
 	move.l #LevelData_L3A3, a2
-	move.b #0x0, l3a3Data_ComboButtonCount(a2)
+	move.b #0x0, l3a3Data_ComboButton1Count(a2)
+	move.b #0x0, l3a3Data_ComboButton2Count(a2)
 
 	; TEMP
 	; Don't bother with caged Djakk emerge sequence
@@ -140,14 +154,16 @@ l3a3_Serialise:
 l3a3_End:
 	rts
 
+;==============================================================
+
 l3a3ComboButton1Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButtonCount(a2)
+	add.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
-	cmp.b  #0x2, l3a3Data_ComboButtonCount(a2)
+	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
 	bne    @NotEnoughButtons
-	jsr    l3a3ComboButtonActivated
+	jsr    l3a3ComboButton1Activated
 	@NotEnoughButtons:
 
 	rts
@@ -155,19 +171,19 @@ l3a3ComboButton1Down:
 l3a3ComboButton1Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButtonCount(a2)
-	jsr    l3a3ComboButtonDeactivated
+	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	jsr    l3a3ComboButton1Deactivated
 
 	rts
 
 l3a3ComboButton2Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButtonCount(a2)
+	add.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
-	cmp.b  #0x2, l3a3Data_ComboButtonCount(a2)
+	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
 	bne    @NotEnoughButtons
-	jsr    l3a3ComboButtonActivated
+	jsr    l3a3ComboButton1Activated
 	@NotEnoughButtons:
 
 	rts
@@ -175,12 +191,12 @@ l3a3ComboButton2Down:
 l3a3ComboButton2Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButtonCount(a2)
-	jsr    l3a3ComboButtonDeactivated
+	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	jsr    l3a3ComboButton1Deactivated
 
 	rts
 
-l3a3ComboButtonActivated:
+l3a3ComboButton1Activated:
 
 	PUSHL a0
 	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge1, a0
@@ -189,7 +205,7 @@ l3a3ComboButtonActivated:
 
 	rts
 
-l3a3ComboButtonDeactivated:
+l3a3ComboButton1Deactivated:
 
 	PUSHL a0
 	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge1, a0
@@ -197,6 +213,68 @@ l3a3ComboButtonDeactivated:
 	POPL  a0
 
 	rts
+
+;==============================================================
+
+l3a3ComboButton5Down:
+
+	move.l #LevelData_L3A3, a2
+	add.b  #0x1, l3a3Data_ComboButton2Count(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButton2Count(a2)
+	bne    @NotEnoughButtons
+	jsr    l3a3ComboButton2Activated
+	@NotEnoughButtons:
+
+	rts
+
+l3a3ComboButton5Up:
+
+	move.l #LevelData_L3A3, a2
+	sub.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	jsr    l3a3ComboButton2Deactivated
+
+	rts
+
+l3a3ComboButton6Down:
+
+	move.l #LevelData_L3A3, a2
+	add.b  #0x1, l3a3Data_ComboButton2Count(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButton2Count(a2)
+	bne    @NotEnoughButtons
+	jsr    l3a3ComboButton2Activated
+	@NotEnoughButtons:
+
+	rts
+
+l3a3ComboButton6Up:
+
+	move.l #LevelData_L3A3, a2
+	sub.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	jsr    l3a3ComboButton2Deactivated
+
+	rts
+
+l3a3ComboButton2Activated:
+
+	PUSHL a0
+	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge2, a0
+	jsr   BridgeBeginRoll
+	POPL  a0
+
+	rts
+
+l3a3ComboButton2Deactivated:
+
+	PUSHL a0
+	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge2, a0
+	jsr   BridgeBeginUnroll
+	POPL  a0
+
+	rts
+
+;==============================================================
 
 l3a3Cage1Raise:
 
@@ -206,6 +284,9 @@ l3a3Cage1Raise:
 	jsr    MonsterStartEmergeFromCave
 	POPL   a0
 
+	rts
+	
+l3a3TriggerEchoIntro:
 	rts
 
 l3a3_Trigger_End:
