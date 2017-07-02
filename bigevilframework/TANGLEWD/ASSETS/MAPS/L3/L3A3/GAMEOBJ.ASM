@@ -256,7 +256,7 @@ L3A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x17c80000, Entity_WorldPosX(a0)
+	move.l #0x19a00000, Entity_WorldPosX(a0)
 	move.l #0x05900000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
@@ -316,8 +316,8 @@ L3A3_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
-	move.l #0x18680000, Entity_WorldPosX(a0)
-	move.l #0x06600000, Entity_WorldPosY(a0)
+	move.l #0x19f80000, Entity_WorldPosX(a0)
+	move.l #0x06680000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 
@@ -335,7 +335,7 @@ L3A3_LoadGameObjects:
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 	jsr CrateInit
-	move.l #0x18100000, Entity_WorldPosX(a0)
+	move.l #0x19c80000, Entity_WorldPosX(a0)
 	move.l #0x05780000, Entity_WorldPosY(a0)
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
@@ -376,7 +376,7 @@ L3A3_LoadGameObjects:
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 	jsr BridgeInit
-	move.l #0x18c00000, Entity_WorldPosX(a0)
+	move.l #0x1a580000, Entity_WorldPosX(a0)
 	move.l #0x05f80000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
@@ -408,13 +408,13 @@ L3A3_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x18780000, Entity_WorldPosX(a0)
+	move.l #0x1a080000, Entity_WorldPosX(a0)
 	move.l #0x05f00000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_Active(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x19880000, Entity_WorldPosX(a0)
+	move.l #0x1b280000, Entity_WorldPosX(a0)
 	move.l #0x05f00000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_Active(a0)
 	jsr ButtonLoadGfx
