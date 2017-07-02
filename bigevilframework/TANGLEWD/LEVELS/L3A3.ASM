@@ -52,13 +52,15 @@ SceneMeetEchoStage_Hide				equ 2
 SceneMeetEchoStage_DjakkChase		equ 3
 SceneMeetEchoStage_WaitDjakkDead	equ 4
 SceneMeetEchoStage_WaitNymn			equ 5
-SceneMeetEchoStage_GreetNymn		equ 6
+SceneMeetEchoStage_StandUp			equ 6
 SceneMeetEchoStage_RunToNymn		equ 7
-SceneMeetEchoStage_JumpNymn			equ 8
-SceneMeetEchoStage_Finished			equ 9
+SceneMeetEchoStage_GreetNymn		equ 8
+SceneMeetEchoStage_JumpNymn			equ 9
+SceneMeetEchoStage_Finished			equ 10
 
-EchoToNymnCamLerpSpeed				equ 0x40
-EchoGreetDjakkCameraTime			equ 0x78
+EchoToNymnCamLerpSpeed				equ 0x40	; Camera lerp speed
+EchoGreetDjakkCameraTime			equ 0x78	; Time to view chasing Djakk
+EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
 	
 ; ************************************
 ; Runtime data
@@ -322,9 +324,9 @@ l3a3TriggerEchoIntro:
 	cmp.b  #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
 	beq    @TriggerStart
 
-	; If waiting for Nymn, begin running
+	; If waiting for Nymn, stand up
 	cmp.b  #SceneMeetEchoStage_WaitNymn, l3a3Data_MeetEchoSceneStage(a2)
-	beq    @TriggerRunToNymn
+	beq    @TriggerStandUp
 
 	bra    @End
 
@@ -332,8 +334,8 @@ l3a3TriggerEchoIntro:
 	jsr    l3a3MeetEchoBeginStage_RunScared
 	bra    @End
 
-	@TriggerRunToNymn:
-	jsr    l3a3MeetEchoBeginStage_RunToNymn
+	@TriggerStandUp:
+	jsr    l3a3MeetEchoBeginStage_StandUp
 	bra    @End
 
 	@End:
@@ -366,6 +368,17 @@ l3a3MeetEchoUpdateStage_RunScared:
 
 	PUSHL  a0
 	move.l #Player2, a0
+	
+	; Nymn face Echo
+	move.b #0x0, d2
+	move.l #Player1, a2
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosX(a2), d1
+	cmp.l  d0, d1
+	ble    @ToRight
+	move.b #0x1, d2
+	@ToRight:
+	move.b d2, SpriteObj_FlippedX(a2)
 
 	; If not yet hit location marker, run left
 	ENTITY_GETBYNAME Location, l3a3_LocEchoHide, a3
@@ -500,7 +513,7 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	
 	; Lerp camera to Nymn
 	PUSHM  a0-a1
-	move.l #Player2, a0
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
 	move.l #Player1, a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
@@ -535,10 +548,10 @@ l3a3MeetEchoUpdateStage_WaitNymn:
 	
 	rts
 
-l3a3MeetEchoBeginStage_RunToNymn:
+l3a3MeetEchoBeginStage_StandUp:
 
 	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_RunToNymn, l3a3Data_MeetEchoSceneStage(a2)
+	move.b #SceneMeetEchoStage_StandUp, l3a3Data_MeetEchoSceneStage(a2)
 	
 	; Stop Nymn and take control
 	PUSHL  a0
@@ -547,11 +560,21 @@ l3a3MeetEchoBeginStage_RunToNymn:
 	move.b #0x0, Player_ControlEnabled(a0)
 	POPL   a0
 	
-	; Release Echo anim control and start running
+	; Echo start stand up anim
 	PUSHL  a0
 	move.l #Player2, a0
-	move.b #0x1, Character_UpdateAnim(a0)
-	jsr    CharacterMoveRight
+	
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Echo_Animations, a1
+	move.l #(EchoAnimIdx_StandFromHiding*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+	
 	POPL   a0
 	
 	; Lerp camera to Echo
@@ -561,6 +584,38 @@ l3a3MeetEchoBeginStage_RunToNymn:
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
+	
+	rts
+	
+l3a3MeetEchoUpdateStage_StandUp:
+
+	PUSHL  a0
+	move.l #Player2, a0
+	
+	; Wait for stand animation to finish
+	cmp.b  #0x0, AnimObj_Playing(a0)
+	bne    @End
+	
+	; Next state
+	jsr    l3a3MeetEchoBeginStage_RunToNymn
+	
+	@End:
+	
+	POPL   a0
+	
+	rts
+	
+l3a3MeetEchoBeginStage_RunToNymn:
+
+	move.l #LevelData_L3A3, a2
+	move.b #SceneMeetEchoStage_RunToNymn, l3a3Data_MeetEchoSceneStage(a2)
+	
+	; Release Echo anim control and start running
+	PUSHL  a0
+	move.l #Player2, a0
+	move.b #0x1, Character_UpdateAnim(a0)
+	jsr    CharacterMoveRight
+	POPL   a0
 
 	rts
 
@@ -573,13 +628,14 @@ l3a3MeetEchoUpdateStage_RunToNymn:
 	
 	; If touching
 	move.l #Player1, a3
-	move.l  Entity_WorldPosX(a0), d0
-	move.l  Entity_WorldPosX(a3), d1
-	cmp.l   d0, d1
-	bgt     @End
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosX(a3), d1
+	sub.l  #(EchoPounceNymnDistOffset*subpixels_per_pixel), d1
+	cmp.l  d0, d1
+	bgt    @End
 	
 	; Next stage
-	jsr    l3a3MeetEchoBeginStage_GreetNymn
+	jsr    l3a3MeetEchoBeginStage_JumpNymn
 	
 	@End:
 	
@@ -649,6 +705,10 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	; Release control of anim updates (auto-idle when done)
 	move.b #0x1, Character_UpdateAnim(a0)
 	
+	; Snap to position
+	move.l #Player1, a3
+	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
+	
 	POPL   a0
 	
 	; Start greet Echo anim
@@ -705,6 +765,11 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	TOSUBPIXELS d0
 	add.l  d0, Entity_WorldPosX(a0)
 	
+	move.l #Player2, a0
+	move.w SpriteObj_DrawOffsetX(a0), d0
+	TOSUBPIXELS d0
+	add.l  d0, Entity_WorldPosX(a0)
+	
 	; Lerp camera to Nymn
 	PUSHM  a0-a1
 	move.l #Player2, a0
@@ -731,6 +796,8 @@ l3a3MeetEchoSceneUpdate:
 	beq    @DjakkChase
 	cmp.b  #SceneMeetEchoStage_WaitDjakkDead, d0
 	beq    @WaitDjakkDead
+	cmp.b  #SceneMeetEchoStage_StandUp, d0
+	beq    @StandUp
 	cmp.b  #SceneMeetEchoStage_RunToNymn, d0
 	beq    @RunToNymn
 	cmp.b  #SceneMeetEchoStage_WaitNymn, d0
@@ -759,6 +826,10 @@ l3a3MeetEchoSceneUpdate:
 
 	@WaitNymn:
 	jsr    l3a3MeetEchoUpdateStage_WaitNymn
+	bra    @End
+	
+	@StandUp:
+	jsr    l3a3MeetEchoUpdateStage_StandUp
 	bra    @End
 	
 	@RunToNymn:

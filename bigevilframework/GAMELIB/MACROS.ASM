@@ -25,6 +25,25 @@ ENTITY_GETCENTREY: macro destreg,addrreg
 	lsr.l   #0x1, \destreg  ; div/2
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
+
+ENTITY_GETDRAWPOSVEC2: macro destreg,tmpreg1,tmpreg2,addrreg
+	move.l Entity_WorldPosX(\addrreg), \destreg
+	TOPIXELS \destreg
+	add.w  SpriteObj_DrawOffsetX(\addrreg), \destreg	; Apply draw offset (animation, etc)
+	move.l (WorldScrollX), \tmpreg1						; Get camera pos X (incl. camera shake + peek offset)
+	TOPIXELS \tmpreg1
+	sub.w  \tmpreg1, \destreg							; Apply camera pos
+
+	move.l Entity_WorldPosY(\addrreg), \tmpreg2
+	TOPIXELS \tmpreg2
+	add.w  SpriteObj_DrawOffsetY(\addrreg), \tmpreg2	; Apply draw offset (animation, etc)
+	move.l (WorldScrollY), \tmpreg1						; Get camera Y (incl. camera shake + peek offset)
+	TOPIXELS \tmpreg1
+	sub.w  \tmpreg1, \tmpreg2							; Apply camera pos
+
+	swap   \destreg
+	move.w \tmpreg2, \destreg
+	endm
 	
 ENTITY_GETCENTREVEC2: macro destreg,tmpreg,addrreg
 	clr.l   \destreg

@@ -397,6 +397,8 @@ BridgeDraw:
 	; Draw
 	PUSHM  d0-d2/d7
 	jsr    SpriteObjDraw
+	;ENTITY_GETDRAWPOSVEC2 d1,d4,d5,a0
+	;jsr    SpriteObjAllocSprite
 	POPM   d0-d2/d7
 
 	; Loop

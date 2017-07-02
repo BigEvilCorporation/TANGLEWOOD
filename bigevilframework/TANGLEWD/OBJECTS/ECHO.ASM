@@ -15,10 +15,11 @@ EchoAnimIdx_JumpToNymn    	equ 0
 EchoAnimIdx_MountNymn    	equ 1
 EchoAnimIdx_Hide			equ 2
 EchoAnimIdx_Scared			equ 3
-EchoAnimIdx_PounceNymn		equ 4
-EchoAnimIdx_GreetNymn		equ 5
+EchoAnimIdx_StandFromHiding	equ 4
+EchoAnimIdx_PounceNymn		equ 5
+EchoAnimIdx_GreetNymn		equ 6
 ; -------------------------------
-EchoAnimIdx_Max       		equ 6
+EchoAnimIdx_Max       		equ 7
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -181,6 +182,9 @@ EchoInit:
 	
 	; Scared
 	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Echo_Animations,EchoAnimIdx_Scared,1,1,0
+	
+	; Stand up from hiding
+	ANIM_LOAD_DEFAULT echo_standfromhiding,echo_standfromhiding,Echo_Animations,EchoAnimIdx_StandFromHiding,0,1,0
 	
 	; Pounce on Nymn
 	ANIM_LOAD_DEFAULT echo_pouncenymn,echo_pouncenymn,Echo_Animations,EchoAnimIdx_PounceNymn,0,1,0

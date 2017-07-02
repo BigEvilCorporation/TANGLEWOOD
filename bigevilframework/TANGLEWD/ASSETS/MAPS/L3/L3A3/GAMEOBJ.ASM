@@ -220,7 +220,7 @@ L3A3_LoadGameObjects:
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
 	jsr MonsterInit
-	move.l #0x1bb80000, Entity_WorldPosX(a0)
+	move.l #0x1c200000, Entity_WorldPosX(a0)
 	move.l #0x05980000, Entity_WorldPosY(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
@@ -273,7 +273,7 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
 	move.l #0x16a00000, Entity_WorldPosX(a0)
-	move.l #0x05780000, Entity_WorldPosY(a0)
+	move.l #0x05800000, Entity_WorldPosY(a0)
 	move.l #l3a3TriggerEchoIntro, TriggerBox_Routine(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
@@ -299,7 +299,7 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Location, a0
 	jsr LocationInit
-	move.l #0x16000000, Entity_WorldPosX(a0)
+	move.l #0x15f80000, Entity_WorldPosX(a0)
 	move.l #0x05f00000, Entity_WorldPosY(a0)
 	jsr LocationLoadGfx
 	add.l #Location_Struct_Size, a0
