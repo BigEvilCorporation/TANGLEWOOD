@@ -16,18 +16,18 @@ L3A1_Leaf_12_idx	equ 0x4
 L3A1_Leaf_13_idx	equ 0x5
 L3A1_Leaf_14_idx	equ 0x6
 
+L3A1_Echo_count equ 0x0
+
 L3A1_Nymn_count equ 0x1
 L3A1_Nymn_21_idx	equ 0x0
-
-L3A1_Echo_count equ 0x0
 
 L3A1_BouncePlant_count equ 0x0
 
 L3A1_Log_count equ 0x0
 
-L3A1_Boulder_count equ 0x0
-
 L3A1_Monster_count equ 0x0
+
+L3A1_Boulder_count equ 0x0
 
 L3A1_Firefly_count equ 0x0
 
@@ -96,12 +96,12 @@ L3A1_Button3_idx	equ 0x2
 	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L3A1_Leaf_count
 	ENDIF
 
-	IF L3A1_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L3A1_Nymn_count
-	ENDIF
-
 	IF L3A1_Echo_count>Echo_MaxEntities
 	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L3A1_Echo_count
+	ENDIF
+
+	IF L3A1_Nymn_count>Nymn_MaxEntities
+	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L3A1_Nymn_count
 	ENDIF
 
 	IF L3A1_BouncePlant_count>BouncePlant_MaxEntities
@@ -112,12 +112,12 @@ L3A1_Button3_idx	equ 0x2
 	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L3A1_Log_count
 	ENDIF
 
-	IF L3A1_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L3A1_Boulder_count
-	ENDIF
-
 	IF L3A1_Monster_count>Monster_MaxEntities
 	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L3A1_Monster_count
+	ENDIF
+
+	IF L3A1_Boulder_count>Boulder_MaxEntities
+	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L3A1_Boulder_count
 	ENDIF
 
 	IF L3A1_Firefly_count>Firefly_MaxEntities
@@ -213,6 +213,8 @@ L3A1_LoadGameObjects:
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 
+	move.l #EntityArray_Echo, a0
+
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
 	move.l #0x00d80000, Entity_WorldPosX(a0)
@@ -220,15 +222,13 @@ L3A1_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
-	move.l #EntityArray_Echo, a0
-
 	move.l #EntityArray_BouncePlant, a0
 
 	move.l #EntityArray_Log, a0
 
-	move.l #EntityArray_Boulder, a0
-
 	move.l #EntityArray_Monster, a0
+
+	move.l #EntityArray_Boulder, a0
 
 	move.l #EntityArray_Firefly, a0
 

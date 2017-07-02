@@ -40,7 +40,7 @@ l3a3_HeritageAct3:
 l3a3_DefaultPalettes:
 
 	dc.l palette_l3					; World
-	dc.l 0x0						; Djakk (black by default, fades up when approached)
+	dc.l palette_djakk	; 0x0						; Djakk (black by default, fades up when approached)
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -49,23 +49,28 @@ l3a3_DefaultPalettes:
 SceneMeetEchoStage_None				equ 0
 SceneMeetEchoStage_RunScared		equ 1
 SceneMeetEchoStage_Hide				equ 2
-SceneMeetEchoStage_WaitDjakkDead	equ 3
-SceneMeetEchoStage_WaitNymn			equ 4
-SceneMeetEchoStage_GreetNymn		equ 5
-SceneMeetEchoStage_RunToNymn		equ 6
-SceneMeetEchoStage_JumpNymn			equ 7
-SceneMeetEchoStage_Finished			equ 8
+SceneMeetEchoStage_DjakkChase		equ 3
+SceneMeetEchoStage_WaitDjakkDead	equ 4
+SceneMeetEchoStage_WaitNymn			equ 5
+SceneMeetEchoStage_GreetNymn		equ 6
+SceneMeetEchoStage_RunToNymn		equ 7
+SceneMeetEchoStage_JumpNymn			equ 8
+SceneMeetEchoStage_Finished			equ 9
+
+EchoToNymnCamLerpSpeed				equ 0x40
+EchoGreetDjakkCameraTime			equ 0x78
 	
 ; ************************************
 ; Runtime data
 ; ************************************
 	rsset 0
+l3a3Data_SceneTimer				rs.w 1
 l3a3Data_WaitingInput			rs.b 1
 l3a3Data_ComboButton1Count		rs.b 1
 l3a3Data_ComboButton2Count		rs.b 1
 l3a3Data_MeetEchoSceneStage		rs.b 1
 ;---------------------------------
-l3a3Data_Struct_Pad      		rs.b 0
+l3a3Data_Struct_Pad      		rs.b 2
 l3a3Data_Struct_Size     		rs.b 0
 	
 l3a3_Init:
@@ -145,6 +150,7 @@ l3a3_Init:
 
 	; Init cutscene
 	move.b #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
+	move.w #0x0, l3a3Data_SceneTimer(a2)
 
 	; TEMP
 	; Don't bother with caged Djakk emerge sequence
@@ -338,6 +344,21 @@ l3a3MeetEchoBeginStage_RunScared:
 
 	move.l #LevelData_L3A3, a2
 	move.b #SceneMeetEchoStage_RunScared, l3a3Data_MeetEchoSceneStage(a2)
+	
+	; Lerp camera to Echo
+	PUSHM  a0-a1
+	move.l #Player1, a0
+	move.l #Player2, a1
+	move.l #EchoToNymnCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a1
+	
+	; Start running
+	PUSHL  a0
+	move.l #Player2, a0
+	jsr    CharacterMoveLeft
+	move.l #-Player1MaxVelXRun, PhysicsObj_VelX(a0)
+	POPL   a0
 
 	rts
 
@@ -404,11 +425,54 @@ l3a3MeetEchoUpdateStage_Hide:
 	bne    @End
 	
 	; Next state
-	jsr    l3a3MeetEchoBeginStage_WaitDjakkDead
+	jsr    l3a3MeetEchoBeginStage_DjakkChase
 	
 	@End:
 	
 	POPL   a0
+	
+	rts
+	
+l3a3MeetEchoBeginStage_DjakkChase:
+
+	move.l #LevelData_L3A3, a2
+	move.b #SceneMeetEchoStage_DjakkChase, l3a3Data_MeetEchoSceneStage(a2)
+	
+	; Alert Djakk, start running
+	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
+	jsr    MonsterStartTrackPlayer
+	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	POPL   a0
+	
+	; Lerp camera to Djakk
+	PUSHM  a0-a1
+	move.l #Player2, a0
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a1
+	move.l #EchoToNymnCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a1
+	
+	; Init timer
+	move.l #LevelData_L3A3, a2
+	move.w #EchoGreetDjakkCameraTime, l3a3Data_SceneTimer(a2)
+	
+	rts
+	
+l3a3MeetEchoUpdateStage_DjakkChase:
+
+	; Wait for timer
+	move.l #LevelData_L3A3, a2
+	move.w l3a3Data_SceneTimer(a2), d0
+	sub.w  #0x1, d0
+	move.w d0, l3a3Data_SceneTimer(a2)
+	cmp.w  #0x0, d0
+	bne    @End
+	
+	; Next stage
+	jsr    l3a3MeetEchoBeginStage_WaitDjakkDead
+	
+	@End:
 	
 	rts
 
@@ -433,6 +497,14 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	move.b #0x0, Character_UpdateAnim(a0)
 	
 	POPL   a0
+	
+	; Lerp camera to Nymn
+	PUSHM  a0-a1
+	move.l #Player2, a0
+	move.l #Player1, a1
+	move.l #EchoToNymnCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a1
 
 	rts
 
@@ -481,6 +553,14 @@ l3a3MeetEchoBeginStage_RunToNymn:
 	move.b #0x1, Character_UpdateAnim(a0)
 	jsr    CharacterMoveRight
 	POPL   a0
+	
+	; Lerp camera to Echo
+	PUSHM  a0-a1
+	move.l #Player1, a0
+	move.l #Player2, a1
+	move.l #EchoToNymnCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a1
 
 	rts
 
@@ -493,11 +573,10 @@ l3a3MeetEchoUpdateStage_RunToNymn:
 	
 	; If touching
 	move.l #Player1, a3
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a3
-	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
-	beq    @End
+	move.l  Entity_WorldPosX(a0), d0
+	move.l  Entity_WorldPosX(a3), d1
+	cmp.l   d0, d1
+	bgt     @End
 	
 	; Next stage
 	jsr    l3a3MeetEchoBeginStage_GreetNymn
@@ -612,6 +691,28 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	move.b #0x1, Player_ControlEnabled(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	
+	; Set idle anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Character_Animations, a1
+	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	; HACK: Take current anim X offset
+	move.w SpriteObj_DrawOffsetX(a0), d0
+	TOSUBPIXELS d0
+	add.l  d0, Entity_WorldPosX(a0)
+	
+	; Lerp camera to Nymn
+	PUSHM  a0-a1
+	move.l #Player2, a0
+	move.l #Player1, a1
+	move.l #EchoToNymnCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a1
+	
 	@End:
 	
 	POPL   a0
@@ -626,6 +727,8 @@ l3a3MeetEchoSceneUpdate:
 	beq    @RunScared
 	cmp.b  #SceneMeetEchoStage_Hide, d0
 	beq    @Hide
+	cmp.b  #SceneMeetEchoStage_DjakkChase, d0
+	beq    @DjakkChase
 	cmp.b  #SceneMeetEchoStage_WaitDjakkDead, d0
 	beq    @WaitDjakkDead
 	cmp.b  #SceneMeetEchoStage_RunToNymn, d0
@@ -644,6 +747,10 @@ l3a3MeetEchoSceneUpdate:
 
 	@Hide:
 	jsr    l3a3MeetEchoUpdateStage_Hide
+	bra    @End
+	
+	@DjakkChase:
+	jsr    l3a3MeetEchoUpdateStage_DjakkChase
 	bra    @End
 
 	@WaitDjakkDead:

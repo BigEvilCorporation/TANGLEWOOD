@@ -70,6 +70,18 @@ CAM_StopCameraShake:
 
 	rts
 
+CAM_LerpBetweenEntities:
+	; a0 --- From entity
+	; a1 --- To entity
+	; d0 (w) Speed
+
+	move.l a0, CameraTargetLerpSource
+	move.l a1, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w d0, CameraTargetLerpSpeed
+	
+	rts
+
 CAM_Update:
 
 	; Level to a1
