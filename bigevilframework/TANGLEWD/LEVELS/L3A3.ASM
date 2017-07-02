@@ -764,11 +764,17 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	move.w SpriteObj_DrawOffsetX(a0), d0
 	TOSUBPIXELS d0
 	add.l  d0, Entity_WorldPosX(a0)
-	
+
+	; Get Echo
 	move.l #Player2, a0
+	
+	; HACK: Take current anim X offset
 	move.w SpriteObj_DrawOffsetX(a0), d0
 	TOSUBPIXELS d0
 	add.l  d0, Entity_WorldPosX(a0)
+	
+	; Start Echo AI follow state
+	jsr    EchoAIStart_Follow
 	
 	; Lerp camera to Nymn
 	PUSHM  a0-a1

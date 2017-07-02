@@ -10,6 +10,9 @@
 Echo_MaxEntities			equ 1
 EchoHowlDelay				equ 0x0030	; Delay between Nymn and Echo howling
 
+; AI
+Echo_AIFollowDistance		equ 0x40
+
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
 EchoAnimIdx_MountNymn    	equ 1
@@ -20,6 +23,10 @@ EchoAnimIdx_PounceNymn		equ 5
 EchoAnimIdx_GreetNymn		equ 6
 ; -------------------------------
 EchoAnimIdx_Max       		equ 7
+
+; AI state
+EchoAIState_None			equ 0	; No AI, under player/cutscene control
+EchoAIState_Follow			equ 1
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -34,9 +41,10 @@ EchoMountNymn_Riding		equ 3
 ;---------------------------------
 Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
 Echo_HowlTimer				rs.w 1
+Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 1
+Echo_Struct_Pad      		rs.b 0
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -63,6 +71,7 @@ EchoInit:
 	
 	; Setup default state
 	move.w #0x0, Echo_HowlTimer(a0)
+	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
 	; Setup interaction routines
@@ -172,7 +181,7 @@ EchoInit:
 	; Setup Echo specific animations
 
 	; Jump up to Nymn (same anim as Jump but non-looping)
-	ANIM_LOAD_DEFAULT echo_jump,echo_jump,Echo_Animations,EchoAnimIdx_JumpToNymn,0,1,0
+	ANIM_LOAD_DEFAULT echo_jump,echo_jump,Echo_Animations,EchoAnimIdx_JumpToNymn,0,0,0
 
 	; Mount Nymn
 	ANIM_LOAD_DEFAULT echo_mountnymn,echo_mountnymn,Echo_Animations,EchoAnimIdx_MountNymn,0,1,0
@@ -328,6 +337,9 @@ EchoUpdate:
 	
 	@NotMounted:
 	
+	; AI update
+	jsr EchoUpdateAI
+	
 	; Default update
 	jsr PlayerUpdate
 
@@ -367,6 +379,9 @@ EchoBeginCarried:
 	move.l #Player1, a3
 	move.b SpriteObj_FlippedX(a3), SpriteObj_FlippedX(a0)
 	
+	; Begin jump
+	jsr    CharacterStartJump
+	
 	; Set jumping-to-Nymn anim
 	PUSHL  a1
 	move.l a0, a1
@@ -378,6 +393,9 @@ EchoBeginCarried:
 	
 	; Start mounting sequence
 	move.b #EchoMountNymn_Jumping, Echo_MountedState(a0)
+	
+	; Stop AI
+	move.b #EchoAIState_None, Echo_AIState(a0)
 
 	ENDIF
 
@@ -404,6 +422,9 @@ EchoEndCarried:
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
+	
+	; Start follow AI
+	jsr    EchoAIStart_Follow
 
 	ENDIF
 
@@ -428,4 +449,77 @@ EchoHowl:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	rts
+	
+EchoUpdateAI:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	move.b Echo_AIState(a0), d0
+	
+	cmp.b  #EchoAIState_None, d0
+	beq    @End
+	cmp.b  #EchoAIState_Follow, d0
+	beq    @Follow
+	bra    @End
+	
+	@Follow:
+	jsr    EchoAIUpdate_Follow
+	bra    @End
+	
+	@End:
+
+	rts
+
+EchoAIStart_Follow:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	move.b #EchoAIState_Follow, Echo_AIState(a0)
+	
+	rts
+	
+EchoAIUpdate_Follow:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Get Nymn
+	move.l #Player1, a2
+	
+	; TODO: Check if within Y tolerance, move to object search state
+	
+	; TODO: Check if hitting a wall, start lost timer
+	
+	; Check if within X tolerance
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	
+	; Check left bounds
+	move.l d1, d2
+	sub.l  #(Echo_AIFollowDistance*subpixels_per_pixel), d2
+	cmp.l  d0, d2
+	bgt    @TooFarleft
+	
+	; Check right bounds
+	move.l d1, d2
+	add.l  #(Echo_AIFollowDistance*subpixels_per_pixel), d2
+	cmp.l  d0, d2
+	blt    @TooFarRight
+	
+	; Within bounds
+	bra    @WithinBounds
+	
+	@TooFarleft:
+	jsr    CharacterMoveRight
+	bra    @End
+	
+	@TooFarRight:
+	jsr    CharacterMoveLeft
+	bra    @End
+	
+	@WithinBounds:
+	jsr    CharacterCancelXMovement
+	
+	@End:
+	
 	rts

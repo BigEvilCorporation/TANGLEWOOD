@@ -226,7 +226,7 @@ NymnStartInteract:
 	move.l d0, -(sp)
 	move.l d1, -(sp)
 
-	IFND TANGLWD_INCLUDE_ECHO
+	IFND INCLUDE_CHARACTER_ECHO
 
 	; Base functionality
 	jsr    PlayerStartInteract
@@ -278,7 +278,7 @@ NymnStartInteract:
 	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)
 	bne    @NotIdle
 	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.b  #0x0, Animation_Looping(a2), d0
+	cmp.b  #0x0, Animation_Looping(a2)
 	beq    @NotIdle
 
 	; Howl
@@ -291,7 +291,7 @@ NymnStartInteract:
 	@Dead:
 	@EchoFound:
 
-	ENDIF ; TANGLWD_INCLUDE_ECHO
+	ENDIF ; INCLUDE_CHARACTER_ECHO
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -305,7 +305,7 @@ NymnCancelInteract:
 	move.l d0, -(sp)
 	move.l d1, -(sp)
 
-	IFND TANGLWD_INCLUDE_ECHO
+	IFND INCLUDE_CHARACTER_ECHO
 
 	; Base functionality
 	jsr    PlayerCancelInteract
@@ -333,7 +333,7 @@ NymnCancelInteract:
 	
 	@CarryingEcho:
 
-	ENDIF ; TANGLWD_INCLUDE_ECHO
+	ENDIF ; INCLUDE_CHARACTER_ECHO
 	
 	move.l (sp)+, d1
 	move.l (sp)+, d0
@@ -344,7 +344,7 @@ NymnBeginCarryEcho:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	IFD TANGLWD_INCLUDE_ECHO
+	IFD INCLUDE_CHARACTER_ECHO
 	
 	; Cancel velocity and acceleration
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -366,7 +366,7 @@ NymnBeginCarryEcho:
 	jsr    CharacterCancelRun
 	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
-	ENDIF ; TANGLWD_INCLUDE_ECHO
+	ENDIF ; INCLUDE_CHARACTER_ECHO
 
 	rts
 	
@@ -374,7 +374,7 @@ NymnEndCarryEcho:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	IFD TANGLWD_INCLUDE_ECHO
+	IFD INCLUDE_CHARACTER_ECHO
 	
 	; Cancel velocity and acceleration
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -409,7 +409,7 @@ NymnEndCarryEcho:
 	jsr    CharacterStartRun
 	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 
-	ENDIF ; TANGLWD_INCLUDE_ECHO
+	ENDIF ; INCLUDE_CHARACTER_ECHO
 
 	rts
 
@@ -426,7 +426,7 @@ NymnHowl:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
-	IFD TANGLWD_INCLUDE_ECHO
+	IFD INCLUDE_CHARACTER_ECHO
 
 	; Start Echo's howl timer
 	PUSHL  a0
@@ -434,6 +434,6 @@ NymnHowl:
 	jsr    EchoStartHowlTimer
 	POPL   a0
 
-	ENDIF ; TANGLWD_INCLUDE_ECHO
+	ENDIF ; INCLUDE_CHARACTER_ECHO
 
 	rts
