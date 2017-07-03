@@ -23,6 +23,7 @@
 ; Game objects
 ;==============================================================
 	include 'assets\maps\l4\l4a1\gameobj.asm'
+	include 'assets\maps\l4\l4a2\gameobj.asm'
 
 ;==============================================================
 ; Graphics tileset
@@ -36,10 +37,13 @@ tiles_l4:
 ; Graphics blocks
 ;==============================================================
 	include 'assets\maps\l4\l4a1\blocks.asm'
+	include 'assets\maps\l4\l4a2\blocks.asm'
 	include 'assets\maps\l4\l4bg\blocks.asm'
 
 map_blocks_l4a1:
 	incbin 'assets\maps\l4\l4a1\blocks.bin'
+map_blocks_l4a2:
+	incbin 'assets\maps\l4\l4a2\blocks.bin'
 map_blocks_l4bg:
 	incbin 'assets\maps\l4\l4bg\blocks.bin'
 
@@ -47,10 +51,13 @@ map_blocks_l4bg:
 ; Graphics block maps
 ;==============================================================
 	include 'assets\maps\l4\l4a1\blockmap.asm'
+	include 'assets\maps\l4\l4a2\blockmap.asm'
 	include 'assets\maps\l4\l4bg\blockmap.asm'
 
 map_blockmap_l4a1:
 	incbin 'assets\maps\l4\l4a1\blockmap.bin'
+map_blockmap_l4a2:
+	incbin 'assets\maps\l4\l4a2\blockmap.bin'
 map_blockmap_l4bg:
 	incbin 'assets\maps\l4\l4bg\blockmap.bin'
 
@@ -66,14 +73,20 @@ collisiontiles_l4:
 ; Collision blocks
 ;==============================================================
 	include 'assets\maps\l4\l4a1\colblock.asm'
+	include 'assets\maps\l4\l4a2\colblock.asm'
 
 collisionmap_blocks_l4a1:
 	incbin 'assets\maps\l4\l4a1\colblock.bin'
+collisionmap_blocks_l4a2:
+	incbin 'assets\maps\l4\l4a2\colblock.bin'
 
 ;==============================================================
 ; Collision block maps
 ;==============================================================
 	include 'assets\maps\l4\l4a1\colmap.asm'
+	include 'assets\maps\l4\l4a2\colmap.asm'
 
 collisionmap_blockmap_l4a1:
 	incbin 'assets\maps\l4\l4a1\colmap.bin'
+collisionmap_blockmap_l4a2:
+	incbin 'assets\maps\l4\l4a2\colmap.bin'

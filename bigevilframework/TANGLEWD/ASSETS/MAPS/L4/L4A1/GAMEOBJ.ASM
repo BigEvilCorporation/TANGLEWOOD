@@ -7,17 +7,32 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L4A1_Fuzzl_count equ 0x0
+L4A1_Leaf_count equ 0x0
 
-L4A1_Nest_count equ 0x0
+L4A1_Echo_count equ 0x0
 
-L4A1_Flue_count equ 0x0
+L4A1_Nymn_count equ 0x1
+L4A1_Nymn_1_idx	equ 0x0
 
-L4A1_Firefly_count equ 0x0
+L4A1_BouncePlant_count equ 0x0
+
+L4A1_Log_count equ 0x0
 
 L4A1_Monster_count equ 0x0
 
 L4A1_Boulder_count equ 0x0
+
+L4A1_Firefly_count equ 0x0
+
+L4A1_FuzzlCage_count equ 0x0
+
+L4A1_Fuzzl_count equ 0x0
+
+L4A1_Stone_count equ 0x0
+
+L4A1_Nest_count equ 0x0
+
+L4A1_Flue_count equ 0x0
 
 L4A1_TriggerBox_count equ 0x0
 
@@ -27,31 +42,149 @@ L4A1_WaterBody_count equ 0x0
 
 L4A1_Location_count equ 0x0
 
-L4A1_BouncePlant_count equ 0x0
+L4A1_Deathbox_count equ 0x0
 
-L4A1_Nymn_count equ 0x1
-L4A1_Nymn_1_idx	equ 0x0
+L4A1_Lift_count equ 0x0
 
-L4A1_Echo_count equ 0x1
-L4A1_Echo_2_idx	equ 0x0
+L4A1_Crate_count equ 0x0
 
-L4A1_Leaf_count equ 0x0
+L4A1_Generator_count equ 0x0
 
-L4A1_Stone_count equ 0x0
+L4A1_Cogs_count equ 0x0
+
+L4A1_Bridge_count equ 0x0
+
+L4A1_Button_count equ 0x0
+
+
+	IF L4A1_Leaf_count>Leaf_MaxEntities
+	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L4A1_Leaf_count
+	ENDIF
+
+	IF L4A1_Echo_count>Echo_MaxEntities
+	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L4A1_Echo_count
+	ENDIF
+
+	IF L4A1_Nymn_count>Nymn_MaxEntities
+	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L4A1_Nymn_count
+	ENDIF
+
+	IF L4A1_BouncePlant_count>BouncePlant_MaxEntities
+	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L4A1_BouncePlant_count
+	ENDIF
+
+	IF L4A1_Log_count>Log_MaxEntities
+	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L4A1_Log_count
+	ENDIF
+
+	IF L4A1_Monster_count>Monster_MaxEntities
+	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L4A1_Monster_count
+	ENDIF
+
+	IF L4A1_Boulder_count>Boulder_MaxEntities
+	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L4A1_Boulder_count
+	ENDIF
+
+	IF L4A1_Firefly_count>Firefly_MaxEntities
+	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L4A1_Firefly_count
+	ENDIF
+
+	IF L4A1_FuzzlCage_count>FuzzlCage_MaxEntities
+	inform 2,"Entity array overflow(FuzzlCage) - array size: 0x%d count : 0x%d",FuzzlCage_MaxEntities,L4A1_FuzzlCage_count
+	ENDIF
+
+	IF L4A1_Fuzzl_count>Fuzzl_MaxEntities
+	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L4A1_Fuzzl_count
+	ENDIF
+
+	IF L4A1_Stone_count>Stone_MaxEntities
+	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L4A1_Stone_count
+	ENDIF
+
+	IF L4A1_Nest_count>Nest_MaxEntities
+	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L4A1_Nest_count
+	ENDIF
+
+	IF L4A1_Flue_count>Flue_MaxEntities
+	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L4A1_Flue_count
+	ENDIF
+
+	IF L4A1_TriggerBox_count>TriggerBox_MaxEntities
+	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L4A1_TriggerBox_count
+	ENDIF
+
+	IF L4A1_Checkpoint_count>Checkpoint_MaxEntities
+	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L4A1_Checkpoint_count
+	ENDIF
+
+	IF L4A1_WaterBody_count>WaterBody_MaxEntities
+	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L4A1_WaterBody_count
+	ENDIF
+
+	IF L4A1_Location_count>Location_MaxEntities
+	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L4A1_Location_count
+	ENDIF
+
+	IF L4A1_Deathbox_count>Deathbox_MaxEntities
+	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L4A1_Deathbox_count
+	ENDIF
+
+	IF L4A1_Lift_count>Lift_MaxEntities
+	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L4A1_Lift_count
+	ENDIF
+
+	IF L4A1_Crate_count>Crate_MaxEntities
+	inform 2,"Entity array overflow(Crate) - array size: 0x%d count : 0x%d",Crate_MaxEntities,L4A1_Crate_count
+	ENDIF
+
+	IF L4A1_Generator_count>Generator_MaxEntities
+	inform 2,"Entity array overflow(Generator) - array size: 0x%d count : 0x%d",Generator_MaxEntities,L4A1_Generator_count
+	ENDIF
+
+	IF L4A1_Cogs_count>Cogs_MaxEntities
+	inform 2,"Entity array overflow(Cogs) - array size: 0x%d count : 0x%d",Cogs_MaxEntities,L4A1_Cogs_count
+	ENDIF
+
+	IF L4A1_Bridge_count>Bridge_MaxEntities
+	inform 2,"Entity array overflow(Bridge) - array size: 0x%d count : 0x%d",Bridge_MaxEntities,L4A1_Bridge_count
+	ENDIF
+
+	IF L4A1_Button_count>Button_MaxEntities
+	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L4A1_Button_count
+	ENDIF
 
 
 L4A1_LoadGameObjects:
-	move.l #EntityArray_Fuzzl, a0
+	move.l #EntityArray_Leaf, a0
 
-	move.l #EntityArray_Nest, a0
+	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Flue, a0
+	move.l #EntityArray_Nymn, a0
+	jsr NymnInit
+	move.l #0x00b80000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
 
-	move.l #EntityArray_Firefly, a0
+	move.l #EntityArray_BouncePlant, a0
+
+	move.l #EntityArray_Log, a0
 
 	move.l #EntityArray_Monster, a0
 
 	move.l #EntityArray_Boulder, a0
+
+	move.l #EntityArray_Firefly, a0
+
+	move.l #EntityArray_FuzzlCage, a0
+
+	move.l #EntityArray_Fuzzl, a0
+
+	move.l #EntityArray_Stone, a0
+
+	move.l #EntityArray_Nest, a0
+
+	move.l #EntityArray_Flue, a0
 
 	move.l #EntityArray_TriggerBox, a0
 
@@ -61,25 +194,19 @@ L4A1_LoadGameObjects:
 
 	move.l #EntityArray_Location, a0
 
-	move.l #EntityArray_BouncePlant, a0
+	move.l #EntityArray_Deathbox, a0
 
-	move.l #EntityArray_Nymn, a0
-	jsr NymnInit
-	move.l #0x00013000, Entity_WorldPosX(a0)
-	move.l #0x00016000, Entity_WorldPosY(a0)
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
+	move.l #EntityArray_Lift, a0
 
-	move.l #EntityArray_Echo, a0
-	jsr EchoInit
-	move.l #0x0003e800, Entity_WorldPosX(a0)
-	move.l #0x00010000, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
-	add.l #Echo_Struct_Size, a0
+	move.l #EntityArray_Crate, a0
 
-	move.l #EntityArray_Leaf, a0
+	move.l #EntityArray_Generator, a0
 
-	move.l #EntityArray_Stone, a0
+	move.l #EntityArray_Cogs, a0
+
+	move.l #EntityArray_Bridge, a0
+
+	move.l #EntityArray_Button, a0
 
 	rts
 
