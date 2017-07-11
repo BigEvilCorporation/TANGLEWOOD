@@ -47,8 +47,9 @@ FuzzlCage_LastVelY			rs.l 1	; Last recorded velocity
 FuzzlCage_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
 FuzzlCage_Smashed			rs.b 1	; Cracked open, awaiting respawn
 FuzzlCage_PushSFXPlaying	rs.b 1
+FuzzlCage_PlatformActive	rs.b 1
 ;-----------------------------
-FuzzlCage_Struct_Pad		rs.b 1   ; Alignment padding
+FuzzlCage_Struct_Pad		rs.b 0   ; Alignment padding
 FuzzlCage_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -92,6 +93,7 @@ FuzzlCageInit:
 	move.b  #0x1, FuzzlCage_LastOnFloor(a0)
 	move.b  #0x0, FuzzlCage_Smashed(a0)
 	move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
+	move.b  #0x0, FuzzlCage_PlatformActive(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -108,16 +110,14 @@ FuzzlCageInit:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
-	move.b #0x1, Platform_Active(a2)
 	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
-	LIST_APPEND_TAIL Platforms, a2, a3
 
 	move.l a0, a2	
 	add.l  #FuzzlCage_LowerPlatform, a2
 	move.l a0, Platform_Owner(a2)
-	move.b #0x1, Platform_Active(a2)
 	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
-	LIST_APPEND_TAIL Platforms, a2, a3
+	
+	jsr    FuzzlCageActivatePlatform
 	
 	;==============================================================
 	; Setup animations
@@ -281,6 +281,36 @@ FuzzlCageUpdate:
 
 	rts
 
+FuzzlCageActivatePlatform:
+
+	cmp.b  #0x0, FuzzlCage_PlatformActive(a0)
+	bne    @AlreadyActive
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	LIST_APPEND_TAIL Platforms, a2, a3
+	move.l a0, a2
+	add.l  #FuzzlCage_LowerPlatform, a2
+	LIST_APPEND_TAIL Platforms, a2, a3
+	move.b #0x1, FuzzlCage_PlatformActive(a0)
+	@AlreadyActive:
+
+	rts
+
+FuzzlCageDeactivatePlatform:
+
+	cmp.b  #0x0, FuzzlCage_PlatformActive(a0)
+	beq    @AlreadyInactive
+	move.l a0, a2
+	add.l  #FuzzlCage_UpperPlatform, a2
+	LIST_REMOVE Platforms, a2, a3, a4
+	move.l a0, a2
+	add.l  #FuzzlCage_LowerPlatform, a2
+	LIST_REMOVE Platforms, a2, a3, a4
+	move.b #0x0, FuzzlCage_PlatformActive(a0)
+	@AlreadyInactive:
+
+	rts
+
 FuzzlCageSmash:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -295,10 +325,8 @@ FuzzlCageSmash:
 	; Can no longer be pushed
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 
-	; Disable upper platform
-	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
-	move.b #0x0, Platform_Active(a2)
+	; Disable platforms
+	jsr    FuzzlCageDeactivatePlatform
 
 	; Start smash animation
 	PUSHL  a1

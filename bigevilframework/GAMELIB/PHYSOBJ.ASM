@@ -764,10 +764,6 @@ PhysicsObjFindFloor:
 	cmp.l  #0x0, a3
 	beq    @NoPlatform
 
-	; Check if active
-	cmp.b  #0x0, Platform_Active(a3)
-	beq    @NextPlatform
-
 	; Ignore self
 	move.l Platform_Owner(a3), d2
 	cmp.l  a0, d2
@@ -968,10 +964,6 @@ PhysicsObjFindWall:
 	@BarrierLp:						; For all barriers in list
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
-
-	; Ignore inactive barriers
-	cmp.b  #0x0, Barrier_Active(a3)
-	beq    @NextBarrier
 
 	; Ignore barriers shorter than min wall height
 	move.w Barrier_Height(a3), d3
@@ -1218,14 +1210,10 @@ PhysicsObjFindMovingBarrier:
 
 	;==============================================================
 	
-	LIST_GET_HEAD Barriers,a3		; Get list head
+	LIST_GET_HEAD MovingBarriers,a3	; Get list head
 	@BarrierLp:						; For all barriers in list
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
-
-	; Ignore inactive barriers
-	cmp.b  #0x0, Barrier_Active(a3)
-	beq    @NextBarrier
 
 	; Ignore stationary barriers
 	move.l Barrier_VelX(a3), d2
@@ -1336,8 +1324,8 @@ PhysicsObjFindMovingBarrier:
 	bra    @FoundBarrier
 
 	@NextBarrier:
-	LIST_GET_NEXT Barriers,a3,a3	; Get next ptr
-	bra    @BarrierLp				; Loop
+	LIST_GET_NEXT MovingBarriers,a3,a3	; Get next ptr
+	bra    @BarrierLp					; Loop
 
 	;==============================================================
 

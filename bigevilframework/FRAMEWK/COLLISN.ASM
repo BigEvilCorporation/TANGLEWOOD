@@ -56,11 +56,11 @@ PHYS_GetTerrainTile:
 	move.w (a2), d3
 
 	; Get block address
-	mulu   #map_block_width*map_block_height*size_word, d3
+	lsl.l  #0x5, d3		; mulu   #map_block_width*map_block_height*size_word, d3
 	add.l  d3, a0
 
 	; Tile remainder to byte offset
-	mulu   #map_block_width, d4
+	lsl.l  #0x2, d4		; mulu   #map_block_width, d4
 	add.w  d6, d4
 	lsl.l  #0x1, d4
 	add.l  d4, a0

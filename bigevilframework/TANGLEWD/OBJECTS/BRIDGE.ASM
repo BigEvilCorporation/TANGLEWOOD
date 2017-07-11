@@ -79,8 +79,10 @@ Bridge_Speed			rs.l 1
 Bridge_Mode				rs.b 1
 Bridge_State			rs.b 1
 Bridge_InView			rs.b 1
+Bridge_PlatformActive	rs.b 1
+Bridge_BarrierActive	rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 1   ; Alignment padding
+Bridge_Struct_Pad		rs.b 3   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -115,6 +117,8 @@ BridgeInit:
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
 	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
 	move.b  #0x0, Bridge_InView(a0)
+	move.b  #0x0, Bridge_PlatformActive(a0)
+	move.b  #0x0, Bridge_BarrierActive(a0)
 
 	; Zero Y offsets and velocities
 	move.l  a0, a2
@@ -126,23 +130,21 @@ BridgeInit:
 	move.l  #Bridge_NumNotches, d0
 	MEMZEROL a2,d0
 
-	; Setup platform (deactivated)
+	; Setup platform
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
 	move.l a0, Platform_Owner(a2)
-	move.b #0x0, Platform_Active(a2)
 	move.w #Bridge_PlatformWidth, Platform_Width(a2)
 	move.l #0x0, Platform_VelX(a2)
 	move.l #0x0, Platform_VelY(a2)
-	LIST_APPEND_TAIL Platforms, a2, a3
+	jsr    BridgeActivatePlatform
 
-	; Setup barrier (activated)
+	; Setup barrier
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
-	move.b #0x1, Barrier_Active(a2)
 	move.w #Bridge_BarrierWidth, Barrier_Width(a2)
 	move.w #Bridge_BarrierHeight, Barrier_Height(a2)
-	LIST_APPEND_TAIL Barriers, a2, a3
+	jsr    BridgeActivateBarrier
 
 	rts
 
@@ -180,7 +182,7 @@ BridgeLoadGfx:
 	; Disable barrier if rolling downwards
 	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	bne    @NotRollingDown
-	move.b #0x0, Barrier_Active(a2)
+	jsr    BridgeDeactivateBarrier
 	@NotRollingDown:
 
 	; Set initial state
@@ -451,21 +453,66 @@ BridgeSerialise:
 	
 	rts
 
+BridgeActivatePlatform:
+
+	cmp.b  #0x0, Bridge_PlatformActive(a0)
+	bne    @AlreadyActive
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.w #Bridge_Width, Platform_Width(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
+	move.b #0x1, Bridge_PlatformActive(a0)
+	@AlreadyActive:
+
+	rts
+
+BridgeDeactivatePlatform:
+
+	cmp.b  #0x0, Bridge_PlatformActive(a0)
+	beq    @AlreadyInactive
+	move.l a0, a2
+	add.l  #Bridge_Platform, a2
+	move.w #0x0, Platform_Width(a2)
+	LIST_REMOVE Platforms, a2, a3, a4
+	move.b #0x0, Bridge_PlatformActive(a0)
+	@AlreadyInactive:
+
+	rts
+
+BridgeActivateBarrier:
+
+	cmp.b  #0x0, Bridge_BarrierActive(a0)
+	bne    @AlreadyActive
+	move.l a0, a2
+	add.l  #Bridge_Barrier, a2
+	LIST_APPEND_TAIL Barriers, a2, a3
+	move.b #0x1, Bridge_BarrierActive(a0)
+	@AlreadyActive:
+
+	rts
+
+BridgeDeactivateBarrier:
+
+	cmp.b  #0x0, Bridge_BarrierActive(a0)
+	beq    @AlreadyInactive
+	move.l a0, a2
+	add.l  #Bridge_Barrier, a2
+	LIST_REMOVE Barriers, a2, a3, a4
+	move.b #0x0, Bridge_BarrierActive(a0)
+	@AlreadyInactive:
+
+	rts
+
 BridgeSnapOpen:
 
 	; Set unroll pos at end
 	move.l #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), Bridge_UnrollPos(a0)
 
 	; Activate platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x1, Platform_Active(a2)
-	move.w #Bridge_Width, Platform_Width(a2)
+	jsr    BridgeActivatePlatform
 
 	; Disable barrier
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.b #0x0, Barrier_Active(a2)
+	jsr    BridgeDeactivateBarrier
 
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
@@ -478,17 +525,13 @@ BridgeSnapClosed:
 	move.l #0x0, Bridge_UnrollPos(a0)
 
 	; Disable platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x0, Platform_Active(a2)
-	move.w #0x0, Platform_Width(a2)
+	jsr    BridgeDeactivatePlatform
 
 	; Activate barrier if in roll up mode
 	move.l a0, a2
 	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @RollDown
-	add.l  #Bridge_Barrier, a2
-	move.b #0x1, Barrier_Active(a2)
+	jsr    BridgeActivateBarrier
 	@RollDown:
 
 	; Set closed state
@@ -502,15 +545,10 @@ BridgeSetDropMode:
 	move.l #0x0, Bridge_UnrollPos(a0)
 
 	; Activate platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x1, Platform_Active(a2)
-	move.w #Bridge_Width, Platform_Width(a2)
+	jsr    BridgeActivatePlatform
 
 	; Disable barrier
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.b #0x0, Barrier_Active(a2)
+	jsr    BridgeDeactivateBarrier
 
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
@@ -522,9 +560,7 @@ BridgeBeginRoll:
 	; Activate barrier (if rolling upwards)
 	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @RollDown
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.b #0x1, Barrier_Active(a2)
+	jsr    BridgeActivateBarrier
 	@RollDown:
 
 	; Set speed
@@ -538,9 +574,7 @@ BridgeBeginRoll:
 BridgeBeginUnroll:
 
 	; Activate platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x1, Platform_Active(a2)
+	jsr    BridgeActivatePlatform
 
 	; Set speed
 	move.l #Bridge_UnrollSpeed, Bridge_Speed(a0)
@@ -590,9 +624,7 @@ BridgeUpdateRoll:
 	@FinishedRolling:
 
 	; Disable platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x0, Platform_Active(a2)
+	jsr    BridgeDeactivatePlatform
 
 	; Set closed state
 	move.b #Bridge_StateClosed, Bridge_State(a0)
@@ -627,9 +659,7 @@ BridgeUpdateUnroll:
 	@FinishedUnrolling:
 
 	; Disable barrier
-	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
-	move.b #0x0, Barrier_Active(a2)
+	jsr    BridgeDeactivateBarrier
 
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
@@ -767,9 +797,7 @@ BridgeUpdateDropping:
 	@FinishedDropping:
 
 	; Disable platform
-	move.l a0, a2
-	add.l  #Bridge_Platform, a2
-	move.b #0x0, Platform_Active(a2)
+	jsr    BridgeDeactivatePlatform
 
 	; Stop camera shake
 	jsr    CAM_StopCameraShake

@@ -54,8 +54,9 @@ Boulder_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
 Boulder_CanCrack		rs.b 1 ; Can be cracked/respawned
 Boulder_Cracked			rs.b 1	; Cracked open, awaiting respawn
 Boulder_RollSFXPlaying	rs.b 1
+Boulder_PlatformActive	rs.b 1
 ;-----------------------------
-Boulder_Struct_Pad		rs.b 2   ; Alignment padding
+Boulder_Struct_Pad		rs.b 3   ; Alignment padding
 Boulder_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -103,6 +104,7 @@ BoulderInit:
 	move.b  #0x0, Boulder_Cracked(a0)
 	move.b  #0x1, Boulder_CanCrack(a0)
 	move.b  #0x0, Boulder_RollSFXPlaying(a0)
+	move.b  #0x0, Boulder_PlatformActive(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -118,12 +120,10 @@ BoulderInit:
 	; Setup platform
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2
-	
-	move.b #0x1, Platform_Active(a2)
 	move.w #Boulder_PlatformWidth, Platform_Width(a2)
 	
 	; Add to physics platforms list
-	LIST_APPEND_TAIL Platforms, a2, a3
+	jsr    BoulderActivatePlatform
 	
 	;==============================================================
 	; Setup animations
@@ -189,9 +189,7 @@ BoulderUpdate:
 	move.b #0x1, PhysicsObj_CanBePushed(a0)
 
 	; Enable platform
-	move.l a0, a2
-	add.l  #Boulder_Platform, a2
-	move.b #0x1, Platform_Active(a2)
+	jsr    BoulderActivatePlatform
 
 	;==============================================================
 	
@@ -360,6 +358,30 @@ BoulderUpdate:
 
 	rts
 
+BoulderActivatePlatform:
+
+	cmp.b  #0x0, Boulder_PlatformActive(a0)
+	bne    @AlreadyActive
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	LIST_APPEND_TAIL Platforms, a2, a3
+	move.b #0x1, Boulder_PlatformActive(a0)
+	@AlreadyActive:
+
+	rts
+
+BoulderDeactivatePlatform:
+
+	cmp.b  #0x0, Boulder_PlatformActive(a0)
+	beq    @AlreadyInactive
+	move.l a0, a2
+	add.l  #Boulder_Platform, a2
+	LIST_REMOVE Platforms, a2, a3, a4
+	move.b #0x0, Boulder_PlatformActive(a0)
+	@AlreadyInactive:
+
+	rts
+
 BoulderCrack:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -375,9 +397,7 @@ BoulderCrack:
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 
 	; Disable platform
-	move.l a0, a2
-	add.l  #Boulder_Platform, a2
-	move.b #0x0, Platform_Active(a2)
+	jsr    BoulderDeactivatePlatform
 
 	; Start crack animation
 	PUSHL  a1

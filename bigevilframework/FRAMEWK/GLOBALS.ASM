@@ -112,13 +112,13 @@ z80_ram_start			equ 0x00A00000
 ; ************************************
 ; Streaming
 ; ************************************
-map_block_width			equ 0x4		; Must be power-of-two
-map_block_height		equ 0x4		; Must be power-of-two
+map_block_width			equ 0x4		; Uses shifts, don't change
+map_block_height		equ 0x4		; Uses shifts, don't change
 
 ; ************************************
 ; VDP
 ; ************************************
-vdp_plane_width		equ 0x0040 ; 64 tiles X
+vdp_plane_width			equ 0x0040 ; 64 tiles X
 vdp_plane_height		equ 0x0020 ; 32 tiles Y
 vdp_plane_width_blocks  equ (vdp_plane_width/map_block_width)
 vdp_plane_height_blocks equ (vdp_plane_height/map_block_height)

@@ -61,8 +61,6 @@ ButtonInit:
 	; Setup platform
 	move.l a0, a2
 	add.l  #Button_Platform, a2
-	
-	move.b #0x1, Platform_Active(a2)
 	move.w #Button_Width, Platform_Width(a2)
 	
 	; Add to physics platforms list

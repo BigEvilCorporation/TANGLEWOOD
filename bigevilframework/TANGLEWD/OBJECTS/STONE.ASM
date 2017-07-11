@@ -86,7 +86,6 @@ StoneInit:
 	move.l a0, a2
 	add.l  #Stone_Barrier, a2
 	
-	move.b #0x1, Barrier_Active(a2)
 	move.w #Stone_Width, Barrier_Width(a2)
 	move.w #Stone_Height, Barrier_Height(a2)
 	

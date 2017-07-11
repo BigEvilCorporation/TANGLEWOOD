@@ -94,7 +94,6 @@ CrateInit:
 	move.l a0, a2
 	add.l  #Crate_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
-	move.b #0x1, Platform_Active(a2)
 	move.w #Crate_PlatformWidth, Platform_Width(a2)
 	LIST_APPEND_TAIL Platforms, a2, a3
 

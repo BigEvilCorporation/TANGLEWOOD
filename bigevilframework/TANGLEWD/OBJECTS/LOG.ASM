@@ -105,8 +105,6 @@ LogInit:
 	; Setup platform
 	move.l a0, a2
 	add.l  #Log_Platform, a2
-	
-	move.b #0x1, Platform_Active(a2)
 	move.w #Log_PlatformWidth, Platform_Width(a2)
 	
 	; Add to physics platforms list

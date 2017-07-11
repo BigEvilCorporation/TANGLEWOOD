@@ -79,7 +79,7 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 	move.l (List_\name\_Head), \tempaddrreg2	 			; Get list head
 	@EntityLp\@:							 				; For all entities in list
 	cmp.l  \objaddrreg, \tempaddrreg2						; Check if entity to remove
-	beq    @Found
+	beq    @Found\@
 	move.l \tempaddrreg2, \tempaddrreg1						; Backup prev
 	move.l List_\name\_Next(\tempaddrreg2), \tempaddrreg2	; Get next ptr
 	bra    @EntityLp\@
@@ -89,31 +89,31 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 	RAISE_EXCEPTION error_obj_not_in_list
 	ENDIF
 	
-	@Found:
+	@Found\@:
 	
 	; Check if new head
 	cmp.l  #0x0, \tempaddrreg1
-	beq    @NewHead
+	beq    @NewHead\@
 	
 	; Link next with prev
 	move.l List_\name\_Next(\objaddrreg), List_\name\_Next(\tempaddrreg1)
-	bra    @EndLink
+	bra    @EndLink\@
 	
-	@NewHead:
+	@NewHead\@:
 	
 	; Removed entity was head, set new head
 	move.l List_\name\_Next(\objaddrreg), List_\name\_Head
 	
-	@EndLink:
+	@EndLink\@:
 	
 	; Check if new tail
 	cmp.l   #0x0, List_\name\_Next(\objaddrreg)
-	bne     @NotTail
+	bne     @NotTail\@
 	
 	; Removed entity was tail, set new tail
 	move.l  \tempaddrreg1, List_\name\_Tail
 	
-	@NotTail:
+	@NotTail\@:
 	
 	; Clear removed object's next link
 	move.l #0x0, List_\name\_Next(\objaddrreg)

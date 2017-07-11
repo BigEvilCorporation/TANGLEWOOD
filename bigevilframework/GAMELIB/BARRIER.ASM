@@ -9,6 +9,7 @@
 	rsset 0
 ;---------------------------------
 	LINKED_LIST_NODE Barriers ; Linked list entry
+	LINKED_LIST_NODE MovingBarriers ; Linked list entry
 ;---------------------------------
 Barrier_PosX			rs.l 1
 Barrier_PosY			rs.l 1
@@ -16,8 +17,7 @@ Barrier_VelX			rs.l 1
 Barrier_VelY			rs.l 1
 Barrier_Width			rs.w 1
 Barrier_Height			rs.w 1
-Barrier_Active			rs.b 1
 ;---------------------------------
-Barrier_Struct_Pad		rs.b 3
+Barrier_Struct_Pad		rs.b 0
 Barrier_Struct_Size		rs.b 0
 ;---------------------------------
