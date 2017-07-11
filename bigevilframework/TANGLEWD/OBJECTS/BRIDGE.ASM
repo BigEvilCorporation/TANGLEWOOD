@@ -683,6 +683,7 @@ BridgeUpdateBarrierPlatformPos:
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
 	move.w d4, Platform_Width(a2)
+	move.b #0x1, Platform_Dirty(a2)
 
 	; To world space
 	TOSUBPIXELS d4

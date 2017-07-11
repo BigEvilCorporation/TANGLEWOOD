@@ -16,6 +16,50 @@ PhysicsWorld_Struct_Pad		rs.b 0
 PhysicsWorld_Struct_Size	rs.b 0
 ;---------------------------------
 
+PhysicsWorldPreStep:
+
+	; Clear all moving platforms
+	LIST_CLEAR MovingPlatforms,a3,a4
+
+	; Clear all moving barriers
+	LIST_CLEAR MovingBarriers,a3,a4
+
+	; Add all moving platforms to list, clear total mass
+	LIST_GET_HEAD Platforms,a3
+	@PlatformLp:
+	cmp.l  #0x0, a3
+	beq    @NoPlatform
+	move.w #0x0, Platform_TotalMass(a3)
+	move.b #0x0, Platform_Occupied(a3)
+	move.l Platform_VelX(a3), d0		; Check velocity
+	add.l  Platform_VelY(a3), d0
+	add.b  Platform_Dirty(a3), d0		; and dirty flag
+	cmp.l  #0x0, d0
+	beq    @NextPlatform
+	LIST_APPEND_TAIL MovingPlatforms,a3,a4
+	move.b #0x0, Platform_Dirty(a3)		; Clear dirty flag
+	@NextPlatform:
+	LIST_GET_NEXT Platforms,a3,a3
+	bra    @PlatformLp
+	@NoPlatform:
+	
+	; Add all moving barriers to list
+	LIST_GET_HEAD Barriers,a3
+	@BarrierLp:
+	cmp.l  #0x0, a3
+	beq    @NoBarrier
+	move.l Barrier_VelX(a3), d0
+	add.l  Barrier_VelY(a3), d0
+	cmp.l  #0x0, d0
+	beq    @NextBarrier
+	LIST_APPEND_TAIL MovingBarriers,a3,a4
+	@NextBarrier:
+	LIST_GET_NEXT Barriers,a3,a3
+	bra    @BarrierLp
+	@NoBarrier:
+
+	rts
+
 PHYS_TestBoxIntersectBox:
 	; d0 (b)  Return value: 0 = no collision, 1 = collision
 	; d1 (ww) Box 1 min XY

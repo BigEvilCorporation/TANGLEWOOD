@@ -133,32 +133,8 @@ Gameplay_Update:
 	bne    @NoUpdate
 	ENDIF
 
-	; Clear all platforms total mass
-	LIST_GET_HEAD Platforms,a3
-	@PlatformLp:
-	cmp.l  #0x0, a3
-	beq    @NoPlatform
-	move.w #0x0, Platform_TotalMass(a3)
-	move.b #0x0, Platform_Occupied(a3)
-	LIST_GET_NEXT Platforms,a3,a3
-	bra    @PlatformLp
-	@NoPlatform:
-	
-	; Clear all moving barriers
-	LIST_CLEAR MovingBarriers,a3,a4
-	
-	; Add all moving barriers to list
-	LIST_GET_HEAD Barriers,a3
-	@BarrierLp:
-	cmp.l  #0x0, a3
-	beq    @NoBarrier
-	cmp.l  #0x0, Barrier_VelX(a3)
-	beq    @NextBarrier
-	LIST_APPEND_TAIL MovingBarriers,a3,a4
-	@NextBarrier:
-	LIST_GET_NEXT Barriers,a3,a3
-	bra    @BarrierLp
-	@NoBarrier:
+	; Physics pre-step
+	jsr    PhysicsWorldPreStep
 	
 	; Update game objects
 	jsr    EntityUpdateAll

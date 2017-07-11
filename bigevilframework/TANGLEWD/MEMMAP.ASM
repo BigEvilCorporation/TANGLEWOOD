@@ -344,8 +344,9 @@ __padding05			     rs.b 3
 ; Entity lists by type
 ; ************************************
 	LINKED_LIST Characters	 	; Characters
-	LINKED_LIST Platforms	 	; Moving platforms
-	LINKED_LIST Barriers	 	; Moving walls
+	LINKED_LIST Platforms	 	; Platforms
+	LINKED_LIST Barriers	 	; Walls
+	LINKED_LIST MovingPlatforms	; Platforms that mvoed this frame
 	LINKED_LIST MovingBarriers	; Walls that moved this frame
 	LINKED_LIST PushableObjs 	; Pushable objects
 	LINKED_LIST AIMarkers	 	; AI markers

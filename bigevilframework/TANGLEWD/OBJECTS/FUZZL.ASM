@@ -160,7 +160,7 @@ FuzzlInit:
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
-	move.w  #Fuzzl_Mass, PhysicsObj_Mass(a0)
+	move.b  #Fuzzl_Mass, PhysicsObj_Mass(a0)
 	move.l  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	move.l  #Fuzzl_WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)

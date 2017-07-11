@@ -13,7 +13,7 @@ PhysicsObjHitWallNone				equ 0x0
 PhysicsObjHitWallLeft				equ 0x1
 PhysicsObjHitWallRight				equ 0x2
 
-PhysiceObjDefaultPushBoundsOuter	equ 0x6
+PhysicsObjDefaultPushBoundsOuter	equ 0x6
 
 ;==============================================================
 ; PhysicsObject
@@ -53,6 +53,7 @@ PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
 PhysicsObj_MinWallHeight    	rs.w 1 ; Min wall height
+PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
 PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
 PhysicsObj_CollideFloor	    	rs.b 1 ; Collides with floor
@@ -72,7 +73,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 2
+PhysicsObj_Struct_Pad      		rs.b 1
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -93,7 +94,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
 	move.w #0x0, PhysicsObj_BoundsHeight(a0)
-	move.w #PhysiceObjDefaultPushBoundsOuter, PhysicsObj_PushDetectOuter(a0)
+	move.w #PhysicsObjDefaultPushBoundsOuter, PhysicsObj_PushDetectOuter(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)
@@ -108,6 +109,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
+	move.b #0x0, PhysicsObj_Asleep(a0)
 	move.b #0x1, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideFloor(a0)
@@ -133,13 +135,26 @@ PhysicsObjUpdate:
  	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; If asleep, process external forces only
+	cmp.b  #0x0, PhysicsObj_Asleep(a0)
+	bne    @SoundAwake
+
+	; Awaken if moving
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_VelY(a0), d0
+	add.w  PhysicsObj_AccelX(a0), d0
+	add.w  PhysicsObj_AccelY(a0), d0
+	cmp.l  #0x0, d0
+	beq    @Asleep
+
+	@SoundAwake:
+	move.b #0x0, PhysicsObj_Asleep(a0)
+	
 	; If sprite linked or configured to update out of view, and active
 	move.b AnimObj_UpdateOutOfView(a0), d0
 	or.b   SpriteObj_SpriteLinked(a0), d0
 	and.b  Entity_Active(a0), d0
 	beq    @InvisibleOrInactive
-	
-	PUSHL  a1
 	
 	cmp.b  #0x0, PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
@@ -203,11 +218,32 @@ PhysicsObjUpdate:
 	; No physics, just do the basics
 	jsr PhysicsObjApplyVelocity
 	jsr PhysicsObjClampPos
+
+	bra @End
+
+	@Asleep:
+
+	; Asleep, check for external forces only
+	move.l PhysicsObj_LastFloor(a0), d0
+	add.l  PhysicsObj_LastWall(a0), d0
+	PUSHL  d0
+
+	jsr    PhysicsObjFindMovingFloor
+	jsr    PhysicsObjFindMovingBarrier
+
+	POPL   d0
+	move.l PhysicsObj_LastFloor(a0), d1
+	add.l  PhysicsObj_LastWall(a0), d1
+	cmp.l  d0, d1
+	beq    @NoFloorWallChange
+
+	; Floor/wall changed, correct collision
+	jsr    PhysicsObjCollisionCorrection
+	jsr    PhysicsObjClampPos
+
+	@NoFloorWallChange:
 	
 	@End:
-	
-	POPL  a1
-	
 	@InvisibleOrInactive:
 	
 	; Base functionality
@@ -533,6 +569,24 @@ PhysicsObjClampPos:
 	@EndXClamp:
 
 	rts
+
+PhysicsObjRest:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_VelY(a0), d0
+	add.w  PhysicsObj_AccelX(a0), d0
+	add.w  PhysicsObj_AccelY(a0), d0
+	cmp.l  #0x0, d0
+	bne    @Awake
+
+	; Can sleep
+	move.b #0x1, PhysicsObj_Asleep(a0)
+
+	@Awake:
+
+	rts
 	
 PhysicsObjCollisionCorrection:
 	; a0 --- GameObj addr
@@ -576,6 +630,7 @@ PhysicsObjCollisionCorrection:
 	@NoBounceY:
 
 	move.l d0, PhysicsObj_VelY(a0)					; Clear Y velocity
+	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
 	bra    @EndFloorTest
@@ -625,6 +680,7 @@ PhysicsObjCollisionCorrection:
 	DIVS1616_LOSSY d1, d0							; Div by bounce
 	@NoBounceCeil:
 	move.l d0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	
 	@NoCeilingFound:
 	@HeadingDown:
@@ -683,8 +739,12 @@ PhysicsObjCollisionCorrection:
 	DIVS1616_LOSSY d1, d0							; Div by bounce
 	@NoBounceX:
 	move.l d0, PhysicsObj_VelX(a0)
+	move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
 	
 	@NoWallFound:
+
+	; Sleep if possible
+	jsr    PhysicsObjRest
 
 	rts
 	
@@ -1079,7 +1139,7 @@ PhysicsObjFindWall:
 	
 	@HeadingNowhere:
 
-	; Not heading left/rightm check moving barriers instead
+	; Not heading left/right, check moving barriers instead
 	jsr     PhysicsObjFindMovingBarrier
 
 	@ProbeOutOfBounds:
@@ -1178,6 +1238,138 @@ PhysicsObjFindCeiling:
 	
 	@ProbeOutOfBounds:
 	@NoCeilingFound:
+
+	rts
+
+PhysicsObjFindMovingFloor:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Clear last found floor
+	move.l #0x0, PhysicsObj_LastFloor(a0)
+	
+	;==============================================================
+	
+	; Get floor probe X
+	move.l Entity_WorldPosX(a0), d1			; Get player pos X
+	TOPIXELS d1								; To sprite space
+	sub.w  #vdp_sprite_border_x, d1			; To screen space
+	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
+	add.w  d3, d1							; Add to X pos
+
+	; Check if X within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapWidth(a1), d2
+	TILES2PIXELS d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+
+	; Get floor probe Y
+	swap   d1								; X to upper word
+	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
+	TOPIXELS d2								; To sprite space
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
+	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
+	add.l  d3, d2							; Add to Y pos
+	move.w d2, d1							; Player pos XY (screen space) to d1
+	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
+
+	; Check if Y within collision map bounds
+	cmp.w  #0x0, d1
+	blt    @ProbeOutOfBounds
+	move.w Level_MapHeight(a1), d2
+	TILES2PIXELS d2
+	cmp.w  d2, d1
+	bge    @ProbeOutOfBounds
+	
+	;==============================================================
+	; Find platform
+	
+	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
+	beq   @NoPlatform
+	
+	LIST_GET_HEAD MovingPlatforms,a3	; Get list head
+	@PlatformLp:						; For all platforms in list
+	cmp.l  #0x0, a3
+	beq    @NoPlatform
+
+	; Ignore stationary platforms
+	cmp.l  #0x0, Platform_VelX(a0)
+	bne    @Moving
+	cmp.l  #0x0, Platform_VelY(a0)
+	bne    @Moving
+	bra    @NextPlatform
+
+	@Moving:
+
+	; Ignore self
+	move.l Platform_Owner(a3), d2
+	cmp.l  a0, d2
+	beq    @NextPlatform
+	
+	; Get platform Left and Right X
+	move.l Platform_PosX(a3), d2
+	TOPIXELS d2
+	sub.w  #vdp_sprite_border_x, d2			; To screen space
+	move.w d2, d3
+	add.w  Platform_Width(a3), d3
+	
+	; Get floor probe X
+	swap   d1
+	move.w d1, d0
+	swap   d1
+	
+	; Check if probe X within platform X-width
+	cmp.w  d0, d2
+	bgt    @NextPlatform
+	cmp.w  d0, d3
+	blt    @NextPlatform
+	
+	; Get platform top
+	move.w Platform_PosY(a3), d2
+	sub.w  #vdp_sprite_border_y, d2			; To screen space
+	
+	; Get floor probe Y
+	move.w d1, d0
+	
+	; Check if platform Y is between probe Y and Y+search height
+	cmp.w  d2, d0
+	bgt    @NextPlatform
+	add.w  #(heightmap_max_search_tiles*8), d0
+	cmp.w  d2, d0
+	blt    @NextPlatform
+	
+	; Success
+	clr.l  d2
+	move.w Platform_PosY(a3), d2			; Get platform Y
+	TOSUBPIXELS d2							; To world space
+	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
+	
+	; Add platform X velocity
+	move.l Platform_VelX(a3), d2
+	add.l  d2, Entity_WorldPosX(a0)
+
+	; Add occupant mass
+	clr.w  d2
+	move.b PhysicsObj_Mass(a0), d2
+	add.w  d2, Platform_TotalMass(a3)
+
+	; Mark platform occupied
+	move.b #0x1, Platform_Occupied(a3)
+
+	bra    @FoundPlatform
+	
+	@NextPlatform:
+	LIST_GET_NEXT MovingPlatforms,a3,a3	; Get next ptr
+	bra    @PlatformLp					; Loop
+	
+	@ProbeOutOfBounds:
+	@NoPlatform:
+	@EndPlatformSearch:
+	@FoundPlatform:
 
 	rts
 

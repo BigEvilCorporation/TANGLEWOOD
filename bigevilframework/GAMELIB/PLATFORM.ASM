@@ -9,6 +9,7 @@
 	rsset 0
 ;---------------------------------
 	LINKED_LIST_NODE Platforms ; Linked list entry
+	LINKED_LIST_NODE MovingPlatforms ; Linked list entry
 ;---------------------------------
 Platform_PosX			rs.l 1
 Platform_PosY			rs.l 1
@@ -18,7 +19,8 @@ Platform_Owner			rs.l 1
 Platform_Width			rs.w 1
 Platform_TotalMass		rs.w 1
 Platform_Occupied		rs.b 1
+Platform_Dirty			rs.b 1
 ;---------------------------------
-Platform_Struct_Pad		rs.b 3
+Platform_Struct_Pad		rs.b 2
 Platform_Struct_Size	rs.b 0
 ;---------------------------------
