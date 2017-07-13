@@ -105,12 +105,11 @@ l3a3_Init:
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
-	; Connect buttons to caged
+	; Connect buttons to cages
 	ENTITY_GETBYNAME Button, l3a3_Button4, a0
 	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
 	move.l a1, Button_UserData(a0)
 	move.l #l3a3Cage1Raise, Button_OnDown(a0)
-	move.b #0x1, Button_Active(a0)
 
 	; Connect twin buttons to bridge handler
 	ENTITY_GETBYNAME Button, l3a3_Button1, a0
@@ -154,11 +153,9 @@ l3a3_Init:
 	move.b #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
 	move.w #0x0, l3a3Data_SceneTimer(a2)
 
-	; TEMP
-	; Don't bother with caged Djakk emerge sequence
-	ENTITY_GETBYNAME Monster, l3a3_DjakkCaged1, a0
-	move.b #0x0, Monster_DoIntro(a0)
-	move.b #0x0, Entity_Active(a0)
+	; Set Elder in cage
+	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
+	jsr    MonsterSetInCage
 	
 	rts
 	
@@ -307,9 +304,27 @@ l3a3ComboButton2Deactivated:
 l3a3Cage1Raise:
 
 	PUSHL  a0
-	ENTITY_GETBYNAME Monster, l3a3_DjakkCaged1, a0
-	move.b #0x1, Entity_Active(a0)
-	jsr    MonsterStartEmergeFromCave
+
+	; Get cage
+	ENTITY_GETBYNAME DjakkCage, l3a3_ElderCage2, a0
+
+	; Setup callback to wake Elder
+	ENTITY_GETBYNAME Monster, l3a3_Elder2, a2
+	move.l a2, DjakkCage_CallbackUserData(a0)
+	move.l #MonsterStartEmergeFromCave, DjakkCage_OnEndRaise(a0)
+	
+	; Begin raising
+	jsr    DjakkCageBeginRaise
+	
+	POPL   a0
+
+	rts
+
+l3a3Cage1RaiseFinished:
+
+	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
+	jsr    MonsterStartRoaring
 	POPL   a0
 
 	rts

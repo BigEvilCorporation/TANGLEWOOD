@@ -49,9 +49,11 @@
 	include 'assets\sprites\crate.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
+	include 'assets\sprites\djakcage.asm'
 	IF INCLUDE_CHARACTER_ECHO
 	include 'assets\sprites\echo.asm'
 	ENDIF
+	include 'assets\sprites\elder.asm'
 	include 'assets\sprites\firefly.asm'
 	ENDIF
 	include 'assets\sprites\fuzzl.asm'
@@ -91,6 +93,7 @@
 	include 'assets\anims\echo.asm'
 	ENDIF
 	ENDIF
+	include 'assets\anims\elder.asm'
 	include 'assets\anims\firefly.asm'
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\fuzlcage.asm'

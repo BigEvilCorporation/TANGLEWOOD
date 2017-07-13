@@ -91,17 +91,24 @@ MonsterPalettes:
 	dc.l  palette_djakk_yellow	; Yellow
 
 ; ************************************
+; Monster types
+; ************************************
+MonsterType_Djakk		equ 0x0
+MonsterType_Elder		equ 0x1
+
+; ************************************
 ; States
 ; ************************************
 MonsterState_Dead		equ 0x0
 MonsterState_InCave		equ 0x1
-MonsterState_Emerging	equ 0x2
-MonsterState_Roaring	equ 0x3
-MonsterState_Chasing	equ 0x4
-MonsterState_Attacking	equ 0x5
-MonsterState_Wandering	equ 0x6
-MonsterState_Tamed		equ 0x7
-MonsterState_Bucking	equ 0x8
+MonsterState_InCage		equ 0x2
+MonsterState_Emerging	equ 0x3
+MonsterState_Roaring	equ 0x4
+MonsterState_Chasing	equ 0x5
+MonsterState_Attacking	equ 0x6
+MonsterState_Wandering	equ 0x7
+MonsterState_Tamed		equ 0x8
+MonsterState_Bucking	equ 0x9
 
 ; ************************************
 ; Music states
@@ -131,6 +138,7 @@ Monster_SearchDelay	   rs.w 1
 Monster_LoseSightTimer rs.w 1
 Monster_GrowlTimer     rs.w 1
 Monster_CatchUpSpeedMul rs.w 1
+Monster_Type           rs.b 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
 Monster_DoIntro		   rs.b 1
@@ -139,7 +147,7 @@ Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 Monster_MusicState     rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 3
+Monster_Struct_Pad     rs.b 2
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -207,6 +215,7 @@ MonsterInit:
 	move.w  #0x0, Monster_LoseSightTimer(a0)
 	move.w  #0x0, Monster_GrowlTimer(a0)
 	move.w  #Monster_OutOfDistSpeedMul, Monster_CatchUpSpeedMul(a0)
+	move.b  #MonsterType_Djakk, Monster_Type(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
@@ -237,49 +246,71 @@ MonsterInit:
 	move.l #SFX_Water_Splash1, (a3)
 	ENDIF
 
-	;==============================================================
-	; Setup default character animations
-
-	; Idle
-	ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	
-	; Dead
-	ANIM_LOAD_DEFAULT djakk_death,djakk_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
-	
-	; Run
-	ANIM_LOAD_DEFAULT djakk_run,djakk_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
-
-	; Walk
-	ANIM_LOAD_DEFAULT djakk_walk,djakk_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-
-	; Jump
-	ANIM_LOAD_DEFAULT djakk_jump,djakk_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
-	
-	;==============================================================
-	; Setup bespoke character animations
-
-	; In cave
-	;ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	
-	; Bite
-	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
-	
-	; Roar
-	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
-
-	; Buck
-	ANIM_LOAD_DEFAULT djakk_throw,djakk_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
-	
-	; Begin initial state
-	jsr    MonsterStartWaitForPlayer
-
 	rts
 
 MonsterLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	move.b  Monster_Type(a0), d0
+	cmp.b   #MonsterType_Djakk, d0
+	beq     @Djakk
+	cmp.b   #MonsterType_Elder, d0
+	beq     @Elder
+
+	;==============================================================
+
+	@Djakk:
+
+	; Load sprite
 	SPRITE_LOAD_DEFAULT djakk,PaletteId_Monster,0x0
+
+	; Setup default character animations
+	ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT djakk_death,djakk_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
+	ANIM_LOAD_DEFAULT djakk_run,djakk_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT djakk_walk,djakk_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT djakk_jump,djakk_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
+
+	; Setup bespoke character animations
+	;ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
+	ANIM_LOAD_DEFAULT djakk_throw,djakk_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
+
+	bra     @End
+
+	;==============================================================
+
+	@Elder:
+	
+	; Load sprite
+	SPRITE_LOAD_DEFAULT elder,PaletteId_Monster,0x0
+
+	; Setup default character animations
+	ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	;ANIM_LOAD_DEFAULT elder_death,elder_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
+	ANIM_LOAD_DEFAULT elder_run,elder_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT elder_walk,elder_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	;ANIM_LOAD_DEFAULT elder_jump,elder_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
+
+	; Setup bespoke character animations
+	;ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	;ANIM_LOAD_DEFAULT elder_bite,elder_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT elder_roar,elder_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
+	;ANIM_LOAD_DEFAULT elder_throw,elder_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
+
+	bra     @End
+
+	;==============================================================
+
+	@End:
+	
+	; Snap to floor
+	;jsr    PhysicsObjSnapToFloor
+
+	; Begin initial state
+	jsr    MonsterStartWaitForPlayer
 
 	rts
 
@@ -666,6 +697,21 @@ MonsterRestoreColourPower:
 	
 	rts
 	
+MonsterSetInCage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	move.b #0x0, Monster_DoIntro(a0)
+	
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Character_Animations, a1
+	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	rts
 MonsterStartWaitForPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr

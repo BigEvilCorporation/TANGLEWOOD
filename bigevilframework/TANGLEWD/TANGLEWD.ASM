@@ -108,6 +108,7 @@ __start
 	include 'objects\crate.asm'
 	include 'objects\checkpnt.asm'
 	include 'objects\deathbox.asm'
+	include 'objects\djakcage.asm'
 	include 'objects\flue.asm'
 	include 'objects\fuzzl.asm'
 	include 'objects\fuzlcage.asm'

@@ -362,6 +362,7 @@ EntityArray_Bridge      rs.b (Bridge_Struct_Size*Bridge_MaxEntities)
 EntityArray_Button      rs.b (Button_Struct_Size*Button_MaxEntities)
 EntityArray_Crate       rs.b (Crate_Struct_Size*Crate_MaxEntities)
 EntityArray_Cogs        rs.b (Cogs_Struct_Size*Cogs_MaxEntities)
+EntityArray_DjakkCage   rs.b (DjakkCage_Struct_Size*DjakkCage_MaxEntities)
 EntityArray_Flue        rs.b (Flue_Struct_Size*Flue_MaxEntities)
 EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_FuzzlCage   rs.b (FuzzlCage_Struct_Size*FuzzlCage_MaxEntities)
@@ -392,6 +393,7 @@ EntityCount_Bridge      rs.w 1
 EntityCount_Button      rs.w 1
 EntityCount_Crate       rs.w 1
 EntityCount_Cogs        rs.w 1
+EntityCount_DjakkCage   rs.w 1
 EntityCount_Monster     rs.w 1
 EntityCount_Djrake      rs.w 1
 EntityCount_Firefly     rs.w 1

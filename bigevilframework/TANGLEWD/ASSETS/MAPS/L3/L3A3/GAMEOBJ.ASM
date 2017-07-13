@@ -19,10 +19,12 @@ L3A3_BouncePlant_count equ 0x0
 
 L3A3_Log_count equ 0x0
 
-L3A3_Monster_count equ 0x3
-L3A3_Monster_3_idx	equ 0x0
-L3A3_DjakkCaged1_idx	equ 0x1
-L3A3_DjakkEchoFight_idx	equ 0x2
+L3A3_DjakkCage_count equ 0x1
+L3A3_ElderCage2_idx	equ 0x0
+
+L3A3_Monster_count equ 0x2
+L3A3_DjakkEchoFight_idx	equ 0x0
+L3A3_Elder2_idx	equ 0x1
 
 L3A3_Boulder_count equ 0x0
 
@@ -110,6 +112,10 @@ L3A3_Button6_idx	equ 0x5
 	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L3A3_Log_count
 	ENDIF
 
+	IF L3A3_DjakkCage_count>DjakkCage_MaxEntities
+	inform 2,"Entity array overflow(DjakkCage) - array size: 0x%d count : 0x%d",DjakkCage_MaxEntities,L3A3_DjakkCage_count
+	ENDIF
+
 	IF L3A3_Monster_count>Monster_MaxEntities
 	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L3A3_Monster_count
 	ENDIF
@@ -191,10 +197,10 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
 
 	move.l #EntityArray_Echo, a0
-	jsr EchoInit
-	move.l #0x19c80000, Entity_WorldPosX(a0)
-	move.l #0x05c80000, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
+	;jsr EchoInit
+	;move.l #0x19c80000, Entity_WorldPosX(a0)
+	;move.l #0x05c80000, Entity_WorldPosY(a0)
+	;jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
 
 	move.l #EntityArray_Nymn, a0
@@ -208,20 +214,23 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Log, a0
 
+	move.l #EntityArray_DjakkCage, a0
+	jsr DjakkCageInit
+	move.l #0x0b580000, Entity_WorldPosX(a0)
+	move.l #0x05300000, Entity_WorldPosY(a0)
+	jsr DjakkCageLoadGfx
+	add.l #DjakkCage_Struct_Size, a0
+
 	move.l #EntityArray_Monster, a0
-	jsr MonsterInit
-	move.l #0x03980000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
-	jsr MonsterLoadGfx
+	;jsr MonsterInit
+	;move.l #0x1c200000, Entity_WorldPosX(a0)
+	;move.l #0x05980000, Entity_WorldPosY(a0)
+	;jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
 	jsr MonsterInit
-	move.l #0x0b480000, Entity_WorldPosX(a0)
-	move.l #0x05500000, Entity_WorldPosY(a0)
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
-	jsr MonsterInit
-	move.l #0x1c200000, Entity_WorldPosX(a0)
-	move.l #0x05980000, Entity_WorldPosY(a0)
+	move.l #0x0b700000, Entity_WorldPosX(a0)
+	move.l #0x05300000, Entity_WorldPosY(a0)
+	move.b #MonsterType_Elder, Monster_Type(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
 
@@ -342,15 +351,15 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Generator, a0
 	jsr GeneratorInit
-	move.l #0x0c280000, Entity_WorldPosX(a0)
-	move.l #0x05980000, Entity_WorldPosY(a0)
+	move.l #0x0cb80000, Entity_WorldPosX(a0)
+	move.l #0x05780000, Entity_WorldPosY(a0)
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 
 	move.l #EntityArray_Cogs, a0
 	jsr CogsInit
-	move.l #0x0c400000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x0cd00000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 
@@ -403,8 +412,8 @@ L3A3_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x0bd00000, Entity_WorldPosX(a0)
-	move.l #0x05a80000, Entity_WorldPosY(a0)
+	move.l #0x0c200000, Entity_WorldPosX(a0)
+	move.l #0x05880000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit

@@ -20,6 +20,8 @@ L3A2_Log_count equ 0x2
 L3A2_Log1_idx	equ 0x0
 L3A2_Log_41_idx	equ 0x1
 
+L3A2_DjakkCage_count equ 0x0
+
 L3A2_Monster_count equ 0x0
 
 L3A2_Boulder_count equ 0x2
@@ -130,6 +132,10 @@ L3A2_Button5_idx	equ 0x4
 	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L3A2_Log_count
 	ENDIF
 
+	IF L3A2_DjakkCage_count>DjakkCage_MaxEntities
+	inform 2,"Entity array overflow(DjakkCage) - array size: 0x%d count : 0x%d",DjakkCage_MaxEntities,L3A2_DjakkCage_count
+	ENDIF
+
 	IF L3A2_Monster_count>Monster_MaxEntities
 	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L3A2_Monster_count
 	ENDIF
@@ -232,6 +238,8 @@ L3A2_LoadGameObjects:
 	move.l #0x01e80000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
+
+	move.l #EntityArray_DjakkCage, a0
 
 	move.l #EntityArray_Monster, a0
 

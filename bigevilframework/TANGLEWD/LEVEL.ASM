@@ -87,6 +87,7 @@ GameStateReset:
 	move.w #0x0, EntityArray_Button
 	move.w #0x0, EntityArray_Cogs
 	move.w #0x0, EntityArray_Crate
+	move.w #0x0, EntityArray_DjakkCage
 	move.w #0x0, EntityCount_Firefly
 	move.w #0x0, EntityCount_Flue
 	move.w #0x0, EntityCount_Fuzzl
