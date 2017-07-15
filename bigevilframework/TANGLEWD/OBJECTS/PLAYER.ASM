@@ -433,6 +433,9 @@ PlayerUpdateIdleSnooze:
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
+
+	; Can run
+	jsr    CharacterStartRun
 	
 	; Start wake anim
 	PUSHL  a1
