@@ -252,11 +252,12 @@ MonsterLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.b  Monster_Type(a0), d0
-	cmp.b   #MonsterType_Djakk, d0
-	beq     @Djakk
-	cmp.b   #MonsterType_Elder, d0
-	beq     @Elder
+	; TODO - Need rest of Elder anims
+	;move.b  Monster_Type(a0), d0
+	;cmp.b   #MonsterType_Djakk, d0
+	;beq     @Djakk
+	;cmp.b   #MonsterType_Elder, d0
+	;beq     @Elder
 
 	;==============================================================
 
