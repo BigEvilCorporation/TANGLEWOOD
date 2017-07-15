@@ -309,9 +309,7 @@ l3a3Cage1Raise:
 	ENTITY_GETBYNAME DjakkCage, l3a3_ElderCage2, a0
 
 	; Setup callback to wake Elder
-	ENTITY_GETBYNAME Monster, l3a3_Elder2, a2
-	move.l a2, DjakkCage_CallbackUserData(a0)
-	move.l #MonsterStartEmergeFromCave, DjakkCage_OnEndRaise(a0)
+	move.l #l3a3Cage1RaiseFinished, DjakkCage_OnEndRaise(a0)
 	
 	; Begin raising
 	jsr    DjakkCageBeginRaise
@@ -322,10 +320,15 @@ l3a3Cage1Raise:
 
 l3a3Cage1RaiseFinished:
 
+	; Activate Elder
 	PUSHL  a0
 	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
 	jsr    MonsterStartRoaring
 	POPL   a0
+
+	; Disable button
+	ENTITY_GETBYNAME Button, l3a3_Button4, a2
+	move.b #0x0, Button_Active(a2)
 
 	rts
 

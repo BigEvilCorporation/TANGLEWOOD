@@ -127,6 +127,11 @@ DjakkCageUpdate:
 	jsr    (a2)
 	POPM   a0-a1
 
+	; Disable barrier
+	move.l a0, a2
+	add.l  #DjakkCage_Barrier, a2
+	LIST_REMOVE Barriers, a2, a3, a4
+
 	@End:
 	
 	jsr    SpriteObjUpdate
