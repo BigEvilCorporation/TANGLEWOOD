@@ -197,10 +197,10 @@ L3A3_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
 
 	move.l #EntityArray_Echo, a0
-	;jsr EchoInit
-	;move.l #0x19c80000, Entity_WorldPosX(a0)
-	;move.l #0x05c80000, Entity_WorldPosY(a0)
-	;jsr EchoLoadGfx
+	jsr EchoInit
+	move.l #0x19c80000, Entity_WorldPosX(a0)
+	move.l #0x05c80000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
 
 	move.l #EntityArray_Nymn, a0
@@ -216,19 +216,19 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_DjakkCage, a0
 	jsr DjakkCageInit
-	move.l #0x0b580000, Entity_WorldPosX(a0)
+	move.l #0x0b480000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr DjakkCageLoadGfx
 	add.l #DjakkCage_Struct_Size, a0
 
 	move.l #EntityArray_Monster, a0
-	;jsr MonsterInit
-	;move.l #0x1c200000, Entity_WorldPosX(a0)
-	;move.l #0x05980000, Entity_WorldPosY(a0)
-	;jsr MonsterLoadGfx
+	jsr MonsterInit
+	move.l #0x1c200000, Entity_WorldPosX(a0)
+	move.l #0x05980000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
 	jsr MonsterInit
-	move.l #0x0b700000, Entity_WorldPosX(a0)
+	move.l #0x0b680000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	move.b #MonsterType_Elder, Monster_Type(a0)
 	jsr MonsterLoadGfx

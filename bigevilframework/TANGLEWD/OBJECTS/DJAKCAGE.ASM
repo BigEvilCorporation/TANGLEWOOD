@@ -8,8 +8,9 @@
 
 ; Constants
 DjakkCage_MaxEntities		equ 0x4
-DjakkCage_Width				equ 0xA0
+DjakkCage_Width				equ 0xC0
 DjakkCage_Height			equ 0x60
+DjakkCage_SpriteWidth		equ 0x10
 
 DjakkCage_RaiseLowerSpeed	equ 0x00020000
 
@@ -49,7 +50,7 @@ DjakkCageInit:
 	
 	; Set update and render routines
 	move.l #DjakkCageUpdate, Entity_UpdateRoutine(a0)
-	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
+	move.l #DjakkCageDraw, Entity_RenderRoutine(a0)
 	move.l #DjakkCageSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -135,6 +136,25 @@ DjakkCageUpdate:
 	add.l  #DjakkCage_Barrier, a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
+
+	rts
+
+DjakkCageDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.l Entity_WorldPosX(a0), d0
+	PUSHL  d0
+
+	; Draw left cage front
+	jsr    SpriteObjDraw
+
+	; Draw right cage front
+	add.l  #(DjakkCage_Width-DjakkCage_SpriteWidth)*subpixels_per_pixel, Entity_WorldPosX(a0)
+	jsr    SpriteObjDraw
+
+	POPL   d0
+	move.l d0, Entity_WorldPosX(a0)
 
 	rts
 
