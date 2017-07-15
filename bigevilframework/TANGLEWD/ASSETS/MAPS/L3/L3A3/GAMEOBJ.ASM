@@ -19,12 +19,14 @@ L3A3_BouncePlant_count equ 0x0
 
 L3A3_Log_count equ 0x0
 
-L3A3_DjakkCage_count equ 0x1
+L3A3_DjakkCage_count equ 0x2
 L3A3_ElderCage2_idx	equ 0x0
+L3A3_ElderCage1_idx	equ 0x1
 
-L3A3_Monster_count equ 0x2
+L3A3_Monster_count equ 0x3
 L3A3_DjakkEchoFight_idx	equ 0x0
 L3A3_Elder2_idx	equ 0x1
+L3A3_Elder1_idx	equ 0x2
 
 L3A3_Boulder_count equ 0x0
 
@@ -83,13 +85,14 @@ L3A3_DrawBridge1_idx	equ 0x1
 L3A3_DropBridge2_idx	equ 0x2
 L3A3_DrawBridge2_idx	equ 0x3
 
-L3A3_Button_count equ 0x6
+L3A3_Button_count equ 0x7
 L3A3_Button2_idx	equ 0x0
 L3A3_Button1_idx	equ 0x1
 L3A3_Button3_idx	equ 0x2
-L3A3_Button4_idx	equ 0x3
+L3A3_ButtonCage2_idx	equ 0x3
 L3A3_Button5_idx	equ 0x4
 L3A3_Button6_idx	equ 0x5
+L3A3_ButtonCage1_idx	equ 0x6
 
 
 	IF L3A3_Leaf_count>Leaf_MaxEntities
@@ -220,6 +223,11 @@ L3A3_LoadGameObjects:
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr DjakkCageLoadGfx
 	add.l #DjakkCage_Struct_Size, a0
+	jsr DjakkCageInit
+	move.l #0x03880000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
+	jsr DjakkCageLoadGfx
+	add.l #DjakkCage_Struct_Size, a0
 
 	move.l #EntityArray_Monster, a0
 	jsr MonsterInit
@@ -230,6 +238,12 @@ L3A3_LoadGameObjects:
 	jsr MonsterInit
 	move.l #0x0b680000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
+	move.b #MonsterType_Elder, Monster_Type(a0)
+	jsr MonsterLoadGfx
+	add.l #Monster_Struct_Size, a0
+	jsr MonsterInit
+	move.l #0x03a80000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
 	move.b #MonsterType_Elder, Monster_Type(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
@@ -255,7 +269,7 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Stone, a0
 	jsr StoneInit
-	move.l #0x0a780000, Entity_WorldPosX(a0)
+	move.l #0x0a300000, Entity_WorldPosX(a0)
 	move.l #0x06480000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
@@ -425,6 +439,12 @@ L3A3_LoadGameObjects:
 	jsr ButtonInit
 	move.l #0x1b280000, Entity_WorldPosX(a0)
 	move.l #0x05f00000, Entity_WorldPosY(a0)
+	move.b #0x1, Button_Active(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x04600000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_Active(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0

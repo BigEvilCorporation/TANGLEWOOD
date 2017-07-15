@@ -100,16 +100,19 @@ l3a3_Init:
 
 	; Connect generators to buttons, and disable buttons by default
 	ENTITY_GETBYNAME Generator, l3a3_Generator1, a0
-	ENTITY_GETBYNAME Button, l3a3_Button4, a1
+	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a1
 	move.l a1, Generator_UserData(a0)
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
 	; Connect buttons to cages
-	ENTITY_GETBYNAME Button, l3a3_Button4, a0
-	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
+	ENTITY_GETBYNAME Button, l3a3_ButtonCage1, a0
 	move.l a1, Button_UserData(a0)
 	move.l #l3a3Cage1Raise, Button_OnDown(a0)
+
+	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a0
+	move.l a1, Button_UserData(a0)
+	move.l #l3a3Cage2Raise, Button_OnDown(a0)
 
 	; Connect twin buttons to bridge handler
 	ENTITY_GETBYNAME Button, l3a3_Button1, a0
@@ -156,6 +159,21 @@ l3a3_Init:
 	; Set Elder in cage
 	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
 	jsr    MonsterSetInCage
+
+	;==============================================================
+
+	; Gamescome 2017 demo - no Echo sequence
+	IFND INCLUDE_CHARACTER_ECHO
+	ENTITY_GETBYNAME Echo, l3a3_Echo, a0
+	jsr   EntityRemoveFromUpdateList
+	jsr   EntityRemoveFromRenderList
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
+	jsr   EntityRemoveFromUpdateList
+	jsr   EntityRemoveFromRenderList
+	ENTITY_GETBYNAME TriggerBox, TriggerBoxEchoIntro, a0
+	jsr   EntityRemoveFromUpdateList
+	jsr   EntityRemoveFromRenderList
+	ENDIF
 	
 	rts
 	
@@ -306,7 +324,7 @@ l3a3Cage1Raise:
 	PUSHL  a0
 
 	; Get cage
-	ENTITY_GETBYNAME DjakkCage, l3a3_ElderCage2, a0
+	ENTITY_GETBYNAME DjakkCage, l3a3_ElderCage1, a0
 
 	; Setup callback to wake Elder
 	move.l #l3a3Cage1RaiseFinished, DjakkCage_OnEndRaise(a0)
@@ -322,12 +340,43 @@ l3a3Cage1RaiseFinished:
 
 	; Activate Elder
 	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l3a3_Elder1, a0
+	jsr    MonsterStartRoaring
+	POPL   a0
+
+	; Disable button
+	ENTITY_GETBYNAME Button, l3a3_ButtonCage1, a2
+	move.b #0x0, Button_Active(a2)
+
+	rts
+
+l3a3Cage2Raise:
+
+	PUSHL  a0
+
+	; Get cage
+	ENTITY_GETBYNAME DjakkCage, l3a3_ElderCage2, a0
+
+	; Setup callback to wake Elder
+	move.l #l3a3Cage2RaiseFinished, DjakkCage_OnEndRaise(a0)
+	
+	; Begin raising
+	jsr    DjakkCageBeginRaise
+	
+	POPL   a0
+
+	rts
+
+l3a3Cage2RaiseFinished:
+
+	; Activate Elder
+	PUSHL  a0
 	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
 	jsr    MonsterStartRoaring
 	POPL   a0
 
 	; Disable button
-	ENTITY_GETBYNAME Button, l3a3_Button4, a2
+	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a2
 	move.b #0x0, Button_Active(a2)
 
 	rts

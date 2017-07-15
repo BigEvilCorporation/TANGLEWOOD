@@ -41,7 +41,7 @@ INCLUDE_LEVEL_6			equ 1
 INCLUDE_LEVEL_7			equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 1
+INCLUDE_CHARACTER_ECHO	equ 0
 
 ; Initial level/state
 	IFD FINAL
