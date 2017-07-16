@@ -39,8 +39,8 @@ l3a3_HeritageAct3:
 	
 l3a3_DefaultPalettes:
 
-	dc.l palette_l3					; World
-	dc.l palette_djakk	; 0x0						; Djakk (black by default, fades up when approached)
+	dc.l palette_l3_night			; World
+	dc.l palette_djakk				; Elder Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -85,6 +85,14 @@ l3a3_Init:
 	divu   #size_tile_b, d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
+
+	;==============================================================
+
+	; Set TOD palettes
+	move.l  #palette_l3_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l3_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l3_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l3_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	;==============================================================
 

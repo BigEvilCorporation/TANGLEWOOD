@@ -64,6 +64,14 @@ l1a1_Init:
 
 	;==============================================================
 
+	; Set TOD palettes
+	move.l  #palette_l1_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
+	;==============================================================
+
 	; Load scene animations
 	jsr    L1_LoadSceneAnimations
 	

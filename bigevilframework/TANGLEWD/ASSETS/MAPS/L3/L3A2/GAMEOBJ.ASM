@@ -60,8 +60,10 @@ L3A2_Nest_45_idx	equ 0x2
 
 L3A2_Flue_count equ 0x0
 
-L3A2_TriggerBox_count equ 0x1
+L3A2_TriggerBox_count equ 0x3
 L3A2_TriggerBox_End_idx	equ 0x0
+L3A2_TriggerBoxDusk_idx	equ 0x1
+L3A2_TriggerBoxNight_idx	equ 0x2
 
 L3A2_Checkpoint_count equ 0x2
 L3A2_Checkpoint_61_idx	equ 0x0
@@ -377,6 +379,23 @@ L3A2_LoadGameObjects:
 	move.l #l3a2_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x07300000, Entity_WorldPosX(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x18c00000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 

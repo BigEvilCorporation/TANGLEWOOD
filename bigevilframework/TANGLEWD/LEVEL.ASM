@@ -313,10 +313,6 @@ LevelReset:
 	move.w  #0x0, Gamepad2PrevState
 	
 	; Time of Day
-	move.l  #palette_l1_day,	TimeOfDayPalettes+(size_long*0)	; Day
-	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*1)	; Dusk
-	move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*2)	; Night
-	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*3)	; Dawn
 	move.b  #TimeOfDay_Day, TimeOfDay
 	move.b  #0x1, TimeOfDayEnabled
 	
