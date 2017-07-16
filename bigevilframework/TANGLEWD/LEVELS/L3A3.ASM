@@ -156,7 +156,9 @@ l3a3_Init:
 	move.b #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
 	move.w #0x0, l3a3Data_SceneTimer(a2)
 
-	; Set Elder in cage
+	; Set Elders in cages
+	ENTITY_GETBYNAME Monster, l3a3_Elder1, a0
+	jsr    MonsterSetInCage
 	ENTITY_GETBYNAME Monster, l3a3_Elder2, a0
 	jsr    MonsterSetInCage
 

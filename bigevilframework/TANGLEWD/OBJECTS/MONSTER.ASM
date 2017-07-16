@@ -339,6 +339,8 @@ MonsterUpdate:
 	beq   @Dead
 	cmp.b #MonsterState_InCave, d0
 	beq   @InCave
+	cmp.b #MonsterState_InCage, d0
+	beq   @InCage
 	cmp.b #MonsterState_Emerging, d0
 	beq   @Emerging
 	cmp.b #MonsterState_Roaring, d0
@@ -361,6 +363,14 @@ MonsterUpdate:
 
 	; Wait for player
 	jsr MonsterUpdateWaitForPlayer
+	bra @EndStateMachine
+
+	; ************************************
+	; In cage
+	; ************************************
+	@InCage:
+
+	; Do nothing until cage raised
 	bra @EndStateMachine
 	
 	; ************************************
@@ -703,6 +713,7 @@ MonsterSetInCage:
 	; a1 --- Level addr
 	
 	move.b #0x0, Monster_DoIntro(a0)
+	move.b #MonsterState_InCage, Monster_State(a0)
 	
 	PUSHL  a1
 	move.l a0, a1
