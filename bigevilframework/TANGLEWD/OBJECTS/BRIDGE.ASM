@@ -314,6 +314,9 @@ BridgeDraw:
 	move.w Bridge_UnrollPos(a0), d7	;  (top word = integer part)
 	divu   #Bridge_NotchWidth, d7
 
+	; Clear view flag
+	move.b #0x0, Bridge_InView(a0)
+
 	; Draw all notches
 	move.l #0x0, d2
 	@NotchDrawLp:
@@ -402,6 +405,10 @@ BridgeDraw:
 	;jsr    SpriteObjAllocSprite
 	POPM   d0-d2/d7
 
+	; If drawn, set flag
+	move.b SpriteObj_SpriteLinked(a0), d3
+	or.b   d3, Bridge_InView(a0)
+
 	; Loop
 	add.b  #0x1, d2
 	cmp.b  #Bridge_NumNotches, d2
@@ -416,6 +423,15 @@ BridgeDraw:
 	move.l d1, Entity_WorldPosY(a0)
 
 	POPL   a0
+
+	; If no notches drawn, and in drop mode, never render again
+	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	bne    @NotDropping
+	cmp.b  #0x0, Bridge_InView(a0)
+	bne    @InView
+	jsr    EntityRemoveFromRenderList
+	@InView:
+	@NotDropping:
 
 	@OutOfView:
 
@@ -756,8 +772,6 @@ BridgeUpdateDropping:
 	add.l  d1, (a3)+	; Add to pos
 	dbra   d4, @NotchLp
 	@FirstNotch:
-
-	; TODO: If last piece is off screen, disable update/render
 
 	; If already dropped, done here
 	cmp.b  #Bridge_StateDropped, Bridge_State(a0)
