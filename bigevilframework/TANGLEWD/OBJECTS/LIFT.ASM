@@ -17,7 +17,7 @@ Lift_AccelY				equ 0x2000+DefaultGravity
 Lift_DecelX				equ 0x0800
 
 Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
-Lift_MaxSpeedDown		equ 0x003000				; Max speed falling down
+Lift_MaxSpeedDown		equ 0x010000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
@@ -75,6 +75,7 @@ LiftInit:
 	move.b  #0x0, PhysicsObj_CollidePlatforms(a0)
 	move.w  #Lift_Width, Entity_Width(a0)
 	move.w  #Lift_Height, Entity_Height(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.w  #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
