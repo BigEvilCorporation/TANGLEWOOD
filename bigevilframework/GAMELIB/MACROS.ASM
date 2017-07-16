@@ -162,6 +162,23 @@ ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,norep
 	move.b #\noreplay, Animation_NoReplay(a0)
 	POPL   a0
 	endm
+
+ANIM_LOAD_MANUALCONTROL: macro sheetname,animname,arrayoffset,index
+	PUSHL  a0
+	add.l  #\arrayoffset, a0
+	add.l  #(Animation_Struct_Size*\index), a0
+	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
+	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
+	move.l #0x0, Animation_AnimTrackPositionX(a0)
+	move.l #0x0, Animation_AnimTrackPositionY(a0)
+	move.l #0x0, Animation_AnimTrackSFX(a0)
+	move.w #0x0, Animation_Speed(a0)
+	move.b #spriteanim_\animname\_numframes, Animation_Length(a0)
+	move.b #0x1, Animation_Looping(a0)
+	move.b #0x0, Animation_ZeroVelocity(a0)
+	move.b #0x0, Animation_NoReplay(a0)
+	POPL   a0
+	endm
 	
 ;==============================================================
 

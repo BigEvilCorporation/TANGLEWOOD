@@ -88,7 +88,7 @@ LeafInit:
 	move.w (a2), Animation_FirstFrameOffset(a3)
 
 	; Load anim
-	ANIM_LOAD_DEFAULT leaf_green,leaf_fall,Leaf_Animation,0,1,0,0
+	ANIM_LOAD_MANUALCONTROL leaf_green,leaf_fall,Leaf_Animation,0
 	
 	; Set animation
 	move.l  a3, AnimObj_CurrentAnim(a0)
