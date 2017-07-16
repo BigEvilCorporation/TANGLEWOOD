@@ -31,12 +31,12 @@ L3A2_Boulder1_idx	equ 0x1
 L3A2_Firefly_count equ 0x0
 
 L3A2_FuzzlCage_count equ 0x1
-L3A2_FuzzlCage_42_idx	equ 0x0
+L3A2_FuzzlCage1_idx	equ 0x0
 
 L3A2_Fuzzl_count equ 0x4
 L3A2_FuzzlGreen1_idx	equ 0x0
 L3A2_FuzzlGreen2_idx	equ 0x1
-L3A2_Fuzzl_43_idx	equ 0x2
+L3A2_FuzzlCaged1_idx	equ 0x2
 L3A2_FuzzlYellow1_idx	equ 0x3
 
 L3A2_Stone_count equ 0xc

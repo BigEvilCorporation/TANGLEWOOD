@@ -35,14 +35,14 @@ L3A1_BoulderCounterweight1_idx	equ 0x0
 L3A1_Firefly_count equ 0x0
 
 L3A1_FuzzlCage_count equ 0x3
-L3A1_FuzzlCage_2_idx	equ 0x0
-L3A1_FuzzlCage_26_idx	equ 0x1
-L3A1_FuzzlCage_42_idx	equ 0x2
+L3A1_FuzzlCage1_idx	equ 0x0
+L3A1_FuzzlCage2_idx	equ 0x1
+L3A1_FuzzlCage3_idx	equ 0x2
 
 L3A1_Fuzzl_count equ 0x3
-L3A1_Fuzzl_3_idx	equ 0x0
-L3A1_Fuzzl_27_idx	equ 0x1
-L3A1_Fuzzl_30_idx	equ 0x2
+L3A1_FuzzlCaged1_idx	equ 0x0
+L3A1_FuzzlCaged2_idx	equ 0x1
+L3A1_FuzzlCaged3_idx	equ 0x2
 
 L3A1_Stone_count equ 0x5
 L3A1_Stone_36_idx	equ 0x0

@@ -137,6 +137,11 @@ l3a2_Init:
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
+	; Lock Fuzzls in cages
+	ENTITY_GETBYNAME FuzzlCage, l3a2_FuzzlCage1, a0
+	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlCaged1, a2
+	jsr    FuzzlCageSetFuzzl
+
 	; HACK: Update boulders out of view to keep counterweights down
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)

@@ -22,10 +22,12 @@ l1a4_HarlequinForestAct4:
 	dc.l l1a4_End						; End routine
 	IF INCLUDE_LEVEL_2
 	dc.l l2a1_StormWarningAct1			; Next level
+	ELSE IF INCLUDE_LEVEL_3
+	dc.l l3a1_HeritageAct1				; Next level
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l1a4_width					; Map width
 	dc.w map_l1a4_height				; Map height
 	dc.w map_blockmap_l1a4_width		; Map width (blocks)

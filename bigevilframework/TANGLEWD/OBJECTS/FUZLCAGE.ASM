@@ -19,6 +19,9 @@ FuzzlCage_ProbeFloorY		equ (FuzzlCage_Height-8)	; Floor detection probe position
 FuzzlCage_MaxVelX			equ 0x080000
 FuzzlCage_Decel				equ 0x003000
 
+FuzzlCage_FuzzlOffsetX		equ (FuzzlCage_Width/2)-(Fuzzl_Width/2)
+FuzzlCage_FuzzlOffsetY		equ 0x0015
+
 FuzzlCage_PushSFXVel		equ 0x002000
 FuzzlCage_MinSmashYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
 
@@ -43,6 +46,7 @@ FuzzlCageAnimIdx_Max     equ 1
 FuzzlCage_Animations		rs.b (Animation_Struct_Size*FuzzlCageAnimIdx_Max)
 FuzzlCage_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of FuzzlCage
 FuzzlCage_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of FuzzlCage
+FuzzlCage_Fuzzl				rs.l 1	; Held Fuzzl
 FuzzlCage_LastVelY			rs.l 1	; Last recorded velocity
 FuzzlCage_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
 FuzzlCage_Smashed			rs.b 1	; Cracked open, awaiting respawn
@@ -89,6 +93,7 @@ FuzzlCageInit:
 	move.l  #FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #FuzzlCage_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.l  #0x0, FuzzlCage_Fuzzl(a0)
 	move.l  #0x0, FuzzlCage_LastVelY(a0)
 	move.b  #0x1, FuzzlCage_LastOnFloor(a0)
 	move.b  #0x0, FuzzlCage_Smashed(a0)
@@ -236,6 +241,18 @@ FuzzlCageUpdate:
 	move.l d1, Platform_PosY(a2)
 	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
+
+	; Reposition Fuzzl
+	move.l FuzzlCage_Fuzzl(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoFuzzl
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	add.l  #FuzzlCage_FuzzlOffsetX*subpixels_per_pixel, d0
+	add.l  #FuzzlCage_FuzzlOffsetY*subpixels_per_pixel, d1
+	move.l d0, Entity_WorldPosX(a2)
+	move.l d1, Entity_WorldPosY(a2)
+	@NoFuzzl:
 	
 	@SFXEnd:
 	@SFXInAir:
@@ -278,6 +295,20 @@ FuzzlCageUpdate:
 	move.l #0x0, Platform_VelY(a2)
 
 	@End:
+
+	rts
+
+FuzzlCageSetFuzzl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Fuzzl
+
+	move.l a2, FuzzlCage_Fuzzl(a0)
+
+	PUSHL  a0
+	move.l a2, a0
+	jsr    FuzzlSetinCage
+	POPL   a0
 
 	rts
 
@@ -344,7 +375,19 @@ FuzzlCageSmash:
 
 	; Play smash SFX
 	; PLAYSFX #SFX_FuzzlCageBreak
-	
+
+	; Notify Fuzzl
+	PUSHL  a0
+	move.l FuzzlCage_Fuzzl(a0), a0
+	cmp.l  #0x0, a0
+	beq    @NoFuzzl
+	jsr    FuzzlRemoveFromCage
+	@NoFuzzl:
+	POPL   a0
+
+	; Lose Fuzzl
+	move.l #0x0, FuzzlCage_Fuzzl(a0)
+
 	rts
 	
 FuzzlCageSerialise:

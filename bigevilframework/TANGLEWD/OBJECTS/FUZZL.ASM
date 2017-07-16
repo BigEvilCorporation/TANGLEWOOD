@@ -44,6 +44,7 @@ Fuzzl_State_Home      equ 0x04 ; In a nest
 Fuzzl_State_Bouncing  equ 0x05 ; Bouncing to alert player to take colour
 Fuzzl_State_Fling	  equ 0x06 ; Being flung up in the air
 Fuzzl_State_Generator equ 0x07 ; Inside a generator
+Fuzzl_State_Caged     equ 0x08 ; Inside a cage
 
 ; Spritesheet/colour ptr table
 Fuzzl_Spritesheets:
@@ -268,6 +269,31 @@ FuzzlSetColour:
 	move.b #0x1, AnimObj_Dirty(a0)
 	
 	rts
+
+FuzzlSetInCage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	bset.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+
+	rts
+
+FuzzlRemoveFromCage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	bclr.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+
+	; Re-find floor
+	move.b #0x0, PhysicsObj_OnFloor(a0)
+	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.l #0x0, PhysicsObj_LastFloor(a0)
+	
+	; Set rolling state
+	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
+	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
+	
+	rts
 	
 FuzzlUpdate:
 	; a0 --- GameObj addr
@@ -368,12 +394,12 @@ FuzzlUpdate:
 	; Check if entering a nest
 	jsr    FuzzlFindNest
 	cmp.b  #0x0, d0
-	bne    @End
+	bne    @InNest
 
 	; Check if entering a generator
 	jsr    FuzzlFindGenerator
 	cmp.b  #0x0, d0
-	bne    @End
+	bne    @InGenerator
 	
 	; Not home
 	bra @NotHome
@@ -382,7 +408,7 @@ FuzzlUpdate:
 	
 	; Happy Fuzzls bounce
 	jsr FuzzlUpdateBounce
-	bra @End
+	bra @Bouncing
 
 	@OutOfPlayerRange:
 
@@ -396,7 +422,7 @@ FuzzlUpdate:
 	beq   @NotBeingFlung
 	
 	cmp.b #0x0, PhysicsObj_OnFloor(a0)
-	beq   @End
+	beq   @InAir
 	
 	; On floor, finished flinging
 	bclr.b #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
@@ -405,11 +431,17 @@ FuzzlUpdate:
 	@Asleep:
 	@NotBeingFlung:
 	@InitialState:
+	@InNest:
 	@InGenerator:
-	@End:
+	@Bouncing:
+	@InAir:
 	
 	; Update animation
 	jsr FuzzlUpdateAnimation
+
+	; If in cage, don't do physics update or check for pushing
+	btst.b #Fuzzl_State_Caged, Fuzzl_State_bits(a0)
+	bne    @InCage
 
 	; Can only push if awake and not in nest/generator
 	move.b #0x1, d0
@@ -455,6 +487,14 @@ FuzzlUpdate:
 	@SFXLowVel:
 	
 	@OutOfView:
+	bra    @End
+
+	@InCage:
+
+	; In cage, only do anim update
+	jsr    AnimObjUpdate
+
+	@End:
 
 	rts
 	
