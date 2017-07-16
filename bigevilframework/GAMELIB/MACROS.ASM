@@ -27,18 +27,16 @@ ENTITY_GETCENTREY: macro destreg,addrreg
 	endm
 
 ENTITY_GETDRAWPOSVEC2: macro destreg,tmpreg1,tmpreg2,addrreg
-	move.l Entity_WorldPosX(\addrreg), \destreg
-	TOPIXELS \destreg
+	move.w Entity_WorldPosX(\addrreg), \destreg			; Top word = integer part
 	add.w  SpriteObj_DrawOffsetX(\addrreg), \destreg	; Apply draw offset (animation, etc)
-	move.l (WorldScrollX), \tmpreg1						; Get camera pos X (incl. camera shake + peek offset)
-	TOPIXELS \tmpreg1
+	move.w (WorldScrollX), \tmpreg1						; Get camera pos X (incl. camera shake + peek offset)
+														; Top word = integer part
 	sub.w  \tmpreg1, \destreg							; Apply camera pos
 
-	move.l Entity_WorldPosY(\addrreg), \tmpreg2
-	TOPIXELS \tmpreg2
+	move.w Entity_WorldPosY(\addrreg), \tmpreg2			; Top word = integer part
 	add.w  SpriteObj_DrawOffsetY(\addrreg), \tmpreg2	; Apply draw offset (animation, etc)
-	move.l (WorldScrollY), \tmpreg1						; Get camera Y (incl. camera shake + peek offset)
-	TOPIXELS \tmpreg1
+	move.w (WorldScrollY), \tmpreg1						; Get camera Y (incl. camera shake + peek offset)
+														; Top word = integer part
 	sub.w  \tmpreg1, \tmpreg2							; Apply camera pos
 
 	swap   \destreg
@@ -50,14 +48,10 @@ ENTITY_GETCENTREVEC2: macro destreg,tmpreg,addrreg
 	clr.l   \tmpreg
 	move.w  Entity_Width(\addrreg), \destreg	; Get width/height in pixels
 	move.w  Entity_Height(\addrreg), \tmpreg
-	TOSUBPIXELS \destreg						; To subpixels
-	TOSUBPIXELS \tmpreg
-	lsr.l   #0x1, \destreg						; div/2
-	lsr.l   #0x1, \tmpreg
-	add.l   Entity_WorldPosX(\addrreg), \destreg; Add world pos
-	add.l   Entity_WorldPosY(\addrreg), \tmpreg
-	TOPIXELS \destreg							; To pixels
-	TOPIXELS \tmpreg
+	lsr.w   #0x1, \destreg						; div/2
+	lsr.w   #0x1, \tmpreg
+	add.w   Entity_WorldPosX(\addrreg), \destreg; Add world pos	; Top word = integer part
+	add.w   Entity_WorldPosY(\addrreg), \tmpreg
 	swap    \destreg							; Assemble vector
 	move.w  \tmpreg, \destreg
 	endm
@@ -86,8 +80,7 @@ ENTITY_GETBOTTOM: macro destreg,addrreg
 	
 ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	; Obj 1 min X
-	move.l Entity_WorldPosX(\addrreg), \topleftreg	; X
-	TOPIXELS \topleftreg							; To screen space
+	move.w Entity_WorldPosX(\addrreg), \topleftreg	; X (top word = integer part)
 	move.w \topleftreg, \bottomrightreg				; Copy for max
 	swap   \topleftreg								; In upper word d1
 	
@@ -97,8 +90,7 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	swap   \bottomrightreg							; In upper word d2
 	
 	; Obj 1 min Y
-	move.l Entity_WorldPosY(\addrreg), \tempreg		; Y
-	TOPIXELS \tempreg								; To screen space
+	move.w Entity_WorldPosY(\addrreg), \tempreg		; Y (top word = integer part)
 	move.w \tempreg, \bottomrightreg				; Copy for max
 	move.w \tempreg, \topleftreg					; In lower word d1
 	
@@ -111,8 +103,7 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 
 CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	; Left/right
-	move.l (CameraWorldPosX), \topleftreg			; X centre
-	TOPIXELS \topleftreg							; To screen space
+	move.w (CameraWorldPosX), \topleftreg			; X centre (top word = integer part)
 	move.w \topleftreg, \bottomrightreg
 	sub.w  #(screen_width/2), \topleftreg			; Left border
 	add.w  #(screen_width/2), \bottomrightreg		; Right border
@@ -124,8 +115,7 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	swap   \bottomrightreg
 	
 	; Top/bottom
-	move.l (CameraWorldPosY), \tempreg				; Y centre
-	TOPIXELS \tempreg								; To screen space
+	move.w (CameraWorldPosY), \tempreg				; Y centre (top word = integer part)
 	move.w \tempreg, \topleftreg
 	move.w \tempreg, \bottomrightreg
 	sub.w  #(screen_height/2), \topleftreg			; Top border
@@ -177,8 +167,7 @@ ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,norep
 
 	; Gets min/max collision XY bounds (pixel space) from a PhysicsObj
 PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
-	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	TOPIXELS \minreg									; To pixel space
+	move.w Entity_WorldPosX(\addrreg), \minreg			; Get X world position (top word = integer part)
 	add.w  PhysicsObj_BoundsLeft(\addrreg), \minreg		; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  PhysicsObj_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
@@ -186,8 +175,7 @@ PHYSICS_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \minreg
 	swap   \maxreg
 	
-	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	TOPIXELS \tmpreg									; To pixel space
+	move.w Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position (top word = integer part)
 	add.w  PhysicsObj_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
