@@ -226,7 +226,7 @@ NymnStartInteract:
 	move.l d0, -(sp)
 	move.l d1, -(sp)
 
-	IFND INCLUDE_CHARACTER_ECHO
+	IF !INCLUDE_CHARACTER_ECHO
 
 	; Base functionality
 	jsr    PlayerStartInteract
