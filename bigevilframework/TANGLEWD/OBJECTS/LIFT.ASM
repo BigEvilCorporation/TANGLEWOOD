@@ -390,6 +390,15 @@ LiftProcessCounterweight:
 
 	@EndCounterweight:
 
+	; Set platform Y velocities
+	move.l a0, a3
+	add.l  #Lift_Platform, a3
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a3)
+
+	move.l a2, a3
+	add.l  #Lift_Platform, a3
+	move.l PhysicsObj_VelY(a2), Platform_VelY(a3)
+
 	rts
 	
 LiftUpdate:
