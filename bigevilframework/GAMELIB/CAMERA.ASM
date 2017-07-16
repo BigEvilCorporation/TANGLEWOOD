@@ -285,15 +285,10 @@ CAM_Update:
 	
 	;==============================================================
 
-	; X to world scroll
-	move.l  (CameraWorldPosX), d0
-	add.l   (CameraShakeOffsetX), d0		; Add shake offset
-	jsr     CAM_PosToWorldScrollX
-	move.l  d0, WorldScrollX			; Keep world scroll X
+	; Camera X to scroll space
+	jsr     CAM_CalcScrollPosX
 	
 	; Scroll X - plane A
-	neg.l   d0							; To camera space
-	TOPIXELS d0					; To screen space
 	lea     VDP_SetHScrollPlaneA, a5
 	jsr 	VDP_JobQueue_PushJob
 	
@@ -344,14 +339,8 @@ CAM_Update:
 	;==============================================================
 
 	; Y to world scroll
-	move.l  (CameraWorldPosY), d0
-	add.l   (CameraShakeOffsetY), d0	; Add shake offset
-	add.l   (CameraPeekOffsetY), d0		; Add peek offset
-	jsr     CAM_PosToWorldScrollY
-	move.l  d0, WorldScrollY			; Keep world scroll Y
+	jsr     CAM_CalcScrollPosY
 
-	; Scroll Y - plane A
-	TOPIXELS d0					; To screen space
 	lea     VDP_SetVScrollPlaneA, a5
 	jsr 	VDP_JobQueue_PushJob
 	
@@ -362,6 +351,7 @@ CAM_Update:
 	lsl.w   #0x3, d1	; Tiles to pixels
 
 	divu  #((vdp_plane_height/2)*8)-CameraScrollSafeBorderY, d1
+	andi.l #0x0000FFFF, d0
 	andi.l #0x0000FFFF, d1
 	divu  d1, d0
 	
@@ -391,54 +381,71 @@ CAM_Update:
 	
 	rts
 
-CAM_PosToWorldScrollX:
+CAM_CalcScrollPosX:
 	; a1 --- Level address
-	; d0 (l) Camera world pos X
+	; d0 (w) OUT: Scroll pos X
+
+	; Perform calc on words so precision matches sprites
+	move.w  (CameraWorldPosX), d0		; Top word = integer part
+	add.w   (CameraShakeOffsetX), d0	; Add shake offset
 
 	; Scroll X safe border (only scroll beyond these bounds)
-	cmp.l   #CameraScrollSafeBorderX*subpixels_per_pixel, d0
+	cmp.w   #CameraScrollSafeBorderX, d0
 	blt     @ClampLeft
-	clr.l   d1
+	clr.w   d1
 	move.w  Level_MapWidth(a1), d1
-	lsl.l   #0x3, d1	; To tiles
-	TOSUBPIXELS   d1	; To camera space
-	sub.l   #CameraScrollSafeBorderX*subpixels_per_pixel, d1
-	cmp.l	d1, d0
+	lsl.w   #0x3, d1	; To tiles
+	sub.w   #CameraScrollSafeBorderX, d1
+	cmp.w	d1, d0
 	bgt		@ClampRight
 	bra		@EndClampX
 	@ClampLeft:
-	move.l  #CameraScrollSafeBorderX*subpixels_per_pixel, d0	; Clamp to bounds
+	move.w  #CameraScrollSafeBorderX, d0	; Clamp to bounds
 	bra		@EndClampX
 	@ClampRight:
-	move.l	d1, d0
+	move.w	d1, d0
 	@EndClampX:
 
-	sub.l   #(screen_width/2)*subpixels_per_pixel, d0		; Centred
+	sub.w   #(screen_width/2), d0		; Centred
+
+	move.w  d0, d1
+	TOSUBPIXELS d1
+	move.l  d1, WorldScrollX			; Keep world scroll X
+	
+	neg.w   d0							; To camera space
 
 	rts
 
-CAM_PosToWorldScrollY:
+CAM_CalcScrollPosY:
 	; a1 --- Level address
 	; d0 (l) Camera world pos Y
 
+	; Perform calc on words so precision matches sprites
+	move.w  (CameraWorldPosY), d0		; Top word = integer part
+	add.w   (CameraShakeOffsetY), d0	; Add shake offset
+	add.w   (CameraPeekOffsetY), d0		; Add peek offset
+
 	; Scroll Y safe border (only scroll beyond these bounds)
-	cmp.l   #CameraScrollSafeBorderY*subpixels_per_pixel, d0
+	cmp.w   #CameraScrollSafeBorderY, d0
 	blt     @ClampTop
-	clr.l   d1
+	clr.w   d1
 	move.w  Level_MapHeight(a1), d1
-	lsl.l   #0x3, d1	; To tiles
-	TOSUBPIXELS   d1	; To camera space
-	sub.l   #CameraScrollSafeBorderY*subpixels_per_pixel, d1
-	cmp.l	d1, d0
+	lsl.w   #0x3, d1	; To tiles
+	sub.w   #CameraScrollSafeBorderY, d1
+	cmp.w	d1, d0
 	bgt		@ClampBottom
 	bra		@EndClampY
 	@ClampTop:
-	move.l  #CameraScrollSafeBorderY*subpixels_per_pixel, d0
+	move.w  #CameraScrollSafeBorderY, d0
 	bra		@EndClampY
 	@ClampBottom:
-	move.l	d1, d0
+	move.w	d1, d0
 	@EndClampY:
 
-	sub.l   #(screen_height/2)*subpixels_per_pixel, d0		; Centred
+	sub.w   #(screen_height/2), d0		; Centred
+
+	move.w  d0, d1
+	TOSUBPIXELS d1
+	move.l  d1, WorldScrollY			; Keep world scroll Y
 
 	rts
