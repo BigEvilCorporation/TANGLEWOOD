@@ -31,6 +31,9 @@ Log_PlatformWidth		equ Log_Width/2	; Physics platform width
 Log_PlatformXOffset		equ (Log_Width-Log_PlatformWidth)/2	; Offset to platform from top of Log
 Log_PlatformYOffset		equ 0x0000		; Offset to platform from top of Log
 
+Log_CamShakeVel			equ 0x4000
+Log_CamShakeAmp			equ 0x0100
+
 ;==============================================================
 
 ; Animations
@@ -47,8 +50,9 @@ Log_Animations		rs.b (Animation_Struct_Size*LogAnimIdx_Max)
 Log_Platform		rs.b Platform_Struct_Size ; Moving platform on top of Log
 Log_FloorRollAccel	rs.w 1
 Log_RollSFXPlaying	rs.b 1
+Log_Hazardous		rs.b 1
 ;-----------------------------
-Log_Struct_Pad		rs.b 1   ; Alignment padding
+Log_Struct_Pad		rs.b 0   ; Alignment padding
 Log_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -90,6 +94,7 @@ LogInit:
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.w  #0x0, Log_FloorRollAccel(a0)
 	move.b  #0x0, Log_RollSFXPlaying(a0)
+	move.b  #0x0, Log_Hazardous(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -160,13 +165,21 @@ LogUpdate:
 	move.w Log_FloorRollAccel(a0), PhysicsObj_AccelX(a0)
 	@InAir:
 
-	; If hit a wall, clear accel, can be pushed
+	; If hit a wall, clear accel, can be pushed, not hazardous
 	cmp.b  #0x0, PhysicsObj_HitWall(a0)
 	beq    @NotHitWall
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, Log_FloorRollAccel(a0)
 	move.b #0x1, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, AnimObj_UpdateOutOfView(a0)
+
+	; If hazardous, disable camera shake
+	cmp.b  #0x0, Log_Hazardous(a0)
+	beq    @NotHitWall
+
+	move.b #0x0, Log_Hazardous(a0)
+	jsr    CAM_StopCameraShake
+
 	@NotHitWall:
 	
 	; Base functionality
@@ -187,6 +200,33 @@ LogUpdate:
 	; Set platform velocity
 	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
+
+	;==============================================================
+
+	; If hazardous
+	cmp.b  #0x0, Log_Hazardous(a0)
+	beq    @NotHazardous
+
+	; Camera shake if rolling on floor
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	beq    @ShakeOff
+
+	; Shake on
+	move.w #0x0, d0
+	move.w #Log_CamShakeVel, d1
+	move.w #0x0, d2
+	move.w #Log_CamShakeAmp, d3
+	move.w #0x0, d4
+	jsr    CAM_StartCameraShake
+
+	bra    @EndShake
+
+	@ShakeOff:
+
+	; Shake off
+	jsr    CAM_StopCameraShake
+
+	@EndShake:
 
 	;==============================================================
 
@@ -216,6 +256,7 @@ LogUpdate:
 	POPL   a0
 
 	@NoDamage:
+	@NotHazardous:
 
 	rts
 

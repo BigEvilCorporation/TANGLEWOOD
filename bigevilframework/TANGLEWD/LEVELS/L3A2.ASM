@@ -43,15 +43,18 @@ l3a2_DefaultPalettes:
 	even
 
 ; Rolling log hazard
-L3A2_LogRollAccel	equ 0x0800
-	
+L3A2_LogRollAccel			equ 0x0800
+L3A2_LogRollCamLerpSpeed	equ 0x40
+L3A2_LogRollCamLerpTime		equ 0x1E
+
 ; ************************************
 ; Runtime data
 ; ************************************
 	rsset 0
+l3a2Data_LogRollCamLerpTimer	rs.w 1
 l3a2Data_WaitingInput			rs.b 1
 ;---------------------------------
-l3a2Data_Struct_Pad      		rs.b 3
+l3a2Data_Struct_Pad      		rs.b 1
 l3a2Data_Struct_Size     		rs.b 0
 	
 l3a2_Init:
@@ -134,16 +137,41 @@ l3a2_Init:
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
-	; HACK: Update boulder out of view to keep counterweight down
+	; HACK: Update boulders out of view to keep counterweights down
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Init camera lerp timer
+	move.l #LevelData_L3A2, a2
+	move.w #0x0, l3a2Data_LogRollCamLerpTimer(a2)
 	
 	rts
 	
 l3a2_Update:
+
+	; Update camera lerp timer
+	move.l #LevelData_L3A2, a2
+	move.w l3a2Data_LogRollCamLerpTimer(a2), d0
+	cmp.w  #0x0, d0
+	beq    @NoLerpTimer
+
+	sub.w  #0x1, d0
+	move.w d0, l3a2Data_LogRollCamLerpTimer(a2)
+	cmp.w  #0x0, d0
+	bne    @NoLerpTimer
+
+	; Timer elapsed, lerp camera back to player
+	PUSHM  a0-a2
+	ENTITY_GETBYNAME Log, l3a2_Log1, a0
+	move.l #Player1, a1
+	move.l #L3A2_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a2
+
+	@NoLerpTimer:
 
 	rts
 	
@@ -161,19 +189,32 @@ l3a2_LogRollBegin:
 
 	PUSHL  a0
 
-	;Roll bridge
+	; Roll bridge
 	ENTITY_GETBYNAME Bridge, l3a2_RollBridge2, a0
 	jsr    BridgeBeginRoll
 
-	; Set log rolling, update out of view, not pushable
+	; Set log rolling, update out of view, not pushable, hazardous
 	ENTITY_GETBYNAME Log, l3a2_Log1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
 
 	; Update Fuzzl out of view so it falls off the bridge properly
 	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlGreen2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Start camera lerp
+	PUSHL  a1
+	move.l #Player1, a0
+	ENTITY_GETBYNAME Log, l3a2_Log1, a1
+	move.l #L3A2_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPL   a1
+
+	; Begin lerp timer
+	move.l #LevelData_L3A2, a2
+	move.w #L3A2_LogRollCamLerpTime, l3a2Data_LogRollCamLerpTimer(a2)
 
 	POPL   a0
 
