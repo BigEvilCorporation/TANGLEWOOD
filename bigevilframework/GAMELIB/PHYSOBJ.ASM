@@ -995,7 +995,7 @@ PhysicsObjFindWall:
 	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2		; To screen space
 	move.w Entity_Height(a0), d3		; Get height
-	add.l  d3, d2						; Get floor probe
+	add.w  d3, d2						; Get floor probe
 	move.w d2, d1						; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
 

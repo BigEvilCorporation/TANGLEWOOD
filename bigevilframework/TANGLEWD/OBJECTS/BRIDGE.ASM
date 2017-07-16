@@ -31,7 +31,7 @@ Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 Bridge_BarrierWidth		equ 0x30	; Width of roll
 Bridge_BarrierHeight	equ 0x50	; Height of blocking barrier
 Bridge_BarrierXOffset	equ 0x0
-Bridge_BarrierYOffset	equ Bridge_Height-Bridge_BarrierHeight
+Bridge_BarrierYOffset	equ -Bridge_BarrierHeight
 
 Bridge_ViewBoundsOffsetX	equ 0x0000
 Bridge_ViewBoundsOffsetY	equ -0x0040
