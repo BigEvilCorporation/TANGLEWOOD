@@ -298,6 +298,7 @@ L3A3_LoadGameObjects:
 	move.l #0x16a00000, Entity_WorldPosX(a0)
 	move.l #0x05800000, Entity_WorldPosY(a0)
 	move.l #l3a3TriggerEchoIntro, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 

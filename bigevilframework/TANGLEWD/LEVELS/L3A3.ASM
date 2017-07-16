@@ -165,16 +165,12 @@ l3a3_Init:
 	;==============================================================
 
 	; Gamescome 2017 demo - no Echo sequence
-	IFND INCLUDE_CHARACTER_ECHO
-	ENTITY_GETBYNAME Echo, l3a3_Echo, a0
-	jsr   EntityRemoveFromUpdateList
-	jsr   EntityRemoveFromRenderList
+	IF !INCLUDE_CHARACTER_ECHO
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
-	jsr   EntityRemoveFromUpdateList
-	jsr   EntityRemoveFromRenderList
-	ENTITY_GETBYNAME TriggerBox, TriggerBoxEchoIntro, a0
-	jsr   EntityRemoveFromUpdateList
-	jsr   EntityRemoveFromRenderList
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	ENTITY_GETBYNAME TriggerBox, l3a3_TriggerBoxEchoIntro, a0
+	move.l #l3a3_Trigger_End, TriggerBox_Routine(a0)
 	ENDIF
 	
 	rts
