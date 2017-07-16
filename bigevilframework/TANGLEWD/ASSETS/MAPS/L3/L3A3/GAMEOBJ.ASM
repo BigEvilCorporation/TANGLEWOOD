@@ -269,7 +269,7 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Stone, a0
 	jsr StoneInit
-	move.l #0x0a300000, Entity_WorldPosX(a0)
+	move.l #0x09680000, Entity_WorldPosX(a0)
 	move.l #0x06480000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
@@ -354,7 +354,7 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Crate, a0
 	jsr CrateInit
-	move.l #0x09a00000, Entity_WorldPosX(a0)
+	move.l #0x09300000, Entity_WorldPosX(a0)
 	move.l #0x06300000, Entity_WorldPosY(a0)
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
@@ -421,7 +421,7 @@ L3A3_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x0c580000, Entity_WorldPosX(a0)
+	move.l #0x0cd80000, Entity_WorldPosX(a0)
 	move.l #0x07500000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_Active(a0)
 	jsr ButtonLoadGfx
