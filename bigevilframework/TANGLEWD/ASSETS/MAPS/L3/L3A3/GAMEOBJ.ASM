@@ -256,8 +256,8 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Fuzzl, a0
 	jsr FuzzlInit
-	move.l #0x08780000, Entity_WorldPosX(a0)
-	move.l #0x05480000, Entity_WorldPosY(a0)
+	move.l #0x08880000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
@@ -286,8 +286,8 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_Nest, a0
 	jsr NestInit
-	move.l #0x0ac80000, Entity_WorldPosX(a0)
-	move.l #0x05d00000, Entity_WorldPosY(a0)
+	move.l #0x0ad80000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 
