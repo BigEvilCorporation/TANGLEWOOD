@@ -368,8 +368,7 @@ FlueTestPhysicsObjInside:
 	; a1 --- PhysicsObj 2
 	
 	; Obj 1 min X
-	move.l Entity_WorldPosX(a0), d1		; X
-	TOPIXELS d1							; To screen space
+	move.w Entity_WorldPosX(a0), d1		; X (top word = integer part)
 	move.w d1, d2						; Copy for max
 	sub.w  #Flue_BoundsExtendX, d1		; Extend X bounds for Flue
 	swap   d1							; In upper word d1
@@ -381,8 +380,7 @@ FlueTestPhysicsObjInside:
 	swap   d2							; In upper word d2
 	
 	; Obj 1 min Y
-	move.l Entity_WorldPosY(a0), d3		; Y
-	TOPIXELS d3							; To screen space
+	move.w Entity_WorldPosY(a0), d3		; Y (top word = integer part)
 	move.w d3, d2						; Copy for max
 	move.w d3, d1						; In lower word d1
 	
@@ -391,8 +389,7 @@ FlueTestPhysicsObjInside:
 	add.w  d3, d2						; Fuzzl Y max
 	
 	; Obj 2 min X
-	move.l Entity_WorldPosX(a1), d3		; X
-	TOPIXELS d3							; To screen space
+	move.w Entity_WorldPosX(a1), d3		; X (top word = integer part)
 	move.w d3, d4						; Copy for max
 	swap   d3							; In upper word d1
 	
@@ -402,8 +399,7 @@ FlueTestPhysicsObjInside:
 	swap   d4							; In upper word d2
 	
 	; Obj 2 min Y
-	move.l Entity_WorldPosY(a1), d5		; Y
-	TOPIXELS d5							; To screen space
+	move.w Entity_WorldPosY(a1), d5		; Y (top word = integer part)
 	move.w d5, d4						; Copy for max
 	move.w d5, d3						; In lower word d1
 	

@@ -147,8 +147,7 @@ PlayerAnimIdx_Max       	equ 8
 ; Macros
 ; ************************************
 PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
-	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	TOPIXELS \minreg								; To pixel space
+	move.w Entity_WorldPosX(\addrreg), \minreg			; Get X world position (top word = integer part)
 	add.w  #Player1BoundsJumpOffsetX, \minreg			; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  #Player1BoundsJumpWidth, \maxreg				; Add bounding box right
@@ -156,8 +155,7 @@ PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \minreg
 	swap   \maxreg
 	
-	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	TOPIXELS \tmpreg								; To pixel space
+	move.w Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position (top word = integer part)
 	add.w  #Player1BoundsJumpOffsetY, \tmpreg			; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
@@ -1964,10 +1962,8 @@ PlayerInteractTest_Water:
 	@LowSplashVel:
 
 	; Set water level
-	move.l Entity_WorldPosY(a1), d3
-	TOPIXELS d3
-	move.l (WorldScrollY), d2
-	TOPIXELS d2
+	move.w Entity_WorldPosY(a1), d3	; (top word = integer part)
+	move.w (WorldScrollY), d2		;  (top word = integer part)
 	sub.w  d2, d3
 	sub.w  #vdp_sprite_border_y, d3
 	move.b d3, raster_water_level

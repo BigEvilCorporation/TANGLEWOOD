@@ -95,8 +95,7 @@ BouncePlantBounds_315:	dc.w 0x0008, 0x0008, 0x0010, 0x0010
 ; Not a physics obj for optimisation, steal the bounds macro
 ; TODO: Base Entity holds collision bounds?
 BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
-	move.l Entity_WorldPosX(\addrreg), \minreg			; Get X world position
-	TOPIXELS \minreg								; To pixel space
+	move.w Entity_WorldPosX(\addrreg), \minreg			; Get X world position (top word = integer part)
 	add.w  BouncePlant_BoundsLeft(\addrreg), \minreg	; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
 	add.w  BouncePlant_BoundsWidth(\addrreg), \maxreg	; Add bounding box right
@@ -104,8 +103,7 @@ BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	swap   \minreg
 	swap   \maxreg
 	
-	move.l Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position
-	TOPIXELS \tmpreg								; To pixel space
+	move.w Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position (top word = integer part)
 	add.w  BouncePlant_BoundsTop(\addrreg), \tmpreg		; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg

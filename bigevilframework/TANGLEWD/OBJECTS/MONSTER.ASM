@@ -506,8 +506,7 @@ MonsterCheckPlayerVisible:
 	beq    @PlayerCloaked
 	
 	; Get monster visibility bounds X
-	move.l Entity_WorldPosX(a0), d1
-	TOPIXELS d1
+	move.w Entity_WorldPosX(a0), d1	;  (top word = integer part)
 	move.w d1, d2
 	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
 	add.w  #(Monster_Width/2)+(Monster_PlayerVisibilityBoxX/2), d2
@@ -516,8 +515,7 @@ MonsterCheckPlayerVisible:
 	swap   d2
 	
 	; Get monster visibility bounds Y
-	move.l Entity_WorldPosY(a0), d3
-	TOPIXELS d3
+	move.w Entity_WorldPosY(a0), d3	;  (top word = integer part)
 	move.w d3, d1
 	move.w d3, d2
 	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
@@ -1183,8 +1181,7 @@ MonsterUpdateTrackPlayer:
 	; Outside max chase dist, multiply speed to catch up
 	cmp.b  #0x0, Monster_CatchingUp(a0)
 	bne    @SpeedBoostApplied
-	move.l Character_MaxVelXRun(a0), d0
-	TOPIXELS d0
+	move.w Character_MaxVelXRun(a0), d0		; (top word = integer part)
 	mulu.w Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
 	TOSUBPIXELS d0
 	move.l d0, Character_MaxVelXRun(a0)		; Set new max velocity

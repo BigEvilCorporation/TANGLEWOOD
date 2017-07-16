@@ -16,9 +16,10 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate rows remaining
-	move.l  (WorldScrollY), d1		; Get world scroll Y position (incl. camera shake + peek offset)
+	clr.l   d1
+	move.w  (WorldScrollY), d1		; Get world scroll Y position (incl. camera shake + peek offset)
+									; (top word = integer part)
 	
-	TOPIXELS     d1					; To screen space
 	PIXELS2TILES d1					; To tiles
 	TILES2BLOCKS d1					; To blocks
 	move.w  d1, d2
@@ -31,9 +32,10 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate cols remaining
-	move.l  (WorldScrollX), d3		; Get world scroll X position (incl. camera shake + peek offset)
+	clr.l   d3
+	move.w  (WorldScrollX), d3		; Get world scroll X position (incl. camera shake + peek offset)
+									; (top word = integer part)
 	
-	TOPIXELS     d3					; To screen space
 	PIXELS2TILES d3					; To tiles
 	TILES2BLOCKS d3					; To blocks
 	move.w  d3, d4

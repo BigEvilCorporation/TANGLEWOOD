@@ -779,8 +779,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 	
 	; Get floor probe X
-	move.l Entity_WorldPosX(a0), d1			; Get player pos X
-	TOPIXELS d1								; To sprite space
+	move.w Entity_WorldPosX(a0), d1			; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
@@ -797,8 +796,7 @@ PhysicsObjFindFloor:
 
 	; Get floor probe Y
 	swap   d1								; X to upper word
-	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
-	TOPIXELS d2								; To sprite space
+	move.w Entity_WorldPosY(a0), d2			; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
 	add.l  d3, d2							; Add to Y pos
@@ -830,8 +828,7 @@ PhysicsObjFindFloor:
 	beq    @NextPlatform
 	
 	; Get platform Left and Right X
-	move.l Platform_PosX(a3), d2
-	TOPIXELS d2
+	move.w Platform_PosX(a3), d2			;  (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2			; To screen space
 	move.w d2, d3
 	add.w  Platform_Width(a3), d3
@@ -969,8 +966,7 @@ PhysicsObjFindWall:
 	@HeadingLeft:
 	
 	; Get X, left hand side
-	move.l Entity_WorldPosX(a0), d1		; Get player pos X
-	TOPIXELS d1							; To sprite space
+	move.w Entity_WorldPosX(a0), d1		; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d1		; To screen space
 	
 	bra    @EndHeadingTest
@@ -978,8 +974,7 @@ PhysicsObjFindWall:
 	@HeadingRight:
 	
 	; Get X, right hand side
-	move.l Entity_WorldPosX(a0), d1		; Get player pos X
-	TOPIXELS d1							; To sprite space
+	move.w Entity_WorldPosX(a0), d1		; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d1		; To screen space
 	add.w  Entity_Width(a0), d1			; Right hand side
 
@@ -997,8 +992,7 @@ PhysicsObjFindWall:
 	
 	; Get floor probe Y
 	swap   d1							; X to upper word
-	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
-	TOPIXELS d2							; To sprite space
+	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2		; To screen space
 	move.w Entity_Height(a0), d3		; Get height
 	add.l  d3, d2						; Get floor probe
@@ -1032,8 +1026,7 @@ PhysicsObjFindWall:
 	bgt    @NextBarrier
 	
 	; Get barrier Top and Bottom Y
-	move.l Barrier_PosY(a3), d2
-	TOPIXELS d2
+	move.w Barrier_PosY(a3), d2 			; (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	add.w  d2, d3
 
@@ -1050,8 +1043,7 @@ PhysicsObjFindWall:
 	blt    @NextBarrier
 	
 	; Get barrier X
-	move.l Barrier_PosX(a3), d2				; Get X
-	TOPIXELS d2
+	move.w Barrier_PosX(a3), d2				; Get X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2			; To screen space
 
 	; Get wall probe X
@@ -1067,8 +1059,7 @@ PhysicsObjFindWall:
 	bgt    @NextBarrier
 	
 	; Success
-	move.l Barrier_PosX(a3), d4				; Get barrier X
-	TOPIXELS d4
+	move.w Barrier_PosX(a3), d4				; Get barrier X (top word = integer part)
 
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d3
@@ -1170,8 +1161,7 @@ PhysicsObjFindCeiling:
 	;==============================================================
 	
 	; Get ceiling probe X
-	move.l Entity_WorldPosX(a0), d1			; Get player pos X
-	TOPIXELS d1								; To sprite space
+	move.w Entity_WorldPosX(a0), d1			; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_CeilingProbeX(a0), d3	; Get ceiling probe X offset
 	add.w  d3, d1							; Add to X pos
@@ -1188,8 +1178,7 @@ PhysicsObjFindCeiling:
 
 	; Get ceiling probe Y
 	swap   d1								; X to upper word
-	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
-	TOPIXELS d2								; To sprite space
+	move.w Entity_WorldPosY(a0), d2			; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_CeilingProbeY(a0), d3	; Get ceiling probe Y offset
 	add.l  d3, d2							; Add to Y pos
@@ -1251,8 +1240,7 @@ PhysicsObjFindMovingFloor:
 	;==============================================================
 	
 	; Get floor probe X
-	move.l Entity_WorldPosX(a0), d1			; Get player pos X
-	TOPIXELS d1								; To sprite space
+	move.w Entity_WorldPosX(a0), d1			; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
@@ -1269,8 +1257,7 @@ PhysicsObjFindMovingFloor:
 
 	; Get floor probe Y
 	swap   d1								; X to upper word
-	move.l Entity_WorldPosY(a0), d2			; Get player pos Y
-	TOPIXELS d2								; To sprite space
+	move.w Entity_WorldPosY(a0), d2			; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
 	add.l  d3, d2							; Add to Y pos
@@ -1311,8 +1298,7 @@ PhysicsObjFindMovingFloor:
 	beq    @NextPlatform
 	
 	; Get platform Left and Right X
-	move.l Platform_PosX(a3), d2
-	TOPIXELS d2
+	move.w Platform_PosX(a3), d2			;  (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2			; To screen space
 	move.w d2, d3
 	add.w  Platform_Width(a3), d3
@@ -1383,8 +1369,7 @@ PhysicsObjFindMovingBarrier:
 	;==============================================================
 	
 	; Get floor probe Y
-	move.l Entity_WorldPosY(a0), d2		; Get player pos Y
-	TOPIXELS d2							; To sprite space
+	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2		; To screen space
 	move.w Entity_Height(a0), d3		; Get height
 	add.l  d3, d2						; Get floor probe
@@ -1430,8 +1415,7 @@ PhysicsObjFindMovingBarrier:
 	@HeadingRight:
 
 	; Get probe X, left hand side
-	move.l Entity_WorldPosX(a0), d2		; Get player pos X
-	TOPIXELS d2							; To sprite space
+	move.w Entity_WorldPosX(a0), d2		; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2		; To screen space
 	
 	bra    @EndHeadingTest
@@ -1439,8 +1423,7 @@ PhysicsObjFindMovingBarrier:
 	@HeadingLeft:
 	
 	; Get probe X, right hand side
-	move.l Entity_WorldPosX(a0), d2		; Get player pos X
-	TOPIXELS d2							; To sprite space
+	move.w Entity_WorldPosX(a0), d2		; Get player pos X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2		; To screen space
 	add.w  Entity_Width(a0), d2			; Right hand side
 
@@ -1461,9 +1444,8 @@ PhysicsObjFindMovingBarrier:
 	;==============================================================
 	
 	; Get barrier Top and Bottom Y
-	move.l Barrier_PosY(a3), d2
+	move.w Barrier_PosY(a3), d2				; (top word = integer part)
 	move.w Barrier_Height(a3), d3
-	TOPIXELS d2
 	sub.w  #vdp_sprite_border_y, d2			; To screen space
 	add.w  d2, d3
 
@@ -1480,8 +1462,7 @@ PhysicsObjFindMovingBarrier:
 	blt    @NextBarrier
 	
 	; Get barrier X
-	move.l Barrier_PosX(a3), d2				; Get X
-	TOPIXELS d2
+	move.w Barrier_PosX(a3), d2				; Get X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2			; To screen space
 
 	; Get wall probe X
@@ -1497,8 +1478,7 @@ PhysicsObjFindMovingBarrier:
 	bgt    @NextBarrier
 	
 	; Success
-	move.l Barrier_PosX(a3), d4				; Get barrier X
-	TOPIXELS d4
+	move.w Barrier_PosX(a3), d4				; Get barrier X (top word = integer part)
 
 	; If heading left, use right hand side of barrier
 	move.l Barrier_VelX(a3), d3

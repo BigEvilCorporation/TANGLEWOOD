@@ -311,8 +311,7 @@ BridgeDraw:
 
 	; Roll pos to notch index
 	clr.l  d7
-	move.l Bridge_UnrollPos(a0), d7
-	TOPIXELS d7
+	move.w Bridge_UnrollPos(a0), d7	;  (top word = integer part)
 	divu   #Bridge_NotchWidth, d7
 
 	; Draw all notches
@@ -765,12 +764,11 @@ BridgeUpdateDropping:
 	beq    @End
 
 	; If at end, disable platform
-	move.l Bridge_UnrollPos(a0), d4
-	cmp.l  #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), d4
+	move.w Bridge_UnrollPos(a0), d4	;  (top word = integer part)
+	cmp.l  #(Bridge_NumNotches*Bridge_NotchWidth), d4
 	beq    @FinishedDropping
 
 	; Unroll pos to pixels
-	TOPIXELS d4
 	add.w  #0x1, d4
 
 	; Reposition platform and set width

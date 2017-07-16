@@ -255,23 +255,19 @@ PHYS_EntityDistSq:
 	; a1 --- Entity 2
 
 	; Obj 1 X
-	move.l Entity_WorldPosX(a0), d0	; X
-	TOPIXELS d0							; To screen space
+	move.w Entity_WorldPosX(a0), d0		; X (top word = integer part)
 	swap   d0							; In upper word d1
 	
 	; Obj 1 Y
-	move.l Entity_WorldPosY(a0), d2	; Y
-	TOPIXELS d2							; To screen space
+	move.w Entity_WorldPosY(a0), d2		; Y (top word = integer part)
 	move.w d2, d0						; In lower word d1
 	
 	; Obj 2 X
-	move.l Entity_WorldPosX(a1), d1	; X
-	TOPIXELS d1							; To screen space
+	move.w Entity_WorldPosX(a1), d1		; X (top word = integer part)
 	swap   d1							; In upper word d1
 	
 	; Obj 2 Y
-	move.l Entity_WorldPosY(a1), d2	; Y
-	TOPIXELS d2							; To screen space
+	move.w Entity_WorldPosY(a1), d2		; Y (top word = integer part)
 	move.w d2, d1						; In lower word d1
 
 	VEC2_DISTSQ d0, d1, d2

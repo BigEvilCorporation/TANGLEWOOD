@@ -150,11 +150,9 @@ SpriteObjDraw:
 	;==============================================================
 	
 	; X pos world space to screen space
-	move.l Entity_WorldPosX(a0), d1
-	TOPIXELS d1
+	move.w Entity_WorldPosX(a0), d1			; Top word = integer part
 	add.w  SpriteObj_DrawOffsetX(a0), d1	; Apply draw offset (animation, etc)
-	move.l (WorldScrollX), d2				; Get camera pos X (incl. camera shake + peek offset)
-	TOPIXELS d2
+	move.w (WorldScrollX), d2				; Get camera pos X (incl. camera shake + peek offset)
 	sub.w  d2, d1							; Apply camera pos
 
 	; Check if out of bounds
@@ -168,11 +166,9 @@ SpriteObjDraw:
 	;==============================================================
 	
 	; Y pos world space to screen space
-	move.l Entity_WorldPosY(a0), d3
-	TOPIXELS d3
+	move.w Entity_WorldPosY(a0), d3			; Top word = integer part
 	add.w  SpriteObj_DrawOffsetY(a0), d3	; Apply draw offset (animation, etc)
-	move.l (WorldScrollY), d2				; Get camera Y (incl. camera shake + peek offset)
-	TOPIXELS d2
+	move.w (WorldScrollY), d2				; Get camera Y (incl. camera shake + peek offset)
 	sub.w  d2, d3							; Apply camera pos
 
 	; Check if out of bounds

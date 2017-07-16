@@ -330,8 +330,7 @@ DjrakeCheckPlayerVisible:
 	beq    @PlayerCloaked
 	
 	; Get Djrake visibility bounds X
-	move.l Entity_WorldPosX(a0), d1
-	TOPIXELS d1
+	move.w Entity_WorldPosX(a0), d1	;  (top word = integer part)
 	move.w d1, d2
 	add.w  #(Djrake_Width/2)-(Djrake_PlayerVisibilityBoxX/2), d1
 	add.w  #(Djrake_Width/2)+(Djrake_PlayerVisibilityBoxX/2), d2
@@ -340,8 +339,7 @@ DjrakeCheckPlayerVisible:
 	swap   d2
 	
 	; Get Djrake visibility bounds Y
-	move.l Entity_WorldPosY(a0), d3
-	TOPIXELS d3
+	move.w Entity_WorldPosY(a0), d3	;  (top word = integer part)
 	move.w d3, d1
 	move.w d3, d2
 	add.w  #(Djrake_Height/2)-(Djrake_PlayerVisibilityBoxY/2), d1
