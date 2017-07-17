@@ -221,6 +221,10 @@ l3a2_LogRollBegin:
 	move.l #LevelData_L3A2, a2
 	move.w #L3A2_LogRollCamLerpTime, l3a2Data_LogRollCamLerpTimer(a2)
 
+	; Disable button
+	ENTITY_GETBYNAME Button, l3a2_Button2, a0
+	move.b #0x0, Button_Active(a0)
+
 	POPL   a0
 
 	rts
