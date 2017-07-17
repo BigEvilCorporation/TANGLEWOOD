@@ -252,12 +252,11 @@ MonsterLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; TODO - Need rest of Elder anims
-	;move.b  Monster_Type(a0), d0
-	;cmp.b   #MonsterType_Djakk, d0
-	;beq     @Djakk
-	;cmp.b   #MonsterType_Elder, d0
-	;beq     @Elder
+	move.b  Monster_Type(a0), d0
+	cmp.b   #MonsterType_Djakk, d0
+	beq     @Djakk
+	cmp.b   #MonsterType_Elder, d0
+	beq     @Elder
 
 	;==============================================================
 
@@ -274,7 +273,6 @@ MonsterLoadGfx:
 	ANIM_LOAD_DEFAULT djakk_jump,djakk_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
 
 	; Setup bespoke character animations
-	;ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
 	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
 	ANIM_LOAD_DEFAULT djakk_throw,djakk_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
@@ -290,16 +288,13 @@ MonsterLoadGfx:
 
 	; Setup default character animations
 	ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	;ANIM_LOAD_DEFAULT elder_death,elder_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
+	ANIM_LOAD_DEFAULT elder_death,elder_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
 	ANIM_LOAD_DEFAULT elder_run,elder_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
 	ANIM_LOAD_DEFAULT elder_walk,elder_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	;ANIM_LOAD_DEFAULT elder_jump,elder_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
 
 	; Setup bespoke character animations
-	;ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	;ANIM_LOAD_DEFAULT elder_bite,elder_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT elder_bite,elder_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
 	ANIM_LOAD_DEFAULT elder_roar,elder_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
-	;ANIM_LOAD_DEFAULT elder_throw,elder_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
 
 	bra     @End
 

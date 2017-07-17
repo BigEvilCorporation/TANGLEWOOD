@@ -25,6 +25,22 @@ spriteanim_elder_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+spriteanim_elder_bite:
+spriteanim_elder_bite_numframes: equ 0x5
+spriteanim_elder_bite_speed: equ 0x33
+spriteanim_elder_bite_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+	Even
+spriteanim_elder_bite_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_elder_bite_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_elder_bite_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 spriteanim_elder_roar:
 spriteanim_elder_roar_numframes: equ 0xA
 spriteanim_elder_roar_speed: equ 0x28
@@ -55,6 +71,22 @@ spriteanim_elder_idle_track_posy:
 	Even
 spriteanim_elder_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
+	Even
+
+spriteanim_elder_death:
+spriteanim_elder_death_numframes: equ 0x1
+spriteanim_elder_death_speed: equ 0x5
+spriteanim_elder_death_track_frames:
+	dc.b 0x0
+	Even
+spriteanim_elder_death_track_posx:
+	dc.b 0x00
+	Even
+spriteanim_elder_death_track_posy:
+	dc.b 0x00
+	Even
+spriteanim_elder_death_track_sfx:
+	dc.l 0x0
 	Even
 
 spriteanim_elder_run:
