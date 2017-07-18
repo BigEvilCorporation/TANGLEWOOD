@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L5BG_size_b	equ 0x00000940	; Size in bytes
+map_blocks_L5BG_size_b	equ 0x00000AE0	; Size in bytes
 map_blocks_L5BG_size_w	equ (map_blocks_L5BG_size_b/2)	; Size in words
 map_blocks_L5BG_size_l	equ (map_blocks_L5BG_size_b/4)	; Size in longwords
