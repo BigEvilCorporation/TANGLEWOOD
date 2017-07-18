@@ -6,6 +6,16 @@
 ;   input.asm - Gamepad input state machine
 ;==============================================================
 
+; Controls
+input_pause			equ pad_button_start
+input_move_left		equ pad_button_left
+input_move_right	equ pad_button_right
+input_peek_up		equ pad_button_up
+input_peek_down		equ pad_button_down
+input_interact		equ pad_button_a
+input_power			equ pad_button_b
+input_jump			equ pad_button_c
+
 UpdateInput:
 	
 	; =====================================================================
@@ -56,6 +66,161 @@ HandlePlayerInput:
 	PUSHL  a0
 	PUSHL  a1
 	
+	; Handle debug input first
+	IFND FINAL
+	jsr   HandleDebugInput
+	cmp.b #0x0, d2
+	bne   @SkipInput
+	ENDIF
+
+	; =====================================================================
+	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
+	; =====================================================================
+	btst  #input_pause, d0
+	beq   @NoStart
+	btst  #input_pause, d1
+	bne   @NoStart
+	PUSHL a0
+	PUSHL d0
+	PUSHL d1
+	lea   GameStatePause, a0
+	jsr   GamestatePush
+	POPL  d1
+	POPL  d0
+	POPL  a0
+	@NoStart:
+	
+	; =====================================================================
+	; Left/Right - X movement
+	; =====================================================================
+	
+	; Move left
+	btst #input_move_right, d0  ; Check right button
+	beq  @NoRight               ; Branch if button off
+	jsr  CharacterMoveRight
+	bra  @XHandled
+	@NoRight:
+	
+	; Move right
+	btst #input_move_left, d0   ; Check left button
+	beq  @NoLeft                ; Branch if button off
+	jsr  CharacterMoveLeft
+	bra  @XHandled
+	@NoLeft:
+	
+	jsr CharacterCancelXMovement ; No Player1 X input
+	
+	@XHandled:
+
+	; =====================================================================
+	; Up/Down - Y Peek
+	; =====================================================================
+
+	; Camera up
+	btst  #input_peek_up, d0
+	beq   @NoUp
+	PUSHL d0
+	jsr   CAM_PeekUp
+	POPL  d0
+	bra   @YHandled
+	@NoUp:
+	
+	; Camera down
+	btst  #input_peek_down, d0
+	beq   @NoDown
+	PUSHL d0
+	jsr   CAM_PeekDown
+	POPL  d0
+	bra   @YHandled
+	@NoDown:
+
+	; No up/down, return peek offset
+	PUSHL d0
+	jsr   CAM_PeekReturn
+	POPL  d0
+	
+	@YHandled:
+
+	; =====================================================================
+	; Jump
+	; =====================================================================
+	
+	btst #input_jump, d0		; Check jump pressed
+	beq  @NoB
+	btst #input_jump, d1		; Check jump not already held
+	bne  @EndB
+	jsr  CharacterStartJump		; Jump
+	bra  @EndB
+	@NoB:
+	btst #input_jump, d1		; Check not already released
+	beq  @EndB
+	jsr  CharacterCancelJump	; Cancel jump
+	@EndB:
+	
+	; =====================================================================
+	; Interact type A
+	; =====================================================================
+	
+	btst #input_interact, d0		; Check A pressed
+	beq  @NoA
+	btst #input_interact, d1		; Check A not already held
+	bne  @EndA
+	jsr  CharacterStartInteractA	; A
+	bra  @EndA
+	@NoA:
+	btst #input_interact, d1		; Check not already released
+	beq  @EndA
+	jsr  CharacterCancelInteractA	; Cancel A
+	@EndA:
+	
+	; =====================================================================
+	; Interact type B
+	; =====================================================================
+	
+	; Check if current player interaction is using toggle behaviour
+	cmp.b  #0x0, Player_InteractionToggle(a0)
+	bne    @ToggleC
+
+	btst #input_power, d0			; Check C button
+	beq  @NoC						; Branch if button off
+	jsr  CharacterStartInteractB	; Start interaction
+	bra  @EndC
+	@NoC:
+	jsr  CharacterCancelInteractB
+	bra  @EndC
+
+	@ToggleC:
+	
+	btst #input_power, d0			; Check C pressed
+	beq  @NoToggleC
+	btst #input_power, d1			; Check C not already held
+	bne  @EndToggleC
+	jsr  CharacterStartInteractB	; Start interaction
+	bra  @EndToggleC
+	@NoToggleC:
+	btst #input_power, d1			; Check C not already released
+	beq  @EndToggleC
+	jsr  CharacterCancelInteractB
+	@EndToggleC:
+
+	@EndC:
+	
+	; =====================================================================
+	
+	@SkipInput:
+	
+	POPL a1
+	POPL a0
+	
+	rts
+
+HandleDebugInput:
+	; a0 --- Player GameObj address
+	; a1 --- Level address
+	; d0 (w) Gamepad input bits
+	; d1 (w) Gamepad prev input bits
+	; d2 (b) OUT: Input handled
+
 	; =====================================================================
 	; Debug button combos
 	; =====================================================================
@@ -67,7 +232,7 @@ HandlePlayerInput:
 	cmp.w  #DebugButtonCombo_Profiler, d1
 	beq    @NoProfileCombo
 	jsr    DBG_Profile_CaptureFrame
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	@NoProfileCombo:
 	ENDIF
 	
@@ -79,7 +244,7 @@ HandlePlayerInput:
 	beq    @NoPlayerKillCombo
 	move.b #0xFF, d0
 	jsr    CharacterDealDamage
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	@NoPlayerKillCombo:
 	ENDIF
 	
@@ -91,7 +256,7 @@ HandlePlayerInput:
 	beq    @NoCompleteLevelCombo
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	@NoCompleteLevelCombo:
 	ENDIF
 	
@@ -104,11 +269,11 @@ HandlePlayerInput:
 	cmp.b  #0x0, DebugMoveObjectMode
 	beq    @EnableMoveMode
 	move.b #0x0, DebugMoveObjectMode
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	@EnableMoveMode:
 	move.b #0x1, DebugMoveObjectMode
 	@EndMoveModeSwitch:
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	@NoMoveModeCombo:
 	
 	; Handle debug move mode
@@ -158,150 +323,17 @@ HandlePlayerInput:
 	add.l d3, Entity_WorldPosY(a0)
 	@NoDbgDown:
 	
-	bra    @SkipInput
+	bra    @DebugInputHandled
 	
 	@MoveModeDisabled:
 	ENDIF
-	
-	; =====================================================================
-	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
-	; =====================================================================
-	IFND DEBUG
-	btst  #pad_button_start, d0
-	beq   @NoStart
-	btst  #pad_button_start, d1
-	bne   @NoStart
-	PUSHL a0
-	PUSHL d0
-	PUSHL d1
-	lea   GameStatePause, a0
-	jsr   GamestatePush
-	POPL  d1
-	POPL  d0
-	POPL  a0
-	@NoStart:
-	ENDIF
-	
-	; =====================================================================
-	; Left/Right - X movement
-	; =====================================================================
-	
-	; Move left
-	btst #pad_button_right, d0  ; Check right button
-	beq  @NoRight               ; Branch if button off
-	jsr  CharacterMoveRight
-	bra  @XHandled
-	@NoRight:
-	
-	; Move right
-	btst #pad_button_left, d0   ; Check left button
-	beq  @NoLeft                ; Branch if button off
-	jsr  CharacterMoveLeft
-	bra  @XHandled
-	@NoLeft:
-	
-	jsr CharacterCancelXMovement ; No Player1 X input
-	
-	@XHandled:
 
-	; =====================================================================
-	; Up/Down - Y Peek
-	; =====================================================================
+	move.b #0x0, d2
+	bra    @End
 
-	; Camera up
-	btst  #pad_button_up, d0
-	beq   @NoUp
-	PUSHL d0
-	jsr   CAM_PeekUp
-	POPL  d0
-	bra   @YHandled
-	@NoUp:
-	
-	; Camera down
-	btst  #pad_button_down, d0
-	beq   @NoDown
-	PUSHL d0
-	jsr   CAM_PeekDown
-	POPL  d0
-	bra   @YHandled
-	@NoDown:
+	@DebugInputHandled:
+	move.b #0x1, d2
 
-	; No up/down, return peek offset
-	PUSHL d0
-	jsr   CAM_PeekReturn
-	POPL  d0
-	
-	@YHandled:
-	
-	; =====================================================================
-	; A - Interact type A
-	; =====================================================================
-	
-	btst #pad_button_a, d0			; Check A pressed
-	beq  @NoA
-	btst #pad_button_a, d1			; Check A not already held
-	bne  @EndA
-	jsr  CharacterStartInteractA	; A
-	bra  @EndA
-	@NoA:
-	btst #pad_button_a, d1			; Check not already released
-	beq  @EndA
-	jsr  CharacterCancelInteractA	; Cancel A
-	@EndA:
-	
-	; =====================================================================
-	; B - Jump
-	; =====================================================================
-	
-	btst #pad_button_b, d0		; Check jump pressed
-	beq  @NoB
-	btst #pad_button_b, d1		; Check jump not already held
-	bne  @EndB
-	jsr  CharacterStartJump		; Jump
-	bra  @EndB
-	@NoB:
-	btst #pad_button_b, d1		; Check not already released
-	beq  @EndB
-	jsr  CharacterCancelJump	; Cancel jump
-	@EndB:
-	
-	; =====================================================================
-	; C - Interact type B
-	; =====================================================================
-	
-	; Check if current player interaction is using toggle behaviour
-	cmp.b  #0x0, Player_InteractionToggle(a0)
-	bne    @ToggleC
+	@End:
 
-	btst #pad_button_c, d0			; Check C button
-	beq  @NoC						; Branch if button off
-	jsr  CharacterStartInteractB	; Start interaction
-	bra  @EndC
-	@NoC:
-	jsr  CharacterCancelInteractB
-	bra  @EndC
-
-	@ToggleC:
-	
-	btst #pad_button_c, d0		; Check C pressed
-	beq  @NoToggleC
-	btst #pad_button_c, d1		; Check C not already held
-	bne  @EndToggleC
-	jsr  CharacterStartInteractB	; Start interaction
-	bra  @EndToggleC
-	@NoToggleC:
-	btst #pad_button_c, d1		; Check C not already released
-	beq  @EndToggleC
-	jsr  CharacterCancelInteractB
-	@EndToggleC:
-
-	@EndC:
-	
-	; =====================================================================
-	
-	@SkipInput:
-	
-	POPL a1
-	POPL a0
-	
 	rts
