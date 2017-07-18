@@ -7,7 +7,8 @@
 ;==============================================================
 
 SPR_AddMultiSprite:
-	; d1 (ww) X/Y coord
+	; d0 (w)  X coord
+	; d1 (w)  Y coord
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
 	; d4 (b)  Priority
@@ -38,14 +39,14 @@ SPR_AddMultiSprite:
 	move.w (next_sprite_index), d5
 
 	; Backup for return val
-	move.w d5, d7
+	PUSHW   d5
 
 	; Get sprite table
 	lea     vdp_sprite_table, a4
-	clr.l   d0
-	move.w  d5, d0
-	mulu.w  #Sprite_Struct_Size, d0
-	add.l   d0, a4
+	clr.l   d7
+	move.w  d5, d7
+	lsl.l   #0x3, d7	; mulu.w  #Sprite_Struct_Size, d7
+	add.l   d7, a4
 
 	; Check if not first in table, link to prev
 	cmp.w   #0x0, d5
@@ -54,23 +55,22 @@ SPR_AddMultiSprite:
 	@FirstInTable:
 
 	; Backup X/Y
-	move.l d1, d4
+	move.w d0, d7
+	move.w d1, d4
 
 	; Loop subsprites
 	andi.w #0x00FF, d6
 	sub.b  #0x1, d6
 	@SubspriteLp:
 
-		; Get X/Y offset
-		move.l (a2)+, d1
-
-		; 0x0000XXYY to 0x00XX00YY
-		lsl.l  #0x8, d1
-		lsr.w  #0x8, d1
-		andi.l #0x00FF00FF, d1
-
-		; Add to coords
-		add.l  d4, d1
+		; Get X/Y offset (0x0000XXYY to 0x00XX00YY)
+		moveq   #0, d1
+		addq.w  #2, a2		; Skip unflipped/flipped coords
+		move.b  (a2)+, d1	; X offset
+		add.w   d7, d1		; X origin
+		swap    d1			; To upper word
+		move.b  (a2)+, d1	; Y offset
+		add.w  d4, d1		; Y origin
 
 		; Clamp to 1 on X axis (to avoid masking, and -ve pos wrapping back around)
 		move.l d1, d0
@@ -119,7 +119,7 @@ SPR_AddMultiSprite:
 	move.w d5, (next_sprite_index)
 
 	; Return first sprite index
-	move.w d7, d0
+	POPW   d0
 	
 	rts
 	

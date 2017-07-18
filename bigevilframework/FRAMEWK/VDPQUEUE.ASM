@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPQueue_MaxSize    equ 0x100  ; Queue max elements
+VDPQueue_MaxSize    equ 0x100  ; Queue max elements (must be power-of-two)
 VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 
 ; Job struct
@@ -32,25 +32,23 @@ VDP_JobQueue_PushJob:
 	; a5 --- Job subroutine address
 	
 	; Get producer index
-	clr.l  d7
-	move.l (vdp_queue_produceridx), d7
+	moveq  #0x0, d7
+	move.w (vdp_queue_produceridx), d7
 	
 	IFND FINAL
-	PUSHL  d0
-	PUSHL  d7
-	move.l (vdp_queue_consumeridx), d0
-	sub.l  d0, d7
-	cmp.l  #VDPQueue_MaxSize, d7
+	PUSHW  d0
+	PUSHW  d7
+	move.w (vdp_queue_consumeridx), d0
+	sub.w  d0, d7
+	cmp.w  #VDPQueue_MaxSize, d7
 	bne    @NotFull
 	RAISE_EXCEPTION error_vdp_queue_full
 	@NotFull:
-	POPL   d7
-	POPL   d0
+	POPW   d7
+	POPW   d0
 	ENDIF
 	
-	divu   #VDPQueue_MaxSize, d7
-	clr.w  d7
-	swap   d7
+	andi.w #VDPQueue_MaxSize-1, d7	; MOD to get producer position
 	
 	; Get address into array of job
 	mulu   #VDPJob_Struct_Size, d7	; Index to element offset
@@ -64,18 +62,16 @@ VDP_JobQueue_PushJob:
 	movem.l d0-d6/a0-a4, VDPJob_Regs(a6)
 	
 	; Increment producer index
-	addi.l #0x1, (vdp_queue_produceridx)
+	addi.w #0x1, (vdp_queue_produceridx)
 	
 	rts
 	
 VDP_JobQueue_ExecuteJob:
 
 	; Get consumer index
-	clr.l  d7
-	move.l (vdp_queue_consumeridx), d7
-	divu   #VDPQueue_MaxSize, d7
-	clr.w  d7
-	swap   d7
+	moveq  #0x0, d7
+	move.w (vdp_queue_consumeridx), d7
+	andi.w #VDPQueue_MaxSize-1, d7	; MOD to get consumer position
 	
 	; Get address into array of job
 	mulu   #VDPJob_Struct_Size, d7	; Index to element offset
@@ -89,7 +85,7 @@ VDP_JobQueue_ExecuteJob:
 	movem.l VDPJob_Regs(a6), d0-d6/a0-a4
 	
 	; Increment (and wrap) consumer index
-	addi.l #0x1, (vdp_queue_consumeridx)
+	addi.w #0x1, (vdp_queue_consumeridx)
 	
 	; Run job
 	jsr (a5)
@@ -99,20 +95,20 @@ VDP_JobQueue_ExecuteJob:
 VDP_JobQueue_ExecuteAll:
 
 	; Get queue size
-	move.l (vdp_queue_produceridx), d0
-	move.l (vdp_queue_consumeridx), d1
-	sub.l  d1, d0
-	cmp.l  #0x0, d0
+	move.w (vdp_queue_produceridx), d0
+	move.w (vdp_queue_consumeridx), d1
+	sub.w  d1, d0
+	cmp.w  #0x0, d0
 	beq    @QueueEmpty
 	
 	; Run all
-	subi.l #0x1, d0
+	subi.w #0x1, d0
 	@QueueLp:
 	
 	; Pop and run job
-	move.l d0, -(sp)
+	PUSHW  d0
 	jsr    VDP_JobQueue_ExecuteJob
-	move.l (sp)+, d0
+	POPW   d0
 
 	; Next job
 	dbra   d0, @QueueLp
@@ -123,9 +119,9 @@ VDP_JobQueue_ExecuteAll:
 	
 VDP_JobQueue_GetSize:
 	; d0 - OUT - Queue size
-	move.l (vdp_queue_produceridx), d0
-	move.l (vdp_queue_consumeridx), d1
-	sub.l  d1, d0
+	move.w (vdp_queue_produceridx), d0
+	move.w (vdp_queue_consumeridx), d1
+	sub.w  d1, d0
 	
 	rts
 	

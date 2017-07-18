@@ -89,8 +89,8 @@ frame_counter_render  rs.l 1
 ; VDP job queue
 ; ************************************
 vdp_queue_jobarray    rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
-vdp_queue_produceridx rs.l 1
-vdp_queue_consumeridx rs.l 1
+vdp_queue_produceridx rs.w 1
+vdp_queue_consumeridx rs.w 1
 
 ; ************************************
 ; VDP DMA queue

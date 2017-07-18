@@ -552,18 +552,30 @@ LiftDraw:
 
 	IF LIFT_ROPE_SUPPORT_SWING=0
 
-	PUSHL  a0
-
-	; Get lift pos
+	; Get rope pos X
 	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-
-	; Add rope offset
 	add.l  #Lift_RopePosOffsetX, d0
+	
+	; Check if visible
+	move.l d0, d1
+	TOPIXELS d1
+	sub.w  (WorldScrollX), d1				; Apply camera pos X (incl. camera shake + peek offset)
+
+	; Check if out of bounds
+	cmp.w  #vdp_sprite_border_x+screen_width, d1	; Check against left screen border
+	bgt    @OutOfBounds
+	add.w  #Lift_Width, d1				; Get rope right
+	cmp.w  #vdp_sprite_border_x, d1		; Check against right screen border
+	blt    @OutOfBounds
+	
+	; Get rope pos Y
+	move.l Entity_WorldPosY(a0), d1
 	add.l  #Lift_RopePosOffsetY, d1
 
 	; Re-draw rope segment until off screen
 	move.l (WorldScrollY), d4
+
+	PUSHL  a0
 
 	; Get rope obj
 	add.l  #Lift_RopeSegment, a0
@@ -597,6 +609,8 @@ LiftDraw:
 	@RopeDrawEnd:
 
 	POPL   a0
+
+	@OutOfBounds:
 
 	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 

@@ -109,7 +109,8 @@ SpriteObjAllocSprite:
 	; d2 (b)  Flipped X
 	; d3 (b)  Flipped Y
 
-	; d1 (ww) X/Y coord
+	; d0 (w)  X coord
+	; d1 (w)  Y coord
 	; d2 (w)  First tile index
 	; d3 (b)  Palette
 	; d4 (b)  Priority
@@ -143,48 +144,41 @@ SpriteObjDraw:
 	; a1 --- Level addr
 
 	; Check if visible
-	move.b SpriteObj_Visible(a0), d0
-	cmp.b  #0x0, d0
+	tst.b  SpriteObj_Visible(a0)
 	beq    @Invisible
 	
 	;==============================================================
 	
 	; X pos world space to screen space
-	move.w Entity_WorldPosX(a0), d1			; Top word = integer part
-	add.w  SpriteObj_DrawOffsetX(a0), d1	; Apply draw offset (animation, etc)
-	move.w (WorldScrollX), d2				; Get camera pos X (incl. camera shake + peek offset)
-	sub.w  d2, d1							; Apply camera pos
+	move.w Entity_WorldPosX(a0), d0			; Top word = integer part
+	add.w  SpriteObj_DrawOffsetX(a0), d0	; Apply draw offset (animation, etc)
+	sub.w  (WorldScrollX), d0				; Apply camera pos X (incl. camera shake + peek offset)
 
 	; Check if out of bounds
-	move.w d1, d4
+	cmp.w  #vdp_sprite_border_x+screen_width, d0	; Check sprite left against right border
+	bgt    @OutOfBounds
+	move.w d0, d4
 	add.w  Entity_Width(a0), d4				; Get sprite right
 	cmp.w  #vdp_sprite_border_x, d4			; Check sprite right against left border
 	blt    @OutOfBounds
-	cmp.w  #vdp_sprite_border_x+screen_width, d1	; Check sprite left against right border
-	bgt    @OutOfBounds
 	
 	;==============================================================
 	
 	; Y pos world space to screen space
-	move.w Entity_WorldPosY(a0), d3			; Top word = integer part
-	add.w  SpriteObj_DrawOffsetY(a0), d3	; Apply draw offset (animation, etc)
-	move.w (WorldScrollY), d2				; Get camera Y (incl. camera shake + peek offset)
-	sub.w  d2, d3							; Apply camera pos
+	move.w Entity_WorldPosY(a0), d1			; Top word = integer part
+	add.w  SpriteObj_DrawOffsetY(a0), d1	; Apply draw offset (animation, etc)
+	sub.w  (WorldScrollY), d1				; Apply camera Y (incl. camera shake + peek offset)
 
 	; Check if out of bounds
-	move.w d3, d4
+	cmp.w  #vdp_sprite_border_y+screen_height, d1	; Check sprite top against bottom border
+	bgt    @OutOfBounds
+	move.w d1, d4
 	add.w  Entity_Height(a0), d4			; Get sprite bottom
 	cmp.w  #vdp_sprite_border_y, d4			; Check sprite bottom against top border
 	blt    @OutOfBounds
-	cmp.w  #vdp_sprite_border_y+screen_height, d3	; Check sprite top against bottom border
-	bgt    @OutOfBounds
 	
 	;==============================================================
 	; Sprite visible
-
-	; X/Y in d1
-	swap   d1
-	move.w d3, d1
 
 	; Allocate a sprite table entry and populate it
 	move.b SpriteObj_FlippedX(a0), d2
