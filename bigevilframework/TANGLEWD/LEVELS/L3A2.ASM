@@ -142,6 +142,10 @@ l3a2_Init:
 	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlCaged1, a2
 	jsr    FuzzlCageSetFuzzl
 
+	ENTITY_GETBYNAME FuzzlCage, l3a2_FuzzlCage2, a0
+	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlCaged2, a2
+	jsr    FuzzlCageSetFuzzl
+
 	; HACK: Update boulders out of view to keep counterweights down
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
@@ -206,7 +210,7 @@ l3a2_LogRollBegin:
 	move.b #0x1, Log_Hazardous(a0)
 
 	; Update Fuzzl out of view so it falls off the bridge properly
-	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlGreen2, a0
+	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlCaged2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Start camera lerp

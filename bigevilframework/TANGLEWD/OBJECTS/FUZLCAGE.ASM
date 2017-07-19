@@ -151,6 +151,11 @@ FuzzlCageLoadGfx:
 FuzzlCageUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If sprite linked or configured to update out of view
+	move.b AnimObj_UpdateOutOfView(a0), d0
+	or.b   SpriteObj_SpriteLinked(a0), d0
+	beq    @OutOfView
 	
 	; If not already smashed
 	cmp.b  #0x0, FuzzlCage_Smashed(a0)
@@ -259,6 +264,7 @@ FuzzlCageUpdate:
 	; No longer physical, just update animation
 	jsr    AnimObjUpdate
 
+	@OutOfView:
 	@End:
 
 	rts

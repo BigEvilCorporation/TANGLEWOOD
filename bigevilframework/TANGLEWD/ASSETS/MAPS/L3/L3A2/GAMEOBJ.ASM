@@ -30,12 +30,13 @@ L3A2_Boulder1_idx	equ 0x1
 
 L3A2_Firefly_count equ 0x0
 
-L3A2_FuzzlCage_count equ 0x1
+L3A2_FuzzlCage_count equ 0x2
 L3A2_FuzzlCage1_idx	equ 0x0
+L3A2_FuzzlCage2_idx	equ 0x1
 
 L3A2_Fuzzl_count equ 0x4
 L3A2_FuzzlGreen1_idx	equ 0x0
-L3A2_FuzzlGreen2_idx	equ 0x1
+L3A2_FuzzlCaged2_idx	equ 0x1
 L3A2_FuzzlCaged1_idx	equ 0x2
 L3A2_FuzzlYellow1_idx	equ 0x3
 
@@ -265,6 +266,11 @@ L3A2_LoadGameObjects:
 	move.l #0x03b80000, Entity_WorldPosY(a0)
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
+	jsr FuzzlCageInit
+	move.l #0x10d80000, Entity_WorldPosX(a0)
+	move.l #0x02280000, Entity_WorldPosY(a0)
+	jsr FuzzlCageLoadGfx
+	add.l #FuzzlCage_Struct_Size, a0
 
 	move.l #EntityArray_Fuzzl, a0
 	jsr FuzzlInit
@@ -275,7 +281,7 @@ L3A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x10e80000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
