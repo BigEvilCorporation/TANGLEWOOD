@@ -28,8 +28,6 @@ FuzzlCage_MinSmashYVel		equ 0x050000	; Min downward velocity to crack open on fl
 FuzzlCage_PlatformWidth			equ FuzzlCage_Width	; Physics platform width
 FuzzlCage_UpperPlatformXOffset	equ (FuzzlCage_Width-FuzzlCage_PlatformWidth)/2	; Offset to platform from top of FuzzlCage
 FuzzlCage_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of FuzzlCage
-FuzzlCage_LowerPlatformXOffset	equ (FuzzlCage_Width-FuzzlCage_PlatformWidth)/2	; Offset to platform from top of FuzzlCage
-FuzzlCage_LowerPlatformYOffset	equ FuzzlCage_Height-4	; Offset to platform from top of FuzzlCage
 
 ;==============================================================
 
@@ -45,7 +43,6 @@ FuzzlCageAnimIdx_Max     equ 1
 ;-----------------------------
 FuzzlCage_Animations		rs.b (Animation_Struct_Size*FuzzlCageAnimIdx_Max)
 FuzzlCage_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of FuzzlCage
-FuzzlCage_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of FuzzlCage
 FuzzlCage_Fuzzl				rs.l 1	; Held Fuzzl
 FuzzlCage_LastVelY			rs.l 1	; Last recorded velocity
 FuzzlCage_LastOnFloor		rs.b 1	; Last recorded OnFloor flag
@@ -116,11 +113,6 @@ FuzzlCageInit:
 	add.l  #FuzzlCage_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
 	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
-
-	move.l a0, a2	
-	add.l  #FuzzlCage_LowerPlatform, a2
-	move.l a0, Platform_Owner(a2)
-	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
 	
 	jsr    FuzzlCageActivatePlatform
 	
@@ -149,17 +141,6 @@ FuzzlCageLoadGfx:
 	move.l Entity_WorldPosY(a0), d1
 	add.l  #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
 	add.l  #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
-	move.l d0, Platform_PosX(a2)
-	move.l d1, Platform_PosY(a2)
-	move.l #0x0, Platform_VelX(a2)
-	move.l #0x0, Platform_VelY(a2)
-
-	move.l a0, a2
-	add.l  #FuzzlCage_LowerPlatform, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	add.l  #FuzzlCage_LowerPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #FuzzlCage_LowerPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l #0x0, Platform_VelX(a2)
@@ -231,17 +212,6 @@ FuzzlCageUpdate:
 	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
 
-	move.l a0, a2
-	add.l  #FuzzlCage_LowerPlatform, a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	add.l  #FuzzlCage_LowerPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #FuzzlCage_LowerPlatformYOffset*subpixels_per_pixel, d1
-	move.l d0, Platform_PosX(a2)
-	move.l d1, Platform_PosY(a2)
-	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
-	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
-
 	; Reposition Fuzzl
 	move.l FuzzlCage_Fuzzl(a0), a2
 	cmp.l  #0x0, a2
@@ -289,11 +259,6 @@ FuzzlCageUpdate:
 	; No longer physical, just update animation
 	jsr    AnimObjUpdate
 
-	move.l a0, a2
-	add.l  #FuzzlCage_LowerPlatform, a2
-	move.l #0x0, Platform_VelX(a2)
-	move.l #0x0, Platform_VelY(a2)
-
 	@End:
 
 	rts
@@ -319,10 +284,6 @@ FuzzlCageActivatePlatform:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	LIST_APPEND_TAIL Platforms, a2, a3
-	move.l a0, a2
-	add.l  #FuzzlCage_LowerPlatform, a2
-	LIST_APPEND_TAIL Platforms, a2, a3
-	move.b #0x1, FuzzlCage_PlatformActive(a0)
 	@AlreadyActive:
 
 	rts
@@ -334,10 +295,6 @@ FuzzlCageDeactivatePlatform:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	LIST_REMOVE Platforms, a2, a3, a4
-	move.l a0, a2
-	add.l  #FuzzlCage_LowerPlatform, a2
-	LIST_REMOVE Platforms, a2, a3, a4
-	move.b #0x0, FuzzlCage_PlatformActive(a0)
 	@AlreadyInactive:
 
 	rts
