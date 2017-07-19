@@ -44,12 +44,11 @@ L3A1_FuzzlCaged1_idx	equ 0x0
 L3A1_FuzzlCaged2_idx	equ 0x1
 L3A1_FuzzlCaged3_idx	equ 0x2
 
-L3A1_Stone_count equ 0x5
+L3A1_Stone_count equ 0x4
 L3A1_Stone_36_idx	equ 0x0
 L3A1_Stone_41_idx	equ 0x1
-L3A1_Stone_48_idx	equ 0x2
+L3A1_Stone_51_idx	equ 0x2
 L3A1_Stone_50_idx	equ 0x3
-L3A1_Stone_51_idx	equ 0x4
 
 L3A1_Nest_count equ 0x0
 
@@ -243,8 +242,8 @@ L3A1_LoadGameObjects:
 
 	move.l #EntityArray_Boulder, a0
 	jsr BoulderInit
-	move.l #0x0b400000, Entity_WorldPosX(a0)
-	move.l #0x04300000, Entity_WorldPosY(a0)
+	move.l #0x0a680000, Entity_WorldPosX(a0)
+	move.l #0x04f00000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
@@ -296,18 +295,13 @@ L3A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x0b180000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x0a480000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04f80000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x0af80000, Entity_WorldPosX(a0)
-	move.l #0x04f80000, Entity_WorldPosY(a0)
+	move.l #0x0d880000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
