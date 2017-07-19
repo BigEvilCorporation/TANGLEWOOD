@@ -53,7 +53,7 @@ SFX_Struct_Size			rs.b 0
 SND_Init:
 	; Initialises Echo sound system and sets default values
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	lea echo_instruments, a0
 	jsr Echo_Init
 	move.b #0xFF, audio_volume_global
@@ -65,7 +65,7 @@ SND_Init:
 SND_PlayTrack:
 	; a0 --- Track address
 	
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 
 	PUSHL a1
 
@@ -148,7 +148,7 @@ SND_PlayTrack:
 SND_QueueTrack:
 	; a0 --- Track address
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 
 	; Queue track
 	clr.l  d0
@@ -163,7 +163,7 @@ SND_QueueTrack:
 	rts
 
 SND_StopTrack:
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	jsr   Echo_StopBGM
 	move.l #0x0, audio_current_track
 	move.w #0x0, audio_track_stop_timer
@@ -171,19 +171,17 @@ SND_StopTrack:
 	rts
 
 SND_ClearTracks:
-
 	lea    audio_queued_tracks, a1
 	move.w #Track_Type_COUNT-1, d0
 	@TrackLp:
 	move.l #0x0, (a1)
 	dbra   d0, @TrackLp
-
 	rts
 
 SND_PlaySFX:
 	; a0 --- SFX address
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 
 	PUSHL  d0
 	PUSHL  a1
@@ -262,7 +260,7 @@ SND_PlaySFX:
 	rts
 
 SND_StopSFX:
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	jsr   Echo_StopSFX
 	ENDIF
 	rts
@@ -270,7 +268,7 @@ SND_StopSFX:
 SND_GetEchoBusy:
 	; d0 (b) OUT: Echo sound system busy
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<15), d0		; Bit 15 = Echo busy
 	cmp.w  #0x0, d0
@@ -287,7 +285,7 @@ SND_GetEchoBusy:
 SND_GetSFXBusy:
 	; d0 (b) OUT: SFX playback busy
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<0), d0		; Bit 0 = SFX playing
 	cmp.w  #0x0, d0
@@ -304,7 +302,7 @@ SND_GetSFXBusy:
 SND_GetTrackBusy:
 	; d0 (b) OUT: Track playback busy
 
-	IFND DEBUG
+	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<1), d0		; Bit 1 = BGM playing
 	cmp.w  #0x0, d0
@@ -413,7 +411,6 @@ SND_UpdateFader:
 	rts
 
 SND_UpdateTrack:
-
 	; Check if track stopped
 	cmp.l  #0x0, audio_current_track
 	bne    @Busy

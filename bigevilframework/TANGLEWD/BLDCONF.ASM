@@ -6,6 +6,9 @@
 ;   bldconf.asm - Build configuration
 ;==============================================================
 
+; Engine features
+INCLUDE_AUDIO			equ 1
+
 ; Profiler
 	IFD DEBUG
 INCLUDE_PROFILER		equ 1
