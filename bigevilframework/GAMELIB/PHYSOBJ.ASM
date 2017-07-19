@@ -15,6 +15,8 @@ PhysicsObjHitWallRight				equ 0x2
 
 PhysicsObjDefaultPushBoundsOuter	equ 0x6
 
+PhysicsObjMaxSnapToFloorDist		equ 0x10
+
 ;==============================================================
 ; PhysicsObject
 ;==============================================================
@@ -1557,7 +1559,10 @@ PhysicsObjSnapToFloor:
 	move.l PhysicsObj_LastFloor(a0), d2		; Get last found floor
 	beq    @NoFloorFound
 	
-	move.l Entity_WorldPosY(a0), d1			; Get Y pos
+	ENTITY_GETBOTTOM d1,a0					; Get Y bottom
+	cmp.l  #PhysicsObjMaxSnapToFloorDist, d1; Check within max snap distance
+	bgt    @FloorTooFar
+	
 	move.w Entity_Height(a0), d3			; Get height
 	TOSUBPIXELS d3							; Height to world space
 	sub.l  d3, d2							; Floor to floor probe space
@@ -1567,6 +1572,7 @@ PhysicsObjSnapToFloor:
 	move.b #0x1, PhysicsObj_CloseToFloor(a0); Set object close to floor flag
 	
 	@NoFloorFound:
+	@FloorTooFar:
 	
 	rts
 
