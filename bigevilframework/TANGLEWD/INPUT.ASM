@@ -158,30 +158,30 @@ HandlePlayerInput:
 	@EndB:
 	
 	; =====================================================================
-	; Interact type A
+	; Interact type A (colour ability)
 	; =====================================================================
 	
-	btst #input_interact, d0		; Check A pressed
+	btst #input_power, d0			; Check A pressed
 	beq  @NoA
-	btst #input_interact, d1		; Check A not already held
+	btst #input_power, d1			; Check A not already held
 	bne  @EndA
 	jsr  CharacterStartInteractA	; A
 	bra  @EndA
 	@NoA:
-	btst #input_interact, d1		; Check not already released
+	btst #input_power, d1			; Check not already released
 	beq  @EndA
 	jsr  CharacterCancelInteractA	; Cancel A
 	@EndA:
 	
 	; =====================================================================
-	; Interact type B
+	; Interact type B (interact object)
 	; =====================================================================
 	
 	; Check if current player interaction is using toggle behaviour
 	cmp.b  #0x0, Player_InteractionToggle(a0)
 	bne    @ToggleC
 
-	btst #input_power, d0			; Check C button
+	btst #input_interact, d0		; Check C button
 	beq  @NoC						; Branch if button off
 	jsr  CharacterStartInteractB	; Start interaction
 	bra  @EndC
@@ -191,14 +191,14 @@ HandlePlayerInput:
 
 	@ToggleC:
 	
-	btst #input_power, d0			; Check C pressed
+	btst #input_interact, d0		; Check C pressed
 	beq  @NoToggleC
-	btst #input_power, d1			; Check C not already held
+	btst #input_interact, d1		; Check C not already held
 	bne  @EndToggleC
 	jsr  CharacterStartInteractB	; Start interaction
 	bra  @EndToggleC
 	@NoToggleC:
-	btst #input_power, d1			; Check C not already released
+	btst #input_interact, d1		; Check C not already released
 	beq  @EndToggleC
 	jsr  CharacterCancelInteractB
 	@EndToggleC:
