@@ -290,6 +290,7 @@ FuzzlCageActivatePlatform:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	LIST_APPEND_TAIL Platforms, a2, a3
+	move.b #0x1, FuzzlCage_PlatformActive(a0)
 	@AlreadyActive:
 
 	rts
@@ -301,6 +302,7 @@ FuzzlCageDeactivatePlatform:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	LIST_REMOVE Platforms, a2, a3, a4
+	move.b #0x0, FuzzlCage_PlatformActive(a0)
 	@AlreadyInactive:
 
 	rts
