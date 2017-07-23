@@ -146,6 +146,30 @@ SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	POPM   d0-d5/a0-a2
 	endm
 
+	; Load sprite from shared VRAM
+SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
+	PUSHM  d0-d5/a0-a2
+	cmp.w  #0x0, SharedVRAM_\spritesheet
+	bne    @AlreadyAllocd\@
+	SPRITE_LOAD_DEFAULT \spritesheet,\palette,\prio
+	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\spritesheet
+	bra    @End\@
+	@AlreadyAllocd\@:
+	lea    spritesheets_\spritesheet, a1
+	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
+	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
+	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
+	move.w SharedVRAM_\spritesheet, d0
+	move.l #sprite_\spritesheet\_size_t, d1
+	move.b #sprite_\spritesheet\_size_subsprites, d2
+	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	move.b #\palette, d4
+	move.b #\prio, d5
+	jsr    SpriteObjLoadShared
+	@End\@:
+	POPM   d0-d5/a0-a2
+	endm
+
 ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
 	PUSHL  a0
 	add.l  #\arrayoffset, a0

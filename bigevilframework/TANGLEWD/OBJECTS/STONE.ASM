@@ -103,7 +103,7 @@ StoneLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT stone,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED stone,PaletteId_World0,0x0
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

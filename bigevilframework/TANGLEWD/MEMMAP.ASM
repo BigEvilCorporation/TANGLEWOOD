@@ -296,6 +296,11 @@ AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
 
 ; ************************************
+; Shared VRAM
+; ************************************
+SharedVRAM_Stone		 rs.w 1
+
+; ************************************
 ; Level runtime data
 ; ************************************
 	IF INCLUDE_LEVEL_1
