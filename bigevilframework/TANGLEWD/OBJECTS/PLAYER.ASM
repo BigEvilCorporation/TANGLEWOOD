@@ -752,9 +752,13 @@ PlayerStopColourAbility:
 	move.b #0x0, d3						; First colour
 	move.b #0xF, d4						; Last colour
 	
-	move.l Level_PalettesAddr(a1), a3
-	add.l  #(size_long*PaletteId_World0), a3
-	move.l (a3), a0
+	; Get current TOD palette for world palette
+	clr.l  d0
+	move.b TimeOfDay, d0
+	lsl.w  #0x2, d0
+	lea    TimeOfDayPalettes, a2
+	add.l  d0, a2
+	move.l (a2), a0
 	move.l #PaletteId_World0, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
