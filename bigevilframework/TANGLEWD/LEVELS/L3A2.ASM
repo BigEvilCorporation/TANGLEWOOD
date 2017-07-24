@@ -153,6 +153,10 @@ l3a2_Init:
 	ENTITY_GETBYNAME Boulder, l3a2_Boulder2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
+	; HACK: Update logs out of view to keep buttons down
+	ENTITY_GETBYNAME Log, l3a2_Log2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
 	; Init camera lerp timer
 	move.l #LevelData_L3A2, a2
 	move.w #0x0, l3a2Data_LogRollCamLerpTimer(a2)

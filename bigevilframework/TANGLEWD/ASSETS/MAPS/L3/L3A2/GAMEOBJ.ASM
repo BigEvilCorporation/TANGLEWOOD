@@ -18,7 +18,7 @@ L3A2_BouncePlant_count equ 0x0
 
 L3A2_Log_count equ 0x2
 L3A2_Log1_idx	equ 0x0
-L3A2_Log_41_idx	equ 0x1
+L3A2_Log2_idx	equ 0x1
 
 L3A2_DjakkCage_count equ 0x0
 
@@ -40,7 +40,7 @@ L3A2_FuzzlCaged2_idx	equ 0x1
 L3A2_FuzzlCaged1_idx	equ 0x2
 L3A2_FuzzlYellow1_idx	equ 0x3
 
-L3A2_Stone_count equ 0xc
+L3A2_Stone_count equ 0xd
 L3A2_Stone_6_idx	equ 0x0
 L3A2_Stone_7_idx	equ 0x1
 L3A2_Stone_8_idx	equ 0x2
@@ -50,14 +50,15 @@ L3A2_Stone_36_idx	equ 0x5
 L3A2_Stone_38_idx	equ 0x6
 L3A2_Stone_54_idx	equ 0x7
 L3A2_Stone_40_idx	equ 0x8
-L3A2_Stone_46_idx	equ 0x9
+L3A2_Stone_66_idx	equ 0x9
 L3A2_Stone_47_idx	equ 0xa
 L3A2_Stone_53_idx	equ 0xb
+L3A2_Stone_71_idx	equ 0xc
 
 L3A2_Nest_count equ 0x3
 L3A2_Nest_5_idx	equ 0x0
 L3A2_Nest_21_idx	equ 0x1
-L3A2_Nest_45_idx	equ 0x2
+L3A2_Nest_68_idx	equ 0x2
 
 L3A2_Flue_count equ 0x0
 
@@ -237,7 +238,7 @@ L3A2_LoadGameObjects:
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
 	jsr LogInit
-	move.l #0x17c00000, Entity_WorldPosX(a0)
+	move.l #0x17a80000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
@@ -262,7 +263,7 @@ L3A2_LoadGameObjects:
 
 	move.l #EntityArray_FuzzlCage, a0
 	jsr FuzzlCageInit
-	move.l #0x14700000, Entity_WorldPosX(a0)
+	move.l #0x14200000, Entity_WorldPosX(a0)
 	move.l #0x03b80000, Entity_WorldPosY(a0)
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
@@ -286,13 +287,13 @@ L3A2_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x14800000, Entity_WorldPosX(a0)
+	move.l #0x14300000, Entity_WorldPosX(a0)
 	move.l #0x03c80000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x13b00000, Entity_WorldPosX(a0)
-	move.l #0x01680000, Entity_WorldPosY(a0)
+	move.l #0x14400000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
@@ -309,7 +310,7 @@ L3A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x08180000, Entity_WorldPosX(a0)
+	move.l #0x08d80000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
@@ -329,8 +330,8 @@ L3A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x13380000, Entity_WorldPosX(a0)
-	move.l #0x03b00000, Entity_WorldPosY(a0)
+	move.l #0x13f00000, Entity_WorldPosX(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
@@ -344,8 +345,8 @@ L3A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x12980000, Entity_WorldPosX(a0)
-	move.l #0x02580000, Entity_WorldPosY(a0)
+	move.l #0x11b00000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
@@ -354,8 +355,13 @@ L3A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x17b00000, Entity_WorldPosX(a0)
+	move.l #0x17880000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x14280000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
@@ -371,8 +377,8 @@ L3A2_LoadGameObjects:
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
-	move.l #0x12080000, Entity_WorldPosX(a0)
-	move.l #0x02680000, Entity_WorldPosY(a0)
+	move.l #0x13780000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 
@@ -412,7 +418,7 @@ L3A2_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
 	jsr CheckpointInit
-	move.l #0x12300000, Entity_WorldPosX(a0)
+	move.l #0x11e00000, Entity_WorldPosX(a0)
 	move.l #0x04b80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
@@ -453,7 +459,7 @@ L3A2_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
-	move.l #0x13880000, Entity_WorldPosX(a0)
+	move.l #0x13a80000, Entity_WorldPosX(a0)
 	move.l #0x05700000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
@@ -461,7 +467,7 @@ L3A2_LoadGameObjects:
 	move.l #EntityArray_Lift, a0
 	jsr LiftInit
 	move.l #0x09300000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
@@ -481,7 +487,7 @@ L3A2_LoadGameObjects:
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
 	move.l #0x16a80000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 
@@ -553,7 +559,7 @@ L3A2_LoadGameObjects:
 
 	move.l #EntityArray_Button, a0
 	jsr ButtonInit
-	move.l #0x0ef80000, Entity_WorldPosX(a0)
+	move.l #0x0f180000, Entity_WorldPosX(a0)
 	move.l #0x04380000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
@@ -568,7 +574,7 @@ L3A2_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x17600000, Entity_WorldPosX(a0)
+	move.l #0x17200000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
