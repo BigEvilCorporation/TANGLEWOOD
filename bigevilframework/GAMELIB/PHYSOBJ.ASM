@@ -697,9 +697,6 @@ PhysicsObjCollisionCorrection:
 
 	;==============================================================
 	; Correct wall collision
-
-	; Clear hit wall flag
-	move.b #0x0, PhysicsObj_HitWall(a0)
 	
 	; Get last wall collided with
 	move.l PhysicsObj_LastWall(a0), d0
@@ -709,6 +706,7 @@ PhysicsObjCollisionCorrection:
 	; Determine X direction
 	move.l PhysicsObj_VelX(a0), d1
 	cmp.l  #0x0, d1
+	beq    @HeadingNowhere
 	blt    @HeadingLeft
 	bgt    @HeadingRight
 	
@@ -748,8 +746,16 @@ PhysicsObjCollisionCorrection:
 	@NoBounceX:
 	move.l d0, PhysicsObj_VelX(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
+
+	bra    @End
 	
 	@NoWallFound:
+
+	; No wall found, clear hit wall flag
+	move.b #0x0, PhysicsObj_HitWall(a0)
+
+	@HeadingNowhere:
+	@End:
 
 	; Sleep if possible
 	jsr    PhysicsObjRest
@@ -959,9 +965,6 @@ PhysicsObjFindWall:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Clear last found wall
-	move.l #0x0, PhysicsObj_LastWall(a0)
-	
 	;==============================================================
 	
 	; Determine direction
@@ -1139,10 +1142,16 @@ PhysicsObjFindWall:
 	@HeadingNowhere:
 
 	; Not heading left/right, check moving barriers instead
-	jsr     PhysicsObjFindMovingBarrier
+	jsr    PhysicsObjFindMovingBarrier
+
+	bra    @End
 
 	@ProbeOutOfBounds:
 	@NoWallFound:
+
+	; Clear last found wall
+	move.l #0x0, PhysicsObj_LastWall(a0)
+
 	@End:
 
 	rts
@@ -1545,11 +1554,8 @@ PhysicsObjFindMovingBarrier:
 	
 	; Zero X velocity
 	move.l #0x0, PhysicsObj_VelX(a0)
-	
-	@NoWallFound:
 
-	;==============================================================
-	
+	@NoWallFound:
 	@NoBarrier:
 	@ProbeOutOfBounds:
 
