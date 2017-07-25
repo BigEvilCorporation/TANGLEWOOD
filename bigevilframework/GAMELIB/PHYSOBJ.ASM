@@ -90,6 +90,7 @@ PhysicsObjInit:
 	; Set type
 	ori.l  #entity_type_physicsobj, Entity_TypeBits(a0)
 	
+	move.l #0x0, PhysicsObj_LastWall(a0)
 	move.l #0x0, PhysicsObj_LastFloor(a0)
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
@@ -227,17 +228,22 @@ PhysicsObjUpdate:
 
 	; Asleep, check for external forces only
 	move.l PhysicsObj_LastFloor(a0), d0
-	add.l  PhysicsObj_LastWall(a0), d0
-	PUSHL  d0
+	move.l PhysicsObj_LastWall(a0), d1
+	PUSHM  d0-d1
 
 	jsr    PhysicsObjFindMovingFloor
 	jsr    PhysicsObjFindMovingBarrier
 
-	POPL   d0
-	move.l PhysicsObj_LastFloor(a0), d1
-	add.l  PhysicsObj_LastWall(a0), d1
-	cmp.l  d0, d1
-	beq    @NoFloorWallChange
+	POPM   d0-d1
+	move.l PhysicsObj_LastFloor(a0), d2
+	cmp.l  d0, d2
+	bne    @FloorWallChange
+	move.l  PhysicsObj_LastWall(a0), d3
+	cmp.l  d1, d3
+	bne    @FloorWallChange
+	bra    @NoFloorWallChange
+	
+	@FloorWallChange:
 
 	; Floor/wall changed, correct collision
 	jsr    PhysicsObjCollisionCorrection
@@ -1757,6 +1763,9 @@ PhysicsObjPushPullObj:
 	;==============================================================
 
 	@EndPenetration:
+	
+	; Wake physics
+	move.b #0x0, PhysicsObj_Asleep(a2)
 	
 	; Inherit X velocity
 	move.l PhysicsObj_VelX(a0), PhysicsObj_VelX(a2)
