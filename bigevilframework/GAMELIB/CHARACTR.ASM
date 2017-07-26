@@ -15,6 +15,10 @@ Character_FallVel		    equ 0x020000
 Character_PushLight			equ 0x1
 Character_PushHeavy			equ 0x2
 
+Character_WalkInteract		equ 0x1
+Character_WalkWater			equ 0x2
+Character_WalkGeneral		equ 0x3
+
 ; ************************************
 ; Animation ids
 ; ************************************
@@ -80,7 +84,7 @@ Character_DecelForced		rs.w 1
 Character_CanJump			rs.b 1
 Character_OnLedge			rs.b 1
 Character_InWater			rs.b 1
-Character_Running			rs.b 1
+Character_Walking			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
 Character_Pushing			rs.b 1	; 1 = Light object, 2 = Heavy object
@@ -121,7 +125,7 @@ CharacterInit:
 	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_OnLedge(a0)
 	move.b #0x0, Character_InWater(a0)
-	move.b #0x0, Character_Running(a0)
+	move.b #0x0, Character_Walking(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_Gliding(a0)
@@ -191,14 +195,16 @@ CharacterUpdate:
 	move.b #0x1, Character_Falling(a0)
 	@NotFalling:
 	
-	; If in water and running, cancel run
+	; If in water, prevent running
 	cmp.b  #0x0, Character_InWater(a0)
 	beq    @NotInWater
-	cmp.b  #0x0, Character_Running(a0)
-	beq    @NotJumping
-	jsr    CharacterCancelRun
+	move.b #Character_WalkWater, d2
+	jsr    CharacterPreventRun
+	bra    @EndRunTest
 	@NotInWater:
-	@NotJumping:
+	move.b #Character_WalkWater, d2
+	jsr    CharacterAllowRun
+	@EndRunTest:
  
 	; If not locked, apply sprite flipping
 	cmp.b #0x0, Character_LockSpriteFlip(a0)
@@ -243,7 +249,6 @@ CharacterDealDamage:
 	
 	; Cancel all actions
 	jsr    CharacterCancelXMovement
-	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
 	move.b #0x0, Character_Interacting(a0)
 	
@@ -459,24 +464,20 @@ CharacterMoveLeft:
 	; NB: Gamepad state in d0-d1, leave alone
 	
 	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
-	beq    @End
+	cmp.b  #0x0, Character_Dead(a0)
+	bne    @End
 	
 	; Check if player on ledge
-	move.b Character_OnLedge(a0), d4
-	cmp.b  #0x1, d4
-	beq    @End
+	cmp.b  #0x0, Character_OnLedge(a0)
+	bne    @End
 	
 	; Check if heading in opposite direction
-	move.l PhysicsObj_VelX(a0), d4
-	cmp.l  #0x0, d4
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	bgt    @Decelerate
 	
 	; Check if running or walking
-	move.b Character_Running(a0), d4
-	cmp.b  #0x0, d4
-	beq    @Else
+	cmp.b  #0x0, Character_Walking(a0)
+	bne    @Else
 	clr.w  d5
 	sub.w  Character_AccelRun(a0), d5
 	move.w d5, PhysicsObj_AccelX(a0)
@@ -488,6 +489,7 @@ CharacterMoveLeft:
 	bra    @End
 	
 	@Decelerate:
+	
 	; Heading in opposite direction, fast deceleration
 	clr.w  d5
 	sub.w  Character_DecelForced(a0), d5
@@ -502,24 +504,20 @@ CharacterMoveRight:
 	; NB: Gamepad state in d0-d1, leave alone
 	
 	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
-	beq    @End
+	cmp.b  #0x0, Character_Dead(a0)
+	bne    @End
 	
 	; Check if player on ledge
-	move.b Character_OnLedge(a0), d4
-	cmp.b  #0x1, d4
-	beq    @End
+	cmp.b  #0x0, Character_OnLedge(a0)
+	bne    @End
 	
 	; Check if heading in opposite direction
-	move.w PhysicsObj_VelX(a0), d4
-	cmp.w  #0x0, d4
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	blt    @Decelerate
 	
 	; Check if running or walking
-	move.b Character_Running(a0), d4
-	cmp.b  #0x0, d4
-	beq    @Else
+	cmp.b  #0x0, Character_Walking(a0)
+	bne    @Else
 	move.w Character_AccelRun(a0), PhysicsObj_AccelX(a0)
 	bra    @End
 	@Else:
@@ -527,6 +525,7 @@ CharacterMoveRight:
 	bra    @End
 	
 	@Decelerate:
+
 	; Heading in opposite direction, fast deceleration
 	move.w Character_DecelForced(a0), PhysicsObj_AccelX(a0)
 	
@@ -677,35 +676,26 @@ CharacterCancelJump:
 	
 	rts
 	
-CharacterStartRun:
+CharacterAllowRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	; d2 (b) Reason bit (CharacterWalk_*)
 
 	PUSHM  d0-d1
-	
-	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
-	beq    @Dead
-	
-	; Check if player is interacting
-	move.b Character_Interacting(a0), d4
-	cmp.b  #0x1, d4
-	beq    @CantRun
-	
-	; Check if player in water
-	move.b Character_InWater(a0), d4
-	cmp.b  #0x0, d4
-	bne    @CantRun
 
-	; Set max running velocity
+	; Clear walking flags
+	bclr.b d2, Character_Walking(a0)
+
+	; Set max X velocity and snap to floor flag
+	cmp.b  #0x0, Character_Walking(a0)
+	beq    @Running
+	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
+	move.b #0x0, PhysicsObj_SnapToFloor(a0)
+	bra    @Walking
+	@Running:
 	move.l Character_MaxVelXRun(a0), PhysicsObj_MaxVelFloorX(a0)
-	
-	; Snap to floor if within step height
 	move.b #0x1, PhysicsObj_SnapToFloor(a0)
-	
-	; Set running flag
-	move.b #0x1, Character_Running(a0)
+	@Walking:
 	
 	@Dead:
 	@CantRun:
@@ -714,27 +704,26 @@ CharacterStartRun:
 	
 	rts
 	
-CharacterCancelRun:
+CharacterPreventRun:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	; d2 (b) Reason bit (CharacterWalk_*)
 
 	PUSHM  d0-d1
-	
-	; If on floor
-	move.b PhysicsObj_CloseToFloor(a0), d2
-	cmp.b  #0x0, d2
-	beq    @InAir
 
-	; Set max walking velocity
-	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
-	
-	; Disable snap to floor
-	move.b #0x0, PhysicsObj_SnapToFloor(a0)
-	
 	; Clear running flag
-	move.b #0x0, Character_Running(a0)
-	
-	@InAir:
+	bset.b d2, Character_Walking(a0)
+
+	; Set max X velocity and snap to floor flag
+	cmp.b  #0x0, Character_Walking(a0)
+	beq    @Running
+	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
+	move.b #0x0, PhysicsObj_SnapToFloor(a0)
+	bra    @Walking
+	@Running:
+	move.l Character_MaxVelXRun(a0), PhysicsObj_MaxVelFloorX(a0)
+	move.b #0x1, PhysicsObj_SnapToFloor(a0)
+	@Walking:
 
 	POPM   d0-d1
 	

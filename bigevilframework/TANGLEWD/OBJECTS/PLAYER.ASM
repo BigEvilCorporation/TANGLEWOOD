@@ -265,10 +265,9 @@ PlayerInit:
 	; Add as potential flue occupant
 	jsr    FlueAddPotentialOccupant
 
-	;==============================================================
-	
-	; Running by default
-	jsr    CharacterStartRun
+	; Allow running by default
+	move.b #0x0, d2
+	jsr    CharacterAllowRun
 	
 	rts
 
@@ -344,7 +343,6 @@ PlayerBeginSleep:
 	
 	; Cancel all actions
 	jsr    CharacterCancelXMovement
-	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
 	move.b #0x0, Character_Interacting(a0)
 	
@@ -389,7 +387,6 @@ PlayerBeginIdleSnooze:
 	
 	; Cancel all actions
 	jsr    CharacterCancelXMovement
-	jsr    CharacterCancelRun
 	jsr    CharacterCancelJump
 	move.b #0x0, Character_Interacting(a0)
 	
@@ -431,9 +428,6 @@ PlayerUpdateIdleSnooze:
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
-
-	; Can run
-	jsr    CharacterStartRun
 	
 	; Start wake anim
 	PUSHL  a1
@@ -623,9 +617,6 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
-	
-	; Player can't run
-	;jsr    CharacterCancelRun
 
 	bra    @End
 	
@@ -724,8 +715,8 @@ PlayerStopColourAbility:
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
 	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	cmp.b  #0x0, Character_Running(a0)
-	beq    @Walking
+	cmp.b  #0x0, Character_Walking(a0)
+	bne    @Walking
 	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @ReturnColour
 	@Walking:
@@ -741,9 +732,6 @@ PlayerStopColourAbility:
 	; If inactive, don't bother
 	cmp.b  #0x0, Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
-
-	; Restore run
-	;jsr    CharacterStartRun
 
 	; Reset palette
 	PUSHL  a0
@@ -942,8 +930,8 @@ PlayerUpdateColourAbility:
 	; Can't glide
 	move.b #0x0, Character_Gliding(a0)
 	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	cmp.b  #0x0, Character_Running(a0)
-	beq    @Walking
+	cmp.b  #0x0, Character_Walking(a0)
+	bne    @Walking
 	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @End
 	@Walking:
@@ -1572,7 +1560,8 @@ PlayerStartInteract:
 	@EndPush:
 	
 	; Player can't run
-	jsr    CharacterCancelRun
+	move.b  #Character_WalkInteract, d2
+	jsr    CharacterPreventRun
 
 	; Player can't jump
 	move.b #0x0, Character_CanJump(a0)
@@ -1636,7 +1625,8 @@ PlayerUpdateInteract:
 	@StillPushing:
 
 	; Player can't run
-	jsr    CharacterCancelRun
+	move.b  #Character_WalkInteract, d2
+	jsr    CharacterPreventRun
 
 	; Determine if light or heavy object
 	move.l Player_InteractObject(a0), a2
@@ -1697,7 +1687,8 @@ PlayerCancelInteract:
 	move.b #0x0, Character_LockSpriteFlip(a0)
 	
 	; Restore run
-	jsr    CharacterStartRun
+	move.b #Character_WalkInteract, d2
+	jsr    CharacterAllowRun
 
 	; Restore jump
 	move.b #0x1, Character_CanJump(a0)

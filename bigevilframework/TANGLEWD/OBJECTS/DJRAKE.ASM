@@ -602,7 +602,8 @@ DjrakeStartSearchForPlayer:
 	move.b  #DjrakeState_Wandering, Djrake_State(a0)
 	
 	; Start walking
-	jsr     CharacterCancelRun
+	move.b  #Character_WalkGeneral, d2
+	jsr     CharacterPreventRun
 	
 	; Give anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
@@ -752,7 +753,8 @@ DjrakeStartTrackPlayer:
 	move.b #DjrakeState_Chasing, Djrake_State(a0)
 	
 	; Start running
-	jsr    CharacterStartRun
+	move.b #Character_WalkGeneral, d2
+	jsr    CharacterAllowRun
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
@@ -849,7 +851,8 @@ DjrakeUpdateTrackPlayer:
 	blt    @OutsideMinChaseDist
 	
 	; Within min chase range, stop chasing
-	jsr    CharacterCancelRun
+	move.b #Character_WalkGeneral, d2
+	jsr    CharacterPreventRun
 	jsr    CharacterCancelXMovement
 
 	; Attack if bounds intersect
@@ -876,14 +879,16 @@ DjrakeUpdateTrackPlayer:
 	@LeftOfPlayer:
 
 	; Run towards player
-	jsr    CharacterStartRun
+	move.b #Character_WalkGeneral, d2
+	jsr    CharacterAllowRun
 	jsr    CharacterMoveRight
 	bra    @End
 
 	@RightOfPlayer:
 
 	; Run towards player
-	jsr    CharacterStartRun
+	move.b #Character_WalkGeneral, d2
+	jsr    CharacterAllowRun
 	jsr    CharacterMoveLeft
 	bra    @End
 	
@@ -901,7 +906,8 @@ DjrakeUpdateTrackPlayer:
 	@HitWall:
 	@PlayerCloaked:
 	
-	jsr    CharacterStartRun
+	move.b #Character_WalkGeneral, d2
+	jsr    CharacterAllowRun
 	jsr    CharacterCancelXMovement
 
 	@End:

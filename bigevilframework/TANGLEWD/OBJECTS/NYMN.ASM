@@ -363,7 +363,8 @@ NymnBeginCarryEcho:
 	move.b #Player_Interaction_Custom, Player_InteractionType(a0)
 	
 	; Can't run
-	jsr    CharacterCancelRun
+	move.b #Character_WalkInteract, d2
+	jsr    CharacterPreventRun
 	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
@@ -405,8 +406,9 @@ NymnEndCarryEcho:
 	; No longer interacting
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
 	
-	; Can run
-	jsr    CharacterStartRun
+	; Restore run
+	move.b #Character_WalkInteract, d2
+	jsr    CharacterAllowRun
 	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
