@@ -138,16 +138,15 @@ PhysicsObjUpdate:
  	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; If asleep, process external forces only
-	cmp.b  #0x0, PhysicsObj_Asleep(a0)
+	; Check if awake
+	tst.b  PhysicsObj_Asleep(a0)
 	bne    @SoundAwake
-
-	; Awaken if moving
+	
+	; If asleep, process external forces only
 	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_VelY(a0), d0
-	add.w  PhysicsObj_AccelX(a0), d0
-	add.w  PhysicsObj_AccelY(a0), d0
-	cmp.l  #0x0, d0
+	or.w   PhysicsObj_AccelX(a0), d0
+	or.w   PhysicsObj_AccelY(a0), d0
+	or.l   PhysicsObj_VelY(a0), d0
 	beq    @Asleep
 
 	@SoundAwake:
