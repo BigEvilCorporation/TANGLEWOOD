@@ -214,6 +214,10 @@ LiftAttachCounterweightLift:
 	move.b  #0x0, Lift_RestrictHeight(a0)
 	move.b  #0x0, Lift_RestrictHeight(a2)
 
+	; Physics cannot sleep
+	move.b #0x0, PhysicsObj_CanSleep(a0)
+	move.b #0x0, PhysicsObj_CanSleep(a2)
+
 	; HACK: Fixes off-screen counterweights
 	; TODO: Update each other
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)

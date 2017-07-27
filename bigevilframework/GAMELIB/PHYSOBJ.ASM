@@ -55,6 +55,7 @@ PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
 PhysicsObj_MinWallHeight    	rs.w 1 ; Min wall height
+PhysicsObj_CanSleep				rs.b 1 ; Physics can sleep
 PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
 PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
@@ -68,6 +69,7 @@ PhysicsObj_AffectedByGravity   	rs.b 1 ; Gets pushed by gravity force
 PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
 PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
+PhysicsObj_OnPlatform			rs.b 1 ; Object is on a platform
 PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
 PhysicsObj_Solid		    	rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step height
@@ -75,7 +77,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 1
+PhysicsObj_Struct_Pad      		rs.b 3
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -112,6 +114,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
+	move.b #0x1, PhysicsObj_CanSleep(a0)
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	move.b #0x1, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
@@ -123,6 +126,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
@@ -140,13 +144,16 @@ PhysicsObjUpdate:
 	
 	; Check if awake
 	tst.b  PhysicsObj_Asleep(a0)
-	bne    @SoundAwake
+	beq    @SoundAwake
 	
 	; If asleep, process external forces only
 	move.l PhysicsObj_VelX(a0), d0
+	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
-	or.l   PhysicsObj_VelY(a0), d0
+	move.b PhysicsObj_OnPlatform(a0), d0
+	or.l   PhysicsObj_ImpulseX(a0), d0
+	or.l   PhysicsObj_ImpulseY(a0), d0
 	beq    @Asleep
 
 	@SoundAwake:
@@ -581,16 +588,22 @@ PhysicsObjRest:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  PhysicsObj_CanSleep(a0)
+	beq    @CannotSleep
+
 	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_VelY(a0), d0
-	add.w  PhysicsObj_AccelX(a0), d0
-	add.w  PhysicsObj_AccelY(a0), d0
-	cmp.l  #0x0, d0
+	or.l   PhysicsObj_VelY(a0), d0
+	or.w   PhysicsObj_AccelX(a0), d0
+	or.w   PhysicsObj_AccelY(a0), d0
+	move.b PhysicsObj_OnPlatform(a0), d0
+	or.l   PhysicsObj_ImpulseX(a0), d0
+	or.l   PhysicsObj_ImpulseY(a0), d0
 	bne    @Awake
 
 	; Can sleep
 	move.b #0x1, PhysicsObj_Asleep(a0)
 
+	@CannotSleep:
 	@Awake:
 
 	rts
@@ -829,6 +842,8 @@ PhysicsObjFindFloor:
 	
 	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
+
+	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
 	@PlatformLp:					; For all platforms in list
@@ -888,6 +903,9 @@ PhysicsObjFindFloor:
 
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
+
+	; Mark object on platform
+	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
 	bra    @FoundPlatform
 	
@@ -1293,6 +1311,8 @@ PhysicsObjFindMovingFloor:
 	
 	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
+
+	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD MovingPlatforms,a3	; Get list head
 	@PlatformLp:						; For all platforms in list
@@ -1361,6 +1381,9 @@ PhysicsObjFindMovingFloor:
 
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
+
+	; Mark object on platform
+	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
 	bra    @FoundPlatform
 	
