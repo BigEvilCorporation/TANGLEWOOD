@@ -7,14 +7,13 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L3A1_Leaf_count equ 0x7
+L3A1_Leaf_count equ 0x6
 L3A1_Leaf_8_idx	equ 0x0
 L3A1_Leaf_9_idx	equ 0x1
 L3A1_Leaf_10_idx	equ 0x2
 L3A1_Leaf_11_idx	equ 0x3
 L3A1_Leaf_12_idx	equ 0x4
 L3A1_Leaf_13_idx	equ 0x5
-L3A1_Leaf_14_idx	equ 0x6
 
 L3A1_Echo_count equ 0x0
 
@@ -202,9 +201,6 @@ L3A1_Button3_idx	equ 0x2
 
 L3A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
-	jsr LeafInit
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0

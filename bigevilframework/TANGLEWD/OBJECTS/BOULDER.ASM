@@ -150,6 +150,8 @@ BoulderLoadGfx:
 
 	SPRITE_LOAD_DEFAULT boulder,PaletteId_World0,0x0
 
+	jsr    PhysicsObjSnapToFloor
+
 	rts
 	
 BoulderUpdate:
