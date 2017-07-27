@@ -135,6 +135,9 @@ FlueOccupantUpdate:
 	move.l d0, PhysicsObj_VelY(a1)
 	move.b #0x1, FlueOccupant_Ejecting(a2)
 	
+	; Awake physics
+	move.b #0x0, PhysicsObj_Asleep(a1)
+	
 	; If linked to another flue, use that pos for output
 	move.l a0, a3
 	cmp.l  #0x0, Flue_OutputFlue(a0)
