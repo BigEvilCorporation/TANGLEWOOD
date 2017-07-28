@@ -597,12 +597,14 @@ PhysicsObjRest:
 
 	tst.b  PhysicsObj_CanSleep(a0)
 	beq    @CannotSleep
+	tst.b  PhysicsObj_OnFloor(a0)
+	beq    @CannotSleep
 
 	move.l PhysicsObj_VelX(a0), d0
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
-	move.b PhysicsObj_OnPlatform(a0), d0
+	or.b   PhysicsObj_OnPlatform(a0), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
 	bne    @Awake
