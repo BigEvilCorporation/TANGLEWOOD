@@ -424,8 +424,8 @@ BridgeDraw:
 
 	POPL   a0
 
-	; If no notches drawn, and in drop mode, never render again
-	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	; If no notches drawn, and in dropping state, never render again
+	cmp.b  #Bridge_StateDropping, Bridge_State(a0)
 	bne    @NotDropping
 	cmp.b  #0x0, Bridge_InView(a0)
 	bne    @InView

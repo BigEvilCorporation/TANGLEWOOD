@@ -176,12 +176,12 @@ L3A1_Cogs3_name	dc.b "L3A1_Cogs3",0
 L3A1_Bridge_count equ 0x3
 L3A1_Bridge1_idx	equ 0x0
 L3A1_Bridge2_idx	equ 0x1
-L3A1_Bridge_45_idx	equ 0x2
+L3A1_DropBridge1_idx	equ 0x2
 
 	IFND FINAL
 L3A1_Bridge1_name	dc.b "L3A1_Bridge1",0
 L3A1_Bridge2_name	dc.b "L3A1_Bridge2",0
-L3A1_Bridge_45_name	dc.b "L3A1_Bridge_45",0
+L3A1_DropBridge1_name	dc.b "L3A1_DropBridge1",0
 	even
 	ENDIF
 
@@ -776,10 +776,10 @@ L3A1_LoadGameObjects:
 	move.l #0x02300000, Entity_WorldPosX(a0)
 	move.l #0x04880000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L3A1_Bridge_45_name, a3
+	lea L3A1_DropBridge1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #Bridge_ModeDrop, Bridge_Mode(a0)
