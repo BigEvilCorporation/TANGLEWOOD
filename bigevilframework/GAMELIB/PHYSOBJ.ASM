@@ -9,9 +9,12 @@
 ;==============================================================
 ; Constants
 ;==============================================================
-PhysicsObjHitWallNone				equ 0x0
-PhysicsObjHitWallLeft				equ 0x1
-PhysicsObjHitWallRight				equ 0x2
+PhysicsObjHitWallNone				equ 0x00
+PhysicsObjHitWallLeft				equ 0x01
+PhysicsObjHitWallRight				equ 0x02
+PhysicsObjHitStaticWall				equ 0x04
+PhysicsObjHitBarrier				equ 0x08
+PhysicsObjHitMovingBarrier			equ 0x10
 
 PhysicsObjDefaultPushBoundsOuter	equ 0x6
 
@@ -70,7 +73,7 @@ PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
 PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
 PhysicsObj_OnPlatform			rs.b 1 ; Object is on a platform
-PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWallLeft/PhysicsObjHitWallRight)
+PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWall* flags)
 PhysicsObj_Solid		    	rs.b 1 ; Object is solid
 PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step height
 PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
@@ -159,11 +162,14 @@ PhysicsObjUpdate:
 	@SoundAwake:
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	
-	; If sprite linked or configured to update out of view, and active
+	; If inactive, bail
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
+	
+	; If out of view, treat as asleep
 	move.b AnimObj_UpdateOutOfView(a0), d0
 	or.b   SpriteObj_SpriteLinked(a0), d0
-	and.b  Entity_Active(a0), d0
-	beq    @InvisibleOrInactive
+	beq    @Invisible
 	
 	cmp.b  #0x0, PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
@@ -231,38 +237,39 @@ PhysicsObjUpdate:
 	bra @End
 
 	@Asleep:
+	@Invisible:
 
-	; Asleep, check for external forces only
-	move.l PhysicsObj_LastFloor(a0), d0
-	move.l PhysicsObj_LastWall(a0), d1
-	PUSHM  d0-d1
-
-	jsr    PhysicsObjFindMovingFloor
-	jsr    PhysicsObjFindMovingBarrier
-
-	POPM   d0-d1
-	move.l PhysicsObj_LastFloor(a0), d2
-	cmp.l  d0, d2
-	bne    @FloorWallChange
-	move.l  PhysicsObj_LastWall(a0), d3
-	cmp.l  d1, d3
-	bne    @FloorWallChange
-	bra    @NoFloorWallChange
-	
-	@FloorWallChange:
-
-	; Floor/wall changed, correct collision
-	jsr    PhysicsObjCollisionCorrection
-	jsr    PhysicsObjClampPos
-
-	@NoFloorWallChange:
+	jsr PhysicsObjSleepyUpdate
 	
 	@End:
-	@InvisibleOrInactive:
+	@Inactive:
 	
 	; Base functionality
 	jsr AnimObjUpdate
 	
+	rts
+
+PhysicsObjSleepyUpdate:
+
+	; Check for moving floors
+	move.l PhysicsObj_LastFloor(a0), d0
+	PUSHL  d0
+	jsr    PhysicsObjFindMovingFloor
+	POPL   d0
+	cmp.l  PhysicsObj_LastFloor(a0), d0
+	beq    @NoFloorChange
+	
+	; Floor changed, run collision correction
+	jsr    PhysicsObjCollisionCorrection
+	jsr    PhysicsObjClampPos
+	
+	@NoFloorChange:
+	
+	;==============================================================
+	
+	; Check for moving walls
+	jsr    PhysicsObjFindMovingBarrier
+
 	rts
 	
 PhysicsObjApplyAccelDecel:
@@ -728,7 +735,7 @@ PhysicsObjCollisionCorrection:
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
-	move.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	bset.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
 	
 	bra    @EndWallClamp
 	
@@ -744,7 +751,7 @@ PhysicsObjCollisionCorrection:
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
-	move.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	bset.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
 	
 	@EndWallClamp:
 	
@@ -1041,6 +1048,13 @@ PhysicsObjFindWall:
 	
 	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
 	beq   @NoBarrier
+
+	; If previously hitting a barrier, clear all flags
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #(PhysicsObjHitBarrier|PhysicsObjHitMovingBarrier), d0
+	beq    @NotHittingBarrier
+	move.b #0x0, PhysicsObj_HitWall(a0)
+	@NotHittingBarrier:
 	
 	LIST_GET_HEAD Barriers,a3		; Get list head
 	@BarrierLp:						; For all barriers in list
@@ -1101,6 +1115,15 @@ PhysicsObjFindWall:
 	; Add barrier X velocity
 	move.l Barrier_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
+	
+	; Set barrier collision
+	tst.l  d2
+	beq    @NotMoving
+	ori.b  #PhysicsObjHitMovingBarrier, PhysicsObj_HitWall(a0)
+	bra    @EndFlagSet
+	@NotMoving:
+	ori.b  #PhysicsObjHitBarrier, PhysicsObj_HitWall(a0)
+	@EndFlagSet:
 
 	bra    @FoundBarrier
 	
@@ -1268,9 +1291,6 @@ PhysicsObjFindMovingFloor:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Clear last found floor
-	move.l #0x0, PhysicsObj_LastFloor(a0)
-	
 	;==============================================================
 	
 	; Get floor probe X
@@ -1405,6 +1425,13 @@ PhysicsObjFindMovingBarrier:
 	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
 	beq   @NoBarrier
 
+	; If previously hitting a moving barrier, clear all flags
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #PhysicsObjHitMovingBarrier, d0
+	beq    @NotHittingBarrier
+	move.b #0x0, PhysicsObj_HitWall(a0)
+	@NotHittingBarrier:
+
 	;==============================================================
 	
 	; Get floor probe Y
@@ -1415,26 +1442,12 @@ PhysicsObjFindMovingBarrier:
 	move.w d2, d1						; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
 
-	; Check if Y within collision map bounds
-	cmp.w  #0x0, d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapHeight(a1), d2
-	sub.w  #0x1, d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
-
 	;==============================================================
 	
 	LIST_GET_HEAD MovingBarriers,a3	; Get list head
 	@BarrierLp:						; For all barriers in list
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
-
-	; Ignore stationary barriers
-	move.l Barrier_VelX(a3), d2
-	cmp.l  #0x0, d2
-	beq    @NextBarrier
 
 	; Ignore barriers shorter than min wall height
 	move.w Barrier_Height(a3), d3
@@ -1467,15 +1480,8 @@ PhysicsObjFindMovingBarrier:
 	add.w  Entity_Width(a0), d2			; Right hand side
 
 	@EndHeadingTest:
-	
-	; Check if X within collision map bounds
-	cmp.w  #0x0, d2
-	blt    @ProbeOutOfBounds
-	move.w Level_MapWidth(a1), d3
-	TILES2PIXELS d3
-	cmp.w  d3, d2
-	bge    @NextBarrier
 
+	; Set object wall probe X
 	swap   d1
 	move.w d2, d1	; X to upper d1
 	swap   d1		; Y to lower d1
@@ -1504,7 +1510,7 @@ PhysicsObjFindMovingBarrier:
 	move.w Barrier_PosX(a3), d2				; Get X (top word = integer part)
 	sub.w  #vdp_sprite_border_x, d2			; To screen space
 
-	; Get wall probe X
+	; Get object wall probe X
 	swap   d1
 	move.w d1, d0
 	swap   d1
@@ -1541,6 +1547,12 @@ PhysicsObjFindMovingBarrier:
 	;==============================================================
 
 	@FoundBarrier:
+	
+	; Set last found wall
+	move.l d4, PhysicsObj_LastWall(a0)
+	
+	; Zero X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
 
 	; Determine X direction
 	move.l Barrier_VelX(a3), d1
@@ -1553,8 +1565,8 @@ PhysicsObjFindMovingBarrier:
 	; Heading right, clamp object left
 	move.l d4, Entity_WorldPosX(a0)
 
-	; Wall hit
-	move.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	; Barrier hit
+	ori.b  #(PhysicsObjHitWallLeft|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 	
 	bra    @EndWallClamp
 	
@@ -1569,17 +1581,21 @@ PhysicsObjFindMovingBarrier:
 	; Clamp
 	move.l d4, Entity_WorldPosX(a0)
 
-	; Wall hit
-	move.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	; Barrier hit
+	ori.b  #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 	
-	@EndWallClamp:
+	bra    @EndWallClamp
 	
-	; Zero X velocity
-	move.l #0x0, PhysicsObj_VelX(a0)
-
 	@NoWallFound:
 	@NoBarrier:
-	@ProbeOutOfBounds:
+	
+	; If originally touching a wall, wake physics to re-check static walls
+	tst.l  PhysicsObj_LastWall(a0)
+	beq    @NoChange
+	move.b #0x0, PhysicsObj_Asleep(a0)
+	@NoChange:
+	
+	@EndWallClamp:
 
 	rts
 	
@@ -1728,8 +1744,8 @@ PhysicsObjPushPullObj:
 	; Check if can be pushed, and not hitting wall to the left
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	cmp.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a2)
-	beq    @CannotPush
+	btst.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a2)
+	bne    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -1770,8 +1786,8 @@ PhysicsObjPushPullObj:
 	; Check if can be pushed, and not hitting wall to the right
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	cmp.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a2)
-	beq    @CannotPush
+	btst.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a2)
+	bne    @CannotPush
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
