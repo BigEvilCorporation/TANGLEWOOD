@@ -13,6 +13,9 @@ entity_type_animobj   	equ (1<<2)
 entity_type_character 	equ (1<<3)
 entity_type_pickup    	equ (1<<4)
 
+; entity name length
+entity_name_length		equ 0x10
+
 ; Serialisation
 serialise_dir_in		equ 0x0
 serialise_dir_out		equ 0x1

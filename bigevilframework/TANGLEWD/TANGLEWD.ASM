@@ -7,15 +7,12 @@
 ;==============================================================
 
 __start
-	
+
 	; Include build config
 	include 'bldconf.asm'
 
 	; Include SEGA Genesis ROM header and CPU vector table
 	include 'header.asm'
-	
-	; Include framework macros
-	include '..\framewk\macros.asm'
 	
 	; Include framework containers
 	include '..\framewk\linklist.asm'
@@ -25,6 +22,10 @@ __start
 	
 	; Include interrupts
 	include 'interpts.asm'
+
+	; Include framework macros and constants
+	include '..\framewk\macros.asm'
+	include '..\framewk\globals.asm'
 
 	; Include framework code
 	include '..\framewk\dmaqueue.asm'
@@ -59,8 +60,9 @@ __start
 	include '..\framewk\profile.asm'	; NOT FOR RELEASE
 	ENDIF
 	
-	; Include GameLib macros
+	; Include GameLib macros and constants
 	include '..\gamelib\macros.asm'
+	include '..\gamelib\globals.asm'
 	
 	; Include Entity derivatives in inheritance order
 	include '..\gamelib\entity.asm'
@@ -76,7 +78,6 @@ __start
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
 	include '..\gamelib\colour.asm'
-	include '..\gamelib\globals.asm'
 	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\pickup.asm'
@@ -387,7 +388,6 @@ __vinterrupt:
 
 	; Include framework data
 	include '..\framewk\initdata.asm'
-	include '..\framewk\globals.asm'
 	include '..\framewk\charmap.asm'
 	include '..\framewk\sintable.asm'
 	include '..\framewk\costable.asm'

@@ -8,6 +8,10 @@
 
 	rsset 0
 ;-----------------------------
+	IFND FINAL
+Entity_DebugName        rs.b entity_name_length ; Debug name string
+	ENDIF
+;-----------------------------
 Entity_TypeBits         rs.l 1 ; Entity type bits
 ;-----------------------------
 Entity_UpdateRoutine	rs.l 1 ; Update subroutine address

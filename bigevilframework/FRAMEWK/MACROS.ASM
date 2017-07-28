@@ -75,6 +75,14 @@ MEMCPYW: macro destreg,sourcereg,countreg
 	move.w (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
 	endm
+
+; Copy memory (bytes)
+MEMCPYB: macro destreg,sourcereg,countreg
+	subi.w #0x1, \countreg
+	@MEMCPYB_LP\@:
+	move.b (\sourcereg)+, (\destreg)+
+	dbra   \countreg, @MEMCPYB_LP\@
+	endm
 	
 ; Zero memory (longwords)
 MEMZEROL: macro addressreg,countreg
