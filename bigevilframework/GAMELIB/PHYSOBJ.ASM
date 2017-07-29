@@ -1763,7 +1763,7 @@ PhysicsObjPushPullObj:
 	swap   d5								; Get pusher's left bound
 	sub.w  PhysicsObj_BoundsWidth(a2), d5	; Sub pushee's bounds width to get new left
 	sub.w  PhysicsObj_BoundsLeft(a2), d5	; Sub pushee's left bound to get new X pos
-	sub.w  #0x1, d5							; -1
+	;sub.w  #0x1, d5							; -1
 	
 	bra @EndPenetration
 
