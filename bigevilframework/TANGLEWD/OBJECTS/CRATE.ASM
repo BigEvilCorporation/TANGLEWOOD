@@ -147,6 +147,8 @@ CrateUpdate:
 	;==============================================================
 
 	; Play push SFX
+	tst.b   PhysicsObj_CloseToFloor(a0)
+	beq     @NoPushSFX
 	move.l  PhysicsObj_VelX(a0), d0
 	cmp.l   #Crate_PushSFXVel, d0
 	bgt     @PlayPushSFX

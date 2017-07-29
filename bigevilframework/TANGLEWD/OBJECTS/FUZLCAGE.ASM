@@ -234,11 +234,23 @@ FuzzlCageUpdate:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
 
+	bra    @End
+
+	@Smashed:
+
+	; No longer physical, just update animation
+	jsr    AnimObjUpdate
+
+	@OutOfView:
+	@End:
+
 	;==============================================================
 
 	; Play push SFX
-	cmp.b   #0x0, FuzzlCage_Smashed(a0)
-	bne     @EndPushSFX
+	tst.b   FuzzlCage_Smashed(a0)
+	bne     @NoPushSFX
+	tst.b   PhysicsObj_CloseToFloor(a0)
+	beq     @NoPushSFX
 	move.l  PhysicsObj_VelX(a0), d0
 	cmp.l   #Crate_PushSFXVel, d0
 	bgt     @PlayPushSFX
@@ -256,16 +268,6 @@ FuzzlCageUpdate:
 	jsr     SND_StopSFX
 	move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
 	@EndPushSFX:
-
-	bra    @End
-
-	@Smashed:
-
-	; No longer physical, just update animation
-	jsr    AnimObjUpdate
-
-	@OutOfView:
-	@End:
 
 	rts
 

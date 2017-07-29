@@ -83,6 +83,8 @@ SFX_Data_FuzzlDrop:			include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
 SFX_Data_FuzzlAlert:		include 'assets\audio\SFX\fuzzl\fuzlalrt.asm'
 SFX_Data_FuzzlInNest:		include 'assets\audio\SFX\fuzzl\fuzlnest.asm'
 SFX_Data_FuzzlJump:			include 'assets\audio\SFX\fuzzl\fuzljump.asm'
+SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
+SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
 SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep2.asm'
@@ -194,6 +196,20 @@ SFX_FuzzlJump
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_LiftWinchSlow
+	dc.l SFX_Data_LiftWinchSlow		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	even
+
+SFX_LiftWinchFast
+	dc.l SFX_Data_LiftWinchFast		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
 	even
 
 SFX_NymnColourSwitch:

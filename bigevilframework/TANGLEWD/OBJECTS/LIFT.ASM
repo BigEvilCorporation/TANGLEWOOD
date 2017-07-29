@@ -29,6 +29,8 @@ Lift_RopePosOffsetY		equ -(Rope_Height)*subpixels_per_pixel
 
 Lift_MaxRopeAnimFrameDist	equ Rope_Width
 
+Lift_WinchSFXFastVel	equ 0x00020000
+
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
 Lift_Platform				rs.b Platform_Struct_Size
@@ -75,7 +77,7 @@ LiftInit:
 	move.b  #0x0, PhysicsObj_CollidePlatforms(a0)
 	move.w  #Lift_Width, Entity_Width(a0)
 	move.w  #Lift_Height, Entity_Height(a0)
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	move.w  #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
@@ -505,6 +507,7 @@ LiftUpdate:
 	cmp.l  d0, d1
 	blt    @WithinRopeTop
 	move.l d1, Entity_WorldPosY(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 	@WithinRopeTop:
 
 	@NoRestrictHeight:
@@ -512,6 +515,27 @@ LiftUpdate:
 	;==============================================================
 
 	@EndCounterweight:
+
+	;==============================================================
+
+	; If has a counterweight, let the counterweight process audio
+	tst.l   Lift_CounterWeight(a0)
+	bne     @NoWinchSFX
+	move.l  PhysicsObj_VelY(a0), d0
+	tst.l   d0
+	beq     @NoWinchSFX
+	cmp.l   #Lift_WinchSFXFastVel, d0
+	bgt     @FastWinchSFX
+	cmp.l   #-Lift_WinchSFXFastVel, d0
+	bgt     @SlowWinchSFX
+	@FastWinchSFX:
+	PLAYSFX #SFX_LiftWinchFast
+	bra     @EndWinchSFX
+
+	@SlowWinchSFX:
+	PLAYSFX #SFX_LiftWinchSlow
+	@EndWinchSFX:
+	@NoWinchSFX:
 	
 	POPL   a1
 	
