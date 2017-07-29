@@ -10,7 +10,7 @@
 Button_MaxEntities		equ 0x8
 Button_Width			equ 0x40
 Button_Height			equ 0x08
-Button_PressSpeed		equ 0x00001000
+Button_PressSpeed		equ 0x00004000
 Button_PressHeightMaxActive		equ 0x00030000
 Button_PressHeightMaxInactive	equ 0x00010000
 Button_MinMass			equ 0x4	; Minimum mass required to push the button
@@ -104,6 +104,15 @@ ButtonUpdate:
 	cmp.w  #Button_MinMass, Platform_TotalMass(a2)
 	blt    @Unoccupied
 
+	; If at zero height and pressed whilst inactive, play fail SFX
+	tst.l  d0
+	bne    @NotAtTop
+	tst.b  Button_Active(a0)
+	bne    @Active
+	PLAYSFX #SFX_ButtonFail
+	@NotAtTop:
+	@Active:
+
 	; Player on button, move platform down
 	add.l  #Button_PressSpeed, d0
 
@@ -113,12 +122,12 @@ ButtonUpdate:
 
 	; Filter trigger events
 	cmp.b  #0x0, Button_Pressed(a0)
-	bne    @End
+	bne    @EndPress
 
 	; Trigger
 	move.l Button_OnDown(a0), a2
 	cmp.l  #0x0, a2
-	beq    @End
+	beq    @EndPress
 	PUSHL  a0
 	move.l Button_UserData(a0), a0
 	jsr    (a2)
@@ -129,7 +138,9 @@ ButtonUpdate:
 
 	@NoTrigger:
 
-	bra    @End
+	bra    @EndPress
+
+	;==============================================================
 	
 	@Unoccupied:
 
@@ -138,12 +149,12 @@ ButtonUpdate:
 
 	; Filter trigger events
 	cmp.b  #0x0, Button_Pressed(a0)
-	beq    @End
+	beq    @EndPress
 
 	; Un-trigger
 	move.l Button_OnUp(a0), a2
 	cmp.l  #0x0, a2
-	beq    @End
+	beq    @EndPress
 	PUSHL  a0
 	move.l Button_UserData(a0), a0
 	jsr    (a2)
@@ -152,7 +163,7 @@ ButtonUpdate:
 	; Set depressed
 	move.b #0x0, Button_Pressed(a0)
 
-	@End:
+	@EndPress:
 
 	;==============================================================
 

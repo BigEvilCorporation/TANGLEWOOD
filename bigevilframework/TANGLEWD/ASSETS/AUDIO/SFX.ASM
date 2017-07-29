@@ -8,6 +8,7 @@ AmbientSFXCount		equ 0x02
 
 ; Default priorities
 SFX_Priority_Highest		equ 0x00
+SFX_Priority_High			equ 0x20
 SFX_Priority_Default		equ 0x30
 SFX_Priority_Water			equ 0x40
 SFX_Priority_Ambience		equ 0x50
@@ -74,6 +75,7 @@ SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
 SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
+SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
 SFX_Data_FireflyCollectAll:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_MushroomBounce:	include 'assets\audio\SFX\objects\mushroom.asm'
@@ -112,14 +114,14 @@ SFX_FlueOut:
 
 SFX_BridgeFall:
 	dc.l SFX_Data_BridgeFall		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
 	even
 
 SFX_BridgeRoll:
 	dc.l SFX_Data_BridgeRoll		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
 	even
@@ -133,6 +135,13 @@ SFX_BoulderRoll:
 
 SFX_BoulderBreak:
 	dc.l SFX_Data_BoulderBreak		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_ButtonFail:
+	dc.l SFX_Data_ButtonFail		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
