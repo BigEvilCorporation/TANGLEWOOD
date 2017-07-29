@@ -147,6 +147,9 @@ Generator_Activate:
 	POPL   a0
 	@NoCallback:
 
+	; Play SFX
+	PLAYSFX #SFX_GeneratorOn
+
 	@AlreadyRunning:
 
 	rts

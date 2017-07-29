@@ -83,6 +83,7 @@ SFX_Data_FuzzlDrop:			include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
 SFX_Data_FuzzlAlert:		include 'assets\audio\SFX\fuzzl\fuzlalrt.asm'
 SFX_Data_FuzzlInNest:		include 'assets\audio\SFX\fuzzl\fuzlnest.asm'
 SFX_Data_FuzzlJump:			include 'assets\audio\SFX\fuzzl\fuzljump.asm'
+SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
@@ -193,6 +194,13 @@ SFX_FuzzlInNest:
 
 SFX_FuzzlJump
 	dc.l SFX_Data_FuzzlJump			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_GeneratorOn
+	dc.l SFX_Data_GeneratorOn		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

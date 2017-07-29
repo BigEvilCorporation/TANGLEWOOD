@@ -685,9 +685,6 @@ FuzzlFindGenerator:
 	; Don't update when out of view
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	
-	; Play enter generator SFX
-	PLAYSFX #SFX_FuzzlInNest
-	
 	; Found generator, finish
 	move.b  #0x1, d7
 	bra @End
