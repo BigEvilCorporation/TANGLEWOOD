@@ -518,6 +518,10 @@ LiftUpdate:
 
 	;==============================================================
 
+	; Don't play SFX during time slow
+	cmp.b   #0x1, (GlobalTimeDiv)
+	bne     @NoWinchSFX
+
 	; If has a counterweight, let the counterweight process audio
 	tst.l   Lift_CounterWeight(a0)
 	bne     @NoWinchSFX
