@@ -171,6 +171,10 @@ l3a1_Init:
 	
 	move.l #LevelData_L1A1, a2
 	move.b #0x1, l3a1Data_WaitingInput(a2)
+
+	; Start level intro tune
+	lea    track_bgm_dawn, a0
+	jsr    SND_PlayTrack
 	
 	rts
 	

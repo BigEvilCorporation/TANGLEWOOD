@@ -147,25 +147,23 @@ CrateUpdate:
 	;==============================================================
 
 	; Play push SFX
-	; cmp.b   #0x0, Crate_Smashed(a0)
-	; bne     @EndRollSFX
-	; move.l  PhysicsObj_VelX(a0), d0
-	; cmp.l   #Crate_PushSFXVel, d0
-	; bgt     @PlayRollSFX
-	; cmp.l   #-Crate_PushSFXVel, d0
-	; blt     @PlayRollSFX
-	; bra     @NoRollSFX
-	; @PlayRollSFX:
-	; PLAYSFX #SFX_CrateRoll
-	; move.b  #0x1, Crate_PushSFXPlaying(a0)
-	; bra     @EndRollSFX
+	move.l  PhysicsObj_VelX(a0), d0
+	cmp.l   #Crate_PushSFXVel, d0
+	bgt     @PlayPushSFX
+	cmp.l   #-Crate_PushSFXVel, d0
+	blt     @PlayPushSFX
+	bra     @NoPushSFX
+	@PlayPushSFX:
+	PLAYSFX #SFX_BoulderRoll
+	move.b  #0x1, Crate_PushSFXPlaying(a0)
+	bra     @EndPushSFX
 
-	; @NoRollSFX:
-	; cmp.b   #0x0, Crate_PushSFXPlaying(a0)
-	; beq     @EndRollSFX
-	; jsr     SND_StopSFX
-	; move.b  #0x0, Crate_PushSFXPlaying(a0)
-	; @EndRollSFX:
+	@NoPushSFX:
+	cmp.b   #0x0, Crate_PushSFXPlaying(a0)
+	beq     @EndPushSFX
+	jsr     SND_StopSFX
+	move.b  #0x0, Crate_PushSFXPlaying(a0)
+	@EndPushSFX:
 
 	rts
 	

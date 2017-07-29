@@ -234,30 +234,30 @@ FuzzlCageUpdate:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
 
-	bra    @End
-
 	;==============================================================
 
 	; Play push SFX
-	; cmp.b   #0x0, FuzzlCage_Smashed(a0)
-	; bne     @EndRollSFX
-	; move.l  PhysicsObj_VelX(a0), d0
-	; cmp.l   #FuzzlCage_PushSFXVel, d0
-	; bgt     @PlayRollSFX
-	; cmp.l   #-FuzzlCage_PushSFXVel, d0
-	; blt     @PlayRollSFX
-	; bra     @NoRollSFX
-	; @PlayRollSFX:
-	; PLAYSFX #SFX_FuzzlCageRoll
-	; move.b  #0x1, FuzzlCage_PushSFXPlaying(a0)
-	; bra     @EndRollSFX
+	cmp.b   #0x0, FuzzlCage_Smashed(a0)
+	bne     @EndPushSFX
+	move.l  PhysicsObj_VelX(a0), d0
+	cmp.l   #Crate_PushSFXVel, d0
+	bgt     @PlayPushSFX
+	cmp.l   #-Crate_PushSFXVel, d0
+	blt     @PlayPushSFX
+	bra     @NoPushSFX
+	@PlayPushSFX:
+	PLAYSFX #SFX_BoulderRoll
+	move.b  #0x1, FuzzlCage_PushSFXPlaying(a0)
+	bra     @EndPushSFX
 
-	; @NoRollSFX:
-	; cmp.b   #0x0, FuzzlCage_PushSFXPlaying(a0)
-	; beq     @EndRollSFX
-	; jsr     SND_StopSFX
-	; move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
-	; @EndRollSFX:
+	@NoPushSFX:
+	cmp.b   #0x0, FuzzlCage_PushSFXPlaying(a0)
+	beq     @EndPushSFX
+	jsr     SND_StopSFX
+	move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
+	@EndPushSFX:
+
+	bra    @End
 
 	@Smashed:
 
