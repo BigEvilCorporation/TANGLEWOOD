@@ -295,12 +295,6 @@ PlayerUpdate:
 	jsr    PlayerUpdateIdleSnooze
 	@NotSnoozing:
 
-	; Process interations
-	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
-	beq    @NotInteracting
-	jsr    PlayerUpdateInteract
-	@NotInteracting:
-
 	; Process special colour ability
 	jsr    PlayerUpdateColourAbility
 	
@@ -323,6 +317,9 @@ PlayerUpdate:
 	
 	; Base functionality
 	jsr    CharacterUpdate
+
+	; Process pushing objects after physics update
+	jsr    PlayerUpdatePushInteract
 
 	IF PLAYER_DEBUG
 
@@ -1599,7 +1596,7 @@ PlayerStartInteract:
 	
 	rts
 
-PlayerUpdateInteract:
+PlayerUpdatePushInteract:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
