@@ -258,6 +258,27 @@ LogUpdate:
 	@NoDamage:
 	@NotHazardous:
 
+	;==============================================================
+
+	; Play roll SFX
+	move.l  PhysicsObj_VelX(a0), d0
+	cmp.l   #Boulder_RollSFXVel, d0
+	bgt     @PlayRollSFX
+	cmp.l   #-Boulder_RollSFXVel, d0
+	blt     @PlayRollSFX
+	bra     @NoRollSFX
+	@PlayRollSFX:
+	PLAYSFX #SFX_BoulderRoll
+	move.b  #0x1, Log_RollSFXPlaying(a0)
+	bra     @EndRollSFX
+
+	@NoRollSFX:
+	cmp.b   #0x0, Log_RollSFXPlaying(a0)
+	beq     @EndRollSFX
+	jsr     SND_StopSFX
+	move.b  #0x0, Log_RollSFXPlaying(a0)
+	@EndRollSFX:
+
 	rts
 
 LogSerialise:
