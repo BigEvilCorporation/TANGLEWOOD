@@ -584,6 +584,9 @@ BridgeBeginRoll:
 	; Set rolling state
 	move.b #Bridge_StateRolling, Bridge_State(a0)
 
+	; Begin SFX
+	PLAYSFX #SFX_BridgeRoll
+
 	rts
 
 BridgeBeginUnroll:
@@ -596,6 +599,9 @@ BridgeBeginUnroll:
 
 	; Set unrolling state
 	move.b #Bridge_StateUnrolling, Bridge_State(a0)
+
+	; Begin SFX
+	PLAYSFX #SFX_BridgeRoll
 
 	rts
 
