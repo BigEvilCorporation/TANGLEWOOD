@@ -615,6 +615,9 @@ BridgeBeginDrop:
 	move.w #0x0, d4
 	jsr    CAM_StartCameraShake
 
+	; Begin SFX
+	PLAYSFX #SFX_BridgeFall
+
 	rts
 
 BridgeUpdateRoll:
@@ -805,6 +808,9 @@ BridgeUpdateDropping:
 	add.l  d4, d1
 	move.l d1, Platform_PosX(a2)
 
+	; Play SFX
+	PLAYSFX #SFX_BridgeFall
+
 	bra    @End
 
 	@FinishedDropping:
@@ -814,6 +820,9 @@ BridgeUpdateDropping:
 
 	; Stop camera shake
 	jsr    CAM_StopCameraShake
+
+	; Stop SFX
+	jsr    SND_StopSFX
 
 	; Set dropped state
 	move.b #Bridge_StateDropped, Bridge_State(a0)

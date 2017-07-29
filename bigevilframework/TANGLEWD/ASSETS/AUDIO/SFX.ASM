@@ -70,6 +70,7 @@ SFX_Data_Nymn_Call_Long:
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
+SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridgelp.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
@@ -106,6 +107,13 @@ SFX_FlueOut:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BridgeFall:
+	dc.l SFX_Data_BridgeFall		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
 	even
 
 SFX_BoulderRoll:
