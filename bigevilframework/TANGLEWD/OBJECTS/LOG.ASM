@@ -268,7 +268,13 @@ LogUpdate:
 	blt     @PlayRollSFX
 	bra     @NoRollSFX
 	@PlayRollSFX:
+	tst.b   Log_Hazardous(a0)
+	bne     @Hazardous
 	PLAYSFX #SFX_BoulderRoll
+	move.b  #0x1, Log_RollSFXPlaying(a0)
+	bra     @EndRollSFX
+	@Hazardous:
+	PLAYSFX #SFX_BridgeFall
 	move.b  #0x1, Log_RollSFXPlaying(a0)
 	bra     @EndRollSFX
 
