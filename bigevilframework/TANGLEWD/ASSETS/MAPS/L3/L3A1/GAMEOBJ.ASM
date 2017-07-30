@@ -77,12 +77,14 @@ L3A1_FuzzlCaged3_name	dc.b "L3A1_FuzzlCaged3",0
 	even
 	ENDIF
 
-L3A1_Stone_count equ 0x5
+L3A1_Stone_count equ 0x7
 L3A1_Stone_36_idx	equ 0x0
 L3A1_Stone_41_idx	equ 0x1
 L3A1_Stone_51_idx	equ 0x2
 L3A1_Stone_50_idx	equ 0x3
 L3A1_Stone_53_idx	equ 0x4
+L3A1_Stone_54_idx	equ 0x5
+L3A1_Stone_55_idx	equ 0x6
 
 	IFND FINAL
 L3A1_Stone_36_name	dc.b "L3A1_Stone_36",0
@@ -90,6 +92,8 @@ L3A1_Stone_41_name	dc.b "L3A1_Stone_41",0
 L3A1_Stone_51_name	dc.b "L3A1_Stone_51",0
 L3A1_Stone_50_name	dc.b "L3A1_Stone_50",0
 L3A1_Stone_53_name	dc.b "L3A1_Stone_53",0
+L3A1_Stone_54_name	dc.b "L3A1_Stone_54",0
+L3A1_Stone_55_name	dc.b "L3A1_Stone_55",0
 	even
 	ENDIF
 
@@ -416,7 +420,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 	jsr FuzzlCageInit
-	move.l #0x0ea00000, Entity_WorldPosX(a0)
+	move.l #0x10400000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCage2_name, a3
@@ -428,8 +432,8 @@ L3A1_LoadGameObjects:
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 	jsr FuzzlCageInit
-	move.l #0x11f00000, Entity_WorldPosX(a0)
-	move.l #0x03a00000, Entity_WorldPosY(a0)
+	move.l #0x0f200000, Entity_WorldPosX(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCage3_name, a3
 	move.l a0, a2
@@ -454,7 +458,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x0eb00000, Entity_WorldPosX(a0)
+	move.l #0x10500000, Entity_WorldPosX(a0)
 	move.l #0x04600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCaged2_name, a3
@@ -466,8 +470,8 @@ L3A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x12000000, Entity_WorldPosX(a0)
-	move.l #0x03b00000, Entity_WorldPosY(a0)
+	move.l #0x0f300000, Entity_WorldPosX(a0)
+	move.l #0x03a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCaged3_name, a3
 	move.l a0, a2
@@ -532,6 +536,30 @@ L3A1_LoadGameObjects:
 	move.l #0x05c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Stone_53_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x11d80000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_Stone_54_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x10c00000, Entity_WorldPosX(a0)
+	move.l #0x05700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_Stone_55_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -656,8 +684,8 @@ L3A1_LoadGameObjects:
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 	jsr CrateInit
-	move.l #0x11300000, Entity_WorldPosX(a0)
-	move.l #0x04500000, Entity_WorldPosY(a0)
+	move.l #0x0fe80000, Entity_WorldPosX(a0)
+	move.l #0x04180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Crate_43_name, a3
 	move.l a0, a2
@@ -682,7 +710,7 @@ L3A1_LoadGameObjects:
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 	jsr GeneratorInit
-	move.l #0x11900000, Entity_WorldPosX(a0)
+	move.l #0x0fd00000, Entity_WorldPosX(a0)
 	move.l #0x04600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Generator2_name, a3
@@ -721,7 +749,7 @@ L3A1_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 	jsr CogsInit
-	move.l #0x11a80000, Entity_WorldPosX(a0)
+	move.l #0x0fe80000, Entity_WorldPosX(a0)
 	move.l #0x03f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Cogs2_name, a3
@@ -759,7 +787,7 @@ L3A1_LoadGameObjects:
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 	jsr BridgeInit
-	move.l #0x0f680000, Entity_WorldPosX(a0)
+	move.l #0x10e00000, Entity_WorldPosX(a0)
 	move.l #0x04780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Bridge2_name, a3
@@ -770,6 +798,7 @@ L3A1_LoadGameObjects:
 	ENDIF
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 	jsr BridgeInit
@@ -800,7 +829,7 @@ L3A1_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x10300000, Entity_WorldPosX(a0)
+	move.l #0x10900000, Entity_WorldPosX(a0)
 	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Button2_name, a3
