@@ -87,6 +87,7 @@ UIWidgetTextRender:
 	lsr.w   #0x3, d1							; Pixels to tiles
 
 	move.w UIWidgetText_FontAddrVRAM(a0), d0	; Font (VRAM)
+	divu.w #size_tile_b, d0						; To tiles
 	move.b UIWidgetText_Palette(a0), d2			; Palette
 	move.b UIWidgetText_DrawPlane(a0), d3		; Plane
 	move.l  UIWidgetText_StringAddr(a0), a0		; String
