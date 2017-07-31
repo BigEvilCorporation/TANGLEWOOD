@@ -38,6 +38,13 @@ MenuBgFadeDelay		equ 0x0080
 MainMenuLogoPosX	equ 18*8*subpixels_per_pixel
 MainMenuLogoPosY	equ 36*8*subpixels_per_pixel
 
+; UI strings
+MainMenu_Str_Demo_Harlequin		dc.b "Chapter 1 : Harlequin",0
+MainMenu_Str_Demo_Heritage		dc.b "Chapter 3 : Heritage",0
+MainMenu_Str_Options			dc.b "Options",0
+MainMenu_Str_Credits			dc.b "Credits",0
+	even
+
 ; Struct
 	rsset	0x0
 ;---------------------------------
@@ -58,15 +65,11 @@ GameStateMainMenu:
 	
 MainMenu_Enter:
 
-	; Clear all palettes
-	jsr    PAL_ClearAll
-
-	; Clear planes
-	jsr    VDP_ClearMapPlaneA
-	jsr    VDP_ClearMapPlaneB
-
-	; Clear VRAM pools
-	jsr    VRAM_ClearPools
+	; Reset
+	PUSHL  a0
+	move.b #GamestateReset_ResetAudio, d0
+	jsr    GameStateReset
+	POPL   a0
 
 	;==============================================================
 	
@@ -135,6 +138,11 @@ MainMenu_Enter:
 
 	; Load scene animations
 	jsr    L1_LoadSceneAnimations
+
+	;==============================================================
+
+	; Init UI
+	jsr    MainMenu_InitUI
 
 	;==============================================================
 
@@ -323,3 +331,71 @@ MainMenu_Render:
 	
 	rts
 	
+MainMenu_InitUI:
+
+	; Create UI window
+	move.l #EntityArray_UIWindow, a0
+	jsr    UIWindowInit
+
+	; Create widgets and add to window
+	PUSHL  a0
+	move.l #WidgetArray_Text, a0
+	jsr    UIWidgetTextInit
+	move.l #MainMenu_Str_Demo_Harlequin, a1
+	move.w (vram_addr_systemfont), d0
+	move.b #0x0, d1
+	move.b #0x0, d2
+	jsr    UIWidgetTextSetString
+	move.w #0x30, UIWidget_PositionX(a0)
+	move.w #0x30, UIWidget_PositionY(a0)
+	move.l a0, a1
+	POPL   a0
+
+	jsr    UIWindowAddWidget
+
+	PUSHL  a0
+	move.l #WidgetArray_Text+UIWidgetText_Struct_Size, a0
+	jsr    UIWidgetTextInit
+	move.l #MainMenu_Str_Demo_Heritage, a1
+	move.w (vram_addr_systemfont), d0
+	move.b #0x0, d1
+	move.b #0x0, d2
+	jsr    UIWidgetTextSetString
+	move.w #0x30, UIWidget_PositionX(a0)
+	move.w #0x40, UIWidget_PositionY(a0)
+	move.l a0, a1
+	POPL   a0
+	
+	jsr    UIWindowAddWidget
+
+	PUSHL  a0
+	move.l #WidgetArray_Text+(UIWidgetText_Struct_Size*2), a0
+	jsr    UIWidgetTextInit
+	move.l #MainMenu_Str_Options, a1
+	move.w (vram_addr_systemfont), d0
+	move.b #0x0, d1
+	move.b #0x0, d2
+	jsr    UIWidgetTextSetString
+	move.w #0x30, UIWidget_PositionX(a0)
+	move.w #0x50, UIWidget_PositionY(a0)
+	move.l a0, a1
+	POPL   a0
+	
+	jsr    UIWindowAddWidget
+
+	PUSHL  a0
+	move.l #WidgetArray_Text+(UIWidgetText_Struct_Size*3), a0
+	jsr    UIWidgetTextInit
+	move.l #MainMenu_Str_Credits, a1
+	move.w (vram_addr_systemfont), d0
+	move.b #0x0, d1
+	move.b #0x0, d2
+	jsr    UIWidgetTextSetString
+	move.w #0x30, UIWidget_PositionX(a0)
+	move.w #0x60, UIWidget_PositionY(a0)
+	move.l a0, a1
+	POPL   a0
+	
+	jsr    UIWindowAddWidget
+
+	rts
