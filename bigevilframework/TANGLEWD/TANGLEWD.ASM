@@ -95,6 +95,11 @@ __start
 	include '..\gamelib\debug.asm'		; NOT FOR RELEASE
 	ENDIF
 
+	; Include UI code
+	include '..\gamelib\uiwidget.asm'
+	include '..\gamelib\uiwindow.asm'
+	include '..\gamelib\uitext.asm'
+
 	; Include GameObject derivatives
 	IFND DEBUG
 	include 'objects\monster.asm'

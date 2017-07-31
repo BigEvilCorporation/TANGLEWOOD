@@ -373,7 +373,7 @@ EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
 EntityArray_FuzzlCage   rs.b (FuzzlCage_Struct_Size*FuzzlCage_MaxEntities)
 EntityArray_Generator   rs.b (Generator_Struct_Size*Generator_MaxEntities)
 EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
-EntityArray_Log        rs.b (Log_Struct_Size*Leaf_MaxEntities)
+EntityArray_Log         rs.b (Log_Struct_Size*Leaf_MaxEntities)
 EntityArray_Nest        rs.b (Nest_Struct_Size*Nest_MaxEntities)
 EntityArray_TriggerBox  rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
 EntityArray_Checkpoint  rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
@@ -390,6 +390,7 @@ EntityArray_BouncePlant rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
 EntityArray_Stone       rs.b (Stone_Struct_Size*Stone_MaxEntities)
 EntityArray_Deathbox    rs.b (Deathbox_Struct_Size*Deathbox_MaxEntities)
 EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
+EntityArray_UIWindow    rs.b (VfxObj_Struct_Size*UIWindow_MaxEntities)
 	ENDIF
 
 EntityCount_Actor       rs.w 1
@@ -420,6 +421,13 @@ EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
 EntityCount_VFX         rs.w 1
+EntityCount_UIWindow    rs.w 1
+
+; ************************************
+; UI
+; ************************************
+WidgetArray_Text		rs.b (UIWidgetText_Struct_Size*UIWidgetText_MaxWidgets)
+WidgetCount_Text		rs.w 1
 
 reserved_ram_size		rs.b 0
 
