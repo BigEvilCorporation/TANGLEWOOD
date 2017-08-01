@@ -156,6 +156,8 @@ l3a2_Init:
 	; HACK: Update logs out of view to keep buttons down
 	ENTITY_GETBYNAME Log, l3a2_Log2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	ENTITY_GETBYNAME Button, l3a2_Button2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Init camera lerp timer
 	move.l #LevelData_L3A2, a2
