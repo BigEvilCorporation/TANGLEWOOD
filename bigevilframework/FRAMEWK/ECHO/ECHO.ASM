@@ -40,12 +40,16 @@ Echo_Z80Reset macro
 ;****************************************************************************
 
 Echo_SendCommand:
-    move.w  d1, -(sp)               ; Save register
-
+    movem.l d1/a1, -(sp)            ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
 
+    lea     ($A01FFF), a1           ; First try the 1st slot
+    tst.b   (a1)                    ; Is 1st slot available?
+    beq.s   @Ready                    ; If so, move on
+    subq.l  #4, a1                  ; Try 2nd slot otherwise
+
 @Try:
-    tst.b   ($A01FFF)               ; Check if Echo is ready
+    tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d1                  ; Give it some time
@@ -54,10 +58,10 @@ Echo_SendCommand:
     bra.s   @Try                      ; Try again
 
 @Ready:
-    move.b  d0, ($A01FFF)           ; Write command ID
+    move.b  d0, (a1)                ; Write command ID
     Echo_Z80Release                 ; We're done with the Z80 bus
 
-    move.w  (sp)+, d1               ; Restore register
+    movem.l (sp)+, d1/a1            ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -70,12 +74,16 @@ Echo_SendCommand:
 
 Echo_SendCommandAddr:
 Echo_SendCommandEx:
-    movem.l d0-d1, -(sp)            ; Save register
-
+    movem.l d0-d1/a1, -(sp)         ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
 
+    lea     ($A01FFF), a1           ; First try the 1st slot
+    tst.b   (a1)                    ; Is 1st slot available?
+    beq.s   @Ready                    ; If so, move on
+    subq.l  #4, a1                  ; Try 2nd slot otherwise
+
 @Try:
-    tst.b   ($A01FFF)               ; Check if Echo is ready
+    tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d1                  ; Give it some time
@@ -84,14 +92,14 @@ Echo_SendCommandEx:
     bra.s   @Try                      ; Try again
 
 @Ready:
-    move.b  d0, ($A01FFF)           ; Write command ID
+    move.b  d0, (a1)                ; Write command ID
 
     move.l  a0, d0                  ; Easier to manipulate here
-    move.b  d0, ($A01FFD)           ; Store low address byte
+    move.b  d0, -2(a1)              ; Store low address byte
     lsr.l   #7, d0                  ; Get high address byte
     lsr.b   #1, d0                    ; We skip one bit
     bset.l  #7, d0                    ; Point into bank window
-    move.b  d0, ($A01FFE)           ; Store high address byte
+    move.b  d0, -1(a1)              ; Store high address byte
 
     lsr.w   #8, d0                  ; Get bank byte
     move.w  d0, d1                    ; Parse 32X bit separately
@@ -99,11 +107,11 @@ Echo_SendCommandEx:
     and.b   #$7F, d0                  ; Filter out unused bit from addresses
     and.b   #$80, d1                  ; Filter out all but 32X bit
     or.b    d1, d0                    ; Put everything together
-    move.b  d0, ($A01FFC)           ; Store bank byte
+    move.b  d0, -3(a1)              ; Store bank byte
 
     Echo_Z80Release                 ; We're done with the Z80 bus
 
-    movem.l (sp)+, d0-d1            ; Restore register
+    movem.l (sp)+, d0-d1/a1         ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -115,11 +123,16 @@ Echo_SendCommandEx:
 ;****************************************************************************
 
 Echo_SendCommandByte:
+    movem.l d1/a1, -(sp)            ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
 
-    move.w  d1, -(sp)               ; Save register
+    lea     ($A01FFF), a1           ; First try the 1st slot
+    tst.b   (a1)                    ; Is 1st slot available?
+    beq.s   @Ready                    ; If so, move on
+    subq.l  #4, a1                  ; Try 2nd slot otherwise
+
 @Try:
-    tst.b   ($A01FFF)               ; Check if Echo is ready
+    tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d1                  ; Give it some time
@@ -128,11 +141,11 @@ Echo_SendCommandByte:
     bra.s   @Try                      ; Try again
 
 @Ready:
-    move.w  (sp)+, d1               ; Restore register
-    move.b  d0, ($A01FFF)           ; Write command ID
-    move.b  d1, ($A01FFC)           ; Write parameter
+    move.b  d0, (a1)                ; Write command ID
+    move.b  d1, -3(a1)              ; Write parameter
     Echo_Z80Release                 ; We're done with the Z80 bus
 
+    movem.l (sp)+, d1/a1            ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -147,6 +160,7 @@ Echo_PlaySFX:
     move.b  #$02, d0                ; Command $02 = play SFX
     bsr     Echo_SendCommandAddr    ; Send command to Echo
     move.w  (sp)+, d0               ; Restore register
+    
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -159,6 +173,7 @@ Echo_StopSFX:
     move.b  #$03, d0                ; Command $03 = stop SFX
     bsr     Echo_SendCommand        ; Send command to Echo
     move.w  (sp)+, d0               ; Restore register
+    
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -173,6 +188,7 @@ Echo_PlayBGM:
     move.b  #$04, d0                ; Command $04 = play BGM
     bsr     Echo_SendCommandAddr    ; Send command to Echo
     move.w  (sp)+, d0               ; Restore register
+    
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -183,6 +199,19 @@ Echo_PlayBGM:
 Echo_StopBGM:
     move.w  d0, -(sp)               ; Save register
     move.b  #$05, d0                ; Command $05 = stop BGM
+    bsr     Echo_SendCommand        ; Send command to Echo
+    move.w  (sp)+, d0               ; Restore register
+    
+    rts                             ; End of subroutine
+
+;****************************************************************************
+; Echo_PauseBGM
+; Pauses BGM playback
+;****************************************************************************
+
+Echo_PauseBGM:
+    move.w  d0, -(sp)               ; Save register
+    move.b  #$08, d0                ; Command $08 = pause BGM
     bsr     Echo_SendCommand        ; Send command to Echo
     move.w  (sp)+, d0               ; Restore register
     rts                             ; End of subroutine
@@ -311,10 +340,11 @@ Echo_SetVolume:
 ; Echo_SetVolumeEx
 ; Changes the global volume for each individual channel.
 ;
-; input a0.l ... Pointer to 13 bytes
+; input a0.l ... Pointer to 16 bytes
 ;                  8 bytes with FM volumes (0..127)
 ;                  4 bytes with PSG volumes (0..15)
 ;                  1 byte with PCM toggle (0/1)
+;                  3 reserved (unused for now)
 ;****************************************************************************
 
 Echo_SetVolumeEx:
@@ -335,6 +365,9 @@ Echo_SetVolumeEx:
     move.b  (a0)+, (a1)+              ; PSG channel 2
     move.b  (a0)+, (a1)+              ; PSG channel 3
     move.b  (a0)+, (a1)+              ; PCM channel toggle
+    move.b  (a0)+, (a1)+              ; (reserved)
+    move.b  (a0)+, (a1)+              ; (reserved)
+    move.b  (a0)+, (a1)+              ; (reserved)
     
     move.b  #1, ($A01FF1)           ; Tell Echo to update the volume levels
     
@@ -354,13 +387,15 @@ Echo_SetVolumeEx:
 ;****************************************************************************
 
 Echo_GetStatus:
-    moveq   #0, d0
+    movem.l d1/a1, -(sp)            ; Save registers
+
+    clr.w   d0                      ; Set all needed bits to 0
     Echo_Z80Request                 ; We need the Z80 bus
     move.b  ($A01FF0), d0           ; Get the status flags
 
-    tst.b   ($A01FFF)               ; Check if command still has to be parsed
-    beq.s   @NotBusy                ; Any commands left to be parsed?
-    bset.l  #15, d0                 ; If so, set the relevant flag
+    tst.b   ($A01FFB)               ; Check if any commands can be sent
+    beq.s   @NotBusy                ; Any room left for new commands?
+    bset.l  #15, d0                 ; If not, set the relevant flag
 @NotBusy:
 
     cmpi.b  #$FF, ($A01F00)         ; Check if the direct buffer is empty
@@ -368,7 +403,95 @@ Echo_GetStatus:
     bset.l  #14, d0                 ; If so, set the relevant flag
 @DirectEmpty:
 
+    moveq   #0, d1                  ; Clear unused bits from index
+    lea     @AndTable(pc), a1       ; Get pointer to look-up tables
+    
+    move.b  ($A01FFF), d1           ; Get next pending command (if any)
+    beq.s   @QueueChecked           ; No commands left to process?
+    move.b  (a1,d1.w), d1           ; Get mask of flags to leave
+    and.b   d1, d0                  ; Remove flags that should be clear
+    move.b  @OrTable-@AndTable(a1,d1.w), d1 ; Get mask of flags to set
+    or.b    d1, d0                  ; Insert flags that should be set
+
+    move.b  ($A01FFB), d1           ; Repeat that with 2nd pending command
+    beq.s   @QueueChecked
+    move.b  (a1,d1.w), d1
+    and.b   d1, d0
+    move.b  @OrTable-@AndTable(a1,d1.w), d1
+    or.b    d1, d0
+
+@QueueChecked:
     Echo_Z80Release                 ; Let the Z80 go!
+    movem.l (sp)+, d1/a1            ; Restore registers
+    rts                             ; End of subroutine
+
+;----------------------------------------------------------------------------
+; Look-up tables used to readjust the status flags based on pending commands
+; that haven't been processed yet (normally they wouldn't be updated yet, but
+; this can catch programmers off guard so we cheat it).
+;
+; Every byte represents a possible command.
+;----------------------------------------------------------------------------
+
+@AndTable:  dc.b $FF,$FF, $FF,$FE,$FF,$FD, $FF,$FF,$FF
+@OrTable:   dc.b $00,$00, $01,$00,$02,$00, $00,$00,$00
+            even
+
+;****************************************************************************
+; Echo_GetFlags
+; Gets the current values of the flags.
+;
+; output d0.b ... Bitmask with flags
+;****************************************************************************
+
+Echo_GetFlags:
+    Echo_Z80Request                 ; Request Z80 bus
+    move.b  ($A01FF2), d0           ; Get the flags
+    Echo_Z80Release                 ; Done with Z80 RAM
+    rts                             ; End of subroutine
+
+;****************************************************************************
+; Echo_SetFlags
+; Sets flags from the 68000.
+;
+; input d0.b ... Bitmask of flags to be set (1 = set, 0 = intact)
+;****************************************************************************
+
+Echo_SetFlags:
+    subq.w  #4, sp                  ; Buffer for the events
+    move.b  #$FA, (sp)                ; Set flags
+    move.b  d0, 1(sp)                 ; <bitmask>
+    move.b  #$FF, 2(sp)               ; End of stream
+    
+    move.l  a0, -(sp)               ; Issue the events
+    lea     4(sp), a0
+    bsr     Echo_PlayDirect
+    move.l  (sp)+, a0
+    
+    addq.w  #4, sp                  ; Done with the buffer
+    rts                             ; End of subroutine
+
+;****************************************************************************
+; Echo_ClearFlags
+; Clear flags from the 68000.
+;
+; input d0.b ... Bitmask of flags to be cleared (1 = clear, 0 = intact)
+;****************************************************************************
+
+Echo_ClearFlags:
+    not.b   d0                      ; Bitmask is inverted
+    subq.w  #4, sp                  ; Buffer for the events
+    move.b  #$FB, (sp)                ; Set flags
+    move.b  d0, 1(sp)                 ; <bitmask>
+    move.b  #$FF, 2(sp)               ; End of stream
+    not.b   d0                      ; Restore register
+    
+    move.l  a0, -(sp)               ; Issue the events
+    lea     4(sp), a0
+    bsr     Echo_PlayDirect
+    move.l  (sp)+, a0
+    
+    addq.w  #4, sp                  ; Done with the buffer
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -421,9 +544,9 @@ Echo_Init:
     or.b    d1, d0                    ; Put everything together
     move.b  d0, ($A01FFC)           ; Store bank byte
 
-    lea     Z80Program, a0          ; Where Z80 program starts
+    lea     Z80Program, a0     ; Where Z80 program starts
     lea     ($A00000), a1           ; Where Z80 RAM starts
-    move.w  #Z80ProgSize-1, d0      ; Size of Z80 program (DBF adjusted)
+    move.w  #Z80ProgSize-1, d0     ; Size of Z80 program (DBF adjusted)
 @LoadLoop:                          ; Go through all the program
     move.b  (a0)+, (a1)+              ; Copy byte into Z80 RAM
     dbf     d0, @LoadLoop             ; Go for next byte
@@ -443,6 +566,9 @@ Echo_Init:
     move.b  d0, (a0)+
     move.b  d0, (a0)+
     move.b  #1, (a0)+
+    move.b  d0, (a0)+
+    move.b  d0, (a0)+
+    move.b  d0, (a0)+
     move.b  d0, ($A01FF1)
 
     move.b  #$FF, ($A01F00)         ; No direct events to execute
