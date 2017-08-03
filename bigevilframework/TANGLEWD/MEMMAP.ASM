@@ -427,7 +427,10 @@ EntityCount_UIWindow    rs.w 1
 ; UI
 ; ************************************
 WidgetArray_Text		rs.b (UIWidgetText_Struct_Size*UIWidgetText_MaxWidgets)
+WidgetArray_Cursor		rs.b (UIWidgetCursor_Struct_Size*UIWidgetCursor_MaxWidgets)
+
 WidgetCount_Text		rs.w 1
+WidgetCount_Cursor		rs.w 1
 
 reserved_ram_size		rs.b 0
 

@@ -86,10 +86,26 @@ MEMCPYB: macro destreg,sourcereg,countreg
 	
 ; Zero memory (longwords)
 MEMZEROL: macro addressreg,countreg
-	subi.l #0x1, \countreg
+	subi.w #0x1, \countreg
 	@MEMZEROL_LP\@:
 	move.l #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROL_LP\@
+	endm
+
+; Zero memory (words)
+MEMZEROW: macro addressreg,countreg
+	subi.w #0x1, \countreg
+	@MEMZEROW_LP\@:
+	move.w #0x0, (\addressreg)+
+	dbra   \countreg, @MEMZEROW_LP\@
+	endm
+
+; Zero memory (bytes)
+MEMZEROB: macro addressreg,countreg
+	subi.w #0x1, \countreg
+	@MEMZEROB_LP\@:
+	move.b #0x0, (\addressreg)+
+	dbra   \countreg, @MEMZEROB_LP\@
 	endm
 
 ;==============================================================

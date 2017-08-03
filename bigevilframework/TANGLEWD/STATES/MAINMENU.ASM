@@ -67,7 +67,7 @@ MainMenu_Enter:
 
 	; Reset
 	PUSHL  a0
-	move.b #GamestateReset_ResetAudio, d0
+	move.b #GamestateReset_LeaveAudio, d0
 	jsr    GameStateReset
 	POPL   a0
 
@@ -337,65 +337,15 @@ MainMenu_InitUI:
 	move.l #EntityArray_UIWindow, a0
 	jsr    UIWindowInit
 
-	; Create widgets and add to window
-	PUSHL  a0
-	move.l #WidgetArray_Text, a0
-	jsr    UIWidgetTextInit
-	move.l #MainMenu_Str_Demo_Harlequin, a1
-	move.w (vram_addr_systemfont), d0
-	move.b #0x0, d1
-	move.b #0x0, d2
-	jsr    UIWidgetTextSetString
-	move.w #0x30, UIWidget_PositionX(a0)
-	move.w #0x30, UIWidget_PositionY(a0)
-	move.l a0, a1
-	POPL   a0
+	; Create cursor and add to window
+	WINDOW_CREATE_WIDGET_CURSOR a0
+	move.l a3, a5
+	CURSOR_LOAD_SPRITE a5,fuzzl,0x10,0x10,PaletteId_Fuzzl,0x0
 
-	jsr    UIWindowAddWidget
-
-	PUSHL  a0
-	move.l #WidgetArray_Text+UIWidgetText_Struct_Size, a0
-	jsr    UIWidgetTextInit
-	move.l #MainMenu_Str_Demo_Heritage, a1
-	move.w (vram_addr_systemfont), d0
-	move.b #0x0, d1
-	move.b #0x0, d2
-	jsr    UIWidgetTextSetString
-	move.w #0x30, UIWidget_PositionX(a0)
-	move.w #0x40, UIWidget_PositionY(a0)
-	move.l a0, a1
-	POPL   a0
-	
-	jsr    UIWindowAddWidget
-
-	PUSHL  a0
-	move.l #WidgetArray_Text+(UIWidgetText_Struct_Size*2), a0
-	jsr    UIWidgetTextInit
-	move.l #MainMenu_Str_Options, a1
-	move.w (vram_addr_systemfont), d0
-	move.b #0x0, d1
-	move.b #0x0, d2
-	jsr    UIWidgetTextSetString
-	move.w #0x30, UIWidget_PositionX(a0)
-	move.w #0x50, UIWidget_PositionY(a0)
-	move.l a0, a1
-	POPL   a0
-	
-	jsr    UIWindowAddWidget
-
-	PUSHL  a0
-	move.l #WidgetArray_Text+(UIWidgetText_Struct_Size*3), a0
-	jsr    UIWidgetTextInit
-	move.l #MainMenu_Str_Credits, a1
-	move.w (vram_addr_systemfont), d0
-	move.b #0x0, d1
-	move.b #0x0, d2
-	jsr    UIWidgetTextSetString
-	move.w #0x30, UIWidget_PositionX(a0)
-	move.w #0x60, UIWidget_PositionY(a0)
-	move.l a0, a1
-	POPL   a0
-	
-	jsr    UIWindowAddWidget
+	; Create widgets and add to window and cursor
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Demo_Harlequin,#tiles_twfont,(vram_addr_systemfont),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x30
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Demo_Heritage,#tiles_twfont,(vram_addr_systemfont),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x40
+	CURSOR_ADD_WIDGET a5,a3
 
 	rts

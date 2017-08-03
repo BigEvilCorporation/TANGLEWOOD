@@ -205,6 +205,79 @@ VDP_DMACopyCRAM:
 
 	rts
 
+VDP_VRAMCopy:
+	; d0 (w) Source address (VRAM)
+	; d1 (w) Dest address (VRAM)
+	; d2 (w) Size (in bytes)
+	
+	; Size lo (register 13)
+	move.w d2, d5
+	andi.w #0x00FF, d5
+	ori.w  #0x9300, d5
+	move.w d5, vdp_control
+	
+	; Size hi (register 14)
+	lsr.w  #0x8, d2
+	andi.w #0x00FF, d2
+	ori.w  #0x9400, d2
+	move.w d2, vdp_control
+
+	; Copy source address
+	move.l a0, d5
+	clr.l  d3
+	
+	; Address byte 0 (register 15)
+	move.w #0x9500, d3
+	move.b d5, d3
+	move.w d3, vdp_control
+	
+	; Address byte 1 (register 16)
+	lsr.l  #0x8, d5					; Next byte
+	move.w #0x9600, d3
+	move.b d5, d3
+	move.w d3, vdp_control
+	
+	; DMA mode (register 17)
+	move.w #0x9700, d3
+	move.b #vdp_dma_mode_copy, d3	; DMA mode 0
+	move.w d3, vdp_control
+	
+	; Generate dest command+address
+	lsl.l   #0x2, d1				; Shift bits 14/15 of dest address to bits 16/17
+	lsr.w   #0x2, d1				; Shift lower word back
+	swap    d1                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_dma_vram_write, d1 ; OR in VRAM+DMA write command
+	
+	; Read VDP reg 1 (DMA) and 15 (autoincrement)
+	VDPGETREG 0x1, d4
+	VDPGETREG 0xF, d5
+
+	; Set autoincrement to 1
+	move.w  #0x1, d3
+	VDPSETREG 0xF, d3
+	
+	; Enable DMA
+	ori.w   #0x10, d4  				; Set register 1 + DMA bit (5)
+	VDPSETREG 0x1, d4
+	
+	; Initiate DMA - command must come from RAM, so push to stack and pop for write
+	move.l  d1, -(sp)
+	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
+	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
+
+	; Wait until done
+	@Wait:
+	move.w  (vdp_control), d0
+	btst    #vdp_status_dma, d0
+	bne     @Wait
+	
+	; Disable DMA, restore regs
+	andi.b  #0xEF, d4 				; Clear DMA bit (5)
+	VDPSETREG 0x1, d4
+	VDPSETREG 0xF, d5
+	
+	rts
+
 VDP_EnableDisplay:
 	move.w #(0x8100|VDPReg1|vdp_reg1_enabledisplay), vdp_control
 	rts

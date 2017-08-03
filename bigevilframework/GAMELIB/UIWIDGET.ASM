@@ -11,10 +11,13 @@
 	LINKED_LIST_NODE Widgets		; Next in linked list
 ;---------------------------------
 UIWidget_Window				rs.l 1	; Window owning this widget
+UIWidget_OnSelected			rs.l 1	; On selected callback
 UIWidget_UpdateRoutine		rs.l 1	; Update subroutine address
 UIWidget_RenderRoutine		rs.l 1	; Render subroutine address
 UIWidget_PositionX			rs.w 1	; Position X (relative to window)
 UIWidget_PositionY			rs.w 1	; Position Y (relative to window)
+UIWidget_Width				rs.w 1	; Size X
+UIWidget_Height				rs.w 1	; Size Y
 UIWidget_Enabled			rs.b 1	; Widget enabled
 UIWidget_HasFocus			rs.b 1	; Widget has focus
 ;---------------------------------
@@ -26,10 +29,13 @@ UIWidgetInit:
 	; a0 --- Widget addr
 
 	move.l #0x0, UIWidget_Window(a0)
+	move.l #0x0, UIWidget_OnSelected(a0)
 	move.l #0x0, UIWidget_UpdateRoutine(a0)
 	move.l #0x0, UIWidget_RenderRoutine(a0)
 	move.w #0x0, UIWidget_PositionX(a0)
 	move.w #0x0, UIWidget_PositionY(a0)
+	move.w #0x0, UIWidget_Width(a0)
+	move.w #0x0, UIWidget_Height(a0)
 	move.b #0x1, UIWidget_Enabled(a0)
 	move.b #0x0, UIWidget_HasFocus(a0)
 

@@ -98,7 +98,9 @@ __start
 	; Include UI code
 	include '..\gamelib\uiwidget.asm'
 	include '..\gamelib\uiwindow.asm'
+	include '..\gamelib\uicursor.asm'
 	include '..\gamelib\uitext.asm'
+	include '..\gamelib\uimacros.asm'
 
 	; Include GameObject derivatives
 	IFND DEBUG

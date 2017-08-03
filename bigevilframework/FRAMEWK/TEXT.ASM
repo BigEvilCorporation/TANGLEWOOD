@@ -42,6 +42,22 @@ TXT_LoadFont:
 
    rts
 
+TXT_StrLen:
+	; a0 --- String addr
+	; d0 (w) OUT: Length
+
+	move.w #0x0, d0
+
+	@CharLoop:
+	tst.b  (a0)+
+	beq    @End
+	add.w  #0x1, d0
+	bra    @CharLoop
+
+	@End:
+
+	rts
+
 TXT_DrawPlane:
 	; a0 --- - String address
 	; d0 (w) - First tile ID of font
@@ -176,6 +192,51 @@ TXT_CreateTileIDList:
 	move.w   d4, (a1)+
 	
 	POPL     d4						; To buffer
+	
+	addi.b   #0x1, d4				; Increment counter
+	
+	bra      @CharCopy              ; Next character
+
+	@End:
+
+	move.b   d4, d0
+	
+	rts
+
+TXT_LoadStringSpriteTiles:
+	; a0 --- - String address
+	; a1 --- - Font address (ROM/RAM)
+	; d0 (w) - First tile ID of font
+	; d1 (w) - VRAM address
+	
+	; Clear counter
+	clr.l    d4
+	clr.w    d2
+
+	@CharCopy:
+	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
+	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
+	beq      @End                   ; If byte was zero, branch to end
+
+	PUSHM    d4/a0
+	
+	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile id
+	move.b   d2, d4                 ; Move tile ID to lower byte of d4
+	mulu     #size_tile_b, d4       ; Tile to bytes
+	add.l    a1, d4                 ; Add to font address
+
+	; VRAM copy
+	PUSHM    d0-d2
+	move.l   d4, a0					; Source addr (ROM)
+	move.w   d1, d0					; Dest addr (VRAM)
+	move.w   #size_tile_w, d1		; Size (words)
+	jsr      VDP_DMACopyVRAM
+	POPM     d0-d2
+
+	; Next dest addr
+	add.w    #size_tile_b, d1
+	
+	POPM     d4/a0
 	
 	addi.b   #0x1, d4				; Increment counter
 	
