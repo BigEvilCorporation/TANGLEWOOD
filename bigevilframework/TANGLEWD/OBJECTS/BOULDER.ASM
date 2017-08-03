@@ -112,9 +112,6 @@ BoulderInit:
 	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
 
-	; Register as pushable object
-	LIST_APPEND_TAIL PushableObjs, a0, a3
-
 	;==============================================================
 	
 	; Setup platform
@@ -147,10 +144,30 @@ BoulderInit:
 BoulderLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
+	
 	SPRITE_LOAD_DEFAULT boulder,PaletteId_World0,0x0
 
 	jsr    PhysicsObjSnapToFloor
+	
+	; If already cracked, set cracked anim
+	tst.b  Boulder_Cracked(a0)
+	beq    @Uncracked
+	
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Boulder_Animations, a1
+	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+	
+	bra    @End
+	
+	@Uncracked:
+	
+	; Register as pushable object
+	LIST_APPEND_TAIL PushableObjs, a0, a3
+	
+	@End:
 
 	rts
 	

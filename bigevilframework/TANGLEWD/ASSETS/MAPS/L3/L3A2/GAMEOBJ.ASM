@@ -401,6 +401,8 @@ L3A2_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Boulder_Cracked(a0)
+	move.b #0x0, Boulder_CanCrack(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
@@ -413,6 +415,8 @@ L3A2_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Boulder_Cracked(a0)
+	move.b #0x0, Boulder_CanCrack(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
