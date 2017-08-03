@@ -3,11 +3,11 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   mainmenu.asm - Main Menu state
+;   LevelSelect.asm - Main Menu state
 ;==============================================================
 
 ; Level data (menu contains game objects, so need to provide one)
-Lvl0_MainMenu:
+Lvl0_LevelSelect:
 
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_main_menu			; Blocks
@@ -32,31 +32,36 @@ Lvl0_MainMenu:
 	even
 
 ; Constants
-MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
-MainMenuSoundFadeSpeed	equ -10
+LevelSelectFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
+LevelSelectSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
-MainMenuLogoPosX	equ 18*8*subpixels_per_pixel
-MainMenuLogoPosY	equ 36*8*subpixels_per_pixel
+LevelSelectLogoPosX	equ 18*8*subpixels_per_pixel
+LevelSelectLogoPosY	equ 36*8*subpixels_per_pixel
+
+; UI strings
+LevelSelect_Str_Demo_Harlequin	dc.b "Chapter 1 : Harlequin",0
+LevelSelect_Str_Demo_Heritage	dc.b "Chapter 3 : Heritage",0
+LevelSelect_Str_Options			dc.b "Options",0
+LevelSelect_Str_Credits			dc.b "Credits",0
+	even
 
 ; Struct
 	rsset	0x0
-;---------------------------------
-MainMenuState_LogoSprite	rs.b SpriteObj_Struct_Size
-MainMenuState_NextState		rs.l 1
-MainMenuState_FadeTimer		rs.w 1
-;---------------------------------
-MainMenuState_Struct_Pad	rs.b 2
-MainMenuState_Struct_Size	rs.b 0
-;---------------------------------
+;-------------------------------------
+LevelSelectState_FadeTimer		rs.w 1
+;-------------------------------------
+LevelSelectState_Struct_Pad		rs.b 2
+LevelSelectState_Struct_Size	rs.b 0
+;-------------------------------------
 
-GameStateMainMenu:
-	dc.l MainMenu_Enter
-	dc.l MainMenu_Exit
-	dc.l MainMenu_Update
-	dc.l MainMenu_Render
+GameStateLevelSelect:
+	dc.l LevelSelect_Enter
+	dc.l LevelSelect_Exit
+	dc.l LevelSelect_Update
+	dc.l LevelSelect_Render
 	dc.l 0x0
 	
-MainMenu_Enter:
+LevelSelect_Enter:
 
 	; Reset
 	PUSHL  a0
@@ -103,29 +108,8 @@ MainMenu_Enter:
 	;==============================================================
 
 	; Set empty level (for game object processing)
-	move.l #Lvl0_MainMenu, CurrentLevel
+	move.l #Lvl0_LevelSelect, CurrentLevel
 	move.l (CurrentLevel), a1
-
-	; Load objects
-	jsr    main_menu_LoadGameObjects
-
-	; Load logo
-	lea    GameStateMainMenuData, a0
-	add.l  #MainMenuState_LogoSprite, a0
-	jsr    SpriteObjInit
-	move.l #SpriteObjUpdate, Entity_UpdateRoutine(a0)
-	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	move.w #sprite_twd_logo_size_b, d0		; Alloc VRAM
-	jsr    VRAM_PoolAlloc
-
-	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT twd_logo,PaletteId_TanglewoodLogo,0x0
-
-	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
-	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)
 
 	;==============================================================
 
@@ -134,59 +118,54 @@ MainMenu_Enter:
 
 	;==============================================================
 
-	; Disable Nymn physics (no terrain data)
-	move.l #Player1, a0
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
-	
-	; Start sleep anim
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
+	; Init UI
+	jsr    LevelSelect_InitUI
 
 	;==============================================================
-	
-	; Begin logo fade up
-	lea    palette_twd_logo, a0
-	move.l #PaletteId_TanglewoodLogo, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-	
+
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Use timer as fading out flag
 	move.l #0x1, TimerLogoFade
 
-	; Start bg fade timer
-	lea    GameStateMainMenuData, a2
-	move.w #MenuBgFadeDelay, MainMenuState_FadeTimer(a2)
+	; Fade in palettes
+	lea    palette_l1_dusk, a0
+	move.l #PaletteId_World0, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
 
-	move.w #0x0, d0
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
+	lea    palette_fuzzl, a0
+	move.l #PaletteId_Fuzzl, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+
+	lea    palette_text_white, a0
+	move.l #PaletteId_MenuText, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
 	
 	rts
 	
-MainMenu_Exit:
+LevelSelect_Exit:
 	
 	move.l #0x0, CurrentLevel
 
 	rts
 	
-MainMenu_Update:
+LevelSelect_Update:
 
 	; Get menu data
-	lea    GameStateMainMenuData, a2
+	lea    GameStateLevelSelectData, a2
 	
 	; Wait for fade to finish
 	jsr    PAL_LerpActive
@@ -196,52 +175,15 @@ MainMenu_Update:
 	; If already started fade to black
 	cmp.l  #0x0, TimerLogoFade
 	beq    @FadedOut
-
-	; If waiting to fade in bg
-	move.w MainMenuState_FadeTimer(a2), d0
-	cmp.w  #0x0, d0
-	bgt    @WaitingForBgFade
-	blt    @StartedBgFade
-
-	; Start bg fade
-	lea    palette_l1_night, a0
-	move.l #PaletteId_World0, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-
-	lea    Pal_Nymn_Red, a0
-	move.l #PaletteId_Player, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-
-	@StartedBgFade:
 	
-	lea    GameStateMainMenuData, a2
+	lea    GameStateLevelSelectData, a2
 
 	; Read pad
 	jsr    PAD_ReadPadA
 	
 	; Check start button
-	IF DEMO_SHOW_LEVEL_SELECT
-	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
-	ELSE
-	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
-	ENDIF
 	btst   #pad_button_start, d0
 	bne    @StartGame
-	
-	; Check C button
-	IF INCLUDE_SOUNDTEST
-	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
-	btst   #pad_button_c, d0
-	bne    @StartSoundTest
-	ENDIF
 	
 	bra    @End
 	
@@ -258,7 +200,7 @@ MainMenu_Update:
 	; Begin fade to black
 	lea    palette_fade_black, a0
 	move.l #PaletteId_TanglewoodLogo, d0
-	move.l #MainMenuFadeTime, d1
+	move.l #LevelSelectFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
@@ -266,7 +208,7 @@ MainMenu_Update:
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_World0, d0
-	move.l #MainMenuFadeTime, d1
+	move.l #LevelSelectFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
@@ -274,7 +216,7 @@ MainMenu_Update:
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Player, d0
-	move.l #MainMenuFadeTime, d1
+	move.l #LevelSelectFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
@@ -288,13 +230,13 @@ MainMenu_Update:
 	@FadedOut:
 	
 	; Enter next state
-	lea    GameStateMainMenuData, a2
-	move.l MainMenuState_NextState(a2), a0
+	lea    GameStateLevelSelectData, a2
+	move.l #GameStateDemoDisclaimerScreen, a0
 	jsr    GameStateEnter
 	bra    @End
 	
 	@WaitingForBgFade:
-	sub.w  #0x1, MainMenuState_FadeTimer(a2)
+	sub.w  #0x1, LevelSelectState_FadeTimer(a2)
 	@Fading:
 	@NotElapsed:
 	@End:
@@ -304,16 +246,10 @@ MainMenu_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
-
-	move.w #0x0, d0
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
 	
 	rts
 	
-MainMenu_Render:
+LevelSelect_Render:
 
 	; Get level data
 	move.l (CurrentLevel), a1
@@ -321,4 +257,23 @@ MainMenu_Render:
 	; Draw game objects
 	jsr EntityRenderAll
 	
+	rts
+	
+LevelSelect_InitUI:
+
+	; Create UI window
+	move.l #EntityArray_UIWindow, a0
+	jsr    UIWindowInit
+
+	; Create cursor and add to window
+	WINDOW_CREATE_WIDGET_CURSOR a0
+	move.l a3, a5
+	CURSOR_LOAD_SPRITE a5,fuzzl,0x10,0x10,PaletteId_Fuzzl,0x0
+
+	; Create widgets and add to window and cursor
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_Demo_Harlequin,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x30
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_Demo_Heritage,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x40
+	CURSOR_ADD_WIDGET a5,a3
+
 	rts

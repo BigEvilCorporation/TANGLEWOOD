@@ -96,8 +96,10 @@ Gameplay_Enter:
 	
 	;==============================================================
 	
+	IF DEMO_USE_TIMEOUT
 	; Start demo timer
 	move.l #DemoTimeout, TimerDemoReset
+	ENDIF
 
 	; Restore hint
 	jsr    VDP_EnableHINT
@@ -167,6 +169,8 @@ Gameplay_Update:
 	@NoUpdate:
 	@PlayerAlive:
 	
+	IF DEMO_USE_TIMEOUT
+
 	; Player movement resets demo timer
 	move.l #Player1, a2
 	cmp.l  #0x0, PhysicsObj_VelX(a2)
@@ -190,6 +194,8 @@ Gameplay_Update:
 	
 	@NoDemoTimer:
 	@DemoTimerRunning:
+
+	ENDIF
 	
 	rts
 	

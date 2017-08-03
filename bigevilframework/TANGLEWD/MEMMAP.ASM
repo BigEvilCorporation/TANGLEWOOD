@@ -235,10 +235,17 @@ GameStateStack         rs.l (GameStateStackSize)
 	IFND DEBUG
 GameStateLogoData			 rs.b LogoState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
-GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 GameStateEndLevelScoreData	 rs.b EndLevelScore_Struct_Size
+
+	IF INCLUDE_LEVELSELECT
+GameStateLevelSelectData	 rs.b LevelSelectState_Struct_Size
+	ENDIF
+
+	IF INCLUDE_SOUNDTEST
+GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
+	ENDIF
 	ENDIF
 
 ; Potential flue occupants list

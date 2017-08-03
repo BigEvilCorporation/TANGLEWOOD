@@ -79,6 +79,7 @@
 	include 'assets\palettes\pal_nest.asm'
 	include 'assets\palettes\djakk.asm'
 	include 'assets\palettes\djrake.asm'
+	include 'assets\palettes\text.asm'
 	
 	; ************************************
 	; Sprite animation data
@@ -180,6 +181,7 @@ PaletteId_BigEvilLogo	 equ 0x0
 
 ; Main menu
 PaletteId_TanglewoodLogo equ 0x2
+PaletteId_MenuText		 equ 0x3
 
 ; Sound test
 PaletteId_SoundTest 	 equ 0x0

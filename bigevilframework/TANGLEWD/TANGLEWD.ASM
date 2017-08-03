@@ -150,11 +150,18 @@ __start
 	include 'states\demoend.asm'
 	;include 'states\kickstrt.asm'
 	include 'states\megafndr.asm'
-	include 'states\soundtst.asm'
 	include 'states\score.asm'
 	include 'states\logos.asm'
 	include 'states\pause.asm'
 	include 'states\mainmenu.asm'
+
+	IF INCLUDE_LEVELSELECT
+	include 'states\lvlsel.asm'
+	ENDIF
+
+	IF INCLUDE_SOUNDTEST
+	include 'states\soundtst.asm'
+	ENDIF
 	ENDIF
 	
 	; Include levels

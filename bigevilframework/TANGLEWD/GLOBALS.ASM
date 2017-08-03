@@ -82,7 +82,7 @@ Player2 				 equ (EntityArray_Echo)
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb
 
 ; Demo timer
-DemoTimeout				 equ 0 ; (60*60*3)
+DemoTimeout				 equ (60*60*1)
 
 ; Game state stack
 GameStateStackSize		 equ 0x4

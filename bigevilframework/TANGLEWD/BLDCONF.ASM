@@ -17,11 +17,8 @@ INCLUDE_PROFILER		equ 0
 	ENDIF
 
 ; Debug menus
-	IFND FINAL
+INCLUDE_LEVELSELECT		equ 1
 INCLUDE_SOUNDTEST		equ 0
-	ELSE
-INCLUDE_SOUNDTEST		equ 0
-	ENDIF
 
 ; Debug key combos
 	IFND FINAL
@@ -45,6 +42,10 @@ INCLUDE_LEVEL_7			equ 0
 
 ; Characters
 INCLUDE_CHARACTER_ECHO	equ 0
+
+; Demo mode
+DEMO_USE_TIMEOUT		equ 0
+DEMO_SHOW_LEVEL_SELECT	equ 1
 
 ; Initial level/state
 	IFD FINAL
@@ -70,6 +71,7 @@ InitialLevel			 equ l3a1_HeritageAct1
 	IFD FINAL
 InitialState			 equ  GameStateLogos
 	ELSE
-;InitialState			 equ  GameStateLogos
-InitialState			 equ  GameStateGameplay
+InitialState			 equ  GameStateLogos
+;InitialState			 equ  GameStatemainMenu
+;InitialState			 equ  GameStateGameplay
 	ENDIF
