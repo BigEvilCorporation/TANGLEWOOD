@@ -220,8 +220,15 @@ l3a3ComboButton1Down:
 l3a3ComboButton1Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
+	bne    @NotEnoughButtons
+	PUSHL  a2
 	jsr    l3a3ComboButton1Deactivated
+	POPL   a2
+	@NotEnoughButtons:
+
+	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
 	rts
 
@@ -240,8 +247,15 @@ l3a3ComboButton2Down:
 l3a3ComboButton2Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+
+	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
+	bne    @NotEnoughButtons
+	PUSHL  a2
 	jsr    l3a3ComboButton1Deactivated
+	POPL   a2
+	@NotEnoughButtons:
+
+	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
 	rts
 
