@@ -156,7 +156,7 @@ CrateUpdate:
 	blt     @PlayPushSFX
 	bra     @NoPushSFX
 	@PlayPushSFX:
-	PLAYSFX #SFX_BoulderRoll
+	PLAYSFX #SFX_CratePush
 	move.b  #0x1, Crate_PushSFXPlaying(a0)
 	bra     @EndPushSFX
 

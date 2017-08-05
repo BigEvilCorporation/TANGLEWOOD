@@ -2,9 +2,9 @@
 	dc.b $e5		; Lock channel FM 5
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $45, $4b	; Set instrument for channel FM 5
+	dc.b $45, $4e	; Set instrument for channel FM 5
 	dc.b $05, $4b	; Note F-2 on channel FM 5
-	dc.b $46, $4a	; Set instrument for channel FM 6
+	dc.b $46, $4d	; Set instrument for channel FM 6
 	dc.b $06, $25	; Note D-1 on channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $0a, $e4	; Set frequency '2788' (octave 1 semitone 740) for channel FM 6

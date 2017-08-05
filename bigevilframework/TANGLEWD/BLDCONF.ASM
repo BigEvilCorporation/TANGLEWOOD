@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Engine features
-INCLUDE_AUDIO			equ 0
+INCLUDE_AUDIO			equ 1
 
 ; Profiler
 	IFD DEBUG
@@ -71,7 +71,7 @@ InitialLevel			 equ l3a1_HeritageAct1
 	IFD FINAL
 InitialState			 equ  GameStateLogos
 	ELSE
-InitialState			 equ  GameStateLogos
+;InitialState			 equ  GameStateLogos
 ;InitialState			 equ  GameStatemainMenu
-;InitialState			 equ  GameStateGameplay
+InitialState			 equ  GameStateGameplay
 	ENDIF
