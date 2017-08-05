@@ -95,17 +95,18 @@ UIWidgetTextSetString:
 	
 	; Round size to nearest 4
 	clr.l  d0
+	clr.l  d1
 	move.b UIWidgetText_TileCount(a0), d0
-	move.b d0, d1
+	add.b  #0x3, d0
 	divu   #0x4, d0
-	swap   d0
-	add.b  d0, d1
-	move.b d1, UIWidgetText_TileCount(a0)
+	mulu   #0x4, d0
+	move.b d0, UIWidgetText_TileCount(a0)
 
-	; Alloc VRAM for string
+	; Alloc VRAM for string tiles
 	PUSHM  d0/a0-a1
 	clr.w  d0
 	move.b UIWidgetText_TileCount(a0), d0
+	mulu   #size_tile_b, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, d1
 	POPM   d0/a0-a1
@@ -121,7 +122,7 @@ UIWidgetTextSetString:
 	move.w d1, d0
 	divu.w #size_tile_b, d0
 	jsr    TXT_LoadStringSpriteTiles
-	POPM   a0-a1	
+	POPM   a0-a1
 
 	@NoSprites:
 

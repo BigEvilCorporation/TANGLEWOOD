@@ -38,11 +38,19 @@ MenuBgFadeDelay		equ 0x0080
 LevelSelectLogoPosX	equ 18*8*subpixels_per_pixel
 LevelSelectLogoPosY	equ 36*8*subpixels_per_pixel
 
+LevelSelectListX		equ 0x48
+LevelSelectListY		equ 0x30
+LevelSelectLineSpacing	equ 0x10
+
 ; UI strings
-LevelSelect_Str_Demo_Harlequin	dc.b "Chapter 1 : Harlequin",0
-LevelSelect_Str_Demo_Heritage	dc.b "Chapter 3 : Heritage",0
-LevelSelect_Str_Options			dc.b "Options",0
-LevelSelect_Str_Credits			dc.b "Credits",0
+LevelSelect_Str_01	dc.b "Chapter 1 : Harlequin",0
+LevelSelect_Str_02	dc.b "Chapter 2 : Storm Warning",0
+LevelSelect_Str_03	dc.b "Chapter 3 : Heritage",0
+LevelSelect_Str_04	dc.b "Chapter 4 : Tethered",0
+LevelSelect_Str_05	dc.b "Chapter 5 : Bygone",0
+LevelSelect_Str_06	dc.b "Chapter 6 : Deadwood",0
+LevelSelect_Str_07	dc.b "Chapter 7 : Oasis",0
+LevelSelect_Str_08	dc.b "Chapter 8 : Turntail",0
 	even
 
 ; Struct
@@ -271,9 +279,21 @@ LevelSelect_InitUI:
 	CURSOR_LOAD_SPRITE a5,fuzzl,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_Demo_Harlequin,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x30
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_Demo_Heritage,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#0x30,#0x40
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
+	CURSOR_ADD_WIDGET a5,a3
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
 	CURSOR_ADD_WIDGET a5,a3
 
 	rts

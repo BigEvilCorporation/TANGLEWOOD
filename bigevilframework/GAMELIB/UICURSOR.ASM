@@ -89,6 +89,7 @@ UIWidgetCursorAddWidget:
 	move.b UIWidgetCursor_NumWidgets(a0), d0
 	lsl.l  #0x2, d0
 	move.l a0, a2
+	add.l  #UIWidgetCursor_Widgets, a2
 	add.l  d0, a2
 	move.l a1, (a2)
 
@@ -113,6 +114,7 @@ UIWidgetCursorSelect:
 	move.b UIWidgetCursor_CurrIndex(a0), d1
 	lsl.l  #0x2, d0
 	move.l a0, a2
+	add.l  #UIWidgetCursor_Widgets, a2
 	add.l  d1, a2
 	move.l (a2), a2
 	beq    @NoCurrWidget
@@ -124,6 +126,7 @@ UIWidgetCursorSelect:
 	andi.l #0xFF, d0
 	lsl.l  #0x2, d0
 	move.l a0, a2
+	add.l  #UIWidgetCursor_Widgets, a2
 	add.l  d1, a2
 	move.l (a2), a2
 	move.b #0x1, UIWidget_HasFocus(a2)
