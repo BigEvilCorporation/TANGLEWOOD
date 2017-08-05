@@ -77,6 +77,7 @@ SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
+SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
 SFX_Data_FireflyCollectAll:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_MushroomBounce:	include 'assets\audio\SFX\objects\mushroom.asm'
@@ -148,6 +149,13 @@ SFX_BoulderBreak:
 
 SFX_ButtonFail:
 	dc.l SFX_Data_ButtonFail		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_CageDoorRaise:
+	dc.l SFX_Data_CageDoorRaise		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

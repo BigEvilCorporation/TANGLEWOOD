@@ -167,7 +167,11 @@ DjakkCageBeginRaise:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Set state
 	move.b #DjakkCageState_Opening, DjakkCage_State(a0)
+
+	; Play SFX
+	PLAYSFX #SFX_CageDoorRaise
 
 	rts
 

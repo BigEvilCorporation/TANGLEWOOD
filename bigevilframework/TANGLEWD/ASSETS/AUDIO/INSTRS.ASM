@@ -92,6 +92,8 @@ echo_instruments:
 	Echo_ListEntry Instr50
 	Echo_ListEntry Instr51
 	Echo_ListEntry Instr52
+	Echo_ListEntry Instr53
+	Echo_ListEntry Instr54
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -104,7 +106,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x53
+PCM_InstrIndex	equ 0x55
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -190,6 +192,8 @@ Instr4F: incbin 'assets\audio\instrs\instr_4F.eif'
 Instr50: incbin 'assets\audio\instrs\instr_50.ewf'
 Instr51: incbin 'assets\audio\instrs\instr_51.eif'
 Instr52: incbin 'assets\audio\instrs\instr_52.ewf'
+Instr53: incbin 'assets\audio\instrs\instr_53.eif'
+Instr54: incbin 'assets\audio\instrs\instr_54.ewf'
 
 	
 	; PCM
