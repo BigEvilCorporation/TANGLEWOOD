@@ -4,7 +4,7 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
-AmbientSFXCount		equ 0x02
+AmbientSFXCount		equ 0x05
 
 ; Default priorities
 SFX_Priority_Highest		equ 0x00
@@ -96,7 +96,9 @@ SFX_Data_Footstep4:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_FootstepBig:		include 'assets\audio\SFX\fstep\fstepbig.asm'
 SFX_Data_Land:				include 'assets\audio\SFX\fstep\land.asm'
 SFX_Data_Ambience_Day1:		include 'assets\audio\SFX\ambience\day1.asm'
-;SFX_Data_Ambience_Day2:	include 'assets\audio\SFX\ambience\day2.asm'
+SFX_Data_Ambience_Day2:		include 'assets\audio\SFX\ambience\day2.asm'
+SFX_Data_Ambience_Day3:		include 'assets\audio\SFX\ambience\day3.asm'
+SFX_Data_Ambience_Day4:		include 'assets\audio\SFX\ambience\day4.asm'
 SFX_Data_Ambience_Night1:	include 'assets\audio\SFX\ambience\night1.asm'
 ;SFX_Data_Ambience_Night2:	include 'assets\audio\SFX\ambience\night2.asm'
 SFX_Data_UI_Press_Start:	include 'assets\audio\SFX\ui\start.asm'
@@ -319,11 +321,25 @@ SFX_Ambience_Day1:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
-;SFX_Ambience_Day2:
-;	dc.l SFX_Data_Ambience_Day2		; Data
-;	dc.b SFX_Priority_Ambience		; Priority
-;	dc.b Audio_NonExclusive			; Exclusivity
-;	dc.b SFX_PriorityClash_Replace	; Priority clash
+SFX_Ambience_Day2:
+	dc.l SFX_Data_Ambience_Day2		; Data
+	dc.b SFX_Priority_Ambience		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Ambience_Day3:
+	dc.l SFX_Data_Ambience_Day3		; Data
+	dc.b SFX_Priority_Ambience		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Ambience_Day4:
+	dc.l SFX_Data_Ambience_Day4		; Data
+	dc.b SFX_Priority_Ambience		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Ambience_Night1:

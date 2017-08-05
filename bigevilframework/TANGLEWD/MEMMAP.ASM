@@ -298,7 +298,7 @@ NextFreeRopeSegment		 rs.l 1
 ; ************************************
 ; Audio
 ; ************************************
-AmbientSFX				 rs.l 4 ; AmbientSFXCount
+AmbientSFX				 rs.l 6 ; AmbientSFXCount
 AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
 

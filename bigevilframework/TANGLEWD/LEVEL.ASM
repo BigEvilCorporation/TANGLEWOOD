@@ -287,6 +287,9 @@ LevelAddSFX:
 	
 	lea    AmbientSFX, a2
 	move.l #SFX_Ambience_Day1, (a2)+
+	move.l #SFX_Ambience_Day2, (a2)+
+	move.l #SFX_Ambience_Day3, (a2)+
+	move.l #SFX_Ambience_Day4, (a2)+
 	move.l #SFX_Ambience_Night1, (a2)+
 	;move.l #SFX_Chirp3, (a2)+
 	;move.l #SFX_Chirp4, (a2)+
