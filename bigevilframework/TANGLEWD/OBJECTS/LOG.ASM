@@ -135,7 +135,7 @@ LogLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT Log,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Log,PaletteId_World0,0x0
 
 	rts
 	

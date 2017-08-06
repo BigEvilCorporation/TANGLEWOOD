@@ -158,7 +158,7 @@ LiftLoadGfx:
 
 	PUSHL  a1
 
-	SPRITE_LOAD_DEFAULT lift,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED lift,PaletteId_World0,0x0
 
 	; Load rope segments
 	IF LIFT_ROPE_SUPPORT_SWING

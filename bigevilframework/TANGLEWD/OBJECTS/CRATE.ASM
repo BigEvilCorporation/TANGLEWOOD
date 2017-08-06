@@ -104,7 +104,7 @@ CrateLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Crate,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Crate,PaletteId_World0,0x0
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

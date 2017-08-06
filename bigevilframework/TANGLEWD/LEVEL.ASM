@@ -106,7 +106,11 @@ GameStateReset:
 	move.w #0x0, EntityCount_WaterBody
 
 	; Clear shared VRAM
+	move.w #0x0, SharedVRAM_Lift
 	move.w #0x0, SharedVRAM_Stone
+	move.w #0x0, SharedVRAM_DjakCage
+	move.w #0x0, SharedVRAM_Crate
+	move.w #0x0, SharedVRAM_Log
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll

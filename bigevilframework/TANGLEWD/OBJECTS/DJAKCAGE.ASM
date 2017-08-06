@@ -84,7 +84,7 @@ DjakkCageLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT DjakCage,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED DjakCage,PaletteId_World0,0x0
 
 	; Reposition barrier
 	move.l a0, a2
