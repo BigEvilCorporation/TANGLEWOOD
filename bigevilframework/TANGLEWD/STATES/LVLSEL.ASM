@@ -47,7 +47,7 @@ LevelSelect_Str_01	dc.b "Chapter 1 : Harlequin",0
 LevelSelect_Str_02	dc.b "Chapter 2 : Storm Warning",0
 LevelSelect_Str_03	dc.b "Chapter 3 : Heritage",0
 LevelSelect_Str_04	dc.b "Chapter 4 : Tethered",0
-LevelSelect_Str_05	dc.b "Chapter 5 : Bygone",0
+LevelSelect_Str_05	dc.b "Chapter 5 : Bygone Mines",0
 LevelSelect_Str_06	dc.b "Chapter 6 : Deadwood",0
 LevelSelect_Str_07	dc.b "Chapter 7 : Oasis",0
 LevelSelect_Str_08	dc.b "Chapter 8 : Turntail",0
@@ -147,7 +147,7 @@ LevelSelect_Enter:
 	move.l #0x1, TimerLogoFade
 
 	; Fade in palettes
-	lea    palette_l1_dusk, a0
+	lea    palette_l1_dusk_lowcontrast, a0
 	move.l #PaletteId_World0, d0
 	move.l #LevelSelectFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
@@ -296,6 +296,7 @@ LevelSelect_InitUI:
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l1a1_HarlequinForestAct1
+	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	ENDIF
 
