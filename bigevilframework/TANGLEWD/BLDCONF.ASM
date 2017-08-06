@@ -45,7 +45,7 @@ INCLUDE_LEVEL_8			equ 0
 INCLUDE_CHARACTER_ECHO	equ 0
 
 ; Demo mode
-DEMO_USE_TIMEOUT		equ 0
+DEMO_USE_TIMEOUT		equ 1
 DEMO_SHOW_LEVEL_SELECT	equ 1
 
 ; Initial level/state
