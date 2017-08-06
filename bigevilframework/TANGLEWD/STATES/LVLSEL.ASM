@@ -161,6 +161,14 @@ LevelSelect_Enter:
 	move.l #0x0, d3
 	move.l #0xF, d4
 	jsr    PAL_LerpStart
+
+	lea    palette_text_grey, a0
+	move.l #PaletteId_MenuTextDisabled, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
 	
 	rts
 	
@@ -182,60 +190,7 @@ LevelSelect_Update:
 	
 	; If already started fade to black
 	cmp.l  #0x0, TimerLogoFade
-	beq    @FadedOut
-	
-	lea    GameStateLevelSelectData, a2
-
-	; Read pad
-	jsr    PAD_ReadPadA
-	
-	; Check start button
-	btst   #pad_button_start, d0
-	bne    @StartGame
-	
-	bra    @End
-	
-	@StartGame:
-
-	; Stop music
-	jsr    SND_StopTrack
-
-	; Play New Game SFX
-	PLAYSFX #SFX_UI_Press_Start
-
-	@StartSoundTest:
-
-	; Begin fade to black
-	lea    palette_fade_black, a0
-	move.l #PaletteId_TanglewoodLogo, d0
-	move.l #LevelSelectFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-
-	lea    palette_fade_black, a0
-	move.l #PaletteId_World0, d0
-	move.l #LevelSelectFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Player, d0
-	move.l #LevelSelectFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    PAL_LerpStart
-	
-	; Mark fading out
-	move.l #0x0, TimerLogoFade
-
-	bra    @End
-	
-	@FadedOut:
+	bne    @End
 	
 	; Enter next state
 	lea    GameStateLevelSelectData, a2
@@ -266,6 +221,57 @@ LevelSelect_Render:
 	jsr EntityRenderAll
 	
 	rts
+
+LevelSelect_OnSelected:
+	; a0 --- Widget
+	; a1 --- Level addr
+
+	; Set current level
+	move.l a1, CurrentLevel
+
+	; Stop music
+	jsr    SND_StopTrack
+
+	; Play New Game SFX
+	PLAYSFX #SFX_UI_Press_Start
+
+	; Begin fade to black
+	lea    palette_fade_black, a0
+	move.l #PaletteId_MenuText, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_MenuTextDisabled, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_World0, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Fuzzl, d0
+	move.l #LevelSelectFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    PAL_LerpStart
+	
+	; Mark fading out
+	move.l #0x0, TimerLogoFade
+
+	rts
 	
 LevelSelect_InitUI:
 
@@ -279,21 +285,67 @@ LevelSelect_InitUI:
 	CURSOR_LOAD_SPRITE a5,fuzzl,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
+	IF INCLUDE_LEVEL_1
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l1a1_HarlequinForestAct1
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
+	ENDIF
+
+	IF INCLUDE_LEVEL_2
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l2a1_StormWarningAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
+	ENDIF
+
+	IF INCLUDE_LEVEL_3
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l3a1_HeritageAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
+	ENDIF
+
+	IF INCLUDE_LEVEL_4
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l4a1_TetheredAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
+	ENDIF
+
+	IF INCLUDE_LEVEL_5
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l5a1_BygoneAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
+	ENDIF
+
+	IF INCLUDE_LEVEL_6
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l6a1_DeadwoodAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
+	ENDIF
+
+	IF INCLUDE_LEVEL_7
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l7a1_OasisAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
+	ENDIF
+
+	IF INCLUDE_LEVEL_8
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
 	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l8a1_TurntailAct1
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
+	ENDIF
 
 	rts

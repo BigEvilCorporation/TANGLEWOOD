@@ -177,42 +177,43 @@
 	; Palette IDs
 	; ************************************
 ; Intro logos
-PaletteId_BigEvilLogo	 equ 0x0
+PaletteId_BigEvilLogo		equ 0x0
 
 ; Main menu
-PaletteId_TanglewoodLogo equ 0x2
-PaletteId_MenuText		 equ 0x3
+PaletteId_TanglewoodLogo	equ 0x2
+PaletteId_MenuText			equ 0x1
+PaletteId_MenuTextDisabled	equ 0x3
 
 ; Sound test
-PaletteId_SoundTest 	 equ 0x0
-PaletteId_SoundTestText	 equ 0x1
+PaletteId_SoundTest 		equ 0x0
+PaletteId_SoundTestText		equ 0x1
 
 ; Demo disclaimer screen
-PaletteId_DemoDisclaimerScreen   equ 0x0
+PaletteId_DemoDisclaimerScreen	equ 0x0
 
 ; Controls screen
-PaletteId_ControlsScreen equ 0x0
+PaletteId_ControlsScreen	equ 0x0
 
 ; Demo end state
-PaletteId_DemoEndState   equ 0x0
+PaletteId_DemoEndState		equ 0x0
 
 ; Kickstarter advert screen
-PaletteId_KSLogo	     equ 0x0
+PaletteId_KSLogo			equ 0x0
 
 ; Megafounder advert screen
-PaletteId_MegafounderScreen equ 0x0
+PaletteId_MegafounderScreen	equ 0x0
 
 ; Gameplay
-PaletteId_World0		equ 0x0
-PaletteId_Monster		equ 0x1
-PaletteId_Fuzzl			equ 0x2
-PaletteId_Player		equ 0x3
+PaletteId_World0			equ 0x0
+PaletteId_Monster			equ 0x1
+PaletteId_Fuzzl				equ 0x2
+PaletteId_Player			equ 0x3
 
 ; Underwater raster swap palette
-PaletteId_WaterRaster	equ PaletteId_Player
+PaletteId_WaterRaster		equ PaletteId_Player
 
 	; ************************************
 	; VFX IDs
 	; ************************************
-VfxId_WaterSplashLarge	equ 0x0
-VfxId_RainLight			equ 0x1
+VfxId_WaterSplashLarge		equ 0x0
+VfxId_RainLight				equ 0x1

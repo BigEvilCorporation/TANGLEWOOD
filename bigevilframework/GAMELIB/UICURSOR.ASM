@@ -11,10 +11,16 @@ UIWidgetCursor_WidgetArraySize	equ 0x10
 
 UIWidgetCursor_DrawBorder		equ 0x8
 
+UIWidget_Input_Up				equ (1<<pad_button_Up)
+UIWidget_Input_Down				equ (1<<pad_button_Down)
+UIWidget_Input_Select			equ (1<<pad_button_Start)|(1<<pad_button_b)|(1<<pad_button_c)
+UIWidget_Input_Back				equ (1<<pad_button_a)
+
 	rsset UIWidget_Struct_Size
 ;---------------------------------
 UIWidgetCursor_Widgets		rs.l UIWidgetCursor_WidgetArraySize
 UIWidgetCursor_Sprite		rs.b SpriteObj_Struct_Size
+UIWidgetCursor_PrevInput	rs.w 1	; For input debounce
 UIWidgetCursor_NumWidgets	rs.b 1	; Num widgets added for selection
 UIWidgetCursor_CurrIndex	rs.b 1	; Currently selected widget index
 ;---------------------------------
@@ -36,6 +42,7 @@ UIWidgetCursorInit:
 	move.l #UIWidgetCursorRender, UIWidget_RenderRoutine(a0)
 
 	; Initial state
+	move.w #0x0, UIWidgetCursor_PrevInput(a0)
 	move.b #0x0, UIWidgetCursor_NumWidgets(a0)
 	move.b #0x0, UIWidgetCursor_CurrIndex(a0)
 
@@ -111,25 +118,27 @@ UIWidgetCursorSelect:
 
 	; Deselect current widget
 	clr.l  d1
-	move.b UIWidgetCursor_CurrIndex(a0), d1
-	lsl.l  #0x2, d0
-	move.l a0, a2
+	move.b UIWidgetCursor_CurrIndex(a0), d1	; Get curr index
+	andi.l #0xFF, d1
+	lsl.l  #0x2, d1							; To longwords
+	move.l a0, a2							; Get widget ptr array
 	add.l  #UIWidgetCursor_Widgets, a2
 	add.l  d1, a2
-	move.l (a2), a2
+	move.l (a2), a2							; Deref
+	cmp.l  #0x0, a2
 	beq    @NoCurrWidget
-	move.b #0x0, UIWidget_HasFocus(a2)
+	move.b #0x0, UIWidget_HasFocus(a2)		; Clear focus
 	@NoCurrWidget:
 	
 	; Select new widget
-	move.b d0, UIWidgetCursor_CurrIndex(a0)
+	move.b d0, UIWidgetCursor_CurrIndex(a0)	; Set new index
 	andi.l #0xFF, d0
-	lsl.l  #0x2, d0
-	move.l a0, a2
+	lsl.l  #0x2, d0							; To longwords
+	move.l a0, a2							; Get widget ptr array
 	add.l  #UIWidgetCursor_Widgets, a2
-	add.l  d1, a2
-	move.l (a2), a2
-	move.b #0x1, UIWidget_HasFocus(a2)
+	add.l  d0, a2
+	move.l (a2), a2							; Deref
+	move.b #0x1, UIWidget_HasFocus(a2)		; Set focus
 
 	; Set new cursor position
 	move.w UIWidget_PositionX(a2), d0		; Get select widget x/y
@@ -154,6 +163,101 @@ UIWidgetCursorSelect:
 
 UIWidgetCursorUpdate:
 	; a0 --- Cursor addr
+
+	; Read pad
+	jsr    PAD_ReadPadA
+
+	; Debounce
+	cmp.w  UIWidgetCursor_PrevInput(a0), d0
+	beq    @NoInput
+
+	; Determine button pressed
+	move.w d0, d1
+	andi.w #UIWidget_Input_Up, d1
+	bne    @InputUp
+
+	move.w d0, d1
+	andi.w #UIWidget_Input_Down, d1
+	bne    @InputDown
+
+	move.w d0, d1
+	andi.w #UIWidget_Input_Select, d1
+	bne    @InputSelect
+
+	move.w d0, d1
+	andi.w #UIWidget_Input_Back, d1
+	bne    @InputBack
+
+	bra    @NoInput
+
+	;==============================================================
+
+	@InputUp:
+
+	; Navigate up
+	move.b UIWidgetCursor_NumWidgets(a0), d1
+	move.b UIWidgetCursor_CurrIndex(a0), d2
+	cmp.b  #0x0, d2
+	bne    @NoWrapDown
+	move.b d1, d2
+	@NoWrapDown:
+	subi.b #0x1, d2
+	PUSHL  d0
+	move.b d2, d0
+	jsr    UIWidgetCursorSelect
+	POPL   d0
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputDown:
+
+	; Navigate down
+	move.b UIWidgetCursor_NumWidgets(a0), d1
+	move.b UIWidgetCursor_CurrIndex(a0), d2
+	addi.b #0x1, d2
+	cmp.b  d1, d2
+	bne    @NoWrapUp
+	move.b #0x0, d2
+	@NoWrapUp:
+	PUSHL  d0
+	move.b d2, d0
+	jsr    UIWidgetCursorSelect
+	POPL   d0
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputSelect:
+	
+	; Entry selected
+	PUSHM  a0-a1
+	move.b d0, UIWidgetCursor_CurrIndex(a0)	; Set new index
+	andi.l #0xFF, d0
+	lsl.l  #0x2, d0							; To longwords
+	move.l a0, a2							; Get widget ptr array
+	add.l  #UIWidgetCursor_Widgets, a2
+	add.l  d0, a2
+	move.l (a2), a0							; Deref
+	jsr    UIWidgetSelect					; Callback
+	POPM   a0-a1
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputBack:
+
+	; Close window
+	bra    @EndInput
+
+	;==============================================================
+
+	@NoInput:
+	@EndInput:
+
+	move.w d0, UIWidgetCursor_PrevInput(a0)
+
+	;==============================================================
 
 	; Update sprite position
 	move.w UIWidget_PositionX(a0), d0

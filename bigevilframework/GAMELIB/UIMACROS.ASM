@@ -52,6 +52,12 @@ WINDOW_CREATE_WIDGET_CURSOR macro windowaddr
 	POPM   d0-d3/a0-a1
 	endm
 
+	; Set widget OnSelected callback
+WIDGET_SET_ONSELECTED: macro widgetaddr,callbackaddr,userdata
+	move.l #\callbackaddr, UIWidget_OnSelected(\widgetaddr)
+	move.l #\userdata, UIWidget_OnSelectedData(\widgetaddr)
+	endm
+
 	; Load cursor sprite
 CURSOR_LOAD_SPRITE: macro cursoraddr,spritesheet,width,height,palette,prio
 	PUSHM  d0-d7/a0-a2
