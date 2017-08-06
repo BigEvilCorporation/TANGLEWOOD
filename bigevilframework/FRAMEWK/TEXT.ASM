@@ -208,6 +208,9 @@ TXT_LoadStringSpriteTiles:
 	; a1 --- - Font address (ROM/RAM)
 	; d0 (w) - First tile ID of font
 	; d1 (w) - VRAM address
+	; d2 (w) - Count (will pad beyond length of string)
+
+	move.w   d2, d5
 	
 	; Clear counter
 	clr.l    d4
@@ -216,7 +219,11 @@ TXT_LoadStringSpriteTiles:
 	@CharCopy:
 	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
 	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
-	beq      @End                   ; If byte was zero, branch to end
+	bne      @NotBlank              ; If byte was zero, use blank tile
+
+	move.b   #' ', d2
+
+	@NotBlank:
 
 	PUSHM    d4/a0
 	
@@ -240,7 +247,7 @@ TXT_LoadStringSpriteTiles:
 	
 	addi.b   #0x1, d4				; Increment counter
 	
-	bra      @CharCopy              ; Next character
+	dbra     d5, @CharCopy          ; Next character
 
 	@End:
 

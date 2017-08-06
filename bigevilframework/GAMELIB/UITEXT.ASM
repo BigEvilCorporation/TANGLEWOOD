@@ -115,12 +115,13 @@ UIWidgetTextSetString:
 
 	; Copy glyph tiles
 	PUSHM  a0-a1
-	move.l UIWidgetText_FontAddr(a0), a2
-	add.l  #UIWidgetText_String, a0
-	move.l a2, a1
 	clr.l  d0
+	clr.l  d2
 	move.w d1, d0
-	divu.w #size_tile_b, d0
+	divu.w #size_tile_b, d0					; VRAM addr to tile ID
+	move.l UIWidgetText_FontAddr(a0), a1	; Font
+	move.b UIWidgetText_TileCount(a0), d2	; Count (incl. padding)
+	add.l  #UIWidgetText_String, a0			; String
 	jsr    TXT_LoadStringSpriteTiles
 	POPM   a0-a1
 
