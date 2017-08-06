@@ -18,7 +18,7 @@ GameStatePause_MaxStringLen	equ 0x8
 ; Struct
 	rsset	0x0
 ;----------------------------------
-PauseState_PaletteBackup	 rs.b size_palette_b
+PauseState_PaletteBackup	 rs.b size_palette_b*num_palettes
 PauseState_Firefly			 rs.b Firefly_Struct_Size
 PauseState_TextTileBuff		 rs.w GameStatePause_MaxStringLen
 PauseState_VRAMAddr			 rs.w 1
