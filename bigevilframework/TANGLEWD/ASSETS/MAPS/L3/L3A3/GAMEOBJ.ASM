@@ -491,8 +491,8 @@ L3A3_LoadGameObjects:
 
 	move.l #EntityArray_TriggerBox, a0
 	jsr TriggerBoxInit
-	move.l #0x16a00000, Entity_WorldPosX(a0)
-	move.l #0x05800000, Entity_WorldPosY(a0)
+	move.l #0x18100000, Entity_WorldPosX(a0)
+	move.l #0x05200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_TriggerBoxEchoIntro_name, a3
 	move.l a0, a2
@@ -501,7 +501,7 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l3a3TriggerEchoIntro, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #0x0, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
