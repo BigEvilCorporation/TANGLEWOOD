@@ -121,6 +121,15 @@ LevelSelect_Enter:
 
 	;==============================================================
 
+	; Load bold font for menu
+	move.w #CharMap_SizeB, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, (vram_addr_systemfontb)
+	lea    tiles_twfontb, a0
+	jsr    TXT_LoadFont
+
+	;==============================================================
+
 	; Load scene animations
 	jsr    L1_LoadSceneAnimations
 
@@ -173,8 +182,6 @@ LevelSelect_Enter:
 	rts
 	
 LevelSelect_Exit:
-	
-	move.l #0x0, CurrentLevel
 
 	rts
 	
@@ -286,14 +293,14 @@ LevelSelect_InitUI:
 
 	; Create widgets and add to window and cursor
 	IF INCLUDE_LEVEL_1
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l1a1_HarlequinForestAct1
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	ENDIF
 
 	IF INCLUDE_LEVEL_2
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l2a1_StormWarningAct1
 	ELSE
@@ -301,7 +308,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_3
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l3a1_HeritageAct1
 	ELSE
@@ -309,7 +316,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_4
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l4a1_TetheredAct1
 	ELSE
@@ -317,7 +324,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_5
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l5a1_BygoneAct1
 	ELSE
@@ -325,7 +332,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_6
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l6a1_DeadwoodAct1
 	ELSE
@@ -333,7 +340,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_7
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l7a1_OasisAct1
 	ELSE
@@ -341,7 +348,7 @@ LevelSelect_InitUI:
 	ENDIF
 
 	IF INCLUDE_LEVEL_8
-	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfont,(vram_addr_systemfont),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
+	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfontb,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l8a1_TurntailAct1
 	ELSE
