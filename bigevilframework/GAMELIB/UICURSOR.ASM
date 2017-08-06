@@ -232,7 +232,7 @@ UIWidgetCursorUpdate:
 	
 	; Entry selected
 	PUSHM  a0-a1
-	move.b d0, UIWidgetCursor_CurrIndex(a0)	; Set new index
+	move.b UIWidgetCursor_CurrIndex(a0), d0	; Get selected index
 	andi.l #0xFF, d0
 	lsl.l  #0x2, d0							; To longwords
 	move.l a0, a2							; Get widget ptr array
