@@ -37,8 +37,8 @@ Lvl0_MainMenu:
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
-MainMenuLogoPosX	equ 18*8*subpixels_per_pixel
-MainMenuLogoPosY	equ 36*8*subpixels_per_pixel
+MainMenuLogoPosX	equ 34*8*subpixels_per_pixel
+MainMenuLogoPosY	equ 34*8*subpixels_per_pixel
 
 ; Struct
 	rsset	LevelData_Struct_Size
@@ -108,9 +108,6 @@ MainMenu_Enter:
 	move.l #Lvl0_MainMenu, CurrentLevel
 	move.l (CurrentLevel), a1
 
-	; Load objects
-	jsr    main_menu_LoadGameObjects
-
 	; Load logo
 	lea    GameStateMainMenuData, a0
 	add.l  #MainMenuState_LogoSprite, a0
@@ -128,6 +125,9 @@ MainMenu_Enter:
 
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
 	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)
+
+	; Load objects
+	jsr    main_menu_LoadGameObjects
 
 	;==============================================================
 
