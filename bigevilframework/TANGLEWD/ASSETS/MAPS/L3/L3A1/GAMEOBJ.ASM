@@ -698,8 +698,8 @@ L3A1_LoadGameObjects:
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 	jsr CrateInit
-	move.l #0x0fe80000, Entity_WorldPosX(a0)
-	move.l #0x04180000, Entity_WorldPosY(a0)
+	move.l #0x0f600000, Entity_WorldPosX(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Crate_43_name, a3
 	move.l a0, a2

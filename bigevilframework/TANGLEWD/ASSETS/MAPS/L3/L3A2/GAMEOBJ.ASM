@@ -927,8 +927,8 @@ L3A2_LoadGameObjects:
 
 	move.l #EntityArray_Crate, a0
 	jsr CrateInit
-	move.l #0x17680000, Entity_WorldPosX(a0)
-	move.l #0x04e80000, Entity_WorldPosY(a0)
+	move.l #0x16900000, Entity_WorldPosX(a0)
+	move.l #0x04e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Crate_59_name, a3
 	move.l a0, a2
