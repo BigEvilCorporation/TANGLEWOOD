@@ -28,6 +28,29 @@ FontTest_Msg3_B	dc.b "Accelerator, I'm sure I can do this.",0
 FontTest_Msg4	dc.b ".,!?=+-[]/\$%&()#@^_{|}~'<>`:;",0
 	
 Str_SoundTestLabel	dc.b "SOUND ID: ",0
-	
+
+	; Levels
+LevelSelect_Str_00	dc.b "None",0
+LevelSelect_Str_01	dc.b "Chapter 1 : Harlequin",0
+LevelSelect_Str_02	dc.b "Chapter 2 : Storm Warning",0
+LevelSelect_Str_03	dc.b "Chapter 3 : Heritage",0
+LevelSelect_Str_04	dc.b "Chapter 4 : Tethered",0
+LevelSelect_Str_05	dc.b "Chapter 5 : Bygone Mines",0
+LevelSelect_Str_06	dc.b "Chapter 6 : Deadwood",0
+LevelSelect_Str_07	dc.b "Chapter 7 : Oasis",0
+LevelSelect_Str_08	dc.b "Chapter 8 : Turntail",0
+
+	; End level score screen
+EndLevelString_Title	dc.b 'Fireflies Collected',0
+EndLevelString_Act1		dc.b 'Act 1:',0
+EndLevelString_Act2		dc.b 'Act 2:',0
+EndLevelString_Act3		dc.b 'Act 3:',0
+EndLevelString_Act4		dc.b 'Act 4:',0
+
 	even
 	
+EndLevelActNames:
+	dc.l EndLevelString_Act1
+	dc.l EndLevelString_Act2
+	dc.l EndLevelString_Act3
+	dc.l EndLevelString_Act4

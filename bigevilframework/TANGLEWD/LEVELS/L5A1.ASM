@@ -11,6 +11,8 @@
 ; ************************************
 L5a1_BygoneAct1:
 
+	dc.l LevelSelect_Str_05				; Name
+	dc.l LevelData_L5A1					; Userdata
 	dc.l tiles_L5						; Tileset
 	dc.l map_blocks_L5a1				; Blocks
 	dc.l map_blockmap_L5a1				; Block map
@@ -49,13 +51,20 @@ L5a1_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 L5a1Data_WaitingInput			rs.b 1
 ;---------------------------------
 L5a1Data_Struct_Pad      		rs.b 3
 L5a1Data_Struct_Size     		rs.b 0
 	
 L5a1_Init:
+
+	; Set data for all acts in level
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L5A1, (a2)+
+	;move.l #LevelData_L5A2, (a2)+
+	;move.l #LevelData_L5A3, (a2)+
+	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_L5bg, a0

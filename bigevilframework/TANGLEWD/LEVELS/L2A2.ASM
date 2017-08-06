@@ -11,6 +11,8 @@
 ; ************************************
 l2a2_StormWarningAct2:
 
+	dc.l LevelSelect_Str_02				; Name
+	dc.l LevelData_L2A2					; Userdata
 	dc.l tiles_l2						; Tileset
 	dc.l map_blocks_l2a2				; Blocks
 	dc.l map_blockmap_l2a2				; Block map
@@ -45,7 +47,7 @@ l2a2_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l2a2Data_WaitingInput			rs.b 1
 ;---------------------------------
 l2a2Data_Struct_Pad      		rs.b 3

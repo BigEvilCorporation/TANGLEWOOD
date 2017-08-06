@@ -8,6 +8,8 @@
 
 l1a4_HarlequinForestAct4:
 
+	dc.l LevelSelect_Str_01				; Name
+	dc.l LevelData_L1A4					; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_L1A4				; Blocks
 	dc.l map_blockmap_L1A4				; Block map
@@ -48,7 +50,7 @@ l1a4_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l1a4Data_WaitingInput			rs.b 1
 ;---------------------------------
 l1a4Data_Struct_Pad      		rs.b 3
@@ -143,9 +145,6 @@ l1a4_Serialise:
 
 l1a4_End:
 	; a1 --- Level addr
-
-	; TODO: Store in level data, handle in GameStateEndAct::Enter
-	move.w (FireflyPickupCount), FireflyPickupCountL1A4
 
 	rts
 	

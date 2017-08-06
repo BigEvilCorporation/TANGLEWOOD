@@ -11,6 +11,8 @@
 ; ************************************
 l4a2_TetheredAct2:
 
+	dc.l LevelSelect_Str_04				; Name
+	dc.l LevelData_L4A2					; Userdata
 	dc.l tiles_l4						; Tileset
 	dc.l map_blocks_l4a2				; Blocks
 	dc.l map_blockmap_l4a2				; Block map
@@ -49,7 +51,7 @@ l4a2_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l4a2Data_WaitingInput			rs.b 1
 ;---------------------------------
 l4a2Data_Struct_Pad      		rs.b 3

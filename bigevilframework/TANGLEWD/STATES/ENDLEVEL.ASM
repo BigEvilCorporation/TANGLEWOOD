@@ -124,18 +124,9 @@ EndLevel_Update:
 	bne    @TimerRunning
 	
 	; Timer elapsed, set next level
+	move.l (CurrentLevel), PreviousLevel
 	move.l Level_NextLevel(a1), CurrentLevel
-	
-	cmp.l  #0x0, CurrentLevel
-	beq    @EndOfGame
-	
-	; Start gameplay state
-	lea    GameStateGameplay, a0
-	jsr    GameStateEnter
-	bra    @End
-	
-	@EndOfGame:
-	
+
 	; Start firefly score state
 	lea    GameStateEndLevelScoreScreen, a0
 	jsr    GameStateEnter

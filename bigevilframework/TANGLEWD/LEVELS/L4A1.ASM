@@ -11,6 +11,8 @@
 ; ************************************
 l4a1_TetheredAct1:
 
+	dc.l LevelSelect_Str_04				; Name
+	dc.l LevelData_L4A1					; Userdata
 	dc.l tiles_l4						; Tileset
 	dc.l map_blocks_l4a1				; Blocks
 	dc.l map_blockmap_l4a1				; Block map
@@ -49,13 +51,20 @@ l4a1_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l4a1Data_WaitingInput			rs.b 1
 ;---------------------------------
 l4a1Data_Struct_Pad      		rs.b 3
 l4a1Data_Struct_Size     		rs.b 0
 	
 l4a1_Init:
+
+	; Set data for all acts in level
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L4A1, (a2)+
+	;move.l #LevelData_L4A2, (a2)+
+	;move.l #LevelData_L4A3, (a2)+
+	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_l4bg, a0

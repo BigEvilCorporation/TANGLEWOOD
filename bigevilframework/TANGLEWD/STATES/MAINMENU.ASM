@@ -9,6 +9,8 @@
 ; Level data (menu contains game objects, so need to provide one)
 Lvl0_MainMenu:
 
+	dc.l LevelSelect_Str_00				; Name
+	dc.l GameStateMainMenuData			; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_main_menu			; Blocks
 	dc.l map_blockmap_main_menu			; Block map
@@ -39,7 +41,7 @@ MainMenuLogoPosX	equ 18*8*subpixels_per_pixel
 MainMenuLogoPosY	equ 36*8*subpixels_per_pixel
 
 ; Struct
-	rsset	0x0
+	rsset	LevelData_Struct_Size
 ;---------------------------------
 MainMenuState_LogoSprite	rs.b SpriteObj_Struct_Size
 MainMenuState_NextState		rs.l 1

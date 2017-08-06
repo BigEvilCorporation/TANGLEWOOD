@@ -8,6 +8,8 @@
 
 	rsset 0
 ;---------------------------------
+Level_Name					rs.l 1
+Level_UserData				rs.l 1
 Level_TilesAddr       		rs.l 1
 Level_BlocksAddr    		rs.l 1
 Level_BlockMapAddr    		rs.l 1

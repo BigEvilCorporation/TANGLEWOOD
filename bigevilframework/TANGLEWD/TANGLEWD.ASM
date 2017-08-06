@@ -137,6 +137,9 @@ __start
 	; Include players
 	include 'objects\nymn.asm'
 	include 'objects\echo.asm'
+
+	; Include level setup
+	include 'level.asm'
 	
 	; Include game states
 	include 'states\gameplay.asm'
@@ -200,7 +203,6 @@ __start
 	; Include game code
 	include 'audio.asm'
 	include 'input.asm'
-	include 'level.asm'
 	include 'savegame.asm'
 	include 'tod.asm'
 	include 'weather.asm'

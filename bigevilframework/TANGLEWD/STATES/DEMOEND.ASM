@@ -83,6 +83,7 @@ DemoEndState_Exit:
 	
 	; Reset first level
 	move.l #InitialLevel, CurrentLevel
+	move.l #0x0, PreviousLevel
 	
 	rts
 	

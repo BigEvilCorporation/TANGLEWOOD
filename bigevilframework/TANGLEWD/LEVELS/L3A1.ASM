@@ -11,6 +11,8 @@
 ; ************************************
 l3a1_HeritageAct1:
 
+	dc.l LevelSelect_Str_03				; Name
+	dc.l LevelData_L3A1					; Userdata
 	dc.l tiles_l3						; Tileset
 	dc.l map_blocks_l3a1				; Blocks
 	dc.l map_blockmap_l3a1				; Block map
@@ -45,13 +47,20 @@ l3a1_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l3a1Data_WaitingInput			rs.b 1
 ;---------------------------------
 l3a1Data_Struct_Pad      		rs.b 3
 l3a1Data_Struct_Size     		rs.b 0
 	
 l3a1_Init:
+
+	; Set data for all acts in level
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L3A1, (a2)+
+	move.l #LevelData_L3A2, (a2)+
+	move.l #LevelData_L3A3, (a2)+
+	move.w #0x3, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_l3bg, a0

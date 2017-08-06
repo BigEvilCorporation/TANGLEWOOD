@@ -108,16 +108,23 @@ Gameplay_Enter:
 	
 Gameplay_Exit:
 
-	; Notify level
 	move.l (CurrentLevel), a1
 	cmp.l  #0x0, a1
 	beq    @NoLevel
+
+	; Store firefly count
+	move.l Level_UserData(a1), a2
+	move.w (FireflyPickupCount), LevelData_FireflyCount(a2)
+
+	; Run end level routine
 	move.l Level_EndRoutine(a1), a2
 	cmp.l  #0x0, a2
 	beq    @NoEndRoutine
 	jsr    (a2)
-	@NoLevel:
 	@NoEndRoutine:
+
+
+	@NoLevel:
 
 	rts
 	

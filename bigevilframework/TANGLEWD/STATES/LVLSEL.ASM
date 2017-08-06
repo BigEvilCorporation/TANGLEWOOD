@@ -9,6 +9,8 @@
 ; Level data (menu contains game objects, so need to provide one)
 Lvl0_LevelSelect:
 
+	dc.l LevelSelect_Str_00				; Name
+	dc.l GameStateLevelSelectData		; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_main_menu			; Blocks
 	dc.l map_blockmap_main_menu			; Block map
@@ -41,17 +43,6 @@ LevelSelectLogoPosY	equ 36*8*subpixels_per_pixel
 LevelSelectListX		equ 0x48
 LevelSelectListY		equ 0x30
 LevelSelectLineSpacing	equ 0x10
-
-; UI strings
-LevelSelect_Str_01	dc.b "Chapter 1 : Harlequin",0
-LevelSelect_Str_02	dc.b "Chapter 2 : Storm Warning",0
-LevelSelect_Str_03	dc.b "Chapter 3 : Heritage",0
-LevelSelect_Str_04	dc.b "Chapter 4 : Tethered",0
-LevelSelect_Str_05	dc.b "Chapter 5 : Bygone Mines",0
-LevelSelect_Str_06	dc.b "Chapter 6 : Deadwood",0
-LevelSelect_Str_07	dc.b "Chapter 7 : Oasis",0
-LevelSelect_Str_08	dc.b "Chapter 8 : Turntail",0
-	even
 
 ; Struct
 	rsset	0x0

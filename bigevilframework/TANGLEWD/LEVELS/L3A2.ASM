@@ -11,6 +11,8 @@
 ; ************************************
 l3a2_HeritageAct2:
 
+	dc.l LevelSelect_Str_03				; Name
+	dc.l LevelData_L3A2					; Userdata
 	dc.l tiles_l3						; Tileset
 	dc.l map_blocks_l3a2				; Blocks
 	dc.l map_blockmap_l3a2				; Block map
@@ -50,7 +52,7 @@ L3A2_LogRollCamLerpTime		equ 0x1E
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l3a2Data_LogRollCamLerpTimer	rs.w 1
 l3a2Data_WaitingInput			rs.b 1
 ;---------------------------------

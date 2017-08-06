@@ -133,6 +133,9 @@ TimerDemoReset      rs.l 1
 ; ************************************
 PhysicsWorld		rs.b PhysicsWorld_Struct_Size
 CurrentLevel		rs.l 1
+PreviousLevel		rs.l 1
+CurrentActDatas		rs.l LevelMaxActs
+CurrentLevelNumActs	rs.w 1
 
 ; ************************************
 ; Time of day
@@ -281,14 +284,6 @@ TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; Firefly count
 FireflyPickupCount		 rs.w 1
-
-; Firefly count per act
-; TODO: Store in level data (derive level data from common base)
-;       Level IDs, in array
-FireflyPickupCountL1A1	 rs.w 1
-FireflyPickupCountL1A2	 rs.w 1
-FireflyPickupCountL1A3	 rs.w 1
-FireflyPickupCountL1A4	 rs.w 1
 
 ; Death count
 DeathCount				 rs.w 1

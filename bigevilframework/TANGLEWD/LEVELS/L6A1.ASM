@@ -11,6 +11,8 @@
 ; ************************************
 L6a1_DeadwoodAct1:
 
+	dc.l LevelSelect_Str_06				; Name
+	dc.l LevelData_L6A1					; Userdata
 	dc.l tiles_L6						; Tileset
 	dc.l map_blocks_L6a1				; Blocks
 	dc.l map_blockmap_L6a1				; Block map
@@ -49,13 +51,20 @@ L6a1_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 L6a1Data_WaitingInput			rs.b 1
 ;---------------------------------
 L6a1Data_Struct_Pad      		rs.b 3
 L6a1Data_Struct_Size     		rs.b 0
 	
 L6a1_Init:
+
+	; Set data for all acts in level
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L6A1, (a2)+
+	;move.l #LevelData_L6A2, (a2)+
+	;move.l #LevelData_L6A3, (a2)+
+	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_L6bg, a0

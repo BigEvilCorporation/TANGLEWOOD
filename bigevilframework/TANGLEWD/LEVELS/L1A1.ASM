@@ -11,6 +11,8 @@
 ; ************************************
 l1a1_HarlequinForestAct1:
 
+	dc.l LevelSelect_Str_01				; Name
+	dc.l LevelData_L1A1					; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_l1a1				; Blocks
 	dc.l map_blockmap_l1a1				; Block map
@@ -24,7 +26,7 @@ l1a1_HarlequinForestAct1:
 	dc.l l1a1_LoadGameObjects			; Load game objects routine
 	dc.l l1a1_End						; End routine
 	dc.l l1a2_HarlequinForestAct2		; Next level
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l1a1_width					; Map width (tiles)
 	dc.w map_l1a1_height				; Map height (tiles)
 	dc.w map_blockmap_l1a1_width		; Map width (blocks)
@@ -45,13 +47,21 @@ l1a1_DefaultPalettes:
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l1a1Data_WaitingInput			rs.b 1
 ;---------------------------------
 l1a1Data_Struct_Pad      		rs.b 3
 l1a1Data_Struct_Size     		rs.b 0
 	
 l1a1_Init:
+
+	; Set data for all acts in level
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L1A1, (a2)+
+	move.l #LevelData_L1A2, (a2)+
+	move.l #LevelData_L1A3, (a2)+
+	move.l #LevelData_L1A4, (a2)+
+	move.w #0x4, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_l1bg, a0
@@ -158,9 +168,6 @@ l1a1_Serialise:
 
 l1a1_End:
 	; a1 --- Level addr
-
-	; TODO: Store in level data, handle in GameStateEndAct::Enter
-	move.w (FireflyPickupCount), FireflyPickupCountL1A1
 
 	rts
 	

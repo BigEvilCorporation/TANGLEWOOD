@@ -11,6 +11,8 @@
 ; ************************************
 l3a3_HeritageAct3:
 
+	dc.l LevelSelect_Str_03				; Name
+	dc.l LevelData_L3A3					; Userdata
 	dc.l tiles_l3						; Tileset
 	dc.l map_blocks_l3a3				; Blocks
 	dc.l map_blockmap_l3a3				; Block map
@@ -65,7 +67,7 @@ EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
 ; ************************************
 ; Runtime data
 ; ************************************
-	rsset 0
+	rsset LevelData_Struct_Size
 l3a3Data_SceneTimer				rs.w 1
 l3a3Data_WaitingInput			rs.b 1
 l3a3Data_ComboButton1Count		rs.b 1

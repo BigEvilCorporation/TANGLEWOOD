@@ -9,6 +9,8 @@
 ; Level data (screen contains game objects, so need to provide one)
 Lvl0_EndLevel:
 
+	dc.l LevelSelect_Str_00				; Name
+	dc.l GameStateEndLevelScoreData		; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_end_level			; Blocks
 	dc.l map_blockmap_end_level			; Block map
@@ -75,39 +77,14 @@ EndLevelScore_Palette:
 	dc.w 0x0000
 	dc.w 0x0000
 
-; Strings
-; TODO: fetch from level data
-EndLevelString_Level:
-	dc.b 'Chapter 1: Harlequin Forest',0
-	even
-
-EndLevelString_Title:
-	dc.b 'Fireflies Collected',0
-	even
-
-EndLevelString_Act1:
-	dc.b 'Act 1:',0
-	even
-
-EndLevelString_Act2:
-	dc.b 'Act 2:',0
-	even
-
-EndLevelString_Act3:
-	dc.b 'Act 3:',0
-	even
-
-EndLevelString_Act4:
-	dc.b 'Act 4:',0
-	even
-	
 ; Struct
-	rsset	0x0
-;----------------------------------
-;----------------------------------
-EndLevelScore_Struct_Pad		 rs.b 0
-EndLevelScore_Struct_Size		 rs.b 0
-;----------------------------------
+	rsset	LevelData_Struct_Size
+;-------------------------------------
+EndLevelScore_NextLevel			rs.l 1
+;-------------------------------------
+EndLevelScore_Struct_Pad		rs.b 0
+EndLevelScore_Struct_Size		rs.b 0
+;-------------------------------------
 	
 EndLevelScoreScreen_Enter:
 
@@ -154,6 +131,10 @@ EndLevelScoreScreen_Enter:
 
 	;==============================================================
 
+	; Store next level
+	lea    GameStateEndLevelScoreData, a0
+	move.l (CurrentLevel), EndLevelScore_NextLevel(a0)
+
 	; Set empty level (for game object processing)
 	move.l #Lvl0_EndLevel, CurrentLevel
 	move.l (CurrentLevel), a1
@@ -167,11 +148,17 @@ EndLevelScoreScreen_Enter:
 
 	;==============================================================
 
+	; Get prev level
+	move.l (PreviousLevel), a2
+
+	; Get userdata
+	move.l Level_UserData(a2), a3
+
 	; Create text
 	lea    GameStateEndLevelScoreData, a0
 
 	; Level
-	lea    EndLevelString_Level, a0				; String
+	move.l Level_Name(a2), a0					; String
 	move.w (vram_addr_systemfont), d0			; Font tile ID
 	divu.w #size_tile_b, d0
 	move.l #(EndLevelScore_LevelPosX<<16)|EndLevelScore_LevelPosY, d1	; X/Y coord
@@ -190,9 +177,22 @@ EndLevelScoreScreen_Enter:
 
 	move.l #(EndLevelScore_TextPosX<<16)|EndLevelScore_TextPosY, d1	; X/Y coord
 
-	; L1A1
-	; TODO: Store in level data
-	lea    EndLevelString_Act1, a0				; String
+	; For all acts in level
+	move.w (CurrentLevelNumActs), d0
+	sub.w  #0x1, d0
+	lea    CurrentActDatas, a4
+	move.l #EndLevelActNames, a5
+	@ActLoop:
+
+	; Get act data
+	move.l (a4)+, a3
+
+	; Get act name
+	move.l (a5)+, a0
+	
+	PUSHM  d0/a4-a5
+
+	; Draw act string
 	move.w (vram_addr_systemfont), d0			; Font tile ID
 	divu.w #size_tile_b, d0
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
@@ -203,7 +203,8 @@ EndLevelScoreScreen_Enter:
 
 	add.l  #(EndLevelScore_TextColumnX<<16), d1
 
-	move.w (FireflyPickupCountL1A1), d0; Get collected firefly count
+	; Draw firefly count
+	move.w LevelData_FireflyCount(a3), d0; Get collected firefly count
 	move.w #L1A1_Firefly_count, d2	; Get total firefly count
 	PUSHL  d1
 	jsr    EndLevelScoreScreen_DrawFireflyCountText
@@ -214,72 +215,8 @@ EndLevelScoreScreen_Enter:
 	swap   d1
 	add.w  #EndLevelScore_TextSpacingY, d1
 
-	; L1A2
-	; TODO: Store in level data
-	lea    EndLevelString_Act2, a0				; String
-	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
-	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
-	move.b #0x0, d3								; Plane A
-	PUSHL  d1
-	jsr    TXT_DrawPlane
-	POPL   d1
-
-	add.l  #(EndLevelScore_TextColumnX<<16), d1
-
-	move.w (FireflyPickupCountL1A2), d0; Get collected firefly count
-	move.w #L1A2_Firefly_count, d2	; Get total firefly count
-	PUSHL  d1
-	jsr    EndLevelScoreScreen_DrawFireflyCountText
-	POPL   d1
-
-	swap   d1
-	move.w #EndLevelScore_TextPosX, d1
-	swap   d1
-	add.w  #EndLevelScore_TextSpacingY, d1
-
-	; L1A3
-	; TODO: Store in level data
-	lea    EndLevelString_Act3, a0				; String
-	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
-	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
-	move.b #0x0, d3								; Plane A
-	PUSHL  d1
-	jsr    TXT_DrawPlane
-	POPL   d1
-
-	add.l  #(EndLevelScore_TextColumnX<<16), d1
-
-	move.w (FireflyPickupCountL1A3), d0; Get collected firefly count
-	move.w #L1A3_Firefly_count, d2	; Get total firefly count
-	PUSHL  d1
-	jsr    EndLevelScoreScreen_DrawFireflyCountText
-	POPL   d1
-
-	swap   d1
-	move.w #EndLevelScore_TextPosX, d1
-	swap   d1
-	add.w  #EndLevelScore_TextSpacingY, d1
-
-	; L1A4
-	; TODO: Store in level data
-	lea    EndLevelString_Act4, a0				; String
-	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
-	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
-	move.b #0x0, d3								; Plane A
-	PUSHL  d1
-	jsr    TXT_DrawPlane
-	POPL   d1
-
-	add.l  #(EndLevelScore_TextColumnX<<16), d1
-
-	move.w (FireflyPickupCountL1A4), d0; Get collected firefly count
-	move.w #L1A4_Firefly_count, d2	; Get total firefly count
-	PUSHL  d1
-	jsr    EndLevelScoreScreen_DrawFireflyCountText
-	POPL   d1
+	POPM   d0/a4-a5
+	dbra   d0, @ActLoop
 
 	;==============================================================
 
@@ -355,11 +292,11 @@ EndLevelScoreScreen_Update:
 	
 	@FadedOut:
 	
-	move.l (CurrentLevel), a1
+	; Set next level
+	lea    GameStateEndLevelScoreData, a0
+	move.l EndLevelScore_NextLevel(a0), a1
+	move.l a1, CurrentLevel
 	cmp.l  #0x0, a1
-	beq    @EndOfGame
-	move.l Level_NextLevel(a1), CurrentLevel
-	cmp.l  #0x0, CurrentLevel
 	beq    @EndOfGame
 	
 	; Next level gameplay state

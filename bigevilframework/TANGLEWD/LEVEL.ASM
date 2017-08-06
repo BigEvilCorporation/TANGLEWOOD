@@ -9,6 +9,14 @@
 GamestateReset_LeaveAudio	equ 0
 GamestateReset_ResetAudio	equ 1
 
+LevelMaxActs				equ 0x4
+
+	rsset 0
+LevelData_FireflyCount		rs.w 1
+;---------------------------------
+LevelData_Struct_Pad		rs.b 2
+LevelData_Struct_Size		rs.b 0
+
 GameStateReset:
 	; d0 (b) 1 = Reset audio, 0 = leave audio
 
@@ -142,6 +150,17 @@ GameStateReset:
 	; HACK: Clear pause state VRAM alloc
 	lea    GameStatePauseData, a2
 	move.w #0x0, PauseState_VRAMAddr(a2)
+
+	; Clear firefly count
+	move.l (CurrentLevel), a1
+	cmp.l  #0x0, a1
+	beq    @NoLevel
+	move.l Level_UserData(a1), a2
+	cmp.l  #0x0, a2
+	beq    @NoUserData
+	move.w #0x0, LevelData_FireflyCount(a2)
+	@NoLevel:
+	@NoUserData:
 	
 	rts
 
