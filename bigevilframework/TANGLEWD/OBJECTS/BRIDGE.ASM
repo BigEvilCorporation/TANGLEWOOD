@@ -585,7 +585,10 @@ BridgeBeginRoll:
 	move.b #Bridge_StateRolling, Bridge_State(a0)
 
 	; Begin SFX
+	cmp.b  #0x1, (GlobalTimeDiv)
+	bne    @NoSFX
 	PLAYSFX #SFX_BridgeRoll
+	@NoSFX:
 
 	rts
 
@@ -601,7 +604,10 @@ BridgeBeginUnroll:
 	move.b #Bridge_StateUnrolling, Bridge_State(a0)
 
 	; Begin SFX
+	cmp.b  #0x1, (GlobalTimeDiv)
+	bne    @NoSFX
 	PLAYSFX #SFX_BridgeRoll
+	@NoSFX:
 
 	rts
 
