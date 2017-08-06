@@ -72,8 +72,8 @@ InitialLevel			 equ l3a1_HeritageAct1
 	IFD FINAL
 InitialState			 equ  GameStateLogos
 	ELSE
-;InitialState			 equ  GameStateLogos
+InitialState			 equ  GameStateLogos
 ;InitialState			 equ  GameStateMainMenu
-InitialState			 equ  GameStateLevelSelect
+;InitialState			 equ  GameStateLevelSelect
 ;InitialState			 equ  GameStateGameplay
 	ENDIF
