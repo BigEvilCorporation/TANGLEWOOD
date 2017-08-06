@@ -120,7 +120,6 @@
 	; Static screen maps
 	; ************************************
 	include 'assets\maps\bec_logo\map.asm'
-	include 'assets\maps\controls\map.asm'
 	include 'assets\maps\disclmr\map.asm'
 	include 'assets\maps\demoend\map.asm'
 	include 'assets\maps\soundtst\map.asm'
@@ -141,6 +140,7 @@
 	include 'assets\maps\mainmenu\blocks.asm'
 	include 'assets\maps\endlevel\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
+	include 'assets\maps\controls\blocks.asm'
 
 	; ************************************
 	; Block maps
@@ -148,6 +148,7 @@
 	include 'assets\maps\mainmenu\blockmap.asm'
 	include 'assets\maps\endlevel\blockmap.asm'
 	include 'assets\maps\megafndr\blockmap.asm'
+	include 'assets\maps\controls\blockmap.asm'
 
 	; ************************************
 	; Game objects

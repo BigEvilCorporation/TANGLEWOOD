@@ -46,17 +46,13 @@ ControlsScreen_Enter:
 	move.w (vram_addr_leveltiles), d0
 	jsr    VDP_LoadTiles
 	
-	; Load map
-    lea    map_controls_screen, a0			; a0 (l)  Map data address (ROM)
-	move.l #0x00000000, d0				; d0 (ww) Source top/left (tiles)
-	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
-	move.l #((map_controls_width<<16)|map_controls_height), d2		; d2 (ww) Segment width/height (tiles)
-	move.w #map_controls_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
-	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
-	divu   #size_tile_b, d4
-	move.l #PaletteId_ControlsScreen, d5	; d5 (b)  Palette ID
-	jsr    VDP_LoadMapSegmentPlaneA
+	; Load BG map
+	lea    map_blocks_controls, a0
+	lea    map_blockmap_controls, a1
+	move.l #(map_blockmap_controls_width<<16)|map_blockmap_controls_height, d1
+	move.w (vram_addr_leveltiles), d2
+	move.l #PaletteId_ControlsScreen, d3
+	jsr    VDP_LoadBlockMapPlaneA
 	
 	; Begin fade up
 	lea    palette_controls, a0

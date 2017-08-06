@@ -31,8 +31,6 @@ tiles_soundtest:
 	; ************************************
 map_bigevil_logo:
 	incbin 'assets\maps\bec_logo\map.bin'
-map_controls_screen:
-	incbin 'assets\maps\controls\map.bin'
 map_demodisclaimer_screen:
 	incbin 'assets\maps\disclmr\map.bin'
 map_demoend_screen:
@@ -49,6 +47,8 @@ map_blocks_end_level:
 	incbin 'assets\maps\endlevel\blocks.bin'
 map_blocks_megafounder_screen:
 	incbin 'assets\maps\megafndr\blocks.bin'
+map_blocks_controls:
+	incbin 'assets\maps\controls\blocks.bin'
 
 	; ************************************
 	; Block Maps
@@ -59,3 +59,5 @@ map_blockmap_end_level:
 	incbin 'assets\maps\endlevel\blockmap.bin'
 map_blockmap_megafounder_screen:
 	incbin 'assets\maps\megafndr\blockmap.bin'
+map_blockmap_controls:
+	incbin 'assets\maps\controls\blockmap.bin'
