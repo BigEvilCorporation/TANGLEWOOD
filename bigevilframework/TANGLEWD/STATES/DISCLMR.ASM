@@ -35,31 +35,27 @@ DemoDisclaimerScreen_Enter:
 	VDPSETREG 7, d0
 
 	; Alloc VRAM
-	move.w #tiles_DemoDisclaimer_size_b, d0
+	move.w #tiles_DemoDisclaimer_screen_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, vram_addr_leveltiles
 	
 	; Load tiles
 	clr.l d1
 	lea    tiles_DemoDisclaimer_screen, a0
-	move.w #tiles_DemoDisclaimer_size_t, d1
+	move.w #tiles_DemoDisclaimer_screen_size_t, d1
 	move.w (vram_addr_leveltiles), d0
 	jsr    VDP_LoadTiles
 	
-	; Load map
-    lea    map_DemoDisclaimer_screen, a0	; a0 (l)  Map data address (ROM)
-	move.l #0x00000000, d0				; d0 (ww) Source top/left (tiles)
-	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
-	move.l #((map_DemoDisclaimer_width<<16)|map_DemoDisclaimer_height), d2		; d2 (ww) Segment width/height (tiles)
-	move.w #map_DemoDisclaimer_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
-	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
-	divu   #size_tile_b, d4
-	move.l #PaletteId_DemoDisclaimerScreen, d5	; d5 (b)  Palette ID
-	jsr    VDP_LoadMapSegmentPlaneA
+	; Load BG map
+	lea    map_blocks_demodisclaimer_screen, a0
+	lea    map_blockmap_demodisclaimer_screen, a1
+	move.l #(map_blockmap_demodisclaimer_screen_width<<16)|map_blockmap_demodisclaimer_screen_height, d1
+	move.w (vram_addr_leveltiles), d2
+	move.l #PaletteId_demodisclaimerScreen, d3
+	jsr    VDP_LoadBlockMapPlaneA
 	
 	; Begin fade up
-	lea    palette_DemoDisclaimer, a0
+	lea    palette_DemoDisclaimer_Screen, a0
 	move.l #PaletteId_DemoDisclaimerScreen, d0
 	move.l #DemoDisclaimerScreenFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2

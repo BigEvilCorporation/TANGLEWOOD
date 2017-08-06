@@ -7,7 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_demodisclaimer_screen_size_b	equ 0x00001080	; Size in bytes
-tiles_demodisclaimer_screen_size_w	equ (tiles_demodisclaimer_screen_size_b/2)	; Size in words
-tiles_demodisclaimer_screen_size_l	equ (tiles_demodisclaimer_screen_size_b/4)	; Size in longwords
-tiles_demodisclaimer_screen_size_t	equ (tiles_demodisclaimer_screen_size_b/32)	; Size in tiles
+map_blocks_demodisclaimer_screen_size_b	equ 0x00000440	; Size in bytes
+map_blocks_demodisclaimer_screen_size_w	equ (map_blocks_demodisclaimer_screen_size_b/2)	; Size in words
+map_blocks_demodisclaimer_screen_size_l	equ (map_blocks_demodisclaimer_screen_size_b/4)	; Size in longwords
