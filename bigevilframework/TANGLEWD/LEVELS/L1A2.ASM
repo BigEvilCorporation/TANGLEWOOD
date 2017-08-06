@@ -71,6 +71,9 @@ l1a2_Init:
 	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
 	move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
 	move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
+	; Set TOD
+	move.b  #TimeOfDay_Day, TimeOfDay
 	
 	;==============================================================
 

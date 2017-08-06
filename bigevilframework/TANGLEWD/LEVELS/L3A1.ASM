@@ -79,6 +79,9 @@ l3a1_Init:
 	move.l  #palette_l3_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
 	move.l  #palette_l3_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
+	; Set TOD
+	move.b  #TimeOfDay_Day, TimeOfDay
+
 	;==============================================================
 
 	; Load scene animations

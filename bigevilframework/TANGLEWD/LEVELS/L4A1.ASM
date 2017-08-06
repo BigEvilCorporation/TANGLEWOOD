@@ -75,6 +75,9 @@ l4a1_Init:
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 
+	; Set TOD
+	move.b  #TimeOfDay_Day, TimeOfDay
+
 	;==============================================================
 
 	; Load scene animations

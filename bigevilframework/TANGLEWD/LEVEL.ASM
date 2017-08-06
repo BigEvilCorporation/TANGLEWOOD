@@ -339,10 +339,6 @@ LevelReset:
 	move.w  #0x0, Gamepad1PrevState
 	move.w  #0x0, Gamepad2PrevState
 	
-	; Time of Day
-	move.b  #TimeOfDay_Day, TimeOfDay
-	move.b  #0x1, TimeOfDayEnabled
-	
 	; Switching palettes
 	lea     SwitchingPalettesP1, a0
 	move.l  #Pal_Nymn_Yellow, (a0)+; Drained

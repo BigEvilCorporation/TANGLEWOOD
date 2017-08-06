@@ -235,6 +235,7 @@ Gameplay_Serialise:
 	@Saving:
 	SAVEL (LastActivatedCheckpoint)
 	SAVEW (FireflyPickupCount)
+	move.b (TimeOfDay), d6
 	SAVEB (TimeOfDay)
 	bra   @End
 
