@@ -103,6 +103,7 @@ SFX_Data_Ambience_Day4:		include 'assets\audio\SFX\ambience\day4.asm'
 SFX_Data_Ambience_Night1:	include 'assets\audio\SFX\ambience\night1.asm'
 ;SFX_Data_Ambience_Night2:	include 'assets\audio\SFX\ambience\night2.asm'
 SFX_Data_UI_Press_Start:	include 'assets\audio\SFX\ui\start.asm'
+SFX_Data_UI_Move:			include 'assets\audio\SFX\ui\uimove.asm'
 	even
 
 SFX_FlueIn:
@@ -394,6 +395,13 @@ SFX_Nymn_Call_Long:
 
 SFX_UI_Press_Start:
 	dc.l SFX_Data_UI_Press_Start	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_UI_Move:
+	dc.l SFX_Data_UI_Move			; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

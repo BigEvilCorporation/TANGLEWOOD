@@ -230,11 +230,13 @@ MainMenu_Update:
 	; Check start button
 	IF DEMO_SHOW_LEVEL_SELECT
 	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
+	btst   #pad_button_start, d0
+	bne    @StartLevelSelect
 	ELSE
 	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
-	ENDIF
 	btst   #pad_button_start, d0
 	bne    @StartGame
+	ENDIF
 	
 	; Check C button
 	IF INCLUDE_SOUNDTEST
@@ -253,6 +255,7 @@ MainMenu_Update:
 	; Play New Game SFX
 	PLAYSFX #SFX_UI_Press_Start
 
+	@StartLevelSelect:
 	@StartSoundTest:
 
 	; Begin fade to black

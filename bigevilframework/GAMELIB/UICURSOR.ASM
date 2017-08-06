@@ -11,10 +11,12 @@ UIWidgetCursor_WidgetArraySize	equ 0x10
 
 UIWidgetCursor_DrawBorder		equ 0x8
 
-UIWidget_Input_Up				equ (1<<pad_button_Up)
-UIWidget_Input_Down				equ (1<<pad_button_Down)
-UIWidget_Input_Select			equ (1<<pad_button_Start)|(1<<pad_button_b)|(1<<pad_button_c)
-UIWidget_Input_Back				equ (1<<pad_button_a)
+UIWidgetCursor_Input_Up			equ (1<<pad_button_Up)
+UIWidgetCursor_Input_Down		equ (1<<pad_button_Down)
+UIWidgetCursor_Input_Select		equ (1<<pad_button_Start)|(1<<pad_button_b)|(1<<pad_button_c)
+UIWidgetCursor_Input_Back		equ (1<<pad_button_a)
+
+UIWidgetCursor_Audio_Move		equ SFX_UI_Move
 
 	rsset UIWidget_Struct_Size
 ;---------------------------------
@@ -173,19 +175,19 @@ UIWidgetCursorUpdate:
 
 	; Determine button pressed
 	move.w d0, d1
-	andi.w #UIWidget_Input_Up, d1
+	andi.w #UIWidgetCursor_Input_Up, d1
 	bne    @InputUp
 
 	move.w d0, d1
-	andi.w #UIWidget_Input_Down, d1
+	andi.w #UIWidgetCursor_Input_Down, d1
 	bne    @InputDown
 
 	move.w d0, d1
-	andi.w #UIWidget_Input_Select, d1
+	andi.w #UIWidgetCursor_Input_Select, d1
 	bne    @InputSelect
 
 	move.w d0, d1
-	andi.w #UIWidget_Input_Back, d1
+	andi.w #UIWidgetCursor_Input_Back, d1
 	bne    @InputBack
 
 	bra    @NoInput
@@ -204,6 +206,7 @@ UIWidgetCursorUpdate:
 	subi.b #0x1, d2
 	PUSHL  d0
 	move.b d2, d0
+	PLAYSFX #UIWidgetCursor_Audio_Move
 	jsr    UIWidgetCursorSelect
 	POPL   d0
 	bra    @EndInput
@@ -222,6 +225,7 @@ UIWidgetCursorUpdate:
 	@NoWrapUp:
 	PUSHL  d0
 	move.b d2, d0
+	PLAYSFX #UIWidgetCursor_Audio_Move
 	jsr    UIWidgetCursorSelect
 	POPL   d0
 	bra    @EndInput

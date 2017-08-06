@@ -2,10 +2,10 @@
 	dc.b $e5		; Lock channel FM 5
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $45, $52	; Set instrument for channel FM 5
+	dc.b $45, $53	; Set instrument for channel FM 5
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $05, $05	; Note D-0 on channel FM 5
-	dc.b $0c, $53	; Sample 83 on channel PCM
+	dc.b $0c, $54	; Sample 84 on channel PCM
 	dc.b $fe, $01	; Delay
 	dc.b $35, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 5
 ; Pattern $00, Row 1; 
@@ -38,7 +38,7 @@
 ; Pattern $00, Row 14; 
 	dc.b $fe, $0b	; Delay
 	dc.b $05, $05	; Note D-0 on channel FM 5
-	dc.b $0c, $53	; Sample 83 on channel PCM
+	dc.b $0c, $54	; Sample 84 on channel PCM
 	dc.b $fe, $01	; Delay
 	dc.b $35, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 5
 ; Pattern $00, Row 15; 
