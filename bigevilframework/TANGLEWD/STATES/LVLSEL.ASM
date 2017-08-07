@@ -192,7 +192,11 @@ LevelSelect_Update:
 	
 	; Enter next state
 	lea    GameStateLevelSelectData, a2
+	IF DEMO_SHOW_DISCLAIMER
 	move.l #GameStateDemoDisclaimerScreen, a0
+	ELSE
+	move.l #GameStateGameplay, a0
+	ENDIF
 	jsr    GameStateEnter
 	bra    @End
 	

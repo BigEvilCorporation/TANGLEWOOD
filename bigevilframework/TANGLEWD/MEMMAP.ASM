@@ -337,6 +337,10 @@ LevelData_L4A1			 rs.b L4A1Data_Struct_Size
 LevelData_L6A1			 rs.b L6A1Data_Struct_Size
 	ENDIF
 
+	IF INCLUDE_LEVEL_7
+LevelData_L7A1			 rs.b L7A1Data_Struct_Size
+	ENDIF
+
 ; ************************************
 ; Debug stuff
 ; ************************************

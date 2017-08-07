@@ -199,6 +199,10 @@ __start
 	IF INCLUDE_LEVEL_6
 	include 'levels\l6a1.asm'
 	ENDIF
+
+	IF INCLUDE_LEVEL_7
+	include 'levels\l7a1.asm'
+	ENDIF
 	
 	; Include game code
 	include 'audio.asm'

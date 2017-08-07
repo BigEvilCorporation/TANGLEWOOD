@@ -26,7 +26,7 @@ L6a1_DeadwoodAct1:
 	dc.l L6a1_LoadGameObjects			; Load game objects routine
 	dc.l l6a1_End						; End routine
 	IF INCLUDE_LEVEL_7
-	dc.l l7a1_TurntailAct1				; Next level
+	dc.l l7a1_OasisAct1					; Next level
 	ELSE
 	dc.l 0x00000000
 	ENDIF
