@@ -160,6 +160,18 @@ LIST_GET_NEXT: macro name,objaddrreg,outreg
 ;	FOR LINK LISTS AS STRUCT MEMBERS
 ;==============================================================
 
+	; Init list
+MLIST_INIT: macro name,structaddrreg
+	move.l #0x0, List_\name\_Head(\structaddrreg)
+	move.l #0x0, List_\name\_Tail(\structaddrreg)
+	move.l #0x0, List_\name\_Size(\structaddrreg)
+	endm
+	
+	; Init list link
+LIST_INIT_LINK: macro name,objaddrreg
+	move.l #0x0, List_\name\_Next(\objaddrreg)
+	endm
+
 	; Get number of elements in list
 MLIST_GET_SIZE: macro name,outreg,structaddrreg
 	move.l List_\name\_Size(\structaddrreg),\outreg

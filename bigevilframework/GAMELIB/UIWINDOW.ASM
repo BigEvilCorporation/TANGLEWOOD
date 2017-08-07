@@ -28,6 +28,7 @@ UIWindowInit:
 	addi.w #0x1, EntityCount_UIWindow
 
 	; Initial state
+	MLIST_INIT Widgets,a0
 	move.l #0x0, UIWindow_OnForward(a0)
 	move.l #0x0, UIWindow_OnBack(a0)
 	

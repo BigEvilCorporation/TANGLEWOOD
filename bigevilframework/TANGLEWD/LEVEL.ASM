@@ -119,6 +119,10 @@ GameStateReset:
 	move.w #0x0, SharedVRAM_DjakCage
 	move.w #0x0, SharedVRAM_Crate
 	move.w #0x0, SharedVRAM_Log
+
+	; Clear UI
+	move.w #0x0, WidgetCount_Text
+	move.w #0x0, WidgetCount_Cursor
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
@@ -137,6 +141,8 @@ GameStateReset:
 	LIST_CLEAR Characters,a4,a3
 	LIST_CLEAR Platforms,a4,a3
 	LIST_CLEAR Barriers,a4,a3
+	LIST_CLEAR MovingBarriers,a4,a3
+	LIST_CLEAR MovingPlatforms,a4,a3
 	LIST_CLEAR PushableObjs,a4,a3
 	LIST_CLEAR AIMarkers,a4,a3
 

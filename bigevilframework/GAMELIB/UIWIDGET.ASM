@@ -29,6 +29,7 @@ UIWidget_Struct_Size		rs.b 0
 UIWidgetInit:
 	; a0 --- Widget addr
 
+	LIST_INIT_LINK Widgets,a0
 	move.l #0x0, UIWidget_Window(a0)
 	move.l #0x0, UIWidget_OnSelected(a0)
 	move.l #0x0, UIWidget_OnSelectedData(a0)
