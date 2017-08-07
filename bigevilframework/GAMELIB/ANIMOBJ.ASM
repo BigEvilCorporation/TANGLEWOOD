@@ -159,9 +159,16 @@ AnimObjDraw:
 
 	; Get subframe
 	move.l AnimObj_AnimSubframe(a0), d2
-	
+
 	; To frames
 	lsr.l  #0x8, d2
+	
+	; Wrap
+	andi.l #0xFFFF, d2
+	andi.l #0xFF, d3
+	divs   d3, d2		; Div frame count against num anim frames
+	clr.w  d2
+	swap   d2			; Remainder to lower word
 	
 	; Frame advanced, + DMA new tiles to VRAM
 	movem.l d2/a0-a2, -(sp)

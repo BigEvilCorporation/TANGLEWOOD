@@ -259,9 +259,6 @@ SPR_LoadAnimFrame:
 	and.l  #0x0000FFFF, d2
 	and.l  #0x000000FF, d3
 
-	divu   d3, d2          ; Div frame count against num anim frames
-	swap   d2			   ; Remainder to lower word
-
 	move.b (a1,d2.w), d3   ; Get frame index from anim data array
 	add.w  d4, d3		   ; Add first frame offset
 
