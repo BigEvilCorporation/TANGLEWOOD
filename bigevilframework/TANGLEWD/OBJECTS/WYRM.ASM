@@ -39,15 +39,19 @@ Wyrm_BoundsOffsetY		equ (Wyrm_Height/2)-(Wyrm_BoundsHeight/2)
 ; States
 ; ************************************
 WyrmState_Idle			equ 0x0
-WyrmState_Chasing		equ 0x1
-WyrmState_Biting		equ 0x2
+WyrmState_Emerging		equ 0x1
+WyrmState_Burrowing		equ 0x2
+WyrmState_Chasing		equ 0x3
+WyrmState_Biting		equ 0x4
 
 ; ************************************
 ; Animations
 ; ************************************
 WyrmAnimIdx_Bite		equ 0
+WyrmAnimIdx_Emerge		equ 1
+WyrmAnimIdx_Burrow		equ 2
 ; -------------------------------
-Wyrm_NumAnims			equ 1
+Wyrm_NumAnims			equ 3
 
 ;==============================================================
 
@@ -104,7 +108,7 @@ WyrmInit:
 	move.w  #Wyrm_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Wyrm_DecelForced, Character_DecelForced(a0)
 
-	move.b  #WyrmState_Chasing, Wyrm_State(a0)
+	move.b  #WyrmState_Idle, Wyrm_State(a0)
 
 	; Always process out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
@@ -125,12 +129,14 @@ WyrmLoadGfx:
 	SPRITE_LOAD_DEFAULT Wyrm,PaletteId_Monster,0x0
 
 	; Load character animations
-	ANIM_LOAD_DEFAULT wyrm_move,wyrm_move,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT wyrm_move,wyrm_move,Character_Animations,CharacterAnimIdx_Run,1,0,0
 	ANIM_LOAD_DEFAULT wyrm_move,wyrm_move,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Load bespoke animations
 	ANIM_LOAD_DEFAULT wyrm_bite,wyrm_bite,Wyrm_Animations,WyrmAnimIdx_Bite,0,1,1
+	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_emerge,Wyrm_Animations,WyrmAnimIdx_Emerge,0,1,1
+	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_burrow,Wyrm_Animations,WyrmAnimIdx_Burrow,0,1,1
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
@@ -144,12 +150,25 @@ WyrmUpdate:
 	move.b Wyrm_State(a0), d0
 	cmp.b  #WyrmState_Idle, d0
 	beq    @Idle
+	cmp.b  #WyrmState_Emerging, d0
+	beq    @Emerging
+	cmp.b  #WyrmState_Burrowing, d0
+	beq    @Burrowing
 	cmp.b  #WyrmState_Chasing, d0
 	beq    @Chasing
 	cmp.b  #WyrmState_Biting, d0
 	beq    @Biting
 
 	@Idle:
+	jsr    WyrmAIUpdate_Idle
+	bra    @EndAI
+
+	@Emerging:
+	jsr    WyrmAIUpdate_Emerge
+	bra    @EndAI
+
+	@Burrowing:
+	jsr    WyrmAIUpdate_Burrow
 	bra    @EndAI
 
 	@Chasing:
@@ -207,6 +226,79 @@ WyrmAIStart_Idle
 
 	rts
 
+WyrmAIUpdate_Idle:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; TODO: If player touching sand, wake up
+	jsr    WyrmAIStart_Emerge
+	
+	rts
+
+WyrmAIStart_Emerge
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set new state
+	move.b #WyrmState_Emerging, Wyrm_State(a0)
+
+	; Emerge anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Wyrm_Animations, a1
+	move.l #(WyrmAnimIdx_Emerge*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.b #0x0, Character_UpdateAnim(a0)
+	POPL   a1
+
+	rts
+
+WyrmAIUpdate_Emerge:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If anim finished, start chase state
+	tst.b AnimObj_Playing(a0)
+	bne   @Playing
+	move.b #0x1, Character_UpdateAnim(a0)
+	jsr   WyrmAIStart_Follow
+	@Playing:
+	
+	rts
+
+WyrmAIStart_Burrow
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set new state
+	move.b #WyrmState_Burrowing, Wyrm_State(a0)
+
+	; Burrow anim
+	PUSHL  a1
+	move.l a0, a1
+	add.l  #Wyrm_Animations, a1
+	move.l #(WyrmAnimIdx_Burrow*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	move.b #0x0, Character_UpdateAnim(a0)
+	POPL   a1
+
+	rts
+
+WyrmAIUpdate_Burrow:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If anim finished, start idle state
+	tst.b AnimObj_Playing(a0)
+	bne   @Playing
+	move.b #0x1, Character_UpdateAnim(a0)
+	jsr   WyrmAIStart_Idle
+	@Playing:
+	
+	rts
+
 WyrmAIStart_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -234,7 +326,7 @@ WyrmAIUpdate_Follow:
 	; Start bite state
 	jsr    WyrmAIStart_Bite
 
-	bra    @End
+	bra    @Bite
 
 	;==============================================================
 
@@ -249,14 +341,23 @@ WyrmAIUpdate_Follow:
 
 	; Run left
 	jsr    CharacterMoveLeft
-	bra    @End
+	bra    @EndMove
 	
 	@RunRight:
 
 	; Run right
 	jsr    CharacterMoveRight
 
-	@End:
+	@EndMove:
+
+	; If hit wall, start burrowing
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
+	beq    @NotHittingWall
+	jsr    WyrmAIStart_Burrow
+	@NotHittingWall:
+
+	@Bite:
 	
 	rts
 
@@ -274,6 +375,7 @@ WyrmAIStart_Bite:
 	move.l #(WyrmAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
+	move.b #0x0, Character_UpdateAnim(a0)
 	POPL   a1
 
 	rts
@@ -283,9 +385,7 @@ WyrmAIUpdate_Bite:
 	; a1 --- Level addr
 	
 	; Check if end frame reached
-	move.l AnimObj_AnimSubframe(a0), d0	; Get anim subframe
-	lsr.l  #0x8, d0 					; Subframes to frames
-	cmp.b  #spriteanim_wyrm_bite_numframes, d0
+	tst.b  AnimObj_Playing(a0)
 	beq    @AnimFinished
 	
 	; Check if attack frame reached

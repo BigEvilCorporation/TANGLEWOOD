@@ -41,3 +41,49 @@ spriteanim_wyrm_move_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
+spriteanim_wyrm_idle:
+spriteanim_wyrm_idle_numframes: equ 0x1
+spriteanim_wyrm_idle_speed: equ 0x5
+spriteanim_wyrm_idle_track_frames:
+	dc.b 0x0
+	Even
+spriteanim_wyrm_idle_track_posx:
+	dc.b 0x00
+	Even
+spriteanim_wyrm_idle_track_posy:
+	dc.b 0x00
+	Even
+spriteanim_wyrm_idle_track_sfx:
+	dc.l 0x0
+	Even
+spriteanim_wyrm_burrow:
+spriteanim_wyrm_burrow_numframes: equ 0x3
+spriteanim_wyrm_burrow_speed: equ 0x19
+spriteanim_wyrm_burrow_track_frames:
+	dc.b 0x2, 0x1, 0x0
+	Even
+spriteanim_wyrm_burrow_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_wyrm_burrow_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_wyrm_burrow_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+spriteanim_wyrm_emerge:
+spriteanim_wyrm_emerge_numframes: equ 0x3
+spriteanim_wyrm_emerge_speed: equ 0x19
+spriteanim_wyrm_emerge_track_frames:
+	dc.b 0x0, 0x1, 0x2
+	Even
+spriteanim_wyrm_emerge_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_wyrm_emerge_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_wyrm_emerge_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
