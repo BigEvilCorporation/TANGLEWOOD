@@ -529,6 +529,12 @@ PlayerBeginColourSwitch:
 	
 	; Start countdown timer
 	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
+
+	; If switching to blue (beast taming), auto-activate
+	cmp.b  #ColourBlue, Player_Colour(a0)
+	bne    @NoActivate
+	jsr    PlayerStartColourAbility
+	@NoActivate:
 	
 	@Red:
 	
