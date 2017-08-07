@@ -15,24 +15,55 @@ main_menu_Leaf_5_idx	equ 0x3
 main_menu_Leaf_6_idx	equ 0x4
 main_menu_Leaf_7_idx	equ 0x5
 
+	IFND FINAL
+main_menu_Leaf_2_name	dc.b "main_menu_Leaf_2",0
+main_menu_Leaf_3_name	dc.b "main_menu_Leaf_3",0
+main_menu_Leaf_4_name	dc.b "main_menu_Leaf_4",0
+main_menu_Leaf_5_name	dc.b "main_menu_Leaf_5",0
+main_menu_Leaf_6_name	dc.b "main_menu_Leaf_6",0
+main_menu_Leaf_7_name	dc.b "main_menu_Leaf_7",0
+	even
+	ENDIF
+
+main_menu_Echo_count equ 0x0
+
 main_menu_Nymn_count equ 0x1
 main_menu_Nymn_1_idx	equ 0x0
 
-main_menu_Echo_count equ 0x0
+	IFND FINAL
+main_menu_Nymn_1_name	dc.b "main_menu_Nymn_1",0
+	even
+	ENDIF
 
 main_menu_BouncePlant_count equ 0x1
 main_menu_BouncePlant_8_idx	equ 0x0
 
-main_menu_Boulder_count equ 0x0
+	IFND FINAL
+main_menu_BouncePlant_8_name	dc.b "main_menu_BouncePlant_8",0
+	even
+	ENDIF
+
+main_menu_Log_count equ 0x0
+
+main_menu_DjakkCage_count equ 0x0
 
 main_menu_Monster_count equ 0x0
 
+main_menu_Boulder_count equ 0x0
+
 main_menu_Firefly_count equ 0x0
+
+main_menu_FuzzlCage_count equ 0x0
 
 main_menu_Fuzzl_count equ 0x0
 
 main_menu_Stone_count equ 0x1
 main_menu_Stone_9_idx	equ 0x0
+
+	IFND FINAL
+main_menu_Stone_9_name	dc.b "main_menu_Stone_9",0
+	even
+	ENDIF
 
 main_menu_Nest_count equ 0x0
 
@@ -50,33 +81,57 @@ main_menu_Deathbox_count equ 0x0
 
 main_menu_Lift_count equ 0x0
 
+main_menu_Crate_count equ 0x0
+
+main_menu_Generator_count equ 0x0
+
+main_menu_Cogs_count equ 0x0
+
+main_menu_Bridge_count equ 0x0
+
+main_menu_Button_count equ 0x0
+
+main_menu_AIMarker_count equ 0x0
+
 
 	IF main_menu_Leaf_count>Leaf_MaxEntities
 	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,main_menu_Leaf_count
-	ENDIF
-
-	IF main_menu_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,main_menu_Nymn_count
 	ENDIF
 
 	IF main_menu_Echo_count>Echo_MaxEntities
 	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,main_menu_Echo_count
 	ENDIF
 
+	IF main_menu_Nymn_count>Nymn_MaxEntities
+	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,main_menu_Nymn_count
+	ENDIF
+
 	IF main_menu_BouncePlant_count>BouncePlant_MaxEntities
 	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,main_menu_BouncePlant_count
 	ENDIF
 
-	IF main_menu_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,main_menu_Boulder_count
+	IF main_menu_Log_count>Log_MaxEntities
+	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,main_menu_Log_count
+	ENDIF
+
+	IF main_menu_DjakkCage_count>DjakkCage_MaxEntities
+	inform 2,"Entity array overflow(DjakkCage) - array size: 0x%d count : 0x%d",DjakkCage_MaxEntities,main_menu_DjakkCage_count
 	ENDIF
 
 	IF main_menu_Monster_count>Monster_MaxEntities
 	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,main_menu_Monster_count
 	ENDIF
 
+	IF main_menu_Boulder_count>Boulder_MaxEntities
+	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,main_menu_Boulder_count
+	ENDIF
+
 	IF main_menu_Firefly_count>Firefly_MaxEntities
 	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,main_menu_Firefly_count
+	ENDIF
+
+	IF main_menu_FuzzlCage_count>FuzzlCage_MaxEntities
+	inform 2,"Entity array overflow(FuzzlCage) - array size: 0x%d count : 0x%d",FuzzlCage_MaxEntities,main_menu_FuzzlCage_count
 	ENDIF
 
 	IF main_menu_Fuzzl_count>Fuzzl_MaxEntities
@@ -119,49 +174,135 @@ main_menu_Lift_count equ 0x0
 	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,main_menu_Lift_count
 	ENDIF
 
+	IF main_menu_Crate_count>Crate_MaxEntities
+	inform 2,"Entity array overflow(Crate) - array size: 0x%d count : 0x%d",Crate_MaxEntities,main_menu_Crate_count
+	ENDIF
+
+	IF main_menu_Generator_count>Generator_MaxEntities
+	inform 2,"Entity array overflow(Generator) - array size: 0x%d count : 0x%d",Generator_MaxEntities,main_menu_Generator_count
+	ENDIF
+
+	IF main_menu_Cogs_count>Cogs_MaxEntities
+	inform 2,"Entity array overflow(Cogs) - array size: 0x%d count : 0x%d",Cogs_MaxEntities,main_menu_Cogs_count
+	ENDIF
+
+	IF main_menu_Bridge_count>Bridge_MaxEntities
+	inform 2,"Entity array overflow(Bridge) - array size: 0x%d count : 0x%d",Bridge_MaxEntities,main_menu_Bridge_count
+	ENDIF
+
+	IF main_menu_Button_count>Button_MaxEntities
+	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,main_menu_Button_count
+	ENDIF
+
+	IF main_menu_AIMarker_count>AIMarker_MaxEntities
+	inform 2,"Entity array overflow(AIMarker) - array size: 0x%d count : 0x%d",AIMarker_MaxEntities,main_menu_AIMarker_count
+	ENDIF
+
 
 main_menu_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
+	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_Nymn, a0
 	jsr NymnInit
 	move.l #0x00980000, Entity_WorldPosX(a0)
 	move.l #0x00d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea main_menu_Nymn_1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
-
-	move.l #EntityArray_Echo, a0
 
 	move.l #EntityArray_BouncePlant, a0
 	jsr BouncePlantInit
 	move.l #0x01700000, Entity_WorldPosX(a0)
 	move.l #0x01400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea main_menu_BouncePlant_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
-	move.l #EntityArray_Boulder, a0
+	move.l #EntityArray_Log, a0
+
+	move.l #EntityArray_DjakkCage, a0
 
 	move.l #EntityArray_Monster, a0
 
+	move.l #EntityArray_Boulder, a0
+
 	move.l #EntityArray_Firefly, a0
+
+	move.l #EntityArray_FuzzlCage, a0
 
 	move.l #EntityArray_Fuzzl, a0
 
@@ -169,6 +310,13 @@ main_menu_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x00f80000, Entity_WorldPosX(a0)
 	move.l #0x01480000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea main_menu_Stone_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
@@ -187,6 +335,18 @@ main_menu_LoadGameObjects:
 	move.l #EntityArray_Deathbox, a0
 
 	move.l #EntityArray_Lift, a0
+
+	move.l #EntityArray_Crate, a0
+
+	move.l #EntityArray_Generator, a0
+
+	move.l #EntityArray_Cogs, a0
+
+	move.l #EntityArray_Bridge, a0
+
+	move.l #EntityArray_Button, a0
+
+	move.l #EntityArray_AIMarker, a0
 
 	rts
 
