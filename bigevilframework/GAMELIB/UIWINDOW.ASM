@@ -45,7 +45,7 @@ UIWindowAddWidget:
 	; a0 --- Window addr
 	; a1 --- Widget addr
 
-	move.l a0, UIWidget_Window(a0)
+	move.l a0, UIWidget_Window(a1)
 	MLIST_APPEND_TAIL Widgets,a1,a2,a0
 
 	rts
