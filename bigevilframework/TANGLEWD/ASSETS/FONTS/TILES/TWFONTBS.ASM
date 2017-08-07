@@ -7,38 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-palette_twfontbs:
-	dc.w	0x0666
-	dc.w	0x0EEE
-	dc.w	0x0222
-	dc.w	0x0222
-	dc.w	0x0222
-	dc.w	0x0222
-	dc.w	0x0222
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-
-palette_twfontbs_grey:
-	dc.w	0x0000
-	dc.w	0x0AAA
-	dc.w	0x0222
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
-	dc.w	0x0000
+tiles_twfontbs_size_b	equ 0x00000C00	; Size in bytes
+tiles_twfontbs_size_w	equ (tiles_twfontbs_size_b/2)	; Size in words
+tiles_twfontbs_size_l	equ (tiles_twfontbs_size_b/4)	; Size in longwords
+tiles_twfontbs_size_t	equ (tiles_twfontbs_size_b/32)	; Size in tiles

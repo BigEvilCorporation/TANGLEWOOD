@@ -13,6 +13,10 @@ tiles_twfont:
 	incbin 'assets\fonts\tiles\twfont.bin'
 tiles_twfontb:
 	incbin 'assets\fonts\tiles\twfontb.bin'
+tiles_twfonts:
+	incbin 'assets\fonts\tiles\twfonts.bin'
+tiles_twfontbs:
+	incbin 'assets\fonts\tiles\twfontbs.bin'
 tiles_bigevil_logo:
 	incbin 'assets\maps\bec_logo\tiles.bin'
 tiles_megafounder_screen:

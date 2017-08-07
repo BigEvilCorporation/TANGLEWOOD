@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Engine features
-INCLUDE_AUDIO			equ 0
+INCLUDE_AUDIO			equ 1
 
 ; Profiler
 	IFD DEBUG
