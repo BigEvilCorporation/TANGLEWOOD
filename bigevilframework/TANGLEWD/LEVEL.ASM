@@ -112,6 +112,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_TriggerBox
 	move.w #0x0, EntityCount_VFX
 	move.w #0x0, EntityCount_WaterBody
+	move.w #0x0, EntityCount_Wyrm
 
 	; Clear shared VRAM
 	move.w #0x0, SharedVRAM_Lift

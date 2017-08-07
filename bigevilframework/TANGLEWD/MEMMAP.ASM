@@ -401,6 +401,7 @@ EntityArray_BouncePlant rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
 EntityArray_Stone       rs.b (Stone_Struct_Size*Stone_MaxEntities)
 EntityArray_Deathbox    rs.b (Deathbox_Struct_Size*Deathbox_MaxEntities)
 EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
+EntityArray_Wyrm        rs.b (Wyrm_Struct_Size*Wyrm_MaxEntities)
 EntityArray_UIWindow    rs.b (VfxObj_Struct_Size*UIWindow_MaxEntities)
 	ENDIF
 
@@ -432,6 +433,7 @@ EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
 EntityCount_VFX         rs.w 1
+EntityCount_Wyrm        rs.w 1
 EntityCount_UIWindow    rs.w 1
 
 ; ************************************

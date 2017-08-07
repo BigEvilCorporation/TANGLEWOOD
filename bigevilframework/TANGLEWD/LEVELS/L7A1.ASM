@@ -42,7 +42,7 @@ L7a1_OasisAct1:
 L7a1_DefaultPalettes:
 
 	dc.l palette_l7					; World
-	dc.l 0x0						; Wyrm
+	dc.l palette_wyrm				; Wyrm
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	

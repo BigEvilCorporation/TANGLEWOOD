@@ -71,6 +71,14 @@ L7A1_Bridge_count equ 0x0
 
 L7A1_Button_count equ 0x0
 
+L7A1_Wyrm_count equ 0x1
+L7A1_Wyrm_4_idx	equ 0x0
+
+	IFND FINAL
+L7A1_Wyrm_4_name	dc.b "L7A1_Wyrm_4",0
+	even
+	ENDIF
+
 
 	IF L7A1_Leaf_count>Leaf_MaxEntities
 	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L7A1_Leaf_count
@@ -172,6 +180,10 @@ L7A1_Button_count equ 0x0
 	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L7A1_Button_count
 	ENDIF
 
+	IF L7A1_Wyrm_count>Wyrm_MaxEntities
+	inform 2,"Entity array overflow(Wyrm) - array size: 0x%d count : 0x%d",Wyrm_MaxEntities,L7A1_Wyrm_count
+	ENDIF
+
 
 L7A1_LoadGameObjects:
 	move.l #EntityArray_Leaf, a0
@@ -259,6 +271,20 @@ L7A1_LoadGameObjects:
 	move.l #EntityArray_Bridge, a0
 
 	move.l #EntityArray_Button, a0
+
+	move.l #EntityArray_Wyrm, a0
+	jsr WyrmInit
+	move.l #0x04a80000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Wyrm_4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WyrmLoadGfx
+	add.l #Wyrm_Struct_Size, a0
 
 	rts
 

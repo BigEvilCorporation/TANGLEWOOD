@@ -74,6 +74,7 @@
 	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
 	include 'assets\sprites\water.asm'
+	include 'assets\sprites\wyrm.asm'
 
 	; ************************************
 	; Sprite palettes
@@ -86,6 +87,7 @@
 	include 'assets\palettes\djakk.asm'
 	include 'assets\palettes\djrake.asm'
 	include 'assets\palettes\text.asm'
+	include 'assets\palettes\wyrm.asm'
 	
 	; ************************************
 	; Sprite animation data
@@ -111,6 +113,7 @@
 	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
 	include 'assets\anims\water.asm'
+	include 'assets\anims\wyrm.asm'
 
 	; ************************************
 	; Tilesets
