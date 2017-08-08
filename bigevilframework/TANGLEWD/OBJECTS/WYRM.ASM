@@ -230,8 +230,18 @@ WyrmAIUpdate_Idle:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; TODO: If player touching sand, wake up
+	; If player touching sand (on special terrain), wake up
+	move.l #Player1, a2
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @PlayerInAir
+	move.w PhysicsObj_LastTerrainFlags(a2), d0
+	andi.w #col_tile_flag_special, d0
+	beq    @PlayerNotOnSand
+
 	jsr    WyrmAIStart_Emerge
+
+	@PlayerInAir:
+	@PlayerNotOnSand:
 	
 	rts
 

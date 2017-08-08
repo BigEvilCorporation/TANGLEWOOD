@@ -58,6 +58,7 @@ PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
 PhysicsObj_MinWallHeight    	rs.w 1 ; Min wall height
+PhysicsObj_LastTerrainFlags		rs.w 1 ; Flags for last detected terrain
 PhysicsObj_CanSleep				rs.b 1 ; Physics can sleep
 PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
@@ -106,6 +107,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)
+	move.w #0x0, PhysicsObj_LastTerrainFlags(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
@@ -939,6 +941,9 @@ PhysicsObjFindFloor:
 	jsr    PHYS_GetTerrainHeight
 	move.l (sp)+, a1
 	move.l (sp)+, a0
+
+	; Store terrain flags
+	move.w d3, PhysicsObj_LastTerrainFlags(a0)
 	
 	;==============================================================
 	

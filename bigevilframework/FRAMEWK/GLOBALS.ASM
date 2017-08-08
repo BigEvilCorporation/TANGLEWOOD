@@ -262,6 +262,7 @@ col_tile_mask_flags	  	  equ 0xE000
 col_tile_mask_tileid	  equ 0x1FFF
 col_tile_flag_solid 	  equ (1<<13)	; Solid tile (wall/floor/ceiling)
 col_tile_flag_hole	 	  equ (1<<14)	; Terrain can be ignored (for jumping down holes, etc)
+col_tile_flag_special	  equ (1<<15)	; Specially marked terrain, gameplay specific
 
 ; ************************************
 ; Legacy VDP write longs - do not use
