@@ -58,6 +58,9 @@ EchoInit:
 	
 	; Base functionality
 	jsr    PlayerInit
+
+	; Count
+	addi.w #0x1, EntityCount_Echo
 	
 	; Set update and render routines
 	move.l #EchoUpdate, Entity_UpdateRoutine(a0)
@@ -246,7 +249,7 @@ EchoUpdate:
 	bne   @InSequence
 	
 	; Snap to Nymn's position
-	move.l #Player1, a3
+	move.l (Player1), a3
 	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a0)
 	
@@ -280,7 +283,7 @@ EchoUpdate:
 	@Riding:
 	
 	; Lock to Nymn's position
-	move.l #Player1, a3
+	move.l (Player1), a3
 	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
 	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a0)
 	
@@ -376,7 +379,7 @@ EchoBeginCarried:
 	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	
 	; Snap to Nymn's direction
-	move.l #Player1, a3
+	move.l (Player1), a3
 	move.b SpriteObj_FlippedX(a3), SpriteObj_FlippedX(a0)
 	
 	; Begin jump
@@ -484,7 +487,7 @@ EchoAIUpdate_Follow:
 	; a1 --- Level addr
 	
 	; Get Nymn
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; TODO: Check if within Y tolerance, move to object search state
 	

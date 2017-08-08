@@ -241,7 +241,7 @@ LogUpdate:
 	@DealDamage:
 	
 	; Check if touching player
-	move.l #Player1, a2
+	move.l (Player1), a2
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
@@ -250,7 +250,7 @@ LogUpdate:
 
 	; Deal damage
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	move.l #Log_HitDamage, d0
 	jsr    CharacterDealDamage
 	POPL   a0

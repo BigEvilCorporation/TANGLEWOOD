@@ -40,6 +40,9 @@ NymnInit:
 	
 	; Base functionality
 	jsr    PlayerInit
+
+	; Count
+	addi.w #0x1, EntityCount_Nymn
 	
 	; Set update and render routines
 	move.l #NymnUpdate, Entity_UpdateRoutine(a0)
@@ -190,7 +193,7 @@ NymnUpdate:
 	;==============================================================
 	
 	; Wait for Echo to begin landing
-	move.l #Player2, a2
+	move.l (Player2), a2
 	cmp.b  #EchoMountNymn_Mounting, Echo_MountedState(a2)
 	bne    @WaitingToCatch
 	
@@ -242,7 +245,7 @@ NymnStartInteract:
 	beq    @Dead
 	
 	; Bounds test with Echo
-	move.l #Player2, a2
+	move.l (Player2), a2
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
@@ -253,7 +256,7 @@ NymnStartInteract:
 	jsr    NymnBeginCarryEcho
 	
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	jsr    EchoBeginCarried
 	POPL   a0
 	
@@ -320,7 +323,7 @@ NymnCancelInteract:
 	jsr    NymnEndCarryEcho
 	
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	jsr    EchoEndCarried
 	POPL   a0
 	
@@ -432,7 +435,7 @@ NymnHowl:
 
 	; Start Echo's howl timer
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	jsr    EchoStartHowlTimer
 	POPL   a0
 

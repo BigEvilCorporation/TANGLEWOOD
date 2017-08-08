@@ -323,7 +323,7 @@ DjrakeCheckPlayerVisible:
 	; a1 --- Level addr
 	
 	; Get player 1
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; Check not cloaked
 	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
@@ -410,7 +410,7 @@ DjrakeUpdateWaitForPlayer:
 	; a1 --- Level addr
 
 	; Get player 1
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; If player dead, don't bother
 	cmp.b  #0x0, Character_Health(a2)
@@ -422,7 +422,7 @@ DjrakeUpdateWaitForPlayer:
 
 	; Get distance to player
 	move.l a1, -(sp)
-	move.l #Player1, a1
+	move.l (Player1), a1
 	jsr    PHYS_EntityDistSq
 	move.l (sp)+, a1
 	
@@ -476,16 +476,16 @@ DjrakeStartEmergeFromCave:
 	
 	; Block player control and set as camera target
 	; TODO: Use cutscene code
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.b #0x0, Player_ControlEnabled(a2)
 	move.b #0x1, Djrake_BlockingCtrl(a0)
-	move.l #Player1, CameraTargetLerpSource
+	move.l (Player1), CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
 	move.w #0x10, CameraTargetLerpSpeed
 	
 	; Cut player X velocity
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.l #0x0, PhysicsObj_VelX(a2)
 	move.w #0x0, PhysicsObj_AccelX(a2)
 	
@@ -530,7 +530,7 @@ DjrakeStartRoaring:
 	move.b #DjrakeState_Roaring, Djrake_State(a0)
 	
 	; Turn to face player
-	move.l #Player1, a2
+	move.l (Player1), a2
 	ENTITY_GETCENTREX d0, a0
 	ENTITY_GETCENTREX d1, a2
 	cmp.l  d0, d1
@@ -573,10 +573,10 @@ DjrakeUpdateRoaring:
 	cmp.b  #0x0, Djrake_BlockingCtrl(a0)
 	beq    @NotBlockingPlayerCtrl
 	
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.b #0x1, Player_ControlEnabled(a2)
 	move.l a0, CameraTargetLerpSource
-	move.l #Player1, CameraTargetGameObj
+	move.l (Player1), CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
 	move.w #0x10, CameraTargetLerpSpeed
 	
@@ -618,7 +618,7 @@ DjrakeUpdateSearchForPlayer:
 	; a1 --- Level addr
 	
 	; Get player 1 addr
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; If player dead, search around
 	cmp.b  #0x0, Character_Health(a2)
@@ -766,7 +766,7 @@ DjrakeUpdateTrackPlayer:
 	; a1 --- Level addr
 	
 	; Get player 1 addr
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; If player dead, don't bother
 	cmp.b  #0x0, Character_Health(a2)
@@ -954,7 +954,7 @@ DjrakeUpdateBite:
 	
 	; On attack frame, check if player still in range on attack frame
 	PUSHL  a1
-	move.l #Player1, a1
+	move.l (Player1), a1
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
@@ -965,7 +965,7 @@ DjrakeUpdateBite:
 	
 	; Deal damage to player
 	move.l a0, -(sp)
-	move.l #Player1, a0
+	move.l (Player1), a0
 	move.b #Djrake_BiteDamage, d0
 	jsr    CharacterDealDamage
 	move.l (sp)+, a0

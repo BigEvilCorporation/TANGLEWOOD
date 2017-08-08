@@ -27,7 +27,8 @@ RainInit:
 	; a1 --- Level addr
 
 	; Base init, load sprite sheet
-	move.l #EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a0
+	move.l #EntityArray_VFX, a0
+	addi.l #(VfxId_RainLight*VfxObj_Struct_Size), a0
 	lea    vfx_spritesheet_rain_light, a2
 	lea    vfx_animation_rain_light, a3
 	jsr    VfxInit

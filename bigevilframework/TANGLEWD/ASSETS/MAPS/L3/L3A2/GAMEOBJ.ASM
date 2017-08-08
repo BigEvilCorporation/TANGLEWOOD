@@ -257,6 +257,8 @@ L3A2_Button5_name	dc.b "L3A2_Button5",0
 	even
 	ENDIF
 
+L3A2_Wyrm_count equ 0x0
+
 
 	IF L3A2_Leaf_count>Leaf_MaxEntities
 	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L3A2_Leaf_count
@@ -358,13 +360,32 @@ L3A2_Button5_name	dc.b "L3A2_Button5",0
 	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L3A2_Button_count
 	ENDIF
 
+	IF L3A2_Wyrm_count>Wyrm_MaxEntities
+	inform 2,"Entity array overflow(Wyrm) - array size: 0x%d count : 0x%d",Wyrm_MaxEntities,L3A2_Wyrm_count
+	ENDIF
+
 
 L3A2_LoadGameObjects:
-	move.l #EntityArray_Leaf, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Leaf_Struct_Size*L3A2_Leaf_count)
+	move.l a1, EntityPoolStart_Leaf
+	move.l a1, a0
+	POPL   a1
 
-	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Nymn, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L3A2_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L3A2_Nymn_count)
+	move.l a1, EntityPoolStart_Nymn
+	move.l a1, a0
+	POPL   a1
+
 	jsr NymnInit
 	move.l #0x00a00000, Entity_WorldPosX(a0)
 	move.l #0x03780000, Entity_WorldPosY(a0)
@@ -378,9 +399,19 @@ L3A2_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
-	move.l #EntityArray_BouncePlant, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L3A2_BouncePlant_count)
+	move.l a1, EntityPoolStart_BouncePlant
+	move.l a1, a0
+	POPL   a1
 
-	move.l #EntityArray_Log, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L3A2_Log_count)
+	move.l a1, EntityPoolStart_Log
+	move.l a1, a0
+	POPL   a1
+
 	jsr LogInit
 	move.l #0x11380000, Entity_WorldPosX(a0)
 	move.l #0x02180000, Entity_WorldPosY(a0)
@@ -406,11 +437,26 @@ L3A2_LoadGameObjects:
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
 
-	move.l #EntityArray_DjakkCage, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L3A2_DjakkCage_count)
+	move.l a1, EntityPoolStart_DjakkCage
+	move.l a1, a0
+	POPL   a1
 
-	move.l #EntityArray_Monster, a0
 
-	move.l #EntityArray_Boulder, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L3A2_Monster_count)
+	move.l a1, EntityPoolStart_Monster
+	move.l a1, a0
+	POPL   a1
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L3A2_Boulder_count)
+	move.l a1, EntityPoolStart_Boulder
+	move.l a1, a0
+	POPL   a1
+
 	jsr BoulderInit
 	move.l #0x0af00000, Entity_WorldPosX(a0)
 	move.l #0x03580000, Entity_WorldPosY(a0)
@@ -440,7 +486,12 @@ L3A2_LoadGameObjects:
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
-	move.l #EntityArray_Firefly, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L3A2_Firefly_count)
+	move.l a1, EntityPoolStart_Firefly
+	move.l a1, a0
+	POPL   a1
+
 	jsr FireflyInit
 	move.l #0x05b00000, Entity_WorldPosX(a0)
 	move.l #0x03280000, Entity_WorldPosY(a0)
@@ -538,7 +589,12 @@ L3A2_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-	move.l #EntityArray_FuzzlCage, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L3A2_FuzzlCage_count)
+	move.l a1, EntityPoolStart_FuzzlCage
+	move.l a1, a0
+	POPL   a1
+
 	jsr FuzzlCageInit
 	move.l #0x14200000, Entity_WorldPosX(a0)
 	move.l #0x03b80000, Entity_WorldPosY(a0)
@@ -564,7 +620,12 @@ L3A2_LoadGameObjects:
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
 
-	move.l #EntityArray_Fuzzl, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L3A2_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
 	jsr FuzzlInit
 	move.l #0x07d00000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
@@ -617,7 +678,12 @@ L3A2_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
-	move.l #EntityArray_Stone, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L3A2_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
 	jsr StoneInit
 	move.l #0x06a80000, Entity_WorldPosX(a0)
 	move.l #0x03480000, Entity_WorldPosY(a0)
@@ -775,7 +841,12 @@ L3A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
-	move.l #EntityArray_Nest, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L3A2_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
 	jsr NestInit
 	move.l #0x06200000, Entity_WorldPosX(a0)
 	move.l #0x03580000, Entity_WorldPosY(a0)
@@ -813,9 +884,19 @@ L3A2_LoadGameObjects:
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 
-	move.l #EntityArray_Flue, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L3A2_Flue_count)
+	move.l a1, EntityPoolStart_Flue
+	move.l a1, a0
+	POPL   a1
 
-	move.l #EntityArray_TriggerBox, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L3A2_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
 	jsr TriggerBoxInit
 	move.l #0x1bb00000, Entity_WorldPosX(a0)
 	move.l #0x04e80000, Entity_WorldPosY(a0)
@@ -863,7 +944,12 @@ L3A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
-	move.l #EntityArray_Checkpoint, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L3A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
 	jsr CheckpointInit
 	move.l #0x0be00000, Entity_WorldPosX(a0)
 	move.l #0x02680000, Entity_WorldPosY(a0)
@@ -889,11 +975,26 @@ L3A2_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
 
-	move.l #EntityArray_WaterBody, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L3A2_WaterBody_count)
+	move.l a1, EntityPoolStart_WaterBody
+	move.l a1, a0
+	POPL   a1
 
-	move.l #EntityArray_Location, a0
 
-	move.l #EntityArray_Deathbox, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L3A2_Location_count)
+	move.l a1, EntityPoolStart_Location
+	move.l a1, a0
+	POPL   a1
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L3A2_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
+
 	jsr DeathboxInit
 	move.l #0x09080000, Entity_WorldPosX(a0)
 	move.l #0x04d00000, Entity_WorldPosY(a0)
@@ -979,7 +1080,12 @@ L3A2_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
 
-	move.l #EntityArray_Lift, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L3A2_Lift_count)
+	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
 	jsr LiftInit
 	move.l #0x09300000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
@@ -1041,7 +1147,12 @@ L3A2_LoadGameObjects:
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 
-	move.l #EntityArray_Crate, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Crate_Struct_Size*L3A2_Crate_count)
+	move.l a1, EntityPoolStart_Crate
+	move.l a1, a0
+	POPL   a1
+
 	jsr CrateInit
 	move.l #0x16900000, Entity_WorldPosX(a0)
 	move.l #0x04e00000, Entity_WorldPosY(a0)
@@ -1055,7 +1166,12 @@ L3A2_LoadGameObjects:
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 
-	move.l #EntityArray_Generator, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L3A2_Generator_count)
+	move.l a1, EntityPoolStart_Generator
+	move.l a1, a0
+	POPL   a1
+
 	jsr GeneratorInit
 	move.l #0x17780000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
@@ -1069,7 +1185,12 @@ L3A2_LoadGameObjects:
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 
-	move.l #EntityArray_Cogs, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L3A2_Cogs_count)
+	move.l a1, EntityPoolStart_Cogs
+	move.l a1, a0
+	POPL   a1
+
 	jsr CogsInit
 	move.l #0x17900000, Entity_WorldPosX(a0)
 	move.l #0x04c00000, Entity_WorldPosY(a0)
@@ -1083,7 +1204,12 @@ L3A2_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 
-	move.l #EntityArray_Bridge, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L3A2_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
+	move.l a1, a0
+	POPL   a1
+
 	jsr BridgeInit
 	move.l #0x04980000, Entity_WorldPosX(a0)
 	move.l #0x04480000, Entity_WorldPosY(a0)
@@ -1170,7 +1296,12 @@ L3A2_LoadGameObjects:
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 
-	move.l #EntityArray_Button, a0
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L3A2_Button_count)
+	move.l a1, EntityPoolStart_Button
+	move.l a1, a0
+	POPL   a1
+
 	jsr ButtonInit
 	move.l #0x0f180000, Entity_WorldPosX(a0)
 	move.l #0x04380000, Entity_WorldPosY(a0)
@@ -1231,6 +1362,13 @@ L3A2_LoadGameObjects:
 	ENDIF
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Wyrm_Struct_Size*L3A2_Wyrm_count)
+	move.l a1, EntityPoolStart_Wyrm
+	move.l a1, a0
+	POPL   a1
+
 
 	rts
 

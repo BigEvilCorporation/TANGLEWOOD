@@ -441,15 +441,15 @@ l3a3MeetEchoBeginStage_RunScared:
 	
 	; Lerp camera to Echo
 	PUSHM  a0-a1
-	move.l #Player1, a0
-	move.l #Player2, a1
+	move.l (Player1), a0
+	move.l (Player2), a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
 	
 	; Start running
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	jsr    CharacterMoveLeft
 	move.l #-Player1MaxVelXRun, PhysicsObj_VelX(a0)
 	POPL   a0
@@ -459,11 +459,11 @@ l3a3MeetEchoBeginStage_RunScared:
 l3a3MeetEchoUpdateStage_RunScared:
 
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; Nymn face Echo
 	move.b #0x0, d2
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosX(a2), d1
 	cmp.l  d0, d1
@@ -499,7 +499,7 @@ l3a3MeetEchoBeginStage_Hide:
 	move.b #SceneMeetEchoStage_Hide, l3a3Data_MeetEchoSceneStage(a2)
 	
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; Stop running
 	jsr    CharacterCancelXMovement
@@ -523,7 +523,7 @@ l3a3MeetEchoBeginStage_Hide:
 l3a3MeetEchoUpdateStage_Hide:
 
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; Wait for hide animation to finish
 	cmp.b  #0x0, AnimObj_Playing(a0)
@@ -552,7 +552,7 @@ l3a3MeetEchoBeginStage_DjakkChase:
 	
 	; Lerp camera to Djakk
 	PUSHM  a0-a1
-	move.l #Player2, a0
+	move.l (Player2), a0
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
@@ -588,7 +588,7 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	
 	; Start scared anim loop
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	PUSHL  a1
 	move.l a0, a1
@@ -606,7 +606,7 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	; Lerp camera to Nymn
 	PUSHM  a0-a1
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
-	move.l #Player1, a1
+	move.l (Player1), a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
@@ -647,14 +647,14 @@ l3a3MeetEchoBeginStage_StandUp:
 	
 	; Stop Nymn and take control
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	jsr    CharacterCancelXMovement
 	move.b #0x0, Player_ControlEnabled(a0)
 	POPL   a0
 	
 	; Echo start stand up anim
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	PUSHL  a1
 	move.l a0, a1
@@ -671,8 +671,8 @@ l3a3MeetEchoBeginStage_StandUp:
 	
 	; Lerp camera to Echo
 	PUSHM  a0-a1
-	move.l #Player1, a0
-	move.l #Player2, a1
+	move.l (Player1), a0
+	move.l (Player2), a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
@@ -682,7 +682,7 @@ l3a3MeetEchoBeginStage_StandUp:
 l3a3MeetEchoUpdateStage_StandUp:
 
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; Wait for stand animation to finish
 	cmp.b  #0x0, AnimObj_Playing(a0)
@@ -704,7 +704,7 @@ l3a3MeetEchoBeginStage_RunToNymn:
 	
 	; Release Echo anim control and start running
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	move.b #0x1, Character_UpdateAnim(a0)
 	jsr    CharacterMoveRight
 	POPL   a0
@@ -715,11 +715,11 @@ l3a3MeetEchoUpdateStage_RunToNymn:
 
 	; Run to Nymn
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	jsr    CharacterMoveRight
 	
 	; If touching
-	move.l #Player1, a3
+	move.l (Player1), a3
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosX(a3), d1
 	sub.l  #(EchoPounceNymnDistOffset*subpixels_per_pixel), d1
@@ -742,7 +742,7 @@ l3a3MeetEchoBeginStage_JumpNymn:
 
 	; Start jump to nymn anim
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	PUSHL  a1
 	move.l a0, a1
@@ -762,7 +762,7 @@ l3a3MeetEchoBeginStage_JumpNymn:
 l3a3MeetEchoUpdateStage_JumpNymn:
 
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; Wait for pounce animation to finish
 	cmp.b  #0x0, AnimObj_Playing(a0)
@@ -784,7 +784,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	
 	; Start greet Nymn anim
 	PUSHL  a0
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	PUSHL  a1
 	move.l a0, a1
@@ -798,14 +798,14 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Snap to position
-	move.l #Player1, a3
+	move.l (Player1), a3
 	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
 	
 	POPL   a0
 	
 	; Start greet Echo anim
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	PUSHL  a1
 	move.l a0, a1
@@ -828,7 +828,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 l3a3MeetEchoUpdateStage_GreetNymn:
 
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	; Wait for greet animation to finish
 	cmp.b  #0x0, AnimObj_Playing(a0)
@@ -858,7 +858,7 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	add.l  d0, Entity_WorldPosX(a0)
 
 	; Get Echo
-	move.l #Player2, a0
+	move.l (Player2), a0
 	
 	; HACK: Take current anim X offset
 	move.w SpriteObj_DrawOffsetX(a0), d0
@@ -870,8 +870,8 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	
 	; Lerp camera to Nymn
 	PUSHM  a0-a1
-	move.l #Player2, a0
-	move.l #Player1, a1
+	move.l (Player2), a0
+	move.l (Player1), a1
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
@@ -952,7 +952,7 @@ l3a3_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	jsr    PlayerBeginSleep
 	POPL   a0
 	

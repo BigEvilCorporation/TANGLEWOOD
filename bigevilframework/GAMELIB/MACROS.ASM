@@ -7,7 +7,8 @@
 ;==============================================================
 
 ENTITY_GETBYNAME: macro typename,name,addrreg
-	move.l #EntityArray_\typename+(\name\_idx*\typename\_Struct_Size), \addrreg
+	move.l (EntityPoolStart_\typename), \addrreg
+	addi.l #(\name\_idx*\typename\_Struct_Size), \addrreg
 	endm
 
 ENTITY_GETCENTREX: macro destreg,addrreg

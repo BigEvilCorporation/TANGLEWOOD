@@ -31,7 +31,7 @@ UpdateInput:
 	move.w (Gamepad1PrevState), d1
 	
 	; Player 1 movement
-	move.l #Player1, a0
+	move.l (Player1), a0
 	move.l (CurrentLevel), a1
 	cmp.b  #0x0, Player_ControlEnabled(a0)
 	beq    @NoControlP1
@@ -48,7 +48,7 @@ UpdateInput:
 	;move.w (Gamepad2PrevState), d1
 	
 	; Player 2 movement
-	;move.l #Player2, a0
+	;move.l (Player2), a0
 	;cmp.b  #0x0, Player_ControlEnabled(a0)
 	;beq    @NoControlP2
 	;jsr    HandlePlayerInput

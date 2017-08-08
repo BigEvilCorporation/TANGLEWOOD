@@ -24,6 +24,9 @@ entity_type_location	 equ (1<<29)
 entity_type_lift		 equ (1<<30)
 entity_type_rope		 equ (1<<31)
 
+; Entity RAM pool size
+EntityRAMPoolSize		 equ (1024*40)
+
 ; Subframes
 SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change
 SubframeShift			 equ 0x8
@@ -73,10 +76,6 @@ ColourBlue				 equ 0x3
 ColourGreen				 equ 0x4
 ColourYellow			 equ 0x5
 NumSwitchingColours		 equ 0x6
-
-; Global player addresses
-Player1 				 equ (EntityArray_Nymn)
-Player2 				 equ (EntityArray_Echo)
 
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0400 ; 1kb

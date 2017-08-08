@@ -85,6 +85,9 @@ GameStateReset:
 	jsr    EntityClearUpdateList
 	jsr    EntityClearRenderList
 	jsr    EntityClearSerialiseList
+
+	; Init entity pool
+	RAMPOOL_INIT Pool_Entities,EntityRAMPoolSize
 	
 	; Reset entity counts
 	move.w #0x0, EntityCount_Actor
@@ -92,10 +95,11 @@ GameStateReset:
 	move.w #0x0, EntityCount_Boulder
 	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Bridge
-	move.w #0x0, EntityArray_Button
-	move.w #0x0, EntityArray_Cogs
-	move.w #0x0, EntityArray_Crate
-	move.w #0x0, EntityArray_DjakkCage
+	move.w #0x0, EntityCount_Button
+	move.w #0x0, EntityCount_Cogs
+	move.w #0x0, EntityCount_Crate
+	move.w #0x0, EntityCount_DjakkCage
+	move.w #0x0, EntityCount_Echo
 	move.w #0x0, EntityCount_Firefly
 	move.w #0x0, EntityCount_Flue
 	move.w #0x0, EntityCount_Fuzzl
@@ -107,6 +111,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_Log
 	move.w #0x0, EntityCount_Monster
 	move.w #0x0, EntityCount_Nest
+	move.w #0x0, EntityCount_Nymn
 	move.w #0x0, EntityCount_Rope
 	move.w #0x0, EntityCount_Stone
 	move.w #0x0, EntityCount_TriggerBox
@@ -130,7 +135,7 @@ GameStateReset:
 	jsr	   VDP_DMAQueue_ExecuteAll
 	
 	; Reset ropes
-	move.l  #EntityArray_Rope, NextFreeRopeSegment
+	move.l (EntityPoolStart_Rope), NextFreeRopeSegment
 
 	; Reset water level
 	move.b #0xFF, raster_water_level
@@ -330,7 +335,9 @@ LevelAddSFX:
 
 LevelLoadVFX:
 
-	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
+	; Init VFX
+	move.l #EntityArray_VFX, a0
+	addi.l #(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
 	lea    vfx_spritesheet_water_splash, a2
 	lea    vfx_animation_water_splash_small, a3
 	jsr    VfxInit
@@ -342,9 +349,38 @@ LevelReset:
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
 
+	;==============================================================
+
+	; Set default player addrs
+	cmp.w  #0x0, EntityCount_Nymn
+	beq    @NoNymn
+
+	; Nymn is P1
+	move.l (EntityPoolStart_Nymn), Player1
+
+	cmp.w  #0x0, EntityCount_Echo
+	beq    @NoEcho
+
+	; Echo is P2
+	move.l (EntityPoolStart_Echo), Player2
+	bra    @EndDefaultPlayers
+
+	@NoNymn:
+
+	; Echo is P1, no Nymn
+	move.l (EntityPoolStart_Echo), Player1
+	move.l #0x0, Player2
+
+	@NoEcho:
+	@EndDefaultPlayers:
+
+	;==============================================================
+
 	; System
 	move.w  #0x0, Gamepad1PrevState
 	move.w  #0x0, Gamepad2PrevState
+
+	;==============================================================
 	
 	; Switching palettes
 	lea     SwitchingPalettesP1, a0
@@ -354,15 +390,23 @@ LevelReset:
 	move.l  #Pal_Nymn_Blue, (a0)+	; Blue
 	move.l  #Pal_Nymn_Green, (a0)+	; Green
 	move.l  #Pal_Nymn_Yellow, (a0)+; Yellow
+
+	;==============================================================
 	
 	; Colour abilities
 	move.b  #0x1, GlobalTimeDiv
+
+	;==============================================================
 	
 	; Fireflies
 	move.w  #0x0, FireflyPickupCount
+
+	;==============================================================
 	
 	; World
 	move.w  #0x0, TimeOfDayShiftDelay
+
+	;==============================================================
 
 	; Weather
 	move.l  #0x0, WindAccel
@@ -371,6 +415,8 @@ LevelReset:
 	move.l  #0x0, WindRandStrengthMax
 	move.w  #0x0, WindDelayTimer
 	move.w  #0x0, WindDurationTimer
+
+	;==============================================================
 
 	; Physics world
 	lea    PhysicsWorld, a2
@@ -382,13 +428,17 @@ LevelReset:
 	add.l   vdp_sprite_border_y, d0
 	TOSUBPIXELS d0
 	move.l  d0, PhysicsWorld_GroundHeight(a2)
+
+	;==============================================================
 	
 	; Camera
 	move.l  #0x0, WorldScrollX
 	move.l  #0x0, WorldScrollY
 	move.l  #CameraStartPosWorldX, CameraWorldPosX
 	move.l  #CameraStartPosWorldY, CameraWorldPosY
-	move.l  #Player1, CameraTargetGameObj
+	move.l  (Player1), CameraTargetGameObj
+
+	;==============================================================
 	
 	; Set BG colour
 	move.w #(PaletteId_World0<<4)|0xD, d0

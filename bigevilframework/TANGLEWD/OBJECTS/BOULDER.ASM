@@ -276,7 +276,7 @@ BoulderUpdate:
 	move.l a1, -(sp)
 	
 	; Check if squishing a monster
-	move.l #EntityArray_Monster, a1
+	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
 	beq    @NoMonsters

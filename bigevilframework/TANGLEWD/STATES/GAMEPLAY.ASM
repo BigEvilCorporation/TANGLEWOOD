@@ -66,7 +66,7 @@ Gameplay_Enter:
 	move.b #0x1, Checkpoint_Activated(a2)
 	
 	; Get player 1
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	; Set player pos from checkpoint
 	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
@@ -77,7 +77,7 @@ Gameplay_Enter:
 	;==============================================================
 	
 	; Get player 1
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	; Snap to floor
 	move.l (CurrentLevel), a1
@@ -160,7 +160,7 @@ Gameplay_Update:
 	jsr    UpdateAmbientAudio
 	
 	; Check if player is dead
-	move.l #Player1, a2
+	move.l (Player1), a2
 	cmp.b  #0x0, Character_Dead(a2)
 	beq    @PlayerAlive
 	
@@ -179,7 +179,7 @@ Gameplay_Update:
 	IF DEMO_USE_TIMEOUT
 
 	; Player movement resets demo timer
-	move.l #Player1, a2
+	move.l (Player1), a2
 	cmp.l  #0x0, PhysicsObj_VelX(a2)
 	bne    @ResetDemoTimer
 	cmp.l  #0x0, PhysicsObj_VelY(a2)

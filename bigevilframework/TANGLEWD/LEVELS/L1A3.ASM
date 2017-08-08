@@ -80,10 +80,7 @@ l1a3_Init:
 	;==============================================================
 	
 	; Don't bother with Djakk emerge sequence
-	move.l #l1a3_Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monster, a0
-	add.l  d0, a0
+	ENTITY_GETBYNAME Monster, l1a3_Djakk, a0
 	move.b #0x0, Monster_DoIntro(a0)
 	
 	; Lower catch-up speed mul (or he'll bust through walls)
@@ -92,42 +89,18 @@ l1a3_Init:
 	;==============================================================
 	
 	; Link Flue A with Flue B
-	move.l #l1a3_Flue_A_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a3_Flue_B_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a3_Flue_A, a0
+	ENTITY_GETBYNAME Flue, l1a3_Flue_B, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
 	; Link Flue D with Flue E
-	move.l #l1a3_Flue_D_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a3_Flue_E_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a3_Flue_D, a0
+	ENTITY_GETBYNAME Flue, l1a3_Flue_E, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
 	; Link Flue F with Flue G
-	move.l #l1a3_Flue_F_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a0
-	add.l  d0, a0
-	
-	move.l #l1a3_Flue_G_idx, d0
-	mulu   #Flue_Struct_Size, d0
-	move.l #EntityArray_Flue, a1
-	add.l  d0, a1
-	
+	ENTITY_GETBYNAME Flue, l1a3_Flue_F, a0
+	ENTITY_GETBYNAME Flue, l1a3_Flue_G, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
 	rts
@@ -161,23 +134,17 @@ l1a3_Trigger_WakeDjakk:
 	PUSHL  a0
 	
 	; Get player 1
-	move.l #Player1, a2
+	move.l (Player1), a2
 	
 	; Check not cloaked
 	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
 	beq    @PlayerCloaked
 
-	move.l #l1a3_Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monster, a0
-	add.l  d0, a0
+	ENTITY_GETBYNAME Monster, l1a3_Djakk, a0
 	jsr    MonsterStartTrackPlayer
 
 	; Disable trigger box
-	move.l #l1a3_TriggerBox_WakeDjakk_idx, d0
-	mulu   #TriggerBox_Struct_Size, d0
-	move.l #EntityArray_TriggerBox, a0
-	add.l  d0, a0
+	ENTITY_GETBYNAME TriggerBox, l1a3_TriggerBox_WakeDjakk, a0
 	move.b #0x0, Entity_Active(a0)
 
 	@PlayerCloaked:

@@ -105,7 +105,7 @@ L7a1_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	jsr    PlayerBeginSleep
 	POPL   a0
 	

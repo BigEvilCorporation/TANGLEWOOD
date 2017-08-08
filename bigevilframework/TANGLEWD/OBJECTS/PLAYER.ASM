@@ -631,7 +631,7 @@ PlayerStartColourAbility:
 	PUSHL  a1
 
 	; Find a Djakk
-	move.l #EntityArray_Monster, a1
+	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
 	cmp.w  #0x0, d6
 	beq    @NoMonsters
@@ -1741,7 +1741,7 @@ PlayerInteractTest_Fuzzls:
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 
 	; Check player against all Fuzzls in level
-	move.l #EntityArray_Fuzzl, a2
+	move.l (EntityPoolStart_Fuzzl), a2
 	sub.w  #0x1, d6
 	@FuzzlLoop:
 
@@ -1871,8 +1871,8 @@ PlayerInteractTest_Fireflies:
 	beq    @NoFireflies
 
 	; Check player against all Fireflies in level
-	move.l a0, a1						; Player in a1
-	move.l #EntityArray_Firefly, a0	; Firefly in a0
+	move.l a0, a1							; Player in a1
+	move.l (EntityPoolStart_Firefly), a0	; Firefly in a0
 	sub.w  #0x1, d0
 	@FireflyLoop:
 
@@ -1912,7 +1912,7 @@ PlayerInteractTest_Water:
 	move.b #0xFF, raster_water_level
 	
 	; Check all water bodies
-	move.l #EntityArray_WaterBody, a1
+	move.l (EntityPoolStart_WaterBody), a1
 	move.w (EntityCount_WaterBody), d6
 	cmp.w  #0x0, d6
 	beq    @NoWaterBodies
@@ -2005,7 +2005,7 @@ PlayerInteractTest_BouncePlants:
 	PLAYER_GETJUMPBOUNDS d1,d2,d5,a0
 
 	; Check player against all plants in level
-	move.l #EntityArray_BouncePlant, a2		; Plant in a2
+	move.l (EntityPoolStart_BouncePlant), a2		; Plant in a2
 	sub.w  #0x1, d6
 	@PlantLoop:
 

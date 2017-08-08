@@ -322,7 +322,7 @@ FuzzlUpdate:
 
 	; Check if Fuzzl is far from player
 	PUSHL  a1
-	move.l #Player1, a1
+	move.l (Player1), a1
 	jsr    PHYS_EntityDistSq
 	POPL   a1
 	
@@ -537,7 +537,7 @@ FuzzlFindNest:
 	move.b  #0x0, d7
 
 	; Check all nests
-	move.l #EntityArray_Nest, a3
+	move.l (EntityPoolStart_Nest), a3
 	move.w (EntityCount_Nest), d6
 	cmp.w  #0x0, d6
 	beq    @NoNests
@@ -619,7 +619,7 @@ FuzzlFindGenerator:
 	move.b  #0x0, d7
 
 	; Check all generators
-	move.l #EntityArray_Generator, a3
+	move.l (EntityPoolStart_Generator), a3
 	move.w (EntityCount_Generator), d6
 	cmp.w  #0x0, d6
 	beq    @NoGenerators

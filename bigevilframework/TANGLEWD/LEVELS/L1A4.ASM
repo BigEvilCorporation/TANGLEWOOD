@@ -24,10 +24,12 @@ l1a4_HarlequinForestAct4:
 	dc.l l1a4_End						; End routine
 	IF INCLUDE_LEVEL_2
 	dc.l l2a1_StormWarningAct1			; Next level
-	ELSE IF INCLUDE_LEVEL_3
+	ELSE
+	IF INCLUDE_LEVEL_3
 	dc.l l3a1_HeritageAct1				; Next level
 	ELSE
 	dc.l 0x00000000
+	ENDIF
 	ENDIF
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l1a4_width					; Map width
@@ -155,7 +157,7 @@ l1a4_Trigger_End:
 
 	; Nymn sleep
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	jsr    PlayerBeginSleep
 	POPL   a0
 	
@@ -169,10 +171,7 @@ l1a4_Trigger_WakeDjakk:
 
 	PUSHL  a0
 	
-	move.l #l1a4_Djakk_idx, d0
-	mulu   #Monster_Struct_Size, d0
-	move.l #EntityArray_Monster, a0
-	add.l  d0, a0
+	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
 	cmp.b  #MonsterState_InCave, Monster_State(a0)
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartEmergeFromCave
@@ -185,7 +184,7 @@ l1a4_Trigger_WakeDjakk:
 l1a4_Trigger_DismountDjakk:
 
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 	cmp.b  #0x0, Character_Riding(a0)
 	beq    @NotRiding
 

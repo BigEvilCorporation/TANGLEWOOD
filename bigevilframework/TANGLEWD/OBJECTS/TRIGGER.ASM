@@ -89,7 +89,7 @@ TriggerBoxUpdate:
 	@TriggerMultiple:
 	
 	;Get player
-	move.l #Player1, a1
+	move.l (Player1), a1
 	
 	cmp.b  #0x0, TriggerBox_XOnly(a0)
 	bne    @TestXOnly

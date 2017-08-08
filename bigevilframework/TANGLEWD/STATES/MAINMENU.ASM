@@ -137,7 +137,7 @@ MainMenu_Enter:
 	;==============================================================
 
 	; Disable Nymn physics (no terrain data)
-	move.l #Player1, a0
+	move.l (Player1), a0
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	
 	; Start sleep anim

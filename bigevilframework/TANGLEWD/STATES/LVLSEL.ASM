@@ -277,8 +277,15 @@ LevelSelect_OnSelected:
 	
 LevelSelect_InitUI:
 
+	; Alloc UI window
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #UIWindow_Struct_Size
+	move.l a1, EntityPoolStart_UIWindow
+	move.l a1, a0
+	POPL   a1
+
 	; Create UI window
-	move.l #EntityArray_UIWindow, a0
+	move.l (EntityPoolStart_UIWindow), a0
 	jsr    UIWindowInit
 
 	; Create cursor and add to window

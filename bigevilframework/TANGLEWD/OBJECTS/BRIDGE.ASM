@@ -223,7 +223,7 @@ BridgeUpdate:
 
 	IF BRIDGE_PROXIMITY_DEBUG
 
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.l Entity_WorldPosX(a2), d0
 	move.l Entity_WorldPosX(a0), d1
 	sub.l  d0, d1

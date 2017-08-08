@@ -216,6 +216,10 @@ UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
 __padding31            rs.b 2
 
+; Global player addresses
+Player1                rs.l 1
+Player2                rs.l 1
+
 ; Current palettes (DMA'd at end of frame)
 CurrentPalettes        rs.b (size_palette_b*num_palettes)
 
@@ -331,6 +335,11 @@ LevelData_L3A3			 rs.b L3A3Data_Struct_Size
 
 	IF INCLUDE_LEVEL_4
 LevelData_L4A1			 rs.b L4A1Data_Struct_Size
+LevelData_L4A2			 rs.b L4A2Data_Struct_Size
+	ENDIF
+
+	IF INCLUDE_LEVEL_5
+LevelData_L5A1			 rs.b L5A1Data_Struct_Size
 	ENDIF
 
 	IF INCLUDE_LEVEL_6
@@ -370,40 +379,42 @@ __padding05			     rs.b 3
 ; ************************************
 ; Entities
 ; ************************************
-EntityArray_Nymn        rs.b (Nymn_Struct_Size*Nymn_MaxEntities)
-EntityArray_Echo        rs.b (Echo_Struct_Size*Echo_MaxEntities)
-EntityArray_Actor       rs.b (Actor_Struct_Size*Actor_MaxEntities)
-EntityArray_AIMarker    rs.b (AIMarker_Struct_Size*AIMarker_MaxEntities)
-EntityArray_Bridge      rs.b (Bridge_Struct_Size*Bridge_MaxEntities)
-EntityArray_Button      rs.b (Button_Struct_Size*Button_MaxEntities)
-EntityArray_Crate       rs.b (Crate_Struct_Size*Crate_MaxEntities)
-EntityArray_Cogs        rs.b (Cogs_Struct_Size*Cogs_MaxEntities)
-EntityArray_DjakkCage   rs.b (DjakkCage_Struct_Size*DjakkCage_MaxEntities)
-EntityArray_Flue        rs.b (Flue_Struct_Size*Flue_MaxEntities)
-EntityArray_Fuzzl       rs.b (Fuzzl_Struct_Size*Fuzzl_MaxEntities)
-EntityArray_FuzzlCage   rs.b (FuzzlCage_Struct_Size*FuzzlCage_MaxEntities)
-EntityArray_Generator   rs.b (Generator_Struct_Size*Generator_MaxEntities)
-EntityArray_Leaf        rs.b (Leaf_Struct_Size*Leaf_MaxEntities)
-EntityArray_Log         rs.b (Log_Struct_Size*Leaf_MaxEntities)
-EntityArray_Nest        rs.b (Nest_Struct_Size*Nest_MaxEntities)
-EntityArray_TriggerBox  rs.b (TriggerBox_Struct_Size*TriggerBox_MaxEntities)
-EntityArray_Checkpoint  rs.b (Checkpoint_Struct_Size*Checkpoint_MaxEntities)
-EntityArray_WaterBody   rs.b (WaterBody_Struct_Size*WaterBody_MaxEntities)
-EntityArray_Location    rs.b (Location_Struct_Size*Location_MaxEntities)
-	IFND DEBUG
-EntityArray_Monster     rs.b (Monster_Struct_Size*Monster_MaxEntities)
-EntityArray_Djrake      rs.b (Djrake_Struct_Size*Djrake_MaxEntities)
-EntityArray_Boulder     rs.b (Boulder_Struct_Size*Boulder_MaxEntities)
-EntityArray_Firefly     rs.b (Firefly_Struct_Size*Firefly_MaxEntities)
-EntityArray_Lift        rs.b (Lift_Struct_Size*Lift_MaxEntities)
-EntityArray_Rope        rs.b (RopeSegment_Struct_Size*Rope_MaxEntities)
-EntityArray_BouncePlant rs.b (BouncePlant_Struct_Size*BouncePlant_MaxEntities)
-EntityArray_Stone       rs.b (Stone_Struct_Size*Stone_MaxEntities)
-EntityArray_Deathbox    rs.b (Deathbox_Struct_Size*Deathbox_MaxEntities)
-EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
-EntityArray_Wyrm        rs.b (Wyrm_Struct_Size*Wyrm_MaxEntities)
-EntityArray_UIWindow    rs.b (VfxObj_Struct_Size*UIWindow_MaxEntities)
-	ENDIF
+
+; Global entity RAM pool
+	RAMPOOL Pool_Entities,EntityRAMPoolSize
+
+; Entity pools start addrs
+EntityPoolStart_Nymn        rs.l 1
+EntityPoolStart_Echo        rs.l 1
+EntityPoolStart_Actor       rs.l 1
+EntityPoolStart_AIMarker    rs.l 1
+EntityPoolStart_Bridge      rs.l 1
+EntityPoolStart_Button      rs.l 1
+EntityPoolStart_Crate       rs.l 1
+EntityPoolStart_Cogs        rs.l 1
+EntityPoolStart_DjakkCage   rs.l 1
+EntityPoolStart_Flue        rs.l 1
+EntityPoolStart_Fuzzl       rs.l 1
+EntityPoolStart_FuzzlCage   rs.l 1
+EntityPoolStart_Generator   rs.l 1
+EntityPoolStart_Leaf        rs.l 1
+EntityPoolStart_Log         rs.l 1
+EntityPoolStart_Nest        rs.l 1
+EntityPoolStart_TriggerBox  rs.l 1
+EntityPoolStart_Checkpoint  rs.l 1
+EntityPoolStart_WaterBody   rs.l 1
+EntityPoolStart_Location    rs.l 1
+EntityPoolStart_Monster     rs.l 1
+EntityPoolStart_Djrake      rs.l 1
+EntityPoolStart_Boulder     rs.l 1
+EntityPoolStart_Firefly     rs.l 1
+EntityPoolStart_Lift        rs.l 1
+EntityPoolStart_Rope        rs.l 1
+EntityPoolStart_BouncePlant rs.l 1
+EntityPoolStart_Stone       rs.l 1
+EntityPoolStart_Deathbox    rs.l 1
+EntityPoolStart_Wyrm        rs.l 1
+EntityPoolStart_UIWindow    rs.l 1
 
 EntityCount_Actor       rs.w 1
 EntityCount_AIMarker    rs.w 1
@@ -412,6 +423,7 @@ EntityCount_Button      rs.w 1
 EntityCount_Crate       rs.w 1
 EntityCount_Cogs        rs.w 1
 EntityCount_DjakkCage   rs.w 1
+EntityCount_Echo        rs.w 1
 EntityCount_Monster     rs.w 1
 EntityCount_Djrake      rs.w 1
 EntityCount_Firefly     rs.w 1
@@ -422,6 +434,7 @@ EntityCount_Generator   rs.w 1
 EntityCount_Leaf        rs.w 1
 EntityCount_Log         rs.w 1
 EntityCount_Nest        rs.w 1
+EntityCount_Nymn        rs.w 1
 EntityCount_Boulder     rs.w 1
 EntityCount_TriggerBox  rs.w 1
 EntityCount_Checkpoint  rs.w 1
@@ -432,9 +445,15 @@ EntityCount_Rope        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
-EntityCount_VFX         rs.w 1
 EntityCount_Wyrm        rs.w 1
 EntityCount_UIWindow    rs.w 1
+
+; ************************************
+; VFX
+; ************************************
+
+EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
+EntityCount_VFX         rs.w 1
 
 ; ************************************
 ; UI

@@ -85,7 +85,7 @@ l4a1_Init:
 	
 	;==============================================================
 	
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	; Disable player 1 control
 	move.b #0x0, Player_ControlEnabled(a0)
@@ -125,7 +125,7 @@ l4a1_Update:
 	; Start wake up sequence
 	PUSHL  a1
 	PUSHL  a2
-	move.l #Player1, a0
+	move.l (Player1), a0
 	move.l a0, a1
 	add.l  #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
@@ -134,7 +134,7 @@ l4a1_Update:
 	POPL   a2
 	POPL   a1
 
-	move.l #Player1, a0
+	move.l (Player1), a0
 	
 	; Enable player 1 control
 	move.b #0x1, Player_ControlEnabled(a0)

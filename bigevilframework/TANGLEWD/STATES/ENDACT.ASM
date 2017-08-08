@@ -25,7 +25,7 @@ GameStateEndAct_FadeDownSpeed		equ (0x8<<fade_frame_shift) ; Subframes (1 frames
 EndAct_Enter:
 
 	; Take player velocity/acceleration
-	move.l #Player1, a2
+	move.l (Player1), a2
 	move.l PhysicsObj_VelX(a2), EndOfActVelocity
 	move.w PhysicsObj_AccelX(a2), EndOfActAcceleration
 
