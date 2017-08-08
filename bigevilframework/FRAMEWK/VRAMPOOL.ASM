@@ -3,7 +3,7 @@
 ;==============================================================
 ;   SEGA Genesis Framework (c) Matt Phillips 2014
 ;==============================================================
-;   vram.asm - VRAM allocation
+;   vrampool.asm - VRAM pools and allocation routines
 ;==============================================================
 
 VRAMPoolCount	equ 0x3
