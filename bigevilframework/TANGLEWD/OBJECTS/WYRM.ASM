@@ -29,6 +29,7 @@ Wyrm_MaxVelYDown 		equ 0x080000  ; max Y velocity down (tile height)
 
 Wyrm_AnimFrame_Bite		equ 0x3
 Wyrm_BiteDamage			equ 0xFF
+Wyrm_LostPlayerTimeout	equ 0x5A
 
 Wyrm_BoundsWidth		equ Wyrm_Width/2
 Wyrm_BoundsHeight		equ (Wyrm_Height)
@@ -59,9 +60,10 @@ Wyrm_NumAnims			equ 3
 	rsset (Character_Struct_Size)
 ;-----------------------------
 Wyrm_Animations			rs.b (Animation_Struct_Size*Wyrm_NumAnims)
+Wyrm_LostPlayerTimer	rs.w 1
 Wyrm_State				rs.b 1
 ;-----------------------------
-Wyrm_Struct_Pad			rs.b 3   ; Alignment padding
+Wyrm_Struct_Pad			rs.b 1   ; Alignment padding
 Wyrm_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -108,6 +110,7 @@ WyrmInit:
 	move.w  #Wyrm_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Wyrm_DecelForced, Character_DecelForced(a0)
 
+	move.w  #0x0, Wyrm_LostPlayerTimer(a0)
 	move.b  #WyrmState_Idle, Wyrm_State(a0)
 
 	; Always process out of view
@@ -331,7 +334,7 @@ WyrmAIUpdate_Follow:
 	jsr    PHYS_TestBoxIntersectBox
 	
 	cmp.b  #0x0, d0
-	beq    @Chase
+	beq    @NotTouching
 
 	; Start bite state
 	jsr    WyrmAIStart_Bite
@@ -339,7 +342,35 @@ WyrmAIUpdate_Follow:
 	bra    @Bite
 
 	;==============================================================
+	
+	@NotTouching:
 
+	; If player in air or not on sand, count down lost timer
+	move.l #Player1, a2
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @PlayerInAir
+	move.w PhysicsObj_LastTerrainFlags(a2), d0
+	andi.w #col_tile_flag_special, d0
+	bne    @OnSand
+
+	@PlayerInAir:
+
+	; Decrement timer, carry on chasing if not elapsed
+	subi.w #0x1, Wyrm_LostPlayerTimer(a0)
+	bne    @Chase
+
+	; Lost player, burrow underground and sleep
+	jsr    WyrmAIStart_Burrow
+	
+	bra    @Chase
+
+	;==============================================================
+
+	@OnSand:
+	
+	; Player detected, reset lost timer
+	move.w #Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0)
+	
 	@Chase:
 
 	; Determine direction
