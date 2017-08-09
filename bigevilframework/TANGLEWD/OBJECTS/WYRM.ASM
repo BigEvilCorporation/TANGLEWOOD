@@ -36,12 +36,13 @@ Wyrm_BoundsHeight		equ (Wyrm_Height)
 Wyrm_BoundsOffsetX		equ (Wyrm_Width/2)-(Wyrm_BoundsWidth/2)
 Wyrm_BoundsOffsetY		equ (Wyrm_Height/2)-(Wyrm_BoundsHeight/2)
 
-Wyrm_DebrisMaxSprites	equ 0x4
-Wyrm_DebrisMaxTrails	equ 0x4
+Wyrm_DebrisMaxSprites	equ 0x10
+Wyrm_DebrisMaxTrails	equ 0x10
 Wyrm_DebrisSpriteWidth	equ 0x20
 Wyrm_DebrisSpriteHeight	equ 0x10
-Wyrm_DebrisDrawOffsetX	equ 0x0
-Wyrm_DebrisDrawOffsetY	equ (Wyrm_Height-Wyrm_DebrisSpriteHeight)
+Wyrm_DebrisSpriteDrawInterval	equ 0x10
+Wyrm_DebrisDrawOffsetX	equ (Wyrm_Width/2)-(Wyrm_DebrisSpriteWidth/2)
+Wyrm_DebrisDrawOffsetY	equ Wyrm_Height ; (Wyrm_Height-Wyrm_DebrisSpriteHeight)
 
 ; ************************************
 ; States
@@ -143,6 +144,8 @@ WyrmInit:
 	@SpriteLp:
 	PUSHL  d0
 	jsr    AnimObjInit
+	move.w #Wyrm_DebrisSpriteWidth, Entity_Width(a0)
+	move.w #Wyrm_DebrisSpriteHeight, Entity_Height(a0)
 	POPL   d0
 	add.l  #AnimObj_Struct_Size, a0
 	dbra   d0, @SpriteLp
@@ -170,6 +173,8 @@ WyrmLoadGfx:
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
+	
+	;==============================================================
 
 	; Load all debris sprites
 	move.l a0, a3
@@ -179,11 +184,9 @@ WyrmLoadGfx:
 
 	@SpriteLp:
 
-	PUSHM  d0/a3
-
 	; Load sprite
+	PUSHM  d0/a3
 	SPRITE_LOAD_DEFAULT Debris,PaletteId_Monster,0x0
-
 	POPM   d0/a3
 
 	; Set anim
@@ -199,6 +202,9 @@ WyrmLoadGfx:
 	move.l d0, d1
 	lsl.l  #0x8, d1
 	move.l d1, AnimObj_AnimSubFrame(a0)
+
+	; Not updating anims, manually set to upload new subframe
+	move.b #0x1, AnimObj_UploadFrame(a0)
 	
 	; Next obj
 	add.l  #AnimObj_Struct_Size, a0
@@ -263,10 +269,10 @@ WyrmUpdate:
 	move.w Wyrm_DebrisAccumX(a0), d2
 	add.w  d1, d2
 
-	; If moved the width of a debris chunk, add a new one
-	cmp.w  #Wyrm_DebrisSpriteWidth, d2
+	; If moved the length of a debris chunk interval, add a new one
+	cmp.w  #Wyrm_DebrisSpriteDrawInterval, d2
 	bge    @AddDebris
-	cmp.w  #-Wyrm_DebrisSpriteWidth, d2
+	cmp.w  #-Wyrm_DebrisSpriteDrawInterval, d2
 	ble    @AddDebris
 	bra    @NoDebris
 	
