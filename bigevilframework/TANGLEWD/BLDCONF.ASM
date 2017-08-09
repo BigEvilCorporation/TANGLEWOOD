@@ -33,16 +33,16 @@ INCLUDE_DEBUG_DEATH		equ 0
 
 ; Levels
 INCLUDE_LEVEL_1			equ 1
-INCLUDE_LEVEL_2			equ 0
+INCLUDE_LEVEL_2			equ 1
 INCLUDE_LEVEL_3			equ 1
-INCLUDE_LEVEL_4			equ 0
-INCLUDE_LEVEL_5			equ 0
+INCLUDE_LEVEL_4			equ 1
+INCLUDE_LEVEL_5			equ 1
 INCLUDE_LEVEL_6			equ 0
 INCLUDE_LEVEL_7			equ 1
 INCLUDE_LEVEL_8			equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 0
+INCLUDE_CHARACTER_ECHO	equ 1
 
 ; Demo mode
 DEMO_USE_TIMEOUT		equ 0
@@ -53,7 +53,7 @@ DEMO_SHOW_DISCLAIMER	equ 0
 	IFD FINAL
 InitialLevel			 equ l1a1_HarlequinForestAct1
 	ELSE
-;InitialLevel			 equ l1a1_HarlequinForestAct1
+InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l1a2_HarlequinForestAct2
 ;InitialLevel			 equ l1a3_HarlequinForestAct3
 ;InitialLevel			 equ l1a4_HarlequinForestAct4
@@ -67,7 +67,7 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l4a2_TetheredAct2
 ;InitialLevel			 equ l5a1_BygoneAct1
 ;InitialLevel			 equ l6a1_DeadwoodAct1
-InitialLevel			 equ l7a1_OasisAct1
+;InitialLevel			 equ l7a1_OasisAct1
 ;InitialLevel			 equ Lvl_TestLift
 	ENDIF
 

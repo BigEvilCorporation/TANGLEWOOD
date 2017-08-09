@@ -123,11 +123,13 @@ L3A1_Nest_count equ 0x0
 
 L3A1_Flue_count equ 0x0
 
-L3A1_TriggerBox_count equ 0x1
+L3A1_TriggerBox_count equ 0x2
 L3A1_TriggerBox_End_idx	equ 0x0
+L3A1_TriggerMusicCue_idx	equ 0x1
 
 	IFND FINAL
 L3A1_TriggerBox_End_name	dc.b "L3A1_TriggerBox_End",0
+L3A1_TriggerMusicCue_name	dc.b "L3A1_TriggerMusicCue",0
 	even
 	ENDIF
 
@@ -796,6 +798,22 @@ L3A1_LoadGameObjects:
 	ENDIF
 	move.l #l3a1_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x03480000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_TriggerMusicCue_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.l #track_bgm_cue_l3, TriggerBox_RegisterA0(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 

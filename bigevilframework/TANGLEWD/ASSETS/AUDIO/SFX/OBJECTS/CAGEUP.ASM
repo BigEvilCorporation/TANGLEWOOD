@@ -1,7 +1,7 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $0c, $56	; Sample 86 on channel PCM
+	dc.b $0c, $62	; Sample 98 on channel PCM
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 
 ; Pattern $00, Row 3; 

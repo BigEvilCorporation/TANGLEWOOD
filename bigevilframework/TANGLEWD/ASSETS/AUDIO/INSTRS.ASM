@@ -96,6 +96,18 @@ echo_instruments:
 	Echo_ListEntry Instr54
 	Echo_ListEntry Instr55
 	Echo_ListEntry Instr56
+	Echo_ListEntry Instr57
+	Echo_ListEntry Instr58
+	Echo_ListEntry Instr59
+	Echo_ListEntry Instr5A
+	Echo_ListEntry Instr5B
+	Echo_ListEntry Instr5C
+	Echo_ListEntry Instr5D
+	Echo_ListEntry Instr5E
+	Echo_ListEntry Instr5F
+	Echo_ListEntry Instr60
+	Echo_ListEntry Instr61
+	Echo_ListEntry Instr62
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -108,7 +120,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x57
+PCM_InstrIndex	equ 0x63
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -185,7 +197,7 @@ Instr46: incbin 'assets\audio\instrs\instr_46.eif'
 Instr47: incbin 'assets\audio\instrs\instr_47.eif'
 Instr48: incbin 'assets\audio\instrs\instr_48.eif'
 Instr49: incbin 'assets\audio\instrs\instr_49.eif'
-Instr4A: incbin 'assets\audio\instrs\instr_4A.ewf'
+Instr4A: incbin 'assets\audio\instrs\instr_4A.eif'
 Instr4B: incbin 'assets\audio\instrs\instr_4B.eif'
 Instr4C: incbin 'assets\audio\instrs\instr_4C.eif'
 Instr4D: incbin 'assets\audio\instrs\instr_4D.eif'
@@ -195,9 +207,21 @@ Instr50: incbin 'assets\audio\instrs\instr_50.eif'
 Instr51: incbin 'assets\audio\instrs\instr_51.eif'
 Instr52: incbin 'assets\audio\instrs\instr_52.eif'
 Instr53: incbin 'assets\audio\instrs\instr_53.eif'
-Instr54: incbin 'assets\audio\instrs\instr_54.ewf'
+Instr54: incbin 'assets\audio\instrs\instr_54.eif'
 Instr55: incbin 'assets\audio\instrs\instr_55.eif'
 Instr56: incbin 'assets\audio\instrs\instr_56.ewf'
+Instr57: incbin 'assets\audio\instrs\instr_57.eif'
+Instr58: incbin 'assets\audio\instrs\instr_58.eif'
+Instr59: incbin 'assets\audio\instrs\instr_59.eif'
+Instr5A: incbin 'assets\audio\instrs\instr_5A.eif'
+Instr5B: incbin 'assets\audio\instrs\instr_5B.eif'
+Instr5C: incbin 'assets\audio\instrs\instr_5C.eif'
+Instr5D: incbin 'assets\audio\instrs\instr_5D.eif'
+Instr5E: incbin 'assets\audio\instrs\instr_5E.eif'
+Instr5F: incbin 'assets\audio\instrs\instr_5F.eif'
+Instr60: incbin 'assets\audio\instrs\instr_60.ewf'
+Instr61: incbin 'assets\audio\instrs\instr_61.eif'
+Instr62: incbin 'assets\audio\instrs\instr_62.ewf'
 
 	
 	; PCM

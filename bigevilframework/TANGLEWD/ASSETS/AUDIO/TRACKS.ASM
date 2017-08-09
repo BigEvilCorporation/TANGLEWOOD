@@ -10,6 +10,7 @@ bgm_boss1_chase:	include 'assets\audio\tracks\boss_l.asm'
 bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
 bgm_cue_l2:			include 'assets\audio\tracks\cue_l2.asm'
+bgm_cue_l3:			include 'assets\audio\tracks\cue_l3.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_monsterbass:	dc.b 0xFF ;incbin 'assets\audio\tracks\lowbass.esf'
@@ -117,6 +118,16 @@ track_bgm_cue_l1:
 
 track_bgm_cue_l2:
 	dc.l	bgm_cue_l2
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_Exclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_l3:
+	dc.l	bgm_cue_l3
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
