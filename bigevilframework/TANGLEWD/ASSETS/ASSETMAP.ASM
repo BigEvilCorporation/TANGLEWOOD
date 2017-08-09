@@ -53,6 +53,7 @@
 	include 'assets\sprites\button.asm'
 	include 'assets\sprites\cogs.asm'
 	include 'assets\sprites\crate.asm'
+	include 'assets\sprites\debris.asm'
 	include 'assets\sprites\djakk.asm'
 	include 'assets\sprites\djrake.asm'
 	include 'assets\sprites\djakcage.asm'
@@ -96,6 +97,7 @@
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\button.asm'
 	include 'assets\anims\cogs.asm'
+	include 'assets\anims\debris.asm'
 	include 'assets\anims\djakk.asm'
 	include 'assets\anims\djrake.asm'
 	IF INCLUDE_CHARACTER_ECHO

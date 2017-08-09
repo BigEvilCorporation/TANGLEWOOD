@@ -36,6 +36,13 @@ Wyrm_BoundsHeight		equ (Wyrm_Height)
 Wyrm_BoundsOffsetX		equ (Wyrm_Width/2)-(Wyrm_BoundsWidth/2)
 Wyrm_BoundsOffsetY		equ (Wyrm_Height/2)-(Wyrm_BoundsHeight/2)
 
+Wyrm_DebrisMaxSprites	equ 0x4
+Wyrm_DebrisMaxTrails	equ 0x4
+Wyrm_DebrisSpriteWidth	equ 0x20
+Wyrm_DebrisSpriteHeight	equ 0x10
+Wyrm_DebrisDrawOffsetX	equ 0x0
+Wyrm_DebrisDrawOffsetY	equ (Wyrm_Height-Wyrm_DebrisSpriteHeight)
+
 ; ************************************
 ; States
 ; ************************************
@@ -51,19 +58,24 @@ WyrmState_Biting		equ 0x4
 WyrmAnimIdx_Bite		equ 0
 WyrmAnimIdx_Emerge		equ 1
 WyrmAnimIdx_Burrow		equ 2
+WyrmAnimIdx_Debris		equ 3
 ; -------------------------------
-Wyrm_NumAnims			equ 3
+Wyrm_NumAnims			equ 4
 
 ;==============================================================
 
 ; Struct
 	rsset (Character_Struct_Size)
 ;-----------------------------
+Wyrm_DebrisSprites		rs.b (AnimObj_Struct_Size*Wyrm_DebrisMaxSprites)
 Wyrm_Animations			rs.b (Animation_Struct_Size*Wyrm_NumAnims)
+Wyrm_DebrisPositions	rs.l Wyrm_DebrisMaxTrails
 Wyrm_LostPlayerTimer	rs.w 1
+Wyrm_DebrisAccumX		rs.w 1	; If X delta hits debris width, draw a new one
+Wyrm_NextFreeDebris		rs.b 1
 Wyrm_State				rs.b 1
 ;-----------------------------
-Wyrm_Struct_Pad			rs.b 1   ; Alignment padding
+Wyrm_Struct_Pad			rs.b 2   ; Alignment padding
 Wyrm_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -81,7 +93,7 @@ WyrmInit:
 	
 	; Set update and render routines
 	move.l #WyrmUpdate, Entity_UpdateRoutine(a0)
-	move.l #CharacterDraw, Entity_RenderRoutine(a0)
+	move.l #WyrmDraw, Entity_RenderRoutine(a0)
 	move.l #WyrmSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -110,7 +122,9 @@ WyrmInit:
 	move.w  #Wyrm_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Wyrm_DecelForced, Character_DecelForced(a0)
 
+	move.w  #0x0, Wyrm_DebrisAccumX(a0)
 	move.w  #0x0, Wyrm_LostPlayerTimer(a0)
+	move.b  #0x0, Wyrm_NextFreeDebris(a0)
 	move.b  #WyrmState_Idle, Wyrm_State(a0)
 
 	; Always process out of view
@@ -121,6 +135,18 @@ WyrmInit:
 	move.w  #Wyrm_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
 	move.w  #Wyrm_BoundsWidth, PhysicsObj_BoundsWidth(a0)
 	move.w  #Wyrm_BoundsHeight, PhysicsObj_BoundsHeight(a0)
+
+	; Init debris sprite objects
+	PUSHL  a0
+	add.l  #Wyrm_DebrisSprites, a0
+	move.w #Wyrm_DebrisMaxSprites-1, d0
+	@SpriteLp:
+	PUSHL  d0
+	jsr    AnimObjInit
+	POPL   d0
+	add.l  #AnimObj_Struct_Size, a0
+	dbra   d0, @SpriteLp
+	POPL   a0
 
 	rts
 
@@ -140,9 +166,46 @@ WyrmLoadGfx:
 	ANIM_LOAD_DEFAULT wyrm_bite,wyrm_bite,Wyrm_Animations,WyrmAnimIdx_Bite,0,1,1
 	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_emerge,Wyrm_Animations,WyrmAnimIdx_Emerge,0,1,1
 	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_burrow,Wyrm_Animations,WyrmAnimIdx_Burrow,0,1,1
+	ANIM_LOAD_DEFAULT debris_debris,debris_debris,Wyrm_Animations,WyrmAnimIdx_Debris,0,1,1
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
+
+	; Load all debris sprites
+	move.l a0, a3
+	PUSHL  a0
+	add.l  #Wyrm_DebrisSprites, a0
+	move.l #Wyrm_DebrisMaxSprites-1, d0
+
+	@SpriteLp:
+
+	PUSHM  d0/a3
+
+	; Load sprite
+	SPRITE_LOAD_DEFAULT Debris,PaletteId_Monster,0x0
+
+	POPM   d0/a3
+
+	; Set anim
+	PUSHM  d0/a1-a3
+	move.l a3, a1
+	add.l  #Wyrm_Animations, a1
+	move.l #(WyrmAnimIdx_Debris*Animation_Struct_Size), d1
+	add.l  d1, a1
+	jsr    AnimObjSetAnimation
+	POPM   d0/a1-a3
+
+	; Index to anim subframe
+	move.l d0, d1
+	lsl.l  #0x8, d1
+	move.l d1, AnimObj_AnimSubFrame(a0)
+	
+	; Next obj
+	add.l  #AnimObj_Struct_Size, a0
+
+	dbra   d0, @SpriteLp
+
+	POPL   a0
 
 	rts
 	
@@ -183,10 +246,110 @@ WyrmUpdate:
 	bra    @EndAI
 
 	@EndAI:
+
+	; Backup current X
+	move.w Entity_WorldPosX(a0), d0
+	PUSHL  d0
 	
 	; Base functionality
 	jsr    CharacterUpdate
 
+	; Get X delta
+	POPL   d0
+	move.w Entity_WorldPosX(a0), d1
+	sub.w  d0, d1
+
+	; Add to accumulator
+	move.w Wyrm_DebrisAccumX(a0), d2
+	add.w  d1, d2
+
+	; If moved the width of a debris chunk, add a new one
+	cmp.w  #Wyrm_DebrisSpriteWidth, d2
+	bge    @AddDebris
+	cmp.w  #-Wyrm_DebrisSpriteWidth, d2
+	ble    @AddDebris
+	bra    @NoDebris
+	
+	@AddDebris:
+	
+	; Clear accumulator
+	move.w #0x0, d2
+
+	; Get pos
+	move.w Entity_WorldPosX(a0), d0
+	addi.w #Wyrm_DebrisDrawOffsetX, d0
+	swap   d0
+	move.w Entity_WorldPosY(a0), d0
+	addi.w #Wyrm_DebrisDrawOffsetY, d0
+
+	; Set next debris position
+	clr.l  d3
+	move.b Wyrm_NextFreeDebris(a0), d3	; Get next free index
+	cmp.w  #0x0, d1						; Determine direction
+	blt    @PrevDebris
+	addi.b #0x1, d3						; Get next debris
+	bra    @EndDebrisDirection
+	@PrevDebris:
+	subi.w #0x1, d3						; Get prev debris
+	@EndDebrisDirection:
+	
+	divs.w #Wyrm_DebrisMaxTrails, d3	; Wrap
+	clr.w  d3							; Get remainder
+	swap   d3
+	
+	move.b d3, Wyrm_NextFreeDebris(a0)	; Back to RAM
+	
+	lsl.l  #0x2, d3						; To longwords
+	
+	move.l a0, a2						; Store pos
+	addi.l #Wyrm_DebrisPositions, a2
+	add.l  d3, a2
+	move.l d0, (a2)
+
+	@NoDebris:
+	
+	move.w d2, Wyrm_DebrisAccumX(a0)
+
+	rts
+
+WyrmDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Draw Wyrm
+	jsr   CharacterDraw
+
+	; Draw debris
+	move.l a0, a2
+	PUSHL  a0
+	add.l  #Wyrm_DebrisSprites, a0
+	move.w #Wyrm_DebrisMaxSprites-1, d0
+	@SpriteLp:
+	PUSHM  d0/a2
+
+	; Get position
+	move.l Wyrm_DebrisPositions(a2), d1
+
+	; Set Y
+	move.w d1, d2
+	TOSUBPIXELS d2
+	move.l d2, Entity_WorldPosY(a0)
+	
+	; Set X
+	swap   d1
+	move.w d1, d2
+	TOSUBPIXELS d2
+	move.l d2, Entity_WorldPosX(a0)
+
+	; Draw
+	jsr    AnimObjDraw
+
+	POPM   d0/a2
+	add.l  #AnimObj_Struct_Size, a0
+	add.l  #size_long,a2
+	dbra   d0, @SpriteLp
+	POPL   a0
+	
 	rts
 	
 WyrmSerialise:
@@ -234,7 +397,7 @@ WyrmAIUpdate_Idle:
 	; a1 --- Level addr
 
 	; If player touching sand (on special terrain), wake up
-	move.l #Player1, a2
+	move.l (Player1), a2
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	beq    @PlayerInAir
 	move.w PhysicsObj_LastTerrainFlags(a2), d0
@@ -326,7 +489,7 @@ WyrmAIUpdate_Follow:
 	; a1 --- Level addr
 	
 	; Get Nymn
-	move.l #Player1, a2
+	move.l (Player1), a2
 
 	; If touching, bite
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
@@ -346,7 +509,7 @@ WyrmAIUpdate_Follow:
 	@NotTouching:
 
 	; If player in air or not on sand, count down lost timer
-	move.l #Player1, a2
+	move.l (Player1), a2
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	beq    @PlayerInAir
 	move.w PhysicsObj_LastTerrainFlags(a2), d0
@@ -435,7 +598,7 @@ WyrmAIUpdate_Bite:
 	
 	; On attack frame, check if player still in range on attack frame
 	PUSHL  a1
-	move.l #Player1, a1
+	move.l (Player1), a1
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
@@ -446,7 +609,7 @@ WyrmAIUpdate_Bite:
 
 	; Get player
 	PUSHL  a0
-	move.l #Player1, a0
+	move.l (Player1), a0
 
 	; TODO: Snap player to mouth centre
 
