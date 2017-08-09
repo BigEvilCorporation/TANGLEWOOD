@@ -9,15 +9,15 @@
 
 L7A1_Leaf_count equ 0x0
 
-L7A1_Echo_count equ 0x0
-
-L7A1_Nymn_count equ 0x1
-L7A1_Nymn_1_idx	equ 0x0
+L7A1_Echo_count equ 0x1
+L7A1_Echo_5_idx	equ 0x0
 
 	IFND FINAL
-L7A1_Nymn_1_name	dc.b "L7A1_Nymn_1",0
+L7A1_Echo_5_name	dc.b "L7A1_Echo_5",0
 	even
 	ENDIF
+
+L7A1_Nymn_count equ 0x0
 
 L7A1_BouncePlant_count equ 0x0
 
@@ -199,6 +199,18 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr EchoInit
+	move.l #0x00b80000, Entity_WorldPosX(a0)
+	move.l #0x02c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Echo_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr EchoLoadGfx
+	add.l #Echo_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L7A1_Nymn_count)
@@ -206,18 +218,6 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr NymnInit
-	move.l #0x00b00000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_Nymn_1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L7A1_BouncePlant_count)
