@@ -31,6 +31,9 @@ Wyrm_AnimFrame_Bite		equ 0x1
 Wyrm_BiteDamage			equ 0xFF
 Wyrm_LostPlayerTimeout	equ 0x5A
 
+Wyrm_ScreenShakeVel		equ 0x4000
+Wyrm_ScreenShakeAmp		equ 0x0100
+
 Wyrm_BoundsWidth		equ Wyrm_Width/2
 Wyrm_BoundsHeight		equ (Wyrm_Height)
 Wyrm_BoundsOffsetX		equ (Wyrm_Width/2)-(Wyrm_BoundsWidth/2)
@@ -396,6 +399,9 @@ WyrmAIStart_Idle
 	; Set new state
 	move.b #WyrmState_Idle, Wyrm_State(a0)
 
+	; Stop screen shake
+	jsr    CAM_StopCameraShake
+
 	rts
 
 WyrmAIUpdate_Idle:
@@ -463,6 +469,9 @@ WyrmAIStart_Burrow
 	; Set new state
 	move.b #WyrmState_Burrowing, Wyrm_State(a0)
 
+	; Stop screen shake
+	jsr    CAM_StopCameraShake
+
 	; Burrow anim
 	PUSHL  a1
 	move.l a0, a1
@@ -494,6 +503,14 @@ WyrmAIStart_Follow:
 
 	; Set new state
 	move.b #WyrmState_Chasing, Wyrm_State(a0)
+
+	; Start screen shake
+	move.w #0x0, d0
+	move.w #Wyrm_ScreenShakeVel, d1
+	move.w #0x0, d2
+	move.w #Wyrm_ScreenShakeAmp, d3
+	move.w #0x0, d4
+	jsr    CAM_StartCameraShake
 
 	rts
 
@@ -589,6 +606,9 @@ WyrmAIStart_Bite:
 
 	; Set new state
 	move.b #WyrmState_Biting, Wyrm_State(a0)
+
+	; Stop screen shake
+	jsr    CAM_StopCameraShake
 
 	; Start bite animation
 	PUSHL  a1
