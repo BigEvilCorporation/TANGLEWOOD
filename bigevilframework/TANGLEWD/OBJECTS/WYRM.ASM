@@ -17,17 +17,17 @@ Wyrm_ProbeFloorY		equ (Wyrm_Height-8)		; Floor detection probe position X
 Wyrm_MaxVelX			equ 0x080000
 Wyrm_Decel				equ 0x003000
 
-Wyrm_AccelWalk   		equ 0x000600  ; walking acceleration
+Wyrm_AccelWalk   		equ 0x000400  ; walking acceleration
 Wyrm_AccelRun    		equ 0x001400  ; running acceleration
 Wyrm_DecelIdle   		equ 0x001600  ; deceleration if left alone
-Wyrm_DecelForced 		equ 0x003000  ; deceleration if input opposite direction
+Wyrm_DecelForced 		equ 0x006000  ; deceleration if input opposite direction
 
-Wyrm_MaxVelXWalk 		equ 0x010000  ; max X walking velocity
-Wyrm_MaxVelXRun  		equ 0x050000  ; max X running velocity
+Wyrm_MaxVelXWalk 		equ 0x020000  ; max X walking velocity
+Wyrm_MaxVelXRun  		equ 0x080000  ; max X running velocity
 Wyrm_MaxVelYUp   		equ 0x100000  ; max Y velocity up
 Wyrm_MaxVelYDown 		equ 0x080000  ; max Y velocity down (tile height)
 
-Wyrm_AnimFrame_Bite		equ 0x3
+Wyrm_AnimFrame_Bite		equ 0x1
 Wyrm_BiteDamage			equ 0xFF
 Wyrm_LostPlayerTimeout	equ 0x5A
 
@@ -401,9 +401,15 @@ WyrmAIStart_Idle
 WyrmAIUpdate_Idle:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; Get player
+	move.l (Player1), a2
+	
+	; If player dead, don't bother
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PlayerDead
 
 	; If player touching sand (on special terrain), wake up
-	move.l (Player1), a2
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	beq    @PlayerInAir
 	move.w PhysicsObj_LastTerrainFlags(a2), d0
@@ -414,6 +420,7 @@ WyrmAIUpdate_Idle:
 
 	@PlayerInAir:
 	@PlayerNotOnSand:
+	@PlayerDead:
 	
 	rts
 
@@ -494,8 +501,12 @@ WyrmAIUpdate_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	; Get Nymn
+	; Get player
 	move.l (Player1), a2
+	
+	; If player dead, don't bother
+	cmp.b  #0x0, Character_Dead(a2)
+	bne    @PlayerDead
 
 	; If touching, bite
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
@@ -568,6 +579,7 @@ WyrmAIUpdate_Follow:
 	@NotHittingWall:
 
 	@Bite:
+	@PlayerDead:
 	
 	rts
 
@@ -599,20 +611,11 @@ WyrmAIUpdate_Bite:
 	beq    @AnimFinished
 	
 	; Check if attack frame reached
+	move.l AnimObj_AnimSubFrame(a0), d0
+	lsr.l  #0x8, d0
 	cmp.b  #Wyrm_AnimFrame_Bite, d0
 	bne    @End
 	
-	; On attack frame, check if player still in range on attack frame
-	PUSHL  a1
-	move.l (Player1), a1
-	PHYSICS_GETBOUNDS d1,d2,d3,a0
-	PHYSICS_GETBOUNDS d3,d4,d5,a1
-	jsr    PHYS_TestBoxIntersectBox
-	POPL   a1
-	
-	cmp.b  #0x0, d0
-	beq    @OutOfHitBox
-
 	; Get player
 	PUSHL  a0
 	move.l (Player1), a0
@@ -627,9 +630,6 @@ WyrmAIUpdate_Bite:
 	jsr    CharacterDealDamage
 
 	POPL   a0
-
-	; Set idle state
-	jsr    WyrmAIStart_Idle
 	
 	bra    @End
 
@@ -639,7 +639,8 @@ WyrmAIUpdate_Bite:
 	move.b #0x1, Character_UpdateAnim(a0)
 	
 	; Back to chase state
-	jsr    WyrmAIStart_Follow
+	;jsr    WyrmAIStart_Follow
+	jsr    WyrmAIStart_Idle
 	
 	@OutOfHitBox:
 	@End:
