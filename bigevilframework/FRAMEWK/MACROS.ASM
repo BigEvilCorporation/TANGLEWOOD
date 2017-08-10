@@ -216,6 +216,13 @@ ABS: macro valuereg
 	@Pos\@:
 	endm
 
+ABSW: macro valuereg
+	cmp.w #0x0, \valuereg
+	bge   @Pos\@
+	neg.w \valuereg
+	@Pos\@:
+	endm
+
 ;==============================================================
 
 ; Lossy 16.16 fixed point divide (converts to 24.8 to avoid overflow)

@@ -392,6 +392,67 @@ WyrmSerialise:
 	
 	rts
 
+WyrmFindSandDune:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (w) Player X pos
+	; d1 (ww) OUT: Sand dune left X/Y
+	; d2 (ww) OUT: Sand dune right X/Y
+
+	clr.w  d1
+	clr.w  d2
+
+	move.w (EntityCount_AIMarker), d3		; Get AI marker count
+	cmp.w  #0x0, d3							; Bail if empty
+	beq    @NoMarkers
+	btst   #0x0, d3							; Check if even
+	bne    @ErrorOddCount
+
+	lsr.w  #0x1, d3							; Div/2
+	sub.w  #0x1, d3							; -1 for loop counter
+	move.l (EntityPoolStart_AIMarker), a2
+
+	@MarkerLp:
+	
+	; a3 = left marker, a4 = right marker
+	move.l a2, a3
+	addi.l #AIMarker_Struct_Size, a2
+	move.l a2, a4
+	addi.l #AIMarker_Struct_Size, a2
+
+	; Get marker left and right
+	move.w Entity_WorldPosX(a3), d1
+	move.w Entity_WorldPosX(a4), d2
+	addi.w #AIMarker_Width, d2
+	swap   d1
+	swap   d2
+	move.w Entity_WorldPosY(a3), d1
+	move.w Entity_WorldPosY(a4), d2
+	swap   d1
+	swap   d2
+
+	; Check if within bounds
+	cmp.w  d0, d1
+	bge    @NextPair
+	cmp.w  d0, d2
+	ble    @NextPair
+	bra    @WithinMarkers
+	
+	@NextPair:
+	dbra   d3, @MarkerLp
+
+	; Not within a marker pair, shouldn't be here if on sand
+	RAISE_EXCEPTION *
+	
+	@ErrorOddCount:
+	; AI markers should be in pairs
+	RAISE_EXCEPTION *
+
+	@NoMarkers:
+	@WithinMarkers:
+
+	rts
+
 WyrmAIStart_Idle
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -436,6 +497,53 @@ WyrmAIStart_Emerge
 
 	; Set new state
 	move.b #WyrmState_Emerging, Wyrm_State(a0)
+
+	;==============================================================
+
+	; Find last entered sand dune (AI marker pairs)
+	move.l (Player1), a2
+	move.w Entity_WorldPosX(a2), d0
+	jsr    WyrmFindSandDune
+
+	; If already within, emerge from last burrowed pos
+	move.w Entity_WorldPosX(a0), d0
+	cmp.w  d0, d1
+	bge    @NotInDune
+	cmp.w  d0, d2
+	ble    @NotInDune
+	bra    @AlreadyinDune
+
+	@NotInDune: 
+	; else use nearest AI marker to last burrowed pos
+	move.l d1, d4	; Use left marker pos by default
+	move.l d1, d5
+	move.l d2, d6
+	swap   d5		; Get X left
+	swap   d6		; Get X right
+	sub.w  d0, d5	; Get distance to left marker
+	sub.w  d0, d6	; Get distance to right marker
+	ABSW   d5
+	ABSW   d6
+	cmp.w  d5, d6	; Get smallest dist
+	bge    @LeftMarker
+	move.l d2, d4	; Use right marker pos
+	@LeftMarker:
+
+	; Set emerge pos
+	move.w d4, d0
+	TOSUBPIXELS d0
+	move.l d0, Entity_WorldPosX(a0)
+	swap   d4
+	sub.w  #Wyrm_Height, d4
+	TOSUBPIXELS d4
+	move.l d4, Entity_WorldPosY(a0)
+	
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
+	@AlreadyinDune:
+
+	;==============================================================
 
 	; Emerge anim
 	PUSHL  a1
@@ -588,10 +696,18 @@ WyrmAIUpdate_Follow:
 
 	@EndMove:
 
-	; If hit wall, start burrowing
+	; If hit wall, no longer on floor, or no longer on sand, start burrowing
 	PHYSICS_HITFACINGWALL a0
 	tst.b  d0
-	beq    @NotHittingWall
+	bne    @Burrow
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @Burrow
+	move.w PhysicsObj_LastTerrainFlags(a2), d0
+	andi.w #col_tile_flag_special, d0
+	beq    @Burrow
+	bra    @NotHittingWall
+
+	@Burrow:
 	jsr    WyrmAIStart_Burrow
 	@NotHittingWall:
 
