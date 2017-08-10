@@ -16,6 +16,7 @@ Level_BlockMapAddr    		rs.l 1
 Level_ColTilesAddr    		rs.l 1
 Level_ColMapBlocksAddr		rs.l 1
 Level_ColMapBlockMapAddr	rs.l 1
+Level_TerrainDescAddr		rs.l 1
 Level_PalettesAddr			rs.l 1
 Level_InitRoutine			rs.l 1
 Level_UpdateRoutine			rs.l 1
@@ -29,6 +30,7 @@ Level_MapHeight				rs.w 1
 Level_MapWidthBlocks		rs.w 1
 Level_MapHeightBlocks		rs.w 1
 Level_NumTiles				rs.w 1
+Level_NumTerrainDescs		rs.w 1
 ;---------------------------------
-Level_Struct_Pad			rs.b 2
+Level_Struct_Pad			rs.b 0
 Level_Struct_Size			rs.b 0

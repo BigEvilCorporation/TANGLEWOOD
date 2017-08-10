@@ -19,6 +19,7 @@ l4a2_TetheredAct2:
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4a2		; Collision blocks
 	dc.l collisionmap_blockmap_l4a2		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l4a2_DefaultPalettes			; Palettes
 	dc.l l4a2_Init						; Init routine
 	dc.l l4a2_Update					; Update routine
@@ -30,12 +31,13 @@ l4a2_TetheredAct2:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l4a2_width					; Map width (tiles)
 	dc.w map_l4a2_height				; Map height (tiles)
 	dc.w map_blockmap_l4a2_width		; Map width (blocks)
 	dc.w map_blockmap_l4a2_height		; Map height (blocks)
 	dc.w tiles_l4_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	

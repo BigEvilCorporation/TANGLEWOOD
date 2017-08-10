@@ -6,7 +6,7 @@
 ;   player.asm - Player specific movement and mechanics
 ;==============================================================
 
-PLAYER_DEBUG	equ 0
+PLAYER_DEBUG	equ 1
 
 ; ************************************
 ; Constants

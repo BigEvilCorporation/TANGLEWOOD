@@ -19,6 +19,7 @@ L5a1_BygoneAct1:
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_L5a1		; Collision blocks
 	dc.l collisionmap_blockmap_L5a1		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l L5a1_DefaultPalettes			; Palettes
 	dc.l L5a1_Init						; Init routine
 	dc.l L5a1_Update					; Update routine
@@ -30,12 +31,13 @@ L5a1_BygoneAct1:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_L5a1_width					; Map width (tiles)
 	dc.w map_L5a1_height				; Map height (tiles)
 	dc.w map_blockmap_L5a1_width		; Map width (blocks)
 	dc.w map_blockmap_L5a1_height		; Map height (blocks)
 	dc.w tiles_L5_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	

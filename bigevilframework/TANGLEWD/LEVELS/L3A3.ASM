@@ -19,6 +19,7 @@ l3a3_HeritageAct3:
 	dc.l collisiontiles_l3				; Collision tileset
 	dc.l collisionmap_blocks_l3a3		; Collision blocks
 	dc.l collisionmap_blockmap_l3a3		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l3a3_DefaultPalettes			; Palettes
 	dc.l l3a3_Init						; Init routine
 	dc.l l3a3_Update					; Update routine
@@ -30,12 +31,13 @@ l3a3_HeritageAct3:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l3a3_width					; Map width (tiles)
 	dc.w map_l3a3_height				; Map height (tiles)
 	dc.w map_blockmap_l3a3_width		; Map width (blocks)
 	dc.w map_blockmap_l3a3_height		; Map height (blocks)
 	dc.w tiles_l3_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	

@@ -19,6 +19,7 @@ l2a2_StormWarningAct2:
 	dc.l collisiontiles_l2				; Collision tileset
 	dc.l collisionmap_blocks_l2a2		; Collision blocks
 	dc.l collisionmap_blockmap_l2a2		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l2a2_DefaultPalettes			; Palettes
 	dc.l l2a2_Init						; Init routine
 	dc.l l2a2_Update					; Update routine
@@ -32,6 +33,7 @@ l2a2_StormWarningAct2:
 	dc.w map_blockmap_l2a2_width		; Map width (blocks)
 	dc.w map_blockmap_l2a2_height		; Map height (blocks)
 	dc.w tiles_l2_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	

@@ -244,11 +244,13 @@ PHYSICS_HITFACINGWALL: macro objaddr
 	cmp.w  #0x0, PhysicsObj_AccelX(\objaddr)
 	beq    @HeadingNowhere\@
 	bgt    @HeadingRight\@
-	btst.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(\objaddr)
+	move.b PhysicsObj_HitWall(\objaddr), d1
+	andi.b #PhysicsObjHitWallLeft, d1
 	bne    @HitWall\@
 	bra    @EndWallTest\@
 	@HeadingRight\@:
-	btst.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(\objaddr)
+	move.b PhysicsObj_HitWall(\objaddr), d1
+	andi.b #PhysicsObjHitWallRight, d1
 	beq    @EndWallTest\@
 	@HitWall\@:
 	move.b #0x1, d0

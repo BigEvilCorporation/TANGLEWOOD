@@ -27,6 +27,8 @@ Wyrm_MaxVelXRun  		equ 0x080000  ; max X running velocity
 Wyrm_MaxVelYUp   		equ 0x100000  ; max Y velocity up
 Wyrm_MaxVelYDown 		equ 0x080000  ; max Y velocity down (tile height)
 
+Wyrm_EmergeOffsetFromEdge	equ 0x10
+Wyrm_EmergeOffsetY		equ 0x8
 Wyrm_AnimFrame_Bite		equ 0x1
 Wyrm_BiteDamage			equ 0xFF
 Wyrm_LostPlayerTimeout	equ 0x5A
@@ -399,57 +401,43 @@ WyrmFindSandDune:
 	; d1 (ww) OUT: Sand dune left X/Y
 	; d2 (ww) OUT: Sand dune right X/Y
 
-	clr.w  d1
-	clr.w  d2
+	clr.l  d1
+	clr.l  d2
 
-	move.w (EntityCount_AIMarker), d3		; Get AI marker count
+	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
 	cmp.w  #0x0, d3							; Bail if empty
-	beq    @NoMarkers
-	btst   #0x0, d3							; Check if even
-	bne    @ErrorOddCount
-
-	lsr.w  #0x1, d3							; Div/2
+	beq    @NoTerrain
 	sub.w  #0x1, d3							; -1 for loop counter
-	move.l (EntityPoolStart_AIMarker), a2
+	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
 
-	@MarkerLp:
+	@TerrainLp:
 	
-	; a3 = left marker, a4 = right marker
-	move.l a2, a3
-	addi.l #AIMarker_Struct_Size, a2
-	move.l a2, a4
-	addi.l #AIMarker_Struct_Size, a2
+	; Get terrain spline start/end
+	move.l (a2)+, d1
+	move.l (a2)+, d2
 
-	; Get marker left and right
-	move.w Entity_WorldPosX(a3), d1
-	move.w Entity_WorldPosX(a4), d2
-	addi.w #AIMarker_Width, d2
-	swap   d1
-	swap   d2
-	move.w Entity_WorldPosY(a3), d1
-	move.w Entity_WorldPosY(a4), d2
+	; Get X
 	swap   d1
 	swap   d2
 
-	; Check if within bounds
+	; Check if within X bounds
 	cmp.w  d0, d1
-	bge    @NextPair
+	bge    @NextTerrain
 	cmp.w  d0, d2
-	ble    @NextPair
-	bra    @WithinMarkers
+	ble    @NextTerrain
+	bra    @WithinTerrain
 	
-	@NextPair:
-	dbra   d3, @MarkerLp
+	@NextTerrain:
+	dbra   d3, @TerrainLp
 
 	; Not within a marker pair, shouldn't be here if on sand
 	RAISE_EXCEPTION *
-	
-	@ErrorOddCount:
-	; AI markers should be in pairs
-	RAISE_EXCEPTION *
 
-	@NoMarkers:
-	@WithinMarkers:
+	@NoTerrain:
+	@WithinTerrain:
+
+	swap   d1
+	swap   d2
 
 	rts
 
@@ -500,22 +488,34 @@ WyrmAIStart_Emerge
 
 	;==============================================================
 
-	; Find last entered sand dune (AI marker pairs)
+	; Find last entered sand dune
 	move.l (Player1), a2
+	
+	; Get player floor probe X
 	move.w Entity_WorldPosX(a2), d0
+	sub.w  #vdp_sprite_border_x, d0
+	add.w  PhysicsObj_FloorProbeX(a2), d0
+	
 	jsr    WyrmFindSandDune
 
-	; If already within, emerge from last burrowed pos
+	; If already within X bounds of found sand dune, emerge from last burrowed pos
 	move.w Entity_WorldPosX(a0), d0
-	cmp.w  d0, d1
+	sub.w  #vdp_sprite_border_x, d0
+	add.w  PhysicsObj_FloorProbeX(a0), d0
+	move.l d1, d3
+	move.l d2, d4
+	swap   d3
+	swap   d4
+	cmp.w  d0, d3
 	bge    @NotInDune
-	cmp.w  d0, d2
+	cmp.w  d0, d4
 	ble    @NotInDune
 	bra    @AlreadyinDune
 
 	@NotInDune: 
 	; else use nearest AI marker to last burrowed pos
 	move.l d1, d4	; Use left marker pos by default
+	addi.l #(Wyrm_EmergeOffsetFromEdge<<16), d4	; Offset from edge
 	move.l d1, d5
 	move.l d2, d6
 	swap   d5		; Get X left
@@ -527,16 +527,21 @@ WyrmAIStart_Emerge
 	cmp.w  d5, d6	; Get smallest dist
 	bge    @LeftMarker
 	move.l d2, d4	; Use right marker pos
+	subi.l #(Wyrm_EmergeOffsetFromEdge+Wyrm_Width)<<16, d4	; Offset from edge
 	@LeftMarker:
 
 	; Set emerge pos
 	move.w d4, d0
+	addi.w #vdp_sprite_border_y, d0			; Y to screen space
+	subi.w #Wyrm_EmergeOffsetY, d0
+	sub.w  PhysicsObj_FloorProbeY(a0), d0	; Offset floor probe
 	TOSUBPIXELS d0
-	move.l d0, Entity_WorldPosX(a0)
+	move.l d0, Entity_WorldPosY(a0)			; Set Y
 	swap   d4
-	sub.w  #Wyrm_Height, d4
+	addi.w #vdp_sprite_border_x, d4			; X to screen space
+	sub.w  PhysicsObj_FloorProbeX(a0), d0	; Offset floor probe
 	TOSUBPIXELS d4
-	move.l d4, Entity_WorldPosY(a0)
+	move.l d4, Entity_WorldPosX(a0)			; Set X
 	
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
@@ -579,6 +584,12 @@ WyrmAIStart_Burrow
 
 	; Stop screen shake
 	jsr    CAM_StopCameraShake
+	
+	; Cancel accel/vel
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
 
 	; Burrow anim
 	PUSHL  a1
@@ -697,12 +708,30 @@ WyrmAIUpdate_Follow:
 	@EndMove:
 
 	; If hit wall, no longer on floor, or no longer on sand, start burrowing
-	PHYSICS_HITFACINGWALL a0
+	move.b PhysicsObj_HitWall(a0), d1
+	;PHYSICS_HITFACINGWALL a0
+	move.b #0x0, d0
+	cmp.w  #0x0, PhysicsObj_AccelX(a0)
+	beq    @HeadingNowhere
+	bgt    @HeadingRight
+	move.b PhysicsObj_HitWall(a0), d1
+	andi.b #PhysicsObjHitWallLeft, d1
+	bne    @HitWall
+	bra    @EndWallTest
+	@HeadingRight:
+	move.b PhysicsObj_HitWall(a0), d1
+	andi.b #PhysicsObjHitWallRight, d1
+	beq    @EndWallTest
+	@HitWall:
+	move.b #0x1, d0
+	@HeadingNowhere:
+	@EndWallTest:
+	
 	tst.b  d0
 	bne    @Burrow
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @Burrow
-	move.w PhysicsObj_LastTerrainFlags(a2), d0
+	move.w PhysicsObj_LastTerrainFlags(a0), d0
 	andi.w #col_tile_flag_special, d0
 	beq    @Burrow
 	bra    @NotHittingWall

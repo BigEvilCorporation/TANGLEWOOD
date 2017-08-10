@@ -14,3 +14,15 @@ terrainmap_L7A1_width	equ 0x3E8
 terrainmap_L7A1_height	equ 0xC8
 terrainmap_blockmap_L7A1_width	equ 0xFA
 terrainmap_blockmap_L7A1_height	equ 0x32
+
+; Terrain beziers start/end positions
+terrainmap_L7A1_num_special_terrain_descs	equ 0x07
+terrainmap_L7A1_special_terrain_descs:
+	dc.w 0x0400, 0x02D7, 0x0780, 0x0337	; Start X, start Y, end X, end Y
+	dc.w 0x0765, 0x02D5, 0x087F, 0x029F	; Start X, start Y, end X, end Y
+	dc.w 0x0902, 0x029E, 0x0B6F, 0x029F	; Start X, start Y, end X, end Y
+	dc.w 0x0C30, 0x029E, 0x0FC8, 0x02FF	; Start X, start Y, end X, end Y
+	dc.w 0x0F17, 0x0192, 0x128A, 0x019C	; Start X, start Y, end X, end Y
+	dc.w 0x114D, 0x02AE, 0x151F, 0x02D7	; Start X, start Y, end X, end Y
+	dc.w 0x1662, 0x02C0, 0x1F20, 0x02EF	; Start X, start Y, end X, end Y
+

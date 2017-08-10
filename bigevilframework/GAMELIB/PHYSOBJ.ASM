@@ -745,7 +745,7 @@ PhysicsObjCollisionCorrection:
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
-	bset.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	ori.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
 	
 	bra    @EndWallClamp
 	
@@ -761,7 +761,7 @@ PhysicsObjCollisionCorrection:
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
-	bset.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	ori.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
 	
 	@EndWallClamp:
 	
@@ -1005,6 +1005,13 @@ PhysicsObjFindWall:
 	; a1 --- Level addr
 	
 	;==============================================================
+
+	; If previously hitting a static wall, clear all flags
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #(PhysicsObjHitStaticWall), d0
+	beq    @NotHittingStaticWall
+	move.b #0x0, PhysicsObj_HitWall(a0)
+	@NotHittingStaticWall:
 	
 	; Determine direction
 	move.l PhysicsObj_VelX(a0), d3
@@ -1183,6 +1190,9 @@ PhysicsObjFindWall:
 	TILES2PIXELS d4						; Tiles to pixels
 	add.l  #vdp_sprite_border_x, d4		; Pixels to screen space
 	TOSUBPIXELS d4						; Screen space to object space
+
+	; Set flags
+	ori.b #PhysicsObjHitStaticWall, PhysicsObj_HitWall(a0)
 
 	;==============================================================
 
@@ -1761,7 +1771,8 @@ PhysicsObjPushPullObj:
 	; Check if can be pushed, and not hitting wall to the left
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	btst.b #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a2)
+	move.b PhysicsObj_HitWall(a2), d5
+	andi.b #PhysicsObjHitWallLeft, d5
 	bne    @CannotPush
 
 	; Pushing, check inner bounds
@@ -1803,7 +1814,8 @@ PhysicsObjPushPullObj:
 	; Check if can be pushed, and not hitting wall to the right
 	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
-	btst.b #PhysicsObjHitWallRight, PhysicsObj_HitWall(a2)
+	move.b PhysicsObj_HitWall(a2), d5
+	andi.b #PhysicsObjHitWallRight, d5
 	bne    @CannotPush
 
 	; Pushing, check inner bounds

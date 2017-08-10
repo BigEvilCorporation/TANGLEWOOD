@@ -21,13 +21,7 @@ L7A1_Nymn_count equ 0x0
 
 L7A1_BouncePlant_count equ 0x0
 
-L7A1_Log_count equ 0x1
-L7A1_Log_6_idx	equ 0x0
-
-	IFND FINAL
-L7A1_Log_6_name	dc.b "L7A1_Log_6",0
-	even
-	ENDIF
+L7A1_Log_count equ 0x0
 
 L7A1_DjakkCage_count equ 0x0
 
@@ -85,110 +79,44 @@ L7A1_Wyrm_4_name	dc.b "L7A1_Wyrm_4",0
 	even
 	ENDIF
 
+L7A1_AIMarker_count equ 0x10
+L7A1_AIMarker_6_idx	equ 0x0
+L7A1_AIMarker_7_idx	equ 0x1
+L7A1_AIMarker_8_idx	equ 0x2
+L7A1_AIMarker_9_idx	equ 0x3
+L7A1_AIMarker_10_idx	equ 0x4
+L7A1_AIMarker_11_idx	equ 0x5
+L7A1_AIMarker_12_idx	equ 0x6
+L7A1_AIMarker_13_idx	equ 0x7
+L7A1_AIMarker_15_idx	equ 0x8
+L7A1_AIMarker_16_idx	equ 0x9
+L7A1_AIMarker_17_idx	equ 0xa
+L7A1_AIMarker_18_idx	equ 0xb
+L7A1_AIMarker_20_idx	equ 0xc
+L7A1_AIMarker_21_idx	equ 0xd
+L7A1_AIMarker_22_idx	equ 0xe
+L7A1_AIMarker_23_idx	equ 0xf
 
-	IF L7A1_Leaf_count>Leaf_MaxEntities
-	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L7A1_Leaf_count
+	IFND FINAL
+L7A1_AIMarker_6_name	dc.b "L7A1_AIMarker_6",0
+L7A1_AIMarker_7_name	dc.b "L7A1_AIMarker_7",0
+L7A1_AIMarker_8_name	dc.b "L7A1_AIMarker_8",0
+L7A1_AIMarker_9_name	dc.b "L7A1_AIMarker_9",0
+L7A1_AIMarker_10_name	dc.b "L7A1_AIMarker_10",0
+L7A1_AIMarker_11_name	dc.b "L7A1_AIMarker_11",0
+L7A1_AIMarker_12_name	dc.b "L7A1_AIMarker_12",0
+L7A1_AIMarker_13_name	dc.b "L7A1_AIMarker_13",0
+L7A1_AIMarker_15_name	dc.b "L7A1_AIMarker_15",0
+L7A1_AIMarker_16_name	dc.b "L7A1_AIMarker_16",0
+L7A1_AIMarker_17_name	dc.b "L7A1_AIMarker_17",0
+L7A1_AIMarker_18_name	dc.b "L7A1_AIMarker_18",0
+L7A1_AIMarker_20_name	dc.b "L7A1_AIMarker_20",0
+L7A1_AIMarker_21_name	dc.b "L7A1_AIMarker_21",0
+L7A1_AIMarker_22_name	dc.b "L7A1_AIMarker_22",0
+L7A1_AIMarker_23_name	dc.b "L7A1_AIMarker_23",0
+	even
 	ENDIF
 
-	IF L7A1_Echo_count>Echo_MaxEntities
-	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L7A1_Echo_count
-	ENDIF
-
-	IF L7A1_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L7A1_Nymn_count
-	ENDIF
-
-	IF L7A1_BouncePlant_count>BouncePlant_MaxEntities
-	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L7A1_BouncePlant_count
-	ENDIF
-
-	IF L7A1_Log_count>Log_MaxEntities
-	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L7A1_Log_count
-	ENDIF
-
-	IF L7A1_DjakkCage_count>DjakkCage_MaxEntities
-	inform 2,"Entity array overflow(DjakkCage) - array size: 0x%d count : 0x%d",DjakkCage_MaxEntities,L7A1_DjakkCage_count
-	ENDIF
-
-	IF L7A1_Monster_count>Monster_MaxEntities
-	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L7A1_Monster_count
-	ENDIF
-
-	IF L7A1_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L7A1_Boulder_count
-	ENDIF
-
-	IF L7A1_Firefly_count>Firefly_MaxEntities
-	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L7A1_Firefly_count
-	ENDIF
-
-	IF L7A1_FuzzlCage_count>FuzzlCage_MaxEntities
-	inform 2,"Entity array overflow(FuzzlCage) - array size: 0x%d count : 0x%d",FuzzlCage_MaxEntities,L7A1_FuzzlCage_count
-	ENDIF
-
-	IF L7A1_Fuzzl_count>Fuzzl_MaxEntities
-	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L7A1_Fuzzl_count
-	ENDIF
-
-	IF L7A1_Stone_count>Stone_MaxEntities
-	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L7A1_Stone_count
-	ENDIF
-
-	IF L7A1_Nest_count>Nest_MaxEntities
-	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L7A1_Nest_count
-	ENDIF
-
-	IF L7A1_Flue_count>Flue_MaxEntities
-	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L7A1_Flue_count
-	ENDIF
-
-	IF L7A1_TriggerBox_count>TriggerBox_MaxEntities
-	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L7A1_TriggerBox_count
-	ENDIF
-
-	IF L7A1_Checkpoint_count>Checkpoint_MaxEntities
-	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L7A1_Checkpoint_count
-	ENDIF
-
-	IF L7A1_WaterBody_count>WaterBody_MaxEntities
-	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L7A1_WaterBody_count
-	ENDIF
-
-	IF L7A1_Location_count>Location_MaxEntities
-	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L7A1_Location_count
-	ENDIF
-
-	IF L7A1_Deathbox_count>Deathbox_MaxEntities
-	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L7A1_Deathbox_count
-	ENDIF
-
-	IF L7A1_Lift_count>Lift_MaxEntities
-	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L7A1_Lift_count
-	ENDIF
-
-	IF L7A1_Crate_count>Crate_MaxEntities
-	inform 2,"Entity array overflow(Crate) - array size: 0x%d count : 0x%d",Crate_MaxEntities,L7A1_Crate_count
-	ENDIF
-
-	IF L7A1_Generator_count>Generator_MaxEntities
-	inform 2,"Entity array overflow(Generator) - array size: 0x%d count : 0x%d",Generator_MaxEntities,L7A1_Generator_count
-	ENDIF
-
-	IF L7A1_Cogs_count>Cogs_MaxEntities
-	inform 2,"Entity array overflow(Cogs) - array size: 0x%d count : 0x%d",Cogs_MaxEntities,L7A1_Cogs_count
-	ENDIF
-
-	IF L7A1_Bridge_count>Bridge_MaxEntities
-	inform 2,"Entity array overflow(Bridge) - array size: 0x%d count : 0x%d",Bridge_MaxEntities,L7A1_Bridge_count
-	ENDIF
-
-	IF L7A1_Button_count>Button_MaxEntities
-	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L7A1_Button_count
-	ENDIF
-
-	IF L7A1_Wyrm_count>Wyrm_MaxEntities
-	inform 2,"Entity array overflow(Wyrm) - array size: 0x%d count : 0x%d",Wyrm_MaxEntities,L7A1_Wyrm_count
-	ENDIF
 
 
 L7A1_LoadGameObjects:
@@ -238,18 +166,6 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr LogInit
-	move.l #0x02000000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_Log_6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LogLoadGfx
-	add.l #Log_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L7A1_DjakkCage_count)
@@ -433,6 +349,205 @@ L7A1_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L7A1_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
+	move.l #0x04900000, Entity_WorldPosX(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x07e80000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x09900000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0bd80000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0bd00000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0cc80000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0cc00000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_12_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x10280000, Entity_WorldPosX(a0)
+	move.l #0x03780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_13_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0f980000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x13000000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x11c80000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_17_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x15800000, Entity_WorldPosX(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_18_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x16f00000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_20_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x1f800000, Entity_WorldPosX(a0)
+	move.l #0x03680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x07e00000, Entity_WorldPosX(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_22_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x08e80000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_AIMarker_23_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 	rts
 

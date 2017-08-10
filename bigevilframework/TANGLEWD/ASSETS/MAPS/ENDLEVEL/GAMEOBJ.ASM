@@ -53,6 +53,8 @@ end_level_Deathbox_count equ 0x0
 
 end_level_Lift_count equ 0x0
 
+end_level_AIMarker_count equ 0x0
+
 
 	IF end_level_Leaf_count>Leaf_MaxEntities
 	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,end_level_Leaf_count
@@ -120,6 +122,10 @@ end_level_Lift_count equ 0x0
 
 	IF end_level_Lift_count>Lift_MaxEntities
 	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,end_level_Lift_count
+	ENDIF
+
+	IF end_level_AIMarker_count>AIMarker_MaxEntities
+	inform 2,"Entity array overflow(AIMarker) - array size: 0x%d count : 0x%d",AIMarker_MaxEntities,end_level_AIMarker_count
 	ENDIF
 
 
@@ -265,6 +271,13 @@ end_level_LoadGameObjects:
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*end_level_Lift_count)
 	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*end_level_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
 	move.l a1, a0
 	POPL   a1
 

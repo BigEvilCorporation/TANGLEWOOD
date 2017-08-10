@@ -219,11 +219,13 @@ L1A4_Deathbox_75_name	dc.b "L1A4_Deathbox_75",0
 	even
 	ENDIF
 
-L1A4_Lift_count equ 0x1
-L1A4_Lift_92_idx	equ 0x0
+L1A4_Lift_count equ 0x0
+
+L1A4_AIMarker_count equ 0x1
+L1A4_AIMarker_93_idx	equ 0x0
 
 	IFND FINAL
-L1A4_Lift_92_name	dc.b "L1A4_Lift_92",0
+L1A4_AIMarker_93_name	dc.b "L1A4_AIMarker_93",0
 	even
 	ENDIF
 
@@ -294,6 +296,10 @@ L1A4_Lift_92_name	dc.b "L1A4_Lift_92",0
 
 	IF L1A4_Lift_count>Lift_MaxEntities
 	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L1A4_Lift_count
+	ENDIF
+
+	IF L1A4_AIMarker_count>AIMarker_MaxEntities
+	inform 2,"Entity array overflow(AIMarker) - array size: 0x%d count : 0x%d",AIMarker_MaxEntities,L1A4_AIMarker_count
 	ENDIF
 
 
@@ -1202,18 +1208,25 @@ L1A4_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr LiftInit
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L1A4_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
 	move.l #0x1e580000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L1A4_Lift_92_name, a3
+	lea L1A4_AIMarker_93_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
-	add.l #Lift_Struct_Size, a0
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 	rts
 

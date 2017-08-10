@@ -19,6 +19,7 @@ l1a2_HarlequinForestAct2:
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1a2		; Collision blocks
 	dc.l collisionmap_blockmap_l1a2		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l1a2_DefaultPalettes			; Palettes
 	dc.l l1a2_Init						; Init routine
 	dc.l l1a2_Update					; Update routine
@@ -26,12 +27,13 @@ l1a2_HarlequinForestAct2:
 	dc.l l1a2_LoadGameObjects			; Load game objects routine
 	dc.l l1a2_End						; End routine
 	dc.l l1a3_HarlequinForestAct3		; Next level
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_l1a2_width					; Map width (tiles)
 	dc.w map_l1a2_height				; Map height (tiles)
 	dc.w map_blockmap_l1a2_width		; Map width (blocks)
 	dc.w map_blockmap_l1a2_height		; Map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	

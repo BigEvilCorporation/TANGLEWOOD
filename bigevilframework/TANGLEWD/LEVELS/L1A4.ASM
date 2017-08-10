@@ -16,6 +16,7 @@ l1a4_HarlequinForestAct4:
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1a4		; Collision blocks
 	dc.l collisionmap_blockmap_l1a4		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l1a4_DefaultPalettes			; Palettes
 	dc.l l1a4_Init						; Init routine
 	dc.l l1a4_Update					; Update routine
@@ -37,6 +38,7 @@ l1a4_HarlequinForestAct4:
 	dc.w map_blockmap_l1a4_width		; Map width (blocks)
 	dc.w map_blockmap_l1a4_height		; Map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
 	
 	even
 	
