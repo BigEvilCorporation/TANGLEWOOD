@@ -61,6 +61,7 @@ ButtonInit:
 	; Setup platform
 	move.l a0, a2
 	add.l  #Button_Platform, a2
+	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Button_Width, Platform_Width(a2)
 	
 	; Add to physics platforms list

@@ -15,9 +15,10 @@ Character_FallVel		    equ 0x020000
 Character_PushLight			equ 0x1
 Character_PushHeavy			equ 0x2
 
-Character_WalkInteract		equ 0x1
-Character_WalkWater			equ 0x2
-Character_WalkGeneral		equ 0x3
+Character_WalkInteract			equ 0x1
+Character_WalkWater				equ 0x2
+Character_WalkRollingPlatform	equ 0x3
+Character_WalkGeneral			equ 0x4
 
 ; ************************************
 ; Animation ids
@@ -145,7 +146,7 @@ CharacterInit:
 CharacterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
+
 	; Store current floor flag and Y velocity to check landing
 	move.b PhysicsObj_OnFloor(a0), d0
 	move.l PhysicsObj_VelY(a0), d1
@@ -186,8 +187,6 @@ CharacterUpdate:
 	@OffFloor:
 	@PrevOnFloor:
 	@LowLandVel:
-
-	; =====================================================================
 	
 	; If Y vel < falling vel, set as falling
 	cmp.l  #-Character_FallVel, d1
@@ -216,7 +215,48 @@ CharacterUpdate:
 	beq   @ManualAnim
 	jsr   CharacterUpdateAnimState
 	@ManualAnim:
+
+	; Update rolling platforms
+	jsr   CharacterUpdateRollingPlatform
 	
+	rts
+
+CharacterUpdateRollingPlatform:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Clear reverse animation
+	move.b #0x0, AnimObj_Reverse(a0)
+
+	; Clear rolling platform walk flag
+	btst   #Character_WalkRollingPlatform, Character_Walking(a0)
+	beq    @NoClearWalkFlag
+	move.b #Character_WalkRollingPlatform, d0
+	jsr    CharacterAllowRun
+	@NoClearWalkFlag:
+
+	; If on a rolling platform
+	tst.b  PhysicsObj_OnPlatform(a0)
+	beq    @NotOnPlatform
+	move.l PhysicsObj_LastPlatform(a0), a2
+	beq    @NotOnPlatform
+	cmp.b  #PlatformType_Rolling, Platform_Type(a2)
+	bne    @NotRollingPlatform
+
+	; Match rolling object velocity
+	move.l Platform_Owner(a2), a3
+	move.l PhysicsObj_VelX(a0), PhysicsObj_ImpulseX(a3) ;PhysicsObj_VelX(a3)
+
+	; Cannot run
+	move.b #Character_WalkRollingPlatform, d0
+	jsr    CharacterPreventRun
+
+	; Reverse walk animation
+	move.b #0x1, AnimObj_Reverse(a0)
+
+	@NotOnPlatform:
+	@NotRollingPlatform:
+
 	rts
 	
 CharacterDealDamage:

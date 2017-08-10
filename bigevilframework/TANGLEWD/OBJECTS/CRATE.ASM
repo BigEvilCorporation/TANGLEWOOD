@@ -94,6 +94,7 @@ CrateInit:
 	move.l a0, a2
 	add.l  #Crate_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
+	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Crate_PlatformWidth, Platform_Width(a2)
 	LIST_APPEND_TAIL Platforms, a2, a3
 

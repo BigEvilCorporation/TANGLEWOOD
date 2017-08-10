@@ -118,6 +118,7 @@ BoulderInit:
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2
 	move.w #Boulder_PlatformWidth, Platform_Width(a2)
+	move.b #PlatformType_Sliding, Platform_Type(a2)
 	
 	; Add to physics platforms list
 	jsr    BoulderActivatePlatform

@@ -21,7 +21,13 @@ L7A1_Nymn_count equ 0x0
 
 L7A1_BouncePlant_count equ 0x0
 
-L7A1_Log_count equ 0x0
+L7A1_Log_count equ 0x1
+L7A1_Log_6_idx	equ 0x0
+
+	IFND FINAL
+L7A1_Log_6_name	dc.b "L7A1_Log_6",0
+	even
+	ENDIF
 
 L7A1_DjakkCage_count equ 0x0
 
@@ -232,6 +238,18 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr LogInit
+	move.l #0x02000000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Log_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L7A1_DjakkCage_count)

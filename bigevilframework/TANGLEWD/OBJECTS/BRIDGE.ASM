@@ -134,6 +134,7 @@ BridgeInit:
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
 	move.l a0, Platform_Owner(a2)
+	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Bridge_PlatformWidth, Platform_Width(a2)
 	move.l #0x0, Platform_VelX(a2)
 	move.l #0x0, Platform_VelY(a2)

@@ -110,6 +110,8 @@ LogInit:
 	; Setup platform
 	move.l a0, a2
 	add.l  #Log_Platform, a2
+	move.l a0, Platform_Owner(a2)
+	move.b #PlatformType_Rolling, Platform_Type(a2)
 	move.w #Log_PlatformWidth, Platform_Width(a2)
 	
 	; Add to physics platforms list
@@ -150,7 +152,7 @@ LogUpdate:
 
 	; Roll anim speed based on velocity
 	clr.l  d0
-	move.l PhysicsObj_VelX(a0), d0
+	move.l PhysicsObj_LastAppliedVelX(a0), d0
 	cmp.l  #0x0, d0
 	beq    @ZeroVel
 	divs.w #Log_AnimSpeedVelDiv, d0

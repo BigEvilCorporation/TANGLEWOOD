@@ -30,6 +30,7 @@ PhysicsObjMaxSnapToFloorDist		equ 0x10
 PhysicsObj_LastWall         	rs.l 1 ; Last detected wall X
 PhysicsObj_LastFloor        	rs.l 1 ; Last detected floor Y
 PhysicsObj_LastCeiling      	rs.l 1 ; Last detected ceiling Y
+PhysicsObj_LastPlatform			rs.l 1 ; Last detected platform addr
 PhysicsObj_VelX    		    	rs.l 1 ; X velocity
 PhysicsObj_VelY    		    	rs.l 1 ; Y velocity
 PhysicsObj_ImpulseX    		    rs.l 1 ; X impulse
@@ -99,6 +100,7 @@ PhysicsObjInit:
 	move.l #0x0, PhysicsObj_LastWall(a0)
 	move.l #0x0, PhysicsObj_LastFloor(a0)
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
+	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
@@ -252,6 +254,10 @@ PhysicsObjUpdate:
 	rts
 
 PhysicsObjSleepyUpdate:
+
+	; Clear last applied vel
+	move.l #0x0, PhysicsObj_LastAppliedVelX(a0)
+	move.l #0x0, PhysicsObj_LastAppliedVelY(a0)
 
 	; Check for moving floors
 	move.l PhysicsObj_LastFloor(a0), d0
@@ -854,6 +860,7 @@ PhysicsObjFindFloor:
 	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
 
+	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
@@ -916,6 +923,7 @@ PhysicsObjFindFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Mark object on platform
+	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
 	bra    @FoundPlatform
@@ -1339,6 +1347,7 @@ PhysicsObjFindMovingFloor:
 	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
 
+	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD MovingPlatforms,a3	; Get list head
@@ -1410,6 +1419,7 @@ PhysicsObjFindMovingFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Mark object on platform
+	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
 	bra    @FoundPlatform

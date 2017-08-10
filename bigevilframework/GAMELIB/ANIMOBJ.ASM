@@ -15,11 +15,12 @@ AnimObj_CurrentAnim		 rs.l 1 ; Current Animation data
 AnimObj_AnimSubFrame     rs.l 1 ; Current subframe
 AnimObj_SpeedDiv  	     rs.b 1 ; Anim speed div
 AnimObj_Playing  	     rs.b 1 ; Anim currently playing
+AnimObj_Reverse			 rs.b 1 ; Play in reverse
 AnimObj_Dirty		     rs.b 1 ; Anim needs stepping forcefully
 AnimObj_UpdateOutOfView	 rs.b 1 ; Anim can update even when out of view (sprite not linked on last render)
 AnimObj_UploadFrame	 	 rs.b 1 ; Frame needs uploading to VRAM
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 1
+AnimObj_Struct_Pad       rs.b 0
 AnimObj_Struct_Size      rs.b 0
 
 ;==============================================================
@@ -63,6 +64,12 @@ AnimObjUpdate:
 	; Get anim speed
 	move.w Animation_Speed(a2), d0
 
+	; If reversed
+	tst.b  AnimObj_Reverse(a0)
+	beq    @NoReverse
+	neg.w  d0
+	@NoReverse:
+
 	; Check if dirty (new anim, set regardless of speed)
 	cmp.b  #0x0, AnimObj_Dirty(a0)
 	bne    @SkipSpeedTest
@@ -104,8 +111,14 @@ AnimObjUpdate:
 	lsl.l  #0x8, d3 ; To subframes
 	
 	; Check if not at end
+	tst.b  AnimObj_Reverse(a0)
+	bne    @EndAtStart
 	cmp.l  d3, d2
 	blt    @NotAtEnd
+	bra    @AtEnd
+	@EndAtStart:
+	cmp.l  #0x0, d2
+	@AtEnd:
 	
 	; End of non-looping anim, stop playing
 	move.b #0x0, AnimObj_Playing(a0)

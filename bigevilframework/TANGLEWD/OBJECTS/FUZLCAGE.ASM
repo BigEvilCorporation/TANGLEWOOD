@@ -112,6 +112,7 @@ FuzzlCageInit:
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
+	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
 	
 	jsr    FuzzlCageActivatePlatform
