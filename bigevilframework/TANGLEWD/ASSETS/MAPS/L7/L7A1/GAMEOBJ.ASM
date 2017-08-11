@@ -21,7 +21,15 @@ L7A1_Nymn_count equ 0x0
 
 L7A1_BouncePlant_count equ 0x0
 
-L7A1_Log_count equ 0x0
+L7A1_Log_count equ 0x2
+L7A1_Log_24_idx	equ 0x0
+L7A1_Log_30_idx	equ 0x1
+
+	IFND FINAL
+L7A1_Log_24_name	dc.b "L7A1_Log_24",0
+L7A1_Log_30_name	dc.b "L7A1_Log_30",0
+	even
+	ENDIF
 
 L7A1_DjakkCage_count equ 0x0
 
@@ -33,25 +41,63 @@ L7A1_Firefly_count equ 0x0
 
 L7A1_FuzzlCage_count equ 0x0
 
-L7A1_Fuzzl_count equ 0x0
-
-L7A1_Stone_count equ 0x0
-
-L7A1_Nest_count equ 0x0
-
-L7A1_Flue_count equ 0x2
-L7A1_Flue_2_idx	equ 0x0
-L7A1_Flue_3_idx	equ 0x1
+L7A1_Fuzzl_count equ 0x2
+L7A1_FuzzlYellow1_idx	equ 0x0
+L7A1_FuzzlGreen1_idx	equ 0x1
 
 	IFND FINAL
-L7A1_Flue_2_name	dc.b "L7A1_Flue_2",0
-L7A1_Flue_3_name	dc.b "L7A1_Flue_3",0
+L7A1_FuzzlYellow1_name	dc.b "L7A1_FuzzlYellow1",0
+L7A1_FuzzlGreen1_name	dc.b "L7A1_FuzzlGreen1",0
+	even
+	ENDIF
+
+L7A1_Stone_count equ 0x6
+L7A1_Stone_25_idx	equ 0x0
+L7A1_Stone_28_idx	equ 0x1
+L7A1_Stone_29_idx	equ 0x2
+L7A1_Stone_31_idx	equ 0x3
+L7A1_Stone_35_idx	equ 0x4
+L7A1_Stone_37_idx	equ 0x5
+
+	IFND FINAL
+L7A1_Stone_25_name	dc.b "L7A1_Stone_25",0
+L7A1_Stone_28_name	dc.b "L7A1_Stone_28",0
+L7A1_Stone_29_name	dc.b "L7A1_Stone_29",0
+L7A1_Stone_31_name	dc.b "L7A1_Stone_31",0
+L7A1_Stone_35_name	dc.b "L7A1_Stone_35",0
+L7A1_Stone_37_name	dc.b "L7A1_Stone_37",0
+	even
+	ENDIF
+
+L7A1_Nest_count equ 0x2
+L7A1_Nest_26_idx	equ 0x0
+L7A1_Nest_34_idx	equ 0x1
+
+	IFND FINAL
+L7A1_Nest_26_name	dc.b "L7A1_Nest_26",0
+L7A1_Nest_34_name	dc.b "L7A1_Nest_34",0
+	even
+	ENDIF
+
+L7A1_Flue_count equ 0x2
+L7A1_Flue2_HighForce_idx	equ 0x0
+L7A1_Flue1_LowForce_idx	equ 0x1
+
+	IFND FINAL
+L7A1_Flue2_HighForce_name	dc.b "L7A1_Flue2_HighForce",0
+L7A1_Flue1_LowForce_name	dc.b "L7A1_Flue1_LowForce",0
 	even
 	ENDIF
 
 L7A1_TriggerBox_count equ 0x0
 
-L7A1_Checkpoint_count equ 0x0
+L7A1_Checkpoint_count equ 0x1
+L7A1_Checkpoint_33_idx	equ 0x0
+
+	IFND FINAL
+L7A1_Checkpoint_33_name	dc.b "L7A1_Checkpoint_33",0
+	even
+	ENDIF
 
 L7A1_WaterBody_count equ 0x0
 
@@ -79,43 +125,7 @@ L7A1_Wyrm_4_name	dc.b "L7A1_Wyrm_4",0
 	even
 	ENDIF
 
-L7A1_AIMarker_count equ 0x10
-L7A1_AIMarker_6_idx	equ 0x0
-L7A1_AIMarker_7_idx	equ 0x1
-L7A1_AIMarker_8_idx	equ 0x2
-L7A1_AIMarker_9_idx	equ 0x3
-L7A1_AIMarker_10_idx	equ 0x4
-L7A1_AIMarker_11_idx	equ 0x5
-L7A1_AIMarker_12_idx	equ 0x6
-L7A1_AIMarker_13_idx	equ 0x7
-L7A1_AIMarker_15_idx	equ 0x8
-L7A1_AIMarker_16_idx	equ 0x9
-L7A1_AIMarker_17_idx	equ 0xa
-L7A1_AIMarker_18_idx	equ 0xb
-L7A1_AIMarker_20_idx	equ 0xc
-L7A1_AIMarker_21_idx	equ 0xd
-L7A1_AIMarker_22_idx	equ 0xe
-L7A1_AIMarker_23_idx	equ 0xf
-
-	IFND FINAL
-L7A1_AIMarker_6_name	dc.b "L7A1_AIMarker_6",0
-L7A1_AIMarker_7_name	dc.b "L7A1_AIMarker_7",0
-L7A1_AIMarker_8_name	dc.b "L7A1_AIMarker_8",0
-L7A1_AIMarker_9_name	dc.b "L7A1_AIMarker_9",0
-L7A1_AIMarker_10_name	dc.b "L7A1_AIMarker_10",0
-L7A1_AIMarker_11_name	dc.b "L7A1_AIMarker_11",0
-L7A1_AIMarker_12_name	dc.b "L7A1_AIMarker_12",0
-L7A1_AIMarker_13_name	dc.b "L7A1_AIMarker_13",0
-L7A1_AIMarker_15_name	dc.b "L7A1_AIMarker_15",0
-L7A1_AIMarker_16_name	dc.b "L7A1_AIMarker_16",0
-L7A1_AIMarker_17_name	dc.b "L7A1_AIMarker_17",0
-L7A1_AIMarker_18_name	dc.b "L7A1_AIMarker_18",0
-L7A1_AIMarker_20_name	dc.b "L7A1_AIMarker_20",0
-L7A1_AIMarker_21_name	dc.b "L7A1_AIMarker_21",0
-L7A1_AIMarker_22_name	dc.b "L7A1_AIMarker_22",0
-L7A1_AIMarker_23_name	dc.b "L7A1_AIMarker_23",0
-	even
-	ENDIF
+L7A1_AIMarker_count equ 0x0
 
 
 
@@ -166,6 +176,30 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr LogInit
+	move.l #0x0d580000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Log_24_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
+	jsr LogInit
+	move.l #0x11780000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Log_30_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L7A1_DjakkCage_count)
@@ -208,6 +242,32 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr FuzzlInit
+	move.l #0x10600000, Entity_WorldPosX(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_FuzzlYellow1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x17a00000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_FuzzlGreen1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourGreen, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L7A1_Stone_count)
@@ -215,6 +275,78 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr StoneInit
+	move.l #0x0dc00000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0be80000, Entity_WorldPosX(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x10b80000, Entity_WorldPosX(a0)
+	move.l #0x03480000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_29_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0fd00000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_31_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x18800000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_35_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x17680000, Entity_WorldPosX(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Stone_37_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L7A1_Nest_count)
@@ -222,6 +354,30 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr NestInit
+	move.l #0x11680000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Nest_26_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+	jsr NestInit
+	move.l #0x15c00000, Entity_WorldPosX(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Nest_34_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L7A1_Flue_count)
@@ -233,10 +389,10 @@ L7A1_LoadGameObjects:
 	move.l #0x1bb80000, Entity_WorldPosX(a0)
 	move.l #0x03980000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L7A1_Flue_2_name, a3
+	lea L7A1_Flue2_HighForce_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
@@ -245,12 +401,13 @@ L7A1_LoadGameObjects:
 	move.l #0x19b80000, Entity_WorldPosX(a0)
 	move.l #0x03680000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L7A1_Flue_3_name, a3
+	lea L7A1_Flue1_LowForce_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.l #0xA0000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
@@ -267,6 +424,18 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr CheckpointInit
+	move.l #0x15680000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Checkpoint_33_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L7A1_WaterBody_count)
@@ -356,198 +525,6 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr AIMarkerInit
-	move.l #0x04900000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x07e80000, Entity_WorldPosX(a0)
-	move.l #0x03b00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_7_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x09900000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_8_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x0bd80000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_9_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x0bd00000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_10_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_11_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x0cc00000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_12_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x10280000, Entity_WorldPosX(a0)
-	move.l #0x03780000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_13_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x0f980000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_15_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x13000000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_16_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x11c80000, Entity_WorldPosX(a0)
-	move.l #0x03280000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_17_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x15800000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_18_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x16f00000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_20_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x1f800000, Entity_WorldPosX(a0)
-	move.l #0x03680000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_21_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x07e00000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_22_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
-	move.l #0x08e80000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L7A1_AIMarker_23_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
 
 	rts
 
