@@ -243,9 +243,14 @@ CharacterUpdateRollingPlatform:
 	cmp.b  #PlatformType_Rolling, Platform_Type(a2)
 	bne    @NotRollingPlatform
 
-	; Match rolling object velocity
+	; If rolling object isn't hitting a wall
 	move.l Platform_Owner(a2), a3
-	move.l PhysicsObj_VelX(a0), PhysicsObj_ImpulseX(a3) ;PhysicsObj_VelX(a3)
+	PHYSICS_HITFACINGWALL a3
+	tst.b  d0
+	bne    @PlatformHittingWall
+
+	; Match rolling object velocity
+	move.l PhysicsObj_VelX(a0), PhysicsObj_ImpulseX(a3)
 
 	; Cannot run
 	move.b #Character_WalkRollingPlatform, d0
@@ -256,6 +261,7 @@ CharacterUpdateRollingPlatform:
 
 	@NotOnPlatform:
 	@NotRollingPlatform:
+	@PlatformHittingWall:
 
 	rts
 	

@@ -230,6 +230,10 @@ PhysicsObjUpdate:
 	; Clamp pos to level space
 	jsr PhysicsObjClampPos
 	
+	; Clear impulses
+	move.l #0x0, PhysicsObj_ImpulseX(a0)
+	move.l #0x0, PhysicsObj_ImpulseY(a0)
+	
 	bra @End
 
 	@NoPhysics:
@@ -514,9 +518,8 @@ PhysicsObjApplyVelocity:
 	; Move player X by velocity
 	move.l PhysicsObj_VelX(a0), d0		; Fetch X vel from RAM
 
-	; Apply impulse and clear
+	; Apply impulse
 	add.l  PhysicsObj_ImpulseX(a0), d0
-	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	
 	; Apply speed div
 	clr.l  d1
@@ -531,9 +534,8 @@ PhysicsObjApplyVelocity:
 	; Move player Y by velocity
 	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
 
-	; Apply impulse and clear
+	; Apply impulse
 	add.l  PhysicsObj_ImpulseY(a0), d0
-	move.l #0x0, PhysicsObj_ImpulseY(a0)
 	
 	; Apply speed div
 	clr.l  d1
@@ -734,6 +736,7 @@ PhysicsObjCollisionCorrection:
 	
 	; Determine X direction
 	move.l PhysicsObj_VelX(a0), d1
+	add.l  PhysicsObj_ImpulseX(a0), d1
 	cmp.l  #0x0, d1
 	beq    @HeadingNowhere
 	blt    @HeadingLeft
@@ -1015,6 +1018,7 @@ PhysicsObjFindWall:
 	
 	; Determine direction
 	move.l PhysicsObj_VelX(a0), d3
+	add.l  PhysicsObj_ImpulseX(a0), d3
 	cmp.l  #0x0, d3
 	beq    @HeadingNowhere
 	blt    @HeadingLeft
@@ -1127,6 +1131,7 @@ PhysicsObjFindWall:
 
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d3
+	add.l  PhysicsObj_ImpulseX(a0), d3
 	cmp.l  #0x0, d3
 	bgt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
@@ -1182,6 +1187,7 @@ PhysicsObjFindWall:
 	
 	; If heading left, use right hand side of tile
 	move.l PhysicsObj_VelX(a0), d3
+	add.l  PhysicsObj_ImpulseX(a0), d3
 	cmp.l  #0x0, d3
 	bgt    @LeftOfTile
 	add.l  #0x1, d4
