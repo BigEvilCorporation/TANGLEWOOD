@@ -76,6 +76,8 @@ Wyrm_NumAnims			equ 4
 Wyrm_DebrisSprites		rs.b (AnimObj_Struct_Size*Wyrm_DebrisMaxSprites)
 Wyrm_Animations			rs.b (Animation_Struct_Size*Wyrm_NumAnims)
 Wyrm_DebrisPositions	rs.l Wyrm_DebrisMaxTrails
+Wyrm_CurrentDuneLeft	rs.w 1	; Bounds of current sand dune
+Wyrm_CurrentDuneRight	rs.w 1
 Wyrm_LostPlayerTimer	rs.w 1
 Wyrm_DebrisAccumX		rs.w 1	; If X delta hits debris width, draw a new one
 Wyrm_NextFreeDebris		rs.b 1
@@ -128,6 +130,8 @@ WyrmInit:
 	move.w  #Wyrm_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Wyrm_DecelForced, Character_DecelForced(a0)
 
+	move.w  #0x0, Wyrm_CurrentDuneLeft(a0)
+	move.w  #0x0, Wyrm_CurrentDuneRight(a0)
 	move.w  #0x0, Wyrm_DebrisAccumX(a0)
 	move.w  #0x0, Wyrm_LostPlayerTimer(a0)
 	move.b  #0x0, Wyrm_NextFreeDebris(a0)
@@ -501,15 +505,23 @@ WyrmAIStart_Emerge
 	add.w  PhysicsObj_FloorProbeX(a2), d0
 	
 	jsr    WyrmFindSandDune
+	
+	; Backup dune bounds for X test
+	move.l d1, d3
+	move.l d2, d4
+	
+	; Get X bounds
+	swap   d3
+	swap   d4
+	
+	; Set sand dune X bounds
+	move.w d3, Wyrm_CurrentDuneLeft(a0)
+	move.w d4, Wyrm_CurrentDuneRight(a0)
 
 	; If already within X bounds of found sand dune, emerge from last burrowed pos
 	move.w Entity_WorldPosX(a0), d0
 	sub.w  #vdp_sprite_border_x, d0
 	add.w  PhysicsObj_FloorProbeX(a0), d0
-	move.l d1, d3
-	move.l d2, d4
-	swap   d3
-	swap   d4
 	cmp.w  d0, d3
 	bge    @NotInDune
 	cmp.w  d0, d4
@@ -517,7 +529,7 @@ WyrmAIStart_Emerge
 	bra    @AlreadyinDune
 
 	@NotInDune: 
-	; else use nearest AI marker to last burrowed pos
+	; else emerge from nearest edge of dune
 	move.l d1, d4	; Use left marker pos by default
 	addi.l #(Wyrm_EmergeOffsetFromEdge<<16), d4	; Offset from edge
 	move.l d1, d5
@@ -711,38 +723,27 @@ WyrmAIUpdate_Follow:
 
 	@EndMove:
 
-	; If hit wall, no longer on floor, or no longer on sand, start burrowing
-	move.b PhysicsObj_HitWall(a0), d1
-	;PHYSICS_HITFACINGWALL a0
-	move.b #0x0, d0
-	cmp.w  #0x0, PhysicsObj_AccelX(a0)
-	beq    @HeadingNowhere
-	bgt    @HeadingRight
-	move.b PhysicsObj_HitWall(a0), d1
-	andi.b #PhysicsObjHitWallLeft, d1
-	bne    @HitWall
-	bra    @EndWallTest
-	@HeadingRight:
-	move.b PhysicsObj_HitWall(a0), d1
-	andi.b #PhysicsObjHitWallRight, d1
-	beq    @EndWallTest
-	@HitWall:
-	move.b #0x1, d0
-	@HeadingNowhere:
-	@EndWallTest:
-	
-	tst.b  d0
+	; If hit wall, start burrowing
+	PHYSICS_HITFACINGWALL a0
+	cmp.b  #0x0, d0
 	bne    @Burrow
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	beq    @Burrow
-	move.w PhysicsObj_LastTerrainFlags(a0), d0
-	andi.w #col_tile_flag_special, d0
-	beq    @Burrow
-	bra    @NotHittingWall
+
+	; If hit end of sand dune, start burrowing
+	move.w Entity_WorldPosX(a0), d0			; Get Wyrm left
+	sub.w  #vdp_sprite_border_x, d0			; To collision space
+	move.w d0, d1							; Get Wyrm right
+	add.w  Wyrm_Width(a0), d1
+	move.w Wyrm_CurrentDuneLeft(a0), d2		; Get sand dune left
+	move.w Wyrm_CurrentDuneRight(a0), d3	; Get sand dune right
+	cmp.w  d0, d2							; Check left bounds
+	bge    @Burrow
+	cmp.w  d1, d3							; Check right bounds
+	ble    @Burrow
+	bra    @WithinDune
 
 	@Burrow:
 	jsr    WyrmAIStart_Burrow
-	@NotHittingWall:
+	@WithinDune:
 
 	@Bite:
 	@PlayerDead:
