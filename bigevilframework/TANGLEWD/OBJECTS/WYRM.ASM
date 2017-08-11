@@ -11,9 +11,9 @@ Wyrm_MaxEntities		equ 0x1
 Wyrm_Width				equ 0x40
 Wyrm_Height				equ 0x38
 Wyrm_Mass				equ 0x8
-Wyrm_StepHeight			equ 0x4
-Wyrm_ProbeFloorX		equ (Wyrm_Width/2)		; Floor detection probe position X
-Wyrm_ProbeFloorY		equ (Wyrm_Height-8)		; Floor detection probe position X
+Wyrm_StepHeight			equ 0x6				; Larger step height so bumps don't cause the Wyrm to burrow
+Wyrm_ProbeFloorX		equ (Wyrm_Width/2)	; Floor detection probe position X
+Wyrm_ProbeFloorY		equ (Wyrm_Height-8)	; Floor detection probe position X
 Wyrm_MaxVelX			equ 0x080000
 Wyrm_Decel				equ 0x003000
 
@@ -141,6 +141,10 @@ WyrmInit:
 	move.w  #Wyrm_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
 	move.w  #Wyrm_BoundsWidth, PhysicsObj_BoundsWidth(a0)
 	move.w  #Wyrm_BoundsHeight, PhysicsObj_BoundsHeight(a0)
+	
+	; Run by default, to enable snap-to-floor
+	move.b #0x0, d2
+	jsr    CharacterAllowRun
 
 	; Init debris sprite objects
 	PUSHL  a0
