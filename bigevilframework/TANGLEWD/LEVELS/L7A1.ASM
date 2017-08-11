@@ -77,6 +77,12 @@ L7a1_Init:
 	;move.l #PaletteId_World0, d3
 	;jsr    VDP_LoadBlockMapPlaneB
 
+	; Set TOD palettes
+	move.l  #palette_l7,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	;move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay
 
@@ -105,14 +111,8 @@ L7a1_End:
 	
 L7a1_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts

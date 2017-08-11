@@ -37,7 +37,27 @@ L7A1_Monster_count equ 0x0
 
 L7A1_Boulder_count equ 0x0
 
-L7A1_Firefly_count equ 0x0
+L7A1_Firefly_count equ 0x8
+L7A1_Firefly_39_idx	equ 0x0
+L7A1_Firefly_40_idx	equ 0x1
+L7A1_Firefly_41_idx	equ 0x2
+L7A1_Firefly_42_idx	equ 0x3
+L7A1_Firefly_43_idx	equ 0x4
+L7A1_Firefly_44_idx	equ 0x5
+L7A1_Firefly_45_idx	equ 0x6
+L7A1_Firefly_46_idx	equ 0x7
+
+	IFND FINAL
+L7A1_Firefly_39_name	dc.b "L7A1_Firefly_39",0
+L7A1_Firefly_40_name	dc.b "L7A1_Firefly_40",0
+L7A1_Firefly_41_name	dc.b "L7A1_Firefly_41",0
+L7A1_Firefly_42_name	dc.b "L7A1_Firefly_42",0
+L7A1_Firefly_43_name	dc.b "L7A1_Firefly_43",0
+L7A1_Firefly_44_name	dc.b "L7A1_Firefly_44",0
+L7A1_Firefly_45_name	dc.b "L7A1_Firefly_45",0
+L7A1_Firefly_46_name	dc.b "L7A1_Firefly_46",0
+	even
+	ENDIF
 
 L7A1_FuzzlCage_count equ 0x0
 
@@ -89,7 +109,13 @@ L7A1_Flue1_LowForce_name	dc.b "L7A1_Flue1_LowForce",0
 	even
 	ENDIF
 
-L7A1_TriggerBox_count equ 0x0
+L7A1_TriggerBox_count equ 0x1
+L7A1_TriggerLevelEnd_idx	equ 0x0
+
+	IFND FINAL
+L7A1_TriggerLevelEnd_name	dc.b "L7A1_TriggerLevelEnd",0
+	even
+	ENDIF
 
 L7A1_Checkpoint_count equ 0x1
 L7A1_Checkpoint_33_idx	equ 0x0
@@ -228,6 +254,102 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr FireflyInit
+	move.l #0x07880000, Entity_WorldPosX(a0)
+	move.l #0x02c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0ab00000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_40_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x18b80000, Entity_WorldPosX(a0)
+	move.l #0x01300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_41_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0dd80000, Entity_WorldPosX(a0)
+	move.l #0x01180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_42_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x10580000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_43_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x1c300000, Entity_WorldPosX(a0)
+	move.l #0x02a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_44_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x21c80000, Entity_WorldPosX(a0)
+	move.l #0x01d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_45_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0e200000, Entity_WorldPosX(a0)
+	move.l #0x03680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_Firefly_46_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L7A1_FuzzlCage_count)
@@ -417,6 +539,21 @@ L7A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr TriggerBoxInit
+	move.l #0x22600000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A1_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #L7a1_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L7A1_Checkpoint_count)
