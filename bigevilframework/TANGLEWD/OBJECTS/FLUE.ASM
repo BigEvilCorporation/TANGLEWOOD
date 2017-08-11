@@ -161,6 +161,9 @@ FlueOccupantUpdate:
 	; Snap to Y top
 	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a1)
 
+	; Set visible
+	move.b #0x1, SpriteObj_Visible(a1)
+
 	; TEMP: Objects should check their own upwards velocities, or only support characters? This is a bit hacky
 	
 	; If character
@@ -347,6 +350,9 @@ FlueFindOccupant:
 	
 	; New occupant found
 	move.l a3, a1
+
+	; Set invisible
+	move.b #0x0, SpriteObj_Visible(a1)
 	
 	; Play SFX
 	PLAYSFX #SFX_FlueIn
