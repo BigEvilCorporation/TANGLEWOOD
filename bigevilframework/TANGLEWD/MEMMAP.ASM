@@ -125,6 +125,7 @@ __padding32 		rs.b 1
 ; Timers
 ; ************************************
 TimerLogoFade		rs.l 1
+TimerFailFade		rs.l 1
 TimerFailReset		rs.l 1
 TimerDemoReset      rs.l 1
 
