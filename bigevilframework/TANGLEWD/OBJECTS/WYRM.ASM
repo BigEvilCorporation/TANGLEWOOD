@@ -660,6 +660,24 @@ WyrmAIUpdate_Follow:
 	cmp.b  #0x0, Character_Dead(a2)
 	bne    @PlayerDead
 
+	; If player invisible, assume safe (in flue)
+	move.l (Player1), a2
+	tst.b  SpriteObj_Visible(a2)
+	beq    @PlayerSafe
+	
+	; If player is on a non-sand platform, assume safe (could be on a rolling log)
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @CanBite
+	move.w PhysicsObj_LastTerrainFlags(a2), d0
+	andi.w #col_tile_flag_special, d0
+	beq    @PlayerSafe
+	
+	@CanBite:
+	
+	; If in time slow (player using green ability) don't bite
+	cmp.b  #0x1, GlobalTimeDiv
+	bne    @PlayerSafe
+
 	; If touching, bite
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
@@ -676,6 +694,7 @@ WyrmAIUpdate_Follow:
 	;==============================================================
 	
 	@NotTouching:
+	@PlayerSafe:
 
 	; If player in air or not on sand, count down lost timer
 	move.l (Player1), a2
@@ -808,8 +827,7 @@ WyrmAIUpdate_Bite:
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
 	
-	; Back to chase state
-	;jsr    WyrmAIStart_Follow
+	; Straight to to idle state, burrown anim is embedded in attack anim
 	jsr    WyrmAIStart_Idle
 	
 	@OutOfHitBox:
