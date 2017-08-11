@@ -638,6 +638,9 @@ WyrmAIStart_Follow:
 
 	; Set new state
 	move.b #WyrmState_Chasing, Wyrm_State(a0)
+	
+	; Reset lost player timer
+	move.w #Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0)
 
 	; Start screen shake
 	move.w #0x0, d0
