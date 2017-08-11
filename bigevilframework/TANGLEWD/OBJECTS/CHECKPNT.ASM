@@ -57,7 +57,7 @@ CheckpointUpdate:
 	bne    @AlreadyActivated
 	
 	; If player reaches checkpoint X pos, it is activated
-	lea    Player1, a2
+	move.l (Player1), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosX(a2), d1
 	cmp.l  d0, d1
