@@ -114,16 +114,12 @@ TXT_DrawSprites:
 	; a0 (l) - String address
 	; d0 (w) - First tile ID of font
 	; d1 (ww)- XY coord (in pixels)
-	; d2 (b) - Palette
+	; d2 (w) - Palette/flip/priority bits
 	; d3 (w) - OUT: First sprite ID
 	; d4 (b) - OUT: Sprites created
 	
-	; Backup palette
-	move.b   d2, d5
-
-	; Palette to bits 13-14
-	andi.w   #0xFF, d5
-	ror.w    #0x3, d5
+	; Backup palette/flip/priority bits
+	move.w   d2, d5
 	
 	; To sprite space
 	swap     d1
@@ -152,12 +148,19 @@ TXT_DrawSprites:
 	PUSHM    a0/d0-d5
 	move.w   #0x0000, d0 			; Sprite dimensions (1x1)
 	move.w   d4, d2					; Sprite tile index
-	move.w   d5, d3					; Sprite palette
-	moveq    #0x1, d4				; Sprite priority
+	move.w   d5, d3					; Sprite palette/flip/prio bits
+	; d0 (b)  Dimensions
+	; d1 (ww) X/Y coord
+	; d2 (w)  First tile index
+	; d3 (w)  Palette/flip/priority bits
 	jsr      SPR_AddSubSprite
 	POPM     a0/d0-d5
 	
 	POPL     d4
+
+	; If out of sprites, bail
+	cmp.w    #vdp_max_sprites-1, next_sprite_index
+	beq      @OutOfSprites
 	
 	addi.l   #0x00080000, d1		; Spacing
 	addi.b   #0x1, d4				; Increment counter
@@ -165,6 +168,7 @@ TXT_DrawSprites:
 	bra      @CharCopy              ; Next character
 
 	@End:
+	@OutOfSprites:
 	
 	rts
 

@@ -24,8 +24,9 @@ PauseState_TextTileBuff		 rs.w GameStatePause_MaxStringLen
 PauseState_VRAMAddr			 rs.w 1
 PauseState_PrevPadState		 rs.w 1
 PauseState_TextSpritesCount  rs.b 1
+PauseState_DebugDrawMode  	 rs.b 1
 ;----------------------------------
-PauseState_Struct_Pad		 rs.b 3
+PauseState_Struct_Pad		 rs.b 2
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
@@ -35,6 +36,16 @@ PauseText_FontColourIdx	equ	0x1
 PauseText_FontColour	equ 0x0EEE
 PauseText_PosX			equ (screen_width-(8*8))
 PauseText_PosY			equ (screen_height-(4*8))
+
+	IFND FINAL
+DebugText_VRAM_PosX		equ 0x2*8
+DebugText_VRAM_PosY		equ 0x2*8
+DebugText_VRAM_StrLen	equ 13
+DebugText_VRAM_Str1:	dc.b "VRAM 1 free: "
+DebugText_VRAM_Str2:	dc.b "VRAM 2 free: "
+DebugText_VRAM_Str3:	dc.b "VRAM 3 free: "
+	even
+	ENDIF
 	
 Pause_Enter:
 
@@ -229,6 +240,18 @@ Pause_Update:
 	
 	@NoStart:
 	
+	IFND FINAL
+	; Check debug mode button
+	btst   #pad_button_c, d0
+	beq    @NoDebug
+	btst   #pad_button_c, d1
+	bne    @NoDebug
+	
+	; Toggle debug draw mode
+	eor.b  #0x1, PauseState_DebugDrawMode(a0)
+	@NoDebug:
+	ENDIF
+	
 	; Backup prev pad state
 	move.w d0, PauseState_PrevPadState(a0)
 	
@@ -247,6 +270,18 @@ Pause_Render:
 
 	PUSHL  a0
 	PUSHL  a1
+	
+	lea    GameStatePauseData, a0
+	
+	; If debug mode, draw RAM/VRAM usage
+	IFND FINAL
+	tst.b  PauseState_DebugDrawMode(a0)
+	beq    @NotDebugMode
+	jsr    Debug_DrawVRAMPools
+	jsr    Debug_DrawRAMPools
+	bra    @End
+	@NotDebugMode:
+	ENDIF
 	
 	; Draw game objects
 	jsr EntityRenderAll
@@ -277,8 +312,83 @@ Pause_Render:
 	POPL   d4
 	dbra   d4, @TextLp
 	
+	@End:
+	
 	POPL   a1
 	POPL   a0
 	
 	rts
 	
+Debug_DrawVRAMPools:
+
+	PUSHM   a0-a1
+
+	; Get pools addr
+	lea vram_pools, a2
+
+	; Get pool count
+	move.w  #VRAMPoolCount-1, d3
+
+	; Get draw pos
+	move.l  #((DebugText_VRAM_PosX<<16)|DebugText_VRAM_PosY), d1
+	
+	; Get string
+	lea     DebugText_VRAM_Str1, a3
+
+	; Index
+	move.w  #0x0, d4
+
+	@PoolLp:
+
+	PUSHM   d1-d4/a2-a3
+	
+	; Alloc string space
+	sub.l   #0x20, sp
+	move.l  sp, a0
+	
+	PUSHM   d1/a0
+	
+	; Copy string
+	move.l  a3, a1
+	move.l  #DebugText_VRAM_StrLen, d0
+	MEMCPYB a0, a1, d0
+
+	; Get free tiles
+	clr.l   d0
+	move.w  VRAMPool_Free(a2), d0
+	divu    #size_tile_b, d0
+	
+	; Append to string
+	jsr     TXT_ItoA_w
+	
+	POPM    d1/a0
+
+	; Draw
+	clr.l   d0
+	move.w  (vram_addr_systemfont), d0					; Font VDP address
+	divu.w  #size_tile_b, d0
+	move.w #((PauseText_FontPaletteId<<13)|1<<15), d2	; Palette/flip/priority bits
+	; a0 (l) - String address
+	; d0 (w) - First tile ID of font
+	; d1 (ww)- XY coord (in pixels)
+	; d2 (w) - Palette/flip/priority bits
+	jsr    TXT_DrawSprites
+	
+	; Free string space
+	add.l   #0x20, sp
+
+	; Next pool
+	POPM    d1-d4/a2-a3
+	addi.l  #VRAMPool_Struct_Size, a2
+	addi.l  #DebugText_VRAM_StrLen, a3
+	addi.w  #0x8, d1
+	addi.w  #0x1, d4
+	dbra    d3, @PoolLp
+
+	POPM    a0-a1
+
+	rts
+
+Debug_DrawRAMPools:
+	
+	rts
