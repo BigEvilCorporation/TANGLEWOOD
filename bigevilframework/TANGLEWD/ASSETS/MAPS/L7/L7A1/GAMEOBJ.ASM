@@ -216,7 +216,7 @@ L7A1_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 	jsr LogInit
 	move.l #0x11780000, Entity_WorldPosX(a0)
-	move.l #0x01a80000, Entity_WorldPosY(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L7A1_Log_30_name, a3
 	move.l a0, a2
