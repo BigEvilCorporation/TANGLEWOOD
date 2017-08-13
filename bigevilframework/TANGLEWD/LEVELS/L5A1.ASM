@@ -45,8 +45,8 @@ L5a1_DefaultPalettes:
 
 	dc.l palette_L5					; World
 	dc.l 0x0						; Djakk (black by default, fades up when approached)
-	dc.l 0x0						; Fuzzl
-	dc.l 0x0						; Player
+	dc.l palette_fuzzl				; Fuzzl
+	dc.l Pal_Nymn_Red				; Player
 	
 	even
 	
@@ -77,8 +77,14 @@ L5a1_Init:
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 
+	; Set TOD palettes
+	move.l  #palette_L5, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_L5, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_L5, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_L5, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
 	; Set TOD
-	move.b  #TimeOfDay_Day, TimeOfDay
+	move.b  #TimeOfDay_Dusk, TimeOfDay
 
 	;==============================================================
 
@@ -87,68 +93,9 @@ L5a1_Init:
 	
 	;==============================================================
 	
-	move.l (Player1), a0
-	
-	; Disable player 1 control
-	move.b #0x0, Player_ControlEnabled(a0)
-	
-	; Start sleep anim
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	move.l #LevelData_L1A1, a2
-	move.b #0x1, L5a1Data_WaitingInput(a2)
-	
 	rts
 	
 L5a1_Update:
-
-	move.l #LevelData_L1A1, a2
-	
-	; Check waiting for input
-	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, L5a1Data_WaitingInput(a2)
-	beq    @FinishedLevelStartSequence
-	
-	; Read pad
-	jsr    PAD_ReadPadA
-	
-	; Check for input
-	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
-	cmp.w  #0x0, d0
-	beq   @NoInput
-	
-	; Start wake up sequence
-	PUSHL  a1
-	PUSHL  a2
-	move.l (Player1), a0
-	move.l a0, a1
-	add.l  #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
-	add.l  d1, a1
-	jsr    AnimObjSetAnimation
-	POPL   a2
-	POPL   a1
-
-	move.l (Player1), a0
-	
-	; Enable player 1 control
-	move.b #0x1, Player_ControlEnabled(a0)
-	
-	; Release animation control
-	move.b #0x1, Character_UpdateAnim(a0)
-	
-	; Done
-	move.b #0x0, L5a1Data_WaitingInput(a2)
-	
-	@FinishedLevelStartSequence:
-	@NoInput:
 
 	rts
 	
@@ -164,14 +111,8 @@ l5a1_End:
 	
 L5a1_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts
