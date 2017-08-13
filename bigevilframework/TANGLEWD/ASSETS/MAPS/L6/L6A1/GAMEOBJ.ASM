@@ -79,7 +79,13 @@ L6A1_Flue_count equ 0x0
 
 L6A1_TriggerBox_count equ 0x0
 
-L6A1_Checkpoint_count equ 0x0
+L6A1_Checkpoint_count equ 0x1
+L6A1_Checkpoint_25_idx	equ 0x0
+
+	IFND FINAL
+L6A1_Checkpoint_25_name	dc.b "L6A1_Checkpoint_25",0
+	even
+	ENDIF
 
 L6A1_WaterBody_count equ 0x0
 
@@ -183,7 +189,7 @@ L6A1_LoadGameObjects:
 	POPL   a1
 
 	jsr LogInit
-	move.l #0x0b280000, Entity_WorldPosX(a0)
+	move.l #0x0b600000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L6A1_Log1_name, a3
@@ -295,8 +301,8 @@ L6A1_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0be80000, Entity_WorldPosX(a0)
-	move.l #0x06600000, Entity_WorldPosY(a0)
+	move.l #0x0bd00000, Entity_WorldPosX(a0)
+	move.l #0x06400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L6A1_Firefly_22_name, a3
 	move.l a0, a2
@@ -308,7 +314,7 @@ L6A1_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x07780000, Entity_WorldPosX(a0)
-	move.l #0x04080000, Entity_WorldPosY(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L6A1_Firefly_23_name, a3
 	move.l a0, a2
@@ -403,6 +409,18 @@ L6A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr CheckpointInit
+	move.l #0x10280000, Entity_WorldPosX(a0)
+	move.l #0x05a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L6A1_Checkpoint_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L6A1_WaterBody_count)

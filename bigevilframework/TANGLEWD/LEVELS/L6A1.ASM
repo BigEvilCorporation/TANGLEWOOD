@@ -102,6 +102,7 @@ L6a1_Init:
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge1, a1
 	move.b #0x1, Button_Active(a0)
 	move.l #l6a1_LogRollBegin, Button_OnDown(a0)
+	move.b  #0x1, Bridge_UpdateOutOfView(a1)
 
 	ENTITY_GETBYNAME Button, l6a1_Button2, a0
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge2, a1
@@ -109,19 +110,35 @@ L6a1_Init:
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.l #BridgeBeginUnroll, Button_OnUp(a0)
+	move.b  #0x1, Bridge_UpdateOutOfView(a1)
 
 	ENTITY_GETBYNAME Button, l6a1_Button3, a0
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge3, a1
 	move.b #0x1, Button_Active(a0)
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.b  #0x1, Bridge_UpdateOutOfView(a1)
 
 	; Set logs to update out of view
-	ENTITY_GETBYNAME Button, l6a1_Log1, a0
+	ENTITY_GETBYNAME Log, l6a1_Log1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
-	ENTITY_GETBYNAME Button, l6a1_Log2, a0
+	ENTITY_GETBYNAME Log, l6a1_Log2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Force every sprite object to use palette 1 (silhouette)
+	LIST_GET_HEAD EntityUpdate,a0
+	@EntityLp:
+	cmp.l  #0x0, a0
+	beq    @ListEnd
+	move.l Entity_TypeBits(a0), d0
+	andi.l #entity_type_spriteobj, d0
+	beq    @NotSprite
+	move.b #0x1, SpriteObj_Palette(a0)
+	@NotSprite:
+	LIST_GET_NEXT EntityUpdate,a0,a0
+	bra    @EntityLp
+	@ListEnd:
 	
 	rts
 	
