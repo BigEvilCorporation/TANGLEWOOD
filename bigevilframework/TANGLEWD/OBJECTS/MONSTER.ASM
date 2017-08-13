@@ -6,6 +6,8 @@
 ;   monster.asm - Monster specific movement and mechanics
 ;==============================================================
 
+MONSTER_STORES_COLOUR_POWER	equ 0
+
 ; ************************************
 ; Constants
 ; ************************************
@@ -146,8 +148,9 @@ Monster_BlockingCtrl   rs.b 1
 Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 Monster_MusicState     rs.b 1
+Monster_LerpPalette    rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 2
+Monster_Struct_Pad     rs.b 1
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -220,6 +223,7 @@ MonsterInit:
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
 	move.b  #0x1, Monster_DoIntro(a0)
+	move.b  #0x1, Monster_LerpPalette(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
 	; Setup collision bounds
@@ -658,6 +662,8 @@ MonsterTakeColourPower:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	IF MONSTER_STORES_COLOUR_POWER
+	
 	; Change to drained colour
 	PUSHM  d0/d3
 	PUSHM  a0/a1
@@ -672,12 +678,16 @@ MonsterTakeColourPower:
 	
 	POPM   a0/a1
 	POPM   d0/d3
+	
+	ENDIF
 
 	rts
 
 MonsterRestoreColourPower:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	IF MONSTER_STORES_COLOUR_POWER
 
 	; Restore original colour
 	PUSHM  d0/d3
@@ -698,6 +708,8 @@ MonsterRestoreColourPower:
 	
 	POPM   a0/a1
 	POPM   d0/d3
+	
+	ENDIF
 	
 	rts
 	
@@ -823,6 +835,8 @@ MonsterStartEmergeFromCave:
 	move.w #0x0, PhysicsObj_AccelX(a2)
 	
 	; Start palette lerp
+	tst.b  Monster_LerpPalette(a0)
+	beq    @NoPaletteLerp
 	move.l a0, -(sp)
 	lea    palette_djakk, a0
 	move.l #PaletteId_Monster, d0
@@ -832,6 +846,7 @@ MonsterStartEmergeFromCave:
 	move.b #0xF, d4
 	jsr    PAL_LerpStart
 	move.l (sp)+, a0
+	@NoPaletteLerp:
 
 	rts
 	

@@ -53,14 +53,17 @@ L6a1_DefaultPalettes:
 
 ; Rolling log
 L6A1_LogRollAccel			equ 0x0800
+L6A1_LogRollCamLerpSpeed	equ 0x40
+L6A1_LogRollCamLerpTime		equ 0x1E
 	
 ; ************************************
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l6a1Data_LogRollCamLerpTimer	rs.w 1
 L6a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-L6a1Data_Struct_Pad      		rs.b 3
+L6a1Data_Struct_Pad      		rs.b 1
 L6a1Data_Struct_Size     		rs.b 0
 	
 L6a1_Init:
@@ -101,7 +104,7 @@ L6a1_Init:
 	ENTITY_GETBYNAME Button, l6a1_Button1, a0
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge1, a1
 	move.b #0x1, Button_Active(a0)
-	move.l #l6a1_LogRollBegin, Button_OnDown(a0)
+	move.l #l6a1_LogRoll1Begin, Button_OnDown(a0)
 	move.b  #0x1, Bridge_UpdateOutOfView(a1)
 
 	ENTITY_GETBYNAME Button, l6a1_Button2, a0
@@ -119,12 +122,25 @@ L6a1_Init:
 	move.l #BridgeBeginUnroll, Button_OnDown(a0)
 	move.b  #0x1, Bridge_UpdateOutOfView(a1)
 
+	ENTITY_GETBYNAME Button, l6a1_Button4, a0
+	ENTITY_GETBYNAME Bridge, l6a1_Bridge4, a1
+	move.b #0x1, Button_Active(a0)
+	move.l #l6a1_LogRoll2Begin, Button_OnDown(a0)
+	move.b  #0x1, Bridge_UpdateOutOfView(a1)
+
 	; Set logs to update out of view
 	ENTITY_GETBYNAME Log, l6a1_Log1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	ENTITY_GETBYNAME Log, l6a1_Log2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	ENTITY_GETBYNAME Log, l6a1_Log3, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Don't lerp Djakk palette
+	ENTITY_GETBYNAME Monster, l6a1_Djakk1, a0
+	move.b #0x0, Monster_LerpPalette(a0)
 
 	; Force every sprite object to use palette 1 (silhouette)
 	LIST_GET_HEAD EntityUpdate,a0
@@ -139,10 +155,35 @@ L6a1_Init:
 	LIST_GET_NEXT EntityUpdate,a0,a0
 	bra    @EntityLp
 	@ListEnd:
+
+	; Init camera lerp timer
+	move.l #LevelData_L6A1, a2
+	move.w #0x0, l6a1Data_LogRollCamLerpTimer(a2)
 	
 	rts
 	
 L6a1_Update:
+
+	; Update camera lerp timer
+	move.l #LevelData_L6A1, a2
+	move.w l6a1Data_LogRollCamLerpTimer(a2), d0
+	cmp.w  #0x0, d0
+	beq    @NoLerpTimer
+
+	sub.w  #0x1, d0
+	move.w d0, l6a1Data_LogRollCamLerpTimer(a2)
+	cmp.w  #0x0, d0
+	bne    @NoLerpTimer
+
+	; Timer elapsed, lerp camera back to player
+	PUSHM  a0-a2
+	ENTITY_GETBYNAME Log, l6a1_Log3, a0
+	move.l (Player1), a1
+	move.l #L6a1_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPM   a0-a2
+
+	@NoLerpTimer:
 
 	rts
 	
@@ -156,7 +197,7 @@ L6a1_Serialise:
 L6a1_End:
 	rts
 
-L6a1_LogRollBegin
+L6a1_LogRoll1Begin
 
 	; Roll bridge
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge1, a0
@@ -174,7 +215,54 @@ L6a1_LogRollBegin
 	move.b #0x0, Button_Active(a0)
 
 	rts
+
+L6a1_LogRoll2Begin
+
+	; Roll bridges
+	ENTITY_GETBYNAME Bridge, l6a1_Bridge4, a0
+	jsr    BridgeBeginRoll
+	ENTITY_GETBYNAME Bridge, l6a1_Bridge5, a0
+	jsr    BridgeBeginRoll
+
+	; Set log rolling, update out of view, not pushable, hazardous
+	ENTITY_GETBYNAME Log, l6a1_Log3, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #L6A1_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+
+	; Disable button
+	ENTITY_GETBYNAME Button, l6a1_Button4, a0
+	move.b #0x0, Button_Active(a0)
+
+	; Start camera lerp
+	PUSHL  a1
+	move.l (Player1), a0
+	ENTITY_GETBYNAME Log, l6a1_Log3, a1
+	move.l #L6A1_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpBetweenEntities
+	POPL   a1
+
+	; Begin lerp timer
+	move.l #LevelData_L6A1, a2
+	move.w #L6A1_LogRollCamLerpTime, l6a1Data_LogRollCamLerpTimer(a2)
+
+	rts
 	
+L6a1_Trigger_WakeDjakk:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a1_Djakk1, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartEmergeFromCave
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
 L6a1_Trigger_End:
 
 	; Begin end of act gamestate
