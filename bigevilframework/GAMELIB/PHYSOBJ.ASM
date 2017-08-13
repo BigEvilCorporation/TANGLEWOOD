@@ -265,15 +265,23 @@ PhysicsObjSleepyUpdate:
 
 	; Check for moving floors
 	move.l PhysicsObj_LastFloor(a0), d0
+	move.b PhysicsObj_OnPlatform(a0), d1
+	eor.b  d1, d0
 	PUSHL  d0
 	jsr    PhysicsObjFindMovingFloor
 	POPL   d0
-	cmp.l  PhysicsObj_LastFloor(a0), d0
+	move.l PhysicsObj_LastFloor(a0), d1
+	move.b PhysicsObj_OnPlatform(a0), d2
+	eor.b  d2, d1
+	cmp.l  d0, d1
 	beq    @NoFloorChange
 	
 	; Floor changed, run collision correction
 	jsr    PhysicsObjCollisionCorrection
 	jsr    PhysicsObjClampPos
+	
+	; Wake up
+	move.b #0x0, PhysicsObj_Asleep(a0)
 	
 	@NoFloorChange:
 	
