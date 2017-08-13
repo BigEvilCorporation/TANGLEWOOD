@@ -105,7 +105,7 @@ L6a1_Init:
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge1, a1
 	move.b #0x1, Button_Active(a0)
 	move.l #l6a1_LogRoll1Begin, Button_OnDown(a0)
-	move.b  #0x1, Bridge_UpdateOutOfView(a1)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
 
 	ENTITY_GETBYNAME Button, l6a1_Button2, a0
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge2, a1
@@ -113,7 +113,7 @@ L6a1_Init:
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.l #BridgeBeginUnroll, Button_OnUp(a0)
-	move.b  #0x1, Bridge_UpdateOutOfView(a1)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
 
 	ENTITY_GETBYNAME Button, l6a1_Button3, a0
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge3, a1
@@ -126,7 +126,14 @@ L6a1_Init:
 	ENTITY_GETBYNAME Bridge, l6a1_Bridge4, a1
 	move.b #0x1, Button_Active(a0)
 	move.l #l6a1_LogRoll2Begin, Button_OnDown(a0)
-	move.b  #0x1, Bridge_UpdateOutOfView(a1)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
+
+	ENTITY_GETBYNAME Button, l6a1_Button5, a0
+	ENTITY_GETBYNAME Bridge, l6a1_Bridge6, a1
+	move.b #0x1, Button_Active(a0)
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
 
 	; Set logs to update out of view
 	ENTITY_GETBYNAME Log, l6a1_Log1, a0
