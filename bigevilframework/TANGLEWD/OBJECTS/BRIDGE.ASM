@@ -81,8 +81,9 @@ Bridge_State			rs.b 1
 Bridge_InView			rs.b 1
 Bridge_PlatformActive	rs.b 1
 Bridge_BarrierActive	rs.b 1
+Bridge_UpdateOutOfView	rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 3   ; Alignment padding
+Bridge_Struct_Pad		rs.b 2   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -119,6 +120,7 @@ BridgeInit:
 	move.b  #0x0, Bridge_InView(a0)
 	move.b  #0x0, Bridge_PlatformActive(a0)
 	move.b  #0x0, Bridge_BarrierActive(a0)
+	move.b  #0x0, Bridge_UpdateOutOfView(a0)
 
 	; Zero Y offsets and velocities
 	move.l  a0, a2
@@ -206,6 +208,9 @@ BridgeUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Bridge_UpdateOutOfView(a0)
+	bne    @InView
+
 	; Manual view test (can't use sprite link state)
 	move.b  #0x0, Bridge_InView(a0)
 	ENTITY_GETBOUNDS d1,d2,d3,a0
@@ -215,6 +220,8 @@ BridgeUpdate:
 	jsr    PHYS_TestBoxIntersectBox
 	cmp.b  #0x0, d0
 	beq    @OutOfView
+
+	@InView:
 	move.b  #0x1, Bridge_InView(a0)
 	
 	; Base functionality
