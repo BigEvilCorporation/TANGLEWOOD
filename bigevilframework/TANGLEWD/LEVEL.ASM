@@ -197,6 +197,9 @@ LevelLoad:
 	move.l (CurrentLevel), a1
 	move.l Level_LoadGameObjsRoutine(a1), a2
 	jsr    (a2)
+
+	; Load players
+	jsr    LevelLoadPlayers
 	
 	; Init level
 	move.l Level_InitRoutine(a1), a2
@@ -210,6 +213,34 @@ LevelLoad:
 	jsr    VDP_JobQueue_ExecuteAll
 	jsr	   VDP_DMAQueue_ExecuteAll
 	
+	rts
+
+LevelLoadPlayers:
+
+	; Set default player addrs
+	cmp.w  #0x0, EntityCount_Nymn
+	beq    @NoNymn
+
+	; Nymn is P1
+	move.l (EntityPoolStart_Nymn), Player1
+
+	cmp.w  #0x0, EntityCount_Echo
+	beq    @NoEcho
+
+	; Echo is P2
+	move.l (EntityPoolStart_Echo), a3
+	move.l (EntityPoolStart_Echo), Player2
+	bra    @EndDefaultPlayers
+
+	@NoNymn:
+
+	; Echo is P1, no Nymn
+	move.l (EntityPoolStart_Echo), Player1
+	move.l #0x0, Player2
+
+	@NoEcho:
+	@EndDefaultPlayers:
+
 	rts
 
 LevelLoadPalettes:
@@ -348,31 +379,6 @@ LevelReset:
 
 	; Fetch current level addr
 	move.l (CurrentLevel), a1
-
-	;==============================================================
-
-	; Set default player addrs
-	cmp.w  #0x0, EntityCount_Nymn
-	beq    @NoNymn
-
-	; Nymn is P1
-	move.l (EntityPoolStart_Nymn), Player1
-
-	cmp.w  #0x0, EntityCount_Echo
-	beq    @NoEcho
-
-	; Echo is P2
-	move.l (EntityPoolStart_Echo), Player2
-	bra    @EndDefaultPlayers
-
-	@NoNymn:
-
-	; Echo is P1, no Nymn
-	move.l (EntityPoolStart_Echo), Player1
-	move.l #0x0, Player2
-
-	@NoEcho:
-	@EndDefaultPlayers:
 
 	;==============================================================
 

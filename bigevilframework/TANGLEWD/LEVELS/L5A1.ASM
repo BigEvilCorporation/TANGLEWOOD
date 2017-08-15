@@ -92,6 +92,10 @@ L5a1_Init:
 	jsr    L5_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Start Echo AI follow state
+	move.l (Player2), a0
+	jsr    EchoAIStart_Follow
 	
 	rts
 	

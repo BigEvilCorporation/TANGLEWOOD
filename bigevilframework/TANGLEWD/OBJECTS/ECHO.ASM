@@ -11,7 +11,11 @@ Echo_MaxEntities			equ 1
 EchoHowlDelay				equ 0x0030	; Delay between Nymn and Echo howling
 
 ; AI
-Echo_AIFollowDistance		equ 0x40
+Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
+Echo_AIFollowDistance		equ 0x40			; X distance from Nymn to start following
+Echo_AIFollowDistanceLost	equ 0x20			; X distance from Nymn to start following if Nymn is above/below Echo
+Echo_AIJumpDistance			equ Player1Height	; Upward distance from Nymn to start jumping
+Echo_AIFindHoleDistance		equ Player1Height	; Downward distance from Nymn to find a place to drop down
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -34,12 +38,29 @@ EchoMountNymn_Jumping		equ 1
 EchoMountNymn_Mounting		equ 2
 EchoMountNymn_Riding		equ 3
 
+; AI follow node
+EchoAINode_Action_Jump		equ 0x0
+EchoAINode_Action_Fall		equ 0x1
+
+	rsset 0
+;---------------------------------
+EchoAINode_PosX				rs.w 1
+EchoAINode_PosY				rs.w 1
+EchoAINode_Tolerance		rs.w 1
+EchoAINode_Action			rs.b 1
+;---------------------------------
+EchoAINode_Struct_Pad		rs.b 1
+EchoAINode_Struct_Size		rs.b 0
+
 ; ************************************
 ; Struct
 ; ************************************
 	rsset (Player_Struct_Size)
 ;---------------------------------
 Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
+Echo_AIFollowNodes			rs.b (EchoAINode_Struct_Size*Echo_NumAINodes)
+Echo_AINodeProducer			rs.w 1
+Echo_AINodeConsumer			rs.w 1
 Echo_HowlTimer				rs.w 1
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
@@ -73,6 +94,8 @@ EchoInit:
 	;==============================================================
 	
 	; Setup default state
+	move.w #0x0, Echo_AINodeProducer(a0)
+	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
@@ -458,28 +481,67 @@ EchoAIStart_Follow:
 EchoAIUpdate_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
+
 	; Get Nymn
 	move.l (Player1), a2
 	
-	; TODO: Check if within Y tolerance, move to object search state
+	; If Echo touching Nymn, clear all follow nodes and do nothing
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	cmp.b  #0x0, d0
+	bne    @CancelFollow
+
+	; Watch Nymn's actions, create AI follow nodes
+	jsr    EchoAIUpdate_WatchNymn
+
+	; Clear current AI node
+	move.l #0x0, a3
+
+	; Use Nymn X pos as target by default
+	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d1
+
+	; Default tolerance
+	move.w #Echo_AIFollowDistance, d3
+
+	; If node queue empty, just follow Nymn within X threshold
+	move.w Echo_AINodeConsumer(a0), d4
+	cmp.w  Echo_AINodeProducer(a0), d4
+	beq    @NoNodes
+
+	; Peek node queue
+	jsr    EchoAIPeekNode
+
+	; Set target X
+	move.w EchoAINode_PosX(a3), d1
+
+	; Set tolerance
+	move.w EchoAINode_Tolerance(a3), d3
+
+	; If run into a wall, forcefully execute the next node
+	PUSHL  d1
+	PHYSICS_HITFACINGWALL a0
+	POPL   d1
+	tst.b  d0
+	bne    @HittingWall
 	
-	; TODO: Check if hitting a wall, start lost timer
-	
+	@NoNodes:
+
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
-	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d0
 	
 	; Check left bounds
-	move.l d1, d2
-	sub.l  #(Echo_AIFollowDistance*subpixels_per_pixel), d2
-	cmp.l  d0, d2
+	move.w d1, d2
+	sub.w  d3, d2
+	cmp.w  d0, d2
 	bgt    @TooFarleft
 	
 	; Check right bounds
-	move.l d1, d2
-	add.l  #(Echo_AIFollowDistance*subpixels_per_pixel), d2
-	cmp.l  d0, d2
+	move.w d1, d2
+	add.w  d3, d2
+	cmp.w  d0, d2
 	blt    @TooFarRight
 	
 	; Within bounds
@@ -494,8 +556,180 @@ EchoAIUpdate_Follow:
 	bra    @End
 	
 	@WithinBounds:
+
+	;==============================================================
+	
+	@HittingWall:
+
+	; Target reached or hit wall, if using AI node then pop from queue and run action
+	cmp.l  #0x0, a3
+	beq    @NoNode
+	jsr    EchoAIPopNode
+	bra    @End
+	@NoNode:
+
+	; No node, just cancel X movement
 	jsr    CharacterCancelXMovement
+	bra    @End
+
+	@CancelFollow:
+
+	; Cancel X movement and clear all follow nodes
+	jsr    CharacterCancelXMovement
+	move.w #0x0, Echo_AINodeProducer(a0)
+	move.w #0x0, Echo_AINodeConsumer(a0)
 	
 	@End:
 	
+	rts
+
+EchoAIUpdate_WatchNymn:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Nymn addr
+
+	; Get Nymn Y pos
+	move.w Entity_WorldPosY(a2), d1
+
+	; Get Echo Y pos, or last node Y pos
+	move.w Echo_AINodeConsumer(a0), d4
+	cmp.w  Echo_AINodeProducer(a0), d4
+	beq    @NoNodes
+	jsr    EchoAIPeekNode
+	move.w EchoAINode_PosY(a3), d0
+	bra    @UsingNodePos
+	@NoNodes:
+	move.w Entity_WorldPosY(a0), d0
+	@UsingNodePos:
+
+	; If above Echo (or last node pos), store pos and create jump node
+	move.w d0, d3
+	move.w d1, d4
+	sub.w  d4, d3
+	cmp.w  #Echo_AIJumpDistance, d3
+	blt    @WithinYToleranceUp
+
+	; Create jump node
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w d1, EchoAINode_PosY(a3)
+	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
+
+	bra    @End
+
+	@WithinYToleranceUp:
+
+	; If below Echo (or last node pos), store pos and create fall node
+	move.w d0, d3
+	move.w d1, d4
+	sub.w  d3, d4
+	cmp.w  #Echo_AIJumpDistance, d4
+	blt    @WithinYToleranceDown
+
+	; Create fall node
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w d1, EchoAINode_PosY(a3)
+	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
+
+	@WithinYToleranceDown:
+
+	@End:
+
+	rts
+
+EchoAIPushNode:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Node
+
+	PUSHL a0
+
+	moveq  #0x0, d7
+	move.w Echo_AINodeProducer(a0), d7
+	andi.w #Echo_NumAINodes-1, d7		; MOD to get producer position
+
+	; Increment (and wrap) producer index
+	addi.w #0x1, Echo_AINodeProducer(a0)
+	
+	; Get address into array of nodes
+	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
+	add.l  #Echo_AIFollowNodes, a0		; Get array
+	add.l  d7, a0						; Add offset
+	move.l a0, a3
+
+	POPL  a0
+
+	rts
+
+EchoAIPopNode:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Node
+
+	PUSHL a0
+
+	moveq  #0x0, d7
+	move.w Echo_AINodeConsumer(a0), d7
+	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
+
+	; Increment (and wrap) consumer index
+	addi.w #0x1, Echo_AINodeConsumer(a0)
+	
+	; Get address into array of nodes
+	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
+	add.l  #Echo_AIFollowNodes, a0		; Get array
+	add.l  d7, a0						; Add offset
+	move.l a0, a3
+
+	POPL  a0
+
+	; Determine node type and run action
+	move.b EchoAINode_Action(a3), d0
+	cmp.b  #EchoAINode_Action_Fall, d0
+	beq    @FallAction
+	cmp.b  #EchoAINode_Action_Jump, d0
+	beq    @JumpAction
+
+	@JumpAction:
+	
+	; Jump
+	jsr    CharacterStartJump
+	bra    @EndAction
+	
+	@FallAction:
+	
+	; Stop X movement
+	jsr    CharacterCancelXMovement
+	bra    @EndAction
+	
+	@EndAction:
+
+	rts
+
+EchoAIPeekNode:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Node
+
+	PUSHL a0
+
+	moveq  #0x0, d7
+	move.w Echo_AINodeConsumer(a0), d7
+	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
+	
+	; Get address into array of nodes
+	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
+	add.l  #Echo_AIFollowNodes, a0		; Get array
+	add.l  d7, a0						; Add offset
+	move.l a0, a3
+
+	POPL  a0
+
 	rts
