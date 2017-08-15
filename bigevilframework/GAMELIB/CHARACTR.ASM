@@ -590,48 +590,52 @@ CharacterCancelXMovement:
 CharacterStartJump:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+	; d2 (b) Force (ignore all tests)
 
 	PUSHM  d0-d1
+
+	; Check if jump is to be forced
+	tst.b d2
+	bne   @CanJump
 
 	; Check if player can jump
 	cmp.b #0x0, Character_CanJump(a0)
 	beq   @CantJump
 	
 	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
+	cmp.b  #0x1, Character_Dead(a0)
 	beq    @Dead
 
 	; Check if player is riding
-	move.b Character_Riding(a0), d4
-	cmp.b  #0x0, d4
+	cmp.b  #0x0, Character_Riding(a0)
 	bne    @CanJump
 	
 	; Check if player is interacting
-	move.b Character_Interacting(a0), d4
-	cmp.b  #0x1, d4
+	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @CantJump
 	
 	; Check if player on ledge
-	move.b Character_OnLedge(a0), d4
-	cmp.b  #0x1, d4
+	cmp.b  #0x1, Character_OnLedge(a0)
 	beq    @CanJump
 	
 	; Check if player close enough to floor to jump
-	move.b PhysicsObj_CloseToFloor(a0), d4
-	cmp.b  #0x0, d4
+	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
 	beq    @CantJump
 
 	@CanJump:
-	
-	; Check if player in water
-	move.b Character_InWater(a0), d4
-	cmp.b  #0x0, d4
-	bne    @InWater
 
 	; Set off floor
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.l #0x0, PhysicsObj_LastPlatform(a0)
+
+	; Wake physics
+	move.b #0x0, PhysicsObj_Asleep(a0)
+
+	; Check if player in water
+	cmp.b  #0x0, Character_InWater(a0)
+	bne    @InWater
 	
 	; Set Y velocity
 	move.l Character_JumpVelY(a0), PhysicsObj_VelY(a0)

@@ -8,7 +8,8 @@
 
 ; Constants
 Echo_MaxEntities			equ 1
-EchoHowlDelay				equ 0x0030	; Delay between Nymn and Echo howling
+EchoHowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
+Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
 
 ; AI
 Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
@@ -85,7 +86,7 @@ EchoInit:
 	
 	; Set update and render routines
 	move.l #EchoUpdate, Entity_UpdateRoutine(a0)
-	move.l #CharacterDraw, Entity_RenderRoutine(a0)
+	move.l #EchoDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
@@ -324,12 +325,18 @@ EchoUpdate:
 	move.l d0, AnimObj_AnimSubFrame(a0)
 	move.b #0x1, AnimObj_Dirty(a0)
 	
-	@InSequence:
 	@AnimSynced:
 	
 	; Update animation only
 	jsr    AnimObjUpdate
 	
+	bra    @Carried
+
+	@InSequence:
+
+	; Update physics only
+	jsr    PhysicsObjUpdate
+
 	bra    @Carried
 	
 	;==============================================================
@@ -357,6 +364,18 @@ EchoUpdate:
 	@Carried:
 	
 	rts
+
+EchoDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If mounting Nymn, drawing is handled by Nymn to match anim frames
+	tst.b Echo_MountedState(a0)
+	bne   @NoDraw
+	jsr   CharacterDraw
+	@NoDraw:
+
+	rts
 	
 EchoBeginCarried:
 	; a0 --- GameObj addr
@@ -379,7 +398,11 @@ EchoBeginCarried:
 	move.b SpriteObj_FlippedX(a3), SpriteObj_FlippedX(a0)
 	
 	; Begin jump
+	move.b #0x0, d2
 	jsr    CharacterStartJump
+
+	; Fixed velocity
+	move.l #Echo_JumpToNymnVel, PhysicsObj_VelY(a0)
 	
 	; Set jumping-to-Nymn anim
 	PUSHL  a1
@@ -416,7 +439,11 @@ EchoEndCarried:
 	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	
-	; Jump off
+	; Force character animation update to restore anim state
+	jsr    CharacterUpdateAnimState
+
+	; Jump off (forced jump)
+	move.b #0x1, d2
 	jsr    CharacterStartJump
 	
 	; No longer mounting
@@ -700,6 +727,7 @@ EchoAIPopNode:
 	@JumpAction:
 	
 	; Jump
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	bra    @EndAction
 	

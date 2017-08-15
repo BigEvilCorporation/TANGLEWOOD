@@ -149,6 +149,7 @@ HandlePlayerInput:
 	beq  @NoB
 	btst #input_jump, d1		; Check jump not already held
 	bne  @EndB
+	move.b #0x0, d2
 	jsr  CharacterStartJump		; Jump
 	bra  @EndB
 	@NoB:

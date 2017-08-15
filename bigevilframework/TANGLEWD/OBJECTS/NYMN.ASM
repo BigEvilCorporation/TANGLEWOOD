@@ -46,7 +46,7 @@ NymnInit:
 	
 	; Set update and render routines
 	move.l #NymnUpdate, Entity_UpdateRoutine(a0)
-	move.l #CharacterDraw, Entity_RenderRoutine(a0)
+	move.l #NymnDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
@@ -220,6 +220,23 @@ NymnUpdate:
 	; Base functionality
 	jsr PlayerUpdate
 	
+	rts
+
+NymnDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	jsr    CharacterDraw
+
+	; If carrying Echo, manually draw Echo so anim frames match up
+	tst.b  Nymn_CarryEchoState(a0)
+	beq    @NotCarryingEcho
+	PUSHL  a0
+	move.l (Player2), a0
+	jsr    CharacterDraw
+	POPL   a0
+	@NotCarryingEcho:
+
 	rts
 	
 NymnStartInteract:

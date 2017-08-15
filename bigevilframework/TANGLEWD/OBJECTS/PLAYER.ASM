@@ -1187,8 +1187,9 @@ PlayerDismountPet:
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.l #0x0, PhysicsObj_LastFloor(a0)
 
-	; Jump off
+	; Jump off (forced jump)
 	PUSHM  d0/a0-a2
+	move.b #0x1, d2
 	jsr    CharacterStartJump
 	POPM   d0/a0-a2
 
@@ -1388,6 +1389,7 @@ PlayerForwardPetControls:
 	; Djakk jump
 	PUSHM  a0-a2
 	move.l a2, a0
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	POPM   a0-a2
 
