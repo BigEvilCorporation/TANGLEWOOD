@@ -110,7 +110,7 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	add.w  #(screen_width/2), \bottomrightreg		; Right border
 
 	add.w  #vdp_sprite_border_x, \topleftreg
-	add.w  #vdp_sprite_border_y, \bottomrightreg
+	add.w  #vdp_sprite_border_x, \bottomrightreg
 
 	swap   \topleftreg								; X to upper word
 	swap   \bottomrightreg
@@ -122,7 +122,7 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	sub.w  #(screen_height/2), \topleftreg			; Top border
 	add.w  #(screen_height/2), \bottomrightreg		; Bottom border
 
-	add.w  #vdp_sprite_border_x, \topleftreg
+	add.w  #vdp_sprite_border_y, \topleftreg
 	add.w  #vdp_sprite_border_y, \bottomrightreg
 
 	endm

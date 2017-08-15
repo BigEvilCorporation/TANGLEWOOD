@@ -8,15 +8,18 @@
 
 ; Constants
 Echo_MaxEntities			equ 1
-EchoHowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
+Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
 
 ; AI
 Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
+Echo_LostTime				equ 0x78			; Time off screen until considered 'lost'
 Echo_AIFollowDistance		equ 0x40			; X distance from Nymn to start following
 Echo_AIFollowDistanceLost	equ 0x20			; X distance from Nymn to start following if Nymn is above/below Echo
 Echo_AIJumpDistance			equ Player1Height	; Upward distance from Nymn to start jumping
 Echo_AIFindHoleDistance		equ Player1Height	; Downward distance from Nymn to find a place to drop down
+Echo_AIInnerScreenBoundsExt	equ Player1Height
+Echo_AIOuterScreenBoundsExt	equ Player1Height*2
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -32,6 +35,7 @@ EchoAnimIdx_Max       		equ 7
 ; AI state
 EchoAIState_None			equ 0	; No AI, under player/cutscene control
 EchoAIState_Follow			equ 1
+EchoAIState_Lost			equ 2
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -62,11 +66,14 @@ Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
 Echo_AIFollowNodes			rs.b (EchoAINode_Struct_Size*Echo_NumAINodes)
 Echo_AINodeProducer			rs.w 1
 Echo_AINodeConsumer			rs.w 1
+Echo_AILostTimer			rs.w 1
+Echo_AILostPosX				rs.w 1
+Echo_AILostPosY				rs.w 1
 Echo_HowlTimer				rs.w 1
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 0
+Echo_Struct_Pad      		rs.b 2
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -97,6 +104,7 @@ EchoInit:
 	; Setup default state
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #Echo_LostTime, Echo_AILostTimer(a0)
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
@@ -459,7 +467,7 @@ EchoEndCarried:
 EchoStartHowlTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	move.w #EchoHowlDelay, Echo_HowlTimer(a0)	
+	move.w #Echo_HowlDelay, Echo_HowlTimer(a0)
 	rts
 
 EchoHowl:
@@ -487,10 +495,16 @@ EchoUpdateAI:
 	beq    @End
 	cmp.b  #EchoAIState_Follow, d0
 	beq    @Follow
+	cmp.b  #EchoAIState_Lost, d0
+	beq    @Lost
 	bra    @End
 	
 	@Follow:
 	jsr    EchoAIUpdate_Follow
+	bra    @End
+
+	@Lost:
+	jsr    EchoAIUpdate_Lost
 	bra    @End
 	
 	@End:
@@ -501,7 +515,13 @@ EchoAIStart_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
+	; Set follow state
 	move.b #EchoAIState_Follow, Echo_AIState(a0)
+
+	; Reset lost timer and pos
+	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+	move.w #0x0, Echo_AILostPosX(a0)
+	move.w #0x0, Echo_AILostPosY(a0)
 	
 	rts
 	
@@ -518,6 +538,24 @@ EchoAIUpdate_Follow:
 	jsr    PHYS_TestBoxIntersectBox
 	cmp.b  #0x0, d0
 	bne    @CancelFollow
+
+	; If off screen, count down lost timer
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
+	move.w Echo_AILostTimer(a0), d0
+	sub.w  #0x1, d0
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
+	jsr    EchoAIStart_Lost
+	bra    @Lost
+	
+	@OnScreen:
+
+	; On screen, reset lost timer
+	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+
+	@LostTimerRunning:
 
 	; Watch Nymn's actions, create AI follow nodes
 	jsr    EchoAIUpdate_WatchNymn
@@ -600,6 +638,7 @@ EchoAIUpdate_Follow:
 	bra    @End
 
 	@CancelFollow:
+	@Lost:
 
 	; Cancel X movement and clear all follow nodes
 	jsr    CharacterCancelXMovement
@@ -608,6 +647,158 @@ EchoAIUpdate_Follow:
 	
 	@End:
 	
+	rts
+
+EchoAIStart_Lost:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set lost state
+	move.b #EchoAIState_Lost, Echo_AIState(a0)
+
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
+	; Set lost position
+	move.w Entity_WorldPosX(a0), Echo_AILostPosX(a0)
+	move.w Entity_WorldPosY(a0), Echo_AILostPosY(a0)
+
+	@InAir:
+	
+	rts
+	
+EchoAIUpdate_Lost:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If back in view, back to follow state
+	jsr    EchoAI_CheckInnerScreenBounds
+	tst.b  d0
+	beq    @StillLost
+	jsr    EchoAIStart_Follow
+	bra    @End
+	@StillLost:
+
+	; If not yet taken lost pos
+	tst.w  Echo_AILostPosX(a0)
+	bne    @TakenLostPos
+
+	; Wait until on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
+	; Set lost position
+	move.w Entity_WorldPosX(a0), Echo_AILostPosX(a0)
+	move.w Entity_WorldPosY(a0), Echo_AILostPosY(a0)
+
+	@TakenLostPos:
+
+	; Get Nymn
+	move.l (Player1), a2
+
+	; Get lost pos and camera pos
+	move.w Echo_AILostPosX(a0), d0
+	move.w Echo_AILostPosY(a0), d1
+	move.w CameraWorldPosX, d2
+	move.w CameraWorldPosY, d3
+
+	; Get edge of screen between lost X and camera X, at lost pos Y
+	move.w d2, d6	; Backup camera X
+	move.w d2, d5
+	sub.w  d0, d5	; Cam X - Echo X
+	blt    @RightEdge
+	subi.w #screen_width/2, d6	; Left edge
+	bra    @EndEdge
+	@RightEdge:
+	addi.w #screen_width/2, d6	; Right edge
+	@EndEdge:
+
+	; Find floor
+	PUSHM d0-d6
+	move.w d6, d0
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	jsr   EchoAI_FindFloor
+	move.l d2, d7
+	POPM  d0-d6
+
+	tst.l d6
+	beq    @FloorNotFound
+
+	; Floor found, set new pos and return to follow state
+	move.w Entity_Height(a0), d2
+	TOSUBPIXELS d6
+	TOSUBPIXELS d2
+	sub.l  d2, d7
+	move.l d6, Entity_WorldPosX(a0)
+	move.l d7, Entity_WorldPosY(a0)
+	jsr    EchoAIStart_Follow
+	bra    @End
+
+	@FloorNotFound:
+
+	; Get edge of screen between lost X and camera X, at Nymn's Y
+
+	; Find floor
+
+	; If found, set new pos and back to follow state
+
+	@InAir:
+	@End:
+
+	rts
+
+EchoAI_CheckInnerScreenBounds:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) OUT: On screen
+
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
+	jsr    PHYS_TestBoxIntersectBox
+
+	rts
+
+EchoAI_CheckOuterScreenBounds:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) OUT: On screen
+
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIOuterScreenBoundsExt
+	jsr    PHYS_TestBoxIntersectBox
+
+	rts
+
+EchoAI_FindFloor:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (l) X pos
+	; d1 (l) Y pos
+	; d2 (l) OUT: Found floor
+
+	PUSHL  Entity_WorldPosX(a0)
+	PUSHL  Entity_WorldPosY(a0)
+	PUSHL  PhysicsObj_LastFloor(a0)
+	PUSHL  PhysicsObj_LastPlatform(a0)
+
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.l #0x0, PhysicsObj_LastPlatform(a0)
+
+	jsr    PhysicsObjSnapToFloor
+
+	move.l PhysicsObj_LastFloor(a0), d2
+
+	POPL   PhysicsObj_LastPlatform(a0)
+	POPL   PhysicsObj_LastFloor(a0)
+	POPL   Entity_WorldPosY(a0)
+	POPL   Entity_WorldPosX(a0)
+
 	rts
 
 EchoAIUpdate_WatchNymn:

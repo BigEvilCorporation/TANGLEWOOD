@@ -48,18 +48,38 @@ L5A1_Firefly_count equ 0x0
 L5A1_FuzzlCage_count equ 0x0
 
 L5A1_Fuzzl_count equ 0x2
-L5A1_Fuzzl_1_idx	equ 0x0
+L5A1_FuzzlYellow1_idx	equ 0x0
 L5A1_Fuzzl_2_idx	equ 0x1
 
 	IFND FINAL
-L5A1_Fuzzl_1_name	dc.b "L5A1_Fuzzl_1",0
+L5A1_FuzzlYellow1_name	dc.b "L5A1_FuzzlYellow1",0
 L5A1_Fuzzl_2_name	dc.b "L5A1_Fuzzl_2",0
 	even
 	ENDIF
 
-L5A1_Stone_count equ 0x0
+L5A1_Stone_count equ 0x5
+L5A1_Stone_9_idx	equ 0x0
+L5A1_Stone_10_idx	equ 0x1
+L5A1_Stone_11_idx	equ 0x2
+L5A1_Stone_12_idx	equ 0x3
+L5A1_Stone_13_idx	equ 0x4
 
-L5A1_Nest_count equ 0x0
+	IFND FINAL
+L5A1_Stone_9_name	dc.b "L5A1_Stone_9",0
+L5A1_Stone_10_name	dc.b "L5A1_Stone_10",0
+L5A1_Stone_11_name	dc.b "L5A1_Stone_11",0
+L5A1_Stone_12_name	dc.b "L5A1_Stone_12",0
+L5A1_Stone_13_name	dc.b "L5A1_Stone_13",0
+	even
+	ENDIF
+
+L5A1_Nest_count equ 0x1
+L5A1_Nest_8_idx	equ 0x0
+
+	IFND FINAL
+L5A1_Nest_8_name	dc.b "L5A1_Nest_8",0
+	even
+	ENDIF
 
 L5A1_Flue_count equ 0x0
 
@@ -77,9 +97,21 @@ L5A1_Lift_count equ 0x0
 
 L5A1_Crate_count equ 0x0
 
-L5A1_Generator_count equ 0x0
+L5A1_Generator_count equ 0x1
+L5A1_Generator_15_idx	equ 0x0
 
-L5A1_Cogs_count equ 0x0
+	IFND FINAL
+L5A1_Generator_15_name	dc.b "L5A1_Generator_15",0
+	even
+	ENDIF
+
+L5A1_Cogs_count equ 0x1
+L5A1_Cogs_14_idx	equ 0x0
+
+	IFND FINAL
+L5A1_Cogs_14_name	dc.b "L5A1_Cogs_14",0
+	even
+	ENDIF
 
 L5A1_Bridge_count equ 0x0
 
@@ -106,7 +138,7 @@ L5A1_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x00e80000, Entity_WorldPosX(a0)
+	move.l #0x01080000, Entity_WorldPosX(a0)
 	move.l #0x01d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Echo_7_name, a3
@@ -220,12 +252,13 @@ L5A1_LoadGameObjects:
 	move.l #0x04900000, Entity_WorldPosX(a0)
 	move.l #0x01200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A1_Fuzzl_1_name, a3
+	lea L5A1_FuzzlYellow1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
@@ -247,6 +280,66 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr StoneInit
+	move.l #0x04500000, Entity_WorldPosX(a0)
+	move.l #0x03a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x04c00000, Entity_WorldPosX(a0)
+	move.l #0x01200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x02d00000, Entity_WorldPosX(a0)
+	move.l #0x01c00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x05300000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_12_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x03300000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_13_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A1_Nest_count)
@@ -254,6 +347,18 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr NestInit
+	move.l #0x03200000, Entity_WorldPosX(a0)
+	move.l #0x03f00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Nest_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L5A1_Flue_count)
@@ -317,6 +422,18 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr GeneratorInit
+	move.l #0x05f80000, Entity_WorldPosX(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Generator_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L5A1_Cogs_count)
@@ -324,6 +441,18 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr CogsInit
+	move.l #0x06100000, Entity_WorldPosX(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Cogs_14_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L5A1_Bridge_count)
