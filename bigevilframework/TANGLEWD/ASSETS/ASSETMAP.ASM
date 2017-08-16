@@ -52,6 +52,7 @@
 	include 'assets\sprites\bridge.asm'
 	include 'assets\sprites\button.asm'
 	include 'assets\sprites\cogs.asm'
+	include 'assets\sprites\cart.asm'
 	include 'assets\sprites\crate.asm'
 	include 'assets\sprites\debris.asm'
 	include 'assets\sprites\djakk.asm'
@@ -96,6 +97,7 @@
 	IFND DEBUG
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\button.asm'
+	include 'assets\anims\cart.asm'
 	include 'assets\anims\cogs.asm'
 	include 'assets\anims\debris.asm'
 	include 'assets\anims\djakk.asm'

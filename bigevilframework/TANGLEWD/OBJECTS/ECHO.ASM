@@ -14,15 +14,15 @@ Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
 
 ; AI
-Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
-Echo_LostTime				equ 0x78			; Time off screen until considered 'lost'
-Echo_CatchUpTime			equ 0x300			; Time off screen in catchup mode until considered lost again
-Echo_AIFollowDistance		equ 0x40			; X distance from Nymn to start following
-Echo_AIFollowDistanceLost	equ 0x20			; X distance from Nymn to start following if Nymn is above/below Echo
-Echo_AIJumpDistance			equ Player1Height	; Upward distance from Nymn to start jumping
-Echo_AIFindHoleDistance		equ Player1Height	; Downward distance from Nymn to find a place to drop down
-Echo_AIInnerScreenBoundsExt	equ Player1Height
-Echo_AIOuterScreenBoundsExt	equ Player1Height*2
+Echo_NumAINodes				equ 0x10	; Num AI follow nodes to store in queue (must be power of two)
+Echo_LostTime				equ 0x0078	; Time off screen until considered 'lost'
+Echo_CatchUpTime			equ 0x0300	; Time off screen in catchup mode until considered lost again
+Echo_AIFollowDistance		equ 0x0040	; X distance from Nymn to start following
+Echo_AIFollowDistanceLost	equ 0x0020	; X distance from Nymn to start following if Nymn is above/below Echo
+Echo_AIJumpDistance			equ 0x0020	; Upward distance from Nymn to start jumping
+Echo_AIFindHoleDistance		equ 0x0020	; Downward distance from Nymn to find a place to drop down
+Echo_AIInnerScreenBoundsExt	equ 0x0030
+Echo_AIOuterScreenBoundsExt	equ 0x0060
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0

@@ -69,6 +69,7 @@ PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls
 PhysicsObj_CollideCeilings  	rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms		rs.b 1 ; Collides with platforms
 PhysicsObj_CollideBarriers		rs.b 1 ; Collides with barriers
+PhysicsObj_CollideSpecialTerrain rs.b 1 ; Collides with 'special' marked terrain
 PhysicsObj_FallThroughHoles 	rs.b 1 ; Ignores terrain tiles with 'hole' flag
 PhysicsObj_AffectedByGravity   	rs.b 1 ; Gets pushed by gravity force
 PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
@@ -82,7 +83,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 3
+PhysicsObj_Struct_Pad      		rs.b 2
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -130,6 +131,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_CollideCeilings(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
 	move.b #0x1, PhysicsObj_CollideBarriers(a0)
+	move.b #0x1, PhysicsObj_CollideSpecialTerrain(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
@@ -158,7 +160,7 @@ PhysicsObjUpdate:
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
-	move.b PhysicsObj_OnPlatform(a0), d0
+	or.b   PhysicsObj_OnPlatform(a0), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
 	beq    @Asleep
@@ -785,7 +787,7 @@ PhysicsObjCollisionCorrection:
 	DIVS1616_LOSSY d1, d0							; Div by bounce
 	@NoBounceX:
 	move.l d0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
+	;move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
 
 	bra    @End
 	
@@ -965,13 +967,20 @@ PhysicsObjFindFloor:
 	move.w d3, PhysicsObj_LastTerrainFlags(a0)
 	
 	;==============================================================
+
+	; If special terrain, and shouldn't collide, bail out
+	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
+	bne    @CollideSpecial
+	andi.w #col_tile_flag_special, d3
+	bne    @DontCollide
+	@CollideSpecial:
 	
-	cmp.b  #0x0, PhysicsObj_FallThroughHoles(a0)
+	; If a hole, and shouldn't collide, bail out
+	tst.b  PhysicsObj_FallThroughHoles(a0)
 	beq    @NoHoleCheck						; Check if set to care about holes
 	
-	andi.w #col_tile_flag_hole, d3			; Flags in d3, check if a hole was found
-	cmp.w  #0x0, d3
-	bne    @HoleFound
+	andi.w #col_tile_flag_hole, d3
+	bne    @DontCollide
 	
 	@NoHoleCheck:
 	@NoHoleFound:
@@ -981,7 +990,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 
 	@ProbeOutOfBounds:
-	@HoleFound:
+	@DontCollide:
 	lea    PhysicsWorld, a2
 	move.l PhysicsWorld_GroundHeight(a2), d2	; No floor, hole found, or probe out of bounds, use default ground Y
 	bra	   @EndFloorTest

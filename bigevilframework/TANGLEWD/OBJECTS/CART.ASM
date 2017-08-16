@@ -1,0 +1,172 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2017
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   cart.asm - Rideable mine cart
+;==============================================================
+
+; Constants
+Cart_Width				equ 0x28
+Cart_Height				equ 0x20
+Cart_MaxVelYUp			equ 0x060000
+Cart_MaxVelYDown		equ 0x080000
+Cart_StepHeight			equ 0x4
+Cart_ProbeFloorX		equ (Cart_Width/2)	; Floor detection probe position X
+Cart_ProbeFloorY		equ (Cart_Height-8)	; Floor detection probe position X
+Cart_MaxVelX			equ 0x080000
+Cart_Decel				equ 0x000800
+
+Cart_Accel				equ 0x000600
+
+Cart_AnimSpeedVelDiv	equ 0x0008
+
+Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
+
+;==============================================================
+
+; Struct
+	rsset (PhysicsObj_Struct_Size)
+;--------------------------
+Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
+;--------------------------
+Cart_Struct_Pad      rs.b 0   ; Alignment padding
+Cart_Struct_Size     rs.b 0
+;--------------------------
+
+;==============================================================
+
+CartInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base init
+	jsr    PhysicsObjInit
+	
+	; Count
+	addi.w #0x1, EntityCount_Cart
+	
+	; Set update and render routines
+	move.l #CartUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #CartSerialise, Entity_SerialiseRoutine(a0)
+	
+	; Add to update and render lists
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    EntityAddToSerialiseList
+	
+	; Default state
+	move.b  #0x1, Entity_Active(a0)
+	move.b  #0x1, SpriteObj_Visible(a0)
+	move.w  #Cart_Width, Entity_Width(a0)
+	move.w  #Cart_Height, Entity_Height(a0)
+	move.l  #Cart_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
+	move.w  #Cart_Decel, PhysicsObj_DecelX(a0)
+	move.w  #Cart_StepHeight, PhysicsObj_StepHeight(a0)
+	move.w  #Cart_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w  #Cart_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.l  #Cart_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
+	move.l  #Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	;move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	;move.b  #0x1, PhysicsObj_CanBePulled(a0)
+	
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	; Register as pushable object
+	; LIST_APPEND_TAIL PushableObjs, a0, a3
+
+	;==============================================================
+	
+	; Setup platform
+	move.l a0, a2
+	add.l  #Cart_Platform, a2
+	move.l a0, Platform_Owner(a2)
+	move.w #Cart_Width, Platform_Width(a2)
+	
+	; Add to physics platforms list
+	LIST_APPEND_TAIL Platforms, a2, a3
+	
+	;==============================================================
+	
+	; Setup animations
+	; TODO
+
+	rts
+
+CartLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	SPRITE_LOAD_DEFAULT Cart,PaletteId_World0,0x0
+
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
+	; Reposition barrier
+	move.l a0, a2
+	add.l  #Cart_Platform, a2
+	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+
+	rts
+
+CartUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr    PhysicsObjUpdate
+
+	; Reposition platform
+	move.l a0, a2
+	add.l  #Cart_Platform, a2
+	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	
+	; Set platform velocity
+	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
+	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
+
+	; If platform has an occupant, start moving
+	tst.b  Platform_Occupied(a2)
+	beq    @Unoccupied
+	move.w #Cart_Accel, PhysicsObj_AccelX(a0)
+	@Unoccupied:
+
+	rts
+	
+CartSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts

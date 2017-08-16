@@ -114,6 +114,7 @@ __start
 	include 'objects\aimarker.asm'
 	include 'objects\bridge.asm'
 	include 'objects\button.asm'
+	include 'objects\cart.asm'
 	include 'objects\crate.asm'
 	include 'objects\checkpnt.asm'
 	include 'objects\deathbox.asm'

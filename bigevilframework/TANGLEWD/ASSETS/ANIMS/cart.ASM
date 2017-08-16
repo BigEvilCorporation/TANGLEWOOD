@@ -7,7 +7,21 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-TerrainTiles_L5_size_b	equ 0x000004D8	; Size in bytes
-TerrainTiles_L5_size_w	equ (TerrainTiles_L5_size_b/2)	; Size in words
-TerrainTiles_L5_size_l	equ (TerrainTiles_L5_size_b/4)	; Size in longwords
-TerrainTiles_L5_size_t	equ (TerrainTiles_L5_size_b/32)	; Size in tiles
+spriteanims_cart:
+
+spriteanim_cart_roll:
+spriteanim_cart_roll_numframes: equ 0x4
+spriteanim_cart_roll_speed: equ 0x33
+spriteanim_cart_roll_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3
+	Even
+spriteanim_cart_roll_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_cart_roll_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_cart_roll_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0
+	Even
+

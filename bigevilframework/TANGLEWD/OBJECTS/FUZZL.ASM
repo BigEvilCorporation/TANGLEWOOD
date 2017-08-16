@@ -618,6 +618,10 @@ FuzzlFindGenerator:
 	; Return val
 	move.b  #0x0, d7
 
+	; Must be red
+	cmp.b  #ColourRed, Fuzzl_Colour(a0)
+	bne    @NotRed
+
 	; Check all generators
 	move.l (EntityPoolStart_Generator), a3
 	move.w (EntityCount_Generator), d6
@@ -698,6 +702,8 @@ FuzzlFindGenerator:
 	@End:
 	@NoGenerators:
 
+	@NotRed:
+	
 	move.b d7, d0
 
 	rts

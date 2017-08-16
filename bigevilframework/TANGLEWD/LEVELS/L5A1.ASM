@@ -93,6 +93,34 @@ L5a1_Init:
 	
 	;==============================================================
 
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l5a1_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l5a1_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l5a1_Generator1, a0
+	ENTITY_GETBYNAME Button, l5a1_Button1, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l5a1_Button1, a0
+	ENTITY_GETBYNAME Bridge, l5a1_Bridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+
+	;==============================================================
+
+	; 'Special' terrain is cart rails, don't collide
+	move.l (Player1), a2
+	move.l (Player2), a3
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a3)
+
+	;==============================================================
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow

@@ -96,6 +96,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_BouncePlant
 	move.w #0x0, EntityCount_Bridge
 	move.w #0x0, EntityCount_Button
+	move.w #0x0, EntityCount_Cart
 	move.w #0x0, EntityCount_Cogs
 	move.w #0x0, EntityCount_Crate
 	move.w #0x0, EntityCount_DjakkCage
