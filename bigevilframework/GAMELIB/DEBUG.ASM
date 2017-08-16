@@ -9,7 +9,8 @@
 debugdraw_playerpos_text_x equ 0x8
 debugdraw_playerpos_text_y equ 0x1
 
-debugdraw_palette	equ 0x3
+debugdraw_palette			equ 0x2
+debugdraw_palette_prio_bits	equ ((debugdraw_palette<<13)|1<<15)
 
 DBG_DrawWord:
 	; d0 (w)  Word
@@ -25,7 +26,7 @@ DBG_DrawWord:
 	clr.l  d0
 	move.w (vram_addr_systemfont), d0
 	divu.w #size_tile_b, d0
-	move.b #debugdraw_palette, d2
+	move.w #debugdraw_palette_prio_bits, d2
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10
 
@@ -47,7 +48,7 @@ DBG_DrawLong:
 	clr.l  d0
 	move.w (vram_addr_systemfont), d0
 	divu.w #size_tile_b, d0
-	move.b #0x1, d2
+	move.w #debugdraw_palette_prio_bits, d2
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10
 

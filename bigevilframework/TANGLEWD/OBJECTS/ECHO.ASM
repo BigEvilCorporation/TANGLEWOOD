@@ -6,6 +6,8 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
+ECHO_AI_DEBUG_SAFE_POS 		equ 1
+
 ; Constants
 Echo_MaxEntities			equ 1
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
@@ -14,6 +16,7 @@ Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
 ; AI
 Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
 Echo_LostTime				equ 0x78			; Time off screen until considered 'lost'
+Echo_CatchUpTime			equ 0x300			; Time off screen in catchup mode until considered lost again
 Echo_AIFollowDistance		equ 0x40			; X distance from Nymn to start following
 Echo_AIFollowDistanceLost	equ 0x20			; X distance from Nymn to start following if Nymn is above/below Echo
 Echo_AIJumpDistance			equ Player1Height	; Upward distance from Nymn to start jumping
@@ -34,8 +37,9 @@ EchoAnimIdx_Max       		equ 7
 
 ; AI state
 EchoAIState_None			equ 0	; No AI, under player/cutscene control
-EchoAIState_Follow			equ 1
-EchoAIState_Lost			equ 2
+EchoAIState_Follow			equ 1	; Following Nymn's action nodes
+EchoAIState_Lost			equ 2	; Waiting for safe place to transport to
+EchoAIState_CatchUp			equ 3	; Running directly back to Nymn
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -43,9 +47,11 @@ EchoMountNymn_Jumping		equ 1
 EchoMountNymn_Mounting		equ 2
 EchoMountNymn_Riding		equ 3
 
-; AI follow node
+; AI follow node actions
 EchoAINode_Action_Jump		equ 0x0
 EchoAINode_Action_Fall		equ 0x1
+EchoAINode_Action_Glide		equ 0x2
+EchoAINode_Action_StopGlide	equ 0x3
 
 	rsset 0
 ;---------------------------------
@@ -64,16 +70,19 @@ EchoAINode_Struct_Size		rs.b 0
 ;---------------------------------
 Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
 Echo_AIFollowNodes			rs.b (EchoAINode_Struct_Size*Echo_NumAINodes)
-Echo_AINodeProducer			rs.w 1
+Echo_AINodeProducer			rs.w 1	; AI follow node queue
 Echo_AINodeConsumer			rs.w 1
-Echo_AILostTimer			rs.w 1
-Echo_AILostPosX				rs.w 1
-Echo_AILostPosY				rs.w 1
+Echo_AILostTimer			rs.w 1	; If depleted, Echo has lost Nymn
+Echo_AISafePosX				rs.w 1	; Safe position (Nymn was once on the floor here, and is currently out of view)
+Echo_AISafePosY				rs.w 1
+Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe posisiton when out of view
+Echo_AIPotentialSafePosY	rs.w 1
 Echo_HowlTimer				rs.w 1
+Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 2
+Echo_Struct_Pad      		rs.b 3
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -106,8 +115,11 @@ EchoInit:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #Echo_LostTime, Echo_AILostTimer(a0)
 	move.w #0x0, Echo_HowlTimer(a0)
+	move.w #0x0, Echo_AIPotentialSafePosX(a0)
+	move.w #0x0, Echo_AIPotentialSafePosY(a0)
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
+	move.b #0x0, Echo_AINymnGliding(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -229,21 +241,26 @@ EchoUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Match Nymn's colour and power ability
+	move.l (Player1), a2
+	move.b Player_Colour(a2), Player_Colour(a0)
+	move.w Player_ColourChangeTimer(a2), Player_ColourChangeTimer(a0)
+
 	; If mounting Nymn
 	move.b Echo_MountedState(a0), d0
-	cmp.b #EchoMountNymn_Inactive, d0
-	beq   @NotMounted
+	cmp.b  #EchoMountNymn_Inactive, d0
+	beq    @NotMounted
 	
 	; If jumping up to Nymn
-	cmp.b #EchoMountNymn_Jumping, d0
-	beq   @Jumping
+	cmp.b  #EchoMountNymn_Jumping, d0
+	beq    @Jumping
 	
 	; If landing on Nymn
-	cmp.b #EchoMountNymn_Mounting, d0
-	beq   @Landing
+	cmp.b  #EchoMountNymn_Mounting, d0
+	beq    @Landing
 	
 	; Finished mounting sequence
-	bra   @Riding
+	bra    @Riding
 	
 	;==============================================================
 	
@@ -497,6 +514,8 @@ EchoUpdateAI:
 	beq    @Follow
 	cmp.b  #EchoAIState_Lost, d0
 	beq    @Lost
+	cmp.b  #EchoAIState_CatchUp, d0
+	beq    @CatchUp
 	bra    @End
 	
 	@Follow:
@@ -505,6 +524,10 @@ EchoUpdateAI:
 
 	@Lost:
 	jsr    EchoAIUpdate_Lost
+	bra    @End
+	
+	@CatchUp:
+	jsr    EchoAIUpdate_CatchUp
 	bra    @End
 	
 	@End:
@@ -517,11 +540,13 @@ EchoAIStart_Follow:
 	
 	; Set follow state
 	move.b #EchoAIState_Follow, Echo_AIState(a0)
+	
+	; Clear node queue
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
 
-	; Reset lost timer and pos
+	; Reset lost timer
 	move.w #Echo_LostTime, Echo_AILostTimer(a0)
-	move.w #0x0, Echo_AILostPosX(a0)
-	move.w #0x0, Echo_AILostPosY(a0)
 	
 	rts
 	
@@ -558,7 +583,10 @@ EchoAIUpdate_Follow:
 	@LostTimerRunning:
 
 	; Watch Nymn's actions, create AI follow nodes
-	jsr    EchoAIUpdate_WatchNymn
+	jsr    EchoAI_WatchNymnMovement
+	
+	; Watch Nymn's potential safe positions
+	jsr    EchoAI_WatchNymnSafePos
 
 	; Clear current AI node
 	move.l #0x0, a3
@@ -660,10 +688,6 @@ EchoAIStart_Lost:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @InAir
 
-	; Set lost position
-	move.w Entity_WorldPosX(a0), Echo_AILostPosX(a0)
-	move.w Entity_WorldPosY(a0), Echo_AILostPosY(a0)
-
 	@InAir:
 	
 	rts
@@ -671,94 +695,105 @@ EchoAIStart_Lost:
 EchoAIUpdate_Lost:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	; If back in view, back to follow state
-	jsr    EchoAI_CheckInnerScreenBounds
-	tst.b  d0
-	beq    @StillLost
-	jsr    EchoAIStart_Follow
-	bra    @End
-	@StillLost:
-
-	; If not yet taken lost pos
-	tst.w  Echo_AILostPosX(a0)
-	bne    @TakenLostPos
-
-	; Wait until on floor
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	beq    @InAir
-
-	; Set lost position
-	move.w Entity_WorldPosX(a0), Echo_AILostPosX(a0)
-	move.w Entity_WorldPosY(a0), Echo_AILostPosY(a0)
-
-	@TakenLostPos:
-
-	; Get Nymn
+	
+	; Watch Nymn for potential safe positions
 	move.l (Player1), a2
-
-	; Get lost pos and camera pos
-	move.w Echo_AILostPosX(a0), d0
-	move.w Echo_AILostPosY(a0), d1
-	move.w CameraWorldPosX, d2
-	move.w CameraWorldPosY, d3
-
-	; Get edge of screen between lost X and camera X, at lost pos Y
-	move.w d2, d6	; Backup camera X
-	move.w d2, d5
-	sub.w  d0, d5	; Cam X - Echo X
-	blt    @RightEdge
-	subi.w #screen_width/2, d6	; Left edge
-	bra    @EndEdge
-	@RightEdge:
-	addi.w #screen_width/2, d6	; Right edge
-	@EndEdge:
-
-	; Find floor
-	PUSHM d0-d6
-	move.w d6, d0
+	jsr    EchoAI_WatchNymnSafePos
+	
+	; If safe pos exists, transport there and enter catch up state
+	move.w Echo_AISafePosX(a0), d0
+	move.w Echo_AISafePosY(a0), d1
+	tst.w  d0
+	beq    @NoSafePos
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
-	jsr   EchoAI_FindFloor
-	move.l d2, d7
-	POPM  d0-d6
-
-	tst.l d6
-	beq    @FloorNotFound
-
-	; Floor found, set new pos and return to follow state
-	move.w Entity_Height(a0), d2
-	TOSUBPIXELS d6
-	TOSUBPIXELS d2
-	sub.l  d2, d7
-	move.l d6, Entity_WorldPosX(a0)
-	move.l d7, Entity_WorldPosY(a0)
-	jsr    EchoAIStart_Follow
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	jsr    EchoAIStart_CatchUp
 	bra    @End
+	@NoSafePos:
 
-	@FloorNotFound:
-
-	; Get edge of screen between lost X and camera X, at Nymn's Y
-
-	; Find floor
-
-	; If found, set new pos and back to follow state
-
-	@InAir:
+	; If original pos back in view, enter catch up state
+	jsr    EchoAI_CheckLostPosScreenBounds
+	tst.b  d0
+	beq    @LostPosOutOfView
+	jsr    EchoAIStart_CatchUp
+	bra    @End
+	@LostPosOutOfView:
+	
 	@End:
 
 	rts
-
-EchoAI_CheckInnerScreenBounds:
+	
+EchoAIStart_CatchUp:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; d0 (b) OUT: On screen
+	
+	; Set catch up state
+	move.b #EchoAIState_CatchUp, Echo_AIState(a0)
+	
+	; Reset catchup timer
+	move.w #Echo_CatchUpTime, Echo_AILostTimer(a0)
+	
+	rts
+	
+EchoAIUpdate_CatchUp:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
-	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
-	jsr    PHYS_TestBoxIntersectBox
+	; If on screen, back to follow state
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	beq    @OffScreen
+	jsr    EchoAIStart_Follow
+	@OffScreen:
+	
+	; Decrement lost timer, if elapsed then head back to lost state and try again
+	move.w Echo_AILostTimer(a0), d0
+	sub.w  #0x1, d0
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
+	jsr    EchoAIStart_Lost
+	bra    @Lost
 
+	@LostTimerRunning:
+
+	; Watch Nymn's potential safe positions
+	move.l (Player1), a2
+	jsr    EchoAI_WatchNymnSafePos
+	
+	; Default tolerance
+	move.w #Echo_AIFollowDistance, d3
+	
+	; Check if within X tolerance
+	move.l (Player1), a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	
+	; Check left bounds
+	move.w d1, d2
+	sub.w  d3, d2
+	cmp.w  d0, d2
+	bgt    @TooFarleft
+	
+	; Check right bounds
+	move.w d1, d2
+	add.w  d3, d2
+	cmp.w  d0, d2
+	blt    @TooFarRight
+	
+	@TooFarleft:
+	jsr    CharacterMoveRight
+	bra    @End
+	
+	@TooFarRight:
+	jsr    CharacterMoveLeft
+	
+	@End:
+	@Lost:
+	
 	rts
 
 EchoAI_CheckOuterScreenBounds:
@@ -769,6 +804,68 @@ EchoAI_CheckOuterScreenBounds:
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	CAMERA_GETSCREENBOUNDS d3,d4,d5
 	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIOuterScreenBoundsExt
+	jsr    PHYS_TestBoxIntersectBox
+
+	rts
+
+EchoAI_CheckSafePosScreenBounds:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) OUT: On screen
+
+	; Get top left
+	move.w Echo_AISafePosX(a0), d1
+	move.w d1, d2
+	swap   d1
+	swap   d2
+	move.w Echo_AISafePosY(a0), d1
+	move.w d1, d2
+
+	; Get bottom right
+	swap   d2
+	add.w  Entity_Width(a0), d2
+	swap   d2
+	add.w  Entity_Height(a0), d2
+
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
+	jsr    PHYS_TestBoxIntersectBox
+
+	rts
+	
+EchoAI_CheckPotentialSafePosScreenBounds:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) OUT: On screen
+
+	; Get top left
+	move.w Echo_AIPotentialSafePosX(a0), d1
+	move.w d1, d2
+	swap   d1
+	swap   d2
+	move.w Echo_AIPotentialSafePosY(a0), d1
+	move.w d1, d2
+
+	; Get bottom right
+	swap   d2
+	add.w  Entity_Width(a0), d2
+	swap   d2
+	add.w  Entity_Height(a0), d2
+
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
+	jsr    PHYS_TestBoxIntersectBox
+
+	rts
+
+EchoAI_CheckLostPosScreenBounds:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) OUT: On screen
+
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
 	jsr    PHYS_TestBoxIntersectBox
 
 	rts
@@ -800,11 +897,122 @@ EchoAI_FindFloor:
 	POPL   Entity_WorldPosX(a0)
 
 	rts
-
-EchoAIUpdate_WatchNymn:
+	
+EchoAI_WatchNymnSafePos:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; a2 --- Nymn addr
+
+	IF ECHO_AI_DEBUG_SAFE_POS
+	move.w Echo_AISafePosX(a0), d0
+	TOSUBPIXELS d0
+	move.l #((8*8)<<16)|(4*8), d1
+	jsr    DBG_DrawLong
+
+	move.w Echo_AISafePosY(a0), d0
+	TOSUBPIXELS d0
+	move.l #((8*8)<<16)|(5*8), d1
+	jsr    DBG_DrawLong
+	ENDIF
+	
+	; If current safe pos in view, discard it
+	tst.w  Echo_AISafePosX(a0)
+	beq    @NoSafePos
+	jsr    EchoAI_CheckSafePosScreenBounds
+	tst.b  d0
+	beq    @SafePosStillSafe
+	move.w #0x0, Echo_AISafePosX(a0)
+	move.w #0x0, Echo_AISafePosY(a0)
+	@NoSafePos:
+	@SafePosStillSafe:
+	
+	; Get Nymn pos
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	
+	; If watching a potential safe position to go out of view
+	move.w Echo_AIPotentialSafePosX(a0), d2
+	move.w Echo_AIPotentialSafePosY(a0), d3
+	tst.w  d2
+	beq    @NoPotentialSafePos
+	
+	; If pos out of view, use as next safe pos
+	PUSHM  d0-d3
+	jsr    EchoAI_CheckPotentialSafePosScreenBounds
+	move.b d0, d4
+	POPM   d0-d3
+	tst.b  d4
+	bne    @PotentialPosInView
+	move.w d2, Echo_AISafePosX(a0)
+	move.w d3, Echo_AISafePosY(a0)
+	move.w #0x0, Echo_AIPotentialSafePosX(a0)
+	move.w #0x0, Echo_AIPotentialSafePosY(a0)
+	bra    @EndSafePos
+	
+	@NoPotentialSafePos:
+
+	; If on floor, store current pos as potential safe pos
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @InAir
+	move.w d0, Echo_AIPotentialSafePosX(a0)
+	move.w d1, Echo_AIPotentialSafePosY(a0)
+	@InAir:
+	
+	@EndSafePos:
+	@PotentialPosInView:
+
+	rts
+
+EchoAI_WatchNymnMovement:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Nymn addr
+
+	; Check Nymn gliding and cache value
+	move.b Echo_AINymnGliding(a0), d1
+	move.b #0x0, d0
+	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
+	bne    @NotGliding
+	move.b #0x1, d0
+	@NotGliding:
+	move.b d0, Echo_AINymnGliding(a0)
+	
+	; If Nymn glide state changed
+	cmp.b  d0, d1
+	beq    @NoGlideChange
+
+	tst.b  d0
+	beq    @CancelGlide
+
+	; Started gliding, push node
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w d1, EchoAINode_PosY(a3)
+	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.b #EchoAINode_Action_Glide, EchoAINode_Action(a3)
+	bra    @End
+
+	@CancelGlide:
+
+	; Stopped gliding, push node
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w d1, EchoAINode_PosY(a3)
+	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
+	bra    @End
+
+	@NoGlideChange:
+
+	; If Nymn is gliding, don't add other node types
+	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
+	beq    @End
+
+	;==============================================================
 
 	; Get Nymn Y pos
 	move.w Entity_WorldPosY(a2), d1
@@ -839,6 +1047,8 @@ EchoAIUpdate_WatchNymn:
 	bra    @End
 
 	@WithinYToleranceUp:
+
+	;==============================================================
 
 	; If below Echo (or last node pos), store pos and create fall node
 	move.w d0, d3
@@ -908,12 +1118,20 @@ EchoAIPopNode:
 
 	POPL  a0
 
+	;==============================================================
+
 	; Determine node type and run action
 	move.b EchoAINode_Action(a3), d0
 	cmp.b  #EchoAINode_Action_Fall, d0
 	beq    @FallAction
 	cmp.b  #EchoAINode_Action_Jump, d0
 	beq    @JumpAction
+	cmp.b  #EchoAINode_Action_Glide, d0
+	beq    @GlideAction
+	cmp.b  #EchoAINode_Action_StopGlide, d0
+	beq    @StopGlideAction
+
+	;==============================================================
 
 	@JumpAction:
 	
@@ -921,12 +1139,32 @@ EchoAIPopNode:
 	move.b #0x0, d2
 	jsr    CharacterStartJump
 	bra    @EndAction
+
+	;==============================================================
 	
 	@FallAction:
 	
 	; Stop X movement
 	jsr    CharacterCancelXMovement
 	bra    @EndAction
+
+	;==============================================================
+
+	@GlideAction:
+	
+	; Start gliding
+	jsr    PlayerStartColourAbility
+	bra    @EndAction
+
+	;==============================================================
+
+	@StopGlideAction:
+	
+	; Stop gliding
+	jsr    PlayerStopColourAbility
+	bra    @EndAction
+
+	;==============================================================
 	
 	@EndAction:
 
