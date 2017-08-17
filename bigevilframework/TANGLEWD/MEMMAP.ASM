@@ -402,6 +402,7 @@ EntityPoolStart_Generator   rs.l 1
 EntityPoolStart_Leaf        rs.l 1
 EntityPoolStart_Log         rs.l 1
 EntityPoolStart_Nest        rs.l 1
+EntityPoolStart_Pillar      rs.l 1
 EntityPoolStart_TriggerBox  rs.l 1
 EntityPoolStart_Checkpoint  rs.l 1
 EntityPoolStart_WaterBody   rs.l 1
@@ -438,6 +439,7 @@ EntityCount_Leaf        rs.w 1
 EntityCount_Log         rs.w 1
 EntityCount_Nest        rs.w 1
 EntityCount_Nymn        rs.w 1
+EntityCount_Pillar      rs.w 1
 EntityCount_Boulder     rs.w 1
 EntityCount_TriggerBox  rs.w 1
 EntityCount_Checkpoint  rs.w 1

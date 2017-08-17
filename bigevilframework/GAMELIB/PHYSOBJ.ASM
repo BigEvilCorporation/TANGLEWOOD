@@ -1143,6 +1143,21 @@ PhysicsObjFindWall:
 	add.w  Barrier_Width(a3), d2
 	cmp.w  d2, d0							; Compare probe with barrier right
 	bgt    @NextBarrier
+
+	; If hit velocity exceed max, break barrier and continue
+	move.b PhysicsObj_Mass(a0), d2
+	cmp.b  Barrier_BreakMass(a3), d2
+	blt    @NotBroken
+	move.l Barrier_BreakVel(a3), d2
+	beq    @NotBroken
+	move.l Barrier_TotalHitVel(a3), d3
+	add.l  PhysicsObj_VelX(a0), d3
+	move.l d3, Barrier_TotalHitVel(a3)
+	cmp.l  d2, d3
+	blt    @NotBroken
+	move.b #0x1, Barrier_Broken(a3)
+	bra    @NextBarrier
+	@NotBroken:
 	
 	; Success
 	move.w Barrier_PosX(a3), d4				; Get barrier X (top word = integer part)
@@ -1157,7 +1172,12 @@ PhysicsObjFindWall:
 
 	TOSUBPIXELS d4							; To world space
 	
-	; Add barrier X velocity
+	; Add object velocity to barrier hit velocity
+	move.l PhysicsObj_VelX(a0), d2
+	add.l  PhysicsObj_ImpulseX(a0), d2
+	add.l  d2, Barrier_TotalHitVel(a3)
+
+	; Add barrier X velocity to object
 	move.l Barrier_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
 	

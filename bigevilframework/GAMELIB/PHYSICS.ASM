@@ -44,11 +44,12 @@ PhysicsWorldPreStep:
 	bra    @PlatformLp
 	@NoPlatform:
 	
-	; Add all moving barriers to list
+	; Add all moving barriers to list, clear total hit velocities
 	LIST_GET_HEAD Barriers,a3
 	@BarrierLp:
 	cmp.l  #0x0, a3
 	beq    @NoBarrier
+	move.l #0x0, Barrier_TotalHitVel(a3)
 	move.l Barrier_VelX(a3), d0
 	add.l  Barrier_VelY(a3), d0
 	cmp.l  #0x0, d0

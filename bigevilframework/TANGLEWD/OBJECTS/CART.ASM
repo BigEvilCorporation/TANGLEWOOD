@@ -9,6 +9,7 @@
 ; Constants
 Cart_Width				equ 0x28
 Cart_Height				equ 0x20
+Cart_Mass				equ 0x0F
 Cart_MaxVelYUp			equ 0x060000
 Cart_MaxVelYDown		equ 0x080000
 Cart_StepHeight			equ 0x4
@@ -31,8 +32,9 @@ Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
 ;--------------------------
 Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
 Cart_Occupant        rs.l 1
+Cart_Smashed         rs.b 1
 ;--------------------------
-Cart_Struct_Pad      rs.b 0   ; Alignment padding
+Cart_Struct_Pad      rs.b 3   ; Alignment padding
 Cart_Struct_Size     rs.b 0
 ;--------------------------
 
@@ -70,9 +72,11 @@ CartInit:
 	move.w  #Cart_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.l  #Cart_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #Cart_Mass, PhysicsObj_Mass(a0)
 	;move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	;move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.l  #0x0, Cart_Occupant(a0)
+	move.b  #0x0, Cart_Smashed(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -110,7 +114,7 @@ CartLoadGfx:
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
 
-	; Reposition barrier
+	; Reposition platform
 	move.l a0, a2
 	add.l  #Cart_Platform, a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
@@ -123,6 +127,10 @@ CartLoadGfx:
 CartUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; If hit wall, cart smashed
+	tst.b  PhysicsObj_HitWall(a0)
+	bne    @Smashed
 
 	; Base functionality
 	jsr    PhysicsObjUpdate
@@ -171,6 +179,8 @@ CartUpdate:
 	@Unoccupied:
 	move.b #0x0, SpriteObj_Priority(a0)
 	@Occupied:
+	
+	@Smashed:
 
 	rts
 	

@@ -113,6 +113,7 @@ GameStateReset:
 	move.w #0x0, EntityCount_Monster
 	move.w #0x0, EntityCount_Nest
 	move.w #0x0, EntityCount_Nymn
+	move.w #0x0, EntityCount_Pillar
 	move.w #0x0, EntityCount_Rope
 	move.w #0x0, EntityCount_Stone
 	move.w #0x0, EntityCount_TriggerBox

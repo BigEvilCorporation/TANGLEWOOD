@@ -130,6 +130,7 @@ __start
 	include 'objects\lift.asm'
 	include 'objects\location.asm'
 	include 'objects\nest.asm'
+	include 'objects\pillar.asm'
 	include 'objects\plant.asm'
 	include 'objects\player.asm'
 	include 'objects\stone.asm'
