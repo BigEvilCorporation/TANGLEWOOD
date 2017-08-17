@@ -15,9 +15,10 @@ Cart_StepHeight			equ 0x4
 Cart_ProbeFloorX		equ (Cart_Width/2)	; Floor detection probe position X
 Cart_ProbeFloorY		equ (Cart_Height-8)	; Floor detection probe position X
 Cart_MaxVelX			equ 0x080000
+Cart_Accel				equ 0x000600
 Cart_Decel				equ 0x000800
 
-Cart_Accel				equ 0x000600
+Cart_PlatformOffsetY	equ 0x0018
 
 Cart_AnimSpeedVelDiv	equ 0x0008
 
@@ -29,6 +30,7 @@ Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
+Cart_Occupant        rs.l 1
 ;--------------------------
 Cart_Struct_Pad      rs.b 0   ; Alignment padding
 Cart_Struct_Size     rs.b 0
@@ -70,6 +72,7 @@ CartInit:
 	move.l  #Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	;move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	;move.b  #0x1, PhysicsObj_CanBePulled(a0)
+	move.l  #0x0, Cart_Occupant(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -111,7 +114,9 @@ CartLoadGfx:
 	move.l a0, a2
 	add.l  #Cart_Platform, a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	move.l Entity_WorldPosY(a0), d0
+	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
+	move.l d0, Platform_PosY(a2)
 
 	rts
 
@@ -126,17 +131,46 @@ CartUpdate:
 	move.l a0, a2
 	add.l  #Cart_Platform, a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	move.l Entity_WorldPosY(a0), d0
+	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
+	move.l d0, Platform_PosY(a2)
 	
 	; Set platform velocity
 	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
 
-	; If platform has an occupant, start moving
-	tst.b  Platform_Occupied(a2)
+	; If cart has an occupant, start moving and set high sprite prio
+	move.l Platform_LastOccupant(a2), a3
+	cmp.l  #0x0, a3
 	beq    @Unoccupied
+	
 	move.w #Cart_Accel, PhysicsObj_AccelX(a0)
+	move.b #0x1, SpriteObj_Priority(a0)
+	
+	; Update occupant pos
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
+	move.w Entity_Width(a0), d2
+	move.w Entity_Height(a0), d3
+	move.w Entity_Width(a3), d4
+	move.w Entity_Height(a3), d5
+	lsr.w  #0x1, d2
+	lsr.w  #0x1, d4
+	sub.w  d2, d4
+	sub.w  d4, d0
+	TOSUBPIXELS d0
+	move.l d0, Entity_WorldPosX(a3)
+	sub.w  d3, d5
+	sub.w  d5, d1
+	subi.w #(Cart_Height-Cart_PlatformOffsetY), d1
+	TOSUBPIXELS d1
+	move.l d1, Entity_WorldPosY(a3)
+	
+	bra    @Occupied
+	
 	@Unoccupied:
+	move.b #0x0, SpriteObj_Priority(a0)
+	@Occupied:
 
 	rts
 	

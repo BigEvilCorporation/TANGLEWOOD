@@ -936,6 +936,7 @@ PhysicsObjFindFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Mark object on platform
+	move.l a0, Platform_LastOccupant(a3)
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
@@ -1452,6 +1453,7 @@ PhysicsObjFindMovingFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Mark object on platform
+	move.l a0, Platform_LastOccupant(a3)
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 

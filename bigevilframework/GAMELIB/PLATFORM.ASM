@@ -19,6 +19,7 @@ Platform_PosY			rs.l 1
 Platform_VelX			rs.l 1
 Platform_VelY			rs.l 1
 Platform_Owner			rs.l 1
+Platform_LastOccupant	rs.l 1
 Platform_Width			rs.w 1
 Platform_TotalMass		rs.w 1
 Platform_Type			rs.b 1
