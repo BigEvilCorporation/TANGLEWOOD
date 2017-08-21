@@ -27,21 +27,19 @@ L5A1_Nymn_6_name	dc.b "L5A1_Nymn_6",0
 
 L5A1_BouncePlant_count equ 0x0
 
-L5A1_Log_count equ 0x2
-L5A1_Log_4_idx	equ 0x0
-L5A1_Log_5_idx	equ 0x1
-
-	IFND FINAL
-L5A1_Log_4_name	dc.b "L5A1_Log_4",0
-L5A1_Log_5_name	dc.b "L5A1_Log_5",0
-	even
-	ENDIF
+L5A1_Log_count equ 0x0
 
 L5A1_DjakkCage_count equ 0x0
 
 L5A1_Monster_count equ 0x0
 
-L5A1_Boulder_count equ 0x0
+L5A1_Boulder_count equ 0x1
+L5A1_Boulder_39_idx	equ 0x0
+
+	IFND FINAL
+L5A1_Boulder_39_name	dc.b "L5A1_Boulder_39",0
+	even
+	ENDIF
 
 L5A1_Firefly_count equ 0x0
 
@@ -57,7 +55,7 @@ L5A1_Fuzzl_2_name	dc.b "L5A1_Fuzzl_2",0
 	even
 	ENDIF
 
-L5A1_Stone_count equ 0x7
+L5A1_Stone_count equ 0x9
 L5A1_Stone_9_idx	equ 0x0
 L5A1_Stone_10_idx	equ 0x1
 L5A1_Stone_11_idx	equ 0x2
@@ -65,6 +63,8 @@ L5A1_Stone_12_idx	equ 0x3
 L5A1_Stone_13_idx	equ 0x4
 L5A1_Stone_16_idx	equ 0x5
 L5A1_Stone_17_idx	equ 0x6
+L5A1_Stone_40_idx	equ 0x7
+L5A1_Stone_38_idx	equ 0x8
 
 	IFND FINAL
 L5A1_Stone_9_name	dc.b "L5A1_Stone_9",0
@@ -74,6 +74,8 @@ L5A1_Stone_12_name	dc.b "L5A1_Stone_12",0
 L5A1_Stone_13_name	dc.b "L5A1_Stone_13",0
 L5A1_Stone_16_name	dc.b "L5A1_Stone_16",0
 L5A1_Stone_17_name	dc.b "L5A1_Stone_17",0
+L5A1_Stone_40_name	dc.b "L5A1_Stone_40",0
+L5A1_Stone_38_name	dc.b "L5A1_Stone_38",0
 	even
 	ENDIF
 
@@ -87,7 +89,13 @@ L5A1_Nest_8_name	dc.b "L5A1_Nest_8",0
 
 L5A1_Flue_count equ 0x0
 
-L5A1_TriggerBox_count equ 0x0
+L5A1_TriggerBox_count equ 0x1
+L5A1_TriggerBox_end_idx	equ 0x0
+
+	IFND FINAL
+L5A1_TriggerBox_end_name	dc.b "L5A1_TriggerBox_end",0
+	even
+	ENDIF
 
 L5A1_Checkpoint_count equ 0x0
 
@@ -95,7 +103,17 @@ L5A1_WaterBody_count equ 0x0
 
 L5A1_Location_count equ 0x0
 
-L5A1_Deathbox_count equ 0x0
+L5A1_Deathbox_count equ 0x3
+L5A1_Deathbox_37_idx	equ 0x0
+L5A1_Deathbox_43_idx	equ 0x1
+L5A1_Deathbox_44_idx	equ 0x2
+
+	IFND FINAL
+L5A1_Deathbox_37_name	dc.b "L5A1_Deathbox_37",0
+L5A1_Deathbox_43_name	dc.b "L5A1_Deathbox_43",0
+L5A1_Deathbox_44_name	dc.b "L5A1_Deathbox_44",0
+	even
+	ENDIF
 
 L5A1_Lift_count equ 0x0
 
@@ -117,19 +135,23 @@ L5A1_Cogs1_name	dc.b "L5A1_Cogs1",0
 	even
 	ENDIF
 
-L5A1_Bridge_count equ 0x1
+L5A1_Bridge_count equ 0x2
 L5A1_Bridge1_idx	equ 0x0
+L5A1_Bridge2_idx	equ 0x1
 
 	IFND FINAL
 L5A1_Bridge1_name	dc.b "L5A1_Bridge1",0
+L5A1_Bridge2_name	dc.b "L5A1_Bridge2",0
 	even
 	ENDIF
 
-L5A1_Button_count equ 0x1
+L5A1_Button_count equ 0x2
 L5A1_Button1_idx	equ 0x0
+L5A1_Button2_idx	equ 0x1
 
 	IFND FINAL
 L5A1_Button1_name	dc.b "L5A1_Button1",0
+L5A1_Button2_name	dc.b "L5A1_Button2",0
 	even
 	ENDIF
 
@@ -137,25 +159,39 @@ L5A1_Wyrm_count equ 0x0
 
 L5A1_AIMarker_count equ 0x0
 
-L5A1_Cart_count equ 0x2
+L5A1_Cart_count equ 0x6
 L5A1_Cart_20_idx	equ 0x0
 L5A1_Cart_21_idx	equ 0x1
+L5A1_Cart_28_idx	equ 0x2
+L5A1_Cart_29_idx	equ 0x3
+L5A1_Cart_41_idx	equ 0x4
+L5A1_Cart_42_idx	equ 0x5
 
 	IFND FINAL
 L5A1_Cart_20_name	dc.b "L5A1_Cart_20",0
 L5A1_Cart_21_name	dc.b "L5A1_Cart_21",0
+L5A1_Cart_28_name	dc.b "L5A1_Cart_28",0
+L5A1_Cart_29_name	dc.b "L5A1_Cart_29",0
+L5A1_Cart_41_name	dc.b "L5A1_Cart_41",0
+L5A1_Cart_42_name	dc.b "L5A1_Cart_42",0
 	even
 	ENDIF
 
-L5A1_Pillar_count equ 0x3
+L5A1_Pillar_count equ 0x6
 L5A1_Pillar_22_idx	equ 0x0
 L5A1_Pillar_23_idx	equ 0x1
 L5A1_Pillar_24_idx	equ 0x2
+L5A1_Pillar_25_idx	equ 0x3
+L5A1_Pillar_26_idx	equ 0x4
+L5A1_Pillar_27_idx	equ 0x5
 
 	IFND FINAL
 L5A1_Pillar_22_name	dc.b "L5A1_Pillar_22",0
 L5A1_Pillar_23_name	dc.b "L5A1_Pillar_23",0
 L5A1_Pillar_24_name	dc.b "L5A1_Pillar_24",0
+L5A1_Pillar_25_name	dc.b "L5A1_Pillar_25",0
+L5A1_Pillar_26_name	dc.b "L5A1_Pillar_26",0
+L5A1_Pillar_27_name	dc.b "L5A1_Pillar_27",0
 	even
 	ENDIF
 
@@ -220,30 +256,6 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr LogInit
-	move.l #0x14c00000, Entity_WorldPosX(a0)
-	move.l #0x05400000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A1_Log_4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LogLoadGfx
-	add.l #Log_Struct_Size, a0
-	jsr LogInit
-	move.l #0x12b80000, Entity_WorldPosX(a0)
-	move.l #0x04980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A1_Log_5_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LogLoadGfx
-	add.l #Log_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L5A1_DjakkCage_count)
@@ -265,6 +277,18 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr BoulderInit
+	move.l #0x0df00000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Boulder_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L5A1_Firefly_count)
@@ -391,10 +415,34 @@ L5A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x0a580000, Entity_WorldPosX(a0)
+	move.l #0x09e80000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Stone_17_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0dd00000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_40_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x10080000, Entity_WorldPosX(a0)
+	move.l #0x06500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Stone_38_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -435,6 +483,21 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr TriggerBoxInit
+	move.l #0x1f400000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_TriggerBox_end_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #L5a1_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L5A1_Checkpoint_count)
@@ -463,6 +526,42 @@ L5A1_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
+	jsr DeathboxInit
+	move.l #0x0c180000, Entity_WorldPosX(a0)
+	move.l #0x05b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Deathbox_37_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x19200000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Deathbox_43_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x1aa00000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Deathbox_44_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A1_Lift_count)
@@ -537,6 +636,20 @@ L5A1_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
+	jsr BridgeInit
+	move.l #0x14300000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Bridge2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L5A1_Button_count)
@@ -549,6 +662,18 @@ L5A1_LoadGameObjects:
 	move.l #0x04180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Button1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x11180000, Entity_WorldPosX(a0)
+	move.l #0x06580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Button2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
@@ -578,7 +703,7 @@ L5A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CartInit
-	move.l #0x09100000, Entity_WorldPosX(a0)
+	move.l #0x09b00000, Entity_WorldPosX(a0)
 	move.l #0x02d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Cart_20_name, a3
@@ -590,10 +715,58 @@ L5A1_LoadGameObjects:
 	jsr CartLoadGfx
 	add.l #Cart_Struct_Size, a0
 	jsr CartInit
-	move.l #0x09380000, Entity_WorldPosX(a0)
+	move.l #0x09e00000, Entity_WorldPosX(a0)
 	move.l #0x02d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Cart_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CartLoadGfx
+	add.l #Cart_Struct_Size, a0
+	jsr CartInit
+	move.l #0x08200000, Entity_WorldPosX(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Cart_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CartLoadGfx
+	add.l #Cart_Struct_Size, a0
+	jsr CartInit
+	move.l #0x08480000, Entity_WorldPosX(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Cart_29_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CartLoadGfx
+	add.l #Cart_Struct_Size, a0
+	jsr CartInit
+	move.l #0x14380000, Entity_WorldPosX(a0)
+	move.l #0x05a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Cart_41_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CartLoadGfx
+	add.l #Cart_Struct_Size, a0
+	jsr CartInit
+	move.l #0x14600000, Entity_WorldPosX(a0)
+	move.l #0x05a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Cart_42_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
@@ -637,6 +810,42 @@ L5A1_LoadGameObjects:
 	move.l #0x02e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Pillar_24_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr PillarLoadGfx
+	add.l #Pillar_Struct_Size, a0
+	jsr PillarInit
+	move.l #0x0a480000, Entity_WorldPosX(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Pillar_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr PillarLoadGfx
+	add.l #Pillar_Struct_Size, a0
+	jsr PillarInit
+	move.l #0x0b880000, Entity_WorldPosX(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Pillar_26_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr PillarLoadGfx
+	add.l #Pillar_Struct_Size, a0
+	jsr PillarInit
+	move.l #0x0e580000, Entity_WorldPosX(a0)
+	move.l #0x05200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_Pillar_27_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0

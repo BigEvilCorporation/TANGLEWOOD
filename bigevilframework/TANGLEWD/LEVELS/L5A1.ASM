@@ -111,6 +111,14 @@ L5a1_Init:
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l5a1_Button2, a0
+	ENTITY_GETBYNAME Bridge, l5a1_Bridge2, a1
+	move.l a1, Button_UserData(a0)
+	move.b #0x1, Button_Active(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.l #BridgeBeginUnroll, Button_OnUp(a0)
+
 	;==============================================================
 
 	; 'Special' terrain is cart rails, don't collide
