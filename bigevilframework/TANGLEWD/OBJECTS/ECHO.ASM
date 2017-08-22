@@ -17,15 +17,16 @@ Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
 Echo_NumAINodes				equ 0x10	; Num AI follow nodes to store in queue (must be power of two)
 Echo_LostTime				equ 0x0078	; Time off screen until considered 'lost'
 Echo_CatchUpTime			equ 0x0300	; Time off screen in catchup mode until considered lost again
-Echo_AIFollowDistance		equ 0x0040	; X distance from Nymn to start following
-Echo_AIFollowDistanceLost	equ 0x0020	; X distance from Nymn to start following if Nymn is above/below Echo
+Echo_AIFollowDistance		equ 0x0040	; Max X distance from Nymn when following
+Echo_AIFollowDistanceNode	equ 0x0010	; Max X distance from node pos when following nodes
 Echo_AIJumpDistance			equ 0x0020	; Upward distance from Nymn to start jumping
-Echo_AIFindHoleDistance		equ 0x0020	; Downward distance from Nymn to find a place to drop down
+Echo_AIFindHoleDistance		equ 0x0030	; Downward distance from Nymn to find a place to drop down
 Echo_AIInnerScreenBoundsExt	equ 0x0030
 Echo_AIOuterScreenBoundsExt	equ 0x0060
 Echo_AIDistFuzzlX			equ screen_width
 Echo_AIDistFuzzlY			equ Player1Height
 Echo_AIDistPushObjX			equ 0x0008
+Echo_AINoNodeVelocity		equ 0xFFFF
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -67,10 +68,12 @@ EchoAIPush_Right				equ 0x1
 EchoAINode_UserData			rs.l 1
 EchoAINode_PosX				rs.w 1
 EchoAINode_PosY				rs.w 1
+EchoAINode_VelX				rs.w 1
 EchoAINode_Tolerance		rs.w 1
 EchoAINode_Action			rs.b 1
+EchoAINode_StopMovement		rs.b 1
 ;---------------------------------
-EchoAINode_Struct_Pad		rs.b 1
+EchoAINode_Struct_Pad		rs.b 2
 EchoAINode_Struct_Size		rs.b 0
 
 ; ************************************
@@ -827,9 +830,6 @@ EchoAIStart_PushObj:
 	; Set object
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
-	; Stop X movement
-	jsr    CharacterCancelXMovement
-
 	; Begin push interaction
 	jsr    PlayerStartInteract
 	
@@ -1104,7 +1104,9 @@ EchoAI_WatchNymnMovement:
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
-	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
+	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
+	move.b #0x0, EchoAINode_StopMovement(a0)
 	move.b #EchoAINode_Action_StartGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1116,7 +1118,9 @@ EchoAI_WatchNymnMovement:
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
-	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
+	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
+	move.b #0x0, EchoAINode_StopMovement(a0)
 	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1155,7 +1159,9 @@ EchoAI_WatchNymnMovement:
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
-	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
+	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
+	move.b #0x0, EchoAINode_StopMovement(a0)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 
 	bra    @End
@@ -1177,7 +1183,9 @@ EchoAI_WatchNymnMovement:
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
-	move.w #Echo_AIFollowDistanceLost, EchoAINode_Tolerance(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
+	move.b #0x0, EchoAINode_StopMovement(a0)
 	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
 
 	@WithinYToleranceDown:
@@ -1255,7 +1263,9 @@ EchoAI_PushInteractionFuzzl:
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AIDistPushObjX, EchoAINode_Tolerance(a3)
+	move.b #0x1, EchoAINode_StopMovement(a0)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
 	; Determine direction to roll in (towards Nymn)
@@ -1263,11 +1273,11 @@ EchoAI_PushInteractionFuzzl:
 	move.w Entity_WorldPosX(a4), d2
 	sub.w  d0, d2
 	blt    @RightSide
-	sub.w  #Echo_AIDistPushObjX*2, d0	; Left side of Fuzzl (Fuzzl pos - threshold)
+	sub.w  #Echo_AIDistPushObjX, d0	; Left side of Fuzzl (Fuzzl pos - threshold)
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
-	add.w  #Echo_AIDistPushObjX*2, d0
+	add.w  #Echo_AIDistPushObjX, d0
 	@LeftSide:
 
 	move.w d0, EchoAINode_PosX(a3)
@@ -1320,6 +1330,24 @@ EchoAIPopNode:
 	move.l a0, a3
 
 	POPL  a0
+
+	;==============================================================
+
+	; Stop X movement if configured to
+	tst.b  EchoAINode_StopMovement(a3)
+	beq    @NoStopX
+	jsr    CharacterCancelXMovement
+	@NoStopX:
+
+	;==============================================================
+
+	; Set X velocity if configured to
+	move.w EchoAINode_VelX(a3), d0
+	cmp.w  #Echo_AINoNodeVelocity, d0
+	beq    @NoVelX
+	TOSUBPIXELS d0
+	move.l d0, PhysicsObj_VelX(a0)
+	@NoVelX:
 
 	;==============================================================
 
