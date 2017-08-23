@@ -7,26 +7,27 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 1
+ECHO_AI_DEBUG_NODE_POS		equ 0
 
 ; Constants
 Echo_MaxEntities			equ 1
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
-Echo_JumpToNymnVel			equ 0x040000	; Jum velocity when mounting Nymn
+Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 
 ; AI
-Echo_NumAINodes				equ 0x10	; Num AI follow nodes to store in queue (must be power of two)
-Echo_LostTime				equ 0x0078	; Time off screen until considered 'lost'
-Echo_CatchUpTime			equ 0x0300	; Time off screen in catchup mode until considered lost again
-Echo_AIFollowDistance		equ 0x0040	; Max X distance from Nymn when following
-Echo_AIFollowDistanceNode	equ 0x0010	; Max X distance from node pos when following nodes
-Echo_AIJumpDistance			equ 0x0020	; Upward distance from Nymn to start jumping
-Echo_AIFindHoleDistance		equ 0x0030	; Downward distance from Nymn to find a place to drop down
-Echo_AIInnerScreenBoundsExt	equ 0x0030
-Echo_AIOuterScreenBoundsExt	equ 0x0060
-Echo_AIDistFuzzlX			equ screen_width
-Echo_AIDistFuzzlY			equ Player1Height
-Echo_AIDistPushObjX			equ 0x0008
-Echo_AINoNodeVelocity		equ 0xFFFF
+Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
+Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
+Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
+Echo_LostTime				equ 0x0078			; Time off screen until considered lost
+Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
+Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
+Echo_AIFollowDistanceNode	equ 0x0010			; Max X distance from node pos when running to next node
+Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump node
+Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
+Echo_AIDistFuzzlX			equ screen_width	; X distance from Fuzzl to add a push obj node
+Echo_AIDistFuzzlY			equ Player1Height	; Y distance from Fuzzl to add a push obj node
+Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
+Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -552,6 +553,42 @@ EchoUpdateAI:
 	
 	@End:
 
+	IF ECHO_AI_DEBUG_NODE_POS
+	clr.l  d6
+	clr.l  d7
+	move.w Echo_AINodeConsumer(a0), d6
+	move.w Echo_AINodeProducer(a0), d7
+	andi.w #Echo_NumAINodes-1, d6
+	andi.w #Echo_NumAINodes-1, d7
+	cmp.w  d6, d7
+	beq    @DebugNodeEnd
+	@DebugNodeLp:
+	PUSHM  d6-d7/a0-a1
+	mulu   #EchoAINode_Struct_Size, d6
+	move.l a0, a2
+	add.l  #Echo_AIFollowNodes, a2
+	add.l  d6, a2
+	move.l (EntityPoolStart_Fuzzl), a0
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	PUSHM  d0-d1
+	move.w EchoAINode_PosX(a2), d0
+	move.w EchoAINode_PosY(a2), d1
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	jsr    SpriteObjDraw
+	POPM   d0-d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	POPM   d6-d7/a0-a1
+	addi.w #0x1, d6
+	cmp.w  d6, d7
+	bne    @DebugNodeLp
+	@DebugNodeEnd:
+	ENDIF
+
 	rts
 
 EchoAIStart_Follow:
@@ -624,7 +661,7 @@ EchoAIUpdate_Follow:
 	beq    @NoNodes
 
 	; Peek node queue
-	jsr    EchoAIPeekNode
+	jsr    EchoAIPeekNodeFront
 
 	; Set target X
 	move.w EchoAINode_PosX(a3), d1
@@ -1139,7 +1176,7 @@ EchoAI_WatchNymnMovement:
 	move.w Echo_AINodeConsumer(a0), d4
 	cmp.w  Echo_AINodeProducer(a0), d4
 	beq    @NoNodes
-	jsr    EchoAIPeekNode
+	jsr    EchoAIPeekNodeBack
 	move.w EchoAINode_PosY(a3), d0
 	bra    @UsingNodePos
 	@NoNodes:
@@ -1315,6 +1352,18 @@ EchoAIPopNode:
 	; a3 --- Node
 
 	PUSHL a0
+	
+	IFND FINAL
+	PUSHM  d0-d1
+	move.w (Echo_AINodeProducer), d0
+	move.w (Echo_AINodeConsumer), d1
+	sub.w  d1, d0
+	cmp.w  #Echo_NumAINodes-1, d0
+	bne    @FreeSpace
+	RAISE_EXCEPTION *
+	@FreeSpace:
+	POPM   d0-d1
+	ENDIF
 
 	moveq  #0x0, d7
 	move.w Echo_AINodeConsumer(a0), d7
@@ -1412,7 +1461,7 @@ EchoAIPopNode:
 
 	rts
 
-EchoAIPeekNode:
+EchoAIPeekNodeFront:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; a3 --- Node
@@ -1421,6 +1470,28 @@ EchoAIPeekNode:
 
 	moveq  #0x0, d7
 	move.w Echo_AINodeConsumer(a0), d7
+	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
+	
+	; Get address into array of nodes
+	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
+	add.l  #Echo_AIFollowNodes, a0		; Get array
+	add.l  d7, a0						; Add offset
+	move.l a0, a3
+
+	POPL  a0
+
+	rts
+
+EchoAIPeekNodeBack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Node
+
+	PUSHL a0
+
+	moveq  #0x0, d7
+	move.w Echo_AINodeProducer(a0), d7
+	subi.w #0x1, d7
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
 	
 	; Get address into array of nodes
