@@ -6,8 +6,8 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
-ECHO_AI_DEBUG_SAFE_POS 		equ 1
-ECHO_AI_DEBUG_NODE_POS		equ 0
+ECHO_AI_DEBUG_SAFE_POS 		equ 0
+ECHO_AI_DEBUG_NODE_POS		equ 1
 
 ; Constants
 Echo_MaxEntities			equ 1
@@ -15,19 +15,35 @@ Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 
 ; AI
-Echo_NumAINodes				equ 0x10			; Num AI follow nodes to store in queue (must be power of two)
+Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be power of two)
 Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
 Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
 Echo_LostTime				equ 0x0078			; Time off screen until considered lost
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
+Echo_NodeFailTime			equ 0x0078			; Timeout to reach next node before returning to basic follow state
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
-Echo_AIFollowDistanceNode	equ 0x0010			; Max X distance from node pos when running to next node
 Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump node
 Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
 Echo_AIDistFuzzlX			equ screen_width	; X distance from Fuzzl to add a push obj node
 Echo_AIDistFuzzlY			equ Player1Height	; Y distance from Fuzzl to add a push obj node
 Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
+
+; AI distance tolerances for node types
+Echo_AINodeToleranceJumpX		equ 0x0010
+Echo_AINodeToleranceJumpY		equ 0x0080
+Echo_AINodeToleranceJumpLostX	equ 0x0010
+Echo_AINodeToleranceJumpLostY	equ 0x0200
+Echo_AINodeToleranceLandX		equ 0x0020
+Echo_AINodeToleranceLandY		equ 0x0060
+Echo_AINodeToleranceFallX		equ 0x0020
+Echo_AINodeToleranceFallY		equ 0x0100
+Echo_AINodeToleranceGlideX		equ 0x0010
+Echo_AINodeToleranceGlideY		equ 0x0040
+Echo_AINodeToleranceGlideStopX	equ 0x0020
+Echo_AINodeToleranceGlideStopY	equ 0x0060
+Echo_AINodeTolerancePushX		equ 0x0010
+Echo_AINodeTolerancePushY		equ 0x0010
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -48,17 +64,19 @@ EchoMountNymn_Riding		equ 3
 
 ; AI state
 EchoAIState_None			equ 0	; No AI, under player/cutscene control
-EchoAIState_Follow			equ 1	; Following Nymn's action nodes
-EchoAIState_Lost			equ 2	; Waiting for safe place to transport to
-EchoAIState_CatchUp			equ 3	; Running directly back to Nymn
-EchoAIState_PushObj			equ 4	; Pushing an object towards Nymn
+EchoAIState_Follow			equ 1	; Following Nymn directly
+EchoAIState_FollowNodes		equ 2	; Following Nymn using nodes
+EchoAIState_Lost			equ 3	; Waiting for safe place to transport to
+EchoAIState_CatchUp			equ 4	; Running directly back to Nymn
+EchoAIState_PushObj			equ 5	; Pushing an object towards Nymn
 
 ; AI node actions
-EchoAINode_Action_Jump			equ 0x0
-EchoAINode_Action_Fall			equ 0x1
-EchoAINode_Action_StartGlide	equ 0x2
-EchoAINode_Action_StopGlide		equ 0x3
-EchoAINode_Action_StartPush		equ 0x4
+EchoAINode_Action_Jump			equ 0x1
+EchoAINode_Action_Fall			equ 0x2
+EchoAINode_Action_Land			equ 0x3
+EchoAINode_Action_StartGlide	equ 0x4
+EchoAINode_Action_StopGlide		equ 0x5
+EchoAINode_Action_StartPush		equ 0x6
 
 ; AI node userdata
 EchoAIPush_Left					equ 0x0
@@ -70,11 +88,13 @@ EchoAINode_UserData			rs.l 1
 EchoAINode_PosX				rs.w 1
 EchoAINode_PosY				rs.w 1
 EchoAINode_VelX				rs.w 1
-EchoAINode_Tolerance		rs.w 1
+EchoAINode_ToleranceX		rs.w 1
+EchoAINode_ToleranceY		rs.w 1
 EchoAINode_Action			rs.b 1
 EchoAINode_StopMovement		rs.b 1
+EchoAINode_RequireOnFloor	rs.b 1
 ;---------------------------------
-EchoAINode_Struct_Pad		rs.b 2
+EchoAINode_Struct_Pad		rs.b 3
 EchoAINode_Struct_Size		rs.b 0
 
 ; ************************************
@@ -93,11 +113,16 @@ Echo_AISafePosY				rs.w 1
 Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe posisiton when out of view
 Echo_AIPotentialSafePosY	rs.w 1
 Echo_HowlTimer				rs.w 1
+Echo_LastNymnFloorPosX		rs.w 1
+Echo_LastNymnFloorPosY		rs.w 1
+Echo_LastNymnFloorVelX		rs.w 1
+Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
+Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 3
+Echo_Struct_Pad      		rs.b 1
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -135,6 +160,8 @@ EchoInit:
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	move.b #0x0, Echo_AINymnGliding(a0)
+	move.b #0x0, Echo_AINymnJumping(a0)
+	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -415,6 +442,44 @@ EchoDraw:
 	jsr   CharacterDraw
 	@NoDraw:
 
+	IF ECHO_AI_DEBUG_NODE_POS
+	clr.l  d6
+	clr.l  d7
+	move.w Echo_AINodeConsumer(a0), d6
+	move.w Echo_AINodeProducer(a0), d7
+	cmp.w  d6, d7
+	beq    @DebugNodeEnd
+	@DebugNodeLp:
+	PUSHM  d6-d7/a0-a1
+	andi.w #Echo_NumAINodes-1, d6
+	andi.w #Echo_NumAINodes-1, d7
+	mulu   #EchoAINode_Struct_Size, d6
+	move.l a0, a2
+	add.l  #Echo_AIFollowNodes, a2
+	add.l  d6, a2
+	move.w Entity_Height(a0), d3
+	move.l (EntityPoolStart_Fuzzl), a0
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	PUSHM  d0-d1
+	move.w EchoAINode_PosX(a2), d0
+	move.w EchoAINode_PosY(a2), d1
+	add.w  d3, d1
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	jsr    SpriteObjDraw
+	POPM   d0-d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	POPM   d6-d7/a0-a1
+	addi.w #0x1, d6
+	cmp.w  d6, d7
+	bne    @DebugNodeLp
+	@DebugNodeEnd:
+	ENDIF
+
 	rts
 	
 EchoBeginCarried:
@@ -527,6 +592,8 @@ EchoUpdateAI:
 	beq    @End
 	cmp.b  #EchoAIState_Follow, d0
 	beq    @Follow
+	cmp.b  #EchoAIState_FollowNodes, d0
+	beq    @FollowNodes
 	cmp.b  #EchoAIState_Lost, d0
 	beq    @Lost
 	cmp.b  #EchoAIState_CatchUp, d0
@@ -537,6 +604,10 @@ EchoUpdateAI:
 	
 	@Follow:
 	jsr    EchoAIUpdate_Follow
+	bra    @End
+
+	@FollowNodes:
+	jsr    EchoAIUpdate_FollowNodes
 	bra    @End
 
 	@Lost:
@@ -552,42 +623,6 @@ EchoUpdateAI:
 	bra    @End
 	
 	@End:
-
-	IF ECHO_AI_DEBUG_NODE_POS
-	clr.l  d6
-	clr.l  d7
-	move.w Echo_AINodeConsumer(a0), d6
-	move.w Echo_AINodeProducer(a0), d7
-	andi.w #Echo_NumAINodes-1, d6
-	andi.w #Echo_NumAINodes-1, d7
-	cmp.w  d6, d7
-	beq    @DebugNodeEnd
-	@DebugNodeLp:
-	PUSHM  d6-d7/a0-a1
-	mulu   #EchoAINode_Struct_Size, d6
-	move.l a0, a2
-	add.l  #Echo_AIFollowNodes, a2
-	add.l  d6, a2
-	move.l (EntityPoolStart_Fuzzl), a0
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	PUSHM  d0-d1
-	move.w EchoAINode_PosX(a2), d0
-	move.w EchoAINode_PosY(a2), d1
-	TOSUBPIXELS d0
-	TOSUBPIXELS d1
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-	jsr    SpriteObjDraw
-	POPM   d0-d1
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-	POPM   d6-d7/a0-a1
-	addi.w #0x1, d6
-	cmp.w  d6, d7
-	bne    @DebugNodeLp
-	@DebugNodeEnd:
-	ENDIF
 
 	rts
 
@@ -615,11 +650,11 @@ EchoAIUpdate_Follow:
 	move.l (Player1), a2
 	
 	; If Echo touching Nymn, clear all follow nodes and do nothing
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
-	PHYSICS_GETBOUNDS d3,d4,d5,a2
-	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
-	bne    @CancelFollow
+	;PHYSICS_GETBOUNDS d1,d2,d5,a0
+	;PHYSICS_GETBOUNDS d3,d4,d5,a2
+	;jsr    PHYS_TestBoxIntersectBox
+	;cmp.b  #0x0, d0
+	;bne    @CancelFollow
 
 	; If off screen, count down lost timer
 	jsr    EchoAI_CheckOuterScreenBounds
@@ -645,42 +680,14 @@ EchoAIUpdate_Follow:
 	; Watch Nymn's potential safe positions
 	jsr    EchoAI_WatchNymnSafePos
 
-	; Clear current AI node
-	move.l #0x0, a3
-
-	; Use Nymn X pos as target by default
-	ENTITY_GETCENTREX d1,a2
-	TOPIXELS d1
-
-	; Default tolerance
+	; Follow distance tolerance
 	move.w #Echo_AIFollowDistance, d3
-
-	; If node queue empty, just follow Nymn within X threshold
-	move.w Echo_AINodeConsumer(a0), d4
-	cmp.w  Echo_AINodeProducer(a0), d4
-	beq    @NoNodes
-
-	; Peek node queue
-	jsr    EchoAIPeekNodeFront
-
-	; Set target X
-	move.w EchoAINode_PosX(a3), d1
-
-	; Set tolerance
-	move.w EchoAINode_Tolerance(a3), d3
-
-	; If run into a wall, forcefully execute the next node
-	PUSHL  d1
-	PHYSICS_HITFACINGWALL a0
-	POPL   d1
-	tst.b  d0
-	bne    @HittingWall
-	
-	@NoNodes:
 
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
 	TOPIXELS d0
+	TOPIXELS d1
 	
 	; Check left bounds
 	move.w d1, d2
@@ -710,30 +717,125 @@ EchoAIUpdate_Follow:
 	;==============================================================
 	
 	@HittingWall:
-
-	; Target reached or hit wall, if using AI node then pop from queue and run action
-	cmp.l  #0x0, a3
-	beq    @NoNode
-	jsr    EchoAIPopNode
-	bra    @End
-	@NoNode:
-
-	; No node, just cancel X movement
-	jsr    CharacterCancelXMovement
-	bra    @End
-
 	@CancelFollow:
 	@Lost:
 
-	; Cancel X movement and clear all follow nodes
+	; Cancel X movement
 	jsr    CharacterCancelXMovement
-	move.w #0x0, Echo_AINodeProducer(a0)
-	move.w #0x0, Echo_AINodeConsumer(a0)
 	
 	@End:
 
 	; Search for interesting objects
 	jsr    EchoAI_FindInterestingObj
+	
+	rts
+
+EchoAIStart_FollowNodes:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set follow nodes state
+	move.b #EchoAIState_FollowNodes, Echo_AIState(a0)
+
+	; Reset fail timer
+	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
+	
+	rts
+	
+EchoAIUpdate_FollowNodes:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Watch Nymn's actions, create AI follow nodes
+	jsr    EchoAI_WatchNymnMovement
+	
+	; Watch Nymn's potential safe positions
+	jsr    EchoAI_WatchNymnSafePos
+
+	; If timer depleted, return to basic follow state
+	move.w Echo_AILostTimer(a0), d0
+	sub.w  #0x1, d0
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
+	jsr    EchoAIStart_Follow
+	bra    @Lost
+	@LostTimerRunning:
+
+	; Peek node queue
+	jsr    EchoAIPeekNodeFront
+
+	; Set target
+	move.w EchoAINode_PosX(a3), d1
+	move.w EchoAINode_PosY(a3), d2
+
+	; Set tolerance
+	move.w EchoAINode_ToleranceX(a3), d3
+	move.w EchoAINode_ToleranceY(a3), d4
+
+	; Check if within X tolerance
+	ENTITY_GETCENTREX d0,a0
+	TOPIXELS d0
+	
+	; Check left bounds
+	move.w d1, d5
+	sub.w  d3, d5
+	cmp.w  d0, d5
+	bgt    @TooFarleft
+	
+	; Check right bounds
+	move.w d1, d5
+	add.w  d3, d5
+	cmp.w  d0, d5
+	blt    @TooFarRight
+	
+	; Within bounds
+	bra    @WithinBounds
+	
+	@TooFarleft:
+	jsr    CharacterMoveRight
+	bra    @End
+	
+	@TooFarRight:
+	jsr    CharacterMoveLeft
+	bra    @End
+	
+	@WithinBounds:
+
+	;==============================================================
+	
+	@HittingWall:
+
+	; Check if required to be on floor
+	tst.b  EchoAINode_RequireOnFloor(a3)
+	beq    @NotRequiredOnFloor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @End
+	@NotRequiredOnFloor:
+
+	; If Y target reached
+	move.w Entity_WorldPosY(a0), d0
+	sub.w  d0, d2
+	cmp.w  d4, d2
+	bgt    @End
+	neg.w  d4
+	cmp.w  d4, d2
+	blt    @End
+
+	; Pop AI node from queue and run action
+	jsr    EchoAIPopNode
+
+	; Reset fail timer
+	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
+
+	; If last node, return to follow state
+	move.w Echo_AINodeProducer(a0), d0
+	move.w Echo_AINodeConsumer(a0), d1
+	cmp.w  d0, d1
+	bne    @End
+	jsr    EchoAIStart_Follow
+	
+	@Lost:
+	@End:
 	
 	rts
 
@@ -1119,6 +1221,52 @@ EchoAI_WatchNymnMovement:
 	; a1 --- Level addr
 	; a2 --- Nymn addr
 
+	; If Nymn on floor, take floor pos
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @NymnInAir
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, Echo_LastNymnFloorPosX(a0)
+	move.w Entity_WorldPosY(a2), Echo_LastNymnFloorPosY(a0)
+	move.w PhysicsObj_VelX(a2), Echo_LastNymnFloorVelX(a0)
+	@NymnInAir:
+
+	;==============================================================
+
+	; Check if Nymn lands from a jump this frame
+	tst.b  Echo_AIWaitingForNymnLanding(a0)
+	beq    @NotLanded
+	move.b Echo_AINymnJumping(a0), d7
+	move.b Character_Jumping(a2), d6
+	move.b d6, Echo_AINymnJumping(a0)
+	cmp.b  d6, d7
+	beq    @NotLanded
+
+	; Jump state changed
+	tst.b  d6
+	bne    @NotLanded
+
+	; Landed from jump
+	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
+
+	; Create landing node
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w Echo_LastNymnFloorPosY(a0), EchoAINode_PosY(a3)
+	move.w #Echo_AINodeToleranceLandX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceLandY, EchoAINode_ToleranceY(a3)
+	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #EchoAINode_Action_Land, EchoAINode_Action(a3)
+	bra    @End
+
+	@NotLanded:
+
+	;==============================================================
+
 	; Check Nymn gliding and cache value
 	move.b Echo_AINymnGliding(a0), d1
 	move.b #0x0, d0
@@ -1140,10 +1288,12 @@ EchoAI_WatchNymnMovement:
 	ENTITY_GETCENTREX d5,a2
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
-	move.w d1, EchoAINode_PosY(a3)
-	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #Echo_AINodeToleranceGlideX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceGlideY, EchoAINode_ToleranceY(a3)
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.b #0x0, EchoAINode_StopMovement(a0)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #EchoAINode_Action_StartGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1154,10 +1304,12 @@ EchoAI_WatchNymnMovement:
 	ENTITY_GETCENTREX d5,a2
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
-	move.w d1, EchoAINode_PosY(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
-	move.b #0x0, EchoAINode_StopMovement(a0)
+	move.w #Echo_AINodeTolerancePushX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushY, EchoAINode_ToleranceY(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1171,6 +1323,10 @@ EchoAI_WatchNymnMovement:
 
 	; Get Nymn Y pos
 	move.w Entity_WorldPosY(a2), d1
+
+	; If not waiting for landing from jump
+	tst.b  Echo_AIWaitingForNymnLanding(a0)
+	bne    @End
 
 	; Get Echo Y pos, or last node Y pos
 	move.w Echo_AINodeConsumer(a0), d4
@@ -1192,14 +1348,24 @@ EchoAI_WatchNymnMovement:
 
 	; Create jump node
 	jsr    EchoAIPushNode
-	ENTITY_GETCENTREX d5,a2
-	TOPIXELS d5
-	move.w d5, EchoAINode_PosX(a3)
+	move.w Echo_LastNymnFloorPosX(a0), EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
-	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
-	move.b #0x0, EchoAINode_StopMovement(a0)
+	move.w Echo_LastNymnFloorVelX(a0), EchoAINode_VelX(a3)
+	move.w #Echo_AINodeToleranceJumpLostX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceJumpLostY, EchoAINode_ToleranceY(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
+
+	; If Nymn was in air because of a jump, set waiting for landing, take floor pos as target Y, and require on floor
+	tst.b  Character_Jumping(a2)
+	beq    @NotJumping
+	move.b #0x1, Echo_AIWaitingForNymnLanding(a0)
+	move.w Echo_LastNymnFloorPosY(a0), EchoAINode_PosY(a3)
+	move.w #Echo_AINodeToleranceJumpX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	@NotJumping:
 
 	bra    @End
 
@@ -1219,10 +1385,12 @@ EchoAI_WatchNymnMovement:
 	ENTITY_GETCENTREX d5,a2
 	TOPIXELS d5
 	move.w d5, EchoAINode_PosX(a3)
-	move.w d1, EchoAINode_PosY(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AIFollowDistanceNode, EchoAINode_Tolerance(a3)
-	move.b #0x0, EchoAINode_StopMovement(a0)
+	move.w #Echo_AINodeToleranceFallX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceFallY, EchoAINode_ToleranceY(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
 
 	@WithinYToleranceDown:
@@ -1271,6 +1439,14 @@ EchoAI_FindInterestingObj:
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
 	bne    @NextFuzzl
 
+	; Check not in generator
+	btst.b #Fuzzl_State_Generator, Fuzzl_State_Bits(a2)
+	bne    @NextFuzzl
+
+	; Check not in cage
+	;btst.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a2)
+	;bne    @NextFuzzl
+
 	; Let's have it
 	jsr    EchoAI_PushInteractionFuzzl
 	bra    @End
@@ -1301,8 +1477,9 @@ EchoAI_PushInteractionFuzzl:
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AIDistPushObjX, EchoAINode_Tolerance(a3)
-	move.b #0x1, EchoAINode_StopMovement(a0)
+	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
 	; Determine direction to roll in (towards Nymn)
@@ -1329,6 +1506,26 @@ EchoAIPushNode:
 
 	PUSHL a0
 
+	PUSHM  d0-d1
+	
+	; If first node, set follow nodes state
+	move.w Echo_AINodeProducer(a0), d0
+	move.w Echo_AINodeConsumer(a0), d1
+	cmp.w  d0, d1
+	bne    @NotFirst
+	jsr    EchoAIStart_FollowNodes
+	@NotFirst:
+
+	IFND FINAL
+	sub.w  d1, d0
+	cmp.w  #Echo_NumAINodes-1, d0
+	bne    @FreeSpace
+	RAISE_EXCEPTION *
+	@FreeSpace:
+	ENDIF
+
+	POPM   d0-d1
+
 	moveq  #0x0, d7
 	move.w Echo_AINodeProducer(a0), d7
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get producer position
@@ -1352,18 +1549,6 @@ EchoAIPopNode:
 	; a3 --- Node
 
 	PUSHL a0
-	
-	IFND FINAL
-	PUSHM  d0-d1
-	move.w (Echo_AINodeProducer), d0
-	move.w (Echo_AINodeConsumer), d1
-	sub.w  d1, d0
-	cmp.w  #Echo_NumAINodes-1, d0
-	bne    @FreeSpace
-	RAISE_EXCEPTION *
-	@FreeSpace:
-	POPM   d0-d1
-	ENDIF
 
 	moveq  #0x0, d7
 	move.w Echo_AINodeConsumer(a0), d7
@@ -1405,6 +1590,8 @@ EchoAIPopNode:
 	move.l EchoAINode_UserData(a3), a2
 	cmp.b  #EchoAINode_Action_Fall, d0
 	beq    @FallAction
+	cmp.b  #EchoAINode_Action_Land, d0
+	beq    @LandAction
 	cmp.b  #EchoAINode_Action_Jump, d0
 	beq    @JumpAction
 	cmp.b  #EchoAINode_Action_StartGlide, d0
@@ -1421,6 +1608,13 @@ EchoAIPopNode:
 	; Jump
 	move.b #0x0, d2
 	jsr    CharacterStartJump
+	bra    @EndAction
+
+	;==============================================================
+
+	@LandAction:
+	
+	; Land
 	bra    @EndAction
 
 	;==============================================================
