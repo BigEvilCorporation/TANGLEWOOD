@@ -19,6 +19,7 @@ Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be p
 Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
 Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
 Echo_LostTime				equ 0x0078			; Time off screen until considered lost
+Echo_NodeLostTime			equ 0x0100			; Time off screen until considered lost if following nodes
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
 Echo_NodeFailTime			equ 0x0078			; Timeout to reach next node before returning to basic follow state
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -93,8 +94,9 @@ EchoAINode_ToleranceY		rs.w 1
 EchoAINode_Action			rs.b 1
 EchoAINode_StopMovement		rs.b 1
 EchoAINode_RequireOnFloor	rs.b 1
+EchoAINode_ForceIfHitWall	rs.b 1
 ;---------------------------------
-EchoAINode_Struct_Pad		rs.b 3
+EchoAINode_Struct_Pad		rs.b 2
 EchoAINode_Struct_Size		rs.b 0
 
 ; ************************************
@@ -108,6 +110,7 @@ Echo_AIObjectOfInterest		rs.l 1	; AI current object of interest
 Echo_AINodeProducer			rs.w 1	; AI follow node queue
 Echo_AINodeConsumer			rs.w 1
 Echo_AILostTimer			rs.w 1	; If depleted, Echo has lost Nymn
+Echo_AINodeFailTimer		rs.w 1	; If depleted, Echo failed to reach last node
 Echo_AISafePosX				rs.w 1	; Safe position (Nymn was once on the floor here, and is currently out of view)
 Echo_AISafePosY				rs.w 1
 Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe posisiton when out of view
@@ -122,7 +125,7 @@ Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 1
+Echo_Struct_Pad      		rs.b 3
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -154,6 +157,7 @@ EchoInit:
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.w #0x0, Echo_AIPotentialSafePosX(a0)
 	move.w #0x0, Echo_AIPotentialSafePosY(a0)
@@ -737,8 +741,11 @@ EchoAIStart_FollowNodes:
 	; Set follow nodes state
 	move.b #EchoAIState_FollowNodes, Echo_AIState(a0)
 
+	; Reset lost timer
+	move.w #Echo_NodeLostTime, Echo_AILostTimer(a0)
+
 	; Reset fail timer
-	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
+	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
 	
 	rts
 	
@@ -752,14 +759,27 @@ EchoAIUpdate_FollowNodes:
 	; Watch Nymn's potential safe positions
 	jsr    EchoAI_WatchNymnSafePos
 
-	; If timer depleted, return to basic follow state
+	; If off screen, count down lost timer
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
 	move.w Echo_AILostTimer(a0), d0
 	sub.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
-	jsr    EchoAIStart_Follow
+	jsr    EchoAIStart_Lost
 	bra    @Lost
+	@OnScreen:
 	@LostTimerRunning:
+
+	; If node fail timer depleted, return to basic follow state
+	move.w Echo_AINodeFailTimer(a0), d0
+	sub.w  #0x1, d0
+	move.w d0, Echo_AINodeFailTimer(a0)
+	bne    @NodeFailTimerRunning
+	jsr    EchoAIStart_Follow
+	bra    @NodeFailed
+	@NodeFailTimerRunning:
 
 	; Peek node queue
 	jsr    EchoAIPeekNodeFront
@@ -771,6 +791,16 @@ EchoAIUpdate_FollowNodes:
 	; Set tolerance
 	move.w EchoAINode_ToleranceX(a3), d3
 	move.w EchoAINode_ToleranceY(a3), d4
+
+	; If run into a wall, forcefully execute the next node
+	tst.b  EchoAINode_ForceIfHitWall(a3)
+	beq    @NotHitWall
+	PUSHL  d1
+	PHYSICS_HITFACINGWALL a0
+	POPL   d1
+	tst.b  d0
+	bne    @HittingWall
+	@NotHitWall:
 
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
@@ -835,6 +865,7 @@ EchoAIUpdate_FollowNodes:
 	jsr    EchoAIStart_Follow
 	
 	@Lost:
+	@NodeFailed:
 	@End:
 	
 	rts
@@ -1260,6 +1291,7 @@ EchoAI_WatchNymnMovement:
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_Land, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1294,6 +1326,7 @@ EchoAI_WatchNymnMovement:
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_StartGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1310,6 +1343,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeTolerancePushY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1355,6 +1389,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpLostY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #0x1, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 
 	; If Nymn was in air because of a jump, set waiting for landing, take floor pos as target Y, and require on floor
@@ -1365,6 +1400,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	@NotJumping:
 
 	bra    @End
@@ -1391,6 +1427,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceFallY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
 
 	@WithinYToleranceDown:
@@ -1480,6 +1517,7 @@ EchoAI_PushInteractionFuzzl:
 	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
 	; Determine direction to roll in (towards Nymn)
