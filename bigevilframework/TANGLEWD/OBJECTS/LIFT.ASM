@@ -80,6 +80,7 @@ LiftInit:
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	move.w  #Lift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Lift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Lift_Height, PhysicsObj_WallProbeBottom(a0)
 	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)

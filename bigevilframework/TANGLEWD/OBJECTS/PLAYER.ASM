@@ -56,14 +56,16 @@ Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 
 ; Player collision probes
-Player1StepHeight	 equ 0x3
-Player1MinWallHeight equ 0x11				; High enough to avoid stones
-Player1ProbeFloorX   equ (Player1Width/2)   ; Floor detection probe position X
-Player1ProbeFloorY   equ (Player1Height-8)  ; Floor detection probe position Y
-Player1ProbeCeilingX equ (Player1Width/2)   ; Ceiling detection probe position X
-Player1ProbeCeilingY equ (0x0008)           ; Ceiling detection probe position Y
-Player1ProbeLedgeX   equ 0x1F			    ; Ledge detection probe position X
-Player1ProbeLedgeY   equ 0x02			    ; Ledge detection probe position Y
+Player1StepHeight	 	equ 0x3
+Player1MinWallHeight 	equ 0x11				; High enough to avoid stones
+Player1ProbeWallTop	 	equ 0x08				; Wall probe top
+Player1ProbeWallBottom	equ Player1Height		; Wall probe bottom
+Player1ProbeFloorX   	equ (Player1Width/2)	; Floor detection probe position X
+Player1ProbeFloorY   	equ (Player1Height-8)	; Floor detection probe position Y
+Player1ProbeCeilingX 	equ (Player1Width/2)	; Ceiling detection probe position X
+Player1ProbeCeilingY 	equ (0x0008)			; Ceiling detection probe position Y
+Player1ProbeLedgeX   	equ 0x1F				; Ledge detection probe position X
+Player1ProbeLedgeY   	equ 0x02				; Ledge detection probe position Y
 
 ; Walk to run transition velocity
 Player1WalkToRunVel  equ 0x020000
@@ -217,11 +219,14 @@ PlayerInit:
 	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Player1ProbeWallTop, PhysicsObj_WallProbeTop(a0)
+	move.w  #Player1ProbeWallBottom, PhysicsObj_WallProbeBottom(a0)
 	move.w  #Player1ProbeCeilingX, PhysicsObj_CeilingProbeX(a0)
 	move.w  #Player1ProbeCeilingY, PhysicsObj_CeilingProbeY(a0)
 	move.w  #Player1StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Player1MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b  #Player1Mass, PhysicsObj_Mass(a0)
+	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
 	
 	move.l  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Player1MaxVelXRun, Character_MaxVelXRun(a0)

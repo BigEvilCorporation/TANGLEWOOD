@@ -55,6 +55,8 @@ PhysicsObj_FloorProbeX	    	rs.w 1 ; Floor probe X offset
 PhysicsObj_FloorProbeY	    	rs.w 1 ; Floor probe Y offset
 PhysicsObj_CeilingProbeX    	rs.w 1 ; Ceiling probe X offset
 PhysicsObj_CeilingProbeY    	rs.w 1 ; Ceiling probe Y offset
+PhysicsObj_WallProbeTop			rs.w 1 ; Top wall probe Y offset
+PhysicsObj_WallProbeBottom		rs.w 1 ; Bottom wall probe Y offset
 PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
@@ -65,7 +67,8 @@ PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
 PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
 PhysicsObj_CollideFloor	    	rs.b 1 ; Collides with floor
-PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls
+PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls (bottom probe)
+PhysicsObj_CollideWallsTop	    rs.b 1 ; Collides with walls (top probe)
 PhysicsObj_CollideCeilings  	rs.b 1 ; Collides with ceilings
 PhysicsObj_CollidePlatforms		rs.b 1 ; Collides with platforms
 PhysicsObj_CollideBarriers		rs.b 1 ; Collides with barriers
@@ -128,6 +131,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
 	move.b #0x1, PhysicsObj_CollideFloor(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
+	move.b #0x0, PhysicsObj_CollideWallsTop(a0)
 	move.b #0x1, PhysicsObj_CollideCeilings(a0)
 	move.b #0x1, PhysicsObj_CollidePlatforms(a0)
 	move.b #0x1, PhysicsObj_CollideBarriers(a0)
@@ -208,22 +212,31 @@ PhysicsObjUpdate:
 	jsr PhysicsObjApplyVelocity
 	
 	; Find floor
-	cmp.b #0x0, PhysicsObj_CollideFloor(a0)
-	beq   @NoCheckFloor
+	cmp.b  #0x0, PhysicsObj_CollideFloor(a0)
+	beq    @NoCheckFloor
 	move.b #0x0, d0
-	jsr PhysicsObjFindFloor
+	jsr    PhysicsObjFindFloor
 	@NoCheckFloor:
 
 	; Find ceiling
-	cmp.b #0x0, PhysicsObj_CollideCeilings(a0)
-	beq   @NoCheckCeilings
-	jsr PhysicsObjFindCeiling
+	cmp.b  #0x0, PhysicsObj_CollideCeilings(a0)
+	beq    @NoCheckCeilings
+	jsr    PhysicsObjFindCeiling
 	@NoCheckCeilings:
 	
-	; Find wall
-	cmp.b #0x0, PhysicsObj_CollideWalls(a0)
-	beq   @NoCheckWall
-	jsr PhysicsObjFindWall
+	; Find wall (bottom probe)
+	cmp.b  #0x0, PhysicsObj_CollideWalls(a0)
+	beq    @NoCheckWall
+	move.b #0x0, d0
+	jsr    PhysicsObjFindWall
+
+	; Find wall (top probe)
+	tst.b  PhysicsObj_HitWall(a0)
+	bne    @NoCheckTop
+	move.b #0x1, d0
+	jsr    PhysicsObjFindWall
+	@NoCheckTop:
+
 	@NoCheckWall:
 	
 	; Correct for floor/wall collision
@@ -1024,12 +1037,13 @@ PhysicsObjFindFloor:
 PhysicsObjFindWall:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d0 (b) 0 == Bottom, 1 = top
 	
 	;==============================================================
 
 	; If previously hitting a static wall, clear all flags
-	move.b PhysicsObj_HitWall(a0), d0
-	andi.b #(PhysicsObjHitStaticWall), d0
+	move.b PhysicsObj_HitWall(a0), d1
+	andi.b #(PhysicsObjHitStaticWall), d1
 	beq    @NotHittingStaticWall
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	@NotHittingStaticWall:
@@ -1068,13 +1082,25 @@ PhysicsObjFindWall:
 	bge    @ProbeOutOfBounds
 	
 	;==============================================================
+
+	tst.b  d0
+	bne    @FloorProbeTop
 	
-	; Get floor probe Y
+	; Get floor probe Y (bottom)
+	move.w PhysicsObj_WallProbeBottom(a0), d3
+	bra    @FloorProbeBottom
+
+	@FloorProbeTop:
+
+	; Get floor probe Y (top)
+	move.w PhysicsObj_WallProbeTop(a0), d3
+
+	@FloorProbeBottom:
+
 	swap   d1							; X to upper word
 	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
 	sub.w  #vdp_sprite_border_y, d2		; To screen space
-	move.w Entity_Height(a0), d3		; Get height
-	add.w  d3, d2						; Get floor probe
+	add.w  d3, d2						; Offset by floor probe
 	move.w d2, d1						; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
 
@@ -1706,6 +1732,10 @@ PhysicsObjFindPushable:
 	; a0 --- PhysicsObj addr
 	; a1 --- Level addr
 	; a2 --- OUT: Pushable obj
+
+	; Can't push if in air
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @NoPushableObj
 
 	; Get collision bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0

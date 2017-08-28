@@ -94,6 +94,7 @@ BoulderInit:
 	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Boulder_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Boulder_Height, PhysicsObj_WallProbeBottom(a0)
 	move.l  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)

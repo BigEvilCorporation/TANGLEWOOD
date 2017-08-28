@@ -142,6 +142,7 @@ DjrakeInit:
 	move.w  #Djrake_DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Djrake_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Djrake_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Djrake_Height, PhysicsObj_WallProbeBottom(a0)
 	move.w  #Djrake_StepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.l  #Djrake_MaxVelXWalk, Character_MaxVelXWalk(a0)

@@ -6,22 +6,24 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
-ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 1
+ECHO_AI_DEBUG_SAFE_POS 		equ 1
+ECHO_AI_DEBUG_NODE_POS		equ 0
 
 ; Constants
 Echo_MaxEntities			equ 1
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
+Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
+Echo_ProbeWallTop			equ 0x0010		; Slightly lower wall probe (can squeeze through small gaps)
 
 ; AI
 Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be power of two)
 Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
 Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
 Echo_LostTime				equ 0x0078			; Time off screen until considered lost
-Echo_NodeLostTime			equ 0x0100			; Time off screen until considered lost if following nodes
+Echo_NodeLostTime			equ 0x0130			; Time off screen until considered lost if following nodes
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
-Echo_NodeFailTime			equ 0x0078			; Timeout to reach next node before returning to basic follow state
+Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning to basic follow state
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
 Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump node
 Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
@@ -154,6 +156,7 @@ EchoInit:
 	;==============================================================
 	
 	; Setup default state
+	move.w #Echo_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #Echo_LostTime, Echo_AILostTimer(a0)
@@ -554,6 +557,9 @@ EchoEndCarried:
 	; Jump off (forced jump)
 	move.b #0x1, d2
 	jsr    CharacterStartJump
+
+	; Override jump velocity
+	move.l #Echo_DismountNymnVel, PhysicsObj_VelY(a0)
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
@@ -740,9 +746,6 @@ EchoAIStart_FollowNodes:
 	
 	; Set follow nodes state
 	move.b #EchoAIState_FollowNodes, Echo_AIState(a0)
-
-	; Reset lost timer
-	move.w #Echo_NodeLostTime, Echo_AILostTimer(a0)
 
 	; Reset fail timer
 	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)

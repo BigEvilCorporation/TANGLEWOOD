@@ -70,6 +70,7 @@ CartInit:
 	move.w  #Cart_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Cart_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Cart_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Cart_Height, PhysicsObj_WallProbeBottom(a0)
 	move.l  #Cart_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #Cart_Mass, PhysicsObj_Mass(a0)

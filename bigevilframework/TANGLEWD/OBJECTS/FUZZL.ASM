@@ -126,8 +126,9 @@ Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
 Fuzzl_State_Bits    rs.b 1	; Fuzzl states
 Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
 Fuzzl_FlueOccupant  rs.b 1	; Registered as potential flue occupant
+Fuzzl_InCage		rs.b 1	; TEMP - out of state bits
 ;--------------------------
-Fuzzl_Struct_Pad    rs.b 0  ; Alignment padding
+Fuzzl_Struct_Pad    rs.b 3  ; Alignment padding
 Fuzzl_Struct_Size   rs.b 0
 
 ;==============================================================
@@ -170,6 +171,7 @@ FuzzlInit:
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w  #Fuzzl_Height, PhysicsObj_WallProbeBottom(a0)
 	move.l  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
@@ -179,6 +181,8 @@ FuzzlInit:
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	move.b  #0x0, Fuzzl_FlueOccupant(a0)
+
+	move.b  #0x0, Fuzzl_InCage(a0)	; TEMP - out of state bits
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -274,7 +278,8 @@ FuzzlSetInCage:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	bset.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+	;bset.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+	move.b #0x1, Fuzzl_InCage(a0)
 
 	rts
 
@@ -282,7 +287,8 @@ FuzzlRemoveFromCage:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	bclr.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+	;bclr.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a0)
+	move.b #0x0, Fuzzl_InCage(a0)
 
 	; Re-find floor
 	move.b #0x0, PhysicsObj_OnFloor(a0)
@@ -440,7 +446,10 @@ FuzzlUpdate:
 	jsr FuzzlUpdateAnimation
 
 	; If in cage, don't do physics update or check for pushing
-	btst.b #Fuzzl_State_Caged, Fuzzl_State_bits(a0)
+	; TODO: Out of state bits
+	;btst.b #Fuzzl_State_Caged, Fuzzl_State_bits(a0)
+	;bne    @InCage
+	tst.b  Fuzzl_InCage(a0)
 	bne    @InCage
 
 	; Can only push if awake and not in nest/generator
