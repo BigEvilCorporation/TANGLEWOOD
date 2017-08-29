@@ -212,9 +212,6 @@ BridgeUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	tst.b  Bridge_UpdateOutOfView(a0)
-	bne    @InView
-
 	; Manual view test (can't use sprite link state)
 	move.b  #0x0, Bridge_InView(a0)
 	ENTITY_GETBOUNDS d1,d2,d3,a0
@@ -222,11 +219,19 @@ BridgeUpdate:
 	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d1
 	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
-	beq    @OutOfView
-
+	tst.b  d0
+	bne    @InView
+	
+	@OutOfView:
+	; Out of view, check if updating anyway
+	tst.b  Bridge_UpdateOutOfView(a0)
+	bne    @Update
+	bra    @End
+	
 	@InView:
 	move.b  #0x1, Bridge_InView(a0)
+	
+	@Update:
 	
 	; Base functionality
 	jsr    SpriteObjUpdate
@@ -295,7 +300,6 @@ BridgeUpdate:
 	jsr    BridgeUpdateDropping
 
 	@End:
-	@OutOfView:
 
 	rts
 
