@@ -74,6 +74,7 @@ EchoAIState_FollowNodes		equ 3	; Following Nymn using nodes
 EchoAIState_Lost			equ 4	; Waiting for safe place to transport to
 EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
 EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
+EchoAIState_Water			equ 7	; Echo doesn't like water :(
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -615,6 +616,8 @@ EchoUpdateAI:
 	beq    @CatchUp
 	cmp.b  #EchoAIState_PushObj, d0
 	beq    @PushObj
+	cmp.b  #EchoAIState_Water, d0
+	beq    @Water
 	bra    @End
 	
 	@Follow:
@@ -635,6 +638,10 @@ EchoUpdateAI:
 
 	@PushObj:
 	jsr    EchoAIUpdate_PushObj
+	bra    @End
+
+	@Water:
+	jsr    EchoAIUpdate_Water
 	bra    @End
 	
 	@End:
@@ -754,13 +761,12 @@ EchoAIUpdate_Follow:
 EchoAIStart_LinearFollow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Start follow state
+	jsr    EchoAIStart_Follow
 	
 	; Set linear follow flag
 	move.b #0x1, Echo_AILinearFollowOnly(a0)
-	
-	; Clear node queue
-	move.w #0x0, Echo_AINodeConsumer(a0)
-	move.w #0x0, Echo_AINodeProducer(a0)
 	
 	rts
 
@@ -1104,6 +1110,75 @@ EchoAIUpdate_PushObj:
 	; If lost, back to follow state to re-evaluate
 
 	@End:
+
+	rts
+
+EchoAIStart_Water:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Water body
+	
+	; Set water state
+	move.b #EchoAIState_Water, Echo_AIState(a0)
+
+	; Set water body
+	move.l a2, Echo_AIObjectOfInterest(a0)
+
+	; Start running in opposite direction
+	move.l PhysicsObj_VelX(a0), d0
+	cmp.l  #0x0, d0
+	bgt    @MoveLeft
+	jsr    CharacterMoveRight
+	bra    @MoveRight
+	@MoveLeft:
+	jsr    CharacterMoveLeft
+	@MoveRight:
+	
+	rts
+
+EchoAIUpdate_Water:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.l Echo_AIObjectOfInterest(a0), a2
+	cmp.l  #0x0, a2
+	beq    @OutOfWater
+
+	; If no longer in water
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	bne    @InWater
+
+	; Stop moving
+	jsr    CharacterCancelXMovement
+
+	; Invalidate water body
+	move.l #0x0, Echo_AIObjectOfInterest(a0)
+
+	; Howl
+	jsr    EchoHowl
+
+	@OutOfWater:
+
+	; Face Nymn
+	move.l (Player1), a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	cmp.l  d0, d1
+	bgt    @FaceRight
+	move.b #0x0, SpriteObj_FlippedX(a0)
+	bra    @FaceLeft
+	@FaceRight:
+	move.b #0x0, SpriteObj_FlippedX(a0)
+	@FaceLeft:
+
+	; If Nymn heading in opposite direction, back to follow state
+
+	; Check 
+
+	@InWater:
 
 	rts
 
@@ -1487,6 +1562,14 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoButton:
 
+	; Search water bodies
+	jsr    EchoAI_FindWater
+	cmp.l  #0x0, a2
+	beq    @NoWater
+	jsr    EchoAIStart_Water
+	bra    @End
+	@NoWater:
+
 	@End:
 
 	rts
@@ -1596,6 +1679,36 @@ EchoAI_FindButton:
 	move.l #0x0, a2
 
 	@FoundButton:
+
+	rts
+
+EchoAI_FindWater:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Water body addr
+
+	move.w (EntityCount_WaterBody), d6
+	cmp.w  #0x0, d6
+	beq    @NoWater
+	move.l (EntityPoolStart_WaterBody), a2
+	sub.w  #0x1, d6
+	@WaterLoop:
+
+	; Check bounds
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	bne    @FoundWater
+
+	@NextWater:
+	add.l  #WaterBody_Struct_Size, a2
+	dbra   d6, @WaterLoop
+	
+	@NoWater:
+	move.l #0x0, a2
+
+	@FoundWater:
 
 	rts
 

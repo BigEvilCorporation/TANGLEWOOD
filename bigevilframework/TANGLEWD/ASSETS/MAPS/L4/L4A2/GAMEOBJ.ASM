@@ -74,18 +74,6 @@ L4A2_Pillar_count equ 0x0
 
 
 L4A2_LoadGameObjects:
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Leaf_Struct_Size*L4A2_Leaf_count)
-	move.l a1, EntityPoolStart_Leaf
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
 
 
 	PUSHL  a1
@@ -107,186 +95,30 @@ L4A2_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L4A2_BouncePlant_count)
-	move.l a1, EntityPoolStart_BouncePlant
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L4A2_Log_count)
-	move.l a1, EntityPoolStart_Log
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(DjakkCage_Struct_Size*L4A2_DjakkCage_count)
-	move.l a1, EntityPoolStart_DjakkCage
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L4A2_Monster_count)
-	move.l a1, EntityPoolStart_Monster
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L4A2_Boulder_count)
-	move.l a1, EntityPoolStart_Boulder
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L4A2_Firefly_count)
-	move.l a1, EntityPoolStart_Firefly
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L4A2_FuzzlCage_count)
-	move.l a1, EntityPoolStart_FuzzlCage
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L4A2_Fuzzl_count)
-	move.l a1, EntityPoolStart_Fuzzl
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L4A2_Stone_count)
-	move.l a1, EntityPoolStart_Stone
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
-	move.l a1, EntityPoolStart_Nest
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L4A2_Flue_count)
-	move.l a1, EntityPoolStart_Flue
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L4A2_TriggerBox_count)
-	move.l a1, EntityPoolStart_TriggerBox
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L4A2_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L4A2_WaterBody_count)
-	move.l a1, EntityPoolStart_WaterBody
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L4A2_Location_count)
-	move.l a1, EntityPoolStart_Location
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L4A2_Deathbox_count)
-	move.l a1, EntityPoolStart_Deathbox
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L4A2_Lift_count)
-	move.l a1, EntityPoolStart_Lift
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Crate_Struct_Size*L4A2_Crate_count)
-	move.l a1, EntityPoolStart_Crate
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L4A2_Generator_count)
-	move.l a1, EntityPoolStart_Generator
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L4A2_Cogs_count)
-	move.l a1, EntityPoolStart_Cogs
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L4A2_Bridge_count)
-	move.l a1, EntityPoolStart_Bridge
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L4A2_Button_count)
-	move.l a1, EntityPoolStart_Button
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Wyrm_Struct_Size*L4A2_Wyrm_count)
-	move.l a1, EntityPoolStart_Wyrm
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L4A2_AIMarker_count)
-	move.l a1, EntityPoolStart_AIMarker
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Cart_Struct_Size*L4A2_Cart_count)
-	move.l a1, EntityPoolStart_Cart
-	move.l a1, a0
-	POPL   a1
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Pillar_Struct_Size*L4A2_Pillar_count)
-	move.l a1, EntityPoolStart_Pillar
-	move.l a1, a0
-	POPL   a1
 
 
 	rts
