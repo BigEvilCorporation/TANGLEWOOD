@@ -130,10 +130,11 @@ Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
 Echo_AIWaitingForWaterPath	rs.b 1	; Hit water, not happy about it, waiting for a path to cross
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
+Echo_AIWaterDirection		rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 1
+Echo_Struct_Pad      		rs.b 0
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -1125,6 +1126,9 @@ EchoAIStart_Water:
 	; Set water body
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
+	; Set direction
+	move.b SpriteObj_FlippedX(a0), Echo_AIWaterDirection(a0)
+
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
 
@@ -1155,6 +1159,9 @@ EchoAIUpdate_Water:
 	; Stop moving
 	jsr    CharacterCancelXMovement
 
+	; Face water
+	move.b Echo_AIWaterDirection(a0), SpriteObj_FlippedX(a0)
+
 	; Set wait state
 	move.b #0x1, Echo_AIWaitingForWaterPath(a0)
 
@@ -1165,21 +1172,23 @@ EchoAIUpdate_Water:
 
 	@OutOfWater:
 
-	; Face Nymn
+	; If Nymn heading in opposite direction, back to follow state
 	move.l (Player1), a2
 	ENTITY_GETCENTREX d0,a0
 	ENTITY_GETCENTREX d1,a2
 	cmp.l  d0, d1
 	bgt    @FaceRight
-	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x1, d0
 	bra    @FaceLeft
 	@FaceRight:
-	move.b #0x0, SpriteObj_FlippedX(a0)
+	move.b #0x0, d0
 	@FaceLeft:
 
-	;==============================================================
-
-	; TODO: If Nymn heading in opposite direction, back to follow state
+	cmp.b  Echo_AIWaterDirection(a0), d0
+	beq    @SameDir
+	jsr    EchoAIStart_Follow
+	bra    @End
+	@SameDir:
 
 	;==============================================================
 
