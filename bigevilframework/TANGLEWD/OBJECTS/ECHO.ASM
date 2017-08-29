@@ -125,14 +125,17 @@ Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
 Echo_LastNymnFloorVelX		rs.w 1
+Echo_WaterProbePosX			rs.w 1
+Echo_WaterProbePosY			rs.w 1
 Echo_AILinearFollowOnly		rs.b 1	; In follow state, follow X axis only and don't collect nodes
 Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
+Echo_AIWaitingForWaterPath	rs.b 1	; Hit water, not happy about it, waiting for a path to cross
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 2
+Echo_Struct_Pad      		rs.b 1
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -1124,6 +1127,13 @@ EchoAIStart_Water:
 	; Set water body
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
+	; Set pos at time of entering water
+	move.w Entity_WorldPosX(a0), Echo_WaterProbePosX(a0)
+	move.w Entity_WorldPosY(a0), Echo_WaterProbePosY(a0)
+
+	; Clear wait state
+	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
+
 	; Start running in opposite direction
 	move.l PhysicsObj_VelX(a0), d0
 	cmp.l  #0x0, d0
@@ -1140,22 +1150,19 @@ EchoAIUpdate_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.l Echo_AIObjectOfInterest(a0), a2
-	cmp.l  #0x0, a2
-	beq    @OutOfWater
+	; If waiting for a path/Nymn's help
+	tst.b  Echo_AIWaitingForWaterPath(a0)
+	bne    @OutOfWater
 
 	; If no longer in water
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a2
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
+	tst.b  Character_InWater(a0)
 	bne    @InWater
 
 	; Stop moving
 	jsr    CharacterCancelXMovement
 
-	; Invalidate water body
-	move.l #0x0, Echo_AIObjectOfInterest(a0)
+	; Set wait state
+	move.b #0x1, Echo_AIWaitingForWaterPath(a0)
 
 	; Howl
 	jsr    EchoHowl
@@ -1168,7 +1175,7 @@ EchoAIUpdate_Water:
 	ENTITY_GETCENTREX d1,a2
 	cmp.l  d0, d1
 	bgt    @FaceRight
-	move.b #0x0, SpriteObj_FlippedX(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	bra    @FaceLeft
 	@FaceRight:
 	move.b #0x0, SpriteObj_FlippedX(a0)
@@ -1176,9 +1183,45 @@ EchoAIUpdate_Water:
 
 	; If Nymn heading in opposite direction, back to follow state
 
-	; Check 
+	; Check ground at last water pos to see if a path has opened up
+	move.l Entity_WorldPosX(a0), d0							; Backup original pos
+	move.l Entity_WorldPosY(a0), d1
+	PUSHM  d0-d1
+	move.w Echo_WaterProbePosX(a0), d2	; Set water probe pos
+	move.w Echo_WaterProbePosY(a0), d3
+	TOSUBPIXELS d2
+	TOSUBPIXELS d3
+	move.l d2, Entity_WorldPosX(a0)	; Set water probe pos
+	move.l d3, Entity_WorldPosY(a0)
+	PUSHL  a2
+	move.b #0x1, d0
+	jsr    PhysicsObjFindFloor								; Find floor
+	POPL   a2
+	tst.b  PhysicsObj_OnFloor(a0)							; If not on floor, bail
+	beq    @NoFloor
+	move.w Echo_WaterProbePosX(a0), d3						; Get floor pos
+	swap   d3
+	move.w PhysicsObj_LastFloor(a0), d3
+	lea    PhysicsWorld, a2									; Bail if floor is default floor
+	move.w PhysicsWorld_GroundHeight(a2), d4
+	cmp.w  d3, d4
+	beq    @NoFloor
+	move.l Echo_AIObjectOfInterest(a0), a2					; Get water body bounds
+	ENTITY_GETBOUNDS d1,d2,d5,a2
+	jsr    PHYS_TestPointInsideBox							; Check floor inside water
+	tst.b  d0
+	bne    @FloorInWater
+	jsr    EchoAIStart_Follow								; Found dry land, back to follow state
+	@NoFloor:
+	@FloorInWater:
+	POPM   d0-d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+
+	bra   @End
 
 	@InWater:
+	@End:
 
 	rts
 
@@ -1562,7 +1605,7 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoButton:
 
-	; Search water bodies
+	; Check water
 	jsr    EchoAI_FindWater
 	cmp.l  #0x0, a2
 	beq    @NoWater
@@ -1685,30 +1728,9 @@ EchoAI_FindButton:
 EchoAI_FindWater:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- OUT: Water body addr
+	; a2 --- OUT: Water body
 
-	move.w (EntityCount_WaterBody), d6
-	cmp.w  #0x0, d6
-	beq    @NoWater
-	move.l (EntityPoolStart_WaterBody), a2
-	sub.w  #0x1, d6
-	@WaterLoop:
-
-	; Check bounds
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a2
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	bne    @FoundWater
-
-	@NextWater:
-	add.l  #WaterBody_Struct_Size, a2
-	dbra   d6, @WaterLoop
-	
-	@NoWater:
-	move.l #0x0, a2
-
-	@FoundWater:
+	move.l Player_LastWaterBody(a0), a2
 
 	rts
 

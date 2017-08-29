@@ -174,6 +174,7 @@ Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_ColourPowerHost		rs.l 1	; Object player has stolen colour power from
 Player_Pet					rs.l 1	; Current tamed creature
 Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
+Player_LastWaterBody		rs.l 1	; Last entered water body
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
@@ -249,6 +250,7 @@ PlayerInit:
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.l  #0x0, Player_LastBouncePlant(a0)
+	move.l  #0x0, Player_LastWaterBody(a0)
 	move.l  #0x0, Player_Pet(a0)
 	move.w  #0x0, Player_ColourChangeTimer(a0)
 	move.w  #0x0, Player_IdleFrameCount(a0)
@@ -1914,6 +1916,7 @@ PlayerInteractTest_Water:
 	
 	; Reset in water
 	move.b #0x0, Character_InWater(a0)
+	move.l #0x0, Player_LastWaterBody(a0)
 
 	; Reset water level
 	move.b #0xFF, raster_water_level
@@ -1939,6 +1942,7 @@ PlayerInteractTest_Water:
 
 	; Set in water
 	move.b #0x1, Character_InWater(a0)
+	move.l a1, Player_LastWaterBody(a0)
 	
 	; If hit water at landing velocity
 	cmp.l  #-Character_LandVel, PhysicsObj_VelY(a0)
