@@ -125,8 +125,6 @@ Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
 Echo_LastNymnFloorVelX		rs.w 1
-Echo_WaterProbePosX			rs.w 1
-Echo_WaterProbePosY			rs.w 1
 Echo_AILinearFollowOnly		rs.b 1	; In follow state, follow X axis only and don't collect nodes
 Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
@@ -1127,10 +1125,6 @@ EchoAIStart_Water:
 	; Set water body
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
-	; Set pos at time of entering water
-	move.w Entity_WorldPosX(a0), Echo_WaterProbePosX(a0)
-	move.w Entity_WorldPosY(a0), Echo_WaterProbePosY(a0)
-
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
 
@@ -1167,6 +1161,8 @@ EchoAIUpdate_Water:
 	; Howl
 	jsr    EchoHowl
 
+	;==============================================================
+
 	@OutOfWater:
 
 	; Face Nymn
@@ -1181,44 +1177,67 @@ EchoAIUpdate_Water:
 	move.b #0x0, SpriteObj_FlippedX(a0)
 	@FaceLeft:
 
-	; If Nymn heading in opposite direction, back to follow state
+	;==============================================================
 
-	; Check ground at last water pos to see if a path has opened up
-	move.l Entity_WorldPosX(a0), d0							; Backup original pos
+	; TODO: If Nymn heading in opposite direction, back to follow state
+
+	;==============================================================
+
+	; Check ground centre of water body to see if a path has opened up
+	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	PUSHM  d0-d1
-	move.w Echo_WaterProbePosX(a0), d2	; Set water probe pos
-	move.w Echo_WaterProbePosY(a0), d3
-	TOSUBPIXELS d2
-	TOSUBPIXELS d3
-	move.l d2, Entity_WorldPosX(a0)	; Set water probe pos
-	move.l d3, Entity_WorldPosY(a0)
-	PUSHL  a2
+
+	; Get centre of water body as floor probe
+	move.l Echo_AIObjectOfInterest(a0), a2
+	ENTITY_GETCENTREX d0,a2
+	TOPIXELS d0
+	move.w Entity_WorldPosY(a2), d1
+	sub.w  Entity_Height(a0), d1
+	subi.w #0x08, d1
+	move.w d0, Entity_WorldPosX(a0)
+	move.w d1, Entity_WorldPosY(a0)
+
+	; Find floor
 	move.b #0x1, d0
-	jsr    PhysicsObjFindFloor								; Find floor
-	POPL   a2
-	tst.b  PhysicsObj_OnFloor(a0)							; If not on floor, bail
+	jsr    PhysicsObjFindFloor
+
+	; If not on floor, bail
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @NoFloor
-	move.w Echo_WaterProbePosX(a0), d3						; Get floor pos
+
+	; Get floor pos
+	move.w Entity_WorldPosX(a0), d3
 	swap   d3
 	move.w PhysicsObj_LastFloor(a0), d3
-	lea    PhysicsWorld, a2									; Bail if floor is default floor
+
+	; Bail if floor is default floo
+	lea    PhysicsWorld, a2
 	move.w PhysicsWorld_GroundHeight(a2), d4
 	cmp.w  d3, d4
 	beq    @NoFloor
-	move.l Echo_AIObjectOfInterest(a0), a2					; Get water body bounds
+
+	; Get water body bounds
+	move.l Echo_AIObjectOfInterest(a0), a2
 	ENTITY_GETBOUNDS d1,d2,d5,a2
-	jsr    PHYS_TestPointInsideBox							; Check floor inside water
+
+	; Check floor inside water
+	jsr    PHYS_TestPointInsideBox
 	tst.b  d0
 	bne    @FloorInWater
-	jsr    EchoAIStart_Follow								; Found dry land, back to follow state
+
+	; Found dry land, back to follow state
+	jsr    EchoAIStart_Follow
+
 	@NoFloor:
 	@FloorInWater:
+
+	; Restore original pos
 	POPM   d0-d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 
-	bra   @End
+	;==============================================================
 
 	@InWater:
 	@End:
