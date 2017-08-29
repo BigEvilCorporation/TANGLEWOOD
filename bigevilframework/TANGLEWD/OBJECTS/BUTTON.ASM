@@ -95,6 +95,9 @@ ButtonUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
+
 	; Get button height
 	move.l Button_PressHeight(a0), d0
 	move.l d0, d1
@@ -194,6 +197,20 @@ ButtonUpdate:
 	move.b #0x1, AnimObj_Dirty(a0)
 	@NoChange:
 
+	; If reached bottom, and no OnUp callback, disable
+	tst.l  Button_OnUp(a0)
+	bne    @NoDisable
+	move.l a0, a2
+	addi.l #Button_Animation, a2
+	move.b Animation_Length(a2), d0
+	subi.b #0x1, d0
+	move.l AnimObj_AnimSubframe(a0), d1
+	lsr.l  #0x8, d1
+	cmp.b  d0, d1
+	bne    @NoDisable
+	move.b #0x0, Entity_Active(a0)
+	@NoDisable:
+
 	;==============================================================
 
 	; Reposition platform
@@ -209,6 +226,8 @@ ButtonUpdate:
 
 	; Base functionality
 	jsr    AnimObjupdate
+
+	@Inactive:
 
 	rts
 

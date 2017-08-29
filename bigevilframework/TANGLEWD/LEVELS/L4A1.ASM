@@ -87,6 +87,33 @@ l4a1_Init:
 
 	;==============================================================
 
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l4a1_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l4a1_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l4a1_Generator1, a0
+	ENTITY_GETBYNAME Button, l4a1_Button2, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l4a1_Button1, a0
+	ENTITY_GETBYNAME Bridge, l4a1_Bridge1, a1
+	move.b #0x1, Button_Active(a0)
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
+
+	ENTITY_GETBYNAME Button, l4a1_Button2, a0
+	ENTITY_GETBYNAME Bridge, l4a1_DropBridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginDrop, Button_OnDown(a0)
+
+	;==============================================================
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow
@@ -105,6 +132,20 @@ l4a1_Serialise:
 	rts
 
 l4a1_End:
+	rts
+
+l4a1_Trigger_EchoUnderground:
+
+	PUSHL a0
+
+	; Get Echo
+	move.l (Player2), a0
+
+	; Start linear follow
+	jsr    EchoAIStart_LinearFollow
+
+	POPL  a0
+
 	rts
 	
 l4a1_Trigger_End:

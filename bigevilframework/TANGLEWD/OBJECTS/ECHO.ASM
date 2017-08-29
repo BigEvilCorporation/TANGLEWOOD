@@ -29,6 +29,8 @@ Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump
 Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
 Echo_AIDistFuzzlX			equ screen_width	; X distance from Fuzzl to add a push obj node
 Echo_AIDistFuzzlY			equ Player1Height	; Y distance from Fuzzl to add a push obj node
+Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto node
+Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
 
@@ -68,12 +70,13 @@ EchoMountNymn_Riding		equ 3
 ; AI state
 EchoAIState_None			equ 0	; No AI, under player/cutscene control
 EchoAIState_Follow			equ 1	; Following Nymn directly
-EchoAIState_FollowNodes		equ 2	; Following Nymn using nodes
-EchoAIState_Lost			equ 3	; Waiting for safe place to transport to
-EchoAIState_CatchUp			equ 4	; Running directly back to Nymn
-EchoAIState_PushObj			equ 5	; Pushing an object towards Nymn
+EchoAIState_FollowNodes		equ 3	; Following Nymn using nodes
+EchoAIState_Lost			equ 4	; Waiting for safe place to transport to
+EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
+EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
 
 ; AI node actions
+EchoAINode_Action_GoTo			equ 0x0
 EchoAINode_Action_Jump			equ 0x1
 EchoAINode_Action_Fall			equ 0x2
 EchoAINode_Action_Land			equ 0x3
@@ -87,16 +90,16 @@ EchoAIPush_Right				equ 0x1
 
 	rsset 0
 ;---------------------------------
-EchoAINode_UserData			rs.l 1
-EchoAINode_PosX				rs.w 1
-EchoAINode_PosY				rs.w 1
-EchoAINode_VelX				rs.w 1
-EchoAINode_ToleranceX		rs.w 1
-EchoAINode_ToleranceY		rs.w 1
-EchoAINode_Action			rs.b 1
-EchoAINode_StopMovement		rs.b 1
-EchoAINode_RequireOnFloor	rs.b 1
-EchoAINode_ForceIfHitWall	rs.b 1
+EchoAINode_UserData			rs.l 1	; Node specific user data
+EchoAINode_PosX				rs.w 1	; Target pos X
+EchoAINode_PosY				rs.w 1	; Target pos Y
+EchoAINode_VelX				rs.w 1	; Forced X velocity set when target reached
+EchoAINode_ToleranceX		rs.w 1	; Target distance tolerance X
+EchoAINode_ToleranceY		rs.w 1	; Target distance tolerance Y
+EchoAINode_Action			rs.b 1	; Action to run when target reached
+EchoAINode_StopMovement		rs.b 1	; Stop X movement when target reached
+EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach target
+EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
 ;---------------------------------
 EchoAINode_Struct_Pad		rs.b 2
 EchoAINode_Struct_Size		rs.b 0
@@ -121,13 +124,14 @@ Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
 Echo_LastNymnFloorVelX		rs.w 1
+Echo_AILinearFollowOnly		rs.b 1	; In follow state, follow X axis only and don't collect nodes
 Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 3
+Echo_Struct_Pad      		rs.b 2
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -169,6 +173,7 @@ EchoInit:
 	move.b #0x0, Echo_AINymnGliding(a0)
 	move.b #0x0, Echo_AINymnJumping(a0)
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
+	move.b #0x0, Echo_AILinearFollowOnly(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -666,6 +671,10 @@ EchoAIUpdate_Follow:
 	;cmp.b  #0x0, d0
 	;bne    @CancelFollow
 
+	; If only doing linear follow, don't use lost timer and don't collect nodes
+	tst.b  Echo_AILinearFollowOnly(a0)
+	bne    @LinearFollow
+
 	; If off screen, count down lost timer
 	jsr    EchoAI_CheckOuterScreenBounds
 	tst.b  d0
@@ -689,6 +698,8 @@ EchoAIUpdate_Follow:
 	
 	; Watch Nymn's potential safe positions
 	jsr    EchoAI_WatchNymnSafePos
+
+	@LinearFollow:
 
 	; Follow distance tolerance
 	move.w #Echo_AIFollowDistance, d3
@@ -737,6 +748,19 @@ EchoAIUpdate_Follow:
 
 	; Search for interesting objects
 	jsr    EchoAI_FindInterestingObj
+	
+	rts
+
+EchoAIStart_LinearFollow:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Set linear follow flag
+	move.b #0x1, Echo_AILinearFollowOnly(a0)
+	
+	; Clear node queue
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
 	
 	rts
 
@@ -860,7 +884,7 @@ EchoAIUpdate_FollowNodes:
 	; Reset fail timer
 	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
 
-	; If last node, return to follow state
+	; If last node, return to follow
 	move.w Echo_AINodeProducer(a0), d0
 	move.w Echo_AINodeConsumer(a0), d1
 	cmp.w  d0, d1
@@ -1448,6 +1472,30 @@ EchoAI_FindInterestingObj:
 	beq    @End
 
 	; Search Fuzzls
+	jsr    EchoAI_FindFuzzl
+	cmp.l  #0x0, a2
+	beq    @NoFuzzl
+	jsr    EchoAI_PushInteractionFuzzl
+	bra    @End
+	@NoFuzzl:
+
+	; Search buttons
+	jsr    EchoAI_FindButton
+	cmp.l  #0x0, a2
+	beq    @NoButton
+	jsr    EchoAI_PushInteractionButton
+	bra    @End
+	@NoButton:
+
+	@End:
+
+	rts
+
+EchoAI_FindFuzzl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Fuzzl addr
+
 	move.w (EntityCount_Fuzzl), d6
 	cmp.w  #0x0, d6
 	beq    @NoFuzzls
@@ -1487,16 +1535,67 @@ EchoAI_FindInterestingObj:
 	;btst.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a2)
 	;bne    @NextFuzzl
 
-	; Let's have it
-	jsr    EchoAI_PushInteractionFuzzl
-	bra    @End
+	; Done
+	bra    @FoundFuzzl
 
 	@NextFuzzl:
 	add.l  #Fuzzl_Struct_Size, a2
 	dbra   d6, @FuzzlLoop
 	
 	@NoFuzzls:
-	@End:
+	move.l #0x0, a2
+
+	@FoundFuzzl:
+
+	rts
+
+EchoAI_FindButton:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Button addr
+
+	move.w (EntityCount_Button), d6
+	cmp.w  #0x0, d6
+	beq    @NoButtons
+	move.l (EntityPoolStart_Button), a2
+	sub.w  #0x1, d6
+	@ButtonLoop:
+
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a2), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistButtonX, d1
+	bgt    @NextButton
+	cmp.w  #-Echo_AIDistButtonX, d1
+	blt    @NextButton
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistButtonY, d1
+	bgt    @NextButton
+	cmp.w  #-Echo_AIDistButtonY, d1
+	blt    @NextButton
+
+	; Check active
+	tst.b  Entity_Active(a2)
+	beq    @NextButton
+
+	; Done
+	bra    @FoundButton
+
+	@NextButton:
+	add.l  #Button_Struct_Size, a2
+	dbra   d6, @ButtonLoop
+	
+	@NoButtons:
+	move.l #0x0, a2
+
+	@FoundButton:
 
 	rts
 
@@ -1540,6 +1639,32 @@ EchoAI_PushInteractionFuzzl:
 
 	rts
 
+EchoAI_PushInteractionButton:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Button addr
+
+	; Clear all nodes (interaction is a priority)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	ENTITY_GETCENTREX d0, a2
+	TOPIXELS d0
+
+	; Push goto node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w d0, EchoAINode_PosX(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #EchoAINode_Action_GoTo, EchoAINode_Action(a3)
+
+	rts
+
 EchoAIPushNode:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1548,7 +1673,7 @@ EchoAIPushNode:
 	PUSHL a0
 
 	PUSHM  d0-d1
-	
+
 	; If first node, set follow nodes state
 	move.w Echo_AINodeProducer(a0), d0
 	move.w Echo_AINodeConsumer(a0), d1
@@ -1626,6 +1751,8 @@ EchoAIPopNode:
 
 	;==============================================================
 
+	PUSHL  a3
+
 	; Determine node type and run action
 	move.b EchoAINode_Action(a3), d0
 	move.l EchoAINode_UserData(a3), a2
@@ -1633,6 +1760,8 @@ EchoAIPopNode:
 	beq    @FallAction
 	cmp.b  #EchoAINode_Action_Land, d0
 	beq    @LandAction
+	cmp.b  #EchoAINode_Action_GoTo, d0
+	beq    @GoToAction
 	cmp.b  #EchoAINode_Action_Jump, d0
 	beq    @JumpAction
 	cmp.b  #EchoAINode_Action_StartGlide, d0
@@ -1641,6 +1770,13 @@ EchoAIPopNode:
 	beq    @StopGlideAction
 	cmp.b  #EchoAINode_Action_StartPush, d0
 	beq    @StartPushAction
+
+	;==============================================================
+
+	@GoToAction:
+	
+	; GoTo (nothing to do)
+	bra    @EndAction
 
 	;==============================================================
 
@@ -1694,6 +1830,8 @@ EchoAIPopNode:
 	
 	@EndAction:
 
+	POPL   a3
+
 	rts
 
 EchoAIPeekNodeFront:
@@ -1736,5 +1874,51 @@ EchoAIPeekNodeBack:
 	move.l a0, a3
 
 	POPL  a0
+
+	rts
+
+EchoAISetState:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 --- State
+
+	cmp.b   #EchoAIState_None, d0
+	beq     @None
+	cmp.b   #EchoAIState_Follow, d0
+	beq     @Follow
+	cmp.b   #EchoAIState_FollowNodes, d0
+	beq     @FollowNodes
+	cmp.b   #EchoAIState_Lost, d0
+	beq     @Lost
+	cmp.b   #EchoAIState_CatchUp, d0
+	beq     @CatchUp
+	cmp.b   #EchoAIState_PushObj, d0
+	beq     @PushObj
+
+	@None:
+	move.b  #EchoAIState_None, Echo_AIState(a0)
+	bra     @End
+
+	@Follow:
+	jsr     EchoAIStart_Follow
+	bra     @End
+
+	@FollowNodes:
+	jsr     EchoAIStart_FollowNodes
+	bra     @End
+
+	@Lost:
+	jsr     EchoAIStart_Lost
+	bra     @End
+
+	@CatchUp:
+	jsr     EchoAIStart_CatchUp
+	bra     @End
+
+	@PushObj:
+	jsr     EchoAIStart_PushObj
+	bra     @End
+
+	@End:
 
 	rts

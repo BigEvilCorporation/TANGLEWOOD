@@ -77,13 +77,15 @@ Bridge_NotchYVel		rs.l Bridge_NumNotches		; Y velocities of notches (for drop mo
 Bridge_UnrollPos		rs.l 1
 Bridge_Speed			rs.l 1
 Bridge_Mode				rs.b 1
+Bridge_Buoyant			rs.b 1
+Bridge_DropUnderWeight	rs.b 1
 Bridge_State			rs.b 1
 Bridge_InView			rs.b 1
 Bridge_PlatformActive	rs.b 1
 Bridge_BarrierActive	rs.b 1
 Bridge_UpdateOutOfView	rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 2   ; Alignment padding
+Bridge_Struct_Pad		rs.b 0   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -117,6 +119,8 @@ BridgeInit:
 	move.l  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
 	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
+	move.b  #0x1, Bridge_DropUnderWeight(a0)
+	move.b  #0x0, Bridge_Buoyant(a0)
 	move.b  #0x0, Bridge_InView(a0)
 	move.b  #0x0, Bridge_PlatformActive(a0)
 	move.b  #0x0, Bridge_BarrierActive(a0)
@@ -252,6 +256,8 @@ BridgeUpdate:
 	;==============================================================
 
 	; If dropping, check for occupant and begin drop
+	tst.b  Bridge_DropUnderWeight(a0)
+	beq    @NotDropMode
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
 	bne    @NotDropMode
 	cmp.b  #Bridge_Stateopen, Bridge_State(a0)
