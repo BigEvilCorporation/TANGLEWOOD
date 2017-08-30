@@ -15,6 +15,7 @@ Bridge_Height			equ 0x80
 Bridge_NotchWidth		equ 0x10
 Bridge_NotchHeight		equ 0x10
 Bridge_NotchDiameter	equ 0x10
+Bridge_NotchBuoyancy	equ 0x08
 Bridge_NumNotches		equ Bridge_Width/Bridge_NotchWidth
 Bridge_MaxNotchSpiralRadius	equ 0x20
 Bridge_MinNotchSpiralRadius	equ 0x10
@@ -25,6 +26,7 @@ Bridge_DropCamShakeVel	equ 0x4000
 Bridge_DropCamShakeAmp	equ 0x0100
 
 Bridge_PlatformWidth	equ Bridge_Width	; Physics platform width
+Bridge_PlatformExtWater equ 0x0010	; Physics platform width extension when bridging water
 Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
 Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 
@@ -76,6 +78,7 @@ Bridge_NotchYPos		rs.l Bridge_NumNotches		; Y positions of notches (for drop mod
 Bridge_NotchYVel		rs.l Bridge_NumNotches		; Y velocities of notches (for drop mode)
 Bridge_UnrollPos		rs.l 1
 Bridge_Speed			rs.l 1
+Bridge_DropTargetY		rs.w 1
 Bridge_Mode				rs.b 1
 Bridge_Buoyant			rs.b 1
 Bridge_DropUnderWeight	rs.b 1
@@ -85,7 +88,7 @@ Bridge_PlatformActive	rs.b 1
 Bridge_BarrierActive	rs.b 1
 Bridge_UpdateOutOfView	rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 0   ; Alignment padding
+Bridge_Struct_Pad		rs.b 2   ; Alignment padding
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -119,6 +122,7 @@ BridgeInit:
 	move.l  #0x0, Bridge_UnrollPos(a0)
 	move.b  #Bridge_StateClosed, Bridge_State(a0)
 	move.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
+	move.w  #0x0, Bridge_DropTargetY(a0)
 	move.b  #0x1, Bridge_DropUnderWeight(a0)
 	move.b  #0x0, Bridge_Buoyant(a0)
 	move.b  #0x0, Bridge_InView(a0)
@@ -789,6 +793,8 @@ BridgeUpdateDropping:
 	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
 	move.l d4, Bridge_UnrollPos(a0)
 
+	;==============================================================
+
 	; For each notch up to drop pos, fall under gravity
 	TOPIXELS d4
 	divu.w #Bridge_NotchWidth, d4
@@ -798,6 +804,10 @@ BridgeUpdateDropping:
 	addi.l #Bridge_NotchYPos, a3
 	move.l Level_Gravity(a1), d0
 
+	; Get drop target
+	move.w Bridge_DropTargetY(a0), d5
+	TOSUBPIXELS d5
+
 	tst.w  d4
 	beq    @FirstNotch
 	subq.w  #0x1, d4
@@ -805,26 +815,70 @@ BridgeUpdateDropping:
 	move.l (a2), d1		; Vel to a2
 	add.l  d0, d1		; Add gravity to vel
 	move.l d1, (a2)+	; Back to array
-	add.l  d1, (a3)+	; Add to pos
+	move.l (a3), d6		; Get current pos
+	add.l  d1, d6		; Add to pos
+	tst.l  d5			; Clamp to drop target
+	beq    @NoDropTarget
+	CLAMPL d6, #0x0, d5
+	@NoDropTarget:
+	move.l d6, (a3)+	; Store pos
 	dbra   d4, @NotchLp
 	@FirstNotch:
 
-	; If buoyant, check if first notch hits water
+	;==============================================================
+
+	; If buoyant
 	tst.b  Bridge_Buoyant(a0)
 	beq    @NotBuoyant
+
+	; If not yet found drop target, check if first notch hits water
+	tst.w  Bridge_DropTargetY(a0)
+	beq    @NotFoundDropTarget
+
+	; If last notch hit water, reactivate platform and finish
+	cmp.l  d5, d6
+	beq    @DroppedIntoWater
+	
+	bra    @FoundDropTarget
+
+	@NotFoundDropTarget:
 
 	; Get notch bottom pos
 	move.l a0, a3
 	addi.l #Bridge_NotchYPos, a3
 	move.w Entity_WorldPosX(a0), d3
 	swap   d3
-	move.w (a3), d3
+	move.w Entity_WorldPosY(a0), d3
+	move.l (a3), d4
+	TOPIXELS d4
+	add.w  d4, d3
 	addi.w #Bridge_NotchHeight, d3
 
 	; Check all water bodies
+	move.w (EntityCount_WaterBody), d6
+	tst.w  d6
+	beq    @NoWater
+	move.l (EntityPoolStart_WaterBody), a2
+	subq.w  #0x1, d6
+	@WaterLoop:
+	ENTITY_GETBOUNDS d1,d2,d5,a2
+	jsr    PHYS_TestPointInsideBox
+	tst.b  d0
+	beq    @NextWater
+	move.w Entity_WorldPosY(a2), d0
+	sub.w  Entity_WorldPosY(a0), d0
+	subi.w #Bridge_NotchBuoyancy, d0
+	move.w d0, Bridge_DropTargetY(a0)
+	bra    @FoundDropTarget
+	@NextWater:
+	addi.l #WaterBody_Struct_Size, a2
+	dbra   d6, @WaterLoop
 
-
+	@NoWater:
+	@FoundDropTarget:
 	@NotBuoyant:
+
+	;==============================================================
 
 	; If already dropped, done here
 	cmp.b  #Bridge_StateDropped, Bridge_State(a0)
@@ -863,10 +917,44 @@ BridgeUpdateDropping:
 
 	bra    @End
 
+	;==============================================================
+
+	@DroppedIntoWater:
+	
+	; Reactivate platform
+	jsr    BridgeActivatePlatform
+
+	; Set platform pos to water level
+	move.l a0, a2
+	addi.l #Bridge_Platform, a2
+	move.w #Bridge_PlatformWidth+Bridge_PlatformExtWater, Platform_Width(a2)
+	move.l Entity_WorldPosX(a0), d0
+	subi.l #(Bridge_PlatformExtWater/2)*subpixels_per_pixel, d0
+	move.l d0, Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), d0
+	move.w Bridge_DropTargetY(a0), d1
+	TOSUBPIXELS d1
+	add.l  d1, d0
+	move.l d0, Platform_PosY(a2)
+
+	; Set open state
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+
+	bra    @StopEffects
+
+	;==============================================================
+
 	@FinishedDropping:
 
 	; Disable platform
 	jsr    BridgeDeactivatePlatform
+
+	; Set dropped state
+	move.b #Bridge_StateDropped, Bridge_State(a0)
+
+	;==============================================================
+
+	@StopEffects:
 
 	; Stop camera shake
 	jsr    CAM_StopCameraShake
@@ -874,8 +962,7 @@ BridgeUpdateDropping:
 	; Stop SFX
 	jsr    SND_StopSFX
 
-	; Set dropped state
-	move.b #Bridge_StateDropped, Bridge_State(a0)
+	;==============================================================
 
 	@End:
 
