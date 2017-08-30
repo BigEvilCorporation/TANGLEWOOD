@@ -242,7 +242,10 @@ LeafUpdate:
 	clr.l  d2
 	ext.l  d1						; Sign extend word to long
 	move.b AnimObj_SpeedDiv(a0), d2
+	cmp.b  #0x1, d2
+	beq    @NoSpeedDiv
 	divs   d2, d1
+	@NoSpeedDiv:
 	
 	; Increment sin step
 	add.w  d1, d0
@@ -282,7 +285,10 @@ LeafUpdate:
 	; Drop under gravity
 	move.l   #Leaf_FallVelocity, d1
 	move.b AnimObj_SpeedDiv(a0), d2
+	cmp.b  #0x1, d2
+	beq    @NoDiv
 	divs   d2, d1
+	@NoDiv:
 	ext.l  d1
 	sub.l  d1, Entity_WorldPosY(a0)
 

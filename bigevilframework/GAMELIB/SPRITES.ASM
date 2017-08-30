@@ -147,7 +147,7 @@ SPR_AddSubSprite:
 	lea     vdp_sprite_table, a4
 	move.w  d5, d6
 	sub.w   #0x1, d6
-	mulu.w  #size_spritedesc, d6
+	lsl.l   #0x3, d6	; mulu.w  #size_spritedesc, d6
 	add.l   d6, a4
 	move.b  d5, Sprite_NextID(a4)
 	add.l   #size_spritedesc, a4
