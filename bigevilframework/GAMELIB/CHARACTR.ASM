@@ -11,6 +11,7 @@
 ; ************************************
 Character_LandVel		    equ 0x030000
 Character_FallVel		    equ 0x020000
+Character_WaterSplashVel	equ 0x010000
 
 Character_PushLight			equ 0x1
 Character_PushHeavy			equ 0x2

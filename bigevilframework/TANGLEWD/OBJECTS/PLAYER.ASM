@@ -1945,7 +1945,7 @@ PlayerInteractTest_Water:
 	move.l a1, Player_LastWaterBody(a0)
 	
 	; If hit water at landing velocity
-	cmp.l  #-Character_LandVel, PhysicsObj_VelY(a0)
+	cmp.l  #-Character_WaterSplashVel, PhysicsObj_VelY(a0)
 	bge    @LowSplashVel
 	
 	; Play splash SFX
