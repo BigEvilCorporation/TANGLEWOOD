@@ -34,6 +34,7 @@ Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto nod
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
+Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
 
 ; AI distance tolerances for node types
 Echo_AINodeToleranceJumpX		equ 0x0010
@@ -102,8 +103,9 @@ EchoAINode_Action			rs.b 1	; Action to run when target reached
 EchoAINode_StopMovement		rs.b 1	; Stop X movement when target reached
 EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach target
 EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
+EchoAINode_LerpCamera		rs.b 1	; Lerp camera to character when node reached
 ;---------------------------------
-EchoAINode_Struct_Pad		rs.b 2
+EchoAINode_Struct_Pad		rs.b 1
 EchoAINode_Struct_Size		rs.b 0
 
 ; ************************************
@@ -126,6 +128,7 @@ Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
 Echo_LastNymnFloorVelX		rs.w 1
+Echo_AICameraLerpTimer		rs.w 1
 Echo_AILinearFollowOnly		rs.b 1	; In follow state, follow X axis only and don't collect nodes
 Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
@@ -136,7 +139,7 @@ Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 3
+Echo_Struct_Pad      		rs.b 1
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -173,6 +176,7 @@ EchoInit:
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.w #0x0, Echo_AIPotentialSafePosX(a0)
 	move.w #0x0, Echo_AIPotentialSafePosY(a0)
+	move.w #0x0, Echo_AICameraLerpTimer(a0)
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	move.b #0x0, Echo_AINymnGliding(a0)
@@ -445,28 +449,25 @@ EchoUpdate:
 	jsr    EchoHowl
 	@TimerStillRunning:
 	@TimerNotRunning:
+	
+	@Carried:
 
-	; If howl finished, lerp camer back to Nymn
-	tst.b  Echo_HowlState(a0)
-	beq    @NotHowling
-
-	move.l a0, a2
-	addi.l #Player_Animations, a2
-	addi.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), a2
-	cmp.l  AnimObj_CurrentAnim(a0), a2
-	beq    @StillHowling
-
-	move.b #0x0, Echo_HowlState(a0)
-
+	; Update camera lerp timer
+	move.w Echo_AICameraLerpTimer(a0), d0
+	tst.w  d0
+	beq    @LerpTimerNotRunning
+	tst.w  CameraTargetLerpSpeed
+	bne    @LerpTimerNotRunning
+	subq.w #0x1, d0
+	move.w d0, Echo_AICameraLerpTimer(a0)
+	tst.w  d0
+	bne    @LerpTimerRunning
 	move.l a0, CameraTargetLerpSource
 	move.l (Player1), CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
 	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-
-	@NotHowling:
-	@StillHowling:
-	
-	@Carried:
+	@LerpTimerNotRunning:
+	@LerpTimerRunning:
 	
 	rts
 
@@ -517,6 +518,21 @@ EchoDraw:
 	bne    @DebugNodeLp
 	@DebugNodeEnd:
 	ENDIF
+
+	rts
+
+EchoStartCameraLerp:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	tst.w  Echo_AICameraLerpTimer(a0)
+	bne    @NoCameraLerp
+	move.l (Player1), CameraTargetLerpSource
+	move.l a0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+	move.w #Echo_AICameraLerpTime, Echo_AICameraLerpTimer(a0)
+	@NoCameraLerp:
 
 	rts
 	
@@ -622,10 +638,7 @@ EchoHowl:
 	POPL   a1
 
 	; Start camera lerp
-	move.l (Player1), CameraTargetLerpSource
-	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+	jsr    EchoStartCameraLerp
 
 	; Set howl state
 	move.b #0x1, Echo_HowlState(a0)
@@ -1270,6 +1283,9 @@ EchoAIUpdate_Water:
 	; Found dry land, back to follow state
 	jsr    EchoAIStart_Follow
 
+	; Lerp camera to show Echo is safe
+	jsr    EchoStartCameraLerp
+
 	@NoFloor:
 	@FloorInWater:
 
@@ -1497,6 +1513,7 @@ EchoAI_WatchNymnMovement:
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Land, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1532,6 +1549,7 @@ EchoAI_WatchNymnMovement:
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StartGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1549,6 +1567,7 @@ EchoAI_WatchNymnMovement:
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -1595,6 +1614,7 @@ EchoAI_WatchNymnMovement:
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x1, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 
 	; If Nymn was in air because of a jump, set waiting for landing, take floor pos as target Y, and require on floor
@@ -1606,6 +1626,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	@NotJumping:
 
 	bra    @End
@@ -1633,6 +1654,7 @@ EchoAI_WatchNymnMovement:
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
 
 	@WithinYToleranceDown:
@@ -1815,6 +1837,7 @@ EchoAI_PushInteractionFuzzl:
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x1, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
 	; Determine direction to roll in (towards Nymn)
@@ -1856,6 +1879,7 @@ EchoAI_PushInteractionButton:
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x1, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_GoTo, EchoAINode_Action(a3)
 
 	rts
@@ -1943,6 +1967,14 @@ EchoAIPopNode:
 	TOSUBPIXELS d0
 	move.l d0, PhysicsObj_VelX(a0)
 	@NoVelX:
+
+	;==============================================================
+
+	; Lerp camera if configured and not already enabled
+	tst.b  EchoAINode_LerpCamera(a3)
+	beq    @NoCameraLerp
+	jsr    EchoStartCameraLerp
+	@NoCameraLerp:
 
 	;==============================================================
 
