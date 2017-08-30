@@ -967,7 +967,7 @@ PlayerUpdateColourAbility:
 	; Slow down global time
 	cmp.b  #Player1SlowTimeDiv, d0
 	beq    @EndTimeDiv
-	addi.b #0x1, d0
+	addq.b #0x1, d0
 
 	bra    @ApplyTime
 	

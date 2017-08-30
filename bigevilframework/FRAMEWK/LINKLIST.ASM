@@ -71,7 +71,7 @@ LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 	@End\@:
 	
 	; Increment count
-	addi.l #0x1, List_\name\_Size
+	addq.l #0x1, List_\name\_Size
 	
 	endm
 	
@@ -221,7 +221,7 @@ MLIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg,structaddrreg
 	@End\@:
 	
 	; Increment count
-	addi.l #0x1, List_\name\_Size(\structaddrreg)
+	addq.l #0x1, List_\name\_Size(\structaddrreg)
 	
 	endm
 

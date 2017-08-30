@@ -41,7 +41,7 @@ HBlankInterrupt_Letterbox:
 	move.w #0x8174, vdp_control
 	@Off:
 	
-	addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
-	addi.w #0x1, hline_counter     ; Increment h-line counter
+	addq.l #0x1, hblank_counter    ; Increment hinterrupt counter
+	addq.w #0x1, hline_counter     ; Increment h-line counter
 	rte
 	

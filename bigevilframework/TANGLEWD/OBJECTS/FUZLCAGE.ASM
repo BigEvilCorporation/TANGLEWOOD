@@ -64,7 +64,7 @@ FuzzlCageInit:
 	jsr    PhysicsObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_FuzzlCage
+	addq.w #0x1, EntityCount_FuzzlCage
 	
 	; Set update and render routines
 	move.l #FuzzlCageUpdate, Entity_UpdateRoutine(a0)

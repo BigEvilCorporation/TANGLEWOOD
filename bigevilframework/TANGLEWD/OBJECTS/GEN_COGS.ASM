@@ -39,7 +39,7 @@ CogsInit:
 	jsr    AnimObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Cogs
+	addq.w #0x1, EntityCount_Cogs
 	
 	; Set update and render routines
 	move.l #AnimObjUpdate, Entity_UpdateRoutine(a0)

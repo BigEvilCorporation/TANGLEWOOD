@@ -150,7 +150,7 @@ EchoInit:
 	jsr    PlayerInit
 
 	; Count
-	addi.w #0x1, EntityCount_Echo
+	addq.w #0x1, EntityCount_Echo
 	
 	; Set update and render routines
 	move.l #EchoUpdate, Entity_UpdateRoutine(a0)
@@ -489,7 +489,7 @@ EchoDraw:
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	POPM   d6-d7/a0-a1
-	addi.w #0x1, d6
+	addq.w #0x1, d6
 	cmp.w  d6, d7
 	bne    @DebugNodeLp
 	@DebugNodeEnd:
@@ -1860,7 +1860,7 @@ EchoAIPushNode:
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get producer position
 
 	; Increment (and wrap) producer index
-	addi.w #0x1, Echo_AINodeProducer(a0)
+	addq.w #0x1, Echo_AINodeProducer(a0)
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
@@ -1884,7 +1884,7 @@ EchoAIPopNode:
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
 
 	; Increment (and wrap) consumer index
-	addi.w #0x1, Echo_AINodeConsumer(a0)
+	addq.w #0x1, Echo_AINodeConsumer(a0)
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset

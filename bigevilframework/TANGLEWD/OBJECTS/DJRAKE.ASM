@@ -118,7 +118,7 @@ DjrakeInit:
 	; Set type
 	;ori.l  #entity_type_Djrake, Entity_TypeBits(a0)
 	ori.l  #entity_type_monster, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Djrake
+	addq.w #0x1, EntityCount_Djrake
 	
 	; Set update and render routines
 	move.l #DjrakeUpdate, Entity_UpdateRoutine(a0)

@@ -163,7 +163,7 @@ TXT_DrawSprites:
 	beq      @OutOfSprites
 	
 	addi.l   #0x00080000, d1		; Spacing
-	addi.b   #0x1, d4				; Increment counter
+	addq.b   #0x1, d4				; Increment counter
 	
 	bra      @CharCopy              ; Next character
 
@@ -197,7 +197,7 @@ TXT_CreateTileIDList:
 	
 	POPL     d4						; To buffer
 	
-	addi.b   #0x1, d4				; Increment counter
+	addq.b   #0x1, d4				; Increment counter
 	
 	bra      @CharCopy              ; Next character
 
@@ -249,7 +249,7 @@ TXT_LoadStringSpriteTiles:
 	
 	POPM     d4/a0
 	
-	addi.b   #0x1, d4				; Increment counter
+	addq.b   #0x1, d4				; Increment counter
 	
 	dbra     d5, @CharCopy          ; Next character
 
@@ -342,7 +342,7 @@ TXT_ItoA_w:
 	clr.l  d1
 	
 	@Loop:
-	addi.w #0x1, d1
+	addq.w #0x1, d1
 	move.w d0, d2
 	andi.l #0x0000FFFF, d2
 	divu   #10, d2		; Div/10

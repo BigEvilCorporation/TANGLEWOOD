@@ -165,7 +165,7 @@ MonsterInit:
 	
 	; Set type
 	ori.l  #entity_type_monster, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Monster
+	addq.w #0x1, EntityCount_Monster
 	
 	; Set update and render routines
 	move.l #MonsterUpdate, Entity_UpdateRoutine(a0)

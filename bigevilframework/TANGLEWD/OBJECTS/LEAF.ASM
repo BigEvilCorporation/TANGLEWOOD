@@ -54,7 +54,7 @@ LeafInit:
 	
 	; Set type
 	ori.l  #entity_type_leaf, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Leaf
+	addq.w #0x1, EntityCount_Leaf
 	
 	; Set update and render routines
 	move.l #LeafUpdate, Entity_UpdateRoutine(a0)

@@ -46,7 +46,7 @@ DjakkCageInit:
 	jsr    SpriteObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_DjakkCage
+	addq.w #0x1, EntityCount_DjakkCage
 	
 	; Set update and render routines
 	move.l #DjakkCageUpdate, Entity_UpdateRoutine(a0)

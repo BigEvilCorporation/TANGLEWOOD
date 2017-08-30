@@ -99,7 +99,7 @@ BridgeInit:
 	jsr    SpriteObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Bridge
+	addq.w #0x1, EntityCount_Bridge
 	
 	; Set update and render routines
 	move.l #BridgeUpdate, Entity_UpdateRoutine(a0)

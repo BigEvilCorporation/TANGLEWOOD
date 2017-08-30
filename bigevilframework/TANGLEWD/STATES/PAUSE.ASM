@@ -381,8 +381,8 @@ Debug_DrawVRAMPools:
 	POPM    d1-d4/a2-a3
 	addi.l  #VRAMPool_Struct_Size, a2
 	addi.l  #DebugText_VRAM_StrLen, a3
-	addi.w  #0x8, d1
-	addi.w  #0x1, d4
+	addq.w  #0x8, d1
+	addq.w  #0x1, d4
 	dbra    d3, @PoolLp
 
 	POPM    a0-a1

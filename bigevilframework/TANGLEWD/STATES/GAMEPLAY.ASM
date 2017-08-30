@@ -171,7 +171,7 @@ Gameplay_Update:
 	ENDIF
 	
 	; Increment death counter
-	addi.w #0x1, DeathCount
+	addq.w #0x1, DeathCount
 	
 	@NoUpdate:
 	@PlayerAlive:

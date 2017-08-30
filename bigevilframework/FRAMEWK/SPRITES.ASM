@@ -178,7 +178,7 @@ SPR_SetMultiPosX:
 		add.l #size_spritedesc, a0
 		
 		; Next subsprite offset
-		addi.l  #size_long, a1
+		addq.l  #size_long, a1
 			
 		dbra    d2, @SubspriteLp
 
@@ -217,7 +217,7 @@ SPR_SetMultiPosY:
 		add.l #size_spritedesc, a0
 		
 		; Next subsprite offset
-		addi.l  #size_long, a1
+		addq.l  #size_long, a1
 		
 		dbra    d2, @SubspriteLp
 

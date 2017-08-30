@@ -25,7 +25,7 @@ CheckpointInit:
 	
 	; Set type
 	ori.l  #entity_type_checkpoint, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Checkpoint
+	addq.w #0x1, EntityCount_Checkpoint
 	
 	; Set update and serialise routines
 	move.l #CheckpointUpdate, Entity_UpdateRoutine(a0)

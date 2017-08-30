@@ -27,7 +27,7 @@ DeathboxInit:
 	
 	; Set type
 	; ori.l  #entity_type_Deathbox, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Deathbox
+	addq.w #0x1, EntityCount_Deathbox
 
 	; Set update routine
 	move.l #DeadboxUpdate, Entity_UpdateRoutine(a0)

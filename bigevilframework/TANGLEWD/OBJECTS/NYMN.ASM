@@ -42,7 +42,7 @@ NymnInit:
 	jsr    PlayerInit
 
 	; Count
-	addi.w #0x1, EntityCount_Nymn
+	addq.w #0x1, EntityCount_Nymn
 	
 	; Set update and render routines
 	move.l #NymnUpdate, Entity_UpdateRoutine(a0)

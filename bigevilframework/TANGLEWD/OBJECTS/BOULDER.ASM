@@ -71,7 +71,7 @@ BoulderInit:
 	
 	; Set type
 	ori.l  #entity_type_boulder, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Boulder
+	addq.w #0x1, EntityCount_Boulder
 	
 	; Set update and render routines
 	move.l #BoulderUpdate, Entity_UpdateRoutine(a0)

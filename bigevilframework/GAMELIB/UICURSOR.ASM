@@ -110,7 +110,7 @@ UIWidgetCursorAddWidget:
 	@NotFirst:
 
 	; Increment count
-	addi.b #0x1, UIWidgetCursor_NumWidgets(a0)
+	addq.b #0x1, UIWidgetCursor_NumWidgets(a0)
 
 	rts
 
@@ -218,7 +218,7 @@ UIWidgetCursorUpdate:
 	; Navigate down
 	move.b UIWidgetCursor_NumWidgets(a0), d1
 	move.b UIWidgetCursor_CurrIndex(a0), d2
-	addi.b #0x1, d2
+	addq.b #0x1, d2
 	cmp.b  d1, d2
 	bne    @NoWrapUp
 	move.b #0x0, d2

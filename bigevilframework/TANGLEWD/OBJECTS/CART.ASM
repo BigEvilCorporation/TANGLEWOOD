@@ -48,7 +48,7 @@ CartInit:
 	jsr    PhysicsObjInit
 	
 	; Count
-	addi.w #0x1, EntityCount_Cart
+	addq.w #0x1, EntityCount_Cart
 	
 	; Set update and render routines
 	move.l #CartUpdate, Entity_UpdateRoutine(a0)

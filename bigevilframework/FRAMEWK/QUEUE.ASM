@@ -54,7 +54,7 @@ Queue_Push:
 	dbra.w d1, @CopyLp
 	
 	; Increment and wrap producer index
-	addi.w #0x1, d2
+	addq.w #0x1, d2
 	cmp.w  Queue_MaxSize(a0), d2
 	bne    @NoWrap
 	move.w #0x0, d2
@@ -90,7 +90,7 @@ Queue_Pop:
 	dbra.w d1, @CopyLp
 	
 	; Increment and wrap consumer index
-	addi.w #0x1, d2
+	addq.w #0x1, d2
 	cmp.w  Queue_MaxSize(a0), d2
 	bne    @NoWrap
 	move.w #0x0, d2

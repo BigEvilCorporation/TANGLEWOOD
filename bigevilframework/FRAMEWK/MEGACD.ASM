@@ -29,12 +29,12 @@ CompareString:
         tst.b d1   ; Check char 1 for 0
         beq strcmp_end   ; End of string, return
         
-        addi #0x1, d3    ; Increment char counter
+        addq #0x1, d3    ; Increment char counter
         bra @strchecklp
 
 strcmp_diff:
         move.l d3, d0    ; Strings diff, move idx to return val
-        addi   #0x1, d0  ; Index+1
+        addq   #0x1, d0  ; Index+1
 
 strcmp_end:
         rts

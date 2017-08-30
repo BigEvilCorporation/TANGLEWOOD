@@ -47,7 +47,7 @@ CrateInit:
 	jsr    PhysicsObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Crate
+	addq.w #0x1, EntityCount_Crate
 	
 	; Set update and render routines
 	move.l #CrateUpdate, Entity_UpdateRoutine(a0)

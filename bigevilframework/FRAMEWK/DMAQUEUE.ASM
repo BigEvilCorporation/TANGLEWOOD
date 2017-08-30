@@ -54,7 +54,7 @@ VDP_DMAQueue_AddJob:
 	move.w d1, VDPDMAJob_SizeWords(a1)
 	
 	; Increment queue size
-	addi.w #0x1, vdp_dma_queue_size
+	addq.w #0x1, vdp_dma_queue_size
 	
 	bra    @End
 	
@@ -71,7 +71,7 @@ VDP_DMAQueue_AddJob:
 	move.l a0, VDPDMAJob_SourceAddr(a1)
 	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d4, VDPDMAJob_SizeWords(a1)
-	addi.w #0x1, vdp_dma_queue_size
+	addq.w #0x1, vdp_dma_queue_size
 	add.l  #VDPDMAJob_Struct_Size, a1
 	
 	; Job 2
@@ -81,7 +81,7 @@ VDP_DMAQueue_AddJob:
 	move.l a0, VDPDMAJob_SourceAddr(a1)
 	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d1, VDPDMAJob_SizeWords(a1)
-	addi.w #0x1, vdp_dma_queue_size
+	addq.w #0x1, vdp_dma_queue_size
 	
 	@End:
 	

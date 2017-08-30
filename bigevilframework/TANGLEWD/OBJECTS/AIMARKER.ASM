@@ -29,7 +29,7 @@ AIMarkerInit:
 	; a1 --- Level addr
 	
 	; Add to count
-	addi.w #0x1, EntityCount_AIMarker
+	addq.w #0x1, EntityCount_AIMarker
 
 	; Add to markers list
 	LIST_APPEND_TAIL AIMarkers, a0, a3

@@ -25,7 +25,7 @@ UIWindowInit:
 	jsr    EntityInit
 	
 	; Count
-	addi.w #0x1, EntityCount_UIWindow
+	addq.w #0x1, EntityCount_UIWindow
 
 	; Initial state
 	MLIST_INIT Widgets,a0

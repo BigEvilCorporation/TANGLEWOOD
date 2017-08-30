@@ -27,7 +27,7 @@ LocationInit:
 	
 	; Set type
 	ori.l  #entity_type_location, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Location
+	addq.w #0x1, EntityCount_Location
 
 	move.w #Location_Width, Entity_Width(a0)
 	move.w #Location_Height, Entity_Height(a0)

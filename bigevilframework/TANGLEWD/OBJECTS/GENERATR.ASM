@@ -47,7 +47,7 @@ GeneratorInit:
 	jsr    AnimObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Generator
+	addq.w #0x1, EntityCount_Generator
 	
 	; Set update and render routines
 	move.l #GeneratorUpdate, Entity_UpdateRoutine(a0)

@@ -20,7 +20,7 @@ INT_LoadHBlank:
 	rts
 
 INT_VBlank:
-   addi.l #0x1, vblank_counter    ; Increment vinterrupt counter
+   addq.l #0x1, vblank_counter    ; Increment vinterrupt counter
    move.w #0x0, hline_counter	  ; Clear h-line counter
 
    IFD DEBUG
@@ -40,8 +40,8 @@ INT_VBlank:
    rte
 
 INT_HBlank:
-   addi.l #0x1, hblank_counter    ; Increment hinterrupt counter
-   addi.w #0x1, hline_counter     ; Increment h-line counter
+   addq.l #0x1, hblank_counter    ; Increment hinterrupt counter
+   addq.w #0x1, hline_counter     ; Increment h-line counter
    rte
 
 INT_Null:

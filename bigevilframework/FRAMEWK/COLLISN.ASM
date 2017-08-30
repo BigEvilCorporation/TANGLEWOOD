@@ -104,7 +104,7 @@ PHYS_GetTerrainHeight:
 	move.w d1, d6
 	andi.w #0x7, d3	; Y coord to nearest tile remainder
 	sub.w  d3, d6	; Sub from Y coord
-	addi.w #0x8, d6	; + 1 tile
+	addq.w #0x8, d6	; + 1 tile
 	
 	; Clear total blank tiles skipped
 	clr.l  d5

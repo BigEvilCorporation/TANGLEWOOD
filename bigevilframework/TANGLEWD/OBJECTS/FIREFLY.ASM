@@ -34,7 +34,7 @@ FireflyInit:
 	
 	; Set type
 	ori.l  #entity_type_firefly, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Firefly
+	addq.w #0x1, EntityCount_Firefly
 
 	; Set update, render and serialise routines
 	move.l #AnimObjUpdate, Entity_UpdateRoutine(a0)
@@ -144,7 +144,7 @@ FireflyTestObj:
 	move.b #0x0, SpriteObj_Visible(a0)
 	
 	; Increment global counter
-	addi.w #0x1, FireflyPickupCount
+	addq.w #0x1, FireflyPickupCount
 	
 	; Play SFX
 	move.w (EntityCount_Firefly), d0

@@ -319,7 +319,7 @@ RenderEndFrame:
 	move.b #0x0, (UnderwaterDirtyPalettesMask)
 
 	; Update frame counter
-	addi.l #0x1, frame_counter_update
+	addq.l #0x1, frame_counter_update
 	
 	; Get current render counter
 	move.l (frame_counter_render), d0
@@ -402,7 +402,7 @@ __vinterrupt:
 	ENDIF
 	
 	; Update frame counter
-	addi.l #0x1, frame_counter_render
+	addq.l #0x1, frame_counter_render
 
 	rts
 

@@ -25,7 +25,7 @@ WaterBodyInit:
 	
 	; Set type
 	ori.l  #entity_type_waterbody, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_WaterBody
+	addq.w #0x1, EntityCount_WaterBody
 
 	; Default state
 	move.w #WaterBody_Width, Entity_Width(a0)

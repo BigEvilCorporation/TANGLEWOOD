@@ -62,7 +62,7 @@ VDP_JobQueue_PushJob:
 	movem.l d0-d6/a0-a4, VDPJob_Regs(a6)
 	
 	; Increment producer index
-	addi.w #0x1, (vdp_queue_produceridx)
+	addq.w #0x1, (vdp_queue_produceridx)
 	
 	rts
 	
@@ -85,7 +85,7 @@ VDP_JobQueue_ExecuteJob:
 	movem.l VDPJob_Regs(a6), d0-d6/a0-a4
 	
 	; Increment (and wrap) consumer index
-	addi.w #0x1, (vdp_queue_consumeridx)
+	addq.w #0x1, (vdp_queue_consumeridx)
 	
 	; Run job
 	jsr (a5)

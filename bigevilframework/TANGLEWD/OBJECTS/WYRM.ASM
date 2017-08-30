@@ -97,7 +97,7 @@ WyrmInit:
 	jsr    CharacterInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Wyrm
+	addq.w #0x1, EntityCount_Wyrm
 	
 	; Set update and render routines
 	move.l #WyrmUpdate, Entity_UpdateRoutine(a0)
@@ -307,7 +307,7 @@ WyrmUpdate:
 	move.b Wyrm_NextFreeDebris(a0), d3	; Get next free index
 	tst.w  d1						; Determine direction
 	blt    @PrevDebris
-	addi.b #0x1, d3						; Get next debris
+	addq.b #0x1, d3						; Get next debris
 	bra    @EndDebrisDirection
 	@PrevDebris:
 	subi.w #0x1, d3						; Get prev debris

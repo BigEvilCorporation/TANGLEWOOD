@@ -25,7 +25,7 @@ NestInit:
 	
 	; Set type
 	ori.l  #entity_type_nest, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Nest
+	addq.w #0x1, EntityCount_Nest
 
 	; Set default state
 	move.w #Nest_Width, Entity_Width(a0)

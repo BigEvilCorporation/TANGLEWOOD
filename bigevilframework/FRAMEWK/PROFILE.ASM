@@ -92,7 +92,7 @@ DBG_Profile_PushScope:
 	beq    @FirstBlock
 	clr.l  d0
 	move.b ProfileBlockChildCount(a2), d0
-	addi.b #0x1, ProfileBlockChildCount(a2)
+	addq.b #0x1, ProfileBlockChildCount(a2)
 	mulu   #size_long, d0
 	move.l a1, ProfileBlockChildAddrs(a2, d0.l)
 	@FirstBlock:
@@ -281,7 +281,7 @@ DBG_Profile_DrawBlockRecursive:
 	rol.w  #0x8, d0
 	
 	; Next child ptr
-	addi.l #size_long, a1
+	addq.l #size_long, a1
 
 	; Loop
 	dbra   d2, @ChildLp

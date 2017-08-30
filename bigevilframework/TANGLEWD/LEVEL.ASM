@@ -287,8 +287,8 @@ LevelLoadPalettes:
 	
 	@SkipPalette:
 	POPM   d0/d7/a3
-	addi.w #0x1, d0
-	addi.l #size_long, a3
+	addq.w #0x1, d0
+	addq.l #size_long, a3
 	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0
 	
 	rts

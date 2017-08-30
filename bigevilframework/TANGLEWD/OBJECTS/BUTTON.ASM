@@ -36,7 +36,7 @@ ButtonInit:
 	jsr    AnimObjInit
 
 	; Set type
-	addi.w #0x1, EntityCount_Button
+	addq.w #0x1, EntityCount_Button
 	
 	; Set update and render routines
 	move.l #ButtonUpdate, Entity_UpdateRoutine(a0)

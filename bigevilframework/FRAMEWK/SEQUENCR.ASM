@@ -67,7 +67,7 @@ SequencerTest:
 	cmp.l d2, d0               ; Compare clock with note end time
 	blt @WithinRelease         ; Branch if Less Than
 	move.b #0x9F, psg_control  ; End of note, silence channel 0
-	addi.l #0x6, a0            ; Increment a0 by 3 words
+	addq.l #0x6, a0            ; Increment a0 by 3 words
 	bra @ProcessNote           ; Jump back to top to evaluate next note
 	
 	@WithinRelease:            ; Within release time of note

@@ -33,7 +33,7 @@ VfxInit:
 	jsr    AnimObjInit
 	
 	; Add to count
-	addi.w #0x1, EntityCount_VFX
+	addq.w #0x1, EntityCount_VFX
 
 	; Set update and render routines
 	move.l #VfxUpdate, Entity_UpdateRoutine(a0)

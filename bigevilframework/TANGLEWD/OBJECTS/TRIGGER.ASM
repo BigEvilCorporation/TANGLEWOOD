@@ -42,7 +42,7 @@ TriggerBoxInit:
 	
 	; Set type
 	ori.l  #entity_type_trigger, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_TriggerBox
+	addq.w #0x1, EntityCount_TriggerBox
 	
 	; Set update and serialise routines
 	move.l #TriggerBoxUpdate, Entity_UpdateRoutine(a0)

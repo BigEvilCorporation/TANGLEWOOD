@@ -66,7 +66,7 @@ LogInit:
 	jsr    PhysicsObjInit
 	
 	; Set type
-	addi.w #0x1, EntityCount_Log
+	addq.w #0x1, EntityCount_Log
 	
 	; Set update and render routines
 	move.l #LogUpdate, Entity_UpdateRoutine(a0)

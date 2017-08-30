@@ -38,7 +38,7 @@ PillarInit:
 	jsr    PhysicsObjInit
 	
 	; Count
-	addi.w #0x1, EntityCount_Pillar
+	addq.w #0x1, EntityCount_Pillar
 	
 	; Set update and render routines
 	move.l #PillarUpdate, Entity_UpdateRoutine(a0)

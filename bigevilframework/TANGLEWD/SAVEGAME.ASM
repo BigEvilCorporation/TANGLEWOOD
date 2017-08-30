@@ -24,7 +24,7 @@ SaveGame:
 	jsr    EntitySerialiseAll
 	
 	; Increment save version
-	addi.w #0x1, LastSaveVersion
+	addq.w #0x1, LastSaveVersion
 	
 	POPL   a1
 	POPL   a0

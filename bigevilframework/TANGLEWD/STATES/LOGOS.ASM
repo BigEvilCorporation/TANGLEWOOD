@@ -103,7 +103,7 @@ Logos_Update:
 	bne    @ColourTimerRunning
 	
 	; Next colour
-	addi.b #0x1, LogoState_CurrColourIdx(a3)
+	addq.b #0x1, LogoState_CurrColourIdx(a3)
 	
 	; Reset timer
 	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)

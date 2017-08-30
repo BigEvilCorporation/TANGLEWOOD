@@ -27,7 +27,7 @@ vdp_regs			  rs.b vdp_num_registers
 rand_seed				rs.l 1
 vint_enabled			rs.b 1
 
-__padding00				rs.b 3
+__paddqng00				rs.b 3
 
 vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
 
@@ -45,7 +45,7 @@ raster_interlace_scroll		rs.w 1
 raster_interlace_odd		rs.b 1	; Odd/even raster line
 raster_water_level			rs.b 1	; Current water level, sets HINT frequency
 
-__padding80				rs.b 2
+__paddqng80				rs.b 2
 
 ; ************************************
 ; Audio
@@ -59,7 +59,7 @@ audio_volume_global		rs.b 1
 audio_fader_speed		rs.b 1
 audio_playback_locked	rs.b 1
 
-__padding01				rs.b 3
+__paddqng01				rs.b 3
 
 ; ************************************
 ; Profiler
@@ -68,7 +68,7 @@ __padding01				rs.b 3
 profile_pending		  rs.b 1
 profile_finished	  rs.b 1
 profile_active		  rs.b 1
-__padding01 		  rs.b 1
+__paddqng01 		  rs.b 1
 profile_currblock	  rs.l 1
 profile_nextfreeblock rs.l 1
 profile_resultblocks  rs.b (ProfileBlockStructSize*ProfileMaxBlocks)
@@ -98,7 +98,7 @@ vdp_queue_consumeridx rs.w 1
 vdp_dma_queue		  rs.b (VDPDMAJob_Struct_Size*VDPDmaQueue_MaxSize)
 vdp_dma_queue_size    rs.w 1
 
-__padding02 		  rs.b 2
+__paddqng02 		  rs.b 2
 
 ; ************************************
 ; VDP sprite table
@@ -119,7 +119,7 @@ next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
 sprite_link_count   rs.b 1
 
-__padding32 		rs.b 1
+__paddqng32 		rs.b 1
 
 ; ************************************
 ; Timers
@@ -146,7 +146,7 @@ TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night
 TimeOfDayEnabled    rs.b 1
 
-__padding03			rs.b 2
+__paddqng03			rs.b 2
 
 ; ************************************
 ; Weather
@@ -197,7 +197,7 @@ MapStreamDestTop	    rs.w 1
 MapStreamNumCols	    rs.w 1
 MapStreamNumRows	    rs.w 1
 
-__padding061		   rs.b 0
+__paddqng061		   rs.b 0
 
 ; ************************************
 ; Scene/stamp animations
@@ -215,7 +215,7 @@ Gamepad2PrevState      rs.w 1
 DirtyPalettesMask      rs.b 1	; Marks palettes for DMA
 UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
-__padding31            rs.b 2
+__paddqng31            rs.b 2
 
 ; Global player addresses
 Player1                rs.l 1
@@ -261,14 +261,14 @@ GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 FluePotentialOccupants		 rs.l Flue_MaxPotentialOccupants
 FlueNumPotentialOccupants	 rs.b 1
 
-__padding06				     rs.b 3
+__paddqng06				     rs.b 3
 
 ; ************************************
 ; Checkpoints
 ; ************************************
 LastActivatedCheckpoint      rs.l 1
 LastSaveVersion				 rs.w 1
-__padding041			     rs.b 2
+__paddqng041			     rs.b 2
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
@@ -282,7 +282,7 @@ EndOfActAcceleration		 rs.w 1
 ; ************************************
 GlobalTimeDiv			 rs.b 1
 
-__padding04			     rs.b 3
+__paddqng04			     rs.b 3
 
 ; Time slow effect palette backup
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
@@ -356,7 +356,7 @@ LevelData_L7A1			 rs.b L7A1Data_Struct_Size
 ; ************************************
 	IFND FINAL
 DebugMoveObjectMode      rs.b 1
-__padding05			     rs.b 3
+__paddqng05			     rs.b 3
 	ENDIF
 
 ; ************************************

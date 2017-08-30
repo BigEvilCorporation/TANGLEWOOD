@@ -44,7 +44,7 @@ StoneInit:
 	
 	; Set type
 	; ori.l  #entity_type_stone, Entity_TypeBits(a0)
-	addi.w #0x1, EntityCount_Stone
+	addq.w #0x1, EntityCount_Stone
 	
 	; Set update and render routines
 	move.l #StoneUpdate, Entity_UpdateRoutine(a0)
