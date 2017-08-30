@@ -14,9 +14,9 @@ sprite_firefly_size_t		equ 0x0004	; Size in tiles
 sprite_firefly_size_subsprites		equ 0x0001	; Size in subsprites
 sprite_firefly_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_firefly_subsprite_pos_offsets:
-	dc.w 0x0000, 0x0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -31,6 +31,8 @@ sprite_firefly_numtiles_per_subsprite:
 
 
 spritesheet_firefly_red_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_firefly_red_width		equ 0x10	; Width in pixels
+spritesheet_firefly_red_height		equ 0x10	; Width in pixels
 spritesheet_firefly_red_size_b		equ 0xA00	; Size in bytes
 spritesheet_firefly_red_size_w		equ 0x500	; Size in words
 spritesheet_firefly_red_size_l		equ 0x280	; Size in longwords

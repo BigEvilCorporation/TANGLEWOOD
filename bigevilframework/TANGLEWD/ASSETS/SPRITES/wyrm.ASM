@@ -14,12 +14,12 @@ sprite_wyrm_size_t		equ 0x0038	; Size in tiles
 sprite_wyrm_size_subsprites		equ 0x0004	; Size in subsprites
 sprite_wyrm_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_wyrm_subsprite_pos_offsets:
-	dc.w 0x0000, 0x2000
-	dc.w 0x0020, 0x2020
-	dc.w 0x2000, 0x0000
-	dc.w 0x2020, 0x0020
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00000020, 0x00200020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,6 +40,8 @@ sprite_wyrm_numtiles_per_subsprite:
 
 
 spritesheet_wyrm_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_wyrm_bite_width		equ 0x40	; Width in pixels
+spritesheet_wyrm_bite_height		equ 0x38	; Width in pixels
 spritesheet_wyrm_bite_size_b		equ 0x2A00	; Size in bytes
 spritesheet_wyrm_bite_size_w		equ 0x1500	; Size in words
 spritesheet_wyrm_bite_size_l		equ 0xA80	; Size in longwords
@@ -47,6 +49,8 @@ spritesheet_wyrm_bite_size_t		equ 0x150	; Size in tiles
 
 
 spritesheet_wyrm_move_frameoffset	equ 0x06	; Offset to first frame in sprite sheet
+spritesheet_wyrm_move_width		equ 0x40	; Width in pixels
+spritesheet_wyrm_move_height		equ 0x38	; Width in pixels
 spritesheet_wyrm_move_size_b		equ 0x1C00	; Size in bytes
 spritesheet_wyrm_move_size_w		equ 0xE00	; Size in words
 spritesheet_wyrm_move_size_l		equ 0x700	; Size in longwords
@@ -54,6 +58,8 @@ spritesheet_wyrm_move_size_t		equ 0xE0	; Size in tiles
 
 
 spritesheet_wyrm_emerge_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
+spritesheet_wyrm_emerge_width		equ 0x40	; Width in pixels
+spritesheet_wyrm_emerge_height		equ 0x38	; Width in pixels
 spritesheet_wyrm_emerge_size_b		equ 0x1500	; Size in bytes
 spritesheet_wyrm_emerge_size_w		equ 0xA80	; Size in words
 spritesheet_wyrm_emerge_size_l		equ 0x540	; Size in longwords

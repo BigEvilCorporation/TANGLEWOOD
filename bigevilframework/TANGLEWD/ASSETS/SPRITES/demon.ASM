@@ -14,20 +14,20 @@ sprite_demon_size_t		equ 0x00B4	; Size in tiles
 sprite_demon_size_subsprites		equ 0x000C	; Size in subsprites
 sprite_demon_widthheight_subsprites		equ 0x0403	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_demon_subsprite_pos_offsets:
-	dc.w 0x0000, 0x5800
-	dc.w 0x0020, 0x5820
-	dc.w 0x0040, 0x5840
-	dc.w 0x2000, 0x3800
-	dc.w 0x2020, 0x3820
-	dc.w 0x2040, 0x3840
-	dc.w 0x4000, 0x1800
-	dc.w 0x4020, 0x1820
-	dc.w 0x4040, 0x1840
-	dc.w 0x6000, 0x0000
-	dc.w 0x6020, 0x0020
-	dc.w 0x6040, 0x0040
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00000020, 0x00580020
+	dc.l 0x00000040, 0x00580040
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00200020, 0x00380020
+	dc.l 0x00200040, 0x00380040
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00400020, 0x00180020
+	dc.l 0x00400040, 0x00180040
+	dc.l 0x00600000, 0x00000000
+	dc.l 0x00600020, 0x00000020
+	dc.l 0x00600040, 0x00000040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -64,6 +64,8 @@ sprite_demon_numtiles_per_subsprite:
 
 
 spritesheet_demon_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_demon_idle_width		equ 0x78	; Width in pixels
+spritesheet_demon_idle_height		equ 0x60	; Width in pixels
 spritesheet_demon_idle_size_b		equ 0x8700	; Size in bytes
 spritesheet_demon_idle_size_w		equ 0x4380	; Size in words
 spritesheet_demon_idle_size_l		equ 0x21C0	; Size in longwords
@@ -71,6 +73,8 @@ spritesheet_demon_idle_size_t		equ 0x438	; Size in tiles
 
 
 spritesheet_demon_smirk_frameoffset	equ 0x06	; Offset to first frame in sprite sheet
+spritesheet_demon_smirk_width		equ 0x78	; Width in pixels
+spritesheet_demon_smirk_height		equ 0x60	; Width in pixels
 spritesheet_demon_smirk_size_b		equ 0x8700	; Size in bytes
 spritesheet_demon_smirk_size_w		equ 0x4380	; Size in words
 spritesheet_demon_smirk_size_l		equ 0x21C0	; Size in longwords
@@ -78,6 +82,8 @@ spritesheet_demon_smirk_size_t		equ 0x438	; Size in tiles
 
 
 spritesheet_demon_idletosmirk_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
+spritesheet_demon_idletosmirk_width		equ 0x78	; Width in pixels
+spritesheet_demon_idletosmirk_height		equ 0x60	; Width in pixels
 spritesheet_demon_idletosmirk_size_b		equ 0x4380	; Size in bytes
 spritesheet_demon_idletosmirk_size_w		equ 0x21C0	; Size in words
 spritesheet_demon_idletosmirk_size_l		equ 0x10E0	; Size in longwords

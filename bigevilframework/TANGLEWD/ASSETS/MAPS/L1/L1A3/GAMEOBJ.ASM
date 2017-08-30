@@ -25,6 +25,8 @@ L1A3_Leaf_66_name	dc.b "L1A3_Leaf_66",0
 	even
 	ENDIF
 
+L1A3_Echo_count equ 0x0
+
 L1A3_Nymn_count equ 0x1
 L1A3_Nymn_30_idx	equ 0x0
 
@@ -32,8 +34,6 @@ L1A3_Nymn_30_idx	equ 0x0
 L1A3_Nymn_30_name	dc.b "L1A3_Nymn_30",0
 	even
 	ENDIF
-
-L1A3_Echo_count equ 0x0
 
 L1A3_BouncePlant_count equ 0x4
 L1A3_BouncePlant_32_idx	equ 0x0
@@ -49,19 +49,23 @@ L1A3_BouncePlant_44_name	dc.b "L1A3_BouncePlant_44",0
 	even
 	ENDIF
 
-L1A3_Boulder_count equ 0x1
-L1A3_Boulder_11_idx	equ 0x0
+L1A3_Log_count equ 0x0
 
-	IFND FINAL
-L1A3_Boulder_11_name	dc.b "L1A3_Boulder_11",0
-	even
-	ENDIF
+L1A3_DjakkCage_count equ 0x0
 
 L1A3_Monster_count equ 0x1
 L1A3_Djakk_idx	equ 0x0
 
 	IFND FINAL
 L1A3_Djakk_name	dc.b "L1A3_Djakk",0
+	even
+	ENDIF
+
+L1A3_Boulder_count equ 0x1
+L1A3_Boulder_11_idx	equ 0x0
+
+	IFND FINAL
+L1A3_Boulder_11_name	dc.b "L1A3_Boulder_11",0
 	even
 	ENDIF
 
@@ -86,6 +90,8 @@ L1A3_Firefly_62_name	dc.b "L1A3_Firefly_62",0
 L1A3_Firefly_63_name	dc.b "L1A3_Firefly_63",0
 	even
 	ENDIF
+
+L1A3_FuzzlCage_count equ 0x0
 
 L1A3_Fuzzl_count equ 0x2
 L1A3_Fuzzl_Green_idx	equ 0x0
@@ -171,80 +177,24 @@ L1A3_Deathbox_count equ 0x0
 
 L1A3_Lift_count equ 0x0
 
+L1A3_Crate_count equ 0x0
+
+L1A3_Generator_count equ 0x0
+
+L1A3_Cogs_count equ 0x0
+
+L1A3_Bridge_count equ 0x0
+
+L1A3_Button_count equ 0x0
+
+L1A3_Wyrm_count equ 0x0
+
 L1A3_AIMarker_count equ 0x0
 
+L1A3_Cart_count equ 0x0
 
-	IF L1A3_Leaf_count>Leaf_MaxEntities
-	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L1A3_Leaf_count
-	ENDIF
+L1A3_Pillar_count equ 0x0
 
-	IF L1A3_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L1A3_Nymn_count
-	ENDIF
-
-	IF L1A3_Echo_count>Echo_MaxEntities
-	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L1A3_Echo_count
-	ENDIF
-
-	IF L1A3_BouncePlant_count>BouncePlant_MaxEntities
-	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L1A3_BouncePlant_count
-	ENDIF
-
-	IF L1A3_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L1A3_Boulder_count
-	ENDIF
-
-	IF L1A3_Monster_count>Monster_MaxEntities
-	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L1A3_Monster_count
-	ENDIF
-
-	IF L1A3_Firefly_count>Firefly_MaxEntities
-	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L1A3_Firefly_count
-	ENDIF
-
-	IF L1A3_Fuzzl_count>Fuzzl_MaxEntities
-	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L1A3_Fuzzl_count
-	ENDIF
-
-	IF L1A3_Stone_count>Stone_MaxEntities
-	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L1A3_Stone_count
-	ENDIF
-
-	IF L1A3_Nest_count>Nest_MaxEntities
-	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L1A3_Nest_count
-	ENDIF
-
-	IF L1A3_Flue_count>Flue_MaxEntities
-	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L1A3_Flue_count
-	ENDIF
-
-	IF L1A3_TriggerBox_count>TriggerBox_MaxEntities
-	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L1A3_TriggerBox_count
-	ENDIF
-
-	IF L1A3_Checkpoint_count>Checkpoint_MaxEntities
-	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L1A3_Checkpoint_count
-	ENDIF
-
-	IF L1A3_WaterBody_count>WaterBody_MaxEntities
-	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L1A3_WaterBody_count
-	ENDIF
-
-	IF L1A3_Location_count>Location_MaxEntities
-	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L1A3_Location_count
-	ENDIF
-
-	IF L1A3_Deathbox_count>Deathbox_MaxEntities
-	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L1A3_Deathbox_count
-	ENDIF
-
-	IF L1A3_Lift_count>Lift_MaxEntities
-	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L1A3_Lift_count
-	ENDIF
-
-	IF L1A3_AIMarker_count>AIMarker_MaxEntities
-	inform 2,"Entity array overflow(AIMarker) - array size: 0x%d count : 0x%d",AIMarker_MaxEntities,L1A3_AIMarker_count
-	ENDIF
 
 
 L1A3_LoadGameObjects:
@@ -258,62 +208,63 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Leaf_47_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea L1A3_Leaf_48_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea L1A3_Leaf_49_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea L1A3_Leaf_64_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea L1A3_Leaf_65_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea L1A3_Leaf_66_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L1A3_Nymn_count)
@@ -327,19 +278,12 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Nymn_30_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NymnLoadGfx
-	addi.l #Nymn_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L1A3_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
-
+	add.l #Nymn_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L1A3_BouncePlant_count)
@@ -353,71 +297,54 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_BouncePlant_32_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
-	addi.l #BouncePlant_Struct_Size, a0
+	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x02c00000, Entity_WorldPosX(a0)
 	move.l #0x01680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_BouncePlant_33_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
-	addi.l #BouncePlant_Struct_Size, a0
+	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x16780000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_BouncePlant_36_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
-	addi.l #BouncePlant_Struct_Size, a0
+	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x06c00000, Entity_WorldPosX(a0)
 	move.l #0x01880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_BouncePlant_44_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
-	addi.l #BouncePlant_Struct_Size, a0
+	add.l #BouncePlant_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L1A3_Boulder_count)
-	move.l a1, EntityPoolStart_Boulder
-	move.l a1, a0
-	POPL   a1
 
-	jsr BoulderInit
-	move.l #0x10a80000, Entity_WorldPosX(a0)
-	move.l #0x02480000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L1A3_Boulder_11_name, a3
-	move.l a0, a2
-	addi.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr BoulderLoadGfx
-	addi.l #Boulder_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L1A3_Monster_count)
@@ -431,12 +358,31 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Djakk_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr MonsterLoadGfx
-	addi.l #Monster_Struct_Size, a0
+	add.l #Monster_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L1A3_Boulder_count)
+	move.l a1, EntityPoolStart_Boulder
+	move.l a1, a0
+	POPL   a1
+
+	jsr BoulderInit
+	move.l #0x10a80000, Entity_WorldPosX(a0)
+	move.l #0x02480000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L1A3_Boulder_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BoulderLoadGfx
+	add.l #Boulder_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L1A3_Firefly_count)
@@ -450,96 +396,97 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Firefly_23_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x08f00000, Entity_WorldPosX(a0)
 	move.l #0x03080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_26_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0ca00000, Entity_WorldPosX(a0)
 	move.l #0x00f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_24_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x15000000, Entity_WorldPosX(a0)
 	move.l #0x00f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_25_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0b900000, Entity_WorldPosX(a0)
 	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_22_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x06e00000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_61_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x1f080000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_62_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x1c180000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_63_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FireflyLoadGfx
-	addi.l #Firefly_Struct_Size, a0
+	add.l #Firefly_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L1A3_Fuzzl_count)
@@ -553,26 +500,26 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Fuzzl_Green_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
-	addi.l #Fuzzl_Struct_Size, a0
+	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x0f580000, Entity_WorldPosX(a0)
 	move.l #0x00b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Fuzzl_Yellow_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
-	addi.l #Fuzzl_Struct_Size, a0
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L1A3_Stone_count)
@@ -586,72 +533,72 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Stone_54_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x14380000, Entity_WorldPosX(a0)
 	move.l #0x02e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Stone_55_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x0e580000, Entity_WorldPosX(a0)
 	move.l #0x01080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Stone_56_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x10180000, Entity_WorldPosX(a0)
 	move.l #0x02500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Stone_57_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x17e00000, Entity_WorldPosX(a0)
 	move.l #0x01a00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Stone_59_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x0f400000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Stone_60_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L1A3_Nest_count)
@@ -665,24 +612,24 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Nest_3_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NestLoadGfx
-	addi.l #Nest_Struct_Size, a0
+	add.l #Nest_Struct_Size, a0
 	jsr NestInit
 	move.l #0x11c00000, Entity_WorldPosX(a0)
 	move.l #0x01480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Nest_29_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NestLoadGfx
-	addi.l #Nest_Struct_Size, a0
+	add.l #Nest_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L1A3_Flue_count)
@@ -696,86 +643,86 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Flue_A_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x17980000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_B_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x1a180000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_D_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x11780000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_16_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x03b80000, Entity_WorldPosX(a0)
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_E_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #0x0A0000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x05900000, Entity_WorldPosX(a0)
 	move.l #0x01a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_F_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.w #0x0C, Flue_CameraLerpSpeed(a0)
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x07280000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Flue_G_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	addi.l #Flue_Struct_Size, a0
+	add.l #Flue_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L1A3_TriggerBox_count)
@@ -789,33 +736,27 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_Trigger_End_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #L1A3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
-	addi.l #TriggerBox_Struct_Size, a0
+	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x11c00000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_TriggerBox_WakeDjakk_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #L1A3_Trigger_WakeDjakk, TriggerBox_Routine(a0)
 	jsr TriggerBoxLoadGfx
-	addi.l #TriggerBox_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L1A3_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
+	add.l #TriggerBox_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -830,39 +771,23 @@ L1A3_LoadGameObjects:
 	IFND FINAL
 	lea L1A3_WaterBody_15_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr WaterBodyLoadGfx
-	addi.l #WaterBody_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L1A3_Location_count)
-	move.l a1, EntityPoolStart_Location
-	move.l a1, a0
-	POPL   a1
+	add.l #WaterBody_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L1A3_Deathbox_count)
-	move.l a1, EntityPoolStart_Deathbox
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L1A3_Lift_count)
-	move.l a1, EntityPoolStart_Lift
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L1A3_AIMarker_count)
-	move.l a1, EntityPoolStart_AIMarker
-	move.l a1, a0
-	POPL   a1
+
+
+
+
+
 
 
 	rts

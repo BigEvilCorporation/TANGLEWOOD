@@ -14,9 +14,9 @@ sprite_fuzzl_size_t		equ 0x0004	; Size in tiles
 sprite_fuzzl_size_subsprites		equ 0x0001	; Size in subsprites
 sprite_fuzzl_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_fuzzl_subsprite_pos_offsets:
-	dc.w 0x0000, 0x0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -31,6 +31,8 @@ sprite_fuzzl_numtiles_per_subsprite:
 
 
 spritesheet_fuzzl_blue_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_blue_roll_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_blue_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_roll_size_b		equ 0x400	; Size in bytes
 spritesheet_fuzzl_blue_roll_size_w		equ 0x200	; Size in words
 spritesheet_fuzzl_blue_roll_size_l		equ 0x100	; Size in longwords
@@ -38,6 +40,8 @@ spritesheet_fuzzl_blue_roll_size_t		equ 0x20	; Size in tiles
 
 
 spritesheet_fuzzl_yellow_sleep_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_yellow_sleep_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_yellow_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_sleep_size_b		equ 0x180	; Size in bytes
 spritesheet_fuzzl_yellow_sleep_size_w		equ 0xC0	; Size in words
 spritesheet_fuzzl_yellow_sleep_size_l		equ 0x60	; Size in longwords
@@ -45,6 +49,8 @@ spritesheet_fuzzl_yellow_sleep_size_t		equ 0x0C	; Size in tiles
 
 
 spritesheet_fuzzl_blue_idle_frameoffset	equ 0x0B	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_blue_idle_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_blue_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_idle_size_b		equ 0x80	; Size in bytes
 spritesheet_fuzzl_blue_idle_size_w		equ 0x40	; Size in words
 spritesheet_fuzzl_blue_idle_size_l		equ 0x20	; Size in longwords
@@ -52,6 +58,8 @@ spritesheet_fuzzl_blue_idle_size_t		equ 0x04	; Size in tiles
 
 
 spritesheet_fuzzl_red_eyes_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_red_eyes_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_red_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_eyes_size_b		equ 0x480	; Size in bytes
 spritesheet_fuzzl_red_eyes_size_w		equ 0x240	; Size in words
 spritesheet_fuzzl_red_eyes_size_l		equ 0x120	; Size in longwords
@@ -59,6 +67,8 @@ spritesheet_fuzzl_red_eyes_size_t		equ 0x24	; Size in tiles
 
 
 spritesheet_fuzzl_blue_eyes_frameoffset	equ 0x15	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_blue_eyes_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_blue_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_eyes_size_b		equ 0x480	; Size in bytes
 spritesheet_fuzzl_blue_eyes_size_w		equ 0x240	; Size in words
 spritesheet_fuzzl_blue_eyes_size_l		equ 0x120	; Size in longwords
@@ -66,6 +76,8 @@ spritesheet_fuzzl_blue_eyes_size_t		equ 0x24	; Size in tiles
 
 
 spritesheet_fuzzl_red_roll_frameoffset	equ 0x1E	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_red_roll_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_red_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_roll_size_b		equ 0x400	; Size in bytes
 spritesheet_fuzzl_red_roll_size_w		equ 0x200	; Size in words
 spritesheet_fuzzl_red_roll_size_l		equ 0x100	; Size in longwords
@@ -73,6 +85,8 @@ spritesheet_fuzzl_red_roll_size_t		equ 0x20	; Size in tiles
 
 
 spritesheet_fuzzl_yellow_roll_frameoffset	equ 0x26	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_yellow_roll_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_yellow_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_roll_size_b		equ 0x400	; Size in bytes
 spritesheet_fuzzl_yellow_roll_size_w		equ 0x200	; Size in words
 spritesheet_fuzzl_yellow_roll_size_l		equ 0x100	; Size in longwords
@@ -80,6 +94,8 @@ spritesheet_fuzzl_yellow_roll_size_t		equ 0x20	; Size in tiles
 
 
 spritesheet_fuzzl_green_sleep_frameoffset	equ 0x2E	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_sleep_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_green_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_sleep_size_b		equ 0x180	; Size in bytes
 spritesheet_fuzzl_green_sleep_size_w		equ 0xC0	; Size in words
 spritesheet_fuzzl_green_sleep_size_l		equ 0x60	; Size in longwords
@@ -87,6 +103,8 @@ spritesheet_fuzzl_green_sleep_size_t		equ 0x0C	; Size in tiles
 
 
 spritesheet_fuzzl_red_idle_frameoffset	equ 0x31	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_red_idle_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_red_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_idle_size_b		equ 0x80	; Size in bytes
 spritesheet_fuzzl_red_idle_size_w		equ 0x40	; Size in words
 spritesheet_fuzzl_red_idle_size_l		equ 0x20	; Size in longwords
@@ -94,6 +112,8 @@ spritesheet_fuzzl_red_idle_size_t		equ 0x04	; Size in tiles
 
 
 spritesheet_fuzzl_green_idle_frameoffset	equ 0x32	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_idle_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_green_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_idle_size_b		equ 0x80	; Size in bytes
 spritesheet_fuzzl_green_idle_size_w		equ 0x40	; Size in words
 spritesheet_fuzzl_green_idle_size_l		equ 0x20	; Size in longwords
@@ -101,6 +121,8 @@ spritesheet_fuzzl_green_idle_size_t		equ 0x04	; Size in tiles
 
 
 spritesheet_fuzzl_green_eyes_frameoffset	equ 0x33	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_eyes_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_green_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_eyes_size_b		equ 0x480	; Size in bytes
 spritesheet_fuzzl_green_eyes_size_w		equ 0x240	; Size in words
 spritesheet_fuzzl_green_eyes_size_l		equ 0x120	; Size in longwords
@@ -108,6 +130,8 @@ spritesheet_fuzzl_green_eyes_size_t		equ 0x24	; Size in tiles
 
 
 spritesheet_fuzzl_red_sleep_frameoffset	equ 0x3C	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_red_sleep_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_red_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_sleep_size_b		equ 0x180	; Size in bytes
 spritesheet_fuzzl_red_sleep_size_w		equ 0xC0	; Size in words
 spritesheet_fuzzl_red_sleep_size_l		equ 0x60	; Size in longwords
@@ -115,6 +139,8 @@ spritesheet_fuzzl_red_sleep_size_t		equ 0x0C	; Size in tiles
 
 
 spritesheet_fuzzl_blue_sleep_frameoffset	equ 0x3F	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_blue_sleep_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_blue_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_sleep_size_b		equ 0x180	; Size in bytes
 spritesheet_fuzzl_blue_sleep_size_w		equ 0xC0	; Size in words
 spritesheet_fuzzl_blue_sleep_size_l		equ 0x60	; Size in longwords
@@ -122,6 +148,8 @@ spritesheet_fuzzl_blue_sleep_size_t		equ 0x0C	; Size in tiles
 
 
 spritesheet_fuzzl_yellow_eyes_frameoffset	equ 0x42	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_yellow_eyes_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_yellow_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_eyes_size_b		equ 0x480	; Size in bytes
 spritesheet_fuzzl_yellow_eyes_size_w		equ 0x240	; Size in words
 spritesheet_fuzzl_yellow_eyes_size_l		equ 0x120	; Size in longwords
@@ -129,6 +157,8 @@ spritesheet_fuzzl_yellow_eyes_size_t		equ 0x24	; Size in tiles
 
 
 spritesheet_fuzzl_yellow_idle_frameoffset	equ 0x4B	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_yellow_idle_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_yellow_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_idle_size_b		equ 0x80	; Size in bytes
 spritesheet_fuzzl_yellow_idle_size_w		equ 0x40	; Size in words
 spritesheet_fuzzl_yellow_idle_size_l		equ 0x20	; Size in longwords
@@ -136,6 +166,8 @@ spritesheet_fuzzl_yellow_idle_size_t		equ 0x04	; Size in tiles
 
 
 spritesheet_fuzzl_green_roll_frameoffset	equ 0x4C	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_roll_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_green_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_roll_size_b		equ 0x400	; Size in bytes
 spritesheet_fuzzl_green_roll_size_w		equ 0x200	; Size in words
 spritesheet_fuzzl_green_roll_size_l		equ 0x100	; Size in longwords

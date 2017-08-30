@@ -14,12 +14,12 @@ sprite_pillar_size_t		equ 0x0024	; Size in tiles
 sprite_pillar_size_subsprites		equ 0x0004	; Size in subsprites
 sprite_pillar_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_pillar_subsprite_pos_offsets:
-	dc.w 0x0000, 0x1000
-	dc.w 0x0020, 0x1020
-	dc.w 0x2000, 0x0000
-	dc.w 0x2020, 0x0020
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00000020, 0x00100020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,6 +40,8 @@ sprite_pillar_numtiles_per_subsprite:
 
 
 spritesheet_pillar_pillar_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_pillar_pillar_width		equ 0x30	; Width in pixels
+spritesheet_pillar_pillar_height		equ 0x30	; Width in pixels
 spritesheet_pillar_pillar_size_b		equ 0x480	; Size in bytes
 spritesheet_pillar_pillar_size_w		equ 0x240	; Size in words
 spritesheet_pillar_pillar_size_l		equ 0x120	; Size in longwords

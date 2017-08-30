@@ -14,10 +14,10 @@ sprite_button_size_t		equ 0x0008	; Size in tiles
 sprite_button_size_subsprites		equ 0x0002	; Size in subsprites
 sprite_button_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_button_subsprite_pos_offsets:
-	dc.w 0x0000, 0x2000
-	dc.w 0x2000, 0x0000
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,6 +34,8 @@ sprite_button_numtiles_per_subsprite:
 
 
 spritesheet_button_button_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_button_button_width		equ 0x40	; Width in pixels
+spritesheet_button_button_height		equ 0x08	; Width in pixels
 spritesheet_button_button_size_b		equ 0x400	; Size in bytes
 spritesheet_button_button_size_w		equ 0x200	; Size in words
 spritesheet_button_button_size_l		equ 0x100	; Size in longwords

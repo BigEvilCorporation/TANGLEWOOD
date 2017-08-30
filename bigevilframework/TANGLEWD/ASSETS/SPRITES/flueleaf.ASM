@@ -14,10 +14,10 @@ sprite_flueleaf_size_t		equ 0x0020	; Size in tiles
 sprite_flueleaf_size_subsprites		equ 0x0002	; Size in subsprites
 sprite_flueleaf_widthheight_subsprites		equ 0x0102	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_flueleaf_subsprite_pos_offsets:
-	dc.w 0x0000, 0x0000
-	dc.w 0x0020, 0x0020
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,6 +34,8 @@ sprite_flueleaf_numtiles_per_subsprite:
 
 
 spritesheet_flueleaf_flueleaf_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_flueleaf_flueleaf_width		equ 0x20	; Width in pixels
+spritesheet_flueleaf_flueleaf_height		equ 0x40	; Width in pixels
 spritesheet_flueleaf_flueleaf_size_b		equ 0x2400	; Size in bytes
 spritesheet_flueleaf_flueleaf_size_w		equ 0x1200	; Size in words
 spritesheet_flueleaf_flueleaf_size_l		equ 0x900	; Size in longwords

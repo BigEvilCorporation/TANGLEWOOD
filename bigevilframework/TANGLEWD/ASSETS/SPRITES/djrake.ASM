@@ -14,20 +14,20 @@ sprite_djrake_size_t		equ 0x00A0	; Size in tiles
 sprite_djrake_size_subsprites		equ 0x000C	; Size in subsprites
 sprite_djrake_widthheight_subsprites		equ 0x0403	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_djrake_subsprite_pos_offsets:
-	dc.w 0x0000, 0x6000
-	dc.w 0x0020, 0x6020
-	dc.w 0x0040, 0x6040
-	dc.w 0x2000, 0x4000
-	dc.w 0x2020, 0x4020
-	dc.w 0x2040, 0x4040
-	dc.w 0x4000, 0x2000
-	dc.w 0x4020, 0x2020
-	dc.w 0x4040, 0x2040
-	dc.w 0x6000, 0x0000
-	dc.w 0x6020, 0x0020
-	dc.w 0x6040, 0x0040
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00000020, 0x00600020
+	dc.l 0x00000040, 0x00600040
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00200020, 0x00400020
+	dc.l 0x00200040, 0x00400040
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00400020, 0x00200020
+	dc.l 0x00400040, 0x00200040
+	dc.l 0x00600000, 0x00000000
+	dc.l 0x00600020, 0x00000020
+	dc.l 0x00600040, 0x00000040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -64,6 +64,8 @@ sprite_djrake_numtiles_per_subsprite:
 
 
 spritesheet_djrake_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_djrake_idle_width		equ 0x80	; Width in pixels
+spritesheet_djrake_idle_height		equ 0x50	; Width in pixels
 spritesheet_djrake_idle_size_b		equ 0x1400	; Size in bytes
 spritesheet_djrake_idle_size_w		equ 0xA00	; Size in words
 spritesheet_djrake_idle_size_l		equ 0x500	; Size in longwords

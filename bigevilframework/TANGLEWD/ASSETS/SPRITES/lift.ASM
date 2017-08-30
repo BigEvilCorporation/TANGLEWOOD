@@ -14,10 +14,10 @@ sprite_lift_size_t		equ 0x001C	; Size in tiles
 sprite_lift_size_subsprites		equ 0x0002	; Size in subsprites
 sprite_lift_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_lift_subsprite_pos_offsets:
-	dc.w 0x0000, 0x1800
-	dc.w 0x2000, 0x0000
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,6 +34,8 @@ sprite_lift_numtiles_per_subsprite:
 
 
 spritesheet_lift_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_lift_lift_width		equ 0x38	; Width in pixels
+spritesheet_lift_lift_height		equ 0x20	; Width in pixels
 spritesheet_lift_lift_size_b		equ 0x380	; Size in bytes
 spritesheet_lift_lift_size_w		equ 0x1C0	; Size in words
 spritesheet_lift_lift_size_l		equ 0xE0	; Size in longwords

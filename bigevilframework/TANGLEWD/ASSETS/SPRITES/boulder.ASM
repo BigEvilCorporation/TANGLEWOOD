@@ -14,12 +14,12 @@ sprite_boulder_size_t		equ 0x0031	; Size in tiles
 sprite_boulder_size_subsprites		equ 0x0004	; Size in subsprites
 sprite_boulder_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_boulder_subsprite_pos_offsets:
-	dc.w 0x0000, 0x1800
-	dc.w 0x0020, 0x1820
-	dc.w 0x2000, 0x0000
-	dc.w 0x2020, 0x0020
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,6 +40,8 @@ sprite_boulder_numtiles_per_subsprite:
 
 
 spritesheet_boulder_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_boulder_roll_width		equ 0x38	; Width in pixels
+spritesheet_boulder_roll_height		equ 0x38	; Width in pixels
 spritesheet_boulder_roll_size_b		equ 0x3100	; Size in bytes
 spritesheet_boulder_roll_size_w		equ 0x1880	; Size in words
 spritesheet_boulder_roll_size_l		equ 0xC40	; Size in longwords
@@ -47,6 +49,8 @@ spritesheet_boulder_roll_size_t		equ 0x188	; Size in tiles
 
 
 spritesheet_boulder_crack_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+spritesheet_boulder_crack_width		equ 0x38	; Width in pixels
+spritesheet_boulder_crack_height		equ 0x38	; Width in pixels
 spritesheet_boulder_crack_size_b		equ 0x620	; Size in bytes
 spritesheet_boulder_crack_size_w		equ 0x310	; Size in words
 spritesheet_boulder_crack_size_l		equ 0x188	; Size in longwords

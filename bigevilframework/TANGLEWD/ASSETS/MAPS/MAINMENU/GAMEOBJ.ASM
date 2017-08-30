@@ -25,6 +25,8 @@ main_menu_Leaf_7_name	dc.b "main_menu_Leaf_7",0
 	even
 	ENDIF
 
+main_menu_Echo_count equ 0x0
+
 main_menu_Nymn_count equ 0x1
 main_menu_Nymn_1_idx	equ 0x0
 
@@ -32,8 +34,6 @@ main_menu_Nymn_1_idx	equ 0x0
 main_menu_Nymn_1_name	dc.b "main_menu_Nymn_1",0
 	even
 	ENDIF
-
-main_menu_Echo_count equ 0x0
 
 main_menu_BouncePlant_count equ 0x1
 main_menu_BouncePlant_8_idx	equ 0x0
@@ -43,11 +43,17 @@ main_menu_BouncePlant_8_name	dc.b "main_menu_BouncePlant_8",0
 	even
 	ENDIF
 
-main_menu_Boulder_count equ 0x0
+main_menu_Log_count equ 0x0
+
+main_menu_DjakkCage_count equ 0x0
 
 main_menu_Monster_count equ 0x0
 
+main_menu_Boulder_count equ 0x0
+
 main_menu_Firefly_count equ 0x0
+
+main_menu_FuzzlCage_count equ 0x0
 
 main_menu_Fuzzl_count equ 0x0
 
@@ -75,80 +81,24 @@ main_menu_Deathbox_count equ 0x0
 
 main_menu_Lift_count equ 0x0
 
+main_menu_Crate_count equ 0x0
+
+main_menu_Generator_count equ 0x0
+
+main_menu_Cogs_count equ 0x0
+
+main_menu_Bridge_count equ 0x0
+
+main_menu_Button_count equ 0x0
+
+main_menu_Wyrm_count equ 0x0
+
 main_menu_AIMarker_count equ 0x0
 
+main_menu_Cart_count equ 0x0
 
-	IF main_menu_Leaf_count>Leaf_MaxEntities
-	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,main_menu_Leaf_count
-	ENDIF
+main_menu_Pillar_count equ 0x0
 
-	IF main_menu_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,main_menu_Nymn_count
-	ENDIF
-
-	IF main_menu_Echo_count>Echo_MaxEntities
-	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,main_menu_Echo_count
-	ENDIF
-
-	IF main_menu_BouncePlant_count>BouncePlant_MaxEntities
-	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,main_menu_BouncePlant_count
-	ENDIF
-
-	IF main_menu_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,main_menu_Boulder_count
-	ENDIF
-
-	IF main_menu_Monster_count>Monster_MaxEntities
-	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,main_menu_Monster_count
-	ENDIF
-
-	IF main_menu_Firefly_count>Firefly_MaxEntities
-	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,main_menu_Firefly_count
-	ENDIF
-
-	IF main_menu_Fuzzl_count>Fuzzl_MaxEntities
-	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,main_menu_Fuzzl_count
-	ENDIF
-
-	IF main_menu_Stone_count>Stone_MaxEntities
-	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,main_menu_Stone_count
-	ENDIF
-
-	IF main_menu_Nest_count>Nest_MaxEntities
-	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,main_menu_Nest_count
-	ENDIF
-
-	IF main_menu_Flue_count>Flue_MaxEntities
-	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,main_menu_Flue_count
-	ENDIF
-
-	IF main_menu_TriggerBox_count>TriggerBox_MaxEntities
-	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,main_menu_TriggerBox_count
-	ENDIF
-
-	IF main_menu_Checkpoint_count>Checkpoint_MaxEntities
-	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,main_menu_Checkpoint_count
-	ENDIF
-
-	IF main_menu_WaterBody_count>WaterBody_MaxEntities
-	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,main_menu_WaterBody_count
-	ENDIF
-
-	IF main_menu_Location_count>Location_MaxEntities
-	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,main_menu_Location_count
-	ENDIF
-
-	IF main_menu_Deathbox_count>Deathbox_MaxEntities
-	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,main_menu_Deathbox_count
-	ENDIF
-
-	IF main_menu_Lift_count>Lift_MaxEntities
-	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,main_menu_Lift_count
-	ENDIF
-
-	IF main_menu_AIMarker_count>AIMarker_MaxEntities
-	inform 2,"Entity array overflow(AIMarker) - array size: 0x%d count : 0x%d",AIMarker_MaxEntities,main_menu_AIMarker_count
-	ENDIF
 
 
 main_menu_LoadGameObjects:
@@ -162,62 +112,63 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Leaf_2_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_3_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_4_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_5_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_6_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_7_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	addi.l #Leaf_Struct_Size, a0
+	add.l #Leaf_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*main_menu_Nymn_count)
@@ -231,19 +182,12 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Nymn_1_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NymnLoadGfx
-	addi.l #Nymn_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*main_menu_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
-
+	add.l #Nymn_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*main_menu_BouncePlant_count)
@@ -257,39 +201,18 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_BouncePlant_8_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr BouncePlantLoadGfx
-	addi.l #BouncePlant_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*main_menu_Boulder_count)
-	move.l a1, EntityPoolStart_Boulder
-	move.l a1, a0
-	POPL   a1
+	add.l #BouncePlant_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*main_menu_Monster_count)
-	move.l a1, EntityPoolStart_Monster
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*main_menu_Firefly_count)
-	move.l a1, EntityPoolStart_Firefly
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*main_menu_Fuzzl_count)
-	move.l a1, EntityPoolStart_Fuzzl
-	move.l a1, a0
-	POPL   a1
 
 
 	PUSHL  a1
@@ -304,74 +227,28 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Stone_9_name, a3
 	move.l a0, a2
-	addi.l #Entity_DebugName, a2
+	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	addi.l #Stone_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*main_menu_Nest_count)
-	move.l a1, EntityPoolStart_Nest
-	move.l a1, a0
-	POPL   a1
+	add.l #Stone_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*main_menu_Flue_count)
-	move.l a1, EntityPoolStart_Flue
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*main_menu_TriggerBox_count)
-	move.l a1, EntityPoolStart_TriggerBox
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*main_menu_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*main_menu_WaterBody_count)
-	move.l a1, EntityPoolStart_WaterBody
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*main_menu_Location_count)
-	move.l a1, EntityPoolStart_Location
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*main_menu_Deathbox_count)
-	move.l a1, EntityPoolStart_Deathbox
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*main_menu_Lift_count)
-	move.l a1, EntityPoolStart_Lift
-	move.l a1, a0
-	POPL   a1
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*main_menu_AIMarker_count)
-	move.l a1, EntityPoolStart_AIMarker
-	move.l a1, a0
-	POPL   a1
 
 
 	rts

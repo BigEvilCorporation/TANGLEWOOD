@@ -14,23 +14,23 @@ sprite_elder_size_t		equ 0x00C6	; Size in tiles
 sprite_elder_size_subsprites		equ 0x000F	; Size in subsprites
 sprite_elder_widthheight_subsprites		equ 0x0503	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_elder_subsprite_pos_offsets:
-	dc.w 0x0000, 0x7000
-	dc.w 0x0020, 0x7020
-	dc.w 0x0040, 0x7040
-	dc.w 0x2000, 0x5000
-	dc.w 0x2020, 0x5020
-	dc.w 0x2040, 0x5040
-	dc.w 0x4000, 0x3000
-	dc.w 0x4020, 0x3020
-	dc.w 0x4040, 0x3040
-	dc.w 0x6000, 0x1000
-	dc.w 0x6020, 0x1020
-	dc.w 0x6040, 0x1040
-	dc.w 0x8000, 0x0000
-	dc.w 0x8020, 0x0020
-	dc.w 0x8040, 0x0040
+	dc.l 0x00000000, 0x00700000
+	dc.l 0x00000020, 0x00700020
+	dc.l 0x00000040, 0x00700040
+	dc.l 0x00200000, 0x00500000
+	dc.l 0x00200020, 0x00500020
+	dc.l 0x00200040, 0x00500040
+	dc.l 0x00400000, 0x00300000
+	dc.l 0x00400020, 0x00300020
+	dc.l 0x00400040, 0x00300040
+	dc.l 0x00600000, 0x00100000
+	dc.l 0x00600020, 0x00100020
+	dc.l 0x00600040, 0x00100040
+	dc.l 0x00800000, 0x00000000
+	dc.l 0x00800020, 0x00000020
+	dc.l 0x00800040, 0x00000040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -73,6 +73,8 @@ sprite_elder_numtiles_per_subsprite:
 
 
 spritesheet_elder_walk_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_elder_walk_width		equ 0x90	; Width in pixels
+spritesheet_elder_walk_height		equ 0x58	; Width in pixels
 spritesheet_elder_walk_size_b		equ 0xC600	; Size in bytes
 spritesheet_elder_walk_size_w		equ 0x6300	; Size in words
 spritesheet_elder_walk_size_l		equ 0x3180	; Size in longwords
@@ -80,6 +82,8 @@ spritesheet_elder_walk_size_t		equ 0x630	; Size in tiles
 
 
 spritesheet_elder_bite_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+spritesheet_elder_bite_width		equ 0x90	; Width in pixels
+spritesheet_elder_bite_height		equ 0x58	; Width in pixels
 spritesheet_elder_bite_size_b		equ 0x7BC0	; Size in bytes
 spritesheet_elder_bite_size_w		equ 0x3DE0	; Size in words
 spritesheet_elder_bite_size_l		equ 0x1EF0	; Size in longwords
@@ -87,6 +91,8 @@ spritesheet_elder_bite_size_t		equ 0x3DE	; Size in tiles
 
 
 spritesheet_elder_roar_frameoffset	equ 0x0D	; Offset to first frame in sprite sheet
+spritesheet_elder_roar_width		equ 0x90	; Width in pixels
+spritesheet_elder_roar_height		equ 0x58	; Width in pixels
 spritesheet_elder_roar_size_b		equ 0x4A40	; Size in bytes
 spritesheet_elder_roar_size_w		equ 0x2520	; Size in words
 spritesheet_elder_roar_size_l		equ 0x1290	; Size in longwords
@@ -94,6 +100,8 @@ spritesheet_elder_roar_size_t		equ 0x252	; Size in tiles
 
 
 spritesheet_elder_idle_frameoffset	equ 0x10	; Offset to first frame in sprite sheet
+spritesheet_elder_idle_width		equ 0x90	; Width in pixels
+spritesheet_elder_idle_height		equ 0x58	; Width in pixels
 spritesheet_elder_idle_size_b		equ 0x6300	; Size in bytes
 spritesheet_elder_idle_size_w		equ 0x3180	; Size in words
 spritesheet_elder_idle_size_l		equ 0x18C0	; Size in longwords
@@ -101,6 +109,8 @@ spritesheet_elder_idle_size_t		equ 0x318	; Size in tiles
 
 
 spritesheet_elder_death_frameoffset	equ 0x14	; Offset to first frame in sprite sheet
+spritesheet_elder_death_width		equ 0x90	; Width in pixels
+spritesheet_elder_death_height		equ 0x58	; Width in pixels
 spritesheet_elder_death_size_b		equ 0x18C0	; Size in bytes
 spritesheet_elder_death_size_w		equ 0xC60	; Size in words
 spritesheet_elder_death_size_l		equ 0x630	; Size in longwords
@@ -108,6 +118,8 @@ spritesheet_elder_death_size_t		equ 0xC6	; Size in tiles
 
 
 spritesheet_elder_run_frameoffset	equ 0x15	; Offset to first frame in sprite sheet
+spritesheet_elder_run_width		equ 0x90	; Width in pixels
+spritesheet_elder_run_height		equ 0x58	; Width in pixels
 spritesheet_elder_run_size_b		equ 0x7BC0	; Size in bytes
 spritesheet_elder_run_size_w		equ 0x3DE0	; Size in words
 spritesheet_elder_run_size_l		equ 0x1EF0	; Size in longwords

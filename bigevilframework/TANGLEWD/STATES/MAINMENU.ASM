@@ -37,8 +37,9 @@ Lvl0_MainMenu:
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
-MainMenuLogoPosX	equ 34*8*subpixels_per_pixel
-MainMenuLogoPosY	equ 34*8*subpixels_per_pixel
+MainMenuLogoBorder	equ 0x0008
+MainMenuLogoPosX	equ (vdp_sprite_border_x+(screen_width/2)-(spritesheet_twd_logo_twd_logo_width/2))*subpixels_per_pixel
+MainMenuLogoPosY	equ (vdp_sprite_border_y+MainMenuLogoBorder)*subpixels_per_pixel
 
 ; Struct
 	rsset	LevelData_Struct_Size
@@ -116,9 +117,6 @@ MainMenu_Enter:
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
 	jsr    EntityAddToUpdateList
 	jsr    EntityAddToRenderList
-
-	move.w #sprite_twd_logo_size_b, d0		; Alloc VRAM
-	jsr    VRAM_PoolAlloc
 
 	; Load sprite sheet
 	SPRITE_LOAD_DEFAULT twd_logo,PaletteId_TanglewoodLogo,0x0

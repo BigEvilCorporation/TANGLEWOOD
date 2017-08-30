@@ -14,11 +14,11 @@ sprite_djakcage_size_t		equ 0x0018	; Size in tiles
 sprite_djakcage_size_subsprites		equ 0x0003	; Size in subsprites
 sprite_djakcage_widthheight_subsprites		equ 0x0103	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_djakcage_subsprite_pos_offsets:
-	dc.w 0x0000, 0x0000
-	dc.w 0x0020, 0x0020
-	dc.w 0x0040, 0x0040
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -37,6 +37,8 @@ sprite_djakcage_numtiles_per_subsprite:
 
 
 spritesheet_djakcage_djakk_cage_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_djakcage_djakk_cage_width		equ 0x10	; Width in pixels
+spritesheet_djakcage_djakk_cage_height		equ 0x60	; Width in pixels
 spritesheet_djakcage_djakk_cage_size_b		equ 0x300	; Size in bytes
 spritesheet_djakcage_djakk_cage_size_w		equ 0x180	; Size in words
 spritesheet_djakcage_djakk_cage_size_l		equ 0xC0	; Size in longwords

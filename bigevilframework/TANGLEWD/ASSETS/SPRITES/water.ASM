@@ -14,12 +14,12 @@ sprite_water_size_t		equ 0x002A	; Size in tiles
 sprite_water_size_subsprites		equ 0x0004	; Size in subsprites
 sprite_water_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_water_subsprite_pos_offsets:
-	dc.w 0x0000, 0x1000
-	dc.w 0x0020, 0x1020
-	dc.w 0x2000, 0x0000
-	dc.w 0x2020, 0x0020
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00000020, 0x00100020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,6 +40,8 @@ sprite_water_numtiles_per_subsprite:
 
 
 spritesheet_water_splash_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_water_splash_width		equ 0x30	; Width in pixels
+spritesheet_water_splash_height		equ 0x38	; Width in pixels
 spritesheet_water_splash_size_b		equ 0x2A00	; Size in bytes
 spritesheet_water_splash_size_w		equ 0x1500	; Size in words
 spritesheet_water_splash_size_l		equ 0xA80	; Size in longwords

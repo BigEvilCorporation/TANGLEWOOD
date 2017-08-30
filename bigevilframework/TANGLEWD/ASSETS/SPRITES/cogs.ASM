@@ -14,16 +14,16 @@ sprite_cogs_size_t		equ 0x005B	; Size in tiles
 sprite_cogs_size_subsprites		equ 0x0008	; Size in subsprites
 sprite_cogs_widthheight_subsprites		equ 0x0204	; Width/height (bb) in subsprites
 
-; Subsprite offsets from 0,0 (in pixels) - unflipped (bb) and flipped X (bb)
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 sprite_cogs_subsprite_pos_offsets:
-	dc.w 0x0000, 0x1800
-	dc.w 0x0020, 0x1820
-	dc.w 0x0040, 0x1840
-	dc.w 0x0060, 0x1860
-	dc.w 0x2000, 0x0000
-	dc.w 0x2020, 0x0020
-	dc.w 0x2040, 0x0040
-	dc.w 0x2060, 0x0060
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00000040, 0x00180040
+	dc.l 0x00000060, 0x00180060
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	dc.l 0x00200040, 0x00000040
+	dc.l 0x00200060, 0x00000060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -52,6 +52,8 @@ sprite_cogs_numtiles_per_subsprite:
 
 
 spritesheet_cogs_cogs_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_cogs_cogs_width		equ 0x38	; Width in pixels
+spritesheet_cogs_cogs_height		equ 0x68	; Width in pixels
 spritesheet_cogs_cogs_size_b		equ 0x16C0	; Size in bytes
 spritesheet_cogs_cogs_size_w		equ 0xB60	; Size in words
 spritesheet_cogs_cogs_size_l		equ 0x5B0	; Size in longwords
