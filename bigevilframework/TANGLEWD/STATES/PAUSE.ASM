@@ -318,6 +318,8 @@ Pause_Render:
 	POPL   a0
 	
 	rts
+
+	IFND FINAL
 	
 Debug_DrawVRAMPools:
 
@@ -392,3 +394,5 @@ Debug_DrawVRAMPools:
 Debug_DrawRAMPools:
 	
 	rts
+
+	ENDIF
