@@ -15,6 +15,7 @@ Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
 Echo_ProbeWallTop			equ 0x0010		; Slightly lower wall probe (can squeeze through small gaps)
+Echo_HowlCameraLerpSpeed	equ 0x0010
 
 ; AI
 Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be power of two)
@@ -133,8 +134,9 @@ Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIWaterDirection		rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
+Echo_HowlState				rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 0
+Echo_Struct_Pad      		rs.b 3
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -177,6 +179,7 @@ EchoInit:
 	move.b #0x0, Echo_AINymnJumping(a0)
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
+	move.b #0x0, Echo_HowlState(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -442,6 +445,26 @@ EchoUpdate:
 	jsr    EchoHowl
 	@TimerStillRunning:
 	@TimerNotRunning:
+
+	; If howl finished, lerp camer back to Nymn
+	tst.b  Echo_HowlState(a0)
+	beq    @NotHowling
+
+	move.l a0, a2
+	addi.l #Player_Animations, a2
+	addi.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), a2
+	cmp.l  AnimObj_CurrentAnim(a0), a2
+	beq    @StillHowling
+
+	move.b #0x0, Echo_HowlState(a0)
+
+	move.l a0, CameraTargetLerpSource
+	move.l (Player1), CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+
+	@NotHowling:
+	@StillHowling:
 	
 	@Carried:
 	
@@ -597,6 +620,15 @@ EchoHowl:
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	; Start camera lerp
+	move.l (Player1), CameraTargetLerpSource
+	move.l a0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+
+	; Set howl state
+	move.b #0x1, Echo_HowlState(a0)
 
 	rts
 	
