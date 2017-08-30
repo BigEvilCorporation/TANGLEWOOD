@@ -27,7 +27,7 @@ VRAMPool2:
 	dc.w 	0x0000			; Alloc'd
 	dc.w 	0x0000			; Free
 
-; Main pool
+; Main pool (0xC000 tiles)
 VRAMPool1:
 	dc.w 	vram_addr_tiles	; Start
 	dc.w 	vram_addr_tiles+(vdp_max_tiles*size_tile_b)	; End

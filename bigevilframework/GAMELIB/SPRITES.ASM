@@ -16,12 +16,12 @@ SPR_AddMultiSprite:
 	; d6 (b)  Num subsprites
 	; a0 ---- Subsprite dimensions array (b * numSubsprites)
 	; a1 ---- Num tiles per subsprite array (b * numSubsprites)
-	; a2 ---  Subsprite position offsets array (ww * numSubsprites)
+	; a2 ---  Subsprite position offsets array (ll * numSubsprites)
 
 	; If unflipped, offset pos array to read from upper word
 	tst.b  d5
 	bne    @FlippedX
-	subq.l #size_word, a2
+	subq.l #size_long, a2
 	@FlippedX:
 
 	; Combine palette/flip/priority flags
@@ -63,13 +63,13 @@ SPR_AddMultiSprite:
 	subq.b  #0x1, d6
 	@SubspriteLp:
 
-		; Get X/Y offset (0x0000XXYY to 0x00XX00YY)
+		; Get X/Y offset
 		moveq   #0, d1
-		addq.w  #2, a2		; Skip unflipped/flipped coords
-		move.b  (a2)+, d1	; X offset
+		addq.w  #size_long, a2	; Skip unflipped/flipped coords
+		move.w  (a2)+, d1	; X offset
 		add.w   d7, d1		; X origin
 		swap    d1			; To upper word
-		move.b  (a2)+, d1	; Y offset
+		move.w  (a2)+, d1	; Y offset
 		add.w  d4, d1		; Y origin
 
 		; Clamp to 1 on X axis (to avoid masking, and -ve pos wrapping back around)
