@@ -55,7 +55,7 @@ PAL_LerpStart:
 
 	; Copy target palette into target buffer
 	move.l  #(size_palette_b/size_long), d6
-	add.l   #PaletteLerp_BufferTrg, a2
+	addi.l  #PaletteLerp_BufferTrg, a2
 	MEMCPYL a2, a0, d6
 	
 	rts
@@ -92,7 +92,7 @@ PAL_LerpActive:
 	beq    @Inactive
 	bset   d1, d0
 	@Inactive:
-	add.l  #PaletteLerp_Struct_Size, a0
+	addi.l #PaletteLerp_Struct_Size, a0
 	dbra d1, @PaletteLerpLp
 
 	POPL   a0
@@ -123,8 +123,8 @@ PAL_LerpUpdate:
 	@PaletteNotWritten:
 
 	; Next palette
-	add.l  #PaletteLerp_Struct_Size, a0
-	add.b  #0x1, d0
+	addi.l #PaletteLerp_Struct_Size, a0
+	addq.b #0x1, d0
 	cmp.b  #num_palettes, d0
 	bne    @PaletteLerpLp
 
@@ -167,7 +167,7 @@ PAL_LerpUpdateNextComponent:
 	; Check if lerp finished
 	move.l a0, a1
 	move.l a0, a2
-	add.l  #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
+	addi.l #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
 	move.l PaletteLerp_CurrentAddr(a0), a2	; Current palette
 
 	move.b PaletteLerp_ColourMin(a0), d3	; Offset into palettes to start of range
@@ -206,13 +206,13 @@ PAL_LerpUpdateNextComponent:
 	; Read next colour index and component index to advence
 	move.b PaletteLerp_ColourIdx(a0), d1	; Get next colour index
 	move.b PaletteLerp_ComponentIdx(a0), d2	; Get next component index
-	add.b  #0x1, d2							; Advance to next component index
+	addq.b #0x1, d2							; Advance to next component index
 	cmp.b  #0x3, d2							; 3 components per colour
 	bne    @NoWrapCmpIdx
 	
 	; Component finished, next colour
 	move.b #0x0, d2							; Wrap component index to range min
-	add.b  #0x1, d1							; Advance to next colour index
+	addq.b #0x1, d1							; Advance to next colour index
 	move.b PaletteLerp_ColourMax(a0), d3
 	cmp.b  d3, d1
 	ble    @NoWrapColIdx
@@ -231,7 +231,7 @@ PAL_LerpUpdateNextComponent:
 	
 	move.l a0, a1
 	move.l a0, a2
-	add.l  #PaletteLerp_BufferTrg, a1		; Target buffer addr
+	addi.l #PaletteLerp_BufferTrg, a1		; Target buffer addr
 	move.l PaletteLerp_CurrentAddr(a0), a2	; Source palette addr
 	
 	clr.l  d4							; Clear working regs

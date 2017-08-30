@@ -64,7 +64,7 @@ VDP_DMAQueue_AddJob:
 	move.l a0, d2
 	move.l a0, d3
 	andi.l #0xFFFF0000, d3	; Align source address down to 64kb boundary
-	add.l  #0x00010000, d3	; Align up
+	addi.l #0x00010000, d3	; Align up
 	sub.l  d2, d3			; Get size difference from original address
 	move.l d3, d4
 	lsr.l  #0x1, d4			; Size diff to words
@@ -72,7 +72,7 @@ VDP_DMAQueue_AddJob:
 	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d4, VDPDMAJob_SizeWords(a1)
 	addq.w #0x1, vdp_dma_queue_size
-	add.l  #VDPDMAJob_Struct_Size, a1
+	addi.l #VDPDMAJob_Struct_Size, a1
 	
 	; Job 2
 	add.l  d3, a0			; Offset source address (bytes)
@@ -96,7 +96,7 @@ VDP_DMAQueue_ExecuteAll:
 	move.w (vdp_dma_queue_size), d5
 	tst.w  d5
 	beq    @NoJobs
-	sub.w  #0x1, d5
+	subq.w  #0x1, d5
 	
 	; Execute jobs
 	@QueueLoop:

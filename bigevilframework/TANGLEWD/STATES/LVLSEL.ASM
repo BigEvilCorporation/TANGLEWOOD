@@ -201,7 +201,7 @@ LevelSelect_Update:
 	bra    @End
 	
 	@WaitingForBgFade:
-	sub.w  #0x1, LevelSelectState_FadeTimer(a2)
+	subq.w  #0x1, LevelSelectState_FadeTimer(a2)
 	@Fading:
 	@NotElapsed:
 	@End:

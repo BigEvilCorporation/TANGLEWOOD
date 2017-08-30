@@ -121,7 +121,7 @@ SoundTest_Update:
 	beq    @NoRight
 	btst   #pad_button_right, d1
 	bne    @NoRight
-	add.w  #0x1, SoundTestState_SoundId(a2)
+	addq.w #0x1, SoundTestState_SoundId(a2)
 	@NoRight:
 	
 	; Handle start button
@@ -182,7 +182,7 @@ SoundTest_Render:
 	POPL  a0
 	
 	PUSHL a0
-	sub.l  #0x8, sp
+	subq.l #0x8, sp
 	move.w SoundTestState_SoundId(a2), d0
 	move.l sp, a0
 	jsr    TXT_ItoA_Hex_w
@@ -192,7 +192,7 @@ SoundTest_Render:
 	move.b #PaletteId_SoundTestText, d2	; Palette
 	move.b #0x0, d3						; Plane
 	jsr    TXT_DrawPlane
-	add.l  #0x8, sp
+	addq.l #0x8, sp
 	POPL  a0
 	
 	rts

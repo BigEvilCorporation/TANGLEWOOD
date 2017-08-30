@@ -68,21 +68,21 @@ NymnInit:
 	; Setup default SFX
 	IFND DEBUG
 	move.l a0, a2
-	add.l  #Character_SFX, a2
+	addi.l #Character_SFX, a2
 	
 	; Land
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_Land*size_long, a3
+	addi.l #CharacterSFXIdx_Land*size_long, a3
 	move.l #SFX_Land, (a3)
 
 	; Water splash
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_WaterSplash*size_long, a3
+	addi.l #CharacterSFXIdx_WaterSplash*size_long, a3
 	move.l #SFX_Water_Splash1, (a3)
 
 	; Water Jump
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_WaterJump*size_long, a3
+	addi.l #CharacterSFXIdx_WaterJump*size_long, a3
 	move.l #SFX_Water_Jump, (a3)
 	ENDIF
 	
@@ -202,7 +202,7 @@ NymnUpdate:
 	; Echo has landed, play catch animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Nymn_Animations, a1
+	addi.l #Nymn_Animations, a1
 	move.l #(NymnAnimIdx_PickupEcho*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -408,10 +408,10 @@ NymnEndCarryEcho:
 	ANIM_LOAD_DEFAULT nymn_walk,nymn_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	move.l a0, a2
-	add.l  #Character_Animations, a2
+	addi.l #Character_Animations, a2
 	
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
+	addi.l #(Animation_Struct_Size*CharacterAnimIdx_Idle), a3
 	move.w #spritesheet_nymn_idle_frameoffset, Animation_FirstFrameOffset(a3)
 	move.l #spriteanim_nymn_idle_track_frames, Animation_AnimTrackSpriteFrame(a3)
 	move.l #0x0, Animation_AnimTrackPositionX(a3)
@@ -442,7 +442,7 @@ NymnHowl:
 	; Start howling anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

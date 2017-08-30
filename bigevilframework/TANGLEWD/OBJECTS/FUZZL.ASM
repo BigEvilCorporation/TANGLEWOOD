@@ -239,7 +239,7 @@ FuzzlSetColour:
 	
 	; Get animation table addr
 	move.l a0, a2
-	add.l  #Fuzzl_Animations, a2
+	addi.l #Fuzzl_Animations, a2
 	
 	; Get sprite sheet table addr for colour
 	lea    Fuzzl_Spritesheets, a4
@@ -250,23 +250,23 @@ FuzzlSetColour:
 	
 	; Get sprite sheet addrs for animations
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Idle), a3
 	move.w (FuzzlAnimIdx_Idle*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Watch), a3
 	move.w (FuzzlAnimIdx_Watch*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a3
 	move.w (FuzzlAnimIdx_Roll*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a3
 	move.w (FuzzlAnimIdx_Bounce*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	move.l a2, a3
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Sleep), a3
 	move.w (FuzzlAnimIdx_Sleep*size_word)(a4), Animation_FirstFrameOffset(a3)
 	
 	; Mark anim dirty
@@ -393,8 +393,8 @@ FuzzlUpdate:
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
 	@ZeroVel:
 	move.l a0, a2
-	add.l  #Fuzzl_Animations, a2
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	addi.l #Fuzzl_Animations, a2
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
 	move.w d0, Animation_Speed(a2)
 
 	; Check if entering a nest
@@ -550,7 +550,7 @@ FuzzlFindNest:
 	move.w (EntityCount_Nest), d6
 	tst.w  d6
 	beq    @NoNests
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@NestLoop:
 	
 	; Check if nest is occupied
@@ -612,7 +612,7 @@ FuzzlFindNest:
 	@NestOccupied:
 	
 	; Next nest
-	add.l #Nest_Struct_Size, a3
+	addi.l #Nest_Struct_Size, a3
 	dbra d6, @NestLoop
 
 	@NoNests:
@@ -636,7 +636,7 @@ FuzzlFindGenerator:
 	move.w (EntityCount_Generator), d6
 	tst.w  d6
 	beq    @NoGenerators
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@GeneratorLoop:
 	
 	; Check if generator is occupied
@@ -660,8 +660,8 @@ FuzzlFindGenerator:
 	; Touching nest, snap to into position
 	move.l Entity_WorldPosX(a3), d0
 	move.l Entity_WorldPosY(a3), d1
-	add.l  #((Generator_Width/2)-(Fuzzl_Width/2))*subpixels_per_pixel, d0
-	add.l  #((Generator_Height/2)-(Fuzzl_Height/2))*subpixels_per_pixel, d1
+	addi.l #((Generator_Width/2)-(Fuzzl_Width/2))*subpixels_per_pixel, d0
+	addi.l #((Generator_Height/2)-(Fuzzl_Height/2))*subpixels_per_pixel, d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 
@@ -705,7 +705,7 @@ FuzzlFindGenerator:
 	@NextGenerator:
 	
 	; Next nest
-	add.l #Generator_Struct_Size, a3
+	addi.l #Generator_Struct_Size, a3
 	dbra d6, @GeneratorLoop
 
 	@End:
@@ -740,7 +740,7 @@ FuzzlUpdateBounce:
 	bset.b #Fuzzl_State_Bouncing, Fuzzl_State_Bits(a0)
 	
 	; Increment bounce time
-	add.b  #0x1, Fuzzl_BounceTimer(a0)
+	addq.b #0x1, Fuzzl_BounceTimer(a0)
 	
 	; Check if bounce timer has elapsed
 	move.b Fuzzl_BounceTimer(a0), d0
@@ -760,8 +760,8 @@ FuzzlUpdateBounce:
 	
 	; Set anim speed if off ground
 	move.l a0, a2
-	add.l  #Fuzzl_Animations, a2
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a2
+	addi.l #Fuzzl_Animations, a2
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Bounce), a2
 
 	move.b PhysicsObj_OnFloor(a0), d0
 	cmp.b  #0x1, d0
@@ -811,7 +811,7 @@ FuzzlUpdateEyes:
 	move.l #-1, d1		; -1, 0 or 1
 	move.l #1, d2
 	CLAMP  d0, d1, d2
-	add.l  #0x1, d0		; 0, 1 or 2
+	addi.l #0x1, d0		; 0, 1 or 2
 	mulu   #0x3, d0		; Y offset into table
 	move.l d0, d3
 
@@ -825,7 +825,7 @@ FuzzlUpdateEyes:
 	move.l #-1, d1		; -1, 0 or 1
 	move.l #1, d2
 	CLAMP  d0, d1, d2
-	add.l  #0x1, d0		; 0, 1 or 2
+	addi.l #0x1, d0		; 0, 1 or 2
 
 	add.l  d3, d0		; Add X offset into table
 	andi.l #0x0000FFFF, d0
@@ -901,8 +901,8 @@ FuzzlUpdateAnimation:
 	@AnimFling:
 	move.l #FuzzlAnimIdx_Roll, d0
 	move.l a0, a2
-	add.l  #Fuzzl_Animations, a2
-	add.l  #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	addi.l #Fuzzl_Animations, a2
+	addi.l #(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
 	move.w #Fuzzl_FlingRollSpeed, Animation_Speed(a2)
 	bra    @EndAnim
 
@@ -915,7 +915,7 @@ FuzzlUpdateAnimation:
 	; Set anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Fuzzl_Animations, a1
+	addi.l #Fuzzl_Animations, a1
 	mulu   #Animation_Struct_Size, d0
 	add.l  d0, a1
 	jsr    AnimObjSetAnimation

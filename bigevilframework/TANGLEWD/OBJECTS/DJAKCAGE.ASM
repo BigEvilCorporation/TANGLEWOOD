@@ -72,7 +72,7 @@ DjakkCageInit:
 	
 	; Setup barrier
 	move.l a0, a2
-	add.l  #DjakkCage_Barrier, a2
+	addi.l #DjakkCage_Barrier, a2
 	move.w #DjakkCage_Width, Barrier_Width(a2)
 	move.w #DjakkCage_Height, Barrier_Height(a2)
 	LIST_APPEND_TAIL Barriers, a2, a3
@@ -88,7 +88,7 @@ DjakkCageLoadGfx:
 
 	; Reposition barrier
 	move.l a0, a2
-	add.l  #DjakkCage_Barrier, a2
+	addi.l #DjakkCage_Barrier, a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
@@ -110,7 +110,7 @@ DjakkCageUpdate:
 
 	; Raising cage
 	sub.l  #DjakkCage_RaiseLowerSpeed, Entity_WorldPosY(a0)
-	add.l  #DjakkCage_RaiseLowerSpeed, DjakkCage_RaisedHeight(a0)
+	addi.l #DjakkCage_RaiseLowerSpeed, DjakkCage_RaisedHeight(a0)
 
 	cmp.l  #DjakkCage_Height*subpixels_per_pixel, DjakkCage_RaisedHeight(a0)
 	ble    @End
@@ -129,7 +129,7 @@ DjakkCageUpdate:
 
 	; Disable barrier
 	move.l a0, a2
-	add.l  #DjakkCage_Barrier, a2
+	addi.l #DjakkCage_Barrier, a2
 	LIST_REMOVE Barriers, a2, a3, a4
 
 	@End:
@@ -138,7 +138,7 @@ DjakkCageUpdate:
 
 	; Reposition barrier
 	move.l a0, a2
-	add.l  #DjakkCage_Barrier, a2
+	addi.l #DjakkCage_Barrier, a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
@@ -155,7 +155,7 @@ DjakkCageDraw:
 	jsr    SpriteObjDraw
 
 	; Draw right cage front
-	add.l  #(DjakkCage_Width-DjakkCage_SpriteWidth)*subpixels_per_pixel, Entity_WorldPosX(a0)
+	addi.l #(DjakkCage_Width-DjakkCage_SpriteWidth)*subpixels_per_pixel, Entity_WorldPosX(a0)
 	jsr    SpriteObjDraw
 
 	POPL   d0

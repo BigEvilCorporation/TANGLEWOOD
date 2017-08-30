@@ -30,7 +30,7 @@ PAD_ReadPadA:
 	
 	; Invert and mask
 	neg.w   d0
-	sub.w   #0x1, d0
+	subq.w   #0x1, d0
 	andi.w  #pad_button_all, d0
 
 	rts
@@ -50,7 +50,7 @@ PAD_ReadPadB:
 	
 	; Invert and mask
 	neg.w   d0
-	sub.w   #0x1, d0
+	subq.w   #0x1, d0
 	andi.w  #pad_button_all, d0
 
 	rts

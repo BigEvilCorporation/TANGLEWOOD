@@ -51,7 +51,7 @@ Fail_Update:
 	move.l (TimerFailFade), d0
 	tst.l  d0
 	beq    @FadeStarted
-	sub.l  #0x1, d0
+	subq.l #0x1, d0
 	move.l d0, TimerFailFade
 	tst.l  d0
 	bne    @TimerRunning
@@ -85,7 +85,7 @@ Fail_Update:
 
 	; Update reset timer
 	move.l (TimerFailReset), d0
-	sub.l  #0x1, d0
+	subq.l #0x1, d0
 	move.l d0, TimerFailReset
 	tst.l  d0
 	bne    @TimerRunning

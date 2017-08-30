@@ -153,7 +153,7 @@ WyrmInit:
 
 	; Init debris sprite objects
 	PUSHL  a0
-	add.l  #Wyrm_DebrisSprites, a0
+	addi.l #Wyrm_DebrisSprites, a0
 	move.w #Wyrm_DebrisMaxSprites-1, d0
 	@SpriteLp:
 	PUSHL  d0
@@ -161,7 +161,7 @@ WyrmInit:
 	move.w #Wyrm_DebrisSpriteWidth, Entity_Width(a0)
 	move.w #Wyrm_DebrisSpriteHeight, Entity_Height(a0)
 	POPL   d0
-	add.l  #AnimObj_Struct_Size, a0
+	addi.l #AnimObj_Struct_Size, a0
 	dbra   d0, @SpriteLp
 	POPL   a0
 
@@ -193,7 +193,7 @@ WyrmLoadGfx:
 	; Load all debris sprites
 	move.l a0, a3
 	PUSHL  a0
-	add.l  #Wyrm_DebrisSprites, a0
+	addi.l #Wyrm_DebrisSprites, a0
 	move.l #Wyrm_DebrisMaxSprites-1, d0
 
 	@SpriteLp:
@@ -206,7 +206,7 @@ WyrmLoadGfx:
 	; Set anim
 	PUSHM  d0/a1-a3
 	move.l a3, a1
-	add.l  #Wyrm_Animations, a1
+	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Debris*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -221,7 +221,7 @@ WyrmLoadGfx:
 	move.b #0x1, AnimObj_UploadFrame(a0)
 	
 	; Next obj
-	add.l  #AnimObj_Struct_Size, a0
+	addi.l #AnimObj_Struct_Size, a0
 
 	dbra   d0, @SpriteLp
 
@@ -342,7 +342,7 @@ WyrmDraw:
 	; Draw debris
 	move.l a0, a2
 	PUSHL  a0
-	add.l  #Wyrm_DebrisSprites, a0
+	addi.l #Wyrm_DebrisSprites, a0
 	move.w #Wyrm_DebrisMaxSprites-1, d0
 	@SpriteLp:
 	PUSHM  d0/a2
@@ -365,8 +365,8 @@ WyrmDraw:
 	jsr    AnimObjDraw
 
 	POPM   d0/a2
-	add.l  #AnimObj_Struct_Size, a0
-	add.l  #size_long,a2
+	addi.l #AnimObj_Struct_Size, a0
+	addi.l #size_long,a2
 	dbra   d0, @SpriteLp
 	POPL   a0
 	
@@ -416,7 +416,7 @@ WyrmFindSandDune:
 	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
 	tst.w  d3							; Bail if empty
 	beq    @NoTerrain
-	sub.w  #0x1, d3							; -1 for loop counter
+	subq.w  #0x1, d3							; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
 
 	@TerrainLp:
@@ -502,7 +502,7 @@ WyrmAIStart_Emerge
 	
 	; Get player floor probe X
 	move.w Entity_WorldPosX(a2), d0
-	sub.w  #vdp_sprite_border_x, d0
+	subi.w #vdp_sprite_border_x, d0
 	add.w  PhysicsObj_FloorProbeX(a2), d0
 	
 	jsr    WyrmFindSandDune
@@ -521,7 +521,7 @@ WyrmAIStart_Emerge
 
 	; If already within X bounds of found sand dune, emerge from last burrowed pos
 	move.w Entity_WorldPosX(a0), d0
-	sub.w  #vdp_sprite_border_x, d0
+	subi.w #vdp_sprite_border_x, d0
 	add.w  PhysicsObj_FloorProbeX(a0), d0
 	cmp.w  d0, d3
 	bge    @NotInDune
@@ -570,7 +570,7 @@ WyrmAIStart_Emerge
 	; Emerge anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Wyrm_Animations, a1
+	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Emerge*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -611,7 +611,7 @@ WyrmAIStart_Burrow
 	; Burrow anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Wyrm_Animations, a1
+	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Burrow*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -753,7 +753,7 @@ WyrmAIUpdate_Follow:
 
 	; If hit end of sand dune, start burrowing
 	move.w Entity_WorldPosX(a0), d0			; Get Wyrm left
-	sub.w  #vdp_sprite_border_x, d0			; To collision space
+	subi.w #vdp_sprite_border_x, d0			; To collision space
 	move.w d0, d1							; Get Wyrm right
 	add.w  Wyrm_Width(a0), d1
 	move.w Wyrm_CurrentDuneLeft(a0), d2		; Get sand dune left
@@ -786,7 +786,7 @@ WyrmAIStart_Bite:
 	; Start bite animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Wyrm_Animations, a1
+	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

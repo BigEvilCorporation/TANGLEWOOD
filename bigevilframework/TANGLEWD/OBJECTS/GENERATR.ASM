@@ -78,8 +78,8 @@ GeneratorInit:
 
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Generator_Animations, a1
-	add.l  #(Animation_Struct_Size*GeneratorAnimIdx_Spin), a1
+	addi.l #Generator_Animations, a1
+	addi.l #(Animation_Struct_Size*GeneratorAnimIdx_Spin), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -107,13 +107,13 @@ GeneratorUpdate:
 	cmp.l   #0x0, a2
 	beq     @NoCogs
 	move.b  #0x1, AnimObj_Playing(a2)
-	add.l   #Cogs_Animations+(Animation_Struct_Size*CogsAnimIdx_Spin), a2
+	addi.l  #Cogs_Animations+(Animation_Struct_Size*CogsAnimIdx_Spin), a2
 	move.w  #0x40, Animation_Speed(a2)
 	@NoCogs:
 
 	move.l  Generator_Fuzzl(a0), a2
 	move.b  #0x1, AnimObj_Playing(a2)
-	add.l   #Fuzzl_Animations+(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
+	addi.l  #Fuzzl_Animations+(Animation_Struct_Size*FuzzlAnimIdx_Roll), a2
 	move.w  #0x40, Animation_Speed(a2)
 
 	; Base functionality

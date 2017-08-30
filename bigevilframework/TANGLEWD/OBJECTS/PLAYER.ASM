@@ -150,18 +150,18 @@ PlayerAnimIdx_Max       	equ 8
 ; ************************************
 PLAYER_GETJUMPBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 	move.w Entity_WorldPosX(\addrreg), \minreg			; Get X world position (top word = integer part)
-	add.w  #Player1BoundsJumpOffsetX, \minreg			; Add bounding box X offset
+	addi.w #Player1BoundsJumpOffsetX, \minreg			; Add bounding box X offset
 	move.w \minreg, \maxreg								; Copy to right reg
-	add.w  #Player1BoundsJumpWidth, \maxreg				; Add bounding box right
+	addi.w #Player1BoundsJumpWidth, \maxreg				; Add bounding box right
 	
 	swap   \minreg
 	swap   \maxreg
 	
 	move.w Entity_WorldPosY(\addrreg), \tmpreg			; Get Y world position (top word = integer part)
-	add.w  #Player1BoundsJumpOffsetY, \tmpreg			; Add bounding box Y offset
+	addi.w #Player1BoundsJumpOffsetY, \tmpreg			; Add bounding box Y offset
 	move.w \tmpreg, \minreg								; To Y
 	move.w \minreg, \maxreg								; Copy to bottom reg
-	add.w  #Player1BoundsJumpHeight, \maxreg			; Add bounding box bottom
+	addi.w #Player1BoundsJumpHeight, \maxreg			; Add bounding box bottom
 	endm
 
 ; ************************************
@@ -353,7 +353,7 @@ PlayerBeginSleep:
 	; Start animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_LieDown*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -376,7 +376,7 @@ PlayerUpdateSleep:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -397,7 +397,7 @@ PlayerBeginIdleSnooze:
 	; Start sleep anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -436,7 +436,7 @@ PlayerUpdateIdleSnooze:
 	; Start wake anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -450,11 +450,11 @@ PlayerUpdateIdleAnim:
 	
 	; If in idle anim, check if one-shot idle anim should start
 	move.l a0, a2
-	add.l  #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a2
+	addi.l #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a2
 	cmp.l  AnimObj_CurrentAnim(a0), a2
 	bne    @NotIdle
 	
-	add.w  #0x1, Player_IdleFrameCount(a0)							; Increment idle frame count
+	addi.w #0x1, Player_IdleFrameCount(a0)							; Increment idle frame count
 	cmp.w  #Player1IdleAnimWaitFrames, Player_IdleFrameCount(a0)	; Check if hit threshold
 	bne    @EndIdle
 	
@@ -468,9 +468,9 @@ PlayerUpdateIdleAnim:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a1
+	addi.l #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a1
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
-	add.b  #0x1, Player_IdleTimeoutCount(a0)
+	addq.b #0x1, Player_IdleTimeoutCount(a0)
 	POPL   a1
 	
 	@NotIdle:
@@ -479,14 +479,14 @@ PlayerUpdateIdleAnim:
 	
 	; If in one-shot idle anim, any button press interrupts
 	move.l a0, a2
-	add.l  #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a2
+	addi.l #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a2
 	cmp.l  AnimObj_CurrentAnim(a0), a2
 	bne    @NotOneShotIdle
 	tst.w  Gamepad1State
 	beq    @NotInterrupted
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a1
+	addi.l #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a1
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	POPL   a1
 	@NotInterrupted:
@@ -525,7 +525,7 @@ PlayerBeginColourSwitch:
 	; Start animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Switch*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -642,7 +642,7 @@ PlayerStartColourAbility:
 	move.w (EntityCount_Monster), d6
 	tst.w  d6
 	beq    @NoMonsters
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@MonsterLoop:
 	
 	; Check monster active
@@ -668,7 +668,7 @@ PlayerStartColourAbility:
 	bra    @EndMonsterLoop
 		
 	@NextMonster:
-	add.l #Monster_Struct_Size, a1
+	addi.l #Monster_Struct_Size, a1
 	dbra  d6, @MonsterLoop
 	
 	@NoMonsters:
@@ -761,13 +761,13 @@ PlayerStopColourAbility:
 	jsr    PAL_LerpStart
 	
 	move.l Level_PalettesAddr(a1), a3
-	add.l  #(size_long*PaletteId_Monster), a3
+	addi.l #(size_long*PaletteId_Monster), a3
 	move.l (a3), a0
 	move.l #PaletteId_Monster, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
 	move.l Level_PalettesAddr(a1), a3
-	add.l  #(size_long*PaletteId_Fuzzl), a3
+	addi.l #(size_long*PaletteId_Fuzzl), a3
 	move.l (a3), a0
 	move.l #PaletteId_Fuzzl, d0			; Palette idx
 	jsr    PAL_LerpStart
@@ -1074,7 +1074,7 @@ PlayerColourAbilityElapsed:
 	beq    @TimerElapsed
 
 	; Advance countdown
-	sub.w  #0x1, Player_ColourChangeTimer(a0)
+	subq.w  #0x1, Player_ColourChangeTimer(a0)
 	bne    @TimerRunning
 
 	@TimerElapsed:
@@ -1122,7 +1122,7 @@ PlayerMountPet:
 	; Snap to mount start pos
 	; TODO: Invert for flipping
 	move.l Entity_WorldPosX(a2), d0
-	add.l  #Player1DjakkSaddleOffsetX, d0
+	addi.l #Player1DjakkSaddleOffsetX, d0
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Match flipping
@@ -1131,7 +1131,7 @@ PlayerMountPet:
 	; Start mount animation
 	PUSHM  a0-a2
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -1286,14 +1286,14 @@ PlayerUpdateMount:
 
 	; Wait for mount anim to finish
 	move.l a0, a3
-	add.l  #Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size), a3
+	addi.l #Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size), a3
 	cmp.l  AnimObj_CurrentAnim(a0), a3
 	beq    @EndState
 
 	; Done, start ride anim
 	PUSHM  a0-a2
 	move.l a0, a1
-	add.l  #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
+	addi.l #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 	
@@ -1406,7 +1406,7 @@ PlayerForwardPetControls:
 	; Player jump anim
 	PUSHM  a0-a2
 	move.l a0, a1
-	add.l  #Character_Animations, a1
+	addi.l #Character_Animations, a1
 	move.l #(CharacterAnimIdx_RideJump*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -1431,8 +1431,8 @@ PlayerSyncWithPet:
 	; Snap to saddle position
 	move.l Entity_WorldPosX(a2), d0
 	move.l Entity_WorldPosY(a2), d1
-	add.l  #Player1DjakkSaddleOffsetX, d0
-	add.l  #Player1DjakkSaddleOffsetY, d1
+	addi.l #Player1DjakkSaddleOffsetX, d0
+	addi.l #Player1DjakkSaddleOffsetY, d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 
@@ -1662,15 +1662,15 @@ PlayerUpdatePushInteract:
 	; Apply to light push anim
 	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
 	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	addi.l #Character_Animations, a2
+	addi.l #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
 	move.w d0, Animation_Speed(a2)
 	
 	; Apply to heavy push anim
 	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
 	move.l a0, a2
-	add.l  #Character_Animations, a2
-	add.l  #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
+	addi.l #Character_Animations, a2
+	addi.l #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
 	move.w d1, Animation_Speed(a2)
 
 	@NotPushing:
@@ -1751,7 +1751,7 @@ PlayerInteractTest_Fuzzls:
 
 	; Check player against all Fuzzls in level
 	move.l (EntityPoolStart_Fuzzl), a2
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@FuzzlLoop:
 
 	; Check on screen
@@ -1800,7 +1800,7 @@ PlayerInteractTest_Fuzzls:
 	bra    @End
 
 	@NextFuzzl:
-	add.l  #Fuzzl_Struct_Size, a2
+	addi.l #Fuzzl_Struct_Size, a2
 	dbra   d6, @FuzzlLoop
 	
 	@NoFuzzls:
@@ -1882,7 +1882,7 @@ PlayerInteractTest_Fireflies:
 	; Check player against all Fireflies in level
 	move.l a0, a1							; Player in a1
 	move.l (EntityPoolStart_Firefly), a0	; Firefly in a0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	@FireflyLoop:
 
 	; Check on screen
@@ -1895,7 +1895,7 @@ PlayerInteractTest_Fireflies:
 	movem.l (sp)+, d0-d1/a0-a1
 
 	@NextFirefly:
-	add.l  #Firefly_Struct_Size, a0
+	addi.l #Firefly_Struct_Size, a0
 	dbra   d0, @FireflyLoop
 	
 	@NoFireflies:
@@ -1950,7 +1950,7 @@ PlayerInteractTest_Water:
 	
 	; Play splash SFX
 	move.l a0, a2
-	add.l  #Character_SFX+(CharacterSFXIdx_WaterSplash*size_long), a2
+	addi.l #Character_SFX+(CharacterSFXIdx_WaterSplash*size_long), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoSplashSFX
 	PLAYSFX (a2)
@@ -1974,7 +1974,7 @@ PlayerInteractTest_Water:
 	move.w Entity_WorldPosY(a1), d3	; (top word = integer part)
 	move.w (WorldScrollY), d2		;  (top word = integer part)
 	sub.w  d2, d3
-	sub.w  #vdp_sprite_border_y, d3
+	subi.w #vdp_sprite_border_y, d3
 	move.b d3, raster_water_level
 
 	bra    @Found
@@ -1982,7 +1982,7 @@ PlayerInteractTest_Water:
 	@NoIntersect:
 	
 	; Next body
-	add.l #WaterBody_Struct_Size, a1
+	addi.l #WaterBody_Struct_Size, a1
 	dbra d6, @BodyLoop
 	
 	@NoWaterBodies:
@@ -2017,7 +2017,7 @@ PlayerInteractTest_BouncePlants:
 
 	; Check player against all plants in level
 	move.l (EntityPoolStart_BouncePlant), a2		; Plant in a2
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@PlantLoop:
 
 	; Check on screen
@@ -2069,7 +2069,7 @@ PlayerInteractTest_BouncePlants:
 	bra    @End
 	
 	@NextPlant:
-	add.l  #BouncePlant_Struct_Size, a2
+	addi.l #BouncePlant_Struct_Size, a2
 	dbra   d6, @PlantLoop
 	
 	@NoPlants:

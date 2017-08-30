@@ -205,12 +205,12 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Nymn_18_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
+	addi.l #Nymn_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L2A2_Echo_count)
@@ -231,12 +231,12 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_BouncePlant_5_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
+	addi.l #BouncePlant_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L2A2_Boulder_count)
@@ -250,24 +250,24 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Boulder_3_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
+	addi.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
 	move.l #0x12200000, Entity_WorldPosX(a0)
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Boulder_4_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
+	addi.l #Boulder_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L2A2_Monster_count)
@@ -295,24 +295,24 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Fuzzl_1_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
+	addi.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x0f700000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Fuzzl_2_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
+	addi.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L2A2_Stone_count)
@@ -333,24 +333,24 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Nest_13_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
+	addi.l #Nest_Struct_Size, a0
 	jsr NestInit
 	move.l #0x0fc00000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Nest_14_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
+	addi.l #Nest_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L2A2_Flue_count)
@@ -364,24 +364,24 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Flue_15_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
+	addi.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x0ac80000, Entity_WorldPosX(a0)
 	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Flue_16_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FlueLoadGfx
-	add.l #Flue_Struct_Size, a0
+	addi.l #Flue_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L2A2_TriggerBox_count)
@@ -423,48 +423,48 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Deathbox_9_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
+	addi.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x10c80000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Deathbox_10_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
+	addi.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x14d00000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Deathbox_11_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
+	addi.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x16a00000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Deathbox_12_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
+	addi.l #Deathbox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L2A2_Lift_count)
@@ -478,12 +478,12 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Lift_17_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LiftLoadGfx
-	add.l #Lift_Struct_Size, a0
+	addi.l #Lift_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L2A2_Button_count)
@@ -497,12 +497,12 @@ L2A2_LoadGameObjects:
 	IFND FINAL
 	lea L2A2_Button_8_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr ButtonLoadGfx
-	add.l #Button_Struct_Size, a0
+	addi.l #Button_Struct_Size, a0
 
 	rts
 

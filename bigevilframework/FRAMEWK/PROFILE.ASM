@@ -92,7 +92,7 @@ DBG_Profile_PushScope:
 	beq    @FirstBlock
 	clr.l  d0
 	move.b ProfileBlockChildCount(a2), d0
-	addq.b #0x1, ProfileBlockChildCount(a2)
+	addi.b #0x1, ProfileBlockChildCount(a2)
 	mulu   #size_long, d0
 	move.l a1, ProfileBlockChildAddrs(a2, d0.l)
 	@FirstBlock:
@@ -154,7 +154,7 @@ DBG_Profile_CaptureFrame:
 	move.l #ProfileMaxBlocks-1, d2
 	@Lp:
 	move.b #0x0, ProfileBlockChildCount(a1)
-	add.l  #ProfileBlockStructSize, a1
+	addi.l #ProfileBlockStructSize, a1
 	dbra   d2, @Lp
 	
 	; Reset stacks
@@ -232,13 +232,13 @@ DBG_Profile_DrawBlockRecursive:
 	move.b #0x0, d3					; Plane A
 	jsr    TXT_DrawPlane			; Draw
 	
-	add.l  #0x10, sp				; Free string space
+	addi.l #0x10, sp				; Free string space
 	
 	move.l (sp)+, d0
 	move.l (sp)+, a0
 	
 	; Next line
-	add.b  #ProfileDrawLineSpaces, d0
+	addi.b #ProfileDrawLineSpaces, d0
 	
 	; Backup curr block address
 	move.l a0, -(sp)
@@ -261,7 +261,7 @@ DBG_Profile_DrawBlockRecursive:
 	
 	; Next tab
 	ror.w  #0x8, d0
-	add.b  #ProfileDrawTabSpaces, d0
+	addq.b #ProfileDrawTabSpaces, d0
 	rol.w  #0x8, d0
 	
 	move.l a0, -(sp)
@@ -277,7 +277,7 @@ DBG_Profile_DrawBlockRecursive:
 	
 	; Prev tab
 	ror.w  #0x8, d0
-	sub.b  #ProfileDrawTabSpaces, d0
+	subq.b  #ProfileDrawTabSpaces, d0
 	rol.w  #0x8, d0
 	
 	; Next child ptr

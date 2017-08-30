@@ -21,7 +21,7 @@ SPR_AddMultiSprite:
 	; If unflipped, offset pos array to read from upper word
 	tst.b  d5
 	bne    @FlippedX
-	sub.l  #size_word, a2
+	subq.l #size_word, a2
 	@FlippedX:
 
 	; Combine palette/flip/priority flags
@@ -60,7 +60,7 @@ SPR_AddMultiSprite:
 
 	; Loop subsprites
 	andi.w #0x00FF, d6
-	sub.b  #0x1, d6
+	subq.b  #0x1, d6
 	@SubspriteLp:
 
 		; Get X/Y offset (0x0000XXYY to 0x00XX00YY)
@@ -87,7 +87,7 @@ SPR_AddMultiSprite:
 		or.w   d2, d3
 
 		; Next sprite ID
-		add.w  #0x1, d5
+		addq.w #0x1, d5
 		
 		; Write values to table entry
 		move.w d1, (a4)+	; Y
@@ -131,7 +131,7 @@ SPR_AddSubSprite:
 	
 	; Alloc sprite ID
 	move.w (next_sprite_index), d5
-	add.w  #0x1, (next_sprite_index)
+	addq.w #0x1, (next_sprite_index)
 
 	; Sanity check
 	cmp.w   #vdp_max_sprites, (next_sprite_index)
@@ -146,11 +146,11 @@ SPR_AddSubSprite:
 	; Subsequent entry in sprite table, link to previous
 	lea     vdp_sprite_table, a4
 	move.w  d5, d6
-	sub.w   #0x1, d6
+	subq.w   #0x1, d6
 	lsl.l   #0x3, d6	; mulu.w  #size_spritedesc, d6
 	add.l   d6, a4
 	move.b  d5, Sprite_NextID(a4)
-	add.l   #size_spritedesc, a4
+	addi.l  #size_spritedesc, a4
 
 	bra     @EndLink
 	@FirstInTable:

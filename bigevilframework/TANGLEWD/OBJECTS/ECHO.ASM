@@ -6,7 +6,7 @@
 ;   echo.asm - Nymn's little brother
 ;==============================================================
 
-ECHO_AI_DEBUG_SAFE_POS 		equ 1
+ECHO_AI_DEBUG_SAFE_POS 		equ 0
 ECHO_AI_DEBUG_NODE_POS		equ 0
 
 ; Constants
@@ -189,21 +189,21 @@ EchoInit:
 	; Setup default SFX
 	IFND DEBUG
 	move.l a0, a2
-	add.l  #Character_SFX, a2
+	addi.l #Character_SFX, a2
 	
 	; Land
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_Land*size_long, a3
+	addi.l #CharacterSFXIdx_Land*size_long, a3
 	move.l #SFX_Land, (a3)
 
 	; Water splash
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_WaterSplash*size_long, a3
+	addi.l #CharacterSFXIdx_WaterSplash*size_long, a3
 	move.l #SFX_Water_Splash1, (a3)
 
 	; Water Jump
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_WaterJump*size_long, a3
+	addi.l #CharacterSFXIdx_WaterJump*size_long, a3
 	move.l #SFX_Water_Jump, (a3)
 	ENDIF
 	
@@ -335,7 +335,7 @@ EchoUpdate:
 	; Set mounting anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_MountNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -382,7 +382,7 @@ EchoUpdate:
 	; Get anim struct address from character
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Character_Animations, a1
+	addi.l #Character_Animations, a1
 	move.b Character_AnimIdx(a0), d1
 	andi.l #0xFF, d0
 	mulu   #Animation_Struct_Size, d1
@@ -435,7 +435,7 @@ EchoUpdate:
 	move.w Echo_HowlTimer(a0), d0
 	tst.w  d0
 	beq    @TimerNotRunning
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Echo_HowlTimer(a0)
 	tst.w  d0
 	bne    @TimerStillRunning
@@ -470,7 +470,7 @@ EchoDraw:
 	andi.w #Echo_NumAINodes-1, d7
 	mulu   #EchoAINode_Struct_Size, d6
 	move.l a0, a2
-	add.l  #Echo_AIFollowNodes, a2
+	addi.l #Echo_AIFollowNodes, a2
 	add.l  d6, a2
 	move.w Entity_Height(a0), d3
 	move.l (EntityPoolStart_Fuzzl), a0
@@ -527,7 +527,7 @@ EchoBeginCarried:
 	; Set jumping-to-Nymn anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_JumpToNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -592,7 +592,7 @@ EchoHowl:
 	; Set howling anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -689,7 +689,7 @@ EchoAIUpdate_Follow:
 	tst.b  d0
 	bne    @OnScreen
 	move.w Echo_AILostTimer(a0), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
 	jsr    EchoAIStart_Lost
@@ -799,7 +799,7 @@ EchoAIUpdate_FollowNodes:
 	tst.b  d0
 	bne    @OnScreen
 	move.w Echo_AILostTimer(a0), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
 	jsr    EchoAIStart_Lost
@@ -809,7 +809,7 @@ EchoAIUpdate_FollowNodes:
 
 	; If node fail timer depleted, return to basic follow state
 	move.w Echo_AINodeFailTimer(a0), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Echo_AINodeFailTimer(a0)
 	bne    @NodeFailTimerRunning
 	jsr    EchoAIStart_Follow
@@ -978,7 +978,7 @@ EchoAIUpdate_CatchUp:
 	
 	; Decrement lost timer, if elapsed then head back to lost state and try again
 	move.w Echo_AILostTimer(a0), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
 	jsr    EchoAIStart_Lost
@@ -1654,7 +1654,7 @@ EchoAI_FindFuzzl:
 	tst.w  d6
 	beq    @NoFuzzls
 	move.l (EntityPoolStart_Fuzzl), a2
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@FuzzlLoop:
 
 	; Check within X threshold
@@ -1693,7 +1693,7 @@ EchoAI_FindFuzzl:
 	bra    @FoundFuzzl
 
 	@NextFuzzl:
-	add.l  #Fuzzl_Struct_Size, a2
+	addi.l #Fuzzl_Struct_Size, a2
 	dbra   d6, @FuzzlLoop
 	
 	@NoFuzzls:
@@ -1712,7 +1712,7 @@ EchoAI_FindButton:
 	tst.w  d6
 	beq    @NoButtons
 	move.l (EntityPoolStart_Button), a2
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@ButtonLoop:
 
 	; Check within X threshold
@@ -1743,7 +1743,7 @@ EchoAI_FindButton:
 	bra    @FoundButton
 
 	@NextButton:
-	add.l  #Button_Struct_Size, a2
+	addi.l #Button_Struct_Size, a2
 	dbra   d6, @ButtonLoop
 	
 	@NoButtons:
@@ -1790,11 +1790,11 @@ EchoAI_PushInteractionFuzzl:
 	move.w Entity_WorldPosX(a4), d2
 	sub.w  d0, d2
 	blt    @RightSide
-	sub.w  #Echo_AIDistPushObjX, d0	; Left side of Fuzzl (Fuzzl pos - threshold)
+	subi.w #Echo_AIDistPushObjX, d0	; Left side of Fuzzl (Fuzzl pos - threshold)
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
-	add.w  #Echo_AIDistPushObjX, d0
+	addi.w #Echo_AIDistPushObjX, d0
 	@LeftSide:
 
 	move.w d0, EchoAINode_PosX(a3)
@@ -1864,7 +1864,7 @@ EchoAIPushNode:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	add.l  #Echo_AIFollowNodes, a0		; Get array
+	addi.l #Echo_AIFollowNodes, a0		; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -1888,7 +1888,7 @@ EchoAIPopNode:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	add.l  #Echo_AIFollowNodes, a0		; Get array
+	addi.l #Echo_AIFollowNodes, a0		; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2010,7 +2010,7 @@ EchoAIPeekNodeFront:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	add.l  #Echo_AIFollowNodes, a0		; Get array
+	addi.l #Echo_AIFollowNodes, a0		; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2032,7 +2032,7 @@ EchoAIPeekNodeBack:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	add.l  #Echo_AIFollowNodes, a0		; Get array
+	addi.l #Echo_AIFollowNodes, a0		; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 

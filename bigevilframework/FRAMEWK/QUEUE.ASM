@@ -43,12 +43,12 @@ Queue_Push:
 	move.w Queue_ElementSizeLong(a0), d1	; Get element size
 	mulu   d1, d0							; Mul by index
 	mulu   #size_long, d0					; To bytes
-	add.l  #Queue_Data, d0					; Add queue data offset
+	addi.l #Queue_Data, d0					; Add queue data offset
 	move.l a0, a2							; Get queue address
 	add.l  d0, a2							; Add element address offset
 	
 	; Copy data
-	sub.w  #0x1, d1
+	subq.w  #0x1, d1
 	@CopyLp:
 	move.l (a1)+, (a2)+
 	dbra.w d1, @CopyLp
@@ -79,12 +79,12 @@ Queue_Pop:
 	move.w Queue_ElementSizeLong(a0), d1	; Get element size
 	mulu   d1, d0							; Mul by index
 	mulu   #size_long, d0					; To bytes
-	add.l  #Queue_Data, d0					; Add queue data offset
+	addi.l #Queue_Data, d0					; Add queue data offset
 	move.l a0, a2							; Get queue address
 	add.l  d0, a2							; Add element address offset
 	
 	; Copy data
-	sub.w  #0x1, d1
+	subq.w  #0x1, d1
 	@CopyLp:
 	move.l (a2)+, (a1)+
 	dbra.w d1, @CopyLp

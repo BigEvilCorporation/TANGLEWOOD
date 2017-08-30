@@ -22,8 +22,8 @@ VDP_Init:
 	move.b (a0)+, d1           ; Move register value to lower byte of d1
 	move.b d1, (a1)+		   ; Move to local table
 	move.w d1, vdp_control     ; Write command and value to VDP control port
-	add.w #0x0100, d1          ; Increment register #
-	dbra d0, @CopyVDP
+	addi.w #0x0100, d1          ; Increment register #
+	dbra   d0, @CopyVDP
 	
 	; Clear VDP memory
 	jsr VDP_ClearVRAM

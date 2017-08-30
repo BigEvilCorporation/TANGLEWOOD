@@ -55,7 +55,7 @@ ALLOCSTACKB: macro bytes
 	
 ; Stack free (bytes)
 FREESTACKB: macro bytes
-	add.l  #\bytes, sp
+	addi.l #\bytes, sp
 	endm
 	
 ;==============================================================

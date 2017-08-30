@@ -118,7 +118,7 @@ DBG_DebugDraw:
 	jsr    TXT_DrawPlane
 	
 	; Free string space
-	add.l  #0x10, sp
+	addi.l #0x10, sp
 	
 	; Alloc string space
 	;sub.l  #0x10, sp
@@ -137,13 +137,13 @@ DBG_DebugDraw:
 	;move.l (WorldScrollX), d1
 	;lsr.l  #0x8, d1					; Screen space (subpixels) to pixels
 	;divu.w #0x8, d1					; Pixels to tile space
-	;add.w  #debugdraw_playerpos_text_x, d1
+	;addi.w #debugdraw_playerpos_text_x, d1
 	;swap   d1
     ;
 	;move.l (WorldScrollY), d2
 	;lsr.l  #0x8, d2					; Screen space (subpixels) to pixels
 	;divu.w #0x8, d2					; Pixels to tile space
-	;add.w  #debugdraw_playerpos_text_y, d2
+	;addi.w #debugdraw_playerpos_text_y, d2
 	;move.w d2, d1
     ;
 	;move.l a4, a0					; String
@@ -165,13 +165,13 @@ DBG_DebugDraw:
 	;move.l (WorldScrollX), d1
 	;lsr.l  #0x8, d1					; Screen space (subpixels) to pixels
 	;divu.w #0x8, d1					; Pixels to tile space
-	;add.w  #debugdraw_playerpos_text_x, d1
+	;addi.w #debugdraw_playerpos_text_x, d1
 	;swap   d1
     ;
 	;move.l (WorldScrollY), d2
 	;lsr.l  #0x8, d2					; Screen space (subpixels) to pixels
 	;divu.w #0x8, d2					; Pixels to tile space
-	;add.w  #debugdraw_playerpos_text_y+0x1, d2
+	;addi.w #debugdraw_playerpos_text_y+0x1, d2
 	;move.w d2, d1
     ;
 	;move.l a4, a0					; String
@@ -182,7 +182,7 @@ DBG_DebugDraw:
 	;jsr    TXT_DrawPlane
     ;
 	;; Free string space
-	;add.l  #0x10, sp
+	;addi.l #0x10, sp
 
 
 	rts

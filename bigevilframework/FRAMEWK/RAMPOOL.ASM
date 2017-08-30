@@ -60,7 +60,7 @@ RAM_PoolInit:
 
 	; Calc start address
 	move.l a0, a2
-	add.l  #RAMPool_HeaderSize, a2
+	addi.l #RAMPool_HeaderSize, a2
 	move.l a2, RAMPool_MemStartAddr(a0)
 
 	; Clear memory

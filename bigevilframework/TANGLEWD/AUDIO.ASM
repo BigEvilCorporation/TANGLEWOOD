@@ -25,7 +25,7 @@ UpdateBGMTimer:
 	beq   @TimerElapsed
 	
 	; Decrement timer and check again
-	sub.w #0x1, BGMOffTimer
+	subq.w #0x1, BGMOffTimer
 	tst.w BGMOffTimer
 	bne   @TimerElapsed
 	
@@ -65,11 +65,11 @@ UpdateAmbientAudio:
 	divu   #(AmbientSFXRandTimerMax-AmbientSFXRandTimerMin), d0	; Div / range
 	clr.w  d0					; Clear exponent
 	swap   d0					; Remainder to lower word
-	add.w  #AmbientSFXRandTimerMin, d0	; Add min
+	addi.w #AmbientSFXRandTimerMin, d0	; Add min
 	move.w d0, AmbientSFXTimer	; To timer
 	
 	@TimerRunning:
-	sub.w #0x1, AmbientSFXTimer
+	subq.w #0x1, AmbientSFXTimer
 
 	rts
 	

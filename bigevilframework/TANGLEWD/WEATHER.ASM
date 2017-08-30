@@ -43,7 +43,7 @@ RainInit:
 	PUSHM  d0/a0
 	jsr    RainSpriteInitPosition
 	POPM   d0/a0
-	add.l  #size_long*2, a0
+	addi.l #size_long*2, a0
 	dbra   d0, @SpriteLp
 
 	rts
@@ -66,7 +66,7 @@ RainSpriteInitPosition:
 
 	mulu   #((screen_width*2)/RainSpriteGridX), d0
 	mulu   #(screen_height/RainSpriteGridY), d1
-	add.w  #RainSpriteStartOffsetX, d0
+	addi.w #RainSpriteStartOffsetX, d0
 
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
@@ -112,7 +112,7 @@ RainSpriteReposition:
 	swap   d0
 
 	mulu   #((screen_width*2)/RainSpriteGridX), d0
-	add.w  #RainSpriteStartOffsetX, d0
+	addi.w #RainSpriteStartOffsetX, d0
 
 	TOSUBPIXELS d0
 
@@ -163,8 +163,8 @@ RainDraw:
 	; Apply velocity
 	move.l 0(a2), d2
 	move.l 4(a2), d3
-	add.l  #RainVelX, d2
-	add.l  #RainVelY, d3
+	addi.l #RainVelX, d2
+	addi.l #RainVelY, d3
 
 	; If out of bounds, reposition
 	cmp.l  #screen_height*subpixels_per_pixel, d3
@@ -181,8 +181,8 @@ RainDraw:
 	; Add camera scroll + sprite border
 	move.l (WorldScrollX), d4
 	move.l (WorldScrollY), d5
-	add.l  #vdp_sprite_border_x*subpixels_per_pixel, d4
-	add.l  #vdp_sprite_border_y*subpixels_per_pixel, d5
+	addi.l #vdp_sprite_border_x*subpixels_per_pixel, d4
+	addi.l #vdp_sprite_border_y*subpixels_per_pixel, d5
 	add.l  d4, d2
 	add.l  d5, d3
 
@@ -196,7 +196,7 @@ RainDraw:
 	POPM   d0-d3/a0-a2
 
 	; Next
-	add.l  #size_long*2, a2
+	addi.l #size_long*2, a2
 
 	dbra   d0, @SpriteLp
 
@@ -246,7 +246,7 @@ WeatherUpdate:
 	move.w (WindDurationTimer), d0
 	tst.w  d0
 	beq    @WindInactive
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, WindDurationTimer
 	tst.w  d0
 	bne    @WindActive
@@ -270,7 +270,7 @@ WeatherUpdate:
 	move.w (WindDelayTimer), d0
 	tst.w  d0
 	beq    @EndWind
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, WindDelayTimer
 	tst.w  d0
 	bne    @WindDelay

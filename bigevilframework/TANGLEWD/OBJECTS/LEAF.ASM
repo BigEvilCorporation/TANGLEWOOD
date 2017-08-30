@@ -73,7 +73,7 @@ LeafInit:
 
 	; Setup animation
 	move.l a0, a3
-	add.l  #Leaf_Animation, a3
+	addi.l #Leaf_Animation, a3
 	
 	; Select next colour sheet in array
 	clr.l  d0
@@ -137,7 +137,7 @@ LeafUpdate:
 	divu   #Leaf_WindowWidth, d0	; Mod by WindowWidth
 	clr.w  d0
 	swap   d0
-	add.l  #vdp_sprite_border_x, d0
+	addi.l #vdp_sprite_border_x, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollX), d0
 	sub.l  #(Leaf_WindowBorderX*subpixels_per_pixel), d0
@@ -146,16 +146,16 @@ LeafUpdate:
 
 	; If X is within viewable rect
 	move.l (WorldScrollX), d1
-	add.l  #(vdp_sprite_border_x*subpixels_per_pixel), d1
+	addi.l #(vdp_sprite_border_x*subpixels_per_pixel), d1
 	cmp.l  d0, d1
 	bgt    @OutOfView
-	add.l  #(screen_width*subpixels_per_pixel), d1
+	addi.l #(screen_width*subpixels_per_pixel), d1
 	cmp.l  d0, d1
 	blt    @OutOfView
 
 	; Start from top of scroll plane
 	move.l (WorldScrollY), d0
-	add.l  #((vdp_sprite_border_y-Leaf_WindowBorderY)*subpixels_per_pixel), d0
+	addi.l #((vdp_sprite_border_y-Leaf_WindowBorderY)*subpixels_per_pixel), d0
 	move.l d0, Entity_WorldPosY(a0)
 	bra    @EndViewTest
 
@@ -166,7 +166,7 @@ LeafUpdate:
 	divu   #Leaf_WindowHeight, d0	; Mod by bounds height
 	clr.w  d0
 	swap   d0
-	add.l  #vdp_sprite_border_y, d0
+	addi.l #vdp_sprite_border_y, d0
 	TOSUBPIXELS d0
 	add.l  (WorldScrollY), d0
 	sub.l  #(Leaf_WindowBorderY*subpixels_per_pixel), d0
@@ -184,7 +184,7 @@ LeafUpdate:
 	
 	; Check if out of bounds
 	move.l Entity_WorldPosX(a0), d0
-	add.l  #WorldToLeafWindowX, d0
+	addi.l #WorldToLeafWindowX, d0
 	sub.l  (WorldScrollX), d0
 	tst.l  d0
 	blt    @OutOfBounds
@@ -192,7 +192,7 @@ LeafUpdate:
 	bgt    @OutOfBounds
 
 	move.l Entity_WorldPosY(a0), d0
-	add.l  #WorldToLeafWindowY, d0
+	addi.l #WorldToLeafWindowY, d0
 	sub.l  (WorldScrollY), d0
 	tst.l  d0
 	blt    @OutOfBounds
@@ -266,9 +266,9 @@ LeafUpdate:
 	move.w d0, SpriteObj_DrawOffsetX(a0)
 
 	; Update animation frame
-	add.w  #0x00FF, d2	; Sine value to 0-256 range
+	addi.w #0x00FF, d2	; Sine value to 0-256 range
 	muls   #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/256), d2 ; To anim range
-	add.l  #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
+	addi.l #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
 	move.l AnimObj_AnimSubFrame(a0), d3
 	move.l d2, AnimObj_AnimSubFrame(a0)
 
@@ -327,7 +327,7 @@ LeafUpdate:
 	
 	; Decelerate from negative X velocity towards 0
 	@DecelFromNeg:
-	add.l #Leaf_DecelX, d0
+	addi.l #Leaf_DecelX, d0
 	tst.l d0	; Clamp to 0
 	ble @EndDecel
 	move.l #0x0, d0
@@ -350,7 +350,7 @@ LeafUpdate:
 	@Inactive:
 	
 	; Decrement timer
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Leaf_ResetTimer(a0)
 	
 	;==============================================================

@@ -117,7 +117,7 @@ BoulderInit:
 	
 	; Setup platform
 	move.l a0, a2
-	add.l  #Boulder_Platform, a2
+	addi.l #Boulder_Platform, a2
 	move.w #Boulder_PlatformWidth, Platform_Width(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	
@@ -136,8 +136,8 @@ BoulderInit:
 	; Start roll animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	addi.l #Boulder_Animations, a1
+	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -157,8 +157,8 @@ BoulderLoadGfx:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	addi.l #Boulder_Animations, a1
+	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -198,8 +198,8 @@ BoulderUpdate:
 	; Start rolling animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	addi.l #Boulder_Animations, a1
+	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -257,8 +257,8 @@ BoulderUpdate:
 	
 	; Get roll animation
 	move.l a0, a2
-	add.l  #Boulder_Animations, a2
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Roll), a2
+	addi.l #Boulder_Animations, a2
+	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Roll), a2
 
 	; Roll anim speed based on velocity
 	clr.l  d0
@@ -282,7 +282,7 @@ BoulderUpdate:
 	move.w (EntityCount_Monster), d6
 	tst.w  d6
 	beq    @NoMonsters
-	sub.w  #0x1, d6
+	subq.w  #0x1, d6
 	@MonsterLoop:
 	move.l d6, -(sp)
 	
@@ -316,7 +316,7 @@ BoulderUpdate:
 	
 	@NextMonster:
 	move.l (sp)+, d6
-	add.l #Monster_Struct_Size, a1
+	addi.l #Monster_Struct_Size, a1
 	dbra  d6, @MonsterLoop
 	
 	@NoMonsters:
@@ -337,11 +337,11 @@ BoulderUpdate:
 	
 	; Reposition platform
 	move.l a0, a2
-	add.l  #Boulder_Platform, a2
+	addi.l #Boulder_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Boulder_PlatformXOffset*subpixels_per_pixel, d0
-	add.l  #Boulder_PlatformYOffset*subpixels_per_pixel, d1
+	addi.l #Boulder_PlatformXOffset*subpixels_per_pixel, d0
+	addi.l #Boulder_PlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	
@@ -384,7 +384,7 @@ BoulderActivatePlatform:
 	tst.b  Boulder_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
-	add.l  #Boulder_Platform, a2
+	addi.l #Boulder_Platform, a2
 	LIST_APPEND_TAIL Platforms, a2, a3
 	move.b #0x1, Boulder_PlatformActive(a0)
 	@AlreadyActive:
@@ -396,7 +396,7 @@ BoulderDeactivatePlatform:
 	tst.b  Boulder_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
-	add.l  #Boulder_Platform, a2
+	addi.l #Boulder_Platform, a2
 	LIST_REMOVE Platforms, a2, a3, a4
 	move.b #0x0, Boulder_PlatformActive(a0)
 	@AlreadyInactive:
@@ -423,8 +423,8 @@ BoulderCrack:
 	; Start crack animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Boulder_Animations, a1
-	add.l  #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	addi.l #Boulder_Animations, a1
+	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

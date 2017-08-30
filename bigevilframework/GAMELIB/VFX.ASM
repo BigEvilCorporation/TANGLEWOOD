@@ -78,7 +78,7 @@ VfxInit:
 
 	; Copy animation
 	PUSHM  a0-a3
-	add.l  #VfxObj_Animation, a0
+	addi.l #VfxObj_Animation, a0
 	move.l #Animation_Struct_Size/size_long, d0
 	MEMCPYL a0, a3, d0
 	POPM   a0-a3
@@ -103,7 +103,7 @@ VfxPlay:
 
 	; Set animation
 	move.l a0, a1
-	add.l  #VfxObj_Animation, a1
+	addi.l #VfxObj_Animation, a1
 	jsr    AnimObjSetAnimation
 
 	; Begin updating and rendering

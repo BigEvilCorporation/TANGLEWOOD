@@ -15,7 +15,7 @@ UpdateTimeOfDay:
 
 	; Check if TOD delay finished
 	move.w (TimeOfDayShiftDelay), d0
-	add.w  #0x1, d0
+	addq.w #0x1, d0
 	move.w d0, TimeOfDayShiftDelay
 	cmp.w  #TimeOfDayCycleDelay, d0
 	blt    @NoTODChange
@@ -32,7 +32,7 @@ UpdateTimeOfDay:
 CycleTimeOfDay:
 
 	move.b (TimeOfDay), d0
-	add.b  #0x1, d0
+	addq.b #0x1, d0
 	cmp.b  #TimeOfDay_NumCycles, d0
 	bne    @NoWrap
 	move.b #0x0, d0

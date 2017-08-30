@@ -189,7 +189,7 @@ Gameplay_Update:
 	IFND DEBUG
 	cmp.l  #0x0, TimerDemoReset
 	beq    @NoDemoTimer
-	sub.l  #0x1, TimerDemoReset
+	subq.l #0x1, TimerDemoReset
 	cmp.l  #0x0, TimerDemoReset
 	bne    @DemoTimerRunning
 	lea    GameStateDemoEnd, a0

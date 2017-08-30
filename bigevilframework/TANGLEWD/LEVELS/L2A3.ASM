@@ -101,7 +101,7 @@ l2a3_Init:
 	
 	; Start sleep anim
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -135,7 +135,7 @@ l2a3_Update:
 	PUSHL  a2
 	move.l (Player1), a0
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

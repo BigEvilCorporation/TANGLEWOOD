@@ -91,7 +91,7 @@ EndLevel_Update:
 	
 	; Update timer
 	move.w EndLevelState_Timer(a2), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, EndLevelState_Timer(a2)
 	tst.w  d0
 	bne    @TimerRunning
@@ -118,7 +118,7 @@ EndLevel_Update:
 	
 	; Update timer
 	move.w EndLevelState_Timer(a2), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, EndLevelState_Timer(a2)
 	tst.w  d0
 	bne    @TimerRunning

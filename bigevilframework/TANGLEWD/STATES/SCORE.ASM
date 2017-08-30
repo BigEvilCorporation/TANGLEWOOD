@@ -179,7 +179,7 @@ EndLevelScoreScreen_Enter:
 
 	; For all acts in level
 	move.w (CurrentLevelNumActs), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	lea    CurrentActDatas, a4
 	move.l #EndLevelActNames, a5
 	@ActLoop:
@@ -201,7 +201,7 @@ EndLevelScoreScreen_Enter:
 	jsr    TXT_DrawPlane
 	POPL   d1
 
-	add.l  #(EndLevelScore_TextColumnX<<16), d1
+	addi.l #(EndLevelScore_TextColumnX<<16), d1
 
 	; Draw firefly count
 	move.w LevelData_FireflyCount(a3), d0; Get collected firefly count
@@ -213,7 +213,7 @@ EndLevelScoreScreen_Enter:
 	swap   d1
 	move.w #EndLevelScore_TextPosX, d1
 	swap   d1
-	add.w  #EndLevelScore_TextSpacingY, d1
+	addi.w #EndLevelScore_TextSpacingY, d1
 
 	POPM   d0/a4-a5
 	dbra   d0, @ActLoop
@@ -272,7 +272,7 @@ EndLevelScoreScreen_Update:
 	
 	; Wait for timeout
 	move.l (TimerLogoFade), d0
-	sub.l  #0x1, d0
+	subq.l #0x1, d0
 	move.l d0, TimerLogoFade
 	cmp.l  #0x1, d0
 	bne    @NotElapsed
@@ -365,6 +365,6 @@ EndLevelScoreScreen_DrawFireflyCountText:
 	jsr    TXT_DrawPlane
 	
 	; Free string space
-	add.l   #0x10, sp
+	addi.l  #0x10, sp
 
 	rts

@@ -46,7 +46,7 @@ FindLedge:
 	move.l (a1)+, d2				 ; Fetch collision longword from tile
 	tst.l  d2					 ; Check if nonzero
 	bne    @CheckNybbles
-	add.w  #0x8, d5					 ; Skip nybble counter by 8
+	addq.w #0x8, d5					 ; Skip nybble counter by 8
 	dbra   d3, @ByteCheckLp			 ; No collision data in longword, loop
 	bra    @EndOfData				 ; End of data
 	
@@ -56,7 +56,7 @@ FindLedge:
 	rol.l  #0x4, d2					 ; Shift longword contents left by one nybble
 	btst   d1, d2		 			 ; Check ledge bit
 	bne    @LedgeFound
-	add.w  #0x1, d5					 ; Skip nybble counter by 1
+	addq.w #0x1, d5					 ; Skip nybble counter by 1
 	dbra   d4, @CheckNybbleLp		 ; No ledge bit found in nybble, loop
 	dbra   d3, @ByteCheckLp			 ; No Ledge bit not found in longword, loop
 	

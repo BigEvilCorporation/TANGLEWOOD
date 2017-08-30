@@ -92,7 +92,7 @@ CartInit:
 	
 	; Setup platform
 	move.l a0, a2
-	add.l  #Cart_Platform, a2
+	addi.l #Cart_Platform, a2
 	move.l a0, Platform_Owner(a2)
 	move.w #Cart_Width, Platform_Width(a2)
 	
@@ -117,7 +117,7 @@ CartLoadGfx:
 
 	; Reposition platform
 	move.l a0, a2
-	add.l  #Cart_Platform, a2
+	addi.l #Cart_Platform, a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), d0
 	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
@@ -138,7 +138,7 @@ CartUpdate:
 
 	; Reposition platform
 	move.l a0, a2
-	add.l  #Cart_Platform, a2
+	addi.l #Cart_Platform, a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), d0
 	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0

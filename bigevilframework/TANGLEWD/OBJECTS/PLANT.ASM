@@ -237,7 +237,7 @@ BouncePlantUpdate:
 	; Back to idle
 	;PUSHL  a1
 	;move.l a0, a1
-	;add.l  #BouncePlant_Animations, a1
+	;addi.l #BouncePlant_Animations, a1
 	;move.l #(BouncePlantAnimIdx_Idle*Animation_Struct_Size), d1
 	;add.l  d1, a1
 	;jsr    AnimObjSetAnimation
@@ -266,7 +266,7 @@ BouncePlant_Activate:
 	; Start active anim
 	;PUSHL  a1
 	;move.l a0, a1
-	;add.l  #BouncePlant_Animations, a1
+	;addi.l #BouncePlant_Animations, a1
 	;move.l #(BouncePlantAnimIdx_Active*Animation_Struct_Size), d1
 	;add.l  d1, a1
 	;jsr    AnimObjSetAnimation

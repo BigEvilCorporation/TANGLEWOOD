@@ -110,7 +110,7 @@ LogInit:
 	
 	; Setup platform
 	move.l a0, a2
-	add.l  #Log_Platform, a2
+	addi.l #Log_Platform, a2
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Rolling, Platform_Type(a2)
 	move.w #Log_PlatformWidth, Platform_Width(a2)
@@ -127,8 +127,8 @@ LogInit:
 	; Start roll animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Log_Animations, a1
-	add.l  #(Animation_Struct_Size*LogAnimIdx_Roll), a1
+	addi.l #Log_Animations, a1
+	addi.l #(Animation_Struct_Size*LogAnimIdx_Roll), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -148,8 +148,8 @@ LogUpdate:
 	
 	; Get roll animation
 	move.l a0, a2
-	add.l  #Log_Animations, a2
-	add.l  #(Animation_Struct_Size*LogAnimIdx_Roll), a2
+	addi.l #Log_Animations, a2
+	addi.l #(Animation_Struct_Size*LogAnimIdx_Roll), a2
 
 	; Roll anim speed based on velocity
 	clr.l  d0
@@ -192,11 +192,11 @@ LogUpdate:
 	
 	; Reposition platform
 	move.l a0, a2
-	add.l  #Log_Platform, a2
+	addi.l #Log_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Log_PlatformXOffset*subpixels_per_pixel, d0
-	add.l  #Log_PlatformYOffset*subpixels_per_pixel, d1
+	addi.l #Log_PlatformXOffset*subpixels_per_pixel, d0
+	addi.l #Log_PlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	

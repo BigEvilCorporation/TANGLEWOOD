@@ -108,7 +108,7 @@ LiftInit:
 	
 	; Setup platform
 	move.l a0, a2
-	add.l  #Lift_Platform, a2
+	addi.l #Lift_Platform, a2
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Lift_Width, Platform_Width(a2)
 	
@@ -125,7 +125,7 @@ LiftInit:
 	; Animated swinging rope segments
 	move.w #(Lift_RopeNumSprites-1), d1
 	move.l a0, a2
-	add.l  #Lift_RopeSegments, a2
+	addi.l #Lift_RopeSegments, a2
 	@RopeInitLp:
 	
 	move.l (NextFreeRopeSegment), a0
@@ -135,13 +135,13 @@ LiftInit:
 	jsr    RopeSegmentInit
 	POPM   a2/d1
 	
-	add.l  #RopeSegment_Struct_Size, NextFreeRopeSegment
+	addi.l #RopeSegment_Struct_Size, NextFreeRopeSegment
 	dbra   d1, @RopeInitLp
 
 	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
 	; Single, static, reusable rope segment
-	add.l  #Lift_RopeSegment, a0
+	addi.l #Lift_RopeSegment, a0
 	jsr    SpriteObjInit
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
@@ -169,7 +169,7 @@ LiftLoadGfx:
 	PUSHM  a0-a1
 	move.w #(Lift_RopeNumSprites-1), d1
 	move.l a0, a2
-	add.l  #Lift_RopeSegments, a2
+	addi.l #Lift_RopeSegments, a2
 	@RopeLp:
 	move.l (a2)+, a0
 	PUSHM  a2/d1
@@ -182,7 +182,7 @@ LiftLoadGfx:
 
 	; Single, static, reusable rope segment
 	PUSHL a0
-	add.l #Lift_RopeSegment, a0
+	addi.l #Lift_RopeSegment, a0
 	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
 	POPL  a0
 
@@ -244,11 +244,11 @@ LiftPositionRopeSegments:
 	sub.l  d2, d3
 	
 	; Add rope offset
-	add.l  #Lift_RopePosOffsetX, d0
-	add.l  #Lift_RopePosOffsetY, d1
+	addi.l #Lift_RopePosOffsetX, d0
+	addi.l #Lift_RopePosOffsetY, d1
 	
 	move.l a0, a2
-	add.l  #Lift_RopeSegments, a2
+	addi.l #Lift_RopeSegments, a2
 	
 	move.w #(Lift_RopeNumSprites-1), d2
 	@RopePosLp:
@@ -318,12 +318,12 @@ LiftProcessCounterweight:
 
 	; Get total mass of both platforms
 	move.l a0, a3
-	add.l  #Lift_Platform, a3
+	addi.l #Lift_Platform, a3
 	clr.l  d0
 	move.w Platform_TotalMass(a3), d0
 
 	move.l a2, a3
-	add.l  #Lift_Platform, a3
+	addi.l #Lift_Platform, a3
 	clr.l  d1
 	move.w Platform_TotalMass(a3), d1
 
@@ -400,11 +400,11 @@ LiftProcessCounterweight:
 
 	; Set platform Y velocities
 	move.l a0, a3
-	add.l  #Lift_Platform, a3
+	addi.l #Lift_Platform, a3
 	move.l PhysicsObj_VelY(a0), Platform_VelY(a3)
 
 	move.l a2, a3
-	add.l  #Lift_Platform, a3
+	addi.l #Lift_Platform, a3
 	move.l PhysicsObj_VelY(a2), Platform_VelY(a3)
 
 	rts
@@ -439,7 +439,7 @@ LiftUpdate:
 	cmp.l  #-Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
 	bgt    @NoDecelLeft
 	
-	add.l  #Lift_DecelX, PhysicsObj_VelX(a0)
+	addi.l #Lift_DecelX, PhysicsObj_VelX(a0)
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	ble    @Resting
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -552,7 +552,7 @@ LiftUpdate:
 	
 	; Reposition platform
 	move.l a0, a2
-	add.l  #Lift_Platform, a2
+	addi.l #Lift_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	move.w Entity_Height(a0), d2
@@ -588,7 +588,7 @@ LiftDraw:
 
 	; Get rope pos X
 	move.l Entity_WorldPosX(a0), d0
-	add.l  #Lift_RopePosOffsetX, d0
+	addi.l #Lift_RopePosOffsetX, d0
 	
 	; Check if visible
 	move.l d0, d1
@@ -598,13 +598,13 @@ LiftDraw:
 	; Check if out of bounds
 	cmp.w  #vdp_sprite_border_x+screen_width, d1	; Check against left screen border
 	bgt    @OutOfBounds
-	add.w  #Lift_Width, d1				; Get rope right
+	addi.w #Lift_Width, d1				; Get rope right
 	cmp.w  #vdp_sprite_border_x, d1		; Check against right screen border
 	blt    @OutOfBounds
 	
 	; Get rope pos Y
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Lift_RopePosOffsetY, d1
+	addi.l #Lift_RopePosOffsetY, d1
 
 	; Re-draw rope segment until off screen
 	move.l (WorldScrollY), d4
@@ -612,7 +612,7 @@ LiftDraw:
 	PUSHL  a0
 
 	; Get rope obj
-	add.l  #Lift_RopeSegment, a0
+	addi.l #Lift_RopeSegment, a0
 
 	@RopeDrawLp:
 

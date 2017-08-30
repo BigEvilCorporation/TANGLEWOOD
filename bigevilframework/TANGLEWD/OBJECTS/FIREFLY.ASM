@@ -58,7 +58,7 @@ FireflyInit:
 	
 	; Set animation
 	move.l  a0, a3
-	add.l   #Firefly_Animation, a3
+	addi.l  #Firefly_Animation, a3
 	move.l  a3, AnimObj_CurrentAnim(a0)
 	move.b  #0x1, AnimObj_Playing(a0)
 

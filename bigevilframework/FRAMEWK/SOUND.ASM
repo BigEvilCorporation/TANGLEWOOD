@@ -421,7 +421,7 @@ SND_UpdateTrack:
 	@TrackCheckLp:
 	cmp.l  #0x0, (a1)
 	bne    @FoundTrack
-	add.l  #size_long, a1
+	addi.l #size_long, a1
 	dbra   d0, @TrackCheckLp
 	bra    @Silence
 
@@ -473,7 +473,7 @@ SND_UpdateTrack:
 	move.w audio_track_stop_timer, d0
 	tst.w  d0
 	beq    @TimerNotRunning
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, audio_track_stop_timer
 	tst.w  d0
 	bne    @TimerRunning

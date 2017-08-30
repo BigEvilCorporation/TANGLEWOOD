@@ -149,7 +149,7 @@ PHYS_GetTerrainHeight:
 	bra    @HeightFound
 	
 	@SolidTile:
-	sub.w  #0x8, d1							; Next tile upwards
+	subq.w  #0x8, d1							; Next tile upwards
 	move.w d4, d3							; Backup last valid tile flags
 	bra    @NextTile						; Search again
 	
@@ -157,8 +157,8 @@ PHYS_GetTerrainHeight:
 	cmp.b  #heightmap_max_search_tiles, d5	; Check if reached max tile search
 	beq    @NoHeight						; Bail if reached
 	addq.b #0x1, d5							; Increment blank tiles skipped
-	add.w  #0x8, d1							; Next search tile downwards
-	add.w  #0x8, d6							; Next top Y offset downwards
+	addq.w #0x8, d1							; Next search tile downwards
+	addq.w #0x8, d6							; Next top Y offset downwards
 	bra    @NextTile						; Search again
 	
 	@HeightFound:

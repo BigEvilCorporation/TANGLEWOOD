@@ -34,7 +34,7 @@ UIWidgetTextInit:
 	jsr    UIWidgetInit
 
 	; Count
-	add.w  #0x1, WidgetCount_Text
+	addq.w #0x1, WidgetCount_Text
 
 	; Set update/render routines
 	move.l #UIWidgetTextUpdate, UIWidget_UpdateRoutine(a0)
@@ -50,7 +50,7 @@ UIWidgetTextInit:
 	
 	; Blank string
 	move.l a0, a3
-	add.l  #UIWidgetText_String, a3
+	addi.l #UIWidgetText_String, a3
 	MEMZEROB a3, d1
 	
 	rts
@@ -86,7 +86,7 @@ UIWidgetTextSetString:
 	; Copy string
 	move.l a0, a3
 	andi.w #0x00FF, d1
-	add.l  #UIWidgetText_String, a3
+	addi.l #UIWidgetText_String, a3
 	MEMCPYB a3, a1, d1
 
 	; If using sprites
@@ -97,7 +97,7 @@ UIWidgetTextSetString:
 	clr.l  d0
 	clr.l  d1
 	move.b UIWidgetText_TileCount(a0), d0
-	add.b  #0x3, d0
+	addq.b #0x3, d0
 	divu   #0x4, d0
 	mulu   #0x4, d0
 	move.b d0, UIWidgetText_TileCount(a0)
@@ -121,7 +121,7 @@ UIWidgetTextSetString:
 	divu.w #size_tile_b, d0					; VRAM addr to tile ID
 	move.l UIWidgetText_FontAddr(a0), a1	; Font
 	move.b UIWidgetText_TileCount(a0), d2	; Count (incl. padding)
-	add.l  #UIWidgetText_String, a0			; String
+	addi.l #UIWidgetText_String, a0			; String
 	jsr    TXT_LoadStringSpriteTiles
 	POPM   a0-a1
 
@@ -168,7 +168,7 @@ UIWidgetTextRender:
 	divu.w #size_tile_b, d0						; To tiles
 	move.b UIWidgetText_Palette(a0), d2			; Palette
 	move.b UIWidgetText_DrawPlane(a0), d3		; Plane
-	add.l  #UIWidgetText_String, a0				; String
+	addi.l #UIWidgetText_String, a0				; String
 	jsr    TXT_DrawPlane
 
 	bra @End
@@ -186,10 +186,10 @@ UIWidgetTextRender:
 	move.b UIWidgetText_TileCount(a0), d4	; Count
 	move.b #%1100, d0						; 4x1 sprite
 	move.w UIWidget_PositionX(a0), d1		; X pos
-	add.w  #vdp_sprite_border_x, d1
+	addi.w #vdp_sprite_border_x, d1
 	swap   d1
 	move.w UIWidget_PositionY(a0), d1		; Y pos
-	add.w  #vdp_sprite_border_y, d1
+	addi.w #vdp_sprite_border_y, d1
 	clr.w  d3
 	move.b UIWidgetText_Palette(a0), d3		; Palette
 	ror.w  #0x3, d3							; Palette/flip/priority bits
@@ -207,10 +207,10 @@ UIWidgetTextRender:
 	POPM   d0-d3/a0-a1
 
 	; Next X * 4
-	add.l  #0x00200000, d1
+	addi.l #0x00200000, d1
 
 	; Next tile * 4
-	add.w  #0x4, d2
+	addq.w #0x4, d2
 
 	POPL   d4
 	dbra   d4, @GlyphLp

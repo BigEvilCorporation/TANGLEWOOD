@@ -51,7 +51,7 @@ TXT_StrLen:
 	@CharLoop:
 	tst.b  (a0)+
 	beq    @End
-	add.w  #0x1, d0
+	addq.w #0x1, d0
 	bra    @CharLoop
 
 	@End:
@@ -74,10 +74,10 @@ TXT_DrawPlane:
 
 	tst.b   d3
 	bne     @PlaneB
-	add.l   #vram_addr_plane_a, d4	; Add VRAM address offset
+	addi.l  #vram_addr_plane_a, d4	; Add VRAM address offset
 	bra     @EndSelectPlane
 	@PlaneB:
-	add.l   #vram_addr_plane_b, d4	; Add VRAM address offset
+	addi.l  #vram_addr_plane_b, d4	; Add VRAM address offset
 	@EndSelectPlane:
 
 	rol.l   #0x2, d4				; Roll bits 14/15 of address to bits 16/17
@@ -265,7 +265,7 @@ TXT_ItoA_Hex_w:
 	; d0 (w) In: Number to convert
 
 	; 4 nybbles + 0x + terminator, working backwards
-	add.l  #0x7, a0
+	addq.l #0x7, a0
 
 	; Zero terminate
 	move.b #0x0, -(a0)
@@ -277,13 +277,13 @@ TXT_ItoA_Hex_w:
 	andi.b #0x0F, d3		; Bottom nybble
 	cmp.b  #0x9, d3
 	ble    @Numeric			; Branch if in numeric range
-	add.b  #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
+	addi.b #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
 	move.b d3, -(a0)		; Back to string
 	lsr.w  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
 	bra    @End
 	@Numeric:
-	add.b  #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
+	addi.b #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
 	move.b d3, -(a0)		; Back to string
 	lsr.w  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
@@ -302,7 +302,7 @@ TXT_ItoA_Hex_l:
 	; d0 (l) In: Number to convert
 
 	; 8 nybbles + 0x + terminator, working backwards
-	add.l  #0xB, a0
+	addi.l #0xB, a0
 
 	; Zero terminate
 	move.b #0x0, -(a0)
@@ -314,13 +314,13 @@ TXT_ItoA_Hex_l:
 	andi.b #0x0F, d3		; Bottom nybble
 	cmp.b  #0x9, d3
 	ble    @Numeric			; Branch if in numeric range
-	add.b  #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
+	addi.b #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
 	move.b d3, -(a0)		; Back to string
 	lsr.l  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
 	bra    @End
 	@Numeric:
-	add.b  #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
+	addi.b #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
 	move.b d3, -(a0)		; Back to string
 	lsr.l  #0x4, d0			; Next nybble
 	dbra   d2, @NybbleLp	; Loop
@@ -347,7 +347,7 @@ TXT_ItoA_w:
 	andi.l #0x0000FFFF, d2
 	divu   #10, d2		; Div/10
 	swap   d2			; Remainder
-	add.b  #CharMap_ASCII_NumericOffset, d2	; In numeric range (0 - 9)
+	addi.b #CharMap_ASCII_NumericOffset, d2	; In numeric range (0 - 9)
 	move.b d2, -(sp)	; To stack
 	andi.l #0x0000FFFF, d0
 	divu   #10, d0		; Next digit

@@ -128,7 +128,7 @@ Pause_Enter:
 	jsr     TXT_CreateTileIDList
 	
 	; Free string space
-	add.l   #0x10, sp
+	addi.l  #0x10, sp
 	
 	; Store text sprites count
 	lea    GameStatePauseData, a0
@@ -152,8 +152,8 @@ Pause_Enter:
 	
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1
-	add.l  #((PauseText_PosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
-	add.l  #((PauseText_PosY+vdp_sprite_border_y-(Firefly_Height/2))*subpixels_per_pixel), d1
+	addi.l #((PauseText_PosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
+	addi.l #((PauseText_PosY+vdp_sprite_border_y-(Firefly_Height/2))*subpixels_per_pixel), d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	
@@ -307,7 +307,7 @@ Pause_Render:
 	POPM   d0-d3/a0-a1
 
 	; Next X
-	add.l  #0x00080000, d1
+	addi.l #0x00080000, d1
 
 	POPL   d4
 	dbra   d4, @TextLp
@@ -377,7 +377,7 @@ Debug_DrawVRAMPools:
 	jsr    TXT_DrawSprites
 	
 	; Free string space
-	add.l   #0x20, sp
+	addi.l  #0x20, sp
 
 	; Next pool
 	POPM    d1-d4/a2-a3

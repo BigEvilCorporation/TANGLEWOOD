@@ -162,62 +162,62 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Leaf_2_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_3_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_4_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_5_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_6_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_7_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
+	addi.l #Leaf_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*main_menu_Nymn_count)
@@ -231,12 +231,12 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Nymn_1_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr NymnLoadGfx
-	add.l #Nymn_Struct_Size, a0
+	addi.l #Nymn_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*main_menu_Echo_count)
@@ -257,12 +257,12 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_BouncePlant_8_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
+	addi.l #BouncePlant_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*main_menu_Boulder_count)
@@ -304,12 +304,12 @@ main_menu_LoadGameObjects:
 	IFND FINAL
 	lea main_menu_Stone_9_name, a3
 	move.l a0, a2
-	add.l #Entity_DebugName, a2
+	addi.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
+	addi.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*main_menu_Nest_count)

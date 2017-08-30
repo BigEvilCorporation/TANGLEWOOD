@@ -331,7 +331,7 @@ LevelPreStreamMap:
 	move.w WorldScrollY, d0			;  (top word = integer part)
 	PIXELS2TILES d0					; To tiles
 	TILES2BLOCKS d0					; To blocks
-	add.w  #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
+	addi.w #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
 	move.w d0, MapStreamLoadedRow
     
 	;==============================================================

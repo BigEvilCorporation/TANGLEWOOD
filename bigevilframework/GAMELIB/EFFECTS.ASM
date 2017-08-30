@@ -133,7 +133,7 @@ VFX_CreateUnderwaterPalette:
 	; Sub 1 from R
 	cmp.b  #VFXUnderwaterSubR, d2
 	ble    @ClampRed
-	sub.b  #VFXUnderwaterSubR, d2
+	subq.b  #VFXUnderwaterSubR, d2
 	bra    @EndRed
 	@ClampRed:
 	move.b #0x0, d2
@@ -142,7 +142,7 @@ VFX_CreateUnderwaterPalette:
 	; Sub 1 from G
 	cmp.b  #VFXUnderwaterSubG, d3
 	ble    @ClampGreen
-	sub.b  #VFXUnderwaterSubG, d3
+	subq.b  #VFXUnderwaterSubG, d3
 	bra    @EndGreen
 	@ClampGreen:
 	move.b #0x0, d3
@@ -151,7 +151,7 @@ VFX_CreateUnderwaterPalette:
 	; Sub 1 from B
 	cmp.b  #VFXUnderwaterSubB, d1
 	ble    @ClampBlue
-	sub.b  #VFXUnderwaterSubB, d1
+	subq.b  #VFXUnderwaterSubB, d1
 	bra    @EndBlue
 	@ClampBlue:
 	move.b #0x0, d1

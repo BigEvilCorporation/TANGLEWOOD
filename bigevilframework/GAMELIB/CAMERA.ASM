@@ -8,7 +8,7 @@
 
 CAM_PeekUp:
 	move.l (CameraPeekOffsetY), d0
-	add.l  #-CameraPeekSpeed, d0
+	addi.l #-CameraPeekSpeed, d0
 	cmp.l  #-CameraPeekMaxDist, d0
 	bgt    @WithinRange
 	move.l #-CameraPeekMaxDist, d0
@@ -18,7 +18,7 @@ CAM_PeekUp:
 
 CAM_PeekDown:
 	move.l (CameraPeekOffsetY), d0
-	add.l  #CameraPeekSpeed, d0
+	addi.l #CameraPeekSpeed, d0
 	cmp.l  #CameraPeekMaxDist, d0
 	blt    @WithinRange
 	move.l #CameraPeekMaxDist, d0
@@ -34,11 +34,11 @@ CAM_PeekReturn:
 	bgt    @Down
 
 	@Up:
-	add.l  #CameraPeekSpeed, d0
+	addi.l #CameraPeekSpeed, d0
 	bra    @End
 
 	@Down:
-	add.l  #-CameraPeekSpeed, d0
+	addi.l #-CameraPeekSpeed, d0
 
 	@End:
 	move.l d0, (CameraPeekOffsetY)
@@ -189,12 +189,12 @@ CAM_Update:
 	;bra     @EndClampXVel
 ;
 	;@ClampXVelPositive:
-	;add.l   #camera_max_vel_x, d3
+	;addi.l  #camera_max_vel_x, d3
 	;move.l  d3, d0
 	;bra     @EndClampXVel
 ;
 	;@ClampXVelNegative:
-	;add.l   #-camera_max_vel_x, d3
+	;addi.l  #-camera_max_vel_x, d3
 	;move.l  d3, d0
 ;
 	;@EndClampXVel:
@@ -211,12 +211,12 @@ CAM_Update:
 	;bra     @EndClampYVel
 ;
 	;@ClampYVelPositive:
-	;add.l   #camera_max_vel_y, d3
+	;addi.l  #camera_max_vel_y, d3
 	;move.l  d3, d1
 	;bra     @EndClampYVel
 ;
 	;@ClampYVelNegative:
-	;add.l   #-camera_max_vel_y, d3
+	;addi.l  #-camera_max_vel_y, d3
 	;move.l  d3, d1
 ;
 	;@EndClampYVel:
@@ -364,7 +364,7 @@ CAM_Update:
 	move.w  (CameraShakeTimer), d0
 	tst.w   d0
 	beq     @NoTimer
-	sub.w   #0x1, d0
+	subq.w   #0x1, d0
 	move.w  d0, CameraShakeTimer
 	tst.w   d0
 	bne     @TimerRunning
@@ -395,7 +395,7 @@ CAM_CalcScrollPosX:
 	clr.w   d1
 	move.w  Level_MapWidth(a1), d1
 	lsl.w   #0x3, d1	; To tiles
-	sub.w   #CameraScrollSafeBorderX, d1
+	subi.w   #CameraScrollSafeBorderX, d1
 	cmp.w	d1, d0
 	bgt		@ClampRight
 	bra		@EndClampX
@@ -406,7 +406,7 @@ CAM_CalcScrollPosX:
 	move.w	d1, d0
 	@EndClampX:
 
-	sub.w   #(screen_width/2), d0		; Centred
+	subi.w   #(screen_width/2), d0		; Centred
 
 	move.w  d0, d1
 	TOSUBPIXELS d1
@@ -431,7 +431,7 @@ CAM_CalcScrollPosY:
 	clr.w   d1
 	move.w  Level_MapHeight(a1), d1
 	lsl.w   #0x3, d1	; To tiles
-	sub.w   #CameraScrollSafeBorderY, d1
+	subi.w   #CameraScrollSafeBorderY, d1
 	cmp.w	d1, d0
 	bgt		@ClampBottom
 	bra		@EndClampY
@@ -442,7 +442,7 @@ CAM_CalcScrollPosY:
 	move.w	d1, d0
 	@EndClampY:
 
-	sub.w   #(screen_height/2), d0		; Centred
+	subi.w   #(screen_height/2), d0		; Centred
 
 	move.w  d0, d1
 	TOSUBPIXELS d1

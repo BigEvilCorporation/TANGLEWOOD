@@ -93,7 +93,7 @@ CrateInit:
 	
 	; Setup platform
 	move.l a0, a2
-	add.l  #Crate_UpperPlatform, a2
+	addi.l #Crate_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Crate_PlatformWidth, Platform_Width(a2)
@@ -113,11 +113,11 @@ CrateLoadGfx:
 
 	; Reposition platform and set velocity
 	move.l a0, a2
-	add.l  #Crate_UpperPlatform, a2
+	addi.l #Crate_UpperPlatform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #Crate_UpperPlatformYOffset*subpixels_per_pixel, d1
+	addi.l #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0
+	addi.l #Crate_UpperPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l #0x0, Platform_VelX(a2)
@@ -136,11 +136,11 @@ CrateUpdate:
 	
 	; Reposition platform and set velocity
 	move.l a0, a2
-	add.l  #Crate_UpperPlatform, a2
+	addi.l #Crate_UpperPlatform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #Crate_UpperPlatformYOffset*subpixels_per_pixel, d1
+	addi.l #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0
+	addi.l #Crate_UpperPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)

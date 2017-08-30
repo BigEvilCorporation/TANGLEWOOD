@@ -88,13 +88,13 @@ FlueUpdate:
 	move.l a1, -(sp)
 	
 	move.l a0, a2
-	add.l  #Flue_Occupants, a2
+	addi.l #Flue_Occupants, a2
 	move.l #(Flue_MaxOccupants-1), d0
 	@OccupantLp:
 	move.l d0, -(sp)
 	jsr    FlueOccupantUpdate
 	move.l (sp)+, d0
-	add.l  #FlueOccupant_Struct_Size, a2
+	addi.l #FlueOccupant_Struct_Size, a2
 	dbra   d0, @OccupantLp
 
 	move.l (sp)+, a1
@@ -281,7 +281,7 @@ FlueOccupantUpdate:
 	@TimerRunning:
 	
 	; Decrement eject timer
-	sub.w  #0x1, FlueOccupant_HoldTimer(a2)
+	subq.w  #0x1, FlueOccupant_HoldTimer(a2)
 
 	@NoOccupantCheck:
 	@NoOccupantFound:
@@ -299,7 +299,7 @@ FlueFindOccupant:
 	move.b (FlueNumPotentialOccupants), d0
 	tst.b  d0
 	beq    @NoPotentialOccupants
-	sub.b  #0x1, d0
+	subq.b  #0x1, d0
 	lea    FluePotentialOccupants, a5
 	@EntityLp:							 ; For all entities in list
 
@@ -340,12 +340,12 @@ FlueFindOccupant:
 
 	; Object inside, check if already held
 	move.l a0, a4
-	add.l  #Flue_Occupants, a4
+	addi.l #Flue_Occupants, a4
 	move.l #(Flue_MaxOccupants-1), d1
 	@OccupantLp:
 	cmp.l  FlueOccupant_ObjAddr(a4), a3
 	beq    @AlreadyHeld
-	add.l  #FlueOccupant_Struct_Size, a4
+	addi.l #FlueOccupant_Struct_Size, a4
 	dbra   d1, @OccupantLp
 	
 	; New occupant found
@@ -363,7 +363,7 @@ FlueFindOccupant:
 	@Outside:
 	@CharacterDead:
 	@NextEntity:
-	add.l  #size_long, a5	 ; Get next ptr
+	addi.l #size_long, a5	 ; Get next ptr
 	dbra   d0, @EntityLp	 ; Loop
 	
 	@NoPotentialOccupants:
@@ -379,13 +379,13 @@ FlueTestPhysicsObjInside:
 	; Obj 1 min X
 	move.w Entity_WorldPosX(a0), d1		; X (top word = integer part)
 	move.w d1, d2						; Copy for max
-	sub.w  #Flue_BoundsExtendX, d1		; Extend X bounds for Flue
+	subi.w #Flue_BoundsExtendX, d1		; Extend X bounds for Flue
 	swap   d1							; In upper word d1
 	
 	; Obj 1 max X
 	move.w Entity_Width(a0), d3			; Width
 	add.w  d3, d2						; Fuzzl X max
-	add.w  #Flue_BoundsExtendX, d2		; Extend X bounds for Flue
+	addi.w #Flue_BoundsExtendX, d2		; Extend X bounds for Flue
 	swap   d2							; In upper word d2
 	
 	; Obj 1 min Y
@@ -431,6 +431,6 @@ FlueAddPotentialOccupant:
 
 	move.l a0, (a2)
 
-	add.b  #0x1, (FlueNumPotentialOccupants)
+	addq.b #0x1, (FlueNumPotentialOccupants)
 
 	rts

@@ -106,11 +106,11 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	; Left/right
 	move.w (CameraWorldPosX), \topleftreg			; X centre (top word = integer part)
 	move.w \topleftreg, \bottomrightreg
-	sub.w  #(screen_width/2), \topleftreg			; Left border
-	add.w  #(screen_width/2), \bottomrightreg		; Right border
+	subi.w  #(screen_width/2), \topleftreg			; Left border
+	addi.w #(screen_width/2), \bottomrightreg		; Right border
 
-	add.w  #vdp_sprite_border_x, \topleftreg
-	add.w  #vdp_sprite_border_x, \bottomrightreg
+	addi.w #vdp_sprite_border_x, \topleftreg
+	addi.w #vdp_sprite_border_x, \bottomrightreg
 
 	swap   \topleftreg								; X to upper word
 	swap   \bottomrightreg
@@ -119,11 +119,11 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	move.w (CameraWorldPosY), \tempreg				; Y centre (top word = integer part)
 	move.w \tempreg, \topleftreg
 	move.w \tempreg, \bottomrightreg
-	sub.w  #(screen_height/2), \topleftreg			; Top border
-	add.w  #(screen_height/2), \bottomrightreg		; Bottom border
+	subi.w  #(screen_height/2), \topleftreg			; Top border
+	addi.w #(screen_height/2), \bottomrightreg		; Bottom border
 
-	add.w  #vdp_sprite_border_y, \topleftreg
-	add.w  #vdp_sprite_border_y, \bottomrightreg
+	addi.w #vdp_sprite_border_y, \topleftreg
+	addi.w #vdp_sprite_border_y, \bottomrightreg
 
 	endm
 
@@ -173,8 +173,8 @@ SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
 
 ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
 	PUSHL  a0
-	add.l  #\arrayoffset, a0
-	add.l  #(Animation_Struct_Size*\index), a0
+	addi.l #\arrayoffset, a0
+	addi.l #(Animation_Struct_Size*\index), a0
 	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #spriteanim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
@@ -190,8 +190,8 @@ ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,norep
 
 ANIM_LOAD_MANUALCONTROL: macro sheetname,animname,arrayoffset,index
 	PUSHL  a0
-	add.l  #\arrayoffset, a0
-	add.l  #(Animation_Struct_Size*\index), a0
+	addi.l #\arrayoffset, a0
+	addi.l #(Animation_Struct_Size*\index), a0
 	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #0x0, Animation_AnimTrackPositionX(a0)

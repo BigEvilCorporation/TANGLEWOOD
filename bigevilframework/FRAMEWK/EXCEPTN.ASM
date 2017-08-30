@@ -168,7 +168,7 @@ CPU_Exception:
 	move.w  #Exception_RegPosX, d1		; X coord
 	swap    d1
 	move.w  d6, d1						; Y coord
-	add.w   #Exception_LineSpace, d6	; Next line
+	addi.w  #Exception_LineSpace, d6	; Next line
 	move.l  a4, a0						; String address
 	move.w  #Exception_FontTileId, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
@@ -176,9 +176,9 @@ CPU_Exception:
 	jsr     TXT_DrawPlane
 	
 	; Free string space
-	add.l   #0x10, sp
+	addi.l  #0x10, sp
 	
-	add.l   #0x1, d7
+	addq.l  #0x1, d7
 	cmp.l   #Exception_RegCount, d7
 	bne     @RegLoop
 
@@ -217,7 +217,7 @@ CPU_Exception:
 	move.w  #Exception_StackPosX, d1	; X coord
 	swap    d1
 	move.w  d6, d1						; Y coord
-	add.w   #Exception_LineSpace, d6	; Next line
+	addi.w  #Exception_LineSpace, d6	; Next line
 	move.l  a4, a0						; String address
 	move.w  #Exception_FontTileId, d0	; Font VDP address
 	move.b  #0x0, d2					; Palette index
@@ -225,9 +225,9 @@ CPU_Exception:
 	jsr     TXT_DrawPlane
 	
 	; Free string space
-	add.l   #0x10, sp
+	addi.l  #0x10, sp
 	
-	add.l   #0x1, d7
+	addq.l  #0x1, d7
 	cmp.l   #Exception_MaxStack, d7
 	bne     @StackLoop
 
@@ -361,6 +361,6 @@ DBG_DisplayError:
 ;	jsr     TXT_DrawPlane
 ;	
 ;	; Free string space
-;	add.l   #0x10, sp
+;	addi.l  #0x10, sp
 ;
 ;	rts

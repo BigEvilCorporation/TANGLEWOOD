@@ -238,16 +238,16 @@ MonsterInit:
 	; Setup default SFX
 	IFND DEBUG
 	move.l a0, a2
-	add.l  #Character_SFX, a2
+	addi.l #Character_SFX, a2
 	
 	; Land
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_Land*size_long, a3
+	addi.l #CharacterSFXIdx_Land*size_long, a3
 	move.l #SFX_Land, (a3)
 
 	; Water splash
 	move.l a2, a3
-	add.l  #CharacterSFXIdx_WaterSplash*size_long, a3
+	addi.l #CharacterSFXIdx_WaterSplash*size_long, a3
 	move.l #SFX_Water_Splash1, (a3)
 	ENDIF
 
@@ -508,8 +508,8 @@ MonsterCheckPlayerVisible:
 	; Get monster visibility bounds X
 	move.w Entity_WorldPosX(a0), d1	;  (top word = integer part)
 	move.w d1, d2
-	add.w  #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
-	add.w  #(Monster_Width/2)+(Monster_PlayerVisibilityBoxX/2), d2
+	addi.w #(Monster_Width/2)-(Monster_PlayerVisibilityBoxX/2), d1
+	addi.w #(Monster_Width/2)+(Monster_PlayerVisibilityBoxX/2), d2
 	
 	swap   d1
 	swap   d2
@@ -518,8 +518,8 @@ MonsterCheckPlayerVisible:
 	move.w Entity_WorldPosY(a0), d3	;  (top word = integer part)
 	move.w d3, d1
 	move.w d3, d2
-	add.w  #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
-	add.w  #(Monster_Height/2)+(Monster_PlayerVisibilityBoxY/2), d2
+	addi.w #(Monster_Height/2)-(Monster_PlayerVisibilityBoxY/2), d1
+	addi.w #(Monster_Height/2)+(Monster_PlayerVisibilityBoxY/2), d2
 	
 	; Get player centre X
 	ENTITY_GETCENTREX d3, a2
@@ -556,7 +556,7 @@ MonsterCheckPlayerVisible:
 	; Increment lost timer
 	cmp.w  #-1, Monster_LoseSightTimer(a0)
 	beq    @NoTimer
-	add.w  #0x1, Monster_LoseSightTimer(a0)
+	addq.w #0x1, Monster_LoseSightTimer(a0)
 	
 	@NoTimer:
 
@@ -645,7 +645,7 @@ MonsterRoar:
 	; Start roar animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Monster_Animations, a1
+	addi.l #Monster_Animations, a1
 	move.l #(MonsterAnimIdx_Roar*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -723,7 +723,7 @@ MonsterSetInCage:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Character_Animations, a1
+	addi.l #Character_Animations, a1
 	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -740,7 +740,7 @@ MonsterStartWaitForPlayer:
 	; Start eye tracking animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Monster_Animations, a1
+	addi.l #Monster_Animations, a1
 	move.l #(MonsterAnimIdx_Eyes*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -857,7 +857,7 @@ MonsterUpdateEmergeFromCave:
 
 	; Wait for palette lerp finish
 	lea    PaletteLerp_Array, a2
-	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
+	addi.l #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
 	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
@@ -1002,7 +1002,7 @@ MonsterUpdateSearchForPlayer:
 	divu   #(Monster_SearchRandDistMax*2), d0	; Div / max*2
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
-	sub.w  #Monster_SearchRandDistMax, d0		; Shift down to -255 - 255
+	subi.w #Monster_SearchRandDistMax, d0		; Shift down to -255 - 255
 	TOSUBPIXELS d0								; To subpixels
 	
 	; Add min dist
@@ -1041,7 +1041,7 @@ MonsterUpdateSearchForPlayer:
 	beq    @Move
 	
 	; Count down delay
-	sub.w  #0x1, d1
+	subq.w  #0x1, d1
 	move.w d1, Monster_SearchDelay(a0)
 	bra    @End
 	
@@ -1089,7 +1089,7 @@ MonsterUpdateSearchForPlayer:
 	; Randomise delay timer
 	jsr    RND_GenerateLong
 	andi.l #Monster_SearchRandDelayMask, d0
-	add.w  #Monster_SearchRandDelayMin, d0
+	addi.w #Monster_SearchRandDelayMin, d0
 	move.w d0, Monster_SearchDelay(a0)
 	
 	; Reset target pos
@@ -1302,7 +1302,7 @@ MonsterStartBite:
 	; Start bite animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Monster_Animations, a1
+	addi.l #Monster_Animations, a1
 	move.l #(MonsterAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -1423,7 +1423,7 @@ MonsterUpdateTamed:
 	move.w Monster_GrowlTimer(a0), d0
 	tst.w  d0
 	beq    @TimerNotRunning
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, Monster_GrowlTimer(a0)
 	tst.w  d0
 	bne    @TimerStillRunning
@@ -1443,7 +1443,7 @@ MonsterStartBucking:
 	; Start buck animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Monster_Animations, a1
+	addi.l #Monster_Animations, a1
 	move.l #(MonsterAnimIdx_Buck*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

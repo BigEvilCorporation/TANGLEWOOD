@@ -177,7 +177,7 @@ L6a1_Update:
 	tst.w  d0
 	beq    @NoLerpTimer
 
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, l6a1Data_LogRollCamLerpTimer(a2)
 	tst.w  d0
 	bne    @NoLerpTimer

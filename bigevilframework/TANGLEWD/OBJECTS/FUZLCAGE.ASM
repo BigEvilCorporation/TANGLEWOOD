@@ -111,7 +111,7 @@ FuzzlCageInit:
 	
 	; Setup platforms
 	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
+	addi.l #FuzzlCage_UpperPlatform, a2
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #FuzzlCage_PlatformWidth, Platform_Width(a2)
@@ -138,11 +138,11 @@ FuzzlCageLoadGfx:
 
 	; Reposition platforms and set velocities
 	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
+	addi.l #FuzzlCage_UpperPlatform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
+	addi.l #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
+	addi.l #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l #0x0, Platform_VelX(a2)
@@ -209,11 +209,11 @@ FuzzlCageUpdate:
 	
 	; Reposition platforms and set velocities
 	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
+	addi.l #FuzzlCage_UpperPlatform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
-	add.l  #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
+	addi.l #FuzzlCage_UpperPlatformXOffset*subpixels_per_pixel, d0
+	addi.l #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
@@ -225,8 +225,8 @@ FuzzlCageUpdate:
 	beq    @NoFuzzl
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #FuzzlCage_FuzzlOffsetX*subpixels_per_pixel, d0
-	add.l  #FuzzlCage_FuzzlOffsetY*subpixels_per_pixel, d1
+	addi.l #FuzzlCage_FuzzlOffsetX*subpixels_per_pixel, d0
+	addi.l #FuzzlCage_FuzzlOffsetY*subpixels_per_pixel, d1
 	move.l d0, Entity_WorldPosX(a2)
 	move.l d1, Entity_WorldPosY(a2)
 	@NoFuzzl:
@@ -292,7 +292,7 @@ FuzzlCageActivatePlatform:
 	tst.b  FuzzlCage_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
+	addi.l #FuzzlCage_UpperPlatform, a2
 	LIST_APPEND_TAIL Platforms, a2, a3
 	move.b #0x1, FuzzlCage_PlatformActive(a0)
 	@AlreadyActive:
@@ -304,7 +304,7 @@ FuzzlCageDeactivatePlatform:
 	tst.b  FuzzlCage_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
-	add.l  #FuzzlCage_UpperPlatform, a2
+	addi.l #FuzzlCage_UpperPlatform, a2
 	LIST_REMOVE Platforms, a2, a3, a4
 	move.b #0x0, FuzzlCage_PlatformActive(a0)
 	@AlreadyInactive:
@@ -331,8 +331,8 @@ FuzzlCageSmash:
 	; Start smash animation
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #FuzzlCage_Animations, a1
-	add.l  #(Animation_Struct_Size*FuzzlCageAnimIdx_Smash), a1
+	addi.l #FuzzlCage_Animations, a1
+	addi.l #(Animation_Struct_Size*FuzzlCageAnimIdx_Smash), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

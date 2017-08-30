@@ -63,8 +63,8 @@ CogsInit:
 
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Cogs_Animations, a1
-	add.l  #(Animation_Struct_Size*CogsAnimIdx_Spin), a1
+	addi.l #Cogs_Animations, a1
+	addi.l #(Animation_Struct_Size*CogsAnimIdx_Spin), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

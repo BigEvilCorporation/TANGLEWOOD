@@ -37,7 +37,7 @@ UIWidgetCursorInit:
 	jsr    UIWidgetInit
 
 	; Count
-	add.w  #0x1, WidgetCount_Cursor
+	addq.w #0x1, WidgetCount_Cursor
 
 	; Set update/render routines
 	move.l #UIWidgetCursorUpdate, UIWidget_UpdateRoutine(a0)
@@ -50,7 +50,7 @@ UIWidgetCursorInit:
 
 	; Init sprite obj
 	PUSHL  a0
-	add.l  #UIWidgetCursor_Sprite, a0
+	addi.l #UIWidgetCursor_Sprite, a0
 	jsr    SpriteObjInit
 	POPL   a0
 
@@ -74,7 +74,7 @@ UIWidgetCursorLoadSprite:
 
 	PUSHL  a0
 
-	add.l  #UIWidgetCursor_Sprite, a0
+	addi.l #UIWidgetCursor_Sprite, a0
 
 	; Set dimensions
 	move.w d6, UIWidget_Width(a5)
@@ -98,7 +98,7 @@ UIWidgetCursorAddWidget:
 	move.b UIWidgetCursor_NumWidgets(a0), d0
 	lsl.l  #0x2, d0
 	move.l a0, a2
-	add.l  #UIWidgetCursor_Widgets, a2
+	addi.l #UIWidgetCursor_Widgets, a2
 	add.l  d0, a2
 	move.l a1, (a2)
 
@@ -124,7 +124,7 @@ UIWidgetCursorSelect:
 	andi.l #0xFF, d1
 	lsl.l  #0x2, d1							; To longwords
 	move.l a0, a2							; Get widget ptr array
-	add.l  #UIWidgetCursor_Widgets, a2
+	addi.l #UIWidgetCursor_Widgets, a2
 	add.l  d1, a2
 	move.l (a2), a2							; Deref
 	cmp.l  #0x0, a2
@@ -137,7 +137,7 @@ UIWidgetCursorSelect:
 	andi.l #0xFF, d0
 	lsl.l  #0x2, d0							; To longwords
 	move.l a0, a2							; Get widget ptr array
-	add.l  #UIWidgetCursor_Widgets, a2
+	addi.l #UIWidgetCursor_Widgets, a2
 	add.l  d0, a2
 	move.l (a2), a2							; Deref
 	move.b #0x1, UIWidget_HasFocus(a2)		; Set focus
@@ -240,7 +240,7 @@ UIWidgetCursorUpdate:
 	andi.l #0xFF, d0
 	lsl.l  #0x2, d0							; To longwords
 	move.l a0, a2							; Get widget ptr array
-	add.l  #UIWidgetCursor_Widgets, a2
+	addi.l #UIWidgetCursor_Widgets, a2
 	add.l  d0, a2
 	move.l (a2), a0							; Deref
 	jsr    UIWidgetSelect					; Callback
@@ -266,13 +266,13 @@ UIWidgetCursorUpdate:
 	; Update sprite position
 	move.w UIWidget_PositionX(a0), d0
 	move.w UIWidget_PositionY(a0), d1
-	add.w  #vdp_sprite_border_x, d0
-	add.w  #vdp_sprite_border_y, d1
+	addi.w #vdp_sprite_border_x, d0
+	addi.w #vdp_sprite_border_y, d1
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
 
 	PUSHL  a0
-	add.l  #UIWidgetCursor_Sprite, a0
+	addi.l #UIWidgetCursor_Sprite, a0
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	POPL   a0
@@ -284,7 +284,7 @@ UIWidgetCursorRender:
 
 	; Draw sprite
 	PUSHL  a0
-	add.l  #UIWidgetCursor_Sprite, a0
+	addi.l #UIWidgetCursor_Sprite, a0
 	jsr    SpriteObjDraw
 	POPL   a0
 	

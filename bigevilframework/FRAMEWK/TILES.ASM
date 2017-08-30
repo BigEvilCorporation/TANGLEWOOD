@@ -13,7 +13,7 @@ VDP_LoadTiles:
 
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
 	andi.l  #0x0000FFFF, d0
-	add.l   #vram_addr_tiles, d0	; Add VRAM address offset
+	addi.l  #vram_addr_tiles, d0	; Add VRAM address offset
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo

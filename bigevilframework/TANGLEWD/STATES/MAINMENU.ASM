@@ -110,7 +110,7 @@ MainMenu_Enter:
 
 	; Load logo
 	lea    GameStateMainMenuData, a0
-	add.l  #MainMenuState_LogoSprite, a0
+	addi.l #MainMenuState_LogoSprite, a0
 	jsr    SpriteObjInit
 	move.l #SpriteObjUpdate, Entity_UpdateRoutine(a0)
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
@@ -142,7 +142,7 @@ MainMenu_Enter:
 	
 	; Start sleep anim
 	move.l a0, a1
-	add.l  #Player_Animations, a1
+	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -299,7 +299,7 @@ MainMenu_Update:
 	bra    @End
 	
 	@WaitingForBgFade:
-	sub.w  #0x1, MainMenuState_FadeTimer(a2)
+	subq.w  #0x1, MainMenuState_FadeTimer(a2)
 	@Fading:
 	@NotElapsed:
 	@End:

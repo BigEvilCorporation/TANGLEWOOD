@@ -180,7 +180,7 @@ l3a2_Update:
 	tst.w  d0
 	beq    @NoLerpTimer
 
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, l3a2Data_LogRollCamLerpTimer(a2)
 	tst.w  d0
 	bne    @NoLerpTimer

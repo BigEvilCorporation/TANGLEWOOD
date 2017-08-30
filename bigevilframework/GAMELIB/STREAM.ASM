@@ -58,7 +58,7 @@ MAP_UpdateStreaming:
 	jsr     MAP_StreamNextRow
 	POPM    d0-d4
 	
-	sub.w   #0x1, d2
+	subq.w   #0x1, d2
 	
 	@NoPendingRows:
 	
@@ -73,7 +73,7 @@ MAP_UpdateStreaming:
 	jsr     MAP_StreamNextColumn
 	POPM    d0-d4
 	
-	sub.w   #0x1, d4
+	subq.w   #0x1, d4
 	
 	@NoPendingCols:
 	
@@ -109,13 +109,13 @@ MAP_StreamNextRow:
 	bra     @End
 	
 	@StreamTop:
-	sub.w   #0x1, d0				; Stream one row above last streamed
+	subq.w   #0x1, d0				; Stream one row above last streamed
 	move.w  d0, MapStreamLoadedRow	; Last loaded row back to RAM
 	bra		@Stream
 	@StreamBottom:
-	add.w   #0x1, d0				; Stream one row below last streamed
+	addq.w  #0x1, d0				; Stream one row below last streamed
 	move.w  d0, MapStreamLoadedRow	; Last loaded row back to RAM
-	add.w   #MapStreamHeight-MapStreamBorderY, d0	; Offset to bottom of stream window
+	addi.w  #MapStreamHeight-MapStreamBorderY, d0	; Offset to bottom of stream window
 	@Stream:
 
 	; Source rect left in upper d0
@@ -204,13 +204,13 @@ MAP_StreamNextColumn:
 	bra     @End
 	
 	@StreamLeft:
-	sub.w   #0x1, d0				; Stream one col left of last streamed
+	subq.w   #0x1, d0				; Stream one col left of last streamed
 	move.w  d0, MapStreamLoadedCol	; Last loaded col back to RAM
 	bra		@Stream
 	@StreamRight:
-	add.w   #0x1, d0				; Stream one col right of last streamed
+	addq.w  #0x1, d0				; Stream one col right of last streamed
 	move.w  d0, MapStreamLoadedCol	; Last loaded col back to RAM
-	add.w   #MapStreamWidth-MapStreamBorderX, d0	; Offset to right of stream window
+	addi.w  #MapStreamWidth-MapStreamBorderX, d0	; Offset to right of stream window
 	@Stream:
 
 	; Dest rect left in upper d2

@@ -42,7 +42,7 @@ VDP_LoadMapPlaneA:
 	mulu.w  #0x0040, d1            ; Multiply Y offset by line width (in words)
 
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
-	add.l   #vram_addr_plane_a, d1	; Add VRAM address offset
+	addi.l  #vram_addr_plane_a, d1	; Add VRAM address offset
 	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
@@ -74,7 +74,7 @@ VDP_LoadMapPlaneB:
 	mulu.w  #0x0040, d1            ; Multiply Y offset by line width (in words)
 
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
-	add.l   #vram_addr_plane_b, d1	; Add VRAM address offset
+	addi.l  #vram_addr_plane_b, d1	; Add VRAM address offset
 	rol.l   #0x2, d1				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
@@ -110,8 +110,8 @@ VDP_LoadBlockMapPlaneA:
 	move.w  d1, d4	; Y
 	swap    d1
 	move.w  d1, d5	; X
-	sub.w   #0x1, d4
-	sub.w   #0x1, d5
+	subq.w   #0x1, d4
+	subq.w   #0x1, d5
 
 	; X/Y coord
 	clr.l   d1
@@ -135,13 +135,13 @@ VDP_LoadBlockMapPlaneA:
 			POPM   a0-a1/d1-d6
 
 			; Increment X
-			add.l  #map_block_width<<16, d1
+			addi.l #map_block_width<<16, d1
 
 		; Loop
 		dbra.w d6, @LoopX
 
 		; Increment Y
-		add.w  #map_block_height, d1
+		addi.w #map_block_height, d1
 
 	; Loop
 	dbra.w d4, @LoopY
@@ -162,8 +162,8 @@ VDP_LoadBlockMapPlaneB:
 	move.w  d1, d4	; Y
 	swap    d1
 	move.w  d1, d5	; X
-	sub.w   #0x1, d4
-	sub.w   #0x1, d5
+	subq.w   #0x1, d4
+	subq.w   #0x1, d5
 
 	; X/Y coord
 	clr.l   d1
@@ -187,13 +187,13 @@ VDP_LoadBlockMapPlaneB:
 			POPM   a0-a1/d1-d6
 
 			; Increment X
-			add.l  #map_block_width<<16, d1
+			addi.l #map_block_width<<16, d1
 
 		; Loop
 		dbra.w d6, @LoopX
 
 		; Increment Y
-		add.w  #map_block_height, d1
+		addi.w #map_block_height, d1
 
 	; Loop
 	dbra.w d4, @LoopY
@@ -250,7 +250,7 @@ VDP_LoadBlockPlaneA:
 		dbra.w  d0, @ColLoop               ; Loop
 
 		; Offset to next row
-		add.l   #vdp_plane_width*size_word, d4
+		addi.l  #vdp_plane_width*size_word, d4
 
 	; Loop to next row
 	dbra.w  d5, @RowLoop
@@ -298,7 +298,7 @@ VDP_LoadBlockPlaneB:
 		dbra.w  d0, @ColLoop               ; Loop
 
 		; Offset to next row
-		add.l   #vdp_plane_width*size_word, d4
+		addi.l  #vdp_plane_width*size_word, d4
 
 	; Loop to next row
 	dbra.w  d5, @RowLoop
@@ -335,12 +335,12 @@ VDP_LoadMapBlockSegmentPlaneA:
 	swap   d2
 	clr.l  d7
 	move.w d2, d7
-	sub.w  #0x1, d7
+	subq.w  #0x1, d7
 	
 	; Segment height to row counter
 	clr.w  d2
 	swap   d2
-	sub.w  #0x1, d2
+	subq.w  #0x1, d2
 	
 	; Total map width to bytes
 	lsl.w  #0x1, d3
@@ -382,7 +382,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 			POPALL
 
 			; Increment X coord
-			add.l #map_block_width<<16, d1
+			addi.l #map_block_width<<16, d1
 		
 		dbra d7, @ColumnLp
 		POPL d7
@@ -394,7 +394,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 		move.l a1, a2
 		
 		; Increment dest Y coord
-		add.w  #map_block_height, d6
+		addi.w #map_block_height, d6
 
 		; Reset dest coords to start of row + new Y offset
 		move.l d6, d1
@@ -439,12 +439,12 @@ VDP_LoadMapSegmentPlaneA:
 	swap   d2
 	clr.l  d7
 	move.w d2, d7
-	sub.w  #0x1, d7
+	subq.w  #0x1, d7
 	
 	; Segment height to row counter
 	clr.w  d2
 	swap   d2
-	sub.w  #0x1, d2
+	subq.w  #0x1, d2
 	
 	; Total map width to bytes
 	lsl.w  #0x1, d3
@@ -463,7 +463,7 @@ VDP_LoadMapSegmentPlaneA:
 		; Set dest address	(start of curr row in d1)
 		; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
 		move.l d1, d0
-		add.l   #vram_addr_plane_a, d0	; Add VRAM address offset
+		addi.l  #vram_addr_plane_a, d0	; Add VRAM address offset
 		rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 		lsr.w   #0x2, d0				; Shift lower word back
 		swap    d0                     	; Swap address hi/lo
@@ -495,7 +495,7 @@ VDP_LoadMapSegmentPlaneA:
 		add.l d3, a0
 		
 		; Increment start of curr row (dest) by 1 row (VDP width in words)
-		add.l  #(vdp_plane_width*2), d1
+		addi.l #(vdp_plane_width*2), d1
 		
 	dbra d2, @RowLp
 	

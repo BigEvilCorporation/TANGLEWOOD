@@ -133,7 +133,7 @@ Logos_Update:
 	
 	; Wait for timeout
 	move.l (TimerLogoFade), d0
-	sub.l  #0x1, d0
+	subq.l #0x1, d0
 	move.l d0, TimerLogoFade
 	cmp.l  #0x1, d0
 	bne    @NotElapsed

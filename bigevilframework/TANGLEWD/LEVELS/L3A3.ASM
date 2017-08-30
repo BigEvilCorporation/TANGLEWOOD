@@ -215,7 +215,7 @@ l3a3_End:
 l3a3ComboButton1Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	addq.b #0x1, l3a3Data_ComboButton1Count(a2)
 
 	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
 	bne    @NotEnoughButtons
@@ -235,14 +235,14 @@ l3a3ComboButton1Up:
 	POPL   a2
 	@NotEnoughButtons:
 
-	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	subq.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
 	rts
 
 l3a3ComboButton2Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	addq.b #0x1, l3a3Data_ComboButton1Count(a2)
 
 	cmp.b  #0x2, l3a3Data_ComboButton1Count(a2)
 	bne    @NotEnoughButtons
@@ -262,7 +262,7 @@ l3a3ComboButton2Up:
 	POPL   a2
 	@NotEnoughButtons:
 
-	sub.b  #0x1, l3a3Data_ComboButton1Count(a2)
+	subq.b  #0x1, l3a3Data_ComboButton1Count(a2)
 
 	rts
 
@@ -289,7 +289,7 @@ l3a3ComboButton1Deactivated:
 l3a3ComboButton5Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	addq.b #0x1, l3a3Data_ComboButton2Count(a2)
 
 	cmp.b  #0x2, l3a3Data_ComboButton2Count(a2)
 	bne    @NotEnoughButtons
@@ -301,7 +301,7 @@ l3a3ComboButton5Down:
 l3a3ComboButton5Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	subq.b  #0x1, l3a3Data_ComboButton2Count(a2)
 	jsr    l3a3ComboButton2Deactivated
 
 	rts
@@ -309,7 +309,7 @@ l3a3ComboButton5Up:
 l3a3ComboButton6Down:
 
 	move.l #LevelData_L3A3, a2
-	add.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	addq.b #0x1, l3a3Data_ComboButton2Count(a2)
 
 	cmp.b  #0x2, l3a3Data_ComboButton2Count(a2)
 	bne    @NotEnoughButtons
@@ -321,7 +321,7 @@ l3a3ComboButton6Down:
 l3a3ComboButton6Up:
 
 	move.l #LevelData_L3A3, a2
-	sub.b  #0x1, l3a3Data_ComboButton2Count(a2)
+	subq.b  #0x1, l3a3Data_ComboButton2Count(a2)
 	jsr    l3a3ComboButton2Deactivated
 
 	rts
@@ -509,7 +509,7 @@ l3a3MeetEchoBeginStage_Hide:
 	; Start hide anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_Hide*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -571,7 +571,7 @@ l3a3MeetEchoUpdateStage_DjakkChase:
 	; Wait for timer
 	move.l #LevelData_L3A3, a2
 	move.w l3a3Data_SceneTimer(a2), d0
-	sub.w  #0x1, d0
+	subq.w  #0x1, d0
 	move.w d0, l3a3Data_SceneTimer(a2)
 	tst.w  d0
 	bne    @End
@@ -594,7 +594,7 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_Scared*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -660,7 +660,7 @@ l3a3MeetEchoBeginStage_StandUp:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_StandFromHiding*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -748,7 +748,7 @@ l3a3MeetEchoBeginStage_JumpNymn:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_PounceNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -790,7 +790,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Echo_Animations, a1
+	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_GreetNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -811,7 +811,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Nymn_Animations, a1
+	addi.l #Nymn_Animations, a1
 	move.l #(NymnAnimIdx_GreetEcho*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -848,7 +848,7 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	; Set idle anim
 	PUSHL  a1
 	move.l a0, a1
-	add.l  #Character_Animations, a1
+	addi.l #Character_Animations, a1
 	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

@@ -85,7 +85,7 @@ StoneInit:
 	
 	; Setup barrier
 	move.l a0, a2
-	add.l  #Stone_Barrier, a2
+	addi.l #Stone_Barrier, a2
 	
 	move.w #Stone_Width, Barrier_Width(a2)
 	move.w #Stone_Height, Barrier_Height(a2)
@@ -111,7 +111,7 @@ StoneLoadGfx:
 
 	; Reposition barrier
 	move.l a0, a2
-	add.l  #Stone_Barrier, a2
+	addi.l #Stone_Barrier, a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
@@ -126,7 +126,7 @@ StoneUpdate:
 
 	; Reposition barrier
 	move.l a0, a2
-	add.l  #Stone_Barrier, a2
+	addi.l #Stone_Barrier, a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 	

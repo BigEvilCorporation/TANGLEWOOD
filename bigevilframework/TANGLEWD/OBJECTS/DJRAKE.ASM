@@ -333,8 +333,8 @@ DjrakeCheckPlayerVisible:
 	; Get Djrake visibility bounds X
 	move.w Entity_WorldPosX(a0), d1	;  (top word = integer part)
 	move.w d1, d2
-	add.w  #(Djrake_Width/2)-(Djrake_PlayerVisibilityBoxX/2), d1
-	add.w  #(Djrake_Width/2)+(Djrake_PlayerVisibilityBoxX/2), d2
+	addi.w #(Djrake_Width/2)-(Djrake_PlayerVisibilityBoxX/2), d1
+	addi.w #(Djrake_Width/2)+(Djrake_PlayerVisibilityBoxX/2), d2
 	
 	swap   d1
 	swap   d2
@@ -343,8 +343,8 @@ DjrakeCheckPlayerVisible:
 	move.w Entity_WorldPosY(a0), d3	;  (top word = integer part)
 	move.w d3, d1
 	move.w d3, d2
-	add.w  #(Djrake_Height/2)-(Djrake_PlayerVisibilityBoxY/2), d1
-	add.w  #(Djrake_Height/2)+(Djrake_PlayerVisibilityBoxY/2), d2
+	addi.w #(Djrake_Height/2)-(Djrake_PlayerVisibilityBoxY/2), d1
+	addi.w #(Djrake_Height/2)+(Djrake_PlayerVisibilityBoxY/2), d2
 	
 	; Get player centre X
 	ENTITY_GETCENTREX d3, a2
@@ -378,7 +378,7 @@ DjrakeCheckPlayerVisible:
 	; Increment lost timer
 	cmp.w  #-1, Djrake_LoseSightTimer(a0)
 	beq    @NoTimer
-	add.w  #0x1, Djrake_LoseSightTimer(a0)
+	addi.w #0x1, Djrake_LoseSightTimer(a0)
 	
 	@NoTimer:
 	@End:
@@ -395,7 +395,7 @@ DjrakeStartWaitForPlayer:
 	; Start eye tracking animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Djrake_Animations, a1
+	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Eyes*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -511,8 +511,8 @@ DjrakeUpdateEmergeFromCave:
 
 	; Wait for palette lerp finish
 	lea    PaletteLerp_Array, a2
-	;add.l  #(PaletteId_Djrake*PaletteLerp_Struct_Size), a2
-	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
+	;addi.l #(PaletteId_Djrake*PaletteLerp_Struct_Size), a2
+	addi.l #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
 	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
@@ -545,7 +545,7 @@ DjrakeStartRoaring:
 	; Start roar animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Djrake_Animations, a1
+	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Roar*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation
@@ -655,7 +655,7 @@ DjrakeUpdateSearchForPlayer:
 	divu   #(Djrake_SearchRandDistMax*2), d0	; Div / max*2
 	clr.w  d0									; Clear exponent
 	swap   d0									; Remainder to lower word (0 - 512)
-	sub.w  #Djrake_SearchRandDistMax, d0		; Shift down to -255 - 255
+	subi.w #Djrake_SearchRandDistMax, d0		; Shift down to -255 - 255
 	TOSUBPIXELS d0								; To subpixels
 	
 	; Add min dist
@@ -694,7 +694,7 @@ DjrakeUpdateSearchForPlayer:
 	beq    @Move
 	
 	; Count down delay
-	sub.w  #0x1, d1
+	subq.w  #0x1, d1
 	move.w d1, Djrake_SearchDelay(a0)
 	bra    @End
 	
@@ -736,7 +736,7 @@ DjrakeUpdateSearchForPlayer:
 	; Randomise delay timer
 	jsr    RND_GenerateLong
 	andi.l #Djrake_SearchRandDelayMask, d0
-	add.w  #Djrake_SearchRandDelayMin, d0
+	addi.w #Djrake_SearchRandDelayMin, d0
 	move.w d0, Djrake_SearchDelay(a0)
 	
 	; Reset target pos
@@ -925,7 +925,7 @@ DjrakeStartBite:
 	; Start bite animation
 	move.l a1, -(sp)
 	move.l a0, a1
-	add.l  #Djrake_Animations, a1
+	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
 	jsr    AnimObjSetAnimation

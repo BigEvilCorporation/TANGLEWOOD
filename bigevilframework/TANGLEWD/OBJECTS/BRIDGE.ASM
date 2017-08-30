@@ -128,17 +128,17 @@ BridgeInit:
 
 	; Zero Y offsets and velocities
 	move.l  a0, a2
-	add.l   #Bridge_NotchYPos, a2
+	addi.l  #Bridge_NotchYPos, a2
 	move.l  #Bridge_NumNotches, d0
 	MEMZEROL a2,d0
 	move.l  a0, a2
-	add.l   #Bridge_NotchYVel, a2
+	addi.l  #Bridge_NotchYVel, a2
 	move.l  #Bridge_NumNotches, d0
 	MEMZEROL a2,d0
 
 	; Setup platform
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Bridge_PlatformWidth, Platform_Width(a2)
@@ -148,7 +148,7 @@ BridgeInit:
 
 	; Setup barrier
 	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
+	addi.l #Bridge_Barrier, a2
 	move.w #Bridge_BarrierWidth, Barrier_Width(a2)
 	move.w #Bridge_BarrierHeight, Barrier_Height(a2)
 	jsr    BridgeActivateBarrier
@@ -166,11 +166,11 @@ BridgeLoadGfx:
 
 	; Position platform
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Bridge_PlatformXOffset*subpixels_per_pixel, d0
-	add.l  #Bridge_PlatformYOffset*subpixels_per_pixel, d1
+	addi.l #Bridge_PlatformXOffset*subpixels_per_pixel, d0
+	addi.l #Bridge_PlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l #0x0, Platform_VelX(a2)
@@ -178,11 +178,11 @@ BridgeLoadGfx:
 
 	; Position barrier
 	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
+	addi.l #Bridge_Barrier, a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
+	addi.l #Bridge_BarrierXOffset*subpixels_per_pixel, d0
+	addi.l #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 	move.l d0, Barrier_PosX(a2)
 	move.l d1, Barrier_PosY(a2)
 
@@ -216,8 +216,8 @@ BridgeUpdate:
 	move.b  #0x0, Bridge_InView(a0)
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	CAMERA_GETSCREENBOUNDS d3,d4,d5
-	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d1
-	add.l  #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
+	addi.l #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d1
+	addi.l #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	bne    @InView
@@ -268,7 +268,7 @@ BridgeUpdate:
 	cmp.b  #Bridge_Stateopen, Bridge_State(a0)
 	bne    @AlreadyDropping
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	tst.b  Platform_Occupied(a2)
 	beq    @Unoccupied
 	jsr    BridgeBeginDrop
@@ -325,7 +325,7 @@ BridgeDraw:
 
 	; Get Y pos array
 	move.l a0, a3
-	add.l  #Bridge_NotchYPos, a3
+	addi.l #Bridge_NotchYPos, a3
 
 	; Roll pos to notch index
 	clr.l  d7
@@ -428,7 +428,7 @@ BridgeDraw:
 	or.b   d3, Bridge_InView(a0)
 
 	; Loop
-	add.b  #0x1, d2
+	addq.b #0x1, d2
 	cmp.b  #Bridge_NumNotches, d2
 	bne    @NotchDrawLp
 
@@ -442,14 +442,17 @@ BridgeDraw:
 
 	POPL   a0
 
-	; If no notches drawn, and in dropping state, never render again
+	; If no notches drawn, in dropping state, and not buoyant, never render again
 	cmp.b  #Bridge_StateDropping, Bridge_State(a0)
 	bne    @NotDropping
+	tst.b  Bridge_Buoyant(a0)
+	bne    @Buoyant
 	tst.b  Bridge_InView(a0)
 	bne    @InView
 	jsr    EntityRemoveFromRenderList
 	@InView:
 	@NotDropping:
+	@Buoyant:
 
 	@OutOfView:
 
@@ -491,7 +494,7 @@ BridgeActivatePlatform:
 	tst.b  Bridge_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.w #Bridge_Width, Platform_Width(a2)
 	LIST_APPEND_TAIL Platforms, a2, a3
 	move.b #0x1, Bridge_PlatformActive(a0)
@@ -504,7 +507,7 @@ BridgeDeactivatePlatform:
 	tst.b  Bridge_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.w #0x0, Platform_Width(a2)
 	LIST_REMOVE Platforms, a2, a3, a4
 	move.b #0x0, Bridge_PlatformActive(a0)
@@ -517,7 +520,7 @@ BridgeActivateBarrier:
 	tst.b  Bridge_BarrierActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
+	addi.l #Bridge_Barrier, a2
 	LIST_APPEND_TAIL Barriers, a2, a3
 	move.b #0x1, Bridge_BarrierActive(a0)
 	@AlreadyActive:
@@ -529,7 +532,7 @@ BridgeDeactivateBarrier:
 	tst.b  Bridge_BarrierActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
+	addi.l #Bridge_Barrier, a2
 	LIST_REMOVE Barriers, a2, a3, a4
 	move.b #0x0, Bridge_BarrierActive(a0)
 	@AlreadyInactive:
@@ -725,11 +728,11 @@ BridgeUpdateBarrierPlatformPos:
 
 	; Unroll pos to pixels
 	TOPIXELS d4
-	add.w  #0x1, d4
+	addq.w #0x1, d4
 
 	; Set platform width to unroll pos
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.w d4, Platform_Width(a2)
 	move.b #0x1, Platform_Dirty(a2)
 
@@ -749,13 +752,13 @@ BridgeUpdateBarrierPlatformPos:
 
 	; Move barrier to unroll pos
 	move.l a0, a2
-	add.l  #Bridge_Barrier, a2
+	addi.l #Bridge_Barrier, a2
 	move.l Barrier_PosX(a2), d3
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	add.l  d4, d0
-	add.l  #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
+	addi.l #Bridge_BarrierXOffset*subpixels_per_pixel, d0
+	addi.l #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 
 	; Sub barrier width if flipped
 	tst.b  SpriteObj_FlippedX(a0)
@@ -791,13 +794,13 @@ BridgeUpdateDropping:
 	divu.w #Bridge_NotchWidth, d4
 	move.l a0, a2
 	move.l a0, a3
-	add.l  #Bridge_NotchYVel, a2
-	add.l  #Bridge_NotchYPos, a3
+	addi.l #Bridge_NotchYVel, a2
+	addi.l #Bridge_NotchYPos, a3
 	move.l Level_Gravity(a1), d0
 
 	tst.w  d4
 	beq    @FirstNotch
-	sub.w  #0x1, d4
+	subq.w  #0x1, d4
 	@NotchLp:
 	move.l (a2), d1		; Vel to a2
 	add.l  d0, d1		; Add gravity to vel
@@ -805,6 +808,23 @@ BridgeUpdateDropping:
 	add.l  d1, (a3)+	; Add to pos
 	dbra   d4, @NotchLp
 	@FirstNotch:
+
+	; If buoyant, check if first notch hits water
+	tst.b  Bridge_Buoyant(a0)
+	beq    @NotBuoyant
+
+	; Get notch bottom pos
+	move.l a0, a3
+	addi.l #Bridge_NotchYPos, a3
+	move.w Entity_WorldPosX(a0), d3
+	swap   d3
+	move.w (a3), d3
+	addi.w #Bridge_NotchHeight, d3
+
+	; Check all water bodies
+
+
+	@NotBuoyant:
 
 	; If already dropped, done here
 	cmp.b  #Bridge_StateDropped, Bridge_State(a0)
@@ -816,11 +836,11 @@ BridgeUpdateDropping:
 	beq    @FinishedDropping
 
 	; Unroll pos to pixels
-	add.w  #0x1, d4
+	addq.w #0x1, d4
 
 	; Reposition platform and set width
 	move.l a0, a2
-	add.l  #Bridge_Platform, a2
+	addi.l #Bridge_Platform, a2
 	move.w #Bridge_Width, d5			; Invert for width
 	sub.w  d4, d5
 	move.w d5, Platform_Width(a2)
