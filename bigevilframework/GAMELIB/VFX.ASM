@@ -94,7 +94,7 @@ VfxPlay:
 	PUSHL  a1
 
 	; If not already playing
-	cmp.b #0x0, AnimObj_Playing(a0)
+	tst.b AnimObj_Playing(a0)
 	bne   @Playing
 
 	; Set position
@@ -122,7 +122,7 @@ VfxUpdate:
 	; a1 --- Level addr
 
 	; If animation finished
-	cmp.b #0x0, AnimObj_Playing(a0)
+	tst.b AnimObj_Playing(a0)
 	bne   @Playing
 
 	; Stop updating and rendering

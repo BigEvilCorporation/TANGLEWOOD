@@ -178,15 +178,15 @@ BoulderUpdate:
 	; a1 --- Level addr
 	
 	; If unbreakable
-	cmp.b  #0x0, Boulder_CanCrack(a0)
+	tst.b  Boulder_CanCrack(a0)
 	beq    @Unbreakable
 	
 	; If not already cracked
-	cmp.b  #0x0, Boulder_Cracked(a0)
+	tst.b  Boulder_Cracked(a0)
 	beq    @NotCracked
 	
 	; Cracked, check if out of view
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	tst.b  SpriteObj_SpriteLinked(a0)
 	bne    @InView
 
 	;==============================================================
@@ -227,11 +227,11 @@ BoulderUpdate:
 	;==============================================================
 	
 	; If on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
 	
 	; On floor, check if not previously on floor
-	cmp.b  #0x0, Boulder_LastOnFloor(a0)
+	tst.b  Boulder_LastOnFloor(a0)
 	bne    @PrevOnFloor
 	
 	; Just hit the floor, check the last recorded Y velocity
@@ -287,18 +287,18 @@ BoulderUpdate:
 	move.l d6, -(sp)
 	
 	; Check monster active
-	cmp.b  #0x0, Entity_Active(a1)
+	tst.b  Entity_Active(a1)
 	beq    @NextMonster
 	
 	; Check monster alive
-	cmp.b  #0x0, Character_Dead(a1)
+	tst.b  Character_Dead(a1)
 	bne    @NextMonster
 	
 	; Bounds check
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr   PHYS_TestBoxIntersectBox
-	cmp.b #0x0, d0
+	tst.b d0
 	beq   @NextMonster
 	
 	; Boulder hit a monster, deal damage
@@ -357,7 +357,7 @@ BoulderUpdate:
 	;==============================================================
 
 	; Play roll SFX
-	cmp.b   #0x0, Boulder_Cracked(a0)
+	tst.b   Boulder_Cracked(a0)
 	bne     @EndRollSFX
 	move.l  PhysicsObj_VelX(a0), d0
 	cmp.l   #Boulder_RollSFXVel, d0
@@ -371,7 +371,7 @@ BoulderUpdate:
 	bra     @EndRollSFX
 
 	@NoRollSFX:
-	cmp.b   #0x0, Boulder_RollSFXPlaying(a0)
+	tst.b   Boulder_RollSFXPlaying(a0)
 	beq     @EndRollSFX
 	jsr     SND_StopSFX
 	move.b  #0x0, Boulder_RollSFXPlaying(a0)
@@ -381,7 +381,7 @@ BoulderUpdate:
 
 BoulderActivatePlatform:
 
-	cmp.b  #0x0, Boulder_PlatformActive(a0)
+	tst.b  Boulder_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2
@@ -393,7 +393,7 @@ BoulderActivatePlatform:
 
 BoulderDeactivatePlatform:
 
-	cmp.b  #0x0, Boulder_PlatformActive(a0)
+	tst.b  Boulder_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
 	add.l  #Boulder_Platform, a2

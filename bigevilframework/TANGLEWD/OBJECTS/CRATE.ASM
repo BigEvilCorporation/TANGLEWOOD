@@ -163,7 +163,7 @@ CrateUpdate:
 	bra     @EndPushSFX
 
 	@NoPushSFX:
-	cmp.b   #0x0, Crate_PushSFXPlaying(a0)
+	tst.b   Crate_PushSFXPlaying(a0)
 	beq     @EndPushSFX
 	jsr     SND_StopSFX
 	move.b  #0x0, Crate_PushSFXPlaying(a0)

@@ -114,7 +114,7 @@ PAL_LerpUpdate:
 	POPM   d0/a0
 
 	; Check if palette written to
-	cmp.b  #0x0, d1
+	tst.b  d1
 	beq    @PaletteNotWritten
 
 	; Palette written to, set dirty

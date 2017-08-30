@@ -26,7 +26,7 @@ CompareString:
         bne strcmp_diff  ; Chars differ, return
 
         ; Check for end of string
-        cmp.b #0x0, d1   ; Check char 1 for 0
+        tst.b d1   ; Check char 1 for 0
         beq strcmp_end   ; End of string, return
         
         addi #0x1, d3    ; Increment char counter
@@ -49,7 +49,7 @@ MCD_GetHardwareType:
         lea mcd_sig_1, a0
         lea mcd_bios_addr_1+mcd_sig_offset, a1
         jsr CompareString
-        cmp.b #0x0, d0
+        tst.b d0
         bne @NotType1
         move.l #0x1, d0 ; Found type 1
         rts
@@ -58,7 +58,7 @@ MCD_GetHardwareType:
         lea mcd_sig_2, a0
         lea mcd_bios_addr_2+mcd_sig_offset, a1
         jsr CompareString
-        cmp.b #0x0, d0
+        tst.b d0
         bne @NotType2
         move.l #0x2, d0 ; Found type 2
         rts
@@ -67,7 +67,7 @@ MCD_GetHardwareType:
         lea mcd_sig_3, a0
         lea mcd_bios_addr_3+mcd_sig_offset, a1
         jsr CompareString
-        cmp.b #0x0, d0
+        tst.b d0
         bne @NotType3
         move.l #0x3, d0 ; Found type 3
         rts
@@ -76,7 +76,7 @@ MCD_GetHardwareType:
         lea mcd_sig_4, a0
         lea mcd_bios_addr_4+mcd_sig_offset, a1
         jsr CompareString
-        cmp.b #0x0, d0
+        tst.b d0
         bne @NotType4
         move.l #0x4, d0 ; Found type 4
         rts

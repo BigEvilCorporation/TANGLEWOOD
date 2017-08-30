@@ -79,7 +79,7 @@ SND_PlayTrack:
 	beq    @Free
 
 	; If exclusivity held, bail
-	cmp.b  #0x0, audio_playback_locked
+	tst.b  audio_playback_locked
 	bne    @Busy
 
 	; Queue track
@@ -191,7 +191,7 @@ SND_PlaySFX:
 	cmp.l  #0x0, audio_current_sfx
 	beq    @EndStopCheck
 	jsr    SND_GetSFXBusy
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @EndStopCheck
 	move.l #0x0, audio_current_sfx
 	@EndStopCheck:
@@ -199,7 +199,7 @@ SND_PlaySFX:
 	;==============================================================
 
 	; If exclusivity held, bail
-	cmp.b  #0x0, audio_playback_locked
+	tst.b  audio_playback_locked
 	bne    @Busy
 
 	;==============================================================
@@ -341,7 +341,7 @@ SND_BeginFadeTrack:
 	move.b d0, audio_fader_speed
 
 	; Determine direction
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bgt    @FadeUp
 	blt    @FadeDown
 	bra    @End
@@ -374,7 +374,7 @@ SND_UpdateFader:
 	move.b (audio_volume_global), d1
 
 	; Determine direction
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bgt    @FadeUp
 	blt    @FadeDown
 	bra    @End
@@ -509,10 +509,10 @@ SND_UpdateTrack:
 	cmp.l  #0x0, audio_current_track
 	beq    @EndStopCheck
 	jsr    SND_GetEchoBusy	; If Echo is busy, check again later
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @EndStopCheck
 	jsr    SND_GetTrackBusy
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @EndStopCheck
 	move.l #0x0, audio_current_track
 	move.b #0x0, audio_playback_locked

@@ -75,15 +75,15 @@ TriggerBoxUpdate:
 	move.l a1, -(sp)
 	
 	; Check if enabled
-	cmp.b  #0x0, Entity_Active(a0)
+	tst.b  Entity_Active(a0)
 	beq    @Inactive
 	
 	; Check if box can be triggered multiple times
-	cmp.b  #0x0, TriggerBox_TriggerOnce(a0)
+	tst.b  TriggerBox_TriggerOnce(a0)
 	beq    @TriggerMultiple
 	
 	; Check if already triggered
-	cmp.b  #0x0, TriggerBox_Triggered(a0)
+	tst.b  TriggerBox_Triggered(a0)
 	bne    @Triggered
 	
 	@TriggerMultiple:
@@ -91,14 +91,14 @@ TriggerBoxUpdate:
 	;Get player
 	move.l (Player1), a1
 	
-	cmp.b  #0x0, TriggerBox_XOnly(a0)
+	tst.b  TriggerBox_XOnly(a0)
 	bne    @TestXOnly
 	
 	; Check player inside trigger box
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxInsideBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoIntersect
 	bra    @Intersect
 	
@@ -106,7 +106,7 @@ TriggerBoxUpdate:
 	
 	; Check player inside trigger box on X axis only
 	jsr    PHYS_TestEntityBoxInsideBoxX
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoIntersect
 	bra    @Intersect
 	
@@ -117,7 +117,7 @@ TriggerBoxUpdate:
 	@Intersect:
 	
 	; Check if already triggered
-	cmp.b  #0x0, TriggerBox_Triggered(a0)
+	tst.b  TriggerBox_Triggered(a0)
 	bne    @Triggered
 	
 	; Triggered this frame

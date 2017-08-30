@@ -113,11 +113,11 @@ FlueOccupantUpdate:
 
 	; Check if still ejecting an occupant
 	move.b FlueOccupant_Ejecting(a2), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @StillEjecting
 	
 	; If occupant was camera owner, wait for camera lerp
-	cmp.b  #0x0, FlueOccupant_CameraOwner(a2)
+	tst.b  FlueOccupant_CameraOwner(a2)
 	beq    @NotLerpingCamera
 	cmp.l  #0x0, CameraTargetLerpSource
 	bne    @LerpingCamera
@@ -177,7 +177,7 @@ FlueOccupantUpdate:
 	move.b #0x0, Character_Falling(a1)
 	
 	; If occupant was camera owner, give back control
-	cmp.b  #0x0, FlueOccupant_CameraOwner(a2)
+	tst.b  FlueOccupant_CameraOwner(a2)
 	beq    @NotCameraOwner
 	move.l a1, CameraTargetGameObj
 	move.l #0x0, CameraTargetLerpSource
@@ -213,12 +213,12 @@ FlueOccupantUpdate:
 	; Check if inside the flue
 	jsr	   FlueTestPhysicsObjInside
 
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @Outside
 
 	; Object inside, check if they were being ejected
 	move.b FlueOccupant_Ejecting(a2), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @End
 	bra    @AlreadyHolding
 	
@@ -297,7 +297,7 @@ FlueFindOccupant:
 	; Search all potential occupants
 	clr.l  d0
 	move.b (FlueNumPotentialOccupants), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoPotentialOccupants
 	sub.b  #0x1, d0
 	lea    FluePotentialOccupants, a5
@@ -324,7 +324,7 @@ FlueFindOccupant:
 	@NotCharacter:
 	
 	; Check active
-	cmp.b  #0x0, Entity_Active(a3)
+	tst.b  Entity_Active(a3)
 	beq    @NextEntity
 	
 	; Check if inside the flue
@@ -335,7 +335,7 @@ FlueFindOccupant:
 	POPL   d0						; Restore entity counter
 	move.l #0x0, a1					; Clear a1 again, it's the return val
 
-	cmp.b  #0x0, d1
+	tst.b  d1
 	beq    @Outside
 
 	; Object inside, check if already held

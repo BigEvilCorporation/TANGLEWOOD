@@ -53,7 +53,7 @@ CheckpointUpdate:
 	
 	; If not already active
 	; TODO: Remove from entity update list completely
-	cmp.b  #0x0, Checkpoint_Activated(a0)
+	tst.b  Checkpoint_Activated(a0)
 	bne    @AlreadyActivated
 	
 	; If player reaches checkpoint X pos, it is activated

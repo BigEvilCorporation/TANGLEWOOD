@@ -71,11 +71,11 @@ AnimObjUpdate:
 	@NoReverse:
 
 	; Check if dirty (new anim, set regardless of speed)
-	cmp.b  #0x0, AnimObj_Dirty(a0)
+	tst.b  AnimObj_Dirty(a0)
 	bne    @SkipSpeedTest
 	
 	; Skip if speed == 0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @ZeroSpeed
 
 	@SkipSpeedTest:
@@ -84,7 +84,7 @@ AnimObjUpdate:
 	ext.l  d0
 	
 	; Speed div
-	cmp.b  #0x0, Animation_NoSpeedScale(a2)
+	tst.b  Animation_NoSpeedScale(a2)
 	bne    @NoSpeedScale
 	move.b AnimObj_SpeedDiv(a0), d1
 	cmp.b  #0x1, d1
@@ -131,7 +131,7 @@ AnimObjUpdate:
 	lsr.l  #0x8, d2 ; New subframes to frames
 
 	; Check if dirty (new anim, set regardless of frame change)
-	cmp.b  #0x0, AnimObj_Dirty(a0)
+	tst.b  AnimObj_Dirty(a0)
 	bne    @SkipFrameCheck
 	
 	; Skip if no change in frame #
@@ -159,7 +159,7 @@ AnimObjDraw:
 	; a1 --- Level addr
 
 	; Check if new frame needs uploading to VRAM
-	cmp.b  #0x0, AnimObj_UploadFrame(a0)
+	tst.b  AnimObj_UploadFrame(a0)
 	beq    @NoNewFrame
 	
 	; Get current anim
@@ -167,7 +167,7 @@ AnimObjDraw:
 	
 	; Get length
 	move.b Animation_Length(a2), d3
-	cmp.b  #0x0, d3
+	tst.b  d3
 	beq    @ZeroLength
 
 	; Get subframe
@@ -206,7 +206,7 @@ AnimObjDraw:
 	swap   d2			   				; Remainder to lower word
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	ext.w  d3			   				; Sign extend
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)	; If X flipped
+	tst.b  SpriteObj_FlippedX(a0)	; If X flipped
 	beq    @NotFlippedX
 	neg.w  d3							; Negate X offset
 	@NotFlippedX:

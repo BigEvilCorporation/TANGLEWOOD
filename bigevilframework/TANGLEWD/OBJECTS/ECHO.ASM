@@ -324,7 +324,7 @@ EchoUpdate:
 	@Jumping:
 	
 	; Wait for anim to finish
-	cmp.b #0x0, AnimObj_Playing(a0)
+	tst.b AnimObj_Playing(a0)
 	bne   @InSequence
 	
 	; Snap to Nymn's position
@@ -351,7 +351,7 @@ EchoUpdate:
 	@Landing:
 	
 	; Wait for anim to finish
-	cmp.b #0x0, AnimObj_Playing(a0)
+	tst.b AnimObj_Playing(a0)
 	bne   @InSequence
 	
 	; Set riding state
@@ -677,7 +677,7 @@ EchoAIUpdate_Follow:
 	;PHYSICS_GETBOUNDS d1,d2,d5,a0
 	;PHYSICS_GETBOUNDS d3,d4,d5,a2
 	;jsr    PHYS_TestBoxIntersectBox
-	;cmp.b  #0x0, d0
+	;tst.b  d0
 	;bne    @CancelFollow
 
 	; If only doing linear follow, don't use lost timer and don't collect nodes

@@ -470,7 +470,7 @@ WyrmAIUpdate_Idle:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
 
 	; If player touching sand (on special terrain), wake up
@@ -661,7 +661,7 @@ WyrmAIUpdate_Follow:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
 
 	; If player invisible, assume safe (in flue)
@@ -687,7 +687,7 @@ WyrmAIUpdate_Follow:
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NotTouching
 
 	; Start bite state
@@ -748,7 +748,7 @@ WyrmAIUpdate_Follow:
 
 	; If hit wall, start burrowing
 	PHYSICS_HITFACINGWALL a0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @Burrow
 
 	; If hit end of sand dune, start burrowing

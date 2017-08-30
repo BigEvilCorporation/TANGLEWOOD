@@ -128,7 +128,7 @@ Generator_Activate:
 	; a1 --- Level addr
 	; a2 --- Fuzzl addr
 
-	cmp.b  #0x0, Generator_Running(a0)
+	tst.b  Generator_Running(a0)
 	bne    @AlreadyRunning
 
 	; Set Fuzzl

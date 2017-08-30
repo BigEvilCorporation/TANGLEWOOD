@@ -79,7 +79,7 @@ RasterEffectInterlacePlaneBUpdate:
 RasterEffectInterlacePlaneBHINT:
 
 	; Swap Plane B from upper to lower 32 tiles each scanline
-	cmp.b #0x0, raster_interlace_odd
+	tst.b raster_interlace_odd
 	beq   @Even
 
 	; Odd line

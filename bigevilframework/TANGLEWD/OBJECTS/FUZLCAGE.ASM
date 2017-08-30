@@ -160,15 +160,15 @@ FuzzlCageUpdate:
 	beq    @OutOfView
 	
 	; If not already smashed
-	cmp.b  #0x0, FuzzlCage_Smashed(a0)
+	tst.b  FuzzlCage_Smashed(a0)
 	bne    @Smashed
 	
 	; If on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
 	
 	; On floor, check if not previously on floor
-	cmp.b  #0x0, FuzzlCage_LastOnFloor(a0)
+	tst.b  FuzzlCage_LastOnFloor(a0)
 	bne    @PrevOnFloor
 	
 	; Just hit the floor, check the last recorded Y velocity
@@ -265,7 +265,7 @@ FuzzlCageUpdate:
 	bra     @EndPushSFX
 
 	@NoPushSFX:
-	cmp.b   #0x0, FuzzlCage_PushSFXPlaying(a0)
+	tst.b   FuzzlCage_PushSFXPlaying(a0)
 	beq     @EndPushSFX
 	jsr     SND_StopSFX
 	move.b  #0x0, FuzzlCage_PushSFXPlaying(a0)
@@ -289,7 +289,7 @@ FuzzlCageSetFuzzl:
 
 FuzzlCageActivatePlatform:
 
-	cmp.b  #0x0, FuzzlCage_PlatformActive(a0)
+	tst.b  FuzzlCage_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2
@@ -301,7 +301,7 @@ FuzzlCageActivatePlatform:
 
 FuzzlCageDeactivatePlatform:
 
-	cmp.b  #0x0, FuzzlCage_PlatformActive(a0)
+	tst.b  FuzzlCage_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
 	add.l  #FuzzlCage_UpperPlatform, a2

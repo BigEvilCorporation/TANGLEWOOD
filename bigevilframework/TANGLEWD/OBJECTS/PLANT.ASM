@@ -227,11 +227,11 @@ BouncePlantUpdate:
 	; a1 --- Level addr
 
 	; If active
-	cmp.b  #0x0, BouncePlant_Active(a0)
+	tst.b  BouncePlant_Active(a0)
 	beq    @Inactive
 
 	; Wait for active anim to finish
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @StillActive
 
 	; Back to idle

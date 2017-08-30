@@ -292,12 +292,12 @@ PlayerUpdate:
 	jsr    PlayerInteractTest_BouncePlants
 	
 	; Process sleep/snooze states
-	cmp.b  #0x0, Player_Sleeping(a0)
+	tst.b  Player_Sleeping(a0)
 	beq    @NotSleeping
 	jsr    PlayerUpdateSleep
 	@NotSleeping:
 	
-	cmp.b  #0x0, Player_Snoozing(a0)
+	tst.b  Player_Snoozing(a0)
 	beq    @NotSnoozing
 	jsr    PlayerUpdateIdleSnooze
 	@NotSnoozing:
@@ -309,7 +309,7 @@ PlayerUpdate:
 	move.b Character_Jumping(a0), PhysicsObj_FallThroughHoles(a0)
 	
 	; If dead and not red, switch back
-	cmp.b  #0x0, Character_Dead(a0)
+	tst.b  Character_Dead(a0)
 	beq    @NotDead
 	cmp.b  #ColourRed, Player_Colour(a0)
 	beq    @Red
@@ -371,7 +371,7 @@ PlayerUpdateSleep:
 	; a0 --- Character address
 	
 	; If animation finished, run looping sleep anim
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @LyingDown
 	
 	PUSHL  a1
@@ -646,11 +646,11 @@ PlayerStartColourAbility:
 	@MonsterLoop:
 	
 	; Check monster active
-	cmp.b  #0x0, Entity_Active(a1)
+	tst.b  Entity_Active(a1)
 	beq    @NextMonster
 	
 	; Check monster alive
-	cmp.b  #0x0, Character_Dead(a1)
+	tst.b  Character_Dead(a1)
 	bne    @NextMonster
 	
 	; Tame it
@@ -719,13 +719,13 @@ PlayerStopColourAbility:
 	@Yellow:
 	
 	; If inactive, don't bother
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	tst.b  Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
 	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	bne    @Walking
 	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @ReturnColour
@@ -740,7 +740,7 @@ PlayerStopColourAbility:
 	@Green:
 	
 	; If inactive, don't bother
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	tst.b  Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
 
 	; Reset palette
@@ -812,7 +812,7 @@ PlayerStopColourAbility:
 	@Blue:
 
 	; If riding
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
 	; Dismount
@@ -835,7 +835,7 @@ PlayerStopColourAbility:
 	beq    @NoPet
 
 	; If pet still alive
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @PetDead
 
 	; Pet no longer tamed
@@ -918,11 +918,11 @@ PlayerUpdateColourAbility:
 	@Yellow:
 	
 	; If active colour ability
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	tst.b  Player_ActiveColourAbility(a0)
 	beq    @End
 	
 	; If in air
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @EndGlide
 	
 	; If -ve Y velocity
@@ -940,7 +940,7 @@ PlayerUpdateColourAbility:
 	; Can't glide
 	move.b #0x0, Character_Gliding(a0)
 	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	bne    @Walking
 	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @End
@@ -961,7 +961,7 @@ PlayerUpdateColourAbility:
 	bgt   @SpeedUp
 	
 	; If colour ability inactive, start speeding up
-	cmp.b  #0x0, Player_ActiveColourAbility(a0)
+	tst.b  Player_ActiveColourAbility(a0)
 	beq    @SpeedUp
 	
 	; Slow down global time
@@ -1043,7 +1043,7 @@ PlayerUpdateColourAbility:
 	
 	; If power elapsed, switch back to red
 	jsr   PlayerColourAbilityElapsed
-	cmp.b #0x0, d0
+	tst.b d0
 	beq   @PowerStillActive
 
 	jsr    PlayerStopColourAbility
@@ -1175,7 +1175,7 @@ PlayerDismountPet:
 	beq    @NotRiding
 
 	; Check riding
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
 	; Zero player acceleration
@@ -1224,7 +1224,7 @@ PlayerDismountPet:
 
 	; Override player jump velocity
 	move.l #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @BuckRight
 	move.l #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
 	bra    @EndBuck
@@ -1269,7 +1269,7 @@ PlayerUpdateMount:
 	beq    @StateNone
 
 	; If pet dead, dismount immediately
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @PetDead
 
 	; Check other states
@@ -1349,7 +1349,7 @@ PlayerUpdateMount:
 
 	; If pet finished jumping, reset jump anim (non-looping anim, won't reset
 	; back to walk/run when finished because anim is updated manually)
-	cmp.b  #0x0, Character_Jumping(a2)
+	tst.b  Character_Jumping(a2)
 	bne    @PetJumping
 
 	; Pet finished jumping, end anim
@@ -1386,7 +1386,7 @@ PlayerForwardPetControls:
 	move.w PhysicsObj_AccelX(a0), PhysicsObj_AccelX(a2)
 
 	; Forward jump state onto pet
-	cmp.b  #0x0, Character_Jumping(a0)
+	tst.b  Character_Jumping(a0)
 	beq    @NotJumping
 
 	; If not already jumping
@@ -1485,7 +1485,7 @@ PlayerCanDismountPet:
 	@InRidingState:
 
 	; Check if pet is on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a2)
+	tst.b  PhysicsObj_CloseToFloor(a2)
 	bne    @PetOnFloor
 
 	; Pet in air, cannot dismount
@@ -1510,7 +1510,7 @@ PlayerStartInteract:
 	move.l d1, -(sp)
 
 	; If toggle state, this is actually an end request
-	cmp.b  #0x0, Player_InteractionToggle(a0)
+	tst.b  Player_InteractionToggle(a0)
 	beq    @NoToggle
 	move.b #0x0, Player_InteractionToggle(a0)
 	jsr    PlayerCancelInteract
@@ -1537,11 +1537,11 @@ PlayerStartInteract:
 	ENTITY_GETCENTREX d1, a2
 	cmp.l  d0, d1
 	blt    @RightOfObj
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	bne    @NoPushablesNear
 	bra    @Pushing
 	@RightOfObj:
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @NoPushablesNear
 	
 	@Pushing:
@@ -1626,7 +1626,7 @@ PlayerUpdatePushInteract:
 	jsr    PhysicsObjPushPullObj
 
 	; Outer bounds penetration flag in d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @StillPushing
 
 	; Cannot be pushed/no longer in range - clear pushing flags (but keep interaction flag until button depressed)
@@ -1683,7 +1683,7 @@ PlayerCancelInteract:
 	; NB: Gamepad state in d0-d1, leave alone
 
 	; If toggle state, need another PlayerStartInteract to end
-	cmp.b  #0x0, Player_InteractionToggle(a0)
+	tst.b  Player_InteractionToggle(a0)
 	bne    @ButtonToggle
 
 	;==============================================================
@@ -1713,7 +1713,7 @@ PlayerCancelInteract:
 	;==============================================================
 
 	; If riding
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
 	; Dismount (voluntarily)
@@ -1739,7 +1739,7 @@ PlayerInteractTest_Fuzzls:
 	
 	; Character must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @PlayerOffFloor
 	
 	move.w (EntityCount_Fuzzl), d6
@@ -1755,7 +1755,7 @@ PlayerInteractTest_Fuzzls:
 	@FuzzlLoop:
 
 	; Check on screen
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @NextFuzzl
 
 	; Check if fuzzl is in its nest
@@ -1769,7 +1769,7 @@ PlayerInteractTest_Fuzzls:
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NextFuzzl
 	
 	; Check if fuzzl still has its colour
@@ -1824,24 +1824,24 @@ PlayerInteractTest_Pet:
 	beq    @CannotRide
 
 	; Player must not already be riding
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	bne    @CannotRide
 	
 	; Player must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @CannotRide
 
 	; Pet must be on screen
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @CannotRide
 
 	; Pet must be alive
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @CannotRide
 
 	; Pet must be on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a2)
+	tst.b  PhysicsObj_CloseToFloor(a2)
 	beq    @CannotRide
 
 	; Pet must be tamed
@@ -1852,7 +1852,7 @@ PlayerInteractTest_Pet:
 	ENTITY_GETBOUNDS d1,d2,d5,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @CannotRide
 
 	; Ride ze Shoopuf
@@ -1886,7 +1886,7 @@ PlayerInteractTest_Fireflies:
 	@FireflyLoop:
 
 	; Check on screen
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @NextFirefly
 
 	; Test collision
@@ -1933,11 +1933,11 @@ PlayerInteractTest_Water:
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoIntersect
 	
 	; Player in water, check if not previously in water
-	cmp.b  #0x0, Character_InWater(a0)
+	tst.b  Character_InWater(a0)
 	bne    @PrevInWater
 
 	; Set in water
@@ -2000,7 +2000,7 @@ PlayerInteractTest_BouncePlants:
 	IFND DEBUG
 
 	; Check if player off floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @End
 
 	; Check player travelling towards plant platform
@@ -2021,7 +2021,7 @@ PlayerInteractTest_BouncePlants:
 	@PlantLoop:
 
 	; Check on screen
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a2)
+	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @NextPlant
 	
 	; Get plant collision bounds
@@ -2031,7 +2031,7 @@ PlayerInteractTest_BouncePlants:
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NextPlant
 	
 	; Calculate bounce vector

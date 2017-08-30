@@ -33,7 +33,7 @@ UpdateInput:
 	; Player 1 movement
 	move.l (Player1), a0
 	move.l (CurrentLevel), a1
-	cmp.b  #0x0, Player_ControlEnabled(a0)
+	tst.b  Player_ControlEnabled(a0)
 	beq    @NoControlP1
 	jsr    HandlePlayerInput
 	@NoControlP1:
@@ -49,7 +49,7 @@ UpdateInput:
 	
 	; Player 2 movement
 	;move.l (Player2), a0
-	;cmp.b  #0x0, Player_ControlEnabled(a0)
+	;tst.b  Player_ControlEnabled(a0)
 	;beq    @NoControlP2
 	;jsr    HandlePlayerInput
 	;@NoControlP2:
@@ -69,7 +69,7 @@ HandlePlayerInput:
 	; Handle debug input first
 	IFND FINAL
 	jsr   HandleDebugInput
-	cmp.b #0x0, d2
+	tst.b d2
 	bne   @SkipInput
 	ENDIF
 
@@ -179,7 +179,7 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	; Check if current player interaction is using toggle behaviour
-	cmp.b  #0x0, Player_InteractionToggle(a0)
+	tst.b  Player_InteractionToggle(a0)
 	bne    @ToggleC
 
 	btst #input_interact, d0		; Check C button
@@ -267,7 +267,7 @@ HandleDebugInput:
 	bne    @NoMoveModeCombo
 	cmp.w  #DebugButtonCombo_MoveObject, d1
 	beq    @NoMoveModeCombo
-	cmp.b  #0x0, DebugMoveObjectMode
+	tst.b  DebugMoveObjectMode
 	beq    @EnableMoveMode
 	move.b #0x0, DebugMoveObjectMode
 	bra    @DebugInputHandled
@@ -278,7 +278,7 @@ HandleDebugInput:
 	@NoMoveModeCombo:
 	
 	; Handle debug move mode
-	cmp.b  #0x0, DebugMoveObjectMode
+	tst.b  DebugMoveObjectMode
 	beq    @MoveModeDisabled
 
 	; Default move speed

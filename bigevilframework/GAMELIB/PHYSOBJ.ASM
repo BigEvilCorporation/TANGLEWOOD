@@ -181,7 +181,7 @@ PhysicsObjUpdate:
 	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @Invisible
 	
-	cmp.b  #0x0, PhysicsObj_HasPhysics(a0)
+	tst.b  PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
 	
 	; Get current animation
@@ -190,7 +190,7 @@ PhysicsObjUpdate:
 	beq    @NoAnim
 	
 	; Check if velocity is to be cancelled
-	cmp.b #0x0, Animation_ZeroVelocity(a2)
+	tst.b Animation_ZeroVelocity(a2)
 	beq   @NoVelCancel
 	
 	; Cancel out acceleration + velocity (except platform velocity)
@@ -212,20 +212,20 @@ PhysicsObjUpdate:
 	jsr PhysicsObjApplyVelocity
 	
 	; Find floor
-	cmp.b  #0x0, PhysicsObj_CollideFloor(a0)
+	tst.b  PhysicsObj_CollideFloor(a0)
 	beq    @NoCheckFloor
 	move.b #0x0, d0
 	jsr    PhysicsObjFindFloor
 	@NoCheckFloor:
 
 	; Find ceiling
-	cmp.b  #0x0, PhysicsObj_CollideCeilings(a0)
+	tst.b  PhysicsObj_CollideCeilings(a0)
 	beq    @NoCheckCeilings
 	jsr    PhysicsObjFindCeiling
 	@NoCheckCeilings:
 	
 	; Find wall (bottom probe)
-	cmp.b  #0x0, PhysicsObj_CollideWalls(a0)
+	tst.b  PhysicsObj_CollideWalls(a0)
 	beq    @NoCheckWall
 	move.b #0x0, d0
 	jsr    PhysicsObjFindWall
@@ -328,7 +328,7 @@ PhysicsObjApplyAccelDecel:
 	move.l d1, PhysicsObj_VelX(a0)		; Back to RAM
 	
 	; Get max X velocity
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @AirVelocity
 	move.l PhysicsObj_MaxVelFloorX(a0), d0	; Get max velocity +ve
 	bra    @FloorVelocity
@@ -337,7 +337,7 @@ PhysicsObjApplyAccelDecel:
 	@FloorVelocity:
 
 	; Check clamp type
-	cmp.b  #0x0, PhysicsObj_MaxVelClamp(a0)
+	tst.b  PhysicsObj_MaxVelClamp(a0)
 	bne    @ClampMaxVelX
 	
 	; Check if past max velocity
@@ -365,7 +365,7 @@ PhysicsObjApplyAccelDecel:
 	
 	; Only decelerate (when X controls idle) if not in air
 	move.b PhysicsObj_OnFloor(a0), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @EndAccelDecel
 
 	@ClampSpeedDecel:
@@ -460,7 +460,7 @@ PhysicsObjApplyWorldForces:
 	;==============================================================
 	; Apply gravity
 
-	cmp.b  #0x0, PhysicsObj_AffectedByGravity(a0)
+	tst.b  PhysicsObj_AffectedByGravity(a0)
 	beq    @NotAffectedByGravity
 	
 	; Get gravity
@@ -489,7 +489,7 @@ PhysicsObjApplyWorldForces:
 	;==============================================================
 	; Apply wind
 
-	cmp.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	tst.b  PhysicsObj_AffectedByWind(a0)
 	beq    @NotAffectedByWind
 
 	; Get wind force
@@ -499,7 +499,7 @@ PhysicsObjApplyWorldForces:
 
 	; Get wind resistance
 	move.l PhysicsObj_WindResistanceFloor(a0), d3
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @OnFloor
 	move.l PhysicsObj_WindResistanceAir(a0), d3
 	@OnFloor:
@@ -679,7 +679,7 @@ PhysicsObjCollisionCorrection:
 	; If hit floor this frame, handle bounce
 	clr.l  d0										; Zero Y velocity by default
 	clr.l  d1
-	cmp.b  #0x0, d4
+	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	cmp.w  #0x0, d1
@@ -707,7 +707,7 @@ PhysicsObjCollisionCorrection:
 	cmp.l  d2, d1									; Check if object is on or under floor-step height
 	blt    @NotCloseToFloor
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
-	cmp.b  #0x0, PhysicsObj_SnapToFloor(a0)			; Check if snap to floor is enabled
+	tst.b  PhysicsObj_SnapToFloor(a0)			; Check if snap to floor is enabled
 	beq    @SnapToFloorDisabled
 	add.l  d3, d2
 	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
@@ -828,7 +828,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 
 	; If forced, skip velocity checks
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @SkipVelocityCheck
 	
 	; Check if positive Y velocity (don't bother finding floor)
@@ -883,7 +883,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 	; Find platform first
 	
-	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
+	tst.b PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
@@ -1116,7 +1116,7 @@ PhysicsObjFindWall:
 	;==============================================================
 	; Find barrier first
 	
-	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
+	tst.b PhysicsObj_CollideBarriers(a0)
 	beq   @NoBarrier
 
 	; If previously hitting a barrier, clear all flags
@@ -1428,7 +1428,7 @@ PhysicsObjFindMovingFloor:
 	;==============================================================
 	; Find platform
 	
-	cmp.b #0x0, PhysicsObj_CollidePlatforms(a0)
+	tst.b PhysicsObj_CollidePlatforms(a0)
 	beq   @NoPlatform
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
@@ -1524,7 +1524,7 @@ PhysicsObjFindMovingBarrier:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	cmp.b #0x0, PhysicsObj_CollideBarriers(a0)
+	tst.b PhysicsObj_CollideBarriers(a0)
 	beq   @NoBarrier
 
 	; If previously hitting a moving barrier, clear all flags
@@ -1751,7 +1751,7 @@ PhysicsObjFindPushable:
 	beq    @NoPushableObj
 	
 	; Check if can be pushed
-	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	tst.b  PhysicsObj_CanBePushed(a2)
 	beq    @NextPushingObj
 
 	; Can't collide with self
@@ -1769,7 +1769,7 @@ PhysicsObjFindPushable:
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NextPushingObj
 	
 	; Bounds intersect with outer bounds, found
@@ -1799,9 +1799,9 @@ PhysicsObjPushPullObj:
 	move.b #0x0, d0
 
 	; Check if can be pushed/pulled
-	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	tst.b  PhysicsObj_CanBePushed(a2)
 	bne    @CanPush
-	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	tst.b  PhysicsObj_CanBePulled(a2)
 	bne    @CanPull
 	bra    @CannotPush
 
@@ -1820,7 +1820,7 @@ PhysicsObjPushPullObj:
 	PHYSICS_GROWBOUNDS d3,d4,d0
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @OutOfOuterBounds
 
 	;==============================================================
@@ -1834,11 +1834,11 @@ PhysicsObjPushPullObj:
 	;==============================================================
 	
 	; Can be pushed/pulled to/from the left, check pusher is facing left
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @WrongDirection
 
 	; Check if can be pulled
-	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	tst.b  PhysicsObj_CanBePulled(a2)
 	beq    @CannotPullLeft
 
 	; If heading right, pulling
@@ -1848,7 +1848,7 @@ PhysicsObjPushPullObj:
 	@CannotPullLeft:
 
 	; Check if can be pushed, and not hitting wall to the left
-	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	tst.b  PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
 	move.b PhysicsObj_HitWall(a2), d5
 	andi.b #PhysicsObjHitWallLeft, d5
@@ -1858,7 +1858,7 @@ PhysicsObjPushPullObj:
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @OutOfInnerBounds
 
 	@PullingFromLeft:
@@ -1877,11 +1877,11 @@ PhysicsObjPushPullObj:
 	@PushRight:
 	
 	; Can be pushed/pulled to/from the right, check pusher is facing right
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	bne    @WrongDirection
 
 	; Check if can be pulled
-	cmp.b  #0x0, PhysicsObj_CanBePulled(a2)
+	tst.b  PhysicsObj_CanBePulled(a2)
 	beq    @CannotPullRight
 
 	; If heading left, pulling
@@ -1891,7 +1891,7 @@ PhysicsObjPushPullObj:
 	@CannotPullRight:
 
 	; Check if can be pushed, and not hitting wall to the right
-	cmp.b  #0x0, PhysicsObj_CanBePushed(a2)
+	tst.b  PhysicsObj_CanBePushed(a2)
 	beq    @CannotPush
 	move.b PhysicsObj_HitWall(a2), d5
 	andi.b #PhysicsObjHitWallRight, d5
@@ -1901,7 +1901,7 @@ PhysicsObjPushPullObj:
 	PUSHM  d1-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @OutOfInnerBounds
 
 	@PullingFromRight:

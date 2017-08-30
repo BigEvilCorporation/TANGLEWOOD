@@ -319,12 +319,12 @@ MonsterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	cmp.b  #0x0, Entity_Active(a0)
+	tst.b  Entity_Active(a0)
 	beq    @Inactive
 	
 	; If dead, but state not yet set, set it
 	; TODO: bit of a hack, may need a vtable for Die() in Character
-	cmp.b  #0x0, Character_Dead(a0)
+	tst.b  Character_Dead(a0)
 	beq    @NotDead
 	cmp.b  #MonsterState_Dead, Monster_State(a0)
 	beq    @DeadSet
@@ -533,7 +533,7 @@ MonsterCheckPlayerVisible:
 	
 	jsr    PHYS_TestPointInsideBox
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NotSeen
 	
 	; Set as last found player pos
@@ -583,7 +583,7 @@ MonsterCheckBarrier:
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NextMarker
 	
 	; Found, check heading in right direction
@@ -759,7 +759,7 @@ MonsterUpdateWaitForPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @PlayerDead
 	
 	; If player cloaked, don't bother
@@ -777,7 +777,7 @@ MonsterUpdateWaitForPlayer:
 	bgt    @OutOfRumbleSoundRange
 	
 	; If not already playing, begin playback
-	cmp.b  #0x0, Monster_RumblePlayed(a0)
+	tst.b  Monster_RumblePlayed(a0)
 	bne    @Playing
 	
 	PUSHM  a0/d0-d1
@@ -799,7 +799,7 @@ MonsterUpdateWaitForPlayer:
 	bgt   @OutOfPlayerRange
 
 	; Within range
-	cmp.b #0x0, Monster_DoIntro(a0)
+	tst.b Monster_DoIntro(a0)
 	beq   @RoarState
 	jsr   MonsterStartEmergeFromCave	; Start emerge sequence
 	bra   @EndEmergeState
@@ -900,11 +900,11 @@ MonsterUpdateRoaring:
 	; a1 --- Level addr
 	
 	; Check if anim finished
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @AnimPlaying
 	
 	; Finish mini-cutscene if playing (release player control and camera)
-	cmp.b  #0x0, Monster_BlockingCtrl(a0)
+	tst.b  Monster_BlockingCtrl(a0)
 	beq    @NotBlockingPlayerCtrl
 	
 	move.l (Player1), a2
@@ -947,7 +947,7 @@ MonsterStartSearchForPlayer:
 
 	; Start search theme (if player not dead)
 	move.l (Player1), a2
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
 	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
 	beq    @TrackPlaying
@@ -969,11 +969,11 @@ MonsterUpdateSearchForPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, search around
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @Searching
 	
 	; If player inactive, search around
-	cmp.b  #0x0, Entity_Active(a2)
+	tst.b  Entity_Active(a2)
 	beq    @Searching
 	
 	; If player is cloaked, search around
@@ -982,7 +982,7 @@ MonsterUpdateSearchForPlayer:
 	
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @Searching
 	
 	; Player visible, roar and chase
@@ -1049,12 +1049,12 @@ MonsterUpdateSearchForPlayer:
 	
 	; Check if hit a wall
 	PHYSICS_HITFACINGWALL a0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @HitWall
 
 	; Check if hit an AI barrier
 	jsr    MonsterCheckBarrier
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @HitWall
 	
 	; Check if near target
@@ -1133,11 +1133,11 @@ MonsterUpdateTrackPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @PlayerDead
 	
 	; If player inactive, don't bother
-	cmp.b  #0x0, Entity_Active(a2)
+	tst.b  Entity_Active(a2)
 	beq    @PlayerInactive
 	
 	; If player is cloaked, don't bother
@@ -1160,12 +1160,12 @@ MonsterUpdateTrackPlayer:
 	
 	; Check if hit a wall
 	PHYSICS_HITFACINGWALL a0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @HitWall
 
 	; Check if hit an AI barrier
 	jsr    MonsterCheckBarrier
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @HitWall
 	
 	;==============================================================
@@ -1178,7 +1178,7 @@ MonsterUpdateTrackPlayer:
 	sub.l  d0, d1							; Calc distance
 	
 	; If out of view, check max chase dist
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	tst.b  SpriteObj_SpriteLinked(a0)
 	bne    @InView
 	
 	; Check if outside max chase distance
@@ -1192,7 +1192,7 @@ MonsterUpdateTrackPlayer:
 	@OutsideMaxChaseDistR:
 	
 	; Outside max chase dist, multiply speed to catch up
-	cmp.b  #0x0, Monster_CatchingUp(a0)
+	tst.b  Monster_CatchingUp(a0)
 	bne    @SpeedBoostApplied
 	move.w Character_MaxVelXRun(a0), d0		; (top word = integer part)
 	mulu.w Monster_CatchUpSpeedMul(a0), d0	; Mul max run velocity
@@ -1205,7 +1205,7 @@ MonsterUpdateTrackPlayer:
 	@WithinMaxChaseDist:
 
 	; Within max chase dist, reset catchup speed if applied
-	cmp.b  #0x0, Monster_CatchingUp(a0)
+	tst.b  Monster_CatchingUp(a0)
 	beq    @EndMaxDistCheck
 	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
@@ -1241,7 +1241,7 @@ MonsterUpdateTrackPlayer:
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @End
 	
 	; Attack
@@ -1338,7 +1338,7 @@ MonsterUpdateBite:
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @OutOfHitBox
 	
 	; Deal damage to player
@@ -1348,7 +1348,7 @@ MonsterUpdateBite:
 	jsr    CharacterDealDamage
 
 	; If player dead, stop attack music
-	cmp.b  #0x0, Character_Dead(a0)
+	tst.b  Character_Dead(a0)
 	beq    @PlayerNotDead
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 	beq    @NotPlaying
@@ -1465,7 +1465,7 @@ MonsterUpdateBucking:
 	; a1 --- Level addr
 	
 	; Check if anim finished
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @AnimPlaying
 	
 	; Pass anim control back to character

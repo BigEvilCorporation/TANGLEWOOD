@@ -32,7 +32,7 @@ DBG_Profile_BeginFrame:
 	; Marks the start of a profiling frame
 	; No args
 	
-	cmp.b  #0x0, profile_pending
+	tst.b  profile_pending
 	beq    @Inactive
 	
 	; Profile pending, begin collecting timings
@@ -55,7 +55,7 @@ DBG_Profile_EndFrame:
 	; Marks the end of a profiling frame
 	; No args
 	
-	cmp.b  #0x0, profile_active
+	tst.b  profile_active
 	beq    @Inactive
 	
 	; Pop root block
@@ -73,7 +73,7 @@ DBG_Profile_PushScope:
 	; Marks the start of a named profiling section
 	; a0 --- Address of scope name string
 	
-	cmp.b  #0x0, profile_active
+	tst.b  profile_active
 	beq    @Inactive
 	
 	movem.l d0-d7/a0-a6, -(sp)
@@ -120,7 +120,7 @@ DBG_Profile_PopScope:
 	; Marks the end of a profiling section
 	; No args
 	
-	cmp.b  #0x0, profile_active
+	tst.b  profile_active
 	beq    @Inactive
 	
 	movem.l d0-d7/a0-a6, -(sp)
@@ -173,7 +173,7 @@ DBG_Profile_DrawResults:
 	; Renders the results of the last profiling capture
 	; No args
 	
-	cmp.b #0x0, profile_finished
+	tst.b profile_finished
 	beq   @NoResults
 	
 	; Get root block
@@ -245,7 +245,7 @@ DBG_Profile_DrawBlockRecursive:
 	
 	; Iterate child ptrs
 	move.b ProfileBlockChildCount(a0), d2
-	cmp.b  #0x0, d2
+	tst.b  d2
 	beq    @NoChildren
 	andi.w #0x00FF, d2
 	subi.w #0x1, d2

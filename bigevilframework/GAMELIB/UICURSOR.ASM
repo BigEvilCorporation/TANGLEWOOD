@@ -103,7 +103,7 @@ UIWidgetCursorAddWidget:
 	move.l a1, (a2)
 
 	; If first widget, set focus
-	cmp.b  #0x0, UIWidgetCursor_NumWidgets(a0)
+	tst.b  UIWidgetCursor_NumWidgets(a0)
 	bne    @NotFirst
 	move.b #0x0, d0
 	jsr    UIWidgetCursorSelect
@@ -199,7 +199,7 @@ UIWidgetCursorUpdate:
 	; Navigate up
 	move.b UIWidgetCursor_NumWidgets(a0), d1
 	move.b UIWidgetCursor_CurrIndex(a0), d2
-	cmp.b  #0x0, d2
+	tst.b  d2
 	bne    @NoWrapDown
 	move.b d1, d2
 	@NoWrapDown:

@@ -374,7 +374,7 @@ FuzzlUpdate:
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; If not already registered as potential flue occupant, do it now
-	cmp.b  #0x0, Fuzzl_FlueOccupant(a0)
+	tst.b  Fuzzl_FlueOccupant(a0)
 	bne    @Registered
 	jsr    FlueAddPotentialOccupant
 	move.b #0x1, Fuzzl_FlueOccupant(a0)
@@ -399,12 +399,12 @@ FuzzlUpdate:
 
 	; Check if entering a nest
 	jsr    FuzzlFindNest
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @InNest
 
 	; Check if entering a generator
 	jsr    FuzzlFindGenerator
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @InGenerator
 	
 	; Not home
@@ -427,7 +427,7 @@ FuzzlUpdate:
 	btst  #Fuzzl_State_Fling, Fuzzl_State_bits(a0)
 	beq   @NotBeingFlung
 	
-	cmp.b #0x0, PhysicsObj_OnFloor(a0)
+	tst.b PhysicsObj_OnFloor(a0)
 	beq   @InAir
 	
 	; On floor, finished flinging
@@ -456,7 +456,7 @@ FuzzlUpdate:
 	move.b #0x1, d0
 	move.b Fuzzl_State_Bits(a0), d1
 	andi.b #(1<<Fuzzl_State_Home)|(1<<Fuzzl_State_Generator)|(1<<Fuzzl_State_Asleep), d1
-	cmp.b  #0x0, d1
+	tst.b  d1
 	beq    @CanPush
 	move.b #0x0, d0
 	@CanPush:
@@ -476,11 +476,11 @@ FuzzlUpdate:
 	POPL   d0
 	
 	; Check if on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @SFXInAir
 	
 	; Check if previously on floor
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @SFXPrevOnFloor
 	
 	; If hit floor at landing velocity
@@ -569,7 +569,7 @@ FuzzlFindNest:
 	POPL  a1
 	
 	; Result in d0
-	cmp.b #0x0, d0
+	tst.b d0
 	beq   @NestNotInRange
 	
 	; Touching nest, snap to into position
@@ -654,7 +654,7 @@ FuzzlFindGenerator:
 	POPL  a1
 	
 	; Result in d0
-	cmp.b #0x0, d0
+	tst.b d0
 	beq   @NextGenerator
 	
 	; Touching nest, snap to into position

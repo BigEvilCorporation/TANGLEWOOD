@@ -19,7 +19,7 @@ SPR_AddMultiSprite:
 	; a2 ---  Subsprite position offsets array (ww * numSubsprites)
 
 	; If unflipped, offset pos array to read from upper word
-	cmp.b  #0x0, d5
+	tst.b  d5
 	bne    @FlippedX
 	sub.l  #size_word, a2
 	@FlippedX:

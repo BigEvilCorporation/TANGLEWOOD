@@ -266,7 +266,7 @@ NymnStartInteract:
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @EchoNotFound
 	
 	; Near Echo, begin carry sequence
@@ -298,7 +298,7 @@ NymnStartInteract:
 	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)
 	bne    @NotIdle
 	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.b  #0x0, Animation_Looping(a2)
+	tst.b  Animation_Looping(a2)
 	beq    @NotIdle
 
 	; Howl

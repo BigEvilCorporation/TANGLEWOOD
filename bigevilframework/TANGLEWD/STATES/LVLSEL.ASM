@@ -183,7 +183,7 @@ LevelSelect_Update:
 	
 	; Wait for fade to finish
 	jsr    PAL_LerpActive
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @Fading
 	
 	; If already started fade to black

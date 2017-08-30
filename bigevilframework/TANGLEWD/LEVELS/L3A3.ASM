@@ -479,7 +479,7 @@ l3a3MeetEchoUpdateStage_RunScared:
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a3
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @EchoRun
 
 	; Next state
@@ -528,7 +528,7 @@ l3a3MeetEchoUpdateStage_Hide:
 	move.l (Player2), a0
 	
 	; Wait for hide animation to finish
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @End
 	
 	; Next state
@@ -619,7 +619,7 @@ l3a3MeetEchoUpdateStage_WaitDjakkDead:
 
 	; Wait for Djakk to die
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a3
-	cmp.b  #0x0, Character_Dead(a3)
+	tst.b  Character_Dead(a3)
 	beq    @End
 	
 	; Next state
@@ -687,7 +687,7 @@ l3a3MeetEchoUpdateStage_StandUp:
 	move.l (Player2), a0
 	
 	; Wait for stand animation to finish
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @End
 	
 	; Next state
@@ -767,7 +767,7 @@ l3a3MeetEchoUpdateStage_JumpNymn:
 	move.l (Player2), a0
 	
 	; Wait for pounce animation to finish
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @End
 	
 	; Next state
@@ -833,7 +833,7 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	move.l (Player1), a0
 	
 	; Wait for greet animation to finish
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @End
 	
 	; Done

@@ -119,7 +119,7 @@ LeafUpdate:
 
 	; Check if already active
 	move.b Entity_Active(a0), d0
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @AlreadyActive
 	
 	; Check reset timer

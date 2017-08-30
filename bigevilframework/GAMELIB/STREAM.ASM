@@ -80,7 +80,7 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Process the VDP job queue immediately if required
-	cmp.b   #0x0, d0
+	tst.b   d0
 	beq     @NoFlush
 	PUSHALL
 	jsr     VDP_JobQueue_ExecuteAll

@@ -72,7 +72,7 @@ TXT_DrawPlane:
 	add.b    d1, d4                 ; Add X coord to offset
 	lsl.w    #0x1, d4               ; Convert to words
 
-	cmp.b   #0x0, d3
+	tst.b   d3
 	bne     @PlaneB
 	add.l   #vram_addr_plane_a, d4	; Add VRAM address offset
 	bra     @EndSelectPlane

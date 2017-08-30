@@ -27,7 +27,7 @@ INT_VBlank:
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE
    ENDIF
 
-   cmp.b #0x0, vint_enabled
+   tst.b vint_enabled
    beq   @VINTDisabled
    
    ; Jump to game rendering subroutine

@@ -343,7 +343,7 @@ LiftProcessCounterweight:
 	bgt    @ThisLiftHeadingUp
 
 	; Check if on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @ThisLiftInAir
 
 	; On floor, stop both lifts
@@ -369,7 +369,7 @@ LiftProcessCounterweight:
 	bgt    @OtherLiftHeadingUp
 
 	; Check if on floor
-	cmp.b  #0x0, PhysicsObj_OnFloor(a2)
+	tst.b  PhysicsObj_OnFloor(a2)
 	beq    @OtherLiftInAir
 
 	; On floor, stop both lifts
@@ -420,7 +420,7 @@ LiftUpdate:
 	IF LIFT_ROPE_SUPPORT_SWING
 	
 	; If not on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @OnFloor
 	
 	; Swing towards origin
@@ -494,7 +494,7 @@ LiftUpdate:
 	
 	;==============================================================
 
-	cmp.b  #0x0, Lift_RestrictHeight(a0)
+	tst.b  Lift_RestrictHeight(a0)
 	beq    @NoRestrictHeight
 	
 	; Don't fall beyond rope length

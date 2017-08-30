@@ -163,13 +163,13 @@ LogUpdate:
 	;==============================================================
 
 	; If on floor, set roll accel
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @InAir
 	move.w Log_FloorRollAccel(a0), PhysicsObj_AccelX(a0)
 	@InAir:
 
 	; If hit a wall, clear accel, can be pushed, not hazardous
-	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	tst.b  PhysicsObj_HitWall(a0)
 	beq    @NotHitWall
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, Log_FloorRollAccel(a0)
@@ -177,7 +177,7 @@ LogUpdate:
 	move.b #0x0, AnimObj_UpdateOutOfView(a0)
 
 	; If hazardous, disable camera shake
-	cmp.b  #0x0, Log_Hazardous(a0)
+	tst.b  Log_Hazardous(a0)
 	beq    @NotHitWall
 
 	move.b #0x0, Log_Hazardous(a0)
@@ -207,11 +207,11 @@ LogUpdate:
 	;==============================================================
 
 	; If hazardous
-	cmp.b  #0x0, Log_Hazardous(a0)
+	tst.b  Log_Hazardous(a0)
 	beq    @NotHazardous
 
 	; Camera shake if rolling on floor
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @ShakeOff
 
 	; Shake on
@@ -248,7 +248,7 @@ LogUpdate:
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoDamage
 
 	; Deal damage
@@ -282,7 +282,7 @@ LogUpdate:
 	bra     @EndRollSFX
 
 	@NoRollSFX:
-	cmp.b   #0x0, Log_RollSFXPlaying(a0)
+	tst.b   Log_RollSFXPlaying(a0)
 	beq     @EndRollSFX
 	jsr     SND_StopSFX
 	move.b  #0x0, Log_RollSFXPlaying(a0)

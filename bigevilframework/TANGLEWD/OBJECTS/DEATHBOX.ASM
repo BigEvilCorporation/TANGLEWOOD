@@ -59,14 +59,14 @@ DeadboxUpdate:
 	beq    @NoCharacter
 
 	; If dead, don't bother
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	bne    @NextCharacter
 
 	; Check bounds
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NextCharacter
 	
 	; Character inside

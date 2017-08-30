@@ -125,7 +125,7 @@ l1a1_Update:
 	
 	; Check waiting for input
 	move.l #LevelData_L1A1, a2
-	cmp.b #0x0, l1a1Data_WaitingInput(a2)
+	tst.b l1a1Data_WaitingInput(a2)
 	beq    @FinishedLevelStartSequence
 	
 	; Read pad

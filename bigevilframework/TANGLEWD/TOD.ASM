@@ -10,7 +10,7 @@ TODMaxColours	equ 0xF
 
 UpdateTimeOfDay:
 
-	cmp.b  #0x0, (TimeOfDayEnabled)
+	tst.b  (TimeOfDayEnabled)
 	beq    @TODDisabled
 
 	; Check if TOD delay finished

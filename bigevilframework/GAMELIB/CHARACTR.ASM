@@ -162,7 +162,7 @@ CharacterUpdate:
 	POPL   d0
 	
 	; If on floor, no longer jumping or falling
-	cmp.b  #0x0, PhysicsObj_OnFloor(a0)
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @OffFloor
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Falling(a0)
@@ -170,7 +170,7 @@ CharacterUpdate:
 	; =====================================================================
 	
 	; Check if previously on floor
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @PrevOnFloor
 	
 	; If hit floor at landing velocity
@@ -196,7 +196,7 @@ CharacterUpdate:
 	@NotFalling:
 	
 	; If in water, prevent running
-	cmp.b  #0x0, Character_InWater(a0)
+	tst.b  Character_InWater(a0)
 	beq    @NotInWater
 	move.b #Character_WalkWater, d2
 	jsr    CharacterPreventRun
@@ -207,12 +207,12 @@ CharacterUpdate:
 	@EndRunTest:
  
 	; If not locked, apply sprite flipping
-	cmp.b #0x0, Character_LockSpriteFlip(a0)
+	tst.b Character_LockSpriteFlip(a0)
 	bne   @FlipLocked
 	jsr   CharacterApplySpriteFlip
 	@FlipLocked:
 
-	cmp.b #0x0, Character_UpdateAnim(a0)
+	tst.b Character_UpdateAnim(a0)
 	beq   @ManualAnim
 	jsr   CharacterUpdateAnimState
 	@ManualAnim:
@@ -277,7 +277,7 @@ CharacterDealDamage:
 	move.b Character_Health(a0), d1
 	
 	; If already dead, do nothing
-	cmp.b  #0x0, d1
+	tst.b  d1
 	beq    @AlreadyDead
 	
 	; Subtract health
@@ -288,7 +288,7 @@ CharacterDealDamage:
 	move.b d1, Character_Health(a0)
 	
 	; Check if depleted
-	cmp.b  #0x0, d1
+	tst.b  d1
 	bne    @StillAlive
 	
 	; Health reached zero, character is dead
@@ -332,11 +332,11 @@ CharacterUpdateAnimState:
 	move.l AnimObj_CurrentAnim(a0), a2
 	
 	move.b Animation_Looping(a2), d0
-	cmp.b  #0x0, d0						; If playing a looping anim, anim is interruptible
+	tst.b  d0						; If playing a looping anim, anim is interruptible
 	bne    @InterruptibleAnim
 	
 	move.b AnimObj_Playing(a0), d0
-	cmp.b  #0x0, d0						; If interruptible anim has finished, start next anim
+	tst.b  d0						; If interruptible anim has finished, start next anim
 	beq    @AnimFinished
 	bra	   @EndAnim
 	
@@ -511,11 +511,11 @@ CharacterMoveLeft:
 	; NB: Gamepad state in d0-d1, leave alone
 	
 	; Check if player dead
-	cmp.b  #0x0, Character_Dead(a0)
+	tst.b  Character_Dead(a0)
 	bne    @End
 	
 	; Check if player on ledge
-	cmp.b  #0x0, Character_OnLedge(a0)
+	tst.b  Character_OnLedge(a0)
 	bne    @End
 	
 	; Check if heading in opposite direction
@@ -523,7 +523,7 @@ CharacterMoveLeft:
 	bgt    @Decelerate
 	
 	; Check if running or walking
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	bne    @Else
 	clr.w  d5
 	sub.w  Character_AccelRun(a0), d5
@@ -551,11 +551,11 @@ CharacterMoveRight:
 	; NB: Gamepad state in d0-d1, leave alone
 	
 	; Check if player dead
-	cmp.b  #0x0, Character_Dead(a0)
+	tst.b  Character_Dead(a0)
 	bne    @End
 	
 	; Check if player on ledge
-	cmp.b  #0x0, Character_OnLedge(a0)
+	tst.b  Character_OnLedge(a0)
 	bne    @End
 	
 	; Check if heading in opposite direction
@@ -563,7 +563,7 @@ CharacterMoveRight:
 	blt    @Decelerate
 	
 	; Check if running or walking
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	bne    @Else
 	move.w Character_AccelRun(a0), PhysicsObj_AccelX(a0)
 	bra    @End
@@ -600,7 +600,7 @@ CharacterStartJump:
 	bne   @CanJump
 
 	; Check if player can jump
-	cmp.b #0x0, Character_CanJump(a0)
+	tst.b Character_CanJump(a0)
 	beq   @CantJump
 	
 	; Check if player dead
@@ -608,7 +608,7 @@ CharacterStartJump:
 	beq    @Dead
 
 	; Check if player is riding
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	bne    @CanJump
 	
 	; Check if player is interacting
@@ -620,7 +620,7 @@ CharacterStartJump:
 	beq    @CanJump
 	
 	; Check if player close enough to floor to jump
-	cmp.b  #0x0, PhysicsObj_CloseToFloor(a0)
+	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @CantJump
 
 	@CanJump:
@@ -635,7 +635,7 @@ CharacterStartJump:
 	move.b #0x0, PhysicsObj_Asleep(a0)
 
 	; Check if player in water
-	cmp.b  #0x0, Character_InWater(a0)
+	tst.b  Character_InWater(a0)
 	bne    @InWater
 	
 	; Set Y velocity
@@ -644,7 +644,7 @@ CharacterStartJump:
 	; Set min X velocity
 	move.l Character_JumpVelX(a0), d0
 	move.l PhysicsObj_VelX(a0), d1
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @Positive
 	neg.l  d0
 	cmp.l  d1, d0
@@ -697,12 +697,12 @@ CharacterCancelJump:
 	
 	; Check if jumping
 	move.b Character_Jumping(a0), d4
-	cmp.b  #0x0, d4
+	tst.b  d4
 	beq    @NotJumping
 	
 	; Check if not gliding
 	move.b Character_Gliding(a0), d4
-	cmp.b  #0x0, d4
+	tst.b  d4
 	bne    @Gliding
 	
 	; Check if Y vel is greater than min jump cancel vel
@@ -738,7 +738,7 @@ CharacterAllowRun:
 	bclr.b d2, Character_Walking(a0)
 
 	; Set max X velocity and snap to floor flag
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	beq    @Running
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
@@ -766,7 +766,7 @@ CharacterPreventRun:
 	bset.b d2, Character_Walking(a0)
 
 	; Set max X velocity and snap to floor flag
-	cmp.b  #0x0, Character_Walking(a0)
+	tst.b  Character_Walking(a0)
 	beq    @Running
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)

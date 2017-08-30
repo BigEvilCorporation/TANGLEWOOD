@@ -125,14 +125,14 @@ FireflyTestObj:
 	; a0 --- Pickup address
 	; a1 --- Test object address
 	
-	cmp.b  #0x0, Entity_Active(a0)
+	tst.b  Entity_Active(a0)
 	beq    @AlreadyPickedUp
 
 	; Test bounds intersection
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a1
 	jsr    PHYS_TestBoxIntersectBox
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NoIntersection
 	
 	; Stop updating and rendering

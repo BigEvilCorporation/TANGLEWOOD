@@ -197,7 +197,7 @@ DjrakeUpdate:
 	; a1 --- Level addr
 	
 	; If dead, do nothing
-	;cmp.b  #0x0, Character_Dead(a0)
+	;tst.b  Character_Dead(a0)
 	;bne    @Dead
     ;
 	;; Determine state
@@ -358,7 +358,7 @@ DjrakeCheckPlayerVisible:
 	
 	jsr    PHYS_TestPointInsideBox
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @NotSeen
 	
 	; Set as last found player pos
@@ -414,7 +414,7 @@ DjrakeUpdateWaitForPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @PlayerDead
 	
 	; If player cloaked, don't bother
@@ -432,7 +432,7 @@ DjrakeUpdateWaitForPlayer:
 	bgt    @OutOfRumbleSoundRange
 	
 	; If not already playing, begin playback
-	cmp.b  #0x0, Djrake_RumblePlayed(a0)
+	tst.b  Djrake_RumblePlayed(a0)
 	bne    @Playing
 	
 	;PUSHM  a0/d0-d1
@@ -454,7 +454,7 @@ DjrakeUpdateWaitForPlayer:
 	bgt   @OutOfPlayerRange
 
 	; Within range
-	cmp.b #0x0, Djrake_DoIntro(a0)
+	tst.b Djrake_DoIntro(a0)
 	beq   @RoarState
 	jsr   DjrakeStartEmergeFromCave	; Start emerge sequence
 	bra   @EndEmergeState
@@ -567,11 +567,11 @@ DjrakeUpdateRoaring:
 	; a1 --- Level addr
 	
 	; Check if anim finished
-	cmp.b  #0x0, AnimObj_Playing(a0)
+	tst.b  AnimObj_Playing(a0)
 	bne    @AnimPlaying
 	
 	; Finish mini-cutscene if playing (release player control and camera)
-	cmp.b  #0x0, Djrake_BlockingCtrl(a0)
+	tst.b  Djrake_BlockingCtrl(a0)
 	beq    @NotBlockingPlayerCtrl
 	
 	move.l (Player1), a2
@@ -622,11 +622,11 @@ DjrakeUpdateSearchForPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, search around
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @Searching
 	
 	; If player inactive, search around
-	cmp.b  #0x0, Entity_Active(a2)
+	tst.b  Entity_Active(a2)
 	beq    @Searching
 	
 	; If player is cloaked, search around
@@ -635,7 +635,7 @@ DjrakeUpdateSearchForPlayer:
 	
 	; Check if player is within tracking window
 	jsr    DjrakeCheckPlayerVisible
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @Searching
 	
 	; Player visible, roar and chase
@@ -701,7 +701,7 @@ DjrakeUpdateSearchForPlayer:
 	@Move:
 	
 	; Check if hit a wall
-	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	tst.b  PhysicsObj_HitWall(a0)
 	bne    @HitWall
 	
 	; Check if near target
@@ -770,11 +770,11 @@ DjrakeUpdateTrackPlayer:
 	move.l (Player1), a2
 	
 	; If player dead, don't bother
-	cmp.b  #0x0, Character_Health(a2)
+	tst.b  Character_Health(a2)
 	beq    @PlayerDead
 	
 	; If player inactive, don't bother
-	cmp.b  #0x0, Entity_Active(a2)
+	tst.b  Entity_Active(a2)
 	beq    @PlayerInactive
 	
 	; If player is cloaked, don't bother
@@ -796,7 +796,7 @@ DjrakeUpdateTrackPlayer:
 	@NoTimer:
 	
 	; Check if hit a wall
-	cmp.b  #0x0, PhysicsObj_HitWall(a0)
+	tst.b  PhysicsObj_HitWall(a0)
 	bne    @HitWall
 	
 	;==============================================================
@@ -809,7 +809,7 @@ DjrakeUpdateTrackPlayer:
 	sub.l  d0, d1							; Calc distance
 	
 	; If out of view, check max chase dist
-	cmp.b  #0x0, SpriteObj_SpriteLinked(a0)
+	tst.b  SpriteObj_SpriteLinked(a0)
 	bne    @InView
 	
 	; Check if outside max chase distance
@@ -819,7 +819,7 @@ DjrakeUpdateTrackPlayer:
 	blt    @OutsideMaxChaseDistR
 	
 	; Within max chase dist
-	cmp.b  #0x0, Djrake_CatchingUp(a0)
+	tst.b  Djrake_CatchingUp(a0)
 	beq    @WithinMaxChaseDist
 	move.l #Djrake_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
 	move.l #Djrake_MaxVelXRun, PhysicsObj_VelX(a0)
@@ -830,7 +830,7 @@ DjrakeUpdateTrackPlayer:
 	@OutsideMaxChaseDistR:
 	
 	; Outside max chase dist, multiply speed to catch up
-	cmp.b  #0x0, Djrake_CatchingUp(a0)
+	tst.b  Djrake_CatchingUp(a0)
 	bne    @SpeedBoostApplied
 	move.l Character_MaxVelXRun(a0), d0
 	mulu   Djrake_CatchUpSpeedMul(a0), d0	; Mul max run velocity
@@ -864,7 +864,7 @@ DjrakeUpdateTrackPlayer:
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @End
 	
 	; Attack
@@ -961,7 +961,7 @@ DjrakeUpdateBite:
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   a1
 	
-	cmp.b  #0x0, d0
+	tst.b  d0
 	beq    @OutOfHitBox
 	
 	; Deal damage to player

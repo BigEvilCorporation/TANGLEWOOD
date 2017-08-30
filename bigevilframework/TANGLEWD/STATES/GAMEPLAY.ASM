@@ -138,7 +138,7 @@ Gameplay_Update:
 	
 	IFND FINAL
 	; No update if in debug move mode
-	cmp.b  #0x0, DebugMoveObjectMode
+	tst.b  DebugMoveObjectMode
 	bne    @NoUpdate
 	ENDIF
 
@@ -161,7 +161,7 @@ Gameplay_Update:
 	
 	; Check if player is dead
 	move.l (Player1), a2
-	cmp.b  #0x0, Character_Dead(a2)
+	tst.b  Character_Dead(a2)
 	beq    @PlayerAlive
 	
 	; Player dead, enter fail state

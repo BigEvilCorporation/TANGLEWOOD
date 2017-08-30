@@ -187,7 +187,7 @@ l1a4_Trigger_DismountDjakk:
 
 	PUSHL  a0
 	move.l (Player1), a0
-	cmp.b  #0x0, Character_Riding(a0)
+	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
 	; Set power to expire next frame

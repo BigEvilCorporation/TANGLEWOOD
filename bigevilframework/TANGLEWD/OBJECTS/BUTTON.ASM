@@ -121,11 +121,11 @@ ButtonUpdate:
 	add.l  #Button_PressSpeed, d0
 
 	; If active, trigger
-	cmp.b  #0x0, Button_Active(a0)
+	tst.b  Button_Active(a0)
 	beq    @NoTrigger
 
 	; Filter trigger events
-	cmp.b  #0x0, Button_Pressed(a0)
+	tst.b  Button_Pressed(a0)
 	bne    @EndPress
 
 	; Trigger
@@ -152,7 +152,7 @@ ButtonUpdate:
 	sub.l  #Button_PressSpeed, d0
 
 	; Filter trigger events
-	cmp.b  #0x0, Button_Pressed(a0)
+	tst.b  Button_Pressed(a0)
 	beq    @EndPress
 
 	; Un-trigger
@@ -172,7 +172,7 @@ ButtonUpdate:
 	;==============================================================
 
 	; Clamp new button press height
-	cmp.b  #0x0, Button_Active(a0)
+	tst.b  Button_Active(a0)
 	beq    @InactiveClamp
 	CLAMP  d0, #0x0, #Button_PressHeightMaxActive
 	bra    @EndClamp

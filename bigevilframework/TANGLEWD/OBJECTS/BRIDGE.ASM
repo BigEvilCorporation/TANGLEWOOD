@@ -269,7 +269,7 @@ BridgeUpdate:
 	bne    @AlreadyDropping
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
-	cmp.b  #0x0, Platform_Occupied(a2)
+	tst.b  Platform_Occupied(a2)
 	beq    @Unoccupied
 	jsr    BridgeBeginDrop
 	@Unoccupied:
@@ -307,7 +307,7 @@ BridgeDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	cmp.b  #0x0, Bridge_InView(a0)
+	tst.b  Bridge_InView(a0)
 	beq    @OutOfView
 
 	PUSHL  a0
@@ -393,7 +393,7 @@ BridgeDraw:
 	;==============================================================
 
 	; If flipped on X axis, origin at right-hand side
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @NotFlipped
 
 	; Invert X offset
@@ -445,7 +445,7 @@ BridgeDraw:
 	; If no notches drawn, and in dropping state, never render again
 	cmp.b  #Bridge_StateDropping, Bridge_State(a0)
 	bne    @NotDropping
-	cmp.b  #0x0, Bridge_InView(a0)
+	tst.b  Bridge_InView(a0)
 	bne    @InView
 	jsr    EntityRemoveFromRenderList
 	@InView:
@@ -488,7 +488,7 @@ BridgeSerialise:
 
 BridgeActivatePlatform:
 
-	cmp.b  #0x0, Bridge_PlatformActive(a0)
+	tst.b  Bridge_PlatformActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
@@ -501,7 +501,7 @@ BridgeActivatePlatform:
 
 BridgeDeactivatePlatform:
 
-	cmp.b  #0x0, Bridge_PlatformActive(a0)
+	tst.b  Bridge_PlatformActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
 	add.l  #Bridge_Platform, a2
@@ -514,7 +514,7 @@ BridgeDeactivatePlatform:
 
 BridgeActivateBarrier:
 
-	cmp.b  #0x0, Bridge_BarrierActive(a0)
+	tst.b  Bridge_BarrierActive(a0)
 	bne    @AlreadyActive
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
@@ -526,7 +526,7 @@ BridgeActivateBarrier:
 
 BridgeDeactivateBarrier:
 
-	cmp.b  #0x0, Bridge_BarrierActive(a0)
+	tst.b  Bridge_BarrierActive(a0)
 	beq    @AlreadyInactive
 	move.l a0, a2
 	add.l  #Bridge_Barrier, a2
@@ -737,7 +737,7 @@ BridgeUpdateBarrierPlatformPos:
 	TOSUBPIXELS d4
 
 	; Add inverted X offset if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @NoInvertX
 	move.l #Bridge_Width*subpixels_per_pixel, d7
 	sub.l  d4, d7
@@ -758,7 +758,7 @@ BridgeUpdateBarrierPlatformPos:
 	add.l  #Bridge_BarrierYOffset*subpixels_per_pixel, d1
 
 	; Sub barrier width if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @NoFlipX
 	sub.l  #Bridge_BarrierWidth*subpixels_per_pixel, d0
 	@NoFlipX:
@@ -827,7 +827,7 @@ BridgeUpdateDropping:
 	TOSUBPIXELS d4						; To world space
 
 	; Invert X if flipped
-	cmp.b  #0x0, SpriteObj_FlippedX(a0)
+	tst.b  SpriteObj_FlippedX(a0)
 	beq    @NoInvertX
 	move.l #Bridge_Width*subpixels_per_pixel, d7
 	sub.l  d4, d7

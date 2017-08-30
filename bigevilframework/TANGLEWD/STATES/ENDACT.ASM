@@ -69,7 +69,7 @@ EndAct_Update:
 	
 	; Wait for fade
 	jsr    PAL_LerpActive
-	cmp.b  #0x0, d0
+	tst.b  d0
 	bne    @LerpActive
 
 	; Finished fade, set next level
