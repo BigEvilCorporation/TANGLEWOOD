@@ -794,7 +794,7 @@ PlayerStopColourAbility:
 	; Check if animobj
 	move.l d2, d3
 	andi.l #entity_type_animobj, d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	beq    @NotAnimObj
 	
 	; Entity is an anim obj
@@ -869,7 +869,7 @@ PlayerStopColourAbility:
 
 	move.l Entity_TypeBits(a2), d1
 	andi.l #entity_type_monster, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	bne    @Djakk
 
 	bra    @NoHost
@@ -994,13 +994,13 @@ PlayerUpdateColourAbility:
 	; Check if player obj
 	move.l d2, d3
 	andi.l #entity_type_player, d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	bne    @PlayerObj
 	
 	; Check if animobj
 	move.l d2, d3
 	andi.l #entity_type_animobj, d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	beq    @NotAnimObj
 	
 	; Entity is an anim obj
@@ -1653,7 +1653,7 @@ PlayerUpdatePushInteract:
 	; Scale push anim speed based on velocity
 	clr.l  d0
 	move.l PhysicsObj_VelX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bgt    @Fwd
 	neg.l  d0
 	@Fwd:

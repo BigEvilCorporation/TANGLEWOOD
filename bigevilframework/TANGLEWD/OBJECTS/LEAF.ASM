@@ -186,7 +186,7 @@ LeafUpdate:
 	move.l Entity_WorldPosX(a0), d0
 	add.l  #WorldToLeafWindowX, d0
 	sub.l  (WorldScrollX), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	blt    @OutOfBounds
 	cmp.l  #(Leaf_WindowWidth*subpixels_per_pixel), d0
 	bgt    @OutOfBounds
@@ -194,7 +194,7 @@ LeafUpdate:
 	move.l Entity_WorldPosY(a0), d0
 	add.l  #WorldToLeafWindowY, d0
 	sub.l  (WorldScrollY), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	blt    @OutOfBounds
 	cmp.l  #(Leaf_WindowHeight*subpixels_per_pixel), d0
 	bgt    @OutOfBounds
@@ -209,7 +209,7 @@ LeafUpdate:
 	; If blown off by wind, reset immediately to help exaggerate the wind effect
 	lea    PhysicsWorld, a2
 	move.l PhysicsWorld_Wind(a2), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @NoWind
 	move.w #0x1, Leaf_ResetTimer(a0)
 	bra    @End
@@ -292,7 +292,7 @@ LeafUpdate:
 	lea    PhysicsWorld, a2
 	move.l Leaf_VelX(a0), d0
 	move.l PhysicsWorld_Wind(a2), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @WindOff
 
 	; Apply and clamp
@@ -306,7 +306,7 @@ LeafUpdate:
 	@WindOff:
 
 	; Determine deceleration direction
-	cmp.l #0x0, d0
+	tst.l d0
 	beq @EndDecel		; No velocity
 	bgt @DecelFromPos	; Postive velocity
 	blt @DecelFromNeg	; Negative velocity
@@ -314,7 +314,7 @@ LeafUpdate:
 	; Decelerate from positive X velocity towards 0
 	@DecelFromPos:
 	sub.l #Leaf_DecelX, d0
-	cmp.l #0x0, d0	; Clamp to 0
+	tst.l d0	; Clamp to 0
 	bge @EndDecel
 	move.l #0x0, d0
 	bra @EndDecel
@@ -322,7 +322,7 @@ LeafUpdate:
 	; Decelerate from negative X velocity towards 0
 	@DecelFromNeg:
 	add.l #Leaf_DecelX, d0
-	cmp.l #0x0, d0	; Clamp to 0
+	tst.l d0	; Clamp to 0
 	ble @EndDecel
 	move.l #0x0, d0
 	

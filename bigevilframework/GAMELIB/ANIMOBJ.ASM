@@ -117,7 +117,7 @@ AnimObjUpdate:
 	blt    @NotAtEnd
 	bra    @AtEnd
 	@EndAtStart:
-	cmp.l  #0x0, d2
+	tst.l  d2
 	@AtEnd:
 	
 	; End of non-looping anim, stop playing
@@ -249,7 +249,7 @@ AnimObjDraw:
 	lsl.w  #0x2, d2						; To ptr size
 	add.l  d2, a3						; Offset to SFX address
 	move.l (a3), d3						; Get SFX address from anim track
-	cmp.l  #0x0, d3
+	tst.l  d3
 	beq    @NoSFX
     
 	PLAYSFX d3	; Play SFX (TODO: exlusive and non-exclusive modes)

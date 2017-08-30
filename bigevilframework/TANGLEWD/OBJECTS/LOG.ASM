@@ -154,7 +154,7 @@ LogUpdate:
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.l PhysicsObj_LastAppliedVelX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @ZeroVel
 	divs.w #Log_AnimSpeedVelDiv, d0
 	@ZeroVel:

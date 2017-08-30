@@ -993,7 +993,7 @@ MonsterUpdateSearchForPlayer:
 	
 	; If we have a target X
 	move.l Monster_SearchTargetX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bne    @HasTargetX
 	
 	; Get a random target X (-255 - 255)
@@ -1007,7 +1007,7 @@ MonsterUpdateSearchForPlayer:
 	
 	; Add min dist
 	move.l  #Monster_NearTargetDistance, d1
-	cmp.l  #0x0, d0								; If rand target negative
+	tst.l  d0								; If rand target negative
 	bgt    @PosTarget
 	neg.l  d1									; Make min dist negative
 	@PosTarget:
@@ -1017,7 +1017,7 @@ MonsterUpdateSearchForPlayer:
 	add.l  Entity_WorldPosX(a0), d0
 	
 	; Clamp to screen bounds
-	cmp.l  #0x0, d0								; Clamp screen left
+	tst.l  d0								; Clamp screen left
 	bgt    @NoClampLeft
 	move.l #0x0, d0
 	@NoClampLeft:
@@ -1061,7 +1061,7 @@ MonsterUpdateSearchForPlayer:
 	ENTITY_GETCENTREX d1, a0
 	sub.l  d1, d0							; Get distance to target
 	move.l d0, d3
-	cmp.l  #0x0, d0							; If negative
+	tst.l  d0							; If negative
 	bgt    @Pos
 	neg.l  d0								; Make positive
 	@Pos:
@@ -1069,7 +1069,7 @@ MonsterUpdateSearchForPlayer:
 	blt    @ReachedTarget
 	
 	; Move towards target X
-	cmp.l  #0x0, d3
+	tst.l  d3
 	bgt    @MoveRight
 	
 	@MoveLeft:
@@ -1251,7 +1251,7 @@ MonsterUpdateTrackPlayer:
 	@OutsideMinChaseDist:
 	
 	; Outside min chase distance, continue chasing
-	cmp.l  #0x0, d1
+	tst.l  d1
 	blt    @RightOfPlayer
 	
 	@LeftOfPlayer:

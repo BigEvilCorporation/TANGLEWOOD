@@ -169,7 +169,7 @@ FlueOccupantUpdate:
 	; If character
 	move.l Entity_TypeBits(a1), d1
 	andi.l #entity_type_character, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @NotCharacter 
 	
 	; Set jumping
@@ -192,7 +192,7 @@ FlueOccupantUpdate:
 	; If Fuzzl
 	move.l Entity_TypeBits(a1), d1
 	andi.l #entity_type_fuzzl, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @NotFuzzl 
 	
 	; Set flinging
@@ -308,7 +308,7 @@ FlueFindOccupant:
 	; Check entity type
 	move.l Entity_TypeBits(a3), d1
 	andi.l #Flue_OccupantTypes, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @NextEntity
 	
 	; If character

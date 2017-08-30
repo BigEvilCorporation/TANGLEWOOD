@@ -494,7 +494,7 @@ PhysicsObjApplyWorldForces:
 
 	; Get wind force
 	move.l PhysicsWorld_Wind(a2), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @NoWind
 
 	; Get wind resistance
@@ -505,15 +505,15 @@ PhysicsObjApplyWorldForces:
 	@OnFloor:
 
 	; Apply resistance, check if wind is strong enough
-	cmp.l  #0x0, d1
+	tst.l  d1
 	bge    @Positive
 	add.l  d3, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	bgt    @NotAffectedByWind
 	bra    @ApplyWind
 	@Positive:
 	sub.l  d3, d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	blt    @NotAffectedByWind
 	@ApplyWind:
 
@@ -584,7 +584,7 @@ PhysicsObjClampPos:
 	TOSUBPIXELS d1						; To world space
 	cmp.l  d1, d0
 	bgt    @ClampYBottom
-	cmp.l  #0x0, d0
+	tst.l  d0
 	blt    @ClampYTop
 	bra    @EndYClamp
 
@@ -607,7 +607,7 @@ PhysicsObjClampPos:
 	TOSUBPIXELS d1						; To world space
 	cmp.l  d1, d0
 	bgt    @ClampXRight
-	cmp.l  #0x0, d0
+	tst.l  d0
 	blt    @ClampXLeft
 	bra    @EndXClamp
 
@@ -664,7 +664,7 @@ PhysicsObjCollisionCorrection:
 	move.b PhysicsObj_OnFloor(a0), d4
 
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
-	cmp.l  #0x0, d2
+	tst.l  d2
 	beq    @Uninitialised							; First frame, uninitialised
 	clr.l  d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
@@ -685,7 +685,7 @@ PhysicsObjCollisionCorrection:
 	tst.w  d1
 	beq    @NoBounceY
 	move.l PhysicsObj_VelY(a0), d0					; Check if heading down
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bgt    @NoBounceY
 	neg.l  d0										; Negate Y velocity
 	DIVS1616_LOSSY d1, d0							; Div by bounce
@@ -721,12 +721,12 @@ PhysicsObjCollisionCorrection:
 	
 	; Get last ceiling collided with
 	move.l PhysicsObj_LastCeiling(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @NoCeilingFound
 	
 	; Determine Y direction
 	move.l PhysicsObj_VelY(a0), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	ble    @HeadingDown
 	
 	; Heading up, clamp
@@ -754,13 +754,13 @@ PhysicsObjCollisionCorrection:
 	
 	; Get last wall collided with
 	move.l PhysicsObj_LastWall(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @NoWallFound
 	
 	; Determine X direction
 	move.l PhysicsObj_VelX(a0), d1
 	add.l  PhysicsObj_ImpulseX(a0), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	beq    @HeadingNowhere
 	blt    @HeadingLeft
 	bgt    @HeadingRight
@@ -833,7 +833,7 @@ PhysicsObjFindFloor:
 	
 	; Check if positive Y velocity (don't bother finding floor)
 	move.l PhysicsObj_VelY(a0), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	bgt    @EndFloorTest
 	
 	; Check if zero X and Y velocity (don't bother finding floor)
@@ -1051,7 +1051,7 @@ PhysicsObjFindWall:
 	; Determine direction
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	beq    @HeadingNowhere
 	blt    @HeadingLeft
 	bgt    @HeadingRight
@@ -1195,7 +1195,7 @@ PhysicsObjFindWall:
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	bgt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
@@ -1256,7 +1256,7 @@ PhysicsObjFindWall:
 	; If heading left, use right hand side of tile
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	bgt    @LeftOfTile
 	add.l  #0x1, d4
 	@LeftOfTile:
@@ -1307,7 +1307,7 @@ PhysicsObjFindCeiling:
 	
 	; If positive or zero velocity, don't bother finding ceiling
 	move.l PhysicsObj_VelY(a0), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	ble    @EndCeilingTest
 	
 	; If zero X and Y velocity, don't bother finding ceiling
@@ -1561,7 +1561,7 @@ PhysicsObjFindMovingBarrier:
 	
 	; Determine barrier direction
 	move.l Barrier_VelX(a3), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	beq    @NextBarrier
 	blt    @HeadingLeft
 	bgt    @HeadingRight
@@ -1629,7 +1629,7 @@ PhysicsObjFindMovingBarrier:
 
 	; If heading left, use right hand side of barrier
 	move.l Barrier_VelX(a3), d3
-	cmp.l  #0x0, d3
+	tst.l  d3
 	blt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
@@ -1658,7 +1658,7 @@ PhysicsObjFindMovingBarrier:
 
 	; Determine X direction
 	move.l Barrier_VelX(a3), d1
-	cmp.l  #0x0, d1
+	tst.l  d1
 	blt    @BarrierHeadingLeft
 	bgt    @BarrierHeadingRight
 	

@@ -297,7 +297,7 @@ WeatherUpdate:
 	move.w (WindMaxStrength), d2
 	ext.l  d1							; Sign extend
 	ext.l  d2
-	cmp.l  #0x0, d2						; If 0 strength, decelerate
+	tst.l  d2						; If 0 strength, decelerate
 	beq    @DecelWind
 	move.l PhysicsWorld_Wind(a2), d0	; Get current wind strength
 	MATCH_SIGN d2, d1					; Match sign of strength and accel

@@ -49,11 +49,11 @@ Fail_Update:
 	
 	; Update fade down timer
 	move.l (TimerFailFade), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @FadeStarted
 	sub.l  #0x1, d0
 	move.l d0, TimerFailFade
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bne    @TimerRunning
 
 	; Begin fade down - all palettes except player
@@ -87,7 +87,7 @@ Fail_Update:
 	move.l (TimerFailReset), d0
 	sub.l  #0x1, d0
 	move.l d0, TimerFailReset
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bne    @TimerRunning
 	
 	; Timer elapsed, reset audio

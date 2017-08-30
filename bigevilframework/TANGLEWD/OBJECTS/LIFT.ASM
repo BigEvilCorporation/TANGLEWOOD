@@ -270,7 +270,7 @@ LiftPositionRopeSegments:
 	
 	; If +ve, flip sprite
 	move.l d3, d4
-	cmp.l  #0x0, d4
+	tst.l  d4
 	bgt    @NoFlip
 	neg.l  d4
 	move.b #0x0, SpriteObj_FlippedX(a3)
@@ -427,7 +427,7 @@ LiftUpdate:
 	move.l Lift_OriginX(a0), d0
 	move.l Entity_WorldPosX(a0), d1
 	sub.l  d1, d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	blt    @SwingRight
 	bgt    @SwingLeft
 	bra    @Resting

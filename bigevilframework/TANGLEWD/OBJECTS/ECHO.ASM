@@ -1134,7 +1134,7 @@ EchoAIStart_Water:
 
 	; Start running in opposite direction
 	move.l PhysicsObj_VelX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	bgt    @MoveLeft
 	jsr    CharacterMoveRight
 	bra    @MoveRight

@@ -665,7 +665,7 @@ BridgeUpdateRoll:
 	move.l d4, Bridge_UnrollPos(a0)
 
 	; If at start, disable platform and set closed state
-	cmp.l  #0x0, d4
+	tst.l  d4
 	beq    @FinishedRolling
 	bra    @StillRolling
 

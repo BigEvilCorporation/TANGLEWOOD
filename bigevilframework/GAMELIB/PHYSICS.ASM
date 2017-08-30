@@ -35,7 +35,7 @@ PhysicsWorldPreStep:
 	move.l Platform_VelX(a3), d0		; Check velocity
 	add.l  Platform_VelY(a3), d0
 	add.b  Platform_Dirty(a3), d0		; and dirty flag
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @NextPlatform
 	LIST_APPEND_TAIL MovingPlatforms,a3,a4
 	move.b #0x0, Platform_Dirty(a3)		; Clear dirty flag
@@ -52,7 +52,7 @@ PhysicsWorldPreStep:
 	move.l #0x0, Barrier_TotalHitVel(a3)
 	move.l Barrier_VelX(a3), d0
 	add.l  Barrier_VelY(a3), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @NextBarrier
 	LIST_APPEND_TAIL MovingBarriers,a3,a4
 	@NextBarrier:

@@ -28,7 +28,7 @@ CAM_PeekDown:
 
 CAM_PeekReturn:
 	move.l (CameraPeekOffsetY), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @End
 	blt    @Up
 	bgt    @Down

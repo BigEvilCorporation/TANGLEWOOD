@@ -388,7 +388,7 @@ FuzzlUpdate:
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.l PhysicsObj_VelX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @ZeroVel
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
 	@ZeroVel:

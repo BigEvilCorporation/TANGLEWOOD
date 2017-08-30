@@ -312,7 +312,7 @@ CharacterApplySpriteFlip:
 
 	; Sprite X flip direction
 	move.l PhysicsObj_VelX(a0), d0
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @NoFlip
 	blt    @FlipLeft
 	@FlipRight:
@@ -422,7 +422,7 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Idle, d1
 	move.l PhysicsObj_VelX(a0), d0			; If X velocity == 0, set idle anim
-	cmp.l  #0x0, d0
+	tst.l  d0
 	beq    @SetAnim
 
 	; =====================================================================
