@@ -62,7 +62,7 @@ FREESTACKB: macro bytes
 
 ; Copy memory (longwords)
 MEMCPYL: macro destreg,sourcereg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMCPYL_LP\@:
 	move.l (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
@@ -70,7 +70,7 @@ MEMCPYL: macro destreg,sourcereg,countreg
 
 ; Copy memory (words)
 MEMCPYW: macro destreg,sourcereg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMCPYL_LP\@:
 	move.w (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
@@ -78,7 +78,7 @@ MEMCPYW: macro destreg,sourcereg,countreg
 
 ; Copy memory (bytes)
 MEMCPYB: macro destreg,sourcereg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMCPYB_LP\@:
 	move.b (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYB_LP\@
@@ -86,7 +86,7 @@ MEMCPYB: macro destreg,sourcereg,countreg
 	
 ; Zero memory (longwords)
 MEMZEROL: macro addressreg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMZEROL_LP\@:
 	move.l #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROL_LP\@
@@ -94,7 +94,7 @@ MEMZEROL: macro addressreg,countreg
 
 ; Zero memory (words)
 MEMZEROW: macro addressreg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMZEROW_LP\@:
 	move.w #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROW_LP\@
@@ -102,7 +102,7 @@ MEMZEROW: macro addressreg,countreg
 
 ; Zero memory (bytes)
 MEMZEROB: macro addressreg,countreg
-	subi.w #0x1, \countreg
+	subq.w #0x1, \countreg
 	@MEMZEROB_LP\@:
 	move.b #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROB_LP\@

@@ -119,7 +119,7 @@ ActorShutdown:
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	
-	subi.w #0x1, EntityCount_Actor
+	subq.w #0x1, EntityCount_Actor
 
 	rts
 	

@@ -225,7 +225,7 @@ FlueOccupantUpdate:
 	@NotHolding:
 	
 	; Only check for occupants every n frames
-	subi.w #0x1, Flue_OccupantCheckTimer(a0)
+	subq.w #0x1, Flue_OccupantCheckTimer(a0)
 	beq    @NoOccupantCheck
 	
 	; Reset timer

@@ -98,7 +98,7 @@ Logos_Update:
 	cmp.b  #LogosMaxColours, LogoState_CurrColourIdx(a3)
 	beq    @FadeOut
 	
-	subi.w #0x1, LogoState_NextColourTimer(a3)
+	subq.w #0x1, LogoState_NextColourTimer(a3)
 	tst.w  LogoState_NextColourTimer(a3)
 	bne    @ColourTimerRunning
 	

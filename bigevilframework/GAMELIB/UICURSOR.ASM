@@ -203,7 +203,7 @@ UIWidgetCursorUpdate:
 	bne    @NoWrapDown
 	move.b d1, d2
 	@NoWrapDown:
-	subi.b #0x1, d2
+	subq.b #0x1, d2
 	PUSHL  d0
 	move.b d2, d0
 	PLAYSFX #UIWidgetCursor_Audio_Move

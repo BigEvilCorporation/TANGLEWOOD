@@ -1203,7 +1203,7 @@ EchoAIUpdate_Water:
 	TOPIXELS d0
 	move.w Entity_WorldPosY(a2), d1
 	sub.w  Entity_Height(a0), d1
-	subi.w #0x08, d1
+	subq.w #0x08, d1
 	move.w d0, Entity_WorldPosX(a0)
 	move.w d1, Entity_WorldPosY(a0)
 
@@ -2027,7 +2027,7 @@ EchoAIPeekNodeBack:
 
 	moveq  #0x0, d7
 	move.w Echo_AINodeProducer(a0), d7
-	subi.w #0x1, d7
+	subq.w #0x1, d7
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get consumer position
 	
 	; Get address into array of nodes

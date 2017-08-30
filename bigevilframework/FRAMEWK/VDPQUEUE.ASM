@@ -102,7 +102,7 @@ VDP_JobQueue_ExecuteAll:
 	beq    @QueueEmpty
 	
 	; Run all
-	subi.w #0x1, d0
+	subq.w #0x1, d0
 	@QueueLp:
 	
 	; Pop and run job

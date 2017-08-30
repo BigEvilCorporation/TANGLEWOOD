@@ -310,7 +310,7 @@ WyrmUpdate:
 	addq.b #0x1, d3						; Get next debris
 	bra    @EndDebrisDirection
 	@PrevDebris:
-	subi.w #0x1, d3						; Get prev debris
+	subq.w #0x1, d3						; Get prev debris
 	@EndDebrisDirection:
 	
 	divs.w #Wyrm_DebrisMaxTrails, d3	; Wrap
@@ -711,7 +711,7 @@ WyrmAIUpdate_Follow:
 	@PlayerInAir:
 
 	; Decrement timer, carry on chasing if not elapsed
-	subi.w #0x1, Wyrm_LostPlayerTimer(a0)
+	subq.w #0x1, Wyrm_LostPlayerTimer(a0)
 	bne    @Chase
 
 	; Lost player, burrow underground and sleep

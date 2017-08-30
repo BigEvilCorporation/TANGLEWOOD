@@ -160,7 +160,7 @@ PAL_LerpUpdateNextComponent:
 	; Loop through ticks
 	clr.w  d0
 	move.b PaletteLerp_TicksPerUpdate(a0), d0
-	subi.w #0x1, d0
+	subq.w #0x1, d0
 	
 	@NextTick:
 	
@@ -269,7 +269,7 @@ PAL_LerpUpdateNextComponent:
 	addq.b #0x1, d5						; Add to component
 	bra @WriteComponent
 	@SubComponent:
-	subi.b #0x1, d5						; Sub from component
+	subq.b #0x1, d5						; Sub from component
 	
 	; Put new component back into scratch buffer
 	@WriteComponent:

@@ -123,7 +123,7 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 	move.l #0x0, List_\name\_Next(\objaddrreg)
 
 	; Decrement count
-	subi.l #0x1, List_\name\_Size
+	subq.l #0x1, List_\name\_Size
 	
 	endm
 	
@@ -273,7 +273,7 @@ MLIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,structaddrreg
 	move.l #0x0, List_\name\_Next(\objaddrreg)
 
 	; Decrement count
-	subi.l #0x1, List_\name\_Size(\structaddrreg)
+	subq.l #0x1, List_\name\_Size(\structaddrreg)
 	
 	endm
 

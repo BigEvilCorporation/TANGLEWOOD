@@ -197,7 +197,7 @@ UIWidgetTextRender:
 
 	; Create 1 sprite for each 4 glyphs
 	divu   #0x4, d4	; Div char count by 4
-	subi.w #0x1, d4	; -1 for loop
+	subq.w #0x1, d4	; -1 for loop
 	@GlyphLp:
 	PUSHL  d4
 

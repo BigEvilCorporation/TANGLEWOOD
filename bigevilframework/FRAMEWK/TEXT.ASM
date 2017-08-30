@@ -354,7 +354,7 @@ TXT_ItoA_w:
 	bne    @Loop		; If not 0, more work to do
 	
 	; Copy bytes back from stack to string
-	subi.w #0x1, d1
+	subq.w #0x1, d1
 	@CopyLp:
 	move.b (sp)+, (a0)+
 	dbra   d1, @CopyLp

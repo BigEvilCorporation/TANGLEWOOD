@@ -340,7 +340,7 @@ DBG_DisplayError:
 ;	; Stats to string
 ;	move.w  VRAMPool_FreeWords(a2), d0	; Get free words in pool
 ;	jsr     TXT_ItoA_w					; To string
-;	subi.l  #0x1, a0					; Remove terminator
+;	subq.l  #0x1, a0					; Remove terminator
 ;	move.b  #'/', (a0)+					; Append '/'
 ;	move.w  VRAMPool_AllocatedWords(a2), d0	; Get total words in pool
 ;	jsr     TXT_ItoA_w					; To string

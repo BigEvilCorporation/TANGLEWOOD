@@ -115,7 +115,7 @@ Pause_Enter:
 	; Firefly count to string
 	move.w  (FireflyPickupCount), d0	; Get collected firefly count
 	jsr     TXT_ItoA_w					; To string
-	subi.l  #0x1, a0					; Remove terminator
+	subq.l  #0x1, a0					; Remove terminator
 	move.b  #'/', (a0)+					; Append '/'
 	move.w  (EntityCount_Firefly), d0	; Get total firefly count
 	jsr     TXT_ItoA_w					; To string
@@ -294,7 +294,7 @@ Pause_Render:
 	move.b #0x0, d0											; 1x1 sprite
 	move.l #(((PauseText_PosX+vdp_sprite_border_x)<<16)|(PauseText_PosY+vdp_sprite_border_y)), d1		; X/Y coord
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d3		; Palette/flip/priority bits
-	subi.w #0x1, d4
+	subq.w #0x1, d4
 	@TextLp:
 	PUSHL  d4
 	

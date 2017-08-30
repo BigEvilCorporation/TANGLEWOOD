@@ -248,7 +248,7 @@ DBG_Profile_DrawBlockRecursive:
 	tst.b  d2
 	beq    @NoChildren
 	andi.w #0x00FF, d2
-	subi.w #0x1, d2
+	subq.w #0x1, d2
 	
 	; Get first child ptr
 	move.l a0, a1

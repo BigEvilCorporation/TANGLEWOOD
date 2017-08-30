@@ -203,7 +203,7 @@ ButtonUpdate:
 	move.l a0, a2
 	addi.l #Button_Animation, a2
 	move.b Animation_Length(a2), d0
-	subi.b #0x1, d0
+	subq.b #0x1, d0
 	move.l AnimObj_AnimSubframe(a0), d1
 	lsr.l  #0x8, d1
 	cmp.b  d0, d1

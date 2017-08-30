@@ -784,7 +784,7 @@ PlayerStopColourAbility:
 	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
 	
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
-	subi.l #0x1, d1						 ; -1 for loop
+	subq.l #0x1, d1						 ; -1 for loop
 	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	
@@ -976,7 +976,7 @@ PlayerUpdateColourAbility:
 	; Speed up
 	cmp.b  #0x1, d0
 	beq    @EndTimeDiv
-	subi.b #0x1, d0
+	subq.b #0x1, d0
 	
 	@ApplyTime:
 	
@@ -984,7 +984,7 @@ PlayerUpdateColourAbility:
 	
 	; TODO: Pointer array per entity type
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
-	subi.l #0x1, d1						 ; -1 for loop
+	subq.l #0x1, d1						 ; -1 for loop
 	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	
@@ -1926,7 +1926,7 @@ PlayerInteractTest_Water:
 	move.w (EntityCount_WaterBody), d6
 	tst.w  d6
 	beq    @NoWaterBodies
-	subi.w #0x1, d6
+	subq.w #0x1, d6
 	@BodyLoop:
 	
 	; Check player vs. box

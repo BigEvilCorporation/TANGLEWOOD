@@ -349,7 +349,7 @@ EndLevelScoreScreen_DrawFireflyCountText:
 	PUSHL   d2
 	jsr     TXT_ItoA_w					; To string
 	POPL    d2
-	subi.l  #0x1, a0					; Remove terminator
+	subq.l  #0x1, a0					; Remove terminator
 	move.b  #'/', (a0)+					; Append '/'
 	move.w  d2, d0
 	jsr     TXT_ItoA_w					; To string
