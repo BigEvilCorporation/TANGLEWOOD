@@ -99,7 +99,7 @@ Logos_Update:
 	beq    @FadeOut
 	
 	subi.w #0x1, LogoState_NextColourTimer(a3)
-	cmp.w  #0x0, LogoState_NextColourTimer(a3)
+	tst.w  LogoState_NextColourTimer(a3)
 	bne    @ColourTimerRunning
 	
 	; Next colour

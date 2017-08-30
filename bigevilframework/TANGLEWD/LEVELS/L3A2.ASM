@@ -177,12 +177,12 @@ l3a2_Update:
 	; Update camera lerp timer
 	move.l #LevelData_L3A2, a2
 	move.w l3a2Data_LogRollCamLerpTimer(a2), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @NoLerpTimer
 
 	sub.w  #0x1, d0
 	move.w d0, l3a2Data_LogRollCamLerpTimer(a2)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @NoLerpTimer
 
 	; Timer elapsed, lerp camera back to player

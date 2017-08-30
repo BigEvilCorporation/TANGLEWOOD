@@ -88,7 +88,7 @@ PAL_LerpActive:
 	lea PaletteLerp_Array, a0
 	move.l #num_palettes-1, d1
 	@PaletteLerpLp:
-	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a0)
+	tst.w  PaletteLerp_UpdateSpeed(a0)
 	beq    @Inactive
 	bset   d1, d0
 	@Inactive:
@@ -135,7 +135,7 @@ PAL_LerpUpdateNextComponent:
 
 	clr.l  d0
 	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
-	cmp.w  #0x0, d0						; Return if disabled
+	tst.w  d0						; Return if disabled
 	beq    @PaletteNotWritten
 	
 	; =====================================================================

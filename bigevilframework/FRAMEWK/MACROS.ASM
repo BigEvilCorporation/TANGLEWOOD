@@ -217,7 +217,7 @@ ABS: macro valuereg
 	endm
 
 ABSW: macro valuereg
-	cmp.w #0x0, \valuereg
+	tst.w \valuereg
 	bge   @Pos\@
 	neg.w \valuereg
 	@Pos\@:

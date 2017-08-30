@@ -150,7 +150,7 @@ SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	; Load sprite from shared VRAM
 SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
 	PUSHM  d0-d5/a0-a2
-	cmp.w  #0x0, SharedVRAM_\spritesheet
+	tst.w  SharedVRAM_\spritesheet
 	bne    @AlreadyAllocd\@
 	SPRITE_LOAD_DEFAULT \spritesheet,\palette,\prio
 	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\spritesheet
@@ -241,7 +241,7 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 
 PHYSICS_HITFACINGWALL: macro objaddr
 	move.b #0x0, d0
-	cmp.w  #0x0, PhysicsObj_AccelX(\objaddr)
+	tst.w  PhysicsObj_AccelX(\objaddr)
 	beq    @HeadingNowhere\@
 	bgt    @HeadingRight\@
 	move.b PhysicsObj_HitWall(\objaddr), d1

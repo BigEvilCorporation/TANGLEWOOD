@@ -271,7 +271,7 @@ SND_GetEchoBusy:
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<15), d0		; Bit 15 = Echo busy
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -288,7 +288,7 @@ SND_GetSFXBusy:
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<0), d0		; Bit 0 = SFX playing
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -305,7 +305,7 @@ SND_GetTrackBusy:
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
 	andi.w #(1<<1), d0		; Bit 1 = BGM playing
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -471,11 +471,11 @@ SND_UpdateTrack:
 	cmp.l  #0x0, a0
 	beq    @NoCurrentTrack
 	move.w audio_track_stop_timer, d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @TimerNotRunning
 	sub.w  #0x1, d0
 	move.w d0, audio_track_stop_timer
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerRunning
 
 	; Determine transition type

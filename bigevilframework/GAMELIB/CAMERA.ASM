@@ -113,7 +113,7 @@ CAM_Update:
 	clr.l   d2
 
 	; If camera lerp active
-	cmp.w   #0x0, (CameraTargetLerpSpeed)
+	tst.w   (CameraTargetLerpSpeed)
 	beq     @NoLerp
 
 	; Get lerp source X/Y
@@ -247,7 +247,7 @@ CAM_Update:
 	;==============================================================
 	
 	; Camera shake X
-	cmp.w #0x0, CameraShakeSpeedX
+	tst.w CameraShakeSpeedX
 	beq   @NoShakeX
 	
 	; Get sine
@@ -300,7 +300,7 @@ CAM_Update:
 	;==============================================================
 	
 	; Camera shake Y
-	cmp.w #0x0, CameraShakeSpeedY
+	tst.w CameraShakeSpeedY
 	beq   @NoShakeY
 	
 	; Get sine
@@ -362,11 +362,11 @@ CAM_Update:
 	
 	; Update camera shake timer
 	move.w  (CameraShakeTimer), d0
-	cmp.w   #0x0, d0
+	tst.w   d0
 	beq     @NoTimer
 	sub.w   #0x1, d0
 	move.w  d0, CameraShakeTimer
-	cmp.w   #0x0, d0
+	tst.w   d0
 	bne     @TimerRunning
 	
 	; Timer elapsed

@@ -244,11 +244,11 @@ WeatherUpdate:
 
 	; If active, wait for duration to elapse
 	move.w (WindDurationTimer), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @WindInactive
 	sub.w  #0x1, d0
 	move.w d0, WindDurationTimer
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @WindActive
 
 	; Duration elapsed, stop wind
@@ -268,11 +268,11 @@ WeatherUpdate:
 
 	; Wind inactive, wait for delay to elapse
 	move.w (WindDelayTimer), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @EndWind
 	sub.w  #0x1, d0
 	move.w d0, WindDelayTimer
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @WindDelay
 	
 	; Delay elapsed, calc rand strength

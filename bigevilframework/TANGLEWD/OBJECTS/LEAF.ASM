@@ -124,7 +124,7 @@ LeafUpdate:
 	
 	; Check reset timer
 	move.w Leaf_ResetTimer(a0), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @Inactive
 
 	;==============================================================

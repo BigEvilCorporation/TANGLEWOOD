@@ -433,11 +433,11 @@ EchoUpdate:
 
 	; Update howl timer
 	move.w Echo_HowlTimer(a0), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @TimerNotRunning
 	sub.w  #0x1, d0
 	move.w d0, Echo_HowlTimer(a0)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerStillRunning
 	jsr    EchoHowl
 	@TimerStillRunning:
@@ -1651,7 +1651,7 @@ EchoAI_FindFuzzl:
 	; a2 --- OUT: Fuzzl addr
 
 	move.w (EntityCount_Fuzzl), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoFuzzls
 	move.l (EntityPoolStart_Fuzzl), a2
 	sub.w  #0x1, d6
@@ -1709,7 +1709,7 @@ EchoAI_FindButton:
 	; a2 --- OUT: Button addr
 
 	move.w (EntityCount_Button), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoButtons
 	move.l (EntityPoolStart_Button), a2
 	sub.w  #0x1, d6

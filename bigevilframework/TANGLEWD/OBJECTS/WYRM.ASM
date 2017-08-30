@@ -305,7 +305,7 @@ WyrmUpdate:
 	; Set next debris position
 	clr.l  d3
 	move.b Wyrm_NextFreeDebris(a0), d3	; Get next free index
-	cmp.w  #0x0, d1						; Determine direction
+	tst.w  d1						; Determine direction
 	blt    @PrevDebris
 	addi.b #0x1, d3						; Get next debris
 	bra    @EndDebrisDirection
@@ -414,7 +414,7 @@ WyrmFindSandDune:
 	clr.l  d2
 
 	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
-	cmp.w  #0x0, d3							; Bail if empty
+	tst.w  d3							; Bail if empty
 	beq    @NoTerrain
 	sub.w  #0x1, d3							; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table

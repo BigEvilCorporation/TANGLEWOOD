@@ -27,7 +27,7 @@ VDP_DMAQueue_AddJob:
 	; d1 (w) - Data size (words)
 
 	IFND FINAL
-	cmp.w #0x0, d1
+	tst.w d1
 	bne   @NonZero
 	RAISE_EXCEPTION error_dma_queue_full
 	@NonZero:
@@ -94,7 +94,7 @@ VDP_DMAQueue_ExecuteAll:
 	
 	; Get queue size (-1 for counter)
 	move.w (vdp_dma_queue_size), d5
-	cmp.w  #0x0, d5
+	tst.w  d5
 	beq    @NoJobs
 	sub.w  #0x1, d5
 	

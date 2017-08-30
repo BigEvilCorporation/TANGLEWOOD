@@ -42,7 +42,7 @@ RND_GenerateWordClamped:
 	andi.l #0xFFFF, d2
 	move.w d2, d3
 	sub.w  d1, d2	; Max-min
-	cmp.w  #0x0, d2
+	tst.w  d2
 	bne    @NonZero
 	move.w #0x1, d2
 	@NonZero:

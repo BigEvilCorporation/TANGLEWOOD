@@ -280,7 +280,7 @@ BoulderUpdate:
 	; Check if squishing a monster
 	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoMonsters
 	sub.w  #0x1, d6
 	@MonsterLoop:

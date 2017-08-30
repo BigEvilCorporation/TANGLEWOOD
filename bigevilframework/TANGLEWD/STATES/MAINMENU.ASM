@@ -201,7 +201,7 @@ MainMenu_Update:
 
 	; If waiting to fade in bg
 	move.w MainMenuState_FadeTimer(a2), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bgt    @WaitingForBgFade
 	blt    @StartedBgFade
 

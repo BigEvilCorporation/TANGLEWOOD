@@ -360,7 +360,7 @@ __vinterrupt:
 
 	; DMA the sprite table
 	move.w (next_sprite_index), d1
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @NoSprites
 	lea    vdp_sprite_table, a0
 	move.l #vram_addr_sprite_table, d0

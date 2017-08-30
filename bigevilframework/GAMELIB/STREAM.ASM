@@ -24,7 +24,7 @@ MAP_UpdateStreaming:
 	TILES2BLOCKS d1					; To blocks
 	move.w  d1, d2
 	sub.w   (MapStreamLoadedRow), d2
-	cmp.w   #0x0, d2
+	tst.w   d2
 	bge     @NumRowsPositive
 	neg.w   d2
 	@NumRowsPositive:
@@ -40,7 +40,7 @@ MAP_UpdateStreaming:
 	TILES2BLOCKS d3					; To blocks
 	move.w  d3, d4
 	sub.w   (MapStreamLoadedCol), d4
-	cmp.w   #0x0, d4
+	tst.w   d4
 	bge     @NumColsPositive
 	neg.w   d4
 	@NumColsPositive:
@@ -50,7 +50,7 @@ MAP_UpdateStreaming:
 	; Process one row followed by one col at a time
 	@WorkLoop:
 	
-	cmp.w   #0x0, d2
+	tst.w   d2
 	beq     @NoPendingRows
 	
 	; Stream next pending row
@@ -64,7 +64,7 @@ MAP_UpdateStreaming:
 	
 	;==============================================================
 	
-	cmp.w   #0x0, d4
+	tst.w   d4
 	beq     @NoPendingCols
 	
 	; Stream next pending col
@@ -90,9 +90,9 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Loop until all pending rows and cols processed
-	cmp.w   #0x0, d2
+	tst.w   d2
 	bne     @WorkLoop
-	cmp.w   #0x0, d4
+	tst.w   d4
 	bne     @WorkLoop
 	
 	rts

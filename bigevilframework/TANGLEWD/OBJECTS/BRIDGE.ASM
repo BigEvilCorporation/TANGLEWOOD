@@ -795,7 +795,7 @@ BridgeUpdateDropping:
 	add.l  #Bridge_NotchYPos, a3
 	move.l Level_Gravity(a1), d0
 
-	cmp.w  #0x0, d4
+	tst.w  d4
 	beq    @FirstNotch
 	sub.w  #0x1, d4
 	@NotchLp:

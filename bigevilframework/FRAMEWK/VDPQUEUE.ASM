@@ -98,7 +98,7 @@ VDP_JobQueue_ExecuteAll:
 	move.w (vdp_queue_produceridx), d0
 	move.w (vdp_queue_consumeridx), d1
 	sub.w  d1, d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @QueueEmpty
 	
 	; Run all

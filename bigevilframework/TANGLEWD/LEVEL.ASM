@@ -220,13 +220,13 @@ LevelLoad:
 LevelLoadPlayers:
 
 	; Set default player addrs
-	cmp.w  #0x0, EntityCount_Nymn
+	tst.w  EntityCount_Nymn
 	beq    @NoNymn
 
 	; Nymn is P1
 	move.l (EntityPoolStart_Nymn), Player1
 
-	cmp.w  #0x0, EntityCount_Echo
+	tst.w  EntityCount_Echo
 	beq    @NoEcho
 
 	; Echo is P2

@@ -313,7 +313,7 @@ PhysicsObjApplyAccelDecel:
 	
 	; Check if accelerating X
 	move.w PhysicsObj_AccelX(a0), d0	; Fetch X acceleration from RAM
-	cmp.w  #0x0, d0						; Check if accelerating
+	tst.w  d0						; Check if accelerating
 	beq    @IdleXDecel					; X controls idle, decelerate
 	ext.l  d0							; Sign extend word to long
 	
@@ -414,7 +414,7 @@ PhysicsObjApplyAccelDecel:
 	
 	; Check if accelerating Y
 	move.w PhysicsObj_AccelY(a0), d0	; Fetch Y acceleration from RAM
-	cmp.w  #0x0, d0						; Check if accelerating
+	tst.w  d0						; Check if accelerating
 	beq    @IdleYDecel					; Y controls idle, decelerate
 	ext.l  d0							; Sign extend word to long
 	
@@ -682,7 +682,7 @@ PhysicsObjCollisionCorrection:
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @NoBounceY
 	move.l PhysicsObj_VelY(a0), d0					; Check if heading down
 	cmp.l  #0x0, d0
@@ -735,7 +735,7 @@ PhysicsObjCollisionCorrection:
 	
 	clr.l  d0										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d0
 	neg.l  d0										; Negate Y velocity
@@ -793,7 +793,7 @@ PhysicsObjCollisionCorrection:
 	
 	clr.l  d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @NoBounceX
 	move.l PhysicsObj_VelX(a0), d0
 	neg.l  d0										; Negate X velocity
@@ -854,7 +854,7 @@ PhysicsObjFindFloor:
 	add.w  d3, d1							; Add to X pos
 
 	; Check if X within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
 	TILES2PIXELS d2
@@ -873,7 +873,7 @@ PhysicsObjFindFloor:
 	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
 
 	; Check if Y within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	TILES2PIXELS d2
@@ -998,7 +998,7 @@ PhysicsObjFindFloor:
 	
 	@NoHoleCheck:
 	@NoHoleFound:
-	cmp.w  #0x0, d0							; Floor height value in d0
+	tst.w  d0							; Floor height value in d0
 	bne    @FoundFloor
 	
 	;==============================================================
@@ -1074,7 +1074,7 @@ PhysicsObjFindWall:
 	@EndHeadingTest:
 	
 	; Check if X within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
 	TILES2PIXELS d2
@@ -1105,7 +1105,7 @@ PhysicsObjFindWall:
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
 
 	; Check if Y within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	sub.w  #0x1, d2
@@ -1244,7 +1244,7 @@ PhysicsObjFindWall:
 	
 	; Check if wall
 	andi.w #col_tile_flag_solid, d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @NoWallFound
 	
 	;==============================================================
@@ -1323,7 +1323,7 @@ PhysicsObjFindCeiling:
 	add.w  d3, d1							; Add to X pos
 
 	; Check if X within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
 	TILES2PIXELS d2
@@ -1341,7 +1341,7 @@ PhysicsObjFindCeiling:
 	move.w d2, d1							; Player pos XY (screen space) to d1
 
 	; Check if Y within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	TILES2PIXELS d2
@@ -1362,7 +1362,7 @@ PhysicsObjFindCeiling:
 	
 	; Check if solid
 	andi.w #col_tile_flag_solid, d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @NoCeilingFound
 	
 	;==============================================================
@@ -1399,7 +1399,7 @@ PhysicsObjFindMovingFloor:
 	add.w  d3, d1							; Add to X pos
 
 	; Check if X within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
 	TILES2PIXELS d2
@@ -1418,7 +1418,7 @@ PhysicsObjFindMovingFloor:
 	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
 
 	; Check if Y within collision map bounds
-	cmp.w  #0x0, d1
+	tst.w  d1
 	blt    @ProbeOutOfBounds
 	move.w Level_MapHeight(a1), d2
 	TILES2PIXELS d2

@@ -21,12 +21,12 @@ StartAmbientTrack:
 UpdateBGMTimer:
 
 	; If already zero, not running
-	cmp.w #0x0, BGMOffTimer
+	tst.w BGMOffTimer
 	beq   @TimerElapsed
 	
 	; Decrement timer and check again
 	sub.w #0x1, BGMOffTimer
-	cmp.w #0x0, BGMOffTimer
+	tst.w BGMOffTimer
 	bne   @TimerElapsed
 	
 	; Elapsed this frame, stop BGMOffTimer
@@ -40,7 +40,7 @@ UpdateBGMTimer:
 UpdateAmbientAudio:
 
 	; Chech if timer running
-	cmp.w #0x0, AmbientSFXTimer
+	tst.w AmbientSFXTimer
 	bne   @TimerRunning
 	
 	; Timer elapsed, get random SFX index

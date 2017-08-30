@@ -49,7 +49,7 @@ SPR_AddMultiSprite:
 	add.l   d7, a4
 
 	; Check if not first in table, link to prev
-	cmp.w   #0x0, d5
+	tst.w   d5
 	beq     @FirstInTable
 	move.b  d5, (-Sprite_Struct_Size+Sprite_NextID)(a4)
 	@FirstInTable:
@@ -140,7 +140,7 @@ SPR_AddSubSprite:
 	@WithinLimit:
 	
 	; Check if first in table
-	cmp.w   #0x0, d5
+	tst.w   d5
 	beq     @FirstInTable
 
 	; Subsequent entry in sprite table, link to previous

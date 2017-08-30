@@ -93,7 +93,7 @@ EndLevel_Update:
 	move.w EndLevelState_Timer(a2), d0
 	sub.w  #0x1, d0
 	move.w d0, EndLevelState_Timer(a2)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerRunning
 	
 	; Timer elapsed, set fade phase and begin timer
@@ -120,7 +120,7 @@ EndLevel_Update:
 	move.w EndLevelState_Timer(a2), d0
 	sub.w  #0x1, d0
 	move.w d0, EndLevelState_Timer(a2)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerRunning
 	
 	; Timer elapsed, set next level

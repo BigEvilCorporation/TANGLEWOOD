@@ -127,7 +127,7 @@ l2a3_Update:
 	
 	; Check for input
 	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq   @NoInput
 	
 	; Start wake up sequence

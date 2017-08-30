@@ -415,7 +415,7 @@ PlayerUpdateIdleSnooze:
 	; a0 --- Character address
 	
 	; If any button pressed
-	cmp.w  #0x0, Gamepad1State
+	tst.w  Gamepad1State
 	bgt    @EndSnooze
 	
 	bra    @StillSnoozing
@@ -482,7 +482,7 @@ PlayerUpdateIdleAnim:
 	add.l  #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a2
 	cmp.l  AnimObj_CurrentAnim(a0), a2
 	bne    @NotOneShotIdle
-	cmp.w  #0x0, Gamepad1State
+	tst.w  Gamepad1State
 	beq    @NotInterrupted
 	PUSHL  a1
 	move.l a0, a1
@@ -640,7 +640,7 @@ PlayerStartColourAbility:
 	; Find a Djakk
 	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoMonsters
 	sub.w  #0x1, d6
 	@MonsterLoop:
@@ -817,7 +817,7 @@ PlayerStopColourAbility:
 
 	; Dismount
 	move.b #Player_Dismount_Voluntary, d0
-	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	tst.w  Player_ColourChangeTimer(a0)
 	bne    @VoluntaryDismount
 	move.b #Player_Dismount_Timeout, d0
 	@VoluntaryDismount:
@@ -827,7 +827,7 @@ PlayerStopColourAbility:
 	@NotRiding:
 
 	; If timer elapsed
-	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	tst.w  Player_ColourChangeTimer(a0)
 	bne    @PetStillTamed
 
 	move.l Player_Pet(a0), a2
@@ -1070,7 +1070,7 @@ PlayerColourAbilityElapsed:
 	beq    @NoPower
 
 	; If timer running
-	cmp.w  #0x0, Player_ColourChangeTimer(a0)
+	tst.w  Player_ColourChangeTimer(a0)
 	beq    @TimerElapsed
 
 	; Advance countdown
@@ -1743,7 +1743,7 @@ PlayerInteractTest_Fuzzls:
 	beq    @PlayerOffFloor
 	
 	move.w (EntityCount_Fuzzl), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoFuzzls
 	
 	; Get player collision bounds
@@ -1876,7 +1876,7 @@ PlayerInteractTest_Fireflies:
 	PUSHL  a1
 	
 	move.w (EntityCount_Firefly), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @NoFireflies
 
 	; Check player against all Fireflies in level
@@ -1924,7 +1924,7 @@ PlayerInteractTest_Water:
 	; Check all water bodies
 	move.l (EntityPoolStart_WaterBody), a1
 	move.w (EntityCount_WaterBody), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoWaterBodies
 	subi.w #0x1, d6
 	@BodyLoop:
@@ -2009,7 +2009,7 @@ PlayerInteractTest_BouncePlants:
 	bge    @End
 	
 	move.w (EntityCount_BouncePlant), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoPlants
 	
 	; Get player collision bounds (assume jumping)

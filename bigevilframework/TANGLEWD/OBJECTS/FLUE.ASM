@@ -125,7 +125,7 @@ FlueOccupantUpdate:
 
 	; Check if timer elapsed
 	move.w FlueOccupant_HoldTimer(a2), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerRunning
 
 	; Timer elapsed, eject occupant

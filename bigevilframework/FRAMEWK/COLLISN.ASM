@@ -164,7 +164,7 @@ PHYS_GetTerrainHeight:
 	@HeightFound:
 	
 	; If valid tile (not defaulted here from blank/solid tile)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @UseOldFlags
 	move.w d4, d3		; Flags to d3
 	@UseOldFlags:

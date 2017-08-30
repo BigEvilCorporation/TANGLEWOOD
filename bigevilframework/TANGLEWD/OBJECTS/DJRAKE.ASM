@@ -513,7 +513,7 @@ DjrakeUpdateEmergeFromCave:
 	lea    PaletteLerp_Array, a2
 	;add.l  #(PaletteId_Djrake*PaletteLerp_Struct_Size), a2
 	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
-	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a2)
+	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
 	; Start roaring at player
@@ -690,7 +690,7 @@ DjrakeUpdateSearchForPlayer:
 	
 	; Check if in delay state
 	move.w Djrake_SearchDelay(a0), d1
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @Move
 	
 	; Count down delay

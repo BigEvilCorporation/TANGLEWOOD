@@ -44,7 +44,7 @@ Gameplay_Enter:
 	;==============================================================
 	
 	; Check save version
-	cmp.w  #0x0, LastSaveVersion
+	tst.w  LastSaveVersion
 	beq    @NoSave
 	
 	; Load saved game
@@ -54,7 +54,7 @@ Gameplay_Enter:
 	
 	;==============================================================
 	
-	cmp.w  #0x0, EntityCount_Checkpoint
+	tst.w  EntityCount_Checkpoint
 	beq    @NoCheckpoints
 	
 	; Get last activated checkpoint

@@ -548,7 +548,7 @@ FuzzlFindNest:
 	; Check all nests
 	move.l (EntityPoolStart_Nest), a3
 	move.w (EntityCount_Nest), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoNests
 	sub.w  #0x1, d6
 	@NestLoop:
@@ -634,7 +634,7 @@ FuzzlFindGenerator:
 	; Check all generators
 	move.l (EntityPoolStart_Generator), a3
 	move.w (EntityCount_Generator), d6
-	cmp.w  #0x0, d6
+	tst.w  d6
 	beq    @NoGenerators
 	sub.w  #0x1, d6
 	@GeneratorLoop:

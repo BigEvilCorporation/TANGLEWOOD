@@ -589,7 +589,7 @@ MonsterCheckBarrier:
 	; Found, check heading in right direction
 	ENTITY_GETCENTREX d1, a0
 	ENTITY_GETCENTREX d2, a2
-	cmp.w  #0x0, PhysicsObj_AccelX(a0)
+	tst.w  PhysicsObj_AccelX(a0)
 	beq    @NextMarker
 	bgt    @HeadingRight
 	cmp.l  d1, d2
@@ -858,7 +858,7 @@ MonsterUpdateEmergeFromCave:
 	; Wait for palette lerp finish
 	lea    PaletteLerp_Array, a2
 	add.l  #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
-	cmp.w  #0x0, PaletteLerp_UpdateSpeed(a2)
+	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
 	; Start roaring at player
@@ -1037,7 +1037,7 @@ MonsterUpdateSearchForPlayer:
 	
 	; Check if in delay state
 	move.w Monster_SearchDelay(a0), d1
-	cmp.w  #0x0, d1
+	tst.w  d1
 	beq    @Move
 	
 	; Count down delay
@@ -1421,11 +1421,11 @@ MonsterUpdateTamed:
 	
 	; Update growl timer
 	move.w Monster_GrowlTimer(a0), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	beq    @TimerNotRunning
 	sub.w  #0x1, d0
 	move.w d0, Monster_GrowlTimer(a0)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @TimerStillRunning
 	jsr    MonsterRoar
 	@TimerStillRunning:

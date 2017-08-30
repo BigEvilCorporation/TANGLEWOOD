@@ -140,7 +140,7 @@ Pause_Enter:
 
 	; TODO: This isn't freed :(
 	move.w PauseState_VRAMAddr(a0), d0
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @Allocated
 	move.w #sprite_firefly_size_b, d0
 	jsr    VRAM_PoolAlloc

@@ -573,7 +573,7 @@ l3a3MeetEchoUpdateStage_DjakkChase:
 	move.w l3a3Data_SceneTimer(a2), d0
 	sub.w  #0x1, d0
 	move.w d0, l3a3Data_SceneTimer(a2)
-	cmp.w  #0x0, d0
+	tst.w  d0
 	bne    @End
 	
 	; Next stage
