@@ -481,6 +481,7 @@ CharacterUpdateAnimState:
 	add.l  d1, a1
 	
 	; Apply animation
+	move.b #0x0, d0
 	jsr AnimObjSetAnimation
 	
 	move.l (sp)+, a1

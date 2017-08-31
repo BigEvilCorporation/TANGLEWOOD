@@ -273,9 +273,14 @@ AnimObjDraw:
 AnimObjSetAnimation:
 	; a0 --- AnimObj addr
 	; a1 --- Anim address
+	; d0 (b) Force
 	
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
+
+	; Skip change check if forced
+	tst.b  d0
+	bne    @SkipChangeCheck
 
 	; If not playing and allowed to replay, reset
 	move.b AnimObj_Playing(a0), d0

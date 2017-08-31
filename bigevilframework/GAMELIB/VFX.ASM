@@ -104,6 +104,7 @@ VfxPlay:
 	; Set animation
 	move.l a0, a1
 	addi.l #VfxObj_Animation, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 
 	; Begin updating and rendering
