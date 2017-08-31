@@ -308,17 +308,63 @@ EchoUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If mounting Nymn, update is handled by Nymn to match positions
+	move.b Echo_MountedState(a0), d0
+	cmp.b  #EchoMountNymn_Inactive, d0
+	bne    @Mounting
+
 	; Match Nymn's colour and power ability
 	move.l (Player1), a2
 	move.b Player_Colour(a2), Player_Colour(a0)
 	move.w Player_ColourChangeTimer(a2), Player_ColourChangeTimer(a0)
+	
+	; AI update
+	jsr EchoUpdateAI
+	
+	; Default update
+	jsr PlayerUpdate
 
-	; If mounting Nymn
-	move.b Echo_MountedState(a0), d0
-	cmp.b  #EchoMountNymn_Inactive, d0
-	beq    @NotMounted
+	; Update howl timer
+	move.w Echo_HowlTimer(a0), d0
+	tst.w  d0
+	beq    @TimerNotRunning
+	subq.w  #0x1, d0
+	move.w d0, Echo_HowlTimer(a0)
+	tst.w  d0
+	bne    @TimerStillRunning
+	jsr    EchoHowl
+	@TimerStillRunning:
+	@TimerNotRunning:
+	
+	@Carried:
+
+	; Update camera lerp timer
+	move.w Echo_AICameraLerpTimer(a0), d0
+	tst.w  d0
+	beq    @LerpTimerNotRunning
+	tst.w  CameraTargetLerpSpeed
+	bne    @LerpTimerNotRunning
+	subq.w #0x1, d0
+	move.w d0, Echo_AICameraLerpTimer(a0)
+	tst.w  d0
+	bne    @LerpTimerRunning
+	move.l a0, CameraTargetLerpSource
+	move.l (Player1), CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+	@LerpTimerNotRunning:
+	@LerpTimerRunning:
+
+	@Mounting:
+	
+	rts
+
+EchoUpdateRiding:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 	
 	; If jumping up to Nymn
+	move.b Echo_MountedState(a0), d0
 	cmp.b  #EchoMountNymn_Jumping, d0
 	beq    @Jumping
 	
@@ -396,6 +442,7 @@ EchoUpdate:
 	addi.l #Character_Animations, a1
 	move.b Character_AnimIdx(a0), d1
 	andi.l #0xFF, d0
+	andi.l #0xFF, d1
 	mulu   #Animation_Struct_Size, d1
 	add.l  d1, a1
 	
@@ -431,49 +478,8 @@ EchoUpdate:
 	; Update physics only
 	jsr    PhysicsObjUpdate
 
-	bra    @Carried
-	
-	;==============================================================
-	
-	@NotMounted:
-	
-	; AI update
-	jsr EchoUpdateAI
-	
-	; Default update
-	jsr PlayerUpdate
-
-	; Update howl timer
-	move.w Echo_HowlTimer(a0), d0
-	tst.w  d0
-	beq    @TimerNotRunning
-	subq.w  #0x1, d0
-	move.w d0, Echo_HowlTimer(a0)
-	tst.w  d0
-	bne    @TimerStillRunning
-	jsr    EchoHowl
-	@TimerStillRunning:
-	@TimerNotRunning:
-	
 	@Carried:
 
-	; Update camera lerp timer
-	move.w Echo_AICameraLerpTimer(a0), d0
-	tst.w  d0
-	beq    @LerpTimerNotRunning
-	tst.w  CameraTargetLerpSpeed
-	bne    @LerpTimerNotRunning
-	subq.w #0x1, d0
-	move.w d0, Echo_AICameraLerpTimer(a0)
-	tst.w  d0
-	bne    @LerpTimerRunning
-	move.l a0, CameraTargetLerpSource
-	move.l (Player1), CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-	@LerpTimerNotRunning:
-	@LerpTimerRunning:
-	
 	rts
 
 EchoDraw:
@@ -553,9 +559,10 @@ EchoBeginCarried:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
-	; Swap out idle and walk anims for carried versions
+	; Swap out idle, walk and water wade anims for carried versions
 	ANIM_LOAD_DEFAULT Echo_carriedidle,Echo_carriedidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 	
 	; Snap to Nymn's direction
 	move.l (Player1), a3
@@ -600,9 +607,10 @@ EchoEndCarried:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
-	; Restore default idle and walk anims
+	; Restore default idle, walk and water wade anims
 	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Echo_wade,Echo_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 	
 	; Force character animation update to restore anim state
 	jsr    CharacterUpdateAnimState

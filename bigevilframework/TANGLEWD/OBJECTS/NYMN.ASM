@@ -220,6 +220,16 @@ NymnUpdate:
 	
 	; Base functionality
 	jsr PlayerUpdate
+
+	; Update Echo manually
+	move.b Nymn_CarryEchoState(a0), d0
+	cmp.b  #NymnCarryEcho_Inactive, d0
+	beq    @NotUpdatingEcho
+	PUSHL  a0
+	move.l (Player2), a0
+	jsr    EchoUpdateRiding
+	POPL   a0
+	@NotUpdatingEcho:
 	
 	rts
 
