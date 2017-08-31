@@ -242,9 +242,6 @@ PhysicsObjUpdate:
 	; Correct for floor/wall collision
 	jsr PhysicsObjCollisionCorrection
 	
-	; Clamp pos to level space
-	jsr PhysicsObjClampPos
-	
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	move.l #0x0, PhysicsObj_ImpulseY(a0)
@@ -255,7 +252,6 @@ PhysicsObjUpdate:
 
 	; No physics, just do the basics
 	jsr PhysicsObjApplyVelocity
-	jsr PhysicsObjClampPos
 
 	bra @End
 
@@ -293,7 +289,6 @@ PhysicsObjSleepyUpdate:
 	
 	; Floor changed, run collision correction
 	jsr    PhysicsObjCollisionCorrection
-	jsr    PhysicsObjClampPos
 	
 	; Wake up
 	move.b #0x0, PhysicsObj_Asleep(a0)
@@ -569,58 +564,6 @@ PhysicsObjApplyVelocity:
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
 	move.l d0, PhysicsObj_LastAppliedVelY(a0)	; Save for attached platforms/barriers
-
-	rts
-
-PhysicsObjClampPos:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	clr.l  d1
-	move.l Entity_WorldPosY(a0), d0
-	move.w Level_MapHeight(a1), d1
-	TILES2PIXELS d1						; Tiles to pixels
-	addi.l #vdp_sprite_border_y*2, d1	; To sprite space
-	TOSUBPIXELS d1						; To world space
-	cmp.l  d1, d0
-	bgt    @ClampYBottom
-	tst.l  d0
-	blt    @ClampYTop
-	bra    @EndYClamp
-
-	@ClampYBottom:
-	move.l d1, Entity_WorldPosY(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	bra    @EndYClamp
-
-	@ClampYTop:
-	move.l #0x0, Entity_WorldPosY(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-
-	@EndYClamp:
-
-	clr.l  d1
-	move.l Entity_WorldPosX(a0), d0
-	move.w Level_MapWidth(a1), d1
-	TILES2PIXELS d1						; Tiles to pixels
-	addi.l #vdp_sprite_border_x*2, d1	; To sprite space
-	TOSUBPIXELS d1						; To world space
-	cmp.l  d1, d0
-	bgt    @ClampXRight
-	tst.l  d0
-	blt    @ClampXLeft
-	bra    @EndXClamp
-
-	@ClampXRight:
-	move.l d1, Entity_WorldPosX(a0)
-	move.l #0x0, PhysicsObj_VelX(a0)
-	bra    @EndXClamp
-
-	@ClampXLeft:
-	move.l #0x0, Entity_WorldPosX(a0)
-	move.l #0x0, PhysicsObj_VelX(a0)
-
-	@EndXClamp:
 
 	rts
 
