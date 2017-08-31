@@ -27,6 +27,7 @@ L1_LoadSceneAnimations:
 	move.w #spriteanim_AnimPlants_ground_plant_anim_speed, Animation_Speed(a1)
 	move.b #spriteanim_AnimPlants_ground_plant_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 
 	add.l  #SceneAnim_Struct_Size, a0
@@ -47,6 +48,7 @@ L1_LoadSceneAnimations:
 	move.w #spriteanim_AnimWater_water_anim_speed, Animation_Speed(a1)
 	move.b #spriteanim_AnimWater_water_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 
 	add.l  #SceneAnim_Struct_Size, a0

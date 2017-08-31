@@ -54,9 +54,11 @@ l4a1_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l4a1Data_ComboButton1Count		rs.b 1
+l4a1Data_ComboButton2Count		rs.b 1
 l4a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-l4a1Data_Struct_Pad      		rs.b 3
+l4a1Data_Struct_Pad      		rs.b 1
 l4a1Data_Struct_Size     		rs.b 0
 	
 l4a1_Init:
@@ -109,8 +111,21 @@ l4a1_Init:
 
 	ENTITY_GETBYNAME Button, l4a1_Button2, a0
 	ENTITY_GETBYNAME Bridge, l4a1_DropBridge1, a1
+	move.b #0x0, Button_Active(a0)
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginDrop, Button_OnDown(a0)
+
+	ENTITY_GETBYNAME Button, l4a1_Button3, a0
+	ENTITY_GETBYNAME Bridge, l4a1_Bridge2, a1
+	move.b #0x1, Button_Active(a0)
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+
+	; Lock Fuzzls in cages
+	ENTITY_GETBYNAME FuzzlCage, l4a1_FuzzlCage1, a0
+	ENTITY_GETBYNAME Fuzzl, l4a1_FuzzlCaged1, a2
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	jsr    FuzzlCageSetFuzzl
 
 	;==============================================================
 
