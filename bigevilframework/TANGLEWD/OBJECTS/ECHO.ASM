@@ -76,7 +76,8 @@ EchoAIState_FollowNodes		equ 3	; Following Nymn using nodes
 EchoAIState_Lost			equ 4	; Waiting for safe place to transport to
 EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
 EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
-EchoAIState_Water			equ 7	; Echo doesn't like water :(
+EchoAIState_Button			equ 7	; Holding a button until deactivated
+EchoAIState_Water			equ 8	; Echo doesn't like water :(
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -86,6 +87,7 @@ EchoAINode_Action_Land			equ 0x3
 EchoAINode_Action_StartGlide	equ 0x4
 EchoAINode_Action_StopGlide		equ 0x5
 EchoAINode_Action_StartPush		equ 0x6
+EchoAINode_Action_Button		equ 0x7
 
 ; AI node userdata
 EchoAIPush_Left					equ 0x0
@@ -94,6 +96,7 @@ EchoAIPush_Right				equ 0x1
 	rsset 0
 ;---------------------------------
 EchoAINode_UserData			rs.l 1	; Node specific user data
+EchoAINode_Object			rs.l 1	; Object of interest
 EchoAINode_PosX				rs.w 1	; Target pos X
 EchoAINode_PosY				rs.w 1	; Target pos Y
 EchoAINode_VelX				rs.w 1	; Forced X velocity set when target reached
@@ -345,6 +348,7 @@ EchoUpdate:
 	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_MountNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -396,6 +400,7 @@ EchoUpdate:
 	add.l  d1, a1
 	
 	; Apply animation
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	
 	move.l (sp)+, a1
@@ -569,6 +574,7 @@ EchoBeginCarried:
 	addi.l #Echo_Animations, a1
 	move.l #(EchoAnimIdx_JumpToNymn*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -634,6 +640,7 @@ EchoHowl:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -663,6 +670,8 @@ EchoUpdateAI:
 	beq    @CatchUp
 	cmp.b  #EchoAIState_PushObj, d0
 	beq    @PushObj
+	cmp.b  #EchoAIState_Button, d0
+	beq    @Button
 	cmp.b  #EchoAIState_Water, d0
 	beq    @Water
 	bra    @End
@@ -685,6 +694,10 @@ EchoUpdateAI:
 
 	@PushObj:
 	jsr    EchoAIUpdate_PushObj
+	bra    @End
+
+	@Button:
+	jsr    EchoAIUpdate_ButtonHold
 	bra    @End
 
 	@Water:
@@ -1157,6 +1170,32 @@ EchoAIUpdate_PushObj:
 	; If lost, back to follow state to re-evaluate
 
 	@End:
+
+	rts
+
+EchoAIStart_ButtonHold:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Button addr
+	
+	; Set button hold state
+	move.b #EchoAIState_Button, Echo_AIState(a0)
+
+	; Set button
+	move.l a2, Echo_AIObjectOfInterest(a0)
+	
+	rts
+	
+EchoAIUpdate_ButtonHold:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If button inactive, back to follow state
+	move.l Echo_AIObjectOfInterest(a0), a2
+	tst.b  Button_Active(a2)
+	bne    @StillActive
+	jsr    EchoAIStart_Follow
+	@StillActive:
 
 	rts
 
@@ -1790,7 +1829,7 @@ EchoAI_FindButton:
 	blt    @NextButton
 
 	; Check active
-	tst.b  Entity_Active(a2)
+	tst.b  Button_Active(a2)
 	beq    @NextButton
 
 	; Done
@@ -1838,6 +1877,7 @@ EchoAI_PushInteractionFuzzl:
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x0, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
 	; If first use of Fuzzl, lerp camera
@@ -1875,7 +1915,7 @@ EchoAI_PushInteractionButton:
 	ENTITY_GETCENTREX d0, a2
 	TOPIXELS d0
 
-	; Push goto node
+	; Push button node
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
 	move.w d0, EchoAINode_PosX(a3)
@@ -1886,7 +1926,8 @@ EchoAI_PushInteractionButton:
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x1, EchoAINode_LerpCamera(a3)
-	move.b #EchoAINode_Action_GoTo, EchoAINode_Action(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_Button, EchoAINode_Action(a3)
 
 	rts
 
@@ -1962,6 +2003,7 @@ EchoAIPopNode:
 	tst.b  EchoAINode_StopMovement(a3)
 	beq    @NoStopX
 	jsr    CharacterCancelXMovement
+	move.l #0x0, PhysicsObj_VelX(a0)
 	@NoStopX:
 
 	;==============================================================
@@ -1984,6 +2026,11 @@ EchoAIPopNode:
 
 	;==============================================================
 
+	; Set object of interest
+	move.l EchoAINode_Object(a3), Echo_AIObjectOfInterest(a0)
+
+	;==============================================================
+
 	PUSHL  a3
 
 	; Determine node type and run action
@@ -2003,6 +2050,8 @@ EchoAIPopNode:
 	beq    @StopGlideAction
 	cmp.b  #EchoAINode_Action_StartPush, d0
 	beq    @StartPushAction
+	cmp.b  #EchoAINode_Action_Button, d0
+	beq    @StartButtonAction
 
 	;==============================================================
 
@@ -2057,6 +2106,14 @@ EchoAIPopNode:
 
 	; Start push state
 	jsr    EchoAIStart_PushObj
+	bra    @EndAction
+
+	;==============================================================
+
+	@StartButtonAction:
+
+	; Start button hold state
+	jsr    EchoAIStart_ButtonHold
 	bra    @EndAction
 
 	;==============================================================
@@ -2153,5 +2210,72 @@ EchoAISetState:
 	bra     @End
 
 	@End:
+
+	rts
+
+EchoAIPanic:
+
+	PUSHL  a0
+
+	; Get Nymn and Echo
+	move.l (Player1), a2
+	move.l (Player2), a0
+
+	; If on screen, no problem
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
+
+	; Working back from Nymn, find last AI marker
+	move.w Entity_WorldPosX(a2), d0
+	move.w #0x0000, d2
+	move.w #0x0000, d3
+
+	move.w (EntityCount_AIMarker), d6
+	tst.w  d6
+	beq    @NoAIMarkers
+	move.l (EntityPoolStart_AIMarker), a3
+	subq.w  #0x1, d6
+	@AIMarkerLoop:
+
+	; Get marker pos
+	move.w  Entity_WorldPosX(a3), d1
+
+	; If ahead of nymn, discard
+	cmp.w   d1, d0
+	blt     @NextAIMarker
+
+	; If ahead of last found marker, set as new
+	cmp.w   d1, d2
+	bgt     @NextAIMarker
+	move.w  d1, d2
+	move.w  Entity_WorldPosY(a3), d3
+
+	@NextAIMarker:
+	addi.l #AIMarker_Struct_Size, a3
+	dbra   d6, @AIMarkerLoop
+
+	cmpi.w #0x0000, d2
+	bne    @FoundAIMarker
+
+	@NoAIMarkers:
+
+	; Shouldn't be here
+	RAISE_EXCEPTION *
+
+	@FoundAIMarker:
+
+	; Set position
+	move.w d2, Entity_WorldPosX(a0)
+	move.w Entity_Height(a0), d4
+	sub.w  d4, d3
+	move.w d3, Entity_WorldPosY(a0)
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+
+	@OnScreen:
+
+	POPL   a0
 
 	rts
