@@ -68,6 +68,7 @@ RopeSegmentInit:
 	; Set default swing anim
 	PUSHL  a1
 	move.l a3, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

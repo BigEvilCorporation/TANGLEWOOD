@@ -356,6 +356,7 @@ PlayerBeginSleep:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_LieDown*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -379,6 +380,7 @@ PlayerUpdateSleep:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -400,6 +402,7 @@ PlayerBeginIdleSnooze:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -439,6 +442,7 @@ PlayerUpdateIdleSnooze:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -469,6 +473,7 @@ PlayerUpdateIdleAnim:
 	PUSHL  a1
 	move.l a0, a1
 	addi.l #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	addq.b #0x1, Player_IdleTimeoutCount(a0)
 	POPL   a1
@@ -487,6 +492,7 @@ PlayerUpdateIdleAnim:
 	PUSHL  a1
 	move.l a0, a1
 	addi.l #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	POPL   a1
 	@NotInterrupted:
@@ -528,6 +534,7 @@ PlayerBeginColourSwitch:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Switch*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -1134,6 +1141,7 @@ PlayerMountPet:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 		
@@ -1294,6 +1302,7 @@ PlayerUpdateMount:
 	PUSHM  a0-a2
 	move.l a0, a1
 	addi.l #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 	
@@ -1409,6 +1418,7 @@ PlayerForwardPetControls:
 	addi.l #Character_Animations, a1
 	move.l #(CharacterAnimIdx_RideJump*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 

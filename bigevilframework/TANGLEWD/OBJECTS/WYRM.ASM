@@ -209,6 +209,7 @@ WyrmLoadGfx:
 	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Debris*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   d0/a1-a3
 
@@ -573,6 +574,7 @@ WyrmAIStart_Emerge
 	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Emerge*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.b #0x0, Character_UpdateAnim(a0)
 	POPL   a1
@@ -614,6 +616,7 @@ WyrmAIStart_Burrow
 	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Burrow*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.b #0x0, Character_UpdateAnim(a0)
 	POPL   a1
@@ -789,6 +792,7 @@ WyrmAIStart_Bite:
 	addi.l #Wyrm_Animations, a1
 	move.l #(WyrmAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.b #0x0, Character_UpdateAnim(a0)
 	POPL   a1

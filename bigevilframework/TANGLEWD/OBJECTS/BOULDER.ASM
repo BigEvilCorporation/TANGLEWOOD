@@ -138,6 +138,7 @@ BoulderInit:
 	move.l a0, a1
 	addi.l #Boulder_Animations, a1
 	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -159,6 +160,7 @@ BoulderLoadGfx:
 	move.l a0, a1
 	addi.l #Boulder_Animations, a1
 	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -200,6 +202,7 @@ BoulderUpdate:
 	move.l a0, a1
 	addi.l #Boulder_Animations, a1
 	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Roll), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -425,6 +428,7 @@ BoulderCrack:
 	move.l a0, a1
 	addi.l #Boulder_Animations, a1
 	addi.l #(Animation_Struct_Size*BoulderAnimIdx_Crack), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

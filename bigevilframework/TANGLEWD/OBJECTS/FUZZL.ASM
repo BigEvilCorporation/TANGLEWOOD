@@ -918,6 +918,7 @@ FuzzlUpdateAnimation:
 	addi.l #Fuzzl_Animations, a1
 	mulu   #Animation_Struct_Size, d0
 	add.l  d0, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	

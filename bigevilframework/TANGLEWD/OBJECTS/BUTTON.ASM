@@ -86,6 +86,7 @@ ButtonLoadGfx:
 	move.l a0, a1
 	addi.l #Button_Animation, a1
 	move.w #0x0, Animation_Speed(a1)
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -208,7 +209,7 @@ ButtonUpdate:
 	lsr.l  #0x8, d1
 	cmp.b  d0, d1
 	bne    @NoDisable
-	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, Button_Active(a0)
 	@NoDisable:
 
 	;==============================================================

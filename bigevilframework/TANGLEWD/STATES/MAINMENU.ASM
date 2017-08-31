@@ -143,6 +143,7 @@ MainMenu_Enter:
 	addi.l #Player_Animations, a1
 	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	
 	; Take control of anim updates

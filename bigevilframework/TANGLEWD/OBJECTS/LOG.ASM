@@ -129,6 +129,7 @@ LogInit:
 	move.l a0, a1
 	addi.l #Log_Animations, a1
 	addi.l #(Animation_Struct_Size*LogAnimIdx_Roll), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

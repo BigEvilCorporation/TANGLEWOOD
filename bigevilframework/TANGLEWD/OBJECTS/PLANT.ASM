@@ -240,6 +240,7 @@ BouncePlantUpdate:
 	;addi.l #BouncePlant_Animations, a1
 	;move.l #(BouncePlantAnimIdx_Idle*Animation_Struct_Size), d1
 	;add.l  d1, a1
+	;move.b #0x0, d0
 	;jsr    AnimObjSetAnimation
 	;POPL   a1
 
@@ -269,6 +270,7 @@ BouncePlant_Activate:
 	;addi.l #BouncePlant_Animations, a1
 	;move.l #(BouncePlantAnimIdx_Active*Animation_Struct_Size), d1
 	;add.l  d1, a1
+	;move.b #0x0, d0
 	;jsr    AnimObjSetAnimation
 	;POPL   a1
 

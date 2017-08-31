@@ -398,6 +398,7 @@ DjrakeStartWaitForPlayer:
 	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Eyes*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
 
@@ -548,6 +549,7 @@ DjrakeStartRoaring:
 	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Roar*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -928,6 +930,7 @@ DjrakeStartBite:
 	addi.l #Djrake_Animations, a1
 	move.l #(DjrakeAnimIdx_Bite*Animation_Struct_Size), d1
 	add.l  d1, a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
 
