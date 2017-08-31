@@ -1837,15 +1837,21 @@ EchoAI_PushInteractionFuzzl:
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
+
+	; If first use of Fuzzl, lerp camera
+	btst.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a2)
+	bne    @AlreadyUsed
+	move.b #0x1, EchoAINode_LerpCamera(a3)
+	@AlreadyUsed:
 
 	; Determine direction to roll in (towards Nymn)
 	move.l (Player1), a4
 	move.w Entity_WorldPosX(a4), d2
 	sub.w  d0, d2
 	blt    @RightSide
-	subi.w #Echo_AIDistPushObjX, d0	; Left side of Fuzzl (Fuzzl pos - threshold)
+	subi.w #Echo_AIDistPushObjX, d0		; Left side of Fuzzl (Fuzzl pos - threshold)
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
