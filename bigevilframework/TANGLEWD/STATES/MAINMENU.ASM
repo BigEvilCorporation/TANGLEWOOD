@@ -37,7 +37,7 @@ Lvl0_MainMenu:
 MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
-MainMenuLogoBorder	equ 0x0008
+MainMenuLogoBorder	equ 0x0000
 MainMenuLogoPosX	equ (vdp_sprite_border_x+(screen_width/2)-(spritesheet_twd_logo_twd_logo_width/2))*subpixels_per_pixel
 MainMenuLogoPosY	equ (vdp_sprite_border_y+MainMenuLogoBorder)*subpixels_per_pixel
 
@@ -109,6 +109,9 @@ MainMenu_Enter:
 	move.l #Lvl0_MainMenu, CurrentLevel
 	move.l (CurrentLevel), a1
 
+	; Load objects
+	jsr    main_menu_LoadGameObjects
+
 	; Load logo
 	lea    GameStateMainMenuData, a0
 	addi.l #MainMenuState_LogoSprite, a0
@@ -124,9 +127,6 @@ MainMenu_Enter:
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
 	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)
 
-	; Load objects
-	jsr    main_menu_LoadGameObjects
-
 	;==============================================================
 
 	; Load scene animations
@@ -135,7 +135,7 @@ MainMenu_Enter:
 	;==============================================================
 
 	; Disable Nymn physics (no terrain data)
-	move.l (Player1), a0
+	ENTITY_GETBYNAME Nymn, main_menu_Nymn_1, a0
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	
 	; Start sleep anim

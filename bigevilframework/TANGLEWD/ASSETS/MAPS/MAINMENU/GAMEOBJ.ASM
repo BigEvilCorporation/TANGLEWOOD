@@ -8,20 +8,20 @@
 
 
 main_menu_Leaf_count equ 0x6
-main_menu_Leaf_2_idx	equ 0x0
-main_menu_Leaf_3_idx	equ 0x1
-main_menu_Leaf_4_idx	equ 0x2
-main_menu_Leaf_5_idx	equ 0x3
-main_menu_Leaf_6_idx	equ 0x4
-main_menu_Leaf_7_idx	equ 0x5
+main_menu_Leaf_3_idx	equ 0x0
+main_menu_Leaf_4_idx	equ 0x1
+main_menu_Leaf_5_idx	equ 0x2
+main_menu_Leaf_6_idx	equ 0x3
+main_menu_Leaf_7_idx	equ 0x4
+main_menu_Leaf_8_idx	equ 0x5
 
 	IFND FINAL
-main_menu_Leaf_2_name	dc.b "main_menu_Leaf_2",0
 main_menu_Leaf_3_name	dc.b "main_menu_Leaf_3",0
 main_menu_Leaf_4_name	dc.b "main_menu_Leaf_4",0
 main_menu_Leaf_5_name	dc.b "main_menu_Leaf_5",0
 main_menu_Leaf_6_name	dc.b "main_menu_Leaf_6",0
 main_menu_Leaf_7_name	dc.b "main_menu_Leaf_7",0
+main_menu_Leaf_8_name	dc.b "main_menu_Leaf_8",0
 	even
 	ENDIF
 
@@ -36,10 +36,10 @@ main_menu_Nymn_1_name	dc.b "main_menu_Nymn_1",0
 	ENDIF
 
 main_menu_BouncePlant_count equ 0x1
-main_menu_BouncePlant_8_idx	equ 0x0
+main_menu_BouncePlant_1_idx	equ 0x0
 
 	IFND FINAL
-main_menu_BouncePlant_8_name	dc.b "main_menu_BouncePlant_8",0
+main_menu_BouncePlant_1_name	dc.b "main_menu_BouncePlant_1",0
 	even
 	ENDIF
 
@@ -57,13 +57,7 @@ main_menu_FuzzlCage_count equ 0x0
 
 main_menu_Fuzzl_count equ 0x0
 
-main_menu_Stone_count equ 0x1
-main_menu_Stone_9_idx	equ 0x0
-
-	IFND FINAL
-main_menu_Stone_9_name	dc.b "main_menu_Stone_9",0
-	even
-	ENDIF
+main_menu_Stone_count equ 0x0
 
 main_menu_Nest_count equ 0x0
 
@@ -108,16 +102,6 @@ main_menu_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr LeafInit
-	IFND FINAL
-	lea main_menu_Leaf_2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LeafLoadGfx
-	add.l #Leaf_Struct_Size, a0
 	jsr LeafInit
 	IFND FINAL
 	lea main_menu_Leaf_3_name, a3
@@ -168,6 +152,16 @@ main_menu_LoadGameObjects:
 	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea main_menu_Leaf_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -177,8 +171,8 @@ main_menu_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x00980000, Entity_WorldPosX(a0)
-	move.l #0x00d00000, Entity_WorldPosY(a0)
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x00d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea main_menu_Nymn_1_name, a3
 	move.l a0, a2
@@ -186,6 +180,7 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
@@ -196,10 +191,10 @@ main_menu_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x01700000, Entity_WorldPosX(a0)
-	move.l #0x01400000, Entity_WorldPosY(a0)
+	move.l #0x00980000, Entity_WorldPosX(a0)
+	move.l #0x01300000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea main_menu_BouncePlant_8_name, a3
+	lea main_menu_BouncePlant_1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -215,24 +210,6 @@ main_menu_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*main_menu_Stone_count)
-	move.l a1, EntityPoolStart_Stone
-	move.l a1, a0
-	POPL   a1
-
-	jsr StoneInit
-	move.l #0x00f80000, Entity_WorldPosX(a0)
-	move.l #0x01480000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea main_menu_Stone_9_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
 
 
 
