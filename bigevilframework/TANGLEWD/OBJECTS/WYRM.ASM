@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Wyrm_MaxEntities		equ 0x1
 Wyrm_Width				equ 0x40
 Wyrm_Height				equ 0x38
 Wyrm_Mass				equ 0x8

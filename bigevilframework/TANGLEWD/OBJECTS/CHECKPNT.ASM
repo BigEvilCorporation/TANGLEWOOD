@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Checkpoint_MaxEntities  equ 0x8
 Checkpoint_Width        equ 0x0010
 Checkpoint_Height       equ 0x0008
 

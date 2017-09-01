@@ -9,7 +9,6 @@
 LIFT_ROPE_SUPPORT_SWING equ 0
 
 ; Constants
-Rope_MaxEntities		equ 0x8
 Rope_Width				equ 0x40
 Rope_Height				equ 0x20
 

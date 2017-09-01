@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-FuzzlCage_MaxEntities		equ 0x4
 FuzzlCage_Width				equ 0x30
 FuzzlCage_Height			equ 0x28
 FuzzlCage_Mass				equ 0x8

@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Leaf_MaxEntities   equ 0x9
 Leaf_Width         equ 0x8
 Leaf_Height        equ 0x8
 Leaf_FallVelocity  equ -0x1800

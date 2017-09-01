@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Generator_MaxEntities		equ 0x4
 Generator_Width				equ 0x28
 Generator_Height			equ 0x10
 

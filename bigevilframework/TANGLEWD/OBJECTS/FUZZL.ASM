@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Fuzzl_MaxEntities			equ 0xA
 Fuzzl_Width					equ 0x10
 Fuzzl_Height				equ 0x10
 Fuzzl_MaxVelXFloor			equ 0x012000

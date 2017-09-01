@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Crate_MaxEntities		equ 0x4
 Crate_Width				equ 0x30
 Crate_Height			equ 0x28
 Crate_Mass				equ 0x8

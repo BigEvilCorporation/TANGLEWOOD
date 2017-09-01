@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Nest_MaxEntities  equ 0x8
 Nest_Width        equ 0x0018
 Nest_Height       equ 0x0008
 

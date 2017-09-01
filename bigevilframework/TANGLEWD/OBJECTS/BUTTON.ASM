@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Button_MaxEntities		equ 0x8
 Button_Width			equ 0x40
 Button_Height			equ 0x08
 Button_PressSpeed		equ 0x00004000

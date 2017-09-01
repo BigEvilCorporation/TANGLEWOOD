@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-DjakkCage_MaxEntities		equ 0x4
 DjakkCage_Width				equ 0xC0
 DjakkCage_Height			equ 0x60
 DjakkCage_SpriteWidth		equ 0x10

@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Firefly_MaxEntities  equ 0x20
 Firefly_Width        equ 0x10
 Firefly_Height       equ 0x10
 

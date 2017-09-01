@@ -8,7 +8,6 @@
 ;==============================================================
 
 ; Constants
-Deathbox_MaxEntities  	equ 0x8
 Deathbox_Width        	equ 0x0180
 Deathbox_Height       	equ 0x0028
 Deathbox_DefaultDamage	equ 0xFF

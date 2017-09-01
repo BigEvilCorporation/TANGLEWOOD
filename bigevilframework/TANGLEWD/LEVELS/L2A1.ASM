@@ -97,15 +97,6 @@ l2a1_Init:
 	move.w  #0x0080, WindDelayTimer
 
 	;==============================================================
-
-	; Connect button to lift
-	ENTITY_GETBYNAME Button, l2a1_Button1, a0
-	ENTITY_GETBYNAME Lift, l2a1_Lift1, a1
-	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
-
-	;==============================================================
 	
 	move.l (Player1), a0
 	

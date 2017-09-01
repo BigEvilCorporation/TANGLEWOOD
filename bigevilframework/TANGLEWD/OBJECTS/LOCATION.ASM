@@ -9,7 +9,6 @@
 ;==============================================================
 
 ; Constants
-Location_MaxEntities  equ 0x8
 Location_Width        equ 0x0008
 Location_Height       equ 0x0008
 

@@ -9,7 +9,6 @@
 ; ************************************
 ; Constants
 ; ************************************
-Djrake_MaxEntities   equ 0x1
 
 Djrake_Width	      equ 0x0080
 Djrake_Height	      equ 0x0050

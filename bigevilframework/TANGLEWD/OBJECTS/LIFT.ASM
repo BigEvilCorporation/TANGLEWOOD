@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Lift_MaxEntities		equ 0x8
 Lift_Width				equ 0x40
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X

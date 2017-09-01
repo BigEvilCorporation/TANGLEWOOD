@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-TriggerBox_MaxEntities  equ 0x8
 TriggerBox_Width        equ 0x0080
 TriggerBox_Height       equ 0x0080
 

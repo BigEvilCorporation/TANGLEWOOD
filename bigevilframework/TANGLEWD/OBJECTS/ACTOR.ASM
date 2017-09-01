@@ -9,7 +9,6 @@
 ; ************************************
 ; Constants
 ; ************************************
-Actor_MaxEntities 	equ 0x2
 
 ; Actor dimensions
 ActorWidth	 		equ 0x0038

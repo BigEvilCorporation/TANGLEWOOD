@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Boulder_MaxEntities			equ 0x4
 Boulder_Width				equ 0x38
 Boulder_Height				equ 0x38
 Boulder_Mass				equ 0x5

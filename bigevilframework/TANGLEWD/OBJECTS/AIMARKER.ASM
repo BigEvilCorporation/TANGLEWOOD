@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-AIMarker_MaxEntities  equ 0x8
 AIMarker_Width        equ 0x0008
 AIMarker_Height       equ 0x0008
 

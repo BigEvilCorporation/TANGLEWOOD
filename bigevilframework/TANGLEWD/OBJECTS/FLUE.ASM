@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Flue_MaxEntities		equ 0x8
 Flue_MaxPotentialOccupants	equ 0x8
 Flue_Width				equ 0x50
 Flue_Height				equ 0x40

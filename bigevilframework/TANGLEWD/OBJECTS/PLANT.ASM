@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-BouncePlant_MaxEntities	   equ 0x9
 BouncePlant_Width		   equ 0x18
 BouncePlant_Height		   equ 0x18
 BouncePlant_LaunchForce     equ 0x0A0000

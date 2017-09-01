@@ -10,7 +10,6 @@ ECHO_AI_DEBUG_SAFE_POS 		equ 0
 ECHO_AI_DEBUG_NODE_POS		equ 0
 
 ; Constants
-Echo_MaxEntities			equ 1
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn

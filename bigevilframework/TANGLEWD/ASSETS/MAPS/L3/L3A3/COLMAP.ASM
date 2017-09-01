@@ -14,3 +14,8 @@ terrainmap_L3A3_width	equ 0x384
 terrainmap_L3A3_height	equ 0xF0
 terrainmap_blockmap_L3A3_width	equ 0xE1
 terrainmap_blockmap_L3A3_height	equ 0x3C
+
+; Terrain beziers start/end positions
+terrainmap_L3A3_num_special_terrain_descs	equ 0x00
+terrainmap_L3A3_special_terrain_descs:
+

@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Cogs_MaxEntities		equ 0x4
 Cogs_Width				equ 0x38
 Cogs_Height				equ 0x68
 

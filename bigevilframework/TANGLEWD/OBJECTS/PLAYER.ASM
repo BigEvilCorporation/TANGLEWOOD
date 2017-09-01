@@ -11,7 +11,6 @@ PLAYER_DEBUG	equ 0
 ; ************************************
 ; Constants
 ; ************************************
-Player_MaxEntities equ 0x2
 
 ; Player dimensions
 Player1Width	  equ 0x0038

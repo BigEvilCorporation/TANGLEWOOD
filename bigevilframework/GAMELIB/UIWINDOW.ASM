@@ -6,8 +6,6 @@
 ;   uiwindow.asm - User interface window (collection of widgets)
 ;==============================================================
 
-UIWindow_MaxEntities		equ 0x1
-
 	rsset Entity_Struct_Size
 ;---------------------------------
 	LINKED_LIST Widgets				; Widgets belonging to this window

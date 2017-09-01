@@ -7,7 +7,6 @@
 ;==============================================================
 
 ; Constants
-Log_MaxEntities			equ 0x4
 Log_Width				equ 0x38
 Log_Height				equ 0x38
 Log_Mass				equ 0x4
