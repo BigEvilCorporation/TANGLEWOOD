@@ -1137,6 +1137,13 @@ EchoAIUpdate_PushObj:
 	bra    @End
 
 	@WithinBounds:
+
+	; If object not touching Nymn
+	ENTITY_GETBOUNDS d1,d2,d5,a2
+	ENTITY_GETBOUNDS d3,d4,d5,a3
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	bne    @TouchingNymn
 	
 	; Continue pushing towards Nymn
 	jsr    PlayerStartInteract
@@ -1162,7 +1169,9 @@ EchoAIUpdate_PushObj:
 	cmp.w  d0, d2
 	blt    @TooFarRight
 
-	; Within bounds, back to follow state
+	@TouchingNymn:
+
+	; Within bounds or touching Nymn, back to follow state
 	jsr    PlayerCancelInteract
 	jsr    EchoAIStart_Follow
 	bra    @End
@@ -1750,6 +1759,8 @@ EchoAI_FindFuzzl:
 	; a1 --- Level addr
 	; a2 --- OUT: Fuzzl addr
 
+	move.l (Player1), a3
+
 	move.w (EntityCount_Fuzzl), d6
 	tst.w  d6
 	beq    @NoFuzzls
@@ -1788,6 +1799,13 @@ EchoAI_FindFuzzl:
 	; Check not in cage
 	;btst.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a2)
 	;bne    @NextFuzzl
+
+	; Check not touching Nymn
+	ENTITY_GETBOUNDS d1,d2,d5,a2
+	ENTITY_GETBOUNDS d3,d4,d5,a3
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	bne    @NextFuzzl
 
 	; Done
 	bra    @FoundFuzzl
@@ -1880,7 +1898,7 @@ EchoAI_PushInteractionFuzzl:
 	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
-	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x0, EchoAINode_LerpCamera(a3)
