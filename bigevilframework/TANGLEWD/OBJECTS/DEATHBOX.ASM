@@ -23,6 +23,9 @@ Deathbox_Struct_Size    rs.b 0
 DeathboxInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Init base
+	jsr    EntityInit
 	
 	; Set type
 	; ori.l  #entity_type_Deathbox, Entity_TypeBits(a0)

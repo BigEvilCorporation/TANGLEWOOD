@@ -21,6 +21,9 @@ Nest_Struct_Size  rs.b 0
 NestInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Init base
+	jsr    EntityInit
 	
 	; Set type
 	ori.l  #entity_type_nest, Entity_TypeBits(a0)

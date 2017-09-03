@@ -26,6 +26,9 @@ AIMarker_Struct_Size  rs.b 0
 AIMarkerInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Init base
+	jsr    EntityInit
 	
 	; Add to count
 	addq.w #0x1, EntityCount_AIMarker

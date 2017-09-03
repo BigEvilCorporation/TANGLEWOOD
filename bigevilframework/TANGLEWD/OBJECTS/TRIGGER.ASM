@@ -38,6 +38,9 @@ TriggerType_ContainedY	equ 0x6	; TODO - Player fully inside trigger box on Y axi
 TriggerBoxInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Init base
+	jsr    EntityInit
 	
 	; Set type
 	ori.l  #entity_type_trigger, Entity_TypeBits(a0)

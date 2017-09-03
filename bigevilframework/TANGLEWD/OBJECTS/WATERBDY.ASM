@@ -21,6 +21,9 @@ WaterBody_Struct_Size  rs.b 0
 WaterBodyInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Init base
+	jsr    EntityInit
 	
 	; Set type
 	ori.l  #entity_type_waterbody, Entity_TypeBits(a0)

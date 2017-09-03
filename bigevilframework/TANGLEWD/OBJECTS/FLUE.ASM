@@ -48,6 +48,9 @@ FlueInit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Init base
+	jsr    EntityInit
+
 	; Set type
 	ori.l  #entity_type_flue, Entity_TypeBits(a0)
 	addq.w #0x1, EntityCount_Flue
