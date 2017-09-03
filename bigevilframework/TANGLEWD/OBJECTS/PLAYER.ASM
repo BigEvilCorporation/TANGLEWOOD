@@ -931,9 +931,14 @@ PlayerUpdateColourAbility:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @EndGlide
 	
-	; If -ve Y velocity
+	; If -ve Y velocity or in falling state
+	tst.b  Character_Falling(a0)
+	bne    @CanGlide
 	cmp.l  #0x0, PhysicsObj_VelY(a0)
-	bgt    @EndGlide
+	blt    @CanGlide
+	bra    @EndGlide
+
+	@CanGlide:
 
 	; Can glide
 	move.b #0x1, Character_Gliding(a0)

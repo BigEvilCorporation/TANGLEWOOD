@@ -7,11 +7,12 @@
 ;==============================================================
 
 ; Constants
-WindFlue_Width			equ 0x0080
-WindFlue_Height			equ 0x0018
-WindFlue_MaxBlowDist	equ 0x0010
-WindFlue_ResistStrength	equ 0x00010000
-WindFlue_MinAccel		equ DefaultGravity+0x1000
+WindFlue_Width				equ 0x0080
+WindFlue_Height				equ 0x0018
+WindFlue_MaxBlowDist		equ 0x0010
+WindFlue_MaxBlowDistGliding	equ 0x0100
+WindFlue_BlowVel			equ DefaultGravity+0x1000
+WindFlue_BlowVelGliding		equ DefaultGravity+0x2800
 
 ; Struct
 	rsset (Entity_Struct_Size)
@@ -56,15 +57,34 @@ WindFlueUpdate:
 	move.l (Player1), a2
 	ENTITY_GETBOUNDS d1,d2,d5,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+
+	; Add max blow height
+	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
+	beq    @GlideHeight
 	subi.w #WindFlue_MaxBlowDist, d1
-	jsr   PHYS_TestBoxIntersectBox
-	tst.b d0
-	beq   @OutOfBounds
+	bra    @FallHeight
+	@GlideHeight:
+	subi.w #WindFlue_MaxBlowDistGliding, d1
+	@FallHeight:
+
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @OutOfBounds
 
 	; Add wind accel
-	add.l #WindFlue_MinAccel, PhysicsObj_VelY(a2)
+	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
+	beq    @GlideVel
+	add.l  #WindFlue_BlowVel, PhysicsObj_VelY(a2)
+	bra    @FallVel
+	@GlideVel:
+	add.l  #WindFlue_BlowVelGliding, PhysicsObj_VelY(a2)
+	@FallVel:
 
-	; If lower than max height, apply resist strength
+	; Disable snap to floor
+	move.b #0x0, PhysicsObj_SnapToFloor(a2)
+
+	; Set falling
+	move.b #0x1, Character_Falling(a2)
 
 	@OutOfBounds:
 
