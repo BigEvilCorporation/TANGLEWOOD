@@ -11,8 +11,10 @@ WindFlue_Width				equ 0x0080
 WindFlue_Height				equ 0x0018
 WindFlue_MaxBlowDist		equ 0x0010
 WindFlue_MaxBlowDistGliding	equ 0x0180
+WindFlue_MaxBlowDistFuzzl	equ 0x0040
 WindFlue_BlowVel			equ DefaultGravity+0x1400
 WindFlue_BlowVelGliding		equ DefaultGravity+0x2800
+WindFlue_BlowVelFuzzl		equ DefaultGravity+0x2000
 WindFlue_MaxLeaves			equ 0x6
 WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
@@ -183,7 +185,7 @@ WindFlueUpdate:
 
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
-	beq    @OutOfBounds
+	beq    @PlayerOutOfBounds
 
 	; Add wind accel
 	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
@@ -200,7 +202,40 @@ WindFlueUpdate:
 	; Set falling
 	move.b #0x1, Character_Falling(a2)
 
-	@OutOfBounds:
+	@PlayerOutOfBounds:
+
+	;==============================================================
+
+	; Check Fuzzls
+	move.w (EntityCount_Fuzzl), d6
+	tst.w  d6
+	beq    @NoFuzzls
+	move.l (EntityPoolStart_Fuzzl), a2
+	subq.w  #0x1, d6
+	@FuzzlLoop:
+
+	; Check not in nest
+	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
+	bne    @NextFuzzl
+
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	subi.w #WindFlue_MaxBlowDistFuzzl, d1
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NextFuzzl
+
+	; Blow Fuzzl
+	addi.l #WindFlue_BlowVelFuzzl, PhysicsObj_VelY(a2)
+
+	@NextFuzzl:
+	lea    Fuzzl_Struct_Size(a2), a2
+	dbra   d6, @FuzzlLoop
+	
+	@NoFuzzls:
+	move.l #0x0, a2
+
+	;==============================================================
+
 	@Off:
 
 	;==============================================================
