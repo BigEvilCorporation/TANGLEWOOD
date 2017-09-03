@@ -89,37 +89,10 @@ GameStateReset:
 	; Init entity pool
 	RAMPOOL_INIT Pool_Entities,EntityRAMPoolSize
 	
-	; Reset entity counts
-	move.w #0x0, EntityCount_Actor
-	move.w #0x0, EntityCount_AIMarker
-	move.w #0x0, EntityCount_Boulder
-	move.w #0x0, EntityCount_BouncePlant
-	move.w #0x0, EntityCount_Bridge
-	move.w #0x0, EntityCount_Button
-	move.w #0x0, EntityCount_Cart
-	move.w #0x0, EntityCount_Cogs
-	move.w #0x0, EntityCount_Crate
-	move.w #0x0, EntityCount_DjakkCage
-	move.w #0x0, EntityCount_Echo
-	move.w #0x0, EntityCount_Firefly
-	move.w #0x0, EntityCount_Flue
-	move.w #0x0, EntityCount_Fuzzl
-	move.w #0x0, EntityCount_FuzzlCage
-	move.w #0x0, EntityCount_Generator
-	move.w #0x0, EntityCount_Leaf
-	move.w #0x0, EntityCount_Lift
-	move.w #0x0, EntityCount_Location
-	move.w #0x0, EntityCount_Log
-	move.w #0x0, EntityCount_Monster
-	move.w #0x0, EntityCount_Nest
-	move.w #0x0, EntityCount_Nymn
-	move.w #0x0, EntityCount_Pillar
-	move.w #0x0, EntityCount_Rope
-	move.w #0x0, EntityCount_Stone
-	move.w #0x0, EntityCount_TriggerBox
-	move.w #0x0, EntityCount_VFX
-	move.w #0x0, EntityCount_WaterBody
-	move.w #0x0, EntityCount_Wyrm
+	; Clear entity pointer array and counts
+	move.l #EntityPoolMemStart, a0
+	move.l #(EntityPoolMemEnd-EntityPoolMemStart), d0
+	MEMZEROB a0, d0
 
 	; Clear shared VRAM
 	move.w #0x0, SharedVRAM_Lift

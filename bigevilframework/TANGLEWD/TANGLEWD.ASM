@@ -136,6 +136,7 @@ __start
 	include 'objects\stone.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'
+	include 'objects\windflue.asm'
 	include 'objects\wyrm.asm'
 	
 	; Include players

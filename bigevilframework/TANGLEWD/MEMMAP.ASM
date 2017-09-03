@@ -384,6 +384,8 @@ __paddqng05			     rs.b 3
 ; Global entity RAM pool
 	RAMPOOL Pool_Entities,EntityRAMPoolSize
 
+EntityPoolMemStart			rs.b 0
+
 ; Entity pools start addrs
 EntityPoolStart_Nymn        rs.l 1
 EntityPoolStart_Echo        rs.l 1
@@ -416,6 +418,7 @@ EntityPoolStart_Rope        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
 EntityPoolStart_Stone       rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
+EntityPoolStart_WindFlue    rs.l 1
 EntityPoolStart_Wyrm        rs.l 1
 EntityPoolStart_UIWindow    rs.l 1
 
@@ -450,8 +453,11 @@ EntityCount_Rope        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
+EntityCount_WindFlue    rs.w 1
 EntityCount_Wyrm        rs.w 1
 EntityCount_UIWindow    rs.w 1
+
+EntityPoolMemEnd		rs.b 0
 
 ; ************************************
 ; VFX
