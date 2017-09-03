@@ -27,8 +27,7 @@ RainInit:
 	; a1 --- Level addr
 
 	; Base init, load sprite sheet
-	move.l #EntityArray_VFX, a0
-	addi.l #(VfxId_RainLight*VfxObj_Struct_Size), a0
+	move.l #EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a0
 	lea    vfx_spritesheet_rain_light, a2
 	lea    vfx_animation_rain_light, a3
 	jsr    VfxInit
@@ -43,7 +42,7 @@ RainInit:
 	PUSHM  d0/a0
 	jsr    RainSpriteInitPosition
 	POPM   d0/a0
-	addi.l #size_long*2, a0
+	lea    (size_long*2)(a0), a0
 	dbra   d0, @SpriteLp
 
 	rts
@@ -196,7 +195,7 @@ RainDraw:
 	POPM   d0-d3/a0-a2
 
 	; Next
-	addi.l #size_long*2, a2
+	lea    (size_long*2)(a2), a2
 
 	dbra   d0, @SpriteLp
 

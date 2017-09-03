@@ -89,14 +89,13 @@ FlueUpdate:
 	move.l a0, -(sp)
 	move.l a1, -(sp)
 	
-	move.l a0, a2
-	addi.l #Flue_Occupants, a2
+	lea    Flue_Occupants(a0), a2
 	move.l #(Flue_MaxOccupants-1), d0
 	@OccupantLp:
-	move.l d0, -(sp)
+	PUSHL  d0
 	jsr    FlueOccupantUpdate
-	move.l (sp)+, d0
-	addi.l #FlueOccupant_Struct_Size, a2
+	POPL   d0
+	lea    FlueOccupant_Struct_Size(a2), a2
 	dbra   d0, @OccupantLp
 
 	move.l (sp)+, a1
@@ -341,13 +340,12 @@ FlueFindOccupant:
 	beq    @Outside
 
 	; Object inside, check if already held
-	move.l a0, a4
-	addi.l #Flue_Occupants, a4
+	lea    Flue_Occupants(a0), a4
 	move.l #(Flue_MaxOccupants-1), d1
 	@OccupantLp:
 	cmp.l  FlueOccupant_ObjAddr(a4), a3
 	beq    @AlreadyHeld
-	addi.l #FlueOccupant_Struct_Size, a4
+	lea    FlueOccupant_Struct_Size(a4), a4
 	dbra   d1, @OccupantLp
 	
 	; New occupant found
@@ -365,8 +363,8 @@ FlueFindOccupant:
 	@Outside:
 	@CharacterDead:
 	@NextEntity:
-	addi.l #size_long, a5	 ; Get next ptr
-	dbra   d0, @EntityLp	 ; Loop
+	lea    size_long(a5), a5	; Get next ptr
+	dbra   d0, @EntityLp		; Loop
 	
 	@NoPotentialOccupants:
 	@NewOccupantFound:

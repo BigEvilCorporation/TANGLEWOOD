@@ -91,8 +91,7 @@ CrateInit:
 	;==============================================================
 	
 	; Setup platform
-	move.l a0, a2
-	addi.l #Crate_UpperPlatform, a2
+	lea    Crate_UpperPlatform(a0), a2
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Crate_PlatformWidth, Platform_Width(a2)
@@ -111,8 +110,7 @@ CrateLoadGfx:
 	jsr    PhysicsObjSnapToFloor
 
 	; Reposition platform and set velocity
-	move.l a0, a2
-	addi.l #Crate_UpperPlatform, a2
+	lea    Crate_UpperPlatform(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	addi.l #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0
@@ -134,8 +132,7 @@ CrateUpdate:
 	;==============================================================
 	
 	; Reposition platform and set velocity
-	move.l a0, a2
-	addi.l #Crate_UpperPlatform, a2
+	lea    Crate_UpperPlatform(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	addi.l #Crate_UpperPlatformXOffset*subpixels_per_pixel, d0

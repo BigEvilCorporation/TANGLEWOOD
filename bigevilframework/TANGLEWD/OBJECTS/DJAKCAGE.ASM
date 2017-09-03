@@ -70,8 +70,7 @@ DjakkCageInit:
 	;==============================================================
 	
 	; Setup barrier
-	move.l a0, a2
-	addi.l #DjakkCage_Barrier, a2
+	lea    DjakkCage_Barrier(a0), a2
 	move.w #DjakkCage_Width, Barrier_Width(a2)
 	move.w #DjakkCage_Height, Barrier_Height(a2)
 	LIST_APPEND_TAIL Barriers, a2, a3
@@ -86,8 +85,7 @@ DjakkCageLoadGfx:
 	SPRITE_LOAD_SHARED DjakCage,PaletteId_World0,0x0
 
 	; Reposition barrier
-	move.l a0, a2
-	addi.l #DjakkCage_Barrier, a2
+	lea    DjakkCage_Barrier(a0), a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
@@ -127,8 +125,7 @@ DjakkCageUpdate:
 	POPM   a0-a1
 
 	; Disable barrier
-	move.l a0, a2
-	addi.l #DjakkCage_Barrier, a2
+	lea    DjakkCage_Barrier(a0), a2
 	LIST_REMOVE Barriers, a2, a3, a4
 
 	@End:
@@ -136,8 +133,7 @@ DjakkCageUpdate:
 	jsr    SpriteObjUpdate
 
 	; Reposition barrier
-	move.l a0, a2
-	addi.l #DjakkCage_Barrier, a2
+	lea    DjakkCage_Barrier(a0), a2
 	move.l Entity_WorldPosX(a0), Barrier_PosX(a2)
 	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 

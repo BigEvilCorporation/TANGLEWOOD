@@ -91,8 +91,7 @@ CartInit:
 	;==============================================================
 	
 	; Setup platform
-	move.l a0, a2
-	addi.l #Cart_Platform, a2
+	lea    Cart_Platform(a0), a2
 	move.l a0, Platform_Owner(a2)
 	move.w #Cart_Width, Platform_Width(a2)
 	
@@ -116,8 +115,7 @@ CartLoadGfx:
 	jsr    PhysicsObjSnapToFloor
 
 	; Reposition platform
-	move.l a0, a2
-	addi.l #Cart_Platform, a2
+	lea    Cart_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), d0
 	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
@@ -137,8 +135,7 @@ CartUpdate:
 	jsr    PhysicsObjUpdate
 
 	; Reposition platform
-	move.l a0, a2
-	addi.l #Cart_Platform, a2
+	lea    Cart_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), d0
 	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0

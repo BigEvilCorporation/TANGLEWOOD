@@ -72,7 +72,7 @@ VDP_DMAQueue_AddJob:
 	move.w d0, VDPDMAJob_DestAddr(a1)
 	move.w d4, VDPDMAJob_SizeWords(a1)
 	addq.w #0x1, vdp_dma_queue_size
-	addi.l #VDPDMAJob_Struct_Size, a1
+	lea    VDPDMAJob_Struct_Size(a1), a1
 	
 	; Job 2
 	add.l  d3, a0			; Offset source address (bytes)
@@ -104,7 +104,7 @@ VDP_DMAQueue_ExecuteAll:
 	move.w VDPDMAJob_DestAddr(a1), d0
 	move.w VDPDMAJob_SizeWords(a1), d1
 	jsr    VDP_DMACopyVRAM
-	addi.l #VDPDMAJob_Struct_Size, a1
+	lea    VDPDMAJob_Struct_Size(a1), a1
 	dbra   d5, @QueueLoop
 	
 	; Clear queue

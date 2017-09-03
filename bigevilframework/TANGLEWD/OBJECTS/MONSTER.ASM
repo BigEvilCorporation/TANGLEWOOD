@@ -236,17 +236,14 @@ MonsterInit:
 	
 	; Setup default SFX
 	IFND DEBUG
-	move.l a0, a2
-	addi.l #Character_SFX, a2
+	lea    Character_SFX(a0), a2
 	
 	; Land
-	move.l a2, a3
-	addi.l #CharacterSFXIdx_Land*size_long, a3
+	lea    CharacterSFXIdx_Land*size_long(a2), a3
 	move.l #SFX_Land, (a3)
 
 	; Water splash
-	move.l a2, a3
-	addi.l #CharacterSFXIdx_WaterSplash*size_long, a3
+	lea    CharacterSFXIdx_WaterSplash*size_long(a2), a3
 	move.l #SFX_Water_Splash1, (a3)
 	ENDIF
 
@@ -643,10 +640,7 @@ MonsterRoar:
 
 	; Start roar animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Monster_Animations, a1
-	move.l #(MonsterAnimIdx_Roar*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Monster_Animations+(MonsterAnimIdx_Roar*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
@@ -722,10 +716,7 @@ MonsterSetInCage:
 	move.b #MonsterState_InCage, Monster_State(a0)
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Character_Animations, a1
-	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -740,10 +731,7 @@ MonsterStartWaitForPlayer:
 
 	; Start eye tracking animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Monster_Animations, a1
-	move.l #(MonsterAnimIdx_Eyes*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Monster_Animations+(MonsterAnimIdx_Eyes*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
@@ -858,8 +846,7 @@ MonsterUpdateEmergeFromCave:
 	; a1 --- Level addr
 
 	; Wait for palette lerp finish
-	lea    PaletteLerp_Array, a2
-	addi.l #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
+	lea    PaletteLerp_Array+(PaletteId_Monster*PaletteLerp_Struct_Size), a2
 	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
@@ -1303,10 +1290,7 @@ MonsterStartBite:
 
 	; Start bite animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Monster_Animations, a1
-	move.l #(MonsterAnimIdx_Bite*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Monster_Animations+(MonsterAnimIdx_Bite*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
@@ -1445,10 +1429,7 @@ MonsterStartBucking:
 
 	; Start buck animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Monster_Animations, a1
-	move.l #(MonsterAnimIdx_Buck*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Monster_Animations+(MonsterAnimIdx_Buck*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)

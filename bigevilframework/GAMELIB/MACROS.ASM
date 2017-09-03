@@ -173,8 +173,7 @@ SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
 
 ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
 	PUSHL  a0
-	addi.l #\arrayoffset, a0
-	addi.l #(Animation_Struct_Size*\index), a0
+	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
 	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #spriteanim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
@@ -190,8 +189,7 @@ ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,norep
 
 ANIM_LOAD_MANUALCONTROL: macro sheetname,animname,arrayoffset,index
 	PUSHL  a0
-	addi.l #\arrayoffset, a0
-	addi.l #(Animation_Struct_Size*\index), a0
+	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
 	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #0x0, Animation_AnimTrackPositionX(a0)

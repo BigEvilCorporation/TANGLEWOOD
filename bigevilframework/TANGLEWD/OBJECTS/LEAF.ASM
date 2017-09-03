@@ -71,8 +71,7 @@ LeafInit:
 	move.l #0x0, Leaf_VelX(a0)
 
 	; Setup animation
-	move.l a0, a3
-	addi.l #Leaf_Animation, a3
+	lea    Leaf_Animation(a0), a3
 	
 	; Select next colour sheet in array
 	clr.l  d0

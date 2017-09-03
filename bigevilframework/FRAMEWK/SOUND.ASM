@@ -421,7 +421,7 @@ SND_UpdateTrack:
 	@TrackCheckLp:
 	cmp.l  #0x0, (a1)
 	bne    @FoundTrack
-	addi.l #size_long, a1
+	lea    size_long(a1), a1
 	dbra   d0, @TrackCheckLp
 	bra    @Silence
 

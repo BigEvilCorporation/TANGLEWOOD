@@ -508,10 +508,7 @@ l3a3MeetEchoBeginStage_Hide:
 
 	; Start hide anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_Hide*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -593,10 +590,7 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	move.l (Player2), a0
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_Scared*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_Scared*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -659,10 +653,7 @@ l3a3MeetEchoBeginStage_StandUp:
 	move.l (Player2), a0
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_StandFromHiding*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_StandFromHiding*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -747,10 +738,7 @@ l3a3MeetEchoBeginStage_JumpNymn:
 	move.l (Player2), a0
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_PounceNymn*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_PounceNymn*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -789,10 +777,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	move.l (Player2), a0
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_GreetNymn*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_GreetNymn*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -810,10 +795,7 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	move.l (Player1), a0
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Nymn_Animations, a1
-	move.l #(NymnAnimIdx_GreetEcho*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(NymnAnimIdx_GreetEcho*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -847,10 +829,7 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	
 	; Set idle anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Character_Animations, a1
-	move.l #(CharacterAnimIdx_Idle*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	

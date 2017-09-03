@@ -351,10 +351,7 @@ PlayerBeginSleep:
 	
 	; Start animation
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_LieDown*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_LieDown*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -375,10 +372,7 @@ PlayerUpdateSleep:
 	bne    @LyingDown
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -397,10 +391,7 @@ PlayerBeginIdleSnooze:
 	
 	; Start sleep anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -437,10 +428,7 @@ PlayerUpdateIdleSnooze:
 	
 	; Start wake anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Wake*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -452,8 +440,7 @@ PlayerUpdateIdleSnooze:
 PlayerUpdateIdleAnim:
 	
 	; If in idle anim, check if one-shot idle anim should start
-	move.l a0, a2
-	addi.l #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a2
+	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle)(a0), a2
 	cmp.l  AnimObj_CurrentAnim(a0), a2
 	bne    @NotIdle
 	
@@ -470,8 +457,7 @@ PlayerUpdateIdleAnim:
 	@FirstTimeIdle:
 	
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a1
+	lea    Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	addq.b #0x1, Player_IdleTimeoutCount(a0)
@@ -482,15 +468,13 @@ PlayerUpdateIdleAnim:
 	@EndIdle:
 	
 	; If in one-shot idle anim, any button press interrupts
-	move.l a0, a2
-	addi.l #Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack), a2
+	lea    Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack)(a0), a2
 	cmp.l  AnimObj_CurrentAnim(a0), a2
 	bne    @NotOneShotIdle
 	tst.w  Gamepad1State
 	beq    @NotInterrupted
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle), a1
+	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	POPL   a1
@@ -529,10 +513,7 @@ PlayerBeginColourSwitch:
 	
 	; Start animation
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Switch*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Switch*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -674,7 +655,7 @@ PlayerStartColourAbility:
 	bra    @EndMonsterLoop
 		
 	@NextMonster:
-	addi.l #Monster_Struct_Size, a1
+	lea   Monster_Struct_Size(a1), a1
 	dbra  d6, @MonsterLoop
 	
 	@NoMonsters:
@@ -767,13 +748,13 @@ PlayerStopColourAbility:
 	jsr    PAL_LerpStart
 	
 	move.l Level_PalettesAddr(a1), a3
-	addi.l #(size_long*PaletteId_Monster), a3
+	lea    (size_long*PaletteId_Monster)(a3), a3
 	move.l (a3), a0
 	move.l #PaletteId_Monster, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
 	move.l Level_PalettesAddr(a1), a3
-	addi.l #(size_long*PaletteId_Fuzzl), a3
+	lea    (size_long*PaletteId_Fuzzl)(a3), a3
 	move.l (a3), a0
 	move.l #PaletteId_Fuzzl, d0			; Palette idx
 	jsr    PAL_LerpStart
@@ -1141,10 +1122,7 @@ PlayerMountPet:
 
 	; Start mount animation
 	PUSHM  a0-a2
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Mount*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
@@ -1297,15 +1275,13 @@ PlayerUpdateMount:
 	@StateMounting:
 
 	; Wait for mount anim to finish
-	move.l a0, a3
-	addi.l #Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size), a3
+	lea    Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size)(a0), a3
 	cmp.l  AnimObj_CurrentAnim(a0), a3
 	beq    @EndState
 
 	; Done, start ride anim
 	PUSHM  a0-a2
-	move.l a0, a1
-	addi.l #Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size), a1
+	lea    Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
@@ -1418,10 +1394,7 @@ PlayerForwardPetControls:
 
 	; Player jump anim
 	PUSHM  a0-a2
-	move.l a0, a1
-	addi.l #Character_Animations, a1
-	move.l #(CharacterAnimIdx_RideJump*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Character_Animations+(CharacterAnimIdx_RideJump*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
@@ -1675,16 +1648,12 @@ PlayerUpdatePushInteract:
 	
 	; Apply to light push anim
 	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
-	move.l a0, a2
-	addi.l #Character_Animations, a2
-	addi.l #(Animation_Struct_Size*CharacterAnimIdx_Push), a2
+	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Push)(a0), a2
 	move.w d0, Animation_Speed(a2)
 	
 	; Apply to heavy push anim
 	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
-	move.l a0, a2
-	addi.l #Character_Animations, a2
-	addi.l #(Animation_Struct_Size*CharacterAnimIdx_PushHeavy), a2
+	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_PushHeavy)(a0), a2
 	move.w d1, Animation_Speed(a2)
 
 	@NotPushing:
@@ -1814,7 +1783,7 @@ PlayerInteractTest_Fuzzls:
 	bra    @End
 
 	@NextFuzzl:
-	addi.l #Fuzzl_Struct_Size, a2
+	lea    Fuzzl_Struct_Size(a2), a2
 	dbra   d6, @FuzzlLoop
 	
 	@NoFuzzls:
@@ -1909,7 +1878,7 @@ PlayerInteractTest_Fireflies:
 	movem.l (sp)+, d0-d1/a0-a1
 
 	@NextFirefly:
-	addi.l #Firefly_Struct_Size, a0
+	lea    Firefly_Struct_Size(a0), a0
 	dbra   d0, @FireflyLoop
 	
 	@NoFireflies:
@@ -1963,8 +1932,7 @@ PlayerInteractTest_Water:
 	bge    @LowSplashVel
 	
 	; Play splash SFX
-	move.l a0, a2
-	addi.l #Character_SFX+(CharacterSFXIdx_WaterSplash*size_long), a2
+	lea    Character_SFX+(CharacterSFXIdx_WaterSplash*size_long)(a0), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoSplashSFX
 	PLAYSFX (a2)
@@ -1974,7 +1942,7 @@ PlayerInteractTest_Water:
 	PUSHM  a0-a1
 	move.l Entity_WorldPosX(a0), d0	; Player X
 	move.l Entity_WorldPosY(a1), d1	; Water Y
-	move.l #EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
+	lea    EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
 	move.w Entity_Height(a0), d2	; -splash height
 	TOSUBPIXELS d2
 	sub.l  d2, d1
@@ -1996,7 +1964,7 @@ PlayerInteractTest_Water:
 	@NoIntersect:
 	
 	; Next body
-	addi.l #WaterBody_Struct_Size, a1
+	lea  WaterBody_Struct_Size(a1), a1
 	dbra d6, @BodyLoop
 	
 	@NoWaterBodies:
@@ -2083,7 +2051,7 @@ PlayerInteractTest_BouncePlants:
 	bra    @End
 	
 	@NextPlant:
-	addi.l #BouncePlant_Struct_Size, a2
+	lea    BouncePlant_Struct_Size(a2), a2
 	dbra   d6, @PlantLoop
 	
 	@NoPlants:

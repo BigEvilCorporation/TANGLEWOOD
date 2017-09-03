@@ -96,10 +96,7 @@ l2a2_Init:
 	move.b #0x0, Player_ControlEnabled(a0)
 	
 	; Start sleep anim
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	
 	; Take control of anim updates
@@ -131,10 +128,7 @@ l2a2_Update:
 	PUSHL  a1
 	PUSHL  a2
 	move.l (Player1), a0
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Wake*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Wake*Animation_Struct_Size)(a0), a1
 	jsr    AnimObjSetAnimation
 	POPL   a2
 	POPL   a1

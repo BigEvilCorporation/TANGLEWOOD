@@ -61,9 +61,7 @@ CogsInit:
 	ANIM_LOAD_DEFAULT cogs_cogs,cogs_spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
 
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Cogs_Animations, a1
-	addi.l #(Animation_Struct_Size*CogsAnimIdx_Spin), a1
+	lea    Cogs_Animations+(Animation_Struct_Size*CogsAnimIdx_Spin)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1

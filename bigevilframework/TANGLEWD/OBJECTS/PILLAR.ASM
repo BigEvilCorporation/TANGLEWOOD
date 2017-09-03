@@ -60,8 +60,7 @@ PillarInit:
 	;==============================================================
 	
 	; Setup barrier
-	move.l a0, a2
-	addi.l #Pillar_Barrier, a2
+	lea    Pillar_Barrier(a0), a2
 	move.w #Pillar_BarrierWidth, Barrier_Width(a2)
 	move.w #Pillar_Height, Barrier_Height(a2)
 	move.l #Pillar_BreakVelocity, Barrier_BreakVel(a2)
@@ -84,8 +83,7 @@ PillarLoadGfx:
 	SPRITE_LOAD_DEFAULT Pillar,PaletteId_World0,0x0
 
 	; Reposition barrier
-	move.l a0, a2
-	addi.l #Pillar_Barrier, a2
+	lea    Pillar_Barrier(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	addi.l #(Pillar_BarrierOffsetX*subpixels_per_pixel), d0
 	move.l d0, Platform_PosX(a2)
@@ -98,8 +96,7 @@ PillarUpdate:
 	; a1 --- Level addr
 	
 	; If hit at velocity, smash
-	move.l a0, a2
-	addi.l #Pillar_Barrier, a2
+	lea    Pillar_Barrier(a0), a2
 	tst.b  Barrier_Broken(a2)
 	beq    @NotBroken
 	move.b #0x0, SpriteObj_Visible(a0)

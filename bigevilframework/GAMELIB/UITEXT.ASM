@@ -50,7 +50,7 @@ UIWidgetTextInit:
 	
 	; Blank string
 	move.l a0, a3
-	addi.l #UIWidgetText_String, a3
+	lea    UIWidgetText_String(a3), a3
 	MEMZEROB a3, d1
 	
 	rts
@@ -86,7 +86,7 @@ UIWidgetTextSetString:
 	; Copy string
 	move.l a0, a3
 	andi.w #0x00FF, d1
-	addi.l #UIWidgetText_String, a3
+	lea    UIWidgetText_String(a3), a3
 	MEMCPYB a3, a1, d1
 
 	; If using sprites
@@ -121,7 +121,7 @@ UIWidgetTextSetString:
 	divu.w #size_tile_b, d0					; VRAM addr to tile ID
 	move.l UIWidgetText_FontAddr(a0), a1	; Font
 	move.b UIWidgetText_TileCount(a0), d2	; Count (incl. padding)
-	addi.l #UIWidgetText_String, a0			; String
+	lea    UIWidgetText_String(a0), a0		; String
 	jsr    TXT_LoadStringSpriteTiles
 	POPM   a0-a1
 
@@ -168,7 +168,7 @@ UIWidgetTextRender:
 	divu.w #size_tile_b, d0						; To tiles
 	move.b UIWidgetText_Palette(a0), d2			; Palette
 	move.b UIWidgetText_DrawPlane(a0), d3		; Plane
-	addi.l #UIWidgetText_String, a0				; String
+	lea    UIWidgetText_String(a0), a0			; String
 	jsr    TXT_DrawPlane
 
 	bra @End

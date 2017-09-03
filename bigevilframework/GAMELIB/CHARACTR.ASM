@@ -178,8 +178,7 @@ CharacterUpdate:
 	bge    @LowLandVel
 	
 	; Play land SFX
-	move.l a0, a2
-	addi.l #Character_SFX+(CharacterSFXIdx_Land*size_long), a2
+	lea    (Character_SFX+(CharacterSFXIdx_Land*size_long))(a0), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoLandSFX
 	PLAYSFX (a2)
@@ -474,9 +473,8 @@ CharacterUpdateAnimState:
 	move.b d1, Character_AnimIdx(a0)
 	
 	; Get anim struct address from character
-	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Character_Animations, a1
+	PUSHL  a1
+	lea    Character_Animations(a0), a1
 	mulu   #Animation_Struct_Size, d1
 	add.l  d1, a1
 	
@@ -484,7 +482,7 @@ CharacterUpdateAnimState:
 	move.b #0x0, d0
 	jsr AnimObjSetAnimation
 	
-	move.l (sp)+, a1
+	POPL   a1
 
 	@EndAnim:
 	
@@ -670,8 +668,7 @@ CharacterStartJump:
 	move.b #0x1, Character_Jumping(a0)
 
 	; Play water jump SFX
-	move.l a0, a2
-	addi.l #Character_SFX+(CharacterSFXIdx_WaterJump*size_long), a2
+	lea    (Character_SFX+(CharacterSFXIdx_WaterJump*size_long))(a0), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoWaterJumpSFX
 	PLAYSFX (a2)

@@ -64,7 +64,7 @@ VRAM_ClearPools:
 	@ClearLp:
 	move.w #0x0, VRAMPool_Allocated(a0)
 	move.w VRAMPool_Size(a0), VRAMPool_Free(a0)
-	addi.l #VRAMPool_Struct_Size, a0
+	lea    VRAMPool_Struct_Size(a0), a0
 	dbra   d0, @ClearLp
 
 	rts
@@ -97,7 +97,7 @@ VRAM_PoolAlloc:
 	bra    @Success
 
 	@NextPool:
-	addi.l #VRAMPool_Struct_Size, a2
+	lea    VRAMPool_Struct_Size(a2), a2
 	dbra   d1, @PoolLp
 
 	@Failure:

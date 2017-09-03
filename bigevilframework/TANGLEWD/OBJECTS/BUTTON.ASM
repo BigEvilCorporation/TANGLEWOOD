@@ -58,8 +58,7 @@ ButtonInit:
 	;==============================================================
 	
 	; Setup platform
-	move.l a0, a2
-	addi.l #Button_Platform, a2
+	lea    Button_Platform(a0), a2
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Button_Width, Platform_Width(a2)
 	
@@ -82,8 +81,7 @@ ButtonLoadGfx:
 
 	; Set initial anim, override speed
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Button_Animation, a1
+	lea    Button_Animation(a0), a1
 	move.w #0x0, Animation_Speed(a1)
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
@@ -103,8 +101,7 @@ ButtonUpdate:
 	move.l d0, d1
 
 	; Check if platform occupied
-	move.l a0, a2
-	addi.l #Button_Platform, a2
+	lea    Button_Platform(a0), a2
 	cmp.w  #Button_MinMass, Platform_TotalMass(a2)
 	blt    @Unoccupied
 
@@ -200,8 +197,7 @@ ButtonUpdate:
 	; If reached bottom, and no OnUp callback, disable
 	tst.l  Button_OnUp(a0)
 	bne    @NoDisable
-	move.l a0, a2
-	addi.l #Button_Animation, a2
+	lea    Button_Animation(a0), a2
 	move.b Animation_Length(a2), d0
 	subq.b #0x1, d0
 	move.l AnimObj_AnimSubframe(a0), d1
@@ -214,8 +210,7 @@ ButtonUpdate:
 	;==============================================================
 
 	; Reposition platform
-	move.l a0, a2
-	addi.l #Button_Platform, a2
+	lea    Button_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), d1
 	move.l Entity_WorldPosY(a0), d2
 	add.l  d0, d2					; Add button press height

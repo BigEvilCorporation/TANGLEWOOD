@@ -71,7 +71,7 @@ SPR_ClearAllLinks:
 	lea     vdp_sprite_table, a0
 	
 	; Offset to next sprite ID
-	addi.l  #Sprite_NextID, a0
+	lea     Sprite_NextID(a0), a0
 	
 	; Loop all sprites in table
 	move.w  #vdp_max_sprites-1, d0
@@ -81,7 +81,7 @@ SPR_ClearAllLinks:
 	move.b  #0x0, (a0)
 	
 	; Next sprite
-	addi.l  #size_spritedesc, a0
+	lea     size_spritedesc(a0), a0
 	
 	dbra    d0, @SpriteLp
 	
@@ -175,7 +175,7 @@ SPR_SetMultiPosX:
 		move.b d5, Sprite_Prio_Pal_Flip_TileIDHi(a0)
 		
 		; Next subsprite
-		addi.l #size_spritedesc, a0
+		lea    size_spritedesc(a0), a0
 		
 		; Next subsprite offset
 		addq.l  #size_long, a1
@@ -214,7 +214,7 @@ SPR_SetMultiPosY:
 		move.w d6, Sprite_CoordY(a0)
 		
 		; Next subsprite
-		addi.l #size_spritedesc, a0
+		lea    size_spritedesc(a0), a0
 		
 		; Next subsprite offset
 		addq.l  #size_long, a1

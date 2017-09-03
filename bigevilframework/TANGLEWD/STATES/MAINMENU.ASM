@@ -113,8 +113,7 @@ MainMenu_Enter:
 	jsr    main_menu_LoadGameObjects
 
 	; Load logo
-	lea    GameStateMainMenuData, a0
-	addi.l #MainMenuState_LogoSprite, a0
+	lea    GameStateMainMenuData+MainMenuState_LogoSprite, a0
 	jsr    SpriteObjInit
 	move.l #SpriteObjUpdate, Entity_UpdateRoutine(a0)
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
@@ -139,10 +138,7 @@ MainMenu_Enter:
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 	
 	; Start sleep anim
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Sleep*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	

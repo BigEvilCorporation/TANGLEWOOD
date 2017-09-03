@@ -310,8 +310,8 @@ RenderEndFrame:
 	jsr    VFX_CreateUnderwaterPalette
 	POPM   d0/a0-a1
 	@NotDirty:
-	addi.l #size_palette_b, a0
-	addi.l #size_palette_b, a1
+	lea    size_palette_b(a0), a0
+	lea    size_palette_b(a1), a1
 	addq.b #0x1, d0
 	cmp.b  #num_palettes, d0
 	bne    @PaletteLp
@@ -379,7 +379,7 @@ __vinterrupt:
 	jsr    PAL_LoadDMA
 	POPM   d0/a0
 	@NotDirty:
-	addi.l #size_palette_b, a0
+	lea    size_palette_b(a0), a0
 	addq.b #0x1, d0
 	cmp.b  #num_palettes, d0
 	bne    @PaletteLp

@@ -55,7 +55,7 @@ PAL_LerpStart:
 
 	; Copy target palette into target buffer
 	move.l  #(size_palette_b/size_long), d6
-	addi.l  #PaletteLerp_BufferTrg, a2
+	lea     PaletteLerp_BufferTrg(a2), a2
 	MEMCPYL a2, a0, d6
 	
 	rts
@@ -92,7 +92,7 @@ PAL_LerpActive:
 	beq    @Inactive
 	bset   d1, d0
 	@Inactive:
-	addi.l #PaletteLerp_Struct_Size, a0
+	lea    PaletteLerp_Struct_Size(a0), a0
 	dbra d1, @PaletteLerpLp
 
 	POPL   a0
@@ -123,7 +123,7 @@ PAL_LerpUpdate:
 	@PaletteNotWritten:
 
 	; Next palette
-	addi.l #PaletteLerp_Struct_Size, a0
+	lea    PaletteLerp_Struct_Size(a0), a0
 	addq.b #0x1, d0
 	cmp.b  #num_palettes, d0
 	bne    @PaletteLerpLp
@@ -167,7 +167,7 @@ PAL_LerpUpdateNextComponent:
 	; Check if lerp finished
 	move.l a0, a1
 	move.l a0, a2
-	addi.l #PaletteLerp_BufferTrg, a1		; Offset into struct to target palette buffer
+	lea    PaletteLerp_BufferTrg(a1), a1	; Offset into struct to target palette buffer
 	move.l PaletteLerp_CurrentAddr(a0), a2	; Current palette
 
 	move.b PaletteLerp_ColourMin(a0), d3	; Offset into palettes to start of range
@@ -231,7 +231,7 @@ PAL_LerpUpdateNextComponent:
 	
 	move.l a0, a1
 	move.l a0, a2
-	addi.l #PaletteLerp_BufferTrg, a1		; Target buffer addr
+	lea    PaletteLerp_BufferTrg(a1), a1	; Target buffer addr
 	move.l PaletteLerp_CurrentAddr(a0), a2	; Source palette addr
 	
 	clr.l  d4							; Clear working regs

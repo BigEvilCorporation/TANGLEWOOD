@@ -58,8 +58,7 @@ RopeSegmentInit:
 	IF LIFT_ROPE_SUPPORT_SWING
 
 	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	move.l a0, a2
-	addi.l #RopeSegment_Animations, a2
+	lea    RopeSegment_Animations(a0), a2
 
 	; Default swing
 	ANIM_LOAD_DEFAULT rope_rope,rope_swing,RopeSegment_Animations,RopeSegmentAnimIdx_Swing,1,0,0

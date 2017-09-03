@@ -150,7 +150,7 @@ SPR_AddSubSprite:
 	lsl.l   #0x3, d6	; mulu.w  #size_spritedesc, d6
 	add.l   d6, a4
 	move.b  d5, Sprite_NextID(a4)
-	addi.l  #size_spritedesc, a4
+	lea     size_spritedesc(a4), a4
 
 	bra     @EndLink
 	@FirstInTable:

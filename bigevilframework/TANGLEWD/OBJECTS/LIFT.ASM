@@ -106,8 +106,7 @@ LiftInit:
 	;==============================================================
 	
 	; Setup platform
-	move.l a0, a2
-	addi.l #Lift_Platform, a2
+	lea    Lift_Platform(a0), a2
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Lift_Width, Platform_Width(a2)
 	
@@ -123,8 +122,7 @@ LiftInit:
 
 	; Animated swinging rope segments
 	move.w #(Lift_RopeNumSprites-1), d1
-	move.l a0, a2
-	addi.l #Lift_RopeSegments, a2
+	lea    Lift_RopeSegments(a0), a2
 	@RopeInitLp:
 	
 	move.l (NextFreeRopeSegment), a0
@@ -140,7 +138,7 @@ LiftInit:
 	ELSE ; LIFT_ROPE_SUPPORT_SWING
 
 	; Single, static, reusable rope segment
-	addi.l #Lift_RopeSegment, a0
+	lea    Lift_RopeSegment(a0), a0
 	jsr    SpriteObjInit
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
@@ -167,8 +165,7 @@ LiftLoadGfx:
 	; Animated swinging rope segments
 	PUSHM  a0-a1
 	move.w #(Lift_RopeNumSprites-1), d1
-	move.l a0, a2
-	addi.l #Lift_RopeSegments, a2
+	lea    Lift_RopeSegments(a0), a2
 	@RopeLp:
 	move.l (a2)+, a0
 	PUSHM  a2/d1
@@ -181,7 +178,7 @@ LiftLoadGfx:
 
 	; Single, static, reusable rope segment
 	PUSHL a0
-	addi.l #Lift_RopeSegment, a0
+	lea   Lift_RopeSegment(a0), a0
 	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
 	POPL  a0
 
@@ -246,8 +243,7 @@ LiftPositionRopeSegments:
 	addi.l #Lift_RopePosOffsetX, d0
 	addi.l #Lift_RopePosOffsetY, d1
 	
-	move.l a0, a2
-	addi.l #Lift_RopeSegments, a2
+	lea    Lift_RopeSegments(a0), a2
 	
 	move.w #(Lift_RopeNumSprites-1), d2
 	@RopePosLp:
@@ -316,13 +312,11 @@ LiftProcessCounterweight:
 	; a2 --- Counterweight lift addr
 
 	; Get total mass of both platforms
-	move.l a0, a3
-	addi.l #Lift_Platform, a3
+	lea    Lift_Platform(a0), a3
 	clr.l  d0
 	move.w Platform_TotalMass(a3), d0
 
-	move.l a2, a3
-	addi.l #Lift_Platform, a3
+	lea    Lift_Platform(a2), a3
 	clr.l  d1
 	move.w Platform_TotalMass(a3), d1
 
@@ -398,12 +392,10 @@ LiftProcessCounterweight:
 	@EndCounterweight:
 
 	; Set platform Y velocities
-	move.l a0, a3
-	addi.l #Lift_Platform, a3
+	lea    Lift_Platform(a0), a3
 	move.l PhysicsObj_VelY(a0), Platform_VelY(a3)
 
-	move.l a2, a3
-	addi.l #Lift_Platform, a3
+	lea    Lift_Platform(a2), a3
 	move.l PhysicsObj_VelY(a2), Platform_VelY(a3)
 
 	rts
@@ -550,8 +542,7 @@ LiftUpdate:
 	;==============================================================
 	
 	; Reposition platform
-	move.l a0, a2
-	addi.l #Lift_Platform, a2
+	lea    Lift_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	move.w Entity_Height(a0), d2
@@ -611,7 +602,7 @@ LiftDraw:
 	PUSHL  a0
 
 	; Get rope obj
-	addi.l #Lift_RopeSegment, a0
+	lea    Lift_RopeSegment(a0), a0
 
 	@RopeDrawLp:
 

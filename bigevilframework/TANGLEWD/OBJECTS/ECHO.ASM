@@ -197,22 +197,18 @@ EchoInit:
 	
 	; Setup default SFX
 	IFND DEBUG
-	move.l a0, a2
-	addi.l #Character_SFX, a2
+	lea    Character_SFX(a0), a2
 	
 	; Land
-	move.l a2, a3
-	addi.l #CharacterSFXIdx_Land*size_long, a3
+	lea    CharacterSFXIdx_Land*size_long(a2), a3
 	move.l #SFX_Land, (a3)
 
 	; Water splash
-	move.l a2, a3
-	addi.l #CharacterSFXIdx_WaterSplash*size_long, a3
+	lea    CharacterSFXIdx_WaterSplash*size_long(a2), a3
 	move.l #SFX_Water_Splash1, (a3)
 
 	; Water Jump
-	move.l a2, a3
-	addi.l #CharacterSFXIdx_WaterJump*size_long, a3
+	lea    CharacterSFXIdx_WaterJump*size_long(a2), a3
 	move.l #SFX_Water_Jump, (a3)
 	ENDIF
 	
@@ -389,10 +385,7 @@ EchoUpdateRiding:
 	
 	; Set mounting anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_MountNymn*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_MountNymn*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -437,8 +430,7 @@ EchoUpdateRiding:
 	
 	; Get anim struct address from character
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Character_Animations, a1
+	lea    Character_Animations(a0), a1
 	move.b Character_AnimIdx(a0), d1
 	andi.l #0xFF, d0
 	andi.l #0xFF, d1
@@ -503,8 +495,7 @@ EchoDraw:
 	andi.w #Echo_NumAINodes-1, d6
 	andi.w #Echo_NumAINodes-1, d7
 	mulu   #EchoAINode_Struct_Size, d6
-	move.l a0, a2
-	addi.l #Echo_AIFollowNodes, a2
+	lea    Echo_AIFollowNodes(a0), a2
 	add.l  d6, a2
 	move.w Entity_Height(a0), d3
 	move.l (EntityPoolStart_Fuzzl), a0
@@ -576,10 +567,7 @@ EchoBeginCarried:
 	
 	; Set jumping-to-Nymn anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Echo_Animations, a1
-	move.l #(EchoAnimIdx_JumpToNymn*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Echo_Animations+(EchoAnimIdx_JumpToNymn*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -643,10 +631,7 @@ EchoHowl:
 
 	; Set howling anim
 	PUSHL  a1
-	move.l a0, a1
-	addi.l #Player_Animations, a1
-	move.l #(PlayerAnimIdx_Howl*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
@@ -1813,7 +1798,7 @@ EchoAI_FindFuzzl:
 	bra    @FoundFuzzl
 
 	@NextFuzzl:
-	addi.l #Fuzzl_Struct_Size, a2
+	lea    Fuzzl_Struct_Size(a2), a2
 	dbra   d6, @FuzzlLoop
 	
 	@NoFuzzls:
@@ -1863,7 +1848,7 @@ EchoAI_FindButton:
 	bra    @FoundButton
 
 	@NextButton:
-	addi.l #Button_Struct_Size, a2
+	lea    Button_Struct_Size(a2), a2
 	dbra   d6, @ButtonLoop
 	
 	@NoButtons:
@@ -1994,7 +1979,7 @@ EchoAIPushNode:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	addi.l #Echo_AIFollowNodes, a0		; Get array
+	lea    Echo_AIFollowNodes(a0), a0	; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2018,7 +2003,7 @@ EchoAIPopNode:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	addi.l #Echo_AIFollowNodes, a0		; Get array
+	lea    Echo_AIFollowNodes(a0), a0	; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2164,7 +2149,7 @@ EchoAIPeekNodeFront:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	addi.l #Echo_AIFollowNodes, a0		; Get array
+	lea    Echo_AIFollowNodes(a0), a0	; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2186,7 +2171,7 @@ EchoAIPeekNodeBack:
 	
 	; Get address into array of nodes
 	mulu   #EchoAINode_Struct_Size, d7	; Index to node offset
-	addi.l #Echo_AIFollowNodes, a0		; Get array
+	lea    Echo_AIFollowNodes(a0), a0	; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
@@ -2279,7 +2264,7 @@ EchoAIPanic:
 	move.w  Entity_WorldPosY(a3), d3
 
 	@NextAIMarker:
-	addi.l #AIMarker_Struct_Size, a3
+	lea    AIMarker_Struct_Size(a3), a3
 	dbra   d6, @AIMarkerLoop
 
 	cmpi.w #0x0000, d2

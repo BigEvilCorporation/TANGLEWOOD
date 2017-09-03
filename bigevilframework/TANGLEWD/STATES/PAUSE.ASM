@@ -135,7 +135,7 @@ Pause_Enter:
 	move.b d0, PauseState_TextSpritesCount(a0)
 		
 	; Create temp firefly
-	addi.l #PauseState_Firefly, a0
+	lea    PauseState_Firefly(a0), a0
 	jsr    FireflyInit
 
 	; TODO: This isn't freed :(
@@ -200,8 +200,7 @@ Pause_Exit:
 	POPL   a0
 	
 	; Delete temp firefly
-	lea    GameStatePauseData, a0
-	addi.l #PauseState_Firefly, a0
+	lea    GameStatePauseData+PauseState_Firefly, a0
 	jsr    FireflyShutdown
 	
 	; Backup current pad state
@@ -256,8 +255,7 @@ Pause_Update:
 	move.w d0, PauseState_PrevPadState(a0)
 	
 	; Update temp firefly
-	lea    GameStatePauseData, a0
-	addi.l #PauseState_Firefly, a0
+	lea    GameStatePauseData+PauseState_Firefly, a0
 	move.l Entity_UpdateRoutine(a0), a3
 	jsr    (a3)
 	
@@ -381,8 +379,8 @@ Debug_DrawVRAMPools:
 
 	; Next pool
 	POPM    d1-d4/a2-a3
-	addi.l  #VRAMPool_Struct_Size, a2
-	addi.l  #DebugText_VRAM_StrLen, a3
+	lea     VRAMPool_Struct_Size(a2), a2
+	lea     DebugText_VRAM_StrLen(a3), a3
 	addq.w  #0x8, d1
 	addq.w  #0x1, d4
 	dbra    d3, @PoolLp

@@ -393,10 +393,7 @@ DjrakeStartWaitForPlayer:
 
 	; Start eye tracking animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Djrake_Animations, a1
-	move.l #(DjrakeAnimIdx_Eyes*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Djrake_Animations+(DjrakeAnimIdx_Eyes*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
@@ -510,9 +507,7 @@ DjrakeUpdateEmergeFromCave:
 	; a1 --- Level addr
 
 	; Wait for palette lerp finish
-	lea    PaletteLerp_Array, a2
-	;addi.l #(PaletteId_Djrake*PaletteLerp_Struct_Size), a2
-	addi.l #(PaletteId_Monster*PaletteLerp_Struct_Size), a2
+	lea    PaletteLerp_Array+(PaletteId_Monster*PaletteLerp_Struct_Size), a2
 	tst.w  PaletteLerp_UpdateSpeed(a2)
 	bne    @Lerping
 	
@@ -544,10 +539,7 @@ DjrakeStartRoaring:
 	
 	; Start roar animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Djrake_Animations, a1
-	move.l #(DjrakeAnimIdx_Roar*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Djrake_Animations+(DjrakeAnimIdx_Roar*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
@@ -925,10 +917,7 @@ DjrakeStartBite:
 
 	; Start bite animation
 	move.l a1, -(sp)
-	move.l a0, a1
-	addi.l #Djrake_Animations, a1
-	move.l #(DjrakeAnimIdx_Bite*Animation_Struct_Size), d1
-	add.l  d1, a1
+	lea    Djrake_Animations+(DjrakeAnimIdx_Bite*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1

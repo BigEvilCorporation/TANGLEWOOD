@@ -30,8 +30,8 @@ L1_LoadSceneAnimations:
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 
-	add.l  #SceneAnim_Struct_Size, a0
-	add.l  #Animation_Struct_Size, a1
+	lea    SceneAnim_Struct_Size(a0), a0
+	lea    Animation_Struct_Size(a1), a1
 
 	; Get stamp VRAM address
 	move.w (vram_addr_leveltiles), d0
@@ -51,8 +51,8 @@ L1_LoadSceneAnimations:
 	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 
-	add.l  #SceneAnim_Struct_Size, a0
-	add.l  #Animation_Struct_Size, a1
+	lea    SceneAnim_Struct_Size(a0), a0
+	lea    Animation_Struct_Size(a1), a1
 
 	POPL   a1
 	rts
