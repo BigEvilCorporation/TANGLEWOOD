@@ -191,8 +191,8 @@ l2a1_Trigger_WindSpeed2:
 
 l2a1_Trigger_WindSpeed3:
 	move.w  #0x0010, WindAccel
-	move.w  #0x0600, WindRandStrengthMin
-	move.w  #0x0700, WindRandStrengthMax
+	move.w  #-0x0600, WindRandStrengthMin
+	move.w  #-0x0700, WindRandStrengthMax
 	move.w  #0x0170, WindRandDelayMin
 	move.w  #0x0180, WindRandDelayMax
 	move.w  #0x01F0, WindRandDurationMin
@@ -213,14 +213,8 @@ l2a1_Trigger_WindSpeed4:
 
 l2a1_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts
