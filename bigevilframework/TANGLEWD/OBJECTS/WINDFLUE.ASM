@@ -22,8 +22,9 @@ WindFlue_DistributeX		equ (WindFlue_Width/WindFlue_MaxLeaves)
 	rsset (Entity_Struct_Size)
 ;---------------------------------
 WindFlue_Leaves       rs.b (Leaf_Struct_Size*WindFlue_MaxLeaves)
+WindFlue_Visible      rs.b 1
 ;---------------------------------
-WindFlue_Struct_Pad   rs.b 0	; Alignment padding
+WindFlue_Struct_Pad   rs.b 3	; Alignment padding
 WindFlue_Struct_Size  rs.b 0
 
 WindFlueInit:
@@ -47,6 +48,7 @@ WindFlueInit:
 	; Initialise
 	move.w  #WindFlue_Width, Entity_Width(a0)
 	move.w  #WindFlue_Height, Entity_Height(a0)
+	move.b  #0x0, WindFlue_Visible(a0)
 
 	; Init all leaves
 	PUSHL   a0
@@ -117,6 +119,18 @@ WindFlueUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If within X view
+	move.b #0x0, WindFlue_Visible(a0)
+	move.w Entity_WorldPosX(a0), d0
+	sub.w  (WorldScrollX), d0
+	cmp.w  #vdp_sprite_border_x+screen_width, d0
+	bgt    @OutOfXView
+	move.w d0, d4
+	add.w  Entity_Width(a0), d4
+	cmp.w  #vdp_sprite_border_x, d4
+	blt    @OutOfXView
+	move.b #0x1, WindFlue_Visible(a0)
+
 	; Check if player within range
 	move.l (Player1), a2
 	ENTITY_GETBOUNDS d1,d2,d5,a0
@@ -184,11 +198,16 @@ WindFlueUpdate:
 	dbra    d0, @LeafLp
 	POPL    a0
 
+	@OutOfXView:
+
 	rts
 
 WindFlueDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	tst.b   WindFlue_Visible(a0)
+	beq     @Invisible
 
 	; Draw all leaves
 	PUSHL   a0
@@ -201,5 +220,7 @@ WindFlueDraw:
 	lea     Leaf_Struct_Size(a0), a0
 	dbra    d0, @LeafLp
 	POPL    a0
+
+	@Invisible:
 
 	rts
