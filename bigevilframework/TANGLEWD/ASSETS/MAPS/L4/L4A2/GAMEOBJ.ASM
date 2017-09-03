@@ -71,6 +71,8 @@ L4A2_Cart_count equ 0x0
 
 L4A2_Pillar_count equ 0x0
 
+L4A2_WindFlue_count equ 0x0
+
 
 
 L4A2_LoadGameObjects:
@@ -94,6 +96,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 

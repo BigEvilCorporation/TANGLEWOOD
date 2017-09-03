@@ -185,6 +185,8 @@ L4A1_Cart_count equ 0x0
 
 L4A1_Pillar_count equ 0x0
 
+L4A1_WindFlue_count equ 0x0
+
 
 
 L4A1_LoadGameObjects:
@@ -479,6 +481,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	move.l #L4A1_Trigger_EchoUnderground, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
@@ -698,6 +701,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 
