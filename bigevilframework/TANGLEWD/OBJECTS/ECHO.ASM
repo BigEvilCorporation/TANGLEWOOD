@@ -1232,9 +1232,11 @@ EchoAIStart_Water:
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
 
-	; Start running in opposite direction
-	move.l PhysicsObj_VelX(a0), d0
-	tst.l  d0
+	; Start running towards closest shore
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	sub.l  d0, d1
+	tst.l  d1
 	bgt    @MoveLeft
 	jsr    CharacterMoveRight
 	bra    @MoveRight
