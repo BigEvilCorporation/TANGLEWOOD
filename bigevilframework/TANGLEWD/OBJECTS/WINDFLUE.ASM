@@ -10,21 +10,25 @@
 WindFlue_Width				equ 0x0080
 WindFlue_Height				equ 0x0018
 WindFlue_MaxBlowDist		equ 0x0010
-WindFlue_MaxBlowDistGliding	equ 0x0100
+WindFlue_MaxBlowDistGliding	equ 0x0180
 WindFlue_BlowVel			equ DefaultGravity+0x1400
 WindFlue_BlowVelGliding		equ DefaultGravity+0x2800
 WindFlue_MaxLeaves			equ 0x6
 WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
 WindFlue_DistributeX		equ (WindFlue_Width/WindFlue_MaxLeaves)
+WindFlue_OnTime				equ 0x08*frames_per_second_pal
+WindFlue_OffTime			equ 0x08*frames_per_second_pal
 
 ; Struct
 	rsset (Entity_Struct_Size)
 ;---------------------------------
 WindFlue_Leaves       rs.b (Leaf_Struct_Size*WindFlue_MaxLeaves)
+WindFlue_Timer        rs.w 1
+WindFlue_Blowing      rs.b 1
 WindFlue_Visible      rs.b 1
 ;---------------------------------
-WindFlue_Struct_Pad   rs.b 3	; Alignment padding
+WindFlue_Struct_Pad   rs.b 0	; Alignment padding
 WindFlue_Struct_Size  rs.b 0
 
 WindFlueInit:
@@ -48,6 +52,8 @@ WindFlueInit:
 	; Initialise
 	move.w  #WindFlue_Width, Entity_Width(a0)
 	move.w  #WindFlue_Height, Entity_Height(a0)
+	move.w  #WindFlue_OffTime, WindFlue_Timer(a0)
+	move.b  #0x0, WindFlue_Blowing(a0)
 	move.b  #0x0, WindFlue_Visible(a0)
 
 	; Init all leaves
@@ -61,6 +67,7 @@ WindFlueInit:
 	jsr     EntityRemoveFromRenderList
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
+	move.b  #0x0, Leaf_MoveX(a0)
 	POPL    d0
 	lea     Leaf_Struct_Size(a0), a0
 	dbra    d0, @LeafLp
@@ -85,7 +92,7 @@ WindFlueLoadGfx:
 	; Load sprite and anim
 	PUSHM   d0-d2
 	SPRITE_LOAD_DEFAULT leaf,PaletteId_World0,0x0
-	ANIM_LOAD_DEFAULT leaf_green,leaf_fall,Leaf_Animation,0,1,0,0
+	ANIM_LOAD_MANUALCONTROL leaf_green,leaf_fall,Leaf_Animation,0
 	move.l  AnimObj_CurrentAnim(a0), a2
 	move.w  #WindFlue_LeafAnimSpeed, Animation_Speed(a2)
 	move.b  #0x1, AnimObj_Playing(a0)
@@ -119,6 +126,29 @@ WindFlueUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Update on/off time
+	move.w WindFlue_Timer(a0), d0
+	subq.w #0x1, d0
+	move.w d0, WindFlue_Timer(a0)
+	tst.w  d0
+	bne    @TimerRunning
+
+	; Timer elapsed, toggle state
+	eor.b  #0x1, WindFlue_Blowing(a0)
+
+	; Reset timer
+	tst.b  WindFlue_Blowing(a0)
+	beq    @OffTime
+	move.w #WindFlue_OnTime, WindFlue_Timer(a0)
+	bra    @OnTime
+	@OffTime:
+	move.w #WindFlue_OffTime, WindFlue_Timer(a0)
+	@OnTime:
+
+	@TimerRunning:
+
+	;==============================================================
+
 	; If within X view
 	move.b #0x0, WindFlue_Visible(a0)
 	move.w Entity_WorldPosX(a0), d0
@@ -130,6 +160,12 @@ WindFlueUpdate:
 	cmp.w  #vdp_sprite_border_x, d4
 	blt    @OutOfXView
 	move.b #0x1, WindFlue_Visible(a0)
+
+	;==============================================================
+
+	; If blowing
+	tst.b  WindFlue_Blowing(a0)
+	beq    @Off
 
 	; Check if player within range
 	move.l (Player1), a2
@@ -165,16 +201,22 @@ WindFlueUpdate:
 	move.b #0x1, Character_Falling(a2)
 
 	@OutOfBounds:
+	@Off:
 
 	;==============================================================
 
 	; Emit leaves
 	move.l  Entity_WorldPosY(a0), d1
+	move.b  WindFlue_Blowing(a0), d5
 
 	PUSHL   a0
 	lea     WindFlue_Leaves(a0), a0
 	move.w  #WindFlue_MaxLeaves-1, d0
 	@LeafLp:
+
+	; If blowing
+	tst.b   d5
+	beq     @NotBlowing
 
 	; Add velocity
 	subi.l  #WindFlue_LeafVel, Entity_WorldPosY(a0)
@@ -189,11 +231,27 @@ WindFlueUpdate:
 	move.l  d1, Entity_WorldPosY(a0)
 	@OnScreen:
 	
-	; Update anim
-	PUSHM   d0-d4
+	; Update anim only
+	PUSHM   d0-d5
+	move.l  AnimObj_CurrentAnim(a0), a2
+	move.w  #WindFlue_LeafAnimSpeed, Animation_Speed(a2)
+	move.b  #0x1, SpriteObj_Visible(a0)
 	jsr     AnimObjUpdate
-	POPM    d0-d4
+	POPM    d0-d5
 
+	bra     @NextLeaf
+
+	@NotBlowing:
+
+	; Update leaf
+	PUSHM   d0-d5
+	move.l  AnimObj_CurrentAnim(a0), a2
+	move.w  #0x0, Animation_Speed(a2)
+	move.b  #0x1, Entity_Active(a0)
+	jsr     LeafUpdate
+	POPM    d0-d5
+
+	@NextLeaf:
 	lea     Leaf_Struct_Size(a0), a0
 	dbra    d0, @LeafLp
 	POPL    a0

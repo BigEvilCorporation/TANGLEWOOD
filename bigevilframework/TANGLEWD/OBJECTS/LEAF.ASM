@@ -40,8 +40,9 @@ Leaf_VelX            rs.l 1
 Leaf_StartPosWorldX  rs.l 1
 Leaf_ResetTimer      rs.w 1
 Leaf_SineStep        rs.w 1
+Leaf_MoveX           rs.b 1
 ;--------------------------
-Leaf_Struct_Pad      rs.b 0	; Alignment padding
+Leaf_Struct_Pad      rs.b 3	; Alignment padding
 Leaf_Struct_Size     rs.b 0
 
 LeafInit:
@@ -69,6 +70,7 @@ LeafInit:
 	move.w #Leaf_Width, Entity_Width(a0)
 	move.w #Leaf_Height, Entity_Height(a0)
 	move.l #0x0, Leaf_VelX(a0)
+	move.b #0x1, Leaf_MoveX(a0)
 
 	; Setup animation
 	lea    Leaf_Animation(a0), a3
@@ -126,6 +128,9 @@ LeafUpdate:
 	bne    @Inactive
 
 	;==============================================================
+
+	tst.b  Leaf_MoveX(a0)
+	beq    @NoMoveX
 	
 	; Calc random X starting position
 	move.l (frame_counter_render), d0
@@ -222,6 +227,8 @@ LeafUpdate:
 	
 	@WithinBounds:
 
+	@NoMoveX:
+
 	;==============================================================
 
 	; Wrap sine step
@@ -259,9 +266,12 @@ LeafUpdate:
 	ext.l  d0
 
 	; Update X anim draw offset
+	tst.b  Leaf_MoveX(a0)
+	beq    @NoDrawOffset
 	muls   #((Leaf_FloatWidth*subpixels_per_pixel)/256), d0 ; To X range
 	TOPIXELS d0
 	move.w d0, SpriteObj_DrawOffsetX(a0)
+	@NoDrawOffset:
 
 	; Update animation frame
 	addi.w #0x00FF, d2	; Sine value to 0-256 range
@@ -291,6 +301,9 @@ LeafUpdate:
 	sub.l  d1, Entity_WorldPosY(a0)
 
 	;==============================================================
+
+	tst.b  Leaf_MoveX(a0)
+	beq    @NoVelocity
 
 	; Get wind and current velocity
 	lea    PhysicsWorld, a2
@@ -339,6 +352,8 @@ LeafUpdate:
 
 	; Apply velocity
 	add.l  d0, Entity_WorldPosX(a0)
+
+	@NoVelocity:
 	
 	; Done
 	bra    @End

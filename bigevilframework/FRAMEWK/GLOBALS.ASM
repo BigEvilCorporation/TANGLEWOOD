@@ -20,6 +20,9 @@ num_palettes		equ 0x4
 screen_width		equ 0x0140 ; 320 (H40 mode)
 screen_height		equ 0x00E0 ; 224 (V28 mode)
 
+frames_per_second_pal	equ 0x32
+frames_per_second_ntsc	equ 0x3C
+
 ; ************************************
 ; Sizes
 ; ************************************
