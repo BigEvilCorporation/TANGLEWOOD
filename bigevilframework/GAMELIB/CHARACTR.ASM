@@ -605,8 +605,8 @@ CharacterStartJump:
 	beq   @CantJump
 	
 	; Check if player dead
-	cmp.b  #0x1, Character_Dead(a0)
-	beq    @Dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
 
 	; Check if player is riding
 	tst.b  Character_Riding(a0)

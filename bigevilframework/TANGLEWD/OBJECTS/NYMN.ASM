@@ -192,9 +192,7 @@ NymnUpdate:
 	; Wait for Echo to begin landing
 	move.l (Player2), a2
 	cmp.b  #EchoMountNymn_Mounting, Echo_MountedState(a2)
-	bne    @WaitingToCatch
-	
-	;==============================================================
+	bne    @NotCatching
 	
 	; Echo has landed, play catch animation
 	PUSHL  a1
@@ -206,14 +204,25 @@ NymnUpdate:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
-	; Set carrying state
-	move.b #NymnCarryEcho_Carrying, Nymn_CarryEchoState(a0)
-	
 	;==============================================================
 	
+	@NotCatching:
+
+	; Wait for Echo to end mount anim
+	move.l (Player2), a2
+	cmp.b  #EchoMountNymn_Riding, Echo_MountedState(a2)
+	bne    @NotCarrying
+	
+	; Set carrying state
+	move.b #NymnCarryEcho_Carrying, Nymn_CarryEchoState(a0)
+
+	; Restore controls
+	move.b #0x1, Player_ControlEnabled(a0)
+	
+	;==============================================================
+
 	@NotCarrying:
 	@Carrying:
-	@WaitingToCatch:
 	
 	; Base functionality
 	jsr PlayerUpdate
@@ -266,8 +275,12 @@ NymnStartInteract:
 	bne    @AlreadyInteracting
 	
 	; Check if player dead
-	cmp.b  #0x1, Character_Dead(a0)
-	beq    @Dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
+
+	; Check if player on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
 	
 	; Bounds test with Echo
 	move.l (Player2), a2
@@ -317,6 +330,7 @@ NymnStartInteract:
 
 	@AlreadyInteracting:
 	@Dead:
+	@InAir:
 	@EchoFound:
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
@@ -396,6 +410,15 @@ NymnBeginCarryEcho:
 	jsr    CharacterPreventRun
 	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
 
+	; Interacting
+	move.b #0x1, Character_Interacting(a0)
+
+	; Cannot control until Echo has landed
+	move.b #0x0, Player_ControlEnabled(a0)
+
+	; Use toggle interact mode
+	move.b #0x1, Player_InteractionToggle(a0)
+
 	ENDIF ; INCLUDE_CHARACTER_ECHO
 
 	rts
@@ -432,6 +455,7 @@ NymnEndCarryEcho:
 	
 	; No longer interacting
 	move.b #Player_Interaction_None, Player_InteractionType(a0)
+	move.b #0x0, Character_Interacting(a0)
 	
 	; Restore run
 	move.b #Character_WalkInteract, d2
