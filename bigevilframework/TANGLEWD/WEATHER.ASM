@@ -44,8 +44,8 @@ Rain_MediumWind:
 	even
 
 Rain_HighWind:
-	dc.l  0x00000000
-	dc.l -0x00100000
+	dc.l -0x00180000
+	dc.l  0x00100000
 	dc.w  0x0C00
 	dc.b  0x2
 	even
@@ -95,16 +95,13 @@ RainSetParams:
 	; a1 --- Level addr
 	; a2 --- Params addr
 
-	; Copy params
-	lea    RainParams, a3
-	move.l #RainParams_Struct_Size, d0
-	MEMCPYB a3,a2,d0
+	; Set params
+	move.l a2, RainParams
 
 	; Set sprite frame
-	lea    RainParams, a3
 	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a4
 	clr.l  d0
-	move.b RainParams_AnimFrame(a3), d0
+	move.b RainParams_AnimFrame(a2), d0
 	lsl.l  #0x8, d0
 	move.l d0, AnimObj_AnimSubFrame(a4)
 	move.b #0x1, AnimObj_UploadFrame(a4)
@@ -245,6 +242,8 @@ RainUpdate:
 	beq     @NoChange
 	
 	; Set new rain params
+	cmp.l   RainParams, a3
+	beq     @NoChange
 	move.l  a3, a2
 	jsr     RainSetParams
 
@@ -266,9 +265,9 @@ RainDraw:
 	; Apply velocity
 	move.l 0(a2), d2
 	move.l 4(a2), d3
-	lea    RainParams, a3
-	move.l  RainParams_VelX(a3), d4
-	move.l  RainParams_VelY(a3), d5
+	move.l RainParams, a3
+	move.l RainParams_VelX(a3), d4
+	move.l RainParams_VelY(a3), d5
 	add.l  RainParams_VelX(a3), d2
 	add.l  RainParams_VelY(a3), d3
 
