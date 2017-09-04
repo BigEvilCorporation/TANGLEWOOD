@@ -17,7 +17,7 @@ Fuzzl_StepHeight			equ 0x3
 Fuzzl_ProbeFloorX			equ (Fuzzl_Width/2)  ; Floor detection probe position X
 Fuzzl_ProbeFloorY   		equ (Fuzzl_Height-8) ; Floor detection probe position Y
 Fuzzl_Decel					equ 0x0200
-Fuzzl_BounceX				equ 0x1
+Fuzzl_BounceX				equ 0x2
 Fuzzl_BounceY				equ 0x2
 Fuzzl_BounceDelay			equ 0x40
 Fuzzl_BounceVelHappy		equ 0x018000
