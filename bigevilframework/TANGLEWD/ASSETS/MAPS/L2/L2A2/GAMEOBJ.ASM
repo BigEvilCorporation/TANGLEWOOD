@@ -7,7 +7,29 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L2A2_Leaf_count equ 0x0
+L2A2_Leaf_count equ 0x9
+L2A2_Leaf_20_idx	equ 0x0
+L2A2_Leaf_21_idx	equ 0x1
+L2A2_Leaf_22_idx	equ 0x2
+L2A2_Leaf_23_idx	equ 0x3
+L2A2_Leaf_24_idx	equ 0x4
+L2A2_Leaf_25_idx	equ 0x5
+L2A2_Leaf_26_idx	equ 0x6
+L2A2_Leaf_27_idx	equ 0x7
+L2A2_Leaf_28_idx	equ 0x8
+
+	IFND FINAL
+L2A2_Leaf_20_name	dc.b "L2A2_Leaf_20",0
+L2A2_Leaf_21_name	dc.b "L2A2_Leaf_21",0
+L2A2_Leaf_22_name	dc.b "L2A2_Leaf_22",0
+L2A2_Leaf_23_name	dc.b "L2A2_Leaf_23",0
+L2A2_Leaf_24_name	dc.b "L2A2_Leaf_24",0
+L2A2_Leaf_25_name	dc.b "L2A2_Leaf_25",0
+L2A2_Leaf_26_name	dc.b "L2A2_Leaf_26",0
+L2A2_Leaf_27_name	dc.b "L2A2_Leaf_27",0
+L2A2_Leaf_28_name	dc.b "L2A2_Leaf_28",0
+	even
+	ENDIF
 
 L2A2_Echo_count equ 0x0
 
@@ -19,11 +41,13 @@ L2A2_Nymn_18_name	dc.b "L2A2_Nymn_18",0
 	even
 	ENDIF
 
-L2A2_BouncePlant_count equ 0x1
+L2A2_BouncePlant_count equ 0x2
 L2A2_BouncePlant_5_idx	equ 0x0
+L2A2_BouncePlant_30_idx	equ 0x1
 
 	IFND FINAL
 L2A2_BouncePlant_5_name	dc.b "L2A2_BouncePlant_5",0
+L2A2_BouncePlant_30_name	dc.b "L2A2_BouncePlant_30",0
 	even
 	ENDIF
 
@@ -57,7 +81,13 @@ L2A2_Fuzzl_2_name	dc.b "L2A2_Fuzzl_2",0
 	even
 	ENDIF
 
-L2A2_Stone_count equ 0x0
+L2A2_Stone_count equ 0x1
+L2A2_Stone_19_idx	equ 0x0
+
+	IFND FINAL
+L2A2_Stone_19_name	dc.b "L2A2_Stone_19",0
+	even
+	ENDIF
 
 L2A2_Nest_count equ 0x2
 L2A2_Nest_13_idx	equ 0x0
@@ -71,11 +101,11 @@ L2A2_Nest_14_name	dc.b "L2A2_Nest_14",0
 
 L2A2_Flue_count equ 0x2
 L2A2_Flue_15_idx	equ 0x0
-L2A2_Flue_16_idx	equ 0x1
+L2A2_Flue1_Low_idx	equ 0x1
 
 	IFND FINAL
 L2A2_Flue_15_name	dc.b "L2A2_Flue_15",0
-L2A2_Flue_16_name	dc.b "L2A2_Flue_16",0
+L2A2_Flue1_Low_name	dc.b "L2A2_Flue1_Low",0
 	even
 	ENDIF
 
@@ -138,6 +168,102 @@ L2A2_WindFlue_count equ 0x0
 
 
 L2A2_LoadGameObjects:
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Leaf_Struct_Size*L2A2_Leaf_count)
+	move.l a1, EntityPoolStart_Leaf
+	move.l a1, a0
+	POPL   a1
+
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_20_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_22_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_23_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_24_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_26_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_27_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A2_Leaf_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -170,6 +296,18 @@ L2A2_LoadGameObjects:
 	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_BouncePlant_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x07500000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A2_BouncePlant_30_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -221,8 +359,8 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x0b880000, Entity_WorldPosX(a0)
-	move.l #0x03f00000, Entity_WorldPosY(a0)
+	move.l #0x0d600000, Entity_WorldPosX(a0)
+	move.l #0x03e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Fuzzl_1_name, a3
 	move.l a0, a2
@@ -245,6 +383,24 @@ L2A2_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L2A2_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x03e80000, Entity_WorldPosX(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A2_Stone_19_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A2_Nest_count)
@@ -253,8 +409,8 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr NestInit
-	move.l #0x08a00000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x08700000, Entity_WorldPosX(a0)
+	move.l #0x05100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Nest_13_name, a3
 	move.l a0, a2
@@ -297,14 +453,15 @@ L2A2_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x0ac80000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
+	move.l #0x05100000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A2_Flue_16_name, a3
+	lea L2A2_Flue1_Low_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.l #0x0C0000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
@@ -320,7 +477,7 @@ L2A2_LoadGameObjects:
 
 	jsr DeathboxInit
 	move.l #0x03c00000, Entity_WorldPosX(a0)
-	move.l #0x04800000, Entity_WorldPosY(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Deathbox_9_name, a3
 	move.l a0, a2

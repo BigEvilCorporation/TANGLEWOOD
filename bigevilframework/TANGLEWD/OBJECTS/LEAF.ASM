@@ -16,7 +16,7 @@ Leaf_WindowWidth   equ (vdp_plane_width*8)
 Leaf_WindowHeight  equ (vdp_plane_height*8)
 Leaf_WindowBorderX equ (Leaf_WindowWidth-screen_width)/2
 Leaf_WindowBorderY equ (Leaf_WindowHeight-screen_height)/2
-Leaf_MaxVelX       equ 0x040000
+Leaf_MaxVelX       equ 0x080000
 Leaf_MaxVelY       equ Leaf_FallVelocity
 Leaf_DecelX        equ 0x000600
 Leaf_Mass          equ 0x1

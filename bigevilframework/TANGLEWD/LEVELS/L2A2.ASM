@@ -77,7 +77,16 @@ l2a2_Init:
 	;==============================================================
 
 	; Init weather
-	;jsr    RainInit
+	jsr    RainInit
+
+	move.w  #0x0010, WindAccel
+	move.w  #-0x0C00, WindRandStrengthMin
+	move.w  #-0x0F00, WindRandStrengthMax
+	move.w  #0x0170, WindRandDelayMin
+	move.w  #0x0180, WindRandDelayMax
+	move.w  #0x01F0, WindRandDurationMin
+	move.w  #0x0200, WindRandDurationMax
+	move.w  #0x0080, WindDelayTimer
 
 	;==============================================================
 
@@ -87,65 +96,10 @@ l2a2_Init:
 	;move.l a1, Button_UserData(a0)
 	;move.l #LiftActivate, Button_OnDown(a0)
 	;move.l #LiftStop, Button_OnUp(a0)
-
-	;==============================================================
-	
-	move.l (Player1), a0
-	
-	; Disable player 1 control
-	move.b #0x0, Player_ControlEnabled(a0)
-	
-	; Start sleep anim
-	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
-	jsr    AnimObjSetAnimation
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	move.l #LevelData_L1A1, a2
-	move.b #0x1, l2a2Data_WaitingInput(a2)
 	
 	rts
 	
 l2a2_Update:
-
-	move.l #LevelData_L1A1, a2
-	
-	; Check waiting for input
-	move.l #LevelData_L1A1, a2
-	tst.b l2a2Data_WaitingInput(a2)
-	beq    @FinishedLevelStartSequence
-	
-	; Read pad
-	jsr    PAD_ReadPadA
-	
-	; Check for input
-	andi.w #(pad_button_a|pad_button_b|pad_button_c), d0
-	tst.w  d0
-	beq   @NoInput
-	
-	; Start wake up sequence
-	PUSHL  a1
-	PUSHL  a2
-	move.l (Player1), a0
-	lea    Player_Animations+(PlayerAnimIdx_Wake*Animation_Struct_Size)(a0), a1
-	jsr    AnimObjSetAnimation
-	POPL   a2
-	POPL   a1
-
-	move.l (Player1), a0
-	
-	; Enable player 1 control
-	move.b #0x1, Player_ControlEnabled(a0)
-	
-	; Release animation control
-	move.b #0x1, Character_UpdateAnim(a0)
-	
-	; Done
-	move.b #0x0, l2a2Data_WaitingInput(a2)
-	
-	@FinishedLevelStartSequence:
-	@NoInput:
 
 	rts
 	
@@ -161,14 +115,8 @@ l2a2_End:
 
 l2a2_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts
