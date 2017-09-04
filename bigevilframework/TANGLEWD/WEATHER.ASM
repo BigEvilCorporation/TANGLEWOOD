@@ -13,21 +13,53 @@ RainSpriteHeight		equ 0x20
 RainSpriteGridX			equ 0x08
 RainSpriteGridY			equ 0x04
 RainNumSprites			equ RainSpriteGridX*RainSpriteGridY
-RainVelX				equ -0x00080000
-RainVelY				equ 0x00080000
 RainSpriteRandOffsetX	equ ((screen_width*2)/RainSpriteGridX)
 RainSpriteRandOffsetY	equ (screen_height/RainSpriteGridY)
 RainSpriteStartOffsetX	equ ((screen_width*2)/RainSpriteGridX)
+
+	rsset 0
+RainParams_VelX				rs.l 1
+RainParams_VelY				rs.l 1
+RainParams_MinWindStrength	rs.w 1
+RainParams_AnimFrame		rs.b 1
+; ----------------------------
+RainParams_Struct_Pad		rs.b 1
+RainParams_Struct_Size		rs.b 0
+
+Rain_ParamsListCount	equ 0x3
+Rain_ParamsList:
+
+Rain_LowWind:
+	dc.l -0x00080000
+	dc.l  0x00100000
+	dc.w  0x0000
+	dc.b  0x0
+	even
+
+Rain_MediumWind:
+	dc.l -0x00100000
+	dc.l  0x00100000
+	dc.w  0x0A00
+	dc.b  0x1
+	even
+
+Rain_HighWind:
+	dc.l  0x00000000
+	dc.l -0x00100000
+	dc.w  0x0C00
+	dc.b  0x2
+	even
 
 ;==============================================================
 ; Rain VFX
 ;==============================================================
 
 RainInit:
+	; a0 --- VFX addr
 	; a1 --- Level addr
 
 	; Base init, load sprite sheet
-	move.l #EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a0
+	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a0
 	lea    vfx_spritesheet_rain_light, a2
 	lea    vfx_animation_rain_light, a3
 	jsr    VfxInit
@@ -35,7 +67,13 @@ RainInit:
 	move.l #RainUpdate, Entity_UpdateRoutine(a0)
 	move.l #RainDraw, Entity_RenderRoutine(a0)
 
+	; Play animation
+	lea    VfxObj_Animation(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+
 	; Position all
+	PUSHL  a0
 	lea    RainSpritePositions, a0
 	move.l #RainNumSprites-1, d0
 	@SpriteLp:
@@ -44,6 +82,32 @@ RainInit:
 	POPM   d0/a0
 	lea    (size_long*2)(a0), a0
 	dbra   d0, @SpriteLp
+	POPL   a0
+
+	; Set default params
+	lea    Rain_LowWind, a2
+	jsr    RainSetParams
+
+	rts
+
+RainSetParams:
+	; a0 --- VFX addr
+	; a1 --- Level addr
+	; a2 --- Params addr
+
+	; Copy params
+	lea    RainParams, a3
+	move.l #RainParams_Struct_Size, d0
+	MEMCPYB a3,a2,d0
+
+	; Set sprite frame
+	lea    RainParams, a3
+	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a4
+	clr.l  d0
+	move.b RainParams_AnimFrame(a3), d0
+	lsl.l  #0x8, d0
+	move.l d0, AnimObj_AnimSubFrame(a4)
+	move.b #0x1, AnimObj_UploadFrame(a4)
 
 	rts
 
@@ -148,9 +212,49 @@ RainSpriteReposition:
 	rts
 
 RainUpdate:
+	; a0 --- VFX addr
+	; a1 --- Level addr
+
+	; TODO: Do this in WindSetParams
+
+	; Get current wind strength, abs
+	move.w  WindMaxStrength, d0
+	tst.w   d0
+	bgt     @Pos
+	neg.w   d0
+	@Pos:
+
+	; Clear chosen rain params
+	move.l  #0x0, a3
+
+	; Find rain params matching current wind strength
+	move.w  #Rain_ParamsListCount-1, d1
+	lea     Rain_ParamsList, a2
+	@ParamsLp:
+	move.w  RainParams_MinWindStrength(a2), d3
+	cmp.w   d0, d3
+	blt     @Next
+	move.l  a2, a3
+	bra     @End
+	@Next:
+	lea     RainParams_Struct_Size(a2), a2
+	dbra    d1, @ParamsLp
+	
+	@End:
+	cmp.l   #0x0, a3
+	beq     @NoChange
+	
+	; Set new rain params
+	move.l  a3, a2
+	jsr     RainSetParams
+
+	@NoChange:
+
 	rts
 
 RainDraw:
+	; a0 --- VFX addr
+	; a1 --- Level addr
 
 	lea    RainSpritePositions, a2
 	move.l #RainNumSprites-1, d0
@@ -162,8 +266,11 @@ RainDraw:
 	; Apply velocity
 	move.l 0(a2), d2
 	move.l 4(a2), d3
-	addi.l #RainVelX, d2
-	addi.l #RainVelY, d3
+	lea    RainParams, a3
+	move.l  RainParams_VelX(a3), d4
+	move.l  RainParams_VelY(a3), d5
+	add.l  RainParams_VelX(a3), d2
+	add.l  RainParams_VelY(a3), d3
 
 	; If out of bounds, reposition
 	cmp.l  #screen_height*subpixels_per_pixel, d3
@@ -191,7 +298,7 @@ RainDraw:
 
 	; Draw
 	PUSHM  d0-d3/a0-a2
-	jsr    SpriteObjDraw
+	jsr    AnimObjDraw
 	POPM   d0-d3/a0-a2
 
 	; Next

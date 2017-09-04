@@ -24,7 +24,7 @@ vfx_animation_rain_light:
 	dc.l spriteanim_rain_fall_track_posy			; Pos Y track
 	dc.l spriteanim_rain_fall_track_sfx				; SFX track
 	dc.w spritesheet_rain_light_frameoffset			; First frame offset
-	dc.b spriteanim_rain_fall_speed					; Speed
+	dc.w 0x0										; Speed
 	dc.b spriteanim_rain_fall_numframes				; Length
 	dc.b 0x0										; Looping
 	dc.b 0x0										; Zero velocity

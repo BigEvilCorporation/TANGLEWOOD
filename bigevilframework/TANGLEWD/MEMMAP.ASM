@@ -162,6 +162,7 @@ WindRandDurationMax	rs.w 1
 WindRandDelayMin	rs.w 1
 WindRandDelayMax	rs.w 1
 RainSpritePositions	rs.l RainNumSprites*2
+RainParams			rs.b RainParams_Struct_Size
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

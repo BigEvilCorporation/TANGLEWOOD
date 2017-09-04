@@ -148,6 +148,14 @@ GameStateReset:
 	move.w #0x0, LevelData_FireflyCount(a2)
 	@NoLevel:
 	@NoUserData:
+
+	; Reset weather
+	move.l  #0x0, WindAccel
+	move.l  #0x0, WindMaxStrength
+	move.l  #0x0, WindRandStrengthMin
+	move.l  #0x0, WindRandStrengthMax
+	move.w  #0x0, WindDelayTimer
+	move.w  #0x0, WindDurationTimer
 	
 	rts
 
@@ -385,16 +393,6 @@ LevelReset:
 	
 	; World
 	move.w  #0x0, TimeOfDayShiftDelay
-
-	;==============================================================
-
-	; Weather
-	move.l  #0x0, WindAccel
-	move.l  #0x0, WindMaxStrength
-	move.l  #0x0, WindRandStrengthMin
-	move.l  #0x0, WindRandStrengthMax
-	move.w  #0x0, WindDelayTimer
-	move.w  #0x0, WindDurationTimer
 
 	;==============================================================
 

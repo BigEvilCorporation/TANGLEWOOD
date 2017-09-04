@@ -10,18 +10,18 @@
 spriteanims_rain:
 
 spriteanim_rain_fall:
-spriteanim_rain_fall_numframes: equ 0x1
+spriteanim_rain_fall_numframes: equ 0x3
 spriteanim_rain_fall_speed: equ 0x5
 spriteanim_rain_fall_track_frames:
-	dc.b 0x0
+	dc.b 0x0, 0x1, 0x2
 	Even
 spriteanim_rain_fall_track_posx:
-	dc.b 0x00
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_rain_fall_track_posy:
-	dc.b 0x00
+	dc.b 0x00, 0x00, 0x00
 	Even
 spriteanim_rain_fall_track_sfx:
-	dc.l 0x0
+	dc.l 0x0, 0x0, 0x0
 	Even
 
