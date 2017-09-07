@@ -20,7 +20,7 @@ RainSpriteStartOffsetX	equ ((screen_width*2)/RainSpriteGridX)
 	rsset 0
 RainParams_VelX				rs.l 1
 RainParams_VelY				rs.l 1
-RainParams_MinWindStrength	rs.w 1
+RainParams_MinWindStrength	rs.l 1
 RainParams_AnimFrame		rs.b 1
 ; ----------------------------
 RainParams_Struct_Pad		rs.b 1
@@ -32,21 +32,21 @@ Rain_ParamsList:
 Rain_LowWind:
 	dc.l -0x00080000
 	dc.l  0x00100000
-	dc.w  0x0000
+	dc.l  0x00000000
 	dc.b  0x0
 	even
 
 Rain_MediumWind:
 	dc.l -0x00100000
 	dc.l  0x00100000
-	dc.w  0x0A00
+	dc.l  0x00000800
 	dc.b  0x1
 	even
 
 Rain_HighWind:
 	dc.l -0x00180000
 	dc.l  0x00100000
-	dc.w  0x0C00
+	dc.l  0x00200A00
 	dc.b  0x2
 	even
 
@@ -214,11 +214,12 @@ RainUpdate:
 
 	; TODO: Do this in WindSetParams
 
-	; Get current wind strength, abs
-	move.w  WindMaxStrength, d0
-	tst.w   d0
+	; Get current wind velocity, abs
+	lea    PhysicsWorld, a2
+	move.l PhysicsWorld_Wind(a2), d0
+	tst.l   d0
 	bgt     @Pos
-	neg.w   d0
+	neg.l   d0
 	@Pos:
 
 	; Clear chosen rain params
@@ -228,8 +229,8 @@ RainUpdate:
 	move.w  #Rain_ParamsListCount-1, d1
 	lea     Rain_ParamsList, a2
 	@ParamsLp:
-	move.w  RainParams_MinWindStrength(a2), d3
-	cmp.w   d0, d3
+	move.l  RainParams_MinWindStrength(a2), d3
+	cmp.l   d0, d3
 	blt     @Next
 	move.l  a2, a3
 	bra     @End
