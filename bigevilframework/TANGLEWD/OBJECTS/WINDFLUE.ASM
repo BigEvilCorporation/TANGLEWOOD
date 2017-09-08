@@ -18,6 +18,7 @@ WindFlue_BlowVelFuzzl		equ DefaultGravity+0x2000
 WindFlue_MaxLeaves			equ 0x6
 WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
+WindFlue_LeafMaxHeight		equ 0x0280
 WindFlue_DistributeX		equ (WindFlue_Width/WindFlue_MaxLeaves)
 WindFlue_OnTime				equ 0x08*frames_per_second_pal
 WindFlue_OffTime			equ 0x08*frames_per_second_pal
@@ -110,7 +111,7 @@ WindFlueLoadGfx:
 	; Randomise Y pos
 	PUSHM  d0-d2
 	move.l #0x0, d1
-	move.l #WindFlue_MaxBlowDistGliding, d2
+	move.l #WindFlue_LeafMaxHeight, d2
 	jsr    RND_GenerateWordClamped
 	move.w d0, d3
 	POPM   d0-d2
@@ -261,7 +262,7 @@ WindFlueUpdate:
 	bne     @OnScreen
 	move.l  Entity_WorldPosY(a0), d2
 	sub.l   d1, d2
-	cmp.l   #-WindFlue_MaxBlowDistGliding*subpixels_per_pixel, d2
+	cmp.l   #-WindFlue_LeafMaxHeight*subpixels_per_pixel, d2
 	bgt     @OnScreen
 	move.l  d1, Entity_WorldPosY(a0)
 	@OnScreen:
