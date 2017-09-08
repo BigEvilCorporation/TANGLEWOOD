@@ -214,7 +214,10 @@ __start
 	include 'input.asm'
 	include 'savegame.asm'
 	include 'tod.asm'
-	include 'weather.asm'
+	include 'weather\rain.asm'
+	include 'weather\thunder.asm'
+	include 'weather\wind.asm'
+	include 'weather\weather.asm'
 
 	; ************************************
 	; Post-init entry point

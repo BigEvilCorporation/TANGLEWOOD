@@ -156,6 +156,9 @@ GameStateReset:
 	move.l  #0x0, WindRandStrengthMax
 	move.w  #0x0, WindDelayTimer
 	move.w  #0x0, WindDurationTimer
+
+	lea Thunder, a2
+	move.b #0x0, Thunder_Enabled(a2)
 	
 	rts
 
