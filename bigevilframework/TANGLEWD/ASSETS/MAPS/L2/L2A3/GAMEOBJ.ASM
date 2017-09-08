@@ -55,22 +55,18 @@ L2A3_Log_count equ 0x0
 
 L2A3_DjakkCage_count equ 0x0
 
-L2A3_Monster_count equ 0x2
-L2A3_Monster_4_idx	equ 0x0
-L2A3_Monster_5_idx	equ 0x1
+L2A3_Monster_count equ 0x1
+L2A3_Monster_5_idx	equ 0x0
 
 	IFND FINAL
-L2A3_Monster_4_name	dc.b "L2A3_Monster_4",0
 L2A3_Monster_5_name	dc.b "L2A3_Monster_5",0
 	even
 	ENDIF
 
-L2A3_Boulder_count equ 0x2
-L2A3_Boulder_6_idx	equ 0x0
-L2A3_Boulder_7_idx	equ 0x1
+L2A3_Boulder_count equ 0x1
+L2A3_Boulder_7_idx	equ 0x0
 
 	IFND FINAL
-L2A3_Boulder_6_name	dc.b "L2A3_Boulder_6",0
 L2A3_Boulder_7_name	dc.b "L2A3_Boulder_7",0
 	even
 	ENDIF
@@ -79,33 +75,35 @@ L2A3_Firefly_count equ 0x0
 
 L2A3_FuzzlCage_count equ 0x0
 
-L2A3_Fuzzl_count equ 0x3
-L2A3_Fuzzl_1_idx	equ 0x0
-L2A3_Fuzzl_2_idx	equ 0x1
-L2A3_Fuzzl_3_idx	equ 0x2
+L2A3_Fuzzl_count equ 0x2
+L2A3_FuzzlYellow1_idx	equ 0x0
+L2A3_Fuzzl_3_idx	equ 0x1
 
 	IFND FINAL
-L2A3_Fuzzl_1_name	dc.b "L2A3_Fuzzl_1",0
-L2A3_Fuzzl_2_name	dc.b "L2A3_Fuzzl_2",0
+L2A3_FuzzlYellow1_name	dc.b "L2A3_FuzzlYellow1",0
 L2A3_Fuzzl_3_name	dc.b "L2A3_Fuzzl_3",0
 	even
 	ENDIF
 
 L2A3_Stone_count equ 0x0
 
-L2A3_Nest_count equ 0x3
+L2A3_Nest_count equ 0x2
 L2A3_Nest_13_idx	equ 0x0
-L2A3_Nest_14_idx	equ 0x1
-L2A3_Nest_15_idx	equ 0x2
+L2A3_Nest_15_idx	equ 0x1
 
 	IFND FINAL
 L2A3_Nest_13_name	dc.b "L2A3_Nest_13",0
-L2A3_Nest_14_name	dc.b "L2A3_Nest_14",0
 L2A3_Nest_15_name	dc.b "L2A3_Nest_15",0
 	even
 	ENDIF
 
-L2A3_Flue_count equ 0x0
+L2A3_Flue_count equ 0x1
+L2A3_Flue_40_idx	equ 0x0
+
+	IFND FINAL
+L2A3_Flue_40_name	dc.b "L2A3_Flue_40",0
+	even
+	ENDIF
 
 L2A3_TriggerBox_count equ 0x1
 L2A3_TriggerBox_17_idx	equ 0x0
@@ -121,7 +119,19 @@ L2A3_WaterBody_count equ 0x0
 
 L2A3_Location_count equ 0x0
 
-L2A3_Deathbox_count equ 0x0
+L2A3_Deathbox_count equ 0x4
+L2A3_Deathbox_27_idx	equ 0x0
+L2A3_Deathbox_28_idx	equ 0x1
+L2A3_Deathbox_29_idx	equ 0x2
+L2A3_Deathbox_30_idx	equ 0x3
+
+	IFND FINAL
+L2A3_Deathbox_27_name	dc.b "L2A3_Deathbox_27",0
+L2A3_Deathbox_28_name	dc.b "L2A3_Deathbox_28",0
+L2A3_Deathbox_29_name	dc.b "L2A3_Deathbox_29",0
+L2A3_Deathbox_30_name	dc.b "L2A3_Deathbox_30",0
+	even
+	ENDIF
 
 L2A3_Lift_count equ 0x1
 L2A3_Lift_11_idx	equ 0x0
@@ -155,7 +165,27 @@ L2A3_Cart_count equ 0x0
 
 L2A3_Pillar_count equ 0x0
 
-L2A3_WindFlue_count equ 0x0
+L2A3_WindFlue_count equ 0x8
+L2A3_WindFlue1_idx	equ 0x0
+L2A3_WindFlue2_idx	equ 0x1
+L2A3_WindFlue3_idx	equ 0x2
+L2A3_WindFlue4_idx	equ 0x3
+L2A3_WindFlue5_idx	equ 0x4
+L2A3_WindFlue6_idx	equ 0x5
+L2A3_WindFlue7_idx	equ 0x6
+L2A3_WindFlue8_idx	equ 0x7
+
+	IFND FINAL
+L2A3_WindFlue1_name	dc.b "L2A3_WindFlue1",0
+L2A3_WindFlue2_name	dc.b "L2A3_WindFlue2",0
+L2A3_WindFlue3_name	dc.b "L2A3_WindFlue3",0
+L2A3_WindFlue4_name	dc.b "L2A3_WindFlue4",0
+L2A3_WindFlue5_name	dc.b "L2A3_WindFlue5",0
+L2A3_WindFlue6_name	dc.b "L2A3_WindFlue6",0
+L2A3_WindFlue7_name	dc.b "L2A3_WindFlue7",0
+L2A3_WindFlue8_name	dc.b "L2A3_WindFlue8",0
+	even
+	ENDIF
 
 
 
@@ -284,8 +314,8 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x03900000, Entity_WorldPosX(a0)
-	move.l #0x05480000, Entity_WorldPosY(a0)
+	move.l #0x01b80000, Entity_WorldPosX(a0)
+	move.l #0x06000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_BouncePlant_8_name, a3
 	move.l a0, a2
@@ -317,18 +347,6 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x04080000, Entity_WorldPosX(a0)
-	move.l #0x05980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_Monster_4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr MonsterLoadGfx
-	add.l #Monster_Struct_Size, a0
-	jsr MonsterInit
 	move.l #0x12600000, Entity_WorldPosX(a0)
 	move.l #0x04d00000, Entity_WorldPosY(a0)
 	IFND FINAL
@@ -347,18 +365,6 @@ L2A3_LoadGameObjects:
 	move.l a1, a0
 	POPL   a1
 
-	jsr BoulderInit
-	move.l #0x09280000, Entity_WorldPosX(a0)
-	move.l #0x05b00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_Boulder_6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
 	jsr BoulderInit
 	move.l #0x16e80000, Entity_WorldPosX(a0)
 	move.l #0x04200000, Entity_WorldPosY(a0)
@@ -381,27 +387,16 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x03580000, Entity_WorldPosX(a0)
-	move.l #0x05580000, Entity_WorldPosY(a0)
+	move.l #0x03500000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A3_Fuzzl_1_name, a3
+	lea L2A3_FuzzlYellow1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x08800000, Entity_WorldPosX(a0)
-	move.l #0x05300000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_Fuzzl_2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
@@ -437,20 +432,8 @@ L2A3_LoadGameObjects:
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
-	move.l #0x06800000, Entity_WorldPosX(a0)
-	move.l #0x05b80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_Nest_14_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr NestLoadGfx
-	add.l #Nest_Struct_Size, a0
-	jsr NestInit
-	move.l #0x04c00000, Entity_WorldPosX(a0)
-	move.l #0x05e80000, Entity_WorldPosY(a0)
+	move.l #0x05e00000, Entity_WorldPosX(a0)
+	move.l #0x06080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Nest_15_name, a3
 	move.l a0, a2
@@ -461,6 +444,24 @@ L2A3_LoadGameObjects:
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L2A3_Flue_count)
+	move.l a1, EntityPoolStart_Flue
+	move.l a1, a0
+	POPL   a1
+
+	jsr FlueInit
+	move.l #0x06500000, Entity_WorldPosX(a0)
+	move.l #0x06180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Flue_40_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L2A3_TriggerBox_count)
@@ -484,6 +485,60 @@ L2A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L2A3_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
+
+	jsr DeathboxInit
+	move.l #0x07a00000, Entity_WorldPosX(a0)
+	move.l #0x06500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Deathbox_27_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x09200000, Entity_WorldPosX(a0)
+	move.l #0x06500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Deathbox_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x0aa00000, Entity_WorldPosX(a0)
+	move.l #0x06500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Deathbox_29_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x0c200000, Entity_WorldPosX(a0)
+	move.l #0x06500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Deathbox_30_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L2A3_Lift_count)
@@ -531,6 +586,108 @@ L2A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(WindFlue_Struct_Size*L2A3_WindFlue_count)
+	move.l a1, EntityPoolStart_WindFlue
+	move.l a1, a0
+	POPL   a1
+
+	jsr WindFlueInit
+	move.l #0x07e00000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x08980000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x09580000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x0a100000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x0ac80000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x0b800000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x0c380000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
+	jsr WindFlueInit
+	move.l #0x0ce80000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_WindFlue8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WindFlueLoadGfx
+	add.l #WindFlue_Struct_Size, a0
 
 	rts
 

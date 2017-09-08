@@ -20,13 +20,15 @@ WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
 WindFlue_LeafMaxHeight		equ 0x0280
 WindFlue_DistributeX		equ (WindFlue_Width/WindFlue_MaxLeaves)
-WindFlue_OnTime				equ 0x08*frames_per_second_pal
-WindFlue_OffTime			equ 0x08*frames_per_second_pal
+WindFlue_DefaultOnTime		equ 0x08*frames_per_second_pal
+WindFlue_DefaultOffTime		equ 0x08*frames_per_second_pal
 
 ; Struct
 	rsset (Entity_Struct_Size)
 ;---------------------------------
 WindFlue_Leaves       rs.b (Leaf_Struct_Size*WindFlue_MaxLeaves)
+WindFlue_OnTime       rs.w 1
+WindFlue_OffTime      rs.w 1
 WindFlue_Timer        rs.w 1
 WindFlue_Blowing      rs.b 1
 WindFlue_Visible      rs.b 1
@@ -56,6 +58,8 @@ WindFlueInit:
 	move.w  #WindFlue_Width, Entity_Width(a0)
 	move.w  #WindFlue_Height, Entity_Height(a0)
 	move.w  #WindFlue_OffTime, WindFlue_Timer(a0)
+	move.w  #WindFlue_DefaultOnTime, WindFlue_OnTime(a0)
+	move.w  #WindFlue_DefaultOffTime, WindFlue_OffTime(a0)
 	move.b  #0x0, WindFlue_Blowing(a0)
 	move.b  #0x0, WindFlue_Visible(a0)
 
@@ -142,10 +146,10 @@ WindFlueUpdate:
 	; Reset timer
 	tst.b  WindFlue_Blowing(a0)
 	beq    @OffTime
-	move.w #WindFlue_OnTime, WindFlue_Timer(a0)
+	move.w WindFlue_OnTime(a0), WindFlue_Timer(a0)
 	bra    @OnTime
 	@OffTime:
-	move.w #WindFlue_OffTime, WindFlue_Timer(a0)
+	move.w WindFlue_OffTime(a0), WindFlue_Timer(a0)
 	@OnTime:
 
 	@TimerRunning:
