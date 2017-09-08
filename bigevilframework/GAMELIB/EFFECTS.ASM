@@ -169,3 +169,58 @@ VFX_CreateUnderwaterPalette:
 	dbra   d0, @Loop
 
 	rts
+
+VFX_BrightenPalette:
+	; a0 --- Source palette addr
+	; a1 --- Dest palette addr
+	; d0 (b) Brightness factor
+
+	move.b d0, d4
+	move.w #(size_palette_b/size_word)-1, d0
+	@Loop:
+
+	; Get colour
+	move.w (a0)+, d1
+
+	; Extract R/G/B commponents
+	move.w d1, d2
+	move.w d1, d3
+	andi.w #0x0F00, d1	; Blue
+	andi.w #0x000F, d2	; Red
+	andi.w #0x00F0, d3	; Green
+	lsr.w  #0x8, d1
+	lsr.w  #0x4, d3
+
+	; Add to R
+	add.b  d4, d2
+	cmp.b  #0xF, d2
+	blt    @NoClampRed
+	move.b #0xF, d2
+	@NoClampRed:
+
+	; Add to G
+	add.b  d4, d3
+	cmp.b  #0xF, d3
+	blt    @NoClampGreen
+	move.b #0xF, d3
+	@NoClampGreen:
+
+	; Add to B
+	add.b  d4, d1
+	cmp.b  #0xF, d1
+	blt    @NoClampBlue
+	move.b #0xF, d1
+	@NoClampBlue:
+
+	; Back to colour
+	lsl.w  #0x8, d1
+	lsl.w  #0x4, d3
+	or.w   d2, d1
+	or.w   d3, d1
+
+	; Write
+	move.w d1, (a1)+
+
+	dbra   d0, @Loop
+
+	rts

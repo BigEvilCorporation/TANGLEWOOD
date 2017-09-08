@@ -11,7 +11,7 @@ Thunder_FlashFrames			equ 0x10
 Thunder_FlashFadeBackSpeed	equ 0x0020
 Thunder_FadeTicksPerUpdate	equ 0x6
 Thunder_DefaultInterval		equ 0x0100
-Thunder_DefaultDistance		equ 0x0100
+Thunder_DefaultDistance		equ 0x0C
 Thunder_HarmfulDistance		equ 0x0030
 
 	rsset 0
@@ -19,10 +19,10 @@ Thunder_PaletteBackup	rs.b (size_palette_b*num_palettes)
 Thunder_StrikeTimer		rs.w 1
 Thunder_FlashTimer		rs.w 1
 Thunder_Interval		rs.w 1
-Thunder_Distance		rs.w 1
+Thunder_Distance		rs.b 1	; Lightning distance (0x0 - 0xF)
 Thunder_Enabled			rs.b 1
 ;-----------------------------
-Thunder_Struct_Pad		rs.b 3
+Thunder_Struct_Pad		rs.b 2
 Thunder_Struct_Size		rs.b 0
 
 ThunderInit:
@@ -31,18 +31,18 @@ ThunderInit:
 	move.w #Thunder_DefaultInterval, Thunder_StrikeTimer(a2)
 	move.w #0x0, Thunder_FlashTimer(a2)
 	move.w #Thunder_DefaultInterval, Thunder_Interval(a2)
-	move.w #Thunder_DefaultDistance, Thunder_Distance(a2)
+	move.b #Thunder_DefaultDistance, Thunder_Distance(a2)
 	move.b #0x0, Thunder_Enabled(a2)
 
 	rts
 
 ThunderSetParams:
 	; d0 (w) Strike interval
-	; d1 (w) Distance
+	; d1 (b) Distance
 
 	lea Thunder, a2
 	move.w d0, Thunder_Interval(a2)
-	move.w d1, Thunder_Distance(a2)
+	move.b d1, Thunder_Distance(a2)
 	move.b #0x1, Thunder_Enabled(a2)
 
 	rts
@@ -78,26 +78,38 @@ ThunderStrike:
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a3, a4, d0
 
-	; Copy flash palette
-	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a3
-	lea    Thunder_FlashPalette, a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
+	; Brighten palettes
+	PUSHL  a2
+	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a0
+	move.l a0, a1
+	move.b #0xF, d0
+	sub.b  Thunder_Distance(a2), d0
+	jsr    VFX_BrightenPalette
+	POPL   a2
 
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a3
-	lea    Thunder_FlashPalette, a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
+	PUSHL  a2
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a0
+	move.l a0, a1
+	move.b #0xF, d0
+	sub.b  Thunder_Distance(a2), d0
+	jsr    VFX_BrightenPalette
+	POPL   a2
 
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a3
-	lea    Thunder_FlashPalette, a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
+	PUSHL  a2
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a0
+	move.l a0, a1
+	move.b #0xF, d0
+	sub.b  Thunder_Distance(a2), d0
+	jsr    VFX_BrightenPalette
+	POPL   a2
 
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a3
-	lea    Thunder_FlashPalette, a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
+	PUSHL  a2
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a0
+	move.l a0, a1
+	move.b #0xF, d0
+	sub.b  Thunder_Distance(a2), d0
+	jsr    VFX_BrightenPalette
+	POPL   a2
 
 	; Mark all palettes dirty
 	move.b #0xF, DirtyPalettesMask
