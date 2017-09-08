@@ -115,7 +115,13 @@ L2A2_Flue1_Low_name	dc.b "L2A2_Flue1_Low",0
 	even
 	ENDIF
 
-L2A2_TriggerBox_count equ 0x0
+L2A2_TriggerBox_count equ 0x1
+L2A2_TriggerBox_End_idx	equ 0x0
+
+	IFND FINAL
+L2A2_TriggerBox_End_name	dc.b "L2A2_TriggerBox_End",0
+	even
+	ENDIF
 
 L2A2_Checkpoint_count equ 0x1
 L2A2_Checkpoint_39_idx	equ 0x0
@@ -515,6 +521,27 @@ L2A2_LoadGameObjects:
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L2A2_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x19000000, Entity_WorldPosX(a0)
+	move.l #0x03e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A2_TriggerBox_End_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l2a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A2_Checkpoint_count)
