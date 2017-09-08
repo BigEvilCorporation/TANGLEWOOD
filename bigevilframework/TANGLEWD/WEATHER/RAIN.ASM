@@ -53,7 +53,6 @@ Rain_HighWind:
 ;==============================================================
 
 RainInit:
-	; a0 --- VFX addr
 	; a1 --- Level addr
 
 	; Base init, load sprite sheet
@@ -89,7 +88,6 @@ RainInit:
 	rts
 
 RainSetParams:
-	; a0 --- VFX addr
 	; a1 --- Level addr
 	; a2 --- Params addr
 
@@ -207,7 +205,6 @@ RainSpriteReposition:
 	rts
 
 RainUpdate:
-	; a0 --- VFX addr
 	; a1 --- Level addr
 
 	; TODO: Do this in WindSetParams
@@ -251,7 +248,6 @@ RainUpdate:
 	rts
 
 RainDraw:
-	; a0 --- VFX addr
 	; a1 --- Level addr
 
 	lea    RainSpritePositions, a2

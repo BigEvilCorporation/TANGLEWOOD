@@ -48,6 +48,7 @@
 	; Sprite tilesheets
 	; ************************************
 	IFND DEBUG
+	include 'assets\sprites\bolt.asm'
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\bridge.asm'
 	include 'assets\sprites\button.asm'
@@ -96,6 +97,7 @@
 	; Sprite animation data
 	; ************************************
 	IFND DEBUG
+	include 'assets\anims\bolt.asm'
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\button.asm'
 	include 'assets\anims\cart.asm'
@@ -181,6 +183,7 @@
 	; ************************************
 	; VFX
 	; ************************************
+	include 'assets\vfx\bolt.asm'
 	include 'assets\vfx\rain.asm'
 	include 'assets\vfx\water.asm'
 	
@@ -233,3 +236,4 @@ PaletteId_WaterRaster		equ PaletteId_Player
 	; ************************************
 VfxId_WaterSplashLarge		equ 0x0
 VfxId_RainLight				equ 0x1
+VfxId_LightningBolt			equ 0x2
