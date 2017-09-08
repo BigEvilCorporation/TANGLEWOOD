@@ -4,7 +4,16 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 ;   l2a3.asm - Level 32 - Storm Warning Act 3
-;==============================================================	
+;==============================================================
+
+l2a3_Thunder_Far_Dist		equ 0x9
+l2a3_Thunder_Far_Interval	equ 0x0300
+
+l2a3_Thunder_Mid_Dist		equ 0x5
+l2a3_Thunder_Mid_Interval	equ 0x0280
+
+l2a3_Thunder_Near_Dist		equ 0x1
+l2a3_Thunder_Near_Interval	equ 0x0200
 
 ; ************************************
 ; Static data
@@ -82,11 +91,17 @@ l2a3_Init:
 
 	; Init weather
 	jsr    ThunderInit
-	;jsr    RainInit
+	jsr    RainInit
+	jsr    l2a3_SetThunder_Far
 
-	move.w #Thunder_DefaultInterval, d0
-	move.w #Thunder_DefaultDistance, d1
-	jsr    ThunderSetParams
+	move.w  #0x0004, WindAccel
+	move.w  #-0x0080, WindRandStrengthMin
+	move.w  #-0x0100, WindRandStrengthMax
+	move.w  #0x0000, WindRandDelayMin
+	move.w  #0x0001, WindRandDelayMax
+	move.w  #0x0000, WindRandDurationMin
+	move.w  #0x7FFF, WindRandDurationMax
+	move.w  #0x0001, WindDelayTimer
 	
 	rts
 	
@@ -99,6 +114,24 @@ l2a3_Serialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
+	rts
+
+l2a3_SetThunder_Far:
+	move.w #l2a3_Thunder_Far_Interval, d0
+	move.w #l2a3_Thunder_Far_Dist, d1
+	jsr    ThunderSetParams
+	rts
+
+l2a3_SetThunder_Mid:
+	move.w #l2a3_Thunder_Mid_Interval, d0
+	move.w #l2a3_Thunder_Mid_Dist, d1
+	jsr    ThunderSetParams
+	rts
+
+l2a3_SetThunder_Near:
+	move.w #l2a3_Thunder_Near_Interval, d0
+	move.w #l2a3_Thunder_Near_Dist, d1
+	jsr    ThunderSetParams
 	rts
 
 l2a3_End:

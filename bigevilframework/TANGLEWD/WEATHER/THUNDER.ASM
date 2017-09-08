@@ -11,7 +11,7 @@ Thunder_FlashFrames			equ 0x10
 Thunder_FlashFadeBackSpeed	equ 0x0020
 Thunder_FadeTicksPerUpdate	equ 0x6
 Thunder_DefaultInterval		equ 0x0100
-Thunder_DefaultDistance		equ 0x0C
+Thunder_DefaultDistance		equ 0x0F
 Thunder_HarmfulDistance		equ 0x0030
 
 	rsset 0

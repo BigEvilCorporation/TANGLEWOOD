@@ -7,7 +7,29 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L2A3_Leaf_count equ 0x0
+L2A3_Leaf_count equ 0x9
+L2A3_Leaf_18_idx	equ 0x0
+L2A3_Leaf_19_idx	equ 0x1
+L2A3_Leaf_20_idx	equ 0x2
+L2A3_Leaf_21_idx	equ 0x3
+L2A3_Leaf_22_idx	equ 0x4
+L2A3_Leaf_23_idx	equ 0x5
+L2A3_Leaf_24_idx	equ 0x6
+L2A3_Leaf_25_idx	equ 0x7
+L2A3_Leaf_26_idx	equ 0x8
+
+	IFND FINAL
+L2A3_Leaf_18_name	dc.b "L2A3_Leaf_18",0
+L2A3_Leaf_19_name	dc.b "L2A3_Leaf_19",0
+L2A3_Leaf_20_name	dc.b "L2A3_Leaf_20",0
+L2A3_Leaf_21_name	dc.b "L2A3_Leaf_21",0
+L2A3_Leaf_22_name	dc.b "L2A3_Leaf_22",0
+L2A3_Leaf_23_name	dc.b "L2A3_Leaf_23",0
+L2A3_Leaf_24_name	dc.b "L2A3_Leaf_24",0
+L2A3_Leaf_25_name	dc.b "L2A3_Leaf_25",0
+L2A3_Leaf_26_name	dc.b "L2A3_Leaf_26",0
+	even
+	ENDIF
 
 L2A3_Echo_count equ 0x0
 
@@ -138,6 +160,102 @@ L2A3_WindFlue_count equ 0x0
 
 
 L2A3_LoadGameObjects:
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Leaf_Struct_Size*L2A3_Leaf_count)
+	move.l a1, EntityPoolStart_Leaf
+	move.l a1, a0
+	POPL   a1
+
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_18_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_19_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_20_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_22_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_23_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_24_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
+	jsr LeafInit
+	IFND FINAL
+	lea L2A3_Leaf_26_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LeafLoadGfx
+	add.l #Leaf_Struct_Size, a0
 
 
 	PUSHL  a1
