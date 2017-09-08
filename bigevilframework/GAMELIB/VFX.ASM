@@ -117,6 +117,19 @@ VfxPlay:
 
 	rts
 
+VfxStop:
+
+	; Stop updating and rendering
+	move.b #0x0, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+
+	; Reset anim frame
+	move.b #0x0, AnimObj_Playing(a0)
+	move.l #0x0, AnimObj_AnimSubframe(a0)
+
+	rts
+
 VfxUpdate:
 	; a0 --- VFX address
 	; a1 --- Level addr
