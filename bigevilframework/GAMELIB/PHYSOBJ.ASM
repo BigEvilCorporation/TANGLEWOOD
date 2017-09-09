@@ -57,6 +57,8 @@ PhysicsObj_CeilingProbeX    	rs.w 1 ; Ceiling probe X offset
 PhysicsObj_CeilingProbeY    	rs.w 1 ; Ceiling probe Y offset
 PhysicsObj_WallProbeTop			rs.w 1 ; Top wall probe Y offset
 PhysicsObj_WallProbeBottom		rs.w 1 ; Bottom wall probe Y offset
+PhysicsObj_WallProbeLeft		rs.w 1 ; Left wall probe X offset
+PhysicsObj_WallProbeRight		rs.w 1 ; Right wall probe X offset
 PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
@@ -713,6 +715,9 @@ PhysicsObjCollisionCorrection:
 	@HeadingLeft:
 	
 	; Heading left, clamp
+	move.w PhysicsObj_WallProbeLeft(a0), d1
+	TOSUBPIXELS d1
+	sub.l  d1, d0
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
@@ -722,13 +727,10 @@ PhysicsObjCollisionCorrection:
 	
 	@HeadingRight:
 	
-	; Heading right, translate wall to PhysicsObj space
-	clr.l  d2
-	move.w Entity_Width(a0), d2
-	TOSUBPIXELS d2
-	sub.l  d2, d0
-	
-	; Clamp
+	; Heading right, clamp
+	move.w PhysicsObj_WallProbeRight(a0), d1
+	TOSUBPIXELS d1
+	sub.l  d1, d0
 	move.l d0, Entity_WorldPosX(a0)
 
 	; Wall hit
@@ -1006,17 +1008,18 @@ PhysicsObjFindWall:
 	@HeadingLeft:
 	
 	; Get X, left hand side
-	move.w Entity_WorldPosX(a0), d1		; Get player pos X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d1		; To screen space
+	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
+	add.w  PhysicsObj_WallProbeLeft(a0), d1		; Add probe offset
+	subi.w  #vdp_sprite_border_x, d1			; To screen space
 	
 	bra    @EndHeadingTest
 	
 	@HeadingRight:
 	
 	; Get X, right hand side
-	move.w Entity_WorldPosX(a0), d1		; Get player pos X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d1		; To screen space
-	add.w  Entity_Width(a0), d1			; Right hand side
+	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
+	add.w  PhysicsObj_WallProbeRight(a0), d1	; Add probe offset
+	subi.w  #vdp_sprite_border_x, d1			; To screen space
 
 	@EndHeadingTest:
 	

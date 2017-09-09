@@ -120,6 +120,8 @@ WyrmInit:
 	move.w  #Wyrm_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Wyrm_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Wyrm_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #(Wyrm_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
+	move.w  #(Wyrm_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Wyrm_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Wyrm_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 

@@ -89,6 +89,8 @@ LogInit:
 	move.w  #Log_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Log_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Log_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #(Log_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
+	move.w  #(Log_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)

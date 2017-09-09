@@ -171,6 +171,8 @@ FuzzlInit:
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Fuzzl_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #(Fuzzl_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
+	move.w  #(Fuzzl_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
