@@ -214,11 +214,12 @@ ThunderFindTerrain:
 	; d0 (w) Search end pos Y
 	; d3 (b) OUT: Reached target pos
 
-	; Loop from screen top to player Y, in heightmap_max_search_tiles steps
+	; Loop from screen top (-half) to player Y, in heightmap_max_search_tiles steps
 	move.w Thunder_StrikePointX(a2), d1
 	subi.w #vdp_sprite_border_x, d1			; To screen space
 	swap   d1
 	move.w WorldScrollY, d1
+	subi.w #screen_height/2, d1
 	
 	PUSHL  a2
 
