@@ -422,7 +422,9 @@ LevelReset:
 	;==============================================================
 	
 	; Set BG colour
-	move.w #(PaletteId_World0<<4)|0xD, d0
+	clr.w  d0
+	move.b Level_BgColour(a1), d0
+	ori.w  #(PaletteId_World0<<4), d0
 	VDPSETREG 7, d0
 	
 	rts

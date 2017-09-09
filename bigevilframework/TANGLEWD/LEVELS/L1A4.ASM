@@ -39,6 +39,7 @@ l1a4_HarlequinForestAct4:
 	dc.w map_blockmap_l1a4_height		; Map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
 	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.b 0xD							; Background colour idx
 	
 	even
 	

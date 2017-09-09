@@ -131,15 +131,17 @@ L2A3_Flue_46_name	dc.b "L2A3_Flue_46",0
 	even
 	ENDIF
 
-L2A3_TriggerBox_count equ 0x3
+L2A3_TriggerBox_count equ 0x4
 L2A3_TriggerBox_EndStorm_idx	equ 0x0
 L2A3_TriggerBox_NearLightning_idx	equ 0x1
 L2A3_TriggerBox_EndLevel_idx	equ 0x2
+L2A3_TriggerBox_TOD_Night_idx	equ 0x3
 
 	IFND FINAL
 L2A3_TriggerBox_EndStorm_name	dc.b "L2A3_TriggerBox_EndStorm",0
 L2A3_TriggerBox_NearLightning_name	dc.b "L2A3_TriggerBox_NearLightning",0
 L2A3_TriggerBox_EndLevel_name	dc.b "L2A3_TriggerBox_EndLevel",0
+L2A3_TriggerBox_TOD_Night_name	dc.b "L2A3_TriggerBox_TOD_Night",0
 	even
 	ENDIF
 
@@ -677,6 +679,22 @@ L2A3_LoadGameObjects:
 	ENDIF
 	move.l #l2a3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x01200000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_TriggerBox_TOD_Night_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 

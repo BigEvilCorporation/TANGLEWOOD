@@ -10,8 +10,8 @@ LIGHTNING_DEBUG	equ 0
 
 Thunder_FlashPalette		equ palette_fade_white
 Thunder_FlashFrames			equ 0x10
-Thunder_FlashFadeBackSpeed	equ 0x0020
-Thunder_FadeTicksPerUpdate	equ 0x6
+Thunder_FlashFadeBackSpeed	equ 0x0060
+Thunder_FadeTicksPerUpdate	equ 0x3
 Thunder_DefaultInterval		equ 0x0100
 Thunder_DefaultDistance		equ 0x0F
 Thunder_HarmfulDistance		equ 0x03

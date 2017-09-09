@@ -38,6 +38,7 @@ l4a2_TetheredAct2:
 	dc.w map_blockmap_l4a2_height		; Map height (blocks)
 	dc.w tiles_l4_size_t				; Num tiles
 	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.b 0x0							; Background colour idx
 	
 	even
 	

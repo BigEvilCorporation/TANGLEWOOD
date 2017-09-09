@@ -34,6 +34,7 @@ l2a2_StormWarningAct2:
 	dc.w map_blockmap_l2a2_height		; Map height (blocks)
 	dc.w tiles_l2_size_t				; Num tiles
 	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.b 0x0							; Background colour idx
 	
 	even
 	
@@ -68,7 +69,7 @@ l2a2_Init:
 
 	; Set TOD palettes
 	move.l  #palette_l2_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l2_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
 	move.l  #palette_l2_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
 	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 

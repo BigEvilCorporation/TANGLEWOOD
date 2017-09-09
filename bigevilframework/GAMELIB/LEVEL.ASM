@@ -31,6 +31,7 @@ Level_MapWidthBlocks		rs.w 1
 Level_MapHeightBlocks		rs.w 1
 Level_NumTiles				rs.w 1
 Level_NumTerrainDescs		rs.w 1
+Level_BgColour				rs.b 1
 ;---------------------------------
-Level_Struct_Pad			rs.b 0
+Level_Struct_Pad			rs.b 3
 Level_Struct_Size			rs.b 0
