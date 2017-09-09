@@ -128,6 +128,10 @@ VfxStop:
 	move.b #0x0, AnimObj_Playing(a0)
 	move.l #0x0, AnimObj_AnimSubframe(a0)
 
+	; Reset draw offset
+	move.w #0x0, SpriteObj_DrawOffsetX(a0)
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+
 	rts
 
 VfxUpdate:

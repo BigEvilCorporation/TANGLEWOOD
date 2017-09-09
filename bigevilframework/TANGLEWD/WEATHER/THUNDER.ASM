@@ -16,6 +16,7 @@ Thunder_DefaultInterval		equ 0x0100
 Thunder_DefaultDistance		equ 0x0F
 Thunder_HarmfulDistance		equ 0x03
 Thunder_BoltToFlashTime		equ 0x0008
+Thunder_Damage				equ 0xFF
 
 	rsset 0
 Thunder_PaletteBackup	rs.b (size_palette_b*num_palettes)
@@ -28,9 +29,10 @@ Thunder_StrikePointX	rs.w 1	; X coord to strike
 Thunder_StrikePointY	rs.w 1	; Y coord to strike (if 0, strike player)
 Thunder_Distance		rs.b 1	; Lightning distance (0x0 - 0xF)
 Thunder_BoltActive		rs.b 1
+Thunder_PlayerTarget	rs.b 1
 Thunder_Enabled			rs.b 1
 ;-----------------------------
-Thunder_Struct_Pad		rs.b 1
+Thunder_Struct_Pad		rs.b 0
 Thunder_Struct_Size		rs.b 0
 
 ThunderInit:
@@ -50,6 +52,7 @@ ThunderInit:
 	move.w #0x0, Thunder_StrikePointY(a2)
 	move.b #Thunder_DefaultDistance, Thunder_Distance(a2)
 	move.b #0x0, Thunder_BoltActive(a2)
+	move.b #0x0, Thunder_PlayerTarget(a2)
 	move.b #0x0, Thunder_Enabled(a2)
 
 	rts
@@ -71,6 +74,9 @@ ThunderStrike:
 
 	lea    Thunder, a2
 
+	; Reset hit player
+	move.b #0x0, Thunder_PlayerTarget(a2)
+
 	; If harmful to player
 	cmp.b  #Thunder_HarmfulDistance, Thunder_Distance(a2)
 	bgt    @UseRandX
@@ -84,6 +90,9 @@ ThunderStrike:
 
 	; Find strike point
 	jsr    ThunderFindTerrain
+
+	; If target pos found, lethal strike to player
+	move.b d3, Thunder_PlayerTarget(a2)
 
 	bra    @UsePlayerX
 
@@ -203,6 +212,7 @@ ThunderFindTerrain:
 	; a1 --- Level addr
 	; a2 --- Thunder addr
 	; d0 (w) Search end pos Y
+	; d3 (b) OUT: Reached target pos
 
 	; Loop from screen top to player Y, in heightmap_max_search_tiles steps
 	move.w Thunder_StrikePointX(a2), d1
@@ -219,6 +229,9 @@ ThunderFindTerrain:
 	; Clear result
 	clr.w  d0
 
+	; Clear found target pos
+	clr.b  d3
+
 	@TerrainLp:
 
 	; If reached end Y pos, bail
@@ -226,7 +239,7 @@ ThunderFindTerrain:
 	blt    @UseEndPos
 
 	; Find terrain
-	PUSHM  d1-d2/a0-a1
+	PUSHM  d1-d3/a0-a1
 	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
 	swap   d2
 	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
@@ -234,7 +247,7 @@ ThunderFindTerrain:
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
-	POPM   d1-d2/a0-a1
+	POPM   d1-d3/a0-a1
 
 	tst.w  d0
 	bne    @Found
@@ -247,6 +260,7 @@ ThunderFindTerrain:
 	
 	@UseEndPos:
 	move.w d2, d0
+	move.b #0x1, d3
 
 	@Found:
 	
@@ -360,20 +374,34 @@ ThunderUpdate:
 	; Get VFX
 	lea    EntityArray_VFX+(VfxId_LightningBolt*VfxObj_Struct_Size), a0
 
-	; If off screen, stop
+	; If hit target Y pos, stop
 	move.w Entity_WorldPosY(a0), d1
-	sub.w  WorldScrollY, d1
-	subi.w #vdp_sprite_border_y, d1
-	cmp.w  #screen_height, d1
-	blt    @OnScreen
+	add.w  SpriteObj_DrawOffsetY(a0), d1
+	move.w Thunder_StrikePointY(a2), d2
+	cmp.w  d1, d2
+	bgt    @NotHitTarget
 
+	; Target hit, disable bolt
 	move.b #0x0, Thunder_BoltActive(a2)
 	jsr    VfxStop
+
+	; If harmful to player, and player is target, deal damage
+	tst.b  Thunder_PlayerTarget(a2)
+	beq    @NotHitPlayer
+
+	PUSHL  a0
+	move.l (Player1), a0
+	move.b #Thunder_Damage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+
+	@NotHitPlayer:
+
 	bra    @BoltInactive
 
-	@OnScreen:
+	@NotHitTarget:
 
-	; If finished, nudge it down the screen and play again after each cycle
+	; If VFX finished playing, nudge it down the screen and play again
 	tst.b  AnimObj_Playing(a0)
 	bne    @BoltPlaying
 

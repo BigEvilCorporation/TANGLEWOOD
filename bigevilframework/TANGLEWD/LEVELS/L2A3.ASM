@@ -103,6 +103,8 @@ l2a3_Init:
 	move.w  #0x7FFF, WindRandDurationMax
 	move.w  #0x0001, WindDelayTimer
 
+	jsr l2a3_SetThunder_Near
+
 	;==============================================================
 
 	; Keep wind timers on
@@ -181,4 +183,3 @@ l2a3_Trigger_End:
 
 l2a3_End:
 	rts
-	
