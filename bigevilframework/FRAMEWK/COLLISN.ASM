@@ -90,7 +90,7 @@ PHYS_GetTerrainHeight:
 	; a0 ---- : Collision blocks data addr
 	; a1 ---- : Collision tileset data addr
 	; a2 ---- : Collision block map data addr
-	; d0 (w)  : OUT: Floor height, or -1
+	; d0 (w)  : OUT: Floor height, or 0
 	; d1 (ww) : Probe XY coord (pixels, scroll space)
 	; d2 (ww) : Map W/H (blocks)
 	; d3 (w)  : OUT: Tile flags

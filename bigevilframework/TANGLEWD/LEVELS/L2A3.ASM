@@ -162,7 +162,7 @@ l2a3_SetThunder_Near:
 	jsr    ThunderSetParams
 	rts
 
-l2a3_End:
+l2a3_Trigger_EndStorm:
 	rts
 
 l2a3_Trigger_End:
@@ -178,3 +178,7 @@ l2a3_Trigger_End:
 	jsr    GameStateEnter
 	
 	rts
+
+l2a3_End:
+	rts
+	

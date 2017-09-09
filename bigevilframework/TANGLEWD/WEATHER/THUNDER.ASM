@@ -6,13 +6,15 @@
 ;   thunder.asm - Thunder and lightning - harmless (far) and harmful (near)
 ;===============================================================
 
+LIGHTNING_DEBUG	equ 1
+
 Thunder_FlashPalette		equ palette_fade_white
 Thunder_FlashFrames			equ 0x10
 Thunder_FlashFadeBackSpeed	equ 0x0020
 Thunder_FadeTicksPerUpdate	equ 0x6
 Thunder_DefaultInterval		equ 0x0100
 Thunder_DefaultDistance		equ 0x0F
-Thunder_HarmfulDistance		equ 0x0030
+Thunder_HarmfulDistance		equ 0x03
 Thunder_BoltToFlashTime		equ 0x0008
 
 	rsset 0
@@ -22,6 +24,8 @@ Thunder_SoundTimer		rs.w 1
 Thunder_FlashTimer		rs.w 1
 Thunder_BoltTimer		rs.w 1
 Thunder_Interval		rs.w 1	; Delay between lightning claps
+Thunder_StrikePointX	rs.w 1	; X coord to strike
+Thunder_StrikePointY	rs.w 1	; Y coord to strike (if 0, strike player)
 Thunder_Distance		rs.b 1	; Lightning distance (0x0 - 0xF)
 Thunder_BoltActive		rs.b 1
 Thunder_Enabled			rs.b 1
@@ -43,6 +47,7 @@ ThunderInit:
 	move.w #0x0, Thunder_FlashTimer(a2)
 	move.w #0x0, Thunder_BoltTimer(a2)
 	move.w #Thunder_DefaultInterval, Thunder_Interval(a2)
+	move.w #0x0, Thunder_StrikePointY(a2)
 	move.b #Thunder_DefaultDistance, Thunder_Distance(a2)
 	move.b #0x0, Thunder_BoltActive(a2)
 	move.b #0x0, Thunder_Enabled(a2)
@@ -50,6 +55,7 @@ ThunderInit:
 	rts
 
 ThunderSetParams:
+	; a1 --- Level addr
 	; d0 (w) Strike interval
 	; d1 (b) Distance
 
@@ -61,17 +67,49 @@ ThunderSetParams:
 	rts
 
 ThunderStrike:
+	; a1 --- Level addr
+
+	lea    Thunder, a2
+
+	; If harmful to player
+	cmp.b  #Thunder_HarmfulDistance, Thunder_Distance(a2)
+	bgt    @UseRandX
+
+	; Strike at player X offset
+	move.l (Player1), a3
+	move.w Entity_WorldPosX(a3), Thunder_StrikePointX(a2)
+
+	; Search for strike point up to player Y pos
+	move.w Entity_WorldPosY(a3), d0
+
+	; Find strike point
+	jsr    ThunderFindTerrain
+
+	bra    @UsePlayerX
+
+	@UseRandX:
 
 	; Randomise X offset
-	move.w #0x0, d1
-	move.w #screen_width-spritesheet_bolt_flash_width, d2
+	move.w WorldScrollX, d1
+	move.w WorldScrollX, d2
+	addi.w #vdp_sprite_border_x, d1
+	addi.w #vdp_sprite_border_x+(screen_width-spritesheet_bolt_flash_width), d2
 	jsr    RND_GenerateWordClamped
+	move.w d0, Thunder_StrikePointX(a2)
+
+	; Search for strike point up to screen bottom
+	move.w WorldScrollY, d0
+	addi.w #vdp_sprite_border_y+screen_height, d0
+
+	; Find strike point
+	jsr    ThunderFindTerrain
+
+	@UsePlayerX:
 
 	; Start lightning bolt VFX
 	lea    EntityArray_VFX+(VfxId_LightningBolt*VfxObj_Struct_Size), a0
-	add.w  WorldScrollX, d0
+	move.w Thunder_StrikePointX(a2), d0
 	move.w WorldScrollY, d1
-	addi.w #vdp_sprite_border_x, d0
 	addi.w #vdp_sprite_border_y, d1
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
@@ -79,7 +117,6 @@ ThunderStrike:
 	jsr    VfxPlay
 	POPL   a2
 
-	lea    Thunder, a2
 	move.b #0x1, Thunder_BoltActive(a2)
 
 	; Reset interval timer
@@ -91,6 +128,7 @@ ThunderStrike:
 	rts
 
 ThunderFlash:
+	; a1 --- Level addr
 
 	; Reset flash timer
 	move.w #Thunder_FlashFrames, Thunder_FlashTimer(a2)
@@ -156,11 +194,72 @@ ThunderFlash:
 	rts
 
 ThunderSound:
+	; a1 --- Level addr
 	; d0 (w) Distance
 
 	rts
 
+ThunderFindTerrain:
+	; a1 --- Level addr
+	; a2 --- Thunder addr
+	; d0 (w) Search end pos Y
+
+	; Loop from screen top to player Y, in heightmap_max_search_tiles steps
+	move.w Thunder_StrikePointX(a2), d1
+	subi.w #vdp_sprite_border_x, d1			; To screen space
+	swap   d1
+	move.w WorldScrollY, d1
+	
+	PUSHL  a2
+
+	; End pos
+	move.w d0, d2
+	subi.w #vdp_sprite_border_y, d2
+
+	; Clear result
+	clr.w  d0
+
+	@TerrainLp:
+
+	; If reached end Y pos, bail
+	cmp.w  d1, d2
+	blt    @UseEndPos
+
+	; Find terrain
+	PUSHM  d1-d2/a0-a1
+	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
+	swap   d2
+	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
+	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
+	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	jsr    PHYS_GetTerrainHeight
+	POPM   d1-d2/a0-a1
+
+	tst.w  d0
+	bne    @Found
+
+	@NotFound:
+
+	; Not found, increment Y pos and try again
+	addi.w #heightmap_max_search_tiles*8, d1
+	bra    @TerrainLp
+	
+	@UseEndPos:
+	move.w d2, d0
+
+	@Found:
+	
+	POPL   a2
+
+	; Set result
+	addi.w #vdp_sprite_border_y, d0
+	move.w d0, Thunder_StrikePointY(a2)
+
+	rts
+
 ThunderUpdate:
+	; a1 --- Level addr
 
 	lea Thunder, a2
 
@@ -281,10 +380,40 @@ ThunderUpdate:
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	addi.l #spritesheet_bolt_flash_height*spriteanim_bolt_flash_numframes*subpixels_per_pixel, d1
+	PUSHL  a2
 	jsr    VfxPlay
+	POPL   a2
 
 	@BoltPlaying:
 	@BoltInactive:
+
+	;===============================================================
+
+	IF LIGHTNING_DEBUG
+
+	PUSHL  a0
+	move.l (EntityPoolStart_Fuzzl), a0
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
+	PUSHM  d0-d1
+	move.w Thunder_StrikePointX(a2), d0
+	move.w Thunder_StrikePointY(a2), d1
+	tst.w  d1
+	bne    @DebugUseTerrainPos
+	move.l (Player1), a3
+	move.w Entity_WorldPosY(a3), d1
+	@DebugUseTerrainPos:
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	jsr    SpriteObjDraw
+	POPM   d0-d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	POPL   a0
+
+	ENDIF
 
 	;===============================================================
 
