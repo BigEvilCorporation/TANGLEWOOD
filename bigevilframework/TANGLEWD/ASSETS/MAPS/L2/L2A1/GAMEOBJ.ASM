@@ -287,7 +287,7 @@ L2A1_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x01300000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosX(a0)
 	move.l #0x07800000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A1_Nymn_3_name, a3
