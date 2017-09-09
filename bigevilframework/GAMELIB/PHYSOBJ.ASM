@@ -233,6 +233,8 @@ PhysicsObjUpdate:
 	; Find wall (top probe)
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @NoCheckTop
+	tst.b  PhysicsObj_CollideCeilings(a0)
+	beq    @NoCheckTop
 	move.b #0x1, d0
 	jsr    PhysicsObjFindWall
 	@NoCheckTop:
@@ -928,7 +930,8 @@ PhysicsObjFindFloor:
 	; If special terrain, and shouldn't collide, bail out
 	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
 	bne    @CollideSpecial
-	andi.w #col_tile_flag_special, d3
+	move.w d3, d4
+	andi.w #col_tile_flag_special, d4
 	bne    @DontCollide
 	@CollideSpecial:
 	
@@ -936,7 +939,8 @@ PhysicsObjFindFloor:
 	tst.b  PhysicsObj_FallThroughHoles(a0)
 	beq    @NoHoleCheck						; Check if set to care about holes
 	
-	andi.w #col_tile_flag_hole, d3
+	move.w d3, d4
+	andi.w #col_tile_flag_hole, d4
 	bne    @DontCollide
 	
 	@NoHoleCheck:
