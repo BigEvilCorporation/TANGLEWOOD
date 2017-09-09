@@ -16,6 +16,15 @@ terrainmap_blockmap_L2A3_width	equ 0x15E
 terrainmap_blockmap_L2A3_height	equ 0x3C
 
 ; Terrain beziers start/end positions
-terrainmap_L2A3_num_special_terrain_descs	equ 0x00
+terrainmap_L2A3_num_special_terrain_descs	equ 0x09
 terrainmap_L2A3_special_terrain_descs:
+	dc.w 0x0E78, 0x0417, 0x0EA8, 0x0417	; Start X, start Y, end X, end Y
+	dc.w 0x1078, 0x03F7, 0x10C8, 0x03F7	; Start X, start Y, end X, end Y
+	dc.w 0x13D8, 0x036F, 0x1428, 0x036F	; Start X, start Y, end X, end Y
+	dc.w 0x13D8, 0x03BF, 0x1428, 0x03BF	; Start X, start Y, end X, end Y
+	dc.w 0x1918, 0x0307, 0x1968, 0x0307	; Start X, start Y, end X, end Y
+	dc.w 0x1B18, 0x035F, 0x1B48, 0x035F	; Start X, start Y, end X, end Y
+	dc.w 0x1E98, 0x035F, 0x1EE8, 0x035F	; Start X, start Y, end X, end Y
+	dc.w 0x2058, 0x039F, 0x2088, 0x039F	; Start X, start Y, end X, end Y
+	dc.w 0x2718, 0x03D7, 0x2768, 0x03D7	; Start X, start Y, end X, end Y
 

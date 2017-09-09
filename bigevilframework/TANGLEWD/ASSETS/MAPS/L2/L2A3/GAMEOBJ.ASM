@@ -41,19 +41,17 @@ L2A3_Nymn_16_name	dc.b "L2A3_Nymn_16",0
 	even
 	ENDIF
 
-L2A3_BouncePlant_count equ 0x5
+L2A3_BouncePlant_count equ 0x4
 L2A3_BouncePlant_8_idx	equ 0x0
-L2A3_BouncePlant_9_idx	equ 0x1
+L2A3_BouncePlant_51_idx	equ 0x1
 L2A3_BouncePlant_43_idx	equ 0x2
 L2A3_BouncePlant_44_idx	equ 0x3
-L2A3_BouncePlant_51_idx	equ 0x4
 
 	IFND FINAL
 L2A3_BouncePlant_8_name	dc.b "L2A3_BouncePlant_8",0
-L2A3_BouncePlant_9_name	dc.b "L2A3_BouncePlant_9",0
+L2A3_BouncePlant_51_name	dc.b "L2A3_BouncePlant_51",0
 L2A3_BouncePlant_43_name	dc.b "L2A3_BouncePlant_43",0
 L2A3_BouncePlant_44_name	dc.b "L2A3_BouncePlant_44",0
-L2A3_BouncePlant_51_name	dc.b "L2A3_BouncePlant_51",0
 	even
 	ENDIF
 
@@ -71,7 +69,27 @@ L2A3_Djakk_name	dc.b "L2A3_Djakk",0
 
 L2A3_Boulder_count equ 0x0
 
-L2A3_Firefly_count equ 0x0
+L2A3_Firefly_count equ 0x8
+L2A3_Firefly_53_idx	equ 0x0
+L2A3_Firefly_54_idx	equ 0x1
+L2A3_Firefly_55_idx	equ 0x2
+L2A3_Firefly_56_idx	equ 0x3
+L2A3_Firefly_57_idx	equ 0x4
+L2A3_Firefly_58_idx	equ 0x5
+L2A3_Firefly_59_idx	equ 0x6
+L2A3_Firefly_60_idx	equ 0x7
+
+	IFND FINAL
+L2A3_Firefly_53_name	dc.b "L2A3_Firefly_53",0
+L2A3_Firefly_54_name	dc.b "L2A3_Firefly_54",0
+L2A3_Firefly_55_name	dc.b "L2A3_Firefly_55",0
+L2A3_Firefly_56_name	dc.b "L2A3_Firefly_56",0
+L2A3_Firefly_57_name	dc.b "L2A3_Firefly_57",0
+L2A3_Firefly_58_name	dc.b "L2A3_Firefly_58",0
+L2A3_Firefly_59_name	dc.b "L2A3_Firefly_59",0
+L2A3_Firefly_60_name	dc.b "L2A3_Firefly_60",0
+	even
+	ENDIF
 
 L2A3_FuzzlCage_count equ 0x0
 
@@ -113,13 +131,15 @@ L2A3_Flue_46_name	dc.b "L2A3_Flue_46",0
 	even
 	ENDIF
 
-L2A3_TriggerBox_count equ 0x2
+L2A3_TriggerBox_count equ 0x3
 L2A3_TriggerBox_17_idx	equ 0x0
 L2A3_TriggerBox_NearLightning_idx	equ 0x1
+L2A3_TriggerBox_EndStorm_idx	equ 0x2
 
 	IFND FINAL
 L2A3_TriggerBox_17_name	dc.b "L2A3_TriggerBox_17",0
 L2A3_TriggerBox_NearLightning_name	dc.b "L2A3_TriggerBox_NearLightning",0
+L2A3_TriggerBox_EndStorm_name	dc.b "L2A3_TriggerBox_EndStorm",0
 	even
 	ENDIF
 
@@ -332,10 +352,10 @@ L2A3_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x0fd80000, Entity_WorldPosX(a0)
-	move.l #0x04d80000, Entity_WorldPosY(a0)
+	move.l #0x14c80000, Entity_WorldPosX(a0)
+	move.l #0x04e00000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A3_BouncePlant_9_name, a3
+	lea L2A3_BouncePlant_51_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -367,18 +387,6 @@ L2A3_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
-	jsr BouncePlantInit
-	move.l #0x14c80000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_BouncePlant_51_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr BouncePlantLoadGfx
-	add.l #BouncePlant_Struct_Size, a0
 
 
 
@@ -403,6 +411,108 @@ L2A3_LoadGameObjects:
 	add.l #Monster_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L2A3_Firefly_count)
+	move.l a1, EntityPoolStart_Firefly
+	move.l a1, a0
+	POPL   a1
+
+	jsr FireflyInit
+	move.l #0x09400000, Entity_WorldPosX(a0)
+	move.l #0x05800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_53_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0b000000, Entity_WorldPosX(a0)
+	move.l #0x05780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_54_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x0ca00000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_55_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x12380000, Entity_WorldPosX(a0)
+	move.l #0x04180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_56_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x1ef80000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_57_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x25b80000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_58_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x2a300000, Entity_WorldPosX(a0)
+	move.l #0x03e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_59_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
+	jsr FireflyInit
+	move.l #0x2b080000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Firefly_60_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FireflyLoadGfx
+	add.l #Firefly_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -538,7 +648,7 @@ L2A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x0db80000, Entity_WorldPosX(a0)
+	move.l #0x0e600000, Entity_WorldPosX(a0)
 	move.l #0x04900000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_TriggerBox_NearLightning_name, a3
@@ -548,6 +658,21 @@ L2A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l2a3_SetThunder_Near, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x28880000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_TriggerBox_EndStorm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l2a3_Trigger_EndStorm, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
