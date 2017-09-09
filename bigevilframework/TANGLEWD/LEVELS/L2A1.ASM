@@ -39,8 +39,8 @@ l2a1_StormWarningAct1:
 	
 l2a1_DefaultPalettes:
 
-	dc.l palette_l2					; World
-	dc.l palette_l1					; Djakk (black by default, fades up when approached)
+	dc.l palette_l2_day				; World
+	dc.l palette_djakk				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -72,6 +72,12 @@ l2a1_Init:
 	divu   #size_tile_b, d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
+
+	; Set TOD palettes
+	move.l  #palette_l2_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l2_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay

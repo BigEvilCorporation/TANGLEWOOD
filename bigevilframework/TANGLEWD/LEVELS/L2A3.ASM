@@ -52,8 +52,8 @@ l2a3_StormWarningAct3:
 	
 l2a3_DefaultPalettes:
 
-	dc.l palette_l2					; World
-	dc.l palette_l1					; Djakk (black by default, fades up when approached)
+	dc.l palette_l2_dusk			; World
+	dc.l palette_djakk				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -79,6 +79,12 @@ l2a3_Init:
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 
+	; Set TOD palettes
+	move.l  #palette_l2_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l2_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l2_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
 	; Set TOD
 	move.b  #TimeOfDay_Night, TimeOfDay
 
@@ -103,11 +109,9 @@ l2a3_Init:
 	move.w  #0x7FFF, WindRandDurationMax
 	move.w  #0x0001, WindDelayTimer
 
-	jsr l2a3_SetThunder_Near
-
 	;==============================================================
 
-	; Keep wind timers on
+	; Keep wind flue timers on
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue1, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
@@ -132,6 +136,29 @@ l2a3_Init:
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue8, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+
+	;==============================================================
+
+	; 'Special' terrain is lightning shelter, don't collide
+	move.l (Player1), a2
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
+
+	move.w (EntityCount_Fuzzl), d6
+	move.l (EntityPoolStart_Fuzzl), a2
+	subq.w  #0x1, d6
+	@FuzzlLoop:
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
+	lea    Fuzzl_Struct_Size(a2), a2
+	dbra   d6, @FuzzlLoop
+
+	;==============================================================
+
+	; Don't bother with Djakk emerge sequence
+	ENTITY_GETBYNAME Monster, l2a3_Djakk, a0
+	move.b #0x0, Monster_DoIntro(a0)
+
+	; Disable lost player timeout
+	move.w #-1, Monster_LoseSightTimer(a0)
 	
 	rts
 	
@@ -161,7 +188,11 @@ l2a3_SetThunder_Mid:
 l2a3_SetThunder_Near:
 	move.w #l2a3_Thunder_Near_Interval, d0
 	move.w #l2a3_Thunder_Near_Dist, d1
-	jsr    ThunderSetParams
+	;jsr    ThunderSetParams
+
+	; Fire warning shot
+	jsr    ThunderStrike
+
 	rts
 
 l2a3_Trigger_EndStorm:
