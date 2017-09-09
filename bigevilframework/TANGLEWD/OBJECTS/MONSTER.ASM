@@ -196,6 +196,7 @@ MonsterInit:
 	move.w  #Monster_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b  #Monster_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
+	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	
 	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
@@ -1387,6 +1388,9 @@ MonsterStartTamed:
 	
 	; Stand still
 	jsr    CharacterCancelXMovement
+
+	; Reset catchup speed
+	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
 
 	; Allow running
 	move.b #Character_WalkGeneral, d2
