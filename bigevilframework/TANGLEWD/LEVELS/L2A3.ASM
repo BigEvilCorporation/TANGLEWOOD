@@ -201,6 +201,10 @@ l2a3_Trigger_EndStorm:
 	lea    Thunder, a2
 	move.b #0x0, Thunder_Enabled(a2)
 
+	; Disable rain
+	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a2
+	move.b #0x0, Entity_Active(a2)
+
 	rts
 
 l2a3_Trigger_End:

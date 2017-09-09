@@ -266,12 +266,20 @@ RainDraw:
 	add.l  RainParams_VelX(a3), d2
 	add.l  RainParams_VelY(a3), d3
 
-	; If out of bounds, reposition
+	; If out of bounds
 	cmp.l  #screen_height*subpixels_per_pixel, d3
 	blt    @WithinBounds
+
+	; If disabled, leave out of view
+	tst.b  Entity_Active(a0)
+	beq    @NextSprite
+
+	; Reposition sprite
 	PUSHL  d0
 	jsr    RainSpriteReposition
 	POPL   d0
+	bra    @WithinBounds
+
 	@WithinBounds:
 
 	; Store
@@ -296,6 +304,7 @@ RainDraw:
 	POPM   d0-d3/a0-a2
 
 	; Next
+	@NextSprite:
 	lea    (size_long*2)(a2), a2
 
 	dbra   d0, @SpriteLp

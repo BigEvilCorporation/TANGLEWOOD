@@ -132,14 +132,14 @@ L2A3_Flue_46_name	dc.b "L2A3_Flue_46",0
 	ENDIF
 
 L2A3_TriggerBox_count equ 0x3
-L2A3_TriggerBox_17_idx	equ 0x0
+L2A3_TriggerBox_EndStorm_idx	equ 0x0
 L2A3_TriggerBox_NearLightning_idx	equ 0x1
-L2A3_TriggerBox_EndStorm_idx	equ 0x2
+L2A3_TriggerBox_EndLevel_idx	equ 0x2
 
 	IFND FINAL
-L2A3_TriggerBox_17_name	dc.b "L2A3_TriggerBox_17",0
-L2A3_TriggerBox_NearLightning_name	dc.b "L2A3_TriggerBox_NearLightning",0
 L2A3_TriggerBox_EndStorm_name	dc.b "L2A3_TriggerBox_EndStorm",0
+L2A3_TriggerBox_NearLightning_name	dc.b "L2A3_TriggerBox_NearLightning",0
+L2A3_TriggerBox_EndLevel_name	dc.b "L2A3_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
@@ -636,15 +636,18 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x19000000, Entity_WorldPosX(a0)
-	move.l #0x02e80000, Entity_WorldPosY(a0)
+	move.l #0x28880000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A3_TriggerBox_17_name, a3
+	lea L2A3_TriggerBox_EndStorm_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.l #l2a3_Trigger_EndStorm, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
@@ -663,18 +666,17 @@ L2A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x28880000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x2b080000, Entity_WorldPosX(a0)
+	move.l #0x07300000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A3_TriggerBox_EndStorm_name, a3
+	lea L2A3_TriggerBox_EndLevel_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a3_Trigger_EndStorm, TriggerBox_Routine(a0)
+	move.l #l2a3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
