@@ -46,6 +46,9 @@ Fail_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	; Update weather (to correct palettes after thunder flash)
+	jsr    WeatherUpdate
 	
 	; Update fade down timer
 	move.l (TimerFailFade), d0
@@ -54,6 +57,11 @@ Fail_Update:
 	subq.l #0x1, d0
 	move.l d0, TimerFailFade
 	tst.l  d0
+	bne    @TimerRunning
+
+	; Check if palette lerp already active
+	jsr    PAL_LerpActive
+	tst.b  d0
 	bne    @TimerRunning
 
 	; Begin fade down - all palettes except player
