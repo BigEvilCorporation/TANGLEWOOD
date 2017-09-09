@@ -188,7 +188,7 @@ l2a3_SetThunder_Mid:
 l2a3_SetThunder_Near:
 	move.w #l2a3_Thunder_Near_Interval, d0
 	move.w #l2a3_Thunder_Near_Dist, d1
-	;jsr    ThunderSetParams
+	jsr    ThunderSetParams
 
 	; Fire warning shot
 	jsr    ThunderStrike
@@ -196,6 +196,11 @@ l2a3_SetThunder_Near:
 	rts
 
 l2a3_Trigger_EndStorm:
+
+	; Disable thunder
+	lea    Thunder, a2
+	move.b #0x0, Thunder_Enabled(a2)
+
 	rts
 
 l2a3_Trigger_End:
