@@ -57,7 +57,7 @@ Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 ; Player collision probes
 Player1StepHeight	 	equ 0x3
 Player1MinWallHeight 	equ 0x11				; High enough to avoid stones
-Player1ProbeWallTop	 	equ 0x08				; Wall probe top
+Player1ProbeWallTop	 	equ 0x0A				; Wall probe top
 Player1ProbeWallBottom	equ Player1Height		; Wall probe bottom
 Player1ProbeFloorX   	equ (Player1Width/2)	; Floor detection probe position X
 Player1ProbeFloorY   	equ (Player1Height-8)	; Floor detection probe position Y
