@@ -9,6 +9,8 @@
 
 L4A1_Leaf_count equ 0x0
 
+L4A1_Djubb_count equ 0x0
+
 L4A1_Echo_count equ 0x1
 L4A1_Echo_2_idx	equ 0x0
 
@@ -187,11 +189,10 @@ L4A1_Pillar_count equ 0x0
 
 L4A1_WindFlue_count equ 0x0
 
-L4A1_Djubb_count equ 0x0
-
 
 
 L4A1_LoadGameObjects:
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A1_Echo_count)
@@ -703,7 +704,6 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 

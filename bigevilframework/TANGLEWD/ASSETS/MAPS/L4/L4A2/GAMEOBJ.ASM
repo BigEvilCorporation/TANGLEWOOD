@@ -9,6 +9,14 @@
 
 L4A2_Leaf_count equ 0x0
 
+L4A2_Djubb_count equ 0x1
+L4A2_Djubb_3_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
+	even
+	ENDIF
+
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
 
@@ -79,17 +87,28 @@ L4A2_Pillar_count equ 0x0
 
 L4A2_WindFlue_count equ 0x0
 
-L4A2_Djubb_count equ 0x1
-L4A2_Djubb_3_idx	equ 0x0
-
-	IFND FINAL
-L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
-	even
-	ENDIF
-
 
 
 L4A2_LoadGameObjects:
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A2_Djubb_count)
+	move.l a1, EntityPoolStart_Djubb
+	move.l a1, a0
+	POPL   a1
+
+	jsr DjubbInit
+	move.l #0x06480000, Entity_WorldPosX(a0)
+	move.l #0x05280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Djubb_3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
@@ -155,25 +174,6 @@ L4A2_LoadGameObjects:
 
 
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A2_Djubb_count)
-	move.l a1, EntityPoolStart_Djubb
-	move.l a1, a0
-	POPL   a1
-
-	jsr DjubbInit
-	move.l #0x05a80000, Entity_WorldPosX(a0)
-	move.l #0x05200000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Djubb_3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DjubbLoadGfx
-	add.l #Djubb_Struct_Size, a0
 
 	rts
 

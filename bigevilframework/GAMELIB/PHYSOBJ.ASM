@@ -78,6 +78,7 @@ PhysicsObj_CollideSpecialTerrain rs.b 1 ; Collides with 'special' marked terrain
 PhysicsObj_FallThroughHoles 	rs.b 1 ; Ignores terrain tiles with 'hole' flag
 PhysicsObj_AffectedByGravity   	rs.b 1 ; Gets pushed by gravity force
 PhysicsObj_AffectedByWind   	rs.b 1 ; Gets pushed by wind force
+PhysicsObj_DecelInAir           rs.b 1 ; Decelerate even if in air
 PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
 PhysicsObj_OnPlatform			rs.b 1 ; Object is on a platform
@@ -88,7 +89,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 1
+PhysicsObj_Struct_Pad      		rs.b 0
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -139,6 +140,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_CollideBarriers(a0)
 	move.b #0x1, PhysicsObj_CollideSpecialTerrain(a0)
 	move.b #0x0, PhysicsObj_FallThroughHoles(a0)
+	move.b #0x0, PhysicsObj_DecelInAir(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
@@ -363,10 +365,12 @@ PhysicsObjApplyAccelDecel:
 	@IdleXDecel:
 	
 	; Only decelerate (when X controls idle) if not in air
-	move.b PhysicsObj_OnFloor(a0), d0
-	tst.b  d0
+	tst.b  PhysicsObj_DecelInAir(a0)
+	bne    @Decel
+	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @EndAccelDecel
 
+	@Decel:
 	@ClampSpeedDecel:
 	
 	; Determine deceleration direction

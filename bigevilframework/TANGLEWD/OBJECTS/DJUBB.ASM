@@ -14,7 +14,9 @@ Djubb_SwimAccel			equ 0x001000
 Djubb_SwimDecelIdle		equ 0x002000
 Djubb_SwimDecelForced	equ 0x004000
 Djubb_MaxSwimVel		equ 0x03E000
-Djubb_PlayerYViewDist	equ 0x40
+Djubb_WallProbeLeft		equ -0x0010
+Djubb_WallProbeRight	equ Djubb_Width+0x0010
+Djubb_PlayerYViewDist	equ 0x20
 Djubb_AttackDamage		equ 0xFF
 
 ; Animations
@@ -57,12 +59,14 @@ DjubbInit:
 	move.l  #Djubb_MaxSwimVel, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Djubb_MaxSwimVel, PhysicsObj_MaxVelAirX(a0)
 	move.w  #Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0)
-	move.w  #(Djubb_Width/2)-0x08, PhysicsObj_WallProbeLeft(a0)
-	move.w  #(Djubb_Width/2)+0x08, PhysicsObj_WallProbeRight(a0)
+	move.w  #Djubb_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
+	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
+	move.w  #Djubb_Height, PhysicsObj_WallProbeBottom(a0)
 	move.b  #Djubb_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	move.b  #0x1, PhysicsObj_DecelInAir(a0)
 	
 	move.l  #Djubb_MaxSwimVel, Character_MaxVelXWalk(a0)
 	move.l  #Djubb_MaxSwimVel, Character_MaxVelXRun(a0)
@@ -71,6 +75,8 @@ DjubbInit:
 	move.w  #Djubb_SwimAccel, Character_AccelRun(a0)
 	move.w  #Djubb_SwimDecelIdle, Character_DecelIdle(a0)
 	move.w  #Djubb_SwimDecelForced, Character_DecelForced(a0)
+
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -104,6 +110,10 @@ DjubbUpdate:
 	; Get player
 	move.l (Player1), a2
 
+	; If dead, don't bother
+	tst.b  Character_Dead(a2)
+	bne    @PlayerDead
+
 	; If within Y window
 	ENTITY_GETCENTREY d0, a0
 	ENTITY_GETCENTREY d1, a2
@@ -128,6 +138,7 @@ DjubbUpdate:
 
 	PUSHL  a1
 	lea    Djubb_Animations+(DjubbAnimIdx_Bite*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -142,13 +153,17 @@ DjubbUpdate:
 	tst.l  d1
 	bgt    @MoveRight
 	jsr    CharacterMoveLeft
-	bra    @MoveLeft
+	bra    @EndMove
 	@MoveRight:
 	jsr    CharacterMoveRight
-	@MoveLeft:
+	bra    @EndMove
 
 	@PlayerOutOfView:
+
+	jsr    CharacterCancelXMovement
+
 	@EndMove:
+	@PlayerDead:
 
 	; Base functionality
 	jsr CharacterUpdate
