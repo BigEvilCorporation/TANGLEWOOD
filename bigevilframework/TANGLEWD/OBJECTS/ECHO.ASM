@@ -29,6 +29,8 @@ Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump
 Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
 Echo_AIDistFuzzlX			equ screen_width	; X distance from Fuzzl to add a push obj node
 Echo_AIDistFuzzlY			equ Player1Height	; Y distance from Fuzzl to add a push obj node
+Echo_AIDistLogX				equ screen_width	; X distance from log to add a goto node
+Echo_AIDistLogY				equ Player1Height	; Y distance from log to add a goto node
 Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto node
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
@@ -77,6 +79,7 @@ EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
 EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
 EchoAIState_Button			equ 7	; Holding a button until deactivated
 EchoAIState_Water			equ 8	; Echo doesn't like water :(
+EchoAIState_Platform		equ 9	; Standing on moving platform, waiting for it to stop
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -666,6 +669,8 @@ EchoUpdateAI:
 	beq    @Button
 	cmp.b  #EchoAIState_Water, d0
 	beq    @Water
+	cmp.b  #EchoAIState_Platform, d0
+	beq    @Platform
 	bra    @End
 	
 	@Follow:
@@ -694,6 +699,10 @@ EchoUpdateAI:
 
 	@Water:
 	jsr    EchoAIUpdate_Water
+	bra    @End
+
+	@Platform:
+	jsr    EchoAIUpdate_Platform
 	bra    @End
 	
 	@End:
@@ -1343,6 +1352,39 @@ EchoAIUpdate_Water:
 
 	rts
 
+EchoAIStart_Platform:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- platform
+	
+	; Set platform state
+	move.b #EchoAIState_Platform, Echo_AIState(a0)
+
+	; Set platform
+	move.l a2, Echo_AIObjectOfInterest(a0)
+	
+	rts
+
+EchoAIUpdate_Platform:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Get platform
+	move.l Echo_AIObjectOfInterest(a0), a2
+
+	; Wait for platform to stop
+	tst.l  Platform_VelX(a2)
+	bne    @PlatformMoving
+	tst.l  Platform_VelY(a2)
+	bne    @PlatformMoving
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+
+	@PlatformMoving:
+
+	rts
+
 EchoAI_CheckOuterScreenBounds:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1721,6 +1763,14 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoFuzzl:
 
+	; Search logs
+	jsr    EchoAI_FindLog
+	cmp.l  #0x0, a2
+	beq    @NoLog
+	jsr    EchoAI_PushInteractionLog
+	bra    @End
+	@NoLog:
+
 	; Search buttons
 	jsr    EchoAI_FindButton
 	cmp.l  #0x0, a2
@@ -1728,6 +1778,14 @@ EchoAI_FindInterestingObj:
 	jsr    EchoAI_PushInteractionButton
 	bra    @End
 	@NoButton:
+
+	; Check platform
+	jsr    EchoAI_FindPlatform
+	cmp.l  #0x0, a2
+	beq    @NoPlatform
+	jsr    EchoAIStart_Platform
+	bra    @End
+	@NoPlatform:
 
 	; Check water
 	jsr    EchoAI_FindWater
@@ -1808,6 +1866,59 @@ EchoAI_FindFuzzl:
 
 	rts
 
+EchoAI_FindLog:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Button addr
+
+	move.w (EntityCount_Log), d6
+	tst.w  d6
+	beq    @NoLogs
+	move.l (EntityPoolStart_Log), a2
+	subq.w  #0x1, d6
+	@LogLoop:
+
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a2), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistLogX, d1
+	bgt    @NextLog
+	cmp.w  #-Echo_AIDistLogX, d1
+	blt    @NextLog
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistLogY, d1
+	bgt    @NextLog
+	cmp.w  #-Echo_AIDistLogY, d1
+	blt    @NextLog
+
+	; Check not touching Nymn
+	ENTITY_GETBOUNDS d1,d2,d5,a2
+	ENTITY_GETBOUNDS d3,d4,d5,a3
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	bne    @NextLog
+
+	; Done
+	bra    @FoundLog
+
+	@NextLog:
+	lea    Log_Struct_Size(a2), a2
+	dbra   d6, @LogLoop
+	
+	@NoLogs:
+	move.l #0x0, a2
+
+	@FoundLog:
+
+	rts
+
 EchoAI_FindButton:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1867,6 +1978,54 @@ EchoAI_FindWater:
 
 	rts
 
+EchoAI_FindPlatform:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Platform
+
+	move.l #0x0, a2
+
+	; If on a platform
+	move.l PhysicsObj_LastPlatform(a0), a3
+	cmp.l  #0x0, a3
+	beq    @NoPlatform
+
+	; If platform moving
+	tst.l  Platform_VelX(a3)
+	bne    @PlatformMoving
+	tst.l  Platform_VelY(a3)
+	bne    @PlatformMoving
+	bra    @NoPlatform
+
+	@PlatformMoving:
+
+	; Check if platform is a raft
+	move.l Platform_Owner(a3), a4
+
+	move.w (EntityCount_Raft), d6
+	tst.w  d6
+	beq    @NoRafts
+	move.l (EntityPoolStart_Raft), a5
+	subq.w #0x1, d6
+	@RaftLoop:
+
+	cmp.l  a4, a5
+	bne    @NextRaft
+
+	; Found raft
+	move.l a3, a2
+	bra    @FoundRaft
+
+	@NextRaft:
+	lea    Raft_Struct_Size(a2), a2
+	dbra   d6, @RaftLoop
+
+	@NoPlatform:
+	@NoRafts:
+	@FoundRaft:
+
+	rts
+
 EchoAI_PushInteractionFuzzl:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1907,6 +2066,48 @@ EchoAI_PushInteractionFuzzl:
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
+	addi.w #Echo_AIDistPushObjX, d0
+	@LeftSide:
+
+	move.w d0, EchoAINode_PosX(a3)
+	move.w d1, EchoAINode_PosY(a3)
+
+	rts
+
+EchoAI_PushInteractionLog:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Log addr
+
+	; Clear all nodes (interaction is a priority)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	; Get log pos
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+
+	; Push begin PushObj state node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.b #0x0, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
+
+	; Determine direction to roll in (towards Nymn)
+	move.l (Player1), a4
+	move.w Entity_WorldPosX(a4), d2
+	sub.w  d0, d2
+	blt    @RightSide
+	subi.w #Echo_AIDistPushObjX, d0		; Left side of log (log pos - threshold)
+	bra    @LeftSide
+	@RightSide:
+	add.w  Entity_Width(a2), d0			; Right side of log (log pos + log width + threshold)
 	addi.w #Echo_AIDistPushObjX, d0
 	@LeftSide:
 

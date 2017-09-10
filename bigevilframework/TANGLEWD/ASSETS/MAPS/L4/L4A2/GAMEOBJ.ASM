@@ -17,14 +17,6 @@ L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
 	even
 	ENDIF
 
-L4A2_Raft_count equ 0x1
-L4A2_Raft_5_idx	equ 0x0
-
-	IFND FINAL
-L4A2_Raft_5_name	dc.b "L4A2_Raft_5",0
-	even
-	ENDIF
-
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
 
@@ -43,7 +35,13 @@ L4A2_Nymn_1_name	dc.b "L4A2_Nymn_1",0
 
 L4A2_BouncePlant_count equ 0x0
 
-L4A2_Log_count equ 0x0
+L4A2_Log_count equ 0x1
+L4A2_Log_7_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Log_7_name	dc.b "L4A2_Log_7",0
+	even
+	ENDIF
 
 L4A2_DjakkCage_count equ 0x0
 
@@ -67,7 +65,13 @@ L4A2_TriggerBox_count equ 0x0
 
 L4A2_Checkpoint_count equ 0x0
 
-L4A2_WaterBody_count equ 0x0
+L4A2_WaterBody_count equ 0x1
+L4A2_WaterBody_6_idx	equ 0x0
+
+	IFND FINAL
+L4A2_WaterBody_6_name	dc.b "L4A2_WaterBody_6",0
+	even
+	ENDIF
 
 L4A2_Location_count equ 0x0
 
@@ -95,6 +99,14 @@ L4A2_Pillar_count equ 0x0
 
 L4A2_WindFlue_count equ 0x0
 
+L4A2_Raft_count equ 0x1
+L4A2_Raft_5_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Raft_5_name	dc.b "L4A2_Raft_5",0
+	even
+	ENDIF
+
 
 
 L4A2_LoadGameObjects:
@@ -117,25 +129,6 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L4A2_Raft_count)
-	move.l a1, EntityPoolStart_Raft
-	move.l a1, a0
-	POPL   a1
-
-	jsr RaftInit
-	move.l #0x04680000, Entity_WorldPosX(a0)
-	move.l #0x05100000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Raft_5_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr RaftLoadGfx
-	add.l #Raft_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
@@ -176,6 +169,54 @@ L4A2_LoadGameObjects:
 	add.l #Nymn_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L4A2_Log_count)
+	move.l a1, EntityPoolStart_Log
+	move.l a1, a0
+	POPL   a1
+
+	jsr LogInit
+	move.l #0x09f80000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Log_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
+
+
+
+
+
+
+
+
+
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L4A2_WaterBody_count)
+	move.l a1, EntityPoolStart_WaterBody
+	move.l a1, a0
+	POPL   a1
+
+	jsr WaterBodyInit
+	move.l #0x04300000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_WaterBody_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WaterBodyLoadGfx
+	add.l #WaterBody_Struct_Size, a0
 
 
 
@@ -190,17 +231,24 @@ L4A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L4A2_Raft_count)
+	move.l a1, EntityPoolStart_Raft
+	move.l a1, a0
+	POPL   a1
 
-
-
-
-
-
-
-
-
-
-
+	jsr RaftInit
+	move.l #0x04680000, Entity_WorldPosX(a0)
+	move.l #0x05100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Raft_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr RaftLoadGfx
+	add.l #Raft_Struct_Size, a0
 
 	rts
 

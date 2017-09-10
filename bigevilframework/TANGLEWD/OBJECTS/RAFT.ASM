@@ -60,6 +60,7 @@ RaftInit:
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -90,10 +91,18 @@ RaftLoadGfx:
 
 RaftUpdate:
 
+	; If platform occupied, don't decelerate
+	move.w #Raft_Decel, PhysicsObj_DecelX(a0)
+	lea    Raft_Platform(a0), a2
+	tst.b  Platform_Occupied(a2)
+	beq    @Unoccupied
+	move.w #0x0, PhysicsObj_DecelX(a0)
+	@Unoccupied:
+
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
-	; reposition platform
+	; Reposition platform
 	lea    Raft_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
