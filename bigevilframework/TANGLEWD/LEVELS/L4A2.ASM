@@ -45,7 +45,7 @@ l4a2_TetheredAct2:
 l4a2_DefaultPalettes:
 
 	dc.l palette_l4					; World
-	dc.l 0x0						; Djakk (black by default, fades up when approached)
+	dc.l palette_djubb				; Monsters
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -80,6 +80,10 @@ l4a2_Init:
 	jsr    l4_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Start Echo AI follow state
+	move.l (Player2), a0
+	jsr    EchoAIStart_Follow
 	
 	rts
 	

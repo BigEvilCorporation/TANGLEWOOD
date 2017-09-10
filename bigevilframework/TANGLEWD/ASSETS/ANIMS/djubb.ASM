@@ -43,7 +43,7 @@ spriteanim_djubb_idle_track_sfx:
 
 spriteanim_djubb_swim:
 spriteanim_djubb_swim_numframes: equ 0x4
-spriteanim_djubb_swim_speed: equ 0x33
+spriteanim_djubb_swim_speed: equ 0x4C
 spriteanim_djubb_swim_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3
 	Even
