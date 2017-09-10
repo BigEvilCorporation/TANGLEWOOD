@@ -114,9 +114,19 @@ l3a3_Init:
 	ENTITY_GETBYNAME Cogs, l3a3_Cogs1, a1
 	move.l a1, Generator_Cogs(a0)
 
+	ENTITY_GETBYNAME Generator, l3a3_Generator2, a0
+	ENTITY_GETBYNAME Cogs, l3a3_Cogs2, a1
+	move.l a1, Generator_Cogs(a0)
+
 	; Connect generators to buttons, and disable buttons by default
 	ENTITY_GETBYNAME Generator, l3a3_Generator1, a0
 	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	ENTITY_GETBYNAME Generator, l3a3_Generator2, a0
+	ENTITY_GETBYNAME Button, l3a3_Button7, a1
 	move.l a1, Generator_UserData(a0)
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
@@ -129,6 +139,12 @@ l3a3_Init:
 	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a0
 	move.l a1, Button_UserData(a0)
 	move.l #l3a3Cage2Raise, Button_OnDown(a0)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l3a3_Button7, a0
+	ENTITY_GETBYNAME Bridge, l3a3_DrawBridge3, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
 
 	; Connect twin buttons to bridge handler
 	ENTITY_GETBYNAME Button, l3a3_Button1, a0
@@ -641,6 +657,12 @@ l3a3MeetEchoBeginStage_StandUp:
 
 	move.l #LevelData_L3A3, a2
 	move.b #SceneMeetEchoStage_StandUp, l3a3Data_MeetEchoSceneStage(a2)
+
+	; Disable bridge buttons
+	ENTITY_GETBYNAME Button, l3a3_Button5, a2
+	ENTITY_GETBYNAME Button, l3a3_Button6, a3
+	move.b #0x0, Button_Active(a2)
+	move.b #0x0, Button_Active(a3)
 	
 	; Stop Nymn and take control
 	PUSHL  a0
@@ -932,14 +954,8 @@ l3a3MeetEchoSceneUpdate:
 
 l3a3_Trigger_End:
 
-	; Nymn sleep
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    PlayerBeginSleep
-	POPL   a0
-	
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
 	rts

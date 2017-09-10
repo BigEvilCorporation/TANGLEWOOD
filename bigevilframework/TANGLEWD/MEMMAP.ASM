@@ -308,11 +308,18 @@ BGMOffTimer				 rs.w 1
 ; ************************************
 ; Shared VRAM
 ; ************************************
+SharedVRAM_Start		rs.b 0
+
 SharedVRAM_Lift			rs.w 1
 SharedVRAM_Stone		rs.w 1
 SharedVRAM_DjakCage		rs.w 1
 SharedVRAM_Crate		rs.w 1
 SharedVRAM_Log			rs.w 1
+SharedVRAM_Generatr		rs.w 1
+SharedVRAM_Cogs			rs.w 1
+SharedVRAM_Bridge		rs.w 1
+
+SharedVRAM_End			rs.b 0
 
 ; ************************************
 ; Level runtime data

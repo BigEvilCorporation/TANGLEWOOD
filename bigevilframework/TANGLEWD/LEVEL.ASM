@@ -94,12 +94,10 @@ GameStateReset:
 	move.l #(EntityPoolMemEnd-EntityPoolMemStart), d0
 	MEMZEROB a0, d0
 
-	; Clear shared VRAM
-	move.w #0x0, SharedVRAM_Lift
-	move.w #0x0, SharedVRAM_Stone
-	move.w #0x0, SharedVRAM_DjakCage
-	move.w #0x0, SharedVRAM_Crate
-	move.w #0x0, SharedVRAM_Log
+	; Clear shared VRAM ptrs
+	move.l #SharedVRAM_Start, a0
+	move.l #(SharedVRAM_End-SharedVRAM_Start), d0
+	MEMZEROB a0, d0
 
 	; Clear UI
 	move.w #0x0, WidgetCount_Text

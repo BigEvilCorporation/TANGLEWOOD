@@ -77,13 +77,15 @@ L3A3_Firefly_51_name	dc.b "L3A3_Firefly_51",0
 
 L3A3_FuzzlCage_count equ 0x0
 
-L3A3_Fuzzl_count equ 0x2
+L3A3_Fuzzl_count equ 0x3
 L3A3_FuzzlYellow1_idx	equ 0x0
 L3A3_Fuzzl_18_idx	equ 0x1
+L3A3_Fuzzl_53_idx	equ 0x2
 
 	IFND FINAL
 L3A3_FuzzlYellow1_name	dc.b "L3A3_FuzzlYellow1",0
 L3A3_Fuzzl_18_name	dc.b "L3A3_Fuzzl_18",0
+L3A3_Fuzzl_53_name	dc.b "L3A3_Fuzzl_53",0
 	even
 	ENDIF
 
@@ -109,11 +111,13 @@ L3A3_Nest_22_name	dc.b "L3A3_Nest_22",0
 
 L3A3_Flue_count equ 0x0
 
-L3A3_TriggerBox_count equ 0x1
+L3A3_TriggerBox_count equ 0x2
 L3A3_TriggerBoxEchoIntro_idx	equ 0x0
+L3A3_TriggerBox_EndLevel_idx	equ 0x1
 
 	IFND FINAL
 L3A3_TriggerBoxEchoIntro_name	dc.b "L3A3_TriggerBoxEchoIntro",0
+L3A3_TriggerBox_EndLevel_name	dc.b "L3A3_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
@@ -169,37 +173,43 @@ L3A3_Crate_31_name	dc.b "L3A3_Crate_31",0
 	even
 	ENDIF
 
-L3A3_Generator_count equ 0x1
+L3A3_Generator_count equ 0x2
 L3A3_Generator1_idx	equ 0x0
+L3A3_Generator2_idx	equ 0x1
 
 	IFND FINAL
 L3A3_Generator1_name	dc.b "L3A3_Generator1",0
+L3A3_Generator2_name	dc.b "L3A3_Generator2",0
 	even
 	ENDIF
 
-L3A3_Cogs_count equ 0x1
+L3A3_Cogs_count equ 0x2
 L3A3_Cogs1_idx	equ 0x0
+L3A3_Cogs2_idx	equ 0x1
 
 	IFND FINAL
 L3A3_Cogs1_name	dc.b "L3A3_Cogs1",0
+L3A3_Cogs2_name	dc.b "L3A3_Cogs2",0
 	even
 	ENDIF
 
-L3A3_Bridge_count equ 0x4
+L3A3_Bridge_count equ 0x5
 L3A3_DropBridge1_idx	equ 0x0
 L3A3_DrawBridge1_idx	equ 0x1
 L3A3_DropBridge2_idx	equ 0x2
 L3A3_DrawBridge2_idx	equ 0x3
+L3A3_DrawBridge3_idx	equ 0x4
 
 	IFND FINAL
 L3A3_DropBridge1_name	dc.b "L3A3_DropBridge1",0
 L3A3_DrawBridge1_name	dc.b "L3A3_DrawBridge1",0
 L3A3_DropBridge2_name	dc.b "L3A3_DropBridge2",0
 L3A3_DrawBridge2_name	dc.b "L3A3_DrawBridge2",0
+L3A3_DrawBridge3_name	dc.b "L3A3_DrawBridge3",0
 	even
 	ENDIF
 
-L3A3_Button_count equ 0x7
+L3A3_Button_count equ 0x8
 L3A3_Button2_idx	equ 0x0
 L3A3_Button1_idx	equ 0x1
 L3A3_Button3_idx	equ 0x2
@@ -207,6 +217,7 @@ L3A3_ButtonCage2_idx	equ 0x3
 L3A3_Button5_idx	equ 0x4
 L3A3_Button6_idx	equ 0x5
 L3A3_ButtonCage1_idx	equ 0x6
+L3A3_Button7_idx	equ 0x7
 
 	IFND FINAL
 L3A3_Button2_name	dc.b "L3A3_Button2",0
@@ -216,6 +227,7 @@ L3A3_ButtonCage2_name	dc.b "L3A3_ButtonCage2",0
 L3A3_Button5_name	dc.b "L3A3_Button5",0
 L3A3_Button6_name	dc.b "L3A3_Button6",0
 L3A3_ButtonCage1_name	dc.b "L3A3_ButtonCage1",0
+L3A3_Button7_name	dc.b "L3A3_Button7",0
 	even
 	ENDIF
 
@@ -485,6 +497,18 @@ L3A3_LoadGameObjects:
 	ENDIF
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x1e900000, Entity_WorldPosX(a0)
+	move.l #0x05980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_Fuzzl_53_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L3A3_Stone_count)
@@ -556,8 +580,8 @@ L3A3_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x18100000, Entity_WorldPosX(a0)
-	move.l #0x05200000, Entity_WorldPosY(a0)
+	move.l #0x16c80000, Entity_WorldPosX(a0)
+	move.l #0x05780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_TriggerBoxEchoIntro_name, a3
 	move.l a0, a2
@@ -566,7 +590,21 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l3a3TriggerEchoIntro, TriggerBox_Routine(a0)
-	move.b #0x0, TriggerBox_XOnly(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x22600000, Entity_WorldPosX(a0)
+	move.l #0x06e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_TriggerBox_EndLevel_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l3a3_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
@@ -744,6 +782,18 @@ L3A3_LoadGameObjects:
 	ENDIF
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+	jsr GeneratorInit
+	move.l #0x20300000, Entity_WorldPosX(a0)
+	move.l #0x06200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_Generator2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L3A3_Cogs_count)
@@ -756,6 +806,18 @@ L3A3_LoadGameObjects:
 	move.l #0x05080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_Cogs1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
+	jsr CogsInit
+	move.l #0x20480000, Entity_WorldPosX(a0)
+	move.l #0x05b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_Cogs2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -816,6 +878,20 @@ L3A3_LoadGameObjects:
 	move.l #0x05f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_DrawBridge2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
+	jsr BridgeInit
+	move.l #0x20c80000, Entity_WorldPosX(a0)
+	move.l #0x06380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_DrawBridge3_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -920,6 +996,18 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #0x1, Button_Active(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x21a00000, Entity_WorldPosX(a0)
+	move.l #0x06300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A3_Button7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 

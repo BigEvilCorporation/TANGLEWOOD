@@ -88,7 +88,7 @@ GeneratorLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT generatr,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED generatr,PaletteId_World0,0x0
 
 	rts
 	

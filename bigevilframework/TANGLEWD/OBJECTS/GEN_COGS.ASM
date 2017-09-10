@@ -76,6 +76,6 @@ CogsLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT cogs,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED cogs,PaletteId_World0,0x0
 
 	rts
