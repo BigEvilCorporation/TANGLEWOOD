@@ -35,11 +35,13 @@ L4A2_Nymn_1_name	dc.b "L4A2_Nymn_1",0
 
 L4A2_BouncePlant_count equ 0x0
 
-L4A2_Log_count equ 0x1
+L4A2_Log_count equ 0x2
 L4A2_Log_7_idx	equ 0x0
+L4A2_Log_8_idx	equ 0x1
 
 	IFND FINAL
 L4A2_Log_7_name	dc.b "L4A2_Log_7",0
+L4A2_Log_8_name	dc.b "L4A2_Log_8",0
 	even
 	ENDIF
 
@@ -53,15 +55,41 @@ L4A2_Firefly_count equ 0x0
 
 L4A2_FuzzlCage_count equ 0x0
 
-L4A2_Fuzzl_count equ 0x0
+L4A2_Fuzzl_count equ 0x2
+L4A2_Fuzzl_9_idx	equ 0x0
+L4A2_Fuzzl_11_idx	equ 0x1
 
-L4A2_Stone_count equ 0x0
+	IFND FINAL
+L4A2_Fuzzl_9_name	dc.b "L4A2_Fuzzl_9",0
+L4A2_Fuzzl_11_name	dc.b "L4A2_Fuzzl_11",0
+	even
+	ENDIF
 
-L4A2_Nest_count equ 0x0
+L4A2_Stone_count equ 0x1
+L4A2_Stone_14_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Stone_14_name	dc.b "L4A2_Stone_14",0
+	even
+	ENDIF
+
+L4A2_Nest_count equ 0x1
+L4A2_Nest_10_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Nest_10_name	dc.b "L4A2_Nest_10",0
+	even
+	ENDIF
 
 L4A2_Flue_count equ 0x0
 
-L4A2_TriggerBox_count equ 0x0
+L4A2_TriggerBox_count equ 0x1
+L4A2_TriggerBox_EchoPanic1_idx	equ 0x0
+
+	IFND FINAL
+L4A2_TriggerBox_EchoPanic1_name	dc.b "L4A2_TriggerBox_EchoPanic1",0
+	even
+	ENDIF
 
 L4A2_Checkpoint_count equ 0x0
 
@@ -91,7 +119,13 @@ L4A2_Button_count equ 0x0
 
 L4A2_Wyrm_count equ 0x0
 
-L4A2_AIMarker_count equ 0x0
+L4A2_AIMarker_count equ 0x1
+L4A2_AIMarker_15_idx	equ 0x0
+
+	IFND FINAL
+L4A2_AIMarker_15_name	dc.b "L4A2_AIMarker_15",0
+	even
+	ENDIF
 
 L4A2_Cart_count equ 0x0
 
@@ -176,10 +210,22 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LogInit
-	move.l #0x09f80000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x0af00000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Log_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
+	jsr LogInit
+	move.l #0x0d500000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Log_8_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -193,10 +239,95 @@ L4A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L4A2_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x0a500000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Fuzzl_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x0a780000, Entity_WorldPosX(a0)
+	move.l #0x03900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Fuzzl_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L4A2_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x09b80000, Entity_WorldPosX(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Stone_14_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
+	jsr NestInit
+	move.l #0x0b900000, Entity_WorldPosX(a0)
+	move.l #0x02c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Nest_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L4A2_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
 
-
+	jsr TriggerBoxInit
+	move.l #0x0cf00000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_TriggerBox_EchoPanic1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #EchoAIPanic, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -227,6 +358,24 @@ L4A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L4A2_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
+	move.l #0x0df00000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_AIMarker_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 
 

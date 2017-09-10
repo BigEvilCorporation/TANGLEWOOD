@@ -1871,12 +1871,28 @@ EchoAI_FindLog:
 	; a1 --- Level addr
 	; a2 --- OUT: Button addr
 
+	move.l (Player1), a3
+
 	move.w (EntityCount_Log), d6
 	tst.w  d6
 	beq    @NoLogs
 	move.l (EntityPoolStart_Log), a2
 	subq.w  #0x1, d6
 	@LogLoop:
+
+	; Check outside Nymn Y threshold
+	ENTITY_GETCENTREY d0,a3
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistLogY, d1
+	bgt    @OutsideNymnDist
+	cmp.w  #-Echo_AIDistLogY, d1
+	blt    @OutsideNymnDist
+	bra    @NextLog
+	
+	@OutsideNymnDist:
 
 	; Check within X threshold
 	move.w Entity_WorldPosX(a0), d0
@@ -1897,13 +1913,6 @@ EchoAI_FindLog:
 	bgt    @NextLog
 	cmp.w  #-Echo_AIDistLogY, d1
 	blt    @NextLog
-
-	; Check not touching Nymn
-	ENTITY_GETBOUNDS d1,d2,d5,a2
-	ENTITY_GETBOUNDS d3,d4,d5,a3
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	bne    @NextLog
 
 	; Done
 	bra    @FoundLog
@@ -2017,7 +2026,7 @@ EchoAI_FindPlatform:
 	bra    @FoundRaft
 
 	@NextRaft:
-	lea    Raft_Struct_Size(a2), a2
+	lea    Raft_Struct_Size(a3), a3
 	dbra   d6, @RaftLoop
 
 	@NoPlatform:
