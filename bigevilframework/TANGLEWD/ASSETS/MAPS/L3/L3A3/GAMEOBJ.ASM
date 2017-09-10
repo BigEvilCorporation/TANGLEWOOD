@@ -783,7 +783,7 @@ L3A3_LoadGameObjects:
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 	jsr GeneratorInit
-	move.l #0x20300000, Entity_WorldPosX(a0)
+	move.l #0x20580000, Entity_WorldPosX(a0)
 	move.l #0x06200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_Generator2_name, a3
@@ -814,7 +814,7 @@ L3A3_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 	jsr CogsInit
-	move.l #0x20480000, Entity_WorldPosX(a0)
+	move.l #0x20700000, Entity_WorldPosX(a0)
 	move.l #0x05b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A3_Cogs2_name, a3

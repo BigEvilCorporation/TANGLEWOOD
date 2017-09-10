@@ -179,7 +179,9 @@ EndLevelScoreScreen_Enter:
 
 	; For all acts in level
 	move.w (CurrentLevelNumActs), d0
-	subq.w  #0x1, d0
+	tst.w  d0
+	beq    @NoActSetup
+	subq.w #0x1, d0
 	lea    CurrentActDatas, a4
 	move.l #EndLevelActNames, a5
 	@ActLoop:
@@ -217,6 +219,8 @@ EndLevelScoreScreen_Enter:
 
 	POPM   d0/a4-a5
 	dbra   d0, @ActLoop
+
+	@NoActSetup:
 
 	;==============================================================
 
