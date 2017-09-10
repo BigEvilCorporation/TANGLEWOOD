@@ -134,6 +134,7 @@ __start
 	include 'objects\pillar.asm'
 	include 'objects\plant.asm'
 	include 'objects\player.asm'
+	include 'objects\raft.asm'
 	include 'objects\stone.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'

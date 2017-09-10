@@ -425,6 +425,7 @@ EntityPoolStart_Boulder     rs.l 1
 EntityPoolStart_Firefly     rs.l 1
 EntityPoolStart_Lift        rs.l 1
 EntityPoolStart_Rope        rs.l 1
+EntityPoolStart_Raft        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
 EntityPoolStart_Stone       rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
@@ -461,6 +462,7 @@ EntityCount_WaterBody   rs.w 1
 EntityCount_Location    rs.w 1
 EntityCount_Lift        rs.w 1
 EntityCount_Rope        rs.w 1
+EntityCount_Raft        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1

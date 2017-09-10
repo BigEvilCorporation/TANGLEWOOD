@@ -74,6 +74,7 @@
 	include 'assets\sprites\leaf.asm'
 	include 'assets\sprites\lift.asm'
 	include 'assets\sprites\pillar.asm'
+	include 'assets\sprites\raft.asm'
 	include 'assets\sprites\rain.asm'
 	include 'assets\sprites\rope.asm'
 	include 'assets\sprites\stone.asm'
