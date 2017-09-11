@@ -424,6 +424,8 @@ EntityPoolStart_Djrake      rs.l 1
 EntityPoolStart_Boulder     rs.l 1
 EntityPoolStart_Firefly     rs.l 1
 EntityPoolStart_Lift        rs.l 1
+EntityPoolStart_Lock        rs.l 1
+EntityPoolStart_Pool        rs.l 1
 EntityPoolStart_Rope        rs.l 1
 EntityPoolStart_Raft        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
@@ -452,6 +454,7 @@ EntityCount_FuzzlCage   rs.w 1
 EntityCount_Generator   rs.w 1
 EntityCount_Leaf        rs.w 1
 EntityCount_Log         rs.w 1
+EntityCount_Lock        rs.w 1
 EntityCount_Nest        rs.w 1
 EntityCount_Nymn        rs.w 1
 EntityCount_Pillar      rs.w 1
@@ -461,6 +464,7 @@ EntityCount_Checkpoint  rs.w 1
 EntityCount_WaterBody   rs.w 1
 EntityCount_Location    rs.w 1
 EntityCount_Lift        rs.w 1
+EntityCount_Pool        rs.w 1
 EntityCount_Rope        rs.w 1
 EntityCount_Raft        rs.w 1
 EntityCount_BouncePlant	rs.w 1

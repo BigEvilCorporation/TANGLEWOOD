@@ -48,6 +48,15 @@ spritesheet_water_splash_size_l		equ 0xA80	; Size in longwords
 spritesheet_water_splash_size_t		equ 0x150	; Size in tiles
 
 
+spritesheet_water_pool_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+spritesheet_water_pool_width		equ 0x20	; Width in pixels
+spritesheet_water_pool_height		equ 0x20	; Width in pixels
+spritesheet_water_pool_size_b		equ 0x200	; Size in bytes
+spritesheet_water_pool_size_w		equ 0x100	; Size in words
+spritesheet_water_pool_size_l		equ 0x80	; Size in longwords
+spritesheet_water_pool_size_t		equ 0x10	; Size in tiles
+
+
 spritesheets_water:
 
 spritesheet_water_splash:
@@ -3075,6 +3084,154 @@ spritesheet_water_splash:
 	dc.l	0x02000000
 	dc.l	0x00022000
 	dc.l	0x00222220
+
+
+
+spritesheet_water_pool:
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x14114141
+	dc.l	0x44414411
+	dc.l	0x44414411
+	dc.l	0x44444411
+	dc.l	0x44444111
+	dc.l	0x14714111
+	dc.l	0x11411111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x14411144
+	dc.l	0x44414417
+	dc.l	0x44414441
+	dc.l	0x47417441
+	dc.l	0x77447741
+	dc.l	0x71441711
+	dc.l	0x11141111
+	dc.l	0x11111111
+
+	dc.l	0x11441111
+	dc.l	0x11444411
+	dc.l	0x44144441
+	dc.l	0x44414441
+	dc.l	0x44444441
+	dc.l	0x17741771
+	dc.l	0x41771171
+	dc.l	0x41171111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x14414411
+	dc.l	0x44444441
+	dc.l	0x44444441
+	dc.l	0x74444171
+	dc.l	0x77174141
+	dc.l	0x17117111
+	dc.l	0x11111111
 
 
 

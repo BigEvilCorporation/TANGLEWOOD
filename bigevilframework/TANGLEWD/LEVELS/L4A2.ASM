@@ -89,6 +89,46 @@ l4a2_Init:
 
 	;==============================================================
 
+	; Update logs out of view so Echo can use them
+
+	ENTITY_GETBYNAME Log, l4a2_Log1, a2
+	ENTITY_GETBYNAME Log, l4a2_Log2, a3
+	move.b #0x1, AnimObj_UpdateOutOfView(a2)
+	move.b #0x1, AnimObj_UpdateOutOfView(a3)
+
+	;==============================================================
+
+	; Setup water pools and locks
+	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
+	ENTITY_GETBYNAME Pool, l4a2_Pool1, a2
+	move.l a2, Lock_Userdata(a0)
+	move.l #Pool_Raise, Lock_OnRaised(a0)
+	jsr    Lock_SetLowered
+
+	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
+	jsr    Lock_SetLowered
+	
+	ENTITY_GETBYNAME Lock, l4a2_Lock3, a0
+	jsr    Lock_SetLowered
+
+	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
+	jsr    Pool_SetLowered
+	ENTITY_GETBYNAME Pool, l4a2_Pool2, a0
+	jsr    Pool_SetLowered
+	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0
+	jsr    Pool_SetLowered
+
+	; Connect generators to buttons
+
+	; Connect buttons to locks
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
+	ENTITY_GETBYNAME Lock, l4a2_Lock1, a1
+	move.b #0x1, Button_Active(a0)
+	move.l a1, Button_UserData(a0)
+	move.l #Lock_Raise, Button_OnDown(a0)
+
+	;==============================================================
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow

@@ -90,7 +90,9 @@ RaftLoadGfx:
 	rts
 
 RaftUpdate:
-
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
 	; If platform occupied, don't decelerate
 	move.w #Raft_Decel, PhysicsObj_DecelX(a0)
 	lea    Raft_Platform(a0), a2

@@ -223,6 +223,14 @@ ABSW: macro valuereg
 	@Pos\@:
 	endm
 
+; Round
+ROUNDW: macro valuereg,roundto
+	andi.w #0xFFFF, \valuereg
+	addi.w \roundto-1, \valuereg
+	divu   \roundto, \valuereg
+	mulu   \roundto, \valuereg
+	endm
+
 ;==============================================================
 
 ; Lossy 16.16 fixed point divide (converts to 24.8 to avoid overflow)
