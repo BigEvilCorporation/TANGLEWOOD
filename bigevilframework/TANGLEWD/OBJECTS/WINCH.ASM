@@ -16,6 +16,7 @@ Winch_DefaultVelocity	equ 0xA000
 Winch_Animation			rs.b Animation_Struct_Size
 Winch_PhysObject		rs.l 1	; Physics object being pushed/pulled
 Winch_Velocity			rs.l 1	; Velocity to push/pull attached object
+Winch_Mirror			rs.l 1	; Winch on opposite side, mirrors animation
 ;-----------------------------
 Winch_Struct_Pad		rs.b 0
 Winch_struct_Size		rs.b 0
@@ -46,6 +47,7 @@ WinchInit:
 	move.w #Winch_Height, Entity_Height(a0)
 	move.l #0x0, Winch_PhysObject(a0)
 	move.l #0x0, Winch_Velocity(a0)
+	move.l #0x0, Winch_Mirror(a0)
 
 	rts
 
@@ -74,6 +76,12 @@ WinchUpdate:
 	beq    @Stopped
 
 	; If object hit wall, stop
+	PHYSICS_HITFACINGWALL a2
+	tst.b  d0
+	beq    @NotHittingWall
+	jsr    Winch_Stop
+	bra    @Stopped
+	@NotHittingWall:
 
 	; Apply velocity
 	move.l d0, PhysicsObj_VelX(a2)
@@ -126,6 +134,16 @@ Winch_RunClockwise:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	PUSHM  a0-a1
+	move.l Winch_Mirror(a0), a0
+	cmp.l  #0x0, a0
+	beq    @NoMirror
+	lea    Winch_Animation(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	@NoMirror:
+	POPM   a0-a1
+
 	move.l #Winch_DefaultVelocity, Winch_Velocity(a0)
 
 	rts
@@ -140,6 +158,16 @@ Winch_RunAntiClockwise:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	PUSHM  a0-a1
+	move.l Winch_Mirror(a0), a0
+	cmp.l  #0x0, a0
+	beq    @NoMirror
+	lea    Winch_Animation(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	@NoMirror:
+	POPM   a0-a1
+
 	move.l #-Winch_DefaultVelocity, Winch_Velocity(a0)
 
 	rts
@@ -150,5 +178,11 @@ Winch_Stop:
 
 	move.b #0x0, AnimObj_Playing(a0)
 	move.l #0x0, Winch_Velocity(a0)
+
+	move.l Winch_Mirror(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoMirror
+	move.b #0x0, AnimObj_Playing(a2)
+	@NoMirror:
 
 	rts

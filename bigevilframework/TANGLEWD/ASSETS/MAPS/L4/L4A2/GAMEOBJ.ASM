@@ -103,13 +103,7 @@ L4A2_TriggerBox_EchoPanic1_name	dc.b "L4A2_TriggerBox_EchoPanic1",0
 
 L4A2_Checkpoint_count equ 0x0
 
-L4A2_WaterBody_count equ 0x1
-L4A2_WaterBody_6_idx	equ 0x0
-
-	IFND FINAL
-L4A2_WaterBody_6_name	dc.b "L4A2_WaterBody_6",0
-	even
-	ENDIF
+L4A2_WaterBody_count equ 0x0
 
 L4A2_Location_count equ 0x0
 
@@ -199,11 +193,13 @@ L4A2_Pool3_name	dc.b "L4A2_Pool3",0
 	even
 	ENDIF
 
-L4A2_Winch_count equ 0x1
+L4A2_Winch_count equ 0x2
 L4A2_Winch1_idx	equ 0x0
+L4A2_Winch2_idx	equ 0x1
 
 	IFND FINAL
 L4A2_Winch1_name	dc.b "L4A2_Winch1",0
+L4A2_Winch2_name	dc.b "L4A2_Winch2",0
 	even
 	ENDIF
 
@@ -457,24 +453,6 @@ L4A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L4A2_WaterBody_count)
-	move.l a1, EntityPoolStart_WaterBody
-	move.l a1, a0
-	POPL   a1
-
-	jsr WaterBodyInit
-	move.l #0x04300000, Entity_WorldPosX(a0)
-	move.l #0x05180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_WaterBody_6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr WaterBodyLoadGfx
-	add.l #WaterBody_Struct_Size, a0
 
 
 
@@ -562,7 +540,7 @@ L4A2_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x09e80000, Entity_WorldPosX(a0)
 	move.l #0x05080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonWinch1_name, a3
@@ -604,7 +582,7 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr RaftInit
-	move.l #0x04680000, Entity_WorldPosX(a0)
+	move.l #0x04380000, Entity_WorldPosX(a0)
 	move.l #0x05100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Raft1_name, a3
@@ -718,6 +696,19 @@ L4A2_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	jsr WinchLoadGfx
+	add.l #Winch_Struct_Size, a0
+	jsr WinchInit
+	move.l #0x09b00000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Winch2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr WinchLoadGfx
 	add.l #Winch_Struct_Size, a0
 

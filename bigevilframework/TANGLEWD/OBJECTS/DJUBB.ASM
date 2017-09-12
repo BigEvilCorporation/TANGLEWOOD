@@ -76,8 +76,6 @@ DjubbInit:
 	move.w  #Djubb_SwimDecelIdle, Character_DecelIdle(a0)
 	move.w  #Djubb_SwimDecelForced, Character_DecelForced(a0)
 
-	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
-
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w  #0x0, PhysicsObj_BoundsTop(a0)

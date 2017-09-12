@@ -120,6 +120,11 @@ l4a2_Init:
 
 	; Connect generators to buttons
 
+	; Connect winches together
+	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
+	ENTITY_GETBYNAME Winch, l4a2_Winch2, a1
+	move.l a1, Winch_Mirror(a0)
+
 	; Connect rafts to winches
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
 	ENTITY_GETBYNAME Raft, l4a2_Raft1, a1
