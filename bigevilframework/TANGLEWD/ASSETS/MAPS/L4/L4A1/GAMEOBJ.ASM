@@ -195,6 +195,8 @@ L4A1_Lock_count equ 0x0
 
 L4A1_Pool_count equ 0x0
 
+L4A1_Winch_count equ 0x0
+
 
 
 L4A1_LoadGameObjects:
@@ -710,6 +712,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 

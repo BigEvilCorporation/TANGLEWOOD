@@ -140,8 +140,14 @@ LockUpdate:
 
 	; Reposition barrier
 	lea    Lock_Barrier(a0), a2
-	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	move.w Entity_WorldPosX(a0), Barrier_PosX(a2)
+	move.w Entity_WorldPosY(a0), d0
+	move.w Lock_RaiseHeight(a0), d1
+	move.w #Lock_MaxRaiseHeight, d2
+	sub.w  d1, d2
+	add.w  d2, d0
+	move.w d0, Barrier_PosY(a2)
+	move.w d1, Barrier_Height(a2)
 
 	rts
 

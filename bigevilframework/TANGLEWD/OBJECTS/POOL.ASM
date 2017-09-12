@@ -11,7 +11,7 @@ Pool_Width				equ 0xA0
 Pool_Height				equ 0x60
 Pool_SpriteWidth		equ 0x20
 Pool_SpriteHeight		equ 0x20
-Pool_MinWaterHeight		equ 0x08
+Pool_MinWaterHeight		equ 0x18
 Pool_DefaultWaterSpeed	equ 0x01
 
 	rsset (AnimObj_Struct_Size)

@@ -431,6 +431,7 @@ EntityPoolStart_Raft        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
 EntityPoolStart_Stone       rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
+EntityPoolStart_Winch       rs.l 1
 EntityPoolStart_WindFlue    rs.l 1
 EntityPoolStart_Wyrm        rs.l 1
 EntityPoolStart_UIWindow    rs.l 1
@@ -470,6 +471,7 @@ EntityCount_Raft        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
+EntityCount_Winch       rs.w 1
 EntityCount_WindFlue    rs.w 1
 EntityCount_Wyrm        rs.w 1
 EntityCount_UIWindow    rs.w 1

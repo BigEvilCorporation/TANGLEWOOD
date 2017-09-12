@@ -9,11 +9,17 @@
 
 L4A2_Leaf_count equ 0x0
 
-L4A2_Djubb_count equ 0x1
+L4A2_Djubb_count equ 0x4
 L4A2_Djubb_3_idx	equ 0x0
+L4A2_Djubb_30_idx	equ 0x1
+L4A2_Djubb_37_idx	equ 0x2
+L4A2_Djubb_38_idx	equ 0x3
 
 	IFND FINAL
 L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
+L4A2_Djubb_30_name	dc.b "L4A2_Djubb_30",0
+L4A2_Djubb_37_name	dc.b "L4A2_Djubb_37",0
+L4A2_Djubb_38_name	dc.b "L4A2_Djubb_38",0
 	even
 	ENDIF
 
@@ -65,13 +71,15 @@ L4A2_Fuzzl_11_name	dc.b "L4A2_Fuzzl_11",0
 	even
 	ENDIF
 
-L4A2_Stone_count equ 0x2
+L4A2_Stone_count equ 0x3
 L4A2_Stone_14_idx	equ 0x0
 L4A2_Stone_17_idx	equ 0x1
+L4A2_Stone_29_idx	equ 0x2
 
 	IFND FINAL
 L4A2_Stone_14_name	dc.b "L4A2_Stone_14",0
 L4A2_Stone_17_name	dc.b "L4A2_Stone_17",0
+L4A2_Stone_29_name	dc.b "L4A2_Stone_29",0
 	even
 	ENDIF
 
@@ -129,11 +137,17 @@ L4A2_Cogs_18_name	dc.b "L4A2_Cogs_18",0
 
 L4A2_Bridge_count equ 0x0
 
-L4A2_Button_count equ 0x1
+L4A2_Button_count equ 0x4
 L4A2_ButtonLock1_idx	equ 0x0
+L4A2_ButtonLock2_idx	equ 0x1
+L4A2_ButtonLock3_idx	equ 0x2
+L4A2_ButtonWinch1_idx	equ 0x3
 
 	IFND FINAL
 L4A2_ButtonLock1_name	dc.b "L4A2_ButtonLock1",0
+L4A2_ButtonLock2_name	dc.b "L4A2_ButtonLock2",0
+L4A2_ButtonLock3_name	dc.b "L4A2_ButtonLock3",0
+L4A2_ButtonWinch1_name	dc.b "L4A2_ButtonWinch1",0
 	even
 	ENDIF
 
@@ -154,24 +168,22 @@ L4A2_Pillar_count equ 0x0
 L4A2_WindFlue_count equ 0x0
 
 L4A2_Raft_count equ 0x2
-L4A2_Raft_5_idx	equ 0x0
+L4A2_Raft1_idx	equ 0x0
 L4A2_Raft_28_idx	equ 0x1
 
 	IFND FINAL
-L4A2_Raft_5_name	dc.b "L4A2_Raft_5",0
+L4A2_Raft1_name	dc.b "L4A2_Raft1",0
 L4A2_Raft_28_name	dc.b "L4A2_Raft_28",0
 	even
 	ENDIF
 
-L4A2_Lock_count equ 0x3
-L4A2_Lock3_idx	equ 0x0
+L4A2_Lock_count equ 0x2
+L4A2_Lock2_idx	equ 0x0
 L4A2_Lock1_idx	equ 0x1
-L4A2_Lock2_idx	equ 0x2
 
 	IFND FINAL
-L4A2_Lock3_name	dc.b "L4A2_Lock3",0
-L4A2_Lock1_name	dc.b "L4A2_Lock1",0
 L4A2_Lock2_name	dc.b "L4A2_Lock2",0
+L4A2_Lock1_name	dc.b "L4A2_Lock1",0
 	even
 	ENDIF
 
@@ -184,6 +196,14 @@ L4A2_Pool3_idx	equ 0x2
 L4A2_Pool1_name	dc.b "L4A2_Pool1",0
 L4A2_Pool2_name	dc.b "L4A2_Pool2",0
 L4A2_Pool3_name	dc.b "L4A2_Pool3",0
+	even
+	ENDIF
+
+L4A2_Winch_count equ 0x1
+L4A2_Winch1_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Winch1_name	dc.b "L4A2_Winch1",0
 	even
 	ENDIF
 
@@ -205,6 +225,42 @@ L4A2_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x0e380000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Djubb_30_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x08080000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Djubb_37_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x06c00000, Entity_WorldPosX(a0)
+	move.l #0x05580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Djubb_38_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DjubbLoadGfx
@@ -347,6 +403,18 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0c300000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Stone_29_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
@@ -458,10 +526,46 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr ButtonInit
-	move.l #0x0c780000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
+	move.l #0x0cf80000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x0da00000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_ButtonLock2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x0e400000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_ButtonLock3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_ButtonWinch1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -503,10 +607,10 @@ L4A2_LoadGameObjects:
 	move.l #0x04680000, Entity_WorldPosX(a0)
 	move.l #0x05100000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A2_Raft_5_name, a3
+	lea L4A2_Raft1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr RaftLoadGfx
@@ -531,10 +635,10 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LockInit
-	move.l #0x0eb80000, Entity_WorldPosX(a0)
+	move.l #0x0e080000, Entity_WorldPosX(a0)
 	move.l #0x04a80000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A2_Lock3_name, a3
+	lea L4A2_Lock2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -547,18 +651,6 @@ L4A2_LoadGameObjects:
 	move.l #0x04a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Lock1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LockLoadGfx
-	add.l #Lock_Struct_Size, a0
-	jsr LockInit
-	move.l #0x0e100000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Lock2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -586,7 +678,7 @@ L4A2_LoadGameObjects:
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
-	move.l #0x0d700000, Entity_WorldPosX(a0)
+	move.l #0x0d680000, Entity_WorldPosX(a0)
 	move.l #0x04b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool2_name, a3
@@ -598,7 +690,7 @@ L4A2_LoadGameObjects:
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
-	move.l #0x0e180000, Entity_WorldPosX(a0)
+	move.l #0x0e080000, Entity_WorldPosX(a0)
 	move.l #0x04b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool3_name, a3
@@ -609,6 +701,25 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Winch_Struct_Size*L4A2_Winch_count)
+	move.l a1, EntityPoolStart_Winch
+	move.l a1, a0
+	POPL   a1
+
+	jsr WinchInit
+	move.l #0x04080000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Winch1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WinchLoadGfx
+	add.l #Winch_Struct_Size, a0
 
 	rts
 
