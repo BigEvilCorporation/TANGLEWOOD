@@ -22,10 +22,11 @@ Platform_Owner			rs.l 1
 Platform_LastOccupant	rs.l 1
 Platform_Width			rs.w 1
 Platform_TotalMass		rs.w 1
+Platform_TerrainFlags	rs.w 1
 Platform_Type			rs.b 1
 Platform_Occupied		rs.b 1
 Platform_Dirty			rs.b 1
 ;---------------------------------
-Platform_Struct_Pad		rs.b 1
+Platform_Struct_Pad		rs.b 3
 Platform_Struct_Size	rs.b 0
 ;---------------------------------

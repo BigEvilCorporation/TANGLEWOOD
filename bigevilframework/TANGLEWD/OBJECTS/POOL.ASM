@@ -17,7 +17,7 @@ Pool_DefaultWaterSpeed	equ 0x01
 	rsset (AnimObj_Struct_Size)
 ;-----------------------------
 Pool_Animation			rs.b Animation_Struct_Size
-;Pool_Barrier			rs.b Barrier_Struct_Size
+Pool_Platform			rs.b Platform_Struct_Size
 Pool_WaterHeight		rs.w 1
 Pool_WaterSpeed			rs.w 1
 ;-----------------------------
@@ -51,11 +51,12 @@ PoolInit:
 	move.w #Pool_Height, Pool_WaterHeight(a0)
 	move.w #0x0, Pool_WaterSpeed(a0)
 
-	; Setup barrier
-	;lea    Pool_Barrier(a0), a2
-	;move.w #Pool_Width, Barrier_Width(a2)
-	;move.w #Pool_Height, Barrier_Height(a2)
-	;LIST_APPEND_TAIL Barriers, a2, a3
+	; Setup platform
+	lea    Pool_Platform(a0), a2
+	move.l a0, Platform_Owner(a2)
+	move.w #Pool_Width, Platform_Width(a2)
+	move.w #col_tile_flag_special, Platform_TerrainFlags(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
 
 	rts
 
@@ -81,12 +82,24 @@ PoolUpdate:
 	; Apply water speed
 	clr.l  d0
 	move.w Pool_WaterSpeed(a0), d0
-	add.w  d0, Pool_WaterHeight(a0)
+	tst.w  d0
+	beq    @NotMoving
+	move.w Pool_WaterHeight(a0), d1
+	add.w  d0, d1
+	CLAMPW d1, #Pool_MinWaterHeight, #Pool_Height
+	move.w d1, Pool_WaterHeight(a0)
+	@NotMoving:
 
-	; Reposition barrier
-	;lea    Pool_Barrier(a0), a2
-	;move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	;move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	; Reposition platform
+	lea    Pool_Platform(a0), a2
+	move.w Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.w Entity_WorldPosY(a0), d0
+	addi.w #Pool_Height, d0
+	sub.w  Pool_WaterHeight(a0), d0
+	move.w d0, Platform_PosY(a2)
+	move.w Pool_WaterSpeed(a0), d0
+	TOSUBPIXELS d0
+	move.l d0, Platform_VelY(a2)
 
 	rts
 
@@ -202,7 +215,7 @@ Pool_Raise:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.w  #Pool_Height, Pool_WaterHeight(a0)
+	move.w  #Pool_DefaultWaterSpeed, Pool_WaterSpeed(a0)
 
 	rts
 
@@ -210,6 +223,6 @@ Pool_Lower:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.w  #Pool_MinWaterHeight, Pool_WaterHeight(a0)
+	move.w  #-Pool_DefaultWaterSpeed, Pool_WaterSpeed(a0)
 
 	rts

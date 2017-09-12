@@ -153,11 +153,13 @@ L4A2_Pillar_count equ 0x0
 
 L4A2_WindFlue_count equ 0x0
 
-L4A2_Raft_count equ 0x1
+L4A2_Raft_count equ 0x2
 L4A2_Raft_5_idx	equ 0x0
+L4A2_Raft_28_idx	equ 0x1
 
 	IFND FINAL
 L4A2_Raft_5_name	dc.b "L4A2_Raft_5",0
+L4A2_Raft_28_name	dc.b "L4A2_Raft_28",0
 	even
 	ENDIF
 
@@ -505,6 +507,18 @@ L4A2_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr RaftLoadGfx
+	add.l #Raft_Struct_Size, a0
+	jsr RaftInit
+	move.l #0x0cc80000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Raft_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr RaftLoadGfx

@@ -880,6 +880,16 @@ PhysicsObjFindFloor:
 	addi.w #(heightmap_max_search_tiles*8), d0
 	cmp.w  d2, d0
 	blt    @NextPlatform
+
+	; Get terrain flags
+	move.w Platform_TerrainFlags(a3), d4
+
+	; If special terrain, and shouldn't collide, bail out
+	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
+	bne    @CollideSpecialPlatform
+	andi.w #col_tile_flag_special, d4
+	bne    @NextPlatform
+	@CollideSpecialPlatform:
 	
 	; Success
 	clr.l  d2
