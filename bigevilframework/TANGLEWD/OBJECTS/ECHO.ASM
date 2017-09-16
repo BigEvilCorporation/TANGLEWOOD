@@ -24,6 +24,10 @@ Echo_LostTime				equ 0x0078			; Time off screen until considered lost
 Echo_NodeLostTime			equ 0x0130			; Time off screen until considered lost if following nodes
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
 Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning to basic follow state
+Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
+Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
+
+; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
 Echo_AIJumpDistance			equ 0x0020			; Y distance (upward) from Nymn to add a jump node
 Echo_AIFindHoleDistance		equ 0x0030			; Y distance (downward) from Nymn to add a drop down node
@@ -33,11 +37,10 @@ Echo_AIDistLogX				equ screen_width	; X distance from log to add a goto node
 Echo_AIDistLogY				equ Player1Height	; Y distance from log to add a goto node
 Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto node
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
-Echo_AIDistPushObjX			equ 0x0008			; Max distance from pushable object to start pushing
-Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
-Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
+Echo_AIDistRaftX			equ screen_width/2	; X distance from raft to add a raft ride node
+Echo_AIDistRaftY			equ Player1Height	; Y distance from raft to add a raft ride node
 
-; AI distance tolerances for node types
+; AI distance tolerances for reaching nodes
 Echo_AINodeToleranceJumpX		equ 0x0010
 Echo_AINodeToleranceJumpY		equ 0x0080
 Echo_AINodeToleranceJumpLostX	equ 0x0010
@@ -50,8 +53,12 @@ Echo_AINodeToleranceGlideX		equ 0x0010
 Echo_AINodeToleranceGlideY		equ 0x0040
 Echo_AINodeToleranceGlideStopX	equ 0x0020
 Echo_AINodeToleranceGlideStopY	equ 0x0060
-Echo_AINodeTolerancePushX		equ 0x0010
-Echo_AINodeTolerancePushY		equ 0x0010
+Echo_AINodeTolerancePushObjX	equ 0x0010
+Echo_AINodeTolerancePushObjY	equ Player1Height+0x0010
+Echo_AINodeToleranceRaftX		equ 0x0020
+Echo_AINodeToleranceRaftY		equ Player1Height+0x0008
+Echo_AINodeToleranceButtonX		equ 0x0008
+Echo_AINodeToleranceButtonY		equ Player1Height+0x0008
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -79,7 +86,7 @@ EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
 EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
 EchoAIState_Button			equ 7	; Holding a button until deactivated
 EchoAIState_Water			equ 8	; Echo doesn't like water :(
-EchoAIState_Platform		equ 9	; Standing on moving platform, waiting for it to stop
+EchoAIState_Raft			equ 9	; Standing on moving raft, waiting for it to stop
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -90,6 +97,7 @@ EchoAINode_Action_StartGlide	equ 0x4
 EchoAINode_Action_StopGlide		equ 0x5
 EchoAINode_Action_StartPush		equ 0x6
 EchoAINode_Action_Button		equ 0x7
+EchoAINode_Action_Raft			equ 0x8
 
 ; AI node userdata
 EchoAIPush_Left					equ 0x0
@@ -669,8 +677,8 @@ EchoUpdateAI:
 	beq    @Button
 	cmp.b  #EchoAIState_Water, d0
 	beq    @Water
-	cmp.b  #EchoAIState_Platform, d0
-	beq    @Platform
+	cmp.b  #EchoAIState_Raft, d0
+	beq    @Raft
 	bra    @End
 	
 	@Follow:
@@ -701,8 +709,8 @@ EchoUpdateAI:
 	jsr    EchoAIUpdate_Water
 	bra    @End
 
-	@Platform:
-	jsr    EchoAIUpdate_Platform
+	@Raft:
+	jsr    EchoAIUpdate_Raft
 	bra    @End
 	
 	@End:
@@ -1142,7 +1150,7 @@ EchoAIUpdate_PushObj:
 	; Continue pushing towards Nymn
 	jsr    PlayerStartInteract
 
-	move.w #Echo_AIDistPushObjX, d3
+	move.w #Echo_AINodeTolerancePushObjX, d3
 	
 	; Check if within X tolerance
 	move.l (Player1), a2
@@ -1352,31 +1360,30 @@ EchoAIUpdate_Water:
 
 	rts
 
-EchoAIStart_Platform:
+EchoAIStart_Raft:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- platform
+	; a2 --- Raft
 	
-	; Set platform state
-	move.b #EchoAIState_Platform, Echo_AIState(a0)
+	; Set raft state
+	move.b #EchoAIState_Raft, Echo_AIState(a0)
 
-	; Set platform
+	; Set raft
 	move.l a2, Echo_AIObjectOfInterest(a0)
 	
 	rts
 
-EchoAIUpdate_Platform:
+EchoAIUpdate_Raft:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Get platform
+	; Get raft
 	move.l Echo_AIObjectOfInterest(a0), a2
 
-	; Wait for platform to stop
-	tst.l  Platform_VelX(a2)
-	bne    @PlatformMoving
-	tst.l  Platform_VelY(a2)
-	bne    @PlatformMoving
+	; If hit static wall
+	move.b PhysicsObj_HitWall(a2), d1
+	andi.b #PhysicsObjHitStaticWall, d1
+	beq    @PlatformMoving
 
 	; Back to follow state
 	jsr    EchoAIStart_Follow
@@ -1646,8 +1653,8 @@ EchoAI_WatchNymnMovement:
 	move.w d5, EchoAINode_PosX(a3)
 	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.w #Echo_AINodeTolerancePushX, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeTolerancePushY, EchoAINode_ToleranceY(a3)
+	move.w #Echo_AINodeToleranceGlideX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceGlideY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
@@ -1779,13 +1786,13 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoButton:
 
-	; Check platform
-	jsr    EchoAI_FindPlatform
+	; Check rafts
+	jsr    EchoAI_FindRaft
 	cmp.l  #0x0, a2
-	beq    @NoPlatform
-	jsr    EchoAIStart_Platform
+	beq    @NoRaft
+	jsr    EchoAI_PushInteractionRaft
 	bra    @End
-	@NoPlatform:
+	@NoRaft:
 
 	; Check water
 	jsr    EchoAI_FindWater
@@ -1987,46 +1994,50 @@ EchoAI_FindWater:
 
 	rts
 
-EchoAI_FindPlatform:
+EchoAI_FindRaft:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- OUT: Platform
+	; a2 --- OUT: Raft
 
 	move.l #0x0, a2
-
-	; If on a platform
-	move.l PhysicsObj_LastPlatform(a0), a3
-	cmp.l  #0x0, a3
-	beq    @NoPlatform
-
-	; If platform moving
-	tst.l  Platform_VelX(a3)
-	bne    @PlatformMoving
-	tst.l  Platform_VelY(a3)
-	bne    @PlatformMoving
-	bra    @NoPlatform
-
-	@PlatformMoving:
-
-	; Check if platform is a raft
-	move.l Platform_Owner(a3), a4
 
 	move.w (EntityCount_Raft), d6
 	tst.w  d6
 	beq    @NoRafts
-	move.l (EntityPoolStart_Raft), a5
+	move.l (EntityPoolStart_Raft), a4
 	subq.w #0x1, d6
 	@RaftLoop:
 
-	cmp.l  a4, a5
+	; Check not hitting a wall
+	tst.b  PhysicsObj_HitWall(a4)
 	bne    @NextRaft
+	
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a4), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistRaftX, d1
+	bgt    @NextRaft
+	cmp.w  #-Echo_AIDistRaftX, d1
+	blt    @NextRaft
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a4
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistRaftY, d1
+	bgt    @NextRaft
+	cmp.w  #-Echo_AIDistRaftY, d1
+	blt    @NextRaft
 
 	; Found raft
-	move.l a3, a2
+	move.l a4, a2
 	bra    @FoundRaft
 
 	@NextRaft:
-	lea    Raft_Struct_Size(a3), a3
+	lea    Raft_Struct_Size(a4), a4
 	dbra   d6, @RaftLoop
 
 	@NoPlatform:
@@ -2052,7 +2063,8 @@ EchoAI_PushInteractionFuzzl:
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
@@ -2071,11 +2083,11 @@ EchoAI_PushInteractionFuzzl:
 	move.w Entity_WorldPosX(a4), d2
 	sub.w  d0, d2
 	blt    @RightSide
-	subi.w #Echo_AIDistPushObjX, d0		; Left side of Fuzzl (Fuzzl pos - threshold)
+	subi.w #Echo_AINodeTolerancePushObjX, d0		; Left side of Fuzzl (Fuzzl pos - threshold)
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
-	addi.w #Echo_AIDistPushObjX, d0
+	addi.w #Echo_AINodeTolerancePushObjX, d0
 	@LeftSide:
 
 	move.w d0, EchoAINode_PosX(a3)
@@ -2100,7 +2112,8 @@ EchoAI_PushInteractionLog:
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
 	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
@@ -2113,11 +2126,11 @@ EchoAI_PushInteractionLog:
 	move.w Entity_WorldPosX(a4), d2
 	sub.w  d0, d2
 	blt    @RightSide
-	subi.w #Echo_AIDistPushObjX, d0		; Left side of log (log pos - threshold)
+	subi.w #Echo_AINodeTolerancePushObjX, d0		; Left side of log (log pos - threshold)
 	bra    @LeftSide
 	@RightSide:
 	add.w  Entity_Width(a2), d0			; Right side of log (log pos + log width + threshold)
-	addi.w #Echo_AIDistPushObjX, d0
+	addi.w #Echo_AINodeTolerancePushObjX, d0
 	@LeftSide:
 
 	move.w d0, EchoAINode_PosX(a3)
@@ -2143,13 +2156,43 @@ EchoAI_PushInteractionButton:
 	move.w d0, EchoAINode_PosX(a3)
 	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AIDistPushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x1, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Button, EchoAINode_Action(a3)
+
+	rts
+
+EchoAI_PushInteractionRaft:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Raft addr
+
+	; Clear all nodes (interaction is a priority)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	ENTITY_GETCENTREX d0, a2
+	TOPIXELS d0
+
+	; Push raft node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w d0, EchoAINode_PosX(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AINodeToleranceRaftX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceRaftY, EchoAINode_ToleranceY(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_Raft, EchoAINode_Action(a3)
 
 	rts
 
@@ -2274,6 +2317,8 @@ EchoAIPopNode:
 	beq    @StartPushAction
 	cmp.b  #EchoAINode_Action_Button, d0
 	beq    @StartButtonAction
+	cmp.b  #EchoAINode_Action_Raft, d0
+	beq    @StartRaftAction
 
 	;==============================================================
 
@@ -2336,6 +2381,14 @@ EchoAIPopNode:
 
 	; Start button hold state
 	jsr    EchoAIStart_ButtonHold
+	bra    @EndAction
+
+	;==============================================================
+
+	@StartRaftAction:
+
+	; Start raft ride state
+	jsr    EchoAIStart_Raft
 	bra    @EndAction
 
 	;==============================================================

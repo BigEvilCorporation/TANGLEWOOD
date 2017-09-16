@@ -164,6 +164,7 @@ PhysicsObjUpdate:
 	beq    @SoundAwake
 	
 	; If asleep, process external forces only
+	move.l PhysicsWorld, a2
 	move.l PhysicsObj_VelX(a0), d0
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
@@ -171,6 +172,8 @@ PhysicsObjUpdate:
 	or.b   PhysicsObj_OnPlatform(a0), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
+	or.b   PhysicsWorld_MovingPlatformsUpdated(a2), d0
+	or.b   PhysicsWorld_MovingBarriersUpdated(a2), d0
 	beq    @Asleep
 
 	@SoundAwake:
@@ -1003,7 +1006,13 @@ PhysicsObjFindWall:
 	; d0 (b) 0 == Bottom, 1 = top
 	
 	;==============================================================
-
+	
+	; Determine direction
+	move.l PhysicsObj_VelX(a0), d3
+	add.l  PhysicsObj_ImpulseX(a0), d3
+	tst.l  d3
+	beq    @HeadingNowhere
+	
 	; If previously hitting a static wall, clear all flags
 	move.b PhysicsObj_HitWall(a0), d1
 	andi.b #(PhysicsObjHitStaticWall), d1
@@ -1011,11 +1020,7 @@ PhysicsObjFindWall:
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	@NotHittingStaticWall:
 	
-	; Determine direction
-	move.l PhysicsObj_VelX(a0), d3
-	add.l  PhysicsObj_ImpulseX(a0), d3
 	tst.l  d3
-	beq    @HeadingNowhere
 	blt    @HeadingLeft
 	bgt    @HeadingRight
 	
@@ -1493,7 +1498,7 @@ PhysicsObjFindMovingBarrier:
 
 	; If previously hitting a moving barrier, clear all flags
 	move.b PhysicsObj_HitWall(a0), d0
-	andi.b #PhysicsObjHitMovingBarrier, d0
+	andi.b #(PhysicsObjHitBarrier|PhysicsObjHitMovingBarrier), d0
 	beq    @NotHittingBarrier
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	@NotHittingBarrier:
@@ -1656,7 +1661,8 @@ PhysicsObjFindMovingBarrier:
 	@NoBarrier:
 	
 	; If originally touching a wall, wake physics to re-check static walls
-	tst.l  PhysicsObj_LastWall(a0)
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #PhysicsObjHitStaticWall, d0
 	beq    @NoChange
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	@NoChange:

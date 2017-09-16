@@ -100,15 +100,11 @@ l4a2_Init:
 
 	; Setup water pools and locks
 	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
-	ENTITY_GETBYNAME Pool, l4a2_Pool1, a2
-	move.l a2, Lock_Userdata(a0)
-	move.l #Pool_Raise, Lock_OnRaised(a0)
+	move.l #l4a2_ActivatePool1, Lock_OnRaised(a0)
 	jsr    Lock_SetLowered
 
 	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
-	ENTITY_GETBYNAME Pool, l4a2_Pool2, a2
-	move.l a2, Lock_Userdata(a0)
-	move.l #Pool_Raise, Lock_OnRaised(a0)
+	move.l #l4a2_ActivatePool2, Lock_OnRaised(a0)
 	jsr    Lock_SetLowered
 
 	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
@@ -118,16 +114,33 @@ l4a2_Init:
 	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0
 	jsr    Pool_SetLowered
 
-	; Connect generators to buttons
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l4a2_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l4a2_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to winches
+	ENTITY_GETBYNAME Generator, l4a2_Generator1, a0
+	ENTITY_GETBYNAME Winch, l4a2_Winch3, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #Winch_RunClockwise, Generator_OnActivate(a0)
 
 	; Connect winches together
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
 	ENTITY_GETBYNAME Winch, l4a2_Winch2, a1
 	move.l a1, Winch_Mirror(a0)
 
+	ENTITY_GETBYNAME Winch, l4a2_Winch3, a0
+	ENTITY_GETBYNAME Winch, l4a2_Winch4, a1
+	move.l a1, Winch_Mirror(a0)
+
 	; Connect rafts to winches
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
 	ENTITY_GETBYNAME Raft, l4a2_Raft1, a1
+	move.l a1, Winch_PhysObject(a0)
+
+	ENTITY_GETBYNAME Winch, l4a2_Winch3, a0
+	ENTITY_GETBYNAME Raft, l4a2_Raft2, a1
 	move.l a1, Winch_PhysObject(a0)
 
 	; Connect buttons to winches
@@ -136,26 +149,20 @@ l4a2_Init:
 	move.b #0x1, Button_Active(a0)
 	move.l a1, Button_UserData(a0)
 	move.l #Winch_RunClockwise, Button_OnDown(a0)
-	move.l #Winch_RunAntiClockwise, Button_OnUp(a0)
+	;move.l #Winch_Stop, Button_OnUp(a0)
 
-	; Connect buttons to locks
+	; Connect buttons to locks/pools
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
-	ENTITY_GETBYNAME Lock, l4a2_Lock1, a1
 	move.b #0x1, Button_Active(a0)
-	move.l a1, Button_UserData(a0)
-	move.l #Lock_Raise, Button_OnDown(a0)
+	move.l #l4a2_ActivateLock1, Button_OnDown(a0)
 
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock2, a0
-	ENTITY_GETBYNAME Lock, l4a2_Lock2, a1
 	move.b #0x1, Button_Active(a0)
-	move.l a1, Button_UserData(a0)
-	move.l #Lock_Raise, Button_OnDown(a0)
+	move.l #l4a2_ActivateLock2, Button_OnDown(a0)
 
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock3, a0
-	ENTITY_GETBYNAME Pool, l4a2_Pool3, a1
 	move.b #0x1, Button_Active(a0)
-	move.l a1, Button_UserData(a0)
-	move.l #Pool_Raise, Button_OnDown(a0)
+	move.l #l4a2_ActivatePool3, Button_OnDown(a0)
 
 	;==============================================================
 
@@ -185,4 +192,52 @@ l4a2_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l4a2_ActivateLock1:
+	
+	; Raise lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
+	jsr    Lock_Raise
+
+	rts
+
+l4a2_ActivateLock2:
+	
+	; Raise lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
+	jsr    Lock_Raise
+
+	rts
+
+l4a2_ActivatePool1:
+
+	; Raise pool
+	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
+	jsr    Pool_Raise
+
+	rts
+
+l4a2_ActivatePool2:
+
+	; Raise pool
+	ENTITY_GETBYNAME Pool, l4a2_Pool2, a0
+	jsr    Pool_Raise
+	
+	; Lower prev lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
+	jsr    Lock_Lower
+
+	rts
+
+l4a2_ActivatePool3:
+
+	; Raise pool
+	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0
+	jsr    Pool_Raise
+	
+	; Lower prev lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
+	jsr    Lock_Lower
+
 	rts

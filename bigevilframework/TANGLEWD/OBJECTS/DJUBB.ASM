@@ -11,8 +11,8 @@ Djubb_Width				equ 0x28
 Djubb_Height			equ 0x18
 Djubb_Mass				equ 0x02
 Djubb_SwimAccel			equ 0x001000
-Djubb_SwimDecelIdle		equ 0x002000
-Djubb_SwimDecelForced	equ 0x004000
+Djubb_SwimDecelIdle		equ 0x000800
+Djubb_SwimDecelForced	equ 0x002000
 Djubb_MaxSwimVel		equ 0x03E000
 Djubb_WallProbeLeft		equ -0x0010
 Djubb_WallProbeRight	equ Djubb_Width+0x0010

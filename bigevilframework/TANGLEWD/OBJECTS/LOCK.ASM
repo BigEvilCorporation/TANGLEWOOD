@@ -148,6 +148,7 @@ LockUpdate:
 	add.w  d2, d0
 	move.w d0, Barrier_PosY(a2)
 	move.w d1, Barrier_Height(a2)
+	move.w Lock_RaiseSpeed(a0), Barrier_VelY(a2)
 
 	rts
 

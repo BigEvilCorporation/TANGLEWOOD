@@ -65,7 +65,7 @@ PoolLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT pool,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED pool,PaletteId_World0,0x0
 
 	; Load animation
 	;ANIM_LOAD_DEFAULT Pool_raise,Pool_raise,Pool_Animation,0,0,0,0
@@ -142,6 +142,10 @@ PoolDraw:
 	PUSHM  d0-d3
 	jsr    SpriteObjDraw
 	POPM   d0-d3
+
+	; If out of sprites, bail
+	cmp.w  #vdp_max_sprites-1, next_sprite_index
+	beq    @OutOfSprites
 	
 	; Next X
 	addi.w #Pool_SpriteWidth, Entity_WorldPosX(a0)
@@ -155,6 +159,8 @@ PoolDraw:
 	dbra   d3, @LoopY
 
 	;==============================================================
+
+	@OutOfSprites:
 
 	; Restore pos
 	move.w d0, Entity_WorldPosX(a0)

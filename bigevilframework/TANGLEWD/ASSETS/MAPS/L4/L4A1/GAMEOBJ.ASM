@@ -187,6 +187,8 @@ L4A1_Cart_count equ 0x0
 
 L4A1_Pillar_count equ 0x0
 
+L4A1_Winch_count equ 0x0
+
 L4A1_WindFlue_count equ 0x0
 
 L4A1_Raft_count equ 0x0
@@ -194,8 +196,6 @@ L4A1_Raft_count equ 0x0
 L4A1_Lock_count equ 0x0
 
 L4A1_Pool_count equ 0x0
-
-L4A1_Winch_count equ 0x0
 
 
 

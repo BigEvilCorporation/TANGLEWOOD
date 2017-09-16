@@ -9,7 +9,7 @@
 ; Constants
 Winch_Width				equ 0x30
 Winch_Height			equ 0x38
-Winch_DefaultVelocity	equ 0xA000
+Winch_DefaultVelocity	equ 0x00014000
 
 	rsset (AnimObj_Struct_Size)
 ;-----------------------------
@@ -56,7 +56,7 @@ WinchLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT winch,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED winch,PaletteId_World0,0x0
 
 	; Load animation
 	ANIM_LOAD_DEFAULT winch_winch,winch_turn,Winch_Animation,0,1,0,0
@@ -67,26 +67,62 @@ WinchUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Move object
-	move.l Winch_Velocity(a0), d0
-	tst.l  d0
+	; If moving
+	tst.l  Winch_Velocity(a0)
 	beq    @Stopped
+
+	; Get attached object
 	move.l Winch_PhysObject(a0), a2
 	cmp.l  #0x0, a2
 	beq    @Stopped
 
-	; If object hit wall, stop
-	PHYSICS_HITFACINGWALL a2
+	; Check object is latched
+	move.l Winch_Mirror(a0), a3
+	cmp.l  #0x0, a3
+	beq    @NoMirror
+
+	; Combine bounds of both winches
+	ENTITY_GETBOUNDS d1,d6,d5,a0
+	ENTITY_GETBOUNDS d6,d2,d5,a3
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+
+	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
+	beq    @NoObj
+
+	; Ignore barriers, assume the player must move them out of the way
+	move.b PhysicsObj_HitWall(a2), d1
+	move.b d1, d2
+	andi.b #PhysicsObjHitBarrier, d2
+	bne    @NotHittingWall
+
+	; If object hit static wall, stop
+	move.l Winch_Velocity(a0), d0
+	tst.l  d0
+	bgt    @HeadingRight
+	move.b d1, d2
+	andi.b #PhysicsObjHitWallLeft, d2
+	bne    @HitWall
+	bra    @NotHittingWall
+	@HeadingRight:
+	move.b d1, d2
+	andi.b #PhysicsObjHitWallRight, d2
 	beq    @NotHittingWall
+	@HitWall:
+
+	; Object hit wall, stop winch
 	jsr    Winch_Stop
+
 	bra    @Stopped
+	
 	@NotHittingWall:
 
 	; Apply velocity
 	move.l d0, PhysicsObj_VelX(a2)
 	
 	@Stopped:
+	@NoObj:
+	@NoMirror:
 
 	; Base functionality
 	jsr    AnimObjUpdate

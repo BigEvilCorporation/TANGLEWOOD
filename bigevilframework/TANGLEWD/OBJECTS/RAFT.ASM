@@ -13,6 +13,7 @@ Raft_Mass				equ 0x08
 Raft_Decel				equ 0x00000400
 Raft_WallProbeLeft		equ 0x0000
 Raft_WallProbeRight		equ Raft_Width
+Rafy_WallProbeBottom	equ Raft_Height+0x08
 Raft_PlatformOffsetX	equ 0x0000
 Raft_PlatformOffsetY	equ 0x0005
 Raft_SineAmplitude		equ 0x03
@@ -54,7 +55,7 @@ RaftInit:
 	move.l  Level_Gravity(a1), PhysicsObj_MaxVelYDown(a0)
 	move.w  #Raft_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Raft_WallProbeRight, PhysicsObj_WallProbeRight(a0)
-	move.w  #Raft_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Rafy_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.b  #Raft_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
@@ -92,14 +93,6 @@ RaftLoadGfx:
 RaftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	; If platform occupied, don't decelerate
-	move.w #Raft_Decel, PhysicsObj_DecelX(a0)
-	lea    Raft_Platform(a0), a2
-	tst.b  Platform_Occupied(a2)
-	beq    @Unoccupied
-	move.w #0x0, PhysicsObj_DecelX(a0)
-	@Unoccupied:
 
 	; Base functionality
 	jsr    PhysicsObjUpdate

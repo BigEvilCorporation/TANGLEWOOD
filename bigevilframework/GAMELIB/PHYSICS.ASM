@@ -7,22 +7,25 @@
 ;==============================================================
 
 	rsset 0
-;---------------------------------
-PhysicsWorld_Gravity		rs.l 1
-PhysicsWorld_Wind			rs.l 1
-PhysicsWorld_GroundHeight	rs.l 1
-;---------------------------------
-PhysicsWorld_Struct_Pad		rs.b 0
-PhysicsWorld_Struct_Size	rs.b 0
-;---------------------------------
+;-----------------------------------------
+PhysicsWorld_Gravity				rs.l 1
+PhysicsWorld_Wind					rs.l 1
+PhysicsWorld_GroundHeight			rs.l 1
+PhysicsWorld_MovingPlatformsUpdated	rs.b 1	; Platforms moved/stopped last frame
+PhysicsWorld_MovingBarriersUpdated	rs.b 1	; Barriers moved/stopped last frame
+;-----------------------------------------
+PhysicsWorld_Struct_Pad				rs.b 2
+PhysicsWorld_Struct_Size			rs.b 0
+;-----------------------------------------
 
 PhysicsWorldPreStep:
 
+	; Get moving platform count
+	LIST_GET_SIZE MovingPlatforms,d0
+	PUSHL d0
+
 	; Clear all moving platforms
 	LIST_CLEAR MovingPlatforms,a3,a4
-
-	; Clear all moving barriers
-	LIST_CLEAR MovingBarriers,a3,a4
 
 	; Add all moving platforms to list, clear total mass
 	LIST_GET_HEAD Platforms,a3
@@ -43,6 +46,24 @@ PhysicsWorldPreStep:
 	LIST_GET_NEXT Platforms,a3,a3
 	bra    @PlatformLp
 	@NoPlatform:
+
+	; If moving platform count changed, set dirty
+	POPL   d0
+	move.b #0x0, d2
+	LIST_GET_SIZE MovingPlatforms,d1
+	cmp.w  d0, d1
+	beq    @NoPlatformChange
+	move.b #0x1, d2
+	@NoPlatformChange:
+	move.l PhysicsWorld, a3
+	move.b d2, PhysicsWorld_MovingPlatformsUpdated(a3)
+
+	; Get moving barrier count
+	LIST_GET_SIZE MovingBarriers,d0
+	PUSHL d0
+
+	; Clear all moving barriers
+	LIST_CLEAR MovingBarriers,a3,a4
 	
 	; Add all moving barriers to list, clear total hit velocities
 	LIST_GET_HEAD Barriers,a3
@@ -59,6 +80,17 @@ PhysicsWorldPreStep:
 	LIST_GET_NEXT Barriers,a3,a3
 	bra    @BarrierLp
 	@NoBarrier:
+
+	; If moving barrier count changed, set dirty
+	POPL   d0
+	move.b #0x0, d2
+	LIST_GET_SIZE MovingBarriers,d1
+	cmp.w  d0, d1
+	beq    @NoBarrierChange
+	move.b #0x1, d2
+	@NoBarrierChange:
+	move.l PhysicsWorld, a3
+	move.b d2, PhysicsWorld_MovingBarriersUpdated(a3)
 
 	rts
 

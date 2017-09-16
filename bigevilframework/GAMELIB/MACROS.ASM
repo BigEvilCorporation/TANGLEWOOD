@@ -240,6 +240,9 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 PHYSICS_HITFACINGWALL: macro objaddr
 	move.b #0x0, d0
 	tst.w  PhysicsObj_AccelX(\objaddr)
+	bne    @UseAccel\@
+	tst.l  PhysicsObj_VelX(\objaddr)
+	@UseAccel\@:
 	beq    @HeadingNowhere\@
 	bgt    @HeadingRight\@
 	move.b PhysicsObj_HitWall(\objaddr), d1
