@@ -2029,6 +2029,7 @@ PlayerInteractTest_Water:
 	; Set in water
 	move.b #0x1, d0					; Fully submerged
 	move.w d1, d2					; Water level
+	addi.w #vdp_sprite_border_y, d2
 	move.b d5, d1					; Previously in water
 	jsr    PlayerEnteredWater
 
@@ -2055,7 +2056,7 @@ PlayerEnteredWater:
 	; d2 (w) Water level Y coord
 
 	; Set water level (screen space)
-	move.b d2, d3
+	move.w d2, d3
 	move.w (WorldScrollY), d4
 	sub.w  d4, d3
 	subi.w #vdp_sprite_border_y, d3
