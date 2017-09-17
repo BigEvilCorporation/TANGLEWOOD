@@ -7,200 +7,237 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L4A2_Leaf_count equ 0x0
+L5A2_Leaf_count equ 0x0
 
-L4A2_Echo_count equ 0x0
+L5A2_Djubb_count equ 0x0
 
-L4A2_Nymn_count equ 0x0
+L5A2_Echo_count equ 0x1
+L5A2_Echo_6_idx	equ 0x0
 
-L4A2_BouncePlant_count equ 0x0
-
-L4A2_Log_count equ 0x0
-
-L4A2_Monster_count equ 0x0
-
-L4A2_Boulder_count equ 0x0
-
-L4A2_Firefly_count equ 0x0
-
-L4A2_FuzzlCage_count equ 0x0
-
-L4A2_Fuzzl_count equ 0x0
-
-L4A2_Stone_count equ 0x0
-
-L4A2_Nest_count equ 0x0
-
-L4A2_Flue_count equ 0x0
-
-L4A2_TriggerBox_count equ 0x0
-
-L4A2_Checkpoint_count equ 0x0
-
-L4A2_WaterBody_count equ 0x0
-
-L4A2_Location_count equ 0x0
-
-L4A2_Deathbox_count equ 0x0
-
-L4A2_Lift_count equ 0x0
-
-L4A2_Crate_count equ 0x0
-
-L4A2_Generator_count equ 0x0
-
-L4A2_Cogs_count equ 0x0
-
-L4A2_Bridge_count equ 0x0
-
-L4A2_Button_count equ 0x0
-
-
-	IF L4A2_Leaf_count>Leaf_MaxEntities
-	inform 2,"Entity array overflow(Leaf) - array size: 0x%d count : 0x%d",Leaf_MaxEntities,L4A2_Leaf_count
+	IFND FINAL
+L5A2_Echo_6_name	dc.b "L5A2_Echo_6",0
+	even
 	ENDIF
 
-	IF L4A2_Echo_count>Echo_MaxEntities
-	inform 2,"Entity array overflow(Echo) - array size: 0x%d count : 0x%d",Echo_MaxEntities,L4A2_Echo_count
+L5A2_Nymn_count equ 0x1
+L5A2_Nymn_5_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Nymn_5_name	dc.b "L5A2_Nymn_5",0
+	even
 	ENDIF
 
-	IF L4A2_Nymn_count>Nymn_MaxEntities
-	inform 2,"Entity array overflow(Nymn) - array size: 0x%d count : 0x%d",Nymn_MaxEntities,L4A2_Nymn_count
+L5A2_BouncePlant_count equ 0x0
+
+L5A2_Log_count equ 0x1
+L5A2_Log_1_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Log_1_name	dc.b "L5A2_Log_1",0
+	even
 	ENDIF
 
-	IF L4A2_BouncePlant_count>BouncePlant_MaxEntities
-	inform 2,"Entity array overflow(BouncePlant) - array size: 0x%d count : 0x%d",BouncePlant_MaxEntities,L4A2_BouncePlant_count
+L5A2_DjakkCage_count equ 0x0
+
+L5A2_Monster_count equ 0x0
+
+L5A2_Boulder_count equ 0x0
+
+L5A2_Firefly_count equ 0x0
+
+L5A2_FuzzlCage_count equ 0x0
+
+L5A2_Fuzzl_count equ 0x3
+L5A2_Fuzzl_2_idx	equ 0x0
+L5A2_Fuzzl_3_idx	equ 0x1
+L5A2_Fuzzl_4_idx	equ 0x2
+
+	IFND FINAL
+L5A2_Fuzzl_2_name	dc.b "L5A2_Fuzzl_2",0
+L5A2_Fuzzl_3_name	dc.b "L5A2_Fuzzl_3",0
+L5A2_Fuzzl_4_name	dc.b "L5A2_Fuzzl_4",0
+	even
 	ENDIF
 
-	IF L4A2_Log_count>Log_MaxEntities
-	inform 2,"Entity array overflow(Log) - array size: 0x%d count : 0x%d",Log_MaxEntities,L4A2_Log_count
+L5A2_Stone_count equ 0x0
+
+L5A2_Nest_count equ 0x0
+
+L5A2_Flue_count equ 0x0
+
+L5A2_TriggerBox_count equ 0x0
+
+L5A2_Checkpoint_count equ 0x0
+
+L5A2_WaterBody_count equ 0x0
+
+L5A2_Location_count equ 0x0
+
+L5A2_Deathbox_count equ 0x0
+
+L5A2_Lift_count equ 0x0
+
+L5A2_Crate_count equ 0x0
+
+L5A2_Generator_count equ 0x0
+
+L5A2_Cogs_count equ 0x0
+
+L5A2_Bridge_count equ 0x0
+
+L5A2_Button_count equ 0x0
+
+L5A2_Wyrm_count equ 0x0
+
+L5A2_AIMarker_count equ 0x0
+
+L5A2_Cart_count equ 0x0
+
+L5A2_Pillar_count equ 0x0
+
+L5A2_Winch_count equ 0x0
+
+L5A2_WindFlue_count equ 0x0
+
+L5A2_Raft_count equ 0x0
+
+L5A2_Lock_count equ 0x0
+
+L5A2_Pool_count equ 0x0
+
+
+
+L5A2_LoadGameObjects:
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L5A2_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+	jsr EchoInit
+	move.l #0x00a80000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Echo_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
+	jsr EchoLoadGfx
+	add.l #Echo_Struct_Size, a0
 
-	IF L4A2_Monster_count>Monster_MaxEntities
-	inform 2,"Entity array overflow(Monster) - array size: 0x%d count : 0x%d",Monster_MaxEntities,L4A2_Monster_count
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L5A2_Nymn_count)
+	move.l a1, EntityPoolStart_Nymn
+	move.l a1, a0
+	POPL   a1
+
+	jsr NymnInit
+	move.l #0x00d00000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Nymn_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
+	jsr NymnLoadGfx
+	add.l #Nymn_Struct_Size, a0
 
-	IF L4A2_Boulder_count>Boulder_MaxEntities
-	inform 2,"Entity array overflow(Boulder) - array size: 0x%d count : 0x%d",Boulder_MaxEntities,L4A2_Boulder_count
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L5A2_Log_count)
+	move.l a1, EntityPoolStart_Log
+	move.l a1, a0
+	POPL   a1
+
+	jsr LogInit
+	move.l #0x06800000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Log_1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
 
-	IF L4A2_Firefly_count>Firefly_MaxEntities
-	inform 2,"Entity array overflow(Firefly) - array size: 0x%d count : 0x%d",Firefly_MaxEntities,L4A2_Firefly_count
+
+
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L5A2_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x04280000, Entity_WorldPosX(a0)
+	move.l #0x03880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Fuzzl_2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
-
-	IF L4A2_FuzzlCage_count>FuzzlCage_MaxEntities
-	inform 2,"Entity array overflow(FuzzlCage) - array size: 0x%d count : 0x%d",FuzzlCage_MaxEntities,L4A2_FuzzlCage_count
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x08880000, Entity_WorldPosX(a0)
+	move.l #0x07400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Fuzzl_3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
-
-	IF L4A2_Fuzzl_count>Fuzzl_MaxEntities
-	inform 2,"Entity array overflow(Fuzzl) - array size: 0x%d count : 0x%d",Fuzzl_MaxEntities,L4A2_Fuzzl_count
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x0a880000, Entity_WorldPosX(a0)
+	move.l #0x01580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Fuzzl_4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
 	ENDIF
-
-	IF L4A2_Stone_count>Stone_MaxEntities
-	inform 2,"Entity array overflow(Stone) - array size: 0x%d count : 0x%d",Stone_MaxEntities,L4A2_Stone_count
-	ENDIF
-
-	IF L4A2_Nest_count>Nest_MaxEntities
-	inform 2,"Entity array overflow(Nest) - array size: 0x%d count : 0x%d",Nest_MaxEntities,L4A2_Nest_count
-	ENDIF
-
-	IF L4A2_Flue_count>Flue_MaxEntities
-	inform 2,"Entity array overflow(Flue) - array size: 0x%d count : 0x%d",Flue_MaxEntities,L4A2_Flue_count
-	ENDIF
-
-	IF L4A2_TriggerBox_count>TriggerBox_MaxEntities
-	inform 2,"Entity array overflow(TriggerBox) - array size: 0x%d count : 0x%d",TriggerBox_MaxEntities,L4A2_TriggerBox_count
-	ENDIF
-
-	IF L4A2_Checkpoint_count>Checkpoint_MaxEntities
-	inform 2,"Entity array overflow(Checkpoint) - array size: 0x%d count : 0x%d",Checkpoint_MaxEntities,L4A2_Checkpoint_count
-	ENDIF
-
-	IF L4A2_WaterBody_count>WaterBody_MaxEntities
-	inform 2,"Entity array overflow(WaterBody) - array size: 0x%d count : 0x%d",WaterBody_MaxEntities,L4A2_WaterBody_count
-	ENDIF
-
-	IF L4A2_Location_count>Location_MaxEntities
-	inform 2,"Entity array overflow(Location) - array size: 0x%d count : 0x%d",Location_MaxEntities,L4A2_Location_count
-	ENDIF
-
-	IF L4A2_Deathbox_count>Deathbox_MaxEntities
-	inform 2,"Entity array overflow(Deathbox) - array size: 0x%d count : 0x%d",Deathbox_MaxEntities,L4A2_Deathbox_count
-	ENDIF
-
-	IF L4A2_Lift_count>Lift_MaxEntities
-	inform 2,"Entity array overflow(Lift) - array size: 0x%d count : 0x%d",Lift_MaxEntities,L4A2_Lift_count
-	ENDIF
-
-	IF L4A2_Crate_count>Crate_MaxEntities
-	inform 2,"Entity array overflow(Crate) - array size: 0x%d count : 0x%d",Crate_MaxEntities,L4A2_Crate_count
-	ENDIF
-
-	IF L4A2_Generator_count>Generator_MaxEntities
-	inform 2,"Entity array overflow(Generator) - array size: 0x%d count : 0x%d",Generator_MaxEntities,L4A2_Generator_count
-	ENDIF
-
-	IF L4A2_Cogs_count>Cogs_MaxEntities
-	inform 2,"Entity array overflow(Cogs) - array size: 0x%d count : 0x%d",Cogs_MaxEntities,L4A2_Cogs_count
-	ENDIF
-
-	IF L4A2_Bridge_count>Bridge_MaxEntities
-	inform 2,"Entity array overflow(Bridge) - array size: 0x%d count : 0x%d",Bridge_MaxEntities,L4A2_Bridge_count
-	ENDIF
-
-	IF L4A2_Button_count>Button_MaxEntities
-	inform 2,"Entity array overflow(Button) - array size: 0x%d count : 0x%d",Button_MaxEntities,L4A2_Button_count
-	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 
-L4A2_LoadGameObjects:
-	move.l #EntityArray_Leaf, a0
 
-	move.l #EntityArray_Echo, a0
 
-	move.l #EntityArray_Nymn, a0
 
-	move.l #EntityArray_BouncePlant, a0
 
-	move.l #EntityArray_Log, a0
 
-	move.l #EntityArray_Monster, a0
 
-	move.l #EntityArray_Boulder, a0
 
-	move.l #EntityArray_Firefly, a0
 
-	move.l #EntityArray_FuzzlCage, a0
 
-	move.l #EntityArray_Fuzzl, a0
 
-	move.l #EntityArray_Stone, a0
 
-	move.l #EntityArray_Nest, a0
 
-	move.l #EntityArray_Flue, a0
 
-	move.l #EntityArray_TriggerBox, a0
 
-	move.l #EntityArray_Checkpoint, a0
 
-	move.l #EntityArray_WaterBody, a0
 
-	move.l #EntityArray_Location, a0
 
-	move.l #EntityArray_Deathbox, a0
 
-	move.l #EntityArray_Lift, a0
 
-	move.l #EntityArray_Crate, a0
 
-	move.l #EntityArray_Generator, a0
 
-	move.l #EntityArray_Cogs, a0
-
-	move.l #EntityArray_Bridge, a0
-
-	move.l #EntityArray_Button, a0
 
 	rts
 

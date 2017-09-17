@@ -64,8 +64,9 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l3a2_HeritageAct2
 ;InitialLevel			 equ l3a3_HeritageAct3
 ;InitialLevel			 equ l4a1_TetheredAct1
-InitialLevel			 equ l4a2_TetheredAct2
+;InitialLevel			 equ l4a2_TetheredAct2
 ;InitialLevel			 equ l5a1_BygoneAct1
+InitialLevel			 equ l5a2_BygoneAct2
 ;InitialLevel			 equ l6a1_DeadwoodAct1
 ;InitialLevel			 equ l7a1_OasisAct1
 ;InitialLevel			 equ Lvl_TestLift

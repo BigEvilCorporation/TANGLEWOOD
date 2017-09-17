@@ -63,7 +63,7 @@ l4a1_Init:
 	; Set data for all acts in level
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L4A1, (a2)+
-	;move.l #LevelData_L4A2, (a2)+
+	move.l #LevelData_L4A2, (a2)+
 	;move.l #LevelData_L4A3, (a2)+
 	move.w #0x1, CurrentLevelNumActs
 	
