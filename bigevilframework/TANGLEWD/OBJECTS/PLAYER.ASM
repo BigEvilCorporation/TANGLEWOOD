@@ -187,8 +187,9 @@ Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
+Player_SpecialTerrainIsWater rs.b 1	; Using 'special' marked terrain as water bodies
 ;---------------------------------
-Player_Struct_Pad      		rs.b 2
+Player_Struct_Pad      		rs.b 1
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -262,6 +263,7 @@ PlayerInit:
 	move.b  #0x0, Player_InteractionToggle(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
+	move.b  #0x0, Player_SpecialTerrainIsWater(a0)
 	
 	; Setup collision bounds
 	move.w  #Player1BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
@@ -1899,17 +1901,22 @@ PlayerInteractTest_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	PUSHL  a1
+	; Backup current water state
+	move.b Character_InWater(a0), d5
+	or.b   PhysicsObj_Underwater(a0), d5
 	
 	; Reset in water
 	move.b #0x0, Character_InWater(a0)
+	move.b #0x0, PhysicsObj_Underwater(a0)
 	move.l #0x0, Player_LastWaterBody(a0)
 
 	; Reset water level
 	move.b #0xFF, raster_water_level
+
+	;==============================================================
 	
 	; Check all water bodies
-	move.l (EntityPoolStart_WaterBody), a1
+	move.l (EntityPoolStart_WaterBody), a2
 	move.w (EntityCount_WaterBody), d6
 	tst.w  d6
 	beq    @NoWaterBodies
@@ -1917,19 +1924,159 @@ PlayerInteractTest_Water:
 	@BodyLoop:
 	
 	; Check player vs. box
+	PUSHL  d5
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
+	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
+	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
 	
-	; Player in water, check if not previously in water
-	tst.b  Character_InWater(a0)
-	bne    @PrevInWater
+	; Set in water
+	move.b #0x0, d0					; Fully submerged
+	move.b d5, d1					; Previously in water
+	move.w Entity_WorldPosY(a2), d2	; Water level
+	jsr    PlayerEnteredWater
+
+	bra    @Found
+	
+	@NoIntersect:
+	
+	; Next body
+	lea  WaterBody_Struct_Size(a2), a2
+	dbra d6, @BodyLoop
+	
+	@NoWaterBodies:
+
+	;==============================================================
+
+	; Check all water pools
+	move.l (EntityPoolStart_Pool), a2
+	move.w (EntityCount_Pool), d6
+	tst.w  d6
+	beq    @NoPools
+	subq.w #0x1, d6
+	@PoolLoop:
+	
+	; Check player vs. box
+	PUSHL  d5
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	lea    Pool_Platform(a2), a3	; Use pool platform Y as bounds top
+	move.w Platform_PosY(a3), d3
+	PUSHL  d3
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   d3
+	POPL   d5
+	tst.b  d0
+	beq    @NoIntersectPool
+	
+	; Set in water
+	move.b #0x1, d0					; Fully submerged
+	move.b d5, d1					; Previously in water
+	move.w d3, d2					; Water level
+	jsr    PlayerEnteredWater
+
+	bra    @Found
+	
+	@NoIntersectPool:
+	
+	; Next body
+	lea  Pool_Struct_Size(a2), a2
+	dbra d6, @PoolLoop
+	
+	@NoPools:
+
+	;==============================================================
+
+	tst.b Player_SpecialTerrainIsWater(a0)
+	beq   @NoWaterTerrain
+
+	; Check all 'special' terrain
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d4
+	add.w  Entity_Height(a0), d4
+	subi.w #vdp_sprite_border_x, d0
+	subi.w #vdp_sprite_border_y, d4
+
+	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
+	tst.w  d3								; Bail if empty
+	beq    @NoWaterTerrain
+	subq.w  #0x1, d3						; -1 for loop counter
+	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
+
+	@TerrainLp:
+	
+	; Get terrain spline start/end
+	move.l (a2)+, d1
+	move.l (a2)+, d2
+
+	; Get X
+	swap   d1
+	swap   d2
+
+	; Check if within X bounds
+	cmp.w  d0, d1
+	bge    @NextTerrain
+	cmp.w  d0, d2
+	ble    @NextTerrain
+
+	; Check under surface
+	swap   d1
+	cmp.w  d1, d4
+	blt    @NextTerrain
 
 	; Set in water
+	move.b #0x1, d0					; Fully submerged
+	move.w d1, d2					; Water level
+	move.b d5, d1					; Previously in water
+	jsr    PlayerEnteredWater
+
+	bra    @Found
+	
+	@NextTerrain:
+	dbra   d3, @TerrainLp
+	bra    @NoWaterTerrain
+
+	@NoWaterTerrain:
+
+	;==============================================================
+
+	@Found:
+	
+	rts
+
+PlayerEnteredWater:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Water body addr
+	; d0 (b) Fully submerged
+	; d1 (b) Previously in water
+	; d2 (w) Water level Y coord
+
+	; Set water level (screen space)
+	move.b d2, d3
+	move.w (WorldScrollY), d4
+	sub.w  d4, d3
+	subi.w #vdp_sprite_border_y, d3
+	move.b d3, raster_water_level
+
+	; If fully submerged, use physics method
+	tst.b  d0
+	beq    @NoPhysicsWater
+	move.b #0x1, PhysicsObj_Underwater(a0)
+	bra    @PhysicsWater
+
+	@NoPhysicsWater:
+	; else just restrict movement and change animation set
 	move.b #0x1, Character_InWater(a0)
-	move.l a1, Player_LastWaterBody(a0)
+
+	@PhysicsWater:
+
+	move.l a2, Player_LastWaterBody(a0)
+
+	tst.b  d1
+	bne    @NoSFXVFX
 	
 	; If hit water at landing velocity
 	cmp.l  #-Character_WaterSplashVel, PhysicsObj_VelY(a0)
@@ -1939,47 +2086,27 @@ PlayerInteractTest_Water:
 	lea    Character_SFX+(CharacterSFXIdx_WaterSplash*size_long)(a0), a2
 	cmp.l  #0x0, (a2)
 	beq    @NoSplashSFX
+	PUSHL  d2
 	PLAYSFX (a2)
+	POPL   d2
 	@NoSplashSFX:
 
 	; Play splash VFX
 	PUSHM  a0-a1
 	move.l Entity_WorldPosX(a0), d0	; Player X
-	move.l Entity_WorldPosY(a1), d1	; Water Y
+	move.w d2, d1					; Water Y
 	lea    EntityArray_VFX+(VfxId_WaterSplashLarge*VfxObj_Struct_Size), a0
-	move.w Entity_Height(a0), d2	; -splash height
-	TOSUBPIXELS d2
-	sub.l  d2, d1
+	sub.w  Entity_Height(a0), d1
+	TOSUBPIXELS d1
 	jsr    VfxPlay
 	POPM   a0-a1
 	
-	@PrevInWater:
+	@NoSFXVFX:
 	@LowSplashVel:
 
-	; Set water level
-	move.w Entity_WorldPosY(a1), d3	; (top word = integer part)
-	move.w (WorldScrollY), d2		;  (top word = integer part)
-	sub.w  d2, d3
-	subi.w #vdp_sprite_border_y, d3
-	move.b d3, raster_water_level
-
-	bra    @Found
-	
-	@NoIntersect:
-	
-	; Next body
-	lea  WaterBody_Struct_Size(a1), a1
-	dbra d6, @BodyLoop
-	
-	@NoWaterBodies:
-	@Found:
-	
-	POPL  a1
-	
 	rts
 	
 PlayerInteractTest_BouncePlants:
-
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	

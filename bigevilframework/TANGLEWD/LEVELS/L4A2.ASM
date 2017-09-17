@@ -19,7 +19,7 @@ l4a2_TetheredAct2:
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4a2		; Collision blocks
 	dc.l collisionmap_blockmap_l4a2		; Collision block map
-	dc.l 0x00000000						; 'Special' terrain descriptor table
+	dc.l terrainmap_L4A2_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l4a2_DefaultPalettes			; Palettes
 	dc.l l4a2_Init						; Init routine
 	dc.l l4a2_Update					; Update routine
@@ -37,7 +37,7 @@ l4a2_TetheredAct2:
 	dc.w map_blockmap_l4a2_width		; Map width (blocks)
 	dc.w map_blockmap_l4a2_height		; Map height (blocks)
 	dc.w tiles_l4_size_t				; Num tiles
-	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.w terrainmap_L4A2_num_special_terrain_descs	; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even
@@ -82,10 +82,13 @@ l4a2_Init:
 	;==============================================================
 
 	; 'Special' terrain is water surface, don't collide
+	; TODO: Terrain type flag for water
 	move.l (Player1), a2
 	move.l (Player2), a3
 	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
 	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a3)
+	move.b #0x1, Player_SpecialTerrainIsWater(a2)
+	move.b #0x1, Player_SpecialTerrainIsWater(a3)
 
 	;==============================================================
 

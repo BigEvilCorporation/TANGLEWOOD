@@ -83,7 +83,7 @@ PhysicsObj_OnFloor		    	rs.b 1 ; Object is on floor
 PhysicsObj_CloseToFloor	    	rs.b 1 ; Object is close to floor (dist < step height)
 PhysicsObj_OnPlatform			rs.b 1 ; Object is on a platform
 PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWall* flags)
-PhysicsObj_Solid		    	rs.b 1 ; Object is solid
+PhysicsObj_UnderWater			rs.b 1 ; Object is underwater
 PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step height
 PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
@@ -145,7 +145,6 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	move.b #0x0, PhysicsObj_HitWall(a0)
-	move.b #0x0, PhysicsObj_Solid(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
@@ -554,9 +553,15 @@ PhysicsObjApplyVelocity:
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
+
+	; Apply underwater div
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterX
+	DIVS1616_LOSSY_FIXED #0x2, d0
+	@NotInWaterX:
 	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
-	add.l d0, d1						; Add velocity to pos
+	add.l  d0, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
 	move.l d0, PhysicsObj_LastAppliedVelX(a0)	; Save for attached platforms/barriers
 	
@@ -570,6 +575,12 @@ PhysicsObjApplyVelocity:
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
+
+	; Apply underwater div
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterY
+	DIVS1616_LOSSY_FIXED #0x2, d0
+	@NotInWaterY:
 	
 	move.l Entity_WorldPosY(a0), d1		; Get Y pos
 	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)

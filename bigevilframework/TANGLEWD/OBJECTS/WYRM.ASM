@@ -412,9 +412,9 @@ WyrmFindSandDune:
 	clr.l  d2
 
 	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
-	tst.w  d3							; Bail if empty
+	tst.w  d3								; Bail if empty
 	beq    @NoTerrain
-	subq.w  #0x1, d3							; -1 for loop counter
+	subq.w  #0x1, d3						; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
 
 	@TerrainLp:
