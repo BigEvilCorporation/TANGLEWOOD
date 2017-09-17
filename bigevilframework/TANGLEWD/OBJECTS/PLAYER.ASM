@@ -295,6 +295,9 @@ PlayerUpdate:
 
 	; Test for bounce plants
 	jsr    PlayerInteractTest_BouncePlants
+
+	; Test for ladders
+	jsr    PlayerInteractTest_Ladder
 	
 	; Process sleep/snooze states
 	tst.b  Player_Sleeping(a0)
@@ -2104,6 +2107,49 @@ PlayerEnteredWater:
 	
 	@NoSFXVFX:
 	@LowSplashVel:
+
+	rts
+
+	; TODO: Move to Character
+PlayerInteractTest_Ladder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Reset climb state
+	move.b #0x0, Character_Climbing(a0)
+
+	;==============================================================
+	
+	; Check all ladders
+	move.l (EntityPoolStart_Ladder), a2
+	move.w (EntityCount_Ladder), d6
+	tst.w  d6
+	beq    @NoLadders
+	subq.w #0x1, d6
+	@LadderLoop:
+	
+	; Check player vs. box
+	PUSHL  d5
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   d5
+	tst.b  d0
+	beq    @NoIntersect
+	
+	; Set climbing
+	move.b #0x1, Character_Climbing(a0)
+
+	bra    @Found
+	
+	@NoIntersect:
+	
+	; Next ladder
+	lea  Ladder_Struct_Size(a2), a2
+	dbra d6, @LadderLoop
+	
+	@NoLadders:
+	@Found:
 
 	rts
 	

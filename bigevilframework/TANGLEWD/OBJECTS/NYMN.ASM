@@ -102,6 +102,9 @@ NymnInit:
 
 	; Fall
 	ANIM_LOAD_DEFAULT nymn_fall,nymn_fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
+
+	; Climb
+	ANIM_LOAD_DEFAULT nymn_climb,nymn_climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
 	
 	; Water wade
 	ANIM_LOAD_DEFAULT nymn_wade,nymn_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0

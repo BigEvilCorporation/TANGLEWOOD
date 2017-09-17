@@ -248,6 +248,9 @@ EchoInit:
 
 	; Fall
 	ANIM_LOAD_DEFAULT Echo_fall,Echo_fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
+
+	; Climb
+	ANIM_LOAD_DEFAULT Echo_climb,Echo_climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
 	
 	; Water wade
 	ANIM_LOAD_DEFAULT Echo_wade,Echo_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
