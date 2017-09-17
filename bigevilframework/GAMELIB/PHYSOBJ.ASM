@@ -474,6 +474,12 @@ PhysicsObjApplyWorldForces:
 	; Apply speed div
 	DIVS1616_LOSSY d6, d2
 
+	; Apply underwater div
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterX
+	DIVS1616_LOSSY_FIXED #0x2, d2
+	@NotInWaterX:
+
 	; Get current Y velocity
 	move.l PhysicsObj_VelY(a0), d5
 
