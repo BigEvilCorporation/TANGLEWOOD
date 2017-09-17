@@ -39,8 +39,9 @@ CharacterAnimIdx_WaterWade	equ 11
 CharacterAnimIdx_RideTrot	equ 12
 CharacterAnimIdx_RideGallop	equ 13
 CharacterAnimIdx_RideJump	equ 14
+CharacterAnimIdx_Climb		equ 15
 ; -------------------------------
-Character_NumAnims			equ 15
+Character_NumAnims			equ 16
 
 ; ************************************
 ; SFX ids
@@ -92,6 +93,7 @@ Character_Falling			rs.b 1
 Character_Pushing			rs.b 1	; 1 = Light object, 2 = Heavy object
 Character_Gliding			rs.b 1
 Character_Riding			rs.b 1	; 1 = Trotting, 2 = Galloping
+Character_Climbing			rs.b 1
 Character_Interacting		rs.b 1
 Character_UpdateAnim		rs.b 1
 Character_AnimIdx	    	rs.b 1
@@ -99,7 +101,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 1
+Character_Struct_Pad    	rs.b 0
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -132,6 +134,7 @@ CharacterInit:
 	move.b #0x0, Character_Pushing(a0)
 	move.b #0x0, Character_Gliding(a0)
 	move.b #0x0, Character_Riding(a0)
+	move.b #0x0, Character_Climbing(a0)
 	move.b #0x0, Character_Interacting(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
@@ -330,12 +333,10 @@ CharacterUpdateAnimState:
 	;Get current animation
 	move.l AnimObj_CurrentAnim(a0), a2
 	
-	move.b Animation_Looping(a2), d0
-	tst.b  d0						; If playing a looping anim, anim is interruptible
+	tst.b  Animation_Looping(a2)	; If playing a looping anim, anim is interruptible
 	bne    @InterruptibleAnim
 	
-	move.b AnimObj_Playing(a0), d0
-	tst.b  d0						; If interruptible anim has finished, start next anim
+	tst.b  AnimObj_Playing(a0)		; If interruptible anim has finished, start next anim
 	beq    @AnimFinished
 	bra	   @EndAnim
 	
@@ -348,25 +349,22 @@ CharacterUpdateAnimState:
 	; Dead
 	; =====================================================================
 	move.b #CharacterAnimIdx_Dead, d1
-	move.b Character_Dead(a0), d0		; If player dead, set death anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
+	tst.b  Character_Dead(a0)			; If player dead, set death anim
+	bne    @SetAnim
 	
 	; =====================================================================
 	; Hanging
 	; =====================================================================
 	move.b #CharacterAnimIdx_Hang, d1
-	move.b Character_OnLedge(a0), d0	; If player on ledge, set hanging anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
+	tst.b  Character_OnLedge(a0)		; If player on ledge, set hanging anim
+	bne    @SetAnim
 	
 	; =====================================================================
 	; Gliding
 	; =====================================================================
 	move.b #CharacterAnimIdx_Glide, d1
-	move.b Character_Gliding(a0), d0	; If player is gliding, set glide anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
+	tst.b  Character_Gliding(a0)		; If player is gliding, set glide anim
+	bne    @SetAnim
 
 	; =====================================================================
 	; Riding (trotting)
@@ -388,17 +386,22 @@ CharacterUpdateAnimState:
 	; Jumping
 	; =====================================================================
 	move.b #CharacterAnimIdx_Jump, d1
-	move.b Character_Jumping(a0), d0	; If player is jumping, set jump anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
+	tst.b  Character_Jumping(a0)		; If player is jumping, set jump anim
+	bne    @SetAnim
 	
 	; =====================================================================
 	; Falling
 	; =====================================================================
 	move.b #CharacterAnimIdx_Fall, d1
-	move.b Character_Falling(a0), d0	; If player is falling, set jump anim
-	cmp.b  #0x1, d0
-	beq    @SetAnim
+	tst.b  Character_Falling(a0)		; If player is falling, set jump anim
+	bne    @SetAnim
+
+	; =====================================================================
+	; Climbing
+	; =====================================================================
+	move.b #CharacterAnimIdx_Climb, d1
+	tst.b  Character_Climbing(a0)		; If player is climbing, set climb anim
+	bne    @SetAnim
 	
 	; =====================================================================
 	; Pushing (light object)
@@ -420,14 +423,13 @@ CharacterUpdateAnimState:
 	; Idle
 	; =====================================================================
 	move.b #CharacterAnimIdx_Idle, d1
-	move.l PhysicsObj_VelX(a0), d0			; If X velocity == 0, set idle anim
-	tst.l  d0
+	tst.l PhysicsObj_VelX(a0)			; If X velocity == 0, set idle anim
 	beq    @SetAnim
 
 	; =====================================================================
 	; Running/Walking
 	; =====================================================================
-	move.l PhysicsObj_VelX(a0), d0			; If X velocity > WalkToRun speed, set run anim
+	move.l PhysicsObj_VelX(a0), d0		; If X velocity > WalkToRun speed, set run anim
 	cmp.l  Character_WalkToRunVel(a0), d0
 	bgt    @Running
 	neg.l  d0

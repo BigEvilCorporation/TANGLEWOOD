@@ -69,6 +69,7 @@
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\fuzlcage.asm'
 	include 'assets\sprites\generatr.asm'
+	include 'assets\sprites\ladder.asm'
 	include 'assets\sprites\log.asm'
 	include 'assets\sprites\lock.asm'
 	include 'assets\sprites\nymn.asm'
