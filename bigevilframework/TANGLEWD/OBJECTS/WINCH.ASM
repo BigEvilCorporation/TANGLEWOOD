@@ -9,7 +9,7 @@
 ; Constants
 Winch_Width				equ 0x30
 Winch_Height			equ 0x38
-Winch_DefaultVelocity	equ 0x00014000
+Winch_DefaultVelocity	equ 0x00020000
 
 	rsset (AnimObj_Struct_Size)
 ;-----------------------------

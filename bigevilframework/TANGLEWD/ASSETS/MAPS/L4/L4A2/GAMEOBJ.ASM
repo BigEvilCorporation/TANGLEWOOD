@@ -51,13 +51,15 @@ L4A2_Nymn_1_name	dc.b "L4A2_Nymn_1",0
 
 L4A2_BouncePlant_count equ 0x0
 
-L4A2_Log_count equ 0x2
+L4A2_Log_count equ 0x3
 L4A2_Log1_idx	equ 0x0
 L4A2_Log2_idx	equ 0x1
+L4A2_Log_53_idx	equ 0x2
 
 	IFND FINAL
 L4A2_Log1_name	dc.b "L4A2_Log1",0
 L4A2_Log2_name	dc.b "L4A2_Log2",0
+L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 	even
 	ENDIF
 
@@ -83,17 +85,21 @@ L4A2_FuzzlYellow2_name	dc.b "L4A2_FuzzlYellow2",0
 	even
 	ENDIF
 
-L4A2_Stone_count equ 0x4
+L4A2_Stone_count equ 0x6
 L4A2_Stone_14_idx	equ 0x0
 L4A2_Stone_17_idx	equ 0x1
 L4A2_Stone_29_idx	equ 0x2
 L4A2_Stone_50_idx	equ 0x3
+L4A2_Stone_51_idx	equ 0x4
+L4A2_Stone_52_idx	equ 0x5
 
 	IFND FINAL
 L4A2_Stone_14_name	dc.b "L4A2_Stone_14",0
 L4A2_Stone_17_name	dc.b "L4A2_Stone_17",0
 L4A2_Stone_29_name	dc.b "L4A2_Stone_29",0
 L4A2_Stone_50_name	dc.b "L4A2_Stone_50",0
+L4A2_Stone_51_name	dc.b "L4A2_Stone_51",0
+L4A2_Stone_52_name	dc.b "L4A2_Stone_52",0
 	even
 	ENDIF
 
@@ -413,6 +419,18 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
+	jsr LogInit
+	move.l #0x16100000, Entity_WorldPosX(a0)
+	move.l #0x01780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Log_53_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
 
 
 
@@ -518,6 +536,30 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x13c80000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Stone_51_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x16b00000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Stone_52_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
@@ -538,7 +580,7 @@ L4A2_LoadGameObjects:
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
-	move.l #0x13880000, Entity_WorldPosX(a0)
+	move.l #0x13800000, Entity_WorldPosX(a0)
 	move.l #0x03280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Nest_47_name, a3
