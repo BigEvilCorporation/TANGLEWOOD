@@ -10,7 +10,7 @@ PAL_Load:
     ; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
-	mulu.w #size_palette_b, d0      ; Colour index to CRAM destination address
+	lsl.w   #0x5, d0				; Colour index to CRAM destination address
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
@@ -28,7 +28,7 @@ PAL_LoadDMA:
 	; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
-	mulu.w #size_palette_b, d0	; Palette index to CRAM destination address
+	lsl.w   #0x5, d0			; Colour index to CRAM destination address
 	move.w #size_palette_w, d1	; Palette size to copy (in words)
 	jsr VDP_DMACopyCRAM			; DMA copy
 	
@@ -38,7 +38,7 @@ PAL_Read:
     ; d0 (b) Palette index
 	; a0 --- Dest RAM address
 
-	mulu.w #size_palette_b, d0        ; Colour index to CRAM source address
+	lsl.w   #0x5, d0               ; Colour index to CRAM destination address
 	swap   d0                      ; Move address to upper word
 	ori.l  #vdp_read_palettes, d0  ; OR CRAM read command
 	move.l d0, vdp_control         ; Send dest address to VDP
@@ -81,7 +81,7 @@ PAL_ClearAll:
 PAL_Clear:
 	; d0 (b) Palette index
 	
-	mulu.w #size_palette_b, d0      ; Colour index to CRAM destination address
+	lsl.w   #0x5, d0				; Colour index to CRAM destination address
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo

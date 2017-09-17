@@ -79,6 +79,10 @@ VDP_DMACopyVRAM:
 	; a0 --- Source address (RAM/ROM)
 	; d0 (w) Dest address (VRAM)
 	; d1 (w) Size (in words)
+
+	; Disable interrupts
+	PUSHW  sr
+	ori.w  #status_reg_int_disable, sr
 	
 	; Size lo (register 13)
 	move.w d1, d2
@@ -117,6 +121,7 @@ VDP_DMACopyVRAM:
 	move.w d3, vdp_control
 	
 	; Generate dest command+address
+	andi.w  #0xFFFF, d0
 	lsl.l   #0x2, d0				; Shift bits 14/15 of dest address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
@@ -137,6 +142,9 @@ VDP_DMACopyVRAM:
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
 	VDPSETREG 1, d4
+
+	; Restore interrupts
+	POPW    sr
 	
 	rts
 	
@@ -144,6 +152,10 @@ VDP_DMACopyCRAM:
 	; a0 --- Source address (RAM/ROM)
 	; d0 (w) Dest address (CRAM)
 	; d1 (w) Size (in words)
+
+	; Disable interrupts
+	PUSHW  sr
+	ori.w  #status_reg_int_disable, sr
 	
 	; Size lo (register 13)
 	move.w d1, d2
@@ -182,6 +194,7 @@ VDP_DMACopyCRAM:
 	move.w d3, vdp_control
 	
 	; Generate dest command+address
+	andi.w  #0xFFFF, d0
 	lsl.l   #0x2, d0				; Shift bits 14/15 of dest address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
@@ -202,6 +215,9 @@ VDP_DMACopyCRAM:
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
 	VDPSETREG 1, d4
+
+	; Restore interrupts
+	POPW    sr
 
 	rts
 
@@ -243,6 +259,7 @@ VDP_VRAMCopy:
 	move.w d3, vdp_control
 	
 	; Generate dest command+address
+	andi.w  #0xFFFF, d1
 	lsl.l   #0x2, d1				; Shift bits 14/15 of dest address to bits 16/17
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo

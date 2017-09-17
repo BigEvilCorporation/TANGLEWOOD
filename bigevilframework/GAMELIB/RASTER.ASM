@@ -40,11 +40,18 @@ RasterEffectUnderwaterUpdate:
 
 RasterEffectUnderwaterHINT:
 
+	; Disable interrupts
+	PUSHW  sr
+	ori.w  #status_reg_int_disable, sr
+
 	; DMA underwater palette to player palette
 	PUSHW  d0
 	VDP_DMA_CRAM (UnderwaterPalettes+(PaletteId_WaterRaster*size_palette_b)), (PaletteId_WaterRaster*size_palette_b), size_palette_b, d0
 	POPW   d0
 	bset.b #PaletteId_WaterRaster, (DirtyPalettesMask)
+
+	; Restore interrupts
+	POPW    sr
 
 	rte
 

@@ -121,7 +121,7 @@ VFX_CreateUnderwaterPalette:
 	; Get colour
 	move.w (a0)+, d1
 
-	; Extract R/G/B commponents
+	; Extract R/G/B components
 	move.w d1, d2
 	move.w d1, d3
 	andi.w #0x0F00, d1	; Blue
