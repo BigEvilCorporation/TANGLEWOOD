@@ -163,7 +163,7 @@ PhysicsObjUpdate:
 	beq    @SoundAwake
 	
 	; If asleep, process external forces only
-	move.l PhysicsWorld, a2
+	lea    PhysicsWorld, a2
 	move.l PhysicsObj_VelX(a0), d0
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0

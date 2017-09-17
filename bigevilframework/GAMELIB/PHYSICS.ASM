@@ -55,7 +55,7 @@ PhysicsWorldPreStep:
 	beq    @NoPlatformChange
 	move.b #0x1, d2
 	@NoPlatformChange:
-	move.l PhysicsWorld, a3
+	lea    PhysicsWorld, a3
 	move.b d2, PhysicsWorld_MovingPlatformsUpdated(a3)
 
 	; Get moving barrier count
@@ -89,7 +89,7 @@ PhysicsWorldPreStep:
 	beq    @NoBarrierChange
 	move.b #0x1, d2
 	@NoBarrierChange:
-	move.l PhysicsWorld, a3
+	lea    PhysicsWorld, a3
 	move.b d2, PhysicsWorld_MovingBarriersUpdated(a3)
 
 	rts
