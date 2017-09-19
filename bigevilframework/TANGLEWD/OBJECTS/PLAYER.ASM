@@ -51,6 +51,8 @@ Player1JumpVelWater	 equ 0x020000 ; Player 1 jump velocity impulse from water
 Player1JumpCancelVelLo equ 0x010000 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
 Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)
+Player1ClimbVel      equ 0x010000 ; Climbing velocity
+Player1LadderGrabVel equ 0x018000 ; Min downward velocity to grab ladder
 Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 
@@ -248,6 +250,7 @@ PlayerInit:
 	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
 	move.l  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
+	move.l  #Player1ClimbVel, Character_ClimbVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x1, Player_ControlEnabled(a0)
@@ -2114,9 +2117,24 @@ PlayerEnteredWater:
 PlayerInteractTest_Ladder:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Backup prev climb state
+	move.b Character_Climbing(a0), d7
 	
 	; Reset climb state
 	move.b #0x0, Character_Climbing(a0)
+
+	; Reset gravity effect
+	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
+
+	; If jumping and +ve velocity, don't bother
+	tst.b  Character_Jumping(a0)
+	beq    @NotJumping
+
+	cmp.l  #-Player1LadderGrabVel, PhysicsObj_VelY(a0)
+	bgt    @Jumping
+
+	@NotJumping:
 
 	;==============================================================
 	
@@ -2130,7 +2148,7 @@ PlayerInteractTest_Ladder:
 	
 	; Check player vs. box
 	PUSHL  d5
-	ENTITY_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   d5
@@ -2140,6 +2158,46 @@ PlayerInteractTest_Ladder:
 	; Set climbing
 	move.b #0x1, Character_Climbing(a0)
 
+	; Not affected by gravity
+	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+
+	; Set anim speed depending on vel
+	lea    Character_Animations+(CharacterAnimIdx_Climb*Animation_Struct_Size)(a0), a3
+	move.w #0x0, Animation_Speed(a3)
+	tst.l  PhysicsObj_VelY(a0)
+	beq    @Stopped
+	bgt    @Down
+	move.w #spriteanim_nymn_climb_speed, Animation_Speed(a3)
+	bra    @Up
+	@Down:
+	move.w #-spriteanim_nymn_climb_speed, Animation_Speed(a3)
+	@Up:
+	@Stopped:
+
+	; If not previously climbing
+	tst.b  d7
+	bne    @Found
+
+	; Zero Y accel and velocity
+	move.w #0x0, PhysicsObj_AccelX(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
+
+	; Not jumping or falling
+	move.b #0x0, Character_Jumping(a0)
+	move.b #0x0, Character_Falling(a0)
+
+	; Snap to centre X
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_Width(a0), d1
+	move.w Entity_Width(a2), d2
+	lsr.w  #0x1, d1
+	lsr.w  #0x1, d2
+	add.w  d2, d0
+	sub.w  d1, d0
+	move.w d0, Entity_WorldPosX(a0)
+
 	bra    @Found
 	
 	@NoIntersect:
@@ -2148,6 +2206,7 @@ PlayerInteractTest_Ladder:
 	lea  Ladder_Struct_Size(a2), a2
 	dbra d6, @LadderLoop
 	
+	@Jumping:
 	@NoLadders:
 	@Found:
 

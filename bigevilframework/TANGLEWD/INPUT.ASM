@@ -10,6 +10,8 @@
 input_pause			equ pad_button_start
 input_move_left		equ pad_button_left
 input_move_right	equ pad_button_right
+input_move_up		equ pad_button_up
+input_move_down		equ pad_button_down
 input_peek_up		equ pad_button_up
 input_peek_down		equ pad_button_down
 input_interact		equ pad_button_a
@@ -113,7 +115,31 @@ HandlePlayerInput:
 	@XHandled:
 
 	; =====================================================================
-	; Up/Down - Y Peek
+	; Up/Down - Y movement (if climbing)
+	; =====================================================================
+	tst.b Character_Climbing(a0)
+	beq   @NotClimbing
+
+	; Move up
+	btst #input_move_up, d0
+	beq  @NoClimbUp
+	jsr  CharacterMoveUp
+	bra  @YHandled
+	@NoClimbUp:
+	
+	; Move down
+	btst #input_move_down, d0
+	beq  @NoClimbDown
+	jsr  CharacterMoveDown
+	bra  @YHandled
+	@NoClimbDown:
+	
+	move.l #0x0, PhysicsObj_VelY(a0) ; No Player1 Y input
+
+	@NotClimbing:
+
+	; =====================================================================
+	; Up/Down - Y Peek (if not climbing)
 	; =====================================================================
 
 	; Camera up

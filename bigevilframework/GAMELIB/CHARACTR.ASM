@@ -76,6 +76,7 @@ Character_MaxGrabUpVel		rs.l 1
 Character_MaxVelXRun		rs.l 1
 Character_MaxVelXWalk		rs.l 1
 Character_WalkToRunVel		rs.l 1
+Character_ClimbVel			rs.l 1
 Character_LastLedgeX		rs.l 1
 Character_LastLedgeY		rs.l 1
 Character_ProbeLedgeX		rs.w 1
@@ -381,6 +382,13 @@ CharacterUpdateAnimState:
 	move.b Character_Riding(a0), d0		; If player is riding, set ride anim
 	cmp.b  #0x2, d0
 	beq    @SetAnim
+
+	; =====================================================================
+	; Climbing
+	; =====================================================================
+	move.b #CharacterAnimIdx_Climb, d1
+	tst.b  Character_Climbing(a0)		; If player is climbing, set climb anim
+	bne    @SetAnim
 	
 	; =====================================================================
 	; Jumping
@@ -394,13 +402,6 @@ CharacterUpdateAnimState:
 	; =====================================================================
 	move.b #CharacterAnimIdx_Fall, d1
 	tst.b  Character_Falling(a0)		; If player is falling, set jump anim
-	bne    @SetAnim
-
-	; =====================================================================
-	; Climbing
-	; =====================================================================
-	move.b #CharacterAnimIdx_Climb, d1
-	tst.b  Character_Climbing(a0)		; If player is climbing, set climb anim
 	bne    @SetAnim
 	
 	; =====================================================================
@@ -518,6 +519,10 @@ CharacterMoveLeft:
 	; Check if player on ledge
 	tst.b  Character_OnLedge(a0)
 	bne    @End
+
+	; Check if player climbing
+	tst.b  Character_Climbing(a0)
+	bne    @End
 	
 	; Check if heading in opposite direction
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
@@ -558,6 +563,10 @@ CharacterMoveRight:
 	; Check if player on ledge
 	tst.b  Character_OnLedge(a0)
 	bne    @End
+
+	; Check if player climbing
+	tst.b  Character_Climbing(a0)
+	bne    @End
 	
 	; Check if heading in opposite direction
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
@@ -575,10 +584,40 @@ CharacterMoveRight:
 	@Decelerate:
 
 	; Heading in opposite direction, fast deceleration
-	move.w Character_DecelForced(a0), PhysicsObj_AccelX(a0)
+	move.w  Character_DecelForced(a0), PhysicsObj_AccelX(a0)
 	
 	@End:
 	
+	rts
+
+CharacterMoveUp:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+
+	; If climbing
+	tst.b   Character_Climbing(a0)
+	beq     @NotCimbing
+
+	move.l  Character_ClimbVel(a0), PhysicsObj_VelY(a0)
+
+	@NotCimbing:
+
+	rts
+
+CharacterMoveDown:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+
+	; If climbing
+	tst.b   Character_Climbing(a0)
+	beq     @NotCimbing
+
+	move.l  Character_ClimbVel(a0), d2
+	neg.l   d2
+	move.l  d2, PhysicsObj_VelY(a0)
+
+	@NotCimbing:
+
 	rts
 
 CharacterCancelXMovement:
@@ -619,6 +658,10 @@ CharacterStartJump:
 	; Check if player on ledge
 	cmp.b  #0x1, Character_OnLedge(a0)
 	beq    @CanJump
+
+	; Check if player climbing
+	tst.b  Character_Climbing(a0)
+	bne    @CanJump
 	
 	; Check if player close enough to floor to jump
 	tst.b  PhysicsObj_CloseToFloor(a0)
