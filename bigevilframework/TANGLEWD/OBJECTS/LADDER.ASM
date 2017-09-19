@@ -15,6 +15,7 @@ Ladder_Height			equ 0xA0
 ; Struct
 	rsset (SpriteObj_Struct_Size)
 ;-----------------------------
+Ladder_Platform			rs.b Platform_Struct_Size
 ;-----------------------------
 Ladder_Struct_Pad		rs.b 0   ; Alignment padding
 Ladder_Struct_Size		rs.b 0
@@ -44,6 +45,11 @@ LadderInit:
 	move.w  #Ladder_Width, Entity_Width(a0)
 	move.w  #Ladder_Height, Entity_Height(a0)
 
+	; Setup platform
+	lea    Ladder_Platform(a0), a2
+	move.w #Ladder_Width, Platform_Width(a2)
+	LIST_APPEND_TAIL Platforms, a2, a3
+
 	rts
 
 LadderLoadGfx:
@@ -52,5 +58,10 @@ LadderLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_SHARED Ladder,PaletteId_World0,0x0
+
+	; Position platform
+	lea    Ladder_Platform(a0), a2
+	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
 
 	rts

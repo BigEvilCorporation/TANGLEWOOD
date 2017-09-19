@@ -234,6 +234,17 @@ PHYSICS_GROWBOUNDS: macro minreg,maxreg,sizereg
 	swap  \minreg
 	swap  \maxreg
 	endm
+
+PHYSICS_SHRINKBOUNDS: macro minreg,maxreg,sizereg
+	add.w \sizereg,\minreg
+	sub.w \sizereg,\maxreg
+	swap  \minreg
+	swap  \maxreg
+	add.w \sizereg,\minreg
+	sub.w \sizereg,\maxreg
+	swap  \minreg
+	swap  \maxreg
+	endm
 	
 ;==============================================================
 

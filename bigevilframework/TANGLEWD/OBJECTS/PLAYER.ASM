@@ -53,6 +53,9 @@ Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump m
 Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)
 Player1ClimbVel      equ 0x010000 ; Climbing velocity
 Player1LadderGrabVel equ 0x018000 ; Min downward velocity to grab ladder
+Player1LadderExitVel equ 0x040000 ; Jump velocity when exiting ladder at top
+Player1LadderMaxXDist equ 0x0008   ; Max X dist from centre of ladder to use
+Player1LadderMaxYDist equ Player1Height/2   ; Max Y dist from top of ladder to jump off
 Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 
@@ -2146,15 +2149,35 @@ PlayerInteractTest_Ladder:
 	subq.w #0x1, d6
 	@LadderLoop:
 	
+	; Check max X dist
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	sub.l  d0, d1
+	cmp.l  #Player1LadderMaxXDist*subpixels_per_pixel, d1
+	bgt    @NoIntersect
+	cmp.l  #-Player1LadderMaxXDist*subpixels_per_pixel, d1
+	blt    @NoIntersect
+
 	; Check player vs. box
 	PUSHL  d5
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+	PHYSICS_SHRINKBOUNDS d3,d4,#0x1
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
-	
+
+	; If at top, jump off
+	ENTITY_GETCENTREY d0,a0
+	move.l Entity_WorldPosY(a2), d1
+	sub.l  d0, d1
+	blt    @NotAtTop
+	jsr    CharacterStartJump
+	move.l #Player1LadderExitVel, PhysicsObj_VelY(a0)
+	bra    @Found
+	@NotAtTop:
+
 	; Set climbing
 	move.b #0x1, Character_Climbing(a0)
 
