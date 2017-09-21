@@ -24,8 +24,9 @@ Button_OnUp					rs.l 1
 Button_UserData				rs.l 1
 Button_Active				rs.b 1
 Button_Pressed				rs.b 1
+Button_NoAI					rs.b 1
 ;---------------------------------
-Button_Struct_Pad			rs.b 2   ; Alignment padding
+Button_Struct_Pad			rs.b 1   ; Alignment padding
 Button_Struct_Size			rs.b 0
 ;---------------------------------
 
@@ -54,6 +55,7 @@ ButtonInit:
 	move.l  #0x0, Button_PressHeight(a0)
 	move.b  #0x0, Button_Active(a0)
 	move.b  #0x0, Button_Pressed(a0)
+	move.b  #0x0, Button_NoAI(a0)
 
 	;==============================================================
 	

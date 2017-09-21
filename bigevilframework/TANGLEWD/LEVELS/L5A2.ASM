@@ -87,6 +87,33 @@ l5a2_Init:
 
 	;==============================================================
 
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l5a2_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l5a2_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l5a2_Generator1, a0
+	ENTITY_GETBYNAME Button, l5a2_Button1, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to lifts
+	ENTITY_GETBYNAME Button, l5a2_Button1, a0
+	ENTITY_GETBYNAME Lift, l5a2_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivate, Button_OnDown(a0)
+	move.l #LiftStop, Button_OnUp(a0)
+
+	;==============================================================
+
+	; Update log out of view
+	ENTITY_GETBYNAME Log, l5a2_Log1, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	;==============================================================
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow

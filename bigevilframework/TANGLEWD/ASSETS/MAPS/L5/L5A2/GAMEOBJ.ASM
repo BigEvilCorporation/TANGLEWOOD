@@ -28,10 +28,10 @@ L5A2_Nymn_5_name	dc.b "L5A2_Nymn_5",0
 	ENDIF
 
 L5A2_Log_count equ 0x1
-L5A2_Log_1_idx	equ 0x0
+L5A2_Log1_idx	equ 0x0
 
 	IFND FINAL
-L5A2_Log_1_name	dc.b "L5A2_Log_1",0
+L5A2_Log1_name	dc.b "L5A2_Log1",0
 	even
 	ENDIF
 
@@ -47,21 +47,43 @@ L5A2_FuzzlCage_count equ 0x0
 
 L5A2_Firefly_count equ 0x0
 
-L5A2_Stone_count equ 0x0
-
-L5A2_Fuzzl_count equ 0x3
-L5A2_Fuzzl_2_idx	equ 0x0
-L5A2_Fuzzl_3_idx	equ 0x1
-L5A2_Fuzzl_4_idx	equ 0x2
+L5A2_Stone_count equ 0x5
+L5A2_Stone_15_idx	equ 0x0
+L5A2_Stone_21_idx	equ 0x1
+L5A2_Stone_20_idx	equ 0x2
+L5A2_Stone_33_idx	equ 0x3
+L5A2_Stone_32_idx	equ 0x4
 
 	IFND FINAL
-L5A2_Fuzzl_2_name	dc.b "L5A2_Fuzzl_2",0
-L5A2_Fuzzl_3_name	dc.b "L5A2_Fuzzl_3",0
-L5A2_Fuzzl_4_name	dc.b "L5A2_Fuzzl_4",0
+L5A2_Stone_15_name	dc.b "L5A2_Stone_15",0
+L5A2_Stone_21_name	dc.b "L5A2_Stone_21",0
+L5A2_Stone_20_name	dc.b "L5A2_Stone_20",0
+L5A2_Stone_33_name	dc.b "L5A2_Stone_33",0
+L5A2_Stone_32_name	dc.b "L5A2_Stone_32",0
 	even
 	ENDIF
 
-L5A2_Nest_count equ 0x0
+L5A2_Fuzzl_count equ 0x3
+L5A2_FuzzlYellow1_idx	equ 0x0
+L5A2_Fuzzl_31_idx	equ 0x1
+L5A2_FuzzlYellow2_idx	equ 0x2
+
+	IFND FINAL
+L5A2_FuzzlYellow1_name	dc.b "L5A2_FuzzlYellow1",0
+L5A2_Fuzzl_31_name	dc.b "L5A2_Fuzzl_31",0
+L5A2_FuzzlYellow2_name	dc.b "L5A2_FuzzlYellow2",0
+	even
+	ENDIF
+
+L5A2_Nest_count equ 0x2
+L5A2_Nest_16_idx	equ 0x0
+L5A2_Nest_38_idx	equ 0x1
+
+	IFND FINAL
+L5A2_Nest_16_name	dc.b "L5A2_Nest_16",0
+L5A2_Nest_38_name	dc.b "L5A2_Nest_38",0
+	even
+	ENDIF
 
 L5A2_Flue_count equ 0x0
 
@@ -73,19 +95,43 @@ L5A2_WaterBody_count equ 0x0
 
 L5A2_Location_count equ 0x0
 
-L5A2_Lift_count equ 0x0
+L5A2_Lift_count equ 0x1
+L5A2_Lift1_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Lift1_name	dc.b "L5A2_Lift1",0
+	even
+	ENDIF
 
 L5A2_Deathbox_count equ 0x0
 
 L5A2_Crate_count equ 0x0
 
-L5A2_Generator_count equ 0x0
+L5A2_Generator_count equ 0x1
+L5A2_Generator1_idx	equ 0x0
 
-L5A2_Cogs_count equ 0x0
+	IFND FINAL
+L5A2_Generator1_name	dc.b "L5A2_Generator1",0
+	even
+	ENDIF
+
+L5A2_Cogs_count equ 0x1
+L5A2_Cogs1_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Cogs1_name	dc.b "L5A2_Cogs1",0
+	even
+	ENDIF
 
 L5A2_Bridge_count equ 0x0
 
-L5A2_Button_count equ 0x0
+L5A2_Button_count equ 0x1
+L5A2_Button1_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Button1_name	dc.b "L5A2_Button1",0
+	even
+	ENDIF
 
 L5A2_Wyrm_count equ 0x0
 
@@ -105,21 +151,29 @@ L5A2_Lock_count equ 0x0
 
 L5A2_Pool_count equ 0x0
 
-L5A2_Ladder_count equ 0x6
+L5A2_Ladder_count equ 0xa
 L5A2_Ladder_7_idx	equ 0x0
 L5A2_Ladder_8_idx	equ 0x1
-L5A2_Ladder_9_idx	equ 0x2
+L5A2_Ladder_25_idx	equ 0x2
 L5A2_Ladder_10_idx	equ 0x3
 L5A2_Ladder_11_idx	equ 0x4
 L5A2_Ladder_14_idx	equ 0x5
+L5A2_Ladder_34_idx	equ 0x6
+L5A2_Ladder_35_idx	equ 0x7
+L5A2_Ladder_39_idx	equ 0x8
+L5A2_Ladder_40_idx	equ 0x9
 
 	IFND FINAL
 L5A2_Ladder_7_name	dc.b "L5A2_Ladder_7",0
 L5A2_Ladder_8_name	dc.b "L5A2_Ladder_8",0
-L5A2_Ladder_9_name	dc.b "L5A2_Ladder_9",0
+L5A2_Ladder_25_name	dc.b "L5A2_Ladder_25",0
 L5A2_Ladder_10_name	dc.b "L5A2_Ladder_10",0
 L5A2_Ladder_11_name	dc.b "L5A2_Ladder_11",0
 L5A2_Ladder_14_name	dc.b "L5A2_Ladder_14",0
+L5A2_Ladder_34_name	dc.b "L5A2_Ladder_34",0
+L5A2_Ladder_35_name	dc.b "L5A2_Ladder_35",0
+L5A2_Ladder_39_name	dc.b "L5A2_Ladder_39",0
+L5A2_Ladder_40_name	dc.b "L5A2_Ladder_40",0
 	even
 	ENDIF
 
@@ -176,10 +230,10 @@ L5A2_LoadGameObjects:
 	move.l #0x06800000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A2_Log_1_name, a3
+	lea L5A2_Log1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
+	move.l #0x9, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LogLoadGfx
@@ -191,6 +245,72 @@ L5A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L5A2_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Stone_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x05a80000, Entity_WorldPosX(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Stone_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x06f00000, Entity_WorldPosX(a0)
+	move.l #0x03d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Stone_20_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x05f00000, Entity_WorldPosX(a0)
+	move.l #0x05f80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Stone_33_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x05500000, Entity_WorldPosX(a0)
+	move.l #0x05700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Stone_32_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L5A2_Fuzzl_count)
@@ -199,54 +319,159 @@ L5A2_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x04280000, Entity_WorldPosX(a0)
-	move.l #0x03880000, Entity_WorldPosY(a0)
+	move.l #0x04000000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A2_Fuzzl_2_name, a3
+	lea L5A2_FuzzlYellow1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x05800000, Entity_WorldPosX(a0)
+	move.l #0x05800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Fuzzl_31_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x08880000, Entity_WorldPosX(a0)
-	move.l #0x07400000, Entity_WorldPosY(a0)
+	move.l #0x09f80000, Entity_WorldPosX(a0)
+	move.l #0x09580000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A2_Fuzzl_3_name, a3
+	lea L5A2_FuzzlYellow2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A2_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
+	jsr NestInit
+	move.l #0x02d00000, Entity_WorldPosX(a0)
+	move.l #0x05c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Nest_16_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x0a880000, Entity_WorldPosX(a0)
-	move.l #0x01580000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+	jsr NestInit
+	move.l #0x0b400000, Entity_WorldPosX(a0)
+	move.l #0x0a200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A2_Fuzzl_4_name, a3
+	lea L5A2_Nest_38_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 
 
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A2_Lift_count)
+	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
+	jsr LiftInit
+	move.l #0x09a80000, Entity_WorldPosX(a0)
+	move.l #0x05a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Lift1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L5A2_Generator_count)
+	move.l a1, EntityPoolStart_Generator
+	move.l a1, a0
+	POPL   a1
+
+	jsr GeneratorInit
+	move.l #0x08c00000, Entity_WorldPosX(a0)
+	move.l #0x05b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Generator1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L5A2_Cogs_count)
+	move.l a1, EntityPoolStart_Cogs
+	move.l a1, a0
+	POPL   a1
+
+	jsr CogsInit
+	move.l #0x08d80000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Cogs1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L5A2_Button_count)
+	move.l a1, EntityPoolStart_Button
+	move.l a1, a0
+	POPL   a1
 
-
+	jsr ButtonInit
+	move.l #0x0a200000, Entity_WorldPosX(a0)
+	move.l #0x04800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Button1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #0x1, Button_NoAI(a0)
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
 
 
 
@@ -288,20 +513,20 @@ L5A2_LoadGameObjects:
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
-	move.l #0x03f00000, Entity_WorldPosX(a0)
-	move.l #0x04380000, Entity_WorldPosY(a0)
+	move.l #0x0b200000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A2_Ladder_9_name, a3
+	lea L5A2_Ladder_25_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
-	move.l #0x0dc80000, Entity_WorldPosX(a0)
-	move.l #0x05480000, Entity_WorldPosY(a0)
+	move.l #0x0b200000, Entity_WorldPosX(a0)
+	move.l #0x05280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_10_name, a3
 	move.l a0, a2
@@ -328,6 +553,54 @@ L5A2_LoadGameObjects:
 	move.l #0x06e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_14_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x09300000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Ladder_34_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x09300000, Entity_WorldPosX(a0)
+	move.l #0x05280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Ladder_35_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x07880000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Ladder_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x07880000, Entity_WorldPosX(a0)
+	move.l #0x03480000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Ladder_40_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0

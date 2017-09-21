@@ -1887,8 +1887,12 @@ EchoAI_FindLog:
 	tst.w  d6
 	beq    @NoLogs
 	move.l (EntityPoolStart_Log), a2
-	subq.w  #0x1, d6
+	subq.w #0x1, d6
 	@LogLoop:
+
+	; Edge case: if Nymn is busy with a button, help out
+	tst.l  PhysicsObj_LastPlatform(a3)
+	bne    @P1OnPlatform
 
 	; Check outside Nymn Y threshold
 	ENTITY_GETCENTREY d0,a3
@@ -1901,6 +1905,8 @@ EchoAI_FindLog:
 	cmp.w  #-Echo_AIDistLogY, d1
 	blt    @OutsideNymnDist
 	bra    @NextLog
+
+	@P1OnPlatform:
 	
 	@OutsideNymnDist:
 
@@ -1950,6 +1956,14 @@ EchoAI_FindButton:
 	subq.w  #0x1, d6
 	@ButtonLoop:
 
+	; Check active
+	tst.b  Button_Active(a2)
+	beq    @NextButton
+
+	; Check usable
+	tst.b  Button_NoAI(a2)
+	bne    @NextButton
+
 	; Check within X threshold
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosX(a2), d1
@@ -1969,10 +1983,6 @@ EchoAI_FindButton:
 	bgt    @NextButton
 	cmp.w  #-Echo_AIDistButtonY, d1
 	blt    @NextButton
-
-	; Check active
-	tst.b  Button_Active(a2)
-	beq    @NextButton
 
 	; Done
 	bra    @FoundButton
