@@ -114,6 +114,14 @@ l5a2_Init:
 
 	;==============================================================
 
+	; 'Special' terrain is cart rails, don't collide
+	move.l (Player1), a2
+	move.l (Player2), a3
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a3)
+
+	;==============================================================
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow
