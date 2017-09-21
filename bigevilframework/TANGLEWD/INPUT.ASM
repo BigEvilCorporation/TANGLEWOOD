@@ -117,8 +117,12 @@ HandlePlayerInput:
 	; =====================================================================
 	; Up/Down - Y movement (if climbing)
 	; =====================================================================
-	tst.b Character_Climbing(a0)
-	beq   @NotClimbing
+	move.b Character_CanClimbUp(a0), d2
+	or.b   Character_CanClimbDown(a0), d2
+	beq    @NotClimbing
+	
+	tst.b Character_CanClimbUp(a0)
+	beq   @NoClimbUp
 
 	; Move up
 	btst #input_move_up, d0
@@ -126,6 +130,9 @@ HandlePlayerInput:
 	jsr  CharacterMoveUp
 	bra  @YHandled
 	@NoClimbUp:
+
+	tst.b Character_CanClimbDown(a0)
+	beq   @NoClimbDown
 	
 	; Move down
 	btst #input_move_down, d0

@@ -54,7 +54,7 @@ Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no 
 Player1ClimbVel      equ 0x010000 ; Climbing velocity
 Player1LadderGrabVel equ 0x018000 ; Min downward velocity to grab ladder
 Player1LadderExitVel equ 0x040000 ; Jump velocity when exiting ladder at top
-Player1LadderMaxXDist equ 0x0008   ; Max X dist from centre of ladder to use
+Player1LadderMaxXDist equ 0x0010   ; Max X dist from centre of ladder to use
 Player1LadderMaxYDist equ Player1Height/2   ; Max Y dist from top of ladder to jump off
 Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
@@ -2126,6 +2126,8 @@ PlayerInteractTest_Ladder:
 	
 	; Reset climb state
 	move.b #0x0, Character_Climbing(a0)
+	move.b #0x0, Character_CanClimbUp(a0)
+	move.b #0x0, Character_CanClimbDown(a0)
 
 	; Reset gravity effect
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
@@ -2135,7 +2137,7 @@ PlayerInteractTest_Ladder:
 	beq    @NotJumping
 
 	cmp.l  #-Player1LadderGrabVel, PhysicsObj_VelY(a0)
-	bgt    @Jumping
+	bgt    @CantUseLadder
 
 	@NotJumping:
 
@@ -2158,25 +2160,100 @@ PlayerInteractTest_Ladder:
 	cmp.l  #-Player1LadderMaxXDist*subpixels_per_pixel, d1
 	blt    @NoIntersect
 
-	; Check player vs. box
+	; Check player vs. outer box
 	PUSHL  d5
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
-	PHYSICS_SHRINKBOUNDS d3,d4,#0x1
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
 
-	; If at top, jump off
+	; Touching ladder's outer bounds
+	move.b #0x1, Character_CanClimbUp(a0)
+	move.b #0x1, Character_CanClimbDown(a0)
+
+	;==============================================================
+
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @OffFloor
+
+	; If on top platform, can't climb up
+	move.l PhysicsObj_LastPlatform(a0), a3
+	lea    Ladder_Platform(a2), a4
+	cmp.l  a3, a4
+	bne    @OnBaseFloor
+	move.b #0x0, Character_CanClimbUp(a0)
+
+	; If controlling up, set minimum impulse to start climbing down
+	tst.b   Character_ControlY(a0)
+	bge     @OnTopPlatform
+	move.w  Entity_Height(a0), d2
+	lsr.w   #0x1, d2
+	addq.w  #0x1, d2
+	neg.w   d2
+	TOSUBPIXELS d2
+	move.l  d2, PhysicsObj_ImpulseY(a0)
+	bra    @OnTopPlatform
+
+	; else must be at base of ladder, can't climb down
+	@OnBaseFloor:
+	move.b #0x0, Character_CanClimbDown(a0)
+
+	; If controlling down, set minimum impulse to start climbing up
+	tst.b   Character_ControlY(a0)
+	ble     @AtBase
+	move.w  PhysicsObj_StepHeight(a0), d2
+	addq.w  #0x1, d2
+	TOSUBPIXELS d2
+	move.l  d2, PhysicsObj_ImpulseY(a0)
+
+	@OffFloor:
+	@OnTopPlatform:
+	@AtBase:
+
+	;==============================================================
+
+	; Check player vs. inner box
+	PUSHL  d5
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	PHYSICS_SHRINKBOUNDS d3,d4,#Player1StepHeight
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   d5
+	tst.b  d0
+	beq    @NoIntersect
+
+	; If on floor, waiting for impulse to get on
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @CantUseLadder
+
+	; If heading upwards and at top, jump off
+	tst.l  PhysicsObj_VelY(a0)
+	ble    @NotJumpingOff
 	ENTITY_GETCENTREY d0,a0
 	move.l Entity_WorldPosY(a2), d1
 	sub.l  d0, d1
-	blt    @NotAtTop
+	blt    @NotJumpingOff
 	jsr    CharacterStartJump
 	move.l #Player1LadderExitVel, PhysicsObj_VelY(a0)
+	move.b #0x0, Character_CanClimbUp(a0)
+	move.b #0x0, Character_CanClimbDown(a0)
+	move.b #0x0, Character_Climbing(a0)
 	bra    @Found
-	@NotAtTop:
+	@NotJumpingOff:
+
+	; If heading downwards and at top, snap to position
+	tst.l  PhysicsObj_VelY(a0)
+	bge    @NotGettingOn
+	ENTITY_GETCENTREY d0,a0
+	move.l Entity_WorldPosY(a2), d1
+	sub.l  d0, d1
+	blt    @NotGettingOn
+	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	bra    @Found
+	@NotGettingOn:
 
 	; Set climbing
 	move.b #0x1, Character_Climbing(a0)
@@ -2197,6 +2274,24 @@ PlayerInteractTest_Ladder:
 	@Up:
 	@Stopped:
 
+	; If moving up/down, set climbing velocity
+	move.b  Character_ControlY(a0), d0
+	tst.b   d0
+	beq     @NoControl
+	blt     @ClimbingUp
+
+	move.l  Character_ClimbVel(a0), PhysicsObj_VelY(a0)
+	bra     @ClimbingDown
+
+	@ClimbingUp:
+
+	move.l  Character_ClimbVel(a0), d1
+	neg.l   d1
+	move.l  d1, PhysicsObj_VelY(a0)
+
+	@ClimbingDown:
+	@NoControl:
+
 	; If not previously climbing
 	tst.b  d7
 	bne    @Found
@@ -2205,7 +2300,6 @@ PlayerInteractTest_Ladder:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
 
 	; Not jumping or falling
 	move.b #0x0, Character_Jumping(a0)
@@ -2229,7 +2323,7 @@ PlayerInteractTest_Ladder:
 	lea  Ladder_Struct_Size(a2), a2
 	dbra d6, @LadderLoop
 	
-	@Jumping:
+	@CantUseLadder:
 	@NoLadders:
 	@Found:
 
