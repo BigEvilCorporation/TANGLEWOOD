@@ -321,6 +321,10 @@ FuzzlUpdate:
 	btst.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	beq    @MovedFromInitialPos
 
+	; TODO: Check for Player2 ineraction
+	tst.l  PhysicsObj_VelX(a0)
+	bne    @BeginRollingState
+
 	; Check if Fuzzl is far from player
 	PUSHL  a1
 	move.l (Player1), a1
@@ -358,8 +362,10 @@ FuzzlUpdate:
 	@Watching:
 	
 	; Check if being pushed
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	beq    @InitialState
+
+	@BeginRollingState:
 	
 	; Set rolling state
 	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)

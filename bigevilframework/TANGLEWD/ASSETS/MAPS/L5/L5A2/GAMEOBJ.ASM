@@ -87,7 +87,13 @@ L5A2_Nest_38_name	dc.b "L5A2_Nest_38",0
 
 L5A2_Flue_count equ 0x0
 
-L5A2_TriggerBox_count equ 0x0
+L5A2_TriggerBox_count equ 0x1
+L5A2_TriggerBox_EndLevel_idx	equ 0x0
+
+	IFND FINAL
+L5A2_TriggerBox_EndLevel_name	dc.b "L5A2_TriggerBox_EndLevel",0
+	even
+	ENDIF
 
 L5A2_Checkpoint_count equ 0x0
 
@@ -413,6 +419,27 @@ L5A2_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L5A2_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x15e00000, Entity_WorldPosX(a0)
+	move.l #0x09680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_TriggerBox_EndLevel_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 
