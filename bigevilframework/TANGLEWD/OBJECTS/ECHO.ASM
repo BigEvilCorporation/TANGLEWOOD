@@ -39,6 +39,8 @@ Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto nod
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistRaftX			equ screen_width/2	; X distance from raft to add a raft ride node
 Echo_AIDistRaftY			equ Player1Height	; Y distance from raft to add a raft ride node
+Echo_AIDistLadderX			equ screen_width	; X distance from ladder to add a raft ride node
+Echo_AIDistLadderY			equ (Ladder_Height/2)+Player1Height	; Y distance from ldder to add a raft ride node
 
 ; AI distance tolerances for reaching nodes
 Echo_AINodeToleranceJumpX		equ 0x0010
@@ -59,6 +61,8 @@ Echo_AINodeToleranceRaftX		equ 0x0020
 Echo_AINodeToleranceRaftY		equ Player1Height+0x0008
 Echo_AINodeToleranceButtonX		equ 0x0008
 Echo_AINodeToleranceButtonY		equ Player1Height+0x0008
+Echo_AINodeToleranceLadderX		equ 0x0008
+Echo_AINodeToleranceLadderY		equ (Ladder_Height/2)+Player1Height
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -87,6 +91,7 @@ EchoAIState_PushObj			equ 6	; Pushing an object towards Nymn
 EchoAIState_Button			equ 7	; Holding a button until deactivated
 EchoAIState_Water			equ 8	; Echo doesn't like water :(
 EchoAIState_Raft			equ 9	; Standing on moving raft, waiting for it to stop
+EchoAIState_Ladder			equ 10	; Climbing a ladder
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -98,6 +103,7 @@ EchoAINode_Action_StopGlide		equ 0x5
 EchoAINode_Action_StartPush		equ 0x6
 EchoAINode_Action_Button		equ 0x7
 EchoAINode_Action_Raft			equ 0x8
+EchoAINode_Action_Ladder		equ 0x9
 
 ; AI node userdata
 EchoAIPush_Left					equ 0x0
@@ -682,6 +688,8 @@ EchoUpdateAI:
 	beq    @Water
 	cmp.b  #EchoAIState_Raft, d0
 	beq    @Raft
+	cmp.b  #EchoAIState_Ladder, d0
+	beq    @Ladder
 	bra    @End
 	
 	@Follow:
@@ -714,6 +722,10 @@ EchoUpdateAI:
 
 	@Raft:
 	jsr    EchoAIUpdate_Raft
+	bra    @End
+
+	@Ladder:
+	jsr    EchoAIUpdate_Ladder
 	bra    @End
 	
 	@End:
@@ -898,14 +910,14 @@ EchoAIUpdate_FollowNodes:
 	move.w EchoAINode_ToleranceY(a3), d4
 
 	; If run into a wall, forcefully execute the next node
-	tst.b  EchoAINode_ForceIfHitWall(a3)
-	beq    @NotHitWall
-	PUSHL  d1
-	PHYSICS_HITFACINGWALL a0
-	POPL   d1
-	tst.b  d0
-	bne    @HittingWall
-	@NotHitWall:
+	;tst.b  EchoAINode_ForceIfHitWall(a3)
+	;beq    @NotHitWall
+	;PUSHL  d1
+	;PHYSICS_HITFACINGWALL a0
+	;POPL   d1
+	;tst.b  d0
+	;bne    @HittingWall
+	;@NotHitWall:
 
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
@@ -1395,6 +1407,95 @@ EchoAIUpdate_Raft:
 
 	rts
 
+EchoAIStart_Ladder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Ladder
+	
+	; Set ladder state
+	move.b #EchoAIState_Ladder, Echo_AIState(a0)
+
+	; Set ladder
+	move.l a2, Echo_AIObjectOfInterest(a0)
+	
+	rts
+
+EchoAIUpdate_Ladder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Get ladder
+	move.l Echo_AIObjectOfInterest(a0), a2
+
+	; If can't climb, end of state
+	tst.b  Character_CanClimb(a0)
+	beq    @OffLadder
+
+	; Get Y dist from P1
+	move.l Player1, a3
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a3
+	sub.l  d0, d1
+
+	; If P1 on floor, head there anyway
+	tst.b  PhysicsObj_CloseToFloor(a3)
+	bne    @P1OnFloor
+
+	; Check within height threshold
+	move.l d1, d2
+	ABS    d2
+	cmp.l  #Player1Height*subpixels_per_pixel, d2
+	blt    @WithinYDist
+
+	@P1OnFloor:
+	
+	; Determine direction to climb
+	tst.l  d1
+	blt    @AboveNymn
+
+	; Climb down
+	jsr    CharacterMoveDown
+	bra    @Climbing
+
+	@AboveNymn:
+
+	; Climb up
+	jsr    CharacterMoveUp
+	bra    @Climbing
+
+	@OffLadder:
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+	bra    @End
+
+	@WithinYDist:
+
+	; Within Y dist, stop climbing
+	move.l #0x0, PhysicsObj_VelY(a0)
+
+	; If outside X dist, back to follow state
+	move.l Player1, a3
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a3
+	sub.l  d0, d1
+	ABS    d1
+	cmp.l  #Player1Width*subpixels_per_pixel, d1
+	blt    @Climbing
+
+	; If not on floor, jump off
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @Onfloor
+	jsr    CharacterStartJump
+	@Onfloor:
+
+	jsr    EchoAIStart_Follow
+
+	@Climbing:
+	@End:
+
+	rts
+
 EchoAI_CheckOuterScreenBounds:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1761,9 +1862,29 @@ EchoAI_FindInterestingObj:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; If Echo on floor
+	; Search ladders
+	jsr    EchoAI_FindLadder
+	cmp.l  #0x0, a2
+	beq    @NoLadder
+	jsr    EchoAI_PushInteractionLadder
+	bra    @End
+	@NoLadder:
+
+	; Check water
+	jsr    EchoAI_FindWater
+	cmp.l  #0x0, a2
+	beq    @NoWater
+	jsr    EchoAIStart_Water
+	bra    @End
+	@NoWater:
+
+	;==============================================================
+	
+	; If Echo on floor, don't search the rest
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @End
+
+	;==============================================================
 
 	; Search Fuzzls
 	jsr    EchoAI_FindFuzzl
@@ -1796,14 +1917,6 @@ EchoAI_FindInterestingObj:
 	jsr    EchoAI_PushInteractionRaft
 	bra    @End
 	@NoRaft:
-
-	; Check water
-	jsr    EchoAI_FindWater
-	cmp.l  #0x0, a2
-	beq    @NoWater
-	jsr    EchoAIStart_Water
-	bra    @End
-	@NoWater:
 
 	@End:
 
@@ -1995,6 +2108,71 @@ EchoAI_FindButton:
 	move.l #0x0, a2
 
 	@FoundButton:
+
+	rts
+
+EchoAI_FindLadder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Ladder addr
+
+	; If already on a ladder and not on floor, find out which one
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @OnFloor
+	tst.b  Character_Climbing(a0)
+	beq    @OnLadder
+	@OnFloor:
+
+	; If within jump distance of Nymn, no need for a ladder
+	move.l (Player1), a3
+	move.w Entity_WorldPosY(a0), d0
+	move.w Entity_WorldPosY(a3), d1
+	sub.w  d0, d1
+	ABSW   d1
+	cmp.w  #Echo_AIJumpDistance*2, d1
+	blt    @WithinRange
+
+	@OnLadder:
+
+	move.w (EntityCount_Ladder), d6
+	tst.w  d6
+	beq    @NoLadders
+	move.l (EntityPoolStart_Ladder), a2
+	subq.w  #0x1, d6
+	@LadderLoop:
+
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a2), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistLadderX, d1
+	bgt    @NextLadder
+	cmp.w  #-Echo_AIDistLadderX, d1
+	blt    @NextLadder
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistLadderY, d1
+	bgt    @NextLadder
+	cmp.w  #-Echo_AIDistLadderY, d1
+	blt    @NextLadder
+
+	; Done
+	bra    @FoundLadder
+
+	@NextLadder:
+	lea    Ladder_Struct_Size(a2), a2
+	dbra   d6, @LadderLoop
+	
+	@NoLadders:
+	@WithinRange:
+	move.l #0x0, a2
+
+	@FoundLadder:
 
 	rts
 
@@ -2209,6 +2387,35 @@ EchoAI_PushInteractionRaft:
 
 	rts
 
+EchoAI_PushInteractionLadder:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Ladder addr
+
+	; Clear all nodes (interaction is a priority)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	ENTITY_GETCENTREX d0, a2
+	TOPIXELS d0
+
+	; Push ladder node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w d0, EchoAINode_PosX(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AINodeToleranceLadderX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceLadderY, EchoAINode_ToleranceY(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_Ladder, EchoAINode_Action(a3)
+
+	rts
+
 EchoAIPushNode:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -2332,6 +2539,8 @@ EchoAIPopNode:
 	beq    @StartButtonAction
 	cmp.b  #EchoAINode_Action_Raft, d0
 	beq    @StartRaftAction
+	cmp.b  #EchoAINode_Action_Ladder, d0
+	beq    @StartLadderAction
 
 	;==============================================================
 
@@ -2402,6 +2611,14 @@ EchoAIPopNode:
 
 	; Start raft ride state
 	jsr    EchoAIStart_Raft
+	bra    @EndAction
+
+	;==============================================================
+
+	@StartLadderAction:
+
+	; Start ladder climb state
+	jsr    EchoAIStart_Ladder
 	bra    @EndAction
 
 	;==============================================================
