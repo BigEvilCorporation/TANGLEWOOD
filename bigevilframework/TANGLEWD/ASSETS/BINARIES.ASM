@@ -9,6 +9,10 @@
 	; ************************************
 tiles_pxfont:
 	incbin 'assets\fonts\tiles\pxfont.bin'
+tiles_sansfont:
+	incbin 'assets\fonts\tiles\sansfont.bin'
+tiles_seriffont:
+	incbin 'assets\fonts\tiles\seriffnt.bin'
 tiles_twfont:
 	incbin 'assets\fonts\tiles\twfont.bin'
 tiles_twfontb:

@@ -6,11 +6,11 @@
 ;   exceptn.asm - 68k exception handler
 ;==============================================================
 
-Exception_Font				equ tiles_pxfont
-Exception_FontBold			equ tiles_pxfont
-Exception_FontSize			equ tiles_pxfont_size_t
+Exception_Font				equ tiles_sansfont
+Exception_FontBold			equ tiles_sansfont
+Exception_FontSize			equ tiles_sansfont_size_t
 Exception_FontAddr			equ 0x0000
-Exception_FontAddrBold		equ tiles_pxfont_size_b
+Exception_FontAddrBold		equ tiles_sansfont_size_b
 Exception_FontTileId		equ (Exception_FontAddr/size_tile_b)
 Exception_FontTileIdBold	equ (Exception_FontAddrBold/size_tile_b)
 Exception_ColourBg			equ 0x0008

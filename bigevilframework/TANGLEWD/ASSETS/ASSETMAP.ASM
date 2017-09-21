@@ -8,6 +8,8 @@
 	; Font tiles
 	; ************************************
 	include 'assets\fonts\tiles\pxfont.asm'
+	include 'assets\fonts\tiles\sansfont.asm'
+	include 'assets\fonts\tiles\seriffnt.asm'
 	include 'assets\fonts\tiles\twfont.asm'
 	include 'assets\fonts\tiles\twfontb.asm'
 	include 'assets\fonts\tiles\twfonts.asm'
