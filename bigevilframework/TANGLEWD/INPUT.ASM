@@ -117,22 +117,15 @@ HandlePlayerInput:
 	; =====================================================================
 	; Up/Down - Y movement (if climbing)
 	; =====================================================================
-	move.b Character_CanClimbUp(a0), d2
-	or.b   Character_CanClimbDown(a0), d2
+	tst.b  Character_CanClimb(a0)
 	beq    @NotClimbing
 	
-	tst.b Character_CanClimbUp(a0)
-	beq   @NoClimbUp
-
 	; Move up
 	btst #input_move_up, d0
 	beq  @NoClimbUp
 	jsr  CharacterMoveUp
 	bra  @YHandled
 	@NoClimbUp:
-
-	tst.b Character_CanClimbDown(a0)
-	beq   @NoClimbDown
 	
 	; Move down
 	btst #input_move_down, d0
@@ -146,8 +139,11 @@ HandlePlayerInput:
 	@NotClimbing:
 
 	; =====================================================================
-	; Up/Down - Y Peek (if not climbing)
+	; Up/Down - Y Peek (if not climbing,a nd on floor)
 	; =====================================================================
+
+	tst.b PhysicsObj_CloseToFloor(a0)
+	beq   @NoPeek
 
 	; Camera up
 	btst  #input_peek_up, d0
@@ -167,11 +163,13 @@ HandlePlayerInput:
 	bra   @YHandled
 	@NoDown:
 
+	@NoPeek:
+
 	; No up/down, return peek offset
 	PUSHL d0
 	jsr   CAM_PeekReturn
 	POPL  d0
-	
+
 	@YHandled:
 
 	; =====================================================================

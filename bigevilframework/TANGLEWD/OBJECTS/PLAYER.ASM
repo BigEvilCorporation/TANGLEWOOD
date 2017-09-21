@@ -2126,8 +2126,7 @@ PlayerInteractTest_Ladder:
 	
 	; Reset climb state
 	move.b #0x0, Character_Climbing(a0)
-	move.b #0x0, Character_CanClimbUp(a0)
-	move.b #0x0, Character_CanClimbDown(a0)
+	move.b #0x0, Character_CanClimb(a0)
 
 	; Reset gravity effect
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
@@ -2170,8 +2169,7 @@ PlayerInteractTest_Ladder:
 	beq    @NoIntersect
 
 	; Touching ladder's outer bounds
-	move.b #0x1, Character_CanClimbUp(a0)
-	move.b #0x1, Character_CanClimbDown(a0)
+	move.b #0x1, Character_CanClimb(a0)
 
 	;==============================================================
 
@@ -2179,12 +2177,11 @@ PlayerInteractTest_Ladder:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @OffFloor
 
-	; If on top platform, can't climb up
+	; If on top platform
 	move.l PhysicsObj_LastPlatform(a0), a3
 	lea    Ladder_Platform(a2), a4
 	cmp.l  a3, a4
 	bne    @OnBaseFloor
-	move.b #0x0, Character_CanClimbUp(a0)
 
 	; If controlling up, set minimum impulse to start climbing down
 	tst.b   Character_ControlY(a0)
@@ -2197,9 +2194,8 @@ PlayerInteractTest_Ladder:
 	move.l  d2, PhysicsObj_ImpulseY(a0)
 	bra    @OnTopPlatform
 
-	; else must be at base of ladder, can't climb down
+	; else must be at base of ladder
 	@OnBaseFloor:
-	move.b #0x0, Character_CanClimbDown(a0)
 
 	; If controlling down, set minimum impulse to start climbing up
 	tst.b   Character_ControlY(a0)
@@ -2238,8 +2234,7 @@ PlayerInteractTest_Ladder:
 	blt    @NotJumpingOff
 	jsr    CharacterStartJump
 	move.l #Player1LadderExitVel, PhysicsObj_VelY(a0)
-	move.b #0x0, Character_CanClimbUp(a0)
-	move.b #0x0, Character_CanClimbDown(a0)
+	move.b #0x0, Character_CanClimb(a0)
 	move.b #0x0, Character_Climbing(a0)
 	bra    @Found
 	@NotJumpingOff:

@@ -85,7 +85,10 @@ Character_AccelRun			rs.w 1
 Character_AccelWalk			rs.w 1
 Character_DecelIdle			rs.w 1
 Character_DecelForced		rs.w 1
+Character_ControlX			rs.b 1
+Character_ControlY			rs.b 1
 Character_CanJump			rs.b 1
+Character_CanClimb			rs.b 1
 Character_OnLedge			rs.b 1
 Character_InWater			rs.b 1
 Character_Walking			rs.b 1
@@ -102,7 +105,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 0
+Character_Struct_Pad    	rs.b 1
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================
@@ -128,6 +131,7 @@ CharacterInit:
 	move.l #0x0, Character_LastLedgeX(a0)
 	move.l #0x0, Character_LastLedgeY(a0)
 	move.b #0x1, Character_CanJump(a0)
+	move.b #0x0, Character_CanClimb(a0)
 	move.b #0x0, Character_OnLedge(a0)
 	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, Character_Walking(a0)
@@ -141,6 +145,8 @@ CharacterInit:
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
 	move.b #0x0, Character_LockSpriteFlip(a0)
+	move.b #0x0, Character_ControlX(a0)
+	move.b #0x0, Character_ControlY(a0)
 
 	rts
 	
@@ -222,6 +228,10 @@ CharacterUpdate:
 
 	; Update rolling platforms
 	jsr   CharacterUpdateRollingPlatform
+	
+	; Reset control
+	move.b #0x0, Character_ControlX(a0)
+	move.b #0x0, Character_ControlY(a0)
 	
 	rts
 
@@ -527,6 +537,9 @@ CharacterMoveLeft:
 	; Check if heading in opposite direction
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
 	bgt    @Decelerate
+
+	; Can move left
+	move.b #-1, Character_ControlX(a0)
 	
 	; Check if running or walking
 	tst.b  Character_Walking(a0)
@@ -567,6 +580,9 @@ CharacterMoveRight:
 	; Check if player climbing
 	tst.b  Character_Climbing(a0)
 	bne    @End
+
+	; Can move right
+	move.b #1, Character_ControlX(a0)
 	
 	; Check if heading in opposite direction
 	cmp.l  #0x0, PhysicsObj_VelX(a0)
@@ -594,11 +610,12 @@ CharacterMoveUp:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 
-	; If climbing
-	tst.b   Character_Climbing(a0)
+	; If climbing available
+	tst.b   Character_CanClimb(a0)
 	beq     @NotCimbing
 
-	move.l  Character_ClimbVel(a0), PhysicsObj_VelY(a0)
+	; Can move up
+	move.b #1, Character_ControlY(a0)
 
 	@NotCimbing:
 
@@ -608,13 +625,12 @@ CharacterMoveDown:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 
-	; If climbing
-	tst.b   Character_Climbing(a0)
+	; If climbing available
+	tst.b   Character_CanClimb(a0)
 	beq     @NotCimbing
 
-	move.l  Character_ClimbVel(a0), d2
-	neg.l   d2
-	move.l  d2, PhysicsObj_VelY(a0)
+	; Can move down
+	move.b #-1, Character_ControlY(a0)
 
 	@NotCimbing:
 
@@ -625,7 +641,9 @@ CharacterCancelXMovement:
 	; NB: Gamepad state in d0-d1, leave alone
 	
 	move.w #0x0, PhysicsObj_AccelX(a0)
-	
+	move.b #0x0, Character_ControlX(a0)
+	move.b #0x0, Character_ControlY(a0)
+
 	rts
 	
 CharacterStartJump:
