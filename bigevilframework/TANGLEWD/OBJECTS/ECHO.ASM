@@ -7,7 +7,8 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 0
+ECHO_AI_DEBUG_NODE_POS		equ 1
+ECHO_AI_DEBUG_STATE			equ 1
 
 ; Constants
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
@@ -39,8 +40,8 @@ Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto nod
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistRaftX			equ screen_width/2	; X distance from raft to add a raft ride node
 Echo_AIDistRaftY			equ Player1Height	; Y distance from raft to add a raft ride node
-Echo_AIDistLadderX			equ screen_width	; X distance from ladder to add a raft ride node
-Echo_AIDistLadderY			equ (Ladder_Height/2)+Player1Height	; Y distance from ldder to add a raft ride node
+Echo_AIDistLadderX			equ screen_width/2	; X distance from ladder to add a ladder climb node
+Echo_AIDistLadderY			equ 0x0008			; Y distance from top or bottom of ladder to add a ladder climb node
 
 ; AI distance tolerances for reaching nodes
 Echo_AINodeToleranceJumpX		equ 0x0010
@@ -157,8 +158,9 @@ Echo_AIWaterDirection		rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
+Echo_EnteringLadder			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 1
+Echo_Struct_Pad      		rs.b 0
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -540,6 +542,23 @@ EchoDraw:
 	@DebugNodeEnd:
 	ENDIF
 
+	IF ECHO_AI_DEBUG_STATE
+	clr.w  d0
+	move.b Echo_AIState(a0), d0
+	move.l #((8*8)<<16)|(4*8), d1
+	jsr    DBG_DrawWord
+
+	move.w Echo_AINodeProducer(a0), d0
+	move.w Echo_AINodeConsumer(a0), d1
+	cmp.w  d0, d1
+	beq    @DebugNoNodes
+	jsr    EchoAIPeekNodeFront
+	move.b EchoAINode_Action(a3), d0
+	move.l #((8*8)<<16)|(5*8), d1
+	jsr    DBG_DrawWord
+	@DebugNoNodes:
+	ENDIF
+
 	rts
 
 EchoStartCameraLerp:
@@ -910,14 +929,14 @@ EchoAIUpdate_FollowNodes:
 	move.w EchoAINode_ToleranceY(a3), d4
 
 	; If run into a wall, forcefully execute the next node
-	;tst.b  EchoAINode_ForceIfHitWall(a3)
-	;beq    @NotHitWall
-	;PUSHL  d1
-	;PHYSICS_HITFACINGWALL a0
-	;POPL   d1
-	;tst.b  d0
-	;bne    @HittingWall
-	;@NotHitWall:
+	tst.b  EchoAINode_ForceIfHitWall(a3)
+	beq    @NotHitWall
+	PUSHL  d1
+	PHYSICS_HITFACINGWALL a0
+	POPL   d1
+	tst.b  d0
+	bne    @HittingWall
+	@NotHitWall:
 
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
@@ -1417,6 +1436,14 @@ EchoAIStart_Ladder:
 
 	; Set ladder
 	move.l a2, Echo_AIObjectOfInterest(a0)
+
+	; Reset fail timer
+	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
+
+	; Waiting to enter ladder
+	move.b Character_Climbing(a0), d0
+	eor.b  #0x1, d0
+	move.b d0, Echo_EnteringLadder(a0)
 	
 	rts
 
@@ -1424,12 +1451,32 @@ EchoAIUpdate_Ladder:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If fail timer depleted, set lost state
+	move.w Echo_AINodeFailTimer(a0), d0
+	subq.w  #0x1, d0
+	move.w d0, Echo_AINodeFailTimer(a0)
+	bne    @NodeFailTimerRunning
+	jsr    EchoAIStart_Lost
+	bra    @NodeFailed
+	@NodeFailTimerRunning:
+
 	; Get ladder
 	move.l Echo_AIObjectOfInterest(a0), a2
 
-	; If can't climb, end of state
-	tst.b  Character_CanClimb(a0)
+	; If waiting to enter ladder, wait until in climbing state
+	tst.b  Echo_EnteringLadder(a0)
+	beq    @EnteredLadder
+	move.b Character_Climbing(a0), d0
+	eor.b  #0x1, d0
+	move.b d0, Echo_EnteringLadder(a0)
+	bra    @NotEnteredLadder
+	@EnteredLadder:
+
+	; If stopped climbing, end of state
+	tst.b  Character_Climbing(a0)
 	beq    @OffLadder
+
+	@NotEnteredLadder:
 
 	; Get Y dist from P1
 	move.l Player1, a3
@@ -1465,6 +1512,10 @@ EchoAIUpdate_Ladder:
 
 	@OffLadder:
 
+	; Wait until next on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @End
+
 	; Back to follow state
 	jsr    EchoAIStart_Follow
 	bra    @End
@@ -1489,10 +1540,11 @@ EchoAIUpdate_Ladder:
 	jsr    CharacterStartJump
 	@Onfloor:
 
-	jsr    EchoAIStart_Follow
+	move.b #0x0, Character_Climbing(a0)
 
 	@Climbing:
 	@End:
+	@NodeFailed:
 
 	rts
 
@@ -1820,7 +1872,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	;move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x0, EchoAINode_LerpCamera(a3)
 	@NotJumping:
 
@@ -2120,16 +2172,17 @@ EchoAI_FindLadder:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @OnFloor
 	tst.b  Character_Climbing(a0)
-	beq    @OnLadder
+	bne    @OnLadder
 	@OnFloor:
 
 	; If within jump distance of Nymn, no need for a ladder
 	move.l (Player1), a3
-	move.w Entity_WorldPosY(a0), d0
-	move.w Entity_WorldPosY(a3), d1
-	sub.w  d0, d1
-	ABSW   d1
-	cmp.w  #Echo_AIJumpDistance*2, d1
+	move.w Entity_WorldPosY(a0), d3
+	move.w Entity_WorldPosY(a3), d4
+	sub.w  d3, d4
+	move.w d4, d5
+	ABSW   d5
+	cmp.w  #Echo_AIJumpDistance, d5
 	blt    @WithinRange
 
 	@OnLadder:
@@ -2149,10 +2202,42 @@ EchoAI_FindLadder:
 	bgt    @NextLadder
 	cmp.w  #-Echo_AIDistLadderX, d1
 	blt    @NextLadder
+	
+	; Check if can start climbing immediately
+	PUSHM  a0-a3/d0-d6
+	jsr    PlayerInteractTest_Ladder
+	POPM   a0-a3/d0-d6
 
-	; Check within Y threshold
-	ENTITY_GETCENTREY d0,a0
-	ENTITY_GETCENTREY d1,a2
+	; If already climbing, push state directly
+	tst.b  Character_Climbing(a0)
+	beq    @CheckTop
+	jsr    EchoAIStart_Ladder
+	move.l #0x0, a2				; Suppress node being pushed
+	bra    @FoundLadder			; Done
+	
+	@CheckTop:
+
+	; If Nymn below Echo, check for top of ladder
+	cmp.w  #Echo_AIJumpDistance, d4
+	blt    @CheckBottom
+	ENTITY_GETBOTTOM d0,a0
+	ENTITY_GETTOP d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistLadderY, d1
+	bgt    @NextLadder
+	cmp.w  #-Echo_AIDistLadderY, d1
+	blt    @NextLadder
+	
+	; Done
+	bra    @FoundLadder
+
+	@CheckBottom:
+
+	; If Nymn above echo, check for bottom of ladder
+	ENTITY_GETBOTTOM d0,a0
+	ENTITY_GETBOTTOM d1,a2
 	TOPIXELS d0
 	TOPIXELS d1
 	sub.w    d0, d1
@@ -2410,7 +2495,7 @@ EchoAI_PushInteractionLadder:
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Ladder, EchoAINode_Action(a3)
 
