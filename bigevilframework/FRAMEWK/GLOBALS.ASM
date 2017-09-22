@@ -172,6 +172,7 @@ vdp_dma_mode_fill		equ 0x80
 
 ; VDP DMA top byte address masks
 vdp_dma_addr_mask_write equ 0x7F
+vdp_dma_addr_mask_write_l equ 0x007FFFFF
 vdp_dma_addr_mask_copy  equ 0x3F
 vdp_dma_addr_mask_fill  equ 0x3F
 

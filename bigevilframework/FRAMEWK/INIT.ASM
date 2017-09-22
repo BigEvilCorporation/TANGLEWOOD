@@ -43,6 +43,9 @@ CPU_EntryPoint:
 	; Init EXT port
 	jsr PAD_InitEXTPort
 
+	; Init VDP DMA queue
+	jsr VDP_DMAQueue_Init
+
 	; Init VDP job queue
 	jsr VDP_JobQueue_Init
 
