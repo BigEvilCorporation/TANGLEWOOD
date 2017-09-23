@@ -27,7 +27,13 @@ L5A1_Nymn_6_name	dc.b "L5A1_Nymn_6",0
 	even
 	ENDIF
 
-L5A1_Log_count equ 0x0
+L5A1_Log_count equ 0x1
+L5A1_Log1_idx	equ 0x0
+
+	IFND FINAL
+L5A1_Log1_name	dc.b "L5A1_Log1",0
+	even
+	ENDIF
 
 L5A1_DjakkCage_count equ 0x0
 
@@ -35,13 +41,7 @@ L5A1_BouncePlant_count equ 0x0
 
 L5A1_Monster_count equ 0x0
 
-L5A1_Boulder_count equ 0x1
-L5A1_Boulder_39_idx	equ 0x0
-
-	IFND FINAL
-L5A1_Boulder_39_name	dc.b "L5A1_Boulder_39",0
-	even
-	ENDIF
+L5A1_Boulder_count equ 0x0
 
 L5A1_FuzzlCage_count equ 0x0
 
@@ -268,28 +268,28 @@ L5A1_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
-
-
-
-
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L5A1_Boulder_count)
-	move.l a1, EntityPoolStart_Boulder
+	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L5A1_Log_count)
+	move.l a1, EntityPoolStart_Log
 	move.l a1, a0
 	POPL   a1
 
-	jsr BoulderInit
-	move.l #0x0df00000, Entity_WorldPosX(a0)
+	jsr LogInit
+	move.l #0x0e000000, Entity_WorldPosX(a0)
 	move.l #0x05180000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A1_Boulder_39_name, a3
+	lea L5A1_Log1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
+	move.l #0x9, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BoulderLoadGfx
-	add.l #Boulder_Struct_Size, a0
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
+
+
+
+
 
 
 
@@ -632,6 +632,7 @@ L5A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 
