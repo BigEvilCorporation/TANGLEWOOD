@@ -181,11 +181,17 @@ PhysicsObjUpdate:
 	; If inactive, bail
 	tst.b  Entity_Active(a0)
 	beq    @Inactive
+
+	; If on platform, ignore out of view test
+	tst.l  PhysicsObj_LastPlatform(a0)
+	bne    @OnPlatform
 	
 	; If out of view, treat as asleep
 	move.b AnimObj_UpdateOutOfView(a0), d0
 	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @Invisible
+
+	@OnPlatform:
 	
 	tst.b  PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
