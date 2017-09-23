@@ -623,7 +623,7 @@ L5A1_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x11180000, Entity_WorldPosX(a0)
+	move.l #0x11200000, Entity_WorldPosX(a0)
 	move.l #0x06580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Button2_name, a3

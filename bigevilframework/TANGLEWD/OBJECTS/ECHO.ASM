@@ -7,8 +7,8 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 1
-ECHO_AI_DEBUG_STATE			equ 1
+ECHO_AI_DEBUG_NODE_POS		equ 0
+ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
@@ -40,8 +40,10 @@ Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto nod
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistRaftX			equ screen_width/2	; X distance from raft to add a raft ride node
 Echo_AIDistRaftY			equ Player1Height	; Y distance from raft to add a raft ride node
-Echo_AIDistLadderX			equ screen_width/2	; X distance from ladder to add a ladder climb node
+Echo_AIDistLadderX			equ screen_width/4	; X distance from ladder to add a ladder climb node
 Echo_AIDistLadderY			equ 0x0008			; Y distance from top or bottom of ladder to add a ladder climb node
+Echo_AIDistCartX			equ screen_width/4	; X distance from cart to add a cart ride node
+Echo_AIDistCartY			equ Cart_Height+Player1Height	; Y distance from cart to add a cart ride node
 
 ; AI distance tolerances for reaching nodes
 Echo_AINodeToleranceJumpX		equ 0x0010
@@ -64,6 +66,8 @@ Echo_AINodeToleranceButtonX		equ 0x0008
 Echo_AINodeToleranceButtonY		equ Player1Height+0x0008
 Echo_AINodeToleranceLadderX		equ 0x0008
 Echo_AINodeToleranceLadderY		equ (Ladder_Height/2)+Player1Height
+Echo_AINodeToleranceCartX		equ 0x0008
+Echo_AINodeToleranceCartY		equ Cart_Height+Player1Height
 
 ; Animations
 EchoAnimIdx_JumpToNymn    	equ 0
@@ -93,6 +97,7 @@ EchoAIState_Button			equ 7	; Holding a button until deactivated
 EchoAIState_Water			equ 8	; Echo doesn't like water :(
 EchoAIState_Raft			equ 9	; Standing on moving raft, waiting for it to stop
 EchoAIState_Ladder			equ 10	; Climbing a ladder
+EchoAIState_Cart			equ 11	; Riding a cart
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -105,6 +110,7 @@ EchoAINode_Action_StartPush		equ 0x6
 EchoAINode_Action_Button		equ 0x7
 EchoAINode_Action_Raft			equ 0x8
 EchoAINode_Action_Ladder		equ 0x9
+EchoAINode_Action_Cart			equ 0x10
 
 ; AI node userdata
 EchoAIPush_Left					equ 0x0
@@ -719,6 +725,8 @@ EchoUpdateAI:
 	beq    @Raft
 	cmp.b  #EchoAIState_Ladder, d0
 	beq    @Ladder
+	cmp.b  #EchoAIState_Cart, d0
+	beq    @Cart
 	bra    @End
 	
 	@Follow:
@@ -755,6 +763,10 @@ EchoUpdateAI:
 
 	@Ladder:
 	jsr    EchoAIUpdate_Ladder
+	bra    @End
+
+	@Cart:
+	jsr    EchoAIUpdate_Cart
 	bra    @End
 	
 	@End:
@@ -969,11 +981,11 @@ EchoAIUpdate_FollowNodes:
 	
 	@TooFarleft:
 	jsr    CharacterMoveRight
-	bra    @End
+	bra    @Moving
 	
 	@TooFarRight:
 	jsr    CharacterMoveLeft
-	bra    @End
+	bra    @Moving
 	
 	@WithinBounds:
 
@@ -1003,19 +1015,27 @@ EchoAIUpdate_FollowNodes:
 	; Reset fail timer
 	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
 
-	; If last node, return to follow
+	; If last node, and last pop didn't change state, return to follow
+	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
+	bne    @End
 	move.w Echo_AINodeProducer(a0), d0
 	move.w Echo_AINodeConsumer(a0), d1
 	cmp.w  d0, d1
 	bne    @End
 	jsr    EchoAIStart_Follow
+	bra    @End
 	
+	@Moving:
+
+	; Search ladders
+	jsr    EchoAI_FindLadder
+	cmp.l  #0x0, a2
+	beq    @End
+	jsr    EchoAI_PushInteractionLadder
+
 	@Lost:
 	@NodeFailed:
 	@End:
-
-	; Search for interesting objects
-	jsr    EchoAI_FindInterestingObj
 	
 	rts
 
@@ -1565,6 +1585,40 @@ EchoAIUpdate_Ladder:
 
 	rts
 
+EchoAIStart_Cart:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Cart
+	
+	; Set cart state
+	move.b #EchoAIState_Cart, Echo_AIState(a0)
+
+	; Set cart
+	move.l a2, Echo_AIObjectOfInterest(a0)
+
+	; Jump in
+	jsr    CharacterStartJump
+	
+	rts
+
+EchoAIUpdate_Cart:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Get cart
+	move.l Echo_AIObjectOfInterest(a0), a2
+
+	; Wait until smashed
+	tst.b  Cart_Smashed(a2)
+	beq    @Riding
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+
+	@Riding:
+
+	rts
+
 EchoAI_CheckOuterScreenBounds:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1942,15 +1996,15 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoLadder:
 
-	;==============================================================
+	; Search carts
+	jsr    EchoAI_FindCart
+	cmp.l  #0x0, a2
+	beq    @NoCart
+	jsr    EchoAI_PushInteractionCart
+	bra    @End
+	@NoCart:
 
-	; If following nodes, don't search the rest
-	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
-	beq    @End
-
-	;==============================================================
-
-	; Check water
+	; Search water
 	jsr    EchoAI_FindWater
 	cmp.l  #0x0, a2
 	beq    @NoWater
@@ -1990,7 +2044,7 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoButton:
 
-	; Check rafts
+	; Search rafts
 	jsr    EchoAI_FindRaft
 	cmp.l  #0x0, a2
 	beq    @NoRaft
@@ -2082,6 +2136,10 @@ EchoAI_FindLog:
 	move.l (EntityPoolStart_Log), a2
 	subq.w #0x1, d6
 	@LogLoop:
+
+	; If log on a platform, it's probably supposed to be there, leave it alone
+	tst.l  PhysicsObj_LastPlatform(a2)
+	bne    @NextLog
 
 	; Edge case: if Nymn is busy with a button, help out
 	tst.l  PhysicsObj_LastPlatform(a3)
@@ -2286,6 +2344,62 @@ EchoAI_FindLadder:
 	move.l #0x0, a2
 
 	@FoundLadder:
+
+	rts
+
+EchoAI_FindCart:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- OUT: Cart addr
+
+	; TODO: If Nymn is also using a cart
+
+	move.w (EntityCount_Cart), d6
+	tst.w  d6
+	beq    @NoCarts
+	move.l (EntityPoolStart_Cart), a2
+	subq.w  #0x1, d6
+	@CartLoop:
+
+	; Check not destroyed
+	tst.b  Cart_Smashed(a2)
+	bne    @NextCart
+
+	; Check not already in use
+	tst.l  Cart_Occupant(a0)
+	bne    @NextCart
+
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a2), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistCartX, d1
+	bgt    @NextCart
+	cmp.w  #-Echo_AIDistCartX, d1
+	blt    @NextCart
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistCartY, d1
+	bgt    @NextCart
+	cmp.w  #-Echo_AIDistCartY, d1
+	blt    @NextCart
+
+	; Done
+	bra    @FoundCart
+
+	@NextCart:
+	lea    Cart_Struct_Size(a2), a2
+	dbra   d6, @CartLoop
+	
+	@NoCarts:
+	move.l #0x0, a2
+
+	@FoundCart:
 
 	rts
 
@@ -2529,6 +2643,35 @@ EchoAI_PushInteractionLadder:
 
 	rts
 
+EchoAI_PushInteractionCart:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Cart addr
+
+	; Clear all nodes (interaction is a priority)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	ENTITY_GETCENTREX d0, a2
+	TOPIXELS d0
+
+	; Push cart ride node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w d0, EchoAINode_PosX(a3)
+	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w #Echo_AINodeToleranceCartX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceCartY, EchoAINode_ToleranceY(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_Cart, EchoAINode_Action(a3)
+
+	rts
+
 EchoAIPushNode:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -2616,6 +2759,11 @@ EchoAIPopNode:
 
 	;==============================================================
 
+	; Stop interact mode
+	jsr    PlayerCancelInteract
+
+	;==============================================================
+
 	; Lerp camera if configured and not already enabled
 	tst.b  EchoAINode_LerpCamera(a3)
 	beq    @NoCameraLerp
@@ -2654,6 +2802,8 @@ EchoAIPopNode:
 	beq    @StartRaftAction
 	cmp.b  #EchoAINode_Action_Ladder, d0
 	beq    @StartLadderAction
+	cmp.b  #EchoAINode_Action_Cart, d0
+	beq    @StartCartAction
 
 	;==============================================================
 
@@ -2732,6 +2882,14 @@ EchoAIPopNode:
 
 	; Start ladder climb state
 	jsr    EchoAIStart_Ladder
+	bra    @EndAction
+
+	;==============================================================
+
+	@StartCartAction:
+
+	; Start cart ride state
+	jsr    EchoAIStart_Cart
 	bra    @EndAction
 
 	;==============================================================

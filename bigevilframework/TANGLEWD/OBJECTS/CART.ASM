@@ -128,13 +128,18 @@ CartLoadGfx:
 CartUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Base functionality
+	jsr    PhysicsObjUpdate
+
+	; If got an occupant
+	move.l Cart_Occupant(a0), a3
+	cmp.l  #0x0, a3
+	beq    @Unoccupied
 	
 	; If hit wall, cart smashed
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @Smashed
-
-	; Base functionality
-	jsr    PhysicsObjUpdate
 
 	; Reposition platform
 	lea    Cart_Platform(a0), a2
@@ -146,14 +151,10 @@ CartUpdate:
 	; Set platform velocity
 	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_VelY(a0), Platform_VelY(a2)
-
-	; If cart has an occupant, start moving and set high sprite prio
-	move.l Platform_LastOccupant(a2), a3
-	cmp.l  #0x0, a3
-	beq    @Unoccupied
 	
 	move.w #Cart_Accel, PhysicsObj_AccelX(a0)
 	move.b #0x1, SpriteObj_Priority(a0)
+	move.l a3, Cart_Occupant(a0)
 	
 	; Update occupant pos
 	move.w Entity_WorldPosX(a0), d0
@@ -173,14 +174,37 @@ CartUpdate:
 	subi.w #(Cart_Height-Cart_PlatformOffsetY), d1
 	TOSUBPIXELS d1
 	move.l d1, Entity_WorldPosY(a3)
-	
-	bra    @Occupied
-	
-	@Unoccupied:
-	move.b #0x0, SpriteObj_Priority(a0)
-	@Occupied:
+
+	bra    @End
 	
 	@Smashed:
+
+	; Set smashed, remove occupant
+	move.b #0x1, Cart_Smashed(a0)
+	move.l #0x0, Cart_Occupant(a0)
+	move.b #0x0, AnimObj_UpdateOutOfView(a0)
+
+	; Disable platform
+	lea    Cart_Platform(a0), a2
+	LIST_REMOVE Platforms, a2, a3, a4
+
+	; Reset sprite prio
+	move.b #0x0, SpriteObj_Priority(a0)
+
+	@Unoccupied:
+	@End:
+
+	rts
+
+CartSetOccupant:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Occupant
+
+	move.l a2, Cart_Occupant(a0)
+
+	; Update out of view (in case used by AI)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	rts
 	

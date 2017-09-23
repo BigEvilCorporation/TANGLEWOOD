@@ -50,8 +50,9 @@ Log_Platform		rs.b Platform_Struct_Size ; Moving platform on top of Log
 Log_FloorRollAccel	rs.w 1
 Log_RollSFXPlaying	rs.b 1
 Log_Hazardous		rs.b 1
+Log_NoAI			rs.b 1
 ;-----------------------------
-Log_Struct_Pad		rs.b 0   ; Alignment padding
+Log_Struct_Pad		rs.b 3   ; Alignment padding
 Log_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -97,6 +98,7 @@ LogInit:
 	move.w  #0x0, Log_FloorRollAccel(a0)
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	move.b  #0x0, Log_Hazardous(a0)
+	move.b  #0x0, Log_NoAI(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)

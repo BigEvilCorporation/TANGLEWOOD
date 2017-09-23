@@ -293,15 +293,6 @@ PlayerUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Test for pickups
-	jsr    PlayerInteractTest_Fireflies
-	
-	; Test for water
-	jsr    PlayerInteractTest_Water
-
-	; Test for bounce plants
-	jsr    PlayerInteractTest_BouncePlants
-
 	; Test for ladders
 	jsr    PlayerInteractTest_Ladder
 	
@@ -341,6 +332,18 @@ PlayerUpdate:
 
 	; Process pushing objects after physics update
 	jsr    PlayerUpdatePushInteract
+
+	; Test for pickups
+	jsr    PlayerInteractTest_Fireflies
+	
+	; Test for water
+	jsr    PlayerInteractTest_Water
+
+	; Test for bounce plants
+	jsr    PlayerInteractTest_BouncePlants
+
+	; Test for carts
+	jsr    PlayerInteractTest_Carts
 
 	IF PLAYER_DEBUG
 
@@ -1897,6 +1900,62 @@ PlayerInteractTest_Fireflies:
 	dbra   d0, @FireflyLoop
 	
 	@NoFireflies:
+
+	POPL   a1
+	POPL   a0
+	
+	ENDIF
+
+	rts
+
+PlayerInteractTest_Carts:
+
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	IFND DEBUG
+
+	PUSHL  a0
+	PUSHL  a1
+
+	move.l a0, a2
+	
+	move.w (EntityCount_Cart), d0
+	tst.w  d0
+	beq    @NoCarts
+
+	; Check player against all carts in level
+	move.l a0, a1							; Player in a1
+	move.l (EntityPoolStart_Cart), a0		; Cart in a0
+	subq.w  #0x1, d0
+	@CartLoop:
+
+	; Check not smashed
+	tst.b  Cart_Smashed(a0)
+	bne    @NextCart
+
+	; Check not already occupied
+	tst.l  Cart_Occupant(a0)
+	bne    @NextCart
+
+	; Check platform occupied
+	lea    Cart_Platform(a0), a3
+	tst.b  Platform_Occupied(a3)
+	beq    @NextCart
+
+	; Check it's the current player
+	move.l Platform_LastOccupant(a3), a4
+	cmp.l  a2, a4
+	bne    @NextCart
+
+	; Found
+	jsr    CartSetOccupant
+
+	@NextCart:
+	lea    Cart_Struct_Size(a0), a0
+	dbra   d0, @CartLoop
+	
+	@NoCarts:
 
 	POPL   a1
 	POPL   a0
