@@ -686,6 +686,16 @@ EchoHowl:
 EchoUpdateAI:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If dead and off screen, revive and force lost state
+	tst.b  Character_Dead(a0)
+	beq    @NotDead
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @OnScreen
+	move.b #0x0, Character_Dead(a0)
+	jsr    EchoAIStart_Lost
+	@NotDead:
+	@OnScreen:
 	
 	move.b Echo_AIState(a0), d0
 	
@@ -1003,6 +1013,9 @@ EchoAIUpdate_FollowNodes:
 	@Lost:
 	@NodeFailed:
 	@End:
+
+	; Search for interesting objects
+	jsr    EchoAI_FindInterestingObj
 	
 	rts
 
@@ -1437,8 +1450,8 @@ EchoAIStart_Ladder:
 	; Set ladder
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
-	; Reset fail timer
-	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
+	; Reset lost timer
+	move.w #Echo_LostTime, Echo_AILostTimer(a0)
 
 	; Waiting to enter ladder
 	move.b Character_Climbing(a0), d0
@@ -1451,14 +1464,18 @@ EchoAIUpdate_Ladder:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; If fail timer depleted, set lost state
-	move.w Echo_AINodeFailTimer(a0), d0
+	; If off screen, count down lost timer
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
+	move.w Echo_AILostTimer(a0), d0
 	subq.w  #0x1, d0
-	move.w d0, Echo_AINodeFailTimer(a0)
-	bne    @NodeFailTimerRunning
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
 	jsr    EchoAIStart_Lost
-	bra    @NodeFailed
-	@NodeFailTimerRunning:
+	bra    @Lost
+	@OnScreen:
+	@LostTimerRunning:
 
 	; Get ladder
 	move.l Echo_AIObjectOfInterest(a0), a2
@@ -1544,7 +1561,7 @@ EchoAIUpdate_Ladder:
 
 	@Climbing:
 	@End:
-	@NodeFailed:
+	@Lost:
 
 	rts
 
@@ -1720,9 +1737,12 @@ EchoAI_WatchNymnMovement:
 	; a1 --- Level addr
 	; a2 --- Nymn addr
 
-	; If Nymn on floor, take floor pos
+	; If Nymn on floor or ladder, take floor pos
 	tst.b  PhysicsObj_CloseToFloor(a2)
-	beq    @NymnInAir
+	bne    @OnFloor
+	tst.b  Character_Climbing(a2)
+	bne    @NymnInAir
+	@OnFloor:
 	ENTITY_GETCENTREX d5,a2
 	TOPIXELS d5
 	move.w d5, Echo_LastNymnFloorPosX(a0)
@@ -1921,6 +1941,14 @@ EchoAI_FindInterestingObj:
 	jsr    EchoAI_PushInteractionLadder
 	bra    @End
 	@NoLadder:
+
+	;==============================================================
+
+	; If following nodes, don't search the rest
+	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
+	beq    @End
+
+	;==============================================================
 
 	; Check water
 	jsr    EchoAI_FindWater
