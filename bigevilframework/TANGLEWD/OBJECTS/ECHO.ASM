@@ -2137,9 +2137,13 @@ EchoAI_FindLog:
 	subq.w #0x1, d6
 	@LogLoop:
 
-	; If log on a platform, it's probably supposed to be there, leave it alone
-	tst.l  PhysicsObj_LastPlatform(a2)
+	; Check if AI can use
+	tst.b  Log_NoAI(a2)
 	bne    @NextLog
+	
+	; If log on a platform, it's probably supposed to be there, leave it alone
+	;tst.l  PhysicsObj_LastPlatform(a2)
+	;bne    @NextLog
 
 	; Edge case: if Nymn is busy with a button, help out
 	tst.l  PhysicsObj_LastPlatform(a3)
