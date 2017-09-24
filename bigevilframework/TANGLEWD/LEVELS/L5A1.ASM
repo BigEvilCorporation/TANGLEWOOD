@@ -63,6 +63,7 @@ L5a1_Init:
 	move.l #LevelData_L5A1, (a2)+
 	move.l #LevelData_L5A2, (a2)+
 	;move.l #LevelData_L5A3, (a2)+
+	move.l #LevelData_L5A4, (a2)+
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map

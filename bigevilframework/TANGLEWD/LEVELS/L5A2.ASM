@@ -26,11 +26,7 @@ l5a2_BygoneAct2:
 	dc.l l5a2_Serialise					; Serialise routine
 	dc.l l5a2_LoadGameObjects			; Load game objects routine
 	dc.l l5a2_End						; End routine
-	IF INCLUDE_LEVEL_6
-	dc.l L6a1_DeadwoodAct1				; Next level
-	ELSE
-	dc.l 0x00000000
-	ENDIF
+	dc.l L5a4_BygoneAct4				; Next level
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l5a2_width					; Map width (tiles)
 	dc.w map_l5a2_height				; Map height (tiles)
