@@ -336,6 +336,10 @@ BYTES2TILES: macro reg
 	lsr.w  #0x5, \reg
 	endm
 
+TILES2BYTES: macro reg
+	lsl.w  #0x5, \reg
+	endm
+
 TILES2BLOCKS: macro reg
 	lsr.w  #0x2, \reg
 	endm

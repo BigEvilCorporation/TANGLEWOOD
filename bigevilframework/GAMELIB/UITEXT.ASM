@@ -106,7 +106,7 @@ UIWidgetTextSetString:
 	PUSHM  d0/a0-a1
 	clr.w  d0
 	move.b UIWidgetText_TileCount(a0), d0
-	mulu   #size_tile_b, d0
+	TILES2BYTES d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, d1
 	POPM   d0/a0-a1

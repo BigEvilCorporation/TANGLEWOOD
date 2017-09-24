@@ -282,7 +282,7 @@ LevelLoadArt:
 
 	; Alloc VRAM
 	move.w Level_NumTiles(a1), d0
-	mulu   #size_tile_b, d0
+	TILES2BYTES d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, vram_addr_leveltiles
 

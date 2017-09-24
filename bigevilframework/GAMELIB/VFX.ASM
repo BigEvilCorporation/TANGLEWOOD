@@ -57,7 +57,7 @@ VfxInit:
 
 	; Alloc VRAM
 	move.w SpriteSheet_SizeTiles(a2), d0
-	mulu.w #size_tile_b, d0
+	TILES2BYTES d0
 	PUSHM  a0-a3
 	jsr    VRAM_PoolAlloc
 	POPM   a0-a3

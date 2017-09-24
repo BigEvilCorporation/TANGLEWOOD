@@ -233,7 +233,7 @@ TXT_LoadStringSpriteTiles:
 	
 	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile id
 	move.b   d2, d4                 ; Move tile ID to lower byte of d4
-	mulu     #size_tile_b, d4       ; Tile to bytes
+	TILES2BYTES d4                  ; Tile to bytes
 	add.l    a1, d4                 ; Add to font address
 
 	; VRAM copy

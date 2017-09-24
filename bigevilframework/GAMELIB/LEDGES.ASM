@@ -34,7 +34,7 @@ FindLedge:
 	lsl.l  #0x1, d3					; Tile offset to words
 	add.l  d3, a0					; Advance ptr
 	move.w (a0), d2					; Fetch map tile
-	mulu   #size_tile_b, d2		; Tile ID to byte offset
+	TILES2BYTES d2					; Tile ID to byte offset
 	add.l  d2, a1					; Add offset to collision data addr
 	
 	; =====================================================================
