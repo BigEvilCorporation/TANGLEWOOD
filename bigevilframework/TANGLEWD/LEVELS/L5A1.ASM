@@ -116,6 +116,10 @@ L5a1_Init:
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.l #BridgeBeginUnroll, Button_OnUp(a0)
 
+	; Disable AI on log
+	ENTITY_GETBYNAME Log, l5a1_Log1, a0
+	move.b #0x1, Log_NoAI(a0)
+
 	;==============================================================
 
 	; 'Special' terrain is cart rails, don't collide
