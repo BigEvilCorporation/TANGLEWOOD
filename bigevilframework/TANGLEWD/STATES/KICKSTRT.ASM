@@ -47,7 +47,7 @@ KickstarterScreen_Enter:
 	move.w #map_ks_logo_width, d3		; d3 (w)  Source map total width (tiles)
 	clr.l  d4
 	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
-	divu   #size_tile_b, d4
+	BYTES2TILES d4
 	move.l #PaletteId_KSLogo, d5	; d5 (b)  Palette ID
 	jsr    VDP_LoadMapSegmentPlaneA
 	

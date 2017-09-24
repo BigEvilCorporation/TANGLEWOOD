@@ -118,7 +118,7 @@ UIWidgetTextSetString:
 	clr.l  d0
 	clr.l  d2
 	move.w d1, d0
-	divu.w #size_tile_b, d0					; VRAM addr to tile ID
+	BYTES2TILES d0							; VRAM addr to tile ID
 	move.l UIWidgetText_FontAddr(a0), a1	; Font
 	move.b UIWidgetText_TileCount(a0), d2	; Count (incl. padding)
 	lea    UIWidgetText_String(a0), a0		; String
@@ -165,7 +165,7 @@ UIWidgetTextRender:
 	lsr.w  #0x3, d1								; Pixels to tiles
 
 	move.w UIWidgetText_FontAddrVRAM(a0), d0	; Font (VRAM)
-	divu.w #size_tile_b, d0						; To tiles
+	BYTES2TILES d0								; To tiles
 	move.b UIWidgetText_Palette(a0), d2			; Palette
 	move.b UIWidgetText_DrawPlane(a0), d3		; Plane
 	lea    UIWidgetText_String(a0), a0			; String
@@ -179,7 +179,7 @@ UIWidgetTextRender:
 
 	clr.l  d2
 	move.w UIWidgetText_StringAddrVRAM(a0), d2
-	divu   #size_tile_b, d2
+	BYTES2TILES d2
 	
 	; Add all text glyphs for drawing
 	clr.l  d4

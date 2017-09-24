@@ -25,7 +25,7 @@ DBG_DrawWord:
 	POPL   d1
 	clr.l  d0
 	move.w (vram_addr_systemfont), d0
-	divu.w #size_tile_b, d0
+	BYTES2TILES d0
 	move.w #debugdraw_palette_prio_bits, d2
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10
@@ -47,7 +47,7 @@ DBG_DrawLong:
 	POPL   d1
 	clr.l  d0
 	move.w (vram_addr_systemfont), d0
-	divu.w #size_tile_b, d0
+	BYTES2TILES d0
 	move.w #debugdraw_palette_prio_bits, d2
 	jsr    TXT_DrawSprites
 	FREESTACKB 0x10

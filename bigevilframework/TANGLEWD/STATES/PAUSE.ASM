@@ -122,7 +122,7 @@ Pause_Enter:
 	
 	clr.l   d0
 	move.w  (vram_addr_systemfont), d0	; Font VDP address
-	divu.w  #size_tile_b, d0
+	BYTES2TILES d0
 	move.l  a1, a0						; String
 	move.l  #GameStatePauseData+PauseState_TextTileBuff, a1	; Output tile ID buffer
 	jsr     TXT_CreateTileIDList
@@ -356,7 +356,7 @@ Debug_DrawVRAMPools:
 	; Get free tiles
 	clr.l   d0
 	move.w  VRAMPool_Free(a2), d0
-	divu    #size_tile_b, d0
+	BYTES2TILES d0
 	
 	; Append to string
 	jsr     TXT_ItoA_w
@@ -366,7 +366,7 @@ Debug_DrawVRAMPools:
 	; Draw
 	clr.l   d0
 	move.w  (vram_addr_systemfont), d0					; Font VDP address
-	divu.w  #size_tile_b, d0
+	BYTES2TILES d0
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d2	; Palette/flip/priority bits
 	; a0 (l) - String address
 	; d0 (w) - First tile ID of font

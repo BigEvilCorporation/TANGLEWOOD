@@ -69,7 +69,7 @@ l3a2_Init:
 	lea    map_blockmap_l3bg, a1
 	move.l #(map_blockmap_l3bg_width<<16)|map_blockmap_l3bg_height, d1
 	move.w (vram_addr_leveltiles), d2
-	divu   #size_tile_b, d2
+	BYTES2TILES d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 

@@ -116,7 +116,7 @@ EndLevelScoreScreen_Enter:
 	lea    map_blockmap_l1bg, a1
 	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
 	move.w (vram_addr_leveltiles), d2
-	divu   #size_tile_b, d2
+	BYTES2TILES d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneB
 
@@ -125,7 +125,7 @@ EndLevelScoreScreen_Enter:
 	lea    map_blockmap_end_level, a1
 	move.l #(map_blockmap_end_level_width<<16)|map_blockmap_end_level_height, d1
 	move.w (vram_addr_leveltiles), d2
-	divu   #size_tile_b, d2
+	BYTES2TILES d2
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneA
 
@@ -160,7 +160,7 @@ EndLevelScoreScreen_Enter:
 	; Level
 	move.l Level_Name(a2), a0					; String
 	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
+	BYTES2TILES d0
 	move.l #(EndLevelScore_LevelPosX<<16)|EndLevelScore_LevelPosY, d1	; X/Y coord
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
 	move.b #0x0, d3								; Plane A
@@ -169,7 +169,7 @@ EndLevelScoreScreen_Enter:
 	; Title
 	lea    EndLevelString_Title, a0				; String
 	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
+	BYTES2TILES d0
 	move.l #(EndLevelScore_TitlePosX<<16)|EndLevelScore_TitlePosY, d1	; X/Y coord
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
 	move.b #0x0, d3								; Plane A
@@ -196,7 +196,7 @@ EndLevelScoreScreen_Enter:
 
 	; Draw act string
 	move.w (vram_addr_systemfont), d0			; Font tile ID
-	divu.w #size_tile_b, d0
+	BYTES2TILES d0
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
 	move.b #0x0, d3								; Plane A
 	PUSHL  d1
@@ -362,7 +362,7 @@ EndLevelScoreScreen_DrawFireflyCountText:
 	
 	clr.l   d0
 	move.w  (vram_addr_systemfont), d0	; Font VDP address
-	divu.w  #size_tile_b, d0
+	BYTES2TILES d0
 	move.l  a2, a0						; String
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
 	move.b #0x0, d3								; Plane A

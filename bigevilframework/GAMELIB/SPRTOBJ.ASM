@@ -86,7 +86,7 @@ SpriteObjLoad:
 
 	; VRAM address to tile ID
 	move.w d0, d6
-	divu.w #size_tile_b, d6
+	BYTES2TILES d6
 	move.w d6, SpriteObj_TileID(a0)
 	
 	;==============================================================
@@ -128,7 +128,7 @@ SpriteObjLoadShared:
 
 	; VRAM address to tile ID
 	move.w d0, d6
-	divu.w #size_tile_b, d6
+	BYTES2TILES d6
 	move.w d6, SpriteObj_TileID(a0)
 
 	rts
