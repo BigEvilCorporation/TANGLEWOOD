@@ -274,22 +274,59 @@ LevelLoadPalettes:
 	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0
 	
 	rts
-	
-LevelLoadArt:
 
-	clr.l d0
-	clr.l d1
+LevelLoadCompressedTileset:
+	; Loads compressed tileset to VRAM
+	; - Allocs level VRAM
+	; - Uses entity pool for decompression buffer
+
+	; a0 --- Compressed tileset
+	; d0 (w) Num tiles
+
+	; Backup num tiles
+	move.w d0, d1
+
+	; Get uncompressed tilset size (first word of compression stream)
+	move.w (a0), d2
+
+	; Alloc decompression buffer
+	PUSHM  d0-d1
+	RAMPOOL_ALLOC Pool_Entities, d2
+	POPM   d0-d1
+
+	; Decompress tiles
+	move.l a0, a6	; Compressed data
+	move.l a1, a5	; Decompressed data
+	PUSHM  d0-d1
+	jsr    DecompressSlz
+	POPM   d0-d1
 
 	; Alloc VRAM
-	move.w Level_NumTiles(a1), d0
 	TILES2BYTES d0
+	PUSHM  d1/a0-a1
 	jsr    VRAM_PoolAlloc
+	POPM   d1/a0-a1
 	move.w d0, vram_addr_leveltiles
 
 	; Load tiles
-	move.l Level_TilesAddr(a1), a0
-	move.w Level_NumTiles(a1), d1
+	move.l a1, a0
 	jsr    VDP_LoadTiles
+
+	; Free decompression buffer
+	RAMPOOL_INIT Pool_Entities,EntityRAMPoolSize
+
+	rts
+	
+LevelLoadArt:
+
+	PUSHM  a0-a1
+
+	; Load
+	move.l Level_TilesAddr(a1), a0
+	move.w Level_NumTiles(a1), d0
+	jsr    LevelLoadCompressedTileset
+
+	POPM   a0-a1
 	
 	rts
 	

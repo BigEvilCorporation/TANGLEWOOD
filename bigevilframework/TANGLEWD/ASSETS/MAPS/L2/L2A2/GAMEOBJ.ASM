@@ -31,6 +31,8 @@ L2A2_Leaf_28_name	dc.b "L2A2_Leaf_28",0
 	even
 	ENDIF
 
+L2A2_Djubb_count equ 0x0
+
 L2A2_Echo_count equ 0x0
 
 L2A2_Nymn_count equ 0x1
@@ -40,6 +42,10 @@ L2A2_Nymn_18_idx	equ 0x0
 L2A2_Nymn_18_name	dc.b "L2A2_Nymn_18",0
 	even
 	ENDIF
+
+L2A2_Log_count equ 0x0
+
+L2A2_DjakkCage_count equ 0x0
 
 L2A2_BouncePlant_count equ 0x4
 L2A2_BouncePlant_5_idx	equ 0x0
@@ -55,10 +61,6 @@ L2A2_BouncePlant_53_name	dc.b "L2A2_BouncePlant_53",0
 	even
 	ENDIF
 
-L2A2_Log_count equ 0x0
-
-L2A2_DjakkCage_count equ 0x0
-
 L2A2_Monster_count equ 0x0
 
 L2A2_Boulder_count equ 0x1
@@ -68,6 +70,8 @@ L2A2_Boulder_3_idx	equ 0x0
 L2A2_Boulder_3_name	dc.b "L2A2_Boulder_3",0
 	even
 	ENDIF
+
+L2A2_FuzzlCage_count equ 0x0
 
 L2A2_Firefly_count equ 0x8
 L2A2_Firefly_45_idx	equ 0x0
@@ -91,18 +95,6 @@ L2A2_Firefly_52_name	dc.b "L2A2_Firefly_52",0
 	even
 	ENDIF
 
-L2A2_FuzzlCage_count equ 0x0
-
-L2A2_Fuzzl_count equ 0x2
-L2A2_FuzzlYellow1_idx	equ 0x0
-L2A2_FuzzlYellow2_idx	equ 0x1
-
-	IFND FINAL
-L2A2_FuzzlYellow1_name	dc.b "L2A2_FuzzlYellow1",0
-L2A2_FuzzlYellow2_name	dc.b "L2A2_FuzzlYellow2",0
-	even
-	ENDIF
-
 L2A2_Stone_count equ 0x4
 L2A2_Stone_19_idx	equ 0x0
 L2A2_Stone_33_idx	equ 0x1
@@ -114,6 +106,16 @@ L2A2_Stone_19_name	dc.b "L2A2_Stone_19",0
 L2A2_Stone_33_name	dc.b "L2A2_Stone_33",0
 L2A2_Stone_41_name	dc.b "L2A2_Stone_41",0
 L2A2_Stone_42_name	dc.b "L2A2_Stone_42",0
+	even
+	ENDIF
+
+L2A2_Fuzzl_count equ 0x2
+L2A2_FuzzlYellow1_idx	equ 0x0
+L2A2_FuzzlYellow2_idx	equ 0x1
+
+	IFND FINAL
+L2A2_FuzzlYellow1_name	dc.b "L2A2_FuzzlYellow1",0
+L2A2_FuzzlYellow2_name	dc.b "L2A2_FuzzlYellow2",0
 	even
 	ENDIF
 
@@ -157,6 +159,8 @@ L2A2_WaterBody_count equ 0x0
 
 L2A2_Location_count equ 0x0
 
+L2A2_Lift_count equ 0x0
+
 L2A2_Deathbox_count equ 0x3
 L2A2_Deathbox_9_idx	equ 0x0
 L2A2_Deathbox_10_idx	equ 0x1
@@ -168,8 +172,6 @@ L2A2_Deathbox_10_name	dc.b "L2A2_Deathbox_10",0
 L2A2_Deathbox_11_name	dc.b "L2A2_Deathbox_11",0
 	even
 	ENDIF
-
-L2A2_Lift_count equ 0x0
 
 L2A2_Crate_count equ 0x0
 
@@ -189,6 +191,8 @@ L2A2_Cart_count equ 0x0
 
 L2A2_Pillar_count equ 0x0
 
+L2A2_Winch_count equ 0x0
+
 L2A2_WindFlue_count equ 0x5
 L2A2_WindFlue_34_idx	equ 0x0
 L2A2_WindFlue_35_idx	equ 0x1
@@ -204,6 +208,16 @@ L2A2_WindFlue_37_name	dc.b "L2A2_WindFlue_37",0
 L2A2_WindFlue_38_name	dc.b "L2A2_WindFlue_38",0
 	even
 	ENDIF
+
+L2A2_Raft_count equ 0x0
+
+L2A2_Lock_count equ 0x0
+
+L2A2_Pool_count equ 0x0
+
+L2A2_Ladder_count equ 0x0
+
+L2A2_Demon_count equ 0x0
 
 
 
@@ -306,6 +320,7 @@ L2A2_LoadGameObjects:
 	add.l #Leaf_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A2_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -324,6 +339,8 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L2A2_BouncePlant_count)
@@ -381,8 +398,6 @@ L2A2_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 
-
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L2A2_Boulder_count)
 	move.l a1, EntityPoolStart_Boulder
@@ -401,6 +416,7 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L2A2_Firefly_count)
@@ -505,40 +521,6 @@ L2A2_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L2A2_Fuzzl_count)
-	move.l a1, EntityPoolStart_Fuzzl
-	move.l a1, a0
-	POPL   a1
-
-	jsr FuzzlInit
-	move.l #0x0d600000, Entity_WorldPosX(a0)
-	move.l #0x04400000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A2_FuzzlYellow1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x14e00000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A2_FuzzlYellow2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L2A2_Stone_count)
 	move.l a1, EntityPoolStart_Stone
@@ -593,6 +575,39 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L2A2_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x0d600000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A2_FuzzlYellow1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x14e00000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A2_FuzzlYellow2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A2_Nest_count)
@@ -701,6 +716,7 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
+
 
 
 
@@ -823,6 +839,11 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
+
+
+
+
 
 	rts
 

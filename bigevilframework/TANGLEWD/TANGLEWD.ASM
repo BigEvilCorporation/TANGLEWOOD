@@ -55,6 +55,7 @@ __start
 	; include '..\framewk\sequencr.asm'
 	include '..\framewk\echo\echo.asm'
 	include '..\framewk\echo\esf.asm'
+	include '..\framewk\slz\slz.asm'
 
 	IFD DEBUG
 	include '..\framewk\debugger.asm'	; NOT FOR RELEASE

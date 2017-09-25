@@ -46,17 +46,10 @@ Logos_Enter:
 	move.w #(PaletteId_BigEvilLogo<<4), d0
 	VDPSETREG 7, d0
 
-	; Alloc VRAM
-	move.w #tiles_bec_logo_size_b, d0
-	jsr    VRAM_PoolAlloc
-	move.w d0, vram_addr_leveltiles
-	
 	; Load tiles
-	clr.l d1
 	lea    tiles_bigevil_logo, a0
-	move.w #tiles_bec_logo_size_t, d1
-	move.w (vram_addr_leveltiles), d0
-	jsr    VDP_LoadTiles
+	move.w #tiles_bec_logo_size_t, d0
+	jsr    LevelLoadCompressedTileset
 	
 	; Load map
     lea    map_bigevil_logo, a0			; a0 (l)  Map data address (ROM)

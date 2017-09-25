@@ -34,17 +34,10 @@ DemoDisclaimerScreen_Enter:
 	move.w #(PaletteId_DemoDisclaimerScreen<<4), d0
 	VDPSETREG 7, d0
 
-	; Alloc VRAM
-	move.w #tiles_DemoDisclaimer_screen_size_b, d0
-	jsr    VRAM_PoolAlloc
-	move.w d0, vram_addr_leveltiles
-	
 	; Load tiles
-	clr.l d1
 	lea    tiles_DemoDisclaimer_screen, a0
-	move.w #tiles_DemoDisclaimer_screen_size_t, d1
-	move.w (vram_addr_leveltiles), d0
-	jsr    VDP_LoadTiles
+	move.w #tiles_DemoDisclaimer_screen_size_t, d0
+	jsr    LevelLoadCompressedTileset
 	
 	; Load BG map
 	lea    map_blocks_demodisclaimer_screen, a0

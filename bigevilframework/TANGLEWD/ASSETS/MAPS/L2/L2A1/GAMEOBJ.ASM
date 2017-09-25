@@ -31,6 +31,8 @@ L2A1_Leaf_22_name	dc.b "L2A1_Leaf_22",0
 	even
 	ENDIF
 
+L2A1_Djubb_count equ 0x0
+
 L2A1_Echo_count equ 0x0
 
 L2A1_Nymn_count equ 0x1
@@ -40,6 +42,10 @@ L2A1_Nymn_3_idx	equ 0x0
 L2A1_Nymn_3_name	dc.b "L2A1_Nymn_3",0
 	even
 	ENDIF
+
+L2A1_Log_count equ 0x0
+
+L2A1_DjakkCage_count equ 0x0
 
 L2A1_BouncePlant_count equ 0x7
 L2A1_BouncePlant_6_idx	equ 0x0
@@ -61,13 +67,11 @@ L2A1_BouncePlant_59_name	dc.b "L2A1_BouncePlant_59",0
 	even
 	ENDIF
 
-L2A1_Log_count equ 0x0
-
-L2A1_DjakkCage_count equ 0x0
-
 L2A1_Monster_count equ 0x0
 
 L2A1_Boulder_count equ 0x0
+
+L2A1_FuzzlCage_count equ 0x0
 
 L2A1_Firefly_count equ 0x8
 L2A1_Firefly_43_idx	equ 0x0
@@ -91,7 +95,7 @@ L2A1_Firefly_50_name	dc.b "L2A1_Firefly_50",0
 	even
 	ENDIF
 
-L2A1_FuzzlCage_count equ 0x0
+L2A1_Stone_count equ 0x0
 
 L2A1_Fuzzl_count equ 0x2
 L2A1_Fuzzl1_Yellow_idx	equ 0x0
@@ -102,8 +106,6 @@ L2A1_Fuzzl1_Yellow_name	dc.b "L2A1_Fuzzl1_Yellow",0
 L2A1_Fuzzl2_Yellow_name	dc.b "L2A1_Fuzzl2_Yellow",0
 	even
 	ENDIF
-
-L2A1_Stone_count equ 0x0
 
 L2A1_Nest_count equ 0x2
 L2A1_Nest_31_idx	equ 0x0
@@ -145,9 +147,9 @@ L2A1_WaterBody_count equ 0x0
 
 L2A1_Location_count equ 0x0
 
-L2A1_Deathbox_count equ 0x0
-
 L2A1_Lift_count equ 0x0
+
+L2A1_Deathbox_count equ 0x0
 
 L2A1_Crate_count equ 0x0
 
@@ -167,6 +169,8 @@ L2A1_Cart_count equ 0x0
 
 L2A1_Pillar_count equ 0x0
 
+L2A1_Winch_count equ 0x0
+
 L2A1_WindFlue_count equ 0x3
 L2A1_WindFlue_40_idx	equ 0x0
 L2A1_WindFlue_52_idx	equ 0x1
@@ -178,6 +182,16 @@ L2A1_WindFlue_52_name	dc.b "L2A1_WindFlue_52",0
 L2A1_WindFlue_57_name	dc.b "L2A1_WindFlue_57",0
 	even
 	ENDIF
+
+L2A1_Raft_count equ 0x0
+
+L2A1_Lock_count equ 0x0
+
+L2A1_Pool_count equ 0x0
+
+L2A1_Ladder_count equ 0x0
+
+L2A1_Demon_count equ 0x0
 
 
 
@@ -280,6 +294,7 @@ L2A1_LoadGameObjects:
 	add.l #Leaf_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A1_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -298,6 +313,8 @@ L2A1_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L2A1_BouncePlant_count)
@@ -389,7 +406,6 @@ L2A1_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
-
 
 
 
@@ -530,7 +546,6 @@ L2A1_LoadGameObjects:
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A1_Nest_count)
@@ -673,6 +688,7 @@ L2A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WindFlue_Struct_Size*L2A1_WindFlue_count)
 	move.l a1, EntityPoolStart_WindFlue
@@ -715,6 +731,11 @@ L2A1_LoadGameObjects:
 	ENDIF
 	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
+
+
+
+
 
 	rts
 

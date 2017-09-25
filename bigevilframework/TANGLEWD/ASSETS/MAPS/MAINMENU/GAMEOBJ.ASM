@@ -25,6 +25,8 @@ main_menu_Leaf_8_name	dc.b "main_menu_Leaf_8",0
 	even
 	ENDIF
 
+main_menu_Djubb_count equ 0x0
+
 main_menu_Echo_count equ 0x0
 
 main_menu_Nymn_count equ 0x1
@@ -35,6 +37,10 @@ main_menu_Nymn_1_name	dc.b "main_menu_Nymn_1",0
 	even
 	ENDIF
 
+main_menu_Log_count equ 0x0
+
+main_menu_DjakkCage_count equ 0x0
+
 main_menu_BouncePlant_count equ 0x1
 main_menu_BouncePlant_1_idx	equ 0x0
 
@@ -43,21 +49,17 @@ main_menu_BouncePlant_1_name	dc.b "main_menu_BouncePlant_1",0
 	even
 	ENDIF
 
-main_menu_Log_count equ 0x0
-
-main_menu_DjakkCage_count equ 0x0
-
 main_menu_Monster_count equ 0x0
 
 main_menu_Boulder_count equ 0x0
 
-main_menu_Firefly_count equ 0x0
-
 main_menu_FuzzlCage_count equ 0x0
 
-main_menu_Fuzzl_count equ 0x0
+main_menu_Firefly_count equ 0x0
 
 main_menu_Stone_count equ 0x0
+
+main_menu_Fuzzl_count equ 0x0
 
 main_menu_Nest_count equ 0x0
 
@@ -71,9 +73,9 @@ main_menu_WaterBody_count equ 0x0
 
 main_menu_Location_count equ 0x0
 
-main_menu_Deathbox_count equ 0x0
-
 main_menu_Lift_count equ 0x0
+
+main_menu_Deathbox_count equ 0x0
 
 main_menu_Crate_count equ 0x0
 
@@ -92,6 +94,20 @@ main_menu_AIMarker_count equ 0x0
 main_menu_Cart_count equ 0x0
 
 main_menu_Pillar_count equ 0x0
+
+main_menu_Winch_count equ 0x0
+
+main_menu_WindFlue_count equ 0x0
+
+main_menu_Raft_count equ 0x0
+
+main_menu_Lock_count equ 0x0
+
+main_menu_Pool_count equ 0x0
+
+main_menu_Ladder_count equ 0x0
+
+main_menu_Demon_count equ 0x0
 
 
 
@@ -164,6 +180,7 @@ main_menu_LoadGameObjects:
 	add.l #Leaf_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*main_menu_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -184,6 +201,8 @@ main_menu_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*main_menu_BouncePlant_count)
 	move.l a1, EntityPoolStart_BouncePlant
@@ -202,6 +221,11 @@ main_menu_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
+
+
+
+
 
 
 

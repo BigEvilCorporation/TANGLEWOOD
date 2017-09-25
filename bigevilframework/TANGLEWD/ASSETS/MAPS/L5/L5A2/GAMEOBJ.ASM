@@ -227,6 +227,8 @@ L5A2_Ladder_40_name	dc.b "L5A2_Ladder_40",0
 	even
 	ENDIF
 
+L5A2_Demon_count equ 0x0
+
 
 
 L5A2_LoadGameObjects:
@@ -871,6 +873,7 @@ L5A2_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
+
 
 	rts
 

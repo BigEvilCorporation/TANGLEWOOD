@@ -74,17 +74,11 @@ LevelSelect_Enter:
 	move.w #(PaletteId_World0<<4)|0xD, d0
 	VDPSETREG 7, d0
 
-	; Alloc VRAM
-	move.w #tiles_l1_size_b, d0
-	jsr    VRAM_PoolAlloc
-	move.w d0, vram_addr_leveltiles
-	
 	; Load tiles
 	clr.l d1
 	lea    tiles_l1, a0
-	move.w #tiles_l1_size_t, d1
-	move.w (vram_addr_leveltiles), d0
-	jsr    VDP_LoadTiles
+	move.w #tiles_l1_size_t, d0
+	jsr    LevelLoadCompressedTileset
 
 	; Load BG map
 	lea    map_blocks_l1bg, a0

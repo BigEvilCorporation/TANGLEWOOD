@@ -34,17 +34,11 @@ DemoEndState_Enter:
 	move.w #(PaletteId_DemoEndState<<4), d0
 	VDPSETREG 7, d0
 
-	; Alloc VRAM
-	move.w #tiles_DemoEnd_size_b, d0
-	jsr    VRAM_PoolAlloc
-	move.w d0, vram_addr_leveltiles
-	
 	; Load tiles
 	clr.l d1
 	lea    tiles_DemoEnd_screen, a0
-	move.w #tiles_DemoEnd_size_t, d1
-	move.w (vram_addr_leveltiles), d0
-	jsr    VDP_LoadTiles
+	move.w #tiles_DemoEnd_size_t, d0
+	jsr    LevelLoadCompressedTileset
 	
 	; Load map
     lea    map_DemoEnd_screen, a0			; a0 (l)  Map data address (ROM)
