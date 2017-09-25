@@ -408,6 +408,7 @@ EntityPoolStart_Button      rs.l 1
 EntityPoolStart_Cart        rs.l 1
 EntityPoolStart_Crate       rs.l 1
 EntityPoolStart_Cogs        rs.l 1
+EntityPoolStart_Demon       rs.l 1
 EntityPoolStart_DjakkCage   rs.l 1
 EntityPoolStart_Djubb       rs.l 1
 EntityPoolStart_Flue        rs.l 1
@@ -447,6 +448,7 @@ EntityCount_Button      rs.w 1
 EntityCount_Cart        rs.w 1
 EntityCount_Crate       rs.w 1
 EntityCount_Cogs        rs.w 1
+EntityCount_Demon       rs.w 1
 EntityCount_DjakkCage   rs.w 1
 EntityCount_Djubb       rs.w 1
 EntityCount_Echo        rs.w 1

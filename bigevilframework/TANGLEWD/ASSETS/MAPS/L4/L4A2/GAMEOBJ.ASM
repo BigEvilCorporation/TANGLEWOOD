@@ -233,6 +233,8 @@ L4A2_Pool3_name	dc.b "L4A2_Pool3",0
 
 L4A2_Ladder_count equ 0x0
 
+L4A2_Demon_count equ 0x0
+
 
 
 L4A2_LoadGameObjects:
@@ -914,6 +916,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
+
 
 
 	rts

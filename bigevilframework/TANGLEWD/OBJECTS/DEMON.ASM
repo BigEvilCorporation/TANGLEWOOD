@@ -1,0 +1,132 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2017
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   demon.asm - Spirit demon, the end boss
+;==============================================================
+
+; Constants
+Demon_Width			equ 0x0078
+Demon_Height		equ 0x0060
+
+Demon_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
+Demon_MaxVelXRun    equ 0x03E000   ; Max X running velocity
+Demon_MaxVelXAir    equ 0x04E000
+Demon_MaxVelYUp	    equ 0x060000   ; Max Y velocity up
+Demon_MaxVelYDown	equ 0x080000   ; Max Y velocity down
+Demon_WalkToRunVel  equ 0x030000   ; Walk to run transition velocity
+Demon_AccelWalk     equ 0x000200   ; Walking acceleration
+Demon_AccelRun      equ 0x001000   ; Running acceleration
+Demon_DecelIdle     equ 0x002000   ; Deceleration if left alone
+Demon_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
+
+Demon_BoundsWidth	equ Demon_Width
+Demon_BoundsHeight	equ (Demon_Height-0x40)
+Demon_BoundsOffsetX	equ (Demon_Width/2)-(Demon_BoundsWidth/2)
+Demon_BoundsOffsetY	equ (Demon_Height/2)-(Demon_BoundsHeight/2)
+
+;==============================================================
+
+; Struct
+	rsset (Character_Struct_Size)
+;-----------------------------
+;-----------------------------
+Demon_Struct_Pad		rs.b 0   ; Alignment padding
+Demon_Struct_Size		rs.b 0
+;-----------------------------
+
+;==============================================================
+
+DemonInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base init
+	jsr    CharacterInit
+	
+	; Set type
+	addq.w #0x1, EntityCount_Demon
+	
+	; Set update and render routines
+	move.l #DemonUpdate, Entity_UpdateRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #DemonSerialise, Entity_SerialiseRoutine(a0)
+	
+	; Add to update and render lists
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    EntityAddToSerialiseList
+	
+	; Default state
+	move.w  #Demon_Width, Entity_Width(a0)
+	move.w  #Demon_Height, Entity_Height(a0)
+	move.b  #0x0, PhysicsObj_HasPhysics(a0)
+
+	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Demon_MaxVelXRun, Character_MaxVelXRun(a0)
+	move.l  #Demon_WalkToRunVel, Character_WalkToRunVel(a0)
+	move.w  #Demon_AccelWalk, Character_AccelWalk(a0)
+	move.w  #Demon_AccelRun, Character_AccelRun(a0)
+	move.w  #Demon_DecelIdle, Character_DecelIdle(a0)
+	move.w  #Demon_DecelForced, Character_DecelForced(a0)
+
+	; Setup collision bounds
+	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
+	move.w  #0x0, PhysicsObj_BoundsTop(a0)
+	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
+	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	rts
+
+DemonLoadGfx:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Load sprite
+	SPRITE_LOAD_DEFAULT Demon,PaletteId_Monster,0x0
+
+	; Load default character animations
+	ANIM_LOAD_DEFAULT demon_follow,demon_follow,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
+	rts
+	
+DemonUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Base functionality
+	jsr    CharacterUpdate
+
+	rts
+	
+DemonSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts

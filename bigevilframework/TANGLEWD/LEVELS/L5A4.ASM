@@ -45,7 +45,7 @@ l5a4_BygoneAct4:
 l5a4_DefaultPalettes:
 
 	dc.l palette_L4					; World (using L4 tileset)
-	dc.l 0x0						; Djakk (black by default, fades up when approached)
+	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
