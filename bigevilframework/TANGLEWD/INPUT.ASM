@@ -28,6 +28,15 @@ UpdateInput:
 	
 	; Read pad A
 	jsr PAD_ReadPadA
+
+	; Autotest pad input
+	IFND FINAL
+	IF AUTOTEST_ENABLED
+	lea AutotestData, a0
+	or.w Autotest_PadDataA(a0), d0
+	move.w #0x0, Autotest_PadDataA(a0)
+	ENDIF
+	ENDIF
 	
 	move.w d0, Gamepad1State
 	move.w (Gamepad1PrevState), d1
@@ -48,6 +57,15 @@ UpdateInput:
 	; Read pad B
 	;jsr PAD_ReadPadB
 	;move.w (Gamepad2PrevState), d1
+
+	; Autotest pad input
+	;IFND FINAL
+	;IF AUTOTEST_ENABLED
+	;lea AutotestData, a0
+	;or.w Autotest_PadDataB(a0), d0
+	;move.w #0x0, Autotest_PadDataB(a0)
+	;ENDIF
+	;ENDIF
 	
 	; Player 2 movement
 	;move.l (Player2), a0

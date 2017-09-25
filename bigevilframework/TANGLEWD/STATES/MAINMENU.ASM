@@ -217,6 +217,15 @@ MainMenu_Update:
 
 	; Read pad
 	jsr    PAD_ReadPadA
+
+	; Autotest pad input
+	IFND FINAL
+	IF AUTOTEST_ENABLED
+	lea AutotestData, a0
+	or.w Autotest_PadDataA(a0), d0
+	move.w #0x0, Autotest_PadDataA(a0)
+	ENDIF
+	ENDIF
 	
 	; Check start button
 	IF DEMO_SHOW_LEVEL_SELECT

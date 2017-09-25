@@ -153,6 +153,11 @@ __start
 
 	; Include level setup
 	include 'level.asm'
+
+	; Include autotest
+	IFND FINAL
+	include 'autotest.asm'
+	ENDIF
 	
 	; Include game states
 	include 'states\gameplay.asm'
@@ -256,6 +261,14 @@ __main:
 	move.l #0x0, vblank_counter
 	move.l #0x0, frame_counter_update
 	move.l #0x0, frame_counter_render
+
+	; Init autotest
+	IFND FINAL
+	IF AUTOTEST_ENABLED
+	move.b #AUTOTEST_TESTMODE, d0
+	jsr  AutotestInit
+	ENDIF
+	ENDIF
 	
 	; Enter first game state
 	move.l #InitialState, a0
@@ -283,6 +296,13 @@ GameLoop:
 	
 	; End frame
 	jsr RenderEndFrame
+
+	; Update autotest
+	IFND FINAL
+	IF AUTOTEST_ENABLED
+	jsr  AutotestUpdate
+	ENDIF
+	ENDIF
 
 	; Back to top
 	bra GameLoop

@@ -169,6 +169,15 @@ UIWidgetCursorUpdate:
 	; Read pad
 	jsr    PAD_ReadPadA
 
+	; Autotest pad input
+	IFND FINAL
+	IF AUTOTEST_ENABLED
+	lea AutotestData, a4
+	or.w Autotest_PadDataA(a4), d0
+	move.w #0x0, Autotest_PadDataA(a4)
+	ENDIF
+	ENDIF
+
 	; Debounce
 	cmp.w  UIWidgetCursor_PrevInput(a0), d0
 	beq    @NoInput

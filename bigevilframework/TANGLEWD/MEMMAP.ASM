@@ -304,6 +304,13 @@ AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
 
 ; ************************************
+; Autotest
+; ************************************
+	IFND FINAL
+AutotestData			 rs.b Autotest_Struct_Size
+	ENDIF
+
+; ************************************
 ; Shared VRAM
 ; ************************************
 SharedVRAM_Start		rs.b 0
