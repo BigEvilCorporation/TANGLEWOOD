@@ -6,6 +6,17 @@
 ;   camera.asm - V/H scroll routines and virtual camera logic
 ;==============================================================
 
+CAM_Init:
+	move.l #0x0, CameraWorldPosX
+	move.l #0x0, CameraWorldPosY
+	move.l #0x0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpSpeed
+	move.w #0x0, CameraTargetLerpTime
+	move.l #0x0, CameraTargetLerpStartX
+	move.l #0x0, CameraTargetLerpStartY
+	move.l #0x0, CameraTargetLerpSource
+	rts
+
 CAM_PeekUp:
 	move.l (CameraPeekOffsetY), d0
 	addi.l #-CameraPeekSpeed, d0

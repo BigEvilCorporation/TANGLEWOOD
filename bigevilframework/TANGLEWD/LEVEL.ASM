@@ -61,9 +61,7 @@ GameStateReset:
 	jsr    VDP_SetVScrollPlaneB
 	
 	; Reset camera
-	move.l #0x0, CameraWorldPosX
-	move.l #0x0, CameraWorldPosY
-	move.l #0x0, CameraTargetGameObj
+	jsr    CAM_Init
 	
 	; Reset streaming
 	move.w #0x0, MapStreamLoadedCol
