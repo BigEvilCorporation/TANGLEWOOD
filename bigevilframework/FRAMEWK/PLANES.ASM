@@ -13,7 +13,7 @@ VDP_SetCellPlaneA:
 
 	clr.l    d3                     ; Clear d3 ready to work with
 	move.w   d1, d3                 ; Move Y coord (lower word of d1) to d3
-	mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
+	lsl.w    #0x6, d3 ;mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
 	clr.w    d1						; Clear Y coord
 	swap     d1                     ; Shift X coord from upper to lower word of d1
 	add.l    d1, d3                 ; Add X coord to offset
@@ -209,7 +209,7 @@ VDP_LoadBlockPlaneA:
 	; X/Y offset to destination address
 	clr.l   d4
 	move.w  d1, d4					; Y to d4
-	mulu    #vdp_plane_width, d4	; Multiply Y by line width
+	lsl.w    #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
 	clr.w   d1						; Clear lower word
 	swap    d1						; X to lower word
 	add.l   d1, d4					; Add X offset
@@ -266,7 +266,7 @@ VDP_LoadBlockPlaneB:
 	; X/Y offset to destination address
 	clr.l   d4
 	move.w  d1, d4					; Y to d4
-	mulu    #vdp_plane_width, d4	; Multiply Y by line width
+	lsl.w    #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
 	clr.w   d1						; Clear lower word
 	swap    d1						; X to lower word
 	add.l   d1, d4					; Add X offset
@@ -429,7 +429,7 @@ VDP_LoadMapSegmentPlaneA:
 	; Dest top/left to tile offset (mul Y by VDP width, add X)
 	clr.l  d6
 	move.w d1, d6					; Y to d6
-	mulu   #vdp_plane_width, d6		; To tile offset
+	lsl.w    #0x6, d6 ; mulu   #vdp_plane_width, d6		; To tile offset
 	clr.w  d1
 	swap   d1						; X to lower word
 	add.l  d6, d1					; Add Y to X offset

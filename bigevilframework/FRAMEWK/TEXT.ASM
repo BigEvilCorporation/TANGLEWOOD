@@ -67,7 +67,7 @@ TXT_DrawPlane:
 
 	clr.l    d4                     ; Clear d4 ready to work with
 	move.b   d1, d4                 ; Move Y coord (lower byte of d1) to d4
-	mulu.w   #vdp_plane_width, d4   ; Multiply Y by line width (H40 mode - 64 tiles horizontally) to get Y offset
+	lsl.w    #0x6, d4 ; mulu.w   #vdp_plane_width, d4   ; Multiply Y by line width (H40 mode - 64 tiles horizontally) to get Y offset
 	swap     d1               		; X coord to lower word
 	add.b    d1, d4                 ; Add X coord to offset
 	lsl.w    #0x1, d4               ; Convert to words
