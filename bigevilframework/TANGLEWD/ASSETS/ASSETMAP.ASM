@@ -87,6 +87,7 @@
 	include 'assets\sprites\twd_logo.asm'
 	include 'assets\sprites\water.asm'
 	include 'assets\sprites\winch.asm'
+	include 'assets\sprites\wisp.asm'
 	include 'assets\sprites\wyrm.asm'
 
 	; ************************************
@@ -135,6 +136,7 @@
 	include 'assets\anims\rope.asm'
 	include 'assets\anims\water.asm'
 	include 'assets\anims\winch.asm'
+	include 'assets\anims\wisp.asm'
 	include 'assets\anims\wyrm.asm'
 
 	; ************************************

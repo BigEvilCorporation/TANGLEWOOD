@@ -9,6 +9,8 @@
 ; Constants
 Demon_Width			equ 0x0078
 Demon_Height		equ 0x0060
+DemonWisp_Width		equ 0x0038
+DemonWisp_Height	equ 0x0030
 
 Demon_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
 Demon_MaxVelXRun    equ 0x03E000   ; Max X running velocity
@@ -26,13 +28,26 @@ Demon_BoundsHeight	equ (Demon_Height-0x40)
 Demon_BoundsOffsetX	equ (Demon_Width/2)-(Demon_BoundsWidth/2)
 Demon_BoundsOffsetY	equ (Demon_Height/2)-(Demon_BoundsHeight/2)
 
+DemonState_Wisp		equ 0x0
+
 ;==============================================================
 
-; Struct
+	rsset (AnimObj_Struct_Size)
+;-----------------------------
+Wisp_Animation			rs.b Animation_Struct_Size
+;-----------------------------
+Wisp_Struct_Pad			rs.b 0   ; Alignment padding
+Wisp_Struct_Size		rs.b 0
+;-----------------------------
+
+;==============================================================
+
 	rsset (Character_Struct_Size)
 ;-----------------------------
+Demon_Wisp				rs.b Wisp_Struct_Size
+Demon_State				rs.b 1
 ;-----------------------------
-Demon_Struct_Pad		rs.b 0   ; Alignment padding
+Demon_Struct_Pad		rs.b 3   ; Alignment padding
 Demon_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -50,7 +65,7 @@ DemonInit:
 	
 	; Set update and render routines
 	move.l #DemonUpdate, Entity_UpdateRoutine(a0)
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #DemonDraw, Entity_RenderRoutine(a0)
 	move.l #DemonSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -71,11 +86,21 @@ DemonInit:
 	move.w  #Demon_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Demon_DecelForced, Character_DecelForced(a0)
 
+	move.b  #DemonState_Wisp, Demon_State(a0)
+
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w  #0x0, PhysicsObj_BoundsTop(a0)
 	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+
+	; Init wisp
+	PUSHL   a0
+	lea     Demon_Wisp(a0), a0
+	jsr     AnimObjInit
+	move.w  #DemonWisp_Width, Entity_Width(a0)
+	move.w  #DemonWisp_Height, Entity_Height(a0)
+	POPL    a0
 
 	rts
 
@@ -87,7 +112,17 @@ DemonLoadGfx:
 	SPRITE_LOAD_DEFAULT Demon,PaletteId_Monster,0x0
 
 	; Load default character animations
-	ANIM_LOAD_DEFAULT demon_follow,demon_follow,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon_idle,demon_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
+	; Load wisp and start animation
+	PUSHM   a0-a1
+	lea     Demon_Wisp(a0), a0
+	SPRITE_LOAD_DEFAULT wisp,PaletteId_Monster,0x0
+	ANIM_LOAD_DEFAULT wisp_idle,wisp_idle,Wisp_Animation,0,1,0,0
+	lea     Wisp_Animation(a0), a1
+	move.b  #0x0, d0
+	jsr     AnimObjSetAnimation
+	POPM    a0-a1
 
 	rts
 	
@@ -97,6 +132,49 @@ DemonUpdate:
 	
 	; Base functionality
 	jsr    CharacterUpdate
+
+	move.b Demon_State(a0), d0
+	cmp.b  #DemonState_Wisp, d0
+	beq    @Wisp
+	bra    @End
+
+	@Wisp:
+
+	; Update wisp
+	PUSHL   a0
+	move.l  a0, a2
+	lea     Demon_Wisp(a0), a0
+	move.l  Entity_WorldPosX(a2), Entity_WorldPosX(a0)
+	move.l  Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	jsr     AnimObjUpdate
+	POPL    a0
+
+	bra    @End
+
+	@End:
+
+	rts
+
+DemonDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	cmp.b  #DemonState_Wisp, Demon_State(a0)
+	beq    @DrawWisp
+
+	; Draw demon
+	jsr    CharacterDraw
+	bra    @End
+
+	@DrawWisp:
+
+	; Draw wisp
+	PUSHL   a0
+	lea     Demon_Wisp(a0), a0
+	jsr     AnimObjDraw
+	POPL    a0
+
+	@End:
 
 	rts
 	
