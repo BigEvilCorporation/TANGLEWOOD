@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_megafounder_screen_size_b	equ 0x000003A0	; Size in bytes
+map_blocks_megafounder_screen_size_b	equ 0x000004C0	; Size in bytes
 map_blocks_megafounder_screen_size_w	equ (map_blocks_megafounder_screen_size_b/2)	; Size in words
 map_blocks_megafounder_screen_size_l	equ (map_blocks_megafounder_screen_size_b/4)	; Size in longwords
