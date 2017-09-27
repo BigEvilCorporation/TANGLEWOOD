@@ -169,8 +169,6 @@
 	; ************************************
 	; Blocks
 	; ************************************
-	include 'assets\maps\mainmenu\blocks.asm'
-	include 'assets\maps\endlevel\blocks.asm'
 	include 'assets\maps\megafndr\blocks.asm'
 	include 'assets\maps\controls\blocks.asm'
 	include 'assets\maps\disclmr\blocks.asm'
