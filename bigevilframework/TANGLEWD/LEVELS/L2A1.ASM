@@ -17,7 +17,7 @@ l2a1_StormWarningAct1:
 	dc.l map_blocks_l2					; Blocks
 	dc.l map_blockmap_l2a1				; Block map
 	dc.l collisiontiles_l2				; Collision tileset
-	dc.l collisionmap_blocks_l2a1		; Collision blocks
+	dc.l collisionmap_blocks_l2			; Collision blocks
 	dc.l collisionmap_blockmap_l2a1		; Collision block map
 	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l2a1_DefaultPalettes			; Palettes

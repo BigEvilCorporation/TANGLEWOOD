@@ -66,13 +66,10 @@ collisiontiles_l4:
 ;==============================================================
 ; Collision blocks
 ;==============================================================
-	include 'assets\maps\l4\l4a1\colblock.asm'
-	include 'assets\maps\l4\l4a2\colblock.asm'
+	include 'assets\maps\l4\colblock.asm'
 
-collisionmap_blocks_l4a1:
-	incbin 'assets\maps\l4\l4a1\colblock.bin'
-collisionmap_blocks_l4a2:
-	incbin 'assets\maps\l4\l4a2\colblock.bin'
+collisionmap_blocks_l4:
+	incbin 'assets\maps\l4\colblock.bin'
 
 ;==============================================================
 ; Collision block maps

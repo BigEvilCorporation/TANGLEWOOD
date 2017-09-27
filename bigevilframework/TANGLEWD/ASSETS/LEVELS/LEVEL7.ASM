@@ -62,10 +62,10 @@ collisiontiles_l7:
 ;==============================================================
 ; Collision blocks
 ;==============================================================
-	include 'assets\maps\l7\l7a1\colblock.asm'
+	include 'assets\maps\l7\colblock.asm'
 
-collisionmap_blocks_l7a1:
-	incbin 'assets\maps\l7\l7a1\colblock.bin'
+collisionmap_blocks_l7:
+	incbin 'assets\maps\l7\colblock.bin'
 
 ;==============================================================
 ; Collision block maps

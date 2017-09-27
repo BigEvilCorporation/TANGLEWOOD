@@ -17,7 +17,7 @@ L7a1_OasisAct1:
 	dc.l map_blocks_L7					; Blocks
 	dc.l map_blockmap_L7a1				; Block map
 	dc.l collisiontiles_L7				; Collision tileset
-	dc.l collisionmap_blocks_L7a1		; Collision blocks
+	dc.l collisionmap_blocks_L7			; Collision blocks
 	dc.l collisionmap_blockmap_L7a1		; Collision block map
 	dc.l terrainmap_L7A1_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l L7a1_DefaultPalettes			; Palettes

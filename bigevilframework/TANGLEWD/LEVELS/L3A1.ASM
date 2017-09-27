@@ -17,7 +17,7 @@ l3a1_HeritageAct1:
 	dc.l map_blocks_l3					; Blocks
 	dc.l map_blockmap_l3a1				; Block map
 	dc.l collisiontiles_l3				; Collision tileset
-	dc.l collisionmap_blocks_l3a1		; Collision blocks
+	dc.l collisionmap_blocks_l3			; Collision blocks
 	dc.l collisionmap_blockmap_l3a1		; Collision block map
 	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l l3a1_DefaultPalettes			; Palettes

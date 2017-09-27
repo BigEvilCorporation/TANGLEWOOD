@@ -17,7 +17,7 @@ L6a1_DeadwoodAct1:
 	dc.l map_blocks_L6					; Blocks
 	dc.l map_blockmap_L6a1				; Block map
 	dc.l collisiontiles_L6				; Collision tileset
-	dc.l collisionmap_blocks_L6a1		; Collision blocks
+	dc.l collisionmap_blocks_L6			; Collision blocks
 	dc.l collisionmap_blockmap_L6a1		; Collision block map
 	dc.l 0x00000000						; 'Special' terrain descriptor table
 	dc.l L6a1_DefaultPalettes			; Palettes
