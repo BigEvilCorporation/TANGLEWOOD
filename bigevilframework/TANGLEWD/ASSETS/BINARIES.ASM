@@ -47,10 +47,6 @@ map_soundtest:
 	; ************************************
 	; Blocks
 	; ************************************
-map_blocks_main_menu:
-	incbin 'assets\maps\mainmenu\blocks.bin'
-map_blocks_end_level:
-	incbin 'assets\maps\endlevel\blocks.bin'
 map_blocks_megafounder_screen:
 	incbin 'assets\maps\megafndr\blocks.bin'
 map_blocks_controls:

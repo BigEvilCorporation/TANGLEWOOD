@@ -12,7 +12,7 @@ Lvl0_LevelSelect:
 	dc.l LevelSelect_Str_00				; Name
 	dc.l GameStateLevelSelectData		; Userdata
 	dc.l tiles_l1						; Tileset
-	dc.l map_blocks_main_menu			; Blocks
+	dc.l map_blocks_l1					; Blocks
 	dc.l map_blockmap_main_menu			; Block map
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
@@ -90,7 +90,7 @@ LevelSelect_Enter:
 	jsr    VDP_LoadBlockMapPlaneB
 	
 	; Load FG map
-	lea    map_blocks_main_menu, a0
+	lea    map_blocks_l1, a0
 	lea    map_blockmap_main_menu, a1
 	move.l #(map_blockmap_main_menu_width<<16)|map_blockmap_main_menu_height, d1
 	move.w (vram_addr_leveltiles), d2

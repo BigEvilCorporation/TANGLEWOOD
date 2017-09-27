@@ -12,7 +12,7 @@ Lvl0_EndLevel:
 	dc.l LevelSelect_Str_00				; Name
 	dc.l GameStateEndLevelScoreData		; Userdata
 	dc.l tiles_l1						; Tileset
-	dc.l map_blocks_end_level			; Blocks
+	dc.l map_blocks_l1					; Blocks
 	dc.l map_blockmap_end_level			; Block map
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
@@ -115,7 +115,7 @@ EndLevelScoreScreen_Enter:
 	jsr    VDP_LoadBlockMapPlaneB
 
 	; Load FG map
-	lea    map_blocks_end_level, a0
+	lea    map_blocks_l1, a0
 	lea    map_blockmap_end_level, a1
 	move.l #(map_blockmap_end_level_width<<16)|map_blockmap_end_level_height, d1
 	move.w (vram_addr_leveltiles), d2
