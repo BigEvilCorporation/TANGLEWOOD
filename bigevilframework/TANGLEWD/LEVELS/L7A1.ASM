@@ -14,7 +14,7 @@ L7a1_OasisAct1:
 	dc.l LevelSelect_Str_07				; Name
 	dc.l LevelData_L7A1					; Userdata
 	dc.l tiles_L7						; Tileset
-	dc.l map_blocks_L7a1				; Blocks
+	dc.l map_blocks_L7					; Blocks
 	dc.l map_blockmap_L7a1				; Block map
 	dc.l collisiontiles_L7				; Collision tileset
 	dc.l collisionmap_blocks_L7a1		; Collision blocks
@@ -70,7 +70,7 @@ L7a1_Init:
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
-	;lea    map_blocks_L7bg, a0
+	;lea    map_blocks_L7, a0
 	;lea    map_blockmap_L7bg, a1
 	;move.l #(map_blockmap_L7bg_width<<16)|map_blockmap_L7bg_height, d1
 	;move.w (vram_addr_leveltiles), d2

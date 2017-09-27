@@ -14,7 +14,7 @@ l1a1_HarlequinForestAct1:
 	dc.l LevelSelect_Str_01				; Name
 	dc.l LevelData_L1A1					; Userdata
 	dc.l tiles_l1						; Tileset
-	dc.l map_blocks_l1a1				; Blocks
+	dc.l map_blocks_l1					; Blocks
 	dc.l map_blockmap_l1a1				; Block map
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1a1		; Collision blocks
@@ -67,7 +67,7 @@ l1a1_Init:
 	move.w #0x4, CurrentLevelNumActs
 	
 	; Load BG map
-	lea    map_blocks_l1bg, a0
+	lea    map_blocks_l1, a0
 	lea    map_blockmap_l1bg, a1
 	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
 	move.w (vram_addr_leveltiles), d2

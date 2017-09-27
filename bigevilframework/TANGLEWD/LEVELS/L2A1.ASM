@@ -14,7 +14,7 @@ l2a1_StormWarningAct1:
 	dc.l LevelSelect_Str_02				; Name
 	dc.l LevelData_L2A1					; Userdata
 	dc.l tiles_l2						; Tileset
-	dc.l map_blocks_l2a1				; Blocks
+	dc.l map_blocks_l2					; Blocks
 	dc.l map_blockmap_l2a1				; Block map
 	dc.l collisiontiles_l2				; Collision tileset
 	dc.l collisionmap_blocks_l2a1		; Collision blocks
@@ -66,7 +66,7 @@ l2a1_Init:
 	move.w #0x3, CurrentLevelNumActs
 	
 	; Load BG map
-	lea    map_blocks_l2bg, a0
+	lea    map_blocks_l2, a0
 	lea    map_blockmap_l2bg, a1
 	move.l #(map_blockmap_l2bg_width<<16)|map_blockmap_l2bg_height, d1
 	move.w (vram_addr_leveltiles), d2

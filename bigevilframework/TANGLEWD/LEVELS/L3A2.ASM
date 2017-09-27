@@ -14,7 +14,7 @@ l3a2_HeritageAct2:
 	dc.l LevelSelect_Str_03				; Name
 	dc.l LevelData_L3A2					; Userdata
 	dc.l tiles_l3						; Tileset
-	dc.l map_blocks_l3a2				; Blocks
+	dc.l map_blocks_l3					; Blocks
 	dc.l map_blockmap_l3a2				; Block map
 	dc.l collisiontiles_l3				; Collision tileset
 	dc.l collisionmap_blocks_l3a2		; Collision blocks
@@ -65,7 +65,7 @@ l3a2Data_Struct_Size     		rs.b 0
 l3a2_Init:
 	
 	; Load BG map
-	lea    map_blocks_l3bg, a0
+	lea    map_blocks_l3, a0
 	lea    map_blockmap_l3bg, a1
 	move.l #(map_blockmap_l3bg_width<<16)|map_blockmap_l3bg_height, d1
 	move.w (vram_addr_leveltiles), d2

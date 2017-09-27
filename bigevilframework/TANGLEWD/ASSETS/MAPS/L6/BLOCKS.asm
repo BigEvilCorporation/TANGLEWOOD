@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L1BG_size_b	equ 0x000004C0	; Size in bytes
-map_blocks_L1BG_size_w	equ (map_blocks_L1BG_size_b/2)	; Size in words
-map_blocks_L1BG_size_l	equ (map_blocks_L1BG_size_b/4)	; Size in longwords
+map_blocks_L6_size_b	equ 0x0000DC00	; Size in bytes
+map_blocks_L6_size_w	equ (map_blocks_L6_size_b/2)	; Size in words
+map_blocks_L6_size_l	equ (map_blocks_L6_size_b/4)	; Size in longwords

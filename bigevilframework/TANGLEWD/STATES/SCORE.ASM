@@ -106,7 +106,7 @@ EndLevelScoreScreen_Enter:
 	jsr    LevelLoadCompressedTileset
 
 	; Load BG map
-	lea    map_blocks_l1bg, a0
+	lea    map_blocks_l1, a0
 	lea    map_blockmap_l1bg, a1
 	move.l #(map_blockmap_l1bg_width<<16)|map_blockmap_l1bg_height, d1
 	move.w (vram_addr_leveltiles), d2

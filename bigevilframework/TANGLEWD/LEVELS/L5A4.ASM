@@ -14,7 +14,7 @@ l5a4_BygoneAct4:
 	dc.l LevelSelect_Str_05				; Name
 	dc.l LevelData_l5a4					; Userdata
 	dc.l tiles_L4						; Tileset (using L4 tileset)
-	dc.l map_blocks_l5a4				; Blocks
+	dc.l map_blocks_l4					; Blocks (using L4 tileset)
 	dc.l map_blockmap_l5a4				; Block map
 	dc.l collisiontiles_L4				; Collision tileset (using L4 tileset)
 	dc.l collisionmap_blocks_l5a4		; Collision blocks
@@ -63,7 +63,7 @@ l5a4Data_Struct_Size     		rs.b 0
 l5a4_Init:
 	
 	; Load BG map (using L4 tileset)
-	lea    map_blocks_L4bg, a0
+	lea    map_blocks_L4, a0
 	lea    map_blockmap_L4bg, a1
 	move.l #(map_blockmap_L4bg_width<<16)|map_blockmap_L4bg_height, d1
 	move.w (vram_addr_leveltiles), d2

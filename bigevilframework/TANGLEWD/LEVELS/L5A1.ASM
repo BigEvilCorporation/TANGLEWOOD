@@ -14,7 +14,7 @@ L5a1_BygoneAct1:
 	dc.l LevelSelect_Str_05				; Name
 	dc.l LevelData_L5A1					; Userdata
 	dc.l tiles_L5						; Tileset
-	dc.l map_blocks_L5a1				; Blocks
+	dc.l map_blocks_L5					; Blocks
 	dc.l map_blockmap_L5a1				; Block map
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_L5a1		; Collision blocks
@@ -67,7 +67,7 @@ L5a1_Init:
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
-	lea    map_blocks_L5bg, a0
+	lea    map_blocks_L5, a0
 	lea    map_blockmap_L5bg, a1
 	move.l #(map_blockmap_L5bg_width<<16)|map_blockmap_L5bg_height, d1
 	move.w (vram_addr_leveltiles), d2

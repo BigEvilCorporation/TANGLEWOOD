@@ -308,7 +308,7 @@ LevelLoadCompressedTileset:
 
 	; Load tiles
 	move.l a1, a0
-	jsr    VDP_LoadTiles
+	jsr    VDP_LoadTilesDMA
 
 	; Free decompression buffer
 	RAMPOOL_INIT Pool_Entities,EntityRAMPoolSize

@@ -14,7 +14,7 @@ L6a1_DeadwoodAct1:
 	dc.l LevelSelect_Str_06				; Name
 	dc.l LevelData_L6A1					; Userdata
 	dc.l tiles_L6						; Tileset
-	dc.l map_blocks_L6a1				; Blocks
+	dc.l map_blocks_L6					; Blocks
 	dc.l map_blockmap_L6a1				; Block map
 	dc.l collisiontiles_L6				; Collision tileset
 	dc.l collisionmap_blocks_L6a1		; Collision blocks
@@ -77,7 +77,7 @@ L6a1_Init:
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
-	lea    map_blocks_L6bg, a0
+	lea    map_blocks_L6, a0
 	lea    map_blockmap_L6bg, a1
 	move.l #(map_blockmap_L6bg_width<<16)|map_blockmap_L6bg_height, d1
 	move.w (vram_addr_leveltiles), d2

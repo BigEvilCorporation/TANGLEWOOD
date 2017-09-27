@@ -37,19 +37,10 @@ tiles_l5:
 ;==============================================================
 ; Graphics blocks
 ;==============================================================
-	include 'assets\maps\l5\l5a1\blocks.asm'
-	include 'assets\maps\l5\l5a2\blocks.asm'
-	include 'assets\maps\l5\l5a4\blocks.asm'
-	include 'assets\maps\l5\l5bg\blocks.asm'
+	include 'assets\maps\l5\blocks.asm'
 
-map_blocks_l5a1:
-	incbin 'assets\maps\l5\l5a1\blocks.bin'
-map_blocks_l5a2:
-	incbin 'assets\maps\l5\l5a2\blocks.bin'
-map_blocks_l5a4:
-	incbin 'assets\maps\l5\l5a4\blocks.bin'
-map_blocks_l5bg:
-	incbin 'assets\maps\l5\l5bg\blocks.bin'
+map_blocks_l5:
+	incbin 'assets\maps\l5\blocks.bin'
 
 ;==============================================================
 ; Graphics block maps

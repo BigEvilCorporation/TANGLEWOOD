@@ -14,7 +14,7 @@ l4a2_TetheredAct2:
 	dc.l LevelSelect_Str_04				; Name
 	dc.l LevelData_L4A2					; Userdata
 	dc.l tiles_l4						; Tileset
-	dc.l map_blocks_l4a2				; Blocks
+	dc.l map_blocks_l4					; Blocks
 	dc.l map_blockmap_l4a2				; Block map
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4a2		; Collision blocks
@@ -63,7 +63,7 @@ l4a2Data_Struct_Size     		rs.b 0
 l4a2_Init:
 	
 	; Load BG map
-	lea    map_blocks_l4bg, a0
+	lea    map_blocks_l4, a0
 	lea    map_blockmap_l4bg, a1
 	move.l #(map_blockmap_l4bg_width<<16)|map_blockmap_l4bg_height, d1
 	move.w (vram_addr_leveltiles), d2

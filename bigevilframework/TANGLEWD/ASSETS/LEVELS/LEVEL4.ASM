@@ -36,16 +36,10 @@ tiles_l4:
 ;==============================================================
 ; Graphics blocks
 ;==============================================================
-	include 'assets\maps\l4\l4a1\blocks.asm'
-	include 'assets\maps\l4\l4a2\blocks.asm'
-	include 'assets\maps\l4\l4bg\blocks.asm'
+	include 'assets\maps\l4\blocks.asm'
 
-map_blocks_l4a1:
-	incbin 'assets\maps\l4\l4a1\blocks.bin'
-map_blocks_l4a2:
-	incbin 'assets\maps\l4\l4a2\blocks.bin'
-map_blocks_l4bg:
-	incbin 'assets\maps\l4\l4bg\blocks.bin'
+map_blocks_l4:
+	incbin 'assets\maps\l4\blocks.bin'
 
 ;==============================================================
 ; Graphics block maps

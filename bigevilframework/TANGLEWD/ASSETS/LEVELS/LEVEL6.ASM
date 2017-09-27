@@ -35,13 +35,10 @@ tiles_l6:
 ;==============================================================
 ; Graphics blocks
 ;==============================================================
-	include 'assets\maps\l6\l6a1\blocks.asm'
-	include 'assets\maps\l6\l6bg\blocks.asm'
+	include 'assets\maps\l6\blocks.asm'
 
-map_blocks_l6a1:
-	incbin 'assets\maps\l6\l6a1\blocks.bin'
-map_blocks_l6bg:
-	incbin 'assets\maps\l6\l6bg\blocks.bin'
+map_blocks_l6:
+	incbin 'assets\maps\l6\blocks.bin'
 
 ;==============================================================
 ; Graphics block maps
