@@ -27,23 +27,23 @@ L5A4_Nymn_1_name	dc.b "L5A4_Nymn_1",0
 	even
 	ENDIF
 
+L5A4_BouncePlant_count equ 0x0
+
 L5A4_Log_count equ 0x0
 
 L5A4_DjakkCage_count equ 0x0
-
-L5A4_BouncePlant_count equ 0x0
 
 L5A4_Monster_count equ 0x0
 
 L5A4_Boulder_count equ 0x0
 
-L5A4_FuzzlCage_count equ 0x0
-
 L5A4_Firefly_count equ 0x0
 
-L5A4_Stone_count equ 0x0
+L5A4_FuzzlCage_count equ 0x0
 
 L5A4_Fuzzl_count equ 0x0
+
+L5A4_Stone_count equ 0x0
 
 L5A4_Nest_count equ 0x0
 
@@ -57,9 +57,9 @@ L5A4_WaterBody_count equ 0x0
 
 L5A4_Location_count equ 0x0
 
-L5A4_Lift_count equ 0x0
-
 L5A4_Deathbox_count equ 0x0
+
+L5A4_Lift_count equ 0x0
 
 L5A4_Crate_count equ 0x0
 
@@ -96,6 +96,14 @@ L5A4_Demon_3_idx	equ 0x0
 
 	IFND FINAL
 L5A4_Demon_3_name	dc.b "L5A4_Demon_3",0
+	even
+	ENDIF
+
+L5A4_Borgus_count equ 0x1
+L5A4_Borgus_4_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Borgus_4_name	dc.b "L5A4_Borgus_4",0
 	even
 	ENDIF
 
@@ -181,8 +189,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x02c80000, Entity_WorldPosX(a0)
-	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #0x05480000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Demon_3_name, a3
 	move.l a0, a2
@@ -192,6 +200,25 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Borgus_Struct_Size*L5A4_Borgus_count)
+	move.l a1, EntityPoolStart_Borgus
+	move.l a1, a0
+	POPL   a1
+
+	jsr BorgusInit
+	move.l #0x03c80000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_Borgus_4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BorgusLoadGfx
+	add.l #Borgus_Struct_Size, a0
 
 	rts
 

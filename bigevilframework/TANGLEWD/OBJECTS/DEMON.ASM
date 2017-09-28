@@ -9,8 +9,6 @@
 ; Constants
 Demon_Width			equ 0x0078
 Demon_Height		equ 0x0060
-DemonWisp_Width		equ 0x0038
-DemonWisp_Height	equ 0x0030
 
 Demon_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
 Demon_MaxVelXRun    equ 0x03E000   ; Max X running velocity
@@ -27,6 +25,13 @@ Demon_BoundsWidth	equ Demon_Width
 Demon_BoundsHeight	equ (Demon_Height-0x40)
 Demon_BoundsOffsetX	equ (Demon_Width/2)-(Demon_BoundsWidth/2)
 Demon_BoundsOffsetY	equ (Demon_Height/2)-(Demon_BoundsHeight/2)
+
+DemonWisp_Width		equ 0x0038
+DemonWisp_Height	equ 0x0030
+DemonWisp_MinVel	equ 0x00002000
+DemonWisp_MaxVel	equ 0x00020000
+DemonWisp_Accel		equ 0x00008000
+DemonWisp_MaxDistSq	equ Player1Height	; Max distance from player
 
 DemonState_Wisp		equ 0x0
 
@@ -139,6 +144,19 @@ DemonUpdate:
 	bra    @End
 
 	@Wisp:
+
+	; If dist to player > max
+	PUSHL  a1
+	move.l Player1, a1
+	jsr    PHYS_EntityDistSq
+	cmp.l  #DemonWisp_MaxDistSq*DemonWisp_MaxDistSq, d0
+	blt    @WithinRange
+
+	; Accelerate towards player
+	
+
+	@WithinRange:
+	POPL   a1
 
 	; Update wisp
 	PUSHL   a0

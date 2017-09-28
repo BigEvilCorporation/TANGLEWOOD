@@ -113,6 +113,7 @@ __start
 	ENDIF
 	include 'objects\actor.asm'
 	include 'objects\aimarker.asm'
+	include 'objects\borgus.asm'
 	include 'objects\bridge.asm'
 	include 'objects\button.asm'
 	include 'objects\cart.asm'

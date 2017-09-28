@@ -27,23 +27,15 @@ L4A1_Nymn_1_name	dc.b "L4A1_Nymn_1",0
 	even
 	ENDIF
 
+L4A1_BouncePlant_count equ 0x0
+
 L4A1_Log_count equ 0x0
 
 L4A1_DjakkCage_count equ 0x0
 
-L4A1_BouncePlant_count equ 0x0
-
 L4A1_Monster_count equ 0x0
 
 L4A1_Boulder_count equ 0x0
-
-L4A1_FuzzlCage_count equ 0x1
-L4A1_FuzzlCage1_idx	equ 0x0
-
-	IFND FINAL
-L4A1_FuzzlCage1_name	dc.b "L4A1_FuzzlCage1",0
-	even
-	ENDIF
 
 L4A1_Firefly_count equ 0x8
 L4A1_Firefly_29_idx	equ 0x0
@@ -67,6 +59,24 @@ L4A1_Firefly_36_name	dc.b "L4A1_Firefly_36",0
 	even
 	ENDIF
 
+L4A1_FuzzlCage_count equ 0x1
+L4A1_FuzzlCage1_idx	equ 0x0
+
+	IFND FINAL
+L4A1_FuzzlCage1_name	dc.b "L4A1_FuzzlCage1",0
+	even
+	ENDIF
+
+L4A1_Fuzzl_count equ 0x2
+L4A1_FuzzlGlide1_idx	equ 0x0
+L4A1_FuzzlCaged1_idx	equ 0x1
+
+	IFND FINAL
+L4A1_FuzzlGlide1_name	dc.b "L4A1_FuzzlGlide1",0
+L4A1_FuzzlCaged1_name	dc.b "L4A1_FuzzlCaged1",0
+	even
+	ENDIF
+
 L4A1_Stone_count equ 0x4
 L4A1_Stone_17_idx	equ 0x0
 L4A1_Stone_21_idx	equ 0x1
@@ -78,16 +88,6 @@ L4A1_Stone_17_name	dc.b "L4A1_Stone_17",0
 L4A1_Stone_21_name	dc.b "L4A1_Stone_21",0
 L4A1_Stone_22_name	dc.b "L4A1_Stone_22",0
 L4A1_Stone_37_name	dc.b "L4A1_Stone_37",0
-	even
-	ENDIF
-
-L4A1_Fuzzl_count equ 0x2
-L4A1_FuzzlGlide1_idx	equ 0x0
-L4A1_FuzzlCaged1_idx	equ 0x1
-
-	IFND FINAL
-L4A1_FuzzlGlide1_name	dc.b "L4A1_FuzzlGlide1",0
-L4A1_FuzzlCaged1_name	dc.b "L4A1_FuzzlCaged1",0
 	even
 	ENDIF
 
@@ -127,9 +127,9 @@ L4A1_Water1_name	dc.b "L4A1_Water1",0
 
 L4A1_Location_count equ 0x0
 
-L4A1_Lift_count equ 0x0
-
 L4A1_Deathbox_count equ 0x0
+
+L4A1_Lift_count equ 0x0
 
 L4A1_Crate_count equ 0x0
 
@@ -201,6 +201,8 @@ L4A1_Ladder_count equ 0x0
 
 L4A1_Demon_count equ 0x0
 
+L4A1_Borgus_count equ 0x0
+
 
 
 L4A1_LoadGameObjects:
@@ -248,25 +250,6 @@ L4A1_LoadGameObjects:
 
 
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L4A1_FuzzlCage_count)
-	move.l a1, EntityPoolStart_FuzzlCage
-	move.l a1, a0
-	POPL   a1
-
-	jsr FuzzlCageInit
-	move.l #0x15f80000, Entity_WorldPosX(a0)
-	move.l #0x01d00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A1_FuzzlCage1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr FuzzlCageLoadGfx
-	add.l #FuzzlCage_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L4A1_Firefly_count)
@@ -372,6 +355,57 @@ L4A1_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L4A1_FuzzlCage_count)
+	move.l a1, EntityPoolStart_FuzzlCage
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlCageInit
+	move.l #0x15f80000, Entity_WorldPosX(a0)
+	move.l #0x01d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A1_FuzzlCage1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlCageLoadGfx
+	add.l #FuzzlCage_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L4A1_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x0fa80000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A1_FuzzlGlide1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x16080000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A1_FuzzlCaged1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+
+	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L4A1_Stone_count)
 	move.l a1, EntityPoolStart_Stone
 	move.l a1, a0
@@ -425,38 +459,6 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L4A1_Fuzzl_count)
-	move.l a1, EntityPoolStart_Fuzzl
-	move.l a1, a0
-	POPL   a1
-
-	jsr FuzzlInit
-	move.l #0x0fa80000, Entity_WorldPosX(a0)
-	move.l #0x02d80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A1_FuzzlGlide1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x16080000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A1_FuzzlCaged1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A1_Nest_count)
@@ -716,6 +718,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 

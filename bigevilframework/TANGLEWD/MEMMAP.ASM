@@ -410,6 +410,7 @@ EntityPoolStart_Nymn        rs.l 1
 EntityPoolStart_Echo        rs.l 1
 EntityPoolStart_Actor       rs.l 1
 EntityPoolStart_AIMarker    rs.l 1
+EntityPoolStart_Borgus      rs.l 1
 EntityPoolStart_Bridge      rs.l 1
 EntityPoolStart_Button      rs.l 1
 EntityPoolStart_Cart        rs.l 1
@@ -450,6 +451,7 @@ EntityPoolStart_UIWindow    rs.l 1
 
 EntityCount_Actor       rs.w 1
 EntityCount_AIMarker    rs.w 1
+EntityCount_Borgus      rs.w 1
 EntityCount_Bridge      rs.w 1
 EntityCount_Button      rs.w 1
 EntityCount_Cart        rs.w 1

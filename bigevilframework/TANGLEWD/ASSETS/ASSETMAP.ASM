@@ -51,6 +51,7 @@
 	; ************************************
 	IFND DEBUG
 	include 'assets\sprites\bolt.asm'
+	include 'assets\sprites\borgus.asm'
 	include 'assets\sprites\boulder.asm'
 	include 'assets\sprites\bridge.asm'
 	include 'assets\sprites\button.asm'
@@ -83,6 +84,7 @@
 	include 'assets\sprites\raft.asm'
 	include 'assets\sprites\rain.asm'
 	include 'assets\sprites\rope.asm'
+	include 'assets\sprites\spitball.asm'
 	include 'assets\sprites\stone.asm'
 	include 'assets\sprites\twd_logo.asm'
 	include 'assets\sprites\water.asm'
@@ -98,6 +100,7 @@
 	include 'assets\palettes\pal_fade.asm'
 	include 'assets\palettes\pal_nymn.asm'
 	include 'assets\palettes\pal_nest.asm'
+	include 'assets\palettes\borgus.asm'
 	include 'assets\palettes\demon.asm'
 	include 'assets\palettes\djakk.asm'
 	include 'assets\palettes\djrake.asm'
@@ -110,6 +113,7 @@
 	; ************************************
 	IFND DEBUG
 	include 'assets\anims\bolt.asm'
+	include 'assets\anims\borgus.asm'
 	include 'assets\anims\boulder.asm'
 	include 'assets\anims\button.asm'
 	include 'assets\anims\cart.asm'
@@ -134,6 +138,7 @@
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
+	include 'assets\anims\spitball.asm'
 	include 'assets\anims\water.asm'
 	include 'assets\anims\winch.asm'
 	include 'assets\anims\wisp.asm'
