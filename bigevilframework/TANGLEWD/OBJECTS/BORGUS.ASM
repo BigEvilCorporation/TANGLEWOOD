@@ -23,9 +23,9 @@ Borgus_DecelForced		equ 0x004000   ; Deceleration if input opposite direction
 Borgus_Mass				equ 0x00A0
 
 Borgus_StepHeight		equ 0x3
-Borgus_MinWallHeight	equ 0x11				 ; High enough to avoid stones
-Borgus_ProbeFloorX		equ (Borgus_Width/2)  ; Floor detection probe position X
-Borgus_ProbeFloorY		equ (Borgus_Height-8) ; Floor detection probe position Y
+Borgus_MinWallHeight	equ 0x11				; High enough to avoid stones
+Borgus_ProbeFloorX		equ (Borgus_Width/2)	; Floor detection probe position X
+Borgus_ProbeFloorY		equ (Borgus_Height-8)	; Floor detection probe position Y
 Borgus_ProbeWallTop		equ 0x08
 
 Borgus_BoundsWidth		equ Borgus_Width
@@ -33,13 +33,27 @@ Borgus_BoundsHeight		equ (Borgus_Height-0x40)
 Borgus_BoundsOffsetX	equ (Borgus_Width/2)-(Borgus_BoundsWidth/2)
 Borgus_BoundsOffsetY	equ (Borgus_Height/2)-(Borgus_BoundsHeight/2)
 
+Borgus_DefaultSpitTime	equ 0x0100
+Borgus_SpitOffsetX		equ 0x0030
+Borgus_SpitOffsetY		equ 0x0040
+Borgus_SpitAnimFrame	equ 0x2
+
+; AI
 Borgus_AIFollowDistance	equ 0x0060
 
+; Spitball
 BorgusSpitball_Width	equ 0x0038
 BorgusSpitball_Height	equ 0x0030
 BorgusSpitball_MaxVel	equ 0x00040000
 
-BorgusState_Follow		equ 0x0
+; States
+BorgusAIState_Follow	equ 0x0
+BorgusAIState_Spit		equ 0x1
+
+; Animations
+BorgusAnimIdx_Spit		equ 0x0
+;------------------------------
+BorgusAnimIdx_Max		equ 0x1
 
 ;==============================================================
 
@@ -56,9 +70,11 @@ Spitball_Struct_Size		rs.b 0
 	rsset (Character_Struct_Size)
 ;-----------------------------
 Borgus_Spitball			rs.b Spitball_Struct_Size
-Borgus_State			rs.b 1
+Borgus_Animations		rs.b (Animation_Struct_Size*BorgusAnimIdx_Max)
+Borgus_SpitTimer		rs.w 1
+Borgus_AIState			rs.b 1
 ;-----------------------------
-Borgus_Struct_Pad		rs.b 3   ; Alignment padding
+Borgus_Struct_Pad		rs.b 1   ; Alignment padding
 Borgus_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -113,7 +129,8 @@ BorgusInit:
 	move.w  #Borgus_DecelIdle, Character_DecelIdle(a0)
 	move.w  #Borgus_DecelForced, Character_DecelForced(a0)
 
-	move.b  #BorgusState_Follow, Borgus_State(a0)
+	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
+	move.b  #BorgusAIState_Follow, Borgus_AIState(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -136,6 +153,9 @@ BorgusInit:
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
 	POPL    a0
 
+	; Start follow state
+	jsr     BorgusAIStart_Follow
+
 	rts
 
 BorgusLoadGfx:
@@ -150,6 +170,9 @@ BorgusLoadGfx:
 	ANIM_LOAD_DEFAULT Borgus_walk,Borgus_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT Borgus_walk,Borgus_walk,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
+	; Load bespoke animations
+	ANIM_LOAD_DEFAULT Borgus_spit,Borgus_spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0
+
 	; Load spitball and start animation
 	PUSHM   a0-a1
 	lea     Borgus_Spitball(a0), a0
@@ -163,6 +186,102 @@ BorgusLoadGfx:
 	rts
 	
 BorgusUpdate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Update AI state
+	move.b Borgus_AIState(a0), d0
+	cmp.b  #BorgusAIState_Follow, d0
+	beq    @AIFollow
+	cmp.b  #BorgusAIState_Spit, d0
+	beq    @AISpit
+
+	@AIFollow:
+	jsr    BorgusAIUpdate_Follow
+	bra    @EndAI
+
+	@AISpit:
+	jsr    BorgusAIUpdate_Spit
+	bra    @EndAI
+
+	@EndAI:
+
+	;==============================================================
+	
+	; Base functionality
+	jsr    CharacterUpdate
+
+	;==============================================================
+
+	; Update spitball
+	PUSHM   a0-a1
+	lea     Borgus_Spitball(a0), a0
+	jsr    PhysicsObjUpdate
+	POPM    a0-a1
+
+	rts
+
+BorgusDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Base functionality
+	jsr    CharacterDraw
+
+	;==============================================================
+
+	; Draw spitball
+	PUSHM   a0-a1
+	lea     Borgus_Spitball(a0), a0
+	jsr     AnimObjDraw
+	POPM    a0-a1
+
+	rts
+	
+BorgusSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts
+
+BorgusAIStart_Follow:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #BorgusAIState_Follow, Borgus_AIState(a0)
+
+	; Reset spit timer
+	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
+
+	rts
+
+BorgusAIUpdate_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
@@ -200,48 +319,83 @@ BorgusUpdate:
 	jsr    CharacterCancelXMovement
 	
 	@EndFollow:
-	
-	; Base functionality
-	jsr    CharacterUpdate
+
+	;==============================================================
+
+	; Countdown spit timer
+	move.w Borgus_SpitTimer(a0), d0
+	subq.w #0x1, d0
+	move.w d0, Borgus_SpitTimer(a0)
+	tst.w  d0
+	bne    @TimerRunning
+
+	; Enter spit state
+	jsr    BorgusAIStart_Spit
+
+	@TimerRunning:
 
 	rts
 
-BorgusDraw:
+BorgusAIStart_Spit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Base functionality
-	jsr    CharacterDraw
+	; Set state
+	move.b #BorgusAIState_Spit, Borgus_AIState(a0)
+
+	; Start spit animation
+	PUSHL  a1
+	lea    Borgus_Animations+(BorgusAnimIdx_Spit*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	rts
-	
-BorgusSerialise:
+
+BorgusAIUpdate_Spit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a3 --- Stream ptr
-	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
-	cmp.b #serialise_dir_in, d1
-	beq   @Loading
-	
-	;==============================================================
-	
-	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
-	
-	bra  @End
-	
-	;==============================================================
-	
-	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
-	
-	;==============================================================
-	
-	@End:
-	
+	; If at spit frame
+	move.l AnimObj_AnimSubframe(a0), d0
+	lsr.l  #0x8, d0
+	cmp.b  #Borgus_SpitAnimFrame, d0
+	bne    @NotHitFrame
+
+	; Fire spitball
+	jsr    BorgusFireSpitball
+
+	; Back to follow state
+	jsr    BorgusAIStart_Follow
+
+	@NotHitFrame:
+
+	rts
+
+BorgusFireSpitball:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHM   a0-a1
+	move.l  a0, a2
+	lea     Borgus_Spitball(a0), a0
+
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	addi.w #Borgus_SpitOffsetX, d0
+	addi.w #Borgus_SpitOffsetY, d1
+
+	move.l #BorgusSpitball_MaxVel, d2
+
+	tst.b  SpriteObj_FlippedX(a2)
+	beq    @Forward
+	neg.l  d2
+	@Forward:
+
+	move.w  d0, Entity_WorldPosX(a0)
+	move.w  d1, Entity_WorldPosY(a0)
+	move.l  d2, PhysicsObj_VelX(a0)
+	move.b  SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
+	POPM    a0-a1
+
 	rts
