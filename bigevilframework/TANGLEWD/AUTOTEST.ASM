@@ -55,6 +55,7 @@ AutotestUpdate:
 	beq    @LevelSelect
 	cmp.l  #GameStateGameplay, d0
 	beq    @Gameplay
+	bra    @End
 
 	;==============================================================
 

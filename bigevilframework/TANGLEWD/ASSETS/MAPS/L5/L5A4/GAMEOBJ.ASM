@@ -49,7 +49,13 @@ L5A4_Nest_count equ 0x0
 
 L5A4_Flue_count equ 0x0
 
-L5A4_TriggerBox_count equ 0x0
+L5A4_TriggerBox_count equ 0x1
+L5A4_Trigger_Cutscene_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Trigger_Cutscene_name	dc.b "L5A4_Trigger_Cutscene",0
+	even
+	ENDIF
 
 L5A4_Checkpoint_count equ 0x0
 
@@ -92,20 +98,14 @@ L5A4_Pool_count equ 0x0
 L5A4_Ladder_count equ 0x0
 
 L5A4_Demon_count equ 0x1
-L5A4_Demon_3_idx	equ 0x0
+L5A4_Demon_idx	equ 0x0
 
 	IFND FINAL
-L5A4_Demon_3_name	dc.b "L5A4_Demon_3",0
+L5A4_Demon_name	dc.b "L5A4_Demon",0
 	even
 	ENDIF
 
-L5A4_Borgus_count equ 0x1
-L5A4_Borgus_4_idx	equ 0x0
-
-	IFND FINAL
-L5A4_Borgus_4_name	dc.b "L5A4_Borgus_4",0
-	even
-	ENDIF
+L5A4_Borgus_count equ 0x0
 
 
 
@@ -161,6 +161,27 @@ L5A4_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L5A4_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x09e00000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_Trigger_Cutscene_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a4_Cutscene_Begin, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 
@@ -189,36 +210,18 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x05480000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x01a80000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A4_Demon_3_name, a3
+	lea L5A4_Demon_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Borgus_Struct_Size*L5A4_Borgus_count)
-	move.l a1, EntityPoolStart_Borgus
-	move.l a1, a0
-	POPL   a1
-
-	jsr BorgusInit
-	move.l #0x03c80000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A4_Borgus_4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr BorgusLoadGfx
-	add.l #Borgus_Struct_Size, a0
 
 	rts
 

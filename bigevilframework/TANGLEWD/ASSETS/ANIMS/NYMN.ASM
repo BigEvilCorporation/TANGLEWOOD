@@ -230,6 +230,21 @@ spriteanim_nymn_lookup_track_posy:
 spriteanim_nymn_lookup_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
+spriteanim_nymn_lookup_static:
+spriteanim_nymn_lookup_static_numframes: equ 0x1
+spriteanim_nymn_lookup_static_speed: equ 0x5
+spriteanim_nymn_lookup_static_track_frames:
+	dc.b 0x2
+	Even
+spriteanim_nymn_lookup_static_track_posx:
+	dc.b 0x00
+	Even
+spriteanim_nymn_lookup_static_track_posy:
+	dc.b 0x00
+	Even
+spriteanim_nymn_lookup_static_track_sfx:
+	dc.l 0x0
+	Even
 
 spriteanim_nymn_fall:
 spriteanim_nymn_fall_numframes: equ 0x4

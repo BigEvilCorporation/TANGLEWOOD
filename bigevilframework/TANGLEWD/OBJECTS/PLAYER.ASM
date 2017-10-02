@@ -1518,7 +1518,7 @@ PlayerStartInteract:
 	tst.b  Player_InteractionToggle(a0)
 	beq    @NoToggle
 	move.b #0x0, Player_InteractionToggle(a0)
-	jsr    PlayerCancelInteract
+	jsr    CharacterCancelInteractA
 	bra    @End
 	@NoToggle:
 	
@@ -1550,7 +1550,7 @@ PlayerStartInteract:
 	beq    @NoPushablesNear
 	
 	@Pushing:
-	
+
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
 	move.l a2, Player_InteractObject(a0)
@@ -1630,13 +1630,21 @@ PlayerUpdatePushInteract:
 	move.l Player_InteractObject(a0), a2
 	jsr    PhysicsObjPushPullObj
 
+	; Hit wall flag in d1
+	tst.b  d1
+	beq    @HitWall
+
 	; Outer bounds penetration flag in d0
 	tst.b  d0
 	bne    @StillPushing
 
-	; Cannot be pushed/no longer in range - clear pushing flags (but keep interaction flag until button depressed)
-	move.b #0x0, Character_Pushing(a0)
+	; Cannot be pushed/no longer in range - unlock sprite flip
 	move.b #0x0, Character_LockSpriteFlip(a0)
+
+	@HitWall:
+
+	; Clear pushing flags (but keep interaction flag until button depressed)
+	move.b #0x0, Character_Pushing(a0)
 	bra    @NotPushing
 
 	@StillPushing:
@@ -1732,6 +1740,20 @@ PlayerCancelInteract:
 
 	@ButtonToggle:
 	
+	rts
+
+PlayerBeginPermadeath:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHL   a1
+	lea     Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Dead)(a0), a1
+	move.b  #0x0, d0
+	jsr     AnimObjSetAnimation
+	POPL    a1
+
+	move.b  #0x0, Character_UpdateAnim(a0)
+
 	rts
 	
 PlayerInteractTest_Fuzzls:

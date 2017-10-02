@@ -773,6 +773,14 @@ EchoUpdateAI:
 
 	rts
 
+EchoAIStop:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.b #EchoAIState_None, Echo_AIState(a0)
+
+	rts
+
 EchoAIStart_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr

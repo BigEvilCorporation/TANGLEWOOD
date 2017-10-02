@@ -9,8 +9,9 @@
 ; Animations
 NymnAnimIdx_GreetEcho    	equ 0
 NymnAnimIdx_PickupEcho    	equ 1
+NymnAnimIdx_LookUp       	equ 2
 ; -------------------------------
-NymnAnimIdx_Max       		equ 2
+NymnAnimIdx_Max       		equ 3
 
 ; Carry Echo state
 NymnCarryEcho_Inactive		equ 0
@@ -162,6 +163,9 @@ NymnInit:
 	
 	; Pick up Echo
 	ANIM_LOAD_DEFAULT nymn_pickupecho,nymn_pickupecho,Nymn_Animations,NymnAnimIdx_PickupEcho,0,1,0
+
+	; Look up
+	ANIM_LOAD_DEFAULT nymn_lookup,nymn_lookup,Nymn_Animations,NymnAnimIdx_LookUp,0,0,0
 	
 	rts
 
@@ -265,11 +269,30 @@ NymnStartInteract:
 	jsr    PlayerStartInteract
 
 	ELSE ; TANGLWD_INCLUDE_ECHO
+
+	; Get current interaction mode
+	move.b Player_InteractionType(a0), d0
 	
-	; Check if already interacting
-	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
-	bne    @AlreadyInteracting
-	
+	; Base functionality
+	PUSHL  d0
+	jsr    PlayerStartInteract
+	POPL   d0
+
+	; If interaction state unchanged
+	move.b Player_InteractionType(a0), d1
+	cmp.b  d0, d1
+	bne    @Handled
+
+	; If not already interacting
+	cmp.b  #Player_Interaction_None, d1
+	bne    @Handled
+
+	; If at zero velocity
+	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	bne    @Moving
+	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	bne    @Moving
+
 	; Check if player dead
 	tst.b  Character_Dead(a0)
 	bne    @Dead
@@ -277,9 +300,13 @@ NymnStartInteract:
 	; Check if player on floor
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @InAir
-	
-	; Bounds test with Echo
+
+	; Check if Echo on floor
 	move.l (Player2), a2
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @InAir
+
+	; Bounds test with Echo
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
@@ -297,19 +324,6 @@ NymnStartInteract:
 	bra    @EchoFound
 	
 	@EchoNotFound:
-	
-	; Base functionality
-	jsr    PlayerStartInteract
-
-	; If no interaction started
-	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
-	bne    @AlreadyInteracting
-
-	; If at zero velocity
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
-	bne    @Moving
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
-	bne    @Moving
 
 	; If in idle state and not waiting on another anim
 	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)
@@ -324,6 +338,7 @@ NymnStartInteract:
 	@Moving:
 	@NotIdle:
 
+	@Handled:
 	@AlreadyInteracting:
 	@Dead:
 	@InAir:
@@ -376,6 +391,20 @@ NymnCancelInteract:
 	move.l (sp)+, d1
 	move.l (sp)+, d0
 	
+	rts
+
+NymnLookUp:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHL  a1
+	lea    Nymn_Animations+(NymnAnimIdx_LookUp*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	move.b #0x0, Character_UpdateAnim(a0)
+
 	rts
 	
 NymnBeginCarryEcho:

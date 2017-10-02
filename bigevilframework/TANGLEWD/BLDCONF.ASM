@@ -50,7 +50,7 @@ DEMO_SHOW_LEVEL_SELECT	equ 1
 DEMO_SHOW_DISCLAIMER	equ 0
 
 ; Autotest
-AUTOTEST_ENABLED		equ 1
+AUTOTEST_ENABLED		equ 0
 AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
 
 ; Initial level/state
@@ -67,11 +67,11 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l3a1_HeritageAct1
 ;InitialLevel			 equ l3a2_HeritageAct2
 ;InitialLevel			 equ l3a3_HeritageAct3
-InitialLevel			 equ l4a1_TetheredAct1
+;InitialLevel			 equ l4a1_TetheredAct1
 ;InitialLevel			 equ l4a2_TetheredAct2
 ;InitialLevel			 equ l5a1_BygoneAct1
 ;InitialLevel			 equ l5a2_BygoneAct2
-;InitialLevel			 equ l5a4_BygoneAct4
+InitialLevel			 equ l5a4_BygoneAct4
 ;InitialLevel			 equ l6a1_DeadwoodAct1
 ;InitialLevel			 equ l7a1_OasisAct1
 ;InitialLevel			 equ Lvl_TestLift
@@ -80,8 +80,8 @@ InitialLevel			 equ l4a1_TetheredAct1
 	IFD FINAL
 InitialState			 equ  GameStateLogos
 	ELSE
-InitialState			 equ  GameStateLogos
+;InitialState			 equ  GameStateLogos
 ;InitialState			 equ  GameStateMainMenu
 ;InitialState			 equ  GameStateLevelSelect
-;InitialState			 equ  GameStateGameplay
+InitialState			 equ  GameStateGameplay
 	ENDIF

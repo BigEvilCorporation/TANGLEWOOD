@@ -51,6 +51,7 @@ PhysicsObj_PushDetectOuter		rs.w 1 ; Collision bounds outer box extension size f
 PhysicsObj_AccelX  		    	rs.w 1 ; X acceleration
 PhysicsObj_AccelY  		    	rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    	rs.w 1 ; X deceleration
+PhysicsObj_DecelY  		    	rs.w 1 ; Y deceleration
 PhysicsObj_FloorProbeX	    	rs.w 1 ; Floor probe X offset
 PhysicsObj_FloorProbeY	    	rs.w 1 ; Floor probe Y offset
 PhysicsObj_CeilingProbeX    	rs.w 1 ; Ceiling probe X offset
@@ -116,6 +117,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)
+	move.w #0x0, PhysicsObj_DecelY(a0)
 	move.w #0x0, PhysicsObj_LastTerrainFlags(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
@@ -265,6 +267,7 @@ PhysicsObjUpdate:
 	@NoPhysics:
 
 	; No physics, just do the basics
+	jsr PhysicsObjApplyAccelDecel
 	jsr PhysicsObjApplyVelocity
 
 	bra @End
@@ -355,7 +358,7 @@ PhysicsObjApplyAccelDecel:
 	neg.l  d0					; Get max velocity -ve
 	cmp.l  d0, d1				; Compare
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
-	bra    @EndAccelDecel		; Within bounds
+	bra    @EndAccelDecelX		; Within bounds
 	
 	@ClampMaxVelX:
 	
@@ -364,11 +367,11 @@ PhysicsObjApplyAccelDecel:
 	neg.l  d0					; Get max velocity -ve
 	cmp.l  d0, d1				; Compare
 	blt    @ClampX			    ; (BLT is signed comparison)
-	bra    @EndAccelDecel		; Within bounds
+	bra    @EndAccelDecelX		; Within bounds
 	
 	@ClampX:
 	move.l d0, PhysicsObj_VelX(a0)
-	bra    @EndAccelDecel
+	bra    @EndAccelDecelX
 	
 	@IdleXDecel:
 	
@@ -376,19 +379,19 @@ PhysicsObjApplyAccelDecel:
 	tst.b  PhysicsObj_DecelInAir(a0)
 	bne    @Decel
 	tst.b  PhysicsObj_OnFloor(a0)
-	beq    @EndAccelDecel
+	beq    @EndAccelDecelX
 
 	@Decel:
 	@ClampSpeedDecel:
 	
 	; Determine deceleration direction
 	cmp.l #0x0, PhysicsObj_VelX(a0)
-	beq @EndAccelDecel	; No velocity
-	bgt @DecelFromPos	; Postive velocity
-	blt @DecelFromNeg	; Negative velocity
+	beq @EndAccelDecelX	; No velocity
+	bgt @DecelFromPosX	; Postive velocity
+	blt @DecelFromNegX	; Negative velocity
 	
 	; Decelerate from positive X velocity towards 0
-	@DecelFromPos:
+	@DecelFromPosX:
 	move.w PhysicsObj_DecelX(a0), d1
 	ext.l  d1						; Sign extend word to long
 	
@@ -399,12 +402,12 @@ PhysicsObjApplyAccelDecel:
 	
 	sub.l d1, PhysicsObj_VelX(a0)
 	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
-	bge @EndAccelDecel
+	bge @EndAccelDecelX
 	move.l #0x0, PhysicsObj_VelX(a0)
-	bra @EndAccelDecel
+	bra @EndAccelDecelX
 	
 	; Decelerate from negative X velocity towards 0
-	@DecelFromNeg:
+	@DecelFromNegX:
 	move.w PhysicsObj_DecelX(a0), d1
 	ext.l  d1						; Sign extend word to long
 	
@@ -415,11 +418,11 @@ PhysicsObjApplyAccelDecel:
 	
 	add.l d1, PhysicsObj_VelX(a0)
 	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
-	ble @EndAccelDecel
+	ble @EndAccelDecelX
 	move.l #0x0, PhysicsObj_VelX(a0)
-	bra @EndAccelDecel
+	bra @EndAccelDecelX
 	
-	@EndAccelDecel:
+	@EndAccelDecelX:
 	
 	;==============================================================
 	
@@ -452,8 +455,47 @@ PhysicsObjApplyAccelDecel:
 	@ClampY:
 	move.l d0, PhysicsObj_VelY(a0)
 	
-	@EndAccelDecelY:
 	@IdleYDecel:
+
+	; Determine deceleration direction
+	cmp.l #0x0, PhysicsObj_VelY(a0)
+	beq @EndAccelDecelY	; No velocity
+	bgt @DecelFromPosY	; Postive velocity
+	blt @DecelFromNegY	; Negative velocity
+	
+	; Decelerate from positive X velocity towards 0
+	@DecelFromPosY:
+	move.w PhysicsObj_DecelY(a0), d1
+	ext.l  d1						; Sign extend word to long
+	
+	; Apply speed div
+	clr.l  d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d1
+	
+	sub.l d1, PhysicsObj_VelY(a0)
+	cmp.l #0x0, PhysicsObj_VelY(a0)	; Clamp to 0
+	bge @EndAccelDecelY
+	move.l #0x0, PhysicsObj_VelY(a0)
+	bra @EndAccelDecelY
+	
+	; Decelerate from negative X velocity towards 0
+	@DecelFromNegY:
+	move.w PhysicsObj_DecelY(a0), d1
+	ext.l  d1						; Sign extend word to long
+	
+	; Apply speed div
+	clr.l  d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d1
+	
+	add.l d1, PhysicsObj_VelY(a0)
+	cmp.l #0x0, PhysicsObj_VelY(a0)	; Clamp to 0
+	ble @EndAccelDecelY
+	move.l #0x0, PhysicsObj_VelY(a0)
+	bra @EndAccelDecelY
+	
+	@EndAccelDecelY:
 	
 	rts
 	
@@ -1787,9 +1829,11 @@ PhysicsObjPushPullObj:
 	; a1 --- Level addr
 	; a2 --- Pushable obj
 	; d0 (b) OUT: Outer bounds touching, and facing the right direction
+	; d1 (b) OUT: 1 if hitting facing wall
 
 	; Init return value
 	move.b #0x0, d0
+	move.b #0x0, d1
 
 	; Check if can be pushed/pulled
 	tst.b  PhysicsObj_CanBePushed(a2)
@@ -1845,7 +1889,7 @@ PhysicsObjPushPullObj:
 	beq    @CannotPush
 	move.b PhysicsObj_HitWall(a2), d5
 	andi.b #PhysicsObjHitWallLeft, d5
-	bne    @CannotPush
+	bne    @HittingWall
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -1888,7 +1932,7 @@ PhysicsObjPushPullObj:
 	beq    @CannotPush
 	move.b PhysicsObj_HitWall(a2), d5
 	andi.b #PhysicsObjHitWallRight, d5
-	bne    @CannotPush
+	bne    @HittingWall
 
 	; Pushing, check inner bounds
 	PUSHM  d1-d4
@@ -1927,8 +1971,16 @@ PhysicsObjPushPullObj:
 	@Pushing:
 	@OutOfInnerBounds:
 
-	; Within outer bounds and facing the right direction
+	; Within outer bounds, facing the right direction, not hitting wall
 	move.b #0x1, d0
+	move.b #0x1, d1
+	bra    @End
+
+	@HittingWall:
+
+	; Within outer bounds, facing the right direction, but hitting wall
+	move.b #0x1, d0
+	move.b #0x0, d1
 	bra    @End
 
 	@CannotPush:
@@ -1937,6 +1989,7 @@ PhysicsObjPushPullObj:
 
 	; Outside outer bounds or facing wrong direction
 	move.b #0x0, d0
+	move.b #0x0, d1
 
 	@End:
 	
