@@ -472,17 +472,79 @@ l5a4_CutsceneUpdate_WaitEchoEmerge:
 
 	; Stop hiding
 	move.l Player2, a0
+	move.b #0x0, SpriteObj_FlippedX(a0)
 	jsr    EchoStopHiding
 
-	; Start run to Nymn timer
+	; Next state
 	lea    LevelData_L5A4, a2
-	;move.w #l5a4_DemonWaitTimeAttack, l5a4data_CutsceneTimer(a2)
+	move.l #l5a4_CutsceneUpdate_WaitEchoFinishEmerge, l5a4Data_CutsceneState(a2)
+
+	@TimerRunning:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoFinishEmerge:
+
+	PUSHL  a0
+
+	; Wait until emerge anim finished
+	move.l Player2, a0
+	move.l AnimObj_CurrentAnim(a0), a2
+	tst.b  Animation_Looping(a2)
+	beq    @StillEmerging
+
+	; Howl
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Start running to Nymn
+	jsr    CharacterMoveRight
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_EchoRunToNymn, l5a4Data_CutsceneState(a2)
+
+	@StillEmerging:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_EchoRunToNymn:
+
+	PUSHL  a0
+
+	; Run right
+	move.l Player2, a0
+	jsr    CharacterMoveRight
+
+	; Wait until Echo reaches Nymn
+	move.l Player2, a0
+	move.l Player1, a1
+	jsr    PHYS_TestEntityBoxIntersectBoxX
+	tst.b  d0
+	beq    @Running
+
+	; Stop running
+	jsr    CharacterCancelXMovement
+	
+	; Howl
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	; Next state
 	lea    LevelData_L5A4, a2
 	move.l #l5a5_CutsceneEnd, l5a4Data_CutsceneState(a2)
 
-	@TimerRunning:
+	@Running:
 
 	POPL   a0
 
