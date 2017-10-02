@@ -56,7 +56,8 @@ l5a4_DefaultPalettes:
 ; ************************************
 l5a4_DemonToPlayerX				equ 0x60
 l5a4_DemonToPlayerY				equ 0x28
-l5a4_EchoToPlayerX				equ 0x00A0	; Safe distance for Echo to run and hide
+l5a4_EchoHideToPlayerX			equ 0x00A0	; Safe distance for Echo to run and hide
+l5a4_EchoToPlayerX				equ 0x0008	; Distance from Echo to Nymn when howling/circling
 l5a4_DemonWaitTimeEchoScared	equ 0x0020	; Time between beginning reveal and Echo getting scared
 l5a4_DemonWaitTimeEmerge		equ 0x0040	; Time between Echo running off and demon emerging
 l5a4_DemonWaitTimeSmirk			equ 0x00E0	; Time between emerging and smirking
@@ -249,7 +250,7 @@ l5a4_CutsceneUpdate_EchoRun:
 	move.l Player2, a0
 	move.w Entity_WorldPosX(a2), d0
 	move.w Entity_WorldPosX(a0), d2
-	sub.w  #l5a4_EchoToPlayerX, d0
+	sub.w  #l5a4_EchoHideToPlayerX, d0
 	cmp.w  d0, d2
 	bgt    @Running
 
@@ -524,11 +525,13 @@ l5a4_CutsceneUpdate_EchoRunToNymn:
 	jsr    CharacterMoveRight
 
 	; Wait until Echo reaches Nymn
+	move.l Player1, a2
 	move.l Player2, a0
-	move.l Player1, a1
-	jsr    PHYS_TestEntityBoxIntersectBoxX
-	tst.b  d0
-	beq    @Running
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosX(a0), d2
+	sub.w  #l5a4_EchoToPlayerX, d0
+	cmp.w  d0, d2
+	blt    @Running
 
 	; Stop running
 	jsr    CharacterCancelXMovement
@@ -542,12 +545,42 @@ l5a4_CutsceneUpdate_EchoRunToNymn:
 
 	; Next state
 	lea    LevelData_L5A4, a2
-	move.l #l5a5_CutsceneEnd, l5a4Data_CutsceneState(a2)
+	move.l #l5a4_CutsceneUpdate_WaitHowl, l5a4Data_CutsceneState(a2)
 
 	@Running:
 
 	POPL   a0
 
+	rts
+
+l5a4_CutsceneUpdate_WaitHowl:
+
+		PUSHL  a0
+
+	; Wait until howl anim finished
+	move.l Player2, a0
+	move.l AnimObj_CurrentAnim(a0), a2
+	tst.b  Animation_Looping(a2)
+	beq    @StillHowling
+
+	; Circle
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_CircleNymn*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoCircle, l5a4Data_CutsceneState(a2)
+
+	@StillHowling:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoCircle:
 	rts
 
 l5a5_CutsceneEnd:

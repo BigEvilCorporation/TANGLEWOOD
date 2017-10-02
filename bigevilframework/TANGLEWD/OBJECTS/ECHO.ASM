@@ -77,8 +77,9 @@ EchoAnimIdx_Scared			equ 3
 EchoAnimIdx_StandFromHiding	equ 4
 EchoAnimIdx_PounceNymn		equ 5
 EchoAnimIdx_GreetNymn		equ 6
+EchoAnimIdx_CircleNymn		equ 7
 ; -------------------------------
-EchoAnimIdx_Max       		equ 7
+EchoAnimIdx_Max       		equ 8
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -310,6 +311,9 @@ EchoInit:
 	
 	; Greet Nymn
 	ANIM_LOAD_DEFAULT echo_greetnymn,echo_greetnymn,Echo_Animations,EchoAnimIdx_GreetNymn,0,1,0
+
+	; Circle Nymn
+	ANIM_LOAD_DEFAULT echo_circle,echo_circle,Echo_Animations,EchoAnimIdx_CircleNymn,0,1,0
 
 	ENDIF
 	
