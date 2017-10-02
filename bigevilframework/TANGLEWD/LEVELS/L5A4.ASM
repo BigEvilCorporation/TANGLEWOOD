@@ -57,11 +57,12 @@ l5a4_DefaultPalettes:
 l5a4_DemonToPlayerX				equ 0x60
 l5a4_DemonToPlayerY				equ 0x28
 l5a4_EchoToPlayerX				equ 0x00A0	; Safe distance for Echo to run and hide
-l5a4_DemonWaitTimeEchoScared	equ 0x0040	; Time between beginning reveal and Echo getting scared
-l5a4_DemonWaitTimeEmerge		equ 0x0080	; Time between Echo running off and demon emerging
-l5a4_DemonWaitTimeSmirk			equ 0x00A0	; Time between emerging and smirking
-l5a4_DemonWaitTimeFade			equ 0x0080	; Time between smirk and greyscale fade
-l5a4_DemonWaitTimeAttack		equ 0x00A0	; Time between fade and attack
+l5a4_DemonWaitTimeEchoScared	equ 0x0020	; Time between beginning reveal and Echo getting scared
+l5a4_DemonWaitTimeEmerge		equ 0x0040	; Time between Echo running off and demon emerging
+l5a4_DemonWaitTimeSmirk			equ 0x00E0	; Time between emerging and smirking
+l5a4_DemonWaitTimeFade			equ 0x0040	; Time between smirk and greyscale fade
+l5a4_DemonWaitTimeAttack		equ 0x00E0	; Time between fade and attack
+l5a4_DemonWaitTimeEchoEmerge	equ 0x0080	; Time between attack and Echo emerging
 l5a4_ThunderDist				equ 0x1
 
 ; ************************************
@@ -257,15 +258,7 @@ l5a4_CutsceneUpdate_EchoRun:
 	bne    @Running
 
 	; Hide
-	jsr    CharacterCancelXMovement
-
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
+	jsr    EchoStartHiding
 
 	; Lerp camera back
 	move.l Player2, CameraTargetLerpSource
@@ -445,9 +438,9 @@ l5a4_CutsceneUpdate_WaitFlash:
 	move.l Player1, a0
 	jsr    PlayerBeginPermadeath
 
-	; Player now controls Echo
-	move.l Player2, Player1
-	move.l #0x0, Player2
+	; Start Echo emerge timer
+	lea    LevelData_L5A4, a2
+	move.w #l5a4_DemonWaitTimeEchoEmerge, l5a4data_CutsceneTimer(a2)
 
 	; Next state
 	lea    LevelData_L5A4, a2
@@ -460,4 +453,47 @@ l5a4_CutsceneUpdate_WaitFlash:
 	rts
 
 l5a4_CutsceneUpdate_WaitEchoEmerge:
+
+	PUSHL  a0
+
+	; Decrement timer
+	lea    LevelData_L5A4, a2
+	move.w l5a4data_CutsceneTimer(a2), d0
+	subq.w #0x1, d0
+	move.w d0, l5a4data_CutsceneTimer(a2)
+	tst.w  d0
+	bne    @TimerRunning
+
+	; Lerp camera
+	move.l Player1, CameraTargetLerpSource
+	move.l Player2, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+
+	; Stop hiding
+	move.l Player2, a0
+	jsr    EchoStopHiding
+
+	; Start run to Nymn timer
+	lea    LevelData_L5A4, a2
+	;move.w #l5a4_DemonWaitTimeAttack, l5a4data_CutsceneTimer(a2)
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a5_CutsceneEnd, l5a4Data_CutsceneState(a2)
+
+	@TimerRunning:
+
+	POPL   a0
+
+	rts
+
+l5a5_CutsceneEnd:
+
+	; End letterbox mode
+
+	; Player now controls Echo
+	;move.l Player2, Player1
+	;move.l #0x0, Player2
+
 	rts

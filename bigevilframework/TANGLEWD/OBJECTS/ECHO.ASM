@@ -581,6 +581,43 @@ EchoStartCameraLerp:
 	@NoCameraLerp:
 
 	rts
+
+EchoStartHiding:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Stop moving
+	jsr    CharacterCancelXMovement
+
+	; Start hide anim
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Set hide loop as idle anim
+	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Character_Animations,CharacterAnimIdx_Idle,1,1,0
+
+	; Take control of anim updates
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	rts
+
+EchoStopHiding:
+
+	; Get up
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_StandFromHiding*Animation_Struct_Size)(a0), a1
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Restore idle anim
+	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
+	; Restore anim updates
+	move.b #0x1, Character_UpdateAnim(a0)
+
+	rts
 	
 EchoBeginCarried:
 	; a0 --- GameObj addr
