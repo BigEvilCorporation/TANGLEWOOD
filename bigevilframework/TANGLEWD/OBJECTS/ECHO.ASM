@@ -78,8 +78,13 @@ EchoAnimIdx_StandFromHiding	equ 4
 EchoAnimIdx_PounceNymn		equ 5
 EchoAnimIdx_GreetNymn		equ 6
 EchoAnimIdx_CircleNymn		equ 7
+EchoAnimIdx_AllFours		equ 8
+EchoAnimIdx_Sit				equ 9
+EchoAnimIdx_Howl			equ 10
+EchoAnimIdx_Nudge			equ 11
+EchoAnimIdx_Stand			equ 12
 ; -------------------------------
-EchoAnimIdx_Max       		equ 8
+EchoAnimIdx_Max       		equ 13
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -314,6 +319,21 @@ EchoInit:
 
 	; Circle Nymn
 	ANIM_LOAD_DEFAULT echo_circle,echo_circle,Echo_Animations,EchoAnimIdx_CircleNymn,0,1,0
+
+	; Stand on all fours
+	ANIM_LOAD_DEFAULT echo_allfours,echo_allfours,Echo_Animations,EchoAnimIdx_AllFours,0,1,0
+
+	; Sit
+	ANIM_LOAD_DEFAULT echo_sit,echo_sit,Echo_Animations,EchoAnimIdx_Sit,0,1,0
+
+	; Howl (sitting)
+	ANIM_LOAD_DEFAULT echo_howl,echo_howl,Echo_Animations,EchoAnimIdx_Howl,0,1,0
+
+	; Nudge Nymn
+	ANIM_LOAD_DEFAULT echo_nudge,echo_nudge,Echo_Animations,EchoAnimIdx_Nudge,0,1,0
+
+	; Stand
+	ANIM_LOAD_DEFAULT echo_stand,echo_stand,Echo_Animations,EchoAnimIdx_Stand,0,1,0
 
 	ENDIF
 	

@@ -57,7 +57,7 @@ l5a4_DefaultPalettes:
 l5a4_DemonToPlayerX				equ 0x60
 l5a4_DemonToPlayerY				equ 0x28
 l5a4_EchoHideToPlayerX			equ 0x00A0	; Safe distance for Echo to run and hide
-l5a4_EchoToPlayerX				equ 0x0008	; Distance from Echo to Nymn when howling/circling
+l5a4_EchoToPlayerX				equ 0x0038	; Distance from Echo to Nymn when howling/circling
 l5a4_DemonWaitTimeEchoScared	equ 0x0020	; Time between beginning reveal and Echo getting scared
 l5a4_DemonWaitTimeEmerge		equ 0x0040	; Time between Echo running off and demon emerging
 l5a4_DemonWaitTimeSmirk			equ 0x00E0	; Time between emerging and smirking
@@ -250,7 +250,7 @@ l5a4_CutsceneUpdate_EchoRun:
 	move.l Player2, a0
 	move.w Entity_WorldPosX(a2), d0
 	move.w Entity_WorldPosX(a0), d2
-	sub.w  #l5a4_EchoHideToPlayerX, d0
+	subi.w #l5a4_EchoHideToPlayerX, d0
 	cmp.w  d0, d2
 	bgt    @Running
 
@@ -529,12 +529,15 @@ l5a4_CutsceneUpdate_EchoRunToNymn:
 	move.l Player2, a0
 	move.w Entity_WorldPosX(a2), d0
 	move.w Entity_WorldPosX(a0), d2
-	sub.w  #l5a4_EchoToPlayerX, d0
+	addi.w #l5a4_EchoToPlayerX, d0
 	cmp.w  d0, d2
 	blt    @Running
 
 	; Stop running
 	jsr    CharacterCancelXMovement
+
+	; Turn to face
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	
 	; Howl
 	PUSHL  a1
@@ -555,13 +558,13 @@ l5a4_CutsceneUpdate_EchoRunToNymn:
 
 l5a4_CutsceneUpdate_WaitHowl:
 
-		PUSHL  a0
+	PUSHL  a0
 
 	; Wait until howl anim finished
 	move.l Player2, a0
 	move.l AnimObj_CurrentAnim(a0), a2
 	tst.b  Animation_Looping(a2)
-	beq    @StillHowling
+	beq    @StillPlaying
 
 	; Circle
 	PUSHL  a1
@@ -574,21 +577,186 @@ l5a4_CutsceneUpdate_WaitHowl:
 	lea    LevelData_L5A4, a2
 	move.l #l5a4_CutsceneUpdate_WaitEchoCircle, l5a4Data_CutsceneState(a2)
 
-	@StillHowling:
+	@StillPlaying:
 
 	POPL   a0
 
 	rts
 
 l5a4_CutsceneUpdate_WaitEchoCircle:
+
+	PUSHL  a0
+
+	; Wait until circle anim finished
+	move.l Player2, a0
+	move.l AnimObj_CurrentAnim(a0), a2
+	tst.b  Animation_Looping(a2)
+	beq    @StillPlaying
+
+	; Nudge
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Nudge*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; No longer falling back to idle anim
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoNudge, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoNudge:
+
+	PUSHL  a0
+
+	; Wait until nudge anim finished
+	move.l Player2, a0
+	tst.b  AnimObj_Playing(a0)
+	bne    @StillPlaying
+
+	; Nudge
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Nudge*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoNudge2, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoNudge2:
+
+	PUSHL  a0
+
+	; Wait until nudge anim finished
+	move.l Player2, a0
+	tst.b  AnimObj_Playing(a0)
+	bne    @StillPlaying
+
+	; Sit
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Sit*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoSit, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoSit:
+
+	PUSHL  a0
+
+	; Wait until sit anim finished
+	move.l Player2, a0
+	tst.b  AnimObj_Playing(a0)
+	bne    @StillPlaying
+
+	; Howl
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoHowlSitting, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoHowlSitting:
+
+	PUSHL  a0
+
+	; Wait until howl anim finished
+	move.l Player2, a0
+	tst.b  AnimObj_Playing(a0)
+	bne    @StillPlaying
+
+	; Howl
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a4_CutsceneUpdate_WaitEchoHowlSitting2, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_WaitEchoHowlSitting2:
+
+	PUSHL  a0
+
+	; Wait until howl anim finished
+	move.l Player2, a0
+	tst.b  AnimObj_Playing(a0)
+	bne    @StillPlaying
+
+	; Stand
+	PUSHL  a1
+	lea    Echo_Animations+(EchoAnimIdx_Stand*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Next state
+	lea    LevelData_L5A4, a2
+	move.l #l5a5_CutsceneEnd, l5a4Data_CutsceneState(a2)
+
+	@StillPlaying:
+
+	POPL   a0
+
 	rts
 
 l5a5_CutsceneEnd:
 
 	; End letterbox mode
 
+	; Restore anim control
+	move.l Player2, a0
+	move.b #0x1, Character_UpdateAnim(a0)
+
 	; Player now controls Echo
-	;move.l Player2, Player1
-	;move.l #0x0, Player2
+	move.l Player2, Player1
+	move.l #0x0, Player2
+
+	; End of cutscene
+	lea    LevelData_L5A4, a2
+	move.l #0x0, l5a4Data_CutsceneState(a2)
 
 	rts

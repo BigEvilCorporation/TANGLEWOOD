@@ -75,7 +75,16 @@ spritesheet_echo_pushheavy_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_pushheavy_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_afraid_frameoffset	equ 0x1C	; Offset to first frame in sprite sheet
+spritesheet_echo_allfours_frameoffset	equ 0x1C	; Offset to first frame in sprite sheet
+spritesheet_echo_allfours_width		equ 0x38	; Width in pixels
+spritesheet_echo_allfours_height		equ 0x30	; Width in pixels
+spritesheet_echo_allfours_size_b		equ 0x1A40	; Size in bytes
+spritesheet_echo_allfours_size_w		equ 0xD20	; Size in words
+spritesheet_echo_allfours_size_l		equ 0x690	; Size in longwords
+spritesheet_echo_allfours_size_t		equ 0xD2	; Size in tiles
+
+
+spritesheet_echo_afraid_frameoffset	equ 0x21	; Offset to first frame in sprite sheet
 spritesheet_echo_afraid_width		equ 0x38	; Width in pixels
 spritesheet_echo_afraid_height		equ 0x30	; Width in pixels
 spritesheet_echo_afraid_size_b		equ 0xFC0	; Size in bytes
@@ -84,7 +93,7 @@ spritesheet_echo_afraid_size_l		equ 0x3F0	; Size in longwords
 spritesheet_echo_afraid_size_t		equ 0x7E	; Size in tiles
 
 
-spritesheet_echo_wade_frameoffset	equ 0x1F	; Offset to first frame in sprite sheet
+spritesheet_echo_wade_frameoffset	equ 0x24	; Offset to first frame in sprite sheet
 spritesheet_echo_wade_width		equ 0x38	; Width in pixels
 spritesheet_echo_wade_height		equ 0x30	; Width in pixels
 spritesheet_echo_wade_size_b		equ 0x2A00	; Size in bytes
@@ -93,7 +102,7 @@ spritesheet_echo_wade_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_wade_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_calllong_frameoffset	equ 0x27	; Offset to first frame in sprite sheet
+spritesheet_echo_calllong_frameoffset	equ 0x2C	; Offset to first frame in sprite sheet
 spritesheet_echo_calllong_width		equ 0x38	; Width in pixels
 spritesheet_echo_calllong_height		equ 0x30	; Width in pixels
 spritesheet_echo_calllong_size_b		equ 0x3480	; Size in bytes
@@ -102,7 +111,7 @@ spritesheet_echo_calllong_size_l		equ 0xD20	; Size in longwords
 spritesheet_echo_calllong_size_t		equ 0x1A4	; Size in tiles
 
 
-spritesheet_echo_carriedwalk_frameoffset	equ 0x31	; Offset to first frame in sprite sheet
+spritesheet_echo_carriedwalk_frameoffset	equ 0x36	; Offset to first frame in sprite sheet
 spritesheet_echo_carriedwalk_width		equ 0x38	; Width in pixels
 spritesheet_echo_carriedwalk_height		equ 0x30	; Width in pixels
 spritesheet_echo_carriedwalk_size_b		equ 0x2A00	; Size in bytes
@@ -111,7 +120,7 @@ spritesheet_echo_carriedwalk_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_carriedwalk_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_carriedidle_frameoffset	equ 0x39	; Offset to first frame in sprite sheet
+spritesheet_echo_carriedidle_frameoffset	equ 0x3E	; Offset to first frame in sprite sheet
 spritesheet_echo_carriedidle_width		equ 0x38	; Width in pixels
 spritesheet_echo_carriedidle_height		equ 0x30	; Width in pixels
 spritesheet_echo_carriedidle_size_b		equ 0x540	; Size in bytes
@@ -120,7 +129,7 @@ spritesheet_echo_carriedidle_size_l		equ 0x150	; Size in longwords
 spritesheet_echo_carriedidle_size_t		equ 0x2A	; Size in tiles
 
 
-spritesheet_echo_glide_frameoffset	equ 0x3A	; Offset to first frame in sprite sheet
+spritesheet_echo_glide_frameoffset	equ 0x3F	; Offset to first frame in sprite sheet
 spritesheet_echo_glide_width		equ 0x38	; Width in pixels
 spritesheet_echo_glide_height		equ 0x30	; Width in pixels
 spritesheet_echo_glide_size_b		equ 0x1500	; Size in bytes
@@ -129,7 +138,7 @@ spritesheet_echo_glide_size_l		equ 0x540	; Size in longwords
 spritesheet_echo_glide_size_t		equ 0xA8	; Size in tiles
 
 
-spritesheet_echo_death_frameoffset	equ 0x3E	; Offset to first frame in sprite sheet
+spritesheet_echo_death_frameoffset	equ 0x43	; Offset to first frame in sprite sheet
 spritesheet_echo_death_width		equ 0x38	; Width in pixels
 spritesheet_echo_death_height		equ 0x30	; Width in pixels
 spritesheet_echo_death_size_b		equ 0x4EC0	; Size in bytes
@@ -138,7 +147,7 @@ spritesheet_echo_death_size_l		equ 0x13B0	; Size in longwords
 spritesheet_echo_death_size_t		equ 0x276	; Size in tiles
 
 
-spritesheet_echo_sit_frameoffset	equ 0x4D	; Offset to first frame in sprite sheet
+spritesheet_echo_sit_frameoffset	equ 0x52	; Offset to first frame in sprite sheet
 spritesheet_echo_sit_width		equ 0x38	; Width in pixels
 spritesheet_echo_sit_height		equ 0x30	; Width in pixels
 spritesheet_echo_sit_size_b		equ 0x1500	; Size in bytes
@@ -147,7 +156,7 @@ spritesheet_echo_sit_size_l		equ 0x540	; Size in longwords
 spritesheet_echo_sit_size_t		equ 0xA8	; Size in tiles
 
 
-spritesheet_echo_colourswitch_frameoffset	equ 0x51	; Offset to first frame in sprite sheet
+spritesheet_echo_colourswitch_frameoffset	equ 0x56	; Offset to first frame in sprite sheet
 spritesheet_echo_colourswitch_width		equ 0x38	; Width in pixels
 spritesheet_echo_colourswitch_height		equ 0x30	; Width in pixels
 spritesheet_echo_colourswitch_size_b		equ 0x4980	; Size in bytes
@@ -156,7 +165,7 @@ spritesheet_echo_colourswitch_size_l		equ 0x1260	; Size in longwords
 spritesheet_echo_colourswitch_size_t		equ 0x24C	; Size in tiles
 
 
-spritesheet_echo_push_frameoffset	equ 0x5F	; Offset to first frame in sprite sheet
+spritesheet_echo_push_frameoffset	equ 0x64	; Offset to first frame in sprite sheet
 spritesheet_echo_push_width		equ 0x38	; Width in pixels
 spritesheet_echo_push_height		equ 0x30	; Width in pixels
 spritesheet_echo_push_size_b		equ 0x2A00	; Size in bytes
@@ -165,7 +174,7 @@ spritesheet_echo_push_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_push_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_climb_frameoffset	equ 0x67	; Offset to first frame in sprite sheet
+spritesheet_echo_climb_frameoffset	equ 0x6C	; Offset to first frame in sprite sheet
 spritesheet_echo_climb_width		equ 0x38	; Width in pixels
 spritesheet_echo_climb_height		equ 0x30	; Width in pixels
 spritesheet_echo_climb_size_b		equ 0x2F40	; Size in bytes
@@ -174,7 +183,7 @@ spritesheet_echo_climb_size_l		equ 0xBD0	; Size in longwords
 spritesheet_echo_climb_size_t		equ 0x17A	; Size in tiles
 
 
-spritesheet_echo_standfromhiding_frameoffset	equ 0x70	; Offset to first frame in sprite sheet
+spritesheet_echo_standfromhiding_frameoffset	equ 0x75	; Offset to first frame in sprite sheet
 spritesheet_echo_standfromhiding_width		equ 0x38	; Width in pixels
 spritesheet_echo_standfromhiding_height		equ 0x30	; Width in pixels
 spritesheet_echo_standfromhiding_size_b		equ 0x2A00	; Size in bytes
@@ -183,7 +192,7 @@ spritesheet_echo_standfromhiding_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_standfromhiding_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_walk_frameoffset	equ 0x78	; Offset to first frame in sprite sheet
+spritesheet_echo_walk_frameoffset	equ 0x7D	; Offset to first frame in sprite sheet
 spritesheet_echo_walk_width		equ 0x38	; Width in pixels
 spritesheet_echo_walk_height		equ 0x30	; Width in pixels
 spritesheet_echo_walk_size_b		equ 0x2A00	; Size in bytes
@@ -192,7 +201,7 @@ spritesheet_echo_walk_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_walk_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_jump_frameoffset	equ 0x80	; Offset to first frame in sprite sheet
+spritesheet_echo_jump_frameoffset	equ 0x85	; Offset to first frame in sprite sheet
 spritesheet_echo_jump_width		equ 0x38	; Width in pixels
 spritesheet_echo_jump_height		equ 0x30	; Width in pixels
 spritesheet_echo_jump_size_b		equ 0x2A00	; Size in bytes
@@ -201,7 +210,7 @@ spritesheet_echo_jump_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_jump_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_hide_frameoffset	equ 0x88	; Offset to first frame in sprite sheet
+spritesheet_echo_hide_frameoffset	equ 0x8D	; Offset to first frame in sprite sheet
 spritesheet_echo_hide_width		equ 0x38	; Width in pixels
 spritesheet_echo_hide_height		equ 0x30	; Width in pixels
 spritesheet_echo_hide_size_b		equ 0x2A00	; Size in bytes
@@ -210,7 +219,7 @@ spritesheet_echo_hide_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_hide_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_lookup_frameoffset	equ 0x90	; Offset to first frame in sprite sheet
+spritesheet_echo_lookup_frameoffset	equ 0x95	; Offset to first frame in sprite sheet
 spritesheet_echo_lookup_width		equ 0x38	; Width in pixels
 spritesheet_echo_lookup_height		equ 0x30	; Width in pixels
 spritesheet_echo_lookup_size_b		equ 0xFC0	; Size in bytes
@@ -219,7 +228,7 @@ spritesheet_echo_lookup_size_l		equ 0x3F0	; Size in longwords
 spritesheet_echo_lookup_size_t		equ 0x7E	; Size in tiles
 
 
-spritesheet_echo_greetnymn_frameoffset	equ 0x93	; Offset to first frame in sprite sheet
+spritesheet_echo_greetnymn_frameoffset	equ 0x98	; Offset to first frame in sprite sheet
 spritesheet_echo_greetnymn_width		equ 0x38	; Width in pixels
 spritesheet_echo_greetnymn_height		equ 0x30	; Width in pixels
 spritesheet_echo_greetnymn_size_b		equ 0xB280	; Size in bytes
@@ -228,7 +237,7 @@ spritesheet_echo_greetnymn_size_l		equ 0x2CA0	; Size in longwords
 spritesheet_echo_greetnymn_size_t		equ 0x594	; Size in tiles
 
 
-spritesheet_echo_nudge_frameoffset	equ 0xB5	; Offset to first frame in sprite sheet
+spritesheet_echo_nudge_frameoffset	equ 0xBA	; Offset to first frame in sprite sheet
 spritesheet_echo_nudge_width		equ 0x38	; Width in pixels
 spritesheet_echo_nudge_height		equ 0x30	; Width in pixels
 spritesheet_echo_nudge_size_b		equ 0x1F80	; Size in bytes
@@ -237,7 +246,7 @@ spritesheet_echo_nudge_size_l		equ 0x7E0	; Size in longwords
 spritesheet_echo_nudge_size_t		equ 0xFC	; Size in tiles
 
 
-spritesheet_echo_pouncenymn_frameoffset	equ 0xBB	; Offset to first frame in sprite sheet
+spritesheet_echo_pouncenymn_frameoffset	equ 0xC0	; Offset to first frame in sprite sheet
 spritesheet_echo_pouncenymn_width		equ 0x38	; Width in pixels
 spritesheet_echo_pouncenymn_height		equ 0x30	; Width in pixels
 spritesheet_echo_pouncenymn_size_b		equ 0x1A40	; Size in bytes
@@ -246,7 +255,7 @@ spritesheet_echo_pouncenymn_size_l		equ 0x690	; Size in longwords
 spritesheet_echo_pouncenymn_size_t		equ 0xD2	; Size in tiles
 
 
-spritesheet_echo_idle_frameoffset	equ 0xC0	; Offset to first frame in sprite sheet
+spritesheet_echo_idle_frameoffset	equ 0xC5	; Offset to first frame in sprite sheet
 spritesheet_echo_idle_width		equ 0x38	; Width in pixels
 spritesheet_echo_idle_height		equ 0x30	; Width in pixels
 spritesheet_echo_idle_size_b		equ 0x1F80	; Size in bytes
@@ -255,7 +264,16 @@ spritesheet_echo_idle_size_l		equ 0x7E0	; Size in longwords
 spritesheet_echo_idle_size_t		equ 0xFC	; Size in tiles
 
 
-spritesheet_echo_howl_frameoffset	equ 0xC6	; Offset to first frame in sprite sheet
+spritesheet_echo_stand_frameoffset	equ 0xCB	; Offset to first frame in sprite sheet
+spritesheet_echo_stand_width		equ 0x38	; Width in pixels
+spritesheet_echo_stand_height		equ 0x30	; Width in pixels
+spritesheet_echo_stand_size_b		equ 0x1500	; Size in bytes
+spritesheet_echo_stand_size_w		equ 0xA80	; Size in words
+spritesheet_echo_stand_size_l		equ 0x540	; Size in longwords
+spritesheet_echo_stand_size_t		equ 0xA8	; Size in tiles
+
+
+spritesheet_echo_howl_frameoffset	equ 0xCF	; Offset to first frame in sprite sheet
 spritesheet_echo_howl_width		equ 0x38	; Width in pixels
 spritesheet_echo_howl_height		equ 0x30	; Width in pixels
 spritesheet_echo_howl_size_b		equ 0x2A00	; Size in bytes
@@ -264,7 +282,7 @@ spritesheet_echo_howl_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_howl_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_run_frameoffset	equ 0xCE	; Offset to first frame in sprite sheet
+spritesheet_echo_run_frameoffset	equ 0xD7	; Offset to first frame in sprite sheet
 spritesheet_echo_run_width		equ 0x38	; Width in pixels
 spritesheet_echo_run_height		equ 0x30	; Width in pixels
 spritesheet_echo_run_size_b		equ 0x1A40	; Size in bytes
@@ -273,7 +291,7 @@ spritesheet_echo_run_size_l		equ 0x690	; Size in longwords
 spritesheet_echo_run_size_t		equ 0xD2	; Size in tiles
 
 
-spritesheet_echo_fall_frameoffset	equ 0xD3	; Offset to first frame in sprite sheet
+spritesheet_echo_fall_frameoffset	equ 0xDC	; Offset to first frame in sprite sheet
 spritesheet_echo_fall_width		equ 0x38	; Width in pixels
 spritesheet_echo_fall_height		equ 0x30	; Width in pixels
 spritesheet_echo_fall_size_b		equ 0x1500	; Size in bytes
@@ -10849,6 +10867,1900 @@ spritesheet_echo_pushheavy:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
+spritesheet_echo_allfours:
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00011110
+
+	dc.l	0x00016611
+	dc.l	0x00011663
+	dc.l	0x00001991
+	dc.l	0x00001194
+	dc.l	0x00000191
+	dc.l	0x00000169
+	dc.l	0x00000016
+	dc.l	0x00000001
+
+	dc.l	0x00002001
+	dc.l	0x00001211
+	dc.l	0x00001221
+	dc.l	0x00001225
+	dc.l	0x00000112
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01000000
+	dc.l	0x16100000
+	dc.l	0x16610000
+
+	dc.l	0x11351011
+	dc.l	0x51131146
+	dc.l	0x33213333
+	dc.l	0x23321333
+	dc.l	0x13333332
+	dc.l	0x43333321
+	dc.l	0x33333219
+	dc.l	0x23333119
+
+	dc.l	0x22333311
+	dc.l	0x22233343
+	dc.l	0x12133463
+	dc.l	0x32211699
+	dc.l	0x32222111
+	dc.l	0x11131119
+	dc.l	0x00112331
+	dc.l	0x00123321
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001100
+
+	dc.l	0x00001811
+	dc.l	0x00001899
+	dc.l	0x00001889
+	dc.l	0x00000189
+	dc.l	0x00000118
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000014
+	dc.l	0x00000016
+	dc.l	0x00000143
+
+	dc.l	0x10011363
+	dc.l	0x11194333
+	dc.l	0x99993632
+	dc.l	0x99933322
+	dc.l	0x88883211
+	dc.l	0x18881101
+	dc.l	0x11110000
+	dc.l	0x00000000
+
+	dc.l	0x00123318
+	dc.l	0x01133199
+	dc.l	0x01126199
+	dc.l	0x11146819
+	dc.l	0x21214661
+	dc.l	0x21214681
+	dc.l	0x21244412
+	dc.l	0x31211122
+
+	dc.l	0x32112223
+	dc.l	0x21211233
+	dc.l	0x11411423
+	dc.l	0x14101461
+	dc.l	0x41014461
+	dc.l	0x41114681
+	dc.l	0x44101181
+	dc.l	0x00000148
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x10000000
+	dc.l	0x61000000
+	dc.l	0x46100000
+	dc.l	0x31100000
+	dc.l	0x11310000
+	dc.l	0x97510000
+	dc.l	0x71310000
+	dc.l	0x71350000
+
+	dc.l	0x97311000
+	dc.l	0x11311000
+	dc.l	0x31331000
+	dc.l	0x99610000
+	dc.l	0x11100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x51000000
+
+	dc.l	0x51000000
+	dc.l	0x51000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+
+	dc.l	0x00000161
+	dc.l	0x01110166
+	dc.l	0x06611113
+	dc.l	0x01663511
+	dc.l	0x01991332
+	dc.l	0x01194233
+	dc.l	0x00191133
+	dc.l	0x00169433
+
+	dc.l	0x00016333
+	dc.l	0x02001233
+	dc.l	0x01211223
+	dc.l	0x01253222
+	dc.l	0x00123121
+	dc.l	0x00011522
+	dc.l	0x00001352
+	dc.l	0x00012123
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001100
+	dc.l	0x00001811
+
+	dc.l	0x00001899
+	dc.l	0x00001889
+	dc.l	0x00000189
+	dc.l	0x00000118
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000014
+	dc.l	0x10011316
+
+	dc.l	0x11194363
+	dc.l	0x99993633
+	dc.l	0x99933332
+	dc.l	0x88883222
+	dc.l	0x18881111
+	dc.l	0x11110001
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00123123
+	dc.l	0x00463123
+	dc.l	0x01233233
+	dc.l	0x01222233
+	dc.l	0x11442123
+	dc.l	0x21222112
+	dc.l	0x21222211
+	dc.l	0x21222222
+
+	dc.l	0x32122222
+	dc.l	0x32112223
+	dc.l	0x11411423
+	dc.l	0x14101461
+	dc.l	0x41014461
+	dc.l	0x41114681
+	dc.l	0x44101181
+	dc.l	0x00000148
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x51011100
+	dc.l	0x31146610
+	dc.l	0x13333461
+	dc.l	0x21333311
+	dc.l	0x33332113
+	dc.l	0x33321975
+
+	dc.l	0x33219713
+	dc.l	0x33119713
+	dc.l	0x33311973
+	dc.l	0x33343113
+	dc.l	0x23463313
+	dc.l	0x11699996
+	dc.l	0x22111111
+	dc.l	0x33900000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x10000000
+	dc.l	0x50000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x31000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x31900000
+	dc.l	0x31000000
+	dc.l	0x31000000
+	dc.l	0x31100000
+	dc.l	0x38110000
+	dc.l	0x46810000
+	dc.l	0x11681000
+	dc.l	0x14611000
+
+	dc.l	0x11111000
+	dc.l	0x10161000
+	dc.l	0x10110000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x00001661
+	dc.l	0x00001166
+	dc.l	0x00000199
+	dc.l	0x00000119
+	dc.l	0x00000019
+
+	dc.l	0x00000016
+	dc.l	0x00000001
+	dc.l	0x00000200
+	dc.l	0x00000121
+	dc.l	0x00000125
+	dc.l	0x00000012
+	dc.l	0x00000001
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+	dc.l	0x00181110
+	dc.l	0x00189911
+
+	dc.l	0x00188999
+	dc.l	0x00018999
+	dc.l	0x00018999
+	dc.l	0x00001188
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000114
+	dc.l	0x00001424
+	dc.l	0x00011424
+	dc.l	0x00014224
+	dc.l	0x00126336
+	dc.l	0x01436333
+	dc.l	0x29633333
+
+	dc.l	0x99333331
+	dc.l	0x93333311
+	dc.l	0x99931114
+	dc.l	0x99111446
+	dc.l	0x11101461
+	dc.l	0x00014461
+	dc.l	0x00011110
+	dc.l	0x00000000
+
+	dc.l	0x00001111
+	dc.l	0x11143434
+	dc.l	0x21443636
+	dc.l	0x11463636
+	dc.l	0x12633333
+	dc.l	0x12333333
+	dc.l	0x12233211
+	dc.l	0x21232199
+
+	dc.l	0x11231000
+	dc.l	0x42210000
+	dc.l	0x61100000
+	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00100000
+	dc.l	0x01610000
+	dc.l	0x01661000
+	dc.l	0x11135101
+	dc.l	0x35113114
+	dc.l	0x13321333
+	dc.l	0x42332133
+	dc.l	0x11333333
+
+	dc.l	0x94333332
+	dc.l	0x63333321
+	dc.l	0x12333311
+	dc.l	0x12233331
+	dc.l	0x32223334
+	dc.l	0x31212346
+	dc.l	0x15221169
+	dc.l	0x13522211
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x66100000
+	dc.l	0x34610000
+	dc.l	0x33110000
+	dc.l	0x21131000
+
+	dc.l	0x19751000
+	dc.l	0x97131000
+	dc.l	0x97135000
+	dc.l	0x19731100
+	dc.l	0x31131100
+	dc.l	0x33133100
+	dc.l	0x99961000
+	dc.l	0x11110000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x21233390
+	dc.l	0x21233190
+	dc.l	0x31233100
+	dc.l	0x32333100
+	dc.l	0x32333110
+	dc.l	0x31233811
+	dc.l	0x21124681
+	dc.l	0x99111468
+
+	dc.l	0x00001168
+	dc.l	0x00001461
+	dc.l	0x00001111
+	dc.l	0x00000016
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00011110
+	dc.l	0x00016611
+
+	dc.l	0x00011663
+	dc.l	0x00001991
+	dc.l	0x00001194
+	dc.l	0x00000199
+	dc.l	0x00000169
+	dc.l	0x00000016
+	dc.l	0x00002001
+	dc.l	0x00001211
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000100
+	dc.l	0x00000110
+	dc.l	0x00000181
+
+	dc.l	0x00000188
+	dc.l	0x00000019
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000014
+	dc.l	0x00000016
+	dc.l	0x10011132
+
+	dc.l	0x11193433
+	dc.l	0x99993633
+	dc.l	0x99933332
+	dc.l	0x18888322
+	dc.l	0x01111110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x01112224
+	dc.l	0x14212246
+	dc.l	0x26212233
+	dc.l	0x26212335
+	dc.l	0x22212333
+	dc.l	0x22113332
+
+	dc.l	0x32133322
+	dc.l	0x21223211
+	dc.l	0x11664100
+	dc.l	0x16644000
+	dc.l	0x16610000
+	dc.l	0x16641000
+	dc.l	0x01110000
+	dc.l	0x00000000
+
+	dc.l	0x00001253
+	dc.l	0x10000123
+	dc.l	0x34100011
+	dc.l	0x36314112
+	dc.l	0x33343333
+	dc.l	0x33363233
+	dc.l	0x12232123
+	dc.l	0x18822113
+
+	dc.l	0x10888113
+	dc.l	0x00099813
+	dc.l	0x00000013
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01000000
+	dc.l	0x16100000
+	dc.l	0x16610000
+	dc.l	0x11211011
+
+	dc.l	0x51122146
+	dc.l	0x33213333
+	dc.l	0x23321333
+	dc.l	0x13333332
+	dc.l	0x43333321
+	dc.l	0x33333219
+	dc.l	0x23333119
+	dc.l	0x22333311
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+
+	dc.l	0x61000000
+	dc.l	0x46100000
+	dc.l	0x31100000
+	dc.l	0x11310000
+	dc.l	0x97510000
+	dc.l	0x71310000
+	dc.l	0x71350000
+	dc.l	0x97311000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22233343
+	dc.l	0x12123463
+	dc.l	0x12211699
+	dc.l	0x25288111
+	dc.l	0x33388100
+	dc.l	0x33398100
+	dc.l	0x33399100
+	dc.l	0x33399100
+
+	dc.l	0x33191000
+	dc.l	0x33121000
+	dc.l	0x31221000
+	dc.l	0x41210000
+	dc.l	0x61121000
+	dc.l	0x68141000
+	dc.l	0x68141000
+	dc.l	0x14414100
+
+	dc.l	0x11311000
+	dc.l	0x31331000
+	dc.l	0x99610000
+	dc.l	0x11100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x00001661
+	dc.l	0x00001166
+
+	dc.l	0x00000199
+	dc.l	0x00000119
+	dc.l	0x00000019
+	dc.l	0x00000016
+	dc.l	0x00000001
+	dc.l	0x00000200
+	dc.l	0x00000121
+	dc.l	0x00000125
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000110
+
+	dc.l	0x00000181
+	dc.l	0x00000189
+	dc.l	0x00000188
+	dc.l	0x00000018
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000013
+
+	dc.l	0x11001143
+	dc.l	0x91119363
+	dc.l	0x99999333
+	dc.l	0x99993332
+	dc.l	0x88888321
+	dc.l	0x11888110
+	dc.l	0x01111000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000111
+	dc.l	0x00111222
+	dc.l	0x01421224
+	dc.l	0x12621223
+	dc.l	0x42621233
+	dc.l	0x62221233
+	dc.l	0x22211333
+
+	dc.l	0x33213332
+	dc.l	0x32122321
+	dc.l	0x21166410
+	dc.l	0x21664400
+	dc.l	0x14641000
+	dc.l	0x16611000
+	dc.l	0x16641000
+	dc.l	0x01664100
+
+	dc.l	0x00000012
+	dc.l	0x11000001
+	dc.l	0x43411411
+	dc.l	0x63634333
+	dc.l	0x33336323
+	dc.l	0x53333212
+	dc.l	0x31222211
+	dc.l	0x21888811
+
+	dc.l	0x21089981
+	dc.l	0x10000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100000
+	dc.l	0x01610000
+	dc.l	0x01661000
+	dc.l	0x11121101
+	dc.l	0x35112214
+
+	dc.l	0x13321333
+	dc.l	0x42332133
+	dc.l	0x91333333
+	dc.l	0x94333332
+	dc.l	0x63333321
+	dc.l	0x12333311
+	dc.l	0x12233331
+	dc.l	0x32223334
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x66100000
+
+	dc.l	0x34610000
+	dc.l	0x33110000
+	dc.l	0x21131000
+	dc.l	0x19751000
+	dc.l	0x97131000
+	dc.l	0x97135000
+	dc.l	0x19731100
+	dc.l	0x31131100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x31212346
+	dc.l	0x11221169
+	dc.l	0x22528811
+	dc.l	0x33338810
+	dc.l	0x33339810
+	dc.l	0x33339910
+	dc.l	0x33339910
+	dc.l	0x33319100
+
+	dc.l	0x33312100
+	dc.l	0x33212100
+	dc.l	0x34122100
+	dc.l	0x46121000
+	dc.l	0x66121000
+	dc.l	0x68141000
+	dc.l	0x68141000
+	dc.l	0x14414100
+
+	dc.l	0x33133100
+	dc.l	0x99961000
+	dc.l	0x11110000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -75185,6 +77097,1522 @@ spritesheet_echo_idle:
 	dc.l	0x00000000
 	dc.l	0x10000000
 	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
+spritesheet_echo_stand:
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000161
+	dc.l	0x11110166
+	dc.l	0x16611112
+	dc.l	0x11663511
+
+	dc.l	0x01991332
+	dc.l	0x01194233
+	dc.l	0x00199133
+	dc.l	0x00169433
+	dc.l	0x00016333
+	dc.l	0x02001233
+	dc.l	0x01211223
+	dc.l	0x01253222
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11011100
+	dc.l	0x22146610
+
+	dc.l	0x13333461
+	dc.l	0x21333311
+	dc.l	0x33332113
+	dc.l	0x33321115
+	dc.l	0x33219973
+	dc.l	0x33119713
+	dc.l	0x33311713
+	dc.l	0x33343113
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+
+	dc.l	0x00000014
+	dc.l	0x00000143
+	dc.l	0x00001336
+	dc.l	0x00014633
+	dc.l	0x00013333
+	dc.l	0x00013389
+	dc.l	0x00011338
+	dc.l	0x00001111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00001124
+	dc.l	0x00014334
+	dc.l	0x11136336
+	dc.l	0x31233333
+
+	dc.l	0x61223333
+	dc.l	0x31223335
+	dc.l	0x31123355
+	dc.l	0x38811553
+	dc.l	0x99998112
+	dc.l	0x99999811
+	dc.l	0x88899981
+	dc.l	0x11111111
+
+	dc.l	0x00123121
+	dc.l	0x00001122
+	dc.l	0x01112252
+	dc.l	0x12433333
+	dc.l	0x33633333
+	dc.l	0x33333333
+	dc.l	0x31212333
+	dc.l	0x33121333
+
+	dc.l	0x53131333
+	dc.l	0x52181332
+	dc.l	0x31881341
+	dc.l	0x21881461
+	dc.l	0x18811661
+	dc.l	0x11111681
+	dc.l	0x66101681
+	dc.l	0x11101661
+
+	dc.l	0x23463313
+	dc.l	0x11699996
+	dc.l	0x88111111
+	dc.l	0x88100000
+	dc.l	0x98100000
+	dc.l	0x99100000
+	dc.l	0x39100000
+	dc.l	0x19100000
+
+	dc.l	0x12100000
+	dc.l	0x12100000
+	dc.l	0x22100000
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x41000000
+	dc.l	0x41000000
+	dc.l	0x14100000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x50000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x31000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000100
+	dc.l	0x00001610
+	dc.l	0x11101661
+	dc.l	0x66111121
+	dc.l	0x16635112
+
+	dc.l	0x19913321
+	dc.l	0x11942332
+	dc.l	0x01991333
+	dc.l	0x01694333
+	dc.l	0x00163333
+	dc.l	0x20012333
+	dc.l	0x12112233
+	dc.l	0x12532223
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10111000
+	dc.l	0x21466100
+
+	dc.l	0x33334610
+	dc.l	0x13333110
+	dc.l	0x33321131
+	dc.l	0x33211151
+	dc.l	0x32199731
+	dc.l	0x31197135
+	dc.l	0x33117131
+	dc.l	0x33431131
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00001112
+	dc.l	0x00013322
+
+	dc.l	0x00136322
+	dc.l	0x00163332
+	dc.l	0x01336332
+	dc.l	0x01563399
+	dc.l	0x01633999
+	dc.l	0x00139999
+	dc.l	0x00018898
+	dc.l	0x00001188
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00011114
+	dc.l	0x11124234
+	dc.l	0x11243336
+	dc.l	0x12263333
+
+	dc.l	0x12333311
+	dc.l	0x12333332
+	dc.l	0x12233333
+	dc.l	0x12223333
+	dc.l	0x81112333
+	dc.l	0x99881233
+	dc.l	0x88811146
+	dc.l	0x81114444
+
+	dc.l	0x01231212
+	dc.l	0x00011221
+	dc.l	0x01112522
+	dc.l	0x11433333
+	dc.l	0x22433333
+	dc.l	0x33633333
+	dc.l	0x31233338
+	dc.l	0x33123331
+
+	dc.l	0x33113331
+	dc.l	0x12113321
+	dc.l	0x11813411
+	dc.l	0x21881461
+	dc.l	0x31001661
+	dc.l	0x21001681
+	dc.l	0x10001681
+	dc.l	0x41001661
+
+	dc.l	0x34633133
+	dc.l	0x16999961
+	dc.l	0x88111110
+	dc.l	0x88100000
+	dc.l	0x98100000
+	dc.l	0x99100000
+	dc.l	0x88000000
+	dc.l	0x11000000
+
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x41000000
+	dc.l	0x41000000
+	dc.l	0x14100000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000004
+
+	dc.l	0x00000001
+	dc.l	0x00000004
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000121
+	dc.l	0x00000122
+	dc.l	0x00000125
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000110
+	dc.l	0x44110141
+
+	dc.l	0x61431114
+	dc.l	0x99643211
+	dc.l	0x19613321
+	dc.l	0x01943332
+	dc.l	0x01633333
+	dc.l	0x11233333
+	dc.l	0x12233332
+	dc.l	0x12233331
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00111100
+	dc.l	0x00018811
+	dc.l	0x00011889
+	dc.l	0x00001888
+	dc.l	0x00000188
+	dc.l	0x00000011
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000012
+	dc.l	0x00001141
+	dc.l	0x00011462
+
+	dc.l	0x00143662
+	dc.l	0x11163622
+	dc.l	0x83363321
+	dc.l	0x99333311
+	dc.l	0x99933314
+	dc.l	0x89988211
+	dc.l	0x88881110
+	dc.l	0x11111410
+
+	dc.l	0x00000012
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00111111
+	dc.l	0x11224343
+	dc.l	0x12236363
+	dc.l	0x22336333
+	dc.l	0x13333513
+
+	dc.l	0x12333351
+	dc.l	0x11333351
+	dc.l	0x12133351
+	dc.l	0x21233310
+	dc.l	0x41633310
+	dc.l	0x14663100
+	dc.l	0x14681000
+	dc.l	0x01461100
+
+	dc.l	0x32223331
+	dc.l	0x32133311
+	dc.l	0x11123443
+	dc.l	0x31314633
+	dc.l	0x31121119
+	dc.l	0x33113181
+	dc.l	0x33551100
+	dc.l	0x11235110
+
+	dc.l	0x81224681
+	dc.l	0x44111161
+	dc.l	0x41000148
+	dc.l	0x10000014
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x10000000
+	dc.l	0x31000000
+	dc.l	0x11410000
+	dc.l	0x33461000
+	dc.l	0x33336100
+	dc.l	0x33334100
+	dc.l	0x12131100
+	dc.l	0x33313100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x97151100
+	dc.l	0x97131000
+	dc.l	0x11335000
+	dc.l	0x31311000
+	dc.l	0x33311000
+	dc.l	0x96331000
+	dc.l	0x11100000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00000066
+	dc.l	0x00000016
+	dc.l	0x00000019
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000001
+
+	dc.l	0x00000000
+	dc.l	0x00000020
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010000
+
+	dc.l	0x00161000
+	dc.l	0x10166100
+	dc.l	0x11113510
+	dc.l	0x63511311
+	dc.l	0x91332133
+	dc.l	0x94233213
+	dc.l	0x91133333
+	dc.l	0x69433333
+
+	dc.l	0x16333332
+	dc.l	0x01233331
+	dc.l	0x11223333
+	dc.l	0x53222333
+	dc.l	0x23121234
+	dc.l	0x11522116
+	dc.l	0x01352221
+	dc.l	0x12123339
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11100000
+	dc.l	0x46610000
+	dc.l	0x33461000
+	dc.l	0x33311000
+	dc.l	0x32113100
+	dc.l	0x21975100
+
+	dc.l	0x19713100
+	dc.l	0x19713500
+	dc.l	0x11973110
+	dc.l	0x43113110
+	dc.l	0x63313310
+	dc.l	0x99996100
+	dc.l	0x11111000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01100000
+	dc.l	0x01811100
+
+	dc.l	0x01899111
+	dc.l	0x01889999
+	dc.l	0x00189999
+	dc.l	0x00118888
+	dc.l	0x00011188
+	dc.l	0x00000111
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000001
+	dc.l	0x00000004
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000114
+	dc.l	0x00001212
+	dc.l	0x00014212
+	dc.l	0x11316212
+
+	dc.l	0x94363321
+	dc.l	0x93633321
+	dc.l	0x33332114
+	dc.l	0x83222141
+	dc.l	0x81111410
+	dc.l	0x10001411
+	dc.l	0x00000441
+	dc.l	0x00000000
+
+	dc.l	0x23123319
+	dc.l	0x63123310
+	dc.l	0x33233310
+	dc.l	0x22233311
+	dc.l	0x42123381
+	dc.l	0x22112468
+	dc.l	0x22211116
+	dc.l	0x22222146
+
+	dc.l	0x22222111
+	dc.l	0x12223101
+	dc.l	0x11423101
+	dc.l	0x01461100
+	dc.l	0x14461000
+	dc.l	0x14681000
+	dc.l	0x01181100
+	dc.l	0x00148100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x81000000
+	dc.l	0x11000000
+
+	dc.l	0x11000000
+	dc.l	0x61000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
