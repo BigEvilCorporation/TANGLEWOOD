@@ -751,6 +751,9 @@ l5a5_CutsceneEnd:
 	move.l Player2, a0
 	move.b #0x1, Character_UpdateAnim(a0)
 
+	; Load sad idle anim
+	ANIM_LOAD_DEFAULT Echo_idlesad,Echo_idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
 	; Player now controls Echo
 	move.l Player2, Player1
 	move.l #0x0, Player2

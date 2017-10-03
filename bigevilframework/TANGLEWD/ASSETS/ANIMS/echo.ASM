@@ -89,6 +89,22 @@ spriteanim_echo_allfours_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+spriteanim_echo_idlesad:
+spriteanim_echo_idlesad_numframes: equ 0x1
+spriteanim_echo_idlesad_speed: equ 0x5
+spriteanim_echo_idlesad_track_frames:
+	dc.b 0x0
+	Even
+spriteanim_echo_idlesad_track_posx:
+	dc.b 0x00
+	Even
+spriteanim_echo_idlesad_track_posy:
+	dc.b 0x00
+	Even
+spriteanim_echo_idlesad_track_sfx:
+	dc.l 0x0
+	Even
+
 spriteanim_echo_afraid:
 spriteanim_echo_afraid_numframes: equ 0x3
 spriteanim_echo_afraid_speed: equ 0x1E

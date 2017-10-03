@@ -84,7 +84,16 @@ spritesheet_echo_allfours_size_l		equ 0x690	; Size in longwords
 spritesheet_echo_allfours_size_t		equ 0xD2	; Size in tiles
 
 
-spritesheet_echo_afraid_frameoffset	equ 0x21	; Offset to first frame in sprite sheet
+spritesheet_echo_idlesad_frameoffset	equ 0x21	; Offset to first frame in sprite sheet
+spritesheet_echo_idlesad_width		equ 0x38	; Width in pixels
+spritesheet_echo_idlesad_height		equ 0x30	; Width in pixels
+spritesheet_echo_idlesad_size_b		equ 0x540	; Size in bytes
+spritesheet_echo_idlesad_size_w		equ 0x2A0	; Size in words
+spritesheet_echo_idlesad_size_l		equ 0x150	; Size in longwords
+spritesheet_echo_idlesad_size_t		equ 0x2A	; Size in tiles
+
+
+spritesheet_echo_afraid_frameoffset	equ 0x22	; Offset to first frame in sprite sheet
 spritesheet_echo_afraid_width		equ 0x38	; Width in pixels
 spritesheet_echo_afraid_height		equ 0x30	; Width in pixels
 spritesheet_echo_afraid_size_b		equ 0xFC0	; Size in bytes
@@ -93,7 +102,7 @@ spritesheet_echo_afraid_size_l		equ 0x3F0	; Size in longwords
 spritesheet_echo_afraid_size_t		equ 0x7E	; Size in tiles
 
 
-spritesheet_echo_wade_frameoffset	equ 0x24	; Offset to first frame in sprite sheet
+spritesheet_echo_wade_frameoffset	equ 0x25	; Offset to first frame in sprite sheet
 spritesheet_echo_wade_width		equ 0x38	; Width in pixels
 spritesheet_echo_wade_height		equ 0x30	; Width in pixels
 spritesheet_echo_wade_size_b		equ 0x2A00	; Size in bytes
@@ -102,7 +111,7 @@ spritesheet_echo_wade_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_wade_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_calllong_frameoffset	equ 0x2C	; Offset to first frame in sprite sheet
+spritesheet_echo_calllong_frameoffset	equ 0x2D	; Offset to first frame in sprite sheet
 spritesheet_echo_calllong_width		equ 0x38	; Width in pixels
 spritesheet_echo_calllong_height		equ 0x30	; Width in pixels
 spritesheet_echo_calllong_size_b		equ 0x3480	; Size in bytes
@@ -111,7 +120,7 @@ spritesheet_echo_calllong_size_l		equ 0xD20	; Size in longwords
 spritesheet_echo_calllong_size_t		equ 0x1A4	; Size in tiles
 
 
-spritesheet_echo_carriedwalk_frameoffset	equ 0x36	; Offset to first frame in sprite sheet
+spritesheet_echo_carriedwalk_frameoffset	equ 0x37	; Offset to first frame in sprite sheet
 spritesheet_echo_carriedwalk_width		equ 0x38	; Width in pixels
 spritesheet_echo_carriedwalk_height		equ 0x30	; Width in pixels
 spritesheet_echo_carriedwalk_size_b		equ 0x2A00	; Size in bytes
@@ -120,7 +129,7 @@ spritesheet_echo_carriedwalk_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_carriedwalk_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_carriedidle_frameoffset	equ 0x3E	; Offset to first frame in sprite sheet
+spritesheet_echo_carriedidle_frameoffset	equ 0x3F	; Offset to first frame in sprite sheet
 spritesheet_echo_carriedidle_width		equ 0x38	; Width in pixels
 spritesheet_echo_carriedidle_height		equ 0x30	; Width in pixels
 spritesheet_echo_carriedidle_size_b		equ 0x540	; Size in bytes
@@ -129,7 +138,7 @@ spritesheet_echo_carriedidle_size_l		equ 0x150	; Size in longwords
 spritesheet_echo_carriedidle_size_t		equ 0x2A	; Size in tiles
 
 
-spritesheet_echo_glide_frameoffset	equ 0x3F	; Offset to first frame in sprite sheet
+spritesheet_echo_glide_frameoffset	equ 0x40	; Offset to first frame in sprite sheet
 spritesheet_echo_glide_width		equ 0x38	; Width in pixels
 spritesheet_echo_glide_height		equ 0x30	; Width in pixels
 spritesheet_echo_glide_size_b		equ 0x1500	; Size in bytes
@@ -138,7 +147,7 @@ spritesheet_echo_glide_size_l		equ 0x540	; Size in longwords
 spritesheet_echo_glide_size_t		equ 0xA8	; Size in tiles
 
 
-spritesheet_echo_death_frameoffset	equ 0x43	; Offset to first frame in sprite sheet
+spritesheet_echo_death_frameoffset	equ 0x44	; Offset to first frame in sprite sheet
 spritesheet_echo_death_width		equ 0x38	; Width in pixels
 spritesheet_echo_death_height		equ 0x30	; Width in pixels
 spritesheet_echo_death_size_b		equ 0x4EC0	; Size in bytes
@@ -147,7 +156,7 @@ spritesheet_echo_death_size_l		equ 0x13B0	; Size in longwords
 spritesheet_echo_death_size_t		equ 0x276	; Size in tiles
 
 
-spritesheet_echo_sit_frameoffset	equ 0x52	; Offset to first frame in sprite sheet
+spritesheet_echo_sit_frameoffset	equ 0x53	; Offset to first frame in sprite sheet
 spritesheet_echo_sit_width		equ 0x38	; Width in pixels
 spritesheet_echo_sit_height		equ 0x30	; Width in pixels
 spritesheet_echo_sit_size_b		equ 0x1500	; Size in bytes
@@ -156,7 +165,7 @@ spritesheet_echo_sit_size_l		equ 0x540	; Size in longwords
 spritesheet_echo_sit_size_t		equ 0xA8	; Size in tiles
 
 
-spritesheet_echo_colourswitch_frameoffset	equ 0x56	; Offset to first frame in sprite sheet
+spritesheet_echo_colourswitch_frameoffset	equ 0x57	; Offset to first frame in sprite sheet
 spritesheet_echo_colourswitch_width		equ 0x38	; Width in pixels
 spritesheet_echo_colourswitch_height		equ 0x30	; Width in pixels
 spritesheet_echo_colourswitch_size_b		equ 0x4980	; Size in bytes
@@ -165,7 +174,7 @@ spritesheet_echo_colourswitch_size_l		equ 0x1260	; Size in longwords
 spritesheet_echo_colourswitch_size_t		equ 0x24C	; Size in tiles
 
 
-spritesheet_echo_push_frameoffset	equ 0x64	; Offset to first frame in sprite sheet
+spritesheet_echo_push_frameoffset	equ 0x65	; Offset to first frame in sprite sheet
 spritesheet_echo_push_width		equ 0x38	; Width in pixels
 spritesheet_echo_push_height		equ 0x30	; Width in pixels
 spritesheet_echo_push_size_b		equ 0x2A00	; Size in bytes
@@ -174,7 +183,7 @@ spritesheet_echo_push_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_push_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_climb_frameoffset	equ 0x6C	; Offset to first frame in sprite sheet
+spritesheet_echo_climb_frameoffset	equ 0x6D	; Offset to first frame in sprite sheet
 spritesheet_echo_climb_width		equ 0x38	; Width in pixels
 spritesheet_echo_climb_height		equ 0x30	; Width in pixels
 spritesheet_echo_climb_size_b		equ 0x2F40	; Size in bytes
@@ -183,7 +192,7 @@ spritesheet_echo_climb_size_l		equ 0xBD0	; Size in longwords
 spritesheet_echo_climb_size_t		equ 0x17A	; Size in tiles
 
 
-spritesheet_echo_standfromhiding_frameoffset	equ 0x75	; Offset to first frame in sprite sheet
+spritesheet_echo_standfromhiding_frameoffset	equ 0x76	; Offset to first frame in sprite sheet
 spritesheet_echo_standfromhiding_width		equ 0x38	; Width in pixels
 spritesheet_echo_standfromhiding_height		equ 0x30	; Width in pixels
 spritesheet_echo_standfromhiding_size_b		equ 0x2A00	; Size in bytes
@@ -192,7 +201,7 @@ spritesheet_echo_standfromhiding_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_standfromhiding_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_walk_frameoffset	equ 0x7D	; Offset to first frame in sprite sheet
+spritesheet_echo_walk_frameoffset	equ 0x7E	; Offset to first frame in sprite sheet
 spritesheet_echo_walk_width		equ 0x38	; Width in pixels
 spritesheet_echo_walk_height		equ 0x30	; Width in pixels
 spritesheet_echo_walk_size_b		equ 0x2A00	; Size in bytes
@@ -201,7 +210,7 @@ spritesheet_echo_walk_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_walk_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_jump_frameoffset	equ 0x85	; Offset to first frame in sprite sheet
+spritesheet_echo_jump_frameoffset	equ 0x86	; Offset to first frame in sprite sheet
 spritesheet_echo_jump_width		equ 0x38	; Width in pixels
 spritesheet_echo_jump_height		equ 0x30	; Width in pixels
 spritesheet_echo_jump_size_b		equ 0x2A00	; Size in bytes
@@ -210,7 +219,7 @@ spritesheet_echo_jump_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_jump_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_hide_frameoffset	equ 0x8D	; Offset to first frame in sprite sheet
+spritesheet_echo_hide_frameoffset	equ 0x8E	; Offset to first frame in sprite sheet
 spritesheet_echo_hide_width		equ 0x38	; Width in pixels
 spritesheet_echo_hide_height		equ 0x30	; Width in pixels
 spritesheet_echo_hide_size_b		equ 0x2A00	; Size in bytes
@@ -219,7 +228,7 @@ spritesheet_echo_hide_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_hide_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_lookup_frameoffset	equ 0x95	; Offset to first frame in sprite sheet
+spritesheet_echo_lookup_frameoffset	equ 0x96	; Offset to first frame in sprite sheet
 spritesheet_echo_lookup_width		equ 0x38	; Width in pixels
 spritesheet_echo_lookup_height		equ 0x30	; Width in pixels
 spritesheet_echo_lookup_size_b		equ 0xFC0	; Size in bytes
@@ -228,7 +237,7 @@ spritesheet_echo_lookup_size_l		equ 0x3F0	; Size in longwords
 spritesheet_echo_lookup_size_t		equ 0x7E	; Size in tiles
 
 
-spritesheet_echo_greetnymn_frameoffset	equ 0x98	; Offset to first frame in sprite sheet
+spritesheet_echo_greetnymn_frameoffset	equ 0x99	; Offset to first frame in sprite sheet
 spritesheet_echo_greetnymn_width		equ 0x38	; Width in pixels
 spritesheet_echo_greetnymn_height		equ 0x30	; Width in pixels
 spritesheet_echo_greetnymn_size_b		equ 0xB280	; Size in bytes
@@ -237,7 +246,7 @@ spritesheet_echo_greetnymn_size_l		equ 0x2CA0	; Size in longwords
 spritesheet_echo_greetnymn_size_t		equ 0x594	; Size in tiles
 
 
-spritesheet_echo_nudge_frameoffset	equ 0xBA	; Offset to first frame in sprite sheet
+spritesheet_echo_nudge_frameoffset	equ 0xBB	; Offset to first frame in sprite sheet
 spritesheet_echo_nudge_width		equ 0x38	; Width in pixels
 spritesheet_echo_nudge_height		equ 0x30	; Width in pixels
 spritesheet_echo_nudge_size_b		equ 0x1F80	; Size in bytes
@@ -246,7 +255,7 @@ spritesheet_echo_nudge_size_l		equ 0x7E0	; Size in longwords
 spritesheet_echo_nudge_size_t		equ 0xFC	; Size in tiles
 
 
-spritesheet_echo_pouncenymn_frameoffset	equ 0xC0	; Offset to first frame in sprite sheet
+spritesheet_echo_pouncenymn_frameoffset	equ 0xC1	; Offset to first frame in sprite sheet
 spritesheet_echo_pouncenymn_width		equ 0x38	; Width in pixels
 spritesheet_echo_pouncenymn_height		equ 0x30	; Width in pixels
 spritesheet_echo_pouncenymn_size_b		equ 0x1A40	; Size in bytes
@@ -255,7 +264,7 @@ spritesheet_echo_pouncenymn_size_l		equ 0x690	; Size in longwords
 spritesheet_echo_pouncenymn_size_t		equ 0xD2	; Size in tiles
 
 
-spritesheet_echo_idle_frameoffset	equ 0xC5	; Offset to first frame in sprite sheet
+spritesheet_echo_idle_frameoffset	equ 0xC6	; Offset to first frame in sprite sheet
 spritesheet_echo_idle_width		equ 0x38	; Width in pixels
 spritesheet_echo_idle_height		equ 0x30	; Width in pixels
 spritesheet_echo_idle_size_b		equ 0x1F80	; Size in bytes
@@ -264,7 +273,7 @@ spritesheet_echo_idle_size_l		equ 0x7E0	; Size in longwords
 spritesheet_echo_idle_size_t		equ 0xFC	; Size in tiles
 
 
-spritesheet_echo_stand_frameoffset	equ 0xCB	; Offset to first frame in sprite sheet
+spritesheet_echo_stand_frameoffset	equ 0xCC	; Offset to first frame in sprite sheet
 spritesheet_echo_stand_width		equ 0x38	; Width in pixels
 spritesheet_echo_stand_height		equ 0x30	; Width in pixels
 spritesheet_echo_stand_size_b		equ 0x1500	; Size in bytes
@@ -273,7 +282,7 @@ spritesheet_echo_stand_size_l		equ 0x540	; Size in longwords
 spritesheet_echo_stand_size_t		equ 0xA8	; Size in tiles
 
 
-spritesheet_echo_howl_frameoffset	equ 0xCF	; Offset to first frame in sprite sheet
+spritesheet_echo_howl_frameoffset	equ 0xD0	; Offset to first frame in sprite sheet
 spritesheet_echo_howl_width		equ 0x38	; Width in pixels
 spritesheet_echo_howl_height		equ 0x30	; Width in pixels
 spritesheet_echo_howl_size_b		equ 0x2A00	; Size in bytes
@@ -282,7 +291,7 @@ spritesheet_echo_howl_size_l		equ 0xA80	; Size in longwords
 spritesheet_echo_howl_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_echo_run_frameoffset	equ 0xD7	; Offset to first frame in sprite sheet
+spritesheet_echo_run_frameoffset	equ 0xD8	; Offset to first frame in sprite sheet
 spritesheet_echo_run_width		equ 0x38	; Width in pixels
 spritesheet_echo_run_height		equ 0x30	; Width in pixels
 spritesheet_echo_run_size_b		equ 0x1A40	; Size in bytes
@@ -291,7 +300,7 @@ spritesheet_echo_run_size_l		equ 0x690	; Size in longwords
 spritesheet_echo_run_size_t		equ 0xD2	; Size in tiles
 
 
-spritesheet_echo_fall_frameoffset	equ 0xDC	; Offset to first frame in sprite sheet
+spritesheet_echo_fall_frameoffset	equ 0xDD	; Offset to first frame in sprite sheet
 spritesheet_echo_fall_width		equ 0x38	; Width in pixels
 spritesheet_echo_fall_height		equ 0x30	; Width in pixels
 spritesheet_echo_fall_size_b		equ 0x1500	; Size in bytes
@@ -12761,6 +12770,388 @@ spritesheet_echo_allfours:
 	dc.l	0x33133100
 	dc.l	0x99961000
 	dc.l	0x11110000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
+spritesheet_echo_idlesad:
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000016
+	dc.l	0x01111016
+
+	dc.l	0x01661111
+	dc.l	0x01166351
+	dc.l	0x00199133
+	dc.l	0x00119423
+	dc.l	0x00019113
+	dc.l	0x00017943
+	dc.l	0x00001633
+	dc.l	0x00000123
+
+	dc.l	0x00100122
+	dc.l	0x00111122
+	dc.l	0x00012112
+	dc.l	0x00012532
+	dc.l	0x00001232
+	dc.l	0x00000111
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x61000000
+
+	dc.l	0x35101110
+	dc.l	0x13114661
+	dc.l	0x21333346
+	dc.l	0x32133331
+	dc.l	0x33333211
+	dc.l	0x33332111
+	dc.l	0x33321997
+	dc.l	0x33311971
+
+	dc.l	0x33331171
+	dc.l	0x23334311
+	dc.l	0x13346331
+	dc.l	0x21169999
+	dc.l	0x22211111
+	dc.l	0x13111900
+	dc.l	0x11233100
+	dc.l	0x12332100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+
+	dc.l	0x00181110
+	dc.l	0x00189911
+	dc.l	0x00188999
+	dc.l	0x00018999
+	dc.l	0x00011888
+	dc.l	0x00001118
+	dc.l	0x00000011
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000012
+	dc.l	0x00000124
+	dc.l	0x00001422
+	dc.l	0x00001242
+	dc.l	0x00014322
+
+	dc.l	0x01134622
+	dc.l	0x19333621
+	dc.l	0x99333211
+	dc.l	0x93332214
+	dc.l	0x88321141
+	dc.l	0x88110141
+	dc.l	0x11000044
+	dc.l	0x00000000
+
+	dc.l	0x12331800
+	dc.l	0x13319910
+	dc.l	0x12619910
+	dc.l	0x14681911
+	dc.l	0x21466818
+	dc.l	0x21468111
+	dc.l	0x14441210
+	dc.l	0x21112251
+
+	dc.l	0x11222351
+	dc.l	0x21123351
+	dc.l	0x41142310
+	dc.l	0x10146110
+	dc.l	0x01446100
+	dc.l	0x11468100
+	dc.l	0x10118110
+	dc.l	0x00014810
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x31000000
+	dc.l	0x51000000
+	dc.l	0x31000000
+	dc.l	0x35000000
+
+	dc.l	0x31100000
+	dc.l	0x31100000
+	dc.l	0x33100000
+	dc.l	0x61000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
