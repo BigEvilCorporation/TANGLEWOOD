@@ -134,6 +134,16 @@ ThunderStrike:
 	; Reset bolt timer
 	move.w #Thunder_BoltToFlashTime, Thunder_BoltTimer(a2)
 
+	; Start sound timer
+	clr.w  d0
+	move.b Thunder_Distance(a2), d0
+	lsl.w  #0x3, d0
+	move.w d0, Thunder_SoundTimer(a2)
+	tst.w  d0
+	bne    @NoInstantSFX
+	jsr    ThunderSound
+	@NoInstantSFX:
+
 	rts
 
 ThunderFlash:
@@ -205,6 +215,18 @@ ThunderFlash:
 ThunderSound:
 	; a1 --- Level addr
 	; d0 (w) Distance
+
+	cmp.b  #Thunder_HarmfulDistance, Thunder_Distance(a2)
+	bgt    @Far
+
+	PLAYSFX #SFX_Thunder_Near
+	bra    @End
+
+	@Far:
+
+	PLAYSFX #SFX_Thunder_Far
+
+	@End:
 
 	rts
 
@@ -306,6 +328,23 @@ ThunderUpdate:
 	jsr    ThunderFlash
 
 	@BoltTimerRunning:
+
+	;===============================================================
+
+	; Decrement audio timer
+	move.w Thunder_SoundTimer(a2), d0
+	tst.w  d0
+	beq    @NoSound
+	subq.w #0x1, d0
+	move.w d0, Thunder_SoundTimer(a2)
+	tst.w  d0
+	bne    @SoundTimerRunning
+
+	; Timer elapsed, play sound
+	jsr    ThunderSound
+
+	@NoSound:
+	@SoundTimerRunning:
 
 	;===============================================================
 

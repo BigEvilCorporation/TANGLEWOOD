@@ -12,7 +12,7 @@ l2a3_Thunder_Far_Interval	equ 0x0300
 l2a3_Thunder_Mid_Dist		equ 0x5
 l2a3_Thunder_Mid_Interval	equ 0x0280
 
-l2a3_Thunder_Near_Dist		equ 0x1
+l2a3_Thunder_Near_Dist		equ 0x0
 l2a3_Thunder_Near_Interval	equ 0x0200
 
 ; ************************************

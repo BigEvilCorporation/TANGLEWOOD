@@ -169,6 +169,7 @@ l5a4_Trigger_Storm:
 	move.w #l5a4_ThunderDist, d1
 	jsr    ThunderSetParams
 	jsr    ThunderFlash
+	PLAYSFX #SFX_Thunder_Near
 	
 	rts
 

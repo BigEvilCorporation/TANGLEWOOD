@@ -67,6 +67,21 @@ SFX_Data_Nymn_Call_Long:
 	ESF_Delay 108
 	ESF_Stop
 	even
+
+SFX_Data_Thunder_Far:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+7
+	ESF_Delay 100
+	ESF_Delay 181
+	ESF_Stop
+	even
+
+SFX_Data_Thunder_Near:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+8
+	ESF_Delay 232
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -389,6 +404,20 @@ SFX_Chirp1:
 SFX_Nymn_Call_Long:
 	dc.l SFX_Data_Nymn_Call_Long	; Data
 	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Thunder_Far:
+	dc.l SFX_Data_Thunder_Far		; Data
+	dc.b SFX_Priority_High			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Thunder_Near:
+	dc.l SFX_Data_Thunder_Near		; Data
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
