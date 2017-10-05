@@ -622,9 +622,6 @@ EchoStartHiding:
 	; Set hide loop as idle anim
 	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Character_Animations,CharacterAnimIdx_Idle,1,1,0
 
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-
 	rts
 
 EchoStopHiding:
@@ -637,9 +634,6 @@ EchoStopHiding:
 
 	; Restore idle anim
 	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-
-	; Restore anim updates
-	move.b #0x1, Character_UpdateAnim(a0)
 
 	rts
 	

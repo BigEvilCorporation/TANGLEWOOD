@@ -76,6 +76,7 @@ __start
 	include '..\gamelib\anim.asm'
 	include '..\gamelib\debug.asm'
 	include '..\gamelib\barrier.asm'
+	include '..\gamelib\cutscene.asm'
 	include '..\gamelib\effects.asm'
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'

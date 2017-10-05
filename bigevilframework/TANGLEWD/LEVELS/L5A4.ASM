@@ -70,11 +70,9 @@ l5a4_ThunderDist				equ 0x1
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l5a4Data_CutsceneState			rs.l 1
-l5a4data_CutsceneTimer			rs.w 1
-l5a4Data_WaitingInput			rs.b 1
+l5a4Data_Cutscene				rs.b Cutscene_Struct_Size
 ;---------------------------------
-l5a4Data_Struct_Pad      		rs.b 1
+l5a4Data_Struct_Pad      		rs.b 0
 l5a4Data_Struct_Size     		rs.b 0
 	
 l5a4_Init:
@@ -105,8 +103,12 @@ l5a4_Init:
 	;==============================================================
 
 	; Init cutscene
+	PUSHM  a0-a1
 	lea    LevelData_L5A4, a2
-	move.l #0x0, l5a4Data_CutsceneState(a2)
+	lea    l5a4Data_Cutscene(a2), a0
+	move.l #l5a4_Cutscene, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 
 	;==============================================================
 
@@ -118,12 +120,11 @@ l5a4_Init:
 	
 l5a4_Update:
 
+	PUSHM  a0-a1
 	lea    LevelData_L5A4, a2
-	move.l l5a4Data_CutsceneState(a2), a3
-	cmp.l  #0x0, a3
-	beq    @NoCutscene
-	jsr    (a3)
-	@NoCutscene:
+	lea    l5a4Data_Cutscene(a2), a0
+	jsr    CutsceneUpdate
+	POPM   a0-a1
 
 	rts
 	
@@ -147,31 +148,150 @@ l5a4_Trigger_End:
 
 l5a4_Cutscene_Begin:
 
-	; Set cutscene state
+	PUSHL  a0
 	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_MoveDemon, l5a4Data_CutsceneState(a2)
-
-	; Set night
-
-	; Start moving demon into position
-	move.l Player1, a3
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a4
-	ENTITY_GETCENTREX d0,a3
-	ENTITY_GETCENTREY d1,a3
-	TOPIXELS d0
-	TOPIXELS d1
-	addi.w #l5a4_DemonToPlayerX, d0
-	move.w d0, Demon_TargetX(a4)
-	move.w d1, Demon_TargetY(a4)
-
-	; Disable player 1 control
-	move.l Player1, a0
-	move.b #0x0, Player_ControlEnabled(a0)
-	jsr    CharacterCancelXMovement
+	lea    l5a4Data_Cutscene(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	rts
 
-l5a4_CutsceneUpdate_MoveDemon:
+l5a4_Cutscene:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Stop player movement and disable control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Demon moves into place, faces player and starts emerge sequence
+	CUTSCENE_ROUTINE l5a4_Cutscene_MoveDemon,#0x0,#0x0,#0x0
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_SPRITE_FLIPX a2,#0x1
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+
+	; Echo runs scared
+	CUTSCENE_DELAY #l5a4_DemonWaitTimeEchoScared
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-l5a4_EchoHideToPlayerX,#0x10
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CAMERA_LERP Player2,Player1,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Demon fully emerges
+	CUTSCENE_DELAY #l5a4_DemonWaitTimeEmerge
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_SPRITE_FLIPX a2,#0x1
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+
+	; Nymn looks up
+	CUTSCENE_OBJECT_ROUTINE Player1,#NymnLookUp
+
+	; Demon smirks
+	CUTSCENE_DELAY #l5a4_DemonWaitTimeSmirk
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonSmirk
+
+	; Start greyscale effect
+	CUTSCENE_DELAY #l5a4_DemonWaitTimeFade
+	CUTSCENE_ROUTINE l5a4_Cutscene_GreyscaleFade,#0x0,#0x0,#0x0
+
+	; Demon attacks
+	CUTSCENE_DELAY #l5a4_DemonWaitTimeAttack
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonAttack
+
+	; Wait for attack trigger frame
+	CUTSCENE_ROUTINE l5a4_CutsceneUpdate_WaitAttackFrame,#0x0,#0x0,#0x0
+
+	; Lightning flash, demon disappears
+	CUTSCENE_ROUTINE l5a4_CutsceneUpdate_LightningFlash,#0x0,#0x0,#0x0
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromUpdateList
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromRenderList
+
+	; Goodbye, Nymn :(
+	CUTSCENE_OBJECT_ROUTINE Player1,#PlayerBeginPermadeath
+
+	; Echo emerges
+	CUTSCENE_DELAY #0x0100
+	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo howls
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_CHARACTER_ANIM Player2,#Player_Animations,#PlayerAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo runs over to Nymn, turns to face, and howls again
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#l5a4_EchoToPlayerX,#0x10
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_SPRITE_FLIPX Player2,#0x1
+	CUTSCENE_CHARACTER_ANIM Player2,#Player_Animations,#PlayerAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo circles around Nymn
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x0
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_CircleNymn
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo drops to stand on all fours
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_AllFours
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo nudges nymn
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Nudge
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Nudge
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo sits fully
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Sit
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo howls whilst sitting
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo stands up
+	CUTSCENE_DELAY #0x0100
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Stand
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; End cutscene
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x1
+	CUTSCENE_ROUTINE l5a5_CutsceneEnd,#0x0,#0x0,#0x0
+
+	CUTSCENE_END
+
+	rts
+
+l5a4_Cutscene_MoveDemon:
+	; a0 --- Cutscene step
 
 	PUSHL  a0
 
@@ -179,16 +299,9 @@ l5a4_CutsceneUpdate_MoveDemon:
 	tst.b  Demon_AtTarget(a0)
 	beq    @NotAtTarget
 
-	; Start emerge
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr    DemonStartEmerge
-
-	; Start Echo run timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeEchoScared, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_WaitEchoScared, l5a4Data_CutsceneState(a2)
+	; Step complete
+	move.b #0x0, d0
+	bra    @End
 
 	@NotAtTarget:
 
@@ -203,162 +316,16 @@ l5a4_CutsceneUpdate_MoveDemon:
 	move.w d0, Demon_TargetX(a0)
 	move.w d1, Demon_TargetY(a0)
 
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoScared:
-
-	PUSHL  a0
-
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
-
-	; Echo end AI mode
-	move.l Player2, a0
-	jsr    EchoAIStop
-
-	; Echo start running
-	jsr    CharacterMoveLeft
-
-	; Lerp camera
-	move.l Player1, CameraTargetLerpSource
-	move.l Player2, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_EchoRun, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
+	; Step still running
+	move.b #0x1, d0
+	
+	@End:
 
 	POPL   a0
 
 	rts
 
-l5a4_CutsceneUpdate_EchoRun:
-
-	PUSHL  a0
-
-	; Wait for Echo to reach target
-	move.l Player1, a2
-	move.l Player2, a0
-	move.w Entity_WorldPosX(a2), d0
-	move.w Entity_WorldPosX(a0), d2
-	subi.w #l5a4_EchoHideToPlayerX, d0
-	cmp.w  d0, d2
-	bgt    @Running
-
-	; Wait for camera to finish lerping
-	tst.w  CameraTargetLerpSpeed
-	bne    @Running
-
-	; Hide
-	jsr    EchoStartHiding
-
-	; Lerp camera back
-	move.l Player2, CameraTargetLerpSource
-	move.l Player1, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-
-	; Start emerge timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeEmerge, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_WaitEmerge, l5a4Data_CutsceneState(a2)
-
-	@Running:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEmerge:
-
-	PUSHL  a0
-
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
-	move.b #0x1, SpriteObj_FlippedX(a0)
-
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
-
-	; Reveal fully
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
-	jsr    DemonEmerge
-
-	; Nymn look up
-	move.l Player1, a0
-	jsr    NymnLookUp
-
-	; Start smirk timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeSmirk, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_WaitSmirk, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitSmirk:
-
-	PUSHL  a0
-
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
-	move.b #0x1, SpriteObj_FlippedX(a0)
-
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
-
-	; Smirk
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
-	jsr    DemonSmirk
-
-	; Start fade timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeFade, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_WaitFade, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitFade:
-
-	PUSHL  a0
-
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
+l5a4_Cutscene_GreyscaleFade:
 
 	; Begin greyscale fade
 	PUSHM  a0-a2
@@ -375,58 +342,29 @@ l5a4_CutsceneUpdate_WaitFade:
 	jsr    VFX_StartScreenEffectGreyscale
 	POPM   a0-a2
 
-	; Start attack timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeAttack, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	move.l #l5a4_CutsceneUpdate_WaitAttack, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
-
-	POPL   a0
+	move.b #0x0, d0
 
 	rts
 
-l5a4_CutsceneUpdate_WaitAttack:
+l5a4_CutsceneUpdate_WaitAttackFrame:
 
 	PUSHL  a0
 
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
-
-	; Attack
-	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
-	jsr    DemonAttack
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitFlash, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitFlash:
-
-	PUSHL  a0
+	move.b #0x1, d0
 
 	; Wait for bite anim to finish
 	ENTITY_GETBYNAME Demon, l5a4_Demon, a0
 	move.l AnimObj_CurrentAnim(a0), a2
 	tst.b  Animation_Looping(a2)
 	beq    @StillBiting
+	move.b #0x0, d0
+	@StillBiting:
 
-	; Be gone, demon
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	POPL   a0
+
+	rts
+
+l5a4_CutsceneUpdate_LightningFlash:
 
 	; Flash
 	lea    Thunder, a2
@@ -435,321 +373,13 @@ l5a4_CutsceneUpdate_WaitFlash:
 	jsr    ThunderSetParams
 	jsr    ThunderFlash
 
-	; Goodbye, Nymn :(
-	move.l Player1, a0
-	jsr    PlayerBeginPermadeath
-
-	; Start Echo emerge timer
-	lea    LevelData_L5A4, a2
-	move.w #l5a4_DemonWaitTimeEchoEmerge, l5a4data_CutsceneTimer(a2)
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoEmerge, l5a4Data_CutsceneState(a2)
-
-	@StillBiting:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoEmerge:
-
-	PUSHL  a0
-
-	; Decrement timer
-	lea    LevelData_L5A4, a2
-	move.w l5a4data_CutsceneTimer(a2), d0
-	subq.w #0x1, d0
-	move.w d0, l5a4data_CutsceneTimer(a2)
-	tst.w  d0
-	bne    @TimerRunning
-
-	; Lerp camera
-	move.l Player1, CameraTargetLerpSource
-	move.l Player2, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-
-	; Stop hiding
-	move.l Player2, a0
-	move.b #0x0, SpriteObj_FlippedX(a0)
-	jsr    EchoStopHiding
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoFinishEmerge, l5a4Data_CutsceneState(a2)
-
-	@TimerRunning:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoFinishEmerge:
-
-	PUSHL  a0
-
-	; Wait until emerge anim finished
-	move.l Player2, a0
-	move.l AnimObj_CurrentAnim(a0), a2
-	tst.b  Animation_Looping(a2)
-	beq    @StillEmerging
-
-	; Howl
-	PUSHL  a1
-	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Start running to Nymn
-	jsr    CharacterMoveRight
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_EchoRunToNymn, l5a4Data_CutsceneState(a2)
-
-	@StillEmerging:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_EchoRunToNymn:
-
-	PUSHL  a0
-
-	; Run right
-	move.l Player2, a0
-	jsr    CharacterMoveRight
-
-	; Wait until Echo reaches Nymn
-	move.l Player1, a2
-	move.l Player2, a0
-	move.w Entity_WorldPosX(a2), d0
-	move.w Entity_WorldPosX(a0), d2
-	addi.w #l5a4_EchoToPlayerX, d0
-	cmp.w  d0, d2
-	blt    @Running
-
-	; Stop running
-	jsr    CharacterCancelXMovement
-
-	; Turn to face
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	
-	; Howl
-	PUSHL  a1
-	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitHowl, l5a4Data_CutsceneState(a2)
-
-	@Running:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitHowl:
-
-	PUSHL  a0
-
-	; Wait until howl anim finished
-	move.l Player2, a0
-	move.l AnimObj_CurrentAnim(a0), a2
-	tst.b  Animation_Looping(a2)
-	beq    @StillPlaying
-
-	; Circle
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_CircleNymn*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoCircle, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoCircle:
-
-	PUSHL  a0
-
-	; Wait until circle anim finished
-	move.l Player2, a0
-	move.l AnimObj_CurrentAnim(a0), a2
-	tst.b  Animation_Looping(a2)
-	beq    @StillPlaying
-
-	; Nudge
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Nudge*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; No longer falling back to idle anim
-	move.b #0x0, Character_UpdateAnim(a0)
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoNudge, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoNudge:
-
-	PUSHL  a0
-
-	; Wait until nudge anim finished
-	move.l Player2, a0
-	tst.b  AnimObj_Playing(a0)
-	bne    @StillPlaying
-
-	; Nudge
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Nudge*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoNudge2, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoNudge2:
-
-	PUSHL  a0
-
-	; Wait until nudge anim finished
-	move.l Player2, a0
-	tst.b  AnimObj_Playing(a0)
-	bne    @StillPlaying
-
-	; Sit
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Sit*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoSit, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoSit:
-
-	PUSHL  a0
-
-	; Wait until sit anim finished
-	move.l Player2, a0
-	tst.b  AnimObj_Playing(a0)
-	bne    @StillPlaying
-
-	; Howl
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Howl*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoHowlSitting, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoHowlSitting:
-
-	PUSHL  a0
-
-	; Wait until howl anim finished
-	move.l Player2, a0
-	tst.b  AnimObj_Playing(a0)
-	bne    @StillPlaying
-
-	; Howl
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Howl*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a4_CutsceneUpdate_WaitEchoHowlSitting2, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
-
-	rts
-
-l5a4_CutsceneUpdate_WaitEchoHowlSitting2:
-
-	PUSHL  a0
-
-	; Wait until howl anim finished
-	move.l Player2, a0
-	tst.b  AnimObj_Playing(a0)
-	bne    @StillPlaying
-
-	; Stand
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Stand*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	; Next state
-	lea    LevelData_L5A4, a2
-	move.l #l5a5_CutsceneEnd, l5a4Data_CutsceneState(a2)
-
-	@StillPlaying:
-
-	POPL   a0
 
 	rts
 
 l5a5_CutsceneEnd:
 
 	; End letterbox mode
-
-	; Restore anim control
-	move.l Player2, a0
-	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Load sad idle anim
 	ANIM_LOAD_DEFAULT Echo_idlesad,Echo_idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -758,8 +388,6 @@ l5a5_CutsceneEnd:
 	move.l Player2, Player1
 	move.l #0x0, Player2
 
-	; End of cutscene
-	lea    LevelData_L5A4, a2
-	move.l #0x0, l5a4Data_CutsceneState(a2)
+	move.b #0x0, d0
 
 	rts
