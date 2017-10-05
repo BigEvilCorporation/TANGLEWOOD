@@ -57,7 +57,7 @@ l5a4_DefaultPalettes:
 l5a4_DemonToPlayerX				equ 0x60
 l5a4_DemonToPlayerY				equ 0x28
 l5a4_EchoHideToPlayerX			equ 0x00A0	; Safe distance for Echo to run and hide
-l5a4_EchoToPlayerX				equ 0x0038	; Distance from Echo to Nymn when howling/circling
+l5a4_EchoToPlayerX				equ 0x003C	; Distance from Echo to Nymn when howling/circling
 l5a4_DemonWaitTimeEchoScared	equ 0x0020	; Time between beginning reveal and Echo getting scared
 l5a4_DemonWaitTimeEmerge		equ 0x0040	; Time between Echo running off and demon emerging
 l5a4_DemonWaitTimeSmirk			equ 0x00E0	; Time between emerging and smirking
@@ -177,6 +177,7 @@ l5a4_Cutscene:
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
 	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-l5a4_EchoHideToPlayerX,#0x10
+	CUTSCENE_SPRITE_FLIPX Player2,#0x1
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 	CUTSCENE_CAMERA_LERP_WAIT
