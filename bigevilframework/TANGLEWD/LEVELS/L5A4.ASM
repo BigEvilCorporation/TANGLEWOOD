@@ -209,10 +209,10 @@ l5a4_Cutscene:
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonAttack
 
 	; Wait for attack trigger frame
-	CUTSCENE_ROUTINE l5a4_CutsceneUpdate_WaitAttackFrame,#0x0,#0x0,#0x0
+	CUTSCENE_ROUTINE l5a4_Cutscene_WaitAttackFrame,#0x0,#0x0,#0x0
 
 	; Lightning flash, demon disappears
-	CUTSCENE_ROUTINE l5a4_CutsceneUpdate_LightningFlash,#0x0,#0x0,#0x0
+	CUTSCENE_ROUTINE l5a4_Cutscene_LightningFlash,#0x0,#0x0,#0x0
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromUpdateList
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
@@ -245,12 +245,12 @@ l5a4_Cutscene:
 
 	; Echo circles around Nymn
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x0
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_CircleNymn
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Echo drops to stand on all fours
-	CUTSCENE_DELAY #0x0020
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x0
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_AllFours
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
@@ -263,7 +263,7 @@ l5a4_Cutscene:
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Echo sits fully
-	CUTSCENE_DELAY #0x0020
+	CUTSCENE_DELAY #0x0040
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Sit
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
@@ -277,13 +277,14 @@ l5a4_Cutscene:
 
 	; Echo stands up
 	CUTSCENE_DELAY #0x0100
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x1
+	CUTSCENE_ROUTINE l5a4_Cutscene_SetSadIdleAnim,#0x0,#0x0,#0x0
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Stand
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; End cutscene
 	CUTSCENE_DELAY #0x0040
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
-	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x1
 	CUTSCENE_ROUTINE l5a5_CutsceneEnd,#0x0,#0x0,#0x0
 
 	CUTSCENE_END
@@ -346,7 +347,7 @@ l5a4_Cutscene_GreyscaleFade:
 
 	rts
 
-l5a4_CutsceneUpdate_WaitAttackFrame:
+l5a4_Cutscene_WaitAttackFrame:
 
 	PUSHL  a0
 
@@ -364,7 +365,7 @@ l5a4_CutsceneUpdate_WaitAttackFrame:
 
 	rts
 
-l5a4_CutsceneUpdate_LightningFlash:
+l5a4_Cutscene_LightningFlash:
 
 	; Flash
 	lea    Thunder, a2
@@ -377,12 +378,18 @@ l5a4_CutsceneUpdate_LightningFlash:
 
 	rts
 
+l5a4_Cutscene_SetSadIdleAnim:
+
+	move.l Player2, a0
+	ANIM_LOAD_DEFAULT Echo_idlesad,Echo_idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
+	move.b #0x0, d0
+
+	rts
+
 l5a5_CutsceneEnd:
 
 	; End letterbox mode
-
-	; Load sad idle anim
-	ANIM_LOAD_DEFAULT Echo_idlesad,Echo_idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Player now controls Echo
 	move.l Player2, Player1
