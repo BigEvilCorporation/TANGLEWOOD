@@ -361,6 +361,7 @@ l5a4_Cutscene_GreyscaleFade:
 	move.l #PaletteId_World0, d0
 	move.b #VFXGreyscaleLerp, d1
 	jsr    VFX_StartScreenEffectGreyscale
+	POPM   a0-a2
 
 	move.b #0x0, d0
 
