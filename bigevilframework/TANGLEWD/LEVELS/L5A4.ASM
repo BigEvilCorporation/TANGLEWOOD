@@ -115,6 +115,12 @@ l5a4_Init:
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow
+
+	;==============================================================
+
+	; Start lift
+	ENTITY_GETBYNAME Lift, l5a4_LiftEntrance, a0
+	jsr    LiftActivate
 	
 	rts
 	
@@ -143,6 +149,26 @@ l5a4_Trigger_End:
 	; Begin end of act gamestate
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
+	
+	rts
+
+l5a4_Trigger_Storm:
+
+	; Restore TOD palette
+	lea    palette_L4, a0
+	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	; Start rain
+	jsr    RainInit
+
+	; Fire lightning warning shot
+	lea    Thunder, a2
+	move.w #0xFFFF, d0
+	move.w #l5a4_ThunderDist, d1
+	jsr    ThunderSetParams
+	jsr    ThunderFlash
 	
 	rts
 
@@ -334,15 +360,6 @@ l5a4_Cutscene_GreyscaleFade:
 	move.l #PaletteId_World0, d0
 	move.b #VFXGreyscaleLerp, d1
 	jsr    VFX_StartScreenEffectGreyscale
-	
-	move.l #PaletteId_Monster, d0
-	move.b #VFXGreyscaleLerp, d1
-	jsr    VFX_StartScreenEffectGreyscale
-	
-	move.l #PaletteId_Fuzzl, d0
-	move.b #VFXGreyscaleLerp, d1
-	jsr    VFX_StartScreenEffectGreyscale
-	POPM   a0-a2
 
 	move.b #0x0, d0
 

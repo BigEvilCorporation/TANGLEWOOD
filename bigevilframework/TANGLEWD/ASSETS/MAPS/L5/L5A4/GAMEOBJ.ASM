@@ -49,11 +49,15 @@ L5A4_Nest_count equ 0x0
 
 L5A4_Flue_count equ 0x0
 
-L5A4_TriggerBox_count equ 0x1
+L5A4_TriggerBox_count equ 0x3
 L5A4_Trigger_Cutscene_idx	equ 0x0
+L5A4_TriggerBox_LevelEnd_idx	equ 0x1
+L5A4_TriggerBox_Storm_idx	equ 0x2
 
 	IFND FINAL
 L5A4_Trigger_Cutscene_name	dc.b "L5A4_Trigger_Cutscene",0
+L5A4_TriggerBox_LevelEnd_name	dc.b "L5A4_TriggerBox_LevelEnd",0
+L5A4_TriggerBox_Storm_name	dc.b "L5A4_TriggerBox_Storm",0
 	even
 	ENDIF
 
@@ -65,7 +69,13 @@ L5A4_Location_count equ 0x0
 
 L5A4_Deathbox_count equ 0x0
 
-L5A4_Lift_count equ 0x0
+L5A4_Lift_count equ 0x1
+L5A4_LiftEntrance_idx	equ 0x0
+
+	IFND FINAL
+L5A4_LiftEntrance_name	dc.b "L5A4_LiftEntrance",0
+	even
+	ENDIF
 
 L5A4_Crate_count equ 0x0
 
@@ -119,8 +129,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x02600000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
+	move.l #0x01e00000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Echo_2_name, a3
 	move.l a0, a2
@@ -138,8 +148,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x02800000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
+	move.l #0x01e00000, Entity_WorldPosX(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Nymn_1_name, a3
 	move.l a0, a2
@@ -182,11 +192,59 @@ L5A4_LoadGameObjects:
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x1f400000, Entity_WorldPosX(a0)
+	move.l #0x01380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_TriggerBox_LevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a4_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x18680000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_TriggerBox_Storm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a4_Trigger_Storm, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A4_Lift_count)
+	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
+	jsr LiftInit
+	move.l #0x01e00000, Entity_WorldPosX(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_LiftEntrance_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 
 
@@ -210,7 +268,7 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x01a80000, Entity_WorldPosX(a0)
+	move.l #0x01380000, Entity_WorldPosX(a0)
 	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Demon_name, a3
