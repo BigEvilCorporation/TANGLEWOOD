@@ -1,0 +1,213 @@
+;==============================================================
+;   TANGLEWOOD - A game by Matt Phillips - (c) 2017
+;==============================================================
+;   http://www.bigevilcorporation.co.uk
+;==============================================================
+;   l6a2.asm - Level 6 - Deadwood Act 1
+;==============================================================	
+
+; ************************************
+; Static data
+; ************************************
+l6a2_DeadwoodAct2:
+
+	dc.l LevelSelect_Str_06				; Name
+	dc.l LevelData_l6a2					; Userdata
+	dc.l tiles_L6						; Tileset
+	dc.l map_blocks_L6					; Blocks
+	dc.l map_blockmap_l6a2				; Block map
+	dc.l collisiontiles_L6				; Collision tileset
+	dc.l collisionmap_blocks_L6			; Collision blocks
+	dc.l collisionmap_blockmap_l6a2		; Collision block map
+	dc.l 0x00000000						; 'Special' terrain descriptor table
+	dc.l l6a2_DefaultPalettes			; Palettes
+	dc.l l6a2_Init						; Init routine
+	dc.l l6a2_Update					; Update routine
+	dc.l l6a2_Serialise					; Serialise routine
+	dc.l l6a2_LoadGameObjects			; Load game objects routine
+	dc.l l6a2_End						; End routine
+	IF INCLUDE_LEVEL_7
+	dc.l l7a1_OasisAct1					; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
+	dc.l DefaultGravity					; Default gravity
+	dc.w map_l6a2_width					; Map width (tiles)
+	dc.w map_l6a2_height				; Map height (tiles)
+	dc.w map_blockmap_l6a2_width		; Map width (blocks)
+	dc.w map_blockmap_l6a2_height		; Map height (blocks)
+	dc.w tiles_L6_size_t				; Num tiles
+	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.b 0x0							; Background colour idx
+	
+	even
+	
+l6a2_DefaultPalettes:
+
+	; L6 is silhouetted throughout
+	dc.l palette_L6					; World
+	dc.l 0x0						; Monster
+	dc.l 0x0						; Fuzzl
+	dc.l 0x0						; Player
+	
+	even
+	
+; ************************************
+; Runtime data
+; ************************************
+	rsset LevelData_Struct_Size
+l6a2Data_LogRollCamLerpTimer	rs.w 1
+l6a2Data_WaitingInput			rs.b 1
+;---------------------------------
+l6a2Data_Struct_Pad      		rs.b 1
+l6a2Data_Struct_Size     		rs.b 0
+	
+l6a2_Init:
+	
+	; Load BG map
+	lea    map_blocks_L6, a0
+	lea    map_blockmap_L6bg, a1
+	move.l #(map_blockmap_L6bg_width<<16)|map_blockmap_L6bg_height, d1
+	move.w (vram_addr_leveltiles), d2
+	BYTES2TILES d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadBlockMapPlaneB
+
+	; Set TOD palettes
+	move.l  #palette_L6, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_L6, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_L6, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_L6, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
+	; Set TOD
+	move.b  #TimeOfDay_Dusk, TimeOfDay
+
+	;==============================================================
+
+	; Load scene animations
+	jsr    L6_LoadSceneAnimations
+	
+	;==============================================================
+
+	; Don't lerp Djakk palettes, disable catchup behaviour
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+
+	; Force every sprite object to use palette 1 (silhouette)
+	LIST_GET_HEAD EntityUpdate,a0
+	@EntityLp:
+	cmp.l  #0x0, a0
+	beq    @ListEnd
+	move.l Entity_TypeBits(a0), d0
+	andi.l #entity_type_spriteobj, d0
+	beq    @NotSprite
+	move.b #0x1, SpriteObj_Palette(a0)
+	@NotSprite:
+	LIST_GET_NEXT EntityUpdate,a0,a0
+	bra    @EntityLp
+	@ListEnd:
+
+	;==============================================================
+
+	; Connect buttons to lifts
+	ENTITY_GETBYNAME Button, l6a2_Button1, a0
+	ENTITY_GETBYNAME Lift, l6a2_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivate, Button_OnDown(a0)
+	move.b #0x1, Button_Active(a0)
+	
+	rts
+	
+l6a2_Update:
+
+	rts
+	
+l6a2_Serialise:
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+	
+	rts
+
+l6a2_End:
+	rts
+
+l6a2_Trigger_WakeDjakk1:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartEmergeFromCave
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk2:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartEmergeFromCave
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk3:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk4:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_End:
+
+	; Begin end of act gamestate
+	lea    GameStateEndAct, a0
+	jsr    GameStateEnter
+	
+	rts

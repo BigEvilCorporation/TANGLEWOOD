@@ -21,6 +21,8 @@ L6A1_Echo_1_name	dc.b "L6A1_Echo_1",0
 
 L6A1_Nymn_count equ 0x0
 
+L6A1_BouncePlant_count equ 0x0
+
 L6A1_Log_count equ 0x3
 L6A1_Log1_idx	equ 0x0
 L6A1_Log2_idx	equ 0x1
@@ -35,8 +37,6 @@ L6A1_Log3_name	dc.b "L6A1_Log3",0
 
 L6A1_DjakkCage_count equ 0x0
 
-L6A1_BouncePlant_count equ 0x0
-
 L6A1_Monster_count equ 0x1
 L6A1_Djakk1_idx	equ 0x0
 
@@ -46,8 +46,6 @@ L6A1_Djakk1_name	dc.b "L6A1_Djakk1",0
 	ENDIF
 
 L6A1_Boulder_count equ 0x0
-
-L6A1_FuzzlCage_count equ 0x0
 
 L6A1_Firefly_count equ 0x8
 L6A1_Firefly_17_idx	equ 0x0
@@ -71,6 +69,10 @@ L6A1_Firefly_24_name	dc.b "L6A1_Firefly_24",0
 	even
 	ENDIF
 
+L6A1_FuzzlCage_count equ 0x0
+
+L6A1_Fuzzl_count equ 0x0
+
 L6A1_Stone_count equ 0x3
 L6A1_Stone_7_idx	equ 0x0
 L6A1_Stone_9_idx	equ 0x1
@@ -82,8 +84,6 @@ L6A1_Stone_9_name	dc.b "L6A1_Stone_9",0
 L6A1_Stone_36_name	dc.b "L6A1_Stone_36",0
 	even
 	ENDIF
-
-L6A1_Fuzzl_count equ 0x0
 
 L6A1_Nest_count equ 0x0
 
@@ -111,8 +111,6 @@ L6A1_WaterBody_count equ 0x0
 
 L6A1_Location_count equ 0x0
 
-L6A1_Lift_count equ 0x0
-
 L6A1_Deathbox_count equ 0x3
 L6A1_Deathbox_13_idx	equ 0x0
 L6A1_Deathbox_14_idx	equ 0x1
@@ -124,6 +122,8 @@ L6A1_Deathbox_14_name	dc.b "L6A1_Deathbox_14",0
 L6A1_Deathbox_15_name	dc.b "L6A1_Deathbox_15",0
 	even
 	ENDIF
+
+L6A1_Lift_count equ 0x0
 
 L6A1_Crate_count equ 0x0
 
@@ -187,6 +187,8 @@ L6A1_Ladder_count equ 0x0
 
 L6A1_Demon_count equ 0x0
 
+L6A1_Borgus_count equ 0x0
+
 
 
 L6A1_LoadGameObjects:
@@ -210,6 +212,7 @@ L6A1_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -256,7 +259,6 @@ L6A1_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L6A1_Monster_count)
 	move.l a1, EntityPoolStart_Monster
@@ -276,7 +278,6 @@ L6A1_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -382,6 +383,8 @@ L6A1_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L6A1_Stone_count)
 	move.l a1, EntityPoolStart_Stone
@@ -424,7 +427,6 @@ L6A1_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -485,7 +487,6 @@ L6A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L6A1_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -528,6 +529,7 @@ L6A1_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 
@@ -693,6 +695,7 @@ L6A1_LoadGameObjects:
 	ENDIF
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
 
 
 

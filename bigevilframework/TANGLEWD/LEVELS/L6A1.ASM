@@ -26,11 +26,7 @@ L6a1_DeadwoodAct1:
 	dc.l L6a1_Serialise					; Serialise routine
 	dc.l L6a1_LoadGameObjects			; Load game objects routine
 	dc.l l6a1_End						; End routine
-	IF INCLUDE_LEVEL_7
-	dc.l l7a1_OasisAct1					; Next level
-	ELSE
-	dc.l 0x00000000
-	ENDIF
+	dc.l l6a2_DeadwoodAct2				; Next level
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_L6a1_width					; Map width (tiles)
 	dc.w map_L6a1_height				; Map height (tiles)
@@ -72,7 +68,7 @@ L6a1_Init:
 	; Set data for all acts in level
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L6A1, (a2)+
-	;move.l #LevelData_L6A2, (a2)+
+	move.l #LevelData_L6A2, (a2)+
 	;move.l #LevelData_L6A3, (a2)+
 	move.w #0x1, CurrentLevelNumActs
 	

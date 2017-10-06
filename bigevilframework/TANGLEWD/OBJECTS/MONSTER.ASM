@@ -143,14 +143,15 @@ Monster_CatchUpSpeedMul rs.w 1
 Monster_Type           rs.b 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
-Monster_DoIntro		   rs.b 1
-Monster_BlockingCtrl   rs.b 1
+Monster_DoIntro		   rs.b 1	; Do intro sequence when player approaches (lerp camera)
+Monster_BlockPlayerCtrl rs.b 1	; Block player input during emerge/camera lerp stage
+Monster_BlockingCtrl   rs.b 1	; Is currently blocking player control
 Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 Monster_MusicState     rs.b 1
 Monster_LerpPalette    rs.b 1
 ;----------------------------
-Monster_Struct_Pad     rs.b 1
+Monster_Struct_Pad     rs.b 0
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -225,6 +226,7 @@ MonsterInit:
 	move.w  #0x0, Monster_GrowlTimer(a0)
 	move.w  #Monster_OutOfDistSpeedMul, Monster_CatchUpSpeedMul(a0)
 	move.b  #MonsterType_Djakk, Monster_Type(a0)
+	move.b  #0x1, Monster_BlockPlayerCtrl(a0)
 	move.b  #0x0, Monster_BlockingCtrl(a0)
 	move.b  #0x0, Monster_CatchingUp(a0)
 	move.b  #0x0, Monster_RumblePlayed(a0)
@@ -595,7 +597,7 @@ MonsterCheckBarrier:
 	beq    @NextMarker
 	bgt    @HeadingRight
 	cmp.l  d1, d2
-	bge    @HitMarker
+	ble    @HitMarker
 	bra    @NextMarker
 	@HeadingRight:
 	cmp.l  d1, d2
@@ -816,20 +818,27 @@ MonsterStartEmergeFromCave:
 	; Set emerge state
 	move.b #MonsterState_Emerging, Monster_State(a0)
 	
-	; Block player control and set as camera target
 	; TODO: Use cutscene code
+	tst.b  Monster_BlockPlayerCtrl(a0)
+	beq    @NoBlockCtrl
 	move.l (Player1), a2
+
+	; Block player control
 	move.b #0x0, Player_ControlEnabled(a2)
+
+	; Cut player X velocity
+	move.l #0x0, PhysicsObj_VelX(a2)
+	move.w #0x0, PhysicsObj_AccelX(a2)
+
+	@NoBlockCtrl:
+
 	move.b #0x1, Monster_BlockingCtrl(a0)
+
+	; Lerp camera
 	move.l (Player1), CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
 	move.w #0x10, CameraTargetLerpSpeed
-	
-	; Cut player X velocity
-	move.l (Player1), a2
-	move.l #0x0, PhysicsObj_VelX(a2)
-	move.w #0x0, PhysicsObj_AccelX(a2)
 	
 	; Start palette lerp
 	tst.b  Monster_LerpPalette(a0)
@@ -893,6 +902,23 @@ MonsterStartRoaring:
 MonsterUpdateRoaring:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Attack if bounds intersect
+	PUSHL  a1
+	move.l Player1, a1
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   a1
+	
+	tst.b  d0
+	beq    @NoIntersect
+	
+	; Attack and bail out of state
+	jsr    MonsterStartBite
+	bra    @End
+
+	@NoIntersect:
 	
 	; Check if anim finished
 	tst.b  AnimObj_Playing(a0)
@@ -920,6 +946,7 @@ MonsterUpdateRoaring:
 	jsr    MonsterStartTrackPlayer
 	
 	@AnimPlaying:
+	@End:
 	
 	rts
 	

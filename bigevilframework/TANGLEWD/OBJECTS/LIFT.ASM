@@ -42,8 +42,9 @@ Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
 Lift_OriginX				rs.l 1	; Origin (won't lower beyond this point)
 Lift_OriginY				rs.l 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
+Lift_Direction				rs.b 1	; Up/down powered direction
 ;---------------------------------
-Lift_Struct_Pad   			rs.b 3  ; Alignment padding
+Lift_Struct_Pad   			rs.b 2  ; Alignment padding
 Lift_Struct_Size  			rs.b 0
 ;---------------------------------
 
@@ -90,6 +91,7 @@ LiftInit:
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.l  #0x0, Lift_CounterWeight(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
+	move.b  #0x0, Lift_Direction(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -191,6 +193,13 @@ LiftLoadGfx:
 	; Get origin
 	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
 	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
+
+	; If heading down, offset origin to top, disable gravity
+	tst.b  Lift_Direction(a0)
+	beq    @Up
+	addi.l #Lift_RopeLength, Lift_OriginY(a0)
+	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+	@Up:
 
 	rts
 
@@ -295,8 +304,19 @@ LiftActivate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Lift_Direction(a0)
+	bne    @Down
+
 	; Move lift up
 	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+	bra    @End
+
+	@Down:
+
+	; Move lift down
+	move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
+
+	@End:
 
 	rts
 
