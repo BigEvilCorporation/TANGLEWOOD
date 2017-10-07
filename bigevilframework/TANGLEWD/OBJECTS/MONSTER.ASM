@@ -150,8 +150,9 @@ Monster_CatchingUp     rs.b 1
 Monster_RumblePlayed   rs.b 1
 Monster_MusicState     rs.b 1
 Monster_LerpPalette    rs.b 1
+Monster_ManualGfxLoad  rs.b 1	; Don't load gfx
 ;----------------------------
-Monster_Struct_Pad     rs.b 0
+Monster_Struct_Pad     rs.b 3
 Monster_Struct_Size    rs.b 0
 
 ; ************************************
@@ -177,9 +178,6 @@ MonsterInit:
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
-	
-	; Update when out of view
-	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Default properties
 	move.w  #Monster_Width, Entity_Width(a0)
@@ -232,6 +230,7 @@ MonsterInit:
 	move.b  #0x0, Monster_RumblePlayed(a0)
 	move.b  #0x1, Monster_DoIntro(a0)
 	move.b  #0x1, Monster_LerpPalette(a0)
+	move.b  #0x0, Monster_ManualGfxLoad(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
 	; Setup collision bounds
@@ -272,7 +271,10 @@ MonsterLoadGfx:
 	@Djakk:
 
 	; Load sprite
+	tst.b   Monster_ManualGfxLoad(a0)
+	bne     @ManualLoad
 	SPRITE_LOAD_DEFAULT djakk,PaletteId_Monster,0x0
+	@ManualLoad:
 
 	; Setup default character animations
 	ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -293,7 +295,10 @@ MonsterLoadGfx:
 	@Elder:
 	
 	; Load sprite
+	tst.b   Monster_ManualGfxLoad(a0)
+	bne     @ManualLoadElder
 	SPRITE_LOAD_DEFAULT elder,PaletteId_Monster,0x0
+	@ManualLoadElder:
 
 	; Setup default character animations
 	ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -817,6 +822,9 @@ MonsterStartEmergeFromCave:
 	
 	; Set emerge state
 	move.b #MonsterState_Emerging, Monster_State(a0)
+
+	; Update when out of view
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	
 	; TODO: Use cutscene code
 	tst.b  Monster_BlockPlayerCtrl(a0)
@@ -878,6 +886,9 @@ MonsterStartRoaring:
 	
 	; Set roaring state
 	move.b #MonsterState_Roaring, Monster_State(a0)
+
+	; Update when out of view
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	
 	; Turn to face player
 	move.l (Player1), a2

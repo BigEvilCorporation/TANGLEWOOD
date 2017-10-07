@@ -42,9 +42,9 @@ L6a1_DefaultPalettes:
 
 	; L6 is silhouetted throughout
 	dc.l palette_L6					; World
-	dc.l 0x0						; Monster
-	dc.l 0x0						; Fuzzl
-	dc.l 0x0						; Player
+	dc.l palette_fade_black			; Monster
+	dc.l palette_fade_black			; Fuzzl
+	dc.l palette_fade_black			; Player
 	
 	even
 

@@ -46,9 +46,9 @@ l6a2_DefaultPalettes:
 
 	; L6 is silhouetted throughout
 	dc.l palette_L6					; World
-	dc.l 0x0						; Monster
-	dc.l 0x0						; Fuzzl
-	dc.l 0x0						; Player
+	dc.l palette_fade_black			; Monster
+	dc.l palette_fade_black			; Fuzzl
+	dc.l palette_fade_black			; Player
 	
 	even
 	
@@ -104,6 +104,31 @@ l6a2_Init:
 	move.b #0x0, Monster_DoIntro(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	move.b #0x0, Monster_DoIntro(a0)
@@ -194,12 +219,203 @@ l6a2_Trigger_WakeDjakk4:
 
 	PUSHL  a0
 	
+	; Steal VRAM from a dead one
 	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
 	cmp.b  #MonsterState_InCave, Monster_State(a0)
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
 	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_LoadDjakk5:
+
+	PUSHL  a0
+	
+	; Steal VRAM from a dead one
+	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk5:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+
+	; Kill 3 and 4 ready to reuse
+	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
+	move.b #0x1, Character_Dead(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	move.b #0x1, Character_Dead(a0)
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk6:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk7:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk8:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk9:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_Log1:
+
+	PUSHL  a0
+
+	; Start log rolling
+	ENTITY_GETBYNAME Log, l6a2_Log1, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+
+	; Load Djakks 6 and 7
+	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
+
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_Log2:
+
+	PUSHL  a0
+
+	; Start log rolling
+	ENTITY_GETBYNAME Log, l6a2_Log2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_Log3:
+
+	PUSHL  a0
+
+	; Start log rolling
+	ENTITY_GETBYNAME Log, l6a2_Log3, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+
+	; Load Djakks 8 and 9
+	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	jsr    l6a2_StealDjakkVRAM
+	SPRITE_LOAD_COPY djakk,PaletteId_Monster,0x0,a2
+
+	POPL   a0
+
+	rts
+
+l6a2_StealDjakkVRAM:
+
+	; Find a dead one
+	move.w (EntityCount_Monster), d6
+	tst.w  d6
+	beq    @NoMonsters
+	move.l (EntityPoolStart_Monster), a2
+	subq.w  #0x1, d6
+	@MonsterLoop:
+
+	tst.b  Entity_Active(a2)
+	beq    @NextMonster
+
+	tst.b  Character_Dead(a2)
+	bne    @Found
+
+	@NextMonster:
+	lea    Monster_Struct_Size(a2), a2
+	dbra   d6, @MonsterLoop
+	@NoMonsters:
+
+	; If none dead, your level design sucks
+	RAISE_EXCEPTION *
+
+	@Found:
+
+	; Deactivate it
+	PUSHL  a0
+	move.l a2, a0
+	jsr EntityRemoveFromUpdateList
+	jsr EntityRemoveFromRenderList
+	move.b #0x0, Entity_Active(a0)
 	POPL   a0
 
 	rts
