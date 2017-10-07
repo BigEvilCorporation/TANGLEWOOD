@@ -7,6 +7,6 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blocks_L7_size_b	equ 0x00007CC0	; Size in bytes
+terrainmap_blocks_L7_size_b	equ 0x00007D20	; Size in bytes
 terrainmap_blocks_L7_size_w	equ (terrainmap_blocks_L7_size_b/2)	; Size in words
 terrainmap_blocks_L7_size_l	equ (terrainmap_blocks_L7_size_b/4)	; Size in longwords

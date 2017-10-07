@@ -58,11 +58,11 @@ L7A2_Nest_5_name	dc.b "L7A2_Nest_5",0
 	ENDIF
 
 L7A2_Flue_count equ 0x2
-L7A2_Flue_6_idx	equ 0x0
+L7A2_Flue1_idx	equ 0x0
 L7A2_Flue_7_idx	equ 0x1
 
 	IFND FINAL
-L7A2_Flue_6_name	dc.b "L7A2_Flue_6",0
+L7A2_Flue1_name	dc.b "L7A2_Flue1",0
 L7A2_Flue_7_name	dc.b "L7A2_Flue_7",0
 	even
 	ENDIF
@@ -89,7 +89,13 @@ L7A2_Bridge_count equ 0x0
 
 L7A2_Button_count equ 0x0
 
-L7A2_Wyrm_count equ 0x0
+L7A2_Wyrm_count equ 0x1
+L7A2_Wyrm_8_idx	equ 0x0
+
+	IFND FINAL
+L7A2_Wyrm_8_name	dc.b "L7A2_Wyrm_8",0
+	even
+	ENDIF
 
 L7A2_AIMarker_count equ 0x0
 
@@ -220,12 +226,13 @@ L7A2_LoadGameObjects:
 	move.l #0x0eb00000, Entity_WorldPosX(a0)
 	move.l #0x03a00000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L7A2_Flue_6_name, a3
+	lea L7A2_Flue1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.l #0x0F8000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
@@ -252,6 +259,24 @@ L7A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Wyrm_Struct_Size*L7A2_Wyrm_count)
+	move.l a1, EntityPoolStart_Wyrm
+	move.l a1, a0
+	POPL   a1
+
+	jsr WyrmInit
+	move.l #0x04780000, Entity_WorldPosX(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_Wyrm_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WyrmLoadGfx
+	add.l #Wyrm_Struct_Size, a0
 
 
 
