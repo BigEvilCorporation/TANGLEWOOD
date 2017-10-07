@@ -22,7 +22,7 @@ terrainmap_blockmap_L4A2_height	equ 0x2B
 ; Terrain beziers start/end positions
 terrainmap_L4A2_num_special_terrain_descs	equ 0x03
 terrainmap_L4A2_special_terrain_descs:
-	dc.w 0x04C8, 0x0497, 0x0928, 0x0497	; Start X, start Y, end X, end Y
-	dc.w 0x0E7F, 0x041F, 0x1111, 0x041F	; Start X, start Y, end X, end Y
-	dc.w 0x1478, 0x0377, 0x1638, 0x0377	; Start X, start Y, end X, end Y
+	dc.w 0x04C8, 0x03F7, 0x0928, 0x03F7	; Start X, start Y, end X, end Y
+	dc.w 0x0E7F, 0x037F, 0x1111, 0x037F	; Start X, start Y, end X, end Y
+	dc.w 0x1478, 0x02D7, 0x1638, 0x02D7	; Start X, start Y, end X, end Y
 

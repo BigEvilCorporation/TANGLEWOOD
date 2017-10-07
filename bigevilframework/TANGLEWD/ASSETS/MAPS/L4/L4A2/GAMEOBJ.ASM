@@ -249,7 +249,7 @@ L4A2_LoadGameObjects:
 
 	jsr DjubbInit
 	move.l #0x06480000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_3_name, a3
 	move.l a0, a2
@@ -261,7 +261,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x0d900000, Entity_WorldPosX(a0)
-	move.l #0x04f80000, Entity_WorldPosY(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_30_name, a3
 	move.l a0, a2
@@ -273,7 +273,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x08080000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.l #0x04f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_37_name, a3
 	move.l a0, a2
@@ -285,7 +285,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x06c00000, Entity_WorldPosX(a0)
-	move.l #0x05580000, Entity_WorldPosY(a0)
+	move.l #0x04b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_38_name, a3
 	move.l a0, a2
@@ -297,7 +297,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x15180000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_42_name, a3
 	move.l a0, a2
@@ -309,7 +309,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x15e00000, Entity_WorldPosX(a0)
-	move.l #0x04d00000, Entity_WorldPosY(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_43_name, a3
 	move.l a0, a2
@@ -321,7 +321,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x15780000, Entity_WorldPosX(a0)
-	move.l #0x04f00000, Entity_WorldPosY(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_44_name, a3
 	move.l a0, a2
@@ -333,7 +333,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x15680000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
+	move.l #0x03c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_45_name, a3
 	move.l a0, a2
@@ -345,7 +345,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x10c00000, Entity_WorldPosX(a0)
-	move.l #0x04d00000, Entity_WorldPosY(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_46_name, a3
 	move.l a0, a2
@@ -364,7 +364,7 @@ L4A2_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Echo_2_name, a3
 	move.l a0, a2
@@ -383,7 +383,7 @@ L4A2_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x00e80000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Nymn_1_name, a3
 	move.l a0, a2
@@ -403,7 +403,7 @@ L4A2_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x0ac00000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x03a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Log1_name, a3
 	move.l a0, a2
@@ -415,7 +415,7 @@ L4A2_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 	jsr LogInit
 	move.l #0x0d500000, Entity_WorldPosX(a0)
-	move.l #0x01b80000, Entity_WorldPosY(a0)
+	move.l #0x01180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Log2_name, a3
 	move.l a0, a2
@@ -427,7 +427,7 @@ L4A2_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 	jsr LogInit
 	move.l #0x16100000, Entity_WorldPosX(a0)
-	move.l #0x01780000, Entity_WorldPosY(a0)
+	move.l #0x00d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Log_53_name, a3
 	move.l a0, a2
@@ -451,7 +451,7 @@ L4A2_LoadGameObjects:
 
 	jsr FuzzlInit
 	move.l #0x0a500000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x01780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_FuzzlYellow1_name, a3
 	move.l a0, a2
@@ -464,7 +464,7 @@ L4A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x0a780000, Entity_WorldPosX(a0)
-	move.l #0x03900000, Entity_WorldPosY(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Fuzzl_11_name, a3
 	move.l a0, a2
@@ -476,7 +476,7 @@ L4A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x10800000, Entity_WorldPosX(a0)
-	move.l #0x02280000, Entity_WorldPosY(a0)
+	move.l #0x01880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_FuzzlYellow2_name, a3
 	move.l a0, a2
@@ -496,7 +496,7 @@ L4A2_LoadGameObjects:
 
 	jsr StoneInit
 	move.l #0x09b80000, Entity_WorldPosX(a0)
-	move.l #0x05000000, Entity_WorldPosY(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_14_name, a3
 	move.l a0, a2
@@ -508,7 +508,7 @@ L4A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x0af80000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x03c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_17_name, a3
 	move.l a0, a2
@@ -520,7 +520,7 @@ L4A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x0c300000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x03c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_29_name, a3
 	move.l a0, a2
@@ -532,7 +532,7 @@ L4A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x11100000, Entity_WorldPosX(a0)
-	move.l #0x02a00000, Entity_WorldPosY(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_50_name, a3
 	move.l a0, a2
@@ -544,7 +544,7 @@ L4A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x13c80000, Entity_WorldPosX(a0)
-	move.l #0x03280000, Entity_WorldPosY(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_51_name, a3
 	move.l a0, a2
@@ -556,7 +556,7 @@ L4A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x16b00000, Entity_WorldPosX(a0)
-	move.l #0x01a00000, Entity_WorldPosY(a0)
+	move.l #0x01000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_52_name, a3
 	move.l a0, a2
@@ -575,7 +575,7 @@ L4A2_LoadGameObjects:
 
 	jsr NestInit
 	move.l #0x0b900000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x02280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Nest_10_name, a3
 	move.l a0, a2
@@ -587,7 +587,7 @@ L4A2_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
 	move.l #0x13800000, Entity_WorldPosX(a0)
-	move.l #0x03280000, Entity_WorldPosY(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Nest_47_name, a3
 	move.l a0, a2
@@ -607,7 +607,7 @@ L4A2_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x0ce80000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_TriggerBox_EchoPanic1_name, a3
 	move.l a0, a2
@@ -620,7 +620,7 @@ L4A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x19000000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_TriggerBox_EndLevel_name, a3
 	move.l a0, a2
@@ -648,7 +648,7 @@ L4A2_LoadGameObjects:
 
 	jsr GeneratorInit
 	move.l #0x0b600000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
+	move.l #0x03c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Generator1_name, a3
 	move.l a0, a2
@@ -667,7 +667,7 @@ L4A2_LoadGameObjects:
 
 	jsr CogsInit
 	move.l #0x0b780000, Entity_WorldPosX(a0)
-	move.l #0x03f00000, Entity_WorldPosY(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Cogs1_name, a3
 	move.l a0, a2
@@ -687,7 +687,7 @@ L4A2_LoadGameObjects:
 
 	jsr ButtonInit
 	move.l #0x0cf80000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock1_name, a3
 	move.l a0, a2
@@ -699,7 +699,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
 	move.l #0x0da00000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock2_name, a3
 	move.l a0, a2
@@ -711,7 +711,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
 	move.l #0x0e400000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock3_name, a3
 	move.l a0, a2
@@ -723,7 +723,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
 	move.l #0x09e80000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonWinch1_name, a3
 	move.l a0, a2
@@ -743,7 +743,7 @@ L4A2_LoadGameObjects:
 
 	jsr AIMarkerInit
 	move.l #0x0df00000, Entity_WorldPosX(a0)
-	move.l #0x02880000, Entity_WorldPosY(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_AIMarker_15_name, a3
 	move.l a0, a2
@@ -764,7 +764,7 @@ L4A2_LoadGameObjects:
 
 	jsr WinchInit
 	move.l #0x05180000, Entity_WorldPosX(a0)
-	move.l #0x04d80000, Entity_WorldPosY(a0)
+	move.l #0x04380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Winch1_name, a3
 	move.l a0, a2
@@ -776,7 +776,7 @@ L4A2_LoadGameObjects:
 	add.l #Winch_Struct_Size, a0
 	jsr WinchInit
 	move.l #0x09b00000, Entity_WorldPosX(a0)
-	move.l #0x04d80000, Entity_WorldPosY(a0)
+	move.l #0x04380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Winch2_name, a3
 	move.l a0, a2
@@ -789,7 +789,7 @@ L4A2_LoadGameObjects:
 	add.l #Winch_Struct_Size, a0
 	jsr WinchInit
 	move.l #0x0c900000, Entity_WorldPosX(a0)
-	move.l #0x04780000, Entity_WorldPosY(a0)
+	move.l #0x03d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Winch3_name, a3
 	move.l a0, a2
@@ -801,7 +801,7 @@ L4A2_LoadGameObjects:
 	add.l #Winch_Struct_Size, a0
 	jsr WinchInit
 	move.l #0x0eb00000, Entity_WorldPosX(a0)
-	move.l #0x04780000, Entity_WorldPosY(a0)
+	move.l #0x03d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Winch4_name, a3
 	move.l a0, a2
@@ -822,7 +822,7 @@ L4A2_LoadGameObjects:
 
 	jsr RaftInit
 	move.l #0x05480000, Entity_WorldPosX(a0)
-	move.l #0x05100000, Entity_WorldPosY(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Raft1_name, a3
 	move.l a0, a2
@@ -834,7 +834,7 @@ L4A2_LoadGameObjects:
 	add.l #Raft_Struct_Size, a0
 	jsr RaftInit
 	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04f80000, Entity_WorldPosY(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Raft2_name, a3
 	move.l a0, a2
@@ -853,7 +853,7 @@ L4A2_LoadGameObjects:
 
 	jsr LockInit
 	move.l #0x0e080000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Lock2_name, a3
 	move.l a0, a2
@@ -865,7 +865,7 @@ L4A2_LoadGameObjects:
 	add.l #Lock_Struct_Size, a0
 	jsr LockInit
 	move.l #0x0d680000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Lock1_name, a3
 	move.l a0, a2
@@ -884,7 +884,7 @@ L4A2_LoadGameObjects:
 
 	jsr PoolInit
 	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool1_name, a3
 	move.l a0, a2
@@ -896,7 +896,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
 	move.l #0x0d680000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool2_name, a3
 	move.l a0, a2
@@ -908,7 +908,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
 	move.l #0x0e080000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool3_name, a3
 	move.l a0, a2

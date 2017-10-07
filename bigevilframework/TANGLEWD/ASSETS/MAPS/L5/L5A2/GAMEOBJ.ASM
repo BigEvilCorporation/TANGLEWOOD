@@ -244,7 +244,7 @@ L5A2_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Echo_6_name, a3
 	move.l a0, a2
@@ -263,7 +263,7 @@ L5A2_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x00d00000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Nymn_5_name, a3
 	move.l a0, a2
@@ -283,7 +283,7 @@ L5A2_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x06800000, Entity_WorldPosX(a0)
-	move.l #0x02700000, Entity_WorldPosY(a0)
+	move.l #0x01300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Log1_name, a3
 	move.l a0, a2
@@ -305,7 +305,7 @@ L5A2_LoadGameObjects:
 
 	jsr FireflyInit
 	move.l #0x08d80000, Entity_WorldPosX(a0)
-	move.l #0x04280000, Entity_WorldPosY(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_48_name, a3
 	move.l a0, a2
@@ -317,7 +317,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x06080000, Entity_WorldPosX(a0)
-	move.l #0x05680000, Entity_WorldPosY(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_49_name, a3
 	move.l a0, a2
@@ -329,7 +329,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x03800000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_50_name, a3
 	move.l a0, a2
@@ -341,7 +341,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x07c00000, Entity_WorldPosX(a0)
-	move.l #0x09380000, Entity_WorldPosY(a0)
+	move.l #0x07f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_51_name, a3
 	move.l a0, a2
@@ -353,7 +353,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0ad80000, Entity_WorldPosX(a0)
-	move.l #0x05880000, Entity_WorldPosY(a0)
+	move.l #0x04480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_52_name, a3
 	move.l a0, a2
@@ -365,7 +365,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x13c80000, Entity_WorldPosX(a0)
-	move.l #0x09680000, Entity_WorldPosY(a0)
+	move.l #0x08280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_53_name, a3
 	move.l a0, a2
@@ -377,7 +377,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0ec00000, Entity_WorldPosX(a0)
-	move.l #0x08180000, Entity_WorldPosY(a0)
+	move.l #0x06d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_54_name, a3
 	move.l a0, a2
@@ -389,7 +389,7 @@ L5A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0d400000, Entity_WorldPosX(a0)
-	move.l #0x05100000, Entity_WorldPosY(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Firefly_55_name, a3
 	move.l a0, a2
@@ -409,7 +409,7 @@ L5A2_LoadGameObjects:
 
 	jsr FuzzlInit
 	move.l #0x04000000, Entity_WorldPosX(a0)
-	move.l #0x03b00000, Entity_WorldPosY(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_FuzzlYellow1_name, a3
 	move.l a0, a2
@@ -422,7 +422,7 @@ L5A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x05800000, Entity_WorldPosX(a0)
-	move.l #0x05800000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Fuzzl_31_name, a3
 	move.l a0, a2
@@ -434,7 +434,7 @@ L5A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x09f80000, Entity_WorldPosX(a0)
-	move.l #0x09580000, Entity_WorldPosY(a0)
+	move.l #0x08180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_FuzzlYellow2_name, a3
 	move.l a0, a2
@@ -454,7 +454,7 @@ L5A2_LoadGameObjects:
 
 	jsr StoneInit
 	move.l #0x03c00000, Entity_WorldPosX(a0)
-	move.l #0x04280000, Entity_WorldPosY(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Stone_15_name, a3
 	move.l a0, a2
@@ -466,7 +466,7 @@ L5A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x05a80000, Entity_WorldPosX(a0)
-	move.l #0x02980000, Entity_WorldPosY(a0)
+	move.l #0x01580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Stone_21_name, a3
 	move.l a0, a2
@@ -478,7 +478,7 @@ L5A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x06f00000, Entity_WorldPosX(a0)
-	move.l #0x03d80000, Entity_WorldPosY(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Stone_20_name, a3
 	move.l a0, a2
@@ -490,7 +490,7 @@ L5A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x05f00000, Entity_WorldPosX(a0)
-	move.l #0x05f80000, Entity_WorldPosY(a0)
+	move.l #0x04b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Stone_33_name, a3
 	move.l a0, a2
@@ -502,7 +502,7 @@ L5A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x05500000, Entity_WorldPosX(a0)
-	move.l #0x05800000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Stone_32_name, a3
 	move.l a0, a2
@@ -521,7 +521,7 @@ L5A2_LoadGameObjects:
 
 	jsr NestInit
 	move.l #0x02d00000, Entity_WorldPosX(a0)
-	move.l #0x05c80000, Entity_WorldPosY(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Nest_16_name, a3
 	move.l a0, a2
@@ -533,7 +533,7 @@ L5A2_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
 	move.l #0x0b400000, Entity_WorldPosX(a0)
-	move.l #0x0a080000, Entity_WorldPosY(a0)
+	move.l #0x08c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Nest_38_name, a3
 	move.l a0, a2
@@ -553,7 +553,7 @@ L5A2_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x15e00000, Entity_WorldPosX(a0)
-	move.l #0x09680000, Entity_WorldPosY(a0)
+	move.l #0x08280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_TriggerBox_EndLevel_name, a3
 	move.l a0, a2
@@ -578,7 +578,7 @@ L5A2_LoadGameObjects:
 
 	jsr DeathboxInit
 	move.l #0x12280000, Entity_WorldPosX(a0)
-	move.l #0x0a300000, Entity_WorldPosY(a0)
+	move.l #0x08f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Deathbox_46_name, a3
 	move.l a0, a2
@@ -597,7 +597,7 @@ L5A2_LoadGameObjects:
 
 	jsr LiftInit
 	move.l #0x09a80000, Entity_WorldPosX(a0)
-	move.l #0x05a80000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Lift1_name, a3
 	move.l a0, a2
@@ -617,7 +617,7 @@ L5A2_LoadGameObjects:
 
 	jsr GeneratorInit
 	move.l #0x08c00000, Entity_WorldPosX(a0)
-	move.l #0x05b00000, Entity_WorldPosY(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Generator1_name, a3
 	move.l a0, a2
@@ -636,7 +636,7 @@ L5A2_LoadGameObjects:
 
 	jsr CogsInit
 	move.l #0x08d80000, Entity_WorldPosX(a0)
-	move.l #0x05400000, Entity_WorldPosY(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Cogs1_name, a3
 	move.l a0, a2
@@ -656,7 +656,7 @@ L5A2_LoadGameObjects:
 
 	jsr ButtonInit
 	move.l #0x0a200000, Entity_WorldPosX(a0)
-	move.l #0x04800000, Entity_WorldPosY(a0)
+	move.l #0x03400000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Button1_name, a3
 	move.l a0, a2
@@ -678,7 +678,7 @@ L5A2_LoadGameObjects:
 
 	jsr CartInit
 	move.l #0x08700000, Entity_WorldPosX(a0)
-	move.l #0x09300000, Entity_WorldPosY(a0)
+	move.l #0x07f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Cart_41_name, a3
 	move.l a0, a2
@@ -690,7 +690,7 @@ L5A2_LoadGameObjects:
 	add.l #Cart_Struct_Size, a0
 	jsr CartInit
 	move.l #0x08a00000, Entity_WorldPosX(a0)
-	move.l #0x09300000, Entity_WorldPosY(a0)
+	move.l #0x07f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Cart_42_name, a3
 	move.l a0, a2
@@ -709,7 +709,7 @@ L5A2_LoadGameObjects:
 
 	jsr PillarInit
 	move.l #0x0f980000, Entity_WorldPosX(a0)
-	move.l #0x09380000, Entity_WorldPosY(a0)
+	move.l #0x07f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Pillar_43_name, a3
 	move.l a0, a2
@@ -721,7 +721,7 @@ L5A2_LoadGameObjects:
 	add.l #Pillar_Struct_Size, a0
 	jsr PillarInit
 	move.l #0x10880000, Entity_WorldPosX(a0)
-	move.l #0x09380000, Entity_WorldPosY(a0)
+	move.l #0x07f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Pillar_44_name, a3
 	move.l a0, a2
@@ -733,7 +733,7 @@ L5A2_LoadGameObjects:
 	add.l #Pillar_Struct_Size, a0
 	jsr PillarInit
 	move.l #0x11280000, Entity_WorldPosX(a0)
-	move.l #0x09380000, Entity_WorldPosY(a0)
+	move.l #0x07f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Pillar_45_name, a3
 	move.l a0, a2
@@ -757,7 +757,7 @@ L5A2_LoadGameObjects:
 
 	jsr LadderInit
 	move.l #0x02d80000, Entity_WorldPosX(a0)
-	move.l #0x04380000, Entity_WorldPosY(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_7_name, a3
 	move.l a0, a2
@@ -769,7 +769,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x01980000, Entity_WorldPosX(a0)
-	move.l #0x04f00000, Entity_WorldPosY(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_8_name, a3
 	move.l a0, a2
@@ -781,7 +781,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x0b200000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.l #0x03480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_25_name, a3
 	move.l a0, a2
@@ -793,7 +793,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x0b200000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_10_name, a3
 	move.l a0, a2
@@ -805,7 +805,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x0b980000, Entity_WorldPosX(a0)
-	move.l #0x09700000, Entity_WorldPosY(a0)
+	move.l #0x08300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_11_name, a3
 	move.l a0, a2
@@ -817,7 +817,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x0da00000, Entity_WorldPosX(a0)
-	move.l #0x06e80000, Entity_WorldPosY(a0)
+	move.l #0x05a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_14_name, a3
 	move.l a0, a2
@@ -829,7 +829,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x09300000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.l #0x03480000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_34_name, a3
 	move.l a0, a2
@@ -841,7 +841,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x09300000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_35_name, a3
 	move.l a0, a2
@@ -853,7 +853,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x07880000, Entity_WorldPosX(a0)
-	move.l #0x02a80000, Entity_WorldPosY(a0)
+	move.l #0x01680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_39_name, a3
 	move.l a0, a2
@@ -865,7 +865,7 @@ L5A2_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
 	move.l #0x07880000, Entity_WorldPosX(a0)
-	move.l #0x03480000, Entity_WorldPosY(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A2_Ladder_40_name, a3
 	move.l a0, a2

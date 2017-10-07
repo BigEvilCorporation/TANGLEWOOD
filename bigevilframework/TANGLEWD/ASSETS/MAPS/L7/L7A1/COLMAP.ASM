@@ -7,26 +7,26 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L7A1_size_b	equ 0x000060AE	; Size in bytes
+terrainmap_blockmap_L7A1_size_b	equ 0x00002F44	; Size in bytes
 terrainmap_blockmap_L7A1_size_w	equ (terrainmap_blockmap_L7A1_size_b/2)	; Size in words
 terrainmap_blockmap_L7A1_size_l	equ (terrainmap_blockmap_L7A1_size_b/4)	; Size in longwords
 terrainmap_L7A1_left	equ 0x00
 terrainmap_L7A1_top	equ 0x00
 terrainmap_L7A1_width	equ 0x44C
-terrainmap_L7A1_height	equ 0xB4
+terrainmap_L7A1_height	equ 0x58
 terrainmap_blockmap_L7A1_left	equ 0x00
 terrainmap_blockmap_L7A1_top	equ 0x00
 terrainmap_blockmap_L7A1_width	equ 0x113
-terrainmap_blockmap_L7A1_height	equ 0x2D
+terrainmap_blockmap_L7A1_height	equ 0x16
 
 ; Terrain beziers start/end positions
 terrainmap_L7A1_num_special_terrain_descs	equ 0x07
 terrainmap_L7A1_special_terrain_descs:
-	dc.w 0x0400, 0x02D7, 0x0780, 0x0337	; Start X, start Y, end X, end Y
-	dc.w 0x0765, 0x02D5, 0x087F, 0x029F	; Start X, start Y, end X, end Y
-	dc.w 0x0902, 0x029E, 0x0B6F, 0x029F	; Start X, start Y, end X, end Y
-	dc.w 0x0C30, 0x029E, 0x1038, 0x02F9	; Start X, start Y, end X, end Y
-	dc.w 0x0F17, 0x0163, 0x128A, 0x0195	; Start X, start Y, end X, end Y
-	dc.w 0x114D, 0x02AE, 0x14A0, 0x02D7	; Start X, start Y, end X, end Y
-	dc.w 0x1765, 0x02EF, 0x1F20, 0x02EF	; Start X, start Y, end X, end Y
+	dc.w 0x0400, 0x0237, 0x0780, 0x0297	; Start X, start Y, end X, end Y
+	dc.w 0x0765, 0x0235, 0x087F, 0x01FF	; Start X, start Y, end X, end Y
+	dc.w 0x0902, 0x01FE, 0x0B6F, 0x01FF	; Start X, start Y, end X, end Y
+	dc.w 0x0C30, 0x01FE, 0x1038, 0x0259	; Start X, start Y, end X, end Y
+	dc.w 0x0F17, 0x00C3, 0x128A, 0x00F5	; Start X, start Y, end X, end Y
+	dc.w 0x114D, 0x020E, 0x14A0, 0x0237	; Start X, start Y, end X, end Y
+	dc.w 0x1765, 0x024F, 0x1F20, 0x024F	; Start X, start Y, end X, end Y
 

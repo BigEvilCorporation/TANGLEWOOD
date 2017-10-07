@@ -341,7 +341,7 @@ L2A3_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.l #0x03100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Nymn_16_name, a3
 	move.l a0, a2
@@ -360,7 +360,7 @@ L2A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x01b80000, Entity_WorldPosX(a0)
-	move.l #0x06000000, Entity_WorldPosY(a0)
+	move.l #0x03800000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_BouncePlant_8_name, a3
 	move.l a0, a2
@@ -372,7 +372,7 @@ L2A3_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x14c80000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_BouncePlant_51_name, a3
 	move.l a0, a2
@@ -384,7 +384,7 @@ L2A3_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x13380000, Entity_WorldPosX(a0)
-	move.l #0x05380000, Entity_WorldPosY(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_BouncePlant_43_name, a3
 	move.l a0, a2
@@ -396,7 +396,7 @@ L2A3_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
 	move.l #0x20a80000, Entity_WorldPosX(a0)
-	move.l #0x04980000, Entity_WorldPosY(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_BouncePlant_44_name, a3
 	move.l a0, a2
@@ -417,7 +417,7 @@ L2A3_LoadGameObjects:
 
 	jsr MonsterInit
 	move.l #0x22200000, Entity_WorldPosX(a0)
-	move.l #0x04500000, Entity_WorldPosY(a0)
+	move.l #0x01d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Djakk_name, a3
 	move.l a0, a2
@@ -438,7 +438,7 @@ L2A3_LoadGameObjects:
 
 	jsr FireflyInit
 	move.l #0x09400000, Entity_WorldPosX(a0)
-	move.l #0x05800000, Entity_WorldPosY(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_53_name, a3
 	move.l a0, a2
@@ -450,7 +450,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x0b000000, Entity_WorldPosX(a0)
-	move.l #0x05780000, Entity_WorldPosY(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_54_name, a3
 	move.l a0, a2
@@ -461,8 +461,8 @@ L2A3_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0ca00000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #0x0ca80000, Entity_WorldPosX(a0)
+	move.l #0x00c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_55_name, a3
 	move.l a0, a2
@@ -474,7 +474,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x12380000, Entity_WorldPosX(a0)
-	move.l #0x04180000, Entity_WorldPosY(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_56_name, a3
 	move.l a0, a2
@@ -486,7 +486,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x1ef80000, Entity_WorldPosX(a0)
-	move.l #0x03000000, Entity_WorldPosY(a0)
+	move.l #0x00800000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_57_name, a3
 	move.l a0, a2
@@ -498,7 +498,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x25b80000, Entity_WorldPosX(a0)
-	move.l #0x04700000, Entity_WorldPosY(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_58_name, a3
 	move.l a0, a2
@@ -510,7 +510,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x2a300000, Entity_WorldPosX(a0)
-	move.l #0x03e00000, Entity_WorldPosY(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_59_name, a3
 	move.l a0, a2
@@ -522,7 +522,7 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
 	move.l #0x2b080000, Entity_WorldPosX(a0)
-	move.l #0x04e80000, Entity_WorldPosY(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Firefly_60_name, a3
 	move.l a0, a2
@@ -542,7 +542,7 @@ L2A3_LoadGameObjects:
 
 	jsr FuzzlInit
 	move.l #0x03500000, Entity_WorldPosX(a0)
-	move.l #0x04700000, Entity_WorldPosY(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_FuzzlYellow1_name, a3
 	move.l a0, a2
@@ -555,7 +555,7 @@ L2A3_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
 	move.l #0x1ea00000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_FuzzlBlue1_name, a3
 	move.l a0, a2
@@ -575,7 +575,7 @@ L2A3_LoadGameObjects:
 
 	jsr StoneInit
 	move.l #0x1f080000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Stone_50_name, a3
 	move.l a0, a2
@@ -594,7 +594,7 @@ L2A3_LoadGameObjects:
 
 	jsr NestInit
 	move.l #0x05e00000, Entity_WorldPosX(a0)
-	move.l #0x06080000, Entity_WorldPosY(a0)
+	move.l #0x03880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Nest_15_name, a3
 	move.l a0, a2
@@ -606,7 +606,7 @@ L2A3_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 	jsr NestInit
 	move.l #0x1b600000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Nest_47_name, a3
 	move.l a0, a2
@@ -625,7 +625,7 @@ L2A3_LoadGameObjects:
 
 	jsr FlueInit
 	move.l #0x06500000, Entity_WorldPosX(a0)
-	move.l #0x06180000, Entity_WorldPosY(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Flue_40_name, a3
 	move.l a0, a2
@@ -637,7 +637,7 @@ L2A3_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x1e880000, Entity_WorldPosX(a0)
-	move.l #0x04780000, Entity_WorldPosY(a0)
+	move.l #0x01f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Flue_46_name, a3
 	move.l a0, a2
@@ -656,7 +656,7 @@ L2A3_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x28880000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_TriggerBox_EndStorm_name, a3
 	move.l a0, a2
@@ -671,7 +671,7 @@ L2A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x0e600000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_TriggerBox_NearLightning_name, a3
 	move.l a0, a2
@@ -685,8 +685,8 @@ L2A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x2b080000, Entity_WorldPosX(a0)
-	move.l #0x07300000, Entity_WorldPosY(a0)
+	move.l #0x2b600000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_TriggerBox_EndLevel_name, a3
 	move.l a0, a2
@@ -700,7 +700,7 @@ L2A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x01200000, Entity_WorldPosX(a0)
-	move.l #0x05400000, Entity_WorldPosY(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_TriggerBox_TOD_Night_name, a3
 	move.l a0, a2
@@ -723,7 +723,7 @@ L2A3_LoadGameObjects:
 
 	jsr CheckpointInit
 	move.l #0x0d780000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Checkpoint_41_name, a3
 	move.l a0, a2
@@ -744,7 +744,7 @@ L2A3_LoadGameObjects:
 
 	jsr DeathboxInit
 	move.l #0x07a00000, Entity_WorldPosX(a0)
-	move.l #0x06500000, Entity_WorldPosY(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Deathbox_27_name, a3
 	move.l a0, a2
@@ -756,7 +756,7 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x09200000, Entity_WorldPosX(a0)
-	move.l #0x06500000, Entity_WorldPosY(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Deathbox_28_name, a3
 	move.l a0, a2
@@ -768,7 +768,7 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x0aa00000, Entity_WorldPosX(a0)
-	move.l #0x06500000, Entity_WorldPosY(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Deathbox_29_name, a3
 	move.l a0, a2
@@ -780,7 +780,7 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x0c200000, Entity_WorldPosX(a0)
-	move.l #0x06500000, Entity_WorldPosY(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Deathbox_30_name, a3
 	move.l a0, a2
@@ -792,7 +792,7 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 	jsr DeathboxInit
 	move.l #0x25080000, Entity_WorldPosX(a0)
-	move.l #0x05d80000, Entity_WorldPosY(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_Deathbox_45_name, a3
 	move.l a0, a2
@@ -822,7 +822,7 @@ L2A3_LoadGameObjects:
 
 	jsr WindFlueInit
 	move.l #0x07e00000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue1_name, a3
 	move.l a0, a2
@@ -834,7 +834,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x08980000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue2_name, a3
 	move.l a0, a2
@@ -846,7 +846,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x09580000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue3_name, a3
 	move.l a0, a2
@@ -858,7 +858,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x0a100000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue4_name, a3
 	move.l a0, a2
@@ -870,7 +870,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x0ac80000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue5_name, a3
 	move.l a0, a2
@@ -882,7 +882,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x0b800000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue6_name, a3
 	move.l a0, a2
@@ -894,7 +894,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x0c380000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue7_name, a3
 	move.l a0, a2
@@ -906,7 +906,7 @@ L2A3_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 	jsr WindFlueInit
 	move.l #0x0ce80000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A3_WindFlue8_name, a3
 	move.l a0, a2

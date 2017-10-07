@@ -7,10 +7,10 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L4A1_size_b	equ 0x000041A0	; Size in bytes
+map_blockmap_L4A1_size_b	equ 0x000035E8	; Size in bytes
 map_blockmap_L4A1_size_w	equ (map_blockmap_L4A1_size_b/2)	; Size in words
 map_blockmap_L4A1_size_l	equ (map_blockmap_L4A1_size_b/4)	; Size in longwords
 map_L4A1_width	equ 0x4B0
-map_L4A1_height	equ 0x70
+map_L4A1_height	equ 0x5C
 map_blockmap_L4A1_width	equ 0x12C
-map_blockmap_L4A1_height	equ 0x1C
+map_blockmap_L4A1_height	equ 0x17

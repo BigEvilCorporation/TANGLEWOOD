@@ -7,24 +7,24 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L5A1_size_b	equ 0x00005FB4	; Size in bytes
+terrainmap_blockmap_L5A1_size_b	equ 0x00005BCC	; Size in bytes
 terrainmap_blockmap_L5A1_size_w	equ (terrainmap_blockmap_L5A1_size_b/2)	; Size in words
 terrainmap_blockmap_L5A1_size_l	equ (terrainmap_blockmap_L5A1_size_b/4)	; Size in longwords
 terrainmap_L5A1_left	equ 0x00
 terrainmap_L5A1_top	equ 0x00
 terrainmap_L5A1_width	equ 0x3E8
-terrainmap_L5A1_height	equ 0xC4
+terrainmap_L5A1_height	equ 0xBC
 terrainmap_blockmap_L5A1_left	equ 0x00
 terrainmap_blockmap_L5A1_top	equ 0x00
 terrainmap_blockmap_L5A1_width	equ 0xFA
-terrainmap_blockmap_L5A1_height	equ 0x31
+terrainmap_blockmap_L5A1_height	equ 0x2F
 
 ; Terrain beziers start/end positions
 terrainmap_L5A1_num_special_terrain_descs	equ 0x05
 terrainmap_L5A1_special_terrain_descs:
-	dc.w 0x0928, 0x0277, 0x0BC0, 0x0277	; Start X, start Y, end X, end Y
-	dc.w 0x0798, 0x0467, 0x0C10, 0x0467	; Start X, start Y, end X, end Y
-	dc.w 0x0C80, 0x04B7, 0x0F30, 0x04B7	; Start X, start Y, end X, end Y
-	dc.w 0x13B0, 0x053F, 0x18E8, 0x053F	; Start X, start Y, end X, end Y
-	dc.w 0x19A8, 0x058F, 0x1D48, 0x058F	; Start X, start Y, end X, end Y
+	dc.w 0x0928, 0x0227, 0x0BC0, 0x0227	; Start X, start Y, end X, end Y
+	dc.w 0x0798, 0x0417, 0x0C10, 0x0417	; Start X, start Y, end X, end Y
+	dc.w 0x0C80, 0x0467, 0x0F30, 0x0467	; Start X, start Y, end X, end Y
+	dc.w 0x13B0, 0x04EF, 0x18E8, 0x04EF	; Start X, start Y, end X, end Y
+	dc.w 0x19A8, 0x053F, 0x1D48, 0x053F	; Start X, start Y, end X, end Y
 

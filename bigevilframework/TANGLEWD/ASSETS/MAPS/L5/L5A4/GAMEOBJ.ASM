@@ -130,7 +130,7 @@ L5A4_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Echo_2_name, a3
 	move.l a0, a2
@@ -149,7 +149,7 @@ L5A4_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Nymn_1_name, a3
 	move.l a0, a2
@@ -179,7 +179,7 @@ L5A4_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x09e00000, Entity_WorldPosX(a0)
-	move.l #0x02b00000, Entity_WorldPosY(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Trigger_Cutscene_name, a3
 	move.l a0, a2
@@ -194,7 +194,7 @@ L5A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x1f400000, Entity_WorldPosX(a0)
-	move.l #0x01380000, Entity_WorldPosY(a0)
+	move.l #0x00980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_TriggerBox_LevelEnd_name, a3
 	move.l a0, a2
@@ -209,7 +209,7 @@ L5A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x18680000, Entity_WorldPosX(a0)
-	move.l #0x02a80000, Entity_WorldPosY(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_TriggerBox_Storm_name, a3
 	move.l a0, a2
@@ -235,7 +235,7 @@ L5A4_LoadGameObjects:
 
 	jsr LiftInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_LiftEntrance_name, a3
 	move.l a0, a2
@@ -268,8 +268,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x01380000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x01680000, Entity_WorldPosX(a0)
+	move.l #0x03900000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Demon_name, a3
 	move.l a0, a2
