@@ -35,41 +35,59 @@ L7A2_Firefly_count equ 0x0
 
 L7A2_FuzzlCage_count equ 0x0
 
-L7A2_Fuzzl_count equ 0x2
+L7A2_Fuzzl_count equ 0x3
 L7A2_FuzzlYellow1_idx	equ 0x0
 L7A2_FuzzlGreen1_idx	equ 0x1
+L7A2_FuzzlGreen2_idx	equ 0x2
 
 	IFND FINAL
 L7A2_FuzzlYellow1_name	dc.b "L7A2_FuzzlYellow1",0
 L7A2_FuzzlGreen1_name	dc.b "L7A2_FuzzlGreen1",0
+L7A2_FuzzlGreen2_name	dc.b "L7A2_FuzzlGreen2",0
 	even
 	ENDIF
 
 L7A2_Stone_count equ 0x0
 
-L7A2_Nest_count equ 0x2
+L7A2_Nest_count equ 0x3
 L7A2_Nest_4_idx	equ 0x0
 L7A2_Nest_5_idx	equ 0x1
+L7A2_Nest_9_idx	equ 0x2
 
 	IFND FINAL
 L7A2_Nest_4_name	dc.b "L7A2_Nest_4",0
 L7A2_Nest_5_name	dc.b "L7A2_Nest_5",0
+L7A2_Nest_9_name	dc.b "L7A2_Nest_9",0
 	even
 	ENDIF
 
 L7A2_Flue_count equ 0x2
 L7A2_Flue1_idx	equ 0x0
-L7A2_Flue_7_idx	equ 0x1
+L7A2_Flue2_idx	equ 0x1
 
 	IFND FINAL
 L7A2_Flue1_name	dc.b "L7A2_Flue1",0
-L7A2_Flue_7_name	dc.b "L7A2_Flue_7",0
+L7A2_Flue2_name	dc.b "L7A2_Flue2",0
 	even
 	ENDIF
 
-L7A2_TriggerBox_count equ 0x0
+L7A2_TriggerBox_count equ 0x1
+L7A2_TriggerLevelEnd_idx	equ 0x0
 
-L7A2_Checkpoint_count equ 0x0
+	IFND FINAL
+L7A2_TriggerLevelEnd_name	dc.b "L7A2_TriggerLevelEnd",0
+	even
+	ENDIF
+
+L7A2_Checkpoint_count equ 0x2
+L7A2_Checkpoint_15_idx	equ 0x0
+L7A2_Checkpoint_16_idx	equ 0x1
+
+	IFND FINAL
+L7A2_Checkpoint_15_name	dc.b "L7A2_Checkpoint_15",0
+L7A2_Checkpoint_16_name	dc.b "L7A2_Checkpoint_16",0
+	even
+	ENDIF
 
 L7A2_WaterBody_count equ 0x0
 
@@ -183,6 +201,19 @@ L7A2_LoadGameObjects:
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x1ad80000, Entity_WorldPosX(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_FuzzlGreen2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourGreen, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -215,6 +246,18 @@ L7A2_LoadGameObjects:
 	ENDIF
 	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
+	jsr NestInit
+	move.l #0x1e580000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_Nest_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L7A2_Flue_count)
@@ -237,18 +280,70 @@ L7A2_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
 	move.l #0x1ce00000, Entity_WorldPosX(a0)
-	move.l #0x05300000, Entity_WorldPosY(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L7A2_Flue_7_name, a3
+	lea L7A2_Flue2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.l #0x0F8000, Flue_EjectForceY(a0)
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L7A2_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
 
+	jsr TriggerBoxInit
+	move.l #0x22600000, Entity_WorldPosX(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l7a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L7A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x1bf00000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_Checkpoint_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
+	jsr CheckpointInit
+	move.l #0x0db80000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L7A2_Checkpoint_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
 
 
 
