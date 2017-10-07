@@ -15,6 +15,11 @@ CAM_Init:
 	move.l #0x0, CameraTargetLerpStartX
 	move.l #0x0, CameraTargetLerpStartY
 	move.l #0x0, CameraTargetLerpSource
+	move.w #0x0, CameraShakeSpeedX
+	move.w #0x0, CameraShakeSpeedY
+	move.w #0x0, CameraShakeAmpX
+	move.w #0x0, CameraShakeAmpY
+	move.w #0x0, CameraShakeTimer
 	rts
 
 CAM_PeekUp:
