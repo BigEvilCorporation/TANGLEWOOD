@@ -29,6 +29,12 @@ Level_MapWidth				rs.w 1
 Level_MapHeight				rs.w 1
 Level_MapWidthBlocks		rs.w 1
 Level_MapHeightBlocks		rs.w 1
+Level_ColMapWidth			rs.w 1
+Level_ColMapHeight			rs.w 1
+Level_ColMapLeft			rs.w 1
+Level_ColMapTop				rs.w 1
+Level_ColMapWidthBlocks		rs.w 1
+Level_ColMapHeightBlocks	rs.w 1
 Level_NumTiles				rs.w 1
 Level_NumTerrainDescs		rs.w 1
 Level_BgColour				rs.b 1

@@ -993,18 +993,44 @@ PhysicsObjFindFloor:
 	
 	;==============================================================
 	; Find floor
+
+	; Translate probe position to collision map space
+	move.w Level_ColMapHeight(a1), d4
+	move.w Level_ColMapTop(a1), d6
+	TILES2PIXELS d4
+	TILES2PIXELS d6
+
+	sub.w  d6, d1				; Translate Y pos to map top
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d4, d1				; If > height
+	bge    @ProbeOutOfBounds
+
+	swap   d1
+
+	move.w Level_ColMapWidth(a1), d3
+	move.w Level_ColMapLeft(a1), d5
+	TILES2PIXELS d3
+	TILES2PIXELS d5
 	
-	move.l a0, -(sp)
-	move.l a1, -(sp)
-	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
+	sub.w  d5, d1				; Translate X pos to map left
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d3, d1				; If > width
+	bge    @ProbeOutOfBounds
+
+	swap   d1
+	
+	; Query collision map
+	PUSHM  d5-d6/a0-a1
+	move.w Level_ColMapWidthBlocks(a1), d2	; Collision map width (in blocks) to d2 hi
 	swap   d2
-	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
+	move.w Level_ColMapHeightBlocks(a1), d2	; Collision map height (in blocks) to d2 lo
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	POPM   d5-d6/a0-a1
 
 	; Store terrain flags
 	move.w d3, PhysicsObj_LastTerrainFlags(a0)
@@ -1045,6 +1071,7 @@ PhysicsObjFindFloor:
 	@FoundFloor:
 	clr.l  d2
 	move.w d0, d2
+	add.w  d6, d2							; Back to map space
 	addi.w #vdp_sprite_border_y, d2			; Back to sprite space
 	TOSUBPIXELS d2							; Back to world space
 	
@@ -1265,16 +1292,43 @@ PhysicsObjFindWall:
 	
 	;==============================================================
 	; Find wall
+
+	; Translate probe position to collision map space
+	move.w Level_ColMapHeight(a1), d4
+	move.w Level_ColMapTop(a1), d6
+	TILES2PIXELS d4
+	TILES2PIXELS d6
+
+	sub.w  d6, d1				; Translate Y pos to map top
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d4, d1				; If > height
+	bge    @ProbeOutOfBounds
+
+	swap   d1
+
+	move.w Level_ColMapWidth(a1), d3
+	move.w Level_ColMapLeft(a1), d5
+	TILES2PIXELS d3
+	TILES2PIXELS d5
+	
+	sub.w  d5, d1				; Translate X pos to map left
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d3, d1				; If > width
+	bge    @ProbeOutOfBounds
+
+	swap   d1
 	
 	; Get collision flags for tile at probe pos
-	PUSHM  a0-a1
+	PUSHM  d5-d6/a0-a1
 	clr.l  d2
-	move.w Level_MapWidthBlocks(a1), d2
+	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr	   PHYS_GetTerrainTile
-	POPM   a0-a1
+	POPM   d5-d6/a0-a1
 	
 	; Check if wall
 	andi.w #col_tile_flag_solid, d0
@@ -1296,6 +1350,7 @@ PhysicsObjFindWall:
 	@LeftOfTile:
 
 	TILES2PIXELS d4						; Tiles to pixels
+	add.w  d5, d4						; Back to map space
 	addi.l #vdp_sprite_border_x, d4		; Pixels to screen space
 	TOSUBPIXELS d4						; Screen space to object space
 
@@ -1383,11 +1438,39 @@ PhysicsObjFindCeiling:
 	bge    @ProbeOutOfBounds
 	
 	;==============================================================
+	; Find ceiling
+
+	; Translate probe position to collision map space
+	move.w Level_ColMapHeight(a1), d4
+	move.w Level_ColMapTop(a1), d6
+	TILES2PIXELS d4
+	TILES2PIXELS d6
+
+	sub.w  d6, d1				; Translate Y pos to map top
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d4, d1				; If > height
+	bge    @ProbeOutOfBounds
+
+	swap   d1
+
+	move.w Level_ColMapWidth(a1), d3
+	move.w Level_ColMapLeft(a1), d5
+	TILES2PIXELS d3
+	TILES2PIXELS d5
+	
+	sub.w  d5, d1				; Translate X pos to map left
+	tst.w  d1					; If < 0
+	blt    @ProbeOutOfBounds
+	cmp.w  d3, d1				; If > width
+	bge    @ProbeOutOfBounds
+
+	swap   d1
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  a0-a1
 	clr.l  d2
-	move.w Level_MapWidthBlocks(a1), d2
+	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
@@ -1403,6 +1486,7 @@ PhysicsObjFindCeiling:
 	
 	; Ceiling found - tile Y in d4, translate to world space
 	TILES2PIXELS d4						; Tiles to pixels
+	add.w  d6, d4						; Back to map space
 	addi.l #vdp_sprite_border_y, d4		; Pixels to screen space
 	TOSUBPIXELS d4						; Screen space to object space
 

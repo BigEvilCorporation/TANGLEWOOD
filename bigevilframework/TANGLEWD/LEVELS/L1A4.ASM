@@ -37,6 +37,12 @@ l1a4_HarlequinForestAct4:
 	dc.w map_l1a4_height				; Map height
 	dc.w map_blockmap_l1a4_width		; Map width (blocks)
 	dc.w map_blockmap_l1a4_height		; Map height (blocks)
+	dc.w terrainmap_L1A4_width			; Collision map width (tiles)
+	dc.w terrainmap_L1A4_height			; Collision map height (tiles)
+	dc.w terrainmap_L1A4_left			; Collision map left bounds (tiles)
+	dc.w terrainmap_L1A4_top			; Collision map top bounds (tiles)
+	dc.w terrainmap_blockmap_L1A4_width	; Collision map width (blocks)
+	dc.w terrainmap_blockmap_L1A4_height; Collision map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
 	dc.w 0x0000							; Num 'special' terrain descriptors
 	dc.b 0xD							; Background colour idx

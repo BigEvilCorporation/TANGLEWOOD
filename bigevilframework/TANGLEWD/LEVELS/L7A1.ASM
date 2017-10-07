@@ -31,11 +31,17 @@ L7a1_OasisAct1:
 	ELSE
 	dc.l 0x00000000
 	ENDIF
-	dc.l DefaultGravity						; Default gravity
+	dc.l DefaultGravity					; Default gravity
 	dc.w map_L7a1_width					; Map width (tiles)
 	dc.w map_L7a1_height				; Map height (tiles)
 	dc.w map_blockmap_L7a1_width		; Map width (blocks)
 	dc.w map_blockmap_L7a1_height		; Map height (blocks)
+	dc.w terrainmap_L7A1_width			; Collision map width (tiles)
+	dc.w terrainmap_L7A1_height			; Collision map height (tiles)
+	dc.w terrainmap_L7A1_left			; Collision map left bounds (tiles)
+	dc.w terrainmap_L7A1_top			; Collision map top bounds (tiles)
+	dc.w terrainmap_blockmap_L7A1_width	; Collision map width (blocks)
+	dc.w terrainmap_blockmap_L7A1_height; Collision map height (blocks)
 	dc.w tiles_L7_size_t				; Num tiles
 	dc.w terrainmap_L7A1_num_special_terrain_descs	; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx

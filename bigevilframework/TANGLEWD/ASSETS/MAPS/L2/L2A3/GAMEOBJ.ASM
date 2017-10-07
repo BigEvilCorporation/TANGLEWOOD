@@ -43,10 +43,6 @@ L2A3_Nymn_16_name	dc.b "L2A3_Nymn_16",0
 	even
 	ENDIF
 
-L2A3_Log_count equ 0x0
-
-L2A3_DjakkCage_count equ 0x0
-
 L2A3_BouncePlant_count equ 0x4
 L2A3_BouncePlant_8_idx	equ 0x0
 L2A3_BouncePlant_51_idx	equ 0x1
@@ -61,6 +57,10 @@ L2A3_BouncePlant_44_name	dc.b "L2A3_BouncePlant_44",0
 	even
 	ENDIF
 
+L2A3_Log_count equ 0x0
+
+L2A3_DjakkCage_count equ 0x0
+
 L2A3_Monster_count equ 0x1
 L2A3_Djakk_idx	equ 0x0
 
@@ -70,8 +70,6 @@ L2A3_Djakk_name	dc.b "L2A3_Djakk",0
 	ENDIF
 
 L2A3_Boulder_count equ 0x0
-
-L2A3_FuzzlCage_count equ 0x0
 
 L2A3_Firefly_count equ 0x8
 L2A3_Firefly_53_idx	equ 0x0
@@ -95,13 +93,7 @@ L2A3_Firefly_60_name	dc.b "L2A3_Firefly_60",0
 	even
 	ENDIF
 
-L2A3_Stone_count equ 0x1
-L2A3_Stone_50_idx	equ 0x0
-
-	IFND FINAL
-L2A3_Stone_50_name	dc.b "L2A3_Stone_50",0
-	even
-	ENDIF
+L2A3_FuzzlCage_count equ 0x0
 
 L2A3_Fuzzl_count equ 0x2
 L2A3_FuzzlYellow1_idx	equ 0x0
@@ -110,6 +102,14 @@ L2A3_FuzzlBlue1_idx	equ 0x1
 	IFND FINAL
 L2A3_FuzzlYellow1_name	dc.b "L2A3_FuzzlYellow1",0
 L2A3_FuzzlBlue1_name	dc.b "L2A3_FuzzlBlue1",0
+	even
+	ENDIF
+
+L2A3_Stone_count equ 0x1
+L2A3_Stone_50_idx	equ 0x0
+
+	IFND FINAL
+L2A3_Stone_50_name	dc.b "L2A3_Stone_50",0
 	even
 	ENDIF
 
@@ -159,8 +159,6 @@ L2A3_WaterBody_count equ 0x0
 
 L2A3_Location_count equ 0x0
 
-L2A3_Lift_count equ 0x0
-
 L2A3_Deathbox_count equ 0x5
 L2A3_Deathbox_27_idx	equ 0x0
 L2A3_Deathbox_28_idx	equ 0x1
@@ -176,6 +174,8 @@ L2A3_Deathbox_30_name	dc.b "L2A3_Deathbox_30",0
 L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
 	even
 	ENDIF
+
+L2A3_Lift_count equ 0x0
 
 L2A3_Crate_count equ 0x0
 
@@ -228,6 +228,8 @@ L2A3_Pool_count equ 0x0
 L2A3_Ladder_count equ 0x0
 
 L2A3_Demon_count equ 0x0
+
+L2A3_Borgus_count equ 0x0
 
 
 
@@ -350,8 +352,6 @@ L2A3_LoadGameObjects:
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
 
-
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L2A3_BouncePlant_count)
 	move.l a1, EntityPoolStart_BouncePlant
@@ -407,6 +407,8 @@ L2A3_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L2A3_Monster_count)
 	move.l a1, EntityPoolStart_Monster
@@ -426,7 +428,6 @@ L2A3_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -532,24 +533,6 @@ L2A3_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L2A3_Stone_count)
-	move.l a1, EntityPoolStart_Stone
-	move.l a1, a0
-	POPL   a1
-
-	jsr StoneInit
-	move.l #0x1f080000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L2A3_Stone_50_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L2A3_Fuzzl_count)
@@ -583,6 +566,25 @@ L2A3_LoadGameObjects:
 	move.b #ColourBlue, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L2A3_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x1f080000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L2A3_Stone_50_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A3_Nest_count)
@@ -734,7 +736,6 @@ L2A3_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L2A3_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -801,6 +802,7 @@ L2A3_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 
@@ -914,6 +916,7 @@ L2A3_LoadGameObjects:
 	ENDIF
 	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
 
 
 

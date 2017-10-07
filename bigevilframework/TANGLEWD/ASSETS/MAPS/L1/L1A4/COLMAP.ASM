@@ -10,8 +10,12 @@
 terrainmap_blockmap_L1A4_size_b	equ 0x0000668A	; Size in bytes
 terrainmap_blockmap_L1A4_size_w	equ (terrainmap_blockmap_L1A4_size_b/2)	; Size in words
 terrainmap_blockmap_L1A4_size_l	equ (terrainmap_blockmap_L1A4_size_b/4)	; Size in longwords
+terrainmap_L1A4_left	equ 0x00
+terrainmap_L1A4_top	equ 0x00
 terrainmap_L1A4_width	equ 0x5DC
 terrainmap_L1A4_height	equ 0x8C
+terrainmap_blockmap_L1A4_left	equ 0x00
+terrainmap_blockmap_L1A4_top	equ 0x00
 terrainmap_blockmap_L1A4_width	equ 0x177
 terrainmap_blockmap_L1A4_height	equ 0x23
 

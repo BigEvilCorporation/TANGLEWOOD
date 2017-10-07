@@ -7,12 +7,16 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L1A3_size_b	equ 0x000035E8	; Size in bytes
+terrainmap_blockmap_L1A3_size_b	equ 0x000033C0	; Size in bytes
 terrainmap_blockmap_L1A3_size_w	equ (terrainmap_blockmap_L1A3_size_b/2)	; Size in words
 terrainmap_blockmap_L1A3_size_l	equ (terrainmap_blockmap_L1A3_size_b/4)	; Size in longwords
-terrainmap_L1A3_width	equ 0x4B0
+terrainmap_L1A3_left	equ 0x00
+terrainmap_L1A3_top	equ 0x00
+terrainmap_L1A3_width	equ 0x480
 terrainmap_L1A3_height	equ 0x5C
-terrainmap_blockmap_L1A3_width	equ 0x12C
+terrainmap_blockmap_L1A3_left	equ 0x00
+terrainmap_blockmap_L1A3_top	equ 0x00
+terrainmap_blockmap_L1A3_width	equ 0x120
 terrainmap_blockmap_L1A3_height	equ 0x17
 
 ; Terrain beziers start/end positions
