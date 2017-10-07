@@ -333,8 +333,8 @@ L7A2_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
 	jsr CheckpointInit
-	move.l #0x0db80000, Entity_WorldPosX(a0)
-	move.l #0x02380000, Entity_WorldPosY(a0)
+	move.l #0x10400000, Entity_WorldPosX(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L7A2_Checkpoint_16_name, a3
 	move.l a0, a2

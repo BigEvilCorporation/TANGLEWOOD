@@ -19,14 +19,14 @@ terrainmap_blockmap_L7A1_top	equ 0x00
 terrainmap_blockmap_L7A1_width	equ 0x113
 terrainmap_blockmap_L7A1_height	equ 0x16
 
-; Terrain beziers start/end positions
+; Terrain bezier bounds
 terrainmap_L7A1_num_special_terrain_descs	equ 0x07
 terrainmap_L7A1_special_terrain_descs:
-	dc.w 0x0400, 0x0237, 0x0780, 0x0297	; Start X, start Y, end X, end Y
-	dc.w 0x0765, 0x0235, 0x087F, 0x01FF	; Start X, start Y, end X, end Y
-	dc.w 0x0902, 0x01FE, 0x0B6F, 0x01FF	; Start X, start Y, end X, end Y
-	dc.w 0x0C30, 0x01FE, 0x1038, 0x0259	; Start X, start Y, end X, end Y
-	dc.w 0x0F17, 0x00C3, 0x128A, 0x00F5	; Start X, start Y, end X, end Y
-	dc.w 0x114D, 0x020E, 0x14A0, 0x0237	; Start X, start Y, end X, end Y
-	dc.w 0x1765, 0x024F, 0x1F20, 0x024F	; Start X, start Y, end X, end Y
+	dc.w 0x0400, 0x0234, 0x0780, 0x02A3	; Left, top, right, bottom
+	dc.w 0x0765, 0x01F8, 0x087F, 0x0235	; Left, top, right, bottom
+	dc.w 0x0902, 0x01F6, 0x0B6F, 0x0209	; Left, top, right, bottom
+	dc.w 0x0C30, 0x01FA, 0x1038, 0x026B	; Left, top, right, bottom
+	dc.w 0x0F17, 0x00A8, 0x128A, 0x00FB	; Left, top, right, bottom
+	dc.w 0x114D, 0x01F7, 0x14A0, 0x0240	; Left, top, right, bottom
+	dc.w 0x1765, 0x0238, 0x1F20, 0x028A	; Left, top, right, bottom
 
