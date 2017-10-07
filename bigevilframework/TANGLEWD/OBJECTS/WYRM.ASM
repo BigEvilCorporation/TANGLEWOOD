@@ -404,12 +404,15 @@ WyrmSerialise:
 WyrmFindSandDune:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; d0 (w) Player X pos
+	; d0 (ww) Player X/Y floor pos
 	; d1 (ww) OUT: Sand dune left X/Y
 	; d2 (ww) OUT: Sand dune right X/Y
 
 	clr.l  d1
 	clr.l  d2
+
+	move.w d0, d4	; Player Y
+	swap   d0		; Player X
 
 	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
 	tst.w  d3								; Bail if empty
@@ -423,9 +426,23 @@ WyrmFindSandDune:
 	move.l (a2)+, d1
 	move.l (a2)+, d2
 
+	; Grow Y by 2 tiles
+	subq.w #0x2, d1
+	addq.w #0x2, d2
+
+	; Check if within Y bounds
+	cmp.w  d4, d1
+	bge    @NextTerrain
+	cmp.w  d4, d2
+	ble    @NextTerrain
+
 	; Get X
 	swap   d1
 	swap   d2
+	
+	; Grow X by 2 tiles
+	subq.w #0x2, d1
+	addq.w #0x2, d2
 
 	; Check if within X bounds
 	cmp.w  d0, d1
@@ -499,9 +516,14 @@ WyrmAIStart_Emerge
 	move.l (Player1), a2
 	
 	; Get player floor probe X
-	move.w Entity_WorldPosX(a2), d0
+	ENTITY_GETCENTREX d0,a2
+	TOPIXELS d0
 	subi.w #vdp_sprite_border_x, d0
-	add.w  PhysicsObj_FloorProbeX(a2), d0
+	swap   d0
+	ENTITY_GETBOTTOM d5,a2
+	TOPIXELS d5
+	move.w d5, d0
+	subi.w #vdp_sprite_border_y, d0
 	
 	jsr    WyrmFindSandDune
 	
@@ -517,15 +539,32 @@ WyrmAIStart_Emerge
 	move.w d3, Wyrm_CurrentDuneLeft(a0)
 	move.w d4, Wyrm_CurrentDuneRight(a0)
 
-	; If already within X bounds of found sand dune, emerge from last burrowed pos
-	move.w Entity_WorldPosX(a0), d0
+	; If already within bounds of found sand dune, emerge from last burrowed pos
+	ENTITY_GETCENTREX d0,a0
+	TOPIXELS d0
 	subi.w #vdp_sprite_border_x, d0
-	add.w  PhysicsObj_FloorProbeX(a0), d0
 	cmp.w  d0, d3
 	bge    @NotInDune
 	cmp.w  d0, d4
 	ble    @NotInDune
+	
+	; Get Y bounds
+	swap   d3
+	swap   d4
+	
+	ENTITY_GETBOTTOM d5,a0
+	TOPIXELS d5
+	subi.w #vdp_sprite_border_y, d5
+	cmp.w  d5, d3
+	bge    @NotInDune
+	cmp.w  d5, d4
+	ble    @NotInDune
+	
 	bra    @AlreadyinDune
+	
+	; Get X bounds
+	swap   d3
+	swap   d4
 
 	@NotInDune: 
 	; else emerge from nearest edge of dune
@@ -750,20 +789,27 @@ WyrmAIUpdate_Follow:
 	subi.w #vdp_sprite_border_x, d0			; To collision space
 	move.w d0, d1							; Get Wyrm right
 	add.w  Wyrm_Width(a0), d1
-	move.w Wyrm_CurrentDuneLeft(a0), d2		; Get sand dune left
-	move.w Wyrm_CurrentDuneRight(a0), d3	; Get sand dune right
-	cmp.w  d0, d2							; Check left bounds
-	bge    @Burrow
-	cmp.w  d1, d3							; Check right bounds
-	ble    @Burrow
+	tst.l  PhysicsObj_AccelX(a0)
+	bgt    @CheckRight
+	blt    @CheckLeft
 	bra    @WithinDune
 
+	@CheckLeft:
+	move.w Wyrm_CurrentDuneLeft(a0), d2		; Get sand dune left
+	cmp.w  d0, d2							; Check left bounds
+	blt    @WithinDune
+
+	@CheckRight:
+	move.w Wyrm_CurrentDuneRight(a0), d3	; Get sand dune right
+	cmp.w  d1, d3							; Check right bounds
+	bgt    @WithinDune
+
+	@PlayerDead:
 	@Burrow:
 	jsr    WyrmAIStart_Burrow
 	@WithinDune:
 
 	@Bite:
-	@PlayerDead:
 	
 	rts
 
