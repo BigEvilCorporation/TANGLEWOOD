@@ -453,7 +453,7 @@ L6A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
 	move.l #0x18a80000, Entity_WorldPosX(a0)
-	move.l #0x09600000, Entity_WorldPosY(a0)
+	move.l #0x08800000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L6A1_TriggerBoxEndLevel_name, a3
 	move.l a0, a2
