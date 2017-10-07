@@ -73,8 +73,9 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l5a2_BygoneAct2
 ;InitialLevel			 equ l5a4_BygoneAct4
 ;InitialLevel			 equ l6a1_DeadwoodAct1
-InitialLevel			 equ l6a2_DeadwoodAct2
+;InitialLevel			 equ l6a2_DeadwoodAct2
 ;InitialLevel			 equ l7a1_OasisAct1
+InitialLevel			 equ l7a2_OasisAct2
 ;InitialLevel			 equ Lvl_TestLift
 	ENDIF
 

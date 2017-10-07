@@ -7,9 +7,7 @@
 	; ************************************
 	; Font tiles
 	; ************************************
-	include 'assets\fonts\tiles\pxfont.asm'
 	include 'assets\fonts\tiles\sansfont.asm'
-	include 'assets\fonts\tiles\seriffnt.asm'
 	include 'assets\fonts\tiles\twfont.asm'
 	include 'assets\fonts\tiles\twfontb.asm'
 	include 'assets\fonts\tiles\twfonts.asm'
@@ -49,7 +47,6 @@
 	; ************************************
 	; Sprite tilesheets
 	; ************************************
-	IFND DEBUG
 	include 'assets\sprites\bolt.asm'
 	include 'assets\sprites\borgus.asm'
 	include 'assets\sprites\boulder.asm'
@@ -69,7 +66,6 @@
 	ENDIF
 	include 'assets\sprites\elder.asm'
 	include 'assets\sprites\firefly.asm'
-	ENDIF
 	include 'assets\sprites\fuzzl.asm'
 	include 'assets\sprites\fuzlcage.asm'
 	include 'assets\sprites\generatr.asm'
@@ -111,7 +107,6 @@
 	; ************************************
 	; Sprite animation data
 	; ************************************
-	IFND DEBUG
 	include 'assets\anims\bolt.asm'
 	include 'assets\anims\borgus.asm'
 	include 'assets\anims\boulder.asm'
@@ -125,7 +120,6 @@
 	include 'assets\anims\djubb.asm'
 	IF INCLUDE_CHARACTER_ECHO
 	include 'assets\anims\echo.asm'
-	ENDIF
 	ENDIF
 	include 'assets\anims\elder.asm'
 	include 'assets\anims\firefly.asm'

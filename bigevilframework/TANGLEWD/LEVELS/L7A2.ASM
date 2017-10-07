@@ -3,48 +3,52 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   L7a1.asm - Level 7 - Oasis Act 1
+;   l7a2.asm - Level 7 - Oasis Act 2
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-L7a1_OasisAct1:
+l7a2_OasisAct2:
 
 	dc.l LevelSelect_Str_07				; Name
-	dc.l LevelData_L7A1					; Userdata
+	dc.l LevelData_l7a2					; Userdata
 	dc.l tiles_L7						; Tileset
 	dc.l map_blocks_L7					; Blocks
-	dc.l map_blockmap_L7a1				; Block map
+	dc.l map_blockmap_l7a2				; Block map
 	dc.l collisiontiles_L7				; Collision tileset
 	dc.l collisionmap_blocks_L7			; Collision blocks
-	dc.l collisionmap_blockmap_L7a1		; Collision block map
-	dc.l terrainmap_L7A1_special_terrain_descs	; 'Special' terrain descriptor table
-	dc.l L7a1_DefaultPalettes			; Palettes
-	dc.l L7a1_Init						; Init routine
-	dc.l L7a1_Update					; Update routine
-	dc.l L7a1_Serialise					; Serialise routine
-	dc.l L7a1_LoadGameObjects			; Load game objects routine
-	dc.l L7a1_End						; End routine
-	dc.l l7a2_OasisAct2					; Next level
+	dc.l collisionmap_blockmap_l7a2		; Collision block map
+	dc.l terrainmap_l7a2_special_terrain_descs	; 'Special' terrain descriptor table
+	dc.l l7a2_DefaultPalettes			; Palettes
+	dc.l l7a2_Init						; Init routine
+	dc.l l7a2_Update					; Update routine
+	dc.l l7a2_Serialise					; Serialise routine
+	dc.l l7a2_LoadGameObjects			; Load game objects routine
+	dc.l l7a2_End						; End routine
+	IF INCLUDE_LEVEL_8
+	dc.l l8a1_TurntailAct1				; Next level
+	ELSE
+	dc.l 0x00000000
+	ENDIF
 	dc.l DefaultGravity					; Default gravity
-	dc.w map_L7a1_width					; Map width (tiles)
-	dc.w map_L7a1_height				; Map height (tiles)
-	dc.w map_blockmap_L7a1_width		; Map width (blocks)
-	dc.w map_blockmap_L7a1_height		; Map height (blocks)
-	dc.w terrainmap_L7A1_width			; Collision map width (tiles)
-	dc.w terrainmap_L7A1_height			; Collision map height (tiles)
-	dc.w terrainmap_L7A1_left			; Collision map left bounds (tiles)
-	dc.w terrainmap_L7A1_top			; Collision map top bounds (tiles)
-	dc.w terrainmap_blockmap_L7A1_width	; Collision map width (blocks)
-	dc.w terrainmap_blockmap_L7A1_height; Collision map height (blocks)
+	dc.w map_l7a2_width					; Map width (tiles)
+	dc.w map_l7a2_height				; Map height (tiles)
+	dc.w map_blockmap_l7a2_width		; Map width (blocks)
+	dc.w map_blockmap_l7a2_height		; Map height (blocks)
+	dc.w terrainmap_l7a2_width			; Collision map width (tiles)
+	dc.w terrainmap_l7a2_height			; Collision map height (tiles)
+	dc.w terrainmap_l7a2_left			; Collision map left bounds (tiles)
+	dc.w terrainmap_l7a2_top			; Collision map top bounds (tiles)
+	dc.w terrainmap_blockmap_l7a2_width	; Collision map width (blocks)
+	dc.w terrainmap_blockmap_l7a2_height; Collision map height (blocks)
 	dc.w tiles_L7_size_t				; Num tiles
-	dc.w terrainmap_L7A1_num_special_terrain_descs	; Num 'special' terrain descriptors
+	dc.w terrainmap_l7a2_num_special_terrain_descs	; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even
 	
-L7a1_DefaultPalettes:
+l7a2_DefaultPalettes:
 
 	dc.l palette_l7					; World
 	dc.l palette_wyrm				; Wyrm
@@ -57,19 +61,12 @@ L7a1_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-L7a1Data_WaitingInput			rs.b 1
+l7a2Data_WaitingInput			rs.b 1
 ;---------------------------------
-L7a1Data_Struct_Pad      		rs.b 3
-L7a1Data_Struct_Size     		rs.b 0
+l7a2Data_Struct_Pad      		rs.b 3
+l7a2Data_Struct_Size     		rs.b 0
 	
-L7a1_Init:
-
-	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L7A1, (a2)+
-	;move.l #LevelData_L7A2, (a2)+
-	;move.l #LevelData_L7A3, (a2)+
-	move.w #0x1, CurrentLevelNumActs
+l7a2_Init:
 	
 	; Load BG map
 	;lea    map_blocks_L7, a0
@@ -98,21 +95,21 @@ L7a1_Init:
 	
 	rts
 	
-L7a1_Update:
+l7a2_Update:
 
 	rts
 	
-L7a1_Serialise:
+l7a2_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 
-L7a1_End:
+l7a2_End:
 	rts
 	
-L7a1_Trigger_End:
+l7a2_Trigger_End:
 
 	; Begin end of act gamestate
 	lea    GameStateEndAct, a0
