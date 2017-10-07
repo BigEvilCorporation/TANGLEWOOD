@@ -61,7 +61,7 @@
 	include 'assets\sprites\debris.asm'
 	include 'assets\sprites\demon.asm'
 	include 'assets\sprites\djakk.asm'
-	include 'assets\sprites\djrake.asm'
+	;include 'assets\sprites\djrake.asm'
 	include 'assets\sprites\djakcage.asm'
 	include 'assets\sprites\djubb.asm'
 	IF INCLUDE_CHARACTER_ECHO
@@ -103,7 +103,7 @@
 	include 'assets\palettes\borgus.asm'
 	include 'assets\palettes\demon.asm'
 	include 'assets\palettes\djakk.asm'
-	include 'assets\palettes\djrake.asm'
+	;include 'assets\palettes\djrake.asm'
 	include 'assets\palettes\djubb.asm'
 	include 'assets\palettes\text.asm'
 	include 'assets\palettes\wyrm.asm'
@@ -121,7 +121,7 @@
 	include 'assets\anims\debris.asm'
 	include 'assets\anims\demon.asm'
 	include 'assets\anims\djakk.asm'
-	include 'assets\anims\djrake.asm'
+	;include 'assets\anims\djrake.asm'
 	include 'assets\anims\djubb.asm'
 	IF INCLUDE_CHARACTER_ECHO
 	include 'assets\anims\echo.asm'

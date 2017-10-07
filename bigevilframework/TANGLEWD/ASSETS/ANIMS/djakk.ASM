@@ -41,52 +41,52 @@ spriteanim_djakk_death_track_sfx:
 	dc.l 0x0
 	Even
 
-spriteanim_djakk_emerge:
-spriteanim_djakk_emerge_numframes: equ 0x1
-spriteanim_djakk_emerge_speed: equ 0x5
-spriteanim_djakk_emerge_track_frames:
+spriteanim_djakk_roar:
+spriteanim_djakk_roar_numframes: equ 0x6
+spriteanim_djakk_roar_speed: equ 0x1E
+spriteanim_djakk_roar_track_frames:
+	dc.b 0x0, 0x1, 0x1, 0x1, 0x1, 0x0
+	Even
+spriteanim_djakk_roar_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_djakk_roar_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_djakk_roar_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
+spriteanim_djakk_idle:
+spriteanim_djakk_idle_numframes: equ 0x1
+spriteanim_djakk_idle_speed: equ 0x5
+spriteanim_djakk_idle_track_frames:
 	dc.b 0x0
 	Even
-spriteanim_djakk_emerge_track_posx:
+spriteanim_djakk_idle_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_djakk_emerge_track_posy:
+spriteanim_djakk_idle_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_djakk_emerge_track_sfx:
+spriteanim_djakk_idle_track_sfx:
 	dc.l 0x0
 	Even
 
-spriteanim_djakk_roar:
-spriteanim_djakk_roar_numframes: equ 0x7
-spriteanim_djakk_roar_speed: equ 0x1E
-spriteanim_djakk_roar_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x1, 0x0
-	Even
-spriteanim_djakk_roar_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-spriteanim_djakk_roar_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-spriteanim_djakk_roar_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
-
 spriteanim_djakk_bite:
-spriteanim_djakk_bite_numframes: equ 0x5
+spriteanim_djakk_bite_numframes: equ 0x4
 spriteanim_djakk_bite_speed: equ 0x33
 spriteanim_djakk_bite_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+	dc.b 0x0, 0x1, 0x2, 0x3
 	Even
 spriteanim_djakk_bite_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
 spriteanim_djakk_bite_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
 spriteanim_djakk_bite_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
 spriteanim_djakk_jump:
@@ -135,21 +135,5 @@ spriteanim_djakk_throw_track_posy:
 	Even
 spriteanim_djakk_throw_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
-
-spriteanim_djakk_idle:
-spriteanim_djakk_idle_numframes: equ 0x1
-spriteanim_djakk_idle_speed: equ 0x5
-spriteanim_djakk_idle_track_frames:
-	dc.b 0x0
-	Even
-spriteanim_djakk_idle_track_posx:
-	dc.b 0x00
-	Even
-spriteanim_djakk_idle_track_posy:
-	dc.b 0x00
-	Even
-spriteanim_djakk_idle_track_sfx:
-	dc.l 0x0
 	Even
 

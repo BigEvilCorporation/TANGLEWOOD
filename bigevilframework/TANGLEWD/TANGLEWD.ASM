@@ -108,7 +108,7 @@ __start
 	; Include GameObject derivatives
 	IFND DEBUG
 	include 'objects\monster.asm'
-	include 'objects\djrake.asm'
+	;include 'objects\djrake.asm'
 	include 'objects\boulder.asm'
 	include 'objects\firefly.asm'
 	ENDIF

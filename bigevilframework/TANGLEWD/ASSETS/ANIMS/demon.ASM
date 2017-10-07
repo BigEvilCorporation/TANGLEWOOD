@@ -25,6 +25,22 @@ spriteanim_demon_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+spriteanim_demon_idletosmirk:
+spriteanim_demon_idletosmirk_numframes: equ 0x2
+spriteanim_demon_idletosmirk_speed: equ 0x14
+spriteanim_demon_idletosmirk_track_frames:
+	dc.b 0x0, 0x1
+	Even
+spriteanim_demon_idletosmirk_track_posx:
+	dc.b 0x00, 0x00
+	Even
+spriteanim_demon_idletosmirk_track_posy:
+	dc.b 0x00, 0x00
+	Even
+spriteanim_demon_idletosmirk_track_sfx:
+	dc.l 0x0, 0x0
+	Even
+
 spriteanim_demon_idle:
 spriteanim_demon_idle_numframes: equ 0x6
 spriteanim_demon_idle_speed: equ 0x14
@@ -101,21 +117,5 @@ spriteanim_demon_smirk_track_posy:
 	Even
 spriteanim_demon_smirk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
-
-spriteanim_demon_idletosmirk:
-spriteanim_demon_idletosmirk_numframes: equ 0x3
-spriteanim_demon_idletosmirk_speed: equ 0x14
-spriteanim_demon_idletosmirk_track_frames:
-	dc.b 0x0, 0x1, 0x2
-	Even
-spriteanim_demon_idletosmirk_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-spriteanim_demon_idletosmirk_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-spriteanim_demon_idletosmirk_track_sfx:
-	dc.l 0x0, 0x0, 0x0
 	Even
 
