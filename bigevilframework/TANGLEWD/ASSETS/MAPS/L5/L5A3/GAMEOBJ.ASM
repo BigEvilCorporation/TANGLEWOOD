@@ -120,7 +120,7 @@ L5A3_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x00a00000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x01080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Echo_4_name, a3
 	move.l a0, a2
@@ -139,7 +139,7 @@ L5A3_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x00b80000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x01080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Nymn_3_name, a3
 	move.l a0, a2
@@ -159,7 +159,7 @@ L5A3_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x12e00000, Entity_WorldPosX(a0)
-	move.l #0x03d80000, Entity_WorldPosY(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Log_1_name, a3
 	move.l a0, a2
@@ -201,7 +201,7 @@ L5A3_LoadGameObjects:
 
 	jsr PillarInit
 	move.l #0x10c80000, Entity_WorldPosX(a0)
-	move.l #0x04f00000, Entity_WorldPosY(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Pillar_2_name, a3
 	move.l a0, a2

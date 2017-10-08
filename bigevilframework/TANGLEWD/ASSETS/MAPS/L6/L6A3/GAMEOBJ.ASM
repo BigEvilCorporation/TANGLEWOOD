@@ -102,7 +102,7 @@ L6A3_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x00a00000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #0x01180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L6A3_Echo_1_name, a3
 	move.l a0, a2

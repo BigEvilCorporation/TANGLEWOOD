@@ -108,7 +108,7 @@ L4A3_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x00c00000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Echo_2_name, a3
 	move.l a0, a2
@@ -127,7 +127,7 @@ L4A3_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x00e80000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Nymn_1_name, a3
 	move.l a0, a2
