@@ -370,6 +370,7 @@ LevelData_L6A2			 rs.b L6A2Data_Struct_Size
 	IF INCLUDE_LEVEL_7
 LevelData_L7A1			 rs.b L7A1Data_Struct_Size
 LevelData_L7A2			 rs.b L7A2Data_Struct_Size
+LevelData_L7A3			 rs.b L7A3Data_Struct_Size
 	ENDIF
 
 ; ************************************

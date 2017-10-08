@@ -67,8 +67,8 @@ L7a1_Init:
 	; Set data for all acts in level
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L7A1, (a2)+
-	;move.l #LevelData_L7A2, (a2)+
-	;move.l #LevelData_L7A3, (a2)+
+	move.l #LevelData_L7A2, (a2)+
+	move.l #LevelData_L7A3, (a2)+
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map
