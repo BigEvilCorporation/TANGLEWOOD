@@ -1004,7 +1004,7 @@ PhysicsObjFindFloor:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d4, d1				; If > height
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 
@@ -1017,7 +1017,7 @@ PhysicsObjFindFloor:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d3, d1				; If > width
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 	
@@ -1303,7 +1303,7 @@ PhysicsObjFindWall:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d4, d1				; If > height
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 
@@ -1316,7 +1316,7 @@ PhysicsObjFindWall:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d3, d1				; If > width
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 	
@@ -1450,7 +1450,7 @@ PhysicsObjFindCeiling:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d4, d1				; If > height
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 
@@ -1463,19 +1463,19 @@ PhysicsObjFindCeiling:
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
 	cmp.w  d3, d1				; If > width
-	bge    @ProbeOutOfBounds
+	bgt    @ProbeOutOfBounds
 
 	swap   d1
 	
 	; Get collision flags for tile at probe pos
-	PUSHM  a0-a1
+	PUSHM  d5-d6/a0-a1
 	clr.l  d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr	   PHYS_GetTerrainTile
-	POPM   a0-a1
+	POPM   d5-d6/a0-a1
 	
 	; Check if solid
 	andi.w #col_tile_flag_solid, d0
