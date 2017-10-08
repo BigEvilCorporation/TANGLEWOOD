@@ -75,8 +75,8 @@ L6a1_Init:
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L6A1, (a2)+
 	move.l #LevelData_L6A2, (a2)+
-	;move.l #LevelData_L6A3, (a2)+
-	move.w #0x1, CurrentLevelNumActs
+	move.l #LevelData_L6A3, (a2)+
+	move.w #0x3, CurrentLevelNumActs
 	
 	; Load BG map
 	lea    map_blocks_L6, a0

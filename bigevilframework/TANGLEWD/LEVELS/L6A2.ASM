@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l6a2.asm - Level 6 - Deadwood Act 1
+;   l6a2.asm - Level 6 - Deadwood Act 2
 ;==============================================================	
 
 ; ************************************
@@ -26,11 +26,7 @@ l6a2_DeadwoodAct2:
 	dc.l l6a2_Serialise					; Serialise routine
 	dc.l l6a2_LoadGameObjects			; Load game objects routine
 	dc.l l6a2_End						; End routine
-	IF INCLUDE_LEVEL_7
-	dc.l l7a1_OasisAct1					; Next level
-	ELSE
-	dc.l 0x00000000
-	ENDIF
+	dc.l l6a3_DeadwoodAct3				; Next level
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l6a2_width					; Map width (tiles)
 	dc.w map_l6a2_height				; Map height (tiles)
