@@ -3,19 +3,11 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-	
-	; ************************************
-	; Font tiles
-	; ************************************
-	include 'assets\fonts\tiles\sansfont.asm'
-	include 'assets\fonts\tiles\twfont.asm'
-	include 'assets\fonts\tiles\twfontb.asm'
-	include 'assets\fonts\tiles\twfonts.asm'
-	include 'assets\fonts\tiles\twfontbs.asm'
 
 	; ************************************
 	; Level assets
 	; ************************************
+level_assets_start
 	IF INCLUDE_LEVEL_1
 	include 'assets\levels\level1.asm'
 	ENDIF
@@ -47,50 +39,62 @@
 	IF INCLUDE_LEVEL_8
 	include 'assets\levels\level8.asm'
 	ENDIF
+level_assets_end
+	
+	; ************************************
+	; Font tiles
+	; ************************************
+	include 'assets\fonts\tiles\sansfont.asm'
+	include 'assets\fonts\tiles\twfont.asm'
+	include 'assets\fonts\tiles\twfontb.asm'
+	include 'assets\fonts\tiles\twfonts.asm'
+	include 'assets\fonts\tiles\twfontbs.asm'
 	
 	; ************************************
 	; Sprite tilesheets
 	; ************************************
-	include 'assets\sprites\bolt.asm'
-	include 'assets\sprites\borgus.asm'
-	include 'assets\sprites\boulder.asm'
-	include 'assets\sprites\bridge.asm'
-	include 'assets\sprites\button.asm'
-	include 'assets\sprites\cogs.asm'
-	include 'assets\sprites\cart.asm'
-	include 'assets\sprites\crate.asm'
-	include 'assets\sprites\debris.asm'
-	include 'assets\sprites\demon.asm'
-	include 'assets\sprites\djakk.asm'
-	;include 'assets\sprites\djrake.asm'
-	include 'assets\sprites\djakcage.asm'
-	include 'assets\sprites\djubb.asm'
+sprite_assets_start
+	INCLUDE_TEXT_ASSET assets\sprites\bolt.asm
+	INCLUDE_TEXT_ASSET assets\sprites\borgus.asm
+	INCLUDE_TEXT_ASSET assets\sprites\boulder.asm
+	INCLUDE_TEXT_ASSET assets\sprites\bridge.asm
+	INCLUDE_TEXT_ASSET assets\sprites\button.asm
+	INCLUDE_TEXT_ASSET assets\sprites\cogs.asm
+	INCLUDE_TEXT_ASSET assets\sprites\cart.asm
+	INCLUDE_TEXT_ASSET assets\sprites\crate.asm
+	INCLUDE_TEXT_ASSET assets\sprites\debris.asm
+	INCLUDE_TEXT_ASSET assets\sprites\demon.asm
+	INCLUDE_TEXT_ASSET assets\sprites\djakk.asm
+	;INCLUDE_TEXT_ASSET assets\sprites\djrake.asm
+	INCLUDE_TEXT_ASSET assets\sprites\djakcage.asm
+	INCLUDE_TEXT_ASSET assets\sprites\djubb.asm
 	IF INCLUDE_CHARACTER_ECHO
-	include 'assets\sprites\echo.asm'
+	INCLUDE_TEXT_ASSET assets\sprites\echo.asm
 	ENDIF
-	include 'assets\sprites\elder.asm'
-	include 'assets\sprites\firefly.asm'
-	include 'assets\sprites\fuzzl.asm'
-	include 'assets\sprites\fuzlcage.asm'
-	include 'assets\sprites\generatr.asm'
-	include 'assets\sprites\ladder.asm'
-	include 'assets\sprites\log.asm'
-	include 'assets\sprites\lock.asm'
-	include 'assets\sprites\nymn.asm'
-	include 'assets\sprites\leaf.asm'
-	include 'assets\sprites\lift.asm'
-	include 'assets\sprites\pillar.asm'
-	include 'assets\sprites\pool.asm'
-	include 'assets\sprites\raft.asm'
-	include 'assets\sprites\rain.asm'
-	include 'assets\sprites\rope.asm'
-	include 'assets\sprites\spitball.asm'
-	include 'assets\sprites\stone.asm'
-	include 'assets\sprites\twd_logo.asm'
-	include 'assets\sprites\water.asm'
-	include 'assets\sprites\winch.asm'
-	include 'assets\sprites\wisp.asm'
-	include 'assets\sprites\wyrm.asm'
+	INCLUDE_TEXT_ASSET assets\sprites\elder.asm
+	INCLUDE_TEXT_ASSET assets\sprites\firefly.asm
+	INCLUDE_TEXT_ASSET assets\sprites\fuzzl.asm
+	INCLUDE_TEXT_ASSET assets\sprites\fuzlcage.asm
+	INCLUDE_TEXT_ASSET assets\sprites\generatr.asm
+	INCLUDE_TEXT_ASSET assets\sprites\ladder.asm
+	INCLUDE_TEXT_ASSET assets\sprites\log.asm
+	INCLUDE_TEXT_ASSET assets\sprites\lock.asm
+	INCLUDE_TEXT_ASSET assets\sprites\nymn.asm
+	INCLUDE_TEXT_ASSET assets\sprites\leaf.asm
+	INCLUDE_TEXT_ASSET assets\sprites\lift.asm
+	INCLUDE_TEXT_ASSET assets\sprites\pillar.asm
+	INCLUDE_TEXT_ASSET assets\sprites\pool.asm
+	INCLUDE_TEXT_ASSET assets\sprites\raft.asm
+	INCLUDE_TEXT_ASSET assets\sprites\rain.asm
+	INCLUDE_TEXT_ASSET assets\sprites\rope.asm
+	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
+	INCLUDE_TEXT_ASSET assets\sprites\stone.asm
+	INCLUDE_TEXT_ASSET assets\sprites\twd_logo.asm
+	INCLUDE_TEXT_ASSET assets\sprites\water.asm
+	INCLUDE_TEXT_ASSET assets\sprites\winch.asm
+	INCLUDE_TEXT_ASSET assets\sprites\wisp.asm
+	INCLUDE_TEXT_ASSET assets\sprites\wyrm.asm
+sprite_assets_end
 
 	; ************************************
 	; Sprite palettes
@@ -194,9 +198,11 @@
 	; ************************************
 	; Audio
 	; ************************************
+audio_assets_start
 	include 'assets\audio\instrs.asm'
 	include 'assets\audio\tracks.asm'
 	include 'assets\audio\sfx.asm'
+audio_assets_end
 
 	; ************************************
 	; VFX
@@ -209,6 +215,11 @@
     ; Strings
     ; ************************************
 	include 'assets\strings.asm'
+
+	inform 0,""
+	inform 0,"All sprite assets: %d bytes (%dkb)", (sprite_assets_end-sprite_assets_start), (sprite_assets_end-sprite_assets_start)/1024
+	inform 0,"All level assets: %d bytes (%dkb)", (level_assets_end-level_assets_start), (level_assets_end-level_assets_start)/1024
+	inform 0,"All audio assets: %d bytes (%dkb)", (audio_assets_end-audio_assets_start), (audio_assets_end-audio_assets_start)/1024
 
 	; ************************************
 	; Palette IDs

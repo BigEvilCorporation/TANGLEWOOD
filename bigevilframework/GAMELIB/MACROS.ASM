@@ -6,6 +6,22 @@
 ;   macros.asm - Utility macros
 ;==============================================================
 
+INCLUDE_TEXT_ASSET: macro path
+asset_start\@:
+	include '\path'
+asset_end\@:
+	inform 0,"\path\: %d bytes (%dkb)", (asset_end\@-asset_start\@), (asset_end\@-asset_start\@)/1024
+	endm
+
+INCLUDE_BIN_ASSET: macro assetlabel,path
+assetlabel\@:
+	include '\path'
+asset_end\@:
+	inform 0,"\path\: %d bytes (%dkb)", (asset_end\@-assetlabel\@), (asset_end\@-assetlabel\@)/1024
+	endm
+
+;==============================================================
+
 ENTITY_GETBYNAME: macro typename,name,addrreg
 	move.l (EntityPoolStart_\typename), \addrreg
 	addi.l #(\name\_idx*\typename\_Struct_Size), \addrreg
