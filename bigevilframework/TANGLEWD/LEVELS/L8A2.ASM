@@ -48,7 +48,7 @@ l8a2_TurntailAct2:
 l8a2_DefaultPalettes:
 
 	dc.l palette_l7					; World (using L7 tileset)
-	dc.l palette_demon				; Demon
+	dc.l palette_djakk				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	

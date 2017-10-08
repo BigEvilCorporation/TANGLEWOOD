@@ -48,7 +48,7 @@ l8a3_TurntailAct3:
 l8a3_DefaultPalettes:
 
 	dc.l palette_L5					; World (using L5 tileset)
-	dc.l palette_djakk				; Djakk
+	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
@@ -112,4 +112,11 @@ l8a3_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l8a3_Trigger_Lift:
+
+	ENTITY_GETBYNAME Lift, l8a3_LiftExit, a0
+	jsr    LiftActivate
+
 	rts

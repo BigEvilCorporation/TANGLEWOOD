@@ -43,7 +43,15 @@ L8A3_Nest_count equ 0x0
 
 L8A3_Flue_count equ 0x0
 
-L8A3_TriggerBox_count equ 0x0
+L8A3_TriggerBox_count equ 0x2
+L8A3_TriggerLevelEnd_idx	equ 0x0
+L8A3_TriggerStartLift_idx	equ 0x1
+
+	IFND FINAL
+L8A3_TriggerLevelEnd_name	dc.b "L8A3_TriggerLevelEnd",0
+L8A3_TriggerStartLift_name	dc.b "L8A3_TriggerStartLift",0
+	even
+	ENDIF
 
 L8A3_Checkpoint_count equ 0x0
 
@@ -53,7 +61,13 @@ L8A3_Location_count equ 0x0
 
 L8A3_Deathbox_count equ 0x0
 
-L8A3_Lift_count equ 0x0
+L8A3_Lift_count equ 0x1
+L8A3_LiftExit_idx	equ 0x0
+
+	IFND FINAL
+L8A3_LiftExit_name	dc.b "L8A3_LiftExit",0
+	even
+	ENDIF
 
 L8A3_Crate_count equ 0x0
 
@@ -137,11 +151,63 @@ L8A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L8A3_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x00c80000, Entity_WorldPosX(a0)
+	move.l #0x00b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a3_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x00c80000, Entity_WorldPosX(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_TriggerStartLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a3_Trigger_Lift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L8A3_Lift_count)
+	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
+	jsr LiftInit
+	move.l #0x00e00000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_LiftExit_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 
 
@@ -183,7 +249,7 @@ L8A3_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x00e00000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosX(a0)
 	move.l #0x01900000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A3_Demon_3_name, a3
