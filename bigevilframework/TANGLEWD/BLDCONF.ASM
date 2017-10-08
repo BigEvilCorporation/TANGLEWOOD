@@ -55,44 +55,44 @@ AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
 
 ; Initial level/state
 	IFD FINAL
-InitialLevel			 equ l1a1_HarlequinForestAct1
+InitialLevel			equ l1a1_HarlequinForestAct1
 	ELSE
-;InitialLevel			 equ l1a1_HarlequinForestAct1
-;InitialLevel			 equ l1a2_HarlequinForestAct2
-;InitialLevel			 equ l1a3_HarlequinForestAct3
-;InitialLevel			 equ l1a4_HarlequinForestAct4
-;InitialLevel			 equ l2a1_StormWarningAct1
-;InitialLevel			 equ l2a2_StormWarningAct2
-;InitialLevel			 equ l2a3_StormWarningAct3
-;InitialLevel			 equ l3a1_HeritageAct1
-;InitialLevel			 equ l3a2_HeritageAct2
-;InitialLevel			 equ l3a3_HeritageAct3
-;InitialLevel			 equ l4a1_TetheredAct1
-;InitialLevel			 equ l4a2_TetheredAct2
-;InitialLevel			 equ l4a3_TetheredAct3
-;InitialLevel			 equ l5a1_BygoneAct1
-;InitialLevel			 equ l5a2_BygoneAct2
-InitialLevel			 equ l5a3_BygoneAct3
-;InitialLevel			 equ l5a4_BygoneAct4
-;InitialLevel			 equ l6a1_DeadwoodAct1
-;InitialLevel			 equ l6a2_DeadwoodAct2
-;InitialLevel			 equ l6a3_DeadwoodAct3
-;InitialLevel			 equ l7a1_OasisAct1
-;InitialLevel			 equ l7a2_OasisAct2
-;InitialLevel			 equ l7a3_OasisAct3
-;InitialLevel			 equ l8a1_TurntailAct1
-;InitialLevel			 equ l8a2_TurntailAct2
-;InitialLevel			 equ l8a3_TurntailAct3
-;InitialLevel			 equ l8a4_TurntailAct4
-;InitialLevel			 equ l8a5_TurntailAct5
-;InitialLevel			 equ l8a6_TurntailAct6
+;InitialLevel			equ l1a1_HarlequinForestAct1
+;InitialLevel			equ l1a2_HarlequinForestAct2
+;InitialLevel			equ l1a3_HarlequinForestAct3
+;InitialLevel			equ l1a4_HarlequinForestAct4
+;InitialLevel			equ l2a1_StormWarningAct1
+;InitialLevel			equ l2a2_StormWarningAct2
+;InitialLevel			equ l2a3_StormWarningAct3
+;InitialLevel			equ l3a1_HeritageAct1
+;InitialLevel			equ l3a2_HeritageAct2
+;InitialLevel			equ l3a3_HeritageAct3
+;InitialLevel			equ l4a1_TetheredAct1
+;InitialLevel			equ l4a2_TetheredAct2
+;InitialLevel			equ l4a3_TetheredAct3
+;InitialLevel			equ l5a1_BygoneAct1
+;InitialLevel			equ l5a2_BygoneAct2
+;InitialLevel			equ l5a3_BygoneAct3
+;InitialLevel			equ l5a4_BygoneAct4
+;InitialLevel			equ l6a1_DeadwoodAct1
+;InitialLevel			equ l6a2_DeadwoodAct2
+InitialLevel			equ l6a3_DeadwoodAct3
+;InitialLevel			equ l7a1_OasisAct1
+;InitialLevel			equ l7a2_OasisAct2
+;InitialLevel			equ l7a3_OasisAct3
+;InitialLevel			equ l8a1_TurntailAct1
+;InitialLevel			equ l8a2_TurntailAct2
+;InitialLevel			equ l8a3_TurntailAct3
+;InitialLevel			equ l8a4_TurntailAct4
+;InitialLevel			equ l8a5_TurntailAct5
+;InitialLevel			equ l8a6_TurntailAct6
 	ENDIF
 
 	IFD FINAL
-InitialState			 equ  GameStateLogos
+InitialState			equ  GameStateLogos
 	ELSE
-;InitialState			 equ  GameStateLogos
-;InitialState			 equ  GameStateMainMenu
-;InitialState			 equ  GameStateLevelSelect
-InitialState			 equ  GameStateGameplay
+;InitialState			equ  GameStateLogos
+;InitialState			equ  GameStateMainMenu
+;InitialState			equ  GameStateLevelSelect
+InitialState			equ  GameStateGameplay
 	ENDIF

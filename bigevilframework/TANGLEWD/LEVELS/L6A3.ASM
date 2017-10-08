@@ -110,6 +110,23 @@ l6a3_Init:
 	@ListEnd:
 
 	;==============================================================
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l6a3_Button1, a0
+	ENTITY_GETBYNAME Bridge, l6a3_Bridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.b #0x1, Button_Active(a0)
+	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a1)
+
+	;==============================================================
+
+	; Don't lerp Djakk palette, disable catchup behaviour
+	ENTITY_GETBYNAME Monster, l6a3_Djakk1, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	
 	rts
 	
@@ -125,6 +142,36 @@ l6a3_Serialise:
 	rts
 
 l6a3_End:
+	rts
+
+l6a3_Trigger_Log1:
+	PUSHL  a0
+	ENTITY_GETBYNAME Log, l6a3_Log1, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+	POPL   a0
+	rts
+
+l6a3_Trigger_Log2:
+	PUSHL  a0
+	ENTITY_GETBYNAME Log, l6a3_Log2, a0
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+	POPL   a0
+	rts
+
+l6a3_Trigger_Djakk1:
+	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l6a3_Djakk1, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	POPL   a0
 	rts
 
 l6a3_Trigger_End:
