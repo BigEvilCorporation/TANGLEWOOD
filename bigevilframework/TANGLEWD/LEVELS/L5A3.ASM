@@ -3,48 +3,48 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l5a2.asm - Level 5 - Bygone Mines Act 2
+;   l5a3.asm - Level 5 - Bygone Mines Act 3
 ;==============================================================	
 
 ; ************************************
 ; Static data
 ; ************************************
-l5a2_BygoneAct2:
+l5a3_BygoneAct3:
 
 	dc.l LevelSelect_Str_05				; Name
-	dc.l LevelData_l5a2					; Userdata
+	dc.l LevelData_l5a3					; Userdata
 	dc.l tiles_L5						; Tileset
 	dc.l map_blocks_l5					; Blocks
-	dc.l map_blockmap_l5a2				; Block map
+	dc.l map_blockmap_l5a3				; Block map
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_l5			; Collision blocks
-	dc.l collisionmap_blockmap_l5a2		; Collision block map
+	dc.l collisionmap_blockmap_l5a3		; Collision block map
 	dc.l 0x00000000						; 'Special' terrain descriptor table
-	dc.l l5a2_DefaultPalettes			; Palettes
-	dc.l l5a2_Init						; Init routine
-	dc.l l5a2_Update					; Update routine
-	dc.l l5a2_Serialise					; Serialise routine
-	dc.l l5a2_LoadGameObjects			; Load game objects routine
-	dc.l l5a2_End						; End routine
-	dc.l L5a3_BygoneAct3				; Next level
+	dc.l l5a3_DefaultPalettes			; Palettes
+	dc.l l5a3_Init						; Init routine
+	dc.l l5a3_Update					; Update routine
+	dc.l l5a3_Serialise					; Serialise routine
+	dc.l l5a3_LoadGameObjects			; Load game objects routine
+	dc.l l5a3_End						; End routine
+	dc.l L5a4_BygoneAct4				; Next level
 	dc.l DefaultGravity					; Default gravity
-	dc.w map_l5a2_width					; Map width (tiles)
-	dc.w map_l5a2_height				; Map height (tiles)
-	dc.w map_blockmap_l5a2_width		; Map width (blocks)
-	dc.w map_blockmap_l5a2_height		; Map height (blocks)
-	dc.w terrainmap_L5A2_width			; Collision map width (tiles)
-	dc.w terrainmap_L5A2_height			; Collision map height (tiles)
-	dc.w terrainmap_L5A2_left			; Collision map left bounds (tiles)
-	dc.w terrainmap_L5A2_top			; Collision map top bounds (tiles)
-	dc.w terrainmap_blockmap_L5A2_width	; Collision map width (blocks)
-	dc.w terrainmap_blockmap_L5A2_height; Collision map height (blocks)
+	dc.w map_l5a3_width					; Map width (tiles)
+	dc.w map_l5a3_height				; Map height (tiles)
+	dc.w map_blockmap_l5a3_width		; Map width (blocks)
+	dc.w map_blockmap_l5a3_height		; Map height (blocks)
+	dc.w terrainmap_l5a3_width			; Collision map width (tiles)
+	dc.w terrainmap_l5a3_height			; Collision map height (tiles)
+	dc.w terrainmap_l5a3_left			; Collision map left bounds (tiles)
+	dc.w terrainmap_l5a3_top			; Collision map top bounds (tiles)
+	dc.w terrainmap_blockmap_l5a3_width	; Collision map width (blocks)
+	dc.w terrainmap_blockmap_l5a3_height; Collision map height (blocks)
 	dc.w tiles_L5_size_t				; Num tiles
 	dc.w 0x0000							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even
 	
-l5a2_DefaultPalettes:
+l5a3_DefaultPalettes:
 
 	dc.l palette_L5					; World
 	dc.l 0x0						; Djakk (black by default, fades up when approached)
@@ -57,12 +57,12 @@ l5a2_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l5a2Data_WaitingInput			rs.b 1
+l5a3Data_WaitingInput			rs.b 1
 ;---------------------------------
-l5a2Data_Struct_Pad      		rs.b 3
-l5a2Data_Struct_Size     		rs.b 0
+l5a3Data_Struct_Pad      		rs.b 3
+l5a3Data_Struct_Size     		rs.b 0
 	
-l5a2_Init:
+l5a3_Init:
 	
 	; Load BG map
 	lea    map_blocks_L5, a0
@@ -89,33 +89,6 @@ l5a2_Init:
 
 	;==============================================================
 
-	; Connect cogs to generators
-	ENTITY_GETBYNAME Generator, l5a2_Generator1, a0
-	ENTITY_GETBYNAME Cogs, l5a2_Cogs1, a1
-	move.l a1, Generator_Cogs(a0)
-
-	; Connect generators to buttons, and disable buttons by default
-	ENTITY_GETBYNAME Generator, l5a2_Generator1, a0
-	ENTITY_GETBYNAME Button, l5a2_Button1, a1
-	move.l a1, Generator_UserData(a0)
-	move.l #ButtonActivate, Generator_OnActivate(a0)
-	move.b #0x0, Button_Active(a1)
-
-	; Connect buttons to lifts
-	ENTITY_GETBYNAME Button, l5a2_Button1, a0
-	ENTITY_GETBYNAME Lift, l5a2_Lift1, a1
-	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
-
-	;==============================================================
-
-	; Update log out of view
-	ENTITY_GETBYNAME Log, l5a2_Log1, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-
-	;==============================================================
-
 	; 'Special' terrain is cart rails, don't collide
 	move.l (Player1), a2
 	move.l (Player2), a3
@@ -130,21 +103,21 @@ l5a2_Init:
 	
 	rts
 	
-l5a2_Update:
+l5a3_Update:
 
 	rts
 	
-l5a2_Serialise:
+l5a3_Serialise:
 	; a1 --- Level addr
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 	
 	rts
 
-l5a2_End:
+l5a3_End:
 	rts
 	
-l5a2_Trigger_End:
+l5a3_Trigger_End:
 
 	; Begin end of act gamestate
 	lea    GameStateEndAct, a0

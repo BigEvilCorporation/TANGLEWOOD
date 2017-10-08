@@ -24,6 +24,7 @@
 ;==============================================================
 	include 'assets\maps\l5\l5a1\gameobj.asm'
 	include 'assets\maps\l5\l5a2\gameobj.asm'
+	include 'assets\maps\l5\l5a3\gameobj.asm'
 	include 'assets\maps\l5\l5a4\gameobj.asm'
 
 ;==============================================================
@@ -47,6 +48,7 @@ map_blocks_l5:
 ;==============================================================
 	include 'assets\maps\l5\l5a1\blockmap.asm'
 	include 'assets\maps\l5\l5a2\blockmap.asm'
+	include 'assets\maps\l5\l5a3\blockmap.asm'
 	include 'assets\maps\l5\l5a4\blockmap.asm'
 	include 'assets\maps\l5\l5bg\blockmap.asm'
 
@@ -54,6 +56,8 @@ map_blockmap_l5a1:
 	incbin 'assets\maps\l5\l5a1\blockmap.bin'
 map_blockmap_l5a2:
 	incbin 'assets\maps\l5\l5a2\blockmap.bin'
+map_blockmap_l5a3:
+	incbin 'assets\maps\l5\l5a3\blockmap.bin'
 map_blockmap_l5a4:
 	incbin 'assets\maps\l5\l5a4\blockmap.bin'
 map_blockmap_l5bg:
@@ -80,11 +84,14 @@ collisionmap_blocks_l5:
 ;==============================================================
 	include 'assets\maps\l5\l5a1\colmap.asm'
 	include 'assets\maps\l5\l5a2\colmap.asm'
+	include 'assets\maps\l5\l5a3\colmap.asm'
 	include 'assets\maps\l5\l5a4\colmap.asm'
 
 collisionmap_blockmap_l5a1:
 	incbin 'assets\maps\l5\l5a1\colmap.bin'
 collisionmap_blockmap_l5a2:
 	incbin 'assets\maps\l5\l5a2\colmap.bin'
+collisionmap_blockmap_l5a3:
+	incbin 'assets\maps\l5\l5a3\colmap.bin'
 collisionmap_blockmap_l5a4:
 	incbin 'assets\maps\l5\l5a4\colmap.bin'
