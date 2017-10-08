@@ -210,6 +210,7 @@ __start
 	IF INCLUDE_LEVEL_4
 	include 'levels\l4a1.asm'
 	include 'levels\l4a2.asm'
+	include 'levels\l4a3.asm'
 	ENDIF
 
 	IF INCLUDE_LEVEL_5

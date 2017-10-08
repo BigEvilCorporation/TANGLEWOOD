@@ -69,6 +69,7 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l3a3_HeritageAct3
 ;InitialLevel			 equ l4a1_TetheredAct1
 ;InitialLevel			 equ l4a2_TetheredAct2
+InitialLevel			 equ l4a3_TetheredAct3
 ;InitialLevel			 equ l5a1_BygoneAct1
 ;InitialLevel			 equ l5a2_BygoneAct2
 ;InitialLevel			 equ l5a4_BygoneAct4
@@ -82,7 +83,7 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l8a3_TurntailAct3
 ;InitialLevel			 equ l8a4_TurntailAct4
 ;InitialLevel			 equ l8a5_TurntailAct5
-InitialLevel			 equ l8a6_TurntailAct6
+;InitialLevel			 equ l8a6_TurntailAct6
 	ENDIF
 
 	IFD FINAL

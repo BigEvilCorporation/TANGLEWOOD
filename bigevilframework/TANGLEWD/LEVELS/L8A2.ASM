@@ -27,7 +27,6 @@ l8a2_TurntailAct2:
 	dc.l l8a2_LoadGameObjects			; Load game objects routine
 	dc.l l8a2_End						; End routine
 	dc.l l8a3_TurntailAct3				; Next level
-	dc.l 0x0
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l8a2_width					; Map width (tiles)
 	dc.w map_l8a2_height				; Map height (tiles)
