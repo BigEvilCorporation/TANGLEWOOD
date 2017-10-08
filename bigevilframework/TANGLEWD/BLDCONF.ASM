@@ -77,7 +77,8 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l7a1_OasisAct1
 ;InitialLevel			 equ l7a2_OasisAct2
 ;InitialLevel			 equ l7a3_OasisAct3
-InitialLevel			 equ l8a1_TurntailAct1
+;InitialLevel			 equ l8a1_TurntailAct1
+InitialLevel			 equ l8a2_TurntailAct2
 	ENDIF
 
 	IFD FINAL
