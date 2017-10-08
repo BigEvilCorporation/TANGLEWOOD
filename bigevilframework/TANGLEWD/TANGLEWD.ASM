@@ -233,6 +233,7 @@ __start
 	include 'levels\l8a1.asm'
 	include 'levels\l8a2.asm'
 	include 'levels\l8a3.asm'
+	include 'levels\l8a4.asm'
 	ENDIF
 	
 	; Include game code

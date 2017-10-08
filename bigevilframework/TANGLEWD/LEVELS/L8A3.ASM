@@ -3,7 +3,7 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   l8a3.asm - Level 8 - Turntail Act 2
+;   l8a3.asm - Level 8 - Turntail Act 3
 ;==============================================================	
 
 ; ************************************
@@ -26,8 +26,7 @@ l8a3_TurntailAct3:
 	dc.l l8a3_Serialise					; Serialise routine
 	dc.l l8a3_LoadGameObjects			; Load game objects routine
 	dc.l l8a3_End						; End routine
-	;dc.l l8a3_TurntailAct2				; Next level
-	dc.l 0x0
+	dc.l l8a4_TurntailAct4				; Next level
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l8a3_width					; Map width (tiles)
 	dc.w map_l8a3_height				; Map height (tiles)
