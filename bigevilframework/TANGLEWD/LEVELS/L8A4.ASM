@@ -26,8 +26,7 @@ l8a4_TurntailAct4:
 	dc.l l8a4_Serialise					; Serialise routine
 	dc.l l8a4_LoadGameObjects			; Load game objects routine
 	dc.l l8a4_End						; End routine
-	;dc.l l8a4_TurntailAct2				; Next level
-	dc.l 0x0
+	dc.l l8a5_TurntailAct5				; Next level
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l8a4_width					; Map width (tiles)
 	dc.w map_l8a4_height				; Map height (tiles)

@@ -80,7 +80,8 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l8a1_TurntailAct1
 ;InitialLevel			 equ l8a2_TurntailAct2
 ;InitialLevel			 equ l8a3_TurntailAct3
-InitialLevel			 equ l8a4_TurntailAct4
+;InitialLevel			 equ l8a4_TurntailAct4
+InitialLevel			 equ l8a5_TurntailAct5
 	ENDIF
 
 	IFD FINAL
