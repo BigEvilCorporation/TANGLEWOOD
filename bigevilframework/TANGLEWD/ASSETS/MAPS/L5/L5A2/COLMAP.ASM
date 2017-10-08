@@ -19,8 +19,8 @@ terrainmap_blockmap_L5A2_top	equ 0x02
 terrainmap_blockmap_L5A2_width	equ 0xAF
 terrainmap_blockmap_L5A2_height	equ 0x42
 
-; Terrain beziers start/end positions
+; Terrain bezier bounds
 terrainmap_L5A2_num_special_terrain_descs	equ 0x01
 terrainmap_L5A2_special_terrain_descs:
-	dc.w 0x07E8, 0x078F, 0x11B0, 0x078F	; Start X, start Y, end X, end Y
+	dc.w 0x07E8, 0x078F, 0x11B0, 0x078F	; Left, top, right, bottom
 

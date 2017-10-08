@@ -11,7 +11,7 @@
 ; ************************************
 l8a1_TurntailAct1:
 
-	dc.l LevelSelect_Str_07				; Name
+	dc.l LevelSelect_Str_08				; Name
 	dc.l LevelData_l8a1					; Userdata
 	dc.l tiles_L7						; Tileset (using L7 tileset)
 	dc.l map_blocks_L7					; Blocks (using L7 tileset)
@@ -67,8 +67,8 @@ l8a1_Init:
 	; Set data for all acts in level
 	lea    CurrentActDatas, a2
 	move.l #LevelData_l8a1, (a2)+
-	;move.l #LevelData_L8A2, (a2)+
-	;move.l #LevelData_L8A3, (a2)+
+	move.l #LevelData_L8A2, (a2)+
+	move.l #LevelData_L8A3, (a2)+
 	move.w #0x1, CurrentLevelNumActs
 	
 	; Load BG map

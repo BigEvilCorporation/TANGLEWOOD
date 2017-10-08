@@ -11,7 +11,7 @@
 ; ************************************
 l8a2_TurntailAct2:
 
-	dc.l LevelSelect_Str_07				; Name
+	dc.l LevelSelect_Str_08				; Name
 	dc.l LevelData_l8a2					; Userdata
 	dc.l tiles_L7						; Tileset (using L7 tileset)
 	dc.l map_blocks_L7					; Blocks (using L7 tileset)
@@ -26,7 +26,7 @@ l8a2_TurntailAct2:
 	dc.l l8a2_Serialise					; Serialise routine
 	dc.l l8a2_LoadGameObjects			; Load game objects routine
 	dc.l l8a2_End						; End routine
-	;dc.l l8a2_TurntailAct2				; Next level
+	dc.l l8a3_TurntailAct3				; Next level
 	dc.l 0x0
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l8a2_width					; Map width (tiles)
@@ -48,7 +48,7 @@ l8a2_TurntailAct2:
 l8a2_DefaultPalettes:
 
 	dc.l palette_l7					; World (using L7 tileset)
-	dc.l palette_djakk				; Djakk
+	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
 	
