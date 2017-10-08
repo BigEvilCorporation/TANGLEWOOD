@@ -305,7 +305,9 @@ CharacterDealDamage:
 	bne    @StillAlive
 	
 	; Health reached zero, character is dead
+	IF !AUTOTEST_ENABLED
 	move.b #0x1, Character_Dead(a0)
+	ENDIF
 	
 	; Cancel all actions
 	jsr    CharacterCancelXMovement
