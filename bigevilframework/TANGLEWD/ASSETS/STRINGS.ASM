@@ -46,6 +46,8 @@ EndLevelString_Act1		dc.b 'Act 1:',0
 EndLevelString_Act2		dc.b 'Act 2:',0
 EndLevelString_Act3		dc.b 'Act 3:',0
 EndLevelString_Act4		dc.b 'Act 4:',0
+EndLevelString_Act5		dc.b 'Act 5:',0
+EndLevelString_Act6		dc.b 'Act 6:',0
 
 	even
 	
@@ -54,3 +56,5 @@ EndLevelActNames:
 	dc.l EndLevelString_Act2
 	dc.l EndLevelString_Act3
 	dc.l EndLevelString_Act4
+	dc.l EndLevelString_Act5
+	dc.l EndLevelString_Act6
