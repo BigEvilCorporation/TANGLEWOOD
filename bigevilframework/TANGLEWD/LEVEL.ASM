@@ -9,7 +9,7 @@
 GamestateReset_LeaveAudio	equ 0
 GamestateReset_ResetAudio	equ 1
 
-LevelMaxActs				equ 0x4
+LevelMaxActs				equ 0x6
 
 	rsset 0
 LevelData_FireflyCount		rs.w 1

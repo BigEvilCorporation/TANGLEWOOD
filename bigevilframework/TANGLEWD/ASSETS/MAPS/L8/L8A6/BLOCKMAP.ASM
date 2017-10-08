@@ -7,6 +7,10 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blocks_L1_size_b	equ 0x0000EA40	; Size in bytes
-terrainmap_blocks_L1_size_w	equ (terrainmap_blocks_L1_size_b/2)	; Size in words
-terrainmap_blocks_L1_size_l	equ (terrainmap_blocks_L1_size_b/4)	; Size in longwords
+map_blockmap_L8A6_size_b	equ 0x00000960	; Size in bytes
+map_blockmap_L8A6_size_w	equ (map_blockmap_L8A6_size_b/2)	; Size in words
+map_blockmap_L8A6_size_l	equ (map_blockmap_L8A6_size_b/4)	; Size in longwords
+map_L8A6_width	equ 0x12C
+map_L8A6_height	equ 0x40
+map_blockmap_L8A6_width	equ 0x4B
+map_blockmap_L8A6_height	equ 0x10

@@ -69,7 +69,10 @@ l8a1_Init:
 	move.l #LevelData_l8a1, (a2)+
 	move.l #LevelData_L8A2, (a2)+
 	move.l #LevelData_L8A3, (a2)+
-	move.w #0x1, CurrentLevelNumActs
+	move.l #LevelData_L8A4, (a2)+
+	move.l #LevelData_L8A5, (a2)+
+	move.l #LevelData_L8A6, (a2)+
+	move.w #0x6, CurrentLevelNumActs
 	
 	; Load BG map
 	;lea    map_blocks_L7, a0
