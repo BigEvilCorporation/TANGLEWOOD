@@ -43,6 +43,10 @@
 	IF INCLUDE_LEVEL_7
 	include 'assets\levels\level7.asm'
 	ENDIF
+
+	IF INCLUDE_LEVEL_8
+	include 'assets\levels\level8.asm'
+	ENDIF
 	
 	; ************************************
 	; Sprite tilesheets

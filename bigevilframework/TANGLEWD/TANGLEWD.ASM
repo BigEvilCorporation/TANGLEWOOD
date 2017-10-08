@@ -228,6 +228,10 @@ __start
 	include 'levels\l7a2.asm'
 	include 'levels\l7a3.asm'
 	ENDIF
+
+	IF INCLUDE_LEVEL_8
+	include 'levels\l8a1.asm'
+	ENDIF
 	
 	; Include game code
 	include 'audio.asm'

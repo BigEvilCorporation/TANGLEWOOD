@@ -89,7 +89,7 @@ spriteanim_demon_emerge_track_sfx:
 	Even
 spriteanim_demon_transition:
 spriteanim_demon_transition_numframes: equ 0x4
-spriteanim_demon_transition_speed: equ 0x28
+spriteanim_demon_transition_speed: equ 0xF
 spriteanim_demon_transition_track_frames:
 	dc.b 0x4, 0x3, 0x4, 0x5
 	Even

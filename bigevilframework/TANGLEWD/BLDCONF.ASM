@@ -39,7 +39,7 @@ INCLUDE_LEVEL_4			equ 1
 INCLUDE_LEVEL_5			equ 1
 INCLUDE_LEVEL_6			equ 1
 INCLUDE_LEVEL_7			equ 1
-INCLUDE_LEVEL_8			equ 0
+INCLUDE_LEVEL_8			equ 1
 
 ; Characters
 INCLUDE_CHARACTER_ECHO	equ 1
@@ -76,8 +76,8 @@ InitialLevel			 equ l1a1_HarlequinForestAct1
 ;InitialLevel			 equ l6a2_DeadwoodAct2
 ;InitialLevel			 equ l7a1_OasisAct1
 ;InitialLevel			 equ l7a2_OasisAct2
-InitialLevel			 equ l7a3_OasisAct3
-;InitialLevel			 equ Lvl_TestLift
+;InitialLevel			 equ l7a3_OasisAct3
+InitialLevel			 equ l8a1_TurntailAct1
 	ENDIF
 
 	IFD FINAL
