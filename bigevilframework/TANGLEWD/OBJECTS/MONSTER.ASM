@@ -16,14 +16,14 @@ Monster_Width	      equ 0x0090
 Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
-Monster_MaxVelXRun    equ 0x03E000   ; Max X running velocity
+Monster_MaxVelXRun    equ 0x042000   ; Max X running velocity
 Monster_MaxVelXAir    equ 0x04E000
 Monster_MaxVelXRunTamed equ 0x04E000   ; Max X running velocity (when being ridden)
 Monster_MaxVelYUp	  equ 0x060000   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x080000   ; Max Y velocity down
 Monster_WalkToRunVel  equ 0x030000   ; Walk to run transition velocity
 Monster_AccelWalk     equ 0x000200   ; Walking acceleration
-Monster_AccelRun      equ 0x001000   ; Running acceleration
+Monster_AccelRun      equ 0x001600   ; Running acceleration
 Monster_DecelIdle     equ 0x002000   ; Deceleration if left alone
 Monster_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
 Monster_JumpVelX      equ 0x090000   ; Jump velocity impulse X
