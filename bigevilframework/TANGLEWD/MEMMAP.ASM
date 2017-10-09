@@ -326,6 +326,7 @@ SharedVRAM_Cogs			rs.w 1
 SharedVRAM_Bridge		rs.w 1
 SharedVRAM_Winch		rs.w 1
 SharedVRAM_Pool			rs.w 1
+SharedVRAM_Stalact		rs.w 1
 
 SharedVRAM_End			rs.b 0
 
@@ -443,6 +444,7 @@ EntityPoolStart_Leaf        rs.l 1
 EntityPoolStart_Log         rs.l 1
 EntityPoolStart_Nest        rs.l 1
 EntityPoolStart_Pillar      rs.l 1
+EntityPoolStart_Stalactite  rs.l 1
 EntityPoolStart_TriggerBox  rs.l 1
 EntityPoolStart_Checkpoint  rs.l 1
 EntityPoolStart_WaterBody   rs.l 1
@@ -490,6 +492,7 @@ EntityCount_Lock        rs.w 1
 EntityCount_Nest        rs.w 1
 EntityCount_Nymn        rs.w 1
 EntityCount_Pillar      rs.w 1
+EntityCount_Stalactite  rs.w 1
 EntityCount_Boulder     rs.w 1
 EntityCount_TriggerBox  rs.w 1
 EntityCount_Checkpoint  rs.w 1

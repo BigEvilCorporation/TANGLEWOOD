@@ -229,6 +229,8 @@ L5A1_Demon_count equ 0x0
 
 L5A1_Borgus_count equ 0x0
 
+L5A1_Stalactite_count equ 0x0
+
 
 
 L5A1_LoadGameObjects:
@@ -883,6 +885,7 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
+
 
 
 

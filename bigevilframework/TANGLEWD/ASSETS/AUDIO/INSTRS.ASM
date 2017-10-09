@@ -234,7 +234,7 @@ PCM03: incbin 'assets\audio\sfx\fstep\water1.ewf'
 PCM04: incbin 'assets\audio\sfx\fstep\water2.ewf'
 PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
 PCM06: incbin 'assets\audio\sfx\nymn\calllong.ewf'
-PCM07: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
-PCM08: incbin 'assets\audio\sfx\weather\thndrnr.ewf'
+PCM07: ;incbin 'assets\audio\sfx\weather\thndrfar.ewf'
+PCM08: ;incbin 'assets\audio\sfx\weather\thndrnr.ewf'
 	
 	ENDIF

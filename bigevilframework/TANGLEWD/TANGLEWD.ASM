@@ -142,6 +142,7 @@ __start
 	include 'objects\player.asm'
 	include 'objects\pool.asm'
 	include 'objects\raft.asm'
+	include 'objects\stalact.asm'
 	include 'objects\stone.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'

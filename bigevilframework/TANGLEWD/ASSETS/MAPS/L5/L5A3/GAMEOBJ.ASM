@@ -83,13 +83,7 @@ L5A3_AIMarker_count equ 0x0
 
 L5A3_Cart_count equ 0x0
 
-L5A3_Pillar_count equ 0x1
-L5A3_Pillar_2_idx	equ 0x0
-
-	IFND FINAL
-L5A3_Pillar_2_name	dc.b "L5A3_Pillar_2",0
-	even
-	ENDIF
+L5A3_Pillar_count equ 0x0
 
 L5A3_Winch_count equ 0x0
 
@@ -101,11 +95,49 @@ L5A3_Lock_count equ 0x0
 
 L5A3_Pool_count equ 0x0
 
-L5A3_Ladder_count equ 0x0
+L5A3_Ladder_count equ 0x6
+L5A3_Ladder_5_idx	equ 0x0
+L5A3_Ladder_6_idx	equ 0x1
+L5A3_Ladder_7_idx	equ 0x2
+L5A3_Ladder_8_idx	equ 0x3
+L5A3_Ladder_9_idx	equ 0x4
+L5A3_Ladder_10_idx	equ 0x5
+
+	IFND FINAL
+L5A3_Ladder_5_name	dc.b "L5A3_Ladder_5",0
+L5A3_Ladder_6_name	dc.b "L5A3_Ladder_6",0
+L5A3_Ladder_7_name	dc.b "L5A3_Ladder_7",0
+L5A3_Ladder_8_name	dc.b "L5A3_Ladder_8",0
+L5A3_Ladder_9_name	dc.b "L5A3_Ladder_9",0
+L5A3_Ladder_10_name	dc.b "L5A3_Ladder_10",0
+	even
+	ENDIF
 
 L5A3_Demon_count equ 0x0
 
 L5A3_Borgus_count equ 0x0
+
+L5A3_Stalactite_count equ 0x8
+L5A3_Stalactite_11_idx	equ 0x0
+L5A3_Stalactite_12_idx	equ 0x1
+L5A3_Stalactite_13_idx	equ 0x2
+L5A3_Stalactite_14_idx	equ 0x3
+L5A3_Stalactite_15_idx	equ 0x4
+L5A3_Stalactite_16_idx	equ 0x5
+L5A3_Stalactite_17_idx	equ 0x6
+L5A3_Stalactite_18_idx	equ 0x7
+
+	IFND FINAL
+L5A3_Stalactite_11_name	dc.b "L5A3_Stalactite_11",0
+L5A3_Stalactite_12_name	dc.b "L5A3_Stalactite_12",0
+L5A3_Stalactite_13_name	dc.b "L5A3_Stalactite_13",0
+L5A3_Stalactite_14_name	dc.b "L5A3_Stalactite_14",0
+L5A3_Stalactite_15_name	dc.b "L5A3_Stalactite_15",0
+L5A3_Stalactite_16_name	dc.b "L5A3_Stalactite_16",0
+L5A3_Stalactite_17_name	dc.b "L5A3_Stalactite_17",0
+L5A3_Stalactite_18_name	dc.b "L5A3_Stalactite_18",0
+	even
+	ENDIF
 
 
 
@@ -193,32 +225,195 @@ L5A3_LoadGameObjects:
 
 
 
+
+
+
+
+
+
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Pillar_Struct_Size*L5A3_Pillar_count)
-	move.l a1, EntityPoolStart_Pillar
+	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A3_Ladder_count)
+	move.l a1, EntityPoolStart_Ladder
 	move.l a1, a0
 	POPL   a1
 
-	jsr PillarInit
-	move.l #0x10c80000, Entity_WorldPosX(a0)
-	move.l #0x02c00000, Entity_WorldPosY(a0)
+	jsr LadderInit
+	move.l #0x18200000, Entity_WorldPosX(a0)
+	move.l #0x05200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A3_Pillar_2_name, a3
+	lea L5A3_Ladder_5_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr PillarLoadGfx
-	add.l #Pillar_Struct_Size, a0
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x1be00000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Ladder_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x1cc80000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Ladder_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x1cc80000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Ladder_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x0f800000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Ladder_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
+	jsr LadderInit
+	move.l #0x08f00000, Entity_WorldPosX(a0)
+	move.l #0x01880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Ladder_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LadderLoadGfx
+	add.l #Ladder_Struct_Size, a0
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stalactite_Struct_Size*L5A3_Stalactite_count)
+	move.l a1, EntityPoolStart_Stalactite
+	move.l a1, a0
+	POPL   a1
 
-
-
-
-
+	jsr StalactiteInit
+	move.l #0x01c00000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x02900000, Entity_WorldPosX(a0)
+	move.l #0x00c00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_12_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x03800000, Entity_WorldPosX(a0)
+	move.l #0x00c00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_13_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x04400000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_14_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x04e00000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x05600000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x12000000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_17_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x12a00000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Stalactite_18_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
 
 	rts
 
