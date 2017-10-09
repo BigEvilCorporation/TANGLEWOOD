@@ -52,6 +52,9 @@ l5a3_DefaultPalettes:
 	dc.l Pal_Nymn_Red				; Player
 	
 	even
+
+l5a3_CamShakeVel				equ 0x4000
+l5a3_CamShakeAmp				equ 0x0180
 	
 ; ************************************
 ; Runtime data
@@ -123,4 +126,17 @@ l5a3_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l5a3_Trigger_ShakeStart:
+	move.w #0x0, d0
+	move.w #l5a3_CamShakeVel, d1
+	move.w #0x0, d2
+	move.w #l5a3_CamShakeAmp, d3
+	move.w #0x0, d4
+	jsr    CAM_StartCameraShake
+	rts
+
+l5a3_Trigger_ShakeStop:
+	jsr    CAM_StopCameraShake
 	rts

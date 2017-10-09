@@ -55,7 +55,19 @@ L5A3_Nest_count equ 0x0
 
 L5A3_Flue_count equ 0x0
 
-L5A3_TriggerBox_count equ 0x0
+L5A3_TriggerBox_count equ 0x4
+L5A3_TriggerShakeStart1_idx	equ 0x0
+L5A3_TriggerShakeStop1_idx	equ 0x1
+L5A3_TriggerShakeStart2_idx	equ 0x2
+L5A3_TriggerShakeStop2_idx	equ 0x3
+
+	IFND FINAL
+L5A3_TriggerShakeStart1_name	dc.b "L5A3_TriggerShakeStart1",0
+L5A3_TriggerShakeStop1_name	dc.b "L5A3_TriggerShakeStop1",0
+L5A3_TriggerShakeStart2_name	dc.b "L5A3_TriggerShakeStart2",0
+L5A3_TriggerShakeStop2_name	dc.b "L5A3_TriggerShakeStop2",0
+	even
+	ENDIF
 
 L5A3_Checkpoint_count equ 0x0
 
@@ -63,7 +75,13 @@ L5A3_WaterBody_count equ 0x0
 
 L5A3_Location_count equ 0x0
 
-L5A3_Deathbox_count equ 0x0
+L5A3_Deathbox_count equ 0x1
+L5A3_Deathbox_23_idx	equ 0x0
+
+	IFND FINAL
+L5A3_Deathbox_23_name	dc.b "L5A3_Deathbox_23",0
+	even
+	ENDIF
 
 L5A3_Lift_count equ 0x0
 
@@ -211,10 +229,92 @@ L5A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L5A3_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x00f00000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_TriggerShakeStart1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x03500000, Entity_WorldPosX(a0)
+	move.l #0x01300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_TriggerShakeStop1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a3_Trigger_ShakeStop, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x03a00000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_TriggerShakeStart2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x05480000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_TriggerShakeStop2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a3_Trigger_ShakeStop, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L5A3_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
+
+	jsr DeathboxInit
+	move.l #0x04300000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Deathbox_23_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 
 
@@ -320,7 +420,7 @@ L5A3_LoadGameObjects:
 
 	jsr StalactiteInit
 	move.l #0x01c00000, Entity_WorldPosX(a0)
-	move.l #0x00b80000, Entity_WorldPosY(a0)
+	move.l #0x00b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_11_name, a3
 	move.l a0, a2
@@ -332,7 +432,7 @@ L5A3_LoadGameObjects:
 	add.l #Stalactite_Struct_Size, a0
 	jsr StalactiteInit
 	move.l #0x02900000, Entity_WorldPosX(a0)
-	move.l #0x00c00000, Entity_WorldPosY(a0)
+	move.l #0x00b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_12_name, a3
 	move.l a0, a2
@@ -344,7 +444,7 @@ L5A3_LoadGameObjects:
 	add.l #Stalactite_Struct_Size, a0
 	jsr StalactiteInit
 	move.l #0x03800000, Entity_WorldPosX(a0)
-	move.l #0x00c00000, Entity_WorldPosY(a0)
+	move.l #0x00b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_13_name, a3
 	move.l a0, a2
@@ -356,7 +456,7 @@ L5A3_LoadGameObjects:
 	add.l #Stalactite_Struct_Size, a0
 	jsr StalactiteInit
 	move.l #0x04400000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_14_name, a3
 	move.l a0, a2
@@ -367,8 +467,8 @@ L5A3_LoadGameObjects:
 	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
 	jsr StalactiteInit
-	move.l #0x04e00000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x04c00000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_15_name, a3
 	move.l a0, a2
@@ -379,8 +479,8 @@ L5A3_LoadGameObjects:
 	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
 	jsr StalactiteInit
-	move.l #0x05600000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x05580000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stalactite_16_name, a3
 	move.l a0, a2
