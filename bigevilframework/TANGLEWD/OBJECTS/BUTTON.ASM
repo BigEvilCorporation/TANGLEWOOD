@@ -22,6 +22,7 @@ Button_PressHeight			rs.l 1
 Button_OnDown				rs.l 1
 Button_OnUp					rs.l 1
 Button_UserData				rs.l 1
+Button_LastOccupant			rs.l 1
 Button_Active				rs.b 1
 Button_Pressed				rs.b 1
 Button_NoAI					rs.b 1
@@ -53,6 +54,7 @@ ButtonInit:
 	move.w  #Button_Width, Entity_Width(a0)
 	move.w  #Button_Height, Entity_Height(a0)
 	move.l  #0x0, Button_PressHeight(a0)
+	move.l  #0x0, Button_LastOccupant(a0)
 	move.b  #0x0, Button_Active(a0)
 	move.b  #0x0, Button_Pressed(a0)
 	move.b  #0x0, Button_NoAI(a0)
@@ -101,6 +103,15 @@ ButtonUpdate:
 	; Get button height
 	move.l Button_PressHeight(a0), d0
 	move.l d0, d1
+
+	; If current occupier is asleep, don't change state
+	move.l Button_LastOccupant(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoOccupier
+	tst.b  PhysicsObj_Asleep(a2)
+	bne    @OccupierAsleep
+
+	@NoOccupier:
 
 	; Check if platform occupied
 	lea    Button_Platform(a0), a2
@@ -220,6 +231,13 @@ ButtonUpdate:
 	move.l d2, Platform_PosY(a2)
 
 	;==============================================================
+
+	; Take last occupant
+	move.l Platform_LastOccupant(a2), Button_LastOccupant(a0)
+
+	;==============================================================
+
+	@OccupierAsleep:
 
 	; Base functionality
 	jsr    AnimObjupdate

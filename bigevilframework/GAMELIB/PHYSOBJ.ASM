@@ -174,9 +174,9 @@ PhysicsObjUpdate:
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
-	or.b   PhysicsObj_OnPlatform(a0), d0
-	or.b   PhysicsWorld_MovingPlatformsUpdated(a2), d0
-	or.b   PhysicsWorld_MovingBarriersUpdated(a2), d0
+	;or.b   PhysicsObj_OnPlatform(a0), d0
+	;or.b   PhysicsWorld_MovingPlatformsUpdated(a2), d0
+	;or.b   PhysicsWorld_MovingBarriersUpdated(a2), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
 	beq    @Asleep
@@ -661,7 +661,7 @@ PhysicsObjRest:
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
 	or.b   PhysicsObj_OnPlatform(a0), d0
-	move.b PhysicsObj_HitWall(a0), d0
+	or.b   PhysicsObj_HitWall(a0), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
 	bne    @Awake
