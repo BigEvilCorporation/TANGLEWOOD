@@ -619,12 +619,18 @@ EchoStartHiding:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	IF INCLUDE_CHARACTER_ECHO
+
 	; Set hide loop as idle anim
 	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Character_Animations,CharacterAnimIdx_Idle,1,1,0
+	
+	ENDIF
 
 	rts
 
 EchoStopHiding:
+
+	IF INCLUDE_CHARACTER_ECHO
 
 	; Get up
 	PUSHL  a1
@@ -634,6 +640,8 @@ EchoStopHiding:
 
 	; Restore idle anim
 	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+
+	ENDIF
 
 	rts
 	
