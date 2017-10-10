@@ -109,6 +109,8 @@ L8A5_Demon_2_name	dc.b "L8A5_Demon_2",0
 
 L8A5_Borgus_count equ 0x0
 
+L8A5_Stalactite_count equ 0x0
+
 
 
 L8A5_LoadGameObjects:
@@ -235,6 +237,7 @@ L8A5_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 	rts

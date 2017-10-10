@@ -257,6 +257,8 @@ L3A3_Demon_count equ 0x0
 
 L3A3_Borgus_count equ 0x0
 
+L3A3_Stalactite_count equ 0x0
+
 
 
 L3A3_LoadGameObjects:
@@ -1027,6 +1029,7 @@ L3A3_LoadGameObjects:
 	ENDIF
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
 
 
 
