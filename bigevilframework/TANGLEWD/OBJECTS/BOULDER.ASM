@@ -99,6 +99,7 @@ BoulderInit:
 	move.l  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x1, PhysicsObj_SnapToFloor(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)
 	move.l  #0x0, Boulder_SpawnY(a0)
 	move.l  #0x0, Boulder_LastVelY(a0)

@@ -91,8 +91,9 @@ PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step 
 PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
+PhysicsObj_ForceUpdate			rs.b 1 ; Force an update next frame even if sleep/out of view
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 0
+PhysicsObj_Struct_Pad      		rs.b 3
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -157,12 +158,17 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b #0x1, PhysicsObj_AffectedByWind(a0)
+	move.b #0x0, PhysicsObj_ForceUpdate(a0)
 
 	rts
 
 PhysicsObjUpdate:
  	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; If forced update, skip all checks
+	tst.b  PhysicsObj_ForceUpdate(a0)
+	bne    @ForcedUpdate
 	
 	; Check if awake
 	tst.b  PhysicsObj_Asleep(a0)
@@ -198,6 +204,9 @@ PhysicsObjUpdate:
 	beq    @Invisible
 
 	@OnPlatform:
+
+	@ForcedUpdate:
+	move.b #0x0, PhysicsObj_ForceUpdate(a0)
 	
 	tst.b  PhysicsObj_HasPhysics(a0)
 	beq    @NoPhysics
