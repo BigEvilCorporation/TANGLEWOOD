@@ -79,6 +79,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\ladder.asm
 	INCLUDE_TEXT_ASSET assets\sprites\log.asm
 	INCLUDE_TEXT_ASSET assets\sprites\lock.asm
+	INCLUDE_TEXT_ASSET assets\sprites\mushroom.asm
 	INCLUDE_TEXT_ASSET assets\sprites\nymn.asm
 	INCLUDE_TEXT_ASSET assets\sprites\leaf.asm
 	INCLUDE_TEXT_ASSET assets\sprites\lift.asm

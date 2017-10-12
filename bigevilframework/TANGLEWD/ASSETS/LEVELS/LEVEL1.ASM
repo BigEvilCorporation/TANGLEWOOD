@@ -15,12 +15,6 @@
 	include 'assets\maps\l1\stmpanim.asm'
 
 ;==============================================================
-; Props
-;==============================================================
-	include 'assets\sprites\L1\mushroom.asm'
-	include 'assets\anims\L1\mushroom.asm'
-
-;==============================================================
 ; Game objects
 ;==============================================================
 	include 'assets\maps\l1\l1a1\gameobj.asm'
