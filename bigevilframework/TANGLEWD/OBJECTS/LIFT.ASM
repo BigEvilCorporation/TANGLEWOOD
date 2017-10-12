@@ -418,12 +418,8 @@ LiftProcessCounterweight:
 
 	@EndCounterweight:
 
-	; Set platform Y velocities
-	lea    Lift_Platform(a0), a3
-	move.l PhysicsObj_VelY(a0), Platform_VelY(a3)
-
-	lea    Lift_Platform(a2), a3
-	move.l PhysicsObj_VelY(a2), Platform_VelY(a3)
+	; Sync speed divs
+	move.b AnimObj_SpeedDiv(a0), AnimObj_SpeedDiv(a2)
 
 	rts
 

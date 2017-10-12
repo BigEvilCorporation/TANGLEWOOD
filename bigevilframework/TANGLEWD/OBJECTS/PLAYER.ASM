@@ -237,6 +237,7 @@ PlayerInit:
 	move.w  #Player1MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b  #Player1Mass, PhysicsObj_Mass(a0)
 	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
+	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
 	
 	move.l  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Player1MaxVelXRun, Character_MaxVelXRun(a0)

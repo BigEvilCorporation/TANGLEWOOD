@@ -32,6 +32,7 @@ PhysicsObj_LastFloor        	rs.l 1 ; Last detected floor Y
 PhysicsObj_LastCeiling      	rs.l 1 ; Last detected ceiling Y
 PhysicsObj_LastPlatform			rs.l 1 ; Last detected platform addr
 PhysicsObj_LastBarrier			rs.l 1 ; Last detected barrier addr
+PhysicsObj_LastFloorVelocity	rs.l 1 ; Last detected moving platform Y velocity
 PhysicsObj_LastWallVelocity		rs.l 1 ; Last detected moving wall X velocity
 PhysicsObj_VelX    		    	rs.l 1 ; X velocity
 PhysicsObj_VelY    		    	rs.l 1 ; Y velocity
@@ -88,12 +89,13 @@ PhysicsObj_OnPlatform			rs.b 1 ; Object is on a platform
 PhysicsObj_HitWall		    	rs.b 1 ; Object is touching a wall (PhysicsObjHitWall* flags)
 PhysicsObj_UnderWater			rs.b 1 ; Object is underwater
 PhysicsObj_SnapToFloor	    	rs.b 1 ; Object should snap to floor if within step height
+PhysicsObj_SnapToMovingPlatform rs.b 1 ; Object should snap to moving platforms if within step height
 PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise use deceleration
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 PhysicsObj_ForceUpdate			rs.b 1 ; Force an update next frame even if sleep/out of view
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 3
+PhysicsObj_Struct_Pad      		rs.b 2
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -113,6 +115,7 @@ PhysicsObjInit:
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.l #0x0, PhysicsObj_LastBarrier(a0)
+	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.l #0x0, PhysicsObj_LastWallVelocity(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
@@ -153,6 +156,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	move.b #0x0, PhysicsObj_HitWall(a0)
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
+	move.b #0x0, PhysicsObj_SnapToMovingPlatform(a0)
 	move.b #0x0, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	move.b #0x0, PhysicsObj_CanBePulled(a0)
@@ -740,14 +744,24 @@ PhysicsObjCollisionCorrection:
 	cmp.l  d2, d1									; Check if object is on or under floor-step height
 	blt    @NotCloseToFloor
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
-	tst.b  PhysicsObj_SnapToFloor(a0)			; Check if snap to floor is enabled
-	beq    @SnapToFloorDisabled
+
+	; Snap to floor
+	tst.b  PhysicsObj_SnapToFloor(a0)				; Check if snap to floor is enabled
+	bne    @SnapToFloor
+	tst.b  PhysicsObj_SnapToMovingPlatform(a0)		; Check if snap to platform is enabled
+	beq    @EndSnapToFloor
+	tst.b  PhysicsObj_OnPlatform(a0)				; Check if on platform
+	beq    @EndSnapToFloor
+	tst.l  PhysicsObj_LastFloorVelocity(a0)			; Check if platform moving
+	beq    @EndSnapToFloor
+	@SnapToFloor:
 	add.l  d3, d2
 	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
+	@EndSnapToFloor:
+
 	@Uninitialised:
 	@NotCloseToFloor:
 	@EndFloorTest:
-	@SnapToFloorDisabled:
 	
 	;==============================================================
 	; Correct ceiling collision
@@ -926,6 +940,7 @@ PhysicsObjFindFloor:
 	beq   @NoPlatform
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
+	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
@@ -988,6 +1003,9 @@ PhysicsObjFindFloor:
 	; Add platform X velocity
 	move.l Platform_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
+
+	; Set last Y velocity
+	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
 	clr.w  d2
@@ -1569,6 +1587,7 @@ PhysicsObjFindMovingFloor:
 	beq   @NoPlatform
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
+	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD MovingPlatforms,a3	; Get list head
@@ -1630,6 +1649,9 @@ PhysicsObjFindMovingFloor:
 	; Add platform X velocity
 	move.l Platform_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
+
+	; Set last Y velocity
+	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
 	clr.w  d2
