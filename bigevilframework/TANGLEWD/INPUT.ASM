@@ -103,8 +103,14 @@ HandlePlayerInput:
 	PUSHL a0
 	PUSHL d0
 	PUSHL d1
+	; HACK - Don't pause if palette fading
+	; TODO - Wait for palette to finish lerping before starting greyscale effect
+	jsr   PAL_LerpActive
+	tst.b d0
+	bne   @NoPause
 	lea   GameStatePause, a0
 	jsr   GamestatePush
+	@NoPause:
 	POPL  d1
 	POPL  d0
 	POPL  a0
