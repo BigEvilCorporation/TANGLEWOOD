@@ -784,7 +784,7 @@ FuzzlUpdateEyes:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	lea Player1, a2
+	move.l Player1, a2
 	
 	; Get Fuzzl centre
 	ENTITY_GETCENTREVEC2 d1, d2, a0
