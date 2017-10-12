@@ -155,11 +155,6 @@ l3a1_Init:
 	ENTITY_GETBYNAME Lift, l3a1_Lift2, a2
 	jsr    LiftAttachCounterweightLift
 
-	; Set counterweights to always update
-	ENTITY_GETBYNAME Boulder, l3a1_BoulderCounterweight1, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, Boulder_CanCrack(a0)
-
 	; Lock Fuzzls in cages
 	ENTITY_GETBYNAME FuzzlCage, l3a1_FuzzlCage1, a0
 	ENTITY_GETBYNAME Fuzzl, l3a1_FuzzlCaged1, a2
