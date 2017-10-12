@@ -225,6 +225,8 @@ L1A2_Demon_count equ 0x0
 
 L1A2_Borgus_count equ 0x0
 
+L1A2_Stalactite_count equ 0x0
+
 
 
 L1A2_LoadGameObjects:
@@ -868,6 +870,7 @@ L1A2_LoadGameObjects:
 	ENDIF
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
+
 
 
 

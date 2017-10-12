@@ -237,17 +237,17 @@ L1A4_Cogs_count equ 0x0
 
 L1A4_Bridge_count equ 0x0
 
-L1A4_Button_count equ 0x1
-L1A4_Button_93_idx	equ 0x0
-
-	IFND FINAL
-L1A4_Button_93_name	dc.b "L1A4_Button_93",0
-	even
-	ENDIF
+L1A4_Button_count equ 0x0
 
 L1A4_Wyrm_count equ 0x0
 
-L1A4_AIMarker_count equ 0x0
+L1A4_AIMarker_count equ 0x1
+L1A4_AIMarker_94_idx	equ 0x0
+
+	IFND FINAL
+L1A4_AIMarker_94_name	dc.b "L1A4_AIMarker_94",0
+	even
+	ENDIF
 
 L1A4_Cart_count equ 0x0
 
@@ -268,6 +268,8 @@ L1A4_Ladder_count equ 0x0
 L1A4_Demon_count equ 0x0
 
 L1A4_Borgus_count equ 0x0
+
+L1A4_Stalactite_count equ 0x0
 
 
 
@@ -1161,25 +1163,26 @@ L1A4_LoadGameObjects:
 
 
 
+
+
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L1A4_Button_count)
-	move.l a1, EntityPoolStart_Button
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L1A4_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
 	move.l a1, a0
 	POPL   a1
 
-	jsr ButtonInit
-	move.l #0x1e580000, Entity_WorldPosX(a0)
-	move.l #0x03200000, Entity_WorldPosY(a0)
+	jsr AIMarkerInit
+	move.l #0x1e500000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L1A4_Button_93_name, a3
+	lea L1A4_AIMarker_94_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr ButtonLoadGfx
-	add.l #Button_Struct_Size, a0
-
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 
 

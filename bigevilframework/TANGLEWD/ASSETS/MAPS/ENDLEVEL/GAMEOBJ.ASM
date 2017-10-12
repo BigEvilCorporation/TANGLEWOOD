@@ -95,6 +95,8 @@ end_level_Demon_count equ 0x0
 
 end_level_Borgus_count equ 0x0
 
+end_level_Stalactite_count equ 0x0
+
 
 
 end_level_LoadGameObjects:
@@ -147,6 +149,7 @@ end_level_LoadGameObjects:
 	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

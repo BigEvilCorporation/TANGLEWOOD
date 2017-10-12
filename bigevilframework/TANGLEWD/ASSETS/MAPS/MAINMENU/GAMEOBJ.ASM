@@ -111,6 +111,8 @@ main_menu_Demon_count equ 0x0
 
 main_menu_Borgus_count equ 0x0
 
+main_menu_Stalactite_count equ 0x0
+
 
 
 main_menu_LoadGameObjects:
@@ -221,6 +223,7 @@ main_menu_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 

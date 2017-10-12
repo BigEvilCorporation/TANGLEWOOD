@@ -39,7 +39,7 @@ L1A1_Nymn_34_name	dc.b "L1A1_Nymn_34",0
 
 L1A1_BouncePlant_count equ 0x7
 L1A1_BouncePlant_62_idx	equ 0x0
-L1A1_BouncePlant_28_idx	equ 0x1
+L1A1_Mushroom_idx	equ 0x1
 L1A1_BouncePlant_29_idx	equ 0x2
 L1A1_BouncePlant_53_idx	equ 0x3
 L1A1_BouncePlant_32_idx	equ 0x4
@@ -48,7 +48,7 @@ L1A1_BouncePlant_71_idx	equ 0x6
 
 	IFND FINAL
 L1A1_BouncePlant_62_name	dc.b "L1A1_BouncePlant_62",0
-L1A1_BouncePlant_28_name	dc.b "L1A1_BouncePlant_28",0
+L1A1_Mushroom_name	dc.b "L1A1_Mushroom",0
 L1A1_BouncePlant_29_name	dc.b "L1A1_BouncePlant_29",0
 L1A1_BouncePlant_53_name	dc.b "L1A1_BouncePlant_53",0
 L1A1_BouncePlant_32_name	dc.b "L1A1_BouncePlant_32",0
@@ -207,6 +207,8 @@ L1A1_Demon_count equ 0x0
 
 L1A1_Borgus_count equ 0x0
 
+L1A1_Stalactite_count equ 0x0
+
 
 
 L1A1_LoadGameObjects:
@@ -320,10 +322,10 @@ L1A1_LoadGameObjects:
 	move.l #0x03000000, Entity_WorldPosX(a0)
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L1A1_BouncePlant_28_name, a3
+	lea L1A1_Mushroom_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
@@ -776,6 +778,7 @@ L1A1_LoadGameObjects:
 	ENDIF
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
+
 
 
 

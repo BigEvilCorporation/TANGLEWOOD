@@ -213,6 +213,8 @@ L1A3_Demon_count equ 0x0
 
 L1A3_Borgus_count equ 0x0
 
+L1A3_Stalactite_count equ 0x0
+
 
 
 L1A3_LoadGameObjects:
@@ -796,6 +798,7 @@ L1A3_LoadGameObjects:
 	ENDIF
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
+
 
 
 
