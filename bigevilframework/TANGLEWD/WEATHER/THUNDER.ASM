@@ -216,6 +216,8 @@ ThunderSound:
 	; a1 --- Level addr
 	; d0 (w) Distance
 
+	rts
+
 	cmp.b  #Thunder_HarmfulDistance, Thunder_Distance(a2)
 	bgt    @Far
 
@@ -242,6 +244,24 @@ ThunderFindTerrain:
 	swap   d1
 	move.w WorldScrollY, d1
 	subi.w #screen_height, d1
+
+	; Clamp to map top
+	tst.w  d1
+	bgt    @WithinYBounds
+	move.w #0x0, d1
+	@WithinYBounds:
+
+	; Translate probe position to collision map space
+	move.w Level_ColMapTop(a1), d6
+	TILES2PIXELS d6
+	sub.w  d6, d0
+	sub.w  d6, d1
+	swap   d1
+
+	move.w Level_ColMapWidth(a1), d3
+	TILES2PIXELS d3
+	sub.w  d5, d1
+	swap   d1
 	
 	PUSHL  a2
 
@@ -262,7 +282,7 @@ ThunderFindTerrain:
 	blt    @UseEndPos
 
 	; Find terrain
-	PUSHM  d1-d3/a0-a1
+	PUSHM  d1-d6/a0-a1
 	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
 	swap   d2
 	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
@@ -270,7 +290,7 @@ ThunderFindTerrain:
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
-	POPM   d1-d3/a0-a1
+	POPM   d1-d6/a0-a1
 
 	tst.w  d0
 	bne    @Found
@@ -290,7 +310,8 @@ ThunderFindTerrain:
 	POPL   a2
 
 	; Set result
-	addi.w #vdp_sprite_border_y, d0
+	add.w  d6, d0							; Back to map space
+	addi.w #vdp_sprite_border_y, d0			; Back to sprite space
 	move.w d0, Thunder_StrikePointY(a2)
 
 	rts
