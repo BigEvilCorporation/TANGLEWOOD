@@ -83,7 +83,9 @@ ThunderStrike:
 
 	; Strike at player X offset
 	move.l (Player1), a3
-	move.w Entity_WorldPosX(a3), Thunder_StrikePointX(a2)
+	ENTITY_GETCENTREX d0, a3
+	TOPIXELS d0
+	move.w d0, Thunder_StrikePointX(a2)
 
 	; Search for strike point up to player Y pos
 	move.w Entity_WorldPosY(a3), d0
@@ -256,8 +258,8 @@ ThunderFindTerrain:
 	sub.w  d6, d1
 	swap   d1
 
-	move.w Level_ColMapWidth(a1), d3
-	TILES2PIXELS d3
+	move.w Level_ColMapLeft(a1), d5
+	TILES2PIXELS d5
 	sub.w  d5, d1
 	swap   d1
 	
@@ -281,9 +283,9 @@ ThunderFindTerrain:
 
 	; Find terrain
 	PUSHM  d1-d6/a0-a1
-	move.w Level_MapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
+	move.w Level_ColMapWidthBlocks(a1), d2		; Map width (in blocks) to d2 hi
 	swap   d2
-	move.w Level_MapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
+	move.w Level_ColMapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
