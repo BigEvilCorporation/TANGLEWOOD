@@ -8,6 +8,20 @@
 
 WIND_DEBUG	equ 0
 
+WindInit:
+
+	move.l  #0x0, WindAccel
+	move.l  #0x0, WindMaxStrength
+	move.l  #0x0, WindRandStrengthMin
+	move.l  #0x0, WindRandStrengthMax
+	move.w  #0x0, WindDelayTimer
+	move.w  #0x0, WindDurationTimer
+
+	lea    PhysicsWorld, a2
+	move.l #0x0, PhysicsWorld_Wind(a2)
+
+	rts
+
 WindSetStrength:
 	; d0 (l) Strength
 	; d1 (w) Lerp speed

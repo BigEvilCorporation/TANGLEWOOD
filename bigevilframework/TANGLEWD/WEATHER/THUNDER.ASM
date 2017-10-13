@@ -216,8 +216,6 @@ ThunderSound:
 	; a1 --- Level addr
 	; d0 (w) Distance
 
-	rts
-
 	cmp.b  #Thunder_HarmfulDistance, Thunder_Distance(a2)
 	bgt    @Far
 

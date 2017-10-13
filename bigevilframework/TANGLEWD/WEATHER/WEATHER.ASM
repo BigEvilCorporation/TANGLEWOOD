@@ -12,3 +12,9 @@ WeatherUpdate:
 	jsr ThunderUpdate
 
 	rts
+
+WeatherInit:
+
+	jsr WindInit
+
+	rts
