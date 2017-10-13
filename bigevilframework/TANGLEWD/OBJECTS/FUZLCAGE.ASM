@@ -338,7 +338,7 @@ FuzzlCageSmash:
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Play smash SFX
-	; PLAYSFX #SFX_FuzzlCageBreak
+	PLAYSFX #SFX_CrateSmash
 
 	; Notify Fuzzl
 	PUSHL  a0

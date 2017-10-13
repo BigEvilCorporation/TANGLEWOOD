@@ -121,7 +121,7 @@ track_bgm_cue_l2:
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
+	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
@@ -131,7 +131,7 @@ track_bgm_cue_l3:
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
+	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even

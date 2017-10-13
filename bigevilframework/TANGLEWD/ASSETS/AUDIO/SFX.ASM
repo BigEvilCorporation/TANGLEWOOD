@@ -82,6 +82,20 @@ SFX_Data_Thunder_Near:
 	ESF_Delay 232
 	ESF_Stop
 	even
+
+SFX_Data_CrateSmash:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+9
+	ESF_Delay 19
+	ESF_Stop
+	even
+
+SFX_Data_Elder_Roar:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+10
+	ESF_Delay 62
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -179,6 +193,13 @@ SFX_CageDoorRaise:
 
 SFX_CratePush:
 	dc.l SFX_Data_CratePush			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	even
+
+SFX_CrateSmash:
+	dc.l SFX_Data_CrateSmash		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
@@ -389,6 +410,13 @@ SFX_Djakk_Roar:
 
 SFX_Djakk_Bite:
 	dc.l SFX_Data_Djakk_Bite		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Elder_Roar:
+	dc.l SFX_Data_Elder_Roar		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

@@ -119,6 +119,8 @@ echo_instruments:
 	Echo_ListEntry PCM06
 	Echo_ListEntry PCM07
 	Echo_ListEntry PCM08
+	Echo_ListEntry PCM09
+	Echo_ListEntry PCM10
 	
     Echo_ListEnd
 	
@@ -236,5 +238,7 @@ PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
 PCM06: incbin 'assets\audio\sfx\nymn\calllong.ewf'
 PCM07: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
 PCM08: incbin 'assets\audio\sfx\weather\thndrnr.ewf'
+PCM09: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
+PCM10: incbin 'assets\audio\sfx\djakk\elder.ewf'
 	
 	ENDIF

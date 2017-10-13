@@ -662,7 +662,21 @@ MonsterRoar:
 	move.l (sp)+, a1
 	
 	; Start roar SFX
+	move.b Monster_Type(a0), d0
+	cmp.b  #MonsterType_Djakk, d0
+	beq    @Djakk
+	cmp.b  #MonsterType_Elder, d0
+	beq    @Elder
+
+	@Djakk:
 	PLAYSFX #SFX_Djakk_Roar
+	bra    @EndSFX
+
+	@Elder:
+	PLAYSFX #SFX_Elder_Roar
+	bra    @EndSFX
+
+	@EndSFX:
 
 	rts
 
