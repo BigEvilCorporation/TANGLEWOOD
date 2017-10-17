@@ -63,49 +63,61 @@ FREESTACKB: macro bytes
 ; Copy memory (longwords)
 MEMCPYL: macro destreg,sourcereg,countreg
 	subq.w #0x1, \countreg
+	PUSHM  \destreg/\sourcereg
 	@MEMCPYL_LP\@:
 	move.l (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
+	POPM   \destreg/\sourcereg
 	endm
 
 ; Copy memory (words)
 MEMCPYW: macro destreg,sourcereg,countreg
 	subq.w #0x1, \countreg
+	PUSHM  \destreg/\sourcereg
 	@MEMCPYL_LP\@:
 	move.w (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYL_LP\@
+	POPM   \destreg/\sourcereg
 	endm
 
 ; Copy memory (bytes)
 MEMCPYB: macro destreg,sourcereg,countreg
 	subq.w #0x1, \countreg
+	PUSHM  \destreg/\sourcereg
 	@MEMCPYB_LP\@:
 	move.b (\sourcereg)+, (\destreg)+
 	dbra   \countreg, @MEMCPYB_LP\@
+	POPM   \destreg/\sourcereg
 	endm
 	
 ; Zero memory (longwords)
 MEMZEROL: macro addressreg,countreg
 	subq.w #0x1, \countreg
+	PUSHL  \addressreg
 	@MEMZEROL_LP\@:
 	move.l #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROL_LP\@
+	POPL   \addressreg
 	endm
 
 ; Zero memory (words)
 MEMZEROW: macro addressreg,countreg
 	subq.w #0x1, \countreg
+	PUSHL  \addressreg
 	@MEMZEROW_LP\@:
 	move.w #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROW_LP\@
+	POPL   \addressreg
 	endm
 
 ; Zero memory (bytes)
 MEMZEROB: macro addressreg,countreg
 	subq.w #0x1, \countreg
+	PUSHL  \addressreg
 	@MEMZEROB_LP\@:
 	move.b #0x0, (\addressreg)+
 	dbra   \countreg, @MEMZEROB_LP\@
+	POPL   \addressreg
 	endm
 
 ;==============================================================

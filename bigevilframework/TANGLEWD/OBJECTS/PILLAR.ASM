@@ -61,6 +61,8 @@ PillarInit:
 	
 	; Setup barrier
 	lea    Pillar_Barrier(a0), a2
+	move.l #Barrier_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.w #Pillar_BarrierWidth, Barrier_Width(a2)
 	move.w #Pillar_Height, Barrier_Height(a2)
 	move.l #Pillar_BreakVelocity, Barrier_BreakVel(a2)

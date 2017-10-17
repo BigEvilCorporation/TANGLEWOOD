@@ -71,6 +71,8 @@ RaftInit:
 
 	; Setup platform
 	lea    Raft_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.w #Raft_Width, Platform_Width(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)

@@ -86,7 +86,8 @@ StoneInit:
 	
 	; Setup barrier
 	lea    Stone_Barrier(a0), a2
-	
+	move.l #Barrier_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.w #Stone_Width, Barrier_Width(a2)
 	move.w #Stone_Height, Barrier_Height(a2)
 	

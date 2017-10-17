@@ -71,6 +71,8 @@ DjakkCageInit:
 	
 	; Setup barrier
 	lea    DjakkCage_Barrier(a0), a2
+	move.l #Barrier_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.w #DjakkCage_Width, Barrier_Width(a2)
 	move.w #DjakkCage_Height, Barrier_Height(a2)
 	LIST_APPEND_TAIL Barriers, a2, a3

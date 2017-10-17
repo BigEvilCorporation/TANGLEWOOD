@@ -139,6 +139,8 @@ BridgeInit:
 
 	; Setup platform
 	lea    Bridge_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Bridge_PlatformWidth, Platform_Width(a2)
@@ -148,6 +150,8 @@ BridgeInit:
 
 	; Setup barrier
 	lea    Bridge_Barrier(a0), a2
+	move.l #Barrier_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.w #Bridge_BarrierWidth, Barrier_Width(a2)
 	move.w #Bridge_BarrierHeight, Barrier_Height(a2)
 	jsr    BridgeActivateBarrier

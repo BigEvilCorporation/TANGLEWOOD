@@ -53,6 +53,8 @@ PoolInit:
 
 	; Setup platform
 	lea    Pool_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.w #Pool_Width, Platform_Width(a2)
 	move.w #col_tile_flag_special, Platform_TerrainFlags(a2)

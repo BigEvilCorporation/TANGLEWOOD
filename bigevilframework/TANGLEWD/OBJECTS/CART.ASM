@@ -94,6 +94,8 @@ CartInit:
 	
 	; Setup platform
 	lea    Cart_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.w #Cart_Width, Platform_Width(a2)
 	

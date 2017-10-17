@@ -114,6 +114,8 @@ LogInit:
 	
 	; Setup platform
 	lea    Log_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Rolling, Platform_Type(a2)
 	move.w #Log_PlatformWidth, Platform_Width(a2)

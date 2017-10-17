@@ -47,6 +47,8 @@ LadderInit:
 
 	; Setup platform
 	lea    Ladder_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.w #Ladder_Width, Platform_Width(a2)
 	LIST_APPEND_TAIL Platforms, a2, a3
 

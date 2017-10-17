@@ -63,6 +63,8 @@ ButtonInit:
 	
 	; Setup platform
 	lea    Button_Platform(a0), a2
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a2, d0
 	move.b #PlatformType_Sliding, Platform_Type(a2)
 	move.w #Button_Width, Platform_Width(a2)
 	

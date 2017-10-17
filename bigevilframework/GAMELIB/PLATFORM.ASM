@@ -30,3 +30,11 @@ Platform_Dirty			rs.b 1
 Platform_Struct_Pad		rs.b 3
 Platform_Struct_Size	rs.b 0
 ;---------------------------------
+
+PlatformInit:
+	; a0 --- Platform
+
+	move.l #Platform_Struct_Size, d0
+	MEMZEROB a0, d0
+
+	rts
