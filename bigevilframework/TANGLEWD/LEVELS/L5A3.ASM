@@ -92,6 +92,33 @@ l5a3_Init:
 
 	;==============================================================
 
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l5a3_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l5a3_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generators to buttons, and disable buttons by default
+	ENTITY_GETBYNAME Generator, l5a3_Generator1, a0
+	ENTITY_GETBYNAME Button, l5a3_Button2, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l5a3_Button1, a0
+	ENTITY_GETBYNAME Bridge, l5a3_Bridge1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.b #0x1, Button_Active(a0)
+
+	; Connect buttons to bridges
+	ENTITY_GETBYNAME Button, l5a3_Button2, a0
+	ENTITY_GETBYNAME Bridge, l5a3_TEMP_Bridge2, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginDrop, Button_OnDown(a0)
+
+	;==============================================================
+
 	; 'Special' terrain is cart rails, don't collide
 	move.l (Player1), a2
 	move.l (Player2), a3
@@ -139,4 +166,18 @@ l5a3_Trigger_ShakeStart:
 
 l5a3_Trigger_ShakeStop:
 	jsr    CAM_StopCameraShake
+	rts
+
+l5a3_Trigger_EchoUnderground:
+
+	PUSHL a0
+
+	; Get Echo
+	move.l (Player2), a0
+
+	; Start linear follow
+	jsr    EchoAIStart_LinearFollow
+
+	POPL  a0
+
 	rts
