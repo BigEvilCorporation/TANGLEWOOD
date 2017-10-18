@@ -2106,6 +2106,39 @@ PhysicsObjPushPullObj:
 
 	; Wake physics to re-evaluate
 	move.b #0x0, PhysicsObj_Asleep(a2)
+
+	; If object is hitting wall, then this object is also (effectively) hitting wall
+	move.b PhysicsObj_HitWall(a2), d5
+	andi.b #PhysicsObjHitWallLeft, d5
+	beq    @HitRight
+	
+	; Obj hitting wall to the left, use obj right bounds as wall
+	ENTITY_GETRIGHT d0,a2
+	move.w PhysicsObj_WallProbeLeft(a0), d1
+	move.w PhysicsObj_BoundsLeft(a0), d2
+	sub.w  d1, d2
+	move.l d0, PhysicsObj_LastWall(a0)
+	sub.w  d2, PhysicsObj_LastWall(a0)
+	move.b #(PhysicsObjHitWallLeft|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
+	bra    @HitLeft
+
+	@HitRight:
+
+	; Obj hitting wall to the right, use obj left bounds as wall
+	ENTITY_GETLEFT d0,a2
+	move.w PhysicsObj_WallProbeRight(a0), d2
+	move.w PhysicsObj_BoundsLeft(a0), d1
+	add.w  PhysicsObj_BoundsWidth(a0), d1
+	sub.w  d1, d2
+	move.l d0, PhysicsObj_LastWall(a0)
+	add.w  d2, PhysicsObj_LastWall(a0)
+	move.b #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
+
+	@HitLeft:
+
+	; Re-run collision avoidance
+	jsr    PhysicsObjCollisionCorrection
+
 	bra    @End
 
 	@CannotPush:
