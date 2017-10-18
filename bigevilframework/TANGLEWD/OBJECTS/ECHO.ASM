@@ -14,7 +14,7 @@ ECHO_AI_DEBUG_STATE			equ 0
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
-Echo_ProbeWallTop			equ 0x0010		; Slightly lower wall probe (can squeeze through small gaps)
+Echo_ProbeWallTop			equ 0x0018		; Slightly lower wall probe (can squeeze through small gaps)
 Echo_HowlCameraLerpSpeed	equ 0x0010
 
 ; AI
