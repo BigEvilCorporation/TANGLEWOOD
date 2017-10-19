@@ -106,9 +106,7 @@ l5a3_Init:
 
 	; Connect buttons to bridges
 	ENTITY_GETBYNAME Button, l5a3_Button1, a0
-	ENTITY_GETBYNAME Bridge, l5a3_Bridge1, a1
-	move.l a1, Button_UserData(a0)
-	move.l #BridgeBeginUnroll, Button_OnDown(a0)
+	move.l #l5a3_Button_Bridge1, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 
 	; Connect buttons to bridges
@@ -177,6 +175,22 @@ l5a3_Trigger_EchoUnderground:
 
 	; Start linear follow
 	jsr    EchoAIStart_LinearFollow
+
+	POPL  a0
+
+	rts
+
+l5a3_Button_Bridge1:
+
+	PUSHL a0
+
+	; Roll bridge
+	ENTITY_GETBYNAME Bridge, l5a3_Bridge1, a0
+	jsr    BridgeBeginUnroll
+
+	; Restart Echo AI
+	move.l Player2, a0
+	jsr    EchoAIStart_Follow
 
 	POPL  a0
 

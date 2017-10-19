@@ -841,6 +841,8 @@ EchoAIStop:
 	; a1 --- Level addr
 
 	move.b #EchoAIState_None, Echo_AIState(a0)
+	jsr    CharacterCancelXMovement
+	move.l #0x0, PhysicsObj_VelX(a0)
 
 	rts
 
@@ -2083,9 +2085,12 @@ EchoAI_FindInterestingObj:
 	bra    @End
 	@NoWater:
 
+	; Search AI markers
+	jsr    EchoAI_FindAIMarker
+
 	;==============================================================
 	
-	; If Echo on floor, don't search the rest
+	; If Echo off floor, don't search the rest
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @End
 
@@ -2124,6 +2129,52 @@ EchoAI_FindInterestingObj:
 	@NoRaft:
 
 	@End:
+
+	rts
+
+EchoAI_FindAIMarker:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	move.w (EntityCount_AIMarker), d6
+	tst.w  d6
+	beq    @NoAIMarkers
+	move.l (EntityPoolStart_AIMarker), a2
+	subq.w  #0x1, d6
+	@AIMarkerLoop:
+
+	; Check if interesting type
+	; TODO: All marker types
+	cmp.b  #AIMarker_Type_Wait, AIMarker_Type(a2)
+	bne    @NextAIMarker
+
+	; Check if active
+	tst.b  Entity_Active(a2)
+	beq    @NextAIMarker
+
+	; Check touching
+	ENTITY_GETBOUNDS d1,d2,d5,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NextAIMarker
+
+	; Done
+	move.b #0x0, Entity_Active(a2)
+
+	; TODO: All marker types
+	jsr    EchoAIStop
+
+	bra    @FoundAIMarker
+
+	@NextAIMarker:
+	lea    AIMarker_Struct_Size(a2), a2
+	dbra   d6, @AIMarkerLoop
+	
+	@NoAIMarkers:
+	move.l #0x0, a2
+
+	@FoundAIMarker:
 
 	rts
 
@@ -3088,6 +3139,10 @@ EchoAIPanic:
 	move.l (EntityPoolStart_AIMarker), a3
 	subq.w  #0x1, d6
 	@AIMarkerLoop:
+
+	; Check correct type
+	cmp.b   #AIMarker_Type_SafePos, AIMarker_Type(a3)
+	bne     @NextAIMarker
 
 	; Get marker pos
 	move.w  Entity_WorldPosX(a3), d1
