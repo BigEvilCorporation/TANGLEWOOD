@@ -47,21 +47,25 @@ L5A3_Firefly_count equ 0x0
 
 L5A3_FuzzlCage_count equ 0x0
 
-L5A3_Fuzzl_count equ 0x4
+L5A3_Fuzzl_count equ 0x3
 L5A3_FuzzlBlue1_idx	equ 0x0
 L5A3_FuzzlYellow2_idx	equ 0x1
 L5A3_FuzzlRed1_idx	equ 0x2
-L5A3_Fuzzl_43_idx	equ 0x3
 
 	IFND FINAL
 L5A3_FuzzlBlue1_name	dc.b "L5A3_FuzzlBlue1",0
 L5A3_FuzzlYellow2_name	dc.b "L5A3_FuzzlYellow2",0
 L5A3_FuzzlRed1_name	dc.b "L5A3_FuzzlRed1",0
-L5A3_Fuzzl_43_name	dc.b "L5A3_Fuzzl_43",0
 	even
 	ENDIF
 
-L5A3_Stone_count equ 0x0
+L5A3_Stone_count equ 0x1
+L5A3_Stone_45_idx	equ 0x0
+
+	IFND FINAL
+L5A3_Stone_45_name	dc.b "L5A3_Stone_45",0
+	even
+	ENDIF
 
 L5A3_Nest_count equ 0x2
 L5A3_Nest_27_idx	equ 0x0
@@ -149,7 +153,13 @@ L5A3_Button2_name	dc.b "L5A3_Button2",0
 
 L5A3_Wyrm_count equ 0x0
 
-L5A3_AIMarker_count equ 0x0
+L5A3_AIMarker_count equ 0x1
+L5A3_MarkerEchoWait1_idx	equ 0x0
+
+	IFND FINAL
+L5A3_MarkerEchoWait1_name	dc.b "L5A3_MarkerEchoWait1",0
+	even
+	ENDIF
 
 L5A3_Cart_count equ 0x0
 
@@ -327,19 +337,25 @@ L5A3_LoadGameObjects:
 	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
-	jsr FuzzlInit
-	move.l #0x01a80000, Entity_WorldPosX(a0)
-	move.l #0x01500000, Entity_WorldPosY(a0)
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L5A3_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x07480000, Entity_WorldPosX(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A3_Fuzzl_43_name, a3
+	lea L5A3_Stone_45_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
-	add.l #Fuzzl_Struct_Size, a0
-
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A3_Nest_count)
@@ -438,8 +454,8 @@ L5A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x07580000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #0x07400000, Entity_WorldPosX(a0)
+	move.l #0x01780000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_TriggerEchoStartFollowUnderground_name, a3
 	move.l a0, a2
@@ -592,6 +608,25 @@ L5A3_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L5A3_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
+	move.l #0x04480000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_MarkerEchoWait1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #AIMarker_Type_Wait, AIMarker_Type(a0)
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 
 	PUSHL  a1

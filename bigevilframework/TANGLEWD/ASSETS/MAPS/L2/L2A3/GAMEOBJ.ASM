@@ -231,6 +231,8 @@ L2A3_Demon_count equ 0x0
 
 L2A3_Borgus_count equ 0x0
 
+L2A3_Stalactite_count equ 0x0
+
 
 
 L2A3_LoadGameObjects:
@@ -916,6 +918,7 @@ L2A3_LoadGameObjects:
 	ENDIF
 	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
 
 
 

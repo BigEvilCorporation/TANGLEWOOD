@@ -7,28 +7,28 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L2A3_size_b	equ 0x0000679C	; Size in bytes
+terrainmap_blockmap_L2A3_size_b	equ 0x00004C90	; Size in bytes
 terrainmap_blockmap_L2A3_size_w	equ (terrainmap_blockmap_L2A3_size_b/2)	; Size in words
 terrainmap_blockmap_L2A3_size_l	equ (terrainmap_blockmap_L2A3_size_b/4)	; Size in longwords
 terrainmap_L2A3_left	equ 0x00
 terrainmap_L2A3_top	equ 0x00
 terrainmap_L2A3_width	equ 0x574
-terrainmap_L2A3_height	equ 0x98
+terrainmap_L2A3_height	equ 0x6C
 terrainmap_blockmap_L2A3_left	equ 0x00
 terrainmap_blockmap_L2A3_top	equ 0x00
-terrainmap_blockmap_L2A3_width	equ 0x15D
-terrainmap_blockmap_L2A3_height	equ 0x26
+terrainmap_blockmap_L2A3_width	equ 0x15E
+terrainmap_blockmap_L2A3_height	equ 0x1C
 
-; Terrain beziers start/end positions
+; Terrain bezier bounds
 terrainmap_L2A3_num_special_terrain_descs	equ 0x09
 terrainmap_L2A3_special_terrain_descs:
-	dc.w 0x0E78, 0x0197, 0x0EA8, 0x0197	; Start X, start Y, end X, end Y
-	dc.w 0x1078, 0x0177, 0x10C8, 0x0177	; Start X, start Y, end X, end Y
-	dc.w 0x13D8, 0x00EF, 0x1428, 0x00EF	; Start X, start Y, end X, end Y
-	dc.w 0x13D8, 0x013F, 0x1428, 0x013F	; Start X, start Y, end X, end Y
-	dc.w 0x1918, 0x0087, 0x1968, 0x0087	; Start X, start Y, end X, end Y
-	dc.w 0x1B18, 0x00DF, 0x1B48, 0x00DF	; Start X, start Y, end X, end Y
-	dc.w 0x1E98, 0x00DF, 0x1EE8, 0x00DF	; Start X, start Y, end X, end Y
-	dc.w 0x2058, 0x011F, 0x2088, 0x011F	; Start X, start Y, end X, end Y
-	dc.w 0x2718, 0x0157, 0x2768, 0x0157	; Start X, start Y, end X, end Y
+	dc.w 0x0E78, 0x0057, 0x0EA8, 0x0057	; Left, top, right, bottom
+	dc.w 0x1078, 0x0037, 0x10C8, 0x0037	; Left, top, right, bottom
+	dc.w 0x13D8, 0xFFFFFFAF, 0x1428, 0xFFFFFFAF	; Left, top, right, bottom
+	dc.w 0x13D8, 0xFFFFFFFF, 0x1428, 0xFFFFFFFF	; Left, top, right, bottom
+	dc.w 0x1918, 0xFFFFFF47, 0x1968, 0xFFFFFF47	; Left, top, right, bottom
+	dc.w 0x1B18, 0xFFFFFF9F, 0x1B48, 0xFFFFFF9F	; Left, top, right, bottom
+	dc.w 0x1E98, 0xFFFFFF9F, 0x1EE8, 0xFFFFFF9F	; Left, top, right, bottom
+	dc.w 0x2058, 0xFFFFFFDF, 0x2088, 0xFFFFFFDF	; Left, top, right, bottom
+	dc.w 0x2718, 0x0017, 0x2768, 0x0017	; Left, top, right, bottom
 

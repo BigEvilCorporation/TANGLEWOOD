@@ -233,6 +233,8 @@ L6A3_Demon_count equ 0x0
 
 L6A3_Borgus_count equ 0x0
 
+L6A3_Stalactite_count equ 0x0
+
 
 
 L6A3_LoadGameObjects:
@@ -950,6 +952,7 @@ L6A3_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
+
 
 
 

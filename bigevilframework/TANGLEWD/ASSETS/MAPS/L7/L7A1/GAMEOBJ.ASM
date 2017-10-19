@@ -175,6 +175,8 @@ L7A1_Demon_count equ 0x0
 
 L7A1_Borgus_count equ 0x0
 
+L7A1_Stalactite_count equ 0x0
+
 
 
 L7A1_LoadGameObjects:
@@ -582,6 +584,7 @@ L7A1_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
+
 
 
 

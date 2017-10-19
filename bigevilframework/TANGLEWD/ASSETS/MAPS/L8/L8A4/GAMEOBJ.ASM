@@ -107,6 +107,8 @@ L8A4_Demon_3_name	dc.b "L8A4_Demon_3",0
 
 L8A4_Borgus_count equ 0x0
 
+L8A4_Stalactite_count equ 0x0
+
 
 
 L8A4_LoadGameObjects:
@@ -221,6 +223,7 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 	rts

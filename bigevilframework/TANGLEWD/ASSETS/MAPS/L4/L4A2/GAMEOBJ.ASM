@@ -237,6 +237,8 @@ L4A2_Demon_count equ 0x0
 
 L4A2_Borgus_count equ 0x0
 
+L4A2_Stalactite_count equ 0x0
+
 
 
 L4A2_LoadGameObjects:
@@ -918,6 +920,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
+
 
 
 

@@ -95,6 +95,8 @@ L4A3_Demon_count equ 0x0
 
 L4A3_Borgus_count equ 0x0
 
+L4A3_Stalactite_count equ 0x0
+
 
 
 L4A3_LoadGameObjects:
@@ -137,6 +139,7 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 

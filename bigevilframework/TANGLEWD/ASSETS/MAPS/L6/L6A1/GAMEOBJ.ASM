@@ -189,6 +189,8 @@ L6A1_Demon_count equ 0x0
 
 L6A1_Borgus_count equ 0x0
 
+L6A1_Stalactite_count equ 0x0
+
 
 
 L6A1_LoadGameObjects:
@@ -695,6 +697,7 @@ L6A1_LoadGameObjects:
 	ENDIF
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
 
 
 

@@ -101,6 +101,8 @@ L8A2_Demon_count equ 0x0
 
 L8A2_Borgus_count equ 0x0
 
+L8A2_Stalactite_count equ 0x0
+
 
 
 L8A2_LoadGameObjects:
@@ -175,6 +177,7 @@ L8A2_LoadGameObjects:
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 
 
 

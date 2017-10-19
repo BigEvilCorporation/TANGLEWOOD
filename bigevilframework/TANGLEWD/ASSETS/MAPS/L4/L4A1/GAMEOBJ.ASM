@@ -203,6 +203,8 @@ L4A1_Demon_count equ 0x0
 
 L4A1_Borgus_count equ 0x0
 
+L4A1_Stalactite_count equ 0x0
+
 
 
 L4A1_LoadGameObjects:
@@ -718,6 +720,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 

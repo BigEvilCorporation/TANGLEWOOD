@@ -89,6 +89,8 @@ L7A3_Demon_count equ 0x0
 
 L7A3_Borgus_count equ 0x0
 
+L7A3_Stalactite_count equ 0x0
+
 
 
 L7A3_LoadGameObjects:
@@ -112,6 +114,7 @@ L7A3_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
