@@ -180,6 +180,20 @@ l5a3_Trigger_EchoUnderground:
 
 	rts
 
+l5a3_Trigger_EchoFollow:
+
+	PUSHL a0
+
+	; Get Echo
+	move.l (Player2), a0
+
+	; Clear linear follow flag
+	move.b #0x0, Echo_AILinearFollowOnly(a0)
+
+	POPL  a0
+
+	rts
+
 l5a3_Button_Bridge1:
 
 	PUSHL a0
