@@ -9,7 +9,7 @@
 ; Constants
 Cart_Width				equ 0x28
 Cart_Height				equ 0x20
-Cart_Mass				equ 0x0F
+Cart_Mass				equ 0xB0
 Cart_MaxVelYUp			equ 0x060000
 Cart_MaxVelYDown		equ 0x080000
 Cart_StepHeight			equ 0x4
