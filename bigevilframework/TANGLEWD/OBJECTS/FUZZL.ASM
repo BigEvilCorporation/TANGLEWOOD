@@ -544,6 +544,10 @@ FuzzlFindNest:
 	; Return val
 	move.b  #0x0, d7
 
+	; Cannot be red
+	cmp.b  #ColourRed, Fuzzl_Colour(a0)
+	beq    @Red
+
 	; Check all nests
 	move.l (EntityPoolStart_Nest), a3
 	move.w (EntityCount_Nest), d6
@@ -616,6 +620,8 @@ FuzzlFindNest:
 
 	@NoNests:
 	@End:
+
+	@Red:
 
 	move.b d7, d0
 
