@@ -987,10 +987,16 @@ PhysicsObjFindFloor:
 	; Get terrain flags
 	move.w Platform_TerrainFlags(a3), d4
 
+	; If water, don't collide
+	move.w d4, d5
+	andi.w #col_tile_flag_water, d5
+	bne    @NextPlatform
+
 	; If special terrain, and shouldn't collide, bail out
 	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
 	bne    @CollideSpecialPlatform
-	andi.w #col_tile_flag_special, d4
+	move.w d4, d5
+	andi.w #col_tile_flag_special, d5
 	bne    @NextPlatform
 	@CollideSpecialPlatform:
 	
@@ -1074,6 +1080,11 @@ PhysicsObjFindFloor:
 	move.w d3, PhysicsObj_LastTerrainFlags(a0)
 	
 	;==============================================================
+
+	; If water, don't collide
+	move.w d3, d4
+	andi.w #col_tile_flag_water, d4
+	bne    @DontCollide
 
 	; If special terrain, and shouldn't collide, bail out
 	tst.b  PhysicsObj_CollideSpecialTerrain(a0)

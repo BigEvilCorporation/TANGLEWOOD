@@ -192,9 +192,8 @@ Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
-Player_SpecialTerrainIsWater rs.b 1	; Using 'special' marked terrain as water bodies
 ;---------------------------------
-Player_Struct_Pad      		rs.b 1
+Player_Struct_Pad      		rs.b 2
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -270,7 +269,6 @@ PlayerInit:
 	move.b  #0x0, Player_InteractionToggle(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
-	move.b  #0x0, Player_SpecialTerrainIsWater(a0)
 	
 	; Setup collision bounds
 	move.w  #Player1BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
@@ -2080,10 +2078,7 @@ PlayerInteractTest_Water:
 
 	;==============================================================
 
-	tst.b Player_SpecialTerrainIsWater(a0)
-	beq   @NoWaterTerrain
-
-	; Check all 'special' terrain
+	; Check all water terrain
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d4
 	add.w  Entity_Height(a0), d4
@@ -2098,9 +2093,14 @@ PlayerInteractTest_Water:
 
 	@TerrainLp:
 	
-	; Get terrain spline start/end
+	; Get terrain spline start/end/flags
 	move.l (a2)+, d1
 	move.l (a2)+, d2
+	move.w (a2)+, d3
+
+	; Check water type
+	andi.w #col_tile_flag_water, d3
+	beq    @NextTerrain
 
 	; Get X
 	swap   d1

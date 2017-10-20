@@ -262,11 +262,12 @@ mcd_sig_offset equ 0x6D
 ; ************************************
 ; Terrain/collision tile id/flags
 ; ************************************
-col_tile_mask_flags	  	  equ 0xE000
-col_tile_mask_tileid	  equ 0x1FFF
+col_tile_flag_water 	  equ (1<<12)	; Water
 col_tile_flag_solid 	  equ (1<<13)	; Solid tile (wall/floor/ceiling)
 col_tile_flag_hole	 	  equ (1<<14)	; Terrain can be ignored (for jumping down holes, etc)
 col_tile_flag_special	  equ (1<<15)	; Specially marked terrain, gameplay specific
+col_tile_mask_flags	  	  equ (col_tile_flag_water|col_tile_flag_solid|col_tile_flag_hole|col_tile_flag_special)
+col_tile_mask_tileid	  equ (col_tile_flag_water-1)
 
 ; ************************************
 ; Legacy VDP write longs - do not use

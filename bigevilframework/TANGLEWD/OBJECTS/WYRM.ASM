@@ -422,9 +422,14 @@ WyrmFindSandDune:
 
 	@TerrainLp:
 	
-	; Get terrain spline start/end
+	; Get terrain spline start/end/flags
 	move.l (a2)+, d1
 	move.l (a2)+, d2
+	move.w (a2)+, d3
+
+	; Check 'special' type
+	andi.w #col_tile_flag_special, d3
+	beq    @NextTerrain
 
 	; Grow Y by 2 tiles
 	subq.w #0x2, d1

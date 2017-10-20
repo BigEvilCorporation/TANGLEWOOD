@@ -7,19 +7,20 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L5A3_size_b	equ 0x0000583E	; Size in bytes
+terrainmap_blockmap_L5A3_size_b	equ 0x00005A34	; Size in bytes
 terrainmap_blockmap_L5A3_size_w	equ (terrainmap_blockmap_L5A3_size_b/2)	; Size in words
 terrainmap_blockmap_L5A3_size_l	equ (terrainmap_blockmap_L5A3_size_b/4)	; Size in longwords
 terrainmap_L5A3_left	equ 0x00
 terrainmap_L5A3_top	equ 0x00
 terrainmap_L5A3_width	equ 0x3E8
-terrainmap_L5A3_height	equ 0xB0
+terrainmap_L5A3_height	equ 0xB4
 terrainmap_blockmap_L5A3_left	equ 0x00
 terrainmap_blockmap_L5A3_top	equ 0x00
 terrainmap_blockmap_L5A3_width	equ 0xFB
-terrainmap_blockmap_L5A3_height	equ 0x2D
+terrainmap_blockmap_L5A3_height	equ 0x2E
 
 ; Terrain bezier bounds
-terrainmap_L5A3_num_special_terrain_descs	equ 0x00
+terrainmap_L5A3_num_special_terrain_descs	equ 0x01
 terrainmap_L5A3_special_terrain_descs:
+	dc.w 0x1490, 0x046F, 0x1820, 0x046F, 0x1000	; Left, top, right, bottom, flags
 
