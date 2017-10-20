@@ -28,7 +28,7 @@ l2a3_StormWarningAct3:
 	dc.l collisiontiles_l2				; Collision tileset
 	dc.l collisionmap_blocks_l2			; Collision blocks
 	dc.l collisionmap_blockmap_l2a3		; Collision block map
-	dc.l 0x00000000						; 'Special' terrain descriptor table
+	dc.l terrainmap_L2A3_special_terrain_descs ; 'Special' terrain descriptor table
 	dc.l l2a3_DefaultPalettes			; Palettes
 	dc.l l2a3_Init						; Init routine
 	dc.l l2a3_Update					; Update routine
@@ -52,7 +52,7 @@ l2a3_StormWarningAct3:
 	dc.w terrainmap_blockmap_L2A3_width	; Collision map width (blocks)
 	dc.w terrainmap_blockmap_L2A3_height; Collision map height (blocks)
 	dc.w tiles_l2_size_t				; Num tiles
-	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.w terrainmap_L2A3_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even

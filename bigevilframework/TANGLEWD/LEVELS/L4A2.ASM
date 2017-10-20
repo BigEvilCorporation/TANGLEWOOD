@@ -80,17 +80,6 @@ l4a2_Init:
 
 	; Load scene animations
 	jsr    l4_LoadSceneAnimations
-	
-	;==============================================================
-
-	; 'Special' terrain is water surface, don't collide
-	; TODO: Terrain type flag for water
-	move.l (Player1), a2
-	move.l (Player2), a3
-	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
-	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a3)
-	move.b #0x1, Player_SpecialTerrainIsWater(a2)
-	move.b #0x1, Player_SpecialTerrainIsWater(a3)
 
 	;==============================================================
 

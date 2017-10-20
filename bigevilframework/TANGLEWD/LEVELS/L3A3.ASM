@@ -19,7 +19,7 @@ l3a3_HeritageAct3:
 	dc.l collisiontiles_l3				; Collision tileset
 	dc.l collisionmap_blocks_l3			; Collision blocks
 	dc.l collisionmap_blockmap_l3a3		; Collision block map
-	dc.l 0x00000000						; 'Special' terrain descriptor table
+	dc.l terrainmap_L3A3_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l l3a3_DefaultPalettes			; Palettes
 	dc.l l3a3_Init						; Init routine
 	dc.l l3a3_Update					; Update routine
@@ -43,7 +43,7 @@ l3a3_HeritageAct3:
 	dc.w terrainmap_blockmap_L3A3_width	; Collision map width (blocks)
 	dc.w terrainmap_blockmap_L3A3_height; Collision map height (blocks)
 	dc.w tiles_l3_size_t				; Num tiles
-	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.w terrainmap_L3A3_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even

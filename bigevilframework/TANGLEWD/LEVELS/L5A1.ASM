@@ -19,7 +19,7 @@ L5a1_BygoneAct1:
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_L5			; Collision blocks
 	dc.l collisionmap_blockmap_L5a1		; Collision block map
-	dc.l 0x00000000						; 'Special' terrain descriptor table
+	dc.l terrainmap_L5A1_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l L5a1_DefaultPalettes			; Palettes
 	dc.l L5a1_Init						; Init routine
 	dc.l L5a1_Update					; Update routine
@@ -39,7 +39,7 @@ L5a1_BygoneAct1:
 	dc.w terrainmap_blockmap_L5A1_width	; Collision map width (blocks)
 	dc.w terrainmap_blockmap_L5A1_height; Collision map height (blocks)
 	dc.w tiles_L5_size_t				; Num tiles
-	dc.w 0x0000							; Num 'special' terrain descriptors
+	dc.w terrainmap_L5A1_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	
 	even
