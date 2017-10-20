@@ -429,6 +429,7 @@ EntityPoolStart_AIMarker    rs.l 1
 EntityPoolStart_Borgus      rs.l 1
 EntityPoolStart_Bridge      rs.l 1
 EntityPoolStart_Button      rs.l 1
+EntityPoolStart_CargoLift   rs.l 1
 EntityPoolStart_Cart        rs.l 1
 EntityPoolStart_Crate       rs.l 1
 EntityPoolStart_Cogs        rs.l 1
@@ -459,6 +460,7 @@ EntityPoolStart_Pool        rs.l 1
 EntityPoolStart_Rope        rs.l 1
 EntityPoolStart_Raft        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
+EntityPoolStart_Scrap       rs.l 1
 EntityPoolStart_Stone       rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
 EntityPoolStart_Winch       rs.l 1
@@ -471,6 +473,7 @@ EntityCount_AIMarker    rs.w 1
 EntityCount_Borgus      rs.w 1
 EntityCount_Bridge      rs.w 1
 EntityCount_Button      rs.w 1
+EntityCount_CargoLift   rs.w 1
 EntityCount_Cart        rs.w 1
 EntityCount_Crate       rs.w 1
 EntityCount_Cogs        rs.w 1
@@ -503,6 +506,7 @@ EntityCount_Pool        rs.w 1
 EntityCount_Rope        rs.w 1
 EntityCount_Raft        rs.w 1
 EntityCount_BouncePlant	rs.w 1
+EntityCount_Scrap       rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Deathbox    rs.w 1
 EntityCount_Winch       rs.w 1

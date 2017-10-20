@@ -60,6 +60,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\bridge.asm
 	INCLUDE_TEXT_ASSET assets\sprites\button.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cogs.asm
+	INCLUDE_TEXT_ASSET assets\sprites\cargolft.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cart.asm
 	INCLUDE_TEXT_ASSET assets\sprites\crate.asm
 	INCLUDE_TEXT_ASSET assets\sprites\debris.asm
@@ -88,6 +89,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\raft.asm
 	INCLUDE_TEXT_ASSET assets\sprites\rain.asm
 	INCLUDE_TEXT_ASSET assets\sprites\rope.asm
+	INCLUDE_TEXT_ASSET assets\sprites\scrap.asm
 	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stalact.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stone.asm
@@ -142,6 +144,7 @@ sprite_assets_end
 	include 'assets\anims\nymn.asm'
 	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
+	include 'assets\anims\scrap.asm'
 	include 'assets\anims\spitball.asm'
 	include 'assets\anims\water.asm'
 	include 'assets\anims\winch.asm'

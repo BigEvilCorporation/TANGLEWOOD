@@ -209,3 +209,9 @@ l5a3_Button_Bridge1:
 	POPL  a0
 
 	rts
+
+l5a3_Trigger_Scrap:
+	rts
+
+l5a3_Trigger_Demon:
+	rts

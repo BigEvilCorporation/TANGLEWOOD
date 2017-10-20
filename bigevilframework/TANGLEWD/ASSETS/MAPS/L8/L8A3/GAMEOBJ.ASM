@@ -117,6 +117,10 @@ L8A3_Borgus_count equ 0x0
 
 L8A3_Stalactite_count equ 0x0
 
+L8A3_CargoLift_count equ 0x0
+
+L8A3_Scrap_count equ 0x0
+
 
 
 L8A3_LoadGameObjects:
@@ -262,6 +266,8 @@ L8A3_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
+
 
 
 
