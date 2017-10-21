@@ -214,4 +214,22 @@ l5a3_Trigger_Scrap:
 	rts
 
 l5a3_Trigger_Demon:
+
+	PUSHL  a0
+
+	ENTITY_GETBYNAME Demon, l5a3_Demon, a0
+	ENTITY_GETBYNAME Demon, l5a3_Djakk1, a2
+
+	; Load demon GFX into Djakk VRAM
+	SPRITE_LOAD_COPY Demon,PaletteId_Monster,0x0,a2
+
+	; Load wisp GFX
+	jsr    DemonLoadWispGfx
+
+	; Enable
+	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
+
+	POPL   a0
+
 	rts
