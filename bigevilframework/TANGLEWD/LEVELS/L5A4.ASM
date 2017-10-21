@@ -131,13 +131,6 @@ l5a4_Init:
 	rts
 	
 l5a4_Update:
-
-	PUSHM  a0-a1
-	lea    LevelData_L5A4, a2
-	lea    l5a4Data_Cutscene(a2), a0
-	jsr    CutsceneUpdate
-	POPM   a0-a1
-
 	rts
 	
 l5a4_Serialise:

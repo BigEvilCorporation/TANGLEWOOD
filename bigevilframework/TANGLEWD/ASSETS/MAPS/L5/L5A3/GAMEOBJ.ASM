@@ -63,14 +63,13 @@ L5A3_Fuzzl_69_name	dc.b "L5A3_Fuzzl_69",0
 	even
 	ENDIF
 
-L5A3_Stone_count equ 0x7
+L5A3_Stone_count equ 0x6
 L5A3_Stone_45_idx	equ 0x0
 L5A3_Stone_46_idx	equ 0x1
 L5A3_Stone_57_idx	equ 0x2
 L5A3_Stone_58_idx	equ 0x3
 L5A3_Stone_59_idx	equ 0x4
 L5A3_Stone_62_idx	equ 0x5
-L5A3_Stone_64_idx	equ 0x6
 
 	IFND FINAL
 L5A3_Stone_45_name	dc.b "L5A3_Stone_45",0
@@ -79,7 +78,6 @@ L5A3_Stone_57_name	dc.b "L5A3_Stone_57",0
 L5A3_Stone_58_name	dc.b "L5A3_Stone_58",0
 L5A3_Stone_59_name	dc.b "L5A3_Stone_59",0
 L5A3_Stone_62_name	dc.b "L5A3_Stone_62",0
-L5A3_Stone_64_name	dc.b "L5A3_Stone_64",0
 	even
 	ENDIF
 
@@ -95,7 +93,7 @@ L5A3_Nest_29_name	dc.b "L5A3_Nest_29",0
 
 L5A3_Flue_count equ 0x0
 
-L5A3_TriggerBox_count equ 0x9
+L5A3_TriggerBox_count equ 0xa
 L5A3_TriggerShakeStart1_idx	equ 0x0
 L5A3_TriggerShakeStop1_idx	equ 0x1
 L5A3_TriggerShakeStart2_idx	equ 0x2
@@ -105,6 +103,7 @@ L5A3_TriggerEchoUndergroundStop_idx	equ 0x5
 L5A3_TriggerScrap_idx	equ 0x6
 L5A3_TriggerLevelEnd_idx	equ 0x7
 L5A3_TriggerDemon_idx	equ 0x8
+L5A3_TriggerCargoLift_idx	equ 0x9
 
 	IFND FINAL
 L5A3_TriggerShakeStart1_name	dc.b "L5A3_TriggerShakeStart1",0
@@ -116,6 +115,7 @@ L5A3_TriggerEchoUndergroundStop_name	dc.b "L5A3_TriggerEchoUndergroundStop",0
 L5A3_TriggerScrap_name	dc.b "L5A3_TriggerScrap",0
 L5A3_TriggerLevelEnd_name	dc.b "L5A3_TriggerLevelEnd",0
 L5A3_TriggerDemon_name	dc.b "L5A3_TriggerDemon",0
+L5A3_TriggerCargoLift_name	dc.b "L5A3_TriggerCargoLift",0
 	even
 	ENDIF
 
@@ -514,18 +514,6 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x1b780000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A3_Stone_64_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A3_Nest_count)
@@ -693,6 +681,20 @@ L5A3_LoadGameObjects:
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x1cd80000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_TriggerCargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l5a3_Trigger_CargoLift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_EachFrame(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L5A3_Checkpoint_count)
@@ -779,8 +781,8 @@ L5A3_LoadGameObjects:
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
 	jsr GeneratorInit
-	move.l #0x20280000, Entity_WorldPosX(a0)
-	move.l #0x05100000, Entity_WorldPosY(a0)
+	move.l #0x1dd80000, Entity_WorldPosX(a0)
+	move.l #0x05d80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Generator3_name, a3
 	move.l a0, a2
@@ -822,8 +824,8 @@ L5A3_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 	jsr CogsInit
-	move.l #0x20100000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
+	move.l #0x1df00000, Entity_WorldPosX(a0)
+	move.l #0x05680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Cogs3_name, a3
 	move.l a0, a2
@@ -1069,8 +1071,8 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x20380000, Entity_WorldPosX(a0)
-	move.l #0x05500000, Entity_WorldPosY(a0)
+	move.l #0x19c80000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Demon_name, a3
 	move.l a0, a2

@@ -265,6 +265,23 @@ PHYS_TestEntityBoxIntersectBoxX:
 	jsr PHYS_TestBoxIntersectBoxX
 	
 	rts
+
+PHYS_TestEntityBoxInsideBox:
+	; d0 (b) Return value
+	; a0 --- Entity 1
+	; a1 --- Entity 2
+	
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	
+	swap d1
+	swap d2
+	swap d3
+	swap d4
+	
+	jsr PHYS_TestBoxInsideBox
+	
+	rts
 	
 PHYS_TestEntityBoxInsideBoxX:
 	; d0 (b) Return value

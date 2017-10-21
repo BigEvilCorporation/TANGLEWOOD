@@ -60,7 +60,8 @@ l5a3_CamShakeAmp				equ 0x0180
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l5a3Data_WaitingInput			rs.b 1
+l5a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
+l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
 ;---------------------------------
 l5a3Data_Struct_Pad      		rs.b 3
 l5a3Data_Struct_Size     		rs.b 0
@@ -92,9 +93,32 @@ l5a3_Init:
 
 	;==============================================================
 
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneLoadLift(a2), a0
+	move.l #l5a3_CutsceneLoadLift, a1
+	jsr    CutsceneInit
+
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRevealDemon(a2), a0
+	move.l #l5a3_CutsceneRevealDemon, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
+	;==============================================================
+
 	; Connect cogs to generators
 	ENTITY_GETBYNAME Generator, l5a3_Generator1, a0
 	ENTITY_GETBYNAME Cogs, l5a3_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	ENTITY_GETBYNAME Generator, l5a3_Generator2, a0
+	ENTITY_GETBYNAME Cogs, l5a3_Cogs2, a1
+	move.l a1, Generator_Cogs(a0)
+
+	ENTITY_GETBYNAME Generator, l5a3_Generator3, a0
+	ENTITY_GETBYNAME Cogs, l5a3_Cogs3, a1
 	move.l a1, Generator_Cogs(a0)
 
 	; Connect generators to buttons, and disable buttons by default
@@ -104,12 +128,17 @@ l5a3_Init:
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
+	ENTITY_GETBYNAME Generator, l5a3_Generator2, a0
+	ENTITY_GETBYNAME Button, l5a3_Button3, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.b #0x0, Button_Active(a1)
+
 	; Connect buttons to bridges
 	ENTITY_GETBYNAME Button, l5a3_Button1, a0
 	move.l #l5a3_Button_Bridge1, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 
-	; Connect buttons to bridges
 	ENTITY_GETBYNAME Button, l5a3_Button2, a0
 	ENTITY_GETBYNAME Bridge, l5a3_TEMP_Bridge2, a1
 	move.l a1, Button_UserData(a0)
@@ -226,10 +255,101 @@ l5a3_Trigger_Demon:
 	; Load wisp GFX
 	jsr    DemonLoadWispGfx
 
+	; Load palette
+	PUSHL  a0
+	lea    palette_demon, a0
+	move.b #PaletteId_Monster, d0
+	jsr    PAL_LoadDMA
+	POPL   a0
+
 	; Enable
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 
+	; Start cutsene
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRevealDemon(a2), a0
+	jsr    CutscenePlay
+
 	POPL   a0
+
+	rts
+
+l5a3_Trigger_CargoLift:
+
+	; Check generator active
+	ENTITY_GETBYNAME Generator, l5a3_Generator3, a0
+	tst.b  Generator_Running(a0)
+	beq    @GeneratorInactive
+
+	; Check Echo onboard
+	PUSHL  a1
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift, a0
+	move.l Player2, a1
+	jsr    PHYS_TestEntityBoxInsideBox
+	POPL   a1
+	tst.b  d0
+	beq    @NoEcho
+
+	; Disable trigger
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift, a0
+	move.b #0x0, Entity_Active(a0)
+
+	; TODO: Stop Scrap barking
+
+	; Run cutscene to get players into place on lift
+	PUSHL  a0
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneLoadLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	@GeneratorInactive:
+	@NoEcho:
+
+	rts
+
+l5a3_CutsceneLoadLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+
+	; Disable Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+
+	; Both players run to centre of lift
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+	CUTSCENE_DELAY #0x0020
+
+	; Activate lift
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+
+	CUTSCENE_END
+
+	rts
+	
+l5a3_CutsceneRevealDemon:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Lerp camera to demon
+	CUTSCENE_GET_ENTITY Demon,l5a3_Demon,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Demon,l5a3_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	CUTSCENE_END
 
 	rts

@@ -3,15 +3,22 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   cutscene.asm - cutscene animation system
+;   cutscene.asm - Cutscene scripting system
 ;==============================================================
 
+Custscene_MaxBackupRegs		equ 0x10
+
 	rsset 0
+;-----------------------------
+	LINKED_LIST_NODE ActiveCutscenes ; Next in update linked list
+;-----------------------------
 Cutscene_TickRoutine		rs.l 1
 Cutscene_TempData			rs.l 1
+Cutscene_RegsBackup			rs.b (Custscene_MaxBackupRegs*size_long)
 Cutscene_Playing			rs.b 1
+Cutscene_RegsStored			rs.b 1
 ;---------------------------------
-Cutscene_Struct_Pad			rs.b 3
+Cutscene_Struct_Pad			rs.b 2
 Cutscene_Struct_Size		rs.b 0
 
 CutsceneInit:
@@ -19,16 +26,28 @@ CutsceneInit:
 	; a1 --- Routine
 
 	move.l a1, Cutscene_TickRoutine(a0)
-	move.l #0x0, Cutscene_TempData(a0)
 	move.b #0x0, Cutscene_Playing(a0)
+	move.l #0x0, List_ActiveCutscenes_Next(a0)
 
 	rts
 
 CutscenePlay:
 	; a0 --- Cutscene
 
-	move.l #0x0, Cutscene_TempData(a0)
 	move.b #0x1, Cutscene_Playing(a0)
+	move.b #0x0, Cutscene_RegsStored(a0)
+	move.l #0x0, Cutscene_TempData(a0)
+
+	LIST_APPEND_TAIL ActiveCutscenes,a0,a3
+
+	rts
+
+CutsceneStop:
+	; a0 --- Cutscene
+
+	move.b #0x0, Cutscene_Playing(a0)
+
+	LIST_REMOVE ActiveCutscenes,a0,a4,a3
 
 	rts
 
@@ -47,6 +66,19 @@ CutsceneUpdate:
 	POPL   a0
 
 	@NotPlaying:
+
+	rts
+
+CutsceneUpdateAll:
+
+	LIST_GET_HEAD ActiveCutscenes,a0
+	@CutsceneLp:
+	cmp.l  #0x0, a0
+	beq    @ListEnd
+	jsr    CutsceneUpdate
+	LIST_GET_NEXT ActiveCutscenes,a0,a0
+	bra    @CutsceneLp
+	@ListEnd:
 
 	rts
 
@@ -318,24 +350,37 @@ CutsceneStep_ObjectRoutine:
 ; Setup macros
 ;==============================================================
 
+CUTSCENE_FETCH_REGS: macro
+	tst.b  Cutscene_RegsStored(a0)						; If regs already stored
+	bne    \@RegsStored\@
+	movem.l a1-a6/d0-d7, Cutscene_RegsBackup(a0)		; Store regs
+	move.b #0x1, Cutscene_RegsStored(a0)				; Set as stored
+	bra    \@EndRegs\@
+	\@RegsStored\@:										; Retrieve regs
+	movem.l Cutscene_RegsBackup(a0), a1-a6/d0-d7
+	\@EndRegs\@:
+	endm
+
 CUTSCENE_RUN_STEP: macro address
+	CUTSCENE_FETCH_REGS									; Store regs if first tick, else restore
 	PUSHL  a0
-	jsr    \address
+	jsr    \address										; Tick routine
 	POPL   a0
-	tst.b  d0
+	tst.b  d0											; If routine finished
 	bne    \@Continue\@
-	move.l #0x0, Cutscene_TempData(a0)
-	move.l #\@NextRoutine\@, Cutscene_TickRoutine(a0)
+	move.l #0x0, Cutscene_TempData(a0)					; Reset for next routine
+	move.b #0x0, Cutscene_RegsStored(a0)
+	move.l #\@NextRoutine\@, Cutscene_TickRoutine(a0)	; Store end of routine as next routine
 	\@Continue\@:
 	rts
-	\@NextRoutine\@:
+	\@NextRoutine\@:									; Next routine address
 	endm
 
 CUTSCENE_START: macro
 	endm
 
 CUTSCENE_END: macro
-	move.b #0x0, Cutscene_Playing(a0)
+	jsr    CutsceneStop
 	endm
 
 CUTSCENE_GET_ENTITY: macro typename,name,addrreg

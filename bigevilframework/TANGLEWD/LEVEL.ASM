@@ -114,7 +114,7 @@ GameStateReset:
 	; Reset potential flue occupants
 	move.b #0x0, FlueNumPotentialOccupants
 	
-	; Reset linked lists
+	; Reset entity linked lists
 	LIST_CLEAR Characters,a4,a3
 	LIST_CLEAR Platforms,a4,a3
 	LIST_CLEAR Barriers,a4,a3
@@ -122,6 +122,9 @@ GameStateReset:
 	LIST_CLEAR MovingPlatforms,a4,a3
 	LIST_CLEAR PushableObjs,a4,a3
 	LIST_CLEAR AIMarkers,a4,a3
+
+	; Reset cutscenes
+	LIST_CLEAR ActiveCutscenes,a4,a3
 
 	; Reload font
 	move.w #CharMap_SizeB, d0

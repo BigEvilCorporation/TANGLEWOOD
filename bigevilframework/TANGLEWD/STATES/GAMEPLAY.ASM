@@ -158,6 +158,9 @@ Gameplay_Update:
 	; Update audio
 	jsr	   UpdateBGMTimer
 	jsr    UpdateAmbientAudio
+
+	; Update cutscenes
+	jsr    CutsceneUpdateAll
 	
 	; Check if player is dead
 	move.l (Player1), a2

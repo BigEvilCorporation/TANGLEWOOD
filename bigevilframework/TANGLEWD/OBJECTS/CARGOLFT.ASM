@@ -9,6 +9,9 @@
 ; Constants
 CargoLift_Width        equ 0x0050
 CargoLift_Height       equ 0x0070
+CargoLift_ProbeFloorX  equ (CargoLift_Width/2)
+CargoLift_ProbeFloorY  equ (CargoLift_Height-8)
+CargoLift_FloorHeight  equ 0x8
 
 ; Struct
 	rsset (Lift_Struct_Size)
@@ -31,6 +34,19 @@ CargoLiftInit:
 	move.w #CargoLift_Width, Entity_Width(a0)
 	move.w #CargoLift_Height, Entity_Height(a0)
 	move.b #0x0, Lift_RestrictHeight(a0)
+
+	; Re-initialise floor probe
+	move.w #CargoLift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w #CargoLift_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+
+	; Re-initialise bounds
+	move.w #CargoLift_Width, PhysicsObj_BoundsWidth(a0)
+	move.w #CargoLift_Height, PhysicsObj_BoundsHeight(a0)
+
+	; Re-initialise platform
+	move.w #CargoLift_FloorHeight, Lift_PlatformOffsetY(a0)
+	lea    Lift_Platform(a0), a2
+	move.w #CargoLift_Width, Platform_Width(a2)
 
 	rts
 

@@ -42,10 +42,11 @@ Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
 Lift_OriginX				rs.l 1	; Origin (won't lower beyond this point)
 Lift_OriginY				rs.l 1
 Lift_LastOccupant			rs.l 1
+Lift_PlatformOffsetY		rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 Lift_Direction				rs.b 1	; Up/down powered direction
 ;---------------------------------
-Lift_Struct_Pad   			rs.b 2  ; Alignment padding
+Lift_Struct_Pad   			rs.b 0  ; Alignment padding
 Lift_Struct_Size  			rs.b 0
 ;---------------------------------
 
@@ -92,6 +93,7 @@ LiftInit:
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.l  #0x0, Lift_CounterWeight(a0)
 	move.l  #0x0, Lift_LastOccupant(a0)
+	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
 	move.b  #0x0, Lift_Direction(a0)
 	
@@ -461,7 +463,9 @@ LiftUpdatePlatform:
 	move.w Entity_Height(a0), d2
 	TOSUBPIXELS d2
 	add.l  d2, d1
-	sub.l  #Lift_FloorHeight*subpixels_per_pixel, d1
+	move.w Lift_PlatformOffsetY(a0), d3
+	TOSUBPIXELS d3
+	sub.l  d3, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	

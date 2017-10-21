@@ -23,8 +23,9 @@ TriggerBox_RegisterA1	rs.l 1
 TriggerBox_Triggered	rs.b 1	; Box has been triggered
 TriggerBox_TriggerOnce	rs.b 1	; Trigger once
 TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis - TODO: Implement all intersection types below
+TriggerBox_EachFrame	rs.b 1	; Trigger each frame, don't filter in/out
 ;--------------------------
-TriggerBox_Struct_Pad   rs.b 1	; Alignment padding
+TriggerBox_Struct_Pad   rs.b 0	; Alignment padding
 TriggerBox_Struct_Size  rs.b 0
 
 ; Intersection types
@@ -61,6 +62,7 @@ TriggerBoxInit:
 	move.b #0x0, TriggerBox_Triggered(a0)
 	move.b #0x0, TriggerBox_TriggerOnce(a0)
 	move.b #0x0, TriggerBox_XOnly(a0)
+	move.b #0x0, TriggerBox_EachFrame(a0)
 
 	rts
 
@@ -119,8 +121,11 @@ TriggerBoxUpdate:
 	@Intersect:
 	
 	; Check if already triggered
+	tst.b  TriggerBox_EachFrame(a0)
+	bne    @TriggerEachFrame
 	tst.b  TriggerBox_Triggered(a0)
 	bne    @Triggered
+	@TriggerEachFrame:
 	
 	; Triggered this frame
 	move.b #0x1, TriggerBox_Triggered(a0)

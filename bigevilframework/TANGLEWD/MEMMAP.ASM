@@ -304,6 +304,11 @@ AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
 
 ; ************************************
+; Cutscenes
+; ************************************
+	LINKED_LIST ActiveCutscenes
+
+; ************************************
 ; Autotest
 ; ************************************
 	IFND FINAL
