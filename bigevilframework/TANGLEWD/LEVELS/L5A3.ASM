@@ -62,6 +62,7 @@ l5a3_CamShakeAmp				equ 0x0180
 	rsset LevelData_Struct_Size
 l5a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
+l5a3Data_CutsceneRevealScrap	rs.b Cutscene_Struct_Size
 ;---------------------------------
 l5a3Data_Struct_Pad      		rs.b 3
 l5a3Data_Struct_Size     		rs.b 0
@@ -103,6 +104,11 @@ l5a3_Init:
 	lea    LevelData_L5A3, a2
 	lea    l5a3Data_CutsceneRevealDemon(a2), a0
 	move.l #l5a3_CutsceneRevealDemon, a1
+	jsr    CutsceneInit
+
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRevealScrap(a2), a0
+	move.l #l5a3_CutsceneRevealScrap, a1
 	jsr    CutsceneInit
 	POPM   a0-a1
 
@@ -264,8 +270,9 @@ l5a3_Button_Bridge1:
 l5a3_Trigger_Scrap:
 
 	PUSHL  a0
-	ENTITY_GETBYNAME Scrap, l5a3_Scrap, a0
-	jsr    ScrapAIStart_Emerge
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRevealScrap(a2), a0
+	jsr    CutscenePlay
 	POPL   a0
 
 	rts
@@ -377,6 +384,38 @@ l5a3_CutsceneRevealDemon:
 	; Lerp back
 	CUTSCENE_GET_ENTITY Demon,l5a3_Demon,a2
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	CUTSCENE_END
+
+	rts
+
+l5a3_CutsceneRevealScrap:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Lerp camera to scrap
+	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+
+	; Begin reveal
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#ScrapAIStart_Emerge
+
+	CUTSCENE_DELAY #0x0080
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
 	CUTSCENE_END
 

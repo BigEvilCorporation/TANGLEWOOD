@@ -96,6 +96,13 @@ SFX_Data_Elder_Roar:
 	ESF_Delay 62
 	ESF_Stop
 	even
+
+SFX_Data_Scrap_Yap:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+11
+	ESF_Delay 9
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -417,6 +424,13 @@ SFX_Djakk_Bite:
 
 SFX_Elder_Roar:
 	dc.l SFX_Data_Elder_Roar		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Scrap_Yap:
+	dc.l SFX_Data_Scrap_Yap			; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

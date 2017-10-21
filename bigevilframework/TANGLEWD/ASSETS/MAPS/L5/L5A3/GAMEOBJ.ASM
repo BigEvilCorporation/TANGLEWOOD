@@ -644,7 +644,7 @@ L5A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
-	move.l #0x1fa00000, Entity_WorldPosX(a0)
+	move.l #0x1fe00000, Entity_WorldPosX(a0)
 	move.l #0x05500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_TriggerScrap_name, a3

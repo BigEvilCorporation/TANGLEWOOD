@@ -186,11 +186,15 @@ ScrapBark:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Anim
 	PUSHL   a1
 	lea     Scrap_Animations+(Animation_Struct_Size*ScrapAnimIdx_Bark)(a0), a1
 	move.b  #0x0, d0
 	jsr     AnimObjSetAnimation
 	POPL    a1
+
+	; SFX
+	PLAYSFX #SFX_Scrap_Yap
 
 	; Calc rand delay timer
 	move.w #Scrap_BarkTimeMin, d1
