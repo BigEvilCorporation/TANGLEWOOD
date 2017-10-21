@@ -169,25 +169,29 @@ L5A3_Cogs3_name	dc.b "L5A3_Cogs3",0
 	even
 	ENDIF
 
-L5A3_Bridge_count equ 0x2
+L5A3_Bridge_count equ 0x3
 L5A3_Bridge1_idx	equ 0x0
 L5A3_TEMP_Bridge2_idx	equ 0x1
+L5A3_Bridge3_idx	equ 0x2
 
 	IFND FINAL
 L5A3_Bridge1_name	dc.b "L5A3_Bridge1",0
 L5A3_TEMP_Bridge2_name	dc.b "L5A3_TEMP_Bridge2",0
+L5A3_Bridge3_name	dc.b "L5A3_Bridge3",0
 	even
 	ENDIF
 
-L5A3_Button_count equ 0x3
+L5A3_Button_count equ 0x4
 L5A3_Button1_idx	equ 0x0
 L5A3_Button2_idx	equ 0x1
 L5A3_Button3_idx	equ 0x2
+L5A3_Button4_idx	equ 0x3
 
 	IFND FINAL
 L5A3_Button1_name	dc.b "L5A3_Button1",0
 L5A3_Button2_name	dc.b "L5A3_Button2",0
 L5A3_Button3_name	dc.b "L5A3_Button3",0
+L5A3_Button4_name	dc.b "L5A3_Button4",0
 	even
 	ENDIF
 
@@ -480,7 +484,7 @@ L5A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x19d80000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stone_58_name, a3
 	move.l a0, a2
@@ -492,7 +496,7 @@ L5A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x18c80000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stone_59_name, a3
 	move.l a0, a2
@@ -503,8 +507,8 @@ L5A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x1c980000, Entity_WorldPosX(a0)
-	move.l #0x04180000, Entity_WorldPosY(a0)
+	move.l #0x1b300000, Entity_WorldPosX(a0)
+	move.l #0x03f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Stone_62_name, a3
 	move.l a0, a2
@@ -770,7 +774,7 @@ L5A3_LoadGameObjects:
 	add.l #Generator_Struct_Size, a0
 	jsr GeneratorInit
 	move.l #0x19380000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x04c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Generator2_name, a3
 	move.l a0, a2
@@ -813,7 +817,7 @@ L5A3_LoadGameObjects:
 	add.l #Cogs_Struct_Size, a0
 	jsr CogsInit
 	move.l #0x19500000, Entity_WorldPosX(a0)
-	move.l #0x04380000, Entity_WorldPosY(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Cogs2_name, a3
 	move.l a0, a2
@@ -870,6 +874,20 @@ L5A3_LoadGameObjects:
 	move.b #0x0, Bridge_DropUnderWeight(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
+	jsr BridgeInit
+	move.l #0x1c800000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Bridge3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L5A3_Button_count)
@@ -902,10 +920,22 @@ L5A3_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x14a00000, Entity_WorldPosX(a0)
-	move.l #0x04b80000, Entity_WorldPosY(a0)
+	move.l #0x14880000, Entity_WorldPosX(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Button3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr ButtonLoadGfx
+	add.l #Button_Struct_Size, a0
+	jsr ButtonInit
+	move.l #0x1bc80000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Button4_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
@@ -974,7 +1004,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr WinchInit
-	move.l #0x14e00000, Entity_WorldPosX(a0)
+	move.l #0x14e80000, Entity_WorldPosX(a0)
 	move.l #0x04b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Winch1_name, a3
@@ -986,7 +1016,7 @@ L5A3_LoadGameObjects:
 	jsr WinchLoadGfx
 	add.l #Winch_Struct_Size, a0
 	jsr WinchInit
-	move.l #0x18a00000, Entity_WorldPosX(a0)
+	move.l #0x18900000, Entity_WorldPosX(a0)
 	move.l #0x04b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Winch2_name, a3
@@ -1028,8 +1058,8 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr LadderInit
-	move.l #0x1a200000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x1a680000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Ladder_5_name, a3
 	move.l a0, a2

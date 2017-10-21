@@ -134,6 +134,16 @@ l5a3_Init:
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 	move.b #0x0, Button_Active(a1)
 
+	; Connect winches together
+	ENTITY_GETBYNAME Winch, l5a3_Winch1, a0
+	ENTITY_GETBYNAME Winch, l5a3_Winch2, a1
+	move.l a1, Winch_Mirror(a0)
+
+	; Connect rafts to winches
+	ENTITY_GETBYNAME Winch, l5a3_Winch1, a0
+	ENTITY_GETBYNAME Raft, l5a3_Raft1, a1
+	move.l a1, Winch_PhysObject(a0)
+
 	; Connect buttons to bridges
 	ENTITY_GETBYNAME Button, l5a3_Button1, a0
 	move.l #l5a3_Button_Bridge1, Button_OnDown(a0)
@@ -143,6 +153,18 @@ l5a3_Init:
 	ENTITY_GETBYNAME Bridge, l5a3_TEMP_Bridge2, a1
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginDrop, Button_OnDown(a0)
+
+	ENTITY_GETBYNAME Button, l5a3_Button4, a0
+	ENTITY_GETBYNAME Bridge, l5a3_Bridge3, a1
+	move.l a1, Button_UserData(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.b #0x1, Button_Active(a0)
+
+	; Connect buttons to winches
+	ENTITY_GETBYNAME Button, l5a3_Button3, a0
+	ENTITY_GETBYNAME Winch, l5a3_Winch1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #Winch_RunClockwise, Button_OnDown(a0)
 
 	;==============================================================
 
