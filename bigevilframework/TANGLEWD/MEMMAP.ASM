@@ -327,6 +327,7 @@ SharedVRAM_Bridge		rs.w 1
 SharedVRAM_Winch		rs.w 1
 SharedVRAM_Pool			rs.w 1
 SharedVRAM_Stalact		rs.w 1
+SharedVRAM_Pillar		rs.w 1
 
 SharedVRAM_End			rs.b 0
 
