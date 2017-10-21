@@ -61,6 +61,7 @@ RaftInit:
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x1, PhysicsObj_Buoyant(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Setup collision bounds

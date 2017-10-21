@@ -72,6 +72,7 @@ PhysicsObj_CanSleep				rs.b 1 ; Physics can sleep
 PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
 PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
+PhysicsObj_Buoyant				rs.b 1 ; Collides with water terrain
 PhysicsObj_CollideFloor	    	rs.b 1 ; Collides with floor
 PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls (bottom probe)
 PhysicsObj_CollideWallsTop	    rs.b 1 ; Collides with walls (top probe)
@@ -95,7 +96,7 @@ PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs li
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 PhysicsObj_ForceUpdate			rs.b 1 ; Force an update next frame even if sleep/out of view
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 2
+PhysicsObj_Struct_Pad      		rs.b 1
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================
@@ -142,6 +143,7 @@ PhysicsObjInit:
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	move.b #0x1, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_Buoyant(a0)
 	move.b #0x1, PhysicsObj_CollideFloor(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
 	move.b #0x0, PhysicsObj_CollideWallsTop(a0)
@@ -987,10 +989,13 @@ PhysicsObjFindFloor:
 	; Get terrain flags
 	move.w Platform_TerrainFlags(a3), d4
 
-	; If water, don't collide
+	; If water, and not buoyant, don't collide
+	tst.b  PhysicsObj_Buoyant(a0)
+	bne    @CollideWaterPlatform
 	move.w d4, d5
 	andi.w #col_tile_flag_water, d5
 	bne    @NextPlatform
+	@CollideWaterPlatform:
 
 	; If special terrain, and shouldn't collide, bail out
 	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
@@ -1081,10 +1086,13 @@ PhysicsObjFindFloor:
 	
 	;==============================================================
 
-	; If water, don't collide
+	; If water terrain, and not buoyant, bail out
+	tst.b  PhysicsObj_Buoyant(a0)
+	bne    @CollideWater
 	move.w d3, d4
 	andi.w #col_tile_flag_water, d4
 	bne    @DontCollide
+	@CollideWater:
 
 	; If special terrain, and shouldn't collide, bail out
 	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
