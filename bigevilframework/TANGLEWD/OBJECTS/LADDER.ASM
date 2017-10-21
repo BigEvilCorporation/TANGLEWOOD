@@ -9,6 +9,8 @@
 ; Constants
 Ladder_Width			equ 0x28
 Ladder_Height			equ 0xA0
+Ladder_SpriteHeight		equ 0x20
+Ladder_NumSprites		equ (Ladder_Height/Ladder_SpriteHeight)
 
 ;==============================================================
 
@@ -34,7 +36,7 @@ LadderInit:
 	addq.w #0x1, EntityCount_Ladder
 	
 	; Set render routine
-	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
+	move.l #LadderDraw, Entity_RenderRoutine(a0)
 	
 	; Add to render list
 	jsr    EntityAddToRenderList
@@ -65,5 +67,33 @@ LadderLoadGfx:
 	lea    Ladder_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+
+	rts
+
+LadderDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Backup Y pos
+	move.l Entity_WorldPosY(a0), d0
+	PUSHL  d0
+
+	; Loop sprites
+	move.w #Ladder_NumSprites-1, d0
+	@DrawLp:
+	PUSHL  d0
+
+	; Draw
+	jsr    SpriteObjDraw
+
+	; Inc. Y
+	addi.w #Ladder_SpriteHeight, Entity_WorldPosY(a0)
+
+	POPL   d0
+	dbra   d0, @DrawLp
+
+	; Restore Y pos
+	POPL   d0
+	move.l d0, Entity_WorldPosY(a0)
 
 	rts
