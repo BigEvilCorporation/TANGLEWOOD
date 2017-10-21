@@ -156,6 +156,7 @@ Echo_AISafePosX				rs.w 1	; Safe position (Nymn was once on the floor here, and 
 Echo_AISafePosY				rs.w 1
 Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe posisiton when out of view
 Echo_AIPotentialSafePosY	rs.w 1
+Echo_AILastDryLandY			rs.w 1	; Last known dry land pos
 Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
@@ -172,7 +173,7 @@ Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
 Echo_EnteringLadder			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 0
+Echo_Struct_Pad      		rs.b 2
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -765,6 +766,16 @@ EchoUpdateAI:
 	jsr    EchoAIStart_Lost
 	@NotDead:
 	@OnScreen:
+
+	; Record last dry land pos
+	tst.b  PhysicsObj_OnFloor(a0)
+	beq    @InAir
+	move.b PhysicsObj_Underwater(a0), d0
+	or.b   Character_InWater(a0), d0
+	bne    @InWater
+	move.w Entity_WorldPosX(a0), Echo_AILastDryLandY(a0)
+	@InAir:
+	@InWater:
 	
 	move.b Echo_AIState(a0), d0
 	
@@ -1375,11 +1386,10 @@ EchoAIStart_Water:
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
 
 	; Start running towards closest shore
-	ENTITY_GETCENTREX d0,a0
-	ENTITY_GETCENTREX d1,a2
-	sub.l  d0, d1
-	tst.l  d1
-	bgt    @MoveLeft
+	move.w Entity_WorldPosX(a0), d0
+	move.w Echo_AILastDryLandY(a0), d1
+	cmp.w  d0, d1
+	blt    @MoveLeft
 	jsr    CharacterMoveRight
 	bra    @MoveRight
 	@MoveLeft:
@@ -1396,8 +1406,20 @@ EchoAIUpdate_Water:
 	tst.b  Echo_AIWaitingForWaterPath(a0)
 	bne    @OutOfWater
 
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InWater
+
+	; If hit wall, jump
+	tst.b  PhysicsObj_HitWall(a0)
+	beq    @NotHitWall
+	jsr    CharacterStartJump
+	@NotHitWall:
+
 	; If no longer in water
 	tst.b  Character_InWater(a0)
+	bne    @InWater
+	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 
 	; Stop moving
@@ -1525,10 +1547,22 @@ EchoAIUpdate_Raft:
 	andi.b #PhysicsObjHitStaticWall, d1
 	beq    @PlatformMoving
 
+	; If visible
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @OutOfView
+
+	; If Nymn on land
+	move.l Player1, a2
+	move.b Character_InWater(a2), d0
+	or.b   PhysicsObj_Underwater(a2), d0
+	bne    @NymnInWater
+
 	; Back to follow state
 	jsr    EchoAIStart_Follow
 
 	@PlatformMoving:
+	@OutOfView:
+	@NymnInWater:
 
 	rts
 
