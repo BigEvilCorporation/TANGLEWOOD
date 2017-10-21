@@ -271,11 +271,11 @@ l5a3_Trigger_Demon:
 	ENTITY_GETBYNAME Demon, l5a3_Demon, a0
 	ENTITY_GETBYNAME Demon, l5a3_Djakk1, a2
 
-	; Load demon GFX into Djakk VRAM
-	SPRITE_LOAD_COPY Demon,PaletteId_Monster,0x0,a2
-
-	; Load wisp GFX
-	jsr    DemonLoadWispGfx
+	; Load demon (wisp form) GFX into Djakk VRAM
+	PUSHL  a0
+	lea     Demon_Wisp(a0), a0
+	SPRITE_LOAD_COPY wisp,PaletteId_Monster,0x0,a2
+	POPL   a0
 
 	; Load palette
 	PUSHL  a0

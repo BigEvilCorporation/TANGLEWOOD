@@ -162,19 +162,25 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT demon_idletosmirk,demon_idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
 	ANIM_LOAD_DEFAULT demon_bite,demon_bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
 
-	rts
-
-DemonLoadWispGfx:
-
-	; Load wisp (into Demon VRAM) and start animation
+	; Load wisp anim and start playing
 	PUSHM   a0-a1
 	move.l  a0, a4
 	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_COPY wisp,PaletteId_Monster,0x0,a4
 	ANIM_LOAD_DEFAULT wisp_idle,wisp_idle,Wisp_Animation,0,1,0,0
 	lea     Wisp_Animation(a0), a1
 	move.b  #0x0, d0
 	jsr     AnimObjSetAnimation
+	POPM    a0-a1
+
+	rts
+
+DemonLoadWispGfx:
+
+	; Load wisp (into Demon VRAM)
+	PUSHM   a0-a1
+	move.l  a0, a4
+	lea     Demon_Wisp(a0), a0
+	SPRITE_LOAD_COPY wisp,PaletteId_Monster,0x0,a4
 	POPM    a0-a1
 
 	rts
