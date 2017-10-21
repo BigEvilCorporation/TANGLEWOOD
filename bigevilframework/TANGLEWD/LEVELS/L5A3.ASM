@@ -262,6 +262,12 @@ l5a3_Button_Bridge1:
 	rts
 
 l5a3_Trigger_Scrap:
+
+	PUSHL  a0
+	ENTITY_GETBYNAME Scrap, l5a3_Scrap, a0
+	jsr    ScrapAIStart_Emerge
+	POPL   a0
+
 	rts
 
 l5a3_Trigger_Demon:
