@@ -65,8 +65,9 @@ Demon_TargetX			rs.w 1
 Demon_TargetY			rs.w 1
 Demon_State				rs.b 1
 Demon_AtTarget			rs.b 1
+Demon_ManualGfxLoad		rs.b 1	; Don't load gfx
 ;-----------------------------
-Demon_Struct_Pad		rs.b 2   ; Alignment padding
+Demon_Struct_Pad		rs.b 1   ; Alignment padding
 Demon_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -118,6 +119,7 @@ DemonInit:
 	move.b  #0x0, Demon_AtTarget(a0)
 	move.w  #0x0, Demon_TargetX(a0)
 	move.w  #0x0, Demon_TargetY(a0)
+	move.b  #0x0, Demon_ManualGfxLoad(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -139,8 +141,16 @@ DemonLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Load sprite
+	tst.b   Demon_ManualGfxLoad(a0)
+	bne     @ManualLoad
+
+	; Load sprite (to alloc VRAM for wisp)
 	SPRITE_LOAD_DEFAULT Demon,PaletteId_Monster,0x0
+
+	; Load wisp
+	jsr DemonLoadWispGfx
+
+	@ManualLoad:
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT demon_idle,demon_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -152,10 +162,15 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT demon_idletosmirk,demon_idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
 	ANIM_LOAD_DEFAULT demon_bite,demon_bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
 
-	; Load wisp and start animation
+	rts
+
+DemonLoadWispGfx:
+
+	; Load wisp (into Demon VRAM) and start animation
 	PUSHM   a0-a1
+	move.l  a0, a4
 	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_DEFAULT wisp,PaletteId_Monster,0x0
+	SPRITE_LOAD_COPY wisp,PaletteId_Monster,0x0,a4
 	ANIM_LOAD_DEFAULT wisp_idle,wisp_idle,Wisp_Animation,0,1,0,0
 	lea     Wisp_Animation(a0), a1
 	move.b  #0x0, d0
@@ -167,6 +182,9 @@ DemonLoadGfx:
 DemonUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	tst.b  Entity_Active(a0)
+	beq    @Disabled
 	
 	; Base functionality
 	jsr    CharacterUpdate
@@ -246,6 +264,8 @@ DemonUpdate:
 
 	POPL   a1
 
+	@Disabled:
+
 	rts
 
 DemonDraw:
@@ -307,6 +327,9 @@ DemonSerialise:
 	rts
 
 DemonStartEmerge:
+
+	; Load demon sprite over top of wisp
+	SPRITE_LOAD_COPY Demon,PaletteId_Monster,0x0,a0
 
 	; Start wisp to emerge anim
 	PUSHL   a1
