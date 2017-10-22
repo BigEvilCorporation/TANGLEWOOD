@@ -7,31 +7,31 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L7A2_size_b	equ 0x00005640	; Size in bytes
+terrainmap_blockmap_L7A2_size_b	equ 0x00006330	; Size in bytes
 terrainmap_blockmap_L7A2_size_w	equ (terrainmap_blockmap_L7A2_size_b/2)	; Size in words
 terrainmap_blockmap_L7A2_size_l	equ (terrainmap_blockmap_L7A2_size_b/4)	; Size in longwords
 terrainmap_L7A2_left	equ 0x00
-terrainmap_L7A2_top	equ 0x08
+terrainmap_L7A2_top	equ 0x00
 terrainmap_L7A2_width	equ 0x44C
-terrainmap_L7A2_height	equ 0x9C
+terrainmap_L7A2_height	equ 0xB4
 terrainmap_blockmap_L7A2_left	equ 0x00
-terrainmap_blockmap_L7A2_top	equ 0x02
+terrainmap_blockmap_L7A2_top	equ 0x00
 terrainmap_blockmap_L7A2_width	equ 0x114
-terrainmap_blockmap_L7A2_height	equ 0x28
+terrainmap_blockmap_L7A2_height	equ 0x2E
 
 ; Terrain bezier bounds
 terrainmap_L7A2_num_special_terrain_descs	equ 0x12
 terrainmap_L7A2_special_terrain_descs:
-	dc.w 0x0360, 0x00D6, 0x04BA, 0x00E6	; Left, top, right, bottom
-	dc.w 0x03E0, 0x0194, 0x05A1, 0x01B3	; Left, top, right, bottom
-	dc.w 0x05E0, 0x01A6, 0x06FB, 0x01B5	; Left, top, right, bottom
-	dc.w 0x0805, 0x018F, 0x0B3A, 0x01CD	; Left, top, right, bottom
-	dc.w 0x0DDF, 0x031F, 0x0ED8, 0x032B	; Left, top, right, bottom
-	dc.w 0x0C44, 0x0201, 0x0D1F, 0x0214	; Left, top, right, bottom
-	dc.w 0x1177, 0x0280, 0x1518, 0x029D	; Left, top, right, bottom
-	dc.w 0x1A95, 0x028B, 0x1B6F, 0x02C7	; Left, top, right, bottom
-	dc.w 0x1A6E, 0x03E8, 0x1B38, 0x041F	; Left, top, right, bottom
-	dc.w 0x1B6D, 0x03B2, 0x1D82, 0x03E6	; Left, top, right, bottom
-	dc.w 0x1D90, 0x04FB, 0x2180, 0x051D	; Left, top, right, bottom
-	dc.w 0x1B8C, 0x04DA, 0x1D08, 0x0510	; Left, top, right, bottom
+	dc.w 0x0360, 0x00D6, 0x04BA, 0x00E6, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x03E0, 0x0194, 0x05A1, 0x01B3, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x05E0, 0x01A6, 0x06FB, 0x01B5, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0805, 0x018F, 0x0B3A, 0x01CD, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0DDF, 0x031F, 0x0ED8, 0x032B, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0C44, 0x0201, 0x0D1F, 0x0214, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1177, 0x0280, 0x1518, 0x029D, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1A95, 0x028B, 0x1B6F, 0x02C7, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1A6E, 0x03E8, 0x1B38, 0x041F, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1B6D, 0x03B2, 0x1D82, 0x03E6, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1D90, 0x04FB, 0x2180, 0x051D, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1B8C, 0x04DA, 0x1D08, 0x0510, 0x8000	; Left, top, right, bottom, flags
 

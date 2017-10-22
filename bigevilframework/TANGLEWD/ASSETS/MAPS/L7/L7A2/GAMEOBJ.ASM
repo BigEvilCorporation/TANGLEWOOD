@@ -139,6 +139,10 @@ L7A2_Borgus_count equ 0x0
 
 L7A2_Stalactite_count equ 0x0
 
+L7A2_CargoLift_count equ 0x0
+
+L7A2_Scrap_count equ 0x0
+
 
 
 L7A2_LoadGameObjects:
@@ -374,6 +378,8 @@ L7A2_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
+
+
 
 
 

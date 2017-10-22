@@ -7,26 +7,26 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L7A1_size_b	equ 0x00003198	; Size in bytes
+terrainmap_blockmap_L7A1_size_b	equ 0x000033C0	; Size in bytes
 terrainmap_blockmap_L7A1_size_w	equ (terrainmap_blockmap_L7A1_size_b/2)	; Size in words
 terrainmap_blockmap_L7A1_size_l	equ (terrainmap_blockmap_L7A1_size_b/4)	; Size in longwords
 terrainmap_L7A1_left	equ 0x00
 terrainmap_L7A1_top	equ 0x00
 terrainmap_L7A1_width	equ 0x44C
-terrainmap_L7A1_height	equ 0x58
+terrainmap_L7A1_height	equ 0x5C
 terrainmap_blockmap_L7A1_left	equ 0x00
 terrainmap_blockmap_L7A1_top	equ 0x00
 terrainmap_blockmap_L7A1_width	equ 0x114
-terrainmap_blockmap_L7A1_height	equ 0x17
+terrainmap_blockmap_L7A1_height	equ 0x18
 
 ; Terrain bezier bounds
 terrainmap_L7A1_num_special_terrain_descs	equ 0x07
 terrainmap_L7A1_special_terrain_descs:
-	dc.w 0x0400, 0x0234, 0x0780, 0x02A3	; Left, top, right, bottom
-	dc.w 0x0765, 0x01F8, 0x087F, 0x0235	; Left, top, right, bottom
-	dc.w 0x0902, 0x01F6, 0x0B6F, 0x0209	; Left, top, right, bottom
-	dc.w 0x0C30, 0x01FA, 0x1038, 0x026B	; Left, top, right, bottom
-	dc.w 0x0F17, 0x00A8, 0x128A, 0x00FB	; Left, top, right, bottom
-	dc.w 0x114D, 0x01F7, 0x14A0, 0x0240	; Left, top, right, bottom
-	dc.w 0x1765, 0x0238, 0x1F20, 0x028A	; Left, top, right, bottom
+	dc.w 0x0400, 0x0234, 0x0780, 0x02A3, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0765, 0x01F8, 0x087F, 0x0235, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0902, 0x01EA, 0x0B6F, 0x0209, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0C30, 0x01FA, 0x1038, 0x026B, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0F17, 0x00A8, 0x128A, 0x00FB, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x114D, 0x01F7, 0x14A0, 0x0240, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x1765, 0x0238, 0x1F20, 0x028A, 0x8000	; Left, top, right, bottom, flags
 
