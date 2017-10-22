@@ -57,7 +57,7 @@ L5a1_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-L5a1Data_WaitingInput			rs.b 1
+l5a1Data_CutsceneCargoLift		rs.b Cutscene_Struct_Size
 ;---------------------------------
 L5a1Data_Struct_Pad      		rs.b 3
 L5a1Data_Struct_Size     		rs.b 0
@@ -94,6 +94,16 @@ L5a1_Init:
 
 	; Load scene animations
 	jsr    L5_LoadSceneAnimations
+
+	;==============================================================
+
+	; Init cutscene
+	PUSHM  a0-a1
+	lea    LevelData_L5A1, a2
+	lea    l5a1Data_CutsceneCargoLift(a2), a0
+	move.l #l5a1_CutsceneCargoLift, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 	
 	;==============================================================
 
@@ -143,10 +153,18 @@ L5a1_Init:
 
 	;==============================================================
 
-	; Start cargo lift
+	; Set cargo lift direction
 	ENTITY_GETBYNAME CargoLift, l5a1_CargoLift, a0
 	move.b #0x1, Lift_Direction(a0)
-	jsr    LiftActivate
+
+	;==============================================================
+
+	; Start cargo lift cutscene
+	PUSHL  a0
+	lea    LevelData_L5A1, a2
+	lea    l5a1Data_CutsceneCargoLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 	
 	rts
 	
@@ -170,4 +188,28 @@ L5a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l5a1_CutsceneCargoLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Start lift
+	CUTSCENE_GET_ENTITY CargoLift, l5a1_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+
+	; Wait until hit floor
+	CUTSCENE_GET_ENTITY CargoLift, l5a1_CargoLift,a2
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR a2
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END
+
 	rts
