@@ -63,5 +63,9 @@ CargoLiftLoadGfx:
 	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
 	POPL  a0
 
+	; Get origin
+	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
+	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
+
 	rts
 	

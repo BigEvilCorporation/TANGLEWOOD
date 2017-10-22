@@ -65,17 +65,17 @@ L5A4_Checkpoint_count equ 0x0
 
 L5A4_WaterBody_count equ 0x0
 
-L5A4_Location_count equ 0x0
+L5A4_Location_count equ 0x1
+L5A4_LocationCargoLiftStop_idx	equ 0x0
+
+	IFND FINAL
+L5A4_LocationCargoLiftStop_name	dc.b "L5A4_LocationCargoLiftStop",0
+	even
+	ENDIF
 
 L5A4_Deathbox_count equ 0x0
 
-L5A4_Lift_count equ 0x1
-L5A4_LiftEntrance_idx	equ 0x0
-
-	IFND FINAL
-L5A4_LiftEntrance_name	dc.b "L5A4_LiftEntrance",0
-	even
-	ENDIF
+L5A4_Lift_count equ 0x0
 
 L5A4_Crate_count equ 0x0
 
@@ -119,6 +119,16 @@ L5A4_Borgus_count equ 0x0
 
 L5A4_Stalactite_count equ 0x0
 
+L5A4_CargoLift_count equ 0x1
+L5A4_CargoLift_idx	equ 0x0
+
+	IFND FINAL
+L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
+	even
+	ENDIF
+
+L5A4_Scrap_count equ 0x0
+
 
 
 L5A4_LoadGameObjects:
@@ -132,7 +142,7 @@ L5A4_LoadGameObjects:
 
 	jsr EchoInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Echo_2_name, a3
 	move.l a0, a2
@@ -150,8 +160,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.l #0x01f80000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A4_Nymn_1_name, a3
 	move.l a0, a2
@@ -227,26 +237,26 @@ L5A4_LoadGameObjects:
 
 
 
-
-
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A4_Lift_count)
-	move.l a1, EntityPoolStart_Lift
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L5A4_Location_count)
+	move.l a1, EntityPoolStart_Location
 	move.l a1, a0
 	POPL   a1
 
-	jsr LiftInit
-	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
+	jsr LocationInit
+	move.l #0x02000000, Entity_WorldPosX(a0)
+	move.l #0x02480000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A4_LiftEntrance_name, a3
+	lea L5A4_LocationCargoLiftStop_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
-	add.l #Lift_Struct_Size, a0
+	jsr LocationLoadGfx
+	add.l #Location_Struct_Size, a0
+
+
 
 
 
@@ -282,6 +292,26 @@ L5A4_LoadGameObjects:
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L5A4_CargoLift_count)
+	move.l a1, EntityPoolStart_CargoLift
+	move.l a1, a0
+	POPL   a1
+
+	jsr CargoLiftInit
+	move.l #0x01e00000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_CargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CargoLiftLoadGfx
+	add.l #CargoLift_Struct_Size, a0
 
 
 	rts

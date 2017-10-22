@@ -20,8 +20,8 @@ Lift_MaxSpeedDown		equ 0x010000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 
-Lift_RopeLength			equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
-Lift_RopeNumSprites		equ (Lift_RopeLength/Rope_Height)
+Lift_RopeLengthDefault	equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
+Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)
 
 Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*subpixels_per_pixel
 Lift_RopePosOffsetY		equ -(Rope_Height)*subpixels_per_pixel
@@ -42,6 +42,7 @@ Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
 Lift_OriginX				rs.l 1	; Origin (won't lower beyond this point)
 Lift_OriginY				rs.l 1
 Lift_LastOccupant			rs.l 1
+Lift_RopeLength				rs.l 1
 Lift_PlatformOffsetY		rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 Lift_Direction				rs.b 1	; Up/down powered direction
@@ -96,6 +97,7 @@ LiftInit:
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
 	move.b  #0x0, Lift_Direction(a0)
+	move.l  #Lift_RopeLengthDefault, Lift_RopeLength(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -200,7 +202,8 @@ LiftLoadGfx:
 	; If heading down, offset origin to top, disable gravity
 	tst.b  Lift_Direction(a0)
 	beq    @Up
-	addi.l #Lift_RopeLength, Lift_OriginY(a0)
+	move.l Lift_RopeLength(a0), d0
+	add.l  d0, Lift_OriginY(a0)
 	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
 	@Up:
 
@@ -442,7 +445,7 @@ LiftRestrictHeight:
 	move.l d1, Entity_WorldPosY(a0)
 	@WithinRopeBottom:
 
-	sub.l  #Lift_RopeLength, d1
+	sub.l  Lift_RopeLength(a0), d1
 	cmp.l  d0, d1
 	blt    @WithinRopeTop
 	move.l d1, Entity_WorldPosY(a0)

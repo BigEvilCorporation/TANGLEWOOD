@@ -124,8 +124,16 @@ l5a4_Init:
 
 	;==============================================================
 
-	; Start lift
-	ENTITY_GETBYNAME Lift, l5a4_LiftEntrance, a0
+	; Set cargo lift stop point
+	ENTITY_GETBYNAME CargoLift, l5a4_CargoLift, a0
+	ENTITY_GETBYNAME Location, l5a4_LocationCargoLiftStop, a1
+	move.l Entity_WorldPosY(a0), d0
+	move.l Entity_WorldPosY(a1), d1
+	sub.l  d1, d0
+	move.l d0, Lift_RopeLength(a0)
+	move.b #0x1, Lift_RestrictHeight(a0)
+
+	; Start cargo lift
 	jsr    LiftActivate
 	
 	rts
