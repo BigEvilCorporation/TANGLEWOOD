@@ -16,6 +16,8 @@ Djubb_SwimDecelForced	equ 0x002000
 Djubb_MaxSwimVel		equ 0x03E000
 Djubb_WallProbeLeft		equ -0x0010
 Djubb_WallProbeRight	equ Djubb_Width+0x0010
+Djubb_WallProbeTop		equ 0x0000
+Djubb_WallProbeBottom	equ Djubb_Height-1
 Djubb_PlayerYViewDist	equ 0x20
 Djubb_AttackDamage		equ 0xFF
 
@@ -61,7 +63,8 @@ DjubbInit:
 	move.w  #Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Djubb_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
-	move.w  #Djubb_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Djubb_WallProbeTop, PhysicsObj_WallProbeTop(a0)
+	move.w  #Djubb_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.b  #Djubb_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)

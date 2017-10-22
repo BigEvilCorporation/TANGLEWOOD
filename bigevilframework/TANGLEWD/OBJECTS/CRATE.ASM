@@ -69,7 +69,7 @@ CrateInit:
 	move.w  #Crate_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Crate_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Crate_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Crate_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Crate_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #(Crate_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
 	move.w  #(Crate_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)

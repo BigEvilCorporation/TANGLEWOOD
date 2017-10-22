@@ -86,7 +86,7 @@ FuzzlCageInit:
 	move.w  #FuzzlCage_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #FuzzlCage_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #FuzzlCage_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #FuzzlCage_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #FuzzlCage_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #(FuzzlCage_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
 	move.w  #(FuzzlCage_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)

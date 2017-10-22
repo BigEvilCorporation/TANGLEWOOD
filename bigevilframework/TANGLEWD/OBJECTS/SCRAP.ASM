@@ -88,7 +88,7 @@ ScrapInit:
 	move.w #Scrap_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w #Scrap_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w #Scrap_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
-	move.w #Scrap_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w #Scrap_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w #(Scrap_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
 	move.w #(Scrap_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.w #Scrap_StepHeight, PhysicsObj_StepHeight(a0)

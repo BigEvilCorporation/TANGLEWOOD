@@ -65,7 +65,7 @@ StoneInit:
 	move.w  #Stone_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Stone_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Stone_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #Stone_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Stone_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #(Stone_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
 	move.w  #(Stone_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Stone_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)

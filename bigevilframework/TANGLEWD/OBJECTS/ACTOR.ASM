@@ -85,7 +85,7 @@ ActorInit:
 	move.w  #ActorDecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #ActorProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #ActorProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.w  #ActorHeight, PhysicsObj_WallProbeBottom(a0)
+	move.w  #ActorHeight-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #(ActorWidth/2)-0x10, PhysicsObj_WallProbeLeft(a0)
 	move.w  #(ActorWidth/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.w  #ActorStepHeight, PhysicsObj_StepHeight(a0)

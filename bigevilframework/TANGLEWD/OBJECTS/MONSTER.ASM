@@ -190,7 +190,7 @@ MonsterInit:
 	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
-	move.w  #Monster_Height, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Monster_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x08, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Monster_Width-0x08, PhysicsObj_WallProbeRight(a0)
 	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
