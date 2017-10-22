@@ -317,6 +317,19 @@ CutsceneStep_CameraLerpWait:
 
 	rts
 
+CutsceneStep_WaitObjectHitFloor:
+	; a0 --- Cutscene
+	; a1 --- Object
+	; d0 (b) OUT: Step running
+
+	move.b #0x1, d0
+	tst.b PhysicsObj_CloseToFloor(a1)
+	beq   @End
+	move.b #0x0, d0
+	@End:
+
+	rts
+
 CutsceneStep_ObjectSetParamB:
 	; a0 --- Cutscene
 	; d0 (l) Object
@@ -437,6 +450,11 @@ CUTSCENE_CHARACTER_MOVE_RELATIVE: macro character,object,distancex,threshold
 	move.w \distancex, d0
 	move.w \threshold, d1
 	CUTSCENE_RUN_STEP CutsceneStep_CharacterMoveRelative
+	endm
+
+CUTSCENE_OBJECT_WAIT_HIT_FLOOR: macro object
+	move.l \object, a1
+	CUTSCENE_RUN_STEP CutsceneStep_WaitObjectHitFloor
 	endm
 
 CUTSCENE_OBJECT_ROUTINE: macro object,routine
