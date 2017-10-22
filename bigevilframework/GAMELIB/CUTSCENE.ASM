@@ -289,6 +289,19 @@ CutsceneStep_CharacterMoveRelative:
 
 	rts
 
+CutsceneStep_CharacterWaitDeath:
+	; a0 --- Cutscene
+	; a1 --- Character
+	; d0 (b) OUT: Step running
+
+	move.b #0x1, d0
+	tst.b  Character_Dead(a1)
+	beq    @End
+	move.b #0x0, d0
+	@End:
+
+	rts
+
 CutsceneStep_CameraLerp:
 	; a0 --- Cutscene
 	; d0 (l) Source object
@@ -450,6 +463,11 @@ CUTSCENE_CHARACTER_MOVE_RELATIVE: macro character,object,distancex,threshold
 	move.w \distancex, d0
 	move.w \threshold, d1
 	CUTSCENE_RUN_STEP CutsceneStep_CharacterMoveRelative
+	endm
+
+CUTSCENE_CHARACTER_WAIT_DEATH: macro character
+	move.l \character, a1
+	CUTSCENE_RUN_STEP CutsceneStep_CharacterWaitDeath
 	endm
 
 CUTSCENE_OBJECT_WAIT_HIT_FLOOR: macro object

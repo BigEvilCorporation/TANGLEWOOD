@@ -33,6 +33,8 @@ L4A1_Log_count equ 0x0
 
 L4A1_DjakkCage_count equ 0x0
 
+L4A1_Borgus_count equ 0x0
+
 L4A1_Monster_count equ 0x0
 
 L4A1_Boulder_count equ 0x0
@@ -201,8 +203,6 @@ L4A1_Ladder_count equ 0x0
 
 L4A1_Demon_count equ 0x0
 
-L4A1_Borgus_count equ 0x0
-
 L4A1_Stalactite_count equ 0x0
 
 L4A1_CargoLift_count equ 0x0
@@ -251,6 +251,7 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -724,7 +725,6 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 

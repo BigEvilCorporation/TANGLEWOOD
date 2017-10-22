@@ -272,55 +272,10 @@ BoulderUpdate:
 	bge    @NotFalling
 
 	;==============================================================
-	
-	move.l a1, -(sp)
-	
-	; Check if squishing a monster
-	move.l (EntityPoolStart_Monster), a1
-	move.w (EntityCount_Monster), d6
-	tst.w  d6
-	beq    @NoMonsters
-	subq.w  #0x1, d6
-	@MonsterLoop:
-	move.l d6, -(sp)
-	
-	; Check monster active
-	tst.b  Entity_Active(a1)
-	beq    @NextMonster
-	
-	; Check monster alive
-	tst.b  Character_Dead(a1)
-	bne    @NextMonster
-	
-	; Bounds check
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr   PHYS_TestBoxIntersectBox
-	tst.b d0
-	beq   @NextMonster
-	
-	; Boulder hit a monster, deal damage
-	PUSHL  a0
-	move.l a1, a0
-	move.l #Boulder_HitDamage, d0
-	jsr    CharacterDealDamage
-	POPL   a0
 
-	; Crack open
-	jsr    BoulderCrack
-	
-	; Disable crack/respawn
-	move.b #0x0, Boulder_CanCrack(a0)
-	
-	@NextMonster:
-	move.l (sp)+, d6
-	lea   Monster_Struct_Size(a1), a1
-	dbra  d6, @MonsterLoop
-	
-	@NoMonsters:
-	@EndMonsterLoop:
-	
-	move.l (sp)+, a1
+	; Check if squashing something
+	jsr BoulderCheckDjakks
+	jsr BoulderCheckBorgus
 
 	;==============================================================
 	
@@ -458,4 +413,114 @@ BoulderSerialise:
 	
 	@End:
 	
+	rts
+
+BoulderCheckDjakks:
+
+	move.l a1, -(sp)
+	
+	; Check if squishing a monster
+	move.l (EntityPoolStart_Monster), a1
+	move.w (EntityCount_Monster), d6
+	tst.w  d6
+	beq    @NoMonsters
+	subq.w  #0x1, d6
+	@MonsterLoop:
+	move.l d6, -(sp)
+	
+	; Check monster active
+	tst.b  Entity_Active(a1)
+	beq    @NextMonster
+	
+	; Check monster alive
+	tst.b  Character_Dead(a1)
+	bne    @NextMonster
+	
+	; Bounds check
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr   PHYS_TestBoxIntersectBox
+	tst.b d0
+	beq   @NextMonster
+	
+	; Boulder hit a monster, deal damage
+	PUSHL  a0
+	move.l a1, a0
+	move.l #Boulder_HitDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+
+	; Crack open
+	jsr    BoulderCrack
+	
+	; Disable crack/respawn
+	move.b #0x0, Boulder_CanCrack(a0)
+	
+	@NextMonster:
+	move.l (sp)+, d6
+	lea   Monster_Struct_Size(a1), a1
+	dbra  d6, @MonsterLoop
+	
+	@NoMonsters:
+	@EndMonsterLoop:
+	
+	move.l (sp)+, a1
+
+	rts
+
+BoulderCheckBorgus:
+
+	move.l a1, -(sp)
+	
+	; Check if squishing a Borgus
+	move.l (EntityPoolStart_Borgus), a1
+	move.w (EntityCount_Borgus), d6
+	tst.w  d6
+	beq    @NoBorguss
+	subq.w  #0x1, d6
+	@BorgusLoop:
+	move.l d6, -(sp)
+	
+	; Check Borgus active
+	tst.b  Entity_Active(a1)
+	beq    @NextBorgus
+	
+	; Check Borgus alive
+	tst.b  Character_Dead(a1)
+	bne    @NextBorgus
+	
+	; Bounds check
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr   PHYS_TestBoxIntersectBox
+	tst.b d0
+	beq   @NextBorgus
+	
+	; Boulder hit a Borgus, deal damage
+	PUSHL  a0
+	move.l a1, a0
+	move.l #Boulder_HitDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+
+	; Cancel Y velocity to indicate a hit
+	move.l #0x0, PhysicsObj_VelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)
+
+	; Crack open
+	jsr    BoulderCrack
+	
+	; Disable crack/respawn
+	move.b #0x0, Boulder_CanCrack(a0)
+	
+	@NextBorgus:
+	move.l (sp)+, d6
+	lea   Borgus_Struct_Size(a1), a1
+	dbra  d6, @BorgusLoop
+	
+	@NoBorguss:
+	@EndBorgusLoop:
+	
+	move.l (sp)+, a1
+
 	rts

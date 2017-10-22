@@ -33,6 +33,8 @@ L5A4_Log_count equ 0x0
 
 L5A4_DjakkCage_count equ 0x0
 
+L5A4_Borgus_count equ 0x0
+
 L5A4_Monster_count equ 0x0
 
 L5A4_Boulder_count equ 0x0
@@ -115,8 +117,6 @@ L5A4_Demon_name	dc.b "L5A4_Demon",0
 	even
 	ENDIF
 
-L5A4_Borgus_count equ 0x0
-
 L5A4_Stalactite_count equ 0x0
 
 L5A4_CargoLift_count equ 0x1
@@ -171,6 +171,7 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -291,7 +292,6 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
-
 
 
 	PUSHL  a1

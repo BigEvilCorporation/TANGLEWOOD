@@ -1200,13 +1200,13 @@ PhysicsObjFindWall:
 	tst.b  d0
 	bne    @FloorProbeTop
 	
-	; Get floor probe Y (bottom)
+	; Get wall probe Y (bottom)
 	move.w PhysicsObj_WallProbeBottom(a0), d3
 	bra    @FloorProbeBottom
 
 	@FloorProbeTop:
 
-	; Get floor probe Y (top)
+	; Get wall probe Y (top)
 	move.w PhysicsObj_WallProbeTop(a0), d3
 
 	@FloorProbeBottom:

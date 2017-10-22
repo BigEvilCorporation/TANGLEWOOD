@@ -27,6 +27,8 @@ L8A4_Log_count equ 0x0
 
 L8A4_DjakkCage_count equ 0x0
 
+L8A4_Borgus_count equ 0x0
+
 L8A4_Monster_count equ 0x0
 
 L8A4_Boulder_count equ 0x0
@@ -105,8 +107,6 @@ L8A4_Demon_3_name	dc.b "L8A4_Demon_3",0
 	even
 	ENDIF
 
-L8A4_Borgus_count equ 0x0
-
 L8A4_Stalactite_count equ 0x0
 
 L8A4_CargoLift_count equ 0x0
@@ -136,6 +136,7 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -227,7 +228,6 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
-
 
 
 

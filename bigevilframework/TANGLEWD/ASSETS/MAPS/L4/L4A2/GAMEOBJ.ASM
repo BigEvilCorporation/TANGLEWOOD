@@ -65,6 +65,8 @@ L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 
 L4A2_DjakkCage_count equ 0x0
 
+L4A2_Borgus_count equ 0x0
+
 L4A2_Monster_count equ 0x0
 
 L4A2_Boulder_count equ 0x0
@@ -234,8 +236,6 @@ L4A2_Pool3_name	dc.b "L4A2_Pool3",0
 L4A2_Ladder_count equ 0x0
 
 L4A2_Demon_count equ 0x0
-
-L4A2_Borgus_count equ 0x0
 
 L4A2_Stalactite_count equ 0x0
 
@@ -443,6 +443,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -924,7 +925,6 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
-
 
 
 

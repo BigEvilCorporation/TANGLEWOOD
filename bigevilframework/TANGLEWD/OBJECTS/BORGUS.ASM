@@ -38,17 +38,24 @@ Borgus_SpitOffsetX		equ 0x0030
 Borgus_SpitOffsetY		equ 0x0040
 Borgus_SpitAnimFrame	equ 0x2
 
+Borgus_PlayerDamage		equ 0xFF
+
 ; AI
 Borgus_AIFollowDistance	equ 0x0060
 
 ; Spitball
-BorgusSpitball_Width	equ 0x0038
-BorgusSpitball_Height	equ 0x0030
-BorgusSpitball_MaxVel	equ 0x00040000
+BorgusSpitball_Width			equ 0x0038
+BorgusSpitball_Height			equ 0x0030
+BorgusSpitball_BoundsWidth		equ BorgusSpitball_Width
+BorgusSpitball_BoundsHeight		equ (BorgusSpitball_Height-0x40)
+BorgusSpitball_BoundsOffsetX	equ (BorgusSpitball_Width/2)-(BorgusSpitball_BoundsWidth/2)
+BorgusSpitball_BoundsOffsetY	equ (BorgusSpitball_Height/2)-(BorgusSpitball_BoundsHeight/2)
+BorgusSpitball_MaxVel			equ 0x00040000
 
 ; States
-BorgusAIState_Follow	equ 0x0
-BorgusAIState_Spit		equ 0x1
+BorgusAIState_Idle		equ 0x0
+BorgusAIState_Follow	equ 0x1
+BorgusAIState_Spit		equ 0x2
 
 ; Animations
 BorgusAnimIdx_Spit		equ 0x0
@@ -71,6 +78,7 @@ Spitball_Struct_Size		rs.b 0
 ;-----------------------------
 Borgus_Spitball			rs.b Spitball_Struct_Size
 Borgus_Animations		rs.b (Animation_Struct_Size*BorgusAnimIdx_Max)
+Borgus_Fuzzl			rs.l 1
 Borgus_SpitTimer		rs.w 1
 Borgus_AIState			rs.b 1
 ;-----------------------------
@@ -130,7 +138,8 @@ BorgusInit:
 	move.w  #Borgus_DecelForced, Character_DecelForced(a0)
 
 	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
-	move.b  #BorgusAIState_Follow, Borgus_AIState(a0)
+	move.b  #BorgusAIState_Idle, Borgus_AIState(a0)
+	move.l  #0x0, Borgus_Fuzzl(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -145,16 +154,14 @@ BorgusInit:
 	move.w  #BorgusSpitball_Width, Entity_Width(a0)
 	move.w  #BorgusSpitball_Height, Entity_Height(a0)
 	move.l  #BorgusSpitball_MaxVel, PhysicsObj_MaxVelAirX(a0)
-	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
-	move.w  #0x0, PhysicsObj_BoundsTop(a0)
-	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
-	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	move.w  #BorgusSpitball_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
+	move.w  #BorgusSpitball_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
+	move.w  #BorgusSpitball_BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #BorgusSpitball_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
+	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	POPL    a0
-
-	; Start follow state
-	jsr     BorgusAIStart_Follow
 
 	rts
 
@@ -189,12 +196,29 @@ BorgusUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If dying
+	tst.b  Character_Dead(a0)
+	beq    @NotDead
+	; TODO: Death state
+	cmp.b  #BorgusAIState_Idle, Borgus_AIState(a0)
+	beq    @NotDead
+
+	; Spit Fuzzl out then die
+	jsr    BorgusAIStart_Spit
+
+	@NotDead:
+
 	; Update AI state
 	move.b Borgus_AIState(a0), d0
+	cmp.b  #BorgusAIState_Idle, d0
+	beq    @AIIdle
 	cmp.b  #BorgusAIState_Follow, d0
 	beq    @AIFollow
 	cmp.b  #BorgusAIState_Spit, d0
 	beq    @AISpit
+
+	@AIIdle:
+	bra    @EndAI
 
 	@AIFollow:
 	jsr    BorgusAIUpdate_Follow
@@ -214,10 +238,7 @@ BorgusUpdate:
 	;==============================================================
 
 	; Update spitball
-	PUSHM   a0-a1
-	lea     Borgus_Spitball(a0), a0
-	jsr    PhysicsObjUpdate
-	POPM    a0-a1
+	jsr    BorgusUpdateSpitball
 
 	rts
 
@@ -362,13 +383,30 @@ BorgusAIUpdate_Spit:
 	cmp.b  #Borgus_SpitAnimFrame, d0
 	bne    @NotHitFrame
 
+	; If dying
+	tst.b  Character_Dead(a0)
+	beq    @FireSpitball
+
+	; Fire Fuzzl
+	jsr    BorgusFireFuzzl
+
+	; TODO: Death state
+	move.b #BorgusAIState_Idle, Borgus_AIState(a0)
+
+	bra    @End
+
+	@FireSpitball:
+
 	; Fire spitball
 	jsr    BorgusFireSpitball
+
+	@FireFuzzl:
 
 	; Back to follow state
 	jsr    BorgusAIStart_Follow
 
 	@NotHitFrame:
+	@End:
 
 	rts
 
@@ -396,6 +434,71 @@ BorgusFireSpitball:
 	move.w  d1, Entity_WorldPosY(a0)
 	move.l  d2, PhysicsObj_VelX(a0)
 	move.b  SpriteObj_FlippedX(a2), SpriteObj_FlippedX(a0)
+	POPM    a0-a1
+
+	rts
+
+BorgusFireFuzzl:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHM   a0-a1
+	move.l  a0, a2
+	move.l  Borgus_Fuzzl(a0), a0
+	cmp.l   #0x0, a0
+	beq     @NoFuzzl
+
+	; Activate Fuzzl
+	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
+
+	; Set pos/vel
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	addi.w #Borgus_SpitOffsetX, d0
+	addi.w #Borgus_SpitOffsetY, d1
+
+	move.l #BorgusSpitball_MaxVel, d2
+
+	tst.b  SpriteObj_FlippedX(a2)
+	beq    @Forward
+	neg.l  d2
+	@Forward:
+
+	move.w  d0, Entity_WorldPosX(a0)
+	move.w  d1, Entity_WorldPosY(a0)
+	move.l  d2, PhysicsObj_VelX(a0)
+
+	@NoFuzzl:
+	POPM    a0-a1
+
+	rts
+
+BorgusUpdateSpitball:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	PUSHM   a0-a1
+	lea     Borgus_Spitball(a0), a0
+
+	; Update physics
+	jsr    PhysicsObjUpdate
+
+	; If hit player
+	move.l Player1, a2
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NoHit
+
+	; Deal damage
+	move.b #Borgus_PlayerDamage, d0
+	move.l a2, a0
+	jsr    CharacterDealDamage
+	
+	@NoHit:
+
 	POPM    a0-a1
 
 	rts
