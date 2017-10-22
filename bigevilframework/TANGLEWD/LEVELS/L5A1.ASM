@@ -140,6 +140,13 @@ L5a1_Init:
 	; Start Echo AI follow state
 	move.l (Player2), a0
 	jsr    EchoAIStart_Follow
+
+	;==============================================================
+
+	; Start cargo lift
+	ENTITY_GETBYNAME CargoLift, l5a1_CargoLift, a0
+	move.b #0x1, Lift_Direction(a0)
+	jsr    LiftActivate
 	
 	rts
 	

@@ -231,7 +231,13 @@ L5A1_Borgus_count equ 0x0
 
 L5A1_Stalactite_count equ 0x0
 
-L5A1_CargoLift_count equ 0x0
+L5A1_CargoLift_count equ 0x1
+L5A1_CargoLift_idx	equ 0x0
+
+	IFND FINAL
+L5A1_CargoLift_name	dc.b "L5A1_CargoLift",0
+	even
+	ENDIF
 
 L5A1_Scrap_count equ 0x0
 
@@ -247,8 +253,8 @@ L5A1_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x01080000, Entity_WorldPosX(a0)
-	move.l #0x01800000, Entity_WorldPosY(a0)
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Echo_7_name, a3
 	move.l a0, a2
@@ -266,8 +272,8 @@ L5A1_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x01280000, Entity_WorldPosX(a0)
-	move.l #0x01800000, Entity_WorldPosY(a0)
+	move.l #0x01800000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Nymn_6_name, a3
 	move.l a0, a2
@@ -893,6 +899,24 @@ L5A1_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L5A1_CargoLift_count)
+	move.l a1, EntityPoolStart_CargoLift
+	move.l a1, a0
+	POPL   a1
+
+	jsr CargoLiftInit
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x00800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A1_CargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CargoLiftLoadGfx
+	add.l #CargoLift_Struct_Size, a0
 
 
 	rts
