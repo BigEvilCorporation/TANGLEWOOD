@@ -84,7 +84,16 @@ spritesheet_fuzzl_red_roll_size_l		equ 0x100	; Size in longwords
 spritesheet_fuzzl_red_roll_size_t		equ 0x20	; Size in tiles
 
 
-spritesheet_fuzzl_yellow_roll_frameoffset	equ 0x26	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_eyes_frameoffset	equ 0x26	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_eyes_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_eyes_height		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_eyes_size_b		equ 0x480	; Size in bytes
+spritesheet_fuzzl_white_eyes_size_w		equ 0x240	; Size in words
+spritesheet_fuzzl_white_eyes_size_l		equ 0x120	; Size in longwords
+spritesheet_fuzzl_white_eyes_size_t		equ 0x24	; Size in tiles
+
+
+spritesheet_fuzzl_yellow_roll_frameoffset	equ 0x2F	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_yellow_roll_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_roll_size_b		equ 0x400	; Size in bytes
@@ -93,7 +102,7 @@ spritesheet_fuzzl_yellow_roll_size_l		equ 0x100	; Size in longwords
 spritesheet_fuzzl_yellow_roll_size_t		equ 0x20	; Size in tiles
 
 
-spritesheet_fuzzl_green_sleep_frameoffset	equ 0x2E	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_sleep_frameoffset	equ 0x37	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_green_sleep_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_sleep_size_b		equ 0x180	; Size in bytes
@@ -102,7 +111,16 @@ spritesheet_fuzzl_green_sleep_size_l		equ 0x60	; Size in longwords
 spritesheet_fuzzl_green_sleep_size_t		equ 0x0C	; Size in tiles
 
 
-spritesheet_fuzzl_red_idle_frameoffset	equ 0x31	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_idle_frameoffset	equ 0x3A	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_idle_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_idle_height		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_idle_size_b		equ 0x80	; Size in bytes
+spritesheet_fuzzl_white_idle_size_w		equ 0x40	; Size in words
+spritesheet_fuzzl_white_idle_size_l		equ 0x20	; Size in longwords
+spritesheet_fuzzl_white_idle_size_t		equ 0x04	; Size in tiles
+
+
+spritesheet_fuzzl_red_idle_frameoffset	equ 0x3B	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_red_idle_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_idle_size_b		equ 0x80	; Size in bytes
@@ -111,7 +129,7 @@ spritesheet_fuzzl_red_idle_size_l		equ 0x20	; Size in longwords
 spritesheet_fuzzl_red_idle_size_t		equ 0x04	; Size in tiles
 
 
-spritesheet_fuzzl_green_idle_frameoffset	equ 0x32	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_idle_frameoffset	equ 0x3C	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_green_idle_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_idle_size_b		equ 0x80	; Size in bytes
@@ -120,7 +138,7 @@ spritesheet_fuzzl_green_idle_size_l		equ 0x20	; Size in longwords
 spritesheet_fuzzl_green_idle_size_t		equ 0x04	; Size in tiles
 
 
-spritesheet_fuzzl_green_eyes_frameoffset	equ 0x33	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_green_eyes_frameoffset	equ 0x3D	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_green_eyes_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_eyes_size_b		equ 0x480	; Size in bytes
@@ -129,7 +147,7 @@ spritesheet_fuzzl_green_eyes_size_l		equ 0x120	; Size in longwords
 spritesheet_fuzzl_green_eyes_size_t		equ 0x24	; Size in tiles
 
 
-spritesheet_fuzzl_red_sleep_frameoffset	equ 0x3C	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_red_sleep_frameoffset	equ 0x46	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_red_sleep_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_red_sleep_size_b		equ 0x180	; Size in bytes
@@ -138,7 +156,7 @@ spritesheet_fuzzl_red_sleep_size_l		equ 0x60	; Size in longwords
 spritesheet_fuzzl_red_sleep_size_t		equ 0x0C	; Size in tiles
 
 
-spritesheet_fuzzl_blue_sleep_frameoffset	equ 0x3F	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_blue_sleep_frameoffset	equ 0x49	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_blue_sleep_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_sleep_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_blue_sleep_size_b		equ 0x180	; Size in bytes
@@ -147,7 +165,7 @@ spritesheet_fuzzl_blue_sleep_size_l		equ 0x60	; Size in longwords
 spritesheet_fuzzl_blue_sleep_size_t		equ 0x0C	; Size in tiles
 
 
-spritesheet_fuzzl_yellow_eyes_frameoffset	equ 0x42	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_yellow_eyes_frameoffset	equ 0x4C	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_yellow_eyes_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_eyes_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_eyes_size_b		equ 0x480	; Size in bytes
@@ -156,7 +174,16 @@ spritesheet_fuzzl_yellow_eyes_size_l		equ 0x120	; Size in longwords
 spritesheet_fuzzl_yellow_eyes_size_t		equ 0x24	; Size in tiles
 
 
-spritesheet_fuzzl_yellow_idle_frameoffset	equ 0x4B	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_roll_frameoffset	equ 0x55	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_roll_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_roll_height		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_roll_size_b		equ 0x400	; Size in bytes
+spritesheet_fuzzl_white_roll_size_w		equ 0x200	; Size in words
+spritesheet_fuzzl_white_roll_size_l		equ 0x100	; Size in longwords
+spritesheet_fuzzl_white_roll_size_t		equ 0x20	; Size in tiles
+
+
+spritesheet_fuzzl_yellow_idle_frameoffset	equ 0x5D	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_yellow_idle_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_idle_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_yellow_idle_size_b		equ 0x80	; Size in bytes
@@ -165,7 +192,16 @@ spritesheet_fuzzl_yellow_idle_size_l		equ 0x20	; Size in longwords
 spritesheet_fuzzl_yellow_idle_size_t		equ 0x04	; Size in tiles
 
 
-spritesheet_fuzzl_green_roll_frameoffset	equ 0x4C	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_sleep_frameoffset	equ 0x5E	; Offset to first frame in sprite sheet
+spritesheet_fuzzl_white_sleep_width		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_sleep_height		equ 0x10	; Width in pixels
+spritesheet_fuzzl_white_sleep_size_b		equ 0x180	; Size in bytes
+spritesheet_fuzzl_white_sleep_size_w		equ 0xC0	; Size in words
+spritesheet_fuzzl_white_sleep_size_l		equ 0x60	; Size in longwords
+spritesheet_fuzzl_white_sleep_size_t		equ 0x0C	; Size in tiles
+
+
+spritesheet_fuzzl_green_roll_frameoffset	equ 0x61	; Offset to first frame in sprite sheet
 spritesheet_fuzzl_green_roll_width		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_roll_height		equ 0x10	; Width in pixels
 spritesheet_fuzzl_green_roll_size_b		equ 0x400	; Size in bytes
@@ -1568,6 +1604,334 @@ spritesheet_fuzzl_red_roll:
 
 
 
+spritesheet_fuzzl_white_eyes:
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222212F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF21222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222221F
+	dc.l	0xF2FF221F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22122F0
+	dc.l	0xF2212FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF221F
+	dc.l	0x0F2F221F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2212FFF
+	dc.l	0x2221F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F221F
+	dc.l	0xFFF2221F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2221F2F0
+	dc.l	0xF221FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2212F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF212FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F122F
+	dc.l	0xFFF2122F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2122F2F0
+	dc.l	0xF122FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF122F
+	dc.l	0x0F2F122F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF1222FFF
+	dc.l	0x2122F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222122F
+	dc.l	0xF2FF122F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF12222F0
+	dc.l	0xF1222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF221F
+	dc.l	0x0F2F221F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF1222FFF
+	dc.l	0x2122F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+
 spritesheet_fuzzl_yellow_roll:
 
 	dc.l	0x00000555
@@ -1969,6 +2333,46 @@ spritesheet_fuzzl_green_sleep:
 	dc.l	0xEEDEEE00
 	dc.l	0x00EED000
 	dc.l	0xE0D00000
+
+
+
+spritesheet_fuzzl_white_idle:
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x020222FF
+	dc.l	0x0222222F
+	dc.l	0xF222221F
+	dc.l	0x0F22221F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF22222
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFF222FF0
+	dc.l	0xF22222F0
+	dc.l	0xF1222FFF
+	dc.l	0x212222F0
+	dc.l	0xF2222F00
+
+	dc.l	0x2F22FF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
 
@@ -2932,6 +3336,298 @@ spritesheet_fuzzl_yellow_eyes:
 
 
 
+spritesheet_fuzzl_white_roll:
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF229F
+	dc.l	0x0F2F229F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xFF922FFF
+	dc.l	0x2F92F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FF0
+	dc.l	0x0000F222
+	dc.l	0x00FFFFF2
+	dc.l	0x00FFFFF2
+	dc.l	0x0F0F2222
+	dc.l	0xFFF22F22
+	dc.l	0x0FFFFFF2
+	dc.l	0xFF2FFFF2
+
+	dc.l	0x0F2FFF22
+	dc.l	0xF222FFFF
+	dc.l	0xF22FFFFF
+	dc.l	0x0FFFFFFF
+	dc.l	0x00F0F2FF
+	dc.l	0x00FF02FF
+	dc.l	0x00002FFF
+	dc.l	0x00000F2F
+
+	dc.l	0x20F00000
+	dc.l	0x222FF000
+	dc.l	0xFF2FFF00
+	dc.l	0x2FFF2F00
+	dc.l	0x22FFF2F0
+	dc.l	0x9FFFFFFF
+	dc.l	0xFFF2FFFF
+	dc.l	0xF2922F20
+
+	dc.l	0x2222222F
+	dc.l	0xFF22222F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFF2000
+	dc.l	0xFFFFFF00
+	dc.l	0xF0FFF000
+	dc.l	0xFFF00000
+
+	dc.l	0x00000F0F
+	dc.l	0x0000FF0F
+	dc.l	0x00FFFFFF
+	dc.l	0x0F0F2F22
+	dc.l	0x0F22FFFF
+	dc.l	0xF222FFFF
+	dc.l	0x0FFFFF2F
+	dc.l	0xFFFFFF22
+
+	dc.l	0xF0FFFFF2
+	dc.l	0x00F2FFFF
+	dc.l	0x2F2FFFFF
+	dc.l	0x0FFFFFFF
+	dc.l	0x02FFFFFF
+	dc.l	0x00FF0FFF
+	dc.l	0x000FFFF2
+	dc.l	0x00000FFF
+
+	dc.l	0xF0F00000
+	dc.l	0xFF22F000
+	dc.l	0xF2F20000
+	dc.l	0x2FF22200
+	dc.l	0x2222F220
+	dc.l	0x2222F22F
+	dc.l	0x2992FFFF
+	dc.l	0xFFFFFFFF
+
+	dc.l	0xF2FFFF2F
+	dc.l	0x2992FF20
+	dc.l	0x2222FFFF
+	dc.l	0x2222FFF0
+	dc.l	0xFF2220F0
+	dc.l	0xF2F2FF00
+	dc.l	0x0FFFF000
+	dc.l	0x00F00000
+
+	dc.l	0x00000FF0
+	dc.l	0x0000F22F
+	dc.l	0x00FFF222
+	dc.l	0x00F0FF2F
+	dc.l	0x020FFFFF
+	dc.l	0xFF22FFFF
+	dc.l	0x2FFFFFF2
+	dc.l	0xFFFFFFF2
+
+	dc.l	0xFFFFFFF2
+	dc.l	0xF0FFFFF2
+	dc.l	0xFFFFFF22
+	dc.l	0x0FFFFF22
+	dc.l	0x0FF2FF22
+	dc.l	0x00F0FF22
+	dc.l	0x0000FF22
+	dc.l	0x00000FFF
+
+	dc.l	0xF0F00000
+	dc.l	0xFFFF0000
+	dc.l	0x2FF0FF00
+	dc.l	0xFF2FFF00
+	dc.l	0xFF22FFF0
+	dc.l	0xFFF2FF2F
+	dc.l	0xFF22FF2F
+	dc.l	0x22222220
+
+	dc.l	0xFF922F22
+	dc.l	0x2FF2FF20
+	dc.l	0x9FFFF22F
+	dc.l	0x22FFFFF0
+	dc.l	0x2FFF2FF0
+	dc.l	0xFFF2FF00
+	dc.l	0x2FFF0000
+	dc.l	0x0FF00000
+
+	dc.l	0x0000020F
+	dc.l	0x0002FF00
+	dc.l	0x00FFF2FF
+	dc.l	0x0FFFFF2F
+	dc.l	0x0F0FFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xF2FFFFF2
+
+	dc.l	0x00FF222F
+	dc.l	0x0F2F2292
+	dc.l	0xFFF2229F
+	dc.l	0x0F22222F
+	dc.l	0x0FF2FFFF
+	dc.l	0x00F0FFFF
+	dc.l	0x000FFF22
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0xFF2FF000
+	dc.l	0xFF220F00
+	dc.l	0xFF22FF00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFFFFFF
+	dc.l	0x22FF2F00
+	dc.l	0x2FFF2FFF
+
+	dc.l	0xF2222FFF
+	dc.l	0xF922F2F0
+	dc.l	0xF922FF2F
+	dc.l	0xF2222220
+	dc.l	0xFFFF20F0
+	dc.l	0xFF222000
+	dc.l	0xFF220000
+	dc.l	0xFFF00000
+
+	dc.l	0x00000FFF
+	dc.l	0x000FFF0F
+	dc.l	0x00FFFFFF
+	dc.l	0x0002FFFF
+	dc.l	0x0FFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xF22222FF
+	dc.l	0xF2222222
+
+	dc.l	0x02F2292F
+	dc.l	0xFFFF2FFF
+	dc.l	0xFFFFFFF9
+	dc.l	0x0F2FFF22
+	dc.l	0x00F2FFF2
+	dc.l	0x00FFF2FF
+	dc.l	0x000FF222
+	dc.l	0x00000F02
+
+	dc.l	0xF2F00000
+	dc.l	0xFFF20000
+	dc.l	0xFF20FF00
+	dc.l	0xFF2F0F00
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFFF22F
+	dc.l	0xFFFF222F
+	dc.l	0x22FFF2F0
+
+	dc.l	0x2FFFF2FF
+	dc.l	0x2FFFFFF0
+	dc.l	0x22F22FFF
+	dc.l	0x2222F0F0
+	dc.l	0x2FFFFF00
+	dc.l	0x2FFFFF00
+	dc.l	0x222F0000
+	dc.l	0x0FF00000
+
+	dc.l	0x00000F00
+	dc.l	0x000FFFF0
+	dc.l	0x00FF2F2F
+	dc.l	0x0F0222FF
+	dc.l	0x0FFF2222
+	dc.l	0xFFFF2222
+	dc.l	0x02FF2992
+	dc.l	0xF2FFFF2F
+
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFF2992
+	dc.l	0xF22F2222
+	dc.l	0x022F2222
+	dc.l	0x00222FF2
+	dc.l	0x00002F2F
+	dc.l	0x000F22FF
+	dc.l	0x00000F0F
+
+	dc.l	0xFFF00000
+	dc.l	0x2FFFF000
+	dc.l	0xFFF0FF00
+	dc.l	0xFFFFFF20
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFFF2F2
+	dc.l	0xFFFF2F00
+	dc.l	0x2FFFFF0F
+
+	dc.l	0x22FFFFFF
+	dc.l	0xF2FFFFF0
+	dc.l	0xFFFF222F
+	dc.l	0xFFFF22F0
+	dc.l	0x22F2F0F0
+	dc.l	0xFFFFFF00
+	dc.l	0xF0FF0000
+	dc.l	0xF0F00000
+
+	dc.l	0x00000FF0
+	dc.l	0x0000FFF2
+	dc.l	0x00FF2FFF
+	dc.l	0x0FF2FFF2
+	dc.l	0x0FFFFF22
+	dc.l	0xF22FFFF9
+	dc.l	0x02FF2FF2
+	dc.l	0x22F229FF
+
+	dc.l	0x02222222
+	dc.l	0xF2FF22FF
+	dc.l	0xF2FF2FFF
+	dc.l	0x0FFF22FF
+	dc.l	0x00FFF2FF
+	dc.l	0x00FF0FF2
+	dc.l	0x0000FFFF
+	dc.l	0x00000F0F
+
+	dc.l	0xFFF00000
+	dc.l	0x22FF0000
+	dc.l	0x22FF0F00
+	dc.l	0x22FF2FF0
+	dc.l	0x22FFFFF0
+	dc.l	0x22FFFFFF
+	dc.l	0x2FFFFF0F
+	dc.l	0x2FFFFFFF
+
+	dc.l	0x2FFFFFFF
+	dc.l	0x2FFFFFF2
+	dc.l	0xFFFF22FF
+	dc.l	0xFFFFF020
+	dc.l	0xF2FF0F00
+	dc.l	0x222FFF00
+	dc.l	0xF22F0000
+	dc.l	0x0FF00000
+
+
+
 spritesheet_fuzzl_yellow_idle:
 
 	dc.l	0x00000555
@@ -2969,6 +3665,118 @@ spritesheet_fuzzl_yellow_idle:
 	dc.l	0x55455500
 	dc.l	0x00554000
 	dc.l	0x50400000
+
+
+
+spritesheet_fuzzl_white_sleep:
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222111F
+	dc.l	0xF2F1FFFF
+	dc.l	0x0F2FFFFF
+	dc.l	0xFFF2FFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF11122F0
+	dc.l	0xFFFF1FFF
+	dc.l	0x2FFFF2F0
+	dc.l	0xFFFFFF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222FFFF
+	dc.l	0xF2FF111F
+	dc.l	0x0F21FFFF
+	dc.l	0xFFF2FFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFF22F0
+	dc.l	0xF111FFFF
+	dc.l	0x2FFF12F0
+	dc.l	0xFFFFFF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222FFFF
+	dc.l	0xF2FFFFFF
+	dc.l	0x0F2F111F
+	dc.l	0xFFF1FFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFF22F0
+	dc.l	0xFFFFFFFF
+	dc.l	0x2111F2F0
+	dc.l	0xFFFF1F00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
 

@@ -53,6 +53,7 @@ Fuzzl_Spritesheets:
 	dc.l Fuzzl_Spritesheets_Blue
 	dc.l Fuzzl_Spritesheets_Green
 	dc.l Fuzzl_Spritesheets_Yellow
+	dc.l Fuzzl_Spritesheets_White
 
 	; Spritesheet/animation tables
 Fuzzl_Spritesheets_Red:
@@ -82,6 +83,13 @@ Fuzzl_Spritesheets_Yellow:
 	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
 	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
 	dc.w spritesheet_fuzzl_yellow_sleep_frameoffset
+
+Fuzzl_Spritesheets_White:
+	dc.w spritesheet_fuzzl_white_idle_frameoffset
+	dc.w spritesheet_fuzzl_white_eyes_frameoffset
+	dc.w spritesheet_fuzzl_white_roll_frameoffset
+	dc.w spritesheet_fuzzl_white_roll_frameoffset
+	dc.w spritesheet_fuzzl_white_sleep_frameoffset
 
 ; Eye anim subframes
 Fuzzl_Eye_Frame_TopMiddle    equ (0x0<<0x8)

@@ -412,6 +412,7 @@ LevelReset:
 	move.l  #Pal_Nymn_Blue, (a0)+	; Blue
 	move.l  #Pal_Nymn_Green, (a0)+	; Green
 	move.l  #Pal_Nymn_Yellow, (a0)+; Yellow
+	move.l  #Pal_Nymn_White, (a0)+; White
 
 	;==============================================================
 	
