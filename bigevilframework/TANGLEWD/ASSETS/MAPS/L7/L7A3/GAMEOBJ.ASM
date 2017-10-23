@@ -11,6 +11,8 @@ L7A3_Leaf_count equ 0x0
 
 L7A3_Djubb_count equ 0x0
 
+L7A3_Trap_count equ 0x0
+
 L7A3_Echo_count equ 0x1
 L7A3_Echo_1_idx	equ 0x0
 
@@ -26,6 +28,8 @@ L7A3_BouncePlant_count equ 0x0
 L7A3_Log_count equ 0x0
 
 L7A3_DjakkCage_count equ 0x0
+
+L7A3_Borgus_count equ 0x0
 
 L7A3_Monster_count equ 0x0
 
@@ -87,8 +91,6 @@ L7A3_Ladder_count equ 0x0
 
 L7A3_Demon_count equ 0x0
 
-L7A3_Borgus_count equ 0x0
-
 L7A3_Stalactite_count equ 0x0
 
 L7A3_CargoLift_count equ 0x0
@@ -98,6 +100,7 @@ L7A3_Scrap_count equ 0x0
 
 
 L7A3_LoadGameObjects:
+
 
 
 	PUSHL  a1

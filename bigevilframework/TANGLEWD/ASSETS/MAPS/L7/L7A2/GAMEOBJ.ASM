@@ -11,6 +11,8 @@ L7A2_Leaf_count equ 0x0
 
 L7A2_Djubb_count equ 0x0
 
+L7A2_Trap_count equ 0x0
+
 L7A2_Echo_count equ 0x1
 L7A2_Echo_1_idx	equ 0x0
 
@@ -26,6 +28,8 @@ L7A2_BouncePlant_count equ 0x0
 L7A2_Log_count equ 0x0
 
 L7A2_DjakkCage_count equ 0x0
+
+L7A2_Borgus_count equ 0x0
 
 L7A2_Monster_count equ 0x0
 
@@ -135,8 +139,6 @@ L7A2_Ladder_count equ 0x0
 
 L7A2_Demon_count equ 0x0
 
-L7A2_Borgus_count equ 0x0
-
 L7A2_Stalactite_count equ 0x0
 
 L7A2_CargoLift_count equ 0x0
@@ -146,6 +148,7 @@ L7A2_Scrap_count equ 0x0
 
 
 L7A2_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -166,6 +169,7 @@ L7A2_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -378,7 +382,6 @@ L7A2_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 

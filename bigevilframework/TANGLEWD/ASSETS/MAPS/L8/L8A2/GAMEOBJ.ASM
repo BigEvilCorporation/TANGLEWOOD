@@ -11,6 +11,8 @@ L8A2_Leaf_count equ 0x0
 
 L8A2_Djubb_count equ 0x0
 
+L8A2_Trap_count equ 0x0
+
 L8A2_Echo_count equ 0x1
 L8A2_Echo_1_idx	equ 0x0
 
@@ -26,6 +28,8 @@ L8A2_BouncePlant_count equ 0x0
 L8A2_Log_count equ 0x0
 
 L8A2_DjakkCage_count equ 0x0
+
+L8A2_Borgus_count equ 0x0
 
 L8A2_Monster_count equ 0x1
 L8A2_Monster_2_idx	equ 0x0
@@ -99,8 +103,6 @@ L8A2_Ladder_count equ 0x0
 
 L8A2_Demon_count equ 0x0
 
-L8A2_Borgus_count equ 0x0
-
 L8A2_Stalactite_count equ 0x0
 
 L8A2_CargoLift_count equ 0x0
@@ -110,6 +112,7 @@ L8A2_Scrap_count equ 0x0
 
 
 L8A2_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -130,6 +133,7 @@ L8A2_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -181,7 +185,6 @@ L8A2_LoadGameObjects:
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
-
 
 
 

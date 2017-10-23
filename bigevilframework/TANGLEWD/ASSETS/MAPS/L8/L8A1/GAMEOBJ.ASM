@@ -11,6 +11,8 @@ L8A1_Leaf_count equ 0x0
 
 L8A1_Djubb_count equ 0x0
 
+L8A1_Trap_count equ 0x0
+
 L8A1_Echo_count equ 0x1
 L8A1_Echo_1_idx	equ 0x0
 
@@ -27,6 +29,8 @@ L8A1_Log_count equ 0x0
 
 L8A1_DjakkCage_count equ 0x0
 
+L8A1_Borgus_count equ 0x0
+
 L8A1_Monster_count equ 0x0
 
 L8A1_Boulder_count equ 0x0
@@ -36,10 +40,10 @@ L8A1_Firefly_count equ 0x0
 L8A1_FuzzlCage_count equ 0x0
 
 L8A1_Fuzzl_count equ 0x1
-L8A1_Fuzzl_2_idx	equ 0x0
+L8A1_FuzzlWhite_idx	equ 0x0
 
 	IFND FINAL
-L8A1_Fuzzl_2_name	dc.b "L8A1_Fuzzl_2",0
+L8A1_FuzzlWhite_name	dc.b "L8A1_FuzzlWhite",0
 	even
 	ENDIF
 
@@ -111,8 +115,6 @@ L8A1_Ladder_count equ 0x0
 
 L8A1_Demon_count equ 0x0
 
-L8A1_Borgus_count equ 0x0
-
 L8A1_Stalactite_count equ 0x0
 
 L8A1_CargoLift_count equ 0x0
@@ -122,6 +124,7 @@ L8A1_Scrap_count equ 0x0
 
 
 L8A1_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -151,6 +154,7 @@ L8A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L8A1_Fuzzl_count)
 	move.l a1, EntityPoolStart_Fuzzl
@@ -161,12 +165,13 @@ L8A1_LoadGameObjects:
 	move.l #0x09680000, Entity_WorldPosX(a0)
 	move.l #0x00f80000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L8A1_Fuzzl_2_name, a3
+	lea L8A1_FuzzlWhite_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #ColourWhite, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 
@@ -240,7 +245,6 @@ L8A1_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 
