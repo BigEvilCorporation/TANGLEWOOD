@@ -120,6 +120,12 @@ l4a3_Init:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 
+	; Set traps
+	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
+	move.l Player2, Trap_WatchObject(a0)
+	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
+	move.l Player1, Trap_WatchObject(a0)
+
 	;==============================================================
 
 	; Start Echo AI follow state

@@ -25,6 +25,18 @@ L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
 	even
 	ENDIF
 
+L4A3_Trap_count equ 0x3
+L4A3_Trap1_idx	equ 0x0
+L4A3_Trap2_idx	equ 0x1
+L4A3_Trap3_idx	equ 0x2
+
+	IFND FINAL
+L4A3_Trap1_name	dc.b "L4A3_Trap1",0
+L4A3_Trap2_name	dc.b "L4A3_Trap2",0
+L4A3_Trap3_name	dc.b "L4A3_Trap3",0
+	even
+	ENDIF
+
 L4A3_Echo_count equ 0x1
 L4A3_Echo_2_idx	equ 0x0
 
@@ -166,10 +178,10 @@ L4A3_Cogs_40_name	dc.b "L4A3_Cogs_40",0
 	ENDIF
 
 L4A3_Bridge_count equ 0x1
-L4A3_Bridge_34_idx	equ 0x0
+L4A3_Bridge1_idx	equ 0x0
 
 	IFND FINAL
-L4A3_Bridge_34_name	dc.b "L4A3_Bridge_34",0
+L4A3_Bridge1_name	dc.b "L4A3_Bridge1",0
 	even
 	ENDIF
 
@@ -214,18 +226,6 @@ L4A3_Stalactite_count equ 0x0
 L4A3_CargoLift_count equ 0x0
 
 L4A3_Scrap_count equ 0x0
-
-L4A3_Trap_count equ 0x3
-L4A3_Trap_35_idx	equ 0x0
-L4A3_Trap_36_idx	equ 0x1
-L4A3_Trap_37_idx	equ 0x2
-
-	IFND FINAL
-L4A3_Trap_35_name	dc.b "L4A3_Trap_35",0
-L4A3_Trap_36_name	dc.b "L4A3_Trap_36",0
-L4A3_Trap_37_name	dc.b "L4A3_Trap_37",0
-	even
-	ENDIF
 
 
 
@@ -297,6 +297,49 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
+	move.l a1, EntityPoolStart_Trap
+	move.l a1, a0
+	POPL   a1
+
+	jsr TrapInit
+	move.l #0x05300000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x05a80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x06200000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A3_Echo_count)
@@ -683,12 +726,14 @@ L4A3_LoadGameObjects:
 	move.l #0x02a00000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A3_Bridge_34_name, a3
+	lea L4A3_Bridge1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
+	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
 	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
 
@@ -743,49 +788,6 @@ L4A3_LoadGameObjects:
 
 
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
-	move.l a1, EntityPoolStart_Trap
-	move.l a1, a0
-	POPL   a1
-
-	jsr TrapInit
-	move.l #0x05300000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap_35_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
-	jsr TrapInit
-	move.l #0x05a80000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap_36_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
-	jsr TrapInit
-	move.l #0x06200000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap_37_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
 
 	rts
 

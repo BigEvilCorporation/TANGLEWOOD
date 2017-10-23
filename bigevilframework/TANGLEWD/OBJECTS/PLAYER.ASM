@@ -47,7 +47,7 @@ Player1MaxVelYDown equ 0x080000  ; Player 1 max Y velocity down (tile height)
 
 Player1JumpVelX      equ 0x000000 ; Player 1 jump velocity impulse X
 Player1JumpVelY      equ 0x060000 ; Player 1 jump velocity impulse Y
-Player1JumpVelWater	 equ 0x020000 ; Player 1 jump velocity impulse from water
+Player1JumpVelWater	 equ 0x040000 ; Player 1 jump velocity impulse from water
 Player1JumpCancelVelLo equ 0x010000 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
 Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)

@@ -33,6 +33,8 @@ L4A2_Djubb_46_name	dc.b "L4A2_Djubb_46",0
 	even
 	ENDIF
 
+L4A2_Trap_count equ 0x0
+
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
 
@@ -243,8 +245,6 @@ L4A2_CargoLift_count equ 0x0
 
 L4A2_Scrap_count equ 0x0
 
-L4A2_Trap_count equ 0x0
-
 
 
 L4A2_LoadGameObjects:
@@ -363,6 +363,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
@@ -927,7 +928,6 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
-
 
 
 

@@ -11,6 +11,8 @@ L8A4_Leaf_count equ 0x0
 
 L8A4_Djubb_count equ 0x0
 
+L8A4_Trap_count equ 0x0
+
 L8A4_Echo_count equ 0x1
 L8A4_Echo_2_idx	equ 0x0
 
@@ -113,11 +115,10 @@ L8A4_CargoLift_count equ 0x0
 
 L8A4_Scrap_count equ 0x0
 
-L8A4_Trap_count equ 0x0
-
 
 
 L8A4_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -230,7 +231,6 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
-
 
 
 

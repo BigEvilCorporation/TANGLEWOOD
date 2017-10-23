@@ -11,6 +11,8 @@ L5A4_Leaf_count equ 0x0
 
 L5A4_Djubb_count equ 0x0
 
+L5A4_Trap_count equ 0x0
+
 L5A4_Echo_count equ 0x1
 L5A4_Echo_2_idx	equ 0x0
 
@@ -129,11 +131,10 @@ L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
 
 L5A4_Scrap_count equ 0x0
 
-L5A4_Trap_count equ 0x0
-
 
 
 L5A4_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -314,7 +315,6 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
-
 
 
 	rts
