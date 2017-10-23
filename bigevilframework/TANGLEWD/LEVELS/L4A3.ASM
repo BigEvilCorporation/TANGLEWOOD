@@ -118,6 +118,11 @@ l4a3_Init:
 	move.l a1, Generator_UserData(a0)
 	move.l #BridgeBeginRoll, Generator_OnActivate(a0)
 
+	; Connect generator to traps
+	ENTITY_GETBYNAME Generator, l4a3_Generator2, a0
+	move.l a1, Generator_UserData(a0)
+	move.l #l3a3_ReleaseTraps, Generator_OnActivate(a0)
+
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a0
 	ENTITY_GETBYNAME Location, l4a3_LocationBoulderLiftStop, a1
@@ -146,7 +151,7 @@ l4a3_Init:
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
 
 	ENTITY_GETBYNAME Trap, l4a3_Trap2, a0
-	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
+	move.b #0x1, Trap_Activated(a0)
 
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
@@ -202,8 +207,8 @@ l4a3_Trigger_Trapped:
 	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @EchoOffScreen
 	jsr    EchoHowl
-	jsr    EchoAIStop
 	@EchoOffScreen:
+	jsr    EchoAIStop
 	POPL   a0
 
 	; Enter fail state
@@ -224,6 +229,30 @@ l4a3_Trigger_Trapped:
 	bra   @End
 
 	@End:
+
+	rts
+
+l3a3_ReleaseTraps:
+
+	PUSHL  a0
+
+	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
+	jsr   TrapDeactivate
+
+	ENTITY_GETBYNAME Trap, l4a3_Trap2, a0
+	jsr   TrapDeactivate
+
+	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
+	jsr   TrapDeactivate
+
+	; Re-enable Echo AI
+	move.l Player2, a0
+	jsr    EchoAIStart_Follow
+
+	; Howl
+	jsr    EchoHowl
+
+	POPL   a0
 
 	rts
 

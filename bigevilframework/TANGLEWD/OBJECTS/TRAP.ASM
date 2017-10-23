@@ -22,6 +22,8 @@ Trap_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of Trap
 Trap_LowerPlatformXOffset	equ (Trap_Width-Trap_PlatformWidth)/2	; Offset to platform from top of Trap
 Trap_LowerPlatformYOffset	equ (Trap_Height-8)	; Offset to platform from top of Trap
 
+Trap_RaiseSpeed		equ 0x00010000
+
 ;==============================================================
 
 ; Struct
@@ -31,9 +33,11 @@ Trap_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of Trap
 Trap_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of trap
 Trap_TrappedObject		rs.l 1	; Trapped object
 Trap_OnActivated		rs.l 1	; Callback
+Trap_RaiseTarget		rs.w 1
 Trap_Activated			rs.b 1
+Trap_Raising			rs.b 1
 ;-----------------------------
-Trap_Struct_Pad			rs.b 3   ; Alignment padding
+Trap_Struct_Pad			rs.b 2   ; Alignment padding
 Trap_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -139,9 +143,26 @@ TrapLoadGfx:
 TrapUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
+
 	; Base functionality
 	jsr    PhysicsObjUpdate
+
+	; If raising, move upwards
+	tst.b  Trap_Raising(a0)
+	beq    @NotRaising
+
+	sub.l  #Trap_RaiseSpeed, Entity_WorldPosY(a0)
+
+	; If hit target, disable entity
+	move.w Trap_RaiseTarget(a0), d0
+	cmp.w  Entity_WorldPosY(a0), d0
+	bne    @Raising
+
+	jsr    EntityRemoveFromUpdateList
+
+	bra    @Raising
+
+	@NotRaising:
 
 	; If already activated, just update platforms and hold trapped object in place
 	tst.b  Trap_Activated(a0)
@@ -162,6 +183,7 @@ TrapUpdate:
 	;==============================================================
 
 	@Activated:
+	@Raising:
 	
 	; Reposition platforms and set velocity
 	lea    Trap_UpperPlatform(a0), a2
@@ -282,5 +304,40 @@ TrapActivate:
 	beq    @NoCallback
 	jsr    (a2)
 	@NoCallback:
+
+	rts
+
+TrapDeactivate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	tst.b  Trap_Activated(a0)
+	beq    @NotActivated
+
+	; Release occupant
+	move.l #0x0, Trap_TrappedObject(a0)
+
+	; Set deactivated
+	move.b #0x0, Trap_Activated(a0)
+
+	; Disable gravity
+	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+
+	; Record target position
+	move.w Entity_WorldPosY(a0), d0
+	sub.w  Entity_Height(a0), d0
+	move.w d0, Trap_RaiseTarget(a0)
+
+	; Start raising
+	move.b #0x1, Trap_Raising(a0)
+
+	bra    @Deactivating
+
+	@NotActivated:
+
+	; Already raised, just disable entity
+	jsr    EntityRemoveFromUpdateList
+
+	@Deactivating:
 
 	rts
