@@ -57,9 +57,8 @@ l7a2_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l7a2Data_WaitingInput			rs.b 1
 ;---------------------------------
-l7a2Data_Struct_Pad      		rs.b 3
+l7a2Data_Struct_Pad      		rs.b 0
 l7a2Data_Struct_Size     		rs.b 0
 	
 l7a2_Init:

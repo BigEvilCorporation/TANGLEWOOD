@@ -57,9 +57,8 @@ l8a3_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l8a3Data_WaitingInput			rs.b 1
 ;---------------------------------
-l8a3Data_Struct_Pad      		rs.b 3
+l8a3Data_Struct_Pad      		rs.b 0
 l8a3Data_Struct_Size     		rs.b 0
 	
 l8a3_Init:

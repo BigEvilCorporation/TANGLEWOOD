@@ -59,9 +59,8 @@ l4a1_DefaultPalettes:
 	rsset LevelData_Struct_Size
 l4a1Data_ComboButton1Count		rs.b 1
 l4a1Data_ComboButton2Count		rs.b 1
-l4a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-l4a1Data_Struct_Pad      		rs.b 1
+l4a1Data_Struct_Pad      		rs.b 2
 l4a1Data_Struct_Size     		rs.b 0
 	
 l4a1_Init:

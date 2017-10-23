@@ -70,9 +70,8 @@ l2a3_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l2a3Data_WaitingInput			rs.b 1
 ;---------------------------------
-l2a3Data_Struct_Pad      		rs.b 3
+l2a3Data_Struct_Pad      		rs.b 0
 l2a3Data_Struct_Size     		rs.b 0
 	
 l2a3_Init:

@@ -57,9 +57,8 @@ l5a2_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l5a2Data_WaitingInput			rs.b 1
 ;---------------------------------
-l5a2Data_Struct_Pad      		rs.b 3
+l5a2Data_Struct_Pad      		rs.b 0
 l5a2Data_Struct_Size     		rs.b 0
 	
 l5a2_Init:

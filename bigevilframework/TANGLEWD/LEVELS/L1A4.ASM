@@ -62,9 +62,8 @@ l1a4_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l1a4Data_WaitingInput			rs.b 1
 ;---------------------------------
-l1a4Data_Struct_Pad      		rs.b 3
+l1a4Data_Struct_Pad      		rs.b 0
 l1a4Data_Struct_Size     		rs.b 0
 	
 l1a4_Init:
