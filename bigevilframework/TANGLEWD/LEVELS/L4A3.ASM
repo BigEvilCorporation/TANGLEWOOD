@@ -61,6 +61,7 @@ l4a3_DefaultPalettes:
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l4a3Data_CutsceneEchoTrapped	rs.b Cutscene_Struct_Size
 l4a3Data_CutsceneRevealBorgus	rs.b Cutscene_Struct_Size
 ;---------------------------------
 l4a3Data_Struct_Pad      		rs.b 3
@@ -93,9 +94,29 @@ l4a3_Init:
 	lea    l4a3Data_CutsceneRevealBorgus(a2), a0
 	move.l #l4a3_CutsceneRevealBorgus, a1
 	jsr    CutsceneInit
+
+	lea    LevelData_L4A3, a2
+	lea    l4a3Data_CutsceneEchoTrapped(a2), a0
+	move.l #l4a3_CutsceneEchoTrapped, a1
+	jsr    CutsceneInit
 	POPM   a0-a1
 
 	;==============================================================
+
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l4a3_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l4a3_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	ENTITY_GETBYNAME Generator, l4a3_Generator2, a0
+	ENTITY_GETBYNAME Cogs, l4a3_Cogs2, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Connect generator to bridge
+	ENTITY_GETBYNAME Generator, l4a3_Generator1, a0
+	ENTITY_GETBYNAME Bridge, l4a3_Bridge1, a1
+	move.l a1, Generator_UserData(a0)
+	move.l #BridgeBeginRoll, Generator_OnActivate(a0)
 
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a0
@@ -122,9 +143,13 @@ l4a3_Init:
 
 	; Set traps
 	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
-	move.l Player2, Trap_WatchObject(a0)
+	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
+
+	ENTITY_GETBYNAME Trap, l4a3_Trap2, a0
+	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
+
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
-	move.l Player1, Trap_WatchObject(a0)
+	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
 
 	;==============================================================
 
@@ -156,6 +181,52 @@ l4a3_Trigger_End:
 	
 	rts
 
+l4a3_Trigger_Trapped:
+	; a0 --- Trap
+
+	; If Nymn
+	move.l Trap_TrappedObject(a0), a2
+	cmp.l  Player1, a2
+	beq    @P1
+	cmp.l  Player2, a2
+	beq    @P2
+
+	@P1:
+
+	; Disable player control
+	move.b #0x0, Player_ControlEnabled(a2)
+
+	; Echo howl and disable AI
+	PUSHL  a0
+	move.l Player2, a0
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @EchoOffScreen
+	jsr    EchoHowl
+	jsr    EchoAIStop
+	@EchoOffScreen:
+	POPL   a0
+
+	; Enter fail state
+	PUSHM  a0-a2
+	lea    GameStateFail, a0
+	jsr    GameStateEnter
+	POPM   a0-a2
+
+	bra   @End
+
+	@P2:
+
+	; Start Echo trapped cutscene
+	lea    LevelData_L4A3, a2
+	lea    l4a3Data_CutsceneEchoTrapped(a2), a0
+	jsr    CutscenePlay
+
+	bra   @End
+
+	@End:
+
+	rts
+
 l4a3_Trigger_BorgusReveal:
 
 	PUSHL  a0
@@ -176,6 +247,31 @@ l4a3_Trigger_BorgusReveal:
 	jsr    CutscenePlay
 
 	POPL   a0
+
+	rts
+
+l4a3_CutsceneEchoTrapped:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Howl (also handles camera lerp)
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoHowl
+
+	; Disable AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END
 
 	rts
 

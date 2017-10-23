@@ -81,23 +81,27 @@ L4A3_Firefly_count equ 0x0
 
 L4A3_FuzzlCage_count equ 0x0
 
-L4A3_Fuzzl_count equ 0x1
+L4A3_Fuzzl_count equ 0x2
 L4A3_FuzzlBorgus_idx	equ 0x0
+L4A3_Fuzzl_41_idx	equ 0x1
 
 	IFND FINAL
 L4A3_FuzzlBorgus_name	dc.b "L4A3_FuzzlBorgus",0
+L4A3_Fuzzl_41_name	dc.b "L4A3_Fuzzl_41",0
 	even
 	ENDIF
 
-L4A3_Stone_count equ 0x3
+L4A3_Stone_count equ 0x4
 L4A3_Stone_24_idx	equ 0x0
 L4A3_Stone_27_idx	equ 0x1
 L4A3_Stone_28_idx	equ 0x2
+L4A3_Stone_42_idx	equ 0x3
 
 	IFND FINAL
 L4A3_Stone_24_name	dc.b "L4A3_Stone_24",0
 L4A3_Stone_27_name	dc.b "L4A3_Stone_27",0
 L4A3_Stone_28_name	dc.b "L4A3_Stone_28",0
+L4A3_Stone_42_name	dc.b "L4A3_Stone_42",0
 	even
 	ENDIF
 
@@ -161,19 +165,23 @@ L4A3_Lift1_name	dc.b "L4A3_Lift1",0
 
 L4A3_Crate_count equ 0x0
 
-L4A3_Generator_count equ 0x1
-L4A3_Generator_39_idx	equ 0x0
+L4A3_Generator_count equ 0x2
+L4A3_Generator2_idx	equ 0x0
+L4A3_Generator1_idx	equ 0x1
 
 	IFND FINAL
-L4A3_Generator_39_name	dc.b "L4A3_Generator_39",0
+L4A3_Generator2_name	dc.b "L4A3_Generator2",0
+L4A3_Generator1_name	dc.b "L4A3_Generator1",0
 	even
 	ENDIF
 
-L4A3_Cogs_count equ 0x1
-L4A3_Cogs_40_idx	equ 0x0
+L4A3_Cogs_count equ 0x2
+L4A3_Cogs2_idx	equ 0x0
+L4A3_Cogs1_idx	equ 0x1
 
 	IFND FINAL
-L4A3_Cogs_40_name	dc.b "L4A3_Cogs_40",0
+L4A3_Cogs2_name	dc.b "L4A3_Cogs2",0
+L4A3_Cogs1_name	dc.b "L4A3_Cogs1",0
 	even
 	ENDIF
 
@@ -443,6 +451,18 @@ L4A3_LoadGameObjects:
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x05800000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Fuzzl_41_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L4A3_Stone_count)
@@ -479,6 +499,18 @@ L4A3_LoadGameObjects:
 	move.l #0x04e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Stone_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x05e80000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Stone_42_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -688,10 +720,22 @@ L4A3_LoadGameObjects:
 	move.l #0x06d80000, Entity_WorldPosX(a0)
 	move.l #0x01f00000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A3_Generator_39_name, a3
+	lea L4A3_Generator2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
+	jsr GeneratorInit
+	move.l #0x03c80000, Entity_WorldPosX(a0)
+	move.l #0x01d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Generator1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr GeneratorLoadGfx
@@ -707,10 +751,22 @@ L4A3_LoadGameObjects:
 	move.l #0x06f00000, Entity_WorldPosX(a0)
 	move.l #0x01800000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A3_Cogs_40_name, a3
+	lea L4A3_Cogs2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
+	jsr CogsInit
+	move.l #0x03e00000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Cogs1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr CogsLoadGfx

@@ -29,7 +29,8 @@ Trap_LowerPlatformYOffset	equ (Trap_Height-8)	; Offset to platform from top of T
 ;-----------------------------
 Trap_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of Trap
 Trap_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of trap
-Trap_WatchObject		rs.l 1
+Trap_TrappedObject		rs.l 1	; Trapped object
+Trap_OnActivated		rs.l 1	; Callback
 Trap_Activated			rs.b 1
 ;-----------------------------
 Trap_Struct_Pad			rs.b 3   ; Alignment padding
@@ -74,8 +75,9 @@ TrapInit:
 	move.l  #Trap_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 
-	move.l  #0x0, Trap_WatchObject(a0)
+	move.l  #0x0, Trap_TrappedObject(a0)
 	move.b  #0x0, Trap_Activated(a0)
+	move.l  #0x0, Trap_OnActivated(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -141,27 +143,21 @@ TrapUpdate:
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
-	; If already activated, just update platforms
+	; If already activated, just update platforms and hold trapped object in place
 	tst.b  Trap_Activated(a0)
 	bne    @Activated
 
 	; Check for occupant
-	move.l Trap_WatchObject(a0), a2
+	move.l Player1, a2
+	jsr    TrapCheckOccupied
+	tst.b  d0
+	bne    @Activated
+	move.l Player2, a2
 	cmp.l  #0x0, a2
 	beq    @Unoccupied
-
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
-	PHYSICS_GETBOUNDS d3,d4,d5,a2
-	jsr    PHYS_TestBoxInsideBox
+	jsr    TrapCheckOccupied
 	tst.b  d0
 	beq    @Unoccupied
-
-	; Stop occupant from moving
-	move.l #0x0, PhysicsObj_VelX(a2)
-	move.w #0x0, PhysicsObj_AccelX(a2)
-
-	; Activate trap
-	jsr    TrapActivate
 
 	;==============================================================
 
@@ -187,6 +183,22 @@ TrapUpdate:
 	move.l d1, Platform_PosY(a2)
 	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
 	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
+
+	; Hold object in place
+	move.l Trap_TrappedObject(a0), a2
+	move.w Entity_Width(a2), d2
+	move.w Entity_Height(a2), d3
+	move.w Entity_Width(a0), d4
+	TOSUBPIXELS d2
+	TOSUBPIXELS d3
+	TOSUBPIXELS d4
+	lsr.l  #0x1, d2
+	lsr.l  #0x1, d4
+	sub.l  d2, d4
+	add.l  d4, d0
+	sub.l  d3, d1
+	move.l d0, Entity_WorldPosX(a2)
+	move.l d1, Entity_WorldPosY(a2)
 
 	@Unoccupied:
 
@@ -223,11 +235,52 @@ TrapSerialise:
 	
 	rts
 
+TrapCheckOccupied:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Occupant
+	; d0 (b) Occupied
+
+	move.b #0x0, d0
+
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxInsideBox
+	tst.b  d0
+	beq    @Unoccupied
+
+	; Activate trap
+	jsr    TrapActivate
+
+	move.b #0x1, d0
+
+	@Unoccupied:
+
+	rts
+
 TrapActivate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; a2 --- Occupant
 
-	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
-	move.b  #0x1, Trap_Activated(a0)
+	; Stop occupant from moving
+	move.l #0x0, PhysicsObj_VelX(a2)
+	move.w #0x0, PhysicsObj_AccelX(a2)
+
+	; Drop under gravity
+	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
+
+	; Set activated
+	move.b #0x1, Trap_Activated(a0)
+
+	; Set occupant
+	move.l a2, Trap_TrappedObject(a0)
+
+	; Callback
+	move.l Trap_OnActivated(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoCallback
+	jsr    (a2)
+	@NoCallback:
 
 	rts
