@@ -1291,7 +1291,7 @@ PhysicsObjFindWall:
 	; If hit velocity exceed max, break barrier and continue
 	move.b PhysicsObj_Mass(a0), d2
 	cmp.b  Barrier_BreakMass(a3), d2
-	bgt    @NotBroken
+	blt    @NotBroken
 	move.l Barrier_BreakVel(a3), d2
 	beq    @NotBroken
 	move.l Barrier_TotalHitVel(a3), d3
