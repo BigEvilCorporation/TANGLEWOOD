@@ -16,8 +16,9 @@ CargoLift_FloorHeight  equ 0x8
 ; Struct
 	rsset (Lift_Struct_Size)
 ;---------------------------------
+CargoLift_ManualGfxLoad rs.b 1
 ;---------------------------------
-CargoLift_Struct_Pad   rs.b 0	; Alignment padding
+CargoLift_Struct_Pad   rs.b 3	; Alignment padding
 CargoLift_Struct_Size  rs.b 0
 
 CargoLiftInit:
@@ -34,6 +35,7 @@ CargoLiftInit:
 	move.w #CargoLift_Width, Entity_Width(a0)
 	move.w #CargoLift_Height, Entity_Height(a0)
 	move.b #0x0, Lift_RestrictHeight(a0)
+	move.b #0x0, CargoLift_ManualGfxLoad(a0)
 
 	; Re-initialise floor probe
 	move.w #CargoLift_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
@@ -55,7 +57,12 @@ CargoLiftLoadGfx:
 	; a1 --- Level addr
 
 	; Load lift
+	tst.b CargoLift_ManualGfxLoad(a0)
+	bne   @ManualLoad
+
 	SPRITE_LOAD_DEFAULT cargolft,PaletteId_World0,0x0
+
+	@ManualLoad:
 
 	; Load rope
 	PUSHL a0

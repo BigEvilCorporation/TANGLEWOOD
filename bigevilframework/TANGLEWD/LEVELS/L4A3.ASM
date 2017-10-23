@@ -63,6 +63,7 @@ l4a3_DefaultPalettes:
 	rsset LevelData_Struct_Size
 l4a3Data_CutsceneEchoTrapped	rs.b Cutscene_Struct_Size
 l4a3Data_CutsceneRevealBorgus	rs.b Cutscene_Struct_Size
+l4a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
 ;---------------------------------
 l4a3Data_Struct_Pad      		rs.b 3
 l4a3Data_Struct_Size     		rs.b 0
@@ -99,6 +100,11 @@ l4a3_Init:
 	lea    l4a3Data_CutsceneEchoTrapped(a2), a0
 	move.l #l4a3_CutsceneEchoTrapped, a1
 	jsr    CutsceneInit
+
+	lea    LevelData_L4A3, a2
+	lea    l4a3Data_CutsceneLoadLift(a2), a0
+	move.l #l4a3_CutsceneLoadLift, a1
+	jsr    CutsceneInit
 	POPM   a0-a1
 
 	;==============================================================
@@ -110,6 +116,10 @@ l4a3_Init:
 
 	ENTITY_GETBYNAME Generator, l4a3_Generator2, a0
 	ENTITY_GETBYNAME Cogs, l4a3_Cogs2, a1
+	move.l a1, Generator_Cogs(a0)
+
+	ENTITY_GETBYNAME Generator, l4a3_Generator3, a0
+	ENTITY_GETBYNAME Cogs, l4a3_Cogs3, a1
 	move.l a1, Generator_Cogs(a0)
 
 	; Connect generator to bridge
@@ -156,6 +166,11 @@ l4a3_Init:
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
 
+	; Set cargo lift direction
+	ENTITY_GETBYNAME CargoLift, l4a3_CargoLift, a0
+	move.b #0x1, Lift_Direction(a0)
+	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+
 	;==============================================================
 
 	; Start Echo AI follow state
@@ -180,9 +195,13 @@ l4a3_End:
 	
 l4a3_Trigger_End:
 
-	; Begin end of act gamestate
-	lea    GameStateEndAct, a0
+	; Begin end of level gamestate
+	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
+
+	; Not sleeping, force fade state
+	lea    GameStateEndLevelData, a2
+	move.w #0x1, EndLevelState_Timer(a2)
 	
 	rts
 
@@ -276,6 +295,83 @@ l4a3_Trigger_BorgusReveal:
 	jsr    CutscenePlay
 
 	POPL   a0
+
+	rts
+
+l4a3_Trigger_LoadLift:
+
+	PUSHL a0
+
+	; Disable Borgus
+	ENTITY_GETBYNAME Borgus, l4a3_Borgus, a0
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+	move.b #0x0, AnimObj_UploadFrame(a0)
+
+	; Load cargo lift into Borgus' VRAM
+	ENTITY_GETBYNAME CargoLift, l4a3_CargoLift, a0
+	ENTITY_GETBYNAME Borgus, l4a3_Borgus, a2
+	SPRITE_LOAD_SHARED_VRAM cargolft,PaletteId_World0,0x0,a2
+
+	POPL  a0
+
+	rts
+
+l4a3_Trigger_CargoLift:
+
+	; Check generator active
+	ENTITY_GETBYNAME Generator, l4a3_Generator3, a0
+	tst.b  Generator_Running(a0)
+	beq    @GeneratorInactive
+
+	; Check Echo onboard
+	PUSHL  a1
+	ENTITY_GETBYNAME TriggerBox, l4a3_TriggerCargoLift, a0
+	move.l Player2, a1
+	jsr    PHYS_TestEntityBoxInsideBox
+	POPL   a1
+	tst.b  d0
+	beq    @NoEcho
+
+	; Disable trigger
+	ENTITY_GETBYNAME TriggerBox, l4a3_TriggerCargoLift, a0
+	move.b #0x0, Entity_Active(a0)
+
+	; Run cutscene to get players into place on lift
+	PUSHL  a0
+	lea    LevelData_L4A3, a2
+	lea    l4a3Data_CutsceneLoadLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	@GeneratorInactive:
+	@NoEcho:
+
+	rts
+
+l4a3_CutsceneLoadLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+
+	; Disable Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+
+	; Both players run to centre of lift
+	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+	CUTSCENE_DELAY #0x0020
+
+	; Activate lift
+	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+
+	CUTSCENE_END
 
 	rts
 

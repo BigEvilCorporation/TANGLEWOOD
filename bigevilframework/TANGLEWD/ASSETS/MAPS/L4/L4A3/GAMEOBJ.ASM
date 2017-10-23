@@ -79,15 +79,17 @@ L4A3_Firefly_count equ 0x0
 
 L4A3_FuzzlCage_count equ 0x0
 
-L4A3_Fuzzl_count equ 0x3
+L4A3_Fuzzl_count equ 0x4
 L4A3_FuzzlBorgus_idx	equ 0x0
 L4A3_Fuzzl_41_idx	equ 0x1
 L4A3_Fuzzl_45_idx	equ 0x2
+L4A3_Fuzzl_48_idx	equ 0x3
 
 	IFND FINAL
 L4A3_FuzzlBorgus_name	dc.b "L4A3_FuzzlBorgus",0
 L4A3_Fuzzl_41_name	dc.b "L4A3_Fuzzl_41",0
 L4A3_Fuzzl_45_name	dc.b "L4A3_Fuzzl_45",0
+L4A3_Fuzzl_48_name	dc.b "L4A3_Fuzzl_48",0
 	even
 	ENDIF
 
@@ -111,11 +113,17 @@ L4A3_Nest_count equ 0x0
 
 L4A3_Flue_count equ 0x0
 
-L4A3_TriggerBox_count equ 0x1
+L4A3_TriggerBox_count equ 0x4
 L4A3_TriggerBorgus_idx	equ 0x0
+L4A3_TriggerCargoLift_idx	equ 0x1
+L4A3_TriggerLoadLift_idx	equ 0x2
+L4A3_TriggerLevelEnd_idx	equ 0x3
 
 	IFND FINAL
 L4A3_TriggerBorgus_name	dc.b "L4A3_TriggerBorgus",0
+L4A3_TriggerCargoLift_name	dc.b "L4A3_TriggerCargoLift",0
+L4A3_TriggerLoadLift_name	dc.b "L4A3_TriggerLoadLift",0
+L4A3_TriggerLevelEnd_name	dc.b "L4A3_TriggerLevelEnd",0
 	even
 	ENDIF
 
@@ -165,23 +173,27 @@ L4A3_Lift1_name	dc.b "L4A3_Lift1",0
 
 L4A3_Crate_count equ 0x0
 
-L4A3_Generator_count equ 0x2
+L4A3_Generator_count equ 0x3
 L4A3_Generator2_idx	equ 0x0
 L4A3_Generator1_idx	equ 0x1
+L4A3_Generator3_idx	equ 0x2
 
 	IFND FINAL
 L4A3_Generator2_name	dc.b "L4A3_Generator2",0
 L4A3_Generator1_name	dc.b "L4A3_Generator1",0
+L4A3_Generator3_name	dc.b "L4A3_Generator3",0
 	even
 	ENDIF
 
-L4A3_Cogs_count equ 0x2
+L4A3_Cogs_count equ 0x3
 L4A3_Cogs2_idx	equ 0x0
 L4A3_Cogs1_idx	equ 0x1
+L4A3_Cogs3_idx	equ 0x2
 
 	IFND FINAL
 L4A3_Cogs2_name	dc.b "L4A3_Cogs2",0
 L4A3_Cogs1_name	dc.b "L4A3_Cogs1",0
+L4A3_Cogs3_name	dc.b "L4A3_Cogs3",0
 	even
 	ENDIF
 
@@ -231,7 +243,13 @@ L4A3_Demon_count equ 0x0
 
 L4A3_Stalactite_count equ 0x0
 
-L4A3_CargoLift_count equ 0x0
+L4A3_CargoLift_count equ 0x1
+L4A3_CargoLift_idx	equ 0x0
+
+	IFND FINAL
+L4A3_CargoLift_name	dc.b "L4A3_CargoLift",0
+	even
+	ENDIF
 
 L4A3_Scrap_count equ 0x0
 
@@ -463,6 +481,18 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+	jsr FuzzlInit
+	move.l #0x18a00000, Entity_WorldPosX(a0)
+	move.l #0x03100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Fuzzl_48_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L4A3_Stone_count)
@@ -550,6 +580,49 @@ L4A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l4a3_Trigger_BorgusReveal, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x16900000, Entity_WorldPosX(a0)
+	move.l #0x03400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_TriggerCargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l4a3_Trigger_CargoLift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_EachFrame(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x13f00000, Entity_WorldPosX(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_TriggerLoadLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.l #l4a3_Trigger_LoadLift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x16900000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l4a3_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
@@ -740,6 +813,18 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+	jsr GeneratorInit
+	move.l #0x14b00000, Entity_WorldPosX(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Generator3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L4A3_Cogs_count)
@@ -764,6 +849,18 @@ L4A3_LoadGameObjects:
 	move.l #0x01600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Cogs1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
+	jsr CogsInit
+	move.l #0x14c80000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Cogs3_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -843,6 +940,25 @@ L4A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L4A3_CargoLift_count)
+	move.l a1, EntityPoolStart_CargoLift
+	move.l a1, a0
+	POPL   a1
+
+	jsr CargoLiftInit
+	move.l #0x16a80000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_CargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #0x1, CargoLift_ManualGfxLoad(a0)
+	jsr CargoLiftLoadGfx
+	add.l #CargoLift_Struct_Size, a0
 
 
 	rts

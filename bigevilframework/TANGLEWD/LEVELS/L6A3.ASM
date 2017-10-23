@@ -176,8 +176,12 @@ l6a3_Trigger_Djakk1:
 
 l6a3_Trigger_End:
 
-	; Begin end of act gamestate
-	lea    GameStateEndAct, a0
+	; Begin end of level gamestate
+	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
+
+	; Not sleeping, force fade state
+	lea    GameStateEndLevelData, a2
+	move.w #0x1, EndLevelState_Timer(a2)
 	
 	rts
