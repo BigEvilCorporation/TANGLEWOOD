@@ -149,11 +149,29 @@ L4A3_Lift1_name	dc.b "L4A3_Lift1",0
 
 L4A3_Crate_count equ 0x0
 
-L4A3_Generator_count equ 0x0
+L4A3_Generator_count equ 0x1
+L4A3_Generator_39_idx	equ 0x0
 
-L4A3_Cogs_count equ 0x0
+	IFND FINAL
+L4A3_Generator_39_name	dc.b "L4A3_Generator_39",0
+	even
+	ENDIF
 
-L4A3_Bridge_count equ 0x0
+L4A3_Cogs_count equ 0x1
+L4A3_Cogs_40_idx	equ 0x0
+
+	IFND FINAL
+L4A3_Cogs_40_name	dc.b "L4A3_Cogs_40",0
+	even
+	ENDIF
+
+L4A3_Bridge_count equ 0x1
+L4A3_Bridge_34_idx	equ 0x0
+
+	IFND FINAL
+L4A3_Bridge_34_name	dc.b "L4A3_Bridge_34",0
+	even
+	ENDIF
 
 L4A3_Button_count equ 0x1
 L4A3_Button1_idx	equ 0x0
@@ -165,12 +183,10 @@ L4A3_Button1_name	dc.b "L4A3_Button1",0
 
 L4A3_Wyrm_count equ 0x0
 
-L4A3_AIMarker_count equ 0x2
-L4A3_MarkerEchoBridgeStop_idx	equ 0x0
-L4A3_AIMarkerBorgusNoGo1_idx	equ 0x1
+L4A3_AIMarker_count equ 0x1
+L4A3_AIMarkerBorgusNoGo1_idx	equ 0x0
 
 	IFND FINAL
-L4A3_MarkerEchoBridgeStop_name	dc.b "L4A3_MarkerEchoBridgeStop",0
 L4A3_AIMarkerBorgusNoGo1_name	dc.b "L4A3_AIMarkerBorgusNoGo1",0
 	even
 	ENDIF
@@ -198,6 +214,18 @@ L4A3_Stalactite_count equ 0x0
 L4A3_CargoLift_count equ 0x0
 
 L4A3_Scrap_count equ 0x0
+
+L4A3_Trap_count equ 0x3
+L4A3_Trap_35_idx	equ 0x0
+L4A3_Trap_36_idx	equ 0x1
+L4A3_Trap_37_idx	equ 0x2
+
+	IFND FINAL
+L4A3_Trap_35_name	dc.b "L4A3_Trap_35",0
+L4A3_Trap_36_name	dc.b "L4A3_Trap_36",0
+L4A3_Trap_37_name	dc.b "L4A3_Trap_37",0
+	even
+	ENDIF
 
 
 
@@ -607,8 +635,62 @@ L4A3_LoadGameObjects:
 	add.l #Lift_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L4A3_Generator_count)
+	move.l a1, EntityPoolStart_Generator
+	move.l a1, a0
+	POPL   a1
 
+	jsr GeneratorInit
+	move.l #0x06d80000, Entity_WorldPosX(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Generator_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L4A3_Cogs_count)
+	move.l a1, EntityPoolStart_Cogs
+	move.l a1, a0
+	POPL   a1
+
+	jsr CogsInit
+	move.l #0x06f00000, Entity_WorldPosX(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Cogs_40_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L4A3_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
+	move.l a1, a0
+	POPL   a1
+
+	jsr BridgeInit
+	move.l #0x02a00000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Bridge_34_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L4A3_Button_count)
@@ -637,19 +719,6 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x02400000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_MarkerEchoBridgeStop_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #AIMarker_Type_Wait, AIMarker_Type(a0)
-	jsr AIMarkerLoadGfx
-	add.l #AIMarker_Struct_Size, a0
-	jsr AIMarkerInit
 	move.l #0x0c500000, Entity_WorldPosX(a0)
 	move.l #0x05780000, Entity_WorldPosY(a0)
 	IFND FINAL
@@ -674,6 +743,49 @@ L4A3_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
+	move.l a1, EntityPoolStart_Trap
+	move.l a1, a0
+	POPL   a1
+
+	jsr TrapInit
+	move.l #0x05300000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap_35_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x05a80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap_36_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x06200000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap_37_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
 
 	rts
 

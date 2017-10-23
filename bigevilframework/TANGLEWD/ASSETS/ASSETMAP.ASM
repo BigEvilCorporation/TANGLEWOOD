@@ -93,6 +93,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stalact.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stone.asm
+	INCLUDE_TEXT_ASSET assets\sprites\trap.asm
 	INCLUDE_TEXT_ASSET assets\sprites\twd_logo.asm
 	INCLUDE_TEXT_ASSET assets\sprites\water.asm
 	INCLUDE_TEXT_ASSET assets\sprites\winch.asm

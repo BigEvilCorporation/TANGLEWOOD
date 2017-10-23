@@ -146,6 +146,7 @@ __start
 	include 'objects\scrap.asm'
 	include 'objects\stalact.asm'
 	include 'objects\stone.asm'
+	include 'objects\trap.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'
 	include 'objects\winch.asm'

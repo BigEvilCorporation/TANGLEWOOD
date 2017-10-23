@@ -129,6 +129,8 @@ L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
 
 L5A4_Scrap_count equ 0x0
 
+L5A4_Trap_count equ 0x0
+
 
 
 L5A4_LoadGameObjects:
@@ -312,6 +314,7 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 	rts
