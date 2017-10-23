@@ -9,7 +9,7 @@
 ; Constants
 Log_Width				equ 0x38
 Log_Height				equ 0x38
-Log_Mass				equ 0x4
+Log_Mass				equ 0x8
 Log_MaxVelX				equ 0x050000
 Log_MaxVelYUp			equ 0x06*subpixels_per_pixel
 Log_MaxVelYDown			equ 0x08*subpixels_per_pixel

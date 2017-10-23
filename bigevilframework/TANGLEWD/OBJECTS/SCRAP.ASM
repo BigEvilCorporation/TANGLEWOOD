@@ -20,7 +20,7 @@ Scrap_AccelWalk		equ 0x000200   ; Walking acceleration
 Scrap_AccelRun		equ 0x001000   ; Running acceleration
 Scrap_DecelIdle		equ 0x002000   ; Deceleration if left alone
 Scrap_DecelForced	equ 0x004000   ; Deceleration if input opposite direction
-Scrap_Mass			equ 0x00A0
+Scrap_Mass			equ 0x02
 
 Scrap_StepHeight	equ 0x3
 Scrap_MinWallHeight	equ 0x11			; High enough to avoid stones

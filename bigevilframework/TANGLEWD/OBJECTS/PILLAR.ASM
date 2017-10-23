@@ -14,7 +14,7 @@ Pillar_BarrierOffsetX	equ 0x0003
 Pillar_BarrierWidth		equ 0x002A
 
 Pillar_BreakMass		equ 0x0A
-Pillar_BreakVelocity	equ Player1MaxVelXRun+1	; Anything that moves faster than the player can break
+Pillar_BreakVelocity	equ 0x00010000
 
 ;==============================================================
 

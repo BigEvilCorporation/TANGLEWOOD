@@ -31,7 +31,7 @@ Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
 Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
 Monster_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
-Monster_Mass		  equ 0x00B0
+Monster_Mass		  equ 0x0B
 
 Monster_BoundsWidth		equ Monster_Width
 Monster_BoundsHeight	equ (Monster_Height-0x40)

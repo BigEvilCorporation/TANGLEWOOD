@@ -20,7 +20,7 @@ Borgus_AccelWalk		equ 0x000200   ; Walking acceleration
 Borgus_AccelRun			equ 0x001000   ; Running acceleration
 Borgus_DecelIdle		equ 0x002000   ; Deceleration if left alone
 Borgus_DecelForced		equ 0x004000   ; Deceleration if input opposite direction
-Borgus_Mass				equ 0x00A0
+Borgus_Mass				equ 0x0B
 
 Borgus_StepHeight		equ 0x3
 Borgus_MinWallHeight	equ 0x11				; High enough to avoid stones

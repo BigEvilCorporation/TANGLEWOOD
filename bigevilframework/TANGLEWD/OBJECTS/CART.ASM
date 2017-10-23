@@ -9,14 +9,14 @@
 ; Constants
 Cart_Width				equ 0x28
 Cart_Height				equ 0x20
-Cart_Mass				equ 0xB0
+Cart_Mass				equ 0x0B
 Cart_MaxVelYUp			equ 0x060000
 Cart_MaxVelYDown		equ 0x080000
 Cart_StepHeight			equ 0x4
 Cart_ProbeFloorX		equ (Cart_Width/2)	; Floor detection probe position X
 Cart_ProbeFloorY		equ (Cart_Height-8)	; Floor detection probe position X
 Cart_MaxVelX			equ 0x080000
-Cart_Accel				equ 0x000600
+Cart_Accel				equ 0x000800
 Cart_Decel				equ 0x000800
 
 Cart_PlatformOffsetY	equ 0x0018
