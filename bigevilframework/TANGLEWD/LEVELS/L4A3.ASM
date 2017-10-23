@@ -156,6 +156,10 @@ l4a3_Init:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 
+	; Make Borgus' boulder unbreakable
+	ENTITY_GETBYNAME Boulder, l4a3_Boulder1, a0
+	move.b #0x0, Boulder_CanCrack(a0)
+
 	; Set traps
 	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
@@ -208,6 +212,8 @@ l4a3_Trigger_End:
 l4a3_Trigger_Trapped:
 	; a0 --- Trap
 
+	PUSHL  a0
+
 	; If Nymn
 	move.l Trap_TrappedObject(a0), a2
 	cmp.l  Player1, a2
@@ -248,6 +254,8 @@ l4a3_Trigger_Trapped:
 	bra   @End
 
 	@End:
+
+	POPL   a0
 
 	rts
 

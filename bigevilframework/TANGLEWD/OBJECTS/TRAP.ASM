@@ -82,6 +82,7 @@ TrapInit:
 	move.l  #0x0, Trap_TrappedObject(a0)
 	move.b  #0x0, Trap_Activated(a0)
 	move.l  #0x0, Trap_OnActivated(a0)
+	move.b  #0x0, Trap_Raising(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)

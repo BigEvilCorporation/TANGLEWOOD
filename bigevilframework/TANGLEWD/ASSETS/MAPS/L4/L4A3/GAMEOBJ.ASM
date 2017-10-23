@@ -109,7 +109,13 @@ L4A3_Stone_46_name	dc.b "L4A3_Stone_46",0
 	even
 	ENDIF
 
-L4A3_Nest_count equ 0x0
+L4A3_Nest_count equ 0x1
+L4A3_Nest_54_idx	equ 0x0
+
+	IFND FINAL
+L4A3_Nest_54_name	dc.b "L4A3_Nest_54",0
+	even
+	ENDIF
 
 L4A3_Flue_count equ 0x0
 
@@ -561,6 +567,24 @@ L4A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A3_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
+	jsr NestInit
+	move.l #0x10b00000, Entity_WorldPosX(a0)
+	move.l #0x05880000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Nest_54_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
 
 
 	PUSHL  a1
