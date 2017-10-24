@@ -44,6 +44,7 @@ DebugText_VRAM_StrLen	equ 13
 DebugText_VRAM_Str1:	dc.b "VRAM 1 free: "
 DebugText_VRAM_Str2:	dc.b "VRAM 2 free: "
 DebugText_VRAM_Str3:	dc.b "VRAM 3 free: "
+DebugText_RAM_Str:		dc.b "OBJ RAM free: "
 	even
 	ENDIF
 	
@@ -390,6 +391,52 @@ Debug_DrawVRAMPools:
 	rts
 
 Debug_DrawRAMPools:
+
+	PUSHM   a0-a1
+	
+	; Get string
+	lea     DebugText_RAM_Str, a3
+	
+	; Alloc string space
+	sub.l   #0x20, sp
+	move.l  sp, a0
+	
+	PUSHM   a0
+	
+	; Copy string
+	move.l  a3, a1
+	move.l  #DebugText_VRAM_StrLen, d0
+	MEMCPYB a0, a1, d0
+
+	; Get free bytes
+	clr.l   d0
+	PUSHL   a0
+	lea     RAMPool_Pool_Entities, a0
+	jsr     RAM_PoolGetFree
+	POPL    a0
+	BYTES2TILES d0
+	
+	; Append to string
+	jsr     TXT_ItoA_w
+	
+	POPM    a0
+
+	; Draw
+	clr.l   d0
+	move.w  (vram_addr_systemfont), d0					; Font VDP address
+	BYTES2TILES d0
+	move.w #((PauseText_FontPaletteId<<13)|1<<15), d2	; Palette/flip/priority bits
+	move.l  #((DebugText_VRAM_PosX<<16)|(DebugText_VRAM_PosY+0x18)), d1	; Pos
+	; a0 (l) - String address
+	; d0 (w) - First tile ID of font
+	; d1 (ww)- XY coord (in pixels)
+	; d2 (w) - Palette/flip/priority bits
+	jsr    TXT_DrawSprites
+	
+	; Free string space
+	addi.l  #0x20, sp
+
+	POPM    a0-a1
 	
 	rts
 
