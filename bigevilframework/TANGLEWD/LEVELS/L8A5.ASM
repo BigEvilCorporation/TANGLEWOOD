@@ -49,7 +49,7 @@ l8a5_DefaultPalettes:
 	dc.l palette_L3_night			; World (using L3 tileset)
 	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
-	dc.l Pal_Nymn_Red				; Player
+	dc.l Pal_Nymn_White				; Player (white ability)
 	
 	even
 	
@@ -87,6 +87,10 @@ l8a5_Init:
 	jsr    L3_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Set player white ability
+	move.l Player1, a2
+	move.b #ColourWhite, Player_Colour(a2)
 	
 	rts
 	

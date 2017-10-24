@@ -49,7 +49,7 @@ l8a2_DefaultPalettes:
 	dc.l palette_l7					; World (using L7 tileset)
 	dc.l palette_djakk				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
-	dc.l Pal_Nymn_Red				; Player
+	dc.l Pal_Nymn_White				; Player (white ability)
 	
 	even
 	
@@ -87,6 +87,10 @@ l8a2_Init:
 	jsr    L7_LoadSceneAnimations
 	
 	;==============================================================
+
+	; Set player white ability
+	move.l Player1, a2
+	move.b #ColourWhite, Player_Colour(a2)
 	
 	rts
 	

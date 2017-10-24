@@ -49,7 +49,7 @@ l8a4_DefaultPalettes:
 	dc.l palette_L4					; World (using L4 tileset)
 	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
-	dc.l Pal_Nymn_Red				; Player
+	dc.l Pal_Nymn_White				; Player (white ability)
 	
 	even
 	
@@ -88,6 +88,11 @@ l8a4_Init:
 	
 	;==============================================================
 
+	; Set player white ability
+	move.l Player1, a2
+	move.b #ColourWhite, Player_Colour(a2)
+
+	; Activate lift
 	ENTITY_GETBYNAME Lift, l8a4_LiftEntrance, a0
 	jsr    LiftActivate
 	

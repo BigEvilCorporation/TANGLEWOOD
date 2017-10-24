@@ -88,7 +88,8 @@ Player1MaxGlideVelocityY	equ 0x01*subpixels_per_pixel
 Player1SlowTimeDiv			equ 0x10
 
 ; Lightning ability
-Player1LightningCooldown	equ 0x0200
+Player1LightningCooldown		equ 0x0200
+Player1LightningAttackDamage	equ 0xFF
 
 ; Anything taller than a Fuzzl is considered 'heavy' (changes push anim)
 Player1MaxLightPushObjHeight	equ Fuzzl_Height
@@ -709,15 +710,10 @@ PlayerStartColourAbility:
 	lea    Pal_Nymn_Red, a0
 	move.b #PaletteId_Player, d0
 	jsr    PAL_LoadDMA
+	POPM   a0-a1
 
 	; Lightning shot
-	lea    Thunder, a2
-	move.w #0xFFFF, d0	; Interval (disabled)
-	move.w #0x0, d1		; Distance (close)
-	jsr    ThunderSetParams
-	jsr    ThunderFlash
-	PLAYSFX #SFX_Thunder_Near
-	POPM   a0-a1
+	jsr    PlayerLightningAttack
 
 	; Start cooldown
 	move.w #Player1LightningCooldown, Player_LightningCooldown(a0)
@@ -911,8 +907,6 @@ PlayerStopColourAbility:
 	; White - summon lightning
 	;==============================================================
 	@White:
-
-
 	bra    @ReturnColour
 
 	;==============================================================
@@ -1133,6 +1127,10 @@ PlayerUpdateColourAbility:
 	@NoColour:
 	@NotInteracting:
 	@End:
+
+	; If not white
+	cmp.b #ColourWhite, Player_Colour(a0)
+	beq   @NoTimeout
 	
 	; If power elapsed, switch back to red
 	jsr   PlayerColourAbilityElapsed
@@ -1146,6 +1144,7 @@ PlayerUpdateColourAbility:
 	; Play SFX
 	PLAYSFX #SFX_NymnColourFade
 	
+	@NoTimeout:
 	@PowerStillActive:
 
 	rts
@@ -1836,6 +1835,144 @@ PlayerBeginPermadeath:
 	POPL    a1
 
 	move.b  #0x0, Character_UpdateAnim(a0)
+
+	rts
+
+PlayerLightningAttack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Lightning flash
+	PUSHM  a0-a1
+	lea    Thunder, a2
+	move.w #0xFFFF, d0	; Interval (disabled)
+	move.w #0x0, d1		; Distance (close)
+	jsr    ThunderSetParams
+	jsr    ThunderFlash
+	PLAYSFX #SFX_Thunder_Near
+	POPM   a0-a1
+
+	; Find enemies on screen
+
+	;==============================================================
+	; Djakks
+
+	move.l (EntityPoolStart_Monster), a2
+	move.w (EntityCount_Monster), d6
+	tst.w  d6
+	beq    @NoMonsters
+	subq.w #0x1, d6
+	@MonsterLoop:
+	
+	; Check on screen
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @NextMonster
+
+	; Kill
+	PUSHL  a0
+	move.l a2, a0
+	move.b #Player1LightningAttackDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+	
+	@NextMonster:
+	
+	; Next monster
+	lea  Monster_Struct_Size(a2), a2
+	dbra d6, @MonsterLoop
+	
+	@NoMonsters:
+
+	;==============================================================
+	; Wyrms
+
+	move.l (EntityPoolStart_Wyrm), a2
+	move.w (EntityCount_Wyrm), d6
+	tst.w  d6
+	beq    @NoWyrms
+	subq.w #0x1, d6
+	@WyrmLoop:
+	
+	; Check on screen
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @NextWyrm
+
+	; Check not burrowed
+	cmp.b  #WyrmState_Idle, Wyrm_State(a2)
+	beq    @NextWyrm
+
+	; Kill
+	PUSHL  a0
+	move.l a2, a0
+	move.b #Player1LightningAttackDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+	
+	@NextWyrm:
+	
+	; Next Wyrm
+	lea  Wyrm_Struct_Size(a2), a2
+	dbra d6, @WyrmLoop
+	
+	@NoWyrms:
+
+	;==============================================================
+	; Fish
+
+	move.l (EntityPoolStart_Djubb), a2
+	move.w (EntityCount_Djubb), d6
+	tst.w  d6
+	beq    @NoDjubbs
+	subq.w #0x1, d6
+	@DjubbLoop:
+	
+	; Check on screen
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @NextDjubb
+
+	; Kill
+	PUSHL  a0
+	move.l a2, a0
+	move.b #Player1LightningAttackDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+	
+	@NextDjubb:
+	
+	; Next Djubb
+	lea  Djubb_Struct_Size(a2), a2
+	dbra d6, @DjubbLoop
+	
+	@NoDjubbs:
+
+	;==============================================================
+	; Demons
+
+	move.l (EntityPoolStart_Demon), a2
+	move.w (EntityCount_Demon), d6
+	tst.w  d6
+	beq    @NoDemons
+	subq.w #0x1, d6
+	@DemonLoop:
+	
+	; Check on screen
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @NextDemon
+
+	; Kill
+	PUSHL  a0
+	move.l a2, a0
+	move.b #Player1LightningAttackDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+	
+	@NextDemon:
+	
+	; Next Demon
+	lea  Demon_Struct_Size(a2), a2
+	dbra d6, @DemonLoop
+	
+	@NoDemons:
 
 	rts
 	

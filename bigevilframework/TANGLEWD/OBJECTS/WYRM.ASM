@@ -232,6 +232,12 @@ WyrmUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Character_Dead(a0)
+	bne    @Dead
+
+	;==============================================================
+
+	; Update AI
 	move.b Wyrm_State(a0), d0
 	cmp.b  #WyrmState_Idle, d0
 	beq    @Idle
@@ -265,6 +271,8 @@ WyrmUpdate:
 	bra    @EndAI
 
 	@EndAI:
+
+	;==============================================================
 
 	; Backup current X
 	move.w Entity_WorldPosX(a0), d0
@@ -328,6 +336,22 @@ WyrmUpdate:
 	
 	move.w d2, Wyrm_DebrisAccumX(a0)
 
+	bra    @End
+
+	;==============================================================
+
+	@Dead:
+
+	; Dead, make sure in idle state (also stops screen shake)
+	cmp.b  #WyrmState_Idle, Wyrm_State(a0)
+	beq    @End
+
+	jsr    WyrmAIStart_Idle
+
+	;==============================================================
+
+	@End:
+
 	rts
 
 WyrmDraw:
@@ -335,7 +359,10 @@ WyrmDraw:
 	; a1 --- Level addr
 
 	; Draw Wyrm
+	tst.b Character_Dead(a0)
+	bne   @Dead
 	jsr   CharacterDraw
+	@Dead:
 
 	; Draw debris
 	move.l a0, a2
