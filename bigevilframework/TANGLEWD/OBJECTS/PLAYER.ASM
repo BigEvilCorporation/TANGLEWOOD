@@ -87,6 +87,9 @@ Player1MaxGlideVelocityY	equ 0x01*subpixels_per_pixel
 ; Time ability
 Player1SlowTimeDiv			equ 0x10
 
+; Lightning ability
+Player1LightningCooldown	equ 0x0200
+
 ; Anything taller than a Fuzzl is considered 'heavy' (changes push anim)
 Player1MaxLightPushObjHeight	equ Fuzzl_Height
 
@@ -184,6 +187,7 @@ Player_LastWaterBody		rs.l 1	; Last entered water body
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
+Player_LightningCooldown	rs.w 1
 Player_ControlEnabled		rs.b 1
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_InteractionToggle	rs.b 1	; If current interaction needs a button tap to disable
@@ -193,7 +197,7 @@ Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
 ;---------------------------------
-Player_Struct_Pad      		rs.b 2
+Player_Struct_Pad      		rs.b 0
 Player_Struct_Size     		rs.b 0
 
 ; ************************************
@@ -571,26 +575,28 @@ PlayerStartColourAbility:
 	beq    @Green
 	cmp.b  #ColourBlue, d0
 	beq    @Blue
+	cmp.b  #ColourWhite, d0
+	beq    @White
 	bra    @NoColour
 	
-	; ************************************
-	; Red
-	; ************************************
+	;==============================================================
+	; Red - nowt special
+	;==============================================================
 	@Red:
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Yellow - glide
-	; ************************************
+	;==============================================================
 	@Yellow:
 
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Green - time slow
-	; ************************************
+	;==============================================================
 	@Green:
 	
 	PUSHL  a0
@@ -634,9 +640,9 @@ PlayerStartColourAbility:
 
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Blue - beast taming / ride Djakk
-	; ************************************
+	;==============================================================
 	@Blue:
 
 	PUSHL  a1
@@ -683,6 +689,44 @@ PlayerStartColourAbility:
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 	bra    @End
+
+	;==============================================================
+	; Red - Summon lightning
+	;==============================================================
+	@White:
+
+	; If cooled down
+	tst.w  Player_LightningCooldown(a0)
+	bne    @NotCooledDown
+
+	; Back to red
+	PUSHM  a0-a1
+	lea    Pal_Nymn_Red, a1
+	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a0
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a0, a1, d0
+
+	lea    Pal_Nymn_Red, a0
+	move.b #PaletteId_Player, d0
+	jsr    PAL_LoadDMA
+
+	; Lightning shot
+	lea    Thunder, a2
+	move.w #0xFFFF, d0	; Interval (disabled)
+	move.w #0x0, d1		; Distance (close)
+	jsr    ThunderSetParams
+	jsr    ThunderFlash
+	PLAYSFX #SFX_Thunder_Near
+	POPM   a0-a1
+
+	; Start cooldown
+	move.w #Player1LightningCooldown, Player_LightningCooldown(a0)
+
+	@NotCooledDown:
+
+	bra    @End
+
+	;==============================================================
 	
 	@NoColour:
 	@End:
@@ -709,17 +753,19 @@ PlayerStopColourAbility:
 	beq    @Green
 	cmp.b  #ColourBlue, d0
 	beq    @Blue
+	cmp.b  #ColourWhite, d0
+	beq    @White
 	bra    @NoColour
 	
-	; ************************************
-	; Red
-	; ************************************
+	;==============================================================
+	; Red - nowt special
+	;==============================================================
 	@Red:
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Yellow - glide
-	; ************************************
+	;==============================================================
 	@Yellow:
 	
 	; If inactive, don't bother
@@ -738,9 +784,9 @@ PlayerStopColourAbility:
 	
 	bra    @ReturnColour
 	
-	; ************************************
+	;==============================================================
 	; Green - time slow
-	; ************************************
+	;==============================================================
 	@Green:
 	
 	; If inactive, don't bother
@@ -810,9 +856,9 @@ PlayerStopColourAbility:
 	
 	bra    @ReturnColour
 	
-	; ************************************
+	;==============================================================
 	; Blue - beast taming / ride Djakk
-	; ************************************
+	;==============================================================
 	@Blue:
 
 	; If riding
@@ -862,6 +908,14 @@ PlayerStopColourAbility:
 	bra    @ReturnColour
 
 	;==============================================================
+	; White - summon lightning
+	;==============================================================
+	@White:
+
+
+	bra    @ReturnColour
+
+	;==============================================================
 	
 	@ReturnColour:
 
@@ -908,17 +962,19 @@ PlayerUpdateColourAbility:
 	beq    @Green
 	cmp.b  #ColourBlue, d0
 	beq    @Blue
+	cmp.b  #ColourWhite, d0
+	beq    @White
 	bra    @NoColour
 	
-	; ************************************
-	; Red
-	; ************************************
+	;==============================================================
+	; Red - nowt special
+	;==============================================================
 	@Red:
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Yellow - glide
-	; ************************************
+	;==============================================================
 	@Yellow:
 	
 	; If active colour ability
@@ -957,9 +1013,9 @@ PlayerUpdateColourAbility:
 	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Green - time slow
-	; ************************************
+	;==============================================================
 	@Green:
 
 	; Get global time div
@@ -1028,9 +1084,9 @@ PlayerUpdateColourAbility:
 	
 	bra    @End
 	
-	; ************************************
+	;==============================================================
 	; Blue
-	; ************************************
+	;==============================================================
 	@Blue:
 	
 	; If riding a pet
@@ -1045,6 +1101,34 @@ PlayerUpdateColourAbility:
 	bra    @End
 
 	;==============================================================
+	; White - Summon lightning
+	;==============================================================
+	@White:
+
+	; Cooldown
+	move.w Player_LightningCooldown(a0), d0
+	tst.w  d0
+	beq    @NoCooldown
+	subq.w #0x1, d0
+	move.w d0, Player_LightningCooldown(a0)
+
+	; If elapsed, back to white
+	tst.w  d0
+	bne    @NoCooldown
+
+	PUSHM  a0-a1
+	lea    Pal_Nymn_White, a0
+	move.l #PaletteId_Player, d0
+	move.l #Player1ColourChangeSpeed, d1
+	move.b #0x1, d2					; Ticks per update
+	move.b #0x0, d3					; Range min
+	move.b #0xE, d4					; Range max
+	jsr    PAL_LerpStart			; Begin palette lerp
+	POPM   a0-a1
+
+	@NoCooldown:
+
+	bra   @End
 	
 	@NoColour:
 	@NotInteracting:
