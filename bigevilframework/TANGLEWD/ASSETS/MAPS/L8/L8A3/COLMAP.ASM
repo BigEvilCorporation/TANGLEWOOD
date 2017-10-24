@@ -20,6 +20,7 @@ terrainmap_blockmap_L8A3_width	equ 0x33
 terrainmap_blockmap_L8A3_height	equ 0x18
 
 ; Terrain bezier bounds
-terrainmap_L8A3_num_special_terrain_descs	equ 0x00
+terrainmap_L8A3_num_special_terrain_descs	equ 0x01
 terrainmap_L8A3_special_terrain_descs:
+	dc.w 0x0320, 0x021F, 0x05F0, 0x021F, 0x1000	; Left, top, right, bottom, flags
 

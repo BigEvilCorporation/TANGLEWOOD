@@ -9,6 +9,8 @@
 
 L5A1_Leaf_count equ 0x0
 
+L5A1_Trap_count equ 0x0
+
 L5A1_Djubb_count equ 0x0
 
 L5A1_Echo_count equ 0x1
@@ -36,6 +38,8 @@ L5A1_Log1_idx	equ 0x0
 L5A1_Log1_name	dc.b "L5A1_Log1",0
 	even
 	ENDIF
+
+L5A1_Borgus_count equ 0x0
 
 L5A1_DjakkCage_count equ 0x0
 
@@ -81,6 +85,8 @@ L5A1_Stone_38_name	dc.b "L5A1_Stone_38",0
 	even
 	ENDIF
 
+L5A1_Demon_count equ 0x0
+
 L5A1_Nest_count equ 0x1
 L5A1_Nest_8_idx	equ 0x0
 
@@ -105,6 +111,8 @@ L5A1_WaterBody_count equ 0x0
 
 L5A1_Location_count equ 0x0
 
+L5A1_Lift_count equ 0x0
+
 L5A1_Deathbox_count equ 0x3
 L5A1_Deathbox_37_idx	equ 0x0
 L5A1_Deathbox_43_idx	equ 0x1
@@ -116,8 +124,6 @@ L5A1_Deathbox_43_name	dc.b "L5A1_Deathbox_43",0
 L5A1_Deathbox_44_name	dc.b "L5A1_Deathbox_44",0
 	even
 	ENDIF
-
-L5A1_Lift_count equ 0x0
 
 L5A1_Crate_count equ 0x0
 
@@ -225,10 +231,6 @@ L5A1_Ladder_51_name	dc.b "L5A1_Ladder_51",0
 	even
 	ENDIF
 
-L5A1_Demon_count equ 0x0
-
-L5A1_Borgus_count equ 0x0
-
 L5A1_Stalactite_count equ 0x0
 
 L5A1_CargoLift_count equ 0x1
@@ -244,6 +246,7 @@ L5A1_Scrap_count equ 0x0
 
 
 L5A1_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -303,6 +306,7 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -456,6 +460,7 @@ L5A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A1_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -497,6 +502,7 @@ L5A1_LoadGameObjects:
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 
 
 
@@ -543,7 +549,6 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -895,8 +900,6 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
-
-
 
 
 	PUSHL  a1

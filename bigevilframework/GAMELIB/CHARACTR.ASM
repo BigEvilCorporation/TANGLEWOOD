@@ -198,7 +198,9 @@ CharacterUpdate:
 	@PrevOnFloor:
 	@LowLandVel:
 	
-	; If Y vel < falling vel, set as falling
+	; If affect by gravity and Y vel < falling vel, set as falling
+	tst.b  PhysicsObj_AffectedByGravity(a0)
+	beq    @NotFalling
 	cmp.l  #-Character_FallVel, d1
 	bge    @NotFalling
 	move.b #0x1, Character_Falling(a0)

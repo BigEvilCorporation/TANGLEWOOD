@@ -1959,6 +1959,10 @@ PlayerLightningAttack:
 	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @NextDemon
 
+	; Check in physical form
+	cmp.b  #DemonState_Physical, Demon_State(a2)
+	bne    @NextDemon
+
 	; Kill
 	PUSHL  a0
 	move.l a2, a0

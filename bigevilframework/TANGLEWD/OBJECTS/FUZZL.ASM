@@ -656,7 +656,7 @@ FuzzlFindGenerator:
 	cmp.l  #0x0, Generator_Fuzzl(a3)
 	bne    @NextGenerator
 	
-	; Check if touching a nest
+	; Check if touching a generator
 	PUSHL a1
 	PUSHL d6
 	move.l a3, a1
@@ -670,7 +670,7 @@ FuzzlFindGenerator:
 	tst.b d0
 	beq   @NextGenerator
 	
-	; Touching nest, snap to into position
+	; Touching generator, snap to into position
 	move.l Entity_WorldPosX(a3), d0
 	move.l Entity_WorldPosY(a3), d1
 	addi.l #((Generator_Width/2)-(Fuzzl_Width/2))*subpixels_per_pixel, d0

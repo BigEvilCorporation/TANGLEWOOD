@@ -9,6 +9,8 @@
 
 L5A3_Leaf_count equ 0x0
 
+L5A3_Trap_count equ 0x0
+
 L5A3_Djubb_count equ 0x0
 
 L5A3_Echo_count equ 0x1
@@ -30,6 +32,8 @@ L5A3_Nymn_3_name	dc.b "L5A3_Nymn_3",0
 L5A3_BouncePlant_count equ 0x0
 
 L5A3_Log_count equ 0x0
+
+L5A3_Borgus_count equ 0x0
 
 L5A3_DjakkCage_count equ 0x0
 
@@ -78,6 +82,14 @@ L5A3_Stone_57_name	dc.b "L5A3_Stone_57",0
 L5A3_Stone_58_name	dc.b "L5A3_Stone_58",0
 L5A3_Stone_59_name	dc.b "L5A3_Stone_59",0
 L5A3_Stone_62_name	dc.b "L5A3_Stone_62",0
+	even
+	ENDIF
+
+L5A3_Demon_count equ 0x1
+L5A3_Demon_idx	equ 0x0
+
+	IFND FINAL
+L5A3_Demon_name	dc.b "L5A3_Demon",0
 	even
 	ENDIF
 
@@ -131,6 +143,8 @@ L5A3_WaterBody_count equ 0x0
 
 L5A3_Location_count equ 0x0
 
+L5A3_Lift_count equ 0x0
+
 L5A3_Deathbox_count equ 0x2
 L5A3_Deathbox_23_idx	equ 0x0
 L5A3_Deathbox_41_idx	equ 0x1
@@ -140,8 +154,6 @@ L5A3_Deathbox_23_name	dc.b "L5A3_Deathbox_23",0
 L5A3_Deathbox_41_name	dc.b "L5A3_Deathbox_41",0
 	even
 	ENDIF
-
-L5A3_Lift_count equ 0x0
 
 L5A3_Crate_count equ 0x0
 
@@ -253,16 +265,6 @@ L5A3_Ladder_55_name	dc.b "L5A3_Ladder_55",0
 	even
 	ENDIF
 
-L5A3_Demon_count equ 0x1
-L5A3_Demon_idx	equ 0x0
-
-	IFND FINAL
-L5A3_Demon_name	dc.b "L5A3_Demon",0
-	even
-	ENDIF
-
-L5A3_Borgus_count equ 0x0
-
 L5A3_Stalactite_count equ 0x8
 L5A3_Stalactite_11_idx	equ 0x0
 L5A3_Stalactite_12_idx	equ 0x1
@@ -306,6 +308,7 @@ L5A3_Scrap_name	dc.b "L5A3_Scrap",0
 L5A3_LoadGameObjects:
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L5A3_Echo_count)
 	move.l a1, EntityPoolStart_Echo
@@ -343,6 +346,7 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -518,6 +522,28 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L5A3_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x19c80000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Demon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x1, Demon_ManualGfxLoad(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+	jsr DemonLoadGfx
+	add.l #Demon_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A3_Nest_count)
@@ -721,6 +747,7 @@ L5A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L5A3_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -751,7 +778,6 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -1093,29 +1119,6 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L5A3_Demon_count)
-	move.l a1, EntityPoolStart_Demon
-	move.l a1, a0
-	POPL   a1
-
-	jsr DemonInit
-	move.l #0x19c80000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A3_Demon_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #0x0, Entity_Active(a0)
-	move.b #0x1, Demon_ManualGfxLoad(a0)
-	move.b #0x0, SpriteObj_Visible(a0)
-	jsr DemonLoadGfx
-	add.l #Demon_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stalactite_Struct_Size*L5A3_Stalactite_count)

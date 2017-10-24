@@ -151,6 +151,24 @@ Generator_Activate:
 	@AlreadyRunning:
 
 	rts
+
+Generator_Deactivate:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set Fuzzl
+	move.l #0x0, Generator_Fuzzl(a0)
+
+	; Set running
+	move.b #0x0, Generator_Running(a0)
+
+	; Stop anim
+	move.b #0x0, AnimObj_Playing(a0)
+
+	; Play SFX
+	;PLAYSFX #SFX_GeneratorOff
+
+	rts
 	
 GeneratorSerialise:
 	; a0 --- GameObj addr

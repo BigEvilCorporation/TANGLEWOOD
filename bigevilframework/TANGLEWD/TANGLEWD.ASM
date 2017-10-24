@@ -105,6 +105,9 @@ __start
 	include '..\gamelib\uitext.asm'
 	include '..\gamelib\uimacros.asm'
 
+	; Include utils
+	include 'utils.asm'
+
 	; Include GameObject derivatives
 	IFND DEBUG
 	include 'objects\monster.asm'

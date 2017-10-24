@@ -52,11 +52,16 @@ l8a3_DefaultPalettes:
 	dc.l Pal_Nymn_White				; Player (white ability)
 	
 	even
+
+l8a3_DemonToFuzzlX				equ 0x08
+l8a3_DemonToFuzzlY				equ 0x08
+l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l8a3Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
 ;---------------------------------
 l8a3Data_Struct_Pad      		rs.b 0
 l8a3Data_Struct_Size     		rs.b 0
@@ -85,7 +90,28 @@ l8a3_Init:
 
 	; Load scene animations (using L5 tileset)
 	jsr    L5_LoadSceneAnimations
+
+	;==============================================================
+
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L8A3, a2
+	lea    l8a3Data_CutsceneDemonStealFuzzl(a2), a0
+	move.l #l5a8_CutsceneDemonStealFuzzl, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 	
+	;==============================================================
+
+	; Connect cogs to generators
+	ENTITY_GETBYNAME Generator, l8a3_Generator1, a0
+	ENTITY_GETBYNAME Cogs, l8a3_Cogs1, a1
+	move.l a1, Generator_Cogs(a0)
+
+	; Put Fuzzl in generator
+	ENTITY_GETBYNAME Fuzzl, l8a3_FuzzlRed1, a0
+	jsr    FuzzlFindGenerator
+
 	;==============================================================
 
 	; Set player white ability
@@ -118,7 +144,198 @@ l8a3_Trigger_End:
 
 l8a3_Trigger_Lift:
 
-	ENTITY_GETBYNAME Lift, l8a3_LiftExit, a0
+	ENTITY_GETBYNAME Lift, l8a3_CargoLift, a0
 	jsr    LiftActivate
+
+	rts
+
+l8a3_Trigger_ShakeStart:
+	move.w #0x0, d0
+	move.w #l5a3_CamShakeVel, d1
+	move.w #0x0, d2
+	move.w #l5a3_CamShakeAmp, d3
+	move.w #0x0, d4
+	jsr    CAM_StartCameraShake
+	rts
+
+l8a3_Trigger_DemonTakeFuzzl:
+
+	; Stop camera shake
+	jsr    CAM_StopCameraShake
+
+	; Start cutscene
+	PUSHL  a0
+	lea    LevelData_L8A3, a2
+	lea    l8a3Data_CutsceneDemonStealFuzzl(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	rts
+
+l5a8_CutsceneDemonStealFuzzl:
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Lerp camera to demon
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Move demon to Fuzzl
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Demon_AtTarget,#0x0
+	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
+	CUTSCENE_ROUTINE l8a3_Cutscene_MoveDemon,#0x0,#0x0,#0x0
+	CUTSCENE_DELAY #0x0020
+	
+	; Reveal demon
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+	CUTSCENE_DELAY #0x0020
+
+	; Attack Fuzzl
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonAttack
+
+	; Wait for bite frame
+	CUTSCENE_ROUTINE l8a3_Cutscene_WaitAttackFrame,#0x0,#0x0,#0x0
+
+	; Flash on
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_World0
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Monster
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Fuzzl
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Player
+
+	; Disappear
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
+
+	; Hide Fuzzl
+	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
+	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
+
+	; Flash delay
+	CUTSCENE_DELAY #0x0002
+
+	; Flash off
+	CUTSCENE_GAME_PALETTE_LOAD #palette_L5,#PaletteId_World0
+	CUTSCENE_GAME_PALETTE_LOAD #palette_demon,#PaletteId_Monster
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fuzzl,#PaletteId_Fuzzl
+	CUTSCENE_GAME_PALETTE_LOAD #Pal_Nymn_White,#PaletteId_Player
+
+	; Deactivate generator
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_GET_ENTITY Generator,l8a3_Generator1,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#Generator_Deactivate
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Wait a while
+	CUTSCENE_DELAY #l8a3_DemonHideTime
+
+	; Enter boss attack mode
+	;CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	;CUTSCENE_OBJECT_ROUTINE a2,#DemonStartBossMode
+
+	; Wait for death
+	;CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	;CUTSCENE_CHARACTER_WAIT_DEATH a2
+
+	; Resurrect in wisp form
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Character_Dead,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartWisp
+
+	; Clear follow target (to use player)
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_W a2,#Demon_TargetX,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_W a2,#Demon_TargetY,#0x0
+
+	; Reappear
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+
+	; Drop Fuzzl
+
+	; Run off towards exit locator
+
+	; Stop rendering
+
+	CUTSCENE_END
+
+	rts
+
+l8a3_Cutscene_MoveDemon:
+	; a0 --- Cutscene step
+	; a2 --- Target
+
+	PUSHL  a0
+	
+	; Get demon
+	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
+
+	; Update target pos
+	ENTITY_GETCENTREX d0,a2
+	ENTITY_GETCENTREY d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	addi.w #l8a3_DemonToFuzzlX, d0
+	subi.w #l8a3_DemonToFuzzlY, d1
+	move.w d0, Demon_TargetX(a0)
+	move.w d1, Demon_TargetY(a0)
+	
+	tst.b  Demon_AtTarget(a0)
+	beq    @NotAtTarget
+
+	; Step complete
+	move.b #0x0, d0
+	bra    @End
+
+	@NotAtTarget:
+
+	; Step still running
+	move.b #0x1, d0
+	
+	@End:
+
+	POPL   a0
+
+	rts
+
+l8a3_Cutscene_WaitAttackFrame:
+
+	PUSHL  a0
+
+	move.b #0x1, d0
+
+	; Wait for bite anim to finish
+	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
+	move.l AnimObj_CurrentAnim(a0), a2
+	tst.b  Animation_Looping(a2)
+	beq    @StillBiting
+	move.b #0x0, d0
+	@StillBiting:
+
+	POPL   a0
 
 	rts

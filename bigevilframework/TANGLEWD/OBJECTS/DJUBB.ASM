@@ -14,6 +14,9 @@ Djubb_SwimAccel			equ 0x001000
 Djubb_SwimDecelIdle		equ 0x000800
 Djubb_SwimDecelForced	equ 0x002000
 Djubb_MaxSwimVel		equ 0x03E000
+Djubb_MaxFloatVel		equ 0x010000
+Djubb_FloatAccel		equ 0x000800
+Djubb_FloatAccelTop		equ 0x000200
 Djubb_WallProbeLeft		equ -0x0010
 Djubb_WallProbeRight	equ Djubb_Width+0x0010
 Djubb_WallProbeTop		equ 0x0000
@@ -60,6 +63,7 @@ DjubbInit:
 	move.w  #Djubb_Height, Entity_Height(a0)
 	move.l  #Djubb_MaxSwimVel, PhysicsObj_MaxVelFloorX(a0)
 	move.l  #Djubb_MaxSwimVel, PhysicsObj_MaxVelAirX(a0)
+	move.l  #Djubb_MaxFloatVel, PhysicsObj_MaxVelYUp(a0)
 	move.w  #Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Djubb_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
@@ -107,6 +111,10 @@ DjubbLoadGfx:
 DjubbUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If dead, set buoyant and float upwards
+	tst.b  Character_Dead(a0)
+	bne    @Dead
 
 	; Get player
 	move.l (Player1), a2
@@ -163,6 +171,33 @@ DjubbUpdate:
 
 	jsr    CharacterCancelXMovement
 
+	bra    @EndMove
+
+	;==============================================================
+
+	@Dead:
+
+	; Cancel X move
+	jsr    CharacterCancelXMovement
+
+	; Set buoyant
+	move.b #0x1, PhysicsObj_Buoyant(a0)
+
+	; TODO: Move to physicsobj
+	; TODO: Move floor probe to top so fish stays emerged
+	jsr    DjubbTestUnderwater
+	tst.b  PhysicsObj_Underwater(a0)
+	beq    @OutOfWater
+	move.w #Djubb_FloatAccel, PhysicsObj_AccelY(a0)
+	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+	bra    @Underwater
+	@OutOfWater:
+	move.w #Djubb_FloatAccelTop, PhysicsObj_AccelY(a0)
+	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
+	@Underwater:
+
+	;==============================================================
+
 	@EndMove:
 	@PlayerDead:
 
@@ -199,5 +234,139 @@ DjubbSerialise:
 	;==============================================================
 	
 	@End:
+	
+	rts
+
+; TODO: Move to physicsobj
+DjubbTestUnderwater:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Reset in water
+	move.b #0x0, PhysicsObj_Underwater(a0)
+
+	;==============================================================
+	
+	; Check all water bodies
+	move.l (EntityPoolStart_WaterBody), a2
+	move.w (EntityCount_WaterBody), d6
+	tst.w  d6
+	beq    @NoWaterBodies
+	subq.w #0x1, d6
+	@BodyLoop:
+	
+	; Check player vs. box
+	PUSHL  d5
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   d5
+	tst.b  d0
+	beq    @NoIntersect
+	
+	; Set in water
+	move.b #0x1, PhysicsObj_Underwater(a0)
+
+	bra    @Found
+	
+	@NoIntersect:
+	
+	; Next body
+	lea  WaterBody_Struct_Size(a2), a2
+	dbra d6, @BodyLoop
+	
+	@NoWaterBodies:
+
+	;==============================================================
+
+	; Check all water pools
+	move.l (EntityPoolStart_Pool), a2
+	move.w (EntityCount_Pool), d6
+	tst.w  d6
+	beq    @NoPools
+	subq.w #0x1, d6
+	@PoolLoop:
+	
+	; Check player vs. box
+	PUSHL  d5
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a2
+	lea    Pool_Platform(a2), a3	; Use pool platform Y as bounds top
+	move.w Platform_PosY(a3), d3
+	PUSHL  d3
+	jsr    PHYS_TestBoxIntersectBox
+	POPL   d3
+	POPL   d5
+	tst.b  d0
+	beq    @NoIntersectPool
+	
+	; Set in water
+	move.b #0x1, PhysicsObj_Underwater(a0)
+
+	bra    @Found
+	
+	@NoIntersectPool:
+	
+	; Next body
+	lea  Pool_Struct_Size(a2), a2
+	dbra d6, @PoolLoop
+	
+	@NoPools:
+
+	;==============================================================
+
+	; Check all water terrain
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d4
+	add.w  Entity_Height(a0), d4
+	subi.w #vdp_sprite_border_x, d0
+	subi.w #vdp_sprite_border_y, d4
+
+	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
+	tst.w  d3								; Bail if empty
+	beq    @NoWaterTerrain
+	subq.w  #0x1, d3						; -1 for loop counter
+	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
+
+	@TerrainLp:
+	
+	; Get terrain spline start/end/flags
+	move.l (a2)+, d1
+	move.l (a2)+, d2
+	move.w (a2)+, d3
+
+	; Check water type
+	andi.w #col_tile_flag_water, d3
+	beq    @NextTerrain
+
+	; Get X
+	swap   d1
+	swap   d2
+
+	; Check if within X bounds
+	cmp.w  d0, d1
+	bge    @NextTerrain
+	cmp.w  d0, d2
+	ble    @NextTerrain
+
+	; Check under surface
+	swap   d1
+	cmp.w  d1, d4
+	blt    @NextTerrain
+
+	; Set in water
+	move.b #0x1, PhysicsObj_Underwater(a0)
+
+	bra    @Found
+	
+	@NextTerrain:
+	dbra   d3, @TerrainLp
+	bra    @NoWaterTerrain
+
+	@NoWaterTerrain:
+
+	;==============================================================
+
+	@Found:
 	
 	rts

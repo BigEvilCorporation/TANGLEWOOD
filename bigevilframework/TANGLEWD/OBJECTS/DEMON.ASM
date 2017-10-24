@@ -106,6 +106,9 @@ DemonInit:
 	move.l  #Demon_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.w  #Demon_DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Demon_DecelIdle, PhysicsObj_DecelY(a0)
+	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
+	move.b  #0x0, PhysicsObj_CollideWalls(a0)
+	move.b  #0x0, PhysicsObj_CollideFloor(a0)
 
 	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Demon_MaxVelXRun, Character_MaxVelXRun(a0)
@@ -330,6 +333,16 @@ DemonSerialise:
 	
 	@End:
 	
+	rts
+
+DemonStartWisp:
+
+	; Load wisp sprite
+	jsr     DemonLoadWispGfx
+
+	; Set wisp state
+	move.b  #DemonState_Wisp, Demon_State(a0)
+
 	rts
 
 DemonStartEmerge:

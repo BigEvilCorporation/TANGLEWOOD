@@ -9,7 +9,19 @@
 
 L8A2_Leaf_count equ 0x0
 
-L8A2_Djubb_count equ 0x0
+L8A2_Djubb_count equ 0x4
+L8A2_Djubb_4_idx	equ 0x0
+L8A2_Djubb_5_idx	equ 0x1
+L8A2_Djubb_6_idx	equ 0x2
+L8A2_Djubb_7_idx	equ 0x3
+
+	IFND FINAL
+L8A2_Djubb_4_name	dc.b "L8A2_Djubb_4",0
+L8A2_Djubb_5_name	dc.b "L8A2_Djubb_5",0
+L8A2_Djubb_6_name	dc.b "L8A2_Djubb_6",0
+L8A2_Djubb_7_name	dc.b "L8A2_Djubb_7",0
+	even
+	ENDIF
 
 L8A2_Trap_count equ 0x0
 
@@ -113,6 +125,60 @@ L8A2_Scrap_count equ 0x0
 
 L8A2_LoadGameObjects:
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L8A2_Djubb_count)
+	move.l a1, EntityPoolStart_Djubb
+	move.l a1, a0
+	POPL   a1
+
+	jsr DjubbInit
+	move.l #0x05f80000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A2_Djubb_4_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x05f00000, Entity_WorldPosX(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A2_Djubb_5_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x03780000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A2_Djubb_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
+	jsr DjubbInit
+	move.l #0x04880000, Entity_WorldPosX(a0)
+	move.l #0x04900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A2_Djubb_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DjubbLoadGfx
+	add.l #Djubb_Struct_Size, a0
 
 
 	PUSHL  a1

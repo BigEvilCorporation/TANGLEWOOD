@@ -9,6 +9,8 @@
 
 L8A3_Leaf_count equ 0x0
 
+L8A3_Trap_count equ 0x0
+
 L8A3_Djubb_count equ 0x0
 
 L8A3_Echo_count equ 0x1
@@ -25,6 +27,8 @@ L8A3_BouncePlant_count equ 0x0
 
 L8A3_Log_count equ 0x0
 
+L8A3_Borgus_count equ 0x0
+
 L8A3_DjakkCage_count equ 0x0
 
 L8A3_Monster_count equ 0x0
@@ -35,21 +39,39 @@ L8A3_Firefly_count equ 0x0
 
 L8A3_FuzzlCage_count equ 0x0
 
-L8A3_Fuzzl_count equ 0x0
+L8A3_Fuzzl_count equ 0x1
+L8A3_FuzzlRed1_idx	equ 0x0
+
+	IFND FINAL
+L8A3_FuzzlRed1_name	dc.b "L8A3_FuzzlRed1",0
+	even
+	ENDIF
 
 L8A3_Stone_count equ 0x0
+
+L8A3_Demon_count equ 0x1
+L8A3_Demon_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Demon_name	dc.b "L8A3_Demon",0
+	even
+	ENDIF
 
 L8A3_Nest_count equ 0x0
 
 L8A3_Flue_count equ 0x0
 
-L8A3_TriggerBox_count equ 0x2
+L8A3_TriggerBox_count equ 0x4
 L8A3_TriggerLevelEnd_idx	equ 0x0
 L8A3_TriggerStartLift_idx	equ 0x1
+L8A3_TriggerShakeStart_idx	equ 0x2
+L8A3_TriggerDemon_idx	equ 0x3
 
 	IFND FINAL
 L8A3_TriggerLevelEnd_name	dc.b "L8A3_TriggerLevelEnd",0
 L8A3_TriggerStartLift_name	dc.b "L8A3_TriggerStartLift",0
+L8A3_TriggerShakeStart_name	dc.b "L8A3_TriggerShakeStart",0
+L8A3_TriggerDemon_name	dc.b "L8A3_TriggerDemon",0
 	even
 	ENDIF
 
@@ -59,21 +81,27 @@ L8A3_WaterBody_count equ 0x0
 
 L8A3_Location_count equ 0x0
 
+L8A3_Lift_count equ 0x0
+
 L8A3_Deathbox_count equ 0x0
-
-L8A3_Lift_count equ 0x1
-L8A3_LiftExit_idx	equ 0x0
-
-	IFND FINAL
-L8A3_LiftExit_name	dc.b "L8A3_LiftExit",0
-	even
-	ENDIF
 
 L8A3_Crate_count equ 0x0
 
-L8A3_Generator_count equ 0x0
+L8A3_Generator_count equ 0x1
+L8A3_Generator1_idx	equ 0x0
 
-L8A3_Cogs_count equ 0x0
+	IFND FINAL
+L8A3_Generator1_name	dc.b "L8A3_Generator1",0
+	even
+	ENDIF
+
+L8A3_Cogs_count equ 0x1
+L8A3_Cogs1_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Cogs1_name	dc.b "L8A3_Cogs1",0
+	even
+	ENDIF
 
 L8A3_Bridge_count equ 0x0
 
@@ -105,25 +133,34 @@ L8A3_Ladder_1_name	dc.b "L8A3_Ladder_1",0
 	even
 	ENDIF
 
-L8A3_Demon_count equ 0x1
-L8A3_Demon_3_idx	equ 0x0
+L8A3_Stalactite_count equ 0x4
+L8A3_Stalactite_7_idx	equ 0x0
+L8A3_Stalactite_8_idx	equ 0x1
+L8A3_Stalactite_9_idx	equ 0x2
+L8A3_Stalactite_10_idx	equ 0x3
 
 	IFND FINAL
-L8A3_Demon_3_name	dc.b "L8A3_Demon_3",0
+L8A3_Stalactite_7_name	dc.b "L8A3_Stalactite_7",0
+L8A3_Stalactite_8_name	dc.b "L8A3_Stalactite_8",0
+L8A3_Stalactite_9_name	dc.b "L8A3_Stalactite_9",0
+L8A3_Stalactite_10_name	dc.b "L8A3_Stalactite_10",0
 	even
 	ENDIF
 
-L8A3_Borgus_count equ 0x0
+L8A3_CargoLift_count equ 0x1
+L8A3_CargoLift_idx	equ 0x0
 
-L8A3_Stalactite_count equ 0x0
-
-L8A3_CargoLift_count equ 0x0
+	IFND FINAL
+L8A3_CargoLift_name	dc.b "L8A3_CargoLift",0
+	even
+	ENDIF
 
 L8A3_Scrap_count equ 0x0
 
 
 
 L8A3_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -154,6 +191,45 @@ L8A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L8A3_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_FuzzlRed1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourRed, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A3_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x02100000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Demon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DemonLoadGfx
+	add.l #Demon_Struct_Size, a0
 
 
 
@@ -191,32 +267,79 @@ L8A3_LoadGameObjects:
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x05e00000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_TriggerShakeStart_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x02280000, Entity_WorldPosX(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_TriggerDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a3_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+
+
 
 
 
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L8A3_Lift_count)
-	move.l a1, EntityPoolStart_Lift
+	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L8A3_Generator_count)
+	move.l a1, EntityPoolStart_Generator
 	move.l a1, a0
 	POPL   a1
 
-	jsr LiftInit
-	move.l #0x00e00000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
+	jsr GeneratorInit
+	move.l #0x01680000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L8A3_LiftExit_name, a3
+	lea L8A3_Generator1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
-	add.l #Lift_Struct_Size, a0
+	jsr GeneratorLoadGfx
+	add.l #Generator_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L8A3_Cogs_count)
+	move.l a1, EntityPoolStart_Cogs
+	move.l a1, a0
+	POPL   a1
 
-
+	jsr CogsInit
+	move.l #0x01800000, Entity_WorldPosX(a0)
+	move.l #0x01780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Cogs1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CogsLoadGfx
+	add.l #Cogs_Struct_Size, a0
 
 
 
@@ -249,26 +372,78 @@ L8A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A3_Demon_count)
-	move.l a1, EntityPoolStart_Demon
+	RAMPOOL_ALLOC Pool_Entities, #(Stalactite_Struct_Size*L8A3_Stalactite_count)
+	move.l a1, EntityPoolStart_Stalactite
 	move.l a1, a0
 	POPL   a1
 
-	jsr DemonInit
-	move.l #0x01400000, Entity_WorldPosX(a0)
-	move.l #0x01900000, Entity_WorldPosY(a0)
+	jsr StalactiteInit
+	move.l #0x05600000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L8A3_Demon_3_name, a3
+	lea L8A3_Stalactite_7_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DemonLoadGfx
-	add.l #Demon_Struct_Size, a0
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x05080000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Stalactite_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x03180000, Entity_WorldPosX(a0)
+	move.l #0x01680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Stalactite_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x02c80000, Entity_WorldPosX(a0)
+	move.l #0x01680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Stalactite_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L8A3_CargoLift_count)
+	move.l a1, EntityPoolStart_CargoLift
+	move.l a1, a0
+	POPL   a1
 
-
+	jsr CargoLiftInit
+	move.l #0x00d80000, Entity_WorldPosX(a0)
+	move.l #0x01900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_CargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CargoLiftLoadGfx
+	add.l #CargoLift_Struct_Size, a0
 
 
 	rts

@@ -109,6 +109,21 @@ CutsceneStep_Delay:
 
 	rts
 
+CutsceneStep_PaletteLoad:
+	; a0 --- Cutscene
+	; a2 --- Palette
+	; d0 ---- Slot
+	; d0 (b) OUT: Step running
+
+	PUSHL  a0
+	move.l a2, a0
+	jsr    PAL_LoadDMA
+	POPL   a0
+
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_CharacterAnim:
 	; a0 --- Cutscene
 	; d0 (l) Character
@@ -357,6 +372,20 @@ CutsceneStep_ObjectSetParamB:
 
 	rts
 
+CutsceneStep_ObjectSetParamW:
+	; a0 --- Cutscene
+	; d0 (l) Object
+	; d1 (l) Param offset
+	; d2 (w) Value
+	; d0 (b) OUT: Step running
+
+	move.l d0, a2
+	add.l  d1, a2
+	move.w d2, (a2)
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_ObjectRoutine:
 	; a0 --- Cutscene
 	; a1 --- Object
@@ -431,6 +460,12 @@ CUTSCENE_CAMERA_LERP_WAIT: macro
 	CUTSCENE_RUN_STEP CutsceneStep_CameraLerpWait
 	endm
 
+CUTSCENE_PALETTE_LOAD: macro palette,slotId
+	move.l \palette, a2
+	move.b \slotId, d0
+	CUTSCENE_RUN_STEP CutsceneStep_PaletteLoad
+	endm
+
 CUTSCENE_CHARACTER_ANIM: macro character,animtable,index
 	move.l \character, d0
 	move.l \animtable, d1
@@ -486,6 +521,13 @@ CUTSCENE_OBJECT_SET_PARAM_B: macro object,paramoffset,value
 	move.l \paramoffset, d1
 	move.l \value, d2
 	CUTSCENE_RUN_STEP CutsceneStep_ObjectSetParamB
+	endm
+
+CUTSCENE_OBJECT_SET_PARAM_W: macro object,paramoffset,value
+	move.l \object, d0
+	move.l \paramoffset, d1
+	move.l \value, d2
+	CUTSCENE_RUN_STEP CutsceneStep_ObjectSetParamW
 	endm
 
 CUTSCENE_ROUTINE: macro routine,param1,param2,param3
