@@ -184,6 +184,7 @@ __start
 	include 'states\logos.asm'
 	include 'states\pause.asm'
 	include 'states\mainmenu.asm'
+	include 'states\credits.asm'
 
 	IF INCLUDE_LEVELSELECT
 	include 'states\lvlsel.asm'

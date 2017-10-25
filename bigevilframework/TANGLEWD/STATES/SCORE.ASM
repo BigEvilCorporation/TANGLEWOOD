@@ -303,11 +303,23 @@ EndLevelScoreScreen_Update:
 	bra    @End
 	
 	@EndOfGame:
-	
-	; Reset to first level and head to demo end screen
+
+	; Reset to first level
 	move.l #InitialLevel, CurrentLevel
+	
+	IF DEMO_SHOW_THANKS
+
+	; Head to demo end screen
 	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
+
+	ELSE
+
+	; Roll credits
+	lea    GameStateCredits, a0
+	jsr    GameStateEnter
+
+	ENDIF
 
 	@Fading:
 	@NotElapsed:

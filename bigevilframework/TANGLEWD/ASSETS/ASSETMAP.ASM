@@ -221,6 +221,7 @@ audio_assets_end
     ; Strings
     ; ************************************
 	include 'assets\strings.asm'
+	include 'assets\credits.asm'
 
 	inform 0,""
 	inform 0,"All sprite assets: %d bytes (%dkb)", (sprite_assets_end-sprite_assets_start), (sprite_assets_end-sprite_assets_start)/1024

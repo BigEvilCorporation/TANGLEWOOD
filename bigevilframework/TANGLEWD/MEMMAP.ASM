@@ -252,6 +252,7 @@ GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 GameStateEndLevelScoreData	 rs.b EndLevelScore_Struct_Size
+GameStateCreditsData		 rs.b Credits_Struct_Size
 
 	IF INCLUDE_LEVELSELECT
 GameStateLevelSelectData	 rs.b LevelSelectState_Struct_Size
