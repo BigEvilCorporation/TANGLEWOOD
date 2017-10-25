@@ -32,7 +32,7 @@ Demon_AttackDamage		equ 0xFF
 Demon_AttackOffsetX		equ 0x0018
 Demon_AttackAnimSpeedInc	equ 0x4
 
-Demon_MaxLives		equ 0x3
+Demon_MaxLives		equ 1 ; 0x3
 
 DemonWisp_Width		equ 0x0038
 DemonWisp_Height	equ 0x0030
@@ -75,6 +75,8 @@ Demon_TargetDistSq		rs.l 1
 Demon_TargetX			rs.w 1
 Demon_TargetY			rs.w 1
 Demon_AttackTimer		rs.w 1
+Demon_BossBoundsLeft	rs.w 1
+Demon_BossBoundsRight	rs.w 1
 Demon_State				rs.b 1
 Demon_AtTarget			rs.b 1
 Demon_Vulnerable		rs.b 1	; Vulnerable to attacks
@@ -137,6 +139,8 @@ DemonInit:
 	move.w  #0x0, Demon_TargetX(a0)
 	move.w  #0x0, Demon_TargetY(a0)
 	move.l  #DemonWisp_MaxDist*DemonWisp_MaxDist, Demon_TargetDistSq(a0)
+	move.w  #0x0, Demon_BossBoundsLeft(a0)
+	move.w  #0x7FFF, Demon_BossBoundsRight(a0)
 	move.b  #0x0, Demon_ManualGfxLoad(a0)
 	move.b  #0x0, Demon_Vulnerable(a0)
 	move.b  #Demon_MaxLives, Demon_NumLives(a0)
@@ -468,6 +472,8 @@ DemonAIUpdate_Boss:
 	tst.b  d0
 	beq    @AttackFromLeft
 
+	@AttackFromRight:
+
 	; Set flip
 	move.b #0x1, SpriteObj_FlippedX(a0)
 
@@ -478,7 +484,7 @@ DemonAIUpdate_Boss:
 	subi.w #Demon_AttackOffsetX, d0
 	move.w d0, Entity_WorldPosX(a0)
 
-	bra    @AttackFromRight
+	bra    @EndAttackPos
 
 	@AttackFromLeft:
 
@@ -492,7 +498,15 @@ DemonAIUpdate_Boss:
 	addi.w #Demon_AttackOffsetX, d0
 	move.w d0, Entity_WorldPosX(a0)
 
-	@AttackFromRight:
+	@EndAttackPos:
+
+	; If out of bounds, reposition without randomisation
+	move.w  Demon_BossBoundsLeft(a0), d1
+	move.w  Demon_BossBoundsRight(a0), d2
+	cmp.w   d0, d1
+	bgt     @AttackFromRight
+	cmp.w   d0, d2
+	blt     @AttackFromLeft
 
 	; Set visible
 	move.b #0x1, SpriteObj_Visible(a0)
@@ -540,7 +554,7 @@ DemonAIUpdate_Attack:
 	PUSHL  a0
 	move.l Player1, a0
 	move.b #Demon_AttackDamage, d0
-	jsr    CharacterDealDamage
+	;jsr    CharacterDealDamage
 	POPL   a0
 
 	@NoHit:

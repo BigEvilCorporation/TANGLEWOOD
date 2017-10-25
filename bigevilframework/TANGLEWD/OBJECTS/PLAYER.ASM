@@ -1120,6 +1120,9 @@ PlayerUpdateColourAbility:
 	jsr    PAL_LerpStart			; Begin palette lerp
 	POPM   a0-a1
 
+	; Play SFX
+	PLAYSFX #SFX_NymnColourSwitch
+
 	@NoCooldown:
 
 	bra   @End

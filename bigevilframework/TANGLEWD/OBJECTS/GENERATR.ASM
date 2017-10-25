@@ -176,6 +176,13 @@ Generator_Deactivate:
 
 	; Stop anim
 	move.b #0x0, AnimObj_Playing(a0)
+	
+	; Stop cogs
+	move.l  Generator_Cogs(a0), a2
+	cmp.l   #0x0, a2
+	beq     @NoCogs
+	move.b  #0x0, AnimObj_Playing(a2)
+	@NoCogs:
 
 	; Play SFX
 	;PLAYSFX #SFX_GeneratorOff

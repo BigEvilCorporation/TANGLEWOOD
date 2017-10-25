@@ -103,13 +103,27 @@ L8A3_Cogs1_name	dc.b "L8A3_Cogs1",0
 	even
 	ENDIF
 
-L8A3_Bridge_count equ 0x0
+L8A3_Bridge_count equ 0x1
+L8A3_Bridge1_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Bridge1_name	dc.b "L8A3_Bridge1",0
+	even
+	ENDIF
 
 L8A3_Button_count equ 0x0
 
 L8A3_Wyrm_count equ 0x0
 
-L8A3_AIMarker_count equ 0x0
+L8A3_AIMarker_count equ 0x2
+L8A3_MarkerDemonLeftBounds_idx	equ 0x0
+L8A3_MarkerDemonRightBounds_idx	equ 0x1
+
+	IFND FINAL
+L8A3_MarkerDemonLeftBounds_name	dc.b "L8A3_MarkerDemonLeftBounds",0
+L8A3_MarkerDemonRightBounds_name	dc.b "L8A3_MarkerDemonRightBounds",0
+	even
+	ENDIF
 
 L8A3_Cart_count equ 0x0
 
@@ -133,17 +147,19 @@ L8A3_Ladder_1_name	dc.b "L8A3_Ladder_1",0
 	even
 	ENDIF
 
-L8A3_Stalactite_count equ 0x4
+L8A3_Stalactite_count equ 0x5
 L8A3_Stalactite_7_idx	equ 0x0
 L8A3_Stalactite_8_idx	equ 0x1
 L8A3_Stalactite_9_idx	equ 0x2
 L8A3_Stalactite_10_idx	equ 0x3
+L8A3_Stalactite_19_idx	equ 0x4
 
 	IFND FINAL
 L8A3_Stalactite_7_name	dc.b "L8A3_Stalactite_7",0
 L8A3_Stalactite_8_name	dc.b "L8A3_Stalactite_8",0
 L8A3_Stalactite_9_name	dc.b "L8A3_Stalactite_9",0
 L8A3_Stalactite_10_name	dc.b "L8A3_Stalactite_10",0
+L8A3_Stalactite_19_name	dc.b "L8A3_Stalactite_19",0
 	even
 	ENDIF
 
@@ -264,7 +280,7 @@ L8A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l8a3_Trigger_Lift, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_EachFrame(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 	jsr TriggerBoxInit
@@ -341,9 +357,61 @@ L8A3_LoadGameObjects:
 	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L8A3_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
+	move.l a1, a0
+	POPL   a1
+
+	jsr BridgeInit
+	move.l #0x03980000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Bridge1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateClosed, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a0)
+	jsr BridgeLoadGfx
+	add.l #Bridge_Struct_Size, a0
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L8A3_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
+	move.l #0x00c80000, Entity_WorldPosX(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_MarkerDemonLeftBounds_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x04480000, Entity_WorldPosX(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_MarkerDemonRightBounds_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
 
 
 
@@ -418,6 +486,18 @@ L8A3_LoadGameObjects:
 	move.l #0x01680000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A3_Stalactite_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StalactiteLoadGfx
+	add.l #Stalactite_Struct_Size, a0
+	jsr StalactiteInit
+	move.l #0x04900000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A3_Stalactite_19_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

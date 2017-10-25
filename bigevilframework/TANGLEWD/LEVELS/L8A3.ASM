@@ -61,6 +61,7 @@ l8a3_DemonHideTime				equ 0x0100
 ; ************************************
 	rsset LevelData_Struct_Size
 l8a3Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
+l8a3Data_CutsceneLoadLift			rs.b Cutscene_Struct_Size
 ;---------------------------------
 l8a3Data_Struct_Pad      		rs.b 0
 l8a3Data_Struct_Size     		rs.b 0
@@ -96,7 +97,12 @@ l8a3_Init:
 	PUSHM  a0-a1
 	lea    LevelData_L8A3, a2
 	lea    l8a3Data_CutsceneDemonStealFuzzl(a2), a0
-	move.l #l5a8_CutsceneDemonStealFuzzl, a1
+	move.l #l8a3_CutsceneDemonStealFuzzl, a1
+	jsr    CutsceneInit
+
+	lea    LevelData_L8A3, a2
+	lea    l8a3Data_CutsceneLoadLift(a2), a0
+	move.l #l8a3_CutsceneLoadLift, a1
 	jsr    CutsceneInit
 	POPM   a0-a1
 	
@@ -110,6 +116,13 @@ l8a3_Init:
 	; Put Fuzzl in generator
 	ENTITY_GETBYNAME Fuzzl, l8a3_FuzzlRed1, a0
 	jsr    FuzzlFindGenerator
+
+	; Set boss bounds
+	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
+	ENTITY_GETBYNAME AIMarker, l8a3_MarkerDemonLeftBounds, a1
+	ENTITY_GETBYNAME AIMarker, l8a3_MarkerDemonRightBounds, a2
+	move.w Entity_WorldPosX(a1), Demon_BossBoundsLeft(a0)
+	move.w Entity_WorldPosX(a2), Demon_BossBoundsRight(a0)
 
 	;==============================================================
 
@@ -143,8 +156,23 @@ l8a3_Trigger_End:
 
 l8a3_Trigger_Lift:
 
-	ENTITY_GETBYNAME Lift, l8a3_CargoLift, a0
-	jsr    LiftActivate
+	; Check generator active
+	ENTITY_GETBYNAME Generator, l8a3_Generator1, a0
+	tst.b  Generator_Running(a0)
+	beq    @GeneratorInactive
+
+	; Start cutscene
+	PUSHL  a0
+	lea    LevelData_L8A3, a2
+	lea    l8a3Data_CutsceneLoadLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	; Disable trigger
+	ENTITY_GETBYNAME TriggerBox, l8a3_TriggerStartLift, a0
+	move.b #0x0, Entity_Active(a0)
+
+	@GeneratorInactive:
 
 	rts
 
@@ -171,7 +199,7 @@ l8a3_Trigger_DemonTakeFuzzl:
 
 	rts
 
-l5a8_CutsceneDemonStealFuzzl:
+l8a3_CutsceneDemonStealFuzzl:
 
 	CUTSCENE_START
 
@@ -183,6 +211,7 @@ l5a8_CutsceneDemonStealFuzzl:
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
 	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
 
 	; Move demon to Fuzzl
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
@@ -220,6 +249,11 @@ l5a8_CutsceneDemonStealFuzzl:
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
 	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
 
+	; Deactivate generator
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_GET_ENTITY Generator,l8a3_Generator1,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#Generator_Deactivate
+
 	; Hide Fuzzl
 	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
 	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
@@ -235,10 +269,9 @@ l5a8_CutsceneDemonStealFuzzl:
 	CUTSCENE_GAME_PALETTE_LOAD #palette_fuzzl,#PaletteId_Fuzzl
 	CUTSCENE_GAME_PALETTE_LOAD #Pal_Nymn_White,#PaletteId_Player
 
-	; Deactivate generator
-	CUTSCENE_DELAY #0x0020
-	CUTSCENE_GET_ENTITY Generator,l8a3_Generator1,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#Generator_Deactivate
+	; Unroll bridge
+	CUTSCENE_GET_ENTITY Bridge,l8a3_Bridge1,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#BridgeBeginUnroll
 
 	; Lerp back
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
@@ -264,6 +297,29 @@ l5a8_CutsceneDemonStealFuzzl:
 
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a3_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
+
+	CUTSCENE_END
+
+	rts
+
+l8a3_CutsceneLoadLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+
+	; Run to centre of lift
+	CUTSCENE_GET_ENTITY CargoLift,l8a3_CargoLift,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+	CUTSCENE_DELAY #0x0020
+
+	; Activate lift
+	CUTSCENE_GET_ENTITY CargoLift,l8a3_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
 
 	CUTSCENE_END
 

@@ -371,8 +371,10 @@ l4a3_CutsceneLoadLift:
 	; Both players run to centre of lift
 	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
 	CUTSCENE_DELAY #0x0020
 
 	; Activate lift
