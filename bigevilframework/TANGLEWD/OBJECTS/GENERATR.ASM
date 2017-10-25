@@ -156,8 +156,20 @@ Generator_Deactivate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If Fuzzl, remove
+	move.l Generator_Fuzzl(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoFuzzl
+
+	PUSHL  a0
+	move.l a2, a0
+	jsr    FuzzlRemoveFromGenerator
+	POPL   a0
+
 	; Set Fuzzl
 	move.l #0x0, Generator_Fuzzl(a0)
+
+	@NoFuzzl:
 
 	; Set running
 	move.b #0x0, Generator_Running(a0)

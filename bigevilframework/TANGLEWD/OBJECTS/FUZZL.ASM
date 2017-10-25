@@ -312,6 +312,10 @@ FuzzlUpdate:
 	move.b AnimObj_UpdateOutOfView(a0), d0
 	or.b   SpriteObj_SpriteLinked(a0), d0
 	beq    @OutOfView
+
+	; Check if Fuzzl is disabled
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
 	
 	; Check if Fuzzl is asleep
 	btst.b #Fuzzl_State_Asleep, Fuzzl_State_Bits(a0)
@@ -510,6 +514,7 @@ FuzzlUpdate:
 	; In cage, only do anim update
 	jsr    AnimObjUpdate
 
+	@Inactive:
 	@End:
 
 	rts
@@ -727,6 +732,35 @@ FuzzlFindGenerator:
 	@NotRed:
 	
 	move.b d7, d0
+
+	rts
+
+FuzzlRemoveFromGenerator:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Physicalise
+	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	
+	; Zero X velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	; Clear in generator state
+	bclr.b #Fuzzl_State_Generator, Fuzzl_State_Bits(a0)
+
+	; Set being rolled
+	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
+	
+	; Can be pushed/pulled
+	move.b #0x1, PhysicsObj_CanBePushed(a0)
+	move.b #0x1, PhysicsObj_CanBePulled(a0)
+
+	; Affected by wind
+	move.b #0x1, PhysicsObj_AffectedByWind(a0)
+
+	; Reset roll anim
+	lea    Fuzzl_Animations+(Animation_Struct_Size*FuzzlAnimIdx_Roll)(a0), a2
+	move.w #0x0, Animation_Speed(a2)
 
 	rts
 	

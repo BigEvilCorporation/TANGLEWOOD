@@ -1959,15 +1959,14 @@ PlayerLightningAttack:
 	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @NextDemon
 
-	; Check in physical form
-	cmp.b  #DemonState_Physical, Demon_State(a2)
-	bne    @NextDemon
+	; Check vulnerable to attacks
+	tst.b  Demon_Vulnerable(a2)
+	beq    @NextDemon
 
 	; Kill
 	PUSHL  a0
 	move.l a2, a0
-	move.b #Player1LightningAttackDamage, d0
-	jsr    CharacterDealDamage
+	jsr    DemonReceiveDamage
 	POPL   a0
 	
 	@NextDemon:

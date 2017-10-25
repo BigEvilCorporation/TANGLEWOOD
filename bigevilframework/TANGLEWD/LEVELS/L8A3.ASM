@@ -53,8 +53,7 @@ l8a3_DefaultPalettes:
 	
 	even
 
-l8a3_DemonToFuzzlX				equ 0x08
-l8a3_DemonToFuzzlY				equ 0x08
+l8a3_DemonToFuzzl				equ 0x30
 l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
@@ -190,6 +189,8 @@ l5a8_CutsceneDemonStealFuzzl:
 	CUTSCENE_OBJECT_SET_PARAM_B a2,#Demon_AtTarget,#0x0
 	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
 	CUTSCENE_ROUTINE l8a3_Cutscene_MoveDemon,#0x0,#0x0,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#CharacterCancelXMovement
 	CUTSCENE_DELAY #0x0020
 	
 	; Reveal demon
@@ -249,37 +250,20 @@ l5a8_CutsceneDemonStealFuzzl:
 	; Wait a while
 	CUTSCENE_DELAY #l8a3_DemonHideTime
 
-	; Enter boss attack mode
-	;CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	;CUTSCENE_OBJECT_ROUTINE a2,#DemonStartBossMode
-
-	; Wait for death
-	;CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	;CUTSCENE_CHARACTER_WAIT_DEATH a2
-
-	; Resurrect in wisp form
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#Character_Dead,#0x0
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartWisp
-
-	; Clear follow target (to use player)
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_W a2,#Demon_TargetX,#0x0
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_W a2,#Demon_TargetY,#0x0
-
-	; Reappear
+	; Reenable
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
 	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
+
+	; Enter boss attack mode
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonAIStart_Boss
+
+	; Wait for death
+	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
+	CUTSCENE_CHARACTER_WAIT_DEATH a2
 
 	; Drop Fuzzl
-
-	; Run off towards exit locator
-
-	; Stop rendering
+	CUTSCENE_ROUTINE l8a3_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
 
 	CUTSCENE_END
 
@@ -299,10 +283,10 @@ l8a3_Cutscene_MoveDemon:
 	ENTITY_GETCENTREY d1,a2
 	TOPIXELS d0
 	TOPIXELS d1
-	addi.w #l8a3_DemonToFuzzlX, d0
-	subi.w #l8a3_DemonToFuzzlY, d1
 	move.w d0, Demon_TargetX(a0)
 	move.w d1, Demon_TargetY(a0)
+
+	move.l #l8a3_DemonToFuzzl*l8a3_DemonToFuzzl, Demon_TargetDistSq(a0)
 	
 	tst.b  Demon_AtTarget(a0)
 	beq    @NotAtTarget
@@ -337,5 +321,24 @@ l8a3_Cutscene_WaitAttackFrame:
 	@StillBiting:
 
 	POPL   a0
+
+	rts
+
+l8a3_Cutscene_DemonDropFuzzl:
+
+	PUSHL  a0
+
+	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
+	ENTITY_GETBYNAME Fuzzl, l8a3_FuzzlRed1, a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREY d1,a2
+	move.l d0, Entity_WorldPosX(a2)
+	move.l d1, Entity_WorldPosY(a2)
+	move.b #0x1, Entity_Active(a2)
+	move.b #0x1, SpriteObj_Visible(a2)
+
+	POPL   a0
+
+	move.b #0x0, d0
 
 	rts
