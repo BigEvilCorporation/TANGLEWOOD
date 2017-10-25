@@ -25,6 +25,8 @@ L3A1_Leaf_13_name	dc.b "L3A1_Leaf_13",0
 	even
 	ENDIF
 
+L3A1_Trap_count equ 0x0
+
 L3A1_Djubb_count equ 0x0
 
 L3A1_Echo_count equ 0x0
@@ -40,6 +42,8 @@ L3A1_Nymn_21_name	dc.b "L3A1_Nymn_21",0
 L3A1_BouncePlant_count equ 0x0
 
 L3A1_Log_count equ 0x0
+
+L3A1_Borgus_count equ 0x0
 
 L3A1_DjakkCage_count equ 0x0
 
@@ -121,6 +125,8 @@ L3A1_Stone_56_name	dc.b "L3A1_Stone_56",0
 	even
 	ENDIF
 
+L3A1_Demon_count equ 0x0
+
 L3A1_Nest_count equ 0x0
 
 L3A1_Flue_count equ 0x0
@@ -149,14 +155,6 @@ L3A1_WaterBody_count equ 0x0
 
 L3A1_Location_count equ 0x0
 
-L3A1_Deathbox_count equ 0x1
-L3A1_Deathbox_52_idx	equ 0x0
-
-	IFND FINAL
-L3A1_Deathbox_52_name	dc.b "L3A1_Deathbox_52",0
-	even
-	ENDIF
-
 L3A1_Lift_count equ 0x3
 L3A1_Lift2_idx	equ 0x0
 L3A1_Lift1_idx	equ 0x1
@@ -166,6 +164,14 @@ L3A1_Lift3_idx	equ 0x2
 L3A1_Lift2_name	dc.b "L3A1_Lift2",0
 L3A1_Lift1_name	dc.b "L3A1_Lift1",0
 L3A1_Lift3_name	dc.b "L3A1_Lift3",0
+	even
+	ENDIF
+
+L3A1_Deathbox_count equ 0x1
+L3A1_Deathbox_52_idx	equ 0x0
+
+	IFND FINAL
+L3A1_Deathbox_52_name	dc.b "L3A1_Deathbox_52",0
 	even
 	ENDIF
 
@@ -247,11 +253,11 @@ L3A1_Pool_count equ 0x0
 
 L3A1_Ladder_count equ 0x0
 
-L3A1_Demon_count equ 0x0
-
-L3A1_Borgus_count equ 0x0
-
 L3A1_Stalactite_count equ 0x0
+
+L3A1_CargoLift_count equ 0x0
+
+L3A1_Scrap_count equ 0x0
 
 
 
@@ -325,6 +331,7 @@ L3A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L3A1_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -343,6 +350,7 @@ L3A1_LoadGameObjects:
 	ENDIF
 	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -661,6 +669,7 @@ L3A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L3A1_TriggerBox_count)
 	move.l a1, EntityPoolStart_TriggerBox
@@ -731,25 +740,6 @@ L3A1_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L3A1_Deathbox_count)
-	move.l a1, EntityPoolStart_Deathbox
-	move.l a1, a0
-	POPL   a1
-
-	jsr DeathboxInit
-	move.l #0x06180000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_Deathbox_52_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L3A1_Lift_count)
 	move.l a1, EntityPoolStart_Lift
 	move.l a1, a0
@@ -791,6 +781,25 @@ L3A1_LoadGameObjects:
 	ENDIF
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L3A1_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
+
+	jsr DeathboxInit
+	move.l #0x06180000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_Deathbox_52_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Crate_Struct_Size*L3A1_Crate_count)

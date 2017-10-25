@@ -458,6 +458,11 @@ DemonAIStart_Boss:
 
 DemonAIUpdate_Boss:
 
+	; If player dead, don't bother
+	move.l Player1, a2
+	tst.b  Character_Dead(a2)
+	bne    @PlayerDead
+
 	; Wait attack timer
 	move.w Demon_AttackTimer(a0), d0
 	tst.w  d0
@@ -530,6 +535,7 @@ DemonAIUpdate_Boss:
 	jsr    DemonAIStart_Attack
 
 	@NoAttack:
+	@PlayerDead:
 
 	rts
 

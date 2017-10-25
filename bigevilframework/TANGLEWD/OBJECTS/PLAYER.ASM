@@ -1872,11 +1872,11 @@ PlayerLightningAttack:
 	beq    @NextMonster
 
 	; Kill
-	PUSHL  a0
+	PUSHM  d6/a0
 	move.l a2, a0
 	move.b #Player1LightningAttackDamage, d0
 	jsr    CharacterDealDamage
-	POPL   a0
+	POPM   d6/a0
 	
 	@NextMonster:
 	
@@ -1905,11 +1905,11 @@ PlayerLightningAttack:
 	beq    @NextWyrm
 
 	; Kill
-	PUSHL  a0
+	PUSHM  d6/a0
 	move.l a2, a0
 	move.b #Player1LightningAttackDamage, d0
 	jsr    CharacterDealDamage
-	POPL   a0
+	POPM   d6/a0
 	
 	@NextWyrm:
 	
@@ -1934,11 +1934,11 @@ PlayerLightningAttack:
 	beq    @NextDjubb
 
 	; Kill
-	PUSHL  a0
+	PUSHM  d6/a0
 	move.l a2, a0
 	move.b #Player1LightningAttackDamage, d0
 	jsr    CharacterDealDamage
-	POPL   a0
+	POPM   d6/a0
 	
 	@NextDjubb:
 	
@@ -1967,10 +1967,10 @@ PlayerLightningAttack:
 	beq    @NextDemon
 
 	; Kill
-	PUSHL  a0
+	PUSHM  d6/a0
 	move.l a2, a0
 	jsr    DemonReceiveDamage
-	POPL   a0
+	POPM   d6/a0
 	
 	@NextDemon:
 	
