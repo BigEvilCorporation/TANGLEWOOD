@@ -55,6 +55,7 @@ l8a4_DefaultPalettes:
 
 l8a4_DemonToFuzzl				equ 0x30
 l8a4_DemonHideTime				equ 0x0100
+l8a4_DemonAttackSpeed			equ 0x0008
 	
 ; ************************************
 ; Runtime data
@@ -124,11 +125,18 @@ l8a4_Init:
 	move.w Entity_WorldPosX(a1), Demon_BossBoundsLeft(a0)
 	move.w Entity_WorldPosX(a2), Demon_BossBoundsRight(a0)
 
+	; Set boss attack speed
+	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
+	move.w #l8a4_DemonAttackSpeed, d0
+	jsr    DemonSetAttackSpeed
+
 	;==============================================================
 
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
+
+	;==============================================================
 
 	; Set cargo lift stop point
 	ENTITY_GETBYNAME CargoLift, l8a4_CargoLift, a0
@@ -341,11 +349,15 @@ l8a4_Cutscene_DemonDropFuzzl:
 	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
 	ENTITY_GETBYNAME Fuzzl, l8a4_FuzzlRed1, a2
 	ENTITY_GETCENTREX d0,a0
-	ENTITY_GETCENTREY d1,a2
+	ENTITY_GETCENTREY d1,a0
 	move.l d0, Entity_WorldPosX(a2)
 	move.l d1, Entity_WorldPosY(a2)
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
+	move.b #0x0, PhysicsObj_Asleep(a2)
+	move.b #0x0, PhysicsObj_OnFloor(a2)
+	move.b #0x0, PhysicsObj_CloseToFloor(a2)
+	move.l #0x0, PhysicsObj_LastFloor(a2)
 
 	POPL   a0
 

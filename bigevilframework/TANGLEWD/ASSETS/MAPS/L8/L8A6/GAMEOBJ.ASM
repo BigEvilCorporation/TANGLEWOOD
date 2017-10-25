@@ -9,6 +9,8 @@
 
 L8A6_Leaf_count equ 0x0
 
+L8A6_Trap_count equ 0x0
+
 L8A6_Djubb_count equ 0x0
 
 L8A6_Echo_count equ 0x1
@@ -21,15 +23,19 @@ L8A6_Echo_3_name	dc.b "L8A6_Echo_3",0
 
 L8A6_Nymn_count equ 0x0
 
-L8A6_BouncePlant_count equ 0x1
+L8A6_BouncePlant_count equ 0x2
 L8A6_BouncePlant_2_idx	equ 0x0
+L8A6_BouncePlant_7_idx	equ 0x1
 
 	IFND FINAL
 L8A6_BouncePlant_2_name	dc.b "L8A6_BouncePlant_2",0
+L8A6_BouncePlant_7_name	dc.b "L8A6_BouncePlant_7",0
 	even
 	ENDIF
 
 L8A6_Log_count equ 0x0
+
+L8A6_Borgus_count equ 0x0
 
 L8A6_DjakkCage_count equ 0x0
 
@@ -41,31 +47,81 @@ L8A6_Firefly_count equ 0x0
 
 L8A6_FuzzlCage_count equ 0x0
 
-L8A6_Fuzzl_count equ 0x0
+L8A6_Fuzzl_count equ 0x1
+L8A6_FuzzlYellow1_idx	equ 0x0
 
-L8A6_Stone_count equ 0x0
+	IFND FINAL
+L8A6_FuzzlYellow1_name	dc.b "L8A6_FuzzlYellow1",0
+	even
+	ENDIF
 
-L8A6_Nest_count equ 0x0
+L8A6_Stone_count equ 0x1
+L8A6_Stone_6_idx	equ 0x0
 
-L8A6_Flue_count equ 0x0
+	IFND FINAL
+L8A6_Stone_6_name	dc.b "L8A6_Stone_6",0
+	even
+	ENDIF
 
-L8A6_TriggerBox_count equ 0x0
+L8A6_Demon_count equ 0x1
+L8A6_Demon_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Demon_name	dc.b "L8A6_Demon",0
+	even
+	ENDIF
+
+L8A6_Nest_count equ 0x1
+L8A6_Nest_11_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Nest_11_name	dc.b "L8A6_Nest_11",0
+	even
+	ENDIF
+
+L8A6_Flue_count equ 0x1
+L8A6_Flue_10_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Flue_10_name	dc.b "L8A6_Flue_10",0
+	even
+	ENDIF
+
+L8A6_TriggerBox_count equ 0x2
+L8A6_TriggerDemon_idx	equ 0x0
+L8A6_TriggerEnding_idx	equ 0x1
+
+	IFND FINAL
+L8A6_TriggerDemon_name	dc.b "L8A6_TriggerDemon",0
+L8A6_TriggerEnding_name	dc.b "L8A6_TriggerEnding",0
+	even
+	ENDIF
 
 L8A6_Checkpoint_count equ 0x0
 
-L8A6_WaterBody_count equ 0x1
+L8A6_WaterBody_count equ 0x2
 L8A6_WaterBody_1_idx	equ 0x0
+L8A6_WaterBody_14_idx	equ 0x1
 
 	IFND FINAL
 L8A6_WaterBody_1_name	dc.b "L8A6_WaterBody_1",0
+L8A6_WaterBody_14_name	dc.b "L8A6_WaterBody_14",0
 	even
 	ENDIF
 
 L8A6_Location_count equ 0x0
 
-L8A6_Deathbox_count equ 0x0
-
 L8A6_Lift_count equ 0x0
+
+L8A6_Deathbox_count equ 0x2
+L8A6_Deathbox_8_idx	equ 0x0
+L8A6_Deathbox_9_idx	equ 0x1
+
+	IFND FINAL
+L8A6_Deathbox_8_name	dc.b "L8A6_Deathbox_8",0
+L8A6_Deathbox_9_name	dc.b "L8A6_Deathbox_9",0
+	even
+	ENDIF
 
 L8A6_Crate_count equ 0x0
 
@@ -79,7 +135,15 @@ L8A6_Button_count equ 0x0
 
 L8A6_Wyrm_count equ 0x0
 
-L8A6_AIMarker_count equ 0x0
+L8A6_AIMarker_count equ 0x2
+L8A6_MarkerDemonLeftBounds_idx	equ 0x0
+L8A6_MarkerDemonRightBounds_idx	equ 0x1
+
+	IFND FINAL
+L8A6_MarkerDemonLeftBounds_name	dc.b "L8A6_MarkerDemonLeftBounds",0
+L8A6_MarkerDemonRightBounds_name	dc.b "L8A6_MarkerDemonRightBounds",0
+	even
+	ENDIF
 
 L8A6_Cart_count equ 0x0
 
@@ -97,21 +161,16 @@ L8A6_Pool_count equ 0x0
 
 L8A6_Ladder_count equ 0x0
 
-L8A6_Demon_count equ 0x1
-L8A6_Demon_4_idx	equ 0x0
-
-	IFND FINAL
-L8A6_Demon_4_name	dc.b "L8A6_Demon_4",0
-	even
-	ENDIF
-
-L8A6_Borgus_count equ 0x0
-
 L8A6_Stalactite_count equ 0x0
+
+L8A6_CargoLift_count equ 0x0
+
+L8A6_Scrap_count equ 0x0
 
 
 
 L8A6_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -121,7 +180,7 @@ L8A6_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x09a00000, Entity_WorldPosX(a0)
+	move.l #0x0fe00000, Entity_WorldPosX(a0)
 	move.l #0x00f80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A6_Echo_3_name, a3
@@ -130,6 +189,7 @@ L8A6_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
 
@@ -141,10 +201,22 @@ L8A6_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x05300000, Entity_WorldPosX(a0)
+	move.l #0x0b700000, Entity_WorldPosX(a0)
 	move.l #0x02080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A6_BouncePlant_2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x01f00000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_BouncePlant_7_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -160,9 +232,137 @@ L8A6_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L8A6_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
 
+	jsr FuzzlInit
+	move.l #0x08400000, Entity_WorldPosX(a0)
+	move.l #0x01180000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_FuzzlYellow1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	add.l #Fuzzl_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L8A6_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
 
+	jsr StoneInit
+	move.l #0x07180000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Stone_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A6_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x02480000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Demon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DemonLoadGfx
+	add.l #Demon_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L8A6_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
+	jsr NestInit
+	move.l #0x09b00000, Entity_WorldPosX(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Nest_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr NestLoadGfx
+	add.l #Nest_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L8A6_Flue_count)
+	move.l a1, EntityPoolStart_Flue
+	move.l a1, a0
+	POPL   a1
+
+	jsr FlueInit
+	move.l #0x08a80000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Flue_10_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr FlueLoadGfx
+	add.l #Flue_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L8A6_TriggerBox_count)
+	move.l a1, EntityPoolStart_TriggerBox
+	move.l a1, a0
+	POPL   a1
+
+	jsr TriggerBoxInit
+	move.l #0x09c80000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_TriggerDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a6_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x01a80000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_TriggerEnding_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a6_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -172,7 +372,7 @@ L8A6_LoadGameObjects:
 	POPL   a1
 
 	jsr WaterBodyInit
-	move.l #0x05900000, Entity_WorldPosX(a0)
+	move.l #0x0bd00000, Entity_WorldPosX(a0)
 	move.l #0x02200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A6_WaterBody_1_name, a3
@@ -183,18 +383,51 @@ L8A6_LoadGameObjects:
 	ENDIF
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
+	jsr WaterBodyInit
+	move.l #0x00800000, Entity_WorldPosX(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_WaterBody_14_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WaterBodyLoadGfx
+	add.l #WaterBody_Struct_Size, a0
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L8A6_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
 
-
-
-
-
-
-
-
-
+	jsr DeathboxInit
+	move.l #0x04580000, Entity_WorldPosX(a0)
+	move.l #0x03680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Deathbox_8_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
+	jsr DeathboxInit
+	move.l #0x05d00000, Entity_WorldPosX(a0)
+	move.l #0x03680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_Deathbox_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DeathboxLoadGfx
+	add.l #Deathbox_Struct_Size, a0
 
 
 
@@ -203,23 +436,44 @@ L8A6_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A6_Demon_count)
-	move.l a1, EntityPoolStart_Demon
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L8A6_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
 	move.l a1, a0
 	POPL   a1
 
-	jsr DemonInit
-	move.l #0x01200000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
+	jsr AIMarkerInit
+	move.l #0x07080000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L8A6_Demon_4_name, a3
+	lea L8A6_MarkerDemonLeftBounds_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DemonLoadGfx
-	add.l #Demon_Struct_Size, a0
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0d880000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A6_MarkerDemonRightBounds_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+
+
+
+
+
+
+
+
+
 
 
 

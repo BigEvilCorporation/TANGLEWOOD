@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-TerrainTiles_L1_size_b	equ 0x00000858	; Size in bytes
+TerrainTiles_L1_size_b	equ 0x00000870	; Size in bytes
 TerrainTiles_L1_size_w	equ (TerrainTiles_L1_size_b/2)	; Size in words
 TerrainTiles_L1_size_l	equ (TerrainTiles_L1_size_b/4)	; Size in longwords
 TerrainTiles_L1_size_t	equ (TerrainTiles_L1_size_b/32)	; Size in tiles

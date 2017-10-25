@@ -25,6 +25,8 @@ L1A4_Leaf_86_name	dc.b "L1A4_Leaf_86",0
 	even
 	ENDIF
 
+L1A4_Trap_count equ 0x0
+
 L1A4_Djubb_count equ 0x0
 
 L1A4_Echo_count equ 0x0
@@ -58,6 +60,8 @@ L1A4_BouncePlant_90_name	dc.b "L1A4_BouncePlant_90",0
 	ENDIF
 
 L1A4_Log_count equ 0x0
+
+L1A4_Borgus_count equ 0x0
 
 L1A4_DjakkCage_count equ 0x0
 
@@ -149,6 +153,8 @@ L1A4_Stone_91_name	dc.b "L1A4_Stone_91",0
 	even
 	ENDIF
 
+L1A4_Demon_count equ 0x0
+
 L1A4_Nest_count equ 0x2
 L1A4_Nest_11_idx	equ 0x0
 L1A4_Nest_38_idx	equ 0x1
@@ -215,6 +221,8 @@ L1A4_WaterBody_55_name	dc.b "L1A4_WaterBody_55",0
 
 L1A4_Location_count equ 0x0
 
+L1A4_Lift_count equ 0x0
+
 L1A4_Deathbox_count equ 0x3
 L1A4_Deathbox_49_idx	equ 0x0
 L1A4_Deathbox_50_idx	equ 0x1
@@ -226,8 +234,6 @@ L1A4_Deathbox_50_name	dc.b "L1A4_Deathbox_50",0
 L1A4_Deathbox_75_name	dc.b "L1A4_Deathbox_75",0
 	even
 	ENDIF
-
-L1A4_Lift_count equ 0x0
 
 L1A4_Crate_count equ 0x0
 
@@ -265,11 +271,11 @@ L1A4_Pool_count equ 0x0
 
 L1A4_Ladder_count equ 0x0
 
-L1A4_Demon_count equ 0x0
-
-L1A4_Borgus_count equ 0x0
-
 L1A4_Stalactite_count equ 0x0
+
+L1A4_CargoLift_count equ 0x0
+
+L1A4_Scrap_count equ 0x0
 
 
 
@@ -340,6 +346,7 @@ L1A4_LoadGameObjects:
 	ENDIF
 	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 
 
 
@@ -454,6 +461,7 @@ L1A4_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
@@ -845,6 +853,7 @@ L1A4_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L1A4_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -1115,6 +1124,7 @@ L1A4_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L1A4_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -1157,7 +1167,6 @@ L1A4_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
-
 
 
 

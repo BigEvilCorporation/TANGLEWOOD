@@ -25,6 +25,8 @@ main_menu_Leaf_8_name	dc.b "main_menu_Leaf_8",0
 	even
 	ENDIF
 
+main_menu_Trap_count equ 0x0
+
 main_menu_Djubb_count equ 0x0
 
 main_menu_Echo_count equ 0x0
@@ -47,6 +49,8 @@ main_menu_BouncePlant_1_name	dc.b "main_menu_BouncePlant_1",0
 
 main_menu_Log_count equ 0x0
 
+main_menu_Borgus_count equ 0x0
+
 main_menu_DjakkCage_count equ 0x0
 
 main_menu_Monster_count equ 0x0
@@ -61,6 +65,8 @@ main_menu_Fuzzl_count equ 0x0
 
 main_menu_Stone_count equ 0x0
 
+main_menu_Demon_count equ 0x0
+
 main_menu_Nest_count equ 0x0
 
 main_menu_Flue_count equ 0x0
@@ -73,9 +79,9 @@ main_menu_WaterBody_count equ 0x0
 
 main_menu_Location_count equ 0x0
 
-main_menu_Deathbox_count equ 0x0
-
 main_menu_Lift_count equ 0x0
+
+main_menu_Deathbox_count equ 0x0
 
 main_menu_Crate_count equ 0x0
 
@@ -107,11 +113,11 @@ main_menu_Pool_count equ 0x0
 
 main_menu_Ladder_count equ 0x0
 
-main_menu_Demon_count equ 0x0
-
-main_menu_Borgus_count equ 0x0
-
 main_menu_Stalactite_count equ 0x0
+
+main_menu_CargoLift_count equ 0x0
+
+main_menu_Scrap_count equ 0x0
 
 
 
@@ -185,6 +191,7 @@ main_menu_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*main_menu_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -223,6 +230,8 @@ main_menu_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
+
 
 
 

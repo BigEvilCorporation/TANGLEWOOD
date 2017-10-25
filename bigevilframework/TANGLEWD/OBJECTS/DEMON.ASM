@@ -22,8 +22,8 @@ Demon_DecelIdle     equ 0x001000   ; Deceleration if left alone
 Demon_DecelForced   equ 0x002000   ; Deceleration if input opposite direction
 
 Demon_BoundsWidth	equ Demon_Width
-Demon_BoundsHeight	equ (Demon_Height-0x40)
-Demon_BoundsOffsetX	equ (Demon_Width/2)-(Demon_BoundsWidth/2)
+Demon_BoundsHeight	equ (Demon_Height-0x58)		; Just enough to jump out of the way when attacking
+Demon_BoundsOffsetX	equ (Demon_Width/2)-(Demon_BoundsWidth/2)+0x16
 Demon_BoundsOffsetY	equ (Demon_Height/2)-(Demon_BoundsHeight/2)
 
 Demon_AttackDelayMin	equ 0x0100
@@ -320,6 +320,8 @@ DemonSerialise:
 	rts
 
 DemonStartEmerge:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Load physical form
 	jsr     DemonLoadPhysicalGfx
@@ -340,6 +342,8 @@ DemonStartEmerge:
 	rts
 
 DemonEmerge:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Start emerge anim
 	PUSHL   a1
@@ -354,6 +358,8 @@ DemonEmerge:
 	rts
 
 DemonSmirk:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Start smirk anim
 	PUSHL   a1
@@ -368,6 +374,8 @@ DemonSmirk:
 	rts
 
 DemonAttack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Start bite anim
 	PUSHL   a1
@@ -378,7 +386,19 @@ DemonAttack:
 
 	rts
 
+DemonSetAttackSpeed:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (w) Attack speed (0 - 30)
+
+	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Bite)(a0), a2
+	add.w   d0, Animation_Speed(a2)
+
+	rts
+
 DemonReceiveDamage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Check vulnerable
 	tst.b  Demon_Vulnerable(a0)
@@ -418,6 +438,8 @@ DemonReceiveDamage:
 	rts
 
 DemonAIStart_Physical:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Load physical form
 	jsr    DemonLoadPhysicalGfx
@@ -428,9 +450,13 @@ DemonAIStart_Physical:
 	rts
 
 DemonAIUpdate_Physical:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 	rts
 
 DemonAIStart_Boss:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Load physical form
 	jsr    DemonLoadPhysicalGfx
@@ -457,6 +483,8 @@ DemonAIStart_Boss:
 	rts
 
 DemonAIUpdate_Boss:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; If player dead, don't bother
 	move.l Player1, a2
@@ -540,6 +568,8 @@ DemonAIUpdate_Boss:
 	rts
 
 DemonAIStart_Attack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Load physical form
 	jsr    DemonLoadPhysicalGfx
@@ -556,6 +586,8 @@ DemonAIStart_Attack:
 	rts
 
 DemonAIUpdate_Attack:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Wait for bite anim to finish
 	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
@@ -565,8 +597,8 @@ DemonAIUpdate_Attack:
 	
 	; Check touching player
 	move.l Player1, a2
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a2
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @NoHit
@@ -596,6 +628,8 @@ DemonAIUpdate_Attack:
 	rts
 
 DemonAIStart_Wisp:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Load wisp gfx
 	jsr    DemonLoadWispGfx
@@ -606,7 +640,9 @@ DemonAIStart_Wisp:
 	rts
 
 DemonAIUpdate_Wisp:
-	
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
 	PUSHM  a0-a1
 
 	; Get wisp move target
