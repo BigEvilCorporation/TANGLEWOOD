@@ -32,7 +32,7 @@ Demon_AttackDamage		equ 0xFF
 Demon_AttackOffsetX		equ 0x0018
 Demon_AttackAnimSpeedInc	equ 0x4
 
-Demon_MaxLives		equ 1 ; 0x3
+Demon_MaxLives		equ 0x3
 
 DemonWisp_Width		equ 0x0038
 DemonWisp_Height	equ 0x0030
@@ -508,6 +508,16 @@ DemonAIUpdate_Boss:
 	cmp.w   d0, d2
 	blt     @AttackFromLeft
 
+	; Centre Y
+	move.w Entity_WorldPosY(a2), d0
+	move.w Entity_Height(a0), d2
+	move.w Entity_Height(a2), d3
+	lsr.w  #0x1, d2
+	lsr.w  #0x1, d3
+	sub.w  d3, d2
+	sub.w  d2, d0
+	move.w d0, Entity_WorldPosY(a0)
+
 	; Set visible
 	move.b #0x1, SpriteObj_Visible(a0)
 
@@ -554,7 +564,7 @@ DemonAIUpdate_Attack:
 	PUSHL  a0
 	move.l Player1, a0
 	move.b #Demon_AttackDamage, d0
-	;jsr    CharacterDealDamage
+	jsr    CharacterDealDamage
 	POPL   a0
 
 	@NoHit:

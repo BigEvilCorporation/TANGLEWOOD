@@ -386,6 +386,20 @@ CutsceneStep_ObjectSetParamW:
 
 	rts
 
+CutsceneStep_ObjectSetParamL:
+	; a0 --- Cutscene
+	; d0 (l) Object
+	; d1 (l) Param offset
+	; d2 (l) Value
+	; d0 (b) OUT: Step running
+
+	move.l d0, a2
+	add.l  d1, a2
+	move.l d2, (a2)
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_ObjectRoutine:
 	; a0 --- Cutscene
 	; a1 --- Object
@@ -528,6 +542,13 @@ CUTSCENE_OBJECT_SET_PARAM_W: macro object,paramoffset,value
 	move.l \paramoffset, d1
 	move.l \value, d2
 	CUTSCENE_RUN_STEP CutsceneStep_ObjectSetParamW
+	endm
+
+CUTSCENE_OBJECT_SET_PARAM_L: macro object,paramoffset,value
+	move.l \object, d0
+	move.l \paramoffset, d1
+	move.l \value, d2
+	CUTSCENE_RUN_STEP CutsceneStep_ObjectSetParamL
 	endm
 
 CUTSCENE_ROUTINE: macro routine,param1,param2,param3
