@@ -20,6 +20,7 @@ terrainmap_blockmap_L8A4_width	equ 0x4C
 terrainmap_blockmap_L8A4_height	equ 0x11
 
 ; Terrain bezier bounds
-terrainmap_L8A4_num_special_terrain_descs	equ 0x00
+terrainmap_L8A4_num_special_terrain_descs	equ 0x01
 terrainmap_L8A4_special_terrain_descs:
+	dc.w 0x024F, 0x00F7, 0x04B9, 0x00F7, 0x1000	; Left, top, right, bottom, flags
 

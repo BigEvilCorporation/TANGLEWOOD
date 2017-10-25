@@ -9,6 +9,8 @@
 
 L4A2_Leaf_count equ 0x0
 
+L4A2_Trap_count equ 0x0
+
 L4A2_Djubb_count equ 0x9
 L4A2_Djubb_3_idx	equ 0x0
 L4A2_Djubb_30_idx	equ 0x1
@@ -32,8 +34,6 @@ L4A2_Djubb_45_name	dc.b "L4A2_Djubb_45",0
 L4A2_Djubb_46_name	dc.b "L4A2_Djubb_46",0
 	even
 	ENDIF
-
-L4A2_Trap_count equ 0x0
 
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
@@ -65,9 +65,9 @@ L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 	even
 	ENDIF
 
-L4A2_DjakkCage_count equ 0x0
-
 L4A2_Borgus_count equ 0x0
+
+L4A2_DjakkCage_count equ 0x0
 
 L4A2_Monster_count equ 0x0
 
@@ -107,6 +107,8 @@ L4A2_Stone_52_name	dc.b "L4A2_Stone_52",0
 	even
 	ENDIF
 
+L4A2_Demon_count equ 0x0
+
 L4A2_Nest_count equ 0x2
 L4A2_Nest_10_idx	equ 0x0
 L4A2_Nest_47_idx	equ 0x1
@@ -135,9 +137,9 @@ L4A2_WaterBody_count equ 0x0
 
 L4A2_Location_count equ 0x0
 
-L4A2_Deathbox_count equ 0x0
-
 L4A2_Lift_count equ 0x0
+
+L4A2_Deathbox_count equ 0x0
 
 L4A2_Crate_count equ 0x0
 
@@ -237,8 +239,6 @@ L4A2_Pool3_name	dc.b "L4A2_Pool3",0
 
 L4A2_Ladder_count equ 0x0
 
-L4A2_Demon_count equ 0x0
-
 L4A2_Stalactite_count equ 0x0
 
 L4A2_CargoLift_count equ 0x0
@@ -248,6 +248,7 @@ L4A2_Scrap_count equ 0x0
 
 
 L4A2_LoadGameObjects:
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A2_Djubb_count)
@@ -363,7 +364,6 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
@@ -576,6 +576,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
@@ -928,7 +929,6 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr PoolLoadGfx
 	add.l #Pool_Struct_Size, a0
-
 
 
 

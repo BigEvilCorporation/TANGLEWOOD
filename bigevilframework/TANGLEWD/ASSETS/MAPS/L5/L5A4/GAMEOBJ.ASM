@@ -9,9 +9,9 @@
 
 L5A4_Leaf_count equ 0x0
 
-L5A4_Djubb_count equ 0x0
-
 L5A4_Trap_count equ 0x0
+
+L5A4_Djubb_count equ 0x0
 
 L5A4_Echo_count equ 0x1
 L5A4_Echo_2_idx	equ 0x0
@@ -33,9 +33,9 @@ L5A4_BouncePlant_count equ 0x0
 
 L5A4_Log_count equ 0x0
 
-L5A4_DjakkCage_count equ 0x0
-
 L5A4_Borgus_count equ 0x0
+
+L5A4_DjakkCage_count equ 0x0
 
 L5A4_Monster_count equ 0x0
 
@@ -48,6 +48,14 @@ L5A4_FuzzlCage_count equ 0x0
 L5A4_Fuzzl_count equ 0x0
 
 L5A4_Stone_count equ 0x0
+
+L5A4_Demon_count equ 0x1
+L5A4_Demon_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Demon_name	dc.b "L5A4_Demon",0
+	even
+	ENDIF
 
 L5A4_Nest_count equ 0x0
 
@@ -77,9 +85,9 @@ L5A4_LocationCargoLiftStop_name	dc.b "L5A4_LocationCargoLiftStop",0
 	even
 	ENDIF
 
-L5A4_Deathbox_count equ 0x0
-
 L5A4_Lift_count equ 0x0
+
+L5A4_Deathbox_count equ 0x0
 
 L5A4_Crate_count equ 0x0
 
@@ -110,14 +118,6 @@ L5A4_Lock_count equ 0x0
 L5A4_Pool_count equ 0x0
 
 L5A4_Ladder_count equ 0x0
-
-L5A4_Demon_count equ 0x1
-L5A4_Demon_idx	equ 0x0
-
-	IFND FINAL
-L5A4_Demon_name	dc.b "L5A4_Demon",0
-	even
-	ENDIF
 
 L5A4_Stalactite_count equ 0x0
 
@@ -184,6 +184,25 @@ L5A4_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L5A4_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x01680000, Entity_WorldPosX(a0)
+	move.l #0x03900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A4_Demon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr DemonLoadGfx
+	add.l #Demon_Struct_Size, a0
 
 
 
@@ -276,25 +295,6 @@ L5A4_LoadGameObjects:
 
 
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L5A4_Demon_count)
-	move.l a1, EntityPoolStart_Demon
-	move.l a1, a0
-	POPL   a1
-
-	jsr DemonInit
-	move.l #0x01680000, Entity_WorldPosX(a0)
-	move.l #0x03900000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A4_Demon_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DemonLoadGfx
-	add.l #Demon_Struct_Size, a0
 
 
 	PUSHL  a1
