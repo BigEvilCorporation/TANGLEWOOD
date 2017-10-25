@@ -237,41 +237,8 @@ l8a3_CutsceneDemonStealFuzzl:
 	; Wait for bite frame
 	CUTSCENE_ROUTINE l8a3_Cutscene_WaitAttackFrame,#0x0,#0x0,#0x0
 
-	; Flash on
-	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_World0
-	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Monster
-	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Fuzzl
-	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_white,#PaletteId_Player
-
-	; Disappear
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
-
-	; Deactivate generator
-	CUTSCENE_DELAY #0x0020
-	CUTSCENE_GET_ENTITY Generator,l8a3_Generator1,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#Generator_Deactivate
-
-	; Hide Fuzzl
-	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
-	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
-
-	; Flash delay
-	CUTSCENE_DELAY #0x0002
-
-	; Flash off
-	CUTSCENE_GAME_PALETTE_LOAD #palette_L5,#PaletteId_World0
-	CUTSCENE_GAME_PALETTE_LOAD #palette_demon,#PaletteId_Monster
-	CUTSCENE_GAME_PALETTE_LOAD #palette_fuzzl,#PaletteId_Fuzzl
-	CUTSCENE_GAME_PALETTE_LOAD #Pal_Nymn_White,#PaletteId_Player
-
-	; Unroll bridge
-	CUTSCENE_GET_ENTITY Bridge,l8a3_Bridge1,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#BridgeBeginUnroll
+	; Eat Fuzzl
+	CUTSCENE_ROUTINE l8a3_Cutscene_FuzzlEaten,#0x0,#0x0,#0x0
 
 	; Lerp back
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
@@ -377,6 +344,38 @@ l8a3_Cutscene_WaitAttackFrame:
 	@StillBiting:
 
 	POPL   a0
+
+	rts
+
+l8a3_Cutscene_FuzzlEaten:
+	
+	PUSHM a0-a2
+
+	; Flash
+	move.w #0x2, d0
+	jsr    VFX_StartFlash
+
+	; Hide and deactivate demon
+	ENTITY_GETBYNAME Demon,l8a3_Demon,a0
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+
+	; Deactivate generator
+	ENTITY_GETBYNAME Generator,l8a3_Generator1,a0
+	jsr    Generator_Deactivate
+
+	; Hide Fuzzl
+	ENTITY_GETBYNAME Fuzzl,l8a3_FuzzlRed1,a0
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+
+	; Unroll bridge
+	ENTITY_GETBYNAME Bridge,l8a3_Bridge1,a0
+	jsr    BridgeBeginUnroll
+
+	POPM a0-a2
+
+	move.b #0x0, d0
 
 	rts
 

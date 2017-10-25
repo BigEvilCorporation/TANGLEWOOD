@@ -233,6 +233,11 @@ PaletteLerp_Array      rs.b (PaletteLerp_Struct_Size*num_palettes)
 ; Switching colour palettes - player 1
 SwitchingPalettesP1    rs.l NumSwitchingColours
 
+; VFX flash timer
+VFXFlashTimer          rs.w 1
+
+__padding1212          rs.b 2
+
 ; Current game state
 GameStatePtr           rs.l 1
 

@@ -356,6 +356,9 @@ RenderBeginFrame:
 	
 RenderEndFrame:
 
+	; Update VFX
+	jsr    VFX_Update
+
 	; Convert underwater palettes if dirty
 	move.l #0x0, d0
 	lea    CurrentPalettes, a0

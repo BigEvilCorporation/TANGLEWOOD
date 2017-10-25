@@ -124,6 +124,16 @@ CutsceneStep_PaletteLoad:
 
 	rts
 
+CutsceneStep_VfxFlash:
+	; a0 --- Cutscene
+	; d0 ---- Frames
+	; d0 (b) OUT: Step running
+
+	jsr VFX_StartFlash
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_CharacterAnim:
 	; a0 --- Cutscene
 	; d0 (l) Character
@@ -478,6 +488,11 @@ CUTSCENE_PALETTE_LOAD: macro palette,slotId
 	move.l \palette, a2
 	move.b \slotId, d0
 	CUTSCENE_RUN_STEP CutsceneStep_PaletteLoad
+	endm
+
+CUTSCENE_VFX_FLASH: macro frames
+	move.w \frames, d0
+	CUTSCENE_RUN_STEP CutsceneStep_VfxFlash
 	endm
 
 CUTSCENE_CHARACTER_ANIM: macro character,animtable,index

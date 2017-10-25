@@ -31,6 +31,7 @@ Demon_AttackDelayMax	equ 0x0300
 Demon_AttackDamage		equ 0xFF
 Demon_AttackOffsetX		equ 0x0018
 Demon_AttackAnimSpeedInc	equ 0x4
+Demon_AttackFlashFrames	equ 0x2
 
 Demon_MaxLives		equ 0x3
 
@@ -521,6 +522,10 @@ DemonAIUpdate_Boss:
 	; Set visible
 	move.b #0x1, SpriteObj_Visible(a0)
 
+	; Flash
+	move.w #Demon_AttackFlashFrames, d0
+	jsr    VFX_StartFlash
+
 	; Attack
 	jsr    DemonAIStart_Attack
 
@@ -573,6 +578,10 @@ DemonAIUpdate_Attack:
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Bite)(a0), a2
 	add.w   #Demon_AttackAnimSpeedInc, Animation_Speed(a2)
 
+	; Flash
+	move.w #Demon_AttackFlashFrames, d0
+	jsr    VFX_StartFlash
+	
 	; Back to boss mode
 	jsr    DemonAIStart_Boss
 	

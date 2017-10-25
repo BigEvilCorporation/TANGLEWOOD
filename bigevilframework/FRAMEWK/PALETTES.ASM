@@ -10,6 +10,7 @@ PAL_Load:
     ; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
+	andi.l  #0xFF, d0
 	lsl.w   #0x5, d0				; Colour index to CRAM destination address
 	rol.l   #0x2, d0				; Roll bits 14/15 of address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
@@ -28,6 +29,7 @@ PAL_LoadDMA:
 	; d0 (b) Palette index
 	; a0 --- Palette ROM address
 
+	andi.l  #0xFF, d0
 	lsl.w   #0x5, d0			; Colour index to CRAM destination address
 	move.w #size_palette_w, d1	; Palette size to copy (in words)
 	jsr VDP_DMACopyCRAM			; DMA copy

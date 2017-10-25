@@ -13,6 +13,53 @@ VFXUnderwaterSubR	equ 0x6
 VFXUnderwaterSubB	equ 0x6
 VFXUnderwaterSubG	equ 0x1
 
+VFX_StartFlash:
+	; d0 (w) Flash frames
+
+	; Set flash timer
+	move.w d0, VFXFlashTimer
+
+	PUSHM  a0-a2
+
+	; Load palettes without using game colour system (so can revert back by setting dirty flags)
+	move.b #0x0, d0
+	lea    palette_fade_white, a0
+	jsr    PAL_LoadDMA
+
+	move.b #0x1, d0
+	lea    palette_fade_white, a0
+	jsr    PAL_LoadDMA
+
+	move.b #0x2, d0
+	lea    palette_fade_white, a0
+	jsr    PAL_LoadDMA
+
+	move.b #0x3, d0
+	lea    palette_fade_white, a0
+	jsr    PAL_LoadDMA
+
+	POPM   a0-a2
+
+	rts
+
+VFX_Update:
+
+	; Update flash
+	move.w VFXFlashTimer, d0
+	tst.w  d0
+	beq    @Flashing
+	subq.w #0x1, d0
+	move.w d0, VFXFlashTimer
+	tst.w  d0
+	bne    @Flashing
+
+	; Revert all palettes
+	move.b #0xF, DirtyPalettesMask
+
+	@Flashing:
+
+	rts
+
 VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	; d1 (b) - Lerped (0) or instant (1)
