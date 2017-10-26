@@ -897,8 +897,9 @@ PhysicsObjFindFloor:
 
 	@SkipVelocityCheck:
 
-	; Clear last found floor
+	; Clear last found floor and flags
 	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_LastTerrainFlags(a0)
 	
 	;==============================================================
 	
