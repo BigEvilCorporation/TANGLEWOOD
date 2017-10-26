@@ -57,7 +57,7 @@ PoolInit:
 	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.w #Pool_Width, Platform_Width(a2)
-	move.w #col_tile_flag_special, Platform_TerrainFlags(a2)
+	move.w #col_tile_flag_water, Platform_TerrainFlags(a2)
 	LIST_APPEND_TAIL Platforms, a2, a3
 
 	rts

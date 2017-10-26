@@ -1546,6 +1546,12 @@ EchoAIUpdate_Raft:
 	move.b PhysicsObj_HitWall(a2), d1
 	andi.b #PhysicsObjHitStaticWall, d1
 	beq    @PlatformMoving
+	
+	; HACK: ...and to the right
+	; TODO: Raft + winch mechanism needs a 'reached destiation' flag
+	move.b PhysicsObj_HitWall(a2), d1
+	andi.b #PhysicsObjHitWallRight, d1
+	beq    @PlatformMoving
 
 	; If visible
 	tst.b  SpriteObj_SpriteLinked(a0)
