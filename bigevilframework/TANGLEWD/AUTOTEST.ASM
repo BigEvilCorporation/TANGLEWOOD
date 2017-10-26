@@ -40,6 +40,8 @@ AutotestUpdate:
 	lea AutotestData, a0
 	move.l GameStatePtr, d0
 
+	ori.w  #1<<pad_button_right, Autotest_PadDataA(a0)
+
 	; Advance timer
 	subq.w #0x1, Autotest_Timer(a0)
 	tst.w  Autotest_Timer(a0)
