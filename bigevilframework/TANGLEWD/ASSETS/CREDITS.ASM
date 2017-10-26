@@ -55,7 +55,7 @@ CreditsStrings:
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Nymn original concept by"
-	CREDIT_NAME		"Jamie Latham"
+	CREDIT_NAME		"Drew Lade"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
@@ -70,7 +70,7 @@ CreditsStrings:
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Character Design and Animation"
-	CREDIT_NAME		"Jamie Latham"
+	CREDIT_NAME		"Drew Lade"
 	CREDIT_NAME		"Krzysztof Matys"
 	CREDIT_NAME		"Simon Butler"
 	CREDIT_SPACE
@@ -198,7 +198,7 @@ CreditsStrings:
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Computerphile"
-	CREDIT_NAME		"Sean"
+	CREDIT_NAME		"Sean Riley"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "retrospiel.de"

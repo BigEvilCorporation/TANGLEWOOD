@@ -141,6 +141,9 @@ Credits_Enter:
 	move.l #Lvl11_Credits, CurrentLevel
 	move.l (CurrentLevel), a1
 
+	; Load scene animations
+	jsr    L1_LoadSceneAnimations
+
 	; Load objects
 	jsr    credits_LoadGameObjects
 
