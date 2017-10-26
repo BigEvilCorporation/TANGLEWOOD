@@ -71,8 +71,8 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "Character Design and Animation"
 	CREDIT_NAME		"Jamie Latham"
-	CREDIT_NAME		"Simon Butler"
 	CREDIT_NAME		"Krzysztof Matys"
+	CREDIT_NAME		"Simon Butler"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
@@ -106,6 +106,7 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "Graphic Design"
 	CREDIT_NAME		"Luis Martins"
+	CREDIT_NAME		"Jake Smith"
 	CREDIT_NAME		"Lauren Bamford"
 	CREDIT_SPACE
 	CREDIT_SPACE
@@ -118,6 +119,12 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "Font Design"
 	CREDIT_NAME		"Javier Degirolmo"
+	CREDIT_SPACE
+	CREDIT_SPACE
+
+	CREDIT_HEADING1 "Kickstarter Development Team"
+	CREDIT_NAME		"Liz Hoskin"
+	CREDIT_NAME		"Matthew Woodward"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
@@ -159,6 +166,7 @@ CreditsStrings:
 	CREDIT_NAME		"Emma Hayley"
 	CREDIT_NAME		"Daniel Killeen"
 	CREDIT_NAME		"Jamie Deplacedo"
+	CREDIT_NAME		"Jason Birch"
 	CREDIT_NAME		"db Electronics"
 	CREDIT_NAME		"Dambuster Studios"
 	CREDIT_NAME		"Double Eleven Ltd"
@@ -173,8 +181,10 @@ CreditsStrings:
 	CREDIT_NAME		"Glenn Kneale"
 	CREDIT_NAME		"Stu Allardes"
 	CREDIT_NAME		"Jenni Wardell"
+	CREDIT_NAME		"Meg Rouncefield"
 	CREDIT_NAME		"Darren Wall"
 	CREDIT_NAME		"Lee Hutchinson"
+	CREDIT_NAME		"Gruss Newton"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "The Museum of Games and Gaming"
@@ -192,12 +202,6 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "retrospiel.de"
 	CREDIT_NAME		"Chris"
-	CREDIT_SPACE
-
-	CREDIT_HEADING1 "Jason Birch"
-	CREDIT_SPACE
-
-	CREDIT_HEADING1 "Gruss Newton"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Mega Emulator core"
@@ -231,6 +235,10 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
+	CREDIT_HEADING1 "Kickstarter"
+	CREDIT_NAME		"Name 1"
+	CREDIT_NAME		"Name 2"
+	CREDIT_NAME		"Name 3"
 
 	CREDIT_HEADING1 "Extra Special Super Thanks"
 	CREDIT_NAME		"Javier 'Sik' Degirolmo"
