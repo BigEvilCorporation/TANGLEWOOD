@@ -322,10 +322,10 @@ DjubbTestUnderwater:
 	subi.w #vdp_sprite_border_x, d0
 	subi.w #vdp_sprite_border_y, d4
 
-	move.w Level_NumTerrainDescs(a1), d3	; Get 'special' terrain count
-	tst.w  d3								; Bail if empty
+	move.w Level_NumTerrainDescs(a1), d6	; Get 'special' terrain count
+	tst.w  d6								; Bail if empty
 	beq    @NoWaterTerrain
-	subq.w  #0x1, d3						; -1 for loop counter
+	subq.w  #0x1, d6						; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
 
 	@TerrainLp:
@@ -360,7 +360,7 @@ DjubbTestUnderwater:
 	bra    @Found
 	
 	@NextTerrain:
-	dbra   d3, @TerrainLp
+	dbra   d6, @TerrainLp
 	bra    @NoWaterTerrain
 
 	@NoWaterTerrain:
