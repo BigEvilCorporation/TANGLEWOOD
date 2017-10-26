@@ -11,27 +11,21 @@ L4A2_Leaf_count equ 0x0
 
 L4A2_Trap_count equ 0x0
 
-L4A2_Djubb_count equ 0x9
+L4A2_Djubb_count equ 0x6
 L4A2_Djubb_3_idx	equ 0x0
 L4A2_Djubb_30_idx	equ 0x1
 L4A2_Djubb_37_idx	equ 0x2
 L4A2_Djubb_38_idx	equ 0x3
-L4A2_Djubb_42_idx	equ 0x4
+L4A2_Djubb_44_idx	equ 0x4
 L4A2_Djubb_43_idx	equ 0x5
-L4A2_Djubb_44_idx	equ 0x6
-L4A2_Djubb_45_idx	equ 0x7
-L4A2_Djubb_46_idx	equ 0x8
 
 	IFND FINAL
 L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
 L4A2_Djubb_30_name	dc.b "L4A2_Djubb_30",0
 L4A2_Djubb_37_name	dc.b "L4A2_Djubb_37",0
 L4A2_Djubb_38_name	dc.b "L4A2_Djubb_38",0
-L4A2_Djubb_42_name	dc.b "L4A2_Djubb_42",0
-L4A2_Djubb_43_name	dc.b "L4A2_Djubb_43",0
 L4A2_Djubb_44_name	dc.b "L4A2_Djubb_44",0
-L4A2_Djubb_45_name	dc.b "L4A2_Djubb_45",0
-L4A2_Djubb_46_name	dc.b "L4A2_Djubb_46",0
+L4A2_Djubb_43_name	dc.b "L4A2_Djubb_43",0
 	even
 	ENDIF
 
@@ -131,7 +125,15 @@ L4A2_TriggerBox_EndLevel_name	dc.b "L4A2_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
-L4A2_Checkpoint_count equ 0x0
+L4A2_Checkpoint_count equ 0x2
+L4A2_Checkpoint_54_idx	equ 0x0
+L4A2_Checkpoint_55_idx	equ 0x1
+
+	IFND FINAL
+L4A2_Checkpoint_54_name	dc.b "L4A2_Checkpoint_54",0
+L4A2_Checkpoint_55_name	dc.b "L4A2_Checkpoint_55",0
+	even
+	ENDIF
 
 L4A2_WaterBody_count equ 0x0
 
@@ -305,30 +307,6 @@ L4A2_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
-	move.l #0x15180000, Entity_WorldPosX(a0)
-	move.l #0x04080000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Djubb_42_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DjubbLoadGfx
-	add.l #Djubb_Struct_Size, a0
-	jsr DjubbInit
-	move.l #0x15e00000, Entity_WorldPosX(a0)
-	move.l #0x04300000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Djubb_43_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DjubbLoadGfx
-	add.l #Djubb_Struct_Size, a0
-	jsr DjubbInit
 	move.l #0x15780000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
@@ -341,22 +319,10 @@ L4A2_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
-	move.l #0x15680000, Entity_WorldPosX(a0)
-	move.l #0x03c00000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Djubb_45_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DjubbLoadGfx
-	add.l #Djubb_Struct_Size, a0
-	jsr DjubbInit
-	move.l #0x10c00000, Entity_WorldPosX(a0)
+	move.l #0x15e00000, Entity_WorldPosX(a0)
 	move.l #0x04300000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A2_Djubb_46_name, a3
+	lea L4A2_Djubb_43_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -645,6 +611,36 @@ L4A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L4A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x09b00000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Checkpoint_54_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
+	jsr CheckpointInit
+	move.l #0x0fc00000, Entity_WorldPosX(a0)
+	move.l #0x03c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Checkpoint_55_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr CheckpointLoadGfx
+	add.l #Checkpoint_Struct_Size, a0
 
 
 
@@ -706,6 +702,7 @@ L4A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
@@ -718,6 +715,7 @@ L4A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
@@ -730,6 +728,7 @@ L4A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
