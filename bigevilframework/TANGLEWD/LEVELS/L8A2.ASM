@@ -91,6 +91,13 @@ l8a2_Init:
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
+
+	; Don't lerp Djakk palette, disable catchup behaviour
+	ENTITY_GETBYNAME Monster, l8a2_Djakk1, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.b #0x0, Monster_DoIntro(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	
 	rts
 	
@@ -114,4 +121,14 @@ l8a2_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l8a2_Trigger_Djakk:
+	PUSHL  a0
+	ENTITY_GETBYNAME Monster, l8a2_Djakk1, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+	POPL   a0
 	rts

@@ -44,10 +44,10 @@ L8A2_Borgus_count equ 0x0
 L8A2_DjakkCage_count equ 0x0
 
 L8A2_Monster_count equ 0x1
-L8A2_Monster_2_idx	equ 0x0
+L8A2_Djakk1_idx	equ 0x0
 
 	IFND FINAL
-L8A2_Monster_2_name	dc.b "L8A2_Monster_2",0
+L8A2_Djakk1_name	dc.b "L8A2_Djakk1",0
 	even
 	ENDIF
 
@@ -67,11 +67,13 @@ L8A2_Nest_count equ 0x0
 
 L8A2_Flue_count equ 0x0
 
-L8A2_TriggerBox_count equ 0x1
+L8A2_TriggerBox_count equ 0x2
 L8A2_TriggerLevelEnd_idx	equ 0x0
+L8A2_TriggerDjakk_idx	equ 0x1
 
 	IFND FINAL
 L8A2_TriggerLevelEnd_name	dc.b "L8A2_TriggerLevelEnd",0
+L8A2_TriggerDjakk_name	dc.b "L8A2_TriggerDjakk",0
 	even
 	ENDIF
 
@@ -212,13 +214,13 @@ L8A2_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x01600000, Entity_WorldPosX(a0)
-	move.l #0x05880000, Entity_WorldPosY(a0)
+	move.l #0x02300000, Entity_WorldPosX(a0)
+	move.l #0x06280000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L8A2_Monster_2_name, a3
+	lea L8A2_Djakk1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
+	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	jsr MonsterLoadGfx
@@ -239,8 +241,8 @@ L8A2_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x00d80000, Entity_WorldPosX(a0)
-	move.l #0x05f00000, Entity_WorldPosY(a0)
+	move.l #0x00e00000, Entity_WorldPosX(a0)
+	move.l #0x06d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A2_TriggerLevelEnd_name, a3
 	move.l a0, a2
@@ -249,6 +251,20 @@ L8A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.l #l8a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	add.l #TriggerBox_Struct_Size, a0
+	jsr TriggerBoxInit
+	move.l #0x02b00000, Entity_WorldPosX(a0)
+	move.l #0x06080000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A2_TriggerDjakk_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.l #l8a2_Trigger_Djakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
