@@ -193,7 +193,8 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "National Videogame Arcade"
 	CREDIT_NAME		"Alex Roberts"
-	CREDIT_NAME		"Ian"
+	CREDIT_NAME		"Allen Coombs"
+	CREDIT_NAME		"Iain Simons"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Computerphile"
