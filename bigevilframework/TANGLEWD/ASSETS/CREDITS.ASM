@@ -230,7 +230,7 @@ CreditsStrings:
 	CREDIT_NAME		"Pickles and Toki"
 	CREDIT_SPACE
 	CREDIT_NAME		"Michael 'Mate' Bamford"
-	CREDIT_NAME		"Rosemarie Bamford"
+	CREDIT_NAME		"Rose-Marie Bamford"
 	CREDIT_SPACE
 	CREDIT_NAME		"Our Lord and Saviour Torbjorn"
 	CREDIT_SPACE
