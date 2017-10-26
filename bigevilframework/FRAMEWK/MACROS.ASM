@@ -367,6 +367,6 @@ BLOCKS2TILES: macro reg
 ;==============================================================
 
 RAISE_EXCEPTION: macro errcode
-	move.l #(\errcode)<<0x10, a5	; Err code byte to upper a5
+	move.l #(\errcode), a5	; Err code to a5
 	illegal
 	endm

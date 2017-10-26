@@ -124,6 +124,7 @@ WyrmInit:
 	move.w  #(Wyrm_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
 	move.l  #Wyrm_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Wyrm_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 
 	move.l  #Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0)
 	move.l  #Wyrm_MaxVelXRun, Character_MaxVelXRun(a0)
@@ -459,28 +460,28 @@ WyrmFindSandDune:
 	beq    @NextTerrain
 
 	; Grow Y by 2 tiles
-	subq.w #0x2, d1
-	addq.w #0x2, d2
+	subi.w #0x10, d1
+	addi.w #0x10, d2
 
 	; Check if within Y bounds
 	cmp.w  d4, d1
-	bge    @NextTerrain
+	bgt    @NextTerrain
 	cmp.w  d4, d2
-	ble    @NextTerrain
+	blt    @NextTerrain
 
 	; Get X
 	swap   d1
 	swap   d2
 	
 	; Grow X by 2 tiles
-	subq.w #0x2, d1
-	addq.w #0x2, d2
+	subi.w #0x10, d1
+	addi.w #0x10, d2
 
 	; Check if within X bounds
 	cmp.w  d0, d1
-	bge    @NextTerrain
+	bgt    @NextTerrain
 	cmp.w  d0, d2
-	ble    @NextTerrain
+	blt    @NextTerrain
 	bra    @WithinTerrain
 	
 	@NextTerrain:
@@ -656,6 +657,10 @@ WyrmAIUpdate_Emerge:
 	move.b #0x1, Character_UpdateAnim(a0)
 	jsr   WyrmAIStart_Follow
 	@Playing:
+	
+	; Wake physics and clear last wall
+	move.b #0x0, PhysicsObj_Asleep(a0)
+	move.b #0x0, PhysicsObj_HitWall(a0)
 	
 	rts
 
