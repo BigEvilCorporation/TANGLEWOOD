@@ -9,9 +9,9 @@
 
 L7A1_Leaf_count equ 0x0
 
-L7A1_Djubb_count equ 0x0
-
 L7A1_Trap_count equ 0x0
+
+L7A1_Djubb_count equ 0x0
 
 L7A1_Echo_count equ 0x1
 L7A1_Echo_5_idx	equ 0x0
@@ -35,9 +35,9 @@ L7A1_Log_30_name	dc.b "L7A1_Log_30",0
 	even
 	ENDIF
 
-L7A1_DjakkCage_count equ 0x0
-
 L7A1_Borgus_count equ 0x0
+
+L7A1_DjakkCage_count equ 0x0
 
 L7A1_Monster_count equ 0x0
 
@@ -95,6 +95,8 @@ L7A1_Stone_37_name	dc.b "L7A1_Stone_37",0
 	even
 	ENDIF
 
+L7A1_Demon_count equ 0x0
+
 L7A1_Nest_count equ 0x2
 L7A1_Nest_26_idx	equ 0x0
 L7A1_Nest_34_idx	equ 0x1
@@ -135,9 +137,9 @@ L7A1_WaterBody_count equ 0x0
 
 L7A1_Location_count equ 0x0
 
-L7A1_Deathbox_count equ 0x0
-
 L7A1_Lift_count equ 0x0
+
+L7A1_Deathbox_count equ 0x0
 
 L7A1_Crate_count equ 0x0
 
@@ -174,8 +176,6 @@ L7A1_Lock_count equ 0x0
 L7A1_Pool_count equ 0x0
 
 L7A1_Ladder_count equ 0x0
-
-L7A1_Demon_count equ 0x0
 
 L7A1_Stalactite_count equ 0x0
 
@@ -461,6 +461,7 @@ L7A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L7A1_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -592,7 +593,6 @@ L7A1_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 

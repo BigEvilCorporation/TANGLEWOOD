@@ -7,23 +7,23 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L8A1_size_b	equ 0x000014AC	; Size in bytes
+terrainmap_blockmap_L8A1_size_b	equ 0x000018C6	; Size in bytes
 terrainmap_blockmap_L8A1_size_w	equ (terrainmap_blockmap_L8A1_size_b/2)	; Size in words
 terrainmap_blockmap_L8A1_size_l	equ (terrainmap_blockmap_L8A1_size_b/4)	; Size in longwords
 terrainmap_L8A1_left	equ 0x00
 terrainmap_L8A1_top	equ 0x00
-terrainmap_L8A1_width	equ 0x1F4
+terrainmap_L8A1_width	equ 0x258
 terrainmap_L8A1_height	equ 0x50
 terrainmap_blockmap_L8A1_left	equ 0x00
 terrainmap_blockmap_L8A1_top	equ 0x00
-terrainmap_blockmap_L8A1_width	equ 0x7E
+terrainmap_blockmap_L8A1_width	equ 0x97
 terrainmap_blockmap_L8A1_height	equ 0x15
 
 ; Terrain bezier bounds
 terrainmap_L8A1_num_special_terrain_descs	equ 0x04
 terrainmap_L8A1_special_terrain_descs:
 	dc.w 0x0048, 0x0083, 0x01F0, 0x00E1, 0x8000	; Left, top, right, bottom, flags
-	dc.w 0x0210, 0x00D8, 0x0468, 0x00E1, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0210, 0x00D0, 0x0468, 0x00E1, 0x8000	; Left, top, right, bottom, flags
 	dc.w 0x0478, 0x0102, 0x07CB, 0x01AD, 0x8000	; Left, top, right, bottom, flags
-	dc.w 0x0AC8, 0x01A4, 0x0EB8, 0x0214, 0x8000	; Left, top, right, bottom, flags
+	dc.w 0x0AC8, 0x0191, 0x11D0, 0x0214, 0x8000	; Left, top, right, bottom, flags
 

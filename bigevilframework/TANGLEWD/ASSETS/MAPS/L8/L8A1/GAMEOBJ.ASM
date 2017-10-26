@@ -9,9 +9,9 @@
 
 L8A1_Leaf_count equ 0x0
 
-L8A1_Djubb_count equ 0x0
-
 L8A1_Trap_count equ 0x0
+
+L8A1_Djubb_count equ 0x0
 
 L8A1_Echo_count equ 0x1
 L8A1_Echo_1_idx	equ 0x0
@@ -25,11 +25,17 @@ L8A1_Nymn_count equ 0x0
 
 L8A1_BouncePlant_count equ 0x0
 
-L8A1_Log_count equ 0x0
+L8A1_Log_count equ 0x1
+L8A1_Log_6_idx	equ 0x0
 
-L8A1_DjakkCage_count equ 0x0
+	IFND FINAL
+L8A1_Log_6_name	dc.b "L8A1_Log_6",0
+	even
+	ENDIF
 
 L8A1_Borgus_count equ 0x0
+
+L8A1_DjakkCage_count equ 0x0
 
 L8A1_Monster_count equ 0x0
 
@@ -47,7 +53,15 @@ L8A1_FuzzlWhite_name	dc.b "L8A1_FuzzlWhite",0
 	even
 	ENDIF
 
-L8A1_Stone_count equ 0x0
+L8A1_Stone_count equ 0x1
+L8A1_Stone_7_idx	equ 0x0
+
+	IFND FINAL
+L8A1_Stone_7_name	dc.b "L8A1_Stone_7",0
+	even
+	ENDIF
+
+L8A1_Demon_count equ 0x0
 
 L8A1_Nest_count equ 0x1
 L8A1_Nest_3_idx	equ 0x0
@@ -73,9 +87,9 @@ L8A1_WaterBody_count equ 0x0
 
 L8A1_Location_count equ 0x0
 
-L8A1_Deathbox_count equ 0x0
-
 L8A1_Lift_count equ 0x0
+
+L8A1_Deathbox_count equ 0x0
 
 L8A1_Crate_count equ 0x0
 
@@ -113,8 +127,6 @@ L8A1_Pool_count equ 0x0
 
 L8A1_Ladder_count equ 0x0
 
-L8A1_Demon_count equ 0x0
-
 L8A1_Stalactite_count equ 0x0
 
 L8A1_CargoLift_count equ 0x0
@@ -148,6 +160,24 @@ L8A1_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L8A1_Log_count)
+	move.l a1, EntityPoolStart_Log
+	move.l a1, a0
+	POPL   a1
+
+	jsr LogInit
+	move.l #0x0ff00000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A1_Log_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LogLoadGfx
+	add.l #Log_Struct_Size, a0
 
 
 
@@ -174,6 +204,25 @@ L8A1_LoadGameObjects:
 	move.b #ColourWhite, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L8A1_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x0f900000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L8A1_Stone_7_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -203,7 +252,7 @@ L8A1_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x0f900000, Entity_WorldPosX(a0)
+	move.l #0x12a80000, Entity_WorldPosX(a0)
 	move.l #0x02800000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A1_TriggerLevelEnd_name, a3
@@ -245,7 +294,6 @@ L8A1_LoadGameObjects:
 	ENDIF
 	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 
