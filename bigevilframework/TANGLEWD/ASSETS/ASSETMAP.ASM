@@ -191,6 +191,7 @@ sprite_assets_end
 	; ************************************
 	include 'assets\maps\mainmenu\blockmap.asm'
 	include 'assets\maps\endlevel\blockmap.asm'
+	include 'assets\maps\credits\blockmap.asm'
 	include 'assets\maps\megafndr\blockmap.asm'
 	include 'assets\maps\controls\blockmap.asm'
 	include 'assets\maps\disclmr\blockmap.asm'
@@ -200,6 +201,7 @@ sprite_assets_end
 	; ************************************
 	include 'assets\maps\mainmenu\gameobj.asm'
 	include 'assets\maps\endlevel\gameobj.asm'
+	include 'assets\maps\credits\gameobj.asm'
 	
 	; ************************************
 	; Audio

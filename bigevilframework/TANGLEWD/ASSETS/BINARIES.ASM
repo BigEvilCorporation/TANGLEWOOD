@@ -57,6 +57,8 @@ map_blockmap_main_menu:
 	incbin 'assets\maps\mainmenu\blockmap.bin'
 map_blockmap_end_level:
 	incbin 'assets\maps\endlevel\blockmap.bin'
+map_blockmap_credits:
+	incbin 'assets\maps\credits\blockmap.bin'
 map_blockmap_megafounder_screen:
 	incbin 'assets\maps\megafndr\blockmap.bin'
 map_blockmap_controls:

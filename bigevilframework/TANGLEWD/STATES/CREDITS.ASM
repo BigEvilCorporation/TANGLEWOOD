@@ -13,7 +13,7 @@ Lvl11_Credits:
 	dc.l GameStateEndLevelScoreData		; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_l1					; Blocks
-	dc.l map_blockmap_end_level			; Block map
+	dc.l map_blockmap_credits			; Block map
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
 	dc.l 0x0							; Collision block map
@@ -25,10 +25,10 @@ Lvl11_Credits:
 	dc.l 0x0							; End routine
 	dc.l 0x0							; Next level
 	dc.w 0x0							; Default gravity
-	dc.w map_end_level_width			; Map width (tiles)
-	dc.w map_end_level_height			; Map height (tiles)
-	dc.w map_blockmap_end_level_width	; Map width (blocks)
-	dc.w map_blockmap_end_level_height	; Map height (blocks)
+	dc.w map_credits_width			; Map width (tiles)
+	dc.w map_credits_height			; Map height (tiles)
+	dc.w map_blockmap_credits_width	; Map width (blocks)
+	dc.w map_blockmap_credits_height	; Map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
 	
 	even
@@ -104,7 +104,7 @@ Credits_Enter:
 	jsr    GameStateReset
 
 	; Set BG colour
-	move.w #(Credits_TextFontPaletteId<<4), d0
+	move.w #(PaletteId_World0<<4)|0xD, d0
 	VDPSETREG 7, d0
 
 	; Load tiles
@@ -115,8 +115,8 @@ Credits_Enter:
 
 	; Load BG map
 	lea    map_blocks_l1, a0
-	lea    map_blockmap_end_level, a1
-	move.l #(map_blockmap_end_level_width<<16)|map_blockmap_end_level_height, d1
+	lea    map_blockmap_credits, a1
+	move.l #(map_blockmap_credits_width<<16)|map_blockmap_credits_height, d1
 	move.w (vram_addr_leveltiles), d2
 	BYTES2TILES d2
 	move.l #PaletteId_World0, d3
@@ -142,10 +142,10 @@ Credits_Enter:
 	move.l (CurrentLevel), a1
 
 	; Load objects
-	jsr    end_level_LoadGameObjects
+	jsr    credits_LoadGameObjects
 
 	; Disable Fuzzl physics (no terrain data)
-	ENTITY_GETBYNAME Fuzzl, end_level_Fuzzl, a0
+	ENTITY_GETBYNAME Fuzzl, credits_Fuzzl, a0
 	move.b #0x0, PhysicsObj_HasPhysics(a0)
 
 	;==============================================================
