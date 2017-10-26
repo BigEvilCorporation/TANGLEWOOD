@@ -241,7 +241,7 @@ L8A2_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x00e00000, Entity_WorldPosX(a0)
+	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x06d00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A2_TriggerLevelEnd_name, a3
