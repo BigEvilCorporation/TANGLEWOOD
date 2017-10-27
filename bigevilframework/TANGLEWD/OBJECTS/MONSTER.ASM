@@ -58,7 +58,7 @@ Monster_AlertDistanceSq		equ (Monster_AlertDistance*Monster_AlertDistance)
 
 Monster_MinChaseDistance	equ ((Monster_Width/2)*subpixels_per_pixel)
 Monster_MaxChaseDistance	equ (screen_width*subpixels_per_pixel)
-Monster_OutOfDistSpeedMul	equ 0x6
+Monster_OutOfDistSpeedMul	equ 0x2
 
 Monster_AttackMaxPlayerVel	equ 0x090000	; Don't attack if player is being flung using a flue/bounce pad, etc
 
