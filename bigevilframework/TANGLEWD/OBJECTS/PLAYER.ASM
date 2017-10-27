@@ -602,6 +602,11 @@ PlayerStartColourAbility:
 	
 	PUSHL  a0
 	
+	; If palette already lerping, don't overwrite backup
+	jsr    PAL_LerpActive
+	tst.b  d0
+	bne    @NoPaletteBackup
+	
 	; Backup palettes
 	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
@@ -617,6 +622,8 @@ PlayerStartColourAbility:
 	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a0, a1, d0
+	
+	@NoPaletteBackup:
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
@@ -788,7 +795,7 @@ PlayerStopColourAbility:
 	; If inactive, don't bother
 	tst.b  Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
-
+	
 	; Reset palette
 	PUSHL  a0
 	move.w #TimeOfDayCycleSpeed, d1		; Speed
@@ -796,25 +803,16 @@ PlayerStopColourAbility:
 	move.b #0x0, d3						; First colour
 	move.b #0xF, d4						; Last colour
 	
-	; Get current TOD palette for world palette
-	clr.l  d0
-	move.b TimeOfDay, d0
-	lsl.w  #0x2, d0
-	lea    TimeOfDayPalettes, a2
-	add.l  d0, a2
-	move.l (a2), a0
+	; Restore from backup
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
 	move.l #PaletteId_World0, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
-	move.l Level_PalettesAddr(a1), a3
-	lea    (size_long*PaletteId_Monster)(a3), a3
-	move.l (a3), a0
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
 	move.l #PaletteId_Monster, d0		; Palette idx
 	jsr    PAL_LerpStart
 	
-	move.l Level_PalettesAddr(a1), a3
-	lea    (size_long*PaletteId_Fuzzl)(a3), a3
-	move.l (a3), a0
+	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
 	move.l #PaletteId_Fuzzl, d0			; Palette idx
 	jsr    PAL_LerpStart
 	POPL   a0
