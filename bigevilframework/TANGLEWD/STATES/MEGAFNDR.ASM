@@ -58,7 +58,7 @@ MegafounderScreen_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #MegafounderScreenNumColours, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
@@ -97,7 +97,7 @@ MegafounderScreen_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #MegafounderScreenNumColours, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	bra    @End
 	
 	; Mark end of sequence

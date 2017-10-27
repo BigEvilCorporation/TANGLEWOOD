@@ -18,7 +18,6 @@ GameStatePause_MaxStringLen	equ 0x8
 ; Struct
 	rsset	0x0
 ;----------------------------------
-PauseState_PaletteBackup	 rs.b size_palette_b*num_palettes
 PauseState_Firefly			 rs.b Firefly_Struct_Size
 PauseState_TextTileBuff		 rs.w GameStatePause_MaxStringLen
 PauseState_VRAMAddr			 rs.w 1
@@ -62,27 +61,6 @@ Pause_Enter:
 	
 	; Begin greyscale effect
 	PUSHL  a0
-	
-	; Backup palettes
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_World0), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Monster), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Fuzzl), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Player), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
@@ -171,25 +149,25 @@ Pause_Exit:
 	PUSHL  a0
 	PUSHL  a1
 
-	; Reset palettes
+	; Restore scene palettes
 	PUSHL  a0
 
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_World0), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_World0), a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Monster), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Monster), a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Fuzzl), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Fuzzl), a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	lea    (GameStatePauseData+PauseState_PaletteBackup)+(size_palette_b*PaletteId_Player), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Player), a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0

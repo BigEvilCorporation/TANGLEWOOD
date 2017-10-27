@@ -246,7 +246,7 @@ LevelLoadPalettes:
 	move.l #PaletteId_World0, d0		; First level palette offset to d0
 	move.l Level_PalettesAddr(a1), a3	; First palette addr to a3
 	@PaletteLoop:
-	PUSHM  d0/d7/a3
+	PUSHM  d0/d7/a1/a3
 	move.l (a3), a0					; Get palette address
 	cmp.l  #0x0, a0
 	beq    @SkipPalette
@@ -262,12 +262,12 @@ LevelLoadPalettes:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	ENDIF
 	
 	@SkipPalette:
-	POPM   d0/d7/a3
+	POPM   d0/d7/a1/a3
 	addq.w #0x1, d0
 	addq.l #size_long, a3
 	dbra d7, @PaletteLoop				; PAL_Load leaves incremented palette address in a0

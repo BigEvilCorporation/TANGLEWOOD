@@ -219,7 +219,7 @@ ScrapAIStart_Emerge:
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	POPL   a0
 	
 	rts

@@ -696,7 +696,7 @@ MonsterTakeColourPower:
 	move.b #0x1, d2					; Ticks per update
 	move.b #0x0, d3					; Range min
 	move.b #0xE, d4					; Range max
-	jsr    PAL_LerpStart			; Begin palette lerp
+	jsr    GameScenePaletteFadeTo		; Begin palette lerp
 	
 	POPM   a0/a1
 	POPM   d0/d3
@@ -726,7 +726,7 @@ MonsterRestoreColourPower:
 	move.b #0x1, d2					; Ticks per update
 	move.b #0x0, d3					; Range min
 	move.b #0xE, d4					; Range max
-	jsr    PAL_LerpStart			; Begin palette lerp
+	jsr    GameScenePaletteFadeTo		; Begin palette lerp
 	
 	POPM   a0/a1
 	POPM   d0/d3
@@ -872,7 +872,7 @@ MonsterStartEmergeFromCave:
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	move.l (sp)+, a0
 	@NoPaletteLerp:
 
@@ -1434,7 +1434,7 @@ MonsterStartTamed:
 	;move.b #0x1, d2
 	;move.b #0x0, d3
 	;move.b #0xF, d4
-	;jsr    PAL_LerpStart
+	;jsr    GameScenePaletteFadeTo
 	;move.l (sp)+, a0
 
 	; Start growl timer

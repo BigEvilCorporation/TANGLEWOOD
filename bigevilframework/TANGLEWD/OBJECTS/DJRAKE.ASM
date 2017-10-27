@@ -499,7 +499,7 @@ DjrakeStartEmergeFromCave:
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	move.l (sp)+, a0
 
 	rts

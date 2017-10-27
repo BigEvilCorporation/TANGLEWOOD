@@ -54,9 +54,15 @@ VFX_Update:
 	bne    @Flashing
 
 	; Revert all palettes
-	move.b #0xF, DirtyPalettesMask
+	jsr    VFX_RevertToScenePalettes
 
 	@Flashing:
+
+	rts
+
+VFX_RevertToScenePalettes:
+
+	move.b #0xF, DirtyPalettesMask
 
 	rts
 

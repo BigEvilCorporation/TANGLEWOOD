@@ -19,7 +19,6 @@ Thunder_BoltToFlashTime		equ 0x0008
 Thunder_Damage				equ 0xFF
 
 	rsset 0
-Thunder_PaletteBackup	rs.b (size_palette_b*num_palettes)
 Thunder_StrikeTimer		rs.w 1
 Thunder_SoundTimer		rs.w 1
 Thunder_FlashTimer		rs.w 1
@@ -153,27 +152,6 @@ ThunderFlash:
 
 	; Reset flash timer
 	move.w #Thunder_FlashFrames, Thunder_FlashTimer(a2)
-
-	; Backup current palettes
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_World0)(a2), a3
-	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
-
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Monster)(a2), a3
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
-
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Fuzzl)(a2), a3
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
-
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Player)(a2), a3
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a4
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a3, a4, d0
 
 	; Brighten palettes
 	PUSHL  a2
@@ -378,47 +356,47 @@ ThunderUpdate:
 	tst.w  d0
 	bne    @FlashTimerRunning
 
-	; Timer elapsed, fade back to original palettes
+	; Timer elapsed, fade back to scene palettes
 	PUSHL  a0
 	
 	PUSHL  a2
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_World0)(a2), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_World0), a0
 	move.b #PaletteId_World0, d0
 	move.w #Thunder_FlashFadeBackSpeed, d1
 	move.b #Thunder_FadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameTempPaletteFadeTo
 	POPL   a2
 
 	PUSHL  a2
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Monster)(a2), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Monster), a0
 	move.b #PaletteId_Monster, d0
 	move.w #Thunder_FlashFadeBackSpeed, d1
 	move.b #Thunder_FadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameTempPaletteFadeTo
 	POPL   a2
 
 	PUSHL  a2
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Fuzzl)(a2), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Fuzzl), a0
 	move.b #PaletteId_Fuzzl, d0
 	move.w #Thunder_FlashFadeBackSpeed, d1
 	move.b #Thunder_FadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameTempPaletteFadeTo
 	POPL   a2
 
 	PUSHL  a2
-	lea    Thunder_PaletteBackup+(size_palette_b*PaletteId_Player)(a2), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Player), a0
 	move.b #PaletteId_Player, d0
 	move.w #Thunder_FlashFadeBackSpeed, d1
 	move.b #Thunder_FadeTicksPerUpdate, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameTempPaletteFadeTo
 	POPL   a2
 
 	POPL   a0

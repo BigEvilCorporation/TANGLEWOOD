@@ -71,7 +71,7 @@ Fail_Update:
 	move.b #0x0, d3
 	move.b #0xF, d4
 	move.b #PaletteId_World0, d0
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	move.l #GameStateFail_FadeDownPalette, a0
 	move.w #GameStateFail_FadeDownSpeed, d1
@@ -79,7 +79,7 @@ Fail_Update:
 	move.b #0x0, d3
 	move.b #0xF, d4
 	move.b #PaletteId_Monster, d0
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	move.l #GameStateFail_FadeDownPalette, a0
 	move.w #GameStateFail_FadeDownSpeed, d1
@@ -87,7 +87,7 @@ Fail_Update:
 	move.b #0x0, d3
 	move.b #0xF, d4
 	move.b #PaletteId_Fuzzl, d0
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	@FadeStarted:
 

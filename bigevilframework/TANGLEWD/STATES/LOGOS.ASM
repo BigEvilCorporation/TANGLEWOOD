@@ -109,7 +109,7 @@ Logos_Update:
 	move.l #0x0, d3
 	clr.l  d4
 	move.b LogoState_CurrColourIdx(a3), d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	bra    @End
 
@@ -138,7 +138,7 @@ Logos_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	bra    @End
 	
 	; Mark end of sequence

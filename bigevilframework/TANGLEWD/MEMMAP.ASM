@@ -224,6 +224,9 @@ Player2                rs.l 1
 ; Current palettes (DMA'd at end of frame)
 CurrentPalettes        rs.b (size_palette_b*num_palettes)
 
+; Scene palettes (for effects to revert to when finished)
+ScenePalettes          rs.b (size_palette_b*num_palettes)
+
 ; Underwater palettes (DMA'd during HINT)
 UnderwaterPalettes     rs.b (size_palette_b*num_palettes)
 

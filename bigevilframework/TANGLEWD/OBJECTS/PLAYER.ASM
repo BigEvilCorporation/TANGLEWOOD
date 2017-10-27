@@ -524,7 +524,7 @@ PlayerBeginColourSwitch:
 	move.b #0x1, d2					; Ticks per update
 	move.b #0x0, d3					; Range min
 	move.b #0xE, d4					; Range max
-	jsr    PAL_LerpStart			; Begin palette lerp
+	jsr    GameScenePaletteFadeTo		; Begin palette lerp
 	
 	POPM   a0/a1
 	POPM   d0/d3
@@ -601,29 +601,6 @@ PlayerStartColourAbility:
 	@Green:
 	
 	PUSHL  a0
-	
-	; If palette already lerping, don't overwrite backup
-	jsr    PAL_LerpActive
-	tst.b  d0
-	bne    @NoPaletteBackup
-	
-	; Backup palettes
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Monster), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Fuzzl), a1
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-	
-	@NoPaletteBackup:
 	
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
@@ -709,14 +686,9 @@ PlayerStartColourAbility:
 
 	; Back to red
 	PUSHM  a0-a1
-	lea    Pal_Nymn_Red, a1
-	lea    CurrentPalettes+(size_palette_b*PaletteId_Player), a0
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-
 	lea    Pal_Nymn_Red, a0
 	move.b #PaletteId_Player, d0
-	jsr    PAL_LoadDMA
+	jsr    GameScenePaletteFadeTo
 	POPM   a0-a1
 
 	; Lightning shot
@@ -803,18 +775,18 @@ PlayerStopColourAbility:
 	move.b #0x0, d3						; First colour
 	move.b #0xF, d4						; Last colour
 	
-	; Restore from backup
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_World0), a0
+	; Restore scene palettes
+	lea    ScenePalettes+(size_palette_b*PaletteId_World0), a0
 	move.l #PaletteId_World0, d0		; Palette idx
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Monster), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Monster), a0
 	move.l #PaletteId_Monster, d0		; Palette idx
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
-	lea    TimeSlowPaletteBackup+(size_palette_b*PaletteId_Fuzzl), a0
+	lea    ScenePalettes+(size_palette_b*PaletteId_Fuzzl), a0
 	move.l #PaletteId_Fuzzl, d0			; Palette idx
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	POPL   a0
 	
 	; Re-enable time of day
@@ -1115,7 +1087,7 @@ PlayerUpdateColourAbility:
 	move.b #0x1, d2					; Ticks per update
 	move.b #0x0, d3					; Range min
 	move.b #0xE, d4					; Range max
-	jsr    PAL_LerpStart			; Begin palette lerp
+	jsr    GameScenePaletteFadeTo	; Begin palette lerp
 	POPM   a0-a1
 
 	; Play SFX

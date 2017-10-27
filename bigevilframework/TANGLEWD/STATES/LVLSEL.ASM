@@ -138,7 +138,7 @@ LevelSelect_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fuzzl, a0
 	move.l #PaletteId_Fuzzl, d0
@@ -146,7 +146,7 @@ LevelSelect_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_twfontbs, a0
 	move.l #PaletteId_MenuText, d0
@@ -154,7 +154,7 @@ LevelSelect_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_twfontbs_grey, a0
 	move.l #PaletteId_MenuTextDisabled, d0
@@ -162,7 +162,7 @@ LevelSelect_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	rts
 	
@@ -238,7 +238,7 @@ LevelSelect_OnSelected:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_MenuTextDisabled, d0
@@ -246,7 +246,7 @@ LevelSelect_OnSelected:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_World0, d0
@@ -254,7 +254,7 @@ LevelSelect_OnSelected:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Fuzzl, d0
@@ -262,7 +262,7 @@ LevelSelect_OnSelected:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade

@@ -11,49 +11,115 @@
 ;==============================================================
 
 ; Sets a palette to load using game colour system
-; The "game safe" way to load palettes
-GAME_PALETTE_LOAD: macro palette,slot
-	PUSHM  d0/a0-a1
-	bset   \slot, (DirtyPalettesMask)
-	lea    \palette, a1
-	lea    CurrentPalettes+(size_palette_b*\slot), a0
-	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-	POPM   d0/a0-a1
-	endm
-
-GamePaletteLoad:
+; The "game safe" way to load scene palettes
+GameScenePaletteLoad:
 	; a0 --- Palette
 	; d0 (b) Slot
 
 	PUSHM  d0/a0-a1
+
+	; Set dirty mask
 	andi.l #0xFF, d0
 	bset   d0, (DirtyPalettesMask)
+
+	; Set current DMA palette
+	mulu   #size_palette_b, d0
+	PUSHL  d0
+	lea    CurrentPalettes, a1
+	add.l  d0, a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+	POPL   a0
+
+	; Set scene palette
+	lea    ScenePalettes, a1
+	add.l  d0, a1
+	move.l #(size_palette_b/size_long), d0
+	MEMCPYL a1, a0, d0
+
+	POPM   d0/a0-a1
+
+	rts
+
+; Sets a temp palette to load using game colour system
+; The "game safe" way to load temporary palettes
+GameTempPaletteLoad:
+	; a0 --- Palette
+	; d0 (b) Slot
+
+	PUSHM  d0/a0-a1
+
+	; Set dirty mask
+	andi.l #0xFF, d0
+	bset   d0, (DirtyPalettesMask)
+
+	; Set current DMA palette
 	mulu   #size_palette_b, d0
 	lea    CurrentPalettes, a1
 	add.l  d0, a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
+
 	POPM   d0/a0-a1
 
 	rts
 
-; Reads a game palette for backup
-; The "game safe" way to read oalettes
-GAME_COPY_PALETTE: macro address,slot
-	PUSHM  d0/a0-a1
-	lea    \address, a0
-	lea    CurrentPalettes+(size_palette_b*\slot), a1
+; Lerps a palette using game colour system
+; The "game safe" way to fade scene palettes
+GameScenePaletteFadeTo:
+	; a0 --- Palette
+	; d0 (b) Slot
+	; d1 (b) Speed
+	; d2 (b) Ticks per update
+	; d3 (b) Start colour idx
+	; d4 (b) End colour idx
+
+	PUSHM  d0-d4/a0-a1
+
+	andi.l #0xFF, d0
+
+	; Set scene palette
+	PUSHM  d0-d4/a0-a1
+	lea    ScenePalettes, a1
+	mulu   #size_palette_b, d0
+	add.l  d0, a1
 	move.l #(size_palette_b/size_long), d0
-	MEMCPYL a0, a1, d0
-	POPM   d0/a0-a1
-	endm
+	MEMCPYL a1, a0, d0
+	POPM   d0-d4/a0-a1
+
+	; Fade up
+	jsr    PAL_LerpStart
+
+	POPM   d0-d4/a0-a1
+
+	rts
+
+; Lerps a temp palette using game colour system
+; The "game safe" way to fade temporary palettes
+GameTempPaletteFadeTo:
+	; a0 --- Palette
+	; d0 (b) Slot
+	; d1 (b) Speed
+	; d2 (b) Ticks per update
+	; d3 (b) Start colour idx
+	; d4 (b) End colour idx
+
+	PUSHM  d0-d4/a0-a1
+
+	andi.l #0xFF, d0
+
+	; Fade up
+	jsr    PAL_LerpStart
+
+	POPM   d0-d4/a0-a1
+
+	rts
 
 ;==============================================================
 ; Cutscene routines
 ;==============================================================
 
-CutsceneStep_GamePaletteLoad:
+CutsceneStep_GameScenePaletteLoad:
 	; a0 --- Cutscene
 	; a2 --- Palette
 	; d0 ---- Slot
@@ -61,7 +127,7 @@ CutsceneStep_GamePaletteLoad:
 
 	PUSHL  a0
 	move.l a2, a0
-	jsr    GamePaletteLoad
+	jsr    GameScenePaletteLoad
 	POPL   a0
 
 	move.b #0x0, d0
@@ -71,5 +137,5 @@ CutsceneStep_GamePaletteLoad:
 CUTSCENE_GAME_PALETTE_LOAD: macro palette,slotId
 	move.l \palette, a2
 	move.b \slotId, d0
-	CUTSCENE_RUN_STEP CutsceneStep_GamePaletteLoad
+	CUTSCENE_RUN_STEP CutsceneStep_GameScenePaletteLoad
 	endm

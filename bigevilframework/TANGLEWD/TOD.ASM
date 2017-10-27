@@ -77,7 +77,7 @@ SetTimeOfDay:
 	move.b #0x0, d3
 	move.b #TODMaxColours, d4
 	
-	jsr PAL_LerpStart
+	jsr GameScenePaletteFadeTo
 
 	rts
 	

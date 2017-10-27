@@ -54,7 +54,7 @@ DemoDisclaimerScreen_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #DemoDisclaimerScreenNumColours, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
@@ -93,7 +93,7 @@ DemoDisclaimerScreen_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #DemoDisclaimerScreenNumColours, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	bra    @End
 	
 	; Mark end of sequence

@@ -148,7 +148,7 @@ MainMenu_Enter:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
@@ -201,7 +201,7 @@ MainMenu_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    Pal_Nymn_Red, a0
 	move.l #PaletteId_Player, d0
@@ -209,7 +209,7 @@ MainMenu_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	@StartedBgFade:
 	
@@ -265,7 +265,7 @@ MainMenu_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_World0, d0
@@ -273,7 +273,7 @@ MainMenu_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 
 	lea    palette_fade_black, a0
 	move.l #PaletteId_Player, d0
@@ -281,7 +281,7 @@ MainMenu_Update:
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
 	move.l #0xF, d4
-	jsr    PAL_LerpStart
+	jsr    GameScenePaletteFadeTo
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade
