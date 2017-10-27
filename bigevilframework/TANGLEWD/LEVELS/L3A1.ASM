@@ -164,10 +164,6 @@ l3a1_Init:
 	ENTITY_GETBYNAME Fuzzl, l3a1_FuzzlCaged2, a2
 	jsr    FuzzlCageSetFuzzl
 
-	ENTITY_GETBYNAME FuzzlCage, l3a1_FuzzlCage3, a0
-	ENTITY_GETBYNAME Fuzzl, l3a1_FuzzlCaged3, a2
-	jsr    FuzzlCageSetFuzzl
-
 	;==============================================================
 	
 	move.l (Player1), a0

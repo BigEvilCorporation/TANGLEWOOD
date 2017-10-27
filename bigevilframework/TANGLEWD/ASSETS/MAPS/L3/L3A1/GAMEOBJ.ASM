@@ -79,15 +79,13 @@ L3A1_Firefly_64_name	dc.b "L3A1_Firefly_64",0
 	even
 	ENDIF
 
-L3A1_FuzzlCage_count equ 0x3
+L3A1_FuzzlCage_count equ 0x2
 L3A1_FuzzlCage1_idx	equ 0x0
 L3A1_FuzzlCage2_idx	equ 0x1
-L3A1_FuzzlCage3_idx	equ 0x2
 
 	IFND FINAL
 L3A1_FuzzlCage1_name	dc.b "L3A1_FuzzlCage1",0
 L3A1_FuzzlCage2_name	dc.b "L3A1_FuzzlCage2",0
-L3A1_FuzzlCage3_name	dc.b "L3A1_FuzzlCage3",0
 	even
 	ENDIF
 
@@ -103,25 +101,27 @@ L3A1_FuzzlCaged3_name	dc.b "L3A1_FuzzlCaged3",0
 	even
 	ENDIF
 
-L3A1_Stone_count equ 0x8
-L3A1_Stone_36_idx	equ 0x0
+L3A1_Stone_count equ 0x9
+L3A1_Stone_56_idx	equ 0x0
 L3A1_Stone_41_idx	equ 0x1
 L3A1_Stone_51_idx	equ 0x2
 L3A1_Stone_50_idx	equ 0x3
 L3A1_Stone_53_idx	equ 0x4
 L3A1_Stone_54_idx	equ 0x5
 L3A1_Stone_55_idx	equ 0x6
-L3A1_Stone_56_idx	equ 0x7
+L3A1_Stone_66_idx	equ 0x7
+L3A1_Stone_67_idx	equ 0x8
 
 	IFND FINAL
-L3A1_Stone_36_name	dc.b "L3A1_Stone_36",0
+L3A1_Stone_56_name	dc.b "L3A1_Stone_56",0
 L3A1_Stone_41_name	dc.b "L3A1_Stone_41",0
 L3A1_Stone_51_name	dc.b "L3A1_Stone_51",0
 L3A1_Stone_50_name	dc.b "L3A1_Stone_50",0
 L3A1_Stone_53_name	dc.b "L3A1_Stone_53",0
 L3A1_Stone_54_name	dc.b "L3A1_Stone_54",0
 L3A1_Stone_55_name	dc.b "L3A1_Stone_55",0
-L3A1_Stone_56_name	dc.b "L3A1_Stone_56",0
+L3A1_Stone_66_name	dc.b "L3A1_Stone_66",0
+L3A1_Stone_67_name	dc.b "L3A1_Stone_67",0
 	even
 	ENDIF
 
@@ -141,13 +141,11 @@ L3A1_TriggerMusicCue_name	dc.b "L3A1_TriggerMusicCue",0
 	even
 	ENDIF
 
-L3A1_Checkpoint_count equ 0x2
+L3A1_Checkpoint_count equ 0x1
 L3A1_Checkpoint_46_idx	equ 0x0
-L3A1_Checkpoint_47_idx	equ 0x1
 
 	IFND FINAL
 L3A1_Checkpoint_46_name	dc.b "L3A1_Checkpoint_46",0
-L3A1_Checkpoint_47_name	dc.b "L3A1_Checkpoint_47",0
 	even
 	ENDIF
 
@@ -508,18 +506,6 @@ L3A1_LoadGameObjects:
 	ENDIF
 	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
-	jsr FuzzlCageInit
-	move.l #0x0f200000, Entity_WorldPosX(a0)
-	move.l #0x01180000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_FuzzlCage3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr FuzzlCageLoadGfx
-	add.l #FuzzlCage_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L3A1_Fuzzl_count)
@@ -552,8 +538,8 @@ L3A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x0f300000, Entity_WorldPosX(a0)
-	move.l #0x01280000, Entity_WorldPosY(a0)
+	move.l #0x0b380000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCaged3_name, a3
 	move.l a0, a2
@@ -571,10 +557,10 @@ L3A1_LoadGameObjects:
 	POPL   a1
 
 	jsr StoneInit
-	move.l #0x0de80000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.l #0x14880000, Entity_WorldPosX(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L3A1_Stone_36_name, a3
+	lea L3A1_Stone_56_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -655,10 +641,22 @@ L3A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x14880000, Entity_WorldPosX(a0)
-	move.l #0x02f00000, Entity_WorldPosY(a0)
+	move.l #0x0a880000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L3A1_Stone_56_name, a3
+	lea L3A1_Stone_66_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x0b480000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_Stone_67_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -724,18 +722,6 @@ L3A1_LoadGameObjects:
 	ENDIF
 	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
-	jsr CheckpointInit
-	move.l #0x0e080000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_Checkpoint_47_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr CheckpointLoadGfx
-	add.l #Checkpoint_Struct_Size, a0
 
 
 
@@ -759,7 +745,7 @@ L3A1_LoadGameObjects:
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
 	move.l #0x0b900000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Lift1_name, a3
 	move.l a0, a2
