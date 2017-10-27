@@ -49,13 +49,13 @@ L2A2_BouncePlant_count equ 0x4
 L2A2_BouncePlant_5_idx	equ 0x0
 L2A2_BouncePlant_30_idx	equ 0x1
 L2A2_BouncePlant_32_idx	equ 0x2
-L2A2_BouncePlant_53_idx	equ 0x3
+L2A2_BouncePlant_55_idx	equ 0x3
 
 	IFND FINAL
 L2A2_BouncePlant_5_name	dc.b "L2A2_BouncePlant_5",0
 L2A2_BouncePlant_30_name	dc.b "L2A2_BouncePlant_30",0
 L2A2_BouncePlant_32_name	dc.b "L2A2_BouncePlant_32",0
-L2A2_BouncePlant_53_name	dc.b "L2A2_BouncePlant_53",0
+L2A2_BouncePlant_55_name	dc.b "L2A2_BouncePlant_55",0
 	even
 	ENDIF
 
@@ -394,10 +394,10 @@ L2A2_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x0a200000, Entity_WorldPosX(a0)
-	move.l #0x03c80000, Entity_WorldPosY(a0)
+	move.l #0x09280000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L2A2_BouncePlant_53_name, a3
+	lea L2A2_BouncePlant_55_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -436,8 +436,8 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr FireflyInit
-	move.l #0x0a880000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #0x0d600000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L2A2_Firefly_45_name, a3
 	move.l a0, a2

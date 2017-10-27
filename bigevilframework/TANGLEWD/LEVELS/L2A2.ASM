@@ -92,22 +92,13 @@ l2a2_Init:
 	jsr    RainInit
 
 	move.w  #0x0010, WindAccel
-	move.w  #-0x0C00, WindRandStrengthMin
-	move.w  #-0x0F00, WindRandStrengthMax
+	move.w  #-0x0900, WindRandStrengthMin
+	move.w  #-0x0910, WindRandStrengthMax
 	move.w  #0x0170, WindRandDelayMin
 	move.w  #0x0180, WindRandDelayMax
 	move.w  #0x01F0, WindRandDurationMin
 	move.w  #0x0200, WindRandDurationMax
 	move.w  #0x0080, WindDelayTimer
-
-	;==============================================================
-
-	; Connect button to lift
-	;ENTITY_GETBYNAME Button, l2a2_Button1, a0
-	;ENTITY_GETBYNAME Lift, l2a2_Lift1, a1
-	;move.l a1, Button_UserData(a0)
-	;move.l #LiftActivate, Button_OnDown(a0)
-	;move.l #LiftStop, Button_OnUp(a0)
 	
 	rts
 	
