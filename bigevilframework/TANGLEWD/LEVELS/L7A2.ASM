@@ -26,7 +26,8 @@ l7a2_OasisAct2:
 	dc.l l7a2_Serialise					; Serialise routine
 	dc.l l7a2_LoadGameObjects			; Load game objects routine
 	dc.l l7a2_End						; End routine
-	dc.l l7a3_OasisAct3					; Next level
+	;dc.l l7a3_OasisAct3					; Next level
+	dc.l l8a1_TurntailAct1
 	dc.l DefaultGravity					; Default gravity
 	dc.w map_l7a2_width					; Map width (tiles)
 	dc.w map_l7a2_height				; Map height (tiles)
