@@ -340,6 +340,7 @@ SharedVRAM_Pool			rs.w 1
 SharedVRAM_Stalact		rs.w 1
 SharedVRAM_Pillar		rs.w 1
 SharedVRAM_Trap			rs.w 1
+SharedVRAM_Firefly		rs.w 1
 
 SharedVRAM_End			rs.b 0
 
