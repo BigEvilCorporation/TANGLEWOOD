@@ -19,6 +19,7 @@ Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x010000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
+Lift_MinMass			equ 0x4				; Min mass to fall under weight
 
 Lift_RopeLengthDefault	equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)
@@ -356,6 +357,17 @@ LiftProcessCounterweight:
 
 	; Apply diff as velocity
 	sub.w  d0, d1
+
+	; Check reaches threshold
+	cmp.w  #Lift_MinMass, d1
+	bge    @HeavyEnough
+	cmp.w  #-Lift_MinMass, d1
+	ble    @HeavyEnough
+
+	move.w #0x0, d1
+	
+	@HeavyEnough:
+
 	swap   d1
 	move.l d1, PhysicsObj_VelY(a0)
 
