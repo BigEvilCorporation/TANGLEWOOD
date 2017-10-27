@@ -295,6 +295,11 @@ Pause_Render:
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d3		; Palette/flip/priority bits
 	subq.w #0x1, d4
 	@TextLp:
+
+	; If out of sprites, bail
+	cmp.w    #vdp_max_sprites-1, next_sprite_index
+	beq      @OutOfSprites
+
 	PUSHL  d4
 	
 	; Get tile idx
@@ -311,6 +316,7 @@ Pause_Render:
 	POPL   d4
 	dbra   d4, @TextLp
 	
+	@OutOfSprites:
 	@End:
 	
 	POPL   a1

@@ -74,7 +74,7 @@ FireflyLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT firefly,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_SHARED firefly,PaletteId_Fuzzl,0x0
 
 	rts
 	
