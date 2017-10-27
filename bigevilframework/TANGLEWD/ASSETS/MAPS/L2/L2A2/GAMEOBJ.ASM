@@ -31,6 +31,8 @@ L2A2_Leaf_28_name	dc.b "L2A2_Leaf_28",0
 	even
 	ENDIF
 
+L2A2_Trap_count equ 0x0
+
 L2A2_Djubb_count equ 0x0
 
 L2A2_Echo_count equ 0x0
@@ -58,6 +60,8 @@ L2A2_BouncePlant_53_name	dc.b "L2A2_BouncePlant_53",0
 	ENDIF
 
 L2A2_Log_count equ 0x0
+
+L2A2_Borgus_count equ 0x0
 
 L2A2_DjakkCage_count equ 0x0
 
@@ -119,6 +123,8 @@ L2A2_Stone_42_name	dc.b "L2A2_Stone_42",0
 	even
 	ENDIF
 
+L2A2_Demon_count equ 0x0
+
 L2A2_Nest_count equ 0x2
 L2A2_Nest_13_idx	equ 0x0
 L2A2_Nest_43_idx	equ 0x1
@@ -159,6 +165,8 @@ L2A2_WaterBody_count equ 0x0
 
 L2A2_Location_count equ 0x0
 
+L2A2_Lift_count equ 0x0
+
 L2A2_Deathbox_count equ 0x3
 L2A2_Deathbox_9_idx	equ 0x0
 L2A2_Deathbox_10_idx	equ 0x1
@@ -170,8 +178,6 @@ L2A2_Deathbox_10_name	dc.b "L2A2_Deathbox_10",0
 L2A2_Deathbox_11_name	dc.b "L2A2_Deathbox_11",0
 	even
 	ENDIF
-
-L2A2_Lift_count equ 0x0
 
 L2A2_Crate_count equ 0x0
 
@@ -217,11 +223,11 @@ L2A2_Pool_count equ 0x0
 
 L2A2_Ladder_count equ 0x0
 
-L2A2_Demon_count equ 0x0
-
-L2A2_Borgus_count equ 0x0
-
 L2A2_Stalactite_count equ 0x0
+
+L2A2_CargoLift_count equ 0x0
+
+L2A2_Scrap_count equ 0x0
 
 
 
@@ -325,6 +331,7 @@ L2A2_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A2_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -398,6 +405,7 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
@@ -613,6 +621,7 @@ L2A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A2_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -723,6 +732,7 @@ L2A2_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L2A2_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -765,7 +775,6 @@ L2A2_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
-
 
 
 
