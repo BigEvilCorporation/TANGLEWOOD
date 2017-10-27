@@ -495,7 +495,7 @@ __end    ; Very last line, end of ROM address
 
 	inform 0,""
 	inform 0,"-----------------------------------"
-	inform 0,"ROM total size: %d bytes (%dkb)", (__end-__start), ((__end-__start)/1024)
+	inform 0,"ROM total size: 0x%h (%d) bytes (%dkb)", (__end-__start), (__end-__start), ((__end-__start)/1024)
 	inform 0,"-----------------------------------"
 	inform 0,""
 	
