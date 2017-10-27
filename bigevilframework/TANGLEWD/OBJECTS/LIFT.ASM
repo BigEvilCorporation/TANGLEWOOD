@@ -508,6 +508,8 @@ LiftUpdatePhysicsWake:
 	; Check this lift
 	tst.l  PhysicsObj_VelY(a0)			; Check Y vel
 	bne    @WakePhysics					; Wake if moving
+	tst.w  PhysicsObj_AccelY(a0)		; Check Y accel
+	bne    @WakePhysics					; Wake if moving
 	cmp.l  a3, a4						; Wake if occupant changed
 	bne    @WakePhysics
 	tst.b  PhysicsObj_CloseToFloor(a0)	; Wake if in air...
@@ -522,6 +524,8 @@ LiftUpdatePhysicsWake:
 	cmp.l  #0x0, a2
 	beq    @EndSleepCheck
 	tst.l  PhysicsObj_VelY(a2)			; Check Y vel
+	tst.w  PhysicsObj_AccelY(a2)		; Check Y accel
+	bne    @WakePhysics					; Wake if moving
 	bne    @WakePhysics					; Wake if moving
 	cmp.l  a5, a6						; Wake if occupant changed
 	bne    @WakePhysics
