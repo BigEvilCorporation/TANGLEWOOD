@@ -19,7 +19,7 @@ Lift_MaxSpeedUp			equ 0x010000+DefaultGravity	; Max speed hoisting up
 Lift_MaxSpeedDown		equ 0x010000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
-Lift_MinMass			equ 0x4				; Min mass to fall under weight
+Lift_MinMass			equ 0x2				; Min mass to fall under weight
 
 Lift_RopeLengthDefault	equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)

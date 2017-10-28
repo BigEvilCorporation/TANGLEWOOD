@@ -69,6 +69,10 @@ VFX_RevertToScenePalettes:
 VFX_StartScreenEffectGreyscale:
 	; d0 (b) - Palette idx
 	; d1 (b) - Lerped (0) or instant (1)
+	; d2 (w) - Lerp speed
+
+	; Backup lerp speed
+	move.w d2, d5
 	
 	; Backup palette idx
 	clr.l  d7
@@ -135,8 +139,8 @@ VFX_StartScreenEffectGreyscale:
 	; Begin palette lerp
 	move.l a3, a0					; Dest palette address
 	move.l d7, d0					; Palette idx
-	move.w #TimeOfDayCycleSpeed, d1	; Speed
-	move.b #0x1, d2					; Ticks per update
+	move.w d5, d1					; Speed
+	move.b #0x3, d2					; Ticks per update
 	move.b #0x0, d3					; First colour
 	move.b #0xF, d4					; Last colour
 	jsr    PAL_LerpStart

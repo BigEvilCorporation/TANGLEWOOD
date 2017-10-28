@@ -17,7 +17,7 @@ Player1Width	  equ 0x0038
 Player1Height	  equ 0x0030
 
 ; Mass
-Player1Mass		  equ 0x6
+Player1Mass		  equ 0x8
 
 ; Player collision bounds
 Player1BoundsWidth		equ 0x0010
@@ -86,6 +86,7 @@ Player1MaxGlideVelocityY	equ 0x01*subpixels_per_pixel
 
 ; Time ability
 Player1SlowTimeDiv			equ 0x10
+Player1SlowTimeLerpSpeed	equ (0x4<<fade_frame_shift) ; Subframes (1 frame per tick)
 
 ; Lightning ability
 Player1LightningCooldown		equ 0x0200
@@ -605,14 +606,17 @@ PlayerStartColourAbility:
 	; Greyscale palettes
 	move.l #PaletteId_World0, d0
 	move.b #VFXGreyscaleLerp, d1
+	move.w #Player1SlowTimeLerpSpeed, d2
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Monster, d0
 	move.b #VFXGreyscaleLerp, d1
+	move.w #Player1SlowTimeLerpSpeed, d2
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	move.l #PaletteId_Fuzzl, d0
 	move.b #VFXGreyscaleLerp, d1
+	move.w #Player1SlowTimeLerpSpeed, d2
 	jsr    VFX_StartScreenEffectGreyscale
 	
 	POPL a0
