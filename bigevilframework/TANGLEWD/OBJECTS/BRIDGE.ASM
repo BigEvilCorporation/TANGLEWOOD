@@ -221,18 +221,15 @@ BridgeUpdate:
 	addi.l #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
-	bne    @InView
-	
-	@OutOfView:
-	; Out of view, check if updating anyway
-	tst.b  Bridge_UpdateOutOfView(a0)
-	bne    @Update
-	bra    @End
-	
-	@InView:
+	beq    @OutOfView
 	move.b  #0x1, Bridge_InView(a0)
-	
-	@Update:
+	@OutOfView:
+
+	; Force update if moving
+	move.b Bridge_State(a0), d0
+	andi.b #(Bridge_StateRolling|Bridge_StateUnrolling|Bridge_StateDropping), d0
+	beq    @Inactive
+	move.b #0x1, PhysicsObj_ForceUpdate(a0)
 	
 	; Base functionality
 	jsr    SpriteObjUpdate
@@ -300,6 +297,7 @@ BridgeUpdate:
 	jsr    BridgeUpdateDropping
 
 	@End:
+	@Inactive:
 
 	rts
 
