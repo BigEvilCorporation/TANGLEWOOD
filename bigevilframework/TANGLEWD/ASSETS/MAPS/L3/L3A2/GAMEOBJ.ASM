@@ -364,7 +364,7 @@ L3A2_LoadGameObjects:
 
 	jsr BoulderInit
 	move.l #0x0af00000, Entity_WorldPosX(a0)
-	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.l #0x03700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Boulder2_name, a3
 	move.l a0, a2
@@ -410,8 +410,8 @@ L3A2_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x0b280000, Entity_WorldPosX(a0)
-	move.l #0x01f00000, Entity_WorldPosY(a0)
+	move.l #0x0b000000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Firefly_73_name, a3
 	move.l a0, a2
@@ -875,8 +875,8 @@ L3A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x0be00000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
+	move.l #0x0c180000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Checkpoint_61_name, a3
 	move.l a0, a2
@@ -933,7 +933,7 @@ L3A2_LoadGameObjects:
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
 	move.l #0x0af00000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Lift4_name, a3
 	move.l a0, a2
@@ -945,7 +945,7 @@ L3A2_LoadGameObjects:
 	add.l #Lift_Struct_Size, a0
 	jsr LiftInit
 	move.l #0x0a400000, Entity_WorldPosX(a0)
-	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.l #0x02c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A2_Lift3_name, a3
 	move.l a0, a2

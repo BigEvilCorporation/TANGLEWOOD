@@ -71,6 +71,7 @@ l5a4_DemonWaitTimeFade			equ 0x0040	; Time between smirk and greyscale fade
 l5a4_DemonWaitTimeAttack		equ 0x00E0	; Time between fade and attack
 l5a4_DemonWaitTimeEchoEmerge	equ 0x0080	; Time between attack and Echo emerging
 l5a4_ThunderDist				equ 0x1
+l5a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
 
 ; ************************************
 ; Runtime data
@@ -371,6 +372,7 @@ l5a4_Cutscene_GreyscaleFade:
 	PUSHM  a0-a2
 	move.l #PaletteId_World0, d0
 	move.b #VFXGreyscaleLerp, d1
+	move.w #l5a4_GreyscaleLerpSpeed, d2
 	jsr    VFX_StartScreenEffectGreyscale
 	POPM   a0-a2
 
