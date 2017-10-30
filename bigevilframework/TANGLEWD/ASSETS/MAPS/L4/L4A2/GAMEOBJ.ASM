@@ -83,25 +83,33 @@ L4A2_FuzzlYellow2_name	dc.b "L4A2_FuzzlYellow2",0
 	even
 	ENDIF
 
-L4A2_Stone_count equ 0x6
+L4A2_Stone_count equ 0x5
 L4A2_Stone_14_idx	equ 0x0
 L4A2_Stone_17_idx	equ 0x1
 L4A2_Stone_29_idx	equ 0x2
-L4A2_Stone_50_idx	equ 0x3
+L4A2_Stone_52_idx	equ 0x3
 L4A2_Stone_51_idx	equ 0x4
-L4A2_Stone_52_idx	equ 0x5
 
 	IFND FINAL
 L4A2_Stone_14_name	dc.b "L4A2_Stone_14",0
 L4A2_Stone_17_name	dc.b "L4A2_Stone_17",0
 L4A2_Stone_29_name	dc.b "L4A2_Stone_29",0
-L4A2_Stone_50_name	dc.b "L4A2_Stone_50",0
-L4A2_Stone_51_name	dc.b "L4A2_Stone_51",0
 L4A2_Stone_52_name	dc.b "L4A2_Stone_52",0
+L4A2_Stone_51_name	dc.b "L4A2_Stone_51",0
 	even
 	ENDIF
 
 L4A2_Demon_count equ 0x0
+
+L4A2_Raft_count equ 0x2
+L4A2_Raft1_idx	equ 0x0
+L4A2_Raft2_idx	equ 0x1
+
+	IFND FINAL
+L4A2_Raft1_name	dc.b "L4A2_Raft1",0
+L4A2_Raft2_name	dc.b "L4A2_Raft2",0
+	even
+	ENDIF
 
 L4A2_Nest_count equ 0x2
 L4A2_Nest_10_idx	equ 0x0
@@ -206,16 +214,6 @@ L4A2_Winch4_name	dc.b "L4A2_Winch4",0
 	ENDIF
 
 L4A2_WindFlue_count equ 0x0
-
-L4A2_Raft_count equ 0x2
-L4A2_Raft1_idx	equ 0x0
-L4A2_Raft2_idx	equ 0x1
-
-	IFND FINAL
-L4A2_Raft1_name	dc.b "L4A2_Raft1",0
-L4A2_Raft2_name	dc.b "L4A2_Raft2",0
-	even
-	ENDIF
 
 L4A2_Lock_count equ 0x2
 L4A2_Lock2_idx	equ 0x0
@@ -377,8 +375,8 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LogInit
-	move.l #0x0ac00000, Entity_WorldPosX(a0)
-	move.l #0x03a80000, Entity_WorldPosY(a0)
+	move.l #0x0ab00000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Log1_name, a3
 	move.l a0, a2
@@ -483,7 +481,7 @@ L4A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x0af80000, Entity_WorldPosX(a0)
+	move.l #0x0b000000, Entity_WorldPosX(a0)
 	move.l #0x03c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Stone_17_name, a3
@@ -507,10 +505,10 @@ L4A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x11100000, Entity_WorldPosX(a0)
-	move.l #0x02000000, Entity_WorldPosY(a0)
+	move.l #0x16b00000, Entity_WorldPosX(a0)
+	move.l #0x01000000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A2_Stone_50_name, a3
+	lea L4A2_Stone_52_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -530,19 +528,38 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
-	jsr StoneInit
-	move.l #0x16b00000, Entity_WorldPosX(a0)
-	move.l #0x01000000, Entity_WorldPosY(a0)
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L4A2_Raft_count)
+	move.l a1, EntityPoolStart_Raft
+	move.l a1, a0
+	POPL   a1
+
+	jsr RaftInit
+	move.l #0x05480000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A2_Stone_52_name, a3
+	lea L4A2_Raft1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
-	add.l #Stone_Struct_Size, a0
-
+	jsr RaftLoadGfx
+	add.l #Raft_Struct_Size, a0
+	jsr RaftInit
+	move.l #0x0cc80000, Entity_WorldPosX(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Raft2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr RaftLoadGfx
+	add.l #Raft_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A2_Nest_count)
@@ -654,7 +671,7 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr GeneratorInit
-	move.l #0x0b600000, Entity_WorldPosX(a0)
+	move.l #0x0b680000, Entity_WorldPosX(a0)
 	move.l #0x03c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Generator1_name, a3
@@ -673,7 +690,7 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CogsInit
-	move.l #0x0b780000, Entity_WorldPosX(a0)
+	move.l #0x0b800000, Entity_WorldPosX(a0)
 	move.l #0x03500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Cogs1_name, a3
@@ -823,37 +840,6 @@ L4A2_LoadGameObjects:
 	jsr WinchLoadGfx
 	add.l #Winch_Struct_Size, a0
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L4A2_Raft_count)
-	move.l a1, EntityPoolStart_Raft
-	move.l a1, a0
-	POPL   a1
-
-	jsr RaftInit
-	move.l #0x05480000, Entity_WorldPosX(a0)
-	move.l #0x04700000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Raft1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr RaftLoadGfx
-	add.l #Raft_Struct_Size, a0
-	jsr RaftInit
-	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Raft2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr RaftLoadGfx
-	add.l #Raft_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lock_Struct_Size*L4A2_Lock_count)

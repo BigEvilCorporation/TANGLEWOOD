@@ -111,6 +111,8 @@ L4A3_Stone_46_name	dc.b "L4A3_Stone_46",0
 
 L4A3_Demon_count equ 0x0
 
+L4A3_Raft_count equ 0x0
+
 L4A3_Nest_count equ 0x1
 L4A3_Nest_54_idx	equ 0x0
 
@@ -238,8 +240,6 @@ L4A3_Pillar_count equ 0x0
 L4A3_Winch_count equ 0x0
 
 L4A3_WindFlue_count equ 0x0
-
-L4A3_Raft_count equ 0x0
 
 L4A3_Lock_count equ 0x0
 
@@ -566,6 +566,7 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -954,7 +955,6 @@ L4A3_LoadGameObjects:
 	move.b #AIMarker_Type_Barrier, AIMarker_Type(a0)
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 

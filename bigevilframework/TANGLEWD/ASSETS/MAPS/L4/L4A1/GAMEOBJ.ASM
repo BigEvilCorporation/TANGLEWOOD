@@ -97,6 +97,8 @@ L4A1_Stone_37_name	dc.b "L4A1_Stone_37",0
 
 L4A1_Demon_count equ 0x0
 
+L4A1_Raft_count equ 0x0
+
 L4A1_Nest_count equ 0x1
 L4A1_Nest_4_idx	equ 0x0
 
@@ -196,8 +198,6 @@ L4A1_Pillar_count equ 0x0
 L4A1_Winch_count equ 0x0
 
 L4A1_WindFlue_count equ 0x0
-
-L4A1_Raft_count equ 0x0
 
 L4A1_Lock_count equ 0x0
 
@@ -471,6 +471,7 @@ L4A1_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L4A1_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -729,7 +730,6 @@ L4A1_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 

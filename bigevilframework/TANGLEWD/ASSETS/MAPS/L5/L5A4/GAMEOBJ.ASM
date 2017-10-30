@@ -57,6 +57,8 @@ L5A4_Demon_name	dc.b "L5A4_Demon",0
 	even
 	ENDIF
 
+L5A4_Raft_count equ 0x0
+
 L5A4_Nest_count equ 0x0
 
 L5A4_Flue_count equ 0x0
@@ -110,8 +112,6 @@ L5A4_Pillar_count equ 0x0
 L5A4_Winch_count equ 0x0
 
 L5A4_WindFlue_count equ 0x0
-
-L5A4_Raft_count equ 0x0
 
 L5A4_Lock_count equ 0x0
 
@@ -206,6 +206,7 @@ L5A4_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L5A4_TriggerBox_count)
 	move.l a1, EntityPoolStart_TriggerBox
@@ -278,7 +279,6 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr LocationLoadGfx
 	add.l #Location_Struct_Size, a0
-
 
 
 

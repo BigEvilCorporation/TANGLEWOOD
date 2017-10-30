@@ -23,6 +23,6 @@ terrainmap_blockmap_L4A2_height	equ 0x29
 terrainmap_L4A2_num_special_terrain_descs	equ 0x03
 terrainmap_L4A2_special_terrain_descs:
 	dc.w 0x04C8, 0x03F7, 0x0928, 0x03F7, 0x1000	; Left, top, right, bottom, flags
-	dc.w 0x0FA0, 0x037F, 0x1111, 0x037F, 0x1000	; Left, top, right, bottom, flags
+	dc.w 0x0F98, 0x037F, 0x1111, 0x037F, 0x1000	; Left, top, right, bottom, flags
 	dc.w 0x1478, 0x02D7, 0x1638, 0x02D7, 0x1000	; Left, top, right, bottom, flags
 
