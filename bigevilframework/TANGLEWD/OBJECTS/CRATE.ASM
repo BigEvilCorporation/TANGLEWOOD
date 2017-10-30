@@ -9,7 +9,7 @@
 ; Constants
 Crate_Width				equ 0x30
 Crate_Height			equ 0x28
-Crate_Mass				equ 0x8
+Crate_Mass				equ 0x6
 Crate_MaxVelYUp			equ 0x06*subpixels_per_pixel
 Crate_MaxVelYDown		equ 0x08*subpixels_per_pixel
 Crate_StepHeight		equ 0x4
@@ -70,8 +70,8 @@ CrateInit:
 	move.w  #Crate_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Crate_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Crate_Height-1, PhysicsObj_WallProbeBottom(a0)
-	move.w  #(Crate_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
-	move.w  #(Crate_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
+	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
+	move.w  #Crate_Width, PhysicsObj_WallProbeRight(a0)
 	move.l  #Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
 	move.l  #Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
