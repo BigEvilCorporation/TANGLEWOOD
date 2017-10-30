@@ -99,3 +99,46 @@ DebugMoveMode_SpeedMulA		equ 0x0A
 DebugMoveMode_SpeedMulB		equ 0x04
 	ENDIF
 	
+OUTPUT_STRUCT_SIZES	equ 0
+
+	IF OUTPUT_STRUCT_SIZES
+	inform 0,"Actor_Struct_Size: %d",Actor_Struct_Size
+	inform 0,"AIMarker_Struct_Size: %d",AIMarker_Struct_Size
+	inform 0,"Borgus_Struct_Size: %d",Borgus_Struct_Size
+	inform 0,"Boulder_Struct_Size: %d",Boulder_Struct_Size
+	inform 0,"Bridge_Struct_Size: %d",Bridge_Struct_Size
+	inform 0,"Button_Struct_Size: %d",Button_Struct_Size
+	inform 0,"CargoLift_Struct_Size: %d",CargoLift_Struct_Size
+	inform 0,"Cart_Struct_Size: %d",Cart_Struct_Size
+	inform 0,"Checkpoint_Struct_Size: %d",Checkpoint_Struct_Size
+	inform 0,"Crate_Struct_Size: %d",Crate_Struct_Size
+	inform 0,"Deathbox_Struct_Size: %d",Deathbox_Struct_Size
+	inform 0,"DjakkCage_Struct_Size: %d",DjakkCage_Struct_Size
+	inform 0,"Djubb_Struct_Size: %d",Djubb_Struct_Size
+	inform 0,"Echo_Struct_Size: %d",Echo_Struct_Size
+	inform 0,"Flue_Struct_Size: %d",Flue_Struct_Size
+	inform 0,"FuzzlCage_Struct_Size: %d",FuzzlCage_Struct_Size
+	inform 0,"Generator_Struct_Size: %d",Generator_Struct_Size
+	inform 0,"Cogs_Struct_Size: %d",Cogs_Struct_Size
+	inform 0,"Leaf_Struct_Size: %d",Leaf_Struct_Size
+	inform 0,"Lift_Struct_Size: %d",Lift_Struct_Size
+	inform 0,"Location_Struct_Size: %d",Location_Struct_Size
+	inform 0,"Lock_Struct_Size: %d",Lock_Struct_Size
+	inform 0,"Log_Struct_Size: %d",Log_Struct_Size
+	inform 0,"Monster_Struct_Size: %d",Monster_Struct_Size
+	inform 0,"Nest_Struct_Size: %d",Nest_Struct_Size
+	inform 0,"Nymn_Struct_Size: %d",Nymn_Struct_Size
+	inform 0,"Pillar_Struct_Size: %d",Pillar_Struct_Size
+	inform 0,"BouncePlant_Struct_Size: %d",BouncePlant_Struct_Size
+	inform 0,"Pool_Struct_Size: %d",Pool_Struct_Size
+	inform 0,"Raft_Struct_Size: %d",Raft_Struct_Size
+	inform 0,"RopeSegment_Struct_Size: %d",RopeSegment_Struct_Size
+	inform 0,"Stalactite_Struct_Size: %d",Stalactite_Struct_Size
+	inform 0,"Stone_Struct_Size: %d",Stone_Struct_Size
+	inform 0,"Trap_Struct_Size: %d",Trap_Struct_Size
+	inform 0,"TriggerBox_Struct_Size: %d",TriggerBox_Struct_Size
+	inform 0,"WaterBody_Struct_Size: %d",WaterBody_Struct_Size
+	inform 0,"Winch_Struct_Size: %d",Winch_Struct_Size
+	inform 0,"WindFlue_Struct_Size: %d",WindFlue_Struct_Size
+	inform 0,"Wyrm_Struct_Size: %d",Wyrm_Struct_Size
+	ENDIF

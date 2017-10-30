@@ -71,8 +71,10 @@ CargoLiftLoadGfx:
 	POPL  a0
 
 	; Get origin
-	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
-	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
+	; If heading down, offset origin to top, disable gravity
+	move.w Entity_WorldPosY(a0), Lift_TopLimit(a0)
+	move.w Entity_WorldPosY(a0), Lift_BottomLimit(a0)
+	add.w  #Lift_RopeLengthDefault, Lift_BottomLimit(a0)
 
 	rts
 	

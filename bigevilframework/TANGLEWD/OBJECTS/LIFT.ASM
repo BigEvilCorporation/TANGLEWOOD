@@ -20,8 +20,9 @@ Lift_MaxSpeedDown		equ 0x010000				; Max speed falling down
 Lift_FloorHeight		equ 0x000C			; Height from platform bottom to treat as floor for characters
 Lift_PendulumMaxCorrectionVel	equ 0x0080	; Max velocity to initiate correction acceleration
 Lift_MinMass			equ 0x2				; Min mass to fall under weight
+Lift_FallSpeedNoCounterweight	equ 0x00070000	; Fall speed with no counterweight
 
-Lift_RopeLengthDefault	equ (38*8*subpixels_per_pixel)	; TEMP - fetch from lift destination obj
+Lift_RopeLengthDefault	equ (38*8)			; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)
 
 Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*subpixels_per_pixel
@@ -40,10 +41,9 @@ Lift_RopeSegments			rs.l Lift_RopeNumSprites
 Lift_RopeSegment			rs.b SpriteObj_Struct_Size
 	ENDIF
 Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
-Lift_OriginX				rs.l 1	; Origin (won't lower beyond this point)
-Lift_OriginY				rs.l 1
 Lift_LastOccupant			rs.l 1
-Lift_RopeLength				rs.l 1
+Lift_TopLimit				rs.w 1
+Lift_BottomLimit			rs.w 1
 Lift_PlatformOffsetY		rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 Lift_Direction				rs.b 1	; Up/down powered direction
@@ -93,12 +93,16 @@ LiftInit:
 	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.l  #0x0, Lift_CounterWeight(a0)
 	move.l  #0x0, Lift_LastOccupant(a0)
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
 	move.b  #0x0, Lift_Direction(a0)
-	move.l  #Lift_RopeLengthDefault, Lift_RopeLength(a0)
+
+	IF !LIFT_ROPE_SUPPORT_SWING
+	move.b  #0x0, PhysicsObj_CollideWalls(a0)
+	ENDIF
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -196,17 +200,18 @@ LiftLoadGfx:
 
 	POPL   a1
 
-	; Get origin
-	move.l Entity_WorldPosX(a0), Lift_OriginX(a0)
-	move.l Entity_WorldPosY(a0), Lift_OriginY(a0)
-
 	; If heading down, offset origin to top, disable gravity
+	move.w Entity_WorldPosY(a0), Lift_TopLimit(a0)
+	move.w Entity_WorldPosY(a0), Lift_BottomLimit(a0)
+
 	tst.b  Lift_Direction(a0)
 	beq    @Up
-	move.l Lift_RopeLength(a0), d0
-	add.l  d0, Lift_OriginY(a0)
+	add.w  #Lift_RopeLengthDefault, Lift_BottomLimit(a0)
 	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
+	bra    @Down
 	@Up:
+	sub.w  #Lift_RopeLengthDefault, Lift_TopLimit(a0)
+	@Down:
 
 	rts
 
@@ -228,24 +233,32 @@ LiftAttachCounterweightLift:
 	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a2)
 	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a2)
 
-	; Disable height restriction
-	move.b  #0x0, Lift_RestrictHeight(a0)
-	move.b  #0x0, Lift_RestrictHeight(a2)
+	; Enable height restriction
+	move.b  #0x1, Lift_RestrictHeight(a0)
+	move.b  #0x1, Lift_RestrictHeight(a2)
+
+	; Use current positions as min/max
+	move.w  Entity_WorldPosY(a0), d0
+	move.w  Entity_WorldPosY(a2), d1
+	cmp.w   d0, d1
+	bgt     @LiftATop
+	move.w  d1, Lift_TopLimit(a0)
+	move.w  d1, Lift_TopLimit(a2)
+	move.w  d0, Lift_BottomLimit(a0)
+	move.w  d0, Lift_BottomLimit(a2)
+	bra @LiftBTop
+	@LiftATop:
+	move.w  d0, Lift_TopLimit(a0)
+	move.w  d0, Lift_TopLimit(a2)
+	move.w  d1, Lift_BottomLimit(a0)
+	move.w  d1, Lift_BottomLimit(a2)
+	@LiftBTop:
 
 	; Remove counterweight from update list
 	PUSHL   a0
 	move.l  a2, a0
 	jsr     EntityRemoveFromUpdateList
 	POPL    a0
-
-	; Physics cannot sleep
-	;move.b #0x0, PhysicsObj_CanSleep(a0)
-	;move.b #0x0, PhysicsObj_CanSleep(a2)
-
-	; HACK: Fixes off-screen counterweights
-	; TODO: Update each other
-	;move.b  #0x1, AnimObj_UpdateOutOfView(a0)
-	;move.b  #0x1, AnimObj_UpdateOutOfView(a2)
 
 	rts
 
@@ -355,25 +368,77 @@ LiftProcessCounterweight:
 	clr.l  d1
 	move.w Platform_TotalMass(a3), d1
 
-	; Apply diff as velocity
-	sub.w  d0, d1
+	; Get diff
+	move.w d1, d3
+	sub.w  d0, d3
 
 	; Check reaches threshold
-	cmp.w  #Lift_MinMass, d1
+	cmp.w  #Lift_MinMass, d3
 	bge    @HeavyEnough
-	cmp.w  #-Lift_MinMass, d1
+	cmp.w  #-Lift_MinMass, d3
 	ble    @HeavyEnough
 
-	move.w #0x0, d1
+	move.w #0x0, d3
 	
 	@HeavyEnough:
 
-	swap   d1
-	move.l d1, PhysicsObj_VelY(a0)
+	; If one side unoccupied, use hard-coded fall velocity
+	tst.w  d3
+	beq    @UnoccupiedBoth
+	tst.w  d0
+	beq    @UnoccupiedA
+	tst.w  d1
+	beq    @UnoccupiedB
+
+	; else if both occupied, use mass diff as velocity
+	swap   d3
+	move.l d3, PhysicsObj_VelY(a0)
 
 	; Negate for other platform
-	neg.l  d1
-	move.l d1, PhysicsObj_VelY(a2)
+	neg.l  d3
+	move.l d3, PhysicsObj_VelY(a2)
+
+	bra    @EndWeightDiff
+
+	@UnoccupiedA:
+	move.l #Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a0)
+	move.l #-Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a2)
+	bra    @EndWeightDiff
+	@UnoccupiedB:
+	move.l #-Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a0)
+	move.l #Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a2)
+	bra    @EndWeightDiff
+	@UnoccupiedBoth:
+	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_VelY(a2)
+
+	; Get total force affecting both playforms
+	;clr.l  d0
+	;clr.l  d1
+	;lea    Lift_Platform(a0), a3
+	;lea    Lift_Platform(a2), a4
+	;move.l Platform_LastOccupant(a3), a5
+	;move.l Platform_LastOccupant(a4), a6
+	;cmp.l  #0x0, a5
+	;beq    @NoOccupant1
+	;move.w PhysicsObj_LastAppliedVelY(a5), d0
+	;@NoOccupant1:
+	;cmp.l  #0x0, a6
+	;beq    @NoOccupant2
+	;move.w PhysicsObj_LastAppliedVelY(a6), d1
+	;@NoOccupant2:
+
+	;; Apply diff
+	;sub.w  d1, d0
+
+	;swap   d0
+	;move.l d0, PhysicsObj_VelY(a0)
+
+	;; Negate for other platform
+	;neg.l  d0
+	;move.l d0, PhysicsObj_VelY(a2)
+
+	@EndWeightDiff:
 
 	;==============================================================
 
@@ -386,8 +451,6 @@ LiftProcessCounterweight:
 	beq    @ThisLiftInAir
 
 	; On floor, stop both lifts
-	;move.w #0x0, PhysicsObj_AccelY(a0)
-	;move.w #0x0, PhysicsObj_AccelY(a2)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.l #0x0, PhysicsObj_VelY(a2)
 	bra    @EndCounterweight
@@ -395,8 +458,6 @@ LiftProcessCounterweight:
 	@ThisLiftInAir:
 
 	; In air, start moving lifts in opposite directions
-	;move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
-	;move.w #Lift_AccelY, PhysicsObj_AccelY(a2)
 	bra    @EndCounterweight
 
 	@ThisLiftHeadingUp:
@@ -412,8 +473,6 @@ LiftProcessCounterweight:
 	beq    @OtherLiftInAir
 
 	; On floor, stop both lifts
-	;move.w #0x0, PhysicsObj_AccelY(a0)
-	;move.w #0x0, PhysicsObj_AccelY(a2)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.l #0x0, PhysicsObj_VelY(a2)
 	bra    @EndCounterweight
@@ -421,19 +480,11 @@ LiftProcessCounterweight:
 	@OtherLiftInAir:
 	
 	; In air, start moving lifts in opposite directions
-	;move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
-	;move.w #-Lift_AccelY, PhysicsObj_AccelY(a2)
 	bra    @EndCounterweight
 
 	@OtherLiftHeadingUp:
 
-	;==============================================================
-
-	; Both lifts unoccupied, stop
-	;move.w #0x0, PhysicsObj_AccelY(a0)
-	;move.w #0x0, PhysicsObj_AccelY(a2)
-	;move.l #0x0, PhysicsObj_VelY(a0)
-	;move.l #0x0, PhysicsObj_VelY(a2)
+	; Both lifts unoccupied
 
 	@EndCounterweight:
 
@@ -450,19 +501,21 @@ LiftRestrictHeight:
 	beq    @NoRestrictHeight
 	
 	; Don't fall beyond rope length
-	move.l Entity_WorldPosY(a0), d0
-	move.l Lift_OriginY(a0), d1
-	cmp.l  d0, d1
-	bgt    @WithinRopeBottom
-	move.l d1, Entity_WorldPosY(a0)
-	@WithinRopeBottom:
-
-	sub.l  Lift_RopeLength(a0), d1
-	cmp.l  d0, d1
-	blt    @WithinRopeTop
-	move.l d1, Entity_WorldPosY(a0)
+	move.w Entity_WorldPosY(a0), d0
+	move.w Lift_TopLimit(a0), d1
+	cmp.w  d0, d1
+	ble    @WithinRopeTop
+	move.w d1, Entity_WorldPosY(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
 	@WithinRopeTop:
+
+	move.w Entity_WorldPosY(a0), d0
+	move.w Lift_BottomLimit(a0), d1
+	cmp.w  d0, d1
+	bge    @WithinRopeBottom
+	move.w d1, Entity_WorldPosY(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	@WithinRopeBottom:
 
 	@NoRestrictHeight:
 
@@ -643,8 +696,8 @@ LiftUpdateAsCounterweight:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	jsr    LiftRestrictHeight
 	jsr    PhysicsObjUpdate
+	jsr    LiftRestrictHeight
 	jsr    LiftUpdatePlatform
 
 	rts
@@ -733,14 +786,14 @@ LiftUpdate:
 	; Wake physics if something's changed
 	jsr    LiftUpdatePhysicsWake
 
-	; Restrict height
-	jsr    LiftRestrictHeight
-
 	; Process audio
 	jsr    LiftUpdateAudio
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
+
+	; Restrict height
+	jsr    LiftRestrictHeight
 
 	; Update counterweight
 	PUSHL  a0

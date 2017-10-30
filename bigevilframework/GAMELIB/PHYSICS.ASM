@@ -8,6 +8,7 @@
 
 	rsset 0
 ;-----------------------------------------
+	LINKED_LIST PhysicsObjs					; PhysicsObjs
 PhysicsWorld_Gravity				rs.l 1
 PhysicsWorld_Wind					rs.l 1
 PhysicsWorld_GroundHeight			rs.l 1
@@ -18,7 +19,22 @@ PhysicsWorld_Struct_Pad				rs.b 2
 PhysicsWorld_Struct_Size			rs.b 0
 ;-----------------------------------------
 
+PhysicsWorldInit:
+	lea    PhysicsWorld, a3
+	move.l #PhysicsWorld_Struct_Size, d0
+	MEMZEROB a3,d0
+	rts
+
+PhysicsWorldAddObject:
+	; a0 --- Object
+
+	lea    PhysicsWorld, a3
+	MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3
+
+	rts
+
 PhysicsWorldPreStep:
+	; a1 --- Level
 
 	; Get moving platform count
 	LIST_GET_SIZE MovingPlatforms,d0
@@ -91,6 +107,17 @@ PhysicsWorldPreStep:
 	@NoBarrierChange:
 	lea    PhysicsWorld, a3
 	move.b d2, PhysicsWorld_MovingBarriersUpdated(a3)
+
+	; Run all physics pre-updates
+	lea    PhysicsWorld, a3
+	MLIST_GET_HEAD PhysicsObjs,a0,a3		; Get list head
+	@ObjLp:									; For all objs in list
+	cmp.l  #0x0, a0
+	beq    @ListEnd
+	jsr    PhysicsObjPreStep
+	LIST_GET_NEXT PhysicsObjs,a0,a0			; Get next ptr
+	bra    @ObjLp							; Loop
+	@ListEnd:
 
 	rts
 

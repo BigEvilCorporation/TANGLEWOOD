@@ -25,6 +25,7 @@ PhysicsObjMaxSnapToFloorDist		equ 0x10
 ;==============================================================
 	rsset AnimObj_Struct_Size
 ;---------------------------------
+	LINKED_LIST_NODE PhysicsObjs    ; Linked list entry for all physics objects
 	LINKED_LIST_NODE PushableObjs   ; Linked list entry for pushable objects
 ;---------------------------------
 PhysicsObj_LastWall         	rs.l 1 ; Last detected wall X
@@ -110,6 +111,9 @@ PhysicsObjInit:
 	
 	; Set type
 	ori.l  #entity_type_physicsobj, Entity_TypeBits(a0)
+
+	LIST_INIT_LINK PhysicsObjs,a0
+	LIST_INIT_LINK PushableObjs,a0
 	
 	move.l #0x0, PhysicsObj_LastWall(a0)
 	move.l #0x0, PhysicsObj_LastFloor(a0)
@@ -166,9 +170,12 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_AffectedByWind(a0)
 	move.b #0x0, PhysicsObj_ForceUpdate(a0)
 
+	; Add to physics objs
+	jsr    PhysicsWorldAddObject
+
 	rts
 
-PhysicsObjUpdate:
+PhysicsObjPreStep:
  	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
@@ -186,9 +193,7 @@ PhysicsObjUpdate:
 	or.l   PhysicsObj_VelY(a0), d0
 	or.w   PhysicsObj_AccelX(a0), d0
 	or.w   PhysicsObj_AccelY(a0), d0
-	;or.b   PhysicsObj_OnPlatform(a0), d0
-	;or.b   PhysicsWorld_MovingPlatformsUpdated(a2), d0
-	;or.b   PhysicsWorld_MovingBarriersUpdated(a2), d0
+	or.l   PhysicsObj_LastFloorVelocity(a0), d0
 	or.l   PhysicsObj_ImpulseX(a0), d0
 	or.l   PhysicsObj_ImpulseY(a0), d0
 	beq    @Asleep
@@ -299,6 +304,10 @@ PhysicsObjUpdate:
 	@End:
 	@Inactive:
 	
+	rts
+
+PhysicsObjUpdate:
+
 	; Base functionality
 	jsr AnimObjUpdate
 	
@@ -625,12 +634,12 @@ PhysicsObjApplyVelocity:
 	; Apply speed div
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
+	;DIVS1616_LOSSY d1, d0
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWaterX
-	DIVS1616_LOSSY_FIXED #0x2, d0
+	;DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterX:
 	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
@@ -647,12 +656,12 @@ PhysicsObjApplyVelocity:
 	; Apply speed div
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
+	;DIVS1616_LOSSY d1, d0
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWaterY
-	DIVS1616_LOSSY_FIXED #0x2, d0
+	;DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterY:
 	
 	move.l Entity_WorldPosY(a0), d1		; Get Y pos
@@ -703,6 +712,8 @@ PhysicsObjCollisionCorrection:
 	move.b PhysicsObj_OnFloor(a0), d4
 
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
+	move.l PhysicsObj_LastFloorVelocity(a0), d0		; Get last floor velocity
+
 	tst.l  d2
 	beq    @Uninitialised							; First frame, uninitialised
 	clr.l  d3
@@ -716,7 +727,8 @@ PhysicsObjCollisionCorrection:
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
 	; If hit floor this frame, handle bounce
-	clr.l  d0										; Zero Y velocity by default
+	tst.l  d0										; Only if not a moving platform
+	bne    @NoBounceY
 	clr.l  d1
 	tst.b  d4
 	bne    @NoBounceY
@@ -730,7 +742,7 @@ PhysicsObjCollisionCorrection:
 	DIVS1616_LOSSY d1, d0							; Div by bounce
 	@NoBounceY:
 
-	move.l d0, PhysicsObj_VelY(a0)					; Clear Y velocity
+	move.l d0, PhysicsObj_VelY(a0)					; Take platform's Y velocity
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
@@ -759,6 +771,12 @@ PhysicsObjCollisionCorrection:
 	@SnapToFloor:
 	add.l  d3, d2
 	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
+	tst.l  d0
+	ble    @PlatformDown
+	move.l d0, PhysicsObj_VelY(a0)					; Take platform's Y velocity if heading up
+	@PlatformDown:
+	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
+	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	@EndSnapToFloor:
 
 	@Uninitialised:
@@ -886,6 +904,10 @@ PhysicsObjFindFloor:
 	tst.b  d0
 	bne    @SkipVelocityCheck
 	
+	; If on moving platform, skip velocity checks
+	tst.l  PhysicsObj_LastFloorVelocity(a0)
+	bne    @SkipVelocityCheck
+	
 	; Check if positive Y velocity (don't bother finding floor)
 	move.l PhysicsObj_VelY(a0), d3
 	tst.l  d3
@@ -899,6 +921,7 @@ PhysicsObjFindFloor:
 
 	; Clear last found floor and flags
 	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.w #0x0, PhysicsObj_LastTerrainFlags(a0)
 	
 	;==============================================================
@@ -943,7 +966,6 @@ PhysicsObjFindFloor:
 	beq   @NoPlatform
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
-	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
@@ -1006,18 +1028,21 @@ PhysicsObjFindFloor:
 	bne    @NextPlatform
 	@CollideSpecialPlatform:
 	
-	; Success
+	; Found a platform within step height
 	clr.l  d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	TOSUBPIXELS d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
-	
+	move.l a3, PhysicsObj_LastPlatform(a0)
+	move.b #0x1, PhysicsObj_OnPlatform(a0)
+
 	; Add platform X velocity
 	move.l Platform_VelX(a3), d2
 	add.l  d2, Entity_WorldPosX(a0)
 
 	; Set last Y velocity
-	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
+	move.l Platform_VelY(a3), d7
+	move.l d7, PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
 	clr.w  d2
@@ -1027,10 +1052,8 @@ PhysicsObjFindFloor:
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
 
-	; Mark object on platform
+	; Set platform last occupant
 	move.l a0, Platform_LastOccupant(a3)
-	move.l a3, PhysicsObj_LastPlatform(a0)
-	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
 	bra    @FoundPlatform
 	
@@ -1889,14 +1912,16 @@ PhysicsObjSnapToFloor:
 	beq    @NoFloorFound
 	
 	ENTITY_GETBOTTOM d1,a0					; Get Y bottom
-	cmp.l  #PhysicsObjMaxSnapToFloorDist, d1; Check within max snap distance
+	move.l d2, d3
+	sub.l  d1, d3
+	cmp.l  #(PhysicsObjMaxSnapToFloorDist*subpixels_per_pixel), d3; Check within max snap distance
 	bgt    @FloorTooFar
 	
 	move.w Entity_Height(a0), d3			; Get height
 	TOSUBPIXELS d3							; Height to world space
 	sub.l  d3, d2							; Floor to floor probe space
 	move.l d2, Entity_WorldPosY(a0) 		; Set Y pos
-	move.l #0x0, PhysicsObj_VelY(a0)		; Zero object's Y velocity
+	move.l PhysicsObj_LastFloorVelocity(a0), PhysicsObj_VelY(a0)	; Take platform's Y velocity
 	move.b #0x1, PhysicsObj_OnFloor(a0)		; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0); Set object close to floor flag
 	

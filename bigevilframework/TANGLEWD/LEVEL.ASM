@@ -151,6 +151,9 @@ GameStateReset:
 	@NoLevel:
 	@NoUserData:
 
+	; Reset physics world
+	jsr    PhysicsWorldInit
+
 	; Reset weather
 	jsr    WeatherInit
 

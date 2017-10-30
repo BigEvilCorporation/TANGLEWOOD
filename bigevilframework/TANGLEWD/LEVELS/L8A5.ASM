@@ -141,10 +141,7 @@ l8a5_Init:
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l8a5_Lift1, a0
 	ENTITY_GETBYNAME Location, l8a5_LocationLiftStop, a1
-	move.l Entity_WorldPosY(a0), d0
-	move.l Entity_WorldPosY(a1), d1
-	sub.l  d1, d0
-	move.l d0, Lift_RopeLength(a0)
+	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
 	move.b #0x1, Lift_RestrictHeight(a0)
 
 	;==============================================================

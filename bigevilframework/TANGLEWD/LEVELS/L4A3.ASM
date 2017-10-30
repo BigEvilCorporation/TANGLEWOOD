@@ -136,10 +136,7 @@ l4a3_Init:
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a0
 	ENTITY_GETBYNAME Location, l4a3_LocationBoulderLiftStop, a1
-	move.l Entity_WorldPosY(a0), d0
-	move.l Entity_WorldPosY(a1), d1
-	sub.l  d1, d0
-	move.l d0, Lift_RopeLength(a0)
+	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
 	move.b #0x1, Lift_RestrictHeight(a0)
 
 	; Connect button to lift
