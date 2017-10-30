@@ -128,6 +128,7 @@ DemonInit:
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
 
 	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l  #Demon_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.l  #Demon_WalkToRunVel, Character_WalkToRunVel(a0)
 	move.w  #Demon_AccelWalk, Character_AccelWalk(a0)

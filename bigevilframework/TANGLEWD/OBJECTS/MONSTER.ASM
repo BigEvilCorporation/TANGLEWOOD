@@ -200,6 +200,7 @@ MonsterInit:
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	
 	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.l  #Monster_WalkToRunVel, Character_WalkToRunVel(a0)
 	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)

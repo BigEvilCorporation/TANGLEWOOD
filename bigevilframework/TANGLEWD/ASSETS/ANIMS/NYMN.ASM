@@ -362,7 +362,7 @@ spriteanim_nymn_glide_track_sfx:
 
 spriteanim_nymn_wade:
 spriteanim_nymn_wade_numframes: equ 0x8
-spriteanim_nymn_wade_speed: equ 0xF
+spriteanim_nymn_wade_speed: equ 0x33
 spriteanim_nymn_wade_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 	Even

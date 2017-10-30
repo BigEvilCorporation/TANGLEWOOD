@@ -147,6 +147,7 @@ DjrakeInit:
 	move.w  #Djrake_StepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.l  #Djrake_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Djrake_MaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l  #Djrake_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.l  #Djrake_MaxVelXWalk, Character_WalkToRunVel(a0)
 	move.w  #Djrake_AccelWalk, Character_AccelWalk(a0)

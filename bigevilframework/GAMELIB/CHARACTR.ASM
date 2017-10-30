@@ -75,6 +75,7 @@ Character_JumpCancelVelHi	rs.l 1
 Character_MaxGrabUpVel		rs.l 1
 Character_MaxVelXRun		rs.l 1
 Character_MaxVelXWalk		rs.l 1
+Character_MaxVelXWater		rs.l 1
 Character_WalkToRunVel		rs.l 1
 Character_ClimbVel			rs.l 1
 Character_LastLedgeX		rs.l 1
@@ -807,7 +808,13 @@ CharacterAllowRun:
 	; Set max X velocity and snap to floor flag
 	tst.b  Character_Walking(a0)
 	beq    @Running
+	tst.b  Character_InWater(a0)
+	bne    @InWater
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
+	bra    @NotInWater
+	@InWater:
+	move.l Character_MaxVelXWater(a0), PhysicsObj_MaxVelFloorX(a0)
+	@NotInWater:
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	bra    @Walking
 	@Running:
@@ -835,7 +842,13 @@ CharacterPreventRun:
 	; Set max X velocity and snap to floor flag
 	tst.b  Character_Walking(a0)
 	beq    @Running
+	tst.b  Character_InWater(a0)
+	bne    @InWater
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
+	bra    @NotInWater
+	@InWater:
+	move.l Character_MaxVelXWater(a0), PhysicsObj_MaxVelFloorX(a0)
+	@NotInWater:
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	bra    @Walking
 	@Running:

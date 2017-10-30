@@ -139,7 +139,7 @@ spriteanim_echo_afraid_track_sfx:
 
 spriteanim_echo_wade:
 spriteanim_echo_wade_numframes: equ 0x8
-spriteanim_echo_wade_speed: equ 0x19
+spriteanim_echo_wade_speed: equ 0x33
 spriteanim_echo_wade_track_frames:
 	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
 	Even

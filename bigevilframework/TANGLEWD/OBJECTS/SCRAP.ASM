@@ -98,6 +98,7 @@ ScrapInit:
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
 	move.l #Scrap_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l #Scrap_MaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l #Scrap_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.l #Scrap_WalkToRunVel, Character_WalkToRunVel(a0)
 	move.w #Scrap_AccelWalk, Character_AccelWalk(a0)

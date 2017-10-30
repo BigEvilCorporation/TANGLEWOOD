@@ -128,6 +128,7 @@ WyrmInit:
 	move.b  #0x0, PhysicsObj_CollideBarriers(a0)
 
 	move.l  #Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #Wyrm_MaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l  #Wyrm_MaxVelXRun, Character_MaxVelXRun(a0)
 	move.w  #Wyrm_AccelWalk, Character_AccelWalk(a0)
 	move.w  #Wyrm_AccelRun, Character_AccelRun(a0)

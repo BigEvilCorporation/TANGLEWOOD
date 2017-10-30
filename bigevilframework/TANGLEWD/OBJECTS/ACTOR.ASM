@@ -91,6 +91,8 @@ ActorInit:
 	move.w  #ActorStepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.l  #ActorMaxVelXWalk, Character_MaxVelXWalk(a0)
+	move.l  #ActorMaxVelXWalk, Character_MaxVelXWater(a0)
+	move.l  #ActorMaxVelXWalk, Character_MaxVelXWater(a0)
 	move.l  #ActorMaxVelXRun, Character_MaxVelXRun(a0)
 	move.w  #ActorAccelWalk, Character_AccelWalk(a0)
 	move.w  #ActorAccelRun, Character_AccelRun(a0)
