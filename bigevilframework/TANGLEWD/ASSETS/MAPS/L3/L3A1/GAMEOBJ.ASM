@@ -101,9 +101,9 @@ L3A1_FuzzlCaged3_name	dc.b "L3A1_FuzzlCaged3",0
 	even
 	ENDIF
 
-L3A1_Stone_count equ 0x9
+L3A1_Stone_count equ 0xa
 L3A1_Stone_56_idx	equ 0x0
-L3A1_Stone_41_idx	equ 0x1
+L3A1_Stone_69_idx	equ 0x1
 L3A1_Stone_51_idx	equ 0x2
 L3A1_Stone_50_idx	equ 0x3
 L3A1_Stone_53_idx	equ 0x4
@@ -111,10 +111,11 @@ L3A1_Stone_54_idx	equ 0x5
 L3A1_Stone_55_idx	equ 0x6
 L3A1_Stone_66_idx	equ 0x7
 L3A1_Stone_67_idx	equ 0x8
+L3A1_Stone_68_idx	equ 0x9
 
 	IFND FINAL
 L3A1_Stone_56_name	dc.b "L3A1_Stone_56",0
-L3A1_Stone_41_name	dc.b "L3A1_Stone_41",0
+L3A1_Stone_69_name	dc.b "L3A1_Stone_69",0
 L3A1_Stone_51_name	dc.b "L3A1_Stone_51",0
 L3A1_Stone_50_name	dc.b "L3A1_Stone_50",0
 L3A1_Stone_53_name	dc.b "L3A1_Stone_53",0
@@ -122,6 +123,7 @@ L3A1_Stone_54_name	dc.b "L3A1_Stone_54",0
 L3A1_Stone_55_name	dc.b "L3A1_Stone_55",0
 L3A1_Stone_66_name	dc.b "L3A1_Stone_66",0
 L3A1_Stone_67_name	dc.b "L3A1_Stone_67",0
+L3A1_Stone_68_name	dc.b "L3A1_Stone_68",0
 	even
 	ENDIF
 
@@ -370,6 +372,7 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #0x10, PhysicsObj_Mass(a0)
 	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
 
@@ -538,7 +541,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
 	jsr FuzzlInit
-	move.l #0x0b380000, Entity_WorldPosX(a0)
+	move.l #0x0ae00000, Entity_WorldPosX(a0)
 	move.l #0x02500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_FuzzlCaged3_name, a3
@@ -569,10 +572,10 @@ L3A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
-	move.l #0x13d80000, Entity_WorldPosX(a0)
-	move.l #0x01180000, Entity_WorldPosY(a0)
+	move.l #0x0f700000, Entity_WorldPosX(a0)
+	move.l #0x01280000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L3A1_Stone_41_name, a3
+	lea L3A1_Stone_69_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -657,6 +660,18 @@ L3A1_LoadGameObjects:
 	move.l #0x01c80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Stone_67_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr StoneLoadGfx
+	add.l #Stone_Struct_Size, a0
+	jsr StoneInit
+	move.l #0x10200000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L3A1_Stone_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -806,8 +821,8 @@ L3A1_LoadGameObjects:
 	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
 	jsr CrateInit
-	move.l #0x0f600000, Entity_WorldPosX(a0)
-	move.l #0x01b00000, Entity_WorldPosY(a0)
+	move.l #0x0ff00000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L3A1_Crate_43_name, a3
 	move.l a0, a2

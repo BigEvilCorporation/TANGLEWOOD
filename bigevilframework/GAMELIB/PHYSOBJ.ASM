@@ -634,12 +634,12 @@ PhysicsObjApplyVelocity:
 	; Apply speed div
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
-	;DIVS1616_LOSSY d1, d0
+	DIVS1616_LOSSY d1, d0
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWaterX
-	;DIVS1616_LOSSY_FIXED #0x2, d0
+	DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterX:
 	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
@@ -656,12 +656,12 @@ PhysicsObjApplyVelocity:
 	; Apply speed div
 	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
-	;DIVS1616_LOSSY d1, d0
+	DIVS1616_LOSSY d1, d0
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWaterY
-	;DIVS1616_LOSSY_FIXED #0x2, d0
+	DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterY:
 	
 	move.l Entity_WorldPosY(a0), d1		; Get Y pos
