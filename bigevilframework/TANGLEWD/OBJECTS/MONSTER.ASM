@@ -1199,7 +1199,9 @@ MonsterUpdateTrackPlayer:
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
 	
-	; Check if lost player timeout reached
+	; Check if lost player timeout reached (if not Elder)
+	cmp.b  #MonsterType_Elder, Monster_Type(a0)
+	beq    @NoTimer
 	cmp.w  #-1, Monster_LoseSightTimer(a0)
 	beq    @NoTimer
 	cmp.w  #Monster_PlayerLostSightTime, Monster_LoseSightTimer(a0)
