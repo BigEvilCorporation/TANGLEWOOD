@@ -35,7 +35,7 @@ PillarInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    PhysicsObjInit
+	jsr    SpriteObjInit
 	
 	; Count
 	addq.w #0x1, EntityCount_Pillar
