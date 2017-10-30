@@ -911,11 +911,11 @@ PhysicsObjFindFloor:
 	; Check if positive Y velocity (don't bother finding floor)
 	move.l PhysicsObj_VelY(a0), d3
 	tst.l  d3
-	bgt    @EndFloorTest
+	bgt    @MovingFloorsOnly
 	
 	; Check if zero X and Y velocity (don't bother finding floor)
 	or.l   PhysicsObj_VelX(a0), d3
-	beq    @EndFloorTest
+	beq    @MovingFloorsOnly
 
 	@SkipVelocityCheck:
 
@@ -1168,8 +1168,14 @@ PhysicsObjFindFloor:
 	@EndFloorTest:
 	
 	move.l d2, PhysicsObj_LastFloor(a0)		; Store last found floor
+	bra    @End
+
+	@MovingFloorsOnly:
+
+	jsr    PhysicsObjFindMovingFloor
 	
 	@FoundPlatform:
+	@End:
 	
 	rts
 	
