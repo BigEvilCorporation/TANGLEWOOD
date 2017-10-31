@@ -74,6 +74,9 @@ EndLevel_Update:
 	
 	; Set current level ptr
 	move.l (CurrentLevel), a1
+
+	; Update physics
+	jsr    PhysicsWorldPreStep
 	
 	; Update game objects
 	jsr    EntityUpdateAll

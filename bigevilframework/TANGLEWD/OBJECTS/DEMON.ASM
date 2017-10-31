@@ -195,6 +195,8 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT wisp_idle,wisp_idle,Wisp_Animation,0,1,0,0
 	lea     Wisp_Animation(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPM    a0-a1
 
@@ -331,6 +333,8 @@ DemonStartEmerge:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_WispToEmerge)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -350,6 +354,8 @@ DemonEmerge:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Emerge)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -366,6 +372,8 @@ DemonSmirk:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_IdleToSmirk)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -382,6 +390,8 @@ DemonAttack:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Bite)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 

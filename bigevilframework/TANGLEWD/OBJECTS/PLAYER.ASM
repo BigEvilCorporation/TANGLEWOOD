@@ -378,6 +378,8 @@ PlayerBeginSleep:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_LieDown*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -399,6 +401,8 @@ PlayerUpdateSleep:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -418,6 +422,8 @@ PlayerBeginIdleSnooze:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -455,6 +461,8 @@ PlayerUpdateIdleSnooze:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Wake*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -484,6 +492,8 @@ PlayerUpdateIdleAnim:
 	PUSHL  a1
 	lea    Player_Animations+(Animation_Struct_Size*PlayerAnimIdx_IdleLookBack)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	addq.b #0x1, Player_IdleTimeoutCount(a0)
 	POPL   a1
@@ -501,6 +511,8 @@ PlayerUpdateIdleAnim:
 	PUSHL  a1
 	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation										; Start next one-shot idle anim
 	POPL   a1
 	@NotInterrupted:
@@ -540,6 +552,8 @@ PlayerBeginColourSwitch:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Switch*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -1203,6 +1217,8 @@ PlayerMountPet:
 	PUSHM  a0-a2
 	lea    Player_Animations+(PlayerAnimIdx_Mount*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 		
@@ -1362,6 +1378,8 @@ PlayerUpdateMount:
 	PUSHM  a0-a2
 	lea    Character_Animations+(CharacterAnimIdx_RideTrot*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 	
@@ -1475,6 +1493,8 @@ PlayerForwardPetControls:
 	PUSHM  a0-a2
 	lea    Character_Animations+(CharacterAnimIdx_RideJump*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPM   a0-a2
 
@@ -1810,6 +1830,8 @@ PlayerBeginPermadeath:
 	PUSHL   a1
 	lea     Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Dead)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 

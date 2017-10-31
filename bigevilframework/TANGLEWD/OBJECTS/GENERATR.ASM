@@ -78,6 +78,8 @@ GeneratorInit:
 	PUSHL  a1
 	lea    Generator_Animations+(Animation_Struct_Size*GeneratorAnimIdx_Spin)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

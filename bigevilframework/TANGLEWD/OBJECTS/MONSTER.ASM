@@ -656,6 +656,8 @@ MonsterRoar:
 	move.l a1, -(sp)
 	lea    Monster_Animations+(MonsterAnimIdx_Roar*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
 	move.b #0x1, AnimObj_Playing(a0)
@@ -746,6 +748,8 @@ MonsterSetInCage:
 	PUSHL  a1
 	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -761,6 +765,8 @@ MonsterStartWaitForPlayer:
 	move.l a1, -(sp)
 	lea    Monster_Animations+(MonsterAnimIdx_Eyes*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
 
@@ -1353,6 +1359,8 @@ MonsterStartBite:
 	move.l a1, -(sp)
 	lea    Monster_Animations+(MonsterAnimIdx_Bite*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	move.l (sp)+, a1
 
@@ -1495,6 +1503,8 @@ MonsterStartBucking:
 	move.l a1, -(sp)
 	lea    Monster_Animations+(MonsterAnimIdx_Buck*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
 	move.b #0x1, AnimObj_Playing(a0)

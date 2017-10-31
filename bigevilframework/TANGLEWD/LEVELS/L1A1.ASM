@@ -113,6 +113,8 @@ l1a1_Init:
 	
 	; Start sleep anim
 	lea    (Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size))(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	
 	; Take control of anim updates
@@ -145,6 +147,8 @@ l1a1_Update:
 	PUSHL  a2
 	move.l (Player1), a0
 	lea    Player_Animations+(PlayerAnimIdx_Wake*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a2
 	POPL   a1

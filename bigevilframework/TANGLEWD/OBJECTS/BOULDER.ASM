@@ -140,6 +140,8 @@ BoulderInit:
 	PUSHL  a1
 	lea    Boulder_Animations+(Animation_Struct_Size*BoulderAnimIdx_Roll)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -160,6 +162,8 @@ BoulderLoadGfx:
 	PUSHL  a1
 	lea    Boulder_Animations+(Animation_Struct_Size*BoulderAnimIdx_Crack)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -200,6 +204,8 @@ BoulderUpdate:
 	PUSHL  a1
 	lea    Boulder_Animations+(Animation_Struct_Size*BoulderAnimIdx_Roll)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -374,6 +380,8 @@ BoulderCrack:
 	PUSHL  a1
 	lea    Boulder_Animations+(Animation_Struct_Size*BoulderAnimIdx_Crack)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

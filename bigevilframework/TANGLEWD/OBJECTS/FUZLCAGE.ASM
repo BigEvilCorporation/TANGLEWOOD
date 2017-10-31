@@ -328,6 +328,8 @@ FuzzlCageSmash:
 	PUSHL  a1
 	lea    FuzzlCage_Animations+(Animation_Struct_Size*FuzzlCageAnimIdx_Smash)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

@@ -201,6 +201,8 @@ NymnUpdate:
 	PUSHL  a1
 	lea    Nymn_Animations+(NymnAnimIdx_PickupEcho*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -400,6 +402,8 @@ NymnLookUp:
 	PUSHL  a1
 	lea    Nymn_Animations+(NymnAnimIdx_LookUp*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -469,6 +473,8 @@ NymnEndCarryEcho:
 	PUSHL  a1
 	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	move.b #0x1, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -496,6 +502,8 @@ NymnHowl:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

@@ -191,6 +191,8 @@ ScrapBark:
 	PUSHL   a1
 	lea     Scrap_Animations+(Animation_Struct_Size*ScrapAnimIdx_Bark)(a0), a1
 	move.b  #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 

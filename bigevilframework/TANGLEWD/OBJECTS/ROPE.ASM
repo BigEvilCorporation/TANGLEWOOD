@@ -67,6 +67,8 @@ RopeSegmentInit:
 	PUSHL  a1
 	move.l a3, a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

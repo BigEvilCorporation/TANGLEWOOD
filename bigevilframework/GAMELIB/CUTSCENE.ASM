@@ -157,6 +157,8 @@ CutsceneStep_CharacterAnim:
 	
 	; Run
 	move.b #0x1, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 
 	move.b #0x0, d0

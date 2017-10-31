@@ -90,6 +90,8 @@ ButtonLoadGfx:
 	lea    Button_Animation(a0), a1
 	move.w #0x0, Animation_Speed(a1)
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

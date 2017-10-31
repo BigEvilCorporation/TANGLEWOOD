@@ -532,6 +532,8 @@ l3a3MeetEchoBeginStage_Hide:
 	; Start hide anim
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -614,6 +616,8 @@ l3a3MeetEchoBeginStage_WaitDjakkDead:
 	
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_Scared*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -683,6 +687,8 @@ l3a3MeetEchoBeginStage_StandUp:
 	
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_StandFromHiding*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -768,6 +774,8 @@ l3a3MeetEchoBeginStage_JumpNymn:
 	
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_PounceNymn*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -807,6 +815,8 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_GreetNymn*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -825,6 +835,8 @@ l3a3MeetEchoBeginStage_GreetNymn:
 	
 	PUSHL  a1
 	lea    Echo_Animations+(NymnAnimIdx_GreetEcho*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -859,6 +871,8 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	; Set idle anim
 	PUSHL  a1
 	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	

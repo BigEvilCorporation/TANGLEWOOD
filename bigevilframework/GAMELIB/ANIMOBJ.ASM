@@ -13,6 +13,8 @@
 ;--------------------------
 AnimObj_CurrentAnim		 rs.l 1 ; Current Animation data
 AnimObj_AnimSubFrame     rs.l 1 ; Current subframe
+AnimObj_OnFinished       rs.l 1 ; On animation finished callback
+AnimObj_OnFinishedData   rs.l 1 ; Callback userdata (a0)
 AnimObj_SpeedDiv  	     rs.b 1 ; Anim speed div
 AnimObj_Playing  	     rs.b 1 ; Anim currently playing
 AnimObj_Reverse			 rs.b 1 ; Play in reverse
@@ -38,6 +40,8 @@ AnimObjInit:
 	; Set default state
 	move.l #0x0, AnimObj_CurrentAnim(a0)
 	move.l #0x0, AnimObj_AnimSubFrame(a0)
+	move.l #0x0, AnimObj_OnFinished(a0)
+	move.l #0x0, AnimObj_OnFinishedData(a0)
 	move.b #0x1, AnimObj_SpeedDiv(a0)
 	move.b #0x0, AnimObj_Playing(a0)
 	move.b #0x0, AnimObj_Dirty(a0)
@@ -122,7 +126,7 @@ AnimObjUpdate:
 	
 	; End of non-looping anim, stop playing
 	move.b #0x0, AnimObj_Playing(a0)
-	bra    @EndLoop
+	bra    @EndOfAnim
 	
 	@LoopingAnim:
 	@NotAtEnd:
@@ -144,13 +148,27 @@ AnimObjUpdate:
 	move.b #0x1, AnimObj_UploadFrame(a0)
 	
 	; No longer dirty
-	move.b  #0x0, AnimObj_Dirty(a0)
+	move.b #0x0, AnimObj_Dirty(a0)
+
+	bra    @End
+
+	@EndOfAnim:
+
+	; Fire callback
+	move.l AnimObj_OnFinished(a0), a2
+	cmp.l  #0x0, a2
+	beq    @End
+	PUSHL  a0
+	move.l AnimObj_OnFinishedData(a0), a0
+	jsr    (a2)
+	POPL   a0
 	
 	@InvisibleOrInactive:
 	@NoAnim:
 	@ZeroSpeed:
 	@EndLoop:
 	@NoFrameChange:
+	@End:
 	
 	rts
 
@@ -273,10 +291,12 @@ AnimObjDraw:
 AnimObjSetAnimation:
 	; a0 --- AnimObj addr
 	; a1 --- Anim address
+	; a2 --- On finished callback
+	; a3 --- Callback userdata (fired in a0)
 	; d0 (b) Force
 	
 	; Get current anim
-	move.l AnimObj_CurrentAnim(a0), a2
+	move.l AnimObj_CurrentAnim(a0), a4
 
 	; Skip change check if forced
 	tst.b  d0
@@ -284,11 +304,11 @@ AnimObjSetAnimation:
 
 	; If not playing and allowed to replay, reset
 	move.b AnimObj_Playing(a0), d0
-	or.b   Animation_NoReplay(a2), d0
+	or.b   Animation_NoReplay(a4), d0
 	beq    @SkipChangeCheck
 	
 	; Check if changed
-	cmp.l  a1, a2
+	cmp.l  a1, a4
 	beq    @NoChange
 
 	@SkipChangeCheck:
@@ -303,18 +323,22 @@ AnimObjSetAnimation:
 	move.b #0x1, AnimObj_Dirty(a0)
 
 	; Reset draw offset if no offset tracks
-	cmp.l  #0x0, Animation_AnimTrackPositionX(a2)
+	cmp.l  #0x0, Animation_AnimTrackPositionX(a4)
 	bne    @HasTrackX
 	move.w #0x0, SpriteObj_DrawOffsetX(a0)
 	@HasTrackX:
 
-	cmp.l  #0x0, Animation_AnimTrackPositionY(a2)
+	cmp.l  #0x0, Animation_AnimTrackPositionY(a4)
 	bne    @HasTrackY
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 	@HasTrackY:
 	
 	; Set current anim
 	move.l a1, AnimObj_CurrentAnim(a0)
+
+	; Set callback
+	move.l a2, AnimObj_OnFinished(a0)
+	move.l a3, AnimObj_OnFinishedData(a0)
 	
 	@NoChange:
 	

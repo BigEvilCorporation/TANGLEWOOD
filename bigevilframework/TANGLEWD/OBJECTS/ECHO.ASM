@@ -440,6 +440,8 @@ EchoUpdateRiding:
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_MountNymn*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -492,6 +494,8 @@ EchoUpdateRiding:
 	
 	; Apply animation
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	
 	move.l (sp)+, a1
@@ -617,6 +621,8 @@ EchoStartHiding:
 	; Start hide anim
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -636,6 +642,8 @@ EchoStopHiding:
 	; Get up
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_StandFromHiding*Animation_Struct_Size)(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
@@ -678,6 +686,8 @@ EchoBeginCarried:
 	PUSHL  a1
 	lea    Echo_Animations+(EchoAnimIdx_JumpToNymn*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 	
@@ -742,6 +752,8 @@ EchoHowl:
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
 

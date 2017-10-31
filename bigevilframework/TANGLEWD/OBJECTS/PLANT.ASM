@@ -237,6 +237,8 @@ BouncePlantUpdate:
 	;PUSHL  a1
 	;lea    BouncePlant_Animations+(BouncePlantAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	;move.b #0x0, d0
+	;move.l #0x0, a2
+	;move.l #0x0, a3
 	;jsr    AnimObjSetAnimation
 	;POPL   a1
 
@@ -264,6 +266,8 @@ BouncePlant_Activate:
 	;PUSHL  a1
 	;lea    BouncePlant_Animations+(BouncePlantAnimIdx_Active*Animation_Struct_Size)(a0), a1
 	;move.b #0x0, d0
+	;move.l #0x0, a2
+	;move.l #0x0, a3
 	;jsr    AnimObjSetAnimation
 	;POPL   a1
 
