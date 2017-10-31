@@ -41,6 +41,38 @@ spriteanim_borgus_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+spriteanim_borgus_death:
+spriteanim_borgus_death_numframes: equ 0x3
+spriteanim_borgus_death_speed: equ 0x19
+spriteanim_borgus_death_track_frames:
+	dc.b 0x0, 0x1, 0x2
+	Even
+spriteanim_borgus_death_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_borgus_death_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+spriteanim_borgus_death_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
+spriteanim_borgus_attack:
+spriteanim_borgus_attack_numframes: equ 0x5
+spriteanim_borgus_attack_speed: equ 0x28
+spriteanim_borgus_attack_track_frames:
+	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+	Even
+spriteanim_borgus_attack_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_borgus_attack_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+spriteanim_borgus_attack_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 spriteanim_borgus_spit:
 spriteanim_borgus_spit_numframes: equ 0x4
 spriteanim_borgus_spit_speed: equ 0x14

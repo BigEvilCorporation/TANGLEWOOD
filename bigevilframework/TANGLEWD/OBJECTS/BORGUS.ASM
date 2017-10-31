@@ -37,11 +37,13 @@ Borgus_DefaultSpitTime	equ 0x0100
 Borgus_SpitOffsetX		equ 0x0030
 Borgus_SpitOffsetY		equ 0x0040
 Borgus_SpitAnimFrame	equ 0x2
+Borgus_SwipeAnimFrame1	equ 0x2
+Borgus_SwipeAnimFrame2	equ 0x4
 
 Borgus_PlayerDamage		equ 0xFF
 
 ; AI
-Borgus_AIFollowDistance	equ 0x0060
+Borgus_AIFollowDistance	equ 0x0018
 
 ; Spitball
 BorgusSpitball_Width			equ 0x0038
@@ -56,18 +58,23 @@ BorgusSpitball_MaxVel			equ 0x00040000
 BorgusAIState_Idle		equ 0x0
 BorgusAIState_Follow	equ 0x1
 BorgusAIState_Spit		equ 0x2
+BorgusAIState_Swipe		equ 0x3
+BorgusAIState_Dead		equ 0x4
+BorgusAIState_Dying		equ 0x5
 
 ; Animations
 BorgusAnimIdx_Spit		equ 0x0
+BorgusAnimIdx_Swipe		equ 0x1
+BorgusAnimIdx_Dead		equ 0x2
 ;------------------------------
-BorgusAnimIdx_Max		equ 0x1
+BorgusAnimIdx_Max		equ 0x3
 
 ;==============================================================
 
 	rsset (PhysicsObj_Struct_Size)
 ;-----------------------------
 Spitball_Animation			rs.b Animation_Struct_Size
-;-----------------------------
+;----------------------------- 
 Spitball_Struct_Pad			rs.b 0   ; Alignment padding
 Spitball_Struct_Size		rs.b 0
 ;-----------------------------
@@ -142,10 +149,10 @@ BorgusInit:
 	move.l  #0x0, Borgus_Fuzzl(a0)
 
 	; Setup collision bounds
-	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
-	move.w  #0x0, PhysicsObj_BoundsTop(a0)
-	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
-	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	move.w  #Borgus_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
+	move.w  #Borgus_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
+	move.w  #Borgus_BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #Borgus_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 
 	; Init spitball
 	PUSHL   a0
@@ -179,6 +186,8 @@ BorgusLoadGfx:
 
 	; Load bespoke animations
 	ANIM_LOAD_DEFAULT Borgus_spit,Borgus_spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0
+	ANIM_LOAD_DEFAULT Borgus_attack,Borgus_attack,Borgus_Animations,BorgusAnimIdx_Swipe,0,1,0
+	ANIM_LOAD_DEFAULT Borgus_death,Borgus_death,Borgus_Animations,BorgusAnimIdx_Dead,0,1,0
 
 	; Load spitball and start animation
 	PUSHM   a0-a1
@@ -187,6 +196,8 @@ BorgusLoadGfx:
 	ANIM_LOAD_DEFAULT spitball_spitball,spitball_move,Spitball_Animation,0,1,0,0
 	lea     Spitball_Animation(a0), a1
 	move.b  #0x0, d0
+	move.l  #0x0, a2
+	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPM    a0-a1
 
@@ -199,14 +210,17 @@ BorgusUpdate:
 	; If dying
 	tst.b  Character_Dead(a0)
 	beq    @NotDead
-	; TODO: Death state
-	cmp.b  #BorgusAIState_Idle, Borgus_AIState(a0)
-	beq    @NotDead
+	cmp.b  #BorgusAIState_Dead, Borgus_AIState(a0)
+	beq    @Dead
+	cmp.b  #BorgusAIState_Dying, Borgus_AIState(a0)
+	beq    @Dying
 
 	; Spit Fuzzl out then die
 	jsr    BorgusAIStart_Spit
 
 	@NotDead:
+	@Dead:
+	@Dying:
 
 	; Update AI state
 	move.b Borgus_AIState(a0), d0
@@ -216,6 +230,12 @@ BorgusUpdate:
 	beq    @AIFollow
 	cmp.b  #BorgusAIState_Spit, d0
 	beq    @AISpit
+	cmp.b  #BorgusAIState_Dying, d0
+	beq    @AIDying
+	cmp.b  #BorgusAIState_Swipe, d0
+	beq    @AISwipe
+	cmp.b  #BorgusAIState_Dead, d0
+	beq    @AIDead
 
 	@AIIdle:
 	bra    @EndAI
@@ -225,7 +245,16 @@ BorgusUpdate:
 	bra    @EndAI
 
 	@AISpit:
+	@AIDying:
 	jsr    BorgusAIUpdate_Spit
+	bra    @EndAI
+
+	@AISwipe:
+	jsr    BorgusAIUpdate_Swipe
+	bra    @EndAI
+
+	@AIDead:
+	jsr    BorgusAIUpdate_Dead
 	bra    @EndAI
 
 	@EndAI:
@@ -337,7 +366,25 @@ BorgusAIUpdate_Follow:
 	bra    @EndFollow
 
 	@WithinBounds:
+
+	; Stop moving
 	jsr    CharacterCancelXMovement
+
+	; If player not already dead
+	move.l Player1, a2
+	tst.b  Character_Dead(a2)
+	bne    @EndFollow
+	
+	; If touching player, swipe
+	move.l Player1, a2
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @EndFollow
+
+	; Swipe attack
+	jsr    BorgusAIStart_Swipe
 	
 	@EndFollow:
 
@@ -361,15 +408,41 @@ BorgusAIStart_Spit:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Character_Dead(a0)
+	bne    @Dead
+
 	; Set state
 	move.b #BorgusAIState_Spit, Borgus_AIState(a0)
 
-	; Start spit animation
+	; Start spit animation (then back to follow state)
 	PUSHL  a1
 	lea    Borgus_Animations+(BorgusAnimIdx_Spit*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
+	move.l #BorgusAIStart_Follow, a2
+	move.l a0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	bra    @NotDead
+
+	@Dead:
+
+	; Set state
+	move.b #BorgusAIState_Dying, Borgus_AIState(a0)
+
+	; Start spit animation (then to death state)
+	PUSHL  a1
+	lea    Borgus_Animations+(BorgusAnimIdx_Spit*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #BorgusAIStart_Dead, a2
+	move.l a0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Prevent base character death aim
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	@NotDead:
 
 	rts
 
@@ -389,10 +462,6 @@ BorgusAIUpdate_Spit:
 
 	; Fire Fuzzl
 	jsr    BorgusFireFuzzl
-
-	; TODO: Death state
-	move.b #BorgusAIState_Idle, Borgus_AIState(a0)
-
 	bra    @End
 
 	@FireSpitball:
@@ -402,12 +471,92 @@ BorgusAIUpdate_Spit:
 
 	@FireFuzzl:
 
-	; Back to follow state
-	jsr    BorgusAIStart_Follow
-
 	@NotHitFrame:
 	@End:
 
+	rts
+
+BorgusAIStart_Swipe:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Start swipe animation
+	PUSHL  a1
+	lea    Borgus_Animations+(BorgusAnimIdx_Swipe*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #BorgusAIStart_Follow, a2
+	move.l a0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Set state
+	move.b #BorgusAIState_Swipe, Borgus_AIState(a0)
+
+	rts
+
+BorgusAIUpdate_Swipe:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If at swipe frame
+	move.l AnimObj_AnimSubframe(a0), d0
+	lsr.l  #0x8, d0
+	cmp.b  #Borgus_SwipeAnimFrame1, d0
+	beq    @HitFrame
+
+	move.l AnimObj_AnimSubframe(a0), d0
+	lsr.l  #0x8, d0
+	cmp.b  #Borgus_SwipeAnimFrame2, d0
+	beq    @HitFrame
+
+	bra    @NotHitFrame
+
+	@HitFrame:
+
+	; If touching player, deal damage
+	move.l Player1, a2
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NoDamage
+
+	PUSHL  a0
+	move.l Player1, a0
+	move.b #Borgus_PlayerDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+
+	@NoDamage:
+
+	@NotHitFrame:
+
+	rts
+
+BorgusAIStart_Dead:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Start death animation
+	PUSHL  a1
+	lea    Borgus_Animations+(BorgusAnimIdx_Dead*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Prevent base character death aim
+	move.b #0x0, Character_UpdateAnim(a0)
+
+	; Set state
+	move.b #BorgusAIState_Dead, Borgus_AIState(a0)
+
+	rts
+
+BorgusAIUpdate_Dead:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 	rts
 
 BorgusFireSpitball:

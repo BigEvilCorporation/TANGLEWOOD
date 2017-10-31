@@ -63,6 +63,8 @@ L8A4_Demon_name	dc.b "L8A4_Demon",0
 	even
 	ENDIF
 
+L8A4_Raft_count equ 0x0
+
 L8A4_Nest_count equ 0x0
 
 L8A4_Flue_count equ 0x0
@@ -140,8 +142,6 @@ L8A4_Pillar_count equ 0x0
 L8A4_Winch_count equ 0x0
 
 L8A4_WindFlue_count equ 0x0
-
-L8A4_Raft_count equ 0x0
 
 L8A4_Lock_count equ 0x0
 
@@ -251,6 +251,7 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 
@@ -406,7 +407,6 @@ L8A4_LoadGameObjects:
 	ENDIF
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 

@@ -84,6 +84,12 @@ l4a1_Init:
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay
 
+	; Set TOD palettes
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
 	;==============================================================
 
 	; Load scene animations

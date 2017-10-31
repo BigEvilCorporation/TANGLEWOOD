@@ -21,17 +21,15 @@ L4A3_Trap3_name	dc.b "L4A3_Trap3",0
 	even
 	ENDIF
 
-L4A3_Djubb_count equ 0x4
+L4A3_Djubb_count equ 0x3
 L4A3_Djubb_16_idx	equ 0x0
-L4A3_Djubb_17_idx	equ 0x1
+L4A3_Djubb_21_idx	equ 0x1
 L4A3_Djubb_20_idx	equ 0x2
-L4A3_Djubb_21_idx	equ 0x3
 
 	IFND FINAL
 L4A3_Djubb_16_name	dc.b "L4A3_Djubb_16",0
-L4A3_Djubb_17_name	dc.b "L4A3_Djubb_17",0
-L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
 L4A3_Djubb_21_name	dc.b "L4A3_Djubb_21",0
+L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
 	even
 	ENDIF
 
@@ -139,16 +137,15 @@ L4A3_TriggerLevelEnd_name	dc.b "L4A3_TriggerLevelEnd",0
 
 L4A3_Checkpoint_count equ 0x0
 
-L4A3_WaterBody_count equ 0x9
+L4A3_WaterBody_count equ 0x8
 L4A3_WaterBody_6_idx	equ 0x0
 L4A3_WaterBody_7_idx	equ 0x1
 L4A3_WaterBody_8_idx	equ 0x2
 L4A3_WaterBody_9_idx	equ 0x3
 L4A3_WaterBody_10_idx	equ 0x4
-L4A3_WaterBody_11_idx	equ 0x5
-L4A3_WaterBody_12_idx	equ 0x6
+L4A3_WaterBody_55_idx	equ 0x5
+L4A3_WaterBody_14_idx	equ 0x6
 L4A3_WaterBody_13_idx	equ 0x7
-L4A3_WaterBody_14_idx	equ 0x8
 
 	IFND FINAL
 L4A3_WaterBody_6_name	dc.b "L4A3_WaterBody_6",0
@@ -156,10 +153,9 @@ L4A3_WaterBody_7_name	dc.b "L4A3_WaterBody_7",0
 L4A3_WaterBody_8_name	dc.b "L4A3_WaterBody_8",0
 L4A3_WaterBody_9_name	dc.b "L4A3_WaterBody_9",0
 L4A3_WaterBody_10_name	dc.b "L4A3_WaterBody_10",0
-L4A3_WaterBody_11_name	dc.b "L4A3_WaterBody_11",0
-L4A3_WaterBody_12_name	dc.b "L4A3_WaterBody_12",0
-L4A3_WaterBody_13_name	dc.b "L4A3_WaterBody_13",0
+L4A3_WaterBody_55_name	dc.b "L4A3_WaterBody_55",0
 L4A3_WaterBody_14_name	dc.b "L4A3_WaterBody_14",0
+L4A3_WaterBody_13_name	dc.b "L4A3_WaterBody_13",0
 	even
 	ENDIF
 
@@ -325,10 +321,10 @@ L4A3_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
-	move.l #0x0ae00000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.l #0x01980000, Entity_WorldPosX(a0)
+	move.l #0x03880000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A3_Djubb_17_name, a3
+	lea L4A3_Djubb_21_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -341,18 +337,6 @@ L4A3_LoadGameObjects:
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Djubb_20_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DjubbLoadGfx
-	add.l #Djubb_Struct_Size, a0
-	jsr DjubbInit
-	move.l #0x01980000, Entity_WorldPosX(a0)
-	move.l #0x03880000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Djubb_21_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -408,7 +392,7 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BorgusInit
-	move.l #0x0fb00000, Entity_WorldPosX(a0)
+	move.l #0x0fa00000, Entity_WorldPosX(a0)
 	move.l #0x05180000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Borgus_name, a3
@@ -430,7 +414,7 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BoulderInit
-	move.l #0x10400000, Entity_WorldPosX(a0)
+	move.l #0x10300000, Entity_WorldPosX(a0)
 	move.l #0x05500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Boulder1_name, a3
@@ -532,7 +516,7 @@ L4A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 	jsr StoneInit
 	move.l #0x0c700000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x04f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_Stone_28_name, a3
 	move.l a0, a2
@@ -596,8 +580,8 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x0c800000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #0x0bb80000, Entity_WorldPosX(a0)
+	move.l #0x05280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_TriggerBorgus_name, a3
 	move.l a0, a2
@@ -721,34 +705,10 @@ L4A3_LoadGameObjects:
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
 	jsr WaterBodyInit
-	move.l #0x0a400000, Entity_WorldPosX(a0)
+	move.l #0x0ac80000, Entity_WorldPosX(a0)
 	move.l #0x05900000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L4A3_WaterBody_11_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr WaterBodyLoadGfx
-	add.l #WaterBody_Struct_Size, a0
-	jsr WaterBodyInit
-	move.l #0x0ac00000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_WaterBody_12_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr WaterBodyLoadGfx
-	add.l #WaterBody_Struct_Size, a0
-	jsr WaterBodyInit
-	move.l #0x0d900000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_WaterBody_13_name, a3
+	lea L4A3_WaterBody_55_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -768,6 +728,18 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr WaterBodyLoadGfx
 	add.l #WaterBody_Struct_Size, a0
+	jsr WaterBodyInit
+	move.l #0x0d900000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_WaterBody_13_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr WaterBodyLoadGfx
+	add.l #WaterBody_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L4A3_Location_count)
@@ -777,7 +749,7 @@ L4A3_LoadGameObjects:
 
 	jsr LocationInit
 	move.l #0x0ce00000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x04f00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A3_LocationBoulderLiftStop_name, a3
 	move.l a0, a2

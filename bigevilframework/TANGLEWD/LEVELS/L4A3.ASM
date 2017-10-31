@@ -82,6 +82,12 @@ l4a3_Init:
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay
 
+	; Set TOD palettes
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+
 	;==============================================================
 
 	; Load scene animations
@@ -444,18 +450,11 @@ l4a3_CutsceneRevealBorgus:
 
 	; Lerp camera to Borgus and back
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x20
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
-
-	; TEMP
-	CUTSCENE_DELAY #0x0030
-	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromUpdateList
-	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromRenderList
 
 	CUTSCENE_END
 
