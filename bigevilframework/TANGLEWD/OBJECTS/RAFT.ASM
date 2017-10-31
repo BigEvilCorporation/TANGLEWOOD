@@ -13,9 +13,10 @@ Raft_Mass				equ 0x08
 Raft_Decel				equ 0x00000400
 Raft_WallProbeLeft		equ 0x0000
 Raft_WallProbeRight		equ Raft_Width
-Rafy_WallProbeBottom	equ Raft_Height+0x08
+Raft_WallProbeBottom	equ Raft_Height+0x08
 Raft_PlatformOffsetX	equ 0x0000
-Raft_PlatformOffsetY	equ 0x0005
+Raft_PlatformOffsetY	equ 0x0000
+Raft_FloatOffsetY		equ 0x4
 Raft_SineAmplitude		equ 0x03
 Raft_SineSpeed			equ 0x04
 
@@ -55,7 +56,7 @@ RaftInit:
 	move.l  Level_Gravity(a1), PhysicsObj_MaxVelYDown(a0)
 	move.w  #Raft_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Raft_WallProbeRight, PhysicsObj_WallProbeRight(a0)
-	move.w  #Rafy_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Raft_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.b  #Raft_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
@@ -63,6 +64,10 @@ RaftInit:
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_Buoyant(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Offset draw pos by float height
+	; TODO: animate this
+	move.w  #Raft_FloatOffsetY, SpriteObj_DrawOffsetY(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -105,7 +110,7 @@ RaftUpdate:
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	addi.l #Raft_PlatformOffsetX*subpixels_per_pixel, d0
-	addi.l #Raft_PlatformOffsetY*subpixels_per_pixel, d1
+	addi.l #(Raft_PlatformOffsetY+Raft_FloatOffsetY)*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
 	move.l PhysicsObj_VelX(a0), Platform_VelX(a2)
