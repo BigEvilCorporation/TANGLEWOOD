@@ -79,7 +79,7 @@ AnimObjUpdate:
 	bne    @SkipSpeedTest
 	
 	; Skip if speed == 0
-	tst.b  d0
+	tst.w  d0
 	beq    @ZeroSpeed
 
 	@SkipSpeedTest:

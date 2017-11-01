@@ -8,10 +8,10 @@
 
 ; Constants
 Pool_Width				equ 0xA0
-Pool_Height				equ 0x60
+Pool_Height				equ 0x40
 Pool_SpriteWidth		equ 0x20
 Pool_SpriteHeight		equ 0x20
-Pool_MinWaterHeight		equ 0x18
+Pool_MinWaterHeight		equ 0x08
 Pool_DefaultWaterSpeed	equ 0x01
 
 	rsset (AnimObj_Struct_Size)
@@ -22,8 +22,12 @@ Pool_OnFinished			rs.l 1	; On finished raising/lowering callback
 Pool_OnFinishedData		rs.l 1	; Callback userdata (a0)
 Pool_WaterHeight		rs.w 1
 Pool_WaterSpeed			rs.w 1
+Pool_FilledTileVRAM		rs.w 1	; VRAM address of the "filled" tile
+Pool_PrevScrollX		rs.w 1
+Pool_PrevScrollY		rs.w 1
+Pool_DirtyMap			rs.b 1
 ;-----------------------------
-Pool_Struct_Pad			rs.b 0
+Pool_Struct_Pad			rs.b 3
 Pool_struct_Size		rs.b 0
 ;-----------------------------
 
@@ -53,6 +57,13 @@ PoolInit:
 	move.w #Pool_Height, Pool_WaterHeight(a0)
 	move.w #0x0, Pool_WaterSpeed(a0)
 	move.l #0x0, Pool_OnFinished(a0)
+	move.b #0x0, Pool_DirtyMap(a0)
+	move.w #0x0, Pool_FilledTileVRAM(a0)
+	move.w #0x0, Pool_PrevScrollX(a0)
+	move.w #0x0, Pool_PrevScrollY(a0)
+
+	; Invisible according to sprite engine (manually drawn)
+	move.b #0x0, SpriteObj_Visible(a0)
 
 	; Setup platform
 	lea    Pool_Platform(a0), a2
@@ -70,10 +81,41 @@ PoolLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED pool,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT pool,PaletteId_World0,0x0
 
 	; Load animation
-	;ANIM_LOAD_DEFAULT Pool_raise,Pool_raise,Pool_Animation,0,0,0,0
+	ANIM_LOAD_DEFAULT Pool_filling,Pool_filling,Pool_Animation,0,1,0,0
+
+	; Set animation (stopped)
+	PUSHL  a1
+	lea    Pool_Animation(a0), a1
+	move.w #(Pool_DefaultWaterSpeed<<8), Animation_Speed(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	move.b #0x0, AnimObj_Playing(a0)
+	POPL   a1
+
+	; Set water anim at top
+	move.l #(spriteanim_pool_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
+
+	; Set dirty
+	move.b #0x1, AnimObj_UploadFrame(a0)
+
+	; Set VRAM map dirty
+	move.b #0x1, Pool_DirtyMap(a0)
+
+	; Alloc VRAM for filled tile
+	move.w #size_tile_b, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, Pool_FilledTileVRAM(a0)
+
+	; Load filled tile
+	PUSHL  a0
+	lea    spritesheet_pool_filled, a0
+	moveq  #0x1, d1
+	jsr    VDP_LoadTilesDMA
+	POPL   a0
 
 	rts
 
@@ -81,8 +123,29 @@ PoolUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Base functionality
+	; Base functionality (lie about visibility, we'll draw ourself)
+	move.b #0x1, SpriteObj_SpriteLinked(a0)
 	jsr    AnimObjUpdate
+
+	; If anim advanced, set map dirty
+	move.b AnimObj_UploadFrame(a0), d0
+	or.b   d0, Pool_DirtyMap(a0)
+
+	; If scroll changed tile, set dirty
+	move.w WorldScrollX, d0
+	move.w WorldScrollY, d1
+	lsr.w  #0x3, d0
+	lsr.w  #0x3, d1
+	cmp.w  Pool_PrevScrollX(a0), d0
+	bne    @ScrollChanged
+	cmp.w  Pool_PrevScrollY(a0), d1
+	bne    @ScrollChanged
+	bra    @ScrollNoChange
+	@ScrollChanged:
+	move.b #0x1, Pool_DirtyMap(a0)
+	move.w d0, Pool_PrevScrollX(a0)
+	move.w d1, Pool_PrevScrollY(a0)
+	@ScrollNoChange:
 
 	; Apply water speed
 	clr.l  d0
@@ -107,6 +170,16 @@ PoolUpdate:
 
 	; Stop moving
 	move.w #0x0, Pool_WaterSpeed(a0)
+
+	; Stop animation
+	; TODO: Start idle pool top anim
+	move.b #0x0, AnimObj_Playing(a0)
+
+	; Set water anim at top
+	move.l #(spriteanim_pool_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
+
+	; Set dirty
+	move.b #0x1, AnimObj_UploadFrame(a0)
 
 	; Fire callback
 	move.l Pool_OnFinished(a0), a2
@@ -137,66 +210,164 @@ PoolDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Backup pos
-	move.w Entity_WorldPosX(a0), d0
-	move.w Entity_WorldPosY(a0), d1
+	; Update animation
+	jsr    AnimObjDraw
+
+	; Check dirty
+	tst.b  Pool_DirtyMap(a0)
+	beq    @NotDirty
 
 	;==============================================================
-
-	; Get water height
-	clr.l  d3
-	move.w Pool_WaterHeight(a0), d3
-	tst.w  d3
-	beq    @PoolEmpty
-
-	; Offset top
-	move.w #Pool_Height, d4
-	sub.w  d3, d4
-	add.w  d4, Entity_WorldPosY(a0)
-
-	; To sprites
-	ROUNDW d3,#Pool_SpriteHeight
-	divu.w #Pool_SpriteHeight, d3
-	subq.w #0x1, d3
-
-	;==============================================================
-
-	; Loop Y sprite count
-	@LoopY:
-
-	; Loop X sprite count
-	move.w #(Pool_Width/Pool_SpriteWidth)-1, d2
-	@LoopX:
-
-	; Draw
-	PUSHM  d0-d3
-	jsr    SpriteObjDraw
-	POPM   d0-d3
-
-	; If out of sprites, bail
-	cmp.w  #vdp_max_sprites-1, next_sprite_index
-	beq    @OutOfSprites
+	; Check visibility
 	
-	; Next X
-	addi.w #Pool_SpriteWidth, Entity_WorldPosX(a0)
-	dbra   d2, @LoopX
+	; X pos world space to screen space
+	move.w Entity_WorldPosX(a0), d0			; Top word = integer part
+	sub.w  (WorldScrollX), d0				; Apply camera pos X (incl. camera shake + peek offset)
 
-	; Reset X
-	move.w d0, Entity_WorldPosX(a0)
+	; Check if out of bounds
+	cmp.w  #vdp_sprite_border_x+screen_width, d0	; Check sprite left against right border
+	bgt    @OutOfBounds
+	move.w d0, d4
+	add.w  Entity_Width(a0), d4				; Get sprite right
+	cmp.w  #vdp_sprite_border_x, d4			; Check sprite right against left border
+	blt    @OutOfBounds
+	
+	;==============================================================
+	
+	; Y pos world space to screen space
+	move.w Entity_WorldPosY(a0), d1			; Top word = integer part
+	addi.w #Pool_Height, d2					; Sub water height
+	sub.w  Pool_WaterHeight(a0), d2
+	sub.w  (WorldScrollY), d1				; Apply camera Y (incl. camera shake + peek offset)
 
-	; Next Y
-	addi.w #Pool_SpriteHeight, Entity_WorldPosY(a0)
-	dbra   d3, @LoopY
+	; Check if out of bounds
+	cmp.w  #vdp_sprite_border_y+screen_height, d1	; Check sprite top against bottom border
+	bgt    @OutOfBounds
+	move.w d1, d4
+	add.w  Entity_Height(a0), d4			; Get sprite bottom
+	cmp.w  #vdp_sprite_border_y, d4			; Check sprite bottom against top border
+	blt    @OutOfBounds
+	
+	;==============================================================
+	; Pool visible
+
+	; Position to map space
+	clr.l  d1
+	move.w Entity_WorldPosX(a0), d1				; X pos
+	sub.w  #vdp_sprite_border_x, d1				; To plane space
+	PIXELS2TILES d1								; Pixels to tiles
+	divu   #vdp_plane_width, d1					; To scroll space
+												; Keep remainder in upper word
+	clr.l  d2
+	move.w Entity_WorldPosY(a0), d2				; Y pos
+	addi.w #Pool_Height, d2						; Sub water height
+	sub.w  Pool_WaterHeight(a0), d2
+	sub.w  #vdp_sprite_border_y, d2				; To plane space
+	PIXELS2TILES d2								; Pixels to tiles
+	divu   #vdp_plane_height, d2				; To scroll space
+	swap   d2									; Remainder
+	move.w d2, d1
+
+	; Get tile ID
+	move.w SpriteObj_TileID(a0), d0
+
+	; Set palette
+	move.b #PaletteId_World0, d2
+
+	; Draw animated pool top to map
+	PUSHL  d1
+	move.w #(Pool_Width/8)-1, d6
+	@TopLp:
+
+	; Draw tile to map
+	PUSHM  d0-d2/d6
+	jsr    VDP_SetCellPlaneA
+	POPM   d0-d2/d6
+
+	; Advance pos
+	swap   d1
+	addq.w #0x1, d1
+
+	; If crossed scroll boundary, wrap back to 0
+	cmp.w  #vdp_plane_width, d1
+	bne    @WithinPlane
+	move.w #0x0, d1
+	@WithinPlane:
+	swap   d1
+
+	dbra   d6, @TopLp
+	POPL   d1
 
 	;==============================================================
 
-	@OutOfSprites:
+	; Draw filled body to map
+	addi.w #0x1, d1				; Start at next row down
+	
+	; Up to water height
+	move.w Pool_WaterHeight(a0), d5
+	lsr.w  #0x3, d5
+	blt    @ZeroLevel
 
-	; Restore pos
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
+	; Get tile ID
+	move.w Pool_FilledTileVRAM(a0), d0
+	BYTES2TILES d0
 
-	@PoolEmpty:
+	; Set palette
+	move.b #PaletteId_World0, d2
+
+	; Backup X
+	move.l d1, d4
+	swap   d4
+
+	move.w #(Pool_Width/8)-1, d6
+	@FillLpX:
+	@FillLpY:
+
+	; Draw tile to map
+	PUSHM  d0-d5/d6
+	jsr    VDP_SetCellPlaneA
+	POPM   d0-d5/d6
+
+	; Advance pos
+	swap   d1
+	addq.w #0x1, d1
+
+	; If crossed scroll boundary, wrap back to 0
+	cmp.w  #vdp_plane_width, d1
+	bne    @WithinPlaneX
+	move.w #0x0, d1
+	@WithinPlaneX:
+	swap   d1
+
+	dbra   d6, @FillLpX
+
+	; Reset X pos
+	swap   d1
+	move.w d4, d1
+	swap   d1
+	
+	; Reset X count
+	move.w #(Pool_Width/8)-1, d6
+
+	; Advance Y
+	addq.w #0x1, d1
+
+	; If crossed scroll boundary, wrap back to 0
+	cmp.w  #vdp_plane_height, d1
+	bne    @WithinPlaneY
+	move.w #0x0, d1
+	@WithinPlaneY:
+
+	dbra   d5, @FillLpY
+
+	@ZeroLevel:
+
+	;==============================================================
+
+	@NotDirty:
+	@OutOfBounds:
+
+	move.b #0x0, Pool_DirtyMap(a0)
 
 	rts
 
@@ -251,7 +422,18 @@ Pool_Raise:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Set water speed
 	move.w  #Pool_DefaultWaterSpeed, Pool_WaterSpeed(a0)
+
+	; Start animation (fowards)
+	PUSHL  a1
+	lea    Pool_Animation(a0), a1
+	move.w #(Pool_DefaultWaterSpeed<<8), Animation_Speed(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	move.b #0x0, AnimObj_Reverse(a0)
+	POPL   a1
 
 	rts
 
@@ -259,6 +441,17 @@ Pool_Lower:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Set water speed
 	move.w  #-Pool_DefaultWaterSpeed, Pool_WaterSpeed(a0)
+
+	; Start animation (reverse)
+	PUSHL  a1
+	lea    Pool_Animation(a0), a1
+	move.w #-(Pool_DefaultWaterSpeed<<8), Animation_Speed(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	move.b #0x1, AnimObj_Reverse(a0)
+	POPL   a1
 
 	rts

@@ -9,8 +9,8 @@
 
 actor_pool:
 
-sprite_pool_size_b		equ 0x0200	; Size in bytes
-sprite_pool_size_t		equ 0x0010	; Size in tiles
+sprite_pool_size_b		equ 0x0020	; Size in bytes
+sprite_pool_size_t		equ 0x0001	; Size in tiles
 sprite_pool_size_subsprites		equ 0x0001	; Size in subsprites
 sprite_pool_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
 
@@ -21,27 +21,112 @@ sprite_pool_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 sprite_pool_subsprite_dimensions_bits:
-	dc.b 0xF
+	dc.b 0x0
 	Even
 
 ; Num tiles per subsprite (for sprite descs)
 sprite_pool_numtiles_per_subsprite:
-	dc.b 0x10
+	dc.b 0x01
 	Even
 
 
-spritesheet_pool_body_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_pool_body_width		equ 0x20	; Width in pixels
-spritesheet_pool_body_height		equ 0x20	; Width in pixels
-spritesheet_pool_body_size_b		equ 0x200	; Size in bytes
-spritesheet_pool_body_size_w		equ 0x100	; Size in words
-spritesheet_pool_body_size_l		equ 0x80	; Size in longwords
-spritesheet_pool_body_size_t		equ 0x10	; Size in tiles
+spritesheet_pool_filling_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+spritesheet_pool_filling_width		equ 0x08	; Width in pixels
+spritesheet_pool_filling_height		equ 0x08	; Width in pixels
+spritesheet_pool_filling_size_b		equ 0x100	; Size in bytes
+spritesheet_pool_filling_size_w		equ 0x80	; Size in words
+spritesheet_pool_filling_size_l		equ 0x40	; Size in longwords
+spritesheet_pool_filling_size_t		equ 0x08	; Size in tiles
+
+
+spritesheet_pool_filled_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+spritesheet_pool_filled_width		equ 0x08	; Width in pixels
+spritesheet_pool_filled_height		equ 0x08	; Width in pixels
+spritesheet_pool_filled_size_b		equ 0x20	; Size in bytes
+spritesheet_pool_filled_size_w		equ 0x10	; Size in words
+spritesheet_pool_filled_size_l		equ 0x08	; Size in longwords
+spritesheet_pool_filled_size_t		equ 0x01	; Size in tiles
 
 
 spritesheets_pool:
 
-spritesheet_pool_body:
+spritesheet_pool_filling:
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+	dc.l	0x55555D5A
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+	dc.l	0x55555D5A
+	dc.l	0x1155A551
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+	dc.l	0x55555D5A
+	dc.l	0x1155A551
+	dc.l	0x111A1511
+
+	dc.l	0x00000000
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+	dc.l	0x55555D5A
+	dc.l	0x1155A551
+	dc.l	0x111A1511
+	dc.l	0x11A15111
+
+	dc.l	0x111115A1
+	dc.l	0xAA5D5ADD
+	dc.l	0xA1DA11A1
+	dc.l	0x55555D5A
+	dc.l	0x1155A551
+	dc.l	0x111A1511
+	dc.l	0x11A15111
+	dc.l	0x15111111
+
+
+
+spritesheet_pool_filled:
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -50,141 +135,6 @@ spritesheet_pool_body:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x14114141
-	dc.l	0x44414411
-	dc.l	0x44414411
-	dc.l	0x44444411
-	dc.l	0x44444111
-	dc.l	0x14714111
-	dc.l	0x11411111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x14411144
-	dc.l	0x44414417
-	dc.l	0x44414441
-	dc.l	0x47417441
-	dc.l	0x77447741
-	dc.l	0x71441711
-	dc.l	0x11141111
-	dc.l	0x11111111
-
-	dc.l	0x11441111
-	dc.l	0x11444411
-	dc.l	0x44144441
-	dc.l	0x44414441
-	dc.l	0x44444441
-	dc.l	0x17741771
-	dc.l	0x41771171
-	dc.l	0x41171111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x14414411
-	dc.l	0x44444441
-	dc.l	0x44444441
-	dc.l	0x74444171
-	dc.l	0x77174141
-	dc.l	0x17117111
 	dc.l	0x11111111
 
 

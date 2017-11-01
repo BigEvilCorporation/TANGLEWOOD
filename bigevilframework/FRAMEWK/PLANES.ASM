@@ -11,24 +11,27 @@ VDP_SetCellPlaneA:
 	; d1 (ww)- XY coord (in tiles)
 	; d2 (b) - Palette
 
+	; Position to VRAM offset
 	clr.l    d3                     ; Clear d3 ready to work with
 	move.w   d1, d3                 ; Move Y coord (lower word of d1) to d3
 	lsl.w    #0x6, d3 ;mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
 	clr.w    d1						; Clear Y coord
 	swap     d1                     ; Shift X coord from upper to lower word of d1
-	add.l    d1, d3                 ; Add X coord to offset
-	lsl.l    #0x1, d3               ; Convert to words
-	lsl.l    #0x8, d3              ; Shift address offset to bits 16-30
-	lsl.l    #0x8, d3
-	ori.l    #vdp_write_plane_a, d3 ; OR in the VRAM write cmd + PlaneA address
-	move.l   d3, vdp_control        ; Send to VDP control port
+	add.w    d1, d3                 ; Add X coord to offset
+	lsl.w    #0x1, d3               ; Convert to words
+	
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	addi.l  #vram_addr_plane_a, d3	; Add VRAM address offset
+	rol.l   #0x2, d3				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d3				; Shift lower word back
+	swap    d3                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d3 ; OR in VRAM write command
+	move.l  d3, vdp_control        	; Move dest address to VDP control port
 
-	clr.l    d3                     ; Clear d3 ready to work with again
-	move.b   d2, d3                 ; Move palette ID (lower byte of d2) to d3
-	lsl.l    #0x8, d3               ; Shift palette ID to bits 14 and 15 of d3
-	lsl.l    #0x5, d3
-	or.w     d0, d3                 ; OR in the tile ID
-	move.w   d3, vdp_data           ; Move palette and pattern ID to VDP data port
+	andi.w  #0x3, d2
+	ror.w   #0x3, d2				; Shift palette ID to bits 14-13
+	or.w     d0, d2                 ; OR in the tile ID
+	move.w   d2, vdp_data           ; Move palette and pattern ID to VDP data port
 	
 	rts
 	
@@ -49,8 +52,8 @@ VDP_LoadMapPlaneA:
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
-	rol.l   #0x08, d3              ; Shift palette ID to bits 14-15
-	rol.l   #0x05, d3              ; Can only rol 8 bits at a time
+	andi.w  #0x3, d3
+	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
 
 	subq.w  #0x01, d0              ; Num words in d0, minus 1 for counter
 	
@@ -81,8 +84,8 @@ VDP_LoadMapPlaneB:
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
-	rol.l   #0x08, d3              ; Shift palette ID to bits 14-15
-	rol.l   #0x05, d3              ; Can only rol 8 bits at a time
+	andi.w  #0x3, d3
+	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
 
 	subq.w  #0x01, d0              ; Num words in d0, minus 1 for counter
 	
@@ -215,9 +218,8 @@ VDP_LoadBlockPlaneA:
 	add.l   d1, d4					; Add X offset
 	lsl.l   #0x1, d4				; Offset to bytes
 
-	andi.l  #0xFF, d3
-	lsl.l   #0x08, d3				; Shift palette ID to bits 14-15
-	lsl.l   #0x05, d3				; Can only rol 8 bits at a time
+	andi.w  #0x3, d3
+	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
 
 	; For each row in block
 	move.w  #map_block_height-1, d5
@@ -272,9 +274,8 @@ VDP_LoadBlockPlaneB:
 	add.l   d1, d4					; Add X offset
 	lsl.l   #0x1, d4				; Offset to bytes
 
-	andi.l  #0xFF, d3
-	lsl.l   #0x08, d3				; Shift palette ID to bits 14-15
-	lsl.l   #0x05, d3				; Can only rol 8 bits at a time
+	andi.w  #0x3, d3
+	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
 
 	; For each row in block
 	move.w  #map_block_height-1, d5
@@ -345,10 +346,9 @@ VDP_LoadMapBlockSegmentPlaneA:
 	; Total map width to bytes
 	lsl.w  #0x1, d3
 	
-	; Shift palette ID to bits 14-15
-	and.w  #0x00FF, d5
-	lsl.w  #0x08, d5
-	lsl.w  #0x05, d5
+	; Shift palette ID to bits 14-13
+	andi.w  #0x3, d5
+	ror.w   #0x3, d5
 
 	; Backup X coord to reset after every row
 	move.l d1, d6
@@ -450,9 +450,8 @@ VDP_LoadMapSegmentPlaneA:
 	lsl.w  #0x1, d3
 	
 	; Shift palette ID to bits 14-15
-	and.w  #0x00FF, d5
-	lsl.w  #0x08, d5
-	lsl.w  #0x05, d5
+	andi.w  #0x3, d5
+	ror.w   #0x3, d5
 	
 	; Loop rows
 	@RowLp:

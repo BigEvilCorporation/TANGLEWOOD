@@ -339,7 +339,6 @@ SharedVRAM_Generatr		rs.w 1
 SharedVRAM_Cogs			rs.w 1
 SharedVRAM_Bridge		rs.w 1
 SharedVRAM_Winch		rs.w 1
-SharedVRAM_Pool			rs.w 1
 SharedVRAM_Stalact		rs.w 1
 SharedVRAM_Pillar		rs.w 1
 SharedVRAM_Trap			rs.w 1

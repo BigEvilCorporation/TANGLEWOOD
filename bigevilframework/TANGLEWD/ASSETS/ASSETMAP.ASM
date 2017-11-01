@@ -143,6 +143,7 @@ sprite_assets_end
 	include 'assets\anims\lock.asm'
 	include 'assets\anims\leaf.asm'
 	include 'assets\anims\nymn.asm'
+	include 'assets\anims\pool.asm'
 	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
 	include 'assets\anims\scrap.asm'

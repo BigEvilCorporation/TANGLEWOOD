@@ -166,7 +166,7 @@ l4a2_Init:
 
 	; Start Echo AI follow state
 	move.l (Player2), a0
-	jsr    EchoAIStart_Follow
+	;jsr    EchoAIStart_Follow
 	
 	rts
 	
@@ -225,10 +225,6 @@ l4a2_ActivatePool2:
 	; Raise pool
 	ENTITY_GETBYNAME Pool, l4a2_Pool2, a0
 	jsr    Pool_Raise
-	
-	; Lower prev lock
-	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
-	jsr    Lock_Lower
 
 	rts
 
@@ -237,9 +233,5 @@ l4a2_ActivatePool3:
 	; Raise pool
 	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0
 	jsr    Pool_Raise
-	
-	; Lower prev lock
-	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
-	jsr    Lock_Lower
 
 	rts

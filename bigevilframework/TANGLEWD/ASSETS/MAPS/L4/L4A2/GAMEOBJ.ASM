@@ -271,7 +271,7 @@ L4A2_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
-	move.l #0x0d900000, Entity_WorldPosX(a0)
+	move.l #0x0d780000, Entity_WorldPosX(a0)
 	move.l #0x04580000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_30_name, a3
@@ -896,7 +896,7 @@ L4A2_LoadGameObjects:
 
 	jsr PoolInit
 	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool1_name, a3
 	move.l a0, a2
@@ -908,7 +908,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
 	move.l #0x0d680000, Entity_WorldPosX(a0)
-	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool2_name, a3
 	move.l a0, a2
@@ -920,7 +920,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 	jsr PoolInit
 	move.l #0x0e080000, Entity_WorldPosX(a0)
-	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Pool3_name, a3
 	move.l a0, a2

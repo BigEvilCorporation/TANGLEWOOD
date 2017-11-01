@@ -90,8 +90,8 @@ TXT_DrawPlane:
 
 	clr.l    d4                     ; Clear d4 ready to work with again
 	move.b   d2, d4                 ; Move palette ID (lower byte of d2) to d4
-	rol.l    #0x8, d4               ; Shift palette ID to bits 14 and 15 of d4
-	rol.l    #0x5, d4               ; Can only rol bits up to 8 places in one instruction
+	andi.w  #0x3, d4
+	ror.w   #0x3, d4				; Shift palette ID to bits 14-13
 	ori.w    #0x8000, d4            ; High priority
 
 	clr.w    d2
