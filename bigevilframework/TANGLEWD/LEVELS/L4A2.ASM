@@ -214,7 +214,10 @@ l4a2_ActivatePool1:
 	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
 	jsr    Pool_Raise
 
+	; TODO: Set callback to enable winch, use generator to enable button only
+
 	; Disable AI marker, let Echo onto raft
+	; TODO: Only once pool raised
 	ENTITY_GETBYNAME AIMarker, l4a2_MarkerEchoLockStop, a0
 	move.b #0x0, Entity_Active(a0)
 
@@ -222,13 +225,24 @@ l4a2_ActivatePool1:
 
 l4a2_ActivatePool2:
 
-	; Raise pool
+	; Set callback to lower prev lock
 	ENTITY_GETBYNAME Pool, l4a2_Pool2, a0
+	ENTITY_GETBYNAME Lock, l4a2_Lock1, a2
+	move.l #Lock_Lower, Pool_OnFinished(a0)
+	move.l a2, Pool_OnFinishedData(a0)
+
+	; Raise pool
 	jsr    Pool_Raise
 
 	rts
 
 l4a2_ActivatePool3:
+
+	; Set callback to lower prev lock
+	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0
+	ENTITY_GETBYNAME Lock, l4a2_Lock2, a2
+	move.l #Lock_Lower, Pool_OnFinished(a0)
+	move.l a2, Pool_OnFinishedData(a0)
 
 	; Raise pool
 	ENTITY_GETBYNAME Pool, l4a2_Pool3, a0

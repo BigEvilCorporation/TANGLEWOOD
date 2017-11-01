@@ -7,11 +7,11 @@
 ;==============================================================
 
 ; Constants
-Pool_Width				equ 0xA0
-Pool_Height				equ 0x40
+Pool_Width				equ 0x140
+Pool_Height				equ 0x60
 Pool_SpriteWidth		equ 0x20
 Pool_SpriteHeight		equ 0x20
-Pool_MinWaterHeight		equ 0x08
+Pool_MinWaterHeight		equ 0x18
 Pool_DefaultWaterSpeed	equ 0x01
 
 	rsset (AnimObj_Struct_Size)
@@ -306,7 +306,8 @@ PoolDraw:
 	; Up to water height
 	move.w Pool_WaterHeight(a0), d5
 	lsr.w  #0x3, d5
-	blt    @ZeroLevel
+	subq.w #0x2, d5				; -1 for top layer, -1 for count
+	ble    @ZeroLevel
 
 	; Get tile ID
 	move.w Pool_FilledTileVRAM(a0), d0
