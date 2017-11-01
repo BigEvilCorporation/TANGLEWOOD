@@ -27,6 +27,7 @@ Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until consider
 Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning to basic follow state
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
 Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
+Echo_AIMarkerSearchHeight	equ 0x0040			; Search height for checking AI markers
 
 ; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -60,7 +61,7 @@ Echo_AINodeToleranceGlideStopX	equ 0x0020
 Echo_AINodeToleranceGlideStopY	equ 0x0060
 Echo_AINodeTolerancePushObjX	equ 0x0010
 Echo_AINodeTolerancePushObjY	equ Player1Height+0x0010
-Echo_AINodeToleranceRaftX		equ 0x0020
+Echo_AINodeToleranceRaftX		equ 0x0008
 Echo_AINodeToleranceRaftY		equ Player1Height+0x0008
 Echo_AINodeToleranceButtonX		equ 0x0008
 Echo_AINodeToleranceButtonY		equ Player1Height+0x0008
@@ -104,6 +105,7 @@ EchoAIState_Water			equ 8	; Echo doesn't like water :(
 EchoAIState_Raft			equ 9	; Standing on moving raft, waiting for it to stop
 EchoAIState_Ladder			equ 10	; Climbing a ladder
 EchoAIState_Cart			equ 11	; Riding a cart
+EchoAIState_Barrier			equ 12	; Waiting at an AI marker (barrier type)
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -167,7 +169,7 @@ Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
 Echo_AIWaitingForWaterPath	rs.b 1	; Hit water, not happy about it, waiting for a path to cross
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
-Echo_AIWaterDirection		rs.b 1	; Direction to face water waiting for Nymn to help
+Echo_AIObstacleDirection		rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
@@ -813,6 +815,8 @@ EchoUpdateAI:
 	beq    @Ladder
 	cmp.b  #EchoAIState_Cart, d0
 	beq    @Cart
+	cmp.b  #EchoAIState_Barrier, d0
+	beq    @Barrier
 	bra    @End
 	
 	@Follow:
@@ -853,6 +857,10 @@ EchoUpdateAI:
 
 	@Cart:
 	jsr    EchoAIUpdate_Cart
+	bra    @End
+
+	@Barrier:
+	jsr    EchoAIUpdate_WaitBarrier
 	bra    @End
 	
 	@End:
@@ -1123,11 +1131,8 @@ EchoAIUpdate_FollowNodes:
 	
 	@Moving:
 
-	; Search ladders
-	jsr    EchoAI_FindLadder
-	cmp.l  #0x0, a2
-	beq    @End
-	jsr    EchoAI_PushInteractionLadder
+	; Find interesting objects (applicable to node follow state)
+	jsr    EchoAI_FindInterestingObj_InNodeState
 
 	@Lost:
 	@NodeFailed:
@@ -1392,7 +1397,7 @@ EchoAIStart_Water:
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
 	; Set direction
-	move.b SpriteObj_FlippedX(a0), Echo_AIWaterDirection(a0)
+	move.b SpriteObj_FlippedX(a0), Echo_AIObstacleDirection(a0)
 
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
@@ -1438,7 +1443,7 @@ EchoAIUpdate_Water:
 	jsr    CharacterCancelXMovement
 
 	; Face water
-	move.b Echo_AIWaterDirection(a0), SpriteObj_FlippedX(a0)
+	move.b Echo_AIObstacleDirection(a0), SpriteObj_FlippedX(a0)
 
 	; Set wait state
 	move.b #0x1, Echo_AIWaitingForWaterPath(a0)
@@ -1462,7 +1467,7 @@ EchoAIUpdate_Water:
 	move.b #0x0, d0
 	@FaceLeft:
 
-	cmp.b  Echo_AIWaterDirection(a0), d0
+	cmp.b  Echo_AIObstacleDirection(a0), d0
 	beq    @SameDir
 	jsr    EchoAIStart_Follow
 	bra    @End
@@ -1531,6 +1536,65 @@ EchoAIUpdate_Water:
 
 	@InWater:
 	@End:
+
+	rts
+
+EchoAIStart_WaitBarrier:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Barrier AI marker
+
+	; Set barrier state
+	move.b #EchoAIState_Barrier, Echo_AIState(a0)
+
+	; Set barrier
+	move.l a2, Echo_AIObjectOfInterest(a0)
+
+	; Set direction
+	move.b SpriteObj_FlippedX(a0), Echo_AIObstacleDirection(a0)
+
+	; Stop X movement
+	jsr    CharacterCancelXMovement
+	move.l #0x0, PhysicsObj_VelX(a0)
+	
+	; Snap to marker left (so marker isn't intersected frame)
+	move.l Entity_WorldPosX(a2), d0
+	move.w Entity_Width(a0), d1
+	addq.w #0x1, d1
+	TOSUBPIXELS d1
+	sub.l  d1, d0
+	move.l d0, Entity_WorldPosX(a0)
+
+	rts
+
+EchoAIUpdate_WaitBarrier:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If barrier disabled, back to follow state
+	move.l Echo_AIObjectOfInterest(a0), a2
+	tst.b  Entity_Active(a2)
+	beq    @Follow
+
+	; If Nymn heading in opposite direction, back to follow state
+	move.l (Player1), a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	cmp.l  d0, d1
+	bgt    @FaceRight
+	move.b #0x1, d0
+	bra    @FaceLeft
+	@FaceRight:
+	move.b #0x0, d0
+	@FaceLeft:
+
+	cmp.b  Echo_AIObstacleDirection(a0), d0
+	beq    @SameDir
+
+	@Follow:
+	jsr    EchoAIStart_Follow
+
+	@SameDir:
 
 	rts
 
@@ -2139,6 +2203,8 @@ EchoAI_FindInterestingObj:
 
 	; Search AI markers
 	jsr    EchoAI_FindAIMarker
+	cmp.l  #0x0, a2
+	bne    @End
 
 	;==============================================================
 	
@@ -2184,6 +2250,35 @@ EchoAI_FindInterestingObj:
 
 	rts
 
+EchoAI_FindInterestingObj_InNodeState:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Search ladders
+	jsr    EchoAI_FindLadder
+	cmp.l  #0x0, a2
+	beq    @NoLadder
+	jsr    EchoAI_PushInteractionLadder
+	bra    @End
+	@NoLadder:
+
+	; Search water
+	jsr    EchoAI_FindWater
+	cmp.l  #0x0, a2
+	beq    @NoWater
+	jsr    EchoAIStart_Water
+	bra    @End
+	@NoWater:
+
+	; Search AI markers
+	jsr    EchoAI_FindAIMarker
+	cmp.l  #0x0, a2
+	bne    @End
+	
+	@End:
+
+	rts
+
 EchoAI_FindAIMarker:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -2195,11 +2290,6 @@ EchoAI_FindAIMarker:
 	subq.w  #0x1, d6
 	@AIMarkerLoop:
 
-	; Check if interesting type
-	; TODO: All marker types
-	cmp.b  #AIMarker_Type_Wait, AIMarker_Type(a2)
-	bne    @NextAIMarker
-
 	; Check if active
 	tst.b  Entity_Active(a2)
 	beq    @NextAIMarker
@@ -2207,16 +2297,29 @@ EchoAI_FindAIMarker:
 	; Check touching
 	ENTITY_GETBOUNDS d1,d2,d5,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+	sub.w  #Echo_AIMarkerSearchHeight, d3
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @NextAIMarker
 
-	; Done
+	; Check if interesting type
+	cmp.b  #AIMarker_Type_Wait, AIMarker_Type(a2)
+	beq    @Wait
+	cmp.b  #AIMarker_Type_Barrier, AIMarker_Type(a2)
+	beq    @Barrier
+	bra    @NextAIMarker
+
+	@Wait:
+
+	; Disable marker, stop AI
 	move.b #0x0, Entity_Active(a2)
-
-	; TODO: All marker types
 	jsr    EchoAIStop
+	bra    @FoundAIMarker
 
+	@Barrier:
+
+	; Start wait at barrier state
+	jsr    EchoAIStart_WaitBarrier
 	bra    @FoundAIMarker
 
 	@NextAIMarker:

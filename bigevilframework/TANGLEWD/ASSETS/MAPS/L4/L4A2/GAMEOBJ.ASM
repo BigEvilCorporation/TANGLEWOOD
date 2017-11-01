@@ -187,11 +187,13 @@ L4A2_ButtonWinch1_name	dc.b "L4A2_ButtonWinch1",0
 
 L4A2_Wyrm_count equ 0x0
 
-L4A2_AIMarker_count equ 0x1
+L4A2_AIMarker_count equ 0x2
 L4A2_AIMarker_15_idx	equ 0x0
+L4A2_MarkerEchoLockStop_idx	equ 0x1
 
 	IFND FINAL
 L4A2_AIMarker_15_name	dc.b "L4A2_AIMarker_15",0
+L4A2_MarkerEchoLockStop_name	dc.b "L4A2_MarkerEchoLockStop",0
 	even
 	ENDIF
 
@@ -778,6 +780,20 @@ L4A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
+	move.b #AIMarker_Type_SafePos, AIMarker_Type(a0)
+	jsr AIMarkerLoadGfx
+	add.l #AIMarker_Struct_Size, a0
+	jsr AIMarkerInit
+	move.l #0x0ca00000, Entity_WorldPosX(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_MarkerEchoLockStop_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #AIMarker_Type_Barrier, AIMarker_Type(a0)
 	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
 

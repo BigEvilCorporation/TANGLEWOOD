@@ -89,7 +89,6 @@ l4a2_Init:
 	;==============================================================
 
 	; Update logs out of view so Echo can use them
-
 	ENTITY_GETBYNAME Log, l4a2_Log1, a2
 	ENTITY_GETBYNAME Log, l4a2_Log2, a3
 	move.b #0x1, AnimObj_UpdateOutOfView(a2)
@@ -214,6 +213,10 @@ l4a2_ActivatePool1:
 	; Raise pool
 	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
 	jsr    Pool_Raise
+
+	; Disable AI marker, let Echo onto raft
+	ENTITY_GETBYNAME AIMarker, l4a2_MarkerEchoLockStop, a0
+	move.b #0x0, Entity_Active(a0)
 
 	rts
 

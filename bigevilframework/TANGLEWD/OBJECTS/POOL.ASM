@@ -18,6 +18,8 @@ Pool_DefaultWaterSpeed	equ 0x01
 ;-----------------------------
 Pool_Animation			rs.b Animation_Struct_Size
 Pool_Platform			rs.b Platform_Struct_Size
+Pool_OnFinished			rs.l 1	; On finished raising/lowering callback
+Pool_OnFinishedData		rs.l 1	; Callback userdata (a0)
 Pool_WaterHeight		rs.w 1
 Pool_WaterSpeed			rs.w 1
 ;-----------------------------
@@ -50,6 +52,7 @@ PoolInit:
 	move.w #Pool_Height, Entity_Height(a0)
 	move.w #Pool_Height, Pool_WaterHeight(a0)
 	move.w #0x0, Pool_WaterSpeed(a0)
+	move.l #0x0, Pool_OnFinished(a0)
 
 	; Setup platform
 	lea    Pool_Platform(a0), a2
@@ -88,8 +91,33 @@ PoolUpdate:
 	beq    @NotMoving
 	move.w Pool_WaterHeight(a0), d1
 	add.w  d0, d1
+
+	; Clamp
 	CLAMPW d1, #Pool_MinWaterHeight, #Pool_Height
 	move.w d1, Pool_WaterHeight(a0)
+
+	; If hit top/bottom, stop
+	cmp.w  #Pool_MinWaterHeight, d1
+	beq    @ReachedLimit
+	cmp.w  #Pool_Height, d1
+	beq    @ReachedLimit
+	bra    @EndLimit
+
+	@ReachedLimit:
+
+	; Stop moving
+	move.w #0x0, Pool_WaterSpeed(a0)
+
+	; Fire callback
+	move.l Pool_OnFinished(a0), a2
+	cmp.l  #0x0, a2
+	beq    @EndLimit
+	PUSHL  a0
+	move.l Pool_OnFinishedData(a0), a0
+	jsr    (a2)
+	POPL   a0
+
+	@EndLimit:
 	@NotMoving:
 
 	; Reposition platform

@@ -61,7 +61,7 @@ RaftInit:
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
-	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	;move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_Buoyant(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
@@ -85,7 +85,7 @@ RaftInit:
 	LIST_APPEND_TAIL Platforms, a2, a3
 
 	; Register as pushable object
-	LIST_APPEND_TAIL PushableObjs, a0, a3
+	;LIST_APPEND_TAIL PushableObjs, a0, a3
 
 	rts
 
