@@ -121,7 +121,7 @@ VDP_DMACopyVRAM:
 	move.w d3, vdp_control
 	
 	; Generate dest command+address
-	andi.w  #0xFFFF, d0
+	andi.l  #0xFFFF, d0
 	lsl.l   #0x2, d0				; Shift bits 14/15 of dest address to bits 16/17
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo

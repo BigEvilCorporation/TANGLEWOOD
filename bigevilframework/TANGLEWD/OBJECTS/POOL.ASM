@@ -17,6 +17,8 @@ Pool_DefaultWaterSpeed	equ 0x01
 	rsset (AnimObj_Struct_Size)
 ;-----------------------------
 Pool_Animation			rs.b Animation_Struct_Size
+Pool_MapLineSurface		rs.w (Pool_Width/8)*size_word
+Pool_MapLineBody		rs.w (Pool_Width/8)*size_word
 Pool_Platform			rs.b Platform_Struct_Size
 Pool_OnFinished			rs.l 1	; On finished raising/lowering callback
 Pool_OnFinishedData		rs.l 1	; Callback userdata (a0)
@@ -116,6 +118,22 @@ PoolLoadGfx:
 	moveq  #0x1, d1
 	jsr    VDP_LoadTilesDMA
 	POPL   a0
+
+	; Create surface and body DMA lines
+	move.w #(PaletteId_World0<<13), d0	; Palette ID to bits 14-13
+	move.w #(PaletteId_World0<<13), d1	; Palette ID to bits 14-13
+	or.w   SpriteObj_TileID(a0), d0		; OR in the tile ID
+	move.w Pool_FilledTileVRAM(a0), d2	; Filled tile addr to tile ID
+	BYTES2TILES d2
+	or.w   d2, d1						; OR in the tile ID
+
+	lea    Pool_MapLineSurface(a0), a2
+	lea    Pool_MapLineBody(a0), a3
+	move.w #(Pool_Width/8)-1, d6
+	@CellLp:
+	move.w d0, (a2)+
+	move.w d1, (a3)+
+	dbra   d6, @CellLp
 
 	rts
 
@@ -217,149 +235,144 @@ PoolDraw:
 	tst.b  Pool_DirtyMap(a0)
 	beq    @NotDirty
 
-	;==============================================================
 	; Check visibility
-	
-	; X pos world space to screen space
-	move.w Entity_WorldPosX(a0), d0			; Top word = integer part
-	sub.w  (WorldScrollX), d0				; Apply camera pos X (incl. camera shake + peek offset)
+	jsr    SpriteObjCheckBounds
+	tst.b  d0
+	beq    @OutOfBounds
 
-	; Check if out of bounds
-	cmp.w  #vdp_sprite_border_x+screen_width, d0	; Check sprite left against right border
-	bgt    @OutOfBounds
-	move.w d0, d4
-	add.w  Entity_Width(a0), d4				; Get sprite right
-	cmp.w  #vdp_sprite_border_x, d4			; Check sprite right against left border
-	blt    @OutOfBounds
-	
-	;==============================================================
-	
-	; Y pos world space to screen space
-	move.w Entity_WorldPosY(a0), d1			; Top word = integer part
-	addi.w #Pool_Height, d2					; Sub water height
-	sub.w  Pool_WaterHeight(a0), d2
-	sub.w  (WorldScrollY), d1				; Apply camera Y (incl. camera shake + peek offset)
-
-	; Check if out of bounds
-	cmp.w  #vdp_sprite_border_y+screen_height, d1	; Check sprite top against bottom border
-	bgt    @OutOfBounds
-	move.w d1, d4
-	add.w  Entity_Height(a0), d4			; Get sprite bottom
-	cmp.w  #vdp_sprite_border_y, d4			; Check sprite bottom against top border
-	blt    @OutOfBounds
-	
 	;==============================================================
 	; Pool visible
 
-	; Position to map space
+	; Get X pos as tiles
+	clr.l  d0
+	move.w Entity_WorldPosX(a0), d0
+	sub.w  #vdp_sprite_border_x, d0
+	PIXELS2TILES d0
+
+	; Get draw width as tiles
+	move.w #(Pool_Width/8), d2
+
+	; Clamp to screen left
+	move.w WorldScrollX, d3
+	PIXELS2TILES d3
+	cmp.w  d0, d3
+	ble    @NoClampLeft
+	move.w d3, d4								; Truncate width
+	sub.w  d0, d4
+	sub.w  d4, d2
+	move.w d3, d0								; Clamp X
+	@NoClampLeft:
+
+	; Clamp to screen right
+	move.w d0, d4								; X
+	sub.w  d3, d4								; - scroll
+	move.w d4, d5								; Backup
+	add.w  d2, d4								; + width
+	cmp.w  #(screen_width/8), d4
+	ble    @NoClampRight
+	move.w #(screen_width/8), d4				; Clamp width
+	sub.w  d5, d4
+	move.w d4, d2
+	@NoClampRight:
+	
+	; Bail if on far right edge
+	tst.w  d2
+	beq    @EndSurfaceDMA
+
+	; To scroll space
+	divu   #vdp_plane_width, d0
+	swap   d0
+
+	; Get Y pos as tiles
 	clr.l  d1
-	move.w Entity_WorldPosX(a0), d1				; X pos
-	sub.w  #vdp_sprite_border_x, d1				; To plane space
+	move.w Entity_WorldPosY(a0), d1				; Y pos
+	addi.w #Pool_Height, d1						; Sub water height
+	sub.w  Pool_WaterHeight(a0), d1
+	sub.w  #vdp_sprite_border_y, d1				; To plane space
 	PIXELS2TILES d1								; Pixels to tiles
-	divu   #vdp_plane_width, d1					; To scroll space
-												; Keep remainder in upper word
-	clr.l  d2
-	move.w Entity_WorldPosY(a0), d2				; Y pos
-	addi.w #Pool_Height, d2						; Sub water height
-	sub.w  Pool_WaterHeight(a0), d2
-	sub.w  #vdp_sprite_border_y, d2				; To plane space
-	PIXELS2TILES d2								; Pixels to tiles
-	divu   #vdp_plane_height, d2				; To scroll space
-	swap   d2									; Remainder
-	move.w d2, d1
+	divu   #vdp_plane_height, d1				; To scroll space
+	swap   d1									; Remainder to lower word
 
-	; Get tile ID
-	move.w SpriteObj_TileID(a0), d0
+	; Backup pos for fill area
+	PUSHM  d0-d1/a0
 
-	; Set palette
-	move.b #PaletteId_World0, d2
+	; Get surface DMA line
+	lea    Pool_MapLineSurface(a0), a0
+	
+	; If overflows off end of plane, split into two DMAs
+	move.w d0, d6					; Get X pos
+	add.w  d2, d6					; Add width
+	cmp.w  #vdp_plane_width, d6		; If crosses plane bounds
+	bgt    @Overflow
 
-	; Draw animated pool top to map
-	PUSHL  d1
-	move.w #(Pool_Width/8)-1, d6
-	@TopLp:
+	; DMA the surface line
+	jsr    PoolDMALine
 
-	; Draw tile to map
-	PUSHM  d0-d2/d6
-	jsr    VDP_SetCellPlaneA
-	POPM   d0-d2/d6
+	bra    @EndSurfaceDMA
 
-	; Advance pos
-	swap   d1
-	addq.w #0x1, d1
+	@Overflow:
 
-	; If crossed scroll boundary, wrap back to 0
-	cmp.w  #vdp_plane_width, d1
-	bne    @WithinPlane
-	move.w #0x0, d1
-	@WithinPlane:
-	swap   d1
+	; Clamp size and DMA first line
+	move.w d2, d7					; Backup original width
+	move.w #vdp_plane_width, d6		; Truncate width
+	sub.w  d0, d6
+	move.w d6, d2
+	PUSHM  d0-d2/d7					; Backup x/y/drawn width/original width
+	jsr    PoolDMALine
+	POPM   d0-d2/d7
 
-	dbra   d6, @TopLp
-	POPL   d1
+	; DMA second line
+	sub.w  d2, d7					; Original width - drawn width
+	move.w d7, d2
+	move.w #0x0, d0					; Start from 0
+	jsr    PoolDMALine
+
+	@EndSurfaceDMA:
+	
+	; Restore pos for fill area
+	POPM   d0-d1/a0
 
 	;==============================================================
 
+	move.b #0x0, Pool_DirtyMap(a0)
+	
+	rts
+	
+	PUSHL  a0
+
 	; Draw filled body to map
-	addi.w #0x1, d1				; Start at next row down
+	addq.w #0x1, d1				; Start at next row down
 	
 	; Up to water height
-	move.w Pool_WaterHeight(a0), d5
-	lsr.w  #0x3, d5
-	subq.w #0x2, d5				; -1 for top layer, -1 for count
+	move.w Pool_WaterHeight(a0), d6
+	lsr.w  #0x3, d6
+	subq.w #0x2, d6				; -1 for top layer, -1 for count
 	ble    @ZeroLevel
-
-	; Get tile ID
-	move.w Pool_FilledTileVRAM(a0), d0
-	BYTES2TILES d0
-
-	; Set palette
-	move.b #PaletteId_World0, d2
-
-	; Backup X
-	move.l d1, d4
-	swap   d4
-
-	move.w #(Pool_Width/8)-1, d6
-	@FillLpX:
+	
+	; Get body DMA line
+	lea    Pool_MapLineBody(a0), a0
+	
 	@FillLpY:
 
-	; Draw tile to map
-	PUSHM  d0-d5/d6
-	jsr    VDP_SetCellPlaneA
-	POPM   d0-d5/d6
+	; Backup X, Y, size
+	PUSHM  d0-d2
 
-	; Advance pos
-	swap   d1
-	addq.w #0x1, d1
+	; DMA the body line
+	jsr    PoolDMALine
 
-	; If crossed scroll boundary, wrap back to 0
-	cmp.w  #vdp_plane_width, d1
-	bne    @WithinPlaneX
-	move.w #0x0, d1
-	@WithinPlaneX:
-	swap   d1
+	; TODO: Second line
 
-	dbra   d6, @FillLpX
-
-	; Reset X pos
-	swap   d1
-	move.w d4, d1
-	swap   d1
+	@NextBodyLine:
 	
-	; Reset X count
-	move.w #(Pool_Width/8)-1, d6
+	; Restore X, Y, size, DMA line
+	POPM   d0-d2
 
 	; Advance Y
 	addq.w #0x1, d1
 
-	; If crossed scroll boundary, wrap back to 0
-	cmp.w  #vdp_plane_height, d1
-	bne    @WithinPlaneY
-	move.w #0x0, d1
-	@WithinPlaneY:
-
-	dbra   d5, @FillLpY
+	dbra   d6, @FillLpY
+	
+	POPL   a0
 
 	@ZeroLevel:
 
@@ -369,6 +382,25 @@ PoolDraw:
 	@OutOfBounds:
 
 	move.b #0x0, Pool_DirtyMap(a0)
+
+	rts
+
+PoolDMALine:
+	; a0 --- DMA line
+	; d0 (w) X pos
+	; d1 (w) Y pos
+	; d2 (b) Num tiles
+
+	lsl.w  #0x6, d1								; Multiply Y by line width to get Y offset
+	add.w  d1, d0								; Add X
+	lsl.w  #0x1, d0								; To words
+
+	; To plane A map area
+	addi.l  #vram_addr_plane_a, d0
+
+	move.w d2, d1
+	move.l a0, d2
+	jsr    VDP_DMAQueue_AddToQueue
 
 	rts
 

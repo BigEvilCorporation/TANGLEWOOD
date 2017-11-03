@@ -34,6 +34,35 @@ VDP_SetCellPlaneA:
 	move.w   d2, vdp_data           ; Move palette and pattern ID to VDP data port
 	
 	rts
+
+VDP_SetCellPlaneB:
+	; d0 (w) - Tile ID
+	; d1 (ww)- XY coord (in tiles)
+	; d2 (b) - Palette
+
+	; Position to VRAM offset
+	clr.l    d3                     ; Clear d3 ready to work with
+	move.w   d1, d3                 ; Move Y coord (lower word of d1) to d3
+	lsl.w    #0x6, d3 ;mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
+	clr.w    d1						; Clear Y coord
+	swap     d1                     ; Shift X coord from upper to lower word of d1
+	add.w    d1, d3                 ; Add X coord to offset
+	lsl.w    #0x1, d3               ; Convert to words
+	
+	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
+	addi.l  #vram_addr_plane_b, d3	; Add VRAM address offset
+	rol.l   #0x2, d3				; Roll bits 14/15 of address to bits 16/17
+	lsr.w   #0x2, d3				; Shift lower word back
+	swap    d3                     	; Swap address hi/lo
+	ori.l   #vdp_cmd_vram_write, d3 ; OR in VRAM write command
+	move.l  d3, vdp_control        	; Move dest address to VDP control port
+
+	andi.w  #0x3, d2
+	ror.w   #0x3, d2				; Shift palette ID to bits 14-13
+	or.w     d0, d2                 ; OR in the tile ID
+	move.w   d2, vdp_data           ; Move palette and pattern ID to VDP data port
+	
+	rts
 	
 VDP_LoadMapPlaneA:
     ; a0 (l) - Map address (ROM)

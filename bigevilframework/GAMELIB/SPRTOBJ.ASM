@@ -231,3 +231,45 @@ SpriteObjDraw:
 	@End:
 	
 	rts
+
+SpriteObjCheckBounds:
+	; a0 --- SpriteObj addr
+	; a1 --- Level addr
+
+	moveq  #0x0, d7
+
+	; X pos world space to screen space
+	move.w Entity_WorldPosX(a0), d0			; Top word = integer part
+	sub.w  (WorldScrollX), d0				; Apply camera pos X (incl. camera shake + peek offset)
+
+	; Check if out of bounds
+	cmp.w  #vdp_sprite_border_x+screen_width, d0	; Check sprite left against right border
+	bgt    @OutOfBounds
+	move.w d0, d4
+	add.w  Entity_Width(a0), d4				; Get sprite right
+	cmp.w  #vdp_sprite_border_x, d4			; Check sprite right against left border
+	blt    @OutOfBounds
+	
+	;==============================================================
+	
+	; Y pos world space to screen space
+	move.w Entity_WorldPosY(a0), d1			; Top word = integer part
+	addi.w #Pool_Height, d2					; Sub water height
+	sub.w  Pool_WaterHeight(a0), d2
+	sub.w  (WorldScrollY), d1				; Apply camera Y (incl. camera shake + peek offset)
+
+	; Check if out of bounds
+	cmp.w  #vdp_sprite_border_y+screen_height, d1	; Check sprite top against bottom border
+	bgt    @OutOfBounds
+	move.w d1, d4
+	add.w  Entity_Height(a0), d4			; Get sprite bottom
+	cmp.w  #vdp_sprite_border_y, d4			; Check sprite bottom against top border
+	blt    @OutOfBounds
+
+	moveq  #0x1, d7
+
+	@OutOfBounds:
+
+	move.b d7, d0
+
+	rts
