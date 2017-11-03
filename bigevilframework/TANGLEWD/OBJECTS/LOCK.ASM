@@ -9,7 +9,8 @@
 ; Constants
 Lock_Width				equ 0x08
 Lock_Height				equ 0x68
-Lock_MaxRaiseHeight		equ Lock_Height-0x10
+Lock_MinRaiseHeight		equ 0x18
+Lock_MaxRaiseHeight		equ Lock_Height
 Lock_DefaultRaiseSpeed	equ 0x1
 
 	rsset (AnimObj_Struct_Size)
@@ -111,7 +112,7 @@ LockUpdate:
 	move.b #0x1, AnimObj_Dirty(a0)
 
 	; If at top/bottom, run callback and stop
-	cmp.w  #0x0, d2
+	cmp.w  #Lock_MinRaiseHeight, d2
 	beq    @AtBottom
 	cmp.w  #Lock_MaxRaiseHeight, d2
 	beq    @AtTop
@@ -191,7 +192,7 @@ Lock_SetLowered:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	move.w #0x0, Lock_RaiseHeight(a0)
+	move.w #Lock_MinRaiseHeight, Lock_RaiseHeight(a0)
 	move.w #0x0, AnimObj_AnimSubframe(a0)
 	move.b #0x1, AnimObj_UploadFrame(a0)
 
