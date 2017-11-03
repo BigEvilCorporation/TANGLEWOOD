@@ -1688,6 +1688,25 @@ PhysicsObjFindMovingFloor:
 	addi.w #(heightmap_max_search_tiles*8), d0
 	cmp.w  d2, d0
 	blt    @NextPlatform
+
+	; Get terrain flags
+	move.w Platform_TerrainFlags(a3), d4
+
+	; If water, and not buoyant, don't collide
+	tst.b  PhysicsObj_Buoyant(a0)
+	bne    @CollideWaterPlatform
+	move.w d4, d5
+	andi.w #col_tile_flag_water, d5
+	bne    @NextPlatform
+	@CollideWaterPlatform:
+
+	; If special terrain, and shouldn't collide, bail out
+	tst.b  PhysicsObj_CollideSpecialTerrain(a0)
+	bne    @CollideSpecialPlatform
+	move.w d4, d5
+	andi.w #col_tile_flag_special, d5
+	bne    @NextPlatform
+	@CollideSpecialPlatform:
 	
 	; Success
 	clr.l  d2
