@@ -272,7 +272,7 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
 	move.l #0x0d780000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_30_name, a3
 	move.l a0, a2
@@ -713,7 +713,7 @@ L4A2_LoadGameObjects:
 
 	jsr ButtonInit
 	move.l #0x0da80000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock1_name, a3
 	move.l a0, a2
@@ -726,7 +726,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
 	move.l #0x0ee80000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock2_name, a3
 	move.l a0, a2
@@ -739,7 +739,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
 	move.l #0x0fc80000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x04a00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_ButtonLock3_name, a3
 	move.l a0, a2
@@ -865,7 +865,7 @@ L4A2_LoadGameObjects:
 
 	jsr LockInit
 	move.l #0x0f480000, Entity_WorldPosX(a0)
-	move.l #0x04080000, Entity_WorldPosY(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Lock2_name, a3
 	move.l a0, a2
@@ -877,7 +877,7 @@ L4A2_LoadGameObjects:
 	add.l #Lock_Struct_Size, a0
 	jsr LockInit
 	move.l #0x0e080000, Entity_WorldPosX(a0)
-	move.l #0x04080000, Entity_WorldPosY(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Lock1_name, a3
 	move.l a0, a2

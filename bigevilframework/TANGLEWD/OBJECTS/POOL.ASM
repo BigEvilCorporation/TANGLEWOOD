@@ -8,7 +8,7 @@
 
 ; Constants
 Pool_Width				equ 0x140
-Pool_Height				equ 0x60
+Pool_Height				equ 0x58
 Pool_SpriteWidth		equ 0x20
 Pool_SpriteHeight		equ 0x20
 Pool_MinWaterHeight		equ 0x18
