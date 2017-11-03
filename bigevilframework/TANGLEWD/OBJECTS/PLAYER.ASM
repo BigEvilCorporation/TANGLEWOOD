@@ -2274,7 +2274,7 @@ PlayerInteractTest_Water:
 	
 	; Check player vs. box
 	PUSHL  d5
-	ENTITY_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	lea    Pool_Platform(a2), a3	; Use pool platform Y as bounds top
 	move.w Platform_PosY(a3), d3
@@ -2306,6 +2306,9 @@ PlayerInteractTest_Water:
 	; Check all water terrain
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d4
+	move.w Entity_Width(a0), d5
+	lsr.w  #0x1, d5
+	add.w  d5, d0
 	add.w  Entity_Height(a0), d4
 	subi.w #vdp_sprite_border_x, d0
 	subi.w #vdp_sprite_border_y, d4
