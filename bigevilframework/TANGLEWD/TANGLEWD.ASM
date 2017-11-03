@@ -137,6 +137,7 @@ __start
 	include 'objects\log.asm'
 	include 'objects\lock.asm'
 	include 'objects\rope.asm'
+	include 'objects\longboat.asm'
 	include 'objects\lift.asm'
 	include 'objects\cargolft.asm'
 	include 'objects\location.asm'

@@ -974,8 +974,8 @@ PhysicsObjFindFloor:
 	beq    @NoPlatform
 
 	; Ignore self
-	move.l Platform_Owner(a3), d2
-	cmp.l  a0, d2
+	move.l Platform_Owner(a3), a4
+	cmp.l  a0, a4
 	beq    @NextPlatform
 	
 	; Get platform Left and Right X

@@ -9,18 +9,6 @@
 
 L4A3_Leaf_count equ 0x0
 
-L4A3_Trap_count equ 0x3
-L4A3_Trap1_idx	equ 0x0
-L4A3_Trap2_idx	equ 0x1
-L4A3_Trap3_idx	equ 0x2
-
-	IFND FINAL
-L4A3_Trap1_name	dc.b "L4A3_Trap1",0
-L4A3_Trap2_name	dc.b "L4A3_Trap2",0
-L4A3_Trap3_name	dc.b "L4A3_Trap3",0
-	even
-	ENDIF
-
 L4A3_Djubb_count equ 0x3
 L4A3_Djubb_16_idx	equ 0x0
 L4A3_Djubb_21_idx	equ 0x1
@@ -30,6 +18,18 @@ L4A3_Djubb_20_idx	equ 0x2
 L4A3_Djubb_16_name	dc.b "L4A3_Djubb_16",0
 L4A3_Djubb_21_name	dc.b "L4A3_Djubb_21",0
 L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
+	even
+	ENDIF
+
+L4A3_Trap_count equ 0x3
+L4A3_Trap1_idx	equ 0x0
+L4A3_Trap2_idx	equ 0x1
+L4A3_Trap3_idx	equ 0x2
+
+	IFND FINAL
+L4A3_Trap1_name	dc.b "L4A3_Trap1",0
+L4A3_Trap2_name	dc.b "L4A3_Trap2",0
+L4A3_Trap3_name	dc.b "L4A3_Trap3",0
 	even
 	ENDIF
 
@@ -53,6 +53,8 @@ L4A3_BouncePlant_count equ 0x0
 
 L4A3_Log_count equ 0x0
 
+L4A3_DjakkCage_count equ 0x0
+
 L4A3_Borgus_count equ 0x1
 L4A3_Borgus_idx	equ 0x0
 
@@ -60,8 +62,6 @@ L4A3_Borgus_idx	equ 0x0
 L4A3_Borgus_name	dc.b "L4A3_Borgus",0
 	even
 	ENDIF
-
-L4A3_DjakkCage_count equ 0x0
 
 L4A3_Monster_count equ 0x0
 
@@ -167,6 +167,8 @@ L4A3_LocationBoulderLiftStop_name	dc.b "L4A3_LocationBoulderLiftStop",0
 	even
 	ENDIF
 
+L4A3_Deathbox_count equ 0x0
+
 L4A3_Lift_count equ 0x1
 L4A3_Lift1_idx	equ 0x0
 
@@ -174,8 +176,6 @@ L4A3_Lift1_idx	equ 0x0
 L4A3_Lift1_name	dc.b "L4A3_Lift1",0
 	even
 	ENDIF
-
-L4A3_Deathbox_count equ 0x0
 
 L4A3_Crate_count equ 0x0
 
@@ -255,52 +255,11 @@ L4A3_CargoLift_name	dc.b "L4A3_CargoLift",0
 
 L4A3_Scrap_count equ 0x0
 
+L4A3_Longboat_count equ 0x0
+
 
 
 L4A3_LoadGameObjects:
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
-	move.l a1, EntityPoolStart_Trap
-	move.l a1, a0
-	POPL   a1
-
-	jsr TrapInit
-	move.l #0x05300000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
-	jsr TrapInit
-	move.l #0x05a80000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
-	jsr TrapInit
-	move.l #0x06200000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A3_Trap3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr TrapLoadGfx
-	add.l #Trap_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A3_Djubb_count)
@@ -346,6 +305,49 @@ L4A3_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
+	move.l a1, EntityPoolStart_Trap
+	move.l a1, a0
+	POPL   a1
+
+	jsr TrapInit
+	move.l #0x05300000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x05a80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+	jsr TrapInit
+	move.l #0x06200000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A3_Trap3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr TrapLoadGfx
+	add.l #Trap_Struct_Size, a0
+
+	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A3_Echo_count)
 	move.l a1, EntityPoolStart_Echo
 	move.l a1, a0
@@ -385,6 +387,7 @@ L4A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Borgus_Struct_Size*L4A3_Borgus_count)
 	move.l a1, EntityPoolStart_Borgus
@@ -404,7 +407,6 @@ L4A3_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BorgusLoadGfx
 	add.l #Borgus_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -760,6 +762,7 @@ L4A3_LoadGameObjects:
 	jsr LocationLoadGfx
 	add.l #Location_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L4A3_Lift_count)
 	move.l a1, EntityPoolStart_Lift
@@ -778,7 +781,6 @@ L4A3_LoadGameObjects:
 	ENDIF
 	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -955,6 +957,7 @@ L4A3_LoadGameObjects:
 	move.b #0x1, CargoLift_ManualGfxLoad(a0)
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 	rts

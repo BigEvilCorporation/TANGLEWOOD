@@ -9,9 +9,9 @@
 
 L5A4_Leaf_count equ 0x0
 
-L5A4_Trap_count equ 0x0
-
 L5A4_Djubb_count equ 0x0
+
+L5A4_Trap_count equ 0x0
 
 L5A4_Echo_count equ 0x1
 L5A4_Echo_2_idx	equ 0x0
@@ -33,9 +33,9 @@ L5A4_BouncePlant_count equ 0x0
 
 L5A4_Log_count equ 0x0
 
-L5A4_Borgus_count equ 0x0
-
 L5A4_DjakkCage_count equ 0x0
+
+L5A4_Borgus_count equ 0x0
 
 L5A4_Monster_count equ 0x0
 
@@ -87,9 +87,9 @@ L5A4_LocationCargoLiftStop_name	dc.b "L5A4_LocationCargoLiftStop",0
 	even
 	ENDIF
 
-L5A4_Lift_count equ 0x0
-
 L5A4_Deathbox_count equ 0x0
+
+L5A4_Lift_count equ 0x0
 
 L5A4_Crate_count equ 0x0
 
@@ -130,6 +130,8 @@ L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
 	ENDIF
 
 L5A4_Scrap_count equ 0x0
+
+L5A4_Longboat_count equ 0x0
 
 
 
@@ -315,6 +317,7 @@ L5A4_LoadGameObjects:
 	ENDIF
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 	rts

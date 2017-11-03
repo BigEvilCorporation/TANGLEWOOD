@@ -9,8 +9,6 @@
 
 L4A2_Leaf_count equ 0x0
 
-L4A2_Trap_count equ 0x0
-
 L4A2_Djubb_count equ 0x6
 L4A2_Djubb_3_idx	equ 0x0
 L4A2_Djubb_30_idx	equ 0x1
@@ -28,6 +26,8 @@ L4A2_Djubb_44_name	dc.b "L4A2_Djubb_44",0
 L4A2_Djubb_43_name	dc.b "L4A2_Djubb_43",0
 	even
 	ENDIF
+
+L4A2_Trap_count equ 0x0
 
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
@@ -59,9 +59,9 @@ L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 	even
 	ENDIF
 
-L4A2_Borgus_count equ 0x0
-
 L4A2_DjakkCage_count equ 0x0
+
+L4A2_Borgus_count equ 0x0
 
 L4A2_Monster_count equ 0x0
 
@@ -101,13 +101,11 @@ L4A2_Stone_51_name	dc.b "L4A2_Stone_51",0
 
 L4A2_Demon_count equ 0x0
 
-L4A2_Raft_count equ 0x2
+L4A2_Raft_count equ 0x1
 L4A2_Raft1_idx	equ 0x0
-L4A2_Raft2_idx	equ 0x1
 
 	IFND FINAL
 L4A2_Raft1_name	dc.b "L4A2_Raft1",0
-L4A2_Raft2_name	dc.b "L4A2_Raft2",0
 	even
 	ENDIF
 
@@ -147,9 +145,9 @@ L4A2_WaterBody_count equ 0x0
 
 L4A2_Location_count equ 0x0
 
-L4A2_Lift_count equ 0x0
-
 L4A2_Deathbox_count equ 0x0
+
+L4A2_Lift_count equ 0x0
 
 L4A2_Crate_count equ 0x0
 
@@ -201,17 +199,13 @@ L4A2_Cart_count equ 0x0
 
 L4A2_Pillar_count equ 0x0
 
-L4A2_Winch_count equ 0x4
+L4A2_Winch_count equ 0x2
 L4A2_Winch1_idx	equ 0x0
 L4A2_Winch2_idx	equ 0x1
-L4A2_Winch3_idx	equ 0x2
-L4A2_Winch4_idx	equ 0x3
 
 	IFND FINAL
 L4A2_Winch1_name	dc.b "L4A2_Winch1",0
 L4A2_Winch2_name	dc.b "L4A2_Winch2",0
-L4A2_Winch3_name	dc.b "L4A2_Winch3",0
-L4A2_Winch4_name	dc.b "L4A2_Winch4",0
 	even
 	ENDIF
 
@@ -247,10 +241,17 @@ L4A2_CargoLift_count equ 0x0
 
 L4A2_Scrap_count equ 0x0
 
+L4A2_Longboat_count equ 0x1
+L4A2_Longboat_57_idx	equ 0x0
+
+	IFND FINAL
+L4A2_Longboat_57_name	dc.b "L4A2_Longboat_57",0
+	even
+	ENDIF
+
 
 
 L4A2_LoadGameObjects:
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A2_Djubb_count)
@@ -330,6 +331,7 @@ L4A2_LoadGameObjects:
 	ENDIF
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
@@ -543,18 +545,6 @@ L4A2_LoadGameObjects:
 	move.l #0x04700000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Raft1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr RaftLoadGfx
-	add.l #Raft_Struct_Size, a0
-	jsr RaftInit
-	move.l #0x0cc80000, Entity_WorldPosX(a0)
-	move.l #0x04500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Raft2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -830,31 +820,6 @@ L4A2_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr WinchLoadGfx
 	add.l #Winch_Struct_Size, a0
-	jsr WinchInit
-	move.l #0x0ca80000, Entity_WorldPosX(a0)
-	move.l #0x03d80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Winch3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr WinchLoadGfx
-	add.l #Winch_Struct_Size, a0
-	jsr WinchInit
-	move.l #0x10780000, Entity_WorldPosX(a0)
-	move.l #0x03d80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L4A2_Winch4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr WinchLoadGfx
-	add.l #Winch_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -934,6 +899,25 @@ L4A2_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Longboat_Struct_Size*L4A2_Longboat_count)
+	move.l a1, EntityPoolStart_Longboat
+	move.l a1, a0
+	POPL   a1
+
+	jsr LongboatInit
+	move.l #0x0cc80000, Entity_WorldPosX(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L4A2_Longboat_57_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LongboatLoadGfx
+	add.l #Longboat_Struct_Size, a0
 
 	rts
 

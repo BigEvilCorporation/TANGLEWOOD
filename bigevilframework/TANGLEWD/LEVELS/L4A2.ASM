@@ -117,56 +117,47 @@ l4a2_Init:
 	ENTITY_GETBYNAME Cogs, l4a2_Cogs1, a1
 	move.l a1, Generator_Cogs(a0)
 
-	; Connect generators to winches
+	; Connect generators to buttons
 	ENTITY_GETBYNAME Generator, l4a2_Generator1, a0
-	ENTITY_GETBYNAME Winch, l4a2_Winch3, a1
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a1
 	move.l a1, Generator_UserData(a0)
-	move.l #Winch_RunClockwise, Generator_OnActivate(a0)
+	move.l #ButtonActivate, Generator_OnActivate(a0)
 
 	; Connect winches together
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
 	ENTITY_GETBYNAME Winch, l4a2_Winch2, a1
 	move.l a1, Winch_Mirror(a0)
 
-	ENTITY_GETBYNAME Winch, l4a2_Winch3, a0
-	ENTITY_GETBYNAME Winch, l4a2_Winch4, a1
-	move.l a1, Winch_Mirror(a0)
-
-	; Connect rafts to winches
+	; Connect raft to winch
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
 	ENTITY_GETBYNAME Raft, l4a2_Raft1, a1
 	move.l a1, Winch_PhysObject(a0)
 
-	ENTITY_GETBYNAME Winch, l4a2_Winch3, a0
-	ENTITY_GETBYNAME Raft, l4a2_Raft2, a1
-	move.l a1, Winch_PhysObject(a0)
-
-	; Connect buttons to winches
+	; Connect button to winch
 	ENTITY_GETBYNAME Button, l4a2_ButtonWinch1, a0
 	ENTITY_GETBYNAME Winch, l4a2_Winch1, a1
 	move.b #0x1, Button_Active(a0)
 	move.l a1, Button_UserData(a0)
 	move.l #Winch_RunClockwise, Button_OnDown(a0)
-	;move.l #Winch_Stop, Button_OnUp(a0)
 
-	; Connect buttons to locks/pools
+	; Connect buttons to locks/pools, disable buttons
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
-	move.b #0x1, Button_Active(a0)
+	move.b #0x0, Button_Active(a0)
 	move.l #l4a2_ActivateLock1, Button_OnDown(a0)
 
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock2, a0
-	move.b #0x1, Button_Active(a0)
+	move.b #0x0, Button_Active(a0)
 	move.l #l4a2_ActivateLock2, Button_OnDown(a0)
 
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock3, a0
-	move.b #0x1, Button_Active(a0)
+	move.b #0x0, Button_Active(a0)
 	move.l #l4a2_ActivatePool3, Button_OnDown(a0)
 
 	;==============================================================
 
 	; Start Echo AI follow state
 	move.l (Player2), a0
-	;jsr    EchoAIStart_Follow
+	jsr    EchoAIStart_Follow
 	
 	rts
 	
@@ -214,12 +205,14 @@ l4a2_ActivatePool1:
 	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
 	jsr    Pool_Raise
 
-	; TODO: Set callback to enable winch, use generator to enable button only
-
 	; Disable AI marker, let Echo onto raft
 	; TODO: Only once pool raised
 	ENTITY_GETBYNAME AIMarker, l4a2_MarkerEchoLockStop, a0
 	move.b #0x0, Entity_Active(a0)
+
+	; Enable next lock button
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock2, a0
+	move.b #0x1, Button_Active(a0)
 
 	rts
 
@@ -233,6 +226,10 @@ l4a2_ActivatePool2:
 
 	; Raise pool
 	jsr    Pool_Raise
+
+	; Enable next lock button
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock3, a0
+	move.b #0x1, Button_Active(a0)
 
 	rts
 

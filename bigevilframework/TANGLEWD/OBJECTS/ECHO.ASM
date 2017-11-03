@@ -1638,6 +1638,9 @@ EchoAIUpdate_Raft:
 	move.b Character_InWater(a2), d0
 	or.b   PhysicsObj_Underwater(a2), d0
 	bne    @NymnInWater
+	
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @NymnInAir
 
 	; Back to follow state
 	jsr    EchoAIStart_Follow
@@ -1645,6 +1648,7 @@ EchoAIUpdate_Raft:
 	@PlatformMoving:
 	@OutOfView:
 	@NymnInWater:
+	@NymnInAir:
 
 	rts
 

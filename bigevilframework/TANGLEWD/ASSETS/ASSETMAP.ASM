@@ -84,6 +84,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\nymn.asm
 	INCLUDE_TEXT_ASSET assets\sprites\leaf.asm
 	INCLUDE_TEXT_ASSET assets\sprites\lift.asm
+	INCLUDE_TEXT_ASSET assets\sprites\longboat.asm
 	INCLUDE_TEXT_ASSET assets\sprites\pillar.asm
 	INCLUDE_TEXT_ASSET assets\sprites\pool.asm
 	INCLUDE_TEXT_ASSET assets\sprites\raft.asm
