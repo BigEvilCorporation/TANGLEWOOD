@@ -283,6 +283,14 @@ PoolDraw:
 	divu   #vdp_plane_width, d0
 	swap   d0
 
+	; Get draw height as tiles
+	move.w Pool_WaterHeight(a0), d3
+	PIXELS2TILES d3
+	tst.w  d3
+	beq    @NoBody
+	subq.w #0x1, d3								; - surface line
+	@NoBody:
+
 	; Get Y pos as tiles
 	clr.l  d1
 	move.w Entity_WorldPosY(a0), d1				; Y pos
@@ -290,15 +298,37 @@ PoolDraw:
 	sub.w  Pool_WaterHeight(a0), d1
 	sub.w  #vdp_sprite_border_y, d1				; To plane space
 	PIXELS2TILES d1								; Pixels to tiles
+
+	; Clamp to screen top border
+	move.w WorldScrollY, d4
+	PIXELS2TILES d4
+	cmp.w  d1, d4
+	ble    @NoClampTop
+	move.w d4, d6								; Truncate height
+	sub.w  d1, d6
+	sub.w  d6, d3
+	move.w d4, d1								; Clamp Y
+	@NoClampTop:
+
+	; Clamp to screen bottom border
+	move.w d1, d6								; Y
+	sub.w  d4, d6								; - scroll
+	move.w d6, d7								; Backup
+	add.w  d3, d6								; + height
+	cmp.w  #(screen_height/8), d6
+	ble    @NoClampBottom
+	move.w #(screen_height/8), d6				; Clamp height
+	sub.w  d7, d6
+	move.w d6, d3
+	tst.w  d3
+	bge    @NoClampBottom
+	move.w #0x0, d3
+	@Test:
+	@NoClampBottom:
+
 	divu   #vdp_plane_height, d1				; To scroll space
 	swap   d1									; Remainder to lower word
 
-	; Backup pos for fill area
-	PUSHM  d0-d1/a0
-
-	; Get surface DMA line
-	lea    Pool_MapLineSurface(a0), a0
-	
 	; If overflows off end of plane, split into two DMAs
 	move.w d0, d6					; Get X pos
 	add.w  d2, d6					; Add width
@@ -306,31 +336,83 @@ PoolDraw:
 	bgt    @Overflow
 
 	; DMA the surface line
+	PUSHM  d0-d3/a0
+	lea    Pool_MapLineSurface(a0), a0
 	jsr    PoolDMALine
+	POPM   d0-d3/a0
+
+	; DMA the body lines
+	tst.w  d3
+	beq    @EndSurfaceDMA
+
+	PUSHL  a0
+	addq.w #0x1, d1	; +1 for surface line
+	subq.w #0x1, d3	; -1 for loop count
+	lea    Pool_MapLineBody(a0), a0
+	@BodyLineLp:
+	PUSHM  d0-d3
+	jsr    PoolDMALine
+	POPM   d0-d3
+	addq.w #0x1, d1	; +1 Y
+	dbra   d3, @BodyLineLp
+	POPL   a0
 
 	bra    @EndSurfaceDMA
 
 	@Overflow:
 
-	; Clamp size and DMA first line
+	; Clamp size and DMA first half of surface line
 	move.w d2, d7					; Backup original width
 	move.w #vdp_plane_width, d6		; Truncate width
 	sub.w  d0, d6
 	move.w d6, d2
-	PUSHM  d0-d2/d7					; Backup x/y/drawn width/original width
+	PUSHM  d0-d3/d7/a0				; Backup x/y/width/height/original width
+	lea    Pool_MapLineSurface(a0), a0
 	jsr    PoolDMALine
-	POPM   d0-d2/d7
+	POPM   d0-d3/d7/a0
+	
+	; DMA first half of body lines
+	tst.w  d3
+	beq    @NoSplitBodyLeft
+	PUSHM  d0-d3/d7/a0
+	addq.w #0x1, d1	; +1 for surface line
+	subq.w #0x1, d3	; -1 for loop count
+	lea    Pool_MapLineBody(a0), a0
+	@BodyLineLeftLp:
+	PUSHM  d0-d3
+	jsr    PoolDMALine
+	POPM   d0-d3
+	addq.w #0x1, d1	; +1 Y
+	dbra   d3, @BodyLineLeftLp
+	POPM   d0-d3/d7/a0
+	@NoSplitBodyLeft:
 
-	; DMA second line
+	; DMA second half of surface line
 	sub.w  d2, d7					; Original width - drawn width
 	move.w d7, d2
 	move.w #0x0, d0					; Start from 0
+	PUSHM  d0-d3/a0					; Backup x/y/width/height
+	lea    Pool_MapLineSurface(a0), a0
 	jsr    PoolDMALine
+	POPM   d0-d3/a0
+	
+	; DMA second half of body lines
+	tst.w  d3
+	beq    @NoSplitBodyRight
+	PUSHM  a0
+	addq.w #0x1, d1	; +1 for surface line
+	subq.w #0x1, d3	; -1 for loop count
+	lea    Pool_MapLineBody(a0), a0
+	@BodyLineRightLp:
+	PUSHM  d0-d3
+	jsr    PoolDMALine
+	POPM   d0-d3
+	addq.w #0x1, d1	; +1 Y
+	dbra   d3, @BodyLineRightLp
+	POPM   a0
+	@NoSplitBodyRight:
 
 	@EndSurfaceDMA:
-	
-	; Restore pos for fill area
-	POPM   d0-d1/a0
 
 	;==============================================================
 
