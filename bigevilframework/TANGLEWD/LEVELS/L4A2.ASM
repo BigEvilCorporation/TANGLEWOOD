@@ -105,6 +105,12 @@ l4a2_Init:
 	move.l #l4a2_ActivatePool2, Lock_OnRaised(a0)
 	jsr    Lock_SetLowered
 
+	ENTITY_GETBYNAME Lock, l4a2_Lock3, a0
+	jsr    Lock_SetRaised
+
+	ENTITY_GETBYNAME Lock, l4a2_Lock4, a0
+	jsr    Lock_SetRaised
+
 	ENTITY_GETBYNAME Pool, l4a2_Pool1, a0
 	jsr    Pool_SetLowered
 	ENTITY_GETBYNAME Pool, l4a2_Pool2, a0
@@ -123,23 +129,6 @@ l4a2_Init:
 	move.l a1, Generator_UserData(a0)
 	move.l #ButtonActivate, Generator_OnActivate(a0)
 
-	; Connect winches together
-	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
-	ENTITY_GETBYNAME Winch, l4a2_Winch2, a1
-	move.l a1, Winch_Mirror(a0)
-
-	; Connect raft to winch
-	ENTITY_GETBYNAME Winch, l4a2_Winch1, a0
-	ENTITY_GETBYNAME Raft, l4a2_Raft1, a1
-	move.l a1, Winch_PhysObject(a0)
-
-	; Connect button to winch
-	ENTITY_GETBYNAME Button, l4a2_ButtonWinch1, a0
-	ENTITY_GETBYNAME Winch, l4a2_Winch1, a1
-	move.b #0x1, Button_Active(a0)
-	move.l a1, Button_UserData(a0)
-	move.l #Winch_RunClockwise, Button_OnDown(a0)
-
 	; Connect buttons to locks/pools, disable buttons
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
 	move.b #0x0, Button_Active(a0)
@@ -153,11 +142,19 @@ l4a2_Init:
 	move.b #0x0, Button_Active(a0)
 	move.l #l4a2_ActivatePool3, Button_OnDown(a0)
 
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock4, a0
+	move.b #0x1, Button_Active(a0)
+	move.l #l4a2_ActivateLock3, Button_OnDown(a0)
+
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock5, a0
+	move.b #0x1, Button_Active(a0)
+	move.l #l4a2_ActivateLock4, Button_OnDown(a0)
+
 	;==============================================================
 
 	; Start Echo AI follow state
 	move.l (Player2), a0
-	jsr    EchoAIStart_Follow
+	;jsr    EchoAIStart_Follow
 	
 	rts
 	
@@ -196,6 +193,22 @@ l4a2_ActivateLock2:
 	; Raise lock
 	ENTITY_GETBYNAME Lock, l4a2_Lock2, a0
 	jsr    Lock_Raise
+
+	rts
+
+l4a2_ActivateLock3:
+	
+	; Lower lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock3, a0
+	jsr    Lock_Lower
+
+	rts
+
+l4a2_ActivateLock4:
+	
+	; Raise lock
+	ENTITY_GETBYNAME Lock, l4a2_Lock4, a0
+	jsr    Lock_Lower
 
 	rts
 

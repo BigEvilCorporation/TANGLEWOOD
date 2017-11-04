@@ -19,7 +19,7 @@ Longboat_WallProbeBottom	equ Longboat_Height+0x08
 Longboat_StepHeight			equ 0x4
 Longboat_FloorProbeX		equ (Longboat_Width/2)
 Longboat_FloorProbeY		equ (Longboat_Height-4)
-Longboat_MaxVelX			equ 0x00010000
+Longboat_MaxVelX			equ 0x0000A000
 Longboat_PlatformOffsetX	equ 0x0000
 Longboat_PlatformOffsetY	equ 0x0000
 Longboat_SineAmplitude		equ 0x03
@@ -39,8 +39,9 @@ Longboat_Accelerations:
 Longboat_Platforms			rs.b Platform_Struct_Size*Longboat_NumSegments
 Longboat_YOffsets			rs.w Longboat_NumSegments
 Longboat_Tilt				rs.w 1
+Longboat_Visible			rs.b 1
 ;-----------------------------
-Longboat_Struct_Pad			rs.b 2
+Longboat_Struct_Pad			rs.b 1
 Longboat_struct_Size		rs.b 0
 ;-----------------------------
 
@@ -83,8 +84,9 @@ LongboatInit:
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_Buoyant(a0)
-	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
-	move.w  #0x0000, Longboat_Tilt(a0)
+	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
+	move.w  #0x0, Longboat_Tilt(a0)
+	move.b  #0x0, Longboat_Visible(a0)
 
 	; Offset draw pos by float height
 	; TODO: animate this
@@ -118,6 +120,9 @@ LongboatLoadGfx:
 	; Load sprite
 	SPRITE_LOAD_DEFAULT Longboat,PaletteId_World0,0x0
 
+	; Position all segments
+	jsr    LongboatUpdateSegments
+
 	rts
 
 LongboatUpdate:
@@ -126,6 +131,97 @@ LongboatUpdate:
 
 	; Base functionality
 	jsr    PhysicsObjUpdate
+
+	; Update segment positions/acceleration
+	tst.b  Longboat_Visible(a0)
+	beq    @Invisible
+	jsr    LongboatUpdateSegments
+	@Invisible:
+
+	rts
+
+LongboatDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Reset visibility
+	move.b #0x0, Longboat_Visible(a0)
+
+	; Get pos
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
+
+	PUSHM  d0-d1
+
+	; Get Y position array
+	lea    Longboat_YOffsets(a0), a2
+
+	; For all segments
+	move.w #Longboat_NumSegments-1, d6
+	@SpriteLp:
+
+	; Next Y
+	move.w (a2)+, d1
+
+	; Apply pos
+	move.w d0, Entity_WorldPosX(a0)
+	move.w d1, Entity_WorldPosY(a0)
+
+	; Draw segment
+	PUSHM  d0-d2/d6
+	jsr    SpriteObjDraw
+	POPM   d0-d2/d6
+
+	; Next X
+	addi.w #Longboat_SegmentWidth, d0
+
+	; Update visibility
+	move.b SpriteObj_SpriteLinked(a0), d5
+	or.b   d5, Longboat_Visible(a0)
+
+	dbra   d6, @SpriteLp
+
+	POPM   d0-d1
+
+	move.w d0, Entity_WorldPosX(a0)
+	move.w d1, Entity_WorldPosY(a0)
+
+	rts
+
+LongboatSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	
+	;==============================================================
+	
+	@End:
+	
+	rts
+
+LongboatUpdateSegments:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
 
 	; Reset acceleration
 	move.w #0x0, PhysicsObj_AccelX(a0)
@@ -198,76 +294,4 @@ LongboatUpdate:
 
 	dbra   d6, @SegmentLp
 
-	rts
-
-LongboatDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Get pos
-	move.w Entity_WorldPosX(a0), d0
-	move.w Entity_WorldPosY(a0), d1
-
-	PUSHM  d0-d1
-
-	; Get Y position array
-	lea    Longboat_YOffsets(a0), a2
-
-	; For all segments
-	move.w #Longboat_NumSegments-1, d6
-	@SpriteLp:
-
-	; Next Y
-	move.w (a2)+, d1
-
-	; Apply pos
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
-
-	; Draw segment
-	PUSHM  d0-d2/d6
-	jsr    SpriteObjDraw
-	POPM   d0-d2/d6
-
-	; Next X
-	addi.w #Longboat_SegmentWidth, d0
-
-	dbra   d6, @SpriteLp
-
-	POPM   d0-d1
-
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
-
-	rts
-
-LongboatSerialise:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a3 --- Stream ptr
-	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
-
-	cmp.b #serialise_dir_in, d1
-	beq   @Loading
-	
-	;==============================================================
-	
-	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
-	
-	bra  @End
-	
-	;==============================================================
-	
-	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
-	
-	;==============================================================
-	
-	@End:
-	
 	rts
