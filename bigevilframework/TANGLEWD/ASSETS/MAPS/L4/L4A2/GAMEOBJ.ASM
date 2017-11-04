@@ -266,7 +266,7 @@ L4A2_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 	jsr DjubbInit
-	move.l #0x0d780000, Entity_WorldPosX(a0)
+	move.l #0x0e680000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L4A2_Djubb_30_name, a3
