@@ -59,6 +59,7 @@ Player1LadderMaxXDist equ 0x0010   ; Max X dist from centre of ladder to use
 Player1LadderMaxYDist equ Player1Height/2   ; Max Y dist from top of ladder to jump off
 Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
+Player1WaterWaistHeight	equ (Player1Height/4) ; Depth to be considered in water
 
 ; Player collision probes
 Player1StepHeight	 	equ 0x3
@@ -2241,6 +2242,8 @@ PlayerInteractTest_Water:
 	PUSHL  d5
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+	subi.w #Player1WaterWaistHeight, d1
+	subi.w #Player1WaterWaistHeight, d2
 	jsr    PHYS_TestBoxIntersectBox
 	POPL   d5
 	tst.b  d0
@@ -2276,6 +2279,8 @@ PlayerInteractTest_Water:
 	PUSHL  d5
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+	subi.w #Player1WaterWaistHeight, d1
+	subi.w #Player1WaterWaistHeight, d2
 	lea    Pool_Platform(a2), a3	; Use pool platform Y as bounds top
 	move.w Platform_PosY(a3), d3
 	PUSHL  d3
@@ -2306,6 +2311,7 @@ PlayerInteractTest_Water:
 	; Check all water terrain
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d4
+	subi.w #Player1WaterWaistHeight, d4
 	move.w Entity_Width(a0), d5
 	lsr.w  #0x1, d5
 	add.w  d5, d0

@@ -154,7 +154,7 @@ l4a2_Init:
 
 	; Start Echo AI follow state
 	move.l (Player2), a0
-	;jsr    EchoAIStart_Follow
+	jsr    EchoAIStart_Follow
 	
 	rts
 	

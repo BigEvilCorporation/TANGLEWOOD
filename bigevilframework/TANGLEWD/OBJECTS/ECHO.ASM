@@ -2704,10 +2704,12 @@ EchoAI_FindRaft:
 
 	move.l #0x0, a2
 
-	move.w (EntityCount_Raft), d6
+	;move.w (EntityCount_Raft), d6
+	move.w (EntityCount_Longboat), d6
 	tst.w  d6
 	beq    @NoRafts
-	move.l (EntityPoolStart_Raft), a4
+	;move.l (EntityPoolStart_Raft), a4
+	move.l (EntityPoolStart_Longboat), a4
 	subq.w #0x1, d6
 	@RaftLoop:
 
@@ -2740,7 +2742,8 @@ EchoAI_FindRaft:
 	bra    @FoundRaft
 
 	@NextRaft:
-	lea    Raft_Struct_Size(a4), a4
+	;lea    Raft_Struct_Size(a4), a4
+	lea    Longboat_Struct_Size(a4), a4
 	dbra   d6, @RaftLoop
 
 	@NoPlatform:
