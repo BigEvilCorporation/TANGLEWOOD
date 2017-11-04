@@ -132,11 +132,26 @@ LongboatUpdate:
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
-	; Update segment positions/acceleration
+	; If ivisble
 	tst.b  Longboat_Visible(a0)
 	beq    @Invisible
+
+	; Update segment positions/acceleration
 	jsr    LongboatUpdateSegments
+	bra    @Visible
+
 	@Invisible:
+
+	; else clear platform velocities
+	lea    Longboat_Platforms(a0), a3
+	move.w #Longboat_NumSegments-1, d6
+	@SegmentLp:
+	move.l #0x0, Platform_VelX(a3)
+	move.l #0x0, Platform_VelY(a3)
+	lea    Platform_Struct_Size(a3), a3
+	dbra   d6, @SegmentLp
+
+	@Visible:
 
 	rts
 
@@ -236,6 +251,9 @@ LongboatUpdateSegments:
 	; Reset current tilt
 	move.w #0x0, Longboat_Tilt(a0)
 
+	; Update out of view if occupied
+	move.b #0x0, AnimObj_UpdateOutOfView(a0)
+
 	; Pivot boat according to current tilt
 	clr.l  d3
 	move.w d2, d3
@@ -281,6 +299,7 @@ LongboatUpdateSegments:
 	beq    @Unoccupied
 	add.w  d4, Longboat_Tilt(a0)
 	add.w  d5, PhysicsObj_AccelX(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	@Unoccupied:
 
 	; Next X
