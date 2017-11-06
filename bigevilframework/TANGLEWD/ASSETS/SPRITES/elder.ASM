@@ -72,18 +72,18 @@ actor_elder_sheet_walk_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100008, 0x005F0008
+	dc.l 0x00100028, 0x005F0028
+	dc.l 0x00100048, 0x005F0048
+	dc.l 0x00300008, 0x003F0008
+	dc.l 0x00300028, 0x003F0028
+	dc.l 0x00300048, 0x003F0048
+	dc.l 0x00500008, 0x001F0008
+	dc.l 0x00500028, 0x001F0028
+	dc.l 0x00500048, 0x001F0048
+	dc.l 0x00700008, 0xFFFFFFFF0008
+	dc.l 0x00700028, 0xFFFFFFFF0028
+	dc.l 0x00700048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -109,18 +109,18 @@ actor_elder_sheet_walk_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100008, 0x005F0008
+	dc.l 0x00100028, 0x005F0028
+	dc.l 0x00100048, 0x005F0048
+	dc.l 0x00300008, 0x003F0008
+	dc.l 0x00300028, 0x003F0028
+	dc.l 0x00300048, 0x003F0048
+	dc.l 0x00500008, 0x001F0008
+	dc.l 0x00500028, 0x001F0028
+	dc.l 0x00500048, 0x001F0048
+	dc.l 0x00700008, 0xFFFFFFFF0008
+	dc.l 0x00700028, 0xFFFFFFFF0028
+	dc.l 0x00700048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -146,18 +146,18 @@ actor_elder_sheet_walk_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00180008, 0x00570008
+	dc.l 0x00180028, 0x00570028
+	dc.l 0x00180048, 0x00570048
+	dc.l 0x00380008, 0x00370008
+	dc.l 0x00380028, 0x00370028
+	dc.l 0x00380048, 0x00370048
+	dc.l 0x00580008, 0x00170008
+	dc.l 0x00580028, 0x00170028
+	dc.l 0x00580048, 0x00170048
+	dc.l 0x00780008, 0xFFFFFFFF0008
+	dc.l 0x00780028, 0xFFFFFFFF0028
+	dc.l 0x00780048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -183,18 +183,18 @@ actor_elder_sheet_walk_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00180008, 0x00570008
+	dc.l 0x00180028, 0x00570028
+	dc.l 0x00180048, 0x00570048
+	dc.l 0x00380008, 0x00370008
+	dc.l 0x00380028, 0x00370028
+	dc.l 0x00380048, 0x00370048
+	dc.l 0x00580008, 0x00170008
+	dc.l 0x00580028, 0x00170028
+	dc.l 0x00580048, 0x00170048
+	dc.l 0x00780008, 0xFFFFFFFF0008
+	dc.l 0x00780028, 0xFFFFFFFF0028
+	dc.l 0x00780048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -220,21 +220,21 @@ actor_elder_sheet_walk_frame_4_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00680000
-	dc.l 0x00000020, 0x00680020
-	dc.l 0x00000040, 0x00680040
-	dc.l 0x00200000, 0x00480000
-	dc.l 0x00200020, 0x00480020
-	dc.l 0x00200040, 0x00480040
-	dc.l 0x00400000, 0x00280000
-	dc.l 0x00400020, 0x00280020
-	dc.l 0x00400040, 0x00280040
-	dc.l 0x00600000, 0x00080000
-	dc.l 0x00600020, 0x00080020
-	dc.l 0x00600040, 0x00080040
-	dc.l 0x00800000, 0x00000000
-	dc.l 0x00800020, 0x00000020
-	dc.l 0x00800040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
+	dc.l 0x00880008, 0xFFFFFFFF0008
+	dc.l 0x00880028, 0xFFFFFFFF0028
+	dc.l 0x00880048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -263,21 +263,21 @@ actor_elder_sheet_walk_frame_5_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00680000
-	dc.l 0x00000020, 0x00680020
-	dc.l 0x00000040, 0x00680040
-	dc.l 0x00200000, 0x00480000
-	dc.l 0x00200020, 0x00480020
-	dc.l 0x00200040, 0x00480040
-	dc.l 0x00400000, 0x00280000
-	dc.l 0x00400020, 0x00280020
-	dc.l 0x00400040, 0x00280040
-	dc.l 0x00600000, 0x00080000
-	dc.l 0x00600020, 0x00080020
-	dc.l 0x00600040, 0x00080040
-	dc.l 0x00800000, 0x00000000
-	dc.l 0x00800020, 0x00000020
-	dc.l 0x00800040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
+	dc.l 0x00880008, 0xFFFFFFFF0008
+	dc.l 0x00880028, 0xFFFFFFFF0028
+	dc.l 0x00880048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -306,18 +306,18 @@ actor_elder_sheet_walk_frame_6_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00180008, 0x00570008
+	dc.l 0x00180028, 0x00570028
+	dc.l 0x00180048, 0x00570048
+	dc.l 0x00380008, 0x00370008
+	dc.l 0x00380028, 0x00370028
+	dc.l 0x00380048, 0x00370048
+	dc.l 0x00580008, 0x00170008
+	dc.l 0x00580028, 0x00170028
+	dc.l 0x00580048, 0x00170048
+	dc.l 0x00780008, 0xFFFFFFFF0008
+	dc.l 0x00780028, 0xFFFFFFFF0028
+	dc.l 0x00780048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -343,18 +343,18 @@ actor_elder_sheet_walk_frame_7_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_walk_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00180008, 0x00570008
+	dc.l 0x00180028, 0x00570028
+	dc.l 0x00180048, 0x00570048
+	dc.l 0x00380008, 0x00370008
+	dc.l 0x00380028, 0x00370028
+	dc.l 0x00380048, 0x00370048
+	dc.l 0x00580008, 0x00170008
+	dc.l 0x00580028, 0x00170028
+	dc.l 0x00580048, 0x00170048
+	dc.l 0x00780008, 0xFFFFFFFF0008
+	dc.l 0x00780028, 0xFFFFFFFF0028
+	dc.l 0x00780048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -376,12 +376,9 @@ actor_elder_sheet_walk_frame_7_subsprite_dimensions_bits:
 
 actor_elder_sheet_walk_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_elder_sheet_walk_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_elder_sheet_walk_width		equ 0x90	; Width in pixels
-actor_elder_sheet_walk_height		equ 0x58	; Width in pixels
-actor_elder_sheet_walk_size_b		equ 0xC600	; Size in bytes
-actor_elder_sheet_walk_size_w		equ 0x6300	; Size in words
-actor_elder_sheet_walk_size_l		equ 0x3180	; Size in longwords
-actor_elder_sheet_walk_size_t		equ 0x630	; Size in tiles
+actor_elder_sheet_walk_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_walk_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_walk_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_bite_frametable:
@@ -426,18 +423,18 @@ actor_elder_sheet_bite_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_bite_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100010, 0x005F0010
+	dc.l 0x00100030, 0x005F0030
+	dc.l 0x00100050, 0x005F0050
+	dc.l 0x00300010, 0x003F0010
+	dc.l 0x00300030, 0x003F0030
+	dc.l 0x00300050, 0x003F0050
+	dc.l 0x00500010, 0x001F0010
+	dc.l 0x00500030, 0x001F0030
+	dc.l 0x00500050, 0x001F0050
+	dc.l 0x00700010, 0xFFFFFFFF0010
+	dc.l 0x00700030, 0xFFFFFFFF0030
+	dc.l 0x00700050, 0xFFFFFFFF0050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -463,18 +460,18 @@ actor_elder_sheet_bite_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_bite_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00500000
-	dc.l 0x00000020, 0x00500020
-	dc.l 0x00000040, 0x00500040
-	dc.l 0x00200000, 0x00300000
-	dc.l 0x00200020, 0x00300020
-	dc.l 0x00200040, 0x00300040
-	dc.l 0x00400000, 0x00100000
-	dc.l 0x00400020, 0x00100020
-	dc.l 0x00400040, 0x00100040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00170008
+	dc.l 0x00680028, 0x00170028
+	dc.l 0x00680048, 0x00170048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -500,18 +497,18 @@ actor_elder_sheet_bite_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_bite_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100008, 0x005F0008
+	dc.l 0x00100028, 0x005F0028
+	dc.l 0x00100048, 0x005F0048
+	dc.l 0x00300008, 0x003F0008
+	dc.l 0x00300028, 0x003F0028
+	dc.l 0x00300048, 0x003F0048
+	dc.l 0x00500008, 0x001F0008
+	dc.l 0x00500028, 0x001F0028
+	dc.l 0x00500048, 0x001F0048
+	dc.l 0x00700008, 0xFFFFFFFF0008
+	dc.l 0x00700028, 0xFFFFFFFF0028
+	dc.l 0x00700048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -537,14 +534,14 @@ actor_elder_sheet_bite_frame_3_size_subsprites		equ 0x0008	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_bite_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
+	dc.l 0x00100018, 0x005F0018
+	dc.l 0x00100038, 0x005F0038
+	dc.l 0x00300018, 0x003F0018
+	dc.l 0x00300038, 0x003F0038
+	dc.l 0x00500018, 0x001F0018
+	dc.l 0x00500038, 0x001F0038
+	dc.l 0x00700018, 0xFFFFFFFF0018
+	dc.l 0x00700038, 0xFFFFFFFF0038
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -566,18 +563,18 @@ actor_elder_sheet_bite_frame_4_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_bite_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100010, 0x005F0010
+	dc.l 0x00100030, 0x005F0030
+	dc.l 0x00100050, 0x005F0050
+	dc.l 0x00300010, 0x003F0010
+	dc.l 0x00300030, 0x003F0030
+	dc.l 0x00300050, 0x003F0050
+	dc.l 0x00500010, 0x001F0010
+	dc.l 0x00500030, 0x001F0030
+	dc.l 0x00500050, 0x001F0050
+	dc.l 0x00700010, 0xFFFFFFFF0010
+	dc.l 0x00700030, 0xFFFFFFFF0030
+	dc.l 0x00700050, 0xFFFFFFFF0050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -599,12 +596,9 @@ actor_elder_sheet_bite_frame_4_subsprite_dimensions_bits:
 
 actor_elder_sheet_bite_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
 actor_elder_sheet_bite_tileoffset	equ 0x4EC	; Offset to first tile in sprite sheet
-actor_elder_sheet_bite_width		equ 0x90	; Width in pixels
-actor_elder_sheet_bite_height		equ 0x58	; Width in pixels
-actor_elder_sheet_bite_size_b		equ 0x7BC0	; Size in bytes
-actor_elder_sheet_bite_size_w		equ 0x3DE0	; Size in words
-actor_elder_sheet_bite_size_l		equ 0x1EF0	; Size in longwords
-actor_elder_sheet_bite_size_t		equ 0x3DE	; Size in tiles
+actor_elder_sheet_bite_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_bite_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_bite_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_roar_frametable:
@@ -635,18 +629,18 @@ actor_elder_sheet_roar_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_roar_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x000F0008
+	dc.l 0x00680028, 0x000F0028
+	dc.l 0x00680048, 0x000F0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -672,18 +666,18 @@ actor_elder_sheet_roar_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_roar_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100010, 0x005F0010
+	dc.l 0x00100030, 0x005F0030
+	dc.l 0x00100050, 0x005F0050
+	dc.l 0x00300010, 0x003F0010
+	dc.l 0x00300030, 0x003F0030
+	dc.l 0x00300050, 0x003F0050
+	dc.l 0x00500010, 0x001F0010
+	dc.l 0x00500030, 0x001F0030
+	dc.l 0x00500050, 0x001F0050
+	dc.l 0x00700010, 0xFFFFFFFF0010
+	dc.l 0x00700030, 0xFFFFFFFF0030
+	dc.l 0x00700050, 0xFFFFFFFF0050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -709,18 +703,18 @@ actor_elder_sheet_roar_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_roar_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100008, 0x005F0008
+	dc.l 0x00100028, 0x005F0028
+	dc.l 0x00100048, 0x005F0048
+	dc.l 0x00300008, 0x003F0008
+	dc.l 0x00300028, 0x003F0028
+	dc.l 0x00300048, 0x003F0048
+	dc.l 0x00500008, 0x001F0008
+	dc.l 0x00500028, 0x001F0028
+	dc.l 0x00500048, 0x001F0048
+	dc.l 0x00700008, 0xFFFFFFFF0008
+	dc.l 0x00700028, 0xFFFFFFFF0028
+	dc.l 0x00700048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -742,12 +736,9 @@ actor_elder_sheet_roar_frame_2_subsprite_dimensions_bits:
 
 actor_elder_sheet_roar_frameoffset	equ 0x0D	; Offset to first frame in sprite sheet
 actor_elder_sheet_roar_tileoffset	equ 0x7B8	; Offset to first tile in sprite sheet
-actor_elder_sheet_roar_width		equ 0x90	; Width in pixels
-actor_elder_sheet_roar_height		equ 0x58	; Width in pixels
-actor_elder_sheet_roar_size_b		equ 0x4A40	; Size in bytes
-actor_elder_sheet_roar_size_w		equ 0x2520	; Size in words
-actor_elder_sheet_roar_size_l		equ 0x1290	; Size in longwords
-actor_elder_sheet_roar_size_t		equ 0x252	; Size in tiles
+actor_elder_sheet_roar_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_roar_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_roar_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_idle_frametable:
@@ -785,18 +776,18 @@ actor_elder_sheet_idle_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -822,18 +813,18 @@ actor_elder_sheet_idle_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_idle_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -859,18 +850,18 @@ actor_elder_sheet_idle_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_idle_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -896,18 +887,18 @@ actor_elder_sheet_idle_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_idle_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -929,12 +920,9 @@ actor_elder_sheet_idle_frame_3_subsprite_dimensions_bits:
 
 actor_elder_sheet_idle_frameoffset	equ 0x10	; Offset to first frame in sprite sheet
 actor_elder_sheet_idle_tileoffset	equ 0x97E	; Offset to first tile in sprite sheet
-actor_elder_sheet_idle_width		equ 0x90	; Width in pixels
-actor_elder_sheet_idle_height		equ 0x58	; Width in pixels
-actor_elder_sheet_idle_size_b		equ 0x6300	; Size in bytes
-actor_elder_sheet_idle_size_w		equ 0x3180	; Size in words
-actor_elder_sheet_idle_size_l		equ 0x18C0	; Size in longwords
-actor_elder_sheet_idle_size_t		equ 0x318	; Size in tiles
+actor_elder_sheet_idle_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_idle_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_idle_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_death_frametable:
@@ -951,16 +939,16 @@ actor_elder_sheet_death_frame_0_size_subsprites		equ 0x000A	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_death_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00680000
-	dc.l 0x00000020, 0x00680020
-	dc.l 0x00200000, 0x00480000
-	dc.l 0x00200020, 0x00480020
-	dc.l 0x00400000, 0x00280000
-	dc.l 0x00400020, 0x00280020
-	dc.l 0x00600000, 0x00080000
-	dc.l 0x00600020, 0x00080020
-	dc.l 0x00800000, 0x00000000
-	dc.l 0x00800020, 0x00000020
+	dc.l 0x00080018, 0x00670018
+	dc.l 0x00080038, 0x00670038
+	dc.l 0x00280018, 0x00470018
+	dc.l 0x00280038, 0x00470038
+	dc.l 0x00480018, 0x00270018
+	dc.l 0x00480038, 0x00270038
+	dc.l 0x00680018, 0x00070018
+	dc.l 0x00680038, 0x00070038
+	dc.l 0x00880018, 0xFFFFFFFF0018
+	dc.l 0x00880038, 0xFFFFFFFF0038
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -980,12 +968,9 @@ actor_elder_sheet_death_frame_0_subsprite_dimensions_bits:
 
 actor_elder_sheet_death_frameoffset	equ 0x14	; Offset to first frame in sprite sheet
 actor_elder_sheet_death_tileoffset	equ 0xBFE	; Offset to first tile in sprite sheet
-actor_elder_sheet_death_width		equ 0x90	; Width in pixels
-actor_elder_sheet_death_height		equ 0x58	; Width in pixels
-actor_elder_sheet_death_size_b		equ 0x18C0	; Size in bytes
-actor_elder_sheet_death_size_w		equ 0xC60	; Size in words
-actor_elder_sheet_death_size_l		equ 0x630	; Size in longwords
-actor_elder_sheet_death_size_t		equ 0xC6	; Size in tiles
+actor_elder_sheet_death_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_death_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_death_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_run_frametable:
@@ -1030,21 +1015,21 @@ actor_elder_sheet_run_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_run_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00680000
-	dc.l 0x00000020, 0x00680020
-	dc.l 0x00000040, 0x00680040
-	dc.l 0x00200000, 0x00480000
-	dc.l 0x00200020, 0x00480020
-	dc.l 0x00200040, 0x00480040
-	dc.l 0x00400000, 0x00280000
-	dc.l 0x00400020, 0x00280020
-	dc.l 0x00400040, 0x00280040
-	dc.l 0x00600000, 0x00080000
-	dc.l 0x00600020, 0x00080020
-	dc.l 0x00600040, 0x00080040
-	dc.l 0x00800000, 0x00000000
-	dc.l 0x00800020, 0x00000020
-	dc.l 0x00800040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
+	dc.l 0x00880008, 0xFFFFFFFF0008
+	dc.l 0x00880028, 0xFFFFFFFF0028
+	dc.l 0x00880048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1073,21 +1058,21 @@ actor_elder_sheet_run_frame_1_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_run_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00680000
-	dc.l 0x00000020, 0x00680020
-	dc.l 0x00000040, 0x00680040
-	dc.l 0x00200000, 0x00480000
-	dc.l 0x00200020, 0x00480020
-	dc.l 0x00200040, 0x00480040
-	dc.l 0x00400000, 0x00280000
-	dc.l 0x00400020, 0x00280020
-	dc.l 0x00400040, 0x00280040
-	dc.l 0x00600000, 0x00080000
-	dc.l 0x00600020, 0x00080020
-	dc.l 0x00600040, 0x00080040
-	dc.l 0x00800000, 0x00000000
-	dc.l 0x00800020, 0x00000020
-	dc.l 0x00800040, 0x00000040
+	dc.l 0x00080008, 0x00670008
+	dc.l 0x00080028, 0x00670028
+	dc.l 0x00080048, 0x00670048
+	dc.l 0x00280008, 0x00470008
+	dc.l 0x00280028, 0x00470028
+	dc.l 0x00280048, 0x00470048
+	dc.l 0x00480008, 0x00270008
+	dc.l 0x00480028, 0x00270028
+	dc.l 0x00480048, 0x00270048
+	dc.l 0x00680008, 0x00070008
+	dc.l 0x00680028, 0x00070028
+	dc.l 0x00680048, 0x00070048
+	dc.l 0x00880008, 0xFFFFFFFF0008
+	dc.l 0x00880028, 0xFFFFFFFF0028
+	dc.l 0x00880048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1116,18 +1101,18 @@ actor_elder_sheet_run_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_run_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00600000
-	dc.l 0x00000020, 0x00600020
-	dc.l 0x00000040, 0x00600040
-	dc.l 0x00200000, 0x00400000
-	dc.l 0x00200020, 0x00400020
-	dc.l 0x00200040, 0x00400040
-	dc.l 0x00400000, 0x00200000
-	dc.l 0x00400020, 0x00200020
-	dc.l 0x00400040, 0x00200040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00100008, 0x005F0008
+	dc.l 0x00100028, 0x005F0028
+	dc.l 0x00100048, 0x005F0048
+	dc.l 0x00300008, 0x003F0008
+	dc.l 0x00300028, 0x003F0028
+	dc.l 0x00300048, 0x003F0048
+	dc.l 0x00500008, 0x001F0008
+	dc.l 0x00500028, 0x001F0028
+	dc.l 0x00500048, 0x001F0048
+	dc.l 0x00700008, 0xFFFFFFFF0008
+	dc.l 0x00700028, 0xFFFFFFFF0028
+	dc.l 0x00700048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1153,18 +1138,18 @@ actor_elder_sheet_run_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_run_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00580000
-	dc.l 0x00000020, 0x00580020
-	dc.l 0x00000040, 0x00580040
-	dc.l 0x00200000, 0x00380000
-	dc.l 0x00200020, 0x00380020
-	dc.l 0x00200040, 0x00380040
-	dc.l 0x00400000, 0x00180000
-	dc.l 0x00400020, 0x00180020
-	dc.l 0x00400040, 0x00180040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00180008, 0x00570008
+	dc.l 0x00180028, 0x00570028
+	dc.l 0x00180048, 0x00570048
+	dc.l 0x00380008, 0x00370008
+	dc.l 0x00380028, 0x00370028
+	dc.l 0x00380048, 0x00370048
+	dc.l 0x00580008, 0x00170008
+	dc.l 0x00580028, 0x00170028
+	dc.l 0x00580048, 0x00170048
+	dc.l 0x00780008, 0xFFFFFFFF0008
+	dc.l 0x00780028, 0xFFFFFFFF0028
+	dc.l 0x00780048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1190,18 +1175,18 @@ actor_elder_sheet_run_frame_4_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_elder_sheet_run_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00500000
-	dc.l 0x00000020, 0x00500020
-	dc.l 0x00000040, 0x00500040
-	dc.l 0x00200000, 0x00300000
-	dc.l 0x00200020, 0x00300020
-	dc.l 0x00200040, 0x00300040
-	dc.l 0x00400000, 0x00100000
-	dc.l 0x00400020, 0x00100020
-	dc.l 0x00400040, 0x00100040
-	dc.l 0x00600000, 0x00000000
-	dc.l 0x00600020, 0x00000020
-	dc.l 0x00600040, 0x00000040
+	dc.l 0x00200008, 0x004F0008
+	dc.l 0x00200028, 0x004F0028
+	dc.l 0x00200048, 0x004F0048
+	dc.l 0x00400008, 0x002F0008
+	dc.l 0x00400028, 0x002F0028
+	dc.l 0x00400048, 0x002F0048
+	dc.l 0x00600008, 0x000F0008
+	dc.l 0x00600028, 0x000F0028
+	dc.l 0x00600048, 0x000F0048
+	dc.l 0x00800008, 0xFFFFFFFF0008
+	dc.l 0x00800028, 0xFFFFFFFF0028
+	dc.l 0x00800048, 0xFFFFFFFF0048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1223,12 +1208,9 @@ actor_elder_sheet_run_frame_4_subsprite_dimensions_bits:
 
 actor_elder_sheet_run_frameoffset	equ 0x15	; Offset to first frame in sprite sheet
 actor_elder_sheet_run_tileoffset	equ 0xC86	; Offset to first tile in sprite sheet
-actor_elder_sheet_run_width		equ 0x90	; Width in pixels
-actor_elder_sheet_run_height		equ 0x58	; Width in pixels
-actor_elder_sheet_run_size_b		equ 0x7BC0	; Size in bytes
-actor_elder_sheet_run_size_w		equ 0x3DE0	; Size in words
-actor_elder_sheet_run_size_l		equ 0x1EF0	; Size in longwords
-actor_elder_sheet_run_size_t		equ 0x3DE	; Size in tiles
+actor_elder_sheet_run_width		equ 0x90	; Max width of largest frame in pixels
+actor_elder_sheet_run_height		equ 0x58	; Max height of largest frame in pixels
+actor_elder_sheet_run_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_elder:

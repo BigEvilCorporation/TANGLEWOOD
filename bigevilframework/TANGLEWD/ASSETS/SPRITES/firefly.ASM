@@ -156,7 +156,7 @@ actor_firefly_sheet_red_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -171,7 +171,7 @@ actor_firefly_sheet_red_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -186,7 +186,7 @@ actor_firefly_sheet_red_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -201,7 +201,7 @@ actor_firefly_sheet_red_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -216,7 +216,7 @@ actor_firefly_sheet_red_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -231,7 +231,7 @@ actor_firefly_sheet_red_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -246,7 +246,7 @@ actor_firefly_sheet_red_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000008, 0x00070008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -261,7 +261,7 @@ actor_firefly_sheet_red_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000008, 0x00070008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -276,7 +276,7 @@ actor_firefly_sheet_red_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -291,7 +291,7 @@ actor_firefly_sheet_red_frame_9_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_9_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -306,7 +306,7 @@ actor_firefly_sheet_red_frame_10_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_10_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -321,7 +321,7 @@ actor_firefly_sheet_red_frame_11_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_11_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -336,7 +336,7 @@ actor_firefly_sheet_red_frame_12_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_12_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -351,7 +351,7 @@ actor_firefly_sheet_red_frame_13_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_13_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -366,7 +366,7 @@ actor_firefly_sheet_red_frame_14_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_14_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -381,7 +381,7 @@ actor_firefly_sheet_red_frame_15_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_15_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -396,7 +396,7 @@ actor_firefly_sheet_red_frame_16_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_16_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080008, 0xFFFFFFFF0008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -411,7 +411,7 @@ actor_firefly_sheet_red_frame_17_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_17_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080008, 0xFFFFFFFF0008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -426,7 +426,7 @@ actor_firefly_sheet_red_frame_18_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_18_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -441,7 +441,7 @@ actor_firefly_sheet_red_frame_19_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_firefly_sheet_red_frame_19_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -452,12 +452,9 @@ actor_firefly_sheet_red_frame_19_subsprite_dimensions_bits:
 
 actor_firefly_sheet_red_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_firefly_sheet_red_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_firefly_sheet_red_width		equ 0x10	; Width in pixels
-actor_firefly_sheet_red_height		equ 0x10	; Width in pixels
-actor_firefly_sheet_red_size_b		equ 0xA00	; Size in bytes
-actor_firefly_sheet_red_size_w		equ 0x500	; Size in words
-actor_firefly_sheet_red_size_l		equ 0x280	; Size in longwords
-actor_firefly_sheet_red_size_t		equ 0x50	; Size in tiles
+actor_firefly_sheet_red_width		equ 0x10	; Max width of largest frame in pixels
+actor_firefly_sheet_red_height		equ 0x10	; Max height of largest frame in pixels
+actor_firefly_sheet_red_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_firefly:

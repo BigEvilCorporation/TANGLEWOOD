@@ -23,8 +23,8 @@ actor_lift_sheet_lift_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lift_sheet_lift_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00180000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00170000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -36,12 +36,9 @@ actor_lift_sheet_lift_frame_0_subsprite_dimensions_bits:
 
 actor_lift_sheet_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_lift_sheet_lift_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_lift_sheet_lift_width		equ 0x38	; Width in pixels
-actor_lift_sheet_lift_height		equ 0x20	; Width in pixels
-actor_lift_sheet_lift_size_b		equ 0x380	; Size in bytes
-actor_lift_sheet_lift_size_w		equ 0x1C0	; Size in words
-actor_lift_sheet_lift_size_l		equ 0xE0	; Size in longwords
-actor_lift_sheet_lift_size_t		equ 0x1C	; Size in tiles
+actor_lift_sheet_lift_width		equ 0x38	; Max width of largest frame in pixels
+actor_lift_sheet_lift_height		equ 0x20	; Max height of largest frame in pixels
+actor_lift_sheet_lift_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_lift:

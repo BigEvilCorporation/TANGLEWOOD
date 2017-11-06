@@ -23,7 +23,7 @@ actor_rope_sheet_rope_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_rope_sheet_rope_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00100000, 0x000F0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,12 +34,9 @@ actor_rope_sheet_rope_frame_0_subsprite_dimensions_bits:
 
 actor_rope_sheet_rope_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_rope_sheet_rope_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_rope_sheet_rope_width		equ 0x38	; Width in pixels
-actor_rope_sheet_rope_height		equ 0x20	; Width in pixels
-actor_rope_sheet_rope_size_b		equ 0x380	; Size in bytes
-actor_rope_sheet_rope_size_w		equ 0x1C0	; Size in words
-actor_rope_sheet_rope_size_l		equ 0xE0	; Size in longwords
-actor_rope_sheet_rope_size_t		equ 0x1C	; Size in tiles
+actor_rope_sheet_rope_width		equ 0x38	; Max width of largest frame in pixels
+actor_rope_sheet_rope_height		equ 0x20	; Max height of largest frame in pixels
+actor_rope_sheet_rope_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_rope:

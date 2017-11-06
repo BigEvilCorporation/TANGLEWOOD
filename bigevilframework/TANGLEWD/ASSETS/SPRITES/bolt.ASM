@@ -44,7 +44,7 @@ actor_bolt_sheet_flash_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_bolt_sheet_flash_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -59,7 +59,7 @@ actor_bolt_sheet_flash_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_bolt_sheet_flash_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -74,7 +74,7 @@ actor_bolt_sheet_flash_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_bolt_sheet_flash_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -89,7 +89,7 @@ actor_bolt_sheet_flash_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_bolt_sheet_flash_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -100,12 +100,9 @@ actor_bolt_sheet_flash_frame_3_subsprite_dimensions_bits:
 
 actor_bolt_sheet_flash_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_bolt_sheet_flash_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_bolt_sheet_flash_width		equ 0x20	; Width in pixels
-actor_bolt_sheet_flash_height		equ 0x20	; Width in pixels
-actor_bolt_sheet_flash_size_b		equ 0x800	; Size in bytes
-actor_bolt_sheet_flash_size_w		equ 0x400	; Size in words
-actor_bolt_sheet_flash_size_l		equ 0x200	; Size in longwords
-actor_bolt_sheet_flash_size_t		equ 0x40	; Size in tiles
+actor_bolt_sheet_flash_width		equ 0x20	; Max width of largest frame in pixels
+actor_bolt_sheet_flash_height		equ 0x20	; Max height of largest frame in pixels
+actor_bolt_sheet_flash_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_bolt:

@@ -23,10 +23,10 @@ actor_crate_sheet_crate_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_crate_sheet_crate_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00000020, 0x00080020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00000020, 0x00070020
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,12 +40,9 @@ actor_crate_sheet_crate_frame_0_subsprite_dimensions_bits:
 
 actor_crate_sheet_crate_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_crate_sheet_crate_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_crate_sheet_crate_width		equ 0x28	; Width in pixels
-actor_crate_sheet_crate_height		equ 0x28	; Width in pixels
-actor_crate_sheet_crate_size_b		equ 0x320	; Size in bytes
-actor_crate_sheet_crate_size_w		equ 0x190	; Size in words
-actor_crate_sheet_crate_size_l		equ 0xC8	; Size in longwords
-actor_crate_sheet_crate_size_t		equ 0x19	; Size in tiles
+actor_crate_sheet_crate_width		equ 0x28	; Max width of largest frame in pixels
+actor_crate_sheet_crate_height		equ 0x28	; Max height of largest frame in pixels
+actor_crate_sheet_crate_VRAM_size_b		equ 0x320	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_crate:

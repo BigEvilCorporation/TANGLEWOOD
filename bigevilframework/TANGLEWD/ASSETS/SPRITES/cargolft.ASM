@@ -23,18 +23,18 @@ actor_cargolft_sheet_cargo_lift_frame_0_size_subsprites		equ 0x000C	; Size in su
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cargolft_sheet_cargo_lift_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00300000
-	dc.l 0x00000020, 0x00300020
-	dc.l 0x00000040, 0x00300040
-	dc.l 0x00000060, 0x00300060
-	dc.l 0x00200000, 0x00100000
-	dc.l 0x00200020, 0x00100020
-	dc.l 0x00200040, 0x00100040
-	dc.l 0x00200060, 0x00100060
-	dc.l 0x00400000, 0x00000000
-	dc.l 0x00400020, 0x00000020
-	dc.l 0x00400040, 0x00000040
-	dc.l 0x00400060, 0x00000060
+	dc.l 0x00000000, 0x002F0000
+	dc.l 0x00000020, 0x002F0020
+	dc.l 0x00000040, 0x002F0040
+	dc.l 0x00000060, 0x002F0060
+	dc.l 0x00200000, 0x000F0000
+	dc.l 0x00200020, 0x000F0020
+	dc.l 0x00200040, 0x000F0040
+	dc.l 0x00200060, 0x000F0060
+	dc.l 0x00400000, 0xFFFFFFFF0000
+	dc.l 0x00400020, 0xFFFFFFFF0020
+	dc.l 0x00400040, 0xFFFFFFFF0040
+	dc.l 0x00400060, 0xFFFFFFFF0060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -56,12 +56,9 @@ actor_cargolft_sheet_cargo_lift_frame_0_subsprite_dimensions_bits:
 
 actor_cargolft_sheet_cargo_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_cargolft_sheet_cargo_lift_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_cargolft_sheet_cargo_lift_width		equ 0x50	; Width in pixels
-actor_cargolft_sheet_cargo_lift_height		equ 0x70	; Width in pixels
-actor_cargolft_sheet_cargo_lift_size_b		equ 0x1180	; Size in bytes
-actor_cargolft_sheet_cargo_lift_size_w		equ 0x8C0	; Size in words
-actor_cargolft_sheet_cargo_lift_size_l		equ 0x460	; Size in longwords
-actor_cargolft_sheet_cargo_lift_size_t		equ 0x8C	; Size in tiles
+actor_cargolft_sheet_cargo_lift_width		equ 0x50	; Max width of largest frame in pixels
+actor_cargolft_sheet_cargo_lift_height		equ 0x70	; Max height of largest frame in pixels
+actor_cargolft_sheet_cargo_lift_VRAM_size_b		equ 0x1180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_cargolft:

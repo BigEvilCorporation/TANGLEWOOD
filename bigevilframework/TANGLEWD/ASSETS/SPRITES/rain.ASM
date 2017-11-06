@@ -37,7 +37,7 @@ actor_rain_sheet_light_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_rain_sheet_light_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -52,7 +52,7 @@ actor_rain_sheet_light_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_rain_sheet_light_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -67,7 +67,7 @@ actor_rain_sheet_light_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_rain_sheet_light_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00080000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -78,12 +78,9 @@ actor_rain_sheet_light_frame_2_subsprite_dimensions_bits:
 
 actor_rain_sheet_light_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_rain_sheet_light_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_rain_sheet_light_width		equ 0x20	; Width in pixels
-actor_rain_sheet_light_height		equ 0x20	; Width in pixels
-actor_rain_sheet_light_size_b		equ 0x600	; Size in bytes
-actor_rain_sheet_light_size_w		equ 0x300	; Size in words
-actor_rain_sheet_light_size_l		equ 0x180	; Size in longwords
-actor_rain_sheet_light_size_t		equ 0x30	; Size in tiles
+actor_rain_sheet_light_width		equ 0x20	; Max width of largest frame in pixels
+actor_rain_sheet_light_height		equ 0x20	; Max height of largest frame in pixels
+actor_rain_sheet_light_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_rain:

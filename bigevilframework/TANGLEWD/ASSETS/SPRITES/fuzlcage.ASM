@@ -30,10 +30,10 @@ actor_fuzlcage_sheet_fuzzl_cage_frame_0_size_subsprites		equ 0x0004	; Size in su
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzlcage_sheet_fuzzl_cage_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00100000
-	dc.l 0x00000020, 0x00100020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
+	dc.l 0x00000000, 0x000F0000
+	dc.l 0x00000020, 0x000F0020
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -51,10 +51,10 @@ actor_fuzlcage_sheet_fuzzl_cage_frame_1_size_subsprites		equ 0x0004	; Size in su
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzlcage_sheet_fuzzl_cage_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00100000
-	dc.l 0x00000020, 0x00100020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
+	dc.l 0x00000000, 0x000F0000
+	dc.l 0x00000020, 0x000F0020
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -68,12 +68,9 @@ actor_fuzlcage_sheet_fuzzl_cage_frame_1_subsprite_dimensions_bits:
 
 actor_fuzlcage_sheet_fuzzl_cage_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_fuzlcage_sheet_fuzzl_cage_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_fuzlcage_sheet_fuzzl_cage_width		equ 0x30	; Width in pixels
-actor_fuzlcage_sheet_fuzzl_cage_height		equ 0x28	; Width in pixels
-actor_fuzlcage_sheet_fuzzl_cage_size_b		equ 0x780	; Size in bytes
-actor_fuzlcage_sheet_fuzzl_cage_size_w		equ 0x3C0	; Size in words
-actor_fuzlcage_sheet_fuzzl_cage_size_l		equ 0x1E0	; Size in longwords
-actor_fuzlcage_sheet_fuzzl_cage_size_t		equ 0x3C	; Size in tiles
+actor_fuzlcage_sheet_fuzzl_cage_width		equ 0x30	; Max width of largest frame in pixels
+actor_fuzlcage_sheet_fuzzl_cage_height		equ 0x28	; Max height of largest frame in pixels
+actor_fuzlcage_sheet_fuzzl_cage_VRAM_size_b		equ 0x3C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_fuzlcage:

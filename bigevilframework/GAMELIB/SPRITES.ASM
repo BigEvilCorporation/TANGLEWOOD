@@ -6,6 +6,24 @@
 ;   sprites.asm - Sprite utils
 ;==============================================================
 
+SpriteTileCountTable:
+	dc.b 1  ; 0000 (1x1)
+	dc.b 2  ; 0001 (1x2)
+	dc.b 3  ; 0010 (1x3)
+	dc.b 4  ; 0011 (1x4)
+	dc.b 2  ; 0100 (2x1)
+	dc.b 4  ; 0101 (2x2)
+	dc.b 6  ; 0110 (2x3)
+	dc.b 8  ; 0111 (2x4)
+	dc.b 3  ; 1000 (3x1)
+	dc.b 6  ; 1001 (3x2)
+	dc.b 9  ; 1010 (3x3)
+	dc.b 12 ; 1011 (3x4)
+	dc.b 4  ; 1100 (4x1)
+	dc.b 8  ; 1101 (4x2)
+	dc.b 12 ; 1110 (4x3)
+	dc.b 16 ; 1111 (4x4)
+
 SPR_AddMultiSprite:
 	; d0 (w)  X coord
 	; d1 (w)  Y coord
@@ -15,7 +33,6 @@ SPR_AddMultiSprite:
 	; d5 (b)  Flipped X
 	; d6 (b)  Num subsprites
 	; a0 ---- Subsprite dimensions array (b * numSubsprites)
-	; a1 ---- Num tiles per subsprite array (b * numSubsprites)
 	; a2 ---  Subsprite position offsets array (ll * numSubsprites)
 
 	; If unflipped, offset pos array to read from upper word
@@ -88,18 +105,23 @@ SPR_AddMultiSprite:
 
 		; Next sprite ID
 		addq.w #0x1, d5
+
+		; Get dimensions bits
+		clr.l  d0
+		move.b (a0)+, d0
 		
 		; Write values to table entry
 		move.w d1, (a4)+	; Y
 		swap d1
-		move.b (a0)+, (a4)+	; Dimensions
+		move.b d0, (a4)+	; Dimensions
 		move.b d5, (a4)+	; Next link
 		move.w d3, (a4)+	; Tile ID and flags
 		move.w d1, (a4)+	; X
 
-		; Next tile idx
-		clr.w  d0
-		move.b (a1)+, d0
+		; Next tile idx using dimensions bits table lookup
+		lea    SpriteTileCountTable, a1
+		add.l  d0, a1
+		move.b (a1), d0
 		add.w  d0, d2
 
 		; Sanity check

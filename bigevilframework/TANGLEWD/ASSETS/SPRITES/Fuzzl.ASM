@@ -72,7 +72,7 @@ actor_fuzzl_sheet_blue_roll_frame_0_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -87,7 +87,7 @@ actor_fuzzl_sheet_blue_roll_frame_1_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -102,7 +102,7 @@ actor_fuzzl_sheet_blue_roll_frame_2_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -117,7 +117,7 @@ actor_fuzzl_sheet_blue_roll_frame_3_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -132,7 +132,7 @@ actor_fuzzl_sheet_blue_roll_frame_4_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -147,7 +147,7 @@ actor_fuzzl_sheet_blue_roll_frame_5_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -162,7 +162,7 @@ actor_fuzzl_sheet_blue_roll_frame_6_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -177,7 +177,7 @@ actor_fuzzl_sheet_blue_roll_frame_7_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -188,12 +188,9 @@ actor_fuzzl_sheet_blue_roll_frame_7_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_blue_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_blue_roll_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_blue_roll_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_roll_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_roll_size_b		equ 0x400	; Size in bytes
-actor_fuzzl_sheet_blue_roll_size_w		equ 0x200	; Size in words
-actor_fuzzl_sheet_blue_roll_size_l		equ 0x100	; Size in longwords
-actor_fuzzl_sheet_blue_roll_size_t		equ 0x20	; Size in tiles
+actor_fuzzl_sheet_blue_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_blue_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_sleep_frametable:
@@ -224,7 +221,7 @@ actor_fuzzl_sheet_yellow_sleep_frame_0_size_subsprites		equ 0x0001	; Size in sub
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -239,7 +236,7 @@ actor_fuzzl_sheet_yellow_sleep_frame_1_size_subsprites		equ 0x0001	; Size in sub
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -254,7 +251,7 @@ actor_fuzzl_sheet_yellow_sleep_frame_2_size_subsprites		equ 0x0001	; Size in sub
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -265,12 +262,9 @@ actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_yellow_sleep_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_yellow_sleep_tileoffset	equ 0x20	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_yellow_sleep_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_sleep_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_sleep_size_b		equ 0x180	; Size in bytes
-actor_fuzzl_sheet_yellow_sleep_size_w		equ 0xC0	; Size in words
-actor_fuzzl_sheet_yellow_sleep_size_l		equ 0x60	; Size in longwords
-actor_fuzzl_sheet_yellow_sleep_size_t		equ 0x0C	; Size in tiles
+actor_fuzzl_sheet_yellow_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_yellow_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_yellow_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_idle_frametable:
@@ -287,7 +281,7 @@ actor_fuzzl_sheet_blue_idle_frame_0_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -298,12 +292,9 @@ actor_fuzzl_sheet_blue_idle_frame_0_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_blue_idle_frameoffset	equ 0x0B	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_blue_idle_tileoffset	equ 0x2C	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_blue_idle_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_idle_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_idle_size_b		equ 0x80	; Size in bytes
-actor_fuzzl_sheet_blue_idle_size_w		equ 0x40	; Size in words
-actor_fuzzl_sheet_blue_idle_size_l		equ 0x20	; Size in longwords
-actor_fuzzl_sheet_blue_idle_size_t		equ 0x04	; Size in tiles
+actor_fuzzl_sheet_blue_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_blue_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_eyes_frametable:
@@ -376,7 +367,7 @@ actor_fuzzl_sheet_red_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -391,7 +382,7 @@ actor_fuzzl_sheet_red_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -406,7 +397,7 @@ actor_fuzzl_sheet_red_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -421,7 +412,7 @@ actor_fuzzl_sheet_red_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -436,7 +427,7 @@ actor_fuzzl_sheet_red_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -451,7 +442,7 @@ actor_fuzzl_sheet_red_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -466,7 +457,7 @@ actor_fuzzl_sheet_red_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -481,7 +472,7 @@ actor_fuzzl_sheet_red_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -496,7 +487,7 @@ actor_fuzzl_sheet_red_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -507,12 +498,9 @@ actor_fuzzl_sheet_red_eyes_frame_8_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_red_eyes_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_red_eyes_tileoffset	equ 0x30	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_red_eyes_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_eyes_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_eyes_size_b		equ 0x480	; Size in bytes
-actor_fuzzl_sheet_red_eyes_size_w		equ 0x240	; Size in words
-actor_fuzzl_sheet_red_eyes_size_l		equ 0x120	; Size in longwords
-actor_fuzzl_sheet_red_eyes_size_t		equ 0x24	; Size in tiles
+actor_fuzzl_sheet_red_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_red_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_eyes_frametable:
@@ -585,7 +573,7 @@ actor_fuzzl_sheet_blue_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -600,7 +588,7 @@ actor_fuzzl_sheet_blue_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -615,7 +603,7 @@ actor_fuzzl_sheet_blue_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -630,7 +618,7 @@ actor_fuzzl_sheet_blue_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -645,7 +633,7 @@ actor_fuzzl_sheet_blue_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -660,7 +648,7 @@ actor_fuzzl_sheet_blue_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -675,7 +663,7 @@ actor_fuzzl_sheet_blue_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -690,7 +678,7 @@ actor_fuzzl_sheet_blue_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -705,7 +693,7 @@ actor_fuzzl_sheet_blue_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -716,12 +704,9 @@ actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_blue_eyes_frameoffset	equ 0x15	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_blue_eyes_tileoffset	equ 0x54	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_blue_eyes_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_eyes_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_eyes_size_b		equ 0x480	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_size_w		equ 0x240	; Size in words
-actor_fuzzl_sheet_blue_eyes_size_l		equ 0x120	; Size in longwords
-actor_fuzzl_sheet_blue_eyes_size_t		equ 0x24	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_blue_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_roll_frametable:
@@ -787,7 +772,7 @@ actor_fuzzl_sheet_red_roll_frame_0_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -802,7 +787,7 @@ actor_fuzzl_sheet_red_roll_frame_1_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -817,7 +802,7 @@ actor_fuzzl_sheet_red_roll_frame_2_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -832,7 +817,7 @@ actor_fuzzl_sheet_red_roll_frame_3_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -847,7 +832,7 @@ actor_fuzzl_sheet_red_roll_frame_4_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -862,7 +847,7 @@ actor_fuzzl_sheet_red_roll_frame_5_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -877,7 +862,7 @@ actor_fuzzl_sheet_red_roll_frame_6_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -892,7 +877,7 @@ actor_fuzzl_sheet_red_roll_frame_7_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -903,12 +888,9 @@ actor_fuzzl_sheet_red_roll_frame_7_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_red_roll_frameoffset	equ 0x1E	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_red_roll_tileoffset	equ 0x78	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_red_roll_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_roll_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_roll_size_b		equ 0x400	; Size in bytes
-actor_fuzzl_sheet_red_roll_size_w		equ 0x200	; Size in words
-actor_fuzzl_sheet_red_roll_size_l		equ 0x100	; Size in longwords
-actor_fuzzl_sheet_red_roll_size_t		equ 0x20	; Size in tiles
+actor_fuzzl_sheet_red_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_red_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_eyes_frametable:
@@ -981,7 +963,7 @@ actor_fuzzl_sheet_white_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -996,7 +978,7 @@ actor_fuzzl_sheet_white_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1011,7 +993,7 @@ actor_fuzzl_sheet_white_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1026,7 +1008,7 @@ actor_fuzzl_sheet_white_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1041,7 +1023,7 @@ actor_fuzzl_sheet_white_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1056,7 +1038,7 @@ actor_fuzzl_sheet_white_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1071,7 +1053,7 @@ actor_fuzzl_sheet_white_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1086,7 +1068,7 @@ actor_fuzzl_sheet_white_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1101,7 +1083,7 @@ actor_fuzzl_sheet_white_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1112,12 +1094,9 @@ actor_fuzzl_sheet_white_eyes_frame_8_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_white_eyes_frameoffset	equ 0x26	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_white_eyes_tileoffset	equ 0x98	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_eyes_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_eyes_size_b		equ 0x480	; Size in bytes
-actor_fuzzl_sheet_white_eyes_size_w		equ 0x240	; Size in words
-actor_fuzzl_sheet_white_eyes_size_l		equ 0x120	; Size in longwords
-actor_fuzzl_sheet_white_eyes_size_t		equ 0x24	; Size in tiles
+actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_roll_frametable:
@@ -1183,7 +1162,7 @@ actor_fuzzl_sheet_yellow_roll_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1198,7 +1177,7 @@ actor_fuzzl_sheet_yellow_roll_frame_1_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1213,7 +1192,7 @@ actor_fuzzl_sheet_yellow_roll_frame_2_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1228,7 +1207,7 @@ actor_fuzzl_sheet_yellow_roll_frame_3_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1243,7 +1222,7 @@ actor_fuzzl_sheet_yellow_roll_frame_4_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1258,7 +1237,7 @@ actor_fuzzl_sheet_yellow_roll_frame_5_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1273,7 +1252,7 @@ actor_fuzzl_sheet_yellow_roll_frame_6_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1288,7 +1267,7 @@ actor_fuzzl_sheet_yellow_roll_frame_7_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1299,12 +1278,9 @@ actor_fuzzl_sheet_yellow_roll_frame_7_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_yellow_roll_frameoffset	equ 0x2F	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_yellow_roll_tileoffset	equ 0xBC	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_yellow_roll_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_roll_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_roll_size_b		equ 0x400	; Size in bytes
-actor_fuzzl_sheet_yellow_roll_size_w		equ 0x200	; Size in words
-actor_fuzzl_sheet_yellow_roll_size_l		equ 0x100	; Size in longwords
-actor_fuzzl_sheet_yellow_roll_size_t		equ 0x20	; Size in tiles
+actor_fuzzl_sheet_yellow_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_yellow_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_yellow_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_sleep_frametable:
@@ -1335,7 +1311,7 @@ actor_fuzzl_sheet_green_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1350,7 +1326,7 @@ actor_fuzzl_sheet_green_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1365,7 +1341,7 @@ actor_fuzzl_sheet_green_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1376,12 +1352,9 @@ actor_fuzzl_sheet_green_sleep_frame_2_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_green_sleep_frameoffset	equ 0x37	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_green_sleep_tileoffset	equ 0xDC	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_green_sleep_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_sleep_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_sleep_size_b		equ 0x180	; Size in bytes
-actor_fuzzl_sheet_green_sleep_size_w		equ 0xC0	; Size in words
-actor_fuzzl_sheet_green_sleep_size_l		equ 0x60	; Size in longwords
-actor_fuzzl_sheet_green_sleep_size_t		equ 0x0C	; Size in tiles
+actor_fuzzl_sheet_green_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_idle_frametable:
@@ -1398,7 +1371,7 @@ actor_fuzzl_sheet_white_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1409,12 +1382,9 @@ actor_fuzzl_sheet_white_idle_frame_0_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_white_idle_frameoffset	equ 0x3A	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_white_idle_tileoffset	equ 0xE8	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_white_idle_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_idle_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_idle_size_b		equ 0x80	; Size in bytes
-actor_fuzzl_sheet_white_idle_size_w		equ 0x40	; Size in words
-actor_fuzzl_sheet_white_idle_size_l		equ 0x20	; Size in longwords
-actor_fuzzl_sheet_white_idle_size_t		equ 0x04	; Size in tiles
+actor_fuzzl_sheet_white_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_idle_frametable:
@@ -1431,7 +1401,7 @@ actor_fuzzl_sheet_red_idle_frame_0_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1442,12 +1412,9 @@ actor_fuzzl_sheet_red_idle_frame_0_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_red_idle_frameoffset	equ 0x3B	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_red_idle_tileoffset	equ 0xEC	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_red_idle_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_idle_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_idle_size_b		equ 0x80	; Size in bytes
-actor_fuzzl_sheet_red_idle_size_w		equ 0x40	; Size in words
-actor_fuzzl_sheet_red_idle_size_l		equ 0x20	; Size in longwords
-actor_fuzzl_sheet_red_idle_size_t		equ 0x04	; Size in tiles
+actor_fuzzl_sheet_red_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_red_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_idle_frametable:
@@ -1464,7 +1431,7 @@ actor_fuzzl_sheet_green_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1475,12 +1442,9 @@ actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_green_idle_frameoffset	equ 0x3C	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_green_idle_tileoffset	equ 0xF0	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_green_idle_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_idle_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_idle_size_b		equ 0x80	; Size in bytes
-actor_fuzzl_sheet_green_idle_size_w		equ 0x40	; Size in words
-actor_fuzzl_sheet_green_idle_size_l		equ 0x20	; Size in longwords
-actor_fuzzl_sheet_green_idle_size_t		equ 0x04	; Size in tiles
+actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_eyes_frametable:
@@ -1553,7 +1517,7 @@ actor_fuzzl_sheet_green_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1568,7 +1532,7 @@ actor_fuzzl_sheet_green_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1583,7 +1547,7 @@ actor_fuzzl_sheet_green_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1598,7 +1562,7 @@ actor_fuzzl_sheet_green_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1613,7 +1577,7 @@ actor_fuzzl_sheet_green_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1628,7 +1592,7 @@ actor_fuzzl_sheet_green_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1643,7 +1607,7 @@ actor_fuzzl_sheet_green_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1658,7 +1622,7 @@ actor_fuzzl_sheet_green_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1673,7 +1637,7 @@ actor_fuzzl_sheet_green_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1684,12 +1648,9 @@ actor_fuzzl_sheet_green_eyes_frame_8_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_green_eyes_frameoffset	equ 0x3D	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_green_eyes_tileoffset	equ 0xF4	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_green_eyes_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_eyes_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_eyes_size_b		equ 0x480	; Size in bytes
-actor_fuzzl_sheet_green_eyes_size_w		equ 0x240	; Size in words
-actor_fuzzl_sheet_green_eyes_size_l		equ 0x120	; Size in longwords
-actor_fuzzl_sheet_green_eyes_size_t		equ 0x24	; Size in tiles
+actor_fuzzl_sheet_green_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_sleep_frametable:
@@ -1720,7 +1681,7 @@ actor_fuzzl_sheet_red_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1735,7 +1696,7 @@ actor_fuzzl_sheet_red_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1750,7 +1711,7 @@ actor_fuzzl_sheet_red_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subspr
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_red_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1761,12 +1722,9 @@ actor_fuzzl_sheet_red_sleep_frame_2_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_red_sleep_frameoffset	equ 0x46	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_red_sleep_tileoffset	equ 0x118	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_red_sleep_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_sleep_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_red_sleep_size_b		equ 0x180	; Size in bytes
-actor_fuzzl_sheet_red_sleep_size_w		equ 0xC0	; Size in words
-actor_fuzzl_sheet_red_sleep_size_l		equ 0x60	; Size in longwords
-actor_fuzzl_sheet_red_sleep_size_t		equ 0x0C	; Size in tiles
+actor_fuzzl_sheet_red_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_red_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_sleep_frametable:
@@ -1797,7 +1755,7 @@ actor_fuzzl_sheet_blue_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1812,7 +1770,7 @@ actor_fuzzl_sheet_blue_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1827,7 +1785,7 @@ actor_fuzzl_sheet_blue_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1838,12 +1796,9 @@ actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_blue_sleep_frameoffset	equ 0x49	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_blue_sleep_tileoffset	equ 0x124	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_blue_sleep_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_sleep_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_blue_sleep_size_b		equ 0x180	; Size in bytes
-actor_fuzzl_sheet_blue_sleep_size_w		equ 0xC0	; Size in words
-actor_fuzzl_sheet_blue_sleep_size_l		equ 0x60	; Size in longwords
-actor_fuzzl_sheet_blue_sleep_size_t		equ 0x0C	; Size in tiles
+actor_fuzzl_sheet_blue_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_blue_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_eyes_frametable:
@@ -1916,7 +1871,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1931,7 +1886,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1946,7 +1901,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1961,7 +1916,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1976,7 +1931,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1991,7 +1946,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2006,7 +1961,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2021,7 +1976,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2036,7 +1991,7 @@ actor_fuzzl_sheet_yellow_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2047,12 +2002,9 @@ actor_fuzzl_sheet_yellow_eyes_frame_8_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_yellow_eyes_frameoffset	equ 0x4C	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_yellow_eyes_tileoffset	equ 0x130	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_yellow_eyes_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_eyes_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_eyes_size_b		equ 0x480	; Size in bytes
-actor_fuzzl_sheet_yellow_eyes_size_w		equ 0x240	; Size in words
-actor_fuzzl_sheet_yellow_eyes_size_l		equ 0x120	; Size in longwords
-actor_fuzzl_sheet_yellow_eyes_size_t		equ 0x24	; Size in tiles
+actor_fuzzl_sheet_yellow_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_yellow_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_yellow_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_roll_frametable:
@@ -2118,7 +2070,7 @@ actor_fuzzl_sheet_white_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2133,7 +2085,7 @@ actor_fuzzl_sheet_white_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2148,7 +2100,7 @@ actor_fuzzl_sheet_white_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2163,7 +2115,7 @@ actor_fuzzl_sheet_white_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2178,7 +2130,7 @@ actor_fuzzl_sheet_white_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2193,7 +2145,7 @@ actor_fuzzl_sheet_white_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2208,7 +2160,7 @@ actor_fuzzl_sheet_white_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2223,7 +2175,7 @@ actor_fuzzl_sheet_white_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2234,12 +2186,9 @@ actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_white_roll_frameoffset	equ 0x55	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_white_roll_tileoffset	equ 0x154	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_white_roll_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_roll_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_roll_size_b		equ 0x400	; Size in bytes
-actor_fuzzl_sheet_white_roll_size_w		equ 0x200	; Size in words
-actor_fuzzl_sheet_white_roll_size_l		equ 0x100	; Size in longwords
-actor_fuzzl_sheet_white_roll_size_t		equ 0x20	; Size in tiles
+actor_fuzzl_sheet_white_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_idle_frametable:
@@ -2256,7 +2205,7 @@ actor_fuzzl_sheet_yellow_idle_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2267,12 +2216,9 @@ actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_yellow_idle_frameoffset	equ 0x5D	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_yellow_idle_tileoffset	equ 0x174	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_yellow_idle_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_idle_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_yellow_idle_size_b		equ 0x80	; Size in bytes
-actor_fuzzl_sheet_yellow_idle_size_w		equ 0x40	; Size in words
-actor_fuzzl_sheet_yellow_idle_size_l		equ 0x20	; Size in longwords
-actor_fuzzl_sheet_yellow_idle_size_t		equ 0x04	; Size in tiles
+actor_fuzzl_sheet_yellow_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_yellow_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_yellow_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_sleep_frametable:
@@ -2303,7 +2249,7 @@ actor_fuzzl_sheet_white_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2318,7 +2264,7 @@ actor_fuzzl_sheet_white_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2333,7 +2279,7 @@ actor_fuzzl_sheet_white_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_white_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2344,12 +2290,9 @@ actor_fuzzl_sheet_white_sleep_frame_2_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_white_sleep_frameoffset	equ 0x5E	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_white_sleep_tileoffset	equ 0x178	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_white_sleep_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_sleep_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_white_sleep_size_b		equ 0x180	; Size in bytes
-actor_fuzzl_sheet_white_sleep_size_w		equ 0xC0	; Size in words
-actor_fuzzl_sheet_white_sleep_size_l		equ 0x60	; Size in longwords
-actor_fuzzl_sheet_white_sleep_size_t		equ 0x0C	; Size in tiles
+actor_fuzzl_sheet_white_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_roll_frametable:
@@ -2415,7 +2358,7 @@ actor_fuzzl_sheet_green_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2430,7 +2373,7 @@ actor_fuzzl_sheet_green_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2445,7 +2388,7 @@ actor_fuzzl_sheet_green_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2460,7 +2403,7 @@ actor_fuzzl_sheet_green_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2475,7 +2418,7 @@ actor_fuzzl_sheet_green_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2490,7 +2433,7 @@ actor_fuzzl_sheet_green_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2505,7 +2448,7 @@ actor_fuzzl_sheet_green_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2520,7 +2463,7 @@ actor_fuzzl_sheet_green_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_fuzzl_sheet_green_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -2531,12 +2474,9 @@ actor_fuzzl_sheet_green_roll_frame_7_subsprite_dimensions_bits:
 
 actor_fuzzl_sheet_green_roll_frameoffset	equ 0x61	; Offset to first frame in sprite sheet
 actor_fuzzl_sheet_green_roll_tileoffset	equ 0x184	; Offset to first tile in sprite sheet
-actor_fuzzl_sheet_green_roll_width		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_roll_height		equ 0x10	; Width in pixels
-actor_fuzzl_sheet_green_roll_size_b		equ 0x400	; Size in bytes
-actor_fuzzl_sheet_green_roll_size_w		equ 0x200	; Size in words
-actor_fuzzl_sheet_green_roll_size_l		equ 0x100	; Size in longwords
-actor_fuzzl_sheet_green_roll_size_t		equ 0x20	; Size in tiles
+actor_fuzzl_sheet_green_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_fuzzl:

@@ -30,14 +30,14 @@ actor_cogs_sheet_cogs_frame_0_size_subsprites		equ 0x0008	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cogs_sheet_cogs_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00180000
-	dc.l 0x00000020, 0x00180020
-	dc.l 0x00000040, 0x00180040
-	dc.l 0x00000060, 0x00180060
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
-	dc.l 0x00200040, 0x00000040
-	dc.l 0x00200060, 0x00000060
+	dc.l 0x00000000, 0x00170000
+	dc.l 0x00000020, 0x00170020
+	dc.l 0x00000040, 0x00170040
+	dc.l 0x00000060, 0x00170060
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
+	dc.l 0x00200040, 0xFFFFFFFF0040
+	dc.l 0x00200060, 0xFFFFFFFF0060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -59,14 +59,14 @@ actor_cogs_sheet_cogs_frame_1_size_subsprites		equ 0x0008	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cogs_sheet_cogs_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00180000
-	dc.l 0x00000020, 0x00180020
-	dc.l 0x00000040, 0x00180040
-	dc.l 0x00000060, 0x00180060
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
-	dc.l 0x00200040, 0x00000040
-	dc.l 0x00200060, 0x00000060
+	dc.l 0x00000000, 0x00170000
+	dc.l 0x00000020, 0x00170020
+	dc.l 0x00000040, 0x00170040
+	dc.l 0x00000060, 0x00170060
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
+	dc.l 0x00200040, 0xFFFFFFFF0040
+	dc.l 0x00200060, 0xFFFFFFFF0060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -84,12 +84,9 @@ actor_cogs_sheet_cogs_frame_1_subsprite_dimensions_bits:
 
 actor_cogs_sheet_cogs_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_cogs_sheet_cogs_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_cogs_sheet_cogs_width		equ 0x38	; Width in pixels
-actor_cogs_sheet_cogs_height		equ 0x68	; Width in pixels
-actor_cogs_sheet_cogs_size_b		equ 0x16C0	; Size in bytes
-actor_cogs_sheet_cogs_size_w		equ 0xB60	; Size in words
-actor_cogs_sheet_cogs_size_l		equ 0x5B0	; Size in longwords
-actor_cogs_sheet_cogs_size_t		equ 0xB6	; Size in tiles
+actor_cogs_sheet_cogs_width		equ 0x38	; Max width of largest frame in pixels
+actor_cogs_sheet_cogs_height		equ 0x68	; Max height of largest frame in pixels
+actor_cogs_sheet_cogs_VRAM_size_b		equ 0xB60	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_cogs:

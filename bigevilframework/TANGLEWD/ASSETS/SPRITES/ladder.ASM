@@ -23,8 +23,8 @@ actor_ladder_sheet_ladder_frame_0_size_subsprites		equ 0x0002	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_ladder_sheet_ladder_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -36,12 +36,9 @@ actor_ladder_sheet_ladder_frame_0_subsprite_dimensions_bits:
 
 actor_ladder_sheet_ladder_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_ladder_sheet_ladder_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_ladder_sheet_ladder_width		equ 0x28	; Width in pixels
-actor_ladder_sheet_ladder_height		equ 0x20	; Width in pixels
-actor_ladder_sheet_ladder_size_b		equ 0x280	; Size in bytes
-actor_ladder_sheet_ladder_size_w		equ 0x140	; Size in words
-actor_ladder_sheet_ladder_size_l		equ 0xA0	; Size in longwords
-actor_ladder_sheet_ladder_size_t		equ 0x14	; Size in tiles
+actor_ladder_sheet_ladder_width		equ 0x28	; Max width of largest frame in pixels
+actor_ladder_sheet_ladder_height		equ 0x20	; Max height of largest frame in pixels
+actor_ladder_sheet_ladder_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_ladder:

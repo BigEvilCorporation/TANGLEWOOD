@@ -58,8 +58,8 @@ actor_wyrm_sheet_bite_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00100000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00080030, 0x00170030
+	dc.l 0x00280030, 0x00070030
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -75,8 +75,8 @@ actor_wyrm_sheet_bite_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000028, 0x001F0028
+	dc.l 0x00200028, 0xFFFFFFFF0028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -92,8 +92,8 @@ actor_wyrm_sheet_bite_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000020, 0x001F0020
+	dc.l 0x00200020, 0xFFFFFFFF0020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -109,10 +109,10 @@ actor_wyrm_sheet_bite_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00000020, 0x00200020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
+	dc.l 0x00000008, 0x001F0008
+	dc.l 0x00000028, 0x001F0028
+	dc.l 0x00200008, 0xFFFFFFFF0008
+	dc.l 0x00200028, 0xFFFFFFFF0028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -130,10 +130,10 @@ actor_wyrm_sheet_bite_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00000020, 0x00200020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
+	dc.l 0x00000000, 0x001F0000
+	dc.l 0x00000020, 0x001F0020
+	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00200020, 0xFFFFFFFF0020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -151,8 +151,8 @@ actor_wyrm_sheet_bite_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_bite_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000018, 0x001F0018
+	dc.l 0x00200018, 0xFFFFFFFF0018
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -164,12 +164,9 @@ actor_wyrm_sheet_bite_frame_5_subsprite_dimensions_bits:
 
 actor_wyrm_sheet_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_wyrm_sheet_bite_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_wyrm_sheet_bite_width		equ 0x40	; Width in pixels
-actor_wyrm_sheet_bite_height		equ 0x38	; Width in pixels
-actor_wyrm_sheet_bite_size_b		equ 0x2A00	; Size in bytes
-actor_wyrm_sheet_bite_size_w		equ 0x1500	; Size in words
-actor_wyrm_sheet_bite_size_l		equ 0xA80	; Size in longwords
-actor_wyrm_sheet_bite_size_t		equ 0x150	; Size in tiles
+actor_wyrm_sheet_bite_width		equ 0x40	; Max width of largest frame in pixels
+actor_wyrm_sheet_bite_height		equ 0x38	; Max height of largest frame in pixels
+actor_wyrm_sheet_bite_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wyrm_sheet_move_frametable:
@@ -207,8 +204,8 @@ actor_wyrm_sheet_move_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_move_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00100000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00080018, 0x00170018
+	dc.l 0x00280018, 0x00070018
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -224,7 +221,7 @@ actor_wyrm_sheet_move_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_move_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00100018, 0x000F0018
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -239,7 +236,7 @@ actor_wyrm_sheet_move_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_move_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00100018, 0x000F0018
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -254,7 +251,7 @@ actor_wyrm_sheet_move_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_move_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00100018, 0x000F0018
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -265,12 +262,9 @@ actor_wyrm_sheet_move_frame_3_subsprite_dimensions_bits:
 
 actor_wyrm_sheet_move_frameoffset	equ 0x06	; Offset to first frame in sprite sheet
 actor_wyrm_sheet_move_tileoffset	equ 0xB6	; Offset to first tile in sprite sheet
-actor_wyrm_sheet_move_width		equ 0x40	; Width in pixels
-actor_wyrm_sheet_move_height		equ 0x38	; Width in pixels
-actor_wyrm_sheet_move_size_b		equ 0x1C00	; Size in bytes
-actor_wyrm_sheet_move_size_w		equ 0xE00	; Size in words
-actor_wyrm_sheet_move_size_l		equ 0x700	; Size in longwords
-actor_wyrm_sheet_move_size_t		equ 0xE0	; Size in tiles
+actor_wyrm_sheet_move_width		equ 0x40	; Max width of largest frame in pixels
+actor_wyrm_sheet_move_height		equ 0x38	; Max height of largest frame in pixels
+actor_wyrm_sheet_move_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wyrm_sheet_emerge_frametable:
@@ -314,8 +308,8 @@ actor_wyrm_sheet_emerge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00100000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00080030, 0x00170030
+	dc.l 0x00280030, 0x00070030
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -331,8 +325,8 @@ actor_wyrm_sheet_emerge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000028, 0x001F0028
+	dc.l 0x00200028, 0xFFFFFFFF0028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -344,12 +338,9 @@ actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits:
 
 actor_wyrm_sheet_emerge_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
 actor_wyrm_sheet_emerge_tileoffset	equ 0xFE	; Offset to first tile in sprite sheet
-actor_wyrm_sheet_emerge_width		equ 0x40	; Width in pixels
-actor_wyrm_sheet_emerge_height		equ 0x38	; Width in pixels
-actor_wyrm_sheet_emerge_size_b		equ 0x1500	; Size in bytes
-actor_wyrm_sheet_emerge_size_w		equ 0xA80	; Size in words
-actor_wyrm_sheet_emerge_size_l		equ 0x540	; Size in longwords
-actor_wyrm_sheet_emerge_size_t		equ 0xA8	; Size in tiles
+actor_wyrm_sheet_emerge_width		equ 0x40	; Max width of largest frame in pixels
+actor_wyrm_sheet_emerge_height		equ 0x38	; Max height of largest frame in pixels
+actor_wyrm_sheet_emerge_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_wyrm:

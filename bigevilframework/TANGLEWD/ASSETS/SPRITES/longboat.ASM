@@ -23,7 +23,7 @@ actor_longboat_sheet_segment_frame_0_size_subsprites		equ 0x0001	; Size in subsp
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_longboat_sheet_segment_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,12 +34,9 @@ actor_longboat_sheet_segment_frame_0_subsprite_dimensions_bits:
 
 actor_longboat_sheet_segment_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_longboat_sheet_segment_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_longboat_sheet_segment_width		equ 0x20	; Width in pixels
-actor_longboat_sheet_segment_height		equ 0x08	; Width in pixels
-actor_longboat_sheet_segment_size_b		equ 0x80	; Size in bytes
-actor_longboat_sheet_segment_size_w		equ 0x40	; Size in words
-actor_longboat_sheet_segment_size_l		equ 0x20	; Size in longwords
-actor_longboat_sheet_segment_size_t		equ 0x04	; Size in tiles
+actor_longboat_sheet_segment_width		equ 0x20	; Max width of largest frame in pixels
+actor_longboat_sheet_segment_height		equ 0x08	; Max height of largest frame in pixels
+actor_longboat_sheet_segment_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_longboat:

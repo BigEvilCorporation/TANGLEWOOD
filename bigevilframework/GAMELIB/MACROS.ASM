@@ -148,7 +148,7 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 	; Alloc VRAM and load sprite
 SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,prio
 	PUSHM  d0-d5/a0-a2
-	move.w #actor_\actor\_sheet_\sheet\_frame_0_size_b, d0
+	move.w #actor_\actor\_sheet_\sheet\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
 	lea    spritesheets_\actor, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2

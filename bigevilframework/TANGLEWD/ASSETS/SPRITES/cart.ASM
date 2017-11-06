@@ -44,8 +44,8 @@ actor_cart_sheet_roll_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cart_sheet_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -61,8 +61,8 @@ actor_cart_sheet_roll_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cart_sheet_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -78,8 +78,8 @@ actor_cart_sheet_roll_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cart_sheet_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -95,8 +95,8 @@ actor_cart_sheet_roll_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_cart_sheet_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00070000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -108,12 +108,9 @@ actor_cart_sheet_roll_frame_3_subsprite_dimensions_bits:
 
 actor_cart_sheet_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_cart_sheet_roll_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_cart_sheet_roll_width		equ 0x28	; Width in pixels
-actor_cart_sheet_roll_height		equ 0x20	; Width in pixels
-actor_cart_sheet_roll_size_b		equ 0xA00	; Size in bytes
-actor_cart_sheet_roll_size_w		equ 0x500	; Size in words
-actor_cart_sheet_roll_size_l		equ 0x280	; Size in longwords
-actor_cart_sheet_roll_size_t		equ 0x50	; Size in tiles
+actor_cart_sheet_roll_width		equ 0x28	; Max width of largest frame in pixels
+actor_cart_sheet_roll_height		equ 0x20	; Max height of largest frame in pixels
+actor_cart_sheet_roll_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_cart:

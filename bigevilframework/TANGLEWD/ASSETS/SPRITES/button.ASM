@@ -44,8 +44,8 @@ actor_button_sheet_button_frame_0_size_subsprites		equ 0x0002	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_button_sheet_button_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x001F0000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -61,8 +61,8 @@ actor_button_sheet_button_frame_1_size_subsprites		equ 0x0002	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_button_sheet_button_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x001F0000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -78,8 +78,8 @@ actor_button_sheet_button_frame_2_size_subsprites		equ 0x0002	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_button_sheet_button_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x001F0000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -95,8 +95,8 @@ actor_button_sheet_button_frame_3_size_subsprites		equ 0x0002	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_button_sheet_button_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x001F0000
+	dc.l 0x00200000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -108,12 +108,9 @@ actor_button_sheet_button_frame_3_subsprite_dimensions_bits:
 
 actor_button_sheet_button_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_button_sheet_button_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_button_sheet_button_width		equ 0x40	; Width in pixels
-actor_button_sheet_button_height		equ 0x08	; Width in pixels
-actor_button_sheet_button_size_b		equ 0x400	; Size in bytes
-actor_button_sheet_button_size_w		equ 0x200	; Size in words
-actor_button_sheet_button_size_l		equ 0x100	; Size in longwords
-actor_button_sheet_button_size_t		equ 0x20	; Size in tiles
+actor_button_sheet_button_width		equ 0x40	; Max width of largest frame in pixels
+actor_button_sheet_button_height		equ 0x08	; Max height of largest frame in pixels
+actor_button_sheet_button_VRAM_size_b		equ 0x100	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_button:

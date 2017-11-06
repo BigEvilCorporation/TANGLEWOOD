@@ -51,7 +51,7 @@ actor_leaf_sheet_brown_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_brown_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -66,7 +66,7 @@ actor_leaf_sheet_brown_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_brown_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -81,7 +81,7 @@ actor_leaf_sheet_brown_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_brown_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -96,7 +96,7 @@ actor_leaf_sheet_brown_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_brown_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -111,7 +111,7 @@ actor_leaf_sheet_brown_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_brown_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -122,12 +122,9 @@ actor_leaf_sheet_brown_frame_4_subsprite_dimensions_bits:
 
 actor_leaf_sheet_brown_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_leaf_sheet_brown_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_leaf_sheet_brown_width		equ 0x08	; Width in pixels
-actor_leaf_sheet_brown_height		equ 0x08	; Width in pixels
-actor_leaf_sheet_brown_size_b		equ 0xA0	; Size in bytes
-actor_leaf_sheet_brown_size_w		equ 0x50	; Size in words
-actor_leaf_sheet_brown_size_l		equ 0x28	; Size in longwords
-actor_leaf_sheet_brown_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_brown_width		equ 0x08	; Max width of largest frame in pixels
+actor_leaf_sheet_brown_height		equ 0x08	; Max height of largest frame in pixels
+actor_leaf_sheet_brown_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_red_frametable:
@@ -172,7 +169,7 @@ actor_leaf_sheet_red_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_red_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -187,7 +184,7 @@ actor_leaf_sheet_red_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_red_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -202,7 +199,7 @@ actor_leaf_sheet_red_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_red_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -217,7 +214,7 @@ actor_leaf_sheet_red_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_red_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -232,7 +229,7 @@ actor_leaf_sheet_red_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_red_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -243,12 +240,9 @@ actor_leaf_sheet_red_frame_4_subsprite_dimensions_bits:
 
 actor_leaf_sheet_red_frameoffset	equ 0x05	; Offset to first frame in sprite sheet
 actor_leaf_sheet_red_tileoffset	equ 0x05	; Offset to first tile in sprite sheet
-actor_leaf_sheet_red_width		equ 0x08	; Width in pixels
-actor_leaf_sheet_red_height		equ 0x08	; Width in pixels
-actor_leaf_sheet_red_size_b		equ 0xA0	; Size in bytes
-actor_leaf_sheet_red_size_w		equ 0x50	; Size in words
-actor_leaf_sheet_red_size_l		equ 0x28	; Size in longwords
-actor_leaf_sheet_red_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_red_width		equ 0x08	; Max width of largest frame in pixels
+actor_leaf_sheet_red_height		equ 0x08	; Max height of largest frame in pixels
+actor_leaf_sheet_red_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_green_frametable:
@@ -293,7 +287,7 @@ actor_leaf_sheet_green_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_green_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -308,7 +302,7 @@ actor_leaf_sheet_green_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_green_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -323,7 +317,7 @@ actor_leaf_sheet_green_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_green_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -338,7 +332,7 @@ actor_leaf_sheet_green_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_green_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -353,7 +347,7 @@ actor_leaf_sheet_green_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_green_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -364,12 +358,9 @@ actor_leaf_sheet_green_frame_4_subsprite_dimensions_bits:
 
 actor_leaf_sheet_green_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
 actor_leaf_sheet_green_tileoffset	equ 0x0A	; Offset to first tile in sprite sheet
-actor_leaf_sheet_green_width		equ 0x08	; Width in pixels
-actor_leaf_sheet_green_height		equ 0x08	; Width in pixels
-actor_leaf_sheet_green_size_b		equ 0xA0	; Size in bytes
-actor_leaf_sheet_green_size_w		equ 0x50	; Size in words
-actor_leaf_sheet_green_size_l		equ 0x28	; Size in longwords
-actor_leaf_sheet_green_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_green_width		equ 0x08	; Max width of largest frame in pixels
+actor_leaf_sheet_green_height		equ 0x08	; Max height of largest frame in pixels
+actor_leaf_sheet_green_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_turquoise_frametable:
@@ -414,7 +405,7 @@ actor_leaf_sheet_turquoise_frame_0_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_turquoise_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -429,7 +420,7 @@ actor_leaf_sheet_turquoise_frame_1_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_turquoise_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -444,7 +435,7 @@ actor_leaf_sheet_turquoise_frame_2_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_turquoise_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -459,7 +450,7 @@ actor_leaf_sheet_turquoise_frame_3_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_turquoise_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -474,7 +465,7 @@ actor_leaf_sheet_turquoise_frame_4_size_subsprites		equ 0x0001	; Size in subspri
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_leaf_sheet_turquoise_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -485,12 +476,9 @@ actor_leaf_sheet_turquoise_frame_4_subsprite_dimensions_bits:
 
 actor_leaf_sheet_turquoise_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
 actor_leaf_sheet_turquoise_tileoffset	equ 0x0F	; Offset to first tile in sprite sheet
-actor_leaf_sheet_turquoise_width		equ 0x08	; Width in pixels
-actor_leaf_sheet_turquoise_height		equ 0x08	; Width in pixels
-actor_leaf_sheet_turquoise_size_b		equ 0xA0	; Size in bytes
-actor_leaf_sheet_turquoise_size_w		equ 0x50	; Size in words
-actor_leaf_sheet_turquoise_size_l		equ 0x28	; Size in longwords
-actor_leaf_sheet_turquoise_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_turquoise_width		equ 0x08	; Max width of largest frame in pixels
+actor_leaf_sheet_turquoise_height		equ 0x08	; Max height of largest frame in pixels
+actor_leaf_sheet_turquoise_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_leaf:

@@ -23,7 +23,7 @@ actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites		equ 0x0001	; Size in 
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000008, 0xFFFFFFFF0008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,12 +34,9 @@ actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits:
 
 actor_mushroom_sheet_mushroom_180_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_mushroom_sheet_mushroom_180_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_mushroom_sheet_mushroom_180_width		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_180_height		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_180_size_b		equ 0x120	; Size in bytes
-actor_mushroom_sheet_mushroom_180_size_w		equ 0x90	; Size in words
-actor_mushroom_sheet_mushroom_180_size_l		equ 0x48	; Size in longwords
-actor_mushroom_sheet_mushroom_180_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_180_width		equ 0x18	; Max width of largest frame in pixels
+actor_mushroom_sheet_mushroom_180_height		equ 0x18	; Max height of largest frame in pixels
+actor_mushroom_sheet_mushroom_180_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_mushroom_sheet_mushroom_225_frametable:
@@ -56,7 +53,7 @@ actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites		equ 0x0001	; Size in 
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -67,12 +64,9 @@ actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits:
 
 actor_mushroom_sheet_mushroom_225_frameoffset	equ 0x01	; Offset to first frame in sprite sheet
 actor_mushroom_sheet_mushroom_225_tileoffset	equ 0x06	; Offset to first tile in sprite sheet
-actor_mushroom_sheet_mushroom_225_width		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_225_height		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_225_size_b		equ 0x120	; Size in bytes
-actor_mushroom_sheet_mushroom_225_size_w		equ 0x90	; Size in words
-actor_mushroom_sheet_mushroom_225_size_l		equ 0x48	; Size in longwords
-actor_mushroom_sheet_mushroom_225_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_225_width		equ 0x18	; Max width of largest frame in pixels
+actor_mushroom_sheet_mushroom_225_height		equ 0x18	; Max height of largest frame in pixels
+actor_mushroom_sheet_mushroom_225_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_mushroom_sheet_mushroom_270_frametable:
@@ -89,7 +83,7 @@ actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites		equ 0x0001	; Size in 
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_mushroom_sheet_mushroom_270_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0x00070000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -100,12 +94,9 @@ actor_mushroom_sheet_mushroom_270_frame_0_subsprite_dimensions_bits:
 
 actor_mushroom_sheet_mushroom_270_frameoffset	equ 0x02	; Offset to first frame in sprite sheet
 actor_mushroom_sheet_mushroom_270_tileoffset	equ 0x0C	; Offset to first tile in sprite sheet
-actor_mushroom_sheet_mushroom_270_width		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_270_height		equ 0x18	; Width in pixels
-actor_mushroom_sheet_mushroom_270_size_b		equ 0x120	; Size in bytes
-actor_mushroom_sheet_mushroom_270_size_w		equ 0x90	; Size in words
-actor_mushroom_sheet_mushroom_270_size_l		equ 0x48	; Size in longwords
-actor_mushroom_sheet_mushroom_270_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_270_width		equ 0x18	; Max width of largest frame in pixels
+actor_mushroom_sheet_mushroom_270_height		equ 0x18	; Max height of largest frame in pixels
+actor_mushroom_sheet_mushroom_270_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_mushroom:

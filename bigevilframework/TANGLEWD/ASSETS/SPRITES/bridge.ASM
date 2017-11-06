@@ -23,7 +23,7 @@ actor_bridge_sheet_notch_frame_0_size_subsprites		equ 0x0001	; Size in subsprite
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_bridge_sheet_notch_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,12 +34,9 @@ actor_bridge_sheet_notch_frame_0_subsprite_dimensions_bits:
 
 actor_bridge_sheet_notch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_bridge_sheet_notch_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_bridge_sheet_notch_width		equ 0x10	; Width in pixels
-actor_bridge_sheet_notch_height		equ 0x10	; Width in pixels
-actor_bridge_sheet_notch_size_b		equ 0x80	; Size in bytes
-actor_bridge_sheet_notch_size_w		equ 0x40	; Size in words
-actor_bridge_sheet_notch_size_l		equ 0x20	; Size in longwords
-actor_bridge_sheet_notch_size_t		equ 0x04	; Size in tiles
+actor_bridge_sheet_notch_width		equ 0x10	; Max width of largest frame in pixels
+actor_bridge_sheet_notch_height		equ 0x10	; Max height of largest frame in pixels
+actor_bridge_sheet_notch_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_bridge:

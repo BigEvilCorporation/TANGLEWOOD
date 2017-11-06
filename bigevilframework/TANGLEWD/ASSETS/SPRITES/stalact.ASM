@@ -23,7 +23,7 @@ actor_stalact_sheet_stalactite_frame_0_size_subsprites		equ 0x0001	; Size in sub
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_stalact_sheet_stalactite_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000000, 0xFFFFFFFF0000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,12 +34,9 @@ actor_stalact_sheet_stalactite_frame_0_subsprite_dimensions_bits:
 
 actor_stalact_sheet_stalactite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 actor_stalact_sheet_stalactite_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_stalact_sheet_stalactite_width		equ 0x18	; Width in pixels
-actor_stalact_sheet_stalactite_height		equ 0x20	; Width in pixels
-actor_stalact_sheet_stalactite_size_b		equ 0x180	; Size in bytes
-actor_stalact_sheet_stalactite_size_w		equ 0xC0	; Size in words
-actor_stalact_sheet_stalactite_size_l		equ 0x60	; Size in longwords
-actor_stalact_sheet_stalactite_size_t		equ 0x0C	; Size in tiles
+actor_stalact_sheet_stalactite_width		equ 0x18	; Max width of largest frame in pixels
+actor_stalact_sheet_stalactite_height		equ 0x20	; Max height of largest frame in pixels
+actor_stalact_sheet_stalactite_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_stalact:
