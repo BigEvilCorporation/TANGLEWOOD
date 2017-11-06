@@ -45,52 +45,6 @@ Fuzzl_State_Fling	  equ 0x06 ; Being flung up in the air
 Fuzzl_State_Generator equ 0x07 ; Inside a generator
 Fuzzl_State_Caged     equ 0x08 ; Inside a cage
 
-; Spritesheet/colour ptr table
-Fuzzl_Spritesheets:
-	dc.l 0x0	; Drained
-	dc.l 0x0	; Orange
-	dc.l Fuzzl_Spritesheets_Red
-	dc.l Fuzzl_Spritesheets_Blue
-	dc.l Fuzzl_Spritesheets_Green
-	dc.l Fuzzl_Spritesheets_Yellow
-	dc.l Fuzzl_Spritesheets_White
-
-	; Spritesheet/animation tables
-Fuzzl_Spritesheets_Red:
-	dc.w actor_fuzzl_sheet_red_idle_frameoffset
-	dc.w actor_fuzzl_sheet_red_eyes_frameoffset
-	dc.w actor_fuzzl_sheet_red_roll_frameoffset
-	dc.w actor_fuzzl_sheet_red_roll_frameoffset
-	dc.w actor_fuzzl_sheet_red_sleep_frameoffset
-
-Fuzzl_Spritesheets_Blue:
-	dc.w actor_fuzzl_sheet_blue_idle_frameoffset
-	dc.w actor_fuzzl_sheet_blue_eyes_frameoffset
-	dc.w actor_fuzzl_sheet_blue_roll_frameoffset
-	dc.w actor_fuzzl_sheet_blue_roll_frameoffset
-	dc.w actor_fuzzl_sheet_blue_sleep_frameoffset
-
-Fuzzl_Spritesheets_Green:
-	dc.w actor_fuzzl_sheet_green_idle_frameoffset
-	dc.w actor_fuzzl_sheet_green_eyes_frameoffset
-	dc.w actor_fuzzl_sheet_green_roll_frameoffset
-	dc.w actor_fuzzl_sheet_green_roll_frameoffset
-	dc.w actor_fuzzl_sheet_green_sleep_frameoffset
-	
-Fuzzl_Spritesheets_Yellow:
-	dc.w actor_fuzzl_sheet_yellow_idle_frameoffset
-	dc.w actor_fuzzl_sheet_yellow_eyes_frameoffset
-	dc.w actor_fuzzl_sheet_yellow_roll_frameoffset
-	dc.w actor_fuzzl_sheet_yellow_roll_frameoffset
-	dc.w actor_fuzzl_sheet_yellow_sleep_frameoffset
-
-Fuzzl_Spritesheets_White:
-	dc.w actor_fuzzl_sheet_white_idle_frameoffset
-	dc.w actor_fuzzl_sheet_white_eyes_frameoffset
-	dc.w actor_fuzzl_sheet_white_roll_frameoffset
-	dc.w actor_fuzzl_sheet_white_roll_frameoffset
-	dc.w actor_fuzzl_sheet_white_sleep_frameoffset
-
 ; Eye anim subframes
 Fuzzl_Eye_Frame_TopMiddle    equ (0x0<<0x8)
 Fuzzl_Eye_Frame_TopRight     equ (0x1<<0x8)
@@ -207,31 +161,12 @@ FuzzlInit:
 
 	; Register as pushable object
 	LIST_APPEND_TAIL PushableObjs, a0, a3
-	
-	; Setup animations
-
-	; Idle
-	ANIM_LOAD_DEFAULT fuzzl,red_idle,red_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
-	
-	; Watch
-	ANIM_LOAD_DEFAULT fuzzl,red_eyes,red_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
-
-	; Roll
-	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
-
-	; Bounce
-	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
-
-	; Sleep
-	ANIM_LOAD_DEFAULT fuzzl,red_sleep,red_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
 
 	rts
 
 FuzzlLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	SPRITE_LOAD_DEFAULT fuzzl,red_idle,PaletteId_Fuzzl,0x0
 
 	; Set initial colour anim offset
 	move.b Fuzzl_Colour(a0), d0
@@ -246,31 +181,63 @@ FuzzlSetColour:
 	; a0 --- GameObj addr
 	; d0 (b) Colour
 	
-	; Get animation table addr
-	lea    Fuzzl_Animations(a0), a2
-	
-	; Get sprite sheet table addr for colour
-	lea    Fuzzl_Spritesheets, a4
-	andi.l #0x000000FF, d0
-	lsl.l  #0x2, d0			; To longwords
-	add.l  d0, a4
-	move.l (a4), a4
-	
-	; Get sprite sheet addrs for animations
-	lea    (Animation_Struct_Size*FuzzlAnimIdx_Idle)(a2), a3
-	move.w (FuzzlAnimIdx_Idle*size_word)(a4), Animation_FirstFrameOffset(a3)
-	
-	lea    (Animation_Struct_Size*FuzzlAnimIdx_Watch)(a2), a3
-	move.w (FuzzlAnimIdx_Watch*size_word)(a4), Animation_FirstFrameOffset(a3)
-	
-	lea    (Animation_Struct_Size*FuzzlAnimIdx_Roll)(a2), a3
-	move.w (FuzzlAnimIdx_Roll*size_word)(a4), Animation_FirstFrameOffset(a3)
-	
-	lea    (Animation_Struct_Size*FuzzlAnimIdx_Bounce)(a2), a3
-	move.w (FuzzlAnimIdx_Bounce*size_word)(a4), Animation_FirstFrameOffset(a3)
-	
-	lea    (Animation_Struct_Size*FuzzlAnimIdx_Sleep)(a2), a3
-	move.w (FuzzlAnimIdx_Sleep*size_word)(a4), Animation_FirstFrameOffset(a3)
+	cmp.b #ColourRed, d0
+	beq   @Red
+	cmp.b #ColourYellow, d0
+	beq   @Yellow
+	cmp.b #ColourGreen, d0
+	beq   @Green
+	cmp.b #ColourBlue, d0
+	beq   @Blue
+	cmp.b #ColourWhite, d0
+	beq   @White
+
+	@Red:
+	SPRITE_LOAD_DEFAULT fuzzl,red_idle,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT fuzzl,red_idle,red_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_eyes,red_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_sleep,red_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	bra   @End
+
+	@Yellow:
+	SPRITE_LOAD_DEFAULT fuzzl,yellow_idle,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT fuzzl,yellow_idle,yellow_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,yellow_eyes,yellow_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,yellow_roll,yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,yellow_roll,yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,yellow_sleep,yellow_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	bra   @End
+
+	@Green:
+	SPRITE_LOAD_DEFAULT fuzzl,green_idle,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT fuzzl,green_idle,green_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,green_eyes,green_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,green_roll,green_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,green_roll,green_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,green_sleep,green_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	bra   @End
+
+	@Blue:
+	SPRITE_LOAD_DEFAULT fuzzl,blue_idle,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT fuzzl,blue_idle,blue_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,blue_eyes,blue_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,blue_roll,blue_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,blue_roll,blue_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,blue_sleep,blue_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	bra   @End
+
+	@White:
+	SPRITE_LOAD_DEFAULT fuzzl,white_idle,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT fuzzl,white_idle,white_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,white_eyes,white_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,white_roll,white_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,white_roll,white_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,white_sleep,white_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	bra   @End
+
+	@End:
 	
 	; Mark anim dirty
 	move.b #0x1, AnimObj_Dirty(a0)
