@@ -219,11 +219,12 @@ BouncePlantLoadGfx:
 	mulu   #size_long*5, d1
 	lea    BouncePlantSpriteSheets, a4
 	add.l  d1, a4
-	move.l (a4)+, a1
-	move.l (a4)+, a2
-	move.l (a4)+, a3
-	move.l (a4)+, d1
-	move.l (a4)+, d2
+
+	move.l (a4)+, a1	; Tiles address
+	move.l (a4)+, a2	; Subsprite dimensions table
+	move.l (a4)+, a3	; Subsprite offsets table
+	move.l (a4)+, d1	; Size (tiles)
+	move.l (a4)+, d2	; Size (subsprites)
 	
 	; Load sprite sheet
 	move.b #PaletteId_World0, d4

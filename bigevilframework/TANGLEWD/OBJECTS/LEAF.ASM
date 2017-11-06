@@ -26,11 +26,43 @@ WorldToLeafWindowY equ (Leaf_WindowBorderY-vdp_sprite_border_y)*subpixels_per_pi
 
 Leaf_NumVariations equ 0x4
 
-LeafFrameOffsets:
-	dc.w actor_leaf_sheet_green_frameoffset
-	dc.w actor_leaf_sheet_red_frameoffset
-	dc.w actor_leaf_sheet_turquoise_frameoffset
-	dc.w actor_leaf_sheet_brown_frameoffset
+LeafSpriteSheets:
+LeafBrown:
+	dc.l actor_leaf_sheet_brown_frame_0
+	dc.l actor_leaf_sheet_brown_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_0_subsprite_pos_offsets
+	dc.l actor_leaf_sheet_brown_frame_0_size_t
+	dc.l actor_leaf_sheet_brown_frame_0_size_subsprites
+	dc.l actor_leaf_sheet_brown_anim_fall_track_frames
+	dc.l actor_leaf_sheet_brown_anim_fall_speed
+	dc.l actor_leaf_sheet_brown_anim_fall_numframes
+LeafGreen:
+	dc.l actor_leaf_sheet_green_frame_0
+	dc.l actor_leaf_sheet_green_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_0_subsprite_pos_offsets
+	dc.l actor_leaf_sheet_green_frame_0_size_t
+	dc.l actor_leaf_sheet_green_frame_0_size_subsprites
+	dc.l actor_leaf_sheet_green_anim_fall_track_frames
+	dc.l actor_leaf_sheet_green_anim_fall_speed
+	dc.l actor_leaf_sheet_green_anim_fall_numframes
+LeafRed:
+	dc.l actor_leaf_sheet_red_frame_0
+	dc.l actor_leaf_sheet_red_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_0_subsprite_pos_offsets
+	dc.l actor_leaf_sheet_red_frame_0_size_t
+	dc.l actor_leaf_sheet_red_frame_0_size_subsprites
+	dc.l actor_leaf_sheet_red_anim_fall_track_frames
+	dc.l actor_leaf_sheet_red_anim_fall_speed
+	dc.l actor_leaf_sheet_red_anim_fall_numframes
+LeafTurquoise:
+	dc.l actor_leaf_sheet_turquoise_frame_0
+	dc.l actor_leaf_sheet_turquoise_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_0_subsprite_pos_offsets
+	dc.l actor_leaf_sheet_turquoise_frame_0_size_t
+	dc.l actor_leaf_sheet_turquoise_frame_0_size_subsprites
+	dc.l actor_leaf_sheet_turquoise_anim_fall_track_frames
+	dc.l actor_leaf_sheet_turquoise_anim_fall_speed
+	dc.l actor_leaf_sheet_turquoise_anim_fall_numframes
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
@@ -74,25 +106,6 @@ LeafInit:
 
 	; Setup animation
 	lea    Leaf_Animation(a0), a3
-	
-	; Select next colour sheet in array
-	clr.l  d0
-	move.w (EntityCount_Leaf), d0
-	divu   #Leaf_NumVariations, d0
-	clr.w  d0
-	swap   d0
-	mulu   #size_word, d0
-	lea    LeafFrameOffsets, a2
-	add.l  d0, a2
-	move.w (a2), d1
-	move.w (a2), Animation_FirstFrameOffset(a3)
-
-	; Load anim
-	ANIM_LOAD_MANUALCONTROL leaf,green,fall,Leaf_Animation,0
-	
-	; Set animation
-	move.l  a3, AnimObj_CurrentAnim(a0)
-	move.b  #0x1, AnimObj_Playing(a0)
 
 	; Randomise sine step
 	jsr    RND_GenerateLong
@@ -109,7 +122,56 @@ LeafLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT leaf,brown,PaletteId_World0,0x0
+	PUSHL  a1
+
+	; Select next colour sheet in array
+	clr.l  d0
+	move.w (EntityCount_Leaf), d0
+	divu   #Leaf_NumVariations, d0
+	clr.w  d0
+	swap   d0
+	mulu   #size_long*8, d0
+	lea    LeafSpriteSheets, a4
+	add.l  d0, a4
+
+	move.l (a4)+, a1	; Tiles address
+	move.l (a4)+, a2	; Subsprite dimensions table
+	move.l (a4)+, a3	; Subsprite offsets table
+	move.l (a4)+, d1	; Size (tiles)
+	move.l (a4)+, d2	; Size (subsprites)
+
+	; Alloc VRAM
+	PUSHM  d0-d2/a0-a3
+	TILES2BYTES d1
+	move.w d1, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, d3
+	POPM   d0-d2/a0-a3
+	
+	; Load sprite sheet
+	move.w d3, d0
+	move.b #PaletteId_World0, d4
+	move.b #0x0, d5
+	PUSHL  a4
+	jsr    SpriteObjLoad
+	POPL   a4
+
+	; Load anim
+	lea    Leaf_Animation(a0), a1
+	move.l (a4)+, Animation_AnimTrackSpriteFrame(a1)
+	move.l (a4)+, d0	; Speed
+	move.l (a4)+, d1	; Length
+	move.w d0, Animation_Speed(a1)
+	move.b d1, Animation_Length(a1)
+	move.b #0x1, Animation_Looping(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	
+	; Set animation
+	move.b #0x1, AnimObj_Playing(a0)
+
+	POPL   a1
 
 	rts
 
