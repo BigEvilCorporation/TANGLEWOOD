@@ -9,6 +9,11 @@
 
 actor_lock:
 
+actor_lock_sheet_raise_width		equ 0x08	; Max width of largest frame in pixels
+actor_lock_sheet_raise_height		equ 0x68	; Max height of largest frame in pixels
+actor_lock_sheet_raise_VRAM_size_b		equ 0x1A0	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_lock_sheet_raise_frametable:
 actor_lock_sheet_raise_frame_0_header:
 	dc.w 0x0003	; Frame size (tiles)
@@ -93,7 +98,7 @@ actor_lock_sheet_raise_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000050, 0xFFFFFFFF0050
+	dc.l 0x00000050, 0x00000050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -101,14 +106,13 @@ actor_lock_sheet_raise_frame_0_subsprite_dimensions_bits:
 	dc.b 0x2
 	Even
 
-
 actor_lock_sheet_raise_frame_1_size_b		equ 0x0080	; Size in bytes
 actor_lock_sheet_raise_frame_1_size_t		equ 0x0004	; Size in tiles
 actor_lock_sheet_raise_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000048, 0xFFFFFFFF0048
+	dc.l 0x00000048, 0x00000048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -116,15 +120,14 @@ actor_lock_sheet_raise_frame_1_subsprite_dimensions_bits:
 	dc.b 0x3
 	Even
 
-
 actor_lock_sheet_raise_frame_2_size_b		equ 0x00A0	; Size in bytes
 actor_lock_sheet_raise_frame_2_size_t		equ 0x0005	; Size in tiles
 actor_lock_sheet_raise_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000040, 0xFFFFFFFF0040
-	dc.l 0x00000060, 0xFFFFFFFF0060
+	dc.l 0x00000040, 0x00000040
+	dc.l 0x00000060, 0x00000060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -133,15 +136,14 @@ actor_lock_sheet_raise_frame_2_subsprite_dimensions_bits:
 	dc.b 0x0
 	Even
 
-
 actor_lock_sheet_raise_frame_3_size_b		equ 0x00C0	; Size in bytes
 actor_lock_sheet_raise_frame_3_size_t		equ 0x0006	; Size in tiles
 actor_lock_sheet_raise_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000038, 0xFFFFFFFF0038
-	dc.l 0x00000058, 0xFFFFFFFF0058
+	dc.l 0x00000038, 0x00000038
+	dc.l 0x00000058, 0x00000058
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -150,15 +152,14 @@ actor_lock_sheet_raise_frame_3_subsprite_dimensions_bits:
 	dc.b 0x1
 	Even
 
-
 actor_lock_sheet_raise_frame_4_size_b		equ 0x00E0	; Size in bytes
 actor_lock_sheet_raise_frame_4_size_t		equ 0x0007	; Size in tiles
 actor_lock_sheet_raise_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000030, 0xFFFFFFFF0030
-	dc.l 0x00000050, 0xFFFFFFFF0050
+	dc.l 0x00000030, 0x00000030
+	dc.l 0x00000050, 0x00000050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -167,15 +168,14 @@ actor_lock_sheet_raise_frame_4_subsprite_dimensions_bits:
 	dc.b 0x2
 	Even
 
-
 actor_lock_sheet_raise_frame_5_size_b		equ 0x0100	; Size in bytes
 actor_lock_sheet_raise_frame_5_size_t		equ 0x0008	; Size in tiles
 actor_lock_sheet_raise_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000028, 0xFFFFFFFF0028
-	dc.l 0x00000048, 0xFFFFFFFF0048
+	dc.l 0x00000028, 0x00000028
+	dc.l 0x00000048, 0x00000048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -184,16 +184,15 @@ actor_lock_sheet_raise_frame_5_subsprite_dimensions_bits:
 	dc.b 0x3
 	Even
 
-
 actor_lock_sheet_raise_frame_6_size_b		equ 0x0120	; Size in bytes
 actor_lock_sheet_raise_frame_6_size_t		equ 0x0009	; Size in tiles
 actor_lock_sheet_raise_frame_6_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000020, 0xFFFFFFFF0020
-	dc.l 0x00000040, 0xFFFFFFFF0040
-	dc.l 0x00000060, 0xFFFFFFFF0060
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	dc.l 0x00000060, 0x00000060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -203,16 +202,15 @@ actor_lock_sheet_raise_frame_6_subsprite_dimensions_bits:
 	dc.b 0x0
 	Even
 
-
 actor_lock_sheet_raise_frame_7_size_b		equ 0x0140	; Size in bytes
 actor_lock_sheet_raise_frame_7_size_t		equ 0x000A	; Size in tiles
 actor_lock_sheet_raise_frame_7_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000018, 0xFFFFFFFF0018
-	dc.l 0x00000038, 0xFFFFFFFF0038
-	dc.l 0x00000058, 0xFFFFFFFF0058
+	dc.l 0x00000018, 0x00000018
+	dc.l 0x00000038, 0x00000038
+	dc.l 0x00000058, 0x00000058
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -222,16 +220,15 @@ actor_lock_sheet_raise_frame_7_subsprite_dimensions_bits:
 	dc.b 0x1
 	Even
 
-
 actor_lock_sheet_raise_frame_8_size_b		equ 0x0160	; Size in bytes
 actor_lock_sheet_raise_frame_8_size_t		equ 0x000B	; Size in tiles
 actor_lock_sheet_raise_frame_8_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000010, 0xFFFFFFFF0010
-	dc.l 0x00000030, 0xFFFFFFFF0030
-	dc.l 0x00000050, 0xFFFFFFFF0050
+	dc.l 0x00000010, 0x00000010
+	dc.l 0x00000030, 0x00000030
+	dc.l 0x00000050, 0x00000050
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -241,16 +238,15 @@ actor_lock_sheet_raise_frame_8_subsprite_dimensions_bits:
 	dc.b 0x2
 	Even
 
-
 actor_lock_sheet_raise_frame_9_size_b		equ 0x0180	; Size in bytes
 actor_lock_sheet_raise_frame_9_size_t		equ 0x000C	; Size in tiles
 actor_lock_sheet_raise_frame_9_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_9_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
-	dc.l 0x00000028, 0xFFFFFFFF0028
-	dc.l 0x00000048, 0xFFFFFFFF0048
+	dc.l 0x00000008, 0x00000008
+	dc.l 0x00000028, 0x00000028
+	dc.l 0x00000048, 0x00000048
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -260,17 +256,16 @@ actor_lock_sheet_raise_frame_9_subsprite_dimensions_bits:
 	dc.b 0x3
 	Even
 
-
 actor_lock_sheet_raise_frame_10_size_b		equ 0x01A0	; Size in bytes
 actor_lock_sheet_raise_frame_10_size_t		equ 0x000D	; Size in tiles
 actor_lock_sheet_raise_frame_10_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lock_sheet_raise_frame_10_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
-	dc.l 0x00000020, 0xFFFFFFFF0020
-	dc.l 0x00000040, 0xFFFFFFFF0040
-	dc.l 0x00000060, 0xFFFFFFFF0060
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	dc.l 0x00000060, 0x00000060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -280,13 +275,6 @@ actor_lock_sheet_raise_frame_10_subsprite_dimensions_bits:
 	dc.b 0x3
 	dc.b 0x0
 	Even
-
-
-actor_lock_sheet_raise_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_lock_sheet_raise_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_lock_sheet_raise_width		equ 0x08	; Max width of largest frame in pixels
-actor_lock_sheet_raise_height		equ 0x68	; Max height of largest frame in pixels
-actor_lock_sheet_raise_VRAM_size_b		equ 0x1A0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_lock:

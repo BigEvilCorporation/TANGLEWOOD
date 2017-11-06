@@ -235,12 +235,6 @@ AnimObjDraw:
 	lsl.w   #0x4, d1	   ; Sizs to words (32 bytes, 16 words)
 	jsr     VDP_DMAQueue_AddJob
 
-	;move.w SpriteObj_VRAMAddr(a0), d0
-	;move.w SpriteObj_SizeTiles(a0), d1
-	;move.w Animation_FirstFrameOffset(a2), d4
-	;move.l Animation_AnimTrackSpriteFrame(a2), a1
-	;move.l SpriteObj_TilesetAddr(a0), a0
-	;jsr    SPR_LoadAnimFrame
 	movem.l (sp)+, d2/a0-a2
 	
 	; X position track

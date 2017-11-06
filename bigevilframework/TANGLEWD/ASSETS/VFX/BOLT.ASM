@@ -21,7 +21,6 @@ vfx_animation_bolt_flash:
 	dc.l actor_bolt_sheet_flash_anim_flash_track_posx			; Pos X track
 	dc.l actor_bolt_sheet_flash_anim_flash_track_posy			; Pos Y track
 	dc.l actor_bolt_sheet_flash_anim_flash_track_sfx			; SFX track
-	dc.w actor_bolt_sheet_flash_frameoffset						; First frame offset
 	dc.w actor_bolt_sheet_flash_anim_flash_speed				; Speed
 	dc.b actor_bolt_sheet_flash_anim_flash_numframes			; Length
 	dc.b 0x0										; Looping

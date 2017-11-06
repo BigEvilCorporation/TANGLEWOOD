@@ -9,6 +9,11 @@
 
 actor_spitball:
 
+actor_spitball_sheet_spitball_width		equ 0x20	; Max width of largest frame in pixels
+actor_spitball_sheet_spitball_height		equ 0x20	; Max height of largest frame in pixels
+actor_spitball_sheet_spitball_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_spitball_sheet_spitball_frametable:
 actor_spitball_sheet_spitball_frame_0_header:
 	dc.w 0x0010	; Frame size (tiles)
@@ -72,7 +77,7 @@ actor_spitball_sheet_spitball_frame_0_size_subsprites		equ 0x0001	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -80,14 +85,13 @@ actor_spitball_sheet_spitball_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
 
-
 actor_spitball_sheet_spitball_frame_1_size_b		equ 0x0180	; Size in bytes
 actor_spitball_sheet_spitball_frame_1_size_t		equ 0x000C	; Size in tiles
 actor_spitball_sheet_spitball_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -95,14 +99,13 @@ actor_spitball_sheet_spitball_frame_1_subsprite_dimensions_bits:
 	dc.b 0xE
 	Even
 
-
 actor_spitball_sheet_spitball_frame_2_size_b		equ 0x0180	; Size in bytes
 actor_spitball_sheet_spitball_frame_2_size_t		equ 0x000C	; Size in tiles
 actor_spitball_sheet_spitball_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
+	dc.l 0x00000008, 0x00000008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -110,14 +113,13 @@ actor_spitball_sheet_spitball_frame_2_subsprite_dimensions_bits:
 	dc.b 0xE
 	Even
 
-
 actor_spitball_sheet_spitball_frame_3_size_b		equ 0x0100	; Size in bytes
 actor_spitball_sheet_spitball_frame_3_size_t		equ 0x0008	; Size in tiles
 actor_spitball_sheet_spitball_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
+	dc.l 0x00000008, 0x00000008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -125,14 +127,13 @@ actor_spitball_sheet_spitball_frame_3_subsprite_dimensions_bits:
 	dc.b 0xD
 	Even
 
-
 actor_spitball_sheet_spitball_frame_4_size_b		equ 0x0200	; Size in bytes
 actor_spitball_sheet_spitball_frame_4_size_t		equ 0x0010	; Size in tiles
 actor_spitball_sheet_spitball_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -140,14 +141,13 @@ actor_spitball_sheet_spitball_frame_4_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
 
-
 actor_spitball_sheet_spitball_frame_5_size_b		equ 0x0100	; Size in bytes
 actor_spitball_sheet_spitball_frame_5_size_t		equ 0x0008	; Size in tiles
 actor_spitball_sheet_spitball_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_5_subsprite_pos_offsets:
-	dc.l 0x00100000, 0xFFFFFFFF0000
+	dc.l 0x00100000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -155,14 +155,13 @@ actor_spitball_sheet_spitball_frame_5_subsprite_dimensions_bits:
 	dc.b 0x7
 	Even
 
-
 actor_spitball_sheet_spitball_frame_6_size_b		equ 0x0200	; Size in bytes
 actor_spitball_sheet_spitball_frame_6_size_t		equ 0x0010	; Size in tiles
 actor_spitball_sheet_spitball_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -170,27 +169,19 @@ actor_spitball_sheet_spitball_frame_6_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
 
-
 actor_spitball_sheet_spitball_frame_7_size_b		equ 0x0200	; Size in bytes
 actor_spitball_sheet_spitball_frame_7_size_t		equ 0x0010	; Size in tiles
 actor_spitball_sheet_spitball_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_spitball_sheet_spitball_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_spitball_sheet_spitball_frame_7_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
-
-
-actor_spitball_sheet_spitball_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_spitball_sheet_spitball_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_spitball_sheet_spitball_width		equ 0x20	; Max width of largest frame in pixels
-actor_spitball_sheet_spitball_height		equ 0x20	; Max height of largest frame in pixels
-actor_spitball_sheet_spitball_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_spitball:

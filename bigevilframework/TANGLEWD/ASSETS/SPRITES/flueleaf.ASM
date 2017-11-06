@@ -9,6 +9,11 @@
 
 actor_flueleaf:
 
+actor_flueleaf_sheet_flueleaf_width		equ 0x20	; Max width of largest frame in pixels
+actor_flueleaf_sheet_flueleaf_height		equ 0x40	; Max height of largest frame in pixels
+actor_flueleaf_sheet_flueleaf_VRAM_size_b		equ 0x400	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_flueleaf_sheet_flueleaf_frametable:
 actor_flueleaf_sheet_flueleaf_frame_0_header:
 	dc.w 0x000A	; Frame size (tiles)
@@ -79,8 +84,8 @@ actor_flueleaf_sheet_flueleaf_frame_0_size_subsprites		equ 0x0002	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x00070010
-	dc.l 0x00080030, 0x00070030
+	dc.l 0x00080010, 0x00080010
+	dc.l 0x00080030, 0x00080030
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -89,15 +94,14 @@ actor_flueleaf_sheet_flueleaf_frame_0_subsprite_dimensions_bits:
 	dc.b 0x4
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_1_size_b		equ 0x0300	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_1_size_t		equ 0x0018	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
-	dc.l 0x00000020, 0xFFFFFFFF0020
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -106,15 +110,14 @@ actor_flueleaf_sheet_flueleaf_frame_1_subsprite_dimensions_bits:
 	dc.b 0xD
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_2_size_b		equ 0x0240	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_2_size_t		equ 0x0012	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0xFFFFFFFF0008
-	dc.l 0x00080028, 0xFFFFFFFF0028
+	dc.l 0x00080008, 0x00000008
+	dc.l 0x00080028, 0x00000028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -123,15 +126,14 @@ actor_flueleaf_sheet_flueleaf_frame_2_subsprite_dimensions_bits:
 	dc.b 0x9
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_3_size_b		equ 0x0240	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_3_size_t		equ 0x0012	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080000, 0xFFFFFFFF0000
-	dc.l 0x00080020, 0xFFFFFFFF0020
+	dc.l 0x00080000, 0x00000000
+	dc.l 0x00080020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -140,15 +142,14 @@ actor_flueleaf_sheet_flueleaf_frame_3_subsprite_dimensions_bits:
 	dc.b 0x9
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_4_size_b		equ 0x0300	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_4_size_t		equ 0x0018	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
-	dc.l 0x00000028, 0xFFFFFFFF0028
+	dc.l 0x00000008, 0x00000008
+	dc.l 0x00000028, 0x00000028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -157,15 +158,14 @@ actor_flueleaf_sheet_flueleaf_frame_4_subsprite_dimensions_bits:
 	dc.b 0xD
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_5_size_b		equ 0x0140	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_5_size_t		equ 0x000A	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080000, 0x00070000
-	dc.l 0x00080020, 0x00070020
+	dc.l 0x00080000, 0x00080000
+	dc.l 0x00080020, 0x00080020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -174,15 +174,14 @@ actor_flueleaf_sheet_flueleaf_frame_5_subsprite_dimensions_bits:
 	dc.b 0x4
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_6_size_b		equ 0x0280	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_6_size_t		equ 0x0014	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
-	dc.l 0x00000028, 0xFFFFFFFF0028
+	dc.l 0x00000008, 0x00000008
+	dc.l 0x00000028, 0x00000028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -191,15 +190,14 @@ actor_flueleaf_sheet_flueleaf_frame_6_subsprite_dimensions_bits:
 	dc.b 0xC
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_7_size_b		equ 0x01C0	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_7_size_t		equ 0x000E	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080000, 0x00070000
-	dc.l 0x00080020, 0x00070020
+	dc.l 0x00080000, 0x00080000
+	dc.l 0x00080020, 0x00080020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -208,15 +206,14 @@ actor_flueleaf_sheet_flueleaf_frame_7_subsprite_dimensions_bits:
 	dc.b 0x6
 	Even
 
-
 actor_flueleaf_sheet_flueleaf_frame_8_size_b		equ 0x0280	; Size in bytes
 actor_flueleaf_sheet_flueleaf_frame_8_size_t		equ 0x0014	; Size in tiles
 actor_flueleaf_sheet_flueleaf_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_flueleaf_sheet_flueleaf_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000008, 0xFFFFFFFF0008
-	dc.l 0x00000028, 0xFFFFFFFF0028
+	dc.l 0x00000008, 0x00000008
+	dc.l 0x00000028, 0x00000028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -224,13 +221,6 @@ actor_flueleaf_sheet_flueleaf_frame_8_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xC
 	Even
-
-
-actor_flueleaf_sheet_flueleaf_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_flueleaf_sheet_flueleaf_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_flueleaf_sheet_flueleaf_width		equ 0x20	; Max width of largest frame in pixels
-actor_flueleaf_sheet_flueleaf_height		equ 0x40	; Max height of largest frame in pixels
-actor_flueleaf_sheet_flueleaf_VRAM_size_b		equ 0x400	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_flueleaf:

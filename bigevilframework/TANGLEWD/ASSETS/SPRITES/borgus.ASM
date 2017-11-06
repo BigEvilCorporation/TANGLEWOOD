@@ -9,6 +9,31 @@
 
 actor_borgus:
 
+actor_borgus_sheet_idle_width		equ 0x58	; Max width of largest frame in pixels
+actor_borgus_sheet_idle_height		equ 0x90	; Max height of largest frame in pixels
+actor_borgus_sheet_idle_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_borgus_sheet_walk_width		equ 0x58	; Max width of largest frame in pixels
+actor_borgus_sheet_walk_height		equ 0x90	; Max height of largest frame in pixels
+actor_borgus_sheet_walk_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_borgus_sheet_death_width		equ 0x58	; Max width of largest frame in pixels
+actor_borgus_sheet_death_height		equ 0x90	; Max height of largest frame in pixels
+actor_borgus_sheet_death_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_borgus_sheet_attack_width		equ 0x58	; Max width of largest frame in pixels
+actor_borgus_sheet_attack_height		equ 0x90	; Max height of largest frame in pixels
+actor_borgus_sheet_attack_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_borgus_sheet_spit_width		equ 0x58	; Max width of largest frame in pixels
+actor_borgus_sheet_spit_height		equ 0x90	; Max height of largest frame in pixels
+actor_borgus_sheet_spit_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_borgus_sheet_idle_frametable:
 actor_borgus_sheet_idle_frame_0_header:
 	dc.w 0x00B0	; Frame size (tiles)
@@ -37,161 +62,6 @@ actor_borgus_sheet_idle_frame_3_header:
 	dc.l actor_borgus_sheet_idle_frame_3
 	dc.l actor_borgus_sheet_idle_frame_3_subsprite_dimensions_bits
 	dc.l actor_borgus_sheet_idle_frame_3_subsprite_pos_offsets
-
-actor_borgus_sheet_idle_frame_0_size_b		equ 0x1600	; Size in bytes
-actor_borgus_sheet_idle_frame_0_size_t		equ 0x00B0	; Size in tiles
-actor_borgus_sheet_idle_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00370010
-	dc.l 0x00000030, 0x00370030
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200010, 0x00170010
-	dc.l 0x00200030, 0x00170030
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400010, 0xFFFFFFFF0010
-	dc.l 0x00400030, 0xFFFFFFFF0030
-	dc.l 0x00400050, 0xFFFFFFFF0050
-	dc.l 0x00400070, 0xFFFFFFFF0070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_idle_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	Even
-
-
-actor_borgus_sheet_idle_frame_1_size_b		equ 0x1600	; Size in bytes
-actor_borgus_sheet_idle_frame_1_size_t		equ 0x00B0	; Size in tiles
-actor_borgus_sheet_idle_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_idle_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00370010
-	dc.l 0x00000030, 0x00370030
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200010, 0x00170010
-	dc.l 0x00200030, 0x00170030
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400010, 0xFFFFFFFF0010
-	dc.l 0x00400030, 0xFFFFFFFF0030
-	dc.l 0x00400050, 0xFFFFFFFF0050
-	dc.l 0x00400070, 0xFFFFFFFF0070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_idle_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	Even
-
-
-actor_borgus_sheet_idle_frame_2_size_b		equ 0x1600	; Size in bytes
-actor_borgus_sheet_idle_frame_2_size_t		equ 0x00B0	; Size in tiles
-actor_borgus_sheet_idle_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_idle_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00370010
-	dc.l 0x00000030, 0x00370030
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200010, 0x00170010
-	dc.l 0x00200030, 0x00170030
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400010, 0xFFFFFFFF0010
-	dc.l 0x00400030, 0xFFFFFFFF0030
-	dc.l 0x00400050, 0xFFFFFFFF0050
-	dc.l 0x00400070, 0xFFFFFFFF0070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_idle_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	Even
-
-
-actor_borgus_sheet_idle_frame_3_size_b		equ 0x1600	; Size in bytes
-actor_borgus_sheet_idle_frame_3_size_t		equ 0x00B0	; Size in tiles
-actor_borgus_sheet_idle_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_idle_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00370010
-	dc.l 0x00000030, 0x00370030
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200010, 0x00170010
-	dc.l 0x00200030, 0x00170030
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400010, 0xFFFFFFFF0010
-	dc.l 0x00400030, 0xFFFFFFFF0030
-	dc.l 0x00400050, 0xFFFFFFFF0050
-	dc.l 0x00400070, 0xFFFFFFFF0070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_idle_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	Even
-
-
-actor_borgus_sheet_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_borgus_sheet_idle_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_borgus_sheet_idle_width		equ 0x58	; Max width of largest frame in pixels
-actor_borgus_sheet_idle_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_idle_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_borgus_sheet_walk_frametable:
 actor_borgus_sheet_walk_frame_0_header:
@@ -250,357 +120,6 @@ actor_borgus_sheet_walk_frame_7_header:
 	dc.l actor_borgus_sheet_walk_frame_7_subsprite_dimensions_bits
 	dc.l actor_borgus_sheet_walk_frame_7_subsprite_pos_offsets
 
-actor_borgus_sheet_walk_frame_0_size_b		equ 0x18C0	; Size in bytes
-actor_borgus_sheet_walk_frame_0_size_t		equ 0x00C6	; Size in tiles
-actor_borgus_sheet_walk_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_borgus_sheet_walk_frame_1_size_b		equ 0x18C0	; Size in bytes
-actor_borgus_sheet_walk_frame_1_size_t		equ 0x00C6	; Size in tiles
-actor_borgus_sheet_walk_frame_1_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_borgus_sheet_walk_frame_2_size_b		equ 0x1680	; Size in bytes
-actor_borgus_sheet_walk_frame_2_size_t		equ 0x00B4	; Size in tiles
-actor_borgus_sheet_walk_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080000, 0x002F0000
-	dc.l 0x00080020, 0x002F0020
-	dc.l 0x00080040, 0x002F0040
-	dc.l 0x00080060, 0x002F0060
-	dc.l 0x00080080, 0x002F0080
-	dc.l 0x00280000, 0x000F0000
-	dc.l 0x00280020, 0x000F0020
-	dc.l 0x00280040, 0x000F0040
-	dc.l 0x00280060, 0x000F0060
-	dc.l 0x00280080, 0x000F0080
-	dc.l 0x00480000, 0xFFFFFFFF0000
-	dc.l 0x00480020, 0xFFFFFFFF0020
-	dc.l 0x00480040, 0xFFFFFFFF0040
-	dc.l 0x00480060, 0xFFFFFFFF0060
-	dc.l 0x00480080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x7
-	dc.b 0x7
-	dc.b 0x7
-	dc.b 0x7
-	dc.b 0x5
-	Even
-
-
-actor_borgus_sheet_walk_frame_3_size_b		equ 0x18C0	; Size in bytes
-actor_borgus_sheet_walk_frame_3_size_t		equ 0x00C6	; Size in tiles
-actor_borgus_sheet_walk_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_borgus_sheet_walk_frame_4_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_walk_frame_4_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_walk_frame_4_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_walk_frame_5_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_walk_frame_5_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_walk_frame_5_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_walk_frame_6_size_b		equ 0x18C0	; Size in bytes
-actor_borgus_sheet_walk_frame_6_size_t		equ 0x00C6	; Size in tiles
-actor_borgus_sheet_walk_frame_6_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_borgus_sheet_walk_frame_7_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_walk_frame_7_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_walk_frame_7_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_walk_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_walk_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_walk_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
-actor_borgus_sheet_walk_tileoffset	equ 0x2C0	; Offset to first tile in sprite sheet
-actor_borgus_sheet_walk_width		equ 0x58	; Max width of largest frame in pixels
-actor_borgus_sheet_walk_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_walk_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_borgus_sheet_death_frametable:
 actor_borgus_sheet_death_frame_0_header:
 	dc.w 0x00BB	; Frame size (tiles)
@@ -622,118 +141,6 @@ actor_borgus_sheet_death_frame_2_header:
 	dc.l actor_borgus_sheet_death_frame_2
 	dc.l actor_borgus_sheet_death_frame_2_subsprite_dimensions_bits
 	dc.l actor_borgus_sheet_death_frame_2_subsprite_pos_offsets
-
-actor_borgus_sheet_death_frame_0_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_death_frame_0_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_death_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_death_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_death_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_death_frame_1_size_b		equ 0x11E0	; Size in bytes
-actor_borgus_sheet_death_frame_1_size_t		equ 0x008F	; Size in tiles
-actor_borgus_sheet_death_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_death_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_death_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_death_frame_2_size_b		equ 0x0B00	; Size in bytes
-actor_borgus_sheet_death_frame_2_size_t		equ 0x0058	; Size in tiles
-actor_borgus_sheet_death_frame_2_size_subsprites		equ 0x0006	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_death_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400050, 0xFFFFFFFF0050
-	dc.l 0x00400070, 0xFFFFFFFF0070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_death_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xB
-	dc.b 0xB
-	Even
-
-
-actor_borgus_sheet_death_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
-actor_borgus_sheet_death_tileoffset	equ 0x8BD	; Offset to first tile in sprite sheet
-actor_borgus_sheet_death_width		equ 0x58	; Max width of largest frame in pixels
-actor_borgus_sheet_death_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_death_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_borgus_sheet_attack_frametable:
 actor_borgus_sheet_attack_frame_0_header:
@@ -771,216 +178,6 @@ actor_borgus_sheet_attack_frame_4_header:
 	dc.l actor_borgus_sheet_attack_frame_4_subsprite_dimensions_bits
 	dc.l actor_borgus_sheet_attack_frame_4_subsprite_pos_offsets
 
-actor_borgus_sheet_attack_frame_0_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_attack_frame_0_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_attack_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_attack_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_attack_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_attack_frame_1_size_b		equ 0x1400	; Size in bytes
-actor_borgus_sheet_attack_frame_1_size_t		equ 0x00A0	; Size in tiles
-actor_borgus_sheet_attack_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_attack_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00370010
-	dc.l 0x00000030, 0x00370030
-	dc.l 0x00000050, 0x00370050
-	dc.l 0x00000070, 0x00370070
-	dc.l 0x00200010, 0x00170010
-	dc.l 0x00200030, 0x00170030
-	dc.l 0x00200050, 0x00170050
-	dc.l 0x00200070, 0x00170070
-	dc.l 0x00400010, 0x00070010
-	dc.l 0x00400030, 0x00070030
-	dc.l 0x00400050, 0x00070050
-	dc.l 0x00400070, 0x00070070
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_attack_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0x7
-	dc.b 0x7
-	dc.b 0x7
-	dc.b 0x7
-	Even
-
-
-actor_borgus_sheet_attack_frame_2_size_b		equ 0x1760	; Size in bytes
-actor_borgus_sheet_attack_frame_2_size_t		equ 0x00BB	; Size in tiles
-actor_borgus_sheet_attack_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_attack_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_attack_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_borgus_sheet_attack_frame_3_size_b		equ 0x18C0	; Size in bytes
-actor_borgus_sheet_attack_frame_3_size_t		equ 0x00C6	; Size in tiles
-actor_borgus_sheet_attack_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_attack_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_attack_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_borgus_sheet_attack_frame_4_size_b		equ 0x14A0	; Size in bytes
-actor_borgus_sheet_attack_frame_4_size_t		equ 0x00A5	; Size in tiles
-actor_borgus_sheet_attack_frame_4_size_subsprites		equ 0x000C	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_borgus_sheet_attack_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00370018
-	dc.l 0x00000038, 0x00370038
-	dc.l 0x00000058, 0x00370058
-	dc.l 0x00000078, 0x00370078
-	dc.l 0x00200018, 0x00170018
-	dc.l 0x00200038, 0x00170038
-	dc.l 0x00200058, 0x00170058
-	dc.l 0x00200078, 0x00170078
-	dc.l 0x00400018, 0xFFFFFFFF0018
-	dc.l 0x00400038, 0xFFFFFFFF0038
-	dc.l 0x00400058, 0xFFFFFFFF0058
-	dc.l 0x00400078, 0xFFFFFFFF0078
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_borgus_sheet_attack_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xE
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xF
-	dc.b 0xE
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xB
-	dc.b 0xA
-	Even
-
-
-actor_borgus_sheet_attack_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
-actor_borgus_sheet_attack_tileoffset	equ 0xA5F	; Offset to first tile in sprite sheet
-actor_borgus_sheet_attack_width		equ 0x58	; Max width of largest frame in pixels
-actor_borgus_sheet_attack_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_attack_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_borgus_sheet_spit_frametable:
 actor_borgus_sheet_spit_frame_0_header:
 	dc.w 0x00C6	; Frame size (tiles)
@@ -1010,27 +207,811 @@ actor_borgus_sheet_spit_frame_3_header:
 	dc.l actor_borgus_sheet_spit_frame_3_subsprite_dimensions_bits
 	dc.l actor_borgus_sheet_spit_frame_3_subsprite_pos_offsets
 
+actor_borgus_sheet_idle_frame_0_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_0_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00380010
+	dc.l 0x00000030, 0x00380030
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200010, 0x00180010
+	dc.l 0x00200030, 0x00180030
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400010, 0x00000010
+	dc.l 0x00400030, 0x00000030
+	dc.l 0x00400050, 0x00000050
+	dc.l 0x00400070, 0x00000070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+actor_borgus_sheet_idle_frame_1_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_1_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00380010
+	dc.l 0x00000030, 0x00380030
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200010, 0x00180010
+	dc.l 0x00200030, 0x00180030
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400010, 0x00000010
+	dc.l 0x00400030, 0x00000030
+	dc.l 0x00400050, 0x00000050
+	dc.l 0x00400070, 0x00000070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+actor_borgus_sheet_idle_frame_2_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_2_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00380010
+	dc.l 0x00000030, 0x00380030
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200010, 0x00180010
+	dc.l 0x00200030, 0x00180030
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400010, 0x00000010
+	dc.l 0x00400030, 0x00000030
+	dc.l 0x00400050, 0x00000050
+	dc.l 0x00400070, 0x00000070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+actor_borgus_sheet_idle_frame_3_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_3_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00380010
+	dc.l 0x00000030, 0x00380030
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200010, 0x00180010
+	dc.l 0x00200030, 0x00180030
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400010, 0x00000010
+	dc.l 0x00400030, 0x00000030
+	dc.l 0x00400050, 0x00000050
+	dc.l 0x00400070, 0x00000070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_walk_frame_0_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_0_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_borgus_sheet_walk_frame_1_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_1_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_1_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_borgus_sheet_walk_frame_2_size_b		equ 0x1680	; Size in bytes
+actor_borgus_sheet_walk_frame_2_size_t		equ 0x00B4	; Size in tiles
+actor_borgus_sheet_walk_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080000, 0x00300000
+	dc.l 0x00080020, 0x00300020
+	dc.l 0x00080040, 0x00300040
+	dc.l 0x00080060, 0x00300060
+	dc.l 0x00080080, 0x00300080
+	dc.l 0x00280000, 0x00100000
+	dc.l 0x00280020, 0x00100020
+	dc.l 0x00280040, 0x00100040
+	dc.l 0x00280060, 0x00100060
+	dc.l 0x00280080, 0x00100080
+	dc.l 0x00480000, 0x00000000
+	dc.l 0x00480020, 0x00000020
+	dc.l 0x00480040, 0x00000040
+	dc.l 0x00480060, 0x00000060
+	dc.l 0x00480080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x5
+	Even
+
+actor_borgus_sheet_walk_frame_3_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_3_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_borgus_sheet_walk_frame_4_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_4_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_4_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_walk_frame_5_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_5_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_5_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_walk_frame_6_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_6_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_6_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_borgus_sheet_walk_frame_7_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_7_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_7_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_death_frame_0_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_death_frame_0_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_death_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_death_frame_1_size_b		equ 0x11E0	; Size in bytes
+actor_borgus_sheet_death_frame_1_size_t		equ 0x008F	; Size in tiles
+actor_borgus_sheet_death_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_death_frame_2_size_b		equ 0x0B00	; Size in bytes
+actor_borgus_sheet_death_frame_2_size_t		equ 0x0058	; Size in tiles
+actor_borgus_sheet_death_frame_2_size_subsprites		equ 0x0006	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400050, 0x00000050
+	dc.l 0x00400070, 0x00000070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_attack_frame_0_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_attack_frame_0_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_attack_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_attack_frame_1_size_b		equ 0x1400	; Size in bytes
+actor_borgus_sheet_attack_frame_1_size_t		equ 0x00A0	; Size in tiles
+actor_borgus_sheet_attack_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00380010
+	dc.l 0x00000030, 0x00380030
+	dc.l 0x00000050, 0x00380050
+	dc.l 0x00000070, 0x00380070
+	dc.l 0x00200010, 0x00180010
+	dc.l 0x00200030, 0x00180030
+	dc.l 0x00200050, 0x00180050
+	dc.l 0x00200070, 0x00180070
+	dc.l 0x00400010, 0x00080010
+	dc.l 0x00400030, 0x00080030
+	dc.l 0x00400050, 0x00080050
+	dc.l 0x00400070, 0x00080070
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	Even
+
+actor_borgus_sheet_attack_frame_2_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_attack_frame_2_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_attack_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_borgus_sheet_attack_frame_3_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_attack_frame_3_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_attack_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_borgus_sheet_attack_frame_4_size_b		equ 0x14A0	; Size in bytes
+actor_borgus_sheet_attack_frame_4_size_t		equ 0x00A5	; Size in tiles
+actor_borgus_sheet_attack_frame_4_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00380018
+	dc.l 0x00000038, 0x00380038
+	dc.l 0x00000058, 0x00380058
+	dc.l 0x00000078, 0x00380078
+	dc.l 0x00200018, 0x00180018
+	dc.l 0x00200038, 0x00180038
+	dc.l 0x00200058, 0x00180058
+	dc.l 0x00200078, 0x00180078
+	dc.l 0x00400018, 0x00000018
+	dc.l 0x00400038, 0x00000038
+	dc.l 0x00400058, 0x00000058
+	dc.l 0x00400078, 0x00000078
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xA
+	Even
+
+
 actor_borgus_sheet_spit_frame_0_size_b		equ 0x18C0	; Size in bytes
 actor_borgus_sheet_spit_frame_0_size_t		equ 0x00C6	; Size in tiles
 actor_borgus_sheet_spit_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_borgus_sheet_spit_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00370000
-	dc.l 0x00000020, 0x00370020
-	dc.l 0x00000040, 0x00370040
-	dc.l 0x00000060, 0x00370060
-	dc.l 0x00000080, 0x00370080
-	dc.l 0x00200000, 0x00170000
-	dc.l 0x00200020, 0x00170020
-	dc.l 0x00200040, 0x00170040
-	dc.l 0x00200060, 0x00170060
-	dc.l 0x00200080, 0x00170080
-	dc.l 0x00400000, 0xFFFFFFFF0000
-	dc.l 0x00400020, 0xFFFFFFFF0020
-	dc.l 0x00400040, 0xFFFFFFFF0040
-	dc.l 0x00400060, 0xFFFFFFFF0060
-	dc.l 0x00400080, 0xFFFFFFFF0080
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1052,25 +1033,24 @@ actor_borgus_sheet_spit_frame_0_subsprite_dimensions_bits:
 	dc.b 0x9
 	Even
 
-
 actor_borgus_sheet_spit_frame_1_size_b		equ 0x14A0	; Size in bytes
 actor_borgus_sheet_spit_frame_1_size_t		equ 0x00A5	; Size in tiles
 actor_borgus_sheet_spit_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_borgus_sheet_spit_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00370018
-	dc.l 0x00000038, 0x00370038
-	dc.l 0x00000058, 0x00370058
-	dc.l 0x00000078, 0x00370078
-	dc.l 0x00200018, 0x00170018
-	dc.l 0x00200038, 0x00170038
-	dc.l 0x00200058, 0x00170058
-	dc.l 0x00200078, 0x00170078
-	dc.l 0x00400018, 0xFFFFFFFF0018
-	dc.l 0x00400038, 0xFFFFFFFF0038
-	dc.l 0x00400058, 0xFFFFFFFF0058
-	dc.l 0x00400078, 0xFFFFFFFF0078
+	dc.l 0x00000018, 0x00380018
+	dc.l 0x00000038, 0x00380038
+	dc.l 0x00000058, 0x00380058
+	dc.l 0x00000078, 0x00380078
+	dc.l 0x00200018, 0x00180018
+	dc.l 0x00200038, 0x00180038
+	dc.l 0x00200058, 0x00180058
+	dc.l 0x00200078, 0x00180078
+	dc.l 0x00400018, 0x00000018
+	dc.l 0x00400038, 0x00000038
+	dc.l 0x00400058, 0x00000058
+	dc.l 0x00400078, 0x00000078
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1089,25 +1069,24 @@ actor_borgus_sheet_spit_frame_1_subsprite_dimensions_bits:
 	dc.b 0xA
 	Even
 
-
 actor_borgus_sheet_spit_frame_2_size_b		equ 0x14A0	; Size in bytes
 actor_borgus_sheet_spit_frame_2_size_t		equ 0x00A5	; Size in tiles
 actor_borgus_sheet_spit_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_borgus_sheet_spit_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00370018
-	dc.l 0x00000038, 0x00370038
-	dc.l 0x00000058, 0x00370058
-	dc.l 0x00000078, 0x00370078
-	dc.l 0x00200018, 0x00170018
-	dc.l 0x00200038, 0x00170038
-	dc.l 0x00200058, 0x00170058
-	dc.l 0x00200078, 0x00170078
-	dc.l 0x00400018, 0xFFFFFFFF0018
-	dc.l 0x00400038, 0xFFFFFFFF0038
-	dc.l 0x00400058, 0xFFFFFFFF0058
-	dc.l 0x00400078, 0xFFFFFFFF0078
+	dc.l 0x00000018, 0x00380018
+	dc.l 0x00000038, 0x00380038
+	dc.l 0x00000058, 0x00380058
+	dc.l 0x00000078, 0x00380078
+	dc.l 0x00200018, 0x00180018
+	dc.l 0x00200038, 0x00180038
+	dc.l 0x00200058, 0x00180058
+	dc.l 0x00200078, 0x00180078
+	dc.l 0x00400018, 0x00000018
+	dc.l 0x00400038, 0x00000038
+	dc.l 0x00400058, 0x00000058
+	dc.l 0x00400078, 0x00000078
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1126,28 +1105,27 @@ actor_borgus_sheet_spit_frame_2_subsprite_dimensions_bits:
 	dc.b 0xA
 	Even
 
-
 actor_borgus_sheet_spit_frame_3_size_b		equ 0x1760	; Size in bytes
 actor_borgus_sheet_spit_frame_3_size_t		equ 0x00BB	; Size in tiles
 actor_borgus_sheet_spit_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_borgus_sheet_spit_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00370008
-	dc.l 0x00000028, 0x00370028
-	dc.l 0x00000048, 0x00370048
-	dc.l 0x00000068, 0x00370068
-	dc.l 0x00000088, 0x00370088
-	dc.l 0x00200008, 0x00170008
-	dc.l 0x00200028, 0x00170028
-	dc.l 0x00200048, 0x00170048
-	dc.l 0x00200068, 0x00170068
-	dc.l 0x00200088, 0x00170088
-	dc.l 0x00400008, 0xFFFFFFFF0008
-	dc.l 0x00400028, 0xFFFFFFFF0028
-	dc.l 0x00400048, 0xFFFFFFFF0048
-	dc.l 0x00400068, 0xFFFFFFFF0068
-	dc.l 0x00400088, 0xFFFFFFFF0088
+	dc.l 0x00000008, 0x00380008
+	dc.l 0x00000028, 0x00380028
+	dc.l 0x00000048, 0x00380048
+	dc.l 0x00000068, 0x00380068
+	dc.l 0x00000088, 0x00380088
+	dc.l 0x00200008, 0x00180008
+	dc.l 0x00200028, 0x00180028
+	dc.l 0x00200048, 0x00180048
+	dc.l 0x00200068, 0x00180068
+	dc.l 0x00200088, 0x00180088
+	dc.l 0x00400008, 0x00000008
+	dc.l 0x00400028, 0x00000028
+	dc.l 0x00400048, 0x00000048
+	dc.l 0x00400068, 0x00000068
+	dc.l 0x00400088, 0x00000088
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -1168,13 +1146,6 @@ actor_borgus_sheet_spit_frame_3_subsprite_dimensions_bits:
 	dc.b 0xB
 	dc.b 0x8
 	Even
-
-
-actor_borgus_sheet_spit_frameoffset	equ 0x14	; Offset to first frame in sprite sheet
-actor_borgus_sheet_spit_tileoffset	equ 0xDE0	; Offset to first tile in sprite sheet
-actor_borgus_sheet_spit_width		equ 0x58	; Max width of largest frame in pixels
-actor_borgus_sheet_spit_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_spit_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_borgus:

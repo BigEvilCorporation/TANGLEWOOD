@@ -9,6 +9,11 @@
 
 actor_pillar:
 
+actor_pillar_sheet_pillar_width		equ 0x30	; Max width of largest frame in pixels
+actor_pillar_sheet_pillar_height		equ 0x30	; Max height of largest frame in pixels
+actor_pillar_sheet_pillar_VRAM_size_b		equ 0x480	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_pillar_sheet_pillar_frametable:
 actor_pillar_sheet_pillar_frame_0_header:
 	dc.w 0x0024	; Frame size (tiles)
@@ -23,10 +28,10 @@ actor_pillar_sheet_pillar_frame_0_size_subsprites		equ 0x0004	; Size in subsprit
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_pillar_sheet_pillar_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x000F0000
-	dc.l 0x00000020, 0x000F0020
-	dc.l 0x00200000, 0xFFFFFFFF0000
-	dc.l 0x00200020, 0xFFFFFFFF0020
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00000020, 0x00100020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -36,13 +41,6 @@ actor_pillar_sheet_pillar_frame_0_subsprite_dimensions_bits:
 	dc.b 0x7
 	dc.b 0x5
 	Even
-
-
-actor_pillar_sheet_pillar_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_pillar_sheet_pillar_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_pillar_sheet_pillar_width		equ 0x30	; Max width of largest frame in pixels
-actor_pillar_sheet_pillar_height		equ 0x30	; Max height of largest frame in pixels
-actor_pillar_sheet_pillar_VRAM_size_b		equ 0x480	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_pillar:

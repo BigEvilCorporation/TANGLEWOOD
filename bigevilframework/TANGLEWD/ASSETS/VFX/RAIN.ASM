@@ -21,7 +21,6 @@ vfx_animation_rain_light:
 	dc.l actor_rain_sheet_light_anim_fall_track_posx			; Pos X track
 	dc.l actor_rain_sheet_light_anim_fall_track_posy			; Pos Y track
 	dc.l actor_rain_sheet_light_anim_fall_track_sfx				; SFX track
-	dc.w actor_rain_sheet_light_frameoffset			; First frame offset
 	dc.w 0x0										; Speed
 	dc.b actor_rain_sheet_light_anim_fall_numframes				; Length
 	dc.b 0x0										; Looping

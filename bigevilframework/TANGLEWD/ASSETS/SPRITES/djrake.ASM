@@ -9,6 +9,11 @@
 
 actor_djrake:
 
+actor_djrake_sheet_idle_width		equ 0x80	; Max width of largest frame in pixels
+actor_djrake_sheet_idle_height		equ 0x50	; Max height of largest frame in pixels
+actor_djrake_sheet_idle_VRAM_size_b		equ 0x1400	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_djrake_sheet_idle_frametable:
 actor_djrake_sheet_idle_frame_0_header:
 	dc.w 0x0050	; Frame size (tiles)
@@ -23,12 +28,12 @@ actor_djrake_sheet_idle_frame_0_size_subsprites		equ 0x0006	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_djrake_sheet_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00200000, 0x003F0000
-	dc.l 0x00200020, 0x003F0020
-	dc.l 0x00200040, 0x003F0040
-	dc.l 0x00400000, 0x001F0000
-	dc.l 0x00400020, 0x001F0020
-	dc.l 0x00400040, 0x001F0040
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00200020, 0x00400020
+	dc.l 0x00200040, 0x00400040
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00400020, 0x00200020
+	dc.l 0x00400040, 0x00200040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -40,13 +45,6 @@ actor_djrake_sheet_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xD
 	Even
-
-
-actor_djrake_sheet_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_djrake_sheet_idle_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_djrake_sheet_idle_width		equ 0x80	; Max width of largest frame in pixels
-actor_djrake_sheet_idle_height		equ 0x50	; Max height of largest frame in pixels
-actor_djrake_sheet_idle_VRAM_size_b		equ 0x1400	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_djrake:

@@ -9,6 +9,11 @@
 
 actor_twd_logo:
 
+actor_twd_logo_sheet_twd_logo_width		equ 0x120	; Max width of largest frame in pixels
+actor_twd_logo_sheet_twd_logo_height		equ 0x68	; Max height of largest frame in pixels
+actor_twd_logo_sheet_twd_logo_VRAM_size_b		equ 0x3A80	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_twd_logo_sheet_twd_logo_frametable:
 actor_twd_logo_sheet_twd_logo_frame_0_header:
 	dc.w 0x01D4	; Frame size (tiles)
@@ -23,42 +28,42 @@ actor_twd_logo_sheet_twd_logo_frame_0_size_subsprites		equ 0x0024	; Size in subs
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_twd_logo_sheet_twd_logo_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00FF0000
-	dc.l 0x00000020, 0x00FF0020
-	dc.l 0x00000040, 0x00FF0040
-	dc.l 0x00000060, 0x00FF0060
-	dc.l 0x00200000, 0x00DF0000
-	dc.l 0x00200020, 0x00DF0020
-	dc.l 0x00200040, 0x00DF0040
-	dc.l 0x00200060, 0x00DF0060
-	dc.l 0x00400000, 0x00BF0000
-	dc.l 0x00400020, 0x00BF0020
-	dc.l 0x00400040, 0x00BF0040
-	dc.l 0x00400060, 0x00BF0060
-	dc.l 0x00600000, 0x009F0000
-	dc.l 0x00600020, 0x009F0020
-	dc.l 0x00600040, 0x009F0040
-	dc.l 0x00600060, 0x009F0060
-	dc.l 0x00800000, 0x007F0000
-	dc.l 0x00800020, 0x007F0020
-	dc.l 0x00800040, 0x007F0040
-	dc.l 0x00800060, 0x007F0060
-	dc.l 0x00A00000, 0x005F0000
-	dc.l 0x00A00020, 0x005F0020
-	dc.l 0x00A00040, 0x005F0040
-	dc.l 0x00A00060, 0x005F0060
-	dc.l 0x00C00000, 0x003F0000
-	dc.l 0x00C00020, 0x003F0020
-	dc.l 0x00C00040, 0x003F0040
-	dc.l 0x00C00060, 0x003F0060
-	dc.l 0x00E00000, 0x001F0000
-	dc.l 0x00E00020, 0x001F0020
-	dc.l 0x00E00040, 0x001F0040
-	dc.l 0x00E00060, 0x001F0060
-	dc.l 0x01000000, 0xFFFFFFFF0000
-	dc.l 0x01000020, 0xFFFFFFFF0020
-	dc.l 0x01000040, 0xFFFFFFFF0040
-	dc.l 0x01000060, 0xFFFFFFFF0060
+	dc.l 0x00000000, 0x01000000
+	dc.l 0x00000020, 0x01000020
+	dc.l 0x00000040, 0x01000040
+	dc.l 0x00000060, 0x01000060
+	dc.l 0x00200000, 0x00E00000
+	dc.l 0x00200020, 0x00E00020
+	dc.l 0x00200040, 0x00E00040
+	dc.l 0x00200060, 0x00E00060
+	dc.l 0x00400000, 0x00C00000
+	dc.l 0x00400020, 0x00C00020
+	dc.l 0x00400040, 0x00C00040
+	dc.l 0x00400060, 0x00C00060
+	dc.l 0x00600000, 0x00A00000
+	dc.l 0x00600020, 0x00A00020
+	dc.l 0x00600040, 0x00A00040
+	dc.l 0x00600060, 0x00A00060
+	dc.l 0x00800000, 0x00800000
+	dc.l 0x00800020, 0x00800020
+	dc.l 0x00800040, 0x00800040
+	dc.l 0x00800060, 0x00800060
+	dc.l 0x00A00000, 0x00600000
+	dc.l 0x00A00020, 0x00600020
+	dc.l 0x00A00040, 0x00600040
+	dc.l 0x00A00060, 0x00600060
+	dc.l 0x00C00000, 0x00400000
+	dc.l 0x00C00020, 0x00400020
+	dc.l 0x00C00040, 0x00400040
+	dc.l 0x00C00060, 0x00400060
+	dc.l 0x00E00000, 0x00200000
+	dc.l 0x00E00020, 0x00200020
+	dc.l 0x00E00040, 0x00200040
+	dc.l 0x00E00060, 0x00200060
+	dc.l 0x01000000, 0x00000000
+	dc.l 0x01000020, 0x00000020
+	dc.l 0x01000040, 0x00000040
+	dc.l 0x01000060, 0x00000060
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -100,13 +105,6 @@ actor_twd_logo_sheet_twd_logo_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xC
 	Even
-
-
-actor_twd_logo_sheet_twd_logo_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_twd_logo_sheet_twd_logo_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_twd_logo_sheet_twd_logo_width		equ 0x120	; Max width of largest frame in pixels
-actor_twd_logo_sheet_twd_logo_height		equ 0x68	; Max height of largest frame in pixels
-actor_twd_logo_sheet_twd_logo_VRAM_size_b		equ 0x3A80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_twd_logo:

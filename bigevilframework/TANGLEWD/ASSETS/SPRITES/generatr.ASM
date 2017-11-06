@@ -9,6 +9,11 @@
 
 actor_generatr:
 
+actor_generatr_sheet_compressor_width		equ 0x28	; Max width of largest frame in pixels
+actor_generatr_sheet_compressor_height		equ 0x10	; Max height of largest frame in pixels
+actor_generatr_sheet_compressor_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_generatr_sheet_compressor_frametable:
 actor_generatr_sheet_compressor_frame_0_header:
 	dc.w 0x000A	; Frame size (tiles)
@@ -37,8 +42,8 @@ actor_generatr_sheet_compressor_frame_0_size_subsprites		equ 0x0002	; Size in su
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00070000
-	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -47,15 +52,14 @@ actor_generatr_sheet_compressor_frame_0_subsprite_dimensions_bits:
 	dc.b 0x1
 	Even
 
-
 actor_generatr_sheet_compressor_frame_1_size_b		equ 0x0140	; Size in bytes
 actor_generatr_sheet_compressor_frame_1_size_t		equ 0x000A	; Size in tiles
 actor_generatr_sheet_compressor_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00070000
-	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -64,15 +68,14 @@ actor_generatr_sheet_compressor_frame_1_subsprite_dimensions_bits:
 	dc.b 0x1
 	Even
 
-
 actor_generatr_sheet_compressor_frame_2_size_b		equ 0x0140	; Size in bytes
 actor_generatr_sheet_compressor_frame_2_size_t		equ 0x000A	; Size in tiles
 actor_generatr_sheet_compressor_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00070000
-	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -80,13 +83,6 @@ actor_generatr_sheet_compressor_frame_2_subsprite_dimensions_bits:
 	dc.b 0xD
 	dc.b 0x1
 	Even
-
-
-actor_generatr_sheet_compressor_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_generatr_sheet_compressor_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_generatr_sheet_compressor_width		equ 0x28	; Max width of largest frame in pixels
-actor_generatr_sheet_compressor_height		equ 0x10	; Max height of largest frame in pixels
-actor_generatr_sheet_compressor_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_generatr:

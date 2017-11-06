@@ -12,42 +12,62 @@ L1_LoadSceneAnimations:
 	lea    StampAnimObjs, a0
 	lea    StampAnims, a1
 
+	; Create scene anim object
+	PUSHM  a0-a1
+	jsr    SceneAnimInit
+	POPM   a0-a1
+
 	; Get stamp VRAM address
 	move.w (vram_addr_leveltiles), d0
 	add.w  #stampanimsheet_AnimPlants_tileoffset*size_tile_b, d0
-	; Load scene anim objects
-	jsr    SceneAnimInit
+
+	; Load animation
 	lea    spritesheets_AnimPlants, a2
 	move.l #stampanimsheet_AnimPlants_size_t, d1
+	PUSHM  a0-a1
 	jsr    SceneAnimLoadStampAnim
+	POPM   a0-a1
 
-	; Set scene animations
-	move.w #stampanimsheet_AnimPlants_ground_plant_anim_frameoffset, Animation_FirstFrameOffset(a1)
+	; Set animation
 	move.l #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
 	move.w #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_speed, Animation_Speed(a1)
 	move.b #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	PUSHM  a0-a1
 	jsr    AnimObjSetAnimation
+	POPM   a0-a1
 
 	add.l  #SceneAnim_Struct_Size, a0
 	add.l  #Animation_Struct_Size, a1
 
+	; Create scene anim object
+	PUSHM  a0-a1
+	jsr    SceneAnimInit
+	POPM   a0-a1
+
 	; Get stamp VRAM address
 	move.w (vram_addr_leveltiles), d0
 	add.w  #stampanimsheet_AnimWater_tileoffset*size_tile_b, d0
-	; Load scene anim objects
-	jsr    SceneAnimInit
+
+	; Load animation
 	lea    spritesheets_AnimWater, a2
 	move.l #stampanimsheet_AnimWater_size_t, d1
+	PUSHM  a0-a1
 	jsr    SceneAnimLoadStampAnim
+	POPM   a0-a1
 
-	; Set scene animations
-	move.w #stampanimsheet_AnimWater_water_anim_frameoffset, Animation_FirstFrameOffset(a1)
+	; Set animation
 	move.l #actor_AnimWater_sheet_water_anim_anim_water_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
 	move.w #actor_AnimWater_sheet_water_anim_anim_water_anim_speed, Animation_Speed(a1)
 	move.b #actor_AnimWater_sheet_water_anim_anim_water_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
+	move.l #0x0, a2
+	move.l #0x0, a3
+	PUSHM  a0-a1
 	jsr    AnimObjSetAnimation
+	POPM   a0-a1
 
 	add.l  #SceneAnim_Struct_Size, a0
 	add.l  #Animation_Struct_Size, a1
@@ -67,36 +87,36 @@ spritesheets_AnimPlants:
 
 actor_AnimPlants_sheet_ground_plant_anim_frametable:
 actor_AnimPlants_sheet_ground_plant_anim_frame_0_header:
-	dc.w 0x0030	; Frame size (tiles)
+	dc.w 0x000E	; Frame size (tiles)
 	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_dimensions_bits
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_pos_offsets
 
 actor_AnimPlants_sheet_ground_plant_anim_frame_1_header:
-	dc.w 0x0030	; Frame size (tiles)
+	dc.w 0x000E	; Frame size (tiles)
 	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_dimensions_bits
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_pos_offsets
 
 actor_AnimPlants_sheet_ground_plant_anim_frame_2_header:
-	dc.w 0x0030	; Frame size (tiles)
+	dc.w 0x000E	; Frame size (tiles)
 	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_dimensions_bits
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_pos_offsets
 
-actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_b		equ 0x0600	; Size in bytes
-actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_b		equ 0x01C0	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_t		equ 0x000E	; Size in tiles
 actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x005F0000
-	dc.l 0x00200000, 0x003F0000
-	dc.l 0x00400000, 0x001F0000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -107,17 +127,16 @@ actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_dimensions_bits:
 	dc.b 0xE
 	Even
 
-
-actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_b		equ 0x0600	; Size in bytes
-actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_b		equ 0x01C0	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_t		equ 0x000E	; Size in tiles
 actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x005F0000
-	dc.l 0x00200000, 0x003F0000
-	dc.l 0x00400000, 0x001F0000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -128,17 +147,16 @@ actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_dimensions_bits:
 	dc.b 0xE
 	Even
 
-
-actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_b		equ 0x0600	; Size in bytes
-actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_b		equ 0x01C0	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_t		equ 0x000E	; Size in tiles
 actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x005F0000
-	dc.l 0x00200000, 0x003F0000
-	dc.l 0x00400000, 0x001F0000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -568,36 +586,36 @@ spritesheets_AnimWater:
 
 actor_AnimWater_sheet_water_anim_frametable:
 actor_AnimWater_sheet_water_anim_frame_0_header:
-	dc.w 0x002D	; Frame size (tiles)
+	dc.w 0x0015	; Frame size (tiles)
 	dc.w actor_AnimWater_sheet_water_anim_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimWater_sheet_water_anim_frame_0
 	dc.l actor_AnimWater_sheet_water_anim_frame_0_subsprite_dimensions_bits
 	dc.l actor_AnimWater_sheet_water_anim_frame_0_subsprite_pos_offsets
 
 actor_AnimWater_sheet_water_anim_frame_1_header:
-	dc.w 0x002D	; Frame size (tiles)
+	dc.w 0x0015	; Frame size (tiles)
 	dc.w actor_AnimWater_sheet_water_anim_frame_1_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimWater_sheet_water_anim_frame_1
 	dc.l actor_AnimWater_sheet_water_anim_frame_1_subsprite_dimensions_bits
 	dc.l actor_AnimWater_sheet_water_anim_frame_1_subsprite_pos_offsets
 
 actor_AnimWater_sheet_water_anim_frame_2_header:
-	dc.w 0x002D	; Frame size (tiles)
+	dc.w 0x0015	; Frame size (tiles)
 	dc.w actor_AnimWater_sheet_water_anim_frame_2_size_subsprites	; Frame size (subsprites)
 	dc.l actor_AnimWater_sheet_water_anim_frame_2
 	dc.l actor_AnimWater_sheet_water_anim_frame_2_subsprite_dimensions_bits
 	dc.l actor_AnimWater_sheet_water_anim_frame_2_subsprite_pos_offsets
 
-actor_AnimWater_sheet_water_anim_frame_0_size_b		equ 0x05A0	; Size in bytes
-actor_AnimWater_sheet_water_anim_frame_0_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_0_size_b		equ 0x02A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_0_size_t		equ 0x0015	; Size in tiles
 actor_AnimWater_sheet_water_anim_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimWater_sheet_water_anim_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00570000
-	dc.l 0x00200000, 0x00370000
-	dc.l 0x00400000, 0x00170000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -608,17 +626,16 @@ actor_AnimWater_sheet_water_anim_frame_0_subsprite_dimensions_bits:
 	dc.b 0xA
 	Even
 
-
-actor_AnimWater_sheet_water_anim_frame_1_size_b		equ 0x05A0	; Size in bytes
-actor_AnimWater_sheet_water_anim_frame_1_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_1_size_b		equ 0x02A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_1_size_t		equ 0x0015	; Size in tiles
 actor_AnimWater_sheet_water_anim_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimWater_sheet_water_anim_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00570000
-	dc.l 0x00200000, 0x00370000
-	dc.l 0x00400000, 0x00170000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -629,17 +646,16 @@ actor_AnimWater_sheet_water_anim_frame_1_subsprite_dimensions_bits:
 	dc.b 0xA
 	Even
 
-
-actor_AnimWater_sheet_water_anim_frame_2_size_b		equ 0x05A0	; Size in bytes
-actor_AnimWater_sheet_water_anim_frame_2_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_2_size_b		equ 0x02A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_2_size_t		equ 0x0015	; Size in tiles
 actor_AnimWater_sheet_water_anim_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_AnimWater_sheet_water_anim_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00570000
-	dc.l 0x00200000, 0x00370000
-	dc.l 0x00400000, 0x00170000
-	dc.l 0x00600000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)

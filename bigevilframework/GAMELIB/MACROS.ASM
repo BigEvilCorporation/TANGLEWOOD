@@ -217,7 +217,6 @@ SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,prio,sourceobjreg
 ANIM_LOAD_DEFAULT: macro actor,sheet,animname,arrayoffset,index,loop,zerovel,noreplay
 	PUSHL  a0
 	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
-	move.w #actor_\actor\_sheet_\sheet\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
 	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_posy, Animation_AnimTrackPositionY(a0)
@@ -233,7 +232,6 @@ ANIM_LOAD_DEFAULT: macro actor,sheet,animname,arrayoffset,index,loop,zerovel,nor
 ANIM_LOAD_MANUALCONTROL: macro actor,sheet,animname,arrayoffset,index
 	PUSHL  a0
 	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
-	move.w #actor_\actor\_sheet_\sheet\_frameoffset, Animation_FirstFrameOffset(a0)
 	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #0x0, Animation_AnimTrackPositionX(a0)
 	move.l #0x0, Animation_AnimTrackPositionY(a0)

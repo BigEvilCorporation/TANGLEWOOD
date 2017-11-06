@@ -9,6 +9,11 @@
 
 actor_lift:
 
+actor_lift_sheet_lift_width		equ 0x38	; Max width of largest frame in pixels
+actor_lift_sheet_lift_height		equ 0x20	; Max height of largest frame in pixels
+actor_lift_sheet_lift_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_lift_sheet_lift_frametable:
 actor_lift_sheet_lift_frame_0_header:
 	dc.w 0x001C	; Frame size (tiles)
@@ -23,8 +28,8 @@ actor_lift_sheet_lift_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_lift_sheet_lift_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00200000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -32,13 +37,6 @@ actor_lift_sheet_lift_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xB
 	Even
-
-
-actor_lift_sheet_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_lift_sheet_lift_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_lift_sheet_lift_width		equ 0x38	; Max width of largest frame in pixels
-actor_lift_sheet_lift_height		equ 0x20	; Max height of largest frame in pixels
-actor_lift_sheet_lift_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_lift:

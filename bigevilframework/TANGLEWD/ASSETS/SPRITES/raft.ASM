@@ -9,6 +9,11 @@
 
 actor_raft:
 
+actor_raft_sheet_float_width		equ 0x50	; Max width of largest frame in pixels
+actor_raft_sheet_float_height		equ 0x08	; Max height of largest frame in pixels
+actor_raft_sheet_float_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_raft_sheet_float_frametable:
 actor_raft_sheet_float_frame_0_header:
 	dc.w 0x000A	; Frame size (tiles)
@@ -23,9 +28,9 @@ actor_raft_sheet_float_frame_0_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_raft_sheet_float_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x002F0000
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00400000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00300000
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00400000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -34,13 +39,6 @@ actor_raft_sheet_float_frame_0_subsprite_dimensions_bits:
 	dc.b 0xC
 	dc.b 0x4
 	Even
-
-
-actor_raft_sheet_float_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_raft_sheet_float_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_raft_sheet_float_width		equ 0x50	; Max width of largest frame in pixels
-actor_raft_sheet_float_height		equ 0x08	; Max height of largest frame in pixels
-actor_raft_sheet_float_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_raft:

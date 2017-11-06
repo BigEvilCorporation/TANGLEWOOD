@@ -21,7 +21,6 @@ vfx_animation_water_splash_large:
 	dc.l actor_water_sheet_splash_anim_large_track_posx	; Pos X track
 	dc.l actor_water_sheet_splash_anim_large_track_posy	; Pos Y track
 	dc.l actor_water_sheet_splash_anim_large_track_sfx	; SFX track
-	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
 	dc.w actor_water_sheet_splash_anim_large_speed		; Speed
 	dc.b actor_water_sheet_splash_anim_large_numframes	; Length
 	dc.b 0x0										; Looping
@@ -36,7 +35,6 @@ vfx_animation_water_splash_small:
 	dc.l actor_water_sheet_splash_anim_small_track_posx	; Pos X track
 	dc.l actor_water_sheet_splash_anim_small_track_posy	; Pos Y track
 	dc.l actor_water_sheet_splash_anim_small_track_sfx	; SFX track
-	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
 	dc.w actor_water_sheet_splash_anim_small_speed		; Speed
 	dc.b actor_water_sheet_splash_anim_small_numframes	; Length
 	dc.b 0x0										; Looping
@@ -51,7 +49,6 @@ vfx_animation_water_splash_tiny:
 	dc.l actor_water_sheet_splash_anim_tiny_track_posx	; Pos X track
 	dc.l actor_water_sheet_splash_anim_tiny_track_posy	; Pos Y track
 	dc.l actor_water_sheet_splash_anim_tiny_track_sfx		; SFX track
-	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
 	dc.w actor_water_sheet_splash_anim_tiny_speed			; Speed
 	dc.b actor_water_sheet_splash_anim_tiny_numframes		; Length
 	dc.b 0x0										; Looping

@@ -9,6 +9,156 @@
 
 actor_echo:
 
+actor_echo_sheet_colourswitch_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_colourswitch_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_colourswitch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_circle_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_circle_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_circle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_walktorun_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_walktorun_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_walktorun_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_mountnymn_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_mountnymn_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_mountnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_allfours_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_allfours_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_allfours_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_pushheavy_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_pushheavy_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_pushheavy_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_idlesad_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_idlesad_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_idlesad_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_afraid_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_afraid_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_afraid_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_wade_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_wade_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_wade_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_nudge_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_nudge_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_nudge_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_carriedwalk_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_carriedwalk_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_carriedwalk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_carriedidle_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_carriedidle_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_carriedidle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_sit_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_sit_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_sit_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_death_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_death_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_death_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_glide_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_glide_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_glide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_calllong_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_calllong_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_calllong_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_push_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_push_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_push_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_climb_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_climb_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_climb_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_standfromhiding_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_standfromhiding_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_standfromhiding_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_lookup_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_lookup_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_lookup_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_walk_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_walk_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_walk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_jump_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_jump_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_jump_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_hide_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_hide_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_hide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_greetnymn_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_greetnymn_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_greetnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_pouncenymn_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_pouncenymn_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_pouncenymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_idle_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_idle_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_idle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_stand_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_stand_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_stand_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_howl_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_howl_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_howl_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_run_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_run_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_run_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_echo_sheet_fall_width		equ 0x38	; Max width of largest frame in pixels
+actor_echo_sheet_fall_height		equ 0x30	; Max height of largest frame in pixels
+actor_echo_sheet_fall_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_echo_sheet_colourswitch_frametable:
 actor_echo_sheet_colourswitch_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -86,204 +236,6 @@ actor_echo_sheet_colourswitch_frame_10_header:
 	dc.l actor_echo_sheet_colourswitch_frame_10
 	dc.l actor_echo_sheet_colourswitch_frame_10_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_colourswitch_frame_10_subsprite_pos_offsets
-
-actor_echo_sheet_colourswitch_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_0_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00100028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_1_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_colourswitch_frame_1_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_colourswitch_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_2_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00100028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_3_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_colourswitch_frame_3_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_colourswitch_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_3_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x000F0008
-	dc.l 0x00100028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_3_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_4_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00100028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_5_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_colourswitch_frame_5_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_colourswitch_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_5_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x000F0008
-	dc.l 0x00100028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_5_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_6_size_b		equ 0x0140	; Size in bytes
-actor_echo_sheet_colourswitch_frame_6_size_t		equ 0x000A	; Size in tiles
-actor_echo_sheet_colourswitch_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_6_subsprite_pos_offsets:
-	dc.l 0x00180008, 0x000F0008
-	dc.l 0x00180028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_6_subsprite_dimensions_bits:
-	dc.b 0x7
-	dc.b 0x4
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_7_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_colourswitch_frame_7_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_colourswitch_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_7_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x000F0008
-	dc.l 0x00100028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_7_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_8_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_8_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_8_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_8_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_9_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_9_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_9_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_9_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frame_10_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_colourswitch_frame_10_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_colourswitch_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_colourswitch_frame_10_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_colourswitch_frame_10_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_colourswitch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_echo_sheet_colourswitch_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_echo_sheet_colourswitch_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_colourswitch_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_colourswitch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_circle_frametable:
 actor_echo_sheet_circle_frame_0_header:
@@ -377,230 +329,6 @@ actor_echo_sheet_circle_frame_12_header:
 	dc.l actor_echo_sheet_circle_frame_12_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_circle_frame_12_subsprite_pos_offsets
 
-actor_echo_sheet_circle_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_circle_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_circle_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_circle_frame_1_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_circle_frame_1_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_circle_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_circle_frame_2_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_circle_frame_2_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_circle_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_circle_frame_3_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_circle_frame_3_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_circle_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080018, 0x000F0018
-	dc.l 0x00280018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_3_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_circle_frame_4_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_circle_frame_4_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_circle_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_4_subsprite_pos_offsets:
-	dc.l 0x00180018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_4_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_circle_frame_5_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_circle_frame_5_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_circle_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_5_subsprite_pos_offsets:
-	dc.l 0x00180018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_5_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_circle_frame_6_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_circle_frame_6_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_circle_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_6_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_circle_frame_7_size_b		equ 0x0380	; Size in bytes
-actor_echo_sheet_circle_frame_7_size_t		equ 0x001C	; Size in tiles
-actor_echo_sheet_circle_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xB
-	Even
-
-
-actor_echo_sheet_circle_frame_8_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_circle_frame_8_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_circle_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_8_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_circle_frame_9_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_circle_frame_9_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_circle_frame_9_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_9_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_9_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_circle_frame_10_size_b		equ 0x0120	; Size in bytes
-actor_echo_sheet_circle_frame_10_size_t		equ 0x0009	; Size in tiles
-actor_echo_sheet_circle_frame_10_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_10_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x001F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_10_subsprite_dimensions_bits:
-	dc.b 0xA
-	Even
-
-
-actor_echo_sheet_circle_frame_11_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_circle_frame_11_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_circle_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_11_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_11_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_circle_frame_12_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_circle_frame_12_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_circle_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_circle_frame_12_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_circle_frame_12_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_circle_frameoffset	equ 0x0B	; Offset to first frame in sprite sheet
-actor_echo_sheet_circle_tileoffset	equ 0xC8	; Offset to first tile in sprite sheet
-actor_echo_sheet_circle_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_circle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_circle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_walktorun_frametable:
 actor_echo_sheet_walktorun_frame_0_header:
 	dc.w 0x0019	; Frame size (tiles)
@@ -608,34 +336,6 @@ actor_echo_sheet_walktorun_frame_0_header:
 	dc.l actor_echo_sheet_walktorun_frame_0
 	dc.l actor_echo_sheet_walktorun_frame_0_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_walktorun_frame_0_subsprite_pos_offsets
-
-actor_echo_sheet_walktorun_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_walktorun_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_walktorun_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walktorun_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walktorun_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_walktorun_frameoffset	equ 0x18	; Offset to first frame in sprite sheet
-actor_echo_sheet_walktorun_tileoffset	equ 0x1C0	; Offset to first tile in sprite sheet
-actor_echo_sheet_walktorun_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_walktorun_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_walktorun_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_mountnymn_frametable:
 actor_echo_sheet_mountnymn_frame_0_header:
@@ -680,139 +380,6 @@ actor_echo_sheet_mountnymn_frame_5_header:
 	dc.l actor_echo_sheet_mountnymn_frame_5_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_mountnymn_frame_5_subsprite_pos_offsets
 
-actor_echo_sheet_mountnymn_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_mountnymn_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_mountnymn_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080000, 0x000F0000
-	dc.l 0x00080020, 0x000F0020
-	dc.l 0x00280000, 0x00070000
-	dc.l 0x00280020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_mountnymn_frame_1_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_mountnymn_frame_1_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_mountnymn_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_mountnymn_frame_2_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_mountnymn_frame_2_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_mountnymn_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_mountnymn_frame_3_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_mountnymn_frame_3_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_mountnymn_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_mountnymn_frame_4_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_mountnymn_frame_4_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_mountnymn_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_mountnymn_frame_5_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_mountnymn_frame_5_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_mountnymn_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_mountnymn_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_mountnymn_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_mountnymn_frameoffset	equ 0x19	; Offset to first frame in sprite sheet
-actor_echo_sheet_mountnymn_tileoffset	equ 0x1D9	; Offset to first tile in sprite sheet
-actor_echo_sheet_mountnymn_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_mountnymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_mountnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_allfours_frametable:
 actor_echo_sheet_allfours_frame_0_header:
 	dc.w 0x0019	; Frame size (tiles)
@@ -841,85 +408,6 @@ actor_echo_sheet_allfours_frame_3_header:
 	dc.l actor_echo_sheet_allfours_frame_3
 	dc.l actor_echo_sheet_allfours_frame_3_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_allfours_frame_3_subsprite_pos_offsets
-
-actor_echo_sheet_allfours_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_allfours_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_allfours_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_allfours_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_allfours_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_allfours_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_allfours_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_allfours_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_allfours_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_allfours_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_allfours_frame_2_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_allfours_frame_2_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_allfours_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_allfours_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_allfours_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_allfours_frame_3_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_allfours_frame_3_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_allfours_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_allfours_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_allfours_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_allfours_frameoffset	equ 0x1F	; Offset to first frame in sprite sheet
-actor_echo_sheet_allfours_tileoffset	equ 0x283	; Offset to first tile in sprite sheet
-actor_echo_sheet_allfours_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_allfours_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_allfours_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_pushheavy_frametable:
 actor_echo_sheet_pushheavy_frame_0_header:
@@ -978,181 +466,6 @@ actor_echo_sheet_pushheavy_frame_7_header:
 	dc.l actor_echo_sheet_pushheavy_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_pushheavy_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_pushheavy_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_1_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_1_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_2_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_2_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_3_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_3_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_4_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_4_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_5_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_5_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_6_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_6_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_6_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frame_7_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_pushheavy_frame_7_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_pushheavy_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pushheavy_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pushheavy_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_pushheavy_frameoffset	equ 0x23	; Offset to first frame in sprite sheet
-actor_echo_sheet_pushheavy_tileoffset	equ 0x2E0	; Offset to first tile in sprite sheet
-actor_echo_sheet_pushheavy_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_pushheavy_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_pushheavy_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_idlesad_frametable:
 actor_echo_sheet_idlesad_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -1160,30 +473,6 @@ actor_echo_sheet_idlesad_frame_0_header:
 	dc.l actor_echo_sheet_idlesad_frame_0
 	dc.l actor_echo_sheet_idlesad_frame_0_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_idlesad_frame_0_subsprite_pos_offsets
-
-actor_echo_sheet_idlesad_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idlesad_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idlesad_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idlesad_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idlesad_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idlesad_frameoffset	equ 0x2B	; Offset to first frame in sprite sheet
-actor_echo_sheet_idlesad_tileoffset	equ 0x3A8	; Offset to first tile in sprite sheet
-actor_echo_sheet_idlesad_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_idlesad_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_idlesad_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_afraid_frametable:
 actor_echo_sheet_afraid_frame_0_header:
@@ -1206,58 +495,6 @@ actor_echo_sheet_afraid_frame_2_header:
 	dc.l actor_echo_sheet_afraid_frame_2
 	dc.l actor_echo_sheet_afraid_frame_2_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_afraid_frame_2_subsprite_pos_offsets
-
-actor_echo_sheet_afraid_frame_0_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_afraid_frame_0_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_afraid_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_afraid_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_afraid_frame_0_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_afraid_frame_1_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_afraid_frame_1_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_afraid_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_afraid_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_afraid_frame_1_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_afraid_frame_2_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_afraid_frame_2_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_afraid_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_afraid_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_afraid_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_afraid_frameoffset	equ 0x2C	; Offset to first frame in sprite sheet
-actor_echo_sheet_afraid_tileoffset	equ 0x3BC	; Offset to first tile in sprite sheet
-actor_echo_sheet_afraid_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_afraid_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_afraid_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_wade_frametable:
 actor_echo_sheet_wade_frame_0_header:
@@ -1316,149 +553,6 @@ actor_echo_sheet_wade_frame_7_header:
 	dc.l actor_echo_sheet_wade_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_wade_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_wade_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_6_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_wade_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_wade_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_wade_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_wade_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_wade_frameoffset	equ 0x2F	; Offset to first frame in sprite sheet
-actor_echo_sheet_wade_tileoffset	equ 0x3E0	; Offset to first tile in sprite sheet
-actor_echo_sheet_wade_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_wade_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_wade_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_nudge_frametable:
 actor_echo_sheet_nudge_frame_0_header:
 	dc.w 0x0018	; Frame size (tiles)
@@ -1494,98 +588,6 @@ actor_echo_sheet_nudge_frame_4_header:
 	dc.l actor_echo_sheet_nudge_frame_4
 	dc.l actor_echo_sheet_nudge_frame_4_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_nudge_frame_4_subsprite_pos_offsets
-
-actor_echo_sheet_nudge_frame_0_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_nudge_frame_0_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_nudge_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_nudge_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_nudge_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_nudge_frame_1_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_nudge_frame_1_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_nudge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_nudge_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_nudge_frame_1_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_nudge_frame_2_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_nudge_frame_2_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_nudge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_nudge_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_nudge_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_nudge_frame_3_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_nudge_frame_3_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_nudge_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_nudge_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_nudge_frame_3_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_nudge_frame_4_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_nudge_frame_4_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_nudge_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_nudge_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_nudge_frame_4_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_nudge_frameoffset	equ 0x37	; Offset to first frame in sprite sheet
-actor_echo_sheet_nudge_tileoffset	equ 0x480	; Offset to first tile in sprite sheet
-actor_echo_sheet_nudge_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_nudge_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_nudge_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_carriedwalk_frametable:
 actor_echo_sheet_carriedwalk_frame_0_header:
@@ -1644,181 +646,6 @@ actor_echo_sheet_carriedwalk_frame_7_header:
 	dc.l actor_echo_sheet_carriedwalk_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_carriedwalk_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_carriedwalk_frame_0_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_0_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_1_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_1_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_2_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_2_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_3_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_3_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_4_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_4_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_5_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_5_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_6_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_6_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frame_7_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedwalk_frame_7_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedwalk_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedwalk_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedwalk_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedwalk_frameoffset	equ 0x3C	; Offset to first frame in sprite sheet
-actor_echo_sheet_carriedwalk_tileoffset	equ 0x4E0	; Offset to first tile in sprite sheet
-actor_echo_sheet_carriedwalk_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_carriedwalk_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_carriedwalk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_carriedidle_frametable:
 actor_echo_sheet_carriedidle_frame_0_header:
 	dc.w 0x001E	; Frame size (tiles)
@@ -1826,34 +653,6 @@ actor_echo_sheet_carriedidle_frame_0_header:
 	dc.l actor_echo_sheet_carriedidle_frame_0
 	dc.l actor_echo_sheet_carriedidle_frame_0_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_carriedidle_frame_0_subsprite_pos_offsets
-
-actor_echo_sheet_carriedidle_frame_0_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_carriedidle_frame_0_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_carriedidle_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_carriedidle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00170000
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200000, 0x000F0000
-	dc.l 0x00200020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_carriedidle_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xD
-	dc.b 0x3
-	dc.b 0x1
-	Even
-
-
-actor_echo_sheet_carriedidle_frameoffset	equ 0x44	; Offset to first frame in sprite sheet
-actor_echo_sheet_carriedidle_tileoffset	equ 0x5D0	; Offset to first tile in sprite sheet
-actor_echo_sheet_carriedidle_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_carriedidle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_carriedidle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_sit_frametable:
 actor_echo_sheet_sit_frame_0_header:
@@ -1876,64 +675,6 @@ actor_echo_sheet_sit_frame_2_header:
 	dc.l actor_echo_sheet_sit_frame_2
 	dc.l actor_echo_sheet_sit_frame_2_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_sit_frame_2_subsprite_pos_offsets
-
-actor_echo_sheet_sit_frame_0_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_sit_frame_0_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_sit_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_sit_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_sit_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_sit_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_sit_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_sit_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_sit_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_sit_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_sit_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_sit_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_sit_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_sit_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_sit_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_sit_frameoffset	equ 0x45	; Offset to first frame in sprite sheet
-actor_echo_sheet_sit_tileoffset	equ 0x5EE	; Offset to first tile in sprite sheet
-actor_echo_sheet_sit_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_sit_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_sit_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_death_frametable:
 actor_echo_sheet_death_frame_0_header:
@@ -2034,249 +775,6 @@ actor_echo_sheet_death_frame_13_header:
 	dc.l actor_echo_sheet_death_frame_13_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_death_frame_13_subsprite_pos_offsets
 
-actor_echo_sheet_death_frame_0_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_death_frame_0_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_death_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_death_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_death_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_death_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_death_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_death_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_death_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_death_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_death_frame_8_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_death_frame_8_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_death_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_8_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_8_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_death_frame_9_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_death_frame_9_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_death_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_9_subsprite_pos_offsets:
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_9_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x5
-	Even
-
-
-actor_echo_sheet_death_frame_10_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_death_frame_10_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_death_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_10_subsprite_pos_offsets:
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_10_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x5
-	Even
-
-
-actor_echo_sheet_death_frame_11_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_death_frame_11_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_death_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_11_subsprite_pos_offsets:
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_11_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x5
-	Even
-
-
-actor_echo_sheet_death_frame_12_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_death_frame_12_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_death_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_12_subsprite_pos_offsets:
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_12_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x5
-	Even
-
-
-actor_echo_sheet_death_frame_13_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_death_frame_13_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_death_frame_13_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_death_frame_13_subsprite_pos_offsets:
-	dc.l 0x00000020, 0x00170020
-	dc.l 0x00200020, 0x00070020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_death_frame_13_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x5
-	Even
-
-
-actor_echo_sheet_death_frameoffset	equ 0x48	; Offset to first frame in sprite sheet
-actor_echo_sheet_death_tileoffset	equ 0x62E	; Offset to first tile in sprite sheet
-actor_echo_sheet_death_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_death_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_death_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_glide_frametable:
 actor_echo_sheet_glide_frame_0_header:
 	dc.w 0x0018	; Frame size (tiles)
@@ -2305,81 +803,6 @@ actor_echo_sheet_glide_frame_3_header:
 	dc.l actor_echo_sheet_glide_frame_3
 	dc.l actor_echo_sheet_glide_frame_3_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_glide_frame_3_subsprite_pos_offsets
-
-actor_echo_sheet_glide_frame_0_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_glide_frame_0_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_glide_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_glide_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_glide_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_glide_frame_1_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_glide_frame_1_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_glide_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_glide_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_glide_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_glide_frame_2_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_glide_frame_2_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_glide_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_glide_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_glide_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_glide_frame_3_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_glide_frame_3_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_glide_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_glide_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_glide_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_glide_frameoffset	equ 0x56	; Offset to first frame in sprite sheet
-actor_echo_sheet_glide_tileoffset	equ 0x71A	; Offset to first tile in sprite sheet
-actor_echo_sheet_glide_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_glide_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_glide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_calllong_frametable:
 actor_echo_sheet_calllong_frame_0_header:
@@ -2438,153 +861,6 @@ actor_echo_sheet_calllong_frame_7_header:
 	dc.l actor_echo_sheet_calllong_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_calllong_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_calllong_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_calllong_frame_2_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_calllong_frame_2_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_calllong_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	dc.l 0x00200008, 0x000F0008
-	dc.l 0x00200028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_calllong_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_calllong_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_calllong_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_calllong_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_calllong_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_calllong_frameoffset	equ 0x5A	; Offset to first frame in sprite sheet
-actor_echo_sheet_calllong_tileoffset	equ 0x77A	; Offset to first tile in sprite sheet
-actor_echo_sheet_calllong_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_calllong_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_calllong_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_push_frametable:
 actor_echo_sheet_push_frame_0_header:
 	dc.w 0x0019	; Frame size (tiles)
@@ -2641,181 +917,6 @@ actor_echo_sheet_push_frame_7_header:
 	dc.l actor_echo_sheet_push_frame_7
 	dc.l actor_echo_sheet_push_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_push_frame_7_subsprite_pos_offsets
-
-actor_echo_sheet_push_frame_0_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_0_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_1_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_1_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_2_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_2_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_3_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_3_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_4_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_4_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_5_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_5_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_6_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_6_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_6_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frame_7_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_push_frame_7_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_push_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_push_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	dc.l 0x00280008, 0x00070008
-	dc.l 0x00280028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_push_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_push_frameoffset	equ 0x62	; Offset to first frame in sprite sheet
-actor_echo_sheet_push_tileoffset	equ 0x81F	; Offset to first tile in sprite sheet
-actor_echo_sheet_push_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_push_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_push_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_climb_frametable:
 actor_echo_sheet_climb_frame_0_header:
@@ -2881,166 +982,6 @@ actor_echo_sheet_climb_frame_8_header:
 	dc.l actor_echo_sheet_climb_frame_8_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_climb_frame_8_subsprite_pos_offsets
 
-actor_echo_sheet_climb_frame_0_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_0_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_0_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_0_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_1_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_1_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_1_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_1_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_2_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_2_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_2_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_2_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_3_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_3_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_3_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_3_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_4_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_4_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_4_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_4_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_5_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_climb_frame_5_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_climb_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_5_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x000F0008
-	dc.l 0x00100028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_5_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x8
-	Even
-
-
-actor_echo_sheet_climb_frame_6_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_6_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_6_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_6_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_7_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_7_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_7_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_7_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frame_8_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_climb_frame_8_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_climb_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_climb_frame_8_subsprite_pos_offsets:
-	dc.l 0x00100000, 0x000F0000
-	dc.l 0x00100020, 0x000F0020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_climb_frame_8_subsprite_dimensions_bits:
-	dc.b 0xB
-	dc.b 0x9
-	Even
-
-
-actor_echo_sheet_climb_frameoffset	equ 0x6A	; Offset to first frame in sprite sheet
-actor_echo_sheet_climb_tileoffset	equ 0x8E7	; Offset to first tile in sprite sheet
-actor_echo_sheet_climb_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_climb_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_climb_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_standfromhiding_frametable:
 actor_echo_sheet_standfromhiding_frame_0_header:
 	dc.w 0x000C	; Frame size (tiles)
@@ -3084,107 +1025,6 @@ actor_echo_sheet_standfromhiding_frame_5_header:
 	dc.l actor_echo_sheet_standfromhiding_frame_5_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_standfromhiding_frame_5_subsprite_pos_offsets
 
-actor_echo_sheet_standfromhiding_frame_0_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_0_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_0_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_standfromhiding_frame_1_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_1_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_1_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_standfromhiding_frame_2_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_2_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_standfromhiding_frame_3_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_3_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_3_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_standfromhiding_frame_4_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_4_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x000F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_4_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
-	Even
-
-
-actor_echo_sheet_standfromhiding_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_standfromhiding_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_standfromhiding_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_standfromhiding_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_standfromhiding_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_standfromhiding_frameoffset	equ 0x73	; Offset to first frame in sprite sheet
-actor_echo_sheet_standfromhiding_tileoffset	equ 0x986	; Offset to first tile in sprite sheet
-actor_echo_sheet_standfromhiding_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_standfromhiding_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_standfromhiding_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_lookup_frametable:
 actor_echo_sheet_lookup_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -3199,45 +1039,6 @@ actor_echo_sheet_lookup_frame_1_header:
 	dc.l actor_echo_sheet_lookup_frame_1
 	dc.l actor_echo_sheet_lookup_frame_1_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_lookup_frame_1_subsprite_pos_offsets
-
-actor_echo_sheet_lookup_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_lookup_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_lookup_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_lookup_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_lookup_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_lookup_frame_1_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_lookup_frame_1_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_lookup_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_lookup_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_lookup_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_lookup_frameoffset	equ 0x79	; Offset to first frame in sprite sheet
-actor_echo_sheet_lookup_tileoffset	equ 0x9D9	; Offset to first tile in sprite sheet
-actor_echo_sheet_lookup_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_lookup_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_lookup_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_walk_frametable:
 actor_echo_sheet_walk_frame_0_header:
@@ -3296,149 +1097,6 @@ actor_echo_sheet_walk_frame_7_header:
 	dc.l actor_echo_sheet_walk_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_walk_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_walk_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_6_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_walk_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_walk_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_walk_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_walk_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_walk_frameoffset	equ 0x7B	; Offset to first frame in sprite sheet
-actor_echo_sheet_walk_tileoffset	equ 0x9FD	; Offset to first tile in sprite sheet
-actor_echo_sheet_walk_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_walk_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_walk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_jump_frametable:
 actor_echo_sheet_jump_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -3496,139 +1154,6 @@ actor_echo_sheet_jump_frame_7_header:
 	dc.l actor_echo_sheet_jump_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_jump_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_jump_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_jump_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_jump_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_jump_frame_1_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_jump_frame_1_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_jump_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_1_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_jump_frame_2_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_jump_frame_2_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_jump_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_jump_frame_3_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_jump_frame_3_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_jump_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_3_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_jump_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_jump_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_jump_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_jump_frame_5_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_jump_frame_5_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_jump_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_jump_frame_6_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_jump_frame_6_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_jump_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_6_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_jump_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_jump_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_jump_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_jump_frame_7_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_jump_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_jump_frameoffset	equ 0x83	; Offset to first frame in sprite sheet
-actor_echo_sheet_jump_tileoffset	equ 0xA9D	; Offset to first tile in sprite sheet
-actor_echo_sheet_jump_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_jump_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_jump_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_hide_frametable:
 actor_echo_sheet_hide_frame_0_header:
 	dc.w 0x0012	; Frame size (tiles)
@@ -3685,137 +1210,6 @@ actor_echo_sheet_hide_frame_7_header:
 	dc.l actor_echo_sheet_hide_frame_7
 	dc.l actor_echo_sheet_hide_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_hide_frame_7_subsprite_pos_offsets
-
-actor_echo_sheet_hide_frame_0_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_hide_frame_0_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_hide_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_0_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_hide_frame_1_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_hide_frame_1_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_hide_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x000F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_1_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
-	Even
-
-
-actor_echo_sheet_hide_frame_2_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_2_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frame_3_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_3_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_3_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frame_4_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_4_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_4_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frame_5_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_5_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_5_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frame_6_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_6_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_6_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frame_7_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_hide_frame_7_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_hide_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_hide_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_hide_frame_7_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_hide_frameoffset	equ 0x8B	; Offset to first frame in sprite sheet
-actor_echo_sheet_hide_tileoffset	equ 0xB29	; Offset to first tile in sprite sheet
-actor_echo_sheet_hide_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_hide_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_hide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_greetnymn_frametable:
 actor_echo_sheet_greetnymn_frame_0_header:
@@ -4056,591 +1450,6 @@ actor_echo_sheet_greetnymn_frame_33_header:
 	dc.l actor_echo_sheet_greetnymn_frame_33_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_greetnymn_frame_33_subsprite_pos_offsets
 
-actor_echo_sheet_greetnymn_frame_0_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_greetnymn_frame_0_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_greetnymn_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x000F0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_0_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_1_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_1_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00200008, 0x00070008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_2_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_greetnymn_frame_2_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_greetnymn_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_2_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00100028, 0x00070028
-	dc.l 0x00300008, 0xFFFFFFFF0008
-	dc.l 0x00300028, 0xFFFFFFFF0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_4_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00300008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_5_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_greetnymn_frame_5_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_greetnymn_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_5_subsprite_pos_offsets:
-	dc.l 0x00180010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_6_subsprite_pos_offsets:
-	dc.l 0x00100010, 0x00070010
-	dc.l 0x00300010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_7_size_b		equ 0x0320	; Size in bytes
-actor_echo_sheet_greetnymn_frame_7_size_t		equ 0x0019	; Size in tiles
-actor_echo_sheet_greetnymn_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_7_subsprite_pos_offsets:
-	dc.l 0x00100008, 0x00070008
-	dc.l 0x00100028, 0x00070028
-	dc.l 0x00300008, 0xFFFFFFFF0008
-	dc.l 0x00300028, 0xFFFFFFFF0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x3
-	dc.b 0x0
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_8_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_8_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_8_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_8_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_9_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_9_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_9_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_9_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_10_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_10_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_10_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_10_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_11_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_11_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_11_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_11_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_12_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_12_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_12_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_12_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_13_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_13_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_13_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_13_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_13_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_14_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_14_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_14_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_14_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_14_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_15_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_15_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_15_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_15_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_15_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_16_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_16_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_16_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_16_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_16_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_17_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_17_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_17_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_17_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_17_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_18_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_18_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_18_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_18_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_18_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_19_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_19_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_19_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_19_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_19_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_20_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_20_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_20_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_20_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_20_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_21_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_21_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_21_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_21_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_21_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_22_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_22_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_22_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_22_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_22_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_23_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_23_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_23_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_23_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_23_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_24_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_greetnymn_frame_24_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_greetnymn_frame_24_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_24_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_24_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_25_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_greetnymn_frame_25_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_greetnymn_frame_25_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_25_subsprite_pos_offsets:
-	dc.l 0x00080018, 0x000F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_25_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_26_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_greetnymn_frame_26_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_greetnymn_frame_26_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_26_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_26_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_27_size_b		equ 0x0380	; Size in bytes
-actor_echo_sheet_greetnymn_frame_27_size_t		equ 0x001C	; Size in tiles
-actor_echo_sheet_greetnymn_frame_27_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_27_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_27_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xB
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_28_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_greetnymn_frame_28_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_greetnymn_frame_28_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_28_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x00070018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_28_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_29_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_greetnymn_frame_29_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_greetnymn_frame_29_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_29_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x000F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_29_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_30_size_b		equ 0x0180	; Size in bytes
-actor_echo_sheet_greetnymn_frame_30_size_t		equ 0x000C	; Size in tiles
-actor_echo_sheet_greetnymn_frame_30_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_30_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_30_subsprite_dimensions_bits:
-	dc.b 0xE
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_31_size_b		equ 0x01E0	; Size in bytes
-actor_echo_sheet_greetnymn_frame_31_size_t		equ 0x000F	; Size in tiles
-actor_echo_sheet_greetnymn_frame_31_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_31_subsprite_pos_offsets:
-	dc.l 0x00000018, 0x00170018
-	dc.l 0x00200018, 0x000F0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_31_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_32_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_32_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_32_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_32_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_32_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_greetnymn_frame_33_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_greetnymn_frame_33_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_greetnymn_frame_33_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_greetnymn_frame_33_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_greetnymn_frame_33_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_greetnymn_frameoffset	equ 0x93	; Offset to first frame in sprite sheet
-actor_echo_sheet_greetnymn_tileoffset	equ 0xB92	; Offset to first tile in sprite sheet
-actor_echo_sheet_greetnymn_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_greetnymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_greetnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_pouncenymn_frametable:
 actor_echo_sheet_pouncenymn_frame_0_header:
 	dc.w 0x001C	; Frame size (tiles)
@@ -4676,102 +1485,6 @@ actor_echo_sheet_pouncenymn_frame_4_header:
 	dc.l actor_echo_sheet_pouncenymn_frame_4
 	dc.l actor_echo_sheet_pouncenymn_frame_4_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_pouncenymn_frame_4_subsprite_pos_offsets
-
-actor_echo_sheet_pouncenymn_frame_0_size_b		equ 0x0380	; Size in bytes
-actor_echo_sheet_pouncenymn_frame_0_size_t		equ 0x001C	; Size in tiles
-actor_echo_sheet_pouncenymn_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pouncenymn_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pouncenymn_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xB
-	Even
-
-
-actor_echo_sheet_pouncenymn_frame_1_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_pouncenymn_frame_1_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_pouncenymn_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pouncenymn_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080018, 0x000F0018
-	dc.l 0x00280018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pouncenymn_frame_1_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_pouncenymn_frame_2_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_pouncenymn_frame_2_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_pouncenymn_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pouncenymn_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080018, 0x000F0018
-	dc.l 0x00280018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pouncenymn_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_pouncenymn_frame_3_size_b		equ 0x03C0	; Size in bytes
-actor_echo_sheet_pouncenymn_frame_3_size_t		equ 0x001E	; Size in tiles
-actor_echo_sheet_pouncenymn_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pouncenymn_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	dc.l 0x00200008, 0x00070008
-	dc.l 0x00200028, 0x00070028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pouncenymn_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	dc.b 0x7
-	dc.b 0x4
-	Even
-
-
-actor_echo_sheet_pouncenymn_frame_4_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_pouncenymn_frame_4_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_pouncenymn_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_pouncenymn_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00280008, 0xFFFFFFFF0008
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_pouncenymn_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_pouncenymn_frameoffset	equ 0xB5	; Offset to first frame in sprite sheet
-actor_echo_sheet_pouncenymn_tileoffset	equ 0xE3D	; Offset to first tile in sprite sheet
-actor_echo_sheet_pouncenymn_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_pouncenymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_pouncenymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_idle_frametable:
 actor_echo_sheet_idle_frame_0_header:
@@ -4816,113 +1529,6 @@ actor_echo_sheet_idle_frame_5_header:
 	dc.l actor_echo_sheet_idle_frame_5_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_idle_frame_5_subsprite_pos_offsets
 
-actor_echo_sheet_idle_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idle_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idle_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idle_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idle_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idle_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idle_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idle_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idle_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idle_frame_3_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_idle_frame_3_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_idle_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_idle_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idle_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idle_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idle_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_idle_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_idle_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_idle_frame_5_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_idle_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_idle_frameoffset	equ 0xBA	; Offset to first frame in sprite sheet
-actor_echo_sheet_idle_tileoffset	equ 0xEB3	; Offset to first tile in sprite sheet
-actor_echo_sheet_idle_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_idle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_idle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_stand_frametable:
 actor_echo_sheet_stand_frame_0_header:
 	dc.w 0x0010	; Frame size (tiles)
@@ -4944,62 +1550,6 @@ actor_echo_sheet_stand_frame_2_header:
 	dc.l actor_echo_sheet_stand_frame_2
 	dc.l actor_echo_sheet_stand_frame_2_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_stand_frame_2_subsprite_pos_offsets
-
-actor_echo_sheet_stand_frame_0_size_b		equ 0x0200	; Size in bytes
-actor_echo_sheet_stand_frame_0_size_t		equ 0x0010	; Size in tiles
-actor_echo_sheet_stand_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_stand_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_stand_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	Even
-
-
-actor_echo_sheet_stand_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_stand_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_stand_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_stand_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_stand_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_stand_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_stand_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_stand_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_stand_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000008, 0x00170008
-	dc.l 0x00000028, 0x00170028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_stand_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xC
-	Even
-
-
-actor_echo_sheet_stand_frameoffset	equ 0xC0	; Offset to first frame in sprite sheet
-actor_echo_sheet_stand_tileoffset	equ 0xF27	; Offset to first tile in sprite sheet
-actor_echo_sheet_stand_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_stand_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_stand_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
 
 actor_echo_sheet_howl_frametable:
 actor_echo_sheet_howl_frame_0_header:
@@ -5058,149 +1608,6 @@ actor_echo_sheet_howl_frame_7_header:
 	dc.l actor_echo_sheet_howl_frame_7_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_howl_frame_7_subsprite_pos_offsets
 
-actor_echo_sheet_howl_frame_0_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_0_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_1_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_1_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_2_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_2_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_2_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_3_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_3_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_5_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_5_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_5_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_6_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_6_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_6_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frame_7_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_howl_frame_7_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_howl_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_howl_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x000F0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_howl_frame_7_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_howl_frameoffset	equ 0xC3	; Offset to first frame in sprite sheet
-actor_echo_sheet_howl_tileoffset	equ 0xF5F	; Offset to first tile in sprite sheet
-actor_echo_sheet_howl_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_howl_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_howl_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_run_frametable:
 actor_echo_sheet_run_frame_0_header:
 	dc.w 0x0018	; Frame size (tiles)
@@ -5237,98 +1644,6 @@ actor_echo_sheet_run_frame_4_header:
 	dc.l actor_echo_sheet_run_frame_4_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_run_frame_4_subsprite_pos_offsets
 
-actor_echo_sheet_run_frame_0_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_run_frame_0_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_run_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_run_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_run_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_run_frame_1_size_b		equ 0x0300	; Size in bytes
-actor_echo_sheet_run_frame_1_size_t		equ 0x0018	; Size in tiles
-actor_echo_sheet_run_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_run_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_run_frame_1_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x7
-	Even
-
-
-actor_echo_sheet_run_frame_2_size_b		equ 0x0240	; Size in bytes
-actor_echo_sheet_run_frame_2_size_t		equ 0x0012	; Size in tiles
-actor_echo_sheet_run_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_run_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080018, 0x000F0018
-	dc.l 0x00280018, 0xFFFFFFFF0018
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_run_frame_2_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x6
-	Even
-
-
-actor_echo_sheet_run_frame_3_size_b		equ 0x0380	; Size in bytes
-actor_echo_sheet_run_frame_3_size_t		equ 0x001C	; Size in tiles
-actor_echo_sheet_run_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_run_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000010, 0x00170010
-	dc.l 0x00200010, 0xFFFFFFFF0010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_run_frame_3_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xB
-	Even
-
-
-actor_echo_sheet_run_frame_4_size_b		equ 0x0280	; Size in bytes
-actor_echo_sheet_run_frame_4_size_t		equ 0x0014	; Size in tiles
-actor_echo_sheet_run_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_echo_sheet_run_frame_4_subsprite_pos_offsets:
-	dc.l 0x00080010, 0x000F0010
-	dc.l 0x00280010, 0x00070010
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_echo_sheet_run_frame_4_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0x3
-	Even
-
-
-actor_echo_sheet_run_frameoffset	equ 0xCB	; Offset to first frame in sprite sheet
-actor_echo_sheet_run_tileoffset	equ 0xFFF	; Offset to first tile in sprite sheet
-actor_echo_sheet_run_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_run_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_run_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
-
-
 actor_echo_sheet_fall_frametable:
 actor_echo_sheet_fall_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -5358,14 +1673,3467 @@ actor_echo_sheet_fall_frame_3_header:
 	dc.l actor_echo_sheet_fall_frame_3_subsprite_dimensions_bits
 	dc.l actor_echo_sheet_fall_frame_3_subsprite_pos_offsets
 
+actor_echo_sheet_colourswitch_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_0_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00100028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_colourswitch_frame_1_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_colourswitch_frame_1_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_colourswitch_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_colourswitch_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_2_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00100028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_colourswitch_frame_3_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_colourswitch_frame_3_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_colourswitch_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_3_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00100008
+	dc.l 0x00100028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_3_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_echo_sheet_colourswitch_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_4_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00100028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_colourswitch_frame_5_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_colourswitch_frame_5_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_colourswitch_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_5_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00100008
+	dc.l 0x00100028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_5_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_echo_sheet_colourswitch_frame_6_size_b		equ 0x0140	; Size in bytes
+actor_echo_sheet_colourswitch_frame_6_size_t		equ 0x000A	; Size in tiles
+actor_echo_sheet_colourswitch_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_6_subsprite_pos_offsets:
+	dc.l 0x00180008, 0x00100008
+	dc.l 0x00180028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_6_subsprite_dimensions_bits:
+	dc.b 0x7
+	dc.b 0x4
+	Even
+
+actor_echo_sheet_colourswitch_frame_7_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_colourswitch_frame_7_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_colourswitch_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_7_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00100008
+	dc.l 0x00100028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_7_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_echo_sheet_colourswitch_frame_8_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_8_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_8_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_8_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_colourswitch_frame_9_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_9_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_9_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_9_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_colourswitch_frame_10_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_colourswitch_frame_10_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_colourswitch_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_colourswitch_frame_10_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_colourswitch_frame_10_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_circle_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_circle_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_circle_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_circle_frame_1_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_circle_frame_1_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_circle_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_circle_frame_2_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_circle_frame_2_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_circle_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_circle_frame_3_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_circle_frame_3_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_circle_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080018, 0x00100018
+	dc.l 0x00280018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_circle_frame_4_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_circle_frame_4_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_circle_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_4_subsprite_pos_offsets:
+	dc.l 0x00180018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_circle_frame_5_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_circle_frame_5_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_circle_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_5_subsprite_pos_offsets:
+	dc.l 0x00180018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_5_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_circle_frame_6_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_circle_frame_6_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_circle_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_6_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_circle_frame_7_size_b		equ 0x0380	; Size in bytes
+actor_echo_sheet_circle_frame_7_size_t		equ 0x001C	; Size in tiles
+actor_echo_sheet_circle_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xB
+	Even
+
+actor_echo_sheet_circle_frame_8_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_circle_frame_8_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_circle_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_8_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_circle_frame_9_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_circle_frame_9_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_circle_frame_9_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_9_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_9_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_circle_frame_10_size_b		equ 0x0120	; Size in bytes
+actor_echo_sheet_circle_frame_10_size_t		equ 0x0009	; Size in tiles
+actor_echo_sheet_circle_frame_10_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_10_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00200018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_10_subsprite_dimensions_bits:
+	dc.b 0xA
+	Even
+
+actor_echo_sheet_circle_frame_11_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_circle_frame_11_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_circle_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_11_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_11_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_circle_frame_12_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_circle_frame_12_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_circle_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_circle_frame_12_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_circle_frame_12_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_walktorun_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_walktorun_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_walktorun_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walktorun_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walktorun_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+
+actor_echo_sheet_mountnymn_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_mountnymn_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_mountnymn_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080000, 0x00100000
+	dc.l 0x00080020, 0x00100020
+	dc.l 0x00280000, 0x00080000
+	dc.l 0x00280020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_mountnymn_frame_1_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_mountnymn_frame_1_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_mountnymn_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_mountnymn_frame_2_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_mountnymn_frame_2_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_mountnymn_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_mountnymn_frame_3_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_mountnymn_frame_3_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_mountnymn_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_mountnymn_frame_4_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_mountnymn_frame_4_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_mountnymn_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_mountnymn_frame_5_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_mountnymn_frame_5_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_mountnymn_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_mountnymn_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_mountnymn_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+
+actor_echo_sheet_allfours_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_allfours_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_allfours_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_allfours_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_allfours_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_allfours_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_allfours_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_allfours_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_allfours_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_allfours_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_allfours_frame_2_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_allfours_frame_2_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_allfours_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_allfours_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_allfours_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_allfours_frame_3_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_allfours_frame_3_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_allfours_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_allfours_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_allfours_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+
+actor_echo_sheet_pushheavy_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_1_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_1_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_2_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_2_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_3_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_3_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_4_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_4_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_5_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_5_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_6_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_6_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_6_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_pushheavy_frame_7_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_pushheavy_frame_7_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_pushheavy_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pushheavy_frame_7_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pushheavy_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+
+actor_echo_sheet_idlesad_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idlesad_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idlesad_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idlesad_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idlesad_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_afraid_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_afraid_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_afraid_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_afraid_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_afraid_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_afraid_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_afraid_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_afraid_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_afraid_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_afraid_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_afraid_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_afraid_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_afraid_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_afraid_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_afraid_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_echo_sheet_wade_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_6_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_wade_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_wade_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_wade_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_wade_frame_7_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_wade_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_nudge_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_nudge_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_nudge_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_nudge_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_nudge_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_nudge_frame_1_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_nudge_frame_1_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_nudge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_nudge_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_nudge_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_nudge_frame_2_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_nudge_frame_2_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_nudge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_nudge_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_nudge_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_nudge_frame_3_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_nudge_frame_3_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_nudge_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_nudge_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_nudge_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_nudge_frame_4_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_nudge_frame_4_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_nudge_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_nudge_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_nudge_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+
+actor_echo_sheet_carriedwalk_frame_0_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_0_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_1_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_1_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_2_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_2_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_3_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_3_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_4_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_4_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_5_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_5_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_6_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_6_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+actor_echo_sheet_carriedwalk_frame_7_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedwalk_frame_7_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedwalk_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedwalk_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedwalk_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+
+actor_echo_sheet_carriedidle_frame_0_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_carriedidle_frame_0_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_carriedidle_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_carriedidle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_carriedidle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+
+actor_echo_sheet_sit_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_sit_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_sit_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_sit_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_sit_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_sit_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_sit_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_sit_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_sit_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_sit_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_sit_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_sit_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_sit_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_sit_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_sit_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_death_frame_0_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_death_frame_0_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_death_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_death_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_death_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_death_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_death_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_death_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_death_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_death_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_death_frame_8_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_death_frame_8_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_death_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_8_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_8_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_death_frame_9_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_death_frame_9_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_death_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_9_subsprite_pos_offsets:
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_9_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x5
+	Even
+
+actor_echo_sheet_death_frame_10_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_death_frame_10_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_death_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_10_subsprite_pos_offsets:
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_10_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x5
+	Even
+
+actor_echo_sheet_death_frame_11_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_death_frame_11_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_death_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_11_subsprite_pos_offsets:
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_11_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x5
+	Even
+
+actor_echo_sheet_death_frame_12_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_death_frame_12_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_death_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_12_subsprite_pos_offsets:
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_12_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x5
+	Even
+
+actor_echo_sheet_death_frame_13_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_death_frame_13_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_death_frame_13_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_death_frame_13_subsprite_pos_offsets:
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200020, 0x00080020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_death_frame_13_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x5
+	Even
+
+
+actor_echo_sheet_glide_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_glide_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_glide_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_glide_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_glide_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_glide_frame_1_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_glide_frame_1_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_glide_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_glide_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_glide_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_glide_frame_2_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_glide_frame_2_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_glide_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_glide_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_glide_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_glide_frame_3_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_glide_frame_3_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_glide_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_glide_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_glide_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+
+actor_echo_sheet_calllong_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_calllong_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_calllong_frame_2_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_calllong_frame_2_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_calllong_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	dc.l 0x00200008, 0x00100008
+	dc.l 0x00200028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_calllong_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_calllong_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_calllong_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_calllong_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_calllong_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_calllong_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_calllong_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_calllong_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_calllong_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_push_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_1_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_1_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_2_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_2_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_3_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_3_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_4_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_4_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_5_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_5_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_6_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_6_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_6_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_6_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_push_frame_7_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_push_frame_7_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_push_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_push_frame_7_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	dc.l 0x00280008, 0x00080008
+	dc.l 0x00280028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_push_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+
+actor_echo_sheet_climb_frame_0_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_0_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_0_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_0_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_1_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_1_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_1_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_1_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_2_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_2_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_2_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_2_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_3_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_3_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_3_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_3_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_4_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_4_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_4_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_4_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_5_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_climb_frame_5_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_climb_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_5_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00100008
+	dc.l 0x00100028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_5_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+actor_echo_sheet_climb_frame_6_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_6_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_6_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_6_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_7_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_7_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_7_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_7_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+actor_echo_sheet_climb_frame_8_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_climb_frame_8_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_climb_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_climb_frame_8_subsprite_pos_offsets:
+	dc.l 0x00100000, 0x00100000
+	dc.l 0x00100020, 0x00100020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_climb_frame_8_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_echo_sheet_standfromhiding_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_standfromhiding_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_standfromhiding_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_standfromhiding_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_standfromhiding_frame_4_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_4_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00100018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_echo_sheet_standfromhiding_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_standfromhiding_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_standfromhiding_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_standfromhiding_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_standfromhiding_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_lookup_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_lookup_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_lookup_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_lookup_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_lookup_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_lookup_frame_1_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_lookup_frame_1_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_lookup_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_lookup_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_lookup_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_echo_sheet_walk_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_6_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_walk_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_walk_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_walk_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_walk_frame_7_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_walk_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_jump_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_jump_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_jump_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_jump_frame_1_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_jump_frame_1_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_jump_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_1_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_jump_frame_2_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_jump_frame_2_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_jump_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_jump_frame_3_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_jump_frame_3_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_jump_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_3_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_jump_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_jump_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_jump_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_jump_frame_5_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_jump_frame_5_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_jump_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_jump_frame_6_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_jump_frame_6_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_jump_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_6_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_jump_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_jump_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_jump_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_jump_frame_7_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_jump_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_hide_frame_0_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_hide_frame_0_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_hide_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_hide_frame_1_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_hide_frame_1_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_hide_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00100018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_echo_sheet_hide_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_hide_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_hide_frame_4_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_4_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_hide_frame_5_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_5_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_5_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_hide_frame_6_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_6_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_6_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_hide_frame_7_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_hide_frame_7_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_hide_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_hide_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_hide_frame_7_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_echo_sheet_greetnymn_frame_0_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_greetnymn_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_greetnymn_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00100008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_echo_sheet_greetnymn_frame_1_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_1_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00200008, 0x00080008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_2_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_greetnymn_frame_2_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_greetnymn_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_2_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00100028, 0x00080028
+	dc.l 0x00300008, 0x00000008
+	dc.l 0x00300028, 0x00000028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_greetnymn_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_greetnymn_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_4_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00300008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_greetnymn_frame_5_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_greetnymn_frame_5_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_greetnymn_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_5_subsprite_pos_offsets:
+	dc.l 0x00180010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_greetnymn_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_6_subsprite_pos_offsets:
+	dc.l 0x00100010, 0x00080010
+	dc.l 0x00300010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_greetnymn_frame_7_size_b		equ 0x0320	; Size in bytes
+actor_echo_sheet_greetnymn_frame_7_size_t		equ 0x0019	; Size in tiles
+actor_echo_sheet_greetnymn_frame_7_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_7_subsprite_pos_offsets:
+	dc.l 0x00100008, 0x00080008
+	dc.l 0x00100028, 0x00080028
+	dc.l 0x00300008, 0x00000008
+	dc.l 0x00300028, 0x00000028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+actor_echo_sheet_greetnymn_frame_8_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_8_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_8_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_8_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_greetnymn_frame_9_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_9_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_9_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_9_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_9_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_10_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_10_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_10_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_10_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_10_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_11_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_11_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_11_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_11_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_11_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_12_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_12_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_12_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_12_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_12_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_13_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_13_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_13_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_13_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_13_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_14_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_14_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_14_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_14_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_14_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_15_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_15_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_15_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_15_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_15_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_16_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_16_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_16_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_16_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_16_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_17_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_17_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_17_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_17_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_17_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_18_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_18_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_18_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_18_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_18_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_19_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_19_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_19_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_19_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_19_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_20_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_20_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_20_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_20_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_20_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_21_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_21_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_21_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_21_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_21_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_22_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_22_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_22_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_22_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_22_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_23_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_23_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_23_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_23_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_23_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_24_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_greetnymn_frame_24_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_greetnymn_frame_24_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_24_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_24_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_greetnymn_frame_25_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_greetnymn_frame_25_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_greetnymn_frame_25_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_25_subsprite_pos_offsets:
+	dc.l 0x00080018, 0x00100018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_25_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_greetnymn_frame_26_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_greetnymn_frame_26_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_greetnymn_frame_26_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_26_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_26_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_greetnymn_frame_27_size_b		equ 0x0380	; Size in bytes
+actor_echo_sheet_greetnymn_frame_27_size_t		equ 0x001C	; Size in tiles
+actor_echo_sheet_greetnymn_frame_27_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_27_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_27_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xB
+	Even
+
+actor_echo_sheet_greetnymn_frame_28_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_greetnymn_frame_28_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_greetnymn_frame_28_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_28_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00080018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_28_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_greetnymn_frame_29_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_greetnymn_frame_29_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_greetnymn_frame_29_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_29_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00100018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_29_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_echo_sheet_greetnymn_frame_30_size_b		equ 0x0180	; Size in bytes
+actor_echo_sheet_greetnymn_frame_30_size_t		equ 0x000C	; Size in tiles
+actor_echo_sheet_greetnymn_frame_30_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_30_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_30_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_echo_sheet_greetnymn_frame_31_size_b		equ 0x01E0	; Size in bytes
+actor_echo_sheet_greetnymn_frame_31_size_t		equ 0x000F	; Size in tiles
+actor_echo_sheet_greetnymn_frame_31_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_31_subsprite_pos_offsets:
+	dc.l 0x00000018, 0x00180018
+	dc.l 0x00200018, 0x00100018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_31_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_echo_sheet_greetnymn_frame_32_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_32_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_32_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_32_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_32_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_greetnymn_frame_33_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_greetnymn_frame_33_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_greetnymn_frame_33_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_greetnymn_frame_33_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_greetnymn_frame_33_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_pouncenymn_frame_0_size_b		equ 0x0380	; Size in bytes
+actor_echo_sheet_pouncenymn_frame_0_size_t		equ 0x001C	; Size in tiles
+actor_echo_sheet_pouncenymn_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pouncenymn_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pouncenymn_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xB
+	Even
+
+actor_echo_sheet_pouncenymn_frame_1_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_pouncenymn_frame_1_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_pouncenymn_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pouncenymn_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080018, 0x00100018
+	dc.l 0x00280018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pouncenymn_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_pouncenymn_frame_2_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_pouncenymn_frame_2_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_pouncenymn_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pouncenymn_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080018, 0x00100018
+	dc.l 0x00280018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pouncenymn_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_pouncenymn_frame_3_size_b		equ 0x03C0	; Size in bytes
+actor_echo_sheet_pouncenymn_frame_3_size_t		equ 0x001E	; Size in tiles
+actor_echo_sheet_pouncenymn_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pouncenymn_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	dc.l 0x00200008, 0x00080008
+	dc.l 0x00200028, 0x00080028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pouncenymn_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0x7
+	dc.b 0x4
+	Even
+
+actor_echo_sheet_pouncenymn_frame_4_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_pouncenymn_frame_4_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_pouncenymn_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_pouncenymn_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00280008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_pouncenymn_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+
+actor_echo_sheet_idle_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idle_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idle_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_idle_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idle_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idle_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_idle_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idle_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idle_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_idle_frame_3_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_idle_frame_3_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_idle_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_idle_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idle_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idle_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+actor_echo_sheet_idle_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_idle_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_idle_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_idle_frame_5_subsprite_pos_offsets:
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_idle_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_stand_frame_0_size_b		equ 0x0200	; Size in bytes
+actor_echo_sheet_stand_frame_0_size_t		equ 0x0010	; Size in tiles
+actor_echo_sheet_stand_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_stand_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_stand_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+actor_echo_sheet_stand_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_stand_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_stand_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_stand_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_stand_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_stand_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_stand_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_stand_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_stand_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00180008
+	dc.l 0x00000028, 0x00180028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_stand_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_echo_sheet_howl_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_5_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_5_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+actor_echo_sheet_howl_frame_7_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_howl_frame_7_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_howl_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_howl_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00100010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_howl_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_echo_sheet_run_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_run_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_run_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_run_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_run_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_run_frame_1_size_b		equ 0x0300	; Size in bytes
+actor_echo_sheet_run_frame_1_size_t		equ 0x0018	; Size in tiles
+actor_echo_sheet_run_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_run_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_run_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
+
+actor_echo_sheet_run_frame_2_size_b		equ 0x0240	; Size in bytes
+actor_echo_sheet_run_frame_2_size_t		equ 0x0012	; Size in tiles
+actor_echo_sheet_run_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_run_frame_2_subsprite_pos_offsets:
+	dc.l 0x00080018, 0x00100018
+	dc.l 0x00280018, 0x00000018
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_run_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x6
+	Even
+
+actor_echo_sheet_run_frame_3_size_b		equ 0x0380	; Size in bytes
+actor_echo_sheet_run_frame_3_size_t		equ 0x001C	; Size in tiles
+actor_echo_sheet_run_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_run_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00180010
+	dc.l 0x00200010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_run_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xB
+	Even
+
+actor_echo_sheet_run_frame_4_size_b		equ 0x0280	; Size in bytes
+actor_echo_sheet_run_frame_4_size_t		equ 0x0014	; Size in tiles
+actor_echo_sheet_run_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_echo_sheet_run_frame_4_subsprite_pos_offsets:
+	dc.l 0x00080010, 0x00100010
+	dc.l 0x00280010, 0x00080010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_echo_sheet_run_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
 actor_echo_sheet_fall_frame_0_size_b		equ 0x0280	; Size in bytes
 actor_echo_sheet_fall_frame_0_size_t		equ 0x0014	; Size in tiles
 actor_echo_sheet_fall_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_echo_sheet_fall_frame_0_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -5374,15 +5142,14 @@ actor_echo_sheet_fall_frame_0_subsprite_dimensions_bits:
 	dc.b 0xC
 	Even
 
-
 actor_echo_sheet_fall_frame_1_size_b		equ 0x0280	; Size in bytes
 actor_echo_sheet_fall_frame_1_size_t		equ 0x0014	; Size in tiles
 actor_echo_sheet_fall_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_echo_sheet_fall_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -5391,15 +5158,14 @@ actor_echo_sheet_fall_frame_1_subsprite_dimensions_bits:
 	dc.b 0xC
 	Even
 
-
 actor_echo_sheet_fall_frame_2_size_b		equ 0x0280	; Size in bytes
 actor_echo_sheet_fall_frame_2_size_t		equ 0x0014	; Size in tiles
 actor_echo_sheet_fall_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_echo_sheet_fall_frame_2_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -5408,15 +5174,14 @@ actor_echo_sheet_fall_frame_2_subsprite_dimensions_bits:
 	dc.b 0xC
 	Even
 
-
 actor_echo_sheet_fall_frame_3_size_b		equ 0x0280	; Size in bytes
 actor_echo_sheet_fall_frame_3_size_t		equ 0x0014	; Size in tiles
 actor_echo_sheet_fall_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_echo_sheet_fall_frame_3_subsprite_pos_offsets:
-	dc.l 0x00080008, 0x000F0008
-	dc.l 0x00080028, 0x000F0028
+	dc.l 0x00080008, 0x00100008
+	dc.l 0x00080028, 0x00100028
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
@@ -5424,13 +5189,6 @@ actor_echo_sheet_fall_frame_3_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xC
 	Even
-
-
-actor_echo_sheet_fall_frameoffset	equ 0xD0	; Offset to first frame in sprite sheet
-actor_echo_sheet_fall_tileoffset	equ 0x1071	; Offset to first tile in sprite sheet
-actor_echo_sheet_fall_width		equ 0x38	; Max width of largest frame in pixels
-actor_echo_sheet_fall_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_fall_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_echo:

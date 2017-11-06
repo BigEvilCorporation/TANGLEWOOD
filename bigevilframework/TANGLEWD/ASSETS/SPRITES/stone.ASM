@@ -9,6 +9,11 @@
 
 actor_stone:
 
+actor_stone_sheet_stone_width		equ 0x10	; Max width of largest frame in pixels
+actor_stone_sheet_stone_height		equ 0x10	; Max height of largest frame in pixels
+actor_stone_sheet_stone_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_stone_sheet_stone_frametable:
 actor_stone_sheet_stone_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
@@ -23,20 +28,13 @@ actor_stone_sheet_stone_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_stone_sheet_stone_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0xFFFFFFFF0000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_stone_sheet_stone_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
-
-
-actor_stone_sheet_stone_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-actor_stone_sheet_stone_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
-actor_stone_sheet_stone_width		equ 0x10	; Max width of largest frame in pixels
-actor_stone_sheet_stone_height		equ 0x10	; Max height of largest frame in pixels
-actor_stone_sheet_stone_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 spritesheets_stone:
