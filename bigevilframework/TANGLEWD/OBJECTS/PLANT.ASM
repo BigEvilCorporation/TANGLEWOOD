@@ -34,17 +34,6 @@ BouncePlantOrient_315      equ 7
 
 ;==============================================================
 
-; Sprite sheet offsets
-BouncePlantSpriteSheetOffs:
-BouncePlantSpriteSheet_0:	dc.l actor_mushroom_sheet_mushroom_180_frameoffset
-BouncePlantSpriteSheet_45:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
-BouncePlantSpriteSheet_90:	dc.l actor_mushroom_sheet_mushroom_270_frameoffset
-BouncePlantSpriteSheet_135:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
-BouncePlantSpriteSheet_180:	dc.l actor_mushroom_sheet_mushroom_180_frameoffset
-BouncePlantSpriteSheet_225:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
-BouncePlantSpriteSheet_270:	dc.l actor_mushroom_sheet_mushroom_270_frameoffset
-BouncePlantSpriteSheet_315:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
-; 
 ; Sprite flipping (XY)
 BouncePlantSpriteFlip:
 BouncePlantSpriteFlip_0:		dc.w 0x0001
@@ -88,6 +77,57 @@ BouncePlantBounds_180:	dc.w 0x0000, 0x0000, BouncePlant_Width, BouncePlant_Heigh
 BouncePlantBounds_225:	dc.w 0x0000, 0x0008, 0x0010, 0x0010
 BouncePlantBounds_270:	dc.w BouncePlant_Width/2, 0x0000, BouncePlant_Width/2, BouncePlant_Height
 BouncePlantBounds_315:	dc.w 0x0008, 0x0008, 0x0010, 0x0010
+
+; Sprite sheets
+BouncePlantSpriteSheets:
+BouncePlantSheet_0:
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites
+BouncePlantSheet_45:
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites
+BouncePlantSheet_90:
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites
+BouncePlantSheet_135:
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites
+BouncePlantSheet_180:
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites
+BouncePlantSheet_225:
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites
+BouncePlantSheet_270:
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites
+BouncePlantSheet_315:
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_t
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites
 
 ;==============================================================
 
@@ -176,19 +216,16 @@ BouncePlantLoadGfx:
 	; Select sprite sheet based on orientation
 	clr.l  d1
 	move.b BouncePlant_Orientation(a0), d1
-	lsl.l  #0x2, d1
-	lea    BouncePlantSpriteSheetOffs, a3
-	add.l  d1, a3
-	move.l (a3), d1
-	mulu   #actor_mushroom_sheet_mushroom_180_frame_0_size_b, d1
-	move.l #spritesheets_mushroom, a1
-	add.l  d1, a1
+	mulu   #size_long*5, d1
+	lea    BouncePlantSpriteSheets, a4
+	add.l  d1, a4
+	move.l (a4)+, a1
+	move.l (a4)+, a2
+	move.l (a4)+, a3
+	move.l (a4)+, d1
+	move.l (a4)+, d2
 	
 	; Load sprite sheet
-	lea    actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits, a2
-	lea    actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets, a3
-	move.l #actor_mushroom_sheet_mushroom_180_frame_0_size_t, d1
-	move.b #actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites, d2
 	move.b #PaletteId_World0, d4
 	move.b #0x0, d5
 	jsr    SpriteObjLoad
