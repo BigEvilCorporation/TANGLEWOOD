@@ -82,7 +82,7 @@ PillarLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED Pillar,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Pillar,pillar,PaletteId_World0,0x0
 
 	; Reposition barrier
 	lea    Pillar_Barrier(a0), a2

@@ -13,14 +13,12 @@
 ;-----------------------------------
 SpriteObj_SubSpriteDimArr     rs.l 1	; Multi-sprite subsprite dimentions bits array address
 SpriteObj_SubSpriteOffArr     rs.l 1	; Subsprite position offsets array address
-SpriteObj_SubSpriteTileNumArr rs.l 1	; Tiles per subsprite array address
 SpriteObj_TilesetAddr         rs.l 1	; Art tiles ROM address
 SpriteObj_VRAMAddr            rs.w 1	; Art tiles VRAM address
-SpriteObj_DrawOffsetX	      rs.w 1   ; Sprite draw offset X (pixels)
-SpriteObj_DrawOffsetY	      rs.w 1   ; Sprite draw offset Y (pixels)
-SpriteObj_TilesetSize         rs.w 1	; Art tiles size (bytes)
-SpriteObj_Dimensions          rs.w 1	; Width/height in subsprite
-SpriteObj_TileID              rs.w 1	; First tile ID
+SpriteObj_DrawOffsetX	      rs.w 1	; Sprite draw offset X (pixels)
+SpriteObj_DrawOffsetY	      rs.w 1	; Sprite draw offset Y (pixels)
+SpriteObj_SizeTiles           rs.w 1	; Number of tiles
+SpriteObj_TileID              rs.w 1	; First tile ID (VRAM)
 SpriteObj_Palette             rs.b 1	; Palette ID
 SpriteObj_Priority            rs.b 1	; Priority (0/1)
 SpriteObj_NumSubSprites       rs.b 1	; Num sub-sprites
@@ -29,7 +27,7 @@ SpriteObj_FlippedY            rs.b 1	; Sprite flip Y
 SpriteObj_Visible             rs.b 1	; Is visible (hidden in sprite border if not)
 SpriteObj_SpriteLinked        rs.b 1	; Is sprite linked (use as last frame visibility test)
 ;-----------------------------------
-SpriteObj_Struct_Pad          rs.b 3
+SpriteObj_Struct_Pad          rs.b 1
 SpriteObj_Struct_Size         rs.b 0
 ;-----------------------------------
 
@@ -50,8 +48,7 @@ SpriteObjInit:
 	move.w #0x0, SpriteObj_VRAMAddr(a0)
 	move.w #0x0, SpriteObj_DrawOffsetX(a0)
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
-	move.w #0x0, SpriteObj_TilesetSize(a0)
-	move.w #0x0, SpriteObj_Dimensions(a0)
+	move.w #0x0, SpriteObj_SizeTiles(a0)
 	move.b #0x0, SpriteObj_NumSubSprites(a0)
 	move.b #0x0, SpriteObj_FlippedX(a0)
 	move.b #0x0, SpriteObj_FlippedY(a0)
@@ -69,18 +66,15 @@ SpriteObjLoad:
 	; d0 (w) VRAM address
 	; d1 (w) Num tiles
 	; d2 (b) Num subsprites
-	; d3 (w) Sprite W/H dimentions
 	; d4 (b) Palette ID
 	; d5 (b) Priority
 
 	move.l a1, SpriteObj_TilesetAddr(a0)
 	move.l a2, SpriteObj_SubSpriteDimArr(a0)
 	move.l a3, SpriteObj_SubSpriteOffArr(a0)
-	move.l a4, SpriteObj_SubSpriteTileNumArr(a0)
 	move.w d0, SpriteObj_VRAMAddr(a0)
-	move.w d1, SpriteObj_TilesetSize(a0)
+	move.w d1, SpriteObj_SizeTiles(a0)
 	move.b d2, SpriteObj_NumSubSprites(a0)
-	move.w d3, SpriteObj_Dimensions(a0)
 	move.b d4, SpriteObj_Palette(a0)
 	move.b d5, SpriteObj_Priority(a0)
 
@@ -107,22 +101,18 @@ SpriteObjLoadShared:
 	; a1 --- Tileset address
 	; a2 --- Multi-sprite subsprite dimentions bits array address
 	; a3 --- Multi-sprite subsprite position offsets array address
-	; a4 --- Multi-sprite tiles per subsprite array address
 	; d0 (w) VRAM address
 	; d1 (w) Num tiles
 	; d2 (b) Num subsprites
-	; d3 (w) Sprite W/H dimentions
 	; d4 (b) Palette ID
 	; d5 (b) Priority
 
 	move.l a1, SpriteObj_TilesetAddr(a0)
 	move.l a2, SpriteObj_SubSpriteDimArr(a0)
 	move.l a3, SpriteObj_SubSpriteOffArr(a0)
-	move.l a4, SpriteObj_SubSpriteTileNumArr(a0)
 	move.w d0, SpriteObj_VRAMAddr(a0)
-	move.w d1, SpriteObj_TilesetSize(a0)
+	move.w d1, SpriteObj_SizeTiles(a0)
 	move.b d2, SpriteObj_NumSubSprites(a0)
-	move.w d3, SpriteObj_Dimensions(a0)
 	move.b d4, SpriteObj_Palette(a0)
 	move.b d5, SpriteObj_Priority(a0)
 
@@ -148,7 +138,6 @@ SpriteObjAllocSprite:
 	; d5 (b)  Flipped X
 	; d6 (b)  Num subsprites
 	; a0 ---- Subsprite dimensions array (b * numSubsprites)
-	; a1 ---- Num tiles per subsprite array (b * numSubsprites)
 	; a2 ---  Subsprite position offsets array (ww * numSubsprites)
 	PUSHM  a0-a3/d0-d3
 	move.b d2, d5
@@ -157,7 +146,6 @@ SpriteObjAllocSprite:
 	move.b SpriteObj_Priority(a0), d4
 	move.b SpriteObj_NumSubSprites(a0), d6
 	move.l SpriteObj_SubSpriteOffArr(a0), a2
-	move.l SpriteObj_SubSpriteTileNumArr(a0), a1
 	move.l SpriteObj_SubSpriteDimArr(a0), a0
 	jsr    SPR_AddMultiSprite
 	move.b d0, d4			; Sprite ID in d0

@@ -9,43 +9,118 @@
 
 actor_cart:
 
-sprite_cart_size_b		equ 0x0280	; Size in bytes
-sprite_cart_size_t		equ 0x0014	; Size in tiles
-sprite_cart_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_cart_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_cart_sheet_roll_frametable:
+actor_cart_sheet_roll_frame_0_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_cart_sheet_roll_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cart_sheet_roll_frame_0
+	dc.l actor_cart_sheet_roll_frame_0_subsprite_dimensions_bits
+	dc.l actor_cart_sheet_roll_frame_0_subsprite_pos_offsets
+
+actor_cart_sheet_roll_frame_1_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_cart_sheet_roll_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cart_sheet_roll_frame_1
+	dc.l actor_cart_sheet_roll_frame_1_subsprite_dimensions_bits
+	dc.l actor_cart_sheet_roll_frame_1_subsprite_pos_offsets
+
+actor_cart_sheet_roll_frame_2_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_cart_sheet_roll_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cart_sheet_roll_frame_2
+	dc.l actor_cart_sheet_roll_frame_2_subsprite_dimensions_bits
+	dc.l actor_cart_sheet_roll_frame_2_subsprite_pos_offsets
+
+actor_cart_sheet_roll_frame_3_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_cart_sheet_roll_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cart_sheet_roll_frame_3
+	dc.l actor_cart_sheet_roll_frame_3_subsprite_dimensions_bits
+	dc.l actor_cart_sheet_roll_frame_3_subsprite_pos_offsets
+
+actor_cart_sheet_roll_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_cart_sheet_roll_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_cart_sheet_roll_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_cart_subsprite_pos_offsets:
+actor_cart_sheet_roll_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_cart_subsprite_dimensions_bits:
+actor_cart_sheet_roll_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0x3
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_cart_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x04
+
+actor_cart_sheet_roll_frame_1_size_b		equ 0x0280	; Size in bytes
+actor_cart_sheet_roll_frame_1_size_t		equ 0x0014	; Size in tiles
+actor_cart_sheet_roll_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_cart_sheet_roll_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_cart_sheet_roll_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
 	Even
 
 
-spritesheet_cart_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_cart_roll_width		equ 0x28	; Width in pixels
-spritesheet_cart_roll_height		equ 0x20	; Width in pixels
-spritesheet_cart_roll_size_b		equ 0xA00	; Size in bytes
-spritesheet_cart_roll_size_w		equ 0x500	; Size in words
-spritesheet_cart_roll_size_l		equ 0x280	; Size in longwords
-spritesheet_cart_roll_size_t		equ 0x50	; Size in tiles
+actor_cart_sheet_roll_frame_2_size_b		equ 0x0280	; Size in bytes
+actor_cart_sheet_roll_frame_2_size_t		equ 0x0014	; Size in tiles
+actor_cart_sheet_roll_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_cart_sheet_roll_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_cart_sheet_roll_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_cart_sheet_roll_frame_3_size_b		equ 0x0280	; Size in bytes
+actor_cart_sheet_roll_frame_3_size_t		equ 0x0014	; Size in tiles
+actor_cart_sheet_roll_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_cart_sheet_roll_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_cart_sheet_roll_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_cart_sheet_roll_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_cart_sheet_roll_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_cart_sheet_roll_width		equ 0x28	; Width in pixels
+actor_cart_sheet_roll_height		equ 0x20	; Width in pixels
+actor_cart_sheet_roll_size_b		equ 0xA00	; Size in bytes
+actor_cart_sheet_roll_size_w		equ 0x500	; Size in words
+actor_cart_sheet_roll_size_l		equ 0x280	; Size in longwords
+actor_cart_sheet_roll_size_t		equ 0x50	; Size in tiles
 
 
 spritesheets_cart:
 
 spritesheet_cart_roll:
 
+actor_cart_sheet_roll_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -226,6 +301,8 @@ spritesheet_cart_roll:
 	dc.l	0x15000000
 	dc.l	0x00000000
 
+
+actor_cart_sheet_roll_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -406,6 +483,8 @@ spritesheet_cart_roll:
 	dc.l	0x15000000
 	dc.l	0x00000000
 
+
+actor_cart_sheet_roll_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -586,6 +665,8 @@ spritesheet_cart_roll:
 	dc.l	0x15000000
 	dc.l	0x00000000
 
+
+actor_cart_sheet_roll_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -765,6 +846,7 @@ spritesheet_cart_roll:
 	dc.l	0xCC500000
 	dc.l	0x15000000
 	dc.l	0x00000000
+
 
 
 

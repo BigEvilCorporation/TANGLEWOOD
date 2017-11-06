@@ -73,7 +73,7 @@ GeneratorInit:
 	; Setup animation
 
 	; Compressor spin
-	ANIM_LOAD_DEFAULT generatr_compressor,generatr_spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
+	ANIM_LOAD_DEFAULT generatr,compressor,spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
 
 	PUSHL  a1
 	lea    Generator_Animations+(Animation_Struct_Size*GeneratorAnimIdx_Spin)(a0), a1
@@ -90,7 +90,7 @@ GeneratorLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED generatr,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED generatr,compressor,PaletteId_World0,0x0
 
 	rts
 	

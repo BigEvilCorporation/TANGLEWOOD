@@ -9,67 +9,110 @@
 
 actor_mushroom:
 
-sprite_mushroom_size_b		equ 0x0120	; Size in bytes
-sprite_mushroom_size_t		equ 0x0009	; Size in tiles
-sprite_mushroom_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_mushroom_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_mushroom_sheet_mushroom_180_frametable:
+actor_mushroom_sheet_mushroom_180_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_mushroom_sheet_mushroom_180_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_mushroom_subsprite_pos_offsets:
+actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_mushroom_subsprite_dimensions_bits:
-	dc.b 0xA
-	Even
-
-; Num tiles per subsprite (for sprite descs)
-sprite_mushroom_numtiles_per_subsprite:
-	dc.b 0x09
+actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits:
+	dc.b 0x9
 	Even
 
 
-spritesheet_mushroom_mushroom_180_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_mushroom_mushroom_180_width		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_180_height		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_180_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_mushroom_180_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_mushroom_180_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_mushroom_180_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_180_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_mushroom_sheet_mushroom_180_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_mushroom_sheet_mushroom_180_width		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_180_height		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_180_size_b		equ 0x120	; Size in bytes
+actor_mushroom_sheet_mushroom_180_size_w		equ 0x90	; Size in words
+actor_mushroom_sheet_mushroom_180_size_l		equ 0x48	; Size in longwords
+actor_mushroom_sheet_mushroom_180_size_t		equ 0x09	; Size in tiles
 
 
-spritesheet_mushroom_mushroom_225_frameoffset	equ 0x01	; Offset to first frame in sprite sheet
-spritesheet_mushroom_mushroom_225_width		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_225_height		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_225_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_mushroom_225_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_mushroom_225_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_mushroom_225_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_225_frametable:
+actor_mushroom_sheet_mushroom_225_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_225_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_mushroom_sheet_mushroom_225_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_mushroom_sheet_mushroom_225_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_225_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_225_frame_0_subsprite_dimensions_bits:
+	dc.b 0x6
+	Even
 
 
-spritesheet_mushroom_mushroom_270_frameoffset	equ 0x02	; Offset to first frame in sprite sheet
-spritesheet_mushroom_mushroom_270_width		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_270_height		equ 0x18	; Width in pixels
-spritesheet_mushroom_mushroom_270_size_b		equ 0x120	; Size in bytes
-spritesheet_mushroom_mushroom_270_size_w		equ 0x90	; Size in words
-spritesheet_mushroom_mushroom_270_size_l		equ 0x48	; Size in longwords
-spritesheet_mushroom_mushroom_270_size_t		equ 0x09	; Size in tiles
+actor_mushroom_sheet_mushroom_225_frameoffset	equ 0x01	; Offset to first frame in sprite sheet
+actor_mushroom_sheet_mushroom_225_tileoffset	equ 0x06	; Offset to first tile in sprite sheet
+actor_mushroom_sheet_mushroom_225_width		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_225_height		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_225_size_b		equ 0x120	; Size in bytes
+actor_mushroom_sheet_mushroom_225_size_w		equ 0x90	; Size in words
+actor_mushroom_sheet_mushroom_225_size_l		equ 0x48	; Size in longwords
+actor_mushroom_sheet_mushroom_225_size_t		equ 0x09	; Size in tiles
+
+
+actor_mushroom_sheet_mushroom_270_frametable:
+actor_mushroom_sheet_mushroom_270_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_frame_0_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_270_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_mushroom_sheet_mushroom_270_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_frame_0_subsprite_dimensions_bits:
+	dc.b 0x6
+	Even
+
+
+actor_mushroom_sheet_mushroom_270_frameoffset	equ 0x02	; Offset to first frame in sprite sheet
+actor_mushroom_sheet_mushroom_270_tileoffset	equ 0x0C	; Offset to first tile in sprite sheet
+actor_mushroom_sheet_mushroom_270_width		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_270_height		equ 0x18	; Width in pixels
+actor_mushroom_sheet_mushroom_270_size_b		equ 0x120	; Size in bytes
+actor_mushroom_sheet_mushroom_270_size_w		equ 0x90	; Size in words
+actor_mushroom_sheet_mushroom_270_size_l		equ 0x48	; Size in longwords
+actor_mushroom_sheet_mushroom_270_size_t		equ 0x09	; Size in tiles
 
 
 spritesheets_mushroom:
 
 spritesheet_mushroom_mushroom_180:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_mushroom_sheet_mushroom_180_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000002
 	dc.l	0x00000212
@@ -84,15 +127,6 @@ spritesheet_mushroom_mushroom_180:
 	dc.l	0x00012222
 	dc.l	0x00011221
 	dc.l	0x00000111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -116,15 +150,6 @@ spritesheet_mushroom_mushroom_180:
 	dc.l	0x04488440
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x20000000
 	dc.l	0x21200000
 	dc.l	0x72210000
@@ -144,8 +169,10 @@ spritesheet_mushroom_mushroom_180:
 
 
 
+
 spritesheet_mushroom_mushroom_225:
 
+actor_mushroom_sheet_mushroom_225_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -200,37 +227,12 @@ spritesheet_mushroom_mushroom_225:
 	dc.l	0x12222211
 	dc.l	0x01111100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 
 
 spritesheet_mushroom_mushroom_270:
 
+actor_mushroom_sheet_mushroom_270_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000011
@@ -285,32 +287,6 @@ spritesheet_mushroom_mushroom_270:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 
 

@@ -9,13 +9,20 @@
 
 actor_trap:
 
-sprite_trap_size_b		equ 0x0620	; Size in bytes
-sprite_trap_size_t		equ 0x0031	; Size in tiles
-sprite_trap_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_trap_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_trap_sheet_trap_frametable:
+actor_trap_sheet_trap_frame_0_header:
+	dc.w 0x0031	; Frame size (tiles)
+	dc.w actor_trap_sheet_trap_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_trap_sheet_trap_frame_0
+	dc.l actor_trap_sheet_trap_frame_0_subsprite_dimensions_bits
+	dc.l actor_trap_sheet_trap_frame_0_subsprite_pos_offsets
+
+actor_trap_sheet_trap_frame_0_size_b		equ 0x0620	; Size in bytes
+actor_trap_sheet_trap_frame_0_size_t		equ 0x0031	; Size in tiles
+actor_trap_sheet_trap_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_trap_subsprite_pos_offsets:
+actor_trap_sheet_trap_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00180000
 	dc.l 0x00000020, 0x00180020
 	dc.l 0x00200000, 0x00000000
@@ -23,35 +30,29 @@ sprite_trap_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_trap_subsprite_dimensions_bits:
+actor_trap_sheet_trap_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xE
 	dc.b 0xB
 	dc.b 0xA
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_trap_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x09
-	Even
 
-
-spritesheet_trap_trap_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_trap_trap_width		equ 0x38	; Width in pixels
-spritesheet_trap_trap_height		equ 0x38	; Width in pixels
-spritesheet_trap_trap_size_b		equ 0x620	; Size in bytes
-spritesheet_trap_trap_size_w		equ 0x310	; Size in words
-spritesheet_trap_trap_size_l		equ 0x188	; Size in longwords
-spritesheet_trap_trap_size_t		equ 0x31	; Size in tiles
+actor_trap_sheet_trap_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_trap_sheet_trap_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_trap_sheet_trap_width		equ 0x38	; Width in pixels
+actor_trap_sheet_trap_height		equ 0x38	; Width in pixels
+actor_trap_sheet_trap_size_b		equ 0x620	; Size in bytes
+actor_trap_sheet_trap_size_w		equ 0x310	; Size in words
+actor_trap_sheet_trap_size_l		equ 0x188	; Size in longwords
+actor_trap_sheet_trap_size_t		equ 0x31	; Size in tiles
 
 
 spritesheets_trap:
 
 spritesheet_trap_trap:
 
+actor_trap_sheet_trap_frame_0:
 	dc.l	0x01111222
 	dc.l	0x01111111
 	dc.l	0x66666AAA
@@ -492,6 +493,7 @@ spritesheet_trap_trap:
 	dc.l	0x11111110
 	dc.l	0x22211110
 	dc.l	0x00000000
+
 
 
 

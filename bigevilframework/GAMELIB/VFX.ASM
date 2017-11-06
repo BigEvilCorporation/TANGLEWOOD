@@ -66,10 +66,8 @@ VfxInit:
 	PUSHM  a0-a3
 	move.l SpriteSheet_TileDataAddr(a2), a1
 	move.l SpriteSheet_SubspriteOffsetArrAddr(a2), a3
-	move.l SpriteSheet_TileCountArrAddr(a2), a4
 	move.w SpriteSheet_SizeTiles(a2), d1
 	move.b SpriteSheet_SizeSubsprites(a2), d2
-	move.w SpriteSheet_WidthHeightSubsprites(a2), d3
 	move.b SpriteSheet_PaletteId(a2), d4
 	move.b SpriteSheet_Priority(a2), d5
 	move.l SpriteSheet_DimensionsArrAddr(a2), a2

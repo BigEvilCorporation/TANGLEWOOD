@@ -9,13 +9,106 @@
 
 actor_wyrm:
 
-sprite_wyrm_size_b		equ 0x0700	; Size in bytes
-sprite_wyrm_size_t		equ 0x0038	; Size in tiles
-sprite_wyrm_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_wyrm_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_wyrm_sheet_bite_frametable:
+actor_wyrm_sheet_bite_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_0
+	dc.l actor_wyrm_sheet_bite_frame_0_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_0_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_1_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_1
+	dc.l actor_wyrm_sheet_bite_frame_1_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_1_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_2_header:
+	dc.w 0x0018	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_2
+	dc.l actor_wyrm_sheet_bite_frame_2_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_2_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_3_header:
+	dc.w 0x0030	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_3
+	dc.l actor_wyrm_sheet_bite_frame_3_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_3_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_4_header:
+	dc.w 0x0038	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_4
+	dc.l actor_wyrm_sheet_bite_frame_4_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_4_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_5_header:
+	dc.w 0x0020	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_bite_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_bite_frame_5
+	dc.l actor_wyrm_sheet_bite_frame_5_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_bite_frame_5_subsprite_pos_offsets
+
+actor_wyrm_sheet_bite_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_wyrm_sheet_bite_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_wyrm_sheet_bite_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_wyrm_subsprite_pos_offsets:
+actor_wyrm_sheet_bite_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_bite_frame_0_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0x4
+	Even
+
+
+actor_wyrm_sheet_bite_frame_1_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_bite_frame_1_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_bite_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_bite_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_bite_frame_1_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0xD
+	Even
+
+
+actor_wyrm_sheet_bite_frame_2_size_b		equ 0x0300	; Size in bytes
+actor_wyrm_sheet_bite_frame_2_size_t		equ 0x0018	; Size in tiles
+actor_wyrm_sheet_bite_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_bite_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_bite_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	Even
+
+
+actor_wyrm_sheet_bite_frame_3_size_b		equ 0x0600	; Size in bytes
+actor_wyrm_sheet_bite_frame_3_size_t		equ 0x0030	; Size in tiles
+actor_wyrm_sheet_bite_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_bite_frame_3_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00200000
 	dc.l 0x00000020, 0x00200020
 	dc.l 0x00200000, 0x00000000
@@ -23,266 +116,253 @@ sprite_wyrm_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_wyrm_subsprite_dimensions_bits:
+actor_wyrm_sheet_bite_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xD
+	Even
+
+
+actor_wyrm_sheet_bite_frame_4_size_b		equ 0x0700	; Size in bytes
+actor_wyrm_sheet_bite_frame_4_size_t		equ 0x0038	; Size in tiles
+actor_wyrm_sheet_bite_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_bite_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00000020, 0x00200020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_bite_frame_4_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xE
 	dc.b 0xF
 	dc.b 0xE
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_wyrm_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x0C
-	dc.b 0x10
-	dc.b 0x0C
+
+actor_wyrm_sheet_bite_frame_5_size_b		equ 0x0400	; Size in bytes
+actor_wyrm_sheet_bite_frame_5_size_t		equ 0x0020	; Size in tiles
+actor_wyrm_sheet_bite_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_bite_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_bite_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
 	Even
 
 
-spritesheet_wyrm_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_wyrm_bite_width		equ 0x40	; Width in pixels
-spritesheet_wyrm_bite_height		equ 0x38	; Width in pixels
-spritesheet_wyrm_bite_size_b		equ 0x2A00	; Size in bytes
-spritesheet_wyrm_bite_size_w		equ 0x1500	; Size in words
-spritesheet_wyrm_bite_size_l		equ 0xA80	; Size in longwords
-spritesheet_wyrm_bite_size_t		equ 0x150	; Size in tiles
+actor_wyrm_sheet_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_wyrm_sheet_bite_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_wyrm_sheet_bite_width		equ 0x40	; Width in pixels
+actor_wyrm_sheet_bite_height		equ 0x38	; Width in pixels
+actor_wyrm_sheet_bite_size_b		equ 0x2A00	; Size in bytes
+actor_wyrm_sheet_bite_size_w		equ 0x1500	; Size in words
+actor_wyrm_sheet_bite_size_l		equ 0xA80	; Size in longwords
+actor_wyrm_sheet_bite_size_t		equ 0x150	; Size in tiles
 
 
-spritesheet_wyrm_move_frameoffset	equ 0x06	; Offset to first frame in sprite sheet
-spritesheet_wyrm_move_width		equ 0x40	; Width in pixels
-spritesheet_wyrm_move_height		equ 0x38	; Width in pixels
-spritesheet_wyrm_move_size_b		equ 0x1C00	; Size in bytes
-spritesheet_wyrm_move_size_w		equ 0xE00	; Size in words
-spritesheet_wyrm_move_size_l		equ 0x700	; Size in longwords
-spritesheet_wyrm_move_size_t		equ 0xE0	; Size in tiles
+actor_wyrm_sheet_move_frametable:
+actor_wyrm_sheet_move_frame_0_header:
+	dc.w 0x0018	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_move_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_move_frame_0
+	dc.l actor_wyrm_sheet_move_frame_0_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_move_frame_0_subsprite_pos_offsets
+
+actor_wyrm_sheet_move_frame_1_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_move_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_move_frame_1
+	dc.l actor_wyrm_sheet_move_frame_1_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_move_frame_1_subsprite_pos_offsets
+
+actor_wyrm_sheet_move_frame_2_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_move_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_move_frame_2
+	dc.l actor_wyrm_sheet_move_frame_2_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_move_frame_2_subsprite_pos_offsets
+
+actor_wyrm_sheet_move_frame_3_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_move_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_move_frame_3
+	dc.l actor_wyrm_sheet_move_frame_3_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_move_frame_3_subsprite_pos_offsets
+
+actor_wyrm_sheet_move_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_wyrm_sheet_move_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_wyrm_sheet_move_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_move_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_move_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x7
+	Even
 
 
-spritesheet_wyrm_emerge_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
-spritesheet_wyrm_emerge_width		equ 0x40	; Width in pixels
-spritesheet_wyrm_emerge_height		equ 0x38	; Width in pixels
-spritesheet_wyrm_emerge_size_b		equ 0x1500	; Size in bytes
-spritesheet_wyrm_emerge_size_w		equ 0xA80	; Size in words
-spritesheet_wyrm_emerge_size_l		equ 0x540	; Size in longwords
-spritesheet_wyrm_emerge_size_t		equ 0xA8	; Size in tiles
+actor_wyrm_sheet_move_frame_1_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_move_frame_1_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_move_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_move_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_move_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_wyrm_sheet_move_frame_2_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_move_frame_2_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_move_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_move_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_move_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_wyrm_sheet_move_frame_3_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_move_frame_3_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_move_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_move_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_move_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_wyrm_sheet_move_frameoffset	equ 0x06	; Offset to first frame in sprite sheet
+actor_wyrm_sheet_move_tileoffset	equ 0xB6	; Offset to first tile in sprite sheet
+actor_wyrm_sheet_move_width		equ 0x40	; Width in pixels
+actor_wyrm_sheet_move_height		equ 0x38	; Width in pixels
+actor_wyrm_sheet_move_size_b		equ 0x1C00	; Size in bytes
+actor_wyrm_sheet_move_size_w		equ 0xE00	; Size in words
+actor_wyrm_sheet_move_size_l		equ 0x700	; Size in longwords
+actor_wyrm_sheet_move_size_t		equ 0xE0	; Size in tiles
+
+
+actor_wyrm_sheet_emerge_frametable:
+actor_wyrm_sheet_emerge_frame_0_header:
+	dc.w 0x0000	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_0
+	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets
+
+actor_wyrm_sheet_emerge_frame_1_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_1
+	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets
+
+actor_wyrm_sheet_emerge_frame_2_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_2
+	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets
+
+actor_wyrm_sheet_emerge_frame_0_size_b		equ 0x0000	; Size in bytes
+actor_wyrm_sheet_emerge_frame_0_size_t		equ 0x0000	; Size in tiles
+actor_wyrm_sheet_emerge_frame_0_size_subsprites		equ 0x0000	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets:
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits:
+	Even
+
+
+actor_wyrm_sheet_emerge_frame_1_size_b		equ 0x00C0	; Size in bytes
+actor_wyrm_sheet_emerge_frame_1_size_t		equ 0x0006	; Size in tiles
+actor_wyrm_sheet_emerge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0x4
+	Even
+
+
+actor_wyrm_sheet_emerge_frame_2_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_emerge_frame_2_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_emerge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0xD
+	Even
+
+
+actor_wyrm_sheet_emerge_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
+actor_wyrm_sheet_emerge_tileoffset	equ 0xFE	; Offset to first tile in sprite sheet
+actor_wyrm_sheet_emerge_width		equ 0x40	; Width in pixels
+actor_wyrm_sheet_emerge_height		equ 0x38	; Width in pixels
+actor_wyrm_sheet_emerge_size_b		equ 0x1500	; Size in bytes
+actor_wyrm_sheet_emerge_size_w		equ 0xA80	; Size in words
+actor_wyrm_sheet_emerge_size_l		equ 0x540	; Size in longwords
+actor_wyrm_sheet_emerge_size_t		equ 0xA8	; Size in tiles
 
 
 spritesheets_wyrm:
 
 spritesheet_wyrm_bite:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_bite_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000020
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -296,192 +376,12 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x01110000
 	dc.l	0x17711120
 	dc.l	0x78989811
 	dc.l	0x88888171
 	dc.l	0x22787221
 	dc.l	0x11111001
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -492,24 +392,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x11110110
 	dc.l	0x11112000
 	dc.l	0x22000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x10000000
@@ -524,209 +406,13 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11220020
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -742,15 +428,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00011016
 	dc.l	0x00111111
 	dc.l	0x00011111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -779,15 +456,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000000
 
 	dc.l	0x11121100
@@ -805,15 +473,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000001
 	dc.l	0x00000011
 
@@ -824,159 +483,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x41888882
 	dc.l	0x31222221
 	dc.l	0x22121112
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -1000,15 +506,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000110
 	dc.l	0x51001451
 	dc.l	0x11111334
@@ -1022,15 +519,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x12221111
 	dc.l	0x11101111
 	dc.l	0x20112200
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -1055,15 +543,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11200000
 	dc.l	0x41112000
 	dc.l	0x41111100
@@ -1078,150 +557,8 @@ spritesheet_wyrm_bite:
 	dc.l	0x00110000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1333,150 +670,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x01110001
 	dc.l	0x14511011
 	dc.l	0x33111134
@@ -1582,15 +775,8 @@ spritesheet_wyrm_bite:
 	dc.l	0x02110000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1618,12 +804,12 @@ spritesheet_wyrm_bite:
 	dc.l	0x00111167
 	dc.l	0x00011116
 
+	dc.l	0x00002121
+	dc.l	0x00000221
+	dc.l	0x00000220
+	dc.l	0x00000020
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000020
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -1654,14 +840,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x33111133
 	dc.l	0x73411111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x67341147
+	dc.l	0x16733145
+	dc.l	0x11663147
+	dc.l	0x01166314
+	dc.l	0x02116631
+	dc.l	0x00011673
+	dc.l	0x00021167
+	dc.l	0x00002117
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1690,14 +876,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x33133133
 	dc.l	0x33313313
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x13311331
+	dc.l	0x71331131
+	dc.l	0x71331113
+	dc.l	0x41133111
+	dc.l	0x11111111
+	dc.l	0x11471111
+	dc.l	0x31457111
+	dc.l	0x73477111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1726,14 +912,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x41471115
 	dc.l	0x31341145
 
-	dc.l	0x00002121
-	dc.l	0x00000221
-	dc.l	0x00000220
-	dc.l	0x00000020
-	dc.l	0x00000000
-	dc.l	0x00000020
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33111117
+	dc.l	0x13434111
+	dc.l	0x11333114
+	dc.l	0x15711143
+	dc.l	0x17711431
+	dc.l	0x17114313
+	dc.l	0x11143177
+	dc.l	0x11431776
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1753,15 +939,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00002002
 	dc.l	0x00000000
 
-	dc.l	0x67341147
-	dc.l	0x16733145
-	dc.l	0x11663147
-	dc.l	0x01166314
-	dc.l	0x02116631
-	dc.l	0x00011673
-	dc.l	0x00021167
-	dc.l	0x00002117
-
 	dc.l	0x02000116
 	dc.l	0x02200213
 	dc.l	0x02200011
@@ -1779,15 +956,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x11012221
 	dc.l	0x20001112
 	dc.l	0x00000000
-
-	dc.l	0x13311331
-	dc.l	0x71331131
-	dc.l	0x71331113
-	dc.l	0x41133111
-	dc.l	0x11111111
-	dc.l	0x11471111
-	dc.l	0x31457111
-	dc.l	0x73477111
 
 	dc.l	0x73141331
 	dc.l	0x67311111
@@ -1807,15 +975,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00211120
 	dc.l	0x00011100
 
-	dc.l	0x33111117
-	dc.l	0x13434111
-	dc.l	0x11333114
-	dc.l	0x15711143
-	dc.l	0x17711431
-	dc.l	0x17114313
-	dc.l	0x11143177
-	dc.l	0x11431776
-
 	dc.l	0x13433766
 	dc.l	0x14317666
 	dc.l	0x43176666
@@ -1833,15 +992,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x22787221
 	dc.l	0x11222122
 	dc.l	0x01111200
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1870,14 +1020,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x51311444
 	dc.l	0x57114433
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x77443311
+	dc.l	0x14331177
+	dc.l	0x33117776
+	dc.l	0x31777666
+	dc.l	0x17766663
+	dc.l	0x77666333
+	dc.l	0x66663313
+	dc.l	0x66633333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1906,14 +1056,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x43333111
 	dc.l	0x33111177
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11776666
+	dc.l	0x76666611
+	dc.l	0x66631111
+	dc.l	0x63311133
+	dc.l	0x31113333
+	dc.l	0x13333333
+	dc.l	0x33333333
+	dc.l	0x33333333
 
 	dc.l	0x00001110
 	dc.l	0x00117411
@@ -1942,14 +1092,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x11111117
 	dc.l	0x77666666
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x66111111
+	dc.l	0x11111111
+	dc.l	0x13333311
+	dc.l	0x33333331
+	dc.l	0x33333311
+	dc.l	0x33333111
+	dc.l	0x33333110
+	dc.l	0x31331110
 
 	dc.l	0x00000000
 	dc.l	0x10000000
@@ -1978,14 +1128,14 @@ spritesheet_wyrm_bite:
 	dc.l	0x77766310
 	dc.l	0x66666610
 
-	dc.l	0x77443311
-	dc.l	0x14331177
-	dc.l	0x33117776
-	dc.l	0x31777666
-	dc.l	0x17766663
-	dc.l	0x77666333
-	dc.l	0x66663313
-	dc.l	0x66633333
+	dc.l	0x33336610
+	dc.l	0x11133310
+	dc.l	0x11111120
+	dc.l	0x20121200
+	dc.l	0x00022000
+	dc.l	0x00002000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x66333333
 	dc.l	0x63313333
@@ -2005,15 +1155,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x02211111
 	dc.l	0x00012200
 
-	dc.l	0x11776666
-	dc.l	0x76666611
-	dc.l	0x66631111
-	dc.l	0x63311133
-	dc.l	0x31113333
-	dc.l	0x13333333
-	dc.l	0x33333333
-	dc.l	0x33333333
-
 	dc.l	0x33333333
 	dc.l	0x33333311
 	dc.l	0x33331131
@@ -2032,15 +1173,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x10000011
 	dc.l	0x00000000
 
-	dc.l	0x66111111
-	dc.l	0x11111111
-	dc.l	0x13333311
-	dc.l	0x33333331
-	dc.l	0x33333311
-	dc.l	0x33333111
-	dc.l	0x33333110
-	dc.l	0x31331110
-
 	dc.l	0x13311100
 	dc.l	0x13311200
 	dc.l	0x33111200
@@ -2057,15 +1189,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x78871111
 	dc.l	0x12712002
 	dc.l	0x11100000
-	dc.l	0x00000000
-
-	dc.l	0x33336610
-	dc.l	0x11133310
-	dc.l	0x11111120
-	dc.l	0x20121200
-	dc.l	0x00022000
-	dc.l	0x00002000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -2086,6 +1209,8 @@ spritesheet_wyrm_bite:
 	dc.l	0x00220000
 	dc.l	0x00000000
 
+
+actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2590,15 +1715,8 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2607,132 +1725,6 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000022
-	dc.l	0x00002111
-	dc.l	0x00021331
-	dc.l	0x00213631
-	dc.l	0x00136314
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x02111111
-	dc.l	0x11113336
-	dc.l	0x11136777
-	dc.l	0x13167776
-	dc.l	0x43176666
-	dc.l	0x43366666
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2777,6 +1769,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000002
 
 	dc.l	0x00000022
@@ -2787,6 +1788,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000011
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000022
+	dc.l	0x00002111
+	dc.l	0x00021331
+	dc.l	0x00213631
+	dc.l	0x00136314
 
 	dc.l	0x02163111
 	dc.l	0x01363113
@@ -2814,6 +1824,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x02021111
 	dc.l	0x00000202
 	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x02111111
+	dc.l	0x11113336
+	dc.l	0x11136777
+	dc.l	0x13167776
+	dc.l	0x43176666
+	dc.l	0x43366666
 
 	dc.l	0x11366663
 	dc.l	0x11366633
@@ -2844,147 +1863,12 @@ spritesheet_wyrm_bite:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11111120
 	dc.l	0x66611111
 	dc.l	0x77777661
 	dc.l	0x66666666
 	dc.l	0x66363333
 	dc.l	0x63333311
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x20000000
-	dc.l	0x12000000
-	dc.l	0x31000000
-	dc.l	0x31200000
-	dc.l	0x31100000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x33111111
 	dc.l	0x11133111
@@ -3013,6 +1897,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x21111112
 	dc.l	0x00000000
 
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x20000000
+	dc.l	0x12000000
+	dc.l	0x31000000
+	dc.l	0x31200000
+	dc.l	0x31100000
+
 	dc.l	0x11100000
 	dc.l	0x11100000
 	dc.l	0x11000000
@@ -3038,6 +1931,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x22111771
 	dc.l	0x11111112
 	dc.l	0x20200000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -3089,6 +1991,15 @@ spritesheet_wyrm_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x22000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3096,170 +2007,10 @@ spritesheet_wyrm_bite:
 
 
 
+
 spritesheet_wyrm_move:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000002
-	dc.l	0x00000002
-	dc.l	0x00002002
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_move_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3299,6 +2050,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000044
 	dc.l	0x00000044
 	dc.l	0x00000043
@@ -3322,6 +2082,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00002002
 
 	dc.l	0x00002002
 	dc.l	0x00002002
@@ -3350,33 +2119,6 @@ spritesheet_wyrm_move:
 	dc.l	0x00001111
 	dc.l	0x00000001
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00220000
 	dc.l	0x02200000
 	dc.l	0x22220000
@@ -3385,114 +2127,6 @@ spritesheet_wyrm_move:
 	dc.l	0x22200000
 	dc.l	0x22202000
 	dc.l	0x22002000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x04400000
-	dc.l	0x04400000
-	dc.l	0x04300000
-	dc.l	0x04000000
-	dc.l	0x34000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x22022000
 	dc.l	0x22022000
@@ -3520,6 +2154,15 @@ spritesheet_wyrm_move:
 	dc.l	0x22131110
 	dc.l	0x12212000
 	dc.l	0x22100000
+
+	dc.l	0x04400000
+	dc.l	0x04400000
+	dc.l	0x04300000
+	dc.l	0x04000000
+	dc.l	0x34000000
+	dc.l	0x44000000
+	dc.l	0x44000000
+	dc.l	0x44000000
 
 	dc.l	0x44000000
 	dc.l	0x43000000
@@ -3555,6 +2198,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x44000000
 
 	dc.l	0x44000000
@@ -3575,222 +2227,8 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_move_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3823,6 +2261,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000131
 	dc.l	0x00000012
 	dc.l	0x00000003
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3865,141 +2312,6 @@ spritesheet_wyrm_move:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x04000000
-	dc.l	0x04400000
-	dc.l	0x04500450
-	dc.l	0x04400440
-	dc.l	0x04300330
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x22222000
 	dc.l	0x22222200
 	dc.l	0x22222200
@@ -4024,6 +2336,15 @@ spritesheet_wyrm_move:
 	dc.l	0x21132110
 	dc.l	0x22121200
 	dc.l	0x22000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x04000000
+	dc.l	0x04400000
+	dc.l	0x04500450
+	dc.l	0x04400440
+	dc.l	0x04300330
 
 	dc.l	0x04000000
 	dc.l	0x04000000
@@ -4052,159 +2373,8 @@ spritesheet_wyrm_move:
 	dc.l	0x40000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_move_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000550
@@ -4213,96 +2383,6 @@ spritesheet_wyrm_move:
 	dc.l	0x00000040
 	dc.l	0x00000045
 	dc.l	0x00000044
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000044
 	dc.l	0x00000044
@@ -4327,6 +2407,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00003123
 	dc.l	0x00000011
 	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -4365,142 +2454,7 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x55000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x44400000
 	dc.l	0x33400000
@@ -4534,6 +2488,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x44000000
 	dc.l	0x34000000
 	dc.l	0x34000000
@@ -4556,159 +2519,8 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_move_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -4717,96 +2529,6 @@ spritesheet_wyrm_move:
 	dc.l	0x00000440
 	dc.l	0x04400440
 	dc.l	0x04400440
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x03300340
 	dc.l	0x00000040
@@ -4841,6 +2563,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000044
 	dc.l	0x00003444
 
@@ -4861,141 +2592,6 @@ spritesheet_wyrm_move:
 	dc.l	0x23322221
 	dc.l	0x00131122
 	dc.l	0x00000221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5043,6 +2639,15 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
 	dc.l	0x00000300
 	dc.l	0x00003000
 	dc.l	0x00053000
@@ -5060,781 +2665,20 @@ spritesheet_wyrm_move:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 
 
 spritesheet_wyrm_emerge:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+actor_wyrm_sheet_emerge_frame_0:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_emerge_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000020
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -5848,192 +2692,12 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x01110000
 	dc.l	0x17711120
 	dc.l	0x78989811
 	dc.l	0x88888171
 	dc.l	0x22787221
 	dc.l	0x11111001
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -6044,24 +2708,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x11110110
 	dc.l	0x11112000
 	dc.l	0x22000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x10000000
@@ -6076,209 +2722,13 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11220020
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -6294,15 +2744,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00011016
 	dc.l	0x00111111
 	dc.l	0x00011111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -6331,15 +2772,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000000
 
 	dc.l	0x11121100
@@ -6357,15 +2789,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000001
 	dc.l	0x00000011
 
@@ -6376,159 +2799,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x41888882
 	dc.l	0x31222221
 	dc.l	0x22121112
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -6552,15 +2822,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000110
 	dc.l	0x51001451
 	dc.l	0x11111334
@@ -6574,15 +2835,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x12221111
 	dc.l	0x11101111
 	dc.l	0x20112200
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -6607,15 +2859,6 @@ spritesheet_wyrm_emerge:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11200000
 	dc.l	0x41112000
 	dc.l	0x41111100
@@ -6629,6 +2872,7 @@ spritesheet_wyrm_emerge:
 	dc.l	0x11000000
 	dc.l	0x00110000
 	dc.l	0x00000000
+
 
 
 

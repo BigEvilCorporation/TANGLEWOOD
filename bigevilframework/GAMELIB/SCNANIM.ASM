@@ -50,7 +50,7 @@ SceneAnimLoadStampAnim:
 	; Set tileset/VRAM address/size
 	move.l a2, SpriteObj_TilesetAddr(a0)
 	move.w d0, SpriteObj_VRAMAddr(a0)
-	move.w d1, SpriteObj_TilesetSize(a0)
+	move.w d1, SpriteObj_SizeTiles(a0)
 
 	; Not a sprite
 	move.b #0x0, SpriteObj_Visible(a0)

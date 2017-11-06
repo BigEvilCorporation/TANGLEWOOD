@@ -9,40 +9,198 @@
 
 actor_spitball:
 
-sprite_spitball_size_b		equ 0x0200	; Size in bytes
-sprite_spitball_size_t		equ 0x0010	; Size in tiles
-sprite_spitball_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_spitball_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_spitball_sheet_spitball_frametable:
+actor_spitball_sheet_spitball_frame_0_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_0
+	dc.l actor_spitball_sheet_spitball_frame_0_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_0_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_1_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_1
+	dc.l actor_spitball_sheet_spitball_frame_1_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_1_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_2
+	dc.l actor_spitball_sheet_spitball_frame_2_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_2_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_3_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_3
+	dc.l actor_spitball_sheet_spitball_frame_3_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_3_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_4_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_4
+	dc.l actor_spitball_sheet_spitball_frame_4_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_4_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_5_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_5
+	dc.l actor_spitball_sheet_spitball_frame_5_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_5_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_6_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_6
+	dc.l actor_spitball_sheet_spitball_frame_6_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_6_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_7_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_spitball_sheet_spitball_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_spitball_sheet_spitball_frame_7
+	dc.l actor_spitball_sheet_spitball_frame_7_subsprite_dimensions_bits
+	dc.l actor_spitball_sheet_spitball_frame_7_subsprite_pos_offsets
+
+actor_spitball_sheet_spitball_frame_0_size_b		equ 0x0200	; Size in bytes
+actor_spitball_sheet_spitball_frame_0_size_t		equ 0x0010	; Size in tiles
+actor_spitball_sheet_spitball_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_spitball_subsprite_pos_offsets:
+actor_spitball_sheet_spitball_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_spitball_subsprite_dimensions_bits:
+actor_spitball_sheet_spitball_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_spitball_numtiles_per_subsprite:
-	dc.b 0x10
+
+actor_spitball_sheet_spitball_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_spitball_sheet_spitball_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_spitball_sheet_spitball_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
 	Even
 
 
-spritesheet_spitball_spitball_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_spitball_spitball_width		equ 0x20	; Width in pixels
-spritesheet_spitball_spitball_height		equ 0x20	; Width in pixels
-spritesheet_spitball_spitball_size_b		equ 0x1000	; Size in bytes
-spritesheet_spitball_spitball_size_w		equ 0x800	; Size in words
-spritesheet_spitball_spitball_size_l		equ 0x400	; Size in longwords
-spritesheet_spitball_spitball_size_t		equ 0x80	; Size in tiles
+actor_spitball_sheet_spitball_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_spitball_sheet_spitball_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_spitball_sheet_spitball_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_spitball_sheet_spitball_frame_3_size_b		equ 0x0100	; Size in bytes
+actor_spitball_sheet_spitball_frame_3_size_t		equ 0x0008	; Size in tiles
+actor_spitball_sheet_spitball_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_3_subsprite_dimensions_bits:
+	dc.b 0xD
+	Even
+
+
+actor_spitball_sheet_spitball_frame_4_size_b		equ 0x0200	; Size in bytes
+actor_spitball_sheet_spitball_frame_4_size_t		equ 0x0010	; Size in tiles
+actor_spitball_sheet_spitball_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_spitball_sheet_spitball_frame_5_size_b		equ 0x0100	; Size in bytes
+actor_spitball_sheet_spitball_frame_5_size_t		equ 0x0008	; Size in tiles
+actor_spitball_sheet_spitball_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_5_subsprite_dimensions_bits:
+	dc.b 0x7
+	Even
+
+
+actor_spitball_sheet_spitball_frame_6_size_b		equ 0x0200	; Size in bytes
+actor_spitball_sheet_spitball_frame_6_size_t		equ 0x0010	; Size in tiles
+actor_spitball_sheet_spitball_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_spitball_sheet_spitball_frame_7_size_b		equ 0x0200	; Size in bytes
+actor_spitball_sheet_spitball_frame_7_size_t		equ 0x0010	; Size in tiles
+actor_spitball_sheet_spitball_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_spitball_sheet_spitball_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_spitball_sheet_spitball_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_spitball_sheet_spitball_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_spitball_sheet_spitball_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_spitball_sheet_spitball_width		equ 0x20	; Width in pixels
+actor_spitball_sheet_spitball_height		equ 0x20	; Width in pixels
+actor_spitball_sheet_spitball_size_b		equ 0x1000	; Size in bytes
+actor_spitball_sheet_spitball_size_w		equ 0x800	; Size in words
+actor_spitball_sheet_spitball_size_l		equ 0x400	; Size in longwords
+actor_spitball_sheet_spitball_size_t		equ 0x80	; Size in tiles
 
 
 spritesheets_spitball:
 
 spritesheet_spitball_spitball:
 
+actor_spitball_sheet_spitball_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -187,6 +345,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_spitball_sheet_spitball_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -223,15 +383,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00010111
 	dc.l	0x01111111
 	dc.l	0x11112112
@@ -249,15 +400,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x01112222
 	dc.l	0x00011112
 	dc.l	0x00000111
-
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -286,15 +428,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x11112221
 	dc.l	0x11111121
 
-	dc.l	0x01111111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -322,24 +455,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x53235200
 	dc.l	0x23532100
 
-	dc.l	0x11111000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_spitball_sheet_spitball_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000010
 	dc.l	0x00001111
@@ -356,15 +473,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x00001111
 	dc.l	0x00011111
 	dc.l	0x00000010
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -393,15 +501,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x11112222
 	dc.l	0x11111121
 	dc.l	0x00010111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -441,15 +540,6 @@ spritesheet_spitball_spitball:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11010000
 	dc.l	0x23532110
 	dc.l	0x53235210
@@ -475,15 +565,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_spitball_sheet_spitball_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000001
 	dc.l	0x00001111
@@ -501,24 +584,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x01111111
 	dc.l	0x00111111
 	dc.l	0x00001011
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x01001110
@@ -539,24 +604,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x10100001
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x00101111
 	dc.l	0x11111111
 	dc.l	0x11211212
@@ -573,24 +620,6 @@ spritesheet_spitball_spitball:
 	dc.l	0x11353222
 	dc.l	0x11112231
 	dc.l	0x01111321
-
-	dc.l	0x00010111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x11220000
@@ -610,15 +639,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x53235211
 	dc.l	0x23532111
 
-	dc.l	0x11111110
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_spitball_sheet_spitball_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -763,78 +785,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_spitball_sheet_spitball_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000550
 	dc.l	0x00000005
@@ -907,6 +859,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_spitball_sheet_spitball_frame_6:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1051,6 +1005,8 @@ spritesheet_spitball_spitball:
 	dc.l	0x01111000
 	dc.l	0x00001000
 
+
+actor_spitball_sheet_spitball_frame_7:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1194,6 +1150,7 @@ spritesheet_spitball_spitball:
 	dc.l	0x02200050
 	dc.l	0x21530022
 	dc.l	0x05300000
+
 
 
 

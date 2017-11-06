@@ -252,91 +252,91 @@ EchoInit:
 	; Setup default character animations
 
 	; Idle
-	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Dead
-	ANIM_LOAD_DEFAULT Echo_death,Echo_death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
+	ANIM_LOAD_DEFAULT Echo,death,death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
 
 	; Run
-	ANIM_LOAD_DEFAULT Echo_run,Echo_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT Echo,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	; Run
-	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Echo,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Walk to run transition
-	ANIM_LOAD_DEFAULT Echo_walktorun,Echo_walktorun,Character_Animations,CharacterAnimIdx_WalkToRun,0,0,0
+	ANIM_LOAD_DEFAULT Echo,walktorun,walktorun,Character_Animations,CharacterAnimIdx_WalkToRun,0,0,0
 
 	; Jump
-	ANIM_LOAD_DEFAULT Echo_jump,Echo_jump,Character_Animations,CharacterAnimIdx_Jump,1,0,0
+	ANIM_LOAD_DEFAULT Echo,jump,jump,Character_Animations,CharacterAnimIdx_Jump,1,0,0
 
 	; Fall
-	ANIM_LOAD_DEFAULT Echo_fall,Echo_fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
+	ANIM_LOAD_DEFAULT Echo,fall,fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
 
 	; Climb
-	ANIM_LOAD_DEFAULT Echo_climb,Echo_climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
+	ANIM_LOAD_DEFAULT Echo,climb,climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
 	
 	; Water wade
-	ANIM_LOAD_DEFAULT Echo_wade,Echo_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT Echo,wade,wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 
 	; Glide
-	ANIM_LOAD_DEFAULT Echo_glide,Echo_glide,Character_Animations,CharacterAnimIdx_Glide,1,0,0
+	ANIM_LOAD_DEFAULT Echo,glide,glide,Character_Animations,CharacterAnimIdx_Glide,1,0,0
 
 	; Push (light object)
-	ANIM_LOAD_DEFAULT Echo_push,Echo_push,Character_Animations,CharacterAnimIdx_Push,1,0,0
+	ANIM_LOAD_DEFAULT Echo,push,push,Character_Animations,CharacterAnimIdx_Push,1,0,0
 	
 	; Push (heavy object)
-	ANIM_LOAD_DEFAULT Echo_pushheavy,Echo_pushheavy,Character_Animations,CharacterAnimIdx_PushHeavy,1,0,0
+	ANIM_LOAD_DEFAULT Echo,pushheavy,pushheavy,Character_Animations,CharacterAnimIdx_PushHeavy,1,0,0
 
 	;==============================================================
 	; Setup player animations
 
 	; Colour switch
-	ANIM_LOAD_DEFAULT Echo_colourswitch,Echo_colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
+	ANIM_LOAD_DEFAULT Echo,colourswitch,colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
 
 	; Howl
-	ANIM_LOAD_DEFAULT Echo_calllong,Echo_calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
+	ANIM_LOAD_DEFAULT Echo,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
 	
 	;==============================================================
 	; Setup Echo specific animations
 
 	; Jump up to Nymn (same anim as Jump but non-looping)
-	ANIM_LOAD_DEFAULT echo_jump,echo_jump,Echo_Animations,EchoAnimIdx_JumpToNymn,0,0,0
+	ANIM_LOAD_DEFAULT Echo,jump,jump,Echo_Animations,EchoAnimIdx_JumpToNymn,0,0,0
 
 	; Mount Nymn
-	ANIM_LOAD_DEFAULT echo_mountnymn,echo_mountnymn,Echo_Animations,EchoAnimIdx_MountNymn,0,1,0
+	ANIM_LOAD_DEFAULT Echo,mountnymn,mountnymn,Echo_Animations,EchoAnimIdx_MountNymn,0,1,0
 
 	; Hide
-	ANIM_LOAD_DEFAULT echo_hide,echo_hide,Echo_Animations,EchoAnimIdx_Hide,0,1,0
+	ANIM_LOAD_DEFAULT Echo,hide,hide,Echo_Animations,EchoAnimIdx_Hide,0,1,0
 	
 	; Scared
-	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Echo_Animations,EchoAnimIdx_Scared,1,1,0
+	ANIM_LOAD_DEFAULT Echo,afraid,afraid,Echo_Animations,EchoAnimIdx_Scared,1,1,0
 	
 	; Stand up from hiding
-	ANIM_LOAD_DEFAULT echo_standfromhiding,echo_standfromhiding,Echo_Animations,EchoAnimIdx_StandFromHiding,0,1,0
+	ANIM_LOAD_DEFAULT Echo,standfromhiding,standfromhiding,Echo_Animations,EchoAnimIdx_StandFromHiding,0,1,0
 	
 	; Pounce on Nymn
-	ANIM_LOAD_DEFAULT echo_pouncenymn,echo_pouncenymn,Echo_Animations,EchoAnimIdx_PounceNymn,0,1,0
+	ANIM_LOAD_DEFAULT Echo,pouncenymn,pouncenymn,Echo_Animations,EchoAnimIdx_PounceNymn,0,1,0
 	
 	; Greet Nymn
-	ANIM_LOAD_DEFAULT echo_greetnymn,echo_greetnymn,Echo_Animations,EchoAnimIdx_GreetNymn,0,1,0
+	ANIM_LOAD_DEFAULT Echo,greetnymn,greetnymn,Echo_Animations,EchoAnimIdx_GreetNymn,0,1,0
 
 	; Circle Nymn
-	ANIM_LOAD_DEFAULT echo_circle,echo_circle,Echo_Animations,EchoAnimIdx_CircleNymn,0,1,0
+	ANIM_LOAD_DEFAULT Echo,circle,circle,Echo_Animations,EchoAnimIdx_CircleNymn,0,1,0
 
 	; Stand on all fours
-	ANIM_LOAD_DEFAULT echo_allfours,echo_allfours,Echo_Animations,EchoAnimIdx_AllFours,0,1,0
+	ANIM_LOAD_DEFAULT Echo,allfours,allfours,Echo_Animations,EchoAnimIdx_AllFours,0,1,0
 
 	; Sit
-	ANIM_LOAD_DEFAULT echo_sit,echo_sit,Echo_Animations,EchoAnimIdx_Sit,0,1,0
+	ANIM_LOAD_DEFAULT Echo,sit,sit,Echo_Animations,EchoAnimIdx_Sit,0,1,0
 
 	; Howl (sitting)
-	ANIM_LOAD_DEFAULT echo_howl,echo_howl,Echo_Animations,EchoAnimIdx_Howl,0,1,0
+	ANIM_LOAD_DEFAULT Echo,howl,howl,Echo_Animations,EchoAnimIdx_Howl,0,1,0
 
 	; Nudge Nymn
-	ANIM_LOAD_DEFAULT echo_nudge,echo_nudge,Echo_Animations,EchoAnimIdx_Nudge,0,1,0
+	ANIM_LOAD_DEFAULT Echo,nudge,nudge,Echo_Animations,EchoAnimIdx_Nudge,0,1,0
 
 	; Stand
-	ANIM_LOAD_DEFAULT echo_stand,echo_stand,Echo_Animations,EchoAnimIdx_Stand,0,1,0
+	ANIM_LOAD_DEFAULT Echo,stand,stand,Echo_Animations,EchoAnimIdx_Stand,0,1,0
 
 	ENDIF
 	
@@ -348,7 +348,7 @@ EchoLoadGfx:
 
 	IF INCLUDE_CHARACTER_ECHO
 
-	SPRITE_LOAD_DEFAULT echo,PaletteId_Player,0x0
+	SPRITE_LOAD_DEFAULT echo,idle,PaletteId_Player,0x0
 
 	ENDIF
 
@@ -631,7 +631,7 @@ EchoStartHiding:
 	IF INCLUDE_CHARACTER_ECHO
 
 	; Set hide loop as idle anim
-	ANIM_LOAD_DEFAULT echo_afraid,echo_afraid,Character_Animations,CharacterAnimIdx_Idle,1,1,0
+	ANIM_LOAD_DEFAULT echo,afraid,afraid,Character_Animations,CharacterAnimIdx_Idle,1,1,0
 	
 	ENDIF
 
@@ -650,7 +650,7 @@ EchoStopHiding:
 	POPL   a1
 
 	; Restore idle anim
-	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	ENDIF
 
@@ -669,9 +669,9 @@ EchoBeginCarried:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle, walk and water wade anims for carried versions
-	ANIM_LOAD_DEFAULT Echo_carriedidle,Echo_carriedidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT Echo_carriedwalk,Echo_carriedwalk,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT Echo,carriedidle,carriedidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo,carriedwalk,carriedwalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Echo,carriedwalk,carriedwalk,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 	
 	; Snap to Nymn's direction
 	move.l (Player1), a3
@@ -716,9 +716,9 @@ EchoEndCarried:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle, walk and water wade anims
-	ANIM_LOAD_DEFAULT Echo_idle,Echo_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT Echo_walk,Echo_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT Echo_wade,Echo_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT Echo,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Echo,wade,wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 	
 	; Force character animation update to restore anim state
 	jsr    CharacterUpdateAnimState

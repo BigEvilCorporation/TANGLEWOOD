@@ -6,26 +6,24 @@
 
 vfx_spritesheet_water_splash:
 	dc.l spritesheets_water							; Tiles base address
-	dc.l sprite_water_subsprite_dimensions_bits		; Subsprite dimensions array
-	dc.l sprite_water_subsprite_pos_offsets			; Subsprite pos offsets array
-	dc.l sprite_water_numtiles_per_subsprite		; Subsprite numtiles array
+	dc.l actor_water_sheet_splash_frame_0_subsprite_dimensions_bits		; Subsprite dimensions array
+	dc.l actor_water_sheet_splash_frame_0_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.w ((0x06<<8)|0x07)							; W/H tiles
-	dc.w sprite_water_widthheight_subsprites		; W/H subsprites
-	dc.w sprite_water_size_t						; Size tiles
-	dc.b sprite_water_size_subsprites				; Size subsprites
+	dc.w actor_water_sheet_splash_frame_0_size_t						; Size tiles
+	dc.b actor_water_sheet_splash_frame_0_size_subsprites				; Size subsprites
 	dc.b PaletteId_Fuzzl							; Palette
 	dc.b 0x1										; Priority
 
 	even
 
 vfx_animation_water_splash_large:
-	dc.l spriteanim_water_splash_large_track_frames	; Sprite frame track
-	dc.l spriteanim_water_splash_large_track_posx	; Pos X track
-	dc.l spriteanim_water_splash_large_track_posy	; Pos Y track
-	dc.l spriteanim_water_splash_large_track_sfx	; SFX track
-	dc.w spritesheet_water_splash_frameoffset		; First frame offset
-	dc.w spriteanim_water_splash_large_speed		; Speed
-	dc.b spriteanim_water_splash_large_numframes	; Length
+	dc.l actor_water_sheet_splash_anim_large_track_frames	; Sprite frame track
+	dc.l actor_water_sheet_splash_anim_large_track_posx	; Pos X track
+	dc.l actor_water_sheet_splash_anim_large_track_posy	; Pos Y track
+	dc.l actor_water_sheet_splash_anim_large_track_sfx	; SFX track
+	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
+	dc.w actor_water_sheet_splash_anim_large_speed		; Speed
+	dc.b actor_water_sheet_splash_anim_large_numframes	; Length
 	dc.b 0x0										; Looping
 	dc.b 0x0										; Zero velocity
 	dc.b 0x1										; No speed scale
@@ -34,13 +32,13 @@ vfx_animation_water_splash_large:
 	even
 
 vfx_animation_water_splash_small:
-	dc.l spriteanim_water_splash_small_track_frames	; Sprite frame track
-	dc.l spriteanim_water_splash_small_track_posx	; Pos X track
-	dc.l spriteanim_water_splash_small_track_posy	; Pos Y track
-	dc.l spriteanim_water_splash_small_track_sfx	; SFX track
-	dc.w spritesheet_water_splash_frameoffset		; First frame offset
-	dc.w spriteanim_water_splash_small_speed		; Speed
-	dc.b spriteanim_water_splash_small_numframes	; Length
+	dc.l actor_water_sheet_splash_anim_small_track_frames	; Sprite frame track
+	dc.l actor_water_sheet_splash_anim_small_track_posx	; Pos X track
+	dc.l actor_water_sheet_splash_anim_small_track_posy	; Pos Y track
+	dc.l actor_water_sheet_splash_anim_small_track_sfx	; SFX track
+	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
+	dc.w actor_water_sheet_splash_anim_small_speed		; Speed
+	dc.b actor_water_sheet_splash_anim_small_numframes	; Length
 	dc.b 0x0										; Looping
 	dc.b 0x0										; Zero velocity
 	dc.b 0x1										; No speed scale
@@ -49,13 +47,13 @@ vfx_animation_water_splash_small:
 	even
 
 vfx_animation_water_splash_tiny:
-	dc.l spriteanim_water_splash_tiny_track_frames	; Sprite frame track
-	dc.l spriteanim_water_splash_tiny_track_posx	; Pos X track
-	dc.l spriteanim_water_splash_tiny_track_posy	; Pos Y track
-	dc.l spriteanim_water_splash_tiny_track_sfx		; SFX track
-	dc.w spritesheet_water_splash_frameoffset		; First frame offset
-	dc.w spriteanim_water_splash_tiny_speed			; Speed
-	dc.b spriteanim_water_splash_tiny_numframes		; Length
+	dc.l actor_water_sheet_splash_anim_tiny_track_frames	; Sprite frame track
+	dc.l actor_water_sheet_splash_anim_tiny_track_posx	; Pos X track
+	dc.l actor_water_sheet_splash_anim_tiny_track_posy	; Pos Y track
+	dc.l actor_water_sheet_splash_anim_tiny_track_sfx		; SFX track
+	dc.w actor_water_sheet_splash_frameoffset		; First frame offset
+	dc.w actor_water_sheet_splash_anim_tiny_speed			; Speed
+	dc.b actor_water_sheet_splash_anim_tiny_numframes		; Length
 	dc.b 0x0										; Looping
 	dc.b 0x0										; Zero velocity
 	dc.b 0x1										; No speed scale

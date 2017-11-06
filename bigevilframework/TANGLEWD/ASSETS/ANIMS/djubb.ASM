@@ -9,51 +9,64 @@
 
 spriteanims_djubb:
 
-spriteanim_djubb_bite:
-spriteanim_djubb_bite_numframes: equ 0x5
-spriteanim_djubb_bite_speed: equ 0x33
-spriteanim_djubb_bite_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x0
+actor_djubb_sheet_bite_anim_bite:
+actor_djubb_sheet_bite_anim_bite_numframes: equ 0x5
+actor_djubb_sheet_bite_anim_bite_speed: equ 0x33
+actor_djubb_sheet_bite_anim_bite_track_frames:
+	dc.l actor_djubb_sheet_bite_frame_0_header
+	dc.l actor_djubb_sheet_bite_frame_1_header
+	dc.l actor_djubb_sheet_bite_frame_2_header
+	dc.l actor_djubb_sheet_bite_frame_3_header
+	dc.l actor_djubb_sheet_bite_frame_0_header
+
 	Even
-spriteanim_djubb_bite_track_posx:
+actor_djubb_sheet_bite_anim_bite_track_posx:
 	dc.b 0x00, 0x04, 0x08, 0x04, 0x00
 	Even
-spriteanim_djubb_bite_track_posy:
+actor_djubb_sheet_bite_anim_bite_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djubb_bite_track_sfx:
+actor_djubb_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djubb_idle:
-spriteanim_djubb_idle_numframes: equ 0x4
-spriteanim_djubb_idle_speed: equ 0xF
-spriteanim_djubb_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_djubb_sheet_idle_anim_idle:
+actor_djubb_sheet_idle_anim_idle_numframes: equ 0x4
+actor_djubb_sheet_idle_anim_idle_speed: equ 0xF
+actor_djubb_sheet_idle_anim_idle_track_frames:
+	dc.l actor_djubb_sheet_idle_frame_0_header
+	dc.l actor_djubb_sheet_idle_frame_1_header
+	dc.l actor_djubb_sheet_idle_frame_2_header
+	dc.l actor_djubb_sheet_idle_frame_3_header
+
 	Even
-spriteanim_djubb_idle_track_posx:
+actor_djubb_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djubb_idle_track_posy:
+actor_djubb_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djubb_idle_track_sfx:
+actor_djubb_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djubb_swim:
-spriteanim_djubb_swim_numframes: equ 0x4
-spriteanim_djubb_swim_speed: equ 0x4C
-spriteanim_djubb_swim_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_djubb_sheet_swim_anim_swim:
+actor_djubb_sheet_swim_anim_swim_numframes: equ 0x4
+actor_djubb_sheet_swim_anim_swim_speed: equ 0x4C
+actor_djubb_sheet_swim_anim_swim_track_frames:
+	dc.l actor_djubb_sheet_swim_frame_0_header
+	dc.l actor_djubb_sheet_swim_frame_1_header
+	dc.l actor_djubb_sheet_swim_frame_2_header
+	dc.l actor_djubb_sheet_swim_frame_3_header
+
 	Even
-spriteanim_djubb_swim_track_posx:
+actor_djubb_sheet_swim_anim_swim_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djubb_swim_track_posy:
+actor_djubb_sheet_swim_anim_swim_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djubb_swim_track_sfx:
+actor_djubb_sheet_swim_anim_swim_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

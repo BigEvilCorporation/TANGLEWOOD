@@ -9,35 +9,44 @@
 
 spriteanims_boulder:
 
-spriteanim_boulder_roll:
-spriteanim_boulder_roll_numframes: equ 0x8
-spriteanim_boulder_roll_speed: equ 0x5
-spriteanim_boulder_roll_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+actor_boulder_sheet_roll_anim_roll:
+actor_boulder_sheet_roll_anim_roll_numframes: equ 0x8
+actor_boulder_sheet_roll_anim_roll_speed: equ 0x5
+actor_boulder_sheet_roll_anim_roll_track_frames:
+	dc.l actor_boulder_sheet_roll_frame_0_header
+	dc.l actor_boulder_sheet_roll_frame_1_header
+	dc.l actor_boulder_sheet_roll_frame_2_header
+	dc.l actor_boulder_sheet_roll_frame_3_header
+	dc.l actor_boulder_sheet_roll_frame_4_header
+	dc.l actor_boulder_sheet_roll_frame_5_header
+	dc.l actor_boulder_sheet_roll_frame_6_header
+	dc.l actor_boulder_sheet_roll_frame_7_header
+
 	Even
-spriteanim_boulder_roll_track_posx:
+actor_boulder_sheet_roll_anim_roll_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_boulder_roll_track_posy:
+actor_boulder_sheet_roll_anim_roll_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_boulder_roll_track_sfx:
+actor_boulder_sheet_roll_anim_roll_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_boulder_crack:
-spriteanim_boulder_crack_numframes: equ 0x1
-spriteanim_boulder_crack_speed: equ 0x5
-spriteanim_boulder_crack_track_frames:
-	dc.b 0x0
+actor_boulder_sheet_crack_anim_crack:
+actor_boulder_sheet_crack_anim_crack_numframes: equ 0x1
+actor_boulder_sheet_crack_anim_crack_speed: equ 0x5
+actor_boulder_sheet_crack_anim_crack_track_frames:
+	dc.l actor_boulder_sheet_crack_frame_0_header
+
 	Even
-spriteanim_boulder_crack_track_posx:
+actor_boulder_sheet_crack_anim_crack_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_boulder_crack_track_posy:
+actor_boulder_sheet_crack_anim_crack_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_boulder_crack_track_sfx:
+actor_boulder_sheet_crack_anim_crack_track_sfx:
 	dc.l 0x0
 	Even
 

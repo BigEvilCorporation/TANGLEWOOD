@@ -103,7 +103,7 @@ ThunderStrike:
 	move.w WorldScrollX, d1
 	move.w WorldScrollX, d2
 	addi.w #vdp_sprite_border_x, d1
-	addi.w #vdp_sprite_border_x+(screen_width-spritesheet_bolt_flash_width), d2
+	addi.w #vdp_sprite_border_x+(screen_width-actor_bolt_sheet_flash_width), d2
 	jsr    RND_GenerateWordClamped
 	move.w d0, Thunder_StrikePointX(a2)
 
@@ -446,7 +446,7 @@ ThunderUpdate:
 
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	addi.l #spritesheet_bolt_flash_height*spriteanim_bolt_flash_numframes*subpixels_per_pixel, d1
+	addi.l #actor_bolt_sheet_flash_height*actor_bolt_sheet_flash_anim_flash_numframes*subpixels_per_pixel, d1
 	PUSHL  a2
 	jsr    VfxPlay
 	POPL   a2

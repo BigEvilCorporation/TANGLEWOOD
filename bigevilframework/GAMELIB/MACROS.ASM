@@ -146,17 +146,15 @@ CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
 ;==============================================================
 
 	; Alloc VRAM and load sprite
-SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
+SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,prio
 	PUSHM  d0-d5/a0-a2
-	move.w #sprite_\spritesheet\_size_b, d0
+	move.w #actor_\actor\_sheet_\sheet\_frame_0_size_b, d0
 	jsr    VRAM_PoolAlloc
-	lea    spritesheets_\spritesheet, a1
-	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
-	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
-	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
-	move.l #sprite_\spritesheet\_size_t, d1
-	move.b #sprite_\spritesheet\_size_subsprites, d2
-	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
+	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
+	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
 	move.b #\palette, d4
 	move.b #\prio, d5
 	jsr    SpriteObjLoad
@@ -164,22 +162,20 @@ SPRITE_LOAD_DEFAULT: macro spritesheet,palette,prio
 	endm
 
 	; Load sprite from shared VRAM
-SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
+SPRITE_LOAD_SHARED: macro actor,sheet,palette,prio
 	PUSHM  d0-d5/a0-a2
-	tst.w  SharedVRAM_\spritesheet
+	tst.w  SharedVRAM_\actor
 	bne    @AlreadyAllocd\@
-	SPRITE_LOAD_DEFAULT \spritesheet,\palette,\prio
-	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\spritesheet
+	SPRITE_LOAD_DEFAULT \actor,\sheet,\palette,\prio
+	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\actor
 	bra    @End\@
 	@AlreadyAllocd\@:
-	lea    spritesheets_\spritesheet, a1
-	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
-	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
-	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
-	move.w SharedVRAM_\spritesheet, d0
-	move.l #sprite_\spritesheet\_size_t, d1
-	move.b #sprite_\spritesheet\_size_subsprites, d2
-	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
+	move.w SharedVRAM_\actor, d0
+	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
+	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
 	move.b #\palette, d4
 	move.b #\prio, d5
 	jsr    SpriteObjLoadShared
@@ -188,16 +184,14 @@ SPRITE_LOAD_SHARED: macro spritesheet,palette,prio
 	endm
 
 	; Use sprite sharing VRAM from existing object
-SPRITE_LOAD_COPY: macro spritesheet,palette,prio,sourceobjreg
+SPRITE_LOAD_COPY: macro actor,sheet,palette,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
-	lea    spritesheets_\spritesheet, a1
-	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
-	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
-	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
-	move.l #sprite_\spritesheet\_size_t, d1
-	move.b #sprite_\spritesheet\_size_subsprites, d2
-	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
+	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
+	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
 	move.b #\palette, d4
 	move.b #\prio, d5
 	jsr    SpriteObjLoadShared
@@ -206,48 +200,46 @@ SPRITE_LOAD_COPY: macro spritesheet,palette,prio,sourceobjreg
 	endm
 
 	; Load sprite taking VRAM from existing object
-SPRITE_LOAD_SHARED_VRAM: macro spritesheet,palette,prio,sourceobjreg
+SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
-	lea    spritesheets_\spritesheet, a1
-	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
-	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
-	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
-	move.l #sprite_\spritesheet\_size_t, d1
-	move.b #sprite_\spritesheet\_size_subsprites, d2
-	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
+	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
+	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
 	move.b #\palette, d4
 	move.b #\prio, d5
 	jsr    SpriteObjLoad
 	POPM   d0-d5/a0-a2
 	endm
 
-ANIM_LOAD_DEFAULT: macro sheetname,animname,arrayoffset,index,loop,zerovel,noreplay
+ANIM_LOAD_DEFAULT: macro actor,sheet,animname,arrayoffset,index,loop,zerovel,noreplay
 	PUSHL  a0
 	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
-	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
-	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
-	move.l #spriteanim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
-	move.l #spriteanim_\animname\_track_posy, Animation_AnimTrackPositionY(a0)
-	move.l #spriteanim_\animname\_track_sfx, Animation_AnimTrackSFX(a0)
-	move.w #spriteanim_\animname\_speed, Animation_Speed(a0)
-	move.b #spriteanim_\animname\_numframes, Animation_Length(a0)
+	move.w #actor_\actor\_sheet_\sheet\_frameoffset, Animation_FirstFrameOffset(a0)
+	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
+	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_posx, Animation_AnimTrackPositionX(a0)
+	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_posy, Animation_AnimTrackPositionY(a0)
+	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_sfx, Animation_AnimTrackSFX(a0)
+	move.w #actor_\actor\_sheet_\sheet\_anim_\animname\_speed, Animation_Speed(a0)
+	move.b #actor_\actor\_sheet_\sheet\_anim_\animname\_numframes, Animation_Length(a0)
 	move.b #\loop, Animation_Looping(a0)
 	move.b #\zerovel, Animation_ZeroVelocity(a0)
 	move.b #\noreplay, Animation_NoReplay(a0)
 	POPL   a0
 	endm
 
-ANIM_LOAD_MANUALCONTROL: macro sheetname,animname,arrayoffset,index
+ANIM_LOAD_MANUALCONTROL: macro actor,sheet,animname,arrayoffset,index
 	PUSHL  a0
 	lea    (\arrayoffset+(Animation_Struct_Size*\index))(a0), a0
-	move.w #spritesheet_\sheetname\_frameoffset, Animation_FirstFrameOffset(a0)
-	move.l #spriteanim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
+	move.w #actor_\actor\_sheet_\sheet\_frameoffset, Animation_FirstFrameOffset(a0)
+	move.l #actor_\actor\_sheet_\sheet\_anim_\animname\_track_frames, Animation_AnimTrackSpriteFrame(a0)
 	move.l #0x0, Animation_AnimTrackPositionX(a0)
 	move.l #0x0, Animation_AnimTrackPositionY(a0)
 	move.l #0x0, Animation_AnimTrackSFX(a0)
 	move.w #0x0, Animation_Speed(a0)
-	move.b #spriteanim_\animname\_numframes, Animation_Length(a0)
+	move.b #actor_\actor\_sheet_\sheet\_anim_\animname\_numframes, Animation_Length(a0)
 	move.b #0x1, Animation_Looping(a0)
 	move.b #0x0, Animation_ZeroVelocity(a0)
 	move.b #0x0, Animation_NoReplay(a0)

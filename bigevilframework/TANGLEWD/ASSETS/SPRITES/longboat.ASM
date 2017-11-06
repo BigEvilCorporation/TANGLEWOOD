@@ -9,40 +9,44 @@
 
 actor_longboat:
 
-sprite_longboat_size_b		equ 0x0080	; Size in bytes
-sprite_longboat_size_t		equ 0x0004	; Size in tiles
-sprite_longboat_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_longboat_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_longboat_sheet_segment_frametable:
+actor_longboat_sheet_segment_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_longboat_sheet_segment_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_longboat_sheet_segment_frame_0
+	dc.l actor_longboat_sheet_segment_frame_0_subsprite_dimensions_bits
+	dc.l actor_longboat_sheet_segment_frame_0_subsprite_pos_offsets
+
+actor_longboat_sheet_segment_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_longboat_sheet_segment_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_longboat_sheet_segment_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_longboat_subsprite_pos_offsets:
+actor_longboat_sheet_segment_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_longboat_subsprite_dimensions_bits:
+actor_longboat_sheet_segment_frame_0_subsprite_dimensions_bits:
 	dc.b 0xC
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_longboat_numtiles_per_subsprite:
-	dc.b 0x04
-	Even
 
-
-spritesheet_longboat_segment_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_longboat_segment_width		equ 0x20	; Width in pixels
-spritesheet_longboat_segment_height		equ 0x08	; Width in pixels
-spritesheet_longboat_segment_size_b		equ 0x80	; Size in bytes
-spritesheet_longboat_segment_size_w		equ 0x40	; Size in words
-spritesheet_longboat_segment_size_l		equ 0x20	; Size in longwords
-spritesheet_longboat_segment_size_t		equ 0x04	; Size in tiles
+actor_longboat_sheet_segment_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_longboat_sheet_segment_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_longboat_sheet_segment_width		equ 0x20	; Width in pixels
+actor_longboat_sheet_segment_height		equ 0x08	; Width in pixels
+actor_longboat_sheet_segment_size_b		equ 0x80	; Size in bytes
+actor_longboat_sheet_segment_size_w		equ 0x40	; Size in words
+actor_longboat_sheet_segment_size_l		equ 0x20	; Size in longwords
+actor_longboat_sheet_segment_size_t		equ 0x04	; Size in tiles
 
 
 spritesheets_longboat:
 
 spritesheet_longboat_segment:
 
+actor_longboat_sheet_segment_frame_0:
 	dc.l	0xCCFCFCFF
 	dc.l	0x44848844
 	dc.l	0x88CC8CC8
@@ -78,6 +82,7 @@ spritesheet_longboat_segment:
 	dc.l	0xFFC48884
 	dc.l	0x88888440
 	dc.l	0x84400000
+
 
 
 

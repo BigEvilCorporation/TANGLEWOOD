@@ -9,40 +9,44 @@
 
 actor_stalact:
 
-sprite_stalact_size_b		equ 0x0180	; Size in bytes
-sprite_stalact_size_t		equ 0x000C	; Size in tiles
-sprite_stalact_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_stalact_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_stalact_sheet_stalactite_frametable:
+actor_stalact_sheet_stalactite_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_stalact_sheet_stalactite_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_stalact_sheet_stalactite_frame_0
+	dc.l actor_stalact_sheet_stalactite_frame_0_subsprite_dimensions_bits
+	dc.l actor_stalact_sheet_stalactite_frame_0_subsprite_pos_offsets
+
+actor_stalact_sheet_stalactite_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_stalact_sheet_stalactite_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_stalact_sheet_stalactite_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_stalact_subsprite_pos_offsets:
+actor_stalact_sheet_stalactite_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_stalact_subsprite_dimensions_bits:
+actor_stalact_sheet_stalactite_frame_0_subsprite_dimensions_bits:
 	dc.b 0xB
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_stalact_numtiles_per_subsprite:
-	dc.b 0x0C
-	Even
 
-
-spritesheet_stalact_stalactite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_stalact_stalactite_width		equ 0x18	; Width in pixels
-spritesheet_stalact_stalactite_height		equ 0x20	; Width in pixels
-spritesheet_stalact_stalactite_size_b		equ 0x180	; Size in bytes
-spritesheet_stalact_stalactite_size_w		equ 0xC0	; Size in words
-spritesheet_stalact_stalactite_size_l		equ 0x60	; Size in longwords
-spritesheet_stalact_stalactite_size_t		equ 0x0C	; Size in tiles
+actor_stalact_sheet_stalactite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_stalact_sheet_stalactite_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_stalact_sheet_stalactite_width		equ 0x18	; Width in pixels
+actor_stalact_sheet_stalactite_height		equ 0x20	; Width in pixels
+actor_stalact_sheet_stalactite_size_b		equ 0x180	; Size in bytes
+actor_stalact_sheet_stalactite_size_w		equ 0xC0	; Size in words
+actor_stalact_sheet_stalactite_size_l		equ 0x60	; Size in longwords
+actor_stalact_sheet_stalactite_size_t		equ 0x0C	; Size in tiles
 
 
 spritesheets_stalact:
 
 spritesheet_stalact_stalactite:
 
+actor_stalact_sheet_stalactite_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -150,6 +154,7 @@ spritesheet_stalact_stalactite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

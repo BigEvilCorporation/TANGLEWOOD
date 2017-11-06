@@ -59,18 +59,16 @@ WIDGET_SET_ONSELECTED: macro widgetaddr,callbackaddr,userdata
 	endm
 
 	; Load cursor sprite
-CURSOR_LOAD_SPRITE: macro cursoraddr,spritesheet,width,height,palette,prio
+CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
 	PUSHM  d0-d7/a0-a2
-	move.w #sprite_\spritesheet\_size_b, d0
+	move.w #actor_\actor\_sheet_\sheet\_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.l \cursoraddr, a0
-	lea    spritesheets_\spritesheet, a1
-	lea    sprite_\spritesheet\_subsprite_dimensions_bits, a2
-	lea    sprite_\spritesheet\_subsprite_pos_offsets, a3
-	lea    sprite_\spritesheet\_numtiles_per_subsprite, a4
-	move.l #sprite_\spritesheet\_size_t, d1
-	move.b #sprite_\spritesheet\_size_subsprites, d2
-	move.w #sprite_\spritesheet\_widthheight_subsprites, d3
+	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
+	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
+	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
 	move.b #\palette, d4
 	move.b #\prio, d5
 	move.w #\width, d6

@@ -9,40 +9,44 @@
 
 actor_stone:
 
-sprite_stone_size_b		equ 0x0080	; Size in bytes
-sprite_stone_size_t		equ 0x0004	; Size in tiles
-sprite_stone_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_stone_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_stone_sheet_stone_frametable:
+actor_stone_sheet_stone_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_stone_sheet_stone_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_stone_sheet_stone_frame_0
+	dc.l actor_stone_sheet_stone_frame_0_subsprite_dimensions_bits
+	dc.l actor_stone_sheet_stone_frame_0_subsprite_pos_offsets
+
+actor_stone_sheet_stone_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_stone_sheet_stone_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_stone_sheet_stone_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_stone_subsprite_pos_offsets:
+actor_stone_sheet_stone_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_stone_subsprite_dimensions_bits:
+actor_stone_sheet_stone_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_stone_numtiles_per_subsprite:
-	dc.b 0x04
-	Even
 
-
-spritesheet_stone_stone_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_stone_stone_width		equ 0x10	; Width in pixels
-spritesheet_stone_stone_height		equ 0x10	; Width in pixels
-spritesheet_stone_stone_size_b		equ 0x80	; Size in bytes
-spritesheet_stone_stone_size_w		equ 0x40	; Size in words
-spritesheet_stone_stone_size_l		equ 0x20	; Size in longwords
-spritesheet_stone_stone_size_t		equ 0x04	; Size in tiles
+actor_stone_sheet_stone_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_stone_sheet_stone_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_stone_sheet_stone_width		equ 0x10	; Width in pixels
+actor_stone_sheet_stone_height		equ 0x10	; Width in pixels
+actor_stone_sheet_stone_size_b		equ 0x80	; Size in bytes
+actor_stone_sheet_stone_size_w		equ 0x40	; Size in words
+actor_stone_sheet_stone_size_l		equ 0x20	; Size in longwords
+actor_stone_sheet_stone_size_t		equ 0x04	; Size in tiles
 
 
 spritesheets_stone:
 
 spritesheet_stone_stone:
 
+actor_stone_sheet_stone_frame_0:
 	dc.l	0x00000000
 	dc.l	0x0000008E
 	dc.l	0x000008EE
@@ -78,6 +82,7 @@ spritesheet_stone_stone:
 	dc.l	0x111BBB00
 	dc.l	0xBBBB0000
 	dc.l	0xBB000000
+
 
 
 

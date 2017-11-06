@@ -9,13 +9,20 @@
 
 actor_crate:
 
-sprite_crate_size_b		equ 0x0320	; Size in bytes
-sprite_crate_size_t		equ 0x0019	; Size in tiles
-sprite_crate_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_crate_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_crate_sheet_crate_frametable:
+actor_crate_sheet_crate_frame_0_header:
+	dc.w 0x0019	; Frame size (tiles)
+	dc.w actor_crate_sheet_crate_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_crate_sheet_crate_frame_0
+	dc.l actor_crate_sheet_crate_frame_0_subsprite_dimensions_bits
+	dc.l actor_crate_sheet_crate_frame_0_subsprite_pos_offsets
+
+actor_crate_sheet_crate_frame_0_size_b		equ 0x0320	; Size in bytes
+actor_crate_sheet_crate_frame_0_size_t		equ 0x0019	; Size in tiles
+actor_crate_sheet_crate_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_crate_subsprite_pos_offsets:
+actor_crate_sheet_crate_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
 	dc.l 0x00000020, 0x00080020
 	dc.l 0x00200000, 0x00000000
@@ -23,35 +30,29 @@ sprite_crate_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_crate_subsprite_dimensions_bits:
+actor_crate_sheet_crate_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xC
 	dc.b 0x3
 	dc.b 0x0
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_crate_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x04
-	dc.b 0x04
-	dc.b 0x01
-	Even
 
-
-spritesheet_crate_crate_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_crate_crate_width		equ 0x28	; Width in pixels
-spritesheet_crate_crate_height		equ 0x28	; Width in pixels
-spritesheet_crate_crate_size_b		equ 0x320	; Size in bytes
-spritesheet_crate_crate_size_w		equ 0x190	; Size in words
-spritesheet_crate_crate_size_l		equ 0xC8	; Size in longwords
-spritesheet_crate_crate_size_t		equ 0x19	; Size in tiles
+actor_crate_sheet_crate_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_crate_sheet_crate_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_crate_sheet_crate_width		equ 0x28	; Width in pixels
+actor_crate_sheet_crate_height		equ 0x28	; Width in pixels
+actor_crate_sheet_crate_size_b		equ 0x320	; Size in bytes
+actor_crate_sheet_crate_size_w		equ 0x190	; Size in words
+actor_crate_sheet_crate_size_l		equ 0xC8	; Size in longwords
+actor_crate_sheet_crate_size_t		equ 0x19	; Size in tiles
 
 
 spritesheets_crate:
 
 spritesheet_crate_crate:
 
+actor_crate_sheet_crate_frame_0:
 	dc.l	0x22555555
 	dc.l	0x88BBBBBB
 	dc.l	0x55855555
@@ -276,6 +277,7 @@ spritesheet_crate_crate:
 	dc.l	0x55558555
 	dc.l	0xBBBBBB88
 	dc.l	0x55555522
+
 
 
 

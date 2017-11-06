@@ -9,43 +9,46 @@
 
 actor_ladder:
 
-sprite_ladder_size_b		equ 0x0280	; Size in bytes
-sprite_ladder_size_t		equ 0x0014	; Size in tiles
-sprite_ladder_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_ladder_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_ladder_sheet_ladder_frametable:
+actor_ladder_sheet_ladder_frame_0_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_ladder_sheet_ladder_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_ladder_sheet_ladder_frame_0
+	dc.l actor_ladder_sheet_ladder_frame_0_subsprite_dimensions_bits
+	dc.l actor_ladder_sheet_ladder_frame_0_subsprite_pos_offsets
+
+actor_ladder_sheet_ladder_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_ladder_sheet_ladder_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_ladder_sheet_ladder_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_ladder_subsprite_pos_offsets:
+actor_ladder_sheet_ladder_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_ladder_subsprite_dimensions_bits:
+actor_ladder_sheet_ladder_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0x3
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_ladder_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x04
-	Even
 
-
-spritesheet_ladder_ladder_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_ladder_ladder_width		equ 0x28	; Width in pixels
-spritesheet_ladder_ladder_height		equ 0x20	; Width in pixels
-spritesheet_ladder_ladder_size_b		equ 0x280	; Size in bytes
-spritesheet_ladder_ladder_size_w		equ 0x140	; Size in words
-spritesheet_ladder_ladder_size_l		equ 0xA0	; Size in longwords
-spritesheet_ladder_ladder_size_t		equ 0x14	; Size in tiles
+actor_ladder_sheet_ladder_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_ladder_sheet_ladder_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_ladder_sheet_ladder_width		equ 0x28	; Width in pixels
+actor_ladder_sheet_ladder_height		equ 0x20	; Width in pixels
+actor_ladder_sheet_ladder_size_b		equ 0x280	; Size in bytes
+actor_ladder_sheet_ladder_size_w		equ 0x140	; Size in words
+actor_ladder_sheet_ladder_size_l		equ 0xA0	; Size in longwords
+actor_ladder_sheet_ladder_size_t		equ 0x14	; Size in tiles
 
 
 spritesheets_ladder:
 
 spritesheet_ladder_ladder:
 
+actor_ladder_sheet_ladder_frame_0:
 	dc.l	0x66AAADDD
 	dc.l	0x222266A6
 	dc.l	0x66AAADDD
@@ -225,6 +228,7 @@ spritesheet_ladder_ladder:
 	dc.l	0x66A62000
 	dc.l	0xADDA6000
 	dc.l	0x01210000
+
 
 
 

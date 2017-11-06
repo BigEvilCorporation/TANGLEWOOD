@@ -176,18 +176,18 @@ WyrmLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Wyrm,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Wyrm,move,PaletteId_Monster,0x0
 
 	; Load character animations
-	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT wyrm_move,wyrm_move,Character_Animations,CharacterAnimIdx_Run,1,0,0
-	ANIM_LOAD_DEFAULT wyrm_move,wyrm_move,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT wyrm,emerge,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT wyrm,move,move,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT wyrm,move,move,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Load bespoke animations
-	ANIM_LOAD_DEFAULT wyrm_bite,wyrm_bite,Wyrm_Animations,WyrmAnimIdx_Bite,0,1,1
-	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_emerge,Wyrm_Animations,WyrmAnimIdx_Emerge,0,1,1
-	ANIM_LOAD_DEFAULT wyrm_emerge,wyrm_burrow,Wyrm_Animations,WyrmAnimIdx_Burrow,0,1,1
-	ANIM_LOAD_DEFAULT debris_debris,debris_debris,Wyrm_Animations,WyrmAnimIdx_Debris,0,1,1
+	ANIM_LOAD_DEFAULT wyrm,bite,bite,Wyrm_Animations,WyrmAnimIdx_Bite,0,1,1
+	ANIM_LOAD_DEFAULT wyrm,emerge,emerge,Wyrm_Animations,WyrmAnimIdx_Emerge,0,1,1
+	ANIM_LOAD_DEFAULT wyrm,emerge,burrow,Wyrm_Animations,WyrmAnimIdx_Burrow,0,1,1
+	ANIM_LOAD_DEFAULT debris,debris,debris,Wyrm_Animations,WyrmAnimIdx_Debris,0,1,1
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
@@ -204,7 +204,7 @@ WyrmLoadGfx:
 
 	; Load sprite
 	PUSHM  d0/a3
-	SPRITE_LOAD_DEFAULT Debris,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Debris,debris,PaletteId_Monster,0x0
 	POPM   d0/a3
 
 	; Set anim

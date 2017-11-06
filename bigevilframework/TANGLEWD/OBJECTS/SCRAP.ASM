@@ -113,15 +113,15 @@ ScrapLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT scrap,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT scrap,idle,PaletteId_Monster,0x0
 
 	; Load default character animations
-	ANIM_LOAD_DEFAULT scrap_idle,scrap_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT scrap_run,scrap_run,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT scrap_run,scrap_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT scrap,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT scrap,run,run,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT scrap,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	; Load bespoke animations
-	ANIM_LOAD_DEFAULT scrap_bark,scrap_bark,Scrap_Animations,ScrapAnimIdx_Bark,0,1,0
+	ANIM_LOAD_DEFAULT scrap,bark,bark,Scrap_Animations,ScrapAnimIdx_Bark,0,1,0
 
 	rts
 	

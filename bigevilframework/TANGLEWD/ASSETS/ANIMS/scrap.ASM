@@ -9,51 +9,78 @@
 
 spriteanims_scrap:
 
-spriteanim_scrap_bark:
-spriteanim_scrap_bark_numframes: equ 0x4
-spriteanim_scrap_bark_speed: equ 0x42
-spriteanim_scrap_bark_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_scrap_sheet_bark_anim_bark:
+actor_scrap_sheet_bark_anim_bark_numframes: equ 0x4
+actor_scrap_sheet_bark_anim_bark_speed: equ 0x42
+actor_scrap_sheet_bark_anim_bark_track_frames:
+	dc.l actor_scrap_sheet_bark_frame_0_header
+	dc.l actor_scrap_sheet_bark_frame_1_header
+	dc.l actor_scrap_sheet_bark_frame_2_header
+	dc.l actor_scrap_sheet_bark_frame_3_header
+
 	Even
-spriteanim_scrap_bark_track_posx:
+actor_scrap_sheet_bark_anim_bark_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_bark_track_posy:
+actor_scrap_sheet_bark_anim_bark_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_bark_track_sfx:
+actor_scrap_sheet_bark_anim_bark_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_scrap_idle:
-spriteanim_scrap_idle_numframes: equ 0x12
-spriteanim_scrap_idle_speed: equ 0x28
-spriteanim_scrap_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x0, 0x1, 0x2, 0x3, 0x0, 0x1, 0x2, 0x3, 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+actor_scrap_sheet_idle_anim_idle:
+actor_scrap_sheet_idle_anim_idle_numframes: equ 0x12
+actor_scrap_sheet_idle_anim_idle_speed: equ 0x28
+actor_scrap_sheet_idle_anim_idle_track_frames:
+	dc.l actor_scrap_sheet_idle_frame_0_header
+	dc.l actor_scrap_sheet_idle_frame_1_header
+	dc.l actor_scrap_sheet_idle_frame_2_header
+	dc.l actor_scrap_sheet_idle_frame_3_header
+	dc.l actor_scrap_sheet_idle_frame_0_header
+	dc.l actor_scrap_sheet_idle_frame_1_header
+	dc.l actor_scrap_sheet_idle_frame_2_header
+	dc.l actor_scrap_sheet_idle_frame_3_header
+	dc.l actor_scrap_sheet_idle_frame_0_header
+	dc.l actor_scrap_sheet_idle_frame_1_header
+	dc.l actor_scrap_sheet_idle_frame_2_header
+	dc.l actor_scrap_sheet_idle_frame_3_header
+	dc.l actor_scrap_sheet_idle_frame_0_header
+	dc.l actor_scrap_sheet_idle_frame_1_header
+	dc.l actor_scrap_sheet_idle_frame_2_header
+	dc.l actor_scrap_sheet_idle_frame_3_header
+	dc.l actor_scrap_sheet_idle_frame_4_header
+	dc.l actor_scrap_sheet_idle_frame_5_header
+
 	Even
-spriteanim_scrap_idle_track_posx:
+actor_scrap_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_idle_track_posy:
+actor_scrap_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_idle_track_sfx:
+actor_scrap_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_scrap_run:
-spriteanim_scrap_run_numframes: equ 0x5
-spriteanim_scrap_run_speed: equ 0x3D
-spriteanim_scrap_run_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+actor_scrap_sheet_run_anim_run:
+actor_scrap_sheet_run_anim_run_numframes: equ 0x5
+actor_scrap_sheet_run_anim_run_speed: equ 0x3D
+actor_scrap_sheet_run_anim_run_track_frames:
+	dc.l actor_scrap_sheet_run_frame_0_header
+	dc.l actor_scrap_sheet_run_frame_1_header
+	dc.l actor_scrap_sheet_run_frame_2_header
+	dc.l actor_scrap_sheet_run_frame_3_header
+	dc.l actor_scrap_sheet_run_frame_4_header
+
 	Even
-spriteanim_scrap_run_track_posx:
+actor_scrap_sheet_run_anim_run_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_run_track_posy:
+actor_scrap_sheet_run_anim_run_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_scrap_run_track_sfx:
+actor_scrap_sheet_run_anim_run_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

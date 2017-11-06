@@ -9,19 +9,22 @@
 
 spriteanims_generatr:
 
-spriteanim_generatr_spin:
-spriteanim_generatr_spin_numframes: equ 0x3
-spriteanim_generatr_spin_speed: equ 0x28
-spriteanim_generatr_spin_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_generatr_sheet_compressor_anim_spin:
+actor_generatr_sheet_compressor_anim_spin_numframes: equ 0x3
+actor_generatr_sheet_compressor_anim_spin_speed: equ 0x28
+actor_generatr_sheet_compressor_anim_spin_track_frames:
+	dc.l actor_generatr_sheet_compressor_frame_0_header
+	dc.l actor_generatr_sheet_compressor_frame_1_header
+	dc.l actor_generatr_sheet_compressor_frame_2_header
+
 	Even
-spriteanim_generatr_spin_track_posx:
+actor_generatr_sheet_compressor_anim_spin_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_generatr_spin_track_posy:
+actor_generatr_sheet_compressor_anim_spin_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_generatr_spin_track_sfx:
+actor_generatr_sheet_compressor_anim_spin_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 

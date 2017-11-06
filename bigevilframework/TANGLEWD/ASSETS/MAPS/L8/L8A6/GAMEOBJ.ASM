@@ -9,9 +9,9 @@
 
 L8A6_Leaf_count equ 0x0
 
-L8A6_Trap_count equ 0x0
-
 L8A6_Djubb_count equ 0x0
+
+L8A6_Trap_count equ 0x0
 
 L8A6_Echo_count equ 0x1
 L8A6_Echo_3_idx	equ 0x0
@@ -35,9 +35,9 @@ L8A6_BouncePlant_7_name	dc.b "L8A6_BouncePlant_7",0
 
 L8A6_Log_count equ 0x0
 
-L8A6_Borgus_count equ 0x0
-
 L8A6_DjakkCage_count equ 0x0
+
+L8A6_Borgus_count equ 0x0
 
 L8A6_Monster_count equ 0x0
 
@@ -70,6 +70,8 @@ L8A6_Demon_idx	equ 0x0
 L8A6_Demon_name	dc.b "L8A6_Demon",0
 	even
 	ENDIF
+
+L8A6_Raft_count equ 0x0
 
 L8A6_Nest_count equ 0x1
 L8A6_Nest_11_idx	equ 0x0
@@ -111,8 +113,6 @@ L8A6_WaterBody_14_name	dc.b "L8A6_WaterBody_14",0
 
 L8A6_Location_count equ 0x0
 
-L8A6_Lift_count equ 0x0
-
 L8A6_Deathbox_count equ 0x2
 L8A6_Deathbox_8_idx	equ 0x0
 L8A6_Deathbox_9_idx	equ 0x1
@@ -122,6 +122,8 @@ L8A6_Deathbox_8_name	dc.b "L8A6_Deathbox_8",0
 L8A6_Deathbox_9_name	dc.b "L8A6_Deathbox_9",0
 	even
 	ENDIF
+
+L8A6_Lift_count equ 0x0
 
 L8A6_Crate_count equ 0x0
 
@@ -153,8 +155,6 @@ L8A6_Winch_count equ 0x0
 
 L8A6_WindFlue_count equ 0x0
 
-L8A6_Raft_count equ 0x0
-
 L8A6_Lock_count equ 0x0
 
 L8A6_Pool_count equ 0x0
@@ -166,6 +166,8 @@ L8A6_Stalactite_count equ 0x0
 L8A6_CargoLift_count equ 0x0
 
 L8A6_Scrap_count equ 0x0
+
+L8A6_Longboat_count equ 0x0
 
 
 
@@ -290,6 +292,7 @@ L8A6_LoadGameObjects:
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L8A6_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -397,7 +400,6 @@ L8A6_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L8A6_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -428,6 +430,7 @@ L8A6_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 

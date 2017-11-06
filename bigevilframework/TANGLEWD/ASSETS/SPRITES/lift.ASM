@@ -9,43 +9,46 @@
 
 actor_lift:
 
-sprite_lift_size_b		equ 0x0380	; Size in bytes
-sprite_lift_size_t		equ 0x001C	; Size in tiles
-sprite_lift_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_lift_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_lift_sheet_lift_frametable:
+actor_lift_sheet_lift_frame_0_header:
+	dc.w 0x001C	; Frame size (tiles)
+	dc.w actor_lift_sheet_lift_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lift_sheet_lift_frame_0
+	dc.l actor_lift_sheet_lift_frame_0_subsprite_dimensions_bits
+	dc.l actor_lift_sheet_lift_frame_0_subsprite_pos_offsets
+
+actor_lift_sheet_lift_frame_0_size_b		equ 0x0380	; Size in bytes
+actor_lift_sheet_lift_frame_0_size_t		equ 0x001C	; Size in tiles
+actor_lift_sheet_lift_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_lift_subsprite_pos_offsets:
+actor_lift_sheet_lift_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00180000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_lift_subsprite_dimensions_bits:
+actor_lift_sheet_lift_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xB
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_lift_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x0C
-	Even
 
-
-spritesheet_lift_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_lift_lift_width		equ 0x38	; Width in pixels
-spritesheet_lift_lift_height		equ 0x20	; Width in pixels
-spritesheet_lift_lift_size_b		equ 0x380	; Size in bytes
-spritesheet_lift_lift_size_w		equ 0x1C0	; Size in words
-spritesheet_lift_lift_size_l		equ 0xE0	; Size in longwords
-spritesheet_lift_lift_size_t		equ 0x1C	; Size in tiles
+actor_lift_sheet_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_lift_sheet_lift_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_lift_sheet_lift_width		equ 0x38	; Width in pixels
+actor_lift_sheet_lift_height		equ 0x20	; Width in pixels
+actor_lift_sheet_lift_size_b		equ 0x380	; Size in bytes
+actor_lift_sheet_lift_size_w		equ 0x1C0	; Size in words
+actor_lift_sheet_lift_size_l		equ 0xE0	; Size in longwords
+actor_lift_sheet_lift_size_t		equ 0x1C	; Size in tiles
 
 
 spritesheets_lift:
 
 spritesheet_lift_lift:
 
+actor_lift_sheet_lift_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -297,6 +300,7 @@ spritesheet_lift_lift:
 	dc.l	0x11111100
 	dc.l	0x11111000
 	dc.l	0x11110000
+
 
 
 

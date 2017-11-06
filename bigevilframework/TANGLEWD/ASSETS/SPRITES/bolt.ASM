@@ -9,76 +9,110 @@
 
 actor_bolt:
 
-sprite_bolt_size_b		equ 0x0200	; Size in bytes
-sprite_bolt_size_t		equ 0x0010	; Size in tiles
-sprite_bolt_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_bolt_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_bolt_sheet_flash_frametable:
+actor_bolt_sheet_flash_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_bolt_sheet_flash_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_bolt_sheet_flash_frame_0
+	dc.l actor_bolt_sheet_flash_frame_0_subsprite_dimensions_bits
+	dc.l actor_bolt_sheet_flash_frame_0_subsprite_pos_offsets
+
+actor_bolt_sheet_flash_frame_1_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_bolt_sheet_flash_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_bolt_sheet_flash_frame_1
+	dc.l actor_bolt_sheet_flash_frame_1_subsprite_dimensions_bits
+	dc.l actor_bolt_sheet_flash_frame_1_subsprite_pos_offsets
+
+actor_bolt_sheet_flash_frame_2_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_bolt_sheet_flash_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_bolt_sheet_flash_frame_2
+	dc.l actor_bolt_sheet_flash_frame_2_subsprite_dimensions_bits
+	dc.l actor_bolt_sheet_flash_frame_2_subsprite_pos_offsets
+
+actor_bolt_sheet_flash_frame_3_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_bolt_sheet_flash_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_bolt_sheet_flash_frame_3
+	dc.l actor_bolt_sheet_flash_frame_3_subsprite_dimensions_bits
+	dc.l actor_bolt_sheet_flash_frame_3_subsprite_pos_offsets
+
+actor_bolt_sheet_flash_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_bolt_sheet_flash_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_bolt_sheet_flash_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_bolt_subsprite_pos_offsets:
+actor_bolt_sheet_flash_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_bolt_subsprite_dimensions_bits:
+actor_bolt_sheet_flash_frame_0_subsprite_dimensions_bits:
+	dc.b 0xB
+	Even
+
+
+actor_bolt_sheet_flash_frame_1_size_b		equ 0x0200	; Size in bytes
+actor_bolt_sheet_flash_frame_1_size_t		equ 0x0010	; Size in tiles
+actor_bolt_sheet_flash_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_bolt_sheet_flash_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_bolt_sheet_flash_frame_1_subsprite_dimensions_bits:
 	dc.b 0xF
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_bolt_numtiles_per_subsprite:
-	dc.b 0x10
+
+actor_bolt_sheet_flash_frame_2_size_b		equ 0x0200	; Size in bytes
+actor_bolt_sheet_flash_frame_2_size_t		equ 0x0010	; Size in tiles
+actor_bolt_sheet_flash_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_bolt_sheet_flash_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_bolt_sheet_flash_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
 	Even
 
 
-spritesheet_bolt_flash_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_bolt_flash_width		equ 0x20	; Width in pixels
-spritesheet_bolt_flash_height		equ 0x20	; Width in pixels
-spritesheet_bolt_flash_size_b		equ 0x800	; Size in bytes
-spritesheet_bolt_flash_size_w		equ 0x400	; Size in words
-spritesheet_bolt_flash_size_l		equ 0x200	; Size in longwords
-spritesheet_bolt_flash_size_t		equ 0x40	; Size in tiles
+actor_bolt_sheet_flash_frame_3_size_b		equ 0x0200	; Size in bytes
+actor_bolt_sheet_flash_frame_3_size_t		equ 0x0010	; Size in tiles
+actor_bolt_sheet_flash_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_bolt_sheet_flash_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_bolt_sheet_flash_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	Even
+
+
+actor_bolt_sheet_flash_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_bolt_sheet_flash_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_bolt_sheet_flash_width		equ 0x20	; Width in pixels
+actor_bolt_sheet_flash_height		equ 0x20	; Width in pixels
+actor_bolt_sheet_flash_size_b		equ 0x800	; Size in bytes
+actor_bolt_sheet_flash_size_w		equ 0x400	; Size in words
+actor_bolt_sheet_flash_size_l		equ 0x200	; Size in longwords
+actor_bolt_sheet_flash_size_t		equ 0x40	; Size in tiles
 
 
 spritesheets_bolt:
 
 spritesheet_bolt_flash:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_bolt_sheet_flash_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x000000FF
@@ -187,6 +221,8 @@ spritesheet_bolt_flash:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_bolt_sheet_flash_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -331,6 +367,8 @@ spritesheet_bolt_flash:
 	dc.l	0x0000FF00
 	dc.l	0x0000FF00
 
+
+actor_bolt_sheet_flash_frame_2:
 	dc.l	0x000000FF
 	dc.l	0x000000FF
 	dc.l	0x0000FFFF
@@ -475,6 +513,8 @@ spritesheet_bolt_flash:
 	dc.l	0x00FFFF00
 	dc.l	0x00FFFF00
 
+
+actor_bolt_sheet_flash_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -618,6 +658,7 @@ spritesheet_bolt_flash:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

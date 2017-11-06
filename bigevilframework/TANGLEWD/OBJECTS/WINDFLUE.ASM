@@ -98,8 +98,8 @@ WindFlueLoadGfx:
 
 	; Load sprite and anim
 	PUSHM   d0-d2
-	SPRITE_LOAD_DEFAULT leaf,PaletteId_World0,0x0
-	ANIM_LOAD_MANUALCONTROL leaf_green,leaf_fall,Leaf_Animation,0
+	SPRITE_LOAD_DEFAULT leaf,brown,PaletteId_World0,0x0
+	ANIM_LOAD_MANUALCONTROL leaf,green,fall,Leaf_Animation,0
 	move.l  AnimObj_CurrentAnim(a0), a2
 	move.w  #WindFlue_LeafAnimSpeed, Animation_Speed(a2)
 	move.b  #0x1, AnimObj_Playing(a0)

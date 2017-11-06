@@ -9,13 +9,55 @@
 
 actor_wisp:
 
-sprite_wisp_size_b		equ 0x0540	; Size in bytes
-sprite_wisp_size_t		equ 0x002A	; Size in tiles
-sprite_wisp_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_wisp_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_wisp_sheet_idle_frametable:
+actor_wisp_sheet_idle_frame_0_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_0
+	dc.l actor_wisp_sheet_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_0_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_1_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_1
+	dc.l actor_wisp_sheet_idle_frame_1_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_1_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_2_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_2
+	dc.l actor_wisp_sheet_idle_frame_2_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_2_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_3_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_3
+	dc.l actor_wisp_sheet_idle_frame_3_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_3_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_4_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_4
+	dc.l actor_wisp_sheet_idle_frame_4_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_4_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_5_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_wisp_sheet_idle_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wisp_sheet_idle_frame_5
+	dc.l actor_wisp_sheet_idle_frame_5_subsprite_dimensions_bits
+	dc.l actor_wisp_sheet_idle_frame_5_subsprite_pos_offsets
+
+actor_wisp_sheet_idle_frame_0_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_0_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_wisp_subsprite_pos_offsets:
+actor_wisp_sheet_idle_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00180000
 	dc.l 0x00000020, 0x00180020
 	dc.l 0x00200000, 0x00000000
@@ -23,35 +65,134 @@ sprite_wisp_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_wisp_subsprite_dimensions_bits:
+actor_wisp_sheet_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xD
 	dc.b 0xB
 	dc.b 0x9
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_wisp_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x0C
-	dc.b 0x06
+
+actor_wisp_sheet_idle_frame_1_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_1_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wisp_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wisp_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0x9
 	Even
 
 
-spritesheet_wisp_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_wisp_idle_width		equ 0x38	; Width in pixels
-spritesheet_wisp_idle_height		equ 0x30	; Width in pixels
-spritesheet_wisp_idle_size_b		equ 0x1F80	; Size in bytes
-spritesheet_wisp_idle_size_w		equ 0xFC0	; Size in words
-spritesheet_wisp_idle_size_l		equ 0x7E0	; Size in longwords
-spritesheet_wisp_idle_size_t		equ 0xFC	; Size in tiles
+actor_wisp_sheet_idle_frame_2_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_2_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wisp_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wisp_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_wisp_sheet_idle_frame_3_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_3_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_3_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wisp_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wisp_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_wisp_sheet_idle_frame_4_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_4_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_4_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wisp_sheet_idle_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wisp_sheet_idle_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_wisp_sheet_idle_frame_5_size_b		equ 0x0540	; Size in bytes
+actor_wisp_sheet_idle_frame_5_size_t		equ 0x002A	; Size in tiles
+actor_wisp_sheet_idle_frame_5_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wisp_sheet_idle_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wisp_sheet_idle_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_wisp_sheet_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_wisp_sheet_idle_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_wisp_sheet_idle_width		equ 0x38	; Width in pixels
+actor_wisp_sheet_idle_height		equ 0x30	; Width in pixels
+actor_wisp_sheet_idle_size_b		equ 0x1F80	; Size in bytes
+actor_wisp_sheet_idle_size_w		equ 0xFC0	; Size in words
+actor_wisp_sheet_idle_size_l		equ 0x7E0	; Size in longwords
+actor_wisp_sheet_idle_size_t		equ 0xFC	; Size in tiles
 
 
 spritesheets_wisp:
 
 spritesheet_wisp_idle:
 
+actor_wisp_sheet_idle_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -430,6 +571,8 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_wisp_sheet_idle_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -808,6 +951,8 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_wisp_sheet_idle_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1186,6 +1331,8 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_wisp_sheet_idle_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1564,6 +1711,8 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_wisp_sheet_idle_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1942,6 +2091,8 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_wisp_sheet_idle_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2319,6 +2470,7 @@ spritesheet_wisp_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

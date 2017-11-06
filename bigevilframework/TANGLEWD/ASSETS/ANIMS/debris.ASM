@@ -9,19 +9,23 @@
 
 spriteanims_debris:
 
-spriteanim_debris_debris:
-spriteanim_debris_debris_numframes: equ 0x4
-spriteanim_debris_debris_speed: equ 0x5
-spriteanim_debris_debris_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_debris_sheet_debris_anim_debris:
+actor_debris_sheet_debris_anim_debris_numframes: equ 0x4
+actor_debris_sheet_debris_anim_debris_speed: equ 0x5
+actor_debris_sheet_debris_anim_debris_track_frames:
+	dc.l actor_debris_sheet_debris_frame_0_header
+	dc.l actor_debris_sheet_debris_frame_1_header
+	dc.l actor_debris_sheet_debris_frame_2_header
+	dc.l actor_debris_sheet_debris_frame_3_header
+
 	Even
-spriteanim_debris_debris_track_posx:
+actor_debris_sheet_debris_anim_debris_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_debris_debris_track_posy:
+actor_debris_sheet_debris_anim_debris_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_debris_debris_track_sfx:
+actor_debris_sheet_debris_anim_debris_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

@@ -53,7 +53,7 @@ FireflyInit:
 	move.b #0x1, Firefly_Pickup_Value(a0)
 	
 	; Default anim
-	ANIM_LOAD_DEFAULT firefly_red,firefly_idle,Firefly_Animation,0,1,0,0
+	ANIM_LOAD_DEFAULT firefly,red,idle,Firefly_Animation,0,1,0,0
 	
 	; Set animation
 	lea     Firefly_Animation(a0), a3
@@ -63,7 +63,7 @@ FireflyInit:
 	; Random anim start frame
 	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0
-	divu   #(spriteanim_firefly_idle_numframes*SubframesPerFrame), d0	; Mod by anim length
+	divu   #(actor_firefly_sheet_red_anim_idle_numframes*SubframesPerFrame), d0	; Mod by anim length
 	clr.w  d0
 	swap   d0
 	move.l d0, AnimObj_AnimSubFrame(a0)
@@ -74,7 +74,7 @@ FireflyLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED firefly,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_SHARED firefly,red,PaletteId_Fuzzl,0x0
 
 	rts
 	

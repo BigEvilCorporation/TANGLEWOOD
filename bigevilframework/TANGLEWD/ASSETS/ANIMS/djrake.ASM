@@ -9,19 +9,20 @@
 
 spriteanims_djrake:
 
-spriteanim_djrake_idle:
-spriteanim_djrake_idle_numframes: equ 0x1
-spriteanim_djrake_idle_speed: equ 0x5
-spriteanim_djrake_idle_track_frames:
-	dc.b 0x0
+actor_djrake_sheet_idle_anim_idle:
+actor_djrake_sheet_idle_anim_idle_numframes: equ 0x1
+actor_djrake_sheet_idle_anim_idle_speed: equ 0x5
+actor_djrake_sheet_idle_anim_idle_track_frames:
+	dc.l actor_djrake_sheet_idle_frame_0_header
+
 	Even
-spriteanim_djrake_idle_track_posx:
+actor_djrake_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_djrake_idle_track_posy:
+actor_djrake_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_djrake_idle_track_sfx:
+actor_djrake_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0
 	Even
 

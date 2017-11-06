@@ -9,34 +9,42 @@
 
 spriteanims_spitball:
 
-spriteanim_spitball_hit:
-spriteanim_spitball_hit_numframes: equ 0x4
-spriteanim_spitball_hit_speed: equ 0x28
-spriteanim_spitball_hit_track_frames:
-	dc.b 0x4, 0x5, 0x6, 0x7
+actor_spitball_sheet_spitball_anim_hit:
+actor_spitball_sheet_spitball_anim_hit_numframes: equ 0x4
+actor_spitball_sheet_spitball_anim_hit_speed: equ 0x28
+actor_spitball_sheet_spitball_anim_hit_track_frames:
+	dc.l actor_spitball_sheet_spitball_frame_4_header
+	dc.l actor_spitball_sheet_spitball_frame_5_header
+	dc.l actor_spitball_sheet_spitball_frame_6_header
+	dc.l actor_spitball_sheet_spitball_frame_7_header
+
 	Even
-spriteanim_spitball_hit_track_posx:
+actor_spitball_sheet_spitball_anim_hit_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_spitball_hit_track_posy:
+actor_spitball_sheet_spitball_anim_hit_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_spitball_hit_track_sfx:
+actor_spitball_sheet_spitball_anim_hit_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
-spriteanim_spitball_move:
-spriteanim_spitball_move_numframes: equ 0x4
-spriteanim_spitball_move_speed: equ 0x28
-spriteanim_spitball_move_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_spitball_sheet_spitball_anim_move:
+actor_spitball_sheet_spitball_anim_move_numframes: equ 0x4
+actor_spitball_sheet_spitball_anim_move_speed: equ 0x28
+actor_spitball_sheet_spitball_anim_move_track_frames:
+	dc.l actor_spitball_sheet_spitball_frame_0_header
+	dc.l actor_spitball_sheet_spitball_frame_1_header
+	dc.l actor_spitball_sheet_spitball_frame_2_header
+	dc.l actor_spitball_sheet_spitball_frame_3_header
+
 	Even
-spriteanim_spitball_move_track_posx:
+actor_spitball_sheet_spitball_anim_move_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_spitball_move_track_posy:
+actor_spitball_sheet_spitball_anim_move_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_spitball_move_track_sfx:
+actor_spitball_sheet_spitball_anim_move_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

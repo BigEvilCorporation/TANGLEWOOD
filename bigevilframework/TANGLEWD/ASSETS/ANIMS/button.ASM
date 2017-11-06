@@ -9,19 +9,23 @@
 
 spriteanims_button:
 
-spriteanim_button_press:
-spriteanim_button_press_numframes: equ 0x4
-spriteanim_button_press_speed: equ 0x5
-spriteanim_button_press_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_button_sheet_button_anim_press:
+actor_button_sheet_button_anim_press_numframes: equ 0x4
+actor_button_sheet_button_anim_press_speed: equ 0x5
+actor_button_sheet_button_anim_press_track_frames:
+	dc.l actor_button_sheet_button_frame_0_header
+	dc.l actor_button_sheet_button_frame_1_header
+	dc.l actor_button_sheet_button_frame_2_header
+	dc.l actor_button_sheet_button_frame_3_header
+
 	Even
-spriteanim_button_press_track_posx:
+actor_button_sheet_button_anim_press_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_button_press_track_posy:
+actor_button_sheet_button_anim_press_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_button_press_track_sfx:
+actor_button_sheet_button_anim_press_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

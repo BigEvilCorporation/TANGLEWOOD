@@ -9,19 +9,28 @@
 
 spriteanims_flueleaf:
 
-spriteanim_flueleaf_flueleaf:
-spriteanim_flueleaf_flueleaf_numframes: equ 0x9
-spriteanim_flueleaf_flueleaf_speed: equ 0x42
-spriteanim_flueleaf_flueleaf_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8
+actor_flueleaf_sheet_flueleaf_anim_flueleaf:
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_numframes: equ 0x9
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_speed: equ 0x42
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_track_frames:
+	dc.l actor_flueleaf_sheet_flueleaf_frame_0_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_1_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_2_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_3_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_4_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_5_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_6_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_7_header
+	dc.l actor_flueleaf_sheet_flueleaf_frame_8_header
+
 	Even
-spriteanim_flueleaf_flueleaf_track_posx:
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_flueleaf_flueleaf_track_posy:
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_flueleaf_flueleaf_track_sfx:
+actor_flueleaf_sheet_flueleaf_anim_flueleaf_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

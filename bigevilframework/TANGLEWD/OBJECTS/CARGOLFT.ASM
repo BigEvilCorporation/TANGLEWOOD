@@ -60,14 +60,14 @@ CargoLiftLoadGfx:
 	tst.b CargoLift_ManualGfxLoad(a0)
 	bne   @ManualLoad
 
-	SPRITE_LOAD_DEFAULT cargolft,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT cargolft,cargo_lift,PaletteId_World0,0x0
 
 	@ManualLoad:
 
 	; Load rope
 	PUSHL a0
 	lea   Lift_RopeSegment(a0), a0
-	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT rope,rope,PaletteId_World0,0x0
 	POPL  a0
 
 	; Get origin

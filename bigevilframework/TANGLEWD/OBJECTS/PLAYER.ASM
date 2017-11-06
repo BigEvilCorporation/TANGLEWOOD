@@ -2580,10 +2580,10 @@ PlayerInteractTest_Ladder:
 	tst.l  PhysicsObj_VelY(a0)
 	beq    @Stopped
 	bgt    @Down
-	move.w #spriteanim_nymn_climb_speed, Animation_Speed(a3)
+	move.w #actor_nymn_sheet_climb_anim_climb_speed, Animation_Speed(a3)
 	bra    @Up
 	@Down:
-	move.w #-spriteanim_nymn_climb_speed, Animation_Speed(a3)
+	move.w #-actor_nymn_sheet_climb_anim_climb_speed, Animation_Speed(a3)
 	@Up:
 	@Stopped:
 

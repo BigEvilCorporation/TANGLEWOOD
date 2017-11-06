@@ -9,83 +9,107 @@
 
 spriteanims_borgus:
 
-spriteanim_borgus_idle:
-spriteanim_borgus_idle_numframes: equ 0x4
-spriteanim_borgus_idle_speed: equ 0x14
-spriteanim_borgus_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_borgus_sheet_idle_anim_idle:
+actor_borgus_sheet_idle_anim_idle_numframes: equ 0x4
+actor_borgus_sheet_idle_anim_idle_speed: equ 0x14
+actor_borgus_sheet_idle_anim_idle_track_frames:
+	dc.l actor_borgus_sheet_idle_frame_0_header
+	dc.l actor_borgus_sheet_idle_frame_1_header
+	dc.l actor_borgus_sheet_idle_frame_2_header
+	dc.l actor_borgus_sheet_idle_frame_3_header
+
 	Even
-spriteanim_borgus_idle_track_posx:
+actor_borgus_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_idle_track_posy:
+actor_borgus_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_idle_track_sfx:
+actor_borgus_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_borgus_walk:
-spriteanim_borgus_walk_numframes: equ 0x8
-spriteanim_borgus_walk_speed: equ 0x1E
-spriteanim_borgus_walk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+actor_borgus_sheet_walk_anim_walk:
+actor_borgus_sheet_walk_anim_walk_numframes: equ 0x8
+actor_borgus_sheet_walk_anim_walk_speed: equ 0x1E
+actor_borgus_sheet_walk_anim_walk_track_frames:
+	dc.l actor_borgus_sheet_walk_frame_0_header
+	dc.l actor_borgus_sheet_walk_frame_1_header
+	dc.l actor_borgus_sheet_walk_frame_2_header
+	dc.l actor_borgus_sheet_walk_frame_3_header
+	dc.l actor_borgus_sheet_walk_frame_4_header
+	dc.l actor_borgus_sheet_walk_frame_5_header
+	dc.l actor_borgus_sheet_walk_frame_6_header
+	dc.l actor_borgus_sheet_walk_frame_7_header
+
 	Even
-spriteanim_borgus_walk_track_posx:
+actor_borgus_sheet_walk_anim_walk_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_walk_track_posy:
+actor_borgus_sheet_walk_anim_walk_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_walk_track_sfx:
+actor_borgus_sheet_walk_anim_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_borgus_death:
-spriteanim_borgus_death_numframes: equ 0x3
-spriteanim_borgus_death_speed: equ 0x19
-spriteanim_borgus_death_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_borgus_sheet_death_anim_death:
+actor_borgus_sheet_death_anim_death_numframes: equ 0x3
+actor_borgus_sheet_death_anim_death_speed: equ 0x19
+actor_borgus_sheet_death_anim_death_track_frames:
+	dc.l actor_borgus_sheet_death_frame_0_header
+	dc.l actor_borgus_sheet_death_frame_1_header
+	dc.l actor_borgus_sheet_death_frame_2_header
+
 	Even
-spriteanim_borgus_death_track_posx:
+actor_borgus_sheet_death_anim_death_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_death_track_posy:
+actor_borgus_sheet_death_anim_death_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_death_track_sfx:
+actor_borgus_sheet_death_anim_death_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 
-spriteanim_borgus_attack:
-spriteanim_borgus_attack_numframes: equ 0x5
-spriteanim_borgus_attack_speed: equ 0x28
-spriteanim_borgus_attack_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+actor_borgus_sheet_attack_anim_attack:
+actor_borgus_sheet_attack_anim_attack_numframes: equ 0x5
+actor_borgus_sheet_attack_anim_attack_speed: equ 0x28
+actor_borgus_sheet_attack_anim_attack_track_frames:
+	dc.l actor_borgus_sheet_attack_frame_0_header
+	dc.l actor_borgus_sheet_attack_frame_1_header
+	dc.l actor_borgus_sheet_attack_frame_2_header
+	dc.l actor_borgus_sheet_attack_frame_3_header
+	dc.l actor_borgus_sheet_attack_frame_4_header
+
 	Even
-spriteanim_borgus_attack_track_posx:
+actor_borgus_sheet_attack_anim_attack_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_attack_track_posy:
+actor_borgus_sheet_attack_anim_attack_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_attack_track_sfx:
+actor_borgus_sheet_attack_anim_attack_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_borgus_spit:
-spriteanim_borgus_spit_numframes: equ 0x4
-spriteanim_borgus_spit_speed: equ 0x14
-spriteanim_borgus_spit_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_borgus_sheet_spit_anim_spit:
+actor_borgus_sheet_spit_anim_spit_numframes: equ 0x4
+actor_borgus_sheet_spit_anim_spit_speed: equ 0x14
+actor_borgus_sheet_spit_anim_spit_track_frames:
+	dc.l actor_borgus_sheet_spit_frame_0_header
+	dc.l actor_borgus_sheet_spit_frame_1_header
+	dc.l actor_borgus_sheet_spit_frame_2_header
+	dc.l actor_borgus_sheet_spit_frame_3_header
+
 	Even
-spriteanim_borgus_spit_track_posx:
+actor_borgus_sheet_spit_anim_spit_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_spit_track_posy:
+actor_borgus_sheet_spit_anim_spit_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_borgus_spit_track_sfx:
+actor_borgus_sheet_spit_anim_spit_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

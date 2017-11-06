@@ -9,19 +9,23 @@
 
 spriteanims_cart:
 
-spriteanim_cart_roll:
-spriteanim_cart_roll_numframes: equ 0x4
-spriteanim_cart_roll_speed: equ 0x33
-spriteanim_cart_roll_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_cart_sheet_roll_anim_roll:
+actor_cart_sheet_roll_anim_roll_numframes: equ 0x4
+actor_cart_sheet_roll_anim_roll_speed: equ 0x33
+actor_cart_sheet_roll_anim_roll_track_frames:
+	dc.l actor_cart_sheet_roll_frame_0_header
+	dc.l actor_cart_sheet_roll_frame_1_header
+	dc.l actor_cart_sheet_roll_frame_2_header
+	dc.l actor_cart_sheet_roll_frame_3_header
+
 	Even
-spriteanim_cart_roll_track_posx:
+actor_cart_sheet_roll_anim_roll_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_cart_roll_track_posy:
+actor_cart_sheet_roll_anim_roll_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_cart_roll_track_sfx:
+actor_cart_sheet_roll_anim_roll_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

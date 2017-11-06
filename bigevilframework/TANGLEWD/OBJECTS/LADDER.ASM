@@ -61,7 +61,7 @@ LadderLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED Ladder,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Ladder,ladder,PaletteId_World0,0x0
 
 	; Position platform
 	lea    Ladder_Platform(a0), a2

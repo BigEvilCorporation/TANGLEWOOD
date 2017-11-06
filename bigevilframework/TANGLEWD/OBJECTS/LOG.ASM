@@ -127,7 +127,7 @@ LogInit:
 	; Setup animations
 
 	; Roll
-	ANIM_LOAD_DEFAULT Log_roll,Log_roll,Log_Animations,LogAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT Log,roll,roll,Log_Animations,LogAnimIdx_Roll,1,0,0
 	
 	; Start roll animation
 	PUSHL  a1
@@ -144,7 +144,7 @@ LogLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED Log,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Log,roll,PaletteId_World0,0x0
 
 	rts
 	

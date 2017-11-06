@@ -9,13 +9,264 @@
 
 actor_lock:
 
-sprite_lock_size_b		equ 0x01A0	; Size in bytes
-sprite_lock_size_t		equ 0x000D	; Size in tiles
-sprite_lock_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_lock_widthheight_subsprites		equ 0x0104	; Width/height (bb) in subsprites
+actor_lock_sheet_raise_frametable:
+actor_lock_sheet_raise_frame_0_header:
+	dc.w 0x0003	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_0
+	dc.l actor_lock_sheet_raise_frame_0_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_0_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_1_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_1
+	dc.l actor_lock_sheet_raise_frame_1_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_1_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_2_header:
+	dc.w 0x0005	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_2
+	dc.l actor_lock_sheet_raise_frame_2_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_2_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_3_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_3
+	dc.l actor_lock_sheet_raise_frame_3_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_3_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_4_header:
+	dc.w 0x0007	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_4
+	dc.l actor_lock_sheet_raise_frame_4_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_4_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_5_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_5
+	dc.l actor_lock_sheet_raise_frame_5_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_5_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_6_header:
+	dc.w 0x0009	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_6
+	dc.l actor_lock_sheet_raise_frame_6_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_6_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_7_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_7
+	dc.l actor_lock_sheet_raise_frame_7_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_7_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_8_header:
+	dc.w 0x000B	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_8
+	dc.l actor_lock_sheet_raise_frame_8_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_8_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_9_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_9_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_9
+	dc.l actor_lock_sheet_raise_frame_9_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_9_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_10_header:
+	dc.w 0x000D	; Frame size (tiles)
+	dc.w actor_lock_sheet_raise_frame_10_size_subsprites	; Frame size (subsprites)
+	dc.l actor_lock_sheet_raise_frame_10
+	dc.l actor_lock_sheet_raise_frame_10_subsprite_dimensions_bits
+	dc.l actor_lock_sheet_raise_frame_10_subsprite_pos_offsets
+
+actor_lock_sheet_raise_frame_0_size_b		equ 0x0060	; Size in bytes
+actor_lock_sheet_raise_frame_0_size_t		equ 0x0003	; Size in tiles
+actor_lock_sheet_raise_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_lock_subsprite_pos_offsets:
+actor_lock_sheet_raise_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_0_subsprite_dimensions_bits:
+	dc.b 0x2
+	Even
+
+
+actor_lock_sheet_raise_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_lock_sheet_raise_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_lock_sheet_raise_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_1_subsprite_dimensions_bits:
+	dc.b 0x3
+	Even
+
+
+actor_lock_sheet_raise_frame_2_size_b		equ 0x00A0	; Size in bytes
+actor_lock_sheet_raise_frame_2_size_t		equ 0x0005	; Size in tiles
+actor_lock_sheet_raise_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_2_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+
+actor_lock_sheet_raise_frame_3_size_b		equ 0x00C0	; Size in bytes
+actor_lock_sheet_raise_frame_3_size_t		equ 0x0006	; Size in tiles
+actor_lock_sheet_raise_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_3_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+
+actor_lock_sheet_raise_frame_4_size_b		equ 0x00E0	; Size in bytes
+actor_lock_sheet_raise_frame_4_size_t		equ 0x0007	; Size in tiles
+actor_lock_sheet_raise_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_4_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x2
+	Even
+
+
+actor_lock_sheet_raise_frame_5_size_b		equ 0x0100	; Size in bytes
+actor_lock_sheet_raise_frame_5_size_t		equ 0x0008	; Size in tiles
+actor_lock_sheet_raise_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_5_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x3
+	Even
+
+
+actor_lock_sheet_raise_frame_6_size_b		equ 0x0120	; Size in bytes
+actor_lock_sheet_raise_frame_6_size_t		equ 0x0009	; Size in tiles
+actor_lock_sheet_raise_frame_6_size_subsprites		equ 0x0003	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_6_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x3
+	dc.b 0x0
+	Even
+
+
+actor_lock_sheet_raise_frame_7_size_b		equ 0x0140	; Size in bytes
+actor_lock_sheet_raise_frame_7_size_t		equ 0x000A	; Size in tiles
+actor_lock_sheet_raise_frame_7_size_subsprites		equ 0x0003	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_7_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x3
+	dc.b 0x1
+	Even
+
+
+actor_lock_sheet_raise_frame_8_size_b		equ 0x0160	; Size in bytes
+actor_lock_sheet_raise_frame_8_size_t		equ 0x000B	; Size in tiles
+actor_lock_sheet_raise_frame_8_size_subsprites		equ 0x0003	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_8_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x3
+	dc.b 0x2
+	Even
+
+
+actor_lock_sheet_raise_frame_9_size_b		equ 0x0180	; Size in bytes
+actor_lock_sheet_raise_frame_9_size_t		equ 0x000C	; Size in tiles
+actor_lock_sheet_raise_frame_9_size_subsprites		equ 0x0003	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_9_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	dc.l 0x00000040, 0x00000040
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_lock_sheet_raise_frame_9_subsprite_dimensions_bits:
+	dc.b 0x3
+	dc.b 0x3
+	dc.b 0x3
+	Even
+
+
+actor_lock_sheet_raise_frame_10_size_b		equ 0x01A0	; Size in bytes
+actor_lock_sheet_raise_frame_10_size_t		equ 0x000D	; Size in tiles
+actor_lock_sheet_raise_frame_10_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_lock_sheet_raise_frame_10_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	dc.l 0x00000020, 0x00000020
 	dc.l 0x00000040, 0x00000040
@@ -23,125 +274,29 @@ sprite_lock_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_lock_subsprite_dimensions_bits:
+actor_lock_sheet_raise_frame_10_subsprite_dimensions_bits:
 	dc.b 0x3
 	dc.b 0x3
 	dc.b 0x3
 	dc.b 0x0
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_lock_numtiles_per_subsprite:
-	dc.b 0x04
-	dc.b 0x04
-	dc.b 0x04
-	dc.b 0x01
-	Even
 
-
-spritesheet_lock_raise_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_lock_raise_width		equ 0x08	; Width in pixels
-spritesheet_lock_raise_height		equ 0x68	; Width in pixels
-spritesheet_lock_raise_size_b		equ 0x11E0	; Size in bytes
-spritesheet_lock_raise_size_w		equ 0x8F0	; Size in words
-spritesheet_lock_raise_size_l		equ 0x478	; Size in longwords
-spritesheet_lock_raise_size_t		equ 0x8F	; Size in tiles
+actor_lock_sheet_raise_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_lock_sheet_raise_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_lock_sheet_raise_width		equ 0x08	; Width in pixels
+actor_lock_sheet_raise_height		equ 0x68	; Width in pixels
+actor_lock_sheet_raise_size_b		equ 0x11E0	; Size in bytes
+actor_lock_sheet_raise_size_w		equ 0x8F0	; Size in words
+actor_lock_sheet_raise_size_l		equ 0x478	; Size in longwords
+actor_lock_sheet_raise_size_t		equ 0x8F	; Size in tiles
 
 
 spritesheets_lock:
 
 spritesheet_lock_raise:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_0:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -169,87 +324,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_1:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -286,78 +362,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_2:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -403,69 +409,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_3:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -520,60 +465,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_4:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -637,51 +530,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_5:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -754,42 +604,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_6:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -871,33 +687,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_7:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -988,24 +779,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_lock_sheet_raise_frame_8:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -1105,15 +880,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_lock_sheet_raise_frame_9:
 	dc.l	0x8CC0CC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -1222,6 +990,8 @@ spritesheet_lock_raise:
 	dc.l	0x444BBB11
 	dc.l	0x44888821
 
+
+actor_lock_sheet_raise_frame_10:
 	dc.l	0x8CCFCC88
 	dc.l	0x11444411
 	dc.l	0x8CFFC888
@@ -1338,6 +1108,7 @@ spritesheet_lock_raise:
 	dc.l	0x8844BB14
 	dc.l	0x444BBB11
 	dc.l	0x44888821
+
 
 
 

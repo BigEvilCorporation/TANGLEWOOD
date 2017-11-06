@@ -9,19 +9,22 @@
 
 spriteanims_log:
 
-spriteanim_log_roll:
-spriteanim_log_roll_numframes: equ 0x3
-spriteanim_log_roll_speed: equ 0x5
-spriteanim_log_roll_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_log_sheet_roll_anim_roll:
+actor_log_sheet_roll_anim_roll_numframes: equ 0x3
+actor_log_sheet_roll_anim_roll_speed: equ 0x5
+actor_log_sheet_roll_anim_roll_track_frames:
+	dc.l actor_log_sheet_roll_frame_0_header
+	dc.l actor_log_sheet_roll_frame_1_header
+	dc.l actor_log_sheet_roll_frame_2_header
+
 	Even
-spriteanim_log_roll_track_posx:
+actor_log_sheet_roll_anim_roll_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_log_roll_track_posy:
+actor_log_sheet_roll_anim_roll_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_log_roll_track_sfx:
+actor_log_sheet_roll_anim_roll_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 

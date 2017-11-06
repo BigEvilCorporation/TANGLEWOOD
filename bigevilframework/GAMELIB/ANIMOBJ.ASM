@@ -25,6 +25,15 @@ AnimObj_UploadFrame	 	 rs.b 1 ; Frame needs uploading to VRAM
 AnimObj_Struct_Pad       rs.b 0
 AnimObj_Struct_Size      rs.b 0
 
+	rsset 0
+AnimFrameHeader_SizeTiles			rs.w 1	; Frame size (tiles)
+AnimFrameHeader_SizeSubsprites		rs.w 1	; Frame size (subsprites)
+AnimFrameHeader_AddrTiles			rs.l 1	; Tiles address
+AnimFrameHeader_AddrDimensionTbl	rs.l 1	; Subsprite dimension bits table addr
+AnimFrameHeader_AddrPosOffsetsTbl	rs.l 1	; Subsprite position offsets table addr
+;-----------------------------------------
+AnimFrameHeader_Struct_Size			rs.b 0
+
 ;==============================================================
 
 AnimObjInit:
@@ -203,12 +212,35 @@ AnimObjDraw:
 	
 	; Frame advanced, + DMA new tiles to VRAM
 	movem.l d2/a0-a2, -(sp)
+
+	; Get frame header
+	lsl.l  #0x2, d2	; Frame index to address offset
+	move.l Animation_AnimTrackSpriteFrame(a2), a3
+	add.l  d2, a3
+	move.l (a3), a1
+
+	; Load new sprite attributes
+	move.l AnimFrameHeader_AddrDimensionTbl(a1), SpriteObj_SubSpriteDimArr(a0)
+	move.l AnimFrameHeader_AddrPosOffsetsTbl(a1), SpriteObj_SubSpriteOffArr(a0)
+	move.w AnimFrameHeader_SizeSubsprites(a1), d5
+	move.b d5, SpriteObj_NumSubSprites(a0)
+
+	; Load tiles
+	; a0 - Tiles address (l)
+	; d0 - VRAM address (w)
+	; d1 - Num tiles (w)
 	move.w SpriteObj_VRAMAddr(a0), d0
-	move.w SpriteObj_TilesetSize(a0), d1
-	move.w Animation_FirstFrameOffset(a2), d4
-	move.l Animation_AnimTrackSpriteFrame(a2), a1
-	move.l SpriteObj_TilesetAddr(a0), a0
-	jsr    SPR_LoadAnimFrame
+	move.l AnimFrameHeader_AddrTiles(a1), a0
+	move.w AnimFrameHeader_SizeTiles(a1), d1
+	lsl.w   #0x4, d1	   ; Sizs to words (32 bytes, 16 words)
+	jsr     VDP_DMAQueue_AddJob
+
+	;move.w SpriteObj_VRAMAddr(a0), d0
+	;move.w SpriteObj_SizeTiles(a0), d1
+	;move.w Animation_FirstFrameOffset(a2), d4
+	;move.l Animation_AnimTrackSpriteFrame(a2), a1
+	;move.l SpriteObj_TilesetAddr(a0), a0
+	;jsr    SPR_LoadAnimFrame
 	movem.l (sp)+, d2/a0-a2
 	
 	; X position track

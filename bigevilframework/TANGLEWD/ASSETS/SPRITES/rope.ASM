@@ -9,115 +9,44 @@
 
 actor_rope:
 
-sprite_rope_size_b		equ 0x0380	; Size in bytes
-sprite_rope_size_t		equ 0x001C	; Size in tiles
-sprite_rope_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_rope_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_rope_sheet_rope_frametable:
+actor_rope_sheet_rope_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_rope_sheet_rope_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_rope_sheet_rope_frame_0
+	dc.l actor_rope_sheet_rope_frame_0_subsprite_dimensions_bits
+	dc.l actor_rope_sheet_rope_frame_0_subsprite_pos_offsets
+
+actor_rope_sheet_rope_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_rope_sheet_rope_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_rope_sheet_rope_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_rope_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00180000
-	dc.l 0x00200000, 0x00000000
+actor_rope_sheet_rope_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_rope_subsprite_dimensions_bits:
-	dc.b 0xF
+actor_rope_sheet_rope_frame_0_subsprite_dimensions_bits:
 	dc.b 0xB
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_rope_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x0C
-	Even
 
-
-spritesheet_rope_rope_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_rope_rope_width		equ 0x38	; Width in pixels
-spritesheet_rope_rope_height		equ 0x20	; Width in pixels
-spritesheet_rope_rope_size_b		equ 0x380	; Size in bytes
-spritesheet_rope_rope_size_w		equ 0x1C0	; Size in words
-spritesheet_rope_rope_size_l		equ 0xE0	; Size in longwords
-spritesheet_rope_rope_size_t		equ 0x1C	; Size in tiles
+actor_rope_sheet_rope_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_rope_sheet_rope_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_rope_sheet_rope_width		equ 0x38	; Width in pixels
+actor_rope_sheet_rope_height		equ 0x20	; Width in pixels
+actor_rope_sheet_rope_size_b		equ 0x380	; Size in bytes
+actor_rope_sheet_rope_size_w		equ 0x1C0	; Size in words
+actor_rope_sheet_rope_size_l		equ 0xE0	; Size in longwords
+actor_rope_sheet_rope_size_t		equ 0x1C	; Size in tiles
 
 
 spritesheets_rope:
 
 spritesheet_rope_rope:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_rope_sheet_rope_frame_0:
 	dc.l	0x000A4000
 	dc.l	0x0004A000
 	dc.l	0x000A4000
@@ -226,77 +155,6 @@ spritesheet_rope_rope:
 	dc.l	0x000A4000
 	dc.l	0x0004A000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 
 

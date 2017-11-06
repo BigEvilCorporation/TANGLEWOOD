@@ -9,46 +9,48 @@
 
 actor_djakcage:
 
-sprite_djakcage_size_b		equ 0x0300	; Size in bytes
-sprite_djakcage_size_t		equ 0x0018	; Size in tiles
-sprite_djakcage_size_subsprites		equ 0x0003	; Size in subsprites
-sprite_djakcage_widthheight_subsprites		equ 0x0103	; Width/height (bb) in subsprites
+actor_djakcage_sheet_djakk_cage_frametable:
+actor_djakcage_sheet_djakk_cage_frame_0_header:
+	dc.w 0x0018	; Frame size (tiles)
+	dc.w actor_djakcage_sheet_djakk_cage_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djakcage_sheet_djakk_cage_frame_0
+	dc.l actor_djakcage_sheet_djakk_cage_frame_0_subsprite_dimensions_bits
+	dc.l actor_djakcage_sheet_djakk_cage_frame_0_subsprite_pos_offsets
+
+actor_djakcage_sheet_djakk_cage_frame_0_size_b		equ 0x0300	; Size in bytes
+actor_djakcage_sheet_djakk_cage_frame_0_size_t		equ 0x0018	; Size in tiles
+actor_djakcage_sheet_djakk_cage_frame_0_size_subsprites		equ 0x0003	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_djakcage_subsprite_pos_offsets:
+actor_djakcage_sheet_djakk_cage_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	dc.l 0x00000020, 0x00000020
 	dc.l 0x00000040, 0x00000040
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_djakcage_subsprite_dimensions_bits:
+actor_djakcage_sheet_djakk_cage_frame_0_subsprite_dimensions_bits:
 	dc.b 0x7
 	dc.b 0x7
 	dc.b 0x7
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_djakcage_numtiles_per_subsprite:
-	dc.b 0x08
-	dc.b 0x08
-	dc.b 0x08
-	Even
 
-
-spritesheet_djakcage_djakk_cage_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_djakcage_djakk_cage_width		equ 0x10	; Width in pixels
-spritesheet_djakcage_djakk_cage_height		equ 0x60	; Width in pixels
-spritesheet_djakcage_djakk_cage_size_b		equ 0x300	; Size in bytes
-spritesheet_djakcage_djakk_cage_size_w		equ 0x180	; Size in words
-spritesheet_djakcage_djakk_cage_size_l		equ 0xC0	; Size in longwords
-spritesheet_djakcage_djakk_cage_size_t		equ 0x18	; Size in tiles
+actor_djakcage_sheet_djakk_cage_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_djakcage_sheet_djakk_cage_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_djakcage_sheet_djakk_cage_width		equ 0x10	; Width in pixels
+actor_djakcage_sheet_djakk_cage_height		equ 0x60	; Width in pixels
+actor_djakcage_sheet_djakk_cage_size_b		equ 0x300	; Size in bytes
+actor_djakcage_sheet_djakk_cage_size_w		equ 0x180	; Size in words
+actor_djakcage_sheet_djakk_cage_size_l		equ 0xC0	; Size in longwords
+actor_djakcage_sheet_djakk_cage_size_t		equ 0x18	; Size in tiles
 
 
 spritesheets_djakcage:
 
 spritesheet_djakcage_djakk_cage:
 
+actor_djakcage_sheet_djakk_cage_frame_0:
 	dc.l	0x88BBBBBB
 	dc.l	0x25555555
 	dc.l	0x88BBBBBB
@@ -264,6 +266,7 @@ spritesheet_djakcage_djakk_cage:
 	dc.l	0xBBBBBB88
 	dc.l	0x55558555
 	dc.l	0xBBBBBB88
+
 
 
 

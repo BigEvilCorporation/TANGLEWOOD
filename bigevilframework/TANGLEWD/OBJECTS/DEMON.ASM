@@ -171,7 +171,7 @@ DemonLoadGfx:
 	bne     @ManualLoad
 
 	; Load sprite (to alloc VRAM for wisp)
-	SPRITE_LOAD_DEFAULT Demon,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Demon,idle,PaletteId_Monster,0x0
 
 	; Load wisp
 	jsr DemonLoadWispGfx
@@ -179,20 +179,20 @@ DemonLoadGfx:
 	@ManualLoad:
 
 	; Load default character animations
-	ANIM_LOAD_DEFAULT demon_idle,demon_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Load bespoke animations
-	ANIM_LOAD_DEFAULT demon_emerge,demon_wisptoemerge,Demon_Animations,DemonAnimIdx_WispToEmerge,0,0,0
-	ANIM_LOAD_DEFAULT demon_emerge,demon_transition,Demon_Animations,DemonAnimIdx_Transition,1,0,0
-	ANIM_LOAD_DEFAULT demon_emerge,demon_emerge,Demon_Animations,DemonAnimIdx_Emerge,0,0,0
-	ANIM_LOAD_DEFAULT demon_idletosmirk,demon_idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
-	ANIM_LOAD_DEFAULT demon_bite,demon_bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
+	ANIM_LOAD_DEFAULT demon,emerge,wisptoemerge,Demon_Animations,DemonAnimIdx_WispToEmerge,0,0,0
+	ANIM_LOAD_DEFAULT demon,emerge,transition,Demon_Animations,DemonAnimIdx_Transition,1,0,0
+	ANIM_LOAD_DEFAULT demon,emerge,emerge,Demon_Animations,DemonAnimIdx_Emerge,0,0,0
+	ANIM_LOAD_DEFAULT demon,idletosmirk,idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
+	ANIM_LOAD_DEFAULT demon,bite,bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
 
 	; Load wisp anim and start playing
 	PUSHM   a0-a1
 	move.l  a0, a4
 	lea     Demon_Wisp(a0), a0
-	ANIM_LOAD_DEFAULT wisp_idle,wisp_idle,Wisp_Animation,0,1,0,0
+	ANIM_LOAD_DEFAULT wisp,idle,idle,Wisp_Animation,0,1,0,0
 	lea     Wisp_Animation(a0), a1
 	move.b  #0x0, d0
 	move.l #0x0, a2
@@ -208,7 +208,7 @@ DemonLoadWispGfx:
 	PUSHM   a0-a1
 	move.l  a0, a4
 	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_COPY wisp,PaletteId_Monster,0x0,a4
+	SPRITE_LOAD_COPY wisp,idle,PaletteId_Monster,0x0,a4
 	POPM    a0-a1
 
 	rts
@@ -217,7 +217,7 @@ DemonLoadPhysicalGfx:
 
 	; Load demon sprite over top of wisp
 	PUSHM   a0-a1
-	SPRITE_LOAD_COPY Demon,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_COPY Demon,idle,PaletteId_Monster,0x0,a0
 	POPM    a0-a1
 
 	rts
@@ -339,7 +339,7 @@ DemonStartEmerge:
 	POPL    a1
 
 	; Set transitioning idle anim
-	ANIM_LOAD_DEFAULT demon_emerge,demon_transition,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,emerge,transition,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Set physical state
 	move.b  #DemonState_Physical, Demon_State(a0)
@@ -360,7 +360,7 @@ DemonEmerge:
 	POPL    a1
 
 	; Set standard idle anim
-	ANIM_LOAD_DEFAULT demon_idle,demon_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	rts
 
@@ -378,7 +378,7 @@ DemonSmirk:
 	POPL    a1
 
 	; Set smirking idle anim
-	ANIM_LOAD_DEFAULT demon_smirk,demon_smirk,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,smirk,smirk,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	rts
 

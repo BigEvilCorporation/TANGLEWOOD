@@ -177,23 +177,23 @@ BorgusLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Borgus,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Borgus,idle,PaletteId_Monster,0x0
 
 	; Load default character animations
-	ANIM_LOAD_DEFAULT Borgus_idle,Borgus_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT Borgus_walk,Borgus_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT Borgus_walk,Borgus_walk,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT Borgus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	; Load bespoke animations
-	ANIM_LOAD_DEFAULT Borgus_spit,Borgus_spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0
-	ANIM_LOAD_DEFAULT Borgus_attack,Borgus_attack,Borgus_Animations,BorgusAnimIdx_Swipe,0,1,0
-	ANIM_LOAD_DEFAULT Borgus_death,Borgus_death,Borgus_Animations,BorgusAnimIdx_Dead,0,1,0
+	ANIM_LOAD_DEFAULT Borgus,spit,spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0
+	ANIM_LOAD_DEFAULT Borgus,attack,attack,Borgus_Animations,BorgusAnimIdx_Swipe,0,1,0
+	ANIM_LOAD_DEFAULT Borgus,death,death,Borgus_Animations,BorgusAnimIdx_Dead,0,1,0
 
 	; Load spitball and start animation
 	PUSHM   a0-a1
 	lea     Borgus_Spitball(a0), a0
-	SPRITE_LOAD_DEFAULT Spitball,PaletteId_Monster,0x0
-	ANIM_LOAD_DEFAULT spitball_spitball,spitball_move,Spitball_Animation,0,1,0,0
+	SPRITE_LOAD_DEFAULT Spitball,spitball,PaletteId_Monster,0x0
+	ANIM_LOAD_DEFAULT spitball,spitball,move,Spitball_Animation,0,1,0,0
 	lea     Spitball_Animation(a0), a1
 	move.b  #0x0, d0
 	move.l  #0x0, a2

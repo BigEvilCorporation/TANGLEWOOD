@@ -9,19 +9,21 @@
 
 spriteanims_cogs:
 
-spriteanim_cogs_spin:
-spriteanim_cogs_spin_numframes: equ 0x2
-spriteanim_cogs_spin_speed: equ 0x28
-spriteanim_cogs_spin_track_frames:
-	dc.b 0x0, 0x1
+actor_cogs_sheet_cogs_anim_spin:
+actor_cogs_sheet_cogs_anim_spin_numframes: equ 0x2
+actor_cogs_sheet_cogs_anim_spin_speed: equ 0x28
+actor_cogs_sheet_cogs_anim_spin_track_frames:
+	dc.l actor_cogs_sheet_cogs_frame_0_header
+	dc.l actor_cogs_sheet_cogs_frame_1_header
+
 	Even
-spriteanim_cogs_spin_track_posx:
+actor_cogs_sheet_cogs_anim_spin_track_posx:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_cogs_spin_track_posy:
+actor_cogs_sheet_cogs_anim_spin_track_posy:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_cogs_spin_track_sfx:
+actor_cogs_sheet_cogs_anim_spin_track_sfx:
 	dc.l 0x0, 0x0
 	Even
 

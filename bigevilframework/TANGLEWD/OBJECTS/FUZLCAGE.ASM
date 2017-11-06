@@ -122,7 +122,7 @@ FuzzlCageInit:
 	; Setup animations
 
 	; Smash
-	ANIM_LOAD_DEFAULT fuzlcage_fuzzl_cage,fuzlcage_smash,FuzzlCage_Animations,FuzzlCageAnimIdx_Smash,0,0,0
+	ANIM_LOAD_DEFAULT fuzlcage,fuzzl_cage,smash,FuzzlCage_Animations,FuzzlCageAnimIdx_Smash,0,0,0
 
 	rts
 
@@ -131,7 +131,7 @@ FuzzlCageLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT FuzlCage,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT FuzlCage,fuzzl_cage,PaletteId_World0,0x0
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

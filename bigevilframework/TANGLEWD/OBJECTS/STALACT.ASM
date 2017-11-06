@@ -78,7 +78,7 @@ StalactiteLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED Stalact,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Stalact,stalactite,PaletteId_World0,0x0
 
 	rts
 

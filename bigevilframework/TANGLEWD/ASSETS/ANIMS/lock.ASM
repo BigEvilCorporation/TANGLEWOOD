@@ -9,19 +9,30 @@
 
 spriteanims_lock:
 
-spriteanim_lock_raise:
-spriteanim_lock_raise_numframes: equ 0xB
-spriteanim_lock_raise_speed: equ 0x28
-spriteanim_lock_raise_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA
+actor_lock_sheet_raise_anim_raise:
+actor_lock_sheet_raise_anim_raise_numframes: equ 0xB
+actor_lock_sheet_raise_anim_raise_speed: equ 0x28
+actor_lock_sheet_raise_anim_raise_track_frames:
+	dc.l actor_lock_sheet_raise_frame_0_header
+	dc.l actor_lock_sheet_raise_frame_1_header
+	dc.l actor_lock_sheet_raise_frame_2_header
+	dc.l actor_lock_sheet_raise_frame_3_header
+	dc.l actor_lock_sheet_raise_frame_4_header
+	dc.l actor_lock_sheet_raise_frame_5_header
+	dc.l actor_lock_sheet_raise_frame_6_header
+	dc.l actor_lock_sheet_raise_frame_7_header
+	dc.l actor_lock_sheet_raise_frame_8_header
+	dc.l actor_lock_sheet_raise_frame_9_header
+	dc.l actor_lock_sheet_raise_frame_10_header
+
 	Even
-spriteanim_lock_raise_track_posx:
+actor_lock_sheet_raise_anim_raise_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_lock_raise_track_posy:
+actor_lock_sheet_raise_anim_raise_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_lock_raise_track_sfx:
+actor_lock_sheet_raise_anim_raise_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

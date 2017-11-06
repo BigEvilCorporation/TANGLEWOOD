@@ -94,7 +94,7 @@ RaftLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT raft,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT raft,float,PaletteId_World0,0x0
 
 	rts
 

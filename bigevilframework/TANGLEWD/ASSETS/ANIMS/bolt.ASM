@@ -9,19 +9,23 @@
 
 spriteanims_bolt:
 
-spriteanim_bolt_flash:
-spriteanim_bolt_flash_numframes: equ 0x4
-spriteanim_bolt_flash_speed: equ 0x70
-spriteanim_bolt_flash_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_bolt_sheet_flash_anim_flash:
+actor_bolt_sheet_flash_anim_flash_numframes: equ 0x4
+actor_bolt_sheet_flash_anim_flash_speed: equ 0x70
+actor_bolt_sheet_flash_anim_flash_track_frames:
+	dc.l actor_bolt_sheet_flash_frame_0_header
+	dc.l actor_bolt_sheet_flash_frame_1_header
+	dc.l actor_bolt_sheet_flash_frame_2_header
+	dc.l actor_bolt_sheet_flash_frame_3_header
+
 	Even
-spriteanim_bolt_flash_track_posx:
+actor_bolt_sheet_flash_anim_flash_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_bolt_flash_track_posy:
+actor_bolt_sheet_flash_anim_flash_track_posy:
 	dc.b 0x00, 0xE0, 0xC0, 0xA0
 	Even
-spriteanim_bolt_flash_track_sfx:
+actor_bolt_sheet_flash_anim_flash_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 

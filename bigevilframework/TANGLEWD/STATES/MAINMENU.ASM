@@ -38,7 +38,7 @@ MainMenuFadeTime	equ (0x2<<0x8) ; Subframes (1 frame per tick)
 MainMenuSoundFadeSpeed	equ -10
 MenuBgFadeDelay		equ 0x0080
 MainMenuLogoBorder	equ 0x0000
-MainMenuLogoPosX	equ (vdp_sprite_border_x+(screen_width/2)-(spritesheet_twd_logo_twd_logo_width/2))*subpixels_per_pixel
+MainMenuLogoPosX	equ (vdp_sprite_border_x+(screen_width/2)-(actor_twd_logo_sheet_twd_logo_width/2))*subpixels_per_pixel
 MainMenuLogoPosY	equ (vdp_sprite_border_y+MainMenuLogoBorder)*subpixels_per_pixel
 
 ; Struct
@@ -115,7 +115,7 @@ MainMenu_Enter:
 	jsr    EntityAddToRenderList
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT twd_logo,PaletteId_TanglewoodLogo,0x0
+	SPRITE_LOAD_DEFAULT twd_logo,twd_logo,PaletteId_TanglewoodLogo,0x0
 
 	move.l #MainMenuLogoPosX, Entity_WorldPosX(a0)	; Set pos
 	move.l #MainMenuLogoPosY, Entity_WorldPosY(a0)

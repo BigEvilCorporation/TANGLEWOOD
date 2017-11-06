@@ -118,7 +118,7 @@ LongboatLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Longboat,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Longboat,segment,PaletteId_World0,0x0
 
 	; Position all segments
 	jsr    LongboatUpdateSegments

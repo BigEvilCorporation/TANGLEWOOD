@@ -36,15 +36,15 @@ BouncePlantOrient_315      equ 7
 
 ; Sprite sheet offsets
 BouncePlantSpriteSheetOffs:
-BouncePlantSpriteSheet_0:		dc.l spritesheet_mushroom_mushroom_180_frameoffset
-BouncePlantSpriteSheet_45:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
-BouncePlantSpriteSheet_90:		dc.l spritesheet_mushroom_mushroom_270_frameoffset
-BouncePlantSpriteSheet_135:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
-BouncePlantSpriteSheet_180:		dc.l spritesheet_mushroom_mushroom_180_frameoffset
-BouncePlantSpriteSheet_225:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
-BouncePlantSpriteSheet_270:		dc.l spritesheet_mushroom_mushroom_270_frameoffset
-BouncePlantSpriteSheet_315:		dc.l spritesheet_mushroom_mushroom_225_frameoffset
-
+BouncePlantSpriteSheet_0:	dc.l actor_mushroom_sheet_mushroom_180_frameoffset
+BouncePlantSpriteSheet_45:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
+BouncePlantSpriteSheet_90:	dc.l actor_mushroom_sheet_mushroom_270_frameoffset
+BouncePlantSpriteSheet_135:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
+BouncePlantSpriteSheet_180:	dc.l actor_mushroom_sheet_mushroom_180_frameoffset
+BouncePlantSpriteSheet_225:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
+BouncePlantSpriteSheet_270:	dc.l actor_mushroom_sheet_mushroom_270_frameoffset
+BouncePlantSpriteSheet_315:	dc.l actor_mushroom_sheet_mushroom_225_frameoffset
+; 
 ; Sprite flipping (XY)
 BouncePlantSpriteFlip:
 BouncePlantSpriteFlip_0:		dc.w 0x0001
@@ -170,7 +170,7 @@ BouncePlantLoadGfx:
 	PUSHL  a1
 
 	; Alloc VRAM
-	move.w #sprite_mushroom_size_b, d0
+	move.w #actor_mushroom_sheet_mushroom_180_size_b, d0
 	jsr    VRAM_PoolAlloc
 
 	; Select sprite sheet based on orientation
@@ -180,17 +180,15 @@ BouncePlantLoadGfx:
 	lea    BouncePlantSpriteSheetOffs, a3
 	add.l  d1, a3
 	move.l (a3), d1
-	mulu   #sprite_mushroom_size_b, d1
+	mulu   #actor_mushroom_sheet_mushroom_180_frame_0_size_b, d1
 	move.l #spritesheets_mushroom, a1
 	add.l  d1, a1
 	
 	; Load sprite sheet
-	lea    sprite_mushroom_subsprite_dimensions_bits, a2
-	lea    sprite_mushroom_subsprite_pos_offsets, a3
-	lea    sprite_mushroom_numtiles_per_subsprite, a4
-	move.l #sprite_mushroom_size_t, d1
-	move.b #sprite_mushroom_size_subsprites, d2
-	move.w #sprite_mushroom_widthheight_subsprites, d3
+	lea    actor_mushroom_sheet_mushroom_180_frame_0_subsprite_dimensions_bits, a2
+	lea    actor_mushroom_sheet_mushroom_180_frame_0_subsprite_pos_offsets, a3
+	move.l #actor_mushroom_sheet_mushroom_180_frame_0_size_t, d1
+	move.b #actor_mushroom_sheet_mushroom_180_frame_0_size_subsprites, d2
 	move.b #PaletteId_World0, d4
 	move.b #0x0, d5
 	jsr    SpriteObjLoad

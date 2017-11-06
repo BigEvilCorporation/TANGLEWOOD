@@ -9,43 +9,94 @@
 
 actor_generatr:
 
-sprite_generatr_size_b		equ 0x0140	; Size in bytes
-sprite_generatr_size_t		equ 0x000A	; Size in tiles
-sprite_generatr_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_generatr_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_generatr_sheet_compressor_frametable:
+actor_generatr_sheet_compressor_frame_0_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_generatr_sheet_compressor_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_generatr_sheet_compressor_frame_0
+	dc.l actor_generatr_sheet_compressor_frame_0_subsprite_dimensions_bits
+	dc.l actor_generatr_sheet_compressor_frame_0_subsprite_pos_offsets
+
+actor_generatr_sheet_compressor_frame_1_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_generatr_sheet_compressor_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_generatr_sheet_compressor_frame_1
+	dc.l actor_generatr_sheet_compressor_frame_1_subsprite_dimensions_bits
+	dc.l actor_generatr_sheet_compressor_frame_1_subsprite_pos_offsets
+
+actor_generatr_sheet_compressor_frame_2_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_generatr_sheet_compressor_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_generatr_sheet_compressor_frame_2
+	dc.l actor_generatr_sheet_compressor_frame_2_subsprite_dimensions_bits
+	dc.l actor_generatr_sheet_compressor_frame_2_subsprite_pos_offsets
+
+actor_generatr_sheet_compressor_frame_0_size_b		equ 0x0140	; Size in bytes
+actor_generatr_sheet_compressor_frame_0_size_t		equ 0x000A	; Size in tiles
+actor_generatr_sheet_compressor_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_generatr_subsprite_pos_offsets:
+actor_generatr_sheet_compressor_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_generatr_subsprite_dimensions_bits:
+actor_generatr_sheet_compressor_frame_0_subsprite_dimensions_bits:
 	dc.b 0xD
 	dc.b 0x1
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_generatr_numtiles_per_subsprite:
-	dc.b 0x08
-	dc.b 0x02
+
+actor_generatr_sheet_compressor_frame_1_size_b		equ 0x0140	; Size in bytes
+actor_generatr_sheet_compressor_frame_1_size_t		equ 0x000A	; Size in tiles
+actor_generatr_sheet_compressor_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_generatr_sheet_compressor_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_generatr_sheet_compressor_frame_1_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x1
 	Even
 
 
-spritesheet_generatr_compressor_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_generatr_compressor_width		equ 0x28	; Width in pixels
-spritesheet_generatr_compressor_height		equ 0x10	; Width in pixels
-spritesheet_generatr_compressor_size_b		equ 0x3C0	; Size in bytes
-spritesheet_generatr_compressor_size_w		equ 0x1E0	; Size in words
-spritesheet_generatr_compressor_size_l		equ 0xF0	; Size in longwords
-spritesheet_generatr_compressor_size_t		equ 0x1E	; Size in tiles
+actor_generatr_sheet_compressor_frame_2_size_b		equ 0x0140	; Size in bytes
+actor_generatr_sheet_compressor_frame_2_size_t		equ 0x000A	; Size in tiles
+actor_generatr_sheet_compressor_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_generatr_sheet_compressor_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_generatr_sheet_compressor_frame_2_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0x1
+	Even
+
+
+actor_generatr_sheet_compressor_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_generatr_sheet_compressor_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_generatr_sheet_compressor_width		equ 0x28	; Width in pixels
+actor_generatr_sheet_compressor_height		equ 0x10	; Width in pixels
+actor_generatr_sheet_compressor_size_b		equ 0x3C0	; Size in bytes
+actor_generatr_sheet_compressor_size_w		equ 0x1E0	; Size in words
+actor_generatr_sheet_compressor_size_l		equ 0xF0	; Size in longwords
+actor_generatr_sheet_compressor_size_t		equ 0x1E	; Size in tiles
 
 
 spritesheets_generatr:
 
 spritesheet_generatr_compressor:
 
+actor_generatr_sheet_compressor_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -136,6 +187,8 @@ spritesheet_generatr_compressor:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_generatr_sheet_compressor_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -226,6 +279,8 @@ spritesheet_generatr_compressor:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_generatr_sheet_compressor_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -315,6 +370,7 @@ spritesheet_generatr_compressor:
 	dc.l	0x80550000
 	dc.l	0x50000000
 	dc.l	0x00000000
+
 
 
 

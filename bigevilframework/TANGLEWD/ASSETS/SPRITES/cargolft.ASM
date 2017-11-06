@@ -9,13 +9,20 @@
 
 actor_cargolft:
 
-sprite_cargolft_size_b		equ 0x1180	; Size in bytes
-sprite_cargolft_size_t		equ 0x008C	; Size in tiles
-sprite_cargolft_size_subsprites		equ 0x000C	; Size in subsprites
-sprite_cargolft_widthheight_subsprites		equ 0x0304	; Width/height (bb) in subsprites
+actor_cargolft_sheet_cargo_lift_frametable:
+actor_cargolft_sheet_cargo_lift_frame_0_header:
+	dc.w 0x008C	; Frame size (tiles)
+	dc.w actor_cargolft_sheet_cargo_lift_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cargolft_sheet_cargo_lift_frame_0
+	dc.l actor_cargolft_sheet_cargo_lift_frame_0_subsprite_dimensions_bits
+	dc.l actor_cargolft_sheet_cargo_lift_frame_0_subsprite_pos_offsets
+
+actor_cargolft_sheet_cargo_lift_frame_0_size_b		equ 0x1180	; Size in bytes
+actor_cargolft_sheet_cargo_lift_frame_0_size_t		equ 0x008C	; Size in tiles
+actor_cargolft_sheet_cargo_lift_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_cargolft_subsprite_pos_offsets:
+actor_cargolft_sheet_cargo_lift_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00300000
 	dc.l 0x00000020, 0x00300020
 	dc.l 0x00000040, 0x00300040
@@ -31,7 +38,7 @@ sprite_cargolft_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_cargolft_subsprite_dimensions_bits:
+actor_cargolft_sheet_cargo_lift_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xF
 	dc.b 0xF
@@ -46,36 +53,22 @@ sprite_cargolft_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_cargolft_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x08
-	dc.b 0x08
-	dc.b 0x08
-	dc.b 0x04
-	Even
 
-
-spritesheet_cargolft_cargo_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_cargolft_cargo_lift_width		equ 0x50	; Width in pixels
-spritesheet_cargolft_cargo_lift_height		equ 0x70	; Width in pixels
-spritesheet_cargolft_cargo_lift_size_b		equ 0x1180	; Size in bytes
-spritesheet_cargolft_cargo_lift_size_w		equ 0x8C0	; Size in words
-spritesheet_cargolft_cargo_lift_size_l		equ 0x460	; Size in longwords
-spritesheet_cargolft_cargo_lift_size_t		equ 0x8C	; Size in tiles
+actor_cargolft_sheet_cargo_lift_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_cargolft_sheet_cargo_lift_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_cargolft_sheet_cargo_lift_width		equ 0x50	; Width in pixels
+actor_cargolft_sheet_cargo_lift_height		equ 0x70	; Width in pixels
+actor_cargolft_sheet_cargo_lift_size_b		equ 0x1180	; Size in bytes
+actor_cargolft_sheet_cargo_lift_size_w		equ 0x8C0	; Size in words
+actor_cargolft_sheet_cargo_lift_size_l		equ 0x460	; Size in longwords
+actor_cargolft_sheet_cargo_lift_size_t		equ 0x8C	; Size in tiles
 
 
 spritesheets_cargolft:
 
 spritesheet_cargolft_cargo_lift:
 
+actor_cargolft_sheet_cargo_lift_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1335,6 +1328,7 @@ spritesheet_cargolft_cargo_lift:
 	dc.l	0x11111110
 	dc.l	0x22211110
 	dc.l	0x00000000
+
 
 
 

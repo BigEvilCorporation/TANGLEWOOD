@@ -31,9 +31,9 @@ credits_Leaf_11_name	dc.b "credits_Leaf_11",0
 	even
 	ENDIF
 
-credits_Trap_count equ 0x0
-
 credits_Djubb_count equ 0x0
+
+credits_Trap_count equ 0x0
 
 credits_Echo_count equ 0x0
 
@@ -49,9 +49,9 @@ credits_BouncePlant_2_name	dc.b "credits_BouncePlant_2",0
 
 credits_Log_count equ 0x0
 
-credits_Borgus_count equ 0x0
-
 credits_DjakkCage_count equ 0x0
+
+credits_Borgus_count equ 0x0
 
 credits_Monster_count equ 0x0
 
@@ -73,6 +73,8 @@ credits_Stone_count equ 0x0
 
 credits_Demon_count equ 0x0
 
+credits_Raft_count equ 0x0
+
 credits_Nest_count equ 0x0
 
 credits_Flue_count equ 0x0
@@ -85,9 +87,9 @@ credits_WaterBody_count equ 0x0
 
 credits_Location_count equ 0x0
 
-credits_Lift_count equ 0x0
-
 credits_Deathbox_count equ 0x0
+
+credits_Lift_count equ 0x0
 
 credits_Crate_count equ 0x0
 
@@ -111,8 +113,6 @@ credits_Winch_count equ 0x0
 
 credits_WindFlue_count equ 0x0
 
-credits_Raft_count equ 0x0
-
 credits_Lock_count equ 0x0
 
 credits_Pool_count equ 0x0
@@ -124,6 +124,8 @@ credits_Stalactite_count equ 0x0
 credits_CargoLift_count equ 0x0
 
 credits_Scrap_count equ 0x0
+
+credits_Longboat_count equ 0x0
 
 
 
@@ -275,6 +277,7 @@ credits_LoadGameObjects:
 	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

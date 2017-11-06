@@ -97,15 +97,15 @@ DjubbLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT djubb,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djubb,idle,PaletteId_Monster,0x0
 
 	; Setup default character animations
-	ANIM_LOAD_DEFAULT djubb_idle,djubb_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT djubb_swim,djubb_swim,Character_Animations,CharacterAnimIdx_Run,1,0,0
-	ANIM_LOAD_DEFAULT djubb_swim,djubb_swim,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT djubb,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT djubb,swim,swim,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT djubb,swim,swim,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Setup bespoke character animations
-	ANIM_LOAD_DEFAULT djubb_bite,djubb_bite,Djubb_Animations,DjubbAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT djubb,bite,bite,Djubb_Animations,DjubbAnimIdx_Bite,0,1,0
 
 	rts
 

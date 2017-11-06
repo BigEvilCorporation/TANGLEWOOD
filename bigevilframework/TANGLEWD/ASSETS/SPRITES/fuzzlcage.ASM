@@ -30,15 +30,6 @@ sprite_fuzzlcage_subsprite_dimensions_bits:
 	dc.b 0x4
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_fuzzlcage_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x04
-	dc.b 0x08
-	dc.b 0x02
-	Even
-
-
 spritesheet_fuzzlcage_fuzzlcage_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
 spritesheet_fuzzlcage_fuzzlcage_size_b		equ 0x780	; Size in bytes
 spritesheet_fuzzlcage_fuzzlcage_size_w		equ 0x3C0	; Size in words

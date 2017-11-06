@@ -163,7 +163,7 @@ BridgeLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED Bridge,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Bridge,notch,PaletteId_World0,0x0
 
 	;==============================================================
 

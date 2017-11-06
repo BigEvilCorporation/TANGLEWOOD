@@ -9,19 +9,25 @@
 
 spriteanims_wisp:
 
-spriteanim_wisp_idle:
-spriteanim_wisp_idle_numframes: equ 0x6
-spriteanim_wisp_idle_speed: equ 0x23
-spriteanim_wisp_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+actor_wisp_sheet_idle_anim_idle:
+actor_wisp_sheet_idle_anim_idle_numframes: equ 0x6
+actor_wisp_sheet_idle_anim_idle_speed: equ 0x23
+actor_wisp_sheet_idle_anim_idle_track_frames:
+	dc.l actor_wisp_sheet_idle_frame_0_header
+	dc.l actor_wisp_sheet_idle_frame_1_header
+	dc.l actor_wisp_sheet_idle_frame_2_header
+	dc.l actor_wisp_sheet_idle_frame_3_header
+	dc.l actor_wisp_sheet_idle_frame_4_header
+	dc.l actor_wisp_sheet_idle_frame_5_header
+
 	Even
-spriteanim_wisp_idle_track_posx:
+actor_wisp_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_wisp_idle_track_posy:
+actor_wisp_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_wisp_idle_track_sfx:
+actor_wisp_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

@@ -9,67 +9,495 @@
 
 actor_leaf:
 
-sprite_leaf_size_b		equ 0x0020	; Size in bytes
-sprite_leaf_size_t		equ 0x0001	; Size in tiles
-sprite_leaf_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_leaf_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_leaf_sheet_brown_frametable:
+actor_leaf_sheet_brown_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_brown_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_brown_frame_0
+	dc.l actor_leaf_sheet_brown_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_0_subsprite_pos_offsets
+
+actor_leaf_sheet_brown_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_brown_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_brown_frame_1
+	dc.l actor_leaf_sheet_brown_frame_1_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_1_subsprite_pos_offsets
+
+actor_leaf_sheet_brown_frame_2_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_brown_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_brown_frame_2
+	dc.l actor_leaf_sheet_brown_frame_2_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_2_subsprite_pos_offsets
+
+actor_leaf_sheet_brown_frame_3_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_brown_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_brown_frame_3
+	dc.l actor_leaf_sheet_brown_frame_3_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_3_subsprite_pos_offsets
+
+actor_leaf_sheet_brown_frame_4_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_brown_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_brown_frame_4
+	dc.l actor_leaf_sheet_brown_frame_4_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_brown_frame_4_subsprite_pos_offsets
+
+actor_leaf_sheet_brown_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_brown_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_brown_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_leaf_subsprite_pos_offsets:
+actor_leaf_sheet_brown_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_leaf_subsprite_dimensions_bits:
+actor_leaf_sheet_brown_frame_0_subsprite_dimensions_bits:
 	dc.b 0x0
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_leaf_numtiles_per_subsprite:
-	dc.b 0x01
+
+actor_leaf_sheet_brown_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_brown_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_brown_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_brown_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_brown_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
 	Even
 
 
-spritesheet_leaf_brown_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_leaf_brown_width		equ 0x08	; Width in pixels
-spritesheet_leaf_brown_height		equ 0x08	; Width in pixels
-spritesheet_leaf_brown_size_b		equ 0xA0	; Size in bytes
-spritesheet_leaf_brown_size_w		equ 0x50	; Size in words
-spritesheet_leaf_brown_size_l		equ 0x28	; Size in longwords
-spritesheet_leaf_brown_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_brown_frame_2_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_brown_frame_2_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_brown_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_brown_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_brown_frame_2_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
 
 
-spritesheet_leaf_red_frameoffset	equ 0x05	; Offset to first frame in sprite sheet
-spritesheet_leaf_red_width		equ 0x08	; Width in pixels
-spritesheet_leaf_red_height		equ 0x08	; Width in pixels
-spritesheet_leaf_red_size_b		equ 0xA0	; Size in bytes
-spritesheet_leaf_red_size_w		equ 0x50	; Size in words
-spritesheet_leaf_red_size_l		equ 0x28	; Size in longwords
-spritesheet_leaf_red_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_brown_frame_3_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_brown_frame_3_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_brown_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_brown_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_brown_frame_3_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
 
 
-spritesheet_leaf_green_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
-spritesheet_leaf_green_width		equ 0x08	; Width in pixels
-spritesheet_leaf_green_height		equ 0x08	; Width in pixels
-spritesheet_leaf_green_size_b		equ 0xA0	; Size in bytes
-spritesheet_leaf_green_size_w		equ 0x50	; Size in words
-spritesheet_leaf_green_size_l		equ 0x28	; Size in longwords
-spritesheet_leaf_green_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_brown_frame_4_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_brown_frame_4_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_brown_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_brown_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_brown_frame_4_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
 
 
-spritesheet_leaf_turquoise_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
-spritesheet_leaf_turquoise_width		equ 0x08	; Width in pixels
-spritesheet_leaf_turquoise_height		equ 0x08	; Width in pixels
-spritesheet_leaf_turquoise_size_b		equ 0xA0	; Size in bytes
-spritesheet_leaf_turquoise_size_w		equ 0x50	; Size in words
-spritesheet_leaf_turquoise_size_l		equ 0x28	; Size in longwords
-spritesheet_leaf_turquoise_size_t		equ 0x05	; Size in tiles
+actor_leaf_sheet_brown_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_leaf_sheet_brown_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_leaf_sheet_brown_width		equ 0x08	; Width in pixels
+actor_leaf_sheet_brown_height		equ 0x08	; Width in pixels
+actor_leaf_sheet_brown_size_b		equ 0xA0	; Size in bytes
+actor_leaf_sheet_brown_size_w		equ 0x50	; Size in words
+actor_leaf_sheet_brown_size_l		equ 0x28	; Size in longwords
+actor_leaf_sheet_brown_size_t		equ 0x05	; Size in tiles
+
+
+actor_leaf_sheet_red_frametable:
+actor_leaf_sheet_red_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_red_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_red_frame_0
+	dc.l actor_leaf_sheet_red_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_0_subsprite_pos_offsets
+
+actor_leaf_sheet_red_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_red_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_red_frame_1
+	dc.l actor_leaf_sheet_red_frame_1_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_1_subsprite_pos_offsets
+
+actor_leaf_sheet_red_frame_2_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_red_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_red_frame_2
+	dc.l actor_leaf_sheet_red_frame_2_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_2_subsprite_pos_offsets
+
+actor_leaf_sheet_red_frame_3_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_red_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_red_frame_3
+	dc.l actor_leaf_sheet_red_frame_3_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_3_subsprite_pos_offsets
+
+actor_leaf_sheet_red_frame_4_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_red_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_red_frame_4
+	dc.l actor_leaf_sheet_red_frame_4_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_red_frame_4_subsprite_pos_offsets
+
+actor_leaf_sheet_red_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_red_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_red_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_red_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_red_frame_0_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_red_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_red_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_red_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_red_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_red_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_red_frame_2_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_red_frame_2_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_red_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_red_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_red_frame_2_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_red_frame_3_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_red_frame_3_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_red_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_red_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_red_frame_3_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_red_frame_4_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_red_frame_4_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_red_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_red_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_red_frame_4_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_red_frameoffset	equ 0x05	; Offset to first frame in sprite sheet
+actor_leaf_sheet_red_tileoffset	equ 0x05	; Offset to first tile in sprite sheet
+actor_leaf_sheet_red_width		equ 0x08	; Width in pixels
+actor_leaf_sheet_red_height		equ 0x08	; Width in pixels
+actor_leaf_sheet_red_size_b		equ 0xA0	; Size in bytes
+actor_leaf_sheet_red_size_w		equ 0x50	; Size in words
+actor_leaf_sheet_red_size_l		equ 0x28	; Size in longwords
+actor_leaf_sheet_red_size_t		equ 0x05	; Size in tiles
+
+
+actor_leaf_sheet_green_frametable:
+actor_leaf_sheet_green_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_green_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_green_frame_0
+	dc.l actor_leaf_sheet_green_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_0_subsprite_pos_offsets
+
+actor_leaf_sheet_green_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_green_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_green_frame_1
+	dc.l actor_leaf_sheet_green_frame_1_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_1_subsprite_pos_offsets
+
+actor_leaf_sheet_green_frame_2_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_green_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_green_frame_2
+	dc.l actor_leaf_sheet_green_frame_2_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_2_subsprite_pos_offsets
+
+actor_leaf_sheet_green_frame_3_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_green_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_green_frame_3
+	dc.l actor_leaf_sheet_green_frame_3_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_3_subsprite_pos_offsets
+
+actor_leaf_sheet_green_frame_4_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_green_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_green_frame_4
+	dc.l actor_leaf_sheet_green_frame_4_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_green_frame_4_subsprite_pos_offsets
+
+actor_leaf_sheet_green_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_green_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_green_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_green_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_green_frame_0_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_green_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_green_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_green_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_green_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_green_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_green_frame_2_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_green_frame_2_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_green_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_green_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_green_frame_2_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_green_frame_3_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_green_frame_3_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_green_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_green_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_green_frame_3_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_green_frame_4_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_green_frame_4_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_green_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_green_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_green_frame_4_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_green_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
+actor_leaf_sheet_green_tileoffset	equ 0x0A	; Offset to first tile in sprite sheet
+actor_leaf_sheet_green_width		equ 0x08	; Width in pixels
+actor_leaf_sheet_green_height		equ 0x08	; Width in pixels
+actor_leaf_sheet_green_size_b		equ 0xA0	; Size in bytes
+actor_leaf_sheet_green_size_w		equ 0x50	; Size in words
+actor_leaf_sheet_green_size_l		equ 0x28	; Size in longwords
+actor_leaf_sheet_green_size_t		equ 0x05	; Size in tiles
+
+
+actor_leaf_sheet_turquoise_frametable:
+actor_leaf_sheet_turquoise_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_turquoise_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_turquoise_frame_0
+	dc.l actor_leaf_sheet_turquoise_frame_0_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_0_subsprite_pos_offsets
+
+actor_leaf_sheet_turquoise_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_turquoise_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_turquoise_frame_1
+	dc.l actor_leaf_sheet_turquoise_frame_1_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_1_subsprite_pos_offsets
+
+actor_leaf_sheet_turquoise_frame_2_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_turquoise_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_turquoise_frame_2
+	dc.l actor_leaf_sheet_turquoise_frame_2_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_2_subsprite_pos_offsets
+
+actor_leaf_sheet_turquoise_frame_3_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_turquoise_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_turquoise_frame_3
+	dc.l actor_leaf_sheet_turquoise_frame_3_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_3_subsprite_pos_offsets
+
+actor_leaf_sheet_turquoise_frame_4_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_leaf_sheet_turquoise_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_leaf_sheet_turquoise_frame_4
+	dc.l actor_leaf_sheet_turquoise_frame_4_subsprite_dimensions_bits
+	dc.l actor_leaf_sheet_turquoise_frame_4_subsprite_pos_offsets
+
+actor_leaf_sheet_turquoise_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_turquoise_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_turquoise_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_turquoise_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_turquoise_frame_0_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_turquoise_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_turquoise_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_turquoise_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_turquoise_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_turquoise_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_turquoise_frame_2_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_turquoise_frame_2_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_turquoise_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_turquoise_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_turquoise_frame_2_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_turquoise_frame_3_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_turquoise_frame_3_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_turquoise_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_turquoise_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_turquoise_frame_3_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_turquoise_frame_4_size_b		equ 0x0020	; Size in bytes
+actor_leaf_sheet_turquoise_frame_4_size_t		equ 0x0001	; Size in tiles
+actor_leaf_sheet_turquoise_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_leaf_sheet_turquoise_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_leaf_sheet_turquoise_frame_4_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_leaf_sheet_turquoise_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
+actor_leaf_sheet_turquoise_tileoffset	equ 0x0F	; Offset to first tile in sprite sheet
+actor_leaf_sheet_turquoise_width		equ 0x08	; Width in pixels
+actor_leaf_sheet_turquoise_height		equ 0x08	; Width in pixels
+actor_leaf_sheet_turquoise_size_b		equ 0xA0	; Size in bytes
+actor_leaf_sheet_turquoise_size_w		equ 0x50	; Size in words
+actor_leaf_sheet_turquoise_size_l		equ 0x28	; Size in longwords
+actor_leaf_sheet_turquoise_size_t		equ 0x05	; Size in tiles
 
 
 spritesheets_leaf:
 
 spritesheet_leaf_brown:
 
+actor_leaf_sheet_brown_frame_0:
 	dc.l	0x00440000
 	dc.l	0x04E82000
 	dc.l	0x4E882000
@@ -79,6 +507,8 @@ spritesheet_leaf_brown:
 	dc.l	0x00022000
 	dc.l	0x00000000
 
+
+actor_leaf_sheet_brown_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x04400000
@@ -88,6 +518,8 @@ spritesheet_leaf_brown:
 	dc.l	0x00248840
 	dc.l	0x00022220
 
+
+actor_leaf_sheet_brown_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -97,6 +529,8 @@ spritesheet_leaf_brown:
 	dc.l	0x00228442
 	dc.l	0x00002222
 
+
+actor_leaf_sheet_brown_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00002220
@@ -106,6 +540,8 @@ spritesheet_leaf_brown:
 	dc.l	0x02822000
 	dc.l	0x02200000
 
+
+actor_leaf_sheet_brown_frame_4:
 	dc.l	0x00004400
 	dc.l	0x00028E40
 	dc.l	0x000288E4
@@ -117,8 +553,10 @@ spritesheet_leaf_brown:
 
 
 
+
 spritesheet_leaf_red:
 
+actor_leaf_sheet_red_frame_0:
 	dc.l	0x00220000
 	dc.l	0x02A71000
 	dc.l	0x2A771000
@@ -128,6 +566,8 @@ spritesheet_leaf_red:
 	dc.l	0x00011000
 	dc.l	0x00000000
 
+
+actor_leaf_sheet_red_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x02200000
@@ -137,6 +577,8 @@ spritesheet_leaf_red:
 	dc.l	0x00127720
 	dc.l	0x00011110
 
+
+actor_leaf_sheet_red_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -146,6 +588,8 @@ spritesheet_leaf_red:
 	dc.l	0x00117221
 	dc.l	0x00001111
 
+
+actor_leaf_sheet_red_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00001110
@@ -155,6 +599,8 @@ spritesheet_leaf_red:
 	dc.l	0x01711000
 	dc.l	0x01100000
 
+
+actor_leaf_sheet_red_frame_4:
 	dc.l	0x00002200
 	dc.l	0x00017A20
 	dc.l	0x000177A2
@@ -166,8 +612,10 @@ spritesheet_leaf_red:
 
 
 
+
 spritesheet_leaf_green:
 
+actor_leaf_sheet_green_frame_0:
 	dc.l	0x00550000
 	dc.l	0x05FC3000
 	dc.l	0x5FCC3000
@@ -177,6 +625,8 @@ spritesheet_leaf_green:
 	dc.l	0x00033000
 	dc.l	0x00000000
 
+
+actor_leaf_sheet_green_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x05500000
@@ -186,6 +636,8 @@ spritesheet_leaf_green:
 	dc.l	0x0035CC50
 	dc.l	0x00033330
 
+
+actor_leaf_sheet_green_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -195,6 +647,8 @@ spritesheet_leaf_green:
 	dc.l	0x0033C553
 	dc.l	0x00003333
 
+
+actor_leaf_sheet_green_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00003330
@@ -204,6 +658,8 @@ spritesheet_leaf_green:
 	dc.l	0x03C33000
 	dc.l	0x03300000
 
+
+actor_leaf_sheet_green_frame_4:
 	dc.l	0x00005500
 	dc.l	0x0003CF50
 	dc.l	0x0003CCF5
@@ -215,8 +671,10 @@ spritesheet_leaf_green:
 
 
 
+
 spritesheet_leaf_turquoise:
 
+actor_leaf_sheet_turquoise_frame_0:
 	dc.l	0x00660000
 	dc.l	0x06D93000
 	dc.l	0x6D993000
@@ -226,6 +684,8 @@ spritesheet_leaf_turquoise:
 	dc.l	0x00033000
 	dc.l	0x00000000
 
+
+actor_leaf_sheet_turquoise_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x06600000
@@ -235,6 +695,8 @@ spritesheet_leaf_turquoise:
 	dc.l	0x00369960
 	dc.l	0x00033330
 
+
+actor_leaf_sheet_turquoise_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -244,6 +706,8 @@ spritesheet_leaf_turquoise:
 	dc.l	0x00339663
 	dc.l	0x00003333
 
+
+actor_leaf_sheet_turquoise_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00003330
@@ -253,6 +717,8 @@ spritesheet_leaf_turquoise:
 	dc.l	0x03933000
 	dc.l	0x03300000
 
+
+actor_leaf_sheet_turquoise_frame_4:
 	dc.l	0x00006600
 	dc.l	0x00039D60
 	dc.l	0x000399D6
@@ -261,6 +727,7 @@ spritesheet_leaf_turquoise:
 	dc.l	0x00036300
 	dc.l	0x00033000
 	dc.l	0x00000000
+
 
 
 

@@ -9,13 +9,20 @@
 
 actor_pillar:
 
-sprite_pillar_size_b		equ 0x0480	; Size in bytes
-sprite_pillar_size_t		equ 0x0024	; Size in tiles
-sprite_pillar_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_pillar_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_pillar_sheet_pillar_frametable:
+actor_pillar_sheet_pillar_frame_0_header:
+	dc.w 0x0024	; Frame size (tiles)
+	dc.w actor_pillar_sheet_pillar_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pillar_sheet_pillar_frame_0
+	dc.l actor_pillar_sheet_pillar_frame_0_subsprite_dimensions_bits
+	dc.l actor_pillar_sheet_pillar_frame_0_subsprite_pos_offsets
+
+actor_pillar_sheet_pillar_frame_0_size_b		equ 0x0480	; Size in bytes
+actor_pillar_sheet_pillar_frame_0_size_t		equ 0x0024	; Size in tiles
+actor_pillar_sheet_pillar_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_pillar_subsprite_pos_offsets:
+actor_pillar_sheet_pillar_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00100000
 	dc.l 0x00000020, 0x00100020
 	dc.l 0x00200000, 0x00000000
@@ -23,35 +30,29 @@ sprite_pillar_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_pillar_subsprite_dimensions_bits:
+actor_pillar_sheet_pillar_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xD
 	dc.b 0x7
 	dc.b 0x5
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_pillar_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x08
-	dc.b 0x04
-	Even
 
-
-spritesheet_pillar_pillar_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_pillar_pillar_width		equ 0x30	; Width in pixels
-spritesheet_pillar_pillar_height		equ 0x30	; Width in pixels
-spritesheet_pillar_pillar_size_b		equ 0x480	; Size in bytes
-spritesheet_pillar_pillar_size_w		equ 0x240	; Size in words
-spritesheet_pillar_pillar_size_l		equ 0x120	; Size in longwords
-spritesheet_pillar_pillar_size_t		equ 0x24	; Size in tiles
+actor_pillar_sheet_pillar_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_pillar_sheet_pillar_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_pillar_sheet_pillar_width		equ 0x30	; Width in pixels
+actor_pillar_sheet_pillar_height		equ 0x30	; Width in pixels
+actor_pillar_sheet_pillar_size_b		equ 0x480	; Size in bytes
+actor_pillar_sheet_pillar_size_w		equ 0x240	; Size in words
+actor_pillar_sheet_pillar_size_l		equ 0x120	; Size in longwords
+actor_pillar_sheet_pillar_size_t		equ 0x24	; Size in tiles
 
 
 spritesheets_pillar:
 
 spritesheet_pillar_pillar:
 
+actor_pillar_sheet_pillar_frame_0:
 	dc.l	0x000DAFAD
 	dc.l	0x000D6DAF
 	dc.l	0x000DAFAD
@@ -375,6 +376,7 @@ spritesheet_pillar_pillar:
 	dc.l	0x2A2A6000
 	dc.l	0x2A2A6000
 	dc.l	0x2A2A6000
+
 
 
 

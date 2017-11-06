@@ -84,88 +84,88 @@ NymnInit:
 	; Setup default character animations
 
 	; Idle
-	ANIM_LOAD_DEFAULT nymn_idle,nymn_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT nymn,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Dead
-	ANIM_LOAD_DEFAULT nymn_death,nymn_death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
+	ANIM_LOAD_DEFAULT nymn,death,death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
 
 	; Run
-	ANIM_LOAD_DEFAULT nymn_run,nymn_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT nymn,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	; Run
-	ANIM_LOAD_DEFAULT nymn_walk,nymn_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT nymn,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Walk to run transition
-	ANIM_LOAD_DEFAULT nymn_walktorun,nymn_walktorun,Character_Animations,CharacterAnimIdx_WalkToRun,0,0,0
+	ANIM_LOAD_DEFAULT nymn,walktorun,walktorun,Character_Animations,CharacterAnimIdx_WalkToRun,0,0,0
 
 	; Jump
-	ANIM_LOAD_DEFAULT nymn_jump,nymn_jump,Character_Animations,CharacterAnimIdx_Jump,1,0,0
+	ANIM_LOAD_DEFAULT nymn,jump,jump,Character_Animations,CharacterAnimIdx_Jump,1,0,0
 
 	; Fall
-	ANIM_LOAD_DEFAULT nymn_fall,nymn_fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
+	ANIM_LOAD_DEFAULT nymn,fall,fall,Character_Animations,CharacterAnimIdx_Fall,1,0,0
 
 	; Climb
-	ANIM_LOAD_DEFAULT nymn_climb,nymn_climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
+	ANIM_LOAD_DEFAULT nymn,climb,climb,Character_Animations,CharacterAnimIdx_Climb,1,0,0
 	
 	; Water wade
-	ANIM_LOAD_DEFAULT nymn_wade,nymn_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT nymn,wade,wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 
 	; Glide
-	ANIM_LOAD_DEFAULT nymn_glide,nymn_glide,Character_Animations,CharacterAnimIdx_Glide,1,0,0
+	ANIM_LOAD_DEFAULT nymn,glide,glide,Character_Animations,CharacterAnimIdx_Glide,1,0,0
 
 	; Ride (trot)
-	ANIM_LOAD_DEFAULT nymn_ridedjakk,nymn_ridedjakk,Character_Animations,CharacterAnimIdx_RideTrot,1,0,0
+	ANIM_LOAD_DEFAULT nymn,ridedjakk,ridedjakk,Character_Animations,CharacterAnimIdx_RideTrot,1,0,0
 
 	; Ride (gallop)
-	ANIM_LOAD_DEFAULT nymn_ridedjakkrun,nymn_ridedjakkrun,Character_Animations,CharacterAnimIdx_RideGallop,1,0,0
+	ANIM_LOAD_DEFAULT nymn,ridedjakkrun,ridedjakkrun,Character_Animations,CharacterAnimIdx_RideGallop,1,0,0
 
 	; Ride (jump)
-	ANIM_LOAD_DEFAULT nymn_ridedjakkjump,nymn_ridedjakkjump,Character_Animations,CharacterAnimIdx_RideJump,1,0,0
+	ANIM_LOAD_DEFAULT nymn,ridedjakkjump,ridedjakkjump,Character_Animations,CharacterAnimIdx_RideJump,1,0,0
 
 	; Push (light object)
-	ANIM_LOAD_DEFAULT nymn_push,nymn_push,Character_Animations,CharacterAnimIdx_Push,1,0,0
+	ANIM_LOAD_DEFAULT nymn,push,push,Character_Animations,CharacterAnimIdx_Push,1,0,0
 	
 	; Push (heavy object)
-	ANIM_LOAD_DEFAULT nymn_pushheavy,nymn_pushheavy,Character_Animations,CharacterAnimIdx_PushHeavy,1,0,0
+	ANIM_LOAD_DEFAULT nymn,pushheavy,pushheavy,Character_Animations,CharacterAnimIdx_PushHeavy,1,0,0
 
 	;==============================================================
 	; Setup player animations
 
 	; Colour switch
-	ANIM_LOAD_DEFAULT nymn_colourswitch,nymn_colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
+	ANIM_LOAD_DEFAULT nymn,colourswitch,colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
 	
 	; Sleep
-	ANIM_LOAD_DEFAULT nymn_sleep,nymn_sleep,Player_Animations,PlayerAnimIdx_Sleep,1,1,0
+	ANIM_LOAD_DEFAULT nymn,sleep,sleep,Player_Animations,PlayerAnimIdx_Sleep,1,1,0
 	
 	; Lay down
-	ANIM_LOAD_DEFAULT nymn_laydown,nymn_laydown,Player_Animations,PlayerAnimIdx_LieDown,0,1,0
+	ANIM_LOAD_DEFAULT nymn,laydown,laydown,Player_Animations,PlayerAnimIdx_LieDown,0,1,0
 
 	; Wake up
-	ANIM_LOAD_DEFAULT nymn_laydown,nymn_wake,Player_Animations,PlayerAnimIdx_Wake,0,1,0
+	ANIM_LOAD_DEFAULT nymn,laydown,wake,Player_Animations,PlayerAnimIdx_Wake,0,1,0
 	
 	; Raise head then back to sleep
-	;ANIM_LOAD_DEFAULT nymn_laydown,nymn_wakesleep,Player_Animations,PlayerAnimIdx_WakeSleep,0,1,0
+	;ANIM_LOAD_DEFAULT nymn,laydown,wakesleep,Player_Animations,PlayerAnimIdx_WakeSleep,0,1,0
 	
 	; Nervous look back
-	ANIM_LOAD_DEFAULT nymn_lookback,nymn_lookback,Player_Animations,PlayerAnimIdx_IdleLookBack,0,1,0
+	ANIM_LOAD_DEFAULT nymn,lookback,lookback,Player_Animations,PlayerAnimIdx_IdleLookBack,0,1,0
 	
 	; Mount a Djakk
-	ANIM_LOAD_DEFAULT nymn_mountdjakk,nymn_mountdjakk,Player_Animations,PlayerAnimIdx_Mount,0,1,0
+	ANIM_LOAD_DEFAULT nymn,mountdjakk,mountdjakk,Player_Animations,PlayerAnimIdx_Mount,0,1,0
 
 	; Howl
-	ANIM_LOAD_DEFAULT nymn_calllong,nymn_calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
+	ANIM_LOAD_DEFAULT nymn,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
 	
 	;==============================================================
 	; Setup Nymn specific animations
 
 	; Greet up Echo
-	ANIM_LOAD_DEFAULT nymn_greetecho,nymn_greetecho,Nymn_Animations,NymnAnimIdx_GreetEcho,0,1,0
+	ANIM_LOAD_DEFAULT nymn,greetecho,greetecho,Nymn_Animations,NymnAnimIdx_GreetEcho,0,1,0
 	
 	; Pick up Echo
-	ANIM_LOAD_DEFAULT nymn_pickupecho,nymn_pickupecho,Nymn_Animations,NymnAnimIdx_PickupEcho,0,1,0
+	ANIM_LOAD_DEFAULT nymn,pickupecho,pickupecho,Nymn_Animations,NymnAnimIdx_PickupEcho,0,1,0
 
 	; Look up
-	ANIM_LOAD_DEFAULT nymn_lookup,nymn_lookup,Nymn_Animations,NymnAnimIdx_LookUp,0,0,0
+	ANIM_LOAD_DEFAULT nymn,lookup,lookup,Nymn_Animations,NymnAnimIdx_LookUp,0,0,0
 	
 	rts
 
@@ -173,7 +173,7 @@ NymnLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT nymn,PaletteId_Player,0x0
+	SPRITE_LOAD_DEFAULT nymn,idle,PaletteId_Player,0x0
 
 	rts
 	
@@ -424,9 +424,9 @@ NymnBeginCarryEcho:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Swap out idle, walk and water wade anims for carry versions
-	ANIM_LOAD_DEFAULT nymn_carryechoidle,nymn_carryechoidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT nymn_carryechowalk,nymn_carryechowalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT nymn_carryechowalk,nymn_carryechowalk,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT nymn,carryechoidle,carryechoidle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT nymn,carryechowalk,carryechowalk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT nymn,carryechowalk,carryechowalk,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 	
 	; Begin catching/carrying sequence
 	move.b #NymnCarryEcho_Catching, Nymn_CarryEchoState(a0)
@@ -465,9 +465,9 @@ NymnEndCarryEcho:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	; Restore default idle, walk and water wade anims
-	ANIM_LOAD_DEFAULT nymn_idle,nymn_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT nymn_walk,nymn_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT nymn_wade,nymn_wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
+	ANIM_LOAD_DEFAULT nymn,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT nymn,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT nymn,wade,wade,Character_Animations,CharacterAnimIdx_WaterWade,1,0,0
 
 	; Force back to idle anim
 	PUSHL  a1

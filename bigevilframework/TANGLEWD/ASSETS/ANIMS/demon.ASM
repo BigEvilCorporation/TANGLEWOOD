@@ -9,113 +9,150 @@
 
 spriteanims_demon:
 
-spriteanim_demon_bite:
-spriteanim_demon_bite_numframes: equ 0x7
-spriteanim_demon_bite_speed: equ 0x14
-spriteanim_demon_bite_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6
+actor_demon_sheet_bite_anim_bite:
+actor_demon_sheet_bite_anim_bite_numframes: equ 0x7
+actor_demon_sheet_bite_anim_bite_speed: equ 0x14
+actor_demon_sheet_bite_anim_bite_track_frames:
+	dc.l actor_demon_sheet_bite_frame_0_header
+	dc.l actor_demon_sheet_bite_frame_1_header
+	dc.l actor_demon_sheet_bite_frame_2_header
+	dc.l actor_demon_sheet_bite_frame_3_header
+	dc.l actor_demon_sheet_bite_frame_4_header
+	dc.l actor_demon_sheet_bite_frame_5_header
+	dc.l actor_demon_sheet_bite_frame_6_header
+
 	Even
-spriteanim_demon_bite_track_posx:
+actor_demon_sheet_bite_anim_bite_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18
 	Even
-spriteanim_demon_bite_track_posy:
+actor_demon_sheet_bite_anim_bite_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_bite_track_sfx:
+actor_demon_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_demon_idletosmirk:
-spriteanim_demon_idletosmirk_numframes: equ 0x2
-spriteanim_demon_idletosmirk_speed: equ 0x14
-spriteanim_demon_idletosmirk_track_frames:
-	dc.b 0x0, 0x1
+actor_demon_sheet_idletosmirk_anim_idletosmirk:
+actor_demon_sheet_idletosmirk_anim_idletosmirk_numframes: equ 0x2
+actor_demon_sheet_idletosmirk_anim_idletosmirk_speed: equ 0x14
+actor_demon_sheet_idletosmirk_anim_idletosmirk_track_frames:
+	dc.l actor_demon_sheet_idletosmirk_frame_0_header
+	dc.l actor_demon_sheet_idletosmirk_frame_1_header
+
 	Even
-spriteanim_demon_idletosmirk_track_posx:
+actor_demon_sheet_idletosmirk_anim_idletosmirk_track_posx:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_demon_idletosmirk_track_posy:
+actor_demon_sheet_idletosmirk_anim_idletosmirk_track_posy:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_demon_idletosmirk_track_sfx:
+actor_demon_sheet_idletosmirk_anim_idletosmirk_track_sfx:
 	dc.l 0x0, 0x0
 	Even
 
-spriteanim_demon_idle:
-spriteanim_demon_idle_numframes: equ 0x6
-spriteanim_demon_idle_speed: equ 0x14
-spriteanim_demon_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+actor_demon_sheet_idle_anim_idle:
+actor_demon_sheet_idle_anim_idle_numframes: equ 0x6
+actor_demon_sheet_idle_anim_idle_speed: equ 0x14
+actor_demon_sheet_idle_anim_idle_track_frames:
+	dc.l actor_demon_sheet_idle_frame_0_header
+	dc.l actor_demon_sheet_idle_frame_1_header
+	dc.l actor_demon_sheet_idle_frame_2_header
+	dc.l actor_demon_sheet_idle_frame_3_header
+	dc.l actor_demon_sheet_idle_frame_4_header
+	dc.l actor_demon_sheet_idle_frame_5_header
+
 	Even
-spriteanim_demon_idle_track_posx:
+actor_demon_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_idle_track_posy:
+actor_demon_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_idle_track_sfx:
+actor_demon_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_demon_wisptoemerge:
-spriteanim_demon_wisptoemerge_numframes: equ 0x6
-spriteanim_demon_wisptoemerge_speed: equ 0x28
-spriteanim_demon_wisptoemerge_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+actor_demon_sheet_emerge_anim_wisptoemerge:
+actor_demon_sheet_emerge_anim_wisptoemerge_numframes: equ 0x6
+actor_demon_sheet_emerge_anim_wisptoemerge_speed: equ 0x28
+actor_demon_sheet_emerge_anim_wisptoemerge_track_frames:
+	dc.l actor_demon_sheet_emerge_frame_0_header
+	dc.l actor_demon_sheet_emerge_frame_1_header
+	dc.l actor_demon_sheet_emerge_frame_2_header
+	dc.l actor_demon_sheet_emerge_frame_3_header
+	dc.l actor_demon_sheet_emerge_frame_4_header
+	dc.l actor_demon_sheet_emerge_frame_5_header
+
 	Even
-spriteanim_demon_wisptoemerge_track_posx:
+actor_demon_sheet_emerge_anim_wisptoemerge_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_wisptoemerge_track_posy:
+actor_demon_sheet_emerge_anim_wisptoemerge_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_wisptoemerge_track_sfx:
+actor_demon_sheet_emerge_anim_wisptoemerge_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
-spriteanim_demon_emerge:
-spriteanim_demon_emerge_numframes: equ 0x6
-spriteanim_demon_emerge_speed: equ 0x28
-spriteanim_demon_emerge_track_frames:
-	dc.b 0x6, 0x7, 0x8, 0x9, 0xA, 0xB
+actor_demon_sheet_emerge_anim_emerge:
+actor_demon_sheet_emerge_anim_emerge_numframes: equ 0x6
+actor_demon_sheet_emerge_anim_emerge_speed: equ 0x28
+actor_demon_sheet_emerge_anim_emerge_track_frames:
+	dc.l actor_demon_sheet_emerge_frame_6_header
+	dc.l actor_demon_sheet_emerge_frame_7_header
+	dc.l actor_demon_sheet_emerge_frame_8_header
+	dc.l actor_demon_sheet_emerge_frame_9_header
+	dc.l actor_demon_sheet_emerge_frame_10_header
+	dc.l actor_demon_sheet_emerge_frame_11_header
+
 	Even
-spriteanim_demon_emerge_track_posx:
+actor_demon_sheet_emerge_anim_emerge_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_emerge_track_posy:
+actor_demon_sheet_emerge_anim_emerge_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_emerge_track_sfx:
+actor_demon_sheet_emerge_anim_emerge_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
-spriteanim_demon_transition:
-spriteanim_demon_transition_numframes: equ 0x4
-spriteanim_demon_transition_speed: equ 0xF
-spriteanim_demon_transition_track_frames:
-	dc.b 0x4, 0x3, 0x4, 0x5
+actor_demon_sheet_emerge_anim_transition:
+actor_demon_sheet_emerge_anim_transition_numframes: equ 0x4
+actor_demon_sheet_emerge_anim_transition_speed: equ 0xF
+actor_demon_sheet_emerge_anim_transition_track_frames:
+	dc.l actor_demon_sheet_emerge_frame_4_header
+	dc.l actor_demon_sheet_emerge_frame_3_header
+	dc.l actor_demon_sheet_emerge_frame_4_header
+	dc.l actor_demon_sheet_emerge_frame_5_header
+
 	Even
-spriteanim_demon_transition_track_posx:
+actor_demon_sheet_emerge_anim_transition_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_transition_track_posy:
+actor_demon_sheet_emerge_anim_transition_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_transition_track_sfx:
+actor_demon_sheet_emerge_anim_transition_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_demon_smirk:
-spriteanim_demon_smirk_numframes: equ 0x6
-spriteanim_demon_smirk_speed: equ 0x14
-spriteanim_demon_smirk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5
+actor_demon_sheet_smirk_anim_smirk:
+actor_demon_sheet_smirk_anim_smirk_numframes: equ 0x6
+actor_demon_sheet_smirk_anim_smirk_speed: equ 0x14
+actor_demon_sheet_smirk_anim_smirk_track_frames:
+	dc.l actor_demon_sheet_smirk_frame_0_header
+	dc.l actor_demon_sheet_smirk_frame_1_header
+	dc.l actor_demon_sheet_smirk_frame_2_header
+	dc.l actor_demon_sheet_smirk_frame_3_header
+	dc.l actor_demon_sheet_smirk_frame_4_header
+	dc.l actor_demon_sheet_smirk_frame_5_header
+
 	Even
-spriteanim_demon_smirk_track_posx:
+actor_demon_sheet_smirk_anim_smirk_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_smirk_track_posy:
+actor_demon_sheet_smirk_anim_smirk_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_demon_smirk_track_sfx:
+actor_demon_sheet_smirk_anim_smirk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

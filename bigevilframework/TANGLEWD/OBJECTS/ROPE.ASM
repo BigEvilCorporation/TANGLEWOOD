@@ -61,7 +61,7 @@ RopeSegmentInit:
 	lea    RopeSegment_Animations(a0), a2
 
 	; Default swing
-	ANIM_LOAD_DEFAULT rope_rope,rope_swing,RopeSegment_Animations,RopeSegmentAnimIdx_Swing,1,0,0
+	ANIM_LOAD_DEFAULT rope,rope,swing,RopeSegment_Animations,RopeSegmentAnimIdx_Swing,1,0,0
 	
 	; Set default swing anim
 	PUSHL  a1
@@ -80,6 +80,6 @@ RopeSegmentLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT rope,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT rope,rope,PaletteId_World0,0x0
 	
 	rts

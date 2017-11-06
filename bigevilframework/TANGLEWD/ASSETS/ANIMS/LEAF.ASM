@@ -9,22 +9,87 @@
 
 spriteanims_leaf:
 
+actor_leaf_sheet_brown_anim_fall:
+actor_leaf_sheet_brown_anim_fall_numframes: equ 0x5
+actor_leaf_sheet_brown_anim_fall_speed: equ 0x5
+actor_leaf_sheet_brown_anim_fall_track_frames:
+	dc.l actor_leaf_sheet_brown_frame_0_header
+	dc.l actor_leaf_sheet_brown_frame_1_header
+	dc.l actor_leaf_sheet_brown_frame_2_header
+	dc.l actor_leaf_sheet_brown_frame_3_header
+	dc.l actor_leaf_sheet_brown_frame_4_header
 
-
-spriteanim_leaf_fall:
-spriteanim_leaf_fall_numframes: equ 0x5
-spriteanim_leaf_fall_speed: equ 0x5
-spriteanim_leaf_fall_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
 	Even
-spriteanim_leaf_fall_track_posx:
+actor_leaf_sheet_brown_anim_fall_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_leaf_fall_track_posy:
+actor_leaf_sheet_brown_anim_fall_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_leaf_fall_track_sfx:
+actor_leaf_sheet_brown_anim_fall_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_leaf_sheet_red_anim_fall:
+actor_leaf_sheet_red_anim_fall_numframes: equ 0x5
+actor_leaf_sheet_red_anim_fall_speed: equ 0x5
+actor_leaf_sheet_red_anim_fall_track_frames:
+	dc.l actor_leaf_sheet_red_frame_0_header
+	dc.l actor_leaf_sheet_red_frame_1_header
+	dc.l actor_leaf_sheet_red_frame_2_header
+	dc.l actor_leaf_sheet_red_frame_3_header
+	dc.l actor_leaf_sheet_red_frame_4_header
+
+	Even
+actor_leaf_sheet_red_anim_fall_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_red_anim_fall_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_red_anim_fall_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
+actor_leaf_sheet_green_anim_fall:
+actor_leaf_sheet_green_anim_fall_numframes: equ 0x5
+actor_leaf_sheet_green_anim_fall_speed: equ 0x5
+actor_leaf_sheet_green_anim_fall_track_frames:
+	dc.l actor_leaf_sheet_green_frame_0_header
+	dc.l actor_leaf_sheet_green_frame_1_header
+	dc.l actor_leaf_sheet_green_frame_2_header
+	dc.l actor_leaf_sheet_green_frame_3_header
+	dc.l actor_leaf_sheet_green_frame_4_header
+
+	Even
+actor_leaf_sheet_green_anim_fall_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_green_anim_fall_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_green_anim_fall_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
+actor_leaf_sheet_turquoise_anim_fall:
+actor_leaf_sheet_turquoise_anim_fall_numframes: equ 0x5
+actor_leaf_sheet_turquoise_anim_fall_speed: equ 0x5
+actor_leaf_sheet_turquoise_anim_fall_track_frames:
+	dc.l actor_leaf_sheet_turquoise_frame_0_header
+	dc.l actor_leaf_sheet_turquoise_frame_1_header
+	dc.l actor_leaf_sheet_turquoise_frame_2_header
+	dc.l actor_leaf_sheet_turquoise_frame_3_header
+	dc.l actor_leaf_sheet_turquoise_frame_4_header
+
+	Even
+actor_leaf_sheet_turquoise_anim_fall_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_turquoise_anim_fall_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_leaf_sheet_turquoise_anim_fall_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
 

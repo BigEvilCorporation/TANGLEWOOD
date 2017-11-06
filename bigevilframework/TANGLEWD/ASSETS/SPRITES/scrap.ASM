@@ -9,58 +9,374 @@
 
 actor_scrap:
 
-sprite_scrap_size_b		equ 0x0180	; Size in bytes
-sprite_scrap_size_t		equ 0x000C	; Size in tiles
-sprite_scrap_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_scrap_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_scrap_sheet_bark_frametable:
+actor_scrap_sheet_bark_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_bark_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_bark_frame_0
+	dc.l actor_scrap_sheet_bark_frame_0_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_bark_frame_0_subsprite_pos_offsets
+
+actor_scrap_sheet_bark_frame_1_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_bark_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_bark_frame_1
+	dc.l actor_scrap_sheet_bark_frame_1_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_bark_frame_1_subsprite_pos_offsets
+
+actor_scrap_sheet_bark_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_bark_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_bark_frame_2
+	dc.l actor_scrap_sheet_bark_frame_2_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_bark_frame_2_subsprite_pos_offsets
+
+actor_scrap_sheet_bark_frame_3_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_bark_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_bark_frame_3
+	dc.l actor_scrap_sheet_bark_frame_3_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_bark_frame_3_subsprite_pos_offsets
+
+actor_scrap_sheet_bark_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_bark_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_bark_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_scrap_subsprite_pos_offsets:
+actor_scrap_sheet_bark_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_scrap_subsprite_dimensions_bits:
+actor_scrap_sheet_bark_frame_0_subsprite_dimensions_bits:
 	dc.b 0xE
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_scrap_numtiles_per_subsprite:
-	dc.b 0x0C
+
+actor_scrap_sheet_bark_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_bark_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_bark_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_bark_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_bark_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
 	Even
 
 
-spritesheet_scrap_bark_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_scrap_bark_width		equ 0x20	; Width in pixels
-spritesheet_scrap_bark_height		equ 0x18	; Width in pixels
-spritesheet_scrap_bark_size_b		equ 0x600	; Size in bytes
-spritesheet_scrap_bark_size_w		equ 0x300	; Size in words
-spritesheet_scrap_bark_size_l		equ 0x180	; Size in longwords
-spritesheet_scrap_bark_size_t		equ 0x30	; Size in tiles
+actor_scrap_sheet_bark_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_bark_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_bark_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_bark_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_bark_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
 
 
-spritesheet_scrap_idle_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
-spritesheet_scrap_idle_width		equ 0x20	; Width in pixels
-spritesheet_scrap_idle_height		equ 0x18	; Width in pixels
-spritesheet_scrap_idle_size_b		equ 0x900	; Size in bytes
-spritesheet_scrap_idle_size_w		equ 0x480	; Size in words
-spritesheet_scrap_idle_size_l		equ 0x240	; Size in longwords
-spritesheet_scrap_idle_size_t		equ 0x48	; Size in tiles
+actor_scrap_sheet_bark_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_bark_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_bark_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_bark_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_bark_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
 
 
-spritesheet_scrap_run_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
-spritesheet_scrap_run_width		equ 0x20	; Width in pixels
-spritesheet_scrap_run_height		equ 0x18	; Width in pixels
-spritesheet_scrap_run_size_b		equ 0x780	; Size in bytes
-spritesheet_scrap_run_size_w		equ 0x3C0	; Size in words
-spritesheet_scrap_run_size_l		equ 0x1E0	; Size in longwords
-spritesheet_scrap_run_size_t		equ 0x3C	; Size in tiles
+actor_scrap_sheet_bark_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_scrap_sheet_bark_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_scrap_sheet_bark_width		equ 0x20	; Width in pixels
+actor_scrap_sheet_bark_height		equ 0x18	; Width in pixels
+actor_scrap_sheet_bark_size_b		equ 0x600	; Size in bytes
+actor_scrap_sheet_bark_size_w		equ 0x300	; Size in words
+actor_scrap_sheet_bark_size_l		equ 0x180	; Size in longwords
+actor_scrap_sheet_bark_size_t		equ 0x30	; Size in tiles
+
+
+actor_scrap_sheet_idle_frametable:
+actor_scrap_sheet_idle_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_0
+	dc.l actor_scrap_sheet_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_0_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_1_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_1
+	dc.l actor_scrap_sheet_idle_frame_1_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_1_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_2
+	dc.l actor_scrap_sheet_idle_frame_2_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_2_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_3_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_3
+	dc.l actor_scrap_sheet_idle_frame_3_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_3_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_4_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_4
+	dc.l actor_scrap_sheet_idle_frame_4_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_4_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_5_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_idle_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_idle_frame_5
+	dc.l actor_scrap_sheet_idle_frame_5_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_idle_frame_5_subsprite_pos_offsets
+
+actor_scrap_sheet_idle_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frame_4_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_4_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frame_5_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_idle_frame_5_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_idle_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_idle_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_idle_frame_5_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_idle_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
+actor_scrap_sheet_idle_tileoffset	equ 0x30	; Offset to first tile in sprite sheet
+actor_scrap_sheet_idle_width		equ 0x20	; Width in pixels
+actor_scrap_sheet_idle_height		equ 0x18	; Width in pixels
+actor_scrap_sheet_idle_size_b		equ 0x900	; Size in bytes
+actor_scrap_sheet_idle_size_w		equ 0x480	; Size in words
+actor_scrap_sheet_idle_size_l		equ 0x240	; Size in longwords
+actor_scrap_sheet_idle_size_t		equ 0x48	; Size in tiles
+
+
+actor_scrap_sheet_run_frametable:
+actor_scrap_sheet_run_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_run_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_run_frame_0
+	dc.l actor_scrap_sheet_run_frame_0_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_run_frame_0_subsprite_pos_offsets
+
+actor_scrap_sheet_run_frame_1_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_run_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_run_frame_1
+	dc.l actor_scrap_sheet_run_frame_1_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_run_frame_1_subsprite_pos_offsets
+
+actor_scrap_sheet_run_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_run_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_run_frame_2
+	dc.l actor_scrap_sheet_run_frame_2_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_run_frame_2_subsprite_pos_offsets
+
+actor_scrap_sheet_run_frame_3_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_run_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_run_frame_3
+	dc.l actor_scrap_sheet_run_frame_3_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_run_frame_3_subsprite_pos_offsets
+
+actor_scrap_sheet_run_frame_4_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_scrap_sheet_run_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scrap_sheet_run_frame_4
+	dc.l actor_scrap_sheet_run_frame_4_subsprite_dimensions_bits
+	dc.l actor_scrap_sheet_run_frame_4_subsprite_pos_offsets
+
+actor_scrap_sheet_run_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_run_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_run_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_run_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_run_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_run_frame_1_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_run_frame_1_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_run_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_run_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_run_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_run_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_run_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_run_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_run_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_run_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_run_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_run_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_run_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_run_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_run_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_run_frame_4_size_b		equ 0x0180	; Size in bytes
+actor_scrap_sheet_run_frame_4_size_t		equ 0x000C	; Size in tiles
+actor_scrap_sheet_run_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scrap_sheet_run_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scrap_sheet_run_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+
+actor_scrap_sheet_run_frameoffset	equ 0x0A	; Offset to first frame in sprite sheet
+actor_scrap_sheet_run_tileoffset	equ 0x78	; Offset to first tile in sprite sheet
+actor_scrap_sheet_run_width		equ 0x20	; Width in pixels
+actor_scrap_sheet_run_height		equ 0x18	; Width in pixels
+actor_scrap_sheet_run_size_b		equ 0x780	; Size in bytes
+actor_scrap_sheet_run_size_w		equ 0x3C0	; Size in words
+actor_scrap_sheet_run_size_l		equ 0x1E0	; Size in longwords
+actor_scrap_sheet_run_size_t		equ 0x3C	; Size in tiles
 
 
 spritesheets_scrap:
 
 spritesheet_scrap_bark:
 
+actor_scrap_sheet_bark_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -169,6 +485,8 @@ spritesheet_scrap_bark:
 	dc.l	0x30000000
 	dc.l	0x10000000
 
+
+actor_scrap_sheet_bark_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -277,6 +595,8 @@ spritesheet_scrap_bark:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_bark_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -385,6 +705,8 @@ spritesheet_scrap_bark:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_bark_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -495,8 +817,10 @@ spritesheet_scrap_bark:
 
 
 
+
 spritesheet_scrap_idle:
 
+actor_scrap_sheet_idle_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -605,6 +929,8 @@ spritesheet_scrap_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_idle_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -713,6 +1039,8 @@ spritesheet_scrap_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_idle_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -821,6 +1149,8 @@ spritesheet_scrap_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_idle_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -929,6 +1259,8 @@ spritesheet_scrap_idle:
 	dc.l	0x01444100
 	dc.l	0x00111000
 
+
+actor_scrap_sheet_idle_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1037,6 +1369,8 @@ spritesheet_scrap_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_idle_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1147,8 +1481,10 @@ spritesheet_scrap_idle:
 
 
 
+
 spritesheet_scrap_run:
 
+actor_scrap_sheet_run_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1257,6 +1593,8 @@ spritesheet_scrap_run:
 	dc.l	0x71000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_run_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1365,6 +1703,8 @@ spritesheet_scrap_run:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_run_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1473,6 +1813,8 @@ spritesheet_scrap_run:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_run_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1581,6 +1923,8 @@ spritesheet_scrap_run:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_scrap_sheet_run_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1688,6 +2032,7 @@ spritesheet_scrap_run:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

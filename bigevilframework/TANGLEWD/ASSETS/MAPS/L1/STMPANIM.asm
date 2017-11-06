@@ -23,12 +23,10 @@ L1_LoadSceneAnimations:
 
 	; Set scene animations
 	move.w #stampanimsheet_AnimPlants_ground_plant_anim_frameoffset, Animation_FirstFrameOffset(a1)
-	move.l #spriteanim_AnimPlants_ground_plant_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
-	move.w #spriteanim_AnimPlants_ground_plant_anim_speed, Animation_Speed(a1)
-	move.b #spriteanim_AnimPlants_ground_plant_anim_numframes, Animation_Length(a1)
+	move.l #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
+	move.w #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_speed, Animation_Speed(a1)
+	move.b #actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
-	move.l #0x0, a2
-	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 
 	add.l  #SceneAnim_Struct_Size, a0
@@ -45,12 +43,10 @@ L1_LoadSceneAnimations:
 
 	; Set scene animations
 	move.w #stampanimsheet_AnimWater_water_anim_frameoffset, Animation_FirstFrameOffset(a1)
-	move.l #spriteanim_AnimWater_water_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
-	move.w #spriteanim_AnimWater_water_anim_speed, Animation_Speed(a1)
-	move.b #spriteanim_AnimWater_water_anim_numframes, Animation_Length(a1)
+	move.l #actor_AnimWater_sheet_water_anim_anim_water_anim_track_frames, Animation_AnimTrackSpriteFrame(a1)
+	move.w #actor_AnimWater_sheet_water_anim_anim_water_anim_speed, Animation_Speed(a1)
+	move.b #actor_AnimWater_sheet_water_anim_anim_water_anim_numframes, Animation_Length(a1)
 	move.b #0x1, Animation_Looping(a1)
-	move.l #0x0, a2
-	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 
 	add.l  #SceneAnim_Struct_Size, a0
@@ -69,8 +65,94 @@ stampanimsheet_AnimPlants_ground_plant_anim_frameoffset	equ 0x00	; Offset to fir
 
 spritesheets_AnimPlants:
 
+actor_AnimPlants_sheet_ground_plant_anim_frametable:
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_header:
+	dc.w 0x0030	; Frame size (tiles)
+	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_dimensions_bits
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_pos_offsets
+
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_header:
+	dc.w 0x0030	; Frame size (tiles)
+	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_dimensions_bits
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_pos_offsets
+
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_header:
+	dc.w 0x0030	; Frame size (tiles)
+	dc.w actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_dimensions_bits
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_pos_offsets
+
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_b		equ 0x0600	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimPlants_sheet_ground_plant_anim_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	Even
+
+
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_b		equ 0x0600	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimPlants_sheet_ground_plant_anim_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	Even
+
+
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_b		equ 0x0600	; Size in bytes
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_t		equ 0x0030	; Size in tiles
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00600000
+	dc.l 0x00200000, 0x00400000
+	dc.l 0x00400000, 0x00200000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimPlants_sheet_ground_plant_anim_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	Even
+
+
 stampanimsheet_AnimPlants_ground_plant_anim:
 
+actor_AnimPlants_sheet_ground_plant_anim_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -197,6 +279,7 @@ stampanimsheet_AnimPlants_ground_plant_anim:
 	dc.l	0x02C533A7
 	dc.l	0x7555537A
 
+actor_AnimPlants_sheet_ground_plant_anim_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -323,6 +406,7 @@ stampanimsheet_AnimPlants_ground_plant_anim:
 	dc.l	0x02C533A7
 	dc.l	0x7555537A
 
+actor_AnimPlants_sheet_ground_plant_anim_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -453,19 +537,22 @@ stampanimsheet_AnimPlants_ground_plant_anim:
 
 stampanims_AnimPlants:
 
-spriteanim_AnimPlants_ground_plant_anim:
-spriteanim_AnimPlants_ground_plant_anim_numframes: equ 0x3
-spriteanim_AnimPlants_ground_plant_anim_speed: equ 0x5
-spriteanim_AnimPlants_ground_plant_anim_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim:
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_numframes: equ 0x3
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_speed: equ 0x5
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_frames:
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_0_header
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_1_header
+	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_header
+
 	Even
-spriteanim_AnimPlants_ground_plant_anim_track_posx:
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_AnimPlants_ground_plant_anim_track_posy:
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_AnimPlants_ground_plant_anim_track_sfx:
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 
@@ -479,8 +566,94 @@ stampanimsheet_AnimWater_water_anim_frameoffset	equ 0x00	; Offset to first frame
 
 spritesheets_AnimWater:
 
+actor_AnimWater_sheet_water_anim_frametable:
+actor_AnimWater_sheet_water_anim_frame_0_header:
+	dc.w 0x002D	; Frame size (tiles)
+	dc.w actor_AnimWater_sheet_water_anim_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimWater_sheet_water_anim_frame_0
+	dc.l actor_AnimWater_sheet_water_anim_frame_0_subsprite_dimensions_bits
+	dc.l actor_AnimWater_sheet_water_anim_frame_0_subsprite_pos_offsets
+
+actor_AnimWater_sheet_water_anim_frame_1_header:
+	dc.w 0x002D	; Frame size (tiles)
+	dc.w actor_AnimWater_sheet_water_anim_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimWater_sheet_water_anim_frame_1
+	dc.l actor_AnimWater_sheet_water_anim_frame_1_subsprite_dimensions_bits
+	dc.l actor_AnimWater_sheet_water_anim_frame_1_subsprite_pos_offsets
+
+actor_AnimWater_sheet_water_anim_frame_2_header:
+	dc.w 0x002D	; Frame size (tiles)
+	dc.w actor_AnimWater_sheet_water_anim_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_AnimWater_sheet_water_anim_frame_2
+	dc.l actor_AnimWater_sheet_water_anim_frame_2_subsprite_dimensions_bits
+	dc.l actor_AnimWater_sheet_water_anim_frame_2_subsprite_pos_offsets
+
+actor_AnimWater_sheet_water_anim_frame_0_size_b		equ 0x05A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_0_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimWater_sheet_water_anim_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimWater_sheet_water_anim_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xA
+	Even
+
+
+actor_AnimWater_sheet_water_anim_frame_1_size_b		equ 0x05A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_1_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimWater_sheet_water_anim_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimWater_sheet_water_anim_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xA
+	Even
+
+
+actor_AnimWater_sheet_water_anim_frame_2_size_b		equ 0x05A0	; Size in bytes
+actor_AnimWater_sheet_water_anim_frame_2_size_t		equ 0x002D	; Size in tiles
+actor_AnimWater_sheet_water_anim_frame_2_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_AnimWater_sheet_water_anim_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00580000
+	dc.l 0x00200000, 0x00380000
+	dc.l 0x00400000, 0x00180000
+	dc.l 0x00600000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_AnimWater_sheet_water_anim_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xE
+	dc.b 0xA
+	Even
+
+
 stampanimsheet_AnimWater_water_anim:
 
+actor_AnimWater_sheet_water_anim_frame_0:
 	dc.l	0x777777AA
 	dc.l	0xAAA5AA53
 	dc.l	0xA77C577A
@@ -670,6 +843,7 @@ stampanimsheet_AnimWater_water_anim:
 	dc.l	0x77355C29
 	dc.l	0xA733C557
 
+actor_AnimWater_sheet_water_anim_frame_1:
 	dc.l	0x777777AA
 	dc.l	0xAAA5AA53
 	dc.l	0xA77C577A
@@ -859,6 +1033,7 @@ stampanimsheet_AnimWater_water_anim:
 	dc.l	0x77355C29
 	dc.l	0xA733C557
 
+actor_AnimWater_sheet_water_anim_frame_2:
 	dc.l	0x777777AA
 	dc.l	0xAAA5AA53
 	dc.l	0xA77C577A
@@ -1052,19 +1227,22 @@ stampanimsheet_AnimWater_water_anim:
 
 stampanims_AnimWater:
 
-spriteanim_AnimWater_water_anim:
-spriteanim_AnimWater_water_anim_numframes: equ 0x3
-spriteanim_AnimWater_water_anim_speed: equ 0x19
-spriteanim_AnimWater_water_anim_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_AnimWater_sheet_water_anim_anim_water_anim:
+actor_AnimWater_sheet_water_anim_anim_water_anim_numframes: equ 0x3
+actor_AnimWater_sheet_water_anim_anim_water_anim_speed: equ 0x19
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_frames:
+	dc.l actor_AnimWater_sheet_water_anim_frame_0_header
+	dc.l actor_AnimWater_sheet_water_anim_frame_1_header
+	dc.l actor_AnimWater_sheet_water_anim_frame_2_header
+
 	Even
-spriteanim_AnimWater_water_anim_track_posx:
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_AnimWater_water_anim_track_posy:
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_AnimWater_water_anim_track_sfx:
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 

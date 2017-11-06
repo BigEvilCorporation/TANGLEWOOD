@@ -9,49 +9,231 @@
 
 actor_pool:
 
-sprite_pool_size_b		equ 0x0020	; Size in bytes
-sprite_pool_size_t		equ 0x0001	; Size in tiles
-sprite_pool_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_pool_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_pool_sheet_filling_frametable:
+actor_pool_sheet_filling_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_0
+	dc.l actor_pool_sheet_filling_frame_0_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_0_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_1
+	dc.l actor_pool_sheet_filling_frame_1_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_1_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_2_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_2
+	dc.l actor_pool_sheet_filling_frame_2_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_2_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_3_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_3
+	dc.l actor_pool_sheet_filling_frame_3_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_3_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_4_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_4
+	dc.l actor_pool_sheet_filling_frame_4_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_4_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_5_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_5
+	dc.l actor_pool_sheet_filling_frame_5_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_5_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_6_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_6
+	dc.l actor_pool_sheet_filling_frame_6_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_6_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_7_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filling_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filling_frame_7
+	dc.l actor_pool_sheet_filling_frame_7_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filling_frame_7_subsprite_pos_offsets
+
+actor_pool_sheet_filling_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_pool_subsprite_pos_offsets:
+actor_pool_sheet_filling_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_pool_subsprite_dimensions_bits:
+actor_pool_sheet_filling_frame_0_subsprite_dimensions_bits:
 	dc.b 0x0
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_pool_numtiles_per_subsprite:
-	dc.b 0x01
+
+actor_pool_sheet_filling_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
 	Even
 
 
-spritesheet_pool_filling_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_pool_filling_width		equ 0x08	; Width in pixels
-spritesheet_pool_filling_height		equ 0x08	; Width in pixels
-spritesheet_pool_filling_size_b		equ 0x100	; Size in bytes
-spritesheet_pool_filling_size_w		equ 0x80	; Size in words
-spritesheet_pool_filling_size_l		equ 0x40	; Size in longwords
-spritesheet_pool_filling_size_t		equ 0x08	; Size in tiles
+actor_pool_sheet_filling_frame_2_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_2_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_2_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
 
 
-spritesheet_pool_filled_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
-spritesheet_pool_filled_width		equ 0x08	; Width in pixels
-spritesheet_pool_filled_height		equ 0x08	; Width in pixels
-spritesheet_pool_filled_size_b		equ 0x20	; Size in bytes
-spritesheet_pool_filled_size_w		equ 0x10	; Size in words
-spritesheet_pool_filled_size_l		equ 0x08	; Size in longwords
-spritesheet_pool_filled_size_t		equ 0x01	; Size in tiles
+actor_pool_sheet_filling_frame_3_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_3_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_3_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filling_frame_4_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_4_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_4_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filling_frame_5_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_5_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_5_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filling_frame_6_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_6_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_6_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filling_frame_7_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filling_frame_7_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filling_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filling_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filling_frame_7_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filling_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_pool_sheet_filling_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_pool_sheet_filling_width		equ 0x08	; Width in pixels
+actor_pool_sheet_filling_height		equ 0x08	; Width in pixels
+actor_pool_sheet_filling_size_b		equ 0x100	; Size in bytes
+actor_pool_sheet_filling_size_w		equ 0x80	; Size in words
+actor_pool_sheet_filling_size_l		equ 0x40	; Size in longwords
+actor_pool_sheet_filling_size_t		equ 0x08	; Size in tiles
+
+
+actor_pool_sheet_filled_frametable:
+actor_pool_sheet_filled_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_pool_sheet_filled_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_pool_sheet_filled_frame_0
+	dc.l actor_pool_sheet_filled_frame_0_subsprite_dimensions_bits
+	dc.l actor_pool_sheet_filled_frame_0_subsprite_pos_offsets
+
+actor_pool_sheet_filled_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_pool_sheet_filled_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_pool_sheet_filled_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_pool_sheet_filled_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_pool_sheet_filled_frame_0_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_pool_sheet_filled_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+actor_pool_sheet_filled_tileoffset	equ 0x08	; Offset to first tile in sprite sheet
+actor_pool_sheet_filled_width		equ 0x08	; Width in pixels
+actor_pool_sheet_filled_height		equ 0x08	; Width in pixels
+actor_pool_sheet_filled_size_b		equ 0x20	; Size in bytes
+actor_pool_sheet_filled_size_w		equ 0x10	; Size in words
+actor_pool_sheet_filled_size_l		equ 0x08	; Size in longwords
+actor_pool_sheet_filled_size_t		equ 0x01	; Size in tiles
 
 
 spritesheets_pool:
 
 spritesheet_pool_filling:
 
+actor_pool_sheet_filling_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -61,6 +243,8 @@ spritesheet_pool_filling:
 	dc.l	0x00000000
 	dc.l	0x111115A1
 
+
+actor_pool_sheet_filling_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -70,6 +254,8 @@ spritesheet_pool_filling:
 	dc.l	0x111115A1
 	dc.l	0xAA5D5ADD
 
+
+actor_pool_sheet_filling_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -79,6 +265,8 @@ spritesheet_pool_filling:
 	dc.l	0xAA5D5ADD
 	dc.l	0xA1DA11A1
 
+
+actor_pool_sheet_filling_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -88,6 +276,8 @@ spritesheet_pool_filling:
 	dc.l	0xA1DA11A1
 	dc.l	0x55555D5A
 
+
+actor_pool_sheet_filling_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -97,6 +287,8 @@ spritesheet_pool_filling:
 	dc.l	0x55555D5A
 	dc.l	0x1155A551
 
+
+actor_pool_sheet_filling_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x111115A1
@@ -106,6 +298,8 @@ spritesheet_pool_filling:
 	dc.l	0x1155A551
 	dc.l	0x111A1511
 
+
+actor_pool_sheet_filling_frame_6:
 	dc.l	0x00000000
 	dc.l	0x111115A1
 	dc.l	0xAA5D5ADD
@@ -115,6 +309,8 @@ spritesheet_pool_filling:
 	dc.l	0x111A1511
 	dc.l	0x11A15111
 
+
+actor_pool_sheet_filling_frame_7:
 	dc.l	0x111115A1
 	dc.l	0xAA5D5ADD
 	dc.l	0xA1DA11A1
@@ -126,8 +322,10 @@ spritesheet_pool_filling:
 
 
 
+
 spritesheet_pool_filled:
 
+actor_pool_sheet_filled_frame_0:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -136,6 +334,7 @@ spritesheet_pool_filled:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
+
 
 
 

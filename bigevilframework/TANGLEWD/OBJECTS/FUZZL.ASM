@@ -57,39 +57,39 @@ Fuzzl_Spritesheets:
 
 	; Spritesheet/animation tables
 Fuzzl_Spritesheets_Red:
-	dc.w spritesheet_fuzzl_red_idle_frameoffset
-	dc.w spritesheet_fuzzl_red_eyes_frameoffset
-	dc.w spritesheet_fuzzl_red_roll_frameoffset
-	dc.w spritesheet_fuzzl_red_roll_frameoffset
-	dc.w spritesheet_fuzzl_red_sleep_frameoffset
+	dc.w actor_fuzzl_sheet_red_idle_frameoffset
+	dc.w actor_fuzzl_sheet_red_eyes_frameoffset
+	dc.w actor_fuzzl_sheet_red_roll_frameoffset
+	dc.w actor_fuzzl_sheet_red_roll_frameoffset
+	dc.w actor_fuzzl_sheet_red_sleep_frameoffset
 
 Fuzzl_Spritesheets_Blue:
-	dc.w spritesheet_fuzzl_blue_idle_frameoffset
-	dc.w spritesheet_fuzzl_blue_eyes_frameoffset
-	dc.w spritesheet_fuzzl_blue_roll_frameoffset
-	dc.w spritesheet_fuzzl_blue_roll_frameoffset
-	dc.w spritesheet_fuzzl_blue_sleep_frameoffset
+	dc.w actor_fuzzl_sheet_blue_idle_frameoffset
+	dc.w actor_fuzzl_sheet_blue_eyes_frameoffset
+	dc.w actor_fuzzl_sheet_blue_roll_frameoffset
+	dc.w actor_fuzzl_sheet_blue_roll_frameoffset
+	dc.w actor_fuzzl_sheet_blue_sleep_frameoffset
 
 Fuzzl_Spritesheets_Green:
-	dc.w spritesheet_fuzzl_green_idle_frameoffset
-	dc.w spritesheet_fuzzl_green_eyes_frameoffset
-	dc.w spritesheet_fuzzl_green_roll_frameoffset
-	dc.w spritesheet_fuzzl_green_roll_frameoffset
-	dc.w spritesheet_fuzzl_green_sleep_frameoffset
+	dc.w actor_fuzzl_sheet_green_idle_frameoffset
+	dc.w actor_fuzzl_sheet_green_eyes_frameoffset
+	dc.w actor_fuzzl_sheet_green_roll_frameoffset
+	dc.w actor_fuzzl_sheet_green_roll_frameoffset
+	dc.w actor_fuzzl_sheet_green_sleep_frameoffset
 	
 Fuzzl_Spritesheets_Yellow:
-	dc.w spritesheet_fuzzl_yellow_idle_frameoffset
-	dc.w spritesheet_fuzzl_yellow_eyes_frameoffset
-	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
-	dc.w spritesheet_fuzzl_yellow_roll_frameoffset
-	dc.w spritesheet_fuzzl_yellow_sleep_frameoffset
+	dc.w actor_fuzzl_sheet_yellow_idle_frameoffset
+	dc.w actor_fuzzl_sheet_yellow_eyes_frameoffset
+	dc.w actor_fuzzl_sheet_yellow_roll_frameoffset
+	dc.w actor_fuzzl_sheet_yellow_roll_frameoffset
+	dc.w actor_fuzzl_sheet_yellow_sleep_frameoffset
 
 Fuzzl_Spritesheets_White:
-	dc.w spritesheet_fuzzl_white_idle_frameoffset
-	dc.w spritesheet_fuzzl_white_eyes_frameoffset
-	dc.w spritesheet_fuzzl_white_roll_frameoffset
-	dc.w spritesheet_fuzzl_white_roll_frameoffset
-	dc.w spritesheet_fuzzl_white_sleep_frameoffset
+	dc.w actor_fuzzl_sheet_white_idle_frameoffset
+	dc.w actor_fuzzl_sheet_white_eyes_frameoffset
+	dc.w actor_fuzzl_sheet_white_roll_frameoffset
+	dc.w actor_fuzzl_sheet_white_roll_frameoffset
+	dc.w actor_fuzzl_sheet_white_sleep_frameoffset
 
 ; Eye anim subframes
 Fuzzl_Eye_Frame_TopMiddle    equ (0x0<<0x8)
@@ -211,19 +211,19 @@ FuzzlInit:
 	; Setup animations
 
 	; Idle
-	ANIM_LOAD_DEFAULT fuzzl_blue_idle,fuzzl_yellow_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_idle,red_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	
 	; Watch
-	ANIM_LOAD_DEFAULT fuzzl_blue_eyes,fuzzl_yellow_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_eyes,red_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 
 	; Roll
-	ANIM_LOAD_DEFAULT fuzzl_blue_roll,fuzzl_yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
 
 	; Bounce
-	ANIM_LOAD_DEFAULT fuzzl_blue_roll,fuzzl_yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
 
 	; Sleep
-	ANIM_LOAD_DEFAULT fuzzl_blue_sleep,fuzzl_yellow_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	ANIM_LOAD_DEFAULT fuzzl,red_sleep,red_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
 
 	rts
 
@@ -231,7 +231,7 @@ FuzzlLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT fuzzl,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,red_idle,PaletteId_Fuzzl,0x0
 
 	; Set initial colour anim offset
 	move.b Fuzzl_Colour(a0), d0

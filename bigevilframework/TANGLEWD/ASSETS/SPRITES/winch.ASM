@@ -9,13 +9,27 @@
 
 actor_winch:
 
-sprite_winch_size_b		equ 0x0540	; Size in bytes
-sprite_winch_size_t		equ 0x002A	; Size in tiles
-sprite_winch_size_subsprites		equ 0x0004	; Size in subsprites
-sprite_winch_widthheight_subsprites		equ 0x0202	; Width/height (bb) in subsprites
+actor_winch_sheet_winch_frametable:
+actor_winch_sheet_winch_frame_0_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_winch_sheet_winch_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_winch_sheet_winch_frame_0
+	dc.l actor_winch_sheet_winch_frame_0_subsprite_dimensions_bits
+	dc.l actor_winch_sheet_winch_frame_0_subsprite_pos_offsets
+
+actor_winch_sheet_winch_frame_1_header:
+	dc.w 0x002A	; Frame size (tiles)
+	dc.w actor_winch_sheet_winch_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_winch_sheet_winch_frame_1
+	dc.l actor_winch_sheet_winch_frame_1_subsprite_dimensions_bits
+	dc.l actor_winch_sheet_winch_frame_1_subsprite_pos_offsets
+
+actor_winch_sheet_winch_frame_0_size_b		equ 0x0540	; Size in bytes
+actor_winch_sheet_winch_frame_0_size_t		equ 0x002A	; Size in tiles
+actor_winch_sheet_winch_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_winch_subsprite_pos_offsets:
+actor_winch_sheet_winch_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00100000
 	dc.l 0x00000020, 0x00100020
 	dc.l 0x00200000, 0x00000000
@@ -23,35 +37,50 @@ sprite_winch_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_winch_subsprite_dimensions_bits:
+actor_winch_sheet_winch_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xE
 	dc.b 0x7
 	dc.b 0x6
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_winch_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x0C
-	dc.b 0x08
-	dc.b 0x06
+
+actor_winch_sheet_winch_frame_1_size_b		equ 0x0540	; Size in bytes
+actor_winch_sheet_winch_frame_1_size_t		equ 0x002A	; Size in tiles
+actor_winch_sheet_winch_frame_1_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_winch_sheet_winch_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	dc.l 0x00000020, 0x00100020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_winch_sheet_winch_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0x7
+	dc.b 0x6
 	Even
 
 
-spritesheet_winch_winch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_winch_winch_width		equ 0x30	; Width in pixels
-spritesheet_winch_winch_height		equ 0x38	; Width in pixels
-spritesheet_winch_winch_size_b		equ 0xA80	; Size in bytes
-spritesheet_winch_winch_size_w		equ 0x540	; Size in words
-spritesheet_winch_winch_size_l		equ 0x2A0	; Size in longwords
-spritesheet_winch_winch_size_t		equ 0x54	; Size in tiles
+actor_winch_sheet_winch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_winch_sheet_winch_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_winch_sheet_winch_width		equ 0x30	; Width in pixels
+actor_winch_sheet_winch_height		equ 0x38	; Width in pixels
+actor_winch_sheet_winch_size_b		equ 0xA80	; Size in bytes
+actor_winch_sheet_winch_size_w		equ 0x540	; Size in words
+actor_winch_sheet_winch_size_l		equ 0x2A0	; Size in longwords
+actor_winch_sheet_winch_size_t		equ 0x54	; Size in tiles
 
 
 spritesheets_winch:
 
 spritesheet_winch_winch:
 
+actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -430,6 +459,8 @@ spritesheet_winch_winch:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -807,6 +838,7 @@ spritesheet_winch_winch:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

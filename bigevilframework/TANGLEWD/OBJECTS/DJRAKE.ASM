@@ -179,7 +179,7 @@ DjrakeInit:
 	; Setup default character animations
 
 	; Idle
-	ANIM_LOAD_DEFAULT djrake_idle,djrake_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT djrake,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	;; Begin initial state
 	;jsr    DjrakeStartWaitForPlayer
@@ -190,7 +190,7 @@ DjrakeLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT djrake,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djrake,ifle,PaletteId_Monster,0x0
 
 	rts
 

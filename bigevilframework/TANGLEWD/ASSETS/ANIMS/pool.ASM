@@ -9,19 +9,27 @@
 
 spriteanims_pool:
 
-spriteanim_pool_filling:
-spriteanim_pool_filling_numframes: equ 0x8
-spriteanim_pool_filling_speed: equ 0x5
-spriteanim_pool_filling_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+actor_pool_sheet_filling_anim_filling:
+actor_pool_sheet_filling_anim_filling_numframes: equ 0x8
+actor_pool_sheet_filling_anim_filling_speed: equ 0x5
+actor_pool_sheet_filling_anim_filling_track_frames:
+	dc.l actor_pool_sheet_filling_frame_0_header
+	dc.l actor_pool_sheet_filling_frame_1_header
+	dc.l actor_pool_sheet_filling_frame_2_header
+	dc.l actor_pool_sheet_filling_frame_3_header
+	dc.l actor_pool_sheet_filling_frame_4_header
+	dc.l actor_pool_sheet_filling_frame_5_header
+	dc.l actor_pool_sheet_filling_frame_6_header
+	dc.l actor_pool_sheet_filling_frame_7_header
+
 	Even
-spriteanim_pool_filling_track_posx:
+actor_pool_sheet_filling_anim_filling_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_pool_filling_track_posy:
+actor_pool_sheet_filling_anim_filling_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_pool_filling_track_sfx:
+actor_pool_sheet_filling_anim_filling_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

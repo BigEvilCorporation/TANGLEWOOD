@@ -83,10 +83,10 @@ PoolLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT pool,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT pool,filling,PaletteId_World0,0x0
 
 	; Load animation
-	ANIM_LOAD_DEFAULT Pool_filling,Pool_filling,Pool_Animation,0,1,0,0
+	ANIM_LOAD_DEFAULT Pool,filling,filling,Pool_Animation,0,1,0,0
 
 	; Set animation (stopped)
 	PUSHL  a1
@@ -99,7 +99,7 @@ PoolLoadGfx:
 	POPL   a1
 
 	; Set water anim at top
-	move.l #(spriteanim_pool_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
+	move.l #(actor_pool_sheet_filling_anim_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
 
 	; Set dirty
 	move.b #0x1, AnimObj_UploadFrame(a0)
@@ -194,7 +194,7 @@ PoolUpdate:
 	move.b #0x0, AnimObj_Playing(a0)
 
 	; Set water anim at top
-	move.l #(spriteanim_pool_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
+	move.l #(actor_pool_sheet_filling_anim_filling_numframes-1)<<8, AnimObj_AnimSubFrame(a0)
 
 	; Set dirty
 	move.b #0x1, AnimObj_UploadFrame(a0)

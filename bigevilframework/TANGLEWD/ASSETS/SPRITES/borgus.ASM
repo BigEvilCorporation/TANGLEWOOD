@@ -9,13 +9,256 @@
 
 actor_borgus:
 
-sprite_borgus_size_b		equ 0x18C0	; Size in bytes
-sprite_borgus_size_t		equ 0x00C6	; Size in tiles
-sprite_borgus_size_subsprites		equ 0x000F	; Size in subsprites
-sprite_borgus_widthheight_subsprites		equ 0x0305	; Width/height (bb) in subsprites
+actor_borgus_sheet_idle_frametable:
+actor_borgus_sheet_idle_frame_0_header:
+	dc.w 0x00B0	; Frame size (tiles)
+	dc.w actor_borgus_sheet_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_idle_frame_0
+	dc.l actor_borgus_sheet_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_idle_frame_0_subsprite_pos_offsets
+
+actor_borgus_sheet_idle_frame_1_header:
+	dc.w 0x00B0	; Frame size (tiles)
+	dc.w actor_borgus_sheet_idle_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_idle_frame_1
+	dc.l actor_borgus_sheet_idle_frame_1_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_idle_frame_1_subsprite_pos_offsets
+
+actor_borgus_sheet_idle_frame_2_header:
+	dc.w 0x00B0	; Frame size (tiles)
+	dc.w actor_borgus_sheet_idle_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_idle_frame_2
+	dc.l actor_borgus_sheet_idle_frame_2_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_idle_frame_2_subsprite_pos_offsets
+
+actor_borgus_sheet_idle_frame_3_header:
+	dc.w 0x00B0	; Frame size (tiles)
+	dc.w actor_borgus_sheet_idle_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_idle_frame_3
+	dc.l actor_borgus_sheet_idle_frame_3_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_idle_frame_3_subsprite_pos_offsets
+
+actor_borgus_sheet_idle_frame_0_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_0_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_0_size_subsprites		equ 0x000C	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_borgus_subsprite_pos_offsets:
+actor_borgus_sheet_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_idle_frame_1_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_1_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_idle_frame_2_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_2_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_idle_frame_3_size_b		equ 0x1600	; Size in bytes
+actor_borgus_sheet_idle_frame_3_size_t		equ 0x00B0	; Size in tiles
+actor_borgus_sheet_idle_frame_3_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_borgus_sheet_idle_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_borgus_sheet_idle_width		equ 0x58	; Width in pixels
+actor_borgus_sheet_idle_height		equ 0x90	; Width in pixels
+actor_borgus_sheet_idle_size_b		equ 0x6300	; Size in bytes
+actor_borgus_sheet_idle_size_w		equ 0x3180	; Size in words
+actor_borgus_sheet_idle_size_l		equ 0x18C0	; Size in longwords
+actor_borgus_sheet_idle_size_t		equ 0x318	; Size in tiles
+
+
+actor_borgus_sheet_walk_frametable:
+actor_borgus_sheet_walk_frame_0_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_0
+	dc.l actor_borgus_sheet_walk_frame_0_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_0_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_1_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_1
+	dc.l actor_borgus_sheet_walk_frame_1_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_1_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_2_header:
+	dc.w 0x00B4	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_2
+	dc.l actor_borgus_sheet_walk_frame_2_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_2_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_3_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_3
+	dc.l actor_borgus_sheet_walk_frame_3_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_3_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_4_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_4
+	dc.l actor_borgus_sheet_walk_frame_4_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_4_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_5_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_5
+	dc.l actor_borgus_sheet_walk_frame_5_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_5_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_6_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_6
+	dc.l actor_borgus_sheet_walk_frame_6_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_6_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_7_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_walk_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_walk_frame_7
+	dc.l actor_borgus_sheet_walk_frame_7_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_walk_frame_7_subsprite_pos_offsets
+
+actor_borgus_sheet_walk_frame_0_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_0_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00380000
 	dc.l 0x00000020, 0x00380020
 	dc.l 0x00000040, 0x00380040
@@ -34,7 +277,7 @@ sprite_borgus_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_borgus_subsprite_dimensions_bits:
+actor_borgus_sheet_walk_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xF
 	dc.b 0xF
@@ -52,93 +295,908 @@ sprite_borgus_subsprite_dimensions_bits:
 	dc.b 0x9
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_borgus_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x08
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x06
+
+actor_borgus_sheet_walk_frame_1_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_1_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_1_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
 	Even
 
 
-spritesheet_borgus_idle_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_borgus_idle_width		equ 0x58	; Width in pixels
-spritesheet_borgus_idle_height		equ 0x90	; Width in pixels
-spritesheet_borgus_idle_size_b		equ 0x6300	; Size in bytes
-spritesheet_borgus_idle_size_w		equ 0x3180	; Size in words
-spritesheet_borgus_idle_size_l		equ 0x18C0	; Size in longwords
-spritesheet_borgus_idle_size_t		equ 0x318	; Size in tiles
+actor_borgus_sheet_walk_frame_2_size_b		equ 0x1680	; Size in bytes
+actor_borgus_sheet_walk_frame_2_size_t		equ 0x00B4	; Size in tiles
+actor_borgus_sheet_walk_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00300000
+	dc.l 0x00000020, 0x00300020
+	dc.l 0x00000040, 0x00300040
+	dc.l 0x00000060, 0x00300060
+	dc.l 0x00000080, 0x00300080
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	dc.l 0x00200040, 0x00100040
+	dc.l 0x00200060, 0x00100060
+	dc.l 0x00200080, 0x00100080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x5
+	Even
 
 
-spritesheet_borgus_walk_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
-spritesheet_borgus_walk_width		equ 0x58	; Width in pixels
-spritesheet_borgus_walk_height		equ 0x90	; Width in pixels
-spritesheet_borgus_walk_size_b		equ 0xC600	; Size in bytes
-spritesheet_borgus_walk_size_w		equ 0x6300	; Size in words
-spritesheet_borgus_walk_size_l		equ 0x3180	; Size in longwords
-spritesheet_borgus_walk_size_t		equ 0x630	; Size in tiles
+actor_borgus_sheet_walk_frame_3_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_3_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
 
 
-spritesheet_borgus_death_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
-spritesheet_borgus_death_width		equ 0x58	; Width in pixels
-spritesheet_borgus_death_height		equ 0x90	; Width in pixels
-spritesheet_borgus_death_size_b		equ 0x4A40	; Size in bytes
-spritesheet_borgus_death_size_w		equ 0x2520	; Size in words
-spritesheet_borgus_death_size_l		equ 0x1290	; Size in longwords
-spritesheet_borgus_death_size_t		equ 0x252	; Size in tiles
+actor_borgus_sheet_walk_frame_4_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_4_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_4_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
 
 
-spritesheet_borgus_attack_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
-spritesheet_borgus_attack_width		equ 0x58	; Width in pixels
-spritesheet_borgus_attack_height		equ 0x90	; Width in pixels
-spritesheet_borgus_attack_size_b		equ 0x7BC0	; Size in bytes
-spritesheet_borgus_attack_size_w		equ 0x3DE0	; Size in words
-spritesheet_borgus_attack_size_l		equ 0x1EF0	; Size in longwords
-spritesheet_borgus_attack_size_t		equ 0x3DE	; Size in tiles
+actor_borgus_sheet_walk_frame_5_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_5_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_5_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_5_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
 
 
-spritesheet_borgus_spit_frameoffset	equ 0x14	; Offset to first frame in sprite sheet
-spritesheet_borgus_spit_width		equ 0x58	; Width in pixels
-spritesheet_borgus_spit_height		equ 0x90	; Width in pixels
-spritesheet_borgus_spit_size_b		equ 0x6300	; Size in bytes
-spritesheet_borgus_spit_size_w		equ 0x3180	; Size in words
-spritesheet_borgus_spit_size_l		equ 0x18C0	; Size in longwords
-spritesheet_borgus_spit_size_t		equ 0x318	; Size in tiles
+actor_borgus_sheet_walk_frame_6_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_walk_frame_6_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_walk_frame_6_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_borgus_sheet_walk_frame_7_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_walk_frame_7_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_walk_frame_7_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_walk_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_walk_frame_7_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_walk_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
+actor_borgus_sheet_walk_tileoffset	equ 0x2C0	; Offset to first tile in sprite sheet
+actor_borgus_sheet_walk_width		equ 0x58	; Width in pixels
+actor_borgus_sheet_walk_height		equ 0x90	; Width in pixels
+actor_borgus_sheet_walk_size_b		equ 0xC600	; Size in bytes
+actor_borgus_sheet_walk_size_w		equ 0x6300	; Size in words
+actor_borgus_sheet_walk_size_l		equ 0x3180	; Size in longwords
+actor_borgus_sheet_walk_size_t		equ 0x630	; Size in tiles
+
+
+actor_borgus_sheet_death_frametable:
+actor_borgus_sheet_death_frame_0_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_death_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_death_frame_0
+	dc.l actor_borgus_sheet_death_frame_0_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_death_frame_0_subsprite_pos_offsets
+
+actor_borgus_sheet_death_frame_1_header:
+	dc.w 0x008F	; Frame size (tiles)
+	dc.w actor_borgus_sheet_death_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_death_frame_1
+	dc.l actor_borgus_sheet_death_frame_1_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_death_frame_1_subsprite_pos_offsets
+
+actor_borgus_sheet_death_frame_2_header:
+	dc.w 0x0058	; Frame size (tiles)
+	dc.w actor_borgus_sheet_death_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_death_frame_2
+	dc.l actor_borgus_sheet_death_frame_2_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_death_frame_2_subsprite_pos_offsets
+
+actor_borgus_sheet_death_frame_0_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_death_frame_0_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_death_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_death_frame_1_size_b		equ 0x11E0	; Size in bytes
+actor_borgus_sheet_death_frame_1_size_t		equ 0x008F	; Size in tiles
+actor_borgus_sheet_death_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_death_frame_2_size_b		equ 0x0B00	; Size in bytes
+actor_borgus_sheet_death_frame_2_size_t		equ 0x0058	; Size in tiles
+actor_borgus_sheet_death_frame_2_size_subsprites		equ 0x0006	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_death_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_death_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xB
+	dc.b 0xB
+	Even
+
+
+actor_borgus_sheet_death_frameoffset	equ 0x0C	; Offset to first frame in sprite sheet
+actor_borgus_sheet_death_tileoffset	equ 0x8BD	; Offset to first tile in sprite sheet
+actor_borgus_sheet_death_width		equ 0x58	; Width in pixels
+actor_borgus_sheet_death_height		equ 0x90	; Width in pixels
+actor_borgus_sheet_death_size_b		equ 0x4A40	; Size in bytes
+actor_borgus_sheet_death_size_w		equ 0x2520	; Size in words
+actor_borgus_sheet_death_size_l		equ 0x1290	; Size in longwords
+actor_borgus_sheet_death_size_t		equ 0x252	; Size in tiles
+
+
+actor_borgus_sheet_attack_frametable:
+actor_borgus_sheet_attack_frame_0_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_attack_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_attack_frame_0
+	dc.l actor_borgus_sheet_attack_frame_0_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_attack_frame_0_subsprite_pos_offsets
+
+actor_borgus_sheet_attack_frame_1_header:
+	dc.w 0x00A0	; Frame size (tiles)
+	dc.w actor_borgus_sheet_attack_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_attack_frame_1
+	dc.l actor_borgus_sheet_attack_frame_1_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_attack_frame_1_subsprite_pos_offsets
+
+actor_borgus_sheet_attack_frame_2_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_attack_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_attack_frame_2
+	dc.l actor_borgus_sheet_attack_frame_2_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_attack_frame_2_subsprite_pos_offsets
+
+actor_borgus_sheet_attack_frame_3_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_attack_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_attack_frame_3
+	dc.l actor_borgus_sheet_attack_frame_3_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_attack_frame_3_subsprite_pos_offsets
+
+actor_borgus_sheet_attack_frame_4_header:
+	dc.w 0x00A5	; Frame size (tiles)
+	dc.w actor_borgus_sheet_attack_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_attack_frame_4
+	dc.l actor_borgus_sheet_attack_frame_4_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_attack_frame_4_subsprite_pos_offsets
+
+actor_borgus_sheet_attack_frame_0_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_attack_frame_0_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_attack_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_attack_frame_1_size_b		equ 0x1400	; Size in bytes
+actor_borgus_sheet_attack_frame_1_size_t		equ 0x00A0	; Size in tiles
+actor_borgus_sheet_attack_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00300000
+	dc.l 0x00000020, 0x00300020
+	dc.l 0x00000040, 0x00300040
+	dc.l 0x00000060, 0x00300060
+	dc.l 0x00200000, 0x00100000
+	dc.l 0x00200020, 0x00100020
+	dc.l 0x00200040, 0x00100040
+	dc.l 0x00200060, 0x00100060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	dc.b 0x7
+	Even
+
+
+actor_borgus_sheet_attack_frame_2_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_attack_frame_2_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_attack_frame_2_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_attack_frame_3_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_attack_frame_3_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_attack_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_borgus_sheet_attack_frame_4_size_b		equ 0x14A0	; Size in bytes
+actor_borgus_sheet_attack_frame_4_size_t		equ 0x00A5	; Size in tiles
+actor_borgus_sheet_attack_frame_4_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_attack_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_attack_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xA
+	Even
+
+
+actor_borgus_sheet_attack_frameoffset	equ 0x0F	; Offset to first frame in sprite sheet
+actor_borgus_sheet_attack_tileoffset	equ 0xA5F	; Offset to first tile in sprite sheet
+actor_borgus_sheet_attack_width		equ 0x58	; Width in pixels
+actor_borgus_sheet_attack_height		equ 0x90	; Width in pixels
+actor_borgus_sheet_attack_size_b		equ 0x7BC0	; Size in bytes
+actor_borgus_sheet_attack_size_w		equ 0x3DE0	; Size in words
+actor_borgus_sheet_attack_size_l		equ 0x1EF0	; Size in longwords
+actor_borgus_sheet_attack_size_t		equ 0x3DE	; Size in tiles
+
+
+actor_borgus_sheet_spit_frametable:
+actor_borgus_sheet_spit_frame_0_header:
+	dc.w 0x00C6	; Frame size (tiles)
+	dc.w actor_borgus_sheet_spit_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_spit_frame_0
+	dc.l actor_borgus_sheet_spit_frame_0_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_spit_frame_0_subsprite_pos_offsets
+
+actor_borgus_sheet_spit_frame_1_header:
+	dc.w 0x00A5	; Frame size (tiles)
+	dc.w actor_borgus_sheet_spit_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_spit_frame_1
+	dc.l actor_borgus_sheet_spit_frame_1_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_spit_frame_1_subsprite_pos_offsets
+
+actor_borgus_sheet_spit_frame_2_header:
+	dc.w 0x00A5	; Frame size (tiles)
+	dc.w actor_borgus_sheet_spit_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_spit_frame_2
+	dc.l actor_borgus_sheet_spit_frame_2_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_spit_frame_2_subsprite_pos_offsets
+
+actor_borgus_sheet_spit_frame_3_header:
+	dc.w 0x00BB	; Frame size (tiles)
+	dc.w actor_borgus_sheet_spit_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_borgus_sheet_spit_frame_3
+	dc.l actor_borgus_sheet_spit_frame_3_subsprite_dimensions_bits
+	dc.l actor_borgus_sheet_spit_frame_3_subsprite_pos_offsets
+
+actor_borgus_sheet_spit_frame_0_size_b		equ 0x18C0	; Size in bytes
+actor_borgus_sheet_spit_frame_0_size_t		equ 0x00C6	; Size in tiles
+actor_borgus_sheet_spit_frame_0_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_spit_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_spit_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xD
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_borgus_sheet_spit_frame_1_size_b		equ 0x14A0	; Size in bytes
+actor_borgus_sheet_spit_frame_1_size_t		equ 0x00A5	; Size in tiles
+actor_borgus_sheet_spit_frame_1_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_spit_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_spit_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xA
+	Even
+
+
+actor_borgus_sheet_spit_frame_2_size_b		equ 0x14A0	; Size in bytes
+actor_borgus_sheet_spit_frame_2_size_t		equ 0x00A5	; Size in tiles
+actor_borgus_sheet_spit_frame_2_size_subsprites		equ 0x000C	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_spit_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_spit_frame_2_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xA
+	Even
+
+
+actor_borgus_sheet_spit_frame_3_size_b		equ 0x1760	; Size in bytes
+actor_borgus_sheet_spit_frame_3_size_t		equ 0x00BB	; Size in tiles
+actor_borgus_sheet_spit_frame_3_size_subsprites		equ 0x000F	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_borgus_sheet_spit_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00380000
+	dc.l 0x00000020, 0x00380020
+	dc.l 0x00000040, 0x00380040
+	dc.l 0x00000060, 0x00380060
+	dc.l 0x00000080, 0x00380080
+	dc.l 0x00200000, 0x00180000
+	dc.l 0x00200020, 0x00180020
+	dc.l 0x00200040, 0x00180040
+	dc.l 0x00200060, 0x00180060
+	dc.l 0x00200080, 0x00180080
+	dc.l 0x00400000, 0x00000000
+	dc.l 0x00400020, 0x00000020
+	dc.l 0x00400040, 0x00000040
+	dc.l 0x00400060, 0x00000060
+	dc.l 0x00400080, 0x00000080
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_borgus_sheet_spit_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
+	Even
+
+
+actor_borgus_sheet_spit_frameoffset	equ 0x14	; Offset to first frame in sprite sheet
+actor_borgus_sheet_spit_tileoffset	equ 0xDE0	; Offset to first tile in sprite sheet
+actor_borgus_sheet_spit_width		equ 0x58	; Width in pixels
+actor_borgus_sheet_spit_height		equ 0x90	; Width in pixels
+actor_borgus_sheet_spit_size_b		equ 0x6300	; Size in bytes
+actor_borgus_sheet_spit_size_w		equ 0x3180	; Size in words
+actor_borgus_sheet_spit_size_l		equ 0x18C0	; Size in longwords
+actor_borgus_sheet_spit_size_t		equ 0x318	; Size in tiles
 
 
 spritesheets_borgus:
 
 spritesheet_borgus_idle:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_idle_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -193,23 +1251,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11222222
 	dc.l	0x11122222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x01111121
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000122
+	dc.l	0x00000122
+	dc.l	0x00000122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00011111
+	dc.l	0x00122222
+	dc.l	0x00122555
+	dc.l	0x01122222
+	dc.l	0x01111111
+	dc.l	0x00121111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -229,23 +1287,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111222
 	dc.l	0x21111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122221
+	dc.l	0x22222111
+	dc.l	0x22111122
+	dc.l	0x22222333
+	dc.l	0x22222123
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x22222233
+	dc.l	0x52253333
+	dc.l	0x22555333
+	dc.l	0x21255555
+	dc.l	0x12122255
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -265,23 +1323,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111112
 	dc.l	0x21111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x31111313
+	dc.l	0x11111111
+	dc.l	0x22222221
+	dc.l	0x33332222
+	dc.l	0x33333321
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11123333
+	dc.l	0x11111333
+	dc.l	0x11111155
+	dc.l	0x33311115
+	dc.l	0x33331111
+	dc.l	0x35333111
+	dc.l	0x33553111
+	dc.l	0x53335311
 
 	dc.l	0x00000000
 	dc.l	0x00000001
@@ -301,23 +1359,23 @@ spritesheet_borgus_idle:
 	dc.l	0x01111113
 	dc.l	0x01131111
 
-	dc.l	0x01111121
+	dc.l	0x11131113
+	dc.l	0x01131311
+	dc.l	0x01131311
 	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000122
-	dc.l	0x00000122
-	dc.l	0x00000122
-
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00011111
-	dc.l	0x00122222
-	dc.l	0x00122555
-	dc.l	0x01122222
 	dc.l	0x01111111
-	dc.l	0x00121111
+	dc.l	0x01111111
+	dc.l	0x00111111
+	dc.l	0x01111111
+
+	dc.l	0x01111111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00111112
+	dc.l	0x00011222
+	dc.l	0x00011222
+	dc.l	0x00111122
+	dc.l	0x00112122
 
 	dc.l	0x01111111
 	dc.l	0x11111555
@@ -337,23 +1395,23 @@ spritesheet_borgus_idle:
 	dc.l	0x12222111
 	dc.l	0x11221111
 
-	dc.l	0x22111111
+	dc.l	0x11221111
+	dc.l	0x31121113
+	dc.l	0x13113113
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11122221
-	dc.l	0x22222111
-	dc.l	0x22111122
-	dc.l	0x22222333
-	dc.l	0x22222123
+	dc.l	0x12111333
+	dc.l	0x22113333
+	dc.l	0x22113333
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x22222233
-	dc.l	0x52253333
-	dc.l	0x22555333
-	dc.l	0x21255555
-	dc.l	0x12122255
+	dc.l	0x12113335
+	dc.l	0x12133355
+	dc.l	0x11133355
+	dc.l	0x11135555
+	dc.l	0x11135555
+	dc.l	0x12135555
+	dc.l	0x21335555
+	dc.l	0x11335333
 
 	dc.l	0x11112222
 	dc.l	0x53331111
@@ -373,23 +1431,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11115553
 	dc.l	0x33333333
 
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33331311
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x31111313
-	dc.l	0x11111111
-	dc.l	0x22222221
-	dc.l	0x33332222
-	dc.l	0x33333321
+	dc.l	0x13313111
+	dc.l	0x33333333
+	dc.l	0x33555553
+	dc.l	0x35555553
 
-	dc.l	0x11123333
-	dc.l	0x11111333
-	dc.l	0x11111155
-	dc.l	0x33311115
-	dc.l	0x33331111
-	dc.l	0x35333111
-	dc.l	0x33553111
-	dc.l	0x53335311
+	dc.l	0x55555553
+	dc.l	0x55555553
+	dc.l	0x55555533
+	dc.l	0x55553331
+	dc.l	0x55533311
+	dc.l	0x53331111
+	dc.l	0x33331112
+	dc.l	0x33311111
 
 	dc.l	0x55333311
 	dc.l	0x11533331
@@ -409,23 +1467,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33112111
 	dc.l	0x33112222
 
-	dc.l	0x11131113
-	dc.l	0x01131311
-	dc.l	0x01131311
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x00111111
-	dc.l	0x01111111
+	dc.l	0x31112222
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11112211
+	dc.l	0x11115111
+	dc.l	0x33111122
+	dc.l	0x33112222
 
-	dc.l	0x01111111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00111112
-	dc.l	0x00011222
-	dc.l	0x00011222
-	dc.l	0x00111122
-	dc.l	0x00112122
+	dc.l	0x31112222
+	dc.l	0x31122222
+	dc.l	0x11122221
+	dc.l	0x11122211
+	dc.l	0x11122112
+	dc.l	0x12211222
+	dc.l	0x12112222
+	dc.l	0x11122222
 
 	dc.l	0x00112121
 	dc.l	0x01112113
@@ -445,23 +1503,23 @@ spritesheet_borgus_idle:
 	dc.l	0x00122213
 	dc.l	0x00112211
 
-	dc.l	0x11221111
-	dc.l	0x31121113
-	dc.l	0x13113113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12111333
-	dc.l	0x22113333
-	dc.l	0x22113333
+	dc.l	0x00011221
+	dc.l	0x00001122
+	dc.l	0x00000112
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x12113335
-	dc.l	0x12133355
-	dc.l	0x11133355
-	dc.l	0x11135555
-	dc.l	0x11135555
-	dc.l	0x12135555
-	dc.l	0x21335555
-	dc.l	0x11335333
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x23335333
 	dc.l	0x33333531
@@ -481,23 +1539,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33333553
 	dc.l	0x33333555
 
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33331311
-	dc.l	0x11111111
-	dc.l	0x13313111
-	dc.l	0x33333333
-	dc.l	0x33555553
-	dc.l	0x35555553
+	dc.l	0x13333355
+	dc.l	0x11333355
+	dc.l	0x21133355
+	dc.l	0x21111333
+	dc.l	0x12111133
+	dc.l	0x11111113
+	dc.l	0x01111111
+	dc.l	0x00011111
 
-	dc.l	0x55555553
-	dc.l	0x55555553
-	dc.l	0x55555533
-	dc.l	0x55553331
-	dc.l	0x55533311
-	dc.l	0x53331111
-	dc.l	0x33331112
-	dc.l	0x33311111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000012
+	dc.l	0x00000011
+	dc.l	0x00000011
 
 	dc.l	0x31111111
 	dc.l	0x11111111
@@ -517,23 +1575,23 @@ spritesheet_borgus_idle:
 	dc.l	0x31133353
 	dc.l	0x35111315
 
-	dc.l	0x31112222
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11112211
-	dc.l	0x11115111
-	dc.l	0x33111122
-	dc.l	0x33112222
+	dc.l	0x55111111
+	dc.l	0x55533111
+	dc.l	0x55553531
+	dc.l	0x55555533
+	dc.l	0x33553553
+	dc.l	0x31333335
+	dc.l	0x31333333
+	dc.l	0x13133333
 
-	dc.l	0x31112222
-	dc.l	0x31122222
-	dc.l	0x11122221
-	dc.l	0x11122211
-	dc.l	0x11122112
-	dc.l	0x12211222
-	dc.l	0x12112222
-	dc.l	0x11122222
+	dc.l	0x11311133
+	dc.l	0x11111113
+	dc.l	0x11111413
+	dc.l	0x11111411
+	dc.l	0x11114441
+	dc.l	0x11111441
+	dc.l	0x12111144
+	dc.l	0x22111114
 
 	dc.l	0x11122222
 	dc.l	0x22221112
@@ -553,23 +1611,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x00011221
-	dc.l	0x00001122
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x13311111
+	dc.l	0x11333111
+	dc.l	0x31133111
+	dc.l	0x31111111
+	dc.l	0x33111313
+	dc.l	0x33313335
+	dc.l	0x33133355
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33133355
+	dc.l	0x33333335
+	dc.l	0x33311135
+	dc.l	0x33331111
+	dc.l	0x11333331
+	dc.l	0x11133331
+	dc.l	0x11111333
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -589,23 +1647,23 @@ spritesheet_borgus_idle:
 	dc.l	0x00000001
 	dc.l	0x00000011
 
-	dc.l	0x13333355
-	dc.l	0x11333355
-	dc.l	0x21133355
-	dc.l	0x21111333
-	dc.l	0x12111133
-	dc.l	0x11111113
-	dc.l	0x01111111
-	dc.l	0x00011111
+	dc.l	0x00000112
+	dc.l	0x00001211
+	dc.l	0x00001211
+	dc.l	0x00001122
+	dc.l	0x00001122
+	dc.l	0x00001222
+	dc.l	0x00001222
+	dc.l	0x00000122
 
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
+	dc.l	0x00000112
+	dc.l	0x00000011
 	dc.l	0x00000012
-	dc.l	0x00000011
-	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000112
 	dc.l	0x00000122
@@ -625,23 +1683,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111122
 	dc.l	0x11321122
 
-	dc.l	0x55111111
-	dc.l	0x55533111
-	dc.l	0x55553531
-	dc.l	0x55555533
-	dc.l	0x33553553
-	dc.l	0x31333335
-	dc.l	0x31333333
-	dc.l	0x13133333
+	dc.l	0x23322211
+	dc.l	0x11222111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x23211111
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
 
-	dc.l	0x11311133
-	dc.l	0x11111113
-	dc.l	0x11111413
-	dc.l	0x11111411
-	dc.l	0x11114441
-	dc.l	0x11111441
-	dc.l	0x12111144
-	dc.l	0x22111114
+	dc.l	0x22331112
+	dc.l	0x22222111
+	dc.l	0x12222323
+	dc.l	0x12213233
+	dc.l	0x11213233
+	dc.l	0x01213233
+	dc.l	0x01212233
+	dc.l	0x00111111
 
 	dc.l	0x22111111
 	dc.l	0x21111111
@@ -661,23 +1719,23 @@ spritesheet_borgus_idle:
 	dc.l	0x23333122
 	dc.l	0x22322112
 
+	dc.l	0x11221212
 	dc.l	0x11111111
-	dc.l	0x13311111
-	dc.l	0x11333111
-	dc.l	0x31133111
-	dc.l	0x31111111
-	dc.l	0x33111313
-	dc.l	0x33313335
-	dc.l	0x33133355
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
 
-	dc.l	0x33133355
-	dc.l	0x33333335
-	dc.l	0x33311135
-	dc.l	0x33331111
-	dc.l	0x11333331
-	dc.l	0x11133331
-	dc.l	0x11111333
-	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x11211133
+	dc.l	0x11111335
+	dc.l	0x35531133
+	dc.l	0x33553123
+	dc.l	0x13353122
+	dc.l	0x11333111
+	dc.l	0x21331110
 
 	dc.l	0x11411311
 	dc.l	0x11441133
@@ -696,60 +1754,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11122213
 	dc.l	0x12112122
 	dc.l	0x11111222
-
-	dc.l	0x00000112
-	dc.l	0x00001211
-	dc.l	0x00001211
-	dc.l	0x00001122
-	dc.l	0x00001122
-	dc.l	0x00001222
-	dc.l	0x00001222
-	dc.l	0x00000122
-
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000012
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x23322211
-	dc.l	0x11222111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x23211111
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
-
-	dc.l	0x22331112
-	dc.l	0x22222111
-	dc.l	0x12222323
-	dc.l	0x12213233
-	dc.l	0x11213233
-	dc.l	0x01213233
-	dc.l	0x01212233
-	dc.l	0x00111111
-
-	dc.l	0x11221212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
-
-	dc.l	0x11110111
-	dc.l	0x11211133
-	dc.l	0x11111335
-	dc.l	0x35531133
-	dc.l	0x33553123
-	dc.l	0x13353122
-	dc.l	0x11333111
-	dc.l	0x21331110
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -772,24 +1776,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000100
 	dc.l	0x00000111
 	dc.l	0x22002211
@@ -804,114 +1790,6 @@ spritesheet_borgus_idle:
 	dc.l	0x22111111
 	dc.l	0x22221111
 	dc.l	0x12222111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x12200000
-	dc.l	0x11122200
-	dc.l	0x11111220
-
-	dc.l	0x21111122
-	dc.l	0x22211111
-	dc.l	0x22221111
-	dc.l	0x22222111
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x12222221
-	dc.l	0x11122222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00110000
-	dc.l	0x00011000
-	dc.l	0x00021100
-	dc.l	0x00222110
-
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x12222211
-	dc.l	0x11222221
-	dc.l	0x11122221
-	dc.l	0x11122221
-	dc.l	0x11112222
-	dc.l	0x11111222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x11100000
 
 	dc.l	0x11122211
 	dc.l	0x11111111
@@ -931,23 +1809,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13553353
 	dc.l	0x13555355
 
-	dc.l	0x11355355
-	dc.l	0x31155355
-	dc.l	0x11155335
-	dc.l	0x11155315
-	dc.l	0x31115315
-	dc.l	0x31115311
-	dc.l	0x31115311
-	dc.l	0x33115311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x12200000
+	dc.l	0x11122200
+	dc.l	0x11111220
 
-	dc.l	0x33133332
-	dc.l	0x53132532
-	dc.l	0x53132532
-	dc.l	0x55132532
-	dc.l	0x55312532
-	dc.l	0x55112332
-	dc.l	0x22212332
-	dc.l	0x22312332
+	dc.l	0x21111122
+	dc.l	0x22211111
+	dc.l	0x22221111
+	dc.l	0x22222111
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x12222221
+	dc.l	0x11122222
 
 	dc.l	0x11112222
 	dc.l	0x11111222
@@ -967,23 +1845,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11335315
 	dc.l	0x11335533
 
-	dc.l	0x31335551
-	dc.l	0x51135551
-	dc.l	0x51133551
-	dc.l	0x51133531
-	dc.l	0x51335531
-	dc.l	0x51355333
-	dc.l	0x51153113
-	dc.l	0x53233113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+	dc.l	0x00011000
+	dc.l	0x00021100
+	dc.l	0x00222110
 
-	dc.l	0x55123135
-	dc.l	0x55125135
-	dc.l	0x55125155
-	dc.l	0x35125355
-	dc.l	0x53123113
-	dc.l	0x55123135
-	dc.l	0x55125135
-	dc.l	0x55125155
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x12222211
+	dc.l	0x11222221
+	dc.l	0x11122221
+	dc.l	0x11122221
+	dc.l	0x11112222
+	dc.l	0x11111222
 
 	dc.l	0x21111222
 	dc.l	0x21111122
@@ -1003,23 +1881,23 @@ spritesheet_borgus_idle:
 	dc.l	0x51351111
 	dc.l	0x55135111
 
-	dc.l	0x55511155
-	dc.l	0x35553135
-	dc.l	0x35533315
-	dc.l	0x11135535
-	dc.l	0x15535355
-	dc.l	0x31111135
-	dc.l	0x33111335
-	dc.l	0x13113615
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x31116613
-	dc.l	0x31116133
-	dc.l	0x31111131
-	dc.l	0x11115131
-	dc.l	0x11111111
-	dc.l	0x11111131
-	dc.l	0x11111113
-	dc.l	0x11136613
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
 
 	dc.l	0x11100000
 	dc.l	0x21110000
@@ -1039,23 +1917,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11555315
 	dc.l	0x15333353
 
-	dc.l	0x53353131
-	dc.l	0x55531311
-	dc.l	0x55531311
-	dc.l	0x53311112
-	dc.l	0x33111222
-	dc.l	0x33131122
-	dc.l	0x31111111
-	dc.l	0x11111111
+	dc.l	0x11355355
+	dc.l	0x31155355
+	dc.l	0x11155335
+	dc.l	0x11155315
+	dc.l	0x31115315
+	dc.l	0x31115311
+	dc.l	0x31115311
+	dc.l	0x33115311
 
-	dc.l	0x11333111
-	dc.l	0x13333311
-	dc.l	0x13663311
-	dc.l	0x36663111
-	dc.l	0x66631111
-	dc.l	0x11111113
-	dc.l	0x31111113
-	dc.l	0x11000116
+	dc.l	0x33133332
+	dc.l	0x53132532
+	dc.l	0x53132532
+	dc.l	0x55132532
+	dc.l	0x55312532
+	dc.l	0x55112332
+	dc.l	0x22212332
+	dc.l	0x22312332
 
 	dc.l	0x33312332
 	dc.l	0x33331332
@@ -1075,23 +1953,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11211133
 	dc.l	0x22331111
 
-	dc.l	0x22222211
-	dc.l	0x22333322
-	dc.l	0x22333333
-	dc.l	0x12231333
-	dc.l	0x12233311
-	dc.l	0x12222333
-	dc.l	0x12222222
-	dc.l	0x11222233
+	dc.l	0x31335551
+	dc.l	0x51135551
+	dc.l	0x51133551
+	dc.l	0x51133531
+	dc.l	0x51335531
+	dc.l	0x51355333
+	dc.l	0x51153113
+	dc.l	0x53233113
 
-	dc.l	0x11111223
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x55123135
+	dc.l	0x55125135
+	dc.l	0x55125155
+	dc.l	0x35125355
+	dc.l	0x53123113
+	dc.l	0x55123135
+	dc.l	0x55125135
+	dc.l	0x55125155
 
 	dc.l	0x35135355
 	dc.l	0x35155353
@@ -1111,23 +1989,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112151
 	dc.l	0x13312151
 
-	dc.l	0x11131151
-	dc.l	0x22135111
-	dc.l	0x33353311
-	dc.l	0x55533532
-	dc.l	0x33355122
-	dc.l	0x33333535
-	dc.l	0x33313353
-	dc.l	0x33311333
+	dc.l	0x55511155
+	dc.l	0x35553135
+	dc.l	0x35533315
+	dc.l	0x11135535
+	dc.l	0x15535355
+	dc.l	0x31111135
+	dc.l	0x33111335
+	dc.l	0x13113615
 
-	dc.l	0x31333333
-	dc.l	0x11133533
-	dc.l	0x11111515
-	dc.l	0x13111115
-	dc.l	0x22121351
-	dc.l	0x21222215
-	dc.l	0x12222215
-	dc.l	0x11212215
+	dc.l	0x31116613
+	dc.l	0x31116133
+	dc.l	0x31111131
+	dc.l	0x11115131
+	dc.l	0x11111111
+	dc.l	0x11111131
+	dc.l	0x11111113
+	dc.l	0x11136613
 
 	dc.l	0x11366611
 	dc.l	0x13666311
@@ -1147,23 +2025,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11313111
 	dc.l	0x11115111
 
-	dc.l	0x11113511
-	dc.l	0x11513111
+	dc.l	0x53353131
+	dc.l	0x55531311
+	dc.l	0x55531311
+	dc.l	0x53311112
+	dc.l	0x33111222
+	dc.l	0x33131122
+	dc.l	0x31111111
 	dc.l	0x11111111
-	dc.l	0x21111112
-	dc.l	0x21113211
-	dc.l	0x33555522
-	dc.l	0x55335553
-	dc.l	0x35555555
 
-	dc.l	0x33513135
-	dc.l	0x13333353
-	dc.l	0x33222333
-	dc.l	0x53111222
-	dc.l	0x11333353
-	dc.l	0x11111151
-	dc.l	0x13111211
-	dc.l	0x13511311
+	dc.l	0x11333111
+	dc.l	0x13333311
+	dc.l	0x13663311
+	dc.l	0x36663111
+	dc.l	0x66631111
+	dc.l	0x11111113
+	dc.l	0x31111113
+	dc.l	0x11000116
 
 	dc.l	0x11111016
 	dc.l	0x11361011
@@ -1183,23 +2061,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11222211
 	dc.l	0x51122211
 
-	dc.l	0x11112211
-	dc.l	0x11111132
-	dc.l	0x22111152
-	dc.l	0x22211132
-	dc.l	0x11111113
-	dc.l	0x22525252
-	dc.l	0x55553553
-	dc.l	0x55555333
+	dc.l	0x22222211
+	dc.l	0x22333322
+	dc.l	0x22333333
+	dc.l	0x12231333
+	dc.l	0x12233311
+	dc.l	0x12222333
+	dc.l	0x12222222
+	dc.l	0x11222233
 
-	dc.l	0x35512132
-	dc.l	0x55131311
-	dc.l	0x33221131
-	dc.l	0x22311111
+	dc.l	0x11111223
+	dc.l	0x11112211
 	dc.l	0x11111111
-	dc.l	0x11511111
-	dc.l	0x13111111
+	dc.l	0x11111111
 	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -1219,23 +2097,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33311111
 	dc.l	0x33311111
 
-	dc.l	0x11133111
-	dc.l	0x33331331
-	dc.l	0x13333335
-	dc.l	0x11355555
-	dc.l	0x11135555
-	dc.l	0x11113335
-	dc.l	0x11111333
-	dc.l	0x11131111
+	dc.l	0x11131151
+	dc.l	0x22135111
+	dc.l	0x33353311
+	dc.l	0x55533532
+	dc.l	0x33355122
+	dc.l	0x33333535
+	dc.l	0x33313353
+	dc.l	0x33311333
 
-	dc.l	0x11111441
-	dc.l	0x11114444
-	dc.l	0x11114444
-	dc.l	0x11111444
-	dc.l	0x33111144
-	dc.l	0x33111114
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x31333333
+	dc.l	0x11133533
+	dc.l	0x11111515
+	dc.l	0x13111115
+	dc.l	0x22121351
+	dc.l	0x21222215
+	dc.l	0x12222215
+	dc.l	0x11212215
 
 	dc.l	0x11112213
 	dc.l	0x11111113
@@ -1255,23 +2133,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111112
 	dc.l	0x11111112
 
+	dc.l	0x11113511
+	dc.l	0x11513111
 	dc.l	0x11111111
-	dc.l	0x11110111
-	dc.l	0x31110110
-	dc.l	0x53111110
-	dc.l	0x55311110
-	dc.l	0x55533110
-	dc.l	0x33313111
-	dc.l	0x31311311
+	dc.l	0x21111112
+	dc.l	0x21113211
+	dc.l	0x33555522
+	dc.l	0x55335553
+	dc.l	0x35555555
 
-	dc.l	0x11135355
-	dc.l	0x11113555
-	dc.l	0x11313135
-	dc.l	0x41111111
-	dc.l	0x44111111
-	dc.l	0x44111111
-	dc.l	0x44411101
-	dc.l	0x14413101
+	dc.l	0x33513135
+	dc.l	0x13333353
+	dc.l	0x33222333
+	dc.l	0x53111222
+	dc.l	0x11333353
+	dc.l	0x11111151
+	dc.l	0x13111211
+	dc.l	0x13511311
 
 	dc.l	0x13511331
 	dc.l	0x13511331
@@ -1291,23 +2169,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11113311
 	dc.l	0x21113311
 
-	dc.l	0x21111111
-	dc.l	0x21511111
-	dc.l	0x21513111
-	dc.l	0x11513111
-	dc.l	0x13113111
-	dc.l	0x13113111
-	dc.l	0x11111111
-	dc.l	0x11111001
+	dc.l	0x11112211
+	dc.l	0x11111132
+	dc.l	0x22111152
+	dc.l	0x22211132
+	dc.l	0x11111113
+	dc.l	0x22525252
+	dc.l	0x55553553
+	dc.l	0x55555333
 
-	dc.l	0x51311100
-	dc.l	0x55333111
-	dc.l	0x55533333
-	dc.l	0x11155333
-	dc.l	0x33313331
-	dc.l	0x11313311
+	dc.l	0x35512132
+	dc.l	0x55131311
+	dc.l	0x33221131
+	dc.l	0x22311111
 	dc.l	0x11111111
-	dc.l	0x01000111
+	dc.l	0x11511111
+	dc.l	0x13111111
+	dc.l	0x11111112
 
 	dc.l	0x11111112
 	dc.l	0x11111111
@@ -1327,23 +2205,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112222
 	dc.l	0x11111222
 
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x11133111
+	dc.l	0x33331331
+	dc.l	0x13333335
+	dc.l	0x11355555
+	dc.l	0x11135555
+	dc.l	0x11113335
+	dc.l	0x11111333
+	dc.l	0x11131111
 
+	dc.l	0x11111441
+	dc.l	0x11114444
+	dc.l	0x11114444
+	dc.l	0x11111444
+	dc.l	0x33111144
+	dc.l	0x33111114
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x31011111
-	dc.l	0x11121111
-	dc.l	0x11122111
-	dc.l	0x11122111
-	dc.l	0x11112111
-	dc.l	0x11112111
 
 	dc.l	0x11110011
 	dc.l	0x11110001
@@ -1363,6 +2241,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x31110110
+	dc.l	0x53111110
+	dc.l	0x55311110
+	dc.l	0x55533110
+	dc.l	0x33313111
+	dc.l	0x31311311
+
+	dc.l	0x11135355
+	dc.l	0x11113555
+	dc.l	0x11313135
+	dc.l	0x41111111
+	dc.l	0x44111111
+	dc.l	0x44111111
+	dc.l	0x44411101
+	dc.l	0x14413101
+
 	dc.l	0x11413311
 	dc.l	0x11111333
 	dc.l	0x01111133
@@ -1380,6 +2276,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x21111111
+	dc.l	0x21511111
+	dc.l	0x21513111
+	dc.l	0x11513111
+	dc.l	0x13113111
+	dc.l	0x13113111
+	dc.l	0x11111111
+	dc.l	0x11111001
+
+	dc.l	0x51311100
+	dc.l	0x55333111
+	dc.l	0x55533333
+	dc.l	0x11155333
+	dc.l	0x33313331
+	dc.l	0x11313311
+	dc.l	0x11111111
+	dc.l	0x01000111
 
 	dc.l	0x01000111
 	dc.l	0x11112210
@@ -1399,6 +2313,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111122
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x31011111
+	dc.l	0x11121111
+	dc.l	0x11122111
+	dc.l	0x11122111
+	dc.l	0x11112111
+	dc.l	0x11112111
+
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -1410,96 +2342,6 @@ spritesheet_borgus_idle:
 
 	dc.l	0x00011111
 	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1543,23 +2385,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x31111122
 
-	dc.l	0x12211222
-	dc.l	0x11122221
-	dc.l	0x21111222
-	dc.l	0x22112221
-	dc.l	0x11221211
-	dc.l	0x21121131
-	dc.l	0x22313333
-	dc.l	0x12221123
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11221111
-	dc.l	0x11113311
-	dc.l	0x11112233
-	dc.l	0x33311223
-	dc.l	0x33331111
-	dc.l	0x66331111
-	dc.l	0x66311113
-	dc.l	0x66111133
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1579,24 +2421,6 @@ spritesheet_borgus_idle:
 	dc.l	0x10000000
 	dc.l	0x21000000
 
-	dc.l	0x21100000
-	dc.l	0x13100000
-	dc.l	0x21110000
-	dc.l	0x13110000
-	dc.l	0x13111000
-	dc.l	0x33211000
-	dc.l	0x32111000
-	dc.l	0x31111000
-
-	dc.l	0x11231000
-	dc.l	0x33322000
-	dc.l	0x32211000
-	dc.l	0x21111000
-	dc.l	0x11130000
-	dc.l	0x11330000
-	dc.l	0x31330000
-	dc.l	0x31130000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1632,6 +2456,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x12211222
+	dc.l	0x11122221
+	dc.l	0x21111222
+	dc.l	0x22112221
+	dc.l	0x11221211
+	dc.l	0x21121131
+	dc.l	0x22313333
+	dc.l	0x12221123
+
+	dc.l	0x11221111
+	dc.l	0x11113311
+	dc.l	0x11112233
+	dc.l	0x33311223
+	dc.l	0x33331111
+	dc.l	0x66331111
+	dc.l	0x66311113
+	dc.l	0x66111133
 
 	dc.l	0x61111663
 	dc.l	0x11331663
@@ -1651,23 +2493,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11100000
 	dc.l	0x11111000
 
-	dc.l	0x21111110
-	dc.l	0x22221111
-	dc.l	0x22222211
-	dc.l	0x22222221
-	dc.l	0x22111111
-	dc.l	0x21111222
-	dc.l	0x21111122
-	dc.l	0x21100012
+	dc.l	0x21100000
+	dc.l	0x13100000
+	dc.l	0x21110000
+	dc.l	0x13110000
+	dc.l	0x13111000
+	dc.l	0x33211000
+	dc.l	0x32111000
+	dc.l	0x31111000
 
-	dc.l	0x11000001
-	dc.l	0x11000001
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x11111010
-	dc.l	0x22121111
-	dc.l	0x22222221
-	dc.l	0x22222222
+	dc.l	0x11231000
+	dc.l	0x33322000
+	dc.l	0x32211000
+	dc.l	0x21111000
+	dc.l	0x11130000
+	dc.l	0x11330000
+	dc.l	0x31330000
+	dc.l	0x31130000
 
 	dc.l	0x13100000
 	dc.l	0x13100000
@@ -1689,57 +2531,57 @@ spritesheet_borgus_idle:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x21111110
+	dc.l	0x22221111
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22111111
+	dc.l	0x21111222
+	dc.l	0x21111122
+	dc.l	0x21100012
+
+	dc.l	0x11000001
+	dc.l	0x11000001
 	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x21110000
-	dc.l	0x22110000
-
-	dc.l	0x12210000
-	dc.l	0x11210000
-	dc.l	0x01210000
-	dc.l	0x00111000
-	dc.l	0x00110000
-	dc.l	0x11100000
-	dc.l	0x11111101
-	dc.l	0x21111112
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00101111
-	dc.l	0x11111211
+	dc.l	0x11110000
+	dc.l	0x11111010
+	dc.l	0x22121111
+	dc.l	0x22222221
+	dc.l	0x22222222
 
 	dc.l	0x22222221
 	dc.l	0x11111112
@@ -1759,23 +2601,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22211111
 	dc.l	0x22212211
 
-	dc.l	0x22221111
-	dc.l	0x22122222
-	dc.l	0x12211122
-	dc.l	0x11122222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x21110000
+	dc.l	0x22110000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111122
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x11112110
+	dc.l	0x12210000
+	dc.l	0x11210000
+	dc.l	0x01210000
+	dc.l	0x00111000
+	dc.l	0x00110000
+	dc.l	0x11100000
+	dc.l	0x11111101
+	dc.l	0x21111112
 
 	dc.l	0x11212111
 	dc.l	0x12222222
@@ -1795,23 +2637,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112122
 	dc.l	0x11111112
 
-	dc.l	0x11111111
-	dc.l	0x23332111
-	dc.l	0x22233331
-	dc.l	0x22222223
-	dc.l	0x11112212
-	dc.l	0x11111122
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x11221111
-	dc.l	0x22111111
-	dc.l	0x21111010
-	dc.l	0x10000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00101111
+	dc.l	0x11111211
 
 	dc.l	0x11222110
 	dc.l	0x22222110
@@ -1831,23 +2673,23 @@ spritesheet_borgus_idle:
 	dc.l	0x23322110
 	dc.l	0x22222111
 
-	dc.l	0x12222111
-	dc.l	0x11212121
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x21112221
-	dc.l	0x21112211
+	dc.l	0x22221111
+	dc.l	0x22122222
+	dc.l	0x12211122
+	dc.l	0x11122222
+	dc.l	0x11111111
+	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111110
-	dc.l	0x12111100
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x01010000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111122
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x11112110
 
 	dc.l	0x11111100
 	dc.l	0x11111100
@@ -1867,6 +2709,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x23332111
+	dc.l	0x22233331
+	dc.l	0x22222223
+	dc.l	0x11112212
+	dc.l	0x11111122
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x11221111
+	dc.l	0x22111111
+	dc.l	0x21111010
+	dc.l	0x10000000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1882,6 +2742,24 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x12222111
+	dc.l	0x11212121
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x21112221
+	dc.l	0x21112211
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111110
+	dc.l	0x12111100
+	dc.l	0x11100000
+	dc.l	0x11110000
+	dc.l	0x01010000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -1903,24 +2781,8 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_idle_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1975,23 +2837,23 @@ spritesheet_borgus_idle:
 	dc.l	0x10022211
 	dc.l	0x11222222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11122222
+	dc.l	0x01111121
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000122
+	dc.l	0x00000122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000122
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00011111
+	dc.l	0x00122222
+	dc.l	0x00122555
+	dc.l	0x01122222
+	dc.l	0x01111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2011,23 +2873,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11122221
 	dc.l	0x11111222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x21111112
+	dc.l	0x22111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122221
+	dc.l	0x22222111
+	dc.l	0x22111122
+	dc.l	0x22222333
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222123
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x22222233
+	dc.l	0x52253333
+	dc.l	0x22555333
+	dc.l	0x21255555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2047,23 +2909,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111222
 	dc.l	0x11111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x31111313
+	dc.l	0x11111111
+	dc.l	0x22222221
+	dc.l	0x33332222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33333321
+	dc.l	0x11123333
+	dc.l	0x11111333
+	dc.l	0x11111155
+	dc.l	0x33311115
+	dc.l	0x33331111
+	dc.l	0x35333111
+	dc.l	0x33553111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2083,23 +2945,23 @@ spritesheet_borgus_idle:
 	dc.l	0x01111133
 	dc.l	0x01111113
 
-	dc.l	0x11122222
-	dc.l	0x01111121
+	dc.l	0x01131111
+	dc.l	0x11131113
+	dc.l	0x01131311
+	dc.l	0x01131311
 	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000122
-	dc.l	0x00000122
-
-	dc.l	0x00000122
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00011111
-	dc.l	0x00122222
-	dc.l	0x00122555
-	dc.l	0x01122222
 	dc.l	0x01111111
+	dc.l	0x01111111
+	dc.l	0x00111111
+
+	dc.l	0x01111111
+	dc.l	0x01111111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00111112
+	dc.l	0x00011222
+	dc.l	0x00011222
+	dc.l	0x00111122
 
 	dc.l	0x00121111
 	dc.l	0x01111111
@@ -2119,23 +2981,23 @@ spritesheet_borgus_idle:
 	dc.l	0x12222211
 	dc.l	0x12222111
 
-	dc.l	0x21111112
-	dc.l	0x22111111
+	dc.l	0x11221111
+	dc.l	0x11221111
+	dc.l	0x31121113
+	dc.l	0x13113113
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11122221
-	dc.l	0x22222111
-	dc.l	0x22111122
-	dc.l	0x22222333
+	dc.l	0x12111333
+	dc.l	0x22113333
 
-	dc.l	0x22222123
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x22222233
-	dc.l	0x52253333
-	dc.l	0x22555333
-	dc.l	0x21255555
+	dc.l	0x22113333
+	dc.l	0x12113335
+	dc.l	0x12133355
+	dc.l	0x11133355
+	dc.l	0x11135555
+	dc.l	0x11135555
+	dc.l	0x12135555
+	dc.l	0x21335555
 
 	dc.l	0x12122255
 	dc.l	0x11112222
@@ -2155,23 +3017,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33333555
 	dc.l	0x11115553
 
-	dc.l	0x21111111
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33331311
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x31111313
-	dc.l	0x11111111
-	dc.l	0x22222221
-	dc.l	0x33332222
+	dc.l	0x13313111
+	dc.l	0x33333333
+	dc.l	0x33555553
 
-	dc.l	0x33333321
-	dc.l	0x11123333
-	dc.l	0x11111333
-	dc.l	0x11111155
-	dc.l	0x33311115
-	dc.l	0x33331111
-	dc.l	0x35333111
-	dc.l	0x33553111
+	dc.l	0x35555553
+	dc.l	0x55555553
+	dc.l	0x55555553
+	dc.l	0x55555533
+	dc.l	0x55553331
+	dc.l	0x55533311
+	dc.l	0x53331111
+	dc.l	0x33331112
 
 	dc.l	0x53335311
 	dc.l	0x55333311
@@ -2191,23 +3053,23 @@ spritesheet_borgus_idle:
 	dc.l	0x53111135
 	dc.l	0x33112111
 
-	dc.l	0x01131111
-	dc.l	0x11131113
-	dc.l	0x01131311
-	dc.l	0x01131311
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x00111111
+	dc.l	0x33112222
+	dc.l	0x31112222
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11112211
+	dc.l	0x11115111
+	dc.l	0x33111122
 
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00111112
-	dc.l	0x00011222
-	dc.l	0x00011222
-	dc.l	0x00111122
+	dc.l	0x33112222
+	dc.l	0x31112222
+	dc.l	0x31122222
+	dc.l	0x11122221
+	dc.l	0x11122211
+	dc.l	0x11122112
+	dc.l	0x12211222
+	dc.l	0x12112222
 
 	dc.l	0x00112122
 	dc.l	0x00112121
@@ -2227,23 +3089,23 @@ spritesheet_borgus_idle:
 	dc.l	0x01222133
 	dc.l	0x00122213
 
-	dc.l	0x11221111
-	dc.l	0x11221111
-	dc.l	0x31121113
-	dc.l	0x13113113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12111333
-	dc.l	0x22113333
+	dc.l	0x00112211
+	dc.l	0x00011221
+	dc.l	0x00001122
+	dc.l	0x00000112
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x22113333
-	dc.l	0x12113335
-	dc.l	0x12133355
-	dc.l	0x11133355
-	dc.l	0x11135555
-	dc.l	0x11135555
-	dc.l	0x12135555
-	dc.l	0x21335555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11335333
 	dc.l	0x23335333
@@ -2263,23 +3125,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33335533
 	dc.l	0x33333553
 
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33331311
-	dc.l	0x11111111
-	dc.l	0x13313111
-	dc.l	0x33333333
-	dc.l	0x33555553
+	dc.l	0x33333555
+	dc.l	0x13333355
+	dc.l	0x11333355
+	dc.l	0x21133355
+	dc.l	0x21111333
+	dc.l	0x12111133
+	dc.l	0x11111113
+	dc.l	0x01111111
 
-	dc.l	0x35555553
-	dc.l	0x55555553
-	dc.l	0x55555553
-	dc.l	0x55555533
-	dc.l	0x55553331
-	dc.l	0x55533311
-	dc.l	0x53331111
-	dc.l	0x33331112
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000012
+	dc.l	0x00001121
 
 	dc.l	0x33311111
 	dc.l	0x31111111
@@ -2299,23 +3161,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11333553
 	dc.l	0x31133353
 
-	dc.l	0x33112222
-	dc.l	0x31112222
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11112211
-	dc.l	0x11115111
-	dc.l	0x33111122
+	dc.l	0x35111315
+	dc.l	0x55111111
+	dc.l	0x55533111
+	dc.l	0x55553531
+	dc.l	0x55555533
+	dc.l	0x33553553
+	dc.l	0x31333335
+	dc.l	0x31333333
 
-	dc.l	0x33112222
-	dc.l	0x31112222
-	dc.l	0x31122222
-	dc.l	0x11122221
-	dc.l	0x11122211
-	dc.l	0x11122112
-	dc.l	0x12211222
-	dc.l	0x12112222
+	dc.l	0x13133333
+	dc.l	0x11311133
+	dc.l	0x11111113
+	dc.l	0x11111413
+	dc.l	0x11111411
+	dc.l	0x11114441
+	dc.l	0x11111441
+	dc.l	0x22111144
 
 	dc.l	0x11122222
 	dc.l	0x11122222
@@ -2335,114 +3197,6 @@ spritesheet_borgus_idle:
 	dc.l	0x31112111
 	dc.l	0x11111111
 
-	dc.l	0x00112211
-	dc.l	0x00011221
-	dc.l	0x00001122
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000011
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-
-	dc.l	0x33333555
-	dc.l	0x13333355
-	dc.l	0x11333355
-	dc.l	0x21133355
-	dc.l	0x21111333
-	dc.l	0x12111133
-	dc.l	0x11111113
-	dc.l	0x01111111
-
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000012
-	dc.l	0x00001121
-
-	dc.l	0x00111112
-	dc.l	0x11111222
-	dc.l	0x11222211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00001111
-	dc.l	0x01211122
-	dc.l	0x11111122
-	dc.l	0x11321122
-
-	dc.l	0x35111315
-	dc.l	0x55111111
-	dc.l	0x55533111
-	dc.l	0x55553531
-	dc.l	0x55555533
-	dc.l	0x33553553
-	dc.l	0x31333335
-	dc.l	0x31333333
-
-	dc.l	0x13133333
-	dc.l	0x11311133
-	dc.l	0x11111113
-	dc.l	0x11111413
-	dc.l	0x11111411
-	dc.l	0x11114441
-	dc.l	0x11111441
-	dc.l	0x22111144
-
-	dc.l	0x22111114
-	dc.l	0x22111111
-	dc.l	0x11111111
-	dc.l	0x11011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00001111
-
-	dc.l	0x00011112
-	dc.l	0x01111112
-	dc.l	0x11111112
-	dc.l	0x11121112
-	dc.l	0x22333112
-	dc.l	0x22333122
-	dc.l	0x23333122
-	dc.l	0x22322112
-
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x13311111
@@ -2461,23 +3215,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11133331
 	dc.l	0x11111333
 
-	dc.l	0x11111111
-	dc.l	0x11411311
-	dc.l	0x11441133
-	dc.l	0x11111113
-	dc.l	0x12111113
-	dc.l	0x12221111
-	dc.l	0x12222111
-	dc.l	0x12223311
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11223321
-	dc.l	0x11223321
-	dc.l	0x11223332
-	dc.l	0x11223332
-	dc.l	0x11122222
-	dc.l	0x11122213
-	dc.l	0x12112122
-	dc.l	0x11111222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
 
 	dc.l	0x00000112
 	dc.l	0x00001211
@@ -2497,6 +3251,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x00111112
+	dc.l	0x11111222
+	dc.l	0x11222211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00001111
+	dc.l	0x01211122
+	dc.l	0x11111122
+	dc.l	0x11321122
+
 	dc.l	0x23322211
 	dc.l	0x11222111
 	dc.l	0x11111111
@@ -2515,6 +3287,24 @@ spritesheet_borgus_idle:
 	dc.l	0x01212233
 	dc.l	0x00111111
 
+	dc.l	0x22111114
+	dc.l	0x22111111
+	dc.l	0x11111111
+	dc.l	0x11011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00001111
+
+	dc.l	0x00011112
+	dc.l	0x01111112
+	dc.l	0x11111112
+	dc.l	0x11121112
+	dc.l	0x22333112
+	dc.l	0x22333122
+	dc.l	0x23333122
+	dc.l	0x22322112
+
 	dc.l	0x11221212
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -2532,6 +3322,24 @@ spritesheet_borgus_idle:
 	dc.l	0x13353122
 	dc.l	0x11333111
 	dc.l	0x21331110
+
+	dc.l	0x11111111
+	dc.l	0x11411311
+	dc.l	0x11441133
+	dc.l	0x11111113
+	dc.l	0x12111113
+	dc.l	0x12221111
+	dc.l	0x12222111
+	dc.l	0x12223311
+
+	dc.l	0x11223321
+	dc.l	0x11223321
+	dc.l	0x11223332
+	dc.l	0x11223332
+	dc.l	0x11122222
+	dc.l	0x11122213
+	dc.l	0x12112122
+	dc.l	0x11111222
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -2555,24 +3363,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000100
 	dc.l	0x00000111
 	dc.l	0x22002211
@@ -2586,114 +3376,6 @@ spritesheet_borgus_idle:
 	dc.l	0x21111112
 	dc.l	0x22111111
 	dc.l	0x22221111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x12200000
-	dc.l	0x11122200
-
-	dc.l	0x11111220
-	dc.l	0x21111122
-	dc.l	0x22211111
-	dc.l	0x22221111
-	dc.l	0x22222111
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x12222221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00110000
-	dc.l	0x00011000
-	dc.l	0x00021100
-
-	dc.l	0x00222110
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x12222211
-	dc.l	0x11222221
-	dc.l	0x11122221
-	dc.l	0x11122221
-	dc.l	0x11112222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11100000
 
 	dc.l	0x12222111
 	dc.l	0x11122211
@@ -2713,23 +3395,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13553353
 	dc.l	0x13553353
 
-	dc.l	0x13555355
-	dc.l	0x11355355
-	dc.l	0x31155355
-	dc.l	0x11155335
-	dc.l	0x11155315
-	dc.l	0x31115315
-	dc.l	0x31115311
-	dc.l	0x31115311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x12200000
+	dc.l	0x11122200
 
-	dc.l	0x33115311
-	dc.l	0x33133332
-	dc.l	0x53132532
-	dc.l	0x53132532
-	dc.l	0x55132532
-	dc.l	0x55312532
-	dc.l	0x55112332
-	dc.l	0x22212332
+	dc.l	0x11111220
+	dc.l	0x21111122
+	dc.l	0x22211111
+	dc.l	0x22221111
+	dc.l	0x22222111
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x12222221
 
 	dc.l	0x11122222
 	dc.l	0x11112222
@@ -2749,23 +3431,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11333135
 	dc.l	0x11335315
 
-	dc.l	0x11335533
-	dc.l	0x31335551
-	dc.l	0x51135551
-	dc.l	0x51133551
-	dc.l	0x51133531
-	dc.l	0x51335531
-	dc.l	0x51355333
-	dc.l	0x51153113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+	dc.l	0x00011000
+	dc.l	0x00021100
 
-	dc.l	0x53233113
-	dc.l	0x55123135
-	dc.l	0x55125135
-	dc.l	0x55125155
-	dc.l	0x35125355
-	dc.l	0x53123113
-	dc.l	0x55123135
-	dc.l	0x55125135
+	dc.l	0x00222110
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x12222211
+	dc.l	0x11222221
+	dc.l	0x11122221
+	dc.l	0x11122221
+	dc.l	0x11112222
 
 	dc.l	0x11111222
 	dc.l	0x21111222
@@ -2785,23 +3467,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33111676
 	dc.l	0x51351111
 
-	dc.l	0x55135133
-	dc.l	0x55511155
-	dc.l	0x35553135
-	dc.l	0x35533315
-	dc.l	0x11135535
-	dc.l	0x15535355
-	dc.l	0x33311135
-	dc.l	0x33111335
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x13113615
-	dc.l	0x31116613
-	dc.l	0x31116133
-	dc.l	0x31111131
-	dc.l	0x11115131
-	dc.l	0x11111111
-	dc.l	0x11111131
-	dc.l	0x11111113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11100000
 
 	dc.l	0x11100000
 	dc.l	0x11100000
@@ -2821,23 +3503,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11133555
 	dc.l	0x13555315
 
-	dc.l	0x35333353
-	dc.l	0x53353131
-	dc.l	0x55531311
-	dc.l	0x55531311
-	dc.l	0x53311112
-	dc.l	0x33111222
-	dc.l	0x33131122
-	dc.l	0x31111111
+	dc.l	0x13555355
+	dc.l	0x11355355
+	dc.l	0x31155355
+	dc.l	0x11155335
+	dc.l	0x11155315
+	dc.l	0x31115315
+	dc.l	0x31115311
+	dc.l	0x31115311
 
-	dc.l	0x11111111
-	dc.l	0x11333111
-	dc.l	0x13333311
-	dc.l	0x13663311
-	dc.l	0x36663111
-	dc.l	0x66631111
-	dc.l	0x11111113
-	dc.l	0x31011113
+	dc.l	0x33115311
+	dc.l	0x33133332
+	dc.l	0x53132532
+	dc.l	0x53132532
+	dc.l	0x55132532
+	dc.l	0x55312532
+	dc.l	0x55112332
+	dc.l	0x22212332
 
 	dc.l	0x22312332
 	dc.l	0x33312332
@@ -2857,23 +3539,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22111332
 	dc.l	0x11211133
 
-	dc.l	0x22331111
-	dc.l	0x22222211
-	dc.l	0x22333322
-	dc.l	0x22333333
-	dc.l	0x12231333
-	dc.l	0x12233311
-	dc.l	0x12222333
-	dc.l	0x12222222
+	dc.l	0x11335533
+	dc.l	0x31335551
+	dc.l	0x51135551
+	dc.l	0x51133551
+	dc.l	0x51133531
+	dc.l	0x51335531
+	dc.l	0x51355333
+	dc.l	0x51153113
 
-	dc.l	0x11222233
-	dc.l	0x11111223
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x53233113
+	dc.l	0x55123135
+	dc.l	0x55125135
+	dc.l	0x55125155
+	dc.l	0x35125355
+	dc.l	0x53123113
+	dc.l	0x55123135
+	dc.l	0x55125135
 
 	dc.l	0x55125155
 	dc.l	0x35135355
@@ -2893,23 +3575,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11132353
 	dc.l	0x11112151
 
-	dc.l	0x13312151
-	dc.l	0x11131151
-	dc.l	0x22135111
-	dc.l	0x33353311
-	dc.l	0x55533532
-	dc.l	0x33355122
-	dc.l	0x33333535
-	dc.l	0x33313353
+	dc.l	0x55135133
+	dc.l	0x55511155
+	dc.l	0x35553135
+	dc.l	0x35533315
+	dc.l	0x11135535
+	dc.l	0x15535355
+	dc.l	0x33311135
+	dc.l	0x33111335
 
-	dc.l	0x33311333
-	dc.l	0x31333333
-	dc.l	0x11133533
-	dc.l	0x11111515
-	dc.l	0x13111115
-	dc.l	0x22121351
-	dc.l	0x21222215
-	dc.l	0x12222215
+	dc.l	0x13113615
+	dc.l	0x31116613
+	dc.l	0x31116133
+	dc.l	0x31111131
+	dc.l	0x11115131
+	dc.l	0x11111111
+	dc.l	0x11111131
+	dc.l	0x11111113
 
 	dc.l	0x11136613
 	dc.l	0x11366611
@@ -2929,23 +3611,23 @@ spritesheet_borgus_idle:
 	dc.l	0x31133311
 	dc.l	0x11313111
 
-	dc.l	0x11115111
-	dc.l	0x11113511
-	dc.l	0x11513111
-	dc.l	0x11111111
-	dc.l	0x21111112
-	dc.l	0x21113211
-	dc.l	0x33555522
-	dc.l	0x55335553
+	dc.l	0x35333353
+	dc.l	0x53353131
+	dc.l	0x55531311
+	dc.l	0x55531311
+	dc.l	0x53311112
+	dc.l	0x33111222
+	dc.l	0x33131122
+	dc.l	0x31111111
 
-	dc.l	0x35555555
-	dc.l	0x33513135
-	dc.l	0x13333353
-	dc.l	0x33222333
-	dc.l	0x53111222
-	dc.l	0x11333353
-	dc.l	0x11111151
-	dc.l	0x13111211
+	dc.l	0x11111111
+	dc.l	0x11333111
+	dc.l	0x13333311
+	dc.l	0x13663311
+	dc.l	0x36663111
+	dc.l	0x66631111
+	dc.l	0x11111113
+	dc.l	0x31011113
 
 	dc.l	0x10000116
 	dc.l	0x11111016
@@ -2964,6 +3646,114 @@ spritesheet_borgus_idle:
 	dc.l	0x52253113
 	dc.l	0x51255113
 	dc.l	0x11222211
+
+	dc.l	0x22331111
+	dc.l	0x22222211
+	dc.l	0x22333322
+	dc.l	0x22333333
+	dc.l	0x12231333
+	dc.l	0x12233311
+	dc.l	0x12222333
+	dc.l	0x12222222
+
+	dc.l	0x11222233
+	dc.l	0x11111223
+	dc.l	0x11112211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111131
+	dc.l	0x11333111
+	dc.l	0x11111555
+	dc.l	0x55555555
+
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555551
+	dc.l	0x33555531
+	dc.l	0x13113311
+	dc.l	0x31111111
+	dc.l	0x33311111
+
+	dc.l	0x13312151
+	dc.l	0x11131151
+	dc.l	0x22135111
+	dc.l	0x33353311
+	dc.l	0x55533532
+	dc.l	0x33355122
+	dc.l	0x33333535
+	dc.l	0x33313353
+
+	dc.l	0x33311333
+	dc.l	0x31333333
+	dc.l	0x11133533
+	dc.l	0x11111515
+	dc.l	0x13111115
+	dc.l	0x22121351
+	dc.l	0x21222215
+	dc.l	0x12222215
+
+	dc.l	0x11212215
+	dc.l	0x11112213
+	dc.l	0x11111113
+	dc.l	0x11111113
+	dc.l	0x11111113
+	dc.l	0x11111111
+	dc.l	0x55111111
+	dc.l	0x55551111
+
+	dc.l	0x55555111
+	dc.l	0x55555511
+	dc.l	0x51551551
+	dc.l	0x11111111
+	dc.l	0x11111211
+	dc.l	0x11111121
+	dc.l	0x11111122
+	dc.l	0x11111112
+
+	dc.l	0x11115111
+	dc.l	0x11113511
+	dc.l	0x11513111
+	dc.l	0x11111111
+	dc.l	0x21111112
+	dc.l	0x21113211
+	dc.l	0x33555522
+	dc.l	0x55335553
+
+	dc.l	0x35555555
+	dc.l	0x33513135
+	dc.l	0x13333353
+	dc.l	0x33222333
+	dc.l	0x53111222
+	dc.l	0x11333353
+	dc.l	0x11111151
+	dc.l	0x13111211
+
+	dc.l	0x13511311
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13513331
+	dc.l	0x13313531
+
+	dc.l	0x13313531
+	dc.l	0x11313531
+	dc.l	0x11311531
+	dc.l	0x11313531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113311
 
 	dc.l	0x51122212
 	dc.l	0x11112212
@@ -2987,19 +3777,19 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11111131
-	dc.l	0x11333111
-	dc.l	0x11111555
-	dc.l	0x55555555
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x11111112
 
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555551
-	dc.l	0x33555531
-	dc.l	0x13113311
-	dc.l	0x31111111
-	dc.l	0x33311111
+	dc.l	0x11111111
+	dc.l	0x12221111
+	dc.l	0x11222111
+	dc.l	0x11122221
+	dc.l	0x11122222
+	dc.l	0x11112222
+	dc.l	0x11112222
+	dc.l	0x11111222
 
 	dc.l	0x33311111
 	dc.l	0x11133111
@@ -3019,23 +3809,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111114
 	dc.l	0x11111111
 
-	dc.l	0x11212215
-	dc.l	0x11112213
-	dc.l	0x11111113
-	dc.l	0x11111113
-	dc.l	0x11111113
-	dc.l	0x11111111
-	dc.l	0x55111111
-	dc.l	0x55551111
+	dc.l	0x11110111
+	dc.l	0x11110011
+	dc.l	0x11100001
+	dc.l	0x11100000
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x55555111
-	dc.l	0x55555511
-	dc.l	0x51551551
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111121
-	dc.l	0x11111122
-	dc.l	0x11111112
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111112
 	dc.l	0x11111111
@@ -3055,23 +3845,23 @@ spritesheet_borgus_idle:
 	dc.l	0x44111111
 	dc.l	0x44411101
 
-	dc.l	0x13511311
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13513331
-	dc.l	0x13313531
+	dc.l	0x14413101
+	dc.l	0x11413311
+	dc.l	0x11111333
+	dc.l	0x01111133
+	dc.l	0x00111111
+	dc.l	0x00001111
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x13313531
-	dc.l	0x11313531
-	dc.l	0x11311531
-	dc.l	0x11313531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x21113311
 	dc.l	0x21111111
@@ -3091,23 +3881,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11313311
 	dc.l	0x11111111
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x11111112
+	dc.l	0x01000111
+	dc.l	0x01000111
+	dc.l	0x11112210
+	dc.l	0x33331310
+	dc.l	0x33111100
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x12221111
-	dc.l	0x11222111
-	dc.l	0x11122221
-	dc.l	0x11122222
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x11111222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111122
 	dc.l	0x11111112
@@ -3127,60 +3917,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x11110111
-	dc.l	0x11110011
-	dc.l	0x11100001
-	dc.l	0x11100000
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x14413101
-	dc.l	0x11413311
-	dc.l	0x11111333
-	dc.l	0x01111133
-	dc.l	0x00111111
-	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x01000111
-	dc.l	0x01000111
-	dc.l	0x11112210
-	dc.l	0x33331310
-	dc.l	0x33111100
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -3192,96 +3928,6 @@ spritesheet_borgus_idle:
 
 	dc.l	0x00011111
 	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3325,23 +3971,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33111010
 	dc.l	0x11111111
 
-	dc.l	0x31111122
-	dc.l	0x12211222
-	dc.l	0x11122221
-	dc.l	0x21111222
-	dc.l	0x22112221
-	dc.l	0x11221211
-	dc.l	0x21121131
-	dc.l	0x22313333
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x12221123
-	dc.l	0x11221111
-	dc.l	0x11113311
-	dc.l	0x11112233
-	dc.l	0x33311223
-	dc.l	0x33331111
-	dc.l	0x66331111
-	dc.l	0x66311113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3361,24 +4007,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x10000000
 
-	dc.l	0x21000000
-	dc.l	0x21100000
-	dc.l	0x13100000
-	dc.l	0x21110000
-	dc.l	0x13110000
-	dc.l	0x13111000
-	dc.l	0x33211000
-	dc.l	0x32111000
-
-	dc.l	0x31111000
-	dc.l	0x11231000
-	dc.l	0x33322000
-	dc.l	0x32211000
-	dc.l	0x21111000
-	dc.l	0x11130000
-	dc.l	0x11330000
-	dc.l	0x31330000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3414,6 +4042,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x31111122
+	dc.l	0x12211222
+	dc.l	0x11122221
+	dc.l	0x21111222
+	dc.l	0x22112221
+	dc.l	0x11221211
+	dc.l	0x21121131
+	dc.l	0x22313333
+
+	dc.l	0x12221123
+	dc.l	0x11221111
+	dc.l	0x11113311
+	dc.l	0x11112233
+	dc.l	0x33311223
+	dc.l	0x33331111
+	dc.l	0x66331111
+	dc.l	0x66311113
 
 	dc.l	0x66111133
 	dc.l	0x61111663
@@ -3433,23 +4079,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111000
 	dc.l	0x21111110
 
-	dc.l	0x22221111
-	dc.l	0x22222211
-	dc.l	0x22222221
-	dc.l	0x22111111
-	dc.l	0x21111222
-	dc.l	0x11111122
-	dc.l	0x21100012
-	dc.l	0x21000001
+	dc.l	0x21000000
+	dc.l	0x21100000
+	dc.l	0x13100000
+	dc.l	0x21110000
+	dc.l	0x13110000
+	dc.l	0x13111000
+	dc.l	0x33211000
+	dc.l	0x32111000
 
-	dc.l	0x21000001
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x11111010
-	dc.l	0x11121111
-	dc.l	0x11222221
-	dc.l	0x22222222
-	dc.l	0x22222221
+	dc.l	0x31111000
+	dc.l	0x11231000
+	dc.l	0x33322000
+	dc.l	0x32211000
+	dc.l	0x21111000
+	dc.l	0x11130000
+	dc.l	0x11330000
+	dc.l	0x31330000
 
 	dc.l	0x31130000
 	dc.l	0x13100000
@@ -3470,58 +4116,58 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22221111
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22111111
+	dc.l	0x21111222
+	dc.l	0x11111122
+	dc.l	0x21100012
+	dc.l	0x21000001
+
+	dc.l	0x21000001
 	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x21110000
-	dc.l	0x22110000
-	dc.l	0x12210000
-
-	dc.l	0x11210000
-	dc.l	0x01210000
-	dc.l	0x00111000
-	dc.l	0x00110000
-	dc.l	0x11100000
-	dc.l	0x11111101
-	dc.l	0x21111112
-	dc.l	0x11212111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00101111
-	dc.l	0x11111211
-	dc.l	0x11222110
+	dc.l	0x11110000
+	dc.l	0x11111010
+	dc.l	0x11121111
+	dc.l	0x11222221
+	dc.l	0x22222222
+	dc.l	0x22222221
 
 	dc.l	0x22222212
 	dc.l	0x11111111
@@ -3541,23 +4187,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22211111
 	dc.l	0x22212211
 
-	dc.l	0x22221111
-	dc.l	0x22122222
-	dc.l	0x12211122
-	dc.l	0x11122222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x21110000
+	dc.l	0x22110000
+	dc.l	0x12210000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111122
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x11112110
+	dc.l	0x11210000
+	dc.l	0x01210000
+	dc.l	0x00111000
+	dc.l	0x00110000
+	dc.l	0x11100000
+	dc.l	0x11111101
+	dc.l	0x21111112
+	dc.l	0x11212111
 
 	dc.l	0x12222222
 	dc.l	0x22222222
@@ -3577,23 +4223,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112122
 	dc.l	0x11111112
 
-	dc.l	0x11111111
-	dc.l	0x23332111
-	dc.l	0x22233331
-	dc.l	0x22222223
-	dc.l	0x11112212
-	dc.l	0x11111122
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x11221111
-	dc.l	0x22111111
-	dc.l	0x21111010
-	dc.l	0x10000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00101111
+	dc.l	0x11111211
+	dc.l	0x11222110
 
 	dc.l	0x22222110
 	dc.l	0x22222100
@@ -3613,23 +4259,23 @@ spritesheet_borgus_idle:
 	dc.l	0x23322110
 	dc.l	0x22222111
 
-	dc.l	0x12222111
-	dc.l	0x11212121
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x21112221
-	dc.l	0x21112211
+	dc.l	0x22221111
+	dc.l	0x22122222
+	dc.l	0x12211122
+	dc.l	0x11122222
+	dc.l	0x11111111
+	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111110
-	dc.l	0x12111100
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x01010000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111122
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x11112110
 
 	dc.l	0x11111100
 	dc.l	0x11111100
@@ -3649,6 +4295,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x23332111
+	dc.l	0x22233331
+	dc.l	0x22222223
+	dc.l	0x11112212
+	dc.l	0x11111122
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x11221111
+	dc.l	0x22111111
+	dc.l	0x21111010
+	dc.l	0x10000000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3664,6 +4328,24 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x12222111
+	dc.l	0x11212121
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x21112221
+	dc.l	0x21112211
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111110
+	dc.l	0x12111100
+	dc.l	0x11100000
+	dc.l	0x11110000
+	dc.l	0x01010000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -3685,24 +4367,8 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_idle_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3757,23 +4423,23 @@ spritesheet_borgus_idle:
 	dc.l	0x00002111
 	dc.l	0x10022211
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11222222
+	dc.l	0x11122222
+	dc.l	0x01111121
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000122
+	dc.l	0x00000122
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00011111
+	dc.l	0x00122222
+	dc.l	0x00122555
+	dc.l	0x01122222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3793,23 +4459,23 @@ spritesheet_borgus_idle:
 	dc.l	0x12222211
 	dc.l	0x11122221
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111222
+	dc.l	0x21111112
+	dc.l	0x22111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122221
+	dc.l	0x22222111
+	dc.l	0x22111122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222333
+	dc.l	0x22222123
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x22222233
+	dc.l	0x52253333
+	dc.l	0x22555333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3829,23 +4495,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112222
 	dc.l	0x11111222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111112
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x31111313
+	dc.l	0x11111111
+	dc.l	0x22222221
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33332222
+	dc.l	0x33333321
+	dc.l	0x11123333
+	dc.l	0x11111333
+	dc.l	0x11111155
+	dc.l	0x33311115
+	dc.l	0x33331111
+	dc.l	0x35333111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3865,23 +4531,23 @@ spritesheet_borgus_idle:
 	dc.l	0x00111131
 	dc.l	0x01111133
 
-	dc.l	0x11222222
-	dc.l	0x11122222
-	dc.l	0x01111121
+	dc.l	0x01111113
+	dc.l	0x01131111
+	dc.l	0x11131113
+	dc.l	0x01131311
+	dc.l	0x01131311
 	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000122
+	dc.l	0x01111111
+	dc.l	0x01111111
 
-	dc.l	0x00000122
-	dc.l	0x00000122
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00011111
-	dc.l	0x00122222
-	dc.l	0x00122555
-	dc.l	0x01122222
+	dc.l	0x00111111
+	dc.l	0x01111111
+	dc.l	0x01111111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00111112
+	dc.l	0x00011222
+	dc.l	0x00011222
 
 	dc.l	0x01111111
 	dc.l	0x00121111
@@ -3901,23 +4567,23 @@ spritesheet_borgus_idle:
 	dc.l	0x12222211
 	dc.l	0x12222211
 
-	dc.l	0x11111222
-	dc.l	0x21111112
-	dc.l	0x22111111
+	dc.l	0x12222111
+	dc.l	0x11221111
+	dc.l	0x11221111
+	dc.l	0x31121113
+	dc.l	0x13113113
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11122221
-	dc.l	0x22222111
-	dc.l	0x22111122
+	dc.l	0x12111333
 
-	dc.l	0x22222333
-	dc.l	0x22222123
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x22222233
-	dc.l	0x52253333
-	dc.l	0x22555333
+	dc.l	0x22113333
+	dc.l	0x22113333
+	dc.l	0x12113335
+	dc.l	0x12133355
+	dc.l	0x11133355
+	dc.l	0x11135555
+	dc.l	0x11135555
+	dc.l	0x12135555
 
 	dc.l	0x21255555
 	dc.l	0x12122255
@@ -3937,23 +4603,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11333333
 	dc.l	0x33333555
 
-	dc.l	0x11111112
-	dc.l	0x21111111
+	dc.l	0x11115553
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33331311
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x31111313
-	dc.l	0x11111111
-	dc.l	0x22222221
+	dc.l	0x13313111
+	dc.l	0x33333333
 
-	dc.l	0x33332222
-	dc.l	0x33333321
-	dc.l	0x11123333
-	dc.l	0x11111333
-	dc.l	0x11111155
-	dc.l	0x33311115
-	dc.l	0x33331111
-	dc.l	0x35333111
+	dc.l	0x33555553
+	dc.l	0x35555553
+	dc.l	0x55555553
+	dc.l	0x55555553
+	dc.l	0x55555533
+	dc.l	0x55553331
+	dc.l	0x55533311
+	dc.l	0x53331111
 
 	dc.l	0x33553111
 	dc.l	0x53335311
@@ -3973,23 +4639,23 @@ spritesheet_borgus_idle:
 	dc.l	0x31111352
 	dc.l	0x53111135
 
-	dc.l	0x01111113
-	dc.l	0x01131111
-	dc.l	0x11131113
-	dc.l	0x01131311
-	dc.l	0x01131311
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
+	dc.l	0x33112111
+	dc.l	0x33112222
+	dc.l	0x31112222
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11112211
+	dc.l	0x11115111
 
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00111112
-	dc.l	0x00011222
-	dc.l	0x00011222
+	dc.l	0x33111122
+	dc.l	0x33112222
+	dc.l	0x31112222
+	dc.l	0x31122222
+	dc.l	0x11122221
+	dc.l	0x11122211
+	dc.l	0x11122112
+	dc.l	0x12211222
 
 	dc.l	0x00111122
 	dc.l	0x00112122
@@ -4009,23 +4675,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11222133
 	dc.l	0x01222133
 
-	dc.l	0x12222111
-	dc.l	0x11221111
-	dc.l	0x11221111
-	dc.l	0x31121113
-	dc.l	0x13113113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12111333
+	dc.l	0x00122213
+	dc.l	0x00112211
+	dc.l	0x00011221
+	dc.l	0x00001122
+	dc.l	0x00000112
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
 
-	dc.l	0x22113333
-	dc.l	0x22113333
-	dc.l	0x12113335
-	dc.l	0x12133355
-	dc.l	0x11133355
-	dc.l	0x11135555
-	dc.l	0x11135555
-	dc.l	0x12135555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000110
+	dc.l	0x00000110
+	dc.l	0x00001111
 
 	dc.l	0x21335555
 	dc.l	0x11335333
@@ -4045,23 +4711,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33335531
 	dc.l	0x33335533
 
-	dc.l	0x11115553
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33331311
-	dc.l	0x11111111
-	dc.l	0x13313111
-	dc.l	0x33333333
+	dc.l	0x33333553
+	dc.l	0x33333555
+	dc.l	0x13333355
+	dc.l	0x11333355
+	dc.l	0x21133355
+	dc.l	0x21111333
+	dc.l	0x12111133
+	dc.l	0x11111113
 
-	dc.l	0x33555553
-	dc.l	0x35555553
-	dc.l	0x55555553
-	dc.l	0x55555553
-	dc.l	0x55555533
-	dc.l	0x55553331
-	dc.l	0x55533311
-	dc.l	0x53331111
+	dc.l	0x01111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x33331112
 	dc.l	0x33311111
@@ -4081,23 +4747,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13335553
 	dc.l	0x11333553
 
-	dc.l	0x33112111
-	dc.l	0x33112222
-	dc.l	0x31112222
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11112211
-	dc.l	0x11115111
+	dc.l	0x31133353
+	dc.l	0x35111315
+	dc.l	0x55111111
+	dc.l	0x55533111
+	dc.l	0x55553531
+	dc.l	0x55555533
+	dc.l	0x33553553
+	dc.l	0x31333335
 
-	dc.l	0x33111122
-	dc.l	0x33112222
-	dc.l	0x31112222
-	dc.l	0x31122222
-	dc.l	0x11122221
-	dc.l	0x11122211
-	dc.l	0x11122112
-	dc.l	0x12211222
+	dc.l	0x31333333
+	dc.l	0x13133333
+	dc.l	0x11311133
+	dc.l	0x11111113
+	dc.l	0x11111413
+	dc.l	0x11111411
+	dc.l	0x11114441
+	dc.l	0x11111441
 
 	dc.l	0x12112222
 	dc.l	0x11122222
@@ -4117,56 +4783,56 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x31112111
 
-	dc.l	0x00122213
-	dc.l	0x00112211
-	dc.l	0x00011221
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x13311111
+	dc.l	0x11333111
+	dc.l	0x31133111
+	dc.l	0x31111111
+	dc.l	0x33111313
+
+	dc.l	0x33313335
+	dc.l	0x33133355
+	dc.l	0x33133355
+	dc.l	0x33333335
+	dc.l	0x33311135
+	dc.l	0x33331111
+	dc.l	0x11333331
+	dc.l	0x11133331
+
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000122
+	dc.l	0x00000122
+	dc.l	0x00000011
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
+
+	dc.l	0x00000112
+	dc.l	0x00001211
+	dc.l	0x00001211
 	dc.l	0x00001122
+	dc.l	0x00001122
+	dc.l	0x00001222
+	dc.l	0x00001222
+	dc.l	0x00000122
+
 	dc.l	0x00000112
 	dc.l	0x00000011
+	dc.l	0x00000012
 	dc.l	0x00000001
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000010
-	dc.l	0x00000110
-	dc.l	0x00000110
-	dc.l	0x00001111
-
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000122
-	dc.l	0x00000122
-	dc.l	0x00000011
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-
-	dc.l	0x33333553
-	dc.l	0x33333555
-	dc.l	0x13333355
-	dc.l	0x11333355
-	dc.l	0x21133355
-	dc.l	0x21111333
-	dc.l	0x12111133
-	dc.l	0x11111113
-
-	dc.l	0x01111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000001
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -4189,23 +4855,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111122
 	dc.l	0x11321122
 
-	dc.l	0x31133353
-	dc.l	0x35111315
-	dc.l	0x55111111
-	dc.l	0x55533111
-	dc.l	0x55553531
-	dc.l	0x55555533
-	dc.l	0x33553553
-	dc.l	0x31333335
+	dc.l	0x23322211
+	dc.l	0x11222111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x23211111
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
 
-	dc.l	0x31333333
-	dc.l	0x13133333
-	dc.l	0x11311133
-	dc.l	0x11111113
-	dc.l	0x11111413
-	dc.l	0x11111411
-	dc.l	0x11114441
-	dc.l	0x11111441
+	dc.l	0x22331112
+	dc.l	0x22222111
+	dc.l	0x12222323
+	dc.l	0x12213233
+	dc.l	0x11213233
+	dc.l	0x01213233
+	dc.l	0x01212233
+	dc.l	0x00111111
 
 	dc.l	0x11111144
 	dc.l	0x12111114
@@ -4225,23 +4891,23 @@ spritesheet_borgus_idle:
 	dc.l	0x23333122
 	dc.l	0x22333122
 
+	dc.l	0x11322112
+	dc.l	0x11221212
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x13311111
-	dc.l	0x11333111
-	dc.l	0x31133111
-	dc.l	0x31111111
-	dc.l	0x33111313
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
 
-	dc.l	0x33313335
-	dc.l	0x33133355
-	dc.l	0x33133355
-	dc.l	0x33333335
-	dc.l	0x33311135
-	dc.l	0x33331111
-	dc.l	0x11333331
-	dc.l	0x11133331
+	dc.l	0x11110111
+	dc.l	0x11211133
+	dc.l	0x11111335
+	dc.l	0x35531133
+	dc.l	0x33553123
+	dc.l	0x13353122
+	dc.l	0x11333111
+	dc.l	0x21331110
 
 	dc.l	0x11111333
 	dc.l	0x11111111
@@ -4260,60 +4926,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11122222
 	dc.l	0x11122213
 	dc.l	0x12112122
-
-	dc.l	0x00000112
-	dc.l	0x00001211
-	dc.l	0x00001211
-	dc.l	0x00001122
-	dc.l	0x00001122
-	dc.l	0x00001222
-	dc.l	0x00001222
-	dc.l	0x00000122
-
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000012
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x23322211
-	dc.l	0x11222111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x23211111
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
-
-	dc.l	0x22331112
-	dc.l	0x22222111
-	dc.l	0x12222323
-	dc.l	0x12213233
-	dc.l	0x11213233
-	dc.l	0x01213233
-	dc.l	0x01212233
-	dc.l	0x00111111
-
-	dc.l	0x11322112
-	dc.l	0x11221212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
-
-	dc.l	0x11110111
-	dc.l	0x11211133
-	dc.l	0x11111335
-	dc.l	0x35531133
-	dc.l	0x33553123
-	dc.l	0x13353122
-	dc.l	0x11333111
-	dc.l	0x21331110
 
 	dc.l	0x11111222
 	dc.l	0x11111221
@@ -4338,24 +4950,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000100
 	dc.l	0x00000111
 	dc.l	0x22002211
@@ -4368,114 +4962,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11111222
 	dc.l	0x21111112
 	dc.l	0x22111111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x12200000
-
-	dc.l	0x11122200
-	dc.l	0x11111220
-	dc.l	0x21111122
-	dc.l	0x22211111
-	dc.l	0x22221111
-	dc.l	0x22222111
-	dc.l	0x22222211
-	dc.l	0x22222211
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00110000
-	dc.l	0x00011000
-
-	dc.l	0x00021100
-	dc.l	0x00222110
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x12222211
-	dc.l	0x11222221
-	dc.l	0x11122221
-	dc.l	0x11122221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
 
 	dc.l	0x22221111
 	dc.l	0x12222111
@@ -4495,23 +4981,23 @@ spritesheet_borgus_idle:
 	dc.l	0x35533553
 	dc.l	0x13553353
 
-	dc.l	0x13553353
-	dc.l	0x13555355
-	dc.l	0x11355355
-	dc.l	0x31155355
-	dc.l	0x11155335
-	dc.l	0x11155315
-	dc.l	0x31115315
-	dc.l	0x31115311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x12200000
 
-	dc.l	0x31115311
-	dc.l	0x33115311
-	dc.l	0x33133332
-	dc.l	0x53132532
-	dc.l	0x53132532
-	dc.l	0x55132532
-	dc.l	0x55312532
-	dc.l	0x55112332
+	dc.l	0x11122200
+	dc.l	0x11111220
+	dc.l	0x21111122
+	dc.l	0x22211111
+	dc.l	0x22221111
+	dc.l	0x22222111
+	dc.l	0x22222211
+	dc.l	0x22222211
 
 	dc.l	0x12222221
 	dc.l	0x11122222
@@ -4531,23 +5017,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13331135
 	dc.l	0x11333135
 
-	dc.l	0x11335315
-	dc.l	0x11335533
-	dc.l	0x31335551
-	dc.l	0x51135551
-	dc.l	0x51133551
-	dc.l	0x51133531
-	dc.l	0x51335531
-	dc.l	0x51355333
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+	dc.l	0x00011000
 
-	dc.l	0x51153113
-	dc.l	0x53233113
-	dc.l	0x55123135
-	dc.l	0x55125135
-	dc.l	0x55125155
-	dc.l	0x35125355
-	dc.l	0x53123113
-	dc.l	0x55123135
+	dc.l	0x00021100
+	dc.l	0x00222110
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x12222211
+	dc.l	0x11222221
+	dc.l	0x11122221
+	dc.l	0x11122221
 
 	dc.l	0x11112222
 	dc.l	0x11111222
@@ -4567,23 +5053,23 @@ spritesheet_borgus_idle:
 	dc.l	0x31116711
 	dc.l	0x33111677
 
-	dc.l	0x51351111
-	dc.l	0x55135111
-	dc.l	0x55511155
-	dc.l	0x35553135
-	dc.l	0x35533315
-	dc.l	0x11135535
-	dc.l	0x15535355
-	dc.l	0x31131135
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x33311335
-	dc.l	0x53313615
-	dc.l	0x53116613
-	dc.l	0x53116133
-	dc.l	0x31111131
-	dc.l	0x11115131
-	dc.l	0x11111111
-	dc.l	0x11111131
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
 
 	dc.l	0x11100000
 	dc.l	0x11100000
@@ -4603,23 +5089,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13311115
 	dc.l	0x11133555
 
-	dc.l	0x11555315
-	dc.l	0x15333353
-	dc.l	0x53353131
-	dc.l	0x55531311
-	dc.l	0x55531311
-	dc.l	0x53311112
-	dc.l	0x33111222
-	dc.l	0x33131122
+	dc.l	0x13553353
+	dc.l	0x13555355
+	dc.l	0x11355355
+	dc.l	0x31155355
+	dc.l	0x11155335
+	dc.l	0x11155315
+	dc.l	0x31115315
+	dc.l	0x31115311
 
-	dc.l	0x31111111
-	dc.l	0x11111111
-	dc.l	0x11333111
-	dc.l	0x13333311
-	dc.l	0x13663311
-	dc.l	0x36663111
-	dc.l	0x66631111
-	dc.l	0x11111113
+	dc.l	0x31115311
+	dc.l	0x33115311
+	dc.l	0x33133332
+	dc.l	0x53132532
+	dc.l	0x53132532
+	dc.l	0x55132532
+	dc.l	0x55312532
+	dc.l	0x55112332
 
 	dc.l	0x22212332
 	dc.l	0x22312332
@@ -4639,23 +5125,23 @@ spritesheet_borgus_idle:
 	dc.l	0x21211551
 	dc.l	0x22111332
 
-	dc.l	0x11211133
-	dc.l	0x22331111
-	dc.l	0x22222211
-	dc.l	0x22333322
-	dc.l	0x22333333
-	dc.l	0x12231333
-	dc.l	0x12233311
-	dc.l	0x12222333
+	dc.l	0x11335315
+	dc.l	0x11335533
+	dc.l	0x31335551
+	dc.l	0x51135551
+	dc.l	0x51133551
+	dc.l	0x51133531
+	dc.l	0x51335531
+	dc.l	0x51355333
 
-	dc.l	0x12222222
-	dc.l	0x11222233
-	dc.l	0x11111223
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
+	dc.l	0x51153113
+	dc.l	0x53233113
+	dc.l	0x55123135
+	dc.l	0x55125135
+	dc.l	0x55125155
+	dc.l	0x35125355
+	dc.l	0x53123113
+	dc.l	0x55123135
 
 	dc.l	0x55125135
 	dc.l	0x55125155
@@ -4675,23 +5161,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11132353
 	dc.l	0x11132353
 
-	dc.l	0x11112151
-	dc.l	0x13312151
-	dc.l	0x11131151
-	dc.l	0x22135111
-	dc.l	0x33353311
-	dc.l	0x55533532
-	dc.l	0x33355122
-	dc.l	0x33333535
+	dc.l	0x51351111
+	dc.l	0x55135111
+	dc.l	0x55511155
+	dc.l	0x35553135
+	dc.l	0x35533315
+	dc.l	0x11135535
+	dc.l	0x15535355
+	dc.l	0x31131135
 
-	dc.l	0x33313353
-	dc.l	0x33311333
-	dc.l	0x31333333
-	dc.l	0x11133533
-	dc.l	0x11111515
-	dc.l	0x13111115
-	dc.l	0x22121351
-	dc.l	0x21222215
+	dc.l	0x33311335
+	dc.l	0x53313615
+	dc.l	0x53116613
+	dc.l	0x53116133
+	dc.l	0x31111131
+	dc.l	0x11115131
+	dc.l	0x11111111
+	dc.l	0x11111131
 
 	dc.l	0x11111113
 	dc.l	0x11136613
@@ -4711,23 +5197,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33333111
 	dc.l	0x31133311
 
-	dc.l	0x11313111
-	dc.l	0x11115111
-	dc.l	0x11113511
-	dc.l	0x11513111
-	dc.l	0x11111111
-	dc.l	0x21111112
-	dc.l	0x21113211
-	dc.l	0x33552552
+	dc.l	0x11555315
+	dc.l	0x15333353
+	dc.l	0x53353131
+	dc.l	0x55531311
+	dc.l	0x55531311
+	dc.l	0x53311112
+	dc.l	0x33111222
+	dc.l	0x33131122
 
-	dc.l	0x55335553
-	dc.l	0x35555555
-	dc.l	0x33513135
-	dc.l	0x13333353
-	dc.l	0x33222333
-	dc.l	0x53111222
-	dc.l	0x11333353
-	dc.l	0x11111151
+	dc.l	0x31111111
+	dc.l	0x11111111
+	dc.l	0x11333111
+	dc.l	0x13333311
+	dc.l	0x13663311
+	dc.l	0x36663111
+	dc.l	0x66631111
+	dc.l	0x11111113
 
 	dc.l	0x30011113
 	dc.l	0x10000116
@@ -4747,23 +5233,23 @@ spritesheet_borgus_idle:
 	dc.l	0x52253113
 	dc.l	0x51255113
 
-	dc.l	0x11222212
-	dc.l	0x51122212
-	dc.l	0x11112212
-	dc.l	0x11111132
-	dc.l	0x22111152
-	dc.l	0x22211132
-	dc.l	0x11111113
-	dc.l	0x22525252
+	dc.l	0x11211133
+	dc.l	0x22331111
+	dc.l	0x22222211
+	dc.l	0x22333322
+	dc.l	0x22333333
+	dc.l	0x12231333
+	dc.l	0x12233311
+	dc.l	0x12222333
 
-	dc.l	0x55553553
-	dc.l	0x55555333
-	dc.l	0x35512132
-	dc.l	0x55131311
-	dc.l	0x33221131
-	dc.l	0x22311111
+	dc.l	0x12222222
+	dc.l	0x11222233
+	dc.l	0x11111223
+	dc.l	0x11112211
 	dc.l	0x11111111
-	dc.l	0x11511111
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -4783,23 +5269,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13113311
 	dc.l	0x31111111
 
-	dc.l	0x33311111
-	dc.l	0x33311111
-	dc.l	0x11133111
-	dc.l	0x33331331
-	dc.l	0x13333335
-	dc.l	0x11355555
-	dc.l	0x11135555
-	dc.l	0x11113335
+	dc.l	0x11112151
+	dc.l	0x13312151
+	dc.l	0x11131151
+	dc.l	0x22135111
+	dc.l	0x33353311
+	dc.l	0x55533532
+	dc.l	0x33355122
+	dc.l	0x33333535
 
-	dc.l	0x11111333
-	dc.l	0x11131111
-	dc.l	0x11111441
-	dc.l	0x11114444
-	dc.l	0x11114444
-	dc.l	0x33111444
-	dc.l	0x33111144
-	dc.l	0x11111114
+	dc.l	0x33313353
+	dc.l	0x33311333
+	dc.l	0x31333333
+	dc.l	0x11133533
+	dc.l	0x11111515
+	dc.l	0x13111115
+	dc.l	0x22121351
+	dc.l	0x21222215
 
 	dc.l	0x12222215
 	dc.l	0x11212215
@@ -4819,23 +5305,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111121
 	dc.l	0x11111122
 
-	dc.l	0x11111112
-	dc.l	0x11111112
+	dc.l	0x11313111
+	dc.l	0x11115111
+	dc.l	0x11113511
+	dc.l	0x11513111
 	dc.l	0x11111111
-	dc.l	0x11110111
-	dc.l	0x31110110
-	dc.l	0x53111110
-	dc.l	0x55311110
-	dc.l	0x55533110
+	dc.l	0x21111112
+	dc.l	0x21113211
+	dc.l	0x33552552
 
-	dc.l	0x33313111
-	dc.l	0x31311311
-	dc.l	0x11135355
-	dc.l	0x11113555
-	dc.l	0x11313135
-	dc.l	0x41111111
-	dc.l	0x44111111
-	dc.l	0x44111111
+	dc.l	0x55335553
+	dc.l	0x35555555
+	dc.l	0x33513135
+	dc.l	0x13333353
+	dc.l	0x33222333
+	dc.l	0x53111222
+	dc.l	0x11333353
+	dc.l	0x11111151
 
 	dc.l	0x13111211
 	dc.l	0x13511311
@@ -4855,23 +5341,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11113531
 	dc.l	0x11113531
 
-	dc.l	0x11113311
-	dc.l	0x21113311
-	dc.l	0x21111111
-	dc.l	0x21511111
-	dc.l	0x21513111
-	dc.l	0x11513111
-	dc.l	0x13113111
-	dc.l	0x13113111
+	dc.l	0x11222212
+	dc.l	0x51122212
+	dc.l	0x11112212
+	dc.l	0x11111132
+	dc.l	0x22111152
+	dc.l	0x22211132
+	dc.l	0x11111113
+	dc.l	0x22525252
 
-	dc.l	0x11111100
-	dc.l	0x11111000
-	dc.l	0x51311100
-	dc.l	0x55333111
-	dc.l	0x55533333
-	dc.l	0x11155333
-	dc.l	0x33313331
-	dc.l	0x11313311
+	dc.l	0x55553553
+	dc.l	0x55555333
+	dc.l	0x35512132
+	dc.l	0x55131311
+	dc.l	0x33221131
+	dc.l	0x22311111
+	dc.l	0x11111111
+	dc.l	0x11511111
 
 	dc.l	0x13111111
 	dc.l	0x11111111
@@ -4891,23 +5377,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11112222
 	dc.l	0x11112222
 
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x33311111
+	dc.l	0x33311111
+	dc.l	0x11133111
+	dc.l	0x33331331
+	dc.l	0x13333335
+	dc.l	0x11355555
+	dc.l	0x11135555
+	dc.l	0x11113335
 
-	dc.l	0x11111111
-	dc.l	0x01111111
-	dc.l	0x11111111
-	dc.l	0x11121111
-	dc.l	0x31122111
-	dc.l	0x11122111
-	dc.l	0x11112111
-	dc.l	0x11112111
+	dc.l	0x11111333
+	dc.l	0x11131111
+	dc.l	0x11111441
+	dc.l	0x11114444
+	dc.l	0x11114444
+	dc.l	0x33111444
+	dc.l	0x33111144
+	dc.l	0x11111114
 
 	dc.l	0x11111111
 	dc.l	0x11110111
@@ -4927,6 +5413,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x31110110
+	dc.l	0x53111110
+	dc.l	0x55311110
+	dc.l	0x55533110
+
+	dc.l	0x33313111
+	dc.l	0x31311311
+	dc.l	0x11135355
+	dc.l	0x11113555
+	dc.l	0x11313135
+	dc.l	0x41111111
+	dc.l	0x44111111
+	dc.l	0x44111111
+
 	dc.l	0x44411101
 	dc.l	0x14413101
 	dc.l	0x11413311
@@ -4944,6 +5448,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x11113311
+	dc.l	0x21113311
+	dc.l	0x21111111
+	dc.l	0x21511111
+	dc.l	0x21513111
+	dc.l	0x11513111
+	dc.l	0x13113111
+	dc.l	0x13113111
+
+	dc.l	0x11111100
+	dc.l	0x11111000
+	dc.l	0x51311100
+	dc.l	0x55333111
+	dc.l	0x55533333
+	dc.l	0x11155333
+	dc.l	0x33313331
+	dc.l	0x11313311
 
 	dc.l	0x11111111
 	dc.l	0x01000110
@@ -4963,6 +5485,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x01111111
+	dc.l	0x11111111
+	dc.l	0x11121111
+	dc.l	0x31122111
+	dc.l	0x11122111
+	dc.l	0x11112111
+	dc.l	0x11112111
+
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -4974,96 +5514,6 @@ spritesheet_borgus_idle:
 
 	dc.l	0x00011111
 	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5107,6 +5557,78 @@ spritesheet_borgus_idle:
 	dc.l	0x11100000
 	dc.l	0x33111010
 
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x11111111
 	dc.l	0x31111122
 	dc.l	0x12211222
@@ -5124,78 +5646,6 @@ spritesheet_borgus_idle:
 	dc.l	0x33311223
 	dc.l	0x33331111
 	dc.l	0x66331111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x10000000
-	dc.l	0x21000000
-	dc.l	0x21100000
-	dc.l	0x13100000
-	dc.l	0x21110000
-	dc.l	0x13110000
-	dc.l	0x13111000
-	dc.l	0x33211000
-
-	dc.l	0x32111000
-	dc.l	0x31111000
-	dc.l	0x11231000
-	dc.l	0x33322000
-	dc.l	0x32211000
-	dc.l	0x21111000
-	dc.l	0x11130000
-	dc.l	0x11330000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x66311113
 	dc.l	0x66111133
@@ -5215,23 +5665,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11113000
 	dc.l	0x21111110
 
-	dc.l	0x22221111
-	dc.l	0x22222211
-	dc.l	0x22222221
-	dc.l	0x22111111
-	dc.l	0x21111222
-	dc.l	0x11111122
-	dc.l	0x11100012
-	dc.l	0x20000001
-
-	dc.l	0x21000001
+	dc.l	0x10000000
+	dc.l	0x21000000
 	dc.l	0x21100000
-	dc.l	0x11110000
-	dc.l	0x11111010
-	dc.l	0x11121111
-	dc.l	0x11222221
-	dc.l	0x11222222
-	dc.l	0x22222221
+	dc.l	0x13100000
+	dc.l	0x21110000
+	dc.l	0x13110000
+	dc.l	0x13111000
+	dc.l	0x33211000
+
+	dc.l	0x32111000
+	dc.l	0x31111000
+	dc.l	0x11231000
+	dc.l	0x33322000
+	dc.l	0x32211000
+	dc.l	0x21111000
+	dc.l	0x11130000
+	dc.l	0x11330000
 
 	dc.l	0x31330000
 	dc.l	0x31130000
@@ -5252,24 +5702,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x21110000
-	dc.l	0x22110000
-	dc.l	0x12210000
-
-	dc.l	0x11210000
-	dc.l	0x01210000
-	dc.l	0x00111000
-	dc.l	0x00110000
-	dc.l	0x11100000
-	dc.l	0x11111101
-	dc.l	0x21111112
-	dc.l	0x11212111
-
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5299,11 +5731,29 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00101111
-	dc.l	0x11111211
-	dc.l	0x11222110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22221111
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22111111
+	dc.l	0x21111222
+	dc.l	0x11111122
+	dc.l	0x11100012
+	dc.l	0x20000001
+
+	dc.l	0x21000001
+	dc.l	0x21100000
+	dc.l	0x11110000
+	dc.l	0x11111010
+	dc.l	0x11121111
+	dc.l	0x11222221
+	dc.l	0x11222222
+	dc.l	0x22222221
 
 	dc.l	0x22222212
 	dc.l	0x11221211
@@ -5323,23 +5773,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22111111
 	dc.l	0x22211111
 
-	dc.l	0x22212211
-	dc.l	0x22221111
-	dc.l	0x22122222
-	dc.l	0x12211122
-	dc.l	0x11122222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x21110000
+	dc.l	0x22110000
+	dc.l	0x12210000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111122
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x11112110
+	dc.l	0x11210000
+	dc.l	0x01210000
+	dc.l	0x00111000
+	dc.l	0x00110000
+	dc.l	0x11100000
+	dc.l	0x11111101
+	dc.l	0x21111112
+	dc.l	0x11212111
 
 	dc.l	0x12222222
 	dc.l	0x22222222
@@ -5359,23 +5809,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11211223
 	dc.l	0x11112122
 
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x23332111
-	dc.l	0x22233331
-	dc.l	0x22222223
-	dc.l	0x11112212
-	dc.l	0x11111122
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11221111
-	dc.l	0x22111111
-	dc.l	0x21111110
-	dc.l	0x10100000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00101111
+	dc.l	0x11111211
+	dc.l	0x11222110
 
 	dc.l	0x22222110
 	dc.l	0x22222100
@@ -5395,23 +5845,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33331110
 	dc.l	0x23322110
 
-	dc.l	0x22222111
-	dc.l	0x12222111
-	dc.l	0x11212121
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x21112221
-	dc.l	0x21112211
+	dc.l	0x22212211
+	dc.l	0x22221111
+	dc.l	0x22122222
+	dc.l	0x12211122
+	dc.l	0x11122222
+	dc.l	0x11111111
+	dc.l	0x11111111
 	dc.l	0x11111111
 
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x12111110
-	dc.l	0x11111000
-	dc.l	0x11110000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111122
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x11112110
 
 	dc.l	0x11111100
 	dc.l	0x11111100
@@ -5431,6 +5881,24 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x23332111
+	dc.l	0x22233331
+	dc.l	0x22222223
+	dc.l	0x11112212
+	dc.l	0x11111122
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11221111
+	dc.l	0x22111111
+	dc.l	0x21111110
+	dc.l	0x10100000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5446,6 +5914,24 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22222111
+	dc.l	0x12222111
+	dc.l	0x11212121
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x21112221
+	dc.l	0x21112211
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12111110
+	dc.l	0x11111000
+	dc.l	0x11110000
+	dc.l	0x10000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -5467,24 +5953,8 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_idle_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5539,23 +6009,23 @@ spritesheet_borgus_idle:
 	dc.l	0x10021111
 	dc.l	0x11222212
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11122222
+	dc.l	0x01111121
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000122
+	dc.l	0x00000122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000122
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00011111
+	dc.l	0x00122222
+	dc.l	0x00122555
+	dc.l	0x01122222
+	dc.l	0x01111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5575,23 +6045,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11222111
 	dc.l	0x11111222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x21111112
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122221
+	dc.l	0x22222111
+	dc.l	0x22111122
+	dc.l	0x22222333
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222123
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x22222233
+	dc.l	0x52253333
+	dc.l	0x22555333
+	dc.l	0x22255555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5611,23 +6081,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111222
 	dc.l	0x11111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x31111313
+	dc.l	0x11111111
+	dc.l	0x22222221
+	dc.l	0x33332222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33333321
+	dc.l	0x11123333
+	dc.l	0x11111333
+	dc.l	0x11111155
+	dc.l	0x33311115
+	dc.l	0x33331111
+	dc.l	0x35333111
+	dc.l	0x33553111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5647,23 +6117,23 @@ spritesheet_borgus_idle:
 	dc.l	0x00011113
 	dc.l	0x00111113
 
-	dc.l	0x11122222
-	dc.l	0x01111121
+	dc.l	0x00111111
+	dc.l	0x00113111
+	dc.l	0x01113111
+	dc.l	0x00113131
+	dc.l	0x00113131
+	dc.l	0x00011111
+	dc.l	0x00111111
+	dc.l	0x00111111
+
+	dc.l	0x00011111
+	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000122
-	dc.l	0x00000122
-
-	dc.l	0x00000122
-	dc.l	0x00001111
-	dc.l	0x00001111
 	dc.l	0x00011111
-	dc.l	0x00122222
-	dc.l	0x00122555
-	dc.l	0x01122222
-	dc.l	0x01111111
+	dc.l	0x00011111
+	dc.l	0x00001122
+	dc.l	0x00001122
 
 	dc.l	0x00111111
 	dc.l	0x01112111
@@ -5683,23 +6153,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11222221
 	dc.l	0x31222221
 
-	dc.l	0x21111112
-	dc.l	0x21111111
+	dc.l	0x31222211
+	dc.l	0x11122111
+	dc.l	0x31122111
+	dc.l	0x13112111
+	dc.l	0x11311311
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11122221
-	dc.l	0x22222111
-	dc.l	0x22111122
-	dc.l	0x22222333
+	dc.l	0x11211133
 
-	dc.l	0x22222123
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x22222233
-	dc.l	0x52253333
-	dc.l	0x22555333
-	dc.l	0x22255555
+	dc.l	0x12211333
+	dc.l	0x12211333
+	dc.l	0x11211333
+	dc.l	0x11213335
+	dc.l	0x11113335
+	dc.l	0x21113555
+	dc.l	0x21113555
+	dc.l	0x21213555
 
 	dc.l	0x11122255
 	dc.l	0x11212222
@@ -5719,23 +6189,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11133333
 	dc.l	0x13333355
 
-	dc.l	0x21111111
+	dc.l	0x11111555
+	dc.l	0x13333333
+	dc.l	0x13333333
+	dc.l	0x33333333
+	dc.l	0x33333131
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x31111313
-	dc.l	0x11111111
-	dc.l	0x22222221
-	dc.l	0x33332222
+	dc.l	0x11331311
+	dc.l	0x33333333
 
-	dc.l	0x33333321
-	dc.l	0x11123333
-	dc.l	0x11111333
-	dc.l	0x11111155
-	dc.l	0x33311115
-	dc.l	0x33331111
-	dc.l	0x35333111
-	dc.l	0x33553111
+	dc.l	0x33355555
+	dc.l	0x33555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555553
+	dc.l	0x55555333
+	dc.l	0x55553331
+	dc.l	0x55333111
 
 	dc.l	0x53335311
 	dc.l	0x55333311
@@ -5755,23 +6225,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33111135
 	dc.l	0x55311111
 
-	dc.l	0x00111111
-	dc.l	0x00113111
-	dc.l	0x01113111
-	dc.l	0x00113131
-	dc.l	0x00113131
-	dc.l	0x00011111
-	dc.l	0x00111111
-	dc.l	0x00111111
+	dc.l	0x33311222
+	dc.l	0x33311222
+	dc.l	0x33111222
+	dc.l	0x31111222
+	dc.l	0x11112222
+	dc.l	0x11112211
+	dc.l	0x11111111
+	dc.l	0x31111522
 
-	dc.l	0x00011111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00001122
-	dc.l	0x00001122
+	dc.l	0x33311122
+	dc.l	0x33311222
+	dc.l	0x33111222
+	dc.l	0x33112221
+	dc.l	0x31112211
+	dc.l	0x11112112
+	dc.l	0x11111222
+	dc.l	0x11112222
 
 	dc.l	0x00011112
 	dc.l	0x00011212
@@ -5791,23 +6261,23 @@ spritesheet_borgus_idle:
 	dc.l	0x01122213
 	dc.l	0x00122213
 
-	dc.l	0x31222211
-	dc.l	0x11122111
-	dc.l	0x31122111
-	dc.l	0x13112111
-	dc.l	0x11311311
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11211133
+	dc.l	0x00012221
+	dc.l	0x00011221
+	dc.l	0x00001122
+	dc.l	0x00000112
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x12211333
-	dc.l	0x12211333
-	dc.l	0x11211333
-	dc.l	0x11213335
-	dc.l	0x11113335
-	dc.l	0x21113555
-	dc.l	0x21113555
-	dc.l	0x21213555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010000
+	dc.l	0x00111000
 
 	dc.l	0x22133555
 	dc.l	0x21133533
@@ -5827,23 +6297,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33333553
 	dc.l	0x33333553
 
-	dc.l	0x11111555
-	dc.l	0x13333333
-	dc.l	0x13333333
-	dc.l	0x33333333
-	dc.l	0x33333131
-	dc.l	0x11111111
-	dc.l	0x11331311
-	dc.l	0x33333333
+	dc.l	0x33333355
+	dc.l	0x13333355
+	dc.l	0x11333335
+	dc.l	0x21133335
+	dc.l	0x22113335
+	dc.l	0x12111133
+	dc.l	0x11211113
+	dc.l	0x01111111
 
-	dc.l	0x33355555
-	dc.l	0x33555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555553
-	dc.l	0x55555333
-	dc.l	0x55553331
-	dc.l	0x55333111
+	dc.l	0x00111111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x53333111
 	dc.l	0x33331111
@@ -5863,23 +6333,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11333555
 	dc.l	0x31133355
 
-	dc.l	0x33311222
-	dc.l	0x33311222
-	dc.l	0x33111222
-	dc.l	0x31111222
-	dc.l	0x11112222
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x31111522
+	dc.l	0x33113335
+	dc.l	0x53511131
+	dc.l	0x55511111
+	dc.l	0x55553311
+	dc.l	0x55555353
+	dc.l	0x35555553
+	dc.l	0x33355355
+	dc.l	0x33133333
 
-	dc.l	0x33311122
-	dc.l	0x33311222
-	dc.l	0x33111222
-	dc.l	0x33112221
-	dc.l	0x31112211
-	dc.l	0x11112112
-	dc.l	0x11111222
-	dc.l	0x11112222
+	dc.l	0x13133333
+	dc.l	0x11313333
+	dc.l	0x11131113
+	dc.l	0x11111111
+	dc.l	0x11111141
+	dc.l	0x01111141
+	dc.l	0x01111444
+	dc.l	0x11111144
 
 	dc.l	0x21122222
 	dc.l	0x11122222
@@ -5899,23 +6369,23 @@ spritesheet_borgus_idle:
 	dc.l	0x31111111
 	dc.l	0x33111211
 
-	dc.l	0x00012221
-	dc.l	0x00011221
-	dc.l	0x00001122
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31111111
+	dc.l	0x51111111
+	dc.l	0x11111111
+	dc.l	0x11331111
+	dc.l	0x11133311
+	dc.l	0x33113311
+	dc.l	0x33111111
+	dc.l	0x53311131
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00010000
-	dc.l	0x00111000
+	dc.l	0x33331333
+	dc.l	0x33313335
+	dc.l	0x33313335
+	dc.l	0x33333333
+	dc.l	0x33331113
+	dc.l	0x13333111
+	dc.l	0x11133333
+	dc.l	0x11113333
 
 	dc.l	0x00111000
 	dc.l	0x00111100
@@ -5935,19 +6405,19 @@ spritesheet_borgus_idle:
 	dc.l	0x00000001
 	dc.l	0x00000011
 
-	dc.l	0x33333355
-	dc.l	0x13333355
-	dc.l	0x11333335
-	dc.l	0x21133335
-	dc.l	0x22113335
-	dc.l	0x12111133
-	dc.l	0x11211113
-	dc.l	0x01111111
+	dc.l	0x00000112
+	dc.l	0x00001211
+	dc.l	0x00001211
+	dc.l	0x00001122
+	dc.l	0x00001122
+	dc.l	0x00001222
+	dc.l	0x00001222
+	dc.l	0x00000122
 
-	dc.l	0x00111111
-	dc.l	0x00001111
-	dc.l	0x00000111
+	dc.l	0x00000112
 	dc.l	0x00000011
+	dc.l	0x00000012
+	dc.l	0x00000001
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -5971,23 +6441,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111122
 	dc.l	0x11321122
 
-	dc.l	0x33113335
-	dc.l	0x53511131
-	dc.l	0x55511111
-	dc.l	0x55553311
-	dc.l	0x55555353
-	dc.l	0x35555553
-	dc.l	0x33355355
-	dc.l	0x33133333
-
-	dc.l	0x13133333
-	dc.l	0x11313333
-	dc.l	0x11131113
+	dc.l	0x23322211
+	dc.l	0x11222111
 	dc.l	0x11111111
-	dc.l	0x11111141
-	dc.l	0x01111141
-	dc.l	0x01111444
-	dc.l	0x11111144
+	dc.l	0x21111111
+	dc.l	0x23211111
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
+
+	dc.l	0x22331112
+	dc.l	0x22222111
+	dc.l	0x12222323
+	dc.l	0x12213233
+	dc.l	0x11213233
+	dc.l	0x01213233
+	dc.l	0x01212233
+	dc.l	0x00111111
 
 	dc.l	0x11111114
 	dc.l	0x11111111
@@ -6007,23 +6477,23 @@ spritesheet_borgus_idle:
 	dc.l	0x23333122
 	dc.l	0x22322112
 
-	dc.l	0x31111111
-	dc.l	0x51111111
+	dc.l	0x11221212
 	dc.l	0x11111111
-	dc.l	0x11331111
-	dc.l	0x11133311
-	dc.l	0x33113311
-	dc.l	0x33111111
-	dc.l	0x53311131
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
 
-	dc.l	0x33331333
-	dc.l	0x33313335
-	dc.l	0x33313335
-	dc.l	0x33333333
-	dc.l	0x33331113
-	dc.l	0x13333111
-	dc.l	0x11133333
-	dc.l	0x11113333
+	dc.l	0x11110111
+	dc.l	0x11211133
+	dc.l	0x11111335
+	dc.l	0x35531133
+	dc.l	0x33553123
+	dc.l	0x13353122
+	dc.l	0x11333111
+	dc.l	0x21331110
 
 	dc.l	0x41111133
 	dc.l	0x41111111
@@ -6042,60 +6512,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11122213
 	dc.l	0x12112122
 	dc.l	0x11111222
-
-	dc.l	0x00000112
-	dc.l	0x00001211
-	dc.l	0x00001211
-	dc.l	0x00001122
-	dc.l	0x00001122
-	dc.l	0x00001222
-	dc.l	0x00001222
-	dc.l	0x00000122
-
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000012
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x23322211
-	dc.l	0x11222111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x23211111
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
-
-	dc.l	0x22331112
-	dc.l	0x22222111
-	dc.l	0x12222323
-	dc.l	0x12213233
-	dc.l	0x11213233
-	dc.l	0x01213233
-	dc.l	0x01212233
-	dc.l	0x00111111
-
-	dc.l	0x11221212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
-
-	dc.l	0x11110111
-	dc.l	0x11211133
-	dc.l	0x11111335
-	dc.l	0x35531133
-	dc.l	0x33553123
-	dc.l	0x13353122
-	dc.l	0x11333111
-	dc.l	0x21331110
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -6120,24 +6536,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00001000
 	dc.l	0x00001110
 	dc.l	0x20022111
@@ -6150,114 +6548,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11111222
 	dc.l	0x11111112
 	dc.l	0x22111111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x22000000
-
-	dc.l	0x11222000
-	dc.l	0x11112200
-	dc.l	0x11111222
-	dc.l	0x22111112
-	dc.l	0x22211111
-	dc.l	0x22221111
-	dc.l	0x22222111
-	dc.l	0x12222221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x01100000
-	dc.l	0x00110000
-
-	dc.l	0x00211000
-	dc.l	0x02221100
-	dc.l	0x22222110
-	dc.l	0x22222111
-	dc.l	0x22222111
-	dc.l	0x11222211
-	dc.l	0x11222211
-	dc.l	0x11112221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11100000
 
 	dc.l	0x12222111
 	dc.l	0x11122211
@@ -6277,23 +6567,23 @@ spritesheet_borgus_idle:
 	dc.l	0x13553353
 	dc.l	0x13553353
 
-	dc.l	0x13555355
-	dc.l	0x11355355
-	dc.l	0x31155355
-	dc.l	0x11155335
-	dc.l	0x11155315
-	dc.l	0x31115315
-	dc.l	0x31115311
-	dc.l	0x31115311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22000000
 
-	dc.l	0x33115311
-	dc.l	0x33133332
-	dc.l	0x53132532
-	dc.l	0x53132532
-	dc.l	0x55132532
-	dc.l	0x55312532
-	dc.l	0x55112332
-	dc.l	0x22212332
+	dc.l	0x11222000
+	dc.l	0x11112200
+	dc.l	0x11111222
+	dc.l	0x22111112
+	dc.l	0x22211111
+	dc.l	0x22221111
+	dc.l	0x22222111
+	dc.l	0x12222221
 
 	dc.l	0x11122221
 	dc.l	0x11112222
@@ -6313,23 +6603,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11333135
 	dc.l	0x11335315
 
-	dc.l	0x11335533
-	dc.l	0x31335551
-	dc.l	0x51135551
-	dc.l	0x51133551
-	dc.l	0x51133531
-	dc.l	0x51335531
-	dc.l	0x51355333
-	dc.l	0x51153113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01100000
+	dc.l	0x00110000
 
-	dc.l	0x53233113
-	dc.l	0x55123135
-	dc.l	0x55125135
-	dc.l	0x55125155
-	dc.l	0x35125355
-	dc.l	0x53123113
-	dc.l	0x55123115
-	dc.l	0x55125133
+	dc.l	0x00211000
+	dc.l	0x02221100
+	dc.l	0x22222110
+	dc.l	0x22222111
+	dc.l	0x22222111
+	dc.l	0x11222211
+	dc.l	0x11222211
+	dc.l	0x11112221
 
 	dc.l	0x11111222
 	dc.l	0x11111222
@@ -6349,23 +6639,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33111677
 	dc.l	0x51351111
 
-	dc.l	0x55135111
-	dc.l	0x55511155
-	dc.l	0x35553135
-	dc.l	0x35533315
-	dc.l	0x11135535
-	dc.l	0x15535355
-	dc.l	0x35311135
-	dc.l	0x53311335
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x53113615
-	dc.l	0x13116613
-	dc.l	0x31116133
-	dc.l	0x11111131
-	dc.l	0x11115131
-	dc.l	0x11111111
-	dc.l	0x11111131
-	dc.l	0x11111113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11100000
 
 	dc.l	0x11100000
 	dc.l	0x11100000
@@ -6385,23 +6675,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11133555
 	dc.l	0x11555315
 
-	dc.l	0x15333353
-	dc.l	0x53353131
-	dc.l	0x55531311
-	dc.l	0x55531311
-	dc.l	0x53311112
-	dc.l	0x33111222
-	dc.l	0x33131122
-	dc.l	0x31111111
+	dc.l	0x13555355
+	dc.l	0x11355355
+	dc.l	0x31155355
+	dc.l	0x11155335
+	dc.l	0x11155315
+	dc.l	0x31115315
+	dc.l	0x31115311
+	dc.l	0x31115311
 
-	dc.l	0x11111111
-	dc.l	0x11333111
-	dc.l	0x13333311
-	dc.l	0x13663311
-	dc.l	0x36663111
-	dc.l	0x66631111
-	dc.l	0x11111113
-	dc.l	0x30011113
+	dc.l	0x33115311
+	dc.l	0x33133332
+	dc.l	0x53132532
+	dc.l	0x53132532
+	dc.l	0x55132532
+	dc.l	0x55312532
+	dc.l	0x55112332
+	dc.l	0x22212332
 
 	dc.l	0x22312332
 	dc.l	0x33312332
@@ -6421,23 +6711,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22111332
 	dc.l	0x11211133
 
-	dc.l	0x22331111
-	dc.l	0x22222211
-	dc.l	0x22333322
-	dc.l	0x22333333
-	dc.l	0x12231333
-	dc.l	0x12233311
-	dc.l	0x12222333
-	dc.l	0x12222222
+	dc.l	0x11335533
+	dc.l	0x31335551
+	dc.l	0x51135551
+	dc.l	0x51133551
+	dc.l	0x51133531
+	dc.l	0x51335531
+	dc.l	0x51355333
+	dc.l	0x51153113
 
-	dc.l	0x11222233
-	dc.l	0x11111223
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x53233113
+	dc.l	0x55123135
+	dc.l	0x55125135
+	dc.l	0x55125155
+	dc.l	0x35125355
+	dc.l	0x53123113
+	dc.l	0x55123115
+	dc.l	0x55125133
 
 	dc.l	0x55125133
 	dc.l	0x35135135
@@ -6457,23 +6747,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11132553
 	dc.l	0x11112353
 
-	dc.l	0x13312353
-	dc.l	0x11131151
-	dc.l	0x22135151
-	dc.l	0x33353151
-	dc.l	0x55533111
-	dc.l	0x33355311
-	dc.l	0x33333535
-	dc.l	0x33313353
+	dc.l	0x55135111
+	dc.l	0x55511155
+	dc.l	0x35553135
+	dc.l	0x35533315
+	dc.l	0x11135535
+	dc.l	0x15535355
+	dc.l	0x35311135
+	dc.l	0x53311335
 
-	dc.l	0x33311333
-	dc.l	0x31333333
-	dc.l	0x11133533
-	dc.l	0x11111515
-	dc.l	0x13111115
-	dc.l	0x22121351
-	dc.l	0x21222215
-	dc.l	0x12222215
+	dc.l	0x53113615
+	dc.l	0x13116613
+	dc.l	0x31116133
+	dc.l	0x11111131
+	dc.l	0x11115131
+	dc.l	0x11111111
+	dc.l	0x11111131
+	dc.l	0x11111113
 
 	dc.l	0x11111113
 	dc.l	0x11111110
@@ -6493,23 +6783,23 @@ spritesheet_borgus_idle:
 	dc.l	0x33111113
 	dc.l	0x33333111
 
-	dc.l	0x31133311
-	dc.l	0x11313111
-	dc.l	0x11115111
-	dc.l	0x11113511
-	dc.l	0x11513111
-	dc.l	0x11111111
-	dc.l	0x33551112
-	dc.l	0x55333211
+	dc.l	0x15333353
+	dc.l	0x53353131
+	dc.l	0x55531311
+	dc.l	0x55531311
+	dc.l	0x53311112
+	dc.l	0x33111222
+	dc.l	0x33131122
+	dc.l	0x31111111
 
-	dc.l	0x35555252
-	dc.l	0x33513135
-	dc.l	0x13333353
-	dc.l	0x33222333
-	dc.l	0x53111222
-	dc.l	0x11333353
-	dc.l	0x11111151
-	dc.l	0x13111211
+	dc.l	0x11111111
+	dc.l	0x11333111
+	dc.l	0x13333311
+	dc.l	0x13663311
+	dc.l	0x36663111
+	dc.l	0x66631111
+	dc.l	0x11111113
+	dc.l	0x30011113
 
 	dc.l	0x00000116
 	dc.l	0x00000016
@@ -6528,6 +6818,114 @@ spritesheet_borgus_idle:
 	dc.l	0x52111331
 	dc.l	0x52221113
 	dc.l	0x52253113
+
+	dc.l	0x22331111
+	dc.l	0x22222211
+	dc.l	0x22333322
+	dc.l	0x22333333
+	dc.l	0x12231333
+	dc.l	0x12233311
+	dc.l	0x12222333
+	dc.l	0x12222222
+
+	dc.l	0x11222233
+	dc.l	0x11111223
+	dc.l	0x11112211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111113
+	dc.l	0x11133311
+	dc.l	0x31111155
+
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x13355553
+	dc.l	0x11311331
+	dc.l	0x13111111
+
+	dc.l	0x13312353
+	dc.l	0x11131151
+	dc.l	0x22135151
+	dc.l	0x33353151
+	dc.l	0x55533111
+	dc.l	0x33355311
+	dc.l	0x33333535
+	dc.l	0x33313353
+
+	dc.l	0x33311333
+	dc.l	0x31333333
+	dc.l	0x11133533
+	dc.l	0x11111515
+	dc.l	0x13111115
+	dc.l	0x22121351
+	dc.l	0x21222215
+	dc.l	0x12222215
+
+	dc.l	0x11212215
+	dc.l	0x11112213
+	dc.l	0x11111113
+	dc.l	0x11111113
+	dc.l	0x11111113
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x55511111
+
+	dc.l	0x55555111
+	dc.l	0x55555511
+	dc.l	0x55555551
+	dc.l	0x55155155
+	dc.l	0x11111111
+	dc.l	0x11111121
+	dc.l	0x11111112
+	dc.l	0x11111112
+
+	dc.l	0x31133311
+	dc.l	0x11313111
+	dc.l	0x11115111
+	dc.l	0x11113511
+	dc.l	0x11513111
+	dc.l	0x11111111
+	dc.l	0x33551112
+	dc.l	0x55333211
+
+	dc.l	0x35555252
+	dc.l	0x33513135
+	dc.l	0x13333353
+	dc.l	0x33222333
+	dc.l	0x53111222
+	dc.l	0x11333353
+	dc.l	0x11111151
+	dc.l	0x13111211
+
+	dc.l	0x13511311
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13511331
+	dc.l	0x13513331
+	dc.l	0x13313531
+
+	dc.l	0x13313531
+	dc.l	0x11313531
+	dc.l	0x11111531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x21113311
 
 	dc.l	0x51255113
 	dc.l	0x11222212
@@ -6551,19 +6949,19 @@ spritesheet_borgus_idle:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111113
-	dc.l	0x11133311
-	dc.l	0x31111155
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x11111112
 
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x13355553
-	dc.l	0x11311331
-	dc.l	0x13111111
+	dc.l	0x11111111
+	dc.l	0x12221111
+	dc.l	0x11222111
+	dc.l	0x11122221
+	dc.l	0x11122222
+	dc.l	0x11112222
+	dc.l	0x11112222
+	dc.l	0x11111222
 
 	dc.l	0x33331111
 	dc.l	0x13331111
@@ -6583,23 +6981,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111114
 	dc.l	0x11111111
 
-	dc.l	0x11212215
-	dc.l	0x11112213
-	dc.l	0x11111113
-	dc.l	0x11111113
-	dc.l	0x11111113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x55511111
+	dc.l	0x11110111
+	dc.l	0x11110011
+	dc.l	0x11100001
+	dc.l	0x11100000
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x55555111
-	dc.l	0x55555511
-	dc.l	0x55555551
-	dc.l	0x55155155
-	dc.l	0x11111111
-	dc.l	0x11111121
-	dc.l	0x11111112
-	dc.l	0x11111112
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -6619,23 +7017,23 @@ spritesheet_borgus_idle:
 	dc.l	0x44411111
 	dc.l	0x44411111
 
-	dc.l	0x13511311
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13511331
-	dc.l	0x13513331
-	dc.l	0x13313531
+	dc.l	0x14441110
+	dc.l	0x11441310
+	dc.l	0x11141331
+	dc.l	0x11111133
+	dc.l	0x00111113
+	dc.l	0x00011111
+	dc.l	0x00000111
+	dc.l	0x00000000
 
-	dc.l	0x13313531
-	dc.l	0x11313531
-	dc.l	0x11111531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x21113311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x21113311
 	dc.l	0x22111111
@@ -6656,22 +7054,22 @@ spritesheet_borgus_idle:
 	dc.l	0x11131331
 
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x11111112
+	dc.l	0x10100101
+	dc.l	0x10100011
+	dc.l	0x31111221
+	dc.l	0x33333131
+	dc.l	0x13311110
+	dc.l	0x11100000
+	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x12221111
-	dc.l	0x11222111
-	dc.l	0x11122221
-	dc.l	0x11122222
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x11111222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111122
 	dc.l	0x11111112
@@ -6690,60 +7088,6 @@ spritesheet_borgus_idle:
 	dc.l	0x31122111
 	dc.l	0x11112111
 	dc.l	0x11112111
-
-	dc.l	0x11110111
-	dc.l	0x11110011
-	dc.l	0x11100001
-	dc.l	0x11100000
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x14441110
-	dc.l	0x11441310
-	dc.l	0x11141331
-	dc.l	0x11111133
-	dc.l	0x00111113
-	dc.l	0x00011111
-	dc.l	0x00000111
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11111111
-	dc.l	0x10100101
-	dc.l	0x10100011
-	dc.l	0x31111221
-	dc.l	0x33333131
-	dc.l	0x13311110
-	dc.l	0x11100000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x10111111
 	dc.l	0x00111111
@@ -6794,10 +7138,10 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11100000
+	dc.l	0x33111010
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -6829,65 +7173,47 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x10000000
-	dc.l	0x11100000
-	dc.l	0x33111010
-	dc.l	0x11111111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x31111122
 	dc.l	0x12211222
@@ -6907,23 +7233,23 @@ spritesheet_borgus_idle:
 	dc.l	0x66331111
 	dc.l	0x66311113
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x66111133
+	dc.l	0x61111663
+	dc.l	0x11331663
+	dc.l	0x00031111
+	dc.l	0x00003110
+	dc.l	0x00003100
+	dc.l	0x00003100
+	dc.l	0x00003100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
+	dc.l	0x00001100
+	dc.l	0x00001000
+	dc.l	0x00001000
+	dc.l	0x11001000
+	dc.l	0x11113000
+	dc.l	0x11113100
+	dc.l	0x22211110
+	dc.l	0x22222111
 
 	dc.l	0x21000000
 	dc.l	0x21100000
@@ -6943,6 +7269,33 @@ spritesheet_borgus_idle:
 	dc.l	0x11330000
 	dc.l	0x31330000
 
+	dc.l	0x31130000
+	dc.l	0x13100000
+	dc.l	0x13100000
+	dc.l	0x00300000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -6969,33 +7322,6 @@ spritesheet_borgus_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x66111133
-	dc.l	0x61111663
-	dc.l	0x11331663
-	dc.l	0x00031111
-	dc.l	0x00003110
-	dc.l	0x00003100
-	dc.l	0x00003100
-	dc.l	0x00003100
-
-	dc.l	0x00001100
-	dc.l	0x00001000
-	dc.l	0x00001000
-	dc.l	0x11001000
-	dc.l	0x11113000
-	dc.l	0x11113100
-	dc.l	0x22211110
-	dc.l	0x22222111
 
 	dc.l	0x22222211
 	dc.l	0x21111111
@@ -7015,23 +7341,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22222121
 	dc.l	0x12212112
 
-	dc.l	0x31130000
-	dc.l	0x13100000
-	dc.l	0x13100000
-	dc.l	0x00300000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x22222111
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22222223
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12222233
+	dc.l	0x11211233
+	dc.l	0x11112223
+	dc.l	0x11121122
+	dc.l	0x21111112
+	dc.l	0x22111111
+	dc.l	0x22211111
+	dc.l	0x22212211
 
 	dc.l	0x10000000
 	dc.l	0x11000000
@@ -7051,23 +7377,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22222222
 	dc.l	0x22222222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12122222
+	dc.l	0x11111222
+	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x12111100
+	dc.l	0x22222111
+	dc.l	0x33322221
+	dc.l	0x33333322
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33333332
+	dc.l	0x33333333
+	dc.l	0x23333333
+	dc.l	0x22233333
+	dc.l	0x12222333
+	dc.l	0x11211223
+	dc.l	0x11112122
+	dc.l	0x11111112
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -7087,23 +7413,23 @@ spritesheet_borgus_idle:
 	dc.l	0x22221100
 	dc.l	0x22221000
 
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x22222111
-	dc.l	0x22222222
-	dc.l	0x22222222
-	dc.l	0x22222222
-	dc.l	0x22222223
+	dc.l	0x22211000
+	dc.l	0x22110000
+	dc.l	0x11000000
+	dc.l	0x00010000
+	dc.l	0x00110000
+	dc.l	0x11112000
+	dc.l	0x12210000
+	dc.l	0x11100000
 
-	dc.l	0x12222233
-	dc.l	0x11211233
-	dc.l	0x11112223
-	dc.l	0x11121122
-	dc.l	0x21111112
-	dc.l	0x22111111
-	dc.l	0x22211111
-	dc.l	0x22212211
+	dc.l	0x21100000
+	dc.l	0x32110000
+	dc.l	0x33211000
+	dc.l	0x33211100
+	dc.l	0x33321100
+	dc.l	0x33331110
+	dc.l	0x23322110
+	dc.l	0x22222111
 
 	dc.l	0x22221111
 	dc.l	0x22122222
@@ -7123,23 +7449,23 @@ spritesheet_borgus_idle:
 	dc.l	0x11111221
 	dc.l	0x11112110
 
-	dc.l	0x12122222
-	dc.l	0x11111222
-	dc.l	0x11111111
-	dc.l	0x11110111
-	dc.l	0x12111100
-	dc.l	0x22222111
-	dc.l	0x33322221
-	dc.l	0x33333322
+	dc.l	0x11111100
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
+	dc.l	0x11111122
 
-	dc.l	0x33333332
-	dc.l	0x33333333
-	dc.l	0x23333333
-	dc.l	0x22233333
-	dc.l	0x12222333
-	dc.l	0x11211223
-	dc.l	0x11112122
-	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x01111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x23332111
@@ -7159,23 +7485,23 @@ spritesheet_borgus_idle:
 	dc.l	0x10000000
 	dc.l	0x00000000
 
-	dc.l	0x22211000
-	dc.l	0x22110000
-	dc.l	0x11000000
-	dc.l	0x00010000
-	dc.l	0x00110000
-	dc.l	0x11112000
-	dc.l	0x12210000
-	dc.l	0x11100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x11111122
+	dc.l	0x11111221
+	dc.l	0x22211221
 
-	dc.l	0x21100000
-	dc.l	0x32110000
-	dc.l	0x33211000
-	dc.l	0x33211100
-	dc.l	0x33321100
-	dc.l	0x33331110
-	dc.l	0x23322110
-	dc.l	0x22222111
+	dc.l	0x22211111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x12222111
 	dc.l	0x11212121
@@ -7192,42 +7518,6 @@ spritesheet_borgus_idle:
 	dc.l	0x11110000
 	dc.l	0x01010000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11111100
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-	dc.l	0x11111122
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x01111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001111
-	dc.l	0x11111122
-	dc.l	0x11111221
-	dc.l	0x22211221
-
-	dc.l	0x22211111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -7251,8 +7541,10 @@ spritesheet_borgus_idle:
 
 
 
+
 spritesheet_borgus_walk:
 
+actor_borgus_sheet_walk_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -9035,6 +9327,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_borgus_sheet_walk_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -10817,42 +11111,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_walk_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -10965,37 +11225,37 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x10000221
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11222222
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11111222
+	dc.l	0x22111112
+	dc.l	0x22111111
+	dc.l	0x12211111
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11122221
+	dc.l	0x22222111
+	dc.l	0x22111111
+	dc.l	0x22211111
+	dc.l	0x11111212
+	dc.l	0x11111222
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55333111
+	dc.l	0x55553333
+	dc.l	0x55555533
+	dc.l	0x33355533
+	dc.l	0x33333555
+	dc.l	0x33533355
+	dc.l	0x35555555
+	dc.l	0x13333555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -11105,41 +11365,41 @@ spritesheet_borgus_walk:
 	dc.l	0x11133111
 	dc.l	0x31111113
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111135
+	dc.l	0x11111113
+	dc.l	0x11111111
+	dc.l	0x11133333
+	dc.l	0x13333355
+	dc.l	0x11111555
+	dc.l	0x13333333
+	dc.l	0x13333333
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33333333
+	dc.l	0x33333331
+	dc.l	0x11111111
+	dc.l	0x33331311
+	dc.l	0x33333333
+	dc.l	0x33355555
+	dc.l	0x33555555
+	dc.l	0x55555555
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55555555
+	dc.l	0x55555553
+	dc.l	0x55555333
+	dc.l	0x55553331
+	dc.l	0x55333111
+	dc.l	0x53333111
+	dc.l	0x33331122
+	dc.l	0x33111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x13331111
+	dc.l	0x53333112
+	dc.l	0x33333111
+	dc.l	0x33111111
+	dc.l	0x11111111
+	dc.l	0x33333111
+	dc.l	0x33555531
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -11249,41 +11509,41 @@ spritesheet_borgus_walk:
 	dc.l	0x11211111
 	dc.l	0x12211111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33355553
+	dc.l	0x13355553
+	dc.l	0x13335553
+	dc.l	0x11333555
+	dc.l	0x31133355
+	dc.l	0x33113335
+	dc.l	0x53511131
+	dc.l	0x55511111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55553311
+	dc.l	0x55555353
+	dc.l	0x35555553
+	dc.l	0x33355355
+	dc.l	0x33133333
+	dc.l	0x13133333
+	dc.l	0x11313333
+	dc.l	0x11131113
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111121
+	dc.l	0x11111121
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11112111
+	dc.l	0x11122211
+	dc.l	0x11122211
+	dc.l	0x11112221
+	dc.l	0x11112221
+	dc.l	0x11111221
+	dc.l	0x11111222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -11393,23 +11653,41 @@ spritesheet_borgus_walk:
 	dc.l	0x11222111
 	dc.l	0x11221111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x11111112
+	dc.l	0x01111112
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111221
+	dc.l	0x11112222
+	dc.l	0x11112222
+	dc.l	0x11122222
+
+	dc.l	0x11112222
+	dc.l	0x11122221
+	dc.l	0x11122221
+	dc.l	0x11222221
+	dc.l	0x11111211
+	dc.l	0x11112211
+	dc.l	0x11122210
+	dc.l	0x11122100
+
+	dc.l	0x11121100
+	dc.l	0x11121100
+	dc.l	0x11121000
+	dc.l	0x11121000
+	dc.l	0x11111000
+	dc.l	0x11111000
+	dc.l	0x11111000
+	dc.l	0x11111000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -11465,41 +11743,23 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x10000221
-
-	dc.l	0x11222222
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11111222
-	dc.l	0x22111112
+	dc.l	0x22110000
+	dc.l	0x22211000
+	dc.l	0x22111000
+	dc.l	0x11111000
+	dc.l	0x11111001
+	dc.l	0x21111111
 	dc.l	0x22111111
-	dc.l	0x12211111
-	dc.l	0x11111111
+	dc.l	0x12222211
 
+	dc.l	0x11122211
 	dc.l	0x11111111
-	dc.l	0x11122221
-	dc.l	0x22222111
-	dc.l	0x22111111
-	dc.l	0x22211111
-	dc.l	0x11111212
-	dc.l	0x11111222
 	dc.l	0x11111111
-
-	dc.l	0x55333111
-	dc.l	0x55553333
-	dc.l	0x55555533
-	dc.l	0x33355533
-	dc.l	0x33333555
-	dc.l	0x33533355
-	dc.l	0x35555555
-	dc.l	0x13333555
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -11609,41 +11869,41 @@ spritesheet_borgus_walk:
 	dc.l	0x12553531
 	dc.l	0x12255531
 
-	dc.l	0x11111135
-	dc.l	0x11111113
-	dc.l	0x11111111
-	dc.l	0x11133333
-	dc.l	0x13333355
-	dc.l	0x11111555
-	dc.l	0x13333333
-	dc.l	0x13333333
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x22000002
+	dc.l	0x12200022
+	dc.l	0x11222222
+	dc.l	0x11122222
 
-	dc.l	0x33333333
-	dc.l	0x33333331
-	dc.l	0x11111111
-	dc.l	0x33331311
-	dc.l	0x33333333
-	dc.l	0x33355555
-	dc.l	0x33555555
-	dc.l	0x55555555
+	dc.l	0x11112222
+	dc.l	0x11111222
+	dc.l	0x11111222
+	dc.l	0x11111222
+	dc.l	0x21111122
+	dc.l	0x21111122
+	dc.l	0x22111122
+	dc.l	0x22111112
 
-	dc.l	0x55555555
-	dc.l	0x55555553
-	dc.l	0x55555333
-	dc.l	0x55553331
-	dc.l	0x55333111
-	dc.l	0x53333111
-	dc.l	0x33331122
-	dc.l	0x33111112
+	dc.l	0x21111122
+	dc.l	0x22111112
+	dc.l	0x32111111
+	dc.l	0x33533111
+	dc.l	0x55153311
+	dc.l	0x25515533
+	dc.l	0x25551555
+	dc.l	0x35311135
 
-	dc.l	0x11111111
-	dc.l	0x13331111
-	dc.l	0x53333112
-	dc.l	0x33333111
+	dc.l	0x33331133
 	dc.l	0x33111111
-	dc.l	0x11111111
-	dc.l	0x33333111
-	dc.l	0x33555531
+	dc.l	0x33316611
+	dc.l	0x33111677
+	dc.l	0x13333167
+	dc.l	0x13333111
+	dc.l	0x11333311
+	dc.l	0x13333111
 
 	dc.l	0x55333335
 	dc.l	0x33331133
@@ -11753,41 +12013,41 @@ spritesheet_borgus_walk:
 	dc.l	0x33555333
 	dc.l	0x33333332
 
-	dc.l	0x33355553
-	dc.l	0x13355553
-	dc.l	0x13335553
-	dc.l	0x11333555
-	dc.l	0x31133355
-	dc.l	0x33113335
-	dc.l	0x53511131
-	dc.l	0x55511111
+	dc.l	0x11133313
+	dc.l	0x11313313
+	dc.l	0x11313331
+	dc.l	0x11313311
+	dc.l	0x31113311
+	dc.l	0x31113311
+	dc.l	0x31133311
+	dc.l	0x53133313
 
-	dc.l	0x55553311
-	dc.l	0x55555353
-	dc.l	0x35555553
-	dc.l	0x33355355
-	dc.l	0x33133333
-	dc.l	0x13133333
-	dc.l	0x11313333
-	dc.l	0x11131113
+	dc.l	0x53111136
+	dc.l	0x55111166
+	dc.l	0x55111166
+	dc.l	0x55111111
+	dc.l	0x35113110
+	dc.l	0x11111100
+	dc.l	0x11131100
+	dc.l	0x11331110
 
-	dc.l	0x11111111
-	dc.l	0x11111121
-	dc.l	0x11111121
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x55531100
+	dc.l	0x55511100
+	dc.l	0x35311100
+	dc.l	0x15111100
+	dc.l	0x51111100
+	dc.l	0x11111110
+	dc.l	0x33311111
+	dc.l	0x33313111
 
-	dc.l	0x11111111
-	dc.l	0x11112111
-	dc.l	0x11122211
-	dc.l	0x11122211
-	dc.l	0x11112221
-	dc.l	0x11112221
-	dc.l	0x11111221
-	dc.l	0x11111222
+	dc.l	0x35333111
+	dc.l	0x55533111
+	dc.l	0x55533311
+	dc.l	0x53513311
+	dc.l	0x53333311
+	dc.l	0x53312111
+	dc.l	0x33322115
+	dc.l	0x22222111
 
 	dc.l	0x11122222
 	dc.l	0x31222222
@@ -11897,41 +12157,41 @@ spritesheet_borgus_walk:
 	dc.l	0x13131131
 	dc.l	0x11113535
 
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x01111112
-	dc.l	0x11111112
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x22222211
+	dc.l	0x22322211
+	dc.l	0x33321311
+	dc.l	0x11122313
+	dc.l	0x13122211
+	dc.l	0x22222211
+	dc.l	0x12222211
+	dc.l	0x11111311
 
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111221
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x11122222
+	dc.l	0x12111111
+	dc.l	0x22111111
+	dc.l	0x32322111
+	dc.l	0x33312222
+	dc.l	0x33333221
+	dc.l	0x13333221
+	dc.l	0x11333331
 
-	dc.l	0x11112222
-	dc.l	0x11122221
-	dc.l	0x11122221
-	dc.l	0x11222221
+	dc.l	0x11323232
+	dc.l	0x11122332
+	dc.l	0x11123333
+	dc.l	0x11112223
+	dc.l	0x21111222
+	dc.l	0x21111212
+	dc.l	0x22111111
+	dc.l	0x12111111
+
+	dc.l	0x12111122
+	dc.l	0x12111121
+	dc.l	0x11121111
+	dc.l	0x21322112
+	dc.l	0x13332111
+	dc.l	0x11122211
 	dc.l	0x11111211
-	dc.l	0x11112211
-	dc.l	0x11122210
-	dc.l	0x11122100
-
-	dc.l	0x11121100
-	dc.l	0x11121100
-	dc.l	0x11121000
-	dc.l	0x11121000
-	dc.l	0x11111000
-	dc.l	0x11111000
-	dc.l	0x11111000
-	dc.l	0x11111000
+	dc.l	0x55131111
 
 	dc.l	0x11122222
 	dc.l	0x21122222
@@ -12041,21 +12301,39 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x22110000
-	dc.l	0x22211000
-	dc.l	0x22111000
-	dc.l	0x11111000
-	dc.l	0x11111001
-	dc.l	0x21111111
-	dc.l	0x22111111
-	dc.l	0x12222211
+	dc.l	0x55533311
+	dc.l	0x55553333
+	dc.l	0x11115533
+	dc.l	0x13331333
+	dc.l	0x11131331
+	dc.l	0x11111111
+	dc.l	0x12121111
+	dc.l	0x12221111
 
-	dc.l	0x11122211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x21111221
+	dc.l	0x22222131
+	dc.l	0x12211121
+	dc.l	0x11132111
+	dc.l	0x11233312
+	dc.l	0x01332112
+	dc.l	0x11322122
+	dc.l	0x11221222
+
+	dc.l	0x11121222
+	dc.l	0x12121233
+	dc.l	0x11211222
+	dc.l	0x11111222
+	dc.l	0x01122222
+	dc.l	0x00112122
+	dc.l	0x00011111
+	dc.l	0x00000011
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -12115,39 +12393,21 @@ spritesheet_borgus_walk:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000001
 	dc.l	0x00000000
-	dc.l	0x22000002
-	dc.l	0x12200022
-	dc.l	0x11222222
-	dc.l	0x11122222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11112222
-	dc.l	0x11111222
-	dc.l	0x11111222
-	dc.l	0x11111222
-	dc.l	0x21111122
-	dc.l	0x21111122
-	dc.l	0x22111122
-	dc.l	0x22111112
-
-	dc.l	0x21111122
-	dc.l	0x22111112
-	dc.l	0x32111111
-	dc.l	0x33533111
-	dc.l	0x55153311
-	dc.l	0x25515533
-	dc.l	0x25551555
-	dc.l	0x35311135
-
-	dc.l	0x33331133
-	dc.l	0x33111111
-	dc.l	0x33316611
-	dc.l	0x33111677
-	dc.l	0x13333167
-	dc.l	0x13333111
-	dc.l	0x11333311
-	dc.l	0x13333111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -12221,42 +12481,6 @@ spritesheet_borgus_walk:
 	dc.l	0x21113110
 	dc.l	0x13133210
 
-	dc.l	0x11133313
-	dc.l	0x11313313
-	dc.l	0x11313331
-	dc.l	0x11313311
-	dc.l	0x31113311
-	dc.l	0x31113311
-	dc.l	0x31133311
-	dc.l	0x53133313
-
-	dc.l	0x53111136
-	dc.l	0x55111166
-	dc.l	0x55111166
-	dc.l	0x55111111
-	dc.l	0x35113110
-	dc.l	0x11111100
-	dc.l	0x11131100
-	dc.l	0x11331110
-
-	dc.l	0x55531100
-	dc.l	0x55511100
-	dc.l	0x35311100
-	dc.l	0x15111100
-	dc.l	0x51111100
-	dc.l	0x11111110
-	dc.l	0x33311111
-	dc.l	0x33313111
-
-	dc.l	0x35333111
-	dc.l	0x55533111
-	dc.l	0x55533311
-	dc.l	0x53513311
-	dc.l	0x53333311
-	dc.l	0x53312111
-	dc.l	0x33322115
-	dc.l	0x22222111
-
 	dc.l	0x33351123
 	dc.l	0x33312211
 	dc.l	0x12211211
@@ -12329,42 +12553,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x22222211
-	dc.l	0x22322211
-	dc.l	0x33321311
-	dc.l	0x11122313
-	dc.l	0x13122211
-	dc.l	0x22222211
-	dc.l	0x12222211
-	dc.l	0x11111311
-
-	dc.l	0x11111111
-	dc.l	0x12111111
-	dc.l	0x22111111
-	dc.l	0x32322111
-	dc.l	0x33312222
-	dc.l	0x33333221
-	dc.l	0x13333221
-	dc.l	0x11333331
-
-	dc.l	0x11323232
-	dc.l	0x11122332
-	dc.l	0x11123333
-	dc.l	0x11112223
-	dc.l	0x21111222
-	dc.l	0x21111212
-	dc.l	0x22111111
-	dc.l	0x12111111
-
-	dc.l	0x12111122
-	dc.l	0x12111121
-	dc.l	0x11121111
-	dc.l	0x21322112
-	dc.l	0x13332111
-	dc.l	0x11122211
-	dc.l	0x11111211
-	dc.l	0x55131111
-
 	dc.l	0x11331000
 	dc.l	0x11113000
 	dc.l	0x13113000
@@ -12427,42 +12615,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x55533311
-	dc.l	0x55553333
-	dc.l	0x11115533
-	dc.l	0x13331333
-	dc.l	0x11131331
-	dc.l	0x11111111
-	dc.l	0x12121111
-	dc.l	0x12221111
-
-	dc.l	0x21111221
-	dc.l	0x22222131
-	dc.l	0x12211121
-	dc.l	0x11132111
-	dc.l	0x11233312
-	dc.l	0x01332112
-	dc.l	0x11322122
-	dc.l	0x11221222
-
-	dc.l	0x11121222
-	dc.l	0x12121233
-	dc.l	0x11211222
-	dc.l	0x11111222
-	dc.l	0x01122222
-	dc.l	0x00112122
-	dc.l	0x00011111
-	dc.l	0x00000011
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -12581,24 +12733,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_walk_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -14381,6 +14517,8 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 	dc.l	0x10000000
 
+
+actor_borgus_sheet_walk_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -14445,22 +14583,13 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000111
+	dc.l	0x00001111
+	dc.l	0x00011133
+	dc.l	0x00113333
+	dc.l	0x00113333
+	dc.l	0x01111331
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -14489,14 +14618,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00001222
 	dc.l	0x00012222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x01111222
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x13115155
+	dc.l	0x31135555
+	dc.l	0x33333355
+	dc.l	0x11133335
+	dc.l	0x11113333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -14525,14 +14654,14 @@ spritesheet_borgus_walk:
 	dc.l	0x22222222
 	dc.l	0x55552253
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222555
+	dc.l	0x11122255
+	dc.l	0x11111122
+	dc.l	0x31111122
+	dc.l	0x53311111
+	dc.l	0x55533111
+	dc.l	0x55553311
+	dc.l	0x35555333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -14561,14 +14690,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00111111
 	dc.l	0x01111221
 
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000111
-	dc.l	0x00001111
-	dc.l	0x00011133
-	dc.l	0x00113333
-	dc.l	0x00113333
-	dc.l	0x01111331
+	dc.l	0x11111121
+	dc.l	0x12212121
+	dc.l	0x12222211
+	dc.l	0x12222222
+	dc.l	0x12222222
+	dc.l	0x11222222
+	dc.l	0x11112211
+	dc.l	0x12211113
 
 	dc.l	0x01111111
 	dc.l	0x01111111
@@ -14597,14 +14726,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33555555
 	dc.l	0x33555555
 
-	dc.l	0x01111222
+	dc.l	0x33335555
+	dc.l	0x13333333
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x13115155
-	dc.l	0x31135555
-	dc.l	0x33333355
-	dc.l	0x11133335
-	dc.l	0x11113333
+	dc.l	0x21111112
+	dc.l	0x22111111
+	dc.l	0x11133333
+	dc.l	0x13335335
+	dc.l	0x33555555
 
 	dc.l	0x11111333
 	dc.l	0x11111133
@@ -14633,14 +14762,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33333553
 	dc.l	0x55555333
 
-	dc.l	0x22222555
-	dc.l	0x11122255
-	dc.l	0x11111122
-	dc.l	0x31111122
-	dc.l	0x53311111
-	dc.l	0x55533111
-	dc.l	0x55553311
-	dc.l	0x35555333
+	dc.l	0x33333111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x11333335
+	dc.l	0x31111133
+	dc.l	0x33333111
+	dc.l	0x55335311
 
 	dc.l	0x33555333
 	dc.l	0x35335533
@@ -14669,14 +14798,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33111122
 	dc.l	0x11113233
 
-	dc.l	0x11111121
-	dc.l	0x12212121
-	dc.l	0x12222211
-	dc.l	0x12222222
-	dc.l	0x12222222
-	dc.l	0x11222222
-	dc.l	0x11112211
-	dc.l	0x12211113
+	dc.l	0x11113223
+	dc.l	0x11113113
+	dc.l	0x33311111
+	dc.l	0x11133111
+	dc.l	0x53111313
+	dc.l	0x55551131
+	dc.l	0x33331111
+	dc.l	0x11111131
 
 	dc.l	0x13213333
 	dc.l	0x13322113
@@ -14705,14 +14834,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x33335555
-	dc.l	0x13333333
-	dc.l	0x11111111
-	dc.l	0x21111112
-	dc.l	0x22111111
-	dc.l	0x11133333
-	dc.l	0x13335335
-	dc.l	0x33555555
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000110
+	dc.l	0x00000110
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
 
 	dc.l	0x55555555
 	dc.l	0x35555555
@@ -14741,14 +14870,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x33333111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x10100111
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x11333335
-	dc.l	0x31111133
-	dc.l	0x33333111
-	dc.l	0x55335311
 
 	dc.l	0x55535333
 	dc.l	0x55555553
@@ -14777,14 +14906,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00011121
 	dc.l	0x00112121
 
-	dc.l	0x11113223
-	dc.l	0x11113113
-	dc.l	0x33311111
-	dc.l	0x11133111
-	dc.l	0x53111313
-	dc.l	0x55551131
-	dc.l	0x33331111
-	dc.l	0x11111131
+	dc.l	0x00111221
+	dc.l	0x01111221
+	dc.l	0x01112221
+	dc.l	0x11122211
+	dc.l	0x11122211
+	dc.l	0x11122111
+	dc.l	0x12122111
+	dc.l	0x21211111
 
 	dc.l	0x11111335
 	dc.l	0x31113355
@@ -14813,14 +14942,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000010
-	dc.l	0x00000110
-	dc.l	0x00000110
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x00000111
 	dc.l	0x00000122
@@ -14854,9 +14983,9 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x10100111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11121122
@@ -14885,14 +15014,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00011111
 	dc.l	0x00011111
 
-	dc.l	0x00111221
-	dc.l	0x01111221
-	dc.l	0x01112221
-	dc.l	0x11122211
-	dc.l	0x11122211
-	dc.l	0x11122111
-	dc.l	0x12122111
-	dc.l	0x21211111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000001
 
 	dc.l	0x12111111
 	dc.l	0x22111111
@@ -14922,12 +15051,12 @@ spritesheet_borgus_walk:
 	dc.l	0x11111121
 
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x11111121
+	dc.l	0x11111121
+	dc.l	0x11111122
 	dc.l	0x11111112
-	dc.l	0x11111111
 	dc.l	0x11111111
 
 	dc.l	0x11111111
@@ -14957,50 +15086,32 @@ spritesheet_borgus_walk:
 	dc.l	0x11000000
 	dc.l	0x11000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000001
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x11110011
 	dc.l	0x11111111
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x11111121
-	dc.l	0x11111121
-	dc.l	0x11111122
 	dc.l	0x11111112
-	dc.l	0x11111111
+	dc.l	0x11112111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x01111111
@@ -15011,30 +15122,12 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x11110011
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11112111
-
 	dc.l	0x11122111
 	dc.l	0x11111112
 	dc.l	0x11111112
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x00011111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -15065,14 +15158,14 @@ spritesheet_borgus_walk:
 	dc.l	0x23333311
 	dc.l	0x33333331
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33335333
+	dc.l	0x55533553
+	dc.l	0x25553335
+	dc.l	0x22255333
+	dc.l	0x11225533
+	dc.l	0x11122533
+	dc.l	0x11112253
+	dc.l	0x11111255
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15101,14 +15194,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11333113
 	dc.l	0x11113113
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11113315
+	dc.l	0x11115331
+	dc.l	0x31115533
+	dc.l	0x31111553
+	dc.l	0x33111553
+	dc.l	0x33311555
+	dc.l	0x35311155
+	dc.l	0x35331115
 
 	dc.l	0x00000000
 	dc.l	0x10000000
@@ -15137,14 +15230,14 @@ spritesheet_borgus_walk:
 	dc.l	0x31113335
 	dc.l	0x33133531
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33113555
+	dc.l	0x55113351
+	dc.l	0x55313331
+	dc.l	0x35311333
+	dc.l	0x35311335
+	dc.l	0x35511335
+	dc.l	0x35531335
+	dc.l	0x35551135
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15173,14 +15266,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33335311
 	dc.l	0x13533331
 
-	dc.l	0x33335333
-	dc.l	0x55533553
-	dc.l	0x25553335
-	dc.l	0x22255333
-	dc.l	0x11225533
-	dc.l	0x11122533
-	dc.l	0x11112253
-	dc.l	0x11111255
+	dc.l	0x13533111
+	dc.l	0x53533316
+	dc.l	0x13553111
+	dc.l	0x13553311
+	dc.l	0x31355135
+	dc.l	0x53355513
+	dc.l	0x55135551
+	dc.l	0x55313555
 
 	dc.l	0x31111225
 	dc.l	0x33111125
@@ -15209,14 +15302,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x33133313
 
-	dc.l	0x11113315
-	dc.l	0x11115331
-	dc.l	0x31115533
-	dc.l	0x31111553
-	dc.l	0x33111553
-	dc.l	0x33311555
-	dc.l	0x35311155
-	dc.l	0x35331115
+	dc.l	0x31153333
+	dc.l	0x31353111
+	dc.l	0x31111111
+	dc.l	0x11113111
+	dc.l	0x11131133
+	dc.l	0x13313355
+	dc.l	0x11135555
+	dc.l	0x33355555
 
 	dc.l	0x55331115
 	dc.l	0x55531115
@@ -15245,14 +15338,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33111111
 	dc.l	0x11133351
 
-	dc.l	0x33113555
-	dc.l	0x55113351
-	dc.l	0x55313331
-	dc.l	0x35311333
-	dc.l	0x35311335
-	dc.l	0x35511335
-	dc.l	0x35531335
-	dc.l	0x35551135
+	dc.l	0x33333333
+	dc.l	0x11135355
+	dc.l	0x11111555
+	dc.l	0x31111115
+	dc.l	0x33331111
+	dc.l	0x33333311
+	dc.l	0x53333331
+	dc.l	0x33111111
 
 	dc.l	0x33551133
 	dc.l	0x31551133
@@ -15281,14 +15374,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33125351
 	dc.l	0x33125351
 
-	dc.l	0x13533111
-	dc.l	0x53533316
-	dc.l	0x13553111
-	dc.l	0x13553311
-	dc.l	0x31355135
-	dc.l	0x53355513
-	dc.l	0x55135551
-	dc.l	0x55313555
+	dc.l	0x13123331
+	dc.l	0x13123351
+	dc.l	0x53123351
+	dc.l	0x55123131
+	dc.l	0x53213131
+	dc.l	0x13333132
+	dc.l	0x11531132
+	dc.l	0x11153332
 
 	dc.l	0x55313553
 	dc.l	0x53315535
@@ -15317,14 +15410,14 @@ spritesheet_borgus_walk:
 	dc.l	0x53311111
 	dc.l	0x55111111
 
-	dc.l	0x31153333
-	dc.l	0x31353111
-	dc.l	0x31111111
-	dc.l	0x11113111
-	dc.l	0x11131133
-	dc.l	0x13313355
-	dc.l	0x11135555
-	dc.l	0x33355555
+	dc.l	0x35311111
+	dc.l	0x33311111
+	dc.l	0x53311222
+	dc.l	0x55331111
+	dc.l	0x55333111
+	dc.l	0x35333333
+	dc.l	0x35331133
+	dc.l	0x15111313
 
 	dc.l	0x55355553
 	dc.l	0x55555333
@@ -15353,14 +15446,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x33333333
-	dc.l	0x11135355
-	dc.l	0x11111555
-	dc.l	0x31111115
-	dc.l	0x33331111
-	dc.l	0x33333311
-	dc.l	0x53333331
-	dc.l	0x33111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11112221
+	dc.l	0x11111222
+	dc.l	0x21111222
+	dc.l	0x22111122
+	dc.l	0x12211122
 
 	dc.l	0x31111222
 	dc.l	0x11111122
@@ -15389,14 +15482,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x13123331
-	dc.l	0x13123351
-	dc.l	0x53123351
-	dc.l	0x55123131
-	dc.l	0x53213131
-	dc.l	0x13333132
-	dc.l	0x11531132
-	dc.l	0x11153332
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12111111
+	dc.l	0x21111111
+	dc.l	0x21110011
+	dc.l	0x11100001
 
 	dc.l	0x11113553
 	dc.l	0x21115553
@@ -15425,14 +15518,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x35311111
-	dc.l	0x33311111
-	dc.l	0x53311222
-	dc.l	0x55331111
-	dc.l	0x55333111
-	dc.l	0x35333333
-	dc.l	0x35331133
-	dc.l	0x15111313
+	dc.l	0x11111112
+	dc.l	0x11212222
+	dc.l	0x11221222
+	dc.l	0x11121111
+	dc.l	0x11112112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x31111111
 	dc.l	0x53221111
@@ -15461,14 +15554,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11133333
 	dc.l	0x13333333
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11112221
-	dc.l	0x11111222
-	dc.l	0x21111222
-	dc.l	0x22111122
-	dc.l	0x12211122
+	dc.l	0x33333333
+	dc.l	0x22333333
+	dc.l	0x22223333
+	dc.l	0x12222233
+	dc.l	0x11222233
+	dc.l	0x11222223
+	dc.l	0x11222222
+	dc.l	0x11122222
 
 	dc.l	0x11111112
 	dc.l	0x11111111
@@ -15497,14 +15590,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x22111100
 	dc.l	0x21111111
-	dc.l	0x21110011
-	dc.l	0x11100001
+	dc.l	0x21111121
 
 	dc.l	0x11100001
 	dc.l	0x11100001
@@ -15533,14 +15626,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111112
-	dc.l	0x11212222
-	dc.l	0x11221222
-	dc.l	0x11121111
-	dc.l	0x11112112
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -15569,14 +15662,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000001
 	dc.l	0x00000001
 
-	dc.l	0x33333333
-	dc.l	0x22333333
-	dc.l	0x22223333
-	dc.l	0x12222233
-	dc.l	0x11222233
-	dc.l	0x11222223
-	dc.l	0x11222222
-	dc.l	0x11122222
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000011
+	dc.l	0x00000010
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x12112222
 	dc.l	0x11111222
@@ -15605,14 +15698,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12211222
 	dc.l	0x22211221
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11000000
-	dc.l	0x22111100
-	dc.l	0x21111111
-	dc.l	0x21111121
+	dc.l	0x22111222
+	dc.l	0x11111221
+	dc.l	0x00111323
+	dc.l	0x00111223
+	dc.l	0x00013321
+	dc.l	0x00111212
+	dc.l	0x00112212
+	dc.l	0x00121212
 
 	dc.l	0x11112221
 	dc.l	0x11111111
@@ -15623,15 +15716,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x10000000
@@ -15641,15 +15725,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000012
-	dc.l	0x00000012
-	dc.l	0x00000011
-	dc.l	0x00000010
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15658,15 +15733,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x22111222
-	dc.l	0x11111221
-	dc.l	0x00111323
-	dc.l	0x00111223
-	dc.l	0x00013321
-	dc.l	0x00111212
-	dc.l	0x00112212
-	dc.l	0x00121212
 
 	dc.l	0x00121212
 	dc.l	0x00111212
@@ -15676,15 +15742,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00001111
 	dc.l	0x00001111
 	dc.l	0x00000111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15713,14 +15770,14 @@ spritesheet_borgus_walk:
 	dc.l	0x13553311
 	dc.l	0x13355555
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11135555
+	dc.l	0x61113555
+	dc.l	0x67711331
+	dc.l	0x16771113
+	dc.l	0x11113335
+	dc.l	0x51115533
+	dc.l	0x11155335
+	dc.l	0x31355552
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15749,14 +15806,14 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 	dc.l	0x31000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x53100000
+	dc.l	0x33100000
+	dc.l	0x11111000
+	dc.l	0x35533100
+	dc.l	0x53111111
+	dc.l	0x31131111
+	dc.l	0x11112211
+	dc.l	0x12111122
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -15785,14 +15842,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11135555
-	dc.l	0x61113555
-	dc.l	0x67711331
-	dc.l	0x16771113
-	dc.l	0x11113335
-	dc.l	0x51115533
-	dc.l	0x11155335
-	dc.l	0x31355552
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11110000
+	dc.l	0x12221000
+	dc.l	0x22221100
+	dc.l	0x22113100
 
 	dc.l	0x31555522
 	dc.l	0x53553221
@@ -15821,14 +15878,14 @@ spritesheet_borgus_walk:
 	dc.l	0x13336311
 	dc.l	0x13333111
 
-	dc.l	0x53100000
-	dc.l	0x33100000
-	dc.l	0x11111000
-	dc.l	0x35533100
-	dc.l	0x53111111
-	dc.l	0x31131111
-	dc.l	0x11112211
-	dc.l	0x12111122
+	dc.l	0x11111111
+	dc.l	0x11111113
+	dc.l	0x22511113
+	dc.l	0x12552111
+	dc.l	0x11312221
+	dc.l	0x11152253
+	dc.l	0x31111255
+	dc.l	0x11151222
 
 	dc.l	0x12221112
 	dc.l	0x22222211
@@ -15857,14 +15914,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11100000
 	dc.l	0x16100000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11110000
-	dc.l	0x12221000
-	dc.l	0x22221100
-	dc.l	0x22113100
+	dc.l	0x66100000
+	dc.l	0x63100000
+	dc.l	0x33100000
+	dc.l	0x33100000
+	dc.l	0x11300000
+	dc.l	0x11300000
+	dc.l	0x11310000
+	dc.l	0x21110000
 
 	dc.l	0x21113110
 	dc.l	0x13133210
@@ -15893,14 +15950,14 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 	dc.l	0x30000000
 
-	dc.l	0x11111111
-	dc.l	0x11111113
-	dc.l	0x22511113
-	dc.l	0x12552111
-	dc.l	0x11312221
-	dc.l	0x11152253
-	dc.l	0x31111255
-	dc.l	0x11151222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11151122
 	dc.l	0x11110112
@@ -15929,14 +15986,14 @@ spritesheet_borgus_walk:
 	dc.l	0x32111100
 	dc.l	0x32111100
 
-	dc.l	0x66100000
-	dc.l	0x63100000
-	dc.l	0x33100000
-	dc.l	0x33100000
-	dc.l	0x11300000
-	dc.l	0x11300000
-	dc.l	0x11310000
-	dc.l	0x21110000
+	dc.l	0x33211110
+	dc.l	0x33211110
+	dc.l	0x33221110
+	dc.l	0x33122111
+	dc.l	0x33322111
+	dc.l	0x33222211
+	dc.l	0x23311111
+	dc.l	0x22231111
 
 	dc.l	0x21210000
 	dc.l	0x21210000
@@ -15971,8 +16028,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16001,14 +16058,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x33211110
-	dc.l	0x33211110
-	dc.l	0x33221110
-	dc.l	0x33122111
-	dc.l	0x33322111
-	dc.l	0x33222211
-	dc.l	0x23311111
-	dc.l	0x22231111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x33221121
 	dc.l	0x33332111
@@ -16037,78 +16094,6 @@ spritesheet_borgus_walk:
 	dc.l	0x11111100
 	dc.l	0x11111100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11111000
 	dc.l	0x11111000
 	dc.l	0x11111000
@@ -16118,14 +16103,32 @@ spritesheet_borgus_walk:
 	dc.l	0x22212100
 	dc.l	0x22122110
 
-	dc.l	0x33111121
-	dc.l	0x22331211
-	dc.l	0x22331111
-	dc.l	0x22232315
-	dc.l	0x21323333
-	dc.l	0x21323333
-	dc.l	0x11223311
-	dc.l	0x11111121
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16135,6 +16138,51 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x33111121
+	dc.l	0x22331211
+	dc.l	0x22331111
+	dc.l	0x22232315
+	dc.l	0x21323333
+	dc.l	0x21323333
+	dc.l	0x11223311
+	dc.l	0x11111121
 
 	dc.l	0x11011110
 	dc.l	0x21113331
@@ -16147,15 +16195,6 @@ spritesheet_borgus_walk:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x10000000
@@ -16163,15 +16202,8 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 	dc.l	0x10000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_borgus_sheet_walk_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16271,14 +16303,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000011
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000113
+	dc.l	0x00001111
+	dc.l	0x00011133
+	dc.l	0x00113331
+	dc.l	0x01133311
+	dc.l	0x01113311
+	dc.l	0x01111111
+	dc.l	0x00111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16307,14 +16339,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11115555
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11555555
+	dc.l	0x13333555
+	dc.l	0x33333333
+	dc.l	0x11133333
+	dc.l	0x11113333
+	dc.l	0x11111335
+	dc.l	0x11111113
+	dc.l	0x12221111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16379,14 +16411,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000113
-	dc.l	0x00001111
-	dc.l	0x00011133
-	dc.l	0x00113331
-	dc.l	0x01133311
-	dc.l	0x01113311
-	dc.l	0x01111111
-	dc.l	0x00111111
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
 
 	dc.l	0x01111311
 	dc.l	0x01111111
@@ -16415,14 +16447,14 @@ spritesheet_borgus_walk:
 	dc.l	0x01121212
 	dc.l	0x11121133
 
-	dc.l	0x11555555
-	dc.l	0x13333555
-	dc.l	0x33333333
-	dc.l	0x11133333
-	dc.l	0x11113333
-	dc.l	0x11111335
-	dc.l	0x11111113
+	dc.l	0x11121233
+	dc.l	0x11221333
+	dc.l	0x12221333
 	dc.l	0x12221111
+	dc.l	0x22211111
+	dc.l	0x22211111
+	dc.l	0x12213331
+	dc.l	0x11133333
 
 	dc.l	0x22221111
 	dc.l	0x22222111
@@ -16451,114 +16483,6 @@ spritesheet_borgus_walk:
 	dc.l	0x33353333
 	dc.l	0x33335311
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11121233
-	dc.l	0x11221333
-	dc.l	0x12221333
-	dc.l	0x12221111
-	dc.l	0x22211111
-	dc.l	0x22211111
-	dc.l	0x12213331
-	dc.l	0x11133333
-
-	dc.l	0x11213333
-	dc.l	0x11221333
-	dc.l	0x12221333
-	dc.l	0x12221333
-	dc.l	0x01222133
-	dc.l	0x01122113
-	dc.l	0x00112211
-	dc.l	0x00111221
-
-	dc.l	0x00111122
-	dc.l	0x01112112
-	dc.l	0x01111211
-	dc.l	0x01111211
-	dc.l	0x00111211
-	dc.l	0x01111111
-	dc.l	0x00111121
-	dc.l	0x00111121
-
-	dc.l	0x00011112
-	dc.l	0x00011122
-	dc.l	0x00001222
-	dc.l	0x00001122
-	dc.l	0x00011122
-	dc.l	0x00011122
-	dc.l	0x00011222
-	dc.l	0x00012222
-
 	dc.l	0x33331113
 	dc.l	0x33111553
 	dc.l	0x11113333
@@ -16568,32 +16492,23 @@ spritesheet_borgus_walk:
 	dc.l	0x11111333
 	dc.l	0x33111133
 
-	dc.l	0x33511113
-	dc.l	0x33551113
-	dc.l	0x33355311
-	dc.l	0x33355331
-	dc.l	0x33335533
-	dc.l	0x33335553
-	dc.l	0x33333555
-	dc.l	0x13333555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11333555
-	dc.l	0x11113335
-	dc.l	0x21111333
-	dc.l	0x11111133
-	dc.l	0x11111113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x21111111
-	dc.l	0x21111111
-	dc.l	0x21111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16607,6 +16522,15 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16640,6 +16564,114 @@ spritesheet_borgus_walk:
 	dc.l	0x01111001
 	dc.l	0x00111111
 
+	dc.l	0x11213333
+	dc.l	0x11221333
+	dc.l	0x12221333
+	dc.l	0x12221333
+	dc.l	0x01222133
+	dc.l	0x01122113
+	dc.l	0x00112211
+	dc.l	0x00111221
+
+	dc.l	0x00111122
+	dc.l	0x01112112
+	dc.l	0x01111211
+	dc.l	0x01111211
+	dc.l	0x00111211
+	dc.l	0x01111111
+	dc.l	0x00111121
+	dc.l	0x00111121
+
+	dc.l	0x00011112
+	dc.l	0x00011122
+	dc.l	0x00001222
+	dc.l	0x00001122
+	dc.l	0x00011122
+	dc.l	0x00011122
+	dc.l	0x00011222
+	dc.l	0x00012222
+
+	dc.l	0x00112222
+	dc.l	0x00012222
+	dc.l	0x00112121
+	dc.l	0x00122121
+	dc.l	0x00121111
+	dc.l	0x01121111
+	dc.l	0x11211111
+	dc.l	0x11111111
+
+	dc.l	0x33511113
+	dc.l	0x33551113
+	dc.l	0x33355311
+	dc.l	0x33355331
+	dc.l	0x33335533
+	dc.l	0x33335553
+	dc.l	0x33333555
+	dc.l	0x13333555
+
+	dc.l	0x11333555
+	dc.l	0x11113335
+	dc.l	0x21111333
+	dc.l	0x11111133
+	dc.l	0x11111113
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x21111111
+	dc.l	0x21111111
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+
+	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x11100011
+	dc.l	0x11100000
+	dc.l	0x11000001
+	dc.l	0x11000111
+	dc.l	0x10001111
+	dc.l	0x10011111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x02111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -16667,14 +16699,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00112222
-	dc.l	0x00012222
-	dc.l	0x00112121
-	dc.l	0x00122121
-	dc.l	0x00121111
-	dc.l	0x01121111
-	dc.l	0x11211111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11111110
@@ -16703,14 +16735,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00111111
 	dc.l	0x00111111
 
-	dc.l	0x11111111
-	dc.l	0x11110111
-	dc.l	0x11100011
-	dc.l	0x11100000
-	dc.l	0x11000001
-	dc.l	0x11000111
-	dc.l	0x10001111
-	dc.l	0x10011111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00111111
 	dc.l	0x01111111
@@ -16739,60 +16771,6 @@ spritesheet_borgus_walk:
 	dc.l	0x11121111
 	dc.l	0x11121111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000011
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11122112
 	dc.l	0x11121212
 	dc.l	0x11121212
@@ -16802,10 +16780,10 @@ spritesheet_borgus_walk:
 	dc.l	0x00111222
 	dc.l	0x00001122
 
-	dc.l	0x00000112
-	dc.l	0x00000011
-	dc.l	0x00000012
-	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16815,6 +16793,24 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000112
+	dc.l	0x00000011
+	dc.l	0x00000012
+	dc.l	0x00000001
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16847,14 +16843,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111152
 	dc.l	0x33311111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55333331
+	dc.l	0x55553333
+	dc.l	0x35553333
+	dc.l	0x33355553
+	dc.l	0x53335555
+	dc.l	0x55555555
+	dc.l	0x33355555
+	dc.l	0x11113555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -16883,14 +16879,14 @@ spritesheet_borgus_walk:
 	dc.l	0x25333333
 	dc.l	0x11533353
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11155335
+	dc.l	0x11215533
+	dc.l	0x11222553
+	dc.l	0x31111255
+	dc.l	0x31111225
+	dc.l	0x53331122
+	dc.l	0x53355112
+	dc.l	0x33333112
 
 	dc.l	0x01000000
 	dc.l	0x11000000
@@ -16919,14 +16915,14 @@ spritesheet_borgus_walk:
 	dc.l	0x31113311
 	dc.l	0x33113331
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x53115331
+	dc.l	0x35311551
+	dc.l	0x33311153
+	dc.l	0x33331113
+	dc.l	0x33331113
+	dc.l	0x53351111
+	dc.l	0x55353111
+	dc.l	0x25553111
 
 	dc.l	0x00000000
 	dc.l	0x00100000
@@ -16955,14 +16951,14 @@ spritesheet_borgus_walk:
 	dc.l	0x13335333
 	dc.l	0x33531135
 
-	dc.l	0x55333331
-	dc.l	0x55553333
-	dc.l	0x35553333
-	dc.l	0x33355553
-	dc.l	0x53335555
-	dc.l	0x55555555
-	dc.l	0x33355555
-	dc.l	0x11113555
+	dc.l	0x13555135
+	dc.l	0x13351535
+	dc.l	0x13331135
+	dc.l	0x11333135
+	dc.l	0x15313331
+	dc.l	0x15311333
+	dc.l	0x35311335
+	dc.l	0x55511335
 
 	dc.l	0x11111333
 	dc.l	0x11111111
@@ -16991,14 +16987,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111223
 	dc.l	0x11111113
 
-	dc.l	0x11155335
-	dc.l	0x11215533
-	dc.l	0x11222553
-	dc.l	0x31111255
-	dc.l	0x31111225
-	dc.l	0x53331122
-	dc.l	0x53355112
-	dc.l	0x33333112
+	dc.l	0x33111113
+	dc.l	0x33311221
+	dc.l	0x33311122
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x33311111
+	dc.l	0x55553111
+	dc.l	0x35555311
 
 	dc.l	0x33115111
 	dc.l	0x21111111
@@ -17027,14 +17023,14 @@ spritesheet_borgus_walk:
 	dc.l	0x23333333
 	dc.l	0x22331533
 
-	dc.l	0x53115331
-	dc.l	0x35311551
-	dc.l	0x33311153
-	dc.l	0x33331113
-	dc.l	0x33331113
-	dc.l	0x53351111
-	dc.l	0x55353111
-	dc.l	0x25553111
+	dc.l	0x11331533
+	dc.l	0x11131535
+	dc.l	0x11111533
+	dc.l	0x21211511
+	dc.l	0x22213111
+	dc.l	0x22533555
+	dc.l	0x11333333
+	dc.l	0x11133333
 
 	dc.l	0x25553111
 	dc.l	0x25553311
@@ -17063,14 +17059,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11311133
 	dc.l	0x33333333
 
-	dc.l	0x13555135
-	dc.l	0x13351535
-	dc.l	0x13331135
-	dc.l	0x11333135
-	dc.l	0x15313331
-	dc.l	0x15311333
-	dc.l	0x35311335
-	dc.l	0x55511335
+	dc.l	0x55313335
+	dc.l	0x55511555
+	dc.l	0x55553555
+	dc.l	0x13353553
+	dc.l	0x11331353
+	dc.l	0x31111153
+	dc.l	0x55533333
+	dc.l	0x33333555
 
 	dc.l	0x55531335
 	dc.l	0x55551135
@@ -17099,14 +17095,14 @@ spritesheet_borgus_walk:
 	dc.l	0x35122111
 	dc.l	0x33333111
 
-	dc.l	0x33111113
-	dc.l	0x33311221
-	dc.l	0x33311122
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x33311111
-	dc.l	0x55553111
-	dc.l	0x35555311
+	dc.l	0x35511331
+	dc.l	0x55555531
+	dc.l	0x55555333
+	dc.l	0x53353313
+	dc.l	0x31113333
+	dc.l	0x33353533
+	dc.l	0x35555553
+	dc.l	0x55555333
 
 	dc.l	0x35555331
 	dc.l	0x33555331
@@ -17135,14 +17131,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11331533
-	dc.l	0x11131535
-	dc.l	0x11111533
-	dc.l	0x21211511
-	dc.l	0x22213111
-	dc.l	0x22533555
-	dc.l	0x11333333
-	dc.l	0x11133333
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x21111111
 	dc.l	0x12211111
@@ -17171,14 +17167,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12113111
 	dc.l	0x12211333
 
-	dc.l	0x55313335
-	dc.l	0x55511555
-	dc.l	0x55553555
-	dc.l	0x13353553
-	dc.l	0x11331353
-	dc.l	0x31111153
-	dc.l	0x55533333
-	dc.l	0x33333555
+	dc.l	0x11111131
+	dc.l	0x11111131
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11112111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x35553355
 	dc.l	0x13355555
@@ -17207,14 +17203,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11331111
 	dc.l	0x33313311
 
-	dc.l	0x35511331
-	dc.l	0x55555531
-	dc.l	0x55555333
-	dc.l	0x53353313
-	dc.l	0x31113333
-	dc.l	0x33353533
-	dc.l	0x35555553
-	dc.l	0x55555333
+	dc.l	0x33333353
+	dc.l	0x13555555
+	dc.l	0x11355555
+	dc.l	0x11133355
+	dc.l	0x11113333
+	dc.l	0x11311113
+	dc.l	0x11112211
+	dc.l	0x11122221
 
 	dc.l	0x55552355
 	dc.l	0x33555555
@@ -17243,14 +17239,14 @@ spritesheet_borgus_walk:
 	dc.l	0x21131112
 	dc.l	0x11131012
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x11131012
+	dc.l	0x31111111
+	dc.l	0x53111101
+	dc.l	0x55331110
+	dc.l	0x33131111
+	dc.l	0x13113111
+	dc.l	0x11353555
+	dc.l	0x11135555
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -17279,14 +17275,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12321111
 	dc.l	0x33231211
 
-	dc.l	0x11111131
-	dc.l	0x11111131
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11112111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x22231111
+	dc.l	0x22212211
+	dc.l	0x22222212
+	dc.l	0x22222122
+	dc.l	0x23212122
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
 
 	dc.l	0x11111111
 	dc.l	0x22111112
@@ -17315,14 +17311,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111100
 	dc.l	0x11110000
 
-	dc.l	0x33333353
-	dc.l	0x13555555
-	dc.l	0x11355555
-	dc.l	0x11133355
-	dc.l	0x11113333
-	dc.l	0x11311113
-	dc.l	0x11112211
-	dc.l	0x11122221
+	dc.l	0x11000000
+	dc.l	0x22100000
+	dc.l	0x22100000
+	dc.l	0x22100000
+	dc.l	0x22100000
+	dc.l	0x21000000
+	dc.l	0x11000000
+	dc.l	0x11100000
 
 	dc.l	0x11122221
 	dc.l	0x11112222
@@ -17351,14 +17347,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11131012
-	dc.l	0x31111111
-	dc.l	0x53111101
-	dc.l	0x55331110
-	dc.l	0x33131111
-	dc.l	0x13113111
-	dc.l	0x11353555
-	dc.l	0x11135555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x13131355
 	dc.l	0x11111111
@@ -17387,14 +17383,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x22231111
-	dc.l	0x22212211
-	dc.l	0x22222212
-	dc.l	0x22222122
-	dc.l	0x23212122
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x22331112
 	dc.l	0x22222111
@@ -17405,15 +17401,6 @@ spritesheet_borgus_walk:
 	dc.l	0x01212233
 	dc.l	0x00111111
 
-	dc.l	0x11000000
-	dc.l	0x22100000
-	dc.l	0x22100000
-	dc.l	0x22100000
-	dc.l	0x22100000
-	dc.l	0x21000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-
 	dc.l	0x11110111
 	dc.l	0x11211133
 	dc.l	0x11111335
@@ -17423,15 +17410,6 @@ spritesheet_borgus_walk:
 	dc.l	0x11333111
 	dc.l	0x21331110
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x10000000
 	dc.l	0x31000000
 	dc.l	0x53100000
@@ -17440,24 +17418,6 @@ spritesheet_borgus_walk:
 	dc.l	0x35100000
 	dc.l	0x33100000
 	dc.l	0x13100000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -17495,14 +17455,14 @@ spritesheet_borgus_walk:
 	dc.l	0x25551555
 	dc.l	0x35311135
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33331133
+	dc.l	0x33111111
+	dc.l	0x33316611
+	dc.l	0x53111677
+	dc.l	0x13553167
+	dc.l	0x13553111
+	dc.l	0x31355511
+	dc.l	0x53355111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -17531,14 +17491,14 @@ spritesheet_borgus_walk:
 	dc.l	0x31110000
 	dc.l	0x53311000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55551000
+	dc.l	0x35551100
+	dc.l	0x13551111
+	dc.l	0x11333111
+	dc.l	0x71111111
+	dc.l	0x13331122
+	dc.l	0x15531212
+	dc.l	0x55331111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -17567,14 +17527,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x33331133
-	dc.l	0x33111111
-	dc.l	0x33316611
-	dc.l	0x53111677
-	dc.l	0x13553167
-	dc.l	0x13553111
-	dc.l	0x31355511
-	dc.l	0x53355111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11110000
+	dc.l	0x12221000
+	dc.l	0x22221100
+	dc.l	0x22113100
+	dc.l	0x21113110
+	dc.l	0x13133210
 
 	dc.l	0x55135313
 	dc.l	0x55313315
@@ -17603,14 +17563,14 @@ spritesheet_borgus_walk:
 	dc.l	0x35313111
 	dc.l	0x15311113
 
-	dc.l	0x55551000
-	dc.l	0x35551100
-	dc.l	0x13551111
-	dc.l	0x11333111
-	dc.l	0x71111111
-	dc.l	0x13331122
-	dc.l	0x15531212
-	dc.l	0x55331111
+	dc.l	0x13311136
+	dc.l	0x15111366
+	dc.l	0x11311666
+	dc.l	0x11311363
+	dc.l	0x31311331
+	dc.l	0x31331111
+	dc.l	0x21133111
+	dc.l	0x55133111
 
 	dc.l	0x55551123
 	dc.l	0x55512211
@@ -17639,14 +17599,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11000001
 	dc.l	0x61000003
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11110000
-	dc.l	0x12221000
-	dc.l	0x22221100
-	dc.l	0x22113100
-	dc.l	0x21113110
-	dc.l	0x13133210
+	dc.l	0x61000000
+	dc.l	0x31000000
+	dc.l	0x11000000
+	dc.l	0x11111000
+	dc.l	0x11161000
+	dc.l	0x11661000
+	dc.l	0x13631000
+	dc.l	0x13331000
 
 	dc.l	0x33332111
 	dc.l	0x12331111
@@ -17675,14 +17635,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x13311136
-	dc.l	0x15111366
-	dc.l	0x11311666
-	dc.l	0x11311363
-	dc.l	0x31311331
-	dc.l	0x31331111
-	dc.l	0x21133111
-	dc.l	0x55133111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x55111121
 	dc.l	0x55211112
@@ -17711,14 +17671,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11000000
 	dc.l	0x10000000
 
-	dc.l	0x61000000
-	dc.l	0x31000000
-	dc.l	0x11000000
-	dc.l	0x11111000
-	dc.l	0x11161000
-	dc.l	0x11661000
-	dc.l	0x13631000
-	dc.l	0x13331000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11100000
+	dc.l	0x13111100
+	dc.l	0x53331111
 
 	dc.l	0x11331000
 	dc.l	0x21113000
@@ -17752,9 +17712,9 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x01000000
+	dc.l	0x11000000
+	dc.l	0x11000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -17783,14 +17743,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x10000000
-	dc.l	0x10000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11100000
-	dc.l	0x13111100
-	dc.l	0x53331111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x55333333
 	dc.l	0x11553331
@@ -17824,9 +17784,9 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x01000000
-	dc.l	0x11000000
-	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11000000
 	dc.l	0x10000000
@@ -17927,24 +17887,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_walk_frame_6:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -19727,6 +19671,8 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_borgus_sheet_walk_frame_7:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -19754,23 +19700,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00000112
+	dc.l	0x00001111
+	dc.l	0x00011122
+	dc.l	0x00112221
+	dc.l	0x01122211
+	dc.l	0x01112211
+	dc.l	0x01111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -19799,14 +19736,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00011111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11112222
+	dc.l	0x11222211
+	dc.l	0x12222211
+	dc.l	0x22222111
+	dc.l	0x11121111
+	dc.l	0x11115111
+	dc.l	0x11155111
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -19835,14 +19772,14 @@ spritesheet_borgus_walk:
 	dc.l	0x22222111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x21122222
+	dc.l	0x11122222
+	dc.l	0x11222222
+	dc.l	0x12222222
+	dc.l	0x12222322
+	dc.l	0x22222223
+	dc.l	0x22222213
+	dc.l	0x12222211
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -19871,14 +19808,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x00000011
-	dc.l	0x00000112
-	dc.l	0x00001111
-	dc.l	0x00011122
-	dc.l	0x00112221
-	dc.l	0x01122211
-	dc.l	0x01112211
-	dc.l	0x01111111
+	dc.l	0x22331122
+	dc.l	0x21111122
+	dc.l	0x21111222
+	dc.l	0x11112222
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11112222
 
 	dc.l	0x00111111
 	dc.l	0x01111211
@@ -19907,14 +19844,14 @@ spritesheet_borgus_walk:
 	dc.l	0x01121122
 	dc.l	0x01121222
 
-	dc.l	0x11112222
-	dc.l	0x11222211
-	dc.l	0x12222211
-	dc.l	0x22222111
-	dc.l	0x11121111
-	dc.l	0x11115111
-	dc.l	0x11155111
-	dc.l	0x11111111
+	dc.l	0x01121222
+	dc.l	0x11121222
+	dc.l	0x11221222
+	dc.l	0x12221222
+	dc.l	0x12221222
+	dc.l	0x12211222
+	dc.l	0x12212222
+	dc.l	0x12212222
 
 	dc.l	0x12111111
 	dc.l	0x22111111
@@ -19943,14 +19880,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11221111
 	dc.l	0x11222111
 
-	dc.l	0x21122222
-	dc.l	0x11122222
-	dc.l	0x11222222
-	dc.l	0x12222222
-	dc.l	0x12222322
-	dc.l	0x22222223
-	dc.l	0x22222213
-	dc.l	0x12222211
+	dc.l	0x21121111
+	dc.l	0x21111111
+	dc.l	0x21112211
+	dc.l	0x22122211
+	dc.l	0x22122211
+	dc.l	0x22122211
+	dc.l	0x22112111
+	dc.l	0x22111112
 
 	dc.l	0x11121111
 	dc.l	0x11111121
@@ -19979,14 +19916,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x22331122
-	dc.l	0x21111122
-	dc.l	0x21111222
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11112222
+	dc.l	0x11111211
+	dc.l	0x11122221
+	dc.l	0x11122221
+	dc.l	0x11222221
+	dc.l	0x11122221
+	dc.l	0x11222221
+	dc.l	0x11122221
+	dc.l	0x11111111
 
 	dc.l	0x11111222
 	dc.l	0x11111111
@@ -20015,14 +19952,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12212121
 	dc.l	0x12222211
 
-	dc.l	0x01121222
-	dc.l	0x11121222
-	dc.l	0x11221222
-	dc.l	0x12221222
-	dc.l	0x12221222
-	dc.l	0x12211222
-	dc.l	0x12212222
-	dc.l	0x12212222
+	dc.l	0x12222222
+	dc.l	0x12222222
+	dc.l	0x11222222
+	dc.l	0x11112211
+	dc.l	0x12211113
+	dc.l	0x13213333
+	dc.l	0x13322113
+	dc.l	0x11322111
 
 	dc.l	0x12112222
 	dc.l	0x12112222
@@ -20051,14 +19988,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00112211
 	dc.l	0x00012111
 
-	dc.l	0x21121111
-	dc.l	0x21111111
-	dc.l	0x21112211
-	dc.l	0x22122211
-	dc.l	0x22122211
-	dc.l	0x22122211
-	dc.l	0x22112111
-	dc.l	0x22111112
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001121
+	dc.l	0x00001121
+	dc.l	0x00000121
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000011
 
 	dc.l	0x22111122
 	dc.l	0x22211122
@@ -20087,14 +20024,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12212222
 	dc.l	0x12211221
 
-	dc.l	0x11111211
-	dc.l	0x11122221
-	dc.l	0x11122221
-	dc.l	0x11222221
-	dc.l	0x11122221
-	dc.l	0x11222221
-	dc.l	0x11122221
-	dc.l	0x11111111
+	dc.l	0x12211221
+	dc.l	0x12221121
+	dc.l	0x11221112
+	dc.l	0x21221111
+	dc.l	0x21122111
+	dc.l	0x22122112
+	dc.l	0x12112122
+	dc.l	0x21211122
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -20123,14 +20060,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111212
 	dc.l	0x11111212
 
-	dc.l	0x12222222
-	dc.l	0x12222222
-	dc.l	0x11222222
-	dc.l	0x11112211
-	dc.l	0x12211113
-	dc.l	0x13213333
-	dc.l	0x13322113
-	dc.l	0x11322111
+	dc.l	0x21111211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x22111111
+	dc.l	0x21111112
+	dc.l	0x21111111
 
 	dc.l	0x11112111
 	dc.l	0x11111112
@@ -20159,14 +20096,14 @@ spritesheet_borgus_walk:
 	dc.l	0x22333333
 	dc.l	0x22233333
 
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001121
-	dc.l	0x00001121
-	dc.l	0x00000121
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000011
+	dc.l	0x22223333
+	dc.l	0x11223333
+	dc.l	0x21222333
+	dc.l	0x11222333
+	dc.l	0x11222233
+	dc.l	0x12122233
+	dc.l	0x11122233
+	dc.l	0x11222233
 
 	dc.l	0x00000011
 	dc.l	0x00000111
@@ -20195,14 +20132,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000001
 	dc.l	0x00000000
 
-	dc.l	0x12211221
-	dc.l	0x12221121
-	dc.l	0x11221112
-	dc.l	0x21221111
-	dc.l	0x21122111
-	dc.l	0x22122112
-	dc.l	0x12112122
-	dc.l	0x21211122
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000000
 
 	dc.l	0x11211122
 	dc.l	0x11212121
@@ -20231,14 +20168,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11112321
 	dc.l	0x11123231
 
-	dc.l	0x21111211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x22111111
-	dc.l	0x21111112
-	dc.l	0x21111111
+	dc.l	0x11222231
+	dc.l	0x21222212
+	dc.l	0x21222222
+	dc.l	0x12222222
+	dc.l	0x12223212
+	dc.l	0x22223312
+	dc.l	0x22222311
+	dc.l	0x12222331
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -20267,14 +20204,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x21111111
 
-	dc.l	0x22223333
-	dc.l	0x11223333
-	dc.l	0x21222333
-	dc.l	0x11222333
-	dc.l	0x11222233
-	dc.l	0x12122233
-	dc.l	0x11122233
-	dc.l	0x11222233
+	dc.l	0x11111100
+	dc.l	0x21110000
+	dc.l	0x21100000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x21000000
+	dc.l	0x21110000
+	dc.l	0x12111100
 
 	dc.l	0x11222223
 	dc.l	0x11222223
@@ -20304,15 +20241,6 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 
 	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -20321,14 +20249,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11222231
-	dc.l	0x21222212
-	dc.l	0x21222222
-	dc.l	0x12222222
-	dc.l	0x12223212
-	dc.l	0x22223312
-	dc.l	0x22222311
-	dc.l	0x12222331
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11222331
 	dc.l	0x01122222
@@ -20339,15 +20267,6 @@ spritesheet_borgus_walk:
 	dc.l	0x00001212
 	dc.l	0x00000111
 
-	dc.l	0x11111100
-	dc.l	0x21110000
-	dc.l	0x21100000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x21000000
-	dc.l	0x21110000
-	dc.l	0x12111100
-
 	dc.l	0x11211110
 	dc.l	0x11111211
 	dc.l	0x32311111
@@ -20357,15 +20276,6 @@ spritesheet_borgus_walk:
 	dc.l	0x23311333
 	dc.l	0x11121331
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11110000
 	dc.l	0x13331000
 	dc.l	0x33553100
@@ -20374,15 +20284,6 @@ spritesheet_borgus_walk:
 	dc.l	0x12235100
 	dc.l	0x11133100
 	dc.l	0x11013100
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -20411,14 +20312,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222111
+	dc.l	0x22211133
+	dc.l	0x22113333
+	dc.l	0x22113333
+	dc.l	0x21111331
+	dc.l	0x21111111
+	dc.l	0x21111111
+	dc.l	0x21111311
 
 	dc.l	0x00000000
 	dc.l	0x00010000
@@ -20447,14 +20348,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111211
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x13115155
+	dc.l	0x31135555
+	dc.l	0x33333355
+	dc.l	0x11133335
+	dc.l	0x11113333
+	dc.l	0x11111333
+	dc.l	0x11111133
+	dc.l	0x12211115
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -20483,14 +20384,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11122233
 	dc.l	0x11111123
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31133331
+	dc.l	0x53311133
+	dc.l	0x55533111
+	dc.l	0x55553311
+	dc.l	0x35555333
+	dc.l	0x33555333
+	dc.l	0x35335533
+	dc.l	0x55533555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -20519,14 +20420,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33233133
 	dc.l	0x33233313
 
-	dc.l	0x22222111
-	dc.l	0x22211133
-	dc.l	0x22113333
-	dc.l	0x22113333
-	dc.l	0x21111331
-	dc.l	0x21111111
-	dc.l	0x21111111
-	dc.l	0x21111311
+	dc.l	0x11333111
+	dc.l	0x31113311
+	dc.l	0x33311111
+	dc.l	0x11333111
+	dc.l	0x11113551
+	dc.l	0x31115555
+	dc.l	0x33155555
+	dc.l	0x33155555
 
 	dc.l	0x21111111
 	dc.l	0x11111112
@@ -20555,14 +20456,14 @@ spritesheet_borgus_walk:
 	dc.l	0x13333333
 	dc.l	0x11111111
 
-	dc.l	0x13115155
-	dc.l	0x31135555
-	dc.l	0x33333355
-	dc.l	0x11133335
-	dc.l	0x11113333
-	dc.l	0x11111333
-	dc.l	0x11111133
-	dc.l	0x12211115
+	dc.l	0x21111112
+	dc.l	0x22111111
+	dc.l	0x11133333
+	dc.l	0x13335335
+	dc.l	0x33555555
+	dc.l	0x55555555
+	dc.l	0x35555555
+	dc.l	0x33333553
 
 	dc.l	0x22221113
 	dc.l	0x22221111
@@ -20591,14 +20492,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x31133331
-	dc.l	0x53311133
-	dc.l	0x55533111
-	dc.l	0x55553311
-	dc.l	0x35555333
-	dc.l	0x33555333
-	dc.l	0x35335533
-	dc.l	0x55533555
+	dc.l	0x21333311
+	dc.l	0x11333333
+	dc.l	0x31111133
+	dc.l	0x33333111
+	dc.l	0x55335311
+	dc.l	0x55535333
+	dc.l	0x55555553
+	dc.l	0x55553335
 
 	dc.l	0x33553355
 	dc.l	0x11355335
@@ -20627,14 +20528,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12221121
 	dc.l	0x22111111
 
-	dc.l	0x11333111
-	dc.l	0x31113311
+	dc.l	0x11133333
+	dc.l	0x11111322
 	dc.l	0x33311111
-	dc.l	0x11333111
-	dc.l	0x11113551
-	dc.l	0x31115555
-	dc.l	0x33155555
-	dc.l	0x33155555
+	dc.l	0x33331111
+	dc.l	0x11111131
+	dc.l	0x11111335
+	dc.l	0x31113355
+	dc.l	0x33113355
 
 	dc.l	0x33155551
 	dc.l	0x33535555
@@ -20663,14 +20564,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11153111
 	dc.l	0x11111111
 
-	dc.l	0x21111112
-	dc.l	0x22111111
-	dc.l	0x11133333
-	dc.l	0x13335335
-	dc.l	0x33555555
-	dc.l	0x55555555
-	dc.l	0x35555555
-	dc.l	0x33333553
+	dc.l	0x31113111
+	dc.l	0x11131133
+	dc.l	0x13313355
+	dc.l	0x11135555
+	dc.l	0x33355555
+	dc.l	0x55355553
+	dc.l	0x55555333
+	dc.l	0x55533331
 
 	dc.l	0x11131333
 	dc.l	0x11113133
@@ -20699,14 +20600,14 @@ spritesheet_borgus_walk:
 	dc.l	0x33321111
 	dc.l	0x33321111
 
-	dc.l	0x21333311
-	dc.l	0x11333333
-	dc.l	0x31111133
-	dc.l	0x33333111
-	dc.l	0x55335311
-	dc.l	0x55535333
-	dc.l	0x55555553
-	dc.l	0x55553335
+	dc.l	0x33321111
+	dc.l	0x33321111
+	dc.l	0x33321111
+	dc.l	0x33321111
+	dc.l	0x33321111
+	dc.l	0x33321111
+	dc.l	0x33121111
+	dc.l	0x33121101
 
 	dc.l	0x33333333
 	dc.l	0x31333333
@@ -20735,14 +20636,14 @@ spritesheet_borgus_walk:
 	dc.l	0x31231135
 	dc.l	0x31351135
 
-	dc.l	0x11133333
-	dc.l	0x11111322
-	dc.l	0x33311111
-	dc.l	0x33331111
-	dc.l	0x11111131
-	dc.l	0x11111335
-	dc.l	0x31113355
-	dc.l	0x33113355
+	dc.l	0x11351135
+	dc.l	0x11351335
+	dc.l	0x11331355
+	dc.l	0x11331355
+	dc.l	0x11331355
+	dc.l	0x11331155
+	dc.l	0x11331353
+	dc.l	0x11311353
 
 	dc.l	0x33313333
 	dc.l	0x33333313
@@ -20771,14 +20672,14 @@ spritesheet_borgus_walk:
 	dc.l	0x12311111
 	dc.l	0x12312111
 
-	dc.l	0x31113111
-	dc.l	0x11131133
-	dc.l	0x13313355
-	dc.l	0x11135555
-	dc.l	0x33355555
-	dc.l	0x55355553
-	dc.l	0x55555333
-	dc.l	0x55533331
+	dc.l	0x12312122
+	dc.l	0x13312211
+	dc.l	0x13311222
+	dc.l	0x33311111
+	dc.l	0x33311111
+	dc.l	0x33311111
+	dc.l	0x31311111
+	dc.l	0x31311111
 
 	dc.l	0x55333111
 	dc.l	0x33311131
@@ -20807,14 +20708,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11112112
 	dc.l	0x11111121
 
-	dc.l	0x33321111
-	dc.l	0x33321111
-	dc.l	0x33321111
-	dc.l	0x33321111
-	dc.l	0x33321111
-	dc.l	0x33321111
-	dc.l	0x33121111
-	dc.l	0x33121101
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x22222221
+	dc.l	0x22222222
+	dc.l	0x12222222
+	dc.l	0x11211211
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x33221101
 	dc.l	0x32221101
@@ -20843,14 +20744,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11351135
-	dc.l	0x11351335
-	dc.l	0x11331355
-	dc.l	0x11331355
-	dc.l	0x11331355
-	dc.l	0x11331155
-	dc.l	0x11331353
-	dc.l	0x11311353
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11311355
 	dc.l	0x11311355
@@ -20879,14 +20780,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x12312122
-	dc.l	0x13312211
-	dc.l	0x13311222
-	dc.l	0x33311111
-	dc.l	0x33311111
-	dc.l	0x33311111
-	dc.l	0x31311111
-	dc.l	0x31311111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11310111
 	dc.l	0x11310001
@@ -20915,14 +20816,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22222221
-	dc.l	0x22222222
-	dc.l	0x12222222
-	dc.l	0x11211211
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -20951,60 +20852,6 @@ spritesheet_borgus_walk:
 	dc.l	0x01111111
 	dc.l	0x01121111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000100
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11122111
 	dc.l	0x11122111
 	dc.l	0x11112121
@@ -21014,12 +20861,12 @@ spritesheet_borgus_walk:
 	dc.l	0x00011111
 	dc.l	0x00011111
 
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00001111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -21029,6 +20876,24 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00001111
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -21059,78 +20924,6 @@ spritesheet_borgus_walk:
 	dc.l	0x33111100
 	dc.l	0x33311100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x33533110
 	dc.l	0x33555510
 	dc.l	0x11355511
@@ -21139,6 +20932,78 @@ spritesheet_borgus_walk:
 	dc.l	0x17711111
 	dc.l	0x11133311
 	dc.l	0x11122212
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11111100
+	dc.l	0x11122210
+	dc.l	0x11222211
+	dc.l	0x22221131
+	dc.l	0x12211131
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
 
 	dc.l	0x11122211
 	dc.l	0x11122211
@@ -21167,14 +21032,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11110000
 	dc.l	0x11111000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11111100
-	dc.l	0x11122210
-	dc.l	0x11222211
-	dc.l	0x22221131
-	dc.l	0x12211131
+	dc.l	0x31111110
+	dc.l	0x33331111
+	dc.l	0x33333311
+	dc.l	0x53333331
+	dc.l	0x33111111
+	dc.l	0x31111222
+	dc.l	0x11111122
+	dc.l	0x11116312
 
 	dc.l	0x11131332
 	dc.l	0x22333321
@@ -21203,14 +21068,14 @@ spritesheet_borgus_walk:
 	dc.l	0x01000000
 	dc.l	0x01000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x03000000
 	dc.l	0x00000000
 	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x21110000
+	dc.l	0x22110000
 
 	dc.l	0x10000000
 	dc.l	0x11000000
@@ -21239,14 +21104,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x31111110
-	dc.l	0x33331111
-	dc.l	0x33333311
-	dc.l	0x53333331
-	dc.l	0x33111111
-	dc.l	0x31111222
-	dc.l	0x11111122
-	dc.l	0x11116312
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111311
 	dc.l	0x11111311
@@ -21275,14 +21140,14 @@ spritesheet_borgus_walk:
 	dc.l	0x22222211
 	dc.l	0x22222221
 
-	dc.l	0x03000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x21110000
-	dc.l	0x22110000
+	dc.l	0x12222221
+	dc.l	0x11122221
+	dc.l	0x11112121
+	dc.l	0x21111111
+	dc.l	0x22111112
+	dc.l	0x12211122
+	dc.l	0x11111122
+	dc.l	0x11111111
 
 	dc.l	0x12210000
 	dc.l	0x11210000
@@ -21311,14 +21176,14 @@ spritesheet_borgus_walk:
 	dc.l	0x10000000
 	dc.l	0x10000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -21347,14 +21212,14 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x12222221
-	dc.l	0x11122221
-	dc.l	0x11112121
-	dc.l	0x21111111
-	dc.l	0x22111112
-	dc.l	0x12211122
-	dc.l	0x11111122
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -21383,14 +21248,14 @@ spritesheet_borgus_walk:
 	dc.l	0x11111000
 	dc.l	0x11111000
 
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
+	dc.l	0x12211100
+	dc.l	0x12221100
+	dc.l	0x11221110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
+	dc.l	0x11111122
 
 	dc.l	0x11000000
 	dc.l	0x10000000
@@ -21423,71 +21288,35 @@ spritesheet_borgus_walk:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x12211100
-	dc.l	0x12221100
-	dc.l	0x11221110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-	dc.l	0x11111122
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00001111
 	dc.l	0x11111122
 	dc.l	0x11111211
 	dc.l	0x22211211
 
-	dc.l	0x22211121
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111121
-	dc.l	0x11111111
-	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -21500,6 +21329,24 @@ spritesheet_borgus_walk:
 	dc.l	0x11111100
 	dc.l	0x11212110
 
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22211121
+	dc.l	0x11111111
+	dc.l	0x11111211
+	dc.l	0x11111121
+	dc.l	0x11111111
+	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x12222210
 	dc.l	0x22222210
 	dc.l	0x21121210
@@ -21511,17 +21358,10 @@ spritesheet_borgus_walk:
 
 
 
+
 spritesheet_borgus_death:
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_death_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -21549,14 +21389,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000022
 	dc.l	0x00000222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00001221
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00002211
+	dc.l	0x00022222
+	dc.l	0x00022222
+	dc.l	0x00222222
+	dc.l	0x01221211
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -21585,14 +21425,14 @@ spritesheet_borgus_death:
 	dc.l	0x22222122
 	dc.l	0x22222122
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122222
+	dc.l	0x22122555
+	dc.l	0x21122222
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000001
@@ -21621,14 +21461,14 @@ spritesheet_borgus_death:
 	dc.l	0x22222333
 	dc.l	0x22222123
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11113111
+	dc.l	0x12213331
+	dc.l	0x33333133
+	dc.l	0x53335355
+	dc.l	0x21111555
+	dc.l	0x22111111
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x11111010
@@ -21657,14 +21497,14 @@ spritesheet_borgus_death:
 	dc.l	0x31113355
 	dc.l	0x33113355
 
-	dc.l	0x00001221
-	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00002211
-	dc.l	0x00022222
-	dc.l	0x00022222
-	dc.l	0x00222222
-	dc.l	0x01221211
+	dc.l	0x33311133
+	dc.l	0x33331133
+	dc.l	0x15553311
+	dc.l	0x33355311
+	dc.l	0x53335551
+	dc.l	0x55533553
+	dc.l	0x35553555
+	dc.l	0x35555355
 
 	dc.l	0x11111111
 	dc.l	0x11111121
@@ -21693,14 +21533,14 @@ spritesheet_borgus_death:
 	dc.l	0x01111111
 	dc.l	0x01111111
 
-	dc.l	0x22111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11122222
-	dc.l	0x22122555
-	dc.l	0x21122222
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00111111
+	dc.l	0x01111111
+	dc.l	0x01111111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00111112
+	dc.l	0x00011222
+	dc.l	0x00011222
 
 	dc.l	0x11111111
 	dc.l	0x11121111
@@ -21729,14 +21569,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x12111333
 
-	dc.l	0x11111111
-	dc.l	0x11113111
-	dc.l	0x12213331
-	dc.l	0x33333133
-	dc.l	0x53335355
-	dc.l	0x21111555
-	dc.l	0x22111111
-	dc.l	0x11111111
+	dc.l	0x22113333
+	dc.l	0x22113333
+	dc.l	0x12113335
+	dc.l	0x12133355
+	dc.l	0x11133355
+	dc.l	0x11135555
+	dc.l	0x11135555
+	dc.l	0x12135555
 
 	dc.l	0x11131111
 	dc.l	0x12153111
@@ -21765,14 +21605,14 @@ spritesheet_borgus_death:
 	dc.l	0x13313111
 	dc.l	0x33333333
 
-	dc.l	0x33311133
-	dc.l	0x33331133
-	dc.l	0x15553311
-	dc.l	0x33355311
-	dc.l	0x53335551
-	dc.l	0x55533553
-	dc.l	0x35553555
-	dc.l	0x35555355
+	dc.l	0x33555553
+	dc.l	0x35555553
+	dc.l	0x55555553
+	dc.l	0x55555553
+	dc.l	0x55555533
+	dc.l	0x55553331
+	dc.l	0x55533311
+	dc.l	0x53331111
 
 	dc.l	0x11355333
 	dc.l	0x11115531
@@ -21801,14 +21641,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111122
 	dc.l	0x11111222
 
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00111112
-	dc.l	0x00011222
-	dc.l	0x00011222
+	dc.l	0x33111222
+	dc.l	0x33112222
+	dc.l	0x31112221
+	dc.l	0x31122211
+	dc.l	0x11122112
+	dc.l	0x11121222
+	dc.l	0x11112222
+	dc.l	0x11122222
 
 	dc.l	0x00111122
 	dc.l	0x00112122
@@ -21837,14 +21677,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000001
 	dc.l	0x00000000
 
-	dc.l	0x22113333
-	dc.l	0x22113333
-	dc.l	0x12113335
-	dc.l	0x12133355
-	dc.l	0x11133355
-	dc.l	0x11135555
-	dc.l	0x11135555
-	dc.l	0x12135555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x21335555
 	dc.l	0x11335333
@@ -21873,14 +21713,14 @@ spritesheet_borgus_death:
 	dc.l	0x12111133
 	dc.l	0x11111113
 
-	dc.l	0x33555553
-	dc.l	0x35555553
-	dc.l	0x55555553
-	dc.l	0x55555553
-	dc.l	0x55555533
-	dc.l	0x55553331
-	dc.l	0x55533311
-	dc.l	0x53331111
+	dc.l	0x01111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x33331112
 	dc.l	0x33311111
@@ -21909,14 +21749,14 @@ spritesheet_borgus_death:
 	dc.l	0x33553553
 	dc.l	0x31333335
 
-	dc.l	0x33111222
-	dc.l	0x33112222
-	dc.l	0x31112221
-	dc.l	0x31122211
-	dc.l	0x11122112
-	dc.l	0x11121222
-	dc.l	0x11112222
-	dc.l	0x11122222
+	dc.l	0x31333333
+	dc.l	0x13133333
+	dc.l	0x11311133
+	dc.l	0x11111113
+	dc.l	0x11111413
+	dc.l	0x11111411
+	dc.l	0x11114441
+	dc.l	0x11111441
 
 	dc.l	0x11122222
 	dc.l	0x22221112
@@ -21945,14 +21785,14 @@ spritesheet_borgus_death:
 	dc.l	0x31111111
 	dc.l	0x33111313
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33313335
+	dc.l	0x33133355
+	dc.l	0x33133355
+	dc.l	0x33333335
+	dc.l	0x33311135
+	dc.l	0x33331111
+	dc.l	0x11333331
+	dc.l	0x11133331
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -21981,14 +21821,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000001
 	dc.l	0x00000011
 
-	dc.l	0x01111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000112
+	dc.l	0x00001211
+	dc.l	0x00001211
+	dc.l	0x00001122
+	dc.l	0x00001122
+	dc.l	0x00001222
+	dc.l	0x00001222
+	dc.l	0x00000122
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22017,14 +21857,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111122
 	dc.l	0x11321122
 
-	dc.l	0x31333333
-	dc.l	0x13133333
-	dc.l	0x11311133
-	dc.l	0x11111113
-	dc.l	0x11111413
-	dc.l	0x11111411
-	dc.l	0x11114441
-	dc.l	0x11111441
+	dc.l	0x23322211
+	dc.l	0x11222111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x23211111
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
 
 	dc.l	0x12111144
 	dc.l	0x11111114
@@ -22053,14 +21893,14 @@ spritesheet_borgus_death:
 	dc.l	0x23333122
 	dc.l	0x22322112
 
-	dc.l	0x33313335
-	dc.l	0x33133355
-	dc.l	0x33133355
-	dc.l	0x33333335
-	dc.l	0x33311135
-	dc.l	0x33331111
-	dc.l	0x11333331
-	dc.l	0x11133331
+	dc.l	0x11221212
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
 
 	dc.l	0x11111333
 	dc.l	0x11111111
@@ -22089,14 +21929,14 @@ spritesheet_borgus_death:
 	dc.l	0x12112122
 	dc.l	0x11111222
 
-	dc.l	0x00000112
-	dc.l	0x00001211
-	dc.l	0x00001211
-	dc.l	0x00001122
-	dc.l	0x00001122
-	dc.l	0x00001222
-	dc.l	0x00001222
-	dc.l	0x00000122
+	dc.l	0x11111221
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11101000
+	dc.l	0x10000000
+	dc.l	0x00000000
 
 	dc.l	0x00000112
 	dc.l	0x00000011
@@ -22107,15 +21947,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x23322211
-	dc.l	0x11222111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x23211111
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
-
 	dc.l	0x22331112
 	dc.l	0x22222111
 	dc.l	0x12222323
@@ -22124,15 +21955,6 @@ spritesheet_borgus_death:
 	dc.l	0x01213233
 	dc.l	0x01212233
 	dc.l	0x00111111
-
-	dc.l	0x11221212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
 
 	dc.l	0x11110111
 	dc.l	0x11211133
@@ -22143,15 +21965,6 @@ spritesheet_borgus_death:
 	dc.l	0x11333111
 	dc.l	0x21331110
 
-	dc.l	0x11111221
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11101000
-	dc.l	0x10000000
-	dc.l	0x00000000
-
 	dc.l	0x10000000
 	dc.l	0x31000000
 	dc.l	0x53100000
@@ -22160,15 +21973,6 @@ spritesheet_borgus_death:
 	dc.l	0x35100000
 	dc.l	0x33100000
 	dc.l	0x13100000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22197,14 +22001,14 @@ spritesheet_borgus_death:
 	dc.l	0x55153355
 	dc.l	0x11111113
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31331133
+	dc.l	0x33531133
+	dc.l	0x33533133
+	dc.l	0x33355113
+	dc.l	0x13355113
+	dc.l	0x11133113
+	dc.l	0x51133533
+	dc.l	0x51133535
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22233,14 +22037,14 @@ spritesheet_borgus_death:
 	dc.l	0x55553553
 	dc.l	0x55553355
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x53151315
+	dc.l	0x55335155
+	dc.l	0x55513155
+	dc.l	0x55513515
+	dc.l	0x35513515
+	dc.l	0x35311555
+	dc.l	0x55311555
+	dc.l	0x53333555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22269,14 +22073,14 @@ spritesheet_borgus_death:
 	dc.l	0x35311336
 	dc.l	0x13511366
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x36111336
+	dc.l	0x36633136
+	dc.l	0x16115166
+	dc.l	0x11115111
+	dc.l	0x11151111
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11111100
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22305,14 +22109,14 @@ spritesheet_borgus_death:
 	dc.l	0x33111663
 	dc.l	0x61111663
 
-	dc.l	0x31331133
-	dc.l	0x33531133
-	dc.l	0x33533133
-	dc.l	0x33355113
-	dc.l	0x13355113
-	dc.l	0x11133113
-	dc.l	0x51133533
-	dc.l	0x51133535
+	dc.l	0x63331663
+	dc.l	0x61131111
+	dc.l	0x10013110
+	dc.l	0x00003100
+	dc.l	0x00003100
+	dc.l	0x00003100
+	dc.l	0x00001100
+	dc.l	0x00001000
 
 	dc.l	0x55135535
 	dc.l	0x55511533
@@ -22341,14 +22145,14 @@ spritesheet_borgus_death:
 	dc.l	0x22211331
 	dc.l	0x32221131
 
-	dc.l	0x53151315
-	dc.l	0x55335155
-	dc.l	0x55513155
-	dc.l	0x55513515
-	dc.l	0x35513515
-	dc.l	0x35311555
-	dc.l	0x55311555
-	dc.l	0x53333555
+	dc.l	0x32331131
+	dc.l	0x32223131
+	dc.l	0x11111131
+	dc.l	0x13111111
+	dc.l	0x21211551
+	dc.l	0x22111332
+	dc.l	0x11211133
+	dc.l	0x22331111
 
 	dc.l	0x31133555
 	dc.l	0x31131551
@@ -22377,14 +22181,14 @@ spritesheet_borgus_death:
 	dc.l	0x25351355
 	dc.l	0x23331353
 
-	dc.l	0x36111336
-	dc.l	0x36633136
-	dc.l	0x16115166
-	dc.l	0x11115111
-	dc.l	0x11151111
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11111100
+	dc.l	0x23351351
+	dc.l	0x23351353
+	dc.l	0x23131353
+	dc.l	0x13131533
+	dc.l	0x11132551
+	dc.l	0x11132353
+	dc.l	0x11112333
+	dc.l	0x13312533
 
 	dc.l	0x11101110
 	dc.l	0x11101100
@@ -22413,14 +22217,14 @@ spritesheet_borgus_death:
 	dc.l	0x11366610
 	dc.l	0x13666310
 
-	dc.l	0x63331663
-	dc.l	0x61131111
-	dc.l	0x10013110
-	dc.l	0x00003100
-	dc.l	0x00003100
-	dc.l	0x00003100
-	dc.l	0x00001100
-	dc.l	0x00001000
+	dc.l	0x13363111
+	dc.l	0x13331111
+	dc.l	0x11111113
+	dc.l	0x11111133
+	dc.l	0x11111133
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11223335
 
 	dc.l	0x00001000
 	dc.l	0x00001000
@@ -22449,14 +22253,14 @@ spritesheet_borgus_death:
 	dc.l	0x01111000
 	dc.l	0x11361000
 
-	dc.l	0x32331131
-	dc.l	0x32223131
-	dc.l	0x11111131
-	dc.l	0x13111111
-	dc.l	0x21211551
-	dc.l	0x22111332
-	dc.l	0x11211133
-	dc.l	0x22331111
+	dc.l	0x13661000
+	dc.l	0x36631000
+	dc.l	0x66611000
+	dc.l	0x36311111
+	dc.l	0x33111161
+	dc.l	0x11111661
+	dc.l	0x11113631
+	dc.l	0x11113331
 
 	dc.l	0x22222211
 	dc.l	0x22333322
@@ -22485,14 +22289,14 @@ spritesheet_borgus_death:
 	dc.l	0x11333111
 	dc.l	0x11111555
 
-	dc.l	0x23351351
-	dc.l	0x23351353
-	dc.l	0x23131353
-	dc.l	0x13131533
-	dc.l	0x11132551
-	dc.l	0x11132353
-	dc.l	0x11112333
-	dc.l	0x13312533
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555555
+	dc.l	0x55555551
+	dc.l	0x33555531
+	dc.l	0x13113311
+	dc.l	0x31111111
 
 	dc.l	0x11131553
 	dc.l	0x22135553
@@ -22521,14 +22325,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x55111111
 
-	dc.l	0x13363111
-	dc.l	0x13331111
-	dc.l	0x11111113
-	dc.l	0x11111133
-	dc.l	0x11111133
+	dc.l	0x55551111
+	dc.l	0x55555111
+	dc.l	0x55555511
+	dc.l	0x51551551
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11223335
+	dc.l	0x11111211
+	dc.l	0x11111121
+	dc.l	0x11111122
 
 	dc.l	0x31111125
 	dc.l	0x33111113
@@ -22557,14 +22361,14 @@ spritesheet_borgus_death:
 	dc.l	0x13313531
 	dc.l	0x13313531
 
-	dc.l	0x13661000
-	dc.l	0x36631000
-	dc.l	0x66611000
-	dc.l	0x36311111
-	dc.l	0x33111161
-	dc.l	0x11111661
-	dc.l	0x11113631
-	dc.l	0x11113331
+	dc.l	0x13313531
+	dc.l	0x13311531
+	dc.l	0x11313531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113531
+	dc.l	0x11113311
+	dc.l	0x11113311
 
 	dc.l	0x52111331
 	dc.l	0x52221113
@@ -22593,14 +22397,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11111112
 
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555555
-	dc.l	0x55555551
-	dc.l	0x33555531
-	dc.l	0x13113311
-	dc.l	0x31111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x11111112
 
 	dc.l	0x33311111
 	dc.l	0x33311111
@@ -22629,14 +22433,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111000
 	dc.l	0x11111000
 
-	dc.l	0x55551111
-	dc.l	0x55555111
-	dc.l	0x55555511
-	dc.l	0x51551551
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111121
-	dc.l	0x11111122
+	dc.l	0x11110000
+	dc.l	0x11110000
+	dc.l	0x11100000
+	dc.l	0x11100000
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111112
 	dc.l	0x11110112
@@ -22665,14 +22469,14 @@ spritesheet_borgus_death:
 	dc.l	0x00001111
 	dc.l	0x00000000
 
-	dc.l	0x13313531
-	dc.l	0x13311531
-	dc.l	0x11313531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113531
-	dc.l	0x11113311
-	dc.l	0x11113311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x21111111
@@ -22701,14 +22505,14 @@ spritesheet_borgus_death:
 	dc.l	0x11000111
 	dc.l	0x00000111
 
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x11111112
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x22221111
@@ -22737,60 +22541,6 @@ spritesheet_borgus_death:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x11110000
-	dc.l	0x11110000
-	dc.l	0x11100000
-	dc.l	0x11100000
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000111
-	dc.l	0x00000100
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -22799,18 +22549,36 @@ spritesheet_borgus_death:
 	dc.l	0x00011111
 	dc.l	0x00011111
 	dc.l	0x00011111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00011111
 	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -22845,80 +22613,80 @@ spritesheet_borgus_death:
 	dc.l	0x31130000
 	dc.l	0x13100000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x13100000
 	dc.l	0x00300000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23061,14 +22829,14 @@ spritesheet_borgus_death:
 	dc.l	0x22222221
 	dc.l	0x22222222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222221
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x22222111
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22222223
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23097,14 +22865,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111101
 	dc.l	0x21111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11212111
+	dc.l	0x12222222
+	dc.l	0x12222222
+	dc.l	0x11112222
+	dc.l	0x12111122
+	dc.l	0x22222111
+	dc.l	0x33322221
+	dc.l	0x33333322
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23133,14 +22901,14 @@ spritesheet_borgus_death:
 	dc.l	0x00101111
 	dc.l	0x11111211
 
-	dc.l	0x22222221
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x22222111
-	dc.l	0x22222222
-	dc.l	0x22222222
-	dc.l	0x22222222
-	dc.l	0x22222223
+	dc.l	0x11222110
+	dc.l	0x22222110
+	dc.l	0x22222100
+	dc.l	0x22221100
+	dc.l	0x22211000
+	dc.l	0x11100000
+	dc.l	0x10001000
+	dc.l	0x11011000
 
 	dc.l	0x12222233
 	dc.l	0x11211233
@@ -23169,14 +22937,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111221
 	dc.l	0x11112110
 
-	dc.l	0x11212111
-	dc.l	0x12222222
-	dc.l	0x12222222
-	dc.l	0x11112222
-	dc.l	0x12111122
-	dc.l	0x22222111
-	dc.l	0x33322221
-	dc.l	0x33333322
+	dc.l	0x11111100
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
+	dc.l	0x11111122
 
 	dc.l	0x33333332
 	dc.l	0x33333333
@@ -23205,14 +22973,14 @@ spritesheet_borgus_death:
 	dc.l	0x10000000
 	dc.l	0x00000000
 
-	dc.l	0x11222110
-	dc.l	0x22222110
-	dc.l	0x22222100
-	dc.l	0x22221100
-	dc.l	0x22211000
-	dc.l	0x11100000
-	dc.l	0x10001000
-	dc.l	0x11011000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x11111122
+	dc.l	0x11111221
+	dc.l	0x22211221
 
 	dc.l	0x21111200
 	dc.l	0x32111000
@@ -23241,14 +23009,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111100
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-	dc.l	0x11111122
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11110000
+	dc.l	0x11221100
+	dc.l	0x13332210
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -23259,15 +23027,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001111
-	dc.l	0x11111122
-	dc.l	0x11111221
-	dc.l	0x22211221
-
 	dc.l	0x22211111
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -23276,15 +23035,6 @@ spritesheet_borgus_death:
 	dc.l	0x11111100
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11110000
-	dc.l	0x11221100
-	dc.l	0x13332210
 
 	dc.l	0x13232210
 	dc.l	0x11222210
@@ -23295,159 +23045,8 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_death_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23475,14 +23074,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000111
 	dc.l	0x00002111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00022111
+	dc.l	0x00022111
+	dc.l	0x00002111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00010111
+	dc.l	0x00000111
+	dc.l	0x00000111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23511,14 +23110,14 @@ spritesheet_borgus_death:
 	dc.l	0x13311111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x13111221
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x13122222
+	dc.l	0x13122222
+	dc.l	0x11122222
+	dc.l	0x31122221
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23547,14 +23146,14 @@ spritesheet_borgus_death:
 	dc.l	0x33333555
 	dc.l	0x13333355
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11333533
+	dc.l	0x11155553
+	dc.l	0x11133355
+	dc.l	0x11111135
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11333311
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23583,14 +23182,14 @@ spritesheet_borgus_death:
 	dc.l	0x53331111
 	dc.l	0x53333111
 
-	dc.l	0x00022111
-	dc.l	0x00022111
-	dc.l	0x00002111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00010111
-	dc.l	0x00000111
-	dc.l	0x00000111
+	dc.l	0x55333315
+	dc.l	0x35553315
+	dc.l	0x33553311
+	dc.l	0x53353311
+	dc.l	0x35535331
+	dc.l	0x35555333
+	dc.l	0x13333331
+	dc.l	0x11123113
 
 	dc.l	0x00000111
 	dc.l	0x00000011
@@ -23619,14 +23218,14 @@ spritesheet_borgus_death:
 	dc.l	0x11133355
 	dc.l	0x11335555
 
-	dc.l	0x11111111
-	dc.l	0x13111221
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x13122222
-	dc.l	0x13122222
-	dc.l	0x11122222
-	dc.l	0x31122221
+	dc.l	0x11133555
+	dc.l	0x11113333
+	dc.l	0x11111113
+	dc.l	0x11121111
+	dc.l	0x01112211
+	dc.l	0x00111111
+	dc.l	0x00000111
+	dc.l	0x00000000
 
 	dc.l	0x33122211
 	dc.l	0x13312111
@@ -23655,14 +23254,14 @@ spritesheet_borgus_death:
 	dc.l	0x55555533
 	dc.l	0x55555553
 
-	dc.l	0x11333533
-	dc.l	0x11155553
-	dc.l	0x11133355
-	dc.l	0x11111135
+	dc.l	0x55555555
+	dc.l	0x35535555
+	dc.l	0x13333333
+	dc.l	0x31333133
+	dc.l	0x11111331
+	dc.l	0x11111133
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11333311
 
 	dc.l	0x13113355
 	dc.l	0x33333555
@@ -23691,14 +23290,14 @@ spritesheet_borgus_death:
 	dc.l	0x53111111
 	dc.l	0x53331111
 
-	dc.l	0x55333315
-	dc.l	0x35553315
-	dc.l	0x33553311
-	dc.l	0x53353311
-	dc.l	0x35535331
-	dc.l	0x35555333
-	dc.l	0x13333331
-	dc.l	0x11123113
+	dc.l	0x55533111
+	dc.l	0x33353311
+	dc.l	0x33333331
+	dc.l	0x33333333
+	dc.l	0x31333333
+	dc.l	0x11113333
+	dc.l	0x11131133
+	dc.l	0x11141111
 
 	dc.l	0x11121113
 	dc.l	0x55111153
@@ -23727,14 +23326,14 @@ spritesheet_borgus_death:
 	dc.l	0x11313335
 	dc.l	0x13355535
 
-	dc.l	0x11133555
-	dc.l	0x11113333
-	dc.l	0x11111113
-	dc.l	0x11121111
-	dc.l	0x01112211
-	dc.l	0x00111111
-	dc.l	0x00000111
-	dc.l	0x00000000
+	dc.l	0x33555555
+	dc.l	0x33555553
+	dc.l	0x33335533
+	dc.l	0x33133331
+	dc.l	0x11111111
+	dc.l	0x33333131
+	dc.l	0x13333133
+	dc.l	0x31131113
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -23763,14 +23362,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000001
 	dc.l	0x00000011
 
-	dc.l	0x55555555
-	dc.l	0x35535555
-	dc.l	0x13333333
-	dc.l	0x31333133
-	dc.l	0x11111331
-	dc.l	0x11111133
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000112
+	dc.l	0x00001211
+	dc.l	0x00001211
+	dc.l	0x00001122
+	dc.l	0x00001122
+	dc.l	0x00001222
+	dc.l	0x00001222
+	dc.l	0x00000122
 
 	dc.l	0x00011111
 	dc.l	0x00000011
@@ -23799,14 +23398,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111122
 	dc.l	0x11321122
 
-	dc.l	0x55533111
-	dc.l	0x33353311
-	dc.l	0x33333331
-	dc.l	0x33333333
-	dc.l	0x31333333
-	dc.l	0x11113333
-	dc.l	0x11131133
-	dc.l	0x11141111
+	dc.l	0x23322211
+	dc.l	0x11222111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x23211111
+	dc.l	0x23312211
+	dc.l	0x22311211
+	dc.l	0x22331121
 
 	dc.l	0x11444411
 	dc.l	0x11114441
@@ -23835,14 +23434,14 @@ spritesheet_borgus_death:
 	dc.l	0x23333122
 	dc.l	0x22322112
 
-	dc.l	0x33555555
-	dc.l	0x33555553
-	dc.l	0x33335533
-	dc.l	0x33133331
+	dc.l	0x11221212
 	dc.l	0x11111111
-	dc.l	0x33333131
-	dc.l	0x13333133
-	dc.l	0x31131113
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
 
 	dc.l	0x11311111
 	dc.l	0x11111111
@@ -23871,14 +23470,14 @@ spritesheet_borgus_death:
 	dc.l	0x12112122
 	dc.l	0x11111222
 
-	dc.l	0x00000112
-	dc.l	0x00001211
-	dc.l	0x00001211
-	dc.l	0x00001122
-	dc.l	0x00001122
-	dc.l	0x00001222
-	dc.l	0x00001222
-	dc.l	0x00000122
+	dc.l	0x11111221
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11011000
+	dc.l	0x00000000
 
 	dc.l	0x00000112
 	dc.l	0x00000011
@@ -23889,15 +23488,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x23322211
-	dc.l	0x11222111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x23211111
-	dc.l	0x23312211
-	dc.l	0x22311211
-	dc.l	0x22331121
-
 	dc.l	0x22331112
 	dc.l	0x22222111
 	dc.l	0x12222323
@@ -23906,15 +23496,6 @@ spritesheet_borgus_death:
 	dc.l	0x01213233
 	dc.l	0x01212233
 	dc.l	0x00111111
-
-	dc.l	0x11221212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
 
 	dc.l	0x11110111
 	dc.l	0x11211133
@@ -23925,15 +23506,6 @@ spritesheet_borgus_death:
 	dc.l	0x11333111
 	dc.l	0x21331110
 
-	dc.l	0x11111221
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11011000
-	dc.l	0x00000000
-
 	dc.l	0x10000000
 	dc.l	0x31000000
 	dc.l	0x53100000
@@ -23942,159 +23514,6 @@ spritesheet_borgus_death:
 	dc.l	0x35100000
 	dc.l	0x33100000
 	dc.l	0x13100000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24123,14 +23542,14 @@ spritesheet_borgus_death:
 	dc.l	0x33333311
 	dc.l	0x13113331
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33315331
+	dc.l	0x55331551
+	dc.l	0x35533553
+	dc.l	0x13553353
+	dc.l	0x13553353
+	dc.l	0x13555355
+	dc.l	0x11355355
+	dc.l	0x31155355
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24159,14 +23578,14 @@ spritesheet_borgus_death:
 	dc.l	0x13335355
 	dc.l	0x33531132
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x13555132
+	dc.l	0x13351533
+	dc.l	0x13331133
+	dc.l	0x11333133
+	dc.l	0x11335335
+	dc.l	0x11335515
+	dc.l	0x31335533
+	dc.l	0x51135551
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24195,14 +23614,14 @@ spritesheet_borgus_death:
 	dc.l	0x11311111
 	dc.l	0x33131111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x55335331
+	dc.l	0x55515553
+	dc.l	0x53111355
+	dc.l	0x33311335
+	dc.l	0x33111113
+	dc.l	0x51351111
+	dc.l	0x55135133
+	dc.l	0x55511155
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24231,14 +23650,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x33315331
-	dc.l	0x55331551
-	dc.l	0x35533553
-	dc.l	0x13553353
-	dc.l	0x13553353
-	dc.l	0x13555355
-	dc.l	0x11355355
-	dc.l	0x31155355
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x33113111
+	dc.l	0x55555311
+	dc.l	0x31133555
+	dc.l	0x13555315
+	dc.l	0x35333353
+	dc.l	0x53353131
 
 	dc.l	0x11155335
 	dc.l	0x11155315
@@ -24267,14 +23686,14 @@ spritesheet_borgus_death:
 	dc.l	0x55553311
 	dc.l	0x55533111
 
-	dc.l	0x13555132
-	dc.l	0x13351533
-	dc.l	0x13331133
-	dc.l	0x11333133
-	dc.l	0x11335335
-	dc.l	0x11335515
-	dc.l	0x31335533
-	dc.l	0x51135551
+	dc.l	0x53331111
+	dc.l	0x33311111
+	dc.l	0x31111333
+	dc.l	0x11311122
+	dc.l	0x11111133
+	dc.l	0x11111111
+	dc.l	0x33111111
+	dc.l	0x31333313
 
 	dc.l	0x51133551
 	dc.l	0x51133551
@@ -24303,14 +23722,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x12221111
 
-	dc.l	0x55335331
-	dc.l	0x55515553
-	dc.l	0x53111355
-	dc.l	0x33311335
-	dc.l	0x33111113
-	dc.l	0x51351111
-	dc.l	0x55135133
-	dc.l	0x55511155
+	dc.l	0x11222111
+	dc.l	0x33122211
+	dc.l	0x33311221
+	dc.l	0x33311121
+	dc.l	0x33311121
+	dc.l	0x31333311
+	dc.l	0x11133513
+	dc.l	0x11111515
 
 	dc.l	0x35553135
 	dc.l	0x35533315
@@ -24339,14 +23758,14 @@ spritesheet_borgus_death:
 	dc.l	0x11513111
 	dc.l	0x11111111
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x33113111
-	dc.l	0x55555311
-	dc.l	0x31133555
-	dc.l	0x13555315
-	dc.l	0x35333353
-	dc.l	0x53353131
+	dc.l	0x51111112
+	dc.l	0x12513211
+	dc.l	0x15252222
+	dc.l	0x12222222
+	dc.l	0x12222222
+	dc.l	0x33513135
+	dc.l	0x13333353
+	dc.l	0x33222333
 
 	dc.l	0x55531311
 	dc.l	0x55531311
@@ -24375,14 +23794,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111132
 	dc.l	0x22111152
 
-	dc.l	0x53331111
-	dc.l	0x33311111
-	dc.l	0x31111333
-	dc.l	0x11311122
-	dc.l	0x11111133
-	dc.l	0x11111111
-	dc.l	0x33111111
-	dc.l	0x31333313
+	dc.l	0x22211132
+	dc.l	0x11111113
+	dc.l	0x22225252
+	dc.l	0x22223553
+	dc.l	0x22255333
+	dc.l	0x35512132
+	dc.l	0x55111311
+	dc.l	0x33111131
 
 	dc.l	0x13313333
 	dc.l	0x33333333
@@ -24411,14 +23830,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111011
 	dc.l	0x11111010
 
-	dc.l	0x11222111
-	dc.l	0x33122211
-	dc.l	0x33311221
-	dc.l	0x33311121
-	dc.l	0x33311121
-	dc.l	0x31333311
-	dc.l	0x11133513
-	dc.l	0x11111515
+	dc.l	0x11110010
+	dc.l	0x11110010
+	dc.l	0x11100010
+	dc.l	0x11100000
+	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x33311111
 	dc.l	0x33333111
@@ -24447,14 +23866,14 @@ spritesheet_borgus_death:
 	dc.l	0x11110111
 	dc.l	0x11110110
 
-	dc.l	0x51111112
-	dc.l	0x12513211
-	dc.l	0x15252222
-	dc.l	0x12222222
-	dc.l	0x12222222
-	dc.l	0x33513135
-	dc.l	0x13333353
-	dc.l	0x33222333
+	dc.l	0x11110110
+	dc.l	0x01010110
+	dc.l	0x01010110
+	dc.l	0x01010110
+	dc.l	0x01000100
+	dc.l	0x01000100
+	dc.l	0x00000100
+	dc.l	0x00000000
 
 	dc.l	0x51111222
 	dc.l	0x11131111
@@ -24483,14 +23902,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11113111
 
-	dc.l	0x22211132
-	dc.l	0x11111113
-	dc.l	0x22225252
-	dc.l	0x22223553
-	dc.l	0x22255333
-	dc.l	0x35512132
-	dc.l	0x55111311
-	dc.l	0x33111131
+	dc.l	0x11113111
+	dc.l	0x10113100
+	dc.l	0x10113100
+	dc.l	0x10111100
+	dc.l	0x10101000
+	dc.l	0x10101000
+	dc.l	0x10101000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x13111111
@@ -24519,60 +23938,6 @@ spritesheet_borgus_death:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x11110010
-	dc.l	0x11110010
-	dc.l	0x11100010
-	dc.l	0x11100000
-	dc.l	0x11000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11110110
-	dc.l	0x01010110
-	dc.l	0x01010110
-	dc.l	0x01010110
-	dc.l	0x01000100
-	dc.l	0x01000100
-	dc.l	0x00000100
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11113111
-	dc.l	0x10113100
-	dc.l	0x10113100
-	dc.l	0x10111100
-	dc.l	0x10101000
-	dc.l	0x10101000
-	dc.l	0x10101000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -24581,127 +23946,37 @@ spritesheet_borgus_death:
 	dc.l	0x00011111
 	dc.l	0x00011111
 	dc.l	0x00011111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00011111
 	dc.l	0x00001111
 	dc.l	0x00000011
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24735,14 +24010,14 @@ spritesheet_borgus_death:
 	dc.l	0x12211000
 	dc.l	0x22211000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22100001
+	dc.l	0x21000000
+	dc.l	0x11000001
+	dc.l	0x11100011
+	dc.l	0x33111111
+	dc.l	0x11111111
+	dc.l	0x31111122
+	dc.l	0x12211222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24771,14 +24046,14 @@ spritesheet_borgus_death:
 	dc.l	0x11211212
 	dc.l	0x11212111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12221111
+	dc.l	0x12222212
+	dc.l	0x12222112
+	dc.l	0x11222211
+	dc.l	0x11122211
+	dc.l	0x11122111
+	dc.l	0x21112112
+	dc.l	0x21111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -24807,14 +24082,14 @@ spritesheet_borgus_death:
 	dc.l	0x12221111
 	dc.l	0x12222111
 
-	dc.l	0x22100001
-	dc.l	0x21000000
-	dc.l	0x11000001
-	dc.l	0x11100011
-	dc.l	0x33111111
-	dc.l	0x11111111
-	dc.l	0x31111122
-	dc.l	0x12211222
+	dc.l	0x12221110
+	dc.l	0x22211100
+	dc.l	0x22111100
+	dc.l	0x22111000
+	dc.l	0x22110000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x10000000
 
 	dc.l	0x11122221
 	dc.l	0x21111222
@@ -24843,14 +24118,14 @@ spritesheet_borgus_death:
 	dc.l	0x22221111
 	dc.l	0x22221111
 
-	dc.l	0x12221111
-	dc.l	0x12222212
-	dc.l	0x12222112
-	dc.l	0x11222211
-	dc.l	0x11122211
-	dc.l	0x11122111
-	dc.l	0x21112112
-	dc.l	0x21111111
+	dc.l	0x22221111
+	dc.l	0x22221111
+	dc.l	0x22213111
+	dc.l	0x21223111
+	dc.l	0x21211111
+	dc.l	0x11211211
+	dc.l	0x11111110
+	dc.l	0x11111111
 
 	dc.l	0x13111111
 	dc.l	0x21111111
@@ -24879,13 +24154,13 @@ spritesheet_borgus_death:
 	dc.l	0x11000000
 	dc.l	0x11000000
 
-	dc.l	0x12221110
-	dc.l	0x22211100
-	dc.l	0x22111100
-	dc.l	0x22111000
-	dc.l	0x22110000
-	dc.l	0x11000000
-	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x10000000
 
 	dc.l	0x00000000
@@ -24915,14 +24190,14 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x22221111
-	dc.l	0x22221111
-	dc.l	0x22213111
-	dc.l	0x21223111
-	dc.l	0x21211111
-	dc.l	0x11211211
-	dc.l	0x11111110
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11222111
 	dc.l	0x11222222
@@ -24951,14 +24226,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111221
 	dc.l	0x11112111
 
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
+	dc.l	0x11111110
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
+	dc.l	0x11111122
 
 	dc.l	0x11110000
 	dc.l	0x12111100
@@ -24987,14 +24262,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
+	dc.l	0x10101111
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x11111122
+	dc.l	0x11111221
+	dc.l	0x22211221
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -25023,14 +24298,14 @@ spritesheet_borgus_death:
 	dc.l	0x11111000
 	dc.l	0x11100000
 
-	dc.l	0x11111110
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-	dc.l	0x11111122
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11110000
+	dc.l	0x11221100
+	dc.l	0x13332210
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -25041,15 +24316,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x10101111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001111
-	dc.l	0x11111122
-	dc.l	0x11111221
-	dc.l	0x22211221
-
 	dc.l	0x22211111
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -25058,15 +24324,6 @@ spritesheet_borgus_death:
 	dc.l	0x11111100
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11110000
-	dc.l	0x11221100
-	dc.l	0x13332210
 
 	dc.l	0x13232210
 	dc.l	0x11222210
@@ -25077,312 +24334,8 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_death_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -25400,114 +24353,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000001
 	dc.l	0x00000011
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000010
-
-	dc.l	0x00000112
-	dc.l	0x00000111
-	dc.l	0x00021111
-	dc.l	0x01111111
-	dc.l	0x11111111
-	dc.l	0x02111112
-	dc.l	0x11111112
-	dc.l	0x11111112
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000111
-	dc.l	0x00000011
-	dc.l	0x00000221
-	dc.l	0x00122222
-	dc.l	0x00112222
-	dc.l	0x12111122
-
-	dc.l	0x22211111
-	dc.l	0x12211221
-	dc.l	0x11112122
-	dc.l	0x11111111
-	dc.l	0x22111111
-	dc.l	0x22211111
-	dc.l	0x11121111
-	dc.l	0x22221122
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x01000000
-	dc.l	0x12200000
-	dc.l	0x11221000
-	dc.l	0x11122111
-	dc.l	0x21111112
-	dc.l	0x21111111
-	dc.l	0x22211111
-
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x11313333
-	dc.l	0x33333113
-	dc.l	0x11211123
-	dc.l	0x22222221
-	dc.l	0x22111111
 
 	dc.l	0x00001111
 	dc.l	0x00011111
@@ -25527,23 +24372,23 @@ spritesheet_borgus_death:
 	dc.l	0x11211113
 	dc.l	0x11111131
 
-	dc.l	0x11111113
-	dc.l	0x11111113
-	dc.l	0x11111233
-	dc.l	0x11111133
-	dc.l	0x11111233
-	dc.l	0x11111122
-	dc.l	0x11111222
-	dc.l	0x11111112
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
 
+	dc.l	0x00000112
+	dc.l	0x00000111
+	dc.l	0x00021111
+	dc.l	0x01111111
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111211
-	dc.l	0x11112111
-	dc.l	0x11121112
-	dc.l	0x11211211
-	dc.l	0x11112211
+	dc.l	0x02111112
+	dc.l	0x11111112
+	dc.l	0x11111112
 
 	dc.l	0x11111122
 	dc.l	0x11111225
@@ -25563,23 +24408,23 @@ spritesheet_borgus_death:
 	dc.l	0x33555533
 	dc.l	0x23399999
 
-	dc.l	0x33559099
-	dc.l	0x53553539
-	dc.l	0x35533555
-	dc.l	0x33555353
-	dc.l	0x33333333
-	dc.l	0x23333333
-	dc.l	0x22333332
-	dc.l	0x22222222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000111
+	dc.l	0x00000011
+	dc.l	0x00000221
+	dc.l	0x00122222
+	dc.l	0x00112222
+	dc.l	0x12111122
 
-	dc.l	0x12222222
-	dc.l	0x11112111
-	dc.l	0x11111221
-	dc.l	0x11111112
-	dc.l	0x21111111
-	dc.l	0x11233231
-	dc.l	0x22223331
-	dc.l	0x11122321
+	dc.l	0x22211111
+	dc.l	0x12211221
+	dc.l	0x11112122
+	dc.l	0x11111111
+	dc.l	0x22111111
+	dc.l	0x22211111
+	dc.l	0x11121111
+	dc.l	0x22221122
 
 	dc.l	0x25511112
 	dc.l	0x55222111
@@ -25599,22 +24444,22 @@ spritesheet_borgus_death:
 	dc.l	0x33333221
 	dc.l	0x99333332
 
-	dc.l	0x99993333
-	dc.l	0x99999933
-	dc.l	0x55599993
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x32322223
-	dc.l	0x22222222
-	dc.l	0x22222222
+	dc.l	0x00000000
+	dc.l	0x01000000
+	dc.l	0x12200000
+	dc.l	0x11221000
+	dc.l	0x11122111
+	dc.l	0x21111112
+	dc.l	0x21111111
+	dc.l	0x22211111
 
-	dc.l	0x22221211
-	dc.l	0x11111212
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11222111
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x11313333
+	dc.l	0x33333113
+	dc.l	0x11211123
+	dc.l	0x22222221
 	dc.l	0x22111111
 
 	dc.l	0x22322111
@@ -25635,23 +24480,23 @@ spritesheet_borgus_death:
 	dc.l	0x21111111
 	dc.l	0x21111111
 
-	dc.l	0x23221111
-	dc.l	0x33122211
-	dc.l	0x33332211
-	dc.l	0x33332211
-	dc.l	0x33333311
-	dc.l	0x23231111
-	dc.l	0x22211111
-	dc.l	0x22111111
+	dc.l	0x11111113
+	dc.l	0x11111113
+	dc.l	0x11111233
+	dc.l	0x11111133
+	dc.l	0x11111233
+	dc.l	0x11111122
+	dc.l	0x11111222
+	dc.l	0x11111112
 
-	dc.l	0x21122211
-	dc.l	0x11122211
-	dc.l	0x11222111
-	dc.l	0x11211111
-	dc.l	0x12111333
-	dc.l	0x11113333
-	dc.l	0x12213335
-	dc.l	0x11213333
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111211
+	dc.l	0x11111211
+	dc.l	0x11112111
+	dc.l	0x11121112
+	dc.l	0x11211211
+	dc.l	0x11112211
 
 	dc.l	0x22211222
 	dc.l	0x22112222
@@ -25671,6 +24516,24 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x33559099
+	dc.l	0x53553539
+	dc.l	0x35533555
+	dc.l	0x33555353
+	dc.l	0x33333333
+	dc.l	0x23333333
+	dc.l	0x22333332
+	dc.l	0x22222222
+
+	dc.l	0x12222222
+	dc.l	0x11112111
+	dc.l	0x11111221
+	dc.l	0x11111112
+	dc.l	0x21111111
+	dc.l	0x11233231
+	dc.l	0x22223331
+	dc.l	0x11122321
+
 	dc.l	0x22211311
 	dc.l	0x32221112
 	dc.l	0x32222211
@@ -25689,6 +24552,24 @@ spritesheet_borgus_death:
 	dc.l	0x01112335
 	dc.l	0x00111311
 
+	dc.l	0x99993333
+	dc.l	0x99999933
+	dc.l	0x55599993
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x32322223
+	dc.l	0x22222222
+	dc.l	0x22222222
+
+	dc.l	0x22221211
+	dc.l	0x11111212
+	dc.l	0x11111111
+	dc.l	0x11111211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11222111
+	dc.l	0x22111111
+
 	dc.l	0x11111221
 	dc.l	0x11111222
 	dc.l	0x11111222
@@ -25706,6 +24587,24 @@ spritesheet_borgus_death:
 	dc.l	0x31111111
 	dc.l	0x11001111
 	dc.l	0x10000000
+
+	dc.l	0x23221111
+	dc.l	0x33122211
+	dc.l	0x33332211
+	dc.l	0x33332211
+	dc.l	0x33333311
+	dc.l	0x23231111
+	dc.l	0x22211111
+	dc.l	0x22111111
+
+	dc.l	0x21122211
+	dc.l	0x11122211
+	dc.l	0x11222111
+	dc.l	0x11211111
+	dc.l	0x12111333
+	dc.l	0x11113333
+	dc.l	0x12213335
+	dc.l	0x11213333
 
 	dc.l	0x21211332
 	dc.l	0x22111111
@@ -25730,312 +24629,6 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x22201010
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -26048,114 +24641,6 @@ spritesheet_borgus_death:
 	dc.l	0x33335522
 	dc.l	0x23333333
 	dc.l	0x11111233
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00020111
-	dc.l	0x00222211
-	dc.l	0x22222222
-	dc.l	0x11222222
-	dc.l	0x11111122
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11211111
-	dc.l	0x11222111
-	dc.l	0x21122151
-	dc.l	0x22111511
-	dc.l	0x21311333
-	dc.l	0x33331133
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000001
-	dc.l	0x11200222
-	dc.l	0x21222222
-	dc.l	0x21111112
-
-	dc.l	0x11211111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11511111
-	dc.l	0x11111211
-	dc.l	0x33333333
-	dc.l	0x11333533
-	dc.l	0x11133353
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x22000000
-	dc.l	0x22210000
-	dc.l	0x11111100
-
-	dc.l	0x12111110
-	dc.l	0x11221110
-	dc.l	0x11122111
-	dc.l	0x11112221
-	dc.l	0x11111121
-	dc.l	0x11111111
-	dc.l	0x55111121
-	dc.l	0x55113111
 
 	dc.l	0x11111111
 	dc.l	0x32111111
@@ -26175,23 +24660,23 @@ spritesheet_borgus_death:
 	dc.l	0x11122222
 	dc.l	0x31122221
 
-	dc.l	0x33122211
-	dc.l	0x13312111
-	dc.l	0x11113112
-	dc.l	0x11111112
-	dc.l	0x12113311
-	dc.l	0x21133333
-	dc.l	0x21333533
-	dc.l	0x11335555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00020111
+	dc.l	0x00222211
+	dc.l	0x22222222
+	dc.l	0x11222222
+	dc.l	0x11111122
 
-	dc.l	0x11133555
-	dc.l	0x11123355
-	dc.l	0x13222335
-	dc.l	0x33322223
-	dc.l	0x33332222
-	dc.l	0x35553333
-	dc.l	0x55555533
-	dc.l	0x33333323
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11211111
+	dc.l	0x11222111
+	dc.l	0x21122151
+	dc.l	0x22111511
+	dc.l	0x21311333
+	dc.l	0x33331133
 
 	dc.l	0x13111113
 	dc.l	0x11111111
@@ -26211,23 +24696,23 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11333311
 
-	dc.l	0x13113355
-	dc.l	0x33333555
-	dc.l	0x33333333
-	dc.l	0x23333333
-	dc.l	0x12333333
-	dc.l	0x11123313
-	dc.l	0x33111111
-	dc.l	0x53533131
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000001
+	dc.l	0x11200222
+	dc.l	0x21222222
+	dc.l	0x21111112
 
-	dc.l	0x55553333
-	dc.l	0x55555333
-	dc.l	0x55555513
-	dc.l	0x55555111
-	dc.l	0x35551111
-	dc.l	0x35111133
-	dc.l	0x33311133
-	dc.l	0x21111343
+	dc.l	0x11211111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11511111
+	dc.l	0x11111211
+	dc.l	0x33333333
+	dc.l	0x11333533
+	dc.l	0x11133353
 
 	dc.l	0x31335311
 	dc.l	0x11135551
@@ -26247,23 +24732,23 @@ spritesheet_borgus_death:
 	dc.l	0x13333331
 	dc.l	0x11123113
 
-	dc.l	0x11121111
-	dc.l	0x55111151
-	dc.l	0x33311153
-	dc.l	0x33311111
-	dc.l	0x33311111
-	dc.l	0x33111111
-	dc.l	0x11111113
-	dc.l	0x11111136
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22000000
+	dc.l	0x22210000
+	dc.l	0x11111100
 
-	dc.l	0x11131366
-	dc.l	0x11111336
+	dc.l	0x12111110
+	dc.l	0x11221110
+	dc.l	0x11122111
+	dc.l	0x11112221
+	dc.l	0x11111121
 	dc.l	0x11111111
-	dc.l	0x11131111
-	dc.l	0x33333111
-	dc.l	0x33331444
-	dc.l	0x33311441
-	dc.l	0x53111111
+	dc.l	0x55111121
+	dc.l	0x55113111
 
 	dc.l	0x32331311
 	dc.l	0x32553353
@@ -26283,23 +24768,23 @@ spritesheet_borgus_death:
 	dc.l	0x13331113
 	dc.l	0x13131136
 
-	dc.l	0x35311111
-	dc.l	0x35311111
-	dc.l	0x55311111
-	dc.l	0x15111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x66111111
-	dc.l	0x66111111
+	dc.l	0x33122211
+	dc.l	0x13312111
+	dc.l	0x11113112
+	dc.l	0x11111112
+	dc.l	0x12113311
+	dc.l	0x21133333
+	dc.l	0x21333533
+	dc.l	0x11335555
 
-	dc.l	0x63111136
-	dc.l	0x31111366
-	dc.l	0x11113663
-	dc.l	0x11111661
-	dc.l	0x41111131
-	dc.l	0x44441111
-	dc.l	0x41144111
-	dc.l	0x11111111
+	dc.l	0x11133555
+	dc.l	0x11123355
+	dc.l	0x13222335
+	dc.l	0x33322223
+	dc.l	0x33332222
+	dc.l	0x35553333
+	dc.l	0x55555533
+	dc.l	0x33333323
 
 	dc.l	0x32321111
 	dc.l	0x11111111
@@ -26319,6 +24804,24 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
+	dc.l	0x13113355
+	dc.l	0x33333555
+	dc.l	0x33333333
+	dc.l	0x23333333
+	dc.l	0x12333333
+	dc.l	0x11123313
+	dc.l	0x33111111
+	dc.l	0x53533131
+
+	dc.l	0x55553333
+	dc.l	0x55555333
+	dc.l	0x55555513
+	dc.l	0x55555111
+	dc.l	0x35551111
+	dc.l	0x35111133
+	dc.l	0x33311133
+	dc.l	0x21111343
+
 	dc.l	0x11131344
 	dc.l	0x11333444
 	dc.l	0x11113444
@@ -26337,6 +24840,24 @@ spritesheet_borgus_death:
 	dc.l	0x11131113
 	dc.l	0x11121311
 
+	dc.l	0x11121111
+	dc.l	0x55111151
+	dc.l	0x33311153
+	dc.l	0x33311111
+	dc.l	0x33311111
+	dc.l	0x33111111
+	dc.l	0x11111113
+	dc.l	0x11111136
+
+	dc.l	0x11131366
+	dc.l	0x11111336
+	dc.l	0x11111111
+	dc.l	0x11131111
+	dc.l	0x33333111
+	dc.l	0x33331444
+	dc.l	0x33311441
+	dc.l	0x53111111
+
 	dc.l	0x33111122
 	dc.l	0x43113111
 	dc.l	0x43113311
@@ -26354,6 +24875,24 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x12111111
+
+	dc.l	0x35311111
+	dc.l	0x35311111
+	dc.l	0x55311111
+	dc.l	0x15111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x66111111
+	dc.l	0x66111111
+
+	dc.l	0x63111136
+	dc.l	0x31111366
+	dc.l	0x11113663
+	dc.l	0x11111661
+	dc.l	0x41111131
+	dc.l	0x44441111
+	dc.l	0x41144111
+	dc.l	0x11111111
 
 	dc.l	0x33351111
 	dc.l	0x11255211
@@ -26385,317 +24924,11 @@ spritesheet_borgus_death:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x11000000
 	dc.l	0x11110100
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x31111111
@@ -26715,23 +24948,23 @@ spritesheet_borgus_death:
 	dc.l	0x35311111
 	dc.l	0x15111111
 
-	dc.l	0x13113331
-	dc.l	0x33133333
-	dc.l	0x31136633
-	dc.l	0x11366631
-	dc.l	0x11666311
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11611113
-	dc.l	0x16611133
-	dc.l	0x31331133
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x10000000
@@ -26751,23 +24984,23 @@ spritesheet_borgus_death:
 	dc.l	0x11223133
 	dc.l	0x11122211
 
-	dc.l	0x11112211
-	dc.l	0x11111133
-	dc.l	0x11111122
-	dc.l	0x11333112
-	dc.l	0x11333311
-	dc.l	0x13663311
-	dc.l	0x13663111
-	dc.l	0x16661111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x16611116
-	dc.l	0x11113316
-	dc.l	0x11111311
-	dc.l	0x31221131
-	dc.l	0x11111131
-	dc.l	0x31111131
-	dc.l	0x31110031
-	dc.l	0x11100011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -26787,23 +25020,23 @@ spritesheet_borgus_death:
 	dc.l	0x33321110
 	dc.l	0x23311110
 
-	dc.l	0x11112311
-	dc.l	0x11333221
-	dc.l	0x33322111
-	dc.l	0x23211111
-	dc.l	0x11111320
-	dc.l	0x11113321
-	dc.l	0x13313311
-	dc.l	0x33311311
+	dc.l	0x13113331
+	dc.l	0x33133333
+	dc.l	0x31136633
+	dc.l	0x11366631
+	dc.l	0x11666311
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
-	dc.l	0x63131111
-	dc.l	0x63131111
-	dc.l	0x11113110
-	dc.l	0x11111000
-	dc.l	0x11111000
-	dc.l	0x10010000
-	dc.l	0x00010000
-	dc.l	0x00010000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11611113
+	dc.l	0x16611133
+	dc.l	0x31331133
 
 	dc.l	0x31111355
 	dc.l	0x11144431
@@ -26823,6 +25056,24 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x11102000
 
+	dc.l	0x11112211
+	dc.l	0x11111133
+	dc.l	0x11111122
+	dc.l	0x11333112
+	dc.l	0x11333311
+	dc.l	0x13663311
+	dc.l	0x13663111
+	dc.l	0x16661111
+
+	dc.l	0x16611116
+	dc.l	0x11113316
+	dc.l	0x11111311
+	dc.l	0x31221131
+	dc.l	0x11111131
+	dc.l	0x31111131
+	dc.l	0x31110031
+	dc.l	0x11100011
+
 	dc.l	0x11100010
 	dc.l	0x33110210
 	dc.l	0x11111310
@@ -26840,6 +25091,24 @@ spritesheet_borgus_death:
 	dc.l	0x11111111
 	dc.l	0x10011100
 	dc.l	0x00000000
+
+	dc.l	0x11112311
+	dc.l	0x11333221
+	dc.l	0x33322111
+	dc.l	0x23211111
+	dc.l	0x11111320
+	dc.l	0x11113321
+	dc.l	0x13313311
+	dc.l	0x33311311
+
+	dc.l	0x63131111
+	dc.l	0x63131111
+	dc.l	0x11113110
+	dc.l	0x11111000
+	dc.l	0x11111000
+	dc.l	0x10010000
+	dc.l	0x00010000
+	dc.l	0x00010000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -26861,8 +25130,10 @@ spritesheet_borgus_death:
 
 
 
+
 spritesheet_borgus_attack:
 
+actor_borgus_sheet_attack_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -26894,19 +25165,10 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000111
+	dc.l	0x00001555
+	dc.l	0x00015555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -26935,14 +25197,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000001
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000111
+	dc.l	0x00001222
+	dc.l	0x00012222
+	dc.l	0x01111222
+	dc.l	0x11111122
+	dc.l	0x55551111
+	dc.l	0x55511111
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -26971,14 +25233,14 @@ spritesheet_borgus_attack:
 	dc.l	0x12221111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11112222
+	dc.l	0x22222222
+	dc.l	0x55552253
+	dc.l	0x22222555
+	dc.l	0x22222253
+	dc.l	0x11122222
+	dc.l	0x11111122
+	dc.l	0x11111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -27007,14 +25269,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111122
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000111
-	dc.l	0x00001555
-	dc.l	0x00015555
+	dc.l	0x22211111
+	dc.l	0x23333311
+	dc.l	0x33333331
+	dc.l	0x33335333
+	dc.l	0x33533553
+	dc.l	0x25553335
+	dc.l	0x22255333
+	dc.l	0x11225533
 
 	dc.l	0x00011511
 	dc.l	0x00011113
@@ -27043,14 +25305,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00001111
 	dc.l	0x00001111
 
-	dc.l	0x00000111
-	dc.l	0x00001222
-	dc.l	0x00012222
-	dc.l	0x01111222
-	dc.l	0x11111122
-	dc.l	0x55551111
-	dc.l	0x55511111
-	dc.l	0x11111111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00001121
+	dc.l	0x00011121
+	dc.l	0x00111121
+	dc.l	0x00111122
+	dc.l	0x01121122
+	dc.l	0x01121222
 
 	dc.l	0x11115555
 	dc.l	0x11555555
@@ -27079,14 +25341,14 @@ spritesheet_borgus_attack:
 	dc.l	0x21333333
 	dc.l	0x21335355
 
-	dc.l	0x11112222
-	dc.l	0x22222222
-	dc.l	0x55552253
-	dc.l	0x22222555
-	dc.l	0x22222253
-	dc.l	0x11122222
-	dc.l	0x11111122
-	dc.l	0x11111111
+	dc.l	0x21335555
+	dc.l	0x11335555
+	dc.l	0x11355555
+	dc.l	0x11355555
+	dc.l	0x11355555
+	dc.l	0x11355553
+	dc.l	0x11353531
+	dc.l	0x11353111
 
 	dc.l	0x33111111
 	dc.l	0x55331111
@@ -27115,14 +25377,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55555553
 	dc.l	0x55555533
 
-	dc.l	0x22211111
-	dc.l	0x23333311
-	dc.l	0x33333331
-	dc.l	0x33335333
-	dc.l	0x33533553
-	dc.l	0x25553335
-	dc.l	0x22255333
-	dc.l	0x11225533
+	dc.l	0x55555533
+	dc.l	0x55555331
+	dc.l	0x55533311
+	dc.l	0x55333111
+	dc.l	0x33311113
+	dc.l	0x31111111
+	dc.l	0x11113111
+	dc.l	0x13311313
 
 	dc.l	0x11122533
 	dc.l	0x11112253
@@ -27151,14 +25413,14 @@ spritesheet_borgus_attack:
 	dc.l	0x31113355
 	dc.l	0x11113353
 
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00001121
-	dc.l	0x00011121
-	dc.l	0x00111121
-	dc.l	0x00111122
-	dc.l	0x01121122
-	dc.l	0x01121222
+	dc.l	0x11111333
+	dc.l	0x11111111
+	dc.l	0x13133313
+	dc.l	0x31153333
+	dc.l	0x31353353
+	dc.l	0x31153555
+	dc.l	0x11153355
+	dc.l	0x11151133
 
 	dc.l	0x01121233
 	dc.l	0x11121233
@@ -27187,14 +25449,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00111313
 	dc.l	0x00011113
 
-	dc.l	0x21335555
-	dc.l	0x11335555
-	dc.l	0x11355555
-	dc.l	0x11355555
-	dc.l	0x11355555
-	dc.l	0x11355553
-	dc.l	0x11353531
-	dc.l	0x11353111
+	dc.l	0x00011111
+	dc.l	0x00111111
+	dc.l	0x00111131
+	dc.l	0x00112211
+	dc.l	0x00112211
+	dc.l	0x00112211
+	dc.l	0x00112211
+	dc.l	0x00012111
 
 	dc.l	0x31131113
 	dc.l	0x31111135
@@ -27223,14 +25485,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33353113
 	dc.l	0x33353313
 
-	dc.l	0x55555533
-	dc.l	0x55555331
-	dc.l	0x55533311
-	dc.l	0x55333111
-	dc.l	0x33311113
-	dc.l	0x31111111
-	dc.l	0x11113111
-	dc.l	0x13311313
+	dc.l	0x33353111
+	dc.l	0x33333311
+	dc.l	0x33333111
+	dc.l	0x33331111
+	dc.l	0x33313333
+	dc.l	0x33333333
+	dc.l	0x13313355
+	dc.l	0x13311355
 
 	dc.l	0x53331333
 	dc.l	0x53311335
@@ -27259,14 +25521,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111333
+	dc.l	0x31111111
 	dc.l	0x11111111
-	dc.l	0x13133313
-	dc.l	0x31153333
-	dc.l	0x31353353
-	dc.l	0x31153555
-	dc.l	0x11153355
-	dc.l	0x11151133
+	dc.l	0x11111111
+	dc.l	0x11122111
+	dc.l	0x11113333
+	dc.l	0x33111333
+	dc.l	0x53113113
+	dc.l	0x53311311
 
 	dc.l	0x13111113
 	dc.l	0x33155311
@@ -27295,14 +25557,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11122222
 
-	dc.l	0x00011111
-	dc.l	0x00111111
-	dc.l	0x00111131
-	dc.l	0x00112211
-	dc.l	0x00112211
-	dc.l	0x00112211
-	dc.l	0x00112211
-	dc.l	0x00012111
+	dc.l	0x11111122
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111112
+	dc.l	0x21111111
+	dc.l	0x33211111
+	dc.l	0x33321111
+	dc.l	0x32332111
 
 	dc.l	0x00011111
 	dc.l	0x00001111
@@ -27331,14 +25593,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00011111
 	dc.l	0x00111112
 
-	dc.l	0x33353111
-	dc.l	0x33333311
-	dc.l	0x33333111
-	dc.l	0x33331111
-	dc.l	0x33313333
-	dc.l	0x33333333
-	dc.l	0x13313355
-	dc.l	0x13311355
+	dc.l	0x01122111
+	dc.l	0x12111111
+	dc.l	0x12111111
+	dc.l	0x11222111
+	dc.l	0x11222311
+	dc.l	0x12222311
+	dc.l	0x12222231
+	dc.l	0x01222233
 
 	dc.l	0x13311355
 	dc.l	0x13331155
@@ -27367,14 +25629,14 @@ spritesheet_borgus_attack:
 	dc.l	0x44411135
 	dc.l	0x14411135
 
-	dc.l	0x31111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11122111
-	dc.l	0x11113333
-	dc.l	0x33111333
-	dc.l	0x53113113
-	dc.l	0x53311311
+	dc.l	0x14111113
+	dc.l	0x21111131
+	dc.l	0x22111113
+	dc.l	0x12111113
+	dc.l	0x12211113
+	dc.l	0x12211111
+	dc.l	0x11221111
+	dc.l	0x11222111
 
 	dc.l	0x55331113
 	dc.l	0x55553331
@@ -27403,14 +25665,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55111211
 	dc.l	0x55111111
 
-	dc.l	0x11111122
-	dc.l	0x11111222
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x21111111
-	dc.l	0x33211111
-	dc.l	0x33321111
-	dc.l	0x32332111
+	dc.l	0x55311111
+	dc.l	0x15311111
+	dc.l	0x15331111
+	dc.l	0x15531111
+	dc.l	0x13533111
+	dc.l	0x13333311
+	dc.l	0x11111111
+	dc.l	0x11011111
 
 	dc.l	0x13333211
 	dc.l	0x11333221
@@ -27439,14 +25701,14 @@ spritesheet_borgus_attack:
 	dc.l	0x21221111
 	dc.l	0x12221111
 
-	dc.l	0x01122111
-	dc.l	0x12111111
-	dc.l	0x12111111
-	dc.l	0x11222111
-	dc.l	0x11222311
-	dc.l	0x12222311
-	dc.l	0x12222231
-	dc.l	0x01222233
+	dc.l	0x12211111
+	dc.l	0x11111111
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11111100
+	dc.l	0x01000000
+	dc.l	0x11000000
+	dc.l	0x10000000
 
 	dc.l	0x01122233
 	dc.l	0x00112222
@@ -27457,15 +25719,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000121
 	dc.l	0x00000011
 
-	dc.l	0x14111113
-	dc.l	0x21111131
-	dc.l	0x22111113
-	dc.l	0x12111113
-	dc.l	0x12211113
-	dc.l	0x12211111
-	dc.l	0x11221111
-	dc.l	0x11222111
-
 	dc.l	0x11112211
 	dc.l	0x21111131
 	dc.l	0x23231111
@@ -27475,15 +25728,6 @@ spritesheet_borgus_attack:
 	dc.l	0x22331133
 	dc.l	0x11112133
 
-	dc.l	0x55311111
-	dc.l	0x15311111
-	dc.l	0x15331111
-	dc.l	0x15531111
-	dc.l	0x13533111
-	dc.l	0x13333311
-	dc.l	0x11111111
-	dc.l	0x11011111
-
 	dc.l	0x01111000
 	dc.l	0x11333100
 	dc.l	0x13355310
@@ -27492,24 +25736,6 @@ spritesheet_borgus_attack:
 	dc.l	0x31223510
 	dc.l	0x31113310
 	dc.l	0x11101310
-
-	dc.l	0x12211111
-	dc.l	0x11111111
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11111100
-	dc.l	0x01000000
-	dc.l	0x11000000
-	dc.l	0x10000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -27547,14 +25773,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22111111
 	dc.l	0x22211111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12131133
+	dc.l	0x11333113
+	dc.l	0x11113113
+	dc.l	0x11113315
+	dc.l	0x11115331
+	dc.l	0x31115533
+	dc.l	0x31111553
+	dc.l	0x33111553
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -27583,14 +25809,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33333333
 	dc.l	0x13333333
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31133353
+	dc.l	0x31113335
+	dc.l	0x33133531
+	dc.l	0x33113555
+	dc.l	0x55113351
+	dc.l	0x55313331
+	dc.l	0x35311333
+	dc.l	0x35311335
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -27619,14 +25845,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11113355
 	dc.l	0x33125515
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33325551
+	dc.l	0x33335311
+	dc.l	0x13533331
+	dc.l	0x13533111
+	dc.l	0x53533316
+	dc.l	0x13553111
+	dc.l	0x13553311
+	dc.l	0x31355135
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -27655,14 +25881,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33111110
 	dc.l	0x53311110
 
-	dc.l	0x12131133
-	dc.l	0x11333113
-	dc.l	0x11113113
-	dc.l	0x11113315
-	dc.l	0x11115331
-	dc.l	0x31115533
-	dc.l	0x31111553
-	dc.l	0x33111553
+	dc.l	0x55531111
+	dc.l	0x13553311
+	dc.l	0x13355555
+	dc.l	0x11135555
+	dc.l	0x61113555
+	dc.l	0x67711331
+	dc.l	0x16771113
+	dc.l	0x11113335
 
 	dc.l	0x33311555
 	dc.l	0x35311155
@@ -27691,14 +25917,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55335331
 	dc.l	0x53315151
 
-	dc.l	0x31133353
-	dc.l	0x31113335
-	dc.l	0x33133531
-	dc.l	0x33113555
-	dc.l	0x55113351
-	dc.l	0x55313331
-	dc.l	0x35311333
-	dc.l	0x35311335
+	dc.l	0x33151111
+	dc.l	0x33121111
+	dc.l	0x11123322
+	dc.l	0x33323333
+	dc.l	0x13332355
+	dc.l	0x11552555
+	dc.l	0x53222225
+	dc.l	0x53553523
 
 	dc.l	0x35511335
 	dc.l	0x35531335
@@ -27727,14 +25953,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33135155
 	dc.l	0x33135151
 
-	dc.l	0x33325551
-	dc.l	0x33335311
-	dc.l	0x13533331
-	dc.l	0x13533111
-	dc.l	0x53533316
-	dc.l	0x13553111
-	dc.l	0x13553311
-	dc.l	0x31355135
+	dc.l	0x33135151
+	dc.l	0x33125351
+	dc.l	0x33125351
+	dc.l	0x13123331
+	dc.l	0x13123351
+	dc.l	0x53123351
+	dc.l	0x35123131
+	dc.l	0x33213131
 
 	dc.l	0x53355513
 	dc.l	0x55135551
@@ -27763,14 +25989,14 @@ spritesheet_borgus_attack:
 	dc.l	0x35113363
 	dc.l	0x35313331
 
-	dc.l	0x55531111
-	dc.l	0x13553311
-	dc.l	0x13355555
-	dc.l	0x11135555
-	dc.l	0x61113555
-	dc.l	0x67711331
-	dc.l	0x16771113
-	dc.l	0x11113335
+	dc.l	0x35311111
+	dc.l	0x53311111
+	dc.l	0x55111111
+	dc.l	0x35311111
+	dc.l	0x33311111
+	dc.l	0x53311222
+	dc.l	0x55331111
+	dc.l	0x55333111
 
 	dc.l	0x51115533
 	dc.l	0x11155335
@@ -27799,14 +26025,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11113661
 	dc.l	0x11136631
 
-	dc.l	0x33151111
-	dc.l	0x33121111
-	dc.l	0x11123322
-	dc.l	0x33323333
-	dc.l	0x13332355
-	dc.l	0x11552555
-	dc.l	0x53222225
-	dc.l	0x53553523
+	dc.l	0x11366611
+	dc.l	0x13336311
+	dc.l	0x13333111
+	dc.l	0x11111111
+	dc.l	0x11111113
+	dc.l	0x22511113
+	dc.l	0x12552111
+	dc.l	0x11312221
 
 	dc.l	0x31353213
 	dc.l	0x11153222
@@ -27835,14 +26061,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22221225
 	dc.l	0x22333322
 
-	dc.l	0x33135151
-	dc.l	0x33125351
-	dc.l	0x33125351
-	dc.l	0x13123331
-	dc.l	0x13123351
-	dc.l	0x53123351
-	dc.l	0x35123131
-	dc.l	0x33213131
+	dc.l	0x33333333
+	dc.l	0x23332252
+	dc.l	0x22223251
+	dc.l	0x22222213
+	dc.l	0x22212135
+	dc.l	0x12122221
+	dc.l	0x11222221
+	dc.l	0x11121221
 
 	dc.l	0x33333132
 	dc.l	0x53531132
@@ -27871,14 +26097,14 @@ spritesheet_borgus_attack:
 	dc.l	0x25533555
 	dc.l	0x32555555
 
-	dc.l	0x35311111
-	dc.l	0x53311111
-	dc.l	0x55111111
-	dc.l	0x35311111
-	dc.l	0x33311111
-	dc.l	0x53311222
-	dc.l	0x55331111
-	dc.l	0x55333111
+	dc.l	0x23251212
+	dc.l	0x21223222
+	dc.l	0x52222223
+	dc.l	0x55211112
+	dc.l	0x11133335
+	dc.l	0x51111115
+	dc.l	0x51311131
+	dc.l	0x51351131
 
 	dc.l	0x35333333
 	dc.l	0x35331133
@@ -27907,14 +26133,14 @@ spritesheet_borgus_attack:
 	dc.l	0x35555331
 	dc.l	0x55555211
 
-	dc.l	0x11366611
-	dc.l	0x13336311
-	dc.l	0x13333111
-	dc.l	0x11111111
-	dc.l	0x11111113
-	dc.l	0x22511113
-	dc.l	0x12552111
-	dc.l	0x11312221
+	dc.l	0x52551231
+	dc.l	0x33512113
+	dc.l	0x22223333
+	dc.l	0x13321131
+	dc.l	0x31131111
+	dc.l	0x11151111
+	dc.l	0x11311111
+	dc.l	0x11111122
 
 	dc.l	0x11152253
 	dc.l	0x31111255
@@ -27943,14 +26169,14 @@ spritesheet_borgus_attack:
 	dc.l	0x21111112
 	dc.l	0x21111111
 
-	dc.l	0x33333333
-	dc.l	0x23332252
-	dc.l	0x22223251
-	dc.l	0x22222213
-	dc.l	0x22212135
-	dc.l	0x12122221
-	dc.l	0x11222221
-	dc.l	0x11121221
+	dc.l	0x31122000
+	dc.l	0x11100000
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11110000
+	dc.l	0x12111100
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -27979,14 +26205,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000011
 	dc.l	0x10000111
 
-	dc.l	0x23251212
-	dc.l	0x21223222
-	dc.l	0x52222223
-	dc.l	0x55211112
-	dc.l	0x11133335
-	dc.l	0x51111115
-	dc.l	0x51311131
-	dc.l	0x51351131
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x31351133
 	dc.l	0x31351133
@@ -28015,14 +26241,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x52551231
-	dc.l	0x33512113
-	dc.l	0x22223333
-	dc.l	0x13321131
-	dc.l	0x31131111
-	dc.l	0x11151111
-	dc.l	0x11311111
-	dc.l	0x11111122
+	dc.l	0x11112111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
 
 	dc.l	0x11111122
 	dc.l	0x11111122
@@ -28051,14 +26277,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111121
 	dc.l	0x11111221
 
-	dc.l	0x31122000
-	dc.l	0x11100000
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11110000
-	dc.l	0x12111100
+	dc.l	0x11112110
+	dc.l	0x11111100
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
 
 	dc.l	0x22222111
 	dc.l	0x33322221
@@ -28087,14 +26313,14 @@ spritesheet_borgus_attack:
 	dc.l	0x21111010
 	dc.l	0x10000000
 
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000100
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x11111122
+	dc.l	0x11111221
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -28104,15 +26330,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x11112111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
 
 	dc.l	0x00011111
 	dc.l	0x00011111
@@ -28122,15 +26339,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x11112110
-	dc.l	0x11111100
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
 
 	dc.l	0x11111122
 	dc.l	0x11111111
@@ -28141,15 +26349,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000111
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001111
-	dc.l	0x11111122
-	dc.l	0x11111221
-
 	dc.l	0x22211221
 	dc.l	0x22211111
 	dc.l	0x11111111
@@ -28157,87 +26356,6 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -28276,6 +26394,78 @@ spritesheet_borgus_attack:
 	dc.l	0x35533100
 	dc.l	0x53111111
 
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11110000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x31131111
 	dc.l	0x11112211
 	dc.l	0x12111122
@@ -28304,13 +26494,13 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11110000
+	dc.l	0x11100000
+	dc.l	0x16100000
+	dc.l	0x66100000
+	dc.l	0x63100000
+	dc.l	0x33100000
+	dc.l	0x33100000
+	dc.l	0x11311000
 
 	dc.l	0x12221000
 	dc.l	0x22221100
@@ -28339,14 +26529,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000000
 	dc.l	0x10000010
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x10000011
+	dc.l	0x10000011
+	dc.l	0x30000012
+	dc.l	0x00000112
+	dc.l	0x00000012
+	dc.l	0x00000112
+	dc.l	0x00000122
+	dc.l	0x00011122
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -28376,13 +26566,13 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x11100000
-	dc.l	0x16100000
-	dc.l	0x66100000
-	dc.l	0x63100000
-	dc.l	0x33100000
-	dc.l	0x33100000
-	dc.l	0x11311000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x21100000
+	dc.l	0x22100000
+	dc.l	0x22100000
+	dc.l	0x22100100
 
 	dc.l	0x11322100
 	dc.l	0x11322210
@@ -28411,14 +26601,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11000000
 	dc.l	0x00000000
 
-	dc.l	0x10000011
-	dc.l	0x10000011
-	dc.l	0x30000012
-	dc.l	0x00000112
-	dc.l	0x00000012
-	dc.l	0x00000112
-	dc.l	0x00000122
-	dc.l	0x00011122
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00012122
 	dc.l	0x00111222
@@ -28448,13 +26638,13 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x21100000
-	dc.l	0x22100000
-	dc.l	0x22100000
-	dc.l	0x22100100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x22200110
 	dc.l	0x22100111
@@ -28525,80 +26715,80 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11110000
 	dc.l	0x11221100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x13332210
 	dc.l	0x13232210
@@ -28627,6 +26817,8 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_borgus_sheet_attack_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -28680,150 +26872,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00100002
-	dc.l	0x00112222
-	dc.l	0x00111222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x01000002
-	dc.l	0x01112222
-	dc.l	0x01111222
-	dc.l	0x21111222
-	dc.l	0x22111122
-	dc.l	0x22111111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000001
-
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00000011
 
 	dc.l	0x00000000
 	dc.l	0x00001002
@@ -28843,23 +26891,23 @@ spritesheet_borgus_attack:
 	dc.l	0x00111222
 	dc.l	0x01111222
 
-	dc.l	0x01111222
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x11111222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111221
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11122222
-	dc.l	0x11122222
-	dc.l	0x11222222
-	dc.l	0x11122222
-	dc.l	0x11222222
-	dc.l	0x11222222
-	dc.l	0x12222222
-	dc.l	0x11222222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100002
+	dc.l	0x00112222
+	dc.l	0x00111222
 
 	dc.l	0x21111222
 	dc.l	0x22111112
@@ -28879,23 +26927,23 @@ spritesheet_borgus_attack:
 	dc.l	0x22222233
 	dc.l	0x22232223
 
-	dc.l	0x22223233
-	dc.l	0x22233333
-	dc.l	0x22133333
-	dc.l	0x22113113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11112111
-	dc.l	0x11223113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x22233111
-	dc.l	0x23323111
-	dc.l	0x22233211
-	dc.l	0x22222211
-	dc.l	0x22222211
-	dc.l	0x22222221
-	dc.l	0x22222221
-	dc.l	0x22222221
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01000002
+	dc.l	0x01112222
+	dc.l	0x01111222
+	dc.l	0x21111222
+	dc.l	0x22111122
+	dc.l	0x22111111
 
 	dc.l	0x22111111
 	dc.l	0x22211111
@@ -28915,59 +26963,59 @@ spritesheet_borgus_attack:
 	dc.l	0x33333551
 	dc.l	0x33335511
 
-	dc.l	0x33335551
-	dc.l	0x33311111
-	dc.l	0x33111111
-	dc.l	0x31131155
-	dc.l	0x11111333
-	dc.l	0x11333333
-	dc.l	0x33311113
-	dc.l	0x33111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
 
-	dc.l	0x33111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x13112222
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00000011
+
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x01111222
 	dc.l	0x11112222
-	dc.l	0x13112222
-	dc.l	0x11312222
-	dc.l	0x11312222
+	dc.l	0x11112222
+	dc.l	0x11111222
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111221
 
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000001
+	dc.l	0x11122222
+	dc.l	0x11122222
+	dc.l	0x11222222
+	dc.l	0x11122222
+	dc.l	0x11222222
+	dc.l	0x11222222
+	dc.l	0x12222222
+	dc.l	0x11222222
 
 	dc.l	0x12222212
 	dc.l	0x11122211
@@ -28987,23 +27035,23 @@ spritesheet_borgus_attack:
 	dc.l	0x00111122
 	dc.l	0x00111222
 
-	dc.l	0x00111222
-	dc.l	0x00011222
-	dc.l	0x00011222
-	dc.l	0x00011122
-	dc.l	0x00011112
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00111111
-
-	dc.l	0x00111111
-	dc.l	0x01111111
-	dc.l	0x01111111
-	dc.l	0x11112122
+	dc.l	0x22223233
+	dc.l	0x22233333
+	dc.l	0x22133333
+	dc.l	0x22113113
 	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11221111
-	dc.l	0x12222111
+	dc.l	0x11111111
+	dc.l	0x11112111
+	dc.l	0x11223113
+
+	dc.l	0x22233111
+	dc.l	0x23323111
+	dc.l	0x22233211
+	dc.l	0x22222211
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22222221
+	dc.l	0x22222221
 
 	dc.l	0x22222121
 	dc.l	0x11222121
@@ -29023,23 +27071,23 @@ spritesheet_borgus_attack:
 	dc.l	0x22222111
 	dc.l	0x22222111
 
-	dc.l	0x22222112
-	dc.l	0x22222112
-	dc.l	0x22221112
-	dc.l	0x22221112
-	dc.l	0x22211122
-	dc.l	0x22211222
-	dc.l	0x22211222
-	dc.l	0x12212221
+	dc.l	0x33335551
+	dc.l	0x33311111
+	dc.l	0x33111111
+	dc.l	0x31131155
+	dc.l	0x11111333
+	dc.l	0x11333333
+	dc.l	0x33311113
+	dc.l	0x33111111
 
-	dc.l	0x11212221
-	dc.l	0x11111221
-	dc.l	0x21211113
-	dc.l	0x22211121
-	dc.l	0x11111122
+	dc.l	0x33111111
+	dc.l	0x11111111
 	dc.l	0x11111222
-	dc.l	0x11111222
-	dc.l	0x11111122
+	dc.l	0x13112222
+	dc.l	0x11112222
+	dc.l	0x13112222
+	dc.l	0x11312222
+	dc.l	0x11312222
 
 	dc.l	0x11111221
 	dc.l	0x11311221
@@ -29059,33 +27107,6 @@ spritesheet_borgus_attack:
 	dc.l	0x22212135
 	dc.l	0x12221335
 
-	dc.l	0x12211335
-	dc.l	0x12123335
-	dc.l	0x11333333
-	dc.l	0x12333333
-	dc.l	0x13333311
-	dc.l	0x13331111
-	dc.l	0x11111133
-	dc.l	0x11113333
-
-	dc.l	0x11111331
-	dc.l	0x33311111
-	dc.l	0x33333311
-	dc.l	0x33333351
-	dc.l	0x13333355
-	dc.l	0x13333335
-	dc.l	0x13333335
-	dc.l	0x21333333
-
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -29097,21 +27118,48 @@ spritesheet_borgus_attack:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000011
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00111222
+	dc.l	0x00011222
+	dc.l	0x00011222
+	dc.l	0x00011122
+	dc.l	0x00011112
 	dc.l	0x00011111
-	dc.l	0x11111122
-	dc.l	0x11111111
+	dc.l	0x00011111
 	dc.l	0x00111111
-	dc.l	0x00000111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000121
-	dc.l	0x00011111
-	dc.l	0x00111132
+	dc.l	0x00111111
+	dc.l	0x01111111
+	dc.l	0x01111111
+	dc.l	0x11112122
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11221111
+	dc.l	0x12222111
 
 	dc.l	0x22221111
 	dc.l	0x12221111
@@ -29131,23 +27179,23 @@ spritesheet_borgus_attack:
 	dc.l	0x00011221
 	dc.l	0x00011221
 
-	dc.l	0x00121221
-	dc.l	0x11212221
-	dc.l	0x11122211
-	dc.l	0x12222211
-	dc.l	0x22111111
-	dc.l	0x11111101
-	dc.l	0x11110000
-	dc.l	0x10000000
+	dc.l	0x22222112
+	dc.l	0x22222112
+	dc.l	0x22221112
+	dc.l	0x22221112
+	dc.l	0x22211122
+	dc.l	0x22211222
+	dc.l	0x22211222
+	dc.l	0x12212221
 
-	dc.l	0x00000001
-	dc.l	0x00000111
-	dc.l	0x00001111
-	dc.l	0x00011112
-	dc.l	0x11112233
-	dc.l	0x11222233
-	dc.l	0x11222333
-	dc.l	0x11222232
+	dc.l	0x11212221
+	dc.l	0x11111221
+	dc.l	0x21211113
+	dc.l	0x22211121
+	dc.l	0x11111122
+	dc.l	0x11111222
+	dc.l	0x11111222
+	dc.l	0x11111122
 
 	dc.l	0x11111112
 	dc.l	0x11111111
@@ -29167,23 +27215,23 @@ spritesheet_borgus_attack:
 	dc.l	0x21222233
 	dc.l	0x21122223
 
-	dc.l	0x11111223
-	dc.l	0x11121222
-	dc.l	0x11111222
-	dc.l	0x11111222
-	dc.l	0x11112122
-	dc.l	0x11211122
-	dc.l	0x11111222
-	dc.l	0x11111222
+	dc.l	0x12211335
+	dc.l	0x12123335
+	dc.l	0x11333333
+	dc.l	0x12333333
+	dc.l	0x13333311
+	dc.l	0x13331111
+	dc.l	0x11111133
+	dc.l	0x11113333
 
-	dc.l	0x11121122
-	dc.l	0x11121122
-	dc.l	0x11121122
-	dc.l	0x11121122
-	dc.l	0x31121112
-	dc.l	0x31221112
-	dc.l	0x31221211
-	dc.l	0x21121111
+	dc.l	0x11111331
+	dc.l	0x33311111
+	dc.l	0x33333311
+	dc.l	0x33333351
+	dc.l	0x13333355
+	dc.l	0x13333335
+	dc.l	0x13333335
+	dc.l	0x21333333
 
 	dc.l	0x21133333
 	dc.l	0x22113333
@@ -29203,23 +27251,23 @@ spritesheet_borgus_attack:
 	dc.l	0x33333321
 	dc.l	0x33333321
 
-	dc.l	0x33333321
-	dc.l	0x33333321
-	dc.l	0x33333321
-	dc.l	0x23333321
-	dc.l	0x23333321
-	dc.l	0x23333121
-	dc.l	0x22332221
-	dc.l	0x33231221
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00011111
+	dc.l	0x11111122
+	dc.l	0x11111111
+	dc.l	0x00111111
+	dc.l	0x00000111
 
-	dc.l	0x33231111
-	dc.l	0x33221111
-	dc.l	0x33321211
-	dc.l	0x33321111
-	dc.l	0x22223311
-	dc.l	0x22133311
-	dc.l	0x21221111
-	dc.l	0x12221111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000121
+	dc.l	0x00011111
+	dc.l	0x00111132
 
 	dc.l	0x01122332
 	dc.l	0x12111122
@@ -29239,6 +27287,24 @@ spritesheet_borgus_attack:
 	dc.l	0x00000121
 	dc.l	0x00000011
 
+	dc.l	0x00121221
+	dc.l	0x11212221
+	dc.l	0x11122211
+	dc.l	0x12222211
+	dc.l	0x22111111
+	dc.l	0x11111101
+	dc.l	0x11110000
+	dc.l	0x10000000
+
+	dc.l	0x00000001
+	dc.l	0x00000111
+	dc.l	0x00001111
+	dc.l	0x00011112
+	dc.l	0x11112233
+	dc.l	0x11222233
+	dc.l	0x11222333
+	dc.l	0x11222232
+
 	dc.l	0x22111122
 	dc.l	0x21111111
 	dc.l	0x11111111
@@ -29256,6 +27322,24 @@ spritesheet_borgus_attack:
 	dc.l	0x32331335
 	dc.l	0x22331133
 	dc.l	0x11112133
+
+	dc.l	0x11111223
+	dc.l	0x11121222
+	dc.l	0x11111222
+	dc.l	0x11111222
+	dc.l	0x11112122
+	dc.l	0x11211122
+	dc.l	0x11111222
+	dc.l	0x11111222
+
+	dc.l	0x11121122
+	dc.l	0x11121122
+	dc.l	0x11121122
+	dc.l	0x11121122
+	dc.l	0x31121112
+	dc.l	0x31221112
+	dc.l	0x31221211
+	dc.l	0x21121111
 
 	dc.l	0x12121111
 	dc.l	0x11111111
@@ -29275,29 +27359,29 @@ spritesheet_borgus_attack:
 	dc.l	0x31113310
 	dc.l	0x11101310
 
+	dc.l	0x33333321
+	dc.l	0x33333321
+	dc.l	0x33333321
+	dc.l	0x23333321
+	dc.l	0x23333321
+	dc.l	0x23333121
+	dc.l	0x22332221
+	dc.l	0x33231221
+
+	dc.l	0x33231111
+	dc.l	0x33221111
+	dc.l	0x33321211
+	dc.l	0x33321111
+	dc.l	0x22223311
+	dc.l	0x22133311
+	dc.l	0x21221111
+	dc.l	0x12221111
+
 	dc.l	0x12211111
 	dc.l	0x11111111
 	dc.l	0x11111110
 	dc.l	0x11111110
 	dc.l	0x11111100
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -29329,23 +27413,23 @@ spritesheet_borgus_attack:
 	dc.l	0x22221111
 	dc.l	0x22222111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222111
+	dc.l	0x12222211
+	dc.l	0x11122222
+	dc.l	0x11112222
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22212222
+	dc.l	0x11222252
+	dc.l	0x11112222
+	dc.l	0x31111221
+	dc.l	0x55511111
+	dc.l	0x55513333
+	dc.l	0x11155333
+	dc.l	0x51111115
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -29365,23 +27449,23 @@ spritesheet_borgus_attack:
 	dc.l	0x12222222
 	dc.l	0x11222222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11122222
+	dc.l	0x11112222
+	dc.l	0x11111222
+	dc.l	0x11111122
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11112221
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22222222
+	dc.l	0x25552533
+	dc.l	0x22222553
+	dc.l	0x22222555
+	dc.l	0x11112222
+	dc.l	0x33111222
+	dc.l	0x33333311
+	dc.l	0x55555533
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -29401,23 +27485,23 @@ spritesheet_borgus_attack:
 	dc.l	0x21111122
 	dc.l	0x22111112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22111112
+	dc.l	0x22111112
+	dc.l	0x22211111
+	dc.l	0x22211111
+	dc.l	0x11221111
+	dc.l	0x11221111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31111111
+	dc.l	0x33111131
+	dc.l	0x35311113
+	dc.l	0x53553115
+	dc.l	0x53335115
+	dc.l	0x25333111
+	dc.l	0x15533311
+	dc.l	0x12533311
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -29437,23 +27521,23 @@ spritesheet_borgus_attack:
 	dc.l	0x22211100
 	dc.l	0x22221110
 
-	dc.l	0x22222111
-	dc.l	0x12222211
-	dc.l	0x11122222
-	dc.l	0x11112222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x22211100
+	dc.l	0x22211100
+	dc.l	0x22221110
+	dc.l	0x22211100
+	dc.l	0x22211100
+	dc.l	0x12221100
+	dc.l	0x22211000
+	dc.l	0x12211000
 
-	dc.l	0x22212222
-	dc.l	0x11222252
-	dc.l	0x11112222
-	dc.l	0x31111221
-	dc.l	0x55511111
-	dc.l	0x55513333
-	dc.l	0x11155333
-	dc.l	0x51111115
+	dc.l	0x11211100
+	dc.l	0x11111000
+	dc.l	0x11111000
+	dc.l	0x33111100
+	dc.l	0x55311100
+	dc.l	0x35533110
+	dc.l	0x33555510
+	dc.l	0x11355511
 
 	dc.l	0x11115333
 	dc.l	0x11111111
@@ -29473,23 +27557,23 @@ spritesheet_borgus_attack:
 	dc.l	0x21133333
 	dc.l	0x11111115
 
-	dc.l	0x11122222
-	dc.l	0x11112222
-	dc.l	0x11111222
-	dc.l	0x11111122
+	dc.l	0x11133333
+	dc.l	0x11133333
+	dc.l	0x11333333
+	dc.l	0x11333333
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11112221
+	dc.l	0x13333313
+	dc.l	0x33333333
+	dc.l	0x33333555
 
-	dc.l	0x22222222
-	dc.l	0x25552533
-	dc.l	0x22222553
-	dc.l	0x22222555
-	dc.l	0x11112222
-	dc.l	0x33111222
-	dc.l	0x33333311
+	dc.l	0x33335555
+	dc.l	0x33555555
+	dc.l	0x35555555
+	dc.l	0x35555555
+	dc.l	0x55555553
 	dc.l	0x55555533
+	dc.l	0x55553331
+	dc.l	0x55533331
 
 	dc.l	0x35553533
 	dc.l	0x11355553
@@ -29509,23 +27593,23 @@ spritesheet_borgus_attack:
 	dc.l	0x55553111
 	dc.l	0x55333111
 
-	dc.l	0x22111112
-	dc.l	0x22111112
-	dc.l	0x22211111
-	dc.l	0x22211111
-	dc.l	0x11221111
-	dc.l	0x11221111
+	dc.l	0x33333113
+	dc.l	0x33331115
+	dc.l	0x33311115
+	dc.l	0x31111133
+	dc.l	0x11111133
 	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x33311113
+	dc.l	0x55333111
 
-	dc.l	0x31111111
-	dc.l	0x33111131
-	dc.l	0x35311113
-	dc.l	0x53553115
-	dc.l	0x53335115
-	dc.l	0x25333111
-	dc.l	0x15533311
-	dc.l	0x12533311
+	dc.l	0x55333111
+	dc.l	0x55331113
+	dc.l	0x55331153
+	dc.l	0x53311133
+	dc.l	0x33111113
+	dc.l	0x31113111
+	dc.l	0x11133131
+	dc.l	0x11233331
 
 	dc.l	0x12253511
 	dc.l	0x31255531
@@ -29545,23 +27629,23 @@ spritesheet_borgus_attack:
 	dc.l	0x11333113
 	dc.l	0x31335511
 
-	dc.l	0x22211100
-	dc.l	0x22211100
-	dc.l	0x22221110
-	dc.l	0x22211100
-	dc.l	0x22211100
-	dc.l	0x12221100
-	dc.l	0x22211000
-	dc.l	0x12211000
+	dc.l	0x31555331
+	dc.l	0x51555331
+	dc.l	0x53553111
+	dc.l	0x53333353
+	dc.l	0x33555555
+	dc.l	0x33335553
+	dc.l	0x33335533
+	dc.l	0x31333331
 
-	dc.l	0x11211100
-	dc.l	0x11111000
-	dc.l	0x11111000
-	dc.l	0x33111100
-	dc.l	0x55311100
-	dc.l	0x35533110
-	dc.l	0x33555510
-	dc.l	0x11355511
+	dc.l	0x11111331
+	dc.l	0x33311111
+	dc.l	0x13333333
+	dc.l	0x13355133
+	dc.l	0x13555115
+	dc.l	0x13355535
+	dc.l	0x11113535
+	dc.l	0x31111313
 
 	dc.l	0x11135511
 	dc.l	0x17113331
@@ -29581,23 +27665,23 @@ spritesheet_borgus_attack:
 	dc.l	0x51111111
 	dc.l	0x31111133
 
-	dc.l	0x11133333
-	dc.l	0x11133333
-	dc.l	0x11333333
-	dc.l	0x11333333
-	dc.l	0x11111111
-	dc.l	0x13333313
-	dc.l	0x33333333
-	dc.l	0x33333555
+	dc.l	0x12211333
+	dc.l	0x12211663
+	dc.l	0x12211663
+	dc.l	0x52211661
+	dc.l	0x52111611
+	dc.l	0x32111113
+	dc.l	0x11110000
+	dc.l	0x51111000
 
-	dc.l	0x33335555
-	dc.l	0x33555555
-	dc.l	0x35555555
-	dc.l	0x35555555
-	dc.l	0x55555553
-	dc.l	0x55555533
-	dc.l	0x55553331
-	dc.l	0x55533331
+	dc.l	0x11110000
+	dc.l	0x33111000
+	dc.l	0x33131122
+	dc.l	0x33331122
+	dc.l	0x55332111
+	dc.l	0x55332111
+	dc.l	0x55132111
+	dc.l	0x53332111
 
 	dc.l	0x33333311
 	dc.l	0x33331111
@@ -29617,23 +27701,23 @@ spritesheet_borgus_attack:
 	dc.l	0x53311333
 	dc.l	0x55331133
 
-	dc.l	0x33333113
-	dc.l	0x33331115
-	dc.l	0x33311115
-	dc.l	0x31111133
-	dc.l	0x11111133
-	dc.l	0x11111111
-	dc.l	0x33311113
-	dc.l	0x55333111
+	dc.l	0x55535111
+	dc.l	0x35555111
+	dc.l	0x35555533
+	dc.l	0x35555553
+	dc.l	0x33355555
+	dc.l	0x13333553
+	dc.l	0x11331333
+	dc.l	0x11131333
 
-	dc.l	0x55333111
-	dc.l	0x55331113
-	dc.l	0x55331153
-	dc.l	0x53311133
-	dc.l	0x33111113
-	dc.l	0x31113111
-	dc.l	0x11133131
-	dc.l	0x11233331
+	dc.l	0x11113133
+	dc.l	0x11111311
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x11211111
 
 	dc.l	0x11111353
 	dc.l	0x11111133
@@ -29653,23 +27737,23 @@ spritesheet_borgus_attack:
 	dc.l	0x55331112
 	dc.l	0x35311123
 
-	dc.l	0x31555331
-	dc.l	0x51555331
-	dc.l	0x53553111
-	dc.l	0x53333353
-	dc.l	0x33555555
-	dc.l	0x33335553
-	dc.l	0x33335533
-	dc.l	0x31333331
+	dc.l	0x31511112
+	dc.l	0x11111111
+	dc.l	0x11113311
+	dc.l	0x53111333
+	dc.l	0x53331133
+	dc.l	0x55331111
+	dc.l	0x33533111
+	dc.l	0x33333313
 
-	dc.l	0x11111331
-	dc.l	0x33311111
-	dc.l	0x13333333
-	dc.l	0x13355133
-	dc.l	0x13555115
-	dc.l	0x13355535
-	dc.l	0x11113535
-	dc.l	0x31111313
+	dc.l	0x33333133
+	dc.l	0x13333133
+	dc.l	0x11333333
+	dc.l	0x21333311
+	dc.l	0x21133331
+	dc.l	0x22111333
+	dc.l	0x22111133
+	dc.l	0x12211111
 
 	dc.l	0x35531111
 	dc.l	0x33355333
@@ -29689,23 +27773,23 @@ spritesheet_borgus_attack:
 	dc.l	0x32231152
 	dc.l	0x22231355
 
-	dc.l	0x12211333
-	dc.l	0x12211663
-	dc.l	0x12211663
-	dc.l	0x52211661
-	dc.l	0x52111611
-	dc.l	0x32111113
-	dc.l	0x11110000
-	dc.l	0x51111000
+	dc.l	0x32331211
+	dc.l	0x22312111
+	dc.l	0x22222111
+	dc.l	0x11221111
+	dc.l	0x11111111
+	dc.l	0x11111333
+	dc.l	0x31311111
+	dc.l	0x33533333
 
-	dc.l	0x11110000
-	dc.l	0x33111000
-	dc.l	0x33131122
-	dc.l	0x33331122
-	dc.l	0x55332111
-	dc.l	0x55332111
-	dc.l	0x55132111
-	dc.l	0x53332111
+	dc.l	0x35555355
+	dc.l	0x35555555
+	dc.l	0x33555555
+	dc.l	0x13555555
+	dc.l	0x11133555
+	dc.l	0x33113113
+	dc.l	0x33131111
+	dc.l	0x33333311
 
 	dc.l	0x53122112
 	dc.l	0x33222532
@@ -29725,23 +27809,23 @@ spritesheet_borgus_attack:
 	dc.l	0x22211312
 	dc.l	0x21111221
 
-	dc.l	0x55535111
-	dc.l	0x35555111
-	dc.l	0x35555533
-	dc.l	0x35555553
-	dc.l	0x33355555
-	dc.l	0x13333553
-	dc.l	0x11331333
-	dc.l	0x11131333
+	dc.l	0x13111222
+	dc.l	0x11111222
+	dc.l	0x11111212
+	dc.l	0x11111111
+	dc.l	0x13111111
+	dc.l	0x11111111
+	dc.l	0x33333111
+	dc.l	0x33533331
 
-	dc.l	0x11113133
-	dc.l	0x11111311
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x11211111
+	dc.l	0x55553333
+	dc.l	0x55533333
+	dc.l	0x55331331
+	dc.l	0x55111111
+	dc.l	0x53111111
+	dc.l	0x31113331
+	dc.l	0x11133333
+	dc.l	0x11122333
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -29761,23 +27845,23 @@ spritesheet_borgus_attack:
 	dc.l	0x10000011
 	dc.l	0x10000111
 
-	dc.l	0x31511112
-	dc.l	0x11111111
-	dc.l	0x11113311
-	dc.l	0x53111333
-	dc.l	0x53331133
-	dc.l	0x55331111
-	dc.l	0x33533111
-	dc.l	0x33333313
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x33333133
-	dc.l	0x13333133
-	dc.l	0x11333333
-	dc.l	0x21333311
-	dc.l	0x21133331
-	dc.l	0x22111333
-	dc.l	0x22111133
-	dc.l	0x12211111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11211111
 	dc.l	0x11111211
@@ -29797,23 +27881,23 @@ spritesheet_borgus_attack:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x32331211
-	dc.l	0x22312111
-	dc.l	0x22222111
-	dc.l	0x11221111
-	dc.l	0x11111111
-	dc.l	0x11111333
-	dc.l	0x31311111
-	dc.l	0x33533333
+	dc.l	0x11112111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
 
-	dc.l	0x35555355
-	dc.l	0x35555555
-	dc.l	0x33555555
-	dc.l	0x13555555
-	dc.l	0x11133555
-	dc.l	0x33113113
-	dc.l	0x33131111
-	dc.l	0x33333311
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11133311
 	dc.l	0x31111133
@@ -29833,23 +27917,23 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x13111222
-	dc.l	0x11111222
-	dc.l	0x11111212
-	dc.l	0x11111111
-	dc.l	0x13111111
-	dc.l	0x11111111
-	dc.l	0x33333111
-	dc.l	0x33533331
+	dc.l	0x11112111
+	dc.l	0x11111100
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
 
-	dc.l	0x55553333
-	dc.l	0x55533333
-	dc.l	0x55331331
-	dc.l	0x55111111
-	dc.l	0x53111111
-	dc.l	0x31113331
-	dc.l	0x11133333
-	dc.l	0x11122333
+	dc.l	0x11111122
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x01111111
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00000000
 
 	dc.l	0x11111223
 	dc.l	0x11112122
@@ -29869,60 +27953,6 @@ spritesheet_borgus_attack:
 	dc.l	0x11444111
 	dc.l	0x11144411
 
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000100
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11112111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11112111
-	dc.l	0x11111100
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-
-	dc.l	0x11111122
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x01111111
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00000000
-
 	dc.l	0x11114412
 	dc.l	0x01111412
 	dc.l	0x00111111
@@ -29939,60 +27969,6 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -30085,23 +28061,23 @@ spritesheet_borgus_attack:
 	dc.l	0x11111100
 	dc.l	0x11111300
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x31131300
+	dc.l	0x11331100
+	dc.l	0x16610100
+	dc.l	0x16610100
+	dc.l	0x11100300
+	dc.l	0x31100000
+	dc.l	0x31000000
+	dc.l	0x31000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x01000000
+	dc.l	0x01000000
+	dc.l	0x01000000
+	dc.l	0x21000000
+	dc.l	0x21000000
+	dc.l	0x13000000
+	dc.l	0x10200000
+	dc.l	0x11200000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30138,42 +28114,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x31131300
-	dc.l	0x11331100
-	dc.l	0x16610100
-	dc.l	0x16610100
-	dc.l	0x11100300
-	dc.l	0x31100000
-	dc.l	0x31000000
-	dc.l	0x31000000
-
-	dc.l	0x01000000
-	dc.l	0x01000000
-	dc.l	0x01000000
-	dc.l	0x21000000
-	dc.l	0x21000000
-	dc.l	0x13000000
-	dc.l	0x10200000
-	dc.l	0x11200000
 
 	dc.l	0x11200000
 	dc.l	0x21200000
@@ -30193,23 +28133,23 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11101110
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11100000
+	dc.l	0x12101101
+	dc.l	0x21222212
+	dc.l	0x21222222
+	dc.l	0x11111111
+	dc.l	0x11111110
+	dc.l	0x11111000
+	dc.l	0x11000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11100000
+	dc.l	0x31110000
+	dc.l	0x33110000
+	dc.l	0x11111000
+	dc.l	0x21111000
+	dc.l	0x12111000
+	dc.l	0x12211100
+	dc.l	0x11211100
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30229,59 +28169,23 @@ spritesheet_borgus_attack:
 	dc.l	0x10000000
 	dc.l	0x00100000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x11100000
-	dc.l	0x12101101
-	dc.l	0x21222212
-	dc.l	0x21222222
-	dc.l	0x11111111
-	dc.l	0x11111110
-	dc.l	0x11111000
+	dc.l	0x01100000
+	dc.l	0x11120000
+	dc.l	0x22100000
 	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x11100000
-	dc.l	0x31110000
-	dc.l	0x33110000
-	dc.l	0x11111000
-	dc.l	0x21111000
-	dc.l	0x12111000
-	dc.l	0x12211100
-	dc.l	0x11211100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11221110
 	dc.l	0x21121110
@@ -30301,22 +28205,22 @@ spritesheet_borgus_attack:
 	dc.l	0x11111313
 	dc.l	0x10111111
 
-	dc.l	0x01100000
-	dc.l	0x11120000
-	dc.l	0x22100000
-	dc.l	0x11000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x10001000
+	dc.l	0x21100000
+	dc.l	0x22211112
+	dc.l	0x12222221
+	dc.l	0x11122111
+	dc.l	0x11111000
+	dc.l	0x11110000
+	dc.l	0x11221100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x13332210
+	dc.l	0x13232210
+	dc.l	0x11222210
+	dc.l	0x11212210
+	dc.l	0x11112100
+	dc.l	0x00111100
+	dc.l	0x00021000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -30339,60 +28243,6 @@ spritesheet_borgus_attack:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x10001000
-	dc.l	0x21100000
-	dc.l	0x22211112
-	dc.l	0x12222221
-	dc.l	0x11122111
-	dc.l	0x11111000
-	dc.l	0x11110000
-	dc.l	0x11221100
-
-	dc.l	0x13332210
-	dc.l	0x13232210
-	dc.l	0x11222210
-	dc.l	0x11212210
-	dc.l	0x11112100
-	dc.l	0x00111100
-	dc.l	0x00021000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x21000000
 	dc.l	0x30000000
 	dc.l	0x00000000
@@ -30409,33 +28259,8 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_attack_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30499,14 +28324,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000002
 	dc.l	0x00010022
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00011222
+	dc.l	0x00111222
+	dc.l	0x00011111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000012
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30535,14 +28360,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11112111
 	dc.l	0x21111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22211111
+	dc.l	0x22211111
+	dc.l	0x21221221
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11112111
+	dc.l	0x12222211
+	dc.l	0x22111223
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30571,14 +28396,14 @@ spritesheet_borgus_attack:
 	dc.l	0x12211111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x22122212
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x33331155
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30607,14 +28432,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000111
 	dc.l	0x00000111
 
-	dc.l	0x00011222
-	dc.l	0x00111222
-	dc.l	0x00011111
-	dc.l	0x00001111
-	dc.l	0x00001111
 	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
 	dc.l	0x00000011
-	dc.l	0x00000012
+	dc.l	0x00000112
+	dc.l	0x00001112
 
 	dc.l	0x00000121
 	dc.l	0x00001111
@@ -30643,14 +28468,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22222122
 	dc.l	0x11222111
 
-	dc.l	0x22211111
-	dc.l	0x22211111
-	dc.l	0x21221221
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11112111
-	dc.l	0x12222211
-	dc.l	0x22111223
+	dc.l	0x11112221
+	dc.l	0x11112222
+	dc.l	0x11122222
+	dc.l	0x11222222
+	dc.l	0x11222222
+	dc.l	0x11222222
 
 	dc.l	0x11111233
 	dc.l	0x11121333
@@ -30680,13 +28505,13 @@ spritesheet_borgus_attack:
 	dc.l	0x12221111
 
 	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22122212
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x33331155
+	dc.l	0x11111222
+	dc.l	0x11111222
+	dc.l	0x12111222
+	dc.l	0x22211222
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22222111
 
 	dc.l	0x33333555
 	dc.l	0x33335511
@@ -30715,14 +28540,14 @@ spritesheet_borgus_attack:
 	dc.l	0x12222222
 	dc.l	0x12222222
 
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00000112
-	dc.l	0x00001112
+	dc.l	0x11112221
+	dc.l	0x11111111
+	dc.l	0x22111111
+	dc.l	0x22331222
+	dc.l	0x23333333
+	dc.l	0x23333333
+	dc.l	0x22333333
+	dc.l	0x11111111
 
 	dc.l	0x00001122
 	dc.l	0x00011121
@@ -30751,14 +28576,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11112221
-	dc.l	0x11112222
-	dc.l	0x11122222
-	dc.l	0x11222222
-	dc.l	0x11222222
-	dc.l	0x11222222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11222222
 	dc.l	0x11112222
@@ -30787,14 +28612,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00001111
 	dc.l	0x00001111
 
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11111222
-	dc.l	0x12111222
-	dc.l	0x22211222
-	dc.l	0x22222222
-	dc.l	0x22222222
-	dc.l	0x22222111
+	dc.l	0x00000012
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000011
 
 	dc.l	0x22222222
 	dc.l	0x11112212
@@ -30823,14 +28648,14 @@ spritesheet_borgus_attack:
 	dc.l	0x12211111
 	dc.l	0x22221111
 
-	dc.l	0x11112221
-	dc.l	0x11111111
+	dc.l	0x22211111
+	dc.l	0x22211111
 	dc.l	0x22111111
-	dc.l	0x22331222
-	dc.l	0x23333333
-	dc.l	0x23333333
-	dc.l	0x22333333
+	dc.l	0x22111111
+	dc.l	0x12111111
 	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11211111
 
 	dc.l	0x11111111
 	dc.l	0x21112122
@@ -30859,14 +28684,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111222
+	dc.l	0x11112222
+	dc.l	0x11122233
+	dc.l	0x11122233
+	dc.l	0x11222333
+	dc.l	0x12222333
+	dc.l	0x22222333
+	dc.l	0x12223333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -30895,14 +28720,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00011111
 	dc.l	0x00111132
 
-	dc.l	0x00000012
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000011
+	dc.l	0x01122332
+	dc.l	0x12111122
+	dc.l	0x12111111
+	dc.l	0x11222111
+	dc.l	0x11222321
+	dc.l	0x12222331
+	dc.l	0x12222231
+	dc.l	0x01222233
 
 	dc.l	0x00000011
 	dc.l	0x00000001
@@ -30931,13 +28756,13 @@ spritesheet_borgus_attack:
 	dc.l	0x11222333
 	dc.l	0x11222222
 
-	dc.l	0x22211111
-	dc.l	0x22211111
-	dc.l	0x22111111
+	dc.l	0x22111222
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 	dc.l	0x22111111
 	dc.l	0x12111111
-	dc.l	0x11111111
-	dc.l	0x11111111
 	dc.l	0x11211111
 
 	dc.l	0x11111111
@@ -30967,14 +28792,14 @@ spritesheet_borgus_attack:
 	dc.l	0x32222211
 	dc.l	0x22111112
 
-	dc.l	0x11111222
-	dc.l	0x11112222
-	dc.l	0x11122233
-	dc.l	0x11122233
-	dc.l	0x11222333
-	dc.l	0x12222333
-	dc.l	0x22222333
-	dc.l	0x12223333
+	dc.l	0x21111121
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111110
+	dc.l	0x11111000
+	dc.l	0x11000000
 
 	dc.l	0x21223333
 	dc.l	0x21223333
@@ -31003,14 +28828,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22333311
 	dc.l	0x23331111
 
-	dc.l	0x01122332
-	dc.l	0x12111122
-	dc.l	0x12111111
-	dc.l	0x11222111
-	dc.l	0x11222321
-	dc.l	0x12222331
-	dc.l	0x12222231
-	dc.l	0x01222233
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
+	dc.l	0x11111000
+	dc.l	0x11100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x01122233
 	dc.l	0x00112222
@@ -31021,15 +28846,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000121
 	dc.l	0x00000011
 
-	dc.l	0x22111222
-	dc.l	0x21111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22111111
-	dc.l	0x12111111
-	dc.l	0x11211111
-
 	dc.l	0x11121111
 	dc.l	0x21111121
 	dc.l	0x23231111
@@ -31039,15 +28855,6 @@ spritesheet_borgus_attack:
 	dc.l	0x22331133
 	dc.l	0x11112133
 
-	dc.l	0x21111121
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111110
-	dc.l	0x11111000
-	dc.l	0x11000000
-
 	dc.l	0x01111000
 	dc.l	0x11333100
 	dc.l	0x13355310
@@ -31056,24 +28863,6 @@ spritesheet_borgus_attack:
 	dc.l	0x31223510
 	dc.l	0x31113310
 	dc.l	0x11101310
-
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
-	dc.l	0x11111000
-	dc.l	0x11100000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31111,14 +28900,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11122221
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x22122222
+	dc.l	0x12222522
+	dc.l	0x11122222
+	dc.l	0x11112212
+	dc.l	0x55111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31147,14 +28936,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111222
 	dc.l	0x11111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122222
+	dc.l	0x22222223
+	dc.l	0x55525333
+	dc.l	0x22225533
+	dc.l	0x22225555
+	dc.l	0x11122225
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31183,14 +28972,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22111112
 	dc.l	0x12211112
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12211111
+	dc.l	0x11111112
+	dc.l	0x11111111
+	dc.l	0x33111111
+	dc.l	0x33313311
+	dc.l	0x53331131
+	dc.l	0x35531153
+	dc.l	0x33351155
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31219,14 +29008,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22111000
 	dc.l	0x22111000
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22122222
-	dc.l	0x12222522
-	dc.l	0x11122222
-	dc.l	0x11112212
-	dc.l	0x55111111
+	dc.l	0x22211000
+	dc.l	0x22110000
+	dc.l	0x22110000
+	dc.l	0x12111000
+	dc.l	0x11110000
+	dc.l	0x11110000
+	dc.l	0x31111000
+	dc.l	0x53111000
 
 	dc.l	0x55111111
 	dc.l	0x11555511
@@ -31257,12 +29046,12 @@ spritesheet_borgus_attack:
 
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x11122222
-	dc.l	0x22222223
-	dc.l	0x55525333
-	dc.l	0x22225533
-	dc.l	0x22225555
-	dc.l	0x11122225
+	dc.l	0x11133211
+	dc.l	0x21333322
+	dc.l	0x33222222
+	dc.l	0x33221121
+	dc.l	0x33111111
+	dc.l	0x11133333
 
 	dc.l	0x11112323
 	dc.l	0x11155331
@@ -31291,14 +29080,14 @@ spritesheet_borgus_attack:
 	dc.l	0x13113311
 	dc.l	0x11111113
 
-	dc.l	0x12211111
-	dc.l	0x11111112
 	dc.l	0x11111111
-	dc.l	0x33111111
-	dc.l	0x33313311
-	dc.l	0x53331131
-	dc.l	0x35531153
-	dc.l	0x33351155
+	dc.l	0x11111111
+	dc.l	0x11113311
+	dc.l	0x23222211
+	dc.l	0x22222222
+	dc.l	0x11122222
+	dc.l	0x11151222
+	dc.l	0x22311132
 
 	dc.l	0x53331113
 	dc.l	0x15333113
@@ -31327,14 +29116,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33112111
 	dc.l	0x31111221
 
-	dc.l	0x22211000
-	dc.l	0x22110000
-	dc.l	0x22110000
-	dc.l	0x12111000
-	dc.l	0x11110000
-	dc.l	0x11110000
-	dc.l	0x31111000
-	dc.l	0x53111000
+	dc.l	0x11111111
+	dc.l	0x11151111
+	dc.l	0x13333111
+	dc.l	0x11113111
+	dc.l	0x22111111
+	dc.l	0x33333331
+	dc.l	0x22251333
+	dc.l	0x22521155
 
 	dc.l	0x55331100
 	dc.l	0x35555100
@@ -31363,14 +29152,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11333335
 	dc.l	0x11133335
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11133211
-	dc.l	0x21333322
-	dc.l	0x33222222
-	dc.l	0x33221121
-	dc.l	0x33111111
 	dc.l	0x11133333
+	dc.l	0x11113333
+	dc.l	0x22113333
+	dc.l	0x22211333
+	dc.l	0x22211111
+	dc.l	0x11221122
+	dc.l	0x11112121
+	dc.l	0x51111111
 
 	dc.l	0x11222322
 	dc.l	0x22223222
@@ -31399,14 +29188,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11221222
 	dc.l	0x11221122
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11113311
-	dc.l	0x23222211
-	dc.l	0x22222222
-	dc.l	0x11122222
-	dc.l	0x11151222
-	dc.l	0x22311132
+	dc.l	0x21121111
+	dc.l	0x31111111
+	dc.l	0x33311111
+	dc.l	0x33332311
+	dc.l	0x33331131
+	dc.l	0x33333221
+	dc.l	0x33323211
+	dc.l	0x33333311
 
 	dc.l	0x22231111
 	dc.l	0x22221311
@@ -31435,14 +29224,14 @@ spritesheet_borgus_attack:
 	dc.l	0x23321231
 	dc.l	0x23321322
 
-	dc.l	0x11111111
-	dc.l	0x11151111
-	dc.l	0x13333111
-	dc.l	0x11113111
-	dc.l	0x22111111
-	dc.l	0x33333331
-	dc.l	0x22251333
-	dc.l	0x22521155
+	dc.l	0x22222332
+	dc.l	0x11222252
+	dc.l	0x11222251
+	dc.l	0x11122213
+	dc.l	0x11112135
+	dc.l	0x11122221
+	dc.l	0x11112221
+	dc.l	0x11111221
 
 	dc.l	0x33225355
 	dc.l	0x11135355
@@ -31471,14 +29260,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11531101
 	dc.l	0x22555552
 
-	dc.l	0x11133333
-	dc.l	0x11113333
-	dc.l	0x22113333
-	dc.l	0x22211333
-	dc.l	0x22211111
-	dc.l	0x11221122
-	dc.l	0x11112121
-	dc.l	0x51111111
+	dc.l	0x33333212
+	dc.l	0x21232223
+	dc.l	0x52223223
+	dc.l	0x55211112
+	dc.l	0x11133335
+	dc.l	0x51111115
+	dc.l	0x51311131
+	dc.l	0x51351131
 
 	dc.l	0x53311111
 	dc.l	0x51311111
@@ -31507,14 +29296,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11101111
 	dc.l	0x15511211
 
-	dc.l	0x21121111
-	dc.l	0x31111111
-	dc.l	0x33311111
-	dc.l	0x33332311
-	dc.l	0x33331131
-	dc.l	0x33333221
-	dc.l	0x33323211
-	dc.l	0x33333311
+	dc.l	0x52522110
+	dc.l	0x32522110
+	dc.l	0x23221100
+	dc.l	0x12221100
+	dc.l	0x31211000
+	dc.l	0x11110000
+	dc.l	0x11111000
+	dc.l	0x12111100
 
 	dc.l	0x33333321
 	dc.l	0x33333321
@@ -31543,14 +29332,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000011
 	dc.l	0x10000111
 
-	dc.l	0x22222332
-	dc.l	0x11222252
-	dc.l	0x11222251
-	dc.l	0x11122213
-	dc.l	0x11112135
-	dc.l	0x11122221
-	dc.l	0x11112221
-	dc.l	0x11111221
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -31579,14 +29368,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11112111
 	dc.l	0x11112111
 
-	dc.l	0x33333212
-	dc.l	0x21232223
-	dc.l	0x52223223
-	dc.l	0x55211112
-	dc.l	0x11133335
-	dc.l	0x51111115
-	dc.l	0x51311131
-	dc.l	0x51351131
+	dc.l	0x11112111
+	dc.l	0x00111111
+	dc.l	0x00111111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
+	dc.l	0x00011111
 
 	dc.l	0x31351133
 	dc.l	0x31351133
@@ -31615,14 +29404,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111121
 	dc.l	0x11111221
 
-	dc.l	0x52522110
-	dc.l	0x32522110
-	dc.l	0x23221100
-	dc.l	0x12221100
-	dc.l	0x31211000
-	dc.l	0x11110000
-	dc.l	0x11111000
-	dc.l	0x12111100
+	dc.l	0x11112110
+	dc.l	0x11111100
+	dc.l	0x11111100
+	dc.l	0x11111110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
 
 	dc.l	0x12222111
 	dc.l	0x13322221
@@ -31651,14 +29440,14 @@ spritesheet_borgus_attack:
 	dc.l	0x21111010
 	dc.l	0x10000000
 
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000100
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+	dc.l	0x00001111
+	dc.l	0x11111122
+	dc.l	0x11111221
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31668,15 +29457,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x11112111
-	dc.l	0x00111111
-	dc.l	0x00111111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
-	dc.l	0x00011111
 
 	dc.l	0x00011111
 	dc.l	0x00011111
@@ -31686,15 +29466,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x11112110
-	dc.l	0x11111100
-	dc.l	0x11111100
-	dc.l	0x11111110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
 
 	dc.l	0x11111122
 	dc.l	0x11111111
@@ -31705,15 +29476,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000111
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001111
-	dc.l	0x11111122
-	dc.l	0x11111221
-
 	dc.l	0x22211221
 	dc.l	0x22211111
 	dc.l	0x11111111
@@ -31721,15 +29483,6 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -31759,14 +29512,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00113314
 	dc.l	0x01113311
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x01133311
+	dc.l	0x11133311
+	dc.l	0x11133331
+	dc.l	0x11333533
+	dc.l	0x11135553
+	dc.l	0x11135555
+	dc.l	0x11113555
+	dc.l	0x01313555
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31795,14 +29548,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000001
 	dc.l	0x10000011
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x10000113
+	dc.l	0x10000111
+	dc.l	0x11011113
+	dc.l	0x11111113
+	dc.l	0x31111113
+	dc.l	0x33131113
+	dc.l	0x33111131
+	dc.l	0x53311133
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -31831,14 +29584,14 @@ spritesheet_borgus_attack:
 	dc.l	0x33333144
 	dc.l	0x33331144
 
-	dc.l	0x01133311
-	dc.l	0x11133311
-	dc.l	0x11133331
-	dc.l	0x11333533
-	dc.l	0x11135553
-	dc.l	0x11135555
-	dc.l	0x11113555
-	dc.l	0x01313555
+	dc.l	0x33333114
+	dc.l	0x33333114
+	dc.l	0x33331111
+	dc.l	0x33331131
+	dc.l	0x13311111
+	dc.l	0x33111110
+	dc.l	0x33111111
+	dc.l	0x13111111
 
 	dc.l	0x01131355
 	dc.l	0x00113133
@@ -31867,14 +29620,14 @@ spritesheet_borgus_attack:
 	dc.l	0x31113355
 	dc.l	0x31113555
 
-	dc.l	0x10000113
-	dc.l	0x10000111
-	dc.l	0x11011113
-	dc.l	0x11111113
-	dc.l	0x31111113
-	dc.l	0x33131113
-	dc.l	0x33111131
-	dc.l	0x53311133
+	dc.l	0x31113355
+	dc.l	0x31111355
+	dc.l	0x31141335
+	dc.l	0x11441135
+	dc.l	0x11444133
+	dc.l	0x21444113
+	dc.l	0x14444413
+	dc.l	0x44444413
 
 	dc.l	0x53311133
 	dc.l	0x55331331
@@ -31903,14 +29656,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55311111
 	dc.l	0x53131111
 
-	dc.l	0x33333114
-	dc.l	0x33333114
-	dc.l	0x33331111
-	dc.l	0x33331131
-	dc.l	0x13311111
-	dc.l	0x33111110
-	dc.l	0x33111111
-	dc.l	0x13111111
+	dc.l	0x53311110
+	dc.l	0x53111110
+	dc.l	0x53112110
+	dc.l	0x33112100
+	dc.l	0x31121100
+	dc.l	0x11111100
+	dc.l	0x11111000
+	dc.l	0x22211000
 
 	dc.l	0x11111110
 	dc.l	0x11111110
@@ -31939,14 +29692,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00110000
 	dc.l	0x00110000
 
-	dc.l	0x31113355
-	dc.l	0x31111355
-	dc.l	0x31141335
-	dc.l	0x11441135
-	dc.l	0x11444133
-	dc.l	0x21444113
-	dc.l	0x14444413
-	dc.l	0x44444413
+	dc.l	0x00110000
+	dc.l	0x00100000
+	dc.l	0x01100000
+	dc.l	0x01100000
+	dc.l	0x01100000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11000000
 
 	dc.l	0x14444111
 	dc.l	0x44444122
@@ -31975,14 +29728,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x53311110
-	dc.l	0x53111110
-	dc.l	0x53112110
-	dc.l	0x33112100
-	dc.l	0x31121100
-	dc.l	0x11111100
-	dc.l	0x11111000
-	dc.l	0x22211000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x22110001
 	dc.l	0x33100001
@@ -32011,14 +29764,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00110000
-	dc.l	0x00100000
-	dc.l	0x01100000
-	dc.l	0x01100000
-	dc.l	0x01100000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x10000000
 	dc.l	0x00000000
@@ -32089,80 +29842,80 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x11110000
 	dc.l	0x11221100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x13332210
 	dc.l	0x13232210
@@ -32191,24 +29944,8 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_borgus_sheet_attack_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -33991,15 +31728,8 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_borgus_sheet_attack_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -34008,132 +31738,6 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000100
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000100
-	dc.l	0x00000110
-	dc.l	0x00000111
-	dc.l	0x00002111
-	dc.l	0x00022211
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -34162,14 +31766,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00015555
 	dc.l	0x00155551
 
-	dc.l	0x00115511
-	dc.l	0x00111111
-	dc.l	0x00111311
-	dc.l	0x00111113
-	dc.l	0x01113333
-	dc.l	0x11333111
-	dc.l	0x13331111
-	dc.l	0x11331111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -34198,14 +31802,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55111111
 	dc.l	0x11111155
 
-	dc.l	0x11111111
-	dc.l	0x11555533
-	dc.l	0x55555555
-	dc.l	0x33355555
-	dc.l	0x33333335
-	dc.l	0x13333333
-	dc.l	0x11333353
-	dc.l	0x11133555
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000100
 
 	dc.l	0x00000111
 	dc.l	0x00000111
@@ -34234,14 +31838,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111222
 	dc.l	0x11111111
 
-	dc.l	0x11115511
-	dc.l	0x31111111
-	dc.l	0x33333111
-	dc.l	0x55333311
-	dc.l	0x55333311
-	dc.l	0x35555331
-	dc.l	0x33555531
-	dc.l	0x55555553
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000100
+	dc.l	0x00000110
+	dc.l	0x00000111
+	dc.l	0x00002111
+	dc.l	0x00022211
 
 	dc.l	0x22222211
 	dc.l	0x12222221
@@ -34270,14 +31874,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22553333
 	dc.l	0x12255333
 
-	dc.l	0x11225333
-	dc.l	0x11122533
-	dc.l	0x11112553
-	dc.l	0x51112255
-	dc.l	0x55111255
-	dc.l	0x11111255
-	dc.l	0x15111225
-	dc.l	0x33511122
+	dc.l	0x00115511
+	dc.l	0x00111111
+	dc.l	0x00111311
+	dc.l	0x00111113
+	dc.l	0x01113333
+	dc.l	0x11333111
+	dc.l	0x13331111
+	dc.l	0x11331111
 
 	dc.l	0x11111111
 	dc.l	0x11111112
@@ -34306,14 +31910,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11122213
 	dc.l	0x12122113
 
-	dc.l	0x12121233
-	dc.l	0x12113333
-	dc.l	0x12123333
-	dc.l	0x22133333
-	dc.l	0x22133311
-	dc.l	0x22111111
-	dc.l	0x21111133
-	dc.l	0x21111113
+	dc.l	0x11111111
+	dc.l	0x11555533
+	dc.l	0x55555555
+	dc.l	0x33355555
+	dc.l	0x33333335
+	dc.l	0x13333333
+	dc.l	0x11333353
+	dc.l	0x11133555
 
 	dc.l	0x11111333
 	dc.l	0x22111111
@@ -34342,14 +31946,14 @@ spritesheet_borgus_attack:
 	dc.l	0x35555333
 	dc.l	0x35333333
 
-	dc.l	0x35333311
-	dc.l	0x33531111
-	dc.l	0x33111333
-	dc.l	0x11155333
-	dc.l	0x11333333
-	dc.l	0x33333311
-	dc.l	0x33111111
-	dc.l	0x31113333
+	dc.l	0x11115511
+	dc.l	0x31111111
+	dc.l	0x33333111
+	dc.l	0x55333311
+	dc.l	0x55333311
+	dc.l	0x35555331
+	dc.l	0x33555531
+	dc.l	0x55555553
 
 	dc.l	0x35555553
 	dc.l	0x11355533
@@ -34378,14 +31982,14 @@ spritesheet_borgus_attack:
 	dc.l	0x31111111
 	dc.l	0x11333131
 
-	dc.l	0x11133331
-	dc.l	0x11113353
-	dc.l	0x11111133
-	dc.l	0x31122111
-	dc.l	0x31112212
-	dc.l	0x11112111
-	dc.l	0x11111111
-	dc.l	0x31111111
+	dc.l	0x11225333
+	dc.l	0x11122533
+	dc.l	0x11112553
+	dc.l	0x51112255
+	dc.l	0x55111255
+	dc.l	0x11111255
+	dc.l	0x15111225
+	dc.l	0x33511122
 
 	dc.l	0x31331122
 	dc.l	0x33313125
@@ -34414,14 +32018,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11533551
 	dc.l	0x11511335
 
-	dc.l	0x31111133
-	dc.l	0x31553111
-	dc.l	0x31335553
-	dc.l	0x21222133
-	dc.l	0x22332231
-	dc.l	0x21233333
-	dc.l	0x11222222
-	dc.l	0x11125333
+	dc.l	0x12121233
+	dc.l	0x12113333
+	dc.l	0x12123333
+	dc.l	0x22133333
+	dc.l	0x22133311
+	dc.l	0x22111111
+	dc.l	0x21111133
+	dc.l	0x21111113
 
 	dc.l	0x21333111
 	dc.l	0x13333333
@@ -34450,14 +32054,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11100000
 	dc.l	0x11100000
 
-	dc.l	0x11110100
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12211121
-	dc.l	0x12211112
-	dc.l	0x01122121
-	dc.l	0x00011111
-	dc.l	0x00111132
+	dc.l	0x35333311
+	dc.l	0x33531111
+	dc.l	0x33111333
+	dc.l	0x11155333
+	dc.l	0x11333333
+	dc.l	0x33333311
+	dc.l	0x33111111
+	dc.l	0x31113333
 
 	dc.l	0x11133355
 	dc.l	0x11113335
@@ -34486,14 +32090,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00011122
 	dc.l	0x00111122
 
-	dc.l	0x11112121
-	dc.l	0x11121111
+	dc.l	0x11133331
+	dc.l	0x11113353
+	dc.l	0x11111133
+	dc.l	0x31122111
+	dc.l	0x31112212
+	dc.l	0x11112111
 	dc.l	0x11111111
-	dc.l	0x12211111
-	dc.l	0x11111111
-	dc.l	0x11111211
-	dc.l	0x11111111
-	dc.l	0x11122112
+	dc.l	0x31111111
 
 	dc.l	0x55311111
 	dc.l	0x55531111
@@ -34522,14 +32126,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11122111
 	dc.l	0x11112111
 
-	dc.l	0x11111112
-	dc.l	0x11121112
-	dc.l	0x11121111
-	dc.l	0x11121121
-	dc.l	0x11121112
-	dc.l	0x11221112
-	dc.l	0x11221211
-	dc.l	0x21121111
+	dc.l	0x31111133
+	dc.l	0x31553111
+	dc.l	0x31335553
+	dc.l	0x21222133
+	dc.l	0x22332231
+	dc.l	0x21233333
+	dc.l	0x11222222
+	dc.l	0x11125333
 
 	dc.l	0x11111122
 	dc.l	0x11111233
@@ -34558,14 +32162,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11333333
 	dc.l	0x11111333
 
-	dc.l	0x11311111
-	dc.l	0x21133333
-	dc.l	0x11113133
-	dc.l	0x11113113
-	dc.l	0x21111111
-	dc.l	0x22111111
-	dc.l	0x21111111
-	dc.l	0x12211111
+	dc.l	0x11110100
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12211121
+	dc.l	0x12211112
+	dc.l	0x01122121
+	dc.l	0x00011111
+	dc.l	0x00111132
 
 	dc.l	0x01122332
 	dc.l	0x12111122
@@ -34585,6 +32189,15 @@ spritesheet_borgus_attack:
 	dc.l	0x00000121
 	dc.l	0x00000011
 
+	dc.l	0x11112121
+	dc.l	0x11121111
+	dc.l	0x11111111
+	dc.l	0x12211111
+	dc.l	0x11111111
+	dc.l	0x11111211
+	dc.l	0x11111111
+	dc.l	0x11122112
+
 	dc.l	0x22111122
 	dc.l	0x21111111
 	dc.l	0x11111111
@@ -34603,6 +32216,15 @@ spritesheet_borgus_attack:
 	dc.l	0x22331133
 	dc.l	0x11112133
 
+	dc.l	0x11111112
+	dc.l	0x11121112
+	dc.l	0x11121111
+	dc.l	0x11121121
+	dc.l	0x11121112
+	dc.l	0x11221112
+	dc.l	0x11221211
+	dc.l	0x21121111
+
 	dc.l	0x12121111
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -34620,6 +32242,15 @@ spritesheet_borgus_attack:
 	dc.l	0x31223510
 	dc.l	0x31113310
 	dc.l	0x11101310
+
+	dc.l	0x11311111
+	dc.l	0x21133333
+	dc.l	0x11113133
+	dc.l	0x11113113
+	dc.l	0x21111111
+	dc.l	0x22111111
+	dc.l	0x21111111
+	dc.l	0x12211111
 
 	dc.l	0x12211111
 	dc.l	0x11111111
@@ -34643,145 +32274,10 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000001
 	dc.l	0x22000001
 	dc.l	0x12220022
 	dc.l	0x12222222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11000000
-	dc.l	0x11122000
-	dc.l	0x21111222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001100
-	dc.l	0x00000110
-	dc.l	0x00000211
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x11222222
 	dc.l	0x11122222
@@ -34810,14 +32306,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11115533
 	dc.l	0x31115533
 
-	dc.l	0x33115553
-	dc.l	0x53111553
-	dc.l	0x53311153
-	dc.l	0x53311153
-	dc.l	0x55311153
-	dc.l	0x55331153
-	dc.l	0x55331353
-	dc.l	0x55531353
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x11122000
+	dc.l	0x21111222
 
 	dc.l	0x22111112
 	dc.l	0x22211111
@@ -34846,14 +32342,14 @@ spritesheet_borgus_attack:
 	dc.l	0x53113331
 	dc.l	0x53113353
 
-	dc.l	0x55113355
-	dc.l	0x55313355
-	dc.l	0x55511355
-	dc.l	0x35511335
-	dc.l	0x15511335
-	dc.l	0x15513355
-	dc.l	0x11513553
-	dc.l	0x11511533
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00001100
+	dc.l	0x00000110
+	dc.l	0x00000211
 
 	dc.l	0x20002221
 	dc.l	0x22222222
@@ -34882,14 +32378,14 @@ spritesheet_borgus_attack:
 	dc.l	0x35533111
 	dc.l	0x13551351
 
-	dc.l	0x33555135
-	dc.l	0x51355511
-	dc.l	0x53135553
-	dc.l	0x53135533
-	dc.l	0x33155355
-	dc.l	0x33155353
-	dc.l	0x31153111
-	dc.l	0x11351113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x10000000
 	dc.l	0x11000000
@@ -34918,14 +32414,14 @@ spritesheet_borgus_attack:
 	dc.l	0x67711133
 	dc.l	0x11133355
 
-	dc.l	0x11155333
-	dc.l	0x11553351
-	dc.l	0x13555521
-	dc.l	0x15555221
-	dc.l	0x35532212
-	dc.l	0x55331122
-	dc.l	0x35311311
-	dc.l	0x35311111
+	dc.l	0x33115553
+	dc.l	0x53111553
+	dc.l	0x53311153
+	dc.l	0x53311153
+	dc.l	0x55311153
+	dc.l	0x55331153
+	dc.l	0x55331353
+	dc.l	0x55531353
 
 	dc.l	0x25535353
 	dc.l	0x22555333
@@ -34954,14 +32450,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11555552
 	dc.l	0x11535332
 
-	dc.l	0x11513112
-	dc.l	0x11113332
-	dc.l	0x33313155
-	dc.l	0x35555555
-	dc.l	0x13551111
-	dc.l	0x33353111
-	dc.l	0x32353111
-	dc.l	0x33351151
+	dc.l	0x55113355
+	dc.l	0x55313355
+	dc.l	0x55511355
+	dc.l	0x35511335
+	dc.l	0x15511335
+	dc.l	0x15513355
+	dc.l	0x11513553
+	dc.l	0x11511533
 
 	dc.l	0x11511533
 	dc.l	0x31531531
@@ -34990,14 +32486,14 @@ spritesheet_borgus_attack:
 	dc.l	0x51231315
 	dc.l	0x32131315
 
-	dc.l	0x33331323
-	dc.l	0x35311323
-	dc.l	0x55533321
-	dc.l	0x23335533
-	dc.l	0x11555535
-	dc.l	0x51522251
-	dc.l	0x11551122
-	dc.l	0x13111121
+	dc.l	0x33555135
+	dc.l	0x51355511
+	dc.l	0x53135553
+	dc.l	0x53135533
+	dc.l	0x33155355
+	dc.l	0x33155353
+	dc.l	0x31153111
+	dc.l	0x11351113
 
 	dc.l	0x11331136
 	dc.l	0x13311166
@@ -35026,14 +32522,14 @@ spritesheet_borgus_attack:
 	dc.l	0x53311111
 	dc.l	0x53331111
 
-	dc.l	0x53333331
-	dc.l	0x53311333
-	dc.l	0x51113131
-	dc.l	0x11111113
-	dc.l	0x32211121
-	dc.l	0x22211521
-	dc.l	0x32312331
-	dc.l	0x21322211
+	dc.l	0x11155333
+	dc.l	0x11553351
+	dc.l	0x13555521
+	dc.l	0x15555221
+	dc.l	0x35532212
+	dc.l	0x55331122
+	dc.l	0x35311311
+	dc.l	0x35311111
 
 	dc.l	0x15111111
 	dc.l	0x13111331
@@ -35062,14 +32558,14 @@ spritesheet_borgus_attack:
 	dc.l	0x25521113
 	dc.l	0x13122211
 
-	dc.l	0x11522531
-	dc.l	0x11112551
-	dc.l	0x11512222
-	dc.l	0x21111222
-	dc.l	0x21101122
-	dc.l	0x21100111
-	dc.l	0x21100031
-	dc.l	0x21100031
+	dc.l	0x11513112
+	dc.l	0x11113332
+	dc.l	0x33313155
+	dc.l	0x35555555
+	dc.l	0x13551111
+	dc.l	0x33353111
+	dc.l	0x32353111
+	dc.l	0x33351151
 
 	dc.l	0x25553222
 	dc.l	0x22335535
@@ -35098,14 +32594,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x33111111
-	dc.l	0x31331111
-	dc.l	0x33335311
-	dc.l	0x55555531
-	dc.l	0x35555553
-	dc.l	0x13335555
-	dc.l	0x11333333
-	dc.l	0x31111313
+	dc.l	0x33331323
+	dc.l	0x35311323
+	dc.l	0x55533321
+	dc.l	0x23335533
+	dc.l	0x11555535
+	dc.l	0x51522251
+	dc.l	0x11551122
+	dc.l	0x13111121
 
 	dc.l	0x55251253
 	dc.l	0x55555553
@@ -35134,14 +32630,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11112111
 	dc.l	0x11112211
 
-	dc.l	0x11111211
-	dc.l	0x11111211
-	dc.l	0x11111211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x33111111
-	dc.l	0x13111111
-	dc.l	0x11311111
+	dc.l	0x53333331
+	dc.l	0x53311333
+	dc.l	0x51113131
+	dc.l	0x11111113
+	dc.l	0x32211121
+	dc.l	0x22211521
+	dc.l	0x32312331
+	dc.l	0x21322211
 
 	dc.l	0x32221211
 	dc.l	0x35332111
@@ -35170,14 +32666,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111221
 	dc.l	0x11111111
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111122
-	dc.l	0x11111121
-	dc.l	0x11111221
+	dc.l	0x11522531
+	dc.l	0x11112551
+	dc.l	0x11512222
+	dc.l	0x21111222
+	dc.l	0x21101122
+	dc.l	0x21100111
+	dc.l	0x21100031
+	dc.l	0x21100031
 
 	dc.l	0x21000001
 	dc.l	0x11100001
@@ -35206,14 +32702,14 @@ spritesheet_borgus_attack:
 	dc.l	0x22111333
 	dc.l	0x11111331
 
-	dc.l	0x11111312
-	dc.l	0x11111112
-	dc.l	0x11111112
-	dc.l	0x11111112
-	dc.l	0x11111112
-	dc.l	0x22111112
-	dc.l	0x21111312
-	dc.l	0x10000112
+	dc.l	0x33111111
+	dc.l	0x31331111
+	dc.l	0x33335311
+	dc.l	0x55555531
+	dc.l	0x35555553
+	dc.l	0x13335555
+	dc.l	0x11333333
+	dc.l	0x31111313
 
 	dc.l	0x11441111
 	dc.l	0x14444111
@@ -35233,6 +32729,15 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111211
+	dc.l	0x11111211
+	dc.l	0x11111211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x33111111
+	dc.l	0x13111111
+	dc.l	0x11311111
+
 	dc.l	0x35355513
 	dc.l	0x13555553
 	dc.l	0x13135555
@@ -35251,6 +32756,15 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111122
+	dc.l	0x11111121
+	dc.l	0x11111221
+
 	dc.l	0x11112111
 	dc.l	0x33111111
 	dc.l	0x33333311
@@ -35268,6 +32782,15 @@ spritesheet_borgus_attack:
 	dc.l	0x00001111
 	dc.l	0x00000111
 	dc.l	0x00000000
+
+	dc.l	0x11111312
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x22111112
+	dc.l	0x21111312
+	dc.l	0x10000112
 
 	dc.l	0x00000001
 	dc.l	0x00000000
@@ -35316,105 +32839,6 @@ spritesheet_borgus_attack:
 
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x10000000
 	dc.l	0x31000000
 	dc.l	0x31000000
@@ -35422,14 +32846,14 @@ spritesheet_borgus_attack:
 	dc.l	0x55331110
 	dc.l	0x31111111
 
-	dc.l	0x11311111
-	dc.l	0x11122112
-	dc.l	0x21111222
-	dc.l	0x22211122
-	dc.l	0x22222111
-	dc.l	0x22112233
-	dc.l	0x22211111
-	dc.l	0x11223111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -35458,14 +32882,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000000
 	dc.l	0x11100000
 
-	dc.l	0x22211000
-	dc.l	0x22211110
-	dc.l	0x21131211
-	dc.l	0x11131111
-	dc.l	0x31332111
-	dc.l	0x33321111
-	dc.l	0x23311111
-	dc.l	0x11112211
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -35494,14 +32918,14 @@ spritesheet_borgus_attack:
 	dc.l	0x00010000
 	dc.l	0x00010000
 
-	dc.l	0x00010000
-	dc.l	0x00011000
-	dc.l	0x00011000
-	dc.l	0x00001000
-	dc.l	0x10011000
-	dc.l	0x10001000
-	dc.l	0x10001000
-	dc.l	0x10001100
+	dc.l	0x11311111
+	dc.l	0x11122112
+	dc.l	0x21111222
+	dc.l	0x22211122
+	dc.l	0x22222111
+	dc.l	0x22112233
+	dc.l	0x22211111
+	dc.l	0x11223111
 
 	dc.l	0x11112233
 	dc.l	0x11111222
@@ -35530,14 +32954,14 @@ spritesheet_borgus_attack:
 	dc.l	0x31112222
 	dc.l	0x13112222
 
-	dc.l	0x13112222
-	dc.l	0x13112223
-	dc.l	0x10112233
-	dc.l	0x10111233
-	dc.l	0x10111233
-	dc.l	0x30111333
-	dc.l	0x30011355
-	dc.l	0x00111355
+	dc.l	0x22211000
+	dc.l	0x22211110
+	dc.l	0x21131211
+	dc.l	0x11131111
+	dc.l	0x31332111
+	dc.l	0x33321111
+	dc.l	0x23311111
+	dc.l	0x11112211
 
 	dc.l	0x11333221
 	dc.l	0x33322111
@@ -35566,14 +32990,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11222123
 	dc.l	0x21111123
 
-	dc.l	0x21101123
-	dc.l	0x32111123
-	dc.l	0x32111223
-	dc.l	0x33211233
-	dc.l	0x33311235
-	dc.l	0x35331335
-	dc.l	0x55331355
-	dc.l	0x55331355
+	dc.l	0x00010000
+	dc.l	0x00011000
+	dc.l	0x00011000
+	dc.l	0x00001000
+	dc.l	0x10011000
+	dc.l	0x10001000
+	dc.l	0x10001000
+	dc.l	0x10001100
 
 	dc.l	0x10001100
 	dc.l	0x10001100
@@ -35602,14 +33026,14 @@ spritesheet_borgus_attack:
 	dc.l	0x53311221
 	dc.l	0x55331221
 
-	dc.l	0x55331221
-	dc.l	0x55331121
-	dc.l	0x55531121
-	dc.l	0x55531121
-	dc.l	0x55531121
-	dc.l	0x55531121
-	dc.l	0x55331121
-	dc.l	0x55331111
+	dc.l	0x13112222
+	dc.l	0x13112223
+	dc.l	0x10112233
+	dc.l	0x10111233
+	dc.l	0x10111233
+	dc.l	0x30111333
+	dc.l	0x30011355
+	dc.l	0x00111355
 
 	dc.l	0x00011335
 	dc.l	0x00011135
@@ -35638,14 +33062,14 @@ spritesheet_borgus_attack:
 	dc.l	0x11111111
 	dc.l	0x11112111
 
-	dc.l	0x11112211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111113
-	dc.l	0x21111113
-	dc.l	0x21010113
-	dc.l	0x21000113
-	dc.l	0x22100133
+	dc.l	0x21101123
+	dc.l	0x32111123
+	dc.l	0x32111223
+	dc.l	0x33211233
+	dc.l	0x33311235
+	dc.l	0x35331335
+	dc.l	0x55331355
+	dc.l	0x55331355
 
 	dc.l	0x55331555
 	dc.l	0x53311555
@@ -35674,14 +33098,14 @@ spritesheet_borgus_attack:
 	dc.l	0x13133111
 	dc.l	0x11333111
 
-	dc.l	0x13353111
-	dc.l	0x33553111
-	dc.l	0x55553111
+	dc.l	0x55331221
+	dc.l	0x55331121
 	dc.l	0x55531121
-	dc.l	0x55533111
-	dc.l	0x55331114
-	dc.l	0x53311444
-	dc.l	0x31111443
+	dc.l	0x55531121
+	dc.l	0x55531121
+	dc.l	0x55531121
+	dc.l	0x55331121
+	dc.l	0x55331111
 
 	dc.l	0x55311111
 	dc.l	0x53311110
@@ -35710,14 +33134,14 @@ spritesheet_borgus_attack:
 	dc.l	0x10000000
 	dc.l	0x11000000
 
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x11000000
+	dc.l	0x11112211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111113
+	dc.l	0x21111113
+	dc.l	0x21010113
+	dc.l	0x21000113
+	dc.l	0x22100133
 
 	dc.l	0x12211133
 	dc.l	0x01111111
@@ -35737,6 +33161,15 @@ spritesheet_borgus_attack:
 	dc.l	0x01111000
 	dc.l	0x00000000
 
+	dc.l	0x13353111
+	dc.l	0x33553111
+	dc.l	0x55553111
+	dc.l	0x55531121
+	dc.l	0x55533111
+	dc.l	0x55331114
+	dc.l	0x53311444
+	dc.l	0x31111443
+
 	dc.l	0x13111433
 	dc.l	0x33111433
 	dc.l	0x53141333
@@ -35755,6 +33188,15 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x11000000
+
 	dc.l	0x11100000
 	dc.l	0x11100000
 	dc.l	0x11100000
@@ -35772,11 +33214,13 @@ spritesheet_borgus_attack:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 
 spritesheet_borgus_spit:
 
+actor_borgus_sheet_spit_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -37559,15 +35003,8 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
+actor_borgus_sheet_spit_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -37576,132 +35013,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00100002
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000002
-	dc.l	0x10000022
-	dc.l	0x11122222
-	dc.l	0x11112222
-	dc.l	0x21111222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11122000
-	dc.l	0x11112220
-	dc.l	0x21112222
-	dc.l	0x21111222
-	dc.l	0x22111122
-	dc.l	0x22211111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -37730,14 +35041,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00111111
 	dc.l	0x00011111
 
-	dc.l	0x00011131
-	dc.l	0x00011111
-	dc.l	0x00111131
-	dc.l	0x01111133
-	dc.l	0x01111113
-	dc.l	0x01131111
-	dc.l	0x11131113
-	dc.l	0x01131311
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100002
 
 	dc.l	0x00112222
 	dc.l	0x00111222
@@ -37766,14 +35077,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11212111
 
-	dc.l	0x12211111
-	dc.l	0x12222211
-	dc.l	0x12222211
-	dc.l	0x12222211
-	dc.l	0x12222111
-	dc.l	0x11221111
-	dc.l	0x11221111
-	dc.l	0x31121113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x10000022
+	dc.l	0x11122222
+	dc.l	0x11112222
+	dc.l	0x21111222
 
 	dc.l	0x22111122
 	dc.l	0x22111111
@@ -37802,14 +35113,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33335555
 	dc.l	0x11111355
 
-	dc.l	0x11111133
-	dc.l	0x11111111
-	dc.l	0x11333333
-	dc.l	0x33333555
-	dc.l	0x11115553
-	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33333333
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11122000
+	dc.l	0x11112220
+	dc.l	0x21112222
+	dc.l	0x21111222
+	dc.l	0x22111122
+	dc.l	0x22211111
 
 	dc.l	0x22221111
 	dc.l	0x22222111
@@ -37838,14 +35149,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55331113
 	dc.l	0x53333311
 
-	dc.l	0x33311111
-	dc.l	0x12111111
-	dc.l	0x31111311
-	dc.l	0x53111311
-	dc.l	0x33111311
-	dc.l	0x33115331
-	dc.l	0x31115331
-	dc.l	0x11115531
+	dc.l	0x00011131
+	dc.l	0x00011111
+	dc.l	0x00111131
+	dc.l	0x01111133
+	dc.l	0x01111113
+	dc.l	0x01131111
+	dc.l	0x11131113
+	dc.l	0x01131311
 
 	dc.l	0x01131311
 	dc.l	0x00111111
@@ -37874,14 +35185,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11221333
 	dc.l	0x11113333
 
-	dc.l	0x11121333
-	dc.l	0x11122133
-	dc.l	0x11222133
-	dc.l	0x01222133
-	dc.l	0x00122213
-	dc.l	0x00112211
-	dc.l	0x00011221
-	dc.l	0x00001122
+	dc.l	0x12211111
+	dc.l	0x12222211
+	dc.l	0x12222211
+	dc.l	0x12222211
+	dc.l	0x12222111
+	dc.l	0x11221111
+	dc.l	0x11221111
+	dc.l	0x31121113
 
 	dc.l	0x13113113
 	dc.l	0x11111111
@@ -37910,14 +35221,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111133
 	dc.l	0x33311113
 
-	dc.l	0x33351111
-	dc.l	0x33355111
-	dc.l	0x33335531
-	dc.l	0x33335533
-	dc.l	0x33333553
+	dc.l	0x11111133
+	dc.l	0x11111111
+	dc.l	0x11333333
 	dc.l	0x33333555
-	dc.l	0x13333355
-	dc.l	0x11333355
+	dc.l	0x11115553
+	dc.l	0x33333333
+	dc.l	0x33333333
+	dc.l	0x33333333
 
 	dc.l	0x33331311
 	dc.l	0x11111111
@@ -37946,14 +35257,14 @@ spritesheet_borgus_spit:
 	dc.l	0x35555311
 	dc.l	0x33555531
 
-	dc.l	0x33555533
-	dc.l	0x33355533
-	dc.l	0x13335553
-	dc.l	0x11333553
-	dc.l	0x31133353
-	dc.l	0x35111315
-	dc.l	0x55111111
-	dc.l	0x55533111
+	dc.l	0x33311111
+	dc.l	0x12111111
+	dc.l	0x31111311
+	dc.l	0x53111311
+	dc.l	0x33111311
+	dc.l	0x33115331
+	dc.l	0x31115331
+	dc.l	0x11115531
 
 	dc.l	0x11125531
 	dc.l	0x11122551
@@ -37982,14 +35293,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11112222
 	dc.l	0x11112223
 
-	dc.l	0x12211223
-	dc.l	0x11111122
-	dc.l	0x11111122
-	dc.l	0x31112122
-	dc.l	0x11111122
-	dc.l	0x11111112
-	dc.l	0x11111111
-	dc.l	0x13311111
+	dc.l	0x11121333
+	dc.l	0x11122133
+	dc.l	0x11222133
+	dc.l	0x01222133
+	dc.l	0x00122213
+	dc.l	0x00112211
+	dc.l	0x00011221
+	dc.l	0x00001122
 
 	dc.l	0x00000112
 	dc.l	0x00000011
@@ -38018,14 +35329,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000100
 	dc.l	0x00001110
 
-	dc.l	0x00001110
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00001111
-	dc.l	0x00000111
-	dc.l	0x00002111
-	dc.l	0x00000111
-	dc.l	0x00000011
+	dc.l	0x33351111
+	dc.l	0x33355111
+	dc.l	0x33335531
+	dc.l	0x33335533
+	dc.l	0x33333553
+	dc.l	0x33333555
+	dc.l	0x13333355
+	dc.l	0x11333355
 
 	dc.l	0x21133355
 	dc.l	0x21111333
@@ -38054,14 +35365,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000012
 	dc.l	0x00000112
 
-	dc.l	0x00000122
-	dc.l	0x00001121
-	dc.l	0x00011121
-	dc.l	0x10111211
-	dc.l	0x11111111
-	dc.l	0x11211122
-	dc.l	0x11111122
-	dc.l	0x11321122
+	dc.l	0x33555533
+	dc.l	0x33355533
+	dc.l	0x13335553
+	dc.l	0x11333553
+	dc.l	0x31133353
+	dc.l	0x35111315
+	dc.l	0x55111111
+	dc.l	0x55533111
 
 	dc.l	0x55553531
 	dc.l	0x55555533
@@ -38090,14 +35401,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22211111
 	dc.l	0x12111111
 
-	dc.l	0x12111112
+	dc.l	0x12211223
+	dc.l	0x11111122
+	dc.l	0x11111122
+	dc.l	0x31112122
+	dc.l	0x11111122
 	dc.l	0x11111112
-	dc.l	0x11111112
-	dc.l	0x11121112
-	dc.l	0x22333112
-	dc.l	0x22333122
-	dc.l	0x23333122
-	dc.l	0x22322112
+	dc.l	0x11111111
+	dc.l	0x13311111
 
 	dc.l	0x11333111
 	dc.l	0x31133111
@@ -38126,14 +35437,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12222231
 	dc.l	0x12223323
 
-	dc.l	0x11223323
-	dc.l	0x11223322
-	dc.l	0x11223332
-	dc.l	0x11223332
-	dc.l	0x11122222
-	dc.l	0x11122213
-	dc.l	0x12112122
-	dc.l	0x11111222
+	dc.l	0x00001110
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00001111
+	dc.l	0x00000111
+	dc.l	0x00002111
+	dc.l	0x00000111
+	dc.l	0x00000011
 
 	dc.l	0x00000112
 	dc.l	0x00001211
@@ -38153,6 +35464,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x00000122
+	dc.l	0x00001121
+	dc.l	0x00011121
+	dc.l	0x10111211
+	dc.l	0x11111111
+	dc.l	0x11211122
+	dc.l	0x11111122
+	dc.l	0x11321122
+
 	dc.l	0x23322211
 	dc.l	0x11222111
 	dc.l	0x11111111
@@ -38171,6 +35491,15 @@ spritesheet_borgus_spit:
 	dc.l	0x01212233
 	dc.l	0x00111111
 
+	dc.l	0x12111112
+	dc.l	0x11111112
+	dc.l	0x11111112
+	dc.l	0x11121112
+	dc.l	0x22333112
+	dc.l	0x22333122
+	dc.l	0x23333122
+	dc.l	0x22322112
+
 	dc.l	0x11221212
 	dc.l	0x11111111
 	dc.l	0x12111111
@@ -38188,6 +35517,15 @@ spritesheet_borgus_spit:
 	dc.l	0x13353122
 	dc.l	0x11333111
 	dc.l	0x21331110
+
+	dc.l	0x11223323
+	dc.l	0x11223322
+	dc.l	0x11223332
+	dc.l	0x11223332
+	dc.l	0x11122222
+	dc.l	0x11122213
+	dc.l	0x12112122
+	dc.l	0x11111222
 
 	dc.l	0x11111221
 	dc.l	0x11111111
@@ -38208,33 +35546,6 @@ spritesheet_borgus_spit:
 	dc.l	0x13100000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x00100000
 	dc.l	0x00111000
 	dc.l	0x02211122
@@ -38242,114 +35553,6 @@ spritesheet_borgus_spit:
 	dc.l	0x22222111
 	dc.l	0x22222211
 	dc.l	0x22222222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x22200000
-	dc.l	0x11220002
-	dc.l	0x11122222
-	dc.l	0x11111222
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x21100000
-	dc.l	0x22110000
-	dc.l	0x22211000
-	dc.l	0x22211100
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x12222222
 	dc.l	0x11222222
@@ -38378,14 +35581,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55355313
 	dc.l	0x55355511
 
-	dc.l	0x55335511
-	dc.l	0x55315511
-	dc.l	0x15315513
-	dc.l	0x15311513
-	dc.l	0x15311511
-	dc.l	0x15311511
-	dc.l	0x33331531
-	dc.l	0x32531531
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x22200000
+	dc.l	0x11220002
+	dc.l	0x11122222
+	dc.l	0x11111222
 
 	dc.l	0x21111122
 	dc.l	0x22111112
@@ -38414,14 +35617,14 @@ spritesheet_borgus_spit:
 	dc.l	0x35551555
 	dc.l	0x35551355
 
-	dc.l	0x33551355
-	dc.l	0x33531553
-	dc.l	0x35533155
-	dc.l	0x55331153
-	dc.l	0x53311351
-	dc.l	0x53311331
-	dc.l	0x53113311
-	dc.l	0x53113111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x21100000
+	dc.l	0x22110000
+	dc.l	0x22211000
+	dc.l	0x22211100
 
 	dc.l	0x22211100
 	dc.l	0x22221110
@@ -38450,14 +35653,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11155533
 	dc.l	0x53135555
 
-	dc.l	0x33155553
-	dc.l	0x55355331
-	dc.l	0x35355331
-	dc.l	0x11135311
-	dc.l	0x11335311
-	dc.l	0x13615111
-	dc.l	0x16613111
-	dc.l	0x16133113
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -38486,14 +35689,14 @@ spritesheet_borgus_spit:
 	dc.l	0x53131122
 	dc.l	0x31311111
 
-	dc.l	0x13112211
-	dc.l	0x11122222
-	dc.l	0x12222112
-	dc.l	0x31122211
-	dc.l	0x11111223
-	dc.l	0x11111112
-	dc.l	0x33111111
-	dc.l	0x33311111
+	dc.l	0x55335511
+	dc.l	0x55315511
+	dc.l	0x15315513
+	dc.l	0x15311513
+	dc.l	0x15311511
+	dc.l	0x15311511
+	dc.l	0x33331531
+	dc.l	0x32531531
 
 	dc.l	0x32532532
 	dc.l	0x32532551
@@ -38522,14 +35725,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22211111
 	dc.l	0x33322221
 
-	dc.l	0x33333333
-	dc.l	0x31333555
-	dc.l	0x33311333
-	dc.l	0x22333333
-	dc.l	0x22222333
-	dc.l	0x22233333
-	dc.l	0x11223313
-	dc.l	0x12211111
+	dc.l	0x33551355
+	dc.l	0x33531553
+	dc.l	0x35533155
+	dc.l	0x55331153
+	dc.l	0x53311351
+	dc.l	0x53311331
+	dc.l	0x53113311
+	dc.l	0x53113111
 
 	dc.l	0x33113111
 	dc.l	0x23135111
@@ -38558,14 +35761,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12323111
 	dc.l	0x12131111
 
-	dc.l	0x12121111
-	dc.l	0x31113313
-	dc.l	0x55555555
-	dc.l	0x33535335
-	dc.l	0x13353553
-	dc.l	0x11333355
-	dc.l	0x33333335
-	dc.l	0x33533133
+	dc.l	0x33155553
+	dc.l	0x55355331
+	dc.l	0x35355331
+	dc.l	0x11135311
+	dc.l	0x11335311
+	dc.l	0x13615111
+	dc.l	0x16613111
+	dc.l	0x16133113
 
 	dc.l	0x11131136
 	dc.l	0x11111166
@@ -38594,14 +35797,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111155
 	dc.l	0x11111111
 
-	dc.l	0x11111113
-	dc.l	0x13133535
-	dc.l	0x53555555
-	dc.l	0x55555555
-	dc.l	0x35553555
-	dc.l	0x55555555
-	dc.l	0x13135355
-	dc.l	0x33353551
+	dc.l	0x13112211
+	dc.l	0x11122222
+	dc.l	0x12222112
+	dc.l	0x31122211
+	dc.l	0x11111223
+	dc.l	0x11111112
+	dc.l	0x33111111
+	dc.l	0x33311111
 
 	dc.l	0x63311111
 	dc.l	0x63111133
@@ -38630,14 +35833,14 @@ spritesheet_borgus_spit:
 	dc.l	0x53112111
 	dc.l	0x11112111
 
-	dc.l	0x55151111
-	dc.l	0x55532111
-	dc.l	0x55513211
-	dc.l	0x55252211
-	dc.l	0x53553212
-	dc.l	0x55333211
-	dc.l	0x12132111
-	dc.l	0x31311111
+	dc.l	0x33333333
+	dc.l	0x31333555
+	dc.l	0x33311333
+	dc.l	0x22333333
+	dc.l	0x22222333
+	dc.l	0x22233333
+	dc.l	0x11223313
+	dc.l	0x12211111
 
 	dc.l	0x11111111
 	dc.l	0x11111131
@@ -38666,14 +35869,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111441
 	dc.l	0x11114444
 
-	dc.l	0x11114444
-	dc.l	0x11111444
-	dc.l	0x11111144
-	dc.l	0x11111114
-	dc.l	0x33111111
-	dc.l	0x33111111
-	dc.l	0x11111011
-	dc.l	0x11111001
+	dc.l	0x12121111
+	dc.l	0x31113313
+	dc.l	0x55555555
+	dc.l	0x33535335
+	dc.l	0x13353553
+	dc.l	0x11333355
+	dc.l	0x33333335
+	dc.l	0x33533133
 
 	dc.l	0x11515332
 	dc.l	0x11115531
@@ -38702,14 +35905,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11135355
 	dc.l	0x11113555
 
-	dc.l	0x11313135
-	dc.l	0x41111111
-	dc.l	0x44111111
-	dc.l	0x44111111
-	dc.l	0x44411101
-	dc.l	0x14413101
-	dc.l	0x11413311
-	dc.l	0x11111333
+	dc.l	0x11111113
+	dc.l	0x13133535
+	dc.l	0x53555555
+	dc.l	0x55555555
+	dc.l	0x35553555
+	dc.l	0x55555555
+	dc.l	0x13135355
+	dc.l	0x33353551
 
 	dc.l	0x22333332
 	dc.l	0x11222223
@@ -38738,14 +35941,14 @@ spritesheet_borgus_spit:
 	dc.l	0x51311111
 	dc.l	0x55333111
 
-	dc.l	0x55533333
-	dc.l	0x11155333
-	dc.l	0x33313331
-	dc.l	0x11313311
-	dc.l	0x11111111
-	dc.l	0x01000011
-	dc.l	0x01000111
-	dc.l	0x11112211
+	dc.l	0x55151111
+	dc.l	0x55532111
+	dc.l	0x55513211
+	dc.l	0x55252211
+	dc.l	0x53553212
+	dc.l	0x55333211
+	dc.l	0x12132111
+	dc.l	0x31311111
 
 	dc.l	0x21131111
 	dc.l	0x11111111
@@ -38774,14 +35977,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x31111111
-	dc.l	0x11111111
-	dc.l	0x10000111
-	dc.l	0x01121111
-	dc.l	0x11122111
-	dc.l	0x11122111
-	dc.l	0x11112111
-	dc.l	0x11112111
+	dc.l	0x11114444
+	dc.l	0x11111444
+	dc.l	0x11111144
+	dc.l	0x11111114
+	dc.l	0x33111111
+	dc.l	0x33111111
+	dc.l	0x11111011
+	dc.l	0x11111001
 
 	dc.l	0x11110000
 	dc.l	0x11110000
@@ -38800,6 +36003,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x11313135
+	dc.l	0x41111111
+	dc.l	0x44111111
+	dc.l	0x44111111
+	dc.l	0x44411101
+	dc.l	0x14413101
+	dc.l	0x11413311
+	dc.l	0x11111333
 
 	dc.l	0x01111133
 	dc.l	0x00111111
@@ -38819,6 +36031,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x55533333
+	dc.l	0x11155333
+	dc.l	0x33313331
+	dc.l	0x11313311
+	dc.l	0x11111111
+	dc.l	0x01000011
+	dc.l	0x01000111
+	dc.l	0x11112211
+
 	dc.l	0x33331311
 	dc.l	0x33111100
 	dc.l	0x11000000
@@ -38837,6 +36058,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x31111111
+	dc.l	0x11111111
+	dc.l	0x10000111
+	dc.l	0x01121111
+	dc.l	0x11122111
+	dc.l	0x11122111
+	dc.l	0x11112111
+	dc.l	0x11112111
+
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00011111
@@ -38849,105 +36079,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00011111
 	dc.l	0x00001111
 	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -38990,6 +36121,78 @@ spritesheet_borgus_spit:
 	dc.l	0x11222211
 	dc.l	0x22221131
 
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x12211131
 	dc.l	0x11131332
 	dc.l	0x23333321
@@ -38998,78 +36201,6 @@ spritesheet_borgus_spit:
 	dc.l	0x23311333
 	dc.l	0x22233322
 	dc.l	0x12223211
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-	dc.l	0x21000000
-	dc.l	0x22000000
-	dc.l	0x11000000
-	dc.l	0x11000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x31111113
@@ -39098,14 +36229,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11100012
 	dc.l	0x10000001
 
-	dc.l	0x11000001
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x11111010
-	dc.l	0x22121111
-	dc.l	0x22222221
-	dc.l	0x22222222
-	dc.l	0x12222221
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x21000000
+	dc.l	0x22000000
+	dc.l	0x11000000
+	dc.l	0x11000000
 
 	dc.l	0x30000000
 	dc.l	0x30000000
@@ -39134,50 +36265,50 @@ spritesheet_borgus_spit:
 	dc.l	0x22110000
 	dc.l	0x12210000
 
-	dc.l	0x11210000
-	dc.l	0x01210000
-	dc.l	0x00111000
-	dc.l	0x00110000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x11000001
 	dc.l	0x11100000
-	dc.l	0x11111101
-	dc.l	0x21111112
-	dc.l	0x11212111
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00101111
-	dc.l	0x11111211
-	dc.l	0x11222110
+	dc.l	0x11110000
+	dc.l	0x11111010
+	dc.l	0x22121111
+	dc.l	0x22222221
+	dc.l	0x22222222
+	dc.l	0x12222221
 
 	dc.l	0x11122212
 	dc.l	0x11111111
@@ -39206,14 +36337,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111121
 	dc.l	0x11111211
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11111121
-	dc.l	0x11211221
-	dc.l	0x11112110
+	dc.l	0x11210000
+	dc.l	0x01210000
+	dc.l	0x00111000
+	dc.l	0x00110000
+	dc.l	0x11100000
+	dc.l	0x11111101
+	dc.l	0x21111112
+	dc.l	0x11212111
 
 	dc.l	0x12222222
 	dc.l	0x22222222
@@ -39242,14 +36373,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x11221111
-	dc.l	0x22111111
-	dc.l	0x21111010
-	dc.l	0x10100000
 	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00101111
+	dc.l	0x11111211
+	dc.l	0x11222110
 
 	dc.l	0x22222110
 	dc.l	0x22222100
@@ -39278,14 +36409,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111110
-	dc.l	0x12111100
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x01010000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111222
+	dc.l	0x11111121
+	dc.l	0x11211221
+	dc.l	0x11112110
 
 	dc.l	0x11111100
 	dc.l	0x11111100
@@ -39305,6 +36436,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x11221111
+	dc.l	0x22111111
+	dc.l	0x21111010
+	dc.l	0x10100000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -39320,6 +36460,15 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x11111110
+	dc.l	0x12111100
+	dc.l	0x11100000
+	dc.l	0x11110000
+	dc.l	0x01010000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -39341,6 +36490,8 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_borgus_sheet_spit_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -39421,141 +36572,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000001
-	dc.l	0x00000111
-	dc.l	0x00001111
-	dc.l	0x00011111
-	dc.l	0x00111111
-	dc.l	0x01111222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -39584,14 +36600,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00011131
 	dc.l	0x00011111
 
-	dc.l	0x00111131
-	dc.l	0x01111113
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11122211
-	dc.l	0x11122111
-	dc.l	0x11121113
-	dc.l	0x21211333
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -39620,14 +36636,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12222221
 	dc.l	0x12222211
 
-	dc.l	0x12222211
-	dc.l	0x12221113
-	dc.l	0x22211111
-	dc.l	0x22111131
-	dc.l	0x11113333
-	dc.l	0x11133333
-	dc.l	0x33311333
-	dc.l	0x33331133
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000001
 	dc.l	0x00000111
@@ -39656,14 +36672,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12113355
 	dc.l	0x11113355
 
-	dc.l	0x11111355
-	dc.l	0x01111335
-	dc.l	0x11111335
-	dc.l	0x01111333
-	dc.l	0x01111333
-	dc.l	0x01111313
-	dc.l	0x00111313
-	dc.l	0x00111313
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000111
+	dc.l	0x00001111
+	dc.l	0x00011111
+	dc.l	0x00111111
+	dc.l	0x01111222
 
 	dc.l	0x11121222
 	dc.l	0x11211221
@@ -39692,14 +36708,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55313355
 	dc.l	0x55313355
 
-	dc.l	0x55513355
-	dc.l	0x55511335
-	dc.l	0x55511135
-	dc.l	0x55531315
-	dc.l	0x55531315
-	dc.l	0x35551511
-	dc.l	0x33553111
-	dc.l	0x33353113
+	dc.l	0x00111131
+	dc.l	0x01111113
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11122211
+	dc.l	0x11122111
+	dc.l	0x11121113
+	dc.l	0x21211333
 
 	dc.l	0x11133333
 	dc.l	0x11333333
@@ -39728,14 +36744,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55311111
 	dc.l	0x55311111
 
-	dc.l	0x53311111
-	dc.l	0x53111111
-	dc.l	0x53111111
-	dc.l	0x33111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11100121
-	dc.l	0x11101111
+	dc.l	0x12222211
+	dc.l	0x12221113
+	dc.l	0x22211111
+	dc.l	0x22111131
+	dc.l	0x11113333
+	dc.l	0x11133333
+	dc.l	0x33311333
+	dc.l	0x33331133
 
 	dc.l	0x33333313
 	dc.l	0x33333131
@@ -39764,14 +36780,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11221222
 	dc.l	0x11211221
 
-	dc.l	0x21111111
-	dc.l	0x11111111
-	dc.l	0x11111222
-	dc.l	0x11222222
-	dc.l	0x11222211
-	dc.l	0x12221111
-	dc.l	0x11211122
-	dc.l	0x11112221
+	dc.l	0x11111355
+	dc.l	0x01111335
+	dc.l	0x11111335
+	dc.l	0x01111333
+	dc.l	0x01111333
+	dc.l	0x01111313
+	dc.l	0x00111313
+	dc.l	0x00111313
 
 	dc.l	0x00011113
 	dc.l	0x00011111
@@ -39800,14 +36816,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000011
 	dc.l	0x00000111
 
-	dc.l	0x00000113
-	dc.l	0x00001113
-	dc.l	0x00000113
-	dc.l	0x00001113
-	dc.l	0x00001113
-	dc.l	0x00001113
-	dc.l	0x00001113
-	dc.l	0x00001111
+	dc.l	0x55513355
+	dc.l	0x55511335
+	dc.l	0x55511135
+	dc.l	0x55531315
+	dc.l	0x55531315
+	dc.l	0x35551511
+	dc.l	0x33553111
+	dc.l	0x33353113
 
 	dc.l	0x33353313
 	dc.l	0x33353111
@@ -39836,14 +36852,14 @@ spritesheet_borgus_spit:
 	dc.l	0x31135553
 	dc.l	0x11335553
 
-	dc.l	0x11133553
-	dc.l	0x33113353
-	dc.l	0x33111133
-	dc.l	0x33111313
-	dc.l	0x33111331
-	dc.l	0x33131353
-	dc.l	0x33131355
-	dc.l	0x33311135
+	dc.l	0x53311111
+	dc.l	0x53111111
+	dc.l	0x53111111
+	dc.l	0x33111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11100121
+	dc.l	0x11101111
 
 	dc.l	0x11100111
 	dc.l	0x31001111
@@ -39872,14 +36888,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11000012
 	dc.l	0x12100122
 
-	dc.l	0x11110122
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111222
+	dc.l	0x11222222
+	dc.l	0x11222211
+	dc.l	0x12221111
 	dc.l	0x11211122
-	dc.l	0x31231222
-	dc.l	0x31112211
-	dc.l	0x11111131
-	dc.l	0x11132222
-	dc.l	0x31111222
-	dc.l	0x55111122
+	dc.l	0x11112221
 
 	dc.l	0x11222221
 	dc.l	0x22222222
@@ -39908,14 +36924,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111121
 	dc.l	0x11111121
 
-	dc.l	0x11112121
-	dc.l	0x13111111
-	dc.l	0x11111111
-	dc.l	0x22111111
-	dc.l	0x11112111
-	dc.l	0x21122111
-	dc.l	0x22211111
-	dc.l	0x23222111
+	dc.l	0x00000113
+	dc.l	0x00001113
+	dc.l	0x00000113
+	dc.l	0x00001113
+	dc.l	0x00001113
+	dc.l	0x00001113
+	dc.l	0x00001113
+	dc.l	0x00001111
 
 	dc.l	0x00001112
 	dc.l	0x00000111
@@ -39935,6 +36951,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11133553
+	dc.l	0x33113353
+	dc.l	0x33111133
+	dc.l	0x33111313
+	dc.l	0x33111331
+	dc.l	0x33131353
+	dc.l	0x33131355
+	dc.l	0x33311135
+
 	dc.l	0x13311135
 	dc.l	0x13111113
 	dc.l	0x31111131
@@ -39952,6 +36977,15 @@ spritesheet_borgus_spit:
 	dc.l	0x01121323
 	dc.l	0x00121223
 	dc.l	0x00011111
+
+	dc.l	0x11110122
+	dc.l	0x11211122
+	dc.l	0x31231222
+	dc.l	0x31112211
+	dc.l	0x11111131
+	dc.l	0x11132222
+	dc.l	0x31111222
+	dc.l	0x55111122
 
 	dc.l	0x55111111
 	dc.l	0x55311111
@@ -39971,6 +37005,15 @@ spritesheet_borgus_spit:
 	dc.l	0x31133311
 	dc.l	0x12133111
 
+	dc.l	0x11112121
+	dc.l	0x13111111
+	dc.l	0x11111111
+	dc.l	0x22111111
+	dc.l	0x11112111
+	dc.l	0x21122111
+	dc.l	0x22211111
+	dc.l	0x23222111
+
 	dc.l	0x22322211
 	dc.l	0x12333321
 	dc.l	0x22333321
@@ -39988,141 +37031,6 @@ spritesheet_borgus_spit:
 	dc.l	0x23511112
 	dc.l	0x13310112
 	dc.l	0x01310001
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x01000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -40160,14 +37068,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11135555
 	dc.l	0x11113355
 
-	dc.l	0x11111555
-	dc.l	0x11111135
-	dc.l	0x33311155
-	dc.l	0x13331133
-	dc.l	0x31353313
-	dc.l	0x33555331
-	dc.l	0x33353551
-	dc.l	0x33333331
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -40196,14 +37104,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55333113
 	dc.l	0x55531111
 
-	dc.l	0x55331133
-	dc.l	0x55531551
-	dc.l	0x55511155
-	dc.l	0x55333225
-	dc.l	0x33333122
-	dc.l	0x23335112
-	dc.l	0x11113112
-	dc.l	0x11155111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01000000
 
 	dc.l	0x11000000
 	dc.l	0x11122000
@@ -40232,14 +37140,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33113331
 	dc.l	0x53115331
 
-	dc.l	0x35311551
-	dc.l	0x33311353
-	dc.l	0x33331133
-	dc.l	0x33331113
-	dc.l	0x53353133
-	dc.l	0x55353133
-	dc.l	0x25553113
-	dc.l	0x25553313
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00100000
 	dc.l	0x00111000
@@ -40268,14 +37176,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33555311
 	dc.l	0x13553353
 
-	dc.l	0x13353355
-	dc.l	0x13355135
-	dc.l	0x11335513
-	dc.l	0x15315553
-	dc.l	0x15313555
-	dc.l	0x35313553
-	dc.l	0x55515535
-	dc.l	0x55531335
+	dc.l	0x11111555
+	dc.l	0x11111135
+	dc.l	0x33311155
+	dc.l	0x13331133
+	dc.l	0x31353313
+	dc.l	0x33555331
+	dc.l	0x33353551
+	dc.l	0x33333331
 
 	dc.l	0x33333331
 	dc.l	0x11313111
@@ -40304,14 +37212,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22311113
 	dc.l	0x11111113
 
-	dc.l	0x12223221
-	dc.l	0x22233332
-	dc.l	0x22222233
-	dc.l	0x12121222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22211112
-	dc.l	0x22222222
+	dc.l	0x55331133
+	dc.l	0x55531551
+	dc.l	0x55511155
+	dc.l	0x55333225
+	dc.l	0x33333122
+	dc.l	0x23335112
+	dc.l	0x11113112
+	dc.l	0x11155111
 
 	dc.l	0x11551111
 	dc.l	0x11555111
@@ -40340,14 +37248,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22231533
 	dc.l	0x12331533
 
-	dc.l	0x12231535
-	dc.l	0x11122533
-	dc.l	0x31211221
-	dc.l	0x22213111
-	dc.l	0x22533555
-	dc.l	0x11333333
-	dc.l	0x22133333
-	dc.l	0x21222222
+	dc.l	0x35311551
+	dc.l	0x33311353
+	dc.l	0x33331133
+	dc.l	0x33331113
+	dc.l	0x53353133
+	dc.l	0x55353133
+	dc.l	0x25553113
+	dc.l	0x25553313
 
 	dc.l	0x25553311
 	dc.l	0x22553331
@@ -40376,14 +37284,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33333333
 	dc.l	0x55313335
 
-	dc.l	0x55511555
-	dc.l	0x55553555
-	dc.l	0x13353553
-	dc.l	0x11331353
-	dc.l	0x31111153
-	dc.l	0x55533333
-	dc.l	0x33333555
-	dc.l	0x25553355
+	dc.l	0x13353355
+	dc.l	0x13355135
+	dc.l	0x11335513
+	dc.l	0x15315553
+	dc.l	0x15313555
+	dc.l	0x35313553
+	dc.l	0x55515535
+	dc.l	0x55531335
 
 	dc.l	0x55551335
 	dc.l	0x53551133
@@ -40412,14 +37320,14 @@ spritesheet_borgus_spit:
 	dc.l	0x31233255
 	dc.l	0x31233255
 
-	dc.l	0x51233235
-	dc.l	0x51133235
-	dc.l	0x51133115
-	dc.l	0x31133115
-	dc.l	0x31133115
-	dc.l	0x31133123
-	dc.l	0x55133123
-	dc.l	0x55113121
+	dc.l	0x12223221
+	dc.l	0x22233332
+	dc.l	0x22222233
+	dc.l	0x12121222
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x22211112
+	dc.l	0x22222222
 
 	dc.l	0x12233333
 	dc.l	0x21113112
@@ -40448,14 +37356,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22233333
 	dc.l	0x22223333
 
-	dc.l	0x12222333
-	dc.l	0x11122333
-	dc.l	0x12122233
-	dc.l	0x11122233
-	dc.l	0x11122223
-	dc.l	0x11212233
-	dc.l	0x21112223
-	dc.l	0x11122223
+	dc.l	0x12231535
+	dc.l	0x11122533
+	dc.l	0x31211221
+	dc.l	0x22213111
+	dc.l	0x22533555
+	dc.l	0x11333333
+	dc.l	0x22133333
+	dc.l	0x21222222
 
 	dc.l	0x22211111
 	dc.l	0x33322221
@@ -40484,14 +37392,14 @@ spritesheet_borgus_spit:
 	dc.l	0x23222111
 	dc.l	0x32322121
 
-	dc.l	0x33222111
-	dc.l	0x33332111
-	dc.l	0x33332111
-	dc.l	0x33332111
-	dc.l	0x33332111
-	dc.l	0x33332111
-	dc.l	0x33312111
-	dc.l	0x33312111
+	dc.l	0x55511555
+	dc.l	0x55553555
+	dc.l	0x13353553
+	dc.l	0x11331353
+	dc.l	0x31111153
+	dc.l	0x55533333
+	dc.l	0x33333555
+	dc.l	0x25553355
 
 	dc.l	0x13355555
 	dc.l	0x11133533
@@ -40520,14 +37428,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111133
 	dc.l	0x11111133
 
-	dc.l	0x11111133
-	dc.l	0x11111133
-	dc.l	0x11111133
-	dc.l	0x20111131
-	dc.l	0x00111131
-	dc.l	0x00111131
-	dc.l	0x00111131
-	dc.l	0x00111111
+	dc.l	0x51233235
+	dc.l	0x51133235
+	dc.l	0x51133115
+	dc.l	0x31133115
+	dc.l	0x31133115
+	dc.l	0x31133123
+	dc.l	0x55133123
+	dc.l	0x55113121
 
 	dc.l	0x31113121
 	dc.l	0x35113123
@@ -40556,14 +37464,14 @@ spritesheet_borgus_spit:
 	dc.l	0x13532211
 	dc.l	0x13532211
 
-	dc.l	0x13532211
-	dc.l	0x11532211
-	dc.l	0x13532211
-	dc.l	0x13532211
-	dc.l	0x13532211
-	dc.l	0x13532211
-	dc.l	0x13312211
-	dc.l	0x13312211
+	dc.l	0x12222333
+	dc.l	0x11122333
+	dc.l	0x12122233
+	dc.l	0x11122233
+	dc.l	0x11122223
+	dc.l	0x11212233
+	dc.l	0x21112223
+	dc.l	0x11122223
 
 	dc.l	0x11122222
 	dc.l	0x11122222
@@ -40583,6 +37491,15 @@ spritesheet_borgus_spit:
 	dc.l	0x22111111
 	dc.l	0x11111111
 
+	dc.l	0x33222111
+	dc.l	0x33332111
+	dc.l	0x33332111
+	dc.l	0x33332111
+	dc.l	0x33332111
+	dc.l	0x33332111
+	dc.l	0x33312111
+	dc.l	0x33312111
+
 	dc.l	0x33322111
 	dc.l	0x33222111
 	dc.l	0x23122111
@@ -40601,6 +37518,15 @@ spritesheet_borgus_spit:
 	dc.l	0x11111000
 	dc.l	0x11110000
 
+	dc.l	0x11111133
+	dc.l	0x11111133
+	dc.l	0x11111133
+	dc.l	0x20111131
+	dc.l	0x00111131
+	dc.l	0x00111131
+	dc.l	0x00111131
+	dc.l	0x00111111
+
 	dc.l	0x00111111
 	dc.l	0x00111111
 	dc.l	0x00000111
@@ -40618,6 +37544,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
+	dc.l	0x13532211
+	dc.l	0x11532211
+	dc.l	0x13532211
+	dc.l	0x13532211
+	dc.l	0x13532211
+	dc.l	0x13532211
+	dc.l	0x13312211
+	dc.l	0x13312211
 
 	dc.l	0x11111211
 	dc.l	0x11111211
@@ -40631,105 +37566,6 @@ spritesheet_borgus_spit:
 	dc.l	0x01011111
 	dc.l	0x01001111
 	dc.l	0x01000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -40772,14 +37608,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33553311
 	dc.l	0x13355553
 
-	dc.l	0x31135335
-	dc.l	0x55113135
-	dc.l	0x53511331
-	dc.l	0x33553311
-	dc.l	0x31533153
-	dc.l	0x31533131
-	dc.l	0x53531111
-	dc.l	0x55511111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x10000000
 	dc.l	0x11000000
@@ -40808,14 +37644,14 @@ spritesheet_borgus_spit:
 	dc.l	0x13153111
 	dc.l	0x13531111
 
-	dc.l	0x31311211
-	dc.l	0x53111121
-	dc.l	0x31121111
-	dc.l	0x31222112
-	dc.l	0x22211221
-	dc.l	0x12221121
-	dc.l	0x21222313
-	dc.l	0x11112255
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -40844,14 +37680,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22221100
 	dc.l	0x21113110
 
-	dc.l	0x11113110
-	dc.l	0x12221211
-	dc.l	0x22221111
-	dc.l	0x22113111
-	dc.l	0x21113110
-	dc.l	0x13133212
-	dc.l	0x33332111
-	dc.l	0x12331111
+	dc.l	0x31135335
+	dc.l	0x55113135
+	dc.l	0x53511331
+	dc.l	0x33553311
+	dc.l	0x31533153
+	dc.l	0x31533131
+	dc.l	0x53531111
+	dc.l	0x55511111
 
 	dc.l	0x55311333
 	dc.l	0x55313333
@@ -40880,14 +37716,14 @@ spritesheet_borgus_spit:
 	dc.l	0x15111000
 	dc.l	0x23311100
 
-	dc.l	0x15111000
-	dc.l	0x11311100
-	dc.l	0x21313100
-	dc.l	0x21323110
-	dc.l	0x21333111
-	dc.l	0x32131113
-	dc.l	0x32131136
-	dc.l	0x32111366
+	dc.l	0x31311211
+	dc.l	0x53111121
+	dc.l	0x31121111
+	dc.l	0x31222112
+	dc.l	0x22211221
+	dc.l	0x12221121
+	dc.l	0x21222313
+	dc.l	0x11112255
 
 	dc.l	0x11111231
 	dc.l	0x31111122
@@ -40916,14 +37752,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11000000
-	dc.l	0x61000000
-	dc.l	0x61000300
-	dc.l	0x31003000
+	dc.l	0x11113110
+	dc.l	0x12221211
+	dc.l	0x22221111
+	dc.l	0x22113111
+	dc.l	0x21113110
+	dc.l	0x13133212
+	dc.l	0x33332111
+	dc.l	0x12331111
 
 	dc.l	0x55551231
 	dc.l	0x31135322
@@ -40952,14 +37788,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x15111000
+	dc.l	0x11311100
+	dc.l	0x21313100
+	dc.l	0x21323110
+	dc.l	0x21333111
+	dc.l	0x32131113
+	dc.l	0x32131136
+	dc.l	0x32111366
 
 	dc.l	0x35211666
 	dc.l	0x31111363
@@ -40988,14 +37824,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111121
 	dc.l	0x11111112
 
-	dc.l	0x11111211
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111122
-	dc.l	0x11111121
-	dc.l	0x11111221
-	dc.l	0x11112110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x61000000
+	dc.l	0x61000300
+	dc.l	0x31003000
 
 	dc.l	0x11133000
 	dc.l	0x11111000
@@ -41024,13 +37860,13 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x12222222
-	dc.l	0x11221111
-	dc.l	0x22111111
-	dc.l	0x21111010
-	dc.l	0x10100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -41060,14 +37896,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x11111110
-	dc.l	0x12111100
-	dc.l	0x11100000
-	dc.l	0x11110000
-	dc.l	0x01010000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11111211
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111122
+	dc.l	0x11111121
+	dc.l	0x11111221
+	dc.l	0x11112110
 
 	dc.l	0x11111100
 	dc.l	0x11111100
@@ -41087,6 +37923,15 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x12222222
+	dc.l	0x11221111
+	dc.l	0x22111111
+	dc.l	0x21111010
+	dc.l	0x10100000
+	dc.l	0x00000000
+
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41102,6 +37947,15 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x11111110
+	dc.l	0x12111100
+	dc.l	0x11100000
+	dc.l	0x11110000
+	dc.l	0x01010000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -41123,6 +37977,8 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_borgus_sheet_spit_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41189,20 +38045,11 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000111
+	dc.l	0x00011111
+	dc.l	0x00113115
+	dc.l	0x01111133
+	dc.l	0x11133333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41231,14 +38078,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000001
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00001011
+	dc.l	0x00111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x15555331
+	dc.l	0x55555553
+	dc.l	0x33555555
+	dc.l	0x33333355
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41267,14 +38114,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11122222
 	dc.l	0x22222222
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22223332
+	dc.l	0x11111111
+	dc.l	0x22222221
+	dc.l	0x12122333
+	dc.l	0x11111113
+	dc.l	0x31111111
+	dc.l	0x53311113
+	dc.l	0x53331111
 
 	dc.l	0x00000001
 	dc.l	0x00000011
@@ -41303,14 +38150,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000011
 	dc.l	0x00000111
-	dc.l	0x00011111
-	dc.l	0x00113115
-	dc.l	0x01111133
-	dc.l	0x11133333
+	dc.l	0x00000112
+	dc.l	0x00000122
 
 	dc.l	0x13331111
 	dc.l	0x33311111
@@ -41339,14 +38186,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11121113
 	dc.l	0x11121113
 
-	dc.l	0x00001011
-	dc.l	0x00111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x15555331
-	dc.l	0x55555553
-	dc.l	0x33555555
-	dc.l	0x33333355
+	dc.l	0x11121113
+	dc.l	0x11122113
+	dc.l	0x21122113
+	dc.l	0x21222113
+	dc.l	0x21233311
+	dc.l	0x21233311
+	dc.l	0x21333311
+	dc.l	0x21333331
 
 	dc.l	0x33333333
 	dc.l	0x13333533
@@ -41375,14 +38222,14 @@ spritesheet_borgus_spit:
 	dc.l	0x55555555
 	dc.l	0x55555553
 
-	dc.l	0x22223332
-	dc.l	0x11111111
-	dc.l	0x22222221
-	dc.l	0x12122333
-	dc.l	0x11111113
-	dc.l	0x31111111
-	dc.l	0x53311113
-	dc.l	0x53331111
+	dc.l	0x55555333
+	dc.l	0x55553311
+	dc.l	0x53531111
+	dc.l	0x53111133
+	dc.l	0x31113533
+	dc.l	0x11135533
+	dc.l	0x13355331
+	dc.l	0x33333311
 
 	dc.l	0x55553111
 	dc.l	0x33555311
@@ -41411,14 +38258,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33311125
 	dc.l	0x33111225
 
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000111
-	dc.l	0x00000112
-	dc.l	0x00000122
+	dc.l	0x11112222
+	dc.l	0x11112222
+	dc.l	0x15522122
+	dc.l	0x11521152
+	dc.l	0x31221352
+	dc.l	0x11121152
+	dc.l	0x11111153
+	dc.l	0x11111151
 
 	dc.l	0x00001122
 	dc.l	0x00000122
@@ -41447,14 +38294,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000001
 	dc.l	0x00000001
 
-	dc.l	0x11121113
-	dc.l	0x11122113
-	dc.l	0x21122113
-	dc.l	0x21222113
-	dc.l	0x21233311
-	dc.l	0x21233311
-	dc.l	0x21333311
-	dc.l	0x21333331
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x21333331
 	dc.l	0x11335531
@@ -41483,14 +38330,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11131333
 	dc.l	0x12211333
 
-	dc.l	0x55555333
-	dc.l	0x55553311
-	dc.l	0x53531111
-	dc.l	0x53111133
-	dc.l	0x31113533
-	dc.l	0x11135533
-	dc.l	0x13355331
-	dc.l	0x33333311
+	dc.l	0x12211333
+	dc.l	0x12211333
+	dc.l	0x12211133
+	dc.l	0x12111133
+	dc.l	0x11111133
+	dc.l	0x01111133
+	dc.l	0x01141113
+	dc.l	0x01141313
 
 	dc.l	0x33333133
 	dc.l	0x33311333
@@ -41519,14 +38366,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33111111
 	dc.l	0x31111111
 
-	dc.l	0x11112222
-	dc.l	0x11112222
-	dc.l	0x15522122
-	dc.l	0x11521152
-	dc.l	0x31221352
-	dc.l	0x11121152
-	dc.l	0x11111153
-	dc.l	0x11111151
+	dc.l	0x13333111
+	dc.l	0x33333331
+	dc.l	0x13355531
+	dc.l	0x11355533
+	dc.l	0x11355553
+	dc.l	0x31155555
+	dc.l	0x31135555
+	dc.l	0x31135555
 
 	dc.l	0x11112111
 	dc.l	0x31122155
@@ -41555,14 +38402,14 @@ spritesheet_borgus_spit:
 	dc.l	0x21112112
 	dc.l	0x22112212
 
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12121112
+	dc.l	0x11111211
+	dc.l	0x13112211
+	dc.l	0x11311211
+	dc.l	0x31113111
+	dc.l	0x53331111
+	dc.l	0x55333111
+	dc.l	0x55553311
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41591,14 +38438,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x12211333
-	dc.l	0x12211333
-	dc.l	0x12211133
-	dc.l	0x12111133
-	dc.l	0x11111133
-	dc.l	0x01111133
-	dc.l	0x01141113
-	dc.l	0x01141313
+	dc.l	0x00000001
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000011
+	dc.l	0x00000011
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000001
 
 	dc.l	0x00141311
 	dc.l	0x00111331
@@ -41627,14 +38474,14 @@ spritesheet_borgus_spit:
 	dc.l	0x01111331
 	dc.l	0x11111131
 
-	dc.l	0x13333111
-	dc.l	0x33333331
-	dc.l	0x13355531
-	dc.l	0x11355533
-	dc.l	0x11355553
-	dc.l	0x31155555
-	dc.l	0x31135555
-	dc.l	0x31135555
+	dc.l	0x12211133
+	dc.l	0x12211133
+	dc.l	0x12221113
+	dc.l	0x22222113
+	dc.l	0x22232111
+	dc.l	0x22233122
+	dc.l	0x22223112
+	dc.l	0x22223311
 
 	dc.l	0x33113555
 	dc.l	0x33111355
@@ -41663,14 +38510,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11113153
 	dc.l	0x11113155
 
-	dc.l	0x12121112
-	dc.l	0x11111211
-	dc.l	0x13112211
-	dc.l	0x11311211
-	dc.l	0x31113111
-	dc.l	0x53331111
-	dc.l	0x55333111
-	dc.l	0x55553311
+	dc.l	0x11113135
+	dc.l	0x11001133
+	dc.l	0x31100111
+	dc.l	0x33110000
+	dc.l	0x13310000
+	dc.l	0x11131000
+	dc.l	0x10111100
+	dc.l	0x21111000
 
 	dc.l	0x55553311
 	dc.l	0x53333331
@@ -41699,32 +38546,23 @@ spritesheet_borgus_spit:
 	dc.l	0x31100000
 	dc.l	0x31100000
 
-	dc.l	0x00000001
-	dc.l	0x00000012
-	dc.l	0x00000012
-	dc.l	0x00000011
-	dc.l	0x00000011
-	dc.l	0x00000012
-	dc.l	0x00000012
-	dc.l	0x00000001
-
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x33110000
+	dc.l	0x33311010
+	dc.l	0x11111110
+	dc.l	0x11111100
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x12211133
-	dc.l	0x12211133
-	dc.l	0x12221113
-	dc.l	0x22222113
-	dc.l	0x22232111
-	dc.l	0x22233122
-	dc.l	0x22223112
-	dc.l	0x22223311
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x12223311
 	dc.l	0x11222221
@@ -41735,15 +38573,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00012122
 	dc.l	0x00001111
 
-	dc.l	0x11113135
-	dc.l	0x11001133
-	dc.l	0x31100111
-	dc.l	0x33110000
-	dc.l	0x13310000
-	dc.l	0x11131000
-	dc.l	0x10111100
-	dc.l	0x21111000
-
 	dc.l	0x12111101
 	dc.l	0x11112111
 	dc.l	0x23111113
@@ -41753,15 +38582,6 @@ spritesheet_borgus_spit:
 	dc.l	0x33113331
 	dc.l	0x11213311
 
-	dc.l	0x33110000
-	dc.l	0x33311010
-	dc.l	0x11111110
-	dc.l	0x11111100
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11100000
 	dc.l	0x33310000
 	dc.l	0x35531000
@@ -41770,15 +38590,6 @@ spritesheet_borgus_spit:
 	dc.l	0x22351000
 	dc.l	0x11331000
 	dc.l	0x10131000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41807,14 +38618,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x33333332
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22333332
+	dc.l	0x22222223
+	dc.l	0x11111333
+	dc.l	0x33111113
+	dc.l	0x33311113
+	dc.l	0x53331111
+	dc.l	0x35531111
+	dc.l	0x33353111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41843,14 +38654,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111333
 	dc.l	0x22111111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x22211111
+	dc.l	0x32131133
+	dc.l	0x33333113
+	dc.l	0x33313113
+	dc.l	0x35533315
+	dc.l	0x33555331
+	dc.l	0x13335533
+	dc.l	0x11133553
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41879,14 +38690,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33313111
 	dc.l	0x33333333
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x13333333
+	dc.l	0x31133353
+	dc.l	0x31113335
+	dc.l	0x33133531
+	dc.l	0x33113555
+	dc.l	0x55113351
+	dc.l	0x55313331
+	dc.l	0x35311333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -41915,14 +38726,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x11111111
 
-	dc.l	0x22333332
-	dc.l	0x22222223
-	dc.l	0x11111333
-	dc.l	0x33111113
-	dc.l	0x33311113
-	dc.l	0x53331111
-	dc.l	0x35531111
-	dc.l	0x33353111
+	dc.l	0x33111111
+	dc.l	0x33311111
+	dc.l	0x33323355
+	dc.l	0x13525515
+	dc.l	0x13535551
+	dc.l	0x53535311
+	dc.l	0x13533331
+	dc.l	0x13533111
 
 	dc.l	0x53333553
 	dc.l	0x55333335
@@ -41951,14 +38762,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22221555
 	dc.l	0x25222525
 
-	dc.l	0x22211111
-	dc.l	0x32131133
-	dc.l	0x33333113
-	dc.l	0x33313113
-	dc.l	0x35533315
-	dc.l	0x33555331
-	dc.l	0x13335533
-	dc.l	0x11133553
+	dc.l	0x23332223
+	dc.l	0x33333355
+	dc.l	0x21213355
+	dc.l	0x22112253
+	dc.l	0x25111222
+	dc.l	0x55111111
+	dc.l	0x25132212
+	dc.l	0x12153333
 
 	dc.l	0x11113553
 	dc.l	0x31113555
@@ -41987,14 +38798,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33111131
 	dc.l	0x11111331
 
-	dc.l	0x13333333
-	dc.l	0x31133353
-	dc.l	0x31113335
-	dc.l	0x33133531
-	dc.l	0x33113555
-	dc.l	0x55113351
-	dc.l	0x55313331
-	dc.l	0x35311333
+	dc.l	0x35355551
+	dc.l	0x55555511
+	dc.l	0x55335311
+	dc.l	0x53315151
+	dc.l	0x33151151
+	dc.l	0x33111111
+	dc.l	0x11133351
+	dc.l	0x33333333
 
 	dc.l	0x35311335
 	dc.l	0x35511335
@@ -42023,14 +38834,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33235155
 	dc.l	0x33135155
 
-	dc.l	0x33111111
-	dc.l	0x33311111
-	dc.l	0x33323355
-	dc.l	0x13525515
-	dc.l	0x13535551
-	dc.l	0x53535311
-	dc.l	0x13533331
-	dc.l	0x13533111
+	dc.l	0x33135151
+	dc.l	0x33135151
+	dc.l	0x33125351
+	dc.l	0x33125351
+	dc.l	0x13123331
+	dc.l	0x13123351
+	dc.l	0x13123351
+	dc.l	0x13123131
 
 	dc.l	0x31353311
 	dc.l	0x53353111
@@ -42059,14 +38870,14 @@ spritesheet_borgus_spit:
 	dc.l	0x35313666
 	dc.l	0x35113363
 
-	dc.l	0x23332223
-	dc.l	0x33333355
-	dc.l	0x21213355
-	dc.l	0x22112253
-	dc.l	0x25111222
+	dc.l	0x35313331
+	dc.l	0x35311111
+	dc.l	0x53311111
 	dc.l	0x55111111
-	dc.l	0x25132212
-	dc.l	0x12153333
+	dc.l	0x35311111
+	dc.l	0x33311111
+	dc.l	0x53311222
+	dc.l	0x55331111
 
 	dc.l	0x11352252
 	dc.l	0x31152555
@@ -42095,14 +38906,14 @@ spritesheet_borgus_spit:
 	dc.l	0x21113135
 	dc.l	0x21213135
 
-	dc.l	0x35355551
-	dc.l	0x55555511
-	dc.l	0x55335311
-	dc.l	0x53315151
-	dc.l	0x33151151
-	dc.l	0x33111111
-	dc.l	0x11133351
-	dc.l	0x33333333
+	dc.l	0x22113135
+	dc.l	0x22111135
+	dc.l	0x22111135
+	dc.l	0x12211133
+	dc.l	0x22111133
+	dc.l	0x12111133
+	dc.l	0x11211133
+	dc.l	0x11211133
 
 	dc.l	0x13335355
 	dc.l	0x11555555
@@ -42131,14 +38942,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11351331
 	dc.l	0x11351331
 
-	dc.l	0x33135151
-	dc.l	0x33135151
-	dc.l	0x33125351
-	dc.l	0x33125351
-	dc.l	0x13123331
-	dc.l	0x13123351
-	dc.l	0x13123351
-	dc.l	0x13123131
+	dc.l	0x11351331
+	dc.l	0x11351331
+	dc.l	0x13351331
+	dc.l	0x13551331
+	dc.l	0x13553331
+	dc.l	0x13553331
+	dc.l	0x11553331
+	dc.l	0x13533131
 
 	dc.l	0x11113131
 	dc.l	0x55111132
@@ -42167,14 +38978,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12211111
 	dc.l	0x12221111
 
-	dc.l	0x35313331
-	dc.l	0x35311111
-	dc.l	0x53311111
-	dc.l	0x55111111
-	dc.l	0x35311111
-	dc.l	0x33311111
-	dc.l	0x53311222
-	dc.l	0x55331111
+	dc.l	0x12222111
+	dc.l	0x12222122
+	dc.l	0x11222211
+	dc.l	0x11121222
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x55333111
 	dc.l	0x35333333
@@ -42203,14 +39014,14 @@ spritesheet_borgus_spit:
 	dc.l	0x12122223
 	dc.l	0x11112112
 
-	dc.l	0x22113135
-	dc.l	0x22111135
-	dc.l	0x22111135
-	dc.l	0x12211133
-	dc.l	0x22111133
-	dc.l	0x12111133
-	dc.l	0x11211133
-	dc.l	0x11211133
+	dc.l	0x11111121
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x22233321
+	dc.l	0x22222333
+	dc.l	0x11212112
+	dc.l	0x11111111
+	dc.l	0x11111111
 
 	dc.l	0x12211131
 	dc.l	0x11211131
@@ -42239,14 +39050,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11351331
-	dc.l	0x11351331
-	dc.l	0x13351331
-	dc.l	0x13551331
-	dc.l	0x13553331
-	dc.l	0x13553331
-	dc.l	0x11553331
-	dc.l	0x13533131
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x13533131
 	dc.l	0x13551131
@@ -42275,14 +39086,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x12222111
-	dc.l	0x12222122
-	dc.l	0x11222211
-	dc.l	0x11121222
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00111111
 	dc.l	0x00000111
@@ -42311,14 +39122,14 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x11111121
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x22233321
-	dc.l	0x22222333
-	dc.l	0x11212112
-	dc.l	0x11111111
-	dc.l	0x11111111
+	dc.l	0x00000001
+	dc.l	0x00000011
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000111
+	dc.l	0x00000100
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -42347,60 +39158,6 @@ spritesheet_borgus_spit:
 	dc.l	0x11111111
 	dc.l	0x01121111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000001
-	dc.l	0x00000011
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000111
-	dc.l	0x00000100
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11122111
 	dc.l	0x11122111
 	dc.l	0x11112111
@@ -42409,6 +39166,33 @@ spritesheet_borgus_spit:
 	dc.l	0x00111111
 	dc.l	0x00011111
 	dc.l	0x00111111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00011111
 	dc.l	0x00111111
@@ -42416,15 +39200,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00011111
 	dc.l	0x00011111
 	dc.l	0x00001011
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -42455,78 +39230,6 @@ spritesheet_borgus_spit:
 	dc.l	0x12221110
 	dc.l	0x12221100
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x11221110
 	dc.l	0x11121110
 	dc.l	0x33111110
@@ -42535,6 +39238,78 @@ spritesheet_borgus_spit:
 	dc.l	0x13553311
 	dc.l	0x13355555
 	dc.l	0x11135555
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x11100000
+	dc.l	0x31100000
+	dc.l	0x53110000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11113555
 	dc.l	0x66111331
@@ -42563,14 +39338,14 @@ spritesheet_borgus_spit:
 	dc.l	0x31011361
 	dc.l	0x11113661
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x11000000
-	dc.l	0x11100000
-	dc.l	0x31100000
-	dc.l	0x53110000
+	dc.l	0x11136631
+	dc.l	0x11366611
+	dc.l	0x13336311
+	dc.l	0x13333111
+	dc.l	0x11111111
+	dc.l	0x11111113
+	dc.l	0x22511113
+	dc.l	0x12552111
 
 	dc.l	0x33111000
 	dc.l	0x11151100
@@ -42599,14 +39374,14 @@ spritesheet_borgus_spit:
 	dc.l	0x01111331
 	dc.l	0x00000031
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000003
+	dc.l	0x00000003
+	dc.l	0x11100003
+	dc.l	0x16100003
+	dc.l	0x66100001
+	dc.l	0x63100001
+	dc.l	0x33100001
+	dc.l	0x33100001
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -42635,14 +39410,14 @@ spritesheet_borgus_spit:
 	dc.l	0x66313100
 	dc.l	0x11100300
 
-	dc.l	0x11136631
-	dc.l	0x11366611
-	dc.l	0x13336311
-	dc.l	0x13333111
-	dc.l	0x11111111
-	dc.l	0x11111113
-	dc.l	0x22511113
-	dc.l	0x12552111
+	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x11352221
 	dc.l	0x11152253
@@ -42671,14 +39446,14 @@ spritesheet_borgus_spit:
 	dc.l	0x33333211
 	dc.l	0x23333311
 
-	dc.l	0x00000003
-	dc.l	0x00000003
-	dc.l	0x11100003
-	dc.l	0x16100003
-	dc.l	0x66100001
-	dc.l	0x63100001
-	dc.l	0x33100001
-	dc.l	0x33100001
+	dc.l	0x22233221
+	dc.l	0x12222221
+	dc.l	0x11122221
+	dc.l	0x11112121
+	dc.l	0x31111111
+	dc.l	0x23111112
+	dc.l	0x12211122
+	dc.l	0x11111122
 
 	dc.l	0x11300003
 	dc.l	0x11300003
@@ -42707,14 +39482,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22222222
 	dc.l	0x12222222
 
-	dc.l	0x11000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x12122222
+	dc.l	0x11111222
+	dc.l	0x11111111
+	dc.l	0x11110111
+	dc.l	0x11110000
+	dc.l	0x11210110
+	dc.l	0x11122221
+	dc.l	0x11122222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -42743,14 +39518,14 @@ spritesheet_borgus_spit:
 	dc.l	0x22221100
 	dc.l	0x22221000
 
-	dc.l	0x22233221
-	dc.l	0x12222221
-	dc.l	0x11122221
-	dc.l	0x11112121
-	dc.l	0x31111111
-	dc.l	0x23111112
-	dc.l	0x12211122
-	dc.l	0x11111122
+	dc.l	0x22211000
+	dc.l	0x22110000
+	dc.l	0x11000000
+	dc.l	0x00010000
+	dc.l	0x00110000
+	dc.l	0x11112000
+	dc.l	0x22210000
+	dc.l	0x21100000
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -42779,14 +39554,14 @@ spritesheet_borgus_spit:
 	dc.l	0x11111100
 	dc.l	0x11111000
 
-	dc.l	0x12122222
-	dc.l	0x11111222
-	dc.l	0x11111111
-	dc.l	0x11110111
-	dc.l	0x11110000
-	dc.l	0x11210110
-	dc.l	0x11122221
-	dc.l	0x11122222
+	dc.l	0x12211100
+	dc.l	0x12221100
+	dc.l	0x11221110
+	dc.l	0x11111110
+	dc.l	0x11112111
+	dc.l	0x11112211
+	dc.l	0x11111221
+	dc.l	0x11112122
 
 	dc.l	0x11111111
 	dc.l	0x11111111
@@ -42812,60 +39587,6 @@ spritesheet_borgus_spit:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x22211000
-	dc.l	0x22110000
-	dc.l	0x11000000
-	dc.l	0x00010000
-	dc.l	0x00110000
-	dc.l	0x11112000
-	dc.l	0x22210000
-	dc.l	0x21100000
-
-	dc.l	0x11000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x12211100
-	dc.l	0x12221100
-	dc.l	0x11221110
-	dc.l	0x11111110
-	dc.l	0x11112111
-	dc.l	0x11112211
-	dc.l	0x11111221
-	dc.l	0x11112122
-
-	dc.l	0x11111111
-	dc.l	0x11211111
-	dc.l	0x11111111
-	dc.l	0x11121111
-	dc.l	0x11111111
-	dc.l	0x11111111
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -42878,12 +39599,30 @@ spritesheet_borgus_spit:
 	dc.l	0x11111221
 	dc.l	0x22211221
 
-	dc.l	0x22211111
-	dc.l	0x11111111
-	dc.l	0x21111111
-	dc.l	0x11111111
-	dc.l	0x11111111
-	dc.l	0x11111100
+	dc.l	0x11000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
@@ -42896,6 +39635,24 @@ spritesheet_borgus_spit:
 	dc.l	0x11221100
 	dc.l	0x13332210
 
+	dc.l	0x11111111
+	dc.l	0x11211111
+	dc.l	0x11111111
+	dc.l	0x11121111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x22211111
+	dc.l	0x11111111
+	dc.l	0x21111111
+	dc.l	0x11111111
+	dc.l	0x11111111
+	dc.l	0x11111100
+	dc.l	0x00000000
+	dc.l	0x00000000
+
 	dc.l	0x13232210
 	dc.l	0x11222210
 	dc.l	0x11212210
@@ -42904,6 +39661,7 @@ spritesheet_borgus_spit:
 	dc.l	0x00021000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

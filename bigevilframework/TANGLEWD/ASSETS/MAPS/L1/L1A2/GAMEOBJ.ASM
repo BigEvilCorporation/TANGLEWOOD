@@ -25,9 +25,9 @@ L1A2_Leaf_223_name	dc.b "L1A2_Leaf_223",0
 	even
 	ENDIF
 
-L1A2_Trap_count equ 0x0
-
 L1A2_Djubb_count equ 0x0
+
+L1A2_Trap_count equ 0x0
 
 L1A2_Echo_count equ 0x0
 
@@ -57,9 +57,9 @@ L1A2_BouncePlant_224_name	dc.b "L1A2_BouncePlant_224",0
 
 L1A2_Log_count equ 0x0
 
-L1A2_Borgus_count equ 0x0
-
 L1A2_DjakkCage_count equ 0x0
+
+L1A2_Borgus_count equ 0x0
 
 L1A2_Monster_count equ 0x1
 L1A2_Djakk_idx	equ 0x0
@@ -137,6 +137,8 @@ L1A2_Stone_219_name	dc.b "L1A2_Stone_219",0
 
 L1A2_Demon_count equ 0x0
 
+L1A2_Raft_count equ 0x0
+
 L1A2_Nest_count equ 0x1
 L1A2_Nest_213_idx	equ 0x0
 
@@ -193,9 +195,9 @@ L1A2_WaterBody_143_name	dc.b "L1A2_WaterBody_143",0
 
 L1A2_Location_count equ 0x0
 
-L1A2_Lift_count equ 0x0
-
 L1A2_Deathbox_count equ 0x0
+
+L1A2_Lift_count equ 0x0
 
 L1A2_Crate_count equ 0x0
 
@@ -219,8 +221,6 @@ L1A2_Winch_count equ 0x0
 
 L1A2_WindFlue_count equ 0x0
 
-L1A2_Raft_count equ 0x0
-
 L1A2_Lock_count equ 0x0
 
 L1A2_Pool_count equ 0x0
@@ -232,6 +232,8 @@ L1A2_Stalactite_count equ 0x0
 L1A2_CargoLift_count equ 0x0
 
 L1A2_Scrap_count equ 0x0
+
+L1A2_Longboat_count equ 0x0
 
 
 
@@ -686,6 +688,7 @@ L1A2_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 
 
 	PUSHL  a1

@@ -131,10 +131,10 @@ BoulderInit:
 	; Setup animations
 
 	; Roll
-	ANIM_LOAD_DEFAULT boulder_roll,boulder_roll,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT boulder,roll,roll,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
 	
 	; Crack
-	ANIM_LOAD_DEFAULT boulder_crack,boulder_crack,Boulder_Animations,BoulderAnimIdx_Crack,0,0,0
+	ANIM_LOAD_DEFAULT boulder,crack,crack,Boulder_Animations,BoulderAnimIdx_Crack,0,0,0
 	
 	; Start roll animation
 	PUSHL  a1
@@ -151,7 +151,7 @@ BoulderLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	SPRITE_LOAD_DEFAULT boulder,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT boulder,roll,PaletteId_World0,0x0
 
 	jsr    PhysicsObjSnapToFloor
 	

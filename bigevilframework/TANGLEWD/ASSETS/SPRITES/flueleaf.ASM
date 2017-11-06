@@ -9,43 +9,238 @@
 
 actor_flueleaf:
 
-sprite_flueleaf_size_b		equ 0x0400	; Size in bytes
-sprite_flueleaf_size_t		equ 0x0020	; Size in tiles
-sprite_flueleaf_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_flueleaf_widthheight_subsprites		equ 0x0102	; Width/height (bb) in subsprites
+actor_flueleaf_sheet_flueleaf_frametable:
+actor_flueleaf_sheet_flueleaf_frame_0_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_0
+	dc.l actor_flueleaf_sheet_flueleaf_frame_0_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_0_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_1_header:
+	dc.w 0x0018	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_1
+	dc.l actor_flueleaf_sheet_flueleaf_frame_1_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_1_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_2_header:
+	dc.w 0x0012	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_2
+	dc.l actor_flueleaf_sheet_flueleaf_frame_2_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_2_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_3_header:
+	dc.w 0x0012	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_3
+	dc.l actor_flueleaf_sheet_flueleaf_frame_3_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_3_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_4_header:
+	dc.w 0x0018	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_4
+	dc.l actor_flueleaf_sheet_flueleaf_frame_4_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_4_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_5_header:
+	dc.w 0x000A	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_5
+	dc.l actor_flueleaf_sheet_flueleaf_frame_5_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_5_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_6_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_6
+	dc.l actor_flueleaf_sheet_flueleaf_frame_6_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_6_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_7_header:
+	dc.w 0x000E	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_7
+	dc.l actor_flueleaf_sheet_flueleaf_frame_7_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_7_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_8_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_flueleaf_sheet_flueleaf_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_flueleaf_sheet_flueleaf_frame_8
+	dc.l actor_flueleaf_sheet_flueleaf_frame_8_subsprite_dimensions_bits
+	dc.l actor_flueleaf_sheet_flueleaf_frame_8_subsprite_pos_offsets
+
+actor_flueleaf_sheet_flueleaf_frame_0_size_b		equ 0x0140	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_0_size_t		equ 0x000A	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_flueleaf_subsprite_pos_offsets:
+actor_flueleaf_sheet_flueleaf_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	dc.l 0x00000020, 0x00000020
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_flueleaf_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xF
-	Even
-
-; Num tiles per subsprite (for sprite descs)
-sprite_flueleaf_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x10
+actor_flueleaf_sheet_flueleaf_frame_0_subsprite_dimensions_bits:
+	dc.b 0x7
+	dc.b 0x4
 	Even
 
 
-spritesheet_flueleaf_flueleaf_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_flueleaf_flueleaf_width		equ 0x20	; Width in pixels
-spritesheet_flueleaf_flueleaf_height		equ 0x40	; Width in pixels
-spritesheet_flueleaf_flueleaf_size_b		equ 0x2400	; Size in bytes
-spritesheet_flueleaf_flueleaf_size_w		equ 0x1200	; Size in words
-spritesheet_flueleaf_flueleaf_size_l		equ 0x900	; Size in longwords
-spritesheet_flueleaf_flueleaf_size_t		equ 0x120	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_1_size_b		equ 0x0300	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_1_size_t		equ 0x0018	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_2_size_b		equ 0x0240	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_2_size_t		equ 0x0012	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_2_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_3_size_b		equ 0x0240	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_3_size_t		equ 0x0012	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_3_subsprite_dimensions_bits:
+	dc.b 0xB
+	dc.b 0x9
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_4_size_b		equ 0x0300	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_4_size_t		equ 0x0018	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_4_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_4_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xD
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_5_size_b		equ 0x0140	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_5_size_t		equ 0x000A	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_5_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_5_subsprite_dimensions_bits:
+	dc.b 0x7
+	dc.b 0x4
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_6_size_b		equ 0x0280	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_6_size_t		equ 0x0014	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_6_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_6_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_7_size_b		equ 0x01C0	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_7_size_t		equ 0x000E	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_7_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_7_subsprite_dimensions_bits:
+	dc.b 0x7
+	dc.b 0x6
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frame_8_size_b		equ 0x0280	; Size in bytes
+actor_flueleaf_sheet_flueleaf_frame_8_size_t		equ 0x0014	; Size in tiles
+actor_flueleaf_sheet_flueleaf_frame_8_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_flueleaf_sheet_flueleaf_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	dc.l 0x00000020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_flueleaf_sheet_flueleaf_frame_8_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xC
+	Even
+
+
+actor_flueleaf_sheet_flueleaf_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_flueleaf_sheet_flueleaf_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_flueleaf_sheet_flueleaf_width		equ 0x20	; Width in pixels
+actor_flueleaf_sheet_flueleaf_height		equ 0x40	; Width in pixels
+actor_flueleaf_sheet_flueleaf_size_b		equ 0x2400	; Size in bytes
+actor_flueleaf_sheet_flueleaf_size_w		equ 0x1200	; Size in words
+actor_flueleaf_sheet_flueleaf_size_l		equ 0x900	; Size in longwords
+actor_flueleaf_sheet_flueleaf_size_t		equ 0x120	; Size in tiles
 
 
 spritesheets_flueleaf:
 
 spritesheet_flueleaf_flueleaf:
 
+actor_flueleaf_sheet_flueleaf_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -64,67 +259,13 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00002200
+	dc.l	0x00016A20
+	dc.l	0x000166A2
+	dc.l	0x00016262
+	dc.l	0x00012610
+	dc.l	0x00012100
+	dc.l	0x00011000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -172,78 +313,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00002200
-	dc.l	0x00016A20
-	dc.l	0x000166A2
-	dc.l	0x00016262
-	dc.l	0x00012610
-	dc.l	0x00012100
-	dc.l	0x00011000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00550000
 	dc.l	0x05FC3000
 	dc.l	0x5FCC3000
@@ -262,78 +331,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -497,24 +496,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x05500000
 	dc.l	0x05F50000
 	dc.l	0x05CF5000
@@ -568,105 +549,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -730,13 +614,13 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00220000
+	dc.l	0x02A61000
+	dc.l	0x2A661000
+	dc.l	0x26261000
+	dc.l	0x01621000
+	dc.l	0x00121000
+	dc.l	0x00011000
 	dc.l	0x00000000
 
 	dc.l	0x00055000
@@ -746,42 +630,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x003C5300
 	dc.l	0x00035300
 	dc.l	0x00003300
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -838,15 +686,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00220000
-	dc.l	0x02A61000
-	dc.l	0x2A661000
-	dc.l	0x26261000
-	dc.l	0x01621000
-	dc.l	0x00121000
-	dc.l	0x00011000
-	dc.l	0x00000000
-
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -874,78 +713,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00003330
 	dc.l	0x0005FCC3
@@ -1058,82 +827,10 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00002210
 	dc.l	0x01116610
 	dc.l	0x12261100
 	dc.l	0x11110000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1180,33 +877,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000110
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_4:
 	dc.l	0x00055000
 	dc.l	0x003CF500
 	dc.l	0x003CCF50
@@ -1397,42 +1069,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x02200000
 	dc.l	0x02A20000
 	dc.l	0x026A2000
@@ -1459,69 +1095,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_5:
 	dc.l	0x00022000
 	dc.l	0x002A6100
 	dc.l	0x02A66100
@@ -1604,105 +1179,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x00000550
 	dc.l	0x00005F50
 	dc.l	0x0005FC50
@@ -1711,78 +1187,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x03333221
 	dc.l	0x00001111
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_6:
 	dc.l	0x00000000
 	dc.l	0x01110000
 	dc.l	0x166A2000
@@ -1955,87 +1361,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
 	dc.l	0x00003330
 	dc.l	0x0005FCC3
 	dc.l	0x005FCC53
@@ -2044,60 +1369,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x03300000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_7:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2141,78 +1414,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00126100
 	dc.l	0x00121000
 	dc.l	0x00110000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -2287,15 +1488,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00005500
 	dc.l	0x0003CF50
 	dc.l	0x0003CCF5
@@ -2305,60 +1497,8 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00033000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_flueleaf_sheet_flueleaf_frame_8:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -2459,12 +1599,12 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00000550
+	dc.l	0x00005F50
+	dc.l	0x0005FC50
+	dc.l	0x005FCC30
+	dc.l	0x05CC5300
+	dc.l	0x03333000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
@@ -2539,104 +1679,6 @@ spritesheet_flueleaf_flueleaf:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000550
-	dc.l	0x00005F50
-	dc.l	0x0005FC50
-	dc.l	0x005FCC30
-	dc.l	0x05CC5300
-	dc.l	0x03333000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 
 

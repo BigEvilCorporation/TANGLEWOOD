@@ -9,40 +9,44 @@
 
 actor_bridge:
 
-sprite_bridge_size_b		equ 0x0080	; Size in bytes
-sprite_bridge_size_t		equ 0x0004	; Size in tiles
-sprite_bridge_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_bridge_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_bridge_sheet_notch_frametable:
+actor_bridge_sheet_notch_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_bridge_sheet_notch_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_bridge_sheet_notch_frame_0
+	dc.l actor_bridge_sheet_notch_frame_0_subsprite_dimensions_bits
+	dc.l actor_bridge_sheet_notch_frame_0_subsprite_pos_offsets
+
+actor_bridge_sheet_notch_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_bridge_sheet_notch_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_bridge_sheet_notch_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_bridge_subsprite_pos_offsets:
+actor_bridge_sheet_notch_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_bridge_subsprite_dimensions_bits:
+actor_bridge_sheet_notch_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_bridge_numtiles_per_subsprite:
-	dc.b 0x04
-	Even
 
-
-spritesheet_bridge_notch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_bridge_notch_width		equ 0x10	; Width in pixels
-spritesheet_bridge_notch_height		equ 0x10	; Width in pixels
-spritesheet_bridge_notch_size_b		equ 0x80	; Size in bytes
-spritesheet_bridge_notch_size_w		equ 0x40	; Size in words
-spritesheet_bridge_notch_size_l		equ 0x20	; Size in longwords
-spritesheet_bridge_notch_size_t		equ 0x04	; Size in tiles
+actor_bridge_sheet_notch_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_bridge_sheet_notch_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_bridge_sheet_notch_width		equ 0x10	; Width in pixels
+actor_bridge_sheet_notch_height		equ 0x10	; Width in pixels
+actor_bridge_sheet_notch_size_b		equ 0x80	; Size in bytes
+actor_bridge_sheet_notch_size_w		equ 0x40	; Size in words
+actor_bridge_sheet_notch_size_l		equ 0x20	; Size in longwords
+actor_bridge_sheet_notch_size_t		equ 0x04	; Size in tiles
 
 
 spritesheets_bridge:
 
 spritesheet_bridge_notch:
 
+actor_bridge_sheet_notch_frame_0:
 	dc.l	0x00008855
 	dc.l	0x00085555
 	dc.l	0x005558BB
@@ -78,6 +82,7 @@ spritesheet_bridge_notch:
 	dc.l	0xBB855500
 	dc.l	0x55558000
 	dc.l	0x55880000
+
 
 
 

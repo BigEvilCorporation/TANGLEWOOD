@@ -121,13 +121,13 @@ Pause_Enter:
 	move.w PauseState_VRAMAddr(a0), d0
 	tst.w  d0
 	bne    @Allocated
-	move.w #sprite_firefly_size_b, d0
+	move.w #actor_firefly_sheet_red_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, PauseState_VRAMAddr(a0)
 	@Allocated:
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT firefly,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT firefly,red,PaletteId_Fuzzl,0x0
 	
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1

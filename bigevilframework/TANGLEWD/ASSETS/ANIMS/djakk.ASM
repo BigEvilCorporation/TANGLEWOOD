@@ -9,131 +9,172 @@
 
 spriteanims_djakk:
 
-spriteanim_djakk_run:
-spriteanim_djakk_run_numframes: equ 0x5
-spriteanim_djakk_run_speed: equ 0x28
-spriteanim_djakk_run_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4
+actor_djakk_sheet_run_anim_run:
+actor_djakk_sheet_run_anim_run_numframes: equ 0x5
+actor_djakk_sheet_run_anim_run_speed: equ 0x28
+actor_djakk_sheet_run_anim_run_track_frames:
+	dc.l actor_djakk_sheet_run_frame_0_header
+	dc.l actor_djakk_sheet_run_frame_1_header
+	dc.l actor_djakk_sheet_run_frame_2_header
+	dc.l actor_djakk_sheet_run_frame_3_header
+	dc.l actor_djakk_sheet_run_frame_4_header
+
 	Even
-spriteanim_djakk_run_track_posx:
+actor_djakk_sheet_run_anim_run_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_run_track_posy:
+actor_djakk_sheet_run_anim_run_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_run_track_sfx:
+actor_djakk_sheet_run_anim_run_track_sfx:
 	dc.l 0x0, 0x0, SFX_FootstepBig, SFX_FootstepBig, SFX_FootstepBig
 	Even
 
-spriteanim_djakk_death:
-spriteanim_djakk_death_numframes: equ 0x1
-spriteanim_djakk_death_speed: equ 0x5
-spriteanim_djakk_death_track_frames:
-	dc.b 0x0
+actor_djakk_sheet_death_anim_death:
+actor_djakk_sheet_death_anim_death_numframes: equ 0x1
+actor_djakk_sheet_death_anim_death_speed: equ 0x5
+actor_djakk_sheet_death_anim_death_track_frames:
+	dc.l actor_djakk_sheet_death_frame_0_header
+
 	Even
-spriteanim_djakk_death_track_posx:
+actor_djakk_sheet_death_anim_death_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_djakk_death_track_posy:
+actor_djakk_sheet_death_anim_death_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_djakk_death_track_sfx:
+actor_djakk_sheet_death_anim_death_track_sfx:
 	dc.l 0x0
 	Even
 
-spriteanim_djakk_roar:
-spriteanim_djakk_roar_numframes: equ 0x6
-spriteanim_djakk_roar_speed: equ 0x1E
-spriteanim_djakk_roar_track_frames:
-	dc.b 0x0, 0x1, 0x1, 0x1, 0x1, 0x0
+actor_djakk_sheet_roar_anim_roar:
+actor_djakk_sheet_roar_anim_roar_numframes: equ 0x6
+actor_djakk_sheet_roar_anim_roar_speed: equ 0x1E
+actor_djakk_sheet_roar_anim_roar_track_frames:
+	dc.l actor_djakk_sheet_roar_frame_0_header
+	dc.l actor_djakk_sheet_roar_frame_1_header
+	dc.l actor_djakk_sheet_roar_frame_1_header
+	dc.l actor_djakk_sheet_roar_frame_1_header
+	dc.l actor_djakk_sheet_roar_frame_1_header
+	dc.l actor_djakk_sheet_roar_frame_0_header
+
 	Even
-spriteanim_djakk_roar_track_posx:
+actor_djakk_sheet_roar_anim_roar_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_roar_track_posy:
+actor_djakk_sheet_roar_anim_roar_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_roar_track_sfx:
+actor_djakk_sheet_roar_anim_roar_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djakk_idle:
-spriteanim_djakk_idle_numframes: equ 0x1
-spriteanim_djakk_idle_speed: equ 0x5
-spriteanim_djakk_idle_track_frames:
-	dc.b 0x0
+actor_djakk_sheet_idle_anim_idle:
+actor_djakk_sheet_idle_anim_idle_numframes: equ 0x1
+actor_djakk_sheet_idle_anim_idle_speed: equ 0x5
+actor_djakk_sheet_idle_anim_idle_track_frames:
+	dc.l actor_djakk_sheet_idle_frame_0_header
+
 	Even
-spriteanim_djakk_idle_track_posx:
+actor_djakk_sheet_idle_anim_idle_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_djakk_idle_track_posy:
+actor_djakk_sheet_idle_anim_idle_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_djakk_idle_track_sfx:
+actor_djakk_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0
 	Even
 
-spriteanim_djakk_bite:
-spriteanim_djakk_bite_numframes: equ 0x4
-spriteanim_djakk_bite_speed: equ 0x33
-spriteanim_djakk_bite_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_djakk_sheet_bite_anim_bite:
+actor_djakk_sheet_bite_anim_bite_numframes: equ 0x4
+actor_djakk_sheet_bite_anim_bite_speed: equ 0x33
+actor_djakk_sheet_bite_anim_bite_track_frames:
+	dc.l actor_djakk_sheet_bite_frame_0_header
+	dc.l actor_djakk_sheet_bite_frame_1_header
+	dc.l actor_djakk_sheet_bite_frame_2_header
+	dc.l actor_djakk_sheet_bite_frame_3_header
+
 	Even
-spriteanim_djakk_bite_track_posx:
+actor_djakk_sheet_bite_anim_bite_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_bite_track_posy:
+actor_djakk_sheet_bite_anim_bite_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_bite_track_sfx:
+actor_djakk_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djakk_jump:
-spriteanim_djakk_jump_numframes: equ 0x7
-spriteanim_djakk_jump_speed: equ 0x28
-spriteanim_djakk_jump_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6
+actor_djakk_sheet_jump_anim_jump:
+actor_djakk_sheet_jump_anim_jump_numframes: equ 0x7
+actor_djakk_sheet_jump_anim_jump_speed: equ 0x28
+actor_djakk_sheet_jump_anim_jump_track_frames:
+	dc.l actor_djakk_sheet_jump_frame_0_header
+	dc.l actor_djakk_sheet_jump_frame_1_header
+	dc.l actor_djakk_sheet_jump_frame_2_header
+	dc.l actor_djakk_sheet_jump_frame_3_header
+	dc.l actor_djakk_sheet_jump_frame_4_header
+	dc.l actor_djakk_sheet_jump_frame_5_header
+	dc.l actor_djakk_sheet_jump_frame_6_header
+
 	Even
-spriteanim_djakk_jump_track_posx:
+actor_djakk_sheet_jump_anim_jump_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_jump_track_posy:
+actor_djakk_sheet_jump_anim_jump_track_posy:
 	dc.b 0x00, 0x00, 0x08, 0x08, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_jump_track_sfx:
+actor_djakk_sheet_jump_anim_jump_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djakk_walk:
-spriteanim_djakk_walk_numframes: equ 0x8
-spriteanim_djakk_walk_speed: equ 0x14
-spriteanim_djakk_walk_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
+actor_djakk_sheet_walk_anim_walk:
+actor_djakk_sheet_walk_anim_walk_numframes: equ 0x8
+actor_djakk_sheet_walk_anim_walk_speed: equ 0x14
+actor_djakk_sheet_walk_anim_walk_track_frames:
+	dc.l actor_djakk_sheet_walk_frame_0_header
+	dc.l actor_djakk_sheet_walk_frame_1_header
+	dc.l actor_djakk_sheet_walk_frame_2_header
+	dc.l actor_djakk_sheet_walk_frame_3_header
+	dc.l actor_djakk_sheet_walk_frame_4_header
+	dc.l actor_djakk_sheet_walk_frame_5_header
+	dc.l actor_djakk_sheet_walk_frame_6_header
+	dc.l actor_djakk_sheet_walk_frame_7_header
+
 	Even
-spriteanim_djakk_walk_track_posx:
+actor_djakk_sheet_walk_anim_walk_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_walk_track_posy:
+actor_djakk_sheet_walk_anim_walk_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_walk_track_sfx:
+actor_djakk_sheet_walk_anim_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_djakk_throw:
-spriteanim_djakk_throw_numframes: equ 0x9
-spriteanim_djakk_throw_speed: equ 0x28
-spriteanim_djakk_throw_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x2, 0x2, 0x3, 0x3, 0x4, 0x5
+actor_djakk_sheet_throw_anim_throw:
+actor_djakk_sheet_throw_anim_throw_numframes: equ 0x9
+actor_djakk_sheet_throw_anim_throw_speed: equ 0x28
+actor_djakk_sheet_throw_anim_throw_track_frames:
+	dc.l actor_djakk_sheet_throw_frame_0_header
+	dc.l actor_djakk_sheet_throw_frame_1_header
+	dc.l actor_djakk_sheet_throw_frame_2_header
+	dc.l actor_djakk_sheet_throw_frame_2_header
+	dc.l actor_djakk_sheet_throw_frame_2_header
+	dc.l actor_djakk_sheet_throw_frame_3_header
+	dc.l actor_djakk_sheet_throw_frame_3_header
+	dc.l actor_djakk_sheet_throw_frame_4_header
+	dc.l actor_djakk_sheet_throw_frame_5_header
+
 	Even
-spriteanim_djakk_throw_track_posx:
+actor_djakk_sheet_throw_anim_throw_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_throw_track_posy:
+actor_djakk_sheet_throw_anim_throw_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_djakk_throw_track_sfx:
+actor_djakk_sheet_throw_anim_throw_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

@@ -9,61 +9,332 @@
 
 actor_djubb:
 
-sprite_djubb_size_b		equ 0x01E0	; Size in bytes
-sprite_djubb_size_t		equ 0x000F	; Size in tiles
-sprite_djubb_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_djubb_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_djubb_sheet_bite_frametable:
+actor_djubb_sheet_bite_frame_0_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_bite_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_bite_frame_0
+	dc.l actor_djubb_sheet_bite_frame_0_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_bite_frame_0_subsprite_pos_offsets
+
+actor_djubb_sheet_bite_frame_1_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_bite_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_bite_frame_1
+	dc.l actor_djubb_sheet_bite_frame_1_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_bite_frame_1_subsprite_pos_offsets
+
+actor_djubb_sheet_bite_frame_2_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_bite_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_bite_frame_2
+	dc.l actor_djubb_sheet_bite_frame_2_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_bite_frame_2_subsprite_pos_offsets
+
+actor_djubb_sheet_bite_frame_3_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_bite_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_bite_frame_3
+	dc.l actor_djubb_sheet_bite_frame_3_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_bite_frame_3_subsprite_pos_offsets
+
+actor_djubb_sheet_bite_frame_0_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_bite_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_bite_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_djubb_subsprite_pos_offsets:
+actor_djubb_sheet_bite_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_djubb_subsprite_dimensions_bits:
+actor_djubb_sheet_bite_frame_0_subsprite_dimensions_bits:
 	dc.b 0xE
 	dc.b 0x2
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_djubb_numtiles_per_subsprite:
-	dc.b 0x0C
-	dc.b 0x03
+
+actor_djubb_sheet_bite_frame_1_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_bite_frame_1_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_bite_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_bite_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_bite_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
 	Even
 
 
-spritesheet_djubb_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_djubb_bite_width		equ 0x28	; Width in pixels
-spritesheet_djubb_bite_height		equ 0x18	; Width in pixels
-spritesheet_djubb_bite_size_b		equ 0x780	; Size in bytes
-spritesheet_djubb_bite_size_w		equ 0x3C0	; Size in words
-spritesheet_djubb_bite_size_l		equ 0x1E0	; Size in longwords
-spritesheet_djubb_bite_size_t		equ 0x3C	; Size in tiles
+actor_djubb_sheet_bite_frame_2_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_bite_frame_2_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_bite_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_bite_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_bite_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
 
 
-spritesheet_djubb_idle_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
-spritesheet_djubb_idle_width		equ 0x28	; Width in pixels
-spritesheet_djubb_idle_height		equ 0x18	; Width in pixels
-spritesheet_djubb_idle_size_b		equ 0x780	; Size in bytes
-spritesheet_djubb_idle_size_w		equ 0x3C0	; Size in words
-spritesheet_djubb_idle_size_l		equ 0x1E0	; Size in longwords
-spritesheet_djubb_idle_size_t		equ 0x3C	; Size in tiles
+actor_djubb_sheet_bite_frame_3_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_bite_frame_3_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_bite_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_bite_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_bite_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
 
 
-spritesheet_djubb_swim_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
-spritesheet_djubb_swim_width		equ 0x28	; Width in pixels
-spritesheet_djubb_swim_height		equ 0x18	; Width in pixels
-spritesheet_djubb_swim_size_b		equ 0x780	; Size in bytes
-spritesheet_djubb_swim_size_w		equ 0x3C0	; Size in words
-spritesheet_djubb_swim_size_l		equ 0x1E0	; Size in longwords
-spritesheet_djubb_swim_size_t		equ 0x3C	; Size in tiles
+actor_djubb_sheet_bite_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_djubb_sheet_bite_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_djubb_sheet_bite_width		equ 0x28	; Width in pixels
+actor_djubb_sheet_bite_height		equ 0x18	; Width in pixels
+actor_djubb_sheet_bite_size_b		equ 0x780	; Size in bytes
+actor_djubb_sheet_bite_size_w		equ 0x3C0	; Size in words
+actor_djubb_sheet_bite_size_l		equ 0x1E0	; Size in longwords
+actor_djubb_sheet_bite_size_t		equ 0x3C	; Size in tiles
+
+
+actor_djubb_sheet_idle_frametable:
+actor_djubb_sheet_idle_frame_0_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_idle_frame_0
+	dc.l actor_djubb_sheet_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_idle_frame_0_subsprite_pos_offsets
+
+actor_djubb_sheet_idle_frame_1_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_idle_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_idle_frame_1
+	dc.l actor_djubb_sheet_idle_frame_1_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_idle_frame_1_subsprite_pos_offsets
+
+actor_djubb_sheet_idle_frame_2_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_idle_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_idle_frame_2
+	dc.l actor_djubb_sheet_idle_frame_2_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_idle_frame_2_subsprite_pos_offsets
+
+actor_djubb_sheet_idle_frame_3_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_idle_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_idle_frame_3
+	dc.l actor_djubb_sheet_idle_frame_3_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_idle_frame_3_subsprite_pos_offsets
+
+actor_djubb_sheet_idle_frame_0_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_idle_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_idle_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_idle_frame_1_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_idle_frame_1_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_idle_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_idle_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_idle_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_idle_frame_2_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_idle_frame_2_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_idle_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_idle_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_idle_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_idle_frame_3_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_idle_frame_3_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_idle_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_idle_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_idle_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_idle_frameoffset	equ 0x04	; Offset to first frame in sprite sheet
+actor_djubb_sheet_idle_tileoffset	equ 0x3C	; Offset to first tile in sprite sheet
+actor_djubb_sheet_idle_width		equ 0x28	; Width in pixels
+actor_djubb_sheet_idle_height		equ 0x18	; Width in pixels
+actor_djubb_sheet_idle_size_b		equ 0x780	; Size in bytes
+actor_djubb_sheet_idle_size_w		equ 0x3C0	; Size in words
+actor_djubb_sheet_idle_size_l		equ 0x1E0	; Size in longwords
+actor_djubb_sheet_idle_size_t		equ 0x3C	; Size in tiles
+
+
+actor_djubb_sheet_swim_frametable:
+actor_djubb_sheet_swim_frame_0_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_swim_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_swim_frame_0
+	dc.l actor_djubb_sheet_swim_frame_0_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_swim_frame_0_subsprite_pos_offsets
+
+actor_djubb_sheet_swim_frame_1_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_swim_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_swim_frame_1
+	dc.l actor_djubb_sheet_swim_frame_1_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_swim_frame_1_subsprite_pos_offsets
+
+actor_djubb_sheet_swim_frame_2_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_swim_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_swim_frame_2
+	dc.l actor_djubb_sheet_swim_frame_2_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_swim_frame_2_subsprite_pos_offsets
+
+actor_djubb_sheet_swim_frame_3_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_swim_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_swim_frame_3
+	dc.l actor_djubb_sheet_swim_frame_3_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_swim_frame_3_subsprite_pos_offsets
+
+actor_djubb_sheet_swim_frame_0_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_swim_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_swim_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_swim_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_swim_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_swim_frame_1_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_swim_frame_1_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_swim_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_swim_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_swim_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_swim_frame_2_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_swim_frame_2_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_swim_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_swim_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_swim_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_swim_frame_3_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_swim_frame_3_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_swim_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_swim_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_swim_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_swim_frameoffset	equ 0x08	; Offset to first frame in sprite sheet
+actor_djubb_sheet_swim_tileoffset	equ 0x78	; Offset to first tile in sprite sheet
+actor_djubb_sheet_swim_width		equ 0x28	; Width in pixels
+actor_djubb_sheet_swim_height		equ 0x18	; Width in pixels
+actor_djubb_sheet_swim_size_b		equ 0x780	; Size in bytes
+actor_djubb_sheet_swim_size_w		equ 0x3C0	; Size in words
+actor_djubb_sheet_swim_size_l		equ 0x1E0	; Size in longwords
+actor_djubb_sheet_swim_size_t		equ 0x3C	; Size in tiles
 
 
 spritesheets_djubb:
 
 spritesheet_djubb_bite:
 
+actor_djubb_sheet_bite_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -199,6 +470,8 @@ spritesheet_djubb_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -334,6 +607,8 @@ spritesheet_djubb_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -469,6 +744,8 @@ spritesheet_djubb_bite:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -606,8 +883,10 @@ spritesheet_djubb_bite:
 
 
 
+
 spritesheet_djubb_idle:
 
+actor_djubb_sheet_idle_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -743,6 +1022,8 @@ spritesheet_djubb_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_idle_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -878,6 +1159,8 @@ spritesheet_djubb_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_idle_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1013,6 +1296,8 @@ spritesheet_djubb_idle:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_idle_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1150,8 +1435,10 @@ spritesheet_djubb_idle:
 
 
 
+
 spritesheet_djubb_swim:
 
+actor_djubb_sheet_swim_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1287,6 +1574,8 @@ spritesheet_djubb_swim:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_swim_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1422,6 +1711,8 @@ spritesheet_djubb_swim:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_swim_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1557,6 +1848,8 @@ spritesheet_djubb_swim:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_djubb_sheet_swim_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1691,6 +1984,7 @@ spritesheet_djubb_swim:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

@@ -9,81 +9,101 @@
 
 spriteanims_wyrm:
 
-spriteanim_wyrm_bite:
-spriteanim_wyrm_bite_numframes: equ 0x9
-spriteanim_wyrm_bite_speed: equ 0x33
-spriteanim_wyrm_bite_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x3, 0x4, 0x4, 0x5, 0x5
+actor_wyrm_sheet_bite_anim_bite:
+actor_wyrm_sheet_bite_anim_bite_numframes: equ 0x9
+actor_wyrm_sheet_bite_anim_bite_speed: equ 0x33
+actor_wyrm_sheet_bite_anim_bite_track_frames:
+	dc.l actor_wyrm_sheet_bite_frame_0_header
+	dc.l actor_wyrm_sheet_bite_frame_1_header
+	dc.l actor_wyrm_sheet_bite_frame_2_header
+	dc.l actor_wyrm_sheet_bite_frame_3_header
+	dc.l actor_wyrm_sheet_bite_frame_3_header
+	dc.l actor_wyrm_sheet_bite_frame_4_header
+	dc.l actor_wyrm_sheet_bite_frame_4_header
+	dc.l actor_wyrm_sheet_bite_frame_5_header
+	dc.l actor_wyrm_sheet_bite_frame_5_header
+
 	Even
-spriteanim_wyrm_bite_track_posx:
+actor_wyrm_sheet_bite_anim_bite_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_wyrm_bite_track_posy:
+actor_wyrm_sheet_bite_anim_bite_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8
 	Even
-spriteanim_wyrm_bite_track_sfx:
+actor_wyrm_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_wyrm_move:
-spriteanim_wyrm_move_numframes: equ 0x4
-spriteanim_wyrm_move_speed: equ 0x2E
-spriteanim_wyrm_move_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3
+actor_wyrm_sheet_move_anim_move:
+actor_wyrm_sheet_move_anim_move_numframes: equ 0x4
+actor_wyrm_sheet_move_anim_move_speed: equ 0x2E
+actor_wyrm_sheet_move_anim_move_track_frames:
+	dc.l actor_wyrm_sheet_move_frame_0_header
+	dc.l actor_wyrm_sheet_move_frame_1_header
+	dc.l actor_wyrm_sheet_move_frame_2_header
+	dc.l actor_wyrm_sheet_move_frame_3_header
+
 	Even
-spriteanim_wyrm_move_track_posx:
+actor_wyrm_sheet_move_anim_move_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_wyrm_move_track_posy:
+actor_wyrm_sheet_move_anim_move_track_posy:
 	dc.b 0xF0, 0xF0, 0xF0, 0xF0
 	Even
-spriteanim_wyrm_move_track_sfx:
+actor_wyrm_sheet_move_anim_move_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
-spriteanim_wyrm_idle:
-spriteanim_wyrm_idle_numframes: equ 0x1
-spriteanim_wyrm_idle_speed: equ 0x5
-spriteanim_wyrm_idle_track_frames:
-	dc.b 0x0
+actor_wyrm_sheet_emerge_anim_idle:
+actor_wyrm_sheet_emerge_anim_idle_numframes: equ 0x1
+actor_wyrm_sheet_emerge_anim_idle_speed: equ 0x5
+actor_wyrm_sheet_emerge_anim_idle_track_frames:
+	dc.l actor_wyrm_sheet_emerge_frame_0_header
+
 	Even
-spriteanim_wyrm_idle_track_posx:
+actor_wyrm_sheet_emerge_anim_idle_track_posx:
 	dc.b 0x00
 	Even
-spriteanim_wyrm_idle_track_posy:
+actor_wyrm_sheet_emerge_anim_idle_track_posy:
 	dc.b 0x00
 	Even
-spriteanim_wyrm_idle_track_sfx:
+actor_wyrm_sheet_emerge_anim_idle_track_sfx:
 	dc.l 0x0
 	Even
-spriteanim_wyrm_burrow:
-spriteanim_wyrm_burrow_numframes: equ 0x3
-spriteanim_wyrm_burrow_speed: equ 0x19
-spriteanim_wyrm_burrow_track_frames:
-	dc.b 0x2, 0x1, 0x0
+actor_wyrm_sheet_emerge_anim_burrow:
+actor_wyrm_sheet_emerge_anim_burrow_numframes: equ 0x3
+actor_wyrm_sheet_emerge_anim_burrow_speed: equ 0x19
+actor_wyrm_sheet_emerge_anim_burrow_track_frames:
+	dc.l actor_wyrm_sheet_emerge_frame_2_header
+	dc.l actor_wyrm_sheet_emerge_frame_1_header
+	dc.l actor_wyrm_sheet_emerge_frame_0_header
+
 	Even
-spriteanim_wyrm_burrow_track_posx:
+actor_wyrm_sheet_emerge_anim_burrow_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_wyrm_burrow_track_posy:
+actor_wyrm_sheet_emerge_anim_burrow_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8
 	Even
-spriteanim_wyrm_burrow_track_sfx:
+actor_wyrm_sheet_emerge_anim_burrow_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
-spriteanim_wyrm_emerge:
-spriteanim_wyrm_emerge_numframes: equ 0x3
-spriteanim_wyrm_emerge_speed: equ 0x19
-spriteanim_wyrm_emerge_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_wyrm_sheet_emerge_anim_emerge:
+actor_wyrm_sheet_emerge_anim_emerge_numframes: equ 0x3
+actor_wyrm_sheet_emerge_anim_emerge_speed: equ 0x19
+actor_wyrm_sheet_emerge_anim_emerge_track_frames:
+	dc.l actor_wyrm_sheet_emerge_frame_0_header
+	dc.l actor_wyrm_sheet_emerge_frame_1_header
+	dc.l actor_wyrm_sheet_emerge_frame_2_header
+
 	Even
-spriteanim_wyrm_emerge_track_posx:
+actor_wyrm_sheet_emerge_anim_emerge_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_wyrm_emerge_track_posy:
+actor_wyrm_sheet_emerge_anim_emerge_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8
 	Even
-spriteanim_wyrm_emerge_track_sfx:
+actor_wyrm_sheet_emerge_anim_emerge_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 

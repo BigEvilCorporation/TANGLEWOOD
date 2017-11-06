@@ -9,19 +9,39 @@
 
 spriteanims_firefly:
 
-spriteanim_firefly_idle:
-spriteanim_firefly_idle_numframes: equ 0x14
-spriteanim_firefly_idle_speed: equ 0x8A
-spriteanim_firefly_idle_track_frames:
-	dc.b 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11, 0x12, 0x13
+actor_firefly_sheet_red_anim_idle:
+actor_firefly_sheet_red_anim_idle_numframes: equ 0x14
+actor_firefly_sheet_red_anim_idle_speed: equ 0x8A
+actor_firefly_sheet_red_anim_idle_track_frames:
+	dc.l actor_firefly_sheet_red_frame_0_header
+	dc.l actor_firefly_sheet_red_frame_1_header
+	dc.l actor_firefly_sheet_red_frame_2_header
+	dc.l actor_firefly_sheet_red_frame_3_header
+	dc.l actor_firefly_sheet_red_frame_4_header
+	dc.l actor_firefly_sheet_red_frame_5_header
+	dc.l actor_firefly_sheet_red_frame_6_header
+	dc.l actor_firefly_sheet_red_frame_7_header
+	dc.l actor_firefly_sheet_red_frame_8_header
+	dc.l actor_firefly_sheet_red_frame_9_header
+	dc.l actor_firefly_sheet_red_frame_10_header
+	dc.l actor_firefly_sheet_red_frame_11_header
+	dc.l actor_firefly_sheet_red_frame_12_header
+	dc.l actor_firefly_sheet_red_frame_13_header
+	dc.l actor_firefly_sheet_red_frame_14_header
+	dc.l actor_firefly_sheet_red_frame_15_header
+	dc.l actor_firefly_sheet_red_frame_16_header
+	dc.l actor_firefly_sheet_red_frame_17_header
+	dc.l actor_firefly_sheet_red_frame_18_header
+	dc.l actor_firefly_sheet_red_frame_19_header
+
 	Even
-spriteanim_firefly_idle_track_posx:
+actor_firefly_sheet_red_anim_idle_track_posx:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_firefly_idle_track_posy:
+actor_firefly_sheet_red_anim_idle_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-spriteanim_firefly_idle_track_sfx:
+actor_firefly_sheet_red_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

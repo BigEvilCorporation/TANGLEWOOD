@@ -9,13 +9,27 @@
 
 actor_cogs:
 
-sprite_cogs_size_b		equ 0x0B60	; Size in bytes
-sprite_cogs_size_t		equ 0x005B	; Size in tiles
-sprite_cogs_size_subsprites		equ 0x0008	; Size in subsprites
-sprite_cogs_widthheight_subsprites		equ 0x0204	; Width/height (bb) in subsprites
+actor_cogs_sheet_cogs_frametable:
+actor_cogs_sheet_cogs_frame_0_header:
+	dc.w 0x005B	; Frame size (tiles)
+	dc.w actor_cogs_sheet_cogs_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cogs_sheet_cogs_frame_0
+	dc.l actor_cogs_sheet_cogs_frame_0_subsprite_dimensions_bits
+	dc.l actor_cogs_sheet_cogs_frame_0_subsprite_pos_offsets
+
+actor_cogs_sheet_cogs_frame_1_header:
+	dc.w 0x005B	; Frame size (tiles)
+	dc.w actor_cogs_sheet_cogs_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cogs_sheet_cogs_frame_1
+	dc.l actor_cogs_sheet_cogs_frame_1_subsprite_dimensions_bits
+	dc.l actor_cogs_sheet_cogs_frame_1_subsprite_pos_offsets
+
+actor_cogs_sheet_cogs_frame_0_size_b		equ 0x0B60	; Size in bytes
+actor_cogs_sheet_cogs_frame_0_size_t		equ 0x005B	; Size in tiles
+actor_cogs_sheet_cogs_frame_0_size_subsprites		equ 0x0008	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_cogs_subsprite_pos_offsets:
+actor_cogs_sheet_cogs_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00180000
 	dc.l 0x00000020, 0x00180020
 	dc.l 0x00000040, 0x00180040
@@ -27,7 +41,7 @@ sprite_cogs_subsprite_pos_offsets:
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_cogs_subsprite_dimensions_bits:
+actor_cogs_sheet_cogs_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0xF
 	dc.b 0xF
@@ -38,32 +52,51 @@ sprite_cogs_subsprite_dimensions_bits:
 	dc.b 0x8
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_cogs_numtiles_per_subsprite:
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x10
-	dc.b 0x04
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x0C
-	dc.b 0x03
+
+actor_cogs_sheet_cogs_frame_1_size_b		equ 0x0B60	; Size in bytes
+actor_cogs_sheet_cogs_frame_1_size_t		equ 0x005B	; Size in tiles
+actor_cogs_sheet_cogs_frame_1_size_subsprites		equ 0x0008	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_cogs_sheet_cogs_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00180000
+	dc.l 0x00000020, 0x00180020
+	dc.l 0x00000040, 0x00180040
+	dc.l 0x00000060, 0x00180060
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	dc.l 0x00200040, 0x00000040
+	dc.l 0x00200060, 0x00000060
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_cogs_sheet_cogs_frame_1_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xF
+	dc.b 0xC
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0xB
+	dc.b 0x8
 	Even
 
 
-spritesheet_cogs_cogs_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_cogs_cogs_width		equ 0x38	; Width in pixels
-spritesheet_cogs_cogs_height		equ 0x68	; Width in pixels
-spritesheet_cogs_cogs_size_b		equ 0x16C0	; Size in bytes
-spritesheet_cogs_cogs_size_w		equ 0xB60	; Size in words
-spritesheet_cogs_cogs_size_l		equ 0x5B0	; Size in longwords
-spritesheet_cogs_cogs_size_t		equ 0xB6	; Size in tiles
+actor_cogs_sheet_cogs_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_cogs_sheet_cogs_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_cogs_sheet_cogs_width		equ 0x38	; Width in pixels
+actor_cogs_sheet_cogs_height		equ 0x68	; Width in pixels
+actor_cogs_sheet_cogs_size_b		equ 0x16C0	; Size in bytes
+actor_cogs_sheet_cogs_size_w		equ 0xB60	; Size in words
+actor_cogs_sheet_cogs_size_l		equ 0x5B0	; Size in longwords
+actor_cogs_sheet_cogs_size_t		equ 0xB6	; Size in tiles
 
 
 spritesheets_cogs:
 
 spritesheet_cogs_cogs:
 
+actor_cogs_sheet_cogs_frame_0:
 	dc.l	0x25525555
 	dc.l	0x2882BBBB
 	dc.l	0x2885BBBB
@@ -883,6 +916,8 @@ spritesheet_cogs_cogs:
 	dc.l	0x55353551
 	dc.l	0x55353551
 
+
+actor_cogs_sheet_cogs_frame_1:
 	dc.l	0x25525555
 	dc.l	0x2882BBBB
 	dc.l	0x2885BBBB
@@ -1701,6 +1736,7 @@ spritesheet_cogs_cogs:
 	dc.l	0x55353551
 	dc.l	0x55353551
 	dc.l	0x55353551
+
 
 
 

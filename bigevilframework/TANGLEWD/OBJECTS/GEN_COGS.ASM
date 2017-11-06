@@ -58,7 +58,7 @@ CogsInit:
 	; Setup animation
 
 	; Cog spin
-	ANIM_LOAD_DEFAULT cogs_cogs,cogs_spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
+	ANIM_LOAD_DEFAULT cogs,cogs,spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
 
 	PUSHL  a1
 	lea    Cogs_Animations+(Animation_Struct_Size*CogsAnimIdx_Spin)(a0), a1
@@ -78,6 +78,6 @@ CogsLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED cogs,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED cogs,cogs,PaletteId_World0,0x0
 
 	rts

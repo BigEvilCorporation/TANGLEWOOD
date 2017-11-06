@@ -9,19 +9,21 @@
 
 spriteanims_winch:
 
-spriteanim_winch_turn:
-spriteanim_winch_turn_numframes: equ 0x2
-spriteanim_winch_turn_speed: equ 0x28
-spriteanim_winch_turn_track_frames:
-	dc.b 0x0, 0x1
+actor_winch_sheet_winch_anim_turn:
+actor_winch_sheet_winch_anim_turn_numframes: equ 0x2
+actor_winch_sheet_winch_anim_turn_speed: equ 0x28
+actor_winch_sheet_winch_anim_turn_track_frames:
+	dc.l actor_winch_sheet_winch_frame_0_header
+	dc.l actor_winch_sheet_winch_frame_1_header
+
 	Even
-spriteanim_winch_turn_track_posx:
+actor_winch_sheet_winch_anim_turn_track_posx:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_winch_turn_track_posy:
+actor_winch_sheet_winch_anim_turn_track_posy:
 	dc.b 0x00, 0x00
 	Even
-spriteanim_winch_turn_track_sfx:
+actor_winch_sheet_winch_anim_turn_track_sfx:
 	dc.l 0x0, 0x0
 	Even
 

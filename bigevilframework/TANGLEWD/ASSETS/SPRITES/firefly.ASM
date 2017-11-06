@@ -9,40 +9,462 @@
 
 actor_firefly:
 
-sprite_firefly_size_b		equ 0x0080	; Size in bytes
-sprite_firefly_size_t		equ 0x0004	; Size in tiles
-sprite_firefly_size_subsprites		equ 0x0001	; Size in subsprites
-sprite_firefly_widthheight_subsprites		equ 0x0101	; Width/height (bb) in subsprites
+actor_firefly_sheet_red_frametable:
+actor_firefly_sheet_red_frame_0_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_0
+	dc.l actor_firefly_sheet_red_frame_0_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_0_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_1_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_1
+	dc.l actor_firefly_sheet_red_frame_1_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_1_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_2_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_2
+	dc.l actor_firefly_sheet_red_frame_2_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_2_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_3_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_3
+	dc.l actor_firefly_sheet_red_frame_3_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_3_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_4_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_4
+	dc.l actor_firefly_sheet_red_frame_4_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_4_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_5_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_5
+	dc.l actor_firefly_sheet_red_frame_5_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_5_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_6_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_6
+	dc.l actor_firefly_sheet_red_frame_6_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_6_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_7_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_7
+	dc.l actor_firefly_sheet_red_frame_7_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_7_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_8_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_8
+	dc.l actor_firefly_sheet_red_frame_8_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_8_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_9_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_9_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_9
+	dc.l actor_firefly_sheet_red_frame_9_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_9_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_10_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_10_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_10
+	dc.l actor_firefly_sheet_red_frame_10_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_10_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_11_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_11_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_11
+	dc.l actor_firefly_sheet_red_frame_11_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_11_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_12_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_12_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_12
+	dc.l actor_firefly_sheet_red_frame_12_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_12_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_13_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_13_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_13
+	dc.l actor_firefly_sheet_red_frame_13_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_13_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_14_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_14_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_14
+	dc.l actor_firefly_sheet_red_frame_14_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_14_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_15_header:
+	dc.w 0x0002	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_15_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_15
+	dc.l actor_firefly_sheet_red_frame_15_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_15_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_16_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_16_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_16
+	dc.l actor_firefly_sheet_red_frame_16_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_16_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_17_header:
+	dc.w 0x0001	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_17_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_17
+	dc.l actor_firefly_sheet_red_frame_17_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_17_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_18_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_18_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_18
+	dc.l actor_firefly_sheet_red_frame_18_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_18_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_19_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_firefly_sheet_red_frame_19_size_subsprites	; Frame size (subsprites)
+	dc.l actor_firefly_sheet_red_frame_19
+	dc.l actor_firefly_sheet_red_frame_19_subsprite_dimensions_bits
+	dc.l actor_firefly_sheet_red_frame_19_subsprite_pos_offsets
+
+actor_firefly_sheet_red_frame_0_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_0_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_firefly_subsprite_pos_offsets:
+actor_firefly_sheet_red_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_firefly_subsprite_dimensions_bits:
+actor_firefly_sheet_red_frame_0_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_1_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_1_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_1_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_2_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_2_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_2_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_3_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_3_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_3_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_4_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_4_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_4_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_5_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_5_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_5_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_6_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_6_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_6_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_7_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_7_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_7_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_8_size_b		equ 0x0080	; Size in bytes
+actor_firefly_sheet_red_frame_8_size_t		equ 0x0004	; Size in tiles
+actor_firefly_sheet_red_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_8_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_firefly_numtiles_per_subsprite:
-	dc.b 0x04
+
+actor_firefly_sheet_red_frame_9_size_b		equ 0x0080	; Size in bytes
+actor_firefly_sheet_red_frame_9_size_t		equ 0x0004	; Size in tiles
+actor_firefly_sheet_red_frame_9_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_9_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_9_subsprite_dimensions_bits:
+	dc.b 0x5
 	Even
 
 
-spritesheet_firefly_red_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_firefly_red_width		equ 0x10	; Width in pixels
-spritesheet_firefly_red_height		equ 0x10	; Width in pixels
-spritesheet_firefly_red_size_b		equ 0xA00	; Size in bytes
-spritesheet_firefly_red_size_w		equ 0x500	; Size in words
-spritesheet_firefly_red_size_l		equ 0x280	; Size in longwords
-spritesheet_firefly_red_size_t		equ 0x50	; Size in tiles
+actor_firefly_sheet_red_frame_10_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_10_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_10_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_10_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_10_subsprite_dimensions_bits:
+	dc.b 0x4
+	Even
+
+
+actor_firefly_sheet_red_frame_11_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_11_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_11_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_11_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_11_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_12_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_12_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_12_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_12_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_12_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_13_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_13_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_13_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_13_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_13_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_14_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_14_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_14_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_14_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_14_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_15_size_b		equ 0x0040	; Size in bytes
+actor_firefly_sheet_red_frame_15_size_t		equ 0x0002	; Size in tiles
+actor_firefly_sheet_red_frame_15_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_15_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_15_subsprite_dimensions_bits:
+	dc.b 0x1
+	Even
+
+
+actor_firefly_sheet_red_frame_16_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_16_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_16_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_16_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_16_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_17_size_b		equ 0x0020	; Size in bytes
+actor_firefly_sheet_red_frame_17_size_t		equ 0x0001	; Size in tiles
+actor_firefly_sheet_red_frame_17_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_17_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_17_subsprite_dimensions_bits:
+	dc.b 0x0
+	Even
+
+
+actor_firefly_sheet_red_frame_18_size_b		equ 0x0080	; Size in bytes
+actor_firefly_sheet_red_frame_18_size_t		equ 0x0004	; Size in tiles
+actor_firefly_sheet_red_frame_18_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_18_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_18_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_firefly_sheet_red_frame_19_size_b		equ 0x0080	; Size in bytes
+actor_firefly_sheet_red_frame_19_size_t		equ 0x0004	; Size in tiles
+actor_firefly_sheet_red_frame_19_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_firefly_sheet_red_frame_19_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_firefly_sheet_red_frame_19_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_firefly_sheet_red_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_firefly_sheet_red_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_firefly_sheet_red_width		equ 0x10	; Width in pixels
+actor_firefly_sheet_red_height		equ 0x10	; Width in pixels
+actor_firefly_sheet_red_size_b		equ 0xA00	; Size in bytes
+actor_firefly_sheet_red_size_w		equ 0x500	; Size in words
+actor_firefly_sheet_red_size_l		equ 0x280	; Size in longwords
+actor_firefly_sheet_red_size_t		equ 0x50	; Size in tiles
 
 
 spritesheets_firefly:
 
 spritesheet_firefly_red:
 
+actor_firefly_sheet_red_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00555300
@@ -52,33 +474,8 @@ spritesheet_firefly_red:
 	dc.l	0x00555337
 	dc.l	0x00000033
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x30000000
-	dc.l	0x30000000
-	dc.l	0x30000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -88,33 +485,8 @@ spritesheet_firefly_red:
 	dc.l	0x56673300
 	dc.l	0x55653000
 
-	dc.l	0x05550000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -133,24 +505,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -169,24 +525,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -205,24 +545,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -241,33 +565,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_6:
 	dc.l	0x33300000
 	dc.l	0x37300000
 	dc.l	0x37355500
@@ -277,33 +576,8 @@ spritesheet_firefly_red:
 	dc.l	0x00355500
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_7:
 	dc.l	0x00000555
 	dc.l	0x00003565
 	dc.l	0x00033766
@@ -313,24 +587,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x50000000
-	dc.l	0x50000000
-	dc.l	0x50000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_8:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -367,6 +625,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_firefly_sheet_red_frame_9:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -403,6 +663,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_firefly_sheet_red_frame_10:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -411,15 +673,6 @@ spritesheet_firefly_red:
 	dc.l	0x00000033
 	dc.l	0x00000037
 	dc.l	0x00000037
-
-	dc.l	0x00000033
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -430,33 +683,8 @@ spritesheet_firefly_red:
 	dc.l	0x33555000
 	dc.l	0x30000000
 
-	dc.l	0x30000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_11:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -466,33 +694,8 @@ spritesheet_firefly_red:
 	dc.l	0x00337665
 	dc.l	0x00035655
 
-	dc.l	0x00005550
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_12:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -511,24 +714,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_13:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -547,24 +734,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_14:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -583,24 +754,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_15:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -619,33 +774,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_16:
 	dc.l	0x00000333
 	dc.l	0x00000383
 	dc.l	0x00555383
@@ -655,33 +785,8 @@ spritesheet_firefly_red:
 	dc.l	0x00555300
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
+actor_firefly_sheet_red_frame_17:
 	dc.l	0x00000000
 	dc.l	0x05550000
 	dc.l	0x55653000
@@ -691,6 +796,8 @@ spritesheet_firefly_red:
 	dc.l	0x00333330
 	dc.l	0x00000000
 
+
+actor_firefly_sheet_red_frame_18:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -727,6 +834,8 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
+
+actor_firefly_sheet_red_frame_19:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -762,6 +871,7 @@ spritesheet_firefly_red:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
+
 
 
 

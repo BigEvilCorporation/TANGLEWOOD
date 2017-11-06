@@ -27,10 +27,10 @@ WorldToLeafWindowY equ (Leaf_WindowBorderY-vdp_sprite_border_y)*subpixels_per_pi
 Leaf_NumVariations equ 0x4
 
 LeafFrameOffsets:
-	dc.w spritesheet_leaf_green_frameoffset
-	dc.w spritesheet_leaf_red_frameoffset
-	dc.w spritesheet_leaf_turquoise_frameoffset
-	dc.w spritesheet_leaf_brown_frameoffset
+	dc.w actor_leaf_sheet_green_frameoffset
+	dc.w actor_leaf_sheet_red_frameoffset
+	dc.w actor_leaf_sheet_turquoise_frameoffset
+	dc.w actor_leaf_sheet_brown_frameoffset
 
 ; Struct
 	rsset (AnimObj_Struct_Size)
@@ -88,7 +88,7 @@ LeafInit:
 	move.w (a2), Animation_FirstFrameOffset(a3)
 
 	; Load anim
-	ANIM_LOAD_MANUALCONTROL leaf_green,leaf_fall,Leaf_Animation,0
+	ANIM_LOAD_MANUALCONTROL leaf,green,fall,Leaf_Animation,0
 	
 	; Set animation
 	move.l  a3, AnimObj_CurrentAnim(a0)
@@ -109,7 +109,7 @@ LeafLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT leaf,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT leaf,brown,PaletteId_World0,0x0
 
 	rts
 
@@ -275,8 +275,8 @@ LeafUpdate:
 
 	; Update animation frame
 	addi.w #0x00FF, d2	; Sine value to 0-256 range
-	muls   #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/256), d2 ; To anim range
-	addi.l #((spriteanim_leaf_fall_numframes*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
+	muls   #((actor_leaf_sheet_brown_anim_fall_numframes*SubframesPerFrame)/256), d2 ; To anim range
+	addi.l #((actor_leaf_sheet_brown_anim_fall_numframes*SubframesPerFrame)/2), d2   ; Offset to anim start (sine starts at 128)
 	move.l AnimObj_AnimSubFrame(a0), d3
 	move.l d2, AnimObj_AnimSubFrame(a0)
 

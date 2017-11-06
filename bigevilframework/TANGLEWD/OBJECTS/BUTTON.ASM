@@ -80,10 +80,10 @@ ButtonLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT button,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT button,button,PaletteId_World0,0x0
 
 	; Load anim
-	ANIM_LOAD_DEFAULT button_button,button_press,Button_Animation,0,0,0,0
+	ANIM_LOAD_DEFAULT button,button,press,Button_Animation,0,0,0,0
 
 	; Set initial anim, override speed
 	PUSHL  a1

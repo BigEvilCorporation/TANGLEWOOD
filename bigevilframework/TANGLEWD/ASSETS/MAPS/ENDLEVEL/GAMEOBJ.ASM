@@ -9,9 +9,9 @@
 
 end_level_Leaf_count equ 0x0
 
-end_level_Trap_count equ 0x0
-
 end_level_Djubb_count equ 0x0
+
+end_level_Trap_count equ 0x0
 
 end_level_Echo_count equ 0x0
 
@@ -21,9 +21,9 @@ end_level_BouncePlant_count equ 0x0
 
 end_level_Log_count equ 0x0
 
-end_level_Borgus_count equ 0x0
-
 end_level_DjakkCage_count equ 0x0
+
+end_level_Borgus_count equ 0x0
 
 end_level_Monster_count equ 0x0
 
@@ -51,6 +51,8 @@ end_level_Stone_count equ 0x0
 
 end_level_Demon_count equ 0x0
 
+end_level_Raft_count equ 0x0
+
 end_level_Nest_count equ 0x0
 
 end_level_Flue_count equ 0x0
@@ -63,9 +65,9 @@ end_level_WaterBody_count equ 0x0
 
 end_level_Location_count equ 0x0
 
-end_level_Lift_count equ 0x0
-
 end_level_Deathbox_count equ 0x0
+
+end_level_Lift_count equ 0x0
 
 end_level_Crate_count equ 0x0
 
@@ -89,8 +91,6 @@ end_level_Winch_count equ 0x0
 
 end_level_WindFlue_count equ 0x0
 
-end_level_Raft_count equ 0x0
-
 end_level_Lock_count equ 0x0
 
 end_level_Pool_count equ 0x0
@@ -102,6 +102,8 @@ end_level_Stalactite_count equ 0x0
 end_level_CargoLift_count equ 0x0
 
 end_level_Scrap_count equ 0x0
+
+end_level_Longboat_count equ 0x0
 
 
 
@@ -157,6 +159,7 @@ end_level_LoadGameObjects:
 	move.b #ColourRed, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

@@ -9,43 +9,118 @@
 
 actor_button:
 
-sprite_button_size_b		equ 0x0100	; Size in bytes
-sprite_button_size_t		equ 0x0008	; Size in tiles
-sprite_button_size_subsprites		equ 0x0002	; Size in subsprites
-sprite_button_widthheight_subsprites		equ 0x0201	; Width/height (bb) in subsprites
+actor_button_sheet_button_frametable:
+actor_button_sheet_button_frame_0_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_button_sheet_button_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_button_sheet_button_frame_0
+	dc.l actor_button_sheet_button_frame_0_subsprite_dimensions_bits
+	dc.l actor_button_sheet_button_frame_0_subsprite_pos_offsets
+
+actor_button_sheet_button_frame_1_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_button_sheet_button_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_button_sheet_button_frame_1
+	dc.l actor_button_sheet_button_frame_1_subsprite_dimensions_bits
+	dc.l actor_button_sheet_button_frame_1_subsprite_pos_offsets
+
+actor_button_sheet_button_frame_2_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_button_sheet_button_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_button_sheet_button_frame_2
+	dc.l actor_button_sheet_button_frame_2_subsprite_dimensions_bits
+	dc.l actor_button_sheet_button_frame_2_subsprite_pos_offsets
+
+actor_button_sheet_button_frame_3_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_button_sheet_button_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_button_sheet_button_frame_3
+	dc.l actor_button_sheet_button_frame_3_subsprite_dimensions_bits
+	dc.l actor_button_sheet_button_frame_3_subsprite_pos_offsets
+
+actor_button_sheet_button_frame_0_size_b		equ 0x0100	; Size in bytes
+actor_button_sheet_button_frame_0_size_t		equ 0x0008	; Size in tiles
+actor_button_sheet_button_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-sprite_button_subsprite_pos_offsets:
+actor_button_sheet_button_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00200000
 	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-sprite_button_subsprite_dimensions_bits:
+actor_button_sheet_button_frame_0_subsprite_dimensions_bits:
 	dc.b 0xC
 	dc.b 0xC
 	Even
 
-; Num tiles per subsprite (for sprite descs)
-sprite_button_numtiles_per_subsprite:
-	dc.b 0x04
-	dc.b 0x04
+
+actor_button_sheet_button_frame_1_size_b		equ 0x0100	; Size in bytes
+actor_button_sheet_button_frame_1_size_t		equ 0x0008	; Size in tiles
+actor_button_sheet_button_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_button_sheet_button_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_button_sheet_button_frame_1_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0xC
 	Even
 
 
-spritesheet_button_button_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
-spritesheet_button_button_width		equ 0x40	; Width in pixels
-spritesheet_button_button_height		equ 0x08	; Width in pixels
-spritesheet_button_button_size_b		equ 0x400	; Size in bytes
-spritesheet_button_button_size_w		equ 0x200	; Size in words
-spritesheet_button_button_size_l		equ 0x100	; Size in longwords
-spritesheet_button_button_size_t		equ 0x20	; Size in tiles
+actor_button_sheet_button_frame_2_size_b		equ 0x0100	; Size in bytes
+actor_button_sheet_button_frame_2_size_t		equ 0x0008	; Size in tiles
+actor_button_sheet_button_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_button_sheet_button_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_button_sheet_button_frame_2_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0xC
+	Even
+
+
+actor_button_sheet_button_frame_3_size_b		equ 0x0100	; Size in bytes
+actor_button_sheet_button_frame_3_size_t		equ 0x0008	; Size in tiles
+actor_button_sheet_button_frame_3_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_button_sheet_button_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_button_sheet_button_frame_3_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0xC
+	Even
+
+
+actor_button_sheet_button_frameoffset	equ 0x00	; Offset to first frame in sprite sheet
+actor_button_sheet_button_tileoffset	equ 0x00	; Offset to first tile in sprite sheet
+actor_button_sheet_button_width		equ 0x40	; Width in pixels
+actor_button_sheet_button_height		equ 0x08	; Width in pixels
+actor_button_sheet_button_size_b		equ 0x400	; Size in bytes
+actor_button_sheet_button_size_w		equ 0x200	; Size in words
+actor_button_sheet_button_size_l		equ 0x100	; Size in longwords
+actor_button_sheet_button_size_t		equ 0x20	; Size in tiles
 
 
 spritesheets_button:
 
 spritesheet_button_button:
 
+actor_button_sheet_button_frame_0:
 	dc.l	0x3333C888
 	dc.l	0x3333C888
 	dc.l	0x01111311
@@ -118,6 +193,8 @@ spritesheet_button_button:
 	dc.l	0xC3333000
 	dc.l	0xC3333000
 
+
+actor_button_sheet_button_frame_1:
 	dc.l	0x00000000
 	dc.l	0x3333C888
 	dc.l	0x3333C888
@@ -190,6 +267,8 @@ spritesheet_button_button:
 	dc.l	0xC3333000
 	dc.l	0xC3333000
 
+
+actor_button_sheet_button_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x3333C888
@@ -262,6 +341,8 @@ spritesheet_button_button:
 	dc.l	0xC3333110
 	dc.l	0xC3333000
 
+
+actor_button_sheet_button_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -333,6 +414,7 @@ spritesheet_button_button:
 	dc.l	0x11111110
 	dc.l	0xC3333110
 	dc.l	0xC3333110
+
 
 
 

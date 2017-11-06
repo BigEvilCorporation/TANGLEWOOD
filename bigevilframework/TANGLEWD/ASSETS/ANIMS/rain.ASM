@@ -9,19 +9,22 @@
 
 spriteanims_rain:
 
-spriteanim_rain_fall:
-spriteanim_rain_fall_numframes: equ 0x3
-spriteanim_rain_fall_speed: equ 0x5
-spriteanim_rain_fall_track_frames:
-	dc.b 0x0, 0x1, 0x2
+actor_rain_sheet_light_anim_fall:
+actor_rain_sheet_light_anim_fall_numframes: equ 0x3
+actor_rain_sheet_light_anim_fall_speed: equ 0x5
+actor_rain_sheet_light_anim_fall_track_frames:
+	dc.l actor_rain_sheet_light_frame_0_header
+	dc.l actor_rain_sheet_light_frame_1_header
+	dc.l actor_rain_sheet_light_frame_2_header
+
 	Even
-spriteanim_rain_fall_track_posx:
+actor_rain_sheet_light_anim_fall_track_posx:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_rain_fall_track_posy:
+actor_rain_sheet_light_anim_fall_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-spriteanim_rain_fall_track_sfx:
+actor_rain_sheet_light_anim_fall_track_sfx:
 	dc.l 0x0, 0x0, 0x0
 	Even
 

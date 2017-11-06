@@ -274,20 +274,20 @@ MonsterLoadGfx:
 	; Load sprite
 	tst.b   Monster_ManualGfxLoad(a0)
 	bne     @ManualLoad
-	SPRITE_LOAD_DEFAULT djakk,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djakk,idle,PaletteId_Monster,0x0
 	@ManualLoad:
 
 	; Setup default character animations
-	ANIM_LOAD_DEFAULT djakk_idle,djakk_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT djakk_death,djakk_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
-	ANIM_LOAD_DEFAULT djakk_run,djakk_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
-	ANIM_LOAD_DEFAULT djakk_walk,djakk_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT djakk_jump,djakk_jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
+	ANIM_LOAD_DEFAULT djakk,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT djakk,death,death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
+	ANIM_LOAD_DEFAULT djakk,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT djakk,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT djakk,jump,jump,Character_Animations,CharacterAnimIdx_Jump,0,0,0
 
 	; Setup bespoke character animations
-	ANIM_LOAD_DEFAULT djakk_bite,djakk_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
-	ANIM_LOAD_DEFAULT djakk_roar,djakk_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
-	ANIM_LOAD_DEFAULT djakk_throw,djakk_throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
+	ANIM_LOAD_DEFAULT djakk,bite,bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT djakk,roar,roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
+	ANIM_LOAD_DEFAULT djakk,throw,throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
 
 	bra     @End
 
@@ -298,18 +298,18 @@ MonsterLoadGfx:
 	; Load sprite
 	tst.b   Monster_ManualGfxLoad(a0)
 	bne     @ManualLoadElder
-	SPRITE_LOAD_DEFAULT elder,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT elder,idle,PaletteId_Monster,0x0
 	@ManualLoadElder:
 
 	; Setup default character animations
-	ANIM_LOAD_DEFAULT elder_idle,elder_idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT elder_death,elder_death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
-	ANIM_LOAD_DEFAULT elder_run,elder_run,Character_Animations,CharacterAnimIdx_Run,1,0,0
-	ANIM_LOAD_DEFAULT elder_walk,elder_walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT elder,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT elder,death,death,Character_Animations,CharacterAnimIdx_Dead,1,1,0
+	ANIM_LOAD_DEFAULT elder,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT elder,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 
 	; Setup bespoke character animations
-	ANIM_LOAD_DEFAULT elder_bite,elder_bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
-	ANIM_LOAD_DEFAULT elder_roar,elder_roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
+	ANIM_LOAD_DEFAULT elder,bite,bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
+	ANIM_LOAD_DEFAULT elder,roar,roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
 
 	bra     @End
 
@@ -1379,7 +1379,7 @@ MonsterUpdateBite:
 	; Check if end frame reached
 	move.l AnimObj_AnimSubframe(a0), d0; Get anim subframe
 	lsr.l  #0x8, d0 					; Subframes to frames
-	cmp.b  #spriteanim_djakk_bite_numframes, d0
+	cmp.b  #actor_djakk_sheet_bite_anim_bite_numframes, d0
 	beq    @AnimFinished
 	
 	; Check if attack frame reached

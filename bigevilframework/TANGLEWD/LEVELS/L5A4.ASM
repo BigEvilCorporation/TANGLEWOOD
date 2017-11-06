@@ -411,7 +411,7 @@ l5a4_Cutscene_LightningFlash:
 l5a4_Cutscene_SetSadIdleAnim:
 
 	move.l Player2, a0
-	ANIM_LOAD_DEFAULT Echo_idlesad,Echo_idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Echo,idlesad,idlesad,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	move.b #0x0, d0
 

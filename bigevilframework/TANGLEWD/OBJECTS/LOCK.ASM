@@ -71,10 +71,10 @@ LockLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Lock,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Lock,raise,PaletteId_World0,0x0
 
 	; Load animation
-	ANIM_LOAD_MANUALCONTROL lock_raise,lock_raise,Lock_Animation,0
+	ANIM_LOAD_MANUALCONTROL lock,raise,raise,Lock_Animation,0
 
 	; Set animation
 	PUSHL  a1
@@ -107,7 +107,7 @@ LockUpdate:
 	move.w d1, d2
 
 	; Set as anim frame
-	muls   #(((spriteanim_lock_raise_numframes-1)*SubframesPerFrame)/Lock_MaxRaiseHeight), d1
+	muls   #(((actor_lock_sheet_raise_anim_raise_numframes-1)*SubframesPerFrame)/Lock_MaxRaiseHeight), d1
 	move.l d1, AnimObj_AnimSubframe(a0)
 	move.b #0x1, AnimObj_Dirty(a0)
 

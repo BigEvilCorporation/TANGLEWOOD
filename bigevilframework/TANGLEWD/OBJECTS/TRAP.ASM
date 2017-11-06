@@ -116,7 +116,7 @@ TrapLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED Trap,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Trap,trap,PaletteId_World0,0x0
 
 	; Reposition platforms and set velocity
 	lea    Trap_UpperPlatform(a0), a2
