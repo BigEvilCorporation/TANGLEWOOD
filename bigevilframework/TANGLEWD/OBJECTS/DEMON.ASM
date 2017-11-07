@@ -37,9 +37,6 @@ Demon_MaxLives		equ 0x3
 
 DemonWisp_Width		equ 0x0038
 DemonWisp_Height	equ 0x0030
-DemonWisp_MinVel	equ 0x00002000
-DemonWisp_MaxVel	equ 0x00020000
-DemonWisp_Accel		equ 0x00008000
 DemonWisp_MaxDist	equ Player1Height	; Max distance from player
 
 DemonState_Wisp			equ 0x0
@@ -117,24 +114,24 @@ DemonInit:
 
 	move.b  #0x0, PhysicsObj_HasPhysics(a0)
 	move.b  #0x1, PhysicsObj_DecelInAir(a0)
-	move.l  #Demon_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Demon_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.l  #Demon_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Demon_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.w  #Demon_DecelIdle, PhysicsObj_DecelX(a0)
-	move.w  #Demon_DecelIdle, PhysicsObj_DecelY(a0)
+	MOVE_NTSC_L Demon_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Demon_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+	MOVE_NTSC_L Demon_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Demon_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Demon_DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_W Demon_DecelIdle, PhysicsObj_DecelY(a0), d0
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
 
-	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l  #Demon_MaxVelXWalk, Character_MaxVelXWater(a0)
-	move.l  #Demon_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l  #Demon_WalkToRunVel, Character_WalkToRunVel(a0)
-	move.w  #Demon_AccelWalk, Character_AccelWalk(a0)
-	move.w  #Demon_AccelRun, Character_AccelRun(a0)
-	move.w  #Demon_DecelIdle, Character_DecelIdle(a0)
-	move.w  #Demon_DecelForced, Character_DecelForced(a0)
+	MOVE_NTSC_L Demon_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Demon_MaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Demon_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Demon_WalkToRunVel, Character_WalkToRunVel(a0), d0
+	MOVE_NTSC_W Demon_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Demon_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Demon_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Demon_DecelForced, Character_DecelForced(a0), d0
 
 	move.b  #DemonState_Wisp, Demon_State(a0)
 	move.b  #0x0, Demon_AtTarget(a0)
