@@ -64,16 +64,16 @@ CrateInit:
 	move.w  #Crate_Width, Entity_Width(a0)
 	move.w  #Crate_Height, Entity_Height(a0)
 	move.b  #Crate_Mass, PhysicsObj_Mass(a0)
-	move.l  #Crate_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Crate_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Crate_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_W Crate_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Crate_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Crate_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Crate_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Crate_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Crate_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, Crate_PushSFXPlaying(a0)
 
