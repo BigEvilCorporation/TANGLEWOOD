@@ -132,7 +132,8 @@ ButtonUpdate:
 	@Active:
 
 	; Player on button, move platform down
-	addi.l #Button_PressSpeed, d0
+	MOVE_NTSC_L Button_PressSpeed, d4, d5
+	add.l  d4, d0
 
 	; If active, trigger
 	tst.b  Button_Active(a0)
@@ -163,7 +164,8 @@ ButtonUpdate:
 	@Unoccupied:
 
 	; Player off button, move platform up
-	sub.l  #Button_PressSpeed, d0
+	MOVE_NTSC_L Button_PressSpeed, d4, d5
+	sub.l  d4, d0
 
 	; Filter trigger events
 	tst.b  Button_Pressed(a0)
