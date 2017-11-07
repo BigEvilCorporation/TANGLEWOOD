@@ -81,16 +81,16 @@ FuzzlCageInit:
 	move.w  #FuzzlCage_Width, Entity_Width(a0)
 	move.w  #FuzzlCage_Height, Entity_Height(a0)
 	move.b  #FuzzlCage_Mass, PhysicsObj_Mass(a0)
-	move.l  #FuzzlCage_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #FuzzlCage_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L FuzzlCage_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_W FuzzlCage_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #FuzzlCage_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #FuzzlCage_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #FuzzlCage_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #FuzzlCage_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #FuzzlCage_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #FuzzlCage_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L FuzzlCage_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.l  #0x0, FuzzlCage_Fuzzl(a0)
 	move.l  #0x0, FuzzlCage_LastVelY(a0)
