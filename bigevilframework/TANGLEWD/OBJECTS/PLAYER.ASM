@@ -223,15 +223,33 @@ PlayerInit:
 	;==============================================================
 
 	; Setup default state
+	MOVE_NTSC_L Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+	MOVE_NTSC_L Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Player1DecelIdle, PhysicsObj_DecelX(a0), d0
+
+	MOVE_NTSC_L Player1MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Player1MaxVelXWater, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_W Player1AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Player1AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Player1DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Player1DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_L Player1JumpVelX, Character_JumpVelX(a0), d0
+	MOVE_NTSC_L Player1JumpVelY, Character_JumpVelY(a0), d0
+	MOVE_NTSC_L Player1JumpVelWater, Character_JumpVelWater(a0), d0
+	MOVE_NTSC_L Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0
+	MOVE_NTSC_L Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0), d0
+	MOVE_NTSC_L Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0), d0
+
+	MOVE_NTSC_L Player1WalkToRunVel, Character_WalkToRunVel(a0), d0
+	MOVE_NTSC_L Player1ClimbVel, Character_ClimbVel(a0), d0
+
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
-	move.l  #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.l  #Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
 	move.l  #Player1WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
 	move.l  #Player1WindResistanceAir, PhysicsObj_WindResistanceAir(a0)
-	move.w  #Player1DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Player1ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Player1ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Player1ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -245,24 +263,9 @@ PlayerInit:
 	move.b  #Player1Mass, PhysicsObj_Mass(a0)
 	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
-	
-	move.l  #Player1MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l  #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l  #Player1MaxVelXWater, Character_MaxVelXWater(a0)
-	move.w  #Player1AccelWalk, Character_AccelWalk(a0)
-	move.w  #Player1AccelRun, Character_AccelRun(a0)
-	move.w  #Player1DecelIdle, Character_DecelIdle(a0)
-	move.w  #Player1DecelForced, Character_DecelForced(a0)
-	move.l  #Player1JumpVelX, Character_JumpVelX(a0)
-	move.l  #Player1JumpVelY, Character_JumpVelY(a0)
-	move.l  #Player1JumpVelWater, Character_JumpVelWater(a0)
-	move.l  #Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.l  #Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.l  #Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0)
+
 	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
-	move.l  #Player1WalkToRunVel, Character_WalkToRunVel(a0)
-	move.l  #Player1ClimbVel, Character_ClimbVel(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x1, Player_ControlEnabled(a0)
@@ -769,13 +772,13 @@ PlayerStopColourAbility:
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
-	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	tst.b  Character_Walking(a0)
 	bne    @Walking
-	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	MOVE_NTSC_L Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	bra    @ReturnColour
 	@Walking:
-	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	MOVE_NTSC_L Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0), d0
 	
 	bra    @ReturnColour
 	
@@ -816,8 +819,8 @@ PlayerStopColourAbility:
 	move.b #0x1, GlobalTimeDiv
 	
 	; Re-enable run
-	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l #Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subq.l #0x1, d1						 ; -1 for loop
@@ -978,21 +981,21 @@ PlayerUpdateColourAbility:
 
 	; Can glide
 	move.b #0x1, Character_Gliding(a0)
-	move.l #Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0)	; Set max glide velocity
-	move.l #Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0), d0
 	bra    @End
 	
 	@EndGlide:
 
 	; Can't glide
 	move.b #0x0, Character_Gliding(a0)
-	move.l #Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	tst.b  Character_Walking(a0)
 	bne    @Walking
-	move.l #Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	MOVE_NTSC_L Player1MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	bra    @End
 	@Walking:
-	move.l #Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0)			; Reset max velocity
+	MOVE_NTSC_L Player1MaxVelXWalk, PhysicsObj_MaxVelFloorX(a0), d0
 	bra    @End
 	
 	;==============================================================
@@ -1303,13 +1306,15 @@ PlayerDismountPet:
 	POPM   a0-a2
 
 	; Override player jump velocity
-	move.l #Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Player1DjakkBuckVelocityY, PhysicsObj_VelY(a0), d0
 	tst.b  SpriteObj_FlippedX(a0)
 	beq    @BuckRight
-	move.l #-Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Player1DjakkBuckVelocityY, d0, d1
+	neg.l  d0
+	move.l d0, PhysicsObj_VelX(a0)
 	bra    @EndBuck
 	@BuckRight:
-	move.l #Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0), d0
 	@EndBuck:
 
 	@NotRiding:
@@ -2436,7 +2441,9 @@ PlayerInteractTest_Ladder:
 	tst.b  Character_Jumping(a0)
 	beq    @NotJumping
 
-	cmp.l  #-Player1LadderGrabVel, PhysicsObj_VelY(a0)
+	; Check velocity
+	MOVE_NTSC_L Player1MaxVelXWalk, d0, d1
+	cmp.l  PhysicsObj_VelY(a0), d0
 	bgt    @CantUseLadder
 
 	@NotJumping:
@@ -2533,7 +2540,7 @@ PlayerInteractTest_Ladder:
 	sub.l  d0, d1
 	blt    @NotJumpingOff
 	jsr    CharacterStartJump
-	move.l #Player1LadderExitVel, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Player1LadderExitVel, PhysicsObj_VelY(a0), d0
 	move.b #0x0, Character_CanClimb(a0)
 	move.b #0x0, Character_Climbing(a0)
 	bra    @Found

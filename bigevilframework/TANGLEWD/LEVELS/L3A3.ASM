@@ -476,7 +476,9 @@ l3a3MeetEchoBeginStage_RunScared:
 	PUSHL  a0
 	move.l (Player2), a0
 	jsr    CharacterMoveLeft
-	move.l #-Player1MaxVelXRun, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Player1MaxVelXRun, d0, d1
+	neg.l  d0
+	move.l d0, PhysicsObj_VelX(a0)
 	POPL   a0
 
 	rts

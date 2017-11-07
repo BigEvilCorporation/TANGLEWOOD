@@ -437,7 +437,7 @@ NymnBeginCarryEcho:
 	; Can't run
 	move.b #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
-	move.l #Player1MaxVelXWalk, Character_MaxVelXRun(a0)
+	MOVE_NTSC_L Player1MaxVelXWalk, Character_MaxVelXRun(a0), d0
 
 	; Interacting
 	move.b #0x1, Character_Interacting(a0)
@@ -488,7 +488,7 @@ NymnEndCarryEcho:
 	; Restore run
 	move.b #Character_WalkInteract, d2
 	jsr    CharacterAllowRun
-	move.l #Player1MaxVelXRun, Character_MaxVelXRun(a0)
+	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
 

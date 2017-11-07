@@ -245,6 +245,16 @@ ROUNDW: macro valuereg,roundto
 
 ;==============================================================
 
+; Fixed 16.16, full 32 bit multiply
+MUL1616_FIXED_L: macro x,y,dest
+	move.l #(((y&0xffff)*(x&0xffff))>>16)+((y&0xffff)*(x>>16))+((y>>16)*(x&0xffff))+(((y>>16)*(x>>16))<<16), \dest
+	endm
+
+; Fixed 16.16, full 32 bit multiply, result >>16
+MUL1616_FIXED_W: macro x,y,dest
+	move.w #(((y&0xffff)*(x&0xffff))>>16)+((y&0xffff)*(x>>16))+((y>>16)*(x&0xffff))+(((y>>16)*(x>>16))<<16)>>16, \dest
+	endm
+
 ; Lossy 16.16 fixed point divide (converts to 24.8 to avoid overflow)
 DIVS1616_LOSSY: macro div,reg
 	cmp.w  #0x1, \div

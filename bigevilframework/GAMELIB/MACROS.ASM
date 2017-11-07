@@ -356,4 +356,39 @@ LOADW: macro reg
 LOADL: macro reg
     move.l (a3)+, \reg
     endm
-	
+
+;==============================================================
+
+MOVE_NTSC_L: macro value,dest,tempreg
+	IF FORCE_PAL_MODE
+	MUL1616_FIXED_L \value,ntsc_to_pal,\dest
+	ELSEIF FORCE_NTSC_MODE
+	move.l #\value, \dest
+	ELSE
+	move.b hardware_ver_address, \tempreg
+	btst   #hardware_ver_bit_pal, \tempreg
+	beq    @NTSC\@
+	MUL1616_FIXED_L \value,ntsc_to_pal,\dest
+	bra    @PAL\@
+	@NTSC\@:
+	move.l #\value, \dest
+	@PAL\@:
+	ENDIF
+	endm
+
+MOVE_NTSC_W: macro value,dest,tempreg
+	IF FORCE_PAL_MODE
+	MUL1616_FIXED_W \value,ntsc_to_pal,\dest
+	ELSEIF FORCE_NTSC_MODE
+	move.w #\value, \dest
+	ELSE
+	move.b hardware_ver_address, \tempreg
+	btst   #hardware_ver_bit_pal, \tempreg
+	beq    @NTSC\@
+	MUL1616_FIXED_W \value,ntsc_to_pal,\dest
+	bra    @PAL\@
+	@NTSC\@:
+	move.w #\value, \dest
+	@PAL\@:
+	ENDIF
+	endm

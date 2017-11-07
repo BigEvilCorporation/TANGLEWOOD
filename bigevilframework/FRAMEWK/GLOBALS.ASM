@@ -57,6 +57,7 @@ size_collision_tile_w equ (size_tile_b/size_word)
 ; 16.16 precision
 ; ************************************
 subpixels_per_pixel 	equ 0x00010000	; Uses bit shift to transform - don't change
+ntsc_to_pal				equ 0x00013333	; 60/50
 
 ; ************************************
 ; RAM
@@ -76,6 +77,11 @@ tmss_address			equ 0x00A14000
 tmss_signature			equ 'SEGA'
 reset_exp				equ 0x00A10008
 reset_button			equ 0x00A1000C
+
+hardware_ver_mask		equ 0xF	; Version ID
+hardware_ver_bit_ext	equ 5	; 1 if external addon connected (MCD, etc)
+hardware_ver_bit_pal	equ 6	; 1 if PAL, 0 if NTSC
+hardware_ver_bit_us_eu	equ 7	; 1 if US/EU, 0 if JAP
 
 ; ************************************
 ; Status register

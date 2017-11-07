@@ -9,6 +9,10 @@
 ; Engine features
 INCLUDE_AUDIO			equ 0
 
+; Region testing
+FORCE_PAL_MODE			equ 0
+FORCE_NTSC_MODE			equ 0
+
 ; Profiler
 	IFD DEBUG
 INCLUDE_PROFILER		equ 1
@@ -45,20 +49,24 @@ INCLUDE_LEVEL_8			equ 1
 INCLUDE_CHARACTER_ECHO	equ 1
 
 ; Demo mode
+DEMO_SHOW_THANKS		equ 0
 DEMO_USE_TIMEOUT		equ 0
 DEMO_SHOW_LEVEL_SELECT	equ 1
 DEMO_SHOW_DISCLAIMER	equ 0
 
 ; Autotest
 AUTOTEST_ENABLED		equ 0
+
+	IFND FINAL
 AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
+	ENDIF
 
 ; Initial level/state
 	IFD FINAL
 InitialLevel			equ l1a1_HarlequinForestAct1
 	ELSE
 ;InitialLevel			equ l1a1_HarlequinForestAct1
-;InitialLevel			equ l1a2_HarlequinForestAct2
+InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
 ;InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l2a1_StormWarningAct1
@@ -72,7 +80,7 @@ InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l4a3_TetheredAct3
 ;InitialLevel			equ l5a1_BygoneAct1
 ;InitialLevel			equ l5a2_BygoneAct2
-InitialLevel			equ l5a3_BygoneAct3
+;InitialLevel			equ l5a3_BygoneAct3
 ;InitialLevel			equ l5a4_BygoneAct4
 ;InitialLevel			equ l6a1_DeadwoodAct1
 ;InitialLevel			equ l6a2_DeadwoodAct2
@@ -95,4 +103,5 @@ InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateLevelSelect
 InitialState			equ  GameStateGameplay
+;InitialState			equ  GameStateCredits
 	ENDIF
