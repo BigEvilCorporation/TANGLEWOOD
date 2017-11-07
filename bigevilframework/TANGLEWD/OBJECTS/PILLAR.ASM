@@ -65,7 +65,7 @@ PillarInit:
 	MEMZEROB a2, d0
 	move.w #Pillar_BarrierWidth, Barrier_Width(a2)
 	move.w #Pillar_Height, Barrier_Height(a2)
-	move.l #Pillar_BreakVelocity, Barrier_BreakVel(a2)
+	MOVE_NTSC_L Pillar_BreakVelocity, Barrier_BreakVel(a2), d0
 	move.b #Pillar_BreakMass, Barrier_BreakMass(a2)
 	
 	; Add to physics barriers list
