@@ -439,7 +439,7 @@ LevelReset:
 
 	; Physics world
 	lea    PhysicsWorld, a2
-	move.l Level_Gravity(a1), PhysicsWorld_Gravity(a2)
+	MOVE_NTSC_L DefaultGravity, PhysicsWorld_Gravity(a2), d0
 	move.l #0x0, PhysicsWorld_Wind(a2)
 
 	move.w  Level_MapHeight(a1), d0
