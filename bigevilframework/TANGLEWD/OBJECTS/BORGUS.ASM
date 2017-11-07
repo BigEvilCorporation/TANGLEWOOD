@@ -572,7 +572,7 @@ BorgusFireSpitball:
 	addi.w #Borgus_SpitOffsetX, d0
 	addi.w #Borgus_SpitOffsetY, d1
 
-	move.l #BorgusSpitball_MaxVel, d2
+	MOVE_NTSC_L BorgusSpitball_MaxVel, d2, d4
 
 	tst.b  SpriteObj_FlippedX(a2)
 	beq    @Forward
@@ -607,7 +607,7 @@ BorgusFireFuzzl:
 	addi.w #Borgus_SpitOffsetX, d0
 	addi.w #Borgus_SpitOffsetY, d1
 
-	move.l #BorgusSpitball_MaxVel, d2
+	MOVE_NTSC_L BorgusSpitball_MaxVel, d2, d4
 
 	tst.b  SpriteObj_FlippedX(a2)
 	beq    @Forward
