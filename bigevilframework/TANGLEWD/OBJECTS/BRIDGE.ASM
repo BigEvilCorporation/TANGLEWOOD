@@ -593,7 +593,7 @@ BridgeBeginRoll:
 	@RollDown:
 
 	; Set speed
-	move.l #Bridge_UnrollSpeed, Bridge_Speed(a0)
+	MOVE_NTSC_L Bridge_UnrollSpeed, Bridge_Speed(a0), d0
 
 	; Set rolling state
 	move.b #Bridge_StateRolling, Bridge_State(a0)
@@ -612,7 +612,7 @@ BridgeBeginUnroll:
 	jsr    BridgeActivatePlatform
 
 	; Set speed
-	move.l #Bridge_UnrollSpeed, Bridge_Speed(a0)
+	MOVE_NTSC_L Bridge_UnrollSpeed, Bridge_Speed(a0), d0
 
 	; Set unrolling state
 	move.b #Bridge_StateUnrolling, Bridge_State(a0)
@@ -628,7 +628,7 @@ BridgeBeginUnroll:
 BridgeBeginDrop:
 
 	; Set speed
-	move.l #Bridge_DropSpeed, Bridge_Speed(a0)
+	MOVE_NTSC_L Bridge_DropSpeed, Bridge_Speed(a0), d0
 
 	; Set drop state
 	move.b #Bridge_StateDropping, Bridge_State(a0)
