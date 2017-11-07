@@ -267,7 +267,6 @@ BoulderUpdate:
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.l PhysicsObj_VelX(a0), d0
-	tst.l  d0
 	beq    @ZeroVel
 	divs.w #Boulder_AnimSpeedVelDiv, d0
 	@ZeroVel:
@@ -430,7 +429,6 @@ BoulderCheckDjakks:
 	; Check if squishing a monster
 	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
-	tst.w  d6
 	beq    @NoMonsters
 	subq.w  #0x1, d6
 	@MonsterLoop:
@@ -483,7 +481,6 @@ BoulderCheckBorgus:
 	; Check if squishing a Borgus
 	move.l (EntityPoolStart_Borgus), a1
 	move.w (EntityCount_Borgus), d6
-	tst.w  d6
 	beq    @NoBorguss
 	subq.w  #0x1, d6
 	@BorgusLoop:

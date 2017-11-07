@@ -176,7 +176,6 @@ L6a1_Update:
 	; Update camera lerp timer
 	move.l #LevelData_L6A1, a2
 	move.w l6a1Data_LogRollCamLerpTimer(a2), d0
-	tst.w  d0
 	beq    @NoLerpTimer
 
 	subq.w  #0x1, d0

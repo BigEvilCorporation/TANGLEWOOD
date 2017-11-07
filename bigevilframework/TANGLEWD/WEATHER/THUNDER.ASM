@@ -332,7 +332,6 @@ ThunderUpdate:
 
 	; Decrement audio timer
 	move.w Thunder_SoundTimer(a2), d0
-	tst.w  d0
 	beq    @NoSound
 	subq.w #0x1, d0
 	move.w d0, Thunder_SoundTimer(a2)
@@ -349,7 +348,6 @@ ThunderUpdate:
 
 	; Decrement flash timer
 	move.w Thunder_FlashTimer(a2), d0
-	tst.w  d0
 	beq    @NoFlash
 	subq.w #0x1, d0
 	move.w d0, Thunder_FlashTimer(a2)
@@ -465,7 +463,6 @@ ThunderUpdate:
 	PUSHM  d0-d1
 	move.w Thunder_StrikePointX(a2), d0
 	move.w Thunder_StrikePointY(a2), d1
-	tst.w  d1
 	bne    @DebugUseTerrainPos
 	move.l (Player1), a3
 	move.w Entity_WorldPosY(a3), d1

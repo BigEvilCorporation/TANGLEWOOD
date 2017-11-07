@@ -295,7 +295,6 @@ CharacterDealDamage:
 	move.b Character_Health(a0), d1
 	
 	; If already dead, do nothing
-	tst.b  d1
 	beq    @AlreadyDead
 	
 	; Subtract health
@@ -761,18 +760,15 @@ CharacterCancelJump:
 	PUSHM  d0-d1
 	
 	; Check if player dead
-	move.b Character_Dead(a0), d4
-	cmp.b  #0x1, d4
-	beq    @Dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
 	
 	; Check if jumping
-	move.b Character_Jumping(a0), d4
-	tst.b  d4
+	tst.b  Character_Jumping(a0)
 	beq    @NotJumping
 	
 	; Check if not gliding
-	move.b Character_Gliding(a0), d4
-	tst.b  d4
+	tst.b  Character_Gliding(a0)
 	bne    @Gliding
 	
 	; Check if Y vel is greater than min jump cancel vel

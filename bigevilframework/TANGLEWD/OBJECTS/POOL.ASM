@@ -168,7 +168,6 @@ PoolUpdate:
 	; Apply water speed
 	clr.l  d0
 	move.w Pool_WaterSpeed(a0), d0
-	tst.w  d0
 	beq    @NotMoving
 	move.w Pool_WaterHeight(a0), d1
 	add.w  d0, d1

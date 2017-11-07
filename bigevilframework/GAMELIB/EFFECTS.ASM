@@ -46,7 +46,6 @@ VFX_Update:
 
 	; Update flash
 	move.w VFXFlashTimer, d0
-	tst.w  d0
 	beq    @Flashing
 	subq.w #0x1, d0
 	move.w d0, VFXFlashTimer

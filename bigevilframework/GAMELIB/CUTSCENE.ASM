@@ -175,7 +175,6 @@ CutsceneStep_CharacterAnimWait:
 
 	; Get previous anim
 	move.l Cutscene_TempData(a0), d1
-	tst.l  d1
 	bne    @GotAnim
 	move.l AnimObj_CurrentAnim(a2), d1
 	move.l d1, Cutscene_TempData(a0)

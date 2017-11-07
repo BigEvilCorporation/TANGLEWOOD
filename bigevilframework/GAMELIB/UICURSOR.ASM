@@ -208,7 +208,6 @@ UIWidgetCursorUpdate:
 	; Navigate up
 	move.b UIWidgetCursor_NumWidgets(a0), d1
 	move.b UIWidgetCursor_CurrIndex(a0), d2
-	tst.b  d2
 	bne    @NoWrapDown
 	move.b d1, d2
 	@NoWrapDown:

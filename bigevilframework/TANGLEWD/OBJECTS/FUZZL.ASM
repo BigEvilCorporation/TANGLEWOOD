@@ -368,7 +368,6 @@ FuzzlUpdate:
 	; Roll anim speed based on velocity
 	clr.l  d0
 	move.l PhysicsObj_VelX(a0), d0
-	tst.l  d0
 	beq    @ZeroVel
 	divs.w #Fuzzl_AnimSpeedVelocityDiv, d0
 	@ZeroVel:
@@ -434,7 +433,6 @@ FuzzlUpdate:
 	move.b #0x1, d0
 	move.b Fuzzl_State_Bits(a0), d1
 	andi.b #(1<<Fuzzl_State_Home)|(1<<Fuzzl_State_Generator)|(1<<Fuzzl_State_Asleep), d1
-	tst.b  d1
 	beq    @CanPush
 	move.b #0x0, d0
 	@CanPush:
@@ -531,7 +529,6 @@ FuzzlFindNest:
 	; Check all nests
 	move.l (EntityPoolStart_Nest), a3
 	move.w (EntityCount_Nest), d6
-	tst.w  d6
 	beq    @NoNests
 	subq.w  #0x1, d6
 	@NestLoop:
@@ -619,7 +616,6 @@ FuzzlFindGenerator:
 	; Check all generators
 	move.l (EntityPoolStart_Generator), a3
 	move.w (EntityCount_Generator), d6
-	tst.w  d6
 	beq    @NoGenerators
 	subq.w  #0x1, d6
 	@GeneratorLoop:

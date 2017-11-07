@@ -170,7 +170,6 @@ l3a2_Update:
 	; Update camera lerp timer
 	move.l #LevelData_L3A2, a2
 	move.w l3a2Data_LogRollCamLerpTimer(a2), d0
-	tst.w  d0
 	beq    @NoLerpTimer
 
 	subq.w  #0x1, d0

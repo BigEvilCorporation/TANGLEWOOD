@@ -378,11 +378,9 @@ CAM_Update:
 	
 	; Update camera shake timer
 	move.w  (CameraShakeTimer), d0
-	tst.w   d0
 	beq     @NoTimer
 	subq.w   #0x1, d0
 	move.w  d0, CameraShakeTimer
-	tst.w   d0
 	bne     @TimerRunning
 	
 	; Timer elapsed

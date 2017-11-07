@@ -673,7 +673,6 @@ LiftUpdateAudio:
 	bne     @NoWinchSFX
 
 	move.l  PhysicsObj_VelY(a0), d0
-	tst.l   d0
 	beq     @NoWinchSFX
 	cmp.l   #Lift_WinchSFXFastVel, d0
 	bgt     @FastWinchSFX

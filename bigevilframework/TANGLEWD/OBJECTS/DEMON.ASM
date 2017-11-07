@@ -504,7 +504,6 @@ DemonAIUpdate_Boss:
 
 	; Wait attack timer
 	move.w Demon_AttackTimer(a0), d0
-	tst.w  d0
 	beq    @NoAttack
 	subq.w #0x1, d0
 	move.w d0, Demon_AttackTimer(a0)
@@ -514,7 +513,6 @@ DemonAIUpdate_Boss:
 	; Choose random direction
 	jsr    RND_GenerateLong
 	andi.b #0x1, d0
-	tst.b  d0
 	beq    @AttackFromLeft
 
 	@AttackFromRight:

@@ -135,8 +135,7 @@ PAL_LerpUpdateNextComponent:
 
 	clr.l  d0
 	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
-	tst.w  d0						; Return if disabled
-	beq    @PaletteNotWritten
+	beq    @PaletteNotWritten					; Return if disabled
 	
 	; =====================================================================
 	

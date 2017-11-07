@@ -119,7 +119,6 @@ Pause_Enter:
 
 	; TODO: This isn't freed :(
 	move.w PauseState_VRAMAddr(a0), d0
-	tst.w  d0
 	bne    @Allocated
 	move.w #actor_firefly_sheet_red_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc

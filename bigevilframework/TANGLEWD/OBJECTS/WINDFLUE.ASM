@@ -213,7 +213,6 @@ WindFlueUpdate:
 
 	; Check Fuzzls
 	move.w (EntityCount_Fuzzl), d6
-	tst.w  d6
 	beq    @NoFuzzls
 	move.l (EntityPoolStart_Fuzzl), a2
 	subq.w  #0x1, d6

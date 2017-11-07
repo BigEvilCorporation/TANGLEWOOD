@@ -181,7 +181,7 @@ LevelSelect_Update:
 	bne    @Fading
 	
 	; If already started fade to black
-	cmp.l  #0x0, TimerLogoFade
+	tst.l  TimerLogoFade
 	bne    @End
 	
 	; Enter next state

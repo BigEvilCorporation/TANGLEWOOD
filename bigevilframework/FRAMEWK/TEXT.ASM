@@ -136,7 +136,6 @@ TXT_DrawSprites:
 
 	@CharCopy:
 	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
-	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
 	beq      @End                   ; If byte was zero, branch to end
 
 	PUSHL    d4

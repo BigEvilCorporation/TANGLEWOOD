@@ -44,8 +44,7 @@ FindLedge:
 	clr.l  d5						 ; Nybble counter in d5
 	@ByteCheckLp:
 	move.l (a1)+, d2				 ; Fetch collision longword from tile
-	tst.l  d2					 ; Check if nonzero
-	bne    @CheckNybbles
+	bne    @CheckNybbles			 ; Check if nonzero
 	addq.w #0x8, d5					 ; Skip nybble counter by 8
 	dbra   d3, @ByteCheckLp			 ; No collision data in longword, loop
 	bra    @EndOfData				 ; End of data

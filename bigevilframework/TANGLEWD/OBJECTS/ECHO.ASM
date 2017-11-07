@@ -376,7 +376,6 @@ EchoUpdate:
 
 	; Update howl timer
 	move.w Echo_HowlTimer(a0), d0
-	tst.w  d0
 	beq    @TimerNotRunning
 	subq.w  #0x1, d0
 	move.w d0, Echo_HowlTimer(a0)
@@ -390,7 +389,6 @@ EchoUpdate:
 
 	; Update camera lerp timer
 	move.w Echo_AICameraLerpTimer(a0), d0
-	tst.w  d0
 	beq    @LerpTimerNotRunning
 	tst.w  CameraTargetLerpSpeed
 	bne    @LerpTimerNotRunning
@@ -1164,9 +1162,8 @@ EchoAIUpdate_Lost:
 	jsr    EchoAI_WatchNymnSafePos
 	
 	; If safe pos exists, transport there and enter catch up state
-	move.w Echo_AISafePosX(a0), d0
 	move.w Echo_AISafePosY(a0), d1
-	tst.w  d0
+	move.w Echo_AISafePosX(a0), d0
 	beq    @NoSafePos
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
@@ -1947,9 +1944,8 @@ EchoAI_WatchNymnSafePos:
 	move.w Entity_WorldPosY(a2), d1
 	
 	; If watching a potential safe position to go out of view
-	move.w Echo_AIPotentialSafePosX(a0), d2
 	move.w Echo_AIPotentialSafePosY(a0), d3
-	tst.w  d2
+	move.w Echo_AIPotentialSafePosX(a0), d2
 	beq    @NoPotentialSafePos
 	
 	; If pos out of view, use as next safe pos
@@ -2288,7 +2284,6 @@ EchoAI_FindAIMarker:
 	; a1 --- Level addr
 
 	move.w (EntityCount_AIMarker), d6
-	tst.w  d6
 	beq    @NoAIMarkers
 	move.l (EntityPoolStart_AIMarker), a2
 	subq.w  #0x1, d6
@@ -2345,7 +2340,6 @@ EchoAI_FindFuzzl:
 	move.l (Player1), a3
 
 	move.w (EntityCount_Fuzzl), d6
-	tst.w  d6
 	beq    @NoFuzzls
 	move.l (EntityPoolStart_Fuzzl), a2
 	subq.w  #0x1, d6
@@ -2412,7 +2406,6 @@ EchoAI_FindLog:
 	move.l (Player1), a3
 
 	move.w (EntityCount_Log), d6
-	tst.w  d6
 	beq    @NoLogs
 	move.l (EntityPoolStart_Log), a2
 	subq.w #0x1, d6
@@ -2486,7 +2479,6 @@ EchoAI_FindButton:
 	; a2 --- OUT: Button addr
 
 	move.w (EntityCount_Button), d6
-	tst.w  d6
 	beq    @NoButtons
 	move.l (EntityPoolStart_Button), a2
 	subq.w  #0x1, d6
@@ -2559,7 +2551,6 @@ EchoAI_FindLadder:
 	@OnLadder:
 
 	move.w (EntityCount_Ladder), d6
-	tst.w  d6
 	beq    @NoLadders
 	move.l (EntityPoolStart_Ladder), a2
 	subq.w  #0x1, d6
@@ -2640,7 +2631,6 @@ EchoAI_FindCart:
 	; TODO: If Nymn is also using a cart
 
 	move.w (EntityCount_Cart), d6
-	tst.w  d6
 	beq    @NoCarts
 	move.l (EntityPoolStart_Cart), a2
 	subq.w  #0x1, d6
@@ -2706,7 +2696,6 @@ EchoAI_FindRaft:
 
 	;move.w (EntityCount_Raft), d6
 	move.w (EntityCount_Longboat), d6
-	tst.w  d6
 	beq    @NoRafts
 	;move.l (EntityPoolStart_Raft), a4
 	move.l (EntityPoolStart_Longboat), a4
@@ -3296,7 +3285,6 @@ EchoAIPanic:
 	move.w #0x0000, d3
 
 	move.w (EntityCount_AIMarker), d6
-	tst.w  d6
 	beq    @NoAIMarkers
 	move.l (EntityPoolStart_AIMarker), a3
 	subq.w  #0x1, d6

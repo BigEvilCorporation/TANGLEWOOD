@@ -656,7 +656,6 @@ PlayerStartColourAbility:
 	; Find a Djakk
 	move.l (EntityPoolStart_Monster), a1
 	move.w (EntityCount_Monster), d6
-	tst.w  d6
 	beq    @NoMonsters
 	subq.w  #0x1, d6
 	@MonsterLoop:
@@ -831,7 +830,6 @@ PlayerStopColourAbility:
 	; Check if animobj
 	move.l d2, d3
 	andi.l #entity_type_animobj, d3
-	tst.l  d3
 	beq    @NotAnimObj
 	
 	; Entity is an anim obj
@@ -912,7 +910,6 @@ PlayerStopColourAbility:
 
 	move.l Entity_TypeBits(a2), d1
 	andi.l #entity_type_monster, d1
-	tst.l  d1
 	bne    @Djakk
 
 	bra    @NoHost
@@ -1044,13 +1041,11 @@ PlayerUpdateColourAbility:
 	; Check if player obj
 	move.l d2, d3
 	andi.l #entity_type_player, d3
-	tst.l  d3
 	bne    @PlayerObj
 	
 	; Check if animobj
 	move.l d2, d3
 	andi.l #entity_type_animobj, d3
-	tst.l  d3
 	beq    @NotAnimObj
 	
 	; Entity is an anim obj
@@ -1092,7 +1087,6 @@ PlayerUpdateColourAbility:
 
 	; Cooldown
 	move.w Player_LightningCooldown(a0), d0
-	tst.w  d0
 	beq    @NoCooldown
 	subq.w #0x1, d0
 	move.w d0, Player_LightningCooldown(a0)
@@ -1861,7 +1855,6 @@ PlayerLightningAttack:
 
 	move.l (EntityPoolStart_Monster), a2
 	move.w (EntityCount_Monster), d6
-	tst.w  d6
 	beq    @NoMonsters
 	subq.w #0x1, d6
 	@MonsterLoop:
@@ -1890,7 +1883,7 @@ PlayerLightningAttack:
 
 	move.l (EntityPoolStart_Wyrm), a2
 	move.w (EntityCount_Wyrm), d6
-	tst.w  d6
+
 	beq    @NoWyrms
 	subq.w #0x1, d6
 	@WyrmLoop:
@@ -1923,7 +1916,6 @@ PlayerLightningAttack:
 
 	move.l (EntityPoolStart_Djubb), a2
 	move.w (EntityCount_Djubb), d6
-	tst.w  d6
 	beq    @NoDjubbs
 	subq.w #0x1, d6
 	@DjubbLoop:
@@ -1952,7 +1944,6 @@ PlayerLightningAttack:
 
 	move.l (EntityPoolStart_Demon), a2
 	move.w (EntityCount_Demon), d6
-	tst.w  d6
 	beq    @NoDemons
 	subq.w #0x1, d6
 	@DemonLoop:
@@ -1987,11 +1978,9 @@ PlayerInteractTest_Fuzzls:
 	
 	; Character must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
-	tst.b  d0
 	beq    @PlayerOffFloor
 	
 	move.w (EntityCount_Fuzzl), d6
-	tst.w  d6
 	beq    @NoFuzzls
 	
 	; Get player collision bounds
@@ -2077,7 +2066,6 @@ PlayerInteractTest_Pet:
 	
 	; Player must be close to floor
 	move.b PhysicsObj_CloseToFloor(a0), d0
-	tst.b  d0
 	beq    @CannotRide
 
 	; Pet must be on screen
@@ -2124,7 +2112,6 @@ PlayerInteractTest_Fireflies:
 	PUSHL  a1
 	
 	move.w (EntityCount_Firefly), d0
-	tst.w  d0
 	beq    @NoFireflies
 
 	; Check player against all Fireflies in level
@@ -2168,7 +2155,6 @@ PlayerInteractTest_Carts:
 	move.l a0, a2
 	
 	move.w (EntityCount_Cart), d0
-	tst.w  d0
 	beq    @NoCarts
 
 	; Check player against all carts in level
@@ -2233,7 +2219,6 @@ PlayerInteractTest_Water:
 	; Check all water bodies
 	move.l (EntityPoolStart_WaterBody), a2
 	move.w (EntityCount_WaterBody), d6
-	tst.w  d6
 	beq    @NoWaterBodies
 	subq.w #0x1, d6
 	@BodyLoop:
@@ -2270,7 +2255,6 @@ PlayerInteractTest_Water:
 	; Check all water pools
 	move.l (EntityPoolStart_Pool), a2
 	move.w (EntityCount_Pool), d6
-	tst.w  d6
 	beq    @NoPools
 	subq.w #0x1, d6
 	@PoolLoop:
@@ -2320,7 +2304,6 @@ PlayerInteractTest_Water:
 	subi.w #vdp_sprite_border_y, d4
 
 	move.w Level_NumTerrainDescs(a1), d6	; Get 'special' terrain count
-	tst.w  d6								; Bail if empty
 	beq    @NoWaterTerrain
 	subq.w  #0x1, d6						; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
@@ -2463,7 +2446,6 @@ PlayerInteractTest_Ladder:
 	; Check all ladders
 	move.l (EntityPoolStart_Ladder), a2
 	move.w (EntityCount_Ladder), d6
-	tst.w  d6
 	beq    @NoLadders
 	subq.w #0x1, d6
 	@LadderLoop:
@@ -2658,7 +2640,6 @@ PlayerInteractTest_BouncePlants:
 	bge    @End
 	
 	move.w (EntityCount_BouncePlant), d6
-	tst.w  d6
 	beq    @NoPlants
 	
 	; Get player collision bounds (assume jumping)

@@ -389,7 +389,6 @@ l6a2_StealDjakkVRAM:
 
 	; Find a dead one
 	move.w (EntityCount_Monster), d6
-	tst.w  d6
 	beq    @NoMonsters
 	move.l (EntityPoolStart_Monster), a2
 	subq.w  #0x1, d6

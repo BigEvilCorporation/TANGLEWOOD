@@ -1047,7 +1047,6 @@ MonsterUpdateSearchForPlayer:
 	
 	; If we have a target X
 	move.l Monster_SearchTargetX(a0), d0
-	tst.l  d0
 	bne    @HasTargetX
 	
 	; Get a random target X (-255 - 255)
@@ -1091,7 +1090,6 @@ MonsterUpdateSearchForPlayer:
 	
 	; Check if in delay state
 	move.w Monster_SearchDelay(a0), d1
-	tst.w  d1
 	beq    @Move
 	
 	; Count down delay
@@ -1480,7 +1478,6 @@ MonsterUpdateTamed:
 	
 	; Update growl timer
 	move.w Monster_GrowlTimer(a0), d0
-	tst.w  d0
 	beq    @TimerNotRunning
 	subq.w  #0x1, d0
 	move.w d0, Monster_GrowlTimer(a0)

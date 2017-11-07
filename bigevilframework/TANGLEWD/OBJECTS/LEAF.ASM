@@ -181,12 +181,10 @@ LeafUpdate:
 
 	; Check if already active
 	move.b Entity_Active(a0), d0
-	tst.b  d0
 	bne    @AlreadyActive
 	
 	; Check reset timer
 	move.w Leaf_ResetTimer(a0), d0
-	tst.w  d0
 	bne    @Inactive
 
 	;==============================================================
@@ -274,7 +272,6 @@ LeafUpdate:
 	; If blown off by wind, reset immediately to help exaggerate the wind effect
 	lea    PhysicsWorld, a2
 	move.l PhysicsWorld_Wind(a2), d1
-	tst.l  d1
 	beq    @NoWind
 	move.w #0x1, Leaf_ResetTimer(a0)
 	bra    @End
@@ -371,7 +368,6 @@ LeafUpdate:
 	lea    PhysicsWorld, a2
 	move.l Leaf_VelX(a0), d0
 	move.l PhysicsWorld_Wind(a2), d1
-	tst.l  d1
 	beq    @WindOff
 
 	; Apply and clamp

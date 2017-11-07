@@ -97,7 +97,6 @@ LockUpdate:
 
 	; Apply movement speed
 	move.w Lock_RaiseSpeed(a0), d0
-	tst.w  d0
 	beq    @NotMoving
 
 	clr.l  d1

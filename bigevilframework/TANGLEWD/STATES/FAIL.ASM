@@ -55,7 +55,6 @@ Fail_Update:
 	
 	; Update fade down timer
 	move.l (TimerFailFade), d0
-	tst.l  d0
 	beq    @FadeStarted
 	subq.l #0x1, d0
 	move.l d0, TimerFailFade

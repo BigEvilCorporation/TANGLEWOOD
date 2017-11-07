@@ -114,7 +114,6 @@ FlueOccupantUpdate:
 
 	; Check if still ejecting an occupant
 	move.b FlueOccupant_Ejecting(a2), d0
-	tst.b  d0
 	bne    @StillEjecting
 	
 	; If occupant was camera owner, wait for camera lerp
@@ -126,7 +125,6 @@ FlueOccupantUpdate:
 
 	; Check if timer elapsed
 	move.w FlueOccupant_HoldTimer(a2), d0
-	tst.w  d0
 	bne    @TimerRunning
 
 	; Timer elapsed, eject occupant
@@ -170,7 +168,6 @@ FlueOccupantUpdate:
 	; If character
 	move.l Entity_TypeBits(a1), d1
 	andi.l #entity_type_character, d1
-	tst.l  d1
 	beq    @NotCharacter 
 	
 	; Set jumping
@@ -193,7 +190,6 @@ FlueOccupantUpdate:
 	; If Fuzzl
 	move.l Entity_TypeBits(a1), d1
 	andi.l #entity_type_fuzzl, d1
-	tst.l  d1
 	beq    @NotFuzzl 
 	
 	; Set flinging
@@ -298,7 +294,6 @@ FlueFindOccupant:
 	; Search all potential occupants
 	clr.l  d0
 	move.b (FlueNumPotentialOccupants), d0
-	tst.b  d0
 	beq    @NoPotentialOccupants
 	subq.b  #0x1, d0
 	lea    FluePotentialOccupants, a5
@@ -309,7 +304,6 @@ FlueFindOccupant:
 	; Check entity type
 	move.l Entity_TypeBits(a3), d1
 	andi.l #Flue_OccupantTypes, d1
-	tst.l  d1
 	beq    @NextEntity
 	
 	; If character

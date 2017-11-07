@@ -308,7 +308,6 @@ ScrapAIUpdate_Follow:
 
 	; Within bounds, countdown bark timer
 	move.w Scrap_BarkTimer(a0), d0
-	tst.w  d0
 	beq    @NoBark
 	subq.w #0x1, d0
 	move.w d0, Scrap_BarkTimer(a0)

@@ -840,7 +840,6 @@ BridgeUpdateDropping:
 
 	; Check all water bodies
 	move.w (EntityCount_WaterBody), d6
-	tst.w  d6
 	beq    @NoWater
 	move.l (EntityPoolStart_WaterBody), a2
 	subq.w  #0x1, d6

@@ -194,7 +194,6 @@ AnimObjDraw:
 	
 	; Get length
 	move.b Animation_Length(a2), d3
-	tst.b  d3
 	beq    @ZeroLength
 
 	; Get subframe
@@ -281,7 +280,6 @@ AnimObjDraw:
 	lsl.w  #0x2, d2						; Frame idx to ptr size
 	add.l  d2, a3						; Offset to SFX address
 	move.l (a3), d3						; Get SFX address from anim track
-	tst.l  d3
 	beq    @NoSFX
     
 	PLAYSFX d3	; Play SFX

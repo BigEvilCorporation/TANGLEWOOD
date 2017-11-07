@@ -353,7 +353,6 @@ PhysicsObjApplyAccelDecel:
 	
 	; Check if accelerating X
 	move.w PhysicsObj_AccelX(a0), d0	; Fetch X acceleration from RAM
-	tst.w  d0						; Check if accelerating
 	beq    @IdleXDecel					; X controls idle, decelerate
 	ext.l  d0							; Sign extend word to long
 	
@@ -456,7 +455,6 @@ PhysicsObjApplyAccelDecel:
 	
 	; Check if accelerating Y
 	move.w PhysicsObj_AccelY(a0), d0	; Fetch Y acceleration from RAM
-	tst.w  d0						; Check if accelerating
 	beq    @IdleYDecel					; Y controls idle, decelerate
 	ext.l  d0							; Sign extend word to long
 	
@@ -581,7 +579,6 @@ PhysicsObjApplyWorldForces:
 
 	; Get wind force
 	move.l PhysicsWorld_Wind(a2), d1
-	tst.l  d1
 	beq    @NoWind
 
 	; Get wind resistance
@@ -711,10 +708,8 @@ PhysicsObjCollisionCorrection:
 
 	move.b PhysicsObj_OnFloor(a0), d4
 
-	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	move.l PhysicsObj_LastFloorVelocity(a0), d0		; Get last floor velocity
-
-	tst.l  d2
+	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	beq    @Uninitialised							; First frame, uninitialised
 	clr.l  d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
@@ -733,7 +728,6 @@ PhysicsObjCollisionCorrection:
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
-	tst.w  d1
 	beq    @NoBounceY
 	move.l PhysicsObj_VelY(a0), d0					; Check if heading down
 	tst.l  d0
@@ -788,7 +782,6 @@ PhysicsObjCollisionCorrection:
 	
 	; Get last ceiling collided with
 	move.l PhysicsObj_LastCeiling(a0), d0
-	tst.l  d0
 	beq    @NoCeilingFound
 	
 	; Determine Y direction
@@ -802,7 +795,6 @@ PhysicsObjCollisionCorrection:
 	
 	clr.l  d0										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
-	tst.w  d1
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d0
 	neg.l  d0										; Negate Y velocity
@@ -866,7 +858,6 @@ PhysicsObjCollisionCorrection:
 	
 	clr.l  d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
-	tst.w  d1
 	beq    @NoBounceX
 	move.l PhysicsObj_VelX(a0), d0
 	neg.l  d0										; Negate X velocity
@@ -1189,7 +1180,6 @@ PhysicsObjFindWall:
 	; Determine direction
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
-	tst.l  d3
 	beq    @HeadingNowhere
 	
 	; Clear static wall and static barrier flags
@@ -1418,7 +1408,6 @@ PhysicsObjFindWall:
 	
 	; Check if wall
 	andi.w #col_tile_flag_solid, d0
-	tst.w  d0
 	beq    @NoWallFound
 	
 	;==============================================================
@@ -1565,7 +1554,6 @@ PhysicsObjFindCeiling:
 	
 	; Check if solid
 	andi.w #col_tile_flag_solid, d0
-	tst.w  d0
 	beq    @NoCeilingFound
 	
 	;==============================================================

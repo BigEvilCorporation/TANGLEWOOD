@@ -253,7 +253,6 @@ DjubbTestUnderwater:
 	; Check all water bodies
 	move.l (EntityPoolStart_WaterBody), a2
 	move.w (EntityCount_WaterBody), d6
-	tst.w  d6
 	beq    @NoWaterBodies
 	subq.w #0x1, d6
 	@BodyLoop:
@@ -285,7 +284,6 @@ DjubbTestUnderwater:
 	; Check all water pools
 	move.l (EntityPoolStart_Pool), a2
 	move.w (EntityCount_Pool), d6
-	tst.w  d6
 	beq    @NoPools
 	subq.w #0x1, d6
 	@PoolLoop:
@@ -326,7 +324,6 @@ DjubbTestUnderwater:
 	subi.w #vdp_sprite_border_y, d4
 
 	move.w Level_NumTerrainDescs(a1), d6	; Get 'special' terrain count
-	tst.w  d6								; Bail if empty
 	beq    @NoWaterTerrain
 	subq.w  #0x1, d6						; -1 for loop counter
 	move.l Level_TerrainDescAddr(a1), a2	; Get 'special' terrain desc table
