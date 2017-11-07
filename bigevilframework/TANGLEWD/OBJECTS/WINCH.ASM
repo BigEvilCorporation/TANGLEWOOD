@@ -184,7 +184,7 @@ Winch_RunClockwise:
 	@NoMirror:
 	POPM   a0-a1
 
-	move.l #Winch_DefaultVelocity, Winch_Velocity(a0)
+	MOVE_NTSC_L Winch_DefaultVelocity, Winch_Velocity(a0), d0
 
 	rts
 
@@ -212,7 +212,9 @@ Winch_RunAntiClockwise:
 	@NoMirror:
 	POPM   a0-a1
 
-	move.l #-Winch_DefaultVelocity, Winch_Velocity(a0)
+	MOVE_NTSC_L Winch_DefaultVelocity, d0, d1
+	neg.l  d0
+	move.l d0, Winch_Velocity(a0)
 
 	rts
 
