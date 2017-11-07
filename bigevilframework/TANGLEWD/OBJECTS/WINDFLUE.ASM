@@ -195,10 +195,12 @@ WindFlueUpdate:
 	; Add wind accel
 	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
 	beq    @GlideVel
-	addi.l #WindFlue_BlowVel, PhysicsObj_VelY(a2)
+	MOVE_NTSC_L WindFlue_BlowVel, d0, d1
+	add.l  d0, PhysicsObj_VelY(a2)
 	bra    @FallVel
 	@GlideVel:
-	addi.l #WindFlue_BlowVelGliding, PhysicsObj_VelY(a2)
+	MOVE_NTSC_L WindFlue_BlowVelGliding, d0, d1
+	add.l  d0, PhysicsObj_VelY(a2)
 	@FallVel:
 
 	; Disable snap to floor
@@ -229,7 +231,8 @@ WindFlueUpdate:
 	beq    @NextFuzzl
 
 	; Blow Fuzzl
-	addi.l #WindFlue_BlowVelFuzzl, PhysicsObj_VelY(a2)
+	MOVE_NTSC_L WindFlue_BlowVelFuzzl, d0, d1
+	add.l  d0, PhysicsObj_VelY(a2)
 
 	@NextFuzzl:
 	lea    Fuzzl_Struct_Size(a2), a2
