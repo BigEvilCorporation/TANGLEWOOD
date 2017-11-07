@@ -68,11 +68,11 @@ LongboatInit:
 	; Default properties
 	move.w  #Longboat_Width, Entity_Width(a0)
 	move.w  #Longboat_Height, Entity_Height(a0)
-	move.w  #Longboat_Decel, PhysicsObj_DecelX(a0)
-	move.l  #Longboat_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Longboat_MaxVelX, PhysicsObj_MaxVelAirX(a0)
+	MOVE_NTSC_W Longboat_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_L Longboat_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Longboat_MaxVelX, PhysicsObj_MaxVelAirX(a0), d0
 	move.l  #0x0, PhysicsObj_MaxVelYUp(a0)
-	move.l  Level_Gravity(a1), PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L DefaultGravity, PhysicsObj_MaxVelYDown(a0), d0
 	move.w  #Longboat_FloorProbeX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Longboat_FloorProbeY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Longboat_StepHeight, PhysicsObj_StepHeight(a0)
