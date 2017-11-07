@@ -84,16 +84,16 @@ LogInit:
 	move.w  #Log_Width, Entity_Width(a0)
 	move.w  #Log_Height, Entity_Height(a0)
 	move.b  #Log_Mass, PhysicsObj_Mass(a0)
-	move.l  #Log_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Log_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Log_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_W Log_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Log_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Log_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Log_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Log_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Log_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
 	move.w  #0x0, Log_FloorRollAccel(a0)
@@ -237,9 +237,11 @@ LogUpdate:
 
 	; If X vel over threshold, check if damaging player
 	move.l PhysicsObj_VelX(a0), d0
-	cmp.l  #Log_MinDamageXVel, d0
+	MOVE_NTSC_L Log_MinDamageXVel, d1, d2
+	cmp.l  d1, d0
 	bge    @DealDamage
-	cmp.l  #-Log_MinDamageXVel, d0
+	neg.l  d1
+	cmp.l  d1, d0
 	ble    @DealDamage
 	bra    @NoDamage
 

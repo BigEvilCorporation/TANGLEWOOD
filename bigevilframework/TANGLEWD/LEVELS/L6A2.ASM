@@ -330,7 +330,9 @@ l6a2_Trigger_Log1:
 	ENTITY_GETBYNAME Log, l6a2_Log1, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	move.w #-L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	MOVE_NTSC_W L3A2_LogRollAccel, d0, d1
+	neg.w  d0
+	move.w d0, Log_FloorRollAccel(a0)
 	move.b #0x1, Log_Hazardous(a0)
 
 	; Load Djakks 6 and 7
@@ -354,7 +356,7 @@ l6a2_Trigger_Log2:
 	ENTITY_GETBYNAME Log, l6a2_Log2, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	move.w #L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	MOVE_NTSC_W L3A2_LogRollAccel, Log_FloorRollAccel(a0), d1
 	move.b #0x1, Log_Hazardous(a0)
 
 	POPL   a0
@@ -369,7 +371,7 @@ l6a2_Trigger_Log3:
 	ENTITY_GETBYNAME Log, l6a2_Log3, a0
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	move.w #L3A2_LogRollAccel, Log_FloorRollAccel(a0)
+	MOVE_NTSC_W L3A2_LogRollAccel, Log_FloorRollAccel(a0), d1
 	move.b #0x1, Log_Hazardous(a0)
 
 	; Load Djakks 8 and 9
