@@ -80,11 +80,11 @@ ScrapInit:
 	move.b #0x0, Scrap_BarkNextChase(a0)
 	move.w #0x0, Scrap_BarkTimer(a0)
 
-	move.l #Scrap_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.l #Scrap_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.l #Scrap_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l #Scrap_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.w #Scrap_DecelIdle, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Scrap_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Scrap_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+	MOVE_NTSC_L Scrap_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Scrap_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Scrap_DecelIdle, PhysicsObj_DecelX(a0), d0
 	move.w #Scrap_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w #Scrap_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w #Scrap_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -97,14 +97,14 @@ ScrapInit:
 
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
-	move.l #Scrap_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l #Scrap_MaxVelXWalk, Character_MaxVelXWater(a0)
-	move.l #Scrap_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l #Scrap_WalkToRunVel, Character_WalkToRunVel(a0)
-	move.w #Scrap_AccelWalk, Character_AccelWalk(a0)
-	move.w #Scrap_AccelRun, Character_AccelRun(a0)
-	move.w #Scrap_DecelIdle, Character_DecelIdle(a0)
-	move.w #Scrap_DecelForced, Character_DecelForced(a0)
+	MOVE_NTSC_L Scrap_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Scrap_MaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Scrap_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Scrap_WalkToRunVel, Character_WalkToRunVel(a0), d0
+	MOVE_NTSC_W Scrap_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Scrap_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Scrap_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Scrap_DecelForced, Character_DecelForced(a0), d0
 
 	rts
 
