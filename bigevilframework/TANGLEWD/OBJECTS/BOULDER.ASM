@@ -88,16 +88,16 @@ BoulderInit:
 	move.w  #Boulder_Width, Entity_Width(a0)
 	move.w  #Boulder_Height, Entity_Height(a0)
 	move.b  #Boulder_Mass, PhysicsObj_Mass(a0)
-	move.l  #Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Boulder_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_W Boulder_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Boulder_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Boulder_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Boulder_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)
