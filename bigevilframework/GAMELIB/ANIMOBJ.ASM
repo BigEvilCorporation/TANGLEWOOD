@@ -211,7 +211,7 @@ AnimObjDraw:
 	swap   d2			; Remainder to lower word
 	
 	; Frame advanced, + DMA new tiles to VRAM
-	movem.l d2/a0-a2, -(sp)
+	PUSHM  d2/a0-a2
 
 	; Get frame header
 	lsl.l  #0x2, d2	; Frame index to address offset
@@ -220,22 +220,24 @@ AnimObjDraw:
 	move.l (a3), a1
 
 	; Load new sprite attributes
-	move.l AnimFrameHeader_AddrDimensionTbl(a1), SpriteObj_SubSpriteDimArr(a0)
-	move.l AnimFrameHeader_AddrPosOffsetsTbl(a1), SpriteObj_SubSpriteOffArr(a0)
-	move.w AnimFrameHeader_SizeSubsprites(a1), d5
+	move.w (a1)+, d1	; Size (tiles)
+	move.w (a1)+, d5	; Size (subsprites)
+	move.l (a1)+, a2	; Tiles address
+	move.l (a1)+, SpriteObj_SubSpriteDimArr(a0)
+	move.l (a1)+, SpriteObj_SubSpriteOffArr(a0)
+	
+	; Set new size (subsprites)
 	move.b d5, SpriteObj_NumSubSprites(a0)
 
-	; Load tiles
-	; a0 - Tiles address (l)
-	; d0 - VRAM address (w)
-	; d1 - Num tiles (w)
-	move.w SpriteObj_VRAMAddr(a0), d0
-	move.l AnimFrameHeader_AddrTiles(a1), a0
-	move.w AnimFrameHeader_SizeTiles(a1), d1
-	lsl.w   #0x4, d1	   ; Sizs to words (32 bytes, 16 words)
-	jsr     VDP_DMAQueue_AddJob
+	; Size (tiles) to words (32 bytes, 16 words)
+	lsl.w   #0x4, d1
 
-	movem.l (sp)+, d2/a0-a2
+	; Load tiles
+	move.w SpriteObj_VRAMAddr(a0), d0
+	move.l a2, a0
+	jsr    VDP_DMAQueue_AddJob
+
+	POPM   d2/a0-a2
 	
 	; X position track
 	PUSHL  d2
@@ -244,10 +246,6 @@ AnimObjDraw:
 	beq    @NoTrackPosX
 	
 	clr.l  d3
-	move.b Animation_Length(a2), d3		; Get anim length
-	divu   d3, d2          				; Div frame count against num anim frames
-	clr.w  d2							; Clear exponent
-	swap   d2			   				; Remainder to lower word
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	ext.w  d3			   				; Sign extend
 	tst.b  SpriteObj_FlippedX(a0)	; If X flipped
@@ -266,10 +264,6 @@ AnimObjDraw:
 	beq    @NoTrackPosY
 	
 	clr.l  d3
-	move.b Animation_Length(a2), d3		; Get anim length
-	divu   d3, d2          				; Div frame count against num anim frames
-	clr.w  d2							; Clear exponent
-	swap   d2			   				; Remainder to lower word
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	neg.w  d3							; Correct for coord sys
 	ext.w  d3			   				; Sign extend
@@ -279,18 +273,12 @@ AnimObjDraw:
 	POPL   d2
 	
 	; SFX track
-	PUSHL  a0
 	PUSHL  d2
 	move.l Animation_AnimTrackSFX(a2), a3	; Get SFX keyframe track
 	cmp.l  #0x0, a3
 	beq    @NoTrackSFX
 	
-	clr.l  d3
-	move.b Animation_Length(a2), d3		; Get anim length
-	divu   d3, d2          				; Div frame count against num anim frames
-	clr.w  d2							; Clear exponent
-	swap   d2			   				; Remainder to lower word
-	lsl.w  #0x2, d2						; To ptr size
+	lsl.w  #0x2, d2						; Frame idx to ptr size
 	add.l  d2, a3						; Offset to SFX address
 	move.l (a3), d3						; Get SFX address from anim track
 	tst.l  d3
@@ -301,7 +289,6 @@ AnimObjDraw:
 	@NoTrackSFX:
 	@NoSFX:
 	POPL   d2
-	POPL   a0
 	
 	; Done
 	move.b #0x0, AnimObj_UploadFrame(a0)
