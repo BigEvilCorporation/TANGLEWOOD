@@ -68,8 +68,8 @@ FlueInit:
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	move.w #Flue_DefaultCameraLerpSpeed, Flue_CameraLerpSpeed(a0)
-	move.l #Flue_DefaultEjectForceX, Flue_EjectForceX(a0)
-	move.l #Flue_DefaultEjectForceY, Flue_EjectForceY(a0)
+	MOVE_NTSC_L Flue_DefaultEjectForceX, Flue_EjectForceX(a0), d0
+	MOVE_NTSC_L Flue_DefaultEjectForceY, Flue_EjectForceY(a0), d0
 	
 	; Stagger occupant checks for performance
 	move.w (EntityCount_Flue), Flue_OccupantCheckTimer(a0)
