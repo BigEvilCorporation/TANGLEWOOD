@@ -87,10 +87,10 @@ LiftInit:
 	move.w  #Lift_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Lift_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0)
-	move.w  #Lift_DecelX, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Lift_DecelX, PhysicsObj_DecelX(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -228,10 +228,10 @@ LiftAttachCounterweightLift:
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a2)
 
 	; Match up/down speeds
-	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a0)
-	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a2)
-	move.l  #Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a2)
+	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a2), d0
+	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYDown(a2), d0
 
 	; Enable height restriction
 	move.b  #0x1, Lift_RestrictHeight(a0)
@@ -334,13 +334,15 @@ LiftActivate:
 	bne    @Down
 
 	; Move lift up
-	move.w #Lift_AccelY, PhysicsObj_AccelY(a0)
+	MOVE_NTSC_W Lift_AccelY, PhysicsObj_AccelY(a0), d0
 	bra    @End
 
 	@Down:
 
 	; Move lift down
-	move.w #-Lift_AccelY, PhysicsObj_AccelY(a0)
+	MOVE_NTSC_W Lift_AccelY, d1, d0
+	neg.w  d1
+	move.w d1, PhysicsObj_AccelY(a0)
 
 	@End:
 
@@ -401,12 +403,16 @@ LiftProcessCounterweight:
 	bra    @EndWeightDiff
 
 	@UnoccupiedA:
-	move.l #Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a0)
-	move.l #-Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a2)
+	MOVE_NTSC_L Lift_FallSpeedNoCounterweight, d0, d1
+	move.l d0, PhysicsObj_VelY(a0)
+	neg.l  d0
+	move.l d0, PhysicsObj_VelY(a2)
 	bra    @EndWeightDiff
 	@UnoccupiedB:
-	move.l #-Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a0)
-	move.l #Lift_FallSpeedNoCounterweight, PhysicsObj_VelY(a2)
+	MOVE_NTSC_L Lift_FallSpeedNoCounterweight, d0, d1
+	move.l d0, PhysicsObj_VelY(a2)
+	neg.l  d0
+	move.l d0, PhysicsObj_VelY(a0)
 	bra    @EndWeightDiff
 	@UnoccupiedBoth:
 	move.l #0x0, PhysicsObj_VelY(a0)
