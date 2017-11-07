@@ -60,7 +60,7 @@ StalactiteInit:
 	move.w  #Stalactite_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Stalactite_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Stalactite_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
-	move.l  #Stalactite_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Stalactite_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
 
 	; Disable physics until activated
