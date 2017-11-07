@@ -119,11 +119,11 @@ BorgusInit:
 	move.w  #Borgus_Width, Entity_Width(a0)
 	move.w  #Borgus_Height, Entity_Height(a0)
 
-	move.l  #Borgus_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Borgus_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.l  #Borgus_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Borgus_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.w  #Borgus_DecelIdle, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Borgus_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Borgus_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+	MOVE_NTSC_L Borgus_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Borgus_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Borgus_DecelIdle, PhysicsObj_DecelX(a0), d0
 	move.w  #Borgus_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Borgus_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Borgus_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -136,13 +136,13 @@ BorgusInit:
 
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
-	move.l  #Borgus_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l  #Borgus_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l  #Borgus_WalkToRunVel, Character_WalkToRunVel(a0)
-	move.w  #Borgus_AccelWalk, Character_AccelWalk(a0)
-	move.w  #Borgus_AccelRun, Character_AccelRun(a0)
-	move.w  #Borgus_DecelIdle, Character_DecelIdle(a0)
-	move.w  #Borgus_DecelForced, Character_DecelForced(a0)
+	MOVE_NTSC_L Borgus_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Borgus_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Borgus_WalkToRunVel, Character_WalkToRunVel(a0), d0
+	MOVE_NTSC_W Borgus_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Borgus_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Borgus_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Borgus_DecelForced, Character_DecelForced(a0), d0
 
 	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
 	move.b  #BorgusAIState_Idle, Borgus_AIState(a0)
@@ -160,7 +160,7 @@ BorgusInit:
 	jsr     PhysicsObjInit
 	move.w  #BorgusSpitball_Width, Entity_Width(a0)
 	move.w  #BorgusSpitball_Height, Entity_Height(a0)
-	move.l  #BorgusSpitball_MaxVel, PhysicsObj_MaxVelAirX(a0)
+	MOVE_NTSC_L BorgusSpitball_MaxVel, PhysicsObj_MaxVelAirX(a0), d0
 	move.w  #BorgusSpitball_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
 	move.w  #BorgusSpitball_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
 	move.w  #BorgusSpitball_BoundsWidth, PhysicsObj_BoundsWidth(a0)

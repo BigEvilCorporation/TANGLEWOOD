@@ -76,6 +76,9 @@ ActorInit:
 	; Update when out of view
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
+	; TODO - NTSC/PAL pass
+	RAISE_EXCEPTION *
+
 	; Setup default state
 	move.w  #ActorWidth, Entity_Width(a0)
 	move.w  #ActorHeight, Entity_Height(a0)
