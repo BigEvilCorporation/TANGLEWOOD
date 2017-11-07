@@ -67,6 +67,82 @@ RND_Chance:
 	@No:
 
 	rts
+
+; 32bit x 32bit multiply
+Mul32:
+	; d0 (l) Operand a
+	; d1 (l) Operand b
+	; d0 (l) OUT: Result
+	move.w  d1,d2
+	mulu    d0,d2
+	move.l  d1,d3
+	swap    d3
+	mulu    d0,d3
+	swap    d3
+	clr.w   d3
+	add.l   d3,d2
+	swap    d0
+	mulu    d1,d0
+	swap    d0
+	clr.w   d0
+	add.l   d2,d0
+	rts
+
+; Fixed point 16.16 multiply
+Mul1616:
+	; d0 (l) Operand a
+	; d1 (l) Operand b
+	; d0 (l) OUT: Result
+
+	; a = x >> 16;
+	; b = x & 0xffff;
+	; c = y >> 16;
+	; d = y & 0xffff;
+
+	PUSHM  d2-d6
+
+	moveq  #0x0, d2
+	moveq  #0x0, d3
+	move.w d0, d2	; b
+	move.w d1, d3	; d
+	clr.w  d0
+	swap   d0		; a
+	clr.w  d1
+	swap   d1		; c
+
+	; ((d * b) >> 16) + (d * a) + (c * b) + ((c * a) << 16)
+
+	; d0 = a
+	; d2 = b
+	; d1 = c
+	; d3 = d
+
+	; ((d * b) >> 16)
+	move.l d2, d4
+	muls   d3, d4
+	asr.l  #0x8, d4
+	asr.l  #0x8, d4
+
+	; (d * a)
+	move.l d0, d5
+	muls   d3, d5
+
+	; (c * b)
+	move.l d2, d6
+	muls   d1, d6
+
+	; ((c * a) << 16)
+	muls   d1, d0
+	asl.l  #0x8, d0
+	asl.l  #0x8, d0
+
+	add.l  d4, d0
+	add.l  d5, d0
+	add.l  d6, d0
+
+	POPM   d2-d6
+
+	rts
 	
 VEC2_ADD: macro vec1,vec2
     add.w \vec1, \vec2	; Vec2.y + Vec1.y

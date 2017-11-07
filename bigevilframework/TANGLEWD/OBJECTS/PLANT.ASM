@@ -333,9 +333,16 @@ BouncePlant_GetBounceVector:
 
 	; Get bounce vector for this plant orientation
 	lea    BouncePlantReflectVels, a3
+
 	add.l  d2, a3
 	move.l (a3)+, d3
 	move.l (a3)+, d4
+
+	; Adjust for PAL
+	PUSHM d0-d1
+	MUL_NTSC_L d3, d3, d5
+	MUL_NTSC_L d4, d4, d5
+	POPM  d0-d1
 
 	; Apply velocity
 	add.l  d3, d0

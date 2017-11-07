@@ -359,6 +359,29 @@ LOADL: macro reg
 
 ;==============================================================
 
+MUL_NTSC_L: macro valuereg,destreg,tempreg
+	IF FORCE_PAL_MODE
+	move.l \valuereg, d0
+	move.l #ntsc_to_pal, d1
+	jsr    Mul1616
+	move.l d0, \destreg
+	ELSEIF FORCE_NTSC_MODE
+	move.l \valuereg, \destreg
+	ELSE
+	move.b hardware_ver_address, \tempreg
+	btst   #hardware_ver_bit_pal, \tempreg
+	beq    @NTSC\@
+	move.l \valuereg, d0
+	move.l #ntsc_to_pal, d1
+	jsr    Mul1616
+	move.l d0, \destreg
+	bra    @PAL\@
+	@NTSC\@:
+	move.l \valuereg, \destreg
+	@PAL\@:
+	ENDIF
+	endm
+
 MOVE_NTSC_L: macro value,dest,tempreg
 	IF FORCE_PAL_MODE
 	MUL1616_FIXED_L \value,ntsc_to_pal,\dest
