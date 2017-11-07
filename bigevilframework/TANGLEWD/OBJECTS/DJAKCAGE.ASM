@@ -108,8 +108,9 @@ DjakkCageUpdate:
 	@Opening:
 
 	; Raising cage
-	sub.l  #DjakkCage_RaiseLowerSpeed, Entity_WorldPosY(a0)
-	addi.l #DjakkCage_RaiseLowerSpeed, DjakkCage_RaisedHeight(a0)
+	MOVE_NTSC_L DjakkCage_RaiseLowerSpeed, d1, d0
+	sub.l  d1, Entity_WorldPosY(a0)
+	add.l  d1, DjakkCage_RaisedHeight(a0)
 
 	cmp.l  #DjakkCage_Height*subpixels_per_pixel, DjakkCage_RaisedHeight(a0)
 	ble    @End
