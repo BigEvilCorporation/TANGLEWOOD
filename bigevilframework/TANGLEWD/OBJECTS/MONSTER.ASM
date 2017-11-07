@@ -180,13 +180,27 @@ MonsterInit:
 	jsr EntityAddToSerialiseList
 
 	; Default properties
+	MOVE_NTSC_L Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+	MOVE_NTSC_L Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	MOVE_NTSC_W Monster_DecelIdle, PhysicsObj_DecelX(a0), d0
+
+	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_WalkToRunVel, Character_WalkToRunVel(a0), d0
+	MOVE_NTSC_W Monster_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Monster_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Monster_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Monster_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_L Monster_JumpVelX, Character_JumpVelX(a0), d0
+	MOVE_NTSC_L Monster_JumpVelY, Character_JumpVelY(a0), d0
+	MOVE_NTSC_L Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0
+	MOVE_NTSC_L Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0), d0
+
 	move.w  #Monster_Width, Entity_Width(a0)
 	move.w  #Monster_Height, Entity_Height(a0)
-	move.l  #Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
-	move.l  #Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
-	move.w  #Monster_DecelIdle, PhysicsObj_DecelX(a0)
 	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -199,19 +213,6 @@ MonsterInit:
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	
-	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l  #Monster_MaxVelXWalk, Character_MaxVelXWater(a0)
-	move.l  #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.l  #Monster_WalkToRunVel, Character_WalkToRunVel(a0)
-	move.w  #Monster_AccelWalk, Character_AccelWalk(a0)
-	move.w  #Monster_AccelRun, Character_AccelRun(a0)
-	move.w  #Monster_DecelIdle, Character_DecelIdle(a0)
-	move.w  #Monster_DecelForced, Character_DecelForced(a0)
-	move.l  #Monster_JumpVelX, Character_JumpVelX(a0)
-	move.l  #Monster_JumpVelY, Character_JumpVelY(a0)
-	move.l  #Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
-	move.l  #Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.l  #Monster_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
 	move.w  #Monster_ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
@@ -1197,8 +1198,9 @@ MonsterUpdateTrackPlayer:
 	beq    @PlayerCloaked
 	
 	; If player is being flung using a flue/bounce pad, don't bother
-	cmp.l  #Monster_AttackMaxPlayerVel, PhysicsObj_VelY(a2)
-	bge    @PlayerBeingFlung
+	MOVE_NTSC_L Monster_AttackMaxPlayerVel, d1, d0
+	cmp.l  PhysicsObj_VelY(a2), d1
+	blt    @PlayerBeingFlung
 
 	; Check if player is within tracking window
 	jsr    MonsterCheckPlayerVisible
@@ -1261,13 +1263,15 @@ MonsterUpdateTrackPlayer:
 	; Within max chase dist, reset catchup speed if applied
 	tst.b  Monster_CatchingUp(a0)
 	beq    @EndMaxDistCheck
-	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	tst.l  PhysicsObj_VelX(a0)
 	bgt    @VelPositive
-	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Monster_MaxVelXRun, d1, d0
+	neg.l  d1
+	move.l d1, PhysicsObj_VelX(a0)
 	bra    @EndVelClamp
 	@VelPositive:
-	move.l #Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Monster_MaxVelXRun, PhysicsObj_VelX(a0), d0
 	@EndVelClamp:
 	move.b #0x0, Monster_CatchingUp(a0)
 
@@ -1453,7 +1457,7 @@ MonsterStartTamed:
 	jsr    CharacterCancelXMovement
 
 	; Reset catchup speed
-	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 
 	; Allow running
 	move.b #Character_WalkGeneral, d2
@@ -1512,7 +1516,7 @@ MonsterStartBucking:
 	move.b #0x0, Character_UpdateAnim(a0)
 
 	; Override run speed
-	move.l #Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0)
+	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
 
 	rts
 
@@ -1528,7 +1532,7 @@ MonsterUpdateBucking:
 	move.b #0x1, Character_UpdateAnim(a0)
 
 	; Reset run speed
-	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0)
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	
 	; Roar and chase
 	jsr    MonsterStartRoaring
