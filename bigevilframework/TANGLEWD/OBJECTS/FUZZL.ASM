@@ -27,7 +27,6 @@ Fuzzl_AnimSpeedBounce       equ	0x40
 Fuzzl_EyeWatchDistanceStart equ	0x0050	; Distance from player to start watching
 Fuzzl_EyeWatchDistanceStop  equ	0x0080	; Distance from player to stop watching
 Fuzzl_EyeWatchQuadSize      equ	0x0010	; Player vs. Fuzzl rotation check quadrant size (checks a 9x9 grid around the Fuzzl)
-Fuzzl_FlingVelocity			equ 0x000400	; Upward velocity to determine if being flung (by a Flue or otherwise)
 Fuzzl_FlingRollSpeed        equ 0x80
 Fuzzl_HitGroundSFXVel		equ 0x020000	; Min downward velocity to play thud SFX
 Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
@@ -124,19 +123,19 @@ FuzzlInit:
 	move.w  #Fuzzl_BounceX, PhysicsObj_BounceX(a0)
 	move.w  #Fuzzl_BounceY, PhysicsObj_BounceY(a0)
 	move.b  #Fuzzl_Mass, PhysicsObj_Mass(a0)
-	move.l  #Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0)
-	move.l  #Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0)
+	MOVE_NTSC_L Fuzzl_MaxVelXFloor, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	move.l  #Fuzzl_WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
 	move.l  #Fuzzl_WindResistanceAir, PhysicsObj_WindResistanceAir(a0)
-	move.w  #Fuzzl_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_W Fuzzl_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Fuzzl_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Fuzzl_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
@@ -328,7 +327,7 @@ FuzzlUpdate:
 	bset.b #Fuzzl_State_Watching, Fuzzl_State_bits(a0)
 
 	; Do a little startled bounce
-	move.l #Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Fuzzl_BounceVelStartled, PhysicsObj_VelY(a0), d0
 	
 	; Play alert SFX
 	PLAYSFX #SFX_FuzzlAlert
@@ -758,7 +757,7 @@ FuzzlUpdateBounce:
 	bne    @NoBounceThisFrame
 	
 	; Bounce!
-	move.l #Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Fuzzl_BounceVelHappy, PhysicsObj_VelY(a0), d0
 	
 	; Play jump SFX
 	PLAYSFX #SFX_FuzzlJump
