@@ -132,9 +132,13 @@ LongboatUpdate:
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
-	; If ivisble
-	tst.b  Longboat_Visible(a0)
+	move.b  #0x0, Longboat_Visible(a0)
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
 	beq    @Invisible
+	move.b  #0x1, Longboat_Visible(a0)
 
 	; Update segment positions/acceleration
 	jsr    LongboatUpdateSegments
@@ -158,9 +162,9 @@ LongboatUpdate:
 LongboatDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	; Reset visibility
-	move.b #0x0, Longboat_Visible(a0)
+	
+	tst.b Longboat_Visible(a0)
+	beq   @Invisible
 
 	; Get pos
 	move.w Entity_WorldPosX(a0), d0
@@ -200,6 +204,8 @@ LongboatDraw:
 
 	move.w d0, Entity_WorldPosX(a0)
 	move.w d1, Entity_WorldPosY(a0)
+
+	@Invisible:
 
 	rts
 

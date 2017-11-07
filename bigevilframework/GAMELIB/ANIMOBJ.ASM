@@ -284,7 +284,7 @@ AnimObjDraw:
 	tst.l  d3
 	beq    @NoSFX
     
-	PLAYSFX d3	; Play SFX (TODO: exlusive and non-exclusive modes)
+	PLAYSFX d3	; Play SFX
 	
 	@NoTrackSFX:
 	@NoSFX:
