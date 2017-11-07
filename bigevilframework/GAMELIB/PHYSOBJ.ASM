@@ -413,7 +413,7 @@ PhysicsObjApplyAccelDecel:
 	@ClampSpeedDecel:
 	
 	; Determine deceleration direction
-	cmp.l #0x0, PhysicsObj_VelX(a0)
+	tst.l PhysicsObj_VelX(a0)
 	beq @EndAccelDecelX	; No velocity
 	bgt @DecelFromPosX	; Postive velocity
 	blt @DecelFromNegX	; Negative velocity
@@ -429,7 +429,7 @@ PhysicsObjApplyAccelDecel:
 	DIVS1616_LOSSY d2, d1
 	
 	sub.l d1, PhysicsObj_VelX(a0)
-	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	tst.l PhysicsObj_VelX(a0)	; Clamp to 0
 	bge @EndAccelDecelX
 	move.l #0x0, PhysicsObj_VelX(a0)
 	bra @EndAccelDecelX
@@ -445,7 +445,7 @@ PhysicsObjApplyAccelDecel:
 	DIVS1616_LOSSY d2, d1
 	
 	add.l d1, PhysicsObj_VelX(a0)
-	cmp.l #0x0, PhysicsObj_VelX(a0)	; Clamp to 0
+	tst.l PhysicsObj_VelX(a0)	; Clamp to 0
 	ble @EndAccelDecelX
 	move.l #0x0, PhysicsObj_VelX(a0)
 	bra @EndAccelDecelX
@@ -486,7 +486,7 @@ PhysicsObjApplyAccelDecel:
 	@IdleYDecel:
 
 	; Determine deceleration direction
-	cmp.l #0x0, PhysicsObj_VelY(a0)
+	tst.l PhysicsObj_VelY(a0)
 	beq @EndAccelDecelY	; No velocity
 	bgt @DecelFromPosY	; Postive velocity
 	blt @DecelFromNegY	; Negative velocity
@@ -502,7 +502,7 @@ PhysicsObjApplyAccelDecel:
 	DIVS1616_LOSSY d2, d1
 	
 	sub.l d1, PhysicsObj_VelY(a0)
-	cmp.l #0x0, PhysicsObj_VelY(a0)	; Clamp to 0
+	tst.l PhysicsObj_VelY(a0)	; Clamp to 0
 	bge @EndAccelDecelY
 	move.l #0x0, PhysicsObj_VelY(a0)
 	bra @EndAccelDecelY
@@ -518,7 +518,7 @@ PhysicsObjApplyAccelDecel:
 	DIVS1616_LOSSY d2, d1
 	
 	add.l d1, PhysicsObj_VelY(a0)
-	cmp.l #0x0, PhysicsObj_VelY(a0)	; Clamp to 0
+	tst.l PhysicsObj_VelY(a0)	; Clamp to 0
 	ble @EndAccelDecelY
 	move.l #0x0, PhysicsObj_VelY(a0)
 	bra @EndAccelDecelY
@@ -706,7 +706,7 @@ PhysicsObjCollisionCorrection:
 	; Correct floor collision
 
 	; If not moving on Y axis, skip floor and ceiling correction
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	tst.l  PhysicsObj_VelY(a0)
 	beq    @HeadingNowhereY
 
 	move.b PhysicsObj_OnFloor(a0), d4
@@ -1645,9 +1645,9 @@ PhysicsObjFindMovingFloor:
 	beq    @NoPlatform
 
 	; Ignore stationary platforms
-	cmp.l  #0x0, Platform_VelX(a0)
+	tst.l  Platform_VelX(a0)
 	bne    @Moving
-	cmp.l  #0x0, Platform_VelY(a0)
+	tst.l  Platform_VelY(a0)
 	bne    @Moving
 	bra    @NextPlatform
 
@@ -2071,7 +2071,7 @@ PhysicsObjPushPullObj:
 	beq    @CannotPullLeft
 
 	; If heading right, pulling
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	bgt    @PullingFromLeft
 
 	@CannotPullLeft:
@@ -2114,7 +2114,7 @@ PhysicsObjPushPullObj:
 	beq    @CannotPullRight
 
 	; If heading left, pulling
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	blt    @PullingFromRight
 
 	@CannotPullRight:

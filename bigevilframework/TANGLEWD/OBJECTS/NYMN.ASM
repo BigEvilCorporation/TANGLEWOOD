@@ -290,9 +290,9 @@ NymnStartInteract:
 	bne    @Handled
 
 	; If at zero velocity
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	bne    @Moving
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	tst.l  PhysicsObj_VelY(a0)
 	bne    @Moving
 
 	; Check if player dead

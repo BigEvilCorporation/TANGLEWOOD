@@ -98,7 +98,6 @@ TXT_DrawPlane:
 
 	@CharCopy:
 	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
-	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
 	beq      @End                   ; If byte was zero, branch to end
 
 	sub.b    #CharMap_ASCII_Start, d2 ; Subtract first ASCII code to get tile ID
@@ -185,7 +184,6 @@ TXT_CreateTileIDList:
 
 	@CharCopy:
 	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
-	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
 	beq      @End                   ; If byte was zero, branch to end
 
 	PUSHL    d4
@@ -223,7 +221,6 @@ TXT_LoadStringSpriteTiles:
 
 	@CharCopy:
 	move.b   (a0)+, d2              ; Move ASCII byte to lower byte of d2
-	cmp.b    #0x0, d2               ; Test if byte is zero (string terminator)
 	bne      @NotBlank              ; If byte was zero, use blank tile
 
 	move.b   #' ', d2

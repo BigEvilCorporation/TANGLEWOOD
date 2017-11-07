@@ -99,7 +99,7 @@ GeneratorUpdate:
 	; a1 --- Level addr
 
 	; No Fuzzl, no business
-	cmp.l   #0x0, Generator_Fuzzl(a0)
+	tst.l   Generator_Fuzzl(a0)
 	beq     @NoFuzzl
 
 	; Update anim speeds

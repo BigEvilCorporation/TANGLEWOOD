@@ -336,12 +336,12 @@ AnimObjSetAnimation:
 	move.b #0x1, AnimObj_Dirty(a0)
 
 	; Reset draw offset if no offset tracks
-	cmp.l  #0x0, Animation_AnimTrackPositionX(a4)
+	tst.l  Animation_AnimTrackPositionX(a4)
 	bne    @HasTrackX
 	move.w #0x0, SpriteObj_DrawOffsetX(a0)
 	@HasTrackX:
 
-	cmp.l  #0x0, Animation_AnimTrackPositionY(a4)
+	tst.l  Animation_AnimTrackPositionY(a4)
 	bne    @HasTrackY
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 	@HasTrackY:

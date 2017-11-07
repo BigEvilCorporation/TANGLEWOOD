@@ -75,7 +75,7 @@ SND_PlayTrack:
 	;==============================================================
 
 	; If current track playing, fade out first
-	cmp.l  #0x0, audio_current_track
+	tst.l  audio_current_track
 	beq    @Free
 
 	; If exclusivity held, bail
@@ -419,7 +419,7 @@ SND_UpdateTrack:
 	lea    audio_queued_tracks, a1
 	move.w #Track_Type_COUNT-1, d0
 	@TrackCheckLp:
-	cmp.l  #0x0, (a1)
+	tst.l  (a1)
 	bne    @FoundTrack
 	lea    size_long(a1), a1
 	dbra   d0, @TrackCheckLp
@@ -506,7 +506,7 @@ SND_UpdateTrack:
 	;==============================================================
 
 	; Auto-stop tracks that have reach the end
-	cmp.l  #0x0, audio_current_track
+	tst.l  audio_current_track
 	beq    @EndStopCheck
 	jsr    SND_GetEchoBusy	; If Echo is busy, check again later
 	tst.b  d0

@@ -79,7 +79,7 @@ EndAct_Update:
 	move.l (CurrentLevel), PreviousLevel
 	move.l Level_NextLevel(a1), CurrentLevel
 	
-	cmp.l  #0x0, CurrentLevel
+	tst.l  CurrentLevel
 	beq    @EndOfGame
 	
 	; Start gameplay state

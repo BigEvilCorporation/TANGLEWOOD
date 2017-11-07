@@ -120,7 +120,7 @@ FlueOccupantUpdate:
 	; If occupant was camera owner, wait for camera lerp
 	tst.b  FlueOccupant_CameraOwner(a2)
 	beq    @NotLerpingCamera
-	cmp.l  #0x0, CameraTargetLerpSource
+	tst.l  CameraTargetLerpSource
 	bne    @LerpingCamera
 	@NotLerpingCamera:
 
@@ -141,7 +141,7 @@ FlueOccupantUpdate:
 	
 	; If linked to another flue, use that pos for output
 	move.l a0, a3
-	cmp.l  #0x0, Flue_OutputFlue(a0)
+	tst.l  Flue_OutputFlue(a0)
 	beq    @NoLinkedFlue
 	move.l Flue_OutputFlue(a0), a3
 	@NoLinkedFlue:

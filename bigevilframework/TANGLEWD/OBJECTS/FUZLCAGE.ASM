@@ -187,7 +187,7 @@ FuzzlCageUpdate:
 	@LowVel:
 	
 	; If being pushed, set to update out of view
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	beq    @InitialState
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	@InitialState:

@@ -190,7 +190,7 @@ CharacterUpdate:
 	
 	; Play land SFX
 	lea    (Character_SFX+(CharacterSFXIdx_Land*size_long))(a0), a2
-	cmp.l  #0x0, (a2)
+	tst.l  (a2)
 	beq    @NoLandSFX
 	PLAYSFX (a2)
 	@NoLandSFX:
@@ -544,7 +544,7 @@ CharacterMoveLeft:
 	bne    @End
 	
 	; Check if heading in opposite direction
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	bgt    @Decelerate
 
 	; Can move left
@@ -594,7 +594,7 @@ CharacterMoveRight:
 	move.b #1, Character_ControlX(a0)
 	
 	; Check if heading in opposite direction
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	blt    @Decelerate
 	
 	; Check if running or walking
@@ -741,7 +741,7 @@ CharacterStartJump:
 
 	; Play water jump SFX
 	lea    (Character_SFX+(CharacterSFXIdx_WaterJump*size_long))(a0), a2
-	cmp.l  #0x0, (a2)
+	tst.l  (a2)
 	beq    @NoWaterJumpSFX
 	PLAYSFX (a2)
 	@NoWaterJumpSFX:

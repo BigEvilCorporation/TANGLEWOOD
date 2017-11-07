@@ -89,7 +89,7 @@ DemoEndState_Update:
 	bne    @Fading
 
 	; If already done fade to black
-	cmp.l  #0x0, TimerLogoFade
+	tst.l  TimerLogoFade
 	beq    @FadedOut
 	
 	; Wait for timeout

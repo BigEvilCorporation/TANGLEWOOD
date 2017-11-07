@@ -1264,7 +1264,7 @@ MonsterUpdateTrackPlayer:
 	tst.b  Monster_CatchingUp(a0)
 	beq    @EndMaxDistCheck
 	move.l #Monster_MaxVelXRun, Character_MaxVelXRun(a0) ; Reset max run velocity
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	bgt    @VelPositive
 	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
 	bra    @EndVelClamp

@@ -443,7 +443,7 @@ LiftProcessCounterweight:
 	;==============================================================
 
 	; Check this lift platform for floor
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	tst.l  PhysicsObj_VelY(a0)
 	bgt    @ThisLiftHeadingUp
 
 	; Check if on floor
@@ -465,7 +465,7 @@ LiftProcessCounterweight:
 	;==============================================================
 
 	; Check other lift platform for floor
-	cmp.l  #0x0, PhysicsObj_VelY(a2)
+	tst.l  PhysicsObj_VelY(a2)
 	bgt    @OtherLiftHeadingUp
 
 	; Check if on floor
@@ -733,7 +733,7 @@ LiftUpdate:
 	bgt    @NoDecelLeft
 	
 	addi.l #Lift_DecelX, PhysicsObj_VelX(a0)
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	ble    @Resting
 	move.l #0x0, PhysicsObj_VelX(a0)
 	bra    @Resting
@@ -753,7 +753,7 @@ LiftUpdate:
 	blt    @NoDecelRight
 	
 	sub.l  #Lift_DecelX, PhysicsObj_VelX(a0)
-	cmp.l  #0x0, PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	bge    @Resting
 	move.l #0x0, PhysicsObj_VelX(a0)
 	bra    @Resting

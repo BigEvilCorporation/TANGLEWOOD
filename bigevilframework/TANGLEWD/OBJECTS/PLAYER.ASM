@@ -973,7 +973,7 @@ PlayerUpdateColourAbility:
 	; If -ve Y velocity or in falling state
 	tst.b  Character_Falling(a0)
 	bne    @CanGlide
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	tst.l  PhysicsObj_VelY(a0)
 	blt    @CanGlide
 	bra    @EndGlide
 
@@ -2412,7 +2412,7 @@ PlayerEnteredWater:
 	
 	; Play splash SFX
 	lea    Character_SFX+(CharacterSFXIdx_WaterSplash*size_long)(a0), a2
-	cmp.l  #0x0, (a2)
+	tst.l  (a2)
 	beq    @NoSplashSFX
 	PUSHL  d2
 	PLAYSFX (a2)
@@ -2654,7 +2654,7 @@ PlayerInteractTest_BouncePlants:
 
 	; Check player travelling towards plant platform
 	; TODO: Get bounce vector, dot test
-	cmp.l  #0x0, PhysicsObj_VelY(a0)
+	tst.l  PhysicsObj_VelY(a0)
 	bge    @End
 	
 	move.w (EntityCount_BouncePlant), d6
