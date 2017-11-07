@@ -573,7 +573,9 @@ l3a3MeetEchoBeginStage_DjakkChase:
 	PUSHL  a0
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
 	jsr    MonsterStartTrackPlayer
-	move.l #-Monster_MaxVelXRun, PhysicsObj_VelX(a0)
+	MOVE_NTSC_L Monster_MaxVelXRun, d1, d0
+	neg.l  d1
+	move.l d1, PhysicsObj_VelX(a0)
 	POPL   a0
 	
 	; Lerp camera to Djakk
