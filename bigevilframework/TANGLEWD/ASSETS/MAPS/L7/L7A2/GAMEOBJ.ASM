@@ -289,7 +289,7 @@ L7A2_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #0x0F8000, Flue_EjectForceY(a0)
+	MOVE_NTSC_L 0x0F8000, Flue_EjectForceY(a0), d0
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 	jsr FlueInit
@@ -302,7 +302,7 @@ L7A2_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #0x0F8000, Flue_EjectForceY(a0)
+	MOVE_NTSC_L 0x0F8000, Flue_EjectForceY(a0), d0
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 

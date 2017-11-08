@@ -31,9 +31,9 @@ L2A3_Leaf_26_name	dc.b "L2A3_Leaf_26",0
 	even
 	ENDIF
 
-L2A3_Trap_count equ 0x0
-
 L2A3_Djubb_count equ 0x0
+
+L2A3_Trap_count equ 0x0
 
 L2A3_Echo_count equ 0x0
 
@@ -61,9 +61,9 @@ L2A3_BouncePlant_44_name	dc.b "L2A3_BouncePlant_44",0
 
 L2A3_Log_count equ 0x0
 
-L2A3_Borgus_count equ 0x0
-
 L2A3_DjakkCage_count equ 0x0
+
+L2A3_Borgus_count equ 0x0
 
 L2A3_Monster_count equ 0x1
 L2A3_Djakk_idx	equ 0x0
@@ -119,6 +119,8 @@ L2A3_Stone_50_name	dc.b "L2A3_Stone_50",0
 
 L2A3_Demon_count equ 0x0
 
+L2A3_Raft_count equ 0x0
+
 L2A3_Nest_count equ 0x2
 L2A3_Nest_15_idx	equ 0x0
 L2A3_Nest_47_idx	equ 0x1
@@ -165,8 +167,6 @@ L2A3_WaterBody_count equ 0x0
 
 L2A3_Location_count equ 0x0
 
-L2A3_Lift_count equ 0x0
-
 L2A3_Deathbox_count equ 0x5
 L2A3_Deathbox_27_idx	equ 0x0
 L2A3_Deathbox_28_idx	equ 0x1
@@ -182,6 +182,8 @@ L2A3_Deathbox_30_name	dc.b "L2A3_Deathbox_30",0
 L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
 	even
 	ENDIF
+
+L2A3_Lift_count equ 0x0
 
 L2A3_Crate_count equ 0x0
 
@@ -225,8 +227,6 @@ L2A3_WindFlue8_name	dc.b "L2A3_WindFlue8",0
 	even
 	ENDIF
 
-L2A3_Raft_count equ 0x0
-
 L2A3_Lock_count equ 0x0
 
 L2A3_Pool_count equ 0x0
@@ -238,6 +238,8 @@ L2A3_Stalactite_count equ 0x0
 L2A3_CargoLift_count equ 0x0
 
 L2A3_Scrap_count equ 0x0
+
+L2A3_Longboat_count equ 0x0
 
 
 
@@ -597,6 +599,7 @@ L2A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L2A3_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -747,7 +750,6 @@ L2A3_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L2A3_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -814,6 +816,7 @@ L2A3_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 

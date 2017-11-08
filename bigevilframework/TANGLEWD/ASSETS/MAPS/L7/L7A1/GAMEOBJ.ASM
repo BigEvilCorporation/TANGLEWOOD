@@ -524,7 +524,7 @@ L7A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #0xA0000, Flue_EjectForceY(a0)
+	MOVE_NTSC_L 0xA0000, Flue_EjectForceY(a0), d0
 	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
 
