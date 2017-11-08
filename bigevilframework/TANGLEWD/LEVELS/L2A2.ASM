@@ -94,11 +94,11 @@ l2a2_Init:
 	move.w  #0x0010, WindAccel
 	move.w  #-0x0900, WindRandStrengthMin
 	move.w  #-0x0910, WindRandStrengthMax
-	move.w  #0x0170, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x01F0, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0170, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x01F0, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 	
 	rts
 	
