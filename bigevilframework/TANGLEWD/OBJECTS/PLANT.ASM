@@ -9,8 +9,8 @@
 ; Constants
 BouncePlant_Width		   equ 0x18
 BouncePlant_Height		   equ 0x18
-BouncePlant_LaunchForce     equ 0x0A0000
-BouncePlant_LaunchForceDiag equ 0x071100 ; (BouncePlant_LaunchForce * 0.707)
+BouncePlant_LaunchForce     equ 0x080000
+BouncePlant_LaunchForceDiag equ 0x05A7EF ; (BouncePlant_LaunchForce * 0.707)
 
 ;==============================================================
 
