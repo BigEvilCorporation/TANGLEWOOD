@@ -39,17 +39,19 @@ L1A3_Nymn_30_name	dc.b "L1A3_Nymn_30",0
 	even
 	ENDIF
 
-L1A3_BouncePlant_count equ 0x4
+L1A3_BouncePlant_count equ 0x5
 L1A3_BouncePlant_32_idx	equ 0x0
 L1A3_BouncePlant_33_idx	equ 0x1
 L1A3_BouncePlant_36_idx	equ 0x2
-L1A3_BouncePlant_44_idx	equ 0x3
+L1A3_BouncePlant_68_idx	equ 0x3
+L1A3_BouncePlant_67_idx	equ 0x4
 
 	IFND FINAL
 L1A3_BouncePlant_32_name	dc.b "L1A3_BouncePlant_32",0
 L1A3_BouncePlant_33_name	dc.b "L1A3_BouncePlant_33",0
 L1A3_BouncePlant_36_name	dc.b "L1A3_BouncePlant_36",0
-L1A3_BouncePlant_44_name	dc.b "L1A3_BouncePlant_44",0
+L1A3_BouncePlant_68_name	dc.b "L1A3_BouncePlant_68",0
+L1A3_BouncePlant_67_name	dc.b "L1A3_BouncePlant_67",0
 	even
 	ENDIF
 
@@ -322,8 +324,8 @@ L1A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x04380000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_BouncePlant_32_name, a3
 	move.l a0, a2
@@ -361,16 +363,29 @@ L1A3_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 	jsr BouncePlantInit
-	move.l #0x06d00000, Entity_WorldPosX(a0)
-	move.l #0x01180000, Entity_WorldPosY(a0)
+	move.l #0x03900000, Entity_WorldPosX(a0)
+	move.l #0x01100000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L1A3_BouncePlant_44_name, a3
+	lea L1A3_BouncePlant_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	add.l #BouncePlant_Struct_Size, a0
+	jsr BouncePlantInit
+	move.l #0x04300000, Entity_WorldPosX(a0)
+	move.l #0x01680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L1A3_BouncePlant_67_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
 
@@ -482,8 +497,8 @@ L1A3_LoadGameObjects:
 	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
 	jsr FireflyInit
-	move.l #0x06f80000, Entity_WorldPosX(a0)
-	move.l #0x01000000, Entity_WorldPosY(a0)
+	move.l #0x07480000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L1A3_Firefly_61_name, a3
 	move.l a0, a2
