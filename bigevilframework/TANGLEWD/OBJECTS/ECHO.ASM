@@ -541,8 +541,8 @@ EchoDraw:
 	@NoDraw:
 
 	IF ECHO_AI_DEBUG_NODE_POS
-	clr.l  d6
-	clr.l  d7
+	moveq #0x0, d6
+	moveq #0x0, d7
 	move.w Echo_AINodeConsumer(a0), d6
 	move.w Echo_AINodeProducer(a0), d7
 	cmp.w  d6, d7

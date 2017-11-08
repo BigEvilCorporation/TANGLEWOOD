@@ -11,7 +11,7 @@
 WINDOW_CREATE_WIDGET_TEXT macro windowaddr,stringaddr,font,fontvram,palette,plane,posx,posy
 	PUSHM  d0-d3/a0-a1
 	PUSHL  \windowaddr
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (WidgetCount_Text), d0
 	mulu   #UIWidgetText_Struct_Size, d0
 	move.l #WidgetArray_Text, a0
@@ -38,7 +38,7 @@ WINDOW_CREATE_WIDGET_TEXT macro windowaddr,stringaddr,font,fontvram,palette,plan
 WINDOW_CREATE_WIDGET_CURSOR macro windowaddr
 	PUSHM  d0-d3/a0-a1
 	PUSHL  \windowaddr
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (WidgetCount_Cursor), d0
 	mulu   #UIWidgetCursor_Struct_Size, d0
 	move.l #WidgetArray_Cursor, a0

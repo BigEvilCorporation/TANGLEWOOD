@@ -363,11 +363,11 @@ LiftProcessCounterweight:
 
 	; Get total mass of both platforms
 	lea    Lift_Platform(a0), a3
-	clr.l  d0
+	moveq #0x0, d0
 	move.w Platform_TotalMass(a3), d0
 
 	lea    Lift_Platform(a2), a3
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Platform_TotalMass(a3), d1
 
 	; Get diff
@@ -419,8 +419,8 @@ LiftProcessCounterweight:
 	move.l #0x0, PhysicsObj_VelY(a2)
 
 	; Get total force affecting both playforms
-	;clr.l  d0
-	;clr.l  d1
+	;moveq #0x0, d0
+	;moveq #0x0, d1
 	;lea    Lift_Platform(a0), a3
 	;lea    Lift_Platform(a2), a4
 	;move.l Platform_LastOccupant(a3), a5
@@ -711,7 +711,7 @@ LiftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	clr.l  d3
+	moveq #0x0, d3
 
 	IF LIFT_ROPE_SUPPORT_SWING
 

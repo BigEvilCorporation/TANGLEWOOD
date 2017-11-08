@@ -60,7 +60,7 @@ SPR_AddMultiSprite:
 
 	; Get sprite table
 	lea     vdp_sprite_table, a4
-	clr.l   d7
+	moveq #0x0, d7
 	move.w  d5, d7
 	lsl.l   #0x3, d7	; mulu.w  #Sprite_Struct_Size, d7
 	add.l   d7, a4
@@ -107,7 +107,7 @@ SPR_AddMultiSprite:
 		addq.w #0x1, d5
 
 		; Get dimensions bits
-		clr.l  d0
+		moveq #0x0, d0
 		move.b (a0)+, d0
 		
 		; Write values to table entry

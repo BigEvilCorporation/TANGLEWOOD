@@ -265,7 +265,7 @@ BoulderUpdate:
 	lea    Boulder_Animations+(Animation_Struct_Size*BoulderAnimIdx_Roll)(a0), a2
 
 	; Roll anim speed based on velocity
-	clr.l  d0
+	moveq #0x0, d0
 	move.l PhysicsObj_VelX(a0), d0
 	beq    @ZeroVel
 	divs.w #Boulder_AnimSpeedVelDiv, d0

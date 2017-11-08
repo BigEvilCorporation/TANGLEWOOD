@@ -16,7 +16,7 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate rows remaining
-	clr.l   d1
+	moveq #0x0, d1
 	move.w  (WorldScrollY), d1		; Get world scroll Y position (incl. camera shake + peek offset)
 									; (top word = integer part)
 	
@@ -32,7 +32,7 @@ MAP_UpdateStreaming:
 	;==============================================================
 	
 	; Calculate cols remaining
-	clr.l   d3
+	moveq #0x0, d3
 	move.w  (WorldScrollX), d3		; Get world scroll X position (incl. camera shake + peek offset)
 									; (top word = integer part)
 	
@@ -129,7 +129,7 @@ MAP_StreamNextRow:
 	clr.w	d1						; Clear exponent (remainder in upper d1)
 	
 	; Dest rect top in lower d1
-	clr.l   d2
+	moveq #0x0, d2
 	move.w	d0, d2					; Dest rect top to lower d2
 	divu    #vdp_plane_height_blocks, d2	; Div/scroll height
 	clr.w	d2						; Clear exponent
@@ -214,7 +214,7 @@ MAP_StreamNextColumn:
 	@Stream:
 
 	; Dest rect left in upper d2
-	clr.l	d2
+	moveq #0x0,	d2
 	move.w	d0, d2					; Dest rect left to lower d2
 	divu    #vdp_plane_width_blocks, d2	; Div/scroll width
 	clr.w	d2						; Clear exponent (remainder in upper d2)

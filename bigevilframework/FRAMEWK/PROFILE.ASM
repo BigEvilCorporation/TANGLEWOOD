@@ -90,7 +90,7 @@ DBG_Profile_PushScope:
 	move.l (profile_currblock), a2
 	cmp.l  a1, a2
 	beq    @FirstBlock
-	clr.l  d0
+	moveq #0x0, d0
 	move.b ProfileBlockChildCount(a2), d0
 	addi.b #0x1, ProfileBlockChildCount(a2)
 	mulu   #size_long, d0

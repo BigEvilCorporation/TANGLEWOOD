@@ -37,7 +37,7 @@ VDP_DMAQueue_AddJob:
 	@SplitJobs:
 	
 	; Job 1
-	clr.l  d4
+	moveq #0x0, d4
 	move.l a0, d2			; Source addr to d2
 	move.w d1, d5			; Backup original size
 	move.w d0, d6			; Backup original dest

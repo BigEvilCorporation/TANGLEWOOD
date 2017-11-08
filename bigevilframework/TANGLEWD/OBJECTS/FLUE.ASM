@@ -145,7 +145,7 @@ FlueOccupantUpdate:
 	@NoLinkedFlue:
 
 	; Snap to X centre
-	clr.l  d1
+	moveq #0x0, d1
 	move.l Entity_WorldPosX(a3), d0
 	move.w Entity_Width(a3), d1
 	TOSUBPIXELS d1				; To subpixels
@@ -292,7 +292,7 @@ FlueFindOccupant:
 	; a2 --- Occupant desc address
 
 	; Search all potential occupants
-	clr.l  d0
+	moveq #0x0, d0
 	move.b (FlueNumPotentialOccupants), d0
 	beq    @NoPotentialOccupants
 	subq.b  #0x1, d0
@@ -417,7 +417,7 @@ FlueTestPhysicsObjInside:
 FlueAddPotentialOccupant:
 	; a0 --- Occupant to add
 
-	clr.l  d0
+	moveq #0x0, d0
 	lea    FluePotentialOccupants, a2
 	move.b (FlueNumPotentialOccupants), d0
 	mulu.w #size_long, d0

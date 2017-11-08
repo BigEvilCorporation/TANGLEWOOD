@@ -18,7 +18,7 @@ FindLedge:
 	move.w d2, d7
 	
 	; Convert XY coord to tile offset
-	clr.l  d3
+	moveq #0x0, d3
 	move.w d0, d3					; Y to d3
 	PIXELS2TILES d3					; To tiles
 	mulu   d2, d3 					; To Y offset (map width in d2)
@@ -41,7 +41,7 @@ FindLedge:
 	
 	; Find ledge collision bit
 	move.l #(size_tile_b/4)-1, d3 ; Longwords per tile (-1 for loop)
-	clr.l  d5						 ; Nybble counter in d5
+	moveq #0x0, d5						 ; Nybble counter in d5
 	@ByteCheckLp:
 	move.l (a1)+, d2				 ; Fetch collision longword from tile
 	bne    @CheckNybbles			 ; Check if nonzero

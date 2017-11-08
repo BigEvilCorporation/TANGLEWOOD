@@ -74,7 +74,7 @@ MainMenu_Enter:
 	VDPSETREG 7, d0
 
 	; Load tiles
-	clr.l d1
+	moveq #0x0, d1
 	lea    tiles_l1, a0
 	move.w #tiles_l1_size_t, d0
 	jsr    LevelLoadCompressedTileset

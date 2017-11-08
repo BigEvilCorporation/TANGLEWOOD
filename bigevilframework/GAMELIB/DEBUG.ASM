@@ -23,7 +23,7 @@ DBG_DrawWord:
 	PUSHL  d1
 	jsr    TXT_ItoA_Hex_w
 	POPL   d1
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (vram_addr_systemfont), d0
 	BYTES2TILES d0
 	move.w #debugdraw_palette_prio_bits, d2
@@ -45,7 +45,7 @@ DBG_DrawLong:
 	PUSHL  d1
 	jsr    TXT_ItoA_Hex_l
 	POPL   d1
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (vram_addr_systemfont), d0
 	BYTES2TILES d0
 	move.w #debugdraw_palette_prio_bits, d2

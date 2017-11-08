@@ -166,7 +166,7 @@ PoolUpdate:
 	@ScrollNoChange:
 
 	; Apply water speed
-	clr.l  d0
+	moveq #0x0, d0
 	move.w Pool_WaterSpeed(a0), d0
 	beq    @NotMoving
 	move.w Pool_WaterHeight(a0), d1
@@ -243,7 +243,7 @@ PoolDraw:
 	; Pool visible
 
 	; Get X pos as tiles
-	clr.l  d0
+	moveq #0x0, d0
 	move.w Entity_WorldPosX(a0), d0
 	sub.w  #vdp_sprite_border_x, d0
 	PIXELS2TILES d0
@@ -291,7 +291,7 @@ PoolDraw:
 	@NoBody:
 
 	; Get Y pos as tiles
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Entity_WorldPosY(a0), d1				; Y pos
 	addi.w #Pool_Height, d1						; Sub water height
 	sub.w  Pool_WaterHeight(a0), d1

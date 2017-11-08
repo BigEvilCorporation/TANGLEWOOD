@@ -310,7 +310,7 @@ WyrmUpdate:
 	addi.w #Wyrm_DebrisDrawOffsetY, d0
 
 	; Set next debris position
-	clr.l  d3
+	moveq #0x0, d3
 	move.b Wyrm_NextFreeDebris(a0), d3	; Get next free index
 	tst.w  d1						; Determine direction
 	blt    @PrevDebris
@@ -436,8 +436,8 @@ WyrmFindSandDune:
 	; d1 (ww) OUT: Sand dune left X/Y
 	; d2 (ww) OUT: Sand dune right X/Y
 
-	clr.l  d1
-	clr.l  d2
+	moveq #0x0, d1
+	moveq #0x0, d2
 
 	move.w d0, d4	; Player Y
 	swap   d0		; Player X

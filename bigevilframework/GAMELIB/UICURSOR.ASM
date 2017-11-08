@@ -94,7 +94,7 @@ UIWidgetCursorAddWidget:
 	; a1 --- Widget addr
 
 	; Add to array
-	clr.l d0
+	moveq #0x0, d0
 	move.b UIWidgetCursor_NumWidgets(a0), d0
 	lsl.l  #0x2, d0
 	move.l a0, a2
@@ -119,7 +119,7 @@ UIWidgetCursorSelect:
 	; d0 (b) Widget index
 
 	; Deselect current widget
-	clr.l  d1
+	moveq #0x0, d1
 	move.b UIWidgetCursor_CurrIndex(a0), d1	; Get curr index
 	andi.l #0xFF, d1
 	lsl.l  #0x2, d1							; To longwords

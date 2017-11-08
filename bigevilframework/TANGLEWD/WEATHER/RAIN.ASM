@@ -98,7 +98,7 @@ RainSetParams:
 
 	; Set sprite frame
 	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a4
-	clr.l  d0
+	moveq #0x0, d0
 	move.b RainParams_AnimFrame(a2), d0
 	lsl.l  #0x8, d0
 	move.l d0, AnimObj_AnimSubFrame(a4)
@@ -131,7 +131,7 @@ RainSpriteInitPosition:
 
 	; Add rand offset
 	PUSHM  d0-d2
-	clr.l  d0
+	moveq #0x0, d0
 	move.l #-(RainSpriteRandOffsetX/2), d1
 	move.l #(RainSpriteRandOffsetX/2), d2
 	jsr    RND_GenerateWordClamped
@@ -142,7 +142,7 @@ RainSpriteInitPosition:
 	add.l  d3, d0
 
 	PUSHM  d0-d2
-	clr.l  d0
+	moveq #0x0, d0
 	move.l #0x0, d1
 	move.l #RainSpriteRandOffsetY, d2
 	jsr    RND_GenerateWordClamped
@@ -179,7 +179,7 @@ RainSpriteReposition:
 
 	; Add rand offset
 	PUSHM  d0-d2
-	clr.l  d0
+	moveq #0x0, d0
 	move.l #-(RainSpriteRandOffsetX/2), d1
 	move.l #(RainSpriteRandOffsetX/2), d2
 	jsr    RND_GenerateWordClamped
@@ -190,7 +190,7 @@ RainSpriteReposition:
 	add.l  d3, d0
 
 	PUSHM  d0-d2
-	clr.l  d0
+	moveq #0x0, d0
 	move.l #0x0, d1
 	move.l #RainSpriteRandOffsetY, d2
 	jsr    RND_GenerateWordClamped

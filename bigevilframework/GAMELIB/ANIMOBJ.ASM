@@ -119,7 +119,7 @@ AnimObjUpdate:
 	cmp.b  #0x1, d0
 	beq    @LoopingAnim
 
-	clr.l  d3
+	moveq #0x0, d3
 	move.b Animation_Length(a2), d3	; Get anim length
 	lsl.l  #0x8, d3 ; To subframes
 	
@@ -244,7 +244,7 @@ AnimObjDraw:
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosX
 	
-	clr.l  d3
+	moveq #0x0, d3
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	ext.w  d3			   				; Sign extend
 	tst.b  SpriteObj_FlippedX(a0)	; If X flipped
@@ -262,7 +262,7 @@ AnimObjDraw:
 	cmp.l  #0x0, a3
 	beq    @NoTrackPosY
 	
-	clr.l  d3
+	moveq #0x0, d3
 	move.b (a3,d2.w), d3   				; Get value from anim track
 	neg.w  d3							; Correct for coord sys
 	ext.w  d3			   				; Sign extend
@@ -360,7 +360,7 @@ AnimObjGetCurrentFrame:
 	; a1 --- Level addr
 	; d0 (b) Return val - anim frame
 	
-	clr.l  d0
+	moveq #0x0, d0
 
 	move.l AnimObj_CurrentAnim(a0), a2
 	cmp.l  #0x0, a2

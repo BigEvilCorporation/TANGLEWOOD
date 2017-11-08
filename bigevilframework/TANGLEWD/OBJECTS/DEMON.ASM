@@ -678,8 +678,8 @@ DemonAIUpdate_Wisp:
 
 	; Accelerate towards target
 	VEC2_SUB d0,d1
-	clr.l  d2
-	clr.l  d3
+	moveq #0x0, d2
+	moveq #0x0, d3
 	move.w d1, d2
 	neg.w  d2
 	swap   d1

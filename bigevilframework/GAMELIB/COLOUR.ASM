@@ -133,13 +133,13 @@ PAL_LerpUpdate:
 PAL_LerpUpdateNextComponent:
 	; a0 --- Address of PaletteLerp struct to update
 
-	clr.l  d0
+	moveq #0x0, d0
 	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
 	beq    @PaletteNotWritten					; Return if disabled
 	
 	; =====================================================================
 	
-	clr.l  d2
+	moveq #0x0, d2
 	move.l PaletteLerp_SubFrame(a0), d1	; Get current subframe
 	move.l d1, d3						; Keep subframe as prev
 	add.l  d0, d1						; Advance subframe
@@ -176,7 +176,7 @@ PAL_LerpUpdateNextComponent:
 	add.l  d1, a1
 	add.l  d1, a2
 
-	clr.l  d3
+	moveq #0x0, d3
 	move.b PaletteLerp_ColourMax(a0), d3
 	move.b PaletteLerp_ColourMin(a0), d1
 	sub.b  d1, d3		; (max - min) colours
@@ -233,8 +233,8 @@ PAL_LerpUpdateNextComponent:
 	lea    PaletteLerp_BufferTrg(a1), a1	; Target buffer addr
 	move.l PaletteLerp_CurrentAddr(a0), a2	; Source palette addr
 	
-	clr.l  d4							; Clear working regs
-	clr.l  d5
+	moveq #0x0, d4							; Clear working regs
+	moveq #0x0, d5
 	
 	; Colours are defined as: (0000BBB0GGG0RRR0) - need to mask and shift to get each component as an integer
 	add.l  d1, a2						; Offset scratch ptr to colour

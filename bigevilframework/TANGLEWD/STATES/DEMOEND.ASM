@@ -35,7 +35,7 @@ DemoEndState_Enter:
 	VDPSETREG 7, d0
 
 	; Load tiles
-	clr.l d1
+	moveq #0x0, d1
 	lea    tiles_DemoEnd_screen, a0
 	move.w #tiles_DemoEnd_size_t, d0
 	jsr    LevelLoadCompressedTileset
@@ -46,7 +46,7 @@ DemoEndState_Enter:
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_DemoEnd_width<<16)|map_DemoEnd_height), d2		; d2 (ww) Segment width/height (tiles)
 	move.w #map_DemoEnd_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
+	moveq #0x0, d4
 	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
 	BYTES2TILES d4
 	move.l #PaletteId_DemoEndState, d5	; d5 (b)  Palette ID

@@ -214,7 +214,7 @@ BouncePlantLoadGfx:
 	jsr    VRAM_PoolAlloc
 
 	; Select sprite sheet based on orientation
-	clr.l  d1
+	moveq #0x0, d1
 	move.b BouncePlant_Orientation(a0), d1
 	mulu   #size_long*5, d1
 	lea    BouncePlantSpriteSheets, a4
@@ -232,7 +232,7 @@ BouncePlantLoadGfx:
 	jsr    SpriteObjLoad
 
 	; Configure sprite flipping based on orientation
-	clr.l  d1
+	moveq #0x0, d1
 	move.b BouncePlant_Orientation(a0), d1
 	lsl.l  #0x1, d1
 	lea    BouncePlantSpriteFlip, a3
@@ -243,7 +243,7 @@ BouncePlantLoadGfx:
 	move.b d1, SpriteObj_FlippedX(a0)
 
 	; Configure collision bounds based on orientation
-	clr.l  d1
+	moveq #0x0, d1
 	move.b BouncePlant_Orientation(a0), d1
 	mulu   #(size_word*4), d1
 	lea    BouncePlantBounds, a3
@@ -317,7 +317,7 @@ BouncePlant_GetBounceVector:
 	; d1 (l) in: Y to reflect
 
 	; Get orientation of plant
-	clr.l  d2
+	moveq #0x0, d2
 	move.b BouncePlant_Orientation(a0), d2
 	lsl.l  #0x3, d2
 

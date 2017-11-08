@@ -99,7 +99,7 @@ Pause_Enter:
 	move.w  (EntityCount_Firefly), d0	; Get total firefly count
 	jsr     TXT_ItoA_w					; To string
 	
-	clr.l   d0
+	moveq #0x0, d0
 	move.w  (vram_addr_systemfont), d0	; Font VDP address
 	BYTES2TILES d0
 	move.l  a1, a0						; String
@@ -263,7 +263,7 @@ Pause_Render:
 	jsr EntityRenderAll
 	
 	; Add all text glyphs for drawing
-	clr.l  d4
+	moveq #0x0, d4
 	lea    GameStatePauseData, a0
 	move.l #GameStatePauseData+PauseState_TextTileBuff, a1	; Tile ID buffer
 	move.b PauseState_TextSpritesCount(a0), d4				; Count
@@ -338,7 +338,7 @@ Debug_DrawVRAMPools:
 	MEMCPYB a0, a1, d0
 
 	; Get free tiles
-	clr.l   d0
+	moveq #0x0, d0
 	move.w  VRAMPool_Free(a2), d0
 	BYTES2TILES d0
 	
@@ -348,7 +348,7 @@ Debug_DrawVRAMPools:
 	POPM    d1/a0
 
 	; Draw
-	clr.l   d0
+	moveq #0x0, d0
 	move.w  (vram_addr_systemfont), d0					; Font VDP address
 	BYTES2TILES d0
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d2	; Palette/flip/priority bits
@@ -392,7 +392,7 @@ Debug_DrawRAMPools:
 	MEMCPYB a0, a1, d0
 
 	; Get free bytes
-	clr.l   d0
+	moveq #0x0, d0
 	PUSHL   a0
 	lea     RAMPool_Pool_Entities, a0
 	jsr     RAM_PoolGetFree
@@ -405,7 +405,7 @@ Debug_DrawRAMPools:
 	POPM    a0
 
 	; Draw
-	clr.l   d0
+	moveq #0x0, d0
 	move.w  (vram_addr_systemfont), d0					; Font VDP address
 	BYTES2TILES d0
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d2	; Palette/flip/priority bits

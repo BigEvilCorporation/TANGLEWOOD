@@ -57,7 +57,7 @@ Logos_Enter:
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_bec_logo_width<<16)|map_bec_logo_height), d2		; d2 (ww) Segment width/height (tiles)
 	move.w #map_bec_logo_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
+	moveq #0x0, d4
 	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
 	BYTES2TILES d4
 	move.l #PaletteId_BigEvilLogo, d5	; d5 (b)  Palette ID
@@ -107,7 +107,7 @@ Logos_Update:
 	move.l #LogosFadeTimeLetters, d1
 	move.b #0x3, d2
 	move.l #0x0, d3
-	clr.l  d4
+	moveq #0x0, d4
 	move.b LogoState_CurrColourIdx(a3), d4
 	jsr    GameScenePaletteFadeTo
 	

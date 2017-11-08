@@ -674,7 +674,7 @@ DjrakeUpdateSearchForPlayer:
 	bgt    @NoClampLeft
 	move.l #0x0, d0
 	@NoClampLeft:
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Level_MapWidth(a1), d1				; Clamp screen right
 	TILES2PIXELS d1								; Tiles to pixels
 	TOSUBPIXELS  d1								; Pixels to subpixels

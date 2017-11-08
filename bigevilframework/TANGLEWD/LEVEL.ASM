@@ -243,8 +243,8 @@ LevelLoadPalettes:
 	move.b #0xF, DirtyPalettesMask
 	move.b #0xF, UnderwaterDirtyPalettesMask
 
-	clr.l  d6
-	clr.l  d7
+	moveq #0x0, d6
+	moveq #0x0, d7
 	move.b #0x3, d7						; Num palettes to d7 (-1)
 	move.l #PaletteId_World0, d0		; First level palette offset to d0
 	move.l Level_PalettesAddr(a1), a3	; First palette addr to a3

@@ -22,8 +22,8 @@ PHYS_GetTerrainTile:
 	; d4 (w)  : OUT: Tile pos Y (tiles)
 
 	; XY coord to blocks + tile offset
-	clr.l  d3
-	clr.l  d4
+	moveq #0x0, d3
+	moveq #0x0, d4
 	move.w d1, d3					; Y to d3
 	PIXELS2TILES d3					; To tiles
 	move.w d3, d4					; Backup for tile offset
@@ -32,8 +32,8 @@ PHYS_GetTerrainTile:
 
 	swap   d1						; X to lower d1
 
-	clr.l  d5
-	clr.l  d6
+	moveq #0x0, d5
+	moveq #0x0, d6
 	move.w d1, d5					; X to d5
 	PIXELS2TILES d5					; To tiles
 	move.w d5, d6					; Backup for tile offset
@@ -66,13 +66,13 @@ PHYS_GetTerrainTile:
 	add.l  d4, a0
 
 	; Restore tile X/Y for return values
-	clr.l  d3
-	clr.l  d4
+	moveq #0x0, d3
+	moveq #0x0, d4
 	move.w d1, d3	; X to d3
 	move.w d2, d4	; Y to d4
 	
 	; Fetch collision tile ID from block
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (a0), d0
 	move.w d0, d1
 	
@@ -99,7 +99,7 @@ PHYS_GetTerrainHeight:
 	clr.w  d7
 	
 	; Get starting height to nearest tile + 1 (used as base for result)
-	clr.l  d3
+	moveq #0x0, d3
 	move.w d1, d3
 	move.w d1, d6
 	andi.w #0x7, d3	; Y coord to nearest tile remainder
@@ -107,7 +107,7 @@ PHYS_GetTerrainHeight:
 	addq.w #0x8, d6	; + 1 tile
 	
 	; Clear total blank tiles skipped
-	clr.l  d5
+	moveq #0x0, d5
 	
 	@NextTile:
 	
@@ -129,7 +129,7 @@ PHYS_GetTerrainHeight:
 	andi.w #0x7, d1	; Div by tile width remainder
 	
 	; Get height
-	clr.l  d0		; Clear return reg
+	moveq #0x0, d0		; Clear return reg
 	add.l  d1, a1	; Add X offset (bytes) to tile addr
 	move.b (a1), d0	; Get height value
 	add.w  d0, d7	; Add to total found height

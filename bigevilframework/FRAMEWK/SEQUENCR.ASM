@@ -29,15 +29,15 @@ SequencerTest:
 	;move.b #%11100100, psg_control ; Latch + channel 3 + noise type + 4 bits of data
 	
 	; Reset audio clock
-	clr.l (audio_clock)
+	moveq #0x0, (audio_clock)
 	
 	lea chan0_notes, a0    ; Notes to a0
 	lea envelopes, a1      ; Envelopes to a1
 	
 	@ProcessNote:
 	
-	clr.l d1
-	clr.l d2
+	moveq #0x0, d1
+	moveq #0x0, d2
 
 	; ===================================================
 	; Read audio clock, start and end time of current note

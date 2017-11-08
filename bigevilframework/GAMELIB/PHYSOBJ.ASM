@@ -357,7 +357,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d0							; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d1
+	moveq #0x0, d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 	
@@ -423,7 +423,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -439,7 +439,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -459,7 +459,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d0							; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d1
+	moveq #0x0, d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 	
@@ -495,7 +495,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -511,7 +511,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -533,7 +533,7 @@ PhysicsObjApplyWorldForces:
 	lea    PhysicsWorld, a2
 
 	; Get speed div
-	clr.l  d6
+	moveq #0x0, d6
 	move.b AnimObj_SpeedDiv(a0), d6
 
 	;==============================================================
@@ -629,7 +629,7 @@ PhysicsObjApplyVelocity:
 	add.l  PhysicsObj_ImpulseX(a0), d0
 	
 	; Apply speed div
-	clr.l  d1
+	moveq #0x0, d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 
@@ -651,7 +651,7 @@ PhysicsObjApplyVelocity:
 	add.l  PhysicsObj_ImpulseY(a0), d0
 	
 	; Apply speed div
-	clr.l  d1
+	moveq #0x0, d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 
@@ -711,7 +711,7 @@ PhysicsObjCollisionCorrection:
 	move.l PhysicsObj_LastFloorVelocity(a0), d0		; Get last floor velocity
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	beq    @Uninitialised							; First frame, uninitialised
-	clr.l  d3
+	moveq #0x0, d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
 	move.l Entity_WorldPosY(a0), d1					; Get Y pos
 	move.w Entity_Height(a0), d3					; Get height
@@ -724,7 +724,7 @@ PhysicsObjCollisionCorrection:
 	; If hit floor this frame, handle bounce
 	tst.l  d0										; Only if not a moving platform
 	bne    @NoBounceY
-	clr.l  d1
+	moveq #0x0, d1
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
@@ -745,7 +745,7 @@ PhysicsObjCollisionCorrection:
 
 	; Check if close to floor
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)		; Clear object close to floor flag
-	clr.l  d3
+	moveq #0x0, d3
 	move.w PhysicsObj_StepHeight(a0), d3			; Get step height
 	TOSUBPIXELS d3									; To world pos
 	sub.l  d3, d2									; Floor to step height space
@@ -793,7 +793,7 @@ PhysicsObjCollisionCorrection:
 	move.l Entity_WorldPosY(a0), d2
 	move.l d0, Entity_WorldPosY(a0)
 	
-	clr.l  d0										; Zero Y velocity by default
+	moveq #0x0, d0										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d0
@@ -856,7 +856,7 @@ PhysicsObjCollisionCorrection:
 	
 	@EndWallClamp:
 	
-	clr.l  d0										; Zero X velocity by default
+	moveq #0x0, d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
 	beq    @NoBounceX
 	move.l PhysicsObj_VelX(a0), d0
@@ -1020,7 +1020,7 @@ PhysicsObjFindFloor:
 	@CollideSpecialPlatform:
 	
 	; Found a platform within step height
-	clr.l  d2
+	moveq #0x0, d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	TOSUBPIXELS d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
@@ -1141,7 +1141,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 	
 	@FoundFloor:
-	clr.l  d2
+	moveq #0x0, d2
 	move.w d0, d2
 	add.w  d6, d2							; Back to map space
 	addi.w #vdp_sprite_border_y, d2			; Back to sprite space
@@ -1398,7 +1398,7 @@ PhysicsObjFindWall:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6/a0-a1
-	clr.l  d2
+	moveq #0x0, d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
@@ -1413,7 +1413,7 @@ PhysicsObjFindWall:
 	;==============================================================
 	
 	; Wall found - tile X in d3, translate to world space
-	clr.l  d4
+	moveq #0x0, d4
 	move.w d3, d4
 	
 	; If heading left, use right hand side of tile
@@ -1465,7 +1465,7 @@ PhysicsObjFindCeiling:
 	
 	; Clear last ceiling found
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
-	clr.l  d4
+	moveq #0x0, d4
 	
 	;==============================================================
 	
@@ -1544,7 +1544,7 @@ PhysicsObjFindCeiling:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6/a0-a1
-	clr.l  d2
+	moveq #0x0, d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
@@ -1697,7 +1697,7 @@ PhysicsObjFindMovingFloor:
 	@CollideSpecialPlatform:
 	
 	; Success
-	clr.l  d2
+	moveq #0x0, d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	TOSUBPIXELS d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
@@ -1895,7 +1895,7 @@ PhysicsObjFindMovingBarrier:
 	;@BarrierHeadingLeft:
 	
 	; Heading left, clamp object right
-	;clr.l  d2
+	;moveq #0x0, d2
 	;move.w Entity_Width(a0), d2
 	;TOSUBPIXELS d2
 	;sub.l  d2, d4

@@ -12,7 +12,7 @@ VDP_SetCellPlaneA:
 	; d2 (b) - Palette
 
 	; Position to VRAM offset
-	clr.l    d3                     ; Clear d3 ready to work with
+	moveq #0x0, d3                     ; Clear d3 ready to work with
 	move.w   d1, d3                 ; Move Y coord (lower word of d1) to d3
 	lsl.w    #0x6, d3 ;mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
 	clr.w    d1						; Clear Y coord
@@ -41,7 +41,7 @@ VDP_SetCellPlaneB:
 	; d2 (b) - Palette
 
 	; Position to VRAM offset
-	clr.l    d3                     ; Clear d3 ready to work with
+	moveq #0x0, d3                     ; Clear d3 ready to work with
 	move.w   d1, d3                 ; Move Y coord (lower word of d1) to d3
 	lsl.w    #0x6, d3 ;mulu.w   #vdp_plane_width, d3   ; Multiply Y by line width to get Y offset
 	clr.w    d1						; Clear Y coord
@@ -146,7 +146,7 @@ VDP_LoadBlockMapPlaneA:
 	subq.w   #0x1, d5
 
 	; X/Y coord
-	clr.l   d1
+	moveq #0x0, d1
 
 	; Loop rows
 	@LoopY:
@@ -156,7 +156,7 @@ VDP_LoadBlockMapPlaneA:
 		andi.l  #0x0000FFFF, d1	; Reset X pos
 		@LoopX:
 
-			clr.l  d7
+			moveq #0x0, d7
 			move.w (a1)+, d7		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
 			move.l a2, a0			; Get first block address
@@ -198,7 +198,7 @@ VDP_LoadBlockMapPlaneB:
 	subq.w   #0x1, d5
 
 	; X/Y coord
-	clr.l   d1
+	moveq #0x0, d1
 
 	; Loop rows
 	@LoopY:
@@ -208,7 +208,7 @@ VDP_LoadBlockMapPlaneB:
 		andi.l  #0x0000FFFF, d1	; Reset X pos
 		@LoopX:
 
-			clr.l  d7
+			moveq #0x0, d7
 			move.w (a1)+, d7		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
 			move.l a2, a0			; Get first block address
@@ -239,7 +239,7 @@ VDP_LoadBlockPlaneA:
 	; d3 (b)  - Palette ID
 
 	; X/Y offset to destination address
-	clr.l   d4
+	moveq #0x0, d4
 	move.w  d1, d4					; Y to d4
 	lsl.w    #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
 	clr.w   d1						; Clear lower word
@@ -271,7 +271,7 @@ VDP_LoadBlockPlaneA:
 			; D = Flip Y
 			; E = Tile ID
 
-			clr.l   d1
+			moveq #0x0, d1
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
 			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
@@ -295,7 +295,7 @@ VDP_LoadBlockPlaneB:
 	; d3 (b)  - Palette ID
 
 	; X/Y offset to destination address
-	clr.l   d4
+	moveq #0x0, d4
 	move.w  d1, d4					; Y to d4
 	lsl.w    #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
 	clr.w   d1						; Clear lower word
@@ -319,7 +319,7 @@ VDP_LoadBlockPlaneB:
 		; For each col in block
 		move.w  #map_block_width-1, d0
 		@ColLoop:
-			clr.l   d1
+			moveq #0x0, d1
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
 			and.l   #%1001111111111111, d1 ; Mask out original palette ID
 			or.l    d3, d1                 ; Replace with our own
@@ -349,7 +349,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 	and.l  #0x0000FFFF, d4
 	
 	; Source top/left to block map byte offset (mul Y by total map width, add X)
-	clr.l  d6
+	moveq #0x0, d6
 	move.w d0, d6	; Y to d6
 	mulu   d3, d6	; To block offset
 	clr.w  d0
@@ -363,7 +363,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 	
 	; Segment width to column counter
 	swap   d2
-	clr.l  d7
+	moveq #0x0, d7
 	move.w d2, d7
 	subq.w  #0x1, d7
 	
@@ -395,7 +395,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 		PUSHL d7
 		@ColumnLp:
 		
-			clr.l  d0
+			moveq #0x0, d0
 			move.w (a2)+, d0		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d0	; To block offset
 			move.l a3, a0			; Get first block address
@@ -446,7 +446,7 @@ VDP_LoadMapSegmentPlaneA:
 	and.l  #0x0000FFFF, d4
 	
 	; Source top/left to tile offset (mul Y by total map width, add X)
-	clr.l  d6
+	moveq #0x0, d6
 	move.w d0, d6	; Y to d6
 	mulu   d3, d6	; To tile offset
 	clr.w  d0
@@ -456,7 +456,7 @@ VDP_LoadMapSegmentPlaneA:
 	add.l  d0, a0	; Offset source address
 	
 	; Dest top/left to tile offset (mul Y by VDP width, add X)
-	clr.l  d6
+	moveq #0x0, d6
 	move.w d1, d6					; Y to d6
 	lsl.w    #0x6, d6 ; mulu   #vdp_plane_width, d6		; To tile offset
 	clr.w  d1
@@ -466,7 +466,7 @@ VDP_LoadMapSegmentPlaneA:
 	
 	; Segment width to column counter
 	swap   d2
-	clr.l  d7
+	moveq #0x0, d7
 	move.w d2, d7
 	subq.w  #0x1, d7
 	

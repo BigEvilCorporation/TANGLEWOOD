@@ -28,7 +28,7 @@ KickstarterScreen_Enter:
 	VDPSETREG 7, d0
 
 	; Load tiles
-	clr.l d1
+	moveq #0x0, d1
 	lea    tiles_ks_logo, a0
 	move.w #tiles_ks_logo_size_t, d0
 	jsr    LevelLoadCompressedTileset
@@ -39,7 +39,7 @@ KickstarterScreen_Enter:
 	move.l #0x00000000, d1				; d1 (ww) Destination top/left (tiles)
 	move.l #((map_ks_logo_width<<16)|map_ks_logo_height), d2		; d2 (ww) Segment width/height (tiles)
 	move.w #map_ks_logo_width, d3		; d3 (w)  Source map total width (tiles)
-	clr.l  d4
+	moveq #0x0, d4
 	move.w (vram_addr_leveltiles), d4	; d4 (w)  Art tile ID
 	BYTES2TILES d4
 	move.l #PaletteId_KSLogo, d5	; d5 (b)  Palette ID

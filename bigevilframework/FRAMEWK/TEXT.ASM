@@ -65,7 +65,7 @@ TXT_DrawPlane:
 	; d2 (b) - Palette
 	; d3 (b) - Plane (0=A, 1=B)
 
-	clr.l    d4                     ; Clear d4 ready to work with
+	moveq #0x0, d4                     ; Clear d4 ready to work with
 	move.b   d1, d4                 ; Move Y coord (lower byte of d1) to d4
 	lsl.w    #0x6, d4 ; mulu.w   #vdp_plane_width, d4   ; Multiply Y by line width (H40 mode - 64 tiles horizontally) to get Y offset
 	swap     d1               		; X coord to lower word
@@ -88,7 +88,7 @@ TXT_DrawPlane:
 
 	; Map tile bit pattern: LPPH VTTT TTTT TTTT (L=lo/hi plane, P=Palette, H=HFlip, V=VFlip, T=TileId)
 
-	clr.l    d4                     ; Clear d4 ready to work with again
+	moveq #0x0, d4                     ; Clear d4 ready to work with again
 	move.b   d2, d4                 ; Move palette ID (lower byte of d2) to d4
 	andi.w  #0x3, d4
 	ror.w   #0x3, d4				; Shift palette ID to bits 14-13
@@ -215,7 +215,7 @@ TXT_LoadStringSpriteTiles:
 	move.w   d2, d5
 	
 	; Clear counter
-	clr.l    d4
+	moveq #0x0, d4
 	clr.w    d2
 
 	@CharCopy:
@@ -336,7 +336,7 @@ TXT_ItoA_w:
 	; d0 (w) In: Number to convert
 	
 	; Clear digit counter
-	clr.l  d1
+	moveq #0x0, d1
 	
 	@Loop:
 	addq.w #0x1, d1

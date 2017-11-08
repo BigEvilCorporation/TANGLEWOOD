@@ -533,7 +533,7 @@ PlayerBeginColourSwitch:
 	PUSHM  a0/a1
 
 	lea    SwitchingPalettesP1, a1	; Get palette array	
-	clr.l  d0
+	moveq #0x0, d0
 	move.b Player_Colour(a0), d0	; Get colour type
 	lsl.l  #0x2, d0					; To address offset
 	add.l  d0, a1					
@@ -1745,7 +1745,7 @@ PlayerUpdatePushInteract:
 	@LightObj:
 	
 	; Scale push anim speed based on velocity
-	clr.l  d0
+	moveq #0x0, d0
 	move.l PhysicsObj_VelX(a0), d0
 	tst.l  d0
 	bgt    @Fwd

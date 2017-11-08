@@ -77,7 +77,7 @@ UIWidgetTextSetString:
 	move.b d1, UIWidgetText_TileCount(a0)
 	
 	; Set width/height
-	clr.l  d2
+	moveq #0x0, d2
 	move.b d1, d2
 	mulu   #0x8, d2
 	move.w d2, UIWidget_Width(a0)
@@ -94,8 +94,8 @@ UIWidgetTextSetString:
 	bne    @NoSprites
 	
 	; Round size to nearest 4
-	clr.l  d0
-	clr.l  d1
+	moveq #0x0, d0
+	moveq #0x0, d1
 	move.b UIWidgetText_TileCount(a0), d0
 	addq.b #0x3, d0
 	divu   #0x4, d0
@@ -115,8 +115,8 @@ UIWidgetTextSetString:
 
 	; Copy glyph tiles
 	PUSHM  a0-a1
-	clr.l  d0
-	clr.l  d2
+	moveq #0x0, d0
+	moveq #0x0, d2
 	move.w d1, d0
 	BYTES2TILES d0							; VRAM addr to tile ID
 	move.l UIWidgetText_FontAddr(a0), a1	; Font
@@ -177,12 +177,12 @@ UIWidgetTextRender:
 
 	@DrawSprites:
 
-	clr.l  d2
+	moveq #0x0, d2
 	move.w UIWidgetText_StringAddrVRAM(a0), d2
 	BYTES2TILES d2
 	
 	; Add all text glyphs for drawing
-	clr.l  d4
+	moveq #0x0, d4
 	move.b UIWidgetText_TileCount(a0), d4	; Count
 	move.b #%1100, d0						; 4x1 sprite
 	move.w UIWidget_PositionX(a0), d1		; X pos

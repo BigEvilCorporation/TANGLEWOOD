@@ -36,7 +36,7 @@ RND_GenerateWordClamped:
 	PUSHM  d1-d2
 	jsr    RND_GenerateLong
 	POPM   d1-d2
-	clr.l  d3
+	moveq #0x0, d3
 	andi.l #0xFFFF, d0
 	andi.l #0xFFFF, d1
 	andi.l #0xFFFF, d2
@@ -164,7 +164,7 @@ VEC2_SUB: macro vec1,vec2
 	
 VEC2_DISTSQ: macro vec1,vec2,tmpreg
 	; DistSq = sq(v2.x - v1.x) + sq(v2.y - v1.y)
-    clr.l  \tmpreg
+    moveq #0x0,  \tmpreg
 	sub.w  \vec2, \vec1		; Vec2.y - Vec1.y
 	move.w \vec1, \tmpreg
 	muls   \tmpreg, \tmpreg	; Square

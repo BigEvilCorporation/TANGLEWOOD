@@ -125,7 +125,7 @@ LeafLoadGfx:
 	PUSHL  a1
 
 	; Select next colour sheet in array
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (EntityCount_Leaf), d0
 	divu   #Leaf_NumVariations, d0
 	clr.w  d0
@@ -291,8 +291,8 @@ LeafUpdate:
 	;==============================================================
 
 	; Wrap sine step
-	clr.l  d0
-	clr.l  d1
+	moveq #0x0, d0
+	moveq #0x0, d1
 	move.w Leaf_SineStep(a0), d0
 	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
 	blo    @Inc					; Unsigned comparison
@@ -303,7 +303,7 @@ LeafUpdate:
 	move.w #Leaf_SinSpeed, d1
 	
 	; Apply speed div
-	clr.l  d2
+	moveq #0x0, d2
 	ext.l  d1						; Sign extend word to long
 	move.b AnimObj_SpeedDiv(a0), d2
 	cmp.b  #0x1, d2

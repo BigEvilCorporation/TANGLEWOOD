@@ -34,12 +34,12 @@ Queue_Push:
 	; a1 --- Address to copy element from
 	
 	; Get producer index
-	clr.l  d0
+	moveq #0x0, d0
 	move.w Queue_ProducerIndex(a0), d0
 	move.w d0, d2
 	
 	; Get address into array
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Queue_ElementSizeLong(a0), d1	; Get element size
 	mulu   d1, d0							; Mul by index
 	mulu   #size_long, d0					; To bytes
@@ -70,12 +70,12 @@ Queue_Pop:
 	; a1 --- Address to copy element to
 	
 	; Get consumer index
-	clr.l  d0
+	moveq #0x0, d0
 	move.w Queue_ConsumerIndex(a0), d0
 	move.w d0, d2
 	
 	; Get address into array
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Queue_ElementSizeLong(a0), d1	; Get element size
 	mulu   d1, d0							; Mul by index
 	mulu   #size_long, d0					; To bytes

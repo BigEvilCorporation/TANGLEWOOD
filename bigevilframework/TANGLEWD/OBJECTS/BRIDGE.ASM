@@ -325,7 +325,7 @@ BridgeDraw:
 	lea    Bridge_NotchYPos(a0), a3
 
 	; Roll pos to notch index
-	clr.l  d7
+	moveq #0x0, d7
 	move.w Bridge_UnrollPos(a0), d7	;  (top word = integer part)
 	divu   #Bridge_NotchWidth, d7
 
@@ -337,8 +337,8 @@ BridgeDraw:
 	@NotchDrawLp:
 
 	; Clear position offset
-	clr.l  d3
-	clr.l  d4
+	moveq #0x0, d3
+	moveq #0x0, d4
 
 	; If in drop mode, just render flat
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
@@ -376,7 +376,7 @@ BridgeDraw:
 	@Flat:
 
 	; Flat X offset
-	clr.l  d1
+	moveq #0x0, d1
 	move.b d2, d1
 	mulu   #Bridge_NotchWidth, d1
 	move.w d1, d3
@@ -649,9 +649,9 @@ BridgeBeginDrop:
 BridgeUpdateRoll:
 
 	; Advance roll pos
-	clr.l  d3
-	clr.l  d4
-	clr.l  d5
+	moveq #0x0, d3
+	moveq #0x0, d4
+	moveq #0x0, d5
 	move.b (GlobalTimeDiv), d3
 	move.l Bridge_Speed(a0), d5
 	DIVS1616_LOSSY d3, d5
@@ -684,9 +684,9 @@ BridgeUpdateRoll:
 BridgeUpdateUnroll:
 
 	; Advance unroll pos
-	clr.l  d3
-	clr.l  d4
-	clr.l  d5
+	moveq #0x0, d3
+	moveq #0x0, d4
+	moveq #0x0, d5
 	move.b (GlobalTimeDiv), d3
 	move.l Bridge_Speed(a0), d5
 	DIVS1616_LOSSY d3, d5
@@ -769,9 +769,9 @@ BridgeUpdateBarrierPlatformPos:
 BridgeUpdateDropping:
 
 	; Advance drop pos
-	clr.l  d3
-	clr.l  d4
-	clr.l  d5
+	moveq #0x0, d3
+	moveq #0x0, d4
+	moveq #0x0, d5
 	move.b (GlobalTimeDiv), d3
 	move.l Bridge_Speed(a0), d5
 	DIVS1616_LOSSY d3, d5

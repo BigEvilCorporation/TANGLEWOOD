@@ -74,7 +74,7 @@ VFX_StartScreenEffectGreyscale:
 	move.w d2, d5
 	
 	; Backup palette idx
-	clr.l  d7
+	moveq #0x0, d7
 	move.b d0, d7
 
 	; Get source palette address

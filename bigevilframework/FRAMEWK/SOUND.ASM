@@ -83,7 +83,7 @@ SND_PlayTrack:
 	bne    @Busy
 
 	; Queue track
-	clr.l  d0
+	moveq #0x0, d0
 	move.b Track_Type(a0), d0
 	lsl.l  #0x2, d0
 	lea    audio_queued_tracks, a1
@@ -151,7 +151,7 @@ SND_QueueTrack:
 	IF INCLUDE_AUDIO
 
 	; Queue track
-	clr.l  d0
+	moveq #0x0, d0
 	move.b Track_Type(a0), d0
 	lsl.l  #0x2, d0
 	lea    audio_queued_tracks, a1

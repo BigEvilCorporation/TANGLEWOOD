@@ -114,7 +114,7 @@ CAM_Update:
 	
 	;==============================================================
 	
-	clr.l   d1
+	moveq #0x0, d1
 	
 	; Get camera target X/Y
 	ENTITY_GETCENTREX d0, a0
@@ -126,7 +126,7 @@ CAM_Update:
 
 	;==============================================================
 	
-	clr.l   d2
+	moveq #0x0, d2
 
 	; If camera lerp active
 	tst.w   (CameraTargetLerpSpeed)
@@ -154,7 +154,7 @@ CAM_Update:
 	;==============================================================
 
 	; Get lerp T
-	clr.l  d4
+	moveq #0x0, d4
 	move.w (CameraTargetLerpTime), d4
 
 	; Check if lerp finished
@@ -241,7 +241,7 @@ CAM_Update:
 
 	; Clamp to X bounds
 	move.l #0x0, d2
-	clr.l  d3
+	moveq #0x0, d3
 	move.w Level_MapWidth(a1), d3
 	lsl.l  #0x3, d3					; Map width to tiles
 	TOSUBPIXELS  d3					; Map width to camera space
@@ -249,7 +249,7 @@ CAM_Update:
 	
 	; Clamp to Y bounds
 	move.l #0x0, d2
-	clr.l  d3
+	moveq #0x0, d3
 	move.w Level_MapHeight(a1), d3
 	lsl.l  #0x3, d3					; Map height to tiles
 	TOSUBPIXELS  d3					; Map height to camera space
@@ -267,7 +267,7 @@ CAM_Update:
 	beq   @NoShakeX
 	
 	; Get sine
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (CameraShakeSinX), d0
 	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
 	blo    @NoWrapX				; Unsigned comparison
@@ -320,7 +320,7 @@ CAM_Update:
 	beq   @NoShakeY
 	
 	; Get sine
-	clr.l  d0
+	moveq #0x0, d0
 	move.w (CameraShakeSinY), d0
 	cmp.w  #(0xFF<<0x8), d0		; Wrap from 255 to 0
 	blo    @NoWrapY				; Unsigned comparison
@@ -362,7 +362,7 @@ CAM_Update:
 	
 	; Scroll Y - plane B
 	; Translate Y scroll from plane A range (total map height) to plane B range (VDP height)
-	clr.l   d1
+	moveq #0x0, d1
 	move.w  Level_MapHeight(a1), d1
 	lsl.w   #0x3, d1	; Tiles to pixels
 

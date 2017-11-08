@@ -360,7 +360,7 @@ CharacterUpdateAnimState:
 	@InterruptibleAnim:
 	@AnimFinished:
 	
-	clr.l  d1
+	moveq #0x0, d1
 
 	; =====================================================================
 	; Dead

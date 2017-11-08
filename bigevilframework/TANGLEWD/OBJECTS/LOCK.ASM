@@ -99,7 +99,7 @@ LockUpdate:
 	move.w Lock_RaiseSpeed(a0), d0
 	beq    @NotMoving
 
-	clr.l  d1
+	moveq #0x0, d1
 	move.w Lock_RaiseHeight(a0), d1
 	add.w  d0, d1
 	move.w d1, Lock_RaiseHeight(a0)
@@ -203,7 +203,7 @@ Lock_SetRaised:
 
 	move.w #Lock_MaxRaiseHeight, Lock_RaiseHeight(a0)
 	lea    Lock_Animation(a0), a2
-	clr.l  d0
+	moveq #0x0, d0
 	move.b Animation_Length(a2), d0
 	subq.b #0x1, d0
 	lsl.l  #0x8, d0

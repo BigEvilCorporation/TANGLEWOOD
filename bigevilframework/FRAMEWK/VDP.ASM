@@ -98,7 +98,7 @@ VDP_DMACopyVRAM:
 
 	; Copy source address
 	move.l a0, d2
-	clr.l  d3
+	moveq #0x0, d3
 	
 	; Address byte 0 (register 15)
 	lsr.l  #0x1, d2					; Ignore first bit (address is always even)
@@ -171,7 +171,7 @@ VDP_DMACopyCRAM:
 
 	; Copy source address
 	move.l a0, d2
-	clr.l  d3
+	moveq #0x0, d3
 	
 	; Address byte 0 (register 15)
 	lsr.l  #0x1, d2					; Ignore first bit (address is always even)
@@ -240,7 +240,7 @@ VDP_VRAMCopy:
 
 	; Copy source address
 	move.l a0, d5
-	clr.l  d3
+	moveq #0x0, d3
 	
 	; Address byte 0 (register 15)
 	move.w #0x9500, d3

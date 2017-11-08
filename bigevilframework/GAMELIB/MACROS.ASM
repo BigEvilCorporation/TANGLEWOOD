@@ -28,7 +28,7 @@ ENTITY_GETBYNAME: macro typename,name,addrreg
 	endm
 
 ENTITY_GETCENTREX: macro destreg,addrreg
-	clr.l   \destreg
+	moveq #0x0,   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
 	TOSUBPIXELS \destreg	; To subpixels
 	lsr.l   #0x1, \destreg  ; div/2
@@ -36,7 +36,7 @@ ENTITY_GETCENTREX: macro destreg,addrreg
 	endm
 	
 ENTITY_GETCENTREY: macro destreg,addrreg
-	clr.l   \destreg
+	moveq #0x0,   \destreg
 	move.w  Entity_Height(\addrreg), \destreg
 	TOSUBPIXELS \destreg	; To subpixels
 	lsr.l   #0x1, \destreg  ; div/2
@@ -61,8 +61,8 @@ ENTITY_GETDRAWPOSVEC2: macro destreg,tmpreg1,tmpreg2,addrreg
 	endm
 	
 ENTITY_GETCENTREVEC2: macro destreg,tmpreg,addrreg
-	clr.l   \destreg
-	clr.l   \tmpreg
+	moveq #0x0,   \destreg
+	moveq #0x0,   \tmpreg
 	move.w  Entity_Width(\addrreg), \destreg	; Get width/height in pixels
 	move.w  Entity_Height(\addrreg), \tmpreg
 	lsr.w   #0x1, \destreg						; div/2
@@ -78,7 +78,7 @@ ENTITY_GETLEFT: macro destreg,addrreg
 	endm
 	
 ENTITY_GETRIGHT: macro destreg,addrreg
-	clr.l   \destreg
+	moveq #0x0,   \destreg
 	move.w  Entity_Width(\addrreg), \destreg
 	TOSUBPIXELS \destreg
 	add.l   Entity_WorldPosX(\addrreg), \destreg
@@ -89,7 +89,7 @@ ENTITY_GETTOP: macro destreg,addrreg
 	endm
 	
 ENTITY_GETBOTTOM: macro destreg,addrreg
-	clr.l   \destreg
+	moveq #0x0,   \destreg
 	move.w  Entity_Height(\addrreg), \destreg
 	TOSUBPIXELS \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg

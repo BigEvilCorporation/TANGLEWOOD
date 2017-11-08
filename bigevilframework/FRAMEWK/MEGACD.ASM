@@ -13,8 +13,8 @@
 ; d0 - Return value: 0 if match, else index+1 of first different char
 
 CompareString:
-        clr.l d0         ; Clear d0 for return val
-        clr.l d3         ; Clear d3 for char counter
+        moveq #0x0, d0         ; Clear d0 for return val
+        moveq #0x0, d3         ; Clear d3 for char counter
 
         @strchecklp:
         ; Copy chars
@@ -82,7 +82,7 @@ MCD_GetHardwareType:
         rts
 
         @NotType4:
-        clr.l d0 ; MegaCD not found
+        moveq #0x0, d0 ; MegaCD not found
         rts
 
 MCD_RestoreHINT:

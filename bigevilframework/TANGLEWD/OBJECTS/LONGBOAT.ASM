@@ -261,7 +261,7 @@ LongboatUpdateSegments:
 	move.b #0x0, AnimObj_UpdateOutOfView(a0)
 
 	; Pivot boat according to current tilt
-	clr.l  d3
+	moveq #0x0, d3
 	move.w d2, d3
 	mulu   #Longboat_NumSegments, d3
 	asr.w  #0x1, d3
