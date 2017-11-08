@@ -279,17 +279,12 @@ WyrmUpdate:
 
 	;==============================================================
 
-	; Backup current X
-	move.w Entity_WorldPosX(a0), d0
-	PUSHL  d0
-	
 	; Base functionality
 	jsr    CharacterUpdate
 
 	; Get X delta
-	POPL   d0
-	move.w Entity_WorldPosX(a0), d1
-	sub.w  d0, d1
+	move.w PhysicsObj_LastAppliedVelX(a0), d1
+	beq    @NotMoved
 
 	; Add to accumulator
 	move.w Wyrm_DebrisAccumX(a0), d2
@@ -355,6 +350,7 @@ WyrmUpdate:
 
 	;==============================================================
 
+	@NotMoved:
 	@End:
 
 	rts
