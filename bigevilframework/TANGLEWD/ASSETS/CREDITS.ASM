@@ -177,11 +177,14 @@ CreditsStrings:
 	CREDIT_NAME		"Djanine Taylor"
 	CREDIT_NAME		"Holly Elizabeth Jones"
 	CREDIT_NAME		"Kt 'Thoroughly Good' Chambers"
-	CREDIT_NAME		"Gemma Young"
 	CREDIT_NAME		"Glenn Kneale"
+	CREDIT_NAME		"Kevin Purchase"
+	CREDIT_NAME		"Ali Tinsley"
+	CREDIT_NAME		"Pete Richardson"
 	CREDIT_NAME		"Stu Allardes"
 	CREDIT_NAME		"Jenni Wardell"
 	CREDIT_NAME		"Meg Rouncefield"
+	CREDIT_NAME		"Gemma Young"
 	CREDIT_NAME		"Darren Wall"
 	CREDIT_NAME		"Lee Hutchinson"
 	CREDIT_NAME		"Gruss Newton"
@@ -211,7 +214,7 @@ CreditsStrings:
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "All at"
-	CREDIT_NAME		"TT Games"
+	CREDIT_NAME		"Traveller's Tales"
 	CREDIT_NAME		"Crytek UK"
 	CREDIT_NAME		"Deep Silver Dambuster Studios"
 	CREDIT_SPACE
@@ -219,6 +222,8 @@ CreditsStrings:
 	CREDIT_HEADING1 "All at"
 	CREDIT_NAME		"spritesmind.net"
 	CREDIT_NAME		"assemblergames.com"
+	CREDIT_NAME		"sega-16.com"
+	CREDIT_NAME		"sonicretro.org"
 	CREDIT_NAME		"Plutiedev"
 	CREDIT_NAME		"TiTAN"
 	CREDIT_SPACE
@@ -229,7 +234,7 @@ CreditsStrings:
 	CREDIT_NAME		"Sarah Catherine"
 	CREDIT_NAME		"Pickles and Toki"
 	CREDIT_SPACE
-	CREDIT_NAME		"Michael 'Mate' Bamford"
+	CREDIT_NAME		"Michael 'My Mate' Bamford"
 	CREDIT_NAME		"Rose-Marie Bamford"
 	CREDIT_SPACE
 	CREDIT_NAME		"Our Lord and Saviour Torbjorn"
@@ -241,6 +246,12 @@ CreditsStrings:
 	CREDIT_NAME		"Name 2"
 	CREDIT_NAME		"Name 3"
 
+	CREDIT_SPACE
+	CREDIT_SPACE
+	CREDIT_SPACE
+	CREDIT_SPACE
+	CREDIT_SPACE
+	CREDIT_SPACE
 	CREDIT_HEADING1 "Extra Special Super Thanks"
 	CREDIT_NAME		"Javier 'Sik' Degirolmo"
 
