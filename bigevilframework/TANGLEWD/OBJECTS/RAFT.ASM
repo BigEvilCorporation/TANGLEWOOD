@@ -51,7 +51,7 @@ RaftInit:
 	; Default properties
 	move.w  #Raft_Width, Entity_Width(a0)
 	move.w  #Raft_Height, Entity_Height(a0)
-	MOVE_NTSC_W Raft_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Raft_Decel, PhysicsObj_DecelX(a0), d0
 	move.l  #0x0, PhysicsObj_MaxVelYUp(a0)
 	MOVE_NTSC_L DefaultGravity, PhysicsObj_MaxVelYDown(a0), d0
 	move.w  #Raft_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)

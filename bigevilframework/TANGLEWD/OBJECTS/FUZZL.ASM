@@ -127,7 +127,7 @@ FuzzlInit:
 	MOVE_NTSC_L Fuzzl_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	move.l  #Fuzzl_WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
 	move.l  #Fuzzl_WindResistanceAir, PhysicsObj_WindResistanceAir(a0)
-	MOVE_NTSC_W Fuzzl_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Fuzzl_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Fuzzl_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Fuzzl_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Fuzzl_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

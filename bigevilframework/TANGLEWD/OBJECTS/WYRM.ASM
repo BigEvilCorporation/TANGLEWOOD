@@ -115,7 +115,7 @@ WyrmInit:
 	move.w  #Wyrm_Height, Entity_Height(a0)
 	move.b  #Wyrm_Mass, PhysicsObj_Mass(a0)
 	MOVE_NTSC_L Wyrm_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W Wyrm_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Wyrm_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Wyrm_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Wyrm_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Wyrm_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
@@ -130,10 +130,10 @@ WyrmInit:
 	MOVE_NTSC_L Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Wyrm_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Wyrm_MaxVelXRun, Character_MaxVelXRun(a0), d0
-	MOVE_NTSC_W Wyrm_AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Wyrm_AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Wyrm_DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Wyrm_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Wyrm_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Wyrm_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Wyrm_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Wyrm_DecelForced, Character_DecelForced(a0), d0
 
 	move.w  #0x0, Wyrm_CurrentDuneLeft(a0)
 	move.w  #0x0, Wyrm_CurrentDuneRight(a0)

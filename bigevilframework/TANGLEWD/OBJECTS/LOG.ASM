@@ -85,7 +85,7 @@ LogInit:
 	move.w  #Log_Height, Entity_Height(a0)
 	move.b  #Log_Mass, PhysicsObj_Mass(a0)
 	MOVE_NTSC_L Log_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W Log_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Log_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Log_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Log_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Log_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

@@ -184,16 +184,16 @@ MonsterInit:
 	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Monster_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Monster_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Monster_DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Monster_DecelIdle, PhysicsObj_DecelX(a0), d0
 
 	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Monster_WalkToRunVel, Character_WalkToRunVel(a0), d0
-	MOVE_NTSC_W Monster_AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Monster_AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Monster_DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Monster_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Monster_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Monster_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Monster_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Monster_DecelForced, Character_DecelForced(a0), d0
 	MOVE_NTSC_L Monster_JumpVelX, Character_JumpVelX(a0), d0
 	MOVE_NTSC_L Monster_JumpVelY, Character_JumpVelY(a0), d0
 	MOVE_NTSC_L Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0

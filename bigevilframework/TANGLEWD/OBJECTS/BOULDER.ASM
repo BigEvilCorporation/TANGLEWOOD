@@ -89,7 +89,7 @@ BoulderInit:
 	move.w  #Boulder_Height, Entity_Height(a0)
 	move.b  #Boulder_Mass, PhysicsObj_Mass(a0)
 	MOVE_NTSC_L Boulder_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W Boulder_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Boulder_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Boulder_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Boulder_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Boulder_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

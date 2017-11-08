@@ -227,15 +227,15 @@ PlayerInit:
 	MOVE_NTSC_L Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Player1MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Player1MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Player1DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Player1DecelIdle, PhysicsObj_DecelX(a0), d0
 
 	MOVE_NTSC_L Player1MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Player1MaxVelXWater, Character_MaxVelXWater(a0), d0
-	MOVE_NTSC_W Player1AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Player1AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Player1DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Player1DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Player1AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Player1AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Player1DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Player1DecelForced, Character_DecelForced(a0), d0
 	MOVE_NTSC_L Player1JumpVelX, Character_JumpVelX(a0), d0
 	MOVE_NTSC_L Player1JumpVelY, Character_JumpVelY(a0), d0
 	MOVE_NTSC_L Player1JumpVelWater, Character_JumpVelWater(a0), d0

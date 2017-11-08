@@ -90,7 +90,7 @@ LiftInit:
 	MOVE_NTSC_L Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Lift_DecelX, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Lift_DecelX, PhysicsObj_DecelX(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
@@ -334,13 +334,13 @@ LiftActivate:
 	bne    @Down
 
 	; Move lift up
-	MOVE_NTSC_W Lift_AccelY, PhysicsObj_AccelY(a0), d0
+	MOVE_NTSC_ACCEL_W Lift_AccelY, PhysicsObj_AccelY(a0), d0
 	bra    @End
 
 	@Down:
 
 	; Move lift down
-	MOVE_NTSC_W Lift_AccelY, d1, d0
+	MOVE_NTSC_ACCEL_W Lift_AccelY, d1, d0
 	neg.w  d1
 	move.w d1, PhysicsObj_AccelY(a0)
 

@@ -54,10 +54,13 @@ size_collision_tile_w equ (size_tile_b/size_word)
 
 
 ; ************************************
-; 16.16 precision
+; 16.16 precisions
 ; ************************************
-subpixels_per_pixel 	equ 0x00010000	; Uses bit shift to transform - don't change
-ntsc_to_pal				equ 0x00013333	; 60/50
+subpixels_per_pixel 		equ 0x00010000	; Uses bit shift to transform - don't change
+
+; NTSC to PAL conversion
+ntsc_to_pal_linear			equ 0x00013333	; 60/50
+ntsc_to_pal_linear_accel	equ 0x000170A3	; (60/50)^2
 
 ; ************************************
 ; RAM

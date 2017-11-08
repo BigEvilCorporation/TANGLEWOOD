@@ -123,7 +123,7 @@ BorgusInit:
 	MOVE_NTSC_L Borgus_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Borgus_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Borgus_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Borgus_DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Borgus_DecelIdle, PhysicsObj_DecelX(a0), d0
 	move.w  #Borgus_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Borgus_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Borgus_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -139,10 +139,10 @@ BorgusInit:
 	MOVE_NTSC_L Borgus_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Borgus_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Borgus_WalkToRunVel, Character_WalkToRunVel(a0), d0
-	MOVE_NTSC_W Borgus_AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Borgus_AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Borgus_DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Borgus_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Borgus_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Borgus_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Borgus_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Borgus_DecelForced, Character_DecelForced(a0), d0
 
 	MOVE_NTSC_W Borgus_DefaultSpitTime, Borgus_SpitTimer(a0), d0
 	move.b  #BorgusAIState_Idle, Borgus_AIState(a0)

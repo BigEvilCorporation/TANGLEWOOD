@@ -118,8 +118,8 @@ DemonInit:
 	MOVE_NTSC_L Demon_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Demon_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Demon_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Demon_DecelIdle, PhysicsObj_DecelX(a0), d0
-	MOVE_NTSC_W Demon_DecelIdle, PhysicsObj_DecelY(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_DecelIdle, PhysicsObj_DecelY(a0), d0
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
@@ -128,10 +128,10 @@ DemonInit:
 	MOVE_NTSC_L Demon_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Demon_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Demon_WalkToRunVel, Character_WalkToRunVel(a0), d0
-	MOVE_NTSC_W Demon_AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Demon_AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Demon_DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Demon_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Demon_DecelForced, Character_DecelForced(a0), d0
 
 	move.b  #DemonState_Wisp, Demon_State(a0)
 	move.b  #0x0, Demon_AtTarget(a0)

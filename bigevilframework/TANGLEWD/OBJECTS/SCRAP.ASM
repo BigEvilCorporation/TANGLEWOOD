@@ -84,7 +84,7 @@ ScrapInit:
 	MOVE_NTSC_L Scrap_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Scrap_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Scrap_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_W Scrap_DecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Scrap_DecelIdle, PhysicsObj_DecelX(a0), d0
 	move.w #Scrap_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w #Scrap_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w #Scrap_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -101,10 +101,10 @@ ScrapInit:
 	MOVE_NTSC_L Scrap_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Scrap_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Scrap_WalkToRunVel, Character_WalkToRunVel(a0), d0
-	MOVE_NTSC_W Scrap_AccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Scrap_AccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Scrap_DecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Scrap_DecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Scrap_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Scrap_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Scrap_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Scrap_DecelForced, Character_DecelForced(a0), d0
 
 	rts
 

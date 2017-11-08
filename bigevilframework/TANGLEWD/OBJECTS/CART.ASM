@@ -66,7 +66,7 @@ CartInit:
 	move.w  #Cart_Width, Entity_Width(a0)
 	move.w  #Cart_Height, Entity_Height(a0)
 	MOVE_NTSC_L Cart_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W Cart_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Cart_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Cart_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Cart_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Cart_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

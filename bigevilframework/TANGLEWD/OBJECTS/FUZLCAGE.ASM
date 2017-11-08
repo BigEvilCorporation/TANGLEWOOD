@@ -82,7 +82,7 @@ FuzzlCageInit:
 	move.w  #FuzzlCage_Height, Entity_Height(a0)
 	move.b  #FuzzlCage_Mass, PhysicsObj_Mass(a0)
 	MOVE_NTSC_L FuzzlCage_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W FuzzlCage_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W FuzzlCage_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #FuzzlCage_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #FuzzlCage_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #FuzzlCage_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

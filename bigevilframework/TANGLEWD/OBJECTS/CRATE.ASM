@@ -65,7 +65,7 @@ CrateInit:
 	move.w  #Crate_Height, Entity_Height(a0)
 	move.b  #Crate_Mass, PhysicsObj_Mass(a0)
 	MOVE_NTSC_L Crate_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_W Crate_Decel, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Crate_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Crate_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Crate_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Crate_ProbeFloorY, PhysicsObj_FloorProbeY(a0)

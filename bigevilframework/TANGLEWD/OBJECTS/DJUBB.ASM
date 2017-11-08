@@ -64,7 +64,7 @@ DjubbInit:
 	MOVE_NTSC_L Djubb_MaxSwimVel, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Djubb_MaxFloatVel, PhysicsObj_MaxVelYUp(a0), d0
-	MOVE_NTSC_W Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0), d0
 	move.w  #Djubb_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
 	move.w  #Djubb_WallProbeTop, PhysicsObj_WallProbeTop(a0)
@@ -79,10 +79,10 @@ DjubbInit:
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_WalkToRunVel(a0), d0
-	MOVE_NTSC_W Djubb_SwimAccel, Character_AccelWalk(a0), d0
-	MOVE_NTSC_W Djubb_SwimAccel, Character_AccelRun(a0), d0
-	MOVE_NTSC_W Djubb_SwimDecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_W Djubb_SwimDecelForced, Character_DecelForced(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_SwimAccel, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_SwimAccel, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_SwimDecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_SwimDecelForced, Character_DecelForced(a0), d0
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -191,11 +191,11 @@ DjubbUpdate:
 	jsr    DjubbTestUnderwater
 	tst.b  PhysicsObj_Underwater(a0)
 	beq    @OutOfWater
-	MOVE_NTSC_W Djubb_FloatAccel, PhysicsObj_AccelY(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_FloatAccel, PhysicsObj_AccelY(a0), d0
 	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
 	bra    @Underwater
 	@OutOfWater:
-	MOVE_NTSC_W Djubb_FloatAccelTop, PhysicsObj_AccelY(a0), d0
+	MOVE_NTSC_ACCEL_W Djubb_FloatAccelTop, PhysicsObj_AccelY(a0), d0
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
 	@Underwater:
 
