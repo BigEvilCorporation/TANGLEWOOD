@@ -350,29 +350,29 @@ PhysicsObjSleepyUpdate:
 PhysicsObjApplyAccelDecel:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	move.l PhysicsObj_VelX(a0), d0		; Fetch X velocity from RAM
 	
 	; Check if accelerating X
-	move.w PhysicsObj_AccelX(a0), d0	; Fetch X acceleration from RAM
+	move.w PhysicsObj_AccelX(a0), d1	; Fetch X acceleration from RAM
 	beq    @IdleXDecel					; X controls idle, decelerate
-	ext.l  d0							; Sign extend word to long
+	ext.l  d1							; Sign extend word to long
 	
 	; Apply speed div
-	moveq #0x0, d1
-	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
+	clr.l  d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d1
 	
 	; Apply acceleration
-	move.l PhysicsObj_VelX(a0), d1		; Fetch X velocity from RAM
-	add.l  d0, d1						; Add X acceleration
-	move.l d1, PhysicsObj_VelX(a0)		; Back to RAM
+	add.l  d1, d0						; Add X acceleration
 	
 	; Get max X velocity
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @AirVelocity
-	move.l PhysicsObj_MaxVelFloorX(a0), d0	; Get max velocity +ve
+	move.l PhysicsObj_MaxVelFloorX(a0), d1	; Get max velocity +ve
 	bra    @FloorVelocity
 	@AirVelocity:
-	move.l PhysicsObj_MaxVelAirX(a0), d0	; Get max velocity +ve
+	move.l PhysicsObj_MaxVelAirX(a0), d1	; Get max velocity +ve
 	@FloorVelocity:
 
 	; Check clamp type
@@ -380,24 +380,24 @@ PhysicsObjApplyAccelDecel:
 	bne    @ClampMaxVelX
 	
 	; Check if past max velocity
-	cmp.l  d0, d1				; Compare velocity with max
+	cmp.l  d1, d0				; Compare velocity with max
 	bgt    @ClampSpeedDecel	    ; (BGT is signed comparison)
-	neg.l  d0					; Get max velocity -ve
-	cmp.l  d0, d1				; Compare
+	neg.l  d1					; Get max velocity -ve
+	cmp.l  d1, d0				; Compare
 	blt    @ClampSpeedDecel	    ; (BLT is signed comparison)
 	bra    @EndAccelDecelX		; Within bounds
 	
 	@ClampMaxVelX:
 	
-	cmp.l  d0, d1				; Compare velocity with max
+	cmp.l  d1, d0				; Compare velocity with max
 	bgt    @ClampX			    ; (BGT is signed comparison)
-	neg.l  d0					; Get max velocity -ve
-	cmp.l  d0, d1				; Compare
+	neg.l  d1					; Get max velocity -ve
+	cmp.l  d1, d0				; Compare
 	blt    @ClampX			    ; (BLT is signed comparison)
 	bra    @EndAccelDecelX		; Within bounds
 	
 	@ClampX:
-	move.l d0, PhysicsObj_VelX(a0)
+	move.l d1, d0
 	bra    @EndAccelDecelX
 	
 	@IdleXDecel:
@@ -423,14 +423,13 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	moveq #0x0, d2
+	clr.l  d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
-	sub.l d1, PhysicsObj_VelX(a0)
-	tst.l PhysicsObj_VelX(a0)	; Clamp to 0
+	sub.l d1, d0				; Clamp to 0
 	bge @EndAccelDecelX
-	move.l #0x0, PhysicsObj_VelX(a0)
+	moveq #0x0, d0
 	bra @EndAccelDecelX
 	
 	; Decelerate from negative X velocity towards 0
@@ -439,52 +438,53 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	moveq #0x0, d2
+	clr.l  d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
-	add.l d1, PhysicsObj_VelX(a0)
-	tst.l PhysicsObj_VelX(a0)	; Clamp to 0
-	ble @EndAccelDecelX
-	move.l #0x0, PhysicsObj_VelX(a0)
+	add.l d1, d0
+	ble @EndAccelDecelX			; Clamp to 0
+	moveq #0x0, d0
 	bra @EndAccelDecelX
 	
 	@EndAccelDecelX:
+
+	move.l d0, PhysicsObj_VelX(a0)		; Back to RAM
 	
 	;==============================================================
 	
+	move.l PhysicsObj_VelY(a0), d0		; Fetch Y velocity from RAM
+
 	; Check if accelerating Y
-	move.w PhysicsObj_AccelY(a0), d0	; Fetch Y acceleration from RAM
+	move.w PhysicsObj_AccelY(a0), d7	; Fetch Y acceleration from RAM
 	beq    @IdleYDecel					; Y controls idle, decelerate
-	ext.l  d0							; Sign extend word to long
+	ext.l  d7							; Sign extend word to long
 	
 	; Apply speed div
-	moveq #0x0, d1
-	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
+	moveq #0x0, d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d7
 	
 	; Apply acceleration
-	move.l PhysicsObj_VelY(a0), d1		; Fetch Y velocity from RAM
-	add.l  d0, d1						; Add Y acceleration
-	move.l d1, PhysicsObj_VelY(a0)		; Back to RAM
+	add.l  d7, d0						; Add Y acceleration
 	
 	; Check if past max velocity
-	move.l PhysicsObj_MaxVelYUp(a0), d0		; Get max velocity +ve
-	cmp.l  d0, d1
+	move.l PhysicsObj_MaxVelYUp(a0), d7		; Get max velocity +ve
+	cmp.l  d7, d0
 	bgt    @ClampY
-	move.l PhysicsObj_MaxVelYDown(a0), d0	; Get max velocity -ve
-	neg.l  d0
-	cmp.l  d0, d1
+	move.l PhysicsObj_MaxVelYDown(a0), d7	; Get max velocity -ve
+	neg.l  d7
+	cmp.l  d7, d0
 	blt    @ClampY
 	bra    @EndAccelDecelY		; Within bounds
 	
 	@ClampY:
-	move.l d0, PhysicsObj_VelY(a0)
+	move.l d7, d0
 	
 	@IdleYDecel:
 
 	; Determine deceleration direction
-	tst.l PhysicsObj_VelY(a0)
+	tst.l d0
 	beq @EndAccelDecelY	; No velocity
 	bgt @DecelFromPosY	; Postive velocity
 	blt @DecelFromNegY	; Negative velocity
@@ -499,10 +499,9 @@ PhysicsObjApplyAccelDecel:
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
-	sub.l d1, PhysicsObj_VelY(a0)
-	tst.l PhysicsObj_VelY(a0)	; Clamp to 0
-	bge @EndAccelDecelY
-	move.l #0x0, PhysicsObj_VelY(a0)
+	sub.l d1, d0
+	bge @EndAccelDecelY			; Clamp to 0
+	moveq #0x0, d0
 	bra @EndAccelDecelY
 	
 	; Decelerate from negative X velocity towards 0
@@ -515,13 +514,14 @@ PhysicsObjApplyAccelDecel:
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
-	add.l d1, PhysicsObj_VelY(a0)
-	tst.l PhysicsObj_VelY(a0)	; Clamp to 0
+	add.l d1, d0				; Clamp to 0
 	ble @EndAccelDecelY
-	move.l #0x0, PhysicsObj_VelY(a0)
+	moveq #0x0, d0
 	bra @EndAccelDecelY
 	
 	@EndAccelDecelY:
+
+	move.l d0, PhysicsObj_VelY(a0)		; Back to RAM
 	
 	rts
 	
@@ -533,7 +533,7 @@ PhysicsObjApplyWorldForces:
 	lea    PhysicsWorld, a2
 
 	; Get speed div
-	moveq #0x0, d6
+	clr.l  d6
 	move.b AnimObj_SpeedDiv(a0), d6
 
 	;==============================================================
@@ -629,7 +629,7 @@ PhysicsObjApplyVelocity:
 	add.l  PhysicsObj_ImpulseX(a0), d0
 	
 	; Apply speed div
-	moveq #0x0, d1
+	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 
@@ -651,7 +651,7 @@ PhysicsObjApplyVelocity:
 	add.l  PhysicsObj_ImpulseY(a0), d0
 	
 	; Apply speed div
-	moveq #0x0, d1
+	clr.l  d1
 	move.b AnimObj_SpeedDiv(a0), d1
 	DIVS1616_LOSSY d1, d0
 
@@ -711,7 +711,7 @@ PhysicsObjCollisionCorrection:
 	move.l PhysicsObj_LastFloorVelocity(a0), d0		; Get last floor velocity
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	beq    @Uninitialised							; First frame, uninitialised
-	moveq #0x0, d3
+	clr.l  d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
 	move.l Entity_WorldPosY(a0), d1					; Get Y pos
 	move.w Entity_Height(a0), d3					; Get height
@@ -724,7 +724,7 @@ PhysicsObjCollisionCorrection:
 	; If hit floor this frame, handle bounce
 	tst.l  d0										; Only if not a moving platform
 	bne    @NoBounceY
-	moveq #0x0, d1
+	clr.l  d1
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
@@ -745,7 +745,7 @@ PhysicsObjCollisionCorrection:
 
 	; Check if close to floor
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)		; Clear object close to floor flag
-	moveq #0x0, d3
+	clr.l  d3
 	move.w PhysicsObj_StepHeight(a0), d3			; Get step height
 	TOSUBPIXELS d3									; To world pos
 	sub.l  d3, d2									; Floor to step height space
@@ -793,7 +793,7 @@ PhysicsObjCollisionCorrection:
 	move.l Entity_WorldPosY(a0), d2
 	move.l d0, Entity_WorldPosY(a0)
 	
-	moveq #0x0, d0										; Zero Y velocity by default
+	clr.l  d0										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d0
@@ -856,7 +856,7 @@ PhysicsObjCollisionCorrection:
 	
 	@EndWallClamp:
 	
-	moveq #0x0, d0										; Zero X velocity by default
+	clr.l  d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
 	beq    @NoBounceX
 	move.l PhysicsObj_VelX(a0), d0
@@ -1020,7 +1020,7 @@ PhysicsObjFindFloor:
 	@CollideSpecialPlatform:
 	
 	; Found a platform within step height
-	moveq #0x0, d2
+	clr.l  d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	TOSUBPIXELS d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
@@ -1141,7 +1141,7 @@ PhysicsObjFindFloor:
 	;==============================================================
 	
 	@FoundFloor:
-	moveq #0x0, d2
+	clr.l  d2
 	move.w d0, d2
 	add.w  d6, d2							; Back to map space
 	addi.w #vdp_sprite_border_y, d2			; Back to sprite space
@@ -1398,7 +1398,7 @@ PhysicsObjFindWall:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6/a0-a1
-	moveq #0x0, d2
+	clr.l  d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
@@ -1413,7 +1413,7 @@ PhysicsObjFindWall:
 	;==============================================================
 	
 	; Wall found - tile X in d3, translate to world space
-	moveq #0x0, d4
+	clr.l  d4
 	move.w d3, d4
 	
 	; If heading left, use right hand side of tile
@@ -1465,7 +1465,7 @@ PhysicsObjFindCeiling:
 	
 	; Clear last ceiling found
 	move.l #0x0, PhysicsObj_LastCeiling(a0)
-	moveq #0x0, d4
+	clr.l  d4
 	
 	;==============================================================
 	
@@ -1544,7 +1544,7 @@ PhysicsObjFindCeiling:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6/a0-a1
-	moveq #0x0, d2
+	clr.l  d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
@@ -1697,7 +1697,7 @@ PhysicsObjFindMovingFloor:
 	@CollideSpecialPlatform:
 	
 	; Success
-	moveq #0x0, d2
+	clr.l  d2
 	move.w Platform_PosY(a3), d2			; Get platform Y
 	TOSUBPIXELS d2							; To world space
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
@@ -1895,7 +1895,7 @@ PhysicsObjFindMovingBarrier:
 	;@BarrierHeadingLeft:
 	
 	; Heading left, clamp object right
-	;moveq #0x0, d2
+	;clr.l  d2
 	;move.w Entity_Width(a0), d2
 	;TOSUBPIXELS d2
 	;sub.l  d2, d4
