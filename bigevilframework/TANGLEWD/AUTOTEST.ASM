@@ -48,7 +48,7 @@ AutotestUpdate:
 	bne    @End
 
 	; Timer elapsed
-	MOVE_NTSC_W Autotest_NextLevelTime, Autotest_Timer(a0), d0
+	MOVE_NTSC_W Autotest_NextLevelTime, Autotest_Timer(a0), d1
 
 	; Determine state
 	cmp.l  #GameStateMainMenu, d0
