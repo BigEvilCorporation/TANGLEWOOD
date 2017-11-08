@@ -588,7 +588,7 @@ l3a3MeetEchoBeginStage_DjakkChase:
 	
 	; Init timer
 	move.l #LevelData_L3A3, a2
-	move.w #EchoGreetDjakkCameraTime, l3a3Data_SceneTimer(a2)
+	MOVE_NTSC_W EchoGreetDjakkCameraTime, l3a3Data_SceneTimer(a2), d0
 	
 	rts
 	

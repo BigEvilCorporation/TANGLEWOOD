@@ -144,7 +144,7 @@ BorgusInit:
 	MOVE_NTSC_W Borgus_DecelIdle, Character_DecelIdle(a0), d0
 	MOVE_NTSC_W Borgus_DecelForced, Character_DecelForced(a0), d0
 
-	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
+	MOVE_NTSC_W Borgus_DefaultSpitTime, Borgus_SpitTimer(a0), d0
 	move.b  #BorgusAIState_Idle, Borgus_AIState(a0)
 	move.l  #0x0, Borgus_Fuzzl(a0)
 
@@ -327,7 +327,7 @@ BorgusAIStart_Follow:
 	move.b #BorgusAIState_Follow, Borgus_AIState(a0)
 
 	; Reset spit timer
-	move.w  #Borgus_DefaultSpitTime, Borgus_SpitTimer(a0)
+	MOVE_NTSC_W Borgus_DefaultSpitTime, Borgus_SpitTimer(a0), d0
 
 	rts
 

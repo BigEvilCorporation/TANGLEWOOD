@@ -207,8 +207,8 @@ EchoInit:
 	move.w #Echo_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
-	move.w #Echo_LostTime, Echo_AILostTimer(a0)
-	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
+	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+	MOVE_NTSC_W Echo_NodeFailTime, Echo_AINodeFailTimer(a0), d0
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.w #0x0, Echo_AIPotentialSafePosX(a0)
 	move.w #0x0, Echo_AIPotentialSafePosY(a0)
@@ -605,8 +605,8 @@ EchoStartCameraLerp:
 	move.l (Player1), CameraTargetLerpSource
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
-	move.w #Echo_AICameraLerpTime, Echo_AICameraLerpTimer(a0)
+	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed, d0
+	MOVE_NTSC_W Echo_AICameraLerpTime, Echo_AICameraLerpTimer(a0), d0
 	@NoCameraLerp:
 
 	rts
@@ -680,7 +680,7 @@ EchoBeginCarried:
 	jsr    CharacterStartJump
 
 	; Fixed velocity
-	move.l #Echo_JumpToNymnVel, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Echo_JumpToNymnVel, PhysicsObj_VelY(a0), d0
 	
 	; Set jumping-to-Nymn anim
 	PUSHL  a1
@@ -726,7 +726,7 @@ EchoEndCarried:
 	jsr    CharacterStartJump
 
 	; Override jump velocity
-	move.l #Echo_DismountNymnVel, PhysicsObj_VelY(a0)
+	MOVE_NTSC_L Echo_DismountNymnVel, PhysicsObj_VelY(a0), d0
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
@@ -741,7 +741,7 @@ EchoEndCarried:
 EchoStartHowlTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	move.w #Echo_HowlDelay, Echo_HowlTimer(a0)
+	MOVE_NTSC_W Echo_HowlDelay, Echo_HowlTimer(a0), d0
 	rts
 
 EchoHowl:
@@ -887,7 +887,7 @@ EchoAIStart_Follow:
 	move.w #0x0, Echo_AINodeProducer(a0)
 
 	; Reset lost timer
-	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
 	
 	rts
 	
@@ -923,7 +923,7 @@ EchoAIUpdate_Follow:
 	@OnScreen:
 
 	; On screen, reset lost timer
-	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
 
 	@LostTimerRunning:
 
@@ -1115,7 +1115,7 @@ EchoAIUpdate_FollowNodes:
 	jsr    EchoAIPopNode
 
 	; Reset fail timer
-	move.w #Echo_NodeFailTime, Echo_AILostTimer(a0)
+	MOVE_NTSC_W Echo_NodeFailTime, Echo_AILostTimer(a0), d0
 
 	; If last node, and last pop didn't change state, return to follow
 	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
@@ -1193,7 +1193,7 @@ EchoAIStart_CatchUp:
 	move.b #EchoAIState_CatchUp, Echo_AIState(a0)
 	
 	; Reset catchup timer
-	move.w #Echo_CatchUpTime, Echo_AILostTimer(a0)
+	MOVE_NTSC_W Echo_CatchUpTime, Echo_AILostTimer(a0), d0
 	
 	rts
 	
@@ -1661,7 +1661,7 @@ EchoAIStart_Ladder:
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
 	; Reset lost timer
-	move.w #Echo_LostTime, Echo_AILostTimer(a0)
+	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
 
 	; Waiting to enter ladder
 	move.b Character_Climbing(a0), d0

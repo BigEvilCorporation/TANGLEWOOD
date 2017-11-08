@@ -565,7 +565,7 @@ PlayerBeginColourSwitch:
 	PLAYSFX #SFX_NymnColourSwitch
 	
 	; Start countdown timer
-	move.w #Player1ColourChangeTimeout, Player_ColourChangeTimer(a0)
+	MOVE_NTSC_W Player1ColourChangeTimeout, Player_ColourChangeTimer(a0), d0
 
 	; If switching to blue (beast taming), auto-activate
 	cmp.b  #ColourBlue, Player_Colour(a0)
@@ -2444,7 +2444,7 @@ PlayerInteractTest_Ladder:
 	; Check velocity
 	MOVE_NTSC_L Player1MaxVelXWalk, d0, d1
 	cmp.l  PhysicsObj_VelY(a0), d0
-	bgt    @CantUseLadder
+	ble    @CantUseLadder
 
 	@NotJumping:
 

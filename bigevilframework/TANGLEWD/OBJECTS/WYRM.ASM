@@ -715,7 +715,7 @@ WyrmAIStart_Follow:
 	move.b #WyrmState_Chasing, Wyrm_State(a0)
 	
 	; Reset lost player timer
-	move.w #Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0)
+	MOVE_NTSC_W Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0), d0
 
 	; Start screen shake
 	move.w #0x0, d0
@@ -798,7 +798,7 @@ WyrmAIUpdate_Follow:
 	@OnSand:
 	
 	; Player detected, reset lost timer
-	move.w #Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0)
+	MOVE_NTSC_W Wyrm_LostPlayerTimeout, Wyrm_LostPlayerTimer(a0), d0
 	
 	@Chase:
 

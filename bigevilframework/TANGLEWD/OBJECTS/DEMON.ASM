@@ -483,8 +483,8 @@ DemonAIStart_Boss:
 	move.w #0x0, Demon_TargetY(a0)
 
 	; Reset attack timer
-	move.w #Demon_AttackDelayMin, d1
-	move.w #Demon_AttackDelayMax, d2
+	MOVE_NTSC_W Demon_AttackDelayMin, d1, d0
+	MOVE_NTSC_W Demon_AttackDelayMax, d2, d0
 	jsr    RND_GenerateWordClamped
 	move.w d0, Demon_AttackTimer(a0)
 

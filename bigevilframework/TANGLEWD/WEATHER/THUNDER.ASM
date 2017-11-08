@@ -44,10 +44,10 @@ ThunderInit:
 	jsr    VfxInit
 
 	lea    Thunder, a2
-	move.w #Thunder_DefaultInterval, Thunder_StrikeTimer(a2)
+	MOVE_NTSC_W Thunder_DefaultInterval, Thunder_StrikeTimer(a2), d0
 	move.w #0x0, Thunder_FlashTimer(a2)
 	move.w #0x0, Thunder_BoltTimer(a2)
-	move.w #Thunder_DefaultInterval, Thunder_Interval(a2)
+	MOVE_NTSC_W Thunder_DefaultInterval, Thunder_Interval(a2), d0
 	move.w #0x0, Thunder_StrikePointY(a2)
 	move.b #Thunder_DefaultDistance, Thunder_Distance(a2)
 	move.b #0x0, Thunder_BoltActive(a2)
@@ -133,7 +133,7 @@ ThunderStrike:
 	move.w Thunder_Interval(a2), Thunder_StrikeTimer(a2)
 
 	; Reset bolt timer
-	move.w #Thunder_BoltToFlashTime, Thunder_BoltTimer(a2)
+	MOVE_NTSC_W Thunder_BoltToFlashTime, Thunder_BoltTimer(a2), d0
 
 	; Start sound timer
 	clr.w  d0

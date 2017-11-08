@@ -61,7 +61,7 @@ ControlsScreen_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #ControlsScreenDelayTime, TimerLogoFade
+	MOVE_NTSC_L ControlsScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	

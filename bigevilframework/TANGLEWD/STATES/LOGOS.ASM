@@ -74,8 +74,8 @@ Logos_Enter:
 	
 	; Reset timers
 	lea    GameStateLogoData, a3
-	move.l #LogosDelayTime, TimerLogoFade
-	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)
+	MOVE_NTSC_L LogosDelayTime, TimerLogoFade, d0
+	MOVE_NTSC_W LogosNextColourDelay, LogoState_NextColourTimer(a3), d0
 	move.b #0x0, LogoState_CurrColourIdx(a3)
 	
 	rts
@@ -99,7 +99,7 @@ Logos_Update:
 	addq.b #0x1, LogoState_CurrColourIdx(a3)
 	
 	; Reset timer
-	move.w #LogosNextColourDelay, LogoState_NextColourTimer(a3)
+	MOVE_NTSC_W LogosNextColourDelay, LogoState_NextColourTimer(a3), d0
 	
 	; Start lerping palette, up to CurrColourIdx
 	lea    palette_bec_logo, a0

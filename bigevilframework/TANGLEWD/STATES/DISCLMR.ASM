@@ -60,7 +60,7 @@ DemoDisclaimerScreen_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #DemoDisclaimerScreenDelayTime, TimerLogoFade
+	MOVE_NTSC_L DemoDisclaimerScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	

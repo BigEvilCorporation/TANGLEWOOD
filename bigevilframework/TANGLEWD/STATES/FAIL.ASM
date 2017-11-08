@@ -27,8 +27,8 @@ GameStateFail_ResetTimer		equ 0x0100
 Fail_Enter:
 
 	; Reset timers
-	move.l #GameStateFail_FadeDelayTimer, TimerFailFade
-	move.l #GameStateFail_ResetTimer, TimerFailReset
+	MOVE_NTSC_L GameStateFail_FadeDelayTimer, TimerFailFade, d0
+	MOVE_NTSC_L GameStateFail_ResetTimer, TimerFailReset, d0
 
 	; Set player sprite high prio (so fading environment doesn't mask)
 	move.l (Player1), a3

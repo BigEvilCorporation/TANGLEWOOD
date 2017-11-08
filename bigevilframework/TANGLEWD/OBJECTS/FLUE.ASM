@@ -243,7 +243,7 @@ FlueOccupantUpdate:
 	move.l a1, FlueOccupant_ObjAddr(a2)
 
 	; Start timer
-	move.w #Flue_HoldDelay, FlueOccupant_HoldTimer(a2)
+	MOVE_NTSC_W Flue_HoldDelay, FlueOccupant_HoldTimer(a2), d0
 	
 	; If linked to another flue, use as camera lerp target
 	move.l Flue_OutputFlue(a0), a3

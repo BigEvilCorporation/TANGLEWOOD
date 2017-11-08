@@ -34,7 +34,7 @@ Lvl0_EndLevel:
 	even
 
 ; Constants
-EndLevelScoreScreenDelayTime	equ 0x0080 ; 0x0300
+EndLevelScoreScreenDelayTime	equ 0x0300
 EndLevelScoreScreenFadeTime		equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 EndLevelScoreScreenNumColours	equ 0xF ; For palette lerping
 
@@ -249,7 +249,7 @@ EndLevelScoreScreen_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #EndLevelScoreScreenDelayTime, TimerLogoFade
+	MOVE_NTSC_L EndLevelScoreScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	

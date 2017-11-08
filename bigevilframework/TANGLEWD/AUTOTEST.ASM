@@ -29,7 +29,7 @@ AutotestInit:
 	move.b d0, Autotest_Mode(a0)
 	move.w #0x0, Autotest_PadDataA(a0)
 	move.w #0x0, Autotest_PadDataB(a0)
-	move.w #Autotest_NextLevelTime, Autotest_Timer(a0)
+	MOVE_NTSC_W Autotest_NextLevelTime, Autotest_Timer(a0), d0
 
 	rts
 
@@ -48,7 +48,7 @@ AutotestUpdate:
 	bne    @End
 
 	; Timer elapsed
-	move.w #Autotest_NextLevelTime, Autotest_Timer(a0)
+	MOVE_NTSC_W Autotest_NextLevelTime, Autotest_Timer(a0), d0
 
 	; Determine state
 	cmp.l  #GameStateMainMenu, d0

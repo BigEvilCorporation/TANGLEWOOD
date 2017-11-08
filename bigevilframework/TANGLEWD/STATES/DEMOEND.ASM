@@ -65,7 +65,7 @@ DemoEndState_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #DemoEndStateDelayTime, TimerLogoFade
+	MOVE_NTSC_L DemoEndStateDelayTime, TimerLogoFade, d0
 	
 	rts
 	

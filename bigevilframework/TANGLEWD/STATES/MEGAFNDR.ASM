@@ -64,7 +64,7 @@ MegafounderScreen_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #MegafounderScreenDelayTime, TimerLogoFade
+	MOVE_NTSC_L MegafounderScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	

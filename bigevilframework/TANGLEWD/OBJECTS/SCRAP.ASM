@@ -200,8 +200,8 @@ ScrapBark:
 	PLAYSFX #SFX_Scrap_Yap
 
 	; Calc rand delay timer
-	move.w #Scrap_BarkTimeMin, d1
-	move.w #Scrap_BarkTimeMax, d2
+	MOVE_NTSC_W Scrap_BarkTimeMin, d1, d0
+	MOVE_NTSC_W Scrap_BarkTimeMax, d2, d0
 	jsr    RND_GenerateWordClamped
 	move.w d0, Scrap_BarkTimer(a0)
 

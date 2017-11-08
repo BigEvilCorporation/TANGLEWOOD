@@ -255,7 +255,7 @@ L6a1_LogRoll2Begin
 
 	; Begin lerp timer
 	move.l #LevelData_L6A1, a2
-	move.w #L6A1_LogRollCamLerpTime, l6a1Data_LogRollCamLerpTimer(a2)
+	MOVE_NTSC_W L6A1_LogRollCamLerpTime, l6a1Data_LogRollCamLerpTimer(a2), d0
 
 	rts
 	

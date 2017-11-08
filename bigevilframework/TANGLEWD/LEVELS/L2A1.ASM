@@ -103,11 +103,11 @@ l2a1_Init:
 	move.w  #0x0004, WindAccel
 	move.w  #0x0080, WindRandStrengthMin
 	move.w  #0x0100, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0120, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x0180, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 
 	;==============================================================
 	
@@ -187,44 +187,44 @@ l2a1_Trigger_WindSpeed1:
 	move.w  #0x0004, WindAccel
 	move.w  #-0x0200, WindRandStrengthMin
 	move.w  #0x0200, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0120, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x0180, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 	rts
 
 l2a1_Trigger_WindSpeed2:
 	move.w  #0x0004, WindAccel
 	move.w  #-0x0280, WindRandStrengthMin
 	move.w  #0x0280, WindRandStrengthMax
-	move.w  #0x0120, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x0180, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0120, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x0180, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 	rts
 
 l2a1_Trigger_WindSpeed3:
 	move.w  #0x0010, WindAccel
 	move.w  #-0x0600, WindRandStrengthMin
 	move.w  #-0x0700, WindRandStrengthMax
-	move.w  #0x0170, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x01F0, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0170, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x01F0, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 	rts
 
 l2a1_Trigger_WindSpeed4:
 	move.w  #0x0010, WindAccel
 	move.w  #-0x0900, WindRandStrengthMin
 	move.w  #-0x0A00, WindRandStrengthMax
-	move.w  #0x0170, WindRandDelayMin
-	move.w  #0x0180, WindRandDelayMax
-	move.w  #0x01F0, WindRandDurationMin
-	move.w  #0x0200, WindRandDurationMax
-	move.w  #0x0080, WindDelayTimer
+	MOVE_NTSC_W 0x0170, WindRandDelayMin, d0
+	MOVE_NTSC_W 0x0180, WindRandDelayMax, d0
+	MOVE_NTSC_W 0x01F0, WindRandDurationMin, d0
+	MOVE_NTSC_W 0x0200, WindRandDurationMax, d0
+	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 	rts
 
 l2a1_Trigger_End:

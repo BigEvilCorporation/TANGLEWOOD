@@ -48,7 +48,7 @@ EndLevel_Enter:
 	
 	; Set sleep phase and begin timer
 	move.b #EndLevelPhase_Sleep, EndLevelState_Phase(a2)
-	move.w #GameStateEndLevel_SleepTime, EndLevelState_Timer(a2)
+	MOVE_NTSC_W GameStateEndLevel_SleepTime, EndLevelState_Timer(a2), d0
 		
 	; Start end of level theme
 	lea    track_bgm_lvloutro, a0
@@ -101,7 +101,7 @@ EndLevel_Update:
 	
 	; Timer elapsed, set fade phase and begin timer
 	move.b #EndLevelPhase_Fade, EndLevelState_Phase(a2)
-	move.w #GameStateEndLevel_ResetTime, EndLevelState_Timer(a2)
+	MOVE_NTSC_W GameStateEndLevel_ResetTime, EndLevelState_Timer(a2), d0
 
 	; Set player sprite high prio (so fading environment doesn't mask)
 	move.l (Player1), a3

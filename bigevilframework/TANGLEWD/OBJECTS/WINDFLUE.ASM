@@ -57,9 +57,9 @@ WindFlueInit:
 	; Initialise
 	move.w  #WindFlue_Width, Entity_Width(a0)
 	move.w  #WindFlue_Height, Entity_Height(a0)
-	move.w  #WindFlue_OffTime, WindFlue_Timer(a0)
-	move.w  #WindFlue_DefaultOnTime, WindFlue_OnTime(a0)
-	move.w  #WindFlue_DefaultOffTime, WindFlue_OffTime(a0)
+	MOVE_NTSC_W WindFlue_OffTime, WindFlue_Timer(a0), d0
+	MOVE_NTSC_W WindFlue_DefaultOnTime, WindFlue_OnTime(a0), d0
+	MOVE_NTSC_W WindFlue_DefaultOffTime, WindFlue_OffTime(a0), d0
 	move.b  #0x0, WindFlue_Blowing(a0)
 	move.b  #0x0, WindFlue_Visible(a0)
 

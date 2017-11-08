@@ -98,7 +98,7 @@ Gameplay_Enter:
 	
 	IF DEMO_USE_TIMEOUT
 	; Start demo timer
-	move.l #DemoTimeout, TimerDemoReset
+	MOVE_NTSC_L DemoTimeout, TimerDemoReset, d0
 	ENDIF
 
 	; Restore hint
@@ -200,7 +200,7 @@ Gameplay_Update:
 	ENDIF
 	
 	@ResetDemoTimer:
-	move.l #DemoTimeout, TimerDemoReset
+	MOVE_NTSC_L DemoTimeout, TimerDemoReset, d0
 	
 	@NoDemoTimer:
 	@DemoTimerRunning:

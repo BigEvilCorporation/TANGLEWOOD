@@ -58,7 +58,7 @@ KickstarterScreen_Enter:
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	move.l #KickstarterScreenDelayTime, TimerLogoFade
+	MOVE_NTSC_L KickstarterScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	

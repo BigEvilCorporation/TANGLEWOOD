@@ -160,7 +160,7 @@ MainMenu_Enter:
 
 	; Start bg fade timer
 	lea    GameStateMainMenuData, a2
-	move.w #MenuBgFadeDelay, MainMenuState_FadeTimer(a2)
+	MOVE_NTSC_W MenuBgFadeDelay, MainMenuState_FadeTimer(a2), d0
 
 	move.w #0x0, d0
 	jsr    VDP_SetHScrollPlaneA

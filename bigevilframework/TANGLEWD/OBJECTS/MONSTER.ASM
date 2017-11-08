@@ -1451,7 +1451,7 @@ MonsterStartTamed:
 	;move.l (sp)+, a0
 
 	; Start growl timer
-	move.w #Monster_GrowlDelay, Monster_GrowlTimer(a0)
+	MOVE_NTSC_W Monster_GrowlDelay, Monster_GrowlTimer(a0), d0
 	
 	; Stand still
 	jsr    CharacterCancelXMovement
