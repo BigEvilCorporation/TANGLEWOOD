@@ -114,26 +114,26 @@ WyrmInit:
 	move.w  #Wyrm_Width, Entity_Width(a0)
 	move.w  #Wyrm_Height, Entity_Height(a0)
 	move.b  #Wyrm_Mass, PhysicsObj_Mass(a0)
-	move.l  #Wyrm_MaxVelX, PhysicsObj_MaxVelFloorX(a0)
-	move.w  #Wyrm_Decel, PhysicsObj_DecelX(a0)
+	MOVE_NTSC_L Wyrm_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_W Wyrm_Decel, PhysicsObj_DecelX(a0), d0
 	move.w  #Wyrm_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Wyrm_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Wyrm_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Wyrm_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Wyrm_Width, PhysicsObj_WallProbeRight(a0)
-	move.l  #Wyrm_MaxVelYUp, PhysicsObj_MaxVelYUp(a0)
-	move.l  #Wyrm_MaxVelYDown, PhysicsObj_MaxVelYDown(a0)
+	MOVE_NTSC_L Wyrm_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
+	MOVE_NTSC_L Wyrm_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_CollideBarriers(a0)
 
-	move.l  #Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0)
-	move.l  #Wyrm_MaxVelXWalk, Character_MaxVelXWater(a0)
-	move.l  #Wyrm_MaxVelXRun, Character_MaxVelXRun(a0)
-	move.w  #Wyrm_AccelWalk, Character_AccelWalk(a0)
-	move.w  #Wyrm_AccelRun, Character_AccelRun(a0)
-	move.w  #Wyrm_DecelIdle, Character_DecelIdle(a0)
-	move.w  #Wyrm_DecelForced, Character_DecelForced(a0)
+	MOVE_NTSC_L Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Wyrm_MaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Wyrm_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_W Wyrm_AccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_W Wyrm_AccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_W Wyrm_DecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_W Wyrm_DecelForced, Character_DecelForced(a0), d0
 
 	move.w  #0x0, Wyrm_CurrentDuneLeft(a0)
 	move.w  #0x0, Wyrm_CurrentDuneRight(a0)

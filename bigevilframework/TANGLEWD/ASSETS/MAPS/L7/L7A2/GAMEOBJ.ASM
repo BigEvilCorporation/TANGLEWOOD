@@ -9,9 +9,9 @@
 
 L7A2_Leaf_count equ 0x0
 
-L7A2_Trap_count equ 0x0
-
 L7A2_Djubb_count equ 0x0
+
+L7A2_Trap_count equ 0x0
 
 L7A2_Echo_count equ 0x1
 L7A2_Echo_1_idx	equ 0x0
@@ -27,9 +27,9 @@ L7A2_BouncePlant_count equ 0x0
 
 L7A2_Log_count equ 0x0
 
-L7A2_Borgus_count equ 0x0
-
 L7A2_DjakkCage_count equ 0x0
+
+L7A2_Borgus_count equ 0x0
 
 L7A2_Monster_count equ 0x0
 
@@ -54,6 +54,8 @@ L7A2_FuzzlGreen2_name	dc.b "L7A2_FuzzlGreen2",0
 L7A2_Stone_count equ 0x0
 
 L7A2_Demon_count equ 0x0
+
+L7A2_Raft_count equ 0x0
 
 L7A2_Nest_count equ 0x3
 L7A2_Nest_4_idx	equ 0x0
@@ -99,9 +101,9 @@ L7A2_WaterBody_count equ 0x0
 
 L7A2_Location_count equ 0x0
 
-L7A2_Lift_count equ 0x0
-
 L7A2_Deathbox_count equ 0x0
+
+L7A2_Lift_count equ 0x0
 
 L7A2_Crate_count equ 0x0
 
@@ -131,8 +133,6 @@ L7A2_Winch_count equ 0x0
 
 L7A2_WindFlue_count equ 0x0
 
-L7A2_Raft_count equ 0x0
-
 L7A2_Lock_count equ 0x0
 
 L7A2_Pool_count equ 0x0
@@ -144,6 +144,8 @@ L7A2_Stalactite_count equ 0x0
 L7A2_CargoLift_count equ 0x0
 
 L7A2_Scrap_count equ 0x0
+
+L7A2_Longboat_count equ 0x0
 
 
 
@@ -224,6 +226,7 @@ L7A2_LoadGameObjects:
 	move.b #ColourGreen, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

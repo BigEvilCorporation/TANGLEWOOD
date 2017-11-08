@@ -9,8 +9,6 @@
 
 L8A2_Leaf_count equ 0x0
 
-L8A2_Trap_count equ 0x0
-
 L8A2_Djubb_count equ 0x4
 L8A2_Djubb_4_idx	equ 0x0
 L8A2_Djubb_5_idx	equ 0x1
@@ -24,6 +22,8 @@ L8A2_Djubb_6_name	dc.b "L8A2_Djubb_6",0
 L8A2_Djubb_7_name	dc.b "L8A2_Djubb_7",0
 	even
 	ENDIF
+
+L8A2_Trap_count equ 0x0
 
 L8A2_Echo_count equ 0x1
 L8A2_Echo_1_idx	equ 0x0
@@ -39,9 +39,9 @@ L8A2_BouncePlant_count equ 0x0
 
 L8A2_Log_count equ 0x0
 
-L8A2_Borgus_count equ 0x0
-
 L8A2_DjakkCage_count equ 0x0
+
+L8A2_Borgus_count equ 0x0
 
 L8A2_Monster_count equ 0x1
 L8A2_Djakk1_idx	equ 0x0
@@ -63,6 +63,8 @@ L8A2_Stone_count equ 0x0
 
 L8A2_Demon_count equ 0x0
 
+L8A2_Raft_count equ 0x0
+
 L8A2_Nest_count equ 0x0
 
 L8A2_Flue_count equ 0x0
@@ -83,9 +85,9 @@ L8A2_WaterBody_count equ 0x0
 
 L8A2_Location_count equ 0x0
 
-L8A2_Lift_count equ 0x0
-
 L8A2_Deathbox_count equ 0x0
+
+L8A2_Lift_count equ 0x0
 
 L8A2_Crate_count equ 0x0
 
@@ -109,8 +111,6 @@ L8A2_Winch_count equ 0x0
 
 L8A2_WindFlue_count equ 0x0
 
-L8A2_Raft_count equ 0x0
-
 L8A2_Lock_count equ 0x0
 
 L8A2_Pool_count equ 0x0
@@ -123,10 +123,11 @@ L8A2_CargoLift_count equ 0x0
 
 L8A2_Scrap_count equ 0x0
 
+L8A2_Longboat_count equ 0x0
+
 
 
 L8A2_LoadGameObjects:
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L8A2_Djubb_count)
@@ -183,6 +184,7 @@ L8A2_LoadGameObjects:
 	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L8A2_Echo_count)
 	move.l a1, EntityPoolStart_Echo
@@ -225,6 +227,7 @@ L8A2_LoadGameObjects:
 	ENDIF
 	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
+
 
 
 

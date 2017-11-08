@@ -9,9 +9,9 @@
 
 L7A3_Leaf_count equ 0x0
 
-L7A3_Trap_count equ 0x0
-
 L7A3_Djubb_count equ 0x0
+
+L7A3_Trap_count equ 0x0
 
 L7A3_Echo_count equ 0x1
 L7A3_Echo_1_idx	equ 0x0
@@ -27,9 +27,9 @@ L7A3_BouncePlant_count equ 0x0
 
 L7A3_Log_count equ 0x0
 
-L7A3_Borgus_count equ 0x0
-
 L7A3_DjakkCage_count equ 0x0
+
+L7A3_Borgus_count equ 0x0
 
 L7A3_Monster_count equ 0x0
 
@@ -45,6 +45,8 @@ L7A3_Stone_count equ 0x0
 
 L7A3_Demon_count equ 0x0
 
+L7A3_Raft_count equ 0x0
+
 L7A3_Nest_count equ 0x0
 
 L7A3_Flue_count equ 0x0
@@ -57,9 +59,9 @@ L7A3_WaterBody_count equ 0x0
 
 L7A3_Location_count equ 0x0
 
-L7A3_Lift_count equ 0x0
-
 L7A3_Deathbox_count equ 0x0
+
+L7A3_Lift_count equ 0x0
 
 L7A3_Crate_count equ 0x0
 
@@ -83,8 +85,6 @@ L7A3_Winch_count equ 0x0
 
 L7A3_WindFlue_count equ 0x0
 
-L7A3_Raft_count equ 0x0
-
 L7A3_Lock_count equ 0x0
 
 L7A3_Pool_count equ 0x0
@@ -96,6 +96,8 @@ L7A3_Stalactite_count equ 0x0
 L7A3_CargoLift_count equ 0x0
 
 L7A3_Scrap_count equ 0x0
+
+L7A3_Longboat_count equ 0x0
 
 
 
@@ -121,6 +123,7 @@ L7A3_LoadGameObjects:
 	ENDIF
 	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 

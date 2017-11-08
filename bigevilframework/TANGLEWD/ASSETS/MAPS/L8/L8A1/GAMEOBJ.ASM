@@ -9,9 +9,9 @@
 
 L8A1_Leaf_count equ 0x0
 
-L8A1_Trap_count equ 0x0
-
 L8A1_Djubb_count equ 0x0
+
+L8A1_Trap_count equ 0x0
 
 L8A1_Echo_count equ 0x1
 L8A1_Echo_1_idx	equ 0x0
@@ -33,9 +33,9 @@ L8A1_Log_6_name	dc.b "L8A1_Log_6",0
 	even
 	ENDIF
 
-L8A1_Borgus_count equ 0x0
-
 L8A1_DjakkCage_count equ 0x0
+
+L8A1_Borgus_count equ 0x0
 
 L8A1_Monster_count equ 0x0
 
@@ -63,6 +63,8 @@ L8A1_Stone_7_name	dc.b "L8A1_Stone_7",0
 
 L8A1_Demon_count equ 0x0
 
+L8A1_Raft_count equ 0x0
+
 L8A1_Nest_count equ 0x1
 L8A1_Nest_3_idx	equ 0x0
 
@@ -87,9 +89,9 @@ L8A1_WaterBody_count equ 0x0
 
 L8A1_Location_count equ 0x0
 
-L8A1_Lift_count equ 0x0
-
 L8A1_Deathbox_count equ 0x0
+
+L8A1_Lift_count equ 0x0
 
 L8A1_Crate_count equ 0x0
 
@@ -119,8 +121,6 @@ L8A1_Winch_count equ 0x0
 
 L8A1_WindFlue_count equ 0x0
 
-L8A1_Raft_count equ 0x0
-
 L8A1_Lock_count equ 0x0
 
 L8A1_Pool_count equ 0x0
@@ -132,6 +132,8 @@ L8A1_Stalactite_count equ 0x0
 L8A1_CargoLift_count equ 0x0
 
 L8A1_Scrap_count equ 0x0
+
+L8A1_Longboat_count equ 0x0
 
 
 
@@ -223,6 +225,7 @@ L8A1_LoadGameObjects:
 	ENDIF
 	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 
 
 	PUSHL  a1
