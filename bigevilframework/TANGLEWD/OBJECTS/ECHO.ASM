@@ -2694,11 +2694,51 @@ EchoAI_FindRaft:
 
 	move.l #0x0, a2
 
-	;move.w (EntityCount_Raft), d6
 	move.w (EntityCount_Longboat), d6
-	beq    @NoRafts
-	;move.l (EntityPoolStart_Raft), a4
+	beq    @NoLongboats
 	move.l (EntityPoolStart_Longboat), a4
+	subq.w #0x1, d6
+	@LongboatLoop:
+
+	; Check not hitting a wall
+	tst.b  PhysicsObj_HitWall(a4)
+	bne    @NextLongboat
+	
+	; Check within X threshold
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosX(a4), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistRaftX, d1
+	bgt    @NextLongboat
+	cmp.w  #-Echo_AIDistRaftX, d1
+	blt    @NextLongboat
+
+	; Check within Y threshold
+	ENTITY_GETCENTREY d0,a0
+	ENTITY_GETCENTREY d1,a4
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w    d0, d1
+	cmp.w  #Echo_AIDistRaftY, d1
+	bgt    @NextLongboat
+	cmp.w  #-Echo_AIDistRaftY, d1
+	blt    @NextLongboat
+
+	; Found Longboat
+	move.l a4, a2
+	bra    @FoundLongboat
+
+	@NextLongboat:
+	lea    Longboat_Struct_Size(a4), a4
+	dbra   d6, @LongboatLoop
+
+	@NoLongboats:
+
+	;=================================================
+
+	move.w (EntityCount_Raft), d6
+	beq    @NoRafts
+	move.l (EntityPoolStart_Raft), a4
 	subq.w #0x1, d6
 	@RaftLoop:
 
@@ -2731,12 +2771,14 @@ EchoAI_FindRaft:
 	bra    @FoundRaft
 
 	@NextRaft:
-	;lea    Raft_Struct_Size(a4), a4
-	lea    Longboat_Struct_Size(a4), a4
+	lea    Raft_Struct_Size(a4), a4
 	dbra   d6, @RaftLoop
 
-	@NoPlatform:
 	@NoRafts:
+
+	;=================================================
+
+	@FoundLongboat:
 	@FoundRaft:
 
 	rts
