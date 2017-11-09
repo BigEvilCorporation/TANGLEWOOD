@@ -10,6 +10,7 @@
 BouncePlant_Width		   equ 0x18
 BouncePlant_Height		   equ 0x18
 BouncePlant_LaunchForce     equ 0x080000
+BouncePlant_LaunchForceUp   equ 0x0A0000
 BouncePlant_LaunchForceDiag equ 0x05A7EF ; (BouncePlant_LaunchForce * 0.707)
 
 ;==============================================================
@@ -62,7 +63,7 @@ BouncePlantVel_0:		dc.l  0x00000000, 				   -BouncePlant_LaunchForce
 BouncePlantVel_45:		dc.l -BouncePlant_LaunchForceDiag, -BouncePlant_LaunchForceDiag
 BouncePlantVel_90:		dc.l -BouncePlant_LaunchForce, 		0x00000000
 BouncePlantVel_135:		dc.l -BouncePlant_LaunchForceDiag, 	BouncePlant_LaunchForceDiag
-BouncePlantVel_180:		dc.l  0x00000000, 					BouncePlant_LaunchForce
+BouncePlantVel_180:		dc.l  0x00000000, 					BouncePlant_LaunchForceUp
 BouncePlantVel_225:		dc.l  BouncePlant_LaunchForceDiag, 	BouncePlant_LaunchForceDiag
 BouncePlantVel_270:		dc.l  BouncePlant_LaunchForce, 		0x00000000
 BouncePlantVel_315:		dc.l  BouncePlant_LaunchForceDiag, -BouncePlant_LaunchForceDiag
