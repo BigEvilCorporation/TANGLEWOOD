@@ -9,7 +9,7 @@ vfx_spritesheet_rain_light:
 	dc.l actor_rain_sheet_light_frame_0_subsprite_dimensions_bits		; Subsprite dimensions array
 	dc.l actor_rain_sheet_light_frame_0_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.w ((0x04<<8)|0x04)							; W/H tiles
-	dc.w actor_rain_sheet_light_frame_0_size_t							; Size tiles
+	dc.w actor_rain_sheet_light_VRAM_size_b/size_tile_b				; Size tiles
 	dc.b actor_rain_sheet_light_frame_0_size_subsprites				; Size subsprites
 	dc.b PaletteId_World0							; Palette
 	dc.b 0x1										; Priority

@@ -9,7 +9,7 @@ vfx_spritesheet_bolt_flash:
 	dc.l actor_bolt_sheet_flash_frame_0_subsprite_dimensions_bits		; Subsprite dimensions array
 	dc.l actor_bolt_sheet_flash_frame_0_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.w ((0x04<<8)|0x04)							; W/H tiles
-	dc.w actor_bolt_sheet_flash_frame_0_size_t							; Size tiles
+	dc.w actor_bolt_sheet_flash_VRAM_size_b/size_tile_b				; Size tiles
 	dc.b actor_bolt_sheet_flash_frame_0_size_subsprites				; Size subsprites
 	dc.b PaletteId_World0							; Palette
 	dc.b 0x1										; Priority

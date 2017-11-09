@@ -11,7 +11,7 @@ spriteanims_water:
 
 actor_water_sheet_splash_anim_large:
 actor_water_sheet_splash_anim_large_numframes: equ 0x8
-actor_water_sheet_splash_anim_large_speed: equ 0x51
+actor_water_sheet_splash_anim_large_speed: equ 0x33
 actor_water_sheet_splash_anim_large_track_frames:
 	dc.l actor_water_sheet_splash_frame_0_header
 	dc.l actor_water_sheet_splash_frame_1_header
@@ -34,7 +34,7 @@ actor_water_sheet_splash_anim_large_track_sfx:
 	Even
 actor_water_sheet_splash_anim_tiny:
 actor_water_sheet_splash_anim_tiny_numframes: equ 0x4
-actor_water_sheet_splash_anim_tiny_speed: equ 0x51
+actor_water_sheet_splash_anim_tiny_speed: equ 0x33
 actor_water_sheet_splash_anim_tiny_track_frames:
 	dc.l actor_water_sheet_splash_frame_0_header
 	dc.l actor_water_sheet_splash_frame_5_header
@@ -53,7 +53,7 @@ actor_water_sheet_splash_anim_tiny_track_sfx:
 	Even
 actor_water_sheet_splash_anim_small:
 actor_water_sheet_splash_anim_small_numframes: equ 0x5
-actor_water_sheet_splash_anim_small_speed: equ 0x51
+actor_water_sheet_splash_anim_small_speed: equ 0x33
 actor_water_sheet_splash_anim_small_track_frames:
 	dc.l actor_water_sheet_splash_frame_0_header
 	dc.l actor_water_sheet_splash_frame_4_header
