@@ -814,7 +814,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr GeneratorInit
-	move.l #0x13680000, Entity_WorldPosX(a0)
+	move.l #0x13780000, Entity_WorldPosX(a0)
 	move.l #0x03280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Generator1_name, a3
@@ -857,7 +857,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr CogsInit
-	move.l #0x13800000, Entity_WorldPosX(a0)
+	move.l #0x13900000, Entity_WorldPosX(a0)
 	move.l #0x02b80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A3_Cogs1_name, a3
