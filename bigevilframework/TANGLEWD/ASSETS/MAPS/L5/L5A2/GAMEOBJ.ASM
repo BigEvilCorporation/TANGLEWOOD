@@ -9,9 +9,9 @@
 
 L5A2_Leaf_count equ 0x0
 
-L5A2_Trap_count equ 0x0
-
 L5A2_Djubb_count equ 0x0
+
+L5A2_Trap_count equ 0x0
 
 L5A2_Echo_count equ 0x1
 L5A2_Echo_6_idx	equ 0x0
@@ -39,9 +39,9 @@ L5A2_Log1_name	dc.b "L5A2_Log1",0
 	even
 	ENDIF
 
-L5A2_Borgus_count equ 0x0
-
 L5A2_DjakkCage_count equ 0x0
+
+L5A2_Borgus_count equ 0x0
 
 L5A2_Monster_count equ 0x0
 
@@ -101,6 +101,8 @@ L5A2_Stone_32_name	dc.b "L5A2_Stone_32",0
 
 L5A2_Demon_count equ 0x0
 
+L5A2_Raft_count equ 0x0
+
 L5A2_Nest_count equ 0x2
 L5A2_Nest_16_idx	equ 0x0
 L5A2_Nest_38_idx	equ 0x1
@@ -127,19 +129,19 @@ L5A2_WaterBody_count equ 0x0
 
 L5A2_Location_count equ 0x0
 
-L5A2_Lift_count equ 0x1
-L5A2_Lift1_idx	equ 0x0
-
-	IFND FINAL
-L5A2_Lift1_name	dc.b "L5A2_Lift1",0
-	even
-	ENDIF
-
 L5A2_Deathbox_count equ 0x1
 L5A2_Deathbox_46_idx	equ 0x0
 
 	IFND FINAL
 L5A2_Deathbox_46_name	dc.b "L5A2_Deathbox_46",0
+	even
+	ENDIF
+
+L5A2_Lift_count equ 0x1
+L5A2_Lift1_idx	equ 0x0
+
+	IFND FINAL
+L5A2_Lift1_name	dc.b "L5A2_Lift1",0
 	even
 	ENDIF
 
@@ -201,8 +203,6 @@ L5A2_Winch_count equ 0x0
 
 L5A2_WindFlue_count equ 0x0
 
-L5A2_Raft_count equ 0x0
-
 L5A2_Lock_count equ 0x0
 
 L5A2_Pool_count equ 0x0
@@ -238,6 +238,8 @@ L5A2_Stalactite_count equ 0x0
 L5A2_CargoLift_count equ 0x0
 
 L5A2_Scrap_count equ 0x0
+
+L5A2_Longboat_count equ 0x0
 
 
 
@@ -524,6 +526,7 @@ L5A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A2_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -582,25 +585,6 @@ L5A2_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A2_Lift_count)
-	move.l a1, EntityPoolStart_Lift
-	move.l a1, a0
-	POPL   a1
-
-	jsr LiftInit
-	move.l #0x09a80000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A2_Lift1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LiftLoadGfx
-	add.l #Lift_Struct_Size, a0
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L5A2_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
 	move.l a1, a0
@@ -618,6 +602,25 @@ L5A2_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lift_Struct_Size*L5A2_Lift_count)
+	move.l a1, EntityPoolStart_Lift
+	move.l a1, a0
+	POPL   a1
+
+	jsr LiftInit
+	move.l #0x09a80000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A2_Lift1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr LiftLoadGfx
+	add.l #Lift_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -759,7 +762,6 @@ L5A2_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A2_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -886,6 +888,7 @@ L5A2_LoadGameObjects:
 	ENDIF
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
+
 
 
 

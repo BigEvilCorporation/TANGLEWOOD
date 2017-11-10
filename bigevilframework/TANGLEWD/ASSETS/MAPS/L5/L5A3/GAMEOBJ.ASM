@@ -9,9 +9,9 @@
 
 L5A3_Leaf_count equ 0x0
 
-L5A3_Trap_count equ 0x0
-
 L5A3_Djubb_count equ 0x0
+
+L5A3_Trap_count equ 0x0
 
 L5A3_Echo_count equ 0x1
 L5A3_Echo_4_idx	equ 0x0
@@ -33,9 +33,9 @@ L5A3_BouncePlant_count equ 0x0
 
 L5A3_Log_count equ 0x0
 
-L5A3_Borgus_count equ 0x0
-
 L5A3_DjakkCage_count equ 0x0
+
+L5A3_Borgus_count equ 0x0
 
 L5A3_Monster_count equ 0x1
 L5A3_Djakk1_idx	equ 0x0
@@ -93,6 +93,14 @@ L5A3_Demon_name	dc.b "L5A3_Demon",0
 	even
 	ENDIF
 
+L5A3_Raft_count equ 0x1
+L5A3_Raft1_idx	equ 0x0
+
+	IFND FINAL
+L5A3_Raft1_name	dc.b "L5A3_Raft1",0
+	even
+	ENDIF
+
 L5A3_Nest_count equ 0x2
 L5A3_Nest_27_idx	equ 0x0
 L5A3_Nest_29_idx	equ 0x1
@@ -143,8 +151,6 @@ L5A3_WaterBody_count equ 0x0
 
 L5A3_Location_count equ 0x0
 
-L5A3_Lift_count equ 0x0
-
 L5A3_Deathbox_count equ 0x2
 L5A3_Deathbox_23_idx	equ 0x0
 L5A3_Deathbox_41_idx	equ 0x1
@@ -154,6 +160,8 @@ L5A3_Deathbox_23_name	dc.b "L5A3_Deathbox_23",0
 L5A3_Deathbox_41_name	dc.b "L5A3_Deathbox_41",0
 	even
 	ENDIF
+
+L5A3_Lift_count equ 0x0
 
 L5A3_Crate_count equ 0x0
 
@@ -241,14 +249,6 @@ L5A3_Winch2_name	dc.b "L5A3_Winch2",0
 
 L5A3_WindFlue_count equ 0x0
 
-L5A3_Raft_count equ 0x1
-L5A3_Raft1_idx	equ 0x0
-
-	IFND FINAL
-L5A3_Raft1_name	dc.b "L5A3_Raft1",0
-	even
-	ENDIF
-
 L5A3_Lock_count equ 0x0
 
 L5A3_Pool_count equ 0x0
@@ -302,6 +302,8 @@ L5A3_Scrap_idx	equ 0x0
 L5A3_Scrap_name	dc.b "L5A3_Scrap",0
 	even
 	ENDIF
+
+L5A3_Longboat_count equ 0x0
 
 
 
@@ -546,6 +548,25 @@ L5A3_LoadGameObjects:
 	add.l #Demon_Struct_Size, a0
 
 	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L5A3_Raft_count)
+	move.l a1, EntityPoolStart_Raft
+	move.l a1, a0
+	POPL   a1
+
+	jsr RaftInit
+	move.l #0x15180000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
+	IFND FINAL
+	lea L5A3_Raft1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	jsr RaftLoadGfx
+	add.l #Raft_Struct_Size, a0
+
+	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A3_Nest_count)
 	move.l a1, EntityPoolStart_Nest
 	move.l a1, a0
@@ -747,7 +768,6 @@ L5A3_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L5A3_Deathbox_count)
 	move.l a1, EntityPoolStart_Deathbox
@@ -778,6 +798,7 @@ L5A3_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -1056,25 +1077,6 @@ L5A3_LoadGameObjects:
 	add.l #Winch_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Raft_Struct_Size*L5A3_Raft_count)
-	move.l a1, EntityPoolStart_Raft
-	move.l a1, a0
-	POPL   a1
-
-	jsr RaftInit
-	move.l #0x15180000, Entity_WorldPosX(a0)
-	move.l #0x04e80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A3_Raft1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr RaftLoadGfx
-	add.l #Raft_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -1261,6 +1263,7 @@ L5A3_LoadGameObjects:
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr ScrapLoadGfx
 	add.l #Scrap_Struct_Size, a0
+
 
 	rts
 

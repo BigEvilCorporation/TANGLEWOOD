@@ -9,9 +9,9 @@
 
 L8A3_Leaf_count equ 0x0
 
-L8A3_Trap_count equ 0x0
-
 L8A3_Djubb_count equ 0x0
+
+L8A3_Trap_count equ 0x0
 
 L8A3_Echo_count equ 0x1
 L8A3_Echo_2_idx	equ 0x0
@@ -27,9 +27,9 @@ L8A3_BouncePlant_count equ 0x0
 
 L8A3_Log_count equ 0x0
 
-L8A3_Borgus_count equ 0x0
-
 L8A3_DjakkCage_count equ 0x0
+
+L8A3_Borgus_count equ 0x0
 
 L8A3_Monster_count equ 0x0
 
@@ -57,6 +57,8 @@ L8A3_Demon_name	dc.b "L8A3_Demon",0
 	even
 	ENDIF
 
+L8A3_Raft_count equ 0x0
+
 L8A3_Nest_count equ 0x0
 
 L8A3_Flue_count equ 0x0
@@ -81,9 +83,9 @@ L8A3_WaterBody_count equ 0x0
 
 L8A3_Location_count equ 0x0
 
-L8A3_Lift_count equ 0x0
-
 L8A3_Deathbox_count equ 0x0
+
+L8A3_Lift_count equ 0x0
 
 L8A3_Crate_count equ 0x0
 
@@ -133,8 +135,6 @@ L8A3_Winch_count equ 0x0
 
 L8A3_WindFlue_count equ 0x0
 
-L8A3_Raft_count equ 0x0
-
 L8A3_Lock_count equ 0x0
 
 L8A3_Pool_count equ 0x0
@@ -172,6 +172,8 @@ L8A3_CargoLift_name	dc.b "L8A3_CargoLift",0
 	ENDIF
 
 L8A3_Scrap_count equ 0x0
+
+L8A3_Longboat_count equ 0x0
 
 
 
@@ -246,6 +248,7 @@ L8A3_LoadGameObjects:
 	ENDIF
 	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 
@@ -419,7 +422,6 @@ L8A3_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L8A3_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -524,6 +526,7 @@ L8A3_LoadGameObjects:
 	ENDIF
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 	rts

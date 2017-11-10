@@ -9,9 +9,9 @@
 
 L5A1_Leaf_count equ 0x0
 
-L5A1_Trap_count equ 0x0
-
 L5A1_Djubb_count equ 0x0
+
+L5A1_Trap_count equ 0x0
 
 L5A1_Echo_count equ 0x1
 L5A1_Echo_7_idx	equ 0x0
@@ -39,9 +39,9 @@ L5A1_Log1_name	dc.b "L5A1_Log1",0
 	even
 	ENDIF
 
-L5A1_Borgus_count equ 0x0
-
 L5A1_DjakkCage_count equ 0x0
+
+L5A1_Borgus_count equ 0x0
 
 L5A1_Monster_count equ 0x0
 
@@ -87,6 +87,8 @@ L5A1_Stone_38_name	dc.b "L5A1_Stone_38",0
 
 L5A1_Demon_count equ 0x0
 
+L5A1_Raft_count equ 0x0
+
 L5A1_Nest_count equ 0x1
 L5A1_Nest_8_idx	equ 0x0
 
@@ -111,8 +113,6 @@ L5A1_WaterBody_count equ 0x0
 
 L5A1_Location_count equ 0x0
 
-L5A1_Lift_count equ 0x0
-
 L5A1_Deathbox_count equ 0x3
 L5A1_Deathbox_37_idx	equ 0x0
 L5A1_Deathbox_43_idx	equ 0x1
@@ -124,6 +124,8 @@ L5A1_Deathbox_43_name	dc.b "L5A1_Deathbox_43",0
 L5A1_Deathbox_44_name	dc.b "L5A1_Deathbox_44",0
 	even
 	ENDIF
+
+L5A1_Lift_count equ 0x0
 
 L5A1_Crate_count equ 0x0
 
@@ -207,27 +209,23 @@ L5A1_Winch_count equ 0x0
 
 L5A1_WindFlue_count equ 0x0
 
-L5A1_Raft_count equ 0x0
-
 L5A1_Lock_count equ 0x0
 
 L5A1_Pool_count equ 0x0
 
-L5A1_Ladder_count equ 0x6
+L5A1_Ladder_count equ 0x5
 L5A1_Ladder_46_idx	equ 0x0
 L5A1_Ladder_47_idx	equ 0x1
-L5A1_Ladder_48_idx	equ 0x2
+L5A1_Ladder_51_idx	equ 0x2
 L5A1_Ladder_49_idx	equ 0x3
 L5A1_Ladder_50_idx	equ 0x4
-L5A1_Ladder_51_idx	equ 0x5
 
 	IFND FINAL
 L5A1_Ladder_46_name	dc.b "L5A1_Ladder_46",0
 L5A1_Ladder_47_name	dc.b "L5A1_Ladder_47",0
-L5A1_Ladder_48_name	dc.b "L5A1_Ladder_48",0
+L5A1_Ladder_51_name	dc.b "L5A1_Ladder_51",0
 L5A1_Ladder_49_name	dc.b "L5A1_Ladder_49",0
 L5A1_Ladder_50_name	dc.b "L5A1_Ladder_50",0
-L5A1_Ladder_51_name	dc.b "L5A1_Ladder_51",0
 	even
 	ENDIF
 
@@ -242,6 +240,8 @@ L5A1_CargoLift_name	dc.b "L5A1_CargoLift",0
 	ENDIF
 
 L5A1_Scrap_count equ 0x0
+
+L5A1_Longboat_count equ 0x0
 
 
 
@@ -461,6 +461,7 @@ L5A1_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A1_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -502,7 +503,6 @@ L5A1_LoadGameObjects:
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
-
 
 
 
@@ -549,6 +549,7 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr DeathboxLoadGfx
 	add.l #Deathbox_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -644,8 +645,8 @@ L5A1_LoadGameObjects:
 	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 	jsr ButtonInit
-	move.l #0x11200000, Entity_WorldPosX(a0)
-	move.l #0x06080000, Entity_WorldPosY(a0)
+	move.l #0x11680000, Entity_WorldPosX(a0)
+	move.l #0x05e80000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Button2_name, a3
 	move.l a0, a2
@@ -821,7 +822,6 @@ L5A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A1_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -853,10 +853,10 @@ L5A1_LoadGameObjects:
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
-	move.l #0x10980000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x17000000, Entity_WorldPosX(a0)
+	move.l #0x05880000, Entity_WorldPosY(a0)
 	IFND FINAL
-	lea L5A1_Ladder_48_name, a3
+	lea L5A1_Ladder_51_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
@@ -865,8 +865,8 @@ L5A1_LoadGameObjects:
 	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
 	jsr LadderInit
-	move.l #0x10980000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.l #0x10200000, Entity_WorldPosX(a0)
+	move.l #0x05280000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Ladder_49_name, a3
 	move.l a0, a2
@@ -881,18 +881,6 @@ L5A1_LoadGameObjects:
 	move.l #0x02c00000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L5A1_Ladder_50_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr LadderLoadGfx
-	add.l #Ladder_Struct_Size, a0
-	jsr LadderInit
-	move.l #0x17000000, Entity_WorldPosX(a0)
-	move.l #0x05880000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L5A1_Ladder_51_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
@@ -920,6 +908,7 @@ L5A1_LoadGameObjects:
 	ENDIF
 	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 	rts

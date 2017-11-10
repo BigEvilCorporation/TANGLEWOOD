@@ -78,6 +78,7 @@ CartInit:
 	move.b  #Cart_Mass, PhysicsObj_Mass(a0)
 	;move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	;move.b  #0x1, PhysicsObj_CanBePulled(a0)
+	move.b  #0x1, PhysicsObj_Buoyant(a0)
 	move.l  #0x0, Cart_Occupant(a0)
 	move.b  #0x0, Cart_Smashed(a0)
 	
