@@ -344,10 +344,11 @@ RenderBeginFrame:
 	; Reset sprite link counter
 	move.w #0x0, next_sprite_index
 
-	; Move first sprite to border
-	move.w #0x0, d0
-	move.w #0x0, d1
-	jsr    SPR_SetPosY
+	; Move first sprite to border and unlink
+	lea     vdp_sprite_table, a0
+	move.w  #0x1, Sprite_CoordX(a0)
+	move.w  #0x1, Sprite_CoordY(a0)
+	move.b  #0x0, Sprite_NextID(a0)
 	
 	IFD DEBUG
 	; Profiler frame start
@@ -423,12 +424,13 @@ __vinterrupt:
 
 	; DMA the sprite table
 	move.w (next_sprite_index), d1
-	beq    @NoSprites
+	bne    @SpritesValid
+	moveq  #0x1, d1			; If no sprites, still need to DMA "blank" sprite
+	@SpritesValid:
 	lea    vdp_sprite_table, a0
 	move.l #vram_addr_sprite_table, d0
 	mulu.w #Sprite_Struct_Size/size_word, d1
 	jsr    VDP_DMACopyVRAM
-	@NoSprites:
 
 	; DMA palettes if dirty
 	move.l #0x0, d0
