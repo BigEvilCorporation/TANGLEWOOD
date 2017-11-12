@@ -74,6 +74,12 @@ LadderDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @OutOfView
+
 	; Backup Y pos
 	move.l Entity_WorldPosY(a0), d0
 	PUSHL  d0
@@ -95,5 +101,7 @@ LadderDraw:
 	; Restore Y pos
 	POPL   d0
 	move.l d0, Entity_WorldPosY(a0)
+
+	@OutOfView:
 
 	rts
