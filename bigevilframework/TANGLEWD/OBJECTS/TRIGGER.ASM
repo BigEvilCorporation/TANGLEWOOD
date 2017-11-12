@@ -13,6 +13,7 @@ TriggerBox_Height       equ 0x0080
 ; Struct
 	rsset (Entity_Struct_Size)
 ;--------------------------
+TriggerBox_WatchObject  rs.l 1	; Object to check against trigger (Player1 by default)
 TriggerBox_Routine      rs.l 1	; Subroutine address
 TriggerBox_RegisterD0	rs.l 1	; D Regs
 TriggerBox_RegisterD1	rs.l 1
@@ -59,6 +60,7 @@ TriggerBoxInit:
 	move.b #0x1, Entity_Active(a0)
 	move.w #TriggerBox_Width, Entity_Width(a0)
 	move.w #TriggerBox_Height, Entity_Height(a0)
+	move.l #Player1, TriggerBox_WatchObject(a0)
 	move.b #0x0, TriggerBox_Triggered(a0)
 	move.b #0x0, TriggerBox_TriggerOnce(a0)
 	move.b #0x0, TriggerBox_XOnly(a0)
@@ -92,8 +94,9 @@ TriggerBoxUpdate:
 	
 	@TriggerMultiple:
 	
-	;Get player
-	move.l (Player1), a1
+	; Get watch object
+	move.l TriggerBox_WatchObject(a0), a1
+	move.l (a1), a1
 	
 	tst.b  TriggerBox_XOnly(a0)
 	bne    @TestXOnly

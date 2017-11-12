@@ -344,6 +344,24 @@ l5a3_Trigger_CargoLift:
 
 	rts
 
+l5a3_TriggerEchoStartGlide:
+
+	PUSHL a0
+	move.l Player2, a0
+	jsr    PlayerStartColourAbility
+	POPL  a0
+
+	rts
+
+l5a3_TriggerEchoStopGlide:
+
+	PUSHL a0
+	move.l Player2, a0
+	jsr    PlayerStopColourAbility
+	POPL  a0
+
+	rts
+
 l5a3_CutsceneLoadLift:
 	; a0 --- Cutscene
 

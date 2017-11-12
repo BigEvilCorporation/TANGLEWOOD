@@ -190,6 +190,7 @@ L8A3_LoadGameObjects:
 	jsr EchoInit
 	move.l #0x06080000, Entity_WorldPosX(a0)
 	move.l #0x00800000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
 	IFND FINAL
 	lea L8A3_Echo_2_name, a3
 	move.l a0, a2
@@ -197,8 +198,8 @@ L8A3_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -218,6 +219,8 @@ L8A3_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x01700000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.b #ColourRed, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L8A3_FuzzlRed1_name, a3
 	move.l a0, a2
@@ -225,9 +228,8 @@ L8A3_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #ColourRed, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -239,6 +241,7 @@ L8A3_LoadGameObjects:
 	jsr DemonInit
 	move.l #0x02100000, Entity_WorldPosX(a0)
 	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
 	IFND FINAL
 	lea L8A3_Demon_name, a3
 	move.l a0, a2
@@ -246,8 +249,8 @@ L8A3_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 
@@ -261,6 +264,9 @@ L8A3_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x00c80000, Entity_WorldPosX(a0)
 	move.l #0x00b00000, Entity_WorldPosY(a0)
+	move.l #l8a3_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A3_TriggerLevelEnd_name, a3
 	move.l a0, a2
@@ -268,13 +274,14 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a3_Trigger_End, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x00c80000, Entity_WorldPosX(a0)
 	move.l #0x01800000, Entity_WorldPosY(a0)
+	move.l #l8a3_Trigger_Lift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_EachFrame(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A3_TriggerStartLift_name, a3
 	move.l a0, a2
@@ -282,13 +289,14 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a3_Trigger_Lift, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_EachFrame(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x05e00000, Entity_WorldPosX(a0)
 	move.l #0x01a80000, Entity_WorldPosY(a0)
+	move.l #l8a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A3_TriggerShakeStart_name, a3
 	move.l a0, a2
@@ -296,13 +304,15 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x02280000, Entity_WorldPosX(a0)
 	move.l #0x01800000, Entity_WorldPosY(a0)
+	move.l #l8a3_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A3_TriggerDemon_name, a3
 	move.l a0, a2
@@ -310,11 +320,8 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a3_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 
 
 
@@ -331,6 +338,7 @@ L8A3_LoadGameObjects:
 	jsr GeneratorInit
 	move.l #0x01680000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
+	jsr GeneratorLoadGfx
 	IFND FINAL
 	lea L8A3_Generator1_name, a3
 	move.l a0, a2
@@ -338,8 +346,8 @@ L8A3_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L8A3_Cogs_count)
@@ -350,6 +358,7 @@ L8A3_LoadGameObjects:
 	jsr CogsInit
 	move.l #0x01800000, Entity_WorldPosX(a0)
 	move.l #0x01780000, Entity_WorldPosY(a0)
+	jsr CogsLoadGfx
 	IFND FINAL
 	lea L8A3_Cogs1_name, a3
 	move.l a0, a2
@@ -357,8 +366,8 @@ L8A3_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L8A3_Bridge_count)
@@ -369,6 +378,11 @@ L8A3_LoadGameObjects:
 	jsr BridgeInit
 	move.l #0x03980000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateClosed, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a0)
+	jsr BridgeLoadGfx
 	IFND FINAL
 	lea L8A3_Bridge1_name, a3
 	move.l a0, a2
@@ -376,12 +390,8 @@ L8A3_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateClosed, Bridge_State(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	move.b #0x1, Bridge_UpdateOutOfView(a0)
-	jsr BridgeLoadGfx
 	add.l #Bridge_Struct_Size, a0
+
 
 
 
@@ -394,6 +404,7 @@ L8A3_LoadGameObjects:
 	jsr AIMarkerInit
 	move.l #0x00c80000, Entity_WorldPosX(a0)
 	move.l #0x01f00000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A3_MarkerDemonLeftBounds_name, a3
 	move.l a0, a2
@@ -401,11 +412,12 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 	jsr AIMarkerInit
 	move.l #0x04480000, Entity_WorldPosX(a0)
 	move.l #0x02000000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A3_MarkerDemonRightBounds_name, a3
 	move.l a0, a2
@@ -413,8 +425,8 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr AIMarkerLoadGfx
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 
@@ -431,6 +443,7 @@ L8A3_LoadGameObjects:
 	jsr LadderInit
 	move.l #0x03a00000, Entity_WorldPosX(a0)
 	move.l #0x02200000, Entity_WorldPosY(a0)
+	jsr LadderLoadGfx
 	IFND FINAL
 	lea L8A3_Ladder_1_name, a3
 	move.l a0, a2
@@ -438,8 +451,8 @@ L8A3_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LadderLoadGfx
 	add.l #Ladder_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stalactite_Struct_Size*L8A3_Stalactite_count)
@@ -450,6 +463,7 @@ L8A3_LoadGameObjects:
 	jsr StalactiteInit
 	move.l #0x05600000, Entity_WorldPosX(a0)
 	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L8A3_Stalactite_7_name, a3
 	move.l a0, a2
@@ -457,11 +471,12 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
+
 	jsr StalactiteInit
 	move.l #0x05080000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
+	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L8A3_Stalactite_8_name, a3
 	move.l a0, a2
@@ -469,11 +484,12 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
+
 	jsr StalactiteInit
 	move.l #0x03180000, Entity_WorldPosX(a0)
 	move.l #0x01680000, Entity_WorldPosY(a0)
+	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L8A3_Stalactite_9_name, a3
 	move.l a0, a2
@@ -481,11 +497,12 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
+
 	jsr StalactiteInit
 	move.l #0x02c80000, Entity_WorldPosX(a0)
 	move.l #0x01680000, Entity_WorldPosY(a0)
+	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L8A3_Stalactite_10_name, a3
 	move.l a0, a2
@@ -493,11 +510,12 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
+
 	jsr StalactiteInit
 	move.l #0x04900000, Entity_WorldPosX(a0)
 	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L8A3_Stalactite_19_name, a3
 	move.l a0, a2
@@ -505,8 +523,8 @@ L8A3_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StalactiteLoadGfx
 	add.l #Stalactite_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L8A3_CargoLift_count)
@@ -517,6 +535,7 @@ L8A3_LoadGameObjects:
 	jsr CargoLiftInit
 	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x01900000, Entity_WorldPosY(a0)
+	jsr CargoLiftLoadGfx
 	IFND FINAL
 	lea L8A3_CargoLift_name, a3
 	move.l a0, a2
@@ -524,8 +543,8 @@ L8A3_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 
