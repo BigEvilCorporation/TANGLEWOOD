@@ -305,6 +305,10 @@ WindFlueUpdate:
 WindFlueDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	tst.b   WindFlue_Visible(a0)
 	beq     @Invisible

@@ -217,7 +217,7 @@ Gameplay_Render:
 	; Update camera
 	jsr CAM_Update
 	
-	; Draw game objects
+	; Render all entities
 	jsr EntityRenderAll
 	
 	; Update map streaming (don't flush VDP queue)

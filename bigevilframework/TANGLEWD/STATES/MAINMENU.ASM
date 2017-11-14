@@ -109,6 +109,8 @@ MainMenu_Enter:
 	; Load logo
 	lea    GameStateMainMenuData+MainMenuState_LogoSprite, a0
 	jsr    SpriteObjInit
+	move.w #actor_twd_logo_sheet_twd_logo_width, Entity_Width(a0)
+	move.w #actor_twd_logo_sheet_twd_logo_height, Entity_Height(a0)
 	move.l #SpriteObjUpdate, Entity_UpdateRoutine(a0)
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
 	jsr    EntityAddToUpdateList

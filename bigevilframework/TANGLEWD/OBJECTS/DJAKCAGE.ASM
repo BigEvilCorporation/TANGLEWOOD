@@ -145,6 +145,10 @@ DjakkCageUpdate:
 DjakkCageDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	move.l Entity_WorldPosX(a0), d0
 	PUSHL  d0

@@ -39,14 +39,6 @@ PickupUpdate:
 	; Base functionality
 	jsr PhysicsObjUpdate
 	rts
-
-PickupDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr AnimObjDraw
-	rts
 	
 PickupTestObj:
 	; a0 --- Pickup address

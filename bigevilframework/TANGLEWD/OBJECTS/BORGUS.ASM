@@ -107,7 +107,7 @@ BorgusInit:
 	
 	; Set update and render routines
 	move.l #BorgusUpdate, Entity_UpdateRoutine(a0)
-	move.l #BorgusDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	move.l #BorgusSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -158,6 +158,8 @@ BorgusInit:
 	PUSHL   a0
 	lea     Borgus_Spitball(a0), a0
 	jsr     PhysicsObjInit
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	jsr     EntityAddToRenderList
 	move.w  #BorgusSpitball_Width, Entity_Width(a0)
 	move.w  #BorgusSpitball_Height, Entity_Height(a0)
 	MOVE_NTSC_L BorgusSpitball_MaxVel, PhysicsObj_MaxVelAirX(a0), d0
@@ -268,23 +270,6 @@ BorgusUpdate:
 
 	; Update spitball
 	jsr    BorgusUpdateSpitball
-
-	rts
-
-BorgusDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Base functionality
-	jsr    CharacterDraw
-
-	;==============================================================
-
-	; Draw spitball
-	PUSHM   a0-a1
-	lea     Borgus_Spitball(a0), a0
-	jsr     AnimObjDraw
-	POPM    a0-a1
 
 	rts
 	

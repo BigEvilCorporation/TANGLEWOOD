@@ -226,6 +226,10 @@ PoolUpdate:
 PoolDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	; Update animation
 	jsr    AnimObjDraw
@@ -238,6 +242,8 @@ PoolDraw:
 	jsr    SpriteObjCheckBounds
 	tst.b  d0
 	beq    @OutOfBounds
+	
+	PUSHMW d2-d5
 
 	;==============================================================
 	; Pool visible
@@ -417,53 +423,11 @@ PoolDraw:
 
 	move.b #0x0, Pool_DirtyMap(a0)
 	
-	rts
+	POPMW  d2-d5
 	
-	PUSHL  a0
-
-	; Draw filled body to map
-	addq.w #0x1, d1				; Start at next row down
-	
-	; Up to water height
-	move.w Pool_WaterHeight(a0), d6
-	lsr.w  #0x3, d6
-	subq.w #0x2, d6				; -1 for top layer, -1 for count
-	ble    @ZeroLevel
-	
-	; Get body DMA line
-	lea    Pool_MapLineBody(a0), a0
-	
-	@FillLpY:
-
-	; Backup X, Y, size
-	PUSHM  d0-d2
-
-	; DMA the body line
-	jsr    PoolDMALine
-
-	; TODO: Second line
-
-	@NextBodyLine:
-	
-	; Restore X, Y, size, DMA line
-	POPM   d0-d2
-
-	; Advance Y
-	addq.w #0x1, d1
-
-	dbra   d6, @FillLpY
-	
-	POPL   a0
-
-	@ZeroLevel:
-
-	;==============================================================
-
 	@NotDirty:
 	@OutOfBounds:
-
-	move.b #0x0, Pool_DirtyMap(a0)
-
+	
 	rts
 
 PoolDMALine:

@@ -21,6 +21,7 @@ Entity_SerialiseRoutine	rs.l 1 ; Save/load subroutine address
 	LINKED_LIST_NODE EntityUpdate ; Next in update linked list
 	LINKED_LIST_NODE EntityRender ; Next in render linked list
 	LINKED_LIST_NODE EntitySerialise ; Next in serialise linked list
+	LINKED_LIST_NODE EntityQuadTree ; Next in quadtree linked list
 ;-----------------------------
 Entity_WorldPosX        rs.l 1 ; Position X (world space)
 Entity_WorldPosY        rs.l 1 ; Position Y (world space)
@@ -96,6 +97,84 @@ EntityClearRenderList:
 EntityClearSerialiseList:
 	LIST_CLEAR EntitySerialise,a4,a3
 	rts
+
+;==============================================================
+; Quadtree
+;==============================================================
+	IFD ENTITY_USE_QUADTREE
+EntityAddToQuadTree:
+	; a0 --- Entity address
+	; d0 (w) Quadtree index
+	
+	move.l Entity_RenderRoutine(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoRenderRoutine
+
+	IFND FINAL
+	cmp.w  #entity_quadtree_maxcells, d0
+	blt    @NoErr
+	RAISE_EXCEPTION *
+	@NoErr:
+	ENDIF
+
+	; Get list head
+	andi.l #0xFFFF, d0
+	lsl.l  #0x2, d0				; Index to ptr offset
+	lea    EntityQuadTree, a2
+	add.l  d0, a2
+
+	; Get head obj
+	move.l (a2), a3
+	cmp.l  #0x0, a3
+	beq    @FoundTail
+
+	; Find tail
+	@FindTailLp:
+	lea    List_EntityQuadTree_Next(a3), a2
+	cmp.l  #0x0, (a2)
+	beq    @FoundTail
+	move.l (a2), a3
+	bra    @FindTailLp
+
+	@FoundTail:
+	move.l a0, (a2)
+	
+	@NoRenderRoutine:
+
+	rts
+
+EntityRenderQuadTree:
+	; d0 (w) Quadtree index
+
+	IFND FINAL
+	cmp.w  #entity_quadtree_maxcells, d0
+	blt    @NoErr
+	RAISE_EXCEPTION *
+	@NoErr:
+	ENDIF
+
+	; Get list head
+	andi.l #0xFFFF, d0
+	lsl.l  #0x2, d0				; Index to ptr offset
+	lea    EntityQuadTree, a2
+	add.l  d0, a2
+
+	; Get head obj
+	move.l (a2), a0
+
+	; Render all
+	@RenderLp:
+	cmp.l  #0x0, a0
+	beq    @End
+	move.l Entity_RenderRoutine(a0), a2 ; Get Render routine
+	jsr    (a2)							; Execute Render routine
+	move.l List_EntityQuadTree_Next(a0), a0
+	bra    @RenderLp
+
+	@End:
+
+	rts
+	ENDIF
 	
 EntityUpdateAll:
 	; a1 --- Level address
@@ -123,6 +202,22 @@ EntityUpdateAll:
 	
 EntityRenderAll:
 	; a1 --- Level address
+
+	; Camera left
+	move.w WorldScrollX, d2
+	move.w d2, d3
+	addi.w #vdp_sprite_border_x, d2
+
+	; Camera right
+	addi.w #vdp_sprite_border_x+screen_width, d3
+
+	; Camera top
+	move.w WorldScrollY, d4
+	move.w d4, d5
+	addi.w #vdp_sprite_border_y, d4
+
+	; Camera bottom
+	addi.w #vdp_sprite_border_y+screen_height, d5
 	
 	LIST_GET_HEAD EntityRender,a0		; Get list head
 	@EntityLp:							; For all entities in list

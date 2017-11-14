@@ -418,6 +418,13 @@ __paddqng05			     rs.b 3
 	LINKED_LIST EntitySerialise
 
 ; ************************************
+; Entity quad tree (n * linked list heads)
+; ************************************
+	IFD ENTITY_USE_QUADTREE
+EntityQuadTree			 rs.l entity_quadtree_maxcells
+	ENDIF
+
+; ************************************
 ; Entity lists by type
 ; ************************************
 	LINKED_LIST Characters	 	; Characters

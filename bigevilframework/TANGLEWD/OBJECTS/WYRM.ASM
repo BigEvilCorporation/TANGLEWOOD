@@ -358,11 +358,15 @@ WyrmUpdate:
 WyrmDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	; Draw Wyrm
 	tst.b Character_Dead(a0)
 	bne   @Dead
-	jsr   CharacterDraw
+	jsr   AnimObjDraw
 	@Dead:
 
 	; Draw debris
@@ -377,15 +381,15 @@ WyrmDraw:
 	move.l Wyrm_DebrisPositions(a2), d1
 
 	; Set Y
-	move.w d1, d2
-	TOSUBPIXELS d2
-	move.l d2, Entity_WorldPosY(a0)
+	move.w d1, d6
+	TOSUBPIXELS d6
+	move.l d6, Entity_WorldPosY(a0)
 	
 	; Set X
 	swap   d1
-	move.w d1, d2
-	TOSUBPIXELS d2
-	move.l d2, Entity_WorldPosX(a0)
+	move.w d1, d6
+	TOSUBPIXELS d6
+	move.l d6, Entity_WorldPosX(a0)
 
 	; Draw
 	jsr    AnimObjDraw

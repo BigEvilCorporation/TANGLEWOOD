@@ -88,10 +88,6 @@ LongboatInit:
 	move.w  #0x0, Longboat_Tilt(a0)
 	move.b  #0x0, Longboat_Visible(a0)
 
-	; Offset draw pos by float height
-	; TODO: animate this
-	move.w  #Longboat_FloatOffsetY, SpriteObj_DrawOffsetY(a0)
-
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w  #0x0, PhysicsObj_BoundsTop(a0)
@@ -162,15 +158,21 @@ LongboatUpdate:
 LongboatDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 	
 	tst.b Longboat_Visible(a0)
 	beq   @Invisible
 
-	; Get pos
+	; Get X pos
 	move.w Entity_WorldPosX(a0), d0
-	move.w Entity_WorldPosY(a0), d1
 
-	PUSHM  d0-d1
+	; To sprite space
+	sub.w  WorldScrollX, d0
+
+	PUSHMW d2-d5
 
 	; Get Y position array
 	lea    Longboat_YOffsets(a0), a2
@@ -182,30 +184,27 @@ LongboatDraw:
 	; Next Y
 	move.w (a2)+, d1
 
-	; Apply pos
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
+	; To sprite space
+	sub.w  WorldScrollY, d1
+
+	; Add float offset
+	addi.w #Longboat_FloatOffsetY, d1
 
 	; Draw segment
-	PUSHM  d0-d2/d6
-	jsr    SpriteObjDraw
-	POPM   d0-d2/d6
+	PUSHMW d0/d6/a2
+	jsr    SpriteObjAllocSprite
+	POPMW  d0/d6/a2
 
 	; Next X
 	addi.w #Longboat_SegmentWidth, d0
-
-	; Update visibility
-	move.b SpriteObj_SpriteLinked(a0), d5
-	or.b   d5, Longboat_Visible(a0)
-
 	dbra   d6, @SpriteLp
 
-	POPM   d0-d1
-
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
+	POPMW  d2-d5
 
 	@Invisible:
+
+	; Update visibility
+	move.b Longboat_Visible(a0), SpriteObj_SpriteLinked(a0)
 
 	rts
 

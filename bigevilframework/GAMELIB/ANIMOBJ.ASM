@@ -184,6 +184,10 @@ AnimObjUpdate:
 AnimObjDraw:
 	; a0 --- AnimObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	; Check if new frame needs uploading to VRAM
 	tst.b  AnimObj_UploadFrame(a0)
@@ -193,8 +197,11 @@ AnimObjDraw:
 	move.l AnimObj_CurrentAnim(a0), a2
 	
 	; Get length
-	move.b Animation_Length(a2), d3
+	move.b Animation_Length(a2), d6
 	beq    @ZeroLength
+
+	; Backup camera
+	PUSHM  d2-d5
 
 	; Get subframe
 	move.l AnimObj_AnimSubframe(a0), d2
@@ -204,8 +211,8 @@ AnimObjDraw:
 	
 	; Wrap
 	andi.l #0xFFFF, d2
-	andi.l #0xFF, d3
-	divs   d3, d2		; Div frame count against num anim frames
+	andi.l #0xFF, d6
+	divs   d6, d2		; Div frame count against num anim frames
 	clr.w  d2
 	swap   d2			; Remainder to lower word
 	
@@ -290,6 +297,9 @@ AnimObjDraw:
 	
 	; Done
 	move.b #0x0, AnimObj_UploadFrame(a0)
+
+	; Restore camera
+	POPM   d2-d5
 	
 	@NoNewFrame:
 	@ZeroLength:

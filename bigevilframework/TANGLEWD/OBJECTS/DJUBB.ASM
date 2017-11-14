@@ -50,7 +50,7 @@ DjubbInit:
 	
 	; Set update and render routines
 	move.l #DjubbUpdate, Entity_UpdateRoutine(a0)
-	move.l #CharacterDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	move.l #DjubbSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists

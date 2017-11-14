@@ -244,15 +244,19 @@ NymnUpdate:
 NymnDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
-	jsr    CharacterDraw
+	jsr    AnimObjDraw
 
 	; If carrying Echo, manually draw Echo so anim frames match up
 	tst.b  Nymn_CarryEchoState(a0)
 	beq    @NotCarryingEcho
 	PUSHL  a0
 	move.l (Player2), a0
-	jsr    CharacterDraw
+	jsr    AnimObjDraw
 	POPL   a0
 	@NotCarryingEcho:
 

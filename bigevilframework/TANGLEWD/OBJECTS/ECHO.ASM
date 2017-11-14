@@ -533,11 +533,15 @@ EchoUpdateRiding:
 EchoDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	; If mounting Nymn, drawing is handled by Nymn to match anim frames
 	tst.b Echo_MountedState(a0)
 	bne   @NoDraw
-	jsr   CharacterDraw
+	jsr   AnimObjDraw
 	@NoDraw:
 
 	IF ECHO_AI_DEBUG_NODE_POS

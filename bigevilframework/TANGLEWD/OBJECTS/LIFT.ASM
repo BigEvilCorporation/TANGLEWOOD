@@ -25,8 +25,8 @@ Lift_FallSpeedNoCounterweight	equ 0x00070000	; Fall speed with no counterweight
 Lift_RopeLengthDefault	equ (38*8)			; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)
 
-Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))*subpixels_per_pixel
-Lift_RopePosOffsetY		equ -(Rope_Height)*subpixels_per_pixel
+Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))
+Lift_RopePosOffsetY		equ -(Rope_Height)
 
 Lift_MaxRopeAnimFrameDist	equ Rope_Width
 
@@ -822,6 +822,10 @@ LiftUpdate:
 LiftDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	; Base functionality
 	jsr    AnimObjDraw
@@ -830,65 +834,54 @@ LiftDraw:
 
 	IF LIFT_ROPE_SUPPORT_SWING=0
 
-	; Get rope pos X
-	move.l Entity_WorldPosX(a0), d0
-	addi.l #Lift_RopePosOffsetX, d0
-	
-	; Check if visible
-	move.l d0, d1
-	TOPIXELS d1
-	sub.w  (WorldScrollX), d1				; Apply camera pos X (incl. camera shake + peek offset)
+	PUSHMW d2-d5
 
+	; Get rope pos X
+	move.w Entity_WorldPosX(a0), d0
+	addi.w #Lift_RopePosOffsetX, d0
+	sub.w  WorldScrollX, d0				; To sprite space
+	
 	; Check if out of bounds
-	cmp.w  #vdp_sprite_border_x+screen_width, d1	; Check against left screen border
+	cmp.w  #screen_width, d0			; Check left edge against right screen border
 	bgt    @OutOfBounds
+	move.w d0, d1
 	addi.w #Lift_Width, d1				; Get rope right
-	cmp.w  #vdp_sprite_border_x, d1		; Check against right screen border
+	cmp.w  #0x0, d1						; Check right edge against left screen border
 	blt    @OutOfBounds
 	
 	; Get rope pos Y
-	move.l Entity_WorldPosY(a0), d1
-	addi.l #Lift_RopePosOffsetY, d1
+	move.w Entity_WorldPosY(a0), d1
+	addi.w #Lift_RopePosOffsetY, d1
+	sub.w  WorldScrollY, d1				; To sprite space
 
 	; Re-draw rope segment until off screen
-	move.l (WorldScrollY), d4
-
-	PUSHL  a0
-
-	; Get rope obj
-	lea    Lift_RopeSegment(a0), a0
-
 	@RopeDrawLp:
 
 	; If out of sprites, bail
 	cmp.w  #vdp_max_sprites-1, next_sprite_index
 	beq    @OutOfSprites
 
-	; Set pos
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-
-	; Draw
-	PUSHM  d0-d4/a0-a2
-	jsr    SpriteObjDraw
-	POPM   d0-d4/a0-a2
+	; Draw rope segment
+	PUSHM  d0-d1/a0
+	lea    Lift_RopeSegment(a0), a0
+	jsr    SpriteObjAllocSprite
+	POPM   d0-d1/a0
 
 	; Next Y pos
-	sub.l  #Rope_Height*subpixels_per_pixel, d1
+	sub.w  #Rope_Height, d1
 
 	; If off screen, bail
-	cmp.l  d1, d4
-	bgt    @RopeDrawEnd
+	tst.w  d1
+	blt    @RopeDrawEnd
 
 	; Loop
 	bra    @RopeDrawLp
 
 	@OutOfSprites:
 	@RopeDrawEnd:
-
-	POPL   a0
-
 	@OutOfBounds:
+
+	POPMW d2-d5
 
 	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 

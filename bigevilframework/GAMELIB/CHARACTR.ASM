@@ -508,19 +508,6 @@ CharacterUpdateAnimState:
 	@EndAnim:
 	
 	rts
-	
-;==============================================================
-; Character draw routines
-;==============================================================
-	
-CharacterDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	
-	; Base functionality
-	jsr AnimObjDraw
-	
-	rts
 
 ;==============================================================
 ; Character control

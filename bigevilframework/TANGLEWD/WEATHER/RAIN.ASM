@@ -251,6 +251,12 @@ RainUpdate:
 
 RainDraw:
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
+
+	PUSHMW d2-d5
 
 	lea    RainSpritePositions, a2
 	move.l #RainNumSprites-1, d0
@@ -263,8 +269,6 @@ RainDraw:
 	move.l 0(a2), d2
 	move.l 4(a2), d3
 	move.l RainParams, a3
-	move.l RainParams_VelX(a3), d4
-	move.l RainParams_VelY(a3), d5
 	add.l  RainParams_VelX(a3), d2
 	add.l  RainParams_VelY(a3), d3
 
@@ -277,10 +281,9 @@ RainDraw:
 	beq    @NextSprite
 
 	; Reposition sprite
-	PUSHL  d0
+	PUSHW  d0
 	jsr    RainSpriteReposition
-	POPL   d0
-	bra    @WithinBounds
+	POPW   d0
 
 	@WithinBounds:
 
@@ -302,6 +305,17 @@ RainDraw:
 
 	; Draw
 	PUSHM  d0-d3/a0-a2
+
+	; TODO: fix this
+	move.w WorldScrollX, d2
+	move.w d2, d3
+	addi.w #vdp_sprite_border_x, d2
+	addi.w #vdp_sprite_border_x+screen_width, d3
+	move.w WorldScrollY, d4
+	move.w d4, d5
+	addi.w #vdp_sprite_border_y, d4
+	addi.w #vdp_sprite_border_y+screen_height, d5
+
 	jsr    AnimObjDraw
 	POPM   d0-d3/a0-a2
 
@@ -312,5 +326,7 @@ RainDraw:
 	dbra   d0, @SpriteLp
 
 	@OutOfSprites:
+
+	POPMW  d2-d5
 
 	rts

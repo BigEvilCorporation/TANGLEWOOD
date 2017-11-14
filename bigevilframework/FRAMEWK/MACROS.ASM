@@ -26,12 +26,22 @@ POPL: macro reg
     move.l (sp)+, \reg
     endm
 
-; Stack push multiple regs
+; Stack push multiple regs (word)
+PUSHMW: macro regs
+	 movem.w \regs, -(sp)
+	 endm
+	 
+; Stack pop multiple regs (word)
+POPMW: macro regs
+	movem.w (sp)+, \regs
+	endm
+
+; Stack push multiple regs (longword)
 PUSHM: macro regs
 	 movem.l \regs, -(sp)
 	 endm
 	 
-; Stack pop multiple regs
+; Stack pop multiple regs (longword)
 POPM: macro regs
 	movem.l (sp)+, \regs
 	endm
@@ -377,6 +387,6 @@ BLOCKS2TILES: macro reg
 ;==============================================================
 
 RAISE_EXCEPTION: macro errcode
-	move.l #(\errcode), a5	; Err code to a5
+	PUSHL   #(\errcode)
 	illegal
 	endm

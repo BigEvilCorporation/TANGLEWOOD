@@ -73,6 +73,12 @@ LadderLoadGfx:
 LadderDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
+
+	PUSHMW d2-d5
 
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	CAMERA_GETSCREENBOUNDS d3,d4,d5
@@ -80,28 +86,31 @@ LadderDraw:
 	tst.b  d0
 	beq    @OutOfView
 
-	; Backup Y pos
-	move.l Entity_WorldPosY(a0), d0
-	PUSHL  d0
+	; Get XY
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
+
+	; To sprite space
+	sub.w  WorldScrollX, d0
+	sub.w  WorldScrollY, d1
 
 	; Loop sprites
-	move.w #Ladder_NumSprites-1, d0
+	move.w #Ladder_NumSprites-1, d6
 	@DrawLp:
-	PUSHL  d0
 
 	; Draw
-	jsr    SpriteObjDraw
+	PUSHMW d0-d1/d6
+	move.b #0x0, d2
+	jsr    SpriteObjAllocSprite
+	POPMW  d0-d1/d6
 
 	; Inc. Y
-	addi.w #Ladder_SpriteHeight, Entity_WorldPosY(a0)
+	addi.w #Ladder_SpriteHeight, d1
 
-	POPL   d0
-	dbra   d0, @DrawLp
-
-	; Restore Y pos
-	POPL   d0
-	move.l d0, Entity_WorldPosY(a0)
+	dbra   d6, @DrawLp
 
 	@OutOfView:
+
+	POPMW  d2-d5
 
 	rts

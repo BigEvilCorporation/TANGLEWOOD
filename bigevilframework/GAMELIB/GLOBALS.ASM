@@ -13,8 +13,15 @@ entity_type_animobj   	equ (1<<2)
 entity_type_character 	equ (1<<3)
 entity_type_pickup    	equ (1<<4)
 
-; entity name length
+; Entity name length
 entity_name_length		equ 0x10
+
+; Quadtree
+	IFD ENTITY_USE_QUADTREE
+entity_quadtree_cell_width	equ screen_width
+entity_quadtree_cell_height	equ screen_height
+entity_quadtree_maxcells	equ ((1800*8)/entity_quadtree_cell_width)*((300*8)/entity_quadtree_cell_height) ; Largest supported map size
+	ENDIF
 
 ; Serialisation
 serialise_dir_in		equ 0x0

@@ -304,6 +304,12 @@ BridgeUpdate:
 BridgeDraw:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
+
+	PUSHMW d2-d5
 
 	tst.b  Bridge_InView(a0)
 	beq    @OutOfView
@@ -311,13 +317,12 @@ BridgeDraw:
 	PUSHL  a0
 
 	; Get bridge pos
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	move.l d0, d5
-	move.l d1, d6
+	move.w Entity_WorldPosX(a0), d5
+	move.w Entity_WorldPosY(a0), d6
 
-	; Backup
-	PUSHM  d0-d1
+	; To sprite space
+	sub.w  WorldScrollX, d5
+	sub.w  WorldScrollY, d6
 
 	;==============================================================
 
@@ -327,18 +332,19 @@ BridgeDraw:
 	; Roll pos to notch index
 	moveq #0x0, d7
 	move.w Bridge_UnrollPos(a0), d7	;  (top word = integer part)
-	divu   #Bridge_NotchWidth, d7
+	lsr.w #0x4, d7 ;divu   #Bridge_NotchWidth, d7
 
 	; Clear view flag
 	move.b #0x0, Bridge_InView(a0)
 
 	; Draw all notches
-	move.l #0x0, d2
+	move.w #0x0, d2
 	@NotchDrawLp:
 
 	; Clear position offset
 	moveq #0x0, d3
 	moveq #0x0, d4
+	moveq #0x0, d1
 
 	; If in drop mode, just render flat
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
@@ -356,18 +362,16 @@ BridgeDraw:
 	sub.b  d7, d3	; Offset spiral start by unroll pos
 	lsl.w  #0x1, d3	; 2 bytes per coord
 	add.l  d3, a2	; Offset into coord table
-	move.w (a2), d3	; Get coord
-	move.w d3, d4
-	lsr.w  #0x8, d3	; X
-	andi.w #0xFF, d4; Y
+	move.b (a2)+, d3; Get Y coord
+	move.b (a2)+, d4; Get X coord
 	ext.w  d3		; Sign extend
 	ext.w  d4
 	cmp.b  #Bridge_ModeRollUp, Bridge_Mode(a0)	; If rolling down, invert Y
 	beq    @RollUp
 	neg.w  d4
 	@RollUp:
-	move.l d7, d1
-	mulu   #Bridge_NotchWidth, d1 ; Add X offset
+	move.w d7, d1
+	lsl.w #0x4, d1 ;mulu   #Bridge_NotchWidth, d1 ; Add X offset
 	add.w  d1, d3
 	bra    @EndSpiral
 
@@ -383,10 +387,6 @@ BridgeDraw:
 
 	@EndSpiral:
 
-	; To subpixels
-	TOSUBPIXELS d3
-	TOSUBPIXELS d4
-
 	;==============================================================
 
 	; If flipped on X axis, origin at right-hand side
@@ -394,31 +394,29 @@ BridgeDraw:
 	beq    @NotFlipped
 
 	; Invert X offset
-	move.l #(Bridge_Width-Bridge_NotchWidth)*subpixels_per_pixel, d1
-	sub.l  d3, d1
-	move.l d1, d3
+	move.w #(Bridge_Width-Bridge_NotchWidth), d1
+	sub.w  d3, d1
+	move.w d1, d3
 
 	@NotFlipped:
 
 	;==============================================================
 
 	; Add origin
-	add.l  d5, d3
-	add.l  d6, d4
+	add.w  d5, d3
+	add.w  d6, d4
 
 	; Add Y offset
-	add.l  (a3)+, d4
-
-	; Set pos
-	move.l d3, Entity_WorldPosX(a0)
-	move.l d4, Entity_WorldPosY(a0)
+	move.l (a3)+, d0
+	swap   d0
+	add.w  d0, d4
 
 	; Draw
-	PUSHM  d0-d2/d7
-	jsr    SpriteObjDraw
-	;ENTITY_GETDRAWPOSVEC2 d1,d4,d5,a0
-	;jsr    SpriteObjAllocSprite
-	POPM   d0-d2/d7
+	PUSHMW d2-d7
+	move.w d3, d0
+	move.w d4, d1
+	jsr    SpriteObjAllocSprite
+	POPMW  d2-d7
 
 	; If drawn, set flag
 	move.b SpriteObj_SpriteLinked(a0), d3
@@ -430,12 +428,6 @@ BridgeDraw:
 	bne    @NotchDrawLp
 
 	;==============================================================
-
-	; Restore original pos
-	POPM   d0-d1
-
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
 
 	POPL   a0
 
@@ -452,6 +444,8 @@ BridgeDraw:
 	@Buoyant:
 
 	@OutOfView:
+
+	POPMW  d2-d5
 
 	rts
 
