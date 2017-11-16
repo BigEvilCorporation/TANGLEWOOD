@@ -176,7 +176,7 @@ MonsterInit:
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -317,6 +317,9 @@ MonsterLoadGfx:
 	;==============================================================
 
 	@End:
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 	
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

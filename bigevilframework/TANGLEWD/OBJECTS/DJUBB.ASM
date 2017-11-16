@@ -55,7 +55,7 @@ DjubbInit:
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -106,6 +106,9 @@ DjubbLoadGfx:
 
 	; Setup bespoke character animations
 	ANIM_LOAD_DEFAULT djubb,bite,bite,Djubb_Animations,DjubbAnimIdx_Bite,0,1,0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	rts
 

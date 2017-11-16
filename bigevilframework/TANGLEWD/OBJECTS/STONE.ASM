@@ -38,7 +38,7 @@ StoneInit:
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to render list
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -65,6 +65,9 @@ StoneLoadGfx:
 	; a1 --- Level addr
 
 	SPRITE_LOAD_SHARED stone,stone,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; TODO: Snap to floor
 	; jsr    PhysicsObjSnapToFloor

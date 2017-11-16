@@ -55,7 +55,7 @@ GeneratorInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -91,6 +91,9 @@ GeneratorLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_SHARED generatr,compressor,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	rts
 	

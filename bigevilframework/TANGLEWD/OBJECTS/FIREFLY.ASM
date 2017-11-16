@@ -42,7 +42,7 @@ FireflyInit:
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default state
@@ -75,6 +75,9 @@ FireflyLoadGfx:
 	; a1 --- Level addr
 
 	SPRITE_LOAD_SHARED firefly,red,PaletteId_Fuzzl,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	rts
 	

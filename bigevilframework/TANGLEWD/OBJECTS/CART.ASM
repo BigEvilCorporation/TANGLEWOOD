@@ -57,7 +57,7 @@ CartInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -115,6 +115,9 @@ CartLoadGfx:
 	; a1 --- Level addr
 
 	SPRITE_LOAD_DEFAULT Cart,roll,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

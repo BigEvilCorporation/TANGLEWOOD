@@ -46,7 +46,7 @@ ButtonInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 
 	; Default state
@@ -84,6 +84,9 @@ ButtonLoadGfx:
 
 	; Load anim
 	ANIM_LOAD_DEFAULT button,button,press,Button_Animation,0,0,0,0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; Set initial anim, override speed
 	PUSHL  a1

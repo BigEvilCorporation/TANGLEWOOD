@@ -285,6 +285,16 @@ PhysicsObjPreStep:
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	move.l #0x0, PhysicsObj_ImpulseY(a0)
+
+	; If moved, update grid cell
+	btst   #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
+	beq    @NotOnWorldGrid
+	move.l PhysicsObj_LastAppliedVelX(a0), d0
+	or.l   PhysicsObj_LastAppliedVelY(a0), d0
+	beq    @NotMoved
+	jsr    EntityUpdateWorldGridIndex
+	@NotOnWorldGrid:
+	@NotMoved:
 	
 	bra @End
 

@@ -16,12 +16,12 @@ entity_type_pickup    	equ (1<<4)
 ; Entity name length
 entity_name_length		equ 0x10
 
-; Quadtree
-	IFD ENTITY_USE_QUADTREE
-entity_quadtree_cell_width	equ screen_width
-entity_quadtree_cell_height	equ screen_height
-entity_quadtree_maxcells	equ ((1800*8)/entity_quadtree_cell_width)*((300*8)/entity_quadtree_cell_height) ; Largest supported map size
-	ENDIF
+; World grid
+worldgrid_cell_width		equ 0x100	; World split up into 256x256 cell grid
+worldgrid_cell_height		equ 0x100	; (256 because grid coords can just be byte reads from world pos)
+worldgrid_max_width_cells	equ 0x100	; Max world width in grid cells
+worldgrid_viewport_width	equ 0x3		; World grid viewport width (cells)
+worldgrid_viewport_height	equ 0x3		; World grid viewport height (cells)
 
 ; Serialisation
 serialise_dir_in		equ 0x0

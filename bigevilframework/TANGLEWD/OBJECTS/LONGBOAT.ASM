@@ -62,7 +62,7 @@ LongboatInit:
 	
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -116,6 +116,9 @@ LongboatLoadGfx:
 	; Load sprite
 	SPRITE_LOAD_DEFAULT Longboat,segment,PaletteId_World0,0x0
 
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
+
 	; Position all segments
 	jsr    LongboatUpdateSegments
 
@@ -130,7 +133,7 @@ LongboatUpdate:
 
 	move.b  #0x0, Longboat_Visible(a0)
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @Invisible

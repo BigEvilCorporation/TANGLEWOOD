@@ -144,6 +144,9 @@ Gameplay_Update:
 
 	; Physics pre-step
 	jsr    PhysicsWorldPreStep
+
+	; Update world grid
+	jsr    EntityUpdateWorldGrid
 	
 	; Update game objects
 	jsr    EntityUpdateAll

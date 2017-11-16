@@ -118,7 +118,18 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 
 ;==============================================================
 
-CAMERA_GETSCREENBOUNDS: macro topleftreg,bottomrightreg,tempreg
+CAMERA_GETSCREENBOUNDS: macro left,right,top,bottom
+	move.w WorldScrollX, \left
+	move.w \left, \right
+	addi.w #vdp_sprite_border_x, \left
+	addi.w #vdp_sprite_border_x+screen_width, \right
+	move.w WorldScrollY, \top
+	move.w \top, \bottom
+	addi.w #vdp_sprite_border_y, \top
+	addi.w #vdp_sprite_border_y+screen_height, \bottom
+	endm
+
+CAMERA_GETSCREENBOUNDS_VEC2: macro topleftreg,bottomrightreg,tempreg
 	; Left/right
 	move.w (CameraWorldPosX), \topleftreg			; X centre (top word = integer part)
 	move.w \topleftreg, \bottomrightreg

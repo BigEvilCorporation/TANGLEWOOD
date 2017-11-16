@@ -196,6 +196,7 @@ MapStreamDestLeft	    rs.w 1
 MapStreamDestTop	    rs.w 1
 MapStreamNumCols	    rs.w 1
 MapStreamNumRows	    rs.w 1
+CameraWorldGridIndexTL  rs.w 1	; Current camera world grid index (top left)
 
 __paddqng061		   rs.b 0
 
@@ -416,13 +417,7 @@ __paddqng05			     rs.b 3
 	LINKED_LIST EntityUpdate
 	LINKED_LIST EntityRender
 	LINKED_LIST EntitySerialise
-
-; ************************************
-; Entity quad tree (n * linked list heads)
-; ************************************
-	IFD ENTITY_USE_QUADTREE
-EntityQuadTree			 rs.l entity_quadtree_maxcells
-	ENDIF
+	LINKED_LIST EntityWorldGrid
 
 ; ************************************
 ; Entity lists by type

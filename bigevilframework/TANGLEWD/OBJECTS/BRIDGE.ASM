@@ -110,7 +110,7 @@ BridgeInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -165,6 +165,9 @@ BridgeLoadGfx:
 	; Load sprite
 	SPRITE_LOAD_SHARED Bridge,notch,PaletteId_World0,0x0
 
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
+
 	;==============================================================
 
 	; Position platform
@@ -216,7 +219,7 @@ BridgeUpdate:
 	; Manual view test (can't use sprite link state)
 	move.b  #0x0, Bridge_InView(a0)
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	addi.l #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d1
 	addi.l #(Bridge_ViewBoundsOffsetX<<16)|Bridge_ViewBoundsOffsetY, d2
 	jsr    PHYS_TestBoxIntersectBox

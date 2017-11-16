@@ -111,7 +111,7 @@ FuzzlInit:
 
 	; Add to update, render and serialise lists
 	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 	
 	; Default state
@@ -170,6 +170,9 @@ FuzzlLoadGfx:
 	; Set initial colour anim offset
 	move.b Fuzzl_Colour(a0), d0
 	jsr    FuzzlSetColour
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

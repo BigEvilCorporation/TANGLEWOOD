@@ -39,7 +39,7 @@ LadderInit:
 	move.l #LadderDraw, Entity_RenderRoutine(a0)
 	
 	; Add to render list
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -63,6 +63,9 @@ LadderLoadGfx:
 	; Load sprite
 	SPRITE_LOAD_SHARED Ladder,ladder,PaletteId_World0,0x0
 
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
+
 	; Position platform
 	lea    Ladder_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
@@ -81,7 +84,7 @@ LadderDraw:
 	PUSHMW d2-d5
 
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @OutOfView

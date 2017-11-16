@@ -72,7 +72,7 @@ FuzzlCageInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -132,6 +132,9 @@ FuzzlCageLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_DEFAULT FuzlCage,fuzzl_cage,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor

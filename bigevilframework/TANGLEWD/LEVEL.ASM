@@ -154,6 +154,9 @@ GameStateReset:
 	; Reset physics world
 	jsr    PhysicsWorldInit
 
+	; Reset entity world grid
+	jsr    EntityInitWorldGrid
+
 	; Reset weather
 	jsr    WeatherInit
 

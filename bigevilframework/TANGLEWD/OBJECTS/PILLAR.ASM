@@ -47,7 +47,7 @@ PillarInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -83,6 +83,9 @@ PillarLoadGfx:
 	; a1 --- Level addr
 
 	SPRITE_LOAD_SHARED Pillar,pillar,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	; Reposition barrier
 	lea    Pillar_Barrier(a0), a2

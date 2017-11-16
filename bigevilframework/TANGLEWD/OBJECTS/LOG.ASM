@@ -75,7 +75,7 @@ LogInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -145,6 +145,9 @@ LogLoadGfx:
 	; a1 --- Level addr
 
 	SPRITE_LOAD_SHARED Log,roll,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	rts
 	

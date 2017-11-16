@@ -46,7 +46,7 @@ CogsInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -79,5 +79,8 @@ CogsLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_SHARED cogs,cogs,PaletteId_World0,0x0
+
+	; Add to world grid
+	jsr     EntityAddToWorldGrid
 
 	rts

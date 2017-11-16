@@ -1819,7 +1819,7 @@ EchoAI_CheckOuterScreenBounds:
 	; d0 (b) OUT: On screen
 
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIOuterScreenBoundsExt
 	jsr    PHYS_TestBoxIntersectBox
 
@@ -1844,7 +1844,7 @@ EchoAI_CheckSafePosScreenBounds:
 	swap   d2
 	add.w  Entity_Height(a0), d2
 
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
 	jsr    PHYS_TestBoxIntersectBox
 
@@ -1869,7 +1869,7 @@ EchoAI_CheckPotentialSafePosScreenBounds:
 	swap   d2
 	add.w  Entity_Height(a0), d2
 
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
 	jsr    PHYS_TestBoxIntersectBox
 
@@ -1881,7 +1881,7 @@ EchoAI_CheckLostPosScreenBounds:
 	; d0 (b) OUT: On screen
 
 	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS d3,d4,d5
+	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	PHYSICS_GROWBOUNDS d3,d4,#Echo_AIInnerScreenBoundsExt
 	jsr    PHYS_TestBoxIntersectBox
 
