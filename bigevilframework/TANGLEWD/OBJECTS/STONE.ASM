@@ -67,6 +67,7 @@ StoneLoadGfx:
 	SPRITE_LOAD_SHARED stone,stone,PaletteId_World0,0x0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	; TODO: Snap to floor

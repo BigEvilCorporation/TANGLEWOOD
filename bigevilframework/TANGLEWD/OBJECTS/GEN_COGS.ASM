@@ -45,7 +45,7 @@ CogsInit:
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 	;jsr    EntityAddToRenderList
 	
 	; Default state
@@ -81,6 +81,7 @@ CogsLoadGfx:
 	SPRITE_LOAD_SHARED cogs,cogs,PaletteId_World0,0x0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	rts

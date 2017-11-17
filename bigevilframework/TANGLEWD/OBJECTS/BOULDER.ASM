@@ -78,8 +78,8 @@ BoulderInit:
 	move.l #BoulderSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToUpdateList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -154,6 +154,10 @@ BoulderLoadGfx:
 	SPRITE_LOAD_DEFAULT boulder,roll,PaletteId_World0,0x0
 
 	jsr    PhysicsObjSnapToFloor
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 	
 	; If already cracked, set cracked anim
 	tst.b  Boulder_Cracked(a0)

@@ -254,6 +254,8 @@ l5a4_Cutscene:
 	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromUpdateList
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromRenderList
+	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromWorldGrid
 
 	; Goodbye, Nymn :(
 	CUTSCENE_OBJECT_ROUTINE Player1,#PlayerBeginPermadeath

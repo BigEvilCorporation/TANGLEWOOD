@@ -115,33 +115,6 @@ l1a4_Init:
 	; Disable Djakk lost player timeout
 	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
 	move.w #-1, Monster_LoseSightTimer(a0)
-
-	;==============================================================
-
-	; Disable tree Fuzzls 1-6 until end, to improve performance
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl1, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl2, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl3, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl4, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl5, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl6, a0
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
 	
 	rts
 	
@@ -213,31 +186,6 @@ l1a4_Trigger_FuzzlTreeEntrance:
 	jsr    MonsterDie
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
-
-	; Enable tree Fuzzls
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl1, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl2, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl3, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl4, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl5, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-
-	ENTITY_GETBYNAME Fuzzl, l1a4_TreeFuzzl6, a0
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
 
 	; Start 'Rain' track
 	IFND DEBUG

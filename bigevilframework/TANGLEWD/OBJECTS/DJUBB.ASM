@@ -54,7 +54,7 @@ DjubbInit:
 	move.l #DjubbSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
@@ -108,6 +108,7 @@ DjubbLoadGfx:
 	ANIM_LOAD_DEFAULT djubb,bite,bite,Djubb_Animations,DjubbAnimIdx_Bite,0,1,0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	rts

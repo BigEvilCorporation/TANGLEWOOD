@@ -53,7 +53,7 @@ TriggerBoxInit:
 	move.l #TriggerBoxSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and serialise lists
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 	jsr EntityAddToSerialiseList
 
 	; Default state
@@ -71,6 +71,10 @@ TriggerBoxInit:
 TriggerBoxLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 

@@ -319,6 +319,7 @@ MonsterLoadGfx:
 	@End:
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 	
 	; Snap to floor

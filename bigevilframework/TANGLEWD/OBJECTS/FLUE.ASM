@@ -59,7 +59,7 @@ FlueInit:
 	move.l #FlueUpdate, Entity_UpdateRoutine(a0)
 	
 	; Add to update list
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 
 	; Default state
 	move.b #0x0, Entity_Active(a0)
@@ -79,6 +79,10 @@ FlueInit:
 FlueLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 

@@ -38,8 +38,8 @@ WinchInit:
 	move.l #WinchSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToUpdateList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -60,6 +60,10 @@ WinchLoadGfx:
 
 	; Load animation
 	ANIM_LOAD_DEFAULT winch,winch,turn,Winch_Animation,0,1,0,0
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 

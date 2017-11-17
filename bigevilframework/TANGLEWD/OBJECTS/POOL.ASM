@@ -49,8 +49,8 @@ PoolInit:
 	move.l #PoolSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToUpdateList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -87,6 +87,10 @@ PoolLoadGfx:
 
 	; Load animation
 	ANIM_LOAD_DEFAULT Pool,filling,filling,Pool_Animation,0,1,0,0
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	; Set animation (stopped)
 	PUSHL  a1

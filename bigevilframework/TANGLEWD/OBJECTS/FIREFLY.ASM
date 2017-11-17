@@ -41,7 +41,7 @@ FireflyInit:
 	move.l #FireflySerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
@@ -77,6 +77,7 @@ FireflyLoadGfx:
 	SPRITE_LOAD_SHARED firefly,red,PaletteId_Fuzzl,0x0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	rts
@@ -87,6 +88,7 @@ FireflyShutdown:
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	jsr    EntityRemoveFromSerialiseList
+	jsr    EntityRemoveFromWorldGrid
 	subq.w #0x1, EntityCount_Firefly
 	
 	rts
@@ -139,6 +141,7 @@ FireflyTestObj:
 	; Stop updating and rendering
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	
 	; Inactive and invisible
 	move.b #0x0, Entity_Active(a0)

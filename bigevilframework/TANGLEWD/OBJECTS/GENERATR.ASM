@@ -54,7 +54,7 @@ GeneratorInit:
 	move.l #GeneratorSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
@@ -93,6 +93,7 @@ GeneratorLoadGfx:
 	SPRITE_LOAD_SHARED generatr,compressor,PaletteId_World0,0x0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	rts

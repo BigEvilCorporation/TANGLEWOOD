@@ -105,7 +105,7 @@ WyrmInit:
 	
 	; Add to update and render lists
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -191,6 +191,10 @@ WyrmLoadGfx:
 
 	; Snap to floor
 	jsr    PhysicsObjSnapToFloor
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 	
 	;==============================================================
 

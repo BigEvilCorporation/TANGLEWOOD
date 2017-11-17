@@ -417,6 +417,7 @@ l6a2_StealDjakkVRAM:
 	move.l a2, a0
 	jsr EntityRemoveFromUpdateList
 	jsr EntityRemoveFromRenderList
+	jsr EntityRemoveFromWorldGrid
 	move.b #0x0, Entity_Active(a0)
 	POPL   a0
 

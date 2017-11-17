@@ -110,7 +110,7 @@ FuzzlInit:
 	move.l #FuzzlSerialise, Entity_SerialiseRoutine(a0)
 
 	; Add to update, render and serialise lists
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 	
@@ -172,6 +172,7 @@ FuzzlLoadGfx:
 	jsr    FuzzlSetColour
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	; Snap to floor
@@ -354,6 +355,7 @@ FuzzlUpdate:
 
 	; Update if out of view
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
 	; If not already registered as potential flue occupant, do it now
 	tst.b  Fuzzl_FlueOccupant(a0)

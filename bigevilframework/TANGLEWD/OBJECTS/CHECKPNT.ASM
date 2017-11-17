@@ -34,7 +34,7 @@ CheckpointInit:
 	move.l #CheckpointSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and serialise lists
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 	jsr    EntityAddToSerialiseList
 	
 	move.w #Checkpoint_Width, Entity_Width(a0)
@@ -46,6 +46,10 @@ CheckpointInit:
 CheckpointLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 

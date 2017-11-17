@@ -61,7 +61,7 @@ LongboatInit:
 	move.l #LongboatSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
+	;jsr EntityAddToUpdateList
 	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
@@ -117,6 +117,7 @@ LongboatLoadGfx:
 	SPRITE_LOAD_DEFAULT Longboat,segment,PaletteId_World0,0x0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	; Position all segments

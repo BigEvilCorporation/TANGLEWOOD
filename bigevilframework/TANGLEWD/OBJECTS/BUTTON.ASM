@@ -45,7 +45,7 @@ ButtonInit:
 	move.l #ButtonSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 
@@ -86,6 +86,7 @@ ButtonLoadGfx:
 	ANIM_LOAD_DEFAULT button,button,press,Button_Animation,0,0,0,0
 
 	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
 	; Set initial anim, override speed

@@ -35,7 +35,7 @@ DeathboxInit:
 	move.l #DeadboxUpdate, Entity_UpdateRoutine(a0)
 	
 	; Add to update list
-	jsr    EntityAddToUpdateList
+	;jsr    EntityAddToUpdateList
 
 	; Default state
 	move.w #Deathbox_Width, Entity_Width(a0)
@@ -47,6 +47,10 @@ DeathboxInit:
 DeathboxLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 	

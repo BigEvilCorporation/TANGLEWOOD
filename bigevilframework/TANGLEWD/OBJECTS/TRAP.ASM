@@ -59,8 +59,8 @@ TrapInit:
 	move.l #TrapSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToUpdateList
+	;jsr    EntityAddToRenderList
 	jsr    EntityAddToSerialiseList
 	
 	; Default state
@@ -117,6 +117,10 @@ TrapLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_SHARED Trap,trap,PaletteId_World0,0x0
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	; Reposition platforms and set velocity
 	lea    Trap_UpperPlatform(a0), a2

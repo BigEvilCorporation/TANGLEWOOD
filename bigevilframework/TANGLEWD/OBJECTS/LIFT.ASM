@@ -258,6 +258,7 @@ LiftAttachCounterweightLift:
 	PUSHL   a0
 	move.l  a2, a0
 	jsr     EntityRemoveFromUpdateList
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 	POPL    a0
 
 	rts

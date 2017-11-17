@@ -51,8 +51,8 @@ WindFlueInit:
 	move.l #WindFlueDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToUpdateList
+	;jsr    EntityAddToRenderList
 
 	; Initialise
 	move.w  #WindFlue_Width, Entity_Width(a0)
@@ -85,6 +85,10 @@ WindFlueInit:
 WindFlueLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	; Load all leaves
 	move.l  Entity_WorldPosX(a0), d1

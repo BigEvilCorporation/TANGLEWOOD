@@ -6,12 +6,13 @@
 ;   entity.asm - Basic positional entity
 ;==============================================================
 
-ENTITY_DEBUG_WORLDGRID equ 0
+ENTITY_DEBUG_WORLDGRID_COUNTS equ 1
+ENTITY_DEBUG_WORLDGRID_BOUNDS equ 0
 
 EntityWorldGridFlag_GridUpdates		equ 0x0	; Object uses world grid for updating
 EntityWorldGridFlag_GridRenders		equ 0x1	; Object uses world grid for rendering
 EntityWorldGridFlag_InUpdateList	equ 0x2	; Object is in update list
-EntityWorldGridFlag_InRenderList	equ 0x3	; Object is in render list
+EntityWorldGridFlag_InRenderList	equ 0x4	; Object is in render list
 
 	rsset 0
 ;-----------------------------
@@ -54,6 +55,7 @@ EntityInit:
 	move.w #0x0, Entity_Width(a0)
 	move.w #0x0, Entity_Height(a0)
 	move.w #0x0, Entity_WorldGridIdx(a0)
+	move.b #0x0, Entity_WorldGridFlags(a0)
 	move.b #0x0, Entity_Active(a0)
 
 	move.l #0x0, List_EntityUpdate_Next(a0)
@@ -69,11 +71,13 @@ EntityInit:
 EntityAddToUpdateList:
 	; a0 --- Entity addr
 	LIST_APPEND_TAIL EntityUpdate,a0,a3
+	bset.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
 	rts
 
 EntityAddToRenderList:
 	; a0 --- Entity addr
 	LIST_APPEND_TAIL EntityRender,a0,a3
+	bset.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
 	rts
 	
 EntityAddToSerialiseList:
@@ -84,11 +88,13 @@ EntityAddToSerialiseList:
 EntityRemoveFromUpdateList:
 	; a0 --- Entity addr
 	LIST_REMOVE EntityUpdate,a0,a4,a3
+	bclr.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
 	rts
 	
 EntityRemoveFromRenderList:
 	; a0 --- Entity addr
 	LIST_REMOVE EntityRender,a0,a4,a3
+	bclr.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
 	rts
 	
 EntityRemoveFromSerialiseList:
@@ -118,16 +124,22 @@ EntityInitWorldGrid:
 	
 EntityAddToWorldGrid:
 	; a0 --- Entity address
+	; d0 (b) Flags (EntityWorldGridFlag_Grid*)
+
+	; Set flags
+	move.b d0, Entity_WorldGridFlags(a0)
 
 	; Add to world grid list
 	LIST_APPEND_TAIL EntityWorldGrid,a0,a3
 
-	; Set flags
-	bset   #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
-
 	; Calculate initial grid index
 	jsr    EntityUpdateWorldGridIndex
 
+	rts
+
+EntityRemoveFromWorldGrid:
+	; a0 --- Entity addr
+	LIST_REMOVE EntityWorldGrid,a0,a4,a3
 	rts
 
 EntityUpdateWorldGridIndex:
@@ -179,30 +191,58 @@ EntityUpdateWorldGridIndex:
 
 	@InView:
 
-	; If no render flag set
-	btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
-	bne    @NoChange
+	; Get flags
+	move.b Entity_WorldGridFlags(a0), d0
+
+	; Add entity to update list
+	btst   #EntityWorldGridFlag_GridUpdates, d0		; If entity uses grid to update
+	beq    @EndAddUpdateList
+	btst   #EntityWorldGridFlag_InUpdateList, d0	; If not already in update list
+	bne    @EndAddUpdateList
+	LIST_APPEND_TAIL EntityUpdate,a0,a3				; Add to update list
+	bset   #EntityWorldGridFlag_InUpdateList, d0	; Set flag
+	@EndAddUpdateList:
 
 	; Add entity to render list
-	LIST_APPEND_TAIL EntityRender,a0,a3
+	btst   #EntityWorldGridFlag_GridRenders, d0		; If entity uses grid to render
+	beq    @EndAddRenderList
+	btst   #EntityWorldGridFlag_InRenderList, d0	; If not already in render list
+	bne    @EndAddRenderList
+	LIST_APPEND_TAIL EntityRender,a0,a3				; Add to render list
+	bset   #EntityWorldGridFlag_InRenderList, d0	; Set flag
+	@EndAddRenderList:
 
-	; Set render flag
-	bset   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	; Set flags
+	move.b d0, Entity_WorldGridFlags(a0)
 	
 	bra    @End
 
 	; else
 	@OutOfView:
 
-	; If render flag set
-	btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
-	beq    @NoChange
-	
-	; Remove entity from render list
-	LIST_REMOVE EntityRender,a0,a4,a3
+	; Get flags
+	move.b Entity_WorldGridFlags(a0), d0
 
-	; Clear render flag
-	bclr   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	; Remove entity from Update list
+	btst   #EntityWorldGridFlag_GridUpdates, d0		; If entity uses grid to update
+	beq    @EndRemoveUpdateList
+	btst   #EntityWorldGridFlag_InUpdateList, d0	; If in update list
+	beq    @EndRemoveUpdateList
+	LIST_REMOVE EntityUpdate,a0,a4,a3				; Remove from update list
+	bclr   #EntityWorldGridFlag_InUpdateList, d0	; Clear flag
+	@EndRemoveUpdateList:
+
+	; Remove entity from render list
+	btst   #EntityWorldGridFlag_GridRenders, d0		; If entity uses grid to render
+	beq    @EndRemoveRenderList
+	btst   #EntityWorldGridFlag_InRenderList, d0	; If in render list
+	beq    @EndRemoveRenderList
+	LIST_REMOVE EntityRender,a0,a4,a3				; Remove from render list
+	bclr   #EntityWorldGridFlag_InRenderList, d0	; Clear flag
+	@EndRemoveRenderList:
+
+	; Set flags
+	move.b d0, Entity_WorldGridFlags(a0)
 
 	@NoChange:
 	@End:
@@ -234,7 +274,7 @@ EntityUpdateWorldGrid:
 	subi.b #(worldgrid_viewport_width/2), d1		; Centre viewport Y
 	move.b d1, d0									; Y / 256 (top byte)
 
-	IF ENTITY_DEBUG_WORLDGRID
+	IF ENTITY_DEBUG_WORLDGRID_COUNTS
 	PUSHALL
 	move.l #((8*8)<<16)|(5*8), d1
 	jsr    DBG_DrawWord
@@ -244,7 +284,11 @@ EntityUpdateWorldGrid:
 	move.l List_EntityRender_Size, d0
 	move.l #((8*8)<<16)|(7*8), d1
 	jsr    DBG_DrawWord
+	POPALL
+	ENDIF
 
+	IF ENTITY_DEBUG_WORLDGRID_BOUNDS
+	PUSHALL
 	move.l (EntityPoolStart_Fuzzl), a0
 	moveq  #0x0, d0
 	moveq  #0x0, d1
@@ -308,30 +352,60 @@ EntityUpdateWorldGrid:
 			bra    @OutOfView
 
 			@InView:
-				; If no render flag set
-				btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
-				bne    @NextEntity
+				
+				; Get flags
+				move.b Entity_WorldGridFlags(a0), d1
+
+				; Add entity to update list
+				btst   #EntityWorldGridFlag_GridUpdates, d1		; If entity uses grid to update
+				beq    @EndAddUpdateList
+				btst   #EntityWorldGridFlag_InUpdateList, d1	; If not already in update list
+				bne    @EndAddUpdateList
+				LIST_APPEND_TAIL EntityUpdate,a0,a3				; Add to update list
+				bset   #EntityWorldGridFlag_InUpdateList, d1	; Set flag
+				@EndAddUpdateList:
 
 				; Add entity to render list
-				LIST_APPEND_TAIL EntityRender,a0,a3
+				btst   #EntityWorldGridFlag_GridRenders, d1		; If entity uses grid to render
+				beq    @EndAddRenderList
+				btst   #EntityWorldGridFlag_InRenderList, d1	; If not already in render list
+				bne    @EndAddRenderList
+				LIST_APPEND_TAIL EntityRender,a0,a3				; Add to render list
+				bset   #EntityWorldGridFlag_InRenderList, d1	; Set flag
+				@EndAddRenderList:
 
-				; Set render flag
-				bset   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+				; Set flags
+				move.b d1, Entity_WorldGridFlags(a0)
 				
 				bra    @NextEntity
 
 			; else
 			@OutOfView:
 
-				; If render flag set
-				btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
-				beq    @NextEntity
-				
-				; Remove entity from render list
-				LIST_REMOVE EntityRender,a0,a4,a3
+				; Get flags
+				move.b Entity_WorldGridFlags(a0), d1
 
-				; Clear render flag
-				bclr   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+				; Remove entity from Update list
+				btst   #EntityWorldGridFlag_GridUpdates, d1		; If entity uses grid to update
+				beq    @EndRemoveUpdateList
+				btst   #EntityWorldGridFlag_InUpdateList, d1	; If in update list
+				beq    @EndRemoveUpdateList
+				move.l List_EntityUpdate_Next(a0), a4
+				LIST_REMOVE EntityUpdate,a0,a4,a3				; Remove from update list
+				bclr   #EntityWorldGridFlag_InUpdateList, d1	; Clear flag
+				@EndRemoveUpdateList:
+
+				; Remove entity from render list
+				btst   #EntityWorldGridFlag_GridRenders, d1		; If entity uses grid to render
+				beq    @EndRemoveRenderList
+				btst   #EntityWorldGridFlag_InRenderList, d1	; If in render list
+				beq    @EndRemoveRenderList
+				LIST_REMOVE EntityRender,a0,a4,a3				; Remove from render list
+				bclr   #EntityWorldGridFlag_InRenderList, d1	; Clear flag
+				@EndRemoveRenderList:
+
+				; Set flags
+				move.b d1, Entity_WorldGridFlags(a0)
 
 		@NextEntity:
 		LIST_GET_NEXT EntityWorldGrid,a0,a0	; Get next ptr

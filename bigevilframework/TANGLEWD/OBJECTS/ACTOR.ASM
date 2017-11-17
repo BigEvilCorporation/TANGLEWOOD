@@ -124,6 +124,7 @@ ActorShutdown:
 	; Remove from update and render lists
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	
 	subq.w #0x1, EntityCount_Actor
 

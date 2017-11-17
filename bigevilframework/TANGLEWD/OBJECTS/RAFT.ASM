@@ -44,8 +44,8 @@ RaftInit:
 	move.l #RaftSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToUpdateList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -95,6 +95,10 @@ RaftLoadGfx:
 
 	; Load sprite
 	SPRITE_LOAD_DEFAULT raft,float,PaletteId_World0,0x0
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 

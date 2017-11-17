@@ -188,8 +188,8 @@ BouncePlantInit:
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
 	
 	; Add to update and render lists
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
+	;jsr    EntityAddToUpdateList
+	;jsr    EntityAddToRenderList
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -255,6 +255,10 @@ BouncePlantLoadGfx:
 	move.w (a3)+, BouncePlant_BoundsHeight(a0)
 
 	POPL   a1
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 	

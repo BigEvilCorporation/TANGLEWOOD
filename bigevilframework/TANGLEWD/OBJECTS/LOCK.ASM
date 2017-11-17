@@ -43,8 +43,8 @@ LockInit:
 	move.l #LockSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
-	jsr EntityAddToUpdateList
-	jsr EntityAddToRenderList
+	;jsr EntityAddToUpdateList
+	;jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 
 	; Default properties
@@ -85,6 +85,10 @@ LockLoadGfx:
 	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
 
 	rts
 
