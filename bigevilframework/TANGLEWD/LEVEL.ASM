@@ -118,6 +118,7 @@ GameStateReset:
 	move.w #0x0, VFXFlashTimer
 	
 	; Reset entity linked lists
+	LIST_CLEAR PhysicsObjs,a4,a3
 	LIST_CLEAR Characters,a4,a3
 	LIST_CLEAR Platforms,a4,a3
 	LIST_CLEAR Barriers,a4,a3

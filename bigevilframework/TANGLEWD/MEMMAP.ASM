@@ -425,6 +425,7 @@ __paddqng05			     rs.b 3
 ; ************************************
 ; Entity lists by type
 ; ************************************
+	LINKED_LIST PhysicsObjs		; Physics objects
 	LINKED_LIST Characters	 	; Characters
 	LINKED_LIST Platforms	 	; Platforms
 	LINKED_LIST Barriers	 	; Walls

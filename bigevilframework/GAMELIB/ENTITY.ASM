@@ -230,7 +230,7 @@ EntityUpdateWorldGridIndex:
 	btst   #EntityWorldGridFlag_InPhysicsList, d0	; If not already in physics list
 	bne    @EndAddPhysicsList
 	lea    PhysicsWorld, a3
-	MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3			; Add to physics list
+	LIST_INSERT_ORDERED PhysicsObjs,a0,a3,a4,Entity_WorldGridOrder,d1	; Add to physics list
 	bset   #EntityWorldGridFlag_InPhysicsList, d0	; Set flag
 	@EndAddPhysicsList:
 
@@ -268,8 +268,7 @@ EntityUpdateWorldGridIndex:
 	beq    @EndRemovePhysicsList
 	btst   #EntityWorldGridFlag_InPhysicsList, d0	; If in physics list
 	beq    @EndRemovePhysicsList
-	lea    PhysicsWorld, a3
-	MLIST_REMOVE PhysicsObjs,a0,a2,a4,a3			; Remove from physics list
+	LIST_REMOVE PhysicsObjs,a0,a2,a4				; Remove from physics list
 	bclr   #EntityWorldGridFlag_InPhysicsList, d0	; Clear flag
 	@EndRemovePhysicsList:
 
@@ -316,8 +315,7 @@ EntityUpdateWorldGrid:
 	move.l List_EntityRender_Size, d0
 	move.l #((8*8)<<16)|(7*8), d1
 	jsr    DBG_DrawWord
-	lea    PhysicsWorld, a3
-	move.l List_PhysicsObjs_Size(a3), d0
+	move.l List_PhysicsObjs_Size, d0
 	move.l #((8*8)<<16)|(8*8), d1
 	jsr    DBG_DrawWord
 	POPALL
@@ -419,7 +417,7 @@ EntityUpdateWorldGrid:
 				btst   #EntityWorldGridFlag_InPhysicsList, d1	; If not already in physics list
 				bne    @EndAddPhysicsList
 				lea    PhysicsWorld, a3
-				MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3			; Add to physics list
+				LIST_INSERT_ORDERED PhysicsObjs,a0,a3,a4,Entity_WorldGridOrder,d2	; Add to physics list
 				bset   #EntityWorldGridFlag_InPhysicsList, d1	; Set flag
 				@EndAddPhysicsList:
 
@@ -458,8 +456,7 @@ EntityUpdateWorldGrid:
 				beq    @EndRemovePhysicsList
 				btst   #EntityWorldGridFlag_InPhysicsList, d1	; If in physics list
 				beq    @EndRemovePhysicsList
-				lea    PhysicsWorld, a3
-				MLIST_REMOVE PhysicsObjs,a0,a2,a4,a3			; Remove from physics list
+				LIST_REMOVE PhysicsObjs,a0,a2,a4,				; Remove from physics list
 				bclr   #EntityWorldGridFlag_InPhysicsList, d1	; Clear flag
 				@EndRemovePhysicsList:
 

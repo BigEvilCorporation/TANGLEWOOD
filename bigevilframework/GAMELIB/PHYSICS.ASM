@@ -8,7 +8,6 @@
 
 	rsset 0
 ;-----------------------------------------
-	LINKED_LIST PhysicsObjs					; PhysicsObjs
 PhysicsWorld_Gravity				rs.l 1
 PhysicsWorld_Wind					rs.l 1
 PhysicsWorld_GroundHeight			rs.l 1
@@ -23,16 +22,12 @@ PhysicsWorldInit:
 	lea    PhysicsWorld, a3
 	move.l #PhysicsWorld_Struct_Size, d0
 	MEMZEROB a3,d0
-
-	MLIST_CLEAR PhysicsObjs,a3,a4,a0
-
 	rts
 
 PhysicsWorldAddObject:
 	; a0 --- Object
 
-	lea    PhysicsWorld, a3
-	MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3
+	LIST_APPEND_TAIL PhysicsObjs,a0,a3
 	bset.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
 
 	rts
@@ -111,8 +106,7 @@ PhysicsWorldPreStep:
 	move.b d2, PhysicsWorld_MovingBarriersUpdated(a3)
 
 	; Run all physics pre-updates
-	lea    PhysicsWorld, a3
-	MLIST_GET_HEAD PhysicsObjs,a0,a3		; Get list head
+	LIST_GET_HEAD PhysicsObjs,a0			; Get list head
 	@ObjLp:									; For all objs in list
 	cmp.l  #0x0, a0
 	beq    @ListEnd
