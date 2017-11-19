@@ -22,7 +22,7 @@ AnimObj_Dirty		     rs.b 1 ; Anim needs stepping forcefully
 AnimObj_UpdateOutOfView	 rs.b 1 ; Anim can update even when out of view (sprite not linked on last render)
 AnimObj_UploadFrame	 	 rs.b 1 ; Frame needs uploading to VRAM
 ;------------------------------
-AnimObj_Struct_Pad       rs.b 0
+	RS_ALIGN
 AnimObj_Struct_Size      rs.b 0
 
 	rsset 0

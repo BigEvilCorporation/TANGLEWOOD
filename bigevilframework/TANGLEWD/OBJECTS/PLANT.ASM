@@ -164,7 +164,7 @@ BouncePlant_BoundsHeight rs.w 1 ; Collision bounds offset height
 BouncePlant_Orientation  rs.b 1
 BouncePlant_Active       rs.b 1
 ;------------------------------
-BouncePlant_Struct_Pad   rs.b 2   ; Alignment padding
+	RS_ALIGN
 BouncePlant_Struct_Size  rs.b 0
 ;------------------------------
 

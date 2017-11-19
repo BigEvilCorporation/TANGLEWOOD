@@ -49,7 +49,7 @@ FuzzlCage_Smashed			rs.b 1	; Cracked open, awaiting respawn
 FuzzlCage_PushSFXPlaying	rs.b 1
 FuzzlCage_PlatformActive	rs.b 1
 ;-----------------------------
-FuzzlCage_Struct_Pad		rs.b 0   ; Alignment padding
+	RS_ALIGN
 FuzzlCage_Struct_Size		rs.b 0
 ;-----------------------------
 

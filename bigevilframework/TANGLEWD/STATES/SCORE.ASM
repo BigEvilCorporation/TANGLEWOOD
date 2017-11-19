@@ -82,7 +82,7 @@ EndLevelScore_Palette:
 ;-------------------------------------
 EndLevelScore_NextLevel			rs.l 1
 ;-------------------------------------
-EndLevelScore_Struct_Pad		rs.b 0
+	RS_ALIGN
 EndLevelScore_Struct_Size		rs.b 0
 ;-------------------------------------
 	

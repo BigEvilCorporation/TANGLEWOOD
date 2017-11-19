@@ -31,7 +31,7 @@ DjakkCage_OnEndRaise        rs.l 1
 DjakkCage_RaisedHeight		rs.l 1
 DjakkCage_State				rs.b 1
 ;-----------------------------
-DjakkCage_Struct_Pad		rs.b 3   ; Alignment padding
+	RS_ALIGN
 DjakkCage_Struct_Size		rs.b 0
 ;-----------------------------
 

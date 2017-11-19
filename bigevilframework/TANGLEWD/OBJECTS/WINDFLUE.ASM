@@ -33,7 +33,7 @@ WindFlue_Timer        rs.w 1
 WindFlue_Blowing      rs.b 1
 WindFlue_Visible      rs.b 1
 ;---------------------------------
-WindFlue_Struct_Pad   rs.b 0	; Alignment padding
+	RS_ALIGN
 WindFlue_Struct_Size  rs.b 0
 
 WindFlueInit:

@@ -50,7 +50,7 @@ Scrap_BarkTimer		rs.w 1
 Scrap_State			rs.b 1
 Scrap_BarkNextChase	rs.b 1	; Bark before beginning next chase
 ;---------------------------------
-Scrap_Struct_Pad	rs.b 2	; Alignment padding
+	RS_ALIGN
 Scrap_Struct_Size	rs.b 0
 
 ScrapInit:

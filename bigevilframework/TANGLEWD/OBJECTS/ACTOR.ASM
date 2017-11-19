@@ -49,7 +49,7 @@ ActorWalkToRunVel	equ 0x020000
 ;---------------------------------
 
 ;---------------------------------
-Actor_Struct_Pad      		rs.b 0
+	RS_ALIGN
 Actor_Struct_Size     		rs.b 0
 
 ; ************************************

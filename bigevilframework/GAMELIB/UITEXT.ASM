@@ -23,7 +23,7 @@ UIWidgetText_Palette		rs.b 1
 UIWidgetText_DrawPlane		rs.b 1
 UIWidgetText_TileCount		rs.b 1
 ;---------------------------------
-UIWidgetText_Struct_Pad		rs.b 3
+	RS_ALIGN
 UIWidgetText_Struct_Size	rs.b 0
 ;---------------------------------
 

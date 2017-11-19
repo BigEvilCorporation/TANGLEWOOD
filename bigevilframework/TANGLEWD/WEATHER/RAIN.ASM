@@ -21,7 +21,7 @@ RainParams_VelY				rs.l 1
 RainParams_MinWindStrength	rs.l 1
 RainParams_AnimFrame		rs.b 1
 ; ----------------------------
-RainParams_Struct_Pad		rs.b 1
+	RS_ALIGN
 RainParams_Struct_Size		rs.b 0
 
 Rain_ParamsListCount	equ 0x3

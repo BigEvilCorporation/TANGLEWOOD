@@ -48,7 +48,7 @@ Lift_PlatformOffsetY		rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 Lift_Direction				rs.b 1	; Up/down powered direction
 ;---------------------------------
-Lift_Struct_Pad   			rs.b 0  ; Alignment padding
+	RS_ALIGN
 Lift_Struct_Size  			rs.b 0
 ;---------------------------------
 

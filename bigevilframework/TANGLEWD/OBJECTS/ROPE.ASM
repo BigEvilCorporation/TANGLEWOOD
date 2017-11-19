@@ -23,7 +23,7 @@ RopeSegmentAnimIdx_Max		equ 1
 RopeSegment_Animations	   	rs.b (Animation_Struct_Size*RopeSegmentAnimIdx_Max)
 RopeSegment_Angle			rs.w 1
 ;---------------------------------
-RopeSegment_Struct_Pad		rs.b 2   ; Alignment padding
+	RS_ALIGN
 RopeSegment_Struct_Size		rs.b 0
 ;---------------------------------
 

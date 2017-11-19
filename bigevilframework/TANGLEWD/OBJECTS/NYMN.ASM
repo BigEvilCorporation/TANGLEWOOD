@@ -26,7 +26,7 @@ NymnCarryEcho_Carrying		equ 2
 Nymn_Animations	   			rs.b (Animation_Struct_Size*NymnAnimIdx_Max)
 Nymn_CarryEchoState			rs.b 1
 ;---------------------------------
-Nymn_Struct_Pad      		rs.b 3
+	RS_ALIGN
 Nymn_Struct_Size     		rs.b 0
 
 ; ************************************

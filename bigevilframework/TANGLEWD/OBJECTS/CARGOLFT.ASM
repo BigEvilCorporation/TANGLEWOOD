@@ -18,7 +18,7 @@ CargoLift_FloorHeight  equ 0x8
 ;---------------------------------
 CargoLift_ManualGfxLoad rs.b 1
 ;---------------------------------
-CargoLift_Struct_Pad   rs.b 3	; Alignment padding
+	RS_ALIGN
 CargoLift_Struct_Size  rs.b 0
 
 CargoLiftInit:

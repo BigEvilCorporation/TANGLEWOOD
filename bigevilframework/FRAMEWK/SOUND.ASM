@@ -37,7 +37,7 @@ Track_Exclusive			rs.b 1
 Track_PriorityOverSFX	rs.b 1
 Track_Transition		rs.b 1
 ;-----------------------------
-Track_Struct_Padding	rs.b 0
+	RS_ALIGN
 Track_Struct_Size		rs.b 0
 
 	rsset 0
@@ -46,7 +46,7 @@ SFX_Priority			rs.b 1
 SFX_Exclusive			rs.b 1
 SFX_ClashBehaviour		rs.b 1
 ;-----------------------------
-SFX_Struct_Padding		rs.b 1
+	RS_ALIGN
 SFX_Struct_Size			rs.b 0
 
 

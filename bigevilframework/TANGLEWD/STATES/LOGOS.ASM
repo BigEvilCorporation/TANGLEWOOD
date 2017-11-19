@@ -27,7 +27,7 @@ GameStateLogos:
 LogoState_NextColourTimer rs.w 1
 LogoState_CurrColourIdx	  rs.b 1
 ;-------------------------------
-LogoState_Struct_Pad	  rs.b 1
+	RS_ALIGN
 LogoState_Struct_Size	  rs.b 0
 ;-------------------------------
 	

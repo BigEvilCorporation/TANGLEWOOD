@@ -64,7 +64,7 @@ L3A2_LogRollCamLerpTime		equ 0x1E
 	rsset LevelData_Struct_Size
 l3a2Data_LogRollCamLerpTimer	rs.w 1
 ;---------------------------------
-l3a2Data_Struct_Pad      		rs.b 2
+	RS_ALIGN
 l3a2Data_Struct_Size     		rs.b 0
 	
 l3a2_Init:

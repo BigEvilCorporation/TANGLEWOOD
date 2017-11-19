@@ -63,7 +63,7 @@ l8a3_DemonHideTime				equ 0x0100
 l8a3Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
 l8a3Data_CutsceneLoadLift			rs.b Cutscene_Struct_Size
 ;---------------------------------
-l8a3Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l8a3Data_Struct_Size     		rs.b 0
 	
 l8a3_Init:

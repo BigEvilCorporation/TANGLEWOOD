@@ -11,7 +11,7 @@
 ;--------------------------
 Pickup_Taken        rs.b 1
 ;--------------------------
-Pickup_Struct_Pad   rs.b 3	; Alignment padding
+	RS_ALIGN
 Pickup_Struct_Size  rs.b 0
 
 PickupInit:

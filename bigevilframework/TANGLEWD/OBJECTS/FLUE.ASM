@@ -27,7 +27,7 @@ FlueOccupant_HoldTimer		rs.w 1	; Hold timer
 FlueOccupant_Ejecting		rs.b 1	; Currently ejecting the held PhysicsObj
 FlueOccupant_CameraOwner	rs.b 1 	; Occupant owned the camera before lerping to output flue
 ;---------------------------------
-FlueOccupant_Struct_Pad   	rs.b 0	; Alignment padding
+	RS_ALIGN
 FlueOccupant_Struct_Size  	rs.b 0
 
 ; Flue struct
@@ -41,7 +41,7 @@ Flue_EjectForceY		rs.l 1	; Eject force Y
 Flue_OccupantCheckTimer	rs.w 1
 Flue_CameraLerpSpeed	rs.w 1
 ;-----------------------------
-Flue_Struct_Pad   		rs.b 0	; Alignment padding
+	RS_ALIGN
 Flue_Struct_Size  		rs.b 0
 
 FlueInit:

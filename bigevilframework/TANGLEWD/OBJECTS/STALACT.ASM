@@ -25,7 +25,7 @@ Stalactite_Damage			equ 0xFF
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 ;--------------------------
-Stalactite_Struct_Pad   rs.b 0   ; Alignment padding
+	RS_ALIGN
 Stalactite_Struct_Size  rs.b 0
 ;--------------------------
 

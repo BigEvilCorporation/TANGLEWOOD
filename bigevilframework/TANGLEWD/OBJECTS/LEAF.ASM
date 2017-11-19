@@ -74,7 +74,7 @@ Leaf_ResetTimer      rs.w 1
 Leaf_SineStep        rs.w 1
 Leaf_MoveX           rs.b 1
 ;--------------------------
-Leaf_Struct_Pad      rs.b 3	; Alignment padding
+	RS_ALIGN
 Leaf_Struct_Size     rs.b 0
 
 LeafInit:

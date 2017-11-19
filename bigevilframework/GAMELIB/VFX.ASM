@@ -18,7 +18,7 @@ VFX_MaxEntities		equ 0x8
 ;---------------------------------
 VfxObj_Animation        rs.b Animation_Struct_Size
 ;---------------------------------
-VfxObj_Struct_Pad       rs.b 0
+	RS_ALIGN
 VfxObj_Struct_Size      rs.b 0
 
 ;==============================================================

@@ -52,7 +52,7 @@ Log_RollSFXPlaying	rs.b 1
 Log_Hazardous		rs.b 1
 Log_NoAI			rs.b 1
 ;-----------------------------
-Log_Struct_Pad		rs.b 3   ; Alignment padding
+	RS_ALIGN
 Log_Struct_Size		rs.b 0
 ;-----------------------------
 

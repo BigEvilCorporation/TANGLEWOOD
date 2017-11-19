@@ -17,5 +17,5 @@ SpriteSheet_SizeSubsprites			rs.b 1	; Sprite object single frame size in subspri
 SpriteSheet_PaletteId				rs.b 1	; Palette ID
 SpriteSheet_Priority				rs.b 1	; Sprite draw priority (0/1)
 ;-----------------------------------------
-SpriteSheet_Struct_Pad				rs.b 1
+	RS_ALIGN
 SpriteSheet_Struct_Size				rs.b 0

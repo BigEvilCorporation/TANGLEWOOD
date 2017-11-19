@@ -27,7 +27,7 @@ Button_Active				rs.b 1
 Button_Pressed				rs.b 1
 Button_NoAI					rs.b 1
 ;---------------------------------
-Button_Struct_Pad			rs.b 1   ; Alignment padding
+	RS_ALIGN
 Button_Struct_Size			rs.b 0
 ;---------------------------------
 

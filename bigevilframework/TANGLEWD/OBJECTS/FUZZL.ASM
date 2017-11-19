@@ -88,7 +88,7 @@ Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
 Fuzzl_FlueOccupant  rs.b 1	; Registered as potential flue occupant
 Fuzzl_InCage		rs.b 1	; TEMP - out of state bits
 ;--------------------------
-Fuzzl_Struct_Pad    rs.b 3  ; Alignment padding
+	RS_ALIGN
 Fuzzl_Struct_Size   rs.b 0
 
 ;==============================================================

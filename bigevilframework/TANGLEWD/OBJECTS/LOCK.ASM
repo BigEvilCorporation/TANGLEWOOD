@@ -23,7 +23,7 @@ Lock_UserData			rs.l 1
 Lock_RaiseHeight		rs.w 1
 Lock_RaiseSpeed			rs.w 1
 ;-----------------------------
-Lock_Struct_Pad			rs.b 0
+	RS_ALIGN
 Lock_struct_Size		rs.b 0
 ;-----------------------------
 

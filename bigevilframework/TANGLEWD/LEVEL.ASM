@@ -14,7 +14,7 @@ LevelMaxActs				equ 0x6
 	rsset 0
 LevelData_FireflyCount		rs.w 1
 ;---------------------------------
-LevelData_Struct_Pad		rs.b 2
+	RS_ALIGN
 LevelData_Struct_Size		rs.b 0
 
 GameStateReset:

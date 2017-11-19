@@ -152,7 +152,7 @@ Monster_MusicState     rs.b 1
 Monster_LerpPalette    rs.b 1
 Monster_ManualGfxLoad  rs.b 1	; Don't load gfx
 ;----------------------------
-Monster_Struct_Pad     rs.b 3
+	RS_ALIGN
 Monster_Struct_Size    rs.b 0
 
 ; ************************************

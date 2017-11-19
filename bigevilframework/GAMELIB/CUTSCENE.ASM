@@ -18,7 +18,7 @@ Cutscene_RegsBackup			rs.b (Custscene_MaxBackupRegs*size_long)
 Cutscene_Playing			rs.b 1
 Cutscene_RegsStored			rs.b 1
 ;---------------------------------
-Cutscene_Struct_Pad			rs.b 2
+	RS_ALIGN
 Cutscene_Struct_Size		rs.b 0
 
 CutsceneInit:

@@ -75,7 +75,7 @@ BorgusAnimIdx_Max		equ 0x3
 ;-----------------------------
 Spitball_Animation			rs.b Animation_Struct_Size
 ;----------------------------- 
-Spitball_Struct_Pad			rs.b 0   ; Alignment padding
+	RS_ALIGN
 Spitball_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -89,7 +89,7 @@ Borgus_Fuzzl			rs.l 1
 Borgus_SpitTimer		rs.w 1
 Borgus_AIState			rs.b 1
 ;-----------------------------
-Borgus_Struct_Pad		rs.b 1   ; Alignment padding
+	RS_ALIGN
 Borgus_Struct_Size		rs.b 0
 ;-----------------------------
 

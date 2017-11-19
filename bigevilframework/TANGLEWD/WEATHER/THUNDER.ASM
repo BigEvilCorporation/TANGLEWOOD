@@ -31,7 +31,7 @@ Thunder_BoltActive		rs.b 1
 Thunder_PlayerTarget	rs.b 1
 Thunder_Enabled			rs.b 1
 ;-----------------------------
-Thunder_Struct_Pad		rs.b 0
+	RS_ALIGN
 Thunder_Struct_Size		rs.b 0
 
 ThunderInit:

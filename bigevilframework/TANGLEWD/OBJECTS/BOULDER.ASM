@@ -55,7 +55,7 @@ Boulder_Cracked			rs.b 1	; Cracked open, awaiting respawn
 Boulder_RollSFXPlaying	rs.b 1
 Boulder_PlatformActive	rs.b 1
 ;-----------------------------
-Boulder_Struct_Pad		rs.b 3   ; Alignment padding
+	RS_ALIGN
 Boulder_Struct_Size		rs.b 0
 ;-----------------------------
 

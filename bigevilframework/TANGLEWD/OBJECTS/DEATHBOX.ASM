@@ -17,7 +17,7 @@ Deathbox_DefaultDamage	equ 0xFF
 ;-----------------------------
 Deathbox_DamagePerFrame	rs.b 1
 ;-----------------------------
-Deathbox_Struct_Pad     rs.b 3	; Alignment padding
+	RS_ALIGN
 Deathbox_Struct_Size    rs.b 0
 
 DeathboxInit:

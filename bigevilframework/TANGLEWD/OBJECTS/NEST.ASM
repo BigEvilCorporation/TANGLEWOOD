@@ -15,7 +15,7 @@ Nest_Height       equ 0x0008
 ;--------------------------
 Nest_Occupied	  rs.b 1	; Nest occupied by a fuzzl
 ;--------------------------
-Nest_Struct_Pad   rs.b 3	; Alignment padding
+	RS_ALIGN
 Nest_Struct_Size  rs.b 0
 
 NestInit:

@@ -24,7 +24,7 @@ Pillar_BreakVelocity	equ 0x00010000
 Pillar_Barrier         rs.b Barrier_Struct_Size
 Pillar_Smashed         rs.b 1
 ;--------------------------
-Pillar_Struct_Pad      rs.b 3   ; Alignment padding
+	RS_ALIGN
 Pillar_Struct_Size     rs.b 0
 ;--------------------------
 

@@ -22,7 +22,7 @@ AIMarker_Type_SafePos	equ 0x2	; Safe spawn pos
 ;---------------------------------
 AIMarker_Type         rs.b 1
 ;---------------------------------
-AIMarker_Struct_Pad   rs.b 3	; Alignment padding
+	RS_ALIGN
 AIMarker_Struct_Size  rs.b 0
 
 AIMarkerInit:

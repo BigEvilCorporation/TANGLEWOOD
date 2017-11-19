@@ -14,7 +14,7 @@ Queue_ProducerIndex      rs.w 1	; Producer position
 Queue_ConsumerIndex      rs.w 1 ; Consumer position
 Queue_Data               rs.b 0 ; Array is expected to be allocated at end of struct
 ;------------------------------
-Queue_Struct_Pad         rs.b 0
+	RS_ALIGN
 Queue_Struct_Size        rs.b 0
 
 Queue_Init:

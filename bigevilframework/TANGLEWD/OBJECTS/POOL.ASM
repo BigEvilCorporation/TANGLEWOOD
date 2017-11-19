@@ -29,7 +29,7 @@ Pool_PrevScrollX		rs.w 1
 Pool_PrevScrollY		rs.w 1
 Pool_DirtyMap			rs.b 1
 ;-----------------------------
-Pool_Struct_Pad			rs.b 3
+	RS_ALIGN
 Pool_struct_Size		rs.b 0
 ;-----------------------------
 

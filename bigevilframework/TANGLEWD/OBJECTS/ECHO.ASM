@@ -139,7 +139,7 @@ EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach tar
 EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
 EchoAINode_LerpCamera		rs.b 1	; Lerp camera to character when node reached
 ;---------------------------------
-EchoAINode_Struct_Pad		rs.b 1
+	RS_ALIGN
 EchoAINode_Struct_Size		rs.b 0
 
 ; ************************************
@@ -175,7 +175,7 @@ Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
 Echo_EnteringLadder			rs.b 1
 ;---------------------------------
-Echo_Struct_Pad      		rs.b 2
+	RS_ALIGN
 Echo_Struct_Size     		rs.b 0
 
 ; ************************************

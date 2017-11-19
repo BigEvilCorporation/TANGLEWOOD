@@ -16,7 +16,7 @@ VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 VDPJob_Regs              rs.l VDPQueue_NumRegs ; Subroutine regs (d0-d6/a0-a4)
 VDPJob_SubroutineAddr    rs.l 1  			   ; Job subroutine address
 ;------------------------------
-VDPJob_Struct_Pad        rs.b 0
+	RS_ALIGN
 VDPJob_Struct_Size       rs.b 0
 ;------------------------------
 

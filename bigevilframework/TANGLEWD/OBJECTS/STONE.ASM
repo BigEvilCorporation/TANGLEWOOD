@@ -17,7 +17,7 @@ Stone_Height			equ 0x10
 ;--------------------------
 Stone_Barrier      rs.b Barrier_Struct_Size ; Moving barrier attached to stone
 ;--------------------------
-Stone_Struct_Pad   rs.b 0   ; Alignment padding
+	RS_ALIGN
 Stone_Struct_Size  rs.b 0
 ;--------------------------
 

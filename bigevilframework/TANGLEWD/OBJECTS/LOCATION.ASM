@@ -17,7 +17,7 @@ Location_Height       equ 0x0008
 ;--------------------------
 
 ;--------------------------
-Location_Struct_Pad   rs.b 0	; Alignment padding
+	RS_ALIGN
 Location_Struct_Size  rs.b 0
 
 LocationInit:

@@ -22,7 +22,7 @@ UIWidget_Height				rs.w 1	; Size Y
 UIWidget_Enabled			rs.b 1	; Widget enabled
 UIWidget_HasFocus			rs.b 1	; Widget has focus
 ;---------------------------------
-UIWidget_Struct_Pad			rs.b 2
+	RS_ALIGN
 UIWidget_Struct_Size		rs.b 0
 ;---------------------------------
 

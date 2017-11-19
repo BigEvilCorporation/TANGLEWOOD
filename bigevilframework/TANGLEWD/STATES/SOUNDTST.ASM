@@ -16,7 +16,7 @@ SoundTestSoundFadeSpeed	equ -10
 SoundTestState_SoundId		rs.w 1
 SoundTestState_PrevPadState rs.w 1
 ;---------------------------------
-SoundTestState_Struct_Pad	rs.b 0
+	RS_ALIGN
 SoundTestState_Struct_Size	rs.b 0
 ;---------------------------------
 

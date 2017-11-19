@@ -83,7 +83,7 @@ l3a3Data_ComboButton1Count		rs.b 1
 l3a3Data_ComboButton2Count		rs.b 1
 l3a3Data_MeetEchoSceneStage		rs.b 1
 ;---------------------------------
-l3a3Data_Struct_Pad      		rs.b 2
+	RS_ALIGN
 l3a3Data_Struct_Size     		rs.b 0
 	
 l3a3_Init:

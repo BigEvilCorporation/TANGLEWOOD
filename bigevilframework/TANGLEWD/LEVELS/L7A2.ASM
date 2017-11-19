@@ -59,7 +59,7 @@ l7a2_DefaultPalettes:
 ; ************************************
 	rsset LevelData_Struct_Size
 ;---------------------------------
-l7a2Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l7a2Data_Struct_Size     		rs.b 0
 	
 l7a2_Init:

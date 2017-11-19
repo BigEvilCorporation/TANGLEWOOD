@@ -32,7 +32,7 @@ Crate_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of Crate
 Crate_UpperPlatform		rs.b Platform_Struct_Size ; Moving platform on top of Crate
 Crate_PushSFXPlaying	rs.b 1
 ;-----------------------------
-Crate_Struct_Pad		rs.b 3   ; Alignment padding
+	RS_ALIGN
 Crate_Struct_Size		rs.b 0
 ;-----------------------------
 

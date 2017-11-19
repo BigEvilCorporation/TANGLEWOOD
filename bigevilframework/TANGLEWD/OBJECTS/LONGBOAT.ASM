@@ -41,7 +41,7 @@ Longboat_YOffsets			rs.w Longboat_NumSegments
 Longboat_Tilt				rs.w 1
 Longboat_Visible			rs.b 1
 ;-----------------------------
-Longboat_Struct_Pad			rs.b 1
+	RS_ALIGN
 Longboat_struct_Size		rs.b 0
 ;-----------------------------
 

@@ -39,5 +39,5 @@ Level_NumTiles				rs.w 1
 Level_NumTerrainDescs		rs.w 1
 Level_BgColour				rs.b 1
 ;---------------------------------
-Level_Struct_Pad			rs.b 3
+	RS_ALIGN
 Level_Struct_Size			rs.b 0

@@ -49,7 +49,7 @@ LevelSelectLineSpacing	equ 0x10
 ;-------------------------------------
 LevelSelectState_FadeTimer		rs.w 1
 ;-------------------------------------
-LevelSelectState_Struct_Pad		rs.b 2
+	RS_ALIGN
 LevelSelectState_Struct_Size	rs.b 0
 ;-------------------------------------
 

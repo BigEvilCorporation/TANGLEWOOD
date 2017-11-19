@@ -26,7 +26,7 @@ TriggerBox_TriggerOnce	rs.b 1	; Trigger once
 TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis - TODO: Implement all intersection types below
 TriggerBox_EachFrame	rs.b 1	; Trigger each frame, don't filter in/out
 ;--------------------------
-TriggerBox_Struct_Pad   rs.b 0	; Alignment padding
+	RS_ALIGN
 TriggerBox_Struct_Size  rs.b 0
 
 ; Intersection types

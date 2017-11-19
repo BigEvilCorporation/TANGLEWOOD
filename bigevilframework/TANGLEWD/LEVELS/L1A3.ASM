@@ -55,7 +55,7 @@ l1a3_DefaultPalettes:
 ; ************************************
 	rsset LevelData_Struct_Size
 ;---------------------------------
-l1a3Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l1a3Data_Struct_Size     		rs.b 0
 	
 l1a3_Init:

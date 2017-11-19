@@ -87,7 +87,7 @@ Bridge_PlatformActive	rs.b 1
 Bridge_BarrierActive	rs.b 1
 Bridge_UpdateOutOfView	rs.b 1
 ;-----------------------------
-Bridge_Struct_Pad		rs.b 2   ; Alignment padding
+	RS_ALIGN
 Bridge_Struct_Size		rs.b 0
 ;-----------------------------
 

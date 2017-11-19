@@ -79,7 +79,7 @@ l5a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per t
 	rsset LevelData_Struct_Size
 l5a4Data_Cutscene				rs.b Cutscene_Struct_Size
 ;---------------------------------
-l5a4Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l5a4Data_Struct_Size     		rs.b 0
 	
 l5a4_Init:

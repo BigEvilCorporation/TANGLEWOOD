@@ -59,7 +59,7 @@ DemonAnimIdx_Max			equ 0x5
 ;-----------------------------
 Wisp_Animation			rs.b Animation_Struct_Size
 ;-----------------------------
-Wisp_Struct_Pad			rs.b 0   ; Alignment padding
+	RS_ALIGN
 Wisp_Struct_Size		rs.b 0
 ;-----------------------------
 
@@ -81,7 +81,7 @@ Demon_Vulnerable		rs.b 1	; Vulnerable to attacks
 Demon_NumLives			rs.b 1
 Demon_ManualGfxLoad		rs.b 1	; Don't load gfx
 ;-----------------------------
-Demon_Struct_Pad		rs.b 1   ; Alignment padding
+	RS_ALIGN
 Demon_Struct_Size		rs.b 0
 ;-----------------------------
 

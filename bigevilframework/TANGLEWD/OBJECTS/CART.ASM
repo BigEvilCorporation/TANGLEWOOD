@@ -34,7 +34,7 @@ Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
 Cart_Occupant        rs.l 1
 Cart_Smashed         rs.b 1
 ;--------------------------
-Cart_Struct_Pad      rs.b 3   ; Alignment padding
+	RS_ALIGN
 Cart_Struct_Size     rs.b 0
 ;--------------------------
 

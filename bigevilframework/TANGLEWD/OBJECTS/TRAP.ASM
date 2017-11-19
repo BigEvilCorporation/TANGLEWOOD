@@ -37,7 +37,7 @@ Trap_RaiseTarget		rs.w 1
 Trap_Activated			rs.b 1
 Trap_Raising			rs.b 1
 ;-----------------------------
-Trap_Struct_Pad			rs.b 2   ; Alignment padding
+	RS_ALIGN
 Trap_Struct_Size		rs.b 0
 ;-----------------------------
 

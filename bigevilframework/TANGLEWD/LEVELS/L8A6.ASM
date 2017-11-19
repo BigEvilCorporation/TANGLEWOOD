@@ -63,7 +63,7 @@ l8a6_DemonAttackSpeed			equ 0x0020
 	rsset LevelData_Struct_Size
 l8a6Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
 ;---------------------------------
-l8a6Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l8a6Data_Struct_Size     		rs.b 0
 	
 l8a6_Init:

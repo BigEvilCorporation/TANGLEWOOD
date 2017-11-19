@@ -35,7 +35,7 @@ EndLevelPhase_Fade					equ 0x2
 EndLevelState_Timer			rs.w 1
 EndLevelState_Phase			rs.b 1
 ;---------------------------------
-EndLevelState_Struct_Pad	rs.b 1
+	RS_ALIGN
 EndLevelState_Struct_Size	rs.b 0
 ;---------------------------------
 	

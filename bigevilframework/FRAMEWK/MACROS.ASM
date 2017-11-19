@@ -131,6 +131,15 @@ MEMZEROB: macro addressreg,countreg
 	endm
 
 ;==============================================================
+
+; 'even' equivalent for RS
+RS_ALIGN: macro
+	if __RS&1
+	rs.b 1
+	endc
+	endm
+
+;==============================================================
 	
 ; Set VDP register state (and update local table)
 VDPSETREG: macro regnum,valuereg

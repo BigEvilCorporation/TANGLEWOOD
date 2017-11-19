@@ -90,7 +90,7 @@ Credits_LastLineIdx			rs.w 1
 Credits_CurrentStringType	rs.b 1
 Credits_State				rs.b 1
 ;-------------------------------------
-Credits_Struct_Pad			rs.b 2
+	RS_ALIGN
 Credits_Struct_Size			rs.b 0
 ;-------------------------------------
 	

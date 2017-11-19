@@ -65,7 +65,7 @@ L6A1_LogRollCamLerpTime		equ 0x1E
 	rsset LevelData_Struct_Size
 l6a1Data_LogRollCamLerpTimer	rs.w 1
 ;---------------------------------
-L6a1Data_Struct_Pad      		rs.b 2
+	RS_ALIGN
 L6a1Data_Struct_Size     		rs.b 0
 	
 L6a1_Init:

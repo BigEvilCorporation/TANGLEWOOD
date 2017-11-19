@@ -97,7 +97,7 @@ PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs li
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 PhysicsObj_ForceUpdate			rs.b 1 ; Force an update next frame even if sleep/out of view
 ;---------------------------------
-PhysicsObj_Struct_Pad      		rs.b 1
+	RS_ALIGN
 PhysicsObj_Struct_Size      	rs.b 0
 	
 ;==============================================================

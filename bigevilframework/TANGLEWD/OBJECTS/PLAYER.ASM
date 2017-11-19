@@ -201,7 +201,7 @@ Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
 ;---------------------------------
-Player_Struct_Pad      		rs.b 0
+	RS_ALIGN
 Player_Struct_Size     		rs.b 0
 
 ; ************************************

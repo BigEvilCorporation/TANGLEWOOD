@@ -24,7 +24,7 @@ Raft_SineSpeed			equ 0x04
 ;-----------------------------
 Raft_Platform			rs.b Platform_Struct_Size
 ;-----------------------------
-Raft_Struct_Pad			rs.b 0
+	RS_ALIGN
 Raft_struct_Size		rs.b 0
 ;-----------------------------
 

@@ -24,7 +24,7 @@ CogsAnimIdx_Max     equ 1
 ;-----------------------------
 Cogs_Animations			rs.b (Animation_Struct_Size*CogsAnimIdx_Max)
 ;-----------------------------
-Cogs_Struct_Pad			rs.b 0   ; Alignment padding
+	RS_ALIGN
 Cogs_Struct_Size		rs.b 0
 ;-----------------------------
 

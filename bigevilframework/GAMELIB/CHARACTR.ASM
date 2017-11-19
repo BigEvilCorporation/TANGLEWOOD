@@ -106,7 +106,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 ;---------------------------------
-Character_Struct_Pad    	rs.b 1
+	RS_ALIGN
 Character_Struct_Size   	rs.b 0
 
 ;==============================================================

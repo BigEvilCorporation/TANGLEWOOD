@@ -48,7 +48,7 @@ MainMenuState_LogoSprite	rs.b SpriteObj_Struct_Size
 MainMenuState_NextState		rs.l 1
 MainMenuState_FadeTimer		rs.w 1
 ;---------------------------------
-MainMenuState_Struct_Pad	rs.b 2
+	RS_ALIGN
 MainMenuState_Struct_Size	rs.b 0
 ;---------------------------------
 

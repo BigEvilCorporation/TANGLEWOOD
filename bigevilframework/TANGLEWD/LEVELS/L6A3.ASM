@@ -64,7 +64,7 @@ l6a3_DefaultPalettes:
 	rsset LevelData_Struct_Size
 l6a3Data_LogRollCamLerpTimer	rs.w 1
 ;---------------------------------
-l6a3Data_Struct_Pad      		rs.b 2
+	RS_ALIGN
 l6a3Data_Struct_Size     		rs.b 0
 	
 l6a3_Init:

@@ -58,7 +58,7 @@ l4a2_DefaultPalettes:
 ; ************************************
 	rsset LevelData_Struct_Size
 ;---------------------------------
-l4a2Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l4a2Data_Struct_Size     		rs.b 0
 	
 l4a2_Init:

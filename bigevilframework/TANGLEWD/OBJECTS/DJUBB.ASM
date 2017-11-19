@@ -34,7 +34,7 @@ Djubb_NumAnims			equ 1
 ;-----------------------------
 Djubb_Animations		rs.b (Animation_Struct_Size*Djubb_NumAnims)
 ;-----------------------------
-Djubb_Struct_Pad		rs.b 0
+	RS_ALIGN
 Djubb_Struct_Size		rs.b 0
 ;-----------------------------
 

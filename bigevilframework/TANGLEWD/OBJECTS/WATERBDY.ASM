@@ -15,7 +15,7 @@ WaterBody_Height       equ 0x0028
 ;--------------------------
 
 ;--------------------------
-WaterBody_Struct_Pad   rs.b 0	; Alignment padding
+	RS_ALIGN
 WaterBody_Struct_Size  rs.b 0
 
 WaterBodyInit:

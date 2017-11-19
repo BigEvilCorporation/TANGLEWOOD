@@ -26,7 +26,7 @@ UIWidgetCursor_PrevInput	rs.w 1	; For input debounce
 UIWidgetCursor_NumWidgets	rs.b 1	; Num widgets added for selection
 UIWidgetCursor_CurrIndex	rs.b 1	; Currently selected widget index
 ;---------------------------------
-UIWidgetCursor_Struct_Pad	rs.b 2
+	RS_ALIGN
 UIWidgetCursor_Struct_Size	rs.b 0
 ;---------------------------------
 

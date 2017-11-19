@@ -12,7 +12,7 @@
 UIWindow_OnForward			rs.l 1	; Callback for window advancing
 UIWindow_OnBack				rs.l 1	; Callback for window closing
 ;---------------------------------
-UIWindow_Struct_Pad			rs.b 0
+	RS_ALIGN
 UIWindow_Struct_Size		rs.b 0
 ;---------------------------------
 

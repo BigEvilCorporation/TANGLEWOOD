@@ -17,7 +17,7 @@ Autotest_PadDataB		rs.w 1
 Autotest_Timer			rs.w 1
 Autotest_Mode			rs.b 1
 ;-----------------------------
-Autotest_Struct_Pad		rs.b 1
+	RS_ALIGN
 Autotest_Struct_Size	rs.b 0
 ;-----------------------------
 

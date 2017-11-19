@@ -101,7 +101,7 @@ Djrake_BlockingCtrl   	rs.b 1
 Djrake_CatchingUp     	rs.b 1
 Djrake_RumblePlayed   	rs.b 1
 ;-----------------------------
-Djrake_Struct_Pad     	rs.b 0
+	RS_ALIGN
 Djrake_Struct_Size    	rs.b 0
 
 ; ************************************

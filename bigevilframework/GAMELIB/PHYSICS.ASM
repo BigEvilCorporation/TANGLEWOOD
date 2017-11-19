@@ -14,7 +14,7 @@ PhysicsWorld_GroundHeight			rs.l 1
 PhysicsWorld_MovingPlatformsUpdated	rs.b 1	; Platforms moved/stopped last frame
 PhysicsWorld_MovingBarriersUpdated	rs.b 1	; Barriers moved/stopped last frame
 ;-----------------------------------------
-PhysicsWorld_Struct_Pad				rs.b 2
+	RS_ALIGN
 PhysicsWorld_Struct_Size			rs.b 0
 ;-----------------------------------------
 

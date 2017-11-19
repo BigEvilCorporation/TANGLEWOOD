@@ -19,7 +19,7 @@ Ladder_NumSprites		equ (Ladder_Height/Ladder_SpriteHeight)
 ;-----------------------------
 Ladder_Platform			rs.b Platform_Struct_Size
 ;-----------------------------
-Ladder_Struct_Pad		rs.b 0   ; Alignment padding
+	RS_ALIGN
 Ladder_Struct_Size		rs.b 0
 ;-----------------------------
 

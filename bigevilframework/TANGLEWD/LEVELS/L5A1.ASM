@@ -59,7 +59,7 @@ L5a1_DefaultPalettes:
 	rsset LevelData_Struct_Size
 l5a1Data_CutsceneCargoLift		rs.b Cutscene_Struct_Size
 ;---------------------------------
-L5a1Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 L5a1Data_Struct_Size     		rs.b 0
 	
 L5a1_Init:

@@ -19,7 +19,7 @@ PaletteLerp_ComponentIdx		rs.b 1
 PaletteLerp_ColourMin			rs.b 1
 PaletteLerp_ColourMax			rs.b 1
 ;-------------------------------------
-PaletteLerp_Struct_Pad			rs.b 0
+	RS_ALIGN
 PaletteLerp_Struct_Size			rs.b 0
 
 PAL_LerpStart:

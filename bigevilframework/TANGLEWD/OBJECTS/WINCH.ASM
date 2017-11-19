@@ -18,7 +18,7 @@ Winch_PhysObject		rs.l 1	; Physics object being pushed/pulled
 Winch_Velocity			rs.l 1	; Velocity to push/pull attached object
 Winch_Mirror			rs.l 1	; Winch on opposite side, mirrors animation
 ;-----------------------------
-Winch_Struct_Pad		rs.b 0
+	RS_ALIGN
 Winch_struct_Size		rs.b 0
 ;-----------------------------
 

@@ -42,7 +42,7 @@ Entity_WorldGridFlags     rs.b 1 ; Current state in update/render grid (EntityGr
 Entity_WorldGridOrder     rs.b 1 ; Order to insert into world grid, for removal/reinserting
 Entity_Active             rs.b 1 ; Active flag
 ;-----------------------------
-Entity_Struct_Pad         rs.b 1
+	RS_ALIGN
 Entity_Struct_Size        rs.b 0
 
 EntityInit:

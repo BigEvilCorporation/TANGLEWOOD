@@ -27,7 +27,7 @@ SpriteObj_FlippedY            rs.b 1	; Sprite flip Y
 SpriteObj_Visible             rs.b 1	; Is visible (hidden in sprite border if not)
 SpriteObj_SpriteLinked        rs.b 1	; Is sprite linked (use as last frame visibility test)
 ;-----------------------------------
-SpriteObj_Struct_Pad          rs.b 1
+	RS_ALIGN
 SpriteObj_Struct_Size         rs.b 0
 ;-----------------------------------
 

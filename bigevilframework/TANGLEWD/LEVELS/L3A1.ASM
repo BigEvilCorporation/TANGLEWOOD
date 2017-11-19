@@ -59,7 +59,7 @@ l3a1_DefaultPalettes:
 	rsset LevelData_Struct_Size
 l3a1Data_WaitingInput			rs.b 1
 ;---------------------------------
-l3a1Data_Struct_Pad      		rs.b 3
+	RS_ALIGN
 l3a1Data_Struct_Size     		rs.b 0
 	
 l3a1_Init:

@@ -22,6 +22,6 @@ Barrier_Height			rs.w 1	; Barrier wall height
 Barrier_BreakMass		rs.b 1	; Mass needed to break barrier
 Barrier_Broken			rs.b 1	; Barrier broken
 ;---------------------------------
-Barrier_Struct_Pad		rs.b 2
+	RS_ALIGN
 Barrier_Struct_Size		rs.b 0
 ;---------------------------------

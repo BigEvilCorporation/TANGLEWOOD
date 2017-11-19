@@ -27,7 +27,7 @@ Platform_Type			rs.b 1
 Platform_Occupied		rs.b 1
 Platform_Dirty			rs.b 1
 ;---------------------------------
-Platform_Struct_Pad		rs.b 3
+	RS_ALIGN
 Platform_Struct_Size	rs.b 0
 ;---------------------------------
 

@@ -65,7 +65,7 @@ l4a3Data_CutsceneEchoTrapped	rs.b Cutscene_Struct_Size
 l4a3Data_CutsceneRevealBorgus	rs.b Cutscene_Struct_Size
 l4a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
 ;---------------------------------
-l4a3Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l4a3Data_Struct_Size     		rs.b 0
 	
 l4a3_Init:

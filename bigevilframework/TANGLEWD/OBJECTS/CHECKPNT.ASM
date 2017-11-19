@@ -15,7 +15,7 @@ Checkpoint_Height       equ 0x0008
 ;--------------------------
 Checkpoint_Activated	rs.b 1	; Checkpoint reached/available
 ;--------------------------
-Checkpoint_Struct_Pad   rs.b 3	; Alignment padding
+	RS_ALIGN
 Checkpoint_Struct_Size  rs.b 0
 
 CheckpointInit:

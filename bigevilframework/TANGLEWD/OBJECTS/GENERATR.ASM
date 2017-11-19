@@ -32,7 +32,7 @@ Generator_OnActivate		rs.l 1
 Generator_UserData			rs.l 1
 Generator_Running			rs.b 1
 ;-----------------------------
-Generator_Struct_Pad		rs.b 3   ; Alignment padding
+	RS_ALIGN
 Generator_Struct_Size		rs.b 0
 ;-----------------------------
 

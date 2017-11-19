@@ -64,7 +64,7 @@ l5a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealScrap	rs.b Cutscene_Struct_Size
 ;---------------------------------
-l5a3Data_Struct_Pad      		rs.b 0
+	RS_ALIGN
 l5a3Data_Struct_Size     		rs.b 0
 	
 l5a3_Init:

@@ -82,7 +82,7 @@ Wyrm_DebrisAccumX		rs.w 1	; If X delta hits debris width, draw a new one
 Wyrm_NextFreeDebris		rs.b 1
 Wyrm_State				rs.b 1
 ;-----------------------------
-Wyrm_Struct_Pad			rs.b 2   ; Alignment padding
+	RS_ALIGN
 Wyrm_Struct_Size		rs.b 0
 ;-----------------------------
 

@@ -27,7 +27,7 @@ vdp_regs			  rs.b vdp_num_registers
 rand_seed				rs.l 1
 vint_enabled			rs.b 1
 
-__paddqng00				rs.b 3
+	RS_ALIGN
 
 vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
 
@@ -45,7 +45,7 @@ raster_interlace_scroll		rs.w 1
 raster_interlace_odd		rs.b 1	; Odd/even raster line
 raster_water_level			rs.b 1	; Current water level, sets HINT frequency
 
-__paddqng80				rs.b 2
+	RS_ALIGN
 
 ; ************************************
 ; Audio
@@ -59,7 +59,7 @@ audio_volume_global		rs.b 1
 audio_fader_speed		rs.b 1
 audio_playback_locked	rs.b 1
 
-__paddqng01				rs.b 3
+	RS_ALIGN
 
 ; ************************************
 ; Profiler
@@ -68,7 +68,7 @@ __paddqng01				rs.b 3
 profile_pending		  rs.b 1
 profile_finished	  rs.b 1
 profile_active		  rs.b 1
-__paddqng01 		  rs.b 1
+	RS_ALIGN
 profile_currblock	  rs.l 1
 profile_nextfreeblock rs.l 1
 profile_resultblocks  rs.b (ProfileBlockStructSize*ProfileMaxBlocks)
@@ -117,7 +117,7 @@ next_sprite_index   rs.w 1
 prev_sprite_link    rs.w 1
 sprite_link_count   rs.b 1
 
-__paddqng32 		rs.b 1
+	RS_ALIGN
 
 ; ************************************
 ; Timers
@@ -137,7 +137,7 @@ CurrentActDatas		rs.l LevelMaxActs
 CurrentLevelNumActs	rs.w 1
 EntityCount			rs.b 1
 
-__padding011		rs.b 1
+	RS_ALIGN
 
 ; ************************************
 ; Time of day
@@ -147,7 +147,7 @@ TimeOfDayPalettes   rs.l TimeOfDay_NumCycles
 TimeOfDay           rs.b 1	; TimeOfDay_Dawn/Day/Dusk/Night
 TimeOfDayEnabled    rs.b 1
 
-__paddqng03			rs.b 2
+	RS_ALIGN
 
 ; ************************************
 ; Weather
@@ -201,7 +201,7 @@ MapStreamNumCols	    rs.w 1
 MapStreamNumRows	    rs.w 1
 CameraWorldGridIndexTL  rs.w 1	; Current camera world grid index (top left)
 
-__paddqng061		   rs.b 0
+	RS_ALIGN
 
 ; ************************************
 ; Scene/stamp animations
@@ -219,7 +219,7 @@ Gamepad2PrevState      rs.w 1
 DirtyPalettesMask      rs.b 1	; Marks palettes for DMA
 UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
-__paddqng31            rs.b 2
+	RS_ALIGN
 
 ; Global player addresses
 Player1                rs.l 1
@@ -242,8 +242,6 @@ SwitchingPalettesP1    rs.l NumSwitchingColours
 
 ; VFX flash timer
 VFXFlashTimer          rs.w 1
-
-__padding1212          rs.b 2
 
 ; Current game state
 GameStatePtr           rs.l 1
@@ -274,14 +272,14 @@ GameStateSoundTestData		 rs.b SoundTestState_Struct_Size
 FluePotentialOccupants		 rs.l Flue_MaxPotentialOccupants
 FlueNumPotentialOccupants	 rs.b 1
 
-__paddqng06				     rs.b 3
+	RS_ALIGN
 
 ; ************************************
 ; Checkpoints
 ; ************************************
 LastActivatedCheckpoint      rs.l 1
 LastSaveVersion				 rs.w 1
-__paddqng041			     rs.b 2
+	RS_ALIGN
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
 ; ************************************
@@ -295,7 +293,7 @@ EndOfActAcceleration		 rs.w 1
 ; ************************************
 GlobalTimeDiv			 rs.b 1
 
-__paddqng04			     rs.b 3
+	RS_ALIGN
 
 ; Time slow effect palette backup
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
@@ -411,7 +409,7 @@ LevelData_L8A6			 rs.b L8A6Data_Struct_Size
 ; ************************************
 	IFND FINAL
 DebugMoveObjectMode      rs.b 1
-__paddqng05			     rs.b 3
+	RS_ALIGN
 	ENDIF
 
 ; ************************************
