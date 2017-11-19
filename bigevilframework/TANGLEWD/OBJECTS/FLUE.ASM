@@ -40,6 +40,7 @@ Flue_EjectForceX		rs.l 1	; Eject force X
 Flue_EjectForceY		rs.l 1	; Eject force Y
 Flue_OccupantCheckTimer	rs.w 1
 Flue_CameraLerpSpeed	rs.w 1
+Flue_NumOccupants		rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Flue_Struct_Size  		rs.b 0
@@ -68,6 +69,7 @@ FlueInit:
 	move.w #Flue_Width, Entity_Width(a0)
 	move.w #Flue_Height, Entity_Height(a0)
 	move.w #Flue_DefaultCameraLerpSpeed, Flue_CameraLerpSpeed(a0)
+	move.b #0x0, Flue_NumOccupants(a0)
 	MOVE_NTSC_L Flue_DefaultEjectForceX, Flue_EjectForceX(a0), d0
 	MOVE_NTSC_L Flue_DefaultEjectForceY, Flue_EjectForceY(a0), d0
 	
@@ -273,9 +275,17 @@ FlueOccupantUpdate:
 	bra    @End
 
 	@Outside:
+
 	; Player fully clear of box, no longer ejecting
 	move.b #0x0, FlueOccupant_Ejecting(a2)
 	move.l #0x0, FlueOccupant_ObjAddr(a2)
+
+	subi.b #0x1, Flue_NumOccupants(a0)
+	tst.b  Flue_NumOccupants(a0)
+	bne    @End
+
+	; If no occupants left, re-add to world grid
+	bset.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
 	bra    @End
 
@@ -349,11 +359,17 @@ FlueFindOccupant:
 	; New occupant found
 	move.l a3, a1
 
+	; Count
+	addi.b #0x1, Flue_NumOccupants(a0)
+
 	; Set invisible
 	move.b #0x0, SpriteObj_Visible(a1)
 	
 	; Play SFX
 	PLAYSFX #SFX_FlueIn
+
+	; Remove flue from world grid until occupant is free (in case camera lerp sends it out of update view)
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 	
 	bra    @NewOccupantFound
 	
