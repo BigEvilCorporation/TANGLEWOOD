@@ -111,6 +111,17 @@ PoolLoadGfx:
 	; Set VRAM map dirty
 	move.b #0x1, Pool_DirtyMap(a0)
 
+	; Reposition platform
+	lea    Pool_Platform(a0), a2
+	move.w Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.w Entity_WorldPosY(a0), d0
+	addi.w #Pool_Height, d0
+	sub.w  Pool_WaterHeight(a0), d0
+	move.w d0, Platform_PosY(a2)
+	move.w Pool_WaterSpeed(a0), d0
+	TOSUBPIXELS d0
+	move.l d0, Platform_VelY(a2)
+
 	; Alloc VRAM for filled tile
 	move.w #size_tile_b, d0
 	jsr    VRAM_PoolAlloc
