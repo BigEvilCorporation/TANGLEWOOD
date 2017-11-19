@@ -105,14 +105,6 @@ L8A3_Cogs1_name	dc.b "L8A3_Cogs1",0
 	even
 	ENDIF
 
-L8A3_Bridge_count equ 0x1
-L8A3_Bridge1_idx	equ 0x0
-
-	IFND FINAL
-L8A3_Bridge1_name	dc.b "L8A3_Bridge1",0
-	even
-	ENDIF
-
 L8A3_Button_count equ 0x0
 
 L8A3_Wyrm_count equ 0x0
@@ -138,14 +130,6 @@ L8A3_WindFlue_count equ 0x0
 L8A3_Lock_count equ 0x0
 
 L8A3_Pool_count equ 0x0
-
-L8A3_Ladder_count equ 0x1
-L8A3_Ladder_1_idx	equ 0x0
-
-	IFND FINAL
-L8A3_Ladder_1_name	dc.b "L8A3_Ladder_1",0
-	even
-	ENDIF
 
 L8A3_Stalactite_count equ 0x5
 L8A3_Stalactite_7_idx	equ 0x0
@@ -174,6 +158,22 @@ L8A3_CargoLift_name	dc.b "L8A3_CargoLift",0
 L8A3_Scrap_count equ 0x0
 
 L8A3_Longboat_count equ 0x0
+
+L8A3_Ladder_count equ 0x1
+L8A3_Ladder_1_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Ladder_1_name	dc.b "L8A3_Ladder_1",0
+	even
+	ENDIF
+
+L8A3_Bridge_count equ 0x1
+L8A3_Bridge1_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Bridge1_name	dc.b "L8A3_Bridge1",0
+	even
+	ENDIF
 
 
 
@@ -369,30 +369,6 @@ L8A3_LoadGameObjects:
 	add.l #Cogs_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L8A3_Bridge_count)
-	move.l a1, EntityPoolStart_Bridge
-	move.l a1, a0
-	POPL   a1
-
-	jsr BridgeInit
-	move.l #0x03980000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateClosed, Bridge_State(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	move.b #0x1, Bridge_UpdateOutOfView(a0)
-	jsr BridgeLoadGfx
-	IFND FINAL
-	lea L8A3_Bridge1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Bridge_Struct_Size, a0
-
-
 
 
 	PUSHL  a1
@@ -432,26 +408,6 @@ L8A3_LoadGameObjects:
 
 
 
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L8A3_Ladder_count)
-	move.l a1, EntityPoolStart_Ladder
-	move.l a1, a0
-	POPL   a1
-
-	jsr LadderInit
-	move.l #0x03a00000, Entity_WorldPosX(a0)
-	move.l #0x02200000, Entity_WorldPosY(a0)
-	jsr LadderLoadGfx
-	IFND FINAL
-	lea L8A3_Ladder_1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Ladder_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -546,6 +502,50 @@ L8A3_LoadGameObjects:
 	add.l #CargoLift_Struct_Size, a0
 
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L8A3_Ladder_count)
+	move.l a1, EntityPoolStart_Ladder
+	move.l a1, a0
+	POPL   a1
+
+	jsr LadderInit
+	move.l #0x03a00000, Entity_WorldPosX(a0)
+	move.l #0x02200000, Entity_WorldPosY(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L8A3_Ladder_1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L8A3_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
+	move.l a1, a0
+	POPL   a1
+
+	jsr BridgeInit
+	move.l #0x03980000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateClosed, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x1, Bridge_UpdateOutOfView(a0)
+	jsr BridgeLoadGfx
+	IFND FINAL
+	lea L8A3_Bridge1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Bridge_Struct_Size, a0
 
 
 	rts

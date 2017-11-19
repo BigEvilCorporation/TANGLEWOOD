@@ -135,6 +135,9 @@ CurrentLevel		rs.l 1
 PreviousLevel		rs.l 1
 CurrentActDatas		rs.l LevelMaxActs
 CurrentLevelNumActs	rs.w 1
+EntityCount			rs.b 1
+
+__padding011		rs.b 1
 
 ; ************************************
 ; Time of day

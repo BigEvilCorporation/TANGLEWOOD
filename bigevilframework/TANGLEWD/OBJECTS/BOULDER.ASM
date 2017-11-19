@@ -156,7 +156,7 @@ BoulderLoadGfx:
 	jsr    PhysicsObjSnapToFloor
 
 	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
 	
 	; If already cracked, set cracked anim

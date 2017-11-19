@@ -6,13 +6,15 @@
 ;   entity.asm - Basic positional entity
 ;==============================================================
 
-ENTITY_DEBUG_WORLDGRID_COUNTS equ 1
+ENTITY_DEBUG_WORLDGRID_COUNTS equ 0
 ENTITY_DEBUG_WORLDGRID_BOUNDS equ 0
 
 EntityWorldGridFlag_GridUpdates		equ 0x0	; Object uses world grid for updating
 EntityWorldGridFlag_GridRenders		equ 0x1	; Object uses world grid for rendering
-EntityWorldGridFlag_InUpdateList	equ 0x2	; Object is in update list
+EntityWorldGridFlag_GridPhysics		equ 0x2	; Object uses world grid for physics step
+EntityWorldGridFlag_InUpdateList	equ 0x3	; Object is in update list
 EntityWorldGridFlag_InRenderList	equ 0x4	; Object is in render list
+EntityWorldGridFlag_InPhysicsList	equ 0x5	; Object is in render list
 
 	rsset 0
 ;-----------------------------
@@ -37,9 +39,10 @@ Entity_Width              rs.w 1 ; Width (pixels)
 Entity_Height             rs.w 1 ; Height(pixels)
 Entity_WorldGridIdx       rs.w 1 ; World grid index
 Entity_WorldGridFlags     rs.b 1 ; Current state in update/render grid (EntityGridFlag_*)
+Entity_WorldGridOrder     rs.b 1 ; Order to insert into world grid, for removal/reinserting
 Entity_Active             rs.b 1 ; Active flag
 ;-----------------------------
-Entity_Struct_Pad         rs.b 2
+Entity_Struct_Pad         rs.b 1
 Entity_Struct_Size        rs.b 0
 
 EntityInit:
@@ -56,11 +59,16 @@ EntityInit:
 	move.w #0x0, Entity_Height(a0)
 	move.w #0x0, Entity_WorldGridIdx(a0)
 	move.b #0x0, Entity_WorldGridFlags(a0)
+	move.b #0x0, Entity_WorldGridOrder(a0)
 	move.b #0x0, Entity_Active(a0)
 
 	move.l #0x0, List_EntityUpdate_Next(a0)
 	move.l #0x0, List_EntityRender_Next(a0)
 	move.l #0x0, List_EntitySerialise_Next(a0)
+
+	; Set index
+	move.b EntityCount, Entity_WorldGridOrder(a0)
+	addi.b #0x1, EntityCount
 	
 	rts
 
@@ -119,6 +127,7 @@ EntityClearSerialiseList:
 ;==============================================================
 EntityInitWorldGrid:
 	LIST_CLEAR EntityWorldGrid,a4,a3
+	move.b #0x0, EntityCount
 	move.w #-1, CameraWorldGridIndexTL
 	rts
 	
@@ -127,7 +136,7 @@ EntityAddToWorldGrid:
 	; d0 (b) Flags (EntityWorldGridFlag_Grid*)
 
 	; Set flags
-	move.b d0, Entity_WorldGridFlags(a0)
+	or.b   d0, Entity_WorldGridFlags(a0)
 
 	; Add to world grid list
 	LIST_APPEND_TAIL EntityWorldGrid,a0,a3
@@ -194,12 +203,15 @@ EntityUpdateWorldGridIndex:
 	; Get flags
 	move.b Entity_WorldGridFlags(a0), d0
 
+	; Get order
+	move.b Entity_WorldGridOrder(a0), d1
+
 	; Add entity to update list
 	btst   #EntityWorldGridFlag_GridUpdates, d0		; If entity uses grid to update
 	beq    @EndAddUpdateList
 	btst   #EntityWorldGridFlag_InUpdateList, d0	; If not already in update list
 	bne    @EndAddUpdateList
-	LIST_APPEND_TAIL EntityUpdate,a0,a3				; Add to update list
+	LIST_INSERT_ORDERED EntityUpdate,a0,a3,a4,Entity_WorldGridOrder,d1	; Add to update list
 	bset   #EntityWorldGridFlag_InUpdateList, d0	; Set flag
 	@EndAddUpdateList:
 
@@ -208,9 +220,19 @@ EntityUpdateWorldGridIndex:
 	beq    @EndAddRenderList
 	btst   #EntityWorldGridFlag_InRenderList, d0	; If not already in render list
 	bne    @EndAddRenderList
-	LIST_APPEND_TAIL EntityRender,a0,a3				; Add to render list
+	LIST_INSERT_ORDERED EntityRender,a0,a3,a4,Entity_WorldGridOrder,d1	; Add to render list
 	bset   #EntityWorldGridFlag_InRenderList, d0	; Set flag
 	@EndAddRenderList:
+
+	; Add entity to physics list
+	btst   #EntityWorldGridFlag_GridPhysics, d0		; If entity uses grid to step physics
+	beq    @EndAddPhysicsList
+	btst   #EntityWorldGridFlag_InPhysicsList, d0	; If not already in physics list
+	bne    @EndAddPhysicsList
+	lea    PhysicsWorld, a3
+	MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3			; Add to physics list
+	bset   #EntityWorldGridFlag_InPhysicsList, d0	; Set flag
+	@EndAddPhysicsList:
 
 	; Set flags
 	move.b d0, Entity_WorldGridFlags(a0)
@@ -240,6 +262,16 @@ EntityUpdateWorldGridIndex:
 	LIST_REMOVE EntityRender,a0,a4,a3				; Remove from render list
 	bclr   #EntityWorldGridFlag_InRenderList, d0	; Clear flag
 	@EndRemoveRenderList:
+
+	; Remove entity from physics list
+	btst   #EntityWorldGridFlag_GridPhysics, d0		; If entity uses grid to step physics
+	beq    @EndRemovePhysicsList
+	btst   #EntityWorldGridFlag_InPhysicsList, d0	; If in physics list
+	beq    @EndRemovePhysicsList
+	lea    PhysicsWorld, a3
+	MLIST_REMOVE PhysicsObjs,a0,a2,a4,a3			; Remove from physics list
+	bclr   #EntityWorldGridFlag_InPhysicsList, d0	; Clear flag
+	@EndRemovePhysicsList:
 
 	; Set flags
 	move.b d0, Entity_WorldGridFlags(a0)
@@ -283,6 +315,10 @@ EntityUpdateWorldGrid:
 	jsr    DBG_DrawWord
 	move.l List_EntityRender_Size, d0
 	move.l #((8*8)<<16)|(7*8), d1
+	jsr    DBG_DrawWord
+	lea    PhysicsWorld, a3
+	move.l List_PhysicsObjs_Size(a3), d0
+	move.l #((8*8)<<16)|(8*8), d1
 	jsr    DBG_DrawWord
 	POPALL
 	ENDIF
@@ -356,12 +392,15 @@ EntityUpdateWorldGrid:
 				; Get flags
 				move.b Entity_WorldGridFlags(a0), d1
 
+				; Get order
+				move.b Entity_WorldGridOrder(a0), d2
+
 				; Add entity to update list
 				btst   #EntityWorldGridFlag_GridUpdates, d1		; If entity uses grid to update
 				beq    @EndAddUpdateList
 				btst   #EntityWorldGridFlag_InUpdateList, d1	; If not already in update list
 				bne    @EndAddUpdateList
-				LIST_APPEND_TAIL EntityUpdate,a0,a3				; Add to update list
+				LIST_INSERT_ORDERED EntityUpdate,a0,a3,a4,Entity_WorldGridOrder,d2	; Add to update list
 				bset   #EntityWorldGridFlag_InUpdateList, d1	; Set flag
 				@EndAddUpdateList:
 
@@ -370,9 +409,19 @@ EntityUpdateWorldGrid:
 				beq    @EndAddRenderList
 				btst   #EntityWorldGridFlag_InRenderList, d1	; If not already in render list
 				bne    @EndAddRenderList
-				LIST_APPEND_TAIL EntityRender,a0,a3				; Add to render list
+				LIST_INSERT_ORDERED EntityRender,a0,a3,a4,Entity_WorldGridOrder,d2	; Add to render list
 				bset   #EntityWorldGridFlag_InRenderList, d1	; Set flag
 				@EndAddRenderList:
+
+				; Add entity to physics list
+				btst   #EntityWorldGridFlag_GridPhysics, d1		; If entity uses grid to step physics
+				beq    @EndAddPhysicsList
+				btst   #EntityWorldGridFlag_InPhysicsList, d1	; If not already in physics list
+				bne    @EndAddPhysicsList
+				lea    PhysicsWorld, a3
+				MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3			; Add to physics list
+				bset   #EntityWorldGridFlag_InPhysicsList, d1	; Set flag
+				@EndAddPhysicsList:
 
 				; Set flags
 				move.b d1, Entity_WorldGridFlags(a0)
@@ -403,6 +452,16 @@ EntityUpdateWorldGrid:
 				LIST_REMOVE EntityRender,a0,a4,a3				; Remove from render list
 				bclr   #EntityWorldGridFlag_InRenderList, d1	; Clear flag
 				@EndRemoveRenderList:
+
+				; Remove entity from physics list
+				btst   #EntityWorldGridFlag_GridPhysics, d1		; If entity uses grid to step physics
+				beq    @EndRemovePhysicsList
+				btst   #EntityWorldGridFlag_InPhysicsList, d1	; If in physics list
+				beq    @EndRemovePhysicsList
+				lea    PhysicsWorld, a3
+				MLIST_REMOVE PhysicsObjs,a0,a2,a4,a3			; Remove from physics list
+				bclr   #EntityWorldGridFlag_InPhysicsList, d1	; Clear flag
+				@EndRemovePhysicsList:
 
 				; Set flags
 				move.b d1, Entity_WorldGridFlags(a0)

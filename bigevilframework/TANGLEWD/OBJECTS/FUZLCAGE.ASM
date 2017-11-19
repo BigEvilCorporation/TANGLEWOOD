@@ -134,7 +134,7 @@ FuzzlCageLoadGfx:
 	SPRITE_LOAD_DEFAULT FuzlCage,fuzzl_cage,PaletteId_World0,0x0
 
 	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
 
 	; Snap to floor

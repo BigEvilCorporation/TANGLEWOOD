@@ -145,16 +145,6 @@ L5A1_Cogs1_name	dc.b "L5A1_Cogs1",0
 	even
 	ENDIF
 
-L5A1_Bridge_count equ 0x2
-L5A1_Bridge1_idx	equ 0x0
-L5A1_Bridge2_idx	equ 0x1
-
-	IFND FINAL
-L5A1_Bridge1_name	dc.b "L5A1_Bridge1",0
-L5A1_Bridge2_name	dc.b "L5A1_Bridge2",0
-	even
-	ENDIF
-
 L5A1_Button_count equ 0x2
 L5A1_Button1_idx	equ 0x0
 L5A1_Button2_idx	equ 0x1
@@ -213,6 +203,20 @@ L5A1_Lock_count equ 0x0
 
 L5A1_Pool_count equ 0x0
 
+L5A1_Stalactite_count equ 0x0
+
+L5A1_CargoLift_count equ 0x1
+L5A1_CargoLift_idx	equ 0x0
+
+	IFND FINAL
+L5A1_CargoLift_name	dc.b "L5A1_CargoLift",0
+	even
+	ENDIF
+
+L5A1_Scrap_count equ 0x0
+
+L5A1_Longboat_count equ 0x0
+
 L5A1_Ladder_count equ 0x5
 L5A1_Ladder_46_idx	equ 0x0
 L5A1_Ladder_47_idx	equ 0x1
@@ -229,19 +233,15 @@ L5A1_Ladder_50_name	dc.b "L5A1_Ladder_50",0
 	even
 	ENDIF
 
-L5A1_Stalactite_count equ 0x0
-
-L5A1_CargoLift_count equ 0x1
-L5A1_CargoLift_idx	equ 0x0
+L5A1_Bridge_count equ 0x2
+L5A1_Bridge1_idx	equ 0x0
+L5A1_Bridge2_idx	equ 0x1
 
 	IFND FINAL
-L5A1_CargoLift_name	dc.b "L5A1_CargoLift",0
+L5A1_Bridge1_name	dc.b "L5A1_Bridge1",0
+L5A1_Bridge2_name	dc.b "L5A1_Bridge2",0
 	even
 	ENDIF
-
-L5A1_Scrap_count equ 0x0
-
-L5A1_Longboat_count equ 0x0
 
 
 
@@ -612,44 +612,6 @@ L5A1_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L5A1_Bridge_count)
-	move.l a1, EntityPoolStart_Bridge
-	move.l a1, a0
-	POPL   a1
-
-	jsr BridgeInit
-	move.l #0x06700000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateOpen, Bridge_State(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr BridgeLoadGfx
-	IFND FINAL
-	lea L5A1_Bridge1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Bridge_Struct_Size, a0
-
-	jsr BridgeInit
-	move.l #0x14300000, Entity_WorldPosX(a0)
-	move.l #0x05000000, Entity_WorldPosY(a0)
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateOpen, Bridge_State(a0)
-	jsr BridgeLoadGfx
-	IFND FINAL
-	lea L5A1_Bridge2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Bridge_Struct_Size, a0
-
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L5A1_Button_count)
 	move.l a1, EntityPoolStart_Button
 	move.l a1, a0
@@ -859,6 +821,29 @@ L5A1_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L5A1_CargoLift_count)
+	move.l a1, EntityPoolStart_CargoLift
+	move.l a1, a0
+	POPL   a1
+
+	jsr CargoLiftInit
+	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x00800000, Entity_WorldPosY(a0)
+	jsr CargoLiftLoadGfx
+	IFND FINAL
+	lea L5A1_CargoLift_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #CargoLift_Struct_Size, a0
+
+
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A1_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -931,27 +916,42 @@ L5A1_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 
-
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(CargoLift_Struct_Size*L5A1_CargoLift_count)
-	move.l a1, EntityPoolStart_CargoLift
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L5A1_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
 	move.l a1, a0
 	POPL   a1
 
-	jsr CargoLiftInit
-	move.l #0x01700000, Entity_WorldPosX(a0)
-	move.l #0x00800000, Entity_WorldPosY(a0)
-	jsr CargoLiftLoadGfx
+	jsr BridgeInit
+	move.l #0x06700000, Entity_WorldPosX(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr BridgeLoadGfx
 	IFND FINAL
-	lea L5A1_CargoLift_name, a3
+	lea L5A1_Bridge1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
+	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	add.l #CargoLift_Struct_Size, a0
+	add.l #Bridge_Struct_Size, a0
 
-
+	jsr BridgeInit
+	move.l #0x14300000, Entity_WorldPosX(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	jsr BridgeLoadGfx
+	IFND FINAL
+	lea L5A1_Bridge2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Bridge_Struct_Size, a0
 
 
 	rts

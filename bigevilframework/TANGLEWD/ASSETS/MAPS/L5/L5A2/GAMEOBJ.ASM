@@ -163,8 +163,6 @@ L5A2_Cogs1_name	dc.b "L5A2_Cogs1",0
 	even
 	ENDIF
 
-L5A2_Bridge_count equ 0x0
-
 L5A2_Button_count equ 0x1
 L5A2_Button1_idx	equ 0x0
 
@@ -207,6 +205,14 @@ L5A2_Lock_count equ 0x0
 
 L5A2_Pool_count equ 0x0
 
+L5A2_Stalactite_count equ 0x0
+
+L5A2_CargoLift_count equ 0x0
+
+L5A2_Scrap_count equ 0x0
+
+L5A2_Longboat_count equ 0x0
+
 L5A2_Ladder_count equ 0xa
 L5A2_Ladder_7_idx	equ 0x0
 L5A2_Ladder_8_idx	equ 0x1
@@ -233,13 +239,7 @@ L5A2_Ladder_40_name	dc.b "L5A2_Ladder_40",0
 	even
 	ENDIF
 
-L5A2_Stalactite_count equ 0x0
-
-L5A2_CargoLift_count equ 0x0
-
-L5A2_Scrap_count equ 0x0
-
-L5A2_Longboat_count equ 0x0
+L5A2_Bridge_count equ 0x0
 
 
 
@@ -687,7 +687,6 @@ L5A2_LoadGameObjects:
 	add.l #Cogs_Struct_Size, a0
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L5A2_Button_count)
 	move.l a1, EntityPoolStart_Button
@@ -788,6 +787,10 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Pillar_Struct_Size, a0
+
+
+
+
 
 
 
@@ -929,9 +932,6 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
-
-
-
 
 
 

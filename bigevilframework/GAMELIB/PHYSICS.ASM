@@ -23,6 +23,9 @@ PhysicsWorldInit:
 	lea    PhysicsWorld, a3
 	move.l #PhysicsWorld_Struct_Size, d0
 	MEMZEROB a3,d0
+
+	MLIST_CLEAR PhysicsObjs,a3,a4,a0
+
 	rts
 
 PhysicsWorldAddObject:
@@ -30,6 +33,7 @@ PhysicsWorldAddObject:
 
 	lea    PhysicsWorld, a3
 	MLIST_APPEND_TAIL PhysicsObjs,a0,a2,a3
+	bset.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
 
 	rts
 

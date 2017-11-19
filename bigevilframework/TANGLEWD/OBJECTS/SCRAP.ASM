@@ -124,7 +124,7 @@ ScrapLoadGfx:
 	ANIM_LOAD_DEFAULT scrap,bark,bark,Scrap_Animations,ScrapAnimIdx_Bark,0,1,0
 
 	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
 
 	rts
