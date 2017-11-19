@@ -161,9 +161,10 @@ TrapUpdate:
 	; If hit target, disable entity
 	move.w Trap_RaiseTarget(a0), d0
 	cmp.w  Entity_WorldPosY(a0), d0
-	bne    @Raising
+	blt    @Raising
 
 	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromWorldGrid
 
 	bra    @Raising
 
