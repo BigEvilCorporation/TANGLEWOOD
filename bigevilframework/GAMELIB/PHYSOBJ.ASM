@@ -968,29 +968,31 @@ PhysicsObjFindFloor:
 
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.b #0x0, PhysicsObj_OnPlatform(a0)
-
-	; Get floor probe X
-	swap   d1
-	move.w d1, d0
-	swap   d1
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
 	@PlatformLp:					; For all platforms in list
 	cmp.l  #0x0, a3
 	beq    @NoPlatform
+
+	; Ignore self
+	move.l Platform_Owner(a3), a4
+	cmp.l  a0, a4
+	beq    @NextPlatform
 	
 	; Get platform Left and Right X
 	move.w Platform_PosX(a3), d2			;  (top word = integer part)
 	subi.w  #vdp_sprite_border_x, d2			; To screen space
-	
-	; Check if probe X within platform left bound
-	cmp.w  d0, d2
-	bgt    @NextPlatform
-
 	move.w d2, d3
 	add.w  Platform_Width(a3), d3
 	
-	; Check if probe X within platform right bound
+	; Get floor probe X
+	swap   d1
+	move.w d1, d0
+	swap   d1
+	
+	; Check if probe X within platform X-width
+	cmp.w  d0, d2
+	bgt    @NextPlatform
 	cmp.w  d0, d3
 	blt    @NextPlatform
 	
@@ -999,20 +1001,14 @@ PhysicsObjFindFloor:
 	subi.w  #vdp_sprite_border_y, d2			; To screen space
 	
 	; Get floor probe Y
-	move.w d1, d3
+	move.w d1, d0
 	
 	; Check if platform Y is between probe Y and Y+search height
-	cmp.w  d2, d3
+	cmp.w  d2, d0
 	bgt    @NextPlatform
-	move.w d0, d3
-	addi.w #(heightmap_max_search_tiles*8), d3
-	cmp.w  d2, d3
+	addi.w #(heightmap_max_search_tiles*8), d0
+	cmp.w  d2, d0
 	blt    @NextPlatform
-
-	; Ignore self
-	move.l Platform_Owner(a3), a4
-	cmp.l  a0, a4
-	beq    @NextPlatform
 
 	; Get terrain flags
 	move.w Platform_TerrainFlags(a3), d4
