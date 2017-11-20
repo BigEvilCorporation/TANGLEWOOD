@@ -97,8 +97,6 @@ L5A4_Generator_count equ 0x0
 
 L5A4_Cogs_count equ 0x0
 
-L5A4_Bridge_count equ 0x0
-
 L5A4_Button_count equ 0x0
 
 L5A4_Wyrm_count equ 0x0
@@ -117,8 +115,6 @@ L5A4_Lock_count equ 0x0
 
 L5A4_Pool_count equ 0x0
 
-L5A4_Ladder_count equ 0x0
-
 L5A4_Stalactite_count equ 0x0
 
 L5A4_CargoLift_count equ 0x1
@@ -132,6 +128,10 @@ L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
 L5A4_Scrap_count equ 0x0
 
 L5A4_Longboat_count equ 0x0
+
+L5A4_Ladder_count equ 0x0
+
+L5A4_Bridge_count equ 0x0
 
 
 
@@ -148,6 +148,7 @@ L5A4_LoadGameObjects:
 	jsr EchoInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
 	move.l #0x03380000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
 	IFND FINAL
 	lea L5A4_Echo_2_name, a3
 	move.l a0, a2
@@ -155,8 +156,8 @@ L5A4_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L5A4_Nymn_count)
@@ -167,6 +168,7 @@ L5A4_LoadGameObjects:
 	jsr NymnInit
 	move.l #0x01f80000, Entity_WorldPosX(a0)
 	move.l #0x03380000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
 	IFND FINAL
 	lea L5A4_Nymn_1_name, a3
 	move.l a0, a2
@@ -174,8 +176,8 @@ L5A4_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -196,6 +198,7 @@ L5A4_LoadGameObjects:
 	jsr DemonInit
 	move.l #0x01680000, Entity_WorldPosX(a0)
 	move.l #0x03900000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
 	IFND FINAL
 	lea L5A4_Demon_name, a3
 	move.l a0, a2
@@ -203,8 +206,8 @@ L5A4_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DemonLoadGfx
 	add.l #Demon_Struct_Size, a0
+
 
 
 
@@ -218,6 +221,10 @@ L5A4_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x09e00000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #l5a4_Cutscene_Begin, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_Trigger_Cutscene_name, a3
 	move.l a0, a2
@@ -225,14 +232,15 @@ L5A4_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l5a4_Cutscene_Begin, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x1f400000, Entity_WorldPosX(a0)
 	move.l #0x00980000, Entity_WorldPosY(a0)
+	move.l #l5a4_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_TriggerBox_LevelEnd_name, a3
 	move.l a0, a2
@@ -240,14 +248,15 @@ L5A4_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l5a4_Trigger_End, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x18680000, Entity_WorldPosX(a0)
 	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #l5a4_Trigger_Storm, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_TriggerBox_Storm_name, a3
 	move.l a0, a2
@@ -255,11 +264,8 @@ L5A4_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l5a4_Trigger_Storm, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 
 
 
@@ -272,6 +278,7 @@ L5A4_LoadGameObjects:
 	jsr LocationInit
 	move.l #0x02000000, Entity_WorldPosX(a0)
 	move.l #0x02480000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
 	IFND FINAL
 	lea L5A4_LocationCargoLiftStop_name, a3
 	move.l a0, a2
@@ -279,9 +286,7 @@ L5A4_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LocationLoadGfx
 	add.l #Location_Struct_Size, a0
-
 
 
 
@@ -308,6 +313,7 @@ L5A4_LoadGameObjects:
 	jsr CargoLiftInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
 	move.l #0x03000000, Entity_WorldPosY(a0)
+	jsr CargoLiftLoadGfx
 	IFND FINAL
 	lea L5A4_CargoLift_name, a3
 	move.l a0, a2
@@ -315,8 +321,10 @@ L5A4_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CargoLiftLoadGfx
 	add.l #CargoLift_Struct_Size, a0
+
+
+
 
 
 
