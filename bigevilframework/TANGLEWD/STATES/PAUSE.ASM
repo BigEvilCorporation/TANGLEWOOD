@@ -25,7 +25,7 @@ PauseState_PrevPadState		 rs.w 1
 PauseState_TextSpritesCount  rs.b 1
 PauseState_DebugDrawMode  	 rs.b 1
 ;----------------------------------
-PauseState_Struct_Pad		 rs.b 2
+	RS_ALIGN
 PauseState_Struct_Size		 rs.b 0
 ;----------------------------------
 
@@ -115,7 +115,7 @@ Pause_Enter:
 		
 	; Create temp firefly
 	lea    PauseState_Firefly(a0), a0
-	jsr    FireflyInit
+	;jsr    FireflyInit
 
 	; TODO: This isn't freed :(
 	move.w PauseState_VRAMAddr(a0), d0
@@ -179,7 +179,7 @@ Pause_Exit:
 	
 	; Delete temp firefly
 	lea    GameStatePauseData+PauseState_Firefly, a0
-	jsr    FireflyShutdown
+	;jsr    FireflyShutdown
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
@@ -235,7 +235,7 @@ Pause_Update:
 	; Update temp firefly
 	lea    GameStatePauseData+PauseState_Firefly, a0
 	move.l Entity_UpdateRoutine(a0), a3
-	jsr    (a3)
+	;jsr    (a3)
 	
 	POPL   a1
 	POPL   a0
