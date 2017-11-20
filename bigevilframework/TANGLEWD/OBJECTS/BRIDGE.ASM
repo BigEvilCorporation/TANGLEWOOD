@@ -380,7 +380,7 @@ BridgeDraw:
 	; Flat X offset
 	moveq #0x0, d1
 	move.b d2, d1
-	mulu   #Bridge_NotchWidth, d1
+	lsl.w #0x4, d1 ;mulu   #Bridge_NotchWidth, d1
 	move.w d1, d3
 
 	@EndSpiral:
@@ -409,6 +409,10 @@ BridgeDraw:
 	swap   d0
 	add.w  d0, d4
 
+	; If not fallen off bottom
+	cmp.w  #screen_height+vdp_sprite_border_y, d4
+	bgt    @NextNotch
+
 	; Draw
 	PUSHMW d2-d7
 	move.w d3, d0
@@ -416,11 +420,11 @@ BridgeDraw:
 	jsr    SpriteObjAllocSprite
 	POPMW  d2-d7
 
-	; If drawn, set flag
-	move.b SpriteObj_SpriteLinked(a0), d3
-	or.b   d3, Bridge_InView(a0)
+	; Set drawn
+	ori.b  #0x1, Bridge_InView(a0)
 
 	; Loop
+	@NextNotch:
 	addq.b #0x1, d2
 	cmp.b  #Bridge_NumNotches, d2
 	bne    @NotchDrawLp
@@ -437,6 +441,7 @@ BridgeDraw:
 	tst.b  Bridge_InView(a0)
 	bne    @InView
 	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	@InView:
 	@NotDropping:
 	@Buoyant:
@@ -776,7 +781,7 @@ BridgeUpdateDropping:
 
 	; For each notch up to drop pos, fall under gravity
 	TOPIXELS d4
-	divu.w #Bridge_NotchWidth, d4
+	lsr.w #0x4, d4 ;divu.w #Bridge_NotchWidth, d4
 	lea    Bridge_NotchYVel(a0), a2
 	lea    Bridge_NotchYPos(a0), a3
 	move.l Level_Gravity(a1), d0
