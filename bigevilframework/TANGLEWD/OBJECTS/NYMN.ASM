@@ -502,6 +502,15 @@ NymnHowl:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If Echo available
+	move.l Player2, a2
+	cmp.l  #0x0, a2
+	beq    @NoEcho
+
+	; and active
+	tst.b  Entity_Active(a2)
+	beq    @NoEcho
+
 	; Start howling anim
 	PUSHL  a1
 	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
@@ -520,5 +529,7 @@ NymnHowl:
 	POPL   a0
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
+
+	@NoEcho:
 
 	rts

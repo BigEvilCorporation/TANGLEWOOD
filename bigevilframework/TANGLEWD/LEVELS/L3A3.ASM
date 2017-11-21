@@ -202,6 +202,14 @@ l3a3_Init:
 
 	;==============================================================
 
+	; Disable Echo until cutscene
+	IF INCLUDE_CHARACTER_ECHO
+	move.l Player2, a2
+	move.b #0x0, Entity_Active(a2)
+	ENDIF
+
+	;==============================================================
+
 	; Gamescome 2017 demo - no Echo sequence
 	IF !INCLUDE_CHARACTER_ECHO
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
@@ -470,6 +478,7 @@ l3a3MeetEchoBeginStage_RunScared:
 	PUSHM  a0-a1
 	move.l (Player1), a0
 	move.l (Player2), a1
+	move.b #0x1, Entity_Active(a1)
 	move.l #EchoToNymnCamLerpSpeed, d0
 	jsr    CAM_LerpBetweenEntities
 	POPM   a0-a1
