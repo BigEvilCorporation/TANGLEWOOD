@@ -53,6 +53,7 @@ BorgusSpitball_BoundsHeight		equ (BorgusSpitball_Height-0x40)
 BorgusSpitball_BoundsOffsetX	equ (BorgusSpitball_Width/2)-(BorgusSpitball_BoundsWidth/2)
 BorgusSpitball_BoundsOffsetY	equ (BorgusSpitball_Height/2)-(BorgusSpitball_BoundsHeight/2)
 BorgusSpitball_MaxVel			equ 0x00040000
+BorgusFuzzl_MaxVel				equ 0x00010000
 
 ; States
 BorgusAIState_Idle		equ 0x0
@@ -269,7 +270,10 @@ BorgusUpdate:
 	;==============================================================
 
 	; Update spitball
+	cmp.b  #BorgusAIState_Dead, Borgus_AIState(a0)
+	beq    @NoSpitball
 	jsr    BorgusUpdateSpitball
+	@NoSpitball:
 
 	rts
 	
@@ -427,6 +431,14 @@ BorgusAIStart_Spit:
 	; Prevent base character death aim
 	move.b #0x0, Character_UpdateAnim(a0)
 
+	; Add Fuzzl to world grid
+	PUSHM   a0-a1
+	move.l  Borgus_Fuzzl(a0), a0
+	move.w  #-1, Entity_WorldGridIdx(a0)
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr     EntityAddToWorldGrid
+	POPM    a0-a1
+
 	@NotDead:
 
 	rts
@@ -541,7 +553,7 @@ BorgusAIStart_Dead:
 	PUSHM   a0-a1
 	lea     Borgus_Spitball(a0), a0
 	jsr     EntityRemoveFromRenderList
-	PUSHM   a0-a1
+	POPM    a0-a1
 
 	rts
 
@@ -598,7 +610,7 @@ BorgusFireFuzzl:
 	addi.w #Borgus_SpitOffsetX, d0
 	addi.w #Borgus_SpitOffsetY, d1
 
-	MOVE_NTSC_L BorgusSpitball_MaxVel, d2, d4
+	MOVE_NTSC_L BorgusFuzzl_MaxVel, d2, d4
 
 	tst.b  SpriteObj_FlippedX(a2)
 	beq    @Forward
@@ -609,9 +621,8 @@ BorgusFireFuzzl:
 	move.w  d1, Entity_WorldPosY(a0)
 	move.l  d2, PhysicsObj_VelX(a0)
 
-	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
-	jsr     EntityAddToWorldGrid
+	; Recalc world grid index
+	jsr     EntityUpdateWorldGridIndex
 
 	@NoFuzzl:
 	POPM    a0-a1

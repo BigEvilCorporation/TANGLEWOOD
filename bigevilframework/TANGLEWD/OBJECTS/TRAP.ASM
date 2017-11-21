@@ -150,6 +150,9 @@ TrapUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
+
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
@@ -230,6 +233,7 @@ TrapUpdate:
 	move.l d1, Entity_WorldPosY(a2)
 
 	@Unoccupied:
+	@Inactive:
 
 	rts
 	
@@ -248,6 +252,10 @@ TrapSerialise:
 	
 	SAVEL Entity_WorldPosX(a0)
 	SAVEL Entity_WorldPosY(a0)
+	SAVEL Trap_TrappedObject(a0)
+	SAVEB Trap_Activated(a0)
+	SAVEB Trap_Raising(a0)
+	SAVEB Entity_Active(a0)
 	
 	bra  @End
 	
@@ -257,6 +265,10 @@ TrapSerialise:
 	
 	LOADL Entity_WorldPosX(a0)
 	LOADL Entity_WorldPosY(a0)
+	LOADL Trap_TrappedObject(a0)
+	LOADB Trap_Activated(a0)
+	LOADB Trap_Raising(a0)
+	LOADB Entity_Active(a0)
 	
 	;==============================================================
 	
@@ -343,8 +355,8 @@ TrapDeactivate:
 
 	@NotActivated:
 
-	; Already raised, just disable entity
-	jsr    EntityRemoveFromUpdateList
+	; Disable entity
+	move.b #0x0, Entity_Active(a0)
 
 	@Deactivating:
 

@@ -156,6 +156,8 @@ l4a3_Init:
 
 	; Hide Borgus' Fuzzl
 	ENTITY_GETBYNAME Fuzzl, l4a3_FuzzlBorgus, a0
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 	jsr    EntityRemoveFromWorldGrid
 
 	; Make Borgus' boulder unbreakable

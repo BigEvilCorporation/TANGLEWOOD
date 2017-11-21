@@ -22,6 +22,14 @@ SaveGame:
 	
 	; Serialise all entities
 	jsr    EntitySerialiseAll
+
+	; Check overflow
+	move.l a3, d0
+	subi.l #CheckpointSerialiseMemBlock, d0
+	cmp.l  #CheckpointSerialiseBlockSize, d0
+	blt    @NoOverflow
+	RAISE_EXCEPTION *
+	@NoOverflow:
 	
 	; Increment save version
 	addq.w #0x1, LastSaveVersion

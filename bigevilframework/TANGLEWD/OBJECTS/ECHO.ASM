@@ -193,13 +193,15 @@ EchoInit:
 	; Count
 	addq.w #0x1, EntityCount_Echo
 	
-	; Set update and render routines
+	; Set update, render, and serialise routines
 	move.l #EchoUpdate, Entity_UpdateRoutine(a0)
 	move.l #EchoDraw, Entity_RenderRoutine(a0)
+	move.l #EchoSerialise, Entity_SerialiseRoutine(a0)
 	
-	; Add to update and render lists
+	; Add to update, render and serialise lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
+	jsr EntityAddToSerialiseList
 	
 	;==============================================================
 	
@@ -598,6 +600,41 @@ EchoDraw:
 	@DebugNoNodes:
 	ENDIF
 
+	rts
+
+EchoSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	SAVEB Entity_Active(a0)
+	SAVEB Echo_AIState(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	LOADB Entity_Active(a0)
+	LOADB Echo_AIState(a0)
+	
+	;==============================================================
+	
+	@End:
+	
 	rts
 
 EchoStartCameraLerp:
