@@ -798,8 +798,11 @@ EchoHowl:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
-	; Start camera lerp
+	; If off screen, start camera lerp
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @OnScreen
 	jsr    EchoStartCameraLerp
+	@OnScreen:
 
 	; Set howl state
 	move.b #0x1, Echo_HowlState(a0)
@@ -1560,7 +1563,10 @@ EchoAIUpdate_Water:
 	jsr    EchoAIStart_Follow
 
 	; Lerp camera to show Echo is safe
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @OnScreen
 	jsr    EchoStartCameraLerp
+	@OnScreen:
 
 	@NoFloor:
 	@FloorInWater:
@@ -3124,10 +3130,13 @@ EchoAIPopNode:
 
 	;==============================================================
 
-	; Lerp camera if configured and not already enabled
+	; Lerp camera if configured, on screen, and not already enabled
 	tst.b  EchoAINode_LerpCamera(a3)
 	beq    @NoCameraLerp
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @OnScreen
 	jsr    EchoStartCameraLerp
+	@OnScreen:
 	@NoCameraLerp:
 
 	;==============================================================
