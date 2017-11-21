@@ -254,6 +254,12 @@ LongboatUpdateSegments:
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d1
 
+	; Get vel
+	clr.l  d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	move.l PhysicsObj_VelX(a0), d7
+	DIVS1616_LOSSY d2, d7
+
 	; Get current tilt
 	move.w Longboat_Tilt(a0), d2
 
@@ -300,8 +306,7 @@ LongboatUpdateSegments:
 	addi.w #(Longboat_PlatformOffsetY+Longboat_FloatOffsetY), d3
 	move.w d0, Platform_PosX(a3)
 	move.w d3, Platform_PosY(a3)
-	move.l PhysicsObj_VelX(a0), Platform_VelX(a3)
-	move.l PhysicsObj_VelY(a0), Platform_VelY(a3)
+	move.l d7, Platform_VelX(a3)
 
 	; If platform occupied, apply tile and sail acceleration
 	tst.b  Platform_Occupied(a3)

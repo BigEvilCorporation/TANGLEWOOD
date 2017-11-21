@@ -1042,8 +1042,7 @@ PhysicsObjFindFloor:
 	add.l  d2, Entity_WorldPosX(a0)
 
 	; Set last Y velocity
-	move.l Platform_VelY(a3), d7
-	move.l d7, PhysicsObj_LastFloorVelocity(a0)
+	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
 	clr.w  d2

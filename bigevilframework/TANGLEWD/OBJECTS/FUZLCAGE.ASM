@@ -218,8 +218,15 @@ FuzzlCageUpdate:
 	addi.l #FuzzlCage_UpperPlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
-	move.l PhysicsObj_LastAppliedVelX(a0), Platform_VelX(a2)
-	move.l PhysicsObj_LastAppliedVelY(a0), Platform_VelY(a2)
+	
+	clr.l  d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	move.l PhysicsObj_VelX(a0), d3
+	move.l PhysicsObj_VelY(a0), d4
+	DIVS1616_LOSSY d2, d3
+	DIVS1616_LOSSY d2, d4
+	move.l d3, Platform_VelX(a2)
+	move.l d4, Platform_VelY(a2)
 
 	; Reposition Fuzzl
 	move.l FuzzlCage_Fuzzl(a0), a2

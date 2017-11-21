@@ -537,6 +537,12 @@ BorgusAIStart_Dead:
 	; Set state
 	move.b #BorgusAIState_Dead, Borgus_AIState(a0)
 
+	; Stop rendering spitball
+	PUSHM   a0-a1
+	lea     Borgus_Spitball(a0), a0
+	jsr     EntityRemoveFromRenderList
+	PUSHM   a0-a1
+
 	rts
 
 BorgusAIUpdate_Dead:
@@ -602,6 +608,10 @@ BorgusFireFuzzl:
 	move.w  d0, Entity_WorldPosX(a0)
 	move.w  d1, Entity_WorldPosY(a0)
 	move.l  d2, PhysicsObj_VelX(a0)
+
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr     EntityAddToWorldGrid
 
 	@NoFuzzl:
 	POPM    a0-a1
