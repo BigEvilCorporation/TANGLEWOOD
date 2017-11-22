@@ -29,6 +29,7 @@ Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running 
 Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
 Echo_AIMarkerSearchHeight	equ 0x0040			; Search height for checking AI markers
 Echo_AIWaterSafePosOffsetX	equ 0x0010			; Out of water distance to run to
+Echo_AITerrainSearchYOffset	equ 0x0008			; Y offset for terrain searches
 
 ; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -139,6 +140,7 @@ EchoAINode_StopMovement		rs.b 1	; Stop X movement when target reached
 EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach target
 EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
 EchoAINode_LerpCamera		rs.b 1	; Lerp camera to character when node reached
+EchoAINode_Walk				rs.b 1	; Walk, don't run, towards node
 ;---------------------------------
 	RS_ALIGN
 EchoAINode_Struct_Size		rs.b 0
@@ -935,6 +937,10 @@ EchoAIStart_Follow:
 
 	; Reset lost timer
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+
+	; Reset run state
+	move.b #Character_WalkAI, d2
+	jsr    CharacterAllowRun
 	
 	rts
 	
@@ -1053,6 +1059,10 @@ EchoAIStart_FollowNodes:
 
 	; Reset fail timer
 	move.w #Echo_NodeFailTime, Echo_AINodeFailTimer(a0)
+
+	; Reset run state
+	move.b #Character_WalkAI, d2
+	jsr    CharacterAllowRun
 	
 	rts
 	
@@ -1326,6 +1336,10 @@ EchoAIUpdate_PushObj:
 	; Get pushing object and Nymn
 	move.l (Player1), a2
 	move.l Echo_AIObjectOfInterest(a0), a3
+
+	; If off floor, abandon
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @OutOfBounds
 
 	; If Nymn is still in the push direction (push obj between Nymn and Echo)
 	move.w Entity_WorldPosX(a0), d1	; Echo
@@ -2941,19 +2955,7 @@ EchoAI_PushInteractionLog:
 	; Get log pos
 	move.w Entity_WorldPosX(a2), d0
 	move.w Entity_WorldPosY(a2), d1
-
-	; Push begin PushObj state node
-	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
-	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
-	move.l a2, EchoAINode_Object(a3)
-	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
+	;move.w d0, d6
 
 	; Determine direction to roll in (towards Nymn)
 	move.l (Player1), a4
@@ -2961,14 +2963,59 @@ EchoAI_PushInteractionLog:
 	sub.w  d0, d2
 	blt    @RightSide
 	subi.w #Echo_AINodeTolerancePushObjX, d0		; Left side of log (log pos - threshold)
+	;subi.w #0x1, d6									; Min tolerance if no terrain
 	bra    @LeftSide
 	@RightSide:
-	add.w  Entity_Width(a2), d0			; Right side of log (log pos + log width + threshold)
+	add.w  Entity_Width(a2), d0						; Right side of log (log pos + log width + threshold)
+	;addi.w #0x1, d6									; Min tolerance if no terrain
 	addi.w #Echo_AINodeTolerancePushObjX, d0
 	@LeftSide:
 
+	; Terrain test
+	PUSHM  d0-d6/a2/a4
+	ENTITY_GETBOTTOM d1, a2
+	TOPIXELS d1
+	sub.w  Entity_Height(a0), d1
+	subi.w #Echo_AITerrainSearchYOffset, d1
+	jsr    EchoFindFloor
+	move.b d0, d7
+	POPM   d0-d6/a2/a4
+
+	move.w #Echo_AINodeTolerancePushObjX, d3	; Default distance tolerance
+	move.w #0x0, d5	; Default stop movement
+	move.b #0x0, d2	; Default walk state
+
+	; If no terrain, bail
+	tst.b  d7
+	beq    @NoTerrain
+
+	;; If no terrain: try from centre, use small tolerance, snap to pos, and walk to target
+	;tst.b  d7
+	;bne    @TerranFound
+	;move.w d6, d0		; Closer target pos
+	;move.w #0x1, d3		; Closer X tolerance
+	;move.w #0x1, d5		; Snap to position
+	;move.b #0x1, d2		; Walk towards node
+	;@TerranFound:
+
+	; Push begin PushObj state node
+	jsr    EchoAIPushNode
+	move.l a2, EchoAINode_UserData(a3)
+	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
+	move.w d3, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
+	move.b d5, EchoAINode_StopMovement(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
+	move.b #0x0, EchoAINode_LerpCamera(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
+	move.b d2, EchoAINode_Walk(a3)
+
 	move.w d0, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
+
+	@NoTerrain:
 
 	rts
 
@@ -3113,8 +3160,6 @@ EchoAIPushNode:
 	@FreeSpace:
 	ENDIF
 
-	POPM   d0-d1
-
 	moveq  #0x0, d7
 	move.w Echo_AINodeProducer(a0), d7
 	andi.w #Echo_NumAINodes-1, d7		; MOD to get producer position
@@ -3127,6 +3172,14 @@ EchoAIPushNode:
 	lea    Echo_AIFollowNodes(a0), a0	; Get array
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
+
+	; Clear node
+	PUSHL  a3
+	move.w #EchoAINode_Struct_Size, d0
+	MEMZEROB a3, d0
+	POPL   a3
+
+	POPM   d0-d1
 
 	POPL  a0
 
@@ -3188,6 +3241,17 @@ EchoAIPopNode:
 	jsr    EchoStartCameraLerp
 	@OnScreen:
 	@NoCameraLerp:
+
+	; Walk if configured
+	tst.b  EchoAINode_Walk(a3)
+	beq    @Run
+	move.b #Character_WalkAI, d2
+	jsr    CharacterPreventRun
+	bra    @Walk
+	@Run:
+	move.b #Character_WalkAI, d2
+	jsr    CharacterAllowRun
+	@Walk:
 
 	;==============================================================
 

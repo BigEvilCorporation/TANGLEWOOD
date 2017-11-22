@@ -20,6 +20,7 @@ Character_WalkInteract			equ 0x1
 Character_WalkWater				equ 0x2
 Character_WalkRollingPlatform	equ 0x3
 Character_WalkGeneral			equ 0x4
+Character_WalkAI				equ 0x5
 
 ; ************************************
 ; Animation ids
