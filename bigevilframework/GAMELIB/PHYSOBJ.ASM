@@ -250,6 +250,18 @@ PhysicsObjPreStep:
 	
 	; Apply velocity
 	jsr PhysicsObjApplyVelocity
+
+	; If no Y vel, check moving floors
+	tst.l PhysicsObj_VelY(a0)
+	bne   @HasVelY
+	jsr   PhysicsObjFindMovingFloor
+	@HasVelY:
+
+	; If no X vel, check moving walls
+	tst.l PhysicsObj_VelX(a0)
+	bne   @HasVelX
+	jsr   PhysicsObjFindMovingBarrier
+	@HasVelX:
 	
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
