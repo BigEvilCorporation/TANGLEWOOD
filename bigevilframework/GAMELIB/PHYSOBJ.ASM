@@ -604,6 +604,86 @@ PhysicsObjApplyWorldForces:
 PhysicsObjApplyVelocity:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	;==============================================================
+	
+	; Move player Y by velocity first (so floors are collision-corrected before walls)
+	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
+
+	; Save for attached platforms/barriers
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
+
+	; Apply impulse
+	add.l  PhysicsObj_ImpulseY(a0), d0
+
+	; Bail if 0
+	beq    @EndVelY
+	
+	; Apply speed div
+	clr.l  d1
+	move.b AnimObj_SpeedDiv(a0), d1
+	DIVS1616_LOSSY d1, d0
+
+	; Apply underwater div
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterY
+	DIVS1616_LOSSY_FIXED #0x2, d0
+	@NotInWaterY:
+
+	;==============================================================
+
+	; Time splice Y for velocities > collision tile size
+	move.l d0, d3
+
+	@TimestepY:
+
+	; Next timestep
+	move.l d3, d2
+
+	; Clamp to max
+	tst.l  d0
+	bgt    @PositiveY
+	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	bra    @NegativeY
+	@PositiveY:
+	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	@NegativeY:
+
+	tst.l  d2
+	beq    @EndVelY
+
+	PUSHM  d0-d3
+	
+	move.l Entity_WorldPosY(a0), d1		; Get Y pos
+	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
+	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
+
+	; Find floor
+	tst.b  PhysicsObj_CollideFloor(a0)
+	beq    @NoCheckFloor
+	move.b #0x0, d0
+	jsr    PhysicsObjFindFloor
+	@NoCheckFloor:
+
+	; Find ceiling
+	tst.b  PhysicsObj_CollideCeilings(a0)
+	beq    @NoCheckCeilings
+	jsr    PhysicsObjFindCeiling
+	@NoCheckCeilings:
+	
+	; Collision correction
+	jsr    PhysicsObjCollisionCorrectY
+
+	POPM   d0-d3
+
+	; Next timestep
+	bra    @TimestepY
+
+	@EndVelY:
+
+	;==============================================================
 	
 	; Move player X by velocity
 	move.l PhysicsObj_VelX(a0), d0		; Fetch X vel from RAM
@@ -684,84 +764,6 @@ PhysicsObjApplyVelocity:
 	bra    @TimestepX
 
 	@EndVelX:
-
-	;==============================================================
-
-	; Save for attached platforms/barriers
-	move.l d0, PhysicsObj_LastAppliedVelY(a0)
-	
-	; Move player Y by velocity
-	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
-
-	; Apply impulse
-	add.l  PhysicsObj_ImpulseY(a0), d0
-
-	; Bail if 0
-	beq    @EndVelY
-	
-	; Apply speed div
-	clr.l  d1
-	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
-
-	; Apply underwater div
-	tst.b  PhysicsObj_UnderWater(a0)
-	beq    @NotInWaterY
-	DIVS1616_LOSSY_FIXED #0x2, d0
-	@NotInWaterY:
-
-	;==============================================================
-
-	; Time splice Y for velocities > collision tile size
-	move.l d0, d3
-
-	@TimestepY:
-
-	; Next timestep
-	move.l d3, d2
-
-	; Clamp to max
-	tst.l  d0
-	bgt    @PositiveY
-	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
-	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
-	bra    @NegativeY
-	@PositiveY:
-	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
-	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
-	@NegativeY:
-
-	tst.l  d2
-	beq    @EndVelY
-
-	PUSHM  d0-d3
-	
-	move.l Entity_WorldPosY(a0), d1		; Get Y pos
-	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
-	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
-
-	; Find floor
-	tst.b  PhysicsObj_CollideFloor(a0)
-	beq    @NoCheckFloor
-	move.b #0x0, d0
-	jsr    PhysicsObjFindFloor
-	@NoCheckFloor:
-
-	; Find ceiling
-	tst.b  PhysicsObj_CollideCeilings(a0)
-	beq    @NoCheckCeilings
-	jsr    PhysicsObjFindCeiling
-	@NoCheckCeilings:
-	
-	; Collision correction
-	jsr    PhysicsObjCollisionCorrectY
-
-	POPM   d0-d3
-
-	; Next timestep
-	bra    @TimestepY
-
-	@EndVelY:
 
 	rts
 
