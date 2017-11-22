@@ -146,24 +146,18 @@ l6a3_End:
 l6a3_Trigger_Log1:
 	PUSHL  a0
 	ENTITY_GETBYNAME Log, l6a3_Log1, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
 	neg.w  d0
-	move.w d0, Log_FloorRollAccel(a0)
-	move.b #0x1, Log_Hazardous(a0)
+	jsr    LogBeginHazardousRoll
 	POPL   a0
 	rts
 
 l6a3_Trigger_Log2:
 	PUSHL  a0
 	ENTITY_GETBYNAME Log, l6a3_Log2, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
 	neg.w  d0
-	move.w d0, Log_FloorRollAccel(a0)
-	move.b #0x1, Log_Hazardous(a0)
+	jsr    LogBeginHazardousRoll
 	POPL   a0
 	rts
 

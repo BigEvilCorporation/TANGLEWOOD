@@ -116,6 +116,36 @@ ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	add.w  \tempreg, \bottomrightreg				; Object Y max
 	endm
 
+ENTITY_REMOVEFROMUPDATELIST_SAFE: macro entityreg
+	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(\entityreg)
+	beq    @NotUpdating\@
+	PUSHL  a0
+	move.l \entityreg, a0
+	jsr    EntityRemoveFromUpdateList
+	POPL   a0
+	@NotUpdating\@:
+	endm
+
+ENTITY_REMOVEFROMRENDERLIST_SAFE: macro entityreg
+	btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(\entityreg)
+	beq    @Rendering\@
+	PUSHL  a0
+	move.l \entityreg, a0
+	jsr    EntityRemoveFromRenderList
+	POPL   a0
+	@Rendering\@:
+	endm
+
+ENTITY_REMOVEFROMWORLDGRID_SAFE: macro entityreg
+	btst   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(\entityreg)
+	beq    @NotInWorldGrid\@
+	PUSHL  a0
+	move.l \entityreg, a0
+	jsr    EntityRemoveFromWorldGrid
+	POPL   a0
+	@NotInWorldGrid\@:
+	endm
+
 ;==============================================================
 
 CAMERA_GETSCREENBOUNDS: macro left,right,top,bottom

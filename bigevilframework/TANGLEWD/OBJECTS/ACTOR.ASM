@@ -122,9 +122,9 @@ ActorShutdown:
 	; a1 --- Level addr
 	
 	; Remove from update and render lists
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-	jsr    EntityRemoveFromWorldGrid
+	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
+	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
+	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
 	
 	subq.w #0x1, EntityCount_Actor
 

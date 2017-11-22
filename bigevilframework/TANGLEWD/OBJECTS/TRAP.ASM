@@ -167,8 +167,8 @@ TrapUpdate:
 	cmp.w  Entity_WorldPosY(a0), d0
 	blt    @Raising
 
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromWorldGrid
+	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
+	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
 
 	bra    @Raising
 

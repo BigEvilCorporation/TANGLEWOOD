@@ -338,3 +338,34 @@ LogSerialise:
 	@End:
 	
 	rts
+
+LogBeginHazardousRoll:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (w) Accel
+
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #0x0, PhysicsObj_CanBePushed(a0)
+	move.w d0, Log_FloorRollAccel(a0)
+	move.b #0x1, Log_Hazardous(a0)
+
+	; Remove from world grid
+	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+
+	; Ensure updating, rendering, and physicsing
+	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	bne    @Updating
+	jsr    EntityAddToUpdateList
+	@Updating:
+
+	btst   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	bne    @Rendering
+	jsr    EntityAddToRenderList
+	@Rendering:
+
+	btst   #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	bne    @Physicalised
+	jsr    PhysicsWorldAddObject
+	@Physicalised:
+
+	rts

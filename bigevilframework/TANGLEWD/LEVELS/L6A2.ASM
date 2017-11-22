@@ -328,12 +328,9 @@ l6a2_Trigger_Log1:
 
 	; Start log rolling
 	ENTITY_GETBYNAME Log, l6a2_Log1, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
 	neg.w  d0
-	move.w d0, Log_FloorRollAccel(a0)
-	move.b #0x1, Log_Hazardous(a0)
+	jsr    LogBeginHazardousRoll
 
 	; Load Djakks 6 and 7
 	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
@@ -354,10 +351,8 @@ l6a2_Trigger_Log2:
 
 	; Start log rolling
 	ENTITY_GETBYNAME Log, l6a2_Log2, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, Log_FloorRollAccel(a0), d1
-	move.b #0x1, Log_Hazardous(a0)
+	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
+	jsr    LogBeginHazardousRoll
 
 	POPL   a0
 
@@ -369,10 +364,8 @@ l6a2_Trigger_Log3:
 
 	; Start log rolling
 	ENTITY_GETBYNAME Log, l6a2_Log3, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
-	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, Log_FloorRollAccel(a0), d1
-	move.b #0x1, Log_Hazardous(a0)
+	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
+	jsr    LogBeginHazardousRoll
 
 	; Load Djakks 8 and 9
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
@@ -415,9 +408,9 @@ l6a2_StealDjakkVRAM:
 	; Deactivate it
 	PUSHL  a0
 	move.l a2, a0
-	jsr EntityRemoveFromUpdateList
-	jsr EntityRemoveFromRenderList
-	jsr EntityRemoveFromWorldGrid
+	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
+	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
+	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
 	move.b #0x0, Entity_Active(a0)
 	POPL   a0
 

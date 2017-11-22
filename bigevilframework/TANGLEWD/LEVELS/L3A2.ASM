@@ -209,12 +209,9 @@ l3a2_LogRollBegin:
 
 	; Set log rolling, update out of view, not pushable, hazardous
 	ENTITY_GETBYNAME Log, l3a2_Log1, a0
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	move.b #0x0, PhysicsObj_CanBePushed(a0)
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
 	neg.w  d0
-	move.w d0, Log_FloorRollAccel(a0)
-	move.b #0x1, Log_Hazardous(a0)
+	jsr    LogBeginHazardousRoll
 
 	; Update Fuzzl out of view so it falls off the bridge properly
 	ENTITY_GETBYNAME Fuzzl, l3a2_FuzzlCaged2, a0

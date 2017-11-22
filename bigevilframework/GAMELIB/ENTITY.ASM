@@ -15,6 +15,7 @@ EntityWorldGridFlag_GridPhysics		equ 0x2	; Object uses world grid for physics st
 EntityWorldGridFlag_InUpdateList	equ 0x3	; Object is in update list
 EntityWorldGridFlag_InRenderList	equ 0x4	; Object is in render list
 EntityWorldGridFlag_InPhysicsList	equ 0x5	; Object is in render list
+EntityWorldGridFlag_InWorldGrid		equ 0x6	; Object is in world grid list
 
 	rsset 0
 ;-----------------------------
@@ -137,6 +138,7 @@ EntityAddToWorldGrid:
 
 	; Set flags
 	or.b   d0, Entity_WorldGridFlags(a0)
+	bset   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 
 	; Add to world grid list
 	LIST_APPEND_TAIL EntityWorldGrid,a0,a3
@@ -148,6 +150,7 @@ EntityAddToWorldGrid:
 
 EntityRemoveFromWorldGrid:
 	; a0 --- Entity addr
+	bclr   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 	LIST_REMOVE EntityWorldGrid,a0,a4,a3
 	rts
 
