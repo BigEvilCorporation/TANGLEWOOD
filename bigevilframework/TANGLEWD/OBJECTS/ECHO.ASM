@@ -28,6 +28,7 @@ Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning t
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
 Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
 Echo_AIMarkerSearchHeight	equ 0x0040			; Search height for checking AI markers
+Echo_AIWaterSafePosOffsetX	equ 0x0010			; Out of water distance to run to
 
 ; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -159,6 +160,7 @@ Echo_AISafePosY				rs.w 1
 Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe posisiton when out of view
 Echo_AIPotentialSafePosY	rs.w 1
 Echo_AILastDryLandY			rs.w 1	; Last known dry land pos
+Echo_AILastWaterEdge		rs.w 1	; Last known water edge
 Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
@@ -169,7 +171,7 @@ Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
 Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a node
 Echo_AIWaitingForWaterPath	rs.b 1	; Hit water, not happy about it, waiting for a path to cross
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
-Echo_AIObstacleDirection		rs.b 1	; Direction to face water waiting for Nymn to help
+Echo_AIObstacleDirection	rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
@@ -215,6 +217,7 @@ EchoInit:
 	move.w #0x0, Echo_AIPotentialSafePosX(a0)
 	move.w #0x0, Echo_AIPotentialSafePosY(a0)
 	move.w #0x0, Echo_AICameraLerpTimer(a0)
+	move.w #0x0, Echo_AILastWaterEdge(a0)
 	move.b #EchoAIState_None, Echo_AIState(a0)
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	move.b #0x0, Echo_AINymnGliding(a0)
@@ -1443,6 +1446,9 @@ EchoAIStart_Water:
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
 
+	; Clear out of water pos
+	move.w #0x0, Echo_AILastWaterEdge(a0)
+
 	; Start running towards closest shore
 	move.w Entity_WorldPosX(a0), d0
 	move.w Echo_AILastDryLandY(a0), d1
@@ -1480,6 +1486,27 @@ EchoAIUpdate_Water:
 	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 
+	; Keep going until clear of safe distance
+	move.w Echo_AILastWaterEdge(a0), d0
+	bne    @SafePosSet
+	move.w Entity_WorldPosX(a0), d0
+	move.w d0, Echo_AILastWaterEdge(a0)
+	@SafePosSet:
+
+	tst.b  SpriteObj_FlippedX(a0)
+	beq    @FacingRight
+	sub.w  Entity_WorldPosX(a0), d0
+	cmp.w  #Echo_AIWaterSafePosOffsetX, d0
+	blt    @InWater
+	bra    @FacingLeft
+
+	@FacingRight:
+	move.w Entity_WorldPosX(a0), d1
+	sub.w  d0, d1
+	cmp.w  #Echo_AIWaterSafePosOffsetX, d1
+	blt    @InWater
+	@FacingLeft:
+
 	; Stop moving
 	jsr    CharacterCancelXMovement
 
@@ -1516,38 +1543,14 @@ EchoAIUpdate_Water:
 
 	;==============================================================
 
-	; Check ground centre of water body to see if a path has opened up
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	PUSHM  d0-d1
-
-	; Get centre of water body as floor probe
 	move.l Echo_AIObjectOfInterest(a0), a2
 	ENTITY_GETCENTREX d0,a2
 	TOPIXELS d0
 	move.w Entity_WorldPosY(a2), d1
 	sub.w  Entity_Height(a0), d1
 	subq.w #0x08, d1
-	move.w d0, Entity_WorldPosX(a0)
-	move.w d1, Entity_WorldPosY(a0)
-
-	; Find floor
-	move.b #0x1, d0
-	jsr    PhysicsObjFindFloor
-
-	; If not on floor, bail
-	tst.b  PhysicsObj_OnFloor(a0)
-	beq    @NoFloor
-
-	; Get floor pos
-	move.w Entity_WorldPosX(a0), d3
-	swap   d3
-	move.w PhysicsObj_LastFloor(a0), d3
-
-	; Bail if floor is default floo
-	lea    PhysicsWorld, a2
-	move.w PhysicsWorld_GroundHeight(a2), d4
-	cmp.w  d3, d4
+	jsr    EchoFindFloor
+	tst.b  d0
 	beq    @NoFloor
 
 	; Get water body bounds
@@ -1571,15 +1574,62 @@ EchoAIUpdate_Water:
 	@NoFloor:
 	@FloorInWater:
 
-	; Restore original pos
-	POPM   d0-d1
-	move.l d0, Entity_WorldPosX(a0)
-	move.l d1, Entity_WorldPosY(a0)
-
 	;==============================================================
 
 	@InWater:
 	@End:
+
+	rts
+
+EchoFindFloor:
+	; d0 (w) IN: X pos
+	;		 OUT: 1 = found, 0 = not found
+	; d1 (w) Y pos
+	; d3 (l) Found X/Y position
+	
+	; Return val
+	moveq  #0x0, d7
+
+	; Check ground centre of water body to see if a path has opened up
+	move.l Entity_WorldPosX(a0), d4
+	move.l Entity_WorldPosY(a0), d5
+	PUSHM  d4-d5
+
+	; Set search position
+	move.w d0, Entity_WorldPosX(a0)
+	move.w d1, Entity_WorldPosY(a0)
+
+	; Find floor
+	move.b #0x1, d0
+	jsr    PhysicsObjFindFloor
+
+	; If not on floor, bail
+	tst.b  PhysicsObj_OnFloor(a0)
+	beq    @NoFloor
+
+	; Get floor pos
+	move.w Entity_WorldPosX(a0), d3
+	swap   d3
+	move.w PhysicsObj_LastFloor(a0), d3
+
+	; Bail if floor is default floor
+	lea    PhysicsWorld, a2
+	move.w PhysicsWorld_GroundHeight(a2), d4
+	cmp.w  d3, d4
+	beq    @NoFloor
+
+	; Success
+	move.b #0x1, d7
+
+	@NoFloor:
+
+	; Restore original pos
+	POPM   d4-d5
+	move.l d4, Entity_WorldPosX(a0)
+	move.l d5, Entity_WorldPosY(a0)
+
+	; Return val
+	move.b d7, d0
 
 	rts
 
