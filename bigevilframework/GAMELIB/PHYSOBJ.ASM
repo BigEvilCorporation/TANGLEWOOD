@@ -20,6 +20,8 @@ PhysicsObjDefaultPushBoundsOuter	equ 0x6
 
 PhysicsObjMaxSnapToFloorDist		equ 0x10
 
+PhysicsObj_VelocityPerTimeSplice	equ 0x8*subpixels_per_pixel
+
 ;==============================================================
 ; PhysicsObject
 ;==============================================================
@@ -249,42 +251,12 @@ PhysicsObjPreStep:
 	; Apply velocity
 	jsr PhysicsObjApplyVelocity
 	
-	; Find floor
-	tst.b  PhysicsObj_CollideFloor(a0)
-	beq    @NoCheckFloor
-	move.b #0x0, d0
-	jsr    PhysicsObjFindFloor
-	@NoCheckFloor:
-
-	; Find ceiling
-	tst.b  PhysicsObj_CollideCeilings(a0)
-	beq    @NoCheckCeilings
-	jsr    PhysicsObjFindCeiling
-	@NoCheckCeilings:
-	
-	; Find wall (bottom probe)
-	tst.b  PhysicsObj_CollideWalls(a0)
-	beq    @NoCheckWall
-	move.b #0x0, d0
-	jsr    PhysicsObjFindWall
-
-	; Find wall (top probe)
-	tst.b  PhysicsObj_HitWall(a0)
-	bne    @NoCheckTop
-	tst.b  PhysicsObj_CollideCeilings(a0)
-	beq    @NoCheckTop
-	move.b #0x1, d0
-	jsr    PhysicsObjFindWall
-	@NoCheckTop:
-
-	@NoCheckWall:
-	
-	; Correct for floor/wall collision
-	jsr PhysicsObjCollisionCorrection
-	
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	move.l #0x0, PhysicsObj_ImpulseY(a0)
+
+	; Sleep if possible
+	jsr    PhysicsObjRest
 
 	; If moved, update grid cell
 	btst   #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
@@ -343,7 +315,8 @@ PhysicsObjSleepyUpdate:
 	beq    @NoFloorChange
 	
 	; Floor/wall state changed, run collision correction
-	jsr    PhysicsObjCollisionCorrection
+	jsr    PhysicsObjCollisionCorrectX
+	jsr    PhysicsObjCollisionCorrectY
 	
 	; Wake up
 	move.b #0x0, PhysicsObj_Asleep(a0)
@@ -637,6 +610,9 @@ PhysicsObjApplyVelocity:
 
 	; Apply impulse
 	add.l  PhysicsObj_ImpulseX(a0), d0
+
+	; Bail if 0
+	beq    @EndVelX
 	
 	; Apply speed div
 	clr.l  d1
@@ -648,17 +624,80 @@ PhysicsObjApplyVelocity:
 	beq    @NotInWaterX
 	DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterX:
+
+	; Save for attached platforms/barriers
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)
+
+	;==============================================================
+
+	; Time splice X for velocities > collision tile size
+	move.l d0, d3
+
+	@TimestepX:
+
+	; Next timestep
+	move.l d3, d2
+
+	; Clamp to max
+	tst.l  d0
+	bgt    @PositiveX
+	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	bra    @NegativeX
+	@PositiveX:
+	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	@NegativeX:
+
+	tst.l  d2
+	beq    @EndVelX
+
+	PUSHM  d0-d3
 	
 	move.l Entity_WorldPosX(a0), d1		; Get pos
-	add.l  d0, d1						; Add velocity to pos
+	add.l  d2, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
-	move.l d0, PhysicsObj_LastAppliedVelX(a0)	; Save for attached platforms/barriers
+
+	; Collision check wall (bottom probe)
+	tst.b  PhysicsObj_CollideWalls(a0)
+	beq    @NoCheckWall
+	move.b #0x0, d0
+	jsr    PhysicsObjFindWall
+
+	; Collision check wall (top probe)
+	tst.b  PhysicsObj_HitWall(a0)
+	bne    @NoCheckTop
+	tst.b  PhysicsObj_CollideCeilings(a0)
+	beq    @NoCheckTop
+	move.b #0x1, d0
+	jsr    PhysicsObjFindWall
+	@NoCheckTop:
+
+	@NoCheckWall:
+
+	; Collision correction
+	jsr    PhysicsObjCollisionCorrectX
+
+	POPM   d0-d3
+
+	; Next timestep
+	bra    @TimestepX
+
+	@EndVelX:
+
+	;==============================================================
+
+	; Save for attached platforms/barriers
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 	
 	; Move player Y by velocity
 	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
 
 	; Apply impulse
 	add.l  PhysicsObj_ImpulseY(a0), d0
+
+	; Bail if 0
+	beq    @EndVelY
 	
 	; Apply speed div
 	clr.l  d1
@@ -670,11 +709,59 @@ PhysicsObjApplyVelocity:
 	beq    @NotInWaterY
 	DIVS1616_LOSSY_FIXED #0x2, d0
 	@NotInWaterY:
+
+	;==============================================================
+
+	; Time splice Y for velocities > collision tile size
+	move.l d0, d3
+
+	@TimestepY:
+
+	; Next timestep
+	move.l d3, d2
+
+	; Clamp to max
+	tst.l  d0
+	bgt    @PositiveY
+	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	bra    @NegativeY
+	@PositiveY:
+	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	@NegativeY:
+
+	tst.l  d2
+	beq    @EndVelY
+
+	PUSHM  d0-d3
 	
 	move.l Entity_WorldPosY(a0), d1		; Get Y pos
-	sub.l  d0, d1						; Sub velocity from pos (Y is upside down)
+	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
-	move.l d0, PhysicsObj_LastAppliedVelY(a0)	; Save for attached platforms/barriers
+
+	; Find floor
+	tst.b  PhysicsObj_CollideFloor(a0)
+	beq    @NoCheckFloor
+	move.b #0x0, d0
+	jsr    PhysicsObjFindFloor
+	@NoCheckFloor:
+
+	; Find ceiling
+	tst.b  PhysicsObj_CollideCeilings(a0)
+	beq    @NoCheckCeilings
+	jsr    PhysicsObjFindCeiling
+	@NoCheckCeilings:
+	
+	; Collision correction
+	jsr    PhysicsObjCollisionCorrectY
+
+	POPM   d0-d3
+
+	; Next timestep
+	bra    @TimestepY
+
+	@EndVelY:
 
 	rts
 
@@ -704,8 +791,82 @@ PhysicsObjRest:
 	@Awake:
 
 	rts
+
+PhysicsObjCollisionCorrectX:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	;==============================================================
+	; Correct wall collision
+
+	; If colliding with a wall
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #(PhysicsObjHitStaticWall|PhysicsObjHitBarrier|PhysicsObjHitMovingBarrier), d0
+	beq    @NoWallFound
 	
-PhysicsObjCollisionCorrection:
+	; Get last wall collided with
+	move.l PhysicsObj_LastWall(a0), d0
+	
+	; Determine X direction
+	move.l PhysicsObj_VelX(a0), d1
+	add.l  PhysicsObj_ImpulseX(a0), d1
+	sub.l  PhysicsObj_LastWallVelocity(a0), d1
+	tst.l  d1
+	beq    @HeadingNowhere
+	blt    @HeadingLeft
+	bgt    @HeadingRight
+	
+	@HeadingLeft:
+	
+	; Heading left, clamp
+	move.w PhysicsObj_WallProbeLeft(a0), d1
+	TOSUBPIXELS d1
+	sub.l  d1, d0
+	move.l d0, Entity_WorldPosX(a0)
+
+	; Wall hit
+	andi.b #~PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	ori.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	
+	bra    @EndWallClamp
+	
+	@HeadingRight:
+	
+	; Heading right, clamp
+	move.w PhysicsObj_WallProbeRight(a0), d1
+	TOSUBPIXELS d1
+	sub.l  d1, d0
+	move.l d0, Entity_WorldPosX(a0)
+
+	; Wall hit
+	andi.b #~PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+	ori.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+	
+	@EndWallClamp:
+	
+	clr.l  d0										; Zero X velocity by default
+	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
+	beq    @NoBounceX
+	move.l PhysicsObj_VelX(a0), d0
+	neg.l  d0										; Negate X velocity
+	DIVS1616_LOSSY d1, d0							; Div by bounce
+	@NoBounceX:
+	move.l d0, PhysicsObj_VelX(a0)
+	;move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
+
+	bra    @End
+	
+	@NoWallFound:
+	
+	; Not hitting wall
+	andi.b #~(PhysicsObjHitWallLeft|PhysicsObjHitWallRight), PhysicsObj_HitWall(a0)
+	
+	@HeadingNowhere:
+	@End:
+
+	rts
+	
+PhysicsObjCollisionCorrectY:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
@@ -817,77 +978,6 @@ PhysicsObjCollisionCorrection:
 	@HeadingDown:
 
 	@HeadingNowhereY:
-
-	;==============================================================
-	; Correct wall collision
-
-	; If colliding with a wall
-	move.b PhysicsObj_HitWall(a0), d0
-	andi.b #(PhysicsObjHitStaticWall|PhysicsObjHitBarrier|PhysicsObjHitMovingBarrier), d0
-	beq    @NoWallFound
-	
-	; Get last wall collided with
-	move.l PhysicsObj_LastWall(a0), d0
-	
-	; Determine X direction
-	move.l PhysicsObj_VelX(a0), d1
-	add.l  PhysicsObj_ImpulseX(a0), d1
-	sub.l  PhysicsObj_LastWallVelocity(a0), d1
-	tst.l  d1
-	beq    @HeadingNowhere
-	blt    @HeadingLeft
-	bgt    @HeadingRight
-	
-	@HeadingLeft:
-	
-	; Heading left, clamp
-	move.w PhysicsObj_WallProbeLeft(a0), d1
-	TOSUBPIXELS d1
-	sub.l  d1, d0
-	move.l d0, Entity_WorldPosX(a0)
-
-	; Wall hit
-	andi.b #~PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
-	ori.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
-	
-	bra    @EndWallClamp
-	
-	@HeadingRight:
-	
-	; Heading right, clamp
-	move.w PhysicsObj_WallProbeRight(a0), d1
-	TOSUBPIXELS d1
-	sub.l  d1, d0
-	move.l d0, Entity_WorldPosX(a0)
-
-	; Wall hit
-	andi.b #~PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
-	ori.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
-	
-	@EndWallClamp:
-	
-	clr.l  d0										; Zero X velocity by default
-	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
-	beq    @NoBounceX
-	move.l PhysicsObj_VelX(a0), d0
-	neg.l  d0										; Negate X velocity
-	DIVS1616_LOSSY d1, d0							; Div by bounce
-	@NoBounceX:
-	move.l d0, PhysicsObj_VelX(a0)
-	;move.w #0x0, PhysicsObj_AccelX(a0)				; Clear X acceleration
-
-	bra    @End
-	
-	@NoWallFound:
-	
-	; Not hitting wall
-	andi.b #~(PhysicsObjHitWallLeft|PhysicsObjHitWallRight), PhysicsObj_HitWall(a0)
-	
-	@HeadingNowhere:
-	@End:
-
-	; Sleep if possible
-	jsr    PhysicsObjRest
 
 	rts
 	
@@ -2204,7 +2294,7 @@ PhysicsObjPushPullObj:
 	@HitLeft:
 
 	; Re-run collision avoidance
-	jsr    PhysicsObjCollisionCorrection
+	jsr    PhysicsObjCollisionCorrectX
 
 	bra    @End
 
