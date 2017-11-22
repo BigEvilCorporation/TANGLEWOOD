@@ -271,7 +271,7 @@ PhysicsObjPreStep:
 	jsr    PhysicsObjRest
 
 	; If moved, update grid cell
-	btst   #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
+	btst   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 	beq    @NotOnWorldGrid
 	move.l PhysicsObj_LastAppliedVelX(a0), d0
 	or.l   PhysicsObj_LastAppliedVelY(a0), d0
