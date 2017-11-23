@@ -2491,7 +2491,7 @@ PlayerInteractTest_Ladder:
 	cmp.l  a3, a4
 	bne    @OnBaseFloor
 
-	; If controlling up, set minimum impulse to start climbing down
+	; If controlling down, set minimum impulse to start climbing down
 	tst.b   Character_ControlY(a0)
 	bge     @OnTopPlatform
 	move.w  Entity_Height(a0), d2
@@ -2505,7 +2505,7 @@ PlayerInteractTest_Ladder:
 	; else must be at base of ladder
 	@OnBaseFloor:
 
-	; If controlling down, set minimum impulse to start climbing up
+	; If controlling up, set minimum impulse to start climbing up
 	tst.b   Character_ControlY(a0)
 	ble     @AtBase
 	move.w  PhysicsObj_StepHeight(a0), d2

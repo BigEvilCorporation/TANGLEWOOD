@@ -608,12 +608,12 @@ CharacterMoveUp:
 
 	; If climbing available
 	tst.b   Character_CanClimb(a0)
-	beq     @NotCimbing
+	beq     @NotClimbing
 
 	; Can move up
 	move.b #1, Character_ControlY(a0)
 
-	@NotCimbing:
+	@NotClimbing:
 
 	rts
 
@@ -623,12 +623,15 @@ CharacterMoveDown:
 
 	; If climbing available
 	tst.b   Character_CanClimb(a0)
-	beq     @NotCimbing
+	beq     @NotClimbing
 
 	; Can move down
 	move.b #-1, Character_ControlY(a0)
 
-	@NotCimbing:
+	; Force physics step to check for floors
+	move.b #0x1, PhysicsObj_ForceUpdate(a0)
+
+	@NotClimbing:
 
 	rts
 
