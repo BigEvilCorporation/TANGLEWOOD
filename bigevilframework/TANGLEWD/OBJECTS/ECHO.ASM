@@ -29,7 +29,8 @@ Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running 
 Echo_AICameraLerpTime		equ 0x0020			; Camera lerp time when interesting nodes reached
 Echo_AIMarkerSearchHeight	equ 0x0040			; Search height for checking AI markers
 Echo_AIWaterSafePosOffsetX	equ 0x0010			; Out of water distance to run to
-Echo_AITerrainSearchYOffset	equ 0x0008			; Y offset for terrain searches
+Echo_AITerrainSearchYOffset	equ 0x0018			; Y offset for terrain searches
+Echo_AITerrainSearchDist	equ 0x0030			; Max distance for terrain searches
 
 ; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -2977,8 +2978,10 @@ EchoAI_PushInteractionLog:
 	TOPIXELS d1
 	sub.w  Entity_Height(a0), d1
 	subi.w #Echo_AITerrainSearchYOffset, d1
-	jsr    EchoFindFloor
-	move.b d0, d7
+	move.w #Echo_AITerrainSearchDist, d2
+	move.b #0x1, d3
+	jsr    PhysicsWorldFindTerrain
+	move.w d0, d7
 	POPM   d0-d6/a2/a4
 
 	move.w #Echo_AINodeTolerancePushObjX, d3	; Default distance tolerance
@@ -2986,7 +2989,7 @@ EchoAI_PushInteractionLog:
 	move.b #0x0, d2	; Default walk state
 
 	; If no terrain, bail
-	tst.b  d7
+	tst.w  d7
 	beq    @NoTerrain
 
 	;; If no terrain: try from centre, use small tolerance, snap to pos, and walk to target

@@ -117,6 +117,153 @@ PhysicsWorldPreStep:
 
 	rts
 
+PhysicsWorldFindTerrain:
+	;-------------------------------------------------------------
+	; Queries terrain (downwards) from a starting point to
+	; max search distance
+	;-------------------------------------------------------------
+	; INPUT:
+	;-------------------------------------------------------------
+	; a1 --- Level addr
+	; d0 (w) Search probe X pos
+	; d1 (w) Search probe Y pos
+	; d2 (w) Max search distance (tiles)
+	; d3 (b) Search platforms
+	;-------------------------------------------------------------
+	; OUTPUT:
+	;-------------------------------------------------------------
+	; a2 --- Found platform
+	; d0 (w) Found terrain height
+	; d1 (w) Terrain flags
+	;-------------------------------------------------------------
+
+	; Translate probe to map space
+	subi.w #vdp_sprite_border_x, d0
+	subi.w #vdp_sprite_border_y, d1
+
+	; Clear found platform
+	move.l #0x0, a2
+
+	; If searching platforms
+	tst.b  d3
+	beq    @NoPlatformFound
+
+	; Backup pos and dist
+	move.w d0, d5
+	move.w d1, d6
+	move.w d2, d7
+
+	LIST_GET_HEAD Platforms,a3		; Get list head
+	@PlatformLp:					; For all platforms in list
+	cmp.l  #0x0, a3
+	beq    @NoPlatformFound
+	
+	; Get platform Left and Right X
+	move.w Platform_PosX(a3), d2			;  (top word = integer part)
+	subi.w  #vdp_sprite_border_x, d2		; To screen space
+	move.w d2, d3
+	add.w  Platform_Width(a3), d3
+	
+	; Check if probe X within platform X-width
+	cmp.w  d0, d2
+	bgt    @NextPlatform
+	cmp.w  d0, d3
+	blt    @NextPlatform
+	
+	; Get platform top
+	move.w Platform_PosY(a3), d2
+	subi.w  #vdp_sprite_border_y, d2		; To screen space
+	
+	; Check if platform Y is between probe Y and Y+search height
+	move.w d2, d3
+	cmp.w  d2, d1
+	bgt    @NextPlatform
+	addi.w #(heightmap_max_search_tiles*8), d3
+	cmp.w  d2, d3
+	blt    @NextPlatform
+
+	; Get terrain flags
+	move.w Platform_TerrainFlags(a3), d1
+	
+	; Found a platform within step height
+	clr.l  d2
+	move.w Platform_PosY(a3), d0			; Get platform Y
+	move.l a3, a2							; Set result
+	bra    @Found
+	
+	@NextPlatform:
+	LIST_GET_NEXT Platforms,a3,a3			; Get next ptr
+	bra    @PlatformLp						; Loop
+
+	@NoPlatformFound:
+
+	; Restore pos and dist
+	move.w d5, d0
+	move.w d6, d1
+	move.w d7, d2
+
+	;==============================================================
+
+	; Translate probe position to collision map space
+	move.w Level_ColMapLeft(a1), d5
+	TILES2PIXELS d5
+	sub.w  d5, d0
+
+	move.w Level_ColMapTop(a1), d6
+	TILES2PIXELS d6
+	sub.w  d6, d1
+
+	; End pos
+	add.w  d1, d2
+
+	; Probe X/Y to d1
+	swap   d1
+	move.w d0, d1
+	swap   d1
+
+	; Clear result
+	clr.w  d0
+
+	; Clear found target pos
+	clr.b  d3
+
+	@TerrainLp:
+
+	; Find terrain
+	PUSHM  d1-d6/a0-a1
+	move.w Level_ColMapWidthBlocks(a1), d2	; Map width (in blocks) to d2 hi
+	swap   d2
+	move.w Level_ColMapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
+	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
+	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	jsr    PHYS_GetTerrainHeight
+	POPM   d1-d6/a0-a1
+
+	tst.w  d0
+	bne    @Found
+
+	; Not found, increment Y pos and try again
+	addi.w #heightmap_max_search_tiles*8, d1
+
+	; If not at end of search
+	cmp.w  d1, d2
+	bge    @TerrainLp
+
+	; Failure
+	move.w #0x0, d0
+	bra    @End
+
+	@Found:
+
+	; Success
+	add.w  d6, d0							; Back to map space
+	addi.w #vdp_sprite_border_y, d0			; Back to sprite space
+
+	@End:
+
+	rts
+
 PHYS_TestBoxIntersectBox:
 	; d0 (b)  Return value: 0 = no collision, 1 = collision
 	; d1 (ww) Box 1 min XY
