@@ -32,7 +32,8 @@ Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 Bridge_BarrierWidth		equ 0x30	; Width of roll
 Bridge_BarrierHeight	equ 0x50	; Height of blocking barrier
 Bridge_BarrierXOffset	equ 0x0
-Bridge_BarrierYOffset	equ -Bridge_BarrierHeight
+Bridge_BarrierYOffsetUp	equ -Bridge_BarrierHeight
+Bridge_BarrierYOffsetDn	equ 0x0000
 
 Bridge_ViewBoundsOffsetX	equ 0x0000
 Bridge_ViewBoundsOffsetY	equ -0x0040
@@ -171,32 +172,6 @@ BridgeLoadGfx:
 
 	;==============================================================
 
-	; Position platform
-	lea    Bridge_Platform(a0), a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	addi.l #Bridge_PlatformXOffset*subpixels_per_pixel, d0
-	addi.l #Bridge_PlatformYOffset*subpixels_per_pixel, d1
-	move.l d0, Platform_PosX(a2)
-	move.l d1, Platform_PosY(a2)
-	move.l #0x0, Platform_VelX(a2)
-	move.l #0x0, Platform_VelY(a2)
-
-	; Position barrier
-	lea    Bridge_Barrier(a0), a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	addi.l #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	addi.l #Bridge_BarrierYOffset*subpixels_per_pixel, d1
-	move.l d0, Barrier_PosX(a2)
-	move.l d1, Barrier_PosY(a2)
-
-	; Disable barrier if rolling downwards
-	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
-	bne    @NotRollingDown
-	jsr    BridgeDeactivateBarrier
-	@NotRollingDown:
-
 	; Set initial state
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
 	bne    @NotDropping
@@ -210,6 +185,11 @@ BridgeLoadGfx:
 	@Closed:
 	jsr    BridgeSnapClosed
 	@End:
+
+	; Position platform/barrier (don't calculate velocity)
+	move.b #0x0, d5
+	move.l Bridge_UnrollPos(a0), d4
+	jsr    BridgeUpdateBarrierPlatformPos
 
 	rts
 	
@@ -553,12 +533,8 @@ BridgeSnapClosed:
 	; Disable platform
 	jsr    BridgeDeactivatePlatform
 
-	; Activate barrier if in roll up mode
-	move.l a0, a2
-	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
-	beq    @RollDown
+	; Activate barrier
 	jsr    BridgeActivateBarrier
-	@RollDown:
 
 	; Set closed state
 	move.b #Bridge_StateClosed, Bridge_State(a0)
@@ -583,11 +559,8 @@ BridgeSetDropMode:
 
 BridgeBeginRoll:
 
-	; Activate barrier (if rolling upwards)
-	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
-	beq    @RollDown
+	; Activate barrier
 	jsr    BridgeActivateBarrier
-	@RollDown:
 
 	; Set speed
 	MOVE_NTSC_L Bridge_UnrollSpeed, Bridge_Speed(a0), d0
@@ -674,6 +647,7 @@ BridgeUpdateRoll:
 
 	; Set barrier and platform pos
 	move.l Bridge_UnrollPos(a0), d4
+	move.b #0x1, d5
 	jsr    BridgeUpdateBarrierPlatformPos
 
 	rts
@@ -709,24 +683,40 @@ BridgeUpdateUnroll:
 
 	; Set barrier and platform pos
 	move.l Bridge_UnrollPos(a0), d4
+	move.b #0x1, d5
 	jsr    BridgeUpdateBarrierPlatformPos
 
 	rts
 
 BridgeUpdateBarrierPlatformPos:
-	; d4 - Unroll pos
+	; d4 (w) Unroll pos
+	; d5 (b) Calc velocity
 
 	; Unroll pos to pixels
 	TOPIXELS d4
 	addq.w #0x1, d4
 
-	; Set platform width to unroll pos
+	; Get platform
 	lea    Bridge_Platform(a0), a2
+	
+	; If drop mode, set whole width
+	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	bne    @NotDropMode
+	move.w #Bridge_Width, Platform_Width(a2)
+	bra    @DropMode
+	@NotDropMode:
+
+	;  else set platform width to unroll pos
 	move.w d4, Platform_Width(a2)
 	move.b #0x1, Platform_Dirty(a2)
+	@DropMode:
 
 	; To world space
 	TOSUBPIXELS d4
+	
+	; Get pos for platform
+	move.l Entity_WorldPosX(a0), d0
+	move.l Entity_WorldPosY(a0), d1
 
 	; Add inverted X offset if flipped
 	tst.b  SpriteObj_FlippedX(a0)
@@ -734,10 +724,12 @@ BridgeUpdateBarrierPlatformPos:
 	move.l #Bridge_Width*subpixels_per_pixel, d7
 	sub.l  d4, d7
 	move.l d7, d4
-	move.l Entity_WorldPosX(a0), d0
 	add.l  d4, d0
-	move.l d0, Platform_PosX(a2)
 	@NoInvertX:
+	
+	; Set platform pos
+	move.l d0, Platform_PosX(a2)
+	move.l d1, Platform_PosY(a2)
 
 	; Move barrier to unroll pos
 	lea    Bridge_Barrier(a0), a2
@@ -746,7 +738,13 @@ BridgeUpdateBarrierPlatformPos:
 	move.l Entity_WorldPosY(a0), d1
 	add.l  d4, d0
 	addi.l #Bridge_BarrierXOffset*subpixels_per_pixel, d0
-	addi.l #Bridge_BarrierYOffset*subpixels_per_pixel, d1
+	cmp.b  #Bridge_ModeRollUp, Bridge_Mode(a0)
+	beq    @RollUp
+	addi.l #Bridge_BarrierYOffsetDn*subpixels_per_pixel, d1
+	bra    @RollDn
+	@RollUp:
+	addi.l #Bridge_BarrierYOffsetUp*subpixels_per_pixel, d1
+	@RollDn:
 
 	; Sub barrier width if flipped
 	tst.b  SpriteObj_FlippedX(a0)
@@ -759,6 +757,10 @@ BridgeUpdateBarrierPlatformPos:
 
 	; Calc barrier velocity
 	sub.l  d3, d0
+	tst.b  d5
+	bne    @CalcVel
+	moveq  #0x0, d0
+	@CalcVel:
 	move.l d0, Barrier_VelX(a2)
 
 	rts
