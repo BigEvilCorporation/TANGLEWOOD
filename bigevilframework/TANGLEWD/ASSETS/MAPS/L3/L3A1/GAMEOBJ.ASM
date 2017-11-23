@@ -25,9 +25,9 @@ L3A1_Leaf_13_name	dc.b "L3A1_Leaf_13",0
 	even
 	ENDIF
 
-L3A1_Trap_count equ 0x0
-
 L3A1_Djubb_count equ 0x0
+
+L3A1_Trap_count equ 0x0
 
 L3A1_Echo_count equ 0x0
 
@@ -43,9 +43,9 @@ L3A1_BouncePlant_count equ 0x0
 
 L3A1_Log_count equ 0x0
 
-L3A1_Borgus_count equ 0x0
-
 L3A1_DjakkCage_count equ 0x0
+
+L3A1_Borgus_count equ 0x0
 
 L3A1_Monster_count equ 0x0
 
@@ -129,6 +129,8 @@ L3A1_Stone_68_name	dc.b "L3A1_Stone_68",0
 
 L3A1_Demon_count equ 0x0
 
+L3A1_Raft_count equ 0x0
+
 L3A1_Nest_count equ 0x0
 
 L3A1_Flue_count equ 0x0
@@ -155,6 +157,14 @@ L3A1_WaterBody_count equ 0x0
 
 L3A1_Location_count equ 0x0
 
+L3A1_Deathbox_count equ 0x1
+L3A1_Deathbox_52_idx	equ 0x0
+
+	IFND FINAL
+L3A1_Deathbox_52_name	dc.b "L3A1_Deathbox_52",0
+	even
+	ENDIF
+
 L3A1_Lift_count equ 0x3
 L3A1_Lift2_idx	equ 0x0
 L3A1_Lift1_idx	equ 0x1
@@ -164,14 +174,6 @@ L3A1_Lift3_idx	equ 0x2
 L3A1_Lift2_name	dc.b "L3A1_Lift2",0
 L3A1_Lift1_name	dc.b "L3A1_Lift1",0
 L3A1_Lift3_name	dc.b "L3A1_Lift3",0
-	even
-	ENDIF
-
-L3A1_Deathbox_count equ 0x1
-L3A1_Deathbox_52_idx	equ 0x0
-
-	IFND FINAL
-L3A1_Deathbox_52_name	dc.b "L3A1_Deathbox_52",0
 	even
 	ENDIF
 
@@ -209,18 +211,6 @@ L3A1_Cogs3_name	dc.b "L3A1_Cogs3",0
 	even
 	ENDIF
 
-L3A1_Bridge_count equ 0x3
-L3A1_Bridge1_idx	equ 0x0
-L3A1_Bridge2_idx	equ 0x1
-L3A1_DropBridge1_idx	equ 0x2
-
-	IFND FINAL
-L3A1_Bridge1_name	dc.b "L3A1_Bridge1",0
-L3A1_Bridge2_name	dc.b "L3A1_Bridge2",0
-L3A1_DropBridge1_name	dc.b "L3A1_DropBridge1",0
-	even
-	ENDIF
-
 L3A1_Button_count equ 0x3
 L3A1_Button1_idx	equ 0x0
 L3A1_Button2_idx	equ 0x1
@@ -245,19 +235,31 @@ L3A1_Winch_count equ 0x0
 
 L3A1_WindFlue_count equ 0x0
 
-L3A1_Raft_count equ 0x0
-
 L3A1_Lock_count equ 0x0
 
 L3A1_Pool_count equ 0x0
-
-L3A1_Ladder_count equ 0x0
 
 L3A1_Stalactite_count equ 0x0
 
 L3A1_CargoLift_count equ 0x0
 
 L3A1_Scrap_count equ 0x0
+
+L3A1_Longboat_count equ 0x0
+
+L3A1_Ladder_count equ 0x0
+
+L3A1_Bridge_count equ 0x3
+L3A1_Bridge1_idx	equ 0x0
+L3A1_Bridge2_idx	equ 0x1
+L3A1_DropBridge1_idx	equ 0x2
+
+	IFND FINAL
+L3A1_Bridge1_name	dc.b "L3A1_Bridge1",0
+L3A1_Bridge2_name	dc.b "L3A1_Bridge2",0
+L3A1_DropBridge1_name	dc.b "L3A1_DropBridge1",0
+	even
+	ENDIF
 
 
 
@@ -269,6 +271,7 @@ L3A1_LoadGameObjects:
 	POPL   a1
 
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_8_name, a3
 	move.l a0, a2
@@ -276,9 +279,10 @@ L3A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_9_name, a3
 	move.l a0, a2
@@ -286,9 +290,10 @@ L3A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_10_name, a3
 	move.l a0, a2
@@ -296,9 +301,10 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_11_name, a3
 	move.l a0, a2
@@ -306,9 +312,10 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_12_name, a3
 	move.l a0, a2
@@ -316,9 +323,10 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L3A1_Leaf_13_name, a3
 	move.l a0, a2
@@ -326,8 +334,8 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 
 
 
@@ -341,6 +349,7 @@ L3A1_LoadGameObjects:
 	jsr NymnInit
 	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x01980000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
 	IFND FINAL
 	lea L3A1_Nymn_21_name, a3
 	move.l a0, a2
@@ -348,8 +357,8 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -365,6 +374,8 @@ L3A1_LoadGameObjects:
 	jsr BoulderInit
 	move.l #0x0a680000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
+	move.b #0x10, PhysicsObj_Mass(a0)
+	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L3A1_BoulderCounterweight1_name, a3
 	move.l a0, a2
@@ -372,9 +383,8 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #0x10, PhysicsObj_Mass(a0)
-	jsr BoulderLoadGfx
 	add.l #Boulder_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L3A1_Firefly_count)
@@ -385,6 +395,7 @@ L3A1_LoadGameObjects:
 	jsr FireflyInit
 	move.l #0x02800000, Entity_WorldPosX(a0)
 	move.l #0x01d80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_57_name, a3
 	move.l a0, a2
@@ -392,11 +403,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x06d80000, Entity_WorldPosX(a0)
 	move.l #0x03300000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_58_name, a3
 	move.l a0, a2
@@ -404,11 +416,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x0ca80000, Entity_WorldPosX(a0)
 	move.l #0x01a80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_59_name, a3
 	move.l a0, a2
@@ -416,11 +429,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x13700000, Entity_WorldPosX(a0)
 	move.l #0x00d80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_60_name, a3
 	move.l a0, a2
@@ -428,11 +442,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x15180000, Entity_WorldPosX(a0)
 	move.l #0x00980000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_61_name, a3
 	move.l a0, a2
@@ -440,11 +455,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x14d00000, Entity_WorldPosX(a0)
 	move.l #0x01d80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_62_name, a3
 	move.l a0, a2
@@ -452,11 +468,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x0f880000, Entity_WorldPosX(a0)
 	move.l #0x01000000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_63_name, a3
 	move.l a0, a2
@@ -464,11 +481,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x09380000, Entity_WorldPosX(a0)
 	move.l #0x02b80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A1_Firefly_64_name, a3
 	move.l a0, a2
@@ -476,8 +494,8 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(FuzzlCage_Struct_Size*L3A1_FuzzlCage_count)
@@ -488,6 +506,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlCageInit
 	move.l #0x04900000, Entity_WorldPosX(a0)
 	move.l #0x02600000, Entity_WorldPosY(a0)
+	jsr FuzzlCageLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCage1_name, a3
 	move.l a0, a2
@@ -495,11 +514,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
+
 	jsr FuzzlCageInit
 	move.l #0x10400000, Entity_WorldPosX(a0)
 	move.l #0x01d00000, Entity_WorldPosY(a0)
+	jsr FuzzlCageLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCage2_name, a3
 	move.l a0, a2
@@ -507,8 +527,8 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlCageLoadGfx
 	add.l #FuzzlCage_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L3A1_Fuzzl_count)
@@ -519,6 +539,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x04a00000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCaged1_name, a3
 	move.l a0, a2
@@ -526,11 +547,12 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 	jsr FuzzlInit
 	move.l #0x10500000, Entity_WorldPosX(a0)
 	move.l #0x01e00000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCaged2_name, a3
 	move.l a0, a2
@@ -538,11 +560,12 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 	jsr FuzzlInit
 	move.l #0x0ae00000, Entity_WorldPosX(a0)
 	move.l #0x02500000, Entity_WorldPosY(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCaged3_name, a3
 	move.l a0, a2
@@ -550,8 +573,8 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L3A1_Stone_count)
@@ -562,6 +585,7 @@ L3A1_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x14880000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_56_name, a3
 	move.l a0, a2
@@ -569,11 +593,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x0f700000, Entity_WorldPosX(a0)
 	move.l #0x01280000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_69_name, a3
 	move.l a0, a2
@@ -581,11 +606,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x0a480000, Entity_WorldPosX(a0)
 	move.l #0x02980000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_51_name, a3
 	move.l a0, a2
@@ -593,11 +619,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x0d880000, Entity_WorldPosX(a0)
 	move.l #0x02980000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_50_name, a3
 	move.l a0, a2
@@ -605,11 +632,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x03600000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_53_name, a3
 	move.l a0, a2
@@ -617,11 +645,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x11d80000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_54_name, a3
 	move.l a0, a2
@@ -629,11 +658,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x10c00000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_55_name, a3
 	move.l a0, a2
@@ -641,11 +671,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x0a880000, Entity_WorldPosX(a0)
 	move.l #0x02500000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_66_name, a3
 	move.l a0, a2
@@ -653,11 +684,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x0b480000, Entity_WorldPosX(a0)
 	move.l #0x01c80000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_67_name, a3
 	move.l a0, a2
@@ -665,11 +697,12 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 	jsr StoneInit
 	move.l #0x10200000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_68_name, a3
 	move.l a0, a2
@@ -677,8 +710,9 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
+
 
 
 
@@ -692,6 +726,9 @@ L3A1_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x18f00000, Entity_WorldPosX(a0)
 	move.l #0x00b80000, Entity_WorldPosY(a0)
+	move.l #l3a1_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L3A1_TriggerBox_End_name, a3
 	move.l a0, a2
@@ -699,13 +736,15 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l3a1_Trigger_End, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x06b80000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
+	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.l #track_bgm_cue_l3, TriggerBox_RegisterA0(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L3A1_TriggerMusicCue_name, a3
 	move.l a0, a2
@@ -713,11 +752,8 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #SND_PlayTrack, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.l #track_bgm_cue_l3, TriggerBox_RegisterA0(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L3A1_Checkpoint_count)
@@ -728,6 +764,7 @@ L3A1_LoadGameObjects:
 	jsr CheckpointInit
 	move.l #0x07600000, Entity_WorldPosX(a0)
 	move.l #0x03200000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L3A1_Checkpoint_46_name, a3
 	move.l a0, a2
@@ -735,9 +772,29 @@ L3A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CheckpointLoadGfx
 	add.l #Checkpoint_Struct_Size, a0
 
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L3A1_Deathbox_count)
+	move.l a1, EntityPoolStart_Deathbox
+	move.l a1, a0
+	POPL   a1
+
+	jsr DeathboxInit
+	move.l #0x06180000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L3A1_Deathbox_52_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -749,6 +806,7 @@ L3A1_LoadGameObjects:
 	jsr LiftInit
 	move.l #0x0c400000, Entity_WorldPosX(a0)
 	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
 	IFND FINAL
 	lea L3A1_Lift2_name, a3
 	move.l a0, a2
@@ -756,11 +814,12 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
+
 	jsr LiftInit
 	move.l #0x0b900000, Entity_WorldPosX(a0)
 	move.l #0x01c80000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
 	IFND FINAL
 	lea L3A1_Lift1_name, a3
 	move.l a0, a2
@@ -768,11 +827,12 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
+
 	jsr LiftInit
 	move.l #0x14b80000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
 	IFND FINAL
 	lea L3A1_Lift3_name, a3
 	move.l a0, a2
@@ -780,27 +840,8 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LiftLoadGfx
 	add.l #Lift_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L3A1_Deathbox_count)
-	move.l a1, EntityPoolStart_Deathbox
-	move.l a1, a0
-	POPL   a1
-
-	jsr DeathboxInit
-	move.l #0x06180000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_Deathbox_52_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr DeathboxLoadGfx
-	add.l #Deathbox_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Crate_Struct_Size*L3A1_Crate_count)
@@ -811,6 +852,7 @@ L3A1_LoadGameObjects:
 	jsr CrateInit
 	move.l #0x04800000, Entity_WorldPosX(a0)
 	move.l #0x03080000, Entity_WorldPosY(a0)
+	jsr CrateLoadGfx
 	IFND FINAL
 	lea L3A1_Crate_4_name, a3
 	move.l a0, a2
@@ -818,11 +860,12 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
+
 	jsr CrateInit
 	move.l #0x0ff00000, Entity_WorldPosX(a0)
 	move.l #0x01100000, Entity_WorldPosY(a0)
+	jsr CrateLoadGfx
 	IFND FINAL
 	lea L3A1_Crate_43_name, a3
 	move.l a0, a2
@@ -830,8 +873,8 @@ L3A1_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CrateLoadGfx
 	add.l #Crate_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Generator_Struct_Size*L3A1_Generator_count)
@@ -842,6 +885,7 @@ L3A1_LoadGameObjects:
 	jsr GeneratorInit
 	move.l #0x03e00000, Entity_WorldPosX(a0)
 	move.l #0x03380000, Entity_WorldPosY(a0)
+	jsr GeneratorLoadGfx
 	IFND FINAL
 	lea L3A1_Generator1_name, a3
 	move.l a0, a2
@@ -849,11 +893,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+
 	jsr GeneratorInit
 	move.l #0x0fd00000, Entity_WorldPosX(a0)
 	move.l #0x01e00000, Entity_WorldPosY(a0)
+	jsr GeneratorLoadGfx
 	IFND FINAL
 	lea L3A1_Generator2_name, a3
 	move.l a0, a2
@@ -861,11 +906,12 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+
 	jsr GeneratorInit
 	move.l #0x12f80000, Entity_WorldPosX(a0)
 	move.l #0x03080000, Entity_WorldPosY(a0)
+	jsr GeneratorLoadGfx
 	IFND FINAL
 	lea L3A1_Generator3_name, a3
 	move.l a0, a2
@@ -873,8 +919,8 @@ L3A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr GeneratorLoadGfx
 	add.l #Generator_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Cogs_Struct_Size*L3A1_Cogs_count)
@@ -885,6 +931,8 @@ L3A1_LoadGameObjects:
 	jsr CogsInit
 	move.l #0x03b80000, Entity_WorldPosX(a0)
 	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr CogsLoadGfx
 	IFND FINAL
 	lea L3A1_Cogs1_name, a3
 	move.l a0, a2
@@ -892,12 +940,12 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
+
 	jsr CogsInit
 	move.l #0x0fe80000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
+	jsr CogsLoadGfx
 	IFND FINAL
 	lea L3A1_Cogs2_name, a3
 	move.l a0, a2
@@ -905,11 +953,12 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
+
 	jsr CogsInit
 	move.l #0x13100000, Entity_WorldPosX(a0)
 	move.l #0x02980000, Entity_WorldPosY(a0)
+	jsr CogsLoadGfx
 	IFND FINAL
 	lea L3A1_Cogs3_name, a3
 	move.l a0, a2
@@ -917,55 +966,8 @@ L3A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr CogsLoadGfx
 	add.l #Cogs_Struct_Size, a0
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L3A1_Bridge_count)
-	move.l a1, EntityPoolStart_Bridge
-	move.l a1, a0
-	POPL   a1
-
-	jsr BridgeInit
-	move.l #0x06780000, Entity_WorldPosX(a0)
-	move.l #0x03500000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_Bridge1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	jsr BridgeLoadGfx
-	add.l #Bridge_Struct_Size, a0
-	jsr BridgeInit
-	move.l #0x10e00000, Entity_WorldPosX(a0)
-	move.l #0x01f80000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_Bridge2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateOpen, Bridge_State(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr BridgeLoadGfx
-	add.l #Bridge_Struct_Size, a0
-	jsr BridgeInit
-	move.l #0x02300000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
-	IFND FINAL
-	lea L3A1_DropBridge1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	move.b #Bridge_ModeDrop, Bridge_Mode(a0)
-	jsr BridgeLoadGfx
-	add.l #Bridge_Struct_Size, a0
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Button_Struct_Size*L3A1_Button_count)
@@ -976,6 +978,7 @@ L3A1_LoadGameObjects:
 	jsr ButtonInit
 	move.l #0x06380000, Entity_WorldPosX(a0)
 	move.l #0x03480000, Entity_WorldPosY(a0)
+	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L3A1_Button1_name, a3
 	move.l a0, a2
@@ -983,11 +986,12 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
 	jsr ButtonInit
 	move.l #0x10900000, Entity_WorldPosX(a0)
 	move.l #0x01f00000, Entity_WorldPosY(a0)
+	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L3A1_Button2_name, a3
 	move.l a0, a2
@@ -995,11 +999,12 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
+
 	jsr ButtonInit
 	move.l #0x14400000, Entity_WorldPosX(a0)
 	move.l #0x02f80000, Entity_WorldPosY(a0)
+	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L3A1_Button3_name, a3
 	move.l a0, a2
@@ -1007,7 +1012,6 @@ L3A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr ButtonLoadGfx
 	add.l #Button_Struct_Size, a0
 
 
@@ -1021,6 +1025,57 @@ L3A1_LoadGameObjects:
 
 
 
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L3A1_Bridge_count)
+	move.l a1, EntityPoolStart_Bridge
+	move.l a1, a0
+	POPL   a1
+
+	jsr BridgeInit
+	move.l #0x06780000, Entity_WorldPosX(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
+	jsr BridgeLoadGfx
+	IFND FINAL
+	lea L3A1_Bridge1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Bridge_Struct_Size, a0
+
+	jsr BridgeInit
+	move.l #0x10e00000, Entity_WorldPosX(a0)
+	move.l #0x01f80000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
+	move.b #Bridge_StateOpen, Bridge_State(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr BridgeLoadGfx
+	IFND FINAL
+	lea L3A1_Bridge2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Bridge_Struct_Size, a0
+
+	jsr BridgeInit
+	move.l #0x02300000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeDrop, Bridge_Mode(a0)
+	jsr BridgeLoadGfx
+	IFND FINAL
+	lea L3A1_DropBridge1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Bridge_Struct_Size, a0
 
 
 	rts
