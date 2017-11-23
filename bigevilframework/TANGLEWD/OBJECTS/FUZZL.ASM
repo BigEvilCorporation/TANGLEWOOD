@@ -353,9 +353,9 @@ FuzzlUpdate:
 	bclr.b #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	bset.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a0)
 
-	; Update if out of view
+	; Update if out of view, remove fromw orld grid
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
 
 	; If not already registered as potential flue occupant, do it now
 	tst.b  Fuzzl_FlueOccupant(a0)
