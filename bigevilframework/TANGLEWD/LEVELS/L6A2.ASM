@@ -155,7 +155,7 @@ l6a2_Init:
 	ENTITY_GETBYNAME Button, l6a2_Button1, a0
 	ENTITY_GETBYNAME Lift, l6a2_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 	
 	rts

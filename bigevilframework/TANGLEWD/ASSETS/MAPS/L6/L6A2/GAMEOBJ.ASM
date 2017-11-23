@@ -885,7 +885,6 @@ L6A2_LoadGameObjects:
 	jsr LiftInit
 	move.l #0x09480000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
-	move.b #0x1, Lift_Direction(a0)
 	jsr LiftLoadGfx
 	IFND FINAL
 	lea L6A2_Lift1_name, a3

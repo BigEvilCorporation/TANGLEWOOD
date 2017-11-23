@@ -46,7 +46,6 @@ Lift_TopLimit				rs.w 1
 Lift_BottomLimit			rs.w 1
 Lift_PlatformOffsetY		rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
-Lift_Direction				rs.b 1	; Up/down powered direction
 ;---------------------------------
 	RS_ALIGN
 Lift_Struct_Size  			rs.b 0
@@ -92,13 +91,13 @@ LiftInit:
 	MOVE_NTSC_L Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
 	MOVE_NTSC_ACCEL_W Lift_DecelX, PhysicsObj_DecelX(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
+	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.l  #0x0, Lift_CounterWeight(a0)
 	move.l  #0x0, Lift_LastOccupant(a0)
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
-	move.b  #0x0, Lift_Direction(a0)
 
 	IF !LIFT_ROPE_SUPPORT_SWING
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
@@ -200,18 +199,10 @@ LiftLoadGfx:
 
 	POPL   a1
 
-	; If heading down, offset origin to top, disable gravity
+	; Set default rope length
 	move.w Entity_WorldPosY(a0), Lift_TopLimit(a0)
 	move.w Entity_WorldPosY(a0), Lift_BottomLimit(a0)
-
-	tst.b  Lift_Direction(a0)
-	beq    @Up
-	add.w  #Lift_RopeLengthDefault, Lift_BottomLimit(a0)
-	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
-	bra    @Down
-	@Up:
 	sub.w  #Lift_RopeLengthDefault, Lift_TopLimit(a0)
-	@Down:
 
 	rts
 
@@ -327,25 +318,22 @@ LiftPositionRopeSegments:
 
 	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
-LiftActivate:
+LiftActivateUp:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	tst.b  Lift_Direction(a0)
-	bne    @Down
-
 	; Move lift up
-	MOVE_NTSC_ACCEL_W Lift_AccelY, PhysicsObj_AccelY(a0), d0
-	bra    @End
+	MOVE_NTSC_ACCEL_W Lift_AccelY, d1, d0
+	move.w d1, PhysicsObj_AccelY(a0)
 
-	@Down:
+	rts
+
+LiftActivateDown:
 
 	; Move lift down
 	MOVE_NTSC_ACCEL_W Lift_AccelY, d1, d0
 	neg.w  d1
 	move.w d1, PhysicsObj_AccelY(a0)
-
-	@End:
 
 	rts
 
@@ -353,6 +341,7 @@ LiftStop:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
 	rts
@@ -511,18 +500,18 @@ LiftRestrictHeight:
 	move.w Entity_WorldPosY(a0), d0
 	move.w Lift_TopLimit(a0), d1
 	cmp.w  d0, d1
-	ble    @WithinRopeTop
+	ble    @WithinTop
 	move.w d1, Entity_WorldPosY(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	@WithinRopeTop:
+	jsr    LiftStop
+	@WithinTop:
 
-	move.w Entity_WorldPosY(a0), d0
-	move.w Lift_BottomLimit(a0), d1
-	cmp.w  d0, d1
-	bge    @WithinRopeBottom
-	move.w d1, Entity_WorldPosY(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	@WithinRopeBottom:
+	;move.w Entity_WorldPosY(a0), d0
+	;move.w Lift_BottomLimit(a0), d1
+	;cmp.w  d0, d1
+	;bge    @WithinBottom
+	;move.w d1, Entity_WorldPosY(a0)
+	;jsr    LiftStop
+	;@WithinBottom:
 
 	@NoRestrictHeight:
 

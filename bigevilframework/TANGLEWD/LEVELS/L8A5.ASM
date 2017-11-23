@@ -119,8 +119,8 @@ l8a5_Init:
 	ENTITY_GETBYNAME Button, l8a5_Button1, a0
 	ENTITY_GETBYNAME Lift, l8a5_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
 
 	; Put Fuzzl in generator
 	ENTITY_GETBYNAME Fuzzl, l8a5_FuzzlRed1, a0

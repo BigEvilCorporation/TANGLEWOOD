@@ -132,7 +132,7 @@ l5a4_Init:
 	move.b #0x1, Lift_RestrictHeight(a0)
 
 	; Start cargo lift
-	jsr    LiftActivate
+	jsr    LiftActivateUp
 	
 	rts
 	

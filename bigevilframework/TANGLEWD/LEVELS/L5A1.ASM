@@ -153,12 +153,6 @@ L5a1_Init:
 
 	;==============================================================
 
-	; Set cargo lift direction
-	ENTITY_GETBYNAME CargoLift, l5a1_CargoLift, a0
-	move.b #0x1, Lift_Direction(a0)
-
-	;==============================================================
-
 	; Start cargo lift cutscene
 	PUSHL  a0
 	lea    LevelData_L5A1, a2
@@ -201,7 +195,7 @@ l5a1_CutsceneCargoLift:
 
 	; Start lift
 	CUTSCENE_GET_ENTITY CargoLift, l5a1_CargoLift,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateDown
 
 	; Wait until hit floor
 	CUTSCENE_GET_ENTITY CargoLift, l5a1_CargoLift,a2

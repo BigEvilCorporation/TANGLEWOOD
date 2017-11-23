@@ -181,8 +181,8 @@ l3a3_Init:
 	ENTITY_GETBYNAME Button, l3a3_Button3, a0
 	ENTITY_GETBYNAME Lift, l3a3_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
 	move.b #0x1, Button_Active(a0)
 
 	; Reset combo button

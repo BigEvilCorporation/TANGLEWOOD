@@ -149,8 +149,8 @@ l4a3_Init:
 	ENTITY_GETBYNAME Button, l4a3_Button1, a0
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
 	move.b #0x1, Button_Active(a0)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
@@ -173,11 +173,6 @@ l4a3_Init:
 
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
-
-	; Set cargo lift direction
-	ENTITY_GETBYNAME CargoLift, l4a3_CargoLift, a0
-	move.b #0x1, Lift_Direction(a0)
-	move.b #0x0, PhysicsObj_AffectedByGravity(a0)
 
 	;==============================================================
 
@@ -383,7 +378,7 @@ l4a3_CutsceneLoadLift:
 
 	; Activate lift
 	CUTSCENE_GET_ENTITY CargoLift,l4a3_CargoLift,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateDown
 
 	CUTSCENE_END
 

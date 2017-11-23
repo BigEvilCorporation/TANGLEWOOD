@@ -104,8 +104,8 @@ l5a2_Init:
 	ENTITY_GETBYNAME Button, l5a2_Button1, a0
 	ENTITY_GETBYNAME Lift, l5a2_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
 
 	;==============================================================
 

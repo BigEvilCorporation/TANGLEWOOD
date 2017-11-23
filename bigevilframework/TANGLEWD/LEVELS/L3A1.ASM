@@ -147,8 +147,8 @@ l3a1_Init:
 	ENTITY_GETBYNAME Button, l3a1_Button3, a0
 	ENTITY_GETBYNAME Lift, l3a1_Lift3, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivate, Button_OnDown(a0)
-	move.l #LiftStop, Button_OnUp(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
 
 	; Connect lifts to counterweights
 	ENTITY_GETBYNAME Lift, l3a1_Lift1, a0

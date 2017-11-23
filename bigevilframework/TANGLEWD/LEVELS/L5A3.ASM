@@ -384,7 +384,7 @@ l5a3_CutsceneLoadLift:
 
 	; Activate lift
 	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivate
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateUp
 
 	CUTSCENE_END
 
