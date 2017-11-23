@@ -420,8 +420,8 @@ BridgeDraw:
 	bne    @Buoyant
 	tst.b  Bridge_InView(a0)
 	bne    @InView
-	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
-	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	@InView:
 	@NotDropping:
 	@Buoyant:

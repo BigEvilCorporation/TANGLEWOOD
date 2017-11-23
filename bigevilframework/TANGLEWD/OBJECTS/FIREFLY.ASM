@@ -85,10 +85,10 @@ FireflyLoadGfx:
 FireflyShutdown:
 	; a0 --- Firefly addr
 	
-	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
-	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	jsr    EntityRemoveFromSerialiseList
-	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+	jsr    EntityRemoveFromWorldGrid
 	subq.w #0x1, EntityCount_Firefly
 	
 	rts
@@ -139,9 +139,9 @@ FireflyTestObj:
 	beq    @NoIntersection
 	
 	; Stop updating and rendering
-	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
-	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
-	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	
 	; Inactive and invisible
 	move.b #0x0, Entity_Active(a0)

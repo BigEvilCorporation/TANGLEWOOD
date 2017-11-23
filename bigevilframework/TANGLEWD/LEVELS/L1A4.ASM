@@ -184,8 +184,8 @@ l1a4_Trigger_FuzzlTreeEntrance:
 	; Disarm and disable Djakk if still alive (rare but possible)
 	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
 	jsr    MonsterDie
-	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
-	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 
 	; Start 'Rain' track
 	IFND DEBUG

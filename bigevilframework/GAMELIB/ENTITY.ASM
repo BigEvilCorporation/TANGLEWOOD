@@ -79,22 +79,38 @@ EntityInit:
 
 EntityAddToUpdateList:
 	; a0 --- Entity addr
+
+	; Add to update list if not already present
+	btst.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	bne    @InUpdateList
 	LIST_APPEND_TAIL EntityUpdate,a0,a3
 	bset.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	@InUpdateList:
+
+	; If in world grid, also set world grid update flag
 	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 	beq    @NotInWorldGrid
 	bset.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 	@NotInWorldGrid:
+
 	rts
 
 EntityAddToRenderList:
 	; a0 --- Entity addr
+	
+	; Add to render list if not already present
+	btst.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	bne    @InRenderList
 	LIST_APPEND_TAIL EntityRender,a0,a3
 	bset.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	@InRenderList:
+
+	; If in world grid, also set world grid render flag
 	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 	beq    @NotInWorldGrid
 	bset.b #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
 	@NotInWorldGrid:
+
 	rts
 	
 EntityAddToSerialiseList:
@@ -104,16 +120,32 @@ EntityAddToSerialiseList:
 	
 EntityRemoveFromUpdateList:
 	; a0 --- Entity addr
+
+	; Remove from update list if present
+	btst.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	beq    @NotInUpdateList
 	LIST_REMOVE EntityUpdate,a0,a4,a3
 	bclr.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	@NotInUpdateList:
+
+	; Remove from world grid updates
 	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
 	rts
 	
 EntityRemoveFromRenderList:
 	; a0 --- Entity addr
+
+	; Remove from render list if present
+	btst.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	beq    @NotInRenderList
 	LIST_REMOVE EntityRender,a0,a4,a3
 	bclr.b #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+	@NotInRenderList:
+
+	; Remove from world grid renders
 	bclr.b #EntityWorldGridFlag_GridRenders, Entity_WorldGridFlags(a0)
+
 	rts
 	
 EntityRemoveFromSerialiseList:
@@ -146,12 +178,17 @@ EntityAddToWorldGrid:
 	; a0 --- Entity address
 	; d0 (b) Flags (EntityWorldGridFlag_Grid*)
 
+	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	bne    @InWorldGrid
+
 	; Set flags
 	bset   #EntityWorldGridFlag_InWorldGrid, d0
 	or.b   d0, Entity_WorldGridFlags(a0)
 
 	; Add to world grid list
 	LIST_APPEND_TAIL EntityWorldGrid,a0,a3
+
+	@InWorldGrid:
 
 	; Calculate initial grid index
 	jsr    EntityUpdateWorldGridIndex
@@ -160,8 +197,14 @@ EntityAddToWorldGrid:
 
 EntityRemoveFromWorldGrid:
 	; a0 --- Entity addr
-	bclr   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+
+	; Remove from world grid list if present
+	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	beq    @NotInWorldGrid
 	LIST_REMOVE EntityWorldGrid,a0,a4,a3
+	bclr   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	@NotInWorldGrid:
+
 	rts
 
 EntityUpdateWorldGridIndex:

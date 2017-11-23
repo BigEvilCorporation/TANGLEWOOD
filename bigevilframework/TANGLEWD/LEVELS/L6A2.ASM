@@ -408,9 +408,9 @@ l6a2_StealDjakkVRAM:
 	; Deactivate it
 	PUSHL  a0
 	move.l a2, a0
-	ENTITY_REMOVEFROMUPDATELIST_SAFE a0
-	ENTITY_REMOVEFROMRENDERLIST_SAFE a0
-	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
 	move.b #0x0, Entity_Active(a0)
 	POPL   a0
 

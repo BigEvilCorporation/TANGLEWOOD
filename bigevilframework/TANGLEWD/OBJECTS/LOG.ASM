@@ -350,7 +350,7 @@ LogBeginHazardousRoll:
 	move.b #0x1, Log_Hazardous(a0)
 
 	; Remove from world grid
-	ENTITY_REMOVEFROMWORLDGRID_SAFE a0
+	jsr    EntityRemoveFromWorldGrid
 
 	; Ensure updating, rendering, and physicsing
 	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
