@@ -599,8 +599,8 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr NestInit
-	move.l #0x0a280000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x0a500000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L5A3_Nest_27_name, a3
