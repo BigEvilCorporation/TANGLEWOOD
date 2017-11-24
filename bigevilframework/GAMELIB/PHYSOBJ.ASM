@@ -1506,6 +1506,8 @@ PhysicsObjFindWall:
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
+	cmp.b  #0x2, d7
+	beq    @LeftOfBarrier	; Forced direction flag
 	tst.l  d3
 	bgt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
