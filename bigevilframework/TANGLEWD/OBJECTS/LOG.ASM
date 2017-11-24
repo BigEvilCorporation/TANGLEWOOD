@@ -26,7 +26,7 @@ Log_MinDamageXVel		equ 0x020000	; Min X velocity to deal damage to characters
 Log_MinDamageYVel		equ 0x050000	; Min Y velocity to deal damage to characters
 Log_HitDamage			equ 0xFF		; Damage dealt to characters
 
-Log_PlatformWidth		equ Log_Width/2	; Physics platform width
+Log_PlatformWidth		equ Log_Width-0x10	; Physics platform width
 Log_PlatformXOffset		equ (Log_Width-Log_PlatformWidth)/2	; Offset to platform from top of Log
 Log_PlatformYOffset		equ 0x0000		; Offset to platform from top of Log
 
