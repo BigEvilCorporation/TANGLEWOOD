@@ -484,7 +484,7 @@ L6A1_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x18a80000, Entity_WorldPosX(a0)
-	move.l #0x07e00000, Entity_WorldPosY(a0)
+	move.l #0x07c80000, Entity_WorldPosY(a0)
 	move.l #l6a1_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
@@ -617,7 +617,7 @@ L6A1_LoadGameObjects:
 
 	jsr ButtonInit
 	move.l #0x11380000, Entity_WorldPosX(a0)
-	move.l #0x05c80000, Entity_WorldPosY(a0)
+	move.l #0x05a80000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L6A1_Button4_name, a3
@@ -726,7 +726,7 @@ L6A1_LoadGameObjects:
 
 	jsr BridgeInit
 	move.l #0x11880000, Entity_WorldPosX(a0)
-	move.l #0x05d00000, Entity_WorldPosY(a0)
+	move.l #0x05b00000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
