@@ -559,8 +559,11 @@ BridgeSetDropMode:
 
 BridgeBeginRoll:
 
-	; Activate barrier
+	; Activate barrier (unless rolling down, only activate when done)
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
+	beq    @NoBarrier
 	jsr    BridgeActivateBarrier
+	@NoBarrier:
 
 	; Set speed
 	MOVE_NTSC_L Bridge_UnrollSpeed, Bridge_Speed(a0), d0
@@ -639,6 +642,9 @@ BridgeUpdateRoll:
 
 	; Disable platform
 	jsr    BridgeDeactivatePlatform
+
+	; Enable barrier
+	jsr    BridgeActivateBarrier
 
 	; Set closed state
 	move.b #Bridge_StateClosed, Bridge_State(a0)
