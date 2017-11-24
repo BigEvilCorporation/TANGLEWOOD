@@ -248,7 +248,8 @@ PhysicsObjPreStep:
 	jsr PhysicsObjApplyWorldForces
 	
 	; Apply Y velocity and check floor collision
-	tst.l  PhysicsObj_VelY(a0)
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
 	beq    @NoVelY
 	jsr    PhysicsObjApplyVelocityY
 	bra    @HasVelY
@@ -257,7 +258,8 @@ PhysicsObjPreStep:
 	@HasVelY:
 
 	; Apply X velocity and check wall collision
-	tst.l  PhysicsObj_VelX(a0)
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
 	beq    @NoVelX
 	jsr    PhysicsObjApplyVelocityX
 	bra    @HasVelX
@@ -291,8 +293,18 @@ PhysicsObjPreStep:
 
 	; No physics, just do the basics
 	jsr PhysicsObjApplyAccelDecel
-	jsr PhysicsObjApplyVelocityY
-	jsr PhysicsObjApplyVelocityX
+
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	beq    @VelYZero
+	jsr    PhysicsObjApplyVelocityY
+	@VelYZero:
+
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	beq    @VelXZero
+	jsr    PhysicsObjApplyVelocityX
+	@VelXZero:
 
 	bra @End
 
@@ -623,15 +635,7 @@ PhysicsObjApplyWorldForces:
 PhysicsObjApplyVelocityX:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	; Move player X by velocity
-	move.l PhysicsObj_VelX(a0), d0		; Fetch X vel from RAM
-
-	; Apply impulse
-	add.l  PhysicsObj_ImpulseX(a0), d0
-
-	; Bail if 0
-	beq    @EndVelX
+	; d0 (l) X velocity
 	
 	; Apply speed div
 	clr.l  d1
@@ -705,22 +709,16 @@ PhysicsObjApplyVelocityX:
 	@EndVelX:
 
 	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelX(a0), PhysicsObj_LastAppliedVelX(a0)
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)
 
 	rts
 	
 PhysicsObjApplyVelocityY:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	; Move player Y by velocity
-	move.l PhysicsObj_VelY(a0), d0		; Fetch Y vel from RAM
-
-	; Apply impulse
-	add.l  PhysicsObj_ImpulseY(a0), d0
-
-	; Bail if 0
-	beq    @EndVelY
+	; d0 (l) Y velocity
 	
 	; Apply speed div
 	clr.l  d1
@@ -820,7 +818,9 @@ PhysicsObjApplyVelocityY:
 	@EndVelY:
 
 	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelY(a0), PhysicsObj_LastAppliedVelY(a0)
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 
 	rts
 
