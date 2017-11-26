@@ -629,10 +629,10 @@ LiftUpdatePhysicsWake:
 	@NoPrevOccupant:
 
 	; Cache prev occupant
-	cmp.l  #0x0, a3
-	beq    @NoNewOccupant
+	;cmp.l  #0x0, a3
+	;beq    @NoNewOccupant
 	move.l a3, Lift_LastOccupant(a0)
-	@NoNewOccupant:
+	;@NoNewOccupant:
 
 	; Counterweight
 	cmp.l  #0x0, a2
@@ -655,10 +655,10 @@ LiftUpdatePhysicsWake:
 	@NoCWPrevOccupant:
 
 	; Cache prev occupant
-	cmp.l  #0x0, a5
-	beq    @NoNewCWOccupant
+	;cmp.l  #0x0, a5
+	;beq    @NoNewCWOccupant
 	move.l a5, Lift_LastOccupant(a2)
-	@NoNewCWOccupant:
+	;@NoNewCWOccupant:
 
 	@NoCounterweightWake:
 

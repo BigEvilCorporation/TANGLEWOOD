@@ -1,12 +1,12 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $fd	; Set loop
 ; Pattern $00, Row 0; 
+	dc.b $fd	; Set loop
 	dc.b $40, $23	; Set instrument for channel FM 1
 	dc.b $20, $2f	; Set volume for channel FM 1
 	dc.b $00, $81	; Note C-4 on channel FM 1
 	dc.b $21, $19	; Set volume for channel FM 2
 	dc.b $22, $09	; Set volume for channel FM 3
-	dc.b $fd	; Set loop
 ; Pattern $00, Row 1; 
 	dc.b $fe, $04	; Delay
 	dc.b $20, $2e	; Set volume for channel FM 1

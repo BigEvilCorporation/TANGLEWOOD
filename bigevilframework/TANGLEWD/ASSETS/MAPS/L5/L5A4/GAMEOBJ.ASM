@@ -63,15 +63,17 @@ L5A4_Nest_count equ 0x0
 
 L5A4_Flue_count equ 0x0
 
-L5A4_TriggerBox_count equ 0x3
+L5A4_TriggerBox_count equ 0x4
 L5A4_Trigger_Cutscene_idx	equ 0x0
 L5A4_TriggerBox_LevelEnd_idx	equ 0x1
 L5A4_TriggerBox_Storm_idx	equ 0x2
+L5A4_TriggerMusic_idx	equ 0x3
 
 	IFND FINAL
 L5A4_Trigger_Cutscene_name	dc.b "L5A4_Trigger_Cutscene",0
 L5A4_TriggerBox_LevelEnd_name	dc.b "L5A4_TriggerBox_LevelEnd",0
 L5A4_TriggerBox_Storm_name	dc.b "L5A4_TriggerBox_Storm",0
+L5A4_TriggerMusic_name	dc.b "L5A4_TriggerMusic",0
 	even
 	ENDIF
 
@@ -259,6 +261,22 @@ L5A4_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_TriggerBox_Storm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x0b980000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #l5a5_StartMusic_GameOver, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A4_TriggerMusic_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

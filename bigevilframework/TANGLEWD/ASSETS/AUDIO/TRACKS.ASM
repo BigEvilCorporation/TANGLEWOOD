@@ -8,12 +8,15 @@ bgm_dusk:			include 'assets\audio\tracks\dusk.asm'
 bgm_night:			include 'assets\audio\tracks\night.asm'
 bgm_boss1_chase:	include 'assets\audio\tracks\boss_l.asm'
 bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
+bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
 bgm_cue_l2:			include 'assets\audio\tracks\cue_l2.asm'
 bgm_cue_l3:			include 'assets\audio\tracks\cue_l3.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
-bgm_monsterbass:	dc.b 0xFF ;incbin 'assets\audio\tracks\lowbass.esf'
+bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
+bgm_amb_windrain:	include 'assets\audio\tracks\windrain.asm'
+bgm_enemyapproach:	include 'assets\audio\tracks\approach.asm'
 	even
 
 track_bgm_titles:
@@ -106,6 +109,16 @@ track_bgm_boss1_search:
 	dc.b	Track_Transition_Instant
 	even
 
+track_bgm_gameover:
+	dc.l	bgm_gameover
+	dc.w	0x001F
+	dc.w	0x0F00
+	dc.b	Track_Type_BGM
+	dc.b	Audio_Exclusive
+	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	Track_Transition_Instant
+	even
+
 track_bgm_cue_l1:
 	dc.l	bgm_cue_l1
 	dc.w	0x003F
@@ -136,14 +149,14 @@ track_bgm_cue_l3:
 	dc.b	Track_Transition_Crossfade
 	even
 
-track_bgm_monsterbass:
-	dc.l	bgm_monsterbass
+track_bgm_enemyapproach:
+	dc.l	bgm_enemyapproach
 	dc.w	0x0010
 	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest
-	dc.b	Track_Transition_Crossfade
+	dc.b	Track_Transition_FadeUp
 	even
 
 track_amb_l1_day:
@@ -160,6 +173,26 @@ track_amb_l1_night:
 	dc.l	bgm_amb_l1_night
 	dc.w	0x0007
 	dc.w	0x0A00
+	dc.b	Track_Type_Ambience
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Lowest
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_amb_rain:
+	dc.l	bgm_amb_rain
+	dc.w	0x0007
+	dc.w	0x0000
+	dc.b	Track_Type_Ambience
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Lowest
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_amb_windrain:
+	dc.l	bgm_amb_windrain
+	dc.w	0x0007
+	dc.w	0x0000
 	dc.b	Track_Type_Ambience
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest

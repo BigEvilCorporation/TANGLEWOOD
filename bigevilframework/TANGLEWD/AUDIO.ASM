@@ -9,6 +9,14 @@
 AmbientSFXRandTimerMin	equ 0x0600
 AmbientSFXRandTimerMax	equ 0x0A00
 
+StartAmbientSFX:
+	move.w #AmbientSFXRandTimerMin, AmbientSFXTimer
+	rts
+
+StopAmbientSFX:
+	move.w #0x0, AmbientSFXTimer
+	rts
+
 StartAmbientTrack:
 	; Start playing an ambient track approriate for the environment
 
@@ -39,9 +47,13 @@ UpdateBGMTimer:
 
 UpdateAmbientAudio:
 
-	; Chech if timer running
-	tst.w AmbientSFXTimer
-	bne   @TimerRunning
+	; Check if timer running
+	tst.w  AmbientSFXTimer
+	beq    @NoAmbientSFX
+
+	; Decrement timer
+	subq.w #0x1, AmbientSFXTimer
+	bne    @TimerRunning
 	
 	; Timer elapsed, get random SFX index
 	jsr    RND_GenerateLong		; Rand long
@@ -69,7 +81,7 @@ UpdateAmbientAudio:
 	move.w d0, AmbientSFXTimer	; To timer
 	
 	@TimerRunning:
-	subq.w #0x1, AmbientSFXTimer
+	@NoAmbientSFX:
 
 	rts
 	

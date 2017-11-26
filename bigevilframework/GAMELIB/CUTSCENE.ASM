@@ -124,6 +124,29 @@ CutsceneStep_PaletteLoad:
 
 	rts
 
+CutsceneStep_PlayTrack:
+	; a0 --- Cutscene
+	; a2 --- Track
+	; d0 (b) OUT: Step running
+
+	PUSHM  a0/d0-d1
+	move.l a2, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
+
+	move.b #0x0, d0
+
+	rts
+
+CutsceneStep_StopTrack:
+	; a0 --- Cutscene
+	; d0 (b) OUT: Step running
+
+	jsr    SND_StopTrack
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_VfxFlash:
 	; a0 --- Cutscene
 	; d0 ---- Frames
@@ -489,6 +512,15 @@ CUTSCENE_PALETTE_LOAD: macro palette,slotId
 	move.l \palette, a2
 	move.b \slotId, d0
 	CUTSCENE_RUN_STEP CutsceneStep_PaletteLoad
+	endm
+
+CUTSCENE_PLAY_TRACK: macro track
+	move.l \track, a2
+	CUTSCENE_RUN_STEP CutsceneStep_PlayTrack
+	endm
+
+CUTSCENE_STOP_TRACK: macro
+	CUTSCENE_RUN_STEP CutsceneStep_StopTrack
 	endm
 
 CUTSCENE_VFX_FLASH: macro frames

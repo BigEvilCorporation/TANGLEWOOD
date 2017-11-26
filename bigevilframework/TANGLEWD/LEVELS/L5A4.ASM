@@ -172,6 +172,12 @@ l5a4_Trigger_Storm:
 	; Start rain
 	jsr    RainInit
 
+	; Start ambience
+	PUSHM  a0/d0-d1
+	lea    track_amb_rain, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
+
 	; Fire lightning warning shot
 	lea    Thunder, a2
 	move.w #0xFFFF, d0
@@ -179,7 +185,7 @@ l5a4_Trigger_Storm:
 	jsr    ThunderSetParams
 	jsr    ThunderFlash
 	PLAYSFX #SFX_Thunder_Near
-	
+
 	rts
 
 l5a4_Cutscene_Begin:
@@ -200,6 +206,12 @@ l5a4_Cutscene:
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Stop ambience SFX
+	CUTSCENE_ROUTINE StopAmbientSFX,#0x0,#0x0,#0x0
+
+	; Start enemy approach track
+	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
 
 	; Demon moves into place, faces player and starts emerge sequence
 	CUTSCENE_ROUTINE l5a4_Cutscene_MoveDemon,#0x0,#0x0,#0x0
@@ -256,6 +268,9 @@ l5a4_Cutscene:
 	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromRenderList
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#EntityRemoveFromWorldGrid
+
+	; Stop audio track
+	CUTSCENE_STOP_TRACK
 
 	; Goodbye, Nymn :(
 	CUTSCENE_OBJECT_ROUTINE Player1,#PlayerBeginPermadeath
@@ -429,4 +444,11 @@ l5a5_CutsceneEnd:
 
 	move.b #0x0, d0
 
+	rts
+
+l5a5_StartMusic_GameOver:
+	PUSHM  a0/d0-d1
+	lea    track_bgm_gameover, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	rts
