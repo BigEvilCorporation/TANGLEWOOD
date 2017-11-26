@@ -293,11 +293,9 @@ MainMenu_Update:
 	bra    @End
 	
 	@FadedOut:
-	
-	; Enter next state
-	lea    GameStateMainMenuData, a2
-	move.l MainMenuState_NextState(a2), a0
-	jsr    GameStateEnter
+
+	; Start new game
+	jsr    GameStartNew
 	bra    @End
 	
 	@WaitingForBgFade:

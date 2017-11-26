@@ -277,6 +277,7 @@ FlueNumPotentialOccupants	 rs.b 1
 ; ************************************
 ; Checkpoints
 ; ************************************
+CurrentSavePassword			 rs.l 1
 LastActivatedCheckpoint      rs.l 1
 LastSaveVersion				 rs.w 1
 	RS_ALIGN
@@ -299,7 +300,8 @@ GlobalTimeDiv			 rs.b 1
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; Firefly count
-FireflyPickupCount		 rs.w 1
+FireflyPickupCountAct	 rs.w 1	; Fireflies picked up in current act
+FireflyPickupCountGame	 rs.w 1	; Total fireflies picked up in game
 
 ; Death count
 DeathCount				 rs.w 1

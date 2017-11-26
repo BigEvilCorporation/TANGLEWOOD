@@ -253,6 +253,7 @@ __start
 	; Include game code
 	include 'audio.asm'
 	include 'input.asm'
+	include 'lvllist.asm'
 	include 'savegame.asm'
 	include 'tod.asm'
 	include 'weather\rain.asm'

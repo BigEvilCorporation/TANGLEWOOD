@@ -188,10 +188,17 @@ LevelSelect_Update:
 	lea    GameStateLevelSelectData, a2
 	IF DEMO_SHOW_DISCLAIMER
 	move.l #GameStateDemoDisclaimerScreen, a0
-	ELSE
-	move.l #GameStateGameplay, a0
-	ENDIF
 	jsr    GameStateEnter
+	ELSE
+	; Load from password
+	move.l CurrentSavePassword, d0
+	jsr    LoadGameFromPassword
+
+	; Enter gameplay state
+	move.l #GameStateGameplay, a0
+	jsr    GameStateEnter
+	ENDIF
+	
 	bra    @End
 	
 	@WaitingForBgFade:
@@ -220,10 +227,10 @@ LevelSelect_Render:
 
 LevelSelect_OnSelected:
 	; a0 --- Widget
-	; a1 --- Level addr
+	; a1 --- Save password
 
-	; Set current level
-	move.l a1, CurrentLevel
+	; Set save password for first act
+	move.l (a1), CurrentSavePassword
 
 	; Stop music
 	jsr    SND_StopTrack
@@ -291,7 +298,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_1
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l1a1_HarlequinForestAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl1
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_01,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*0)
 	ENDIF
@@ -299,7 +306,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_2
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l2a1_StormWarningAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl2
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_02,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*1)
 	ENDIF
@@ -307,7 +314,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_3
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l3a1_HeritageAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl3
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_03,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*2)
 	ENDIF
@@ -315,7 +322,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_4
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l4a1_TetheredAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl4
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_04,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*3)
 	ENDIF
@@ -323,7 +330,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_5
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l5a1_BygoneAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl5
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_05,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*4)
 	ENDIF
@@ -331,7 +338,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_6
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l6a1_DeadwoodAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl6
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_06,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*5)
 	ENDIF
@@ -339,7 +346,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_7
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l7a1_OasisAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl7
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_07,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*6)
 	ENDIF
@@ -347,7 +354,7 @@ LevelSelect_InitUI:
 	IF INCLUDE_LEVEL_8
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
 	CURSOR_ADD_WIDGET a5,a3
-	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,l8a1_TurntailAct1
+	WIDGET_SET_ONSELECTED a3,LevelSelect_OnSelected,LevelSelectPasswordLvl8
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#LevelSelect_Str_08,#tiles_twfonts,(vram_addr_systemfont),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#LevelSelectListX,#LevelSelectListY+(LevelSelectLineSpacing*7)
 	ENDIF

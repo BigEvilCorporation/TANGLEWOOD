@@ -3,7 +3,18 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   savegame.asm - Checkpoint save/load from RAM
+;   savegame.asm - Checkpoint save/load from RAM/password
+;==============================================================
+
+;==============================================================
+; Password format:
+;==============================================================
+;  0xFEDCFEDC - ((ABCD << 1) ^ 1985)
+;==============================================================
+;  D = Level index
+;  C = Total fireflies
+;  B = Checksum lo (8 bits) (sum of bytes C + D)
+;  A = Checksum hi (7 bits)
 ;==============================================================
 
 SaveGame:
@@ -61,3 +72,116 @@ LoadGame:
 	
 	rts
 	
+SavePasswordEncode:
+	; a0 --- Level
+	; d0 (l) OUT: password
+
+	; Get level index
+	moveq  #0x0, d0
+	move.b Level_Index(a1), d0
+
+	; Get total fireflies
+	move.w FireflyPickupCountGame, d1
+
+	; Generate checksum
+	move.w d1, d2
+	add.w  d0, d2
+
+	; Level index to byte 0
+	moveq  #0x0, d3
+	move.b d0, d3
+
+	; Fireflies to byte 1
+	lsl.w  #0x8, d1
+	or.w   d1, d3
+
+	; Checksum to bytes 2 + 3
+	swap   d2
+	or.l   d2, d3
+
+	; << 1
+	lsl.l  #0x1, d3
+
+	; ^ 1985
+	eor.l  #(1<<24)|(9<<16)|(8<<8)|(5), d3
+
+	; 0xFEDCFEDC-password
+	move.l #0xFEDCFEDC, d0
+	sub.l  d3, d0
+
+	rts
+
+SavePasswordDecode:
+	; d0 (l) IN:  Password
+	; d0 (b) OUT: Password valid
+	; d1 (b) Level index
+	; d2 (b) Firefly count
+
+	; 0xFEDCFEDC-password
+	move.l #0xFEDCFEDC, d3
+	sub.l  d0, d3
+	move.l d3, d0
+
+	; ^ 1985
+	eor.l  #(1<<24)|(9<<16)|(8<<8)|(5), d0
+
+	; >> 1
+	lsr.l  #0x1, d0
+
+	; Generate checksum
+	move.w d0, d1
+	move.w d0, d2
+	andi.w #0xFF, d1
+	lsr.w  #0x8, d2
+	add.w  d1, d2
+
+	; Test checksum
+	move.l d0, d3
+	swap   d3
+	cmp.w  d2, d3
+	bne    @Invalid
+
+	; Extract components
+	move.b d0, d1
+	lsr.w  #0x8, d0
+	move.b d0, d2
+
+	; Test level id
+	cmp.b  #MaxLevels, d1
+	bge    @Invalid
+
+	@Valid:
+	move.b #0x1, d0
+	bra    @End
+
+	@Invalid:
+	move.b #0x0, d0
+
+	@End:
+
+	rts
+
+LoadGameFromPassword:
+	; d0 (l) IN:  Password
+	; d0 (b) OUT: Password valid
+	
+	jsr    SavePasswordDecode
+	tst.b  d0
+	beq    @Invalid
+
+	; Set firefly count
+	andi.w #0xFF, d2
+	move.w d2, FireflyPickupCountGame
+
+	; Get level from index
+	lea    LevelList, a1
+	andi.l #0xFF, d1
+	lsl.l  #0x2, d1
+	add.l  d1, a1
+
+	; Set level
+	move.l (a1), CurrentLevel
+
+	@Invalid:
+
+	rts

@@ -148,11 +148,12 @@ FireflyTestObj:
 	move.b #0x0, SpriteObj_Visible(a0)
 	
 	; Increment global counter
-	addq.w #0x1, FireflyPickupCount
+	addq.w #0x1, FireflyPickupCountAct
+	addq.w #0x1, FireflyPickupCountGame
 	
 	; Play SFX
 	move.w (EntityCount_Firefly), d0
-	move.w (FireflyPickupCount), d1
+	move.w (FireflyPickupCountAct), d1
 	cmp.w  d0, d1
 	beq    @CollectedAll
 	PLAYSFX #SFX_FireflyCollect

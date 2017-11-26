@@ -35,6 +35,10 @@ Gameplay_Enter:
 	move.l a1, CurrentLevel
 	@LevelSet:
 
+	; Generate current save password
+	jsr SavePasswordEncode
+	move.l d0, CurrentSavePassword
+
 	; Load assets
 	jsr LevelLoad
 	
@@ -114,7 +118,7 @@ Gameplay_Exit:
 
 	; Store firefly count
 	move.l Level_UserData(a1), a2
-	move.w (FireflyPickupCount), LevelData_FireflyCount(a2)
+	move.w (FireflyPickupCountAct), LevelData_FireflyCount(a2)
 
 	; Run end level routine
 	move.l Level_EndRoutine(a1), a2
@@ -240,14 +244,16 @@ Gameplay_Serialise:
 	
 	@Saving:
 	SAVEL (LastActivatedCheckpoint)
-	SAVEW (FireflyPickupCount)
+	SAVEW (FireflyPickupCountAct)
+	SAVEW (FireflyPickupCountGame)
 	move.b (TimeOfDay), d6
 	SAVEB (TimeOfDay)
 	bra   @End
 
 	@Loading:
 	LOADL (LastActivatedCheckpoint)
-	LOADW (FireflyPickupCount)
+	LOADW (FireflyPickupCountAct)
+	LOADW (FireflyPickupCountGame)
 	LOADB (TimeOfDay)
 	
 	PUSHM  d0-d1/a0-a3

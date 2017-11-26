@@ -38,6 +38,7 @@ Level_ColMapHeightBlocks	rs.w 1
 Level_NumTiles				rs.w 1
 Level_NumTerrainDescs		rs.w 1
 Level_BgColour				rs.b 1
+Level_Index					rs.b 1
 ;---------------------------------
 	RS_ALIGN
 Level_Struct_Size			rs.b 0

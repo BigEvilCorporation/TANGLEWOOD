@@ -102,6 +102,16 @@ ControlsScreen_Update:
 	
 	@FadedOut:
 	
+	; If save password set
+	move.l CurrentSavePassword, d0
+	beq    @NoPassword
+	
+	; Load from password
+	jsr    LoadGameFromPassword
+	bra    @End
+
+	@NoPassword:
+	
 	; Enter gameplay state
 	lea GameStateGameplay, a0
 	jsr GameStateEnter

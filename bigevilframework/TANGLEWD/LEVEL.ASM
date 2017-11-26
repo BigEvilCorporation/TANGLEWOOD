@@ -17,6 +17,18 @@ LevelData_FireflyCount		rs.w 1
 	RS_ALIGN
 LevelData_Struct_Size		rs.b 0
 
+GameStartNew:
+
+	; Clear total firefly count
+	move.w #0x0, FireflyPickupCountGame
+	
+	; Enter gameplay state
+	lea    GameStateMainMenuData, a2
+	move.l MainMenuState_NextState(a2), a0
+	jsr    GameStateEnter
+
+	rts
+
 GameStateReset:
 	; d0 (b) 1 = Reset audio, 0 = leave audio
 
@@ -293,6 +305,7 @@ LevelLoadCompressedTileset:
 	move.w d0, d1
 
 	; Get uncompressed tilset size (first word of compression stream)
+	moveq  #0x0, d2
 	move.w (a0), d2
 
 	; Alloc decompression buffer
@@ -432,7 +445,7 @@ LevelReset:
 	;==============================================================
 	
 	; Fireflies
-	move.w  #0x0, FireflyPickupCount
+	move.w  #0x0, FireflyPickupCountAct
 
 	;==============================================================
 	
