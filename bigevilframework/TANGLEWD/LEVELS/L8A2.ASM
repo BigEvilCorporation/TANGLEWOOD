@@ -41,6 +41,7 @@ l8a2_TurntailAct2:
 	dc.w tiles_L7_size_t				; Num tiles (using L7 tileset)
 	dc.w terrainmap_l8a2_num_special_terrain_descs	; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
+	dc.b 0x18							; Index
 	
 	even
 	

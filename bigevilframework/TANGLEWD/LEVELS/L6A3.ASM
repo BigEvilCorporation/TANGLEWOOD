@@ -45,6 +45,7 @@ l6a3_DeadwoodAct3:
 	dc.w tiles_L6_size_t				; Num tiles
 	dc.w terrainmap_L6A3_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
+	dc.b 0x13							; Index
 	
 	even
 	

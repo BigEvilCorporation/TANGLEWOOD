@@ -41,6 +41,7 @@ l1a1_HarlequinForestAct1:
 	dc.w tiles_l1_size_t				; Num tiles
 	dc.w terrainmap_L1A1_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0xD							; Background colour idx
+	dc.b 0x0							; Index
 	
 	even
 	

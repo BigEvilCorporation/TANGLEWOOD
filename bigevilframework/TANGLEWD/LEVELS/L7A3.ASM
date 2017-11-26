@@ -45,6 +45,7 @@ l7a3_OasisAct3:
 	dc.w tiles_L7_size_t				; Num tiles
 	dc.w terrainmap_l7a3_num_special_terrain_descs	; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
+	dc.b 0x16							; Index
 	
 	even
 	

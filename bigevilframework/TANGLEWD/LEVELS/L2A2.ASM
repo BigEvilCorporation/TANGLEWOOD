@@ -41,6 +41,7 @@ l2a2_StormWarningAct2:
 	dc.w tiles_l2_size_t				; Num tiles
 	dc.w terrainmap_L2A2_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
+	dc.b 0x5							; Index
 	
 	even
 	
