@@ -300,8 +300,8 @@ PhysicsObjPreStep:
 	jsr    PhysicsObjApplyVelocityY
 	@VelYZero:
 
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
 	beq    @VelXZero
 	jsr    PhysicsObjApplyVelocityX
 	@VelXZero:
