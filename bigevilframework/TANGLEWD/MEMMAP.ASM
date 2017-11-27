@@ -254,6 +254,7 @@ GameStateStack         rs.l (GameStateStackSize)
 	IFND DEBUG
 GameStateLogoData			 rs.b LogoState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
+GameStatePasswordScreenData	 rs.b PasswordScreenState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
 GameStateEndLevelData		 rs.b EndLevelState_Struct_Size
 GameStateEndLevelScoreData	 rs.b EndLevelScore_Struct_Size
@@ -553,15 +554,17 @@ EntityCount_VFX         rs.w 1
 ; UI
 ; ************************************
 WidgetArray_Text		rs.b (UIWidgetText_Struct_Size*UIWidgetText_MaxWidgets)
+WidgetArray_List		rs.b (UIWidgetList_Struct_Size*UIWidgetList_MaxWidgets)
 WidgetArray_Cursor		rs.b (UIWidgetCursor_Struct_Size*UIWidgetCursor_MaxWidgets)
 
 WidgetCount_Text		rs.w 1
+WidgetCount_List		rs.w 1
 WidgetCount_Cursor		rs.w 1
 
 reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"
-	inform 0,"Reserved RAM: %d bytes (%dkb)", (reserved_ram_size-0x00FF0000), ((reserved_ram_size-0x00FF0000)/1024)
+	inform 0,"Reserved RAM: 0x%h (%d) bytes (%dkb)", (reserved_ram_size-0x00FF0000), (reserved_ram_size-0x00FF0000), ((reserved_ram_size-0x00FF0000)/1024)
 	inform 0,"-----------------------------------"
 	inform 0,""
 

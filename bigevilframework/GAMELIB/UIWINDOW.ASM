@@ -52,6 +52,12 @@ UIWindowAddWidget:
 UIWindowUpdate:
 	; a0 --- Window addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
+
+	PUSHMW d2-d5
 
 	MLIST_GET_HEAD Widgets,a2,a0			; Get list head
 	@WidgetLp:								; For all widgets in list
@@ -65,6 +71,8 @@ UIWindowUpdate:
 	LIST_GET_NEXT Widgets,a2,a2				; Get next ptr
 	bra    @WidgetLp						; Loop
 	@ListEnd:
+
+	POPMW  d2-d5
 
 	rts
 

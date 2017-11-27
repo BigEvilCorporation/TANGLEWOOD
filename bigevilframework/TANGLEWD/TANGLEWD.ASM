@@ -103,6 +103,7 @@ __start
 	include '..\gamelib\uiwindow.asm'
 	include '..\gamelib\uicursor.asm'
 	include '..\gamelib\uitext.asm'
+	include '..\gamelib\uilist.asm'
 	include '..\gamelib\uimacros.asm'
 
 	; Include utils
@@ -183,6 +184,7 @@ __start
 	include 'states\megafndr.asm'
 	include 'states\score.asm'
 	include 'states\logos.asm'
+	include 'states\password.asm'
 	include 'states\pause.asm'
 	include 'states\mainmenu.asm'
 	include 'states\credits.asm'

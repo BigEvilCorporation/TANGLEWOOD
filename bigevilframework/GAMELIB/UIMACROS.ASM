@@ -33,6 +33,32 @@ WINDOW_CREATE_WIDGET_TEXT macro windowaddr,stringaddr,font,fontvram,palette,plan
 	POPM   d0-d3/a0-a1
 	endm
 
+	; Create list widget and add to window
+	; Returns widget in a3
+WINDOW_CREATE_WIDGET_LIST macro windowaddr,font,fontvram,palette,plane,posx,posy
+	PUSHM  d0-d3/a0-a1
+	PUSHL  \windowaddr
+	moveq #0x0, d0
+	move.w (WidgetCount_List), d0
+	mulu   #UIWidgetList_Struct_Size, d0
+	move.l #WidgetArray_List, a0
+	add.l  d0, a0
+	jsr    UIWidgetListInit
+	move.l \font, a2
+	move.w \fontvram, d0
+	move.b \palette, d1
+	move.b \plane, d2
+	jsr    UIWidgetListSetFont
+	move.w \posx, UIWidget_PositionX(a0)
+	move.w \posy, UIWidget_PositionY(a0)
+	move.l a0, a1
+	POPL   \windowaddr
+	move.l \windowaddr, a0
+	jsr    UIWindowAddWidget
+	move.l a1, a3
+	POPM   d0-d3/a0-a1
+	endm
+
 	; Create cursor widget and add to window
 	; Returns widget in a3
 WINDOW_CREATE_WIDGET_CURSOR macro windowaddr
@@ -60,7 +86,7 @@ WIDGET_SET_ONSELECTED: macro widgetaddr,callbackaddr,userdata
 
 	; Load cursor sprite
 CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
-	PUSHM  d0-d7/a0-a2
+	PUSHM  d0-d7/a0-a3
 	move.w #actor_\actor\_sheet_\sheet\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.l \cursoraddr, a0
@@ -74,14 +100,23 @@ CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
 	move.w #\width, d6
 	move.w #\height, d7
 	jsr    UIWidgetCursorLoadSprite
-	POPM   d0-d7/a0-a2
+	POPM   d0-d7/a0-a3
 	endm
 
 	; Add widget to cursor selection list
 CURSOR_ADD_WIDGET: macro cursoraddr,widgetaddr
-	PUSHM a0-a1
+	PUSHM a0-a3
 	move.l \cursoraddr, a0
 	move.l \widgetaddr, a1
 	jsr    UIWidgetCursorAddWidget
-	POPM a0-a1
+	POPM a0-a3
+	endm
+
+	; Add string item to list widget
+WIDGET_LIST_ADD_ITEM: macro listaddr,stringaddr
+	PUSHM a0-a3
+	move.l \listaddr, a0
+	move.l \stringaddr, a1
+	jsr    UIWidgetListAddItem
+	POPM  a0-a3
 	endm

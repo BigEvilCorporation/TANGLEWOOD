@@ -11,9 +11,11 @@ UIWidgetCursor_WidgetArraySize	equ 0x10
 
 UIWidgetCursor_DrawBorder		equ 0x8
 
-UIWidgetCursor_Input_Up			equ (1<<pad_button_Up)
-UIWidgetCursor_Input_Down		equ (1<<pad_button_Down)
-UIWidgetCursor_Input_Select		equ (1<<pad_button_Start)|(1<<pad_button_b)|(1<<pad_button_c)
+UIWidgetCursor_Input_Up			equ (1<<pad_button_up)
+UIWidgetCursor_Input_Down		equ (1<<pad_button_down)
+UIWidgetCursor_Input_Left		equ (1<<pad_button_left)
+UIWidgetCursor_Input_Right		equ (1<<pad_button_right)
+UIWidgetCursor_Input_Select		equ (1<<pad_button_start)|(1<<pad_button_b)|(1<<pad_button_c)
 UIWidgetCursor_Input_Back		equ (1<<pad_button_a)
 
 UIWidgetCursor_Audio_Move		equ SFX_UI_Move
@@ -121,7 +123,6 @@ UIWidgetCursorSelect:
 	; Deselect current widget
 	moveq #0x0, d1
 	move.b UIWidgetCursor_CurrIndex(a0), d1	; Get curr index
-	andi.l #0xFF, d1
 	lsl.l  #0x2, d1							; To longwords
 	move.l a0, a2							; Get widget ptr array
 	lea    UIWidgetCursor_Widgets(a2), a2
@@ -163,6 +164,30 @@ UIWidgetCursorSelect:
 
 	rts
 
+UIWidgetCursorCycleOption:
+	; a0 --- Cursor addr
+	; d0 (b) 0 = left, 1 = right
+
+	PUSHL  a0
+	moveq  #0x0, d1
+	move.b UIWidgetCursor_CurrIndex(a0), d1	; Get curr index
+	lsl.l  #0x2, d1							; To longwords
+	move.l a0, a2							; Get widget ptr array
+	lea    UIWidgetCursor_Widgets(a2), a2
+	add.l  d1, a2
+	move.l (a2), a0							; Deref
+	cmp.l  #0x0, a0
+	beq    @NoCurrWidget
+	move.l UIWidget_OnOptionCycle(a0), a3
+	cmp.l  #0x0, a3
+	beq    @NoCallback
+	jsr    (a3)
+	@NoCurrWidget:
+	@NoCallback:
+	POPL   a0
+
+	rts
+
 UIWidgetCursorUpdate:
 	; a0 --- Cursor addr
 
@@ -190,6 +215,14 @@ UIWidgetCursorUpdate:
 	move.w d0, d1
 	andi.w #UIWidgetCursor_Input_Down, d1
 	bne    @InputDown
+
+	move.w d0, d1
+	andi.w #UIWidgetCursor_Input_Left, d1
+	bne    @InputLeft
+
+	move.w d0, d1
+	andi.w #UIWidgetCursor_Input_Right, d1
+	bne    @InputRight
 
 	move.w d0, d1
 	andi.w #UIWidgetCursor_Input_Select, d1
@@ -235,6 +268,28 @@ UIWidgetCursorUpdate:
 	move.b d2, d0
 	PLAYSFX #UIWidgetCursor_Audio_Move
 	jsr    UIWidgetCursorSelect
+	POPL   d0
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputLeft:
+
+	; Widget option left
+	PUSHL  d0
+	move.b #0x0, d0
+	jsr    UIWidgetCursorCycleOption
+	POPL   d0
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputRight:
+
+	; Widget option right
+	PUSHL  d0
+	move.b #0x1, d0
+	jsr    UIWidgetCursorCycleOption
 	POPL   d0
 	bra    @EndInput
 
