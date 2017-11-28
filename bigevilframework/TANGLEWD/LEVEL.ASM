@@ -21,11 +21,6 @@ GameStartNew:
 
 	; Clear total firefly count
 	move.w #0x0, FireflyPickupCountGame
-	
-	; Enter gameplay state
-	lea    GameStateMainMenuData, a2
-	move.l MainMenuState_NextState(a2), a0
-	jsr    GameStateEnter
 
 	rts
 

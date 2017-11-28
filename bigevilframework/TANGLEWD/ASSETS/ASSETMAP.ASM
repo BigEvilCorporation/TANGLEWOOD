@@ -239,7 +239,7 @@ audio_assets_end
 PaletteId_BigEvilLogo		equ 0x0
 
 ; Main menu
-PaletteId_TanglewoodLogo	equ 0x2
+PaletteId_TanglewoodLogo	equ 0x1
 PaletteId_MenuText			equ 0x1
 PaletteId_MenuTextDisabled	equ 0x3
 

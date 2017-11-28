@@ -41,6 +41,17 @@ MainMenuLogoBorder	equ 0x0000
 MainMenuLogoPosX	equ (vdp_sprite_border_x+(screen_width/2)-(actor_twd_logo_sheet_twd_logo_width/2))*subpixels_per_pixel
 MainMenuLogoPosY	equ (vdp_sprite_border_y+MainMenuLogoBorder)*subpixels_per_pixel
 
+MainMenuUIX				equ (screen_width/2)-(8*4)
+MainMenuUIY				equ (8*20)
+MainMenuUILineSpacing	equ 0x10
+
+MainMenu_Opt_NewGame	equ 0x0
+MainMenu_Opt_Continue	equ 0x1
+
+MainMenu_Str_NewGame	dc.b "New Game",0
+MainMenu_Str_Continue	dc.b "Continue",0
+	even
+
 ; Struct
 	rsset	LevelData_Struct_Size
 ;---------------------------------
@@ -144,6 +155,11 @@ MainMenu_Enter:
 	move.b #0x0, Character_UpdateAnim(a0)
 
 	;==============================================================
+
+	; Init UI
+	jsr    MainMenu_InitUI
+
+	;==============================================================
 	
 	; Begin logo fade up
 	lea    palette_twd_logo, a0
@@ -215,87 +231,24 @@ MainMenu_Update:
 	move.l #0xF, d4
 	jsr    GameScenePaletteFadeTo
 
+	lea    palette_fuzzl, a0
+	move.l #PaletteId_Fuzzl, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
 	@StartedBgFade:
-	
-	lea    GameStateMainMenuData, a2
-
-	; Read pad
-	jsr    PAD_ReadPadA
-
-	; Autotest pad input
-	IFND FINAL
-	IF AUTOTEST_ENABLED
-	lea AutotestData, a0
-	or.w Autotest_PadDataA(a0), d0
-	move.w #0x0, Autotest_PadDataA(a0)
-	ENDIF
-	ENDIF
-	
-	; Check start button
-	IF DEMO_SHOW_LEVEL_SELECT
-	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
-	btst   #pad_button_start, d0
-	bne    @StartLevelSelect
-	ELSE
-	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
-	btst   #pad_button_start, d0
-	bne    @StartGame
-	ENDIF
-	
-	; Check C button
-	IF INCLUDE_SOUNDTEST
-	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
-	btst   #pad_button_c, d0
-	bne    @StartSoundTest
-	ENDIF
-	
-	bra    @End
-	
-	@StartGame:
-
-	; Stop music
-	jsr    SND_StopTrack
-
-	; Play New Game SFX
-	PLAYSFX #SFX_UI_Press_Start
-
-	@StartLevelSelect:
-	@StartSoundTest:
-
-	; Begin fade to black
-	lea    palette_fade_black, a0
-	move.l #PaletteId_TanglewoodLogo, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    GameScenePaletteFadeTo
-
-	lea    palette_fade_black, a0
-	move.l #PaletteId_World0, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    GameScenePaletteFadeTo
-
-	lea    palette_fade_black, a0
-	move.l #PaletteId_Player, d0
-	move.l #MainMenuFadeTime, d1
-	move.b #DefaultFadeTicksPerUpdate, d2
-	move.l #0x0, d3
-	move.l #0xF, d4
-	jsr    GameScenePaletteFadeTo
-	
-	; Mark fading out
-	move.l #0x0, TimerLogoFade
-
 	bra    @End
 	
 	@FadedOut:
 
-	; Start new game
-	jsr    GameStartNew
+	; Enter next state
+	lea    GameStateMainMenuData, a2
+	move.l MainMenuState_NextState(a2), a0
+	jsr    GameStateEnter
+
 	bra    @End
 	
 	@WaitingForBgFade:
@@ -326,4 +279,109 @@ MainMenu_Render:
 	; Draw game objects
 	jsr EntityRenderAll
 	
+	rts
+
+MainMenu_InitUI:
+
+	; Alloc UI window
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #UIWindow_Struct_Size
+	move.l a1, EntityPoolStart_UIWindow
+	move.l a1, a0
+	POPL   a1
+
+	; Create UI window
+	move.l (EntityPoolStart_UIWindow), a0
+	jsr    UIWindowInit
+
+	; Create cursor and add to window
+	WINDOW_CREATE_WIDGET_CURSOR a0
+	move.l a3, a5
+	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+
+	; Create widgets and add to window and cursor
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*0)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_NewGame
+
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*1)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
+
+	rts
+
+MainMenu_OnSelected:
+	; a0 --- Widget
+	; a1 --- Userdata
+
+	move.l a1, d0
+
+	cmp.b  #MainMenu_Opt_NewGame, d0
+	beq    @NewGame
+	cmp.b  #MainMenu_Opt_Continue, d0
+	beq    @Continue
+
+	@NewGame:
+
+	; Start new game
+	jsr    GameStartNew
+
+	; Set gameplay state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStateGameplay, MainMenuState_NextState(a2)
+
+	; Stop music
+	jsr    SND_StopTrack
+
+	; Play New Game SFX
+	PLAYSFX #SFX_UI_Press_Start
+
+	bra    @BeginFade
+
+	@Continue:
+
+	; Set password screen state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStatePasswordScreen, MainMenuState_NextState(a2)
+
+	bra    @BeginFade
+
+	@BeginFade:
+
+	; Begin fade to black
+	lea    palette_fade_black, a0
+	move.l #PaletteId_TanglewoodLogo, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_World0, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Player, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Fuzzl, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+	
+	; Mark fading out
+	move.l #0x0, TimerLogoFade
+
 	rts
