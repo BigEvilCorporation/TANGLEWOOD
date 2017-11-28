@@ -213,9 +213,9 @@ PasswordScreen_Update:
 	bne    @End
 	
 	; If valid password set
+	move.l CurrentSavePassword, d0
 	tst.l  d0
 	beq    @MainMenu
-	move.l CurrentSavePassword, d0
 
 	; Load from password
 	jsr    LoadGameFromPassword

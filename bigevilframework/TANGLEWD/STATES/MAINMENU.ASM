@@ -253,6 +253,8 @@ MainMenu_Update:
 	
 	@WaitingForBgFade:
 	subq.w  #0x1, MainMenuState_FadeTimer(a2)
+	bra     @NoUpdate
+
 	@Fading:
 	@NotElapsed:
 	@End:
@@ -262,6 +264,8 @@ MainMenu_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	@NoUpdate:
 
 	move.w #0x0, d0
 	jsr    VDP_SetHScrollPlaneA
