@@ -11,11 +11,8 @@
 WINDOW_CREATE_WIDGET_TEXT macro windowaddr,stringaddr,font,fontvram,palette,plane,posx,posy
 	PUSHM  d0-d3/a0-a1
 	PUSHL  \windowaddr
-	moveq #0x0, d0
-	move.w (WidgetCount_Text), d0
-	mulu   #UIWidgetText_Struct_Size, d0
-	move.l #WidgetArray_Text, a0
-	add.l  d0, a0
+	RAMPOOL_ALLOC Pool_Entities, #UIWidgetText_Struct_Size
+	move.l a1, a0
 	jsr    UIWidgetTextInit
 	move.l \stringaddr, a1
 	move.l \font, a2
@@ -38,11 +35,8 @@ WINDOW_CREATE_WIDGET_TEXT macro windowaddr,stringaddr,font,fontvram,palette,plan
 WINDOW_CREATE_WIDGET_LIST macro windowaddr,font,fontvram,palette,plane,posx,posy
 	PUSHM  d0-d3/a0-a1
 	PUSHL  \windowaddr
-	moveq #0x0, d0
-	move.w (WidgetCount_List), d0
-	mulu   #UIWidgetList_Struct_Size, d0
-	move.l #WidgetArray_List, a0
-	add.l  d0, a0
+	RAMPOOL_ALLOC Pool_Entities, #UIWidgetList_Struct_Size
+	move.l a1, a0
 	jsr    UIWidgetListInit
 	move.l \font, a2
 	move.w \fontvram, d0
@@ -64,11 +58,8 @@ WINDOW_CREATE_WIDGET_LIST macro windowaddr,font,fontvram,palette,plane,posx,posy
 WINDOW_CREATE_WIDGET_CURSOR macro windowaddr
 	PUSHM  d0-d3/a0-a1
 	PUSHL  \windowaddr
-	moveq #0x0, d0
-	move.w (WidgetCount_Cursor), d0
-	mulu   #UIWidgetCursor_Struct_Size, d0
-	move.l #WidgetArray_Cursor, a0
-	add.l  d0, a0
+	RAMPOOL_ALLOC Pool_Entities, #UIWidgetCursor_Struct_Size
+	move.l a1, a0
 	jsr    UIWidgetCursorInit
 	move.l a0, a1
 	POPL   \windowaddr

@@ -6,7 +6,6 @@
 ;   uilist.asm - List selection widget
 ;==============================================================
 
-UIWidgetList_MaxWidgets			equ 0x10
 UIWidgetList_MaxItems			equ 0x10
 
 UIWidgetList_DrawPlane_PlaneA	equ 0x0
@@ -32,9 +31,6 @@ UIWidgetListInit:
 
 	; Base init
 	jsr    UIWidgetTextInit
-
-	; Count
-	addq.w #0x1, WidgetCount_List
 
 	; Set update/render routines
 	move.l #UIWidgetListUpdate, UIWidget_UpdateRoutine(a0)

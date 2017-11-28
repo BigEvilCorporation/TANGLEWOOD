@@ -550,17 +550,6 @@ EntityPoolMemEnd		rs.b 0
 EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
 EntityCount_VFX         rs.w 1
 
-; ************************************
-; UI
-; ************************************
-WidgetArray_Text		rs.b (UIWidgetText_Struct_Size*UIWidgetText_MaxWidgets)
-WidgetArray_List		rs.b (UIWidgetList_Struct_Size*UIWidgetList_MaxWidgets)
-WidgetArray_Cursor		rs.b (UIWidgetCursor_Struct_Size*UIWidgetCursor_MaxWidgets)
-
-WidgetCount_Text		rs.w 1
-WidgetCount_List		rs.w 1
-WidgetCount_Cursor		rs.w 1
-
 reserved_ram_size		rs.b 0
 
 	inform 0,"-----------------------------------"

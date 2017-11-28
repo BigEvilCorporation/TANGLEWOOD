@@ -213,6 +213,7 @@ TXT_LoadStringSpriteTiles:
 	; d2 (w) - Count (will pad beyond length of string)
 
 	move.w   d2, d5
+	subq.w   #0x1, d5
 	
 	; Clear counter
 	moveq #0x0, d4

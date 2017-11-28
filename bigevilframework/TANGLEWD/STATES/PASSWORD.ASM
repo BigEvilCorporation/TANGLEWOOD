@@ -47,7 +47,11 @@ PasswordScreenLineSpacing	equ 0x10
 PasswordScreenTitleX	equ (screen_width/2)-(8*8)
 PasswordScreenTitleY	equ 0x18
 
+PasswordScreenNumChars	equ 8
+
 PasswordScreenTitle		dc.b "Enter save code:",0
+PasswordScreenLoad		dc.b "Load",0
+PasswordScreenBack		dc.b "Back",0
 	even
 
 PasswordOptionA			dc.b "A",0
@@ -70,6 +74,7 @@ PasswordOptionP			dc.b "P",0
 ; Struct
 	rsset	0x0
 ;-------------------------------------
+PasswordScreenWidgets				rs.l (size_long*PasswordScreenNumChars)
 PasswordScreenState_FadeTimer		rs.w 1
 ;-------------------------------------
 	RS_ALIGN
@@ -207,22 +212,27 @@ PasswordScreen_Update:
 	tst.l  TimerLogoFade
 	bne    @End
 	
-	; Enter next state
-	lea    GameStatePasswordScreenData, a2
-	IF DEMO_SHOW_DISCLAIMER
-	move.l #GameStateDemoDisclaimerScreen, a0
-	jsr    GameStateEnter
-	ELSE
-	; Load from password
+	; If valid password set
+	tst.l  d0
+	beq    @MainMenu
 	move.l CurrentSavePassword, d0
+
+	; Load from password
 	jsr    LoadGameFromPassword
 
 	; Enter gameplay state
-	move.l #GameStateGameplay, a0
+	lea    GameStateGameplay, a0
 	jsr    GameStateEnter
-	ENDIF
 	
-	bra    @End
+	bra    @NextState
+
+	@MainMenu:
+
+	; Back to main menu
+	lea GameStateMainMenu, a0
+	jsr GameStateEnter
+
+	bra    @NextState
 	
 	@WaitingForBgFade:
 	subq.w  #0x1, PasswordScreenState_FadeTimer(a2)
@@ -235,6 +245,8 @@ PasswordScreen_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	@NextState:
 	
 	rts
 	
@@ -248,18 +260,7 @@ PasswordScreen_Render:
 	
 	rts
 
-PasswordScreen_OnSelected:
-	; a0 --- Widget
-	; a1 --- Save password
-
-	; Set save password for first act
-	move.l (a1), CurrentSavePassword
-
-	; Stop music
-	jsr    SND_StopTrack
-
-	; Play New Game SFX
-	PLAYSFX #SFX_UI_Press_Start
+PasswordScreen_BeginFadeDown:
 
 	; Begin fade to black
 	lea    palette_fade_black, a0
@@ -298,6 +299,65 @@ PasswordScreen_OnSelected:
 	move.l #0x0, TimerLogoFade
 
 	rts
+
+PasswordScreen_OnLoad:
+	; a0 --- Widget
+
+	; Get password
+	lea    GameStatePasswordScreenData, a2	; Screen state
+	lea    PasswordScreenWidgets(a2), a6	; Password UI widgets
+	move.w #PasswordScreenNumChars-1, d6	; Loop through widgets
+	moveq  #0x0, d0							; Clear password
+	@CharLp:
+	move.l (a6)+, a3						; Get next UI widget
+	move.b UIWidgetList_ItemIndex(a3), d1	; Get widget item index
+	or.b   d1, d0							; To password nybble
+	ror.l  #0x4, d0							; Next nybble
+	dbra   d6, @CharLp						; Next char
+	
+	; Decode
+	PUSHL  d0
+	jsr    SavePasswordDecode
+	move.b d0, d1
+	POPL   d0
+
+	; Verify
+	tst.b  d1
+	beq    @InvalidPassword
+
+	; Set save password for first act
+	move.l d0, CurrentSavePassword
+
+	; Stop music
+	jsr    SND_StopTrack
+
+	; Play New Game SFX
+	PLAYSFX #SFX_UI_Press_Start
+
+	; Begin fade down
+	jsr    PasswordScreen_BeginFadeDown
+
+	; Done
+	bra    @End
+
+	@InvalidPassword:
+
+	; Play fail SFX
+	PLAYSFX #SFX_UI_Press_Start
+
+	@End:
+
+	rts
+
+PasswordScreen_OnBack:
+
+	; Clear password
+	move.l #0x0, CurrentSavePassword
+
+	; Begin fade down
+	jsr    PasswordScreen_BeginFadeDown
+
+	rts
 	
 PasswordScreen_InitUI:
 
@@ -321,9 +381,12 @@ PasswordScreen_InitUI:
 	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create list widgets and add to window and cursor
-_COUNT = 0
-	REPT 8
-	WINDOW_CREATE_WIDGET_LIST a0,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(PasswordScreenLineSpacing*_COUNT)
+	lea    GameStatePasswordScreenData, a2
+	lea    PasswordScreenWidgets(a2), a6
+LINECOUNT = 0
+	REPT PasswordScreenNumChars
+	WINDOW_CREATE_WIDGET_LIST a0,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(PasswordScreenLineSpacing*LINECOUNT)
+	move.l a3, (a6)+
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_LIST_ADD_ITEM a3,#PasswordOptionA
 	WIDGET_LIST_ADD_ITEM a3,#PasswordOptionB
@@ -341,7 +404,17 @@ _COUNT = 0
 	WIDGET_LIST_ADD_ITEM a3,#PasswordOptionN
 	WIDGET_LIST_ADD_ITEM a3,#PasswordOptionO
 	WIDGET_LIST_ADD_ITEM a3,#PasswordOptionP
-_COUNT = _COUNT+1
+LINECOUNT = LINECOUNT+1
 	ENDR
+
+LINECOUNT = LINECOUNT+1
+	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenLoad,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(LevelSelectLineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,PasswordScreen_OnLoad,0x0
+
+LINECOUNT = LINECOUNT+1
+	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(LevelSelectLineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,PasswordScreen_OnBack,0x0
 
 	rts

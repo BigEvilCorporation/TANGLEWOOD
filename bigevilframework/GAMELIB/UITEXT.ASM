@@ -6,7 +6,6 @@
 ;   uitext.asm - Text label UI widget
 ;==============================================================
 
-UIWidgetText_MaxWidgets			equ 0x0A
 UIWidgetText_MaxStringLen		equ 0x20
 
 UIWidgetText_DrawPlane_PlaneA	equ 0x0
@@ -35,9 +34,6 @@ UIWidgetTextInit:
 
 	; Base init
 	jsr    UIWidgetInit
-
-	; Count
-	addq.w #0x1, WidgetCount_Text
 
 	; Set update/render routines
 	move.l #UIWidgetTextUpdate, UIWidget_UpdateRoutine(a0)

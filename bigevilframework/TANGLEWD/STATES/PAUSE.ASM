@@ -127,7 +127,7 @@ Pause_Enter:
 
 	@PasswdStringLp:
 	move.b  d0, d1					; Move bottom byte to d1
-	andi.b  #0x0F, d1				; Mask bottom nyble
+	andi.b  #0x0F, d1				; Mask bottom nybble
 	addi.b  #'A', d1				; Offset to 'A' ASCII start
 	move.b  d1, (a0)+				; To string
 	lsr.l   #0x4, d0				; Next nybble

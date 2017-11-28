@@ -6,7 +6,6 @@
 ;   uicursor.asm - UI menu selection cursor and input processing
 ;==============================================================
 
-UIWidgetCursor_MaxWidgets		equ 0x1
 UIWidgetCursor_WidgetArraySize	equ 0x10
 
 UIWidgetCursor_DrawBorder		equ 0x8
@@ -37,9 +36,6 @@ UIWidgetCursorInit:
 
 	; Base init
 	jsr    UIWidgetInit
-
-	; Count
-	addq.w #0x1, WidgetCount_Cursor
 
 	; Set update/render routines
 	move.l #UIWidgetCursorUpdate, UIWidget_UpdateRoutine(a0)

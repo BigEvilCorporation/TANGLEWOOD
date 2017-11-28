@@ -9,11 +9,11 @@
 ;==============================================================
 ; Password format:
 ;==============================================================
-;  0xFEDCFEDC - ((ABCD << 1) ^ 1985)
+;  0xFEDCFEDC - ((AB ^ 0x2612) << 16) | ((C ^ 0x19) << 8 | (D ^ 0x85))
 ;==============================================================
 ;  D = Level index
 ;  C = Total fireflies
-;  B = Checksum lo (8 bits) (sum of bytes C + D)
+;  B = Checksum lo (8 bits) (sum of bytes C + D ^ 85)
 ;  A = Checksum hi (7 bits)
 ;==============================================================
 
@@ -80,12 +80,21 @@ SavePasswordEncode:
 	moveq  #0x0, d0
 	move.b Level_Index(a1), d0
 
+	; ^ 0x85
+	eor.b  #0x85, d0
+
 	; Get total fireflies
 	move.w FireflyPickupCountGame, d1
+
+	; ^ 0x19
+	eor.b  #0x19, d1
 
 	; Generate checksum
 	move.w d1, d2
 	add.w  d0, d2
+
+	; ^ 0x2612
+	eor.w  #0x2612, d2
 
 	; Level index to byte 0
 	moveq  #0x0, d3
@@ -98,12 +107,6 @@ SavePasswordEncode:
 	; Checksum to bytes 2 + 3
 	swap   d2
 	or.l   d2, d3
-
-	; << 1
-	lsl.l  #0x1, d3
-
-	; ^ 1985
-	eor.l  #(1<<24)|(9<<16)|(8<<8)|(5), d3
 
 	; 0xFEDCFEDC-password
 	move.l #0xFEDCFEDC, d0
@@ -122,12 +125,6 @@ SavePasswordDecode:
 	sub.l  d0, d3
 	move.l d3, d0
 
-	; ^ 1985
-	eor.l  #(1<<24)|(9<<16)|(8<<8)|(5), d0
-
-	; >> 1
-	lsr.l  #0x1, d0
-
 	; Generate checksum
 	move.w d0, d1
 	move.w d0, d2
@@ -135,16 +132,27 @@ SavePasswordDecode:
 	lsr.w  #0x8, d2
 	add.w  d1, d2
 
-	; Test checksum
+	; Extract checksum
 	move.l d0, d3
 	swap   d3
+
+	; ^ 0x2612
+	eor.w  #0x2612, d3
 	cmp.w  d2, d3
 	bne    @Invalid
 
-	; Extract components
+	; Extract level id
 	move.b d0, d1
+
+	; ^ 0x85
+	eor.b  #0x85, d1
+
+	; Extract firefly count
 	lsr.w  #0x8, d0
 	move.b d0, d2
+
+	; ^ 0x19
+	eor.b  #0x19, d2
 
 	; Test level id
 	cmp.b  #MaxLevels, d1

@@ -108,10 +108,6 @@ GameStateReset:
 	move.l #SharedVRAM_Start, a0
 	move.l #(SharedVRAM_End-SharedVRAM_Start), d0
 	MEMZEROB a0, d0
-
-	; Clear UI
-	move.w #0x0, WidgetCount_Text
-	move.w #0x0, WidgetCount_Cursor
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll

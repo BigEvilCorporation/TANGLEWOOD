@@ -44,39 +44,39 @@ MaxLevels equ (LevelListEnd-LevelList)/size_long
 LevelSelectPasswords:
 
 LevelSelectPasswordLvl1:
-	dc.l 0xFDD3F6D7
-	dc.l 0xFDD1F6D5
-	dc.l 0xFDCFF6DB
-	dc.l 0xFDCDF6D9
+	dc.l 0xD850E557	; HFFOAFIN
+	dc.l 0xD84DE558	; IFFONEIN
+	dc.l 0xD82AE555	; FFFOKCIN
+	dc.l 0xD84FE556	; GFFOPEIN
 LevelSelectPasswordLvl2:
-	dc.l 0xFDDBF6CF
-	dc.l 0xFDD9F6CD
-	dc.l 0xFDD7F6D3
+	dc.l 0xD854E55B	; LFFOEFIN
+	dc.l 0xD851E55C	; MFFOBFIN
+	dc.l 0xD84EE559	; JFFOOEIN
 LevelSelectPasswordLvl3:
-	dc.l 0xFDD5F6D1
-	dc.l 0xFDC3F6C7
-	dc.l 0xFDC1F6C5
+	dc.l 0xD853E55A	; KFFODFIN
+	dc.l 0xD828E54F	; PEFOICIN
+	dc.l 0xD825E550	; AFFOFCIN
 LevelSelectPasswordLvl4:
-	dc.l 0xFDBFF6CB
-	dc.l 0xFDBDF6C9
-	dc.l 0xFDCBF6BF
+	dc.l 0xD822E54D	; NEFOCCIN
+	dc.l 0xD827E54E	; OEFEHCIN
+	dc.l 0xD82CE553	; DFFOMCIN
 LevelSelectPasswordLvl5:
-	dc.l 0xFDC9F6BD
-	dc.l 0xFDC7F6C3
-	dc.l 0xFDC5F6C1
-	dc.l 0xFDB3F6B7
+	dc.l 0xD829E554	; EFFOJCIN
+	dc.l 0xD826E551	; BFFOGCIN
+	dc.l 0xD82BE552	; CFFOLCIN
+	dc.l 0xD820E547	; HEFOACIN
 LevelSelectPasswordLvl6:
-	dc.l 0xFDB1F6B5
-	dc.l 0xFDAFF6BB
-	dc.l 0xFDADF6B9
+	dc.l 0xD81DE548	; IEFONBIN
+	dc.l 0xD83AE545	; 
+	dc.l 0xD81FE546	; GEFOPBIN
 LevelSelectPasswordLvl7:
-	dc.l 0xFDBBF6AF
-	dc.l 0xFDB9F6AD
+	dc.l 0xD824E54B	; LEFOECIN
+	dc.l 0xD821E54C	; MEFOBCIN
 LevelSelectPasswordLvl8:
-	dc.l 0xFDB5F6B1
-	dc.l 0xFDA3F6A7
-	dc.l 0xFDA1F6A5
-	dc.l 0xFD9FF6AB
-	dc.l 0xFD9DF6A9
-	dc.l 0xFDABF69F
+	dc.l 0xD823E54A	; KEFODCIN
+	dc.l 0xD838E53F	; PDFOIDON
+	dc.l 0xD835E540	; AEFOFDIN
+	dc.l 0xD832E53D	; NDFOCDIN
+	dc.l 0xD837E53E	; ODFOHDIN
+	dc.l 0xD83CE543	; DEFOMDIN
 	
