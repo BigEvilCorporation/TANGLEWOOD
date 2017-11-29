@@ -149,6 +149,7 @@ __start
 	include 'objects\pool.asm'
 	include 'objects\raft.asm'
 	include 'objects\scrap.asm'
+	include 'objects\skivv.asm'
 	include 'objects\stalact.asm'
 	include 'objects\stone.asm'
 	include 'objects\trap.asm'

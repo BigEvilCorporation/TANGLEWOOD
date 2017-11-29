@@ -45,7 +45,7 @@ ScrapAnimIdx_Max		equ 0x1
 ; Struct
 	rsset (Character_Struct_Size)
 ;---------------------------------
-Scrap_Animations	rs.b (Animation_Struct_Size*BorgusAnimIdx_Max)
+Scrap_Animations	rs.b (Animation_Struct_Size*ScrapAnimIdx_Max)
 Scrap_BarkTimer		rs.w 1
 Scrap_State			rs.b 1
 Scrap_BarkNextChase	rs.b 1	; Bark before beginning next chase

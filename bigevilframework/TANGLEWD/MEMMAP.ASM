@@ -485,6 +485,7 @@ EntityPoolStart_Rope        rs.l 1
 EntityPoolStart_Raft        rs.l 1
 EntityPoolStart_BouncePlant rs.l 1
 EntityPoolStart_Scrap       rs.l 1
+EntityPoolStart_Skivv       rs.l 1
 EntityPoolStart_Stone       rs.l 1
 EntityPoolStart_Trap        rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
@@ -533,6 +534,7 @@ EntityCount_Rope        rs.w 1
 EntityCount_Raft        rs.w 1
 EntityCount_BouncePlant	rs.w 1
 EntityCount_Scrap       rs.w 1
+EntityCount_Skivv       rs.w 1
 EntityCount_Stone       rs.w 1
 EntityCount_Trap        rs.w 1
 EntityCount_Deathbox    rs.w 1

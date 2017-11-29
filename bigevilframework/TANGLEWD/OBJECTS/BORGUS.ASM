@@ -648,9 +648,11 @@ BorgusUpdateSpitball:
 	beq    @NoHit
 
 	; Deal damage
+	PUSHL  a0
 	move.b #Borgus_PlayerDamage, d0
 	move.l a2, a0
 	jsr    CharacterDealDamage
+	POPL   a0
 	
 	@NoHit:
 
