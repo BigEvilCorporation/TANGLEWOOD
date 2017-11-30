@@ -116,6 +116,7 @@ sprite_assets_end
 	include 'assets\palettes\djakk.asm'
 	;include 'assets\palettes\djrake.asm'
 	include 'assets\palettes\djubb.asm'
+	include 'assets\palettes\skivv.asm'
 	include 'assets\palettes\text.asm'
 	include 'assets\palettes\wyrm.asm'
 	

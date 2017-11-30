@@ -274,6 +274,9 @@ SkivvAIStart_Attack:
 	jsr    AnimObjSetAnimation
 	POPL   a1
 
+	; Play SFX
+	PLAYSFX #SFX_SpikeDeath
+
 	rts
 
 SkivvAIUpdate_Attack:

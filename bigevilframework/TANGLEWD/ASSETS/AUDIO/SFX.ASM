@@ -124,6 +124,7 @@ SFX_Data_FuzzlJump:			include 'assets\audio\SFX\fuzzl\fuzljump.asm'
 SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
+SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
 SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep2.asm'
@@ -277,6 +278,13 @@ SFX_LiftWinchSlow
 
 SFX_LiftWinchFast
 	dc.l SFX_Data_LiftWinchFast		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	even
+
+SFX_SpikeDeath
+	dc.l SFX_Data_SpikeDeath		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
