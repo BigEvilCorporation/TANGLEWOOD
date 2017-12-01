@@ -463,6 +463,7 @@ EntityPoolStart_Flue        rs.l 1
 EntityPoolStart_Fuzzl       rs.l 1
 EntityPoolStart_FuzzlCage   rs.l 1
 EntityPoolStart_Generator   rs.l 1
+EntityPoolStart_Hogg        rs.l 1
 EntityPoolStart_Ladder      rs.l 1
 EntityPoolStart_Leaf        rs.l 1
 EntityPoolStart_Log         rs.l 1
@@ -515,6 +516,7 @@ EntityCount_Flue        rs.w 1
 EntityCount_Fuzzl       rs.w 1
 EntityCount_FuzzlCage   rs.w 1
 EntityCount_Generator   rs.w 1
+EntityCount_Hogg        rs.w 1
 EntityCount_Ladder      rs.w 1
 EntityCount_Leaf        rs.w 1
 EntityCount_Log         rs.w 1

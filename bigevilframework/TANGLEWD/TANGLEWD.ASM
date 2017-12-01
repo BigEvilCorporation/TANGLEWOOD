@@ -133,6 +133,7 @@ __start
 	include 'objects\fuzlcage.asm'
 	include 'objects\generatr.asm'
 	include 'objects\gen_cogs.asm'
+	include 'objects\hogg.asm'
 	include 'objects\ladder.asm'
 	include 'objects\leaf.asm'
 	include 'objects\log.asm'
