@@ -36,16 +36,21 @@ Scirus_ProbeFloorX		equ (Scirus_Width/2)	; Floor detection probe position X
 Scirus_ProbeFloorY		equ (Scirus_Height-8)	; Floor detection probe position Y
 Scirus_ProbeWallTop		equ 0x08
 
-Scirus_AIFollowDistanceEnemy		equ 0x0018
-Scirus_AIFollowDistanceFriendInner	equ 0x0040
-Scirus_AIFollowDistanceFriendOuter	equ 0x0090
-Scirus_AIFollowDistanceY			equ 0x0030
+Scirus_AIActivateDistance			equ 0x0040	; Distance to alert and enter follow state
+Scirus_AIFollowDistanceEnemy		equ 0x0018	; Distance to follow if enemy
+Scirus_AIFollowDistanceFriendInner	equ 0x0040	; Distance to avoid in friend
+Scirus_AIFollowDistanceFriendOuter	equ 0x0090	; Distance to follow if friend
+Scirus_AIFollowDistanceY			equ 0x0030	; Y distance to follow
+Scirus_AIUncomfortableDistance		equ 0x0050	; "Too close" distance if backed up against a wall, turns enemy
+Scirus_AISafeDistance				equ 0x0090	; "Safe" distance to return to friendly state
 
 Scirus_PlayerDamage		equ 0xFF
 Scirus_SpikeAnimFrame	equ 0x1
 
-Scirus_PackAddAccel		equ 0x0200
-Scirus_PackAddVel		equ 0x1000
+Scirus_AccelRandMin		equ 0x0000
+Scirus_AccelRandMax		equ 0x0400
+Scirus_VelRandMin		equ 0x0000
+Scirus_VelRandMax		equ 0x4000
 
 ; Affinity
 ScirusAffinity_Friend	equ 0x0
@@ -105,6 +110,7 @@ ScirusInit:
 	move.w #Scirus_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w #Scirus_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Scirus_Mass, PhysicsObj_Mass(a0)
+	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	MOVE_NTSC_L Scirus_WalkToRunVel, Character_WalkToRunVel(a0), d0
@@ -119,57 +125,15 @@ ScirusInit:
 	move.w #Scirus_Height, PhysicsObj_BoundsHeight(a0)
 
 	; Friend by day, enemy by night
+	move.b #ScirusAffinity_Foe, d0
+	cmp.b  #TimeOfDay_Night, TimeOfDay
+	beq    @Night
 	move.b #ScirusAffinity_Friend, d0
-	cmp.b  #TimeOfDay_Day, TimeOfDay
-	beq    @Day
-	;move.b #ScirusAffinity_Foe, d0
-	@Day:
+	@Night:
 	move.b d0, Scirus_Affinity(a0)
 
-	; Set friend (match player) or foe (custom) velocities, and set initial AI state
-	cmp.b  #ScirusAffinity_Friend, Scirus_Affinity(a0)
-	beq    @Friend
-
-	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWater(a0), d0
-	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, Character_MaxVelXRun(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelIdle, PhysicsObj_DecelX(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelForced, Character_DecelForced(a0), d0
-	jsr    ScirusAIStart_FollowEnemy
-
-	bra    @Enemy
-
-	@Friend:
-
-	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWater(a0), d0
-	MOVE_NTSC_L Scirus_FriendMaxVelXRun, Character_MaxVelXRun(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_FriendAccelWalk, Character_AccelWalk(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_FriendAccelRun, Character_AccelRun(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_FriendDecelIdle, PhysicsObj_DecelX(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_FriendDecelIdle, Character_DecelIdle(a0), d0
-	MOVE_NTSC_ACCEL_W Scirus_FriendDecelForced, Character_DecelForced(a0), d0
-	jsr    ScirusAIStart_FollowFriend
-
-	@Enemy:
-
-	; Differ accelerations if in a pack
-	move.l #Scirus_PackAddAccel, d0
-	moveq  #0x0, d1
-	move.w EntityCount_Scirus, d1
-	mulu   d1, d0
-	add.w  d0, Character_AccelWalk(a0)
-	add.w  d0, Character_AccelRun(a0)
-
-	move.l #Scirus_PackAddVel, d0
-	moveq  #0x0, d1
-	move.w EntityCount_Scirus, d1
-	mulu   d1, d0
-	add.l  d0, Character_MaxVelXWalk(a0)
-	add.l  d0, Character_MaxVelXRun(a0)
+	; Set inactive AI state
+	jsr    ScirusAIStart_Inactive
 
 	rts
 
@@ -177,37 +141,16 @@ ScirusLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	cmp.b  #ScirusAffinity_Friend, Scirus_Affinity(a0)
-	beq    @Friend
-
-	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT Scirus,idle_angry,PaletteId_Monster,0x0
-
-	; Load default character animations
-	ANIM_LOAD_DEFAULT Scirus,idle_angry,idle_angry,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT Scirus,walk_angry,walk_angry,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT Scirus,run_angry,run_angry,Character_Animations,CharacterAnimIdx_Run,1,0,0
-
-	; Load bespoke animations
-	ANIM_LOAD_DEFAULT Scirus,attack,attack,Scirus_Animations,ScirusAnimIdx_Attack,0,1,0
-
-	bra    @Foe
-
-	@Friend:
-
-	; Load sprite sheet
+	; Load initial sprite sheet (just to alloc VRAM)
 	SPRITE_LOAD_DEFAULT Scirus,idle,PaletteId_Monster,0x0
 
-	; Load default character animations
-	ANIM_LOAD_DEFAULT Scirus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT Scirus,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
-	ANIM_LOAD_DEFAULT Scirus,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
-
-	@Foe:
+	; Set affinity to load correct friend/foe graphics
+	move.b Scirus_Affinity(a0), d0
+	jsr    ScirusSetAffinity
 
 	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
-	jsr     EntityAddToWorldGrid
+	move.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr    EntityAddToWorldGrid
 
 	rts
 	
@@ -220,13 +163,17 @@ ScirusUpdate:
 
 	move.b Scirus_State(a0), d0
 	cmp.b  #ScirusState_Inactive, d0
-	beq    @End
+	beq    @Inactive
 	cmp.b  #ScirusState_FollowingFriend, d0
 	beq    @FollowingFriend
 	cmp.b  #ScirusState_FollowingEnemy, d0
 	beq    @FollowingEnemy
 	cmp.b  #ScirusState_Attacking, d0
 	beq    @Attacking
+
+	@Inactive:
+	jsr    ScirusAIUpdate_Inactive
+	bra    @End
 
 	@FollowingFriend:
 	jsr    ScirusAIUpdate_FollowFriend
@@ -275,6 +222,130 @@ ScirusSerialise:
 	
 	rts
 
+ScirusSetAffinity:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) Affinity
+
+	; Set new affinity
+	move.b d0, Scirus_Affinity(a0)
+
+	; Set appropriate vel/accel values, load  graphics, and set AI state
+	cmp.b  #ScirusAffinity_Friend, d0
+	beq    @Friend
+
+	; Set vel/accel values
+	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelForced, Character_DecelForced(a0), d0
+
+	; Load sprite sheet
+	SPRITE_LOAD_SHARED_VRAM Scirus,idle_angry,PaletteId_Monster,0x0,a0
+
+	; Load default character animations
+	ANIM_LOAD_DEFAULT Scirus,idle_angry,idle_angry,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Scirus,walk_angry,walk_angry,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Scirus,run_angry,run_angry,Character_Animations,CharacterAnimIdx_Run,1,0,0
+
+	; Load bespoke animations
+	ANIM_LOAD_DEFAULT Scirus,attack,attack,Scirus_Animations,ScirusAnimIdx_Attack,0,1,0
+
+	; If not inactive, start agressive follow state
+	cmp.b  #ScirusState_Inactive, Scirus_State(a0)
+	beq    @NofollowEnemy
+	jsr    ScirusAIStart_FollowEnemy
+	@NofollowEnemy:
+
+	bra    @Foe
+
+	@Friend:
+
+	; Set vel/accel values
+	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWalk(a0), d0
+	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWater(a0), d0
+	MOVE_NTSC_L Scirus_FriendMaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_FriendAccelWalk, Character_AccelWalk(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_FriendAccelRun, Character_AccelRun(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_FriendDecelIdle, PhysicsObj_DecelX(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_FriendDecelIdle, Character_DecelIdle(a0), d0
+	MOVE_NTSC_ACCEL_W Scirus_FriendDecelForced, Character_DecelForced(a0), d0
+
+	; Load sprite sheet
+	SPRITE_LOAD_SHARED_VRAM Scirus,idle,PaletteId_Monster,0x0,a0
+
+	; Load default character animations
+	ANIM_LOAD_DEFAULT Scirus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT Scirus,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT Scirus,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+
+	; If not inactive, start friendly follow state
+	cmp.b  #ScirusState_Inactive, Scirus_State(a0)
+	beq    @NofollowFriend
+	jsr    ScirusAIStart_FollowFriend
+	@NofollowFriend:
+
+	@Foe:
+
+	; Slightly randomise vel/accel for packs
+	move.w #Scirus_AccelRandMin, d1
+	move.w #Scirus_AccelRandMax, d2
+	jsr    RND_GenerateWordClamped
+	add.w  d0, Character_AccelWalk(a0)
+	add.w  d0, Character_AccelRun(a0)
+
+	move.w #Scirus_VelRandMin, d1
+	move.w #Scirus_VelRandMax, d2
+	jsr    RND_GenerateWordClamped
+	andi.l #0xFFFF, d0
+	add.l  d0, Character_MaxVelXWalk(a0)
+	add.l  d0, Character_MaxVelXRun(a0)
+
+	rts
+
+ScirusAIStart_Inactive:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #ScirusState_Inactive, Scirus_State(a0)
+
+	rts
+
+ScirusAIUpdate_Inactive:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If within activation distance
+	move.l Player1, a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w  d0, d1
+	ABSW   d1
+	cmp.w  #Scirus_AIActivateDistance, d1
+	bgt    @OutOfRange
+
+	; Start follow state
+	cmp.b  #ScirusAffinity_Friend, Scirus_Affinity(a0)
+	beq    @Friend
+	jsr    ScirusAIStart_FollowEnemy
+	bra    @Foe
+
+	@Friend:
+	jsr    ScirusAIStart_FollowFriend
+
+	@Foe:
+
+	@OutOfRange:
+
+	rts
+
 ScirusAIStart_FollowFriend:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -308,6 +379,7 @@ ScirusAIUpdate_FollowFriend:
 	TOPIXELS d1
 
 	; If to the left of player
+	move.b #0x1, d3				; Face player
 	cmp.w  d0, d1
 	blt    @RightOfPlayer
 	
@@ -327,6 +399,8 @@ ScirusAIUpdate_FollowFriend:
 	bra    @WithinBounds
 	
 	@RightOfPlayer:
+
+	move.b #0x0, d3				; Face player
 
 	; Check outer right bounds
 	move.w d1, d2
@@ -356,10 +430,72 @@ ScirusAIUpdate_FollowFriend:
 	@WithinBounds:
 	jsr    CharacterCancelXMovement
 
-	; Within bounds, face player
-	
+	; Within bounds, face player if 0 vel
+	tst.l  PhysicsObj_VelX(a0)
+	bne    @EndFollow
+	move.b d3, SpriteObj_FlippedX(a0)
 	
 	@EndFollow:
+
+	; Check if player too close
+	jsr    ScirusAI_CheckTooClose
+
+	rts
+
+ScirusAI_CheckTooClose:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If against wall
+	tst.b  PhysicsObj_HitWall(a0)
+	beq    @NotHitWall
+
+	; If within min distance
+	move.l Player1, a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w  d0, d1
+	ABSW   d1
+	cmp.w  #Scirus_AIUncomfortableDistance, d1
+	bgt    @OutOfRange
+
+	; Player too close, set aggressive affinity
+	move.b #ScirusAffinity_Foe, d0
+	jsr    ScirusSetAffinity
+
+	@NotHitWall:
+	@OutOfRange:
+
+	rts
+
+ScirusAI_CheckSafeDistance:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If not against wall
+	tst.b  PhysicsObj_HitWall(a0)
+	bne    @HitWall
+
+	; If within min distance
+	move.l Player1, a2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	TOPIXELS d0
+	TOPIXELS d1
+	sub.w  d0, d1
+	ABSW   d1
+	cmp.w  #Scirus_AISafeDistance, d1
+	blt    @TooClose
+
+	; Safe distance, back to friendly
+	move.b #ScirusAffinity_Friend, d0
+	jsr    ScirusSetAffinity
+
+	@TooClose:
+	@HitWall:
+	@End:
 
 	rts
 
@@ -420,6 +556,13 @@ ScirusAIUpdate_FollowEnemy:
 	jsr    ScirusAIStart_Attack
 	
 	@EndFollow:
+
+	; If not night time, can revert back if player retreats to a safe distance
+	move.b #ScirusAffinity_Friend, d0
+	cmp.b  #TimeOfDay_night, TimeOfDay
+	beq    @Night
+	jsr    ScirusAI_CheckSafeDistance
+	@Night:
 
 	rts
 
