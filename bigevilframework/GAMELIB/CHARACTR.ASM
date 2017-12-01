@@ -106,6 +106,7 @@ Character_AnimIdx	    	rs.b 1
 Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
+Character_InvertSpriteFlip	rs.b 1	; Invert flip direction
 ;---------------------------------
 	RS_ALIGN
 Character_Struct_Size   	rs.b 0
@@ -147,6 +148,7 @@ CharacterInit:
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
 	move.b #0x0, Character_LockSpriteFlip(a0)
+	move.b #0x0, Character_InvertSpriteFlip(a0)
 	move.b #0x0, Character_ControlX(a0)
 	move.b #0x0, Character_ControlY(a0)
 
@@ -337,9 +339,16 @@ CharacterApplySpriteFlip:
 	blt    @FlipLeft
 	@FlipRight:
 	move.b #0x0, SpriteObj_FlippedX(a0)
-	bra    @NoFlip
+	bra    @EndFlip
 	@FlipLeft:
 	move.b #0x1, SpriteObj_FlippedX(a0)
+	@EndFlip:
+
+	tst.b  Character_InvertSpriteFlip(a0)
+	beq    @NoInvert
+	eor.b  #0x1, SpriteObj_FlippedX(a0)
+	@NoInvert:
+
 	@NoFlip:
 	
 	rts

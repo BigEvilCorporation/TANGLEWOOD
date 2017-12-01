@@ -148,6 +148,7 @@ __start
 	include 'objects\player.asm'
 	include 'objects\pool.asm'
 	include 'objects\raft.asm'
+	include 'objects\scirus.asm'
 	include 'objects\scrap.asm'
 	include 'objects\skivv.asm'
 	include 'objects\stalact.asm'

@@ -90,6 +90,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\raft.asm
 	INCLUDE_TEXT_ASSET assets\sprites\rain.asm
 	INCLUDE_TEXT_ASSET assets\sprites\rope.asm
+	INCLUDE_TEXT_ASSET assets\sprites\scirus.asm
 	INCLUDE_TEXT_ASSET assets\sprites\scrap.asm
 	INCLUDE_TEXT_ASSET assets\sprites\skivv.asm
 	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
@@ -117,6 +118,7 @@ sprite_assets_end
 	;include 'assets\palettes\djrake.asm'
 	include 'assets\palettes\djubb.asm'
 	include 'assets\palettes\skivv.asm'
+	include 'assets\palettes\scirus.asm'
 	include 'assets\palettes\text.asm'
 	include 'assets\palettes\wyrm.asm'
 	
@@ -149,6 +151,7 @@ sprite_assets_end
 	include 'assets\anims\pool.asm'
 	include 'assets\anims\rain.asm'
 	include 'assets\anims\rope.asm'
+	include 'assets\anims\scirus.asm'
 	include 'assets\anims\scrap.asm'
 	include 'assets\anims\skivv.asm'
 	include 'assets\anims\spitball.asm'
