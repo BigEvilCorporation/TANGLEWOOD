@@ -9,9 +9,9 @@
 
 L6A2_Leaf_count equ 0x0
 
-L6A2_Djubb_count equ 0x0
-
 L6A2_Trap_count equ 0x0
+
+L6A2_Djubb_count equ 0x0
 
 L6A2_Echo_count equ 0x1
 L6A2_Echo_1_idx	equ 0x0
@@ -25,6 +25,10 @@ L6A2_Nymn_count equ 0x0
 
 L6A2_BouncePlant_count equ 0x0
 
+L6A2_Borgus_count equ 0x0
+
+L6A2_DjakkCage_count equ 0x0
+
 L6A2_Log_count equ 0x3
 L6A2_Log1_idx	equ 0x0
 L6A2_Log2_idx	equ 0x1
@@ -36,10 +40,6 @@ L6A2_Log2_name	dc.b "L6A2_Log2",0
 L6A2_Log3_name	dc.b "L6A2_Log3",0
 	even
 	ENDIF
-
-L6A2_DjakkCage_count equ 0x0
-
-L6A2_Borgus_count equ 0x0
 
 L6A2_Monster_count equ 0x9
 L6A2_Djakk1_idx	equ 0x0
@@ -223,7 +223,13 @@ L6A2_Scrap_count equ 0x0
 
 L6A2_Longboat_count equ 0x0
 
+L6A2_Skivv_count equ 0x0
+
 L6A2_Ladder_count equ 0x0
+
+L6A2_Scirus_count equ 0x0
+
+L6A2_Hogg_count equ 0x0
 
 L6A2_Bridge_count equ 0x0
 
@@ -251,6 +257,8 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
+
+
 
 
 
@@ -299,8 +307,6 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 	PUSHL  a1
@@ -951,6 +957,9 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
+
+
+
 
 
 

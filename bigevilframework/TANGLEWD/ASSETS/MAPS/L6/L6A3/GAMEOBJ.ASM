@@ -9,9 +9,9 @@
 
 L6A3_Leaf_count equ 0x0
 
-L6A3_Djubb_count equ 0x0
-
 L6A3_Trap_count equ 0x0
+
+L6A3_Djubb_count equ 0x0
 
 L6A3_Echo_count equ 0x1
 L6A3_Echo_1_idx	equ 0x0
@@ -24,6 +24,10 @@ L6A3_Echo_1_name	dc.b "L6A3_Echo_1",0
 L6A3_Nymn_count equ 0x0
 
 L6A3_BouncePlant_count equ 0x0
+
+L6A3_Borgus_count equ 0x0
+
+L6A3_DjakkCage_count equ 0x0
 
 L6A3_Log_count equ 0x5
 L6A3_Log1_idx	equ 0x0
@@ -40,10 +44,6 @@ L6A3_Log_19_name	dc.b "L6A3_Log_19",0
 L6A3_Log_39_name	dc.b "L6A3_Log_39",0
 	even
 	ENDIF
-
-L6A3_DjakkCage_count equ 0x0
-
-L6A3_Borgus_count equ 0x0
 
 L6A3_Monster_count equ 0x1
 L6A3_Djakk1_idx	equ 0x0
@@ -154,30 +154,30 @@ L6A3_WaterBody_count equ 0x0
 L6A3_Location_count equ 0x0
 
 L6A3_Deathbox_count equ 0xb
-L6A3_Deathbox_22_idx	equ 0x0
-L6A3_Deathbox_23_idx	equ 0x1
-L6A3_Deathbox_24_idx	equ 0x2
-L6A3_Deathbox_25_idx	equ 0x3
+L6A3_Deathbox_30_idx	equ 0x0
+L6A3_Deathbox_31_idx	equ 0x1
+L6A3_Deathbox_32_idx	equ 0x2
+L6A3_Deathbox_55_idx	equ 0x3
 L6A3_Deathbox_26_idx	equ 0x4
 L6A3_Deathbox_27_idx	equ 0x5
 L6A3_Deathbox_28_idx	equ 0x6
 L6A3_Deathbox_29_idx	equ 0x7
-L6A3_Deathbox_30_idx	equ 0x8
-L6A3_Deathbox_31_idx	equ 0x9
-L6A3_Deathbox_32_idx	equ 0xa
+L6A3_Deathbox_52_idx	equ 0x8
+L6A3_Deathbox_53_idx	equ 0x9
+L6A3_Deathbox_56_idx	equ 0xa
 
 	IFND FINAL
-L6A3_Deathbox_22_name	dc.b "L6A3_Deathbox_22",0
-L6A3_Deathbox_23_name	dc.b "L6A3_Deathbox_23",0
-L6A3_Deathbox_24_name	dc.b "L6A3_Deathbox_24",0
-L6A3_Deathbox_25_name	dc.b "L6A3_Deathbox_25",0
+L6A3_Deathbox_30_name	dc.b "L6A3_Deathbox_30",0
+L6A3_Deathbox_31_name	dc.b "L6A3_Deathbox_31",0
+L6A3_Deathbox_32_name	dc.b "L6A3_Deathbox_32",0
+L6A3_Deathbox_55_name	dc.b "L6A3_Deathbox_55",0
 L6A3_Deathbox_26_name	dc.b "L6A3_Deathbox_26",0
 L6A3_Deathbox_27_name	dc.b "L6A3_Deathbox_27",0
 L6A3_Deathbox_28_name	dc.b "L6A3_Deathbox_28",0
 L6A3_Deathbox_29_name	dc.b "L6A3_Deathbox_29",0
-L6A3_Deathbox_30_name	dc.b "L6A3_Deathbox_30",0
-L6A3_Deathbox_31_name	dc.b "L6A3_Deathbox_31",0
-L6A3_Deathbox_32_name	dc.b "L6A3_Deathbox_32",0
+L6A3_Deathbox_52_name	dc.b "L6A3_Deathbox_52",0
+L6A3_Deathbox_53_name	dc.b "L6A3_Deathbox_53",0
+L6A3_Deathbox_56_name	dc.b "L6A3_Deathbox_56",0
 	even
 	ENDIF
 
@@ -221,19 +221,21 @@ L6A3_Scrap_count equ 0x0
 
 L6A3_Longboat_count equ 0x0
 
-L6A3_Ladder_count equ 0x4
-L6A3_Ladder_2_idx	equ 0x0
-L6A3_Ladder_3_idx	equ 0x1
-L6A3_Ladder_4_idx	equ 0x2
-L6A3_Ladder_5_idx	equ 0x3
+L6A3_Skivv_count equ 0x0
+
+L6A3_Ladder_count equ 0x2
+L6A3_Ladder_50_idx	equ 0x0
+L6A3_Ladder_51_idx	equ 0x1
 
 	IFND FINAL
-L6A3_Ladder_2_name	dc.b "L6A3_Ladder_2",0
-L6A3_Ladder_3_name	dc.b "L6A3_Ladder_3",0
-L6A3_Ladder_4_name	dc.b "L6A3_Ladder_4",0
-L6A3_Ladder_5_name	dc.b "L6A3_Ladder_5",0
+L6A3_Ladder_50_name	dc.b "L6A3_Ladder_50",0
+L6A3_Ladder_51_name	dc.b "L6A3_Ladder_51",0
 	even
 	ENDIF
+
+L6A3_Scirus_count equ 0x0
+
+L6A3_Hogg_count equ 0x0
 
 L6A3_Bridge_count equ 0x1
 L6A3_Bridge1_idx	equ 0x0
@@ -267,6 +269,8 @@ L6A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
+
+
 
 
 
@@ -341,8 +345,6 @@ L6A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 	PUSHL  a1
@@ -451,7 +453,7 @@ L6A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x04600000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosX(a0)
 	move.l #0x01900000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
@@ -759,11 +761,11 @@ L6A3_LoadGameObjects:
 	POPL   a1
 
 	jsr DeathboxInit
-	move.l #0x02300000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x22980000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_22_name, a3
+	lea L6A3_Deathbox_30_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -772,11 +774,11 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x02e00000, Entity_WorldPosX(a0)
-	move.l #0x02580000, Entity_WorldPosY(a0)
+	move.l #0x20d80000, Entity_WorldPosX(a0)
+	move.l #0x06100000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_23_name, a3
+	lea L6A3_Deathbox_31_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -785,24 +787,26 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x03d80000, Entity_WorldPosX(a0)
+	move.l #0x22400000, Entity_WorldPosX(a0)
+	move.l #0x06780000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L6A3_Deathbox_32_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x04c80000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
+	move.w #0x0090, Entity_Width(a0)
+	move.w #0x0010, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_24_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x05480000, Entity_WorldPosX(a0)
-	move.l #0x03300000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L6A3_Deathbox_25_name, a3
+	lea L6A3_Deathbox_55_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -863,11 +867,13 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x22980000, Entity_WorldPosX(a0)
-	move.l #0x05500000, Entity_WorldPosY(a0)
+	move.l #0x02d80000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.w #0x00d8, Entity_Width(a0)
+	move.w #0x0010, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_30_name, a3
+	lea L6A3_Deathbox_52_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -876,11 +882,13 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x20d80000, Entity_WorldPosX(a0)
-	move.l #0x06100000, Entity_WorldPosY(a0)
+	move.l #0x03d80000, Entity_WorldPosX(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
+	move.w #0x0098, Entity_Width(a0)
+	move.w #0x0010, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_31_name, a3
+	lea L6A3_Deathbox_53_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -889,11 +897,13 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x22400000, Entity_WorldPosX(a0)
-	move.l #0x06780000, Entity_WorldPosY(a0)
+	move.l #0x05c80000, Entity_WorldPosX(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.w #0x0090, Entity_Width(a0)
+	move.w #0x0010, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A3_Deathbox_32_name, a3
+	lea L6A3_Deathbox_56_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -938,6 +948,7 @@ L6A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L6A3_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -946,39 +957,15 @@ L6A3_LoadGameObjects:
 
 	jsr LadderInit
 	move.l #0x09000000, Entity_WorldPosX(a0)
-	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0230, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L6A3_Ladder_2_name, a3
+	lea L6A3_Ladder_50_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Ladder_Struct_Size, a0
-
-	jsr LadderInit
-	move.l #0x09000000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
-	jsr LadderLoadGfx
-	IFND FINAL
-	lea L6A3_Ladder_3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Ladder_Struct_Size, a0
-
-	jsr LadderInit
-	move.l #0x09000000, Entity_WorldPosX(a0)
-	move.l #0x01f00000, Entity_WorldPosY(a0)
-	jsr LadderLoadGfx
-	IFND FINAL
-	lea L6A3_Ladder_4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
@@ -986,15 +973,19 @@ L6A3_LoadGameObjects:
 	jsr LadderInit
 	move.l #0x1d900000, Entity_WorldPosX(a0)
 	move.l #0x03e80000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00c0, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L6A3_Ladder_5_name, a3
+	lea L6A3_Ladder_51_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
+
+
 
 
 	PUSHL  a1

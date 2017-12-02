@@ -9,9 +9,9 @@
 
 L6A1_Leaf_count equ 0x0
 
-L6A1_Djubb_count equ 0x0
-
 L6A1_Trap_count equ 0x0
+
+L6A1_Djubb_count equ 0x0
 
 L6A1_Echo_count equ 0x1
 L6A1_Echo_1_idx	equ 0x0
@@ -25,6 +25,10 @@ L6A1_Nymn_count equ 0x0
 
 L6A1_BouncePlant_count equ 0x0
 
+L6A1_Borgus_count equ 0x0
+
+L6A1_DjakkCage_count equ 0x0
+
 L6A1_Log_count equ 0x3
 L6A1_Log1_idx	equ 0x0
 L6A1_Log2_idx	equ 0x1
@@ -36,10 +40,6 @@ L6A1_Log2_name	dc.b "L6A1_Log2",0
 L6A1_Log3_name	dc.b "L6A1_Log3",0
 	even
 	ENDIF
-
-L6A1_DjakkCage_count equ 0x0
-
-L6A1_Borgus_count equ 0x0
 
 L6A1_Monster_count equ 0x1
 L6A1_Djakk1_idx	equ 0x0
@@ -179,7 +179,29 @@ L6A1_Scrap_count equ 0x0
 
 L6A1_Longboat_count equ 0x0
 
-L6A1_Ladder_count equ 0x0
+L6A1_Skivv_count equ 0x0
+
+L6A1_Ladder_count equ 0x6
+L6A1_Ladder_38_idx	equ 0x0
+L6A1_Ladder_39_idx	equ 0x1
+L6A1_Ladder_41_idx	equ 0x2
+L6A1_Ladder_42_idx	equ 0x3
+L6A1_Ladder_43_idx	equ 0x4
+L6A1_Ladder_44_idx	equ 0x5
+
+	IFND FINAL
+L6A1_Ladder_38_name	dc.b "L6A1_Ladder_38",0
+L6A1_Ladder_39_name	dc.b "L6A1_Ladder_39",0
+L6A1_Ladder_41_name	dc.b "L6A1_Ladder_41",0
+L6A1_Ladder_42_name	dc.b "L6A1_Ladder_42",0
+L6A1_Ladder_43_name	dc.b "L6A1_Ladder_43",0
+L6A1_Ladder_44_name	dc.b "L6A1_Ladder_44",0
+	even
+	ENDIF
+
+L6A1_Scirus_count equ 0x0
+
+L6A1_Hogg_count equ 0x0
 
 L6A1_Bridge_count equ 0x6
 L6A1_Bridge1_idx	equ 0x0
@@ -223,6 +245,8 @@ L6A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
+
+
 
 
 
@@ -271,8 +295,6 @@ L6A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 	PUSHL  a1
@@ -651,6 +673,105 @@ L6A1_LoadGameObjects:
 
 
 
+
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L6A1_Ladder_count)
+	move.l a1, EntityPoolStart_Ladder
+	move.l a1, a0
+	POPL   a1
+
+	jsr LadderInit
+	move.l #0x08780000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00e0, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_38_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x05600000, Entity_WorldPosX(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0128, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x08f80000, Entity_WorldPosX(a0)
+	move.l #0x04a00000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0110, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_41_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x0c780000, Entity_WorldPosX(a0)
+	move.l #0x04980000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00a0, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_42_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x0d900000, Entity_WorldPosX(a0)
+	move.l #0x04980000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0160, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_43_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x0de80000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0100, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A1_Ladder_44_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
 
 
 
