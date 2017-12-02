@@ -703,10 +703,6 @@ CharacterStartJump:
 
 	; Wake physics
 	move.b #0x0, PhysicsObj_Asleep(a0)
-
-	; Check if player in water
-	tst.b  Character_InWater(a0)
-	bne    @InWater
 	
 	; Set Y velocity
 	move.l Character_JumpVelY(a0), PhysicsObj_VelY(a0)
@@ -731,12 +727,9 @@ CharacterStartJump:
 	move.b #0x1, Character_Jumping(a0)
 	
 	bra    @End
-	
-	@InWater:
 
-	; Jump from water
-	move.l Character_JumpVelWater(a0), PhysicsObj_VelY(a0)
-	move.b #0x1, Character_Jumping(a0)
+	tst.b  Character_InWater(a0)
+	beq    @NoWaterJumpSFX
 
 	; Play water jump SFX
 	lea    (Character_SFX+(CharacterSFXIdx_WaterJump*size_long))(a0), a2
@@ -806,13 +799,7 @@ CharacterAllowRun:
 	; Set max X velocity and snap to floor flag
 	tst.b  Character_Walking(a0)
 	beq    @Running
-	tst.b  Character_InWater(a0)
-	bne    @InWater
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
-	bra    @NotInWater
-	@InWater:
-	move.l Character_MaxVelXWater(a0), PhysicsObj_MaxVelFloorX(a0)
-	@NotInWater:
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	bra    @Walking
 	@Running:
@@ -840,13 +827,7 @@ CharacterPreventRun:
 	; Set max X velocity and snap to floor flag
 	tst.b  Character_Walking(a0)
 	beq    @Running
-	tst.b  Character_InWater(a0)
-	bne    @InWater
 	move.l Character_MaxVelXWalk(a0), PhysicsObj_MaxVelFloorX(a0)
-	bra    @NotInWater
-	@InWater:
-	move.l Character_MaxVelXWater(a0), PhysicsObj_MaxVelFloorX(a0)
-	@NotInWater:
 	move.b #0x0, PhysicsObj_SnapToFloor(a0)
 	bra    @Walking
 	@Running:
