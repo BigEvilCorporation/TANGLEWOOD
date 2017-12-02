@@ -207,17 +207,6 @@ PhysicsObjPreStep:
 	tst.b  Entity_Active(a0)
 	beq    @Inactive
 
-	; If on platform, ignore out of view test
-	tst.l  PhysicsObj_LastPlatform(a0)
-	bne    @OnPlatform
-	
-	; If out of view, treat as asleep
-	move.b AnimObj_UpdateOutOfView(a0), d0
-	or.b   SpriteObj_SpriteLinked(a0), d0
-	beq    @Invisible
-
-	@OnPlatform:
-
 	@ForcedUpdate:
 	
 	tst.b  PhysicsObj_HasPhysics(a0)
@@ -271,11 +260,11 @@ PhysicsObjPreStep:
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
 	move.l #0x0, PhysicsObj_ImpulseY(a0)
 
-	; Clear forced update
-	move.b #0x0, PhysicsObj_ForceUpdate(a0)
-
 	; Sleep if possible
 	jsr    PhysicsObjRest
+	
+	; Clear forced update
+	move.b #0x0, PhysicsObj_ForceUpdate(a0)
 
 	; If moved, update grid cell
 	btst   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
@@ -570,9 +559,17 @@ PhysicsObjApplyWorldForces:
 
 	; Get current Y velocity
 	move.l PhysicsObj_VelY(a0), d5
+	move.l d5, d6
 
 	; Apply gravity
 	sub.l  d2, d5
+
+	; If gravity caused vel to hit zero, still need to do floor tests
+	bne    @NoForceFloorTest
+	tst.l  d6
+	beq    @NoForceFloorTest
+	move.b #0x1, PhysicsObj_ForceUpdate(a0)
+	@NoForceFloorTest:
 
 	; Clamp Y
 	move.l PhysicsObj_MaxVelYUp(a0), d1
@@ -832,6 +829,8 @@ PhysicsObjRest:
 	beq    @CannotSleep
 	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @CannotSleep
+	tst.b  PhysicsObj_ForceUpdate(a0)
+	bne    @CannotSleep
 
 	move.l PhysicsObj_VelX(a0), d0
 	or.l   PhysicsObj_VelY(a0), d0
@@ -2053,41 +2052,9 @@ PhysicsObjFindMovingBarrier:
 	; Set last found wall
 	move.l d4, PhysicsObj_LastWall(a0)
 	move.l Barrier_VelX(a3), PhysicsObj_LastWallVelocity(a0)
-	
-	; Zero X velocity
-	;move.l #0x0, PhysicsObj_VelX(a0)
-
-	; Determine X direction
-	;move.l Barrier_VelX(a3), d1
-	;tst.l  d1
-	;blt    @BarrierHeadingLeft
-	;bgt    @BarrierHeadingRight
-	
-	;@BarrierHeadingRight:
-	
-	; Heading right, clamp object left
-	;move.l d4, Entity_WorldPosX(a0)
 
 	; Moving barrier hit
 	ori.b  #PhysicsObjHitMovingBarrier, PhysicsObj_HitWall(a0)
-	
-	;bra    @EndWallClamp
-	
-	;@BarrierHeadingLeft:
-	
-	; Heading left, clamp object right
-	;clr.l  d2
-	;move.w Entity_Width(a0), d2
-	;TOSUBPIXELS d2
-	;sub.l  d2, d4
-	
-	; Clamp
-	;move.l d4, Entity_WorldPosX(a0)
-
-	; Barrier hit
-	;ori.b  #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
-	
-	;bra    @EndWallClamp
 	
 	@NoWallFound:
 	@NoBarrier:

@@ -41,7 +41,6 @@ Lift_RopeSegments			rs.l Lift_RopeNumSprites
 Lift_RopeSegment			rs.b SpriteObj_Struct_Size
 	ENDIF
 Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
-Lift_LastOccupant			rs.l 1
 Lift_TopLimit				rs.w 1
 Lift_BottomLimit			rs.w 1
 Lift_PlatformOffsetY		rs.w 1
@@ -95,7 +94,6 @@ LiftInit:
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.l  #0x0, Lift_CounterWeight(a0)
-	move.l  #0x0, Lift_LastOccupant(a0)
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
 
@@ -545,127 +543,6 @@ LiftUpdatePlatform:
 
 	rts
 
-LiftUpdatePhysicsWake:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-
-	; Wake physics and force offscreen update for all objects involved, if:
-	;  - Moving
-	;  - or platform occupant has changed
-	;  - or in air and has occupant or prev occupant
-	;  - or counterweight moving
-	;  - or counterweight occupant changed
-	;  - or counterweight in air and counterweight has occupant or prev occupant
-
-	; Get objects for this lift
-	move.l Lift_CounterWeight(a0), a2	; Get counterweight
-	lea    Lift_Platform(a0), a3		; Get platform
-	move.l Platform_LastOccupant(a3), a3; Get current occupant
-	move.l Lift_LastOccupant(a0), a4	; Get previous occupant
-	
-	; Get objects for counterweight
-	cmp.l  #0x0, a2
-	beq    @NoCounterweight
-	lea    Lift_Platform(a2), a5		; Get counterweight's platform
-	move.l Platform_LastOccupant(a5), a5; Get counterweight's current occupant
-	move.l Lift_LastOccupant(a2), a6	; Get counterweight's previous occupant
-	
-	@NoCounterweight:
-	
-	; Check this lift
-	tst.l  PhysicsObj_VelY(a0)			; Check Y vel
-	bne    @WakePhysics					; Wake if moving
-	tst.w  PhysicsObj_AccelY(a0)		; Check Y accel
-	bne    @WakePhysics					; Wake if moving
-	cmp.l  a3, a4						; Wake if occupant changed
-	bne    @WakePhysics
-	tst.b  PhysicsObj_CloseToFloor(a0)	; Wake if in air...
-	bne    @OnFloor
-	cmp.l  #0x0, a3						; ...and has occupant...
-	bne    @WakePhysics
-	cmp.l  #0x0, a4						; ...or has prev occupant
-	bne    @WakePhysics
-	@OnFloor:
-
-	; Check counterweight
-	cmp.l  #0x0, a2
-	beq    @EndSleepCheck
-	tst.l  PhysicsObj_VelY(a2)			; Check Y vel
-	tst.w  PhysicsObj_AccelY(a2)		; Check Y accel
-	bne    @WakePhysics					; Wake if moving
-	bne    @WakePhysics					; Wake if moving
-	cmp.l  a5, a6						; Wake if occupant changed
-	bne    @WakePhysics
-	tst.b  PhysicsObj_CloseToFloor(a2)	; Wake if in air...
-	bne    @CounterweightOnFloor
-	cmp.l  #0x0, a5						; ...and has occupant...
-	bne    @WakePhysics
-	cmp.l  #0x0, a6						; ...or has prev occupant
-	bne    @WakePhysics
-	@CounterweightOnFloor:
-	
-	bra    @EndSleepCheck
-
-	@WakePhysics:
-	
-	; Wake physics and force update
-
-	; This lift
-	move.b #0x0, PhysicsObj_Asleep(a0)
-	move.b #0x1, PhysicsObj_ForceUpdate(a0)
-
-	; This lift's occupant
-	cmp.l  #0x0, a3
-	beq    @NoOccupant
-	move.b #0x0, PhysicsObj_Asleep(a3)
-	move.b #0x1, PhysicsObj_ForceUpdate(a3)
-	@NoOccupant:
-
-	; This lift's prev occupant
-	cmp.l  #0x0, a4
-	beq    @NoPrevOccupant
-	move.b #0x0, PhysicsObj_Asleep(a4)
-	move.b #0x1, PhysicsObj_ForceUpdate(a4)
-	@NoPrevOccupant:
-
-	; Cache prev occupant
-	;cmp.l  #0x0, a3
-	;beq    @NoNewOccupant
-	move.l a3, Lift_LastOccupant(a0)
-	;@NoNewOccupant:
-
-	; Counterweight
-	cmp.l  #0x0, a2
-	beq    @NoCounterweightWake
-	move.b #0x0, PhysicsObj_Asleep(a2)
-	move.b #0x1, PhysicsObj_ForceUpdate(a2)
-
-	; Counterweight's occupant
-	cmp.l  #0x0, a5
-	beq    @NoCWOccupant
-	move.b #0x0, PhysicsObj_Asleep(a5)
-	move.b #0x1, PhysicsObj_ForceUpdate(a5)
-	@NoCWOccupant:
-
-	; Counterweight's prev occupant
-	cmp.l  #0x0, a6
-	beq    @NoCWPrevOccupant
-	move.b #0x0, PhysicsObj_Asleep(a6)
-	move.b #0x1, PhysicsObj_ForceUpdate(a6)
-	@NoCWPrevOccupant:
-
-	; Cache prev occupant
-	;cmp.l  #0x0, a5
-	;beq    @NoNewCWOccupant
-	move.l a5, Lift_LastOccupant(a2)
-	;@NoNewCWOccupant:
-
-	@NoCounterweightWake:
-
-	@EndSleepCheck:
-
-	rts
-
 LiftUpdateAudio:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -783,9 +660,6 @@ LiftUpdate:
 	beq    @NoCounterweight
 	jsr    LiftProcessCounterweight
 	@NoCounterweight:
-
-	; Wake physics if something's changed
-	jsr    LiftUpdatePhysicsWake
 
 	; Process audio
 	jsr    LiftUpdateAudio
