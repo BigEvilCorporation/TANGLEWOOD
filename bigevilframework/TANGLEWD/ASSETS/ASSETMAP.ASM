@@ -77,7 +77,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\fuzzl.asm
 	INCLUDE_TEXT_ASSET assets\sprites\fuzlcage.asm
 	INCLUDE_TEXT_ASSET assets\sprites\generatr.asm
-	INCLUDE_TEXT_ASSET assets\sprites\ladder.asm
+	INCLUDE_TEXT_ASSET assets\sprites\hogg.asm
 	INCLUDE_TEXT_ASSET assets\sprites\log.asm
 	INCLUDE_TEXT_ASSET assets\sprites\lock.asm
 	INCLUDE_TEXT_ASSET assets\sprites\mushroom.asm
@@ -117,6 +117,7 @@ sprite_assets_end
 	include 'assets\palettes\djakk.asm'
 	;include 'assets\palettes\djrake.asm'
 	include 'assets\palettes\djubb.asm'
+	include 'assets\palettes\hogg.asm'
 	include 'assets\palettes\skivv.asm'
 	include 'assets\palettes\scirus.asm'
 	include 'assets\palettes\text.asm'
@@ -144,6 +145,7 @@ sprite_assets_end
 	include 'assets\anims\fuzzl.asm'
 	include 'assets\anims\fuzlcage.asm'
 	include 'assets\anims\generatr.asm'
+	include 'assets\anims\hogg.asm'
 	include 'assets\anims\log.asm'
 	include 'assets\anims\lock.asm'
 	include 'assets\anims\leaf.asm'

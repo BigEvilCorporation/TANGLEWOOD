@@ -3099,7 +3099,7 @@ EchoAI_PushInteractionLadder:
 	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceLadderX, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeToleranceLadderY, EchoAINode_ToleranceY(a3)
+	move.w Entity_Height(a2), EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)

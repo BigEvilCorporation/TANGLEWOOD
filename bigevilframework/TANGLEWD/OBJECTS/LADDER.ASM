@@ -35,12 +35,6 @@ LadderInit:
 	; Set type
 	addq.w #0x1, EntityCount_Ladder
 	
-	; Set render routine
-	move.l #LadderDraw, Entity_RenderRoutine(a0)
-	
-	; Add to render list
-	;jsr    EntityAddToRenderList
-	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
 	move.b  #0x1, SpriteObj_Visible(a0)
@@ -60,61 +54,9 @@ LadderLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Load sprite
-	SPRITE_LOAD_SHARED Ladder,ladder,0,PaletteId_World0,0x0
-
-	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
-	jsr     EntityAddToWorldGrid
-
 	; Position platform
 	lea    Ladder_Platform(a0), a2
 	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
 	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
-
-	rts
-
-LadderDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; d2 (w) Camera left
-	; d3 (w) Camera right
-	; d4 (w) Camera top
-	; d5 (w) Camera bottom
-
-	PUSHMW d2-d5
-
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	beq    @OutOfView
-
-	; Get XY
-	move.w Entity_WorldPosX(a0), d0
-	move.w Entity_WorldPosY(a0), d1
-
-	; To sprite space
-	sub.w  WorldScrollX, d0
-	sub.w  WorldScrollY, d1
-
-	; Loop sprites
-	move.w #Ladder_NumSprites-1, d6
-	@DrawLp:
-
-	; Draw
-	PUSHMW d0-d1/d6
-	move.b #0x0, d2
-	jsr    SpriteObjAllocSprite
-	POPMW  d0-d1/d6
-
-	; Inc. Y
-	addi.w #Ladder_SpriteHeight, d1
-
-	dbra   d6, @DrawLp
-
-	@OutOfView:
-
-	POPMW  d2-d5
 
 	rts
