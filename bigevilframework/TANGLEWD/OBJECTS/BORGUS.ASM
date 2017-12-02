@@ -180,7 +180,7 @@ BorgusLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Borgus,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Borgus,idle,0,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Borgus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -195,7 +195,7 @@ BorgusLoadGfx:
 	; Load spitball and start animation
 	PUSHM   a0-a1
 	lea     Borgus_Spitball(a0), a0
-	SPRITE_LOAD_DEFAULT Spitball,spitball,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Spitball,spitball,0,PaletteId_Monster,0x0
 	ANIM_LOAD_DEFAULT spitball,spitball,move,Spitball_Animation,0,1,0,0
 	lea     Spitball_Animation(a0), a1
 	move.b  #0x0, d0

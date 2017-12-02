@@ -173,7 +173,7 @@ NymnLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT nymn,idle,PaletteId_Player,0x0
+	SPRITE_LOAD_DEFAULT nymn,idle,0,PaletteId_Player,0x0
 
 	rts
 	

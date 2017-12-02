@@ -74,7 +74,7 @@ FireflyLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED firefly,red,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_SHARED firefly,red,0,PaletteId_Fuzzl,0x0
 
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0

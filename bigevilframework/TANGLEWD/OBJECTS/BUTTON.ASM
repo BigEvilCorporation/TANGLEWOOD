@@ -80,7 +80,7 @@ ButtonLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT button,button,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT button,button,0,PaletteId_World0,0x0
 
 	; Load anim
 	ANIM_LOAD_DEFAULT button,button,press,Button_Animation,0,0,0,0

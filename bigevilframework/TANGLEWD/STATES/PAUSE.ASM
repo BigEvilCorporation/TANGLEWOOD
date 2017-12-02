@@ -169,7 +169,7 @@ Pause_Enter:
 	@Allocated:
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT firefly,red,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT firefly,red,0,PaletteId_Fuzzl,0x0
 	
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1

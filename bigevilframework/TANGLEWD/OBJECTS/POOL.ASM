@@ -83,7 +83,7 @@ PoolLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT pool,filling,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT pool,filling,0,PaletteId_World0,0x0
 
 	; Load animation
 	ANIM_LOAD_DEFAULT Pool,filling,filling,Pool_Animation,0,1,0,0

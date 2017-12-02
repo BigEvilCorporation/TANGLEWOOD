@@ -78,7 +78,7 @@ StalactiteLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_SHARED Stalact,stalactite,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED Stalact,stalactite,0,PaletteId_World0,0x0
 
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0

@@ -378,7 +378,7 @@ PasswordScreen_InitUI:
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
 	move.l a3, a5
-	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,0,PaletteId_Fuzzl,0x0
 
 	; Create list widgets and add to window and cursor
 	lea    GameStatePasswordScreenData, a2

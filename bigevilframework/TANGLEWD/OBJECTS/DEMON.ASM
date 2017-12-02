@@ -168,7 +168,7 @@ DemonLoadGfx:
 	bne     @ManualLoad
 
 	; Load sprite (to alloc VRAM for wisp)
-	SPRITE_LOAD_DEFAULT Demon,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Demon,idle,0,PaletteId_Monster,0x0
 
 	; Load wisp
 	jsr DemonLoadWispGfx
@@ -205,7 +205,7 @@ DemonLoadWispGfx:
 	PUSHM   a0-a1
 	move.l  a0, a4
 	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_COPY wisp,idle,PaletteId_Monster,0x0,a4
+	SPRITE_LOAD_COPY wisp,idle,0,PaletteId_Monster,0x0,a4
 	POPM    a0-a1
 
 	rts
@@ -214,7 +214,7 @@ DemonLoadPhysicalGfx:
 
 	; Load demon sprite over top of wisp
 	PUSHM   a0-a1
-	SPRITE_LOAD_COPY Demon,idle,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_COPY Demon,idle,0,PaletteId_Monster,0x0,a0
 	POPM    a0-a1
 
 	rts

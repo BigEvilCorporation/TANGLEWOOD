@@ -288,7 +288,7 @@ l5a3_Trigger_Demon:
 	; Load demon (wisp form) GFX into Djakk VRAM
 	PUSHL  a0
 	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_COPY wisp,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY wisp,idle,0,PaletteId_Monster,0x0,a2
 	POPL   a0
 
 	; Load palette

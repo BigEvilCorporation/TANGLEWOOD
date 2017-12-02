@@ -114,7 +114,7 @@ CartLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT Cart,roll,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Cart,roll,0,PaletteId_World0,0x0
 
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0

@@ -16,11 +16,18 @@ GameScenePaletteLoad:
 	; a0 --- Palette
 	; d0 (b) Slot
 
-	PUSHM  d0/a0-a1
+	PUSHM  d0-d1/a0-a1
 
 	; Set dirty mask
 	andi.l #0xFF, d0
 	bset   d0, (DirtyPalettesMask)
+
+	; Set address
+	move.l d0, d1
+	lsl.l  #0x2, d1
+	lea    ScenePaletteAddrs, a1
+	add.l  d1, a1
+	move.l a0, (a1)
 
 	; Set current DMA palette
 	mulu   #size_palette_b, d0
@@ -37,7 +44,7 @@ GameScenePaletteLoad:
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	POPM   d0/a0-a1
+	POPM   d0-d1/a0-a1
 
 	rts
 
@@ -74,9 +81,16 @@ GameScenePaletteFadeTo:
 	; d3 (b) Start colour idx
 	; d4 (b) End colour idx
 
-	PUSHM  d0-d4/a0-a1
+	PUSHM  d0-d5/a0-a1
 
 	andi.l #0xFF, d0
+
+	; Set address
+	move.l d0, d5
+	lsl.l  #0x2, d5
+	lea    ScenePaletteAddrs, a1
+	add.l  d5, a1
+	move.l a0, (a1)
 
 	; Set scene palette
 	PUSHM  d0-d4/a0-a1
@@ -90,7 +104,7 @@ GameScenePaletteFadeTo:
 	; Fade up
 	jsr    PAL_LerpStart
 
-	POPM   d0-d4/a0-a1
+	POPM   d0-d5/a0-a1
 
 	rts
 

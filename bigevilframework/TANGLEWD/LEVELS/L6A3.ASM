@@ -103,7 +103,7 @@ l6a3_Init:
 	move.l Entity_TypeBits(a0), d0
 	andi.l #entity_type_spriteobj, d0
 	beq    @NotSprite
-	move.b #0x1, SpriteObj_Palette(a0)
+	move.b #0x1, SpriteObj_PaletteIdx(a0)
 	@NotSprite:
 	LIST_GET_NEXT EntityUpdate,a0,a0
 	bra    @EntityLp

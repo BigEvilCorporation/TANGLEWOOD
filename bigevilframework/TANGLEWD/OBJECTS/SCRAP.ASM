@@ -113,7 +113,7 @@ ScrapLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT scrap,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT scrap,idle,0,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT scrap,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0

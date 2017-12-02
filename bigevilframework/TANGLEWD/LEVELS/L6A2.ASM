@@ -144,7 +144,7 @@ l6a2_Init:
 	move.l Entity_TypeBits(a0), d0
 	andi.l #entity_type_spriteobj, d0
 	beq    @NotSprite
-	move.b #0x1, SpriteObj_Palette(a0)
+	move.b #0x1, SpriteObj_PaletteIdx(a0)
 	@NotSprite:
 	LIST_GET_NEXT EntityUpdate,a0,a0
 	bra    @EntityLp
@@ -224,7 +224,7 @@ l6a2_Trigger_WakeDjakk4:
 	; Steal VRAM from a dead one
 	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 	cmp.b  #MonsterState_InCave, Monster_State(a0)
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
@@ -241,7 +241,7 @@ l6a2_Trigger_LoadDjakk5:
 	; Steal VRAM from a dead one
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 	
 	POPL   a0
 
@@ -336,11 +336,11 @@ l6a2_Trigger_Log1:
 	; Load Djakks 6 and 7
 	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 
 	POPL   a0
 
@@ -371,11 +371,11 @@ l6a2_Trigger_Log3:
 	; Load Djakks 8 and 9
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
 	jsr    l6a2_StealDjakkVRAM
-	SPRITE_LOAD_COPY djakk,idle,PaletteId_Monster,0x0,a2
+	SPRITE_LOAD_COPY djakk,idle,0,PaletteId_Monster,0x0,a2
 
 	POPL   a0
 

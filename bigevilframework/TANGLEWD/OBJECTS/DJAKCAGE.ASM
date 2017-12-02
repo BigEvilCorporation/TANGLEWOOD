@@ -84,7 +84,7 @@ DjakkCageLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED DjakCage,djakk_cage,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED DjakCage,djakk_cage,0,PaletteId_World0,0x0
 
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0

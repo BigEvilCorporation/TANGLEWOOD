@@ -97,7 +97,7 @@ DjubbLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT djubb,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djubb,idle,0,PaletteId_Monster,0x0
 
 	; Setup default character animations
 	ANIM_LOAD_DEFAULT djubb,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0

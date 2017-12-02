@@ -319,7 +319,7 @@ l4a3_Trigger_LoadLift:
 	; Load cargo lift into Borgus' VRAM
 	ENTITY_GETBYNAME CargoLift, l4a3_CargoLift, a0
 	ENTITY_GETBYNAME Borgus, l4a3_Borgus, a2
-	SPRITE_LOAD_SHARED_VRAM cargolft,cargo_lift,PaletteId_World0,0x0,a2
+	SPRITE_LOAD_SHARED_VRAM cargolft,cargo_lift,0,PaletteId_World0,0x0,a2
 
 	POPL  a0
 

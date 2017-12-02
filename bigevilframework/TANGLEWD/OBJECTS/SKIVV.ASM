@@ -73,8 +73,8 @@ SkivvInit:
 	; Initialise
 	move.w #Skivv_Width, Entity_Width(a0)
 	move.w #Skivv_Height, Entity_Height(a0)
-	move.b #SkivvState_Inactive, Skivv_State(a0)
-
+	move.b #0x1, SpriteObj_PaletteAutoLoad(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	MOVE_NTSC_L Skivv_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Skivv_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Skivv_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
@@ -89,8 +89,7 @@ SkivvInit:
 	move.w #Skivv_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w #Skivv_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Skivv_Mass, PhysicsObj_Mass(a0)
-
-	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b #SkivvState_Inactive, Skivv_State(a0)
 
 	; Setup collision bounds
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
@@ -117,7 +116,7 @@ SkivvLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT skivv,move,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT skivv,move,palette_skivv,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT skivv,move,move,Character_Animations,CharacterAnimIdx_Idle,1,0,0

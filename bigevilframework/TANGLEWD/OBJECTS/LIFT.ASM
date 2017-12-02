@@ -170,7 +170,7 @@ LiftLoadGfx:
 
 	PUSHL  a1
 
-	SPRITE_LOAD_SHARED lift,lift,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED lift,lift,0,PaletteId_World0,0x0
 
 	; Load rope segments
 	IF LIFT_ROPE_SUPPORT_SWING
@@ -192,7 +192,7 @@ LiftLoadGfx:
 	; Single, static, reusable rope segment
 	PUSHL a0
 	lea   Lift_RopeSegment(a0), a0
-	SPRITE_LOAD_DEFAULT rope,rope,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT rope,rope,0,PaletteId_World0,0x0
 	POPL  a0
 
 	ENDIF ; LIFT_ROPE_SUPPORT_SWING

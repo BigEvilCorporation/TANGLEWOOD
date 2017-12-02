@@ -14,18 +14,20 @@
 SpriteObj_SubSpriteDimArr     rs.l 1	; Multi-sprite subsprite dimentions bits array address
 SpriteObj_SubSpriteOffArr     rs.l 1	; Subsprite position offsets array address
 SpriteObj_TilesetAddr         rs.l 1	; Art tiles ROM address
+SpriteObj_PaletteAddr         rs.l 1	; Palette ROM address
 SpriteObj_VRAMAddr            rs.w 1	; Art tiles VRAM address
 SpriteObj_DrawOffsetX	      rs.w 1	; Sprite draw offset X (pixels)
 SpriteObj_DrawOffsetY	      rs.w 1	; Sprite draw offset Y (pixels)
 SpriteObj_SizeTiles           rs.w 1	; Number of tiles
 SpriteObj_TileID              rs.w 1	; First tile ID (VRAM)
-SpriteObj_Palette             rs.b 1	; Palette ID
+SpriteObj_PaletteIdx          rs.b 1	; Palette ID
 SpriteObj_Priority            rs.b 1	; Priority (0/1)
 SpriteObj_NumSubSprites       rs.b 1	; Num sub-sprites
 SpriteObj_FlippedX            rs.b 1	; Sprite flip X
 SpriteObj_FlippedY            rs.b 1	; Sprite flip Y
 SpriteObj_Visible             rs.b 1	; Is visible (hidden in sprite border if not)
 SpriteObj_SpriteLinked        rs.b 1	; Is sprite linked (use as last frame visibility test)
+SpriteObj_PaletteAutoLoad     rs.b 1	; Load palette if on screen and not loaded
 ;-----------------------------------
 	RS_ALIGN
 SpriteObj_Struct_Size         rs.b 0
@@ -45,6 +47,7 @@ SpriteObjInit:
 	move.b #0x1, Entity_Active(a0)
 	move.l #0x0, SpriteObj_SubSpriteOffArr(a0)
 	move.l #0x0, SpriteObj_TilesetAddr(a0)
+	move.l #0x0, SpriteObj_PaletteAddr(a0)
 	move.w #0x0, SpriteObj_VRAMAddr(a0)
 	move.w #0x0, SpriteObj_DrawOffsetX(a0)
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
@@ -54,6 +57,7 @@ SpriteObjInit:
 	move.b #0x0, SpriteObj_FlippedY(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x0, SpriteObj_SpriteLinked(a0)
+	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
 
 	rts
 	
@@ -63,6 +67,7 @@ SpriteObjLoad:
 	; a2 --- Multi-sprite subsprite dimentions bits array address
 	; a3 --- Multi-sprite subsprite position offsets array address
 	; a4 --- Multi-sprite tiles per subsprite array address
+	; a5 --- Palette addr
 	; d0 (w) VRAM address
 	; d1 (w) Num tiles
 	; d2 (b) Num subsprites
@@ -72,10 +77,11 @@ SpriteObjLoad:
 	move.l a1, SpriteObj_TilesetAddr(a0)
 	move.l a2, SpriteObj_SubSpriteDimArr(a0)
 	move.l a3, SpriteObj_SubSpriteOffArr(a0)
+	move.l a5, SpriteObj_PaletteAddr(a0)
 	move.w d0, SpriteObj_VRAMAddr(a0)
 	move.w d1, SpriteObj_SizeTiles(a0)
 	move.b d2, SpriteObj_NumSubSprites(a0)
-	move.b d4, SpriteObj_Palette(a0)
+	move.b d4, SpriteObj_PaletteIdx(a0)
 	move.b d5, SpriteObj_Priority(a0)
 
 	; VRAM address to tile ID
@@ -101,6 +107,7 @@ SpriteObjLoadShared:
 	; a1 --- Tileset address
 	; a2 --- Multi-sprite subsprite dimentions bits array address
 	; a3 --- Multi-sprite subsprite position offsets array address
+	; a5 --- Palette addr
 	; d0 (w) VRAM address
 	; d1 (w) Num tiles
 	; d2 (b) Num subsprites
@@ -110,10 +117,11 @@ SpriteObjLoadShared:
 	move.l a1, SpriteObj_TilesetAddr(a0)
 	move.l a2, SpriteObj_SubSpriteDimArr(a0)
 	move.l a3, SpriteObj_SubSpriteOffArr(a0)
+	move.l a5, SpriteObj_PaletteAddr(a0)
 	move.w d0, SpriteObj_VRAMAddr(a0)
 	move.w d1, SpriteObj_SizeTiles(a0)
 	move.b d2, SpriteObj_NumSubSprites(a0)
-	move.b d4, SpriteObj_Palette(a0)
+	move.b d4, SpriteObj_PaletteIdx(a0)
 	move.b d5, SpriteObj_Priority(a0)
 
 	; VRAM address to tile ID
@@ -142,7 +150,7 @@ SpriteObjAllocSprite:
 	PUSHM  a0-a3/d0-d3
 	move.b d2, d5
 	move.w SpriteObj_TileID(a0), d2
-	move.b SpriteObj_Palette(a0), d3
+	move.b SpriteObj_PaletteIdx(a0), d3
 	move.b SpriteObj_Priority(a0), d4
 	move.b SpriteObj_NumSubSprites(a0), d6
 	move.l SpriteObj_SubSpriteOffArr(a0), a2
@@ -216,7 +224,33 @@ SpriteObjDraw:
 	POPM   d2-d5
 	
 	; Sprite linked
+	move.b SpriteObj_SpriteLinked(a0), d1
 	move.b #0x1, SpriteObj_SpriteLinked(a0)
+
+	; If not previously linked
+	tst.b  d1
+	bne    @End
+
+	; If palette not loaded, DMA it
+	tst.b  SpriteObj_PaletteAutoLoad(a0)
+	beq    @End
+
+	moveq  #0x0, d0
+	move.b SpriteObj_PaletteIdx(a0), d0
+	move.l SpriteObj_PaletteAddr(a0), a2
+	
+	move.l d0, d1
+	lsl.l  #0x2, d1
+	lea    ScenePaletteAddrs, a3
+	add.l  d1, a3
+	move.l (a3), a3
+	cmp.l  SpriteObj_PaletteAddr(a0), a3
+	beq    @End
+
+	PUSHL  a0
+	move.l a2, a0
+	jsr    GameScenePaletteLoad
+	POPL   a0
 	
 	bra    @End
 	

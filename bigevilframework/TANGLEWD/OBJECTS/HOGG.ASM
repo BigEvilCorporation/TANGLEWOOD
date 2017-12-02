@@ -79,9 +79,8 @@ HoggInit:
 	; Initialise
 	move.w #Hogg_Width, Entity_Width(a0)
 	move.w #Hogg_Height, Entity_Height(a0)
-	move.w #0x0, Hogg_StuckTimer(a0)
-	move.b #HoggState_Idle, Hogg_State(a0)
-
+	move.b #0x1, SpriteObj_PaletteAutoLoad(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	MOVE_NTSC_L Hogg_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Hogg_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Hogg_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
@@ -96,8 +95,8 @@ HoggInit:
 	move.w #Hogg_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w #Hogg_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Hogg_Mass, PhysicsObj_Mass(a0)
-
-	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	move.w #0x0, Hogg_StuckTimer(a0)
+	move.b #HoggState_Idle, Hogg_State(a0)
 
 	; Setup collision bounds
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
@@ -124,7 +123,7 @@ HoggLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT Hogg,run,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Hogg,run,palette_hogg,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Hogg,run,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0

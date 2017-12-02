@@ -190,7 +190,7 @@ DjrakeLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT djrake,ifle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djrake,ifle,0,PaletteId_Monster,0x0
 
 	rts
 

@@ -201,6 +201,7 @@ MonsterInit:
 
 	move.w  #Monster_Width, Entity_Width(a0)
 	move.w  #Monster_Height, Entity_Height(a0)
+	move.b  #0x1, SpriteObj_PaletteAutoLoad(a0)
 	move.w  #Monster_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Monster_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Monster_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
@@ -275,7 +276,7 @@ MonsterLoadGfx:
 	; Load sprite
 	tst.b   Monster_ManualGfxLoad(a0)
 	bne     @ManualLoad
-	SPRITE_LOAD_DEFAULT djakk,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT djakk,idle,palette_fade_black,PaletteId_Monster,0x0
 	@ManualLoad:
 
 	; Setup default character animations
@@ -299,7 +300,7 @@ MonsterLoadGfx:
 	; Load sprite
 	tst.b   Monster_ManualGfxLoad(a0)
 	bne     @ManualLoadElder
-	SPRITE_LOAD_DEFAULT elder,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT elder,idle,0,PaletteId_Monster,0x0
 	@ManualLoadElder:
 
 	; Setup default character animations

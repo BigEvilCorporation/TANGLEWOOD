@@ -356,7 +356,7 @@ EchoLoadGfx:
 
 	IF INCLUDE_CHARACTER_ECHO
 
-	SPRITE_LOAD_DEFAULT echo,idle,PaletteId_Player,0x0
+	SPRITE_LOAD_DEFAULT echo,idle,0,PaletteId_Player,0x0
 
 	ENDIF
 

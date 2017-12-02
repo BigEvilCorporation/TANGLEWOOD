@@ -56,7 +56,7 @@ WinchLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_SHARED winch,winch,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED winch,winch,0,PaletteId_World0,0x0
 
 	; Load animation
 	ANIM_LOAD_DEFAULT winch,winch,turn,Winch_Animation,0,1,0,0

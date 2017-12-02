@@ -196,7 +196,7 @@ FuzzlSetColour:
 	beq   @White
 
 	@Red:
-	SPRITE_LOAD_DEFAULT fuzzl,red_idle,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,red_idle,0,PaletteId_Fuzzl,0x0
 	ANIM_LOAD_DEFAULT fuzzl,red_idle,red_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,red_eyes,red_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,red_roll,red_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
@@ -205,7 +205,7 @@ FuzzlSetColour:
 	bra   @End
 
 	@Yellow:
-	SPRITE_LOAD_DEFAULT fuzzl,yellow_idle,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,yellow_idle,0,PaletteId_Fuzzl,0x0
 	ANIM_LOAD_DEFAULT fuzzl,yellow_idle,yellow_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,yellow_eyes,yellow_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,yellow_roll,yellow_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
@@ -214,7 +214,7 @@ FuzzlSetColour:
 	bra   @End
 
 	@Green:
-	SPRITE_LOAD_DEFAULT fuzzl,green_idle,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,green_idle,0,PaletteId_Fuzzl,0x0
 	ANIM_LOAD_DEFAULT fuzzl,green_idle,green_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,green_eyes,green_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,green_roll,green_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
@@ -223,7 +223,7 @@ FuzzlSetColour:
 	bra   @End
 
 	@Blue:
-	SPRITE_LOAD_DEFAULT fuzzl,blue_idle,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,blue_idle,0,PaletteId_Fuzzl,0x0
 	ANIM_LOAD_DEFAULT fuzzl,blue_idle,blue_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,blue_eyes,blue_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,blue_roll,blue_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
@@ -232,7 +232,7 @@ FuzzlSetColour:
 	bra   @End
 
 	@White:
-	SPRITE_LOAD_DEFAULT fuzzl,white_idle,PaletteId_Fuzzl,0x0
+	SPRITE_LOAD_DEFAULT fuzzl,white_idle,0,PaletteId_Fuzzl,0x0
 	ANIM_LOAD_DEFAULT fuzzl,white_idle,white_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,white_eyes,white_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
 	ANIM_LOAD_DEFAULT fuzzl,white_roll,white_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0

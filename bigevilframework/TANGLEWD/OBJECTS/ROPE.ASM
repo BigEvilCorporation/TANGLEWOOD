@@ -80,6 +80,6 @@ RopeSegmentLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	SPRITE_LOAD_DEFAULT rope,rope,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT rope,rope,0,PaletteId_World0,0x0
 	
 	rts

@@ -231,6 +231,9 @@ CurrentPalettes        rs.b (size_palette_b*num_palettes)
 ; Scene palettes (for effects to revert to when finished)
 ScenePalettes          rs.b (size_palette_b*num_palettes)
 
+; Scene palette addresses (for objects that auto-load palettes to determine if valid)
+ScenePaletteAddrs      rs.l num_palettes
+
 ; Underwater palettes (DMA'd during HINT)
 UnderwaterPalettes     rs.b (size_palette_b*num_palettes)
 

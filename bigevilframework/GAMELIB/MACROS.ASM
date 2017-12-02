@@ -157,7 +157,7 @@ CAMERA_GETSCREENBOUNDS_VEC2: macro topleftreg,bottomrightreg,tempreg
 ;==============================================================
 
 	; Alloc VRAM and load sprite
-SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,prio
+SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,paletteidx,prio
 	PUSHM  d0-d5/a0-a2
 	move.w #actor_\actor\_sheet_\sheet\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
@@ -166,18 +166,19 @@ SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,prio
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
 	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
-	move.b #\palette, d4
+	move.b #\paletteidx, d4
 	move.b #\prio, d5
+	move.l #\palette, a5
 	jsr    SpriteObjLoad
 	POPM   d0-d5/a0-a2
 	endm
 
 	; Load sprite from shared VRAM
-SPRITE_LOAD_SHARED: macro actor,sheet,palette,prio
+SPRITE_LOAD_SHARED: macro actor,sheet,palette,paletteidx,prio
 	PUSHM  d0-d5/a0-a2
 	tst.w  SharedVRAM_\actor
 	bne    @AlreadyAllocd\@
-	SPRITE_LOAD_DEFAULT \actor,\sheet,\palette,\prio
+	SPRITE_LOAD_DEFAULT \actor,\sheet,\palette,\paletteidx,\prio
 	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\actor
 	bra    @End\@
 	@AlreadyAllocd\@:
@@ -187,15 +188,16 @@ SPRITE_LOAD_SHARED: macro actor,sheet,palette,prio
 	move.w SharedVRAM_\actor, d0
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
 	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
-	move.b #\palette, d4
+	move.b #\paletteidx, d4
 	move.b #\prio, d5
+	move.l #\palette, a5
 	jsr    SpriteObjLoadShared
 	@End\@:
 	POPM   d0-d5/a0-a2
 	endm
 
 	; Use sprite sharing VRAM from existing object
-SPRITE_LOAD_COPY: macro actor,sheet,palette,prio,sourceobjreg
+SPRITE_LOAD_COPY: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
 	lea    spritesheets_\actor, a1
@@ -203,15 +205,16 @@ SPRITE_LOAD_COPY: macro actor,sheet,palette,prio,sourceobjreg
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
 	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
-	move.b #\palette, d4
+	move.b #\paletteidx, d4
 	move.b #\prio, d5
+	move.l #\palette, a5
 	jsr    SpriteObjLoadShared
 	@End\@:
 	POPM   d0-d5/a0-a2
 	endm
 
 	; Load sprite taking VRAM from existing object
-SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,prio,sourceobjreg
+SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
 	lea    spritesheets_\actor, a1
@@ -219,8 +222,9 @@ SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,prio,sourceobjreg
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
 	move.b #actor_\actor\_sheet_\sheet\_frame_0_size_subsprites, d2
-	move.b #\palette, d4
+	move.b #\paletteidx, d4
 	move.b #\prio, d5
+	move.l #\palette, a5
 	jsr    SpriteObjLoad
 	POPM   d0-d5/a0-a2
 	endm

@@ -97,8 +97,8 @@ ScirusInit:
 	; Initialise
 	move.w #Scirus_Width, Entity_Width(a0)
 	move.w #Scirus_Height, Entity_Height(a0)
-	move.b #ScirusState_Inactive, Scirus_State(a0)
-
+	move.b #0x1, SpriteObj_PaletteAutoLoad(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 	MOVE_NTSC_L Scirus_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Scirus_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.w #Scirus_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
@@ -111,9 +111,8 @@ ScirusInit:
 	move.w #Scirus_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Scirus_Mass, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
-	move.b #0x1, AnimObj_UpdateOutOfView(a0)
-
 	MOVE_NTSC_L Scirus_WalkToRunVel, Character_WalkToRunVel(a0), d0
+	move.b #ScirusState_Inactive, Scirus_State(a0)
 
 	; Exported the wrong way round, oops
 	move.b #0x1, Character_InvertSpriteFlip(a0)
@@ -142,7 +141,7 @@ ScirusLoadGfx:
 	; a1 --- Level addr
 
 	; Load initial sprite sheet (just to alloc VRAM)
-	SPRITE_LOAD_DEFAULT Scirus,idle,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Scirus,idle,palette_scirus,PaletteId_Monster,0x0
 
 	; Set affinity to load correct friend/foe graphics
 	move.b Scirus_Affinity(a0), d0
@@ -245,7 +244,7 @@ ScirusSetAffinity:
 	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelForced, Character_DecelForced(a0), d0
 
 	; Load sprite sheet
-	SPRITE_LOAD_SHARED_VRAM Scirus,idle_angry,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM Scirus,idle_angry,palette_scirus,PaletteId_Monster,0x0,a0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Scirus,idle_angry,idle_angry,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -276,7 +275,7 @@ ScirusSetAffinity:
 	MOVE_NTSC_ACCEL_W Scirus_FriendDecelForced, Character_DecelForced(a0), d0
 
 	; Load sprite sheet
-	SPRITE_LOAD_SHARED_VRAM Scirus,idle,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM Scirus,idle,palette_scirus,PaletteId_Monster,0x0,a0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Scirus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0

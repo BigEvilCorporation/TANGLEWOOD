@@ -71,7 +71,7 @@ LockLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Lock,raise,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT Lock,raise,0,PaletteId_World0,0x0
 
 	; Load animation
 	ANIM_LOAD_MANUALCONTROL lock,raise,raise,Lock_Animation,0
