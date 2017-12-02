@@ -9,9 +9,9 @@
 
 L5A3_Leaf_count equ 0x0
 
-L5A3_Djubb_count equ 0x0
-
 L5A3_Trap_count equ 0x0
+
+L5A3_Djubb_count equ 0x0
 
 L5A3_Echo_count equ 0x1
 L5A3_Echo_4_idx	equ 0x0
@@ -31,11 +31,11 @@ L5A3_Nymn_3_name	dc.b "L5A3_Nymn_3",0
 
 L5A3_BouncePlant_count equ 0x0
 
-L5A3_Log_count equ 0x0
+L5A3_Borgus_count equ 0x0
 
 L5A3_DjakkCage_count equ 0x0
 
-L5A3_Borgus_count equ 0x0
+L5A3_Log_count equ 0x0
 
 L5A3_Monster_count equ 0x1
 L5A3_Djakk1_idx	equ 0x0
@@ -285,6 +285,8 @@ L5A3_Scrap_name	dc.b "L5A3_Scrap",0
 
 L5A3_Longboat_count equ 0x0
 
+L5A3_Skivv_count equ 0x0
+
 L5A3_Ladder_count equ 0x6
 L5A3_Ladder_5_idx	equ 0x0
 L5A3_Ladder_49_idx	equ 0x1
@@ -302,6 +304,10 @@ L5A3_Ladder_81_name	dc.b "L5A3_Ladder_81",0
 L5A3_Ladder_83_name	dc.b "L5A3_Ladder_83",0
 	even
 	ENDIF
+
+L5A3_Scirus_count equ 0x0
+
+L5A3_Hogg_count equ 0x0
 
 L5A3_Bridge_count equ 0x3
 L5A3_Bridge1_idx	equ 0x0
@@ -1274,6 +1280,7 @@ L5A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A3_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -1357,6 +1364,8 @@ L5A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
+
+
 
 
 	PUSHL  a1

@@ -20,7 +20,7 @@ terrainmap_blockmap_L5A1_width	equ 0xFB
 terrainmap_blockmap_L5A1_height	equ 0x31
 
 ; Terrain bezier bounds
-terrainmap_L5A1_num_special_terrain_descs	equ 0x08
+terrainmap_L5A1_num_special_terrain_descs	equ 0x07
 terrainmap_L5A1_special_terrain_descs:
 	dc.w 0x0928, 0x0227, 0x0BC0, 0x0227, 0x8000	; Left, top, right, bottom, flags
 	dc.w 0x0798, 0x0417, 0x0C10, 0x0417, 0x8000	; Left, top, right, bottom, flags
@@ -29,5 +29,4 @@ terrainmap_L5A1_special_terrain_descs:
 	dc.w 0x19A8, 0x053F, 0x1D48, 0x053F, 0x8000	; Left, top, right, bottom, flags
 	dc.w 0x0F50, 0x04CF, 0x1288, 0x04CF, 0x1000	; Left, top, right, bottom, flags
 	dc.w 0x1680, 0x0537, 0x17C0, 0x0537, 0x1000	; Left, top, right, bottom, flags
-	dc.w 0x0BD0, 0x02BF, 0x0DD0, 0x02BF, 0x1000	; Left, top, right, bottom, flags
 

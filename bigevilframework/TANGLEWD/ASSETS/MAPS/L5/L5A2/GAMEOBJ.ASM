@@ -9,9 +9,9 @@
 
 L5A2_Leaf_count equ 0x0
 
-L5A2_Djubb_count equ 0x0
-
 L5A2_Trap_count equ 0x0
+
+L5A2_Djubb_count equ 0x0
 
 L5A2_Echo_count equ 0x1
 L5A2_Echo_6_idx	equ 0x0
@@ -31,6 +31,10 @@ L5A2_Nymn_5_name	dc.b "L5A2_Nymn_5",0
 
 L5A2_BouncePlant_count equ 0x0
 
+L5A2_Borgus_count equ 0x0
+
+L5A2_DjakkCage_count equ 0x0
+
 L5A2_Log_count equ 0x1
 L5A2_Log1_idx	equ 0x0
 
@@ -38,10 +42,6 @@ L5A2_Log1_idx	equ 0x0
 L5A2_Log1_name	dc.b "L5A2_Log1",0
 	even
 	ENDIF
-
-L5A2_DjakkCage_count equ 0x0
-
-L5A2_Borgus_count equ 0x0
 
 L5A2_Monster_count equ 0x0
 
@@ -125,7 +125,13 @@ L5A2_TriggerBox_EndLevel_name	dc.b "L5A2_TriggerBox_EndLevel",0
 
 L5A2_Checkpoint_count equ 0x0
 
-L5A2_WaterBody_count equ 0x0
+L5A2_WaterBody_count equ 0x1
+L5A2_WaterBody_56_idx	equ 0x0
+
+	IFND FINAL
+L5A2_WaterBody_56_name	dc.b "L5A2_WaterBody_56",0
+	even
+	ENDIF
 
 L5A2_Location_count equ 0x0
 
@@ -213,6 +219,8 @@ L5A2_Scrap_count equ 0x0
 
 L5A2_Longboat_count equ 0x0
 
+L5A2_Skivv_count equ 0x0
+
 L5A2_Ladder_count equ 0xa
 L5A2_Ladder_7_idx	equ 0x0
 L5A2_Ladder_8_idx	equ 0x1
@@ -238,6 +246,10 @@ L5A2_Ladder_39_name	dc.b "L5A2_Ladder_39",0
 L5A2_Ladder_40_name	dc.b "L5A2_Ladder_40",0
 	even
 	ENDIF
+
+L5A2_Scirus_count equ 0x0
+
+L5A2_Hogg_count equ 0x0
 
 L5A2_Bridge_count equ 0x0
 
@@ -288,6 +300,8 @@ L5A2_LoadGameObjects:
 
 
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L5A2_Log_count)
 	move.l a1, EntityPoolStart_Log
@@ -306,8 +320,6 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 
@@ -604,6 +616,25 @@ L5A2_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L5A2_WaterBody_count)
+	move.l a1, EntityPoolStart_WaterBody
+	move.l a1, a0
+	POPL   a1
+
+	jsr WaterBodyInit
+	move.l #0x0d800000, Entity_WorldPosX(a0)
+	move.l #0x05f80000, Entity_WorldPosY(a0)
+	jsr WaterBodyLoadGfx
+	IFND FINAL
+	lea L5A2_WaterBody_56_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #WaterBody_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -797,6 +828,7 @@ L5A2_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A2_Ladder_count)
 	move.l a1, EntityPoolStart_Ladder
@@ -932,6 +964,8 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
+
+
 
 
 
