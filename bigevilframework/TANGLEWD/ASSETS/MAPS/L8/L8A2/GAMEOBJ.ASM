@@ -9,6 +9,8 @@
 
 L8A2_Leaf_count equ 0x0
 
+L8A2_Trap_count equ 0x0
+
 L8A2_Djubb_count equ 0x4
 L8A2_Djubb_4_idx	equ 0x0
 L8A2_Djubb_5_idx	equ 0x1
@@ -23,8 +25,6 @@ L8A2_Djubb_7_name	dc.b "L8A2_Djubb_7",0
 	even
 	ENDIF
 
-L8A2_Trap_count equ 0x0
-
 L8A2_Echo_count equ 0x1
 L8A2_Echo_1_idx	equ 0x0
 
@@ -37,11 +37,11 @@ L8A2_Nymn_count equ 0x0
 
 L8A2_BouncePlant_count equ 0x0
 
-L8A2_Log_count equ 0x0
+L8A2_Borgus_count equ 0x0
 
 L8A2_DjakkCage_count equ 0x0
 
-L8A2_Borgus_count equ 0x0
+L8A2_Log_count equ 0x0
 
 L8A2_Monster_count equ 0x1
 L8A2_Djakk1_idx	equ 0x0
@@ -81,7 +81,13 @@ L8A2_TriggerDjakk_name	dc.b "L8A2_TriggerDjakk",0
 
 L8A2_Checkpoint_count equ 0x0
 
-L8A2_WaterBody_count equ 0x0
+L8A2_WaterBody_count equ 0x1
+L8A2_WaterBody_9_idx	equ 0x0
+
+	IFND FINAL
+L8A2_WaterBody_9_name	dc.b "L8A2_WaterBody_9",0
+	even
+	ENDIF
 
 L8A2_Location_count equ 0x0
 
@@ -94,8 +100,6 @@ L8A2_Crate_count equ 0x0
 L8A2_Generator_count equ 0x0
 
 L8A2_Cogs_count equ 0x0
-
-L8A2_Bridge_count equ 0x0
 
 L8A2_Button_count equ 0x0
 
@@ -115,8 +119,6 @@ L8A2_Lock_count equ 0x0
 
 L8A2_Pool_count equ 0x0
 
-L8A2_Ladder_count equ 0x0
-
 L8A2_Stalactite_count equ 0x0
 
 L8A2_CargoLift_count equ 0x0
@@ -125,9 +127,20 @@ L8A2_Scrap_count equ 0x0
 
 L8A2_Longboat_count equ 0x0
 
+L8A2_Skivv_count equ 0x0
+
+L8A2_Ladder_count equ 0x0
+
+L8A2_Scirus_count equ 0x0
+
+L8A2_Hogg_count equ 0x0
+
+L8A2_Bridge_count equ 0x0
+
 
 
 L8A2_LoadGameObjects:
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L8A2_Djubb_count)
@@ -138,6 +151,7 @@ L8A2_LoadGameObjects:
 	jsr DjubbInit
 	move.l #0x05f80000, Entity_WorldPosX(a0)
 	move.l #0x04780000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_4_name, a3
 	move.l a0, a2
@@ -145,11 +159,12 @@ L8A2_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
 	jsr DjubbInit
 	move.l #0x05f00000, Entity_WorldPosX(a0)
 	move.l #0x04d00000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_5_name, a3
 	move.l a0, a2
@@ -157,11 +172,12 @@ L8A2_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
 	jsr DjubbInit
 	move.l #0x03780000, Entity_WorldPosX(a0)
 	move.l #0x04680000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_6_name, a3
 	move.l a0, a2
@@ -169,11 +185,12 @@ L8A2_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
+
 	jsr DjubbInit
 	move.l #0x04880000, Entity_WorldPosX(a0)
 	move.l #0x04900000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_7_name, a3
 	move.l a0, a2
@@ -181,7 +198,6 @@ L8A2_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr DjubbLoadGfx
 	add.l #Djubb_Struct_Size, a0
 
 
@@ -194,6 +210,7 @@ L8A2_LoadGameObjects:
 	jsr EchoInit
 	move.l #0x05100000, Entity_WorldPosX(a0)
 	move.l #0x00800000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
 	IFND FINAL
 	lea L8A2_Echo_1_name, a3
 	move.l a0, a2
@@ -201,8 +218,8 @@ L8A2_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -218,6 +235,7 @@ L8A2_LoadGameObjects:
 	jsr MonsterInit
 	move.l #0x02300000, Entity_WorldPosX(a0)
 	move.l #0x06280000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
 	IFND FINAL
 	lea L8A2_Djakk1_name, a3
 	move.l a0, a2
@@ -225,8 +243,8 @@ L8A2_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr MonsterLoadGfx
 	add.l #Monster_Struct_Size, a0
+
 
 
 
@@ -246,6 +264,9 @@ L8A2_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x00d80000, Entity_WorldPosX(a0)
 	move.l #0x06d00000, Entity_WorldPosY(a0)
+	move.l #l8a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A2_TriggerLevelEnd_name, a3
 	move.l a0, a2
@@ -253,13 +274,14 @@ L8A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a2_Trigger_End, TriggerBox_Routine(a0)
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x04100000, Entity_WorldPosX(a0)
+	move.l #0x06300000, Entity_WorldPosY(a0)
+	move.l #l8a2_Trigger_Djakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
-	add.l #TriggerBox_Struct_Size, a0
-	jsr TriggerBoxInit
-	move.l #0x02b00000, Entity_WorldPosX(a0)
-	move.l #0x06080000, Entity_WorldPosY(a0)
 	IFND FINAL
 	lea L8A2_TriggerDjakk_name, a3
 	move.l a0, a2
@@ -267,10 +289,32 @@ L8A2_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l8a2_Trigger_Djakk, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L8A2_WaterBody_count)
+	move.l a1, EntityPoolStart_WaterBody
+	move.l a1, a0
+	POPL   a1
+
+	jsr WaterBodyInit
+	move.l #0x03300000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.w #0x0300, Entity_Width(a0)
+	move.w #0x0098, Entity_Height(a0)
+	jsr WaterBodyLoadGfx
+	IFND FINAL
+	lea L8A2_WaterBody_9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #WaterBody_Struct_Size, a0
+
+
 
 
 

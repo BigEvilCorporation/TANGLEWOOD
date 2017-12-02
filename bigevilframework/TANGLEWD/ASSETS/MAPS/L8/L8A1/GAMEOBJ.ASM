@@ -9,9 +9,9 @@
 
 L8A1_Leaf_count equ 0x0
 
-L8A1_Djubb_count equ 0x0
-
 L8A1_Trap_count equ 0x0
+
+L8A1_Djubb_count equ 0x0
 
 L8A1_Echo_count equ 0x1
 L8A1_Echo_1_idx	equ 0x0
@@ -25,6 +25,10 @@ L8A1_Nymn_count equ 0x0
 
 L8A1_BouncePlant_count equ 0x0
 
+L8A1_Borgus_count equ 0x0
+
+L8A1_DjakkCage_count equ 0x0
+
 L8A1_Log_count equ 0x1
 L8A1_Log_6_idx	equ 0x0
 
@@ -32,10 +36,6 @@ L8A1_Log_6_idx	equ 0x0
 L8A1_Log_6_name	dc.b "L8A1_Log_6",0
 	even
 	ENDIF
-
-L8A1_DjakkCage_count equ 0x0
-
-L8A1_Borgus_count equ 0x0
 
 L8A1_Monster_count equ 0x0
 
@@ -99,8 +99,6 @@ L8A1_Generator_count equ 0x0
 
 L8A1_Cogs_count equ 0x0
 
-L8A1_Bridge_count equ 0x0
-
 L8A1_Button_count equ 0x0
 
 L8A1_Wyrm_count equ 0x1
@@ -125,8 +123,6 @@ L8A1_Lock_count equ 0x0
 
 L8A1_Pool_count equ 0x0
 
-L8A1_Ladder_count equ 0x0
-
 L8A1_Stalactite_count equ 0x0
 
 L8A1_CargoLift_count equ 0x0
@@ -134,6 +130,16 @@ L8A1_CargoLift_count equ 0x0
 L8A1_Scrap_count equ 0x0
 
 L8A1_Longboat_count equ 0x0
+
+L8A1_Skivv_count equ 0x0
+
+L8A1_Ladder_count equ 0x0
+
+L8A1_Scirus_count equ 0x0
+
+L8A1_Hogg_count equ 0x0
+
+L8A1_Bridge_count equ 0x0
 
 
 
@@ -150,6 +156,7 @@ L8A1_LoadGameObjects:
 	jsr EchoInit
 	move.l #0x00980000, Entity_WorldPosX(a0)
 	move.l #0x00b00000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
 	IFND FINAL
 	lea L8A1_Echo_1_name, a3
 	move.l a0, a2
@@ -157,8 +164,10 @@ L8A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr EchoLoadGfx
 	add.l #Echo_Struct_Size, a0
+
+
+
 
 
 
@@ -171,6 +180,7 @@ L8A1_LoadGameObjects:
 	jsr LogInit
 	move.l #0x0ff00000, Entity_WorldPosX(a0)
 	move.l #0x01e80000, Entity_WorldPosY(a0)
+	jsr LogLoadGfx
 	IFND FINAL
 	lea L8A1_Log_6_name, a3
 	move.l a0, a2
@@ -178,9 +188,7 @@ L8A1_LoadGameObjects:
 	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LogLoadGfx
 	add.l #Log_Struct_Size, a0
-
 
 
 
@@ -196,6 +204,8 @@ L8A1_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x09680000, Entity_WorldPosX(a0)
 	move.l #0x00f80000, Entity_WorldPosY(a0)
+	move.b #ColourWhite, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L8A1_FuzzlWhite_name, a3
 	move.l a0, a2
@@ -203,9 +213,8 @@ L8A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #ColourWhite, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L8A1_Stone_count)
@@ -216,6 +225,7 @@ L8A1_LoadGameObjects:
 	jsr StoneInit
 	move.l #0x0f900000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
 	IFND FINAL
 	lea L8A1_Stone_7_name, a3
 	move.l a0, a2
@@ -223,8 +233,8 @@ L8A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr StoneLoadGfx
 	add.l #Stone_Struct_Size, a0
+
 
 
 
@@ -237,6 +247,7 @@ L8A1_LoadGameObjects:
 	jsr NestInit
 	move.l #0x0a400000, Entity_WorldPosX(a0)
 	move.l #0x02980000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
 	IFND FINAL
 	lea L8A1_Nest_3_name, a3
 	move.l a0, a2
@@ -244,8 +255,8 @@ L8A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -257,6 +268,9 @@ L8A1_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x12a80000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
+	move.l #l7a2_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A1_TriggerLevelEnd_name, a3
 	move.l a0, a2
@@ -264,9 +278,6 @@ L8A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l7a2_Trigger_End, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
 
@@ -288,6 +299,7 @@ L8A1_LoadGameObjects:
 	jsr WyrmInit
 	move.l #0x00e80000, Entity_WorldPosX(a0)
 	move.l #0x00d00000, Entity_WorldPosY(a0)
+	jsr WyrmLoadGfx
 	IFND FINAL
 	lea L8A1_Wyrm_5_name, a3
 	move.l a0, a2
@@ -295,8 +307,12 @@ L8A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr WyrmLoadGfx
 	add.l #Wyrm_Struct_Size, a0
+
+
+
+
+
 
 
 
