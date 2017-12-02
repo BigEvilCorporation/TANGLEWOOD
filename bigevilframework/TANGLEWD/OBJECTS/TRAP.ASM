@@ -15,7 +15,7 @@ Trap_MaxVelYDown	equ 0x08*subpixels_per_pixel
 Trap_StepHeight		equ 0x4
 Trap_ProbeFloorX	equ (Trap_Width/2)	; Floor detection probe position X
 Trap_ProbeFloorY	equ (Trap_Height-8)	; Floor detection probe position X
-Trap_TriggerHeight	equ 0x10			; Extra test height to make sure occupants get snared
+Trap_TriggerHeight	equ 0x18			; Extra test height to make sure occupants get snared
 
 Trap_PlatformWidth			equ Trap_Width	; Physics platform width
 Trap_UpperPlatformXOffset	equ (Trap_Width-Trap_PlatformWidth)/2	; Offset to platform from top of Trap
