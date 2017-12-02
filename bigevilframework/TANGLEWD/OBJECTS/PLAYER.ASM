@@ -2235,13 +2235,14 @@ PlayerInteractTest_Water:
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	subi.w #Player1WaterWaistHeight, d1
 	subi.w #Player1WaterWaistHeight, d2
+	PUSHL  d3
 	jsr    PHYS_TestBoxIntersectBox
+	POPL   d3
 	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
 	
 	; Set in water
-	move.b #0x0, d0					; Fully submerged
 	move.b d5, d1					; Previously in water
 	move.w Entity_WorldPosY(a2), d2	; Water level
 	jsr    PlayerEnteredWater
@@ -2281,7 +2282,6 @@ PlayerInteractTest_Water:
 	beq    @NoIntersectPool
 	
 	; Set in water
-	move.b #0x1, d0					; Fully submerged
 	move.b d5, d1					; Previously in water
 	move.w d3, d2					; Water level
 	jsr    PlayerEnteredWater
@@ -2341,7 +2341,6 @@ PlayerInteractTest_Water:
 	blt    @NextTerrain
 
 	; Set in water
-	move.b #0x1, d0					; Fully submerged
 	move.w d1, d2					; Water level
 	addi.w #vdp_sprite_border_y, d2
 	move.b d5, d1					; Previously in water
@@ -2367,7 +2366,6 @@ PlayerEnteredWater:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; a2 --- Water body addr
-	; d0 (b) Fully submerged
 	; d1 (b) Previously in water
 	; d2 (w) Water level Y coord
 
@@ -2378,18 +2376,9 @@ PlayerEnteredWater:
 	subi.w #vdp_sprite_border_y, d3
 	move.b d3, raster_water_level
 
-	; If fully submerged, use physics method
-	tst.b  d0
-	beq    @NoPhysicsWater
+	; Set in water
 	move.b #0x1, PhysicsObj_Underwater(a0)
-	bra    @PhysicsWater
-
-	@NoPhysicsWater:
-	; else just restrict movement and change animation set
 	move.b #0x1, Character_InWater(a0)
-
-	@PhysicsWater:
-
 	move.l a2, Player_LastWaterBody(a0)
 
 	tst.b  d1
