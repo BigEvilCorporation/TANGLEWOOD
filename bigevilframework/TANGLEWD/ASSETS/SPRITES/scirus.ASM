@@ -29,6 +29,11 @@ actor_scirus_sheet_walk_height		equ 0x10	; Max height of largest frame in pixels
 actor_scirus_sheet_walk_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
+actor_scirus_sheet_warn_angry_width		equ 0x18	; Max width of largest frame in pixels
+actor_scirus_sheet_warn_angry_height		equ 0x10	; Max height of largest frame in pixels
+actor_scirus_sheet_warn_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_scirus_sheet_run_angry_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_run_angry_height		equ 0x10	; Max height of largest frame in pixels
 actor_scirus_sheet_run_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
@@ -47,6 +52,11 @@ actor_scirus_sheet_run_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of large
 actor_scirus_sheet_idle_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_idle_height		equ 0x10	; Max height of largest frame in pixels
 actor_scirus_sheet_idle_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
+
+
+actor_scirus_sheet_warn_width		equ 0x18	; Max width of largest frame in pixels
+actor_scirus_sheet_warn_height		equ 0x10	; Max height of largest frame in pixels
+actor_scirus_sheet_warn_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_sleep_frametable:
@@ -200,6 +210,42 @@ actor_scirus_sheet_walk_frame_5_header:
 	dc.l actor_scirus_sheet_walk_frame_5_subsprite_dimensions_bits
 	dc.l actor_scirus_sheet_walk_frame_5_subsprite_pos_offsets
 
+actor_scirus_sheet_warn_angry_frametable:
+actor_scirus_sheet_warn_angry_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_angry_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_angry_frame_0
+	dc.l actor_scirus_sheet_warn_angry_frame_0_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_angry_frame_0_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_angry_frame_1_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_angry_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_angry_frame_1
+	dc.l actor_scirus_sheet_warn_angry_frame_1_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_angry_frame_1_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_angry_frame_2_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_angry_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_angry_frame_2
+	dc.l actor_scirus_sheet_warn_angry_frame_2_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_angry_frame_2_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_angry_frame_3_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_angry_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_angry_frame_3
+	dc.l actor_scirus_sheet_warn_angry_frame_3_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_angry_frame_3_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_angry_frame_4_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_angry_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_angry_frame_4
+	dc.l actor_scirus_sheet_warn_angry_frame_4_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_angry_frame_4_subsprite_pos_offsets
+
 actor_scirus_sheet_run_angry_frametable:
 actor_scirus_sheet_run_angry_frame_0_header:
 	dc.w 0x0006	; Frame size (tiles)
@@ -329,6 +375,49 @@ actor_scirus_sheet_idle_frame_3_header:
 	dc.l actor_scirus_sheet_idle_frame_3
 	dc.l actor_scirus_sheet_idle_frame_3_subsprite_dimensions_bits
 	dc.l actor_scirus_sheet_idle_frame_3_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frametable:
+actor_scirus_sheet_warn_frame_0_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_0
+	dc.l actor_scirus_sheet_warn_frame_0_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_0_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frame_1_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_1
+	dc.l actor_scirus_sheet_warn_frame_1_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_1_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frame_2_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_2
+	dc.l actor_scirus_sheet_warn_frame_2_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_2_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frame_3_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_3
+	dc.l actor_scirus_sheet_warn_frame_3_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_3_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frame_4_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_4
+	dc.l actor_scirus_sheet_warn_frame_4_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_4_subsprite_pos_offsets
+
+actor_scirus_sheet_warn_frame_5_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_scirus_sheet_warn_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_scirus_sheet_warn_frame_5
+	dc.l actor_scirus_sheet_warn_frame_5_subsprite_dimensions_bits
+	dc.l actor_scirus_sheet_warn_frame_5_subsprite_pos_offsets
 
 actor_scirus_sheet_sleep_frame_0_size_b		equ 0x0080	; Size in bytes
 actor_scirus_sheet_sleep_frame_0_size_t		equ 0x0004	; Size in tiles
@@ -628,6 +717,77 @@ actor_scirus_sheet_walk_frame_5_subsprite_dimensions_bits:
 	Even
 
 
+actor_scirus_sheet_warn_angry_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_angry_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_angry_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_angry_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_angry_frame_0_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_angry_frame_1_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_angry_frame_1_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_angry_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_angry_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_angry_frame_1_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_angry_frame_2_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_angry_frame_2_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_angry_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_angry_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_angry_frame_2_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_angry_frame_3_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_angry_frame_3_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_angry_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_angry_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_angry_frame_3_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_angry_frame_4_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_angry_frame_4_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_angry_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_angry_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_angry_frame_4_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+
 actor_scirus_sheet_run_angry_frame_0_size_b		equ 0x00C0	; Size in bytes
 actor_scirus_sheet_run_angry_frame_0_size_t		equ 0x0006	; Size in tiles
 actor_scirus_sheet_run_angry_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
@@ -881,6 +1041,91 @@ actor_scirus_sheet_idle_frame_3_subsprite_pos_offsets:
 ; Subsprite dimension bits (for sprite descs)
 actor_scirus_sheet_idle_frame_3_subsprite_dimensions_bits:
 	dc.b 0x5
+	Even
+
+
+actor_scirus_sheet_warn_frame_0_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_0_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_0_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_frame_1_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_1_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_1_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_frame_2_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_2_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_2_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_frame_3_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_3_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_3_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_frame_4_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_4_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_4_subsprite_dimensions_bits:
+	dc.b 0x9
+	Even
+
+actor_scirus_sheet_warn_frame_5_size_b		equ 0x00C0	; Size in bytes
+actor_scirus_sheet_warn_frame_5_size_t		equ 0x0006	; Size in tiles
+actor_scirus_sheet_warn_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_scirus_sheet_warn_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_scirus_sheet_warn_frame_5_subsprite_dimensions_bits:
+	dc.b 0x9
 	Even
 
 
@@ -1988,6 +2233,290 @@ actor_scirus_sheet_walk_frame_5:
 
 
 
+spritesheet_scirus_warn_angry:
+
+actor_scirus_sheet_warn_angry_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x05111000
+	dc.l	0x25226610
+	dc.l	0x26226581
+
+	dc.l	0x65666511
+	dc.l	0x85585665
+	dc.l	0x51115651
+	dc.l	0x18811511
+	dc.l	0x06661333
+	dc.l	0x00115835
+	dc.l	0x00318001
+	dc.l	0x00800004
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010001
+
+	dc.l	0x00011110
+	dc.l	0x00133331
+	dc.l	0x01333533
+	dc.l	0x11113365
+	dc.l	0x51011335
+	dc.l	0x61010151
+	dc.l	0x55000010
+	dc.l	0x08000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00011110
+	dc.l	0x11144441
+	dc.l	0x55444441
+	dc.l	0x55444441
+	dc.l	0x55544410
+	dc.l	0x55444100
+	dc.l	0x11111010
+	dc.l	0x00010000
+
+
+actor_scirus_sheet_warn_angry_frame_1:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00110000
+	dc.l	0x01310111
+	dc.l	0x15315541
+	dc.l	0x25342213
+
+	dc.l	0x12522410
+	dc.l	0x66566665
+	dc.l	0x34334651
+	dc.l	0x01313511
+	dc.l	0x00663331
+	dc.l	0x00331330
+	dc.l	0x00030400
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000051
+	dc.l	0x00010135
+	dc.l	0x10011365
+	dc.l	0x00013333
+
+	dc.l	0x01033531
+	dc.l	0x00133310
+	dc.l	0x11111101
+	dc.l	0x15110000
+	dc.l	0x55100000
+	dc.l	0x35500000
+	dc.l	0x11550000
+	dc.l	0x30004000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010000
+	dc.l	0x11111000
+	dc.l	0x55444010
+	dc.l	0x55544100
+	dc.l	0x55444410
+	dc.l	0x55444441
+
+	dc.l	0x11144441
+	dc.l	0x00011441
+	dc.l	0x00000110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_scirus_sheet_warn_angry_frame_2:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01000011
+	dc.l	0x01310141
+	dc.l	0x15315513
+
+	dc.l	0x14342510
+	dc.l	0x12522410
+	dc.l	0x65356665
+	dc.l	0x54334651
+	dc.l	0x01311511
+	dc.l	0x00113313
+	dc.l	0x00661330
+	dc.l	0x00030400
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000151
+	dc.l	0x00111335
+	dc.l	0x00013365
+
+	dc.l	0x01033533
+	dc.l	0x00133331
+	dc.l	0x11111110
+	dc.l	0x15110010
+	dc.l	0x35100000
+	dc.l	0x55500000
+	dc.l	0x11550000
+	dc.l	0x30004000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010000
+	dc.l	0x11111010
+	dc.l	0x55444100
+	dc.l	0x55544410
+
+	dc.l	0x55444441
+	dc.l	0x55444441
+	dc.l	0x11144441
+	dc.l	0x00011110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_scirus_sheet_warn_angry_frame_3:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010010
+	dc.l	0x00140140
+
+	dc.l	0x01311330
+	dc.l	0x05315510
+	dc.l	0x15335410
+	dc.l	0x14542311
+	dc.l	0x52322651
+	dc.l	0x36556611
+	dc.l	0x01111130
+	dc.l	0x00030300
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000101
+	dc.l	0x00101515
+	dc.l	0x00013355
+	dc.l	0x00133655
+	dc.l	0x00335335
+
+	dc.l	0x01033533
+	dc.l	0x00133331
+	dc.l	0x11111110
+	dc.l	0x15110001
+	dc.l	0x35100000
+	dc.l	0x55500000
+	dc.l	0x11550000
+	dc.l	0x30004000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100000
+	dc.l	0x11110000
+	dc.l	0x54441010
+	dc.l	0x55444100
+	dc.l	0x54444410
+	dc.l	0x54444411
+
+	dc.l	0x55444441
+	dc.l	0x11144441
+	dc.l	0x00011110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_scirus_sheet_warn_angry_frame_4:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010010
+	dc.l	0x00140140
+
+	dc.l	0x01311330
+	dc.l	0x05315510
+	dc.l	0x15335410
+	dc.l	0x14542311
+	dc.l	0x52322551
+	dc.l	0x35555511
+	dc.l	0x01111130
+	dc.l	0x00030300
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000010
+	dc.l	0x00000151
+	dc.l	0x00111335
+	dc.l	0x00013365
+
+	dc.l	0x01033533
+	dc.l	0x00133331
+	dc.l	0x11111110
+	dc.l	0x15110010
+	dc.l	0x35100000
+	dc.l	0x55500000
+	dc.l	0x11550000
+	dc.l	0x30003000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00010000
+	dc.l	0x11111010
+	dc.l	0x55444100
+	dc.l	0x55544410
+
+	dc.l	0x55444441
+	dc.l	0x55444441
+	dc.l	0x11144441
+	dc.l	0x00011110
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
+
 spritesheet_scirus_run_angry:
 
 actor_scirus_sheet_run_angry_frame_0:
@@ -2972,6 +3501,346 @@ actor_scirus_sheet_idle_frame_3:
 	dc.l	0x56615100
 	dc.l	0x56615000
 	dc.l	0x48111000
+
+
+
+
+spritesheet_scirus_warn:
+
+actor_scirus_sheet_warn_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100110
+
+	dc.l	0x01801810
+	dc.l	0x01511550
+	dc.l	0x16516610
+	dc.l	0x16556810
+	dc.l	0x16666511
+	dc.l	0x6B5BB661
+	dc.l	0x56666651
+	dc.l	0x01551115
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000011
+	dc.l	0x00000556
+	dc.l	0x00011566
+	dc.l	0x11555566
+	dc.l	0x61555556
+	dc.l	0x61011011
+	dc.l	0x66000000
+	dc.l	0x08000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x01100000
+	dc.l	0x66810000
+	dc.l	0x66681100
+	dc.l	0x66888810
+	dc.l	0x66888881
+	dc.l	0x66688881
+	dc.l	0x16888810
+	dc.l	0x00001100
+
+
+actor_scirus_sheet_warn_frame_1:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x05111000
+	dc.l	0x65566610
+	dc.l	0xB6BB6581
+
+	dc.l	0x65666511
+	dc.l	0x85585666
+	dc.l	0x55555661
+	dc.l	0x18855611
+	dc.l	0x06661555
+	dc.l	0x00116856
+	dc.l	0x00518001
+	dc.l	0x00800004
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00000556
+	dc.l	0x11011566
+	dc.l	0x61555566
+	dc.l	0x61555556
+	dc.l	0x66011011
+	dc.l	0x08000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x01100000
+
+	dc.l	0x66880000
+	dc.l	0x66681100
+	dc.l	0x66888810
+	dc.l	0x66888881
+	dc.l	0x66688881
+	dc.l	0x66888810
+	dc.l	0x00001100
+	dc.l	0x00000000
+
+
+actor_scirus_sheet_warn_frame_2:
+	dc.l	0x00010000
+	dc.l	0x00015101
+	dc.l	0x00165166
+	dc.l	0x00165566
+	dc.l	0x001B6BB8
+	dc.l	0x00665666
+	dc.l	0x00585586
+	dc.l	0x00015116
+
+	dc.l	0x00001155
+	dc.l	0x00016615
+	dc.l	0x00001155
+	dc.l	0x00011555
+	dc.l	0x00051655
+	dc.l	0x00061685
+	dc.l	0x00080805
+	dc.l	0x00000004
+
+	dc.l	0x11000000
+	dc.l	0x81000000
+	dc.l	0x15000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x66000000
+	dc.l	0x61000000
+	dc.l	0x11000001
+
+	dc.l	0x55000000
+	dc.l	0x50000000
+	dc.l	0x51000000
+	dc.l	0x55100001
+	dc.l	0x65151101
+	dc.l	0x66155516
+	dc.l	0x66115555
+	dc.l	0x81105111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x80000000
+
+	dc.l	0x18110000
+	dc.l	0x18881000
+	dc.l	0x18888100
+	dc.l	0x88888100
+	dc.l	0x68688100
+	dc.l	0x66668100
+	dc.l	0x66661000
+	dc.l	0x66610000
+
+
+actor_scirus_sheet_warn_frame_3:
+	dc.l	0x00001100
+	dc.l	0x00015101
+	dc.l	0x00165166
+	dc.l	0x00165566
+	dc.l	0x001B6BB8
+	dc.l	0x00665666
+	dc.l	0x00585586
+	dc.l	0x00015156
+
+	dc.l	0x00006655
+	dc.l	0x00005515
+	dc.l	0x00001155
+	dc.l	0x00011155
+	dc.l	0x00001556
+	dc.l	0x00051655
+	dc.l	0x00061685
+	dc.l	0x00080804
+
+	dc.l	0x00000000
+	dc.l	0x11000000
+	dc.l	0x81100000
+	dc.l	0x15000000
+	dc.l	0x10000000
+	dc.l	0x66000000
+	dc.l	0x61000000
+	dc.l	0x11000000
+
+	dc.l	0x55000000
+	dc.l	0x50000000
+	dc.l	0x51000011
+	dc.l	0x55101556
+	dc.l	0x55155566
+	dc.l	0x66155566
+	dc.l	0x66111556
+	dc.l	0x81100111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x10111100
+	dc.l	0x66888810
+	dc.l	0x66688881
+	dc.l	0x66888881
+	dc.l	0x66888810
+	dc.l	0x66681100
+	dc.l	0x66810000
+
+
+actor_scirus_sheet_warn_frame_4:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100110
+	dc.l	0x01801810
+	dc.l	0x01511550
+	dc.l	0x16516610
+
+	dc.l	0x16556810
+	dc.l	0x16666511
+	dc.l	0x6B5BB666
+	dc.l	0x56666661
+	dc.l	0x01661111
+	dc.l	0x00111555
+	dc.l	0x00516801
+	dc.l	0x00808004
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00011100
+	dc.l	0x00555511
+	dc.l	0x00555556
+	dc.l	0x11011566
+	dc.l	0x61000566
+	dc.l	0x61000056
+	dc.l	0x66000011
+	dc.l	0x08000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x61111100
+	dc.l	0x66688810
+	dc.l	0x66888881
+	dc.l	0x66888881
+	dc.l	0x66688810
+	dc.l	0x66881100
+
+
+actor_scirus_sheet_warn_frame_5:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00100110
+	dc.l	0x01801810
+	dc.l	0x01511550
+	dc.l	0x16516610
+
+	dc.l	0x16556810
+	dc.l	0x1B6BB511
+	dc.l	0x6B5BB661
+	dc.l	0x56666651
+	dc.l	0x01551115
+	dc.l	0x00111556
+	dc.l	0x00516801
+	dc.l	0x00808004
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00011100
+	dc.l	0x00555511
+	dc.l	0x11555556
+	dc.l	0x61011566
+	dc.l	0x61000566
+	dc.l	0x66000056
+	dc.l	0x08000011
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x01111100
+	dc.l	0x11688810
+	dc.l	0x66688881
+	dc.l	0x66888881
+	dc.l	0x66888810
+	dc.l	0x66681100
+	dc.l	0x66880000
 
 
 

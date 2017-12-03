@@ -109,6 +109,28 @@ actor_scirus_sheet_walk_anim_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_scirus_sheet_warn_angry_anim_warn_angry:
+actor_scirus_sheet_warn_angry_anim_warn_angry_numframes: equ 0x6
+actor_scirus_sheet_warn_angry_anim_warn_angry_speed: equ 0x23
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_frames:
+	dc.l actor_scirus_sheet_warn_angry_frame_0_header
+	dc.l actor_scirus_sheet_warn_angry_frame_0_header
+	dc.l actor_scirus_sheet_warn_angry_frame_1_header
+	dc.l actor_scirus_sheet_warn_angry_frame_2_header
+	dc.l actor_scirus_sheet_warn_angry_frame_3_header
+	dc.l actor_scirus_sheet_warn_angry_frame_4_header
+
+	Even
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_scirus_sheet_run_angry_anim_run_angry:
 actor_scirus_sheet_run_angry_anim_run_angry_numframes: equ 0x6
 actor_scirus_sheet_run_angry_anim_run_angry_speed: equ 0x3D
@@ -189,5 +211,29 @@ actor_scirus_sheet_idle_anim_idle_track_posy:
 	Even
 actor_scirus_sheet_idle_anim_idle_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
+	Even
+
+actor_scirus_sheet_warn_anim_warn:
+actor_scirus_sheet_warn_anim_warn_numframes: equ 0x8
+actor_scirus_sheet_warn_anim_warn_speed: equ 0x28
+actor_scirus_sheet_warn_anim_warn_track_frames:
+	dc.l actor_scirus_sheet_warn_frame_0_header
+	dc.l actor_scirus_sheet_warn_frame_1_header
+	dc.l actor_scirus_sheet_warn_frame_2_header
+	dc.l actor_scirus_sheet_warn_frame_2_header
+	dc.l actor_scirus_sheet_warn_frame_2_header
+	dc.l actor_scirus_sheet_warn_frame_3_header
+	dc.l actor_scirus_sheet_warn_frame_4_header
+	dc.l actor_scirus_sheet_warn_frame_5_header
+
+	Even
+actor_scirus_sheet_warn_anim_warn_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_scirus_sheet_warn_anim_warn_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_scirus_sheet_warn_anim_warn_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 

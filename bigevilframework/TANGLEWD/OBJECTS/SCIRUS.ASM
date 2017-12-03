@@ -38,7 +38,7 @@ Scirus_ProbeWallTop		equ 0x08
 
 Scirus_AIActivateDistance			equ 0x0040	; Distance to alert and enter follow state
 Scirus_AIFollowDistanceEnemy		equ 0x0018	; Distance to follow if enemy
-Scirus_AIFollowDistanceFriendInner	equ 0x0040	; Distance to avoid in friend
+Scirus_AIFollowDistanceFriendInner	equ 0x0060	; Distance to avoid if friend
 Scirus_AIFollowDistanceFriendOuter	equ 0x0090	; Distance to follow if friend
 Scirus_AIFollowDistanceY			equ 0x0030	; Y distance to follow
 Scirus_AIUncomfortableDistance		equ 0x0050	; "Too close" distance if backed up against a wall, turns enemy
@@ -64,7 +64,9 @@ ScirusState_Attacking		equ 0x3
 
 ; Animations
 ScirusAnimIdx_Attack	equ 0x0
-ScirusAnimIdx_Max		equ 0x1
+ScirusAnimIdx_Warn		equ 0x1
+ScirusAnimIdx_Shout		equ 0x2
+ScirusAnimIdx_Max		equ 0x3
 
 ; Struct
 	rsset (Character_Struct_Size)
@@ -229,6 +231,11 @@ ScirusSetAffinity:
 	; Set new affinity
 	move.b d0, Scirus_Affinity(a0)
 
+	; Load bespoke animations
+	ANIM_LOAD_DEFAULT Scirus,attack,attack,Scirus_Animations,ScirusAnimIdx_Attack,0,1,0
+	ANIM_LOAD_DEFAULT Scirus,warn,warn,Scirus_Animations,ScirusAnimIdx_Warn,0,1,0
+	ANIM_LOAD_DEFAULT Scirus,warn_angry,warn_angry,Scirus_Animations,ScirusAnimIdx_Shout,0,1,0
+
 	; Set appropriate vel/accel values, load  graphics, and set AI state
 	cmp.b  #ScirusAffinity_Friend, d0
 	beq    @Friend
@@ -250,9 +257,6 @@ ScirusSetAffinity:
 	ANIM_LOAD_DEFAULT Scirus,idle_angry,idle_angry,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Scirus,walk_angry,walk_angry,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT Scirus,run_angry,run_angry,Character_Animations,CharacterAnimIdx_Run,1,0,0
-
-	; Load bespoke animations
-	ANIM_LOAD_DEFAULT Scirus,attack,attack,Scirus_Animations,ScirusAnimIdx_Attack,0,1,0
 
 	; If not inactive, start agressive follow state
 	cmp.b  #ScirusState_Inactive, Scirus_State(a0)
@@ -458,14 +462,37 @@ ScirusAI_CheckTooClose:
 	sub.w  d0, d1
 	ABSW   d1
 	cmp.w  #Scirus_AIUncomfortableDistance, d1
-	bgt    @OutOfRange
+	bgt    @Warn
 
 	; Player too close, set aggressive affinity
 	move.b #ScirusAffinity_Foe, d0
 	jsr    ScirusSetAffinity
 
+	; Play battle cry anim
+	PUSHL  a1
+	lea    Scirus_Animations+(Animation_Struct_Size*ScirusAnimIdx_Shout)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	bra    @Aggressive
+
+	@Warn:
+
+	; Up against wall, warn player
+	PUSHL  a1
+	lea    Scirus_Animations+(Animation_Struct_Size*ScirusAnimIdx_Warn)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
 	@NotHitWall:
 	@OutOfRange:
+	@Aggressive:
 
 	rts
 
