@@ -9,6 +9,8 @@
 
 L4A2_Leaf_count equ 0x0
 
+L4A2_Trap_count equ 0x0
+
 L4A2_Djubb_count equ 0x6
 L4A2_Djubb_3_idx	equ 0x0
 L4A2_Djubb_30_idx	equ 0x1
@@ -26,8 +28,6 @@ L4A2_Djubb_44_name	dc.b "L4A2_Djubb_44",0
 L4A2_Djubb_63_name	dc.b "L4A2_Djubb_63",0
 	even
 	ENDIF
-
-L4A2_Trap_count equ 0x0
 
 L4A2_Echo_count equ 0x1
 L4A2_Echo_2_idx	equ 0x0
@@ -47,6 +47,10 @@ L4A2_Nymn_1_name	dc.b "L4A2_Nymn_1",0
 
 L4A2_BouncePlant_count equ 0x0
 
+L4A2_Borgus_count equ 0x0
+
+L4A2_DjakkCage_count equ 0x0
+
 L4A2_Log_count equ 0x3
 L4A2_Log1_idx	equ 0x0
 L4A2_Log2_idx	equ 0x1
@@ -58,10 +62,6 @@ L4A2_Log2_name	dc.b "L4A2_Log2",0
 L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 	even
 	ENDIF
-
-L4A2_DjakkCage_count equ 0x0
-
-L4A2_Borgus_count equ 0x0
 
 L4A2_Monster_count equ 0x0
 
@@ -239,13 +239,20 @@ L4A2_Longboat_58_name	dc.b "L4A2_Longboat_58",0
 	even
 	ENDIF
 
+L4A2_Skivv_count equ 0x0
+
 L4A2_Ladder_count equ 0x0
+
+L4A2_Scirus_count equ 0x0
+
+L4A2_Hogg_count equ 0x0
 
 L4A2_Bridge_count equ 0x0
 
 
 
 L4A2_LoadGameObjects:
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A2_Djubb_count)
@@ -332,7 +339,6 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
 	move.l a1, EntityPoolStart_Echo
@@ -371,6 +377,8 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
+
 
 
 
@@ -418,8 +426,6 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 
@@ -951,6 +957,9 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Longboat_Struct_Size, a0
+
+
+
 
 
 

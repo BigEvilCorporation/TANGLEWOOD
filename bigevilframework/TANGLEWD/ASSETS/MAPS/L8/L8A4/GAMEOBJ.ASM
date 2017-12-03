@@ -9,9 +9,9 @@
 
 L8A4_Leaf_count equ 0x0
 
-L8A4_Djubb_count equ 0x0
-
 L8A4_Trap_count equ 0x0
+
+L8A4_Djubb_count equ 0x0
 
 L8A4_Echo_count equ 0x1
 L8A4_Echo_2_idx	equ 0x0
@@ -25,11 +25,11 @@ L8A4_Nymn_count equ 0x0
 
 L8A4_BouncePlant_count equ 0x0
 
-L8A4_Log_count equ 0x0
+L8A4_Borgus_count equ 0x0
 
 L8A4_DjakkCage_count equ 0x0
 
-L8A4_Borgus_count equ 0x0
+L8A4_Log_count equ 0x0
 
 L8A4_Monster_count equ 0x0
 
@@ -153,7 +153,13 @@ L8A4_Scrap_count equ 0x0
 
 L8A4_Longboat_count equ 0x0
 
+L8A4_Skivv_count equ 0x0
+
 L8A4_Ladder_count equ 0x0
+
+L8A4_Scirus_count equ 0x0
+
+L8A4_Hogg_count equ 0x0
 
 L8A4_Bridge_count equ 0x1
 L8A4_Bridge1_idx	equ 0x0
@@ -424,6 +430,9 @@ L8A4_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #CargoLift_Struct_Size, a0
+
+
+
 
 
 

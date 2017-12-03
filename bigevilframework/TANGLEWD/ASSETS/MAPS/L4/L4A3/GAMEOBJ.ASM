@@ -9,18 +9,6 @@
 
 L4A3_Leaf_count equ 0x0
 
-L4A3_Djubb_count equ 0x3
-L4A3_Djubb_16_idx	equ 0x0
-L4A3_Djubb_21_idx	equ 0x1
-L4A3_Djubb_20_idx	equ 0x2
-
-	IFND FINAL
-L4A3_Djubb_16_name	dc.b "L4A3_Djubb_16",0
-L4A3_Djubb_21_name	dc.b "L4A3_Djubb_21",0
-L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
-	even
-	ENDIF
-
 L4A3_Trap_count equ 0x3
 L4A3_Trap1_idx	equ 0x0
 L4A3_Trap2_idx	equ 0x1
@@ -30,6 +18,18 @@ L4A3_Trap3_idx	equ 0x2
 L4A3_Trap1_name	dc.b "L4A3_Trap1",0
 L4A3_Trap2_name	dc.b "L4A3_Trap2",0
 L4A3_Trap3_name	dc.b "L4A3_Trap3",0
+	even
+	ENDIF
+
+L4A3_Djubb_count equ 0x3
+L4A3_Djubb_16_idx	equ 0x0
+L4A3_Djubb_21_idx	equ 0x1
+L4A3_Djubb_20_idx	equ 0x2
+
+	IFND FINAL
+L4A3_Djubb_16_name	dc.b "L4A3_Djubb_16",0
+L4A3_Djubb_21_name	dc.b "L4A3_Djubb_21",0
+L4A3_Djubb_20_name	dc.b "L4A3_Djubb_20",0
 	even
 	ENDIF
 
@@ -51,10 +51,6 @@ L4A3_Nymn_1_name	dc.b "L4A3_Nymn_1",0
 
 L4A3_BouncePlant_count equ 0x0
 
-L4A3_Log_count equ 0x0
-
-L4A3_DjakkCage_count equ 0x0
-
 L4A3_Borgus_count equ 0x1
 L4A3_Borgus_idx	equ 0x0
 
@@ -62,6 +58,10 @@ L4A3_Borgus_idx	equ 0x0
 L4A3_Borgus_name	dc.b "L4A3_Borgus",0
 	even
 	ENDIF
+
+L4A3_DjakkCage_count equ 0x0
+
+L4A3_Log_count equ 0x0
 
 L4A3_Monster_count equ 0x0
 
@@ -91,19 +91,17 @@ L4A3_Fuzzl_48_name	dc.b "L4A3_Fuzzl_48",0
 	even
 	ENDIF
 
-L4A3_Stone_count equ 0x5
+L4A3_Stone_count equ 0x4
 L4A3_Stone_24_idx	equ 0x0
-L4A3_Stone_27_idx	equ 0x1
-L4A3_Stone_28_idx	equ 0x2
-L4A3_Stone_42_idx	equ 0x3
-L4A3_Stone_46_idx	equ 0x4
+L4A3_Stone_46_idx	equ 0x1
+L4A3_Stone_42_idx	equ 0x2
+L4A3_Stone_58_idx	equ 0x3
 
 	IFND FINAL
 L4A3_Stone_24_name	dc.b "L4A3_Stone_24",0
-L4A3_Stone_27_name	dc.b "L4A3_Stone_27",0
-L4A3_Stone_28_name	dc.b "L4A3_Stone_28",0
-L4A3_Stone_42_name	dc.b "L4A3_Stone_42",0
 L4A3_Stone_46_name	dc.b "L4A3_Stone_46",0
+L4A3_Stone_42_name	dc.b "L4A3_Stone_42",0
+L4A3_Stone_58_name	dc.b "L4A3_Stone_58",0
 	even
 	ENDIF
 
@@ -145,15 +143,14 @@ L4A3_Checkpoint_57_name	dc.b "L4A3_Checkpoint_57",0
 	even
 	ENDIF
 
-L4A3_WaterBody_count equ 0x8
+L4A3_WaterBody_count equ 0x7
 L4A3_WaterBody_6_idx	equ 0x0
 L4A3_WaterBody_7_idx	equ 0x1
 L4A3_WaterBody_8_idx	equ 0x2
 L4A3_WaterBody_9_idx	equ 0x3
 L4A3_WaterBody_10_idx	equ 0x4
-L4A3_WaterBody_55_idx	equ 0x5
+L4A3_WaterBody_13_idx	equ 0x5
 L4A3_WaterBody_14_idx	equ 0x6
-L4A3_WaterBody_13_idx	equ 0x7
 
 	IFND FINAL
 L4A3_WaterBody_6_name	dc.b "L4A3_WaterBody_6",0
@@ -161,9 +158,8 @@ L4A3_WaterBody_7_name	dc.b "L4A3_WaterBody_7",0
 L4A3_WaterBody_8_name	dc.b "L4A3_WaterBody_8",0
 L4A3_WaterBody_9_name	dc.b "L4A3_WaterBody_9",0
 L4A3_WaterBody_10_name	dc.b "L4A3_WaterBody_10",0
-L4A3_WaterBody_55_name	dc.b "L4A3_WaterBody_55",0
-L4A3_WaterBody_14_name	dc.b "L4A3_WaterBody_14",0
 L4A3_WaterBody_13_name	dc.b "L4A3_WaterBody_13",0
+L4A3_WaterBody_14_name	dc.b "L4A3_WaterBody_14",0
 	even
 	ENDIF
 
@@ -221,13 +217,7 @@ L4A3_Button1_name	dc.b "L4A3_Button1",0
 
 L4A3_Wyrm_count equ 0x0
 
-L4A3_AIMarker_count equ 0x1
-L4A3_AIMarkerBorgusNoGo1_idx	equ 0x0
-
-	IFND FINAL
-L4A3_AIMarkerBorgusNoGo1_name	dc.b "L4A3_AIMarkerBorgusNoGo1",0
-	even
-	ENDIF
+L4A3_AIMarker_count equ 0x0
 
 L4A3_Cart_count equ 0x0
 
@@ -255,7 +245,13 @@ L4A3_Scrap_count equ 0x0
 
 L4A3_Longboat_count equ 0x0
 
+L4A3_Skivv_count equ 0x0
+
 L4A3_Ladder_count equ 0x0
+
+L4A3_Scirus_count equ 0x0
+
+L4A3_Hogg_count equ 0x0
 
 L4A3_Bridge_count equ 0x1
 L4A3_Bridge1_idx	equ 0x0
@@ -268,52 +264,6 @@ L4A3_Bridge1_name	dc.b "L4A3_Bridge1",0
 
 
 L4A3_LoadGameObjects:
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A3_Djubb_count)
-	move.l a1, EntityPoolStart_Djubb
-	move.l a1, a0
-	POPL   a1
-
-	jsr DjubbInit
-	move.l #0x03280000, Entity_WorldPosX(a0)
-	move.l #0x04000000, Entity_WorldPosY(a0)
-	jsr DjubbLoadGfx
-	IFND FINAL
-	lea L4A3_Djubb_16_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Djubb_Struct_Size, a0
-
-	jsr DjubbInit
-	move.l #0x01980000, Entity_WorldPosX(a0)
-	move.l #0x03880000, Entity_WorldPosY(a0)
-	jsr DjubbLoadGfx
-	IFND FINAL
-	lea L4A3_Djubb_21_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Djubb_Struct_Size, a0
-
-	jsr DjubbInit
-	move.l #0x03900000, Entity_WorldPosX(a0)
-	move.l #0x02a80000, Entity_WorldPosY(a0)
-	jsr DjubbLoadGfx
-	IFND FINAL
-	lea L4A3_Djubb_20_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Djubb_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L4A3_Trap_count)
@@ -362,6 +312,52 @@ L4A3_LoadGameObjects:
 
 
 	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Djubb_Struct_Size*L4A3_Djubb_count)
+	move.l a1, EntityPoolStart_Djubb
+	move.l a1, a0
+	POPL   a1
+
+	jsr DjubbInit
+	move.l #0x03280000, Entity_WorldPosX(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
+	IFND FINAL
+	lea L4A3_Djubb_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Djubb_Struct_Size, a0
+
+	jsr DjubbInit
+	move.l #0x01980000, Entity_WorldPosX(a0)
+	move.l #0x03880000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
+	IFND FINAL
+	lea L4A3_Djubb_21_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Djubb_Struct_Size, a0
+
+	jsr DjubbInit
+	move.l #0x03900000, Entity_WorldPosX(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
+	jsr DjubbLoadGfx
+	IFND FINAL
+	lea L4A3_Djubb_20_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Djubb_Struct_Size, a0
+
+
+	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A3_Echo_count)
 	move.l a1, EntityPoolStart_Echo
 	move.l a1, a0
@@ -402,8 +398,6 @@ L4A3_LoadGameObjects:
 
 
 
-
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Borgus_Struct_Size*L4A3_Borgus_count)
 	move.l a1, EntityPoolStart_Borgus
@@ -423,6 +417,8 @@ L4A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Borgus_Struct_Size, a0
+
+
 
 
 
@@ -528,24 +524,11 @@ L4A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x0c600000, Entity_WorldPosX(a0)
-	move.l #0x05780000, Entity_WorldPosY(a0)
+	move.l #0x0a780000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
-	lea L4A3_Stone_27_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x0c700000, Entity_WorldPosX(a0)
-	move.l #0x04f00000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L4A3_Stone_28_name, a3
+	lea L4A3_Stone_46_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -567,11 +550,11 @@ L4A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x0a780000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x0b480000, Entity_WorldPosX(a0)
+	move.l #0x05980000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
-	lea L4A3_Stone_46_name, a3
+	lea L4A3_Stone_58_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -589,8 +572,8 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr NestInit
-	move.l #0x10b00000, Entity_WorldPosX(a0)
-	move.l #0x05880000, Entity_WorldPosY(a0)
+	move.l #0x0ba00000, Entity_WorldPosX(a0)
+	move.l #0x05a80000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L4A3_Nest_54_name, a3
@@ -610,10 +593,11 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x0bb80000, Entity_WorldPosX(a0)
+	move.l #0x0b580000, Entity_WorldPosX(a0)
 	move.l #0x05280000, Entity_WorldPosY(a0)
 	move.l #l4a3_Trigger_BorgusReveal, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L4A3_TriggerBorgus_name, a3
@@ -776,11 +760,11 @@ L4A3_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	jsr WaterBodyInit
-	move.l #0x0ac80000, Entity_WorldPosX(a0)
+	move.l #0x0d900000, Entity_WorldPosX(a0)
 	move.l #0x05900000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L4A3_WaterBody_55_name, a3
+	lea L4A3_WaterBody_13_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -794,19 +778,6 @@ L4A3_LoadGameObjects:
 	jsr WaterBodyLoadGfx
 	IFND FINAL
 	lea L4A3_WaterBody_14_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WaterBody_Struct_Size, a0
-
-	jsr WaterBodyInit
-	move.l #0x0d900000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
-	jsr WaterBodyLoadGfx
-	IFND FINAL
-	lea L4A3_WaterBody_13_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -970,26 +941,6 @@ L4A3_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L4A3_AIMarker_count)
-	move.l a1, EntityPoolStart_AIMarker
-	move.l a1, a0
-	POPL   a1
-
-	jsr AIMarkerInit
-	move.l #0x0c500000, Entity_WorldPosX(a0)
-	move.l #0x05780000, Entity_WorldPosY(a0)
-	move.b #AIMarker_Type_Barrier, AIMarker_Type(a0)
-	jsr AIMarkerLoadGfx
-	IFND FINAL
-	lea L4A3_AIMarkerBorgusNoGo1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #AIMarker_Struct_Size, a0
-
 
 
 
@@ -1017,6 +968,9 @@ L4A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #CargoLift_Struct_Size, a0
+
+
+
 
 
 

@@ -9,9 +9,9 @@
 
 L4A1_Leaf_count equ 0x0
 
-L4A1_Djubb_count equ 0x0
-
 L4A1_Trap_count equ 0x0
+
+L4A1_Djubb_count equ 0x0
 
 L4A1_Echo_count equ 0x1
 L4A1_Echo_2_idx	equ 0x0
@@ -31,11 +31,11 @@ L4A1_Nymn_1_name	dc.b "L4A1_Nymn_1",0
 
 L4A1_BouncePlant_count equ 0x0
 
-L4A1_Log_count equ 0x0
+L4A1_Borgus_count equ 0x0
 
 L4A1_DjakkCage_count equ 0x0
 
-L4A1_Borgus_count equ 0x0
+L4A1_Log_count equ 0x0
 
 L4A1_Monster_count equ 0x0
 
@@ -199,7 +199,13 @@ L4A1_Scrap_count equ 0x0
 
 L4A1_Longboat_count equ 0x0
 
+L4A1_Skivv_count equ 0x0
+
 L4A1_Ladder_count equ 0x0
+
+L4A1_Scirus_count equ 0x0
+
+L4A1_Hogg_count equ 0x0
 
 L4A1_Bridge_count equ 0x3
 L4A1_DropBridge1_idx	equ 0x0
@@ -709,6 +715,9 @@ L4A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
+
+
+
 
 
 
