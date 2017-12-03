@@ -332,6 +332,9 @@ l8a4_Cutscene_FuzzlEaten:
 
 	; Unroll bridge
 	ENTITY_GETBYNAME Bridge,l8a4_Bridge1,a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
 	jsr    BridgeBeginUnroll
 
 	POPM a0-a2
@@ -356,6 +359,9 @@ l8a4_Cutscene_DemonDropFuzzl:
 	move.b #0x0, PhysicsObj_OnFloor(a2)
 	move.b #0x0, PhysicsObj_CloseToFloor(a2)
 	move.l #0x0, PhysicsObj_LastFloor(a2)
+
+	move.l a2, a0
+	jsr    EntityUpdateWorldGridIndex
 
 	POPL   a0
 

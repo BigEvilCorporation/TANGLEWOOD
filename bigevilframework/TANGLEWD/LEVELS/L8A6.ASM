@@ -327,6 +327,9 @@ l8a6_Cutscene_DemonDropFuzzl:
 	move.b #0x0, PhysicsObj_CloseToFloor(a2)
 	move.l #0x0, PhysicsObj_LastFloor(a2)
 
+	move.l a2, a0
+	jsr    EntityUpdateWorldGridIndex
+
 	POPL   a0
 
 	move.b #0x0, d0
