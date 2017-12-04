@@ -1124,7 +1124,7 @@ EchoAIUpdate_FollowNodes:
 	ENTITY_GETCENTREY d0,a0
 	TOPIXELS d0
 	cmp.w  d0, d2
-	blt    @NotHitWall
+	bgt    @NotHitWall
 	jsr    CharacterStartJump
 	@NotHitWall:
 
