@@ -27,7 +27,7 @@ PickupInit:
 	; Default state
 	move.b #0x1, Entity_Active(a0)
 	move.b #0x1, SpriteObj_Visible(a0)
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 	move.b #0x0, Pickup_Taken(a0)
 
 	rts

@@ -138,7 +138,7 @@ EndLevelScoreScreen_Enter:
 
 	; Disable Fuzzl physics (no terrain data)
 	ENTITY_GETBYNAME Fuzzl, end_level_Fuzzl, a0
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 
 	;==============================================================
 

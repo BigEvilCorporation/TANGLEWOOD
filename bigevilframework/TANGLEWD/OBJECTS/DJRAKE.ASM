@@ -174,7 +174,7 @@ DjrakeInit:
 	move.b  #0x0, Djrake_RumblePlayed(a0)
 	move.b  #0x0, Djrake_DoIntro(a0)
 	
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 
 	; Setup default character animations
 

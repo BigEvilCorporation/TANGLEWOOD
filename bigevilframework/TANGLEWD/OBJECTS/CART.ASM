@@ -148,26 +148,9 @@ CartUpdate:
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @Smashed
 
-	; Reposition platform
-	lea    Cart_Platform(a0), a2
-	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), d0
-	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
-	move.l d0, Platform_PosY(a2)
-	
-	; Set platform velocity
-	clr.l  d2
-	move.b AnimObj_SpeedDiv(a0), d2
-	move.l PhysicsObj_VelX(a0), d3
-	move.l PhysicsObj_VelY(a0), d4
-	DIVS1616_LOSSY d2, d3
-	DIVS1616_LOSSY d2, d4
-	move.l d3, Platform_VelX(a2)
-	move.l d4, Platform_VelY(a2)
-	
+	; Apply acceleration
 	move.w #Cart_Accel, PhysicsObj_AccelX(a0)
 	move.b #0x1, SpriteObj_Priority(a0)
-	move.l a3, Cart_Occupant(a0)
 	
 	; Update occupant pos
 	move.w Entity_WorldPosX(a0), d0
@@ -192,17 +175,26 @@ CartUpdate:
 	
 	@Smashed:
 
+	; Re-enable occupant physics, re-check floor, enable controls
+	move.l Cart_Occupant(a0), a2
+	move.b #0x1, PhysicsObj_HasCollision(a2)
+	move.b #0x0, PhysicsObj_OnFloor(a2)
+	move.b #0x0, PhysicsObj_CloseToFloor(a2)
+	move.b #0x1, Player_ControlEnabled(a2)
+
+	; Clear riding state
+	move.b #Player_RideState_None, Player_RideState(a2)
+
 	; Set smashed, remove occupant
 	move.b #0x1, Cart_Smashed(a0)
 	move.l #0x0, Cart_Occupant(a0)
 	move.b #0x0, AnimObj_UpdateOutOfView(a0)
 
-	; Disable platform
-	lea    Cart_Platform(a0), a2
-	LIST_REMOVE Platforms, a2, a3, a4
-
 	; Reset sprite prio
 	move.b #0x0, SpriteObj_Priority(a0)
+
+	; No longer collide with rails
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a0)
 
 	@Unoccupied:
 	@End:
@@ -212,12 +204,35 @@ CartUpdate:
 CartSetOccupant:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- Occupant
+	; a2 --- Occupant (Player)
 
+	tst.l  Cart_Occupant(a0)
+	bne    @AlreadyOccupied
+
+	; Set occupant
 	move.l a2, Cart_Occupant(a0)
+
+	; Set occupant in cart
+	move.b #Player_RideState_Cart, Player_RideState(a2)
+
+	; Set occupant on floor
+	move.b #0x1, PhysicsObj_OnFloor(a2)
+	move.b #0x1, PhysicsObj_CloseToFloor(a2)
+
+	; Disable occupant collision
+	move.b #0x0, PhysicsObj_HasCollision(a2)
+
+	; Disable occupant controls
+	move.b #0x0, Player_ControlEnabled(a2)
 
 	; Update out of view (in case used by AI)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Disable platform
+	lea    Cart_Platform(a0), a2
+	LIST_REMOVE Platforms, a2, a3, a4
+
+	@AlreadyOccupied:
 
 	rts
 	

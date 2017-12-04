@@ -24,16 +24,17 @@ Bridge_DropSpeed		equ 0x00030000	; Just under player run speed
 Bridge_DropCamShakeVel	equ 0x4000
 Bridge_DropCamShakeAmp	equ 0x0100
 
-Bridge_PlatformWidth	equ Bridge_Width	; Physics platform width
-Bridge_PlatformExtWater equ 0x0010	; Physics platform width extension when bridging water
-Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
-Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
-
 Bridge_BarrierWidth		equ 0x30	; Width of roll
 Bridge_BarrierHeight	equ 0x50	; Height of blocking barrier
 Bridge_BarrierXOffset	equ 0x0
 Bridge_BarrierYOffsetUp	equ -Bridge_BarrierHeight
 Bridge_BarrierYOffsetDn	equ 0x0000
+
+Bridge_PlatformMinWidth	equ Bridge_BarrierWidth
+Bridge_PlatformMaxWidth	equ Bridge_Width	; Physics platform width
+Bridge_PlatformExtWater equ 0x0010	; Physics platform width extension when bridging water
+Bridge_PlatformXOffset	equ 0x0000	; Offset to platform from top of Bridge
+Bridge_PlatformYOffset	equ 0x0000	; Offset to platform from top of Bridge
 
 Bridge_ViewBoundsOffsetX	equ 0x0000
 Bridge_ViewBoundsOffsetY	equ -0x0040
@@ -144,7 +145,7 @@ BridgeInit:
 	MEMZEROB a2, d0
 	move.l a0, Platform_Owner(a2)
 	move.b #PlatformType_Sliding, Platform_Type(a2)
-	move.w #Bridge_PlatformWidth, Platform_Width(a2)
+	move.w #Bridge_PlatformMaxWidth, Platform_Width(a2)
 	move.l #0x0, Platform_VelX(a2)
 	move.l #0x0, Platform_VelY(a2)
 	jsr    BridgeActivatePlatform
@@ -530,9 +531,6 @@ BridgeSnapClosed:
 	; Reset unroll pos
 	move.l #0x0, Bridge_UnrollPos(a0)
 
-	; Disable platform
-	jsr    BridgeDeactivatePlatform
-
 	; Activate barrier
 	jsr    BridgeActivateBarrier
 
@@ -640,9 +638,6 @@ BridgeUpdateRoll:
 
 	@FinishedRolling:
 
-	; Disable platform
-	jsr    BridgeDeactivatePlatform
-
 	; Enable barrier
 	jsr    BridgeActivateBarrier
 
@@ -713,7 +708,9 @@ BridgeUpdateBarrierPlatformPos:
 	@NotDropMode:
 
 	;  else set platform width to unroll pos
-	move.w d4, Platform_Width(a2)
+	move.w d4, d6
+	CLAMPW d6, #Bridge_PlatformMinWidth, #Bridge_PlatformMaxWidth
+	move.w d6, Platform_Width(a2)
 	move.b #0x1, Platform_Dirty(a2)
 	@DropMode:
 
@@ -913,7 +910,7 @@ BridgeUpdateDropping:
 
 	; Set platform pos to water level
 	lea    Bridge_Platform(a0), a2
-	move.w #Bridge_PlatformWidth+Bridge_PlatformExtWater, Platform_Width(a2)
+	move.w #Bridge_PlatformMaxWidth+Bridge_PlatformExtWater, Platform_Width(a2)
 	move.l Entity_WorldPosX(a0), d0
 	subi.l #(Bridge_PlatformExtWater/2)*subpixels_per_pixel, d0
 	move.l d0, Platform_PosX(a2)

@@ -74,7 +74,7 @@ PhysicsObj_LastTerrainFlags		rs.w 1 ; Flags for last detected terrain
 PhysicsObj_CanSleep				rs.b 1 ; Physics can sleep
 PhysicsObj_Asleep				rs.b 1 ; Object sleeping
 PhysicsObj_Mass             	rs.b 1 ; Object mass
-PhysicsObj_HasPhysics       	rs.b 1 ; Uses physics
+PhysicsObj_HasCollision       	rs.b 1 ; Uses physics
 PhysicsObj_Buoyant				rs.b 1 ; Collides with water terrain
 PhysicsObj_CollideFloor	    	rs.b 1 ; Collides with floor
 PhysicsObj_CollideWalls	    	rs.b 1 ; Collides with walls (bottom probe)
@@ -148,7 +148,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_CanSleep(a0)
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	move.b #0x1, PhysicsObj_Mass(a0)
-	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x1, PhysicsObj_HasCollision(a0)
 	move.b #0x0, PhysicsObj_Buoyant(a0)
 	move.b #0x1, PhysicsObj_CollideFloor(a0)
 	move.b #0x1, PhysicsObj_CollideWalls(a0)
@@ -209,7 +209,7 @@ PhysicsObjPreStep:
 
 	@ForcedUpdate:
 	
-	tst.b  PhysicsObj_HasPhysics(a0)
+	tst.b  PhysicsObj_HasCollision(a0)
 	beq    @NoPhysics
 	
 	; Get current animation
@@ -675,6 +675,9 @@ PhysicsObjApplyVelocityX:
 	add.l  d2, d1						; Add velocity to pos
 	move.l d1, Entity_WorldPosX(a0)
 
+	tst.b  PhysicsObj_HasCollision(a0)
+	beq    @NoCheckCollision
+
 	; Collision check wall (bottom probe)
 	tst.b  PhysicsObj_CollideWalls(a0)
 	beq    @NoCheckWall
@@ -697,6 +700,8 @@ PhysicsObjApplyVelocityX:
 	; Collision correction
 	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectX
+
+	@NoCheckCollision:
 
 	POPM   d0-d3
 
@@ -758,6 +763,9 @@ PhysicsObjApplyVelocityY:
 	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
 
+	tst.b  PhysicsObj_HasCollision(a0)
+	beq    @NoCheckCollision
+
 	; Find floor
 	tst.b  PhysicsObj_CollideFloor(a0)
 	beq    @NoCheckFloor
@@ -806,6 +814,8 @@ PhysicsObjApplyVelocityY:
 	
 	; Collision correction
 	jsr    PhysicsObjCollisionCorrectY
+
+	@NoCheckCollision:
 
 	POPM   d0-d3
 

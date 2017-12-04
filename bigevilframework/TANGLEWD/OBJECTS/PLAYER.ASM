@@ -130,6 +130,7 @@ Player_RideState_None		equ 0x0
 Player_RideState_Mounting	equ 0x1
 Player_RideState_Riding		equ 0x2
 Player_RideState_Jumping	equ 0x3
+Player_RideState_Cart		equ 0x4
 
 ; Dismount type
 Player_Dismount_Voluntary	equ 0x0
@@ -187,7 +188,9 @@ Player_InteractObject  		rs.l 1	; Object player is interacting with
 Player_ColourPowerHost		rs.l 1	; Object player has stolen colour power from
 Player_Pet					rs.l 1	; Current tamed creature
 Player_LastBouncePlant		rs.l 1	; Last touched bounce plant
-Player_LastWaterBody		rs.l 1	; Last entered water body
+Player_LastWaterBodyLeft	rs.w 1	; Last entered water body left bounds
+Player_LastWaterBodyRight	rs.w 1	; Last entered water body right bounds
+Player_LastWaterBodySurface	rs.w 1	; Last entered water body surface
 Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
@@ -272,7 +275,9 @@ PlayerInit:
 	move.b  #0x0, Player_ActiveColourAbility(a0)
 	move.l  #0x0, Player_InteractObject(a0)
 	move.l  #0x0, Player_LastBouncePlant(a0)
-	move.l  #0x0, Player_LastWaterBody(a0)
+	move.w  #0x0, Player_LastWaterBodyLeft(a0)
+	move.w  #0x0, Player_LastWaterBodyRight(a0)
+	move.w  #0x0, Player_LastWaterBodySurface(a0)
 	move.l  #0x0, Player_Pet(a0)
 	move.w  #0x0, Player_ColourChangeTimer(a0)
 	move.w  #0x0, Player_IdleFrameCount(a0)
@@ -1224,7 +1229,7 @@ PlayerMountPet:
 	move.b #0x1, Character_Riding(a0)
 
 	; Stop processing physics, inheriting pos/vel from monster
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 
 	; Disable controls
 	move.b #0x0, Player_ControlEnabled(a0)
@@ -1328,7 +1333,7 @@ PlayerDismountPet:
 	move.b #0x0, AnimObj_Playing(a0)
 
 	; Restore physics
-	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x1, PhysicsObj_HasCollision(a0)
 
 	; Stop riding
 	move.b #0x0, Character_Riding(a0)
@@ -1349,9 +1354,11 @@ PlayerUpdateMount:
 	cmp.l  #0x0, a2
 	beq    @NoPet
 
-	; Check in one of the riding states
+	; Check in one of the beast riding states
 	move.b Player_RideState(a0), d0
 	cmp.b  #Player_RideState_None, d0
+	beq    @StateNone
+	cmp.b  #Player_RideState_Cart, d0
 	beq    @StateNone
 
 	; If pet dead, dismount immediately
@@ -2215,7 +2222,9 @@ PlayerInteractTest_Water:
 	; Reset in water
 	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, PhysicsObj_Underwater(a0)
-	move.l #0x0, Player_LastWaterBody(a0)
+	move.w #0x0, Player_LastWaterBodyLeft(a0)
+	move.w #0x0, Player_LastWaterBodyRight(a0)
+	move.w #0x0, Player_LastWaterBodySurface(a0)
 
 	; Reset water level
 	move.b #0xFF, raster_water_level
@@ -2235,14 +2244,16 @@ PlayerInteractTest_Water:
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	subi.w #Player1WaterWaistHeight, d1
 	subi.w #Player1WaterWaistHeight, d2
-	PUSHL  d3
+	PUSHM  d2-d4
 	jsr    PHYS_TestBoxIntersectBox
-	POPL   d3
+	POPM   d2-d4
 	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
 	
 	; Set in water
+	swap   d3						; Left bounds
+	swap   d4						; Right bounds
 	move.b d5, d1					; Previously in water
 	move.w Entity_WorldPosY(a2), d2	; Water level
 	jsr    PlayerEnteredWater
@@ -2274,16 +2285,18 @@ PlayerInteractTest_Water:
 	subi.w #Player1WaterWaistHeight, d2
 	lea    Pool_Platform(a2), a3	; Use pool platform Y as bounds top
 	move.w Platform_PosY(a3), d3
-	PUSHL  d3
+	PUSHM  d3-d4
 	jsr    PHYS_TestBoxIntersectBox
-	POPL   d3
+	POPM   d3-d4
 	POPL   d5
 	tst.b  d0
 	beq    @NoIntersectPool
 	
 	; Set in water
-	move.b d5, d1					; Previously in water
 	move.w d3, d2					; Water level
+	swap   d3						; Left bounds
+	swap   d4						; Right bounds
+	move.b d5, d1					; Previously in water
 	jsr    PlayerEnteredWater
 
 	bra    @Found
@@ -2341,6 +2354,9 @@ PlayerInteractTest_Water:
 	blt    @NextTerrain
 
 	; Set in water
+	swap   d1
+	move.w d2, d4					; Left bounds
+	move.w d1, d3					; Right bounds
 	move.w d1, d2					; Water level
 	addi.w #vdp_sprite_border_y, d2
 	move.b d5, d1					; Previously in water
@@ -2365,9 +2381,15 @@ PlayerInteractTest_Water:
 PlayerEnteredWater:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- Water body addr
 	; d1 (b) Previously in water
 	; d2 (w) Water level Y coord
+	; d3 (w) Water body left bounds
+	; d4 (w) Water body right bounds
+
+	; Set water bounds
+	move.w d3, Player_LastWaterBodyLeft(a0)
+	move.w d4, Player_LastWaterBodyRight(a0)
+	move.w d2, Player_LastWaterBodySurface(a0)
 
 	; Set water level (screen space)
 	move.w d2, d3
@@ -2379,7 +2401,6 @@ PlayerEnteredWater:
 	; Set in water
 	move.b #0x1, PhysicsObj_Underwater(a0)
 	move.b #0x1, Character_InWater(a0)
-	move.l a2, Player_LastWaterBody(a0)
 
 	tst.b  d1
 	bne    @NoSFXVFX

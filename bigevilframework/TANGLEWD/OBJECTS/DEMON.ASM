@@ -112,7 +112,7 @@ DemonInit:
 	move.w  #Demon_Height, Entity_Height(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 
-	move.b  #0x0, PhysicsObj_HasPhysics(a0)
+	move.b  #0x0, PhysicsObj_HasCollision(a0)
 	move.b  #0x1, PhysicsObj_DecelInAir(a0)
 	MOVE_NTSC_L Demon_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Demon_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0

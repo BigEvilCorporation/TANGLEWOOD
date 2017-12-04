@@ -64,7 +64,7 @@ StalactiteInit:
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
 
 	; Disable physics until activated
-	move.b  #0x0, PhysicsObj_HasPhysics(a0)
+	move.b  #0x0, PhysicsObj_HasCollision(a0)
 	
 	; Setup collision bounds
 	move.w  #((Stalactite_Width/2)-(Stalactite_HitBoundsWidth/2)), PhysicsObj_BoundsLeft(a0)
@@ -90,7 +90,7 @@ StalactiteUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	tst.b  PhysicsObj_HasPhysics(a0)
+	tst.b  PhysicsObj_HasCollision(a0)
 	bne    @Active
 
 	; If player close, activate
@@ -103,7 +103,7 @@ StalactiteUpdate:
 	bgt    @Inactive
 
 	; Activate physics, update out of view
-	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x1, PhysicsObj_HasCollision(a0)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	@Active:

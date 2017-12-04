@@ -142,7 +142,7 @@ MainMenu_Enter:
 
 	; Disable Nymn physics (no terrain data)
 	ENTITY_GETBYNAME Nymn, main_menu_Nymn_1, a0
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 	
 	; Start sleep anim
 	lea    Player_Animations+(PlayerAnimIdx_Sleep*Animation_Struct_Size)(a0), a1

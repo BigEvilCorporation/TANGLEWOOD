@@ -651,7 +651,7 @@ FuzzlFindGenerator:
 	move.l d1, Entity_WorldPosY(a0)
 
 	; De-physicalise
-	move.b #0x0, PhysicsObj_HasPhysics(a0)
+	move.b #0x0, PhysicsObj_HasCollision(a0)
 	
 	; Zero X velocity
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -707,7 +707,7 @@ FuzzlRemoveFromGenerator:
 	; a1 --- Level addr
 
 	; Physicalise
-	move.b #0x1, PhysicsObj_HasPhysics(a0)
+	move.b #0x1, PhysicsObj_HasCollision(a0)
 	
 	; Zero X velocity
 	move.l #0x0, PhysicsObj_VelX(a0)

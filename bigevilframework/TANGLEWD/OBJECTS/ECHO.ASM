@@ -164,6 +164,9 @@ Echo_AIPotentialSafePosX	rs.w 1	; Nymn's last floor position, will become safe p
 Echo_AIPotentialSafePosY	rs.w 1
 Echo_AILastDryLandY			rs.w 1	; Last known dry land pos
 Echo_AILastWaterEdge		rs.w 1	; Last known water edge
+Echo_AIWaterBodyLeft		rs.w 1	; Last known water bounds left
+Echo_AIWaterBodyRight		rs.w 1	; Last known water bounds right
+Echo_AIWaterBodySurface		rs.w 1	; Last known water surface
 Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
@@ -1110,14 +1113,19 @@ EchoAIUpdate_FollowNodes:
 	move.w EchoAINode_ToleranceX(a3), d3
 	move.w EchoAINode_ToleranceY(a3), d4
 
-	; If run into a wall, forcefully execute the next node
+	; If run into a wall and next node above Echo, jump
 	tst.b  EchoAINode_ForceIfHitWall(a3)
 	beq    @NotHitWall
 	PUSHL  d1
 	PHYSICS_HITFACINGWALL a0
 	POPL   d1
 	tst.b  d0
-	bne    @HittingWall
+	beq    @NotHitWall
+	ENTITY_GETCENTREY d0,a0
+	TOPIXELS d0
+	cmp.w  d0, d2
+	blt    @NotHitWall
+	jsr    CharacterStartJump
 	@NotHitWall:
 
 	; Check if within X tolerance
@@ -1150,8 +1158,6 @@ EchoAIUpdate_FollowNodes:
 	@WithinBounds:
 
 	;==============================================================
-	
-	@HittingWall:
 
 	; Check if required to be on floor
 	tst.b  EchoAINode_RequireOnFloor(a3)
@@ -1186,10 +1192,10 @@ EchoAIUpdate_FollowNodes:
 	bra    @End
 	
 	@Moving:
-
+	
 	; Find interesting objects (applicable to node follow state)
 	jsr    EchoAI_FindInterestingObj_InNodeState
-
+	
 	@Lost:
 	@NodeFailed:
 	@End:
@@ -1447,16 +1453,17 @@ EchoAIUpdate_ButtonHold:
 EchoAIStart_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- Water body
+	; d0 (w) Water body left bounds
+	; d1 (w) Water body right bounds
+	; d2 (w) Water body surface
 	
 	; Set water state
 	move.b #EchoAIState_Water, Echo_AIState(a0)
-
-	; Set water body
-	move.l a2, Echo_AIObjectOfInterest(a0)
-
-	; Set direction
-	move.b SpriteObj_FlippedX(a0), Echo_AIObstacleDirection(a0)
+	
+	; Set water bounds
+	move.w d0, Echo_AIWaterBodyLeft(a0)
+	move.w d1, Echo_AIWaterBodyRight(a0)
+	move.w d2, Echo_AIWaterBodySurface(a0)
 
 	; Clear wait state
 	move.b #0x0, Echo_AIWaitingForWaterPath(a0)
@@ -1465,14 +1472,19 @@ EchoAIStart_Water:
 	move.w #0x0, Echo_AILastWaterEdge(a0)
 
 	; Start running towards closest shore
-	move.w Entity_WorldPosX(a0), d0
-	move.w Echo_AILastDryLandY(a0), d1
-	cmp.w  d0, d1
+	ENTITY_GETCENTREX d2, a0
+	TOPIXELS d2
+	sub.w  d2, d1	; Right bounds - X pos
+	sub.w  d0, d2	; X pos - left bounds
+
+	cmp.w  d1, d2
 	blt    @MoveLeft
 	jsr    CharacterMoveRight
+	move.b #0x1, Echo_AIObstacleDirection(a0)
 	bra    @MoveRight
 	@MoveLeft:
 	jsr    CharacterMoveLeft
+	move.b #0x0, Echo_AIObstacleDirection(a0)
 	@MoveRight:
 	
 	rts
@@ -1524,6 +1536,7 @@ EchoAIUpdate_Water:
 
 	; Stop moving
 	jsr    CharacterCancelXMovement
+	move.l #0x0, PhysicsObj_VelX(a0)
 
 	; Face water
 	move.b Echo_AIObstacleDirection(a0), SpriteObj_FlippedX(a0)
@@ -1558,19 +1571,34 @@ EchoAIUpdate_Water:
 
 	;==============================================================
 
-	move.l Echo_AIObjectOfInterest(a0), a2
-	ENTITY_GETCENTREX d0,a2
-	TOPIXELS d0
-	move.w Entity_WorldPosY(a2), d1
-	sub.w  Entity_Height(a0), d1
+	
+	; Get centre of water body X
+	move.w Echo_AIWaterBodyLeft(a0), d1
+	move.w Echo_AIWaterBodyRight(a0), d2
+	move.w d1, d0
+	sub.w  d1, d2
+	lsr.w  #0x1, d2
+	add.w  d2, d0
+
+	; Get surface
+	move.w Echo_AIWaterBodySurface(a0), d1
+	
+	; - search height
 	subq.w #0x08, d1
+
+	; Find floor
 	jsr    EchoFindFloor
 	tst.b  d0
 	beq    @NoFloor
 
 	; Get water body bounds
-	move.l Echo_AIObjectOfInterest(a0), a2
-	ENTITY_GETBOUNDS d1,d2,d5,a2
+	move.w Echo_AIWaterBodyLeft(a0), d1
+	move.w Echo_AIWaterBodyRight(a0), d2
+	swap   d1
+	swap   d2
+	move.w Echo_AIWaterBodySurface(a0), d1
+	move.w d1, d2
+	add.w  Entity_Height(a0), d2
 
 	; Check floor inside water
 	jsr    PHYS_TestPointInsideBox
@@ -1609,6 +1637,9 @@ EchoFindFloor:
 	move.l Entity_WorldPosX(a0), d4
 	move.l Entity_WorldPosY(a0), d5
 	PUSHM  d4-d5
+	
+	; Sub player height
+	sub.w  Entity_Height(a0), d1
 
 	; Set search position
 	move.w d0, Entity_WorldPosX(a0)
@@ -1910,9 +1941,19 @@ EchoAIUpdate_Cart:
 	; Get cart
 	move.l Echo_AIObjectOfInterest(a0), a2
 
+	; Check if lost cart for some reason
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a2
+	sub.l  d0, d1
+	ABS    d1
+	cmp.l  #Echo_AIDistCartX*subpixels_per_pixel, d1
+	bgt    @LostCart
+
 	; Wait until smashed
 	tst.b  Cart_Smashed(a2)
 	beq    @Riding
+
+	@LostCart:
 
 	; Back to follow state
 	jsr    EchoAIStart_Follow
@@ -2289,6 +2330,13 @@ EchoAI_FindInterestingObj:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If in cart (jumped in one naturally)
+	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
+	bne    @NotInCart
+	jsr    EchoAIStart_Cart
+	bra    @End
+	@NotInCart:
+
 	; Search ladders
 	jsr    EchoAI_FindLadder
 	cmp.l  #0x0, a2
@@ -2307,7 +2355,7 @@ EchoAI_FindInterestingObj:
 
 	; Search water
 	jsr    EchoAI_FindWater
-	cmp.l  #0x0, a2
+	cmp.w  #0x0, d0
 	beq    @NoWater
 	jsr    EchoAIStart_Water
 	bra    @End
@@ -2366,6 +2414,13 @@ EchoAI_FindInterestingObj_InNodeState:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If in cart (jumped in one naturally)
+	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
+	bne    @NotInCart
+	jsr    EchoAIStart_Cart
+	bra    @End
+	@NotInCart:
+
 	; Search ladders
 	jsr    EchoAI_FindLadder
 	cmp.l  #0x0, a2
@@ -2376,7 +2431,7 @@ EchoAI_FindInterestingObj_InNodeState:
 
 	; Search water
 	jsr    EchoAI_FindWater
-	cmp.l  #0x0, a2
+	cmp.w  #0x0, d0
 	beq    @NoWater
 	jsr    EchoAIStart_Water
 	bra    @End
@@ -2753,7 +2808,7 @@ EchoAI_FindCart:
 	bne    @NextCart
 
 	; Check not already in use
-	tst.l  Cart_Occupant(a0)
+	tst.l  Cart_Occupant(a2)
 	bne    @NextCart
 
 	; Check within X threshold
@@ -2793,9 +2848,13 @@ EchoAI_FindCart:
 EchoAI_FindWater:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- OUT: Water body
+	; d0 (w) OUT: Water bounds left
+	; d1 (w) OUT: Water bounds right
+	; d2 (w) OUT: Water surface
 
-	move.l Player_LastWaterBody(a0), a2
+	move.w Player_LastWaterBodyLeft(a0), d0
+	move.w Player_LastWaterBodyRight(a0), d1
+	move.w Player_LastWaterBodySurface(a0), d2
 
 	rts
 
