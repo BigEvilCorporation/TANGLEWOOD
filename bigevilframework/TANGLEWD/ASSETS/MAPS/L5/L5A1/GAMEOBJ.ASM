@@ -101,11 +101,13 @@ L5A1_TriggerBox_end_name	dc.b "L5A1_TriggerBox_end",0
 
 L5A1_Checkpoint_count equ 0x0
 
-L5A1_WaterBody_count equ 0x1
+L5A1_WaterBody_count equ 0x2
 L5A1_WaterBody_54_idx	equ 0x0
+L5A1_WaterBody_59_idx	equ 0x1
 
 	IFND FINAL
 L5A1_WaterBody_54_name	dc.b "L5A1_WaterBody_54",0
+L5A1_WaterBody_59_name	dc.b "L5A1_WaterBody_59",0
 	even
 	ENDIF
 
@@ -303,6 +305,7 @@ L5A1_LoadGameObjects:
 	jsr LogInit
 	move.l #0x0e000000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
+	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L5A1_Log1_name, a3
@@ -485,6 +488,21 @@ L5A1_LoadGameObjects:
 	jsr WaterBodyLoadGfx
 	IFND FINAL
 	lea L5A1_WaterBody_54_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #WaterBody_Struct_Size, a0
+
+	jsr WaterBodyInit
+	move.l #0x0fd00000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosY(a0)
+	move.w #0x0320, Entity_Width(a0)
+	move.w #0x00e0, Entity_Height(a0)
+	jsr WaterBodyLoadGfx
+	IFND FINAL
+	lea L5A1_WaterBody_59_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -677,7 +695,7 @@ L5A1_LoadGameObjects:
 	add.l #Cart_Struct_Size, a0
 
 	jsr CartInit
-	move.l #0x14380000, Entity_WorldPosX(a0)
+	move.l #0x14b80000, Entity_WorldPosX(a0)
 	move.l #0x05500000, Entity_WorldPosY(a0)
 	jsr CartLoadGfx
 	IFND FINAL
@@ -690,7 +708,7 @@ L5A1_LoadGameObjects:
 	add.l #Cart_Struct_Size, a0
 
 	jsr CartInit
-	move.l #0x14600000, Entity_WorldPosX(a0)
+	move.l #0x14e80000, Entity_WorldPosX(a0)
 	move.l #0x05500000, Entity_WorldPosY(a0)
 	jsr CartLoadGfx
 	IFND FINAL
@@ -908,8 +926,8 @@ L5A1_LoadGameObjects:
 	add.l #Bridge_Struct_Size, a0
 
 	jsr BridgeInit
-	move.l #0x14300000, Entity_WorldPosX(a0)
-	move.l #0x05000000, Entity_WorldPosY(a0)
+	move.l #0x14280000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 	jsr BridgeLoadGfx

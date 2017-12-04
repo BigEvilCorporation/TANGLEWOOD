@@ -225,12 +225,22 @@ CartSetOccupant:
 	; Disable occupant controls
 	move.b #0x0, Player_ControlEnabled(a2)
 
+	; Clear occupant X vel and accel
+	move.l #0x0, PhysicsObj_VelX(a2)
+	move.w #0x0, PhysicsObj_AccelX(a2)
+
 	; Update out of view (in case used by AI)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Disable platform
 	lea    Cart_Platform(a0), a2
 	LIST_REMOVE Platforms, a2, a3, a4
+
+	; Remove from world grid (will go off screen)
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	@AlreadyOccupied:
 

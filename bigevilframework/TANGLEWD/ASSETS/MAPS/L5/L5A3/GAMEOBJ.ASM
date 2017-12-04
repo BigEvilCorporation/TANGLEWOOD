@@ -289,17 +289,17 @@ L5A3_Ladder_count equ 0x6
 L5A3_Ladder_93_idx	equ 0x0
 L5A3_Ladder_89_idx	equ 0x1
 L5A3_Ladder_55_idx	equ 0x2
-L5A3_Ladder_81_idx	equ 0x3
+L5A3_Ladder_94_idx	equ 0x3
 L5A3_Ladder_88_idx	equ 0x4
-L5A3_Ladder_94_idx	equ 0x5
+L5A3_Ladder_95_idx	equ 0x5
 
 	IFND FINAL
 L5A3_Ladder_93_name	dc.b "L5A3_Ladder_93",0
 L5A3_Ladder_89_name	dc.b "L5A3_Ladder_89",0
 L5A3_Ladder_55_name	dc.b "L5A3_Ladder_55",0
-L5A3_Ladder_81_name	dc.b "L5A3_Ladder_81",0
-L5A3_Ladder_88_name	dc.b "L5A3_Ladder_88",0
 L5A3_Ladder_94_name	dc.b "L5A3_Ladder_94",0
+L5A3_Ladder_88_name	dc.b "L5A3_Ladder_88",0
+L5A3_Ladder_95_name	dc.b "L5A3_Ladder_95",0
 	even
 	ENDIF
 
@@ -1316,11 +1316,13 @@ L5A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	jsr LadderInit
-	move.l #0x08280000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #0x1a680000, Entity_WorldPosX(a0)
+	move.l #0x05180000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00c8, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L5A3_Ladder_81_name, a3
+	lea L5A3_Ladder_94_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
@@ -1344,13 +1346,13 @@ L5A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	jsr LadderInit
-	move.l #0x1a680000, Entity_WorldPosX(a0)
-	move.l #0x05180000, Entity_WorldPosY(a0)
+	move.l #0x08280000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	move.w #0x0028, Entity_Width(a0)
-	move.w #0x00c8, Entity_Height(a0)
+	move.w #0x00a0, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L5A3_Ladder_94_name, a3
+	lea L5A3_Ladder_95_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
