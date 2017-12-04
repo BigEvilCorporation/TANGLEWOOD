@@ -25,6 +25,9 @@ Cart_AnimSpeedVelDiv	equ 0x0008
 
 Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
 
+Cart_WaterBobSinSpeed	equ 0x0010
+Cart_WaterBobMaxHeight	equ 0x0008
+
 ;==============================================================
 
 ; Struct
@@ -32,6 +35,7 @@ Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
 ;--------------------------
 Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
 Cart_Occupant        rs.l 1
+Cart_WaterBobSine    rs.b 1
 Cart_Smashed         rs.b 1
 ;--------------------------
 	RS_ALIGN
@@ -80,6 +84,7 @@ CartInit:
 	;move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x1, PhysicsObj_Buoyant(a0)
 	move.l  #0x0, Cart_Occupant(a0)
+	move.b  #0x0, Cart_WaterBobSine(a0)
 	move.b  #0x0, Cart_Smashed(a0)
 	
 	; Setup collision bounds
@@ -148,33 +153,17 @@ CartUpdate:
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @Smashed
 
+	;==============================================================
+
 	; Apply acceleration
 	move.w #Cart_Accel, PhysicsObj_AccelX(a0)
 	move.b #0x1, SpriteObj_Priority(a0)
-	
-	; Update occupant pos
-	move.w Entity_WorldPosX(a0), d0
-	move.w Entity_WorldPosY(a0), d1
 
-	PUSHMW d0-d1
-	move.w Entity_Width(a0), d2
-	move.w Entity_Height(a0), d3
-	move.w Entity_Width(a3), d4
-	move.w Entity_Height(a3), d5
-	lsr.w  #0x1, d2
-	lsr.w  #0x1, d4
-	sub.w  d2, d4
-	sub.w  d4, d0
-	TOSUBPIXELS d0
-	move.l d0, Entity_WorldPosX(a3)
-	sub.w  d3, d5
-	sub.w  d5, d1
-	subi.w #(Cart_Height-Cart_PlatformOffsetY), d1
-	TOSUBPIXELS d1
-	move.l d1, Entity_WorldPosY(a3)
-	POPMW  d0-d1
+	;==============================================================
 
 	; If on water
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
 	PUSHMW d0-d1
 	add.w  Entity_Height(a0), d1	; Bottom of cart
 	addi.w #0x8, d1					; Underwater test point Y
@@ -195,7 +184,30 @@ CartUpdate:
 	jsr    VfxPlay
 	POPM   a0-a1
 
-	bra    @End
+	; Increment sine step and wrap
+	moveq  #0x0, d0
+	move.b Cart_WaterBobSine(a0), d0
+	add.b  #Cart_WaterBobSinSpeed, d0
+	move.b d0, Cart_WaterBobSine(a0)
+
+	; Get sine value from table
+	lea    sintable, a2
+	add.l  d0, a2
+	move.b (a2), d0
+	ext.w  d0
+	ext.l  d0
+
+	; To Y range
+	muls   #((Cart_WaterBobMaxHeight*subpixels_per_pixel)/256), d0
+	add.l  #Cart_WaterBobMaxHeight*subpixels_per_pixel, d0
+
+	; Draw offset
+	TOPIXELS d0
+	move.w d0, SpriteObj_DrawOffsetY(a0)
+
+	bra    @EndWater
+
+	;==============================================================
 
 	@NotOnWater:
 
@@ -205,7 +217,40 @@ CartUpdate:
 	jsr    VfxStop
 	POPM   a0-a1
 
+	; Reset draw offset
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+
+	@EndWater:
+
+	;==============================================================
+
+	; Update occupant pos
+	move.l Cart_Occupant(a0), a3
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
+
+	PUSHMW d0-d1
+	move.w Entity_Width(a0), d2
+	move.w Entity_Height(a0), d3
+	move.w Entity_Width(a3), d4
+	move.w Entity_Height(a3), d5
+	lsr.w  #0x1, d2
+	lsr.w  #0x1, d4
+	sub.w  d2, d4
+	sub.w  d4, d0
+	TOSUBPIXELS d0
+	move.l d0, Entity_WorldPosX(a3)
+	sub.w  d3, d5
+	sub.w  d5, d1
+	subi.w #(Cart_Height-Cart_PlatformOffsetY), d1
+	add.w  SpriteObj_DrawOffsetY(a0), d1
+	TOSUBPIXELS d1
+	move.l d1, Entity_WorldPosY(a3)
+	POPMW  d0-d1
+
 	bra    @End
+
+	;==============================================================
 	
 	@Smashed:
 	
@@ -214,6 +259,9 @@ CartUpdate:
 	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
 	jsr    VfxStop
 	POPM   a0-a1
+
+	; Reset draw offset
+	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 
 	; Re-enable occupant physics, re-check floor, enable controls
 	move.l Cart_Occupant(a0), a2
@@ -280,6 +328,7 @@ CartSetOccupant:
 	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityAddToUpdateList
 	jsr    EntityAddToRenderList
+	jsr    PhysicsWorldAddObject
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	@AlreadyOccupied:

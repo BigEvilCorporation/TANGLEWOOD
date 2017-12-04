@@ -3191,9 +3191,18 @@ EchoAI_PushInteractionCart:
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x1, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Cart, EchoAINode_Action(a3)
+
+	; If Nymn not in cart lerp camera
+	move.b #0x0, d0
+	move.l Player1, a2
+	cmp.b  #Player_RideState_Cart, Player_RideState(a2)
+	beq    @NymnInCart
+	move.b #0x1, d0
+	@NymnInCart:
+
+	move.b d0, EchoAINode_LerpCamera(a3)
 
 	rts
 

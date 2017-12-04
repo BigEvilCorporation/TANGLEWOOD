@@ -27,8 +27,11 @@ PhysicsWorldInit:
 PhysicsWorldAddObject:
 	; a0 --- Object
 
+	btst.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	bne    @InPhysicsList
 	LIST_APPEND_TAIL PhysicsObjs,a0,a3
 	bset.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	@InPhysicsList:
 
 	rts
 

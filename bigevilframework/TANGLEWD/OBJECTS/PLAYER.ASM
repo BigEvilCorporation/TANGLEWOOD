@@ -2214,6 +2214,10 @@ PlayerInteractTest_Carts:
 PlayerInteractTest_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If not riding something
+	cmp.b  #Player_RideState_None, Player_RideState(a0)
+	bne    @Riding
 	
 	; Backup current water state
 	move.b Character_InWater(a0), d5
@@ -2375,6 +2379,7 @@ PlayerInteractTest_Water:
 	;==============================================================
 
 	@Found:
+	@Riding:
 	
 	rts
 
