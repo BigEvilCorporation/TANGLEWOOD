@@ -161,6 +161,10 @@ CartUpdate:
 
 	;==============================================================
 
+	; If off screen, don't do water VFX
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @EndWater
+
 	; If on water
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d1
