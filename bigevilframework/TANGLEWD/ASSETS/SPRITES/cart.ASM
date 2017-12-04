@@ -14,6 +14,11 @@ actor_cart_sheet_roll_height		equ 0x20	; Max height of largest frame in pixels
 actor_cart_sheet_roll_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
+actor_cart_sheet_broken_width		equ 0x28	; Max width of largest frame in pixels
+actor_cart_sheet_broken_height		equ 0x20	; Max height of largest frame in pixels
+actor_cart_sheet_broken_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
+
+
 actor_cart_sheet_roll_frametable:
 actor_cart_sheet_roll_frame_0_header:
 	dc.w 0x0014	; Frame size (tiles)
@@ -42,6 +47,14 @@ actor_cart_sheet_roll_frame_3_header:
 	dc.l actor_cart_sheet_roll_frame_3
 	dc.l actor_cart_sheet_roll_frame_3_subsprite_dimensions_bits
 	dc.l actor_cart_sheet_roll_frame_3_subsprite_pos_offsets
+
+actor_cart_sheet_broken_frametable:
+actor_cart_sheet_broken_frame_0_header:
+	dc.w 0x0014	; Frame size (tiles)
+	dc.w actor_cart_sheet_broken_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_cart_sheet_broken_frame_0
+	dc.l actor_cart_sheet_broken_frame_0_subsprite_dimensions_bits
+	dc.l actor_cart_sheet_broken_frame_0_subsprite_pos_offsets
 
 actor_cart_sheet_roll_frame_0_size_b		equ 0x0280	; Size in bytes
 actor_cart_sheet_roll_frame_0_size_t		equ 0x0014	; Size in tiles
@@ -103,6 +116,23 @@ actor_cart_sheet_roll_frame_3_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_cart_sheet_roll_frame_3_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0x3
+	Even
+
+
+actor_cart_sheet_broken_frame_0_size_b		equ 0x0280	; Size in bytes
+actor_cart_sheet_broken_frame_0_size_t		equ 0x0014	; Size in tiles
+actor_cart_sheet_broken_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_cart_sheet_broken_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_cart_sheet_broken_frame_0_subsprite_dimensions_bits:
 	dc.b 0xF
 	dc.b 0x3
 	Even
@@ -837,6 +867,192 @@ actor_cart_sheet_roll_frame_3:
 	dc.l	0x9C151000
 	dc.l	0xCC500000
 	dc.l	0x15000000
+	dc.l	0x00000000
+
+
+
+
+spritesheet_cart_broken:
+
+actor_cart_sheet_broken_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x9CCCFFFF
+	dc.l	0x01199999
+
+	dc.l	0x099CCCCC
+	dc.l	0x19999999
+	dc.l	0x09C22222
+	dc.l	0x09C266AA
+	dc.l	0x09900DFF
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x0000000D
+	dc.l	0x00000ADD
+	dc.l	0x00000ADD
+	dc.l	0x0000C266
+	dc.l	0x00009CDF
+	dc.l	0x00009C51
+	dc.l	0x000095FF
+	dc.l	0x0000C1F9
+
+	dc.l	0x00095F99
+	dc.l	0x00001F99
+	dc.l	0x00001C99
+	dc.l	0x00015F99
+	dc.l	0x000001C9
+	dc.l	0x000005CC
+	dc.l	0x00000051
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0xFFFFFFFF
+	dc.l	0x99999999
+
+	dc.l	0xCCCCCCCC
+	dc.l	0x99999999
+	dc.l	0x22222222
+	dc.l	0xAAAAAAAA
+	dc.l	0xFFFFFFFF
+	dc.l	0x00ADDDDD
+	dc.l	0x00ADDDDD
+	dc.l	0x0AAAAAAA
+
+	dc.l	0xFFFFFFFF
+	dc.l	0xDDDDDDDD
+	dc.l	0xDDDDDDDD
+	dc.l	0xAAAAAAAA
+	dc.l	0x5115FFFF
+	dc.l	0xFFCF15DD
+	dc.l	0x9999CC5D
+	dc.l	0x99999C1A
+
+	dc.l	0x999999F5
+	dc.l	0x951999C1
+	dc.l	0x911999F1
+	dc.l	0x999999F5
+	dc.l	0x99999C10
+	dc.l	0x99999F50
+	dc.l	0xCFCF1500
+	dc.l	0x51150000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0xFFFFFFF0
+	dc.l	0x99999990
+
+	dc.l	0xCCCCCCC0
+	dc.l	0x999F9990
+	dc.l	0x22991922
+	dc.l	0x629CC926
+	dc.l	0xFD9CC9DF
+	dc.l	0xDA9CC9AD
+	dc.l	0xDA9F99AD
+	dc.l	0x62991926
+
+	dc.l	0xFD9CC9DF
+	dc.l	0xDA9CC9AD
+	dc.l	0xDA9F99AD
+	dc.l	0x62991926
+	dc.l	0xFD9CC9DF
+	dc.l	0xDA9CC9AD
+	dc.l	0xDAC91CAD
+	dc.l	0x62C11C26
+
+	dc.l	0xFFFFFFFF
+	dc.l	0x99999951
+	dc.l	0xCCCC51FC
+	dc.l	0x9995F999
+	dc.l	0x0001C999
+	dc.l	0x005F9919
+	dc.l	0x001F9111
+	dc.l	0x00115111
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x20000002
+	dc.l	0xD000000D
+	dc.l	0xDA0000AD
+	dc.l	0xDA000ADD
+	dc.l	0xA2002AAA
+
+	dc.l	0xFD00DFFF
+	dc.l	0xDA0ADDDD
+	dc.l	0xDDAADDDD
+	dc.l	0xAAAAAAAA
+	dc.l	0xFFFFFFFF
+	dc.l	0xDDDDDDDD
+	dc.l	0xDDDDDDDD
+	dc.l	0xAAAAAAAA
+
+	dc.l	0xFFFFFFFF
+	dc.l	0x1599999C
+	dc.l	0xFC15CCCC
+	dc.l	0x99CC5999
+	dc.l	0x999C1C00
+	dc.l	0x9999F500
+	dc.l	0x1959C100
+	dc.l	0x15551100
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x000FCCC9
+	dc.l	0x00099110
+
+	dc.l	0x00CCC990
+	dc.l	0x00999991
+	dc.l	0x02222C90
+	dc.l	0xAA662C90
+	dc.l	0xFFFDC900
+	dc.l	0xDDDACC00
+	dc.l	0xDDDAC900
+	dc.l	0xA662C900
+
+	dc.l	0xFFDC9000
+	dc.l	0xDDACC000
+	dc.l	0xDDAC9000
+	dc.l	0x662C9000
+	dc.l	0xFDC90000
+	dc.l	0xDDC90000
+	dc.l	0xDC900000
+	dc.l	0xC9000000
+
+	dc.l	0xC9000000
+	dc.l	0x90000000
+	dc.l	0x90000000
+	dc.l	0x90000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
 

@@ -264,6 +264,9 @@ CartUpdate:
 	jsr    VfxStop
 	POPM   a0-a1
 
+	; Load brokens prite
+	SPRITE_LOAD_DEFAULT Cart,broken,0,PaletteId_World0,0x0
+
 	; Reset draw offset
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 
