@@ -9,6 +9,28 @@
 
 spriteanims_water:
 
+actor_water_sheet_trail_anim_trail:
+actor_water_sheet_trail_anim_trail_numframes: equ 0x6
+actor_water_sheet_trail_anim_trail_speed: equ 0x51
+actor_water_sheet_trail_anim_trail_track_frames:
+	dc.l actor_water_sheet_trail_frame_0_header
+	dc.l actor_water_sheet_trail_frame_1_header
+	dc.l actor_water_sheet_trail_frame_2_header
+	dc.l actor_water_sheet_trail_frame_3_header
+	dc.l actor_water_sheet_trail_frame_4_header
+	dc.l actor_water_sheet_trail_frame_5_header
+
+	Even
+actor_water_sheet_trail_anim_trail_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_water_sheet_trail_anim_trail_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_water_sheet_trail_anim_trail_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_water_sheet_splash_anim_large:
 actor_water_sheet_splash_anim_large_numframes: equ 0x8
 actor_water_sheet_splash_anim_large_speed: equ 0x33

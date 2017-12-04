@@ -283,5 +283,6 @@ PaletteId_WaterRaster		equ PaletteId_Player
 	; VFX IDs
 	; ************************************
 VfxId_WaterSplashLarge		equ 0x0
-VfxId_RainLight				equ 0x1
-VfxId_LightningBolt			equ 0x2
+VfxId_WaterTrail			equ 0x1
+VfxId_RainLight				equ 0x2
+VfxId_LightningBolt			equ 0x3

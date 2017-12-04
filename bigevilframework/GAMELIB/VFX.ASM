@@ -91,13 +91,13 @@ VfxPlay:
 
 	PUSHL  a1
 
-	; If not already playing
-	tst.b AnimObj_Playing(a0)
-	bne   @Playing
-
 	; Set position
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
+
+	; If not already playing
+	tst.b AnimObj_Playing(a0)
+	bne   @Playing
 
 	; Set animation
 	lea    VfxObj_Animation(a0), a1

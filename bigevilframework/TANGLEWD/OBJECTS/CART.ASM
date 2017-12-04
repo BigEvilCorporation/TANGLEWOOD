@@ -155,6 +155,8 @@ CartUpdate:
 	; Update occupant pos
 	move.w Entity_WorldPosX(a0), d0
 	move.w Entity_WorldPosY(a0), d1
+
+	PUSHMW d0-d1
 	move.w Entity_Width(a0), d2
 	move.w Entity_Height(a0), d3
 	move.w Entity_Width(a3), d4
@@ -170,10 +172,48 @@ CartUpdate:
 	subi.w #(Cart_Height-Cart_PlatformOffsetY), d1
 	TOSUBPIXELS d1
 	move.l d1, Entity_WorldPosY(a3)
+	POPMW  d0-d1
+
+	; If on water
+	PUSHMW d0-d1
+	add.w  Entity_Height(a0), d1	; Bottom of cart
+	addi.w #0x8, d1					; Underwater test point Y
+	jsr    PhysicsPointUnderwater
+	POPMW  d0-d1
+
+	tst.w  d2
+	beq    @NotOnWater
+
+	; Play splash VFX
+	PUSHM  a0-a1
+	move.w d4, d1					; Water surface
+	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
+	sub.w  Entity_Width(a0), d0		; Offset to left of cart
+	sub.w  Entity_Height(a0), d1	; Offset to top of VFX
+	TOSUBPIXELS d0
+	TOSUBPIXELS d1
+	jsr    VfxPlay
+	POPM   a0-a1
+
+	bra    @End
+
+	@NotOnWater:
+
+	; Stop VFX
+	PUSHM  a0-a1
+	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
+	jsr    VfxStop
+	POPM   a0-a1
 
 	bra    @End
 	
 	@Smashed:
+	
+	; Stop VFX
+	PUSHM  a0-a1
+	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
+	jsr    VfxStop
+	POPM   a0-a1
 
 	; Re-enable occupant physics, re-check floor, enable controls
 	move.l Cart_Occupant(a0), a2

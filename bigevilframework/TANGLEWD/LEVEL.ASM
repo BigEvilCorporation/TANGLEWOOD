@@ -403,6 +403,11 @@ LevelLoadVFX:
 	lea    vfx_animation_water_splash_small, a3
 	jsr    VfxInit
 
+	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
+	lea    vfx_spritesheet_water_trail, a2
+	lea    vfx_animation_water_trail, a3
+	jsr    VfxInit
+
 	rts
 	
 LevelReset:
