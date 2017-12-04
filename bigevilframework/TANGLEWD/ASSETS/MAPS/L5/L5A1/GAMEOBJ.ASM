@@ -157,7 +157,13 @@ L5A1_Button2_name	dc.b "L5A1_Button2",0
 
 L5A1_Wyrm_count equ 0x0
 
-L5A1_AIMarker_count equ 0x0
+L5A1_AIMarker_count equ 0x1
+L5A1_EchoWait1_idx	equ 0x0
+
+	IFND FINAL
+L5A1_EchoWait1_name	dc.b "L5A1_EchoWait1",0
+	even
+	ENDIF
 
 L5A1_Cart_count equ 0x6
 L5A1_Cart_20_idx	equ 0x0
@@ -634,6 +640,26 @@ L5A1_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(AIMarker_Struct_Size*L5A1_AIMarker_count)
+	move.l a1, EntityPoolStart_AIMarker
+	move.l a1, a0
+	POPL   a1
+
+	jsr AIMarkerInit
+	move.l #0x1c500000, Entity_WorldPosX(a0)
+	move.l #0x05c80000, Entity_WorldPosY(a0)
+	move.b #AIMarker_Type_Barrier, AIMarker_Type(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A1_EchoWait1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
 
 
 	PUSHL  a1

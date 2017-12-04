@@ -1697,12 +1697,27 @@ EchoAIStart_WaitBarrier:
 	jsr    CharacterCancelXMovement
 	move.l #0x0, PhysicsObj_VelX(a0)
 	
-	; Snap to marker left (so marker isn't intersected frame)
+	; Snap to marker left/right (so marker isn't intersected next frame)
 	move.l Entity_WorldPosX(a2), d0
+
+	tst.b  SpriteObj_FlippedX(a0)
+	bne    @MarkerRight
+
 	move.w Entity_Width(a0), d1
 	addq.w #0x1, d1
 	TOSUBPIXELS d1
 	sub.l  d1, d0
+	bra    @MarkerLeft
+
+	@MarkerRight:
+
+	move.w Entity_Width(a2), d1
+	addq.w #0x1, d1
+	TOSUBPIXELS d1
+	add.l  d1, d0
+
+	@MarkerLeft:
+	
 	move.l d0, Entity_WorldPosX(a0)
 
 	rts
