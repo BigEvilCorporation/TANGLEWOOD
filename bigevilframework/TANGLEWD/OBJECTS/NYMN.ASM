@@ -374,6 +374,17 @@ NymnCancelInteract:
 	; If carrying Echo
 	cmp.b  #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
 	beq    @NotCarryingEcho
+
+	; Cannot put Echo down if fully submerged in water
+	move.l Player2, a2
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	move.w Entity_Width(a2), d3
+	lsr.w  #0x1, d3
+	add.w  d3, d0
+	jsr    PhysicsPointUnderwater
+	tst.w  d4
+	bne    @EchoUnderwater
 	
 	; Put him down
 	jsr    NymnEndCarryEcho
@@ -391,6 +402,7 @@ NymnCancelInteract:
 	jsr    PlayerCancelInteract
 	
 	@CarryingEcho:
+	@EchoUnderwater:
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
 	
