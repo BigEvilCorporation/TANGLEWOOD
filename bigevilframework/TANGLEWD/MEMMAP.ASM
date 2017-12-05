@@ -350,6 +350,9 @@ SharedVRAM_Stalact		rs.w 1
 SharedVRAM_Pillar		rs.w 1
 SharedVRAM_Trap			rs.w 1
 SharedVRAM_Firefly		rs.w 1
+SharedVRAM_Skivv		rs.w 1
+SharedVRAM_Scirus		rs.w 1
+SharedVRAM_Hogg			rs.w 1
 
 SharedVRAM_End			rs.b 0
 

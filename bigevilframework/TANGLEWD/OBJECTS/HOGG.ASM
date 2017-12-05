@@ -123,7 +123,7 @@ HoggLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT Hogg,run,palette_hogg,PaletteId_Monster,0x0
+	SPRITE_LOAD_SHARED Hogg,run,palette_hogg,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Hogg,run,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0

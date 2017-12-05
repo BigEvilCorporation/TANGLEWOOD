@@ -41,7 +41,7 @@ Scirus_AIFollowDistanceEnemy		equ 0x0018	; Distance to follow if enemy
 Scirus_AIFollowDistanceFriendInner	equ 0x0060	; Distance to avoid if friend
 Scirus_AIFollowDistanceFriendOuter	equ 0x0090	; Distance to follow if friend
 Scirus_AIFollowDistanceY			equ 0x0030	; Y distance to follow
-Scirus_AIUncomfortableDistance		equ 0x0050	; "Too close" distance if backed up against a wall, turns enemy
+Scirus_AIUncomfortableDistance		equ 0x0040	; "Too close" distance if backed up against a wall, turns enemy
 Scirus_AISafeDistance				equ 0x0090	; "Safe" distance to return to friendly state
 
 Scirus_PlayerDamage		equ 0xFF
@@ -143,7 +143,7 @@ ScirusLoadGfx:
 	; a1 --- Level addr
 
 	; Load initial sprite sheet (just to alloc VRAM)
-	SPRITE_LOAD_DEFAULT Scirus,idle,palette_scirus,PaletteId_Monster,0x0
+	SPRITE_LOAD_SHARED Scirus,idle,palette_scirus,PaletteId_Monster,0x0
 
 	; Set affinity to load correct friend/foe graphics
 	move.b Scirus_Affinity(a0), d0
@@ -364,6 +364,9 @@ ScirusAIUpdate_FollowFriend:
 
 	; Get player
 	move.l Player1, a2
+	
+	; Get current facing
+	move.b SpriteObj_FlippedX(a0), d3
 
 	; Check within Y distance of player
 	ENTITY_GETBOTTOM d0,a0
@@ -432,13 +435,14 @@ ScirusAIUpdate_FollowFriend:
 
 	@WithinBounds:
 	jsr    CharacterCancelXMovement
-
-	; Within bounds, face player if 0 vel
-	tst.l  PhysicsObj_VelX(a0)
-	bne    @EndFollow
-	move.b d3, SpriteObj_FlippedX(a0)
 	
 	@EndFollow:
+	
+	; Face player if 0 vel
+	tst.l  PhysicsObj_VelX(a0)
+	bne    @Moving
+	move.b d3, SpriteObj_FlippedX(a0)
+	@Moving:
 
 	; Check if player too close
 	jsr    ScirusAI_CheckTooClose
@@ -450,7 +454,8 @@ ScirusAI_CheckTooClose:
 	; a1 --- Level addr
 
 	; If against wall
-	tst.b  PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
 	beq    @NotHitWall
 
 	; If within min distance
