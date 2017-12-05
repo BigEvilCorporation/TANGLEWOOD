@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L6A1_size_b	equ 0x00006480	; Size in bytes
+terrainmap_blockmap_L6A1_size_b	equ 0x00006270	; Size in bytes
 terrainmap_blockmap_L6A1_size_w	equ (terrainmap_blockmap_L6A1_size_b/2)	; Size in words
 terrainmap_blockmap_L6A1_size_l	equ (terrainmap_blockmap_L6A1_size_b/4)	; Size in longwords
 terrainmap_L6A1_left	equ 0x00
@@ -16,8 +16,8 @@ terrainmap_L6A1_width	equ 0x320
 terrainmap_L6A1_height	equ 0xFC
 terrainmap_blockmap_L6A1_left	equ 0x00
 terrainmap_blockmap_L6A1_top	equ 0x00
-terrainmap_blockmap_L6A1_width	equ 0xC9
-terrainmap_blockmap_L6A1_height	equ 0x40
+terrainmap_blockmap_L6A1_width	equ 0xC8
+terrainmap_blockmap_L6A1_height	equ 0x3F
 
 ; Terrain bezier bounds
 terrainmap_L6A1_num_special_terrain_descs	equ 0x00
