@@ -40,17 +40,33 @@ AutotestUpdate:
 	lea AutotestData, a0
 	move.l GameStatePtr, d0
 
-	ori.w  #1<<pad_button_right, Autotest_PadDataA(a0)
-
 	; Advance timer
 	subq.w #0x1, Autotest_Timer(a0)
 	tst.w  Autotest_Timer(a0)
-	bne    @End
+	bne    @UpdateState
 
-	; Timer elapsed
+	; Timer elapsed, advance to next satte
+	jsr    AutotestAdvanceState
+	bra    @End
+
+	@UpdateState:
+
+	; Update current state
+	jsr    AutotestUpdateState
+
+	@End:
+	
+	POPALL
+
+	rts
+
+AutotestAdvanceState:
+
+	; Reset timer
 	MOVE_NTSC_W Autotest_NextLevelTime, Autotest_Timer(a0), d1
 
 	; Determine state
+	move.l GameStatePtr, d0
 	cmp.l  #GameStateMainMenu, d0
 	beq    @MainMenu
 	cmp.l  #GameStateLevelSelect, d0
@@ -92,7 +108,42 @@ AutotestUpdate:
 	;==============================================================
 
 	@End:
-	
-	POPALL
+
+	rts
+
+AutotestUpdateState:
+
+	; Determine state
+	move.l GameStatePtr, d0
+	cmp.l  #GameStateMainMenu, d0
+	beq    @MainMenu
+	cmp.l  #GameStateLevelSelect, d0
+	beq    @LevelSelect
+	cmp.l  #GameStateGameplay, d0
+	beq    @Gameplay
+	bra    @End
+
+	;==============================================================
+
+	@MainMenu:
+	bra    @End
+
+	;==============================================================
+
+	@Gameplay:
+
+	; Move right
+	ori.w  #1<<pad_button_right, Autotest_PadDataA(a0)
+
+	bra    @End
+
+	;==============================================================
+
+	@LevelSelect:
+	bra    @End
+
+	;==============================================================
+
+	@End:
 
 	rts
