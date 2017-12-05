@@ -98,42 +98,50 @@ l6a2_Init:
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 
 	; Force every sprite object to use palette 1 (silhouette)

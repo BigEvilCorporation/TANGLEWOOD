@@ -125,7 +125,7 @@ l6a3_Init:
 	ENTITY_GETBYNAME Monster, l6a3_Djakk1, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	
 	rts

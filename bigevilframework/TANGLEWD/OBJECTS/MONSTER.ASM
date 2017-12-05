@@ -143,7 +143,7 @@ Monster_CatchUpSpeedMul rs.w 1
 Monster_Type           rs.b 1
 Monster_Colour         rs.b 1
 Monster_State          rs.b 1
-Monster_DoIntro		   rs.b 1	; Do intro sequence when player approaches (lerp camera)
+Monster_DoIntro		   rs.b 1	; Do intro sequence when player approaches (lerp camera, fade palette in)
 Monster_BlockPlayerCtrl rs.b 1	; Block player input during emerge/camera lerp stage
 Monster_BlockingCtrl   rs.b 1	; Is currently blocking player control
 Monster_CatchingUp     rs.b 1
@@ -273,7 +273,7 @@ MonsterLoadGfx:
 
 	@Djakk:
 
-	; Load sprite
+	; Load sprite (use black palette for fading in)
 	tst.b   Monster_ManualGfxLoad(a0)
 	bne     @ManualLoad
 	SPRITE_LOAD_DEFAULT djakk,idle,palette_fade_black,PaletteId_Monster,0x0
@@ -748,7 +748,7 @@ MonsterSetInCage:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
 	move.b #MonsterState_InCage, Monster_State(a0)
 	
 	PUSHL  a1
@@ -760,6 +760,19 @@ MonsterSetInCage:
 	POPL   a1
 
 	rts
+
+MonsterSkipIntro:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; No intro (camera lerp, palette fade)
+	move.b #0x0, Monster_DoIntro(a0)
+
+	; Set initial palette
+	move.l #palette_djakk, SpriteObj_PaletteAddr(a0)
+
+	rts
+
 MonsterStartWaitForPlayer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -902,6 +915,9 @@ MonsterUpdateEmergeFromCave:
 	
 	; Start roaring at player
 	jsr    MonsterStartRoaring
+
+	; Done intro
+	jsr    MonsterSkipIntro
 	
 	@Lerping:
 

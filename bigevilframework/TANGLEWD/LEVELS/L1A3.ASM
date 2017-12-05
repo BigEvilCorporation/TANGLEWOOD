@@ -90,7 +90,7 @@ l1a3_Init:
 	
 	; Don't bother with Djakk emerge sequence
 	ENTITY_GETBYNAME Monster, l1a3_Djakk, a0
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
 	
 	; Lower catch-up speed mul (or he'll bust through walls)
 	move.w #0x2, Monster_CatchUpSpeedMul(a0)

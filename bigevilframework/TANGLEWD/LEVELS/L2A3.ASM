@@ -162,7 +162,7 @@ l2a3_Init:
 
 	; Don't bother with Djakk emerge sequence
 	ENTITY_GETBYNAME Monster, l2a3_Djakk, a0
-	move.b #0x0, Monster_DoIntro(a0)
+	jsr    MonsterSkipIntro
 
 	; Disable lost player timeout
 	move.w #-1, Monster_LoseSightTimer(a0)
