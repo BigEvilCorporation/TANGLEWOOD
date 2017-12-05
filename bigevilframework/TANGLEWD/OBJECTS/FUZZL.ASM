@@ -504,6 +504,7 @@ FuzzlSerialise:
 	SAVEL Entity_WorldPosX(a0)
 	SAVEL Entity_WorldPosY(a0)
 	SAVEB Fuzzl_State_Bits(a0)
+	SAVEB Fuzzl_FlueOccupant(a0)
 	
 	bra  @End
 	
@@ -514,6 +515,12 @@ FuzzlSerialise:
 	LOADL Entity_WorldPosX(a0)
 	LOADL Entity_WorldPosY(a0)
 	LOADB Fuzzl_State_Bits(a0)
+	LOADB Fuzzl_FlueOccupant(a0)
+
+	tst.b Fuzzl_FlueOccupant(a0)
+	beq   @NotFlueOccupant
+	jsr    FlueAddPotentialOccupant
+	@NotFlueOccupant:
 	
 	;==============================================================
 	
