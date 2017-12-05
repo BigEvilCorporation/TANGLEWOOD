@@ -20,7 +20,7 @@ PhysicsObjDefaultPushBoundsOuter	equ 0x6
 
 PhysicsObjMaxSnapToFloorDist		equ 0x10
 
-PhysicsObj_VelocityPerTimeSplice	equ 0x8*subpixels_per_pixel
+PhysicsObjVelocityPerTimeSplice		equ 0x7*subpixels_per_pixel	; Min wall thickness - 1
 
 ;==============================================================
 ; PhysicsObject
@@ -667,12 +667,12 @@ PhysicsObjApplyVelocityX:
 	; Clamp to max
 	tst.l  d0
 	bgt    @PositiveX
-	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
-	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	CLAMPL d2, #-PhysicsObjVelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
 	bra    @NegativeX
 	@PositiveX:
-	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
-	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	CLAMPL d2, #0x0, #PhysicsObjVelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
 	@NegativeX:
 
 	tst.l  d2
@@ -750,12 +750,12 @@ PhysicsObjApplyVelocityY:
 	; Clamp to max
 	tst.l  d0
 	bgt    @PositiveY
-	CLAMPL d2, #-PhysicsObj_VelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
-	addi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	CLAMPL d2, #-PhysicsObjVelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
 	bra    @NegativeY
 	@PositiveY:
-	CLAMPL d2, #0x0, #PhysicsObj_VelocityPerTimeSplice	; Clamp 0 to +ve vel
-	subi.l #PhysicsObj_VelocityPerTimeSplice, d3		; Advance next timestep
+	CLAMPL d2, #0x0, #PhysicsObjVelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
 	@NegativeY:
 
 	tst.l  d2
