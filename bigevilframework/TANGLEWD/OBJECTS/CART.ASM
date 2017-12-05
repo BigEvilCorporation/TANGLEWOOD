@@ -331,6 +331,8 @@ CartSetOccupant:
 	; Set occupant on floor
 	move.b #0x1, PhysicsObj_OnFloor(a2)
 	move.b #0x1, PhysicsObj_CloseToFloor(a2)
+	move.b #0x0, Character_Jumping(a0)
+	move.b #0x0, Character_Falling(a0)
 
 	; Disable occupant collision
 	move.b #0x0, PhysicsObj_HasCollision(a2)

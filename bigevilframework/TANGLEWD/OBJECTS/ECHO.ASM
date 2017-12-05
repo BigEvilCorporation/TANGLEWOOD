@@ -2139,6 +2139,13 @@ EchoAIUpdate_Cart:
 	; Get cart
 	move.l Echo_AIObjectOfInterest(a0), a2
 
+	; Check if cart is moving but the occupant differs (Nymn stole it)
+	tst.l  PhysicsObj_VelX(a2)
+	beq    @NotMoving
+	cmp.l  Cart_Occupant(a2), a0
+	bne    @LostCart
+	@NotMoving:
+
 	; Check if lost cart for some reason
 	ENTITY_GETCENTREX d0,a0
 	ENTITY_GETCENTREX d1,a2
