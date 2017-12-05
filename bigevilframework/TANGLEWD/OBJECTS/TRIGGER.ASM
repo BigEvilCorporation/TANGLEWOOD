@@ -21,6 +21,7 @@ TriggerBox_RegisterD2	rs.l 1
 TriggerBox_RegisterD3	rs.l 1
 TriggerBox_RegisterA0	rs.l 1	; A Regs
 TriggerBox_RegisterA1	rs.l 1
+TriggerBox_TriggerType	rs.b 1	; Intersect type
 TriggerBox_Triggered	rs.b 1	; Box has been triggered
 TriggerBox_TriggerOnce	rs.b 1	; Trigger once
 TriggerBox_XOnly		rs.b 1	; Only test for trigger on X axis - TODO: Implement all intersection types below
@@ -30,12 +31,12 @@ TriggerBox_EachFrame	rs.b 1	; Trigger each frame, don't filter in/out
 TriggerBox_Struct_Size  rs.b 0
 
 ; Intersection types
-TriggerType_Intersect	equ 0x1 ; TODO - Player intersects trigger box
+TriggerType_Intersect	equ 0x1 ; Player intersects trigger box
 TriggerType_Contained	equ 0x2	; Player fully inside trigger box
-TriggerType_IntersectX	equ 0x3	; TODO - Player intersects trigger box on X axis only
-TriggerType_IntersectY	equ 0x4	; TODO - Player intersects trigger box on Y axis only
+;TriggerType_IntersectX	equ 0x3	; TODO - Player intersects trigger box on X axis only
+;TriggerType_IntersectY	equ 0x4	; TODO - Player intersects trigger box on Y axis only
 TriggerType_ContainedX	equ 0x5 ; Player fully inside trigger box on X axis only
-TriggerType_ContainedY	equ 0x6	; TODO - Player fully inside trigger box on Y axis only
+;TriggerType_ContainedY	equ 0x6	; TODO - Player fully inside trigger box on Y axis only
 
 TriggerBoxInit:
 	; a0 --- GameObj addr
@@ -61,6 +62,7 @@ TriggerBoxInit:
 	move.w #TriggerBox_Width, Entity_Width(a0)
 	move.w #TriggerBox_Height, Entity_Height(a0)
 	move.l #Player1, TriggerBox_WatchObject(a0)
+	move.b #TriggerType_Contained, TriggerBox_TriggerType(a0)
 	move.b #0x0, TriggerBox_Triggered(a0)
 	move.b #0x0, TriggerBox_TriggerOnce(a0)
 	move.b #0x0, TriggerBox_XOnly(a0)
@@ -76,13 +78,19 @@ TriggerBoxLoadGfx:
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
 	jsr     EntityAddToWorldGrid
 
+	; Legacy settings
+	tst.b  TriggerBox_XOnly(a0)
+	beq    @NoTriggerXOnly
+	move.b #TriggerType_ContainedX, TriggerBox_TriggerType(a0)
+	@NoTriggerXOnly:
+
 	rts
 
 TriggerBoxUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	
-	move.l a1, -(sp)
+	PUSHL  a1
 	
 	; Check if enabled
 	tst.b  Entity_Active(a0)
@@ -102,30 +110,10 @@ TriggerBoxUpdate:
 	move.l TriggerBox_WatchObject(a0), a1
 	move.l (a1), a1
 	
-	tst.b  TriggerBox_XOnly(a0)
-	bne    @TestXOnly
-	
-	; Check player inside trigger box
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a1
-	jsr    PHYS_TestBoxInsideBox
+	; Test
+	jsr    TriggerBoxTest
 	tst.b  d0
 	beq    @NoIntersect
-	bra    @Intersect
-	
-	@TestXOnly:
-	
-	; Check player inside trigger box on X axis only
-	jsr    PHYS_TestEntityBoxInsideBoxX
-	tst.b  d0
-	beq    @NoIntersect
-	bra    @Intersect
-	
-	@TestYOnly:
-	
-	; TODO
-	
-	@Intersect:
 	
 	; Check if already triggered
 	tst.b  TriggerBox_EachFrame(a0)
@@ -138,8 +126,7 @@ TriggerBoxUpdate:
 	move.b #0x1, TriggerBox_Triggered(a0)
 	
 	; Run routine
-	move.l a0, -(sp)
-	move.l a1, -(sp)
+	PUSHM  a0-a1
 	move.l TriggerBox_Routine(a0), a2
 	move.l TriggerBox_RegisterD3(a0), d3
 	move.l TriggerBox_RegisterD2(a0), d2
@@ -148,8 +135,7 @@ TriggerBoxUpdate:
 	move.l TriggerBox_RegisterA1(a0), a1
 	move.l TriggerBox_RegisterA0(a0), a0
 	jsr    (a2)
-	move.l (sp)+, a1
-	move.l (sp)+, a0
+	POPM   a0-a1
 	
 	bra    @Triggered
 	
@@ -161,7 +147,7 @@ TriggerBoxUpdate:
 	@Inactive:
 	@Triggered:
 	
-	move.l (sp)+, a1
+	POPL   a1
 	
 	rts
 	
@@ -194,3 +180,54 @@ TriggerBoxSerialise:
 	
 	rts
 	
+TriggerBoxTest:
+	; a1 --- Test object
+
+	; Clear result
+	move.b #0x0, d0
+
+	move.b TriggerBox_TriggerType(a0), d1
+
+	cmp.b  #TriggerType_Contained, d1
+	beq    @FullyContains
+	cmp.b  #TriggerType_ContainedX, d1
+	beq    @ContainsX
+	cmp.b  #TriggerType_Intersect, d1
+	beq    @Intersects
+
+	;==============================================================
+
+	@FullyContains:
+
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxInsideBox
+	; Result in d0
+
+	bra    @End
+
+	;==============================================================
+
+	@ContainsX:
+
+	jsr    PHYS_TestEntityBoxInsideBoxX
+	; Result in d0
+
+	bra    @End
+
+	;==============================================================
+
+	@Intersects:
+
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	; Result in d0
+
+	bra    @End
+
+	;==============================================================
+
+	@End:
+
+	rts

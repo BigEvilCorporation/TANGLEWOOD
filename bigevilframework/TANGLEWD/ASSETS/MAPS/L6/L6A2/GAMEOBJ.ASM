@@ -547,6 +547,7 @@ L6A2_LoadGameObjects:
 	move.l #0x01180000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk1, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerDjakk1_name, a3
@@ -562,6 +563,7 @@ L6A2_LoadGameObjects:
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerDjakk2_name, a3
@@ -577,6 +579,7 @@ L6A2_LoadGameObjects:
 	move.l #0x02a00000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk3, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerDjakk3_name, a3
@@ -636,6 +639,7 @@ L6A2_LoadGameObjects:
 	move.l #0x0d300000, Entity_WorldPosX(a0)
 	move.l #0x04580000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log1, TriggerBox_Routine(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerLog1_name, a3
@@ -682,6 +686,7 @@ L6A2_LoadGameObjects:
 	move.l #l6a2_Trigger_Log2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerLog2_name, a3
@@ -698,6 +703,7 @@ L6A2_LoadGameObjects:
 	move.l #l6a2_Trigger_Log3, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerLog3_name, a3
@@ -744,6 +750,7 @@ L6A2_LoadGameObjects:
 	move.l #0x05280000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk9, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerDjakk9_name, a3

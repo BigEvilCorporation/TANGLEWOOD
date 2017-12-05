@@ -660,6 +660,7 @@ L6A3_LoadGameObjects:
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	move.l #l6a3_Trigger_Log1, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A3_TriggerLog1_name, a3
@@ -676,6 +677,7 @@ L6A3_LoadGameObjects:
 	move.l #l6a3_Trigger_Djakk1, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A3_TriggerDjakk1_name, a3
@@ -692,6 +694,7 @@ L6A3_LoadGameObjects:
 	move.l #l6a3_Trigger_Log2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A3_TriggerLog2_name, a3
