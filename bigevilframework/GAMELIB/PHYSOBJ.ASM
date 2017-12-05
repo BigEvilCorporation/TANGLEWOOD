@@ -255,6 +255,15 @@ PhysicsObjPreStep:
 	@NoVelX:
 	jsr    PhysicsObjFindMovingBarrier
 	@HasVelX:
+
+	; Save (collision corrected) vel for attached platforms/barriers
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)
+
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 	
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
@@ -710,11 +719,6 @@ PhysicsObjApplyVelocityX:
 
 	@EndVelX:
 
-	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_ImpulseX(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelX(a0)
-
 	rts
 	
 PhysicsObjApplyVelocityY:
@@ -782,7 +786,8 @@ PhysicsObjApplyVelocityY:
 	; If hitting wall and no X vel, also re-check walls
 	move.b PhysicsObj_HitWall(a0), d1
 	beq    @NoCheckWall
-	tst.l  PhysicsObj_VelX(a0)
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
 	bne    @NoCheckWall
 
 	; Use last wall direction
@@ -823,11 +828,6 @@ PhysicsObjApplyVelocityY:
 	bra    @TimestepY
 
 	@EndVelY:
-
-	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 
 	rts
 
