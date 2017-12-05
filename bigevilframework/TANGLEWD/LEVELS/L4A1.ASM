@@ -138,8 +138,14 @@ l4a1_Init:
 
 	;==============================================================
 
+	; Set Echo's predator Skivv
+	move.l (Player2), a0
+	ENTITY_GETBYNAME Skivv, l4a1_SkivvEcho, a2
+	jsr    EchoSetSkivv
+
 	; Start Echo AI follow state
 	move.l (Player2), a0
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	
 	rts

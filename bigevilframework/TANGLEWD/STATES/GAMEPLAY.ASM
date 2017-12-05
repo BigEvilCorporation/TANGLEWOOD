@@ -169,10 +169,19 @@ Gameplay_Update:
 	; Update cutscenes
 	jsr    CutsceneUpdateAll
 	
-	; Check if player is dead
+	; Check if player 1 is dead
 	move.l (Player1), a2
 	tst.b  Character_Dead(a2)
+	bne    @PlayerDead
+
+	; Check if player 2 is dead
+	move.l (Player2), a2
+	cmp.l  #0x0, a2
 	beq    @PlayerAlive
+	tst.b  Character_Dead(a2)
+	beq    @PlayerAlive
+
+	@PlayerDead:
 	
 	; Player dead, enter fail state
 	IFND DEBUG

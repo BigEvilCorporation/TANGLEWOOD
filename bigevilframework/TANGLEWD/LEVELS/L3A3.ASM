@@ -906,6 +906,7 @@ l3a3MeetEchoUpdateStage_GreetNymn:
 	add.l  d0, Entity_WorldPosX(a0)
 	
 	; Start Echo AI follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	
 	; Lerp camera to Nymn

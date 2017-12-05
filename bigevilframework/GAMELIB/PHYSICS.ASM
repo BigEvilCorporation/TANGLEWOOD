@@ -35,6 +35,17 @@ PhysicsWorldAddObject:
 
 	rts
 
+PhysicsWorldRemoveObject:
+	; a0 --- Object
+
+	btst   #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	beq    @NotInPhysicsList
+	LIST_REMOVE PhysicsObjs,a0,a2,a4
+	bclr   #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	@NotInPhysicsList:
+
+	rts
+
 PhysicsWorldPreStep:
 	; a1 --- Level
 

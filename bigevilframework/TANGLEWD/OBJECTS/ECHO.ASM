@@ -23,6 +23,7 @@ Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determi
 Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
 Echo_LostTime				equ 0x0078			; Time off screen until considered lost
 Echo_NodeLostTime			equ 0x0130			; Time off screen until considered lost if following nodes
+Echo_SkivvLostTime			equ 0x0400			; Time off screen until considered lost if a Skivv is prowling
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
 Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning to basic follow state
 Echo_AINoNodeVelocity		equ 0xFFFF			; Don't copy Nymn's X velocity when running node action
@@ -109,6 +110,7 @@ EchoAIState_Raft			equ 9	; Standing on moving raft, waiting for it to stop
 EchoAIState_Ladder			equ 10	; Climbing a ladder
 EchoAIState_Cart			equ 11	; Riding a cart
 EchoAIState_Barrier			equ 12	; Waiting at an AI marker (barrier type)
+EchoAIState_Skivv			equ 13	; Being taken by a Skivv
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -153,6 +155,7 @@ EchoAINode_Struct_Size		rs.b 0
 ;---------------------------------
 Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
 Echo_AIFollowNodes			rs.b (EchoAINode_Struct_Size*Echo_NumAINodes)
+Echo_Skivv					rs.l 1	; Skivv, takes Echo if he gets lost
 Echo_AIObjectOfInterest		rs.l 1	; AI current object of interest
 Echo_AINodeProducer			rs.w 1	; AI follow node queue
 Echo_AINodeConsumer			rs.w 1
@@ -215,6 +218,7 @@ EchoInit:
 	
 	; Setup default state
 	move.w #Echo_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
+	move.l #0x0, Echo_Skivv(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
@@ -646,6 +650,28 @@ EchoSerialise:
 	
 	rts
 
+EchoSetSkivv:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Skivv obj
+
+	; Set Skivv
+	move.l a2, Echo_Skivv(a0)
+
+	; Set Skivv's target
+	move.l a0, Skivv_Target(a2)
+
+	; Disable and remove from world grid for now
+	PUSHL  a0
+	move.l a2, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    PhysicsWorldRemoveObject
+	POPL   a0
+
+	rts
+
 EchoStartCameraLerp:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -782,6 +808,7 @@ EchoEndCarried:
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
 	
 	; Start follow AI
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	ENDIF
@@ -868,6 +895,8 @@ EchoUpdateAI:
 	beq    @Cart
 	cmp.b  #EchoAIState_Barrier, d0
 	beq    @Barrier
+	cmp.b  #EchoAIState_Skivv, d0
+	beq    @Skivv
 	bra    @End
 	
 	@Follow:
@@ -913,6 +942,10 @@ EchoUpdateAI:
 	@Barrier:
 	jsr    EchoAIUpdate_WaitBarrier
 	bra    @End
+
+	@Skivv:
+	jsr    EchoAIUpdate_Skivv
+	bra    @End
 	
 	@End:
 
@@ -931,6 +964,7 @@ EchoAIStop:
 EchoAIStart_Follow:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d0 (b) Reset lost timer
 	
 	; Set follow state
 	move.b #EchoAIState_Follow, Echo_AIState(a0)
@@ -940,7 +974,16 @@ EchoAIStart_Follow:
 	move.w #0x0, Echo_AINodeProducer(a0)
 
 	; Reset lost timer
+	tst.b  d0
+	beq    @NoResetTimer
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	MOVE_NTSC_W Echo_SkivvLostTime, Echo_AILostTimer(a0), d0
+	bra    @EndSkivv
+	@NoSkivv:
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+	@EndSkivv:
+	@NoResetTimer:
 
 	; Reset run state
 	move.b #Character_WalkAI, d2
@@ -974,13 +1017,26 @@ EchoAIUpdate_Follow:
 	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
+	
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	jsr    EchoAIStart_Skivv
+	bra    @Lost
+	@NoSkivv:
 	jsr    EchoAIStart_Lost
 	bra    @Lost
 	
 	@OnScreen:
 
 	; On screen, reset lost timer
+	; Reset lost timer
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivvTime
+	MOVE_NTSC_W Echo_SkivvLostTime, Echo_AILostTimer(a0), d0
+	bra    @EndSkivv
+	@NoSkivvTime:
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+	@EndSkivv:
 
 	@LostTimerRunning:
 
@@ -1047,6 +1103,7 @@ EchoAIStart_LinearFollow:
 	; a1 --- Level addr
 
 	; Start follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	
 	; Set linear follow flag
@@ -1088,16 +1145,24 @@ EchoAIUpdate_FollowNodes:
 	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
+	
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	jsr    EchoAIStart_Skivv
+	bra    @Lost
+	@NoSkivv:
 	jsr    EchoAIStart_Lost
+
 	bra    @Lost
 	@OnScreen:
 	@LostTimerRunning:
 
-	; If node fail timer depleted, return to basic follow state
+	; If node fail timer depleted, return to basic follow state (without resetting lost timer)
 	move.w Echo_AINodeFailTimer(a0), d0
 	subq.w  #0x1, d0
 	move.w d0, Echo_AINodeFailTimer(a0)
 	bne    @NodeFailTimerRunning
+	move.b #0x0, d0
 	jsr    EchoAIStart_Follow
 	bra    @NodeFailed
 	@NodeFailTimerRunning:
@@ -1125,6 +1190,7 @@ EchoAIUpdate_FollowNodes:
 	TOPIXELS d0
 	cmp.w  d0, d2
 	bgt    @NotHitWall
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	@NotHitWall:
 
@@ -1179,7 +1245,7 @@ EchoAIUpdate_FollowNodes:
 	jsr    EchoAIPopNode
 
 	; Reset fail timer
-	MOVE_NTSC_W Echo_NodeFailTime, Echo_AILostTimer(a0), d0
+	MOVE_NTSC_W Echo_NodeFailTime, Echo_AINodeFailTimer(a0), d0
 
 	; If last node, and last pop didn't change state, return to follow
 	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
@@ -1188,6 +1254,7 @@ EchoAIUpdate_FollowNodes:
 	move.w Echo_AINodeConsumer(a0), d1
 	cmp.w  d0, d1
 	bne    @End
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	bra    @End
 	
@@ -1269,6 +1336,7 @@ EchoAIUpdate_CatchUp:
 	jsr    EchoAI_CheckOuterScreenBounds
 	tst.b  d0
 	beq    @OffScreen
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	@OffScreen:
 	
@@ -1368,6 +1436,7 @@ EchoAIUpdate_PushObj:
 	
 	; Object not between Nymn and Echo, abandon it
 	jsr    PlayerCancelInteract
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	bra    @End
 
@@ -1408,6 +1477,7 @@ EchoAIUpdate_PushObj:
 
 	; Within bounds or touching Nymn, back to follow state
 	jsr    PlayerCancelInteract
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	bra    @End
 	
@@ -1445,6 +1515,7 @@ EchoAIUpdate_ButtonHold:
 	move.l Echo_AIObjectOfInterest(a0), a2
 	tst.b  Button_Active(a2)
 	bne    @StillActive
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	@StillActive:
 
@@ -1504,6 +1575,7 @@ EchoAIUpdate_Water:
 	; If hit wall, jump
 	tst.b  PhysicsObj_HitWall(a0)
 	beq    @NotHitWall
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	@NotHitWall:
 
@@ -1565,6 +1637,7 @@ EchoAIUpdate_Water:
 
 	cmp.b  Echo_AIObstacleDirection(a0), d0
 	beq    @SameDir
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	bra    @End
 	@SameDir:
@@ -1606,6 +1679,7 @@ EchoAIUpdate_Water:
 	bne    @FloorInWater
 
 	; Found dry land, back to follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	; Lerp camera to show Echo is safe
@@ -1726,6 +1800,26 @@ EchoAIUpdate_WaitBarrier:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; If off screen, count down lost timer
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
+	move.w Echo_AILostTimer(a0), d0
+	subq.w  #0x1, d0
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
+
+	; Lost - if a Skivv is registered, take Echo
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	jsr    EchoAIStart_Skivv
+	bra    @Lost
+	@NoSkivv:
+	jsr    EchoAIStart_Lost
+	bra    @Lost
+	@OnScreen:
+	@LostTimerRunning:
+
 	; If barrier disabled, back to follow state
 	move.l Echo_AIObjectOfInterest(a0), a2
 	tst.b  Entity_Active(a2)
@@ -1747,9 +1841,82 @@ EchoAIUpdate_WaitBarrier:
 	beq    @SameDir
 
 	@Follow:
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	@SameDir:
+	@Lost:
+
+	rts
+
+EchoAIStart_Skivv:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #EchoAIState_Skivv, Echo_AIState(a0)
+
+	; Begin camera lerp
+	move.l CameraTargetGameObj, CameraTargetLerpSource
+	move.l a0, CameraTargetGameObj
+	move.w #0x0, CameraTargetLerpTime
+	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed, d0
+
+	; Howl
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	rts
+
+EchoAIUpdate_Skivv:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If Echo not already dead
+	tst.b  Character_Dead(a0)
+	bne    @EchoDead
+
+	; If camera lerp finished
+	tst.w  CameraTargetLerpSpeed
+	bne    @Lerping
+
+	; Get Skivv
+	move.l Echo_Skivv(a0), a2
+
+	; If skivv not alread in attack state
+	cmp.b  #SkivvState_Attacking, Skivv_State(a2)
+	beq    @AlreadyAttacking
+
+	; Position Skivv at Echo's feet, + X offset
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
+	add.w  Entity_Height(a0), d1
+	sub.w  Entity_Height(a2), d1
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+
+	; Face direction
+
+	PUSHL  a0
+	move.l a2, a0
+
+	; Enable Skivv
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+
+	; Begin Skivv attack state
+	jsr    SkivvAIStart_Attack
+
+	POPL   a0
+
+	@Lerping:
+	@AlreadyAttacking:
+	@EchoDead:
 
 	rts
 
@@ -1798,6 +1965,7 @@ EchoAIUpdate_Raft:
 	beq    @NymnInAir
 
 	; Back to follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	@PlatformMoving:
@@ -1819,7 +1987,13 @@ EchoAIStart_Ladder:
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
 	; Reset lost timer
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	MOVE_NTSC_W Echo_SkivvLostTime, Echo_AILostTimer(a0), d0
+	bra    @EndSkivv
+	@NoSkivv:
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+	@EndSkivv:
 
 	; Waiting to enter ladder
 	move.b Character_Climbing(a0), d0
@@ -1840,6 +2014,13 @@ EchoAIUpdate_Ladder:
 	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
+
+	; Lost - if a Skivv is registered, take Echo
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	jsr    EchoAIStart_Skivv
+	bra    @Lost
+	@NoSkivv:
 	jsr    EchoAIStart_Lost
 	bra    @Lost
 	@OnScreen:
@@ -1922,6 +2103,7 @@ EchoAIUpdate_Ladder:
 	; If not on floor, jump off
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @Onfloor
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	@Onfloor:
 
@@ -1945,6 +2127,7 @@ EchoAIStart_Cart:
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
 	; Jump in
+	move.b #0x0, d2
 	jsr    CharacterStartJump
 	
 	rts
@@ -1971,6 +2154,7 @@ EchoAIUpdate_Cart:
 	@LostCart:
 
 	; Back to follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	@Riding:
@@ -3535,6 +3719,7 @@ EchoAISetState:
 	bra     @End
 
 	@Follow:
+	move.b #0x1, d0
 	jsr     EchoAIStart_Follow
 	bra     @End
 
@@ -3620,6 +3805,7 @@ EchoAIPanic:
 	move.w d3, Entity_WorldPosY(a0)
 
 	; Back to follow state
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	@OnScreen:

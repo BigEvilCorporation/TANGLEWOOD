@@ -11,21 +11,17 @@ L4A2_Leaf_count equ 0x0
 
 L4A2_Trap_count equ 0x0
 
-L4A2_Djubb_count equ 0x6
+L4A2_Djubb_count equ 0x4
 L4A2_Djubb_3_idx	equ 0x0
 L4A2_Djubb_30_idx	equ 0x1
 L4A2_Djubb_43_idx	equ 0x2
-L4A2_Djubb_38_idx	equ 0x3
-L4A2_Djubb_44_idx	equ 0x4
-L4A2_Djubb_63_idx	equ 0x5
+L4A2_Djubb_44_idx	equ 0x3
 
 	IFND FINAL
 L4A2_Djubb_3_name	dc.b "L4A2_Djubb_3",0
 L4A2_Djubb_30_name	dc.b "L4A2_Djubb_30",0
 L4A2_Djubb_43_name	dc.b "L4A2_Djubb_43",0
-L4A2_Djubb_38_name	dc.b "L4A2_Djubb_38",0
 L4A2_Djubb_44_name	dc.b "L4A2_Djubb_44",0
-L4A2_Djubb_63_name	dc.b "L4A2_Djubb_63",0
 	even
 	ENDIF
 
@@ -239,7 +235,13 @@ L4A2_Longboat_58_name	dc.b "L4A2_Longboat_58",0
 	even
 	ENDIF
 
-L4A2_Skivv_count equ 0x0
+L4A2_Skivv_count equ 0x1
+L4A2_SkivvEcho_idx	equ 0x0
+
+	IFND FINAL
+L4A2_SkivvEcho_name	dc.b "L4A2_SkivvEcho",0
+	even
+	ENDIF
 
 L4A2_Ladder_count equ 0x0
 
@@ -300,37 +302,11 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 	jsr DjubbInit
-	move.l #0x08600000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
-	jsr DjubbLoadGfx
-	IFND FINAL
-	lea L4A2_Djubb_38_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Djubb_Struct_Size, a0
-
-	jsr DjubbInit
 	move.l #0x16700000, Entity_WorldPosX(a0)
 	move.l #0x03d00000, Entity_WorldPosY(a0)
 	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L4A2_Djubb_44_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Djubb_Struct_Size, a0
-
-	jsr DjubbInit
-	move.l #0x07400000, Entity_WorldPosX(a0)
-	move.l #0x04b00000, Entity_WorldPosY(a0)
-	jsr DjubbLoadGfx
-	IFND FINAL
-	lea L4A2_Djubb_63_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -958,6 +934,25 @@ L4A2_LoadGameObjects:
 	ENDIF
 	add.l #Longboat_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Skivv_Struct_Size*L4A2_Skivv_count)
+	move.l a1, EntityPoolStart_Skivv
+	move.l a1, a0
+	POPL   a1
+
+	jsr SkivvInit
+	move.l #0x01280000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
+	jsr SkivvLoadGfx
+	IFND FINAL
+	lea L4A2_SkivvEcho_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Skivv_Struct_Size, a0
 
 
 

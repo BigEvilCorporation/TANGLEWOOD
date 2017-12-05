@@ -122,6 +122,7 @@ l5a4_Init:
 
 	; Start Echo AI follow state
 	move.l (Player2), a0
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
 	;==============================================================

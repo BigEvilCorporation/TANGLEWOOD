@@ -37,6 +37,7 @@ SkivvState_Inactive		equ 0x0
 SkivvState_Following	equ 0x1
 SkivvState_Attacking	equ 0x2
 SkivvState_Chomping		equ 0x3
+SkivvState_Predator		equ 0x4
 
 ; Animations
 SkivvAnimIdx_Attack		equ 0x0
@@ -47,6 +48,7 @@ SkivvAnimIdx_Max		equ 0x2
 	rsset (Character_Struct_Size)
 ;---------------------------------
 Skivv_Animations	rs.b (Animation_Struct_Size*SkivvAnimIdx_Max)
+Skivv_Target		rs.l 1
 Skivv_State			rs.b 1
 ;---------------------------------
 	RS_ALIGN
@@ -90,6 +92,7 @@ SkivvInit:
 	move.w #Skivv_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Skivv_Mass, PhysicsObj_Mass(a0)
 	move.b #SkivvState_Inactive, Skivv_State(a0)
+	move.l #0x0, Skivv_Target(a0)
 
 	; Setup collision bounds
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
@@ -288,8 +291,14 @@ SkivvAIUpdate_Attack:
 	cmp.b  #Skivv_SpikeAnimFrame, d0
 	bne    @NotSpikeFrame
 
-	; Check bounds
+	; Get target
+	move.l Skivv_Target(a0), a2
+	cmp.l  #0x0, a2
+	bne    @HasTarget
 	move.l Player1, a2
+	@HasTarget:
+
+	; Check bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	jsr    PHYS_TestBoxIntersectBox

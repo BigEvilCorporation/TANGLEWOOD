@@ -245,23 +245,21 @@ L5A3_Lock_count equ 0x0
 
 L5A3_Pool_count equ 0x0
 
-L5A3_Stalactite_count equ 0x7
+L5A3_Stalactite_count equ 0x6
 L5A3_Stalactite_11_idx	equ 0x0
 L5A3_Stalactite_12_idx	equ 0x1
 L5A3_Stalactite_13_idx	equ 0x2
 L5A3_Stalactite_14_idx	equ 0x3
-L5A3_Stalactite_15_idx	equ 0x4
+L5A3_Stalactite_17_idx	equ 0x4
 L5A3_Stalactite_16_idx	equ 0x5
-L5A3_Stalactite_17_idx	equ 0x6
 
 	IFND FINAL
 L5A3_Stalactite_11_name	dc.b "L5A3_Stalactite_11",0
 L5A3_Stalactite_12_name	dc.b "L5A3_Stalactite_12",0
 L5A3_Stalactite_13_name	dc.b "L5A3_Stalactite_13",0
 L5A3_Stalactite_14_name	dc.b "L5A3_Stalactite_14",0
-L5A3_Stalactite_15_name	dc.b "L5A3_Stalactite_15",0
-L5A3_Stalactite_16_name	dc.b "L5A3_Stalactite_16",0
 L5A3_Stalactite_17_name	dc.b "L5A3_Stalactite_17",0
+L5A3_Stalactite_16_name	dc.b "L5A3_Stalactite_16",0
 	even
 	ENDIF
 
@@ -283,23 +281,29 @@ L5A3_Scrap_name	dc.b "L5A3_Scrap",0
 
 L5A3_Longboat_count equ 0x0
 
-L5A3_Skivv_count equ 0x0
+L5A3_Skivv_count equ 0x1
+L5A3_SkivvEcho_idx	equ 0x0
+
+	IFND FINAL
+L5A3_SkivvEcho_name	dc.b "L5A3_SkivvEcho",0
+	even
+	ENDIF
 
 L5A3_Ladder_count equ 0x6
-L5A3_Ladder_93_idx	equ 0x0
+L5A3_Ladder_95_idx	equ 0x0
 L5A3_Ladder_89_idx	equ 0x1
 L5A3_Ladder_55_idx	equ 0x2
 L5A3_Ladder_94_idx	equ 0x3
 L5A3_Ladder_88_idx	equ 0x4
-L5A3_Ladder_95_idx	equ 0x5
+L5A3_Ladder_97_idx	equ 0x5
 
 	IFND FINAL
-L5A3_Ladder_93_name	dc.b "L5A3_Ladder_93",0
+L5A3_Ladder_95_name	dc.b "L5A3_Ladder_95",0
 L5A3_Ladder_89_name	dc.b "L5A3_Ladder_89",0
 L5A3_Ladder_55_name	dc.b "L5A3_Ladder_55",0
 L5A3_Ladder_94_name	dc.b "L5A3_Ladder_94",0
 L5A3_Ladder_88_name	dc.b "L5A3_Ladder_88",0
-L5A3_Ladder_95_name	dc.b "L5A3_Ladder_95",0
+L5A3_Ladder_97_name	dc.b "L5A3_Ladder_97",0
 	even
 	ENDIF
 
@@ -637,7 +641,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x00f00000, Entity_WorldPosX(a0)
+	move.l #0x00f80000, Entity_WorldPosX(a0)
 	move.l #0x00b80000, Entity_WorldPosY(a0)
 	move.l #l5a3_Trigger_ShakeStart, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -1184,11 +1188,11 @@ L5A3_LoadGameObjects:
 	add.l #Stalactite_Struct_Size, a0
 
 	jsr StalactiteInit
-	move.l #0x05980000, Entity_WorldPosX(a0)
-	move.l #0x01f00000, Entity_WorldPosY(a0)
+	move.l #0x12300000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
 	jsr StalactiteLoadGfx
 	IFND FINAL
-	lea L5A3_Stalactite_15_name, a3
+	lea L5A3_Stalactite_17_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1202,19 +1206,6 @@ L5A3_LoadGameObjects:
 	jsr StalactiteLoadGfx
 	IFND FINAL
 	lea L5A3_Stalactite_16_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stalactite_Struct_Size, a0
-
-	jsr StalactiteInit
-	move.l #0x12300000, Entity_WorldPosX(a0)
-	move.l #0x02780000, Entity_WorldPosY(a0)
-	jsr StalactiteLoadGfx
-	IFND FINAL
-	lea L5A3_Stalactite_17_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1265,6 +1256,25 @@ L5A3_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Skivv_Struct_Size*L5A3_Skivv_count)
+	move.l a1, EntityPoolStart_Skivv
+	move.l a1, a0
+	POPL   a1
+
+	jsr SkivvInit
+	move.l #0x00f00000, Entity_WorldPosX(a0)
+	move.l #0x01080000, Entity_WorldPosY(a0)
+	jsr SkivvLoadGfx
+	IFND FINAL
+	lea L5A3_SkivvEcho_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Skivv_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L5A3_Ladder_count)
@@ -1273,13 +1283,13 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr LadderInit
-	move.l #0x12f00000, Entity_WorldPosX(a0)
-	move.l #0x01980000, Entity_WorldPosY(a0)
+	move.l #0x08280000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	move.w #0x0028, Entity_Width(a0)
-	move.w #0x0168, Entity_Height(a0)
+	move.w #0x00a0, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L5A3_Ladder_93_name, a3
+	lea L5A3_Ladder_95_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
@@ -1346,13 +1356,13 @@ L5A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	jsr LadderInit
-	move.l #0x08280000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #0x12f00000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
 	move.w #0x0028, Entity_Width(a0)
-	move.w #0x00a0, Entity_Height(a0)
+	move.w #0x00f0, Entity_Height(a0)
 	jsr LadderLoadGfx
 	IFND FINAL
-	lea L5A3_Ladder_95_name, a3
+	lea L5A3_Ladder_97_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0

@@ -2555,6 +2555,7 @@ PlayerInteractTest_Ladder:
 	move.l Entity_WorldPosY(a2), d1
 	sub.l  d0, d1
 	blt    @NotJumpingOff
+	move.b #0x1, d2
 	jsr    CharacterStartJump
 	MOVE_NTSC_L Player1LadderExitVel, PhysicsObj_VelY(a0), d0
 	move.b #0x0, Character_CanClimb(a0)
