@@ -133,6 +133,20 @@ FlueOccupantUpdate:
 	move.w FlueOccupant_HoldTimer(a2), d0
 	bne    @TimerRunning
 
+	; Clear movement
+	move.l #0x0, PhysicsObj_VelX(a1)
+	move.l #0x0, PhysicsObj_VelY(a1)
+	move.l #0x0, PhysicsObj_ImpulseX(a1)
+	move.l #0x0, PhysicsObj_ImpulseY(a1)
+	move.w #0x0, PhysicsObj_AccelX(a1)
+	move.w #0x0, PhysicsObj_AccelY(a1)
+	
+	; Re-add to physics world
+	PUSHM  a0-a2
+	move.l a1, a0
+	jsr    PhysicsWorldAddObject
+	POPM   a0-a2
+
 	; Timer elapsed, eject occupant
 	move.l Flue_EjectForceX(a0), d0
 	move.l d0, PhysicsObj_VelX(a1)
@@ -364,6 +378,20 @@ FlueFindOccupant:
 
 	; Set invisible
 	move.b #0x0, SpriteObj_Visible(a1)
+
+	; Clear movement
+	move.l #0x0, PhysicsObj_VelX(a1)
+	move.l #0x0, PhysicsObj_VelY(a1)
+	move.l #0x0, PhysicsObj_ImpulseX(a1)
+	move.l #0x0, PhysicsObj_ImpulseY(a1)
+	move.w #0x0, PhysicsObj_AccelX(a1)
+	move.w #0x0, PhysicsObj_AccelY(a1)
+	
+	; Stop updating physics
+	PUSHM  a0-a2
+	move.l a1, a0
+	jsr    PhysicsWorldRemoveObject
+	POPM   a0-a2
 	
 	; Play SFX
 	PLAYSFX #SFX_FlueIn
