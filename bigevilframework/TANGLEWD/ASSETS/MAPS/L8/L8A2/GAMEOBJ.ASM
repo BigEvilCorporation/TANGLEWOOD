@@ -266,6 +266,7 @@ L8A2_LoadGameObjects:
 	move.l #0x06d00000, Entity_WorldPosY(a0)
 	move.l #l8a2_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A2_TriggerLevelEnd_name, a3
