@@ -549,14 +549,14 @@ EntityCount_WindFlue    rs.w 1
 EntityCount_Wyrm        rs.w 1
 EntityCount_UIWindow    rs.w 1
 
-EntityPoolMemEnd		rs.b 0
-
 ; ************************************
 ; VFX
 ; ************************************
 
 EntityArray_VFX         rs.b (VfxObj_Struct_Size*VFX_MaxEntities)
 EntityCount_VFX         rs.w 1
+
+EntityPoolMemEnd		rs.b 0
 
 reserved_ram_size		rs.b 0
 

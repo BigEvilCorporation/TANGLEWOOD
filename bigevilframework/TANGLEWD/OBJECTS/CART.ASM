@@ -135,6 +135,17 @@ CartLoadGfx:
 	addi.l #(Cart_PlatformOffsetY*subpixels_per_pixel), d0
 	move.l d0, Platform_PosY(a2)
 
+	; Load water trail VFX
+	PUSHL  a0
+	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
+	tst.w  SpriteObj_VRAMAddr(a0)
+	bne    @VfxAllocd
+	lea    vfx_spritesheet_water_trail, a2
+	lea    vfx_animation_water_trail, a3
+	jsr    VfxInit
+	@VfxAllocd:
+	POPL   a0
+
 	rts
 
 CartUpdate:
@@ -264,8 +275,8 @@ CartUpdate:
 	jsr    VfxStop
 	POPM   a0-a1
 
-	; Load brokens prite
-	SPRITE_LOAD_DEFAULT Cart,broken,0,PaletteId_World0,0x0
+	; Load broken sprite
+	SPRITE_LOAD_SHARED_VRAM Cart,broken,0,PaletteId_World0,0x0,a0
 
 	; Reset draw offset
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
@@ -290,6 +301,13 @@ CartUpdate:
 
 	; No longer collide with rails
 	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a0)
+
+	; Re-add to world grid
+	move.b #(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr    EntityAddToWorldGrid
+
+	; Stop updating
+	jsr    EntityRemoveFromUpdateList
 
 	@Unoccupied:
 	@End:
