@@ -9,134 +9,109 @@
 
 actor_nymn:
 
+actor_nymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 actor_nymn_sheet_pickupecho_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_pickupecho_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_pickupecho_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_ridedjakk_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_ridedjakk_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_ridedjakk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_push_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_push_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_push_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_ridedjakkrun_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_ridedjakkrun_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_ridedjakkrun_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_sleep_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_sleep_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_sleep_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_calllong_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_calllong_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_calllong_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_pushheavy_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_pushheavy_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_pushheavy_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_ridedjakkjump_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_ridedjakkjump_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_ridedjakkjump_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_carryechoidle_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_carryechoidle_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_carryechoidle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_colourswitch_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_colourswitch_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_colourswitch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_fall_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_fall_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_fall_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_run_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_run_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_run_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_lookback_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_lookback_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_lookback_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_walk_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_walk_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_walk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_laydown_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_laydown_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_laydown_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_greetecho_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_greetecho_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_greetecho_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_lookup_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_lookup_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_lookup_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_death_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_death_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_death_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_jump_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_jump_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_jump_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_glide_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_glide_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_glide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_wade_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_wade_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_wade_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_carryechowalk_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_carryechowalk_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_carryechowalk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_mountdjakk_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_mountdjakk_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_mountdjakk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_idle_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_idle_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_idle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_climb_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_climb_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_climb_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_walktorun_width		equ 0x38	; Max width of largest frame in pixels
 actor_nymn_sheet_walktorun_height		equ 0x30	; Max height of largest frame in pixels
-actor_nymn_sheet_walktorun_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_nymn_sheet_pickupecho_frametable:

@@ -9,9 +9,9 @@
 
 actor_bolt:
 
+actor_bolt_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 actor_bolt_sheet_flash_width		equ 0x20	; Max width of largest frame in pixels
 actor_bolt_sheet_flash_height		equ 0x20	; Max height of largest frame in pixels
-actor_bolt_sheet_flash_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_bolt_sheet_flash_frametable:

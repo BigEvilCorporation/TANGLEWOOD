@@ -9,9 +9,9 @@
 
 actor_debris:
 
+actor_debris_VRAM_size_b		equ 0x100	; VRAM size to alloc (size of largest frame, bytes)
 actor_debris_sheet_debris_width		equ 0x20	; Max width of largest frame in pixels
 actor_debris_sheet_debris_height		equ 0x10	; Max height of largest frame in pixels
-actor_debris_sheet_debris_VRAM_size_b		equ 0x100	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_debris_sheet_debris_frametable:

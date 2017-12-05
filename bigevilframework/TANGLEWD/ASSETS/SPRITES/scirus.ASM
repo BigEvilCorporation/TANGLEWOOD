@@ -9,54 +9,45 @@
 
 actor_scirus:
 
+actor_scirus_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 actor_scirus_sheet_sleep_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_sleep_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_attack_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_attack_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_attack_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_walk_angry_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_walk_angry_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_walk_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_walk_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_walk_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_walk_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_warn_angry_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_warn_angry_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_warn_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_run_angry_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_run_angry_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_run_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_idle_angry_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_idle_angry_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_idle_angry_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_run_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_run_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_run_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_idle_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_idle_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_warn_width		equ 0x18	; Max width of largest frame in pixels
 actor_scirus_sheet_warn_height		equ 0x10	; Max height of largest frame in pixels
-actor_scirus_sheet_warn_VRAM_size_b		equ 0xC0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scirus_sheet_sleep_frametable:

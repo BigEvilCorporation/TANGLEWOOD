@@ -78,7 +78,7 @@ WIDGET_SET_ONSELECTED: macro widgetaddr,callbackaddr,userdata
 	; Load cursor sprite
 CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
 	PUSHM  d0-d7/a0-a3
-	move.w #actor_\actor\_sheet_\sheet\_VRAM_size_b, d0
+	move.w #actor_\actor\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.l \cursoraddr, a0
 	lea    spritesheets_\actor, a1

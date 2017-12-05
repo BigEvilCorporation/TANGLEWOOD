@@ -9,9 +9,9 @@
 
 actor_firefly:
 
+actor_firefly_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 actor_firefly_sheet_red_width		equ 0x10	; Max width of largest frame in pixels
 actor_firefly_sheet_red_height		equ 0x10	; Max height of largest frame in pixels
-actor_firefly_sheet_red_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_firefly_sheet_red_frametable:

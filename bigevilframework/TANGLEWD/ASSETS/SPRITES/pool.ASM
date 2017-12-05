@@ -9,14 +9,13 @@
 
 actor_pool:
 
+actor_pool_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 actor_pool_sheet_filling_width		equ 0x08	; Max width of largest frame in pixels
 actor_pool_sheet_filling_height		equ 0x08	; Max height of largest frame in pixels
-actor_pool_sheet_filling_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_pool_sheet_filled_width		equ 0x08	; Max width of largest frame in pixels
 actor_pool_sheet_filled_height		equ 0x08	; Max height of largest frame in pixels
-actor_pool_sheet_filled_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_pool_sheet_filling_frametable:

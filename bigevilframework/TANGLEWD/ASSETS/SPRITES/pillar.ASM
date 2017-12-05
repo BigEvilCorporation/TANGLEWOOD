@@ -9,9 +9,9 @@
 
 actor_pillar:
 
+actor_pillar_VRAM_size_b		equ 0x480	; VRAM size to alloc (size of largest frame, bytes)
 actor_pillar_sheet_pillar_width		equ 0x30	; Max width of largest frame in pixels
 actor_pillar_sheet_pillar_height		equ 0x30	; Max height of largest frame in pixels
-actor_pillar_sheet_pillar_VRAM_size_b		equ 0x480	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_pillar_sheet_pillar_frametable:

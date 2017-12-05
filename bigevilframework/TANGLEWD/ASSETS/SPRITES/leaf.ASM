@@ -9,24 +9,21 @@
 
 actor_leaf:
 
+actor_leaf_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 actor_leaf_sheet_brown_width		equ 0x08	; Max width of largest frame in pixels
 actor_leaf_sheet_brown_height		equ 0x08	; Max height of largest frame in pixels
-actor_leaf_sheet_brown_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_red_width		equ 0x08	; Max width of largest frame in pixels
 actor_leaf_sheet_red_height		equ 0x08	; Max height of largest frame in pixels
-actor_leaf_sheet_red_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_green_width		equ 0x08	; Max width of largest frame in pixels
 actor_leaf_sheet_green_height		equ 0x08	; Max height of largest frame in pixels
-actor_leaf_sheet_green_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_turquoise_width		equ 0x08	; Max width of largest frame in pixels
 actor_leaf_sheet_turquoise_height		equ 0x08	; Max height of largest frame in pixels
-actor_leaf_sheet_turquoise_VRAM_size_b		equ 0x20	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_leaf_sheet_brown_frametable:

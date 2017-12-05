@@ -9,14 +9,13 @@
 
 actor_water:
 
+actor_water_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 actor_water_sheet_trail_width		equ 0x30	; Max width of largest frame in pixels
 actor_water_sheet_trail_height		equ 0x20	; Max height of largest frame in pixels
-actor_water_sheet_trail_VRAM_size_b		equ 0x300	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_water_sheet_splash_width		equ 0x30	; Max width of largest frame in pixels
 actor_water_sheet_splash_height		equ 0x38	; Max height of largest frame in pixels
-actor_water_sheet_splash_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_water_sheet_trail_frametable:

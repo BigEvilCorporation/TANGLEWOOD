@@ -341,7 +341,6 @@ SharedVRAM_Lift			rs.w 1
 SharedVRAM_Stone		rs.w 1
 SharedVRAM_DjakCage		rs.w 1
 SharedVRAM_Crate		rs.w 1
-SharedVRAM_Ladder		rs.w 1
 SharedVRAM_Log			rs.w 1
 SharedVRAM_Generatr		rs.w 1
 SharedVRAM_Cogs			rs.w 1

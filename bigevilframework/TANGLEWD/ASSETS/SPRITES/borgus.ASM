@@ -9,29 +9,25 @@
 
 actor_borgus:
 
+actor_borgus_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 actor_borgus_sheet_idle_width		equ 0x58	; Max width of largest frame in pixels
 actor_borgus_sheet_idle_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_idle_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_borgus_sheet_walk_width		equ 0x58	; Max width of largest frame in pixels
 actor_borgus_sheet_walk_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_walk_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_borgus_sheet_death_width		equ 0x58	; Max width of largest frame in pixels
 actor_borgus_sheet_death_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_death_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_borgus_sheet_attack_width		equ 0x58	; Max width of largest frame in pixels
 actor_borgus_sheet_attack_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_attack_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_borgus_sheet_spit_width		equ 0x58	; Max width of largest frame in pixels
 actor_borgus_sheet_spit_height		equ 0x90	; Max height of largest frame in pixels
-actor_borgus_sheet_spit_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_borgus_sheet_idle_frametable:

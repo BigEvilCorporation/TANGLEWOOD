@@ -9,9 +9,9 @@
 
 actor_wisp:
 
+actor_wisp_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 actor_wisp_sheet_idle_width		equ 0x38	; Max width of largest frame in pixels
 actor_wisp_sheet_idle_height		equ 0x30	; Max height of largest frame in pixels
-actor_wisp_sheet_idle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wisp_sheet_idle_frametable:

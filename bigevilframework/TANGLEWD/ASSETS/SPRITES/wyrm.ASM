@@ -9,19 +9,17 @@
 
 actor_wyrm:
 
+actor_wyrm_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 actor_wyrm_sheet_bite_width		equ 0x40	; Max width of largest frame in pixels
 actor_wyrm_sheet_bite_height		equ 0x38	; Max height of largest frame in pixels
-actor_wyrm_sheet_bite_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wyrm_sheet_move_width		equ 0x40	; Max width of largest frame in pixels
 actor_wyrm_sheet_move_height		equ 0x38	; Max height of largest frame in pixels
-actor_wyrm_sheet_move_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wyrm_sheet_emerge_width		equ 0x40	; Max width of largest frame in pixels
 actor_wyrm_sheet_emerge_height		equ 0x38	; Max height of largest frame in pixels
-actor_wyrm_sheet_emerge_VRAM_size_b		equ 0x700	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_wyrm_sheet_bite_frametable:

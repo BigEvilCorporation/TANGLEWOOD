@@ -9,9 +9,9 @@
 
 actor_button:
 
+actor_button_VRAM_size_b		equ 0x100	; VRAM size to alloc (size of largest frame, bytes)
 actor_button_sheet_button_width		equ 0x40	; Max width of largest frame in pixels
 actor_button_sheet_button_height		equ 0x08	; Max height of largest frame in pixels
-actor_button_sheet_button_VRAM_size_b		equ 0x100	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_button_sheet_button_frametable:

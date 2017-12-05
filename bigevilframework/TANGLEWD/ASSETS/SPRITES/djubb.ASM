@@ -9,19 +9,17 @@
 
 actor_djubb:
 
+actor_djubb_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 actor_djubb_sheet_bite_width		equ 0x28	; Max width of largest frame in pixels
 actor_djubb_sheet_bite_height		equ 0x18	; Max height of largest frame in pixels
-actor_djubb_sheet_bite_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_djubb_sheet_idle_width		equ 0x28	; Max width of largest frame in pixels
 actor_djubb_sheet_idle_height		equ 0x18	; Max height of largest frame in pixels
-actor_djubb_sheet_idle_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_djubb_sheet_swim_width		equ 0x28	; Max width of largest frame in pixels
 actor_djubb_sheet_swim_height		equ 0x18	; Max height of largest frame in pixels
-actor_djubb_sheet_swim_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_djubb_sheet_bite_frametable:

@@ -9,154 +9,125 @@
 
 actor_echo:
 
+actor_echo_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 actor_echo_sheet_colourswitch_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_colourswitch_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_colourswitch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_circle_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_circle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_circle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_walktorun_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_walktorun_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_walktorun_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_mountnymn_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_mountnymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_mountnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_allfours_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_allfours_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_allfours_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_pushheavy_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_pushheavy_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_pushheavy_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_idlesad_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_idlesad_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_idlesad_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_afraid_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_afraid_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_afraid_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_wade_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_wade_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_wade_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_nudge_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_nudge_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_nudge_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_carriedwalk_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_carriedwalk_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_carriedwalk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_carriedidle_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_carriedidle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_carriedidle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_sit_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_sit_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_sit_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_death_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_death_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_death_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_glide_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_glide_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_glide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_calllong_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_calllong_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_calllong_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_push_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_push_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_push_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_climb_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_climb_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_climb_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_standfromhiding_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_standfromhiding_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_standfromhiding_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_lookup_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_lookup_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_lookup_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_walk_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_walk_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_walk_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_jump_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_jump_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_jump_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_hide_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_hide_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_hide_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_greetnymn_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_greetnymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_greetnymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_pouncenymn_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_pouncenymn_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_pouncenymn_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_idle_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_idle_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_idle_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_stand_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_stand_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_stand_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_howl_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_howl_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_howl_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_run_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_run_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_run_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_fall_width		equ 0x38	; Max width of largest frame in pixels
 actor_echo_sheet_fall_height		equ 0x30	; Max height of largest frame in pixels
-actor_echo_sheet_fall_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_echo_sheet_colourswitch_frametable:

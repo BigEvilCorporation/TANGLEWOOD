@@ -9,14 +9,13 @@
 
 actor_cart:
 
+actor_cart_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 actor_cart_sheet_roll_width		equ 0x28	; Max width of largest frame in pixels
 actor_cart_sheet_roll_height		equ 0x20	; Max height of largest frame in pixels
-actor_cart_sheet_roll_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_cart_sheet_broken_width		equ 0x28	; Max width of largest frame in pixels
 actor_cart_sheet_broken_height		equ 0x20	; Max height of largest frame in pixels
-actor_cart_sheet_broken_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_cart_sheet_roll_frametable:

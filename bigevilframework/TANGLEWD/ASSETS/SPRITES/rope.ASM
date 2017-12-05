@@ -9,9 +9,9 @@
 
 actor_rope:
 
+actor_rope_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 actor_rope_sheet_rope_width		equ 0x38	; Max width of largest frame in pixels
 actor_rope_sheet_rope_height		equ 0x20	; Max height of largest frame in pixels
-actor_rope_sheet_rope_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_rope_sheet_rope_frametable:

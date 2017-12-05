@@ -9,9 +9,9 @@
 
 actor_raft:
 
+actor_raft_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
 actor_raft_sheet_float_width		equ 0x50	; Max width of largest frame in pixels
 actor_raft_sheet_float_height		equ 0x08	; Max height of largest frame in pixels
-actor_raft_sheet_float_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_raft_sheet_float_frametable:

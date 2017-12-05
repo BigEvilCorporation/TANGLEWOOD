@@ -9,9 +9,9 @@
 
 actor_flueleaf:
 
+actor_flueleaf_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 actor_flueleaf_sheet_flueleaf_width		equ 0x20	; Max width of largest frame in pixels
 actor_flueleaf_sheet_flueleaf_height		equ 0x40	; Max height of largest frame in pixels
-actor_flueleaf_sheet_flueleaf_VRAM_size_b		equ 0x400	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_flueleaf_sheet_flueleaf_frametable:

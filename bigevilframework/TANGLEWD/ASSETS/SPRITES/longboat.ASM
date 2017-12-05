@@ -9,9 +9,9 @@
 
 actor_longboat:
 
+actor_longboat_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 actor_longboat_sheet_segment_width		equ 0x20	; Max width of largest frame in pixels
 actor_longboat_sheet_segment_height		equ 0x08	; Max height of largest frame in pixels
-actor_longboat_sheet_segment_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_longboat_sheet_segment_frametable:

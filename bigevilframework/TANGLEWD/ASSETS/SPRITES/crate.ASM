@@ -9,9 +9,9 @@
 
 actor_crate:
 
+actor_crate_VRAM_size_b		equ 0x320	; VRAM size to alloc (size of largest frame, bytes)
 actor_crate_sheet_crate_width		equ 0x28	; Max width of largest frame in pixels
 actor_crate_sheet_crate_height		equ 0x28	; Max height of largest frame in pixels
-actor_crate_sheet_crate_VRAM_size_b		equ 0x320	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_crate_sheet_crate_frametable:

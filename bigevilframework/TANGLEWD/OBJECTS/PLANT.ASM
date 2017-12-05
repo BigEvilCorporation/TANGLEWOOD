@@ -211,7 +211,7 @@ BouncePlantLoadGfx:
 	PUSHL  a1
 
 	; Alloc VRAM
-	move.w #actor_mushroom_sheet_mushroom_180_VRAM_size_b, d0
+	move.w #actor_mushroom_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
 
 	; Select sprite sheet based on orientation

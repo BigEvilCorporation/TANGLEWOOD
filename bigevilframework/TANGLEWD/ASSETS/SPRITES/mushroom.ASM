@@ -9,19 +9,17 @@
 
 actor_mushroom:
 
+actor_mushroom_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 actor_mushroom_sheet_mushroom_180_width		equ 0x18	; Max width of largest frame in pixels
 actor_mushroom_sheet_mushroom_180_height		equ 0x18	; Max height of largest frame in pixels
-actor_mushroom_sheet_mushroom_180_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_mushroom_sheet_mushroom_225_width		equ 0x18	; Max width of largest frame in pixels
 actor_mushroom_sheet_mushroom_225_height		equ 0x18	; Max height of largest frame in pixels
-actor_mushroom_sheet_mushroom_225_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_mushroom_sheet_mushroom_270_width		equ 0x18	; Max width of largest frame in pixels
 actor_mushroom_sheet_mushroom_270_height		equ 0x18	; Max height of largest frame in pixels
-actor_mushroom_sheet_mushroom_270_VRAM_size_b		equ 0x120	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_mushroom_sheet_mushroom_180_frametable:

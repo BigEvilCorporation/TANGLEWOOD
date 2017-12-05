@@ -9,14 +9,13 @@
 
 actor_hogg:
 
+actor_hogg_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 actor_hogg_sheet_run_width		equ 0x28	; Max width of largest frame in pixels
 actor_hogg_sheet_run_height		equ 0x18	; Max height of largest frame in pixels
-actor_hogg_sheet_run_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_hogg_sheet_wall_width		equ 0x28	; Max width of largest frame in pixels
 actor_hogg_sheet_wall_height		equ 0x18	; Max height of largest frame in pixels
-actor_hogg_sheet_wall_VRAM_size_b		equ 0x1E0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_hogg_sheet_run_frametable:

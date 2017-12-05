@@ -9,9 +9,9 @@
 
 actor_stalact:
 
+actor_stalact_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 actor_stalact_sheet_stalactite_width		equ 0x18	; Max width of largest frame in pixels
 actor_stalact_sheet_stalactite_height		equ 0x20	; Max height of largest frame in pixels
-actor_stalact_sheet_stalactite_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_stalact_sheet_stalactite_frametable:

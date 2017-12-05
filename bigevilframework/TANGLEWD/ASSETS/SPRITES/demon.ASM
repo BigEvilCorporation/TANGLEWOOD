@@ -9,29 +9,25 @@
 
 actor_demon:
 
+actor_demon_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 actor_demon_sheet_bite_width		equ 0x78	; Max width of largest frame in pixels
 actor_demon_sheet_bite_height		equ 0x60	; Max height of largest frame in pixels
-actor_demon_sheet_bite_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_demon_sheet_idletosmirk_width		equ 0x78	; Max width of largest frame in pixels
 actor_demon_sheet_idletosmirk_height		equ 0x60	; Max height of largest frame in pixels
-actor_demon_sheet_idletosmirk_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_demon_sheet_idle_width		equ 0x78	; Max width of largest frame in pixels
 actor_demon_sheet_idle_height		equ 0x60	; Max height of largest frame in pixels
-actor_demon_sheet_idle_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_demon_sheet_emerge_width		equ 0x78	; Max width of largest frame in pixels
 actor_demon_sheet_emerge_height		equ 0x60	; Max height of largest frame in pixels
-actor_demon_sheet_emerge_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_demon_sheet_smirk_width		equ 0x78	; Max width of largest frame in pixels
 actor_demon_sheet_smirk_height		equ 0x60	; Max height of largest frame in pixels
-actor_demon_sheet_smirk_VRAM_size_b		equ 0x1680	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_demon_sheet_bite_frametable:

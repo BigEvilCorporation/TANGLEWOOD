@@ -9,19 +9,17 @@
 
 actor_scrap:
 
+actor_scrap_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 actor_scrap_sheet_bark_width		equ 0x20	; Max width of largest frame in pixels
 actor_scrap_sheet_bark_height		equ 0x18	; Max height of largest frame in pixels
-actor_scrap_sheet_bark_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scrap_sheet_idle_width		equ 0x20	; Max width of largest frame in pixels
 actor_scrap_sheet_idle_height		equ 0x18	; Max height of largest frame in pixels
-actor_scrap_sheet_idle_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scrap_sheet_run_width		equ 0x20	; Max width of largest frame in pixels
 actor_scrap_sheet_run_height		equ 0x18	; Max height of largest frame in pixels
-actor_scrap_sheet_run_VRAM_size_b		equ 0x180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_scrap_sheet_bark_frametable:

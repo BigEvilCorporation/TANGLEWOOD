@@ -9,9 +9,9 @@
 
 actor_ladder:
 
+actor_ladder_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 actor_ladder_sheet_ladder_width		equ 0x28	; Max width of largest frame in pixels
 actor_ladder_sheet_ladder_height		equ 0x20	; Max height of largest frame in pixels
-actor_ladder_sheet_ladder_VRAM_size_b		equ 0x280	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_ladder_sheet_ladder_frametable:

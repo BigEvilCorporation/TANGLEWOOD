@@ -9,9 +9,9 @@
 
 actor_spitball:
 
+actor_spitball_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 actor_spitball_sheet_spitball_width		equ 0x20	; Max width of largest frame in pixels
 actor_spitball_sheet_spitball_height		equ 0x20	; Max height of largest frame in pixels
-actor_spitball_sheet_spitball_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_spitball_sheet_spitball_frametable:

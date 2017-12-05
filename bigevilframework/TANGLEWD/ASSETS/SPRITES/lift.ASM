@@ -9,9 +9,9 @@
 
 actor_lift:
 
+actor_lift_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 actor_lift_sheet_lift_width		equ 0x38	; Max width of largest frame in pixels
 actor_lift_sheet_lift_height		equ 0x20	; Max height of largest frame in pixels
-actor_lift_sheet_lift_VRAM_size_b		equ 0x380	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_lift_sheet_lift_frametable:

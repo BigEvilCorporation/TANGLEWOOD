@@ -9,104 +9,85 @@
 
 actor_fuzzl:
 
+actor_fuzzl_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 actor_fuzzl_sheet_blue_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_blue_roll_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_blue_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_yellow_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_blue_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_blue_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_red_eyes_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_red_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_blue_eyes_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_blue_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_red_roll_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_red_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_white_eyes_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_white_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_roll_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_yellow_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_green_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_green_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_white_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_white_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_red_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_red_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_green_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_green_eyes_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_green_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_red_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_red_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_red_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_blue_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_blue_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_eyes_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_yellow_eyes_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_white_roll_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_white_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_yellow_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_idle_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_yellow_idle_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_white_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_white_sleep_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_white_sleep_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_green_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_green_roll_height		equ 0x10	; Max height of largest frame in pixels
-actor_fuzzl_sheet_green_roll_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_fuzzl_sheet_blue_roll_frametable:

@@ -9,9 +9,9 @@
 
 actor_trap:
 
+actor_trap_VRAM_size_b		equ 0x620	; VRAM size to alloc (size of largest frame, bytes)
 actor_trap_sheet_trap_width		equ 0x38	; Max width of largest frame in pixels
 actor_trap_sheet_trap_height		equ 0x38	; Max height of largest frame in pixels
-actor_trap_sheet_trap_VRAM_size_b		equ 0x620	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_trap_sheet_trap_frametable:

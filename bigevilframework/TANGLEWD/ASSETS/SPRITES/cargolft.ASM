@@ -9,9 +9,9 @@
 
 actor_cargolft:
 
+actor_cargolft_VRAM_size_b		equ 0x1180	; VRAM size to alloc (size of largest frame, bytes)
 actor_cargolft_sheet_cargo_lift_width		equ 0x50	; Max width of largest frame in pixels
 actor_cargolft_sheet_cargo_lift_height		equ 0x70	; Max height of largest frame in pixels
-actor_cargolft_sheet_cargo_lift_VRAM_size_b		equ 0x1180	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_cargolft_sheet_cargo_lift_frametable:

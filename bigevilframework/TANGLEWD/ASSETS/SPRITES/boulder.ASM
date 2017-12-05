@@ -9,14 +9,13 @@
 
 actor_boulder:
 
+actor_boulder_VRAM_size_b		equ 0x620	; VRAM size to alloc (size of largest frame, bytes)
 actor_boulder_sheet_roll_width		equ 0x38	; Max width of largest frame in pixels
 actor_boulder_sheet_roll_height		equ 0x38	; Max height of largest frame in pixels
-actor_boulder_sheet_roll_VRAM_size_b		equ 0x620	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_boulder_sheet_crack_width		equ 0x38	; Max width of largest frame in pixels
 actor_boulder_sheet_crack_height		equ 0x38	; Max height of largest frame in pixels
-actor_boulder_sheet_crack_VRAM_size_b		equ 0x620	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_boulder_sheet_roll_frametable:

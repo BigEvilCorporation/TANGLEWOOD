@@ -9,7 +9,7 @@ vfx_spritesheet_water_splash:
 	dc.l actor_water_sheet_splash_frame_0_subsprite_dimensions_bits		; Subsprite dimensions array
 	dc.l actor_water_sheet_splash_frame_0_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.w ((0x06<<8)|0x07)							; W/H tiles
-	dc.w actor_water_sheet_splash_VRAM_size_b/size_tile_b	; Size tiles
+	dc.w actor_water_VRAM_size_b/size_tile_b	; Size tiles
 	dc.b actor_water_sheet_splash_frame_0_size_subsprites				; Size subsprites
 	dc.b PaletteId_Fuzzl							; Palette
 	dc.b 0x1										; Priority
@@ -21,7 +21,7 @@ vfx_spritesheet_water_trail:
 	dc.l actor_water_sheet_trail_frame_0_subsprite_dimensions_bits		; Subsprite dimensions array
 	dc.l actor_water_sheet_trail_frame_0_subsprite_pos_offsets			; Subsprite pos offsets array
 	dc.w ((0x06<<8)|0x04)							; W/H tiles
-	dc.w actor_water_sheet_trail_VRAM_size_b/size_tile_b	; Size tiles
+	dc.w actor_water_VRAM_size_b/size_tile_b	; Size tiles
 	dc.b actor_water_sheet_trail_frame_0_size_subsprites				; Size subsprites
 	dc.b PaletteId_Fuzzl							; Palette
 	dc.b 0x1										; Priority

@@ -9,9 +9,9 @@
 
 actor_winch:
 
+actor_winch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 actor_winch_sheet_winch_width		equ 0x30	; Max width of largest frame in pixels
 actor_winch_sheet_winch_height		equ 0x38	; Max height of largest frame in pixels
-actor_winch_sheet_winch_VRAM_size_b		equ 0x540	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_winch_sheet_winch_frametable:

@@ -9,34 +9,29 @@
 
 actor_elder:
 
+actor_elder_VRAM_size_b		equ 0x1540	; VRAM size to alloc (size of largest frame, bytes)
 actor_elder_sheet_walk_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_walk_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_walk_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_bite_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_bite_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_bite_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_roar_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_roar_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_roar_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_idle_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_idle_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_idle_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_death_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_death_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_death_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_run_width		equ 0x90	; Max width of largest frame in pixels
 actor_elder_sheet_run_height		equ 0x58	; Max height of largest frame in pixels
-actor_elder_sheet_run_VRAM_size_b		equ 0x18C0	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_elder_sheet_walk_frametable:

@@ -9,9 +9,9 @@
 
 actor_djakcage:
 
+actor_djakcage_VRAM_size_b		equ 0x300	; VRAM size to alloc (size of largest frame, bytes)
 actor_djakcage_sheet_djakk_cage_width		equ 0x10	; Max width of largest frame in pixels
 actor_djakcage_sheet_djakk_cage_height		equ 0x60	; Max height of largest frame in pixels
-actor_djakcage_sheet_djakk_cage_VRAM_size_b		equ 0x300	; VRAM size to alloc (size of largest frame, bytes)
 
 
 actor_djakcage_sheet_djakk_cage_frametable:
