@@ -559,14 +559,14 @@ PhysicsObjApplyWorldForces:
 
 	; Get current Y velocity
 	move.l PhysicsObj_VelY(a0), d5
-	move.l d5, d6
+	move.l d5, d7
 
 	; Apply gravity
 	sub.l  d2, d5
 
 	; If gravity caused vel to hit zero, still need to do floor tests
 	bne    @NoForceFloorTest
-	tst.l  d6
+	tst.l  d7
 	beq    @NoForceFloorTest
 	move.b #0x1, PhysicsObj_ForceUpdate(a0)
 	@NoForceFloorTest:
