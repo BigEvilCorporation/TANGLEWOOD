@@ -9,9 +9,9 @@
 
 L8A5_Leaf_count equ 0x0
 
-L8A5_Djubb_count equ 0x0
-
 L8A5_Trap_count equ 0x0
+
+L8A5_Djubb_count equ 0x0
 
 L8A5_Echo_count equ 0x1
 L8A5_Echo_1_idx	equ 0x0
@@ -25,11 +25,11 @@ L8A5_Nymn_count equ 0x0
 
 L8A5_BouncePlant_count equ 0x0
 
-L8A5_Log_count equ 0x0
+L8A5_Borgus_count equ 0x0
 
 L8A5_DjakkCage_count equ 0x0
 
-L8A5_Borgus_count equ 0x0
+L8A5_Log_count equ 0x0
 
 L8A5_Monster_count equ 0x0
 
@@ -177,7 +177,13 @@ L8A5_Scrap_count equ 0x0
 
 L8A5_Longboat_count equ 0x0
 
+L8A5_Skivv_count equ 0x0
+
 L8A5_Ladder_count equ 0x0
+
+L8A5_Scirus_count equ 0x0
+
+L8A5_Hogg_count equ 0x0
 
 L8A5_Bridge_count equ 0x1
 L8A5_Bridge1_idx	equ 0x0
@@ -538,6 +544,9 @@ L8A5_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
+
+
+
 
 
 

@@ -9,9 +9,9 @@
 
 L3A2_Leaf_count equ 0x0
 
-L3A2_Djubb_count equ 0x0
-
 L3A2_Trap_count equ 0x0
+
+L3A2_Djubb_count equ 0x0
 
 L3A2_Echo_count equ 0x0
 
@@ -25,6 +25,10 @@ L3A2_Nymn_1_name	dc.b "L3A2_Nymn_1",0
 
 L3A2_BouncePlant_count equ 0x0
 
+L3A2_Borgus_count equ 0x0
+
+L3A2_DjakkCage_count equ 0x0
+
 L3A2_Log_count equ 0x2
 L3A2_Log1_idx	equ 0x0
 L3A2_Log2_idx	equ 0x1
@@ -34,10 +38,6 @@ L3A2_Log1_name	dc.b "L3A2_Log1",0
 L3A2_Log2_name	dc.b "L3A2_Log2",0
 	even
 	ENDIF
-
-L3A2_DjakkCage_count equ 0x0
-
-L3A2_Borgus_count equ 0x0
 
 L3A2_Monster_count equ 0x0
 
@@ -184,7 +184,7 @@ L3A2_Deathbox_26_idx	equ 0x2
 L3A2_Deathbox_27_idx	equ 0x3
 L3A2_Deathbox_29_idx	equ 0x4
 L3A2_Deathbox_56_idx	equ 0x5
-L3A2_Deathbox_60_idx	equ 0x6
+L3A2_Deathbox_83_idx	equ 0x6
 
 	IFND FINAL
 L3A2_Deathbox_24_name	dc.b "L3A2_Deathbox_24",0
@@ -193,7 +193,7 @@ L3A2_Deathbox_26_name	dc.b "L3A2_Deathbox_26",0
 L3A2_Deathbox_27_name	dc.b "L3A2_Deathbox_27",0
 L3A2_Deathbox_29_name	dc.b "L3A2_Deathbox_29",0
 L3A2_Deathbox_56_name	dc.b "L3A2_Deathbox_56",0
-L3A2_Deathbox_60_name	dc.b "L3A2_Deathbox_60",0
+L3A2_Deathbox_83_name	dc.b "L3A2_Deathbox_83",0
 	even
 	ENDIF
 
@@ -277,7 +277,13 @@ L3A2_Scrap_count equ 0x0
 
 L3A2_Longboat_count equ 0x0
 
+L3A2_Skivv_count equ 0x0
+
 L3A2_Ladder_count equ 0x0
+
+L3A2_Scirus_count equ 0x0
+
+L3A2_Hogg_count equ 0x0
 
 L3A2_Bridge_count equ 0x6
 L3A2_DropBridge1_idx	equ 0x0
@@ -325,6 +331,8 @@ L3A2_LoadGameObjects:
 
 
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L3A2_Log_count)
 	move.l a1, EntityPoolStart_Log
@@ -356,8 +364,6 @@ L3A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
-
-
 
 
 
@@ -444,8 +450,8 @@ L3A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x14680000, Entity_WorldPosX(a0)
-	move.l #0x04280000, Entity_WorldPosY(a0)
+	move.l #0x13f00000, Entity_WorldPosX(a0)
+	move.l #0x03e80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L3A2_Firefly_75_name, a3
@@ -676,8 +682,8 @@ L3A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x15080000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x15000000, Entity_WorldPosX(a0)
+	move.l #0x04380000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A2_Stone_36_name, a3
@@ -841,8 +847,8 @@ L3A2_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 
 	jsr NestInit
-	move.l #0x13780000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x12600000, Entity_WorldPosX(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L3A2_Nest_68_name, a3
@@ -1031,11 +1037,13 @@ L3A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x13a80000, Entity_WorldPosX(a0)
-	move.l #0x04d00000, Entity_WorldPosY(a0)
+	move.l #0x13300000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
+	move.w #0x01b8, Entity_Width(a0)
+	move.w #0x0020, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L3A2_Deathbox_60_name, a3
+	lea L3A2_Deathbox_83_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1246,6 +1254,9 @@ L3A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Button_Struct_Size, a0
+
+
+
 
 
 

@@ -9,9 +9,9 @@
 
 L3A3_Leaf_count equ 0x0
 
-L3A3_Djubb_count equ 0x0
-
 L3A3_Trap_count equ 0x0
+
+L3A3_Djubb_count equ 0x0
 
 L3A3_Echo_count equ 0x1
 L3A3_Echo_idx	equ 0x0
@@ -31,7 +31,7 @@ L3A3_Nymn_name	dc.b "L3A3_Nymn",0
 
 L3A3_BouncePlant_count equ 0x0
 
-L3A3_Log_count equ 0x0
+L3A3_Borgus_count equ 0x0
 
 L3A3_DjakkCage_count equ 0x2
 L3A3_ElderCage2_idx	equ 0x0
@@ -43,7 +43,7 @@ L3A3_ElderCage1_name	dc.b "L3A3_ElderCage1",0
 	even
 	ENDIF
 
-L3A3_Borgus_count equ 0x0
+L3A3_Log_count equ 0x0
 
 L3A3_Monster_count equ 0x3
 L3A3_DjakkEchoFight_idx	equ 0x0
@@ -249,7 +249,13 @@ L3A3_Scrap_count equ 0x0
 
 L3A3_Longboat_count equ 0x0
 
+L3A3_Skivv_count equ 0x0
+
 L3A3_Ladder_count equ 0x0
+
+L3A3_Scirus_count equ 0x0
+
+L3A3_Hogg_count equ 0x0
 
 L3A3_Bridge_count equ 0x5
 L3A3_DropBridge1_idx	equ 0x0
@@ -1010,6 +1016,9 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Button_Struct_Size, a0
+
+
+
 
 
 
