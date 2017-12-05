@@ -179,7 +179,15 @@ L1A3_TriggerBox_WakeDjakk_name	dc.b "L1A3_TriggerBox_WakeDjakk",0
 	even
 	ENDIF
 
-L1A3_Checkpoint_count equ 0x0
+L1A3_Checkpoint_count equ 0x2
+L1A3_Checkpoint_77_idx	equ 0x0
+L1A3_Checkpoint_78_idx	equ 0x1
+
+	IFND FINAL
+L1A3_Checkpoint_77_name	dc.b "L1A3_Checkpoint_77",0
+L1A3_Checkpoint_78_name	dc.b "L1A3_Checkpoint_78",0
+	even
+	ENDIF
 
 L1A3_WaterBody_count equ 0x1
 L1A3_WaterBody_15_idx	equ 0x0
@@ -906,6 +914,38 @@ L1A3_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L1A3_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x0c900000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L1A3_Checkpoint_77_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x1ea00000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L1A3_Checkpoint_78_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	PUSHL  a1
