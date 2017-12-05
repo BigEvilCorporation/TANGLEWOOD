@@ -25,9 +25,9 @@ main_menu_Leaf_8_name	dc.b "main_menu_Leaf_8",0
 	even
 	ENDIF
 
-main_menu_Djubb_count equ 0x0
-
 main_menu_Trap_count equ 0x0
+
+main_menu_Djubb_count equ 0x0
 
 main_menu_Echo_count equ 0x0
 
@@ -47,11 +47,11 @@ main_menu_BouncePlant_1_name	dc.b "main_menu_BouncePlant_1",0
 	even
 	ENDIF
 
-main_menu_Log_count equ 0x0
+main_menu_Borgus_count equ 0x0
 
 main_menu_DjakkCage_count equ 0x0
 
-main_menu_Borgus_count equ 0x0
+main_menu_Log_count equ 0x0
 
 main_menu_Monster_count equ 0x0
 
@@ -91,8 +91,6 @@ main_menu_Generator_count equ 0x0
 
 main_menu_Cogs_count equ 0x0
 
-main_menu_Bridge_count equ 0x0
-
 main_menu_Button_count equ 0x0
 
 main_menu_Wyrm_count equ 0x0
@@ -111,8 +109,6 @@ main_menu_Lock_count equ 0x0
 
 main_menu_Pool_count equ 0x0
 
-main_menu_Ladder_count equ 0x0
-
 main_menu_Stalactite_count equ 0x0
 
 main_menu_CargoLift_count equ 0x0
@@ -120,6 +116,16 @@ main_menu_CargoLift_count equ 0x0
 main_menu_Scrap_count equ 0x0
 
 main_menu_Longboat_count equ 0x0
+
+main_menu_Skivv_count equ 0x0
+
+main_menu_Ladder_count equ 0x0
+
+main_menu_Scirus_count equ 0x0
+
+main_menu_Hogg_count equ 0x0
+
+main_menu_Bridge_count equ 0x0
 
 
 
@@ -131,6 +137,7 @@ main_menu_LoadGameObjects:
 	POPL   a1
 
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_3_name, a3
 	move.l a0, a2
@@ -138,9 +145,10 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_4_name, a3
 	move.l a0, a2
@@ -148,9 +156,10 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_5_name, a3
 	move.l a0, a2
@@ -158,9 +167,10 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_6_name, a3
 	move.l a0, a2
@@ -168,9 +178,10 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_7_name, a3
 	move.l a0, a2
@@ -178,9 +189,10 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea main_menu_Leaf_8_name, a3
 	move.l a0, a2
@@ -188,8 +200,8 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 
 
 
@@ -203,6 +215,8 @@ main_menu_LoadGameObjects:
 	jsr NymnInit
 	move.l #0x01700000, Entity_WorldPosX(a0)
 	move.l #0x00d80000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr NymnLoadGfx
 	IFND FINAL
 	lea main_menu_Nymn_1_name, a3
 	move.l a0, a2
@@ -210,9 +224,8 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*main_menu_BouncePlant_count)
@@ -223,6 +236,7 @@ main_menu_LoadGameObjects:
 	jsr BouncePlantInit
 	move.l #0x00980000, Entity_WorldPosX(a0)
 	move.l #0x01300000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea main_menu_BouncePlant_1_name, a3
 	move.l a0, a2
@@ -230,8 +244,11 @@ main_menu_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
+
+
+
 
 
 

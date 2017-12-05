@@ -89,23 +89,19 @@ L6A3_FuzzlYellow1_name	dc.b "L6A3_FuzzlYellow1",0
 	even
 	ENDIF
 
-L6A3_Stone_count equ 0x7
-L6A3_Stone_12_idx	equ 0x0
+L6A3_Stone_count equ 0x5
+L6A3_Stone_35_idx	equ 0x0
 L6A3_Stone_13_idx	equ 0x1
 L6A3_Stone_14_idx	equ 0x2
-L6A3_Stone_15_idx	equ 0x3
+L6A3_Stone_17_idx	equ 0x3
 L6A3_Stone_16_idx	equ 0x4
-L6A3_Stone_17_idx	equ 0x5
-L6A3_Stone_35_idx	equ 0x6
 
 	IFND FINAL
-L6A3_Stone_12_name	dc.b "L6A3_Stone_12",0
+L6A3_Stone_35_name	dc.b "L6A3_Stone_35",0
 L6A3_Stone_13_name	dc.b "L6A3_Stone_13",0
 L6A3_Stone_14_name	dc.b "L6A3_Stone_14",0
-L6A3_Stone_15_name	dc.b "L6A3_Stone_15",0
-L6A3_Stone_16_name	dc.b "L6A3_Stone_16",0
 L6A3_Stone_17_name	dc.b "L6A3_Stone_17",0
-L6A3_Stone_35_name	dc.b "L6A3_Stone_35",0
+L6A3_Stone_16_name	dc.b "L6A3_Stone_16",0
 	even
 	ENDIF
 
@@ -522,11 +518,11 @@ L6A3_LoadGameObjects:
 	POPL   a1
 
 	jsr StoneInit
-	move.l #0x09600000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
+	move.l #0x09d80000, Entity_WorldPosX(a0)
+	move.l #0x00d80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
-	lea L6A3_Stone_12_name, a3
+	lea L6A3_Stone_35_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -561,32 +557,6 @@ L6A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x0cf80000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L6A3_Stone_15_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x16980000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L6A3_Stone_16_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
 	move.l #0x1ec00000, Entity_WorldPosX(a0)
 	move.l #0x04980000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
@@ -600,11 +570,11 @@ L6A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x09d80000, Entity_WorldPosX(a0)
-	move.l #0x00d80000, Entity_WorldPosY(a0)
+	move.l #0x16980000, Entity_WorldPosX(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
-	lea L6A3_Stone_35_name, a3
+	lea L6A3_Stone_16_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0

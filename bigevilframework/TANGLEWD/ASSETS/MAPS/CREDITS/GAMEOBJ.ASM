@@ -31,9 +31,9 @@ credits_Leaf_11_name	dc.b "credits_Leaf_11",0
 	even
 	ENDIF
 
-credits_Djubb_count equ 0x0
-
 credits_Trap_count equ 0x0
+
+credits_Djubb_count equ 0x0
 
 credits_Echo_count equ 0x0
 
@@ -47,11 +47,11 @@ credits_BouncePlant_2_name	dc.b "credits_BouncePlant_2",0
 	even
 	ENDIF
 
-credits_Log_count equ 0x0
+credits_Borgus_count equ 0x0
 
 credits_DjakkCage_count equ 0x0
 
-credits_Borgus_count equ 0x0
+credits_Log_count equ 0x0
 
 credits_Monster_count equ 0x0
 
@@ -97,8 +97,6 @@ credits_Generator_count equ 0x0
 
 credits_Cogs_count equ 0x0
 
-credits_Bridge_count equ 0x0
-
 credits_Button_count equ 0x0
 
 credits_Wyrm_count equ 0x0
@@ -117,8 +115,6 @@ credits_Lock_count equ 0x0
 
 credits_Pool_count equ 0x0
 
-credits_Ladder_count equ 0x0
-
 credits_Stalactite_count equ 0x0
 
 credits_CargoLift_count equ 0x0
@@ -126,6 +122,16 @@ credits_CargoLift_count equ 0x0
 credits_Scrap_count equ 0x0
 
 credits_Longboat_count equ 0x0
+
+credits_Skivv_count equ 0x0
+
+credits_Ladder_count equ 0x0
+
+credits_Scirus_count equ 0x0
+
+credits_Hogg_count equ 0x0
+
+credits_Bridge_count equ 0x0
 
 
 
@@ -137,6 +143,7 @@ credits_LoadGameObjects:
 	POPL   a1
 
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_3_name, a3
 	move.l a0, a2
@@ -144,9 +151,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_4_name, a3
 	move.l a0, a2
@@ -154,9 +162,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_5_name, a3
 	move.l a0, a2
@@ -164,9 +173,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_6_name, a3
 	move.l a0, a2
@@ -174,9 +184,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_7_name, a3
 	move.l a0, a2
@@ -184,9 +195,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_8_name, a3
 	move.l a0, a2
@@ -194,9 +206,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_9_name, a3
 	move.l a0, a2
@@ -204,9 +217,10 @@ credits_LoadGameObjects:
 	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_10_name, a3
 	move.l a0, a2
@@ -214,9 +228,10 @@ credits_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea credits_Leaf_11_name, a3
 	move.l a0, a2
@@ -224,8 +239,8 @@ credits_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 
 
 
@@ -240,6 +255,7 @@ credits_LoadGameObjects:
 	jsr BouncePlantInit
 	move.l #0x00f00000, Entity_WorldPosX(a0)
 	move.l #0x01400000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea credits_BouncePlant_2_name, a3
 	move.l a0, a2
@@ -247,8 +263,8 @@ credits_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
@@ -266,6 +282,9 @@ credits_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x01400000, Entity_WorldPosX(a0)
 	move.l #0x00b00000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourRed, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea credits_Fuzzl_name, a3
 	move.l a0, a2
@@ -273,10 +292,11 @@ credits_LoadGameObjects:
 	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
-	move.b #ColourRed, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
+
+
+
 
 
 

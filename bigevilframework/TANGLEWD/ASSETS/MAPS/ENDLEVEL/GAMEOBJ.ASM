@@ -9,9 +9,9 @@
 
 end_level_Leaf_count equ 0x0
 
-end_level_Djubb_count equ 0x0
-
 end_level_Trap_count equ 0x0
+
+end_level_Djubb_count equ 0x0
 
 end_level_Echo_count equ 0x0
 
@@ -19,11 +19,11 @@ end_level_Nymn_count equ 0x0
 
 end_level_BouncePlant_count equ 0x0
 
-end_level_Log_count equ 0x0
+end_level_Borgus_count equ 0x0
 
 end_level_DjakkCage_count equ 0x0
 
-end_level_Borgus_count equ 0x0
+end_level_Log_count equ 0x0
 
 end_level_Monster_count equ 0x0
 
@@ -75,8 +75,6 @@ end_level_Generator_count equ 0x0
 
 end_level_Cogs_count equ 0x0
 
-end_level_Bridge_count equ 0x0
-
 end_level_Button_count equ 0x0
 
 end_level_Wyrm_count equ 0x0
@@ -95,8 +93,6 @@ end_level_Lock_count equ 0x0
 
 end_level_Pool_count equ 0x0
 
-end_level_Ladder_count equ 0x0
-
 end_level_Stalactite_count equ 0x0
 
 end_level_CargoLift_count equ 0x0
@@ -104,6 +100,16 @@ end_level_CargoLift_count equ 0x0
 end_level_Scrap_count equ 0x0
 
 end_level_Longboat_count equ 0x0
+
+end_level_Skivv_count equ 0x0
+
+end_level_Ladder_count equ 0x0
+
+end_level_Scirus_count equ 0x0
+
+end_level_Hogg_count equ 0x0
+
+end_level_Bridge_count equ 0x0
 
 
 
@@ -128,6 +134,7 @@ end_level_LoadGameObjects:
 	jsr FireflyInit
 	move.l #0x01900000, Entity_WorldPosX(a0)
 	move.l #0x00f00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea end_level_Firefly_2_name, a3
 	move.l a0, a2
@@ -135,8 +142,8 @@ end_level_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -148,6 +155,9 @@ end_level_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x01780000, Entity_WorldPosX(a0)
 	move.l #0x01180000, Entity_WorldPosY(a0)
+	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
+	move.b #ColourRed, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea end_level_Fuzzl_name, a3
 	move.l a0, a2
@@ -155,10 +165,11 @@ end_level_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
-	move.b #ColourRed, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
+
+
+
 
 
 

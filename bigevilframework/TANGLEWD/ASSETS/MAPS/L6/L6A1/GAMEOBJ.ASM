@@ -77,15 +77,11 @@ L6A1_FuzzlCage_count equ 0x0
 
 L6A1_Fuzzl_count equ 0x0
 
-L6A1_Stone_count equ 0x3
+L6A1_Stone_count equ 0x1
 L6A1_Stone_7_idx	equ 0x0
-L6A1_Stone_9_idx	equ 0x1
-L6A1_Stone_36_idx	equ 0x2
 
 	IFND FINAL
 L6A1_Stone_7_name	dc.b "L6A1_Stone_7",0
-L6A1_Stone_9_name	dc.b "L6A1_Stone_9",0
-L6A1_Stone_36_name	dc.b "L6A1_Stone_36",0
 	even
 	ENDIF
 
@@ -447,32 +443,6 @@ L6A1_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x0d580000, Entity_WorldPosX(a0)
-	move.l #0x03a80000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L6A1_Stone_9_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x15a00000, Entity_WorldPosX(a0)
-	move.l #0x07000000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L6A1_Stone_36_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
