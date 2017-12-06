@@ -31,9 +31,9 @@ L2A1_Leaf_22_name	dc.b "L2A1_Leaf_22",0
 	even
 	ENDIF
 
-L2A1_Djubb_count equ 0x0
-
 L2A1_Trap_count equ 0x0
+
+L2A1_Djubb_count equ 0x0
 
 L2A1_Echo_count equ 0x0
 
@@ -65,11 +65,11 @@ L2A1_BouncePlant_59_name	dc.b "L2A1_BouncePlant_59",0
 	even
 	ENDIF
 
-L2A1_Log_count equ 0x0
+L2A1_Borgus_count equ 0x0
 
 L2A1_DjakkCage_count equ 0x0
 
-L2A1_Borgus_count equ 0x0
+L2A1_Log_count equ 0x0
 
 L2A1_Monster_count equ 0x0
 
@@ -149,7 +149,15 @@ L2A1_TriggerLvlEnd_name	dc.b "L2A1_TriggerLvlEnd",0
 	even
 	ENDIF
 
-L2A1_Checkpoint_count equ 0x0
+L2A1_Checkpoint_count equ 0x2
+L2A1_Checkpoint_63_idx	equ 0x0
+L2A1_Checkpoint_64_idx	equ 0x1
+
+	IFND FINAL
+L2A1_Checkpoint_63_name	dc.b "L2A1_Checkpoint_63",0
+L2A1_Checkpoint_64_name	dc.b "L2A1_Checkpoint_64",0
+	even
+	ENDIF
 
 L2A1_WaterBody_count equ 0x0
 
@@ -164,8 +172,6 @@ L2A1_Crate_count equ 0x0
 L2A1_Generator_count equ 0x0
 
 L2A1_Cogs_count equ 0x0
-
-L2A1_Bridge_count equ 0x0
 
 L2A1_Button_count equ 0x0
 
@@ -195,8 +201,6 @@ L2A1_Lock_count equ 0x0
 
 L2A1_Pool_count equ 0x0
 
-L2A1_Ladder_count equ 0x0
-
 L2A1_Stalactite_count equ 0x0
 
 L2A1_CargoLift_count equ 0x0
@@ -204,6 +208,30 @@ L2A1_CargoLift_count equ 0x0
 L2A1_Scrap_count equ 0x0
 
 L2A1_Longboat_count equ 0x0
+
+L2A1_Skivv_count equ 0x0
+
+L2A1_Ladder_count equ 0x0
+
+L2A1_Scirus_count equ 0x1
+L2A1_Scirus_62_idx	equ 0x0
+
+	IFND FINAL
+L2A1_Scirus_62_name	dc.b "L2A1_Scirus_62",0
+	even
+	ENDIF
+
+L2A1_Hogg_count equ 0x2
+L2A1_Hogg_60_idx	equ 0x0
+L2A1_Hogg_61_idx	equ 0x1
+
+	IFND FINAL
+L2A1_Hogg_60_name	dc.b "L2A1_Hogg_60",0
+L2A1_Hogg_61_name	dc.b "L2A1_Hogg_61",0
+	even
+	ENDIF
+
+L2A1_Bridge_count equ 0x0
 
 
 
@@ -215,6 +243,7 @@ L2A1_LoadGameObjects:
 	POPL   a1
 
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_14_name, a3
 	move.l a0, a2
@@ -222,9 +251,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_15_name, a3
 	move.l a0, a2
@@ -232,9 +262,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_16_name, a3
 	move.l a0, a2
@@ -242,9 +273,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_17_name, a3
 	move.l a0, a2
@@ -252,9 +284,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_18_name, a3
 	move.l a0, a2
@@ -262,9 +295,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_19_name, a3
 	move.l a0, a2
@@ -272,9 +306,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_20_name, a3
 	move.l a0, a2
@@ -282,9 +317,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_21_name, a3
 	move.l a0, a2
@@ -292,9 +328,10 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 	jsr LeafInit
+	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A1_Leaf_22_name, a3
 	move.l a0, a2
@@ -302,8 +339,8 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr LeafLoadGfx
 	add.l #Leaf_Struct_Size, a0
+
 
 
 
@@ -317,6 +354,7 @@ L2A1_LoadGameObjects:
 	jsr NymnInit
 	move.l #0x01400000, Entity_WorldPosX(a0)
 	move.l #0x07800000, Entity_WorldPosY(a0)
+	jsr NymnLoadGfx
 	IFND FINAL
 	lea L2A1_Nymn_3_name, a3
 	move.l a0, a2
@@ -324,8 +362,8 @@ L2A1_LoadGameObjects:
 	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NymnLoadGfx
 	add.l #Nymn_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*L2A1_BouncePlant_count)
@@ -336,6 +374,7 @@ L2A1_LoadGameObjects:
 	jsr BouncePlantInit
 	move.l #0x04400000, Entity_WorldPosX(a0)
 	move.l #0x07980000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_6_name, a3
 	move.l a0, a2
@@ -343,11 +382,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x06a00000, Entity_WorldPosX(a0)
 	move.l #0x06900000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_7_name, a3
 	move.l a0, a2
@@ -355,11 +395,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x0fc80000, Entity_WorldPosX(a0)
 	move.l #0x03b80000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_11_name, a3
 	move.l a0, a2
@@ -367,11 +408,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x0d680000, Entity_WorldPosX(a0)
 	move.l #0x03780000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_51_name, a3
 	move.l a0, a2
@@ -379,11 +421,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x11a00000, Entity_WorldPosX(a0)
 	move.l #0x03b80000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_54_name, a3
 	move.l a0, a2
@@ -391,11 +434,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x12100000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_58_name, a3
 	move.l a0, a2
@@ -403,11 +447,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 	jsr BouncePlantInit
 	move.l #0x16780000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
+	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_59_name, a3
 	move.l a0, a2
@@ -415,8 +460,8 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr BouncePlantLoadGfx
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
@@ -432,6 +477,7 @@ L2A1_LoadGameObjects:
 	jsr FireflyInit
 	move.l #0x0d180000, Entity_WorldPosX(a0)
 	move.l #0x04600000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_43_name, a3
 	move.l a0, a2
@@ -439,11 +485,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x06a80000, Entity_WorldPosX(a0)
 	move.l #0x05b00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_44_name, a3
 	move.l a0, a2
@@ -451,11 +498,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x05700000, Entity_WorldPosX(a0)
 	move.l #0x05e00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_45_name, a3
 	move.l a0, a2
@@ -463,11 +511,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x0c300000, Entity_WorldPosX(a0)
 	move.l #0x03380000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_46_name, a3
 	move.l a0, a2
@@ -475,11 +524,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x10800000, Entity_WorldPosX(a0)
 	move.l #0x02900000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_47_name, a3
 	move.l a0, a2
@@ -487,11 +537,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x14600000, Entity_WorldPosX(a0)
 	move.l #0x01200000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_48_name, a3
 	move.l a0, a2
@@ -499,11 +550,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x09d80000, Entity_WorldPosX(a0)
 	move.l #0x03600000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_49_name, a3
 	move.l a0, a2
@@ -511,11 +563,12 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 	jsr FireflyInit
 	move.l #0x08180000, Entity_WorldPosX(a0)
 	move.l #0x05f00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A1_Firefly_50_name, a3
 	move.l a0, a2
@@ -523,8 +576,8 @@ L2A1_LoadGameObjects:
 	move.l #0xf, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FireflyLoadGfx
 	add.l #Firefly_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -536,6 +589,8 @@ L2A1_LoadGameObjects:
 	jsr FuzzlInit
 	move.l #0x08b80000, Entity_WorldPosX(a0)
 	move.l #0x06300000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L2A1_Fuzzl1_Yellow_name, a3
 	move.l a0, a2
@@ -543,12 +598,13 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 	jsr FuzzlInit
 	move.l #0x12600000, Entity_WorldPosX(a0)
 	move.l #0x04180000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
 	IFND FINAL
 	lea L2A1_Fuzzl2_Yellow_name, a3
 	move.l a0, a2
@@ -556,9 +612,8 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.b #ColourYellow, Fuzzl_Colour(a0)
-	jsr FuzzlLoadGfx
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 
@@ -572,6 +627,7 @@ L2A1_LoadGameObjects:
 	jsr NestInit
 	move.l #0x05200000, Entity_WorldPosX(a0)
 	move.l #0x07a00000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
 	IFND FINAL
 	lea L2A1_Nest_31_name, a3
 	move.l a0, a2
@@ -579,11 +635,12 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
+
 	jsr NestInit
 	move.l #0x15100000, Entity_WorldPosX(a0)
 	move.l #0x04d00000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
 	IFND FINAL
 	lea L2A1_Nest_26_name, a3
 	move.l a0, a2
@@ -591,8 +648,8 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr NestLoadGfx
 	add.l #Nest_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Flue_Struct_Size*L2A1_Flue_count)
@@ -603,6 +660,7 @@ L2A1_LoadGameObjects:
 	jsr FlueInit
 	move.l #0x15880000, Entity_WorldPosX(a0)
 	move.l #0x03d80000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
 	IFND FINAL
 	lea L2A1_Flue_39_name, a3
 	move.l a0, a2
@@ -610,8 +668,8 @@ L2A1_LoadGameObjects:
 	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr FlueLoadGfx
 	add.l #Flue_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L2A1_TriggerBox_count)
@@ -622,6 +680,9 @@ L2A1_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x0d280000, Entity_WorldPosX(a0)
 	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed2, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerWindSpeed2_name, a3
 	move.l a0, a2
@@ -629,13 +690,14 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a1_Trigger_WindSpeed2, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x11080000, Entity_WorldPosX(a0)
 	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed3, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerWindSpeed3_name, a3
 	move.l a0, a2
@@ -643,13 +705,14 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a1_Trigger_WindSpeed3, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x09900000, Entity_WorldPosX(a0)
 	move.l #0x05400000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed1, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerWindSpeed1_name, a3
 	move.l a0, a2
@@ -657,13 +720,14 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a1_Trigger_WindSpeed1, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x14180000, Entity_WorldPosX(a0)
 	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_WindSpeed4, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerWindSpeed4_name, a3
 	move.l a0, a2
@@ -671,13 +735,14 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a1_Trigger_WindSpeed4, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
+
 	jsr TriggerBoxInit
 	move.l #0x18f00000, Entity_WorldPosX(a0)
 	move.l #0x00c00000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_End, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerLvlEnd_name, a3
 	move.l a0, a2
@@ -685,11 +750,40 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	move.l #l2a1_Trigger_End, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
 	add.l #TriggerBox_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A1_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x14680000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L2A1_Checkpoint_63_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x11a00000, Entity_WorldPosX(a0)
+	move.l #0x03a00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L2A1_Checkpoint_64_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 
@@ -714,6 +808,7 @@ L2A1_LoadGameObjects:
 	jsr WindFlueInit
 	move.l #0x0be00000, Entity_WorldPosX(a0)
 	move.l #0x05c80000, Entity_WorldPosY(a0)
+	jsr WindFlueLoadGfx
 	IFND FINAL
 	lea L2A1_WindFlue_40_name, a3
 	move.l a0, a2
@@ -721,11 +816,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
 	jsr WindFlueInit
 	move.l #0x13080000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
+	jsr WindFlueLoadGfx
 	IFND FINAL
 	lea L2A1_WindFlue_52_name, a3
 	move.l a0, a2
@@ -733,11 +829,12 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
+
 	jsr WindFlueInit
 	move.l #0x13880000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
+	jsr WindFlueLoadGfx
 	IFND FINAL
 	lea L2A1_WindFlue_57_name, a3
 	move.l a0, a2
@@ -745,13 +842,68 @@ L2A1_LoadGameObjects:
 	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	jsr WindFlueLoadGfx
 	add.l #WindFlue_Struct_Size, a0
 
 
 
 
 
+
+
+
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Scirus_Struct_Size*L2A1_Scirus_count)
+	move.l a1, EntityPoolStart_Scirus
+	move.l a1, a0
+	POPL   a1
+
+	jsr ScirusInit
+	move.l #0x02d00000, Entity_WorldPosX(a0)
+	move.l #0x07800000, Entity_WorldPosY(a0)
+	jsr ScirusLoadGfx
+	IFND FINAL
+	lea L2A1_Scirus_62_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Scirus_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Hogg_Struct_Size*L2A1_Hogg_count)
+	move.l a1, EntityPoolStart_Hogg
+	move.l a1, a0
+	POPL   a1
+
+	jsr HoggInit
+	move.l #0x0fe80000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L2A1_Hogg_60_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
+
+	jsr HoggInit
+	move.l #0x15e80000, Entity_WorldPosX(a0)
+	move.l #0x03c00000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L2A1_Hogg_61_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
 
 
 
