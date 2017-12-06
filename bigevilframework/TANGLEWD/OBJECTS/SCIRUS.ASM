@@ -641,7 +641,7 @@ ScirusAIUpdate_Attack:
 	PUSHL  a0
 	move.b #Scirus_PlayerDamage, d0
 	move.l a2, a0
-	;jsr    CharacterDealDamage
+	jsr    CharacterDealDamage
 	POPL   a0
 
 	@NoHit:
