@@ -31,7 +31,7 @@ Scirus_WalkToRunVel			equ 0x020000   ; Walk to run transition velocity
 Scirus_Mass					equ 0x02
 
 Scirus_StepHeight		equ 0x3
-Scirus_MinWallHeight	equ 0x1					; High enough to avoid stones
+Scirus_MinWallHeight	equ 0x11				; High enough to avoid stones
 Scirus_ProbeFloorX		equ (Scirus_Width/2)	; Floor detection probe position X
 Scirus_ProbeFloorY		equ (Scirus_Height-8)	; Floor detection probe position Y
 Scirus_ProbeWallTop		equ 0x08
@@ -507,7 +507,8 @@ ScirusAI_CheckSafeDistance:
 	; a1 --- Level addr
 
 	; If not against wall
-	tst.b  PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
 	bne    @HitWall
 
 	; If within min distance

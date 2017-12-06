@@ -304,7 +304,8 @@ HoggAIUpdate_Charge:
 	@EndFollow:
 
 	; If hit wall, enter stuck state
-	tst.b  PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
 	beq    @NoHitWall
 	jsr    HoggAIStart_Stuck
 	@NoHitWall:

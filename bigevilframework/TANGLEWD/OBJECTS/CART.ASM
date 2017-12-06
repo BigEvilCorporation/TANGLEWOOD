@@ -161,7 +161,8 @@ CartUpdate:
 	beq    @Unoccupied
 	
 	; If hit wall, cart smashed
-	tst.b  PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
 	bne    @Smashed
 
 	;==============================================================

@@ -17,9 +17,7 @@ PhysicsObjHitBarrier				equ 0x08
 PhysicsObjHitMovingBarrier			equ 0x10
 
 PhysicsObjDefaultPushBoundsOuter	equ 0x6
-
 PhysicsObjMaxSnapToFloorDist		equ 0x10
-
 PhysicsObjVelocityPerTimeSplice		equ 0x7*subpixels_per_pixel	; Min wall thickness - 1
 
 ;==============================================================
@@ -898,6 +896,9 @@ PhysicsObjCollisionCorrectX:
 	move.w PhysicsObj_WallProbeLeft(a0), d1
 	TOSUBPIXELS d1
 	sub.l  d1, d0
+	move.l Entity_WorldPosX(a0), d1
+	cmp.l  d1, d0
+	blt    @NoWallFound
 	move.l d0, Entity_WorldPosX(a0)
 	@UsingCachedWallL:
 
@@ -915,6 +916,9 @@ PhysicsObjCollisionCorrectX:
 	move.w PhysicsObj_WallProbeRight(a0), d1
 	TOSUBPIXELS d1
 	sub.l  d1, d0
+	move.l Entity_WorldPosX(a0), d1
+	cmp.l  d1, d0
+	bgt    @NoWallFound
 	move.l d0, Entity_WorldPosX(a0)
 	@UsingCachedWallR:
 
@@ -1357,10 +1361,17 @@ PhysicsObjFindWall:
 	
 	;==============================================================
 
+	move.b d0, d6
 	move.b d1, d7
-	cmp.b  #0x1, d1
+	swap   d7
+	
+	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
+	subi.w  #vdp_sprite_border_x, d1			; To screen space
+	
+	; Check forced direction flag first
+	cmp.b  #0x1, d7
 	beq    @HeadingLeft
-	cmp.b  #0x2, d1
+	cmp.b  #0x2, d7
 	beq    @HeadingRight
 	
 	; Determine direction
@@ -1374,19 +1385,32 @@ PhysicsObjFindWall:
 	
 	@HeadingLeft:
 	
-	; Get X, left hand side
-	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
-	add.w  PhysicsObj_WallProbeLeft(a0), d1		; Add probe offset
-	subi.w  #vdp_sprite_border_x, d1			; To screen space
+	; Search from centre to left bounds - 1 tile
+	move.w d1, d0
+	add.w  PhysicsObj_BoundsLeft(a0), d0
+	subq.w #0x08, d0
+	move.w Entity_Width(a0), d2
+	lsr.w  #0x1, d2
+	add.w  d2, d1
+
+	; Searching backwards 1 tile at a time
+	move.w #-0x8, d3
 	
 	bra    @EndHeadingTest
 	
 	@HeadingRight:
 	
-	; Get X, right hand side
-	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
-	add.w  PhysicsObj_WallProbeRight(a0), d1	; Add probe offset
-	subi.w  #vdp_sprite_border_x, d1			; To screen space
+	; Search from centre to right bounds + 1 tile
+	move.w d1, d0
+	add.w  PhysicsObj_BoundsLeft(a0), d0
+	add.w  PhysicsObj_BoundsWidth(a0), d0
+	addq.w #0x8, d0
+	move.w Entity_Width(a0), d2
+	lsr.w  #0x1, d2
+	add.w  d2, d1
+
+	; Searching forwards 1 tile at a tile
+	move.w #0x8, d3
 
 	@EndHeadingTest:
 
@@ -1398,29 +1422,31 @@ PhysicsObjFindWall:
 	blt    @ProbeOutOfBounds
 	move.w Level_MapWidth(a1), d2
 	TILES2PIXELS d2
+	cmp.w  d2, d0
+	bge    @ProbeOutOfBounds
 	cmp.w  d2, d1
 	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 
-	tst.b  d0
+	tst.b  d6
 	bne    @FloorProbeTop
 	
 	; Get wall probe Y (bottom)
-	move.w PhysicsObj_WallProbeBottom(a0), d3
+	move.w PhysicsObj_WallProbeBottom(a0), d4
 	bra    @FloorProbeBottom
 
 	@FloorProbeTop:
 
 	; Get wall probe Y (top)
-	move.w PhysicsObj_WallProbeTop(a0), d3
+	move.w PhysicsObj_WallProbeTop(a0), d4
 
 	@FloorProbeBottom:
 
 	swap   d1							; X to upper word
 	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
-	subi.w  #vdp_sprite_border_y, d2		; To screen space
-	add.w  d3, d2						; Offset by floor probe
+	subi.w  #vdp_sprite_border_y, d2	; To screen space
+	add.w  d4, d2						; Offset by floor probe
 	move.w d2, d1						; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
 
@@ -1456,26 +1482,26 @@ PhysicsObjFindWall:
 	bne    @NextBarrier
 
 	; Ignore barriers shorter than min wall height
-	move.w Barrier_Height(a3), d3
+	move.w Barrier_Height(a3), d6
 	move.w PhysicsObj_MinWallHeight(a0), d4
-	cmp.w  d3, d4
+	cmp.w  d6, d4
 	bgt    @NextBarrier
 	
 	; Get barrier Top and Bottom Y
 	move.w Barrier_PosY(a3), d2 			; (top word = integer part)
 	subi.w  #vdp_sprite_border_y, d2			; To screen space
-	add.w  d2, d3
+	add.w  d2, d6
 
 	; + step height
-	add.w  PhysicsObj_StepHeight(a0), d3
+	add.w  PhysicsObj_StepHeight(a0), d6
 	
 	; Get wall probe Y
-	move.w d1, d0
+	move.w d1, d5
 	
 	; Check if probe Y within barrier Y-height
-	cmp.w  d0, d2		; Top
+	cmp.w  d5, d2		; Top
 	bgt    @NextBarrier
-	cmp.w  d0, d3		; Bottom + step height
+	cmp.w  d5, d6		; Bottom + step height
 	blt    @NextBarrier
 	
 	; Get barrier X
@@ -1483,15 +1509,13 @@ PhysicsObjFindWall:
 	subi.w  #vdp_sprite_border_x, d2			; To screen space
 
 	; Get wall probe X
-	swap   d1
-	move.w d1, d0
-	swap   d1
+	move.w d0, d5
 	
 	; Check if probe X is between barrier left and right
-	cmp.w  d2, d0							; Compare probe with barrier left
+	cmp.w  d2, d5							; Compare probe with barrier left
 	blt    @NextBarrier
 	add.w  Barrier_Width(a3), d2
-	cmp.w  d2, d0							; Compare probe with barrier right
+	cmp.w  d2, d5							; Compare probe with barrier right
 	bgt    @NextBarrier
 
 	; If hit velocity exceed max, break barrier and continue
@@ -1500,10 +1524,10 @@ PhysicsObjFindWall:
 	blt    @NotBroken
 	move.l Barrier_BreakVel(a3), d2
 	beq    @NotBroken
-	move.l Barrier_TotalHitVel(a3), d3
-	add.l  PhysicsObj_VelX(a0), d3
-	move.l d3, Barrier_TotalHitVel(a3)
-	cmp.l  d2, d3
+	move.l Barrier_TotalHitVel(a3), d6
+	add.l  PhysicsObj_VelX(a0), d6
+	move.l d6, Barrier_TotalHitVel(a3)
+	cmp.l  d2, d6
 	blt    @NotBroken
 	move.b #0x1, Barrier_Broken(a3)
 	bra    @NextBarrier
@@ -1513,11 +1537,11 @@ PhysicsObjFindWall:
 	move.w Barrier_PosX(a3), d4				; Get barrier X (top word = integer part)
 
 	; If heading left, use right hand side of barrier
-	move.l PhysicsObj_VelX(a0), d3
-	add.l  PhysicsObj_ImpulseX(a0), d3
+	move.l PhysicsObj_VelX(a0), d6
+	add.l  PhysicsObj_ImpulseX(a0), d6
 	cmp.b  #0x2, d7
 	beq    @LeftOfBarrier	; Forced direction flag
-	tst.l  d3
+	tst.l  d6
 	bgt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
@@ -1571,42 +1595,72 @@ PhysicsObjFindWall:
 
 	swap   d1
 
-	move.w Level_ColMapWidth(a1), d3
+	move.w Level_ColMapWidth(a1), d6
 	move.w Level_ColMapLeft(a1), d5
-	TILES2PIXELS d3
+	TILES2PIXELS d6
 	TILES2PIXELS d5
 	
-	sub.w  d5, d1				; Translate X pos to map left
+	sub.w  d5, d0				; Translate X search start pos to map left
+	sub.w  d5, d1				; Translate X search end pos to map left
 	tst.w  d1					; If < 0
 	blt    @ProbeOutOfBounds
-	cmp.w  d3, d1				; If > width
+	cmp.w  d6, d1				; If > width
 	bgt    @ProbeOutOfBounds
 
 	swap   d1
-	
-	; Get collision flags for tile at probe pos
-	PUSHM  d5-d7/a0-a1
-	clr.l  d2
+
+	; Get collision data
+	moveq  #0x0, d2
 	move.w Level_ColMapWidthBlocks(a1), d2
-	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
-	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a3
+	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a4
+
+	@WallSearchLp:
+
+	; Get collision flags for tile at probe pos
+	PUSHM  d0-d5/a2-a4
 	jsr	   PHYS_GetTerrainTile
-	POPM   d5-d7/a0-a1
+	move.w d0, d6
+	move.w d3, d7
+	POPM   d0-d5/a2-a4
 	
 	; Check if wall
-	andi.w #col_tile_flag_solid, d0
-	beq    @NoWallFound
+	andi.w #col_tile_flag_solid, d6
+	bne    @WallFound
+
+	; Check if at search end pos
+	swap   d1
+	tst.w  d3
+	blt    @SearchLeft
+	cmp.w  d0, d1
+	bge    @NoWallFound
+	bra    @Next
+	@SearchLeft:
+	cmp.w  d0, d1
+	ble    @NoWallFound
+
+	@Next:
+
+	; Advance search pos
+	add.w  d3, d1
+	swap   d1
+
+	; Search again
+	bra    @WallSearchLp
 	
 	;==============================================================
+
+	@WallFound:
 	
-	; Wall found - tile X in d3, translate to world space
-	clr.l  d4
-	move.w d3, d4
+	; Wall found - tile X in d7, translate to world space
+	moveq  #0x0, d4
+	move.w d7, d4
 	
 	; If heading left, use right hand side of tile
 	move.l PhysicsObj_VelX(a0), d3
 	add.l  PhysicsObj_ImpulseX(a0), d3
+	swap   d7			; Get forced direction flag
 	cmp.b  #0x2, d7
 	beq    @LeftOfTile	; Forced direction flag
 	tst.l  d3
@@ -1639,8 +1693,8 @@ PhysicsObjFindWall:
 
 	bra    @End
 
-	@ProbeOutOfBounds:
 	@NoWallFound:
+	@ProbeOutOfBounds:
 
 	; Clear last found wall
 	move.l #0x0, PhysicsObj_LastWall(a0)
@@ -1733,14 +1787,14 @@ PhysicsObjFindCeiling:
 	swap   d1
 	
 	; Get collision flags for tile at probe pos
-	PUSHM  d5-d6/a0-a1
+	PUSHM  d5-d6
 	clr.l  d2
 	move.w Level_ColMapWidthBlocks(a1), d2
-	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
-	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
+	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a0
+	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a1
 	jsr	   PHYS_GetTerrainTile
-	POPM   d5-d6/a0-a1
+	POPM   d5-d6
 	
 	; Check if solid
 	andi.w #col_tile_flag_solid, d0

@@ -176,7 +176,8 @@ LogUpdate:
 	@InAir:
 
 	; If hit a wall, clear accel, can be pushed, not hazardous
-	tst.b  PhysicsObj_HitWall(a0)
+	PHYSICS_HITFACINGWALL a0
+	tst.b  d0
 	beq    @NotHitWall
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, Log_FloorRollAccel(a0)
