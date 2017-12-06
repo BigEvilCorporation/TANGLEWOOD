@@ -275,7 +275,13 @@ L3A2_Skivv_count equ 0x0
 
 L3A2_Ladder_count equ 0x0
 
-L3A2_Scirus_count equ 0x0
+L3A2_Scirus_count equ 0x1
+L3A2_Scirus_84_idx	equ 0x0
+
+	IFND FINAL
+L3A2_Scirus_84_name	dc.b "L3A2_Scirus_84",0
+	even
+	ENDIF
 
 L3A2_Hogg_count equ 0x0
 
@@ -1224,6 +1230,25 @@ L3A2_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Scirus_Struct_Size*L3A2_Scirus_count)
+	move.l a1, EntityPoolStart_Scirus
+	move.l a1, a0
+	POPL   a1
+
+	jsr ScirusInit
+	move.l #0x0f180000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
+	jsr ScirusLoadGfx
+	IFND FINAL
+	lea L3A2_Scirus_84_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Scirus_Struct_Size, a0
 
 
 
