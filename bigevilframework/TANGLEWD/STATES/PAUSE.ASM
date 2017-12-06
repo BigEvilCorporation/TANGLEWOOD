@@ -60,7 +60,19 @@ Pause_Enter:
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
+
+	IF AUTOTEST_ENABLED
+
+	; Autotest pad input
+	lea AutotestData, a4
+	move.w Autotest_PadDataA(a4), d0
+	
+	ELSE
+
 	jsr    PAD_ReadPadA
+
+	ENDIF
+
 	move.w d0, PauseState_PrevPadState(a0)
 	
 	; Begin greyscale effect
@@ -226,7 +238,19 @@ Pause_Exit:
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
+
+	IF AUTOTEST_ENABLED
+
+	; Autotest pad input
+	lea AutotestData, a4
+	move.w Autotest_PadDataA(a4), d0
+	
+	ELSE
+
 	jsr    PAD_ReadPadA
+
+	ENDIF
+
 	move.w d0, Gamepad1PrevState
 	
 	POPL   a1
@@ -241,8 +265,19 @@ Pause_Update:
 	
 	lea    GameStatePauseData, a0
 
+	IF AUTOTEST_ENABLED
+
+	; Autotest pad input
+	lea AutotestData, a4
+	move.w Autotest_PadDataA(a4), d0
+	move.w #0x0, Autotest_PadDataA(a4)
+	
+	ELSE
+
 	; Read pad
 	jsr    PAD_ReadPadA
+
+	EnDIF
 	
 	; Get prev state
 	move.w PauseState_PrevPadState(a0), d1

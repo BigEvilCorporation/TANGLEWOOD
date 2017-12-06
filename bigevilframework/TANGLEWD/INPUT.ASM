@@ -25,17 +25,19 @@ UpdateInput:
 	; =====================================================================
 	
 	move.w #0x0, d0
-	
+
+	IF AUTOTEST_ENABLED
+
+	; Autotest pad input
+	lea AutotestData, a0
+	move.w Autotest_PadDataA(a0), d0
+	move.w #0x0, Autotest_PadDataA(a0)
+
+	ELSE
+
 	; Read pad A
 	jsr PAD_ReadPadA
 
-	; Autotest pad input
-	IFND FINAL
-	IF AUTOTEST_ENABLED
-	lea AutotestData, a0
-	or.w Autotest_PadDataA(a0), d0
-	move.w #0x0, Autotest_PadDataA(a0)
-	ENDIF
 	ENDIF
 	
 	move.w d0, Gamepad1State

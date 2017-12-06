@@ -187,16 +187,18 @@ UIWidgetCursorCycleOption:
 UIWidgetCursorUpdate:
 	; a0 --- Cursor addr
 
+	IF AUTOTEST_ENABLED
+
+	; Autotest pad input
+	lea AutotestData, a4
+	move.w Autotest_PadDataA(a4), d0
+	move.w #0x0, Autotest_PadDataA(a4)
+
+	ELSE
+
 	; Read pad
 	jsr    PAD_ReadPadA
 
-	; Autotest pad input
-	IFND FINAL
-	IF AUTOTEST_ENABLED
-	lea AutotestData, a4
-	or.w Autotest_PadDataA(a4), d0
-	move.w #0x0, Autotest_PadDataA(a4)
-	ENDIF
 	ENDIF
 
 	; Debounce
