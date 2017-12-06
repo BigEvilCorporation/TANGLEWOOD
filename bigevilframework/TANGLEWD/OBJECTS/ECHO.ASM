@@ -1573,8 +1573,7 @@ EchoAIUpdate_Water:
 	beq    @InWater
 
 	; If hit wall, jump
-	PHYSICS_HITFACINGWALL a0
-	tst.b  d0
+	tst.b  PhysicsObj_HitWall(a0)
 	beq    @NotHitWall
 	move.b #0x0, d2
 	jsr    CharacterStartJump
@@ -1942,7 +1941,7 @@ EchoAIUpdate_Raft:
 	move.l Echo_AIObjectOfInterest(a0), a2
 
 	; If hit static wall
-	PHYSICS_HITFACINGWALL a2
+	tst.b  PhysicsObj_HitWall(a2)
 	tst.b  d0
 	beq    @PlatformMoving
 	
@@ -3083,8 +3082,7 @@ EchoAI_FindRaft:
 	@LongboatLoop:
 
 	; Check not hitting a wall
-	PHYSICS_HITFACINGWALL a4
-	tst.b  d0
+	tst.b  PhysicsObj_HitWall(a4)
 	bne    @NextLongboat
 	
 	; Check within X threshold
@@ -3126,8 +3124,7 @@ EchoAI_FindRaft:
 	@RaftLoop:
 
 	; Check not hitting a wall
-	PHYSICS_HITFACINGWALL a4
-	tst.b  d0
+	tst.b  PhysicsObj_HitWall(a4)
 	bne    @NextRaft
 	
 	; Check within X threshold

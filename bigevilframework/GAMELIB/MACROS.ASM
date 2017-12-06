@@ -306,10 +306,12 @@ PHYSICS_SHRINKBOUNDS: macro minreg,maxreg,sizereg
 
 PHYSICS_HITFACINGWALL: macro objaddr
 	move.b #0x0, d0
-	tst.w  PhysicsObj_AccelX(\objaddr)
+	moveq  #0x0, d1
+	move.w PhysicsObj_AccelX(\objaddr), d1
 	bne    @UseAccel\@
-	tst.l  PhysicsObj_VelX(\objaddr)
+	move.l PhysicsObj_VelX(\objaddr), d1
 	@UseAccel\@:
+	tst.l  d1
 	beq    @HeadingNowhere\@
 	bgt    @HeadingRight\@
 	move.b PhysicsObj_HitWall(\objaddr), d1
