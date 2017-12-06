@@ -211,7 +211,13 @@ L4A1_Ladder_count equ 0x0
 
 L4A1_Scirus_count equ 0x0
 
-L4A1_Hogg_count equ 0x0
+L4A1_Hogg_count equ 0x1
+L4A1_Hogg_39_idx	equ 0x0
+
+	IFND FINAL
+L4A1_Hogg_39_name	dc.b "L4A1_Hogg_39",0
+	even
+	ENDIF
 
 L4A1_Bridge_count equ 0x3
 L4A1_DropBridge1_idx	equ 0x0
@@ -754,6 +760,25 @@ L4A1_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Hogg_Struct_Size*L4A1_Hogg_count)
+	move.l a1, EntityPoolStart_Hogg
+	move.l a1, a0
+	POPL   a1
+
+	jsr HoggInit
+	move.l #0x1c680000, Entity_WorldPosX(a0)
+	move.l #0x01f80000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L4A1_Hogg_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
 
 
 	PUSHL  a1
