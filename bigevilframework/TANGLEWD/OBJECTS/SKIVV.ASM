@@ -91,6 +91,7 @@ SkivvInit:
 	move.w #Skivv_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w #Skivv_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Skivv_Mass, PhysicsObj_Mass(a0)
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b #SkivvState_Inactive, Skivv_State(a0)
 	move.l #0x0, Skivv_Target(a0)
 

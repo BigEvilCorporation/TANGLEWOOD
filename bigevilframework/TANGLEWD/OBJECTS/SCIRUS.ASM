@@ -113,6 +113,7 @@ ScirusInit:
 	move.w #Scirus_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Scirus_Mass, PhysicsObj_Mass(a0)
 	move.b #0x1, PhysicsObj_MaxVelClamp(a0)
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 	MOVE_NTSC_L Scirus_WalkToRunVel, Character_WalkToRunVel(a0), d0
 	move.b #ScirusState_Inactive, Scirus_State(a0)
 

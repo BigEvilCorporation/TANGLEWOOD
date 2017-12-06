@@ -95,6 +95,7 @@ HoggInit:
 	move.w #Hogg_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w #Hogg_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b #Hogg_Mass, PhysicsObj_Mass(a0)
+	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 	move.w #0x0, Hogg_StuckTimer(a0)
 	move.b #HoggState_Idle, Hogg_State(a0)
 
