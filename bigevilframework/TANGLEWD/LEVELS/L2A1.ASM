@@ -111,6 +111,14 @@ l2a1_Init:
 	MOVE_NTSC_W 0x0080, WindDelayTimer, d0
 
 	;==============================================================
+
+	; Configure wind flues
+	ENTITY_GETBYNAME WindFlue, l2a1_WindFlue1, a0
+	move.w #0x7FFF, WindFlue_OnTime(a0)
+	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
+
+	;==============================================================
 	
 	move.l (Player1), a0
 	

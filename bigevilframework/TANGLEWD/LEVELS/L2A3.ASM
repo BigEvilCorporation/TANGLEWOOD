@@ -122,27 +122,35 @@ l2a3_Init:
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue1, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue2, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue3, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue4, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue5, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue6, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue7, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 	ENTITY_GETBYNAME WindFlue, l2a3_WindFlue8, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x0001, WindFlue_Timer(a0)
 
 	;==============================================================
 
