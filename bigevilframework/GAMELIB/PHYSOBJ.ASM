@@ -765,6 +765,8 @@ PhysicsObjApplyVelocityY:
 	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
 
+	move.b #0x0, d7						; Clear collision corected flag
+
 	tst.b  PhysicsObj_HasCollision(a0)
 	beq    @NoCheckCollision
 
@@ -817,10 +819,17 @@ PhysicsObjApplyVelocityY:
 	
 	; Collision correction
 	jsr    PhysicsObjCollisionCorrectY
+	move.b d0, d7
 
 	@NoCheckCollision:
 
 	POPM   d0-d3
+
+	; If correction changed velocity, bail
+	tst.b  d7
+	beq    @NotCorrected
+	moveq  #0x0, d3
+	@NotCorrected:
 
 	; Next timestep
 	bra    @TimestepY
@@ -953,9 +962,12 @@ PhysicsObjCollisionCorrectX:
 PhysicsObjCollisionCorrectY:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d0 (b) OUT: Corrected
 
 	;==============================================================
 	; Correct floor collision
+
+	move.b #0x0, d0
 
 	; If not moving on Y axis, skip floor and ceiling correction
 	tst.l  PhysicsObj_VelY(a0)
@@ -963,7 +975,7 @@ PhysicsObjCollisionCorrectY:
 
 	move.b PhysicsObj_OnFloor(a0), d4
 
-	move.l PhysicsObj_LastFloorVelocity(a0), d0		; Get last floor velocity
+	move.l PhysicsObj_LastFloorVelocity(a0), d5		; Get last floor velocity
 	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	beq    @Uninitialised							; First frame, uninitialised
 	clr.l  d3
@@ -977,24 +989,25 @@ PhysicsObjCollisionCorrectY:
 	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
 	; If hit floor this frame, handle bounce
-	tst.l  d0										; Only if not a moving platform
+	tst.l  d5										; Only if not a moving platform
 	bne    @NoBounceY
 	clr.l  d1
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceY
-	move.l PhysicsObj_VelY(a0), d0					; Check if heading down
-	tst.l  d0
+	move.l PhysicsObj_VelY(a0), d5					; Check if heading down
+	tst.l  d5
 	bgt    @NoBounceY
-	neg.l  d0										; Negate Y velocity
-	DIVS1616_LOSSY d1, d0							; Div by bounce
+	neg.l  d5										; Negate Y velocity
+	DIVS1616_LOSSY d1, d5							; Div by bounce
 	@NoBounceY:
 
-	move.l d0, PhysicsObj_VelY(a0)					; Take platform's Y velocity
+	move.l d5, PhysicsObj_VelY(a0)					; Take platform's Y velocity
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
+	move.b #0x1, d0									; Set collision corrected
 	bra    @EndFloorTest
 	@AboveFloor:
 
@@ -1020,9 +1033,9 @@ PhysicsObjCollisionCorrectY:
 	@SnapToFloor:
 	add.l  d3, d2
 	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
-	tst.l  d0
+	tst.l  d5
 	ble    @PlatformDown
-	move.l d0, PhysicsObj_VelY(a0)					; Take platform's Y velocity if heading up
+	move.l d5, PhysicsObj_VelY(a0)					; Take platform's Y velocity if heading up
 	@PlatformDown:
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
@@ -1036,7 +1049,7 @@ PhysicsObjCollisionCorrectY:
 	; Correct ceiling collision
 	
 	; Get last ceiling collided with
-	move.l PhysicsObj_LastCeiling(a0), d0
+	move.l PhysicsObj_LastCeiling(a0), d5
 	beq    @NoCeilingFound
 	
 	; Determine Y direction
@@ -1046,17 +1059,18 @@ PhysicsObjCollisionCorrectY:
 	
 	; Heading up, clamp
 	move.l Entity_WorldPosY(a0), d2
-	move.l d0, Entity_WorldPosY(a0)
+	move.l d5, Entity_WorldPosY(a0)
 	
-	clr.l  d0										; Zero Y velocity by default
+	clr.l  d5										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceCeil
-	move.l PhysicsObj_VelY(a0), d0
-	neg.l  d0										; Negate Y velocity
-	DIVS1616_LOSSY d1, d0							; Div by bounce
+	move.l PhysicsObj_VelY(a0), d5
+	neg.l  d5										; Negate Y velocity
+	DIVS1616_LOSSY d1, d5							; Div by bounce
 	@NoBounceCeil:
-	move.l d0, PhysicsObj_VelY(a0)
+	move.l d5, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
+	move.b #0x1, d0									; Set collision corrected
 	
 	@NoCeilingFound:
 	@HeadingDown:
