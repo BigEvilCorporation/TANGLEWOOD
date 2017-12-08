@@ -262,6 +262,31 @@ ButtonSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Button_LastOccupant(a0)
+	SAVEB Button_Active(a0)
+	SAVEB Button_Pressed(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Button_LastOccupant(a0)
+	LOADB Button_Active(a0)
+	LOADB Button_Pressed(a0)
+	
+	;==============================================================
+	
+	@End:
+
 	rts
 
 ButtonActivate:

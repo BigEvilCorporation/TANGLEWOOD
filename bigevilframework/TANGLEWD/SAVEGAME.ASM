@@ -66,6 +66,31 @@ LoadGame:
 	
 	; Serialise all entities
 	jsr    EntitySerialiseAll
+
+	; Force world grid recalculation
+	move.w #-1, CameraWorldGridIndexTL
+	jsr    EntityUpdateWorldGrid
+
+	; Tick physics world
+	jsr    PhysicsWorldPreStep
+
+	; Tick inactive physics objs in world grid
+	LIST_GET_HEAD EntityWorldGrid,a0
+	@EntityLp:
+	cmp.l  #0x0, a0
+	beq    @ListEnd
+	btst.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+	beq    @NextObj
+	btst.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
+	bne    @NextObj
+	jsr    PhysicsObjPreStep
+	@NextObj:
+	LIST_GET_NEXT EntityWorldGrid,a0,a0
+	bra    @EntityLp
+	@ListEnd:
+
+	; Tick all entities
+	jsr    EntityUpdateAll
 	
 	POPL   a1
 	POPL   a0

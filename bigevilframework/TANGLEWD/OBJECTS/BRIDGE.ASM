@@ -171,6 +171,14 @@ BridgeLoadGfx:
 
 	;==============================================================
 
+	jsr      BridgePostInit
+
+	rts
+
+BridgePostInit:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
 	; Set initial state
 	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
 	bne    @NotDropping
@@ -455,6 +463,8 @@ BridgeSerialise:
 	
 	LOADB Bridge_State(a0)
 	LOADL Bridge_UnrollPos(a0)
+
+	jsr   BridgePostInit
 	
 	;==============================================================
 	
