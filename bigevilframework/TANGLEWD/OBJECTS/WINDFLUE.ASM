@@ -12,9 +12,9 @@ WindFlue_Height				equ 0x0018
 WindFlue_MaxBlowDist		equ 0x0010
 WindFlue_MaxBlowDistGliding	equ 0x0180
 WindFlue_MaxBlowDistFuzzl	equ 0x0040
-WindFlue_BlowVel			equ DefaultGravity+0x1400
-WindFlue_BlowVelGliding		equ DefaultGravity+0x2800
-WindFlue_BlowVelFuzzl		equ DefaultGravity+0x2000
+WindFlue_BlowAccel			equ DefaultGravity+0x1400
+WindFlue_BlowAccelGliding		equ DefaultGravity+0x2800
+WindFlue_BlowAccelFuzzl		equ DefaultGravity+0x2000
 WindFlue_MaxLeaves			equ 0x6
 WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
@@ -197,13 +197,14 @@ WindFlueUpdate:
 	beq    @PlayerOutOfBounds
 
 	; Add wind accel
+	moveq  #0x0, d0
 	cmp.b  #ColourYellow, Player_ActiveColourAbility(a2)
 	beq    @GlideVel
-	MOVE_NTSC_L WindFlue_BlowVel, d0, d1
+	MOVE_NTSC_ACCEL_W WindFlue_BlowAccel, d0, d1
 	add.l  d0, PhysicsObj_VelY(a2)
 	bra    @FallVel
 	@GlideVel:
-	MOVE_NTSC_L WindFlue_BlowVelGliding, d0, d1
+	MOVE_NTSC_ACCEL_W WindFlue_BlowAccelGliding, d0, d1
 	add.l  d0, PhysicsObj_VelY(a2)
 	@FallVel:
 
@@ -235,7 +236,7 @@ WindFlueUpdate:
 	beq    @NextFuzzl
 
 	; Blow Fuzzl
-	MOVE_NTSC_L WindFlue_BlowVelFuzzl, d0, d1
+	MOVE_NTSC_ACCEL_W WindFlue_BlowAccelFuzzl, d0, d1
 	add.l  d0, PhysicsObj_VelY(a2)
 
 	@NextFuzzl:
