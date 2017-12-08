@@ -203,6 +203,7 @@ Player_ActiveColourAbility	rs.b 1
 Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
+Player_PetWorldGridFlags	rs.b 1
 ;---------------------------------
 	RS_ALIGN
 Player_Struct_Size     		rs.b 0
@@ -1236,11 +1237,15 @@ PlayerMountPet:
 
 	;==============================================================
 
-	; Player updates pet
+	; Player updates pet, remove from world grid
+	move.b Entity_WorldGridFlags(a0), d0
+	andi.b #(1<<EntityWorldGridFlag_GridUpdates), d0
+	move.b d0, Player_PetWorldGridFlags(a0)
+
 	PUSHL  a0
 	move.l a2, a0
+	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityRemoveFromUpdateList
-	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 	POPL   a0
 
 	; Prepare for camera lerp
@@ -1291,10 +1296,16 @@ PlayerDismountPet:
 
 	;==============================================================
 
-	; Restore pet update routine
+	; Restore pet update routine, re-add to world grid
+	move.b Player_PetWorldGridFlags(a0), d7
 	PUSHM  d0/a0-a2
 	move.l a2, a0
 	jsr    EntityAddToUpdateList
+	tst.b  d7
+	beq    @NoPetWorldGrid
+	move.b Entity_WorldGridFlags(a0), d0
+	jsr    EntityAddToWorldGrid
+	@NoPetWorldGrid:
 	POPM   d0/a0-a2
 
 	;==============================================================
