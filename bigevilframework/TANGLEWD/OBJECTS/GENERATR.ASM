@@ -208,6 +208,7 @@ GeneratorSerialise:
 	
 	@Saving:
 	
+	SAVEL Generator_Fuzzl(a0)
 	SAVEB Generator_Running(a0)
 	
 	bra  @End
@@ -216,6 +217,7 @@ GeneratorSerialise:
 	
 	@Loading:
 	
+	LOADL Generator_Fuzzl(a0)
 	LOADB Generator_Running(a0)
 	
 	;==============================================================

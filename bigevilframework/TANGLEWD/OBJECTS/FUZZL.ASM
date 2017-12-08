@@ -505,6 +505,11 @@ FuzzlSerialise:
 	SAVEL Entity_WorldPosY(a0)
 	SAVEB Fuzzl_State_Bits(a0)
 	SAVEB Fuzzl_FlueOccupant(a0)
+	SAVEB PhysicsObj_HasCollision(a0)
+	SAVEB PhysicsObj_CanBePushed(a0)
+	SAVEB PhysicsObj_CanBePulled(a0)
+	SAVEB PhysicsObj_AffectedByWind(a0)
+	SAVEB AnimObj_UpdateOutOfView(a0)
 	
 	bra  @End
 	
@@ -516,6 +521,11 @@ FuzzlSerialise:
 	LOADL Entity_WorldPosY(a0)
 	LOADB Fuzzl_State_Bits(a0)
 	LOADB Fuzzl_FlueOccupant(a0)
+	LOADB PhysicsObj_HasCollision(a0)
+	LOADB PhysicsObj_CanBePushed(a0)
+	LOADB PhysicsObj_CanBePulled(a0)
+	LOADB PhysicsObj_AffectedByWind(a0)
+	LOADB AnimObj_UpdateOutOfView(a0)
 
 	tst.b Fuzzl_FlueOccupant(a0)
 	beq   @NotFlueOccupant
