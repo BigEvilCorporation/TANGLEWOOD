@@ -600,7 +600,6 @@ DemonAIUpdate_Attack:
 	; a1 --- Level addr
 
 	; Wait for bite anim to finish
-	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
 	move.l AnimObj_CurrentAnim(a0), a2
 	tst.b  Animation_Looping(a2)
 	beq    @StillBiting
