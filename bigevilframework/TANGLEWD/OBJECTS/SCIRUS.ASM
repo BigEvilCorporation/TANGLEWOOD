@@ -116,6 +116,7 @@ ScirusInit:
 	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 	MOVE_NTSC_L Scirus_WalkToRunVel, Character_WalkToRunVel(a0), d0
 	move.b #ScirusState_Inactive, Scirus_State(a0)
+	move.b #ScirusAffinity_Friend, Scirus_Affinity(a0)
 
 	; Exported the wrong way round, oops
 	move.b #0x1, Character_InvertSpriteFlip(a0)
@@ -127,12 +128,12 @@ ScirusInit:
 	move.w #Scirus_Height, PhysicsObj_BoundsHeight(a0)
 
 	; Friend by day, enemy by night
-	move.b #ScirusAffinity_Foe, d0
-	cmp.b  #TimeOfDay_Night, TimeOfDay
-	beq    @Night
-	move.b #ScirusAffinity_Friend, d0
-	@Night:
-	move.b d0, Scirus_Affinity(a0)
+	;move.b #ScirusAffinity_Foe, d0
+	;cmp.b  #TimeOfDay_Night, TimeOfDay
+	;beq    @Night
+	;move.b #ScirusAffinity_Friend, d0
+	;@Night:
+	;move.b d0, Scirus_Affinity(a0)
 
 	; Set inactive AI state
 	jsr    ScirusAIStart_Inactive
