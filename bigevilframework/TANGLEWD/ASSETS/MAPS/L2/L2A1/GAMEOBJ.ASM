@@ -186,12 +186,12 @@ L2A1_Pillar_count equ 0x0
 L2A1_Winch_count equ 0x0
 
 L2A1_WindFlue_count equ 0x3
-L2A1_WindFlue_40_idx	equ 0x0
+L2A1_WindFlue1_idx	equ 0x0
 L2A1_WindFlue_52_idx	equ 0x1
 L2A1_WindFlue_57_idx	equ 0x2
 
 	IFND FINAL
-L2A1_WindFlue_40_name	dc.b "L2A1_WindFlue_40",0
+L2A1_WindFlue1_name	dc.b "L2A1_WindFlue1",0
 L2A1_WindFlue_52_name	dc.b "L2A1_WindFlue_52",0
 L2A1_WindFlue_57_name	dc.b "L2A1_WindFlue_57",0
 	even
@@ -810,10 +810,10 @@ L2A1_LoadGameObjects:
 	move.l #0x05c80000, Entity_WorldPosY(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
-	lea L2A1_WindFlue_40_name, a3
+	lea L2A1_WindFlue1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WindFlue_Struct_Size, a0
