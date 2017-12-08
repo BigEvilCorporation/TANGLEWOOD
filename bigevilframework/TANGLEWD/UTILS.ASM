@@ -31,12 +31,12 @@ GameScenePaletteLoad:
 
 	; Set current DMA palette
 	mulu   #size_palette_b, d0
-	PUSHL  d0
+	PUSHM  d0/a0
 	lea    CurrentPalettes, a1
 	add.l  d0, a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
-	POPL   a0
+	POPM   d0/a0
 
 	; Set scene palette
 	lea    ScenePalettes, a1
