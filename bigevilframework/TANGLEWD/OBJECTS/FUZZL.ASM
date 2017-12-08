@@ -772,7 +772,7 @@ FuzzlUpdateBounce:
 	beq    @NoColour
 	
 	; Check if Fuzzl's colour matches player
-	lea    Player1, a2
+	move.l Player1, a2
 	move.b Player_Colour(a2), d1
 	cmp.b  d0, d1
 	beq    @NoColourMatch
