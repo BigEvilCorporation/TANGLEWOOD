@@ -308,8 +308,9 @@ PHYSICS_HITFACINGWALL: macro objaddr
 	move.b #0x0, d0
 	moveq  #0x0, d1
 	move.w PhysicsObj_AccelX(\objaddr), d1
+	ext.l  d1
 	bne    @UseAccel\@
-	move.l PhysicsObj_VelX(\objaddr), d1
+	move.l PhysicsObj_LastAppliedVelX(\objaddr), d1
 	@UseAccel\@:
 	tst.l  d1
 	beq    @HeadingNowhere\@
