@@ -148,7 +148,6 @@ BridgeInit:
 	move.w #Bridge_PlatformMaxWidth, Platform_Width(a2)
 	move.l #0x0, Platform_VelX(a2)
 	move.l #0x0, Platform_VelY(a2)
-	jsr    BridgeActivatePlatform
 
 	; Setup barrier
 	lea    Bridge_Barrier(a0), a2
@@ -156,7 +155,6 @@ BridgeInit:
 	MEMZEROB a2, d0
 	move.w #Bridge_BarrierWidth, Barrier_Width(a2)
 	move.w #Bridge_BarrierHeight, Barrier_Height(a2)
-	jsr    BridgeActivateBarrier
 
 	rts
 
@@ -490,6 +488,9 @@ BridgeDeactivatePlatform:
 
 BridgeActivateBarrier:
 
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
+	beq    @NoBarrier
+
 	tst.b  Bridge_BarrierActive(a0)
 	bne    @AlreadyActive
 	lea    Bridge_Barrier(a0), a2
@@ -497,9 +498,14 @@ BridgeActivateBarrier:
 	move.b #0x1, Bridge_BarrierActive(a0)
 	@AlreadyActive:
 
+	@NoBarrier:
+
 	rts
 
 BridgeDeactivateBarrier:
+
+	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
+	beq    @NoBarrier
 
 	tst.b  Bridge_BarrierActive(a0)
 	beq    @AlreadyInactive
@@ -507,6 +513,8 @@ BridgeDeactivateBarrier:
 	LIST_REMOVE Barriers, a2, a3, a4
 	move.b #0x0, Bridge_BarrierActive(a0)
 	@AlreadyInactive:
+
+	@NoBarrier:
 
 	rts
 
