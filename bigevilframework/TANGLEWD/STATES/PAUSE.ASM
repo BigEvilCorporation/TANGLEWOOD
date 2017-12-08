@@ -18,11 +18,15 @@ GameStatePause_MaxStringLen	equ 0x8
 ; Struct
 	rsset	0x0
 ;----------------------------------
-PauseState_Firefly					rs.b Firefly_Struct_Size
 PauseState_FireflyTextTileBuff		rs.w GameStatePause_MaxStringLen
 PauseState_PasswordTextTileBuff		rs.w GameStatePause_MaxStringLen
+PauseState_Firefly					rs.l 1
+PauseState_FireflyPosX				rs.l 1
+PauseState_FireflyPosY				rs.l 1
 PauseState_VRAMAddr					rs.w 1
 PauseState_PrevPadState				rs.w 1
+PauseState_FireflyWorldGridFlags	rs.b 1
+PauseState_FireflySpritePrio		rs.b 1
 PauseState_FireflyTextSpritesCount	rs.b 1
 PauseState_PasswordTextSpritesCount	rs.b 1
 PauseState_DebugDrawMode			rs.b 1
@@ -165,24 +169,25 @@ Pause_Enter:
 
 	;==============================================================
 
-	; Create temp firefly
-	lea    GameStatePauseData, a0
-	lea    PauseState_Firefly(a0), a0
-	jsr    FireflyInit
+	; Hijack a firefly from the game
+	PUSHM  a0-a1
+	lea    GameStatePauseData, a1
+	move.l EntityPoolStart_Firefly, a0
+	cmp.l  #0x0, a0
+	beq    @NoFireflies
+	move.l a0, PauseState_Firefly(a1)
+
+	; Backup its world grid state, position and sprite prio
+	move.l Entity_WorldPosX(a0), PauseState_FireflyPosX(a1)
+	move.l Entity_WorldPosY(a0), PauseState_FireflyPosY(a1)
+	move.b Entity_WorldGridFlags(a0), PauseState_FireflyWorldGridFlags(a1)
+	move.b SpriteObj_Priority(a0), PauseState_FireflySpritePrio(a1)
+
+	; Set as rendering, remove from world grid
 	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityAddToRenderList
-
-	; TODO: This isn't freed :(
-	move.w PauseState_VRAMAddr(a0), d0
-	bne    @Allocated
-	move.w #actor_firefly_VRAM_size_b, d0
-	jsr    VRAM_PoolAlloc
-	move.w d0, PauseState_VRAMAddr(a0)
-	@Allocated:
-
-	; Load sprite sheet
-	SPRITE_LOAD_DEFAULT firefly,red,0,PaletteId_Fuzzl,0x0
 	
+	; Set UI position
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1
 	addi.l #((PauseText_FireflyPosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
@@ -192,6 +197,9 @@ Pause_Enter:
 	
 	; Set high sprite priority
 	move.b #0x1, SpriteObj_Priority(a0)
+
+	@NoFireflies:
+	POPM   a0-a1
 	
 	POPL    a1
 	POPL    a0
@@ -232,9 +240,35 @@ Pause_Exit:
 	
 	POPL   a0
 	
-	; Delete temp firefly
-	lea    GameStatePauseData+PauseState_Firefly, a0
-	jsr    FireflyShutdown
+	; Restore firefly
+	PUSHM  a0-a1
+	lea    GameStatePauseData, a1
+	move.l PauseState_Firefly(a1), a0
+	cmp.l  #0x0, a0
+	beq    @NoFirefly
+
+	; Restore its world grid state, position and sprite prio
+	move.l PauseState_FireflyPosX(a1), Entity_WorldPosX(a0)
+	move.l PauseState_FireflyPosY(a1), Entity_WorldPosY(a0)
+	move.b PauseState_FireflySpritePrio(a1), SpriteObj_Priority(a0)
+
+	; Re-add to world grid if previously present
+	move.b Entity_WorldGridFlags(a0), d0
+	btst   #EntityWorldGridFlag_InWorldGrid, d0
+	beq    @NotInWorldGrid
+	andi.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr    EntityAddToWorldGrid
+	@NotInWorldGrid:
+
+	; Remove from render list if not previously present
+	move.b Entity_WorldGridFlags(a0), d0
+	btst   #EntityWorldGridFlag_InRenderList, d0
+	bne    @InRenderList
+	jsr    EntityRemoveFromRenderList
+	@InRenderList:
+
+	@NoFirefly:
+	POPM   a0-a1
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
@@ -311,9 +345,15 @@ Pause_Update:
 	move.w d0, PauseState_PrevPadState(a0)
 	
 	; Update temp firefly
-	lea    GameStatePauseData+PauseState_Firefly, a0
+	PUSHM  a0-a1
+	lea    GameStatePauseData, a1
+	move.l PauseState_Firefly(a1), a0
+	cmp.l  #0x0, a0
+	beq    @NoFirefly
 	move.l Entity_UpdateRoutine(a0), a3
 	jsr    (a3)
+	@NoFirefly:
+	POPM   a0-a1
 	
 	POPL   a1
 	POPL   a0
