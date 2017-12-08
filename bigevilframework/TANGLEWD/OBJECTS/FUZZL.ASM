@@ -510,6 +510,7 @@ FuzzlSerialise:
 	SAVEB PhysicsObj_CanBePulled(a0)
 	SAVEB PhysicsObj_AffectedByWind(a0)
 	SAVEB AnimObj_UpdateOutOfView(a0)
+	SAVEB Entity_WorldGridFlags(a0)
 	
 	bra  @End
 	
@@ -526,6 +527,13 @@ FuzzlSerialise:
 	LOADB PhysicsObj_CanBePulled(a0)
 	LOADB PhysicsObj_AffectedByWind(a0)
 	LOADB AnimObj_UpdateOutOfView(a0)
+	LOADB d0
+
+	btst  #EntityWorldGridFlag_GridPhysics, d0
+	bne   @Physicalised
+	jsr   PhysicsWorldRemoveObject
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+	@Physicalised:
 
 	tst.b Fuzzl_FlueOccupant(a0)
 	beq   @NotFlueOccupant
@@ -668,7 +676,8 @@ FuzzlFindGenerator:
 	move.l d1, Entity_WorldPosY(a0)
 
 	; De-physicalise
-	move.b #0x0, PhysicsObj_HasCollision(a0)
+	jsr    PhysicsWorldRemoveObject
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
 	
 	; Zero X velocity
 	move.l #0x0, PhysicsObj_VelX(a0)
@@ -724,7 +733,8 @@ FuzzlRemoveFromGenerator:
 	; a1 --- Level addr
 
 	; Physicalise
-	move.b #0x1, PhysicsObj_HasCollision(a0)
+	jsr    PhysicsWorldAddObject
+	bset.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
 	
 	; Zero X velocity
 	move.l #0x0, PhysicsObj_VelX(a0)
