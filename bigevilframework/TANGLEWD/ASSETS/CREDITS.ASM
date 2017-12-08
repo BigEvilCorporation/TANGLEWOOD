@@ -72,13 +72,12 @@ CreditsStrings:
 	CREDIT_HEADING1 "Character Design and Animation"
 	CREDIT_NAME		"Drew Lade"
 	CREDIT_NAME		"Krzysztof Matys"
-	CREDIT_NAME		"Simon Butler"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Environment Art"
 	CREDIT_NAME		"Matthew Weekes"
-	CREDIT_NAME		"Jamie Latham"
+	CREDIT_NAME		"Drew Lade"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
@@ -177,6 +176,7 @@ CreditsStrings:
 	CREDIT_NAME		"Djanine Taylor"
 	CREDIT_NAME		"Holly Elizabeth Jones"
 	CREDIT_NAME		"Kt 'Thoroughly Good' Chambers"
+	CREDIT_NAME		"Gemo Wainwright"
 	CREDIT_NAME		"Glenn Kneale"
 	CREDIT_NAME		"Kevin Purchase"
 	CREDIT_NAME		"Ali Tinsley"
@@ -185,6 +185,7 @@ CreditsStrings:
 	CREDIT_NAME		"Jenni Wardell"
 	CREDIT_NAME		"Meg Rouncefield"
 	CREDIT_NAME		"Gemma Young"
+	CREDIT_NAME		"Simon Butler"
 	CREDIT_NAME		"Darren Wall"
 	CREDIT_NAME		"Lee Hutchinson"
 	CREDIT_NAME		"Gruss Newton"
@@ -240,11 +241,6 @@ CreditsStrings:
 	CREDIT_NAME		"Our Lord and Saviour Torbjorn"
 	CREDIT_SPACE
 	CREDIT_SPACE
-
-	CREDIT_HEADING1 "Kickstarter"
-	CREDIT_NAME		"Name 1"
-	CREDIT_NAME		"Name 2"
-	CREDIT_NAME		"Name 3"
 
 	CREDIT_SPACE
 	CREDIT_SPACE
