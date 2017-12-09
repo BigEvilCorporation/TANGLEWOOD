@@ -187,19 +187,17 @@ L1A4_Flue_87_name	dc.b "L1A4_Flue_87",0
 	even
 	ENDIF
 
-L1A4_TriggerBox_count equ 0x5
-L1A4_Trigger_Djakk_idx	equ 0x0
+L1A4_TriggerBox_count equ 0x4
+L1A4_Trigger_FuzzlTree_idx	equ 0x0
 L1A4_TriggerBoxEnd_idx	equ 0x1
-L1A4_TriggerBox_39_idx	equ 0x2
-L1A4_Trigger_FuzzlTree_idx	equ 0x3
-L1A4_TriggerBox_DismountDjakk_idx	equ 0x4
+L1A4_TriggerBox_DismountDjakk_idx	equ 0x2
+L1A4_TriggerBox_97_idx	equ 0x3
 
 	IFND FINAL
-L1A4_Trigger_Djakk_name	dc.b "L1A4_Trigger_Djakk",0
-L1A4_TriggerBoxEnd_name	dc.b "L1A4_TriggerBoxEnd",0
-L1A4_TriggerBox_39_name	dc.b "L1A4_TriggerBox_39",0
 L1A4_Trigger_FuzzlTree_name	dc.b "L1A4_Trigger_FuzzlTree",0
+L1A4_TriggerBoxEnd_name	dc.b "L1A4_TriggerBoxEnd",0
 L1A4_TriggerBox_DismountDjakk_name	dc.b "L1A4_TriggerBox_DismountDjakk",0
+L1A4_TriggerBox_97_name	dc.b "L1A4_TriggerBox_97",0
 	even
 	ENDIF
 
@@ -1053,13 +1051,13 @@ L1A4_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x09900000, Entity_WorldPosX(a0)
-	move.l #0x02a00000, Entity_WorldPosY(a0)
-	move.l #L1A4_Trigger_WakeDjakk, TriggerBox_Routine(a0)
+	move.l #0x2b000000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #L1A4_Trigger_FuzzlTreeEntrance, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
-	lea L1A4_Trigger_Djakk_name, a3
+	lea L1A4_Trigger_FuzzlTree_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1083,36 +1081,6 @@ L1A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x09100000, Entity_WorldPosX(a0)
-	move.l #0x02a00000, Entity_WorldPosY(a0)
-	move.l #L1A4_Trigger_WakeDjakk, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
-	IFND FINAL
-	lea L1A4_TriggerBox_39_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #TriggerBox_Struct_Size, a0
-
-	jsr TriggerBoxInit
-	move.l #0x2b000000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
-	move.l #L1A4_Trigger_FuzzlTreeEntrance, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	jsr TriggerBoxLoadGfx
-	IFND FINAL
-	lea L1A4_Trigger_FuzzlTree_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #TriggerBox_Struct_Size, a0
-
-	jsr TriggerBoxInit
 	move.l #0x26000000, Entity_WorldPosX(a0)
 	move.l #0x02280000, Entity_WorldPosY(a0)
 	move.l #L1A4_Trigger_DismountDjakk, TriggerBox_Routine(a0)
@@ -1120,6 +1088,24 @@ L1A4_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L1A4_TriggerBox_DismountDjakk_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x09000000, Entity_WorldPosX(a0)
+	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.w #0x00c8, Entity_Width(a0)
+	move.w #0x0058, Entity_Height(a0)
+	move.l #L1A4_Trigger_WakeDjakk, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L1A4_TriggerBox_97_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
