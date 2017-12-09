@@ -295,12 +295,23 @@ HoggAIUpdate_Charge:
 	tst.b  d0
 	beq    @EndFollow
 
+	; If player not visible, don't bother
+	tst.b  SpriteObj_Visible(a2)
+	beq    @PlayerInvisible
+	
+	; If player is being flung using a flue/bounce pad, don't bother
+	MOVE_NTSC_L Monster_AttackMaxPlayerVel, d1, d0
+	cmp.l  PhysicsObj_VelY(a2), d1
+	blt    @PlayerBeingFlung
+
 	PUSHL  a0
 	move.l a2, a0
 	move.b #Hogg_PlayerDamage, d0
 	jsr    CharacterDealDamage
 	POPL   a0
 	
+	@PlayerInvisible:
+	@PlayerBeingFlung:
 	@EndFollow:
 
 	; If hit wall, enter stuck state

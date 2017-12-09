@@ -587,8 +587,19 @@ ScirusAIUpdate_FollowEnemy:
 	tst.b  d0
 	beq    @EndFollow
 
+	; If player not visible, don't bother
+	tst.b  SpriteObj_Visible(a2)
+	beq    @PlayerInvisible
+	
+	; If player is being flung using a flue/bounce pad, don't bother
+	MOVE_NTSC_L Monster_AttackMaxPlayerVel, d1, d0
+	cmp.l  PhysicsObj_VelY(a2), d1
+	blt    @PlayerBeingFlung
+
 	jsr    ScirusAIStart_Attack
 	
+	@PlayerInvisible:
+	@PlayerBeingFlung:
 	@EndFollow:
 
 	; If not night time, can revert back if player retreats to a safe distance
