@@ -222,6 +222,12 @@ BoulderUpdate:
 	; Enable platform
 	jsr    BoulderActivatePlatform
 
+	; Snap to floor
+	jsr    PhysicsObjSnapToFloor
+
+	; Wake physics
+	move.b #0x0, PhysicsObj_Asleep(a0)
+
 	;==============================================================
 	
 	@NotCracked:
