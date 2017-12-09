@@ -50,6 +50,11 @@ GameStateReset:
 	lea    UnderwaterPalettes, a0
 	move.l #(size_palette_b*num_palettes)/size_long, d0
 	MEMZEROL a0, d0
+
+	; Clear palette addrs
+	lea    ScenePaletteAddrs, a0
+	move.l #num_palettes, d0
+	MEMZEROL a0, d0
 	
 	; Clear planes
 	jsr    VDP_ClearMapPlaneA

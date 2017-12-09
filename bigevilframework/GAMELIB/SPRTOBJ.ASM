@@ -239,7 +239,7 @@ SpriteObjDraw:
 	lea    ScenePaletteAddrs, a3
 	add.l  d1, a3
 	move.l (a3), a3
-	cmp.l  SpriteObj_PaletteAddr(a0), a3
+	cmp.l  a2, a3
 	beq    @End
 
 	PUSHL  a0
