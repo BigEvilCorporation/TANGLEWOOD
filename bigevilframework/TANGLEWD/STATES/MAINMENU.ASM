@@ -45,11 +45,13 @@ MainMenuUIX				equ (screen_width/2)-(8*4)
 MainMenuUIY				equ (8*20)
 MainMenuUILineSpacing	equ 0x10
 
-MainMenu_Opt_NewGame	equ 0x0
-MainMenu_Opt_Continue	equ 0x1
+MainMenu_Opt_NewGame		equ 0x0
+MainMenu_Opt_Continue		equ 0x1
+MainMenu_Opt_LevelSelect	equ 0x2
 
-MainMenu_Str_NewGame	dc.b "New Game",0
-MainMenu_Str_Continue	dc.b "Continue",0
+MainMenu_Str_NewGame		dc.b "New Game",0
+MainMenu_Str_Continue		dc.b "Continue",0
+MainMenu_Str_LevelSelect	dc.b "Level Select",0
 	even
 
 ; Struct
@@ -312,6 +314,12 @@ MainMenu_InitUI:
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
 
+	IF DEMO_SHOW_LEVEL_SELECT
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_LevelSelect,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*2)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_LevelSelect
+	ENDIF
+
 	rts
 
 MainMenu_OnSelected:
@@ -324,6 +332,8 @@ MainMenu_OnSelected:
 	beq    @NewGame
 	cmp.b  #MainMenu_Opt_Continue, d0
 	beq    @Continue
+	cmp.b  #MainMenu_Opt_LevelSelect, d0
+	beq    @LevelSelect
 
 	@NewGame:
 
@@ -347,6 +357,14 @@ MainMenu_OnSelected:
 	; Set password screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStatePasswordScreen, MainMenuState_NextState(a2)
+
+	bra    @BeginFade
+
+	@LevelSelect:
+
+	; Set level select screen state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
 
 	bra    @BeginFade
 
