@@ -420,13 +420,14 @@ BridgeDraw:
 
 	POPL   a0
 
-	; If no notches drawn, in dropping state, and not buoyant, never render again
-	cmp.b  #Bridge_StateDropping, Bridge_State(a0)
+	; If no notches drawn, in dropped state, and not buoyant, never render again
+	cmp.b  #Bridge_StateDropped, Bridge_State(a0)
 	bne    @NotDropping
 	tst.b  Bridge_Buoyant(a0)
 	bne    @Buoyant
 	tst.b  Bridge_InView(a0)
 	bne    @InView
+	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	jsr    EntityRemoveFromWorldGrid
 	@InView:
