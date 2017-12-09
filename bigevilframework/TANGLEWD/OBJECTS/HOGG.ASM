@@ -28,8 +28,9 @@ Hogg_ProbeFloorX	equ (Hogg_Width/2)	; Floor detection probe position X
 Hogg_ProbeFloorY	equ (Hogg_Height-8); Floor detection probe position Y
 Hogg_ProbeWallTop	equ 0x08
 
-Hogg_InactiveDistance	equ 0x90	; Distance from the player to begin charging
-Hogg_AIFollowDistance	equ 0x10	; Target charge distance
+Hogg_AlertDistance		equ 0x0090	; Distance from the player to begin charging
+Hogg_SleepDistance		equ 0x0400	; Distance from the player to return to idle state
+Hogg_AIFollowDistance	equ 0x0010	; Target charge distance
 
 Hogg_PlayerDamage		equ 0xFF
 
@@ -214,6 +215,13 @@ HoggAIStart_Idle:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Update via world grid
+	bset.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	bset.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+
+	; Recalculate place in grid
+	jsr    EntityUpdateWorldGridIndex
+
 	; Set state
 	move.b #HoggState_Idle, Hogg_State(a0)
 
@@ -231,7 +239,7 @@ HoggAIUpdate_Idle:
 	TOPIXELS d1
 	sub.w  d0, d1
 	ABSW   d1
-	cmp.w  #Hogg_InactiveDistance, d1
+	cmp.w  #Hogg_AlertDistance, d1
 	bgt    @OutOfRange
 
 	; Start charge state
@@ -244,6 +252,10 @@ HoggAIUpdate_Idle:
 HoggAIStart_Charge:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	; Stop updating via world grid
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
 
 	; Set state
 	move.b #HoggState_Charging, Hogg_State(a0)
@@ -260,6 +272,17 @@ HoggAIUpdate_Charge:
 	ENTITY_GETCENTREX d1,a2
 	TOPIXELS d0
 	TOPIXELS d1
+
+	; If too far away, back to idle state
+	move.w d0, d2
+	move.w d1, d3
+	sub.w  d2, d3
+	ABSW   d3
+	cmp.w  #Hogg_SleepDistance, d3
+	blt    @WithinActiveRange
+	jsr    HoggAIStart_Idle
+	bra    @Idle
+	@WithinActiveRange:
 	
 	; Check left bounds
 	move.w d1, d2
@@ -320,6 +343,8 @@ HoggAIUpdate_Charge:
 	beq    @NoHitWall
 	jsr    HoggAIStart_Stuck
 	@NoHitWall:
+
+	@Idle:
 
 	rts
 
