@@ -213,7 +213,7 @@ main_menu_LoadGameObjects:
 	POPL   a1
 
 	jsr NymnInit
-	move.l #0x01700000, Entity_WorldPosX(a0)
+	move.l #0x01780000, Entity_WorldPosX(a0)
 	move.l #0x00d80000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr NymnLoadGfx
