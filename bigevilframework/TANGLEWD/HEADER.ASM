@@ -94,8 +94,8 @@
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
 	dc.b "BIG EVIL CORP   "                                                                 ; Copyright holder and release date
-	dc.b "TANGLEWOOD (ALPHA BUILD 0.5.00 I)               " ; Domestic name
-	dc.b "TANGLEWOOD (ALPHA BUILD 0.5.00 I)               " ; International name
+	dc.b "TANGLEWOOD (ALPHA BUILD 0.6.0 GAMERS UNITE DEMO)" ; Domestic name
+	dc.b "TANGLEWOOD (ALPHA BUILD 0.6.0 GAMERS UNITE DEMO)" ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
 	dc.w 0x0000                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
