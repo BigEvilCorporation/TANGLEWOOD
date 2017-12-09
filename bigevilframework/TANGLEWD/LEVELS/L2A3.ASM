@@ -174,6 +174,14 @@ l2a3_Init:
 
 	; Disable lost player timeout
 	move.w #-1, Monster_LoseSightTimer(a0)
+
+	;==============================================================
+
+	; Start rain ambience
+	PUSHM  a0/d0-d1
+	lea    track_amb_rain, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	
 	rts
 	

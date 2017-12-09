@@ -114,6 +114,14 @@ l2a2_Init:
 	move.w #0x0001, WindFlue_OffTime(a0)
 	move.w #0x0001, WindFlue_Timer(a0)
 
+	;==============================================================
+
+	; Start rain ambience
+	PUSHM  a0/d0-d1
+	lea    track_amb_rain, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
+
 	rts
 	
 l2a2_Update:

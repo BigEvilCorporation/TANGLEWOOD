@@ -76,7 +76,7 @@ track_bgm_dusk:
 	dc.b	Track_Type_Cue
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_FootstepSml-1
-	dc.b	Track_Transition_Crossfade
+	dc.b	Track_Transition_Instant
 	even
 
 track_bgm_night:
@@ -186,7 +186,7 @@ track_amb_rain:
 	dc.b	Track_Type_Ambience
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest
-	dc.b	Track_Transition_Crossfade
+	dc.b	Track_Transition_FadeUp
 	even
 
 track_amb_windrain:
@@ -196,7 +196,7 @@ track_amb_windrain:
 	dc.b	Track_Type_Ambience
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest
-	dc.b	Track_Transition_Crossfade
+	dc.b	Track_Transition_FadeUp
 	even
 	
 	ENDIF

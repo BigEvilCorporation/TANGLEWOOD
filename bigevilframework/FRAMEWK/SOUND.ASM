@@ -74,10 +74,6 @@ SND_PlayTrack:
 
 	;==============================================================
 
-	; If current track playing, fade out first
-	tst.l  audio_current_track
-	beq    @Free
-
 	; If exclusivity held, bail
 	tst.b  audio_playback_locked
 	bne    @Busy
@@ -89,6 +85,10 @@ SND_PlayTrack:
 	lea    audio_queued_tracks, a1
 	add.l  d0, a1
 	move.l a0, (a1)
+
+	; If current track playing, fade out first
+	tst.l  audio_current_track
+	beq    @Free
 
 	; Determine transition type
 	move.b Track_Transition(a0), d0
@@ -270,7 +270,7 @@ SND_GetEchoBusy:
 
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
-	andi.w #(1<<15), d0		; Bit 15 = Echo busy
+	btst   #5, d0			; Bit 15 = Last Echoc ommand not yet processed
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -286,7 +286,7 @@ SND_GetSFXBusy:
 
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
-	andi.w #(1<<0), d0		; Bit 0 = SFX playing
+	btst   #0, d0			; Bit 0 = SFX playing
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -302,7 +302,7 @@ SND_GetTrackBusy:
 
 	IF INCLUDE_AUDIO
 	jsr    Echo_GetStatus
-	andi.w #(1<<1), d0		; Bit 1 = BGM playing
+	btst   #1, d0			; Bit 1 = BGM playing
 	bne    @Busy
 	move.b #0x0, d0
 	bra    @End
@@ -408,6 +408,12 @@ SND_UpdateFader:
 	rts
 
 SND_UpdateTrack:
+
+	; If sound system not busy
+	jsr    SND_GetEchoBusy
+	tst.b  d0
+	bne    @Busy
+
 	; Check if track stopped
 	cmp.l  #0x0, audio_current_track
 	bne    @Busy
@@ -427,8 +433,11 @@ SND_UpdateTrack:
 	; Fetch track address
 	move.l (a1), a0
 
-	; Remove from queue
+	; If not ambience, remove from queue
+	cmp.b  #Track_Type_Ambience, Track_Type(a0)
+	beq    @NoRemove
 	move.l #0x0, (a1)
+	@NoRemove:
 
 	; Determine transition type
 	move.b Track_Transition(a0), d0
