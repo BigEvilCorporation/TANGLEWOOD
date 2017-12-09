@@ -224,12 +224,7 @@ SpriteObjDraw:
 	POPM   d2-d5
 	
 	; Sprite linked
-	move.b SpriteObj_SpriteLinked(a0), d1
 	move.b #0x1, SpriteObj_SpriteLinked(a0)
-
-	; If not previously linked
-	tst.b  d1
-	bne    @End
 
 	; If palette not loaded, DMA it
 	tst.b  SpriteObj_PaletteAutoLoad(a0)
