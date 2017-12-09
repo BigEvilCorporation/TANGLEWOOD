@@ -13,10 +13,11 @@ Lvl0_LevelSelect:
 	dc.l GameStateLevelSelectData		; Userdata
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_l1					; Blocks
-	dc.l map_blockmap_main_menu			; Block map
+	dc.l map_blockmap_credits			; Block map
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
 	dc.l 0x0							; Collision block map
+	dc.l 0x0							; 'Special' terrain descriptor table
 	dc.l 0x0							; Palettes
 	dc.l 0x0							; Init routine
 	dc.l 0x0							; Update routine
@@ -24,12 +25,21 @@ Lvl0_LevelSelect:
 	dc.l 0x0							; Load game objects routine
 	dc.l 0x0							; End routine
 	dc.l 0x0							; Next level
-	dc.w 0x0							; Default gravity
-	dc.w map_main_menu_width			; Map width (tiles)
-	dc.w map_main_menu_height			; Map height (tiles)
-	dc.w map_blockmap_main_menu_width	; Map width (blocks)
-	dc.w map_blockmap_main_menu_height	; Map height (blocks)
+	dc.l 0x0							; Default gravity
+	dc.w map_credits_width				; Map width (tiles)
+	dc.w map_credits_height				; Map height (tiles)
+	dc.w map_blockmap_credits_width		; Map width (blocks)
+	dc.w map_blockmap_credits_height	; Map height (blocks)
+	dc.w 0x0							; Collision map width (tiles)
+	dc.w 0x0							; Collision map height (tiles)
+	dc.w 0x0							; Collision map left bounds (tiles)
+	dc.w 0x0							; Collision map top bounds (tiles)
+	dc.w 0x0							; Collision map width (blocks)
+	dc.w 0x0							; Collision map height (blocks)
 	dc.w tiles_l1_size_t				; Num tiles
+	dc.w 0x0							; Num 'special' terrain descriptors
+	dc.b 0xD							; Background colour idx
+	dc.b -1								; Index
 	
 	even
 
