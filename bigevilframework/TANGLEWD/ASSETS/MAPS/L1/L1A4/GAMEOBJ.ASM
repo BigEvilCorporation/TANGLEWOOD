@@ -951,7 +951,7 @@ L1A4_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 
 	jsr FlueInit
-	move.l #0x06d80000, Entity_WorldPosX(a0)
+	move.l #0x06580000, Entity_WorldPosX(a0)
 	move.l #0x02b00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	IFND FINAL
@@ -1281,7 +1281,7 @@ L1A4_LoadGameObjects:
 	POPL   a1
 
 	jsr HoggInit
-	move.l #0x07600000, Entity_WorldPosX(a0)
+	move.l #0x06a00000, Entity_WorldPosX(a0)
 	move.l #0x02a00000, Entity_WorldPosY(a0)
 	jsr HoggLoadGfx
 	IFND FINAL
