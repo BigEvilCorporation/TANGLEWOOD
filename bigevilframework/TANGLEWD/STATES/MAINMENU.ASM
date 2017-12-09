@@ -68,6 +68,7 @@ MainMenu_Str_LevelSelect	dc.b "Level Select",0
 	rsset	LevelData_Struct_Size
 ;---------------------------------
 MainMenuState_LogoSprite	rs.b SpriteObj_Struct_Size
+MainMenuState_UIWindow		rs.l 1
 MainMenuState_NextState		rs.l 1
 MainMenuState_FadeTimer		rs.w 1
 ;---------------------------------
@@ -251,6 +252,11 @@ MainMenu_Update:
 	move.l #0xF, d4
 	jsr    GameScenePaletteFadeTo
 
+	; Enable UI
+	lea    GameStateMainMenuData, a2
+	move.l MainMenuState_UIWindow(a2), a3
+	move.b #0x1, Entity_Active(a3)
+
 	@StartedBgFade:
 	bra    @End
 	
@@ -309,6 +315,12 @@ MainMenu_InitUI:
 	; Create UI window
 	move.l (EntityPoolStart_UIWindow), a0
 	jsr    UIWindowInit
+
+	lea    GameStateMainMenuData, a2
+	move.l a0, MainMenuState_UIWindow(a2)
+
+	; Disable by default
+	move.b #0x0, Entity_Active(a0)
 
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0

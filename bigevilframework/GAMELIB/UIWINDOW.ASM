@@ -26,6 +26,7 @@ UIWindowInit:
 	MLIST_INIT Widgets,a0
 	move.l #0x0, UIWindow_OnForward(a0)
 	move.l #0x0, UIWindow_OnBack(a0)
+	move.b #0x1, Entity_Active(a0)
 	
 	; Set update and render routines
 	move.l #UIWindowUpdate, Entity_UpdateRoutine(a0)
@@ -49,10 +50,9 @@ UIWindowAddWidget:
 UIWindowUpdate:
 	; a0 --- Window addr
 	; a1 --- Level addr
-	; d2 (w) Camera left
-	; d3 (w) Camera right
-	; d4 (w) Camera top
-	; d5 (w) Camera bottom
+
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
 
 	PUSHMW d2-d5
 
@@ -71,11 +71,17 @@ UIWindowUpdate:
 
 	POPMW  d2-d5
 
+	@Inactive:
+
 	rts
 
 UIWindowRender:
 	; a0 --- Window addr
 	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
 
 	MLIST_GET_HEAD Widgets,a2,a0			; Get list head
 	@WidgetLp:								; For all widgets in list
