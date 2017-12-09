@@ -217,15 +217,13 @@ L1A1_Skivv_count equ 0x0
 
 L1A1_Ladder_count equ 0x0
 
-L1A1_Scirus_count equ 0x3
+L1A1_Scirus_count equ 0x2
 L1A1_Scirus_74_idx	equ 0x0
 L1A1_Scirus_75_idx	equ 0x1
-L1A1_Scirus_76_idx	equ 0x2
 
 	IFND FINAL
 L1A1_Scirus_74_name	dc.b "L1A1_Scirus_74",0
 L1A1_Scirus_75_name	dc.b "L1A1_Scirus_75",0
-L1A1_Scirus_76_name	dc.b "L1A1_Scirus_76",0
 	even
 	ENDIF
 
@@ -851,7 +849,7 @@ L1A1_LoadGameObjects:
 	POPL   a1
 
 	jsr ScirusInit
-	move.l #0x0c600000, Entity_WorldPosX(a0)
+	move.l #0x0d180000, Entity_WorldPosX(a0)
 	move.l #0x03280000, Entity_WorldPosY(a0)
 	jsr ScirusLoadGfx
 	IFND FINAL
@@ -869,19 +867,6 @@ L1A1_LoadGameObjects:
 	jsr ScirusLoadGfx
 	IFND FINAL
 	lea L1A1_Scirus_75_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Scirus_Struct_Size, a0
-
-	jsr ScirusInit
-	move.l #0x1ea00000, Entity_WorldPosX(a0)
-	move.l #0x03000000, Entity_WorldPosY(a0)
-	jsr ScirusLoadGfx
-	IFND FINAL
-	lea L1A1_Scirus_76_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
