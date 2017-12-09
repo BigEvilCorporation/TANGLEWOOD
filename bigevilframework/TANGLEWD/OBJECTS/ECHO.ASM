@@ -11,6 +11,7 @@ ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
+Echo_TalkDelay				equ 0x0020		; Delay between Nymn and Echo talking
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
@@ -310,6 +311,9 @@ EchoInit:
 
 	; Howl
 	ANIM_LOAD_DEFAULT Echo,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
+
+	; Talk
+	ANIM_LOAD_DEFAULT Echo,callshort,callshort,Player_Animations,PlayerAnimIdx_Talk,0,1,0
 	
 	;==============================================================
 	; Setup Echo specific animations
@@ -396,7 +400,14 @@ EchoUpdate:
 	move.w d0, Echo_HowlTimer(a0)
 	tst.w  d0
 	bne    @TimerStillRunning
+	; If on screen, just talk
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @Howl
+	jsr    EchoTalk
+	bra    @Talk
+	@Howl:
 	jsr    EchoHowl
+	@Talk:
 	@TimerStillRunning:
 	@TimerNotRunning:
 	
@@ -815,10 +826,34 @@ EchoEndCarried:
 
 	rts
 
+EchoStartTalkTimer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	MOVE_NTSC_W Echo_TalkDelay, Echo_HowlTimer(a0), d0
+	rts
+
 EchoStartHowlTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	MOVE_NTSC_W Echo_HowlDelay, Echo_HowlTimer(a0), d0
+	rts
+
+EchoTalk:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set talking anim
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Talk*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Set talk state
+	move.b #0x1, Echo_HowlState(a0)
+
 	rts
 
 EchoHowl:

@@ -156,8 +156,9 @@ PlayerAnimIdx_WakeSleep 	equ 4	; Raises head, pauses, then goes back to sleep
 PlayerAnimIdx_IdleLookBack 	equ 5	; Looks back fast, pauses, looks forward
 PlayerAnimIdx_Mount		 	equ 6	; Mount a Djakk
 PlayerAnimIdx_Howl		 	equ 7	; Long howl
+PlayerAnimIdx_Talk		 	equ 8	; Short talk
 ; --------------------------------
-PlayerAnimIdx_Max       	equ 8
+PlayerAnimIdx_Max       	equ 9
 
 ; ************************************
 ; Macros

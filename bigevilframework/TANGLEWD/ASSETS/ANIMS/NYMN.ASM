@@ -245,6 +245,26 @@ actor_nymn_sheet_colourswitch_anim_colourswitch_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_nymn_sheet_callshort_anim_callshort:
+actor_nymn_sheet_callshort_anim_callshort_numframes: equ 0x4
+actor_nymn_sheet_callshort_anim_callshort_speed: equ 0x1E
+actor_nymn_sheet_callshort_anim_callshort_track_frames:
+	dc.l actor_nymn_sheet_callshort_frame_0_header
+	dc.l actor_nymn_sheet_callshort_frame_1_header
+	dc.l actor_nymn_sheet_callshort_frame_2_header
+	dc.l actor_nymn_sheet_callshort_frame_0_header
+
+	Even
+actor_nymn_sheet_callshort_anim_callshort_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_callshort_anim_callshort_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_callshort_anim_callshort_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_nymn_sheet_fall_anim_fall:
 actor_nymn_sheet_fall_anim_fall_numframes: equ 0x4
 actor_nymn_sheet_fall_anim_fall_speed: equ 0x28

@@ -387,6 +387,25 @@ actor_echo_sheet_calllong_anim_calllong_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_echo_sheet_callshort_anim_callshort:
+actor_echo_sheet_callshort_anim_callshort_numframes: equ 0x3
+actor_echo_sheet_callshort_anim_callshort_speed: equ 0x1E
+actor_echo_sheet_callshort_anim_callshort_track_frames:
+	dc.l actor_echo_sheet_callshort_frame_0_header
+	dc.l actor_echo_sheet_callshort_frame_1_header
+	dc.l actor_echo_sheet_callshort_frame_2_header
+
+	Even
+actor_echo_sheet_callshort_anim_callshort_track_posx:
+	dc.b 0xFE, 0xFE, 0xFE
+	Even
+actor_echo_sheet_callshort_anim_callshort_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+actor_echo_sheet_callshort_anim_callshort_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
 actor_echo_sheet_push_anim_push:
 actor_echo_sheet_push_anim_push_numframes: equ 0x8
 actor_echo_sheet_push_anim_push_speed: equ 0x28

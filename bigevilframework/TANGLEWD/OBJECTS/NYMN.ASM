@@ -154,6 +154,9 @@ NymnInit:
 
 	; Howl
 	ANIM_LOAD_DEFAULT nymn,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
+
+	; Talk
+	ANIM_LOAD_DEFAULT nymn,callshort,callshort,Player_Animations,PlayerAnimIdx_Talk,0,1,0
 	
 	;==============================================================
 	; Setup Nymn specific animations
@@ -338,8 +341,23 @@ NymnStartInteract:
 	tst.b  Animation_Looping(a2)
 	beq    @NotIdle
 
+	; If both on screen, talk
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @Howl
+	move.l (Player2), a2
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @Howl
+
+	; Talk
+	jsr    NymnTalk
+	bra    @Talk
+
+	@Howl:
+
 	; Howl
 	jsr    NymnHowl
+
+	@Talk:
 
 	@Moving:
 	@NotIdle:
@@ -507,6 +525,42 @@ NymnEndCarryEcho:
 	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
+
+	rts
+
+NymnTalk:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If Echo available
+	move.l Player2, a2
+	cmp.l  #0x0, a2
+	beq    @NoEcho
+
+	; and active
+	tst.b  Entity_Active(a2)
+	beq    @NoEcho
+
+	; Start talking anim
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Talk*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	IFD INCLUDE_CHARACTER_ECHO
+
+	; Start Echo's talk timer
+	PUSHL  a0
+	move.l (Player2), a0
+	jsr    EchoStartTalkTimer
+	POPL   a0
+
+	ENDIF ; INCLUDE_CHARACTER_ECHO
+
+	@NoEcho:
 
 	rts
 
