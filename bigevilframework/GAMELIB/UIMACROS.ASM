@@ -81,7 +81,7 @@ CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
 	move.w #actor_\actor\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
 	move.l \cursoraddr, a0
-	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1

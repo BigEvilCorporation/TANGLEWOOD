@@ -303,7 +303,7 @@ MainMenu_InitUI:
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
 	move.l a3, a5
-	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,0,PaletteId_Fuzzl,0x0
+	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*0)
