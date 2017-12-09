@@ -103,6 +103,20 @@ SFX_Data_Scrap_Yap:
 	ESF_Delay 9
 	ESF_Stop
 	even
+
+SFX_Data_Wind_Short:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+12
+	ESF_Delay 65
+	ESF_Stop
+	even
+
+SFX_Data_Wind_Long:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+13
+	ESF_Delay 137
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -467,6 +481,20 @@ SFX_Thunder_Far:
 
 SFX_Thunder_Near:
 	dc.l SFX_Data_Thunder_Near		; Data
+	dc.b SFX_Priority_High			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Wind_Short:
+	dc.l SFX_Data_Wind_Short		; Data
+	dc.b SFX_Priority_High			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Wind_Long:
+	dc.l SFX_Data_Wind_Long			; Data
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

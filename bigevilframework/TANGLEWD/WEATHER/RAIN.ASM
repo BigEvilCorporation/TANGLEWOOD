@@ -15,6 +15,9 @@ RainSpriteRandOffsetX	equ ((screen_width*2)/RainSpriteGridX)
 RainSpriteRandOffsetY	equ (screen_height/RainSpriteGridY)
 RainSpriteStartOffsetX	equ ((screen_width*2)/RainSpriteGridX)
 
+WindSFXRainFrameShort	equ 0x1
+WindSFXRainFrameLong	equ 0x2
+
 	rsset 0
 RainParams_VelX				rs.l 1
 RainParams_VelY				rs.l 1
@@ -100,9 +103,28 @@ RainSetParams:
 	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a4
 	moveq #0x0, d0
 	move.b RainParams_AnimFrame(a2), d0
+	move.b d0, d1
 	lsl.l  #0x8, d0
 	move.l d0, AnimObj_AnimSubFrame(a4)
 	move.b #0x1, AnimObj_UploadFrame(a4)
+
+	; TODO: Belongs in wind code
+
+	; Play SFX depending on strength
+	cmp    #WindSFXRainFrameLong, d1
+	beq    @LongSFX
+	cmp    #WindSFXRainFrameShort, d1
+	beq    @ShortSFX
+	bra    @EndSFX
+
+	@LongSFX:
+	PLAYSFX #SFX_Wind_Long
+	bra    @EndSFX
+
+	@ShortSFX:
+	PLAYSFX #SFX_Wind_Short
+
+	@EndSFX:
 
 	rts
 
