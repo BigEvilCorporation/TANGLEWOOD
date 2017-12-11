@@ -187,7 +187,6 @@ MonsterInit:
 	MOVE_NTSC_ACCEL_W Monster_DecelIdle, PhysicsObj_DecelX(a0), d0
 
 	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Monster_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Monster_WalkToRunVel, Character_WalkToRunVel(a0), d0
 	MOVE_NTSC_ACCEL_W Monster_AccelWalk, Character_AccelWalk(a0), d0

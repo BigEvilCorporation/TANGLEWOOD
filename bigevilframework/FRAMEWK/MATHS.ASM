@@ -88,8 +88,8 @@ Mul32:
 	add.l   d2,d0
 	rts
 
-; Fixed point 16.16 multiply
-Mul1616:
+; Fixed point unsigned 16.16 multiply
+Mulu1616:
 	; d0 (l) Operand a
 	; d1 (l) Operand b
 	; d0 (l) OUT: Result
@@ -119,28 +119,46 @@ Mul1616:
 
 	; ((d * b) >> 16)
 	move.l d2, d4
-	muls   d3, d4
-	asr.l  #0x8, d4
-	asr.l  #0x8, d4
+	mulu   d3, d4
+	clr.w  d4
+	swap   d4
 
 	; (d * a)
 	move.l d0, d5
-	muls   d3, d5
+	mulu   d3, d5
 
 	; (c * b)
 	move.l d2, d6
-	muls   d1, d6
+	mulu   d1, d6
 
 	; ((c * a) << 16)
-	muls   d1, d0
-	asl.l  #0x8, d0
-	asl.l  #0x8, d0
+	mulu   d1, d0
+	clr.w  d0
+	swap   d0
 
 	add.l  d4, d0
 	add.l  d5, d0
 	add.l  d6, d0
 
 	POPM   d2-d6
+
+	rts
+
+; Fixed point unsigned 16.16 multiply
+Muls1616:
+	; d0 (l) Operand a
+	; d1 (l) Operand b
+	; d0 (l) OUT: Result
+
+	move.l d0, d2
+	PUSHL d2
+	ABS   d0			; Mul unsigned
+	jsr   Mulu1616
+	POPL  d2
+	tst.l d2			; Restore sign
+	bge   @Pos
+	neg.l d0
+	@Pos:
 
 	rts
 	

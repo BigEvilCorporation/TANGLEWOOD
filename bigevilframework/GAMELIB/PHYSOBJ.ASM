@@ -361,6 +361,9 @@ PhysicsObjApplyAccelDecel:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Get physics world
+	lea    PhysicsWorld, a2
+
 	move.l PhysicsObj_VelX(a0), d0		; Fetch X velocity from RAM
 	
 	; Check if accelerating X
@@ -372,6 +375,17 @@ PhysicsObjApplyAccelDecel:
 	clr.l  d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
+
+	; Apply underwater scale
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterX
+	PUSHL  d0
+	move.l d1, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d1
+	POPL   d0
+	@NotInWaterX:
 	
 	; Apply acceleration
 	add.l  d1, d0						; Add X acceleration
@@ -384,6 +398,17 @@ PhysicsObjApplyAccelDecel:
 	@AirVelocity:
 	move.l PhysicsObj_MaxVelAirX(a0), d1	; Get max velocity +ve
 	@FloorVelocity:
+
+	; Apply underwater scale
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterMaxX
+	PUSHL  d0
+	move.l d1, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d1
+	POPL   d0
+	@NotInWaterMaxX:
 
 	; Check clamp type
 	tst.b  PhysicsObj_MaxVelClamp(a0)
@@ -474,15 +499,54 @@ PhysicsObjApplyAccelDecel:
 	moveq #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d7
+
+	; Apply underwater scale
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterY
+	PUSHL  d0
+	move.l d7, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d7
+	POPL   d0
+	@NotInWaterY:
 	
-	; Apply acceleration
+	; Apply Y acceleration
 	add.l  d7, d0						; Add Y acceleration
 	
-	; Check if past max velocity
-	move.l PhysicsObj_MaxVelYUp(a0), d7		; Get max velocity +ve
+	; Get max velocity +ve
+	move.l PhysicsObj_MaxVelYUp(a0), d7
+
+	; Apply underwater scale
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterMaxYPos
+	PUSHL  d0
+	move.l d7, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d7
+	POPL   d0
+	@NotInWaterMaxYPos:
+
+	; Check if past max +ve velocity
 	cmp.l  d7, d0
 	bgt    @ClampY
-	move.l PhysicsObj_MaxVelYDown(a0), d7	; Get max velocity -ve
+
+	; Get max velocity -ve
+	move.l PhysicsObj_MaxVelYDown(a0), d7
+
+	; Apply underwater scale
+	tst.b  PhysicsObj_UnderWater(a0)
+	beq    @NotInWaterMaxYNeg
+	PUSHL  d0
+	move.l d7, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d7
+	POPL   d0
+	@NotInWaterMaxYNeg:
+
+	; Check if past max -ve velocity
 	neg.l  d7
 	cmp.l  d7, d0
 	blt    @ClampY
@@ -561,7 +625,10 @@ PhysicsObjApplyWorldForces:
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWaterX
-	DIVS1616_LOSSY_FIXED #0x2, d2
+	move.l d2, d0
+	move.l PhysicsWorld_UnderwaterAccelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d2
 	@NotInWaterX:
 
 	; Get current Y velocity
@@ -640,6 +707,9 @@ PhysicsObjApplyVelocityX:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; d0 (l) X velocity
+
+	; Get physics world
+	lea    PhysicsWorld, a2
 	
 	; Apply speed div
 	clr.l  d1
@@ -648,9 +718,10 @@ PhysicsObjApplyVelocityX:
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
-	beq    @NotInWaterX
-	DIVS1616_LOSSY_FIXED #0x2, d0
-	@NotInWaterX:
+	beq    @NotInWater
+	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	jsr    Muls1616
+	@NotInWater:
 
 	;==============================================================
 
@@ -723,6 +794,9 @@ PhysicsObjApplyVelocityY:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; d0 (l) Y velocity
+
+	; Get physics world
+	lea    PhysicsWorld, a2
 	
 	; Apply speed div
 	clr.l  d1
@@ -731,9 +805,10 @@ PhysicsObjApplyVelocityY:
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
-	beq    @NotInWaterY
-	DIVS1616_LOSSY_FIXED #0x2, d0
-	@NotInWaterY:
+	beq    @NotInWater
+	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	jsr    Muls1616
+	@NotInWater:
 
 	;==============================================================
 

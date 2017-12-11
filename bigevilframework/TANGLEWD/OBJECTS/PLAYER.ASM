@@ -236,14 +236,12 @@ PlayerInit:
 
 	MOVE_NTSC_L Player1MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
-	MOVE_NTSC_L Player1MaxVelXWater, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_ACCEL_W Player1AccelWalk, Character_AccelWalk(a0), d0
 	MOVE_NTSC_ACCEL_W Player1AccelRun, Character_AccelRun(a0), d0
 	MOVE_NTSC_ACCEL_W Player1DecelIdle, Character_DecelIdle(a0), d0
 	MOVE_NTSC_ACCEL_W Player1DecelForced, Character_DecelForced(a0), d0
 	MOVE_NTSC_L Player1JumpVelX, Character_JumpVelX(a0), d0
 	MOVE_NTSC_L Player1JumpVelY, Character_JumpVelY(a0), d0
-	MOVE_NTSC_L Player1JumpVelWater, Character_JumpVelWater(a0), d0
 	MOVE_NTSC_L Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0
 	MOVE_NTSC_L Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0), d0
 	MOVE_NTSC_L Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0), d0
@@ -2232,11 +2230,10 @@ PlayerInteractTest_Water:
 	bne    @Riding
 	
 	; Backup current water state
-	move.b Character_InWater(a0), d5
-	or.b   PhysicsObj_Underwater(a0), d5
+	move.b PhysicsObj_Underwater(a0), d5
+	PUSHW  d5
 	
 	; Reset in water
-	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, PhysicsObj_Underwater(a0)
 	move.w #0x0, Player_LastWaterBodyLeft(a0)
 	move.w #0x0, Player_LastWaterBodyRight(a0)
@@ -2391,6 +2388,18 @@ PlayerInteractTest_Water:
 	;==============================================================
 
 	@Found:
+
+	POPW   d5
+
+	; If left water
+	tst.b  d5
+	beq    @NotPrevInWater
+	tst.b  PhysicsObj_Underwater(a0)
+	bne    @StillInWater
+	jsr    PlayerExitedWater
+	@NotPrevInWater:
+	@StillInWater:
+
 	@Riding:
 	
 	rts
@@ -2417,7 +2426,6 @@ PlayerEnteredWater:
 
 	; Set in water
 	move.b #0x1, PhysicsObj_Underwater(a0)
-	move.b #0x1, Character_InWater(a0)
 
 	tst.b  d1
 	bne    @NoSFXVFX
@@ -2447,6 +2455,25 @@ PlayerEnteredWater:
 	
 	@NoSFXVFX:
 	@LowSplashVel:
+
+	rts
+
+PlayerExitedWater:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set water scaled vel as new vel
+	lea    PhysicsWorld, a2
+
+	move.l PhysicsObj_VelX(a0), d0
+	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, PhysicsObj_VelX(a0)
+
+	move.l PhysicsObj_VelY(a0), d0
+	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	jsr    Muls1616
+	move.l d0, PhysicsObj_VelY(a0)
 
 	rts
 

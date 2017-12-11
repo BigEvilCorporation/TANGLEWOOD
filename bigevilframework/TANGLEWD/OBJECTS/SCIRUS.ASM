@@ -244,7 +244,6 @@ ScirusSetAffinity:
 
 	; Set vel/accel values
 	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelWalk, Character_AccelWalk(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelRun, Character_AccelRun(a0), d0
@@ -272,7 +271,6 @@ ScirusSetAffinity:
 
 	; Set vel/accel values
 	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Scirus_FriendMaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_FriendAccelWalk, Character_AccelWalk(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_FriendAccelRun, Character_AccelRun(a0), d0

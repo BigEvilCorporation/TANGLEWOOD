@@ -898,7 +898,6 @@ EchoUpdateAI:
 	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
 	move.b PhysicsObj_Underwater(a0), d0
-	or.b   Character_InWater(a0), d0
 	bne    @InWater
 	move.w Entity_WorldPosX(a0), Echo_AILastDryLandY(a0)
 	@InAir:
@@ -1615,8 +1614,6 @@ EchoAIUpdate_Water:
 	@NotHitWall:
 
 	; If no longer in water
-	tst.b  Character_InWater(a0)
-	bne    @InWater
 	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 
@@ -1996,8 +1993,7 @@ EchoAIUpdate_Raft:
 
 	; If Nymn on land
 	move.l Player1, a2
-	move.b Character_InWater(a2), d0
-	or.b   PhysicsObj_Underwater(a2), d0
+	move.b PhysicsObj_Underwater(a2), d0
 	bne    @NymnInWater
 	
 	tst.b  PhysicsObj_CloseToFloor(a2)

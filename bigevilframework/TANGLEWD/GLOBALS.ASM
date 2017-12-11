@@ -33,6 +33,7 @@ SubframeShift			 equ 0x8
 
 ; World
 DefaultGravity			 equ 0x00003000
+DefaultUnderwaterScale	 equ 0x0000A000
 
 ; Faders
 LevelFadeUpSpeed		 	equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
@@ -79,7 +80,7 @@ ColourWhite				 equ 0x6
 NumSwitchingColours		 equ 0x7
 
 ; Checkpoint save
-CheckpointSerialiseBlockSize equ 0x0200 ; 512 bytes
+CheckpointSerialiseBlockSize equ 0x0280 ; 640 bytes
 
 ; Demo timer
 DemoTimeout				 equ (60*60*1)

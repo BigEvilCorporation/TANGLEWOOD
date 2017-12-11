@@ -102,7 +102,6 @@ SkivvInit:
 	move.w #Skivv_Height, PhysicsObj_BoundsHeight(a0)
 
 	MOVE_NTSC_L Skivv_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Skivv_MaxVelXWalk, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Skivv_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Skivv_WalkToRunVel, Character_WalkToRunVel(a0), d0
 	MOVE_NTSC_ACCEL_W Skivv_AccelWalk, Character_AccelWalk(a0), d0

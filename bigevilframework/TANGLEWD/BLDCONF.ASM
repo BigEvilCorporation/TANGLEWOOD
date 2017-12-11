@@ -39,20 +39,20 @@ INCLUDE_DEBUG_DEATH		equ 0
 INCLUDE_LEVEL_1			equ 1
 INCLUDE_LEVEL_2			equ 1
 INCLUDE_LEVEL_3			equ 1
-INCLUDE_LEVEL_4			equ 1
-INCLUDE_LEVEL_5			equ 1
-INCLUDE_LEVEL_6			equ 1
-INCLUDE_LEVEL_7			equ 1
-INCLUDE_LEVEL_8			equ 1
+INCLUDE_LEVEL_4			equ 0
+INCLUDE_LEVEL_5			equ 0
+INCLUDE_LEVEL_6			equ 0
+INCLUDE_LEVEL_7			equ 0
+INCLUDE_LEVEL_8			equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 1
+INCLUDE_CHARACTER_ECHO	equ 0
 
 ; Demo mode
-DEMO_SHOW_THANKS		equ 0
+DEMO_SHOW_THANKS		equ 1
 DEMO_USE_TIMEOUT		equ 0
 DEMO_SHOW_LEVEL_SELECT	equ 1
-DEMO_SHOW_DISCLAIMER	equ 0
+DEMO_SHOW_DISCLAIMER	equ 1
 
 ; Autotest
 AUTOTEST_ENABLED		equ 0
@@ -65,7 +65,7 @@ AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
 	IFD FINAL
 InitialLevel			equ l1a1_HarlequinForestAct1
 	ELSE
-;InitialLevel			equ l1a1_HarlequinForestAct1
+InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
 ;InitialLevel			equ l1a4_HarlequinForestAct4
@@ -90,7 +90,7 @@ InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l7a3_OasisAct3
 ;InitialLevel			equ l8a1_TurntailAct1
 ;InitialLevel			equ l8a2_TurntailAct2
-InitialLevel			equ l8a3_TurntailAct3
+;InitialLevel			equ l8a3_TurntailAct3
 ;InitialLevel			equ l8a4_TurntailAct4
 ;InitialLevel			equ l8a5_TurntailAct5
 ;InitialLevel			equ l8a6_TurntailAct6
@@ -101,8 +101,8 @@ InitialState			equ  GameStateLogos
 	ELSE
 ;InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
-InitialState			equ  GameStateLevelSelect
+;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
-;InitialState			equ  GameStateGameplay
+InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF

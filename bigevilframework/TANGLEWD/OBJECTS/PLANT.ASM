@@ -344,8 +344,8 @@ BouncePlant_GetBounceVector:
 
 	; Adjust for PAL
 	PUSHM d0-d1
-	MUL_NTSC_L d3, d3, d5
-	MUL_NTSC_L d4, d4, d5
+	MULU_NTSC_L d3, d3, d5
+	MULU_NTSC_L d4, d4, d5
 	POPM  d0-d1
 
 	; Apply velocity

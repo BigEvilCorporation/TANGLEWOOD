@@ -70,13 +70,11 @@ Character_Animations		rs.b (Animation_Struct_Size*Character_NumAnims)
 Character_SFX				rs.l Character_NumSFX
 Character_JumpVelX			rs.l 1
 Character_JumpVelY			rs.l 1
-Character_JumpVelWater		rs.l 1
 Character_JumpCancelVelLo	rs.l 1
 Character_JumpCancelVelHi	rs.l 1
 Character_MaxGrabUpVel		rs.l 1
 Character_MaxVelXRun		rs.l 1
 Character_MaxVelXWalk		rs.l 1
-Character_MaxVelXWater		rs.l 1
 Character_WalkToRunVel		rs.l 1
 Character_ClimbVel			rs.l 1
 Character_LastLedgeX		rs.l 1
@@ -92,7 +90,6 @@ Character_ControlY			rs.b 1
 Character_CanJump			rs.b 1
 Character_CanClimb			rs.b 1
 Character_OnLedge			rs.b 1
-Character_InWater			rs.b 1
 Character_Walking			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
@@ -136,7 +133,6 @@ CharacterInit:
 	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_CanClimb(a0)
 	move.b #0x0, Character_OnLedge(a0)
-	move.b #0x0, Character_InWater(a0)
 	move.b #0x0, Character_Walking(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
@@ -211,17 +207,6 @@ CharacterUpdate:
 	bge    @NotFalling
 	move.b #0x1, Character_Falling(a0)
 	@NotFalling:
-	
-	; If in water, prevent running
-	tst.b  Character_InWater(a0)
-	beq    @NotInWater
-	move.b #Character_WalkWater, d2
-	jsr    CharacterPreventRun
-	bra    @EndRunTest
-	@NotInWater:
-	move.b #Character_WalkWater, d2
-	jsr    CharacterAllowRun
-	@EndRunTest:
  
 	; If not locked, apply sprite flipping
 	tst.b Character_LockSpriteFlip(a0)
@@ -251,9 +236,9 @@ CharacterUpdateRollingPlatform:
 	move.b #0x0, AnimObj_Reverse(a0)
 
 	; Clear rolling platform walk flag
-	btst   #Character_WalkRollingPlatform, Character_Walking(a0)
+	btst.b #Character_WalkRollingPlatform, Character_Walking(a0)
 	beq    @NoClearWalkFlag
-	move.b #Character_WalkRollingPlatform, d0
+	move.b #Character_WalkRollingPlatform, d2
 	jsr    CharacterAllowRun
 	@NoClearWalkFlag:
 
@@ -275,7 +260,7 @@ CharacterUpdateRollingPlatform:
 	move.l PhysicsObj_VelX(a0), PhysicsObj_ImpulseX(a3)
 
 	; Cannot run
-	move.b #Character_WalkRollingPlatform, d0
+	move.b #Character_WalkRollingPlatform, d2
 	jsr    CharacterPreventRun
 
 	; Reverse walk animation
@@ -467,7 +452,12 @@ CharacterUpdateAnimState:
 	; Running
 	@Running:
 	
-	; If transitioning from walking/jumping/falling anim, set transition anim first
+	; If in water, set water wade anim
+	move.b #CharacterAnimIdx_WaterWade, d1
+	cmp.b  #0x1, PhysicsObj_Underwater(a0)
+	beq    @SetAnim
+
+	; If transitioning from walking/jumping/falling anim, set transition anim
 	move.b #CharacterAnimIdx_WalkToRun, d1
 	cmp.b  #CharacterAnimIdx_Walk, Character_AnimIdx(a0)
 	beq    @SetAnim
@@ -483,14 +473,14 @@ CharacterUpdateAnimState:
 	; Walking
 	@Walking:
 	
-	; If transitioning from running anim, set transition anim first
+	; If in water, set water wade anim
+	move.b #CharacterAnimIdx_WaterWade, d1
+	cmp.b  #0x1, PhysicsObj_Underwater(a0)
+	beq    @SetAnim
+
+	; If transitioning from running anim, set transition anim
 	move.b #CharacterAnimIdx_WalkToRun, d1
 	cmp.b  #CharacterAnimIdx_Run, Character_AnimIdx(a0)
-	beq    @SetAnim
-	
-	; else if in water, set water wade anim
-	move.b #CharacterAnimIdx_WaterWade, d1
-	cmp.b  #0x1, Character_InWater(a0)
 	beq    @SetAnim
 	
 	; else set walking anim
@@ -728,7 +718,7 @@ CharacterStartJump:
 	
 	bra    @End
 
-	tst.b  Character_InWater(a0)
+	tst.b  PhysicsObj_Underwater(a0)
 	beq    @NoWaterJumpSFX
 
 	; Play water jump SFX
@@ -792,7 +782,7 @@ CharacterAllowRun:
 	; d2 (b) Reason bit (CharacterWalk_*)
 
 	PUSHM  d0-d1
-
+	
 	; Clear walking flags
 	bclr.b d2, Character_Walking(a0)
 
@@ -820,7 +810,7 @@ CharacterPreventRun:
 	; d2 (b) Reason bit (CharacterWalk_*)
 
 	PUSHM  d0-d1
-
+	
 	; Clear running flag
 	bset.b d2, Character_Walking(a0)
 

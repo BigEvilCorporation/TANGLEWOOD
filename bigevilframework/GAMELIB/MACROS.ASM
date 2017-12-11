@@ -377,11 +377,11 @@ LOADL: macro reg
 
 ;==============================================================
 
-MUL_NTSC_L: macro valuereg,destreg,tempreg
+MULU_NTSC_L: macro valuereg,destreg,tempreg
 	IF FORCE_PAL_MODE
 	move.l \valuereg, d0
 	move.l #ntsc_to_pal_linear, d1
-	jsr    Mul1616
+	jsr    Mulu1616
 	move.l d0, \destreg
 	ELSEIF FORCE_NTSC_MODE
 	move.l \valuereg, \destreg
@@ -391,7 +391,7 @@ MUL_NTSC_L: macro valuereg,destreg,tempreg
 	beq    @NTSC\@
 	move.l \valuereg, d0
 	move.l #ntsc_to_pal_linear, d1
-	jsr    Mul1616
+	jsr    Mulu1616
 	move.l d0, \destreg
 	bra    @PAL\@
 	@NTSC\@:
@@ -402,14 +402,14 @@ MUL_NTSC_L: macro valuereg,destreg,tempreg
 
 MOVE_NTSC_L: macro value,dest,tempreg
 	IF FORCE_PAL_MODE
-	MUL1616_FIXED_L \value,ntsc_to_pal_linear,\dest
+	MULS1616_FIXED_L \value,ntsc_to_pal_linear,\dest
 	ELSEIF FORCE_NTSC_MODE
 	move.l #\value, \dest
 	ELSE
 	move.b hardware_ver_address, \tempreg
 	btst   #hardware_ver_bit_pal, \tempreg
 	beq    @NTSC\@
-	MUL1616_FIXED_L \value,ntsc_to_pal_linear,\dest
+	MULS1616_FIXED_L \value,ntsc_to_pal_linear,\dest
 	bra    @PAL\@
 	@NTSC\@:
 	move.l #\value, \dest
@@ -419,14 +419,14 @@ MOVE_NTSC_L: macro value,dest,tempreg
 
 MOVE_NTSC_W: macro value,dest,tempreg
 	IF FORCE_PAL_MODE
-	MUL1616_FIXED_W \value,ntsc_to_pal_linear,\dest
+	MULS1616_FIXED_W \value,ntsc_to_pal_linear,\dest
 	ELSEIF FORCE_NTSC_MODE
 	move.w #\value, \dest
 	ELSE
 	move.b hardware_ver_address, \tempreg
 	btst   #hardware_ver_bit_pal, \tempreg
 	beq    @NTSC\@
-	MUL1616_FIXED_W \value,ntsc_to_pal_linear,\dest
+	MULS1616_FIXED_W \value,ntsc_to_pal_linear,\dest
 	bra    @PAL\@
 	@NTSC\@:
 	move.w #\value, \dest
@@ -436,14 +436,14 @@ MOVE_NTSC_W: macro value,dest,tempreg
 
 MOVE_NTSC_ACCEL_L: macro value,dest,tempreg
 	IF FORCE_PAL_MODE
-	MUL1616_FIXED_L \value,ntsc_to_pal_linear_accel,\dest
+	MULS1616_FIXED_L \value,ntsc_to_pal_linear_accel,\dest
 	ELSEIF FORCE_NTSC_MODE
 	move.l #\value, \dest
 	ELSE
 	move.b hardware_ver_address, \tempreg
 	btst   #hardware_ver_bit_pal, \tempreg
 	beq    @NTSC\@
-	MUL1616_FIXED_L \value,ntsc_to_pal_linear_accel,\dest
+	MULS1616_FIXED_L \value,ntsc_to_pal_linear_accel,\dest
 	bra    @PAL\@
 	@NTSC\@:
 	move.l #\value, \dest
@@ -453,14 +453,14 @@ MOVE_NTSC_ACCEL_L: macro value,dest,tempreg
 
 MOVE_NTSC_ACCEL_W: macro value,dest,tempreg
 	IF FORCE_PAL_MODE
-	MUL1616_FIXED_W \value,ntsc_to_pal_linear_accel,\dest
+	MULS1616_FIXED_W \value,ntsc_to_pal_linear_accel,\dest
 	ELSEIF FORCE_NTSC_MODE
 	move.w #\value, \dest
 	ELSE
 	move.b hardware_ver_address, \tempreg
 	btst   #hardware_ver_bit_pal, \tempreg
 	beq    @NTSC\@
-	MUL1616_FIXED_W \value,ntsc_to_pal_linear_accel,\dest
+	MULS1616_FIXED_W \value,ntsc_to_pal_linear_accel,\dest
 	bra    @PAL\@
 	@NTSC\@:
 	move.w #\value, \dest

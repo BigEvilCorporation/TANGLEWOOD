@@ -76,7 +76,6 @@ DjubbInit:
 	move.b  #0x1, PhysicsObj_DecelInAir(a0)
 	
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXWalk(a0), d0
-	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXWater(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_WalkToRunVel(a0), d0
 	MOVE_NTSC_ACCEL_W Djubb_SwimAccel, Character_AccelWalk(a0), d0
