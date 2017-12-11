@@ -34,7 +34,26 @@ GameStateReset:
 	jsr    SND_SetGlobalVolume
 	jsr    SND_StopTrack
 	jsr    SND_ClearTracks
+	bra    @EndResetAudio
+
 	@LeaveAudio:
+
+	; Just fade out ambience track
+	move.l audio_current_track, a0
+	cmp.l  #0x0, a0
+	beq    @EndResetAudio
+	cmp.b  #Track_Type_Ambience, Track_Type(a0)
+	bne    @EndResetAudio
+
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+
+	; Remove from queue
+	lea    audio_queued_tracks, a1
+	addi.l #(Track_Type_Ambience*size_long), a1
+	move.l #0x0, (a1)
+
+	@EndResetAudio:
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
