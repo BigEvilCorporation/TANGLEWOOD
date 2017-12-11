@@ -129,15 +129,17 @@ L3A3_TriggerBox_EndLevel_name	dc.b "L3A3_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
-L3A3_Checkpoint_count equ 0x3
+L3A3_Checkpoint_count equ 0x4
 L3A3_Checkpoint_36_idx	equ 0x0
 L3A3_Checkpoint_37_idx	equ 0x1
 L3A3_Checkpoint_38_idx	equ 0x2
+L3A3_Checkpoint_58_idx	equ 0x3
 
 	IFND FINAL
 L3A3_Checkpoint_36_name	dc.b "L3A3_Checkpoint_36",0
 L3A3_Checkpoint_37_name	dc.b "L3A3_Checkpoint_37",0
 L3A3_Checkpoint_38_name	dc.b "L3A3_Checkpoint_38",0
+L3A3_Checkpoint_58_name	dc.b "L3A3_Checkpoint_58",0
 	even
 	ENDIF
 
@@ -692,6 +694,19 @@ L3A3_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L3A3_Checkpoint_38_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x0fc80000, Entity_WorldPosX(a0)
+	move.l #0x02480000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L3A3_Checkpoint_58_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
