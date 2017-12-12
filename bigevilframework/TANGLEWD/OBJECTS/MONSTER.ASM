@@ -819,16 +819,16 @@ MonsterUpdateWaitForPlayer:
 	bgt    @OutOfRumbleSoundRange
 	
 	; If not already playing, begin playback
-	tst.b  Monster_RumblePlayed(a0)
-	bne    @Playing
+	;tst.b  Monster_RumblePlayed(a0)
+	;bne    @Playing
 	
-	PUSHM  a0/d0-d1
-	lea    track_bgm_enemyapproach, a0
+	;PUSHM  a0/d0-d1
+	;lea    track_bgm_enemyapproach, a0
 	;jsr    SND_PlayTrack
-	POPM   a0/d0-d1
+	;POPM   a0/d0-d1
 	
 	; Set played
-	move.b #0x1, Monster_RumblePlayed(a0)
+	;move.b #0x1, Monster_RumblePlayed(a0)
 	
 	@Playing:
 	
