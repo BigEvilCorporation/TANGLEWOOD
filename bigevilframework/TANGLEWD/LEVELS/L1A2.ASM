@@ -95,6 +95,11 @@ l1a2_Init:
 	ENTITY_GETBYNAME Flue, l1a2_Flue_B, a0
 	ENTITY_GETBYNAME Flue, l1a2_Flue_A, a1
 	move.l a1, Flue_OutputFlue(a0)
+
+	;==============================================================
+
+	; Start ambient SFX
+	jsr    StartAmbientSFX
 	
 	rts
 	

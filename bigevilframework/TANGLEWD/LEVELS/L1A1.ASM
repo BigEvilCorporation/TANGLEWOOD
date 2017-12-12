@@ -123,6 +123,11 @@ l1a1_Init:
 	
 	move.l #LevelData_L1A1, a2
 	move.b #0x1, l1a1Data_WaitingInput(a2)
+
+	;==============================================================
+
+	; Start ambient SFX
+	jsr    StartAmbientSFX
 	
 	rts
 	

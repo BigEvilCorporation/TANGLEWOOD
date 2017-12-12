@@ -187,6 +187,11 @@ l3a1_Init:
 	; Start level intro tune
 	lea    track_bgm_dawn, a0
 	jsr    SND_PlayTrack
+
+	;==============================================================
+
+	; Start ambient SFX
+	jsr    StartAmbientSFX
 	
 	rts
 	

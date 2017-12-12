@@ -163,6 +163,11 @@ l3a2_Init:
 	; Init camera lerp timer
 	move.l #LevelData_L3A2, a2
 	move.w #0x0, l3a2Data_LogRollCamLerpTimer(a2)
+
+	;==============================================================
+
+	; Start ambient SFX
+	jsr    StartAmbientSFX
 	
 	rts
 	
