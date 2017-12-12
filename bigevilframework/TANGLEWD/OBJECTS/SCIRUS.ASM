@@ -245,6 +245,8 @@ ScirusSetAffinity:
 	; Set vel/accel values
 	MOVE_NTSC_L Scirus_EnemyMaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Scirus_EnemyMaxVelXRun, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelWalk, Character_AccelWalk(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_EnemyAccelRun, Character_AccelRun(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_EnemyDecelIdle, PhysicsObj_DecelX(a0), d0
@@ -272,6 +274,8 @@ ScirusSetAffinity:
 	; Set vel/accel values
 	MOVE_NTSC_L Scirus_FriendMaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Scirus_FriendMaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Scirus_FriendMaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
+	MOVE_NTSC_L Scirus_FriendMaxVelXRun, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_FriendAccelWalk, Character_AccelWalk(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_FriendAccelRun, Character_AccelRun(a0), d0
 	MOVE_NTSC_ACCEL_W Scirus_FriendDecelIdle, PhysicsObj_DecelX(a0), d0
@@ -356,6 +360,9 @@ ScirusAIStart_FollowFriend:
 	; Set state
 	move.b #ScirusState_FollowingFriend, Scirus_State(a0)
 
+	; Play SFX
+	PLAYSFX #SFX_Scirus_Chatter
+
 	rts
 
 ScirusAIUpdate_FollowFriend:
@@ -435,8 +442,19 @@ ScirusAIUpdate_FollowFriend:
 
 	@WithinBounds:
 	jsr    CharacterCancelXMovement
+	bra    @NoSFX
 	
 	@EndFollow:
+
+	; If zero vel and not against wall, play SFX
+	tst.b  PhysicsObj_HitWall(a0)
+	bne    @NoSFX
+	tst.l  PhysicsObj_VelX(a0)
+	bne    @NoSFX
+
+	PLAYSFX #SFX_Scirus_Chatter
+
+	@NoSFX:
 	
 	; Face player if 0 vel
 	tst.l  PhysicsObj_VelX(a0)
@@ -481,6 +499,9 @@ ScirusAI_CheckTooClose:
 	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
+
+	; Play SFX
+	PLAYSFX #SFX_Scirus_Alert
 
 	bra    @Aggressive
 
@@ -585,6 +606,10 @@ ScirusAIUpdate_FollowEnemy:
 	tst.b  d0
 	beq    @EndFollow
 
+	; If player dead, don't bother
+	tst.b  Character_Dead(a2)
+	bne    @PlayerDead
+
 	; If player not visible, don't bother
 	tst.b  SpriteObj_Visible(a2)
 	beq    @PlayerInvisible
@@ -596,6 +621,7 @@ ScirusAIUpdate_FollowEnemy:
 
 	jsr    ScirusAIStart_Attack
 	
+	@PlayerDead:
 	@PlayerInvisible:
 	@PlayerBeingFlung:
 	@EndFollow:
@@ -626,7 +652,7 @@ ScirusAIStart_Attack:
 	POPL   a1
 
 	; Play SFX
-	;PLAYSFX #SFX_SpikeDeath
+	PLAYSFX #SFX_Scirus_Swipe
 
 	rts
 

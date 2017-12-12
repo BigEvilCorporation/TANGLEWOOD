@@ -140,6 +140,10 @@ echo_instruments:
 	Echo_ListEntry PCM13
 	Echo_ListEntry PCM14
 	Echo_ListEntry PCM15
+	Echo_ListEntry PCM16
+	Echo_ListEntry PCM17
+	Echo_ListEntry PCM18
+	Echo_ListEntry PCM19
 	
     Echo_ListEnd
 	
@@ -278,5 +282,9 @@ PCM12: incbin 'assets\audio\sfx\weather\windshrt.ewf'
 PCM13: incbin 'assets\audio\sfx\weather\windlong.ewf'
 PCM14: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
 PCM15: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
+PCM16: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
+PCM17: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
+PCM18: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
+PCM19: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
 	
 	ENDIF

@@ -131,6 +131,34 @@ SFX_Data_Hogg_Stuck:
 	ESF_Delay 33
 	ESF_Stop
 	even
+
+SFX_Data_Scirus_Alert:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+16
+	ESF_Delay 10
+	ESF_Stop
+	even
+
+SFX_Data_Scirus_Chatter:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+17
+	ESF_Delay 13
+	ESF_Stop
+	even
+
+SFX_Data_Scirus_Hiss:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+18
+	ESF_Delay 26
+	ESF_Stop
+	even
+
+SFX_Data_Scirus_Swipe:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+19
+	ESF_Delay 12
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -492,6 +520,34 @@ SFX_Hogg_Stuck:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Scirus_Alert:
+	dc.l SFX_Data_Scirus_Alert		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Scirus_Chatter:
+	dc.l SFX_Data_Scirus_Chatter	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	even
+
+SFX_Scirus_Swipe:
+	dc.l SFX_Data_Scirus_Swipe		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Scirus_Hiss:
+	dc.l SFX_Data_Scirus_Hiss		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 	even
 
 SFX_Chirp1:
