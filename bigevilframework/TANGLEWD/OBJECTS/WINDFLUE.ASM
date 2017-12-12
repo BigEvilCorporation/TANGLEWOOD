@@ -60,7 +60,7 @@ WindFlueInit:
 	MOVE_NTSC_W WindFlue_OffTime, WindFlue_Timer(a0), d0
 	MOVE_NTSC_W WindFlue_DefaultOnTime, WindFlue_OnTime(a0), d0
 	MOVE_NTSC_W WindFlue_DefaultOffTime, WindFlue_OffTime(a0), d0
-	move.b  #0x0, WindFlue_Blowing(a0)
+	move.b  #0x1, WindFlue_Blowing(a0)
 	move.b  #0x0, WindFlue_Visible(a0)
 
 	; Init all leaves
@@ -146,6 +146,14 @@ WindFlueUpdate:
 
 	; Timer elapsed, toggle state
 	eor.b  #0x1, WindFlue_Blowing(a0)
+
+	; If on and in view, play SFX
+	tst.b  WindFlue_Blowing(a0)
+	beq    @NoSFX
+	tst.b  WindFlue_Visible(a0)
+	beq    @NoSFX
+	PLAYSFX #SFX_Wind_Short
+	@NoSFX:
 
 	; Reset timer
 	tst.b  WindFlue_Blowing(a0)

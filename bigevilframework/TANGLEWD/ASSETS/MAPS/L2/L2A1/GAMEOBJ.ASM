@@ -133,12 +133,13 @@ L2A1_Flue_39_name	dc.b "L2A1_Flue_39",0
 	even
 	ENDIF
 
-L2A1_TriggerBox_count equ 0x5
+L2A1_TriggerBox_count equ 0x6
 L2A1_TriggerWindSpeed2_idx	equ 0x0
 L2A1_TriggerWindSpeed3_idx	equ 0x1
 L2A1_TriggerWindSpeed1_idx	equ 0x2
 L2A1_TriggerWindSpeed4_idx	equ 0x3
 L2A1_TriggerLvlEnd_idx	equ 0x4
+L2A1_TriggerBox_65_idx	equ 0x5
 
 	IFND FINAL
 L2A1_TriggerWindSpeed2_name	dc.b "L2A1_TriggerWindSpeed2",0
@@ -146,6 +147,7 @@ L2A1_TriggerWindSpeed3_name	dc.b "L2A1_TriggerWindSpeed3",0
 L2A1_TriggerWindSpeed1_name	dc.b "L2A1_TriggerWindSpeed1",0
 L2A1_TriggerWindSpeed4_name	dc.b "L2A1_TriggerWindSpeed4",0
 L2A1_TriggerLvlEnd_name	dc.b "L2A1_TriggerLvlEnd",0
+L2A1_TriggerBox_65_name	dc.b "L2A1_TriggerBox_65",0
 	even
 	ENDIF
 
@@ -745,6 +747,22 @@ L2A1_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A1_TriggerLvlEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x0a200000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
+	move.l #StartAmbientTrack, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L2A1_TriggerBox_65_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

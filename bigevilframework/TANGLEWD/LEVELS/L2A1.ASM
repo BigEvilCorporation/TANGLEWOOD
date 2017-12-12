@@ -116,7 +116,7 @@ l2a1_Init:
 	ENTITY_GETBYNAME WindFlue, l2a1_WindFlue1, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
-	move.w #0x0001, WindFlue_Timer(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
 
 	;==============================================================
 	
@@ -136,6 +136,12 @@ l2a1_Init:
 	
 	move.l #LevelData_L1A1, a2
 	move.b #0x1, l2a1Data_WaitingInput(a2)
+
+	;==============================================================
+
+	; Start level intro tune
+	lea    track_bgm_dawn, a0
+	jsr    SND_PlayTrack
 
 	;==============================================================
 

@@ -111,12 +111,12 @@ l2a2_Init:
 	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue1, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
-	move.w #0x0001, WindFlue_Timer(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
 
 	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue2, a0
 	move.w #0x7FFF, WindFlue_OnTime(a0)
 	move.w #0x0001, WindFlue_OffTime(a0)
-	move.w #0x0001, WindFlue_Timer(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
 
 	;==============================================================
 
