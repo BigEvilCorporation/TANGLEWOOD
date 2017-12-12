@@ -82,6 +82,9 @@ DeadboxUpdate:
 	jsr    CharacterDealDamage
 	POPL   a0
 
+	; Play SFX
+	PLAYSFX #SFX_SpikeDeath
+
 	@NextCharacter:
 	
 	LIST_GET_NEXT Characters,a2,a2	; Get next ptr
