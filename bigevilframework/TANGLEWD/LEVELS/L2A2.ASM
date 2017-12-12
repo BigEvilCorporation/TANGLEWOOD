@@ -92,6 +92,10 @@ l2a2_Init:
 	; Init weather
 	jsr    RainInit
 
+	; Enable wind SFX
+	move.b #0x1, WindSFXEnabled
+
+	; Set default wind params
 	move.w  #0x0010, WindAccel
 	move.w  #-0x0900, WindRandStrengthMin
 	move.w  #-0x0910, WindRandStrengthMax

@@ -67,6 +67,9 @@ RainInit:
 	move.l #RainUpdate, Entity_UpdateRoutine(a0)
 	move.l #RainDraw, Entity_RenderRoutine(a0)
 
+	; Disable SFX by default
+	move.b #0x0, WindSFXEnabled
+
 	; Play animation
 	lea    VfxObj_Animation(a0), a1
 	move.b #0x0, d0
@@ -111,6 +114,8 @@ RainSetParams:
 	; TODO: Belongs in wind code
 
 	; Play SFX depending on strength
+	tst.b  WindSFXEnabled
+	beq    @EndSFX
 	cmp    #WindSFXRainFrameLong, d1
 	beq    @LongSFX
 	cmp    #WindSFXRainFrameShort, d1
