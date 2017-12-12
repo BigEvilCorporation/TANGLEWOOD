@@ -328,16 +328,16 @@ MainMenu_InitUI:
 	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*0)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*0)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_NewGame
 
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*1)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*1)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
 
 	IF DEMO_SHOW_LEVEL_SELECT
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_LevelSelect,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*2)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_LevelSelect,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*2)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_LevelSelect
 	ENDIF

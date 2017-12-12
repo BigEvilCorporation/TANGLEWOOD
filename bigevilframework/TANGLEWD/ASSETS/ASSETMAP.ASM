@@ -49,6 +49,7 @@ level_assets_end
 	include 'assets\fonts\tiles\twfontb.asm'
 	include 'assets\fonts\tiles\twfonts.asm'
 	include 'assets\fonts\tiles\twfontbs.asm'
+	include 'assets\fonts\tiles\twfont_f.asm'
 	
 	; ************************************
 	; Sprite tilesheets
