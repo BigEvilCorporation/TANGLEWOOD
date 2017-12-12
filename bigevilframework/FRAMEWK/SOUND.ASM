@@ -109,6 +109,13 @@ SND_PlayTrack:
 	; Stop previous track instantly
 	jsr    SND_StopTrack
 
+	; Reset volume
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+
+	; Reset fader
+	move.b #0x0, audio_fader_speed
+
 	@Free:
 
 	;==============================================================
@@ -459,6 +466,9 @@ SND_UpdateTrack:
 	; else reset volume
 	move.b #0xFF, d0
 	jsr    SND_SetGlobalVolume
+
+	; Reset fader
+	move.b #0x0, audio_fader_speed
 
 	@Play:
 
