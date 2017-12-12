@@ -133,8 +133,8 @@ Mulu1616:
 
 	; ((c * a) << 16)
 	mulu   d1, d0
-	clr.w  d0
 	swap   d0
+	clr.w  d0
 
 	add.l  d4, d0
 	add.l  d5, d0

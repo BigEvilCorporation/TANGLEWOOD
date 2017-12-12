@@ -381,7 +381,7 @@ MULU_NTSC_L: macro valuereg,destreg,tempreg
 	IF FORCE_PAL_MODE
 	move.l \valuereg, d0
 	move.l #ntsc_to_pal_linear, d1
-	jsr    Mulu1616
+	jsr    Muls1616
 	move.l d0, \destreg
 	ELSEIF FORCE_NTSC_MODE
 	move.l \valuereg, \destreg
@@ -391,7 +391,7 @@ MULU_NTSC_L: macro valuereg,destreg,tempreg
 	beq    @NTSC\@
 	move.l \valuereg, d0
 	move.l #ntsc_to_pal_linear, d1
-	jsr    Mulu1616
+	jsr    Muls1616
 	move.l d0, \destreg
 	bra    @PAL\@
 	@NTSC\@:
