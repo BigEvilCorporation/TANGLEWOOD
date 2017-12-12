@@ -2230,8 +2230,8 @@ PlayerInteractTest_Water:
 	bne    @Riding
 	
 	; Backup current water state
-	move.b PhysicsObj_Underwater(a0), d5
-	PUSHW  d5
+	move.b PhysicsObj_Underwater(a0), d7
+	PUSHW  d7
 	
 	; Reset in water
 	move.b #0x0, PhysicsObj_Underwater(a0)
@@ -2252,7 +2252,6 @@ PlayerInteractTest_Water:
 	@BodyLoop:
 	
 	; Check player vs. box
-	PUSHL  d5
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	subi.w #Player1WaterWaistHeight, d1
@@ -2260,14 +2259,13 @@ PlayerInteractTest_Water:
 	PUSHM  d2-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d2-d4
-	POPL   d5
 	tst.b  d0
 	beq    @NoIntersect
 	
 	; Set in water
 	swap   d3						; Left bounds
 	swap   d4						; Right bounds
-	move.b d5, d1					; Previously in water
+	move.b d7, d1					; Previously in water
 	move.w Entity_WorldPosY(a2), d2	; Water level
 	jsr    PlayerEnteredWater
 
@@ -2291,7 +2289,6 @@ PlayerInteractTest_Water:
 	@PoolLoop:
 	
 	; Check player vs. box
-	PUSHL  d5
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
 	subi.w #Player1WaterWaistHeight, d1
@@ -2301,7 +2298,6 @@ PlayerInteractTest_Water:
 	PUSHM  d3-d4
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d3-d4
-	POPL   d5
 	tst.b  d0
 	beq    @NoIntersectPool
 	
@@ -2309,7 +2305,7 @@ PlayerInteractTest_Water:
 	move.w d3, d2					; Water level
 	swap   d3						; Left bounds
 	swap   d4						; Right bounds
-	move.b d5, d1					; Previously in water
+	move.b d7, d1					; Previously in water
 	jsr    PlayerEnteredWater
 
 	bra    @Found
@@ -2372,7 +2368,7 @@ PlayerInteractTest_Water:
 	move.w d1, d3					; Right bounds
 	move.w d1, d2					; Water level
 	addi.w #vdp_sprite_border_y, d2
-	move.b d5, d1					; Previously in water
+	move.b d7, d1					; Previously in water
 	PUSHL  d6
 	jsr    PlayerEnteredWater
 	POPL   d6
@@ -2389,10 +2385,10 @@ PlayerInteractTest_Water:
 
 	@Found:
 
-	POPW   d5
+	POPW   d7
 
 	; If left water
-	tst.b  d5
+	tst.b  d7
 	beq    @NotPrevInWater
 	tst.b  PhysicsObj_Underwater(a0)
 	bne    @StillInWater
@@ -2430,9 +2426,14 @@ PlayerEnteredWater:
 	tst.b  d1
 	bne    @NoSFXVFX
 	
-	; If hit water at landing velocity
+	; If hit water (or terrain under water) at landing velocity
+	move.l PhysicsObj_VelY(a0), d1
 	cmp.l  #-Character_WaterSplashVel, PhysicsObj_VelY(a0)
-	bge    @LowSplashVel
+	ble    @PlaySFXVFX
+	cmp.l  #-Character_WaterSplashVel, PhysicsObj_FloorImpactVelY(a0)
+	bge    @NoSFXVFX
+	
+	@PlaySFXVFX:
 	
 	; Play splash SFX
 	lea    Character_SFX+(CharacterSFXIdx_WaterSplash*size_long)(a0), a2
