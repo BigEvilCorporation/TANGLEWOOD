@@ -165,6 +165,9 @@ WindRandDelayMax	rs.w 1
 RainSpritePositions	rs.l RainNumSprites*2
 RainParams			rs.l 1
 Thunder				rs.b Thunder_Struct_Size
+WindSFXEnabled		rs.b 1
+
+	RS_ALIGN
 
 ; ************************************
 ; Camera, V/H scroll and map streaming

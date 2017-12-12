@@ -8,8 +8,8 @@
 
 RainSpriteWidth			equ 0x20
 RainSpriteHeight		equ 0x20
-RainSpriteGridX			equ 0x08
-RainSpriteGridY			equ 0x04
+RainSpriteGridX			equ 0x06
+RainSpriteGridY			equ 0x03
 RainNumSprites			equ RainSpriteGridX*RainSpriteGridY
 RainSpriteRandOffsetX	equ ((screen_width*2)/RainSpriteGridX)
 RainSpriteRandOffsetY	equ (screen_height/RainSpriteGridY)
@@ -187,6 +187,8 @@ RainSpriteInitPosition:
 
 RainSpriteReposition:
 	; d0 (b) Sprite index
+	; d0 (l) OUT: X pos (screen space)
+	; d1 (l) OUT: Y pos (screen space)
 	; d2 (l) X pos (screen space)
 	; d3 (l) Y pos (screen space)
 
@@ -226,10 +228,6 @@ RainSpriteReposition:
 	POPM   d0-d2
 
 	sub.l  d3, d1
-
-	; Set pos
-	move.l d0, d2
-	move.l d1, d3
 
 	rts
 
@@ -283,24 +281,33 @@ RainDraw:
 	; d4 (w) Camera top
 	; d5 (w) Camera bottom
 
+	; Default draw to update anim
+	jsr    AnimObjDraw
+
 	PUSHMW d2-d5
+	
+	move.l RainParams, a3
+	move.l RainParams_VelX(a3), d2
+	move.l RainParams_VelY(a3), d3
 
 	lea    RainSpritePositions, a2
-	move.l #RainNumSprites-1, d0
+	move.l #RainNumSprites-1, d6
 	@SpriteLp:
 
 	cmp.w  #vdp_max_sprites-1, next_sprite_index
 	beq    @OutOfSprites
 
 	; Apply velocity
-	move.l 0(a2), d2
-	move.l 4(a2), d3
-	move.l RainParams, a3
-	add.l  RainParams_VelX(a3), d2
-	add.l  RainParams_VelY(a3), d3
+	move.l (a2), d0
+	add.l  d2, d0
+	move.l d0, (a2)+
+	
+	move.l (a2), d1
+	add.l  d3, d1
+	move.l d1, (a2)+
 
 	; If out of bounds
-	cmp.l  #screen_height*subpixels_per_pixel, d3
+	cmp.l  #(screen_height+vdp_sprite_border_y)*subpixels_per_pixel, d1
 	blt    @WithinBounds
 
 	; If disabled, leave out of view
@@ -308,49 +315,33 @@ RainDraw:
 	beq    @NextSprite
 
 	; Reposition sprite
-	PUSHW  d0
+	PUSHM  d2-d3
+	move.l d0, d2
+	move.l d1, d3
+	move.w d6, d0
 	jsr    RainSpriteReposition
-	POPW   d0
+	POPM   d2-d3
+	
+	; Store
+	move.l d0, -8(a2)
+	move.l d1, -4(a2)
 
 	@WithinBounds:
 
-	; Store
-	move.l d2, 0(a2)
-	move.l d3, 4(a2)
-
-	; Add camera scroll + sprite border
-	move.l (WorldScrollX), d4
-	move.l (WorldScrollY), d5
-	addi.l #vdp_sprite_border_x*subpixels_per_pixel, d4
-	addi.l #vdp_sprite_border_y*subpixels_per_pixel, d5
-	add.l  d4, d2
-	add.l  d5, d3
-
-	; Set pos
-	move.l d2, Entity_WorldPosX(a0)
-	move.l d3, Entity_WorldPosY(a0)
-
 	; Draw
-	PUSHM  d0-d3/a0-a2
+	PUSHM  d2-d3/d6/a2-a3
 
-	; TODO: fix this
-	move.w WorldScrollX, d2
-	move.w d2, d3
-	addi.w #vdp_sprite_border_x, d2
-	addi.w #vdp_sprite_border_x+screen_width, d3
-	move.w WorldScrollY, d4
-	move.w d4, d5
-	addi.w #vdp_sprite_border_y, d4
-	addi.w #vdp_sprite_border_y+screen_height, d5
+	; To sprite space
+	TOPIXELS d0
+	TOPIXELS d1
+	move.b #0x0, d2
+	jsr    SpriteObjAllocSprite
 
-	jsr    AnimObjDraw
-	POPM   d0-d3/a0-a2
+	POPM   d2-d3/d6/a2-a3
 
 	; Next
 	@NextSprite:
-	lea    (size_long*2)(a2), a2
-
-	dbra   d0, @SpriteLp
+	dbra   d6, @SpriteLp
 
 	@OutOfSprites:
 
