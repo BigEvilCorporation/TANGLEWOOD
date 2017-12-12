@@ -54,6 +54,9 @@ GameStateReset:
 	move.l #0x0, (a1)
 
 	@EndResetAudio:
+
+	; Stop amient SFX
+	jsr    StopAmbientSFX
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll
