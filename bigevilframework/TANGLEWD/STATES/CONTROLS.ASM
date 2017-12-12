@@ -108,7 +108,6 @@ ControlsScreen_Update:
 	
 	; Load from password
 	jsr    LoadGameFromPassword
-	bra    @End
 
 	@NoPassword:
 	
