@@ -34,6 +34,7 @@ Hogg_AIFollowDistance	equ 0x0010	; Target charge distance
 
 Hogg_PlayerDamage		equ 0xFF
 
+Hogg_StuckVelocity		equ 0x00020000
 Hogg_StuckTime			equ 0x0100
 Hogg_WallExitImpulse	equ 0x00100000
 
@@ -341,12 +342,16 @@ HoggAIUpdate_Charge:
 	@PlayerBeingFlung:
 	@EndFollow:
 
-	; If hit wall, enter stuck state
-	move.b PhysicsObj_HitWall(a0), d1
-	andi.b #(PhysicsObjHitWallLeft|PhysicsObjHitWallRight), d1
-	beq    @NoHitWall
+	; If hit wall at high velocity, enter stuck state
+	move.b PhysicsObj_HitWall(a0), d0
+	andi.b #(PhysicsObjHitWallLeft|PhysicsObjHitWallRight), d0
+	beq    @NotStuck
+	move.l PhysicsObj_WallImpactVelX(a0), d0
+	ABS    d0
+	cmp.l  #Hogg_StuckVelocity, d0
+	blt    @NotStuck
 	jsr    HoggAIStart_Stuck
-	@NoHitWall:
+	@NotStuck:
 
 	; If changed direction, grunt
 	move.b Hogg_PrevDirection(a0), d0

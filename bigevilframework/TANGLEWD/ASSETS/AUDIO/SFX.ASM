@@ -160,6 +160,7 @@ SFX_Data_Footstep2:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep3:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep4:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_FootstepBig:		include 'assets\audio\SFX\fstep\fstepbig.asm'
+SFX_Data_FootstepHogg:		include 'assets\audio\SFX\fstep\fstephog.asm'
 SFX_Data_Land:				include 'assets\audio\SFX\fstep\land.asm'
 SFX_Data_Ambience_Day1:		include 'assets\audio\SFX\ambience\day1.asm'
 SFX_Data_Ambience_Day2:		include 'assets\audio\SFX\ambience\day2.asm'
@@ -362,6 +363,13 @@ SFX_Footstep4:
 
 SFX_FootstepBig:
 	dc.l SFX_Data_FootstepBig		; Data
+	dc.b SFX_Priority_FootstepLrg	; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_FootstepHogg:
+	dc.l SFX_Data_FootstepHogg		; Data
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

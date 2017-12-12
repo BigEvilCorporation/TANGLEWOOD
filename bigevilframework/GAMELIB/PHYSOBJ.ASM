@@ -41,6 +41,7 @@ PhysicsObj_ImpulseX    		    rs.l 1 ; X impulse
 PhysicsObj_ImpulseY    		    rs.l 1 ; Y impulse
 PhysicsObj_LastAppliedVelX		rs.l 1 ; Last applies X velocity (+ impulse)
 PhysicsObj_LastAppliedVelY		rs.l 1 ; Last applies Y velocity (+ impulse)
+PhysicsObj_WallImpactVelX		rs.l 1 ; Last wall impact velocity
 PhysicsObj_MaxVelFloorX 		rs.l 1 ; Max X velocity (on floor)
 PhysicsObj_MaxVelAirX 			rs.l 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    	rs.l 1 ; Max Y velocity up
@@ -122,6 +123,7 @@ PhysicsObjInit:
 	move.l #0x0, PhysicsObj_LastBarrier(a0)
 	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.l #0x0, PhysicsObj_LastWallVelocity(a0)
+	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
@@ -1009,6 +1011,9 @@ PhysicsObjCollisionCorrectX:
 	; Wall hit
 	andi.b #~PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
 	ori.b  #PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
+
+	; Store impact velocity
+	move.l PhysicsObj_VelX(a0), PhysicsObj_WallImpactVelX(a0)
 	
 	@EndWallClamp:
 	
@@ -1028,6 +1033,7 @@ PhysicsObjCollisionCorrectX:
 	
 	; Not hitting wall
 	andi.b #~(PhysicsObjHitWallLeft|PhysicsObjHitWallRight), PhysicsObj_HitWall(a0)
+	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
 	
 	@HeadingNowhere:
 	@End:
