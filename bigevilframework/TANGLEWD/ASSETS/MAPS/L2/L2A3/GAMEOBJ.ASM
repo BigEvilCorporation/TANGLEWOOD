@@ -237,13 +237,7 @@ L2A3_Scrap_count equ 0x0
 
 L2A3_Longboat_count equ 0x0
 
-L2A3_Skivv_count equ 0x1
-L2A3_Skivv_64_idx	equ 0x0
-
-	IFND FINAL
-L2A3_Skivv_64_name	dc.b "L2A3_Skivv_64",0
-	even
-	ENDIF
+L2A3_Skivv_count equ 0x0
 
 L2A3_Ladder_count equ 0x0
 
@@ -1001,25 +995,6 @@ L2A3_LoadGameObjects:
 
 
 
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Skivv_Struct_Size*L2A3_Skivv_count)
-	move.l a1, EntityPoolStart_Skivv
-	move.l a1, a0
-	POPL   a1
-
-	jsr SkivvInit
-	move.l #0x11280000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
-	jsr SkivvLoadGfx
-	IFND FINAL
-	lea L2A3_Skivv_64_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Skivv_Struct_Size, a0
 
 
 

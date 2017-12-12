@@ -231,19 +231,21 @@ L1A3_Scrap_count equ 0x0
 
 L1A3_Longboat_count equ 0x0
 
-L1A3_Skivv_count equ 0x1
-L1A3_Skivv_75_idx	equ 0x0
-
-	IFND FINAL
-L1A3_Skivv_75_name	dc.b "L1A3_Skivv_75",0
-	even
-	ENDIF
+L1A3_Skivv_count equ 0x0
 
 L1A3_Ladder_count equ 0x0
 
 L1A3_Scirus_count equ 0x0
 
-L1A3_Hogg_count equ 0x0
+L1A3_Hogg_count equ 0x2
+L1A3_Hogg_79_idx	equ 0x0
+L1A3_Hogg_81_idx	equ 0x1
+
+	IFND FINAL
+L1A3_Hogg_79_name	dc.b "L1A3_Hogg_79",0
+L1A3_Hogg_81_name	dc.b "L1A3_Hogg_81",0
+	even
+	ENDIF
 
 L1A3_Bridge_count equ 0x0
 
@@ -953,27 +955,40 @@ L1A3_LoadGameObjects:
 
 
 
+
+
+
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Skivv_Struct_Size*L1A3_Skivv_count)
-	move.l a1, EntityPoolStart_Skivv
+	RAMPOOL_ALLOC Pool_Entities, #(Hogg_Struct_Size*L1A3_Hogg_count)
+	move.l a1, EntityPoolStart_Hogg
 	move.l a1, a0
 	POPL   a1
 
-	jsr SkivvInit
-	move.l #0x1f200000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
-	jsr SkivvLoadGfx
+	jsr HoggInit
+	move.l #0x1ef00000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
 	IFND FINAL
-	lea L1A3_Skivv_75_name, a3
+	lea L1A3_Hogg_79_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
+	move.l #0xc, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	add.l #Skivv_Struct_Size, a0
+	add.l #Hogg_Struct_Size, a0
 
-
-
+	jsr HoggInit
+	move.l #0x09080000, Entity_WorldPosX(a0)
+	move.l #0x03100000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L1A3_Hogg_81_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
 
 
 
