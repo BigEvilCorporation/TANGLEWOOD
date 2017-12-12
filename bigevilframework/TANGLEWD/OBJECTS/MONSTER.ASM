@@ -824,7 +824,7 @@ MonsterUpdateWaitForPlayer:
 	
 	PUSHM  a0/d0-d1
 	lea    track_bgm_enemyapproach, a0
-	jsr    SND_PlayTrack
+	;jsr    SND_PlayTrack
 	POPM   a0/d0-d1
 	
 	; Set played
