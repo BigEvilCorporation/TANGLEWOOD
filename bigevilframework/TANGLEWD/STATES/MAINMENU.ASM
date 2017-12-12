@@ -364,7 +364,12 @@ MainMenu_OnSelected:
 
 	; Set gameplay state
 	lea    GameStateMainMenuData, a2
+
+	IF DEMO_SHOW_DISCLAIMER
+	move.l #GameStateDemoDisclaimerScreen, MainMenuState_NextState(a2)
+	ELSE
 	move.l #GameStateGameplay, MainMenuState_NextState(a2)
+	ENDIF
 
 	; Stop music
 	jsr    SND_StopTrack
