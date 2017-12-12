@@ -42,6 +42,7 @@ PhysicsObj_ImpulseY    		    rs.l 1 ; Y impulse
 PhysicsObj_LastAppliedVelX		rs.l 1 ; Last applies X velocity (+ impulse)
 PhysicsObj_LastAppliedVelY		rs.l 1 ; Last applies Y velocity (+ impulse)
 PhysicsObj_WallImpactVelX		rs.l 1 ; Last wall impact velocity
+PhysicsObj_FloorImpactVelY		rs.l 1 ; Last floor impact velocity
 PhysicsObj_MaxVelFloorX 		rs.l 1 ; Max X velocity (on floor)
 PhysicsObj_MaxVelAirX 			rs.l 1 ; Max X velocity (in air)
 PhysicsObj_MaxVelYUp	    	rs.l 1 ; Max Y velocity up
@@ -124,6 +125,7 @@ PhysicsObjInit:
 	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.l #0x0, PhysicsObj_LastWallVelocity(a0)
 	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
+	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
@@ -1049,6 +1051,7 @@ PhysicsObjCollisionCorrectY:
 	; Correct floor collision
 
 	move.b #0x0, d0
+	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)		; Clear impact velocity
 
 	; If not moving on Y axis, skip floor and ceiling correction
 	tst.l  PhysicsObj_VelY(a0)
@@ -1084,6 +1087,7 @@ PhysicsObjCollisionCorrectY:
 	DIVS1616_LOSSY d1, d5							; Div by bounce
 	@NoBounceY:
 
+	move.l PhysicsObj_VelY(a0), PhysicsObj_FloorImpactVelY(a0)	; Store impact velocity
 	move.l d5, PhysicsObj_VelY(a0)					; Take platform's Y velocity
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag

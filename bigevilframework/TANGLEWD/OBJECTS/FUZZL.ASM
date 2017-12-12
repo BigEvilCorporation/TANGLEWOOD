@@ -87,6 +87,7 @@ Fuzzl_State_Bits    rs.b 1	; Fuzzl states
 Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
 Fuzzl_FlueOccupant  rs.b 1	; Registered as potential flue occupant
 Fuzzl_InCage		rs.b 1	; TEMP - out of state bits
+Fuzzl_PrevOnFloor	rs.b 1	; For bounce SFX
 ;--------------------------
 	RS_ALIGN
 Fuzzl_Struct_Size   rs.b 0
@@ -143,6 +144,7 @@ FuzzlInit:
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
 	move.b  #0x0, Fuzzl_FlueOccupant(a0)
+	move.b  #0x0, Fuzzl_PrevOnFloor(a0)
 
 	move.b  #0x0, Fuzzl_InCage(a0)	; TEMP - out of state bits
 	
@@ -442,28 +444,19 @@ FuzzlUpdate:
 	@CanPush:
 	move.b d0, PhysicsObj_CanBePushed(a0)
 	
-	; Store current floor flag and Y velocity to check landing
-	move.b PhysicsObj_OnFloor(a0), d0
-	move.l PhysicsObj_VelY(a0), d1
-	PUSHL  d0
-	PUSHL  d1
-
 	; Base functionality
 	jsr PhysicsObjUpdate
 	
-	; Retrieve floor flag and Y velocity
-	POPL   d1
-	POPL   d0
-	
 	; Check if on floor
-	tst.b  PhysicsObj_OnFloor(a0)
+	move.b PhysicsObj_OnFloor(a0), d2
 	beq    @SFXInAir
-	
-	; Check if previously on floor
-	tst.b  d0
+
+	; Check if not previously on floor
+	tst.b  Fuzzl_PrevOnFloor(a0)
 	bne    @SFXPrevOnFloor
 	
 	; If hit floor at landing velocity
+	move.l PhysicsObj_FloorImpactVelY(a0), d1
 	cmp.l  #-Fuzzl_HitGroundSFXVel, d1
 	bge    @SFXLowVel
 	
@@ -474,6 +467,9 @@ FuzzlUpdate:
 	@SFXInAir:
 	@SFXPrevOnFloor:
 	@SFXLowVel:
+
+	; Store prev on floor flag
+	move.b d2, Fuzzl_PrevOnFloor(a0)
 	
 	@OutOfView:
 	bra    @End
