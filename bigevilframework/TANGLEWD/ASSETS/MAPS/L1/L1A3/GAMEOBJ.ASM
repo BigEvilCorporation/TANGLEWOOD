@@ -231,12 +231,10 @@ L1A3_Scrap_count equ 0x0
 
 L1A3_Longboat_count equ 0x0
 
-L1A3_Skivv_count equ 0x2
-L1A3_Skivv_69_idx	equ 0x0
-L1A3_Skivv_75_idx	equ 0x1
+L1A3_Skivv_count equ 0x1
+L1A3_Skivv_75_idx	equ 0x0
 
 	IFND FINAL
-L1A3_Skivv_69_name	dc.b "L1A3_Skivv_69",0
 L1A3_Skivv_75_name	dc.b "L1A3_Skivv_75",0
 	even
 	ENDIF
@@ -960,19 +958,6 @@ L1A3_LoadGameObjects:
 	move.l a1, EntityPoolStart_Skivv
 	move.l a1, a0
 	POPL   a1
-
-	jsr SkivvInit
-	move.l #0x08e80000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
-	jsr SkivvLoadGfx
-	IFND FINAL
-	lea L1A3_Skivv_69_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Skivv_Struct_Size, a0
 
 	jsr SkivvInit
 	move.l #0x1f200000, Entity_WorldPosX(a0)

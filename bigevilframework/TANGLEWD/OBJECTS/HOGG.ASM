@@ -54,6 +54,7 @@ HoggAnimIdx_Max			equ 0x3
 ;---------------------------------
 Hogg_Animations				rs.b (Animation_Struct_Size*HoggAnimIdx_Max)
 Hogg_StuckTimer				rs.w 1
+Hogg_PrevDirection			rs.b 1
 Hogg_State					rs.b 1
 ;---------------------------------
 	RS_ALIGN
@@ -98,6 +99,7 @@ HoggInit:
 	move.b #Hogg_Mass, PhysicsObj_Mass(a0)
 	move.b #0x0, PhysicsObj_AffectedByWind(a0)
 	move.w #0x0, Hogg_StuckTimer(a0)
+	move.b #0x0, Hogg_PrevDirection(a0)
 	move.b #HoggState_Idle, Hogg_State(a0)
 
 	; Setup collision bounds
@@ -259,6 +261,9 @@ HoggAIStart_Charge:
 	; Set state
 	move.b #HoggState_Charging, Hogg_State(a0)
 
+	; Play SFX
+	PLAYSFX #SFX_Hogg_Grunt
+
 	rts
 
 HoggAIUpdate_Charge:
@@ -343,6 +348,15 @@ HoggAIUpdate_Charge:
 	jsr    HoggAIStart_Stuck
 	@NoHitWall:
 
+	; If changed direction, grunt
+	move.b Hogg_PrevDirection(a0), d0
+	move.b SpriteObj_FlippedX(a0), d1
+	cmp.b  d0, d1
+	beq    @SameDir
+	PLAYSFX #SFX_Hogg_Grunt
+	move.b d1, Hogg_PrevDirection(a0)
+	@SameDir:
+
 	@Idle:
 
 	rts
@@ -368,6 +382,9 @@ HoggAIStart_Stuck:
 
 	; Start timer
 	move.w #Hogg_StuckTime, Hogg_StuckTimer(a0)
+
+	; Play SFX
+	PLAYSFX #SFX_Hogg_Stuck
 
 	rts
 

@@ -117,6 +117,20 @@ SFX_Data_Wind_Long:
 	ESF_Delay 137
 	ESF_Stop
 	even
+
+SFX_Data_Hogg_Grunt:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+14
+	ESF_Delay 11
+	ESF_Stop
+	even
+
+SFX_Data_Hogg_Stuck:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+15
+	ESF_Delay 33
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -453,6 +467,20 @@ SFX_Elder_Roar:
 
 SFX_Scrap_Yap:
 	dc.l SFX_Data_Scrap_Yap			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Hogg_Grunt:
+	dc.l SFX_Data_Hogg_Grunt		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Hogg_Stuck:
+	dc.l SFX_Data_Hogg_Stuck		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

@@ -137,6 +137,8 @@ echo_instruments:
 	Echo_ListEntry PCM11
 	Echo_ListEntry PCM12
 	Echo_ListEntry PCM13
+	Echo_ListEntry PCM14
+	Echo_ListEntry PCM15
 	
     Echo_ListEnd
 	
@@ -272,5 +274,7 @@ PCM10: incbin 'assets\audio\sfx\djakk\elder.ewf'
 PCM11: incbin 'assets\audio\sfx\scrap\yap.ewf'
 PCM12: incbin 'assets\audio\sfx\weather\windshrt.ewf'
 PCM13: incbin 'assets\audio\sfx\weather\windlong.ewf'
+PCM14: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
+PCM15: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
 	
 	ENDIF
