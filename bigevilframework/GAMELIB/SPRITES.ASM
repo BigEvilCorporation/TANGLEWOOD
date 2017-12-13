@@ -167,8 +167,9 @@ SPR_AddSubSprite:
 
 	; Subsequent entry in sprite table, link to previous
 	lea     vdp_sprite_table, a4
+	moveq   #0x0, d6
 	move.w  d5, d6
-	subq.w   #0x1, d6
+	subq.w  #0x1, d6
 	lsl.l   #0x3, d6	; mulu.w  #size_spritedesc, d6
 	add.l   d6, a4
 	move.b  d5, Sprite_NextID(a4)
