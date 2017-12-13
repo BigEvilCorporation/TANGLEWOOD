@@ -177,6 +177,30 @@ SND_StopTrack:
 	ENDIF
 	rts
 
+SND_StopTrackType:
+	; d0 (b) Track type
+
+	; If currently playing track, stop playing5
+	move.l audio_current_track, a2
+	cmp.l  #0x0, a2
+	beq    @NoTrack
+	cmp.b  Track_Type(a2), d0
+	bne    @NotCurrentTrack
+	PUSHW  d0
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+	POPW   d0
+	@NoTrack:
+	@NotCurrentTrack:
+
+	; Remove from queue
+	lsl.l  #0x2, d0
+	lea    audio_queued_tracks, a2
+	add.l  d0, a2
+	move.l #0x0, (a2)
+
+	rts
+
 SND_ClearTracks:
 	lea    audio_queued_tracks, a1
 	move.w #Track_Type_COUNT-1, d0
