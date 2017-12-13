@@ -228,6 +228,10 @@ l2a3_Trigger_EndStorm:
 	lea    EntityArray_VFX+(VfxId_RainLight*VfxObj_Struct_Size), a2
 	move.b #0x0, Entity_Active(a2)
 
+	; Disable rain audio
+	move.b #Track_Type_Ambience, d0
+	jsr    SND_StopTrackType
+
 	rts
 
 l2a3_Trigger_End:
