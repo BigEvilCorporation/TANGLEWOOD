@@ -234,6 +234,18 @@ l2a3_Trigger_EndStorm:
 
 	rts
 
+l2a3_Trigger_EndDjakkChase:
+
+	; Djakk back to initial state
+	ENTITY_GETBYNAME Monster, l2a3_Djakk, a0
+	jsr    MonsterStartWaitForPlayer
+
+	; Stop music
+	move.b #Track_Type_BGM, d0
+	jsr    SND_StopTrackType
+
+	rts
+
 l2a3_Trigger_End:
 
 	; Nymn sleep
