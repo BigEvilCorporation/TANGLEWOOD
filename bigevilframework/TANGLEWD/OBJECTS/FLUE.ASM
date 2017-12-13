@@ -140,6 +140,7 @@ FlueOccupantUpdate:
 	move.l #0x0, PhysicsObj_ImpulseY(a1)
 	move.w #0x0, PhysicsObj_AccelX(a1)
 	move.w #0x0, PhysicsObj_AccelY(a1)
+	move.b #0x0, PhysicsObj_HitWall(a1)
 	
 	; Re-add to physics world
 	PUSHM  a0-a2
@@ -178,7 +179,8 @@ FlueOccupantUpdate:
 	move.l d0, Entity_WorldPosX(a1)
 
 	; Snap to Y top
-	move.l Entity_WorldPosY(a3), Entity_WorldPosY(a1)
+	move.l Entity_WorldPosY(a3), d0
+	move.l d0, Entity_WorldPosY(a1)
 
 	; Set visible
 	move.b #0x1, SpriteObj_Visible(a1)
