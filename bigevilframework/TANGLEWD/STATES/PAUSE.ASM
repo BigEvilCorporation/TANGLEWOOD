@@ -27,6 +27,8 @@ PauseState_VRAMAddr					rs.w 1
 PauseState_PrevPadState				rs.w 1
 PauseState_FireflyWorldGridFlags	rs.b 1
 PauseState_FireflySpritePrio		rs.b 1
+PauseState_FireflyVisible			rs.b 1
+PauseState_FireflyActive			rs.b 1
 PauseState_FireflyTextSpritesCount	rs.b 1
 PauseState_PasswordTextSpritesCount	rs.b 1
 PauseState_DebugDrawMode			rs.b 1
@@ -182,10 +184,16 @@ Pause_Enter:
 	move.l Entity_WorldPosY(a0), PauseState_FireflyPosY(a1)
 	move.b Entity_WorldGridFlags(a0), PauseState_FireflyWorldGridFlags(a1)
 	move.b SpriteObj_Priority(a0), PauseState_FireflySpritePrio(a1)
+	move.b SpriteObj_Visible(a0), PauseState_FireflyVisible(a1)
+	move.b Entity_Active(a0), PauseState_FireflyActive(a1)
 
 	; Set as rendering, remove from world grid
 	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityAddToRenderList
+	
+	; Set visible and active
+	move.b #0x1, SpriteObj_Visible(a0)
+	move.b #0x1, Entity_Active(a0)
 	
 	; Set UI position
 	move.l (WorldScrollX), d0
@@ -251,21 +259,23 @@ Pause_Exit:
 	move.l PauseState_FireflyPosX(a1), Entity_WorldPosX(a0)
 	move.l PauseState_FireflyPosY(a1), Entity_WorldPosY(a0)
 	move.b PauseState_FireflySpritePrio(a1), SpriteObj_Priority(a0)
+	move.b PauseState_FireflyVisible(a1), SpriteObj_Visible(a0)
+	move.b PauseState_FireflyActive(a1), Entity_Active(a0)
+	
+	; Remove from render list if not previously present
+	move.b PauseState_FireflyWorldGridFlags(a1), d0
+	btst   #EntityWorldGridFlag_InRenderList, d0
+	bne    @InRenderList
+	jsr    EntityRemoveFromRenderList
+	@InRenderList:
 
 	; Re-add to world grid if previously present
-	move.b Entity_WorldGridFlags(a0), d0
+	move.b PauseState_FireflyWorldGridFlags(a1), d0
 	btst   #EntityWorldGridFlag_InWorldGrid, d0
 	beq    @NotInWorldGrid
 	andi.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr    EntityAddToWorldGrid
 	@NotInWorldGrid:
-
-	; Remove from render list if not previously present
-	move.b Entity_WorldGridFlags(a0), d0
-	btst   #EntityWorldGridFlag_InRenderList, d0
-	bne    @InRenderList
-	jsr    EntityRemoveFromRenderList
-	@InRenderList:
 
 	@NoFirefly:
 	POPM   a0-a1
