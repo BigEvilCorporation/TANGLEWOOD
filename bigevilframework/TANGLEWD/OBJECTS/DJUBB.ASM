@@ -24,6 +24,11 @@ Djubb_WallProbeBottom	equ Djubb_Height-1
 Djubb_PlayerYViewDist	equ 0x20
 Djubb_AttackDamage		equ 0xFF
 
+Djubb_BoundsLeft		equ 0x0000
+Djubb_BoundsTop			equ 0x000A
+Djubb_BoundsWidth		equ Djubb_Width
+Djubb_BoundsHeight		equ 0x0006
+
 ; Animations
 DjubbAnimIdx_Bite		equ 0x0
 ; -------------------------------
@@ -84,10 +89,10 @@ DjubbInit:
 	MOVE_NTSC_ACCEL_W Djubb_SwimDecelForced, Character_DecelForced(a0), d0
 
 	; Setup collision bounds
-	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
-	move.w  #0x0, PhysicsObj_BoundsTop(a0)
-	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
-	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
+	move.w  #Djubb_BoundsLeft, PhysicsObj_BoundsLeft(a0)
+	move.w  #Djubb_BoundsTop, PhysicsObj_BoundsTop(a0)
+	move.w  #Djubb_BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #Djubb_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 
 	rts
 
@@ -128,16 +133,15 @@ DjubbUpdate:
 	bne    @PlayerDead
 
 	; If within Y window
-	ENTITY_GETCENTREY d0, a0
-	ENTITY_GETCENTREY d1, a2
-	sub.l  d0, d1
-	ABS    d1
-	cmp.l  #Djubb_PlayerYViewDist*subpixels_per_pixel, d1
-	bgt    @PlayerOutOfView
-
-	; If touching, bite
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	PUSHM  d1-d4
+	jsr    PHYS_TestBoxIntersectBoxY
+	POPM   d1-d4
+	tst.b  d0
+	beq    @PlayerOutOfView
+
+	; If touching, bite
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @NotTouching

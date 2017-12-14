@@ -340,6 +340,30 @@ PHYS_TestBoxIntersectBoxX:
 	@NoIntersect:
 	rts
 
+PHYS_TestBoxIntersectBoxY:
+	; d0 (b)  Return value: 0 = no collision, 1 = collision
+	; d1 (w) Box 1 min Y
+	; d2 (w) Box 1 max Y
+	; d3 (w) Box 2 min Y
+	; d4 (w) Box 2 max Y
+	
+	move.b #0x0, d0
+	
+	; If maxY1 < minY2, bail
+	cmp.w d2, d3
+	bgt @NoIntersect
+		
+	; If minY1 > maxY2, bail
+	cmp.w d1, d4
+	blt @NoIntersect
+	
+	; Success
+	move.b #0x1, d0
+	
+	; Fail
+	@NoIntersect:
+	rts
+
 PHYS_TestBoxInsideBox:
 	; d0 (b)  Return value: 0 = box 2 outside box 1, 1 = box 2 inside box 1
 	; d1 (ww) Box 1 min XY (outside box)
