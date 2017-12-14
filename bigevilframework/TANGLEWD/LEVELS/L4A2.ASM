@@ -126,9 +126,7 @@ l4a2_Init:
 
 	; Connect generators to buttons
 	ENTITY_GETBYNAME Generator, l4a2_Generator1, a0
-	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a1
-	move.l a1, Generator_UserData(a0)
-	move.l #ButtonActivate, Generator_OnActivate(a0)
+	move.l #l4a2_GeneratorActivated, Generator_OnActivate(a0)
 
 	; Connect buttons to locks/pools, disable buttons
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
@@ -185,6 +183,20 @@ l4a2_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l4a2_GeneratorActivated:
+
+	; Enable first lock button
+	PUSHL  a0
+	ENTITY_GETBYNAME Button, l4a2_ButtonLock1, a0
+	jsr    ButtonActivate
+	POPL   a0
+
+	; Enable checkpoint
+	ENTITY_GETBYNAME Checkpoint, l4a2_CheckpointGenerator, a2
+	move.b #0x1, Entity_Active(a2)
+
 	rts
 
 l4a2_ActivateLock1:

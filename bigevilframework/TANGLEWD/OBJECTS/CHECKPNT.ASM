@@ -56,6 +56,10 @@ CheckpointLoadGfx:
 CheckpointUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; If entity active
+	tst.b  Entity_Active(a0)
+	beq    @Inactive
 	
 	; If not already active
 	; TODO: Remove from entity update list completely
@@ -78,6 +82,7 @@ CheckpointUpdate:
 	; Save game state
 	jsr    SaveGame
 	
+	@Inactive:
 	@AlreadyActivated:
 	@NotReached:
 	

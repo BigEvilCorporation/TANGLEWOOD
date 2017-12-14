@@ -121,13 +121,15 @@ L4A2_TriggerBox_EndLevel_name	dc.b "L4A2_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
-L4A2_Checkpoint_count equ 0x2
+L4A2_Checkpoint_count equ 0x3
 L4A2_Checkpoint_54_idx	equ 0x0
 L4A2_Checkpoint_55_idx	equ 0x1
+L4A2_CheckpointGenerator_idx	equ 0x2
 
 	IFND FINAL
 L4A2_Checkpoint_54_name	dc.b "L4A2_Checkpoint_54",0
 L4A2_Checkpoint_55_name	dc.b "L4A2_Checkpoint_55",0
+L4A2_CheckpointGenerator_name	dc.b "L4A2_CheckpointGenerator",0
 	even
 	ENDIF
 
@@ -633,6 +635,20 @@ L4A2_LoadGameObjects:
 	ENDIF
 	add.l #Checkpoint_Struct_Size, a0
 
+	jsr CheckpointInit
+	move.l #0x0bd00000, Entity_WorldPosX(a0)
+	move.l #0x03a80000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L4A2_CheckpointGenerator_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
 
 
 
@@ -714,8 +730,8 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 	jsr ButtonInit
-	move.l #0x0fc80000, Entity_WorldPosX(a0)
-	move.l #0x04a00000, Entity_WorldPosY(a0)
+	move.l #0x10180000, Entity_WorldPosX(a0)
+	move.l #0x04800000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
@@ -728,8 +744,8 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 	jsr ButtonInit
-	move.l #0x06c00000, Entity_WorldPosX(a0)
-	move.l #0x04e80000, Entity_WorldPosY(a0)
+	move.l #0x06a80000, Entity_WorldPosX(a0)
+	move.l #0x04c80000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L4A2_ButtonLock4_name, a3
@@ -741,7 +757,7 @@ L4A2_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 	jsr ButtonInit
-	move.l #0x08c80000, Entity_WorldPosX(a0)
+	move.l #0x08580000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
@@ -840,7 +856,7 @@ L4A2_LoadGameObjects:
 	add.l #Lock_Struct_Size, a0
 
 	jsr LockInit
-	move.l #0x08980000, Entity_WorldPosX(a0)
+	move.l #0x08a00000, Entity_WorldPosX(a0)
 	move.l #0x04680000, Entity_WorldPosY(a0)
 	jsr LockLoadGfx
 	IFND FINAL
@@ -873,7 +889,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 
 	jsr PoolInit
-	move.l #0x0e080000, Entity_WorldPosX(a0)
+	move.l #0x0e100000, Entity_WorldPosX(a0)
 	move.l #0x04100000, Entity_WorldPosY(a0)
 	jsr PoolLoadGfx
 	IFND FINAL
@@ -886,7 +902,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 
 	jsr PoolInit
-	move.l #0x0f480000, Entity_WorldPosX(a0)
+	move.l #0x0f500000, Entity_WorldPosX(a0)
 	move.l #0x04100000, Entity_WorldPosY(a0)
 	jsr PoolLoadGfx
 	IFND FINAL
