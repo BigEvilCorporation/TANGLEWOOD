@@ -118,10 +118,10 @@ L5A2_TriggerBox_EndLevel_name	dc.b "L5A2_TriggerBox_EndLevel",0
 L5A2_Checkpoint_count equ 0x0
 
 L5A2_WaterBody_count equ 0x1
-L5A2_WaterBody_56_idx	equ 0x0
+L5A2_WaterBody_64_idx	equ 0x0
 
 	IFND FINAL
-L5A2_WaterBody_56_name	dc.b "L5A2_WaterBody_56",0
+L5A2_WaterBody_64_name	dc.b "L5A2_WaterBody_64",0
 	even
 	ENDIF
 
@@ -569,11 +569,13 @@ L5A2_LoadGameObjects:
 	POPL   a1
 
 	jsr WaterBodyInit
-	move.l #0x0d800000, Entity_WorldPosX(a0)
+	move.l #0x0da00000, Entity_WorldPosX(a0)
 	move.l #0x05f80000, Entity_WorldPosY(a0)
+	move.w #0x0140, Entity_Width(a0)
+	move.w #0x0028, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L5A2_WaterBody_56_name, a3
+	lea L5A2_WaterBody_64_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
