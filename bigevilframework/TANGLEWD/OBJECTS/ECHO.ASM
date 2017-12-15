@@ -114,6 +114,7 @@ EchoAIState_Ladder			equ 10	; Climbing a ladder
 EchoAIState_Cart			equ 11	; Riding a cart
 EchoAIState_Barrier			equ 12	; Waiting at an AI marker (barrier type)
 EchoAIState_Skivv			equ 13	; Being taken by a Skivv
+EchoAIState_Carried			equ 14	; Being carried by Nymn
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -511,6 +512,9 @@ EchoUpdateRiding:
 	
 	; Set riding state
 	move.b #EchoMountNymn_Riding, Echo_MountedState(a0)
+
+	; Set AI state
+	jsr    EchoAIStart_Carried
 	
 	;==============================================================
 	
@@ -956,6 +960,8 @@ EchoUpdateAI:
 	beq    @Barrier
 	cmp.b  #EchoAIState_Skivv, d0
 	beq    @Skivv
+	cmp.b  #EchoAIState_Carried, d0
+	beq    @Carried
 	bra    @End
 	
 	@Follow:
@@ -1004,6 +1010,10 @@ EchoUpdateAI:
 
 	@Skivv:
 	jsr    EchoAIUpdate_Skivv
+	bra    @End
+
+	@Carried:
+	jsr    EchoAIUpdate_Carried
 	bra    @End
 	
 	@End:
@@ -1697,14 +1707,14 @@ EchoAIUpdate_Water:
 	beq    @FacingRight
 	sub.w  Entity_WorldPosX(a0), d0
 	cmp.w  #Echo_AIWaterSafePosOffsetX, d0
-	blt    @InWater
+	ble    @InWater
 	bra    @FacingLeft
 
 	@FacingRight:
 	move.w Entity_WorldPosX(a0), d1
 	sub.w  d0, d1
 	cmp.w  #Echo_AIWaterSafePosOffsetX, d1
-	blt    @InWater
+	ble    @InWater
 	@FacingLeft:
 
 	; Stop moving
@@ -1802,12 +1812,23 @@ EchoAIUpdate_Water:
 	jsr    EchoStartCameraLerp
 	@OnScreen:
 
-	@NoFloor:
-	@FloorInWater:
+	bra    @End
 
 	;==============================================================
 
 	@InWater:
+
+	; Move to water edge
+	tst.b  Echo_AIObstacleDirection(a0)
+	beq    @MoveLeft
+	jsr    CharacterMoveRight
+	bra    @MoveRight
+	@MoveLeft:
+	jsr    CharacterMoveLeft
+	@MoveRight:
+
+	@NoFloor:
+	@FloorInWater:
 	@End:
 
 	rts
@@ -1828,6 +1849,11 @@ EchoFindFloor:
 	
 	; Sub player height
 	sub.w  Entity_Height(a0), d1
+
+	; Centre X
+	move.w Entity_Width(a0), d4
+	lsr.w  #0x1, d4
+	sub.w  d4, d0
 
 	; Set search position
 	move.w d0, Entity_WorldPosX(a0)
@@ -1960,6 +1986,30 @@ EchoAIUpdate_WaitBarrier:
 
 	@SameDir:
 	@Lost:
+
+	rts
+
+EchoAIStart_Carried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #EchoAIState_Carried, Echo_AIState(a0)
+
+	rts
+
+EchoAIUpdate_Carried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Wait until back on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+
+	@InAir:
 
 	rts
 
