@@ -2552,9 +2552,10 @@ PlayerInteractTest_Ladder:
 	move.w  Entity_Height(a0), d2
 	lsr.w   #0x1, d2
 	addq.w  #0x1, d2
-	neg.w   d2
+	;neg.w   d2
 	TOSUBPIXELS d2
-	move.l  d2, PhysicsObj_ImpulseY(a0)
+	;move.l  d2, PhysicsObj_ImpulseY(a0)
+	add.l  d2, Entity_WorldPosY(a0)
 	bra    @OnTopPlatform
 
 	; else must be at base of ladder
@@ -2564,7 +2565,8 @@ PlayerInteractTest_Ladder:
 	tst.b   Character_ControlY(a0)
 	ble     @AtBase
 	move.w  PhysicsObj_StepHeight(a0), d2
-	addq.w  #0x1, d2
+	;addq.w  #0x1, d2
+	lsl.w   #0x1, d2
 	TOSUBPIXELS d2
 	move.l  d2, PhysicsObj_ImpulseY(a0)
 
