@@ -2467,12 +2467,12 @@ PlayerExitedWater:
 	lea    PhysicsWorld, a2
 
 	move.l PhysicsObj_VelX(a0), d0
-	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	move.l PhysicsWorld_UnderwaterVelXScale(a2), d1
 	jsr    Muls1616
 	move.l d0, PhysicsObj_VelX(a0)
 
 	move.l PhysicsObj_VelY(a0), d0
-	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	move.l PhysicsWorld_UnderwaterVelYScale(a2), d1
 	jsr    Muls1616
 	move.l d0, PhysicsObj_VelY(a0)
 

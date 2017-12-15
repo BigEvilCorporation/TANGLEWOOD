@@ -10,7 +10,8 @@
 ;-----------------------------------------
 PhysicsWorld_Gravity				rs.l 1
 PhysicsWorld_Wind					rs.l 1
-PhysicsWorld_UnderwaterVelScale		rs.l 1
+PhysicsWorld_UnderwaterVelXScale	rs.l 1
+PhysicsWorld_UnderwaterVelYScale	rs.l 1
 PhysicsWorld_UnderwaterAccelScale	rs.l 1
 PhysicsWorld_GroundHeight			rs.l 1
 PhysicsWorld_MovingPlatformsUpdated	rs.b 1	; Platforms moved/stopped last frame

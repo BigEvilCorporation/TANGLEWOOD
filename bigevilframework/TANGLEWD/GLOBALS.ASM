@@ -33,7 +33,8 @@ SubframeShift			 equ 0x8
 
 ; World
 DefaultGravity			 equ 0x00003000
-DefaultUnderwaterScale	 equ 0x0000B000
+DefaultUnderwaterScaleX	 equ 0x00009000
+DefaultUnderwaterScaleY	 equ 0x0000B000
 
 ; Faders
 LevelFadeUpSpeed		 	equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)

@@ -723,7 +723,7 @@ PhysicsObjApplyVelocityX:
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWater
-	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	move.l PhysicsWorld_UnderwaterVelXScale(a2), d1
 	jsr    Muls1616
 	@NotInWater:
 
@@ -810,7 +810,7 @@ PhysicsObjApplyVelocityY:
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWater
-	move.l PhysicsWorld_UnderwaterVelScale(a2), d1
+	move.l PhysicsWorld_UnderwaterVelYScale(a2), d1
 	jsr    Muls1616
 	@NotInWater:
 
