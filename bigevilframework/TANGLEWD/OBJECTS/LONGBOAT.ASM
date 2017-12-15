@@ -84,6 +84,7 @@ LongboatInit:
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_Buoyant(a0)
+	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.b  #0x0, AnimObj_UpdateOutOfView(a0)
 	move.w  #0x0, Longboat_Tilt(a0)
 	move.b  #0x0, Longboat_Visible(a0)
