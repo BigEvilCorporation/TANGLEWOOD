@@ -242,6 +242,10 @@ l4a2_ActivatePool1:
 	ENTITY_GETBYNAME AIMarker, l4a2_MarkerEchoLockStop, a0
 	move.b #0x0, Entity_Active(a0)
 
+	; Set Echo to wait at water
+	move.l Player2, a0
+	;move.b #0x1, Echo_AIWaitAtWater(a0)
+
 	; Enable next lock button
 	ENTITY_GETBYNAME Button, l4a2_ButtonLock2, a0
 	move.b #0x1, Button_Active(a0)

@@ -889,7 +889,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 
 	jsr PoolInit
-	move.l #0x0e100000, Entity_WorldPosX(a0)
+	move.l #0x0e080000, Entity_WorldPosX(a0)
 	move.l #0x04100000, Entity_WorldPosY(a0)
 	jsr PoolLoadGfx
 	IFND FINAL
@@ -902,7 +902,7 @@ L4A2_LoadGameObjects:
 	add.l #Pool_Struct_Size, a0
 
 	jsr PoolInit
-	move.l #0x0f500000, Entity_WorldPosX(a0)
+	move.l #0x0f480000, Entity_WorldPosX(a0)
 	move.l #0x04100000, Entity_WorldPosY(a0)
 	jsr PoolLoadGfx
 	IFND FINAL
@@ -925,7 +925,7 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LongboatInit
-	move.l #0x0cc80000, Entity_WorldPosX(a0)
+	move.l #0x0d080000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
 	jsr LongboatLoadGfx
 	IFND FINAL
