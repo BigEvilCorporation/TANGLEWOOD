@@ -91,10 +91,11 @@ l6a2_Init:
 	
 	;==============================================================
 
-	; Don't lerp Djakk palettes, disable catchup behaviour
+	; Don't lerp Djakk palettes, disable catchup behaviour, use silhouetted palettes
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
@@ -143,6 +144,18 @@ l6a2_Init:
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+
+	; Remove dropping logs from world grid (floating in air until triggered)
+	ENTITY_GETBYNAME Log, l6a2_Log2, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    PhysicsWorldRemoveObject
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_worldGridFlags(a0)
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_worldGridFlags(a0)
+	ENTITY_GETBYNAME Log, l6a2_Log3, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    PhysicsWorldRemoveObject
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_worldGridFlags(a0)
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_worldGridFlags(a0)
 
 	; Force every sprite object to use palette 1 (silhouette)
 	LIST_GET_HEAD EntityUpdate,a0
@@ -358,6 +371,11 @@ l6a2_Trigger_Log2:
 
 	PUSHL  a0
 
+	; Re-add log to physics world
+	ENTITY_GETBYNAME Log, l6a2_Log2, a0
+	jsr    EntityAddToUpdateList
+	jsr    PhysicsWorldAddObject
+
 	; Start log rolling
 	ENTITY_GETBYNAME Log, l6a2_Log2, a0
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
@@ -370,6 +388,11 @@ l6a2_Trigger_Log2:
 l6a2_Trigger_Log3:
 
 	PUSHL  a0
+
+	; Re-add log to physics world
+	ENTITY_GETBYNAME Log, l6a2_Log3, a0
+	jsr    EntityAddToUpdateList
+	jsr    PhysicsWorldAddObject
 
 	; Start log rolling
 	ENTITY_GETBYNAME Log, l6a2_Log3, a0
