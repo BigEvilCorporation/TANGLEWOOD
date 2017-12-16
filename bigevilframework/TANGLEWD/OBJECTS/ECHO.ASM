@@ -11,6 +11,7 @@ ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
+Echo_TalkDelay				equ 0x0020		; Delay between Nymn and Echo talking
 Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
@@ -32,6 +33,8 @@ Echo_AIMarkerSearchHeight	equ 0x0040			; Search height for checking AI markers
 Echo_AIWaterSafePosOffsetX	equ 0x0010			; Out of water distance to run to
 Echo_AITerrainSearchYOffset	equ 0x0018			; Y offset for terrain searches
 Echo_AITerrainSearchDist	equ 0x0030			; Max distance for terrain searches
+Echo_AIWaterSearchOffsetX	equ 0x0008			; Offset to check for water
+Echo_AIWaterSearchOffsetY	equ 0x0010			; Offset to check for water
 
 ; AI distances to add action nodes
 Echo_AIFollowDistance		equ 0x0040			; Max X distance from Nymn when following
@@ -111,6 +114,7 @@ EchoAIState_Ladder			equ 10	; Climbing a ladder
 EchoAIState_Cart			equ 11	; Riding a cart
 EchoAIState_Barrier			equ 12	; Waiting at an AI marker (barrier type)
 EchoAIState_Skivv			equ 13	; Being taken by a Skivv
+EchoAIState_Carried			equ 14	; Being carried by Nymn
 
 ; AI node actions
 EchoAINode_Action_GoTo			equ 0x0
@@ -144,9 +148,30 @@ EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach tar
 EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
 EchoAINode_LerpCamera		rs.b 1	; Lerp camera to character when node reached
 EchoAINode_Walk				rs.b 1	; Walk, don't run, towards node
+EchoAINode_WaitAtWater		rs.b 1	; Check for water, wait for terrain before enter
 ;---------------------------------
 	RS_ALIGN
 EchoAINode_Struct_Size		rs.b 0
+
+EchoAINodeInit:
+	; a0 --- Node
+
+	move.l #0x0, EchoAINode_UserData(a0)
+	move.l #0x0, EchoAINode_Object(a0)
+	move.w #0x0, EchoAINode_PosX(a0)
+	move.w #0x0, EchoAINode_PosY(a0)
+	move.w #0x0, EchoAINode_VelX(a0)
+	move.w #0x0, EchoAINode_ToleranceX(a0)
+	move.w #0x0, EchoAINode_ToleranceY(a0)
+	move.b #0x0, EchoAINode_Action(a0)
+	move.b #0x0, EchoAINode_StopMovement(a0)
+	move.b #0x0, EchoAINode_RequireOnFloor(a0)
+	move.b #0x0, EchoAINode_ForceIfHitWall(a0)
+	move.b #0x0, EchoAINode_LerpCamera(a0)
+	move.b #0x0, EchoAINode_Walk(a0)
+	move.b #0x0, EchoAINode_WaitAtWater(a0)
+
+	rts
 
 ; ************************************
 ; Struct
@@ -181,6 +206,7 @@ Echo_AIWaitingForNymnLanding rs.b 1	; Waiting for Nymn's landing to create a nod
 Echo_AIWaitingForWaterPath	rs.b 1	; Hit water, not happy about it, waiting for a path to cross
 Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AIObstacleDirection	rs.b 1	; Direction to face water waiting for Nymn to help
+Echo_AIWaitAtWater			rs.b 1	; Wait if water detected ahead
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_HowlState				rs.b 1
@@ -234,6 +260,7 @@ EchoInit:
 	move.b #0x0, Echo_AINymnJumping(a0)
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
+	move.b #0x0, Echo_AIWaitAtWater(a0)
 	move.b #0x0, Echo_HowlState(a0)
 	
 	; Setup interaction routines
@@ -310,6 +337,9 @@ EchoInit:
 
 	; Howl
 	ANIM_LOAD_DEFAULT Echo,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
+
+	; Talk
+	ANIM_LOAD_DEFAULT Echo,callshort,callshort,Player_Animations,PlayerAnimIdx_Talk,0,1,0
 	
 	;==============================================================
 	; Setup Echo specific animations
@@ -396,7 +426,14 @@ EchoUpdate:
 	move.w d0, Echo_HowlTimer(a0)
 	tst.w  d0
 	bne    @TimerStillRunning
+	; If on screen, just talk
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @Howl
+	jsr    EchoTalk
+	bra    @Talk
+	@Howl:
 	jsr    EchoHowl
+	@Talk:
 	@TimerStillRunning:
 	@TimerNotRunning:
 	
@@ -475,6 +512,9 @@ EchoUpdateRiding:
 	
 	; Set riding state
 	move.b #EchoMountNymn_Riding, Echo_MountedState(a0)
+
+	; Set AI state
+	jsr    EchoAIStart_Carried
 	
 	;==============================================================
 	
@@ -815,10 +855,34 @@ EchoEndCarried:
 
 	rts
 
+EchoStartTalkTimer:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	MOVE_NTSC_W Echo_TalkDelay, Echo_HowlTimer(a0), d0
+	rts
+
 EchoStartHowlTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	MOVE_NTSC_W Echo_HowlDelay, Echo_HowlTimer(a0), d0
+	rts
+
+EchoTalk:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set talking anim
+	PUSHL  a1
+	lea    Player_Animations+(PlayerAnimIdx_Talk*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	; Set talk state
+	move.b #0x1, Echo_HowlState(a0)
+
 	rts
 
 EchoHowl:
@@ -863,7 +927,6 @@ EchoUpdateAI:
 	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
 	move.b PhysicsObj_Underwater(a0), d0
-	or.b   Character_InWater(a0), d0
 	bne    @InWater
 	move.w Entity_WorldPosX(a0), Echo_AILastDryLandY(a0)
 	@InAir:
@@ -897,6 +960,8 @@ EchoUpdateAI:
 	beq    @Barrier
 	cmp.b  #EchoAIState_Skivv, d0
 	beq    @Skivv
+	cmp.b  #EchoAIState_Carried, d0
+	beq    @Carried
 	bra    @End
 	
 	@Follow:
@@ -945,6 +1010,10 @@ EchoUpdateAI:
 
 	@Skivv:
 	jsr    EchoAIUpdate_Skivv
+	bra    @End
+
+	@Carried:
+	jsr    EchoAIUpdate_Carried
 	bra    @End
 	
 	@End:
@@ -1046,6 +1115,11 @@ EchoAIUpdate_Follow:
 	; Watch Nymn's potential safe positions
 	jsr    EchoAI_WatchNymnSafePos
 
+	; Check for water
+	jsr     EchoAILookAheadWater
+	tst.b   d0
+	bne     @WaterAhead
+
 	@LinearFollow:
 
 	; Follow distance tolerance
@@ -1091,6 +1165,7 @@ EchoAIUpdate_Follow:
 	; Cancel X movement
 	jsr    CharacterCancelXMovement
 	
+	@WaterAhead:
 	@End:
 
 	; Search for interesting objects
@@ -1194,6 +1269,11 @@ EchoAIUpdate_FollowNodes:
 	jsr    CharacterStartJump
 	@NotHitWall:
 
+	; Check for water
+	jsr     EchoAILookAheadWater
+	tst.b   d0
+	bne     @WaterAhead
+
 	; Check if within X tolerance
 	ENTITY_GETCENTREX d0,a0
 	TOPIXELS d0
@@ -1259,6 +1339,7 @@ EchoAIUpdate_FollowNodes:
 	bra    @End
 	
 	@Moving:
+	@WaterAhead:
 	
 	; Find interesting objects (applicable to node follow state)
 	jsr    EchoAI_FindInterestingObj_InNodeState
@@ -1267,6 +1348,38 @@ EchoAIUpdate_FollowNodes:
 	@NodeFailed:
 	@End:
 	
+	rts
+
+EchoAILookAheadWater:
+
+	; If water ahead, stop and wait
+	move.w #0x0, d0
+	tst.b  Echo_AIWaitAtWater(a0)
+	beq    @NoWater
+	PUSHM  d1-d4/a0-a3
+	ENTITY_GETBOTTOM d1,a0
+	TOPIXELS d1
+	addi.w #Echo_AIWaterSearchOffsetY, d1
+	tst.b  SpriteObj_FlippedX(a0)
+	bne    @Left
+	ENTITY_GETRIGHT d0,a0
+	TOPIXELS d0
+	addi.w #Echo_AIWaterSearchOffsetX, d0
+	bra    @Right
+	@Left:
+	move.w Entity_WorldPosX(a0), d0
+	subi.w #Echo_AIWaterSearchOffsetX, d0
+	@Right:
+	jsr    PhysicsPointUnderwater
+	move.w d4, d0
+	POPM   d1-d4/a0-a3
+
+	tst.w  d0
+	beq    @NoWater
+	jsr    CharacterCancelXMovement
+	move.l #0x0, PhysicsObj_VelX(a0)
+	@NoWater:
+
 	rts
 
 EchoAIStart_Lost:
@@ -1580,8 +1693,6 @@ EchoAIUpdate_Water:
 	@NotHitWall:
 
 	; If no longer in water
-	tst.b  Character_InWater(a0)
-	bne    @InWater
 	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 
@@ -1596,14 +1707,14 @@ EchoAIUpdate_Water:
 	beq    @FacingRight
 	sub.w  Entity_WorldPosX(a0), d0
 	cmp.w  #Echo_AIWaterSafePosOffsetX, d0
-	blt    @InWater
+	ble    @InWater
 	bra    @FacingLeft
 
 	@FacingRight:
 	move.w Entity_WorldPosX(a0), d1
 	sub.w  d0, d1
 	cmp.w  #Echo_AIWaterSafePosOffsetX, d1
-	blt    @InWater
+	ble    @InWater
 	@FacingLeft:
 
 	; Stop moving
@@ -1645,13 +1756,26 @@ EchoAIUpdate_Water:
 	;==============================================================
 
 	
-	; Get centre of water body X
+	; Get nearest edge of water body
+	ENTITY_GETCENTREX d0,a0
+	TOPIXELS d0
 	move.w Echo_AIWaterBodyLeft(a0), d1
+	addi.w #Echo_AIWaterSearchOffsetX, d1
+	move.w d1, d3
 	move.w Echo_AIWaterBodyRight(a0), d2
+	subi.w #Echo_AIWaterSearchOffsetX, d2
+	move.w d2, d4
+	
+	sub.w  d0, d3
+	ABSW   d3
+	sub.w  d0, d4
+	ABSW   d4
+	
 	move.w d1, d0
-	sub.w  d1, d2
-	lsr.w  #0x1, d2
-	add.w  d2, d0
+	cmp.w  d3, d4
+	bgt    @LeftEdge
+	move.w d2, d0
+	@LeftEdge:
 
 	; Get surface
 	move.w Echo_AIWaterBodySurface(a0), d1
@@ -1688,12 +1812,23 @@ EchoAIUpdate_Water:
 	jsr    EchoStartCameraLerp
 	@OnScreen:
 
-	@NoFloor:
-	@FloorInWater:
+	bra    @End
 
 	;==============================================================
 
 	@InWater:
+
+	; Move to water edge
+	tst.b  Echo_AIObstacleDirection(a0)
+	beq    @MoveLeft
+	jsr    CharacterMoveRight
+	bra    @MoveRight
+	@MoveLeft:
+	jsr    CharacterMoveLeft
+	@MoveRight:
+
+	@NoFloor:
+	@FloorInWater:
 	@End:
 
 	rts
@@ -1714,6 +1849,11 @@ EchoFindFloor:
 	
 	; Sub player height
 	sub.w  Entity_Height(a0), d1
+
+	; Centre X
+	move.w Entity_Width(a0), d4
+	lsr.w  #0x1, d4
+	sub.w  d4, d0
 
 	; Set search position
 	move.w d0, Entity_WorldPosX(a0)
@@ -1849,6 +1989,30 @@ EchoAIUpdate_WaitBarrier:
 
 	rts
 
+EchoAIStart_Carried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #EchoAIState_Carried, Echo_AIState(a0)
+
+	rts
+
+EchoAIUpdate_Carried:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Wait until back on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
+	; Back to follow state
+	jsr    EchoAIStart_Follow
+
+	@InAir:
+
+	rts
+
 EchoAIStart_Skivv:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1961,8 +2125,7 @@ EchoAIUpdate_Raft:
 
 	; If Nymn on land
 	move.l Player1, a2
-	move.b Character_InWater(a2), d0
-	or.b   PhysicsObj_Underwater(a2), d0
+	move.b PhysicsObj_Underwater(a2), d0
 	bne    @NymnInWater
 	
 	tst.b  PhysicsObj_CloseToFloor(a2)
@@ -2383,10 +2546,6 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceLandX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceLandY, EchoAINode_ToleranceY(a3)
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x0, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Land, EchoAINode_Action(a3)
 	bra    @End
 
@@ -2419,10 +2578,6 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceGlideX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceGlideY, EchoAINode_ToleranceY(a3)
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x0, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StartGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -2437,10 +2592,6 @@ EchoAI_WatchNymnMovement:
 	move.w PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceGlideX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceGlideY, EchoAINode_ToleranceY(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x0, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_StopGlide, EchoAINode_Action(a3)
 	bra    @End
 
@@ -2484,10 +2635,7 @@ EchoAI_WatchNymnMovement:
 	move.w Echo_LastNymnFloorVelX(a0), EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceJumpLostX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceJumpLostY, EchoAINode_ToleranceY(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x0, EchoAINode_RequireOnFloor(a3)
 	move.b #0x1, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 
 	; If Nymn was in air because of a jump, set waiting for landing, take floor pos as target Y, and require on floor
@@ -2498,8 +2646,6 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	;move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	@NotJumping:
 
 	bra    @End
@@ -2524,10 +2670,6 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceFallX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceFallY, EchoAINode_ToleranceY(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
-	move.b #0x0, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.b #EchoAINode_Action_Fall, EchoAINode_Action(a3)
 
 	@WithinYToleranceDown:
@@ -3183,10 +3325,7 @@ EchoAI_PushInteractionFuzzl:
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
-	move.b #0x0, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
@@ -3278,8 +3417,6 @@ EchoAI_PushInteractionLog:
 	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
 	move.b d5, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 	move.b d2, EchoAINode_Walk(a3)
@@ -3313,7 +3450,6 @@ EchoAI_PushInteractionButton:
 	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x1, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Button, EchoAINode_Action(a3)
@@ -3342,8 +3478,8 @@ EchoAI_PushInteractionRaft:
 	move.w #Echo_AINodeToleranceRaftY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.b #0x1, EchoAINode_LerpCamera(a3)
+	move.b #0x1, EchoAINode_WaitAtWater(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Raft, EchoAINode_Action(a3)
 
@@ -3371,8 +3507,6 @@ EchoAI_PushInteractionLadder:
 	move.w Entity_Height(a2), EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
-	move.b #0x0, EchoAINode_LerpCamera(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Ladder, EchoAINode_Action(a3)
 
@@ -3400,7 +3534,6 @@ EchoAI_PushInteractionCart:
 	move.w #Echo_AINodeToleranceCartY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Cart, EchoAINode_Action(a3)
 
@@ -3454,10 +3587,10 @@ EchoAIPushNode:
 	add.l  d7, a0						; Add offset
 	move.l a0, a3
 
-	; Clear node
+	; Init node
 	PUSHL  a3
-	move.w #EchoAINode_Struct_Size, d0
-	MEMZEROB a3, d0
+	move.l a3, a0
+	jsr    EchoAINodeInit
 	POPL   a3
 
 	POPM   d0-d1
