@@ -71,6 +71,7 @@ SceneMeetEchoStage_JumpNymn			equ 9
 SceneMeetEchoStage_Finished			equ 10
 
 EchoToNymnCamLerpSpeed				equ 0x40	; Camera lerp speed
+EchoGreetCustsceneStartDelay		equ 0x20	; Delay to start cutscene
 EchoGreetDjakkCameraTime			equ 0x78	; Time to view chasing Djakk
 EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
 	
@@ -78,11 +79,10 @@ EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l3a3Data_SceneTimer				rs.w 1
-l3a3Data_WaitingInput			rs.b 1
+l3a3Data_CutsceneSaveEcho		rs.b Cutscene_Struct_Size
+l3a3Data_CutsceneMeetEcho		rs.b Cutscene_Struct_Size
 l3a3Data_ComboButton1Count		rs.b 1
 l3a3Data_ComboButton2Count		rs.b 1
-l3a3Data_MeetEchoSceneStage		rs.b 1
 ;---------------------------------
 	RS_ALIGN
 l3a3Data_Struct_Size     		rs.b 0
@@ -113,6 +113,23 @@ l3a3_Init:
 
 	; Load scene animations
 	jsr    l3_LoadSceneAnimations
+
+	;==============================================================
+
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L3A3, a2
+	lea    l3a3Data_CutsceneSaveEcho(a2), a0
+	move.l #l3a3_CutsceneSaveEcho, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
+	PUSHM  a0-a1
+	lea    LevelData_L3A3, a2
+	lea    l3a3Data_CutsceneMeetEcho(a2), a0
+	move.l #l3a3_CutsceneMeetEcho, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 
 	;==============================================================
 
@@ -191,10 +208,6 @@ l3a3_Init:
 	move.b #0x0, l3a3Data_ComboButton1Count(a2)
 	move.b #0x0, l3a3Data_ComboButton2Count(a2)
 
-	; Init cutscene
-	move.b #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
-	move.w #0x0, l3a3Data_SceneTimer(a2)
-
 	; Set Elders in cages
 	ENTITY_GETBYNAME Monster, l3a3_Elder1, a0
 	jsr    MonsterSetInCage
@@ -208,6 +221,13 @@ l3a3_Init:
 	move.l Player2, a2
 	move.b #0x0, Entity_Active(a2)
 	ENDIF
+
+	; Skip Djakk intro
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	jsr    MonsterSkipIntro
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 
 	;==============================================================
 
@@ -225,12 +245,6 @@ l3a3_Init:
 	rts
 	
 l3a3_Update:
-
-	move.l #LevelData_L3A3, a2
-	cmp.b  #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
-	beq    @End
-	jsr    l3a3MeetEchoSceneUpdate
-	@End:
 
 	rts
 	
@@ -446,544 +460,138 @@ l3a3Cage2RaiseFinished:
 	
 l3a3TriggerEchoIntro:
 
-	move.l #LevelData_L3A3, a2
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	tst.b  Character_Dead(a2)
+	bne    @DjakkDead
 
-	; If not yet started, begin scene
-	cmp.b  #SceneMeetEchoStage_None, l3a3Data_MeetEchoSceneStage(a2)
-	beq    @TriggerStart
-
-	; If waiting for Nymn, stand up
-	cmp.b  #SceneMeetEchoStage_WaitNymn, l3a3Data_MeetEchoSceneStage(a2)
-	beq    @TriggerStandUp
+	; Djakk alive, start Save Echo cutscene
+	PUSHL  a0
+	lea    LevelData_L3A3, a2
+	lea    l3a3Data_CutsceneSaveEcho(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	bra    @End
 
-	@TriggerStart:
-	jsr    l3a3MeetEchoBeginStage_RunScared
-	bra    @End
+	@DjakkDead:
 
-	@TriggerStandUp:
-	jsr    l3a3MeetEchoBeginStage_StandUp
-	bra    @End
+	; Djakk dead, start Meet Echo cutscene
+	PUSHL  a0
+	lea    LevelData_L3A3, a2
+	lea    l3a3Data_CutsceneMeetEcho(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	@End:
 
 	rts
 
-l3a3MeetEchoBeginStage_RunScared:
+l3a3_CutsceneSaveEcho:
+	; a0 --- Cutscene
 
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_RunScared, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Lerp camera to Echo
-	PUSHM  a0-a1
-	move.l (Player1), a0
-	move.l (Player2), a1
-	move.b #0x1, Entity_Active(a1)
-	move.l #EchoToNymnCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPM   a0-a1
-	
-	; Start running
-	PUSHL  a0
-	move.l (Player2), a0
-	jsr    CharacterMoveLeft
-	MOVE_NTSC_L Player1MaxVelXRun, d0, d1
-	neg.l  d0
-	move.l d0, PhysicsObj_VelX(a0)
-	POPL   a0
+	CUTSCENE_START
 
-	rts
+	; Stop player movement and disable control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
-l3a3MeetEchoUpdateStage_RunScared:
+	; Start enemy approach track
+	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
 
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	; Nymn face Echo
-	move.b #0x0, d2
-	move.l (Player1), a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosX(a2), d1
-	cmp.l  d0, d1
-	ble    @ToRight
-	move.b #0x1, d2
-	@ToRight:
-	move.b d2, SpriteObj_FlippedX(a2)
+	; Enable Echo
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Entity_Active,#0x1
 
-	; If not yet hit location marker, run left
+	; Echo runs scared
+	CUTSCENE_DELAY #EchoGreetCustsceneStartDelay
+	CUTSCENE_CAMERA_LERP Player1,Player2,#EchoToNymnCamLerpSpeed
+	MOVE_NTSC_L -Player1MaxVelXRun, d1, d0
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,d1
 	ENTITY_GETBYNAME Location, l3a3_LocEchoHide, a3
-	ENTITY_GETBOUNDS d1,d2,d3,a0
-	ENTITY_GETBOUNDS d3,d4,d5,a3
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	beq    @EchoRun
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a3,#0x10,#0x10
+	CUTSCENE_SPRITE_FLIPX Player2,#0x1
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP_WAIT
 
-	; Next state
-	jsr    l3a3MeetEchoBeginStage_Hide
-	bra    @End
+	; TODO: Nymn faces Echo
 
-	@EchoRun:
-	jsr    CharacterMoveLeft
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
+	; Djakk begins chase
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
+	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
 
-l3a3MeetEchoBeginStage_Hide:
+	; Pan camera to Djakk
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
 
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_Hide, l3a3Data_MeetEchoSceneStage(a2)
-	
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	; Stop running
-	jsr    CharacterCancelXMovement
+	; Wait
+	CUTSCENE_DELAY #EchoGreetDjakkCameraTime
 
-	; Start hide anim
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Hide*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	POPL   a0
+	; Pan camera back to Nymn
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#EchoToNymnCamLerpSpeed
+
+	; Restore control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END
 
 	rts
 
-l3a3MeetEchoUpdateStage_Hide:
+l3a3_CutsceneMeetEcho:
+	; a0 --- Cutscene
 
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	; Wait for hide animation to finish
-	tst.b  AnimObj_Playing(a0)
-	bne    @End
-	
-	; Next state
-	jsr    l3a3MeetEchoBeginStage_DjakkChase
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
-	
-l3a3MeetEchoBeginStage_DjakkChase:
+	CUTSCENE_START
 
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_DjakkChase, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Alert Djakk, start running
-	PUSHL  a0
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
-	jsr    MonsterStartTrackPlayer
-	MOVE_NTSC_L Monster_MaxVelXRun, d1, d0
-	neg.l  d1
-	move.l d1, PhysicsObj_VelX(a0)
-	POPL   a0
-	
-	; Lerp camera to Djakk
-	PUSHM  a0-a1
-	move.l (Player2), a0
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a1
-	move.l #EchoToNymnCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPM   a0-a1
-	
-	; Init timer
-	move.l #LevelData_L3A3, a2
-	MOVE_NTSC_W EchoGreetDjakkCameraTime, l3a3Data_SceneTimer(a2), d0
-	
-	rts
-	
-l3a3MeetEchoUpdateStage_DjakkChase:
+	; Stop player movement and disable control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
-	; Wait for timer
-	move.l #LevelData_L3A3, a2
-	move.w l3a3Data_SceneTimer(a2), d0
-	subq.w  #0x1, d0
-	move.w d0, l3a3Data_SceneTimer(a2)
-	tst.w  d0
-	bne    @End
-	
-	; Next stage
-	jsr    l3a3MeetEchoBeginStage_WaitDjakkDead
-	
-	@End:
-	
-	rts
+	; Echo emerges
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
-l3a3MeetEchoBeginStage_WaitDjakkDead:
+	; Echo talks
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_CHARACTER_ANIM Player2,#Player_Animations,#PlayerAnimIdx_Talk
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_WaitDjakkDead, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Start scared anim loop
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_Scared*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	POPL   a0
-	
-	; Lerp camera to Nymn
-	PUSHM  a0-a1
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
-	move.l (Player1), a1
-	move.l #EchoToNymnCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPM   a0-a1
+	; Echo runs over to Nymn
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-EchoPounceNymnDistOffset,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
 
-	rts
+	; Echo jumps up to Nymn
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_PounceNymn
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
-l3a3MeetEchoUpdateStage_WaitDjakkDead:
+	; Echo punces on Nymn, greets him, then gets off
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_CHARACTER_ANIM Player1,#Nymn_Animations,#NymnAnimIdx_GreetEcho
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_GreetNymn
 
-	; Wait for Djakk to die
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a3
-	tst.b  Character_Dead(a3)
-	beq    @End
-	
-	; Next state
-	jsr    l3a3MeetEchoBeginStage_WaitNymn
-	
-	@End:
-	
-	rts
+	; Restore Nymn direction
+	CUTSCENE_CHARACTER_ANIM_WAIT Player1
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1
 
-l3a3MeetEchoBeginStage_WaitNymn:
+	; Restore player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_WaitNymn, l3a3Data_MeetEchoSceneStage(a2)
+	; Start Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
-	rts
-
-l3a3MeetEchoUpdateStage_WaitNymn:
-
-	; Waiting for trigger box, nothing to do
-	
-	rts
-
-l3a3MeetEchoBeginStage_StandUp:
-
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_StandUp, l3a3Data_MeetEchoSceneStage(a2)
-
-	; Disable bridge buttons
-	ENTITY_GETBYNAME Button, l3a3_Button5, a2
-	ENTITY_GETBYNAME Button, l3a3_Button6, a3
-	move.b #0x0, Button_Active(a2)
-	move.b #0x0, Button_Active(a3)
-	
-	; Stop Nymn and take control
-	PUSHL  a0
-	move.l (Player1), a0
-	jsr    CharacterCancelXMovement
-	move.b #0x0, Player_ControlEnabled(a0)
-	POPL   a0
-	
-	; Echo start stand up anim
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_StandFromHiding*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	POPL   a0
-	
-	; Lerp camera to Echo
-	PUSHM  a0-a1
-	move.l (Player1), a0
-	move.l (Player2), a1
-	move.l #EchoToNymnCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPM   a0-a1
-	
-	rts
-	
-l3a3MeetEchoUpdateStage_StandUp:
-
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	; Wait for stand animation to finish
-	tst.b  AnimObj_Playing(a0)
-	bne    @End
-	
-	; Next state
-	jsr    l3a3MeetEchoBeginStage_RunToNymn
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
-	
-l3a3MeetEchoBeginStage_RunToNymn:
-
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_RunToNymn, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Release Echo anim control and start running
-	PUSHL  a0
-	move.l (Player2), a0
-	move.b #0x1, Character_UpdateAnim(a0)
-	jsr    CharacterMoveRight
-	POPL   a0
-
-	rts
-
-l3a3MeetEchoUpdateStage_RunToNymn:
-
-	; Run to Nymn
-	PUSHL  a0
-	move.l (Player2), a0
-	jsr    CharacterMoveRight
-	
-	; If touching
-	move.l (Player1), a3
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosX(a3), d1
-	sub.l  #(EchoPounceNymnDistOffset*subpixels_per_pixel), d1
-	cmp.l  d0, d1
-	bgt    @End
-	
-	; Next stage
-	jsr    l3a3MeetEchoBeginStage_JumpNymn
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
-
-l3a3MeetEchoBeginStage_JumpNymn:
-
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_JumpNymn, l3a3Data_MeetEchoSceneStage(a2)
-
-	; Start jump to nymn anim
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_PounceNymn*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	POPL   a0
-	
-	rts
-	
-l3a3MeetEchoUpdateStage_JumpNymn:
-
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	; Wait for pounce animation to finish
-	tst.b  AnimObj_Playing(a0)
-	bne    @End
-	
-	; Next state
-	jsr    l3a3MeetEchoBeginStage_GreetNymn
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
-	
-l3a3MeetEchoBeginStage_GreetNymn:
-
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_GreetNymn, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Start greet Nymn anim
-	PUSHL  a0
-	move.l (Player2), a0
-	
-	PUSHL  a1
-	lea    Echo_Animations+(EchoAnimIdx_GreetNymn*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Release control of anim updates (auto-idle when done)
-	move.b #0x1, Character_UpdateAnim(a0)
-	
-	; Snap to position
-	move.l (Player1), a3
-	move.l Entity_WorldPosX(a3), Entity_WorldPosX(a0)
-	
-	POPL   a0
-	
-	; Start greet Echo anim
-	PUSHL  a0
-	move.l (Player1), a0
-	
-	PUSHL  a1
-	lea    Echo_Animations+(NymnAnimIdx_GreetEcho*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; Take control of anim updates
-	move.b #0x0, Character_UpdateAnim(a0)
-	
-	; Face correct direction
-	move.b #0x0, SpriteObj_FlippedX(a0)
-	
-	POPL   a0
-	
-	rts
-	
-l3a3MeetEchoUpdateStage_GreetNymn:
-
-	PUSHL  a0
-	move.l (Player1), a0
-	
-	; Wait for greet animation to finish
-	tst.b  AnimObj_Playing(a0)
-	bne    @End
-	
-	; Done
-	move.l #LevelData_L3A3, a2
-	move.b #SceneMeetEchoStage_Finished, l3a3Data_MeetEchoSceneStage(a2)
-	
-	; Restore Nymn control
-	move.b #0x1, Character_UpdateAnim(a0)
-	move.b #0x1, Player_ControlEnabled(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	
-	; Set idle anim
-	PUSHL  a1
-	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-	
-	; HACK: Take current anim X offset
-	move.w SpriteObj_DrawOffsetX(a0), d0
-	TOSUBPIXELS d0
-	add.l  d0, Entity_WorldPosX(a0)
-
-	; Get Echo
-	move.l (Player2), a0
-	
-	; HACK: Take current anim X offset
-	move.w SpriteObj_DrawOffsetX(a0), d0
-	TOSUBPIXELS d0
-	add.l  d0, Entity_WorldPosX(a0)
-	
-	; Start Echo AI follow state
-	move.b #0x1, d0
-	jsr    EchoAIStart_Follow
-	
-	; Lerp camera to Nymn
-	PUSHM  a0-a1
-	move.l (Player2), a0
-	move.l (Player1), a1
-	move.l #EchoToNymnCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPM   a0-a1
-	
-	@End:
-	
-	POPL   a0
-	
-	rts
-
-l3a3MeetEchoSceneUpdate:
-
-	move.l #LevelData_L3A3, a2
-	move.b l3a3Data_MeetEchoSceneStage(a2), d0
-	cmp.b  #SceneMeetEchoStage_RunScared, d0
-	beq    @RunScared
-	cmp.b  #SceneMeetEchoStage_Hide, d0
-	beq    @Hide
-	cmp.b  #SceneMeetEchoStage_DjakkChase, d0
-	beq    @DjakkChase
-	cmp.b  #SceneMeetEchoStage_WaitDjakkDead, d0
-	beq    @WaitDjakkDead
-	cmp.b  #SceneMeetEchoStage_StandUp, d0
-	beq    @StandUp
-	cmp.b  #SceneMeetEchoStage_RunToNymn, d0
-	beq    @RunToNymn
-	cmp.b  #SceneMeetEchoStage_WaitNymn, d0
-	beq    @WaitNymn
-	cmp.b  #SceneMeetEchoStage_JumpNymn, d0
-	beq    @JumpNymn
-	cmp.b  #SceneMeetEchoStage_GreetNymn, d0
-	beq    @GreetNymn
-	bra    @End
-
-	@RunScared:
-	jsr    l3a3MeetEchoUpdateStage_RunScared
-	bra    @End
-
-	@Hide:
-	jsr    l3a3MeetEchoUpdateStage_Hide
-	bra    @End
-	
-	@DjakkChase:
-	jsr    l3a3MeetEchoUpdateStage_DjakkChase
-	bra    @End
-
-	@WaitDjakkDead:
-	jsr    l3a3MeetEchoUpdateStage_WaitDjakkDead
-	bra    @End
-
-	@WaitNymn:
-	jsr    l3a3MeetEchoUpdateStage_WaitNymn
-	bra    @End
-	
-	@StandUp:
-	jsr    l3a3MeetEchoUpdateStage_StandUp
-	bra    @End
-	
-	@RunToNymn:
-	jsr    l3a3MeetEchoUpdateStage_RunToNymn
-	bra    @End
-	
-	@JumpNymn:
-	jsr    l3a3MeetEchoUpdateStage_JumpNymn
-	bra    @End
-
-	@GreetNymn:
-	jsr    l3a3MeetEchoUpdateStage_GreetNymn
-	bra    @End
-
-	@End:
+	CUTSCENE_END
 
 	rts
 
