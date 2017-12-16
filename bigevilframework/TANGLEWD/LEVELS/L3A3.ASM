@@ -74,6 +74,8 @@ EchoToNymnCamLerpSpeed				equ 0x40	; Camera lerp speed
 EchoGreetCustsceneStartDelay		equ 0x20	; Delay to start cutscene
 EchoGreetDjakkCameraTime			equ 0x78	; Time to view chasing Djakk
 EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
+NymnGreetCutsceneLastFrameOffset	equ 0x0040
+EchoGreetCutsceneLastFrameOffset	equ 0x0040
 	
 ; ************************************
 ; Runtime data
@@ -519,18 +521,21 @@ l3a3_CutsceneSaveEcho:
 	; TODO: Nymn faces Echo
 
 	; Djakk begins chase
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
-	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
+	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	;CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
+	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	;MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
+	;CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
 
 	; Pan camera to Djakk
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
+	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	;CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
 
 	; Wait
-	CUTSCENE_DELAY #EchoGreetDjakkCameraTime
+	;CUTSCENE_DELAY #EchoGreetDjakkCameraTime
+
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Character_Dead,#0x1
 
 	; Pan camera back to Nymn
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
@@ -572,18 +577,47 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
 
+	; Take anim control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_UpdateAnim,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x0
+
 	; Echo jumps up to Nymn
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_PounceNymn
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
-	; Echo punces on Nymn, greets him, then gets off
+	; Lerp camera to Nymn
+	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+
+	; Lock Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_LockSpriteFlip,#0x1
+
+	; Echo pounces on Nymn, greets him, then gets off
 	CUTSCENE_CHARACTER_ANIM Player1,#Nymn_Animations,#NymnAnimIdx_GreetEcho
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_GreetNymn
-
-	; Restore Nymn direction
 	CUTSCENE_CHARACTER_ANIM_WAIT Player1
+
+	; Restore anim control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_UpdateAnim,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x1
+
+	; Run cleanup steps all at once
+	CUTSCENE_TICKMODE_CONTINUOUS
+
+	; Offset character position to match last anim frames
+	move.l Player1, a3
+	move.l Entity_WorldPosX(a3), d3
+	addi.l #NymnGreetCutsceneLastFrameOffset*subpixels_per_pixel, d3
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#Entity_WorldPosX,d3
+
+	move.l Player2, a3
+	move.l Entity_WorldPosX(a3), d3
+	addi.l #EchoGreetCutsceneLastFrameOffset*subpixels_per_pixel, d3
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#Entity_WorldPosX,d3
+
+	; Restore Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_LockSpriteFlip,#0x0
 
 	; Restore player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1

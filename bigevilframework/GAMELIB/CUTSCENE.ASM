@@ -8,6 +8,9 @@
 
 Custscene_MaxBackupRegs		equ 0x10
 
+CutsceneTickMode_InstrPerFrame	equ 0x0
+CutsceneTickMode_Continuous		equ 0x1
+
 	rsset 0
 ;-----------------------------
 	LINKED_LIST_NODE ActiveCutscenes ; Next in update linked list
@@ -17,6 +20,7 @@ Cutscene_TempData			rs.l 1
 Cutscene_RegsBackup			rs.b (Custscene_MaxBackupRegs*size_long)
 Cutscene_Playing			rs.b 1
 Cutscene_RegsStored			rs.b 1
+Cutscene_TickMode			rs.b 1
 ;---------------------------------
 	RS_ALIGN
 Cutscene_Struct_Size		rs.b 0
@@ -27,6 +31,7 @@ CutsceneInit:
 
 	move.l a1, Cutscene_TickRoutine(a0)
 	move.b #0x0, Cutscene_Playing(a0)
+	move.b #CutsceneTickMode_InstrPerFrame, Cutscene_TickMode(a0)
 	move.l #0x0, List_ActiveCutscenes_Next(a0)
 
 	rts
@@ -475,6 +480,8 @@ CUTSCENE_RUN_STEP: macro address
 	move.b #0x0, Cutscene_RegsStored(a0)
 	move.l #\@NextRoutine\@, Cutscene_TickRoutine(a0)	; Store end of routine as next routine
 	\@Continue\@:
+	cmp.b  #CutsceneTickMode_InstrPerFrame, Cutscene_TickMode(a0)
+	bne    \@NextRoutine\@
 	rts
 	\@NextRoutine\@:									; Next routine address
 	endm
@@ -484,6 +491,14 @@ CUTSCENE_START: macro
 
 CUTSCENE_END: macro
 	jsr    CutsceneStop
+	endm
+
+CUTSCENE_TICKMODE_INSTR_PER_FRAME: macro
+	move.b #CutsceneTickMode_InstrPerFrame, Cutscene_TickMode(a0)
+	endm
+	
+CUTSCENE_TICKMODE_CONTINUOUS: macro
+	move.b #CutsceneTickMode_Continuous, Cutscene_TickMode(a0)
 	endm
 
 CUTSCENE_GET_ENTITY: macro typename,name,addrreg
