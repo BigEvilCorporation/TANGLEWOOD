@@ -284,7 +284,7 @@ L6A2_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x16d00000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A2_Log2_name, a3
@@ -297,7 +297,7 @@ L6A2_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x1ab00000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A2_Log3_name, a3
