@@ -81,13 +81,14 @@ Bridge_UnrollPos		rs.l 1
 Bridge_Speed			rs.l 1
 Bridge_DropTargetY		rs.w 1
 Bridge_Mode				rs.b 1
-Bridge_Buoyant			rs.b 1
-Bridge_DropUnderWeight	rs.b 1
+Bridge_Buoyant			rs.b 1	; Drop bridges float on water
+Bridge_DropUnderWeight	rs.b 1	; Drop bridges drop under any weight
 Bridge_State			rs.b 1
 Bridge_InView			rs.b 1
 Bridge_PlatformActive	rs.b 1
 Bridge_BarrierActive	rs.b 1
 Bridge_UpdateOutOfView	rs.b 1
+Bridge_ForceBarrier		rs.b 1	; Barrier enabled even if rolling downward
 ;-----------------------------
 	RS_ALIGN
 Bridge_Struct_Size		rs.b 0
@@ -130,6 +131,7 @@ BridgeInit:
 	move.b  #0x0, Bridge_PlatformActive(a0)
 	move.b  #0x0, Bridge_BarrierActive(a0)
 	move.b  #0x0, Bridge_UpdateOutOfView(a0)
+	move.b  #0x0, Bridge_ForceBarrier(a0)
 
 	; Zero Y offsets and velocities
 	lea     Bridge_NotchYPos(a0), a2
@@ -499,8 +501,12 @@ BridgeDeactivatePlatform:
 
 BridgeActivateBarrier:
 
+	tst.b  Bridge_ForceBarrier(a0)
+	bne    @ForceBarrier
 	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @NoBarrier
+
+	@ForceBarrier:
 
 	tst.b  Bridge_BarrierActive(a0)
 	bne    @AlreadyActive
@@ -515,8 +521,12 @@ BridgeActivateBarrier:
 
 BridgeDeactivateBarrier:
 
+	tst.b  Bridge_ForceBarrier(a0)
+	bne    @ForceBarrier
 	cmp.b  #Bridge_ModeRollDown, Bridge_Mode(a0)
 	beq    @NoBarrier
+
+	@ForceBarrier:
 
 	tst.b  Bridge_BarrierActive(a0)
 	beq    @AlreadyInactive

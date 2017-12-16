@@ -790,6 +790,7 @@ L6A1_LoadGameObjects:
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateClosed, Bridge_State(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x1, Bridge_ForceBarrier(a0)
 	jsr BridgeLoadGfx
 	IFND FINAL
 	lea L6A1_Bridge3_name, a3
