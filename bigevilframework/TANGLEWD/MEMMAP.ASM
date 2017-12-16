@@ -341,6 +341,7 @@ AutotestData			 rs.b Autotest_Struct_Size
 SharedVRAM_Start		rs.b 0
 
 SharedVRAM_Lift			rs.w 1
+SharedVRAM_Cargolft		rs.w 1
 SharedVRAM_Stone		rs.w 1
 SharedVRAM_DjakCage		rs.w 1
 SharedVRAM_Crate		rs.w 1

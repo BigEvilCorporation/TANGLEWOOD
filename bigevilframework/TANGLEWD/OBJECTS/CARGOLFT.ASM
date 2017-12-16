@@ -60,7 +60,7 @@ CargoLiftLoadGfx:
 	tst.b CargoLift_ManualGfxLoad(a0)
 	bne   @ManualLoad
 
-	SPRITE_LOAD_DEFAULT cargolft,cargo_lift,0,PaletteId_World0,0x0
+	SPRITE_LOAD_SHARED cargolft,cargo_lift,0,PaletteId_World0,0x0
 
 	@ManualLoad:
 

@@ -61,7 +61,8 @@ l5a3_CamShakeAmp				equ 0x0180
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
-l5a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
+l5a3Data_CutsceneLoadLift1		rs.b Cutscene_Struct_Size
+l5a3Data_CutsceneLoadLift2		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealScrap	rs.b Cutscene_Struct_Size
 ;---------------------------------
@@ -98,8 +99,13 @@ l5a3_Init:
 	; Init cutscenes
 	PUSHM  a0-a1
 	lea    LevelData_L5A3, a2
-	lea    l5a3Data_CutsceneLoadLift(a2), a0
-	move.l #l5a3_CutsceneLoadLift, a1
+	lea    l5a3Data_CutsceneLoadLift1(a2), a0
+	move.l #l5a3_CutsceneLoadLift1, a1
+	jsr    CutsceneInit
+
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneLoadLift2(a2), a0
+	move.l #l5a3_CutsceneLoadLift2, a1
 	jsr    CutsceneInit
 
 	lea    LevelData_L5A3, a2
@@ -128,18 +134,9 @@ l5a3_Init:
 	ENTITY_GETBYNAME Cogs, l5a3_Cogs3, a1
 	move.l a1, Generator_Cogs(a0)
 
-	; Connect generators to buttons, and disable buttons by default
-	ENTITY_GETBYNAME Generator, l5a3_Generator1, a0
-	ENTITY_GETBYNAME Button, l5a3_Button2, a1
-	move.l a1, Generator_UserData(a0)
-	move.l #ButtonActivate, Generator_OnActivate(a0)
-	move.b #0x0, Button_Active(a1)
-
+	; Connect generator to winch
 	ENTITY_GETBYNAME Generator, l5a3_Generator2, a0
-	ENTITY_GETBYNAME Button, l5a3_Button3, a1
-	move.l a1, Generator_UserData(a0)
-	move.l #ButtonActivate, Generator_OnActivate(a0)
-	move.b #0x0, Button_Active(a1)
+	move.l #l5a3_ActivateWinch, Generator_OnActivate(a0)
 
 	; Connect winches together
 	ENTITY_GETBYNAME Winch, l5a3_Winch1, a0
@@ -157,21 +154,17 @@ l5a3_Init:
 	move.b #0x1, Button_Active(a0)
 
 	ENTITY_GETBYNAME Button, l5a3_Button2, a0
-	ENTITY_GETBYNAME Bridge, l5a3_TEMP_Bridge2, a1
+	ENTITY_GETBYNAME Bridge, l5a3_Bridge2, a1
 	move.l a1, Button_UserData(a0)
-	move.l #BridgeBeginDrop, Button_OnDown(a0)
+	move.l #BridgeBeginRoll, Button_OnDown(a0)
+	move.l #BridgeBeginUnroll, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
 
 	ENTITY_GETBYNAME Button, l5a3_Button4, a0
 	ENTITY_GETBYNAME Bridge, l5a3_Bridge3, a1
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
-
-	; Connect buttons to winches
-	ENTITY_GETBYNAME Button, l5a3_Button3, a0
-	ENTITY_GETBYNAME Winch, l5a3_Winch1, a1
-	move.l a1, Button_UserData(a0)
-	move.l #Winch_RunClockwise, Button_OnDown(a0)
 
 	;==============================================================
 
@@ -196,6 +189,14 @@ l5a3_Init:
 	rts
 	
 l5a3_Update:
+
+	; If Djakk dead, disable bridge button
+	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
+	tst.b  Character_Dead(a0)
+	beq    @NotDead
+	ENTITY_GETBYNAME Button, l5a3_Button2, a0
+	move.b #0x0, Button_Active(a0)
+	@NotDead:
 
 	rts
 	
@@ -275,6 +276,21 @@ l5a3_Button_Bridge1:
 
 	rts
 
+l5a3_ActivateWinch:
+
+	; Remove raft from world grid to update out of view
+	ENTITY_GETBYNAME Raft, l5a3_Raft1, a0
+	jsr    EntityAddToUpdateList
+	jsr    PhysicsWorldAddObject
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+
+	; Start winch
+	ENTITY_GETBYNAME Winch, l5a3_Winch1, a0
+	jsr    Winch_RunClockwise
+
+	rts
+
 l5a3_Trigger_Scrap:
 
 	PUSHL  a0
@@ -318,7 +334,39 @@ l5a3_Trigger_Demon:
 
 	rts
 
-l5a3_Trigger_CargoLift:
+l5a3_Trigger_CargoLift1:
+
+	; Check generator active
+	ENTITY_GETBYNAME Generator, l5a3_Generator1, a0
+	tst.b  Generator_Running(a0)
+	beq    @GeneratorInactive
+
+	; Check Echo onboard
+	PUSHL  a1
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift1, a0
+	move.l Player2, a1
+	jsr    PHYS_TestEntityBoxInsideBox
+	POPL   a1
+	tst.b  d0
+	beq    @NoEcho
+
+	; Disable trigger
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift1, a0
+	move.b #0x0, Entity_Active(a0)
+
+	; Run cutscene to get players into place on lift
+	PUSHL  a0
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneLoadLift1(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	@GeneratorInactive:
+	@NoEcho:
+
+	rts
+
+l5a3_Trigger_CargoLift2:
 
 	; Check generator active
 	ENTITY_GETBYNAME Generator, l5a3_Generator3, a0
@@ -327,7 +375,7 @@ l5a3_Trigger_CargoLift:
 
 	; Check Echo onboard
 	PUSHL  a1
-	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift, a0
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift2, a0
 	move.l Player2, a1
 	jsr    PHYS_TestEntityBoxInsideBox
 	POPL   a1
@@ -335,7 +383,7 @@ l5a3_Trigger_CargoLift:
 	beq    @NoEcho
 
 	; Disable trigger
-	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift, a0
+	ENTITY_GETBYNAME TriggerBox, l5a3_TriggerCargoLift2, a0
 	move.b #0x0, Entity_Active(a0)
 
 	; TODO: Stop Scrap barking
@@ -343,7 +391,7 @@ l5a3_Trigger_CargoLift:
 	; Run cutscene to get players into place on lift
 	PUSHL  a0
 	lea    LevelData_L5A3, a2
-	lea    l5a3Data_CutsceneLoadLift(a2), a0
+	lea    l5a3Data_CutsceneLoadLift2(a2), a0
 	jsr    CutscenePlay
 	POPL   a0
 
@@ -370,7 +418,7 @@ l5a3_TriggerEchoStopGlide:
 
 	rts
 
-l5a3_CutsceneLoadLift:
+l5a3_CutsceneLoadLift1:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
@@ -382,19 +430,76 @@ l5a3_CutsceneLoadLift:
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
 
 	; Both players run to centre of lift
-	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift1,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
 	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
-	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift1,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
 	CUTSCENE_DELAY #0x0020
 
 	; Activate lift
-	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift,a2
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift1,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateDown
+
+	; Wait for lift to hit floor
+	CUTSCENE_ROUTINE l5a3_Cutscene_WaitLiftHitFloor,#0x0,#0x0,#0x0
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Enable Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
+
+	; Clear follow-only behaviour
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_AILinearFollowOnly,#0x0
+
+	CUTSCENE_END
+
+	rts
+
+l5a3_CutsceneLoadLift2:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+
+	; Disable Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+
+	; Both players run to centre of lift
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift2,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift2,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+	CUTSCENE_DELAY #0x0020
+
+	; Activate lift
+	CUTSCENE_GET_ENTITY CargoLift,l5a3_CargoLift2,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateUp
 
 	CUTSCENE_END
+
+	rts
+
+l5a3_Cutscene_WaitLiftHitFloor:
+
+	PUSHL  a0
+
+	move.b #0x1, d0
+
+	; Wait for lift to hit floor
+	ENTITY_GETBYNAME CargoLift, l5a3_CargoLift1, a0
+	tst.b PhysicsObj_CloseToFloor(a0)
+	beq   @StillMoving
+	move.b #0x0, d0
+	@StillMoving:
+
+	POPL   a0
 
 	rts
 	
