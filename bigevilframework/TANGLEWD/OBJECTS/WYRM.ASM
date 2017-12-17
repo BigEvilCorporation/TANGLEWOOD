@@ -48,6 +48,8 @@ Wyrm_DebrisSpriteDrawInterval	equ 0x10
 Wyrm_DebrisDrawOffsetX	equ (Wyrm_Width/2)-(Wyrm_DebrisSpriteWidth/2)
 Wyrm_DebrisDrawOffsetY	equ Wyrm_Height ; (Wyrm_Height-Wyrm_DebrisSpriteHeight)
 
+Wyrm_MaxSnapToFloorSearchTiles	equ 0x10	; Max search distance to find floor after switching sand dune
+
 ; ************************************
 ; States
 ; ************************************
@@ -462,6 +464,10 @@ WyrmFindSandDune:
 	move.l (a2)+, d2
 	move.w (a2)+, d3
 
+	; Backup for return val
+	move.l d1, d5
+	move.l d2, d6
+
 	; Check 'special' type
 	andi.w #col_tile_flag_special, d3
 	beq    @NextTerrain
@@ -500,8 +506,9 @@ WyrmFindSandDune:
 	@NoTerrain:
 	@WithinTerrain:
 
-	swap   d1
-	swap   d2
+	; Retrieve return val
+	move.l d5, d1
+	move.l d6, d2
 
 	rts
 
@@ -596,9 +603,9 @@ WyrmAIStart_Emerge
 	TOPIXELS d5
 	subi.w #vdp_sprite_border_y, d5
 	cmp.w  d5, d3
-	bge    @NotInDune
-	cmp.w  d5, d4
 	ble    @NotInDune
+	cmp.w  d5, d4
+	bge    @NotInDune
 	
 	bra    @AlreadyinDune
 	
@@ -608,7 +615,7 @@ WyrmAIStart_Emerge
 
 	@NotInDune: 
 	; else emerge from nearest edge of dune
-	move.l d1, d4	; Use left marker pos by default
+	move.l d1, d4	; Use left+top by default
 	addi.l #(Wyrm_EmergeOffsetFromEdge<<16), d4	; Offset from edge
 	move.l d1, d5
 	move.l d2, d6
@@ -620,7 +627,8 @@ WyrmAIStart_Emerge
 	ABSW   d6
 	cmp.w  d5, d6	; Get smallest dist
 	bge    @LeftMarker
-	move.l d2, d4	; Use right marker pos
+	move.l d2, d4	; Use right+top marker pos
+	move.w d1, d4
 	subi.l #(Wyrm_EmergeOffsetFromEdge+Wyrm_Width)<<16, d4	; Offset from edge
 	@LeftMarker:
 
@@ -638,7 +646,20 @@ WyrmAIStart_Emerge
 	move.l d4, Entity_WorldPosX(a0)			; Set X
 	
 	; Snap to floor
+	move.b #0x0, PhysicsObj_CloseToFloor(a0)
+	move.w #Wyrm_MaxSnapToFloorSearchTiles-1, d0
+	@FloorSearchLp:
+	PUSHW  d0
 	jsr    PhysicsObjSnapToFloor
+	POPW   d0
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @FoundFloor
+	addi.w #0x8, Entity_WorldPosY(a0)
+	dbra   d0, @FloorSearchLp
+	@FoundFloor:
+	
+	; Clear wall flags
+	move.b #0x0, PhysicsObj_HitWall(a0)
 
 	@AlreadyinDune:
 
@@ -846,12 +867,14 @@ WyrmAIUpdate_Follow:
 	move.w Wyrm_CurrentDuneLeft(a0), d2		; Get sand dune left
 	cmp.w  d0, d2							; Check left bounds
 	blt    @WithinDune
+	bra    @OutOfDune
 
 	@CheckRight:
 	move.w Wyrm_CurrentDuneRight(a0), d3	; Get sand dune right
 	cmp.w  d1, d3							; Check right bounds
 	bgt    @WithinDune
-
+	
+	@OutOfDune:
 	@PlayerDead:
 	@Burrow:
 	jsr    WyrmAIStart_Burrow
@@ -919,7 +942,7 @@ WyrmAIUpdate_Bite:
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
 	
-	; Straight to to idle state, burrown anim is embedded in attack anim
+	; Straight to to idle state, burrow anim is embedded in attack anim
 	jsr    WyrmAIStart_Idle
 	
 	@OutOfHitBox:

@@ -912,6 +912,9 @@ EchoHowl:
 EchoUpdateAI:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	
+	cmp.b  #EchoAIState_None, Echo_AIState(a0)
+	beq    @End
 
 	; If dead and off screen, revive and force lost state
 	tst.b  Character_Dead(a0)
@@ -926,7 +929,7 @@ EchoUpdateAI:
 	; Record last dry land pos
 	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
-	move.b PhysicsObj_Underwater(a0), d0
+	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 	move.w Entity_WorldPosX(a0), Echo_AILastDryLandY(a0)
 	@InAir:
