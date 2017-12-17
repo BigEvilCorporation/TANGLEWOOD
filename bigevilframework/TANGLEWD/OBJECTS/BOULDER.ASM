@@ -23,7 +23,8 @@ Boulder_AnimSpeedVelDiv		equ 0x0800
 Boulder_RollSFXVel			equ 0x002000
 Boulder_HitGroundSFXVel		equ 0x050000	; Min downward velocity to play thud SFX
 Boulder_MinDamageYVel		equ 0x050000	; Min downward velocity to deal damage to characters
-Boulder_HitDamage			equ 0xFF	; Damage dealt to characters
+Boulder_HitDamage			equ 0xFF		; Damage dealt to characters
+Boulder_HitDamageBorgus		equ 0xFF/Borgus_NumLives	; Special case for Borgus fight
 
 Boulder_MinCrackYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
 
@@ -520,7 +521,7 @@ BoulderCheckBorgus:
 	; Boulder hit a Borgus, deal damage
 	PUSHL  a0
 	move.l a1, a0
-	move.l #Boulder_HitDamage, d0
+	move.l #Boulder_HitDamageBorgus, d0
 	jsr    CharacterDealDamage
 	POPL   a0
 
@@ -528,8 +529,11 @@ BoulderCheckBorgus:
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 
-	; Crack open
+	; If dead, crack open
+	tst.b  Character_Dead(a1)
+	beq    @NotDead
 	jsr    BoulderCrack
+	@NotDead:
 	
 	; Disable crack/respawn
 	move.b #0x0, Boulder_CanCrack(a0)

@@ -37,6 +37,7 @@ CheckpointInit:
 	;jsr    EntityAddToUpdateList
 	jsr    EntityAddToSerialiseList
 	
+	move.b #0x1, Entity_Active(a0)
 	move.w #Checkpoint_Width, Entity_Width(a0)
 	move.w #Checkpoint_Height, Entity_Height(a0)
 	move.b #0x0, Checkpoint_Activated(a0)

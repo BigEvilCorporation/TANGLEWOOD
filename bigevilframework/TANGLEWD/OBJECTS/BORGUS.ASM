@@ -33,13 +33,14 @@ Borgus_BoundsHeight		equ (Borgus_Height-0x40)
 Borgus_BoundsOffsetX	equ (Borgus_Width/2)-(Borgus_BoundsWidth/2)
 Borgus_BoundsOffsetY	equ (Borgus_Height/2)-(Borgus_BoundsHeight/2)
 
-Borgus_DefaultSpitTime	equ 0x0100
+Borgus_DefaultSpitTime	equ 0x0200
 Borgus_SpitOffsetX		equ 0x0030
 Borgus_SpitOffsetY		equ 0x0040
 Borgus_SpitAnimFrame	equ 0x2
 Borgus_SwipeAnimFrame1	equ 0x2
 Borgus_SwipeAnimFrame2	equ 0x4
 
+Borgus_NumLives			equ 3
 Borgus_PlayerDamage		equ 0xFF
 
 ; AI
@@ -186,6 +187,9 @@ BorgusLoadGfx:
 	ANIM_LOAD_DEFAULT Borgus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Run,1,0,0
+
+	; TODO
+	ANIM_LOAD_DEFAULT Borgus,attack,attack,Character_Animations,CharacterAnimIdx_TakeDamage,0,1,0
 
 	; Load bespoke animations
 	ANIM_LOAD_DEFAULT Borgus,spit,spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0

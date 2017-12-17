@@ -140,15 +140,28 @@ l4a3_Init:
 	move.l a1, Generator_UserData(a0)
 	move.l #l3a3_ReleaseTraps, Generator_OnActivate(a0)
 
-	; Set lift stop point
+	; Set lift stop points
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a0
-	ENTITY_GETBYNAME Location, l4a3_LocationBoulderLiftStop, a1
+	ENTITY_GETBYNAME Location, l4a3_LocationBoulderLiftStop1, a1
 	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
 	move.b #0x1, Lift_RestrictHeight(a0)
 
-	; Connect button to lift
+	ENTITY_GETBYNAME Lift, l4a3_Lift2, a0
+	ENTITY_GETBYNAME Location, l4a3_LocationBoulderLiftStop2, a1
+	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
+	move.b #0x1, Lift_RestrictHeight(a0)
+
+	; Connect buttons to lifts
 	ENTITY_GETBYNAME Button, l4a3_Button1, a0
 	ENTITY_GETBYNAME Lift, l4a3_Lift1, a1
+	move.l a1, Button_UserData(a0)
+	move.l #LiftActivateUp, Button_OnDown(a0)
+	move.l #LiftActivateDown, Button_OnUp(a0)
+	move.b #0x1, Button_Active(a0)
+	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	ENTITY_GETBYNAME Button, l4a3_Button2, a0
+	ENTITY_GETBYNAME Lift, l4a3_Lift2, a1
 	move.l a1, Button_UserData(a0)
 	move.l #LiftActivateUp, Button_OnDown(a0)
 	move.l #LiftActivateDown, Button_OnUp(a0)

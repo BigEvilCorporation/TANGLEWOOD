@@ -139,14 +139,13 @@ L4A3_Checkpoint_57_name	dc.b "L4A3_Checkpoint_57",0
 	even
 	ENDIF
 
-L4A3_WaterBody_count equ 0x7
+L4A3_WaterBody_count equ 0x6
 L4A3_WaterBody_6_idx	equ 0x0
 L4A3_WaterBody_7_idx	equ 0x1
 L4A3_WaterBody_8_idx	equ 0x2
 L4A3_WaterBody_9_idx	equ 0x3
 L4A3_WaterBody_10_idx	equ 0x4
-L4A3_WaterBody_13_idx	equ 0x5
-L4A3_WaterBody_14_idx	equ 0x6
+L4A3_WaterBody_64_idx	equ 0x5
 
 	IFND FINAL
 L4A3_WaterBody_6_name	dc.b "L4A3_WaterBody_6",0
@@ -154,26 +153,29 @@ L4A3_WaterBody_7_name	dc.b "L4A3_WaterBody_7",0
 L4A3_WaterBody_8_name	dc.b "L4A3_WaterBody_8",0
 L4A3_WaterBody_9_name	dc.b "L4A3_WaterBody_9",0
 L4A3_WaterBody_10_name	dc.b "L4A3_WaterBody_10",0
-L4A3_WaterBody_13_name	dc.b "L4A3_WaterBody_13",0
-L4A3_WaterBody_14_name	dc.b "L4A3_WaterBody_14",0
+L4A3_WaterBody_64_name	dc.b "L4A3_WaterBody_64",0
 	even
 	ENDIF
 
-L4A3_Location_count equ 0x1
-L4A3_LocationBoulderLiftStop_idx	equ 0x0
+L4A3_Location_count equ 0x2
+L4A3_LocationBoulderLiftStop1_idx	equ 0x0
+L4A3_LocationBoulderLiftStop2_idx	equ 0x1
 
 	IFND FINAL
-L4A3_LocationBoulderLiftStop_name	dc.b "L4A3_LocationBoulderLiftStop",0
+L4A3_LocationBoulderLiftStop1_name	dc.b "L4A3_LocationBoulderLiftStop1",0
+L4A3_LocationBoulderLiftStop2_name	dc.b "L4A3_LocationBoulderLiftStop2",0
 	even
 	ENDIF
 
 L4A3_Deathbox_count equ 0x0
 
-L4A3_Lift_count equ 0x1
+L4A3_Lift_count equ 0x2
 L4A3_Lift1_idx	equ 0x0
+L4A3_Lift2_idx	equ 0x1
 
 	IFND FINAL
 L4A3_Lift1_name	dc.b "L4A3_Lift1",0
+L4A3_Lift2_name	dc.b "L4A3_Lift2",0
 	even
 	ENDIF
 
@@ -203,11 +205,13 @@ L4A3_Cogs3_name	dc.b "L4A3_Cogs3",0
 	even
 	ENDIF
 
-L4A3_Button_count equ 0x1
+L4A3_Button_count equ 0x2
 L4A3_Button1_idx	equ 0x0
+L4A3_Button2_idx	equ 0x1
 
 	IFND FINAL
 L4A3_Button1_name	dc.b "L4A3_Button1",0
+L4A3_Button2_name	dc.b "L4A3_Button2",0
 	even
 	ENDIF
 
@@ -407,8 +411,8 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BorgusInit
-	move.l #0x0fa00000, Entity_WorldPosX(a0)
-	move.l #0x05180000, Entity_WorldPosY(a0)
+	move.l #0x0fc00000, Entity_WorldPosX(a0)
+	move.l #0x04f80000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BorgusLoadGfx
 	IFND FINAL
@@ -431,7 +435,7 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BoulderInit
-	move.l #0x10300000, Entity_WorldPosX(a0)
+	move.l #0x10b00000, Entity_WorldPosX(a0)
 	move.l #0x05500000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
@@ -453,8 +457,8 @@ L4A3_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x10080000, Entity_WorldPosX(a0)
-	move.l #0x05180000, Entity_WorldPosY(a0)
+	move.l #0x0fe00000, Entity_WorldPosX(a0)
+	move.l #0x04e00000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -651,7 +655,7 @@ L4A3_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x11880000, Entity_WorldPosX(a0)
+	move.l #0x12080000, Entity_WorldPosX(a0)
 	move.l #0x04700000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
@@ -738,22 +742,11 @@ L4A3_LoadGameObjects:
 	jsr WaterBodyInit
 	move.l #0x0d900000, Entity_WorldPosX(a0)
 	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.w #0x0200, Entity_Width(a0)
+	move.w #0x0020, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L4A3_WaterBody_13_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WaterBody_Struct_Size, a0
-
-	jsr WaterBodyInit
-	move.l #0x0ec00000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
-	jsr WaterBodyLoadGfx
-	IFND FINAL
-	lea L4A3_WaterBody_14_name, a3
+	lea L4A3_WaterBody_64_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -773,7 +766,20 @@ L4A3_LoadGameObjects:
 	move.l #0x04f00000, Entity_WorldPosY(a0)
 	jsr LocationLoadGfx
 	IFND FINAL
-	lea L4A3_LocationBoulderLiftStop_name, a3
+	lea L4A3_LocationBoulderLiftStop1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
+
+	jsr LocationInit
+	move.l #0x0fe80000, Entity_WorldPosX(a0)
+	move.l #0x04c00000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L4A3_LocationBoulderLiftStop2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -795,6 +801,19 @@ L4A3_LoadGameObjects:
 	jsr LiftLoadGfx
 	IFND FINAL
 	lea L4A3_Lift1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Lift_Struct_Size, a0
+
+	jsr LiftInit
+	move.l #0x0fd00000, Entity_WorldPosX(a0)
+	move.l #0x05780000, Entity_WorldPosY(a0)
+	jsr LiftLoadGfx
+	IFND FINAL
+	lea L4A3_Lift2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
@@ -908,6 +927,19 @@ L4A3_LoadGameObjects:
 	jsr ButtonLoadGfx
 	IFND FINAL
 	lea L4A3_Button1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Button_Struct_Size, a0
+
+	jsr ButtonInit
+	move.l #0x10480000, Entity_WorldPosX(a0)
+	move.l #0x05800000, Entity_WorldPosY(a0)
+	jsr ButtonLoadGfx
+	IFND FINAL
+	lea L4A3_Button2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0

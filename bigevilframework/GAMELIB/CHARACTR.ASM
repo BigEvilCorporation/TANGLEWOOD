@@ -41,8 +41,9 @@ CharacterAnimIdx_RideTrot	equ 12
 CharacterAnimIdx_RideGallop	equ 13
 CharacterAnimIdx_RideJump	equ 14
 CharacterAnimIdx_Climb		equ 15
+CharacterAnimIdx_TakeDamage	equ 16
 ; -------------------------------
-Character_NumAnims			equ 16
+Character_NumAnims			equ 17
 
 ; ************************************
 ; SFX ids
@@ -284,6 +285,17 @@ CharacterDealDamage:
 	
 	; If already dead, do nothing
 	beq    @AlreadyDead
+
+	; Cancel all actions
+	PUSHMW d0-d1
+	jsr    CharacterCancelXMovement
+	jsr    CharacterCancelJump
+	move.b #0x0, Character_Interacting(a0)
+	
+	; Cancel velocity
+	move.l #0x0, PhysicsObj_VelX(a0)
+	move.l #0x0, PhysicsObj_VelY(a0)
+	POPMW  d0-d1
 	
 	; Subtract health
 	sub.b  d0, d1
@@ -300,18 +312,21 @@ CharacterDealDamage:
 	IF !AUTOTEST_ENABLED
 	move.b #0x1, Character_Dead(a0)
 	ENDIF
-	
-	; Cancel all actions
-	jsr    CharacterCancelXMovement
-	jsr    CharacterCancelJump
-	move.b #0x0, Character_Interacting(a0)
-	
-	; Cancel velocity
-	move.l #0x0, PhysicsObj_VelX(a0)
-	move.l #0x0, PhysicsObj_VelY(a0)
-	
-	@AlreadyDead:
+
+	bra    @AlreadyDead
+
 	@StillAlive:
+
+	; Play take damage anim
+	PUSHL  a1
+	lea    Character_Animations+(CharacterAnimIdx_TakeDamage*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
+
+	@AlreadyDead:
 	
 	rts
 	
