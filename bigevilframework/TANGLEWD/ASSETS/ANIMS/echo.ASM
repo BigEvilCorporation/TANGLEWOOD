@@ -592,7 +592,7 @@ actor_echo_sheet_hide_anim_hide_track_sfx:
 
 actor_echo_sheet_greetnymn_anim_greetnymn:
 actor_echo_sheet_greetnymn_anim_greetnymn_numframes: equ 0x22
-actor_echo_sheet_greetnymn_anim_greetnymn_speed: equ 0x28
+actor_echo_sheet_greetnymn_anim_greetnymn_speed: equ 0x1E
 actor_echo_sheet_greetnymn_anim_greetnymn_track_frames:
 	dc.l actor_echo_sheet_greetnymn_frame_0_header
 	dc.l actor_echo_sheet_greetnymn_frame_1_header
@@ -642,7 +642,7 @@ actor_echo_sheet_greetnymn_anim_greetnymn_track_sfx:
 
 actor_echo_sheet_pouncenymn_anim_pouncenymn:
 actor_echo_sheet_pouncenymn_anim_pouncenymn_numframes: equ 0x5
-actor_echo_sheet_pouncenymn_anim_pouncenymn_speed: equ 0x28
+actor_echo_sheet_pouncenymn_anim_pouncenymn_speed: equ 0x1E
 actor_echo_sheet_pouncenymn_anim_pouncenymn_track_frames:
 	dc.l actor_echo_sheet_pouncenymn_frame_0_header
 	dc.l actor_echo_sheet_pouncenymn_frame_1_header

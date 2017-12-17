@@ -439,7 +439,7 @@ actor_nymn_sheet_laydown_anim_laydown_track_sfx:
 
 actor_nymn_sheet_greetecho_anim_greetecho:
 actor_nymn_sheet_greetecho_anim_greetecho_numframes: equ 0x2A
-actor_nymn_sheet_greetecho_anim_greetecho_speed: equ 0x28
+actor_nymn_sheet_greetecho_anim_greetecho_speed: equ 0x1E
 actor_nymn_sheet_greetecho_anim_greetecho_track_frames:
 	dc.l actor_nymn_sheet_greetecho_frame_0_header
 	dc.l actor_nymn_sheet_greetecho_frame_1_header

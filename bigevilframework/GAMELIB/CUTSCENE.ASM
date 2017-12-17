@@ -363,10 +363,28 @@ CutsceneStep_CameraLerp:
 	; d2 (w) Speed
 	; d0 (b) OUT: Step running
 
-	move.l d0, CameraTargetLerpSource
+	move.l d0, CameraLerpFromObj
 	move.l d1, CameraTargetGameObj
-	move.w d2, CameraTargetLerpSpeed
-	move.w #0x0, CameraTargetLerpTime
+	move.w d2, CameraLerpSpeed
+	move.w #0x0, CameraLerpTime
+
+	move.b #0x0, d0
+
+	rts
+
+CutsceneStep_CameraLerpPos:
+	; a0 --- Cutscene
+	; d0 (l) Source X
+	; d1 (l) Source Y
+	; d2 (l) Dest object
+	; d3 (w) Speed
+	; d0 (b) OUT: Step running
+
+	move.l d0, CameraLerpFromX
+	move.l d1, CameraLerpFromY
+	move.l d2, CameraTargetGameObj
+	move.w d3, CameraLerpSpeed
+	move.w #0x0, CameraLerpTime
 
 	move.b #0x0, d0
 
@@ -377,7 +395,7 @@ CutsceneStep_CameraLerpWait:
 	; d0 (b) OUT: Step running
 
 	move.b #0x1, d0
-	tst.w CameraTargetLerpSpeed
+	tst.w CameraLerpSpeed
 	bne   @End
 	move.b #0x0, d0
 	@End:
@@ -517,6 +535,14 @@ CUTSCENE_CAMERA_LERP: macro object1,object2,speed
 	move.l \object2, d1
 	move.l \speed, d2
 	CUTSCENE_RUN_STEP CutsceneStep_CameraLerp
+	endm
+
+CUTSCENE_CAMERA_LERP_FROM_POS: macro posx,posy,destobject,speed
+	move.l \posx, d0
+	move.l \posy, d1
+	move.l \destobject, d2
+	move.l \speed, d3
+	CUTSCENE_RUN_STEP CutsceneStep_CameraLerpPos
 	endm
 
 CUTSCENE_CAMERA_LERP_WAIT: macro

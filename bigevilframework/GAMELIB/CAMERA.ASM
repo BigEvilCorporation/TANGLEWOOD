@@ -10,11 +10,11 @@ CAM_Init:
 	move.l #0x0, CameraWorldPosX
 	move.l #0x0, CameraWorldPosY
 	move.l #0x0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpSpeed
-	move.w #0x0, CameraTargetLerpTime
-	move.l #0x0, CameraTargetLerpStartX
-	move.l #0x0, CameraTargetLerpStartY
-	move.l #0x0, CameraTargetLerpSource
+	move.w #0x0, CameraLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.l #0x0, CameraLerpFromX
+	move.l #0x0, CameraLerpFromY
+	move.l #0x0, CameraLerpFromObj
 	move.w #0x0, CameraShakeSpeedX
 	move.w #0x0, CameraShakeSpeedY
 	move.w #0x0, CameraShakeAmpX
@@ -91,10 +91,10 @@ CAM_LerpBetweenEntities:
 	; a1 --- To entity
 	; d0 (w) Speed
 
-	move.l a0, CameraTargetLerpSource
+	move.l a0, CameraLerpFromObj
 	move.l a1, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w d0, CameraTargetLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.w d0, CameraLerpSpeed
 	
 	rts
 
@@ -129,15 +129,15 @@ CAM_Update:
 	moveq #0x0, d2
 
 	; If camera lerp active
-	tst.w   (CameraTargetLerpSpeed)
+	tst.w   (CameraLerpSpeed)
 	beq     @NoLerp
 
 	; Get lerp source X/Y
-	move.l  (CameraTargetLerpStartX), d2
-	move.l  (CameraTargetLerpStartY), d3
+	move.l  (CameraLerpFromX), d2
+	move.l  (CameraLerpFromY), d3
 
 	; If lerp source object set
-	move.l  (CameraTargetLerpSource), a2
+	move.l  (CameraLerpFromObj), a2
 	cmp.l   #0x0, a2
 	beq     @NoLerpStartObj
 	
@@ -155,15 +155,15 @@ CAM_Update:
 
 	; Get lerp T
 	moveq #0x0, d4
-	move.w (CameraTargetLerpTime), d4
+	move.w (CameraLerpTime), d4
 
 	; Check if lerp finished
 	cmp.w  #1024, d4
 	blt    @LerpInProgress
 
 	; Disable lerp
-	move.l #0x0, CameraTargetLerpSource
-	move.w #0x0, CameraTargetLerpSpeed
+	move.l #0x0, CameraLerpFromObj
+	move.w #0x0, CameraLerpSpeed
 
 	; Finished
 	bra    @EndLerp
@@ -185,8 +185,8 @@ CAM_Update:
 	TOSUBPIXELS d1
 	
 	; Update lerp time
-	move.w (CameraTargetLerpSpeed), d2
-	add.w  d2, CameraTargetLerpTime
+	move.w (CameraLerpSpeed), d2
+	add.w  d2, CameraLerpTime
 
 	@EndLerp:
 	@NoLerp:

@@ -882,10 +882,10 @@ MonsterStartEmergeFromCave:
 	move.b #0x1, Monster_BlockingCtrl(a0)
 
 	; Lerp camera
-	move.l (Player1), CameraTargetLerpSource
+	move.l (Player1), CameraLerpFromObj
 	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #0x10, CameraTargetLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.w #0x10, CameraLerpSpeed
 	
 	; Start palette lerp
 	tst.b  Monster_LerpPalette(a0)
@@ -983,10 +983,10 @@ MonsterUpdateRoaring:
 	
 	move.l (Player1), a2
 	move.b #0x1, Player_ControlEnabled(a2)
-	move.l a0, CameraTargetLerpSource
+	move.l a0, CameraLerpFromObj
 	move.l (Player1), CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #0x10, CameraTargetLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.w #0x10, CameraLerpSpeed
 	
 	move.b #0x0, Monster_BlockingCtrl(a0)
 	

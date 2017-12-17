@@ -1250,8 +1250,8 @@ PlayerMountPet:
 	; Prepare for camera lerp
 	ENTITY_GETCENTREX d2, a0
 	ENTITY_GETCENTREY d3, a0
-	move.l d2, CameraTargetLerpStartX
-	move.l d3, CameraTargetLerpStartY
+	move.l d2, CameraLerpFromX
+	move.l d3, CameraLerpFromY
 
 	; Set initial state
 	move.b #Player_RideState_Mounting, Player_RideState(a0)
@@ -1406,8 +1406,8 @@ PlayerUpdateMount:
 	
 	; Start camera lerp
 	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Player1MountCameraLerpSpeed, CameraTargetLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.w #Player1MountCameraLerpSpeed, CameraLerpSpeed
 
 	; Done, start riding
 	move.b #Player_RideState_Riding, Player_RideState(a0)

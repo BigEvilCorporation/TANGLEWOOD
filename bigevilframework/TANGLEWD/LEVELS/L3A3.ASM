@@ -75,7 +75,7 @@ EchoGreetCustsceneStartDelay		equ 0x20	; Delay to start cutscene
 EchoGreetDjakkCameraTime			equ 0x78	; Time to view chasing Djakk
 EchoPounceNymnDistOffset			equ 0x3C	; Distance to begin Echo pounce anim
 NymnGreetCutsceneLastFrameOffset	equ 0x0040
-EchoGreetCutsceneLastFrameOffset	equ 0x0040
+EchoGreetCutsceneLastFrameOffset	equ 0x0038
 	
 ; ************************************
 ; Runtime data
@@ -496,6 +496,7 @@ l3a3_CutsceneSaveEcho:
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 
 	; Start enemy approach track
 	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
@@ -510,9 +511,17 @@ l3a3_CutsceneSaveEcho:
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,d1
 	ENTITY_GETBYNAME Location, l3a3_LocEchoHide, a3
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a3,#0x10,#0x10
-	CUTSCENE_SPRITE_FLIPX Player2,#0x1
+
+	CUTSCENE_TICKMODE_CONTINUOUS
+
+	; Start hiding
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
+	CUTSCENE_TICKMODE_INSTR_PER_FRAME
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Lerp camera back
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
@@ -521,21 +530,18 @@ l3a3_CutsceneSaveEcho:
 	; TODO: Nymn faces Echo
 
 	; Djakk begins chase
-	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	;CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
-	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	;MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
-	;CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
+	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
 
 	; Pan camera to Djakk
-	;ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	;CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
+	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
 
 	; Wait
-	;CUTSCENE_DELAY #EchoGreetDjakkCameraTime
-
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#Character_Dead,#0x1
+	CUTSCENE_DELAY #EchoGreetDjakkCameraTime
 
 	; Pan camera back to Nymn
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
@@ -556,17 +562,18 @@ l3a3_CutsceneMeetEcho:
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 
 	; Echo emerges
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Echo talks
-	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
 	CUTSCENE_SPRITE_FLIPX Player2,#0x0
 	CUTSCENE_CHARACTER_ANIM Player2,#Player_Animations,#PlayerAnimIdx_Talk
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
@@ -614,6 +621,13 @@ l3a3_CutsceneMeetEcho:
 	move.l Entity_WorldPosX(a3), d3
 	addi.l #EchoGreetCutsceneLastFrameOffset*subpixels_per_pixel, d3
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#Entity_WorldPosX,d3
+
+	; Lerp camera
+	move.l  CameraWorldPosX, d0
+	move.l  CameraWorldPosY, d1
+	add.l   #(vdp_sprite_border_x*subpixels_per_pixel), d0
+	add.l   #(vdp_sprite_border_y*subpixels_per_pixel), d1
+	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#EchoToNymnCamLerpSpeed
 
 	; Restore Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1

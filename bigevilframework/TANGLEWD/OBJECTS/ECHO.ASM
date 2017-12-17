@@ -442,16 +442,16 @@ EchoUpdate:
 	; Update camera lerp timer
 	move.w Echo_AICameraLerpTimer(a0), d0
 	beq    @LerpTimerNotRunning
-	tst.w  CameraTargetLerpSpeed
+	tst.w  CameraLerpSpeed
 	bne    @LerpTimerNotRunning
 	subq.w #0x1, d0
 	move.w d0, Echo_AICameraLerpTimer(a0)
 	tst.w  d0
 	bne    @LerpTimerRunning
-	move.l a0, CameraTargetLerpSource
+	move.l a0, CameraLerpFromObj
 	move.l (Player1), CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	move.w #Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed
+	move.w #0x0, CameraLerpTime
+	move.w #Echo_HowlCameraLerpSpeed, CameraLerpSpeed
 	@LerpTimerNotRunning:
 	@LerpTimerRunning:
 
@@ -718,10 +718,10 @@ EchoStartCameraLerp:
 
 	tst.w  Echo_AICameraLerpTimer(a0)
 	bne    @NoCameraLerp
-	move.l (Player1), CameraTargetLerpSource
+	move.l (Player1), CameraLerpFromObj
 	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed, d0
+	move.w #0x0, CameraLerpTime
+	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0
 	MOVE_NTSC_W Echo_AICameraLerpTime, Echo_AICameraLerpTimer(a0), d0
 	@NoCameraLerp:
 
@@ -2021,10 +2021,10 @@ EchoAIStart_Skivv:
 	move.b #EchoAIState_Skivv, Echo_AIState(a0)
 
 	; Begin camera lerp
-	move.l CameraTargetGameObj, CameraTargetLerpSource
+	move.l CameraTargetGameObj, CameraLerpFromObj
 	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraTargetLerpTime
-	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraTargetLerpSpeed, d0
+	move.w #0x0, CameraLerpTime
+	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0
 
 	; Howl
 	PUSHL  a1
@@ -2046,7 +2046,7 @@ EchoAIUpdate_Skivv:
 	bne    @EchoDead
 
 	; If camera lerp finished
-	tst.w  CameraTargetLerpSpeed
+	tst.w  CameraLerpSpeed
 	bne    @Lerping
 
 	; Get Skivv
