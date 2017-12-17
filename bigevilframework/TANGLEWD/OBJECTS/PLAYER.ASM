@@ -2426,8 +2426,11 @@ PlayerEnteredWater:
 	subi.w #vdp_sprite_border_y, d3
 	move.b d3, raster_water_level
 
-	; Set in water
+	; If not already in walk mode, use physics water movement scale
+	tst.b  Character_Walking(a0)
+	bne    @NoPhysicsScale
 	move.b #0x1, PhysicsObj_Underwater(a0)
+	@NoPhysicsScale:
 
 	tst.b  d1
 	bne    @NoSFXVFX
