@@ -91,8 +91,10 @@ Player1SlowTimeDiv			equ 0x10
 Player1SlowTimeLerpSpeed	equ (0x4<<fade_frame_shift) ; Subframes (1 frame per tick)
 
 ; Lightning ability
-Player1LightningCooldown		equ 0x0200
-Player1LightningAttackDamage	equ 0xFF
+Player1LightningCooldown			equ 0x0200
+Player1LightningAttackDamage		equ 0xFF
+Player1LightningFadeBackSpeed		equ 0x00A0
+Player1LightningTicksPerUpdate		equ 0x3
 
 ; Anything taller than a Fuzzl is considered 'heavy' (changes push anim)
 Player1MaxLightPushObjHeight	equ Fuzzl_Height
@@ -716,6 +718,10 @@ PlayerStartColourAbility:
 	PUSHM  a0-a1
 	lea    Pal_Nymn_Red, a0
 	move.b #PaletteId_Player, d0
+	move.w #Player1LightningFadeBackSpeed, d1
+	move.b #Player1LightningTicksPerUpdate, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
 	POPM   a0-a1
 
