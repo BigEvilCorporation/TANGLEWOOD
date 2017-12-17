@@ -175,9 +175,9 @@ Pause_Enter:
 	PUSHM  a0-a1
 	lea    GameStatePauseData, a1
 	move.l EntityPoolStart_Firefly, a0
+	move.l a0, PauseState_Firefly(a1)
 	cmp.l  #0x0, a0
 	beq    @NoFireflies
-	move.l a0, PauseState_Firefly(a1)
 
 	; Backup its world grid state, position and sprite prio
 	move.l Entity_WorldPosX(a0), PauseState_FireflyPosX(a1)
