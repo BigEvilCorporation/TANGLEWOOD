@@ -1462,7 +1462,6 @@ PhysicsObjFindWall:
 
 	move.b d0, d6
 	move.b d1, d7
-	swap   d7
 	
 	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
@@ -1512,6 +1511,9 @@ PhysicsObjFindWall:
 	move.w #0x8, d3
 
 	@EndHeadingTest:
+	
+	; Backup forced direction flag
+	swap   d7
 
 	; Clear static wall and static barrier flags
 	andi.b #~(PhysicsObjHitStaticWall|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
