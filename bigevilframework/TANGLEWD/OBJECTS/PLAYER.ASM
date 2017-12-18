@@ -2372,6 +2372,7 @@ PlayerInteractTest_Water:
 	swap   d1
 	move.w d2, d4					; Left bounds
 	move.w d1, d3					; Right bounds
+	swap   d1
 	move.w d1, d2					; Water level
 	addi.w #vdp_sprite_border_y, d2
 	move.b d7, d1					; Previously in water
@@ -2424,6 +2425,7 @@ PlayerEnteredWater:
 	move.w (WorldScrollY), d4
 	sub.w  d4, d3
 	subi.w #vdp_sprite_border_y, d3
+	CLAMPW d3,#0x1,#screen_height
 	move.b d3, raster_water_level
 
 	; If not already in walk mode, use physics water movement scale
