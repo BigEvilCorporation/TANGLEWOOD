@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Engine features
-INCLUDE_AUDIO			equ 0
+INCLUDE_AUDIO			equ 1
 
 ; Region testing
 FORCE_PAL_MODE			equ 0
@@ -39,20 +39,20 @@ INCLUDE_DEBUG_DEATH		equ 0
 INCLUDE_LEVEL_1			equ 1
 INCLUDE_LEVEL_2			equ 1
 INCLUDE_LEVEL_3			equ 1
-INCLUDE_LEVEL_4			equ 0
-INCLUDE_LEVEL_5			equ 0
-INCLUDE_LEVEL_6			equ 0
-INCLUDE_LEVEL_7			equ 0
-INCLUDE_LEVEL_8			equ 0
+INCLUDE_LEVEL_4			equ 1
+INCLUDE_LEVEL_5			equ 1
+INCLUDE_LEVEL_6			equ 1
+INCLUDE_LEVEL_7			equ 1
+INCLUDE_LEVEL_8			equ 1
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 0
+INCLUDE_CHARACTER_ECHO	equ 1
 
 ; Demo mode
-DEMO_SHOW_THANKS		equ 1
+DEMO_SHOW_THANKS		equ 0
 DEMO_USE_TIMEOUT		equ 0
-DEMO_SHOW_LEVEL_SELECT	equ 1
-DEMO_SHOW_DISCLAIMER	equ 1
+DEMO_SHOW_LEVEL_SELECT	equ 0
+DEMO_SHOW_DISCLAIMER	equ 0
 
 ; Autotest
 AUTOTEST_ENABLED		equ 0
@@ -99,10 +99,10 @@ InitialLevel			equ l1a1_HarlequinForestAct1
 	IFD FINAL
 InitialState			equ  GameStateLogos
 	ELSE
-;InitialState			equ  GameStateLogos
+InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
-InitialState			equ  GameStateGameplay
+;InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF
