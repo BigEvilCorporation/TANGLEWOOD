@@ -484,6 +484,12 @@ l3a3TriggerEchoIntro:
 	jsr    CutscenePlay
 	POPL   a0
 
+	; Disable bridge buttons
+	ENTITY_GETBYNAME Button, l3a3_Button5, a2
+	ENTITY_GETBYNAME Button, l3a3_Button6, a3
+	move.b #0x0, Button_Active(a2)
+	move.b #0x0, Button_Active(a3)
+
 	@End:
 
 	rts
