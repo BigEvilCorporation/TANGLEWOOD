@@ -1682,8 +1682,16 @@ PlayerStartInteract:
 	@EndPush:
 	
 	; Player can't run
-	move.b  #Character_WalkInteract, d2
+	move.b #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
+
+	; Clamp velocity so objects can't be flung
+	move.l PhysicsObj_VelX(a0), d0
+	move.l Character_MaxVelXWalk(a0), d1
+	move.l d1, d2
+	neg.l  d1
+	CLAMPL d0, d1, d2
+	move.l d0, PhysicsObj_VelX(a0)
 
 	; Player can't jump
 	move.b #0x0, Character_CanJump(a0)
