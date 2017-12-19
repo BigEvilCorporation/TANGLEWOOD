@@ -2700,7 +2700,7 @@ EchoAI_FindInterestingObj:
 	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
 	bne    @NotInCart
 	jsr    EchoAIStart_Cart
-	bra    @End
+	bra    @Announce
 	@NotInCart:
 
 	; Search ladders
@@ -2745,7 +2745,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoFuzzl
 	jsr    EchoAI_PushInteractionFuzzl
-	bra    @End
+	bra    @Announce
 	@NoFuzzl:
 
 	; Search logs
@@ -2753,7 +2753,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoLog
 	jsr    EchoAI_PushInteractionLog
-	bra    @End
+	bra    @Announce
 	@NoLog:
 
 	; Search buttons
@@ -2761,7 +2761,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoButton
 	jsr    EchoAI_PushInteractionButton
-	bra    @End
+	bra    @Announce
 	@NoButton:
 
 	; Search rafts
@@ -2769,8 +2769,15 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoRaft
 	jsr    EchoAI_PushInteractionRaft
-	bra    @End
+	bra    @Announce
 	@NoRaft:
+
+	bra    @End
+
+	@Announce:
+
+	; Talk to announce find
+	jsr    EchoTalk
 
 	@End:
 
@@ -2784,7 +2791,7 @@ EchoAI_FindInterestingObj_InNodeState:
 	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
 	bne    @NotInCart
 	jsr    EchoAIStart_Cart
-	bra    @End
+	bra    @Announce
 	@NotInCart:
 
 	; Search ladders
@@ -2806,7 +2813,14 @@ EchoAI_FindInterestingObj_InNodeState:
 	; Search AI markers
 	jsr    EchoAI_FindAIMarker
 	cmp.l  #0x0, a2
-	bne    @End
+	bne    @Announce
+
+	bra    @End
+
+	@Announce:
+
+	; Talk to announce find
+	jsr    EchoTalk
 	
 	@End:
 
