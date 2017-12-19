@@ -124,12 +124,12 @@ L4A1_TriggerBox_28_name	dc.b "L4A1_TriggerBox_28",0
 L4A1_Checkpoint_count equ 0x0
 
 L4A1_WaterBody_count equ 0x2
-L4A1_WaterBody_6_idx	equ 0x0
-L4A1_Water1_idx	equ 0x1
+L4A1_WaterBody_40_idx	equ 0x0
+L4A1_WaterBody_41_idx	equ 0x1
 
 	IFND FINAL
-L4A1_WaterBody_6_name	dc.b "L4A1_WaterBody_6",0
-L4A1_Water1_name	dc.b "L4A1_Water1",0
+L4A1_WaterBody_40_name	dc.b "L4A1_WaterBody_40",0
+L4A1_WaterBody_41_name	dc.b "L4A1_WaterBody_41",0
 	even
 	ENDIF
 
@@ -592,11 +592,13 @@ L4A1_LoadGameObjects:
 	POPL   a1
 
 	jsr WaterBodyInit
-	move.l #0x17a00000, Entity_WorldPosX(a0)
-	move.l #0x02a00000, Entity_WorldPosY(a0)
+	move.l #0x04480000, Entity_WorldPosX(a0)
+	move.l #0x01d00000, Entity_WorldPosY(a0)
+	move.w #0x0120, Entity_Width(a0)
+	move.w #0x0018, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L4A1_WaterBody_6_name, a3
+	lea L4A1_WaterBody_40_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -605,14 +607,16 @@ L4A1_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	jsr WaterBodyInit
-	move.l #0x04180000, Entity_WorldPosX(a0)
-	move.l #0x01d00000, Entity_WorldPosY(a0)
+	move.l #0x18100000, Entity_WorldPosX(a0)
+	move.l #0x02a00000, Entity_WorldPosY(a0)
+	move.w #0x00c0, Entity_Width(a0)
+	move.w #0x0018, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L4A1_Water1_name, a3
+	lea L4A1_WaterBody_41_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WaterBody_Struct_Size, a0
