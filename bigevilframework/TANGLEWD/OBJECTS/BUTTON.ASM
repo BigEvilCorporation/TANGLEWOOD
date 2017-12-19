@@ -170,6 +170,9 @@ ButtonUpdate:
 	
 	@Unoccupied:
 
+	; Use world grid for updates again
+	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
 	; Player off button, move platform up
 	MOVE_NTSC_L Button_PressSpeed, d4, d5
 	sub.l  d4, d0
