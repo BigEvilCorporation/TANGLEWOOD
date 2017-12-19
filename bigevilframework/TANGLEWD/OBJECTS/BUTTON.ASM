@@ -126,6 +126,9 @@ ButtonUpdate:
 	cmp.w  #Button_MinMass, Platform_TotalMass(a2)
 	blt    @Unoccupied
 
+	; Occupied, don't use world grid for updates until unoccupied again
+	bclr   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
 	; If at zero height and pressed whilst inactive, play fail SFX
 	tst.l  d0
 	bne    @NotAtTop

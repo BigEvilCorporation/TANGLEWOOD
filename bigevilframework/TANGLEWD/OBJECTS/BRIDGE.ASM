@@ -604,6 +604,13 @@ BridgeBeginRoll:
 	PLAYSFX #SFX_BridgeRoll
 	@NoSFX:
 
+	; If not in update list (out of world grid view), force add it
+	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	bne    @InUpdateList
+	jsr    EntityAddToUpdateList
+	bclr   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	@InUpdateList:
+
 	rts
 
 BridgeBeginUnroll:
@@ -622,6 +629,13 @@ BridgeBeginUnroll:
 	bne    @NoSFX
 	PLAYSFX #SFX_BridgeRoll
 	@NoSFX:
+
+	; If not in update list (out of world grid view), force add it
+	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	bne    @InUpdateList
+	jsr    EntityAddToUpdateList
+	bclr   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	@InUpdateList:
 
 	rts
 
@@ -643,6 +657,13 @@ BridgeBeginDrop:
 
 	; Begin SFX
 	PLAYSFX #SFX_BridgeFall
+
+	; If not in update list (out of world grid view), force add it
+	btst   #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a0)
+	bne    @InUpdateList
+	jsr    EntityAddToUpdateList
+	bclr   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	@InUpdateList:
 
 	rts
 
@@ -672,6 +693,9 @@ BridgeUpdateRoll:
 
 	; Set closed state
 	move.b #Bridge_StateClosed, Bridge_State(a0)
+
+	; Back to world grid
+	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
 	@StillRolling:
 
@@ -708,6 +732,9 @@ BridgeUpdateUnroll:
 
 	; Set open state
 	move.b #Bridge_StateOpen, Bridge_State(a0)
+
+	; Back to world grid
+	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
 	@StillUnrolling:
 
@@ -963,6 +990,9 @@ BridgeUpdateDropping:
 
 	; Set dropped state
 	move.b #Bridge_StateDropped, Bridge_State(a0)
+
+	; Back to world grid
+	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
 	;==============================================================
 
