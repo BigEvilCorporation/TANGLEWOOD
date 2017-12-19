@@ -50,6 +50,9 @@ RasterEffectUnderwaterHINT:
 	POPW   d0
 	bset.b #PaletteId_WaterRaster, (DirtyPalettesMask)
 
+	; Disable next
+	move.w #0x8AFF, vdp_control
+
 	; Restore interrupts
 	POPW    sr
 

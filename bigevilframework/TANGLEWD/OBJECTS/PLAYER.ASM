@@ -2433,7 +2433,7 @@ PlayerEnteredWater:
 	move.w (WorldScrollY), d4
 	sub.w  d4, d3
 	subi.w #vdp_sprite_border_y, d3
-	CLAMPW d3,#0x1,#screen_height
+	CLAMPW d3,#0x1,#screen_height-1
 	move.b d3, raster_water_level
 
 	; If not already in walk mode, use physics water movement scale
