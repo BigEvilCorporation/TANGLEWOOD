@@ -2716,7 +2716,7 @@ EchoAI_FindInterestingObj:
 	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
 	bne    @NotInCart
 	jsr    EchoAIStart_Cart
-	bra    @Announce
+	bra    @End
 	@NotInCart:
 
 	; Search ladders
@@ -2761,7 +2761,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoFuzzl
 	jsr    EchoAI_PushInteractionFuzzl
-	bra    @Announce
+	bra    @End
 	@NoFuzzl:
 
 	; Search logs
@@ -2769,7 +2769,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoLog
 	jsr    EchoAI_PushInteractionLog
-	bra    @Announce
+	bra    @End
 	@NoLog:
 
 	; Search buttons
@@ -2777,7 +2777,7 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoButton
 	jsr    EchoAI_PushInteractionButton
-	bra    @Announce
+	bra    @End
 	@NoButton:
 
 	; Search rafts
@@ -2785,15 +2785,8 @@ EchoAI_FindInterestingObj:
 	cmp.l  #0x0, a2
 	beq    @NoRaft
 	jsr    EchoAI_PushInteractionRaft
-	bra    @Announce
-	@NoRaft:
-
 	bra    @End
-
-	@Announce:
-
-	; Talk to announce find
-	jsr    EchoStartTalk
+	@NoRaft:
 
 	@End:
 
@@ -2807,7 +2800,7 @@ EchoAI_FindInterestingObj_InNodeState:
 	cmp.b  #Player_RideState_Cart, Player_RideState(a0)
 	bne    @NotInCart
 	jsr    EchoAIStart_Cart
-	bra    @Announce
+	bra    @End
 	@NotInCart:
 
 	; Search ladders
@@ -2829,14 +2822,7 @@ EchoAI_FindInterestingObj_InNodeState:
 	; Search AI markers
 	jsr    EchoAI_FindAIMarker
 	cmp.l  #0x0, a2
-	bne    @Announce
-
-	bra    @End
-
-	@Announce:
-
-	; Talk to announce find
-	jsr    EchoStartTalk
+	bne    @End
 	
 	@End:
 
@@ -3373,10 +3359,13 @@ EchoAI_PushInteractionFuzzl:
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
 
-	; If first use of Fuzzl, lerp camera
+	; If first use of Fuzzl, lerp camera and announce
 	btst.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a2)
 	bne    @AlreadyUsed
 	move.b #0x1, EchoAINode_LerpCamera(a3)
+	PUSHMW d0-d1
+	jsr    EchoStartTalk
+	POPMW  d0-d1
 	@AlreadyUsed:
 
 	; Determine direction to roll in (towards Nymn)
@@ -3468,6 +3457,9 @@ EchoAI_PushInteractionLog:
 	move.w d0, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
 
+	; Announce
+	jsr    EchoStartTalk
+
 	@NoTerrain:
 
 	rts
@@ -3498,6 +3490,12 @@ EchoAI_PushInteractionButton:
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Button, EchoAINode_Action(a3)
 
+	; If not already activated, announce
+	tst.b  Button_Pressed(a2)
+	bne    @NoAnnounce
+	jsr    EchoStartTalk
+	@NoAnnounce:
+
 	rts
 
 EchoAI_PushInteractionRaft:
@@ -3526,6 +3524,9 @@ EchoAI_PushInteractionRaft:
 	move.b #0x1, EchoAINode_WaitAtWater(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Raft, EchoAINode_Action(a3)
+
+	; Announce
+	jsr    EchoStartTalk
 
 	rts
 
@@ -3581,12 +3582,15 @@ EchoAI_PushInteractionCart:
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_Cart, EchoAINode_Action(a3)
 
-	; If Nymn not in cart lerp camera
+	; If Nymn not in cart lerp camera and announce
 	move.b #0x0, d0
 	move.l Player1, a2
 	cmp.b  #Player_RideState_Cart, Player_RideState(a2)
 	beq    @NymnInCart
 	move.b #0x1, d0
+	PUSHMW d0-d1
+	jsr    EchoStartTalk
+	POPMW  d0-d1
 	@NymnInCart:
 
 	move.b d0, EchoAINode_LerpCamera(a3)
