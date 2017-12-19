@@ -61,16 +61,9 @@ SFX_Data_Footstep_Splash1:
 	ESF_Stop
 	even
 
-SFX_Data_Nymn_Call_Long:
-	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
-	ESF_Delay 108
-	ESF_Stop
-	even
-
 SFX_Data_Thunder_Far:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+7
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+6
 	ESF_Delay 100
 	ESF_Delay 181
 	ESF_Stop
@@ -78,85 +71,113 @@ SFX_Data_Thunder_Far:
 
 SFX_Data_Thunder_Near:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+8
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+7
 	ESF_Delay 232
 	ESF_Stop
 	even
 
 SFX_Data_CrateSmash:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+9
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+8
 	ESF_Delay 19
 	ESF_Stop
 	even
 
 SFX_Data_Elder_Roar:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+10
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+9
 	ESF_Delay 62
 	ESF_Stop
 	even
 
 SFX_Data_Scrap_Yap:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+11
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+10
 	ESF_Delay 9
 	ESF_Stop
 	even
 
 SFX_Data_Wind_Short:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+12
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+11
 	ESF_Delay 65
 	ESF_Stop
 	even
 
 SFX_Data_Wind_Long:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+13
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+12
 	ESF_Delay 137
 	ESF_Stop
 	even
 
 SFX_Data_Hogg_Grunt:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+14
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+13
 	ESF_Delay 11
 	ESF_Stop
 	even
 
 SFX_Data_Hogg_Stuck:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+15
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+14
 	ESF_Delay 33
 	ESF_Stop
 	even
 
 SFX_Data_Scirus_Alert:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+16
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+15
 	ESF_Delay 10
 	ESF_Stop
 	even
 
 SFX_Data_Scirus_Chatter:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+17
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+16
 	ESF_Delay 13
 	ESF_Stop
 	even
 
 SFX_Data_Scirus_Hiss:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+18
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+17
 	ESF_Delay 26
 	ESF_Stop
 	even
 
 SFX_Data_Scirus_Swipe:
 	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+19
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+18
 	ESF_Delay 12
+	ESF_Stop
+	even
+
+SFX_Data_Nymn_Call_Short:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+19
+	ESF_Delay 10
+	ESF_Stop
+	even
+
+SFX_Data_Echo_Call_Short:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+20
+	ESF_Delay 9
+	ESF_Stop
+	even
+
+SFX_Data_Nymn_Call_Long:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+21
+	ESF_Delay 68
+	ESF_Stop
+	even
+
+SFX_Data_Echo_Call_Long:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+22
+	ESF_Delay 65
 	ESF_Stop
 	even
 	
@@ -557,8 +578,29 @@ SFX_Chirp1:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
+SFX_Nymn_Call_Short:
+	dc.l SFX_Data_Nymn_Call_Short	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Echo_Call_Short:
+	dc.l SFX_Data_Echo_Call_Short	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
 SFX_Nymn_Call_Long:
 	dc.l SFX_Data_Nymn_Call_Long	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_Echo_Call_Long:
+	dc.l SFX_Data_Echo_Call_Long	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

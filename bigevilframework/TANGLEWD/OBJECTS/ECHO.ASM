@@ -11,8 +11,10 @@ ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
-Echo_TalkDelay				equ 0x0020		; Delay between Nymn and Echo talking
-Echo_HowlDelay				equ 0x0030		; Delay between Nymn and Echo howling
+Echo_TalkDelayMin			equ 0x0020		; Min delay between Nymn and Echo talking
+Echo_TalkDelayMax			equ 0x0060		; Rand delay between Nymn and Echo talking
+Echo_HowlDelayMin			equ 0x0050		; Min delay between Nymn and Echo howling
+Echo_HowlDelayMax			equ 0x0080		; Rand delay between Nymn and Echo howling
 Echo_JumpToNymnVel			equ 0x040000	; Jump velocity when mounting Nymn
 Echo_DismountNymnVel		equ 0x068000	; Jump velocity when dismounting Nymn
 Echo_ProbeWallTop			equ 0x0018		; Slightly lower wall probe (can squeeze through small gaps)
@@ -858,13 +860,22 @@ EchoEndCarried:
 EchoStartTalkTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	MOVE_NTSC_W Echo_TalkDelay, Echo_HowlTimer(a0), d0
+	
+	MOVE_NTSC_W Echo_TalkDelayMin, d1, d0
+	MOVE_NTSC_W Echo_TalkDelayMax, d2, d0
+	jsr    RND_GenerateWordClamped
+	move.w d0, Echo_HowlTimer(a0)
+
 	rts
 
 EchoStartHowlTimer:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	MOVE_NTSC_W Echo_HowlDelay, Echo_HowlTimer(a0), d0
+
+	MOVE_NTSC_W Echo_HowlDelayMin, d1, d0
+	MOVE_NTSC_W Echo_HowlDelayMax, d2, d0
+	jsr    RND_GenerateWordClamped
+	move.w d0, Echo_HowlTimer(a0)
 	rts
 
 EchoTalk:

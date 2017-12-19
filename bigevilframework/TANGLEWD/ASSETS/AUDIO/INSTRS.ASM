@@ -144,6 +144,9 @@ echo_instruments:
 	Echo_ListEntry PCM17
 	Echo_ListEntry PCM18
 	Echo_ListEntry PCM19
+	Echo_ListEntry PCM20
+	Echo_ListEntry PCM21
+	Echo_ListEntry PCM22
 	
     Echo_ListEnd
 	
@@ -272,19 +275,22 @@ PCM02: incbin 'assets\audio\sfx\ambience\chirp1.ewf'
 PCM03: incbin 'assets\audio\sfx\fstep\water1.ewf'
 PCM04: incbin 'assets\audio\sfx\fstep\water2.ewf'
 PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
-PCM06: incbin 'assets\audio\sfx\nymn\calllong.ewf'
-PCM07: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
-PCM08: incbin 'assets\audio\sfx\weather\thndrnr.ewf'
-PCM09: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
-PCM10: incbin 'assets\audio\sfx\djakk\elder.ewf'
-PCM11: incbin 'assets\audio\sfx\scrap\yap.ewf'
-PCM12: incbin 'assets\audio\sfx\weather\windshrt.ewf'
-PCM13: incbin 'assets\audio\sfx\weather\windlong.ewf'
-PCM14: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
-PCM15: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
-PCM16: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
-PCM17: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
-PCM18: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
-PCM19: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
-	
+PCM06: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
+PCM07: incbin 'assets\audio\sfx\weather\thndrnr.ewf'
+PCM08: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
+PCM09: incbin 'assets\audio\sfx\djakk\elder.ewf'
+PCM10: incbin 'assets\audio\sfx\scrap\yap.ewf'
+PCM11: incbin 'assets\audio\sfx\weather\windshrt.ewf'
+PCM12: incbin 'assets\audio\sfx\weather\windlong.ewf'
+PCM13: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
+PCM14: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
+PCM15: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
+PCM16: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
+PCM17: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
+PCM18: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
+PCM19: incbin 'assets\audio\sfx\nymn\talk_low.ewf'
+PCM20: incbin 'assets\audio\sfx\nymn\talk_hi.ewf'
+PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
+PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
+
 	ENDIF
