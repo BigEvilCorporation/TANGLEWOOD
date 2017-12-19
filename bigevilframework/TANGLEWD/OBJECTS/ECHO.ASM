@@ -3483,7 +3483,7 @@ EchoAI_PushInteractionButton:
 	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeToleranceButtonY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x1, EchoAINode_LerpCamera(a3)
