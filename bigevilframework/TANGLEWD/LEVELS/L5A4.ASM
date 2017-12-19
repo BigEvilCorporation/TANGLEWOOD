@@ -165,6 +165,9 @@ l5a4_Trigger_End:
 
 l5a4_Trigger_Storm:
 
+	; Stop music
+	jsr    SND_StopTrack
+
 	; Restore TOD palette
 	lea    palette_L4, a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
