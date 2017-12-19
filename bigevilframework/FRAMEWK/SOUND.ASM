@@ -174,6 +174,7 @@ SND_StopTrack:
 	jsr   Echo_StopBGM
 	move.l #0x0, audio_current_track
 	move.w #0x0, audio_track_stop_timer
+	move.b #0x0, audio_playback_locked
 	ENDIF
 	rts
 
@@ -207,6 +208,7 @@ SND_ClearTracks:
 	@TrackLp:
 	move.l #0x0, (a1)
 	dbra   d0, @TrackLp
+	move.b #0x0, audio_playback_locked
 	rts
 
 SND_PlaySFX:
@@ -273,7 +275,8 @@ SND_PlaySFX:
 	move.l a0, audio_current_sfx
 
 	; Set exclusivity
-	move.b SFX_Exclusive(a0), audio_playback_locked
+	; TODO: Track playing SFX to turn off exclusive flag when finished
+	; move.b SFX_Exclusive(a0), audio_playback_locked
 
 	; Get SFX data
 	move.l SFX_Data(a0), a0
