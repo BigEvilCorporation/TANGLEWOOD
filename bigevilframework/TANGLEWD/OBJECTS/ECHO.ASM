@@ -428,6 +428,13 @@ EchoUpdate:
 	move.w d0, Echo_HowlTimer(a0)
 	tst.w  d0
 	bne    @TimerStillRunning
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @OnFloor
+	; In air, try again next frame
+	move.w #0x1, Echo_HowlTimer(a0)
+	bra    @TimerStillRunning
+	@OnFloor:
 	; If on screen, just talk
 	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @Howl
@@ -854,6 +861,15 @@ EchoEndCarried:
 	jsr    EchoAIStart_Follow
 
 	ENDIF
+
+	rts
+
+EchoStartTalk:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; 1 frame timer, evaluates floor
+	move.w #0x1, Echo_HowlTimer(a0)
 
 	rts
 
@@ -2777,7 +2793,7 @@ EchoAI_FindInterestingObj:
 	@Announce:
 
 	; Talk to announce find
-	jsr    EchoTalk
+	jsr    EchoStartTalk
 
 	@End:
 
@@ -2820,7 +2836,7 @@ EchoAI_FindInterestingObj_InNodeState:
 	@Announce:
 
 	; Talk to announce find
-	jsr    EchoTalk
+	jsr    EchoStartTalk
 	
 	@End:
 
