@@ -1085,6 +1085,7 @@ L1A4_LoadGameObjects:
 	move.l #0x02280000, Entity_WorldPosY(a0)
 	move.l #L1A4_Trigger_DismountDjakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L1A4_TriggerBox_DismountDjakk_name, a3
