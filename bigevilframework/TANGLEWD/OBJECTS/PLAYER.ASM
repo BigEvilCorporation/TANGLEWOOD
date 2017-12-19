@@ -1676,22 +1676,14 @@ PlayerStartInteract:
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
 	bgt    @HeavyObj
 	move.b #Character_PushLight, Character_Pushing(a0)
-	bra    @EndPush
+	bra    @LightObj
 	@HeavyObj:
 	move.b #Character_PushHeavy, Character_Pushing(a0)
-	@EndPush:
+	@LightObj:
 	
 	; Player can't run
 	move.b #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
-
-	; Clamp velocity so objects can't be flung
-	move.l PhysicsObj_VelX(a0), d0
-	move.l Character_MaxVelXWalk(a0), d1
-	move.l d1, d2
-	neg.l  d1
-	CLAMPL d0, d1, d2
-	move.l d0, PhysicsObj_VelX(a0)
 
 	; Player can't jump
 	move.b #0x0, Character_CanJump(a0)
@@ -1738,6 +1730,14 @@ PlayerUpdatePushInteract:
 	bne    @NotInteracting
 	
 	@Pushing:
+
+	; Clamp velocity so objects can't be flung (hack for processing order)
+	move.l PhysicsObj_VelX(a0), d0
+	move.l Character_MaxVelXWalk(a0), d1
+	move.l d1, d2
+	neg.l  d1
+	CLAMPL d0, d1, d2
+	move.l d0, PhysicsObj_VelX(a0)
 
 	; Push/pull the object
 	move.l Player_InteractObject(a0), a2
