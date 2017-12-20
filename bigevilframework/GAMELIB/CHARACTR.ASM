@@ -105,6 +105,7 @@ Character_Health        	rs.b 1
 Character_Dead          	rs.b 1
 Character_LockSpriteFlip	rs.b 1	; Don't change flip direction
 Character_InvertSpriteFlip	rs.b 1	; Invert flip direction
+Character_JumpScaleX		rs.b 1	; Jump vel X is a scalar, not impulse
 ;---------------------------------
 	RS_ALIGN
 Character_Struct_Size   	rs.b 0
@@ -148,6 +149,7 @@ CharacterInit:
 	move.b #0x0, Character_InvertSpriteFlip(a0)
 	move.b #0x0, Character_ControlX(a0)
 	move.b #0x0, Character_ControlY(a0)
+	move.b #0x0, Character_JumpScaleX(a0)
 
 	rts
 	
@@ -712,6 +714,9 @@ CharacterStartJump:
 	; Set Y velocity
 	move.l Character_JumpVelY(a0), PhysicsObj_VelY(a0)
 
+	tst.b  Character_JumpScaleX(a0)
+	bne    @JumpScaleX
+
 	; Set min X velocity
 	move.l Character_JumpVelX(a0), d0
 	move.l PhysicsObj_VelX(a0), d1
@@ -727,6 +732,28 @@ CharacterStartJump:
 	blt    @EndXVel
 	move.l d0, PhysicsObj_VelX(a0)
 	@EndXVel:
+	bra    @EndJumpX
+
+	@JumpScaleX:
+
+	; Jump X is scalar
+	move.l PhysicsObj_VelX(a0), d0
+	move.l Character_JumpVelX(a0), d1
+	jsr    Muls1616
+
+	; Clamp to max X vel * jump scale
+	PUSHL  d0
+	move.l Character_MaxVelXRun(a0), d0
+	move.l Character_JumpVelX(a0), d1
+	jsr    Muls1616
+	move.l d0, d1
+	move.l d0, d2
+	neg.l  d1
+	POPL   d0
+	CLAMPL d0, d1, d2
+	move.l d0, PhysicsObj_VelX(a0)
+
+	@EndJumpX:
 
 	; Set jumping
 	move.b #0x1, Character_Jumping(a0)

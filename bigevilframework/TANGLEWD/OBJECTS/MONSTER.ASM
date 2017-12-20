@@ -26,7 +26,7 @@ Monster_AccelWalk     equ 0x000200   ; Walking acceleration
 Monster_AccelRun      equ 0x001600   ; Running acceleration
 Monster_DecelIdle     equ 0x002000   ; Deceleration if left alone
 Monster_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
-Monster_JumpVelX      equ 0x090000   ; Jump velocity impulse X
+Monster_JumpScaleX    equ 0x00022000 ; Jump velocity scale X (scaled by current X vel)
 Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
 Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
@@ -193,7 +193,7 @@ MonsterInit:
 	MOVE_NTSC_ACCEL_W Monster_AccelRun, Character_AccelRun(a0), d0
 	MOVE_NTSC_ACCEL_W Monster_DecelIdle, Character_DecelIdle(a0), d0
 	MOVE_NTSC_ACCEL_W Monster_DecelForced, Character_DecelForced(a0), d0
-	MOVE_NTSC_L Monster_JumpVelX, Character_JumpVelX(a0), d0
+	MOVE_NTSC_L Monster_JumpScaleX, Character_JumpVelX(a0), d0
 	MOVE_NTSC_L Monster_JumpVelY, Character_JumpVelY(a0), d0
 	MOVE_NTSC_L Monster_JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0
 	MOVE_NTSC_L Monster_JumpCancelVelHi, Character_JumpCancelVelHi(a0), d0
@@ -212,7 +212,7 @@ MonsterInit:
 	move.b  #Monster_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
-	
+	move.b  #0x1, Character_JumpScaleX(a0)
 	move.w  #Monster_ProbeLedgeX, Character_ProbeLedgeX(a0)
 	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
