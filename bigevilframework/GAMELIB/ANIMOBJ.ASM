@@ -168,6 +168,7 @@ AnimObjUpdate:
 	cmp.l  #0x0, a2
 	beq    @End
 	PUSHL  a0
+	move.l #0x0, AnimObj_OnFinished(a0)
 	move.l AnimObj_OnFinishedData(a0), a0
 	jsr    (a2)
 	POPL   a0
@@ -333,6 +334,17 @@ AnimObjSetAnimation:
 	beq    @NoChange
 
 	@SkipChangeCheck:
+
+	; Fire OnFinished callback
+	PUSHM  a0-a4
+	move.l AnimObj_OnFinished(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoCallback
+	move.l #0x0, AnimObj_OnFinished(a0)
+	move.l AnimObj_OnFinishedData(a0), a0
+	jsr    (a2)
+	@NoCallback:
+	POPM   a0-a4
 	
 	; New anim, clear subframe
 	move.l #0x0, AnimObj_AnimSubframe(a0)
