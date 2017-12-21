@@ -310,10 +310,14 @@ NymnStartInteract:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @InAir
 
-	; Check if Echo on floor
+	; Check if Echo on floor or in water
 	move.l (Player2), a2
 	tst.b  PhysicsObj_CloseToFloor(a2)
-	beq    @InAir
+	bne    @EchoOnFloor
+	tst.b  PhysicsObj_Underwater(a2)
+	bne    @InAir
+
+	@EchoOnFloor:
 
 	; Bounds test with Echo
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
@@ -394,15 +398,15 @@ NymnCancelInteract:
 	beq    @NotCarryingEcho
 
 	; Cannot put Echo down if fully submerged in water
-	move.l Player2, a2
-	move.w Entity_WorldPosX(a2), d0
-	move.w Entity_WorldPosY(a2), d1
-	move.w Entity_Width(a2), d3
-	lsr.w  #0x1, d3
-	add.w  d3, d0
-	jsr    PhysicsPointUnderwater
-	tst.w  d4
-	bne    @EchoUnderwater
+	;move.l Player2, a2
+	;move.w Entity_WorldPosX(a2), d0
+	;move.w Entity_WorldPosY(a2), d1
+	;move.w Entity_Width(a2), d3
+	;lsr.w  #0x1, d3
+	;add.w  d3, d0
+	;jsr    PhysicsPointUnderwater
+	;tst.w  d4
+	;bne    @EchoUnderwater
 	
 	; Put him down
 	jsr    NymnEndCarryEcho
