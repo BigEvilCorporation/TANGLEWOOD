@@ -21,8 +21,8 @@ GameStateEndLevel:
 ; ************************************
 GameStateEndLevel_FadeDownPalette	equ palette_fade_white
 GameStateEndLevel_FadeDownSpeed		equ (0x1<<fade_frame_shift) ; Subframes (1 frames per tick)
-GameStateEndLevel_SleepTime			equ 0x0180
-GameStateEndLevel_ResetTime			equ 0x0200
+GameStateEndLevel_SleepTime			equ 0x0100
+GameStateEndLevel_ResetTime			equ 0x0100
 
 EndLevelPhase_Sleep					equ 0x1
 EndLevelPhase_Fade					equ 0x2
@@ -80,6 +80,23 @@ EndLevel_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	; If players(s) off screen, disable
+	move.l Player1, a0
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @P1OnScreen
+	move.b #0x0, Entity_Active(a0)
+	@P1OnScreen:
+
+	; If players(s) off screen, disable
+	move.l Player2, a0
+	cmp.l  #0x0, a0
+	beq    @NoP2
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @P2OnScreen
+	move.b #0x0, Entity_Active(a0)
+	@NoP2:
+	@P2OnScreen:
 	
 	; Get state data
 	lea    GameStateEndLevelData, a2

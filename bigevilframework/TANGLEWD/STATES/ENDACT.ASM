@@ -69,6 +69,23 @@ EndAct_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	; If players(s) off screen, disable
+	move.l Player1, a0
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @P1OnScreen
+	move.b #0x0, Entity_Active(a0)
+	@P1OnScreen:
+
+	; If players(s) off screen, disable
+	move.l Player2, a0
+	cmp.l  #0x0, a0
+	beq    @NoP2
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @P2OnScreen
+	move.b #0x0, Entity_Active(a0)
+	@NoP2:
+	@P2OnScreen:
 	
 	; Wait for fade
 	jsr    PAL_LerpActive
