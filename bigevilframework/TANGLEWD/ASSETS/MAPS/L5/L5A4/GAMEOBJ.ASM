@@ -66,14 +66,14 @@ L5A4_Flue_count equ 0x0
 L5A4_TriggerBox_count equ 0x4
 L5A4_Trigger_Cutscene_idx	equ 0x0
 L5A4_TriggerBox_LevelEnd_idx	equ 0x1
-L5A4_TriggerBox_Storm_idx	equ 0x2
-L5A4_TriggerMusic_idx	equ 0x3
+L5A4_TriggerMusic_idx	equ 0x2
+L5A4_TriggerBox_Storm_idx	equ 0x3
 
 	IFND FINAL
 L5A4_Trigger_Cutscene_name	dc.b "L5A4_Trigger_Cutscene",0
 L5A4_TriggerBox_LevelEnd_name	dc.b "L5A4_TriggerBox_LevelEnd",0
-L5A4_TriggerBox_Storm_name	dc.b "L5A4_TriggerBox_Storm",0
 L5A4_TriggerMusic_name	dc.b "L5A4_TriggerMusic",0
+L5A4_TriggerBox_Storm_name	dc.b "L5A4_TriggerBox_Storm",0
 	even
 	ENDIF
 
@@ -129,7 +129,13 @@ L5A4_CargoLift_name	dc.b "L5A4_CargoLift",0
 
 L5A4_Scrap_count equ 0x0
 
-L5A4_Longboat_count equ 0x0
+L5A4_Longboat_count equ 0x1
+L5A4_Longboat_12_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Longboat_12_name	dc.b "L5A4_Longboat_12",0
+	even
+	ENDIF
 
 L5A4_Skivv_count equ 0x0
 
@@ -154,8 +160,8 @@ L5A4_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x01e80000, Entity_WorldPosX(a0)
+	move.l #0x04a80000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	IFND FINAL
 	lea L5A4_Echo_2_name, a3
@@ -175,7 +181,7 @@ L5A4_LoadGameObjects:
 
 	jsr NymnInit
 	move.l #0x01f80000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x04a80000, Entity_WorldPosY(a0)
 	jsr NymnLoadGfx
 	IFND FINAL
 	lea L5A4_Nymn_1_name, a3
@@ -205,7 +211,7 @@ L5A4_LoadGameObjects:
 
 	jsr DemonInit
 	move.l #0x01680000, Entity_WorldPosX(a0)
-	move.l #0x03900000, Entity_WorldPosY(a0)
+	move.l #0x04d00000, Entity_WorldPosY(a0)
 	jsr DemonLoadGfx
 	IFND FINAL
 	lea L5A4_Demon_name, a3
@@ -259,22 +265,6 @@ L5A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x18680000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
-	move.l #l5a4_Trigger_Storm, TriggerBox_Routine(a0)
-	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
-	jsr TriggerBoxLoadGfx
-	IFND FINAL
-	lea L5A4_TriggerBox_Storm_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #TriggerBox_Struct_Size, a0
-
-	jsr TriggerBoxInit
 	move.l #0x0b980000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
 	move.l #l5a5_StartMusic_GameOver, TriggerBox_Routine(a0)
@@ -283,6 +273,23 @@ L5A4_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_TriggerMusic_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x18480000, Entity_WorldPosX(a0)
+	move.l #0x01c00000, Entity_WorldPosY(a0)
+	move.w #0x0090, Entity_Width(a0)
+	move.w #0x00c8, Entity_Height(a0)
+	move.l #l5a4_Trigger_Storm, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A4_TriggerBox_Storm_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -336,7 +343,7 @@ L5A4_LoadGameObjects:
 
 	jsr CargoLiftInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x03000000, Entity_WorldPosY(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	jsr CargoLiftLoadGfx
 	IFND FINAL
 	lea L5A4_CargoLift_name, a3
@@ -348,6 +355,25 @@ L5A4_LoadGameObjects:
 	add.l #CargoLift_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Longboat_Struct_Size*L5A4_Longboat_count)
+	move.l a1, EntityPoolStart_Longboat
+	move.l a1, a0
+	POPL   a1
+
+	jsr LongboatInit
+	move.l #0x16600000, Entity_WorldPosX(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
+	jsr LongboatLoadGfx
+	IFND FINAL
+	lea L5A4_Longboat_12_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Longboat_Struct_Size, a0
 
 
 
