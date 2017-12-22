@@ -993,6 +993,9 @@ PhysicsObjCollisionCorrectX:
 	; Wall hit
 	andi.b #~PhysicsObjHitWallRight, PhysicsObj_HitWall(a0)
 	ori.b  #PhysicsObjHitWallLeft, PhysicsObj_HitWall(a0)
+
+	; Store impact velocity
+	move.l PhysicsObj_VelX(a0), PhysicsObj_WallImpactVelX(a0)
 	
 	bra    @EndWallClamp
 	
