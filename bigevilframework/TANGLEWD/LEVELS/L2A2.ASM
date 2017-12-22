@@ -118,6 +118,26 @@ l2a2_Init:
 	move.w #0x0001, WindFlue_OffTime(a0)
 	move.w #0x7FFF, WindFlue_Timer(a0)
 
+	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue3, a0
+	move.w #0x7FFF, WindFlue_OnTime(a0)
+	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
+
+	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue4, a0
+	move.w #0x7FFF, WindFlue_OnTime(a0)
+	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
+
+	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue5, a0
+	move.w #0x7FFF, WindFlue_OnTime(a0)
+	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
+
+	ENTITY_GETBYNAME WindFlue, l2a2_WindFlue6, a0
+	move.w #0x7FFF, WindFlue_OnTime(a0)
+	move.w #0x0001, WindFlue_OffTime(a0)
+	move.w #0x7FFF, WindFlue_Timer(a0)
+
 	;==============================================================
 
 	; Start rain ambience
@@ -148,4 +168,15 @@ l2a2_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l2a2_Trigger_EndColourPower:
+
+	; Set power to expire next frame
+	move.l Player1, a2
+	tst.w  Player_ColourChangeTimer(a2)
+	beq    @NoPower
+	move.w #0x1, Player_ColourChangeTimer(a2)
+	@NoPower:
+
 	rts

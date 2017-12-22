@@ -145,13 +145,15 @@ L2A2_Flue1_Low_name	dc.b "L2A2_Flue1_Low",0
 	even
 	ENDIF
 
-L2A2_TriggerBox_count equ 0x2
+L2A2_TriggerBox_count equ 0x3
 L2A2_TriggerBox_End_idx	equ 0x0
 L2A2_TriggerBox_TOD_Dusk_idx	equ 0x1
+L2A2_TriggerBox_StopPower_idx	equ 0x2
 
 	IFND FINAL
 L2A2_TriggerBox_End_name	dc.b "L2A2_TriggerBox_End",0
 L2A2_TriggerBox_TOD_Dusk_name	dc.b "L2A2_TriggerBox_TOD_Dusk",0
+L2A2_TriggerBox_StopPower_name	dc.b "L2A2_TriggerBox_StopPower",0
 	even
 	ENDIF
 
@@ -167,15 +169,17 @@ L2A2_WaterBody_count equ 0x0
 
 L2A2_Location_count equ 0x0
 
-L2A2_Deathbox_count equ 0x3
+L2A2_Deathbox_count equ 0x4
 L2A2_Deathbox_9_idx	equ 0x0
 L2A2_WindFlue1_idx	equ 0x1
 L2A2_Deathbox_11_idx	equ 0x2
+L2A2_Deathbox_59_idx	equ 0x3
 
 	IFND FINAL
 L2A2_Deathbox_9_name	dc.b "L2A2_Deathbox_9",0
 L2A2_WindFlue1_name	dc.b "L2A2_WindFlue1",0
 L2A2_Deathbox_11_name	dc.b "L2A2_Deathbox_11",0
+L2A2_Deathbox_59_name	dc.b "L2A2_Deathbox_59",0
 	even
 	ENDIF
 
@@ -199,19 +203,21 @@ L2A2_Pillar_count equ 0x0
 
 L2A2_Winch_count equ 0x0
 
-L2A2_WindFlue_count equ 0x5
+L2A2_WindFlue_count equ 0x6
 L2A2_WindFlue_34_idx	equ 0x0
 L2A2_WindFlue2_idx	equ 0x1
-L2A2_WindFlue_36_idx	equ 0x2
-L2A2_WindFlue_37_idx	equ 0x3
-L2A2_WindFlue_38_idx	equ 0x4
+L2A2_WindFlue3_idx	equ 0x2
+L2A2_WindFlue5_idx	equ 0x3
+L2A2_WindFlue4_idx	equ 0x4
+L2A2_WindFlue6_idx	equ 0x5
 
 	IFND FINAL
 L2A2_WindFlue_34_name	dc.b "L2A2_WindFlue_34",0
 L2A2_WindFlue2_name	dc.b "L2A2_WindFlue2",0
-L2A2_WindFlue_36_name	dc.b "L2A2_WindFlue_36",0
-L2A2_WindFlue_37_name	dc.b "L2A2_WindFlue_37",0
-L2A2_WindFlue_38_name	dc.b "L2A2_WindFlue_38",0
+L2A2_WindFlue3_name	dc.b "L2A2_WindFlue3",0
+L2A2_WindFlue5_name	dc.b "L2A2_WindFlue5",0
+L2A2_WindFlue4_name	dc.b "L2A2_WindFlue4",0
+L2A2_WindFlue6_name	dc.b "L2A2_WindFlue6",0
 	even
 	ENDIF
 
@@ -491,8 +497,8 @@ L2A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x16780000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
+	move.l #0x16e00000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A2_Firefly_47_name, a3
@@ -760,6 +766,21 @@ L2A2_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x13b80000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #l2a2_Trigger_EndColourPower, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L2A2_TriggerBox_StopPower_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A2_Checkpoint_count)
@@ -816,11 +837,24 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x15c00000, Entity_WorldPosX(a0)
+	move.l #0x15680000, Entity_WorldPosX(a0)
 	move.l #0x05000000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L2A2_Deathbox_11_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x16e80000, Entity_WorldPosX(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_59_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -876,36 +910,49 @@ L2A2_LoadGameObjects:
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
-	lea L2A2_WindFlue_36_name, a3
+	lea L2A2_WindFlue3_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WindFlue_Struct_Size, a0
 
 	jsr WindFlueInit
-	move.l #0x16c00000, Entity_WorldPosX(a0)
+	move.l #0x16f00000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
-	lea L2A2_WindFlue_37_name, a3
+	lea L2A2_WindFlue5_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WindFlue_Struct_Size, a0
 
 	jsr WindFlueInit
-	move.l #0x16400000, Entity_WorldPosX(a0)
+	move.l #0x16580000, Entity_WorldPosX(a0)
 	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
-	lea L2A2_WindFlue_38_name, a3
+	lea L2A2_WindFlue4_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #WindFlue_Struct_Size, a0
+
+	jsr WindFlueInit
+	move.l #0x17880000, Entity_WorldPosX(a0)
+	move.l #0x05300000, Entity_WorldPosY(a0)
+	jsr WindFlueLoadGfx
+	IFND FINAL
+	lea L2A2_WindFlue6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WindFlue_Struct_Size, a0
