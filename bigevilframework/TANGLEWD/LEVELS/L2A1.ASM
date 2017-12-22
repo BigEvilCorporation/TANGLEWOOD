@@ -203,6 +203,17 @@ l2a1_Serialise:
 l2a1_End:
 	rts
 
+l2a1_Trigger_EndColourPower:
+
+	; Set power to expire next frame
+	move.l Player1, a2
+	tst.w  Player_ColourChangeTimer(a2)
+	beq    @NoPower
+	move.w #0x1, Player_ColourChangeTimer(a2)
+	@NoPower:
+
+	rts
+
 l2a1_Trigger_WindSpeed1:
 	move.w  #0x0004, WindAccel
 	move.w  #-0x0200, WindRandStrengthMin

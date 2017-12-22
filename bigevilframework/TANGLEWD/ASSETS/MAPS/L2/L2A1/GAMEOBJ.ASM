@@ -48,20 +48,20 @@ L2A1_Nymn_3_name	dc.b "L2A1_Nymn_3",0
 L2A1_BouncePlant_count equ 0x7
 L2A1_BouncePlant_6_idx	equ 0x0
 L2A1_BouncePlant_7_idx	equ 0x1
-L2A1_BouncePlant_11_idx	equ 0x2
+L2A1_BouncePlant_59_idx	equ 0x2
 L2A1_BouncePlant_51_idx	equ 0x3
 L2A1_BouncePlant_54_idx	equ 0x4
 L2A1_BouncePlant_58_idx	equ 0x5
-L2A1_BouncePlant_59_idx	equ 0x6
+L2A1_BouncePlant_68_idx	equ 0x6
 
 	IFND FINAL
 L2A1_BouncePlant_6_name	dc.b "L2A1_BouncePlant_6",0
 L2A1_BouncePlant_7_name	dc.b "L2A1_BouncePlant_7",0
-L2A1_BouncePlant_11_name	dc.b "L2A1_BouncePlant_11",0
+L2A1_BouncePlant_59_name	dc.b "L2A1_BouncePlant_59",0
 L2A1_BouncePlant_51_name	dc.b "L2A1_BouncePlant_51",0
 L2A1_BouncePlant_54_name	dc.b "L2A1_BouncePlant_54",0
 L2A1_BouncePlant_58_name	dc.b "L2A1_BouncePlant_58",0
-L2A1_BouncePlant_59_name	dc.b "L2A1_BouncePlant_59",0
+L2A1_BouncePlant_68_name	dc.b "L2A1_BouncePlant_68",0
 	even
 	ENDIF
 
@@ -73,7 +73,13 @@ L2A1_Log_count equ 0x0
 
 L2A1_Monster_count equ 0x0
 
-L2A1_Boulder_count equ 0x0
+L2A1_Boulder_count equ 0x1
+L2A1_Boulder_67_idx	equ 0x0
+
+	IFND FINAL
+L2A1_Boulder_67_name	dc.b "L2A1_Boulder_67",0
+	even
+	ENDIF
 
 L2A1_Firefly_count equ 0x8
 L2A1_Firefly_43_idx	equ 0x0
@@ -133,13 +139,14 @@ L2A1_Flue_39_name	dc.b "L2A1_Flue_39",0
 	even
 	ENDIF
 
-L2A1_TriggerBox_count equ 0x6
+L2A1_TriggerBox_count equ 0x7
 L2A1_TriggerWindSpeed2_idx	equ 0x0
 L2A1_TriggerWindSpeed3_idx	equ 0x1
 L2A1_TriggerWindSpeed1_idx	equ 0x2
 L2A1_TriggerWindSpeed4_idx	equ 0x3
 L2A1_TriggerLvlEnd_idx	equ 0x4
 L2A1_TriggerBox_65_idx	equ 0x5
+L2A1_TriggerStopPower_idx	equ 0x6
 
 	IFND FINAL
 L2A1_TriggerWindSpeed2_name	dc.b "L2A1_TriggerWindSpeed2",0
@@ -148,6 +155,7 @@ L2A1_TriggerWindSpeed1_name	dc.b "L2A1_TriggerWindSpeed1",0
 L2A1_TriggerWindSpeed4_name	dc.b "L2A1_TriggerWindSpeed4",0
 L2A1_TriggerLvlEnd_name	dc.b "L2A1_TriggerLvlEnd",0
 L2A1_TriggerBox_65_name	dc.b "L2A1_TriggerBox_65",0
+L2A1_TriggerStopPower_name	dc.b "L2A1_TriggerStopPower",0
 	even
 	ENDIF
 
@@ -400,11 +408,11 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x0fc80000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
+	move.l #0x16780000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L2A1_BouncePlant_11_name, a3
+	lea L2A1_BouncePlant_59_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -452,11 +460,11 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x16780000, Entity_WorldPosX(a0)
-	move.l #0x02380000, Entity_WorldPosY(a0)
+	move.l #0x10800000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L2A1_BouncePlant_59_name, a3
+	lea L2A1_BouncePlant_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -468,6 +476,25 @@ L2A1_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L2A1_Boulder_count)
+	move.l a1, EntityPoolStart_Boulder
+	move.l a1, a0
+	POPL   a1
+
+	jsr BoulderInit
+	move.l #0x0ea80000, Entity_WorldPosX(a0)
+	move.l #0x03980000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	IFND FINAL
+	lea L2A1_Boulder_67_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xf, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Boulder_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -770,6 +797,22 @@ L2A1_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x0dc00000, Entity_WorldPosX(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #l2a1_Trigger_EndColourPower, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L2A1_TriggerStopPower_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A1_Checkpoint_count)
@@ -898,7 +941,7 @@ L2A1_LoadGameObjects:
 	POPL   a1
 
 	jsr HoggInit
-	move.l #0x0fe80000, Entity_WorldPosX(a0)
+	move.l #0x0f200000, Entity_WorldPosX(a0)
 	move.l #0x03b80000, Entity_WorldPosY(a0)
 	jsr HoggLoadGfx
 	IFND FINAL
