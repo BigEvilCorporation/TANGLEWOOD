@@ -66,6 +66,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\crate.asm
 	INCLUDE_TEXT_ASSET assets\sprites\debris.asm
 	INCLUDE_TEXT_ASSET assets\sprites\demon.asm
+	INCLUDE_TEXT_ASSET assets\sprites\dropbrig.asm
 	INCLUDE_TEXT_ASSET assets\sprites\djakk.asm
 	;INCLUDE_TEXT_ASSET assets\sprites\djrake.asm
 	INCLUDE_TEXT_ASSET assets\sprites\djakcage.asm

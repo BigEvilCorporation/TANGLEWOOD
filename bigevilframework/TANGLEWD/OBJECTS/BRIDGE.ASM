@@ -165,7 +165,13 @@ BridgeLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
+	cmp.b  #Bridge_ModeDrop, Bridge_Mode(a0)
+	beq    @DropSprite
 	SPRITE_LOAD_SHARED Bridge,notch,0,PaletteId_World0,0x0
+	bra    @RollSprite
+	@DropSprite:
+	SPRITE_LOAD_SHARED Dropbrig,notch,0,PaletteId_World0,0x0
+	@RollSprite:
 
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
