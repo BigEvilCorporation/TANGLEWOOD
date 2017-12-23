@@ -210,7 +210,7 @@ vdp_status_pal             equ 0x0    ; PAL mode flag
 ; VDP general register bits
 vdp_reg0_enablehint		   equ 0x10
 vdp_reg1_enablevint		   equ 0x40
-vdp_reg1_enabledisplay     equ 0x20
+vdp_reg1_enabledisplay     equ 0x40
 
 ; ************************************
 ; HINT effects

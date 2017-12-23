@@ -207,6 +207,7 @@ l5a4_Cutscene:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -346,6 +347,7 @@ l5a4_Cutscene:
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
 	CUTSCENE_ROUTINE l5a5_CutsceneEnd,#0x0,#0x0,#0x0
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts

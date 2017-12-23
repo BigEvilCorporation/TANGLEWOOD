@@ -10,13 +10,117 @@
 ;   Cutscene letterbox mode
 ;==============================================================
 
+LetterboxBarHeight	equ 0x18
+
 RasterEffectLetterboxInit:
-	rte
+
+	; End prev
+	move.l raster_effect_end, a2
+	cmp.l  #0x0, a2
+	beq    @NoPrev
+	jsr    (a2)
+	@NoPrev:
+
+	; Set update func
+	move.l #RasterEffectLetterboxUpdate, raster_effect_update
+
+	; Set end func
+	move.l #RasterEffectLetterboxEnd, raster_effect_end
+
+	; Set initial on time
+	move.b #0x0, raster_letterbox_top
+
+	; Set initial speed
+	move.b #0x0, raster_letterbox_speed
+
+	; Disable HINT
+	VDPGETREG 0, d0
+	andi.b  #~vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
+
+	; Load HINT routine
+	lea    RasterEffectLetterboxHINT, a0
+	jsr    INT_LoadHBlank
+
+	rts
 
 RasterEffectLetterboxUpdate:
-	rte
+
+	; Animate top bar
+	move.b raster_letterbox_top, d0
+	move.b raster_letterbox_speed, d1
+	add.b  d1, d0
+	CLAMPB d0, #0x0, #LetterboxBarHeight
+	move.b d0, raster_letterbox_top
+
+	; Invert for bottom bar
+	move.b #screen_height, d1
+	sub.b  d0, d1
+	sub.b  d0, d1
+	sub.b  d0, d1
+	move.b d1, raster_letterbox_bottom
+
+	; Set top border HINT counter
+	move.w #0x8A00, d0
+	or.b   raster_letterbox_top, d0
+	move.w d0, vdp_control
+
+	; Reset counter
+	move.b #0x0, raster_letterbox_counter
+
+	; Enable HINT
+	VDPGETREG 0, d0
+	ori.b   #vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
+
+	; Turn off screen
+	VDPGETREG 1, d0
+	andi.b #~vdp_reg1_enabledisplay, d0
+	VDPSETREG 1, d0
+
+	@End:
+
+	rts
+
+RasterEffectLetterboxEnd:
+
+	; Disble HINT
+	VDPGETREG 0, d0
+	andi.b  #~vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
+
+	; Enable display
+	VDPGETREG 1, d0
+	ori.b  #vdp_reg1_enabledisplay, d0
+	VDPSETREG 1, d0
+
+	rts
 
 RasterEffectLetterboxHINT:
+
+	PUSHW  d0
+
+	; Ignore odd fires, counter is latched too late
+	btst.b #0x0, raster_letterbox_counter
+	bne    @Ignore
+
+	; Toggle screen on/off
+	VDPGETREG 1, d0
+	eor.b  #vdp_reg1_enabledisplay, d0
+	VDPSETREG 1, d0
+
+	@Ignore:
+
+	; Set bottom border HINT counter
+	move.w #0x8A00, d0
+	move.b raster_letterbox_bottom, d0
+	move.w d0, vdp_control
+
+	; Increment counter
+	addi.b #0x1, raster_letterbox_counter
+
+	POPW   d0
+
 	rte
 
 ;==============================================================
@@ -24,84 +128,66 @@ RasterEffectLetterboxHINT:
 ;==============================================================
 
 RasterEffectUnderwaterInit:
+
+	; End prev
+	move.l raster_effect_end, a2
+	cmp.l  #0x0, a2
+	beq    @NoPrev
+	jsr    (a2)
+	@NoPrev:
+
 	; Set update func
 	move.l #RasterEffectUnderwaterUpdate, raster_effect_update
+
+	; Set end func
+	move.l #RasterEffectUnderwaterEnd, raster_effect_end
 
 	; Set HINT
 	lea    RasterEffectUnderwaterHINT, a0
 	jsr    INT_LoadHBlank
+
 	rts
 
 RasterEffectUnderwaterUpdate:
+
 	; Set water level HINT
 	move.b (raster_water_level), d0
 	jsr    VDP_SetHINTFreq
+
+	; Enable HINT
+	VDPGETREG 0, d0
+	ori.b   #vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
+
+	rts
+
+RasterEffectUnderwaterEnd:
+
+	; Disable HINT
+	VDPGETREG 0, d0
+	andi.b  #~vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
+
 	rts
 
 RasterEffectUnderwaterHINT:
 
 	; Disable interrupts
 	PUSHW  sr
+	PUSHW  d0
 	ori.w  #status_reg_int_disable, sr
 
 	; DMA underwater palette to player palette
-	PUSHW  d0
 	VDP_DMA_CRAM (UnderwaterPalettes+(PaletteId_WaterRaster*size_palette_b)), (PaletteId_WaterRaster*size_palette_b), size_palette_b, d0
-	POPW   d0
 	bset.b #PaletteId_WaterRaster, (DirtyPalettesMask)
 
-	; Disable next
-	move.w #0x8AFF, vdp_control
+	; Disable HINT
+	VDPGETREG 0, d0
+	andi.b  #~vdp_reg0_enablehint, d0
+	VDPSETREG 0, d0
 
 	; Restore interrupts
-	POPW    sr
-
-	rte
-
-;==============================================================
-;   Software interlace (Plane B)
-;==============================================================
-
-RasterEffectInterlacePlaneBInit:
-	; Set update func
-	move.l #RasterEffectInterlacePlaneBUpdate, raster_effect_update
-
-	; Set HINT
-	lea    RasterEffectInterlacePlaneBHINT, a0
-	jsr    INT_LoadHBlank
-
-	; Set HINT frequency
-	move.w #0x0, d0
-	jsr    VDP_SetHINTFreq
-
-	rts
-
-RasterEffectInterlacePlaneBUpdate:
-
-	; Reset odd/even line
-	;move.b #0x0, raster_interlace_odd
-
-	; Half-page scroll val in lower word, 0 in upper
-	move.l #(8*32), raster_interlace_scroll
-
-	rts
-
-RasterEffectInterlacePlaneBHINT:
-
-	; Swap Plane B from upper to lower 32 tiles each scanline
-	tst.b raster_interlace_odd
-	beq   @Even
-
-	; Odd line
-	VDP_SETVSCROLL_PLANEB #(8*32)
-	move.b #0x0, raster_interlace_odd
-	bra   @End
-
-	@Even:
-
-	; Even line
-	VDP_SETVSCROLL_PLANEB #0x0000
-	move.b #0x1, raster_interlace_odd
-	@End:
+	POPW   d0
+	POPW   sr
 
 	rte

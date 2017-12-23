@@ -128,6 +128,9 @@ l1a1_Init:
 
 	; Start ambient SFX
 	jsr    StartAmbientSFX
+
+	; Start letterbox mode
+	move.b #0x1, raster_letterbox_speed
 	
 	rts
 	
@@ -165,6 +168,9 @@ l1a1_Update:
 	
 	; Release animation control
 	move.b #0x1, Character_UpdateAnim(a0)
+
+	; End letterbox mode
+	move.b #-1, raster_letterbox_speed
 	
 	; Done
 	move.b #0x0, l1a1Data_WaitingInput(a2)

@@ -186,6 +186,7 @@ l8a4_Trigger_DemonTakeFuzzl:
 l8a4_CutsceneDemonStealFuzzl:
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -231,6 +232,8 @@ l8a4_CutsceneDemonStealFuzzl:
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
+	CUTSCENE_END_LETTERBOX
+
 	; Wait a while
 	CUTSCENE_DELAY #l8a4_DemonHideTime
 
@@ -249,6 +252,7 @@ l8a4_CutsceneDemonStealFuzzl:
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a4_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts

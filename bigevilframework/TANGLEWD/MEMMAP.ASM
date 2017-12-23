@@ -35,8 +35,7 @@ vram_pools				rs.b (VRAMPool_Struct_Size*VRAMPoolCount)
 ; Raster effect data
 ; ************************************
 raster_effect_update		rs.l 1	; Current effect update func
-raster_letterbox_top		rs.w 1	; Letterbox mode top border
-raster_letterbox_bottom		rs.w 1	; Letterbox mode bottom border
+raster_effect_end			rs.l 1	; Current effect finish func
 raster_interlace_scroll1_x	rs.w 1	; Interlaced scroll X (even line)
 raster_interlace_scroll1_y	rs.w 1	; Interlaced scroll Y (even line)
 raster_interlace_scroll2_x	rs.w 1	; Interlaced scroll X (odd line)
@@ -44,6 +43,10 @@ raster_interlace_scroll2_y	rs.w 1	; Interlaced scroll Y (odd line)
 raster_interlace_scroll		rs.w 1
 raster_interlace_odd		rs.b 1	; Odd/even raster line
 raster_water_level			rs.b 1	; Current water level, sets HINT frequency
+raster_letterbox_top		rs.b 1	; Letterbox mode top border
+raster_letterbox_bottom		rs.b 1	; Letterbox mode bottom border
+raster_letterbox_counter	rs.b 1	; Letterbox HINT counter
+raster_letterbox_speed		rs.b 1	; Letterbox animate speed
 
 	RS_ALIGN
 

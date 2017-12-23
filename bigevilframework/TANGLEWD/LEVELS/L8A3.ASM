@@ -54,7 +54,7 @@ l8a3_DefaultPalettes:
 	
 	even
 
-l8a3_DemonToFuzzl				equ 0x30
+l8a3_DemonToFuzzl				equ 0x04
 l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
@@ -203,6 +203,7 @@ l8a3_Trigger_DemonTakeFuzzl:
 l8a3_CutsceneDemonStealFuzzl:
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -248,6 +249,8 @@ l8a3_CutsceneDemonStealFuzzl:
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
+	CUTSCENE_END_LETTERBOX
+
 	; Wait a while
 	CUTSCENE_DELAY #l8a3_DemonHideTime
 
@@ -266,6 +269,7 @@ l8a3_CutsceneDemonStealFuzzl:
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a3_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts
@@ -274,6 +278,7 @@ l8a3_CutsceneLoadLift:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0

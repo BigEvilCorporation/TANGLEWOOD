@@ -498,6 +498,7 @@ l3a3_CutsceneSaveEcho:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -556,6 +557,7 @@ l3a3_CutsceneSaveEcho:
 	; Restore control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts
@@ -564,6 +566,7 @@ l3a3_CutsceneMeetEcho:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -645,6 +648,7 @@ l3a3_CutsceneMeetEcho:
 	; Start Echo AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts

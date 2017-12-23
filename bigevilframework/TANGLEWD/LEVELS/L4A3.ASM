@@ -381,6 +381,7 @@ l4a3_CutsceneLoadLift:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -434,6 +435,7 @@ l4a3_CutsceneRevealBorgus:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -461,9 +463,13 @@ l4a3_CutsceneRevealBorgus:
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
+	CUTSCENE_END_LETTERBOX
+
 	; Wait for Borgus to die
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
 	CUTSCENE_CHARACTER_WAIT_DEATH a2
+
+	CUTSCENE_START_LETTERBOX
 
 	; Lerp camera to Borgus and back
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
@@ -473,6 +479,7 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts

@@ -296,8 +296,55 @@ CutsceneStep_GameScenePaletteLoad:
 
 	rts
 
+CutsceneStep_StartLetterbox:
+	; a0 --- Cutscene
+
+	; Load letterbox HINT
+	jsr    RasterEffectLetterboxInit
+
+	; Begin
+	move.b #1, raster_letterbox_speed
+
+	move.b #0x0, d0
+
+	rts
+
+CutsceneStep_EndLetterbox:
+	; a0 --- Cutscene
+
+	; Shrink letterbox
+	move.b #-1, raster_letterbox_speed
+
+	; Wait until finished
+	tst.b  raster_letterbox_top
+	bne    @Animating
+
+	; Restore underwater HINT
+	jsr    RasterEffectUnderwaterInit
+
+	move.b #0x0, d0
+	bra    @End
+
+	@Animating:
+	move.b #0x1, d0
+
+	@Finshed:
+	
+
+	@End:
+
+	rts
+
 CUTSCENE_GAME_PALETTE_LOAD: macro palette,slotId
 	move.l \palette, a2
 	move.b \slotId, d0
 	CUTSCENE_RUN_STEP CutsceneStep_GameScenePaletteLoad
+	endm
+
+CUTSCENE_START_LETTERBOX: macro
+	CUTSCENE_RUN_STEP CutsceneStep_StartLetterbox
+	endm
+
+CUTSCENE_END_LETTERBOX: macro
+	CUTSCENE_RUN_STEP CutsceneStep_EndLetterbox
 	endm

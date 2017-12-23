@@ -193,6 +193,9 @@ GameStateReset:
 
 	lea Thunder, a2
 	move.b #0x0, Thunder_Enabled(a2)
+
+	; Load water level raster effect
+	jsr    RasterEffectUnderwaterInit
 	
 	rts
 

@@ -11,10 +11,6 @@ __main:
 	; Disable vint during loading
 	move.b #0x0, vint_enabled
 	
-	; Load water level raster effect by default
-	jsr    RasterEffectUnderwaterInit
-	;jsr    RasterEffectInterlacePlaneBInit
-	
 	; Init game state stack
 	move.l #GameStateStack, GameStateStackPtr
 

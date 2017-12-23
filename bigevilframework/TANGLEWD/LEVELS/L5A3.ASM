@@ -422,6 +422,7 @@ l5a3_CutsceneLoadLift1:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -454,6 +455,7 @@ l5a3_CutsceneLoadLift1:
 	; Clear follow-only behaviour
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_AILinearFollowOnly,#0x0
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts
@@ -462,6 +464,7 @@ l5a3_CutsceneLoadLift2:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -526,6 +529,7 @@ l5a3_CutsceneRevealScrap:
 	; a0 --- Cutscene
 
 	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
@@ -550,6 +554,7 @@ l5a3_CutsceneRevealScrap:
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
+	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 
 	rts
