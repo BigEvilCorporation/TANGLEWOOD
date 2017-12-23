@@ -169,12 +169,13 @@ L2A3_WaterBody_count equ 0x0
 
 L2A3_Location_count equ 0x0
 
-L2A3_Deathbox_count equ 0x5
+L2A3_Deathbox_count equ 0x6
 L2A3_Deathbox_27_idx	equ 0x0
 L2A3_Deathbox_28_idx	equ 0x1
 L2A3_Deathbox_29_idx	equ 0x2
 L2A3_Deathbox_30_idx	equ 0x3
 L2A3_Deathbox_45_idx	equ 0x4
+L2A3_Deathbox_66_idx	equ 0x5
 
 	IFND FINAL
 L2A3_Deathbox_27_name	dc.b "L2A3_Deathbox_27",0
@@ -182,6 +183,7 @@ L2A3_Deathbox_28_name	dc.b "L2A3_Deathbox_28",0
 L2A3_Deathbox_29_name	dc.b "L2A3_Deathbox_29",0
 L2A3_Deathbox_30_name	dc.b "L2A3_Deathbox_30",0
 L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
+L2A3_Deathbox_66_name	dc.b "L2A3_Deathbox_66",0
 	even
 	ENDIF
 
@@ -456,7 +458,7 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x22200000, Entity_WorldPosX(a0)
+	move.l #0x20f80000, Entity_WorldPosX(a0)
 	move.l #0x01d00000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
@@ -879,6 +881,19 @@ L2A3_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L2A3_Deathbox_45_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x22080000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A3_Deathbox_66_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
