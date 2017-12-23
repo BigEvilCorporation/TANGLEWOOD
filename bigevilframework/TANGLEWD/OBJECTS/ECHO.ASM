@@ -197,6 +197,7 @@ Echo_AILastWaterEdge		rs.w 1	; Last known water edge
 Echo_AIWaterBodyLeft		rs.w 1	; Last known water bounds left
 Echo_AIWaterBodyRight		rs.w 1	; Last known water bounds right
 Echo_AIWaterBodySurface		rs.w 1	; Last known water surface
+Echo_TalkTimer				rs.w 1
 Echo_HowlTimer				rs.w 1
 Echo_LastNymnFloorPosX		rs.w 1
 Echo_LastNymnFloorPosY		rs.w 1
@@ -211,7 +212,6 @@ Echo_AIObstacleDirection	rs.b 1	; Direction to face water waiting for Nymn to he
 Echo_AIWaitAtWater			rs.b 1	; Wait if water detected ahead
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
-Echo_HowlState				rs.b 1
 Echo_EnteringLadder			rs.b 1
 ;---------------------------------
 	RS_ALIGN
@@ -251,6 +251,7 @@ EchoInit:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
 	MOVE_NTSC_W Echo_NodeFailTime, Echo_AINodeFailTimer(a0), d0
+	move.w #0x0, Echo_TalkTimer(a0)
 	move.w #0x0, Echo_HowlTimer(a0)
 	move.w #0x0, Echo_AIPotentialSafePosX(a0)
 	move.w #0x0, Echo_AIPotentialSafePosY(a0)
@@ -263,7 +264,6 @@ EchoInit:
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
 	move.b #0x0, Echo_AIWaitAtWater(a0)
-	move.b #0x0, Echo_HowlState(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -421,30 +421,9 @@ EchoUpdate:
 	; Default update
 	jsr PlayerUpdate
 
-	; Update howl timer
-	move.w Echo_HowlTimer(a0), d0
-	beq    @TimerNotRunning
-	subq.w  #0x1, d0
-	move.w d0, Echo_HowlTimer(a0)
-	tst.w  d0
-	bne    @TimerStillRunning
-	; If on floor
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	bne    @OnFloor
-	; In air, try again next frame
-	move.w #0x1, Echo_HowlTimer(a0)
-	bra    @TimerStillRunning
-	@OnFloor:
-	; If on screen, just talk
-	tst.b  SpriteObj_SpriteLinked(a0)
-	beq    @Howl
-	jsr    EchoTalk
-	bra    @Talk
-	@Howl:
-	jsr    EchoHowl
-	@Talk:
-	@TimerStillRunning:
-	@TimerNotRunning:
+	; Update talk/howl timers
+	jsr EchoUpdateTalk
+	jsr EchoUpdateHowl
 	
 	@Carried:
 
@@ -466,6 +445,56 @@ EchoUpdate:
 
 	@Mounting:
 	
+	rts
+
+EchoUpdateTalk:
+
+	move.w Echo_TalkTimer(a0), d0
+	beq    @TimerNotRunning
+	subq.w  #0x1, d0
+	move.w d0, Echo_TalkTimer(a0)
+	tst.w  d0
+	bne    @TimerStillRunning
+
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @OnFloor
+
+	; In air, try again next frame
+	move.w #0x1, Echo_TalkTimer(a0)
+	bra    @TimerStillRunning
+	@OnFloor:
+
+	jsr    EchoTalk
+
+	@TimerStillRunning:
+	@TimerNotRunning:
+
+	rts
+
+EchoUpdateHowl:
+
+	move.w Echo_HowlTimer(a0), d0
+	beq    @TimerNotRunning
+	subq.w  #0x1, d0
+	move.w d0, Echo_HowlTimer(a0)
+	tst.w  d0
+	bne    @TimerStillRunning
+
+	; If on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	bne    @OnFloor
+
+	; In air, try again next frame
+	move.w #0x1, Echo_HowlTimer(a0)
+	bra    @TimerStillRunning
+	@OnFloor:
+
+	jsr    EchoHowl
+
+	@TimerStillRunning:
+	@TimerNotRunning:
+
 	rts
 
 EchoUpdateRiding:
@@ -869,7 +898,7 @@ EchoStartTalk:
 	; a1 --- Level addr
 
 	; 1 frame timer, evaluates floor
-	move.w #0x1, Echo_HowlTimer(a0)
+	move.w #0x1, Echo_TalkTimer(a0)
 
 	rts
 
@@ -880,7 +909,7 @@ EchoStartTalkTimer:
 	MOVE_NTSC_W Echo_TalkDelayMin, d1, d0
 	MOVE_NTSC_W Echo_TalkDelayMax, d2, d0
 	jsr    RND_GenerateWordClamped
-	move.w d0, Echo_HowlTimer(a0)
+	move.w d0, Echo_TalkTimer(a0)
 
 	rts
 
@@ -892,6 +921,7 @@ EchoStartHowlTimer:
 	MOVE_NTSC_W Echo_HowlDelayMax, d2, d0
 	jsr    RND_GenerateWordClamped
 	move.w d0, Echo_HowlTimer(a0)
+	
 	rts
 
 EchoTalk:
@@ -906,9 +936,6 @@ EchoTalk:
 	move.l #0x0, a3
 	jsr    AnimObjSetAnimation
 	POPL   a1
-
-	; Set talk state
-	move.b #0x1, Echo_HowlState(a0)
 
 	rts
 
@@ -930,9 +957,6 @@ EchoHowl:
 	bne    @OnScreen
 	jsr    EchoStartCameraLerp
 	@OnScreen:
-
-	; Set howl state
-	move.b #0x1, Echo_HowlState(a0)
 
 	rts
 	
