@@ -389,7 +389,7 @@ l1a0_Cutscene_DemonRunOff:
 	PUSHM a0-a2
 
 	; Move back to starting pos
-	ENTITY_GETBYNAME Demon, l1a1_CutsceneDemon, a2
+	ENTITY_GETBYNAME Demon, l1a1_CutsceneDemon, a0
 	ENTITY_GETBYNAME Location, l1a1_CutsceneDemonTarget0, a2
 	ENTITY_GETCENTREX d0,a2
 	ENTITY_GETCENTREY d1,a2
