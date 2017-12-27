@@ -368,6 +368,7 @@ SharedVRAM_End			rs.b 0
 ; Level runtime data
 ; ************************************
 	IF INCLUDE_LEVEL_1
+LevelData_L1A0			 rs.b L1A0Data_Struct_Size
 LevelData_L1A1			 rs.b L1A1Data_Struct_Size
 LevelData_L1A2			 rs.b l1a2Data_Struct_Size
 LevelData_L1A3			 rs.b l1a3Data_Struct_Size

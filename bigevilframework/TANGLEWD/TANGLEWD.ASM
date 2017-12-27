@@ -203,6 +203,7 @@ __start
 	
 	; Include levels
 	IF INCLUDE_LEVEL_1
+	include 'levels\l1a0.asm'
 	include 'levels\l1a1.asm'
 	include 'levels\l1a2.asm'
 	include 'levels\l1a3.asm'

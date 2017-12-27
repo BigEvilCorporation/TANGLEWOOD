@@ -64,10 +64,10 @@ L1A1_Log_count equ 0x0
 L1A1_Monster_count equ 0x0
 
 L1A1_Boulder_count equ 0x1
-L1A1_Boulder_69_idx	equ 0x0
+L1A1_CutsceneDemonTarget7_idx	equ 0x0
 
 	IFND FINAL
-L1A1_Boulder_69_name	dc.b "L1A1_Boulder_69",0
+L1A1_CutsceneDemonTarget7_name	dc.b "L1A1_CutsceneDemonTarget7",0
 	even
 	ENDIF
 
@@ -76,7 +76,7 @@ L1A1_Firefly_17_idx	equ 0x0
 L1A1_Firefly_5_idx	equ 0x1
 L1A1_Firefly_12_idx	equ 0x2
 L1A1_Firefly_48_idx	equ 0x3
-L1A1_Firefly_18_idx	equ 0x4
+L1A1_CutsceneDemonTarget0_idx	equ 0x4
 L1A1_Firefly_47_idx	equ 0x5
 L1A1_Firefly_14_idx	equ 0x6
 L1A1_Firefly_60_idx	equ 0x7
@@ -86,7 +86,7 @@ L1A1_Firefly_17_name	dc.b "L1A1_Firefly_17",0
 L1A1_Firefly_5_name	dc.b "L1A1_Firefly_5",0
 L1A1_Firefly_12_name	dc.b "L1A1_Firefly_12",0
 L1A1_Firefly_48_name	dc.b "L1A1_Firefly_48",0
-L1A1_Firefly_18_name	dc.b "L1A1_Firefly_18",0
+L1A1_CutsceneDemonTarget0_name	dc.b "L1A1_CutsceneDemonTarget0",0
 L1A1_Firefly_47_name	dc.b "L1A1_Firefly_47",0
 L1A1_Firefly_14_name	dc.b "L1A1_Firefly_14",0
 L1A1_Firefly_60_name	dc.b "L1A1_Firefly_60",0
@@ -117,7 +117,13 @@ L1A1_Stone_68_name	dc.b "L1A1_Stone_68",0
 	even
 	ENDIF
 
-L1A1_Demon_count equ 0x0
+L1A1_Demon_count equ 0x1
+L1A1_CutsceneDemon_idx	equ 0x0
+
+	IFND FINAL
+L1A1_CutsceneDemon_name	dc.b "L1A1_CutsceneDemon",0
+	even
+	ENDIF
 
 L1A1_Raft_count equ 0x0
 
@@ -175,7 +181,15 @@ L1A1_WaterBody_70_name	dc.b "L1A1_WaterBody_70",0
 	even
 	ENDIF
 
-L1A1_Location_count equ 0x0
+L1A1_Location_count equ 0x2
+L1A1_CutsceneDemonTarget1_idx	equ 0x0
+L1A1_Location_93_idx	equ 0x1
+
+	IFND FINAL
+L1A1_CutsceneDemonTarget1_name	dc.b "L1A1_CutsceneDemonTarget1",0
+L1A1_Location_93_name	dc.b "L1A1_Location_93",0
+	even
+	ENDIF
 
 L1A1_Deathbox_count equ 0x0
 
@@ -417,10 +431,10 @@ L1A1_LoadGameObjects:
 	move.l #0x02300000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
-	lea L1A1_Boulder_69_name, a3
+	lea L1A1_CutsceneDemonTarget7_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
@@ -489,10 +503,10 @@ L1A1_LoadGameObjects:
 	move.l #0x02a80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
-	lea L1A1_Firefly_18_name, a3
+	lea L1A1_CutsceneDemonTarget0_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xf, d0
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Firefly_Struct_Size, a0
@@ -618,6 +632,25 @@ L1A1_LoadGameObjects:
 	ENDIF
 	add.l #Stone_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L1A1_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x0e300000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
+	IFND FINAL
+	lea L1A1_CutsceneDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Demon_Struct_Size, a0
 
 
 
@@ -820,6 +853,38 @@ L1A1_LoadGameObjects:
 	ENDIF
 	add.l #WaterBody_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L1A1_Location_count)
+	move.l a1, EntityPoolStart_Location
+	move.l a1, a0
+	POPL   a1
+
+	jsr LocationInit
+	move.l #0x04400000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L1A1_CutsceneDemonTarget1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
+
+	jsr LocationInit
+	move.l #0x0e280000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L1A1_Location_93_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
 
 
 

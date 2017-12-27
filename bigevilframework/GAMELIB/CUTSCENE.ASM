@@ -152,6 +152,30 @@ CutsceneStep_StopTrack:
 
 	rts
 
+CutsceneStep_FadeTrack:
+	; a0 --- Cutscene
+	; d0 (b) OUT: Step running
+
+	move.b #-1, d0
+	jsr    SND_BeginFadeTrack
+	move.b #0x0, d0
+
+	rts
+
+CutsceneStep_PlaySfx:
+	; a0 --- Cutscene
+	; a2 --- SFX
+	; d0 (b) OUT: Step running
+
+	PUSHM  a0/d0-d1
+	move.l a2, a0
+	jsr    SND_PlaySFX
+	POPM   a0/d0-d1
+
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_VfxFlash:
 	; a0 --- Cutscene
 	; d0 ---- Frames
@@ -402,6 +426,14 @@ CutsceneStep_CameraLerpWait:
 
 	rts
 
+CutsceneStep_WaitFade:
+	; a0 --- Cutscene
+	; d0 (b) OUT: Step running
+
+	jsr   PAL_LerpActive
+
+	rts
+
 CutsceneStep_WaitObjectHitFloor:
 	; a0 --- Cutscene
 	; a1 --- Object
@@ -555,6 +587,10 @@ CUTSCENE_PALETTE_LOAD: macro palette,slotId
 	CUTSCENE_RUN_STEP CutsceneStep_PaletteLoad
 	endm
 
+CUTSCENE_PALETTE_FADE_WAIT: macro
+	CUTSCENE_RUN_STEP CutsceneStep_WaitFade
+	endm
+
 CUTSCENE_PLAY_TRACK: macro track
 	move.l \track, a2
 	CUTSCENE_RUN_STEP CutsceneStep_PlayTrack
@@ -562,6 +598,15 @@ CUTSCENE_PLAY_TRACK: macro track
 
 CUTSCENE_STOP_TRACK: macro
 	CUTSCENE_RUN_STEP CutsceneStep_StopTrack
+	endm
+
+CUTSCENE_FADE_TRACK: macro
+	CUTSCENE_RUN_STEP CutsceneStep_FadeTrack
+	endm
+
+CUTSCENE_PLAY_SFX: macro sfx
+	move.l \sfx, a2
+	CUTSCENE_RUN_STEP CutsceneStep_PlaySfx
 	endm
 
 CUTSCENE_VFX_FLASH: macro frames

@@ -144,7 +144,7 @@ NymnInit:
 	ANIM_LOAD_DEFAULT nymn,laydown,wake,Player_Animations,PlayerAnimIdx_Wake,0,1,0
 	
 	; Raise head then back to sleep
-	;ANIM_LOAD_DEFAULT nymn,laydown,wakesleep,Player_Animations,PlayerAnimIdx_WakeSleep,0,1,0
+	ANIM_LOAD_DEFAULT nymn,laydown,wakesleep,Player_Animations,PlayerAnimIdx_WakeSleep,0,1,0
 	
 	; Nervous look back
 	ANIM_LOAD_DEFAULT nymn,lookback,lookback,Player_Animations,PlayerAnimIdx_IdleLookBack,0,1,0

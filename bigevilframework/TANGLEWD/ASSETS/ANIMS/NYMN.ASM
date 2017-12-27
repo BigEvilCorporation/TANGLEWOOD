@@ -374,6 +374,46 @@ actor_nymn_sheet_walk_anim_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_nymn_sheet_laydown_anim_wakesleep:
+actor_nymn_sheet_laydown_anim_wakesleep_numframes: equ 0x19
+actor_nymn_sheet_laydown_anim_wakesleep_speed: equ 0x1E
+actor_nymn_sheet_laydown_anim_wakesleep_track_frames:
+	dc.l actor_nymn_sheet_laydown_frame_15_header
+	dc.l actor_nymn_sheet_laydown_frame_14_header
+	dc.l actor_nymn_sheet_laydown_frame_13_header
+	dc.l actor_nymn_sheet_laydown_frame_10_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_11_header
+	dc.l actor_nymn_sheet_laydown_frame_12_header
+	dc.l actor_nymn_sheet_laydown_frame_13_header
+	dc.l actor_nymn_sheet_laydown_frame_14_header
+	dc.l actor_nymn_sheet_laydown_frame_15_header
+
+	Even
+actor_nymn_sheet_laydown_anim_wakesleep_track_posx:
+	dc.b 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
+	Even
+actor_nymn_sheet_laydown_anim_wakesleep_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_laydown_anim_wakesleep_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
 actor_nymn_sheet_laydown_anim_wake:
 actor_nymn_sheet_laydown_anim_wake_numframes: equ 0xD
 actor_nymn_sheet_laydown_anim_wake_speed: equ 0x14

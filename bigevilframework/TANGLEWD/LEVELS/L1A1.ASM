@@ -126,6 +126,15 @@ l1a1_Init:
 
 	;==============================================================
 
+	; Disable cutscene Demon
+	ENTITY_GETBYNAME Demon, l1a1_CutsceneDemon, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    PhysicsWorldRemoveObject
+
+	;==============================================================
+
 	; Start ambient SFX
 	jsr    StartAmbientSFX
 

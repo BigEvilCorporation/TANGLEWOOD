@@ -692,13 +692,39 @@ DemonAIUpdate_Wisp:
 	lsl.l  #0x2, d2
 	lsl.l  #0x8, d3
 	lsl.l  #0x2, d3
+
+	; TODO: Make sure vel > decel
+
+	;move.w PhysicsObj_DecelX(a0), d0
+	;ext.l  d0
+	;tst.l  d3
+	;blt    @CheckDecelNegX
+	;cmp.l  d3, d0
+	;blt    @ClampedX
+	;move.l d0, d3
+	;addi.l #0x00001000, d3
+	;bra    @ClampedX
+	;@CheckDecelNegX:
+	;neg.l  d0
+	;cmp.l  d3, d0
+	;bgt    @ClampedX
+	;move.l d0, d3
+	;subi.l #0x00001000, d3
+	;@ClampedX:
+
+	move.l PhysicsObj_MaxVelAirX(a0), d6
+	move.l d6, d7
+	neg.l  d6
+	CLAMPL d2, d6, d7
+	CLAMPL d3, d6, d7
+
 	move.l d2, PhysicsObj_VelY(a0)
 	move.l d3, PhysicsObj_VelX(a0)
 	bra    @Following
 
 	@WithinRange:
 
-	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, PhysicsObj_AccelY(a0)   
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.b #0x1, Demon_AtTarget(a0)
 
