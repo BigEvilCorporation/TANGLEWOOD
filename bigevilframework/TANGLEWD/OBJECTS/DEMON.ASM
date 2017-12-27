@@ -33,11 +33,9 @@ Demon_AttackOffsetX		equ 0x0018
 Demon_AttackAnimSpeedInc	equ 0x4
 Demon_AttackFlashFrames	equ 0x2
 
-Demon_MaxLives		equ 0x3
+Demon_MaxLives			equ 0x3
 
-DemonWisp_Width		equ 0x0038
-DemonWisp_Height	equ 0x0030
-DemonWisp_MaxDist	equ Player1Height	; Max distance from player
+Demon_WispMaxDist		equ Player1Height	; Max distance from player
 
 DemonState_Wisp			equ 0x0
 DemonState_Physical		equ 0x1
@@ -45,30 +43,20 @@ DemonState_Boss			equ 0x2
 DemonState_Attacking	equ 0x3
 
 ; Animations
-DemonAnimIdx_WispToEmerge	equ 0x0
-DemonAnimIdx_Transition		equ 0x1
-DemonAnimIdx_Emerge			equ 0x2
-DemonAnimIdx_IdleToSmirk	equ 0x3
-DemonAnimIdx_Bite			equ 0x4
+DemonAnimIdx_Wisp			equ 0x0
+DemonAnimIdx_WispToEmerge	equ 0x1
+DemonAnimIdx_Transition		equ 0x2
+DemonAnimIdx_Emerge			equ 0x3
+DemonAnimIdx_IdleToSmirk	equ 0x4
+DemonAnimIdx_Bite			equ 0x5
 ;----------------------------------
-DemonAnimIdx_Max			equ 0x5
-
-;==============================================================
-
-	rsset (AnimObj_Struct_Size)
-;-----------------------------
-Wisp_Animation			rs.b Animation_Struct_Size
-;-----------------------------
-	RS_ALIGN
-Wisp_Struct_Size		rs.b 0
-;-----------------------------
+DemonAnimIdx_Max			equ 0x6
 
 ;==============================================================
 
 	rsset (Character_Struct_Size)
 ;-----------------------------
 Demon_Animations		rs.b (Animation_Struct_Size*DemonAnimIdx_Max)
-Demon_Wisp				rs.b Wisp_Struct_Size
 Demon_TargetDistSq		rs.l 1
 Demon_TargetX			rs.w 1
 Demon_TargetY			rs.w 1
@@ -99,7 +87,7 @@ DemonInit:
 	
 	; Set update and render routines
 	move.l #DemonUpdate, Entity_UpdateRoutine(a0)
-	move.l #DemonDraw, Entity_RenderRoutine(a0)
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	move.l #DemonSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -136,7 +124,7 @@ DemonInit:
 	move.b  #0x0, Demon_AtTarget(a0)
 	move.w  #0x0, Demon_TargetX(a0)
 	move.w  #0x0, Demon_TargetY(a0)
-	move.l  #DemonWisp_MaxDist*DemonWisp_MaxDist, Demon_TargetDistSq(a0)
+	move.l  #Demon_WispMaxDist*Demon_WispMaxDist, Demon_TargetDistSq(a0)
 	move.w  #0x0, Demon_BossBoundsLeft(a0)
 	move.w  #0x7FFF, Demon_BossBoundsRight(a0)
 	move.b  #0x0, Demon_ManualGfxLoad(a0)
@@ -149,14 +137,6 @@ DemonInit:
 	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
 
-	; Init wisp
-	PUSHL   a0
-	lea     Demon_Wisp(a0), a0
-	jsr     AnimObjInit
-	move.w  #DemonWisp_Width, Entity_Width(a0)
-	move.w  #DemonWisp_Height, Entity_Height(a0)
-	POPL    a0
-
 	rts
 
 DemonLoadGfx:
@@ -166,16 +146,15 @@ DemonLoadGfx:
 	tst.b   Demon_ManualGfxLoad(a0)
 	bne     @ManualLoad
 
-	; Load sprite (to alloc VRAM for wisp)
-	SPRITE_LOAD_DEFAULT Demon,idle,0,PaletteId_Monster,0x0
-
-	; Load wisp
-	jsr DemonLoadWispGfx
+	; Load sprite
+	SPRITE_LOAD_DEFAULT demon,wisp,0,PaletteId_Monster,0x0
 
 	@ManualLoad:
 
 	; Load default character animations
-	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	; Load bespoke animations
 	ANIM_LOAD_DEFAULT demon,emerge,wisptoemerge,Demon_Animations,DemonAnimIdx_WispToEmerge,0,0,0
@@ -183,38 +162,31 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT demon,emerge,emerge,Demon_Animations,DemonAnimIdx_Emerge,0,0,0
 	ANIM_LOAD_DEFAULT demon,idletosmirk,idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
 	ANIM_LOAD_DEFAULT demon,bite,bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
-
-	; Load wisp anim and start playing
-	PUSHM   a0-a1
-	move.l  a0, a4
-	lea     Demon_Wisp(a0), a0
-	ANIM_LOAD_DEFAULT wisp,idle,idle,Wisp_Animation,0,1,0,0
-	lea     Wisp_Animation(a0), a1
-	move.b  #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr     AnimObjSetAnimation
-	POPM    a0-a1
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Demon_Animations,0,1,0,0
 
 	rts
 
 DemonLoadWispGfx:
 
-	; Load wisp (into Demon VRAM)
-	PUSHM   a0-a1
-	move.l  a0, a4
-	lea     Demon_Wisp(a0), a0
-	SPRITE_LOAD_COPY wisp,idle,0,PaletteId_Monster,0x0,a4
-	POPM    a0-a1
+	; Load wisp sprite
+	SPRITE_LOAD_SHARED_VRAM Demon,wisp,0,PaletteId_Monster,0x0,a0
+
+	; Load anims
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	rts
 
 DemonLoadPhysicalGfx:
 
-	; Load demon sprite over top of wisp
-	PUSHM   a0-a1
-	SPRITE_LOAD_COPY Demon,idle,0,PaletteId_Monster,0x0,a0
-	POPM    a0-a1
+	; Load demon sprite
+	SPRITE_LOAD_SHARED_VRAM Demon,idle,0,PaletteId_Monster,0x0,a0
+
+	; Load idle anim
+	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
 	rts
 	
@@ -257,37 +229,6 @@ DemonUpdate:
 
 	@End:
 	@Disabled:
-
-	rts
-
-DemonDraw:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; d2 (w) Camera left
-	; d3 (w) Camera right
-	; d4 (w) Camera top
-	; d5 (w) Camera bottom
-
-	cmp.b  #DemonState_Wisp, Demon_State(a0)
-	beq    @DrawWisp
-
-	; Draw demon
-	jsr    AnimObjDraw
-	bra    @End
-
-	@DrawWisp:
-
-	; Draw wisp
-	PUSHL   a0
-	move.l  a0, a2
-	PUSHL   a2
-	lea     Demon_Wisp(a0), a0
-	jsr     AnimObjDraw
-	POPL    a2
-	move.b  SpriteObj_SpriteLinked(a0), SpriteObj_SpriteLinked(a2)
-	POPL    a0
-
-	@End:
 
 	rts
 	
@@ -333,8 +274,8 @@ DemonStartEmerge:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_WispToEmerge)(a0), a1
 	move.b  #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
+	move.l  #0x0, a2
+	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -354,8 +295,8 @@ DemonEmerge:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Emerge)(a0), a1
 	move.b  #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
+	move.l  #0x0, a2
+	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -372,8 +313,8 @@ DemonSmirk:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_IdleToSmirk)(a0), a1
 	move.b  #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
+	move.l  #0x0, a2
+	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -390,8 +331,8 @@ DemonAttack:
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Bite)(a0), a1
 	move.b  #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
+	move.l  #0x0, a2
+	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
@@ -642,6 +583,15 @@ DemonAIStart_Wisp:
 	; Load wisp gfx
 	jsr    DemonLoadWispGfx
 
+	; Start wisp anim
+	PUSHL   a1
+	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Wisp)(a0), a1
+	move.b  #0x0, d0
+	move.l  #0x0, a2
+	move.l  #0x0, a3
+	jsr     AnimObjSetAnimation
+	POPL    a1
+
 	; Set state
 	move.b #DemonState_Wisp, Demon_State(a0)
 
@@ -729,15 +679,6 @@ DemonAIUpdate_Wisp:
 	move.b #0x1, Demon_AtTarget(a0)
 
 	@Following:
-
-	; Update wisp
-	PUSHL   a0
-	move.l  a0, a2
-	lea     Demon_Wisp(a0), a0
-	move.l  Entity_WorldPosX(a2), Entity_WorldPosX(a0)
-	move.l  Entity_WorldPosY(a2), Entity_WorldPosY(a0)
-	jsr     AnimObjUpdate
-	POPL    a0
 
 	POPM    a0-a1
 

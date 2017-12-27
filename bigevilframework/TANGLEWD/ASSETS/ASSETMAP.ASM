@@ -98,11 +98,11 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stalact.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stone.asm
+	INCLUDE_TEXT_ASSET assets\sprites\swarm.asm
 	INCLUDE_TEXT_ASSET assets\sprites\trap.asm
 	INCLUDE_TEXT_ASSET assets\sprites\twd_logo.asm
 	INCLUDE_TEXT_ASSET assets\sprites\water.asm
 	INCLUDE_TEXT_ASSET assets\sprites\winch.asm
-	INCLUDE_TEXT_ASSET assets\sprites\wisp.asm
 	INCLUDE_TEXT_ASSET assets\sprites\wyrm.asm
 sprite_assets_end
 
@@ -159,9 +159,9 @@ sprite_assets_end
 	include 'assets\anims\scrap.asm'
 	include 'assets\anims\skivv.asm'
 	include 'assets\anims\spitball.asm'
+	include 'assets\anims\swarm.asm'
 	include 'assets\anims\water.asm'
 	include 'assets\anims\winch.asm'
-	include 'assets\anims\wisp.asm'
 	include 'assets\anims\wyrm.asm'
 
 	; ************************************

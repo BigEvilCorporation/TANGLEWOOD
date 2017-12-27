@@ -32,6 +32,28 @@ actor_demon_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_demon_sheet_wisp_anim_idle:
+actor_demon_sheet_wisp_anim_idle_numframes: equ 0x6
+actor_demon_sheet_wisp_anim_idle_speed: equ 0x28
+actor_demon_sheet_wisp_anim_idle_track_frames:
+	dc.l actor_demon_sheet_wisp_frame_0_header
+	dc.l actor_demon_sheet_wisp_frame_1_header
+	dc.l actor_demon_sheet_wisp_frame_2_header
+	dc.l actor_demon_sheet_wisp_frame_3_header
+	dc.l actor_demon_sheet_wisp_frame_4_header
+	dc.l actor_demon_sheet_wisp_frame_5_header
+
+	Even
+actor_demon_sheet_wisp_anim_idle_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_wisp_anim_idle_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_wisp_anim_idle_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_demon_sheet_idletosmirk_anim_idletosmirk:
 actor_demon_sheet_idletosmirk_anim_idletosmirk_numframes: equ 0x2
 actor_demon_sheet_idletosmirk_anim_idletosmirk_speed: equ 0x14

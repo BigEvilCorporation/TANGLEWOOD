@@ -196,7 +196,7 @@ SPRITE_LOAD_SHARED: macro actor,sheet,palette,paletteidx,prio
 	POPM   d0-d5/a0-a2
 	endm
 
-	; Use sprite sharing VRAM from existing object
+	; Use sprite sharing VRAM from existing object (doesn't load tiles)
 SPRITE_LOAD_COPY: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
@@ -213,7 +213,7 @@ SPRITE_LOAD_COPY: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	POPM   d0-d5/a0-a2
 	endm
 
-	; Load sprite taking VRAM from existing object
+	; Load sprite taking VRAM from existing object (loads tiles)
 SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0

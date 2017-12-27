@@ -54,8 +54,9 @@ l1a0_DefaultPalettes:
 	
 	even
 
-l1a0_DemonMaxVel		equ 0x00040000
-l1a0_DemonTargetDist	equ 0x20
+l1a0_DemonMaxVel			equ 0x00040000
+l1a0_DemonTargetDist		equ 0x20
+l1a0_DemonPaletteFadeSpeed	equ 0x10
 	
 ; ************************************
 ; Runtime data
@@ -257,7 +258,7 @@ l1a0_CutsceneIntro:
 	CUTSCENE_FADE_TRACK
 
 	; Restore colour
-	CUTSCENE_GAME_PALETTE_FADETO #palette_l1_night,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_l1_night,#0x0,#l1a0_DemonPaletteFadeSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
 
 	; Nymn raise head then go back to sleep
 	CUTSCENE_CAMERA_LERP_WAIT
@@ -411,7 +412,7 @@ l1a0_Cutscene_GreyscaleFade:
 	PUSHM  a0-a2
 	move.l #PaletteId_World0, d0
 	move.b #VFXGreyscaleLerp, d1
-	move.w #(0x1<<fade_frame_shift), d2
+	move.w #l1a0_DemonPaletteFadeSpeed, d2
 	jsr    VFX_StartScreenEffectGreyscale
 	POPM   a0-a2
 
