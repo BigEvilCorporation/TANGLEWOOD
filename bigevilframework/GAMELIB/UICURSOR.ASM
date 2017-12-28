@@ -205,6 +205,9 @@ UIWidgetCursorUpdate:
 	cmp.w  UIWidgetCursor_PrevInput(a0), d0
 	beq    @NoInput
 
+	; Store prev input
+	move.w d0, UIWidgetCursor_PrevInput(a0)
+
 	; Determine button pressed
 	move.w d0, d1
 	andi.w #UIWidgetCursor_Input_Up, d1
@@ -319,8 +322,6 @@ UIWidgetCursorUpdate:
 
 	@NoInput:
 	@EndInput:
-
-	move.w d0, UIWidgetCursor_PrevInput(a0)
 
 	;==============================================================
 
