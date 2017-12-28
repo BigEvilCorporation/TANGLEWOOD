@@ -446,9 +446,22 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
-	; TODO: Start boss music
+	; Wait
+	CUTSCENE_DELAY #0x0020
 
+	; Roar
+	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
+	CUTSCENE_CHARACTER_ANIM a2,#Borgus_Animations,#BorgusAnimIdx_Roar
+	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
+	CUTSCENE_CHARACTER_ANIM_WAIT a2
 
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Start boss music
+	CUTSCENE_PLAY_TRACK #track_bgm_boss_l6
+
+	; Wait
 	CUTSCENE_DELAY #0x0020
 
 	; Begin follow state
@@ -479,7 +492,11 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
 
+	; Fade out audio track
+	CUTSCENE_FADE_TRACK
+
 	CUTSCENE_END_LETTERBOX
+
 	CUTSCENE_END
 
 	rts
