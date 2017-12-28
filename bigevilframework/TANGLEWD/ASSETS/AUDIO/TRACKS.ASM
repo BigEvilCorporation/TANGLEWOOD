@@ -8,16 +8,20 @@ bgm_dusk:			include 'assets\audio\tracks\dusk.asm'
 bgm_night:			include 'assets\audio\tracks\night.asm'
 bgm_boss1_chase:	include 'assets\audio\tracks\boss_l.asm'
 bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
+bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
 bgm_cue_l2:			include 'assets\audio\tracks\cue_l2.asm'
 bgm_cue_l3:			include 'assets\audio\tracks\cue_l3.asm'
+bgm_cue_l6:			include 'assets\audio\tracks\cue_l6.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
 bgm_amb_windrain:	include 'assets\audio\tracks\windrain.asm'
 bgm_enemyapproach:	include 'assets\audio\tracks\approach.asm'
 	even
+
+TrackTableBegin:
 
 track_bgm_titles:
 	dc.l	bgm_titles
@@ -109,6 +113,16 @@ track_bgm_boss1_search:
 	dc.b	Track_Transition_Instant
 	even
 
+track_bgm_boss_l6:
+	dc.l	bgm_boss_l6
+	dc.w	0x001F
+	dc.w	0x0
+	dc.b	Track_Type_BGM
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	Track_Transition_Instant
+	even
+
 track_bgm_gameover:
 	dc.l	bgm_gameover
 	dc.w	0x001F
@@ -141,6 +155,16 @@ track_bgm_cue_l2:
 
 track_bgm_cue_l3:
 	dc.l	bgm_cue_l3
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_l6:
+	dc.l	bgm_cue_l6
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
@@ -198,6 +222,9 @@ track_amb_windrain:
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_FadeUp
 	even
+
+TrackTableEnd:
+TrackTableSize	equ (TrackTableEnd-TrackTableBegin)/Track_Struct_Size
 	
 	ENDIF
 	

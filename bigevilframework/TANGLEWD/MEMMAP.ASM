@@ -320,6 +320,11 @@ DeathCount				 rs.w 1
 NextFreeRopeSegment		 rs.l 1
 
 ; ************************************
+; Cheat code entry
+; ************************************
+SoundTestHistory		 rs.l 1
+
+; ************************************
 ; Audio
 ; ************************************
 AmbientSFX				 rs.l 6 ; AmbientSFXCount

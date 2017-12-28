@@ -58,10 +58,12 @@ MainMenuUILineSpacing	equ 0x10
 MainMenu_Opt_NewGame		equ 0x0
 MainMenu_Opt_Continue		equ 0x1
 MainMenu_Opt_LevelSelect	equ 0x2
+MainMenu_Opt_SoundTest		equ 0x3
 
 MainMenu_Str_NewGame		dc.b "New Game",0
 MainMenu_Str_Continue		dc.b "Continue",0
 MainMenu_Str_LevelSelect	dc.b "Level Select",0
+MainMenu_Str_SoundTest		dc.b "Sound Test",0
 	even
 
 ; Struct
@@ -328,18 +330,36 @@ MainMenu_InitUI:
 	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*0)
+LINECOUNT = 0
+
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_NewGame,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_NewGame
+LINECOUNT = LINECOUNT+1
 
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*1)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
+LINECOUNT = LINECOUNT+1
 
-	IF DEMO_SHOW_LEVEL_SELECT
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_LevelSelect,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*2)
+	IF INCLUDE_SOUNDTEST
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_SoundTest,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_SoundTest
+LINECOUNT = LINECOUNT+1
+	ENDIF
+
+	IF INCLUDE_LEVELSELECT
+	IF !DEMO_SHOW_LEVEL_SELECT
+	; Test for level select cheat
+	cmp.l  #CheatCodeLevelSelect, SoundTestHistory
+	bne    @NoLevelSelect
+	ENDIF
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_LevelSelect,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_LevelSelect
+LINECOUNT = LINECOUNT+1
+	@NoLevelSelect:
 	ENDIF
 
 	rts
@@ -356,6 +376,8 @@ MainMenu_OnSelected:
 	beq    @Continue
 	cmp.b  #MainMenu_Opt_LevelSelect, d0
 	beq    @LevelSelect
+	cmp.b  #MainMenu_Opt_SoundTest, d0
+	beq    @SoundTest
 
 	@NewGame:
 
@@ -392,6 +414,14 @@ MainMenu_OnSelected:
 	; Set level select screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
+
+	bra    @BeginFade
+
+	@SoundTest:
+
+	; Set sound test screen state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
 
 	bra    @BeginFade
 

@@ -6,7 +6,7 @@
 ;   uilist.asm - List selection widget
 ;==============================================================
 
-UIWidgetList_MaxItems			equ 0x10
+UIWidgetList_MaxItems			equ 0x40
 
 UIWidgetList_DrawPlane_PlaneA	equ 0x0
 UIWidgetList_DrawPlane_PlaneB	equ 0x1
@@ -112,6 +112,11 @@ UIWidgetListOnOptionCycle:
 	@CycleRight:
 	jsr   UIWidgetListNextItem
 	@CycleLeft:
+
+	; Set new index as OnSelected userdata
+	moveq  #0x0, d0
+	move.b UIWidgetList_ItemIndex(a0), d0
+	move.l d0, UIWidget_OnSelectedData(a0)
 
 	rts
 

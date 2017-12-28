@@ -221,6 +221,8 @@ SFX_Data_UI_Press_Start:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_UI_Move:			include 'assets\audio\SFX\ui\uimove.asm'
 	even
 
+SFXTableBegin:
+
 SFX_FlueIn:
 	dc.l SFX_Data_FlueIn			; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -647,6 +649,9 @@ SFX_UI_Move:
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
+
+SFXTableEnd:
+SFXTableSize	equ (SFXTableEnd-SFXTableBegin)/SFX_Struct_Size
 
 		ENDIF
 		

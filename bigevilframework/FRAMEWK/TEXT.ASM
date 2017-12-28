@@ -257,6 +257,43 @@ TXT_LoadStringSpriteTiles:
 	
 	rts
 
+TXT_ItoA_Hex_b:
+	; Converts a byte to hex ASCII
+	; a0 --- In: String address
+	; d0 (b) In: Number to convert
+
+	; 2 nybbles + 0x + terminator, working backwards
+	addq.l #0x5, a0
+
+	; Zero terminate
+	move.b #0x0, -(a0)
+
+	move.w #0x0, d1	; Char ptr
+	move.w #0x1, d2	; 2 nybbles in a word
+	@NybbleLp:
+	move.b d0, d3			; Byte to d3
+	andi.b #0x0F, d3		; Bottom nybble
+	cmp.b  #0x9, d3
+	ble    @Numeric			; Branch if in numeric range
+	addi.b #(CharMap_ASCII_AlphaOffset-0xA), d3	; In alpha range (A - F)
+	move.b d3, -(a0)		; Back to string
+	lsr.b  #0x4, d0			; Next nybble
+	dbra   d2, @NybbleLp	; Loop
+	bra    @End
+	@Numeric:
+	addi.b #CharMap_ASCII_NumericOffset, d3	; In numeric range (0 - 9)
+	move.b d3, -(a0)		; Back to string
+	lsr.b  #0x4, d0			; Next nybble
+	dbra   d2, @NybbleLp	; Loop
+
+	@End:
+
+	;0X
+	move.b #'x', -(a0)
+	move.b #'0', -(a0)
+
+	rts
+
 TXT_ItoA_Hex_w:
 	; Converts a word to hex ASCII
 	; a0 --- In: String address
