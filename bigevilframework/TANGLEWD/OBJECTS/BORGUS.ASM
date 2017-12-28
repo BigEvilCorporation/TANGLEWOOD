@@ -65,9 +65,10 @@ BorgusAIState_Dead		equ 0x4
 BorgusAIState_Dying		equ 0x5
 
 ; Animations
-BorgusAnimIdx_Spit		equ 0x0
-BorgusAnimIdx_Swipe		equ 0x1
-BorgusAnimIdx_Dead		equ 0x2
+BorgusAnimIdx_Roar		equ 0x0
+BorgusAnimIdx_Spit		equ 0x1
+BorgusAnimIdx_Swipe		equ 0x2
+BorgusAnimIdx_Dead		equ 0x3
 ;------------------------------
 BorgusAnimIdx_Max		equ 0x3
 
@@ -187,11 +188,10 @@ BorgusLoadGfx:
 	ANIM_LOAD_DEFAULT Borgus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT Borgus,walk,walk,Character_Animations,CharacterAnimIdx_Run,1,0,0
-
-	; TODO
-	ANIM_LOAD_DEFAULT Borgus,attack,attack,Character_Animations,CharacterAnimIdx_TakeDamage,0,1,0
+	ANIM_LOAD_DEFAULT Borgus,hit,hit,Character_Animations,CharacterAnimIdx_TakeDamage,0,1,0
 
 	; Load bespoke animations
+	ANIM_LOAD_DEFAULT Borgus,roar,roar,Borgus_Animations,BorgusAnimIdx_Roar,0,1,0
 	ANIM_LOAD_DEFAULT Borgus,spit,spit,Borgus_Animations,BorgusAnimIdx_Spit,0,1,0
 	ANIM_LOAD_DEFAULT Borgus,attack,attack,Borgus_Animations,BorgusAnimIdx_Swipe,0,1,0
 	ANIM_LOAD_DEFAULT Borgus,death,death,Borgus_Animations,BorgusAnimIdx_Dead,0,1,0

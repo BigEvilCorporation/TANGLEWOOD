@@ -93,6 +93,50 @@ actor_borgus_sheet_attack_anim_attack_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_borgus_sheet_roar_anim_roar:
+actor_borgus_sheet_roar_anim_roar_numframes: equ 0x6
+actor_borgus_sheet_roar_anim_roar_speed: equ 0x19
+actor_borgus_sheet_roar_anim_roar_track_frames:
+	dc.l actor_borgus_sheet_roar_frame_0_header
+	dc.l actor_borgus_sheet_roar_frame_1_header
+	dc.l actor_borgus_sheet_roar_frame_1_header
+	dc.l actor_borgus_sheet_roar_frame_1_header
+	dc.l actor_borgus_sheet_roar_frame_2_header
+	dc.l actor_borgus_sheet_roar_frame_3_header
+
+	Even
+actor_borgus_sheet_roar_anim_roar_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_borgus_sheet_roar_anim_roar_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_borgus_sheet_roar_anim_roar_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
+actor_borgus_sheet_hit_anim_hit:
+actor_borgus_sheet_hit_anim_hit_numframes: equ 0x6
+actor_borgus_sheet_hit_anim_hit_speed: equ 0x19
+actor_borgus_sheet_hit_anim_hit_track_frames:
+	dc.l actor_borgus_sheet_hit_frame_0_header
+	dc.l actor_borgus_sheet_hit_frame_1_header
+	dc.l actor_borgus_sheet_hit_frame_2_header
+	dc.l actor_borgus_sheet_hit_frame_2_header
+	dc.l actor_borgus_sheet_hit_frame_3_header
+	dc.l actor_borgus_sheet_hit_frame_4_header
+
+	Even
+actor_borgus_sheet_hit_anim_hit_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_borgus_sheet_hit_anim_hit_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_borgus_sheet_hit_anim_hit_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_borgus_sheet_spit_anim_spit:
 actor_borgus_sheet_spit_anim_spit_numframes: equ 0x4
 actor_borgus_sheet_spit_anim_spit_speed: equ 0x14
