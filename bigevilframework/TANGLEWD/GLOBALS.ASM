@@ -90,7 +90,7 @@ DemoTimeout				 equ (60*60*1)
 GameStateStackSize		 equ 0x4
 
 ; Cheat codes
-CheatCodeLevelSelect	 equ 0x19851226
+CheatCodeLevelSelect	 equ 0x01020304	; 0x19851226
 
 ; Debug button combos
 	IFND FINAL

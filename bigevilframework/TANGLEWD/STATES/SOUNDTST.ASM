@@ -316,9 +316,17 @@ SoundTest_OnPlaySFX:
 
 	PUSHALL
 
-	; Index to SFX table entry
+	; Get index
 	move.l a1, d0
 	andi.l #0xFF, d0
+
+	; Store history for cheats
+	move.l SoundTestHistory, d1
+	lsl.l  #0x8, d1
+	move.b d0, d1
+	move.l d1, SoundTestHistory
+
+	; Index to SFX table entry
 	mulu   #SFX_Struct_Size, d0
 
 	; Get sound table entry
