@@ -768,7 +768,10 @@ MonsterSkipIntro:
 	move.b #0x0, Monster_DoIntro(a0)
 
 	; Set initial palette
+	tst.b  Monster_LerpPalette(a0)
+	beq    @LeavePalette
 	move.l #palette_djakk, SpriteObj_PaletteAddr(a0)
+	@LeavePalette:
 
 	rts
 
