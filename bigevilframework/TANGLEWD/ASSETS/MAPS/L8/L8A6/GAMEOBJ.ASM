@@ -147,9 +147,9 @@ L8A6_MarkerDemonRightBounds_name	dc.b "L8A6_MarkerDemonRightBounds",0
 
 L8A6_Cart_count equ 0x0
 
-L8A6_Pillar_count equ 0x0
-
 L8A6_Winch_count equ 0x0
+
+L8A6_Pillar_count equ 0x0
 
 L8A6_WindFlue_count equ 0x0
 
@@ -174,6 +174,14 @@ L8A6_Scirus_count equ 0x0
 L8A6_Hogg_count equ 0x0
 
 L8A6_Bridge_count equ 0x0
+
+L8A6_Swarm_count equ 0x1
+L8A6_Swarm_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Swarm_name	dc.b "L8A6_Swarm",0
+	even
+	ENDIF
 
 
 
@@ -503,6 +511,26 @@ L8A6_LoadGameObjects:
 
 
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A6_Swarm_count)
+	move.l a1, EntityPoolStart_Swarm
+	move.l a1, a0
+	POPL   a1
+
+	jsr SwarmInit
+	move.l #0x02c80000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr SwarmLoadGfx
+	IFND FINAL
+	lea L8A6_Swarm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Swarm_Struct_Size, a0
 
 
 	rts

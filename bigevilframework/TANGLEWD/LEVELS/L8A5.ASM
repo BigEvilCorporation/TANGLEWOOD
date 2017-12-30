@@ -139,6 +139,10 @@ l8a5_Init:
 	move.w #l8a5_DemonAttackSpeed, d0
 	jsr    DemonSetAttackSpeed
 
+	; Set Demon Swarm obj
+	ENTITY_GETBYNAME Swarm, l8a5_Swarm, a2
+	jsr    DemonSetSwarmObj
+
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l8a5_Lift1, a0
 	ENTITY_GETBYNAME Location, l8a5_LocationLiftStop, a1
@@ -365,7 +369,7 @@ l8a5_Cutscene_DemonDropFuzzl:
 	ENTITY_GETBYNAME Demon, l8a5_Demon, a0
 	ENTITY_GETBYNAME Fuzzl, l8a5_FuzzlRed1, a2
 	ENTITY_ALIGNCENTRE a2,a0,d0,d1
-	
+
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
 	move.b #0x0, PhysicsObj_Asleep(a2)

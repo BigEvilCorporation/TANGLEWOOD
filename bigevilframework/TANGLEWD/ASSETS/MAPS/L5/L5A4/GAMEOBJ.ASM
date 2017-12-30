@@ -107,9 +107,9 @@ L5A4_AIMarker_count equ 0x0
 
 L5A4_Cart_count equ 0x0
 
-L5A4_Pillar_count equ 0x0
-
 L5A4_Winch_count equ 0x0
+
+L5A4_Pillar_count equ 0x0
 
 L5A4_WindFlue_count equ 0x0
 
@@ -146,6 +146,8 @@ L5A4_Scirus_count equ 0x0
 L5A4_Hogg_count equ 0x0
 
 L5A4_Bridge_count equ 0x0
+
+L5A4_Swarm_count equ 0x0
 
 
 
@@ -374,6 +376,7 @@ L5A4_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Longboat_Struct_Size, a0
+
 
 
 

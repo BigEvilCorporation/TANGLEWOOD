@@ -181,9 +181,9 @@ L4A1_AIMarker_27_name	dc.b "L4A1_AIMarker_27",0
 
 L4A1_Cart_count equ 0x0
 
-L4A1_Pillar_count equ 0x0
-
 L4A1_Winch_count equ 0x0
+
+L4A1_Pillar_count equ 0x0
 
 L4A1_WindFlue_count equ 0x0
 
@@ -230,6 +230,8 @@ L4A1_Bridge1_name	dc.b "L4A1_Bridge1",0
 L4A1_Bridge2_name	dc.b "L4A1_Bridge2",0
 	even
 	ENDIF
+
+L4A1_Swarm_count equ 0x0
 
 
 
@@ -837,6 +839,7 @@ L4A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

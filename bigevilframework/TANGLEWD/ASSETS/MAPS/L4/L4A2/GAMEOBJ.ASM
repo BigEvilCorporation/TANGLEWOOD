@@ -189,9 +189,9 @@ L4A2_MarkerEchoLockStop_name	dc.b "L4A2_MarkerEchoLockStop",0
 
 L4A2_Cart_count equ 0x0
 
-L4A2_Pillar_count equ 0x0
-
 L4A2_Winch_count equ 0x0
+
+L4A2_Pillar_count equ 0x0
 
 L4A2_WindFlue_count equ 0x0
 
@@ -252,6 +252,8 @@ L4A2_Scirus_count equ 0x0
 L4A2_Hogg_count equ 0x0
 
 L4A2_Bridge_count equ 0x0
+
+L4A2_Swarm_count equ 0x0
 
 
 
@@ -969,6 +971,7 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Skivv_Struct_Size, a0
+
 
 
 

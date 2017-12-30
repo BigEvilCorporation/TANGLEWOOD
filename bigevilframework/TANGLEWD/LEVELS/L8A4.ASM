@@ -131,6 +131,10 @@ l8a4_Init:
 	move.w #l8a4_DemonAttackSpeed, d0
 	jsr    DemonSetAttackSpeed
 
+	; Set Demon Swarm obj
+	ENTITY_GETBYNAME Swarm, l8a4_Swarm, a2
+	jsr    DemonSetSwarmObj
+
 	;==============================================================
 
 	; Set player white ability
@@ -354,7 +358,7 @@ l8a4_Cutscene_DemonDropFuzzl:
 	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
 	ENTITY_GETBYNAME Fuzzl, l8a4_FuzzlRed1, a2
 	ENTITY_ALIGNCENTRE a2,a0,d0,d1
-	
+
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
 	move.b #0x0, PhysicsObj_Asleep(a2)

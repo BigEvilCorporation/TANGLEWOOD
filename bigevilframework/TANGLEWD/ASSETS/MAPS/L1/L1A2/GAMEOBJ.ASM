@@ -209,9 +209,9 @@ L1A2_AIMarker_count equ 0x0
 
 L1A2_Cart_count equ 0x0
 
-L1A2_Pillar_count equ 0x0
-
 L1A2_Winch_count equ 0x0
+
+L1A2_Pillar_count equ 0x0
 
 L1A2_WindFlue_count equ 0x0
 
@@ -242,6 +242,8 @@ L1A2_Hogg_226_name	dc.b "L1A2_Hogg_226",0
 	ENDIF
 
 L1A2_Bridge_count equ 0x0
+
+L1A2_Swarm_count equ 0x0
 
 
 
@@ -950,6 +952,7 @@ L1A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
+
 
 
 

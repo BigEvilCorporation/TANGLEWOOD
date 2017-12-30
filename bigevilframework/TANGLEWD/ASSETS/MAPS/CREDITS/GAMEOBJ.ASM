@@ -105,9 +105,9 @@ credits_AIMarker_count equ 0x0
 
 credits_Cart_count equ 0x0
 
-credits_Pillar_count equ 0x0
-
 credits_Winch_count equ 0x0
+
+credits_Pillar_count equ 0x0
 
 credits_WindFlue_count equ 0x0
 
@@ -132,6 +132,8 @@ credits_Scirus_count equ 0x0
 credits_Hogg_count equ 0x0
 
 credits_Bridge_count equ 0x0
+
+credits_Swarm_count equ 0x0
 
 
 
@@ -293,6 +295,7 @@ credits_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

@@ -219,9 +219,9 @@ L3A1_AIMarker_count equ 0x0
 
 L3A1_Cart_count equ 0x0
 
-L3A1_Pillar_count equ 0x0
-
 L3A1_Winch_count equ 0x0
+
+L3A1_Pillar_count equ 0x0
 
 L3A1_WindFlue_count equ 0x0
 
@@ -264,6 +264,8 @@ L3A1_Bridge2_name	dc.b "L3A1_Bridge2",0
 L3A1_DropBridge1_name	dc.b "L3A1_DropBridge1",0
 	even
 	ENDIF
+
+L3A1_Swarm_count equ 0x0
 
 
 
@@ -1050,6 +1052,7 @@ L3A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

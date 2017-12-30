@@ -83,9 +83,9 @@ end_level_AIMarker_count equ 0x0
 
 end_level_Cart_count equ 0x0
 
-end_level_Pillar_count equ 0x0
-
 end_level_Winch_count equ 0x0
+
+end_level_Pillar_count equ 0x0
 
 end_level_WindFlue_count equ 0x0
 
@@ -110,6 +110,8 @@ end_level_Scirus_count equ 0x0
 end_level_Hogg_count equ 0x0
 
 end_level_Bridge_count equ 0x0
+
+end_level_Swarm_count equ 0x0
 
 
 
@@ -166,6 +168,7 @@ end_level_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
+
 
 
 

@@ -213,9 +213,9 @@ L1A3_AIMarker_count equ 0x0
 
 L1A3_Cart_count equ 0x0
 
-L1A3_Pillar_count equ 0x0
-
 L1A3_Winch_count equ 0x0
+
+L1A3_Pillar_count equ 0x0
 
 L1A3_WindFlue_count equ 0x0
 
@@ -248,6 +248,8 @@ L1A3_Hogg_81_name	dc.b "L1A3_Hogg_81",0
 	ENDIF
 
 L1A3_Bridge_count equ 0x0
+
+L1A3_Swarm_count equ 0x0
 
 
 
@@ -989,6 +991,7 @@ L1A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
+
 
 
 

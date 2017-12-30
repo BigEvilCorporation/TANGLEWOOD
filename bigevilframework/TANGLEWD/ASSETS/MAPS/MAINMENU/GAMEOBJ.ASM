@@ -99,9 +99,9 @@ main_menu_AIMarker_count equ 0x0
 
 main_menu_Cart_count equ 0x0
 
-main_menu_Pillar_count equ 0x0
-
 main_menu_Winch_count equ 0x0
+
+main_menu_Pillar_count equ 0x0
 
 main_menu_WindFlue_count equ 0x0
 
@@ -126,6 +126,8 @@ main_menu_Scirus_count equ 0x0
 main_menu_Hogg_count equ 0x0
 
 main_menu_Bridge_count equ 0x0
+
+main_menu_Swarm_count equ 0x0
 
 
 
@@ -245,6 +247,7 @@ main_menu_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
