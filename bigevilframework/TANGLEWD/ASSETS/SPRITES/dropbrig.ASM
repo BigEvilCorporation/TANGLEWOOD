@@ -42,23 +42,23 @@ spritesheets_dropbrig:
 spritesheet_dropbrig_notch:
 
 actor_dropbrig_sheet_notch_frame_0:
-	dc.l	0xCCFCFCFF
-	dc.l	0x44848844
-	dc.l	0x88CC8CC8
-	dc.l	0x88CFC8FF
-	dc.l	0x484CFFC8
-	dc.l	0x48884CFF
-	dc.l	0x04488888
-	dc.l	0x00000448
+	dc.l	0x55558585
+	dc.l	0x55BEBEB8
+	dc.l	0x858EE8EE
+	dc.l	0x855BEEB8
+	dc.l	0x0855BEEE
+	dc.l	0x005558BB
+	dc.l	0x00085555
+	dc.l	0x00008855
 
-	dc.l	0xFFCFCFC8
-	dc.l	0x44884844
-	dc.l	0x8CC8CC84
-	dc.l	0xFF8CFC84
-	dc.l	0x8CFFC484
-	dc.l	0xFFC48884
-	dc.l	0x88888440
-	dc.l	0x84400000
+	dc.l	0x58585555
+	dc.l	0x8BEBEB55
+	dc.l	0xEE8EE858
+	dc.l	0x8BEEB558
+	dc.l	0xEEEB5580
+	dc.l	0xBB855500
+	dc.l	0x55558000
+	dc.l	0x55880000
 
 
 
