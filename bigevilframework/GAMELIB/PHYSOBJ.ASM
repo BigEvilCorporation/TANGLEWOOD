@@ -307,6 +307,8 @@ PhysicsObjPreStep:
 	jsr    EntityUpdateWorldGridIndex
 	@NotOnWorldGrid:
 	@NotMoved:
+	
+	bra    @End
 
 	@Asleep:
 	@Invisible:
