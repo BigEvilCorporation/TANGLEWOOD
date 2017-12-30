@@ -183,6 +183,8 @@ L5A1_Cart_42_name	dc.b "L5A1_Cart_42",0
 	even
 	ENDIF
 
+L5A1_Winch_count equ 0x0
+
 L5A1_Pillar_count equ 0x6
 L5A1_Pillar_22_idx	equ 0x0
 L5A1_Pillar_23_idx	equ 0x1
@@ -200,8 +202,6 @@ L5A1_Pillar_26_name	dc.b "L5A1_Pillar_26",0
 L5A1_Pillar_27_name	dc.b "L5A1_Pillar_27",0
 	even
 	ENDIF
-
-L5A1_Winch_count equ 0x0
 
 L5A1_WindFlue_count equ 0x0
 
@@ -258,6 +258,8 @@ L5A1_Bridge1_name	dc.b "L5A1_Bridge1",0
 L5A1_Bridge2_name	dc.b "L5A1_Bridge2",0
 	even
 	ENDIF
+
+L5A1_Swarm_count equ 0x0
 
 
 
@@ -753,6 +755,7 @@ L5A1_LoadGameObjects:
 	add.l #Cart_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Pillar_Struct_Size*L5A1_Pillar_count)
 	move.l a1, EntityPoolStart_Pillar
@@ -836,7 +839,6 @@ L5A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Pillar_Struct_Size, a0
-
 
 
 
@@ -990,6 +992,7 @@ L5A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

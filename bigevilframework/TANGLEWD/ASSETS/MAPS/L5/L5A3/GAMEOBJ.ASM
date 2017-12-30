@@ -211,16 +211,6 @@ L5A3_MarkerEchoWait1_name	dc.b "L5A3_MarkerEchoWait1",0
 
 L5A3_Cart_count equ 0x0
 
-L5A3_Pillar_count equ 0x2
-L5A3_Pillar_38_idx	equ 0x0
-L5A3_Pillar_39_idx	equ 0x1
-
-	IFND FINAL
-L5A3_Pillar_38_name	dc.b "L5A3_Pillar_38",0
-L5A3_Pillar_39_name	dc.b "L5A3_Pillar_39",0
-	even
-	ENDIF
-
 L5A3_Winch_count equ 0x2
 L5A3_Winch1_idx	equ 0x0
 L5A3_Winch2_idx	equ 0x1
@@ -228,6 +218,16 @@ L5A3_Winch2_idx	equ 0x1
 	IFND FINAL
 L5A3_Winch1_name	dc.b "L5A3_Winch1",0
 L5A3_Winch2_name	dc.b "L5A3_Winch2",0
+	even
+	ENDIF
+
+L5A3_Pillar_count equ 0x2
+L5A3_Pillar_38_idx	equ 0x0
+L5A3_Pillar_39_idx	equ 0x1
+
+	IFND FINAL
+L5A3_Pillar_38_name	dc.b "L5A3_Pillar_38",0
+L5A3_Pillar_39_name	dc.b "L5A3_Pillar_39",0
 	even
 	ENDIF
 
@@ -316,6 +316,8 @@ L5A3_Bridge2_name	dc.b "L5A3_Bridge2",0
 L5A3_Bridge3_name	dc.b "L5A3_Bridge3",0
 	even
 	ENDIF
+
+L5A3_Swarm_count equ 0x0
 
 
 
@@ -994,39 +996,6 @@ L5A3_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Pillar_Struct_Size*L5A3_Pillar_count)
-	move.l a1, EntityPoolStart_Pillar
-	move.l a1, a0
-	POPL   a1
-
-	jsr PillarInit
-	move.l #0x10880000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr PillarLoadGfx
-	IFND FINAL
-	lea L5A3_Pillar_38_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Pillar_Struct_Size, a0
-
-	jsr PillarInit
-	move.l #0x11280000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr PillarLoadGfx
-	IFND FINAL
-	lea L5A3_Pillar_39_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Pillar_Struct_Size, a0
-
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Winch_Struct_Size*L5A3_Winch_count)
 	move.l a1, EntityPoolStart_Winch
 	move.l a1, a0
@@ -1058,6 +1027,39 @@ L5A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Winch_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Pillar_Struct_Size*L5A3_Pillar_count)
+	move.l a1, EntityPoolStart_Pillar
+	move.l a1, a0
+	POPL   a1
+
+	jsr PillarInit
+	move.l #0x10880000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	jsr PillarLoadGfx
+	IFND FINAL
+	lea L5A3_Pillar_38_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Pillar_Struct_Size, a0
+
+	jsr PillarInit
+	move.l #0x11280000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	jsr PillarLoadGfx
+	IFND FINAL
+	lea L5A3_Pillar_39_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Pillar_Struct_Size, a0
 
 
 
@@ -1375,6 +1377,7 @@ L5A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

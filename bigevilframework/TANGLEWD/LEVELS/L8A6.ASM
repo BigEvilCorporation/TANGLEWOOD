@@ -54,7 +54,7 @@ l8a6_DefaultPalettes:
 	
 	even
 
-l8a6_DemonToFuzzl				equ 0x30
+l8a6_DemonToFuzzl				equ 0x08
 l8a6_DemonHideTime				equ 0x0100
 l8a6_DemonAttackSpeed			equ 0x0020
 	
@@ -320,10 +320,8 @@ l8a6_Cutscene_DemonDropFuzzl:
 
 	ENTITY_GETBYNAME Demon, l8a6_Demon, a0
 	ENTITY_GETBYNAME Fuzzl, l8a6_FuzzlYellow1, a2
-	ENTITY_GETCENTREX d0,a0
-	ENTITY_GETCENTREY d1,a0
-	move.l d0, Entity_WorldPosX(a2)
-	move.l d1, Entity_WorldPosY(a2)
+	ENTITY_ALIGNCENTRE a2,a0,d0,d1
+	
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
 	move.b #0x0, PhysicsObj_Asleep(a2)

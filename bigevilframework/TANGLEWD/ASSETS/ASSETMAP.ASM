@@ -122,6 +122,7 @@ sprite_assets_end
 	include 'assets\palettes\hogg.asm'
 	include 'assets\palettes\skivv.asm'
 	include 'assets\palettes\scirus.asm'
+	include 'assets\palettes\swarm.asm'
 	include 'assets\palettes\text.asm'
 	include 'assets\palettes\wyrm.asm'
 	

@@ -154,6 +154,7 @@ __start
 	include 'objects\skivv.asm'
 	include 'objects\stalact.asm'
 	include 'objects\stone.asm'
+	include 'objects\swarm.asm'
 	include 'objects\trap.asm'
 	include 'objects\trigger.asm'
 	include 'objects\waterbdy.asm'

@@ -57,6 +57,7 @@ DemonAnimIdx_Max			equ 0x6
 	rsset (Character_Struct_Size)
 ;-----------------------------
 Demon_Animations		rs.b (Animation_Struct_Size*DemonAnimIdx_Max)
+Demon_Swarm				rs.l 1
 Demon_TargetDistSq		rs.l 1
 Demon_TargetX			rs.w 1
 Demon_TargetY			rs.w 1
@@ -99,6 +100,7 @@ DemonInit:
 	move.w  #Demon_Width, Entity_Width(a0)
 	move.w  #Demon_Height, Entity_Height(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b  #0x1, SpriteObj_PaletteAutoLoad(a0)
 
 	move.b  #0x0, PhysicsObj_HasCollision(a0)
 	move.b  #0x1, PhysicsObj_DecelInAir(a0)
@@ -120,6 +122,7 @@ DemonInit:
 	MOVE_NTSC_ACCEL_W Demon_DecelIdle, Character_DecelIdle(a0), d0
 	MOVE_NTSC_ACCEL_W Demon_DecelForced, Character_DecelForced(a0), d0
 
+	move.l  #0x0, Demon_Swarm(a0)
 	move.b  #DemonState_Wisp, Demon_State(a0)
 	move.b  #0x0, Demon_AtTarget(a0)
 	move.w  #0x0, Demon_TargetX(a0)
@@ -147,7 +150,7 @@ DemonLoadGfx:
 	bne     @ManualLoad
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT demon,wisp,0,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT demon,wisp,palette_demon,PaletteId_Monster,0x0
 
 	@ManualLoad:
 
@@ -169,7 +172,7 @@ DemonLoadGfx:
 DemonLoadWispGfx:
 
 	; Load wisp sprite
-	SPRITE_LOAD_SHARED_VRAM Demon,wisp,0,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM Demon,wisp,palette_demon,PaletteId_Monster,0x0,a0
 
 	; Load anims
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -181,12 +184,30 @@ DemonLoadWispGfx:
 DemonLoadPhysicalGfx:
 
 	; Load demon sprite
-	SPRITE_LOAD_SHARED_VRAM Demon,idle,0,PaletteId_Monster,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM Demon,idle,palette_demon,PaletteId_Monster,0x0,a0
 
 	; Load idle anim
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
+
+	rts
+
+DemonSetSwarmObj:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Swarm
+
+	; Set swarm obj
+	move.l a2, Demon_Swarm(a0)
+
+	; Disable by default
+	PUSHL  a0
+	move.l a2, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	POPL   a0
 
 	rts
 	
@@ -383,6 +404,9 @@ DemonReceiveDamage:
 	; TODO: Audio
 	jsr    DemonAIStart_Boss
 
+	; Release swarm
+	jsr    DemonReleaseSwarm
+
 	@Invulnerable:
 	@AlreadyDead:
 	@Dead:
@@ -442,6 +466,16 @@ DemonAIUpdate_Boss:
 	move.l Player1, a2
 	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
+
+	; If swarm active, don't bother
+	move.l Demon_Swarm(a0), a3
+	cmp.l  #0x0, a3
+	beq    @NoSwarm
+
+	btst.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a3)
+	bne    @SwarmActive
+
+	@NoSwarm:
 
 	; Wait attack timer
 	move.w Demon_AttackTimer(a0), d0
@@ -514,6 +548,7 @@ DemonAIUpdate_Boss:
 
 	@NoAttack:
 	@PlayerDead:
+	@SwarmActive:
 
 	rts
 
@@ -558,7 +593,7 @@ DemonAIUpdate_Attack:
 	move.b #Demon_AttackDamage, d0
 	jsr    CharacterDealDamage
 	POPL   a0
-
+	
 	@NoHit:
 
 	; Increment attack speed for next attack
@@ -571,6 +606,16 @@ DemonAIUpdate_Attack:
 	
 	; Back to boss mode
 	jsr    DemonAIStart_Boss
+
+	; If player not dead
+	move.l Player1, a2
+	tst.b  Character_Dead(a2)
+	beq    @PlayerDead
+
+	; Release swarm
+	jsr    DemonReleaseSwarm
+
+	@PlayerDead:
 	
 	@StillBiting:
 
@@ -681,5 +726,25 @@ DemonAIUpdate_Wisp:
 	@Following:
 
 	POPM    a0-a1
+
+	rts
+
+DemonReleaseSwarm:
+
+	; If Swarm registered
+	move.l Demon_Swarm(a0), a2
+	cmp.l  #0x0, a2
+	beq    @NoSwarm
+
+	; Reposition
+	ENTITY_ALIGNCENTRE a2,a0,d0,d1
+
+	; Let it loose
+	PUSHL  a0
+	move.l a2, a0
+	jsr    SwarmActivate
+	POPL   a0
+
+	@NoSwarm:
 
 	rts

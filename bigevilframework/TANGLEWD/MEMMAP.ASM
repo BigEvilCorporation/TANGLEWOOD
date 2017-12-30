@@ -365,6 +365,7 @@ SharedVRAM_Trap			rs.w 1
 SharedVRAM_Firefly		rs.w 1
 SharedVRAM_Skivv		rs.w 1
 SharedVRAM_Scirus		rs.w 1
+SharedVRAM_Swarm		rs.w 1
 SharedVRAM_Hogg			rs.w 1
 
 SharedVRAM_End			rs.b 0
@@ -508,6 +509,7 @@ EntityPoolStart_Scirus      rs.l 1
 EntityPoolStart_Scrap       rs.l 1
 EntityPoolStart_Skivv       rs.l 1
 EntityPoolStart_Stone       rs.l 1
+EntityPoolStart_Swarm       rs.l 1
 EntityPoolStart_Trap        rs.l 1
 EntityPoolStart_Deathbox    rs.l 1
 EntityPoolStart_Winch       rs.l 1
@@ -559,6 +561,7 @@ EntityCount_Scirus      rs.w 1
 EntityCount_Scrap       rs.w 1
 EntityCount_Skivv       rs.w 1
 EntityCount_Stone       rs.w 1
+EntityCount_Swarm       rs.w 1
 EntityCount_Trap        rs.w 1
 EntityCount_Deathbox    rs.w 1
 EntityCount_Winch       rs.w 1

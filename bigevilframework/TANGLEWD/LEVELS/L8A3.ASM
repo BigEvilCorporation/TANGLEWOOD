@@ -54,7 +54,7 @@ l8a3_DefaultPalettes:
 	
 	even
 
-l8a3_DemonToFuzzl				equ 0x04
+l8a3_DemonToFuzzl				equ 0x08
 l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
@@ -125,6 +125,10 @@ l8a3_Init:
 	move.w Entity_WorldPosX(a1), Demon_BossBoundsLeft(a0)
 	move.w Entity_WorldPosX(a2), Demon_BossBoundsRight(a0)
 
+	; Set Demon Swarm obj
+	ENTITY_GETBYNAME Swarm, l8a3_Swarm, a2
+	jsr    DemonSetSwarmObj
+	
 	;==============================================================
 
 	; Set player white ability
@@ -391,10 +395,11 @@ l8a3_Cutscene_DemonDropFuzzl:
 
 	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
 	ENTITY_GETBYNAME Fuzzl, l8a3_FuzzlRed1, a2
-	ENTITY_GETCENTREX d0,a0
-	ENTITY_GETCENTREY d1,a0
-	move.l d0, Entity_WorldPosX(a2)
-	move.l d1, Entity_WorldPosY(a2)
+	ENTITY_ALIGNCENTRE a2,a0,d0,d1
+	;ENTITY_GETCENTREX d0,a0
+	;ENTITY_GETCENTREY d1,a0
+	;move.l d0, Entity_WorldPosX(a2)
+	;move.l d1, Entity_WorldPosY(a2)
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
 	move.b #0x0, PhysicsObj_Asleep(a2)

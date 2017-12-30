@@ -258,36 +258,13 @@ PhysicsObjPreStep:
 	jsr    PhysicsObjFindMovingBarrier
 	@HasVelX:
 
-	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_ImpulseX(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelX(a0)
-
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelY(a0)
-	
-	; Clear impulses
-	move.l #0x0, PhysicsObj_ImpulseX(a0)
-	move.l #0x0, PhysicsObj_ImpulseY(a0)
-
 	; Sleep if possible
 	jsr    PhysicsObjRest
 	
 	; Clear forced update
 	move.b #0x0, PhysicsObj_ForceUpdate(a0)
-
-	; If moved, update grid cell
-	btst   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
-	beq    @NotOnWorldGrid
-	move.l PhysicsObj_LastAppliedVelX(a0), d0
-	or.l   PhysicsObj_LastAppliedVelY(a0), d0
-	beq    @NotMoved
-	jsr    EntityUpdateWorldGridIndex
-	@NotOnWorldGrid:
-	@NotMoved:
 	
-	bra @End
+	bra @AppliedVel
 
 	@NoPhysics:
 
@@ -305,8 +282,31 @@ PhysicsObjPreStep:
 	beq    @VelXZero
 	jsr    PhysicsObjApplyVelocityX
 	@VelXZero:
+	
+	@AppliedVel:
+	
+	; Save (collision corrected) vel for attached platforms/barriers
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)
 
-	bra @End
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
+	
+	; Clear impulses
+	move.l #0x0, PhysicsObj_ImpulseX(a0)
+	move.l #0x0, PhysicsObj_ImpulseY(a0)
+	
+	; If moved, update grid cell
+	btst   #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	beq    @NotOnWorldGrid
+	move.l PhysicsObj_LastAppliedVelX(a0), d0
+	or.l   PhysicsObj_LastAppliedVelY(a0), d0
+	beq    @NotMoved
+	jsr    EntityUpdateWorldGridIndex
+	@NotOnWorldGrid:
+	@NotMoved:
 
 	@Asleep:
 	@Invisible:

@@ -94,6 +94,27 @@ ENTITY_GETBOTTOM: macro destreg,addrreg
 	TOSUBPIXELS \destreg
 	add.l   Entity_WorldPosY(\addrreg), \destreg
 	endm
+
+ENTITY_ALIGNCENTRE: macro destobj,sourceobj,tempreg1,tempreg2
+	move.w Entity_WorldPosX(\sourceobj), \tempreg1	; Source obj X
+	move.w Entity_Width(\sourceobj), \tempreg2		; Source obj width
+	lsr.w  #0x1, \tempreg2							; / 2
+	add.w  \tempreg2, \tempreg1						; Add to X
+	move.w Entity_Width(\destobj), \tempreg2		; Dest obj width
+	lsr.w  #0x1, \tempreg2							; / 2
+	sub.w  \tempreg2, \tempreg1						; Sub from X
+	move.w \tempreg1, Entity_WorldPosX(\destobj)	; Set new X
+
+	move.w Entity_WorldPosY(\sourceobj), \tempreg1	; Source obj Y
+	move.w Entity_Height(\sourceobj), \tempreg2		; Source obj height
+	lsr.w  #0x1, \tempreg2							; / 2
+	add.w  \tempreg2, \tempreg1						; Add to Y
+	move.w Entity_Height(\destobj), \tempreg2		; Dest obj height
+	lsr.w  #0x1, \tempreg2							; / 2
+	sub.w  \tempreg2, \tempreg1						; Sub from Y
+	move.w \tempreg1, Entity_WorldPosY(\destobj)	; Set new Y
+	
+	endm
 	
 ENTITY_GETBOUNDS: macro topleftreg,bottomrightreg,tempreg,addrreg
 	; Obj 1 min X
