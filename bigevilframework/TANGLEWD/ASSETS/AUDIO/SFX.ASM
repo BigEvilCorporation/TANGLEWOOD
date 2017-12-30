@@ -186,6 +186,7 @@ SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
 SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
 SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
+SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
@@ -248,7 +249,14 @@ SFX_BridgeRoll:
 	dc.l SFX_Data_BridgeRoll		; Data
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BridgeStop:
+	dc.l SFX_Data_BridgeStop		; Data
+	dc.b SFX_Priority_High			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_BoulderRoll:

@@ -703,6 +703,9 @@ BridgeUpdateRoll:
 	; Back to world grid
 	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
+	; Play SFX
+	PLAYSFX #SFX_BridgeStop
+
 	@StillRolling:
 
 	; Set barrier and platform pos
@@ -741,6 +744,9 @@ BridgeUpdateUnroll:
 
 	; Back to world grid
 	bset   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
+	; Play SFX
+	PLAYSFX #SFX_BridgeStop
 
 	@StillUnrolling:
 

@@ -133,6 +133,7 @@ echo_instruments:
 	Echo_ListEntry Instr79
 	Echo_ListEntry Instr7A
 	Echo_ListEntry Instr7B
+	Echo_ListEntry Instr7C
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -161,7 +162,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x7C
+PCM_InstrIndex	equ 0x7D
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -288,6 +289,7 @@ Instr78: incbin 'assets\audio\instrs\instr_78.eif'
 Instr79: incbin 'assets\audio\instrs\instr_79.eif'
 Instr7A: incbin 'assets\audio\instrs\instr_7A.eif'
 Instr7B: incbin 'assets\audio\instrs\instr_7B.eif'
+Instr7C: incbin 'assets\audio\instrs\instr_7C.eif'
 
 	
 	; PCM
