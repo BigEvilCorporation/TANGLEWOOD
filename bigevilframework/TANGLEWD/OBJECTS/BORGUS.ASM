@@ -138,6 +138,7 @@ BorgusInit:
 	move.b  #Borgus_Mass, PhysicsObj_Mass(a0)
 
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
+	move.b  #0x1, SpriteObj_PaletteAutoLoad(a0)
 
 	MOVE_NTSC_L Borgus_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Borgus_MaxVelXRun, Character_MaxVelXRun(a0), d0
@@ -182,7 +183,7 @@ BorgusLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Borgus,idle,0,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Borgus,idle,palette_borgus,PaletteId_Monster,0x0
 
 	; Load default character animations
 	ANIM_LOAD_DEFAULT Borgus,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
