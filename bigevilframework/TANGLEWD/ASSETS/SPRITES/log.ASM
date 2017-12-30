@@ -261,7 +261,7 @@ actor_log_sheet_roll_frame_0:
 	dc.l	0x00000282
 	dc.l	0x00000022
 	dc.l	0x00000018
-	dc.l	0xA0000002
+	dc.l	0x00000002
 	dc.l	0x00000000
 
 	dc.l	0x00000000
