@@ -154,17 +154,34 @@ L6a1_Init:
 
 	; Force every sprite object to use palette 1 (silhouette)
 	LIST_GET_HEAD EntityUpdate,a0
-	@EntityLp:
+	@UpdateLp:
 	cmp.l  #0x0, a0
-	beq    @ListEnd
+	beq    @UpdateListEnd
 	move.l Entity_TypeBits(a0), d0
 	andi.l #entity_type_spriteobj, d0
-	beq    @NotSprite
+	beq    @NotSpriteUpdate
 	move.b #0x1, SpriteObj_PaletteIdx(a0)
-	@NotSprite:
+	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
+	@NotSpriteUpdate:
 	LIST_GET_NEXT EntityUpdate,a0,a0
-	bra    @EntityLp
-	@ListEnd:
+	bra    @UpdateLp
+	@UpdateListEnd:
+
+	LIST_GET_HEAD EntityWorldGrid,a0
+	@WorldGridLp:
+	cmp.l  #0x0, a0
+	beq    @WorldGridListEnd
+	move.l Entity_TypeBits(a0), d0
+	andi.l #entity_type_spriteobj, d0
+	beq    @NotSpriteWorldGrid
+	move.b #0x1, SpriteObj_PaletteIdx(a0)
+	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
+	@NotSpriteWorldGrid:
+	LIST_GET_NEXT EntityWorldGrid,a0,a0
+	bra    @WorldGridLp
+	@WorldGridListEnd:
+
+	;==============================================================
 
 	; Init camera lerp timer
 	move.l #LevelData_L6A1, a2
