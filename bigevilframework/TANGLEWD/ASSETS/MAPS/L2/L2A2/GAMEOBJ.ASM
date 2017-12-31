@@ -199,9 +199,9 @@ L2A2_AIMarker_count equ 0x0
 
 L2A2_Cart_count equ 0x0
 
-L2A2_Pillar_count equ 0x0
-
 L2A2_Winch_count equ 0x0
+
+L2A2_Pillar_count equ 0x0
 
 L2A2_WindFlue_count equ 0x6
 L2A2_WindFlue_34_idx	equ 0x0
@@ -248,6 +248,8 @@ L2A2_Scirus_56_name	dc.b "L2A2_Scirus_56",0
 L2A2_Hogg_count equ 0x0
 
 L2A2_Bridge_count equ 0x0
+
+L2A2_Swarm_count equ 0x0
 
 
 
@@ -984,6 +986,7 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Scirus_Struct_Size, a0
+
 
 
 

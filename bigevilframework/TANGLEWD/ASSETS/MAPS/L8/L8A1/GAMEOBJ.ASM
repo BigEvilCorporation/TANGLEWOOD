@@ -113,9 +113,9 @@ L8A1_AIMarker_count equ 0x0
 
 L8A1_Cart_count equ 0x0
 
-L8A1_Pillar_count equ 0x0
-
 L8A1_Winch_count equ 0x0
+
+L8A1_Pillar_count equ 0x0
 
 L8A1_WindFlue_count equ 0x0
 
@@ -140,6 +140,8 @@ L8A1_Scirus_count equ 0x0
 L8A1_Hogg_count equ 0x0
 
 L8A1_Bridge_count equ 0x0
+
+L8A1_Swarm_count equ 0x0
 
 
 
@@ -309,6 +311,7 @@ L8A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Wyrm_Struct_Size, a0
+
 
 
 

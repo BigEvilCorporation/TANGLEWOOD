@@ -250,7 +250,7 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x01d80000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosX(a0)
 	move.l #0x00880000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	IFND FINAL

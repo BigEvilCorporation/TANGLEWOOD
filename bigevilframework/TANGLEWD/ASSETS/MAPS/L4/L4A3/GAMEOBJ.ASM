@@ -690,7 +690,7 @@ L4A3_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 	jsr WaterBodyInit
-	move.l #0x00880000, Entity_WorldPosX(a0)
+	move.l #0x00900000, Entity_WorldPosX(a0)
 	move.l #0x03880000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL

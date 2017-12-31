@@ -109,9 +109,9 @@ L8A2_AIMarker_count equ 0x0
 
 L8A2_Cart_count equ 0x0
 
-L8A2_Pillar_count equ 0x0
-
 L8A2_Winch_count equ 0x0
+
+L8A2_Pillar_count equ 0x0
 
 L8A2_WindFlue_count equ 0x0
 
@@ -136,6 +136,8 @@ L8A2_Scirus_count equ 0x0
 L8A2_Hogg_count equ 0x0
 
 L8A2_Bridge_count equ 0x0
+
+L8A2_Swarm_count equ 0x0
 
 
 
@@ -314,6 +316,7 @@ L8A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WaterBody_Struct_Size, a0
+
 
 
 
