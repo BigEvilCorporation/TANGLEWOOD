@@ -147,7 +147,6 @@ EchoAINode_ToleranceY		rs.w 1	; Target distance tolerance Y
 EchoAINode_Action			rs.b 1	; Action to run when target reached
 EchoAINode_StopMovement		rs.b 1	; Stop X movement when target reached
 EchoAINode_RequireOnFloor	rs.b 1	; Require character to be on floor to reach target
-EchoAINode_ForceIfHitWall	rs.b 1	; Force action to run if hit a wall whilst searching for target
 EchoAINode_LerpCamera		rs.b 1	; Lerp camera to character when node reached
 EchoAINode_Walk				rs.b 1	; Walk, don't run, towards node
 EchoAINode_WaitAtWater		rs.b 1	; Check for water, wait for terrain before enter
@@ -168,7 +167,6 @@ EchoAINodeInit:
 	move.b #0x0, EchoAINode_Action(a0)
 	move.b #0x0, EchoAINode_StopMovement(a0)
 	move.b #0x0, EchoAINode_RequireOnFloor(a0)
-	move.b #0x0, EchoAINode_ForceIfHitWall(a0)
 	move.b #0x0, EchoAINode_LerpCamera(a0)
 	move.b #0x0, EchoAINode_Walk(a0)
 	move.b #0x0, EchoAINode_WaitAtWater(a0)
@@ -1308,8 +1306,6 @@ EchoAIUpdate_FollowNodes:
 	move.w EchoAINode_ToleranceY(a3), d4
 
 	; If run into a wall and next node above Echo, jump
-	tst.b  EchoAINode_ForceIfHitWall(a3)
-	beq    @NotHitWall
 	PUSHL  d1
 	PHYSICS_HITFACINGWALL a0
 	POPL   d1
@@ -1319,9 +1315,12 @@ EchoAIUpdate_FollowNodes:
 	TOPIXELS d0
 	cmp.w  d0, d2
 	bgt    @NotHitWall
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
 	move.b #0x0, d2
 	jsr    CharacterStartJump
 	@NotHitWall:
+	@InAir:
 
 	; Check for water
 	jsr     EchoAILookAheadWater
@@ -2689,7 +2688,6 @@ EchoAI_WatchNymnMovement:
 	move.w Echo_LastNymnFloorVelX(a0), EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceJumpLostX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceJumpLostY, EchoAINode_ToleranceY(a3)
-	move.b #0x1, EchoAINode_ForceIfHitWall(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 
 	; If Nymn was in air because of a jump, set waiting for landing, take floor pos as target Y, and require on floor
