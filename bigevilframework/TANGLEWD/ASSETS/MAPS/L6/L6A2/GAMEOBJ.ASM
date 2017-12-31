@@ -145,16 +145,17 @@ L6A2_WaterBody_count equ 0x0
 
 L6A2_Location_count equ 0x0
 
-L6A2_Deathbox_count equ 0x9
+L6A2_Deathbox_count equ 0xa
 L6A2_Deathbox_20_idx	equ 0x0
 L6A2_Deathbox_21_idx	equ 0x1
 L6A2_Deathbox_28_idx	equ 0x2
 L6A2_Deathbox_23_idx	equ 0x3
 L6A2_Deathbox_24_idx	equ 0x4
-L6A2_Deathbox_25_idx	equ 0x5
+L6A2_Deathbox_45_idx	equ 0x5
 L6A2_Deathbox_26_idx	equ 0x6
 L6A2_Deathbox_27_idx	equ 0x7
-L6A2_Deathbox_45_idx	equ 0x8
+L6A2_Deathbox_56_idx	equ 0x8
+L6A2_Deathbox_57_idx	equ 0x9
 
 	IFND FINAL
 L6A2_Deathbox_20_name	dc.b "L6A2_Deathbox_20",0
@@ -162,10 +163,11 @@ L6A2_Deathbox_21_name	dc.b "L6A2_Deathbox_21",0
 L6A2_Deathbox_28_name	dc.b "L6A2_Deathbox_28",0
 L6A2_Deathbox_23_name	dc.b "L6A2_Deathbox_23",0
 L6A2_Deathbox_24_name	dc.b "L6A2_Deathbox_24",0
-L6A2_Deathbox_25_name	dc.b "L6A2_Deathbox_25",0
+L6A2_Deathbox_45_name	dc.b "L6A2_Deathbox_45",0
 L6A2_Deathbox_26_name	dc.b "L6A2_Deathbox_26",0
 L6A2_Deathbox_27_name	dc.b "L6A2_Deathbox_27",0
-L6A2_Deathbox_45_name	dc.b "L6A2_Deathbox_45",0
+L6A2_Deathbox_56_name	dc.b "L6A2_Deathbox_56",0
+L6A2_Deathbox_57_name	dc.b "L6A2_Deathbox_57",0
 	even
 	ENDIF
 
@@ -205,9 +207,9 @@ L6A2_AIMarker_35_name	dc.b "L6A2_AIMarker_35",0
 
 L6A2_Cart_count equ 0x0
 
-L6A2_Pillar_count equ 0x0
-
 L6A2_Winch_count equ 0x0
+
+L6A2_Pillar_count equ 0x0
 
 L6A2_WindFlue_count equ 0x0
 
@@ -233,6 +235,8 @@ L6A2_Hogg_count equ 0x0
 
 L6A2_Bridge_count equ 0x0
 
+L6A2_Swarm_count equ 0x0
+
 
 
 L6A2_LoadGameObjects:
@@ -246,8 +250,8 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x01b80000, Entity_WorldPosX(a0)
-	move.l #0x00800000, Entity_WorldPosY(a0)
+	move.l #0x01d80000, Entity_WorldPosX(a0)
+	move.l #0x00880000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	IFND FINAL
 	lea L6A2_Echo_1_name, a3
@@ -270,8 +274,8 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LogInit
-	move.l #0x0ff00000, Entity_WorldPosX(a0)
-	move.l #0x03f00000, Entity_WorldPosY(a0)
+	move.l #0x0ef00000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A2_Log1_name, a3
@@ -297,7 +301,7 @@ L6A2_LoadGameObjects:
 
 	jsr LogInit
 	move.l #0x1ab00000, Entity_WorldPosX(a0)
-	move.l #0x04400000, Entity_WorldPosY(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A2_Log3_name, a3
@@ -543,7 +547,7 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x01980000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosX(a0)
 	move.l #0x01180000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk1, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -636,7 +640,7 @@ L6A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x0d300000, Entity_WorldPosX(a0)
+	move.l #0x0cc00000, Entity_WorldPosX(a0)
 	move.l #0x04580000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log1, TriggerBox_Routine(a0)
 	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
@@ -681,8 +685,8 @@ L6A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x16c00000, Entity_WorldPosX(a0)
-	move.l #0x03c80000, Entity_WorldPosY(a0)
+	move.l #0x16880000, Entity_WorldPosX(a0)
+	move.l #0x03a80000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
@@ -698,8 +702,8 @@ L6A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x1aa00000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x1a700000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log3, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
@@ -824,8 +828,8 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x19000000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x19380000, Entity_WorldPosX(a0)
+	move.l #0x05300000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L6A2_Deathbox_24_name, a3
@@ -837,11 +841,11 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x18680000, Entity_WorldPosX(a0)
-	move.l #0x05280000, Entity_WorldPosY(a0)
+	move.l #0x15580000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A2_Deathbox_25_name, a3
+	lea L6A2_Deathbox_45_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -850,7 +854,7 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x1cd00000, Entity_WorldPosX(a0)
+	move.l #0x1d680000, Entity_WorldPosX(a0)
 	move.l #0x06980000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
@@ -876,11 +880,24 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x15580000, Entity_WorldPosX(a0)
-	move.l #0x04780000, Entity_WorldPosY(a0)
+	move.l #0x1f080000, Entity_WorldPosX(a0)
+	move.l #0x06980000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L6A2_Deathbox_45_name, a3
+	lea L6A2_Deathbox_56_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x20c80000, Entity_WorldPosX(a0)
+	move.l #0x06980000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L6A2_Deathbox_57_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -964,6 +981,7 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
+
 
 
 

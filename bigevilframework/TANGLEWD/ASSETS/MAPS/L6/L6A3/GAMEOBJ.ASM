@@ -199,9 +199,9 @@ L6A3_AIMarker_count equ 0x0
 
 L6A3_Cart_count equ 0x0
 
-L6A3_Pillar_count equ 0x0
-
 L6A3_Winch_count equ 0x0
+
+L6A3_Pillar_count equ 0x0
 
 L6A3_WindFlue_count equ 0x0
 
@@ -225,13 +225,19 @@ L6A3_Skivv_57_name	dc.b "L6A3_Skivv_57",0
 	even
 	ENDIF
 
-L6A3_Ladder_count equ 0x2
+L6A3_Ladder_count equ 0x5
 L6A3_Ladder_50_idx	equ 0x0
 L6A3_Ladder_51_idx	equ 0x1
+L6A3_Ladder_59_idx	equ 0x2
+L6A3_Ladder_60_idx	equ 0x3
+L6A3_Ladder_61_idx	equ 0x4
 
 	IFND FINAL
 L6A3_Ladder_50_name	dc.b "L6A3_Ladder_50",0
 L6A3_Ladder_51_name	dc.b "L6A3_Ladder_51",0
+L6A3_Ladder_59_name	dc.b "L6A3_Ladder_59",0
+L6A3_Ladder_60_name	dc.b "L6A3_Ladder_60",0
+L6A3_Ladder_61_name	dc.b "L6A3_Ladder_61",0
 	even
 	ENDIF
 
@@ -252,6 +258,8 @@ L6A3_Bridge1_idx	equ 0x0
 L6A3_Bridge1_name	dc.b "L6A3_Bridge1",0
 	even
 	ENDIF
+
+L6A3_Swarm_count equ 0x0
 
 
 
@@ -303,8 +311,8 @@ L6A3_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 
 	jsr LogInit
-	move.l #0x19600000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
+	move.l #0x18000000, Entity_WorldPosX(a0)
+	move.l #0x03800000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A3_Log2_name, a3
@@ -989,6 +997,51 @@ L6A3_LoadGameObjects:
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
 
+	jsr LadderInit
+	move.l #0x19980000, Entity_WorldPosX(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00f8, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A3_Ladder_59_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x0c680000, Entity_WorldPosX(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x00f0, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A3_Ladder_60_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
+	jsr LadderInit
+	move.l #0x0ae80000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	move.w #0x0028, Entity_Width(a0)
+	move.w #0x0060, Entity_Height(a0)
+	jsr LadderLoadGfx
+	IFND FINAL
+	lea L6A3_Ladder_61_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Ladder_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -1029,6 +1082,7 @@ L6A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

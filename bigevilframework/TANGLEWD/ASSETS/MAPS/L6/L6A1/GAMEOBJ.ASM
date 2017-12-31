@@ -157,9 +157,9 @@ L6A1_AIMarker_count equ 0x0
 
 L6A1_Cart_count equ 0x0
 
-L6A1_Pillar_count equ 0x0
-
 L6A1_Winch_count equ 0x0
+
+L6A1_Pillar_count equ 0x0
 
 L6A1_WindFlue_count equ 0x0
 
@@ -216,6 +216,8 @@ L6A1_Bridge5_name	dc.b "L6A1_Bridge5",0
 L6A1_Bridge6_name	dc.b "L6A1_Bridge6",0
 	even
 	ENDIF
+
+L6A1_Swarm_count equ 0x0
 
 
 
@@ -847,6 +849,7 @@ L6A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts
