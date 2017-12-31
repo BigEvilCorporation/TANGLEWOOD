@@ -222,6 +222,7 @@ HoggAIStart_Idle:
 	bset.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
 
 	; Recalculate place in grid
+	move.b #0x1, d1
 	jsr    EntityUpdateWorldGridIndex
 
 	; Set state

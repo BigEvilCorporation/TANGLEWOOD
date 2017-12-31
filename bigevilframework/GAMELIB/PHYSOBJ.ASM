@@ -304,6 +304,7 @@ PhysicsObjPreStep:
 	move.l PhysicsObj_LastAppliedVelX(a0), d0
 	or.l   PhysicsObj_LastAppliedVelY(a0), d0
 	beq    @NotMoved
+	move.b #0x0, d1
 	jsr    EntityUpdateWorldGridIndex
 	@NotOnWorldGrid:
 	@NotMoved:

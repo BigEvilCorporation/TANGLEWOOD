@@ -177,20 +177,21 @@ EntityInitWorldGrid:
 EntityAddToWorldGrid:
 	; a0 --- Entity address
 	; d0 (b) Flags (EntityWorldGridFlag_Grid*)
-
+	
 	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
 	bne    @InWorldGrid
-
-	; Set flags
-	bset   #EntityWorldGridFlag_InWorldGrid, d0
-	or.b   d0, Entity_WorldGridFlags(a0)
 
 	; Add to world grid list
 	LIST_APPEND_TAIL EntityWorldGrid,a0,a3
 
 	@InWorldGrid:
 
+	; Set flags
+	bset   #EntityWorldGridFlag_InWorldGrid, d0
+	or.b   d0, Entity_WorldGridFlags(a0)
+
 	; Calculate initial grid index
+	move.b #0x1, d1
 	jsr    EntityUpdateWorldGridIndex
 
 	rts
@@ -209,6 +210,7 @@ EntityRemoveFromWorldGrid:
 
 EntityUpdateWorldGridIndex:
 	; a0 --- Entity address
+	; d1 (b) Force check
 
 	; Get original grid index
 	move.w Entity_WorldGridIdx(a0), d0
@@ -219,9 +221,15 @@ EntityUpdateWorldGridIndex:
 	lsl.w  #0x8, d6						; World grid is 256 cells wide
 	move.b Entity_WorldPosX(a0), d6		; Add X offset
 
+	; If force check
+	tst.b  d1
+	bne    @ForceCheck
+
 	; If index changed
 	cmp.w  d0, d6
 	beq    @NoChange
+
+	@ForceCheck:
 
 	; Set new
 	move.w d6, Entity_WorldGridIdx(a0)

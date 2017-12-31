@@ -627,6 +627,7 @@ BorgusFireFuzzl:
 	move.l  d2, PhysicsObj_VelX(a0)
 
 	; Recalc world grid index
+	move.b #0x1, d1
 	jsr     EntityUpdateWorldGridIndex
 
 	@NoFuzzl:
