@@ -274,7 +274,7 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LogInit
-	move.l #0x0ef00000, Entity_WorldPosX(a0)
+	move.l #0x0ef80000, Entity_WorldPosX(a0)
 	move.l #0x04400000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
@@ -333,8 +333,8 @@ L6A2_LoadGameObjects:
 	add.l #Monster_Struct_Size, a0
 
 	jsr MonsterInit
-	move.l #0x06880000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
+	move.l #0x06100000, Entity_WorldPosX(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
 	IFND FINAL
@@ -360,7 +360,7 @@ L6A2_LoadGameObjects:
 	add.l #Monster_Struct_Size, a0
 
 	jsr MonsterInit
-	move.l #0x0a100000, Entity_WorldPosX(a0)
+	move.l #0x0a080000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	move.b #0x1, Monster_ManualGfxLoad(a0)
@@ -563,7 +563,7 @@ L6A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x05d00000, Entity_WorldPosX(a0)
+	move.l #0x05a80000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_WakeDjakk2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -640,7 +640,7 @@ L6A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x0cc00000, Entity_WorldPosX(a0)
+	move.l #0x0ba80000, Entity_WorldPosX(a0)
 	move.l #0x04580000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log1, TriggerBox_Routine(a0)
 	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)

@@ -466,6 +466,13 @@ MonsterUpdate:
 	jsr    SND_BeginFadeTrack
 	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
 	@NotPlaying:
+
+	; Add to world grid for updates/physics
+	btst.b  #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	bne     @InWorldGrid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr     EntityAddToWorldGrid
+	@InWorldGrid:
 	
 	@EndStateMachine:
 	@Inactive:
