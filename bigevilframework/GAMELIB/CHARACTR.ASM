@@ -22,6 +22,8 @@ Character_WalkRollingPlatform	equ 0x3
 Character_WalkGeneral			equ 0x4
 Character_WalkAI				equ 0x5
 
+Character_RollingObjCentre		equ 0x8
+
 ; ************************************
 ; Animation ids
 ; ************************************
@@ -259,8 +261,19 @@ CharacterUpdateRollingPlatform:
 	tst.b  d0
 	bne    @PlatformHittingWall
 
+	; If within centre
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d1,a3
+	sub.l  d1, d0
+	ABS    d0
+	TOPIXELS d0
+	cmp.w  #Character_RollingObjCentre, d0
+	bgt    @OutOfCentre
+
 	; Match rolling object velocity
 	move.l PhysicsObj_VelX(a0), PhysicsObj_ImpulseX(a3)
+
+	@OutOfCentre:
 
 	; Cannot run
 	move.b #Character_WalkRollingPlatform, d2
