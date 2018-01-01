@@ -6,6 +6,18 @@
 ;   utils.asm - Misc routines that don't belong in framework/gamelib
 ;==============================================================
 
+; Teleports player to a new position and updates streaming
+PlayerTeleport:
+	; d0 (w) X pos
+	; d1 (w) Y pos
+
+	move.l Player1, a2
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+	jsr    LevelPreStreamMap
+
+	rts
+
 ;==============================================================
 ; Palettes
 ;==============================================================

@@ -12,10 +12,11 @@ Autotest_NextLevelTime	equ 0x0100
 
 AutotestLevelStage_Soak		equ 0x0	; Leave level running for a while
 AutotestLevelStage_Pause	equ 0x1	; Pause game
-AutotestLevelStage_Die		equ 0x2	; Die and respawn
-AutotestLevelStage_Next		equ 0x3	; Next level
+AutotestLevelStage_CheckPnt	equ 0x2	; Teleport to next checkpoint
+AutotestLevelStage_Die		equ 0x3	; Die and respawn
+AutotestLevelStage_Next		equ 0x4	; Next level
 ;----------------------------------
-AutotestLevelStage_Max		equ 0x4
+AutotestLevelStage_Max		equ 0x5
 
 	rsset 0
 ;-----------------------------
@@ -121,6 +122,8 @@ AutotestAdvanceState:
 	beq    @GameplaySoak
 	cmp.b  #AutotestLevelStage_Pause, d0
 	beq    @GameplayPause
+	cmp.b  #AutotestLevelStage_CheckPnt, d0
+	beq    @GameplayCheckpoint
 	cmp.b  #AutotestLevelStage_Die, d0
 	beq    @GameplayDie
 	cmp.b  #AutotestLevelStage_Next, d0
@@ -137,6 +140,25 @@ AutotestAdvanceState:
 
 	; Press start
 	ori.w  #1<<pad_button_start, Autotest_PadDataA(a0)
+
+	bra    @End
+
+	;==============================================================
+
+	@GameplayCheckpoint:
+
+	; Find next checkpoint
+	move.l EntityPoolStart_Checkpoint, a3
+	cmp.l  #0x0, a3
+	beq    @NoCheckpoint
+
+	; Teleport to checkpoint (right hand side to activate it)
+	move.w Entity_WorldPosX(a3), d0
+	add.w  Entity_Width(a3), a0
+	move.w Entity_WorldPosY(a3), d1
+	jsr    PlayerTeleport
+
+	@NoCheckpoint:
 
 	bra    @End
 
