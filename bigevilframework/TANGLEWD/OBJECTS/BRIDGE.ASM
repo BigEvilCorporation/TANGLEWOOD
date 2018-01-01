@@ -473,7 +473,9 @@ BridgeSerialise:
 	LOADB Bridge_State(a0)
 	LOADL Bridge_UnrollPos(a0)
 
+	PUSHALL
 	jsr   BridgePostInit
+	POPALL
 	
 	;==============================================================
 	
