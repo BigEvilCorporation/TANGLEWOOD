@@ -502,6 +502,13 @@ l3a3TriggerEchoIntro:
 	jsr    CutscenePlay
 	POPL   a0
 
+	; Set power to expire next frame
+	move.l Player1, a2
+	tst.w  Player_ColourChangeTimer(a2)
+	beq    @NoPower
+	move.w #0x1, Player_ColourChangeTimer(a2)
+	@NoPower:
+
 	bra    @End
 
 	@DjakkDead:
