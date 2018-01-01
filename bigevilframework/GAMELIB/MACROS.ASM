@@ -365,13 +365,12 @@ PLAYSFX: macro sfxAddr
 	; Save byte
 SAVEB: macro reg
     move.b \reg, (a3)+
-	addq.l #0x3, a3
+	addq.l #0x1, a3
     endm
 	
 	; Save word
 SAVEW: macro reg
     move.w \reg, (a3)+
-	addq.l #0x2, a3
     endm
 	
 	; Save long
@@ -382,13 +381,12 @@ SAVEL: macro reg
 	; Load byte
 LOADB: macro reg
     move.b (a3)+, \reg
-	addq.l #0x3, a3
+	addq.l #0x1, a3
     endm
 	
 	; Load word
 LOADW: macro reg
     move.w (a3)+, \reg
-	addq.l #0x2, a3
     endm
 	
 	; Load long
