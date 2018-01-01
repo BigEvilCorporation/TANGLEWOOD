@@ -81,7 +81,6 @@ __start
 	include '..\gamelib\camera.asm'
 	include '..\gamelib\charactr.asm'
 	include '..\gamelib\colour.asm'
-	include '..\gamelib\ledges.asm'
 	include '..\gamelib\level.asm'
 	include '..\gamelib\pickup.asm'
 	include '..\gamelib\platform.asm'

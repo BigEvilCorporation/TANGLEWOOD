@@ -30,7 +30,6 @@ Monster_JumpScaleX    equ 0x00022000 ; Jump velocity scale X (scaled by current 
 Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
 Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
-Monster_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
 Monster_Mass		  equ 0x0B
 
 Monster_BoundsWidth		equ Monster_Width
@@ -43,8 +42,6 @@ Monster_MinWallHeight equ 0x11				 ; High enough to avoid stones
 Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
 Monster_ProbeWallTop  equ 0x08
-Monster_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
-Monster_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
@@ -213,8 +210,6 @@ MonsterInit:
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, Character_JumpScaleX(a0)
-	move.w  #Monster_ProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #Monster_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	; Default state
 	move.b  #0x1, Entity_Active(a0)

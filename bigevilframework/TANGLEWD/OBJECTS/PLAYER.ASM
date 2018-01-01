@@ -51,7 +51,6 @@ Player1JumpVelY      equ 0x060000 ; Player 1 jump velocity impulse Y
 Player1JumpVelWater	 equ 0x040000 ; Player 1 jump velocity impulse from water
 Player1JumpCancelVelLo equ 0x010000 ; Player 1 velocity to cancel jump min
 Player1JumpCancelVelHi equ Player1MaxVelYUp ; Player 1 velocity to cancel jump max
-Player1MaxGrabUpVel  equ 0x030000 ; Max up velocity player can grab a ledge (no limit on down vel)
 Player1ClimbVel      equ 0x010000 ; Climbing velocity
 Player1LadderGrabVel equ 0x018000 ; Min downward velocity to grab ladder
 Player1LadderExitVel equ 0x040000 ; Jump velocity when exiting ladder at top
@@ -72,8 +71,6 @@ Player1ProbeFloorX   	equ (Player1Width/2)	; Floor detection probe position X
 Player1ProbeFloorY   	equ (Player1Height-8)	; Floor detection probe position Y
 Player1ProbeCeilingX 	equ (Player1Width/2)	; Ceiling detection probe position X
 Player1ProbeCeilingY 	equ (0x0008)			; Ceiling detection probe position Y
-Player1ProbeLedgeX   	equ 0x1F				; Ledge detection probe position X
-Player1ProbeLedgeY   	equ 0x02				; Ledge detection probe position Y
 
 ; Walk to run transition velocity
 Player1WalkToRunVel  equ 0x020000
@@ -246,7 +243,6 @@ PlayerInit:
 	MOVE_NTSC_L Player1JumpVelY, Character_JumpVelY(a0), d0
 	MOVE_NTSC_L Player1JumpCancelVelLo, Character_JumpCancelVelLo(a0), d0
 	MOVE_NTSC_L Player1JumpCancelVelHi, Character_JumpCancelVelHi(a0), d0
-	MOVE_NTSC_L Player1MaxGrabUpVel, Character_MaxGrabUpVel(a0), d0
 
 	MOVE_NTSC_L Player1WalkToRunVel, Character_WalkToRunVel(a0), d0
 	MOVE_NTSC_L Player1ClimbVel, Character_ClimbVel(a0), d0
@@ -268,9 +264,6 @@ PlayerInit:
 	move.b  #Player1Mass, PhysicsObj_Mass(a0)
 	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
-
-	move.w  #Player1ProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #Player1ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x1, Player_ControlEnabled(a0)

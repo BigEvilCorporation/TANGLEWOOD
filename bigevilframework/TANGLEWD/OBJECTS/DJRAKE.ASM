@@ -24,13 +24,10 @@ Djrake_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
 Djrake_JumpVel	      equ 0x060000   ; Jump velocity impulse
 Djrake_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Djrake_JumpCancelVelHi equ Djrake_MaxVelYUp   ; Velocity to cancel jump max
-Djrake_MaxGrabUpVel  equ 0x030000   ; Max up velocity character can grab a ledge (no limit on down vel)
 
 Djrake_StepHeight	  equ 0x3
 Djrake_ProbeFloorX	  equ (Djrake_Width/2)  ; Floor detection probe position X
 Djrake_ProbeFloorY   equ (Djrake_Height-8) ; Floor detection probe position Y
-Djrake_ProbeLedgeX	  equ 0x1F	   ; Ledge detection probe position X
-Djrake_ProbeLedgeY	  equ 0x02	   ; Ledge detection probe position Y
 
 Djrake_PlayerVisibilityBoxX	equ 0x2000
 Djrake_PlayerVisibilityBoxY	equ 0x0080
@@ -156,9 +153,6 @@ DjrakeInit:
 	move.l  #Djrake_JumpVel, Character_JumpVelY(a0)
 	move.l  #Djrake_JumpCancelVelLo, Character_JumpCancelVelLo(a0)
 	move.l  #Djrake_JumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.l  #Djrake_MaxGrabUpVel, Character_MaxGrabUpVel(a0)
-	move.w  #Djrake_ProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #Djrake_ProbeLedgeY, Character_ProbeLedgeY(a0)
 
 	; Default state
 	move.b  #0x1, Entity_Active(a0)

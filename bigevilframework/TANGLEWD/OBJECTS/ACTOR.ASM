@@ -30,14 +30,11 @@ ActorJumpVel		equ 0x06*subpixels_per_pixel ; Actor jump velocity impulse
 ActorJumpVelWater	equ 0x02*subpixels_per_pixel ; Actor jump velocity impulse from water
 ActorJumpCancelVelLo equ 0x01*subpixels_per_pixel ; Actor velocity to cancel jump min
 ActorJumpCancelVelHi equ ActorMaxVelYUp			; Actor velocity to cancel jump max
-ActorMaxGrabUpVel	equ 0x03*subpixels_per_pixel ; Max up velocity player can grab a ledge (no limit on down vel)
 
 ; Actor collision probes
 ActorStepHeight		equ 0x3
 ActorProbeFloorX   	equ (ActorWidth/2)   ; Floor detection probe position X
 ActorProbeFloorY   	equ (ActorHeight-8)  ; Floor detection probe position Y
-ActorProbeLedgeX   	equ 0x1F			 ; Ledge detection probe position X
-ActorProbeLedgeY   	equ 0x02			 ; Ledge detection probe position Y
 
 ; Walk to run transition velocity
 ActorWalkToRunVel	equ 0x020000
@@ -102,9 +99,6 @@ ActorInit:
 	move.l  #ActorJumpVel, Character_JumpVelY(a0)
 	move.l  #ActorJumpCancelVelLo, Character_JumpCancelVelLo(a0)
 	move.l  #ActorJumpCancelVelHi, Character_JumpCancelVelHi(a0)
-	move.l  #ActorMaxGrabUpVel, Character_MaxGrabUpVel(a0)
-	move.w  #ActorProbeLedgeX, Character_ProbeLedgeX(a0)
-	move.w  #ActorProbeLedgeY, Character_ProbeLedgeY(a0)
 	move.l  #ActorWalkToRunVel, Character_WalkToRunVel(a0)
 	
 	rts

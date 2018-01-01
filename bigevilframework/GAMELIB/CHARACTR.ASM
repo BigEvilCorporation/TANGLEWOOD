@@ -75,15 +75,10 @@ Character_JumpVelX			rs.l 1
 Character_JumpVelY			rs.l 1
 Character_JumpCancelVelLo	rs.l 1
 Character_JumpCancelVelHi	rs.l 1
-Character_MaxGrabUpVel		rs.l 1
 Character_MaxVelXRun		rs.l 1
 Character_MaxVelXWalk		rs.l 1
 Character_WalkToRunVel		rs.l 1
 Character_ClimbVel			rs.l 1
-Character_LastLedgeX		rs.l 1
-Character_LastLedgeY		rs.l 1
-Character_ProbeLedgeX		rs.w 1
-Character_ProbeLedgeY		rs.w 1
 Character_AccelRun			rs.w 1
 Character_AccelWalk			rs.w 1
 Character_DecelIdle			rs.w 1
@@ -92,7 +87,6 @@ Character_ControlX			rs.b 1
 Character_ControlY			rs.b 1
 Character_CanJump			rs.b 1
 Character_CanClimb			rs.b 1
-Character_OnLedge			rs.b 1
 Character_Walking			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
@@ -132,11 +126,8 @@ CharacterInit:
 	move.l #0x0, Character_InteractCancelA(a0)
 	move.l #0x0, Character_InteractStartB(a0)
 	move.l #0x0, Character_InteractCancelB(a0)
-	move.l #0x0, Character_LastLedgeX(a0)
-	move.l #0x0, Character_LastLedgeY(a0)
 	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_CanClimb(a0)
-	move.b #0x0, Character_OnLedge(a0)
 	move.b #0x0, Character_Walking(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
@@ -395,13 +386,6 @@ CharacterUpdateAnimState:
 	bne    @SetAnim
 	
 	; =====================================================================
-	; Hanging
-	; =====================================================================
-	move.b #CharacterAnimIdx_Hang, d1
-	tst.b  Character_OnLedge(a0)		; If player on ledge, set hanging anim
-	bne    @SetAnim
-	
-	; =====================================================================
 	; Gliding
 	; =====================================================================
 	move.b #CharacterAnimIdx_Glide, d1
@@ -550,10 +534,6 @@ CharacterMoveLeft:
 	; Check if player dead
 	tst.b  Character_Dead(a0)
 	bne    @End
-	
-	; Check if player on ledge
-	tst.b  Character_OnLedge(a0)
-	bne    @End
 
 	; Check if player climbing
 	tst.b  Character_Climbing(a0)
@@ -596,10 +576,6 @@ CharacterMoveRight:
 	
 	; Check if player dead
 	tst.b  Character_Dead(a0)
-	bne    @End
-	
-	; Check if player on ledge
-	tst.b  Character_OnLedge(a0)
 	bne    @End
 
 	; Check if player climbing
@@ -700,10 +676,6 @@ CharacterStartJump:
 	; Check if player is interacting
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @CantJump
-	
-	; Check if player on ledge
-	cmp.b  #0x1, Character_OnLedge(a0)
-	beq    @CanJump
 
 	; Check if player climbing
 	tst.b  Character_Climbing(a0)
