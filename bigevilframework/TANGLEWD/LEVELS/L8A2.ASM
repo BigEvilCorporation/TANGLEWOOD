@@ -95,7 +95,6 @@ l8a2_Init:
 
 	; Don't lerp Djakk palette, disable catchup behaviour
 	ENTITY_GETBYNAME Monster, l8a2_Djakk1, a0
-	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)

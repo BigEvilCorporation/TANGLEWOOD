@@ -226,7 +226,6 @@ l3a3_Init:
 
 	; Skip Djakk intro
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a0
-	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
