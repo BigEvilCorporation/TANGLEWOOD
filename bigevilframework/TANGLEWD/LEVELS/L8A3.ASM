@@ -54,7 +54,7 @@ l8a3_DefaultPalettes:
 	
 	even
 
-l8a3_DemonToFuzzl				equ 0x08
+l8a3_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
 l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
@@ -220,8 +220,6 @@ l8a3_CutsceneDemonStealFuzzl:
 	CUTSCENE_DELAY #0x0020
 
 	; Move demon to Fuzzl
-	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
-	CUTSCENE_OBJECT_SET_PARAM_B a2,#Demon_AtTarget,#0x0
 	CUTSCENE_GET_ENTITY Fuzzl,l8a3_FuzzlRed1,a2
 	CUTSCENE_ROUTINE l8a3_Cutscene_MoveDemon,#0x0,#0x0,#0x0
 	CUTSCENE_GET_ENTITY Demon,l8a3_Demon,a2
@@ -310,6 +308,13 @@ l8a3_Cutscene_MoveDemon:
 	
 	; Get demon
 	ENTITY_GETBYNAME Demon, l8a3_Demon, a0
+
+	; HACK: Reset reached target flag
+	; TODO: Split cutscene routines into start/update/end
+	tst.w  Demon_TargetX(a0)
+	bne    @TargetSet
+	move.b #0x0, Demon_AtTarget(a0)
+	@TargetSet:
 
 	; Update target pos
 	ENTITY_GETCENTREX d0,a2

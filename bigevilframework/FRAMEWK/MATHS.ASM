@@ -182,10 +182,11 @@ VEC2_SUB: macro vec1,vec2
 	
 VEC2_DISTSQ: macro vec1,vec2,tmpreg
 	; DistSq = sq(v2.x - v1.x) + sq(v2.y - v1.y)
-    moveq #0x0,  \tmpreg
+    moveq  #0x0,  \tmpreg
 	sub.w  \vec2, \vec1		; Vec2.y - Vec1.y
 	move.w \vec1, \tmpreg
 	muls   \tmpreg, \tmpreg	; Square
+	move.w #0x0, \vec1
 	swap   \vec1
 	swap   \vec2
 	sub.w  \vec2, \vec1		; Vec2.x - Vec1.x

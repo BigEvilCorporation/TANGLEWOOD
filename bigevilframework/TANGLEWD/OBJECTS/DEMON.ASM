@@ -668,6 +668,7 @@ DemonAIUpdate_Wisp:
 	move.l d0, d2
 	move.l d1, d3
 	VEC2_DISTSQ d2, d3, d4
+	move.l Demon_TargetDistSq(a0), d7
 	cmp.l  Demon_TargetDistSq(a0), d2
 	blt    @WithinRange
 

@@ -21,7 +21,7 @@ Swarm_AccelRun		equ 0x000800   ; Running acceleration
 Swarm_DecelIdle		equ 0x000800   ; Deceleration if left alone
 Swarm_DecelForced	equ 0x001000   ; Deceleration if input opposite direction
 
-Swarm_AttackDist	equ 0x0030		; Distance to switch to attack anim
+Swarm_AttackDist	equ 0x0040		; Distance to switch to attack anim
 Swarm_Time			equ 0x0200
 Swarm_PlayerDamage	equ 0xFF
 
@@ -119,10 +119,10 @@ SwarmUpdate:
 	move.w d0, Swarm_Timer(a0)
 	tst.w  d0
 	bne    @TimerRunning
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
-	bra    @Finished
+	;jsr    EntityRemoveFromWorldGrid
+	;jsr    EntityRemoveFromUpdateList
+	;jsr    EntityRemoveFromRenderList
+	;bra    @Finished
 	@TimerRunning:
 
 	; Accelerate towards player
@@ -151,8 +151,8 @@ SwarmUpdate:
 	CLAMPL d2, d6, d7
 	CLAMPL d3, d6, d7
 
-	move.l d2, PhysicsObj_VelY(a0)
-	move.l d3, PhysicsObj_VelX(a0)
+	;move.l d2, PhysicsObj_VelY(a0)
+	;move.l d3, PhysicsObj_VelX(a0)
 	
 	; If close enough, switch to attack anim
 	move.l Player1, a1
@@ -161,7 +161,7 @@ SwarmUpdate:
 	move.l d0, d2
 	move.l d1, d3
 	VEC2_DISTSQ d2, d3, d4
-	cmp.l  #Swarm_AttackDist, d2
+	cmp.l  #Swarm_AttackDist*Swarm_AttackDist, d2
 	bgt    @OutOfAttackRange
 
 	; Within range, use attack anim
@@ -185,7 +185,7 @@ SwarmUpdate:
 	PUSHL  a0
 	move.l Player1, a0
 	move.b #Swarm_PlayerDamage, d0
-	jsr    CharacterDealDamage
+	;jsr    CharacterDealDamage
 	POPL   a0
 
 	bra     @AttackMode
