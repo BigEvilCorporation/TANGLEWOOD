@@ -9,6 +9,7 @@
 ; Constants
 Lock_Width				equ 0x08
 Lock_Height				equ 0x68
+Lock_BarrierWidth		equ 0x10
 Lock_MinRaiseHeight		equ 0x18
 Lock_MaxRaiseHeight		equ Lock_Height
 Lock_DefaultRaiseSpeed	equ 0x1
@@ -60,7 +61,7 @@ LockInit:
 	lea    Lock_Barrier(a0), a2
 	move.l #Barrier_Struct_Size, d0
 	MEMZEROB a2, d0
-	move.w #Lock_Width, Barrier_Width(a2)
+	move.w #Lock_BarrierWidth, Barrier_Width(a2)
 	move.w #Lock_Height, Barrier_Height(a2)
 	LIST_APPEND_TAIL Barriers, a2, a3
 
