@@ -6,6 +6,17 @@
 ;   macros.asm - Utility macros
 ;==============================================================
 
+; Disable interrupts (pushes to stack)
+DISABLE_INTERRUPTS: macro
+	PUSHW  sr
+	ori.w  #status_reg_int_disable, sr
+	endm
+
+; Restore interrupts (pops from stack)
+RESTORE_INTERRUPTS: macro
+	POPW    sr
+	endm
+
 ; Stack push (word)
 PUSHW: macro reg
     move.w \reg, -(sp)

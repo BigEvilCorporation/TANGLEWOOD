@@ -9,6 +9,9 @@
 MAP_UpdateStreaming:
 	; a1 --- Level addr
 	; d0 (b) Process VDP queue immediately (for initial loading)
+
+	; Disable interrupts
+	DISABLE_INTERRUPTS
 	
 	; Level to a1
 	move.l  (CurrentLevel), a1
@@ -94,6 +97,9 @@ MAP_UpdateStreaming:
 	bne     @WorkLoop
 	tst.w   d4
 	bne     @WorkLoop
+
+	; Restore interrupts
+	RESTORE_INTERRUPTS
 	
 	rts
 	
