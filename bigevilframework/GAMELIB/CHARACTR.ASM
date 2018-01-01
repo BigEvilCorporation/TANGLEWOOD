@@ -95,6 +95,7 @@ Character_Gliding			rs.b 1
 Character_Riding			rs.b 1	; 1 = Trotting, 2 = Galloping
 Character_Climbing			rs.b 1
 Character_Interacting		rs.b 1
+Character_CanCancelJump		rs.b 1	; Letting go of jump button early cancels jump
 Character_UpdateAnim		rs.b 1
 Character_AnimIdx	    	rs.b 1
 Character_Health        	rs.b 1
@@ -135,6 +136,7 @@ CharacterInit:
 	move.b #0x0, Character_Riding(a0)
 	move.b #0x0, Character_Climbing(a0)
 	move.b #0x0, Character_Interacting(a0)
+	move.b #0x0, Character_CanCancelJump(a0)
 	move.b #0x1, Character_UpdateAnim(a0)
 	move.b #0xFF, Character_Health(a0)
 	move.b #0x0, Character_Dead(a0)
@@ -172,6 +174,7 @@ CharacterUpdate:
 	beq    @OffFloor
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Falling(a0)
+	move.b #0x0, Character_CanCancelJump(a0)
 
 	; =====================================================================
 	
@@ -742,6 +745,9 @@ CharacterStartJump:
 
 	; Set jumping
 	move.b #0x1, Character_Jumping(a0)
+
+	; Jumped from floor, can cancel
+	move.b #0x1, Character_CanCancelJump(a0)
 	
 	bra    @End
 
@@ -775,6 +781,10 @@ CharacterCancelJump:
 	
 	; Check if jumping
 	tst.b  Character_Jumping(a0)
+	beq    @NotJumping
+
+	; Check if jump can be canceled
+	tst.b  Character_CanCancelJump(a0)
 	beq    @NotJumping
 	
 	; Check if not gliding

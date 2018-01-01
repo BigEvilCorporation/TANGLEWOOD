@@ -192,9 +192,10 @@ FlueOccupantUpdate:
 	andi.l #entity_type_character, d1
 	beq    @NotCharacter 
 	
-	; Set jumping
+	; Set jumping (but can't cancel)
 	move.b #0x1, Character_Jumping(a1)
 	move.b #0x0, Character_Falling(a1)
+	move.b #0x0, Character_CanCancelJump(a1)
 	
 	; If occupant was camera owner, give back control
 	tst.b  FlueOccupant_CameraOwner(a2)

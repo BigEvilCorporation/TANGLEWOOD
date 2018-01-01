@@ -2763,9 +2763,10 @@ PlayerInteractTest_BouncePlants:
 	move.l d0, PhysicsObj_VelX(a0)
 	move.l d1, PhysicsObj_VelY(a0)
 	
-	; Set jumping and falling
+	; Set jumping (but can't cancel)
 	move.b #0x1, Character_Jumping(a0)
 	move.b #0x0, Character_Falling(a0)
+	move.b #0x0, Character_CanCancelJump(a0)
 
 	; Activate plant
 	PUSHL  a0
