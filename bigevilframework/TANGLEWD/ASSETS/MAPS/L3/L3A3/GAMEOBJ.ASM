@@ -119,37 +119,39 @@ L3A3_Nest_22_name	dc.b "L3A3_Nest_22",0
 
 L3A3_Flue_count equ 0x0
 
-L3A3_TriggerBox_count equ 0x2
+L3A3_TriggerBox_count equ 0x3
 L3A3_TriggerBoxEchoIntro_idx	equ 0x0
 L3A3_TriggerBox_EndLevel_idx	equ 0x1
+L3A3_TriggerLiftEnd_idx	equ 0x2
 
 	IFND FINAL
 L3A3_TriggerBoxEchoIntro_name	dc.b "L3A3_TriggerBoxEchoIntro",0
 L3A3_TriggerBox_EndLevel_name	dc.b "L3A3_TriggerBox_EndLevel",0
+L3A3_TriggerLiftEnd_name	dc.b "L3A3_TriggerLiftEnd",0
 	even
 	ENDIF
 
-L3A3_Checkpoint_count equ 0x4
+L3A3_Checkpoint_count equ 0x3
 L3A3_Checkpoint_36_idx	equ 0x0
 L3A3_Checkpoint_37_idx	equ 0x1
 L3A3_Checkpoint_38_idx	equ 0x2
-L3A3_Checkpoint_58_idx	equ 0x3
 
 	IFND FINAL
 L3A3_Checkpoint_36_name	dc.b "L3A3_Checkpoint_36",0
 L3A3_Checkpoint_37_name	dc.b "L3A3_Checkpoint_37",0
 L3A3_Checkpoint_38_name	dc.b "L3A3_Checkpoint_38",0
-L3A3_Checkpoint_58_name	dc.b "L3A3_Checkpoint_58",0
 	even
 	ENDIF
 
 L3A3_WaterBody_count equ 0x0
 
-L3A3_Location_count equ 0x1
+L3A3_Location_count equ 0x2
 L3A3_LocEchoHide_idx	equ 0x0
+L3A3_LiftStop1_idx	equ 0x1
 
 	IFND FINAL
 L3A3_LocEchoHide_name	dc.b "L3A3_LocEchoHide",0
+L3A3_LiftStop1_name	dc.b "L3A3_LiftStop1",0
 	even
 	ENDIF
 
@@ -657,6 +659,21 @@ L3A3_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x0d100000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	move.l #l3a3TriggerEndLift, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L3A3_TriggerLiftEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L3A3_Checkpoint_count)
@@ -703,19 +720,6 @@ L3A3_LoadGameObjects:
 	ENDIF
 	add.l #Checkpoint_Struct_Size, a0
 
-	jsr CheckpointInit
-	move.l #0x0fc80000, Entity_WorldPosX(a0)
-	move.l #0x02480000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L3A3_Checkpoint_58_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -733,6 +737,19 @@ L3A3_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
+
+	jsr LocationInit
+	move.l #0x0d500000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L3A3_LiftStop1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Location_Struct_Size, a0

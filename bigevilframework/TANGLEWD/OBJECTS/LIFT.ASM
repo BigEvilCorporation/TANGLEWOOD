@@ -772,6 +772,7 @@ LiftSerialise:
 	
 	SAVEL Entity_WorldPosX(a0)
 	SAVEL Entity_WorldPosY(a0)
+	SAVEW PhysicsObj_AccelY(a0)
 	
 	bra  @End
 	
@@ -781,6 +782,7 @@ LiftSerialise:
 	
 	LOADL Entity_WorldPosX(a0)
 	LOADL Entity_WorldPosY(a0)
+	LOADW PhysicsObj_AccelY(a0)
 	
 	;==============================================================
 	

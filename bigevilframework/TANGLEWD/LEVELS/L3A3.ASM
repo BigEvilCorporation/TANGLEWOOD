@@ -210,6 +210,12 @@ l3a3_Init:
 	move.b #0x0, l3a3Data_ComboButton1Count(a2)
 	move.b #0x0, l3a3Data_ComboButton2Count(a2)
 
+	; Set lift stop point
+	ENTITY_GETBYNAME Lift, l3a3_Lift1, a0
+	ENTITY_GETBYNAME Location, l3a3_LiftStop1, a1
+	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
+	move.b #0x1, Lift_RestrictHeight(a0)
+
 	; Set Elders in cages
 	ENTITY_GETBYNAME Monster, l3a3_Elder1, a0
 	jsr    MonsterSetInCage
@@ -454,6 +460,30 @@ l3a3Cage2RaiseFinished:
 	; Disable button
 	ENTITY_GETBYNAME Button, l3a3_ButtonCage2, a2
 	move.b #0x0, Button_Active(a2)
+
+	rts
+
+l3a3TriggerEndLift:
+
+	PUSHL  a0
+
+	; Disconnect button from lift
+	ENTITY_GETBYNAME Button, l3a3_Button3, a0
+	move.b #0x0, Entity_Active(a0)
+
+	; Continue raising
+	ENTITY_GETBYNAME Lift, l3a3_Lift1, a0
+	jsr    LiftActivateUp
+
+	; Disable Elder
+	ENTITY_GETBYNAME Monster, l3a3_Elder1, a0
+	move.b #0x0, Entity_Active(a0)
+
+	; Fade down music
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+
+	POPL   a0
 
 	rts
 

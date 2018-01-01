@@ -282,6 +282,7 @@ ButtonSerialise:
 	SAVEL Button_LastOccupant(a0)
 	SAVEB Button_Active(a0)
 	SAVEB Button_Pressed(a0)
+	SAVEB Entity_Active(a0)
 	
 	bra  @End
 	
@@ -292,6 +293,7 @@ ButtonSerialise:
 	LOADL Button_LastOccupant(a0)
 	LOADB Button_Active(a0)
 	LOADB Button_Pressed(a0)
+	LOADB Entity_Active(a0)
 	
 	;==============================================================
 	

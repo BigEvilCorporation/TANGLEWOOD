@@ -498,6 +498,7 @@ MonsterSerialise:
 	SAVEL Entity_WorldPosX(a0)
 	SAVEL Entity_WorldPosY(a0)
 	SAVEB Monster_State(a0)
+	SAVEB Entity_Active(a0)
 	
 	bra  @End
 	
@@ -508,6 +509,7 @@ MonsterSerialise:
 	LOADL Entity_WorldPosX(a0)
 	LOADL Entity_WorldPosY(a0)
 	LOADB Monster_State(a0)
+	LOADB Entity_Active(a0)
 	
 	;==============================================================
 	
