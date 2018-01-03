@@ -119,10 +119,13 @@ l2a1_Init:
 	move.w #0x7FFF, WindFlue_Timer(a0)
 
 	;==============================================================
-	
-	move.l (Player1), a0
+
+	; If not loading from checkpoint
+	tst.l  LastActivatedCheckpoint
+	bne    @CheckpointLoad
 	
 	; Disable player 1 control
+	move.l (Player1), a0
 	move.b #0x0, Player_ControlEnabled(a0)
 	
 	; Start sleep anim
@@ -137,11 +140,11 @@ l2a1_Init:
 	move.l #LevelData_L1A1, a2
 	move.b #0x1, l2a1Data_WaitingInput(a2)
 
-	;==============================================================
-
 	; Start level intro tune
 	lea    track_bgm_dawn, a0
 	jsr    SND_PlayTrack
+
+	@CheckpointLoad:
 
 	;==============================================================
 
@@ -201,6 +204,13 @@ l2a1_Serialise:
 	rts
 
 l2a1_End:
+	rts
+
+l2a1_Trigger_MusicCue:
+
+	lea    track_bgm_cue_l2, a0
+	jsr    SND_PlayTrack
+
 	rts
 
 l2a1_Trigger_EndColourPower:

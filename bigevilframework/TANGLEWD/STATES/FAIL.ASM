@@ -99,12 +99,6 @@ Fail_Update:
 	move.l d0, TimerFailReset
 	tst.l  d0
 	bne    @TimerRunning
-	
-	; Timer elapsed, reset audio
-	move.b #0xFF, d0
-	jsr    SND_SetGlobalVolume
-	jsr    SND_StopTrack
-	jsr    SND_ClearTracks
 
 	; Restart gameplay state
 	lea    GameStateGameplay, a0

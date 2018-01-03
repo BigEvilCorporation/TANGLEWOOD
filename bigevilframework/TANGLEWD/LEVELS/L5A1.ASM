@@ -191,6 +191,13 @@ L5a1_Trigger_End:
 	
 	rts
 
+l5a1_Trigger_MusicCue:
+
+	lea    track_bgm_cue_l5, a0
+	jsr    SND_PlayTrack
+
+	rts
+
 l5a1_CutsceneCargoLift:
 	; a0 --- Cutscene
 

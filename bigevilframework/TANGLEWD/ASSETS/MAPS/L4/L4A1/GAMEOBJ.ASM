@@ -109,15 +109,17 @@ L4A1_Nest_4_name	dc.b "L4A1_Nest_4",0
 
 L4A1_Flue_count equ 0x0
 
-L4A1_TriggerBox_count equ 0x3
+L4A1_TriggerBox_count equ 0x4
 L4A1_TriggerBox_EchoFollowUnderground_idx	equ 0x0
 L4A1_TriggerBox_End_idx	equ 0x1
 L4A1_TriggerBox_28_idx	equ 0x2
+L4A1_TriggerMusicCue_idx	equ 0x3
 
 	IFND FINAL
 L4A1_TriggerBox_EchoFollowUnderground_name	dc.b "L4A1_TriggerBox_EchoFollowUnderground",0
 L4A1_TriggerBox_End_name	dc.b "L4A1_TriggerBox_End",0
 L4A1_TriggerBox_28_name	dc.b "L4A1_TriggerBox_28",0
+L4A1_TriggerMusicCue_name	dc.b "L4A1_TriggerMusicCue",0
 	even
 	ENDIF
 
@@ -578,6 +580,22 @@ L4A1_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L4A1_TriggerBox_28_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x07000000, Entity_WorldPosX(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
+	move.l #l4a1_Trigger_MusicCue, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L4A1_TriggerMusicCue_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

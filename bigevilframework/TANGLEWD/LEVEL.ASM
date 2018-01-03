@@ -38,17 +38,25 @@ GameStateReset:
 
 	@LeaveAudio:
 
-	; Just fade out ambience track
+	; Just fade out ambience and threat tracks
 	move.l audio_current_track, a0
 	cmp.l  #0x0, a0
 	beq    @EndResetAudio
+	cmp.b  #Track_Type_Threat, Track_Type(a0)
+	beq    @FadeOutTrack
 	cmp.b  #Track_Type_Ambience, Track_Type(a0)
-	bne    @EndResetAudio
+	beq    @FadeOutTrack
+	bra    @EndResetAudio
+
+	@FadeOutTrack:
 
 	move.b #-Audio_DefaultFadeSpeed, d0
 	jsr    SND_BeginFadeTrack
 
 	; Remove from queue
+	lea    audio_queued_tracks, a1
+	addi.l #(Track_Type_Threat*size_long), a1
+	move.l #0x0, (a1)
 	lea    audio_queued_tracks, a1
 	addi.l #(Track_Type_Ambience*size_long), a1
 	move.l #0x0, (a1)

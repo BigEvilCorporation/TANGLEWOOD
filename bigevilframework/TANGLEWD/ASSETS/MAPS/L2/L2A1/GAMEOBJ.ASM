@@ -159,13 +159,15 @@ L2A1_TriggerStopPower_name	dc.b "L2A1_TriggerStopPower",0
 	even
 	ENDIF
 
-L2A1_Checkpoint_count equ 0x2
+L2A1_Checkpoint_count equ 0x3
 L2A1_Checkpoint_63_idx	equ 0x0
 L2A1_Checkpoint_64_idx	equ 0x1
+L2A1_Checkpoint_69_idx	equ 0x2
 
 	IFND FINAL
 L2A1_Checkpoint_63_name	dc.b "L2A1_Checkpoint_63",0
 L2A1_Checkpoint_64_name	dc.b "L2A1_Checkpoint_64",0
+L2A1_Checkpoint_69_name	dc.b "L2A1_Checkpoint_69",0
 	even
 	ENDIF
 
@@ -786,7 +788,7 @@ L2A1_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x0a200000, Entity_WorldPosX(a0)
 	move.l #0x05400000, Entity_WorldPosY(a0)
-	move.l #StartAmbientTrack, TriggerBox_Routine(a0)
+	move.l #l2a1_Trigger_MusicCue, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
@@ -841,6 +843,19 @@ L2A1_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L2A1_Checkpoint_64_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x0aa80000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L2A1_Checkpoint_69_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

@@ -9,9 +9,10 @@
 ; Track types in priority order
 Track_Type_Cue			equ 0x0	; One-shot music cue (interrupts BGM/ambience)
 Track_Type_BGM			equ 0x1	; Looping BGM
-Track_Type_Ambience		equ 0x2	; Background ambience (mutually exclusive with BGM)
+Track_Type_Threat		equ 0x2	; Enemy BGM
+Track_Type_Ambience		equ 0x3	; Background ambience (mutually exclusive with BGM)
 ;------------------------------
-Track_Type_COUNT		equ 0x3
+Track_Type_COUNT		equ 0x4
 
 ; Track transition type
 Track_Transition_Crossfade	equ 0x0	; Fade track A out, fade in track B

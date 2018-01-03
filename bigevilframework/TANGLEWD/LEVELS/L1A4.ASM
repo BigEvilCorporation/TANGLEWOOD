@@ -190,7 +190,7 @@ l1a4_Trigger_FuzzlTreeEntrance:
 
 	; Start 'Rain' track
 	IFND DEBUG
-	lea    track_bgm_cue_l2, a0
+	lea    track_bgm_cue_l1b, a0
 	jsr    SND_PlayTrack
 	ENDIF
 

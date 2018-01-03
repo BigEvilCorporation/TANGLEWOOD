@@ -164,6 +164,13 @@ l4a1_Serialise:
 l4a1_End:
 	rts
 
+l4a1_Trigger_MusicCue:
+
+	lea    track_bgm_cue_l4, a0
+	jsr    SND_PlayTrack
+
+	rts
+
 l4a1_Trigger_EchoUnderground:
 
 	PUSHL a0

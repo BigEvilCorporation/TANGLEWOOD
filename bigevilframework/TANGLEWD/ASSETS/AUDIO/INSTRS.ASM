@@ -134,6 +134,33 @@ echo_instruments:
 	Echo_ListEntry Instr7A
 	Echo_ListEntry Instr7B
 	Echo_ListEntry Instr7C
+	Echo_ListEntry Instr7D
+	Echo_ListEntry Instr7E
+	Echo_ListEntry Instr7F
+	Echo_ListEntry Instr80
+	Echo_ListEntry Instr81
+	Echo_ListEntry Instr82
+	Echo_ListEntry Instr83
+	Echo_ListEntry Instr84
+	Echo_ListEntry Instr85
+	Echo_ListEntry Instr86
+	Echo_ListEntry Instr87
+	Echo_ListEntry Instr88
+	Echo_ListEntry Instr89
+	Echo_ListEntry Instr8A
+	Echo_ListEntry Instr8B
+	Echo_ListEntry Instr8C
+	Echo_ListEntry Instr8D
+	Echo_ListEntry Instr8E
+	Echo_ListEntry Instr8F
+	Echo_ListEntry Instr90
+	Echo_ListEntry Instr91
+	Echo_ListEntry Instr92
+	Echo_ListEntry Instr93
+	Echo_ListEntry Instr94
+	Echo_ListEntry Instr95
+	Echo_ListEntry Instr96
+	Echo_ListEntry Instr97
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -162,7 +189,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0x7D
+PCM_InstrIndex	equ 0x98
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -290,6 +317,34 @@ Instr79: incbin 'assets\audio\instrs\instr_79.eif'
 Instr7A: incbin 'assets\audio\instrs\instr_7A.eif'
 Instr7B: incbin 'assets\audio\instrs\instr_7B.eif'
 Instr7C: incbin 'assets\audio\instrs\instr_7C.eif'
+Instr7D: incbin 'assets\audio\instrs\instr_7D.eif'
+Instr7E: incbin 'assets\audio\instrs\instr_7E.eif'
+Instr7F: incbin 'assets\audio\instrs\instr_7F.eif'
+Instr80: incbin 'assets\audio\instrs\instr_80.eif'
+Instr81: incbin 'assets\audio\instrs\instr_81.eif'
+Instr82: incbin 'assets\audio\instrs\instr_82.eif'
+Instr83: incbin 'assets\audio\instrs\instr_83.eif'
+Instr84: incbin 'assets\audio\instrs\instr_84.eif'
+Instr85: incbin 'assets\audio\instrs\instr_85.eif'
+Instr86: incbin 'assets\audio\instrs\instr_86.eif'
+Instr87: incbin 'assets\audio\instrs\instr_87.eif'
+Instr88: incbin 'assets\audio\instrs\instr_88.eif'
+Instr89: incbin 'assets\audio\instrs\instr_89.eif'
+Instr8A: incbin 'assets\audio\instrs\instr_8A.eif'
+Instr8B: incbin 'assets\audio\instrs\instr_8B.eif'
+Instr8C: incbin 'assets\audio\instrs\instr_8C.eif'
+Instr8D: incbin 'assets\audio\instrs\instr_8D.eif'
+Instr8E: incbin 'assets\audio\instrs\instr_8E.eif'
+Instr8F: incbin 'assets\audio\instrs\instr_8F.eif'
+Instr90: incbin 'assets\audio\instrs\instr_90.eif'
+Instr91: incbin 'assets\audio\instrs\instr_91.eif'
+Instr92: incbin 'assets\audio\instrs\instr_92.eif'
+Instr93: incbin 'assets\audio\instrs\instr_93.eif'
+Instr94: incbin 'assets\audio\instrs\instr_94.eif'
+Instr95: incbin 'assets\audio\instrs\instr_95.eif'
+Instr96: incbin 'assets\audio\instrs\instr_96.eif'
+Instr97: incbin 'assets\audio\instrs\instr_97.eif'
+
 
 	
 	; PCM

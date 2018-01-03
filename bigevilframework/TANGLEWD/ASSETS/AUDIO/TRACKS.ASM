@@ -11,8 +11,11 @@ bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
 bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
+bgm_cue_l1b:		include 'assets\audio\tracks\cue_l1b.asm'
 bgm_cue_l2:			include 'assets\audio\tracks\cue_l2.asm'
 bgm_cue_l3:			include 'assets\audio\tracks\cue_l3.asm'
+bgm_cue_l4:			include 'assets\audio\tracks\cue_l4.asm'
+bgm_cue_l5:			include 'assets\audio\tracks\cue_l5.asm'
 bgm_cue_l6:			include 'assets\audio\tracks\cue_l6.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
@@ -97,7 +100,7 @@ track_bgm_boss1_chase:
 	dc.l	bgm_boss1_chase
 	dc.w	0x021F
 	dc.w	0x0
-	dc.b	Track_Type_BGM
+	dc.b	Track_Type_Threat
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
@@ -107,7 +110,7 @@ track_bgm_boss1_search:
 	dc.l	bgm_boss1_search
 	dc.w	0x001F
 	dc.w	0x0
-	dc.b	Track_Type_BGM
+	dc.b	Track_Type_Threat
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
@@ -117,7 +120,7 @@ track_bgm_boss_l6:
 	dc.l	bgm_boss_l6
 	dc.w	0x001F
 	dc.w	0x0
-	dc.b	Track_Type_BGM
+	dc.b	Track_Type_Threat
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
@@ -143,6 +146,16 @@ track_bgm_cue_l1:
 	dc.b	Track_Transition_Crossfade
 	even
 
+track_bgm_cue_l1b:
+	dc.l	bgm_cue_l1b
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
 track_bgm_cue_l2:
 	dc.l	bgm_cue_l2
 	dc.w	0x003F
@@ -155,6 +168,26 @@ track_bgm_cue_l2:
 
 track_bgm_cue_l3:
 	dc.l	bgm_cue_l3
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_l4:
+	dc.l	bgm_cue_l4
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_l5:
+	dc.l	bgm_cue_l5
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue
