@@ -178,12 +178,8 @@ CharacterUpdate:
 
 	; =====================================================================
 	
-	; Check if previously on floor
-	tst.b  d0
-	bne    @PrevOnFloor
-	
 	; If hit floor at landing velocity
-	cmp.l  #-Character_LandVel, d1
+	cmp.l  #-Character_LandVel, PhysicsObj_FloorImpactVelY(a0)
 	bge    @LowLandVel
 	
 	; Play land SFX

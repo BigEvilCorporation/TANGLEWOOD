@@ -232,6 +232,10 @@ PhysicsObjPreStep:
 	@NoVelCancel:
 	@NoAnim:
 
+	; Clear last impact velocity
+	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
+	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)
+
 	; Apply acceleration
 	jsr PhysicsObjApplyAccelDecel
 
@@ -944,6 +948,10 @@ PhysicsObjRest:
 	; Can sleep
 	move.b #0x1, PhysicsObj_Asleep(a0)
 
+	; Clear last impact velocity
+	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
+	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)
+
 	@CannotSleep:
 	@Awake:
 
@@ -1057,7 +1065,6 @@ PhysicsObjCollisionCorrectY:
 	; Correct floor collision
 
 	move.b #0x0, d0
-	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)		; Clear impact velocity
 
 	; If not moving on Y axis, skip floor and ceiling correction
 	tst.l  PhysicsObj_VelY(a0)
