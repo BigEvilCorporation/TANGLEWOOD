@@ -6,7 +6,7 @@
 ;   tanglewd.asm - includes all code and encapsulates ROM
 ;==============================================================
 
-__start
+__start	
 
 code_start
 
@@ -185,7 +185,6 @@ code_start
 	INCLUDE_CODE states\fail.asm
 	INCLUDE_CODE states\controls.asm
 	INCLUDE_CODE states\disclmr.asm
-	INCLUDE_CODE states\demoend.asm
 	INCLUDE_CODE states\megafndr.asm
 	INCLUDE_CODE states\score.asm
 	INCLUDE_CODE states\logos.asm
@@ -193,6 +192,10 @@ code_start
 	INCLUDE_CODE states\pause.asm
 	INCLUDE_CODE states\mainmenu.asm
 	INCLUDE_CODE states\credits.asm
+
+	IF DEMO_SHOW_THANKS
+	INCLUDE_CODE states\demoend.asm
+	ENDIF
 
 	IF INCLUDE_LEVELSELECT
 	INCLUDE_CODE states\lvlsel.asm

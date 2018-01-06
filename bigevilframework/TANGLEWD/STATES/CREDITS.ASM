@@ -256,10 +256,21 @@ Credits_Update:
 	cmp.w  d1, d0
 	bne    @End
 
+	IF DEMO_SHOW_THANKS
+
 	; Reset to first level and head to demo end screen
 	move.l #InitialLevel, CurrentLevel
 	lea    GameStateDemoEnd, a0
 	jsr    GameStateEnter
+
+	ELSE
+
+	move.l #InitialLevel, CurrentLevel
+	lea    GameStateLogos, a0
+	jsr    GameStateEnter
+
+	ENDIF
+
 
 	@NoChange:
 	@End:

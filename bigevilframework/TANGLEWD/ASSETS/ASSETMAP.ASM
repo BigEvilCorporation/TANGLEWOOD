@@ -179,8 +179,11 @@ sprite_assets_end
 	; Static screen maps
 	; ************************************
 	INCLUDE_TEXT_ASSET assets\maps\bec_logo\map.asm
-	INCLUDE_TEXT_ASSET assets\maps\demoend\map.asm
 	INCLUDE_TEXT_ASSET assets\maps\soundtst\map.asm
+
+	IF DEMO_SHOW_THANKS
+	INCLUDE_TEXT_ASSET assets\maps\demoend\map.asm
+	ENDIF
 
 	; ************************************
 	; Palettes
