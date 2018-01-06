@@ -580,9 +580,4 @@ EntityPoolMemEnd		rs.b 0
 
 reserved_ram_size		rs.b 0
 
-	inform 0,"-----------------------------------"
-	inform 0,"Reserved RAM: 0x%h (%d) bytes (%dkb)", (reserved_ram_size-0x00FF0000), (reserved_ram_size-0x00FF0000), ((reserved_ram_size-0x00FF0000)/1024)
-	inform 0,"-----------------------------------"
-	inform 0,""
-
 __endOfMemoryMap	rs.b 0

@@ -4,52 +4,54 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 
+all_assets_start
+
 	; ************************************
 	; Level assets
 	; ************************************
 level_assets_start
 	IF INCLUDE_LEVEL_1
-	include 'assets\levels\level1.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level1.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_2
-	include 'assets\levels\level2.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level2.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_3
-	include 'assets\levels\level3.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level3.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_4
-	include 'assets\levels\level4.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level4.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_5
-	include 'assets\levels\level5.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level5.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_6
-	include 'assets\levels\level6.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level6.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_7
-	include 'assets\levels\level7.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level7.asm
 	ENDIF
 
 	IF INCLUDE_LEVEL_8
-	include 'assets\levels\level8.asm'
+	INCLUDE_TEXT_ASSET assets\levels\level8.asm
 	ENDIF
 level_assets_end
 	
 	; ************************************
 	; Font tiles
 	; ************************************
-	include 'assets\fonts\tiles\sansfont.asm'
-	include 'assets\fonts\tiles\twfont.asm'
-	include 'assets\fonts\tiles\twfontb.asm'
-	include 'assets\fonts\tiles\twfonts.asm'
-	include 'assets\fonts\tiles\twfontbs.asm'
-	include 'assets\fonts\tiles\twfont_f.asm'
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\sansfont.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontb.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfonts.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontbs.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont_f.asm
 	
 	; ************************************
 	; Sprite tilesheets
@@ -109,139 +111,139 @@ sprite_assets_end
 	; ************************************
 	; Sprite palettes
 	; ************************************
-	include 'assets\palettes\fuzzl.asm'
-	include 'assets\palettes\twd_logo.asm'
-	include 'assets\palettes\pal_fade.asm'
-	include 'assets\palettes\pal_nymn.asm'
-	include 'assets\palettes\pal_nest.asm'
-	include 'assets\palettes\borgus.asm'
-	include 'assets\palettes\demon.asm'
-	include 'assets\palettes\djakk.asm'
-	;include 'assets\palettes\djrake.asm'
-	include 'assets\palettes\djubb.asm'
-	include 'assets\palettes\hogg.asm'
-	include 'assets\palettes\skivv.asm'
-	include 'assets\palettes\scirus.asm'
-	include 'assets\palettes\swarm.asm'
-	include 'assets\palettes\text.asm'
-	include 'assets\palettes\wyrm.asm'
+	INCLUDE_TEXT_ASSET assets\palettes\fuzzl.asm
+	INCLUDE_TEXT_ASSET assets\palettes\twd_logo.asm
+	INCLUDE_TEXT_ASSET assets\palettes\pal_fade.asm
+	INCLUDE_TEXT_ASSET assets\palettes\pal_nymn.asm
+	INCLUDE_TEXT_ASSET assets\palettes\pal_nest.asm
+	INCLUDE_TEXT_ASSET assets\palettes\borgus.asm
+	INCLUDE_TEXT_ASSET assets\palettes\demon.asm
+	INCLUDE_TEXT_ASSET assets\palettes\djakk.asm
+	INCLUDE_TEXT_ASSET assets\palettes\djubb.asm
+	INCLUDE_TEXT_ASSET assets\palettes\hogg.asm
+	INCLUDE_TEXT_ASSET assets\palettes\skivv.asm
+	INCLUDE_TEXT_ASSET assets\palettes\scirus.asm
+	INCLUDE_TEXT_ASSET assets\palettes\swarm.asm
+	INCLUDE_TEXT_ASSET assets\palettes\text.asm
+	INCLUDE_TEXT_ASSET assets\palettes\wyrm.asm
 	
 	; ************************************
 	; Sprite animation data
 	; ************************************
-	include 'assets\anims\bolt.asm'
-	include 'assets\anims\borgus.asm'
-	include 'assets\anims\boulder.asm'
-	include 'assets\anims\button.asm'
-	include 'assets\anims\cart.asm'
-	include 'assets\anims\cogs.asm'
-	include 'assets\anims\debris.asm'
-	include 'assets\anims\demon.asm'
-	include 'assets\anims\djakk.asm'
-	;include 'assets\anims\djrake.asm'
-	include 'assets\anims\djubb.asm'
+	INCLUDE_TEXT_ASSET assets\anims\bolt.asm
+	INCLUDE_TEXT_ASSET assets\anims\borgus.asm
+	INCLUDE_TEXT_ASSET assets\anims\boulder.asm
+	INCLUDE_TEXT_ASSET assets\anims\button.asm
+	INCLUDE_TEXT_ASSET assets\anims\cart.asm
+	INCLUDE_TEXT_ASSET assets\anims\cogs.asm
+	INCLUDE_TEXT_ASSET assets\anims\debris.asm
+	INCLUDE_TEXT_ASSET assets\anims\demon.asm
+	INCLUDE_TEXT_ASSET assets\anims\djakk.asm
+	INCLUDE_TEXT_ASSET assets\anims\djubb.asm
 	IF INCLUDE_CHARACTER_ECHO
-	include 'assets\anims\echo.asm'
+	INCLUDE_TEXT_ASSET assets\anims\echo.asm
 	ENDIF
-	include 'assets\anims\elder.asm'
-	include 'assets\anims\firefly.asm'
-	include 'assets\anims\fuzzl.asm'
-	include 'assets\anims\fuzlcage.asm'
-	include 'assets\anims\generatr.asm'
-	include 'assets\anims\hogg.asm'
-	include 'assets\anims\log.asm'
-	include 'assets\anims\lock.asm'
-	include 'assets\anims\leaf.asm'
-	include 'assets\anims\nymn.asm'
-	include 'assets\anims\pool.asm'
-	include 'assets\anims\rain.asm'
-	include 'assets\anims\rope.asm'
-	include 'assets\anims\scirus.asm'
-	include 'assets\anims\scrap.asm'
-	include 'assets\anims\skivv.asm'
-	include 'assets\anims\spitball.asm'
-	include 'assets\anims\swarm.asm'
-	include 'assets\anims\water.asm'
-	include 'assets\anims\winch.asm'
-	include 'assets\anims\wyrm.asm'
+	INCLUDE_TEXT_ASSET assets\anims\elder.asm
+	INCLUDE_TEXT_ASSET assets\anims\firefly.asm
+	INCLUDE_TEXT_ASSET assets\anims\fuzzl.asm
+	INCLUDE_TEXT_ASSET assets\anims\fuzlcage.asm
+	INCLUDE_TEXT_ASSET assets\anims\generatr.asm
+	INCLUDE_TEXT_ASSET assets\anims\hogg.asm
+	INCLUDE_TEXT_ASSET assets\anims\log.asm
+	INCLUDE_TEXT_ASSET assets\anims\lock.asm
+	INCLUDE_TEXT_ASSET assets\anims\leaf.asm
+	INCLUDE_TEXT_ASSET assets\anims\nymn.asm
+	INCLUDE_TEXT_ASSET assets\anims\pool.asm
+	INCLUDE_TEXT_ASSET assets\anims\rain.asm
+	INCLUDE_TEXT_ASSET assets\anims\rope.asm
+	INCLUDE_TEXT_ASSET assets\anims\scirus.asm
+	INCLUDE_TEXT_ASSET assets\anims\scrap.asm
+	INCLUDE_TEXT_ASSET assets\anims\skivv.asm
+	INCLUDE_TEXT_ASSET assets\anims\spitball.asm
+	INCLUDE_TEXT_ASSET assets\anims\swarm.asm
+	INCLUDE_TEXT_ASSET assets\anims\water.asm
+	INCLUDE_TEXT_ASSET assets\anims\winch.asm
+	INCLUDE_TEXT_ASSET assets\anims\wyrm.asm
 
 	; ************************************
 	; Tilesets
 	; ************************************
-	include 'assets\maps\bec_logo\tiles.asm'
-	include 'assets\maps\controls\tiles.asm'
-	include 'assets\maps\disclmr\tiles.asm'
-	include 'assets\maps\demoend\tiles.asm'
-	include 'assets\maps\soundtst\tiles.asm'
-	include 'assets\maps\megafndr\tiles.asm'
+	INCLUDE_TEXT_ASSET assets\maps\bec_logo\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\controls\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\disclmr\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\demoend\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\soundtst\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\megafndr\tiles.asm
 
 	; ************************************
 	; Static screen maps
 	; ************************************
-	include 'assets\maps\bec_logo\map.asm'
-	include 'assets\maps\demoend\map.asm'
-	include 'assets\maps\soundtst\map.asm'
+	INCLUDE_TEXT_ASSET assets\maps\bec_logo\map.asm
+	INCLUDE_TEXT_ASSET assets\maps\demoend\map.asm
+	INCLUDE_TEXT_ASSET assets\maps\soundtst\map.asm
 
 	; ************************************
 	; Palettes
 	; ************************************
-	include 'assets\maps\megafndr\palette.asm'
-	include 'assets\maps\bec_logo\palette.asm'
-	include 'assets\maps\controls\palette.asm'
-	include 'assets\maps\disclmr\palette.asm'
-	include 'assets\maps\demoend\palette.asm'
-	include 'assets\maps\soundtst\palette.asm'
+	INCLUDE_TEXT_ASSET assets\maps\megafndr\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\bec_logo\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\controls\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\disclmr\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\demoend\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\soundtst\palette.asm
 
 	; ************************************
 	; Blocks
 	; ************************************
-	include 'assets\maps\megafndr\blocks.asm'
-	include 'assets\maps\controls\blocks.asm'
-	include 'assets\maps\disclmr\blocks.asm'
+	INCLUDE_TEXT_ASSET assets\maps\megafndr\blocks.asm
+	INCLUDE_TEXT_ASSET assets\maps\controls\blocks.asm
+	INCLUDE_TEXT_ASSET assets\maps\disclmr\blocks.asm
 
 	; ************************************
 	; Block maps
 	; ************************************
-	include 'assets\maps\mainmenu\blockmap.asm'
-	include 'assets\maps\endlevel\blockmap.asm'
-	include 'assets\maps\credits\blockmap.asm'
-	include 'assets\maps\megafndr\blockmap.asm'
-	include 'assets\maps\controls\blockmap.asm'
-	include 'assets\maps\disclmr\blockmap.asm'
+	INCLUDE_TEXT_ASSET assets\maps\mainmenu\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\endlevel\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\credits\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\megafndr\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\controls\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\disclmr\blockmap.asm
 
 	; ************************************
 	; Game objects
 	; ************************************
-	include 'assets\maps\mainmenu\gameobj.asm'
-	include 'assets\maps\endlevel\gameobj.asm'
-	include 'assets\maps\credits\gameobj.asm'
+	INCLUDE_TEXT_ASSET assets\maps\mainmenu\gameobj.asm
+	INCLUDE_TEXT_ASSET assets\maps\endlevel\gameobj.asm
+	INCLUDE_TEXT_ASSET assets\maps\credits\gameobj.asm
 	
 	; ************************************
 	; Audio
 	; ************************************
 audio_assets_start
-	include 'assets\audio\instrs.asm'
-	include 'assets\audio\tracks.asm'
-	include 'assets\audio\sfx.asm'
+	INCLUDE_TEXT_ASSET assets\audio\instrs.asm
+	INCLUDE_TEXT_ASSET assets\audio\tracks.asm
+	INCLUDE_TEXT_ASSET assets\audio\sfx.asm
 audio_assets_end
 
 	; ************************************
 	; VFX
 	; ************************************
-	include 'assets\vfx\bolt.asm'
-	include 'assets\vfx\rain.asm'
-	include 'assets\vfx\water.asm'
+	INCLUDE_TEXT_ASSET assets\vfx\bolt.asm
+	INCLUDE_TEXT_ASSET assets\vfx\rain.asm
+	INCLUDE_TEXT_ASSET assets\vfx\water.asm
 	
 	; ************************************
-    ; Strings
-    ; ************************************
-	include 'assets\strings.asm'
-	include 'assets\credits.asm'
+	; Strings
+	; ************************************
+	INCLUDE_TEXT_ASSET assets\strings.asm
+	INCLUDE_TEXT_ASSET assets\credits.asm
 
-	inform 0,""
-	inform 0,"All sprite assets: %d bytes (%dkb)", (sprite_assets_end-sprite_assets_start), (sprite_assets_end-sprite_assets_start)/1024
-	inform 0,"All level assets: %d bytes (%dkb)", (level_assets_end-level_assets_start), (level_assets_end-level_assets_start)/1024
-	inform 0,"All audio assets: %d bytes (%dkb)", (audio_assets_end-audio_assets_start), (audio_assets_end-audio_assets_start)/1024
+	; ************************************
+	; Binaries
+	; ************************************
+	INCLUDE_TEXT_ASSET assets\binaries.asm
+
+all_assets_end
 
 	; ************************************
 	; Palette IDs

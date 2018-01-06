@@ -6,18 +6,34 @@
 ;   macros.asm - Utility macros
 ;==============================================================
 
+DUMP_CODE_SIZES		equ 0
+DUMP_ASSET_SIZES	equ 0
+
+INCLUDE_CODE: macro path
+code_start\@:
+	include '\path'
+code_end\@:
+	IF DUMP_CODE_SIZES
+	inform 0,"\path\: %d bytes (%dkb)", (code_end\@-code_start\@), (code_end\@-code_start\@)/1024
+	ENDIF
+	endm
+
 INCLUDE_TEXT_ASSET: macro path
 asset_start\@:
 	include '\path'
 asset_end\@:
+	IF DUMP_ASSET_SIZES
 	inform 0,"\path\: %d bytes (%dkb)", (asset_end\@-asset_start\@), (asset_end\@-asset_start\@)/1024
+	ENDIF
 	endm
 
 INCLUDE_BIN_ASSET: macro assetlabel,path
 assetlabel\@:
-	include '\path'
+	incbin '\path'
 asset_end\@:
+	IF DUMP_ASSET_SIZES
 	inform 0,"\path\: %d bytes (%dkb)", (asset_end\@-assetlabel\@), (asset_end\@-assetlabel\@)/1024
+	ENDIF
 	endm
 
 ;==============================================================

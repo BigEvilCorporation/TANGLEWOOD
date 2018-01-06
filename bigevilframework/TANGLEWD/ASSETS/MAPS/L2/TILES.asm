@@ -10,4 +10,4 @@
 tiles_L2_size_b	equ 0x000063E0	; Size in bytes
 tiles_L2_size_w	equ (tiles_L2_size_b/2)	; Size in words
 tiles_L2_size_l	equ (tiles_L2_size_b/4)	; Size in longwords
-tiles_L2_size_t	equ (tiles_L2_size_b/32)	; Size in tiles
+tiles_L2_size_t	equ 799	; Size in tiles

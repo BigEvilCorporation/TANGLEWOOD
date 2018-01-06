@@ -10,4 +10,4 @@
 tiles_megafounder_screen_size_b	equ 0x00001600	; Size in bytes
 tiles_megafounder_screen_size_w	equ (tiles_megafounder_screen_size_b/2)	; Size in words
 tiles_megafounder_screen_size_l	equ (tiles_megafounder_screen_size_b/4)	; Size in longwords
-tiles_megafounder_screen_size_t	equ (tiles_megafounder_screen_size_b/32)	; Size in tiles
+tiles_megafounder_screen_size_t	equ 176	; Size in tiles

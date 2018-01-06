@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_L7_size_b	equ 0x00009AC0	; Size in bytes
-tiles_L7_size_w	equ (tiles_L7_size_b/2)	; Size in words
-tiles_L7_size_l	equ (tiles_L7_size_b/4)	; Size in longwords
-tiles_L7_size_t	equ 1238	; Size in tiles
+map_blocks_demoend_size_b	equ 0x00000420	; Size in bytes
+map_blocks_demoend_size_w	equ (map_blocks_demoend_size_b/2)	; Size in words
+map_blocks_demoend_size_l	equ (map_blocks_demoend_size_b/4)	; Size in longwords
+map_blocks_demoend_num_blocks	equ 33	; Size in blocks

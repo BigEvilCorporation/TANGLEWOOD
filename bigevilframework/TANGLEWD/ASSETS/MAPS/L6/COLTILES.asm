@@ -10,4 +10,4 @@
 TerrainTiles_L6_size_b	equ 0x00000408	; Size in bytes
 TerrainTiles_L6_size_w	equ (TerrainTiles_L6_size_b/2)	; Size in words
 TerrainTiles_L6_size_l	equ (TerrainTiles_L6_size_b/4)	; Size in longwords
-TerrainTiles_L6_size_t	equ (TerrainTiles_L6_size_b/32)	; Size in tiles
+TerrainTiles_L6_size_t	equ 129	; Size in tiles
