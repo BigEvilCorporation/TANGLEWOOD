@@ -192,6 +192,9 @@ SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
 SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
+SFX_Data_DjubbSwim1:		include 'assets\audio\SFX\objects\djubsw1.asm'
+SFX_Data_DjubbSwim2:		include 'assets\audio\SFX\objects\djubsw2.asm'
+SFX_Data_DjubbAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
 SFX_Data_FireflyCollectAll:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_MushroomBounce:	include 'assets\audio\SFX\objects\mushroom.asm'
@@ -282,6 +285,27 @@ SFX_ButtonFail:
 
 SFX_CageDoorRaise:
 	dc.l SFX_Data_CageDoorRaise		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DjubbSwim1:
+	dc.l SFX_Data_DjubbSwim1		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DjubbSwim2:
+	dc.l SFX_Data_DjubbSwim2		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DjubbAttack:
+	dc.l SFX_Data_DjubbAttack		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
