@@ -119,11 +119,13 @@ L7A1_Flue1_LowForce_name	dc.b "L7A1_Flue1_LowForce",0
 	even
 	ENDIF
 
-L7A1_TriggerBox_count equ 0x1
+L7A1_TriggerBox_count equ 0x2
 L7A1_TriggerLevelEnd_idx	equ 0x0
+L7A1_TriggerMusicCue_idx	equ 0x1
 
 	IFND FINAL
 L7A1_TriggerLevelEnd_name	dc.b "L7A1_TriggerLevelEnd",0
+L7A1_TriggerMusicCue_name	dc.b "L7A1_TriggerMusicCue",0
 	even
 	ENDIF
 
@@ -585,6 +587,22 @@ L7A1_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L7A1_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x0bd80000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
+	move.l #l7a1_Trigger_MusicCue, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L7A1_TriggerMusicCue_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

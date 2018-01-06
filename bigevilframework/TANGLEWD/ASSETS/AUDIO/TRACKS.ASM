@@ -17,6 +17,7 @@ bgm_cue_l3:			include 'assets\audio\tracks\cue_l3.asm'
 bgm_cue_l4:			include 'assets\audio\tracks\cue_l4.asm'
 bgm_cue_l5:			include 'assets\audio\tracks\cue_l5.asm'
 bgm_cue_l6:			include 'assets\audio\tracks\cue_l6.asm'
+bgm_cue_l7:			include 'assets\audio\tracks\cue_l7.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
@@ -129,7 +130,7 @@ track_bgm_boss_l6:
 track_bgm_gameover:
 	dc.l	bgm_gameover
 	dc.w	0x001F
-	dc.w	0x0F00
+	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_Exclusive
 	dc.b	SFX_Priority_FootstepSml-1
@@ -198,6 +199,16 @@ track_bgm_cue_l5:
 
 track_bgm_cue_l6:
 	dc.l	bgm_cue_l6
+	dc.w	0x003F
+	dc.w	0x0900
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_l7:
+	dc.l	bgm_cue_l7
 	dc.w	0x003F
 	dc.w	0x0
 	dc.b	Track_Type_Cue

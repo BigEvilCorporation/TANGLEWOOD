@@ -111,6 +111,13 @@ L7a1_Serialise:
 
 L7a1_End:
 	rts
+
+l7a1_Trigger_MusicCue:
+
+	lea    track_bgm_cue_l7, a0
+	jsr    SND_PlayTrack
+
+	rts
 	
 L7a1_Trigger_End:
 

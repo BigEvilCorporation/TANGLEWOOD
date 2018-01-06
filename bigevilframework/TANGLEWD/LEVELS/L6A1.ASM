@@ -223,6 +223,13 @@ L6a1_Serialise:
 L6a1_End:
 	rts
 
+l6a1_Trigger_MusicCue:
+
+	lea    track_bgm_cue_l6, a0
+	jsr    SND_PlayTrack
+
+	rts
+
 L6a1_LogRoll1Begin
 
 	; Roll bridge
