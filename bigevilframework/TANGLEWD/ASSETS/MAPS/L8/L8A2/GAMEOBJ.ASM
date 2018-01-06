@@ -152,7 +152,7 @@ L8A2_LoadGameObjects:
 
 	jsr DjubbInit
 	move.l #0x05f80000, Entity_WorldPosX(a0)
-	move.l #0x04780000, Entity_WorldPosY(a0)
+	move.l #0x02a80000, Entity_WorldPosY(a0)
 	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_4_name, a3
@@ -165,7 +165,7 @@ L8A2_LoadGameObjects:
 
 	jsr DjubbInit
 	move.l #0x05f00000, Entity_WorldPosX(a0)
-	move.l #0x04d00000, Entity_WorldPosY(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_5_name, a3
@@ -178,7 +178,7 @@ L8A2_LoadGameObjects:
 
 	jsr DjubbInit
 	move.l #0x03780000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
 	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_6_name, a3
@@ -190,8 +190,8 @@ L8A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 	jsr DjubbInit
-	move.l #0x04880000, Entity_WorldPosX(a0)
-	move.l #0x04900000, Entity_WorldPosY(a0)
+	move.l #0x04500000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
 	jsr DjubbLoadGfx
 	IFND FINAL
 	lea L8A2_Djubb_7_name, a3
@@ -210,7 +210,7 @@ L8A2_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x05100000, Entity_WorldPosX(a0)
+	move.l #0x04c00000, Entity_WorldPosX(a0)
 	move.l #0x00800000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	IFND FINAL
@@ -236,7 +236,7 @@ L8A2_LoadGameObjects:
 
 	jsr MonsterInit
 	move.l #0x02300000, Entity_WorldPosX(a0)
-	move.l #0x06280000, Entity_WorldPosY(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
 	jsr MonsterLoadGfx
 	IFND FINAL
 	lea L8A2_Djakk1_name, a3
@@ -265,7 +265,7 @@ L8A2_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x00d80000, Entity_WorldPosX(a0)
-	move.l #0x06d00000, Entity_WorldPosY(a0)
+	move.l #0x05000000, Entity_WorldPosY(a0)
 	move.l #l8a2_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
@@ -281,7 +281,7 @@ L8A2_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x04100000, Entity_WorldPosX(a0)
-	move.l #0x06300000, Entity_WorldPosY(a0)
+	move.l #0x04600000, Entity_WorldPosY(a0)
 	move.l #l8a2_Trigger_Djakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
@@ -304,7 +304,7 @@ L8A2_LoadGameObjects:
 
 	jsr WaterBodyInit
 	move.l #0x03300000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
 	move.w #0x0300, Entity_Width(a0)
 	move.w #0x0098, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
