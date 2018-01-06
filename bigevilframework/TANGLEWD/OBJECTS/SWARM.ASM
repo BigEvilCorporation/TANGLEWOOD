@@ -34,6 +34,7 @@ SwarmAnimIdx_Max	equ 0x2
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
 Swarm_Animations			rs.b (Animation_Struct_Size*SwarmAnimIdx_Max)
+Swarm_SpeedMul				rs.l 1
 Swarm_Timer					rs.w 1
 ;---------------------------------
 	RS_ALIGN
@@ -69,6 +70,7 @@ SwarmInit:
 	MOVE_NTSC_ACCEL_W Swarm_DecelIdle, PhysicsObj_DecelX(a0), d0
 	move.b #0x0, PhysicsObj_HasCollision(a0)
 	move.w #Swarm_Time, Swarm_Timer(a0)
+	move.l #0x00010000, Swarm_SpeedMul(a0)
 
 	; Setup collision bounds
 	move.w #0x0, PhysicsObj_BoundsLeft(a0)
@@ -119,10 +121,10 @@ SwarmUpdate:
 	move.w d0, Swarm_Timer(a0)
 	tst.w  d0
 	bne    @TimerRunning
-	;jsr    EntityRemoveFromWorldGrid
-	;jsr    EntityRemoveFromUpdateList
-	;jsr    EntityRemoveFromRenderList
-	;bra    @Finished
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	bra    @Finished
 	@TimerRunning:
 
 	; Accelerate towards player
@@ -151,8 +153,17 @@ SwarmUpdate:
 	CLAMPL d2, d6, d7
 	CLAMPL d3, d6, d7
 
-	;move.l d2, PhysicsObj_VelY(a0)
-	;move.l d3, PhysicsObj_VelX(a0)
+	move.l Swarm_SpeedMul(a0), d1
+
+	PUSHM  d1-d3
+	move.l d2, d0
+	jsr    Muls1616
+	move.l d0, PhysicsObj_VelY(a0)
+	POPM   d1-d3
+
+	move.l d3, d0
+	jsr    Muls1616
+	move.l d0, PhysicsObj_VelX(a0)
 	
 	; If close enough, switch to attack anim
 	move.l Player1, a1
@@ -185,7 +196,7 @@ SwarmUpdate:
 	PUSHL  a0
 	move.l Player1, a0
 	move.b #Swarm_PlayerDamage, d0
-	;jsr    CharacterDealDamage
+	jsr    CharacterDealDamage
 	POPL   a0
 
 	bra     @AttackMode

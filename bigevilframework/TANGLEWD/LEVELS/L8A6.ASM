@@ -120,6 +120,10 @@ l8a6_Init:
 	ENTITY_GETBYNAME Swarm, l8a6_Swarm, a2
 	jsr    DemonSetSwarmObj
 
+		; Set swarm speed
+	ENTITY_GETBYNAME Swarm, l8a6_Swarm, a2
+	move.l #0x0001C000, Swarm_SpeedMul(a0)
+
 	;==============================================================
 
 	; Set player white ability

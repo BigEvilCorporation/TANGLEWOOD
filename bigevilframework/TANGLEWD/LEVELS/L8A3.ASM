@@ -128,6 +128,10 @@ l8a3_Init:
 	; Set Demon Swarm obj
 	ENTITY_GETBYNAME Swarm, l8a3_Swarm, a2
 	jsr    DemonSetSwarmObj
+
+	; Set swarm speed
+	ENTITY_GETBYNAME Swarm, l8a3_Swarm, a0
+	move.l #0x00010000, Swarm_SpeedMul(a0)
 	
 	;==============================================================
 

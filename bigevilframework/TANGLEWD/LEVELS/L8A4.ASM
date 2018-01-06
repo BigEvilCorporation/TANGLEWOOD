@@ -135,6 +135,10 @@ l8a4_Init:
 	ENTITY_GETBYNAME Swarm, l8a4_Swarm, a2
 	jsr    DemonSetSwarmObj
 
+	; Set swarm speed
+	ENTITY_GETBYNAME Swarm, l8a4_Swarm, a0
+	move.l #0x00014000, Swarm_SpeedMul(a0)
+
 	;==============================================================
 
 	; Set player white ability

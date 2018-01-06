@@ -143,6 +143,10 @@ l8a5_Init:
 	ENTITY_GETBYNAME Swarm, l8a5_Swarm, a2
 	jsr    DemonSetSwarmObj
 
+	; Set swarm speed
+	ENTITY_GETBYNAME Swarm, l8a5_Swarm, a0
+	move.l #0x00018000, Swarm_SpeedMul(a0)
+
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l8a5_Lift1, a0
 	ENTITY_GETBYNAME Location, l8a5_LocationLiftStop, a1
