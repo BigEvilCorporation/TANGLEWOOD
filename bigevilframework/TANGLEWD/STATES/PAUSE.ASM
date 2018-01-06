@@ -109,6 +109,9 @@ Pause_Enter:
 	POPL a0
 
 	;==============================================================
+
+	tst.w   EntityCount_Firefly
+	beq     @NoFireflyString
 	
 	; Alloc string space
 	sub.l   #0x10, sp
@@ -136,7 +139,16 @@ Pause_Enter:
 	lea    GameStatePauseData, a2
 	move.b d0, PauseState_FireflyTextSpritesCount(a2)
 
+	; Free string space
+	addi.l  #0x10, sp
+
+	@NoFireflyString:
+
 	;==============================================================
+
+	; Alloc string space
+	sub.l   #0x10, sp
+	move.l  sp, a0
 
 	; Password to string
 	PUSHL   a0
@@ -173,6 +185,10 @@ Pause_Enter:
 
 	; Hijack a firefly from the game
 	PUSHM  a0-a1
+
+	tst.w   EntityCount_Firefly
+	beq     @NoFireflies
+
 	lea    GameStatePauseData, a1
 	move.l EntityPoolStart_Firefly, a0
 	move.l a0, PauseState_Firefly(a1)
@@ -247,6 +263,9 @@ Pause_Exit:
 	move.b #0xF, UnderwaterDirtyPalettesMask
 	
 	POPL   a0
+
+	tst.w   EntityCount_Firefly
+	beq     @NoDisplayFireflies
 	
 	; Restore firefly
 	PUSHM  a0-a1
@@ -279,6 +298,8 @@ Pause_Exit:
 
 	@NoFirefly:
 	POPM   a0-a1
+
+	@NoDisplayFireflies:
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
@@ -353,6 +374,9 @@ Pause_Update:
 	
 	; Backup prev pad state
 	move.w d0, PauseState_PrevPadState(a0)
+
+	tst.w   EntityCount_Firefly
+	beq     @NoDisplayFireflies
 	
 	; Update temp firefly
 	PUSHM  a0-a1
@@ -364,6 +388,8 @@ Pause_Update:
 	jsr    (a3)
 	@NoFirefly:
 	POPM   a0-a1
+
+	@NoDisplayFireflies:
 	
 	POPL   a1
 	POPL   a0
@@ -391,7 +417,10 @@ Pause_Render:
 	jsr EntityRenderAll
 	
 	; Draw firefly text
+	tst.w   EntityCount_Firefly
+	beq     @NoDisplayFireflies
 	jsr Pause_RenderFireflyText
+	@NoDisplayFireflies:
 
 	; Draw password text
 	jsr Pause_RenderPasswordText

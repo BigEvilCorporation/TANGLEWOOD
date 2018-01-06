@@ -141,6 +141,8 @@ CreditsStrings:
 	CREDIT_NAME		"Bruce Gdula"
 	CREDIT_NAME		"Simon Lock"
 	CREDIT_NAME		"Karl Burke"
+	CREDIT_NAME		"??? Tom Feve ???"
+	CREDIT_NAME		"??? Phil's Daughter ???"
 	CREDIT_SPACE
 	CREDIT_SPACE
 

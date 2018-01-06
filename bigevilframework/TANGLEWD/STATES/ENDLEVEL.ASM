@@ -147,8 +147,18 @@ EndLevel_Update:
 	move.l (CurrentLevel), PreviousLevel
 	move.l Level_NextLevel(a1), CurrentLevel
 
+	; If no next level, roll credits
+	tst.l  CurrentLevel
+	beq    @Credits
+
 	; Start firefly score state
 	lea    GameStateEndLevelScoreScreen, a0
+	jsr    GameStateEnter
+	bra    @End
+
+	@Credits:
+
+	lea    GameStateCredits, a0
 	jsr    GameStateEnter
 	
 	@TimerRunning:

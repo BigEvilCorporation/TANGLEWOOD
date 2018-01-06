@@ -120,7 +120,7 @@ l8a6_Init:
 	ENTITY_GETBYNAME Swarm, l8a6_Swarm, a2
 	jsr    DemonSetSwarmObj
 
-		; Set swarm speed
+	; Set swarm speed
 	ENTITY_GETBYNAME Swarm, l8a6_Swarm, a2
 	move.l #0x0001C000, Swarm_SpeedMul(a0)
 
@@ -148,8 +148,8 @@ l8a6_End:
 	
 l8a6_Trigger_End:
 
-	; Begin end of act gamestate
-	lea    GameStateEndAct, a0
+	; Begin end of level gamestate
+	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
 	
 	rts
