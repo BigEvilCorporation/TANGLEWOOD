@@ -475,6 +475,14 @@ PlayerUpdateIdleSnooze:
 	rts
 	
 PlayerUpdateIdleAnim:
+
+	; Not if in water
+	tst.b  PhysicsObj_Underwater(a0)
+	bne    @InWater
+
+	; Not if interacting
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	bne    @Interacting
 	
 	; If in idle anim, check if one-shot idle anim should start
 	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Idle)(a0), a2
@@ -522,6 +530,8 @@ PlayerUpdateIdleAnim:
 	@NotInterrupted:
 	@NotOneShotIdle:
 	
+	@InWater:
+	@Interacting:
 	@End:
 	
 	rts
