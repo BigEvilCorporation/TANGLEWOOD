@@ -7,10 +7,47 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L1A4_size_b	equ 0x0000668A	; Size in bytes
+map_blockmap_L1A4_size_b	equ 0x00002450	; Size in bytes
 map_blockmap_L1A4_size_w	equ (map_blockmap_L1A4_size_b/2)	; Size in words
 map_blockmap_L1A4_size_l	equ (map_blockmap_L1A4_size_b/4)	; Size in longwords
 map_L1A4_width	equ 0x5DC
 map_L1A4_height	equ 0x8C
 map_blockmap_L1A4_width	equ 0x177
 map_blockmap_L1A4_height	equ 0x23
+
+map_blockmap_L1A4_rowoffsets:
+	dc.w 0x0000
+	dc.w 0x00AC
+	dc.w 0x0180
+	dc.w 0x0258
+	dc.w 0x0338
+	dc.w 0x0418
+	dc.w 0x050C
+	dc.w 0x0618
+	dc.w 0x0730
+	dc.w 0x085C
+	dc.w 0x0990
+	dc.w 0x0A98
+	dc.w 0x0BAC
+	dc.w 0x0CD4
+	dc.w 0x0DEC
+	dc.w 0x0EE8
+	dc.w 0x0FF4
+	dc.w 0x1104
+	dc.w 0x124C
+	dc.w 0x13B0
+	dc.w 0x1548
+	dc.w 0x174C
+	dc.w 0x194C
+	dc.w 0x1A9C
+	dc.w 0x1B5C
+	dc.w 0x1C0C
+	dc.w 0x1CD0
+	dc.w 0x1D84
+	dc.w 0x1E40
+	dc.w 0x1F10
+	dc.w 0x1FF0
+	dc.w 0x20EC
+	dc.w 0x21D8
+	dc.w 0x22E0
+	dc.w 0x23BC

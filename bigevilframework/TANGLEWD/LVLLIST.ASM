@@ -81,7 +81,7 @@ LevelSelectPasswordLvl3:
 	dc.l 0xD825E550	; AFFOFCIN
 LevelSelectPasswordLvl4:
 	dc.l 0xD822E54D	; NEFOCCIN
-	dc.l 0xD827E54E	; OEFEHCIN
+	dc.l 0xD827E54E	; OEFEHCIN	- Incorrect?
 	dc.l 0xD82CE553	; DFFOMCIN
 LevelSelectPasswordLvl5:
 	dc.l 0xD829E554	; EFFOJCIN

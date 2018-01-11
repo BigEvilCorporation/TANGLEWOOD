@@ -331,6 +331,9 @@ AmbientSFX				 rs.l 6 ; AmbientSFXCount
 AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
 
+BlockMapBufferSize	equ 1024*3
+BlockMapDecompressionBuffer	rs.b BlockMapBufferSize
+
 ; ************************************
 ; Cutscenes
 ; ************************************

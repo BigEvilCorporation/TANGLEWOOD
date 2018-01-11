@@ -7,10 +7,20 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_credits_size_b	equ 0x000000A0	; Size in bytes
+map_blockmap_credits_size_b	equ 0x000000D0	; Size in bytes
 map_blockmap_credits_size_w	equ (map_blockmap_credits_size_b/2)	; Size in words
 map_blockmap_credits_size_l	equ (map_blockmap_credits_size_b/4)	; Size in longwords
 map_credits_width	equ 0x28
 map_credits_height	equ 0x20
 map_blockmap_credits_width	equ 0x0A
 map_blockmap_credits_height	equ 0x08
+
+map_blockmap_credits_rowoffsets:
+	dc.w 0x0000
+	dc.w 0x0018
+	dc.w 0x0034
+	dc.w 0x0050
+	dc.w 0x006C
+	dc.w 0x0088
+	dc.w 0x009C
+	dc.w 0x00B8

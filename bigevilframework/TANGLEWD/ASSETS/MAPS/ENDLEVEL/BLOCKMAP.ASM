@@ -7,10 +7,20 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_end_level_size_b	equ 0x000000A0	; Size in bytes
+map_blockmap_end_level_size_b	equ 0x00000078	; Size in bytes
 map_blockmap_end_level_size_w	equ (map_blockmap_end_level_size_b/2)	; Size in words
 map_blockmap_end_level_size_l	equ (map_blockmap_end_level_size_b/4)	; Size in longwords
 map_end_level_width	equ 0x28
 map_end_level_height	equ 0x20
 map_blockmap_end_level_width	equ 0x0A
 map_blockmap_end_level_height	equ 0x08
+
+map_blockmap_end_level_rowoffsets:
+	dc.w 0x0000
+	dc.w 0x000C
+	dc.w 0x0018
+	dc.w 0x0024
+	dc.w 0x0034
+	dc.w 0x0048
+	dc.w 0x005C
+	dc.w 0x006C

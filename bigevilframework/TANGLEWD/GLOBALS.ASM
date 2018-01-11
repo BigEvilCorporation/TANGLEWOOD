@@ -25,7 +25,7 @@ entity_type_lift		 equ (1<<30)
 entity_type_rope		 equ (1<<31)
 
 ; Entity RAM pool size
-EntityRAMPoolSize		 equ (1024*40)
+EntityRAMPoolSize		 equ (1024*39)
 
 ; Subframes
 SubframesPerFrame 		 equ 0x0100	; Uses bit shift to transform - don't change

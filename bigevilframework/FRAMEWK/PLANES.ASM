@@ -189,6 +189,7 @@ VDP_LoadBlockMapPlaneB:
 
 	; Backup block address
 	move.l  a0, a2
+	move.l  a1, a6
 
 	; Row/col counters
 	move.w  d1, d4	; Y
@@ -200,8 +201,36 @@ VDP_LoadBlockMapPlaneB:
 	; X/Y coord
 	moveq #0x0, d1
 
+	lea    map_blockmap_L1BG_rowoffsets, a4	; Get row offset table entry
+
 	; Loop rows
 	@LoopY:
+
+		PUSHM  d0-d5/a2/a6
+
+		; Decompress row
+		moveq  #0x0, d0
+		move.w (a4)+, d0		; Read row data address offset
+		add.l  d0, a6			; Offset to start of row
+		lea    BlockMapDecompressionBuffer, a5
+
+		jsr    DecompressSlz
+		
+		; Check buffer overflow
+		IFND FINAL
+		move.l a5, d0
+		move.l #BlockMapDecompressionBuffer, d1
+		sub.l  d1, d0
+		cmp.l  #BlockMapBufferSize, d0
+		blt    @SizeOk
+		RAISE_EXCEPTION *
+		@SizeOk:
+		ENDIF
+
+		POPM   d0-d5/a2/a6
+	
+		; Set decompressed row address
+		lea    BlockMapDecompressionBuffer, a1
 
 		; Loop cols
 		move.w  d5, d6			; Reset X counter
@@ -214,9 +243,9 @@ VDP_LoadBlockMapPlaneB:
 			move.l a2, a0			; Get first block address
 			add.l  d7, a0			; Add block offset
 
-			PUSHM  a0-a1/d1-d6
+			PUSHM  a0-a4/d1-d6
 			jsr    VDP_LoadBlockPlaneB
-			POPM   a0-a1/d1-d6
+			POPM   a0-a4/d1-d6
 
 			; Increment X
 			addi.l #map_block_width<<16, d1
@@ -348,16 +377,6 @@ VDP_LoadMapBlockSegmentPlaneA:
 	and.l  #0x0000FFFF, d3
 	and.l  #0x0000FFFF, d4
 	
-	; Source top/left to block map byte offset (mul Y by total map width, add X)
-	moveq #0x0, d6
-	move.w d0, d6	; Y to d6
-	mulu   d3, d6	; To block offset
-	clr.w  d0
-	swap   d0		; X to lower word
-	add.l  d6, d0	; Add Y to X offset
-	lsl.l  #0x1, d0	; To byte offset
-	add.l  d0, a1	; Offset map address
-	
 	; Dest top/left to tile offset
 	lsl.l   #0x2, d1
 	
@@ -382,14 +401,51 @@ VDP_LoadMapBlockSegmentPlaneA:
 	; Backup X coord to reset after every row
 	move.l d1, d6
 
-	; Backup source map address to reset after every row
-	move.l a1, a2
-
 	; Backup block data address
-	move.l  a0, a3
+	move.l a0, a3
 	
 	; Loop rows
 	@RowLp:
+
+		PUSHALL
+
+		; Decompress row
+		lea    map_blockmap_L1A2_rowoffsets, a4	; Get row offset table entry
+		andi.l #0xFFFF, d0		; Add Y offset (words)
+		lsl.w  #0x1, d0			; To words
+		add.l  d0, a4			; Offset into table
+		
+		moveq  #0x0, d0
+		move.w (a4), d0			; Read row data address offset
+		move.l a1, a6			; Get compressed blockmap data
+		add.l  d0, a6			; Offset to start of row
+		lea    BlockMapDecompressionBuffer, a5
+
+		jsr    DecompressSlz
+		
+		; Check buffer overflow
+		IFND FINAL
+		move.l a5, d0
+		move.l #BlockMapDecompressionBuffer, d1
+		sub.l  d1, d0
+		cmp.l  #BlockMapBufferSize, d0
+		blt    @SizeOk
+		RAISE_EXCEPTION *
+		@SizeOk:
+		ENDIF
+
+		POPALL
+	
+		; Set decompressed row address
+		lea    BlockMapDecompressionBuffer, a2
+
+		PUSHL  d0
+		
+		; Add X offset
+		move.w #0x0, d0
+		swap   d0					; Get X coord (blocks)
+		lsl.w  #0x1, d0				; To words
+		add.l  d0, a2
 
 		; Loop columns
 		PUSHL d7
@@ -415,14 +471,13 @@ VDP_LoadMapBlockSegmentPlaneA:
 		
 		dbra d7, @ColumnLp
 		POPL d7
-		
-		; Increment block map data address by 1 row (total block map width in bytes)
-		add.l d3, a1
 
-		; Reset block map ptr to start of row
-		move.l a1, a2
+		POPL d0
 		
-		; Increment dest Y coord
+		; Increment source Y coord (blocks)
+		addq.w #0x1, d0
+		
+		; Increment dest Y coord (tiles)
 		addi.w #map_block_height, d6
 
 		; Reset dest coords to start of row + new Y offset
@@ -484,9 +539,6 @@ VDP_LoadMapSegmentPlaneA:
 	
 	; Loop rows
 	@RowLp:
-	
-		; Set source address (start of curr row in a0)
-		move.l a0, a1
 		
 		; Set dest address	(start of curr row in d1)
 		; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
