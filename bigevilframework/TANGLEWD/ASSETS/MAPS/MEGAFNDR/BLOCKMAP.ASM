@@ -7,10 +7,22 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_megafounder_screen_size_b	equ 0x000000A0	; Size in bytes
+map_blockmap_megafounder_screen_size_b	equ 0x00000084	; Size in bytes
 map_blockmap_megafounder_screen_size_w	equ (map_blockmap_megafounder_screen_size_b/2)	; Size in words
 map_blockmap_megafounder_screen_size_l	equ (map_blockmap_megafounder_screen_size_b/4)	; Size in longwords
 map_megafounder_screen_width	equ 0x28
 map_megafounder_screen_height	equ 0x20
 map_blockmap_megafounder_screen_width	equ 0x0A
 map_blockmap_megafounder_screen_height	equ 0x08
+
+map_blockmap_megafounder_screen_coloffsets:
+	dc.w 0x0000
+	dc.w 0x0010
+	dc.w 0x001C
+	dc.w 0x0028
+	dc.w 0x0034
+	dc.w 0x0044
+	dc.w 0x0054
+	dc.w 0x0060
+	dc.w 0x006C
+	dc.w 0x0078

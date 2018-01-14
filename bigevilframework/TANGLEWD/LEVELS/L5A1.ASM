@@ -16,6 +16,7 @@ L5a1_BygoneAct1:
 	dc.l tiles_L5						; Tileset
 	dc.l map_blocks_L5					; Blocks
 	dc.l map_blockmap_L5a1				; Block map
+	dc.l map_blockmap_l5a1_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_L5			; Collision blocks
 	dc.l collisionmap_blockmap_L5a1		; Collision block map

@@ -16,6 +16,7 @@ l8a6_TurntailAct6:
 	dc.l tiles_L1						; Tileset (using L1 tileset)
 	dc.l map_blocks_L1					; Blocks (using L1 tileset)
 	dc.l map_blockmap_l8a6				; Block map
+	dc.l map_blockmap_l8a6_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L1				; Collision tileset (using L1 tileset)
 	dc.l collisionmap_blocks_L1			; Collision blocks (using L1 tileset)
 	dc.l collisionmap_blockmap_l8a6		; Collision block map

@@ -14,6 +14,7 @@ Lvl0_LevelSelect:
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_l1					; Blocks
 	dc.l map_blockmap_credits			; Block map
+	dc.l 0x0							; Block map compressed column offsets
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
 	dc.l 0x0							; Collision block map

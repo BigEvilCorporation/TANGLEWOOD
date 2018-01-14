@@ -144,6 +144,9 @@ VDP_LoadBlockMapPlaneA:
 	subq.w  #0x1, d6	; -1 for counter
 	subq.w  #0x1, d1
 	move.w  d1, d4		; Y
+	
+	; Reset X/Y pos
+	moveq   #0x0, d1
 
 	; Loop cols
 	@LoopX:
@@ -234,6 +237,9 @@ VDP_LoadBlockMapPlaneB:
 	subq.w  #0x1, d6	; -1 for counter
 	subq.w  #0x1, d1
 	move.w  d1, d4		; Y
+
+	; Reset X/Y pos
+	moveq   #0x0, d1
 
 	; Loop cols
 	@LoopX:
@@ -600,6 +606,9 @@ VDP_LoadMapSegmentPlaneA:
 	
 	; Loop rows
 	@RowLp:
+
+		; Set source address (start of curr row in a0)
+		move.l a0, a1
 		
 		; Set dest address	(start of curr row in d1)
 		; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE

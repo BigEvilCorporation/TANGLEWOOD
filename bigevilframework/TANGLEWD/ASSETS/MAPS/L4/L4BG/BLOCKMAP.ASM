@@ -7,10 +7,28 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L4BG_size_b	equ 0x00000100	; Size in bytes
+map_blockmap_L4BG_size_b	equ 0x000000E8	; Size in bytes
 map_blockmap_L4BG_size_w	equ (map_blockmap_L4BG_size_b/2)	; Size in words
 map_blockmap_L4BG_size_l	equ (map_blockmap_L4BG_size_b/4)	; Size in longwords
 map_L4BG_width	equ 0x40
 map_L4BG_height	equ 0x20
 map_blockmap_L4BG_width	equ 0x10
 map_blockmap_L4BG_height	equ 0x08
+
+map_blockmap_L4BG_coloffsets:
+	dc.w 0x0000
+	dc.w 0x000C
+	dc.w 0x001C
+	dc.w 0x002C
+	dc.w 0x003A
+	dc.w 0x004A
+	dc.w 0x005A
+	dc.w 0x0066
+	dc.w 0x0072
+	dc.w 0x0082
+	dc.w 0x0092
+	dc.w 0x00A0
+	dc.w 0x00B0
+	dc.w 0x00C0
+	dc.w 0x00CC
+	dc.w 0x00D8

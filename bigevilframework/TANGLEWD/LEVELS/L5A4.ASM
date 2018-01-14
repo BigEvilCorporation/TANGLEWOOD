@@ -16,6 +16,7 @@ l5a4_BygoneAct4:
 	dc.l tiles_L4						; Tileset (using L4 tileset)
 	dc.l map_blocks_l4					; Blocks (using L4 tileset)
 	dc.l map_blockmap_l5a4				; Block map
+	dc.l map_blockmap_l5a4_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L4				; Collision tileset (using L4 tileset)
 	dc.l collisionmap_blocks_l4			; Collision blocks (using L4 tileset)
 	dc.l collisionmap_blockmap_l5a4		; Collision block map

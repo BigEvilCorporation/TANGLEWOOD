@@ -16,6 +16,7 @@ L6a1_DeadwoodAct1:
 	dc.l tiles_L6						; Tileset
 	dc.l map_blocks_L6					; Blocks
 	dc.l map_blockmap_L6a1				; Block map
+	dc.l map_blockmap_l6a1_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L6				; Collision tileset
 	dc.l collisionmap_blocks_L6			; Collision blocks
 	dc.l collisionmap_blockmap_L6a1		; Collision block map

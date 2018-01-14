@@ -16,6 +16,7 @@ L7a1_OasisAct1:
 	dc.l tiles_L7						; Tileset
 	dc.l map_blocks_L7					; Blocks
 	dc.l map_blockmap_L7a1				; Block map
+	dc.l map_blockmap_l7a1_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L7				; Collision tileset
 	dc.l collisionmap_blocks_L7			; Collision blocks
 	dc.l collisionmap_blockmap_L7a1		; Collision block map

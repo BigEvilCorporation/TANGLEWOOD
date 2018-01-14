@@ -16,6 +16,7 @@ l3a3_HeritageAct3:
 	dc.l tiles_l3						; Tileset
 	dc.l map_blocks_l3					; Blocks
 	dc.l map_blockmap_l3a3				; Block map
+	dc.l map_blockmap_l3a3_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_l3				; Collision tileset
 	dc.l collisionmap_blocks_l3			; Collision blocks
 	dc.l collisionmap_blockmap_l3a3		; Collision block map

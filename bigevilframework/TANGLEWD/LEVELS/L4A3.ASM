@@ -16,6 +16,7 @@ l4a3_TetheredAct3:
 	dc.l tiles_l4						; Tileset
 	dc.l map_blocks_l4					; Blocks
 	dc.l map_blockmap_l4a3				; Block map
+	dc.l map_blockmap_l4a3_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4			; Collision blocks
 	dc.l collisionmap_blockmap_l4a3		; Collision block map

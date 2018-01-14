@@ -16,6 +16,7 @@ l2a1_StormWarningAct1:
 	dc.l tiles_l2						; Tileset
 	dc.l map_blocks_l2					; Blocks
 	dc.l map_blockmap_l2a1				; Block map
+	dc.l map_blockmap_l2a1_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_l2				; Collision tileset
 	dc.l collisionmap_blocks_l2			; Collision blocks
 	dc.l collisionmap_blockmap_l2a1		; Collision block map

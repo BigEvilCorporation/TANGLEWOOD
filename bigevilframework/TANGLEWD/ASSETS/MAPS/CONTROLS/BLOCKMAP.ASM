@@ -7,10 +7,22 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_controls_size_b	equ 0x000000A0	; Size in bytes
+map_blockmap_controls_size_b	equ 0x0000007E	; Size in bytes
 map_blockmap_controls_size_w	equ (map_blockmap_controls_size_b/2)	; Size in words
 map_blockmap_controls_size_l	equ (map_blockmap_controls_size_b/4)	; Size in longwords
 map_controls_width	equ 0x28
 map_controls_height	equ 0x20
 map_blockmap_controls_width	equ 0x0A
 map_blockmap_controls_height	equ 0x08
+
+map_blockmap_controls_coloffsets:
+	dc.w 0x0000
+	dc.w 0x000A
+	dc.w 0x0016
+	dc.w 0x0024
+	dc.w 0x002C
+	dc.w 0x0036
+	dc.w 0x0044
+	dc.w 0x0054
+	dc.w 0x0064
+	dc.w 0x0072

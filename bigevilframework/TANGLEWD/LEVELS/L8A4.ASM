@@ -16,6 +16,7 @@ l8a4_TurntailAct4:
 	dc.l tiles_L4						; Tileset (using L4 tileset)
 	dc.l map_blocks_L4					; Blocks (using L4 tileset)
 	dc.l map_blockmap_l8a4				; Block map
+	dc.l map_blockmap_l8a4_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_L4				; Collision tileset (using L4 tileset)
 	dc.l collisionmap_blocks_L4			; Collision blocks (using L4 tileset)
 	dc.l collisionmap_blockmap_l8a4		; Collision block map
