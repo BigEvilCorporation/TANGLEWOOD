@@ -16,6 +16,7 @@ l1a2_HarlequinForestAct2:
 	dc.l tiles_l1						; Tileset
 	dc.l map_blocks_l1					; Blocks
 	dc.l map_blockmap_l1a2				; Block map
+	dc.l map_blockmap_l1a2_coloffsets	; Block map compressed column offsets
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1			; Collision blocks
 	dc.l collisionmap_blockmap_l1a2		; Collision block map

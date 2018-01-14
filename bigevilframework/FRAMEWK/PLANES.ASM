@@ -129,116 +129,163 @@ VDP_LoadMapPlaneB:
     rts
 
 VDP_LoadBlockMapPlaneA:
-	; a0 (l)  - Block data address (ROM)
-	; a1 (l)  - Block map address (ROM)
+	; a0 (l)  - Block data address
+	; a1 (l)  - Block map address (RLE compressed, 3 bit size, 13 bit block index)
 	; d1 (ww) - Map width/height (in blocks)
 	; d2 (w)  - First tile ID
 	; d3 (b)  - Palette ID
 
-	; Backup block address
+	; Backup block data address
 	move.l  a0, a2
 
 	; Row/col counters
-	move.w  d1, d4	; Y
-	swap    d1
-	move.w  d1, d5	; X
-	subq.w   #0x1, d4
-	subq.w   #0x1, d5
+	move.l  d1, d6		; X
+	swap    d6
+	subq.w  #0x1, d6	; -1 for counter
+	subq.w  #0x1, d1
+	move.w  d1, d4		; Y
 
-	; X/Y coord
-	moveq #0x0, d1
+	; Loop cols
+	@LoopX:
 
-	; Loop rows
-	@LoopY:
+		PUSHM  d0-d5/a2
 
-		; Loop cols
-		move.w  d5, d6			; Reset X counter
-		andi.l  #0x0000FFFF, d1	; Reset X pos
-		@LoopX:
+		; Decompress col
+		lea    BlockMapDecompressionBuffer, a5
+
+		; Loop until all block ids in col decompressed
+		addq.w #0x1, d4
+		@RLELoop:
+
+		; Get word
+		move.w (a1)+, d0
+
+		; Shift size
+		move.w d0, d1
+		rol.w  #0x3, d1
+		andi.w #0x7, d1
+
+		; +1
+		move.w d1, d2
+		addi.w #0x1, d2
+
+		; Count
+		sub.w  d2, d4
+
+		; Mask data
+		andi.w #0x1FFF, d0
+
+		; Decompress run (size already -1)
+		@WordLp:
+		move.w d0, (a5)+
+		dbra   d1, @WordLp
+
+		; If decompressed all in col
+		tst.w  d4
+		bne    @RLELoop
+
+		POPM   d0-d5/a2
+	
+		; Set decompressed row address
+		lea    BlockMapDecompressionBuffer, a3
+
+		; Loop rows
+		move.w  d4, d5			; Reset Y counter
+		move.w  #0x0, d1		; Reset Y pos
+		@LoopY:
 
 			moveq #0x0, d7
-			move.w (a1)+, d7		; Fetch next block ID
+			move.w (a3)+, d7		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
 			move.l a2, a0			; Get first block address
 			add.l  d7, a0			; Add block offset
 
-			PUSHM  a0-a1/d1-d6
+			PUSHM  a0-a4/d1-d6
 			jsr    VDP_LoadBlockPlaneA
-			POPM   a0-a1/d1-d6
+			POPM   a0-a4/d1-d6
 
-			; Increment X
-			addi.l #map_block_width<<16, d1
+			; Increment Y
+			addi.w #map_block_width, d1
 
 		; Loop
-		dbra.w d6, @LoopX
+		dbra.w d5, @LoopY
 
-		; Increment Y
-		addi.w #map_block_height, d1
+		; Increment X
+		addi.l #map_block_height<<16, d1
 
 	; Loop
-	dbra.w d4, @LoopY
+	dbra.w d6, @LoopX
 
 	rts
 
 VDP_LoadBlockMapPlaneB:
-	; a0 (l)  - Block data address (ROM)
-	; a1 (l)  - Block map address (ROM)
+	; a0 (l)  - Block data address
+	; a1 (l)  - Block map address (RLE compressed, 3 bit size, 13 bit block index)
 	; d1 (ww) - Map width/height (in blocks)
 	; d2 (w)  - First tile ID
 	; d3 (b)  - Palette ID
 
-	; Backup block address
+	; Backup block data address
 	move.l  a0, a2
-	move.l  a1, a6
 
 	; Row/col counters
-	move.w  d1, d4	; Y
-	swap    d1
-	move.w  d1, d5	; X
-	subq.w   #0x1, d4
-	subq.w   #0x1, d5
+	move.l  d1, d6		; X
+	swap    d6
+	subq.w  #0x1, d6	; -1 for counter
+	subq.w  #0x1, d1
+	move.w  d1, d4		; Y
 
-	; X/Y coord
-	moveq #0x0, d1
+	; Loop cols
+	@LoopX:
 
-	lea    map_blockmap_L1BG_rowoffsets, a4	; Get row offset table entry
+		PUSHM  d0-d5/a2
 
-	; Loop rows
-	@LoopY:
-
-		PUSHM  d0-d5/a2/a6
-
-		; Decompress row
-		moveq  #0x0, d0
-		move.w (a4)+, d0		; Read row data address offset
-		add.l  d0, a6			; Offset to start of row
+		; Decompress col
 		lea    BlockMapDecompressionBuffer, a5
 
-		jsr    DecompressSlz
-		
-		; Check buffer overflow
-		IFND FINAL
-		move.l a5, d0
-		move.l #BlockMapDecompressionBuffer, d1
-		sub.l  d1, d0
-		cmp.l  #BlockMapBufferSize, d0
-		blt    @SizeOk
-		RAISE_EXCEPTION *
-		@SizeOk:
-		ENDIF
+		; Loop until all block ids in col decompressed
+		addq.w #0x1, d4
+		@RLELoop:
 
-		POPM   d0-d5/a2/a6
+		; Get word
+		move.w (a1)+, d0
+
+		; Shift size
+		move.w d0, d1
+		rol.w  #0x3, d1
+		andi.w #0x7, d1
+
+		; +1
+		move.w d1, d2
+		addi.w #0x1, d2
+
+		; Count
+		sub.w  d2, d4
+
+		; Mask data
+		andi.w #0x1FFF, d0
+
+		; Decompress run (size already -1)
+		@WordLp:
+		move.w d0, (a5)+
+		dbra   d1, @WordLp
+
+		; If decompressed all in col
+		tst.w  d4
+		bne    @RLELoop
+
+		POPM   d0-d5/a2
 	
 		; Set decompressed row address
-		lea    BlockMapDecompressionBuffer, a1
+		lea    BlockMapDecompressionBuffer, a3
 
-		; Loop cols
-		move.w  d5, d6			; Reset X counter
-		andi.l  #0x0000FFFF, d1	; Reset X pos
-		@LoopX:
+		; Loop rows
+		move.w  d4, d5			; Reset Y counter
+		move.w  #0x0, d1		; Reset Y pos
+		@LoopY:
 
 			moveq #0x0, d7
-			move.w (a1)+, d7		; Fetch next block ID
+			move.w (a3)+, d7		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d7	; To block offset
 			move.l a2, a0			; Get first block address
 			add.l  d7, a0			; Add block offset
@@ -247,17 +294,17 @@ VDP_LoadBlockMapPlaneB:
 			jsr    VDP_LoadBlockPlaneB
 			POPM   a0-a4/d1-d6
 
-			; Increment X
-			addi.l #map_block_width<<16, d1
+			; Increment Y
+			addi.w #map_block_width, d1
 
 		; Loop
-		dbra.w d6, @LoopX
+		dbra.w d5, @LoopY
 
-		; Increment Y
-		addi.w #map_block_height, d1
+		; Increment X
+		addi.l #map_block_height<<16, d1
 
 	; Loop
-	dbra.w d4, @LoopY
+	dbra.w d6, @LoopX
 
 	rts
 
@@ -365,12 +412,13 @@ VDP_LoadBlockPlaneB:
     rts
 
 VDP_LoadMapBlockSegmentPlaneA:
-    ; a0 (l)  Map blocks data address (ROM)
-	; a1 (l)  Map blockmap data address (ROM)
+    ; a0 ---- Map blocks data address
+	; a1 ---- Map blockmap data address (RLE compressed, 3 bit size, 13 bit block index)
+	; a2 ---- Blockmap column compression offset table
 	; d0 (ww) Source top/left (blocks)
 	; d1 (ww) Destination top/left (blocks)
 	; d2 (ww) Segment width/height (blocks)
-	; d3 (w)  Source map total width (blocks)
+	; d3 (w)  Source map total height (blocks)
 	; d4 (w)  Art tile ID
 	; d5 (b)  Palette ID
 	
@@ -391,68 +439,81 @@ VDP_LoadMapBlockSegmentPlaneA:
 	swap   d2
 	subq.w  #0x1, d2
 	
-	; Total map width to bytes
-	lsl.w  #0x1, d3
-	
 	; Shift palette ID to bits 14-13
 	andi.w  #0x3, d5
 	ror.w   #0x3, d5
 
-	; Backup X coord to reset after every row
+	; Backup Y coord to reset after every col
 	move.l d1, d6
 
 	; Backup block data address
 	move.l a0, a3
 	
-	; Loop rows
-	@RowLp:
+	; Loop cols
+	@ColLp:
 
 		PUSHALL
 
-		; Decompress row
-		lea    map_blockmap_L1A2_rowoffsets, a4	; Get row offset table entry
-		andi.l #0xFFFF, d0		; Add Y offset (words)
+		; Decompress col
+		swap   d0
+		andi.l #0xFFFF, d0		; Add X offset (words)
 		lsl.w  #0x1, d0			; To words
-		add.l  d0, a4			; Offset into table
+		add.l  d0, a2			; Offset into table
 		
 		moveq  #0x0, d0
-		move.w (a4), d0			; Read row data address offset
+		move.w (a2), d0			; Read col data address offset
 		move.l a1, a6			; Get compressed blockmap data
-		add.l  d0, a6			; Offset to start of row
+		add.l  d0, a6			; Offset to start of col
 		lea    BlockMapDecompressionBuffer, a5
 
-		jsr    DecompressSlz
-		
-		; Check buffer overflow
-		IFND FINAL
-		move.l a5, d0
-		move.l #BlockMapDecompressionBuffer, d1
-		sub.l  d1, d0
-		cmp.l  #BlockMapBufferSize, d0
-		blt    @SizeOk
-		RAISE_EXCEPTION *
-		@SizeOk:
-		ENDIF
+		; Loop until all block ids in col decompressed
+		@RLELoop:
+
+		; Get word
+		move.w (a6)+, d0
+
+		; Shift size
+		move.w d0, d1
+		rol.w  #0x3, d1
+		andi.w #0x7, d1
+
+		; +1
+		move.w d1, d2
+		addi.w #0x1, d2
+
+		; Count
+		sub.w  d2, d3
+
+		; Mask data
+		andi.w #0x1FFF, d0
+
+		; Decompress run (size already -1)
+		@WordLp:
+		move.w d0, (a5)+
+		dbra   d1, @WordLp
+
+		; If decompressed all in col
+		tst.w  d3
+		bne    @RLELoop
 
 		POPALL
 	
-		; Set decompressed row address
-		lea    BlockMapDecompressionBuffer, a2
+		; Set decompressed col address
+		lea    BlockMapDecompressionBuffer, a4
 
 		PUSHL  d0
 		
-		; Add X offset
-		move.w #0x0, d0
-		swap   d0					; Get X coord (blocks)
+		; Add Y offset
+		andi.l #0xFFFF, d0			; Get Y coord (blocks)
 		lsl.w  #0x1, d0				; To words
-		add.l  d0, a2
+		add.l  d0, a4
 
-		; Loop columns
-		PUSHL d7
-		@ColumnLp:
+		; Loop rows
+		PUSHL d2
+		@RowLp:
 		
 			moveq #0x0, d0
-			move.w (a2)+, d0		; Fetch next block ID
+			move.w (a4)+, d0		; Fetch next block ID
 			mulu   #map_block_width*map_block_height*size_word, d0	; To block offset
 			move.l a3, a0			; Get first block address
 			add.l  d0, a0			; Add block offset
@@ -466,24 +527,24 @@ VDP_LoadMapBlockSegmentPlaneA:
 			jsr   VDP_LoadBlockPlaneA
 			POPALL
 
-			; Increment X coord
-			addi.l #map_block_width<<16, d1
+			; Increment Y coord
+			addi.w #map_block_height, d1
 		
-		dbra d7, @ColumnLp
-		POPL d7
+		dbra d2, @RowLp
+		POPL d2
 
 		POPL d0
 		
-		; Increment source Y coord (blocks)
-		addq.w #0x1, d0
+		; Increment source X coord (blocks)
+		addi.l #0x1<<16, d0
 		
-		; Increment dest Y coord (tiles)
-		addi.w #map_block_height, d6
+		; Increment dest X coord (tiles)
+		addi.l #map_block_width<<16, d6
 
-		; Reset dest coords to start of row + new Y offset
+		; Reset dest coords to start of col + new X offset
 		move.l d6, d1
 		
-	dbra d2, @RowLp
+	dbra d7, @ColLp
 	
 	rts
 

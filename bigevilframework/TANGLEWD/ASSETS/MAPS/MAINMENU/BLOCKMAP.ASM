@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_main_menu_size_b	equ 0x000000AC	; Size in bytes
+map_blockmap_main_menu_size_b	equ 0x00000070	; Size in bytes
 map_blockmap_main_menu_size_w	equ (map_blockmap_main_menu_size_b/2)	; Size in words
 map_blockmap_main_menu_size_l	equ (map_blockmap_main_menu_size_b/4)	; Size in longwords
 map_main_menu_width	equ 0x28
@@ -15,12 +15,14 @@ map_main_menu_height	equ 0x20
 map_blockmap_main_menu_width	equ 0x0A
 map_blockmap_main_menu_height	equ 0x08
 
-map_blockmap_main_menu_rowoffsets:
+map_blockmap_main_menu_coloffsets:
 	dc.w 0x0000
 	dc.w 0x000C
 	dc.w 0x0018
 	dc.w 0x0024
-	dc.w 0x0040
+	dc.w 0x0030
+	dc.w 0x003A
+	dc.w 0x0046
+	dc.w 0x0052
 	dc.w 0x005C
-	dc.w 0x0078
-	dc.w 0x0094
+	dc.w 0x0066

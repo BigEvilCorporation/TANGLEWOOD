@@ -170,8 +170,9 @@ MAP_StreamNextRow:
 	PUSHM   a0-a1/d0-d5
 	
 	; Load map segment
-	move.w  Level_MapWidthBlocks(a1), d3		; d3 (w)  Source map total width (blocks)
+	move.w  Level_MapHeightBlocks(a1), d3		; d3 (w)  Source map total height (blocks)
 	move.l  Level_BlocksAddr(a1), a0			; a0 ---  Source blocks address
+	move.l  Level_BlockColOffsetsAddr(a1), a2	; a2 --- Source blockmap compressed column offsets
 	move.l  Level_BlockMapAddr(a1), a1			; a1 ---  Source block map address
 	move.w  (vram_addr_leveltiles), d4			; d4 (w)  Art tile ID
 	BYTES2TILES d4
@@ -262,8 +263,9 @@ MAP_StreamNextColumn:
 	PUSHM   a0-a1/d0-d5
 	
 	; Load map segment
-	move.w  Level_MapWidthBlocks(a1), d3	; d3 (w)  Source map total width (blocks)
+	move.w  Level_MapHeightBlocks(a1), d3	; d3 (w)  Source map total height (blocks)
 	move.l  Level_BlocksAddr(a1), a0		; a0 ---  Source blocks address
+	move.l  Level_BlockColOffsetsAddr(a1), a2 ; a2 --- Source blockmap compressed column offsets
 	move.l  Level_BlockMapAddr(a1), a1		; a1 ---  Source block map address
 	move.w  (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
 	BYTES2TILES d4

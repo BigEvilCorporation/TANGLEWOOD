@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L1BG_size_b	equ 0x00000098	; Size in bytes
+map_blockmap_L1BG_size_b	equ 0x000000EA	; Size in bytes
 map_blockmap_L1BG_size_w	equ (map_blockmap_L1BG_size_b/2)	; Size in words
 map_blockmap_L1BG_size_l	equ (map_blockmap_L1BG_size_b/4)	; Size in longwords
 map_L1BG_width	equ 0x40
@@ -15,12 +15,20 @@ map_L1BG_height	equ 0x20
 map_blockmap_L1BG_width	equ 0x10
 map_blockmap_L1BG_height	equ 0x08
 
-map_blockmap_L1BG_rowoffsets:
+map_blockmap_L1BG_coloffsets:
 	dc.w 0x0000
 	dc.w 0x0010
-	dc.w 0x0024
-	dc.w 0x0038
-	dc.w 0x004C
-	dc.w 0x0060
-	dc.w 0x0074
-	dc.w 0x0088
+	dc.w 0x001A
+	dc.w 0x002A
+	dc.w 0x003A
+	dc.w 0x0048
+	dc.w 0x0058
+	dc.w 0x0068
+	dc.w 0x0072
+	dc.w 0x0082
+	dc.w 0x0092
+	dc.w 0x00A0
+	dc.w 0x00B0
+	dc.w 0x00C0
+	dc.w 0x00CA
+	dc.w 0x00DA
