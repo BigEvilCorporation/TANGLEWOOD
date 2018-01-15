@@ -285,6 +285,7 @@ l6a2_Trigger_WakeDjakk4:
 
 	PUSHL  a0
 	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
 	cmp.b  #MonsterState_InCave, Monster_State(a0)
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
