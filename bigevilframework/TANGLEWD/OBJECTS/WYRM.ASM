@@ -904,6 +904,9 @@ WyrmAIStart_Bite:
 	move.b #0x0, Character_UpdateAnim(a0)
 	POPL   a1
 
+	; Play SFX
+	PLAYSFX #SFX_Wyrm_attack
+
 	rts
 
 WyrmAIUpdate_Bite:

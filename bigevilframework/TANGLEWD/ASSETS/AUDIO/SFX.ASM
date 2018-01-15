@@ -180,6 +180,13 @@ SFX_Data_Echo_Call_Long:
 	ESF_Delay 65
 	ESF_Stop
 	even
+
+SFX_Data_Wyrm_Attack:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+23
+	ESF_Delay 52
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -603,6 +610,13 @@ SFX_Scirus_Hiss:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	even
+
+SFX_Wyrm_attack:
+	dc.l SFX_Data_Wyrm_attack		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_Chirp1:

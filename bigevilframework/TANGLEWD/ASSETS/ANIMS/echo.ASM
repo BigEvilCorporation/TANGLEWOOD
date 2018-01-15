@@ -354,6 +354,48 @@ actor_echo_sheet_glide_anim_glide_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_echo_sheet_laydown_anim_laydown:
+actor_echo_sheet_laydown_anim_laydown_numframes: equ 0x1A
+actor_echo_sheet_laydown_anim_laydown_speed: equ 0x19
+actor_echo_sheet_laydown_anim_laydown_track_frames:
+	dc.l actor_echo_sheet_laydown_frame_0_header
+	dc.l actor_echo_sheet_laydown_frame_1_header
+	dc.l actor_echo_sheet_laydown_frame_2_header
+	dc.l actor_echo_sheet_laydown_frame_3_header
+	dc.l actor_echo_sheet_laydown_frame_4_header
+	dc.l actor_echo_sheet_laydown_frame_4_header
+	dc.l actor_echo_sheet_laydown_frame_5_header
+	dc.l actor_echo_sheet_laydown_frame_5_header
+	dc.l actor_echo_sheet_laydown_frame_6_header
+	dc.l actor_echo_sheet_laydown_frame_7_header
+	dc.l actor_echo_sheet_laydown_frame_8_header
+	dc.l actor_echo_sheet_laydown_frame_9_header
+	dc.l actor_echo_sheet_laydown_frame_10_header
+	dc.l actor_echo_sheet_laydown_frame_11_header
+	dc.l actor_echo_sheet_laydown_frame_12_header
+	dc.l actor_echo_sheet_laydown_frame_13_header
+	dc.l actor_echo_sheet_laydown_frame_14_header
+	dc.l actor_echo_sheet_laydown_frame_15_header
+	dc.l actor_echo_sheet_laydown_frame_15_header
+	dc.l actor_echo_sheet_laydown_frame_15_header
+	dc.l actor_echo_sheet_laydown_frame_15_header
+	dc.l actor_echo_sheet_laydown_frame_15_header
+	dc.l actor_echo_sheet_laydown_frame_16_header
+	dc.l actor_echo_sheet_laydown_frame_17_header
+	dc.l actor_echo_sheet_laydown_frame_18_header
+	dc.l actor_echo_sheet_laydown_frame_19_header
+
+	Even
+actor_echo_sheet_laydown_anim_laydown_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_echo_sheet_laydown_anim_laydown_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_echo_sheet_laydown_anim_laydown_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_echo_sheet_calllong_anim_calllong:
 actor_echo_sheet_calllong_anim_calllong_numframes: equ 0x11
 actor_echo_sheet_calllong_anim_calllong_speed: equ 0x28
@@ -756,6 +798,29 @@ actor_echo_sheet_run_anim_run_track_posy:
 	Even
 actor_echo_sheet_run_anim_run_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
+actor_echo_sheet_sleep_anim_sleep:
+actor_echo_sheet_sleep_anim_sleep_numframes: equ 0x7
+actor_echo_sheet_sleep_anim_sleep_speed: equ 0xA
+actor_echo_sheet_sleep_anim_sleep_track_frames:
+	dc.l actor_echo_sheet_sleep_frame_0_header
+	dc.l actor_echo_sheet_sleep_frame_1_header
+	dc.l actor_echo_sheet_sleep_frame_2_header
+	dc.l actor_echo_sheet_sleep_frame_3_header
+	dc.l actor_echo_sheet_sleep_frame_4_header
+	dc.l actor_echo_sheet_sleep_frame_5_header
+	dc.l actor_echo_sheet_sleep_frame_5_header
+
+	Even
+actor_echo_sheet_sleep_anim_sleep_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_echo_sheet_sleep_anim_sleep_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_echo_sheet_sleep_anim_sleep_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
 actor_echo_sheet_fall_anim_fall:

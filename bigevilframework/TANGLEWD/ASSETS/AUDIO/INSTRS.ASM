@@ -194,6 +194,7 @@ echo_instruments:
 	Echo_ListEntry PCM20
 	Echo_ListEntry PCM21
 	Echo_ListEntry PCM22
+	Echo_ListEntry PCM23
 	
     Echo_ListEnd
 	
@@ -387,5 +388,6 @@ PCM19: incbin 'assets\audio\sfx\nymn\talk_low.ewf'
 PCM20: incbin 'assets\audio\sfx\nymn\talk_hi.ewf'
 PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
 PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
+PCM23: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
 
 	ENDIF

@@ -9,6 +9,42 @@
 
 spriteanims_cogs:
 
+actor_cogs_sheet_cogs_l4_anim_spin:
+actor_cogs_sheet_cogs_l4_anim_spin_numframes: equ 0x2
+actor_cogs_sheet_cogs_l4_anim_spin_speed: equ 0x28
+actor_cogs_sheet_cogs_l4_anim_spin_track_frames:
+	dc.l actor_cogs_sheet_cogs_l4_frame_0_header
+	dc.l actor_cogs_sheet_cogs_l4_frame_1_header
+
+	Even
+actor_cogs_sheet_cogs_l4_anim_spin_track_posx:
+	dc.b 0x00, 0x00
+	Even
+actor_cogs_sheet_cogs_l4_anim_spin_track_posy:
+	dc.b 0x00, 0x00
+	Even
+actor_cogs_sheet_cogs_l4_anim_spin_track_sfx:
+	dc.l 0x0, 0x0
+	Even
+
+actor_cogs_sheet_cogs_l5_anim_spin:
+actor_cogs_sheet_cogs_l5_anim_spin_numframes: equ 0x2
+actor_cogs_sheet_cogs_l5_anim_spin_speed: equ 0x28
+actor_cogs_sheet_cogs_l5_anim_spin_track_frames:
+	dc.l actor_cogs_sheet_cogs_l5_frame_0_header
+	dc.l actor_cogs_sheet_cogs_l5_frame_1_header
+
+	Even
+actor_cogs_sheet_cogs_l5_anim_spin_track_posx:
+	dc.b 0x00, 0x00
+	Even
+actor_cogs_sheet_cogs_l5_anim_spin_track_posy:
+	dc.b 0x00, 0x00
+	Even
+actor_cogs_sheet_cogs_l5_anim_spin_track_sfx:
+	dc.l 0x0, 0x0
+	Even
+
 actor_cogs_sheet_cogs_anim_spin:
 actor_cogs_sheet_cogs_anim_spin_numframes: equ 0x2
 actor_cogs_sheet_cogs_anim_spin_speed: equ 0x28

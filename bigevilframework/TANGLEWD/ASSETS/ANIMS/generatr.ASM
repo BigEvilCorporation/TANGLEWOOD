@@ -9,6 +9,44 @@
 
 spriteanims_generatr:
 
+actor_generatr_sheet_compressor_l4_anim_spin:
+actor_generatr_sheet_compressor_l4_anim_spin_numframes: equ 0x3
+actor_generatr_sheet_compressor_l4_anim_spin_speed: equ 0x28
+actor_generatr_sheet_compressor_l4_anim_spin_track_frames:
+	dc.l actor_generatr_sheet_compressor_l4_frame_0_header
+	dc.l actor_generatr_sheet_compressor_l4_frame_1_header
+	dc.l actor_generatr_sheet_compressor_l4_frame_2_header
+
+	Even
+actor_generatr_sheet_compressor_l4_anim_spin_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+actor_generatr_sheet_compressor_l4_anim_spin_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+actor_generatr_sheet_compressor_l4_anim_spin_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
+actor_generatr_sheet_compressor_l5_anim_spin:
+actor_generatr_sheet_compressor_l5_anim_spin_numframes: equ 0x3
+actor_generatr_sheet_compressor_l5_anim_spin_speed: equ 0x28
+actor_generatr_sheet_compressor_l5_anim_spin_track_frames:
+	dc.l actor_generatr_sheet_compressor_l5_frame_0_header
+	dc.l actor_generatr_sheet_compressor_l5_frame_1_header
+	dc.l actor_generatr_sheet_compressor_l5_frame_2_header
+
+	Even
+actor_generatr_sheet_compressor_l5_anim_spin_track_posx:
+	dc.b 0x00, 0x00, 0x00
+	Even
+actor_generatr_sheet_compressor_l5_anim_spin_track_posy:
+	dc.b 0x00, 0x00, 0x00
+	Even
+actor_generatr_sheet_compressor_l5_anim_spin_track_sfx:
+	dc.l 0x0, 0x0, 0x0
+	Even
+
 actor_generatr_sheet_compressor_anim_spin:
 actor_generatr_sheet_compressor_anim_spin_numframes: equ 0x3
 actor_generatr_sheet_compressor_anim_spin_speed: equ 0x28
