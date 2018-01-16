@@ -98,41 +98,7 @@ l4a3_Init:
 	;==============================================================
 
 	; HACK: Load L4 specific object sprites
-	move.l EntityPoolStart_Lift, a0
-	SPRITE_LOAD_SHARED_VRAM lift,lift_l4,0,PaletteId_World0,0x0,a0
-
-	move.l EntityPoolStart_Generator, a0
-	move.w EntityCount_Generator, d0
-	subq   #0x1, d0
-	@GeneratorLp:
-	PUSHW  d0
-	SPRITE_LOAD_SHARED_VRAM generatr,compressor_l4,0,PaletteId_World0,0x0,a0
-	ANIM_LOAD_DEFAULT generatr,compressor_l4,spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
-	POPW   d0
-	addi.l #Generator_Struct_Size, a0
-	dbra   d0, @GeneratorLp
-
-	move.l EntityPoolStart_Cogs, a0
-	move.w EntityCount_Cogs, d0
-	subq   #0x1, d0
-	@CogsLp:
-	PUSHW  d0
-	SPRITE_LOAD_SHARED_VRAM cogs,cogs_l4,0,PaletteId_World0,0x0,a0
-	ANIM_LOAD_DEFAULT cogs,cogs_l4,spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
-	POPW   d0
-	addi.l #Cogs_Struct_Size, a0
-	dbra   d0, @CogsLp
-
-	move.l EntityPoolStart_Boulder, a0
-	move.w EntityCount_Boulder, d0
-	subq   #0x1, d0
-	@BoulderLp:
-	PUSHW  d0
-	SPRITE_LOAD_SHARED_VRAM boulder,roll_l4,0,PaletteId_World0,0x0,a0
-	ANIM_LOAD_DEFAULT boulder,roll_l4,roll_l4,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
-	POPW   d0
-	addi.l #Boulder_Struct_Size, a0
-	dbra   d0, @BoulderLp
+	jsr    L4_LoadObjectSprites
 
 	;==============================================================
 

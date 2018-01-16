@@ -95,6 +95,11 @@ l8a4_Init:
 
 	;==============================================================
 
+	; HACK: Load L4 specific object sprites
+	jsr    L4_LoadObjectSprites
+
+	;==============================================================
+
 	; Init cutscenes
 	PUSHM  a0-a1
 	lea    LevelData_l8a4, a2

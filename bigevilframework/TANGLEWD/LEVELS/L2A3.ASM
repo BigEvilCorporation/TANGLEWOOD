@@ -100,6 +100,11 @@ l2a3_Init:
 
 	; Load scene animations
 	jsr    l2_LoadSceneAnimations
+
+	;==============================================================
+
+	; HACK: Load L2 specific object sprites
+	jsr    L2_LoadObjectSprites
 	
 	;==============================================================
 

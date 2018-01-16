@@ -119,6 +119,11 @@ l3a3_Init:
 
 	;==============================================================
 
+	; HACK: Load L3 specific object sprites
+	jsr    L3_LoadObjectSprites
+
+	;==============================================================
+
 	; Init cutscenes
 	PUSHM  a0-a1
 	lea    LevelData_L3A3, a2

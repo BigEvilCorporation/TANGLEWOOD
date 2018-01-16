@@ -97,6 +97,11 @@ l5a3_Init:
 
 	;==============================================================
 
+	; HACK: Load L5 specific object sprites
+	jsr    L5_LoadObjectSprites
+
+	;==============================================================
+
 	; Init cutscenes
 	PUSHM  a0-a1
 	lea    LevelData_L5A3, a2

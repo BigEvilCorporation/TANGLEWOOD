@@ -99,6 +99,11 @@ L5a1_Init:
 
 	;==============================================================
 
+	; HACK: Load L5 specific object sprites
+	jsr    L5_LoadObjectSprites
+
+	;==============================================================
+
 	; Init cutscene
 	PUSHM  a0-a1
 	lea    LevelData_L5A1, a2
@@ -222,5 +227,41 @@ l5a1_CutsceneCargoLift:
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
+
+	rts
+
+L5_LoadObjectSprites:
+
+	move.l EntityPoolStart_Lift, a0
+	move.w EntityCount_Lift, d0
+	beq    @NoLifts
+	SPRITE_LOAD_SHARED_VRAM lift,lift_l5,0,PaletteId_World0,0x0,a0
+	@NoLifts:
+
+	move.l EntityPoolStart_Generator, a0
+	move.w EntityCount_Generator, d0
+	beq    @NoGenerators
+	subq   #0x1, d0
+	@GeneratorLp:
+	PUSHW  d0
+	SPRITE_LOAD_SHARED_VRAM generatr,compressor_l5,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT generatr,compressor_l5,spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
+	POPW   d0
+	addi.l #Generator_Struct_Size, a0
+	dbra   d0, @GeneratorLp
+	@NoGenerators:
+
+	move.l EntityPoolStart_Cogs, a0
+	move.w EntityCount_Cogs, d0
+	beq    @NoCogs
+	subq   #0x1, d0
+	@CogsLp:
+	PUSHW  d0
+	SPRITE_LOAD_SHARED_VRAM cogs,cogs_l5,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT cogs,cogs_l5,spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
+	POPW   d0
+	addi.l #Cogs_Struct_Size, a0
+	dbra   d0, @CogsLp
+	@NoCogs:
 
 	rts

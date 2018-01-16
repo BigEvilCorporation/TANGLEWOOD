@@ -90,6 +90,11 @@ l5a2_Init:
 
 	;==============================================================
 
+	; HACK: Load L5 specific object sprites
+	jsr    L5_LoadObjectSprites
+
+	;==============================================================
+
 	; Connect cogs to generators
 	ENTITY_GETBYNAME Generator, l5a2_Generator1, a0
 	ENTITY_GETBYNAME Cogs, l5a2_Cogs1, a1

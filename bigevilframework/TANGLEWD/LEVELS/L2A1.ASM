@@ -95,6 +95,11 @@ l2a1_Init:
 
 	; Load scene animations
 	jsr    l2_LoadSceneAnimations
+
+	;==============================================================
+
+	; HACK: Load L2 specific object sprites
+	jsr    L2_LoadObjectSprites
 	
 	;==============================================================
 
@@ -275,4 +280,19 @@ l2a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+L2_LoadObjectSprites:
+
+	move.l EntityPoolStart_Boulder, a0
+	move.w EntityCount_Boulder, d0
+	subq   #0x1, d0
+	@BoulderLp:
+	PUSHW  d0
+	SPRITE_LOAD_SHARED_VRAM boulder,roll_l2,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT boulder,roll_l2,roll_l2,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
+	POPW   d0
+	addi.l #Boulder_Struct_Size, a0
+	dbra   d0, @BoulderLp
+
 	rts

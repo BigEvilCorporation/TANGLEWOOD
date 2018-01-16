@@ -92,6 +92,11 @@ l8a5_Init:
 
 	; Load scene animations (using L3 tileset)
 	jsr    L3_LoadSceneAnimations
+
+	;==============================================================
+
+	; HACK: Load L3 specific object sprites
+	jsr    L3_LoadObjectSprites
 	
 	;==============================================================
 
