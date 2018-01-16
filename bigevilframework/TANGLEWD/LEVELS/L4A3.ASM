@@ -97,6 +97,23 @@ l4a3_Init:
 
 	;==============================================================
 
+	; HACK: Load L4 specific object sprites
+	move.l EntityPoolStart_Lift, a0
+	SPRITE_LOAD_SHARED_VRAM lift,lift_l4,0,PaletteId_World0,0x0,a0
+
+	move.l EntityPoolStart_Boulder, a0
+	move.w EntityCount_Boulder, d0
+	subq   #0x1, d0
+	@BoulderLp:
+	PUSHW  d0
+	SPRITE_LOAD_SHARED_VRAM boulder,roll_l4,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT boulder,roll_l4,roll_l4,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
+	POPW   d0
+	addi.l #Boulder_Struct_Size, a0
+	dbra   d0, @BoulderLp
+
+	;==============================================================
+
 	; Init cutscenes
 	PUSHM  a0-a1
 	lea    LevelData_L4A3, a2

@@ -370,6 +370,7 @@ SharedVRAM_Skivv		rs.w 1
 SharedVRAM_Scirus		rs.w 1
 SharedVRAM_Swarm		rs.w 1
 SharedVRAM_Hogg			rs.w 1
+SharedVRAM_Rope			rs.w 1
 
 SharedVRAM_End			rs.b 0
 

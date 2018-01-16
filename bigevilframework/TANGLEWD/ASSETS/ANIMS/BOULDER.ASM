@@ -75,9 +75,56 @@ actor_boulder_sheet_crack_l2_anim_crack_l2_track_sfx:
 	dc.l 0x0
 	Even
 
+actor_boulder_sheet_roll_l4_anim_roll:
+actor_boulder_sheet_roll_l4_anim_roll_numframes: equ 0x8
+actor_boulder_sheet_roll_l4_anim_roll_speed: equ 0x5
+actor_boulder_sheet_roll_l4_anim_roll_track_frames:
+	dc.l actor_boulder_sheet_roll_l4_frame_0_header
+	dc.l actor_boulder_sheet_roll_l4_frame_1_header
+	dc.l actor_boulder_sheet_roll_l4_frame_2_header
+	dc.l actor_boulder_sheet_roll_l4_frame_3_header
+	dc.l actor_boulder_sheet_roll_l4_frame_4_header
+	dc.l actor_boulder_sheet_roll_l4_frame_5_header
+	dc.l actor_boulder_sheet_roll_l4_frame_6_header
+	dc.l actor_boulder_sheet_roll_l4_frame_7_header
+
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_l4:
+actor_boulder_sheet_roll_l4_anim_roll_l4_numframes: equ 0x8
+actor_boulder_sheet_roll_l4_anim_roll_l4_speed: equ 0x1E
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_frames:
+	dc.l actor_boulder_sheet_roll_l4_frame_0_header
+	dc.l actor_boulder_sheet_roll_l4_frame_1_header
+	dc.l actor_boulder_sheet_roll_l4_frame_2_header
+	dc.l actor_boulder_sheet_roll_l4_frame_3_header
+	dc.l actor_boulder_sheet_roll_l4_frame_4_header
+	dc.l actor_boulder_sheet_roll_l4_frame_5_header
+	dc.l actor_boulder_sheet_roll_l4_frame_6_header
+	dc.l actor_boulder_sheet_roll_l4_frame_7_header
+
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_boulder_sheet_roll_l2_anim_roll_l2:
 actor_boulder_sheet_roll_l2_anim_roll_l2_numframes: equ 0x8
-actor_boulder_sheet_roll_l2_anim_roll_l2_speed: equ 0x1E
+actor_boulder_sheet_roll_l2_anim_roll_l2_speed: equ 0x28
 actor_boulder_sheet_roll_l2_anim_roll_l2_track_frames:
 	dc.l actor_boulder_sheet_roll_l2_frame_0_header
 	dc.l actor_boulder_sheet_roll_l2_frame_1_header
