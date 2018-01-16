@@ -89,6 +89,9 @@ LoadGame:
 	bra    @EntityLp
 	@ListEnd:
 
+	; Get current level ptr
+	move.l (CurrentLevel), a1
+
 	; Tick all entities
 	jsr    EntityUpdateAll
 	
