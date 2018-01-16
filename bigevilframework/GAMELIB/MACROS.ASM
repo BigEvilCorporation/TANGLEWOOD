@@ -198,7 +198,7 @@ SPRITE_LOAD_DEFAULT: macro actor,sheet,palette,paletteidx,prio
 	PUSHM  d0-d5/a0-a2
 	move.w #actor_\actor\_VRAM_size_b, d0
 	jsr    VRAM_PoolAlloc
-	lea     actor_\actor\_sheet_\sheet\_frame_0, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
@@ -219,7 +219,7 @@ SPRITE_LOAD_SHARED: macro actor,sheet,palette,paletteidx,prio
 	move.w SpriteObj_VRAMAddr(a0), SharedVRAM_\actor
 	bra    @End\@
 	@AlreadyAllocd\@:
-	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.w SharedVRAM_\actor, d0
@@ -237,7 +237,7 @@ SPRITE_LOAD_SHARED: macro actor,sheet,palette,paletteidx,prio
 SPRITE_LOAD_COPY: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
-	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
@@ -254,7 +254,7 @@ SPRITE_LOAD_COPY: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 SPRITE_LOAD_SHARED_VRAM: macro actor,sheet,palette,paletteidx,prio,sourceobjreg
 	PUSHM  d0-d5/a0-a2
 	move.w SpriteObj_VRAMAddr(\sourceobjreg), d0
-	lea    spritesheets_\actor, a1
+	lea    actor_\actor\_sheet_\sheet\_frame_0, a1
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_dimensions_bits, a2
 	lea    actor_\actor\_sheet_\sheet\_frame_0_subsprite_pos_offsets, a3
 	move.l #actor_\actor\_sheet_\sheet\_frame_0_size_t, d1
