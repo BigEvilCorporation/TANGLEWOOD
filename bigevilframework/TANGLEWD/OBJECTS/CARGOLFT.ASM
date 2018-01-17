@@ -27,6 +27,9 @@ CargoLiftInit:
 
 	; Init base
 	jsr    LiftInit
+
+	; HACK: Correct lift count
+	subq.w #0x1, EntityCount_Lift
 	
 	; Add to count
 	addq.w #0x1, EntityCount_CargoLift

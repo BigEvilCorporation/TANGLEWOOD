@@ -266,6 +266,7 @@ L3_LoadObjectSprites:
 
 	move.l EntityPoolStart_Boulder, a0
 	move.w EntityCount_Boulder, d0
+	beq    @NoBoulders
 	subq   #0x1, d0
 	@BoulderLp:
 	PUSHW  d0
@@ -274,5 +275,6 @@ L3_LoadObjectSprites:
 	POPW   d0
 	addi.l #Boulder_Struct_Size, a0
 	dbra   d0, @BoulderLp
+	@NoBoulders:
 
 	rts

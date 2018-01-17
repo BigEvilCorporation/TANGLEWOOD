@@ -207,6 +207,12 @@ L4_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM lift,lift_l4,0,PaletteId_World0,0x0,a0
 	@NoLifts:
 
+	move.l EntityPoolStart_CargoLift, a0
+	move.w EntityCount_CargoLift, d0
+	beq    @NoCargoLifts
+	SPRITE_LOAD_SHARED_VRAM cargolft,cargo_lift_l4,0,PaletteId_World0,0x0,a0
+	@NoCargoLifts:
+
 	move.l EntityPoolStart_Generator, a0
 	move.w EntityCount_Generator, d0
 	beq    @NoGenerators
@@ -235,6 +241,7 @@ L4_LoadObjectSprites:
 
 	move.l EntityPoolStart_Boulder, a0
 	move.w EntityCount_Boulder, d0
+	beq    @NoBoulders
 	subq   #0x1, d0
 	@BoulderLp:
 	PUSHW  d0
@@ -243,5 +250,6 @@ L4_LoadObjectSprites:
 	POPW   d0
 	addi.l #Boulder_Struct_Size, a0
 	dbra   d0, @BoulderLp
+	@NoBoulders:
 
 	rts
