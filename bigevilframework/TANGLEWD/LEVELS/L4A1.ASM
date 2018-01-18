@@ -216,6 +216,8 @@ L4_LoadObjectSprites:
 	move.l EntityPoolStart_CargoLift, a0
 	move.w EntityCount_CargoLift, d0
 	beq    @NoCargoLifts
+	tst.b  CargoLift_ManualGfxLoad(a0)
+	bne    @NoCargoLifts
 	SPRITE_LOAD_SHARED_VRAM cargolft,cargo_lift_l4,0,PaletteId_World0,0x0,a0
 	@NoCargoLifts:
 
