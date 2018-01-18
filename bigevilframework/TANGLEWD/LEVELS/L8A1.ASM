@@ -97,6 +97,11 @@ l8a1_Init:
 
 	; Load scene animations
 	jsr    L7_LoadSceneAnimations
+
+	;==============================================================
+
+	; HACK: Load L7 specific object sprites
+	jsr    L7_LoadObjectSprites
 	
 	;==============================================================
 	

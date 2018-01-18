@@ -201,6 +201,12 @@ l4a1_Trigger_End:
 
 L4_LoadObjectSprites:
 
+	move.l EntityPoolStart_Stone, a0
+	move.w EntityCount_Stone, d0
+	beq    @NoStones
+	SPRITE_LOAD_SHARED_VRAM stone,stone_l4,0,PaletteId_World0,0x0,a0
+	@NoStones:
+
 	move.l EntityPoolStart_Lift, a0
 	move.w EntityCount_Lift, d0
 	beq    @NoLifts

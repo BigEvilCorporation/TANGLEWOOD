@@ -284,6 +284,12 @@ l2a1_Trigger_End:
 
 L2_LoadObjectSprites:
 
+	move.l EntityPoolStart_Stone, a0
+	move.w EntityCount_Stone, d0
+	beq    @NoStones
+	SPRITE_LOAD_SHARED_VRAM stone,stone_l2,0,PaletteId_World0,0x0,a0
+	@NoStones:
+
 	move.l EntityPoolStart_Boulder, a0
 	move.w EntityCount_Boulder, d0
 	beq    @NoBoulders

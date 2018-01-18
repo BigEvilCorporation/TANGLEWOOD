@@ -10,3 +10,8 @@
 spriteanims_stone:
 
 
+
+
+
+
+

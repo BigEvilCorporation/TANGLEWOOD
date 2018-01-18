@@ -94,6 +94,11 @@ L7a1_Init:
 
 	; Load scene animations
 	jsr    L7_LoadSceneAnimations
+
+	;==============================================================
+
+	; HACK: Load L7 specific object sprites
+	jsr    L7_LoadObjectSprites
 	
 	;==============================================================
 	
@@ -126,4 +131,14 @@ L7a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+L7_LoadObjectSprites:
+
+	move.l EntityPoolStart_Stone, a0
+	move.w EntityCount_Stone, d0
+	beq    @NoStones
+	SPRITE_LOAD_SHARED_VRAM stone,stone_l7,0,PaletteId_World0,0x0,a0
+	@NoStones:
+
 	rts
