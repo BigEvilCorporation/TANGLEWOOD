@@ -70,7 +70,8 @@ StoneLoadGfx:
 	move.b  #(1<<EntityWorldGridFlag_GridRenders), d0
 	jsr     EntityAddToWorldGrid
 
-	; TODO: Snap to floor
+	; TODO: not a PhysicsObj
+	; Snap to floor
 	; jsr    PhysicsObjSnapToFloor
 
 	; Reposition barrier

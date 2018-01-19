@@ -224,6 +224,9 @@ LevelLoad:
 	; Load level VFX
 	jsr LevelLoadVFX
 
+	; Setup physics world before loading objects
+	jsr LevelSetupPhysicsWorld
+
 	; Load level game objects
 	move.l (CurrentLevel), a1
 	move.l Level_LoadGameObjsRoutine(a1), a2
@@ -442,6 +445,31 @@ LevelLoadVFX:
 	jsr    VfxInit
 
 	rts
+
+LevelSetupPhysicsWorld:
+
+	; Get physics world
+	lea    PhysicsWorld, a2
+
+	; Set gravity
+	MOVE_NTSC_ACCEL_L DefaultGravity, PhysicsWorld_Gravity(a2), d0
+
+	; Set underwater velocity/acceleration scale
+	move.l #DefaultUnderwaterScaleX, PhysicsWorld_UnderwaterVelXScale(a2)
+	move.l #DefaultUnderwaterScaleY, PhysicsWorld_UnderwaterVelYScale(a2)
+	move.l #DefaultUnderwaterScaleX, PhysicsWorld_UnderwaterAccelScale(a2)
+
+	; Set wind
+	move.l #0x0, PhysicsWorld_Wind(a2)
+
+	; Set ground height
+	move.w  Level_MapHeight(a1), d0
+	TILES2PIXELS d0
+	add.l   vdp_sprite_border_y, d0
+	TOSUBPIXELS d0
+	move.l  d0, PhysicsWorld_GroundHeight(a2)
+
+	rts
 	
 LevelReset:
 
@@ -480,22 +508,6 @@ LevelReset:
 	
 	; World
 	move.w  #0x0, TimeOfDayShiftDelay
-
-	;==============================================================
-
-	; Physics world
-	lea    PhysicsWorld, a2
-	MOVE_NTSC_ACCEL_L DefaultGravity, PhysicsWorld_Gravity(a2), d0
-	move.l #DefaultUnderwaterScaleX, PhysicsWorld_UnderwaterVelXScale(a2)
-	move.l #DefaultUnderwaterScaleY, PhysicsWorld_UnderwaterVelYScale(a2)
-	move.l #DefaultUnderwaterScaleX, PhysicsWorld_UnderwaterAccelScale(a2)
-	move.l #0x0, PhysicsWorld_Wind(a2)
-
-	move.w  Level_MapHeight(a1), d0
-	TILES2PIXELS d0
-	add.l   vdp_sprite_border_y, d0
-	TOSUBPIXELS d0
-	move.l  d0, PhysicsWorld_GroundHeight(a2)
 
 	;==============================================================
 	
