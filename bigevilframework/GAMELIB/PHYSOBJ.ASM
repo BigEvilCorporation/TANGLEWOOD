@@ -1531,16 +1531,6 @@ PhysicsObjFindWall:
 	; Clear static wall and static barrier flags
 	andi.b #~(PhysicsObjHitStaticWall|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 	
-	; Check if X within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapWidth(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d0
-	bge    @ProbeOutOfBounds
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
-	
 	;==============================================================
 
 	tst.b  d6
