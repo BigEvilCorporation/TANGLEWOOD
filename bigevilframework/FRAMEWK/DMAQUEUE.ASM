@@ -28,6 +28,8 @@ VDP_DMAQueue_AddJob:
 	add.w  d3, d2		; Add size to lower 16 bits of address
 	bcs    @SplitJobs	; Branch if Carry Set (result overflowed across 16 bit boundary)
 	
+	@SingleJob:
+	
 	; Add single job
 	move.l a0, d2
 	jsr    VDP_DMAQueue_AddToQueue
@@ -36,8 +38,11 @@ VDP_DMAQueue_AddJob:
 	
 	@SplitJobs:
 	
+	; Edge case: end of data lands precisely on 64kb boundary
+	beq    @SingleJob
+	
 	; Job 1
-	moveq #0x0, d4
+	moveq  #0x0, d4
 	move.l a0, d2			; Source addr to d2
 	move.w d1, d5			; Backup original size
 	move.w d0, d6			; Backup original dest
