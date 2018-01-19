@@ -1218,14 +1218,6 @@ PhysicsObjFindFloor:
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
-
-	; Check if X within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapWidth(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 
@@ -1237,14 +1229,6 @@ PhysicsObjFindFloor:
 	add.l  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
-
-	; Check if Y within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapHeight(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 	; Find platform first
@@ -1553,15 +1537,6 @@ PhysicsObjFindWall:
 	add.w  d4, d2						; Offset by floor probe
 	move.w d2, d1						; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
-
-	; Check if Y within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapHeight(a1), d2
-	subq.w  #0x1, d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 	; Find barrier first
@@ -1833,14 +1808,6 @@ PhysicsObjFindCeiling:
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_CeilingProbeX(a0), d3	; Get ceiling probe X offset
 	add.w  d3, d1							; Add to X pos
-
-	; Check if X within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapWidth(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 
@@ -1851,14 +1818,6 @@ PhysicsObjFindCeiling:
 	move.w PhysicsObj_CeilingProbeY(a0), d3	; Get ceiling probe Y offset
 	add.l  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
-
-	; Check if Y within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapHeight(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 	; Find ceiling
@@ -1937,14 +1896,6 @@ PhysicsObjFindMovingFloor:
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
-
-	; Check if X within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapWidth(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 
@@ -1956,14 +1907,6 @@ PhysicsObjFindMovingFloor:
 	add.l  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
-
-	; Check if Y within collision map bounds
-	tst.w  d1
-	blt    @ProbeOutOfBounds
-	move.w Level_MapHeight(a1), d2
-	TILES2PIXELS d2
-	cmp.w  d2, d1
-	bge    @ProbeOutOfBounds
 	
 	;==============================================================
 	; Find platform
