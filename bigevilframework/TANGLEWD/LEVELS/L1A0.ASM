@@ -185,10 +185,10 @@ l1a0_CutsceneIntro:
 	CUTSCENE_DELAY #0x0100
 
 	; Fade down
-	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_fade_black,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_fade_black,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_fade_black,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_fade_black,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
 
 	; Wait for fade
 	CUTSCENE_PALETTE_FADE_WAIT
@@ -207,10 +207,10 @@ l1a0_CutsceneIntro:
 	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
 
 	; Fade up
-	CUTSCENE_GAME_PALETTE_FADETO #palette_l1_night,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #palette_demon,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #palette_fuzzl,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
-	CUTSCENE_GAME_PALETTE_FADETO #Pal_Nymn_Red,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_l1_night,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_demon,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #palette_fuzzl,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_TEMP_PALETTE_FADETO #Pal_Nymn_Red,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
 
 	; Move demon to location
 	CUTSCENE_GET_ENTITY Demon,l1a1_CutsceneDemon,a2

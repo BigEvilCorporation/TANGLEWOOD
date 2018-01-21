@@ -327,6 +327,25 @@ CutsceneStep_GameScenePaletteFadeTo:
 
 	rts
 
+CutsceneStep_GameTempPaletteFadeTo:
+	; a0 --- Cutscene
+	; a2 --- Palette
+	; d0 ---- Slot
+	; d1 (b) Speed
+	; d2 (b) Ticks per update
+	; d3 (b) Start colour idx
+	; d4 (b) End colour idx
+	; d0 (b) OUT: Step running
+
+	PUSHL  a0
+	move.l a2, a0
+	jsr    GameTempPaletteFadeTo
+	POPL   a0
+
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_StartLetterbox:
 	; a0 --- Cutscene
 
@@ -380,6 +399,16 @@ CUTSCENE_GAME_PALETTE_FADETO: macro palette,slotId,speed,ticksperupdate,startidx
 	move.b \startidx, d3
 	move.b \endidx, d4
 	CUTSCENE_RUN_STEP CutsceneStep_GameScenePaletteFadeTo
+	endm
+
+CUTSCENE_TEMP_PALETTE_FADETO: macro palette,slotId,speed,ticksperupdate,startidx,endidx
+	move.l \palette, a2
+	move.b \slotId, d0
+	move.b \speed, d1
+	move.b \ticksperupdate, d2
+	move.b \startidx, d3
+	move.b \endidx, d4
+	CUTSCENE_RUN_STEP CutsceneStep_GameTempPaletteFadeTo
 	endm
 
 CUTSCENE_START_LETTERBOX: macro
