@@ -70,7 +70,7 @@ BorgusAnimIdx_Spit		equ 0x1
 BorgusAnimIdx_Swipe		equ 0x2
 BorgusAnimIdx_Dead		equ 0x3
 ;------------------------------
-BorgusAnimIdx_Max		equ 0x3
+BorgusAnimIdx_Max		equ 0x4
 
 ;==============================================================
 
