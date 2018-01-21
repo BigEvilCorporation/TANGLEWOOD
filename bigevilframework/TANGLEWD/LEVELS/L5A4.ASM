@@ -52,7 +52,7 @@ l5a4_BygoneAct4:
 	
 l5a4_DefaultPalettes:
 
-	dc.l palette_L4					; World (using L4 tileset)
+	dc.l palette_L4_night			; World (using L4 tileset)
 	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
@@ -96,10 +96,10 @@ l5a4_Init:
 	jsr    VDP_LoadBlockMapPlaneB
 
 	; Set TOD palettes (using L4 tileset)
-	move.l  #palette_L4, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	move.l  #palette_L4, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
-	move.l  #palette_L4, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
-	move.l  #palette_L4, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+	move.l  #palette_l4_day, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l4_night, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	; Set TOD
 	move.b  #TimeOfDay_Dusk, TimeOfDay
@@ -175,7 +175,7 @@ l5a4_Trigger_Storm:
 	jsr    SND_StopTrack
 
 	; Restore TOD palette
-	lea    palette_L4, a0
+	lea    palette_L4_night, a0
 	lea    CurrentPalettes+(size_palette_b*PaletteId_World0), a1
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0

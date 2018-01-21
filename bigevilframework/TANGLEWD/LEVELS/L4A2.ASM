@@ -48,7 +48,7 @@ l4a2_TetheredAct2:
 	
 l4a2_DefaultPalettes:
 
-	dc.l palette_l4					; World
+	dc.l palette_l4_day				; World
 	dc.l palette_djubb				; Monsters
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
@@ -78,10 +78,10 @@ l4a2_Init:
 	move.b  #TimeOfDay_Day, TimeOfDay
 
 	; Set TOD palettes
-	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
-	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
-	move.l  #palette_l4, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+	move.l  #palette_l4_day, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l4_night, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	;==============================================================
 

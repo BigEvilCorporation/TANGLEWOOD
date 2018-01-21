@@ -48,7 +48,7 @@ l8a4_TurntailAct4:
 	
 l8a4_DefaultPalettes:
 
-	dc.l palette_L4					; World (using L4 tileset)
+	dc.l palette_L4_night			; World (using L4 tileset)
 	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_White				; Player (white ability)
@@ -80,10 +80,10 @@ l8a4_Init:
 	jsr    VDP_LoadBlockMapPlaneB
 
 	; Set TOD palettes (using L4 tileset)
-	move.l  #palette_L4,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
-	;move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+	move.l  #palette_l4_day, TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l4_night, TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l4_dusk, TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay

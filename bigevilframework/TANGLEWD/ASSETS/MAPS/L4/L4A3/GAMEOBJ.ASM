@@ -115,17 +115,19 @@ L4A3_Nest_54_name	dc.b "L4A3_Nest_54",0
 
 L4A3_Flue_count equ 0x0
 
-L4A3_TriggerBox_count equ 0x4
+L4A3_TriggerBox_count equ 0x5
 L4A3_TriggerBorgus_idx	equ 0x0
 L4A3_TriggerCargoLift_idx	equ 0x1
 L4A3_TriggerLoadLift_idx	equ 0x2
 L4A3_TriggerLevelEnd_idx	equ 0x3
+L4A3_Trigger_TOD_Night_idx	equ 0x4
 
 	IFND FINAL
 L4A3_TriggerBorgus_name	dc.b "L4A3_TriggerBorgus",0
 L4A3_TriggerCargoLift_name	dc.b "L4A3_TriggerCargoLift",0
 L4A3_TriggerLoadLift_name	dc.b "L4A3_TriggerLoadLift",0
 L4A3_TriggerLevelEnd_name	dc.b "L4A3_TriggerLevelEnd",0
+L4A3_Trigger_TOD_Night_name	dc.b "L4A3_Trigger_TOD_Night",0
 	even
 	ENDIF
 
@@ -629,6 +631,23 @@ L4A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L4A3_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x01f00000, Entity_WorldPosX(a0)
+	move.l #0x01680000, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L4A3_Trigger_TOD_Night_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
