@@ -124,6 +124,9 @@ Credits_Enter:
 	move.w #tiles_l1_size_t, d0
 	jsr    LevelLoadCompressedTileset
 
+	; Clear FG map
+	jsr    VDP_ClearMapPlaneA
+
 	; Load BG map
 	lea    map_blocks_l1, a0
 	lea    map_blockmap_credits, a1

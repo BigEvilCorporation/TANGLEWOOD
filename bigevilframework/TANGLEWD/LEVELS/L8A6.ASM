@@ -64,9 +64,10 @@ l8a6_DemonAttackSpeed			equ 0x0020
 ; ************************************
 	rsset LevelData_Struct_Size
 l8a6Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
+l8a6Data_CutsceneEnding				rs.b Cutscene_Struct_Size
 ;---------------------------------
 	RS_ALIGN
-l8a6Data_Struct_Size     		rs.b 0
+l8a6Data_Struct_Size     			rs.b 0
 	
 l8a6_Init:
 	
@@ -100,6 +101,13 @@ l8a6_Init:
 	lea    LevelData_l8a6, a2
 	lea    l8a6Data_CutsceneDemonStealFuzzl(a2), a0
 	move.l #l8a6_CutsceneDemonStealFuzzl, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
+	PUSHM  a0-a1
+	lea    LevelData_l8a6, a2
+	lea    l8a6Data_CutsceneEnding(a2), a0
+	move.l #l8a6_CutsceneEnding, a1
 	jsr    CutsceneInit
 	POPM   a0-a1
 	
@@ -149,12 +157,25 @@ l8a6_Serialise:
 
 l8a6_End:
 	rts
-	
-l8a6_Trigger_End:
 
-	; Begin end of level gamestate
-	lea    GameStateEndLevel, a0
+l8a6_EndGame:
+
+	; End of game, roll credits
+	lea    GameStateCredits, a0
 	jsr    GameStateEnter
+
+	rts
+	
+l8a6_Trigger_EndCutscene:
+
+	PUSHL  a0
+
+	; Start cutscene
+	lea    LevelData_l8a6, a2
+	lea    l8a6Data_CutsceneEnding(a2), a0
+	jsr    CutscenePlay
+
+	POPL   a0
 	
 	rts
 
@@ -264,6 +285,66 @@ l8a6_CutsceneDemonStealFuzzl:
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
+
+	rts
+
+l8a6_CutsceneEnding:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Disable colour ability
+	CUTSCENE_OBJECT_SET_PARAM_W Player1,#Player_ColourChangeTimer,#0x1
+
+	; Run to mushroom
+	CUTSCENE_GET_ENTITY BouncePlant,l8a6_MushroomEnd,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+
+	; Cancel X movement
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0010
+
+	; Short jump onto mushroom
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterStartJump
+	CUTSCENE_DELAY #0x0004
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelJump
+
+	; Wait until on floor
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR Player1
+
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Sleep
+	CUTSCENE_OBJECT_ROUTINE Player1,#PlayerBeginSleep
+
+	; Play ending music
+	CUTSCENE_PLAY_TRACK #track_bgm_lvloutro
+
+	; Wait
+	CUTSCENE_DELAY #0x0400
+
+	; Fade down
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+
+	; Wait for fade
+	CUTSCENE_PALETTE_FADE_WAIT
+
+	; Wait
+	CUTSCENE_DELAY #0x0040
+
+	; End game
+	CUTSCENE_ROUTINE l8a6_EndGame,#0x0,#0x0,#0x0
 
 	rts
 

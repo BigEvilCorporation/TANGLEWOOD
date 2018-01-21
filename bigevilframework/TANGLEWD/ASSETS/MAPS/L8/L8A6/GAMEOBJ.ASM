@@ -25,11 +25,11 @@ L8A6_Nymn_count equ 0x0
 
 L8A6_BouncePlant_count equ 0x2
 L8A6_BouncePlant_2_idx	equ 0x0
-L8A6_BouncePlant_7_idx	equ 0x1
+L8A6_MushroomEnd_idx	equ 0x1
 
 	IFND FINAL
 L8A6_BouncePlant_2_name	dc.b "L8A6_BouncePlant_2",0
-L8A6_BouncePlant_7_name	dc.b "L8A6_BouncePlant_7",0
+L8A6_MushroomEnd_name	dc.b "L8A6_MushroomEnd",0
 	even
 	ENDIF
 
@@ -231,11 +231,11 @@ L8A6_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x01f00000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosX(a0)
 	move.l #0x02180000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L8A6_BouncePlant_7_name, a3
+	lea L8A6_MushroomEnd_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -376,10 +376,11 @@ L8A6_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x01a80000, Entity_WorldPosX(a0)
-	move.l #0x01100000, Entity_WorldPosY(a0)
-	move.l #l8a6_Trigger_End, TriggerBox_Routine(a0)
+	move.l #0x03e00000, Entity_WorldPosX(a0)
+	move.l #0x01b00000, Entity_WorldPosY(a0)
+	move.l #l8a6_Trigger_EndCutscene, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A6_TriggerEnding_name, a3

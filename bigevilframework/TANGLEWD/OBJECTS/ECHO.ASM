@@ -335,6 +335,12 @@ EchoInit:
 	; Colour switch
 	ANIM_LOAD_DEFAULT Echo,colourswitch,colourswitch,Player_Animations,PlayerAnimIdx_Switch,0,1,0
 
+	; Sleep
+	ANIM_LOAD_DEFAULT Echo,sleep,sleep,Player_Animations,PlayerAnimIdx_Sleep,1,1,0
+	
+	; Lay down
+	ANIM_LOAD_DEFAULT Echo,laydown,laydown,Player_Animations,PlayerAnimIdx_LieDown,0,1,0
+
 	; Howl
 	ANIM_LOAD_DEFAULT Echo,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0
 
