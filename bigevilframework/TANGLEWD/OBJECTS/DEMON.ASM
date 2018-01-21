@@ -398,13 +398,13 @@ DemonReceiveDamage:
 	tst.b  d0
 	bne    @Pain
 
+	; Kkill through character interface
+	move.b #0xFF, d0
+	jsr    CharacterDealDamage
+
 	; If dying for real
 	tst.b  Demon_CanDie(a0)
 	beq    @Disappear
-
-	; Actually dead dead, kill through character interface
-	move.b #0xFF, d0
-	jsr    CharacterDealDamage
 
 	; Enter death state
 	jsr    DemonAIStart_Dead
