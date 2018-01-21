@@ -79,11 +79,13 @@ L7A2_Flue2_name	dc.b "L7A2_Flue2",0
 	even
 	ENDIF
 
-L7A2_TriggerBox_count equ 0x1
+L7A2_TriggerBox_count equ 0x2
 L7A2_TriggerLevelEnd_idx	equ 0x0
+L7A2_Trigger_TOD_Night_idx	equ 0x1
 
 	IFND FINAL
 L7A2_TriggerLevelEnd_name	dc.b "L7A2_TriggerLevelEnd",0
+L7A2_Trigger_TOD_Night_name	dc.b "L7A2_Trigger_TOD_Night",0
 	even
 	ENDIF
 
@@ -346,6 +348,23 @@ L7A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L7A2_TriggerLevelEnd_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x02880000, Entity_WorldPosX(a0)
+	move.l #0x01980000, Entity_WorldPosY(a0)
+	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
+	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L7A2_Trigger_TOD_Night_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

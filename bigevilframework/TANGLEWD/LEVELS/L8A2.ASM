@@ -48,7 +48,7 @@ l8a2_TurntailAct2:
 	
 l8a2_DefaultPalettes:
 
-	dc.l palette_l7					; World (using L7 tileset)
+	dc.l palette_l7_night			; World (using L7 tileset)
 	dc.l palette_djakk				; Djakk
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_White				; Player (white ability)
@@ -75,10 +75,10 @@ l8a2_Init:
 	;jsr    VDP_LoadBlockMapPlaneB
 
 	; Set TOD palettes (using L7 tileset)
-	move.l  #palette_l7,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
-	;move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+	move.l  #palette_l7_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l7_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l7_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l7_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay

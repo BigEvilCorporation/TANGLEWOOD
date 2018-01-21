@@ -52,7 +52,7 @@ l7a3_OasisAct3:
 	
 l7a3_DefaultPalettes:
 
-	dc.l palette_l7					; World
+	dc.l palette_l7_day				; World
 	dc.l palette_wyrm				; Wyrm
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
@@ -79,10 +79,10 @@ l7a3_Init:
 	;jsr    VDP_LoadBlockMapPlaneB
 
 	; Set TOD palettes
-	move.l  #palette_l7,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
-	;move.l  #palette_l1_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
-	;move.l  #palette_l1_dawn,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
+	move.l  #palette_l7_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)
+	move.l  #palette_l7_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dusk)
+	move.l  #palette_l7_night,	TimeOfDayPalettes+(size_long*TimeOfDay_Night)
+	move.l  #palette_l7_dusk,	TimeOfDayPalettes+(size_long*TimeOfDay_Dawn)
 
 	; Set TOD
 	move.b  #TimeOfDay_Day, TimeOfDay
