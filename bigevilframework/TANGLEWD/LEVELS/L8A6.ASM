@@ -117,6 +117,9 @@ l8a6_Init:
 	move.w #l8a6_DemonAttackSpeed, d0
 	jsr    DemonSetAttackSpeed
 
+	; Last boss stage, can die
+	move.b #0x1, Demon_CanDie(a0)
+
 	; Set Demon Swarm obj
 	ENTITY_GETBYNAME Swarm, l8a6_Swarm, a2
 	jsr    DemonSetSwarmObj
@@ -232,10 +235,32 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
 	CUTSCENE_CHARACTER_WAIT_DEATH a2
 
-	; TODO: Trigger final death
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Lerp to Demon
+	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Wait for death anim to finish
+	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_CHARACTER_ANIM_WAIT a2
 
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a6_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Restore player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END

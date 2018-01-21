@@ -32,6 +32,41 @@ actor_demon_sheet_bite_anim_bite_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
 
+actor_demon_sheet_death_anim_death:
+actor_demon_sheet_death_anim_death_numframes: equ 0x13
+actor_demon_sheet_death_anim_death_speed: equ 0x19
+actor_demon_sheet_death_anim_death_track_frames:
+	dc.l actor_demon_sheet_death_frame_0_header
+	dc.l actor_demon_sheet_death_frame_1_header
+	dc.l actor_demon_sheet_death_frame_2_header
+	dc.l actor_demon_sheet_death_frame_3_header
+	dc.l actor_demon_sheet_death_frame_4_header
+	dc.l actor_demon_sheet_death_frame_5_header
+	dc.l actor_demon_sheet_death_frame_6_header
+	dc.l actor_demon_sheet_death_frame_7_header
+	dc.l actor_demon_sheet_death_frame_8_header
+	dc.l actor_demon_sheet_death_frame_9_header
+	dc.l actor_demon_sheet_death_frame_10_header
+	dc.l actor_demon_sheet_death_frame_11_header
+	dc.l actor_demon_sheet_death_frame_12_header
+	dc.l actor_demon_sheet_death_frame_13_header
+	dc.l actor_demon_sheet_death_frame_14_header
+	dc.l actor_demon_sheet_death_frame_15_header
+	dc.l actor_demon_sheet_death_frame_16_header
+	dc.l actor_demon_sheet_death_frame_17_header
+	dc.l actor_demon_sheet_death_frame_18_header
+
+	Even
+actor_demon_sheet_death_anim_death_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_death_anim_death_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_death_anim_death_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
+
 actor_demon_sheet_wisp_anim_idle:
 actor_demon_sheet_wisp_anim_idle_numframes: equ 0x6
 actor_demon_sheet_wisp_anim_idle_speed: equ 0x28

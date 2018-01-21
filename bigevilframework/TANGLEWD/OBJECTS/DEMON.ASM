@@ -41,6 +41,7 @@ DemonState_Wisp			equ 0x0
 DemonState_Physical		equ 0x1
 DemonState_Boss			equ 0x2
 DemonState_Attacking	equ 0x3
+DemonState_Dead			equ 0x4
 
 ; Animations
 DemonAnimIdx_Wisp			equ 0x0
@@ -69,6 +70,7 @@ Demon_AtTarget			rs.b 1
 Demon_Vulnerable		rs.b 1	; Vulnerable to attacks
 Demon_NumLives			rs.b 1
 Demon_ManualGfxLoad		rs.b 1	; Don't load gfx
+Demon_CanDie			rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Demon_Struct_Size		rs.b 0
@@ -133,6 +135,7 @@ DemonInit:
 	move.b  #0x0, Demon_ManualGfxLoad(a0)
 	move.b  #0x0, Demon_Vulnerable(a0)
 	move.b  #Demon_MaxLives, Demon_NumLives(a0)
+	move.b  #0x0, Demon_CanDie(a0)
 
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -190,6 +193,7 @@ DemonLoadPhysicalGfx:
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT demon,death,death,Character_Animations,CharacterAnimIdx_Dead,0,0,0
 
 	rts
 
@@ -231,6 +235,8 @@ DemonUpdate:
 	beq    @Boss
 	cmp.b  #DemonState_Attacking, d0
 	beq    @Attacking
+	cmp.b  #DemonState_Dead, d0
+	beq    @Dead
 
 	@Wisp:
 	jsr    DemonAIUpdate_Wisp
@@ -246,6 +252,10 @@ DemonUpdate:
 
 	@Attacking:
 	jsr    DemonAIUpdate_Attack
+	bra    @End
+
+	@Dead:
+	jsr    DemonAIUpdate_Dead
 	bra    @End
 
 	@End:
@@ -388,11 +398,22 @@ DemonReceiveDamage:
 	tst.b  d0
 	bne    @Pain
 
-	; Dead, kill through character interface
+	; If dying for real
+	tst.b  Demon_CanDie(a0)
+	beq    @Disappear
+
+	; Actually dead dead, kill through character interface
 	move.b #0xFF, d0
 	jsr    CharacterDealDamage
 
-	; Disable and and invisible
+	; Enter death state
+	jsr    DemonAIStart_Dead
+
+	bra   @Dead
+
+	@Disappear:
+
+	; End of boss stage, disable and invisible
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 
@@ -618,6 +639,41 @@ DemonAIUpdate_Attack:
 	@PlayerDead:
 	
 	@StillBiting:
+
+	rts
+
+DemonAIStart_Dead:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Set state
+	move.b #DemonState_Dead, Demon_State(a0)
+
+	; Set anim
+	PUSHL   a1
+	lea     Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Dead)(a0), a1
+	move.b  #0x0, d0
+	move.l  #DemonDeathAnimFinished, a2
+	move.l  a0, a3
+	jsr     AnimObjSetAnimation
+	POPL    a1
+
+	; No more character anim updates
+	move.b  #0x0, Character_UpdateAnim(a0)
+
+	rts
+
+DemonAIUpdate_Dead:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	rts
+
+DemonDeathAnimFinished:
+
+	; Disabled and invisible
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
 
 	rts
 
