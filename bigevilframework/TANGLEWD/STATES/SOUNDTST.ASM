@@ -403,6 +403,9 @@ LINECOUNT = LINECOUNT+1
 	POPW   d0
 	dbra   d0, @TrackListLp
 
+	; Align memory
+	RAMPOOL_ALIGN Pool_Entities
+
 LINECOUNT = LINECOUNT+2
 
 	; Create SFX title
@@ -426,6 +429,9 @@ LINECOUNT = LINECOUNT+1
 	POPW   d1
 	POPW   d0
 	dbra   d0, @SFXListLp
+
+	; Align memory
+	RAMPOOL_ALIGN Pool_Entities
 
 LINECOUNT = LINECOUNT+2
 

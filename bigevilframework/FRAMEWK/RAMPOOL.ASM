@@ -30,11 +30,33 @@ RAMPOOL_ALLOC: macro name,size
 	POPL   a0
 	endm
 
+
+; Align to next word
+RAMPOOL_ALIGN: macro name
+	PUSHL  a0
+	lea    RAMPool_\name, a0
+	jsr    RAM_PoolGetFree
+	btst   #0x0, d0
+	beq    @Aligned\@
+	move.l #0x1, d0
+	jsr    RAM_PoolAlloc
+	@Aligned\@:
+	POPL   a0
+	endm
+
 ; Clear pool
 RAMPOOL_CLEAR: macro name
 	PUSHL  a0
 	lea    RAMPool_\name, a0
 	jsr    RAM_PoolClear
+	POPL   a0
+	endm
+
+; Get free bytes
+RAMPOOL_GETFREE: macro name
+	PUSHL  a0
+	lea    RAMPool_\name, a0
+	jsr    RAM_PoolGetFree
 	POPL   a0
 	endm
 
