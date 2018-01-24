@@ -57,6 +57,26 @@ VFX_Update:
 
 	@Flashing:
 
+	; Convert underwater palettes if dirty
+	move.l #0x0, d0
+	lea    CurrentPalettes, a0
+	lea    UnderwaterPalettes, a1
+	@WaterPaletteLp:
+	btst.b d0, UnderwaterDirtyPalettesMask
+	beq    @WaterNotDirty
+	PUSHM  d0/a0-a1
+	jsr    VFX_CreateUnderwaterPalette
+	POPM   d0/a0-a1
+	@WaterNotDirty:
+	lea    size_palette_b(a0), a0
+	lea    size_palette_b(a1), a1
+	addq.b #0x1, d0
+	cmp.b  #num_palettes, d0
+	bne    @WaterPaletteLp
+
+	; Reset dirty palette mask
+	move.b #0x0, UnderwaterDirtyPalettesMask
+
 	rts
 
 VFX_RevertToScenePalettes:

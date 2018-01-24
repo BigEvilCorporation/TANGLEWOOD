@@ -106,8 +106,7 @@ GameStateReset:
 	jsr    CAM_Init
 	
 	; Reset streaming
-	move.w #0x0, MapStreamLoadedCol
-	move.w #0x0, MapStreamLoadedRow
+	jsr    MAP_StreamInit
 	
 	; Clear local sprite table
 	move.w #0x0, next_sprite_index

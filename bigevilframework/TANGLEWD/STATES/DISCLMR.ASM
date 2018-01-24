@@ -21,9 +21,6 @@ GameStateDemoDisclaimerScreen:
 	
 DemoDisclaimerScreen_Enter:
 
-	; Disable vint during state change
-	move.b #0x0, vint_enabled
-
 	; Reset
 	PUSHL  a0
 	move.b #GamestateReset_ResetAudio, d0

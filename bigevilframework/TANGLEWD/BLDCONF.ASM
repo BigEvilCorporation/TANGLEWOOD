@@ -13,6 +13,10 @@ INCLUDE_AUDIO			equ 1
 FORCE_PAL_MODE			equ 0
 FORCE_NTSC_MODE			equ 0
 
+; Timing testing
+FRAME_TIMING_DEBUG		equ 0
+VBLANK_TIMING_DEBUG		equ 1
+
 ; Profiler
 	IFD DEBUG
 INCLUDE_PROFILER		equ 1
@@ -55,7 +59,7 @@ DEMO_SHOW_LEVEL_SELECT	equ 1
 DEMO_SHOW_DISCLAIMER	equ 0
 
 ; Autotest
-AUTOTEST_ENABLED		equ 1
+AUTOTEST_ENABLED		equ 0
 
 	IFND FINAL
 AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
@@ -65,8 +69,8 @@ AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
 	IFD FINAL
 InitialLevel			equ l1a0_HarlequinForestIntro
 	ELSE
-InitialLevel			equ l1a0_HarlequinForestIntro
-;InitialLevel			equ l1a1_HarlequinForestAct1
+;InitialLevel			equ l1a0_HarlequinForestIntro
+InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
 ;InitialLevel			equ l1a4_HarlequinForestAct4
@@ -100,11 +104,11 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 	IFD FINAL
 InitialState			equ  GameStateLogos
 	ELSE
-InitialState			equ  GameStateLogos
+;InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-;InitialState			equ  GameStateGameplay
+InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF

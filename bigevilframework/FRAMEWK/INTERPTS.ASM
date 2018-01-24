@@ -27,16 +27,6 @@ INT_VBlank:
    TRAP #0 ; Sync with debugger - NOT FOR RELEASE
    ENDIF
 
-   tst.b vint_enabled
-   beq   @VINTDisabled
-   
-   ; Jump to game rendering subroutine
-   PUSHALL
-   jsr __vinterrupt
-   POPALL
-   
-   @VINTDisabled:
-
    rte
 
 INT_HBlank:

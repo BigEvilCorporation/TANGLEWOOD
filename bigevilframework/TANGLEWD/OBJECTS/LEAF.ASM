@@ -193,7 +193,7 @@ LeafUpdate:
 	beq    @NoMoveX
 	
 	; Calc random X starting position
-	move.l (frame_counter_render), d0
+	move.l (vblank_counter), d0
 	eor.l  d0, rand_seed
 	jsr    RND_GenerateLong
 	and.l  #0x0000FFFF, d0

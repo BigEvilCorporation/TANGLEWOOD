@@ -20,9 +20,6 @@ GameStateMegafounderScreen:
 	
 MegafounderScreen_Enter:
 
-	; Disable vint during state change
-	move.b #0x0, vint_enabled
-
 	; Clear all palettes
 	jsr    PAL_ClearAll
 

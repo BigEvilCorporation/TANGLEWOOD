@@ -25,7 +25,6 @@ vdp_regs			  rs.b vdp_num_registers
 ; Framework stuff
 ; ************************************
 rand_seed				rs.l 1
-vint_enabled			rs.b 1
 
 	RS_ALIGN
 
@@ -85,8 +84,6 @@ profile_blockstackptr rs.l 1
 hblank_counter        rs.l 1
 hline_counter		  rs.l 1
 vblank_counter        rs.l 1
-frame_counter_update  rs.l 1
-frame_counter_render  rs.l 1
 
 ; ************************************
 ; VDP job queue
@@ -185,11 +182,11 @@ CameraShakeOffsetX	    rs.l 1
 CameraShakeOffsetY	    rs.l 1
 CameraPeekOffsetY       rs.l 1
 CameraTargetGameObj     rs.l 1
-CameraLerpFromObj  rs.l 1
-CameraLerpFromX  rs.l 1
-CameraLerpFromY  rs.l 1
-CameraLerpTime    rs.w 1
-CameraLerpSpeed   rs.w 1
+CameraLerpFromObj	    rs.l 1
+CameraLerpFromX		    rs.l 1
+CameraLerpFromY		    rs.l 1
+CameraLerpTime		    rs.w 1
+CameraLerpSpeed		    rs.w 1
 CameraShakeSinX	   	    rs.w 1
 CameraShakeSinY	        rs.w 1
 CameraShakeSpeedX	    rs.w 1
@@ -206,6 +203,14 @@ MapStreamDestTop	    rs.w 1
 MapStreamNumCols	    rs.w 1
 MapStreamNumRows	    rs.w 1
 CameraWorldGridIndexTL  rs.w 1	; Current camera world grid index (top left)
+
+	RS_ALIGN
+
+; ************************************
+; Blockmap column decompression cache
+; ************************************
+BlockMapColumnIndexCache	rs.w BlockMapColumnCacheWidth
+BlockMapColumnCache			rs.b BlockMapColumnCacheSize
 
 	RS_ALIGN
 
@@ -330,9 +335,6 @@ SoundTestHistory		 rs.l 1
 AmbientSFX				 rs.l 6 ; AmbientSFXCount
 AmbientSFXTimer			 rs.w 1
 BGMOffTimer				 rs.w 1
-
-BlockMapBufferSize	equ 1024*3
-BlockMapDecompressionBuffer	rs.b BlockMapBufferSize
 
 ; ************************************
 ; Cutscenes

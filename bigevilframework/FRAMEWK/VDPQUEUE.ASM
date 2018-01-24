@@ -30,6 +30,8 @@ VDP_JobQueue_Init:
 VDP_JobQueue_PushJob:
 	; (d0-d6/a0-a4) - Job regs
 	; a5 --- Job subroutine address
+
+	; Breaks: d0,d7,a5,a6
 	
 	; Get producer index
 	moveq  #0x0, d7

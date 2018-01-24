@@ -98,9 +98,6 @@ EndLevelScore_Struct_Size		rs.b 0
 	
 EndLevelScoreScreen_Enter:
 
-	; Disable vint during state change
-	move.b #0x0, vint_enabled
-
 	; Reset state (but leave audio playing)
 	move.b #GamestateReset_LeaveAudio, d0
 	jsr    GameStateReset

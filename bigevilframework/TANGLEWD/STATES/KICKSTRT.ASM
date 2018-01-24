@@ -20,9 +20,6 @@ GameStateKickstarterScreen:
 	
 KickstarterScreen_Enter:
 
-	; Disable vint during state change
-	move.b #0x0, vint_enabled
-
 	; Set BG colour
 	move.w #(PaletteId_KSLogo<<4), d0
 	VDPSETREG 7, d0

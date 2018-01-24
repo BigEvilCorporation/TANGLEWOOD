@@ -6,6 +6,18 @@
 ;   stream.asm - Map streaming logic
 ;==============================================================
 
+MAP_StreamInit:
+	move.w #0x0, MapStreamLoadedCol
+	move.w #0x0, MapStreamLoadedRow
+
+	lea    BlockMapColumnIndexCache, a5
+	move.w #BlockMapColumnCacheWidth-1, d0
+	@IdxLp:
+	move.w #0xFFFF, (a5)+
+	dbra   d0, @IdxLp
+
+	rts
+
 MAP_UpdateStreaming:
 	; a1 --- Level addr
 	; d0 (b) Process VDP queue immediately (for initial loading)
@@ -177,8 +189,9 @@ MAP_StreamNextRow:
 	move.w  (vram_addr_leveltiles), d4			; d4 (w)  Art tile ID
 	BYTES2TILES d4
 	move.b  #PaletteId_World0, d5				; d5 (b)  Palette ID
-	lea     VDP_LoadMapBlockSegmentPlaneA, a5
-	jsr     VDP_JobQueue_PushJob
+	jsr     VDP_LoadMapBlockSegmentPlaneA
+	;lea     VDP_LoadMapBlockSegmentPlaneA, a5
+	;jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	POPM    a0-a1/d0-d5
@@ -270,8 +283,9 @@ MAP_StreamNextColumn:
 	move.w  (vram_addr_leveltiles), d4		; d4 (w)  Art tile ID
 	BYTES2TILES d4
 	move.b  #PaletteId_World0, d5			; d5 (b)  Palette ID
-	lea     VDP_LoadMapBlockSegmentPlaneA, a5
-	jsr     VDP_JobQueue_PushJob
+	jsr     VDP_LoadMapBlockSegmentPlaneA
+	;lea     VDP_LoadMapBlockSegmentPlaneA, a5
+	;jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	POPM    a0-a1/d0-d5

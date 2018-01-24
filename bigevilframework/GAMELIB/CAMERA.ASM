@@ -300,9 +300,15 @@ CAM_Update:
 	@ShakeX:
 	
 	;==============================================================
+	
+	move.w  WorldScrollX, d5
 
 	; Camera X to scroll space
 	jsr     CAM_CalcScrollPosX
+	
+	; If changed
+	tst.b   d1
+	beq     @NoChangeX
 	
 	; Scroll X - plane A
 	lea     VDP_SetHScrollPlaneA, a5
@@ -312,6 +318,8 @@ CAM_Update:
 	lsr.w   #0x1, d0
 	lea     VDP_SetHScrollPlaneB, a5
 	jsr 	VDP_JobQueue_PushJob
+	
+	@NoChangeX:
 	
 	;==============================================================
 	
@@ -356,6 +364,10 @@ CAM_Update:
 
 	; Y to world scroll
 	jsr     CAM_CalcScrollPosY
+	
+	; If changed
+	tst.b   d1
+	beq     @NoChangeY
 
 	lea     VDP_SetVScrollPlaneA, a5
 	jsr 	VDP_JobQueue_PushJob
@@ -373,6 +385,8 @@ CAM_Update:
 	
 	lea     VDP_SetVScrollPlaneB, a5
 	jsr 	VDP_JobQueue_PushJob
+	
+	@NoChangeY:
 	
 	;==============================================================
 	
@@ -398,6 +412,7 @@ CAM_Update:
 CAM_CalcScrollPosX:
 	; a1 --- Level address
 	; d0 (w) OUT: Scroll pos X
+	; d1 (b) OUT: Scroll X changed
 
 	; Perform calc on words so precision matches sprites
 	move.w  (CameraWorldPosX), d0		; Top word = integer part
@@ -421,10 +436,16 @@ CAM_CalcScrollPosX:
 	@EndClampX:
 
 	subi.w   #(screen_width/2), d0		; Centred
+	
+	move.b   #0x0, d1
+	cmp.w    WorldScrollX, d0
+	beq      @NoChange
+	move.b   #0x1, d1
+	@NoChange:
 
-	move.w  d0, d1
-	TOSUBPIXELS d1
-	move.l  d1, WorldScrollX			; Keep world scroll X
+	move.w  d0, d2
+	TOSUBPIXELS d2
+	move.l  d2, WorldScrollX			; Keep world scroll X
 	
 	neg.w   d0							; To camera space
 
@@ -433,6 +454,7 @@ CAM_CalcScrollPosX:
 CAM_CalcScrollPosY:
 	; a1 --- Level address
 	; d0 (l) Camera world pos Y
+	; d1 (b) OUT: Scroll X changed
 
 	; Perform calc on words so precision matches sprites
 	move.w  (CameraWorldPosY), d0		; Top word = integer part
@@ -457,9 +479,15 @@ CAM_CalcScrollPosY:
 	@EndClampY:
 
 	subi.w   #(screen_height/2), d0		; Centred
+	
+	move.b   #0x0, d1
+	cmp.w    WorldScrollY, d0
+	beq      @NoChange
+	move.b   #0x1, d1
+	@NoChange:
 
-	move.w  d0, d1
-	TOSUBPIXELS d1
-	move.l  d1, WorldScrollY			; Keep world scroll Y
+	move.w  d0, d2
+	TOSUBPIXELS d2
+	move.l  d2, WorldScrollY			; Keep world scroll Y
 
 	rts

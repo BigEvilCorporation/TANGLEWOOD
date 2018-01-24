@@ -90,27 +90,13 @@ DBG_DebugDraw:
 	jsr    TXT_DrawPlane
 	
 	move.l sp, a4
-	move.l (frame_counter_update), d0
+	move.l (vblank_counter), d0
 	; To string
 	move.l a4, a0
 	jsr    TXT_ItoA_Hex_l
 	move.w  #debugdraw_playerpos_text_x, d1
 	swap   d1
 	move.w  #debugdraw_playerpos_text_y+0x2, d1
-	move.l a4, a0					; String
-	move.w (vram_addr_systemfont), d0	; Font
-	move.b #0x0, d2					; Palette
-	move.b #0x0, d3					; Plane A
-	jsr    TXT_DrawPlane
-	
-	move.l sp, a4
-	move.l (frame_counter_render), d0
-	; To string
-	move.l a4, a0
-	jsr    TXT_ItoA_Hex_l
-	move.w  #debugdraw_playerpos_text_x, d1
-	swap   d1
-	move.w  #debugdraw_playerpos_text_y+0x3, d1
 	move.l a4, a0					; String
 	move.w (vram_addr_systemfont), d0	; Font
 	move.b #0x0, d2					; Palette

@@ -154,7 +154,7 @@ VDP_LoadBlockMapPlaneA:
 		PUSHM  d0-d5/a2
 
 		; Decompress col
-		lea    BlockMapDecompressionBuffer, a5
+		lea    BlockMapColumnCache, a5
 
 		; Loop until all block ids in col decompressed
 		addq.w #0x1, d4
@@ -190,7 +190,7 @@ VDP_LoadBlockMapPlaneA:
 		POPM   d0-d5/a2
 	
 		; Set decompressed row address
-		lea    BlockMapDecompressionBuffer, a3
+		lea    BlockMapColumnCache, a3
 
 		; Loop rows
 		move.w  d4, d5			; Reset Y counter
@@ -247,7 +247,7 @@ VDP_LoadBlockMapPlaneB:
 		PUSHM  d0-d5/a2
 
 		; Decompress col
-		lea    BlockMapDecompressionBuffer, a5
+		lea    BlockMapColumnCache, a5
 
 		; Loop until all block ids in col decompressed
 		addq.w #0x1, d4
@@ -283,7 +283,7 @@ VDP_LoadBlockMapPlaneB:
 		POPM   d0-d5/a2
 	
 		; Set decompressed row address
-		lea    BlockMapDecompressionBuffer, a3
+		lea    BlockMapColumnCache, a3
 
 		; Loop rows
 		move.w  d4, d5			; Reset Y counter
@@ -460,17 +460,38 @@ VDP_LoadMapBlockSegmentPlaneA:
 
 		PUSHALL
 
-		; Decompress col
+		; If column already in decompression cache
+		move.w #0x0, d0
 		swap   d0
-		andi.l #0xFFFF, d0		; Add X offset (words)
-		lsl.w  #0x1, d0			; To words
+		moveq  #0x0, d1
+		move.w d0, d1			; Get column index within cache
+		andi.w #0x0F, d1		; % 16
+		lsl.w  #0x1, d1			; To words
+		move.w d1, d2
+		lea    BlockMapColumnIndexCache, a5
+		add.l  d1, a5			; Offset into index cache
+		move.w (a5), d1			; Get cached index
+		cmp.w  d0, d1
+		beq    @InCache
+
+		; Cache miss, update cache index and decompress
+		move.w d0, (a5)
+
+		@Decompress:
+
+		; Decompress col
+		lsl.w  #0x1, d0			; X offset to words
 		add.l  d0, a2			; Offset into table
+
+		; Calc cache position
+		lea    BlockMapColumnCache, a5
+		mulu   #BlockMapColumnCacheLength, d2	; Cache index (words) to column offset
+		add.l  d2, a5
 		
 		moveq  #0x0, d0
 		move.w (a2), d0			; Read col data address offset
 		move.l a1, a6			; Get compressed blockmap data
 		add.l  d0, a6			; Offset to start of col
-		lea    BlockMapDecompressionBuffer, a5
 
 		; Loop until all block ids in col decompressed
 		@RLELoop:
@@ -502,10 +523,27 @@ VDP_LoadMapBlockSegmentPlaneA:
 		tst.w  d3
 		bne    @RLELoop
 
+		; Sanity check - check buffer overrun
+		IFND FINAL
+		cmp.l  #(BlockMapColumnCache+BlockMapColumnCacheSize), a5
+		blt    @Safe
+		RAISE_EXCEPTION *
+		@Safe:
+		ENDIF
+
+		@InCache:
+		
 		POPALL
 	
-		; Set decompressed col address
-		lea    BlockMapDecompressionBuffer, a4
+		; Set decompressed col cache address
+		PUSHL  d0
+		lea    BlockMapColumnCache, a4
+		move.w #0x0, d0
+		swap   d0
+		andi.w #0x0F, d0		; % 16
+		mulu   #BlockMapColumnCacheLength*size_word, d0	; Cache index words to column offset
+		add.l  d0, a4
+		POPL   d0
 
 		PUSHL  d0
 		
@@ -525,13 +563,15 @@ VDP_LoadMapBlockSegmentPlaneA:
 			add.l  d0, a0			; Add block offset
 
 			; Load block
-			PUSHALL
+			PUSHM d0-d7
 			; a0 (l)  - Block address (ROM)
 			; d1 (ww) - X/Y coord
 			move.l d4, d2	; d2 (w)  - First tile ID
 			move.b d5, d3	; d3 (b)  - Palette ID
-			jsr   VDP_LoadBlockPlaneA
-			POPALL
+			;jsr   VDP_LoadBlockPlaneA
+			lea     VDP_LoadBlockPlaneA, a5
+			jsr     VDP_JobQueue_PushJob
+			POPM  d0-d7
 
 			; Increment Y coord
 			addi.w #map_block_height, d1

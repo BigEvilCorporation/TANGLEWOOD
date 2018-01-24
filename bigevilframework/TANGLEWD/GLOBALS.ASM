@@ -63,6 +63,11 @@ MapStreamBorderY		 equ 0x1
 MapStreamWidth	 		 equ (screen_width/8/map_block_width)+(MapStreamBorderX)
 MapStreamHeight	 		 equ (screen_height/8/map_block_height)+(MapStreamBorderY)
 
+; Streaming blockmap decompression cache
+BlockMapColumnCacheLength	equ 0x0046 ; At least the tallest map column in game (in blocks)
+BlockMapColumnCacheWidth	equ 0x0010
+BlockMapColumnCacheSize	 	equ (BlockMapColumnCacheLength*BlockMapColumnCacheWidth*size_word)
+
 ; Peek down/up
 CameraPeekSpeed	         equ 0x02*subpixels_per_pixel
 CameraPeekMaxDist	     equ 0x30*subpixels_per_pixel

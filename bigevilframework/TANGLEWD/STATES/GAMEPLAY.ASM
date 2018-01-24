@@ -15,10 +15,6 @@ GameStateGameplay:
 	
 Gameplay_Enter:
 	
-	; Disable vint/hint during state change
-	move.b #0x0, vint_enabled
-	jsr    VDP_DisableHINT
-	
 	; Reset
 	PUSHL  a0
 	move.b #GamestateReset_LeaveAudio, d0
@@ -104,9 +100,6 @@ Gameplay_Enter:
 	; Start demo timer
 	MOVE_NTSC_L DemoTimeout, TimerDemoReset, d0
 	ENDIF
-
-	; Restore hint
-	jsr    VDP_EnableHINT
 	
 	rts
 	
@@ -235,10 +228,6 @@ Gameplay_Render:
 	
 	; Render all entities
 	jsr EntityRenderAll
-	
-	; Update map streaming (don't flush VDP queue)
-	move.b #0x0, d0
-	jsr MAP_UpdateStreaming
 	
 	rts
 	
