@@ -6,6 +6,8 @@
 ;   planes.asm - Plane A/B map loading and scrolling
 ;==============================================================
 
+UNROLL_BLOCK_LOOPS	equ 1
+
 VDP_SetCellPlaneA:
 	; d0 (w) - Tile ID
 	; d1 (ww)- XY coord (in tiles)
@@ -333,18 +335,16 @@ VDP_LoadBlockPlaneA:
 	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
 
 	; For each row in block
-	move.w  #map_block_height-1, d5
-	@RowLoop:
+	rept map_block_height
 
 		; Fetch address offset
 		move.l  d4, d1
 
 		; Set VDP dest address
 		VDP_SETADDRESS d1, #vram_addr_plane_a, #vdp_cmd_vram_write
-
+		
 		; For each col in block
-		move.w  #map_block_width-1, d0
-		@ColLoop:
+		rept map_block_width
 
 			; ABBC DEEE EEEE EEEE
 			; A = Prio
@@ -352,21 +352,20 @@ VDP_LoadBlockPlaneA:
 			; C = Flip X
 			; D = Flip Y
 			; E = Tile ID
-
-			moveq #0x0, d1
+			
 			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
-			and.l   #%1001111111111111, d1 ; Mask out original palette ID
-			or.l    d3, d1                 ; Replace with our own
+			and.w   #%1001111111111111, d1 ; Mask out original palette ID
+			or.w    d3, d1                 ; Replace with our own
 			add.w   d2, d1                 ; Add first tile offset to d1
 			move.w  d1, vdp_data           ; Move to VRAM
 			
-		dbra.w  d0, @ColLoop               ; Loop
+		endr								; Loop
 
 		; Offset to next row
-		addi.l  #vdp_plane_width*size_word, d4
+		addi.w  #vdp_plane_width*size_word, d4
 
 	; Loop to next row
-	dbra.w  d5, @RowLoop
+	endr
 
     rts
 
@@ -485,7 +484,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 
 		; Calc cache position
 		lea    BlockMapColumnCache, a5
-		mulu   #BlockMapColumnCacheLength, d2	; Cache index (words) to column offset
+		lsl.w  #0x7, d2 ;mulu   #BlockMapColumnCacheLength, d2	; Cache index (words) to column offset
 		add.l  d2, a5
 		
 		moveq  #0x0, d0
@@ -541,7 +540,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 		move.w #0x0, d0
 		swap   d0
 		andi.w #0x0F, d0		; % 16
-		mulu   #BlockMapColumnCacheLength*size_word, d0	; Cache index words to column offset
+		lsl.w  #0x8, d0 ;mulu   #BlockMapColumnCacheLength*size_word, d0	; Cache index words to column offset
 		add.l  d0, a4
 		POPL   d0
 
@@ -558,7 +557,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 		
 			moveq #0x0, d0
 			move.w (a4)+, d0		; Fetch next block ID
-			mulu   #map_block_width*map_block_height*size_word, d0	; To block offset
+			lsl.l  #0x5, d0 ;mulu   #map_block_width*map_block_height*size_word, d0	; To block offset
 			move.l a3, a0			; Get first block address
 			add.l  d0, a0			; Add block offset
 

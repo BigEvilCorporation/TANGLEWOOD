@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPQueue_MaxSize    equ 0x100  ; Queue max elements (must be power-of-two)
+VDPQueue_MaxSize    equ 0x0020  ; Queue max elements (must be power-of-two)
 VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 
 ; Job struct
@@ -16,9 +16,16 @@ VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 VDPJob_Regs              rs.l VDPQueue_NumRegs ; Subroutine regs (d0-d6/a0-a4)
 VDPJob_SubroutineAddr    rs.l 1  			   ; Job subroutine address
 ;------------------------------
+VDPJob_Padding			 rs.l 3					; Pad up to 64 bytes
+;------------------------------
 	RS_ALIGN
 VDPJob_Struct_Size       rs.b 0
 ;------------------------------
+
+; Uses shifts, can't change size
+	IF !(VDPJob_Struct_Size=64)
+	inform 2,"VDPJob_Struct_Size is not 64 bytes"
+	ENDIF
 
 VDP_JobQueue_Init:
 
@@ -53,7 +60,7 @@ VDP_JobQueue_PushJob:
 	andi.w #VDPQueue_MaxSize-1, d7	; MOD to get producer position
 	
 	; Get address into array of job
-	mulu   #VDPJob_Struct_Size, d7	; Index to element offset
+	lsl.w  #0x6, d7; mulu   #VDPJob_Struct_Size, d7	; Index to element offset
 	lea    vdp_queue_jobarray, a6	; Get VDP job array
 	add.l  d7, a6					; Add offset
 	
@@ -76,7 +83,7 @@ VDP_JobQueue_ExecuteJob:
 	andi.w #VDPQueue_MaxSize-1, d7	; MOD to get consumer position
 	
 	; Get address into array of job
-	mulu   #VDPJob_Struct_Size, d7	; Index to element offset
+	lsl.w  #0x6, d7 ;mulu   #VDPJob_Struct_Size, d7	; Index to element offset
 	lea    vdp_queue_jobarray, a6	; Get VDP job array
 	add.l  d7, a6					; Add offset
 	
@@ -99,20 +106,52 @@ VDP_JobQueue_ExecuteAll:
 	; Get queue size
 	move.w (vdp_queue_produceridx), d0
 	move.w (vdp_queue_consumeridx), d1
+	move.w d1, d7
 	sub.w  d1, d0
 	tst.w  d0
 	beq    @QueueEmpty
 	
+	; Clear queue
+	add.w  d0, (vdp_queue_consumeridx)	; Increment (and wrap) consumer index
+	
+	; Get consumer index
+	andi.w #VDPQueue_MaxSize-1, d7		; MOD to get consumer position
+	
+	; Get address into array of job
+	lsl.w  #0x6, d7 ;mulu   #VDPJob_Struct_Size, d7	; Index to element offset
+	lea    vdp_queue_jobarray, a6		; Get VDP job array
+	add.l  d7, a6						; Add offset
+	
 	; Run all
 	subq.w #0x1, d0
 	@QueueLp:
+	PUSHM  d0/a6
 	
 	; Pop and run job
-	PUSHW  d0
-	jsr    VDP_JobQueue_ExecuteJob
-	POPW   d0
+	;PUSHW  d0
+	;jsr    VDP_JobQueue_ExecuteJob
+	;POPW   d0
+	
+	; Get job subroutine address
+	move.l VDPJob_SubroutineAddr(a6), a5
+	
+	; Copy job regs
+	movem.l VDPJob_Regs(a6), d0-d6/a0-a4
+	
+	; Run job
+	
+	jsr    (a5)
 
 	; Next job
+	POPM   d0/a6
+	addi.l #VDPJob_Struct_Size, a6
+	
+	; Wrap queue
+	cmp.l  #vdp_queue_jobarray+(VDPJob_Struct_Size*VDPQueue_MaxSize), a6
+	bne    @WithinBounds
+	lea    vdp_queue_jobarray, a6
+	@WithinBounds:
+	
 	dbra   d0, @QueueLp
 	
 	@QueueEmpty:
