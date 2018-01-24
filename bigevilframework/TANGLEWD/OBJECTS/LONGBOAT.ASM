@@ -196,9 +196,9 @@ LongboatDraw:
 	addi.w #Longboat_FloatOffsetY, d1
 
 	; Draw segment
-	PUSHMW d0/d6/a2
+	PUSHM  d0/d6/a2
 	jsr    SpriteObjAllocSprite
-	POPMW  d0/d6/a2
+	POPM   d0/d6/a2
 
 	; Next X
 	addi.w #Longboat_SegmentWidth, d0
