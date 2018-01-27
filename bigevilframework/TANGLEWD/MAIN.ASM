@@ -132,9 +132,11 @@ RenderEndFrame:
 	jsr    DBG_Profile_PushScope
 	ENDIF
 
+	;==============================================================
 	; Execute VDP job queue
 	jsr    VDP_JobQueue_ExecuteAll
 
+	;==============================================================
 	; Update current raster effect
 	move.l raster_effect_update, a0
 	cmp.l  #0x0, a0
@@ -142,6 +144,7 @@ RenderEndFrame:
 	jsr    (a0)
 	@NoRasterEffect:
 
+	;==============================================================
 	; DMA the sprite table
 	move.w next_sprite_index, d1
 	bne    @SpritesValid
@@ -152,6 +155,7 @@ RenderEndFrame:
 	mulu.w #Sprite_Struct_Size/size_word, d1
 	jsr    VDP_DMACopyVRAM
 
+	;==============================================================
 	; DMA palettes if dirty
 	move.l #0x0, d0
 	lea    CurrentPalettes, a0
@@ -159,6 +163,23 @@ RenderEndFrame:
 	btst   d0, DirtyPalettesMask
 	beq    @NotDirty
 	PUSHM  d0/a0
+
+	; Colourblind testing
+	IF COLOURBLIND_TEST_RG
+	PUSHW  d0
+	lea    ColourblindScratchPalette, a1
+	jsr    VFX_CreateColourblindPalettePaletteRG
+	lea    ColourblindScratchPalette, a0
+	POPW   d0
+	ENDIF
+	IF COLOURBLIND_TEST_BG
+	PUSHW  d0
+	lea    ColourblindScratchPalette, a1
+	jsr    VFX_CreateColourblindPalettePaletteBG
+	lea    ColourblindScratchPalette, a0
+	POPW   d0
+	ENDIF
+
 	jsr    PAL_LoadDMA
 	POPM   d0/a0
 	@NotDirty:
@@ -170,6 +191,7 @@ RenderEndFrame:
 	; Reset dirty palette mask
 	move.b #0x0, DirtyPalettesMask
 	
+	;==============================================================
 	; Execute DMA job queue
 	jsr    VDP_DMAQueue_ExecuteAll
 	

@@ -441,6 +441,10 @@ DebugMoveObjectMode      rs.b 1
 	RS_ALIGN
 	ENDIF
 
+	IF COLOURBLIND_TEST_RG|COLOURBLIND_TEST_BG
+ColourblindScratchPalette	rs.b size_palette_b
+	ENDIF
+
 ; ************************************
 ; Entity linked lists by function
 ; ************************************

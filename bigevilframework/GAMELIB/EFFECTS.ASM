@@ -246,6 +246,80 @@ VFX_CreateUnderwaterPalette:
 
 	rts
 
+VFX_CreateColourblindPalettePaletteRG:
+	; a0 --- Source palette addr
+	; a1 --- Dest palette addr
+
+	move.w #(size_palette_b/size_word)-1, d0
+	@Loop:
+
+	; Get colour
+	move.w (a0)+, d1
+
+	; Extract R/G/B components
+	move.w d1, d2
+	move.w d1, d3
+	andi.w #0x0F00, d1	; Blue
+	andi.w #0x000F, d2	; Red
+	andi.w #0x00F0, d3	; Green
+	lsr.w  #0x8, d1
+	lsr.w  #0x4, d3
+
+	; Average R and G
+	add.w  d2, d3
+	lsr.w  #0x1, d3
+	move.w d3, d2
+
+	; Back to colour
+	lsl.w  #0x8, d1
+	lsl.w  #0x4, d3
+	or.w   d2, d1
+	or.w   d3, d1
+
+	; Write
+	move.w d1, (a1)+
+
+	dbra   d0, @Loop
+
+	rts
+
+VFX_CreateColourblindPalettePaletteBG:
+	; a0 --- Source palette addr
+	; a1 --- Dest palette addr
+
+	move.w #(size_palette_b/size_word)-1, d0
+	@Loop:
+
+	; Get colour
+	move.w (a0)+, d1
+
+	; Extract R/G/B components
+	move.w d1, d2
+	move.w d1, d3
+	andi.w #0x0F00, d1	; Blue
+	andi.w #0x000F, d2	; Red
+	andi.w #0x00F0, d3	; Green
+	lsr.w  #0x8, d1
+	lsr.w  #0x4, d3
+
+	; Average B and G
+	add.w  d1, d3
+	lsr.w  #0x1, d3
+	move.w d3, d1
+
+	; Back to colour
+	lsl.w  #0x8, d1
+	lsl.w  #0x4, d3
+	or.w   d2, d1
+	or.w   d3, d1
+
+	; Write
+	move.w d1, (a1)+
+
+	dbra   d0, @Loop
+
+	rts
+
 VFX_BrightenPalette:
 	; a0 --- Source palette addr
 	; a1 --- Dest palette addr
