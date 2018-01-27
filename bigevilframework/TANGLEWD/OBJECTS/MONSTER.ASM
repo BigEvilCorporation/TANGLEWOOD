@@ -26,7 +26,7 @@ Monster_AccelWalk     equ 0x000200   ; Walking acceleration
 Monster_AccelRun      equ 0x001600   ; Running acceleration
 Monster_DecelIdle     equ 0x002000   ; Deceleration if left alone
 Monster_DecelForced   equ 0x004000   ; Deceleration if input opposite direction
-Monster_JumpScaleX    equ 0x00022000 ; Jump velocity scale X (scaled by current X vel)
+Monster_JumpScaleX    equ 0x00026000 ; Jump velocity scale X (scaled by current X vel)
 Monster_JumpVelY      equ 0x038000   ; Jump velocity impulse Y
 Monster_JumpCancelVelLo equ 0x010000   ; Velocity to cancel jump min
 Monster_JumpCancelVelHi equ Monster_MaxVelYUp   ; Velocity to cancel jump max
