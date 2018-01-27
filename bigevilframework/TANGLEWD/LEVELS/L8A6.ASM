@@ -20,6 +20,7 @@ l8a6_TurntailAct6:
 	dc.l collisiontiles_L1				; Collision tileset (using L1 tileset)
 	dc.l collisionmap_blocks_L1			; Collision blocks (using L1 tileset)
 	dc.l collisionmap_blockmap_l8a6		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l8a6	; Collision block map Y offsets table
 	dc.l terrainmap_l8a6_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l8a6_DefaultPalettes			; Palettes
 	dc.l l8a6_Init						; Init routine

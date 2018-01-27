@@ -20,6 +20,7 @@ l8a2_TurntailAct2:
 	dc.l collisiontiles_L7				; Collision tileset (using L7 tileset)
 	dc.l collisionmap_blocks_L7			; Collision blocks (using L7 tileset)
 	dc.l collisionmap_blockmap_l8a2		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l8a2	; Collision block map Y offsets table
 	dc.l terrainmap_l8a2_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l8a2_DefaultPalettes			; Palettes
 	dc.l l8a2_Init						; Init routine

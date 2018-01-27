@@ -17,6 +17,7 @@ Level_BlockColOffsetsAddr   rs.l 1
 Level_ColTilesAddr    		rs.l 1
 Level_ColMapBlocksAddr		rs.l 1
 Level_ColMapBlockMapAddr	rs.l 1
+Level_ColMapBlockYLookupAddr	rs.l 1
 Level_TerrainDescAddr		rs.l 1
 Level_PalettesAddr			rs.l 1
 Level_InitRoutine			rs.l 1

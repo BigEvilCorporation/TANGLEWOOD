@@ -20,6 +20,7 @@ l2a2_StormWarningAct2:
 	dc.l collisiontiles_l2				; Collision tileset
 	dc.l collisionmap_blocks_l2			; Collision blocks
 	dc.l collisionmap_blockmap_l2a2		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l2a2	; Collision block map Y offsets table
 	dc.l terrainmap_L2A2_special_terrain_descs ; 'Special' terrain descriptor table
 	dc.l l2a2_DefaultPalettes			; Palettes
 	dc.l l2a2_Init						; Init routine

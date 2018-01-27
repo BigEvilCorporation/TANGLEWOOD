@@ -57,7 +57,7 @@ map_blockmap_l7a2:
 map_blockmap_l7a3:
 	incbin 'assets\maps\l7\l7a3\blockmap.bin'
 map_blockmap_l7bg:
-	;incbin 'assets\maps\l7\l7bg\blockmap.bin'
+	incbin 'assets\maps\l7\l7bg\blockmap.bin'
 
 ;==============================================================
 ; Collision tileset

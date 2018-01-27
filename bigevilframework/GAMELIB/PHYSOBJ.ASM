@@ -1371,6 +1371,7 @@ PhysicsObjFindFloor:
 	move.w Level_ColMapHeightBlocks(a1), d2	; Collision map height (in blocks) to d2 lo
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColMapBlockYLookupAddr(a1), a5	; Collision block map Y offset lookup
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
 	POPM   d5-d6/a0-a1
@@ -1551,18 +1552,18 @@ PhysicsObjFindWall:
 	; Clear last hit barrier
 	move.l #0x0, PhysicsObj_LastBarrier(a0)
 	
+	; Get min barrier height
+	move.w PhysicsObj_MinWallHeight(a0), d4
+	
+	LIST_GET_SIZE Barriers,d0		; Get list size
 	LIST_GET_HEAD Barriers,a3		; Get list head
+	subq.w #0x1, d0
 	@BarrierLp:						; For all barriers in list
-	cmp.l  #0x0, a3
-	beq    @NoBarrier
-
-	; Ignore broken barriers
-	tst.b  Barrier_Broken(a3)
-	bne    @NextBarrier
+	
+	; Get barrier height
+	move.w Barrier_Height(a3), d6
 
 	; Ignore barriers shorter than min wall height
-	move.w Barrier_Height(a3), d6
-	move.w PhysicsObj_MinWallHeight(a0), d4
 	cmp.w  d6, d4
 	bgt    @NextBarrier
 	
@@ -1608,7 +1609,8 @@ PhysicsObjFindWall:
 	move.l d6, Barrier_TotalHitVel(a3)
 	cmp.l  d2, d6
 	blt    @NotBroken
-	move.b #0x1, Barrier_Broken(a3)
+	move.b #0x1, Barrier_Broken(a3)			; Barrier broken
+	LIST_REMOVE Barriers,a3,a5,a6			; Remove from list
 	bra    @NextBarrier
 	@NotBroken:
 	
@@ -1652,7 +1654,7 @@ PhysicsObjFindWall:
 	
 	@NextBarrier:
 	LIST_GET_NEXT Barriers,a3,a3	; Get next ptr
-	bra    @BarrierLp				; Loop
+	dbra.w d0,@BarrierLp			; Loop
 	
 	@NoBarrier:
 	@EndBarrierSearch:
@@ -1694,15 +1696,16 @@ PhysicsObjFindWall:
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a3
 	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a4
+	move.l Level_ColMapBlockYLookupAddr(a1), a5	; Collision block map Y offset lookup
 
 	@WallSearchLp:
 
 	; Get collision flags for tile at probe pos
-	PUSHM  d0-d5/a2-a4
+	PUSHM  d0-d5/a2-a5
 	jsr	   PHYS_GetTerrainTile
 	move.w d0, d6
 	move.w d3, d7
-	POPM   d0-d5/a2-a4
+	POPM   d0-d5/a2-a5
 	
 	; Check if wall
 	andi.w #col_tile_flag_solid, d6
@@ -1856,6 +1859,7 @@ PhysicsObjFindCeiling:
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a0
 	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a1
+	move.l Level_ColMapBlockYLookupAddr(a1), a5	; Collision block map Y offset lookup
 	jsr	   PHYS_GetTerrainTile
 	POPM   d5-d6
 	

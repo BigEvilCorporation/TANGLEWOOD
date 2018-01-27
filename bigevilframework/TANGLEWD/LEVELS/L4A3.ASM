@@ -20,6 +20,7 @@ l4a3_TetheredAct3:
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4			; Collision blocks
 	dc.l collisionmap_blockmap_l4a3		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l4a3	; Collision block map Y offsets table
 	dc.l terrainmap_l4a3_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l4a3_DefaultPalettes			; Palettes
 	dc.l l4a3_Init						; Init routine

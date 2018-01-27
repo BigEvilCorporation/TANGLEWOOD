@@ -20,6 +20,7 @@ l4a1_TetheredAct1:
 	dc.l collisiontiles_l4				; Collision tileset
 	dc.l collisionmap_blocks_l4			; Collision blocks
 	dc.l collisionmap_blockmap_l4a1		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l4a1	; Collision block map Y offsets table
 	dc.l terrainmap_L4A1_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l l4a1_DefaultPalettes			; Palettes
 	dc.l l4a1_Init						; Init routine

@@ -20,6 +20,7 @@ l3a3_HeritageAct3:
 	dc.l collisiontiles_l3				; Collision tileset
 	dc.l collisionmap_blocks_l3			; Collision blocks
 	dc.l collisionmap_blockmap_l3a3		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l3a3	; Collision block map Y offsets table
 	dc.l terrainmap_L3A3_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l l3a3_DefaultPalettes			; Palettes
 	dc.l l3a3_Init						; Init routine

@@ -20,6 +20,7 @@ L5a1_BygoneAct1:
 	dc.l collisiontiles_L5				; Collision tileset
 	dc.l collisionmap_blocks_L5			; Collision blocks
 	dc.l collisionmap_blockmap_L5a1		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l5a1	; Collision block map Y offsets table
 	dc.l terrainmap_L5A1_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l L5a1_DefaultPalettes			; Palettes
 	dc.l L5a1_Init						; Init routine

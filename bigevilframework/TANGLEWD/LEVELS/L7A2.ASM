@@ -20,6 +20,7 @@ l7a2_OasisAct2:
 	dc.l collisiontiles_L7				; Collision tileset
 	dc.l collisionmap_blocks_L7			; Collision blocks
 	dc.l collisionmap_blockmap_l7a2		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l7a2	; Collision block map Y offsets table
 	dc.l terrainmap_l7a2_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l7a2_DefaultPalettes			; Palettes
 	dc.l l7a2_Init						; Init routine

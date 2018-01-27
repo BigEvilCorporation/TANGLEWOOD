@@ -20,6 +20,7 @@ l6a3_DeadwoodAct3:
 	dc.l collisiontiles_L6				; Collision tileset
 	dc.l collisionmap_blocks_L6			; Collision blocks
 	dc.l collisionmap_blockmap_l6a3		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l6a3	; Collision block map Y offsets table
 	dc.l terrainmap_L6A3_special_terrain_descs						; 'Special' terrain descriptor table
 	dc.l l6a3_DefaultPalettes			; Palettes
 	dc.l l6a3_Init						; Init routine

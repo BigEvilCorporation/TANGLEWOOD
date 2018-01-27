@@ -15,6 +15,7 @@ PHYS_GetTerrainTile:
 	; a2 ---- : Collision block map data addr
 	; a3 ---- : Collision blocks data addr
 	; a4 ---- : Collision tileset data addr / OUT: collision tile addr
+	; a5 ---- : Collision block map row offset lookup table
 	; d0 (w)  : OUT: Tile flags
 	; d1 (ww) : XY coord (pixels, scroll space)
 	; d2 (w)  : Map width (blocks)
@@ -28,7 +29,9 @@ PHYS_GetTerrainTile:
 	PIXELS2TILES d3					; To tiles
 	move.w d3, d4					; Backup for tile offset
 	TILES2BLOCKS d3					; To blocks
-	mulu   d2, d3 					; To Y offset
+	lsl.w  #0x1, d3					; To bytes
+	add.l  d3, a5
+	move.w (a5), d3					; Lookup Y offset
 
 	swap   d1						; X to lower d1
 
@@ -49,20 +52,20 @@ PHYS_GetTerrainTile:
 	andi.w  #map_block_width-1, d6
 
 	; Blocks to byte offset
-	lsl.l  #0x1, d3
-	add.l  d3, a2
+	lsl.w  #0x1, d3
+	add.w  d3, a2
 
 	; Fetch block ID from map
 	move.w (a2), d3
 
 	; Get block address
-	lsl.l  #0x5, d3		; mulu   #map_block_width*map_block_height*size_word, d3
+	lsl.w  #0x5, d3		; mulu   #map_block_width*map_block_height*size_word, d3
 	add.l  d3, a3
 
 	; Tile remainder to byte offset
-	lsl.l  #0x2, d4		; mulu   #map_block_width, d4
+	lsl.w  #0x2, d4		; mulu   #map_block_width, d4
 	add.w  d6, d4
-	lsl.l  #0x1, d4
+	lsl.w  #0x1, d4
 	add.l  d4, a3
 
 	; Restore tile X/Y for return values
@@ -73,12 +76,13 @@ PHYS_GetTerrainTile:
 	
 	; Fetch collision tile ID from block
 	moveq #0x0, d0
+	moveq #0x0, d1
 	move.w (a3), d0
 	move.w d0, d1
 	
 	; Mask out id (to get address) and flags (to return)
-	andi.l #col_tile_mask_flags, d0
-	andi.l #col_tile_mask_tileid, d1
+	andi.w #col_tile_mask_flags, d0
+	andi.w #col_tile_mask_tileid, d1
 	
 	; Get collision tile addr
 	lsl.w  #0x3, d1 				; Index to collision tile (8 bytes)
@@ -90,6 +94,7 @@ PHYS_GetTerrainHeight:
 	; a0 ---- : Collision blocks data addr
 	; a1 ---- : Collision tileset data addr
 	; a2 ---- : Collision block map data addr
+	; a5 ---- : Collision block map row offset lookup table
 	; d0 (w)  : OUT: Floor height, or 0
 	; d1 (ww) : Probe XY coord (pixels, scroll space)
 	; d2 (ww) : Map W/H (blocks)
@@ -114,12 +119,11 @@ PHYS_GetTerrainHeight:
 	
 	@NextTile:
 	
-	PUSHM  a2-a4/d1-d3/d5-d6
+	PUSHM  a2-a5/d1-d3/d5-d6
 	
 	; Get terrain tile
 	PUSHL  d1
 	swap   d2				; Map width to d2
-	andi.l #0x0000FFFF, d2	; Clear height
 	jsr    PHYS_GetTerrainTile
 	move.w d0, d4			; Backup tile flags to d4
 	POPL   d1
@@ -136,7 +140,7 @@ PHYS_GetTerrainHeight:
 	move.b (a4), d0	; Get height value
 	add.w  d0, d7	; Add to total found height
 	
-	POPM   a2-a4/d1-d3/d5-d6
+	POPM   a2-a5/d1-d3/d5-d6
 	
 	; If solid tile, search next tile up
 	cmp.b  #heightmap_column_solid, d0

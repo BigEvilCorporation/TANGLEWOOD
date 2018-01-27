@@ -19,6 +19,28 @@ terrainmap_blockmap_L8A1_top	equ 0x00
 terrainmap_blockmap_L8A1_width	equ 0x96
 terrainmap_blockmap_L8A1_height	equ 0x14
 
+collisionmap_blockmap_yoffs_L8A1:
+	dc.w 0x0000
+	dc.w 0x0096
+	dc.w 0x012C
+	dc.w 0x01C2
+	dc.w 0x0258
+	dc.w 0x02EE
+	dc.w 0x0384
+	dc.w 0x041A
+	dc.w 0x04B0
+	dc.w 0x0546
+	dc.w 0x05DC
+	dc.w 0x0672
+	dc.w 0x0708
+	dc.w 0x079E
+	dc.w 0x0834
+	dc.w 0x08CA
+	dc.w 0x0960
+	dc.w 0x09F6
+	dc.w 0x0A8C
+	dc.w 0x0B22
+
 ; Terrain bezier bounds
 terrainmap_L8A1_num_special_terrain_descs	equ 0x04
 terrainmap_L8A1_special_terrain_descs:

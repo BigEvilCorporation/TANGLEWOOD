@@ -20,6 +20,7 @@ l8a4_TurntailAct4:
 	dc.l collisiontiles_L4				; Collision tileset (using L4 tileset)
 	dc.l collisionmap_blocks_L4			; Collision blocks (using L4 tileset)
 	dc.l collisionmap_blockmap_l8a4		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l8a4	; Collision block map Y offsets table
 	dc.l terrainmap_l8a4_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l8a4_DefaultPalettes			; Palettes
 	dc.l l8a4_Init						; Init routine

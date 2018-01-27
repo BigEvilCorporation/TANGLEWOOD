@@ -17,6 +17,7 @@ l1a3_HarlequinForestAct3:
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1			; Collision blocks
 	dc.l collisionmap_blockmap_l1a3		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l1a3	; Collision block map Y offsets table
 	dc.l terrainmap_L1A3_special_terrain_descs ; 'Special' terrain descriptor table
 	dc.l l1a3_DefaultPalettes			; Palettes
 	dc.l l1a3_Init						; Init routine

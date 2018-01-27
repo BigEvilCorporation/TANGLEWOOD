@@ -20,6 +20,7 @@ l1a0_HarlequinForestIntro:
 	dc.l collisiontiles_l1				; Collision tileset
 	dc.l collisionmap_blocks_l1			; Collision blocks
 	dc.l collisionmap_blockmap_l1a1		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l1a1	; Collision block map Y offsets table
 	dc.l terrainmap_l1a1_special_terrain_descs ; 'Special' terrain descriptor table
 	dc.l l1a0_DefaultPalettes			; Palettes
 	dc.l l1a0_Init						; Init routine

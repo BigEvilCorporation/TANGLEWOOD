@@ -20,6 +20,7 @@ l8a3_TurntailAct3:
 	dc.l collisiontiles_L5				; Collision tileset (using L5 tileset)
 	dc.l collisionmap_blocks_L5			; Collision blocks (using L5 tileset)
 	dc.l collisionmap_blockmap_l8a3		; Collision block map
+	dc.l collisionmap_blockmap_yoffs_l8a3	; Collision block map Y offsets table
 	dc.l terrainmap_l8a3_special_terrain_descs	; 'Special' terrain descriptor table
 	dc.l l8a3_DefaultPalettes			; Palettes
 	dc.l l8a3_Init						; Init routine
