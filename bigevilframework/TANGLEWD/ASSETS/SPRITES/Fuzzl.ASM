@@ -10,32 +10,24 @@
 actor_fuzzl:
 
 actor_fuzzl_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
-actor_fuzzl_sheet_blue_roll_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_blue_roll_height		equ 0x10	; Max height of largest frame in pixels
-
-
 actor_fuzzl_sheet_yellow_sleep_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_sleep_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_blue_idle_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_blue_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_eyes_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_blue_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_roll_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_fuzzl_sheet_red_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_red_eyes_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_blue_eyes_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_blue_eyes_height		equ 0x10	; Max height of largest frame in pixels
-
-
-actor_fuzzl_sheet_red_roll_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_red_roll_height		equ 0x10	; Max height of largest frame in pixels
-
-
-actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_white_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_roll_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_fuzzl_sheet_yellow_roll_width		equ 0x10	; Max width of largest frame in pixels
@@ -46,20 +38,12 @@ actor_fuzzl_sheet_green_sleep_width		equ 0x10	; Max width of largest frame in pi
 actor_fuzzl_sheet_green_sleep_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_white_idle_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_white_idle_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_red_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_roll_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_red_idle_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_red_idle_height		equ 0x10	; Max height of largest frame in pixels
-
-
-actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
-
-
-actor_fuzzl_sheet_green_eyes_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_green_eyes_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_blue_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_eyes_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_fuzzl_sheet_red_sleep_width		equ 0x10	; Max width of largest frame in pixels
@@ -70,25 +54,127 @@ actor_fuzzl_sheet_blue_sleep_width		equ 0x10	; Max width of largest frame in pix
 actor_fuzzl_sheet_blue_sleep_height		equ 0x10	; Max height of largest frame in pixels
 
 
+actor_fuzzl_sheet_white_sleep_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_sleep_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_red_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_red_idle_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_white_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_idle_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_blue_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_blue_idle_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_green_roll_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_roll_height		equ 0x10	; Max height of largest frame in pixels
+
+
 actor_fuzzl_sheet_yellow_eyes_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_eyes_height		equ 0x10	; Max height of largest frame in pixels
-
-
-actor_fuzzl_sheet_white_roll_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_white_roll_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_fuzzl_sheet_yellow_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_idle_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_white_sleep_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_white_sleep_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_green_roll_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_green_roll_height		equ 0x10	; Max height of largest frame in pixels
+actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_white_eyes_height		equ 0x10	; Max height of largest frame in pixels
 
+
+actor_fuzzl_sheet_yellow_sleep_frametable:
+actor_fuzzl_sheet_yellow_sleep_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_yellow_sleep_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_yellow_sleep_frame_1_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_yellow_sleep_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_pos_offsets
+
+actor_fuzzl_sheet_yellow_sleep_frame_2_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_yellow_sleep_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frametable:
+actor_fuzzl_sheet_green_eyes_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_0
+	dc.l actor_fuzzl_sheet_green_eyes_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_1_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_1
+	dc.l actor_fuzzl_sheet_green_eyes_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_1_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_2_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_2
+	dc.l actor_fuzzl_sheet_green_eyes_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_2_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_3_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_3
+	dc.l actor_fuzzl_sheet_green_eyes_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_3_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_4_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_4
+	dc.l actor_fuzzl_sheet_green_eyes_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_4_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_5_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_5
+	dc.l actor_fuzzl_sheet_green_eyes_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_5_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_6_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_6
+	dc.l actor_fuzzl_sheet_green_eyes_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_6_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_7_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_7
+	dc.l actor_fuzzl_sheet_green_eyes_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_7_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_eyes_frame_8_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_eyes_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_eyes_frame_8
+	dc.l actor_fuzzl_sheet_green_eyes_frame_8_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_eyes_frame_8_subsprite_pos_offsets
 
 actor_fuzzl_sheet_blue_roll_frametable:
 actor_fuzzl_sheet_blue_roll_frame_0_header:
@@ -146,36 +232,6 @@ actor_fuzzl_sheet_blue_roll_frame_7_header:
 	dc.l actor_fuzzl_sheet_blue_roll_frame_7
 	dc.l actor_fuzzl_sheet_blue_roll_frame_7_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_blue_roll_frame_7_subsprite_pos_offsets
-
-actor_fuzzl_sheet_yellow_sleep_frametable:
-actor_fuzzl_sheet_yellow_sleep_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_yellow_sleep_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_pos_offsets
-
-actor_fuzzl_sheet_yellow_sleep_frame_1_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_yellow_sleep_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_pos_offsets
-
-actor_fuzzl_sheet_yellow_sleep_frame_2_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_yellow_sleep_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_pos_offsets
-
-actor_fuzzl_sheet_blue_idle_frametable:
-actor_fuzzl_sheet_blue_idle_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_idle_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_idle_frame_0
-	dc.l actor_fuzzl_sheet_blue_idle_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_idle_frame_0_subsprite_pos_offsets
 
 actor_fuzzl_sheet_red_eyes_frametable:
 actor_fuzzl_sheet_red_eyes_frame_0_header:
@@ -241,190 +297,62 @@ actor_fuzzl_sheet_red_eyes_frame_8_header:
 	dc.l actor_fuzzl_sheet_red_eyes_frame_8_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_red_eyes_frame_8_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frametable:
-actor_fuzzl_sheet_blue_eyes_frame_0_header:
+actor_fuzzl_sheet_white_roll_frametable:
+actor_fuzzl_sheet_white_roll_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_0
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_0
+	dc.l actor_fuzzl_sheet_white_roll_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_1_header:
+actor_fuzzl_sheet_white_roll_frame_1_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_1
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_1
+	dc.l actor_fuzzl_sheet_white_roll_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_1_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_2_header:
+actor_fuzzl_sheet_white_roll_frame_2_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_2
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_2
+	dc.l actor_fuzzl_sheet_white_roll_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_2_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_3_header:
+actor_fuzzl_sheet_white_roll_frame_3_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_3
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_3
+	dc.l actor_fuzzl_sheet_white_roll_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_3_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_4_header:
+actor_fuzzl_sheet_white_roll_frame_4_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_4
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_4
+	dc.l actor_fuzzl_sheet_white_roll_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_4_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_5_header:
+actor_fuzzl_sheet_white_roll_frame_5_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_5
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_5
+	dc.l actor_fuzzl_sheet_white_roll_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_5_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_6_header:
+actor_fuzzl_sheet_white_roll_frame_6_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_6
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_6
+	dc.l actor_fuzzl_sheet_white_roll_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_6_subsprite_pos_offsets
 
-actor_fuzzl_sheet_blue_eyes_frame_7_header:
+actor_fuzzl_sheet_white_roll_frame_7_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_7
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_pos_offsets
-
-actor_fuzzl_sheet_blue_eyes_frame_8_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_blue_eyes_frame_8_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_8
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frametable:
-actor_fuzzl_sheet_red_roll_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_0
-	dc.l actor_fuzzl_sheet_red_roll_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_0_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_1_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_1
-	dc.l actor_fuzzl_sheet_red_roll_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_1_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_2_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_2
-	dc.l actor_fuzzl_sheet_red_roll_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_2_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_3_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_3
-	dc.l actor_fuzzl_sheet_red_roll_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_3_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_4_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_4
-	dc.l actor_fuzzl_sheet_red_roll_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_4_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_5_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_5
-	dc.l actor_fuzzl_sheet_red_roll_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_5_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_6_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_6
-	dc.l actor_fuzzl_sheet_red_roll_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_6_subsprite_pos_offsets
-
-actor_fuzzl_sheet_red_roll_frame_7_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_roll_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_roll_frame_7
-	dc.l actor_fuzzl_sheet_red_roll_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_roll_frame_7_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frametable:
-actor_fuzzl_sheet_white_eyes_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_0
-	dc.l actor_fuzzl_sheet_white_eyes_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_0_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_1_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_1
-	dc.l actor_fuzzl_sheet_white_eyes_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_1_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_2_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_2
-	dc.l actor_fuzzl_sheet_white_eyes_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_2_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_3_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_3
-	dc.l actor_fuzzl_sheet_white_eyes_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_3_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_4_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_4
-	dc.l actor_fuzzl_sheet_white_eyes_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_4_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_5_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_5
-	dc.l actor_fuzzl_sheet_white_eyes_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_5_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_6_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_6
-	dc.l actor_fuzzl_sheet_white_eyes_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_6_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_7_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_7
-	dc.l actor_fuzzl_sheet_white_eyes_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_7_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_eyes_frame_8_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_eyes_frame_8_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_eyes_frame_8
-	dc.l actor_fuzzl_sheet_white_eyes_frame_8_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_eyes_frame_8_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_roll_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_roll_frame_7
+	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets
 
 actor_fuzzl_sheet_yellow_roll_frametable:
 actor_fuzzl_sheet_yellow_roll_frame_0_header:
@@ -505,93 +433,126 @@ actor_fuzzl_sheet_green_sleep_frame_2_header:
 	dc.l actor_fuzzl_sheet_green_sleep_frame_2_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_green_sleep_frame_2_subsprite_pos_offsets
 
-actor_fuzzl_sheet_white_idle_frametable:
-actor_fuzzl_sheet_white_idle_frame_0_header:
+actor_fuzzl_sheet_red_roll_frametable:
+actor_fuzzl_sheet_red_roll_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_idle_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_idle_frame_0
-	dc.l actor_fuzzl_sheet_white_idle_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_idle_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_0
+	dc.l actor_fuzzl_sheet_red_roll_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_red_idle_frametable:
-actor_fuzzl_sheet_red_idle_frame_0_header:
+actor_fuzzl_sheet_red_roll_frame_1_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_red_idle_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_red_idle_frame_0
-	dc.l actor_fuzzl_sheet_red_idle_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_red_idle_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_1
+	dc.l actor_fuzzl_sheet_red_roll_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_1_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_idle_frametable:
-actor_fuzzl_sheet_green_idle_frame_0_header:
+actor_fuzzl_sheet_red_roll_frame_2_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_idle_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_idle_frame_0
-	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_2
+	dc.l actor_fuzzl_sheet_red_roll_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_2_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frametable:
-actor_fuzzl_sheet_green_eyes_frame_0_header:
+actor_fuzzl_sheet_red_roll_frame_3_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_0
-	dc.l actor_fuzzl_sheet_green_eyes_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_3
+	dc.l actor_fuzzl_sheet_red_roll_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_3_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_1_header:
+actor_fuzzl_sheet_red_roll_frame_4_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_1
-	dc.l actor_fuzzl_sheet_green_eyes_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_1_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_4
+	dc.l actor_fuzzl_sheet_red_roll_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_4_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_2_header:
+actor_fuzzl_sheet_red_roll_frame_5_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_2
-	dc.l actor_fuzzl_sheet_green_eyes_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_2_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_5
+	dc.l actor_fuzzl_sheet_red_roll_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_5_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_3_header:
+actor_fuzzl_sheet_red_roll_frame_6_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_3
-	dc.l actor_fuzzl_sheet_green_eyes_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_3_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_6
+	dc.l actor_fuzzl_sheet_red_roll_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_6_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_4_header:
+actor_fuzzl_sheet_red_roll_frame_7_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_4
-	dc.l actor_fuzzl_sheet_green_eyes_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_4_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_red_roll_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_roll_frame_7
+	dc.l actor_fuzzl_sheet_red_roll_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_roll_frame_7_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_5_header:
+actor_fuzzl_sheet_blue_eyes_frametable:
+actor_fuzzl_sheet_blue_eyes_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_5
-	dc.l actor_fuzzl_sheet_green_eyes_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_5_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_0
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_6_header:
+actor_fuzzl_sheet_blue_eyes_frame_1_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_6
-	dc.l actor_fuzzl_sheet_green_eyes_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_6_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_1
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_7_header:
+actor_fuzzl_sheet_blue_eyes_frame_2_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_7
-	dc.l actor_fuzzl_sheet_green_eyes_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_7_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_2
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_eyes_frame_8_header:
+actor_fuzzl_sheet_blue_eyes_frame_3_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_eyes_frame_8_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_eyes_frame_8
-	dc.l actor_fuzzl_sheet_green_eyes_frame_8_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_eyes_frame_8_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_3
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_eyes_frame_4_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_4
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_eyes_frame_5_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_5
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_eyes_frame_6_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_6
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_eyes_frame_7_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_7
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_eyes_frame_8_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_eyes_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_8
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_pos_offsets
 
 actor_fuzzl_sheet_red_sleep_frametable:
 actor_fuzzl_sheet_red_sleep_frame_0_header:
@@ -636,6 +597,109 @@ actor_fuzzl_sheet_blue_sleep_frame_2_header:
 	dc.l actor_fuzzl_sheet_blue_sleep_frame_2
 	dc.l actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_pos_offsets
+
+actor_fuzzl_sheet_white_sleep_frametable:
+actor_fuzzl_sheet_white_sleep_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_white_sleep_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_sleep_frame_0
+	dc.l actor_fuzzl_sheet_white_sleep_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_sleep_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_white_sleep_frame_1_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_white_sleep_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_sleep_frame_1
+	dc.l actor_fuzzl_sheet_white_sleep_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_sleep_frame_1_subsprite_pos_offsets
+
+actor_fuzzl_sheet_white_sleep_frame_2_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_white_sleep_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_sleep_frame_2
+	dc.l actor_fuzzl_sheet_white_sleep_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_sleep_frame_2_subsprite_pos_offsets
+
+actor_fuzzl_sheet_red_idle_frametable:
+actor_fuzzl_sheet_red_idle_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_red_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_red_idle_frame_0
+	dc.l actor_fuzzl_sheet_red_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_red_idle_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_white_idle_frametable:
+actor_fuzzl_sheet_white_idle_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_white_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_idle_frame_0
+	dc.l actor_fuzzl_sheet_white_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_idle_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_blue_idle_frametable:
+actor_fuzzl_sheet_blue_idle_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_blue_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_blue_idle_frame_0
+	dc.l actor_fuzzl_sheet_blue_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_blue_idle_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frametable:
+actor_fuzzl_sheet_green_roll_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_0
+	dc.l actor_fuzzl_sheet_green_roll_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_1_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_1
+	dc.l actor_fuzzl_sheet_green_roll_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_1_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_2_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_2
+	dc.l actor_fuzzl_sheet_green_roll_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_2_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_3_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_3
+	dc.l actor_fuzzl_sheet_green_roll_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_3_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_4_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_4
+	dc.l actor_fuzzl_sheet_green_roll_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_4_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_5_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_5
+	dc.l actor_fuzzl_sheet_green_roll_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_5_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_6_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_6
+	dc.l actor_fuzzl_sheet_green_roll_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_6_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_roll_frame_7_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_roll_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_roll_frame_7
+	dc.l actor_fuzzl_sheet_green_roll_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_roll_frame_7_subsprite_pos_offsets
 
 actor_fuzzl_sheet_yellow_eyes_frametable:
 actor_fuzzl_sheet_yellow_eyes_frame_0_header:
@@ -701,63 +765,6 @@ actor_fuzzl_sheet_yellow_eyes_frame_8_header:
 	dc.l actor_fuzzl_sheet_yellow_eyes_frame_8_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_yellow_eyes_frame_8_subsprite_pos_offsets
 
-actor_fuzzl_sheet_white_roll_frametable:
-actor_fuzzl_sheet_white_roll_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_0
-	dc.l actor_fuzzl_sheet_white_roll_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_0_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_1_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_1
-	dc.l actor_fuzzl_sheet_white_roll_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_1_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_2_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_2
-	dc.l actor_fuzzl_sheet_white_roll_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_2_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_3_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_3
-	dc.l actor_fuzzl_sheet_white_roll_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_3_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_4_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_4
-	dc.l actor_fuzzl_sheet_white_roll_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_4_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_5_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_5
-	dc.l actor_fuzzl_sheet_white_roll_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_5_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_6_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_6
-	dc.l actor_fuzzl_sheet_white_roll_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_6_subsprite_pos_offsets
-
-actor_fuzzl_sheet_white_roll_frame_7_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_roll_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_roll_frame_7
-	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets
-
 actor_fuzzl_sheet_yellow_idle_frametable:
 actor_fuzzl_sheet_yellow_idle_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
@@ -766,84 +773,247 @@ actor_fuzzl_sheet_yellow_idle_frame_0_header:
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_white_sleep_frametable:
-actor_fuzzl_sheet_white_sleep_frame_0_header:
+actor_fuzzl_sheet_green_idle_frametable:
+actor_fuzzl_sheet_green_idle_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_sleep_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_sleep_frame_0
-	dc.l actor_fuzzl_sheet_white_sleep_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_sleep_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_green_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_idle_frame_0
+	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_white_sleep_frame_1_header:
+actor_fuzzl_sheet_white_eyes_frametable:
+actor_fuzzl_sheet_white_eyes_frame_0_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_sleep_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_sleep_frame_1
-	dc.l actor_fuzzl_sheet_white_sleep_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_sleep_frame_1_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_0
+	dc.l actor_fuzzl_sheet_white_eyes_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_0_subsprite_pos_offsets
 
-actor_fuzzl_sheet_white_sleep_frame_2_header:
+actor_fuzzl_sheet_white_eyes_frame_1_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_white_sleep_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_white_sleep_frame_2
-	dc.l actor_fuzzl_sheet_white_sleep_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_white_sleep_frame_2_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_1
+	dc.l actor_fuzzl_sheet_white_eyes_frame_1_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_1_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frametable:
-actor_fuzzl_sheet_green_roll_frame_0_header:
+actor_fuzzl_sheet_white_eyes_frame_2_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_0
-	dc.l actor_fuzzl_sheet_green_roll_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_0_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_2
+	dc.l actor_fuzzl_sheet_white_eyes_frame_2_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_2_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_1_header:
+actor_fuzzl_sheet_white_eyes_frame_3_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_1
-	dc.l actor_fuzzl_sheet_green_roll_frame_1_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_1_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_3
+	dc.l actor_fuzzl_sheet_white_eyes_frame_3_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_3_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_2_header:
+actor_fuzzl_sheet_white_eyes_frame_4_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_2
-	dc.l actor_fuzzl_sheet_green_roll_frame_2_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_2_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_4
+	dc.l actor_fuzzl_sheet_white_eyes_frame_4_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_4_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_3_header:
+actor_fuzzl_sheet_white_eyes_frame_5_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_3_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_3
-	dc.l actor_fuzzl_sheet_green_roll_frame_3_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_3_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_5_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_5
+	dc.l actor_fuzzl_sheet_white_eyes_frame_5_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_5_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_4_header:
+actor_fuzzl_sheet_white_eyes_frame_6_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_4_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_4
-	dc.l actor_fuzzl_sheet_green_roll_frame_4_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_4_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_6_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_6
+	dc.l actor_fuzzl_sheet_white_eyes_frame_6_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_6_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_5_header:
+actor_fuzzl_sheet_white_eyes_frame_7_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_5_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_5
-	dc.l actor_fuzzl_sheet_green_roll_frame_5_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_5_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_7_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_7
+	dc.l actor_fuzzl_sheet_white_eyes_frame_7_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_7_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_6_header:
+actor_fuzzl_sheet_white_eyes_frame_8_header:
 	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_6_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_6
-	dc.l actor_fuzzl_sheet_green_roll_frame_6_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_6_subsprite_pos_offsets
+	dc.w actor_fuzzl_sheet_white_eyes_frame_8_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_white_eyes_frame_8
+	dc.l actor_fuzzl_sheet_white_eyes_frame_8_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_white_eyes_frame_8_subsprite_pos_offsets
 
-actor_fuzzl_sheet_green_roll_frame_7_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_roll_frame_7_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_roll_frame_7
-	dc.l actor_fuzzl_sheet_green_roll_frame_7_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_roll_frame_7_subsprite_pos_offsets
+actor_fuzzl_sheet_yellow_sleep_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_yellow_sleep_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_yellow_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_yellow_sleep_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_yellow_sleep_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_yellow_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_yellow_sleep_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_yellow_sleep_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_yellow_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_green_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_1_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_3_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_4_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_5_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_6_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_7_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_eyes_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_eyes_frame_8_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
 
 actor_fuzzl_sheet_blue_roll_frame_0_size_b		equ 0x0080	; Size in bytes
 actor_fuzzl_sheet_blue_roll_frame_0_size_t		equ 0x0004	; Size in tiles
@@ -954,64 +1124,6 @@ actor_fuzzl_sheet_blue_roll_frame_7_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_fuzzl_sheet_blue_roll_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
-actor_fuzzl_sheet_yellow_sleep_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_yellow_sleep_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_yellow_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_yellow_sleep_frame_0_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_yellow_sleep_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_yellow_sleep_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_yellow_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_yellow_sleep_frame_1_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_yellow_sleep_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_yellow_sleep_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_yellow_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_yellow_sleep_frame_2_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
-actor_fuzzl_sheet_blue_idle_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_idle_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -1143,369 +1255,115 @@ actor_fuzzl_sheet_red_eyes_frame_8_subsprite_dimensions_bits:
 	Even
 
 
-actor_fuzzl_sheet_blue_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_1_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_1_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_2_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_3_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_3_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_4_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_4_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_5_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_5_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_6_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_6_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_blue_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_roll_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_roll_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_blue_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_blue_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_blue_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
-actor_fuzzl_sheet_red_roll_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_0_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_1_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_2_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_3_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_4_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_5_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_6_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_red_roll_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_roll_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_roll_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
-actor_fuzzl_sheet_white_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_0_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_1_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_2_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_3_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_4_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_5_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_6_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_eyes_frame_8_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -1666,174 +1524,242 @@ actor_fuzzl_sheet_green_sleep_frame_2_subsprite_dimensions_bits:
 	Even
 
 
-actor_fuzzl_sheet_white_idle_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_idle_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_red_roll_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_idle_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_red_roll_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_idle_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_red_roll_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_1_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_3_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_4_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_5_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_6_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_red_roll_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_roll_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_roll_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_roll_frame_7_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
 
-actor_fuzzl_sheet_red_idle_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_red_idle_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_red_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_red_idle_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_red_idle_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-
-actor_fuzzl_sheet_green_idle_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_idle_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_1_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-
-actor_fuzzl_sheet_green_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_2_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_1_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_1_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_3_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_2_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_2_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_4_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_3_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_3_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_5_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_4_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_4_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_6_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_5_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_5_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_7_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_blue_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_6_subsprite_pos_offsets:
+actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_6_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_green_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_green_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_eyes_frame_8_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_eyes_frame_8_subsprite_dimensions_bits:
+actor_fuzzl_sheet_blue_eyes_frame_8_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -1920,6 +1846,207 @@ actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_fuzzl_sheet_blue_sleep_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_white_sleep_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_sleep_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_white_sleep_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_white_sleep_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_white_sleep_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_sleep_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_white_sleep_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_white_sleep_frame_1_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_white_sleep_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_sleep_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_white_sleep_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_white_sleep_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_red_idle_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_red_idle_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_red_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_red_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_red_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_white_idle_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_idle_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_white_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_white_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_blue_idle_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_blue_idle_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_blue_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_blue_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_blue_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_green_roll_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_1_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_2_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_3_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_4_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_5_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_5_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_6_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_6_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_green_roll_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_roll_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_roll_frame_7_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_roll_frame_7_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -2051,119 +2178,6 @@ actor_fuzzl_sheet_yellow_eyes_frame_8_subsprite_dimensions_bits:
 	Even
 
 
-actor_fuzzl_sheet_white_roll_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_0_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_1_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_2_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_3_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_3_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_4_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_4_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_5_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_5_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_6_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_6_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_roll_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_roll_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
 actor_fuzzl_sheet_yellow_idle_frame_0_size_b		equ 0x0080	; Size in bytes
 actor_fuzzl_sheet_yellow_idle_frame_0_size_t		equ 0x0004	; Size in tiles
 actor_fuzzl_sheet_yellow_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
@@ -2179,471 +2193,149 @@ actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_dimensions_bits:
 	Even
 
 
-actor_fuzzl_sheet_white_sleep_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_sleep_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_sleep_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_green_idle_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_idle_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_sleep_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_sleep_frame_0_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_sleep_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_sleep_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_sleep_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_sleep_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_sleep_frame_1_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-actor_fuzzl_sheet_white_sleep_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_white_sleep_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_white_sleep_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_white_sleep_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_white_sleep_frame_2_subsprite_dimensions_bits:
+actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
 
-actor_fuzzl_sheet_green_roll_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_0_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_0_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_0_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_1_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_1_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_1_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_1_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_1_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_1_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_2_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_2_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_2_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_2_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_2_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_2_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_2_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_3_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_3_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_3_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_3_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_3_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_3_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_3_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_3_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_4_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_4_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_4_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_4_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_4_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_4_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_4_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_4_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_5_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_5_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_5_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_5_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_5_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_5_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_5_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_5_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_5_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_6_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_6_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_6_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_6_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_6_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_6_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_6_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_6_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_6_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
-actor_fuzzl_sheet_green_roll_frame_7_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_roll_frame_7_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_roll_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
+actor_fuzzl_sheet_white_eyes_frame_7_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_7_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_7_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_roll_frame_7_subsprite_pos_offsets:
+actor_fuzzl_sheet_white_eyes_frame_7_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_roll_frame_7_subsprite_dimensions_bits:
+actor_fuzzl_sheet_white_eyes_frame_7_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+actor_fuzzl_sheet_white_eyes_frame_8_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_white_eyes_frame_8_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_white_eyes_frame_8_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_white_eyes_frame_8_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_white_eyes_frame_8_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
 
 spritesheets_fuzzl:
-
-spritesheet_fuzzl_blue_roll:
-
-actor_fuzzl_sheet_blue_roll_frame_0:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9229B
-	dc.l	0x0BA9229B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB922ABBB
-	dc.l	0xA9229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_1:
-	dc.l	0x00000BB0
-	dc.l	0x0000BAAA
-	dc.l	0x00BBBB9A
-	dc.l	0x00BBB992
-	dc.l	0x0B0BAA22
-	dc.l	0xBBBAA922
-	dc.l	0x0BBBB992
-	dc.l	0xBBABBBBA
-
-	dc.l	0x0BABBBAA
-	dc.l	0xBAAABBBB
-	dc.l	0xBAABBBBB
-	dc.l	0x0BBBBBBB
-	dc.l	0x00B0BABB
-	dc.l	0x00BB0ABB
-	dc.l	0x0000ABBB
-	dc.l	0x00000BAB
-
-	dc.l	0xA0B00000
-	dc.l	0xAAABB000
-	dc.l	0x99ABBB00
-	dc.l	0x29BBAB00
-	dc.l	0x22BBBAB0
-	dc.l	0x9BBBBBBB
-	dc.l	0xBBB299BB
-	dc.l	0xBA9229A0
-
-	dc.l	0xA2222AAB
-	dc.l	0xB922AAAB
-	dc.l	0xB9999BBB
-	dc.l	0xBBBBBBB0
-	dc.l	0xBBBBA000
-	dc.l	0xBBBBBB00
-	dc.l	0xB0BBB000
-	dc.l	0xBBB00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_2:
-	dc.l	0x00000B0B
-	dc.l	0x0000BB0B
-	dc.l	0x00BBBBBB
-	dc.l	0x0B0BABAA
-	dc.l	0x0BAABBB9
-	dc.l	0xBAAABBB9
-	dc.l	0x0BBBBBAB
-	dc.l	0xBBBBBBAA
-
-	dc.l	0xB0BBBBBA
-	dc.l	0x00BABBBB
-	dc.l	0xABABBBB9
-	dc.l	0x0BBBBBB9
-	dc.l	0x0ABBBBBB
-	dc.l	0x00BB0BBB
-	dc.l	0x000BBBBA
-	dc.l	0x00000BBB
-
-	dc.l	0xB0B00000
-	dc.l	0xBBAAB000
-	dc.l	0xBABA0000
-	dc.l	0xA99AAA00
-	dc.l	0x22229AA0
-	dc.l	0x22229AAB
-	dc.l	0x2992BBBB
-	dc.l	0xBBBBBBBB
-
-	dc.l	0xBABBBBAB
-	dc.l	0x2992BBA0
-	dc.l	0x22229BBB
-	dc.l	0x22229BB0
-	dc.l	0x99AAA0B0
-	dc.l	0xBABABB00
-	dc.l	0x0BBBB000
-	dc.l	0x00B00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_3:
-	dc.l	0x00000BB0
-	dc.l	0x0000BAAB
-	dc.l	0x00BBBAAA
-	dc.l	0x00B0BBAB
-	dc.l	0x0A0BBBBB
-	dc.l	0xBBAABBBB
-	dc.l	0xABBBBBBA
-	dc.l	0xBBBBBBBA
-
-	dc.l	0xBBBBBBBA
-	dc.l	0xB0BBB992
-	dc.l	0xBBBBB922
-	dc.l	0x0BBBB922
-	dc.l	0x0BBAB9A2
-	dc.l	0x00B0BBAA
-	dc.l	0x0000BBAA
-	dc.l	0x00000BBB
-
-	dc.l	0xB0B00000
-	dc.l	0xBBBB0000
-	dc.l	0xABB0BB00
-	dc.l	0xBBABBB00
-	dc.l	0xBBAABBB0
-	dc.l	0xB99A9BAB
-	dc.l	0xB92299AB
-	dc.l	0xA2222AA0
-
-	dc.l	0xBB9229AA
-	dc.l	0xABB299A0
-	dc.l	0x9BBBBAAB
-	dc.l	0x22BBBBB0
-	dc.l	0x29BBABB0
-	dc.l	0x99BABB00
-	dc.l	0xABBB0000
-	dc.l	0x0BB00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_4:
-	dc.l	0x00000A0B
-	dc.l	0x000ABB00
-	dc.l	0x00BBBABB
-	dc.l	0x0BBBBBAB
-	dc.l	0x0B0BBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBABB99BA
-
-	dc.l	0x00B9222B
-	dc.l	0x0BA9229A
-	dc.l	0xBBBA229B
-	dc.l	0x0BAA222B
-	dc.l	0x0BBA99BB
-	dc.l	0x00B0BBBB
-	dc.l	0x000BBBAA
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xBBABB000
-	dc.l	0xBBAA0B00
-	dc.l	0xBBAABB00
-	dc.l	0xBBBBABB0
-	dc.l	0xBBBBBBBB
-	dc.l	0xAABBAB00
-	dc.l	0xAB99ABBB
-
-	dc.l	0xB222ABBB
-	dc.l	0xB9229AB0
-	dc.l	0xB9229BAB
-	dc.l	0xB222AAA0
-	dc.l	0xBB99A0B0
-	dc.l	0xBBAAA000
-	dc.l	0xBBAA0000
-	dc.l	0xBBB00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_5:
-	dc.l	0x00000BBB
-	dc.l	0x000BBB0B
-	dc.l	0x00BBBBBB
-	dc.l	0x000ABBBB
-	dc.l	0x0BBBBBBB
-	dc.l	0xBBB9999B
-	dc.l	0xBAAA229B
-	dc.l	0xBAA2222A
-
-	dc.l	0x0A9229AB
-	dc.l	0xBB992BBB
-	dc.l	0xBBBBBBB9
-	dc.l	0x0BABBB22
-	dc.l	0x00BABB92
-	dc.l	0x00BBBA99
-	dc.l	0x000BBAAA
-	dc.l	0x00000B0A
-
-	dc.l	0xBAB00000
-	dc.l	0xBBBA0000
-	dc.l	0xBBA0BB00
-	dc.l	0xBBAB0B00
-	dc.l	0xBBBBBBB0
-	dc.l	0xBBBBBAAB
-	dc.l	0xBBBBAAAB
-	dc.l	0xAABBBAB0
-
-	dc.l	0xABBBBABB
-	dc.l	0x299BBBB0
-	dc.l	0x229AABBB
-	dc.l	0x22AAB0B0
-	dc.l	0x299BBB00
-	dc.l	0xA9BBBB00
-	dc.l	0xAAAB0000
-	dc.l	0x0BB00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_6:
-	dc.l	0x00000B00
-	dc.l	0x000BBBB0
-	dc.l	0x00BBABAB
-	dc.l	0x0B0AAA99
-	dc.l	0x0BB92222
-	dc.l	0xBBB92222
-	dc.l	0x0ABB2992
-	dc.l	0xBABBBBAB
-
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBB2992
-	dc.l	0xBAA92222
-	dc.l	0x0AA92222
-	dc.l	0x00AAA99A
-	dc.l	0x0000ABAB
-	dc.l	0x000BAABB
-	dc.l	0x00000B0B
-
-	dc.l	0xBBB00000
-	dc.l	0xABBBB000
-	dc.l	0xBBB0BB00
-	dc.l	0xBBBBBBA0
-	dc.l	0x9BBBBBB0
-	dc.l	0x9BBBBABA
-	dc.l	0xBBBBAB00
-	dc.l	0xABBBBB0B
-
-	dc.l	0xAABBBBBB
-	dc.l	0xBABBBBB0
-	dc.l	0x9BBBAAAB
-	dc.l	0x9BBBAAB0
-	dc.l	0xAABAB0B0
-	dc.l	0xBBBBBB00
-	dc.l	0xB0BB0000
-	dc.l	0xB0B00000
-
-
-actor_fuzzl_sheet_blue_roll_frame_7:
-	dc.l	0x00000BB0
-	dc.l	0x0000BBBA
-	dc.l	0x00BBAB99
-	dc.l	0x0BBABB92
-	dc.l	0x0BBBBB22
-	dc.l	0xBAABBBB9
-	dc.l	0x0A992BBA
-	dc.l	0xAA9229BB
-
-	dc.l	0x0AA2222A
-	dc.l	0xBA99229B
-	dc.l	0xBAB9A99B
-	dc.l	0x0BBBAABB
-	dc.l	0x00BBBABB
-	dc.l	0x00BB0BBA
-	dc.l	0x0000BBBB
-	dc.l	0x00000B0B
-
-	dc.l	0xBBB00000
-	dc.l	0xAABB0000
-	dc.l	0xAABB0B00
-	dc.l	0x2A9BABB0
-	dc.l	0x229BBBB0
-	dc.l	0x229BBBBB
-	dc.l	0x299BBB0B
-	dc.l	0xABBBBBBB
-
-	dc.l	0xABBBBBBB
-	dc.l	0xABBBBBBA
-	dc.l	0xBBBBAABB
-	dc.l	0xBBBBB0A0
-	dc.l	0xBABB0B00
-	dc.l	0xAAABBB00
-	dc.l	0xBAAB0000
-	dc.l	0x0BB00000
-
-
-
 
 spritesheet_fuzzl_yellow_sleep:
 
@@ -2763,19 +2455,365 @@ actor_fuzzl_sheet_yellow_sleep_frame_2:
 
 
 
-spritesheet_fuzzl_blue_idle:
+spritesheet_fuzzl_green_eyes:
 
-actor_fuzzl_sheet_blue_idle_frame_0:
+actor_fuzzl_sheet_green_eyes_frame_0:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD212E
+	dc.l	0xEDEC222E
+	dc.l	0x0EDC222E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE212DDE0
+	dc.l	0xE222DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_1:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD221E
+	dc.l	0xEDEC221E
+	dc.l	0x0EDC222E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE221DDE0
+	dc.l	0xE221DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_2:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC221E
+	dc.l	0x0EDC221E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE221DDE0
+	dc.l	0xE221DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_3:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC222E
+	dc.l	0x0EDC221E
+	dc.l	0xEEED221E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE222DDE0
+	dc.l	0xE221DEEE
+	dc.l	0xD221CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_4:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC222E
+	dc.l	0x0EDC222E
+	dc.l	0xEEED212E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE222DDE0
+	dc.l	0xE222DEEE
+	dc.l	0xD212CDE0
+	dc.l	0xE212CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_5:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC122E
+	dc.l	0x0EDC122E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE222DDE0
+	dc.l	0xE222DEEE
+	dc.l	0xD122CDE0
+	dc.l	0xE122CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_6:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC122E
+	dc.l	0x0EDC122E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE122DDE0
+	dc.l	0xE122DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_7:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD122E
+	dc.l	0xEDEC122E
+	dc.l	0x0EDC222E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE122DDE0
+	dc.l	0xE122DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_eyes_frame_8:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC221E
+	dc.l	0x0EDC221E
+	dc.l	0xEEED222E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE122DDE0
+	dc.l	0xE122DEEE
+	dc.l	0xD222CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+
+
+spritesheet_fuzzl_blue_roll:
+
+actor_fuzzl_sheet_blue_roll_frame_0:
 	dc.l	0x00000BBB
 	dc.l	0x0000AABB
 	dc.l	0x000AAABB
-	dc.l	0x0A0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAA9221B
+	dc.l	0x0B0AA99B
+	dc.l	0x0AAAA92B
+	dc.l	0xBABB921B
 	dc.l	0x0BA9221B
 	dc.l	0xBBBA222B
 
-	dc.l	0xBBBA99AA
+	dc.l	0xBBBA99BA
 	dc.l	0x00BABBAA
 	dc.l	0xBBBBBBBB
 	dc.l	0x0BBABBBB
@@ -2787,9 +2825,9 @@ actor_fuzzl_sheet_blue_idle_frame_0:
 	dc.l	0xB0B00000
 	dc.l	0xAABBB000
 	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB122ABBB
+	dc.l	0xB99BABB0
+	dc.l	0xB29BAAB0
+	dc.l	0xB129BBBB
 	dc.l	0xA1229AB0
 	dc.l	0xB2229B00
 
@@ -2803,6 +2841,272 @@ actor_fuzzl_sheet_blue_idle_frame_0:
 	dc.l	0xB0A00000
 
 
+actor_fuzzl_sheet_blue_roll_frame_1:
+	dc.l	0x00000BB0
+	dc.l	0x0000BAAA
+	dc.l	0x00BBBBBA
+	dc.l	0x00BBBB99
+	dc.l	0x0B0BA922
+	dc.l	0xBBBAA222
+	dc.l	0x0BBBB921
+	dc.l	0xBBABBBBA
+
+	dc.l	0x0BABBBAA
+	dc.l	0xBAAABBBB
+	dc.l	0xBAABBBBB
+	dc.l	0x0BBBBBBB
+	dc.l	0x00B0BABB
+	dc.l	0x00BB0ABB
+	dc.l	0x0000ABBB
+	dc.l	0x00000BAB
+
+	dc.l	0xA0B00000
+	dc.l	0xAAABB000
+	dc.l	0xAAABBB00
+	dc.l	0x99BBAB00
+	dc.l	0x22BBBAB0
+	dc.l	0x1BBBBBBB
+	dc.l	0xBBB29BBB
+	dc.l	0xBA129BA0
+
+	dc.l	0xA1229AAB
+	dc.l	0xB2229AAB
+	dc.l	0xB929BBBB
+	dc.l	0xBBBBBBB0
+	dc.l	0xBBBBA000
+	dc.l	0xBBBBBB00
+	dc.l	0xB0BBB000
+	dc.l	0xBBB00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_2:
+	dc.l	0x00000B0B
+	dc.l	0x0000BB0B
+	dc.l	0x00BBBBBB
+	dc.l	0x0B0BABAA
+	dc.l	0x0BAABBB9
+	dc.l	0xBAAABBB9
+	dc.l	0x0BBBBBAB
+	dc.l	0xBBBBBBAA
+
+	dc.l	0xB0BBBBBA
+	dc.l	0x00BABBBB
+	dc.l	0xABABBBB9
+	dc.l	0x0BBBBBB9
+	dc.l	0x0ABBBBBB
+	dc.l	0x00BB0BBB
+	dc.l	0x000BBBBA
+	dc.l	0x00000BBB
+
+	dc.l	0xB0B00000
+	dc.l	0xBBAAB000
+	dc.l	0xBABA0000
+	dc.l	0xA9BAAA00
+	dc.l	0x229AAAA0
+	dc.l	0x22299AAB
+	dc.l	0x21129BBB
+	dc.l	0xBBBBBBBB
+
+	dc.l	0xBABBBBAB
+	dc.l	0x21129BA0
+	dc.l	0x22299BBB
+	dc.l	0x229BBBB0
+	dc.l	0x99BAA0B0
+	dc.l	0xBABABB00
+	dc.l	0x0BBBB000
+	dc.l	0x00B00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_3:
+	dc.l	0x00000BB0
+	dc.l	0x0000BAAB
+	dc.l	0x00BBBAAA
+	dc.l	0x00B0BBAB
+	dc.l	0x0A0BBBBB
+	dc.l	0xBBAABBBB
+	dc.l	0xABBBBBBA
+	dc.l	0xBBBBBBBA
+
+	dc.l	0xBBBBBBBA
+	dc.l	0xB0BBB921
+	dc.l	0xBBBBB222
+	dc.l	0x0BBBB922
+	dc.l	0x0BBABB99
+	dc.l	0x00B0BBAA
+	dc.l	0x0000BBAA
+	dc.l	0x00000BBB
+
+	dc.l	0xB0B00000
+	dc.l	0xBBBB0000
+	dc.l	0xABB0BB00
+	dc.l	0xBBABBB00
+	dc.l	0xBBAABBB0
+	dc.l	0xB929BBAB
+	dc.l	0xB2229BAB
+	dc.l	0xA1229AA0
+
+	dc.l	0xBB129AAA
+	dc.l	0xABB29AA0
+	dc.l	0x1BBBBAAB
+	dc.l	0x22BBBBB0
+	dc.l	0x99BBABB0
+	dc.l	0xBBBABB00
+	dc.l	0xABBB0000
+	dc.l	0x0BB00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_4:
+	dc.l	0x00000A0B
+	dc.l	0x000ABB00
+	dc.l	0x00BBBABB
+	dc.l	0x0BBBBBAB
+	dc.l	0x0B0BBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBABB99BA
+
+	dc.l	0x00B9222B
+	dc.l	0x0BA9221A
+	dc.l	0xBBBB921B
+	dc.l	0x0BAAB92B
+	dc.l	0x0BBAB99B
+	dc.l	0x00B0BBBB
+	dc.l	0x000BBBAA
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xBBABB000
+	dc.l	0xBBAA0B00
+	dc.l	0xBBAABB00
+	dc.l	0xBBBBABB0
+	dc.l	0xBBBBBBBB
+	dc.l	0xAABBAB00
+	dc.l	0xAB99ABBB
+
+	dc.l	0xB222ABBB
+	dc.l	0xB1229AB0
+	dc.l	0xB129BBAB
+	dc.l	0xB29AAAA0
+	dc.l	0xB99AA0B0
+	dc.l	0xBBAAA000
+	dc.l	0xBBAA0000
+	dc.l	0xBBB00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_5:
+	dc.l	0x00000BBB
+	dc.l	0x000BBB0B
+	dc.l	0x00BBBBBB
+	dc.l	0x000ABBBB
+	dc.l	0x0BBBBBBB
+	dc.l	0xBBBB929B
+	dc.l	0xBAA9222B
+	dc.l	0xBAA9221A
+
+	dc.l	0x0AB921AB
+	dc.l	0xBBB92BBB
+	dc.l	0xBBBBBBB1
+	dc.l	0x0BABBB22
+	dc.l	0x00BABB99
+	dc.l	0x00BBBAAA
+	dc.l	0x000BBAAA
+	dc.l	0x00000B0A
+
+	dc.l	0xBAB00000
+	dc.l	0xBBBA0000
+	dc.l	0xBBA0BB00
+	dc.l	0xBBAB0B00
+	dc.l	0xBBBBBBB0
+	dc.l	0xBBBBBAAB
+	dc.l	0xBBBBAAAB
+	dc.l	0xAABBBAB0
+
+	dc.l	0xABBBBABB
+	dc.l	0x129BBBB0
+	dc.l	0x222AABBB
+	dc.l	0x229AB0B0
+	dc.l	0x99BBBB00
+	dc.l	0xABBBBB00
+	dc.l	0xAAAB0000
+	dc.l	0x0BB00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_6:
+	dc.l	0x00000B00
+	dc.l	0x000BBBB0
+	dc.l	0x00BBABAB
+	dc.l	0x0B0AAB99
+	dc.l	0x0BBBB922
+	dc.l	0xBBB99222
+	dc.l	0x0AB92112
+	dc.l	0xBABBBBAB
+
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBB92112
+	dc.l	0xBAA99222
+	dc.l	0x0AAAA922
+	dc.l	0x00AAAB9A
+	dc.l	0x0000ABAB
+	dc.l	0x000BAABB
+	dc.l	0x00000B0B
+
+	dc.l	0xBBB00000
+	dc.l	0xABBBB000
+	dc.l	0xBBB0BB00
+	dc.l	0xBBBBBBA0
+	dc.l	0x9BBBBBB0
+	dc.l	0x9BBBBABA
+	dc.l	0xBBBBAB00
+	dc.l	0xABBBBB0B
+
+	dc.l	0xAABBBBBB
+	dc.l	0xBABBBBB0
+	dc.l	0x9BBBAAAB
+	dc.l	0x9BBBAAB0
+	dc.l	0xAABAB0B0
+	dc.l	0xBBBBBB00
+	dc.l	0xB0BB0000
+	dc.l	0xB0B00000
+
+
+actor_fuzzl_sheet_blue_roll_frame_7:
+	dc.l	0x00000BB0
+	dc.l	0x0000BBBA
+	dc.l	0x00BBABBB
+	dc.l	0x0BBABB99
+	dc.l	0x0BBBBB22
+	dc.l	0xBAABBBB1
+	dc.l	0x0AA92BBA
+	dc.l	0xAAA921BB
+
+	dc.l	0x0AA9221A
+	dc.l	0xBAB9222B
+	dc.l	0xBABB929B
+	dc.l	0x0BBBAABB
+	dc.l	0x00BBBABB
+	dc.l	0x00BB0BBA
+	dc.l	0x0000BBBB
+	dc.l	0x00000B0B
+
+	dc.l	0xBBB00000
+	dc.l	0xAABB0000
+	dc.l	0xAABB0B00
+	dc.l	0x99BBABB0
+	dc.l	0x229BBBB0
+	dc.l	0x222BBBBB
+	dc.l	0x129BBB0B
+	dc.l	0xABBBBBBB
+
+	dc.l	0xABBBBBBB
+	dc.l	0xABBBBBBA
+	dc.l	0xBBBBAABB
+	dc.l	0xBBBBB0A0
+	dc.l	0xBABB0B00
+	dc.l	0xAAABBB00
+	dc.l	0xBAAB0000
+	dc.l	0x0BB00000
+
+
 
 
 spritesheet_fuzzl_red_eyes:
@@ -2811,9 +3115,9 @@ actor_fuzzl_sheet_red_eyes_frame_0:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772128
-	dc.l	0x87862228
+	dc.l	0x08068868
+	dc.l	0x07711111
+	dc.l	0x87862128
 	dc.l	0x08762228
 	dc.l	0x88872228
 
@@ -2829,9 +3133,9 @@ actor_fuzzl_sheet_red_eyes_frame_0:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82127780
-	dc.l	0x82227888
+	dc.l	0x86886880
+	dc.l	0x11111780
+	dc.l	0x82127888
 	dc.l	0x72226780
 	dc.l	0x82226800
 
@@ -2849,8 +3153,8 @@ actor_fuzzl_sheet_red_eyes_frame_1:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772218
+	dc.l	0x08068868
+	dc.l	0x07711111
 	dc.l	0x87862218
 	dc.l	0x08762228
 	dc.l	0x88872228
@@ -2867,8 +3171,8 @@ actor_fuzzl_sheet_red_eyes_frame_1:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82217780
+	dc.l	0x86886880
+	dc.l	0x11111780
 	dc.l	0x82217888
 	dc.l	0x72226780
 	dc.l	0x82226800
@@ -2887,9 +3191,9 @@ actor_fuzzl_sheet_red_eyes_frame_2:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862218
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08762218
 	dc.l	0x88872228
 
@@ -2905,9 +3209,9 @@ actor_fuzzl_sheet_red_eyes_frame_2:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x82217888
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
 	dc.l	0x72216780
 	dc.l	0x82226800
 
@@ -2925,9 +3229,9 @@ actor_fuzzl_sheet_red_eyes_frame_3:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862228
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08762218
 	dc.l	0x88872218
 
@@ -2943,9 +3247,9 @@ actor_fuzzl_sheet_red_eyes_frame_3:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x82227888
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
 	dc.l	0x72216780
 	dc.l	0x82216800
 
@@ -2963,9 +3267,9 @@ actor_fuzzl_sheet_red_eyes_frame_4:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862228
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08762228
 	dc.l	0x88872128
 
@@ -2981,9 +3285,9 @@ actor_fuzzl_sheet_red_eyes_frame_4:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x82227888
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
 	dc.l	0x72226780
 	dc.l	0x82126800
 
@@ -3001,9 +3305,9 @@ actor_fuzzl_sheet_red_eyes_frame_5:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862228
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08761228
 	dc.l	0x88871228
 
@@ -3019,9 +3323,9 @@ actor_fuzzl_sheet_red_eyes_frame_5:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x82227888
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
 	dc.l	0x71226780
 	dc.l	0x81226800
 
@@ -3039,9 +3343,9 @@ actor_fuzzl_sheet_red_eyes_frame_6:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87861228
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08761228
 	dc.l	0x88872228
 
@@ -3057,9 +3361,9 @@ actor_fuzzl_sheet_red_eyes_frame_6:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x81227888
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
 	dc.l	0x71226780
 	dc.l	0x82226800
 
@@ -3077,8 +3381,8 @@ actor_fuzzl_sheet_red_eyes_frame_7:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07771228
+	dc.l	0x08068868
+	dc.l	0x07711111
 	dc.l	0x87861228
 	dc.l	0x08762228
 	dc.l	0x88872228
@@ -3095,8 +3399,8 @@ actor_fuzzl_sheet_red_eyes_frame_7:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x81227780
+	dc.l	0x86886880
+	dc.l	0x11111780
 	dc.l	0x81227888
 	dc.l	0x72226780
 	dc.l	0x82226800
@@ -3115,9 +3419,9 @@ actor_fuzzl_sheet_red_eyes_frame_8:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862218
+	dc.l	0x08078888
+	dc.l	0x07768868
+	dc.l	0x87811111
 	dc.l	0x08762218
 	dc.l	0x88872228
 
@@ -3133,688 +3437,34 @@ actor_fuzzl_sheet_red_eyes_frame_8:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x81227888
-	dc.l	0x71226780
-	dc.l	0x82226800
-
-	dc.l	0x78668878
-	dc.l	0x88888888
-	dc.l	0x88888888
-	dc.l	0x88888080
-	dc.l	0x87888880
-	dc.l	0x88788800
-	dc.l	0x00887000
-	dc.l	0x80700000
-
-
-
-
-spritesheet_fuzzl_blue_eyes:
-
-actor_fuzzl_sheet_blue_eyes_frame_0:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA212B
-	dc.l	0xBAB9222B
-	dc.l	0x0BA9222B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB212AAB0
-	dc.l	0xB222ABBB
-	dc.l	0xA2229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_1:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA221B
-	dc.l	0xBAB9221B
-	dc.l	0x0BA9222B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB221AAB0
-	dc.l	0xB221ABBB
-	dc.l	0xA2229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_2:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9221B
-	dc.l	0x0BA9221B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB221ABBB
-	dc.l	0xA2219AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_3:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9222B
-	dc.l	0x0BA9221B
-	dc.l	0xBBBA221B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB222ABBB
-	dc.l	0xA2219AB0
-	dc.l	0xB2219B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_4:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9222B
-	dc.l	0x0BA9222B
-	dc.l	0xBBBA212B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB222ABBB
-	dc.l	0xA2229AB0
-	dc.l	0xB2129B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_5:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9222B
-	dc.l	0x0BA9122B
-	dc.l	0xBBBA122B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB222ABBB
-	dc.l	0xA1229AB0
-	dc.l	0xB1229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_6:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9122B
-	dc.l	0x0BA9122B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB122ABBB
-	dc.l	0xA1229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_7:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA122B
-	dc.l	0xBAB9122B
-	dc.l	0x0BA9222B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB122AAB0
-	dc.l	0xB122ABBB
-	dc.l	0xA2229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-actor_fuzzl_sheet_blue_eyes_frame_8:
-	dc.l	0x00000BBB
-	dc.l	0x0000AABB
-	dc.l	0x000AAABB
-	dc.l	0x0B0A99BB
-	dc.l	0x0AAA222B
-	dc.l	0xBAB9221B
-	dc.l	0x0BA9221B
-	dc.l	0xBBBA222B
-
-	dc.l	0xBBBA99BA
-	dc.l	0x00BABBAA
-	dc.l	0xBBBBBBBB
-	dc.l	0x0BBABBBB
-	dc.l	0x00BBAABB
-	dc.l	0x00B0AABB
-	dc.l	0x000BBABB
-	dc.l	0x00000B0B
-
-	dc.l	0xB0B00000
-	dc.l	0xAABBB000
-	dc.l	0xBBBB0B00
-	dc.l	0xBB99ABB0
-	dc.l	0xB222AAB0
-	dc.l	0xB122ABBB
-	dc.l	0xA1229AB0
-	dc.l	0xB2229B00
-
-	dc.l	0xAB99BBAB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBBBBB
-	dc.l	0xBBBBB0B0
-	dc.l	0xBABBBBB0
-	dc.l	0xBBABBB00
-	dc.l	0x00BBA000
-	dc.l	0xB0A00000
-
-
-
-
-spritesheet_fuzzl_red_roll:
-
-actor_fuzzl_sheet_red_roll_frame_0:
-	dc.l	0x00000888
-	dc.l	0x00007788
-	dc.l	0x00077788
-	dc.l	0x08076688
-	dc.l	0x07772228
-	dc.l	0x87862218
-	dc.l	0x08762218
-	dc.l	0x88872228
-
-	dc.l	0x88876687
-	dc.l	0x00878877
-	dc.l	0x88888888
-	dc.l	0x08878888
-	dc.l	0x00887788
-	dc.l	0x00807788
-	dc.l	0x00088788
-	dc.l	0x00000808
-
-	dc.l	0x80800000
-	dc.l	0x77888000
-	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
-	dc.l	0x81227888
-	dc.l	0x71226780
-	dc.l	0x82226800
-
-	dc.l	0x78668878
-	dc.l	0x88888888
-	dc.l	0x88888888
-	dc.l	0x88888080
-	dc.l	0x87888880
-	dc.l	0x88788800
-	dc.l	0x00887000
-	dc.l	0x80700000
-
-
-actor_fuzzl_sheet_red_roll_frame_1:
-	dc.l	0x00000880
-	dc.l	0x00008777
-	dc.l	0x00888867
-	dc.l	0x00888662
-	dc.l	0x08087722
-	dc.l	0x88877622
-	dc.l	0x08888662
-	dc.l	0x88788887
-
-	dc.l	0x08788877
-	dc.l	0x87778888
-	dc.l	0x87788888
-	dc.l	0x08888888
-	dc.l	0x00808788
-	dc.l	0x00880788
-	dc.l	0x00007888
-	dc.l	0x00000878
-
-	dc.l	0x70800000
-	dc.l	0x77788000
-	dc.l	0x66788800
-	dc.l	0x26887800
-	dc.l	0x22888780
-	dc.l	0x18888888
-	dc.l	0x88826688
-	dc.l	0x87122670
-
-	dc.l	0x72222778
-	dc.l	0x86227778
-	dc.l	0x86666888
-	dc.l	0x88888880
-	dc.l	0x88887000
-	dc.l	0x88888800
-	dc.l	0x80888000
-	dc.l	0x88800000
-
-
-actor_fuzzl_sheet_red_roll_frame_2:
-	dc.l	0x00000808
-	dc.l	0x00008808
-	dc.l	0x00888888
-	dc.l	0x08087877
-	dc.l	0x08778886
-	dc.l	0x87778886
-	dc.l	0x08888878
-	dc.l	0x88888877
-
-	dc.l	0x80888887
-	dc.l	0x00878888
-	dc.l	0x78788886
-	dc.l	0x08888886
-	dc.l	0x07888888
-	dc.l	0x00880888
-	dc.l	0x00088887
-	dc.l	0x00000888
-
-	dc.l	0x80800000
-	dc.l	0x88778000
-	dc.l	0x87870000
-	dc.l	0x76677700
-	dc.l	0x22226770
-	dc.l	0x22226778
-	dc.l	0x21128888
-	dc.l	0x88888888
-
-	dc.l	0x87888878
-	dc.l	0x21128870
-	dc.l	0x22226888
-	dc.l	0x22226880
-	dc.l	0x66777080
-	dc.l	0x87878800
-	dc.l	0x08888000
-	dc.l	0x00800000
-
-
-actor_fuzzl_sheet_red_roll_frame_3:
-	dc.l	0x00000880
-	dc.l	0x00008778
-	dc.l	0x00888777
-	dc.l	0x00808878
-	dc.l	0x07088888
-	dc.l	0x88778888
-	dc.l	0x78888887
-	dc.l	0x88888887
-
-	dc.l	0x88888887
-	dc.l	0x80888662
-	dc.l	0x88888622
-	dc.l	0x08888622
-	dc.l	0x08878672
-	dc.l	0x00808877
-	dc.l	0x00008877
-	dc.l	0x00000888
-
-	dc.l	0x80800000
-	dc.l	0x88880000
-	dc.l	0x78808800
-	dc.l	0x88788800
-	dc.l	0x88778880
-	dc.l	0x86676878
-	dc.l	0x86226678
-	dc.l	0x72222770
-
-	dc.l	0x88122677
-	dc.l	0x78826670
-	dc.l	0x18888778
-	dc.l	0x22888880
-	dc.l	0x26887880
-	dc.l	0x66878800
-	dc.l	0x78880000
-	dc.l	0x08800000
-
-
-actor_fuzzl_sheet_red_roll_frame_4:
-	dc.l	0x00000708
-	dc.l	0x00078800
-	dc.l	0x00888788
-	dc.l	0x08888878
-	dc.l	0x08088888
-	dc.l	0x88888888
-	dc.l	0x88888888
-	dc.l	0x87886687
-
-	dc.l	0x00862228
-	dc.l	0x08762217
-	dc.l	0x88872218
-	dc.l	0x08772228
-	dc.l	0x08876688
-	dc.l	0x00808888
-	dc.l	0x00088877
-	dc.l	0x00000808
-
-	dc.l	0x80800000
-	dc.l	0x88788000
-	dc.l	0x88770800
-	dc.l	0x88778800
 	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
+	dc.l	0x71226780
+	dc.l	0x82226800
+
+	dc.l	0x78668878
 	dc.l	0x88888888
-	dc.l	0x77887800
-	dc.l	0x78667888
-
-	dc.l	0x82227888
-	dc.l	0x81226780
-	dc.l	0x81226878
-	dc.l	0x82227770
-	dc.l	0x88667080
-	dc.l	0x88777000
-	dc.l	0x88770000
-	dc.l	0x88800000
-
-
-actor_fuzzl_sheet_red_roll_frame_5:
-	dc.l	0x00000888
-	dc.l	0x00088808
-	dc.l	0x00888888
-	dc.l	0x00078888
-	dc.l	0x08888888
-	dc.l	0x88866668
-	dc.l	0x87772268
-	dc.l	0x87722227
-
-	dc.l	0x07622178
-	dc.l	0x88662888
-	dc.l	0x88888881
-	dc.l	0x08788822
-	dc.l	0x00878862
-	dc.l	0x00888766
-	dc.l	0x00088777
-	dc.l	0x00000807
-
-	dc.l	0x87800000
-	dc.l	0x88870000
-	dc.l	0x88708800
-	dc.l	0x88780800
-	dc.l	0x88888880
-	dc.l	0x88888778
-	dc.l	0x88887778
-	dc.l	0x77888780
-
-	dc.l	0x78888788
-	dc.l	0x26688880
-	dc.l	0x22677888
-	dc.l	0x22778080
-	dc.l	0x26688800
-	dc.l	0x76888800
-	dc.l	0x77780000
-	dc.l	0x08800000
-
-
-actor_fuzzl_sheet_red_roll_frame_6:
-	dc.l	0x00000800
-	dc.l	0x00088880
-	dc.l	0x00887878
-	dc.l	0x08077766
-	dc.l	0x08862222
-	dc.l	0x88862222
-	dc.l	0x07882112
-	dc.l	0x87888878
-
 	dc.l	0x88888888
-	dc.l	0x88882112
-	dc.l	0x87762222
-	dc.l	0x07762222
-	dc.l	0x00777667
-	dc.l	0x00007878
-	dc.l	0x00087788
-	dc.l	0x00000808
-
-	dc.l	0x88800000
-	dc.l	0x78888000
-	dc.l	0x88808800
-	dc.l	0x88888870
-	dc.l	0x68888880
-	dc.l	0x68888787
-	dc.l	0x88887800
-	dc.l	0x78888808
-
-	dc.l	0x77888888
+	dc.l	0x88888080
 	dc.l	0x87888880
-	dc.l	0x68887778
-	dc.l	0x68887780
-	dc.l	0x77878080
-	dc.l	0x88888800
-	dc.l	0x80880000
-	dc.l	0x80800000
-
-
-actor_fuzzl_sheet_red_roll_frame_7:
-	dc.l	0x00000880
-	dc.l	0x00008887
-	dc.l	0x00887866
-	dc.l	0x08878862
-	dc.l	0x08888822
-	dc.l	0x87788881
-	dc.l	0x07662887
-	dc.l	0x77622188
-
-	dc.l	0x07722227
-	dc.l	0x87662268
-	dc.l	0x87867668
-	dc.l	0x08887788
-	dc.l	0x00888788
-	dc.l	0x00880887
-	dc.l	0x00008888
-	dc.l	0x00000808
-
-	dc.l	0x88800000
-	dc.l	0x77880000
-	dc.l	0x77880800
-	dc.l	0x27687880
-	dc.l	0x22688880
-	dc.l	0x22688888
-	dc.l	0x26688808
-	dc.l	0x78888888
-
-	dc.l	0x78888888
-	dc.l	0x78888887
-	dc.l	0x88887788
-	dc.l	0x88888070
-	dc.l	0x87880800
-	dc.l	0x77788800
-	dc.l	0x87780000
-	dc.l	0x08800000
+	dc.l	0x88788800
+	dc.l	0x00887000
+	dc.l	0x80700000
 
 
 
 
-spritesheet_fuzzl_white_eyes:
+spritesheet_fuzzl_white_roll:
 
-actor_fuzzl_sheet_white_eyes_frame_0:
+actor_fuzzl_sheet_white_roll_frame_0:
 	dc.l	0x00000FFF
 	dc.l	0x000022FF
 	dc.l	0x000222FF
 	dc.l	0x0F02FFFF
-	dc.l	0x0222212F
-	dc.l	0xF2FF222F
-	dc.l	0x0F2F222F
+	dc.l	0x0222222F
+	dc.l	0xF2FF22AF
+	dc.l	0x0F2F22AF
 	dc.l	0xFFF2222F
 
 	dc.l	0xFFF2FFF2
@@ -3830,323 +3480,285 @@ actor_fuzzl_sheet_white_eyes_frame_0:
 	dc.l	0x22FFF000
 	dc.l	0xFFFF0F00
 	dc.l	0xFFFF2FF0
-	dc.l	0xF21222F0
+	dc.l	0xF22222F0
+	dc.l	0xFFA22FFF
+	dc.l	0x2FA2F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_roll_frame_1:
+	dc.l	0x00000FF0
+	dc.l	0x0000F222
+	dc.l	0x00FFFFF2
+	dc.l	0x00FFFFF2
+	dc.l	0x0F0F2222
+	dc.l	0xFFF22F22
+	dc.l	0x0FFFFFF2
+	dc.l	0xFF2FFFF2
+
+	dc.l	0x0F2FFF22
+	dc.l	0xF222FFFF
+	dc.l	0xF22FFFFF
+	dc.l	0x0FFFFFFF
+	dc.l	0x00F0F2FF
+	dc.l	0x00FF02FF
+	dc.l	0x00002FFF
+	dc.l	0x00000F2F
+
+	dc.l	0x20F00000
+	dc.l	0x222FF000
+	dc.l	0xFF2FFF00
+	dc.l	0x2FFF2F00
+	dc.l	0x22FFF2F0
+	dc.l	0xAFFFFFFF
+	dc.l	0xFFF2FFFF
+	dc.l	0xF2A22F20
+
+	dc.l	0x2222222F
+	dc.l	0xFF22222F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFF2000
+	dc.l	0xFFFFFF00
+	dc.l	0xF0FFF000
+	dc.l	0xFFF00000
+
+
+actor_fuzzl_sheet_white_roll_frame_2:
+	dc.l	0x00000F0F
+	dc.l	0x0000FF0F
+	dc.l	0x00FFFFFF
+	dc.l	0x0F0F2F22
+	dc.l	0x0F22FFFF
+	dc.l	0xF222FFFF
+	dc.l	0x0FFFFF2F
+	dc.l	0xFFFFFF22
+
+	dc.l	0xF0FFFFF2
+	dc.l	0x00F2FFFF
+	dc.l	0x2F2FFFFF
+	dc.l	0x0FFFFFFF
+	dc.l	0x02FFFFFF
+	dc.l	0x00FF0FFF
+	dc.l	0x000FFFF2
+	dc.l	0x00000FFF
+
+	dc.l	0xF0F00000
+	dc.l	0xFF22F000
+	dc.l	0xF2F20000
+	dc.l	0x2FF22200
+	dc.l	0x2222F220
+	dc.l	0x2222F22F
+	dc.l	0x2AA2FFFF
+	dc.l	0xFFFFFFFF
+
+	dc.l	0xF2FFFF2F
+	dc.l	0x2AA2FF20
+	dc.l	0x2222FFFF
+	dc.l	0x2222FFF0
+	dc.l	0xFF2220F0
+	dc.l	0xF2F2FF00
+	dc.l	0x0FFFF000
+	dc.l	0x00F00000
+
+
+actor_fuzzl_sheet_white_roll_frame_3:
+	dc.l	0x00000FF0
+	dc.l	0x0000F22F
+	dc.l	0x00FFF222
+	dc.l	0x00F0FF2F
+	dc.l	0x020FFFFF
+	dc.l	0xFF22FFFF
+	dc.l	0x2FFFFFF2
+	dc.l	0xFFFFFFF2
+
+	dc.l	0xFFFFFFF2
+	dc.l	0xF0FFFFF2
+	dc.l	0xFFFFFF22
+	dc.l	0x0FFFFF22
+	dc.l	0x0FF2FF22
+	dc.l	0x00F0FF22
+	dc.l	0x0000FF22
+	dc.l	0x00000FFF
+
+	dc.l	0xF0F00000
+	dc.l	0xFFFF0000
+	dc.l	0x2FF0FF00
+	dc.l	0xFF2FFF00
+	dc.l	0xFF22FFF0
+	dc.l	0xFFF2FF2F
+	dc.l	0xFF22FF2F
+	dc.l	0x22222220
+
+	dc.l	0xFFA22F22
+	dc.l	0x2FF2FF20
+	dc.l	0xAFFFF22F
+	dc.l	0x22FFFFF0
+	dc.l	0x2FFF2FF0
+	dc.l	0xFFF2FF00
+	dc.l	0x2FFF0000
+	dc.l	0x0FF00000
+
+
+actor_fuzzl_sheet_white_roll_frame_4:
+	dc.l	0x0000020F
+	dc.l	0x0002FF00
+	dc.l	0x00FFF2FF
+	dc.l	0x0FFFFF2F
+	dc.l	0x0F0FFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xF2FFFFF2
+
+	dc.l	0x00FF222F
+	dc.l	0x0F2F22A2
+	dc.l	0xFFF222AF
+	dc.l	0x0F22222F
+	dc.l	0x0FF2FFFF
+	dc.l	0x00F0FFFF
+	dc.l	0x000FFF22
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0xFF2FF000
+	dc.l	0xFF220F00
+	dc.l	0xFF22FF00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFFFFFF
+	dc.l	0x22FF2F00
+	dc.l	0x2FFF2FFF
+
 	dc.l	0xF2222FFF
-	dc.l	0x2222F2F0
-	dc.l	0xF222FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
+	dc.l	0xFA22F2F0
+	dc.l	0xFA22FF2F
+	dc.l	0xF2222220
+	dc.l	0xFFFF20F0
+	dc.l	0xFF222000
+	dc.l	0xFF220000
+	dc.l	0xFFF00000
 
 
-actor_fuzzl_sheet_white_eyes_frame_1:
+actor_fuzzl_sheet_white_roll_frame_5:
 	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222221F
-	dc.l	0xF2FF221F
-	dc.l	0x0F2F222F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
+	dc.l	0x000FFF0F
+	dc.l	0x00FFFFFF
+	dc.l	0x0002FFFF
+	dc.l	0x0FFFFFFF
 	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
+	dc.l	0xF22222FF
+	dc.l	0xF2222222
+
+	dc.l	0x02F22A2F
+	dc.l	0xFFFF2FFF
+	dc.l	0xFFFFFFFA
+	dc.l	0x0F2FFF22
+	dc.l	0x00F2FFF2
+	dc.l	0x00FFF2FF
+	dc.l	0x000FF222
+	dc.l	0x00000F02
+
+	dc.l	0xF2F00000
+	dc.l	0xFFF20000
+	dc.l	0xFF20FF00
+	dc.l	0xFF2F0F00
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFFF22F
+	dc.l	0xFFFF222F
+	dc.l	0x22FFF2F0
+
+	dc.l	0x2FFFF2FF
+	dc.l	0x2FFFFFF0
+	dc.l	0x22F22FFF
+	dc.l	0x2222F0F0
+	dc.l	0x2FFFFF00
+	dc.l	0x2FFFFF00
+	dc.l	0x222F0000
+	dc.l	0x0FF00000
+
+
+actor_fuzzl_sheet_white_roll_frame_6:
+	dc.l	0x00000F00
+	dc.l	0x000FFFF0
+	dc.l	0x00FF2F2F
+	dc.l	0x0F0222FF
+	dc.l	0x0FFF2222
+	dc.l	0xFFFF2222
+	dc.l	0x02FF2AA2
+	dc.l	0xF2FFFF2F
+
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFF2AA2
+	dc.l	0xF22F2222
+	dc.l	0x022F2222
+	dc.l	0x00222FF2
+	dc.l	0x00002F2F
+	dc.l	0x000F22FF
 	dc.l	0x00000F0F
 
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22122F0
-	dc.l	0xF2212FFF
-	dc.l	0x2222F2F0
-	dc.l	0xF222FF00
+	dc.l	0xFFF00000
+	dc.l	0x2FFFF000
+	dc.l	0xFFF0FF00
+	dc.l	0xFFFFFF20
+	dc.l	0xFFFFFFF0
+	dc.l	0xFFFFF2F2
+	dc.l	0xFFFF2F00
+	dc.l	0x2FFFFF0F
 
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
+	dc.l	0x22FFFFFF
 	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
+	dc.l	0xFFFF222F
+	dc.l	0xFFFF22F0
+	dc.l	0x22F2F0F0
+	dc.l	0xFFFFFF00
+	dc.l	0xF0FF0000
+	dc.l	0xF0F00000
 
 
-actor_fuzzl_sheet_white_eyes_frame_2:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF221F
-	dc.l	0x0F2F221F
-	dc.l	0xFFF2222F
+actor_fuzzl_sheet_white_roll_frame_7:
+	dc.l	0x00000FF0
+	dc.l	0x0000FFF2
+	dc.l	0x00FF2FFF
+	dc.l	0x0FF2FFF2
+	dc.l	0x0FFFFF22
+	dc.l	0xF22FFFFA
+	dc.l	0x02FF2FF2
+	dc.l	0x22F22AFF
 
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
+	dc.l	0x02222222
+	dc.l	0xF2FF22FF
+	dc.l	0xF2FF2FFF
+	dc.l	0x0FFF22FF
+	dc.l	0x00FFF2FF
+	dc.l	0x00FF0FF2
+	dc.l	0x0000FFFF
 	dc.l	0x00000F0F
 
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF2212FFF
-	dc.l	0x2221F2F0
-	dc.l	0xF222FF00
+	dc.l	0xFFF00000
+	dc.l	0x22FF0000
+	dc.l	0x22FF0F00
+	dc.l	0x22FF2FF0
+	dc.l	0x22FFFFF0
+	dc.l	0x22FFFFFF
+	dc.l	0x2FFFFF0F
+	dc.l	0x2FFFFFFF
 
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_3:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF222F
-	dc.l	0x0F2F221F
-	dc.l	0xFFF2221F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF2222FFF
-	dc.l	0x2221F2F0
-	dc.l	0xF221FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_4:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF222F
-	dc.l	0x0F2F222F
-	dc.l	0xFFF2212F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF2222FFF
-	dc.l	0x2222F2F0
-	dc.l	0xF212FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_5:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF222F
-	dc.l	0x0F2F122F
-	dc.l	0xFFF2122F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF2222FFF
-	dc.l	0x2122F2F0
-	dc.l	0xF122FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_6:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF122F
-	dc.l	0x0F2F122F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF1222FFF
-	dc.l	0x2122F2F0
-	dc.l	0xF222FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_7:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222122F
-	dc.l	0xF2FF122F
-	dc.l	0x0F2F222F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF12222F0
-	dc.l	0xF1222FFF
-	dc.l	0x2222F2F0
-	dc.l	0xF222FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_eyes_frame_8:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF221F
-	dc.l	0x0F2F221F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xF1222FFF
-	dc.l	0x2122F2F0
-	dc.l	0xF222FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
+	dc.l	0x2FFFFFFF
+	dc.l	0x2FFFFFF2
+	dc.l	0xFFFF22FF
+	dc.l	0xFFFFF020
+	dc.l	0xF2FF0F00
+	dc.l	0x222FFF00
+	dc.l	0xF22F0000
+	dc.l	0x0FF00000
 
 
 
@@ -4577,61 +4189,19 @@ actor_fuzzl_sheet_green_sleep_frame_2:
 
 
 
-spritesheet_fuzzl_white_idle:
+spritesheet_fuzzl_red_roll:
 
-actor_fuzzl_sheet_white_idle_frame_0:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x020222FF
-	dc.l	0x0222222F
-	dc.l	0xF222221F
-	dc.l	0x0F22221F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF22222
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFF222FF0
-	dc.l	0xF22222F0
-	dc.l	0xF1222FFF
-	dc.l	0x212222F0
-	dc.l	0xF2222F00
-
-	dc.l	0x2F22FF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-
-
-spritesheet_fuzzl_red_idle:
-
-actor_fuzzl_sheet_red_idle_frame_0:
+actor_fuzzl_sheet_red_roll_frame_0:
 	dc.l	0x00000888
 	dc.l	0x00007788
 	dc.l	0x00077788
-	dc.l	0x07076688
-	dc.l	0x07772228
-	dc.l	0x87762218
-	dc.l	0x08762218
+	dc.l	0x08011888
+	dc.l	0x07772188
+	dc.l	0x87862218
+	dc.l	0x08762128
 	dc.l	0x88872228
 
-	dc.l	0x88876677
+	dc.l	0x88876687
 	dc.l	0x00878877
 	dc.l	0x88888888
 	dc.l	0x08878888
@@ -4643,10 +4213,10 @@ actor_fuzzl_sheet_red_idle_frame_0:
 	dc.l	0x80800000
 	dc.l	0x77888000
 	dc.l	0x88880800
-	dc.l	0x88667880
-	dc.l	0x82227780
+	dc.l	0x88811880
+	dc.l	0x88127780
 	dc.l	0x81227888
-	dc.l	0x71226780
+	dc.l	0x72126780
 	dc.l	0x82226800
 
 	dc.l	0x78668878
@@ -4659,392 +4229,616 @@ actor_fuzzl_sheet_red_idle_frame_0:
 	dc.l	0x80700000
 
 
+actor_fuzzl_sheet_red_roll_frame_1:
+	dc.l	0x00000880
+	dc.l	0x00008777
+	dc.l	0x00888867
+	dc.l	0x00888662
+	dc.l	0x08087722
+	dc.l	0x88877221
+	dc.l	0x08888622
+	dc.l	0x88788887
+
+	dc.l	0x08788877
+	dc.l	0x87778888
+	dc.l	0x87788888
+	dc.l	0x08888888
+	dc.l	0x00808788
+	dc.l	0x00880788
+	dc.l	0x00007888
+	dc.l	0x00000878
+
+	dc.l	0x70800000
+	dc.l	0x77788000
+	dc.l	0x16788800
+	dc.l	0x18887800
+	dc.l	0x21888780
+	dc.l	0x21888888
+	dc.l	0x88118688
+	dc.l	0x87221170
+
+	dc.l	0x72122778
+	dc.l	0x82227778
+	dc.l	0x86266888
+	dc.l	0x88888880
+	dc.l	0x88887000
+	dc.l	0x88888800
+	dc.l	0x80888000
+	dc.l	0x88800000
 
 
-spritesheet_fuzzl_green_idle:
+actor_fuzzl_sheet_red_roll_frame_2:
+	dc.l	0x00000808
+	dc.l	0x00008808
+	dc.l	0x00888888
+	dc.l	0x08087877
+	dc.l	0x08778886
+	dc.l	0x87778886
+	dc.l	0x08888878
+	dc.l	0x88888877
 
-actor_fuzzl_sheet_green_idle_frame_0:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0D0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDDC221E
-	dc.l	0x0EDC221E
-	dc.l	0xEEED222E
+	dc.l	0x80888887
+	dc.l	0x00878888
+	dc.l	0x78788886
+	dc.l	0x08888886
+	dc.l	0x07888888
+	dc.l	0x00880888
+	dc.l	0x00088887
+	dc.l	0x00000888
 
-	dc.l	0xEEEDCCDD
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+	dc.l	0x80800000
+	dc.l	0x88778000
+	dc.l	0x87870000
+	dc.l	0x76671700
+	dc.l	0x22221770
+	dc.l	0x21218778
+	dc.l	0x22188888
+	dc.l	0x88888888
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE122DEEE
-	dc.l	0xD122CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0x87888878
+	dc.l	0x22188870
+	dc.l	0x21218888
+	dc.l	0x22221880
+	dc.l	0x66771080
+	dc.l	0x87878800
+	dc.l	0x08888000
+	dc.l	0x00800000
 
 
+actor_fuzzl_sheet_red_roll_frame_3:
+	dc.l	0x00000880
+	dc.l	0x00008778
+	dc.l	0x00888777
+	dc.l	0x00808878
+	dc.l	0x07088888
+	dc.l	0x88778888
+	dc.l	0x78888887
+	dc.l	0x88888887
+
+	dc.l	0x88888887
+	dc.l	0x80888622
+	dc.l	0x88888221
+	dc.l	0x08888622
+	dc.l	0x08878672
+	dc.l	0x00808877
+	dc.l	0x00008877
+	dc.l	0x00000888
+
+	dc.l	0x80800000
+	dc.l	0x88880000
+	dc.l	0x78808800
+	dc.l	0x88788800
+	dc.l	0x88778880
+	dc.l	0x86276878
+	dc.l	0x82226678
+	dc.l	0x72122770
+
+	dc.l	0x88221177
+	dc.l	0x78118670
+	dc.l	0x21888778
+	dc.l	0x21888880
+	dc.l	0x18887880
+	dc.l	0x16878800
+	dc.l	0x78880000
+	dc.l	0x08800000
 
 
-spritesheet_fuzzl_green_eyes:
+actor_fuzzl_sheet_red_roll_frame_4:
+	dc.l	0x00000708
+	dc.l	0x00078800
+	dc.l	0x00888788
+	dc.l	0x08888878
+	dc.l	0x08088888
+	dc.l	0x88888888
+	dc.l	0x88888888
+	dc.l	0x87886687
 
-actor_fuzzl_sheet_green_eyes_frame_0:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD212E
-	dc.l	0xEDEC222E
-	dc.l	0x0EDC222E
-	dc.l	0xEEED222E
+	dc.l	0x00862228
+	dc.l	0x08762127
+	dc.l	0x88872218
+	dc.l	0x08772188
+	dc.l	0x08811888
+	dc.l	0x00808888
+	dc.l	0x00088877
+	dc.l	0x00000808
 
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+	dc.l	0x80800000
+	dc.l	0x88788000
+	dc.l	0x88770800
+	dc.l	0x88778800
+	dc.l	0x88887880
+	dc.l	0x88888888
+	dc.l	0x77887800
+	dc.l	0x78667888
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE212DDE0
-	dc.l	0xE222DEEE
-	dc.l	0xD222CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0x82227888
+	dc.l	0x82126780
+	dc.l	0x81226878
+	dc.l	0x88127770
+	dc.l	0x88811080
+	dc.l	0x88777000
+	dc.l	0x88770000
+	dc.l	0x88800000
 
 
-actor_fuzzl_sheet_green_eyes_frame_1:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD221E
-	dc.l	0xEDEC221E
-	dc.l	0x0EDC222E
-	dc.l	0xEEED222E
+actor_fuzzl_sheet_red_roll_frame_5:
+	dc.l	0x00000888
+	dc.l	0x00088808
+	dc.l	0x00888888
+	dc.l	0x00078888
+	dc.l	0x08888888
+	dc.l	0x88866268
+	dc.l	0x87772228
+	dc.l	0x87722127
 
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+	dc.l	0x07112278
+	dc.l	0x88681188
+	dc.l	0x88888812
+	dc.l	0x08788812
+	dc.l	0x00878881
+	dc.l	0x00888761
+	dc.l	0x00088777
+	dc.l	0x00000807
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE221DDE0
-	dc.l	0xE221DEEE
-	dc.l	0xD222CDE0
-	dc.l	0xE222CE00
+	dc.l	0x87800000
+	dc.l	0x88870000
+	dc.l	0x88708800
+	dc.l	0x88780800
+	dc.l	0x88888880
+	dc.l	0x88888778
+	dc.l	0x88887778
+	dc.l	0x77888780
 
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
-
-
-actor_fuzzl_sheet_green_eyes_frame_2:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC221E
-	dc.l	0x0EDC221E
-	dc.l	0xEEED222E
-
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
-
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE221DEEE
-	dc.l	0xD221CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0x78888788
+	dc.l	0x22688880
+	dc.l	0x12277888
+	dc.l	0x22778080
+	dc.l	0x26688800
+	dc.l	0x76888800
+	dc.l	0x77780000
+	dc.l	0x08800000
 
 
-actor_fuzzl_sheet_green_eyes_frame_3:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC222E
-	dc.l	0x0EDC221E
-	dc.l	0xEEED221E
+actor_fuzzl_sheet_red_roll_frame_6:
+	dc.l	0x00000800
+	dc.l	0x00088880
+	dc.l	0x00887878
+	dc.l	0x08017766
+	dc.l	0x08812222
+	dc.l	0x88881212
+	dc.l	0x07888122
+	dc.l	0x87888878
 
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+	dc.l	0x88888888
+	dc.l	0x88888122
+	dc.l	0x87781212
+	dc.l	0x07712222
+	dc.l	0x00717667
+	dc.l	0x00007878
+	dc.l	0x00087788
+	dc.l	0x00000808
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE222DEEE
-	dc.l	0xD221CDE0
-	dc.l	0xE221CE00
+	dc.l	0x88800000
+	dc.l	0x78888000
+	dc.l	0x88808800
+	dc.l	0x88888870
+	dc.l	0x68888880
+	dc.l	0x68888787
+	dc.l	0x88887800
+	dc.l	0x78888808
 
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
-
-
-actor_fuzzl_sheet_green_eyes_frame_4:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC222E
-	dc.l	0x0EDC222E
-	dc.l	0xEEED212E
-
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
-
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE222DEEE
-	dc.l	0xD222CDE0
-	dc.l	0xE212CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0x77888888
+	dc.l	0x87888880
+	dc.l	0x68887778
+	dc.l	0x68887780
+	dc.l	0x77878080
+	dc.l	0x88888800
+	dc.l	0x80880000
+	dc.l	0x80800000
 
 
-actor_fuzzl_sheet_green_eyes_frame_5:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC222E
-	dc.l	0x0EDC122E
-	dc.l	0xEEED122E
+actor_fuzzl_sheet_red_roll_frame_7:
+	dc.l	0x00000880
+	dc.l	0x00008887
+	dc.l	0x00887861
+	dc.l	0x08878881
+	dc.l	0x08888812
+	dc.l	0x87788812
+	dc.l	0x07681187
+	dc.l	0x77112288
 
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+	dc.l	0x07722127
+	dc.l	0x87662228
+	dc.l	0x87867268
+	dc.l	0x08887788
+	dc.l	0x00888788
+	dc.l	0x00880887
+	dc.l	0x00008888
+	dc.l	0x00000808
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE222DEEE
-	dc.l	0xD122CDE0
-	dc.l	0xE122CE00
+	dc.l	0x88800000
+	dc.l	0x77880000
+	dc.l	0x77880800
+	dc.l	0x27687880
+	dc.l	0x22688880
+	dc.l	0x12288888
+	dc.l	0x22688808
+	dc.l	0x78888888
 
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
-
-
-actor_fuzzl_sheet_green_eyes_frame_6:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC122E
-	dc.l	0x0EDC122E
-	dc.l	0xEEED222E
-
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
-
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE122DEEE
-	dc.l	0xD122CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0x78888888
+	dc.l	0x78888887
+	dc.l	0x88887788
+	dc.l	0x88888070
+	dc.l	0x87880800
+	dc.l	0x77788800
+	dc.l	0x87780000
+	dc.l	0x08800000
 
 
-actor_fuzzl_sheet_green_eyes_frame_7:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD122E
-	dc.l	0xEDEC122E
-	dc.l	0x0EDC222E
-	dc.l	0xEEED222E
-
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
-
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE122DDE0
-	dc.l	0xE122DEEE
-	dc.l	0xD222CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
 
 
-actor_fuzzl_sheet_green_eyes_frame_8:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDEC221E
-	dc.l	0x0EDC221E
-	dc.l	0xEEED222E
+spritesheet_fuzzl_blue_eyes:
 
-	dc.l	0xEEEDCCED
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
+actor_fuzzl_sheet_blue_eyes_frame_0:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA912B
+	dc.l	0xBAB9222B
+	dc.l	0x0BA9222B
+	dc.l	0xBBBA222B
 
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE122DEEE
-	dc.l	0xD122CDE0
-	dc.l	0xE222CE00
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
 
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB219AAB0
+	dc.l	0xB222ABBB
+	dc.l	0xA2229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_1:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA921B
+	dc.l	0xBAB9221B
+	dc.l	0x0BA9222B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB221ABBB
+	dc.l	0xA2229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_2:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9221B
+	dc.l	0x0BA9221B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB221ABBB
+	dc.l	0xA2219AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_3:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9222B
+	dc.l	0x0BA9221B
+	dc.l	0xBBBA221B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB222ABBB
+	dc.l	0xA2219AB0
+	dc.l	0xB2219B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_4:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9222B
+	dc.l	0x0BA9222B
+	dc.l	0xBBBA212B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB222ABBB
+	dc.l	0xA2229AB0
+	dc.l	0xB2129B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_5:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9222B
+	dc.l	0x0BA9122B
+	dc.l	0xBBBA122B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB222ABBB
+	dc.l	0xA1229AB0
+	dc.l	0xB1229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_6:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9122B
+	dc.l	0x0BA9122B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB122ABBB
+	dc.l	0xA1229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_7:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0B0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAB9122B
+	dc.l	0x0BA9222B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99BA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB129AAB0
+	dc.l	0xB122ABBB
+	dc.l	0xA2229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+actor_fuzzl_sheet_blue_eyes_frame_8:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0A0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAA9221B
+	dc.l	0x0BA9221B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99AA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB122ABBB
+	dc.l	0xA1229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
 
 
 
@@ -5281,6 +5075,558 @@ actor_fuzzl_sheet_blue_sleep_frame_2:
 	dc.l	0xBBABBB00
 	dc.l	0x00BBA000
 	dc.l	0xB0A00000
+
+
+
+
+spritesheet_fuzzl_white_sleep:
+
+actor_fuzzl_sheet_white_sleep_frame_0:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222AAAF
+	dc.l	0xF2FAFFFF
+	dc.l	0x0F2FFFFF
+	dc.l	0xFFF2FFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFAAA22F0
+	dc.l	0xFFFFAFFF
+	dc.l	0x2FFFF2F0
+	dc.l	0xFFFFFF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_sleep_frame_1:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222FFFF
+	dc.l	0xF2FFAAAF
+	dc.l	0x0F2AFFFF
+	dc.l	0xFFF2FFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFF22F0
+	dc.l	0xFAAAFFFF
+	dc.l	0x2FFFA2F0
+	dc.l	0xFFFFFF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_sleep_frame_2:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222FFFF
+	dc.l	0xF2FFFFFF
+	dc.l	0x0F2FAAAF
+	dc.l	0xFFFAFFFF
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFFFF22F0
+	dc.l	0xFFFFFFFF
+	dc.l	0x2AAAF2F0
+	dc.l	0xFFFFAF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+
+
+spritesheet_fuzzl_red_idle:
+
+actor_fuzzl_sheet_red_idle_frame_0:
+	dc.l	0x00000888
+	dc.l	0x00007788
+	dc.l	0x00077788
+	dc.l	0x07078888
+	dc.l	0x07768868
+	dc.l	0x87711111
+	dc.l	0x08762218
+	dc.l	0x88872228
+
+	dc.l	0x88876677
+	dc.l	0x00878877
+	dc.l	0x88888888
+	dc.l	0x08878888
+	dc.l	0x00887788
+	dc.l	0x00807788
+	dc.l	0x00088788
+	dc.l	0x00000808
+
+	dc.l	0x80800000
+	dc.l	0x77888000
+	dc.l	0x88880800
+	dc.l	0x88887880
+	dc.l	0x86886780
+	dc.l	0x11111888
+	dc.l	0x71226780
+	dc.l	0x82226800
+
+	dc.l	0x78668878
+	dc.l	0x88888888
+	dc.l	0x88888888
+	dc.l	0x88888080
+	dc.l	0x87888880
+	dc.l	0x88788800
+	dc.l	0x00887000
+	dc.l	0x80700000
+
+
+
+
+spritesheet_fuzzl_white_idle:
+
+actor_fuzzl_sheet_white_idle_frame_0:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x020222FF
+	dc.l	0x0222222F
+	dc.l	0xF22222AF
+	dc.l	0x0F2222AF
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF22222
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFF222FF0
+	dc.l	0xF22222F0
+	dc.l	0xFA222FFF
+	dc.l	0x2A2222F0
+	dc.l	0xF2222F00
+
+	dc.l	0x2F22FF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+
+
+spritesheet_fuzzl_blue_idle:
+
+actor_fuzzl_sheet_blue_idle_frame_0:
+	dc.l	0x00000BBB
+	dc.l	0x0000AABB
+	dc.l	0x000AAABB
+	dc.l	0x0A0AA9BB
+	dc.l	0x0AAA922B
+	dc.l	0xBAA9221B
+	dc.l	0x0BA9221B
+	dc.l	0xBBBA222B
+
+	dc.l	0xBBBA99AA
+	dc.l	0x00BABBAA
+	dc.l	0xBBBBBBBB
+	dc.l	0x0BBABBBB
+	dc.l	0x00BBAABB
+	dc.l	0x00B0AABB
+	dc.l	0x000BBABB
+	dc.l	0x00000B0B
+
+	dc.l	0xB0B00000
+	dc.l	0xAABBB000
+	dc.l	0xBBBB0B00
+	dc.l	0xBB9BABB0
+	dc.l	0xB229AAB0
+	dc.l	0xB122ABBB
+	dc.l	0xA1229AB0
+	dc.l	0xB2229B00
+
+	dc.l	0xAB99BBAB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBBBBB
+	dc.l	0xBBBBB0B0
+	dc.l	0xBABBBBB0
+	dc.l	0xBBABBB00
+	dc.l	0x00BBA000
+	dc.l	0xB0A00000
+
+
+
+
+spritesheet_fuzzl_green_roll:
+
+actor_fuzzl_sheet_green_roll_frame_0:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0E0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDEC222E
+	dc.l	0x0EDC221E
+	dc.l	0xEEED221E
+
+	dc.l	0xEEEDCCED
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE222DDE0
+	dc.l	0xE122DEEE
+	dc.l	0xD122CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
+
+
+actor_fuzzl_sheet_green_roll_frame_1:
+	dc.l	0x00000EE0
+	dc.l	0x0000EDDD
+	dc.l	0x00EEEECD
+	dc.l	0x00EEECC2
+	dc.l	0x0E0EDD22
+	dc.l	0xEEEDDC22
+	dc.l	0x0EEEECC1
+	dc.l	0xEEDEEEED
+
+	dc.l	0x0EDEEEDD
+	dc.l	0xEDDDEEEE
+	dc.l	0xEDDEEEEE
+	dc.l	0x0EEEEEEE
+	dc.l	0x00E0EDEE
+	dc.l	0x00EE0DEE
+	dc.l	0x0000DEEE
+	dc.l	0x00000EDE
+
+	dc.l	0xD0E00000
+	dc.l	0xDDDEE000
+	dc.l	0xCCDEEE00
+	dc.l	0x2CEEDE00
+	dc.l	0x22EEEDE0
+	dc.l	0x1EEEEEEE
+	dc.l	0xEEE1CCEE
+	dc.l	0xED122CD0
+
+	dc.l	0xD2222DDE
+	dc.l	0xEC22DDDE
+	dc.l	0xECCCCEEE
+	dc.l	0xEEEEEEE0
+	dc.l	0xEEEED000
+	dc.l	0xEEEEEE00
+	dc.l	0xE0EEE000
+	dc.l	0xEEE00000
+
+
+actor_fuzzl_sheet_green_roll_frame_2:
+	dc.l	0x00000E0E
+	dc.l	0x0000EE0E
+	dc.l	0x00EEEEEE
+	dc.l	0x0E0EDEDD
+	dc.l	0x0EDDEEEC
+	dc.l	0xEDDDEEEC
+	dc.l	0x0EEEEEDE
+	dc.l	0xEEEEEEDD
+
+	dc.l	0xE0EEEEED
+	dc.l	0x00EDEEEE
+	dc.l	0xDEDEEEEC
+	dc.l	0x0EEEEEEC
+	dc.l	0x0DEEEEEE
+	dc.l	0x00EE0EEE
+	dc.l	0x000EEEED
+	dc.l	0x00000EEE
+
+	dc.l	0xE0E00000
+	dc.l	0xEEDDE000
+	dc.l	0xEDED0000
+	dc.l	0xDCCDDD00
+	dc.l	0x2222CDD0
+	dc.l	0x2222CDDE
+	dc.l	0x1122EEEE
+	dc.l	0xEEEEEEEE
+
+	dc.l	0xEDEEEEDE
+	dc.l	0x2112EED0
+	dc.l	0x2222CEEE
+	dc.l	0x2222CEE0
+	dc.l	0xCCDDD0E0
+	dc.l	0xEDEDEE00
+	dc.l	0x0EEEE000
+	dc.l	0x00E00000
+
+
+actor_fuzzl_sheet_green_roll_frame_3:
+	dc.l	0x00000EE0
+	dc.l	0x0000EDDE
+	dc.l	0x00EEEDDD
+	dc.l	0x00E0EEDE
+	dc.l	0x0D0EEEEE
+	dc.l	0xEEDDEEEE
+	dc.l	0xDEEEEEED
+	dc.l	0xEEEEEEED
+
+	dc.l	0xEEEEEEED
+	dc.l	0xE0EEECC2
+	dc.l	0xEEEEEC22
+	dc.l	0x0EEEEC22
+	dc.l	0x0EEDECD2
+	dc.l	0x00E0EEDD
+	dc.l	0x0000EEDD
+	dc.l	0x00000EEE
+
+	dc.l	0xE0E00000
+	dc.l	0xEEEE0000
+	dc.l	0xDEE0EE00
+	dc.l	0xEEDEEE00
+	dc.l	0xEEDDEEE0
+	dc.l	0xECCDCEDE
+	dc.l	0xEC22CCDE
+	dc.l	0xD1222DD0
+
+	dc.l	0xEE122CDD
+	dc.l	0xDEE2CCD0
+	dc.l	0x1EEEEDDE
+	dc.l	0x21EEEEE0
+	dc.l	0x2CEEDEE0
+	dc.l	0xCCEDEE00
+	dc.l	0xDEEE0000
+	dc.l	0x0EE00000
+
+
+actor_fuzzl_sheet_green_roll_frame_4:
+	dc.l	0x00000D0E
+	dc.l	0x000DEE00
+	dc.l	0x00EEEDEE
+	dc.l	0x0EEEEEDE
+	dc.l	0x0E0EEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEDEECCED
+
+	dc.l	0x00EC222E
+	dc.l	0x0EDC221D
+	dc.l	0xEEED221E
+	dc.l	0x0EDD222E
+	dc.l	0x0EEDCCEE
+	dc.l	0x00E0EEEE
+	dc.l	0x000EEEDD
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xEEDEE000
+	dc.l	0xEEDD0E00
+	dc.l	0xEEDDEE00
+	dc.l	0xEEEEDEE0
+	dc.l	0xEEEEEEEE
+	dc.l	0xDDEEDE00
+	dc.l	0xDECCDEEE
+
+	dc.l	0xE122DEEE
+	dc.l	0xE122CDE0
+	dc.l	0xE222CEDE
+	dc.l	0xE222DDD0
+	dc.l	0xEECCD0E0
+	dc.l	0xEEDDD000
+	dc.l	0xEEDD0000
+	dc.l	0xEEE00000
+
+
+actor_fuzzl_sheet_green_roll_frame_5:
+	dc.l	0x00000EEE
+	dc.l	0x000EEE0E
+	dc.l	0x00EEEEEE
+	dc.l	0x000DEEEE
+	dc.l	0x0EEEEEEE
+	dc.l	0xEEECCCCE
+	dc.l	0xEDDD22CE
+	dc.l	0xEDD2222D
+
+	dc.l	0x0DC221DE
+	dc.l	0xEECC1EEE
+	dc.l	0xEEEEEEE1
+	dc.l	0x0EDEEE22
+	dc.l	0x00EDEEC2
+	dc.l	0x00EEEDCC
+	dc.l	0x000EEDDD
+	dc.l	0x00000E0D
+
+	dc.l	0xEDE00000
+	dc.l	0xEEED0000
+	dc.l	0xEED0EE00
+	dc.l	0xEEDE0E00
+	dc.l	0xEEEEEEE0
+	dc.l	0xEEEEEDDE
+	dc.l	0xEEEEDDDE
+	dc.l	0xDDEEEDE0
+
+	dc.l	0xDEEEEDEE
+	dc.l	0x1CCEEEE0
+	dc.l	0x22CDDEEE
+	dc.l	0x22DDE0E0
+	dc.l	0x2CCEEE00
+	dc.l	0xDCEEEE00
+	dc.l	0xDDDE0000
+	dc.l	0x0EE00000
+
+
+actor_fuzzl_sheet_green_roll_frame_6:
+	dc.l	0x00000E00
+	dc.l	0x000EEEE0
+	dc.l	0x00EEDEDE
+	dc.l	0x0E0DDDCC
+	dc.l	0x0EEC2222
+	dc.l	0xEEEC2222
+	dc.l	0x0DEE2112
+	dc.l	0xEDEEEEDE
+
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEE2211
+	dc.l	0xEDDC2222
+	dc.l	0x0DDC2222
+	dc.l	0x00DDDCCD
+	dc.l	0x0000DEDE
+	dc.l	0x000EDDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xEEE00000
+	dc.l	0xDEEEE000
+	dc.l	0xEEE0EE00
+	dc.l	0xEEEEEED0
+	dc.l	0xCEEEEEE0
+	dc.l	0xCEEEEDED
+	dc.l	0xEEEEDE00
+	dc.l	0xDEEEEE0E
+
+	dc.l	0xDDEEEEEE
+	dc.l	0xEDEEEEE0
+	dc.l	0xCEEEDDDE
+	dc.l	0xCEEEDDE0
+	dc.l	0xDDEDE0E0
+	dc.l	0xEEEEEE00
+	dc.l	0xE0EE0000
+	dc.l	0xE0E00000
+
+
+actor_fuzzl_sheet_green_roll_frame_7:
+	dc.l	0x00000EE0
+	dc.l	0x0000EEED
+	dc.l	0x00EEDECC
+	dc.l	0x0EEDEEC2
+	dc.l	0x0EEEEE12
+	dc.l	0xEDDEEEE1
+	dc.l	0x0DCC2EED
+	dc.l	0xDDC221EE
+
+	dc.l	0x0DD2221D
+	dc.l	0xEDCC22CE
+	dc.l	0xEDECDCCE
+	dc.l	0x0EEEDDEE
+	dc.l	0x00EEEDEE
+	dc.l	0x00EE0EED
+	dc.l	0x0000EEEE
+	dc.l	0x00000E0E
+
+	dc.l	0xEEE00000
+	dc.l	0xDDEE0000
+	dc.l	0xDDEE0E00
+	dc.l	0x2DCEDEE0
+	dc.l	0x22CEEEE0
+	dc.l	0x22CEEEEE
+	dc.l	0x2CCEEE0E
+	dc.l	0xDEEEEEEE
+
+	dc.l	0xDEEEEEEE
+	dc.l	0xDEEEEEED
+	dc.l	0xEEEEDDEE
+	dc.l	0xEEEEE0D0
+	dc.l	0xEDEE0E00
+	dc.l	0xDDDEEE00
+	dc.l	0xEDDE0000
+	dc.l	0x0EE00000
 
 
 
@@ -5631,314 +5977,6 @@ actor_fuzzl_sheet_yellow_eyes_frame_8:
 
 
 
-spritesheet_fuzzl_white_roll:
-
-actor_fuzzl_sheet_white_roll_frame_0:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222222F
-	dc.l	0xF2FF229F
-	dc.l	0x0F2F229F
-	dc.l	0xFFF2222F
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF22222F0
-	dc.l	0xFF922FFF
-	dc.l	0x2F92F2F0
-	dc.l	0xF222FF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_roll_frame_1:
-	dc.l	0x00000FF0
-	dc.l	0x0000F222
-	dc.l	0x00FFFFF2
-	dc.l	0x00FFFFF2
-	dc.l	0x0F0F2222
-	dc.l	0xFFF22F22
-	dc.l	0x0FFFFFF2
-	dc.l	0xFF2FFFF2
-
-	dc.l	0x0F2FFF22
-	dc.l	0xF222FFFF
-	dc.l	0xF22FFFFF
-	dc.l	0x0FFFFFFF
-	dc.l	0x00F0F2FF
-	dc.l	0x00FF02FF
-	dc.l	0x00002FFF
-	dc.l	0x00000F2F
-
-	dc.l	0x20F00000
-	dc.l	0x222FF000
-	dc.l	0xFF2FFF00
-	dc.l	0x2FFF2F00
-	dc.l	0x22FFF2F0
-	dc.l	0x9FFFFFFF
-	dc.l	0xFFF2FFFF
-	dc.l	0xF2922F20
-
-	dc.l	0x2222222F
-	dc.l	0xFF22222F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFF0
-	dc.l	0xFFFF2000
-	dc.l	0xFFFFFF00
-	dc.l	0xF0FFF000
-	dc.l	0xFFF00000
-
-
-actor_fuzzl_sheet_white_roll_frame_2:
-	dc.l	0x00000F0F
-	dc.l	0x0000FF0F
-	dc.l	0x00FFFFFF
-	dc.l	0x0F0F2F22
-	dc.l	0x0F22FFFF
-	dc.l	0xF222FFFF
-	dc.l	0x0FFFFF2F
-	dc.l	0xFFFFFF22
-
-	dc.l	0xF0FFFFF2
-	dc.l	0x00F2FFFF
-	dc.l	0x2F2FFFFF
-	dc.l	0x0FFFFFFF
-	dc.l	0x02FFFFFF
-	dc.l	0x00FF0FFF
-	dc.l	0x000FFFF2
-	dc.l	0x00000FFF
-
-	dc.l	0xF0F00000
-	dc.l	0xFF22F000
-	dc.l	0xF2F20000
-	dc.l	0x2FF22200
-	dc.l	0x2222F220
-	dc.l	0x2222F22F
-	dc.l	0x2992FFFF
-	dc.l	0xFFFFFFFF
-
-	dc.l	0xF2FFFF2F
-	dc.l	0x2992FF20
-	dc.l	0x2222FFFF
-	dc.l	0x2222FFF0
-	dc.l	0xFF2220F0
-	dc.l	0xF2F2FF00
-	dc.l	0x0FFFF000
-	dc.l	0x00F00000
-
-
-actor_fuzzl_sheet_white_roll_frame_3:
-	dc.l	0x00000FF0
-	dc.l	0x0000F22F
-	dc.l	0x00FFF222
-	dc.l	0x00F0FF2F
-	dc.l	0x020FFFFF
-	dc.l	0xFF22FFFF
-	dc.l	0x2FFFFFF2
-	dc.l	0xFFFFFFF2
-
-	dc.l	0xFFFFFFF2
-	dc.l	0xF0FFFFF2
-	dc.l	0xFFFFFF22
-	dc.l	0x0FFFFF22
-	dc.l	0x0FF2FF22
-	dc.l	0x00F0FF22
-	dc.l	0x0000FF22
-	dc.l	0x00000FFF
-
-	dc.l	0xF0F00000
-	dc.l	0xFFFF0000
-	dc.l	0x2FF0FF00
-	dc.l	0xFF2FFF00
-	dc.l	0xFF22FFF0
-	dc.l	0xFFF2FF2F
-	dc.l	0xFF22FF2F
-	dc.l	0x22222220
-
-	dc.l	0xFF922F22
-	dc.l	0x2FF2FF20
-	dc.l	0x9FFFF22F
-	dc.l	0x22FFFFF0
-	dc.l	0x2FFF2FF0
-	dc.l	0xFFF2FF00
-	dc.l	0x2FFF0000
-	dc.l	0x0FF00000
-
-
-actor_fuzzl_sheet_white_roll_frame_4:
-	dc.l	0x0000020F
-	dc.l	0x0002FF00
-	dc.l	0x00FFF2FF
-	dc.l	0x0FFFFF2F
-	dc.l	0x0F0FFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xF2FFFFF2
-
-	dc.l	0x00FF222F
-	dc.l	0x0F2F2292
-	dc.l	0xFFF2229F
-	dc.l	0x0F22222F
-	dc.l	0x0FF2FFFF
-	dc.l	0x00F0FFFF
-	dc.l	0x000FFF22
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0xFF2FF000
-	dc.l	0xFF220F00
-	dc.l	0xFF22FF00
-	dc.l	0xFFFF2FF0
-	dc.l	0xFFFFFFFF
-	dc.l	0x22FF2F00
-	dc.l	0x2FFF2FFF
-
-	dc.l	0xF2222FFF
-	dc.l	0xF922F2F0
-	dc.l	0xF922FF2F
-	dc.l	0xF2222220
-	dc.l	0xFFFF20F0
-	dc.l	0xFF222000
-	dc.l	0xFF220000
-	dc.l	0xFFF00000
-
-
-actor_fuzzl_sheet_white_roll_frame_5:
-	dc.l	0x00000FFF
-	dc.l	0x000FFF0F
-	dc.l	0x00FFFFFF
-	dc.l	0x0002FFFF
-	dc.l	0x0FFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xF22222FF
-	dc.l	0xF2222222
-
-	dc.l	0x02F2292F
-	dc.l	0xFFFF2FFF
-	dc.l	0xFFFFFFF9
-	dc.l	0x0F2FFF22
-	dc.l	0x00F2FFF2
-	dc.l	0x00FFF2FF
-	dc.l	0x000FF222
-	dc.l	0x00000F02
-
-	dc.l	0xF2F00000
-	dc.l	0xFFF20000
-	dc.l	0xFF20FF00
-	dc.l	0xFF2F0F00
-	dc.l	0xFFFFFFF0
-	dc.l	0xFFFFF22F
-	dc.l	0xFFFF222F
-	dc.l	0x22FFF2F0
-
-	dc.l	0x2FFFF2FF
-	dc.l	0x2FFFFFF0
-	dc.l	0x22F22FFF
-	dc.l	0x2222F0F0
-	dc.l	0x2FFFFF00
-	dc.l	0x2FFFFF00
-	dc.l	0x222F0000
-	dc.l	0x0FF00000
-
-
-actor_fuzzl_sheet_white_roll_frame_6:
-	dc.l	0x00000F00
-	dc.l	0x000FFFF0
-	dc.l	0x00FF2F2F
-	dc.l	0x0F0222FF
-	dc.l	0x0FFF2222
-	dc.l	0xFFFF2222
-	dc.l	0x02FF2992
-	dc.l	0xF2FFFF2F
-
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFF2992
-	dc.l	0xF22F2222
-	dc.l	0x022F2222
-	dc.l	0x00222FF2
-	dc.l	0x00002F2F
-	dc.l	0x000F22FF
-	dc.l	0x00000F0F
-
-	dc.l	0xFFF00000
-	dc.l	0x2FFFF000
-	dc.l	0xFFF0FF00
-	dc.l	0xFFFFFF20
-	dc.l	0xFFFFFFF0
-	dc.l	0xFFFFF2F2
-	dc.l	0xFFFF2F00
-	dc.l	0x2FFFFF0F
-
-	dc.l	0x22FFFFFF
-	dc.l	0xF2FFFFF0
-	dc.l	0xFFFF222F
-	dc.l	0xFFFF22F0
-	dc.l	0x22F2F0F0
-	dc.l	0xFFFFFF00
-	dc.l	0xF0FF0000
-	dc.l	0xF0F00000
-
-
-actor_fuzzl_sheet_white_roll_frame_7:
-	dc.l	0x00000FF0
-	dc.l	0x0000FFF2
-	dc.l	0x00FF2FFF
-	dc.l	0x0FF2FFF2
-	dc.l	0x0FFFFF22
-	dc.l	0xF22FFFF9
-	dc.l	0x02FF2FF2
-	dc.l	0x22F229FF
-
-	dc.l	0x02222222
-	dc.l	0xF2FF22FF
-	dc.l	0xF2FF2FFF
-	dc.l	0x0FFF22FF
-	dc.l	0x00FFF2FF
-	dc.l	0x00FF0FF2
-	dc.l	0x0000FFFF
-	dc.l	0x00000F0F
-
-	dc.l	0xFFF00000
-	dc.l	0x22FF0000
-	dc.l	0x22FF0F00
-	dc.l	0x22FF2FF0
-	dc.l	0x22FFFFF0
-	dc.l	0x22FFFFFF
-	dc.l	0x2FFFFF0F
-	dc.l	0x2FFFFFFF
-
-	dc.l	0x2FFFFFFF
-	dc.l	0x2FFFFFF2
-	dc.l	0xFFFF22FF
-	dc.l	0xFFFFF020
-	dc.l	0xF2FF0F00
-	dc.l	0x222FFF00
-	dc.l	0xF22F0000
-	dc.l	0x0FF00000
-
-
-
-
 spritesheet_fuzzl_yellow_idle:
 
 actor_fuzzl_sheet_yellow_idle_frame_0:
@@ -5981,137 +6019,19 @@ actor_fuzzl_sheet_yellow_idle_frame_0:
 
 
 
-spritesheet_fuzzl_white_sleep:
+spritesheet_fuzzl_green_idle:
 
-actor_fuzzl_sheet_white_sleep_frame_0:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222111F
-	dc.l	0xF2F1FFFF
-	dc.l	0x0F2FFFFF
-	dc.l	0xFFF2FFFF
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xF11122F0
-	dc.l	0xFFFF1FFF
-	dc.l	0x2FFFF2F0
-	dc.l	0xFFFFFF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_sleep_frame_1:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222FFFF
-	dc.l	0xF2FF111F
-	dc.l	0x0F21FFFF
-	dc.l	0xFFF2FFFF
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xFFFF22F0
-	dc.l	0xF111FFFF
-	dc.l	0x2FFF12F0
-	dc.l	0xFFFFFF00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-actor_fuzzl_sheet_white_sleep_frame_2:
-	dc.l	0x00000FFF
-	dc.l	0x000022FF
-	dc.l	0x000222FF
-	dc.l	0x0F02FFFF
-	dc.l	0x0222FFFF
-	dc.l	0xF2FFFFFF
-	dc.l	0x0F2F111F
-	dc.l	0xFFF1FFFF
-
-	dc.l	0xFFF2FFF2
-	dc.l	0x00F2FF22
-	dc.l	0xFFFFFFFF
-	dc.l	0x0FF2FFFF
-	dc.l	0x00FF22FF
-	dc.l	0x00F022FF
-	dc.l	0x000FF2FF
-	dc.l	0x00000F0F
-
-	dc.l	0xF0F00000
-	dc.l	0x22FFF000
-	dc.l	0xFFFF0F00
-	dc.l	0xFFFF2FF0
-	dc.l	0xFFFF22F0
-	dc.l	0xFFFFFFFF
-	dc.l	0x2111F2F0
-	dc.l	0xFFFF1F00
-
-	dc.l	0x2FFFFF2F
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFFFFF
-	dc.l	0xFFFFF0F0
-	dc.l	0xF2FFFFF0
-	dc.l	0xFF2FFF00
-	dc.l	0x00FF2000
-	dc.l	0xF0200000
-
-
-
-
-spritesheet_fuzzl_green_roll:
-
-actor_fuzzl_sheet_green_roll_frame_0:
+actor_fuzzl_sheet_green_idle_frame_0:
 	dc.l	0x00000EEE
 	dc.l	0x0000DDEE
 	dc.l	0x000DDDEE
-	dc.l	0x0E0DCCEE
+	dc.l	0x0D0DCCEE
 	dc.l	0x0DDD222E
-	dc.l	0xEDEC221E
+	dc.l	0xEDDC222E
 	dc.l	0x0EDC221E
-	dc.l	0xEEED222E
+	dc.l	0xEEED221E
 
-	dc.l	0xEEEDCCED
+	dc.l	0xEEEDCCDD
 	dc.l	0x00EDEEDD
 	dc.l	0xEEEEEEEE
 	dc.l	0x0EEDEEEE
@@ -6139,270 +6059,350 @@ actor_fuzzl_sheet_green_roll_frame_0:
 	dc.l	0xE0D00000
 
 
-actor_fuzzl_sheet_green_roll_frame_1:
-	dc.l	0x00000EE0
-	dc.l	0x0000EDDD
-	dc.l	0x00EEEECD
-	dc.l	0x00EEECC2
-	dc.l	0x0E0EDD22
-	dc.l	0xEEEDDC22
-	dc.l	0x0EEEECC2
-	dc.l	0xEEDEEEED
-
-	dc.l	0x0EDEEEDD
-	dc.l	0xEDDDEEEE
-	dc.l	0xEDDEEEEE
-	dc.l	0x0EEEEEEE
-	dc.l	0x00E0EDEE
-	dc.l	0x00EE0DEE
-	dc.l	0x0000DEEE
-	dc.l	0x00000EDE
-
-	dc.l	0xD0E00000
-	dc.l	0xDDDEE000
-	dc.l	0xCCDEEE00
-	dc.l	0x2CEEDE00
-	dc.l	0x22EEEDE0
-	dc.l	0x1EEEEEEE
-	dc.l	0xEEE2CCEE
-	dc.l	0xED122CD0
-
-	dc.l	0xD2222DDE
-	dc.l	0xEC22DDDE
-	dc.l	0xECCCCEEE
-	dc.l	0xEEEEEEE0
-	dc.l	0xEEEED000
-	dc.l	0xEEEEEE00
-	dc.l	0xE0EEE000
-	dc.l	0xEEE00000
 
 
-actor_fuzzl_sheet_green_roll_frame_2:
-	dc.l	0x00000E0E
-	dc.l	0x0000EE0E
-	dc.l	0x00EEEEEE
-	dc.l	0x0E0EDEDD
-	dc.l	0x0EDDEEEC
-	dc.l	0xEDDDEEEC
-	dc.l	0x0EEEEEDE
-	dc.l	0xEEEEEEDD
+spritesheet_fuzzl_white_eyes:
 
-	dc.l	0xE0EEEEED
-	dc.l	0x00EDEEEE
-	dc.l	0xDEDEEEEC
-	dc.l	0x0EEEEEEC
-	dc.l	0x0DEEEEEE
-	dc.l	0x00EE0EEE
-	dc.l	0x000EEEED
-	dc.l	0x00000EEE
+actor_fuzzl_sheet_white_eyes_frame_0:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x02222A2F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
 
-	dc.l	0xE0E00000
-	dc.l	0xEEDDE000
-	dc.l	0xEDED0000
-	dc.l	0xDCCDDD00
-	dc.l	0x2222CDD0
-	dc.l	0x2222CDDE
-	dc.l	0x2112EEEE
-	dc.l	0xEEEEEEEE
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
 
-	dc.l	0xEDEEEEDE
-	dc.l	0x2112EED0
-	dc.l	0x2222CEEE
-	dc.l	0x2222CEE0
-	dc.l	0xCCDDD0E0
-	dc.l	0xEDEDEE00
-	dc.l	0x0EEEE000
-	dc.l	0x00E00000
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF2A222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
 
-
-actor_fuzzl_sheet_green_roll_frame_3:
-	dc.l	0x00000EE0
-	dc.l	0x0000EDDE
-	dc.l	0x00EEEDDD
-	dc.l	0x00E0EEDE
-	dc.l	0x0D0EEEEE
-	dc.l	0xEEDDEEEE
-	dc.l	0xDEEEEEED
-	dc.l	0xEEEEEEED
-
-	dc.l	0xEEEEEEED
-	dc.l	0xE0EEECC2
-	dc.l	0xEEEEEC22
-	dc.l	0x0EEEEC22
-	dc.l	0x0EEDECD2
-	dc.l	0x00E0EEDD
-	dc.l	0x0000EEDD
-	dc.l	0x00000EEE
-
-	dc.l	0xE0E00000
-	dc.l	0xEEEE0000
-	dc.l	0xDEE0EE00
-	dc.l	0xEEDEEE00
-	dc.l	0xEEDDEEE0
-	dc.l	0xECCDCEDE
-	dc.l	0xEC22CCDE
-	dc.l	0xD2222DD0
-
-	dc.l	0xEE122CDD
-	dc.l	0xDEE2CCD0
-	dc.l	0x1EEEEDDE
-	dc.l	0x22EEEEE0
-	dc.l	0x2CEEDEE0
-	dc.l	0xCCEDEE00
-	dc.l	0xDEEE0000
-	dc.l	0x0EE00000
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
-actor_fuzzl_sheet_green_roll_frame_4:
-	dc.l	0x00000D0E
-	dc.l	0x000DEE00
-	dc.l	0x00EEEDEE
-	dc.l	0x0EEEEEDE
-	dc.l	0x0E0EEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEDEECCED
+actor_fuzzl_sheet_white_eyes_frame_1:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x022222AF
+	dc.l	0xF2FF22AF
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
 
-	dc.l	0x00EC222E
-	dc.l	0x0EDC221D
-	dc.l	0xEEED221E
-	dc.l	0x0EDD222E
-	dc.l	0x0EEDCCEE
-	dc.l	0x00E0EEEE
-	dc.l	0x000EEEDD
-	dc.l	0x00000E0E
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
 
-	dc.l	0xE0E00000
-	dc.l	0xEEDEE000
-	dc.l	0xEEDD0E00
-	dc.l	0xEEDDEE00
-	dc.l	0xEEEEDEE0
-	dc.l	0xEEEEEEEE
-	dc.l	0xDDEEDE00
-	dc.l	0xDECCDEEE
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22A22F0
+	dc.l	0xF22A2FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
 
-	dc.l	0xE222DEEE
-	dc.l	0xE122CDE0
-	dc.l	0xE122CEDE
-	dc.l	0xE222DDD0
-	dc.l	0xEECCD0E0
-	dc.l	0xEEDDD000
-	dc.l	0xEEDD0000
-	dc.l	0xEEE00000
-
-
-actor_fuzzl_sheet_green_roll_frame_5:
-	dc.l	0x00000EEE
-	dc.l	0x000EEE0E
-	dc.l	0x00EEEEEE
-	dc.l	0x000DEEEE
-	dc.l	0x0EEEEEEE
-	dc.l	0xEEECCCCE
-	dc.l	0xEDDD22CE
-	dc.l	0xEDD2222D
-
-	dc.l	0x0DC221DE
-	dc.l	0xEECC2EEE
-	dc.l	0xEEEEEEE1
-	dc.l	0x0EDEEE22
-	dc.l	0x00EDEEC2
-	dc.l	0x00EEEDCC
-	dc.l	0x000EEDDD
-	dc.l	0x00000E0D
-
-	dc.l	0xEDE00000
-	dc.l	0xEEED0000
-	dc.l	0xEED0EE00
-	dc.l	0xEEDE0E00
-	dc.l	0xEEEEEEE0
-	dc.l	0xEEEEEDDE
-	dc.l	0xEEEEDDDE
-	dc.l	0xDDEEEDE0
-
-	dc.l	0xDEEEEDEE
-	dc.l	0x2CCEEEE0
-	dc.l	0x22CDDEEE
-	dc.l	0x22DDE0E0
-	dc.l	0x2CCEEE00
-	dc.l	0xDCEEEE00
-	dc.l	0xDDDE0000
-	dc.l	0x0EE00000
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
-actor_fuzzl_sheet_green_roll_frame_6:
-	dc.l	0x00000E00
-	dc.l	0x000EEEE0
-	dc.l	0x00EEDEDE
-	dc.l	0x0E0DDDCC
-	dc.l	0x0EEC2222
-	dc.l	0xEEEC2222
-	dc.l	0x0DEE2112
-	dc.l	0xEDEEEEDE
+actor_fuzzl_sheet_white_eyes_frame_2:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF22AF
+	dc.l	0x0F2F22AF
+	dc.l	0xFFF2222F
 
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEE2112
-	dc.l	0xEDDC2222
-	dc.l	0x0DDC2222
-	dc.l	0x00DDDCCD
-	dc.l	0x0000DEDE
-	dc.l	0x000EDDEE
-	dc.l	0x00000E0E
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
 
-	dc.l	0xEEE00000
-	dc.l	0xDEEEE000
-	dc.l	0xEEE0EE00
-	dc.l	0xEEEEEED0
-	dc.l	0xCEEEEEE0
-	dc.l	0xCEEEEDED
-	dc.l	0xEEEEDE00
-	dc.l	0xDEEEEE0E
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF22A2FFF
+	dc.l	0x222AF2F0
+	dc.l	0xF222FF00
 
-	dc.l	0xDDEEEEEE
-	dc.l	0xEDEEEEE0
-	dc.l	0xCEEEDDDE
-	dc.l	0xCEEEDDE0
-	dc.l	0xDDEDE0E0
-	dc.l	0xEEEEEE00
-	dc.l	0xE0EE0000
-	dc.l	0xE0E00000
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
-actor_fuzzl_sheet_green_roll_frame_7:
-	dc.l	0x00000EE0
-	dc.l	0x0000EEED
-	dc.l	0x00EEDECC
-	dc.l	0x0EEDEEC2
-	dc.l	0x0EEEEE22
-	dc.l	0xEDDEEEE1
-	dc.l	0x0DCC2EED
-	dc.l	0xDDC221EE
+actor_fuzzl_sheet_white_eyes_frame_3:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F22AF
+	dc.l	0xFFF222AF
 
-	dc.l	0x0DD2222D
-	dc.l	0xEDCC22CE
-	dc.l	0xEDECDCCE
-	dc.l	0x0EEEDDEE
-	dc.l	0x00EEEDEE
-	dc.l	0x00EE0EED
-	dc.l	0x0000EEEE
-	dc.l	0x00000E0E
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
 
-	dc.l	0xEEE00000
-	dc.l	0xDDEE0000
-	dc.l	0xDDEE0E00
-	dc.l	0x2DCEDEE0
-	dc.l	0x22CEEEE0
-	dc.l	0x22CEEEEE
-	dc.l	0x2CCEEE0E
-	dc.l	0xDEEEEEEE
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x222AF2F0
+	dc.l	0xF22AFF00
 
-	dc.l	0xDEEEEEEE
-	dc.l	0xDEEEEEED
-	dc.l	0xEEEEDDEE
-	dc.l	0xEEEEE0D0
-	dc.l	0xEDEE0E00
-	dc.l	0xDDDEEE00
-	dc.l	0xEDDE0000
-	dc.l	0x0EE00000
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_eyes_frame_4:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF22A2F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF2A2FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_eyes_frame_5:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF222F
+	dc.l	0x0F2FA22F
+	dc.l	0xFFF2A22F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xF2222FFF
+	dc.l	0x2A22F2F0
+	dc.l	0xFA22FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_eyes_frame_6:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FFA22F
+	dc.l	0x0F2FA22F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xFA222FFF
+	dc.l	0x2A22F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_eyes_frame_7:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222A22F
+	dc.l	0xF2FFA22F
+	dc.l	0x0F2F222F
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xFA2222F0
+	dc.l	0xFA222FFF
+	dc.l	0x2222F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
+
+
+actor_fuzzl_sheet_white_eyes_frame_8:
+	dc.l	0x00000FFF
+	dc.l	0x000022FF
+	dc.l	0x000222FF
+	dc.l	0x0F02FFFF
+	dc.l	0x0222222F
+	dc.l	0xF2FF22AF
+	dc.l	0x0F2F22AF
+	dc.l	0xFFF2222F
+
+	dc.l	0xFFF2FFF2
+	dc.l	0x00F2FF22
+	dc.l	0xFFFFFFFF
+	dc.l	0x0FF2FFFF
+	dc.l	0x00FF22FF
+	dc.l	0x00F022FF
+	dc.l	0x000FF2FF
+	dc.l	0x00000F0F
+
+	dc.l	0xF0F00000
+	dc.l	0x22FFF000
+	dc.l	0xFFFF0F00
+	dc.l	0xFFFF2FF0
+	dc.l	0xF22222F0
+	dc.l	0xFA222FFF
+	dc.l	0x2A22F2F0
+	dc.l	0xF222FF00
+
+	dc.l	0x2FFFFF2F
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFFFFF
+	dc.l	0xFFFFF0F0
+	dc.l	0xF2FFFFF0
+	dc.l	0xFF2FFF00
+	dc.l	0x00FF2000
+	dc.l	0xF0200000
 
 
 
