@@ -16,6 +16,12 @@ MAP_StreamInit:
 	move.w #0xFFFF, (a5)+
 	dbra   d0, @IdxLp
 
+	move.w #0x0, d0
+	jsr    VDP_SetHScrollPlaneA
+	jsr    VDP_SetHScrollPlaneB
+	jsr    VDP_SetVScrollPlaneA
+	jsr    VDP_SetVScrollPlaneB
+
 	rts
 
 MAP_UpdateStreaming:

@@ -287,12 +287,6 @@ MainMenu_Update:
 	jsr    EntityUpdateAll
 
 	@NoUpdate:
-
-	move.w #0x0, d0
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
-	jsr    VDP_SetHScrollPlaneA
-	jsr    VDP_SetVScrollPlaneB
 	
 	rts
 	
