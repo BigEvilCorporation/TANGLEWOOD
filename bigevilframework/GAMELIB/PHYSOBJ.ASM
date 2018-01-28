@@ -66,6 +66,7 @@ PhysicsObj_WallProbeTop			rs.w 1 ; Top wall probe Y offset
 PhysicsObj_WallProbeBottom		rs.w 1 ; Bottom wall probe Y offset
 PhysicsObj_WallProbeLeft		rs.w 1 ; Left wall probe X offset
 PhysicsObj_WallProbeRight		rs.w 1 ; Right wall probe X offset
+PhysicsObj_WallProbeCentreX		rs.w 1 ; Distance from centre to begin wall search
 PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
 PhysicsObj_StepHeight	    	rs.w 1 ; Max step height
@@ -147,6 +148,7 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BounceX(a0)
 	move.w #0x0, PhysicsObj_BounceY(a0)
 	move.w #0x0, PhysicsObj_MinWallHeight(a0)
+	move.w #0x0, PhysicsObj_WallProbeCentreX(a0)
 	move.b #0x1, PhysicsObj_CanSleep(a0)
 	move.b #0x0, PhysicsObj_Asleep(a0)
 	move.b #0x1, PhysicsObj_Mass(a0)
@@ -216,7 +218,7 @@ PhysicsObjPreStep:
 	
 	; Get current animation
 	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoAnim
 	
 	; Check if velocity is to be cancelled
@@ -1241,7 +1243,7 @@ PhysicsObjFindFloor:
 	
 	LIST_GET_HEAD Platforms,a3		; Get list head
 	@PlatformLp:					; For all platforms in list
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoPlatform
 
 	; Ignore self
@@ -1482,12 +1484,13 @@ PhysicsObjFindWall:
 	@HeadingLeft:
 	
 	; Search from centre to left bounds - 1 tile
-	move.w d1, d0
-	add.w  PhysicsObj_BoundsLeft(a0), d0
-	subq.w #0x08, d0
-	move.w Entity_Width(a0), d2
+	move.w d1, d0								; Get left
+	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get left bounds
+	subq.w #0x08, d0							; - 1 tile
+	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
 	add.w  d2, d1
+	sub.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
 
 	; Searching backwards 1 tile at a time
 	move.w #-0x8, d3
@@ -1497,13 +1500,14 @@ PhysicsObjFindWall:
 	@HeadingRight:
 	
 	; Search from centre to right bounds + 1 tile
-	move.w d1, d0
-	add.w  PhysicsObj_BoundsLeft(a0), d0
+	move.w d1, d0								; Get left
+	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get right bounds
 	add.w  PhysicsObj_BoundsWidth(a0), d0
-	addq.w #0x8, d0
-	move.w Entity_Width(a0), d2
+	addq.w #0x8, d0								; + 1 tile
+	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
 	add.w  d2, d1
+	add.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
 
 	; Searching forwards 1 tile at a tile
 	move.w #0x8, d3
@@ -1555,9 +1559,10 @@ PhysicsObjFindWall:
 	; Get min barrier height
 	move.w PhysicsObj_MinWallHeight(a0), d4
 	
-	LIST_GET_SIZE Barriers,d0		; Get list size
+	LIST_GET_SIZE Barriers,d7		; Get list size
+	beq    @NoBarrier
 	LIST_GET_HEAD Barriers,a3		; Get list head
-	subq.w #0x1, d0
+	subq.w #0x1, d7
 	@BarrierLp:						; For all barriers in list
 	
 	; Get barrier height
@@ -1620,6 +1625,7 @@ PhysicsObjFindWall:
 	; If heading left, use right hand side of barrier
 	move.l PhysicsObj_VelX(a0), d6
 	add.l  PhysicsObj_ImpulseX(a0), d6
+	swap   d7
 	cmp.b  #0x2, d7
 	beq    @LeftOfBarrier	; Forced direction flag
 	tst.l  d6
@@ -1654,7 +1660,7 @@ PhysicsObjFindWall:
 	
 	@NextBarrier:
 	LIST_GET_NEXT Barriers,a3,a3	; Get next ptr
-	dbra.w d0,@BarrierLp			; Loop
+	dbra.w d7,@BarrierLp			; Loop
 	
 	@NoBarrier:
 	@EndBarrierSearch:
@@ -1924,7 +1930,7 @@ PhysicsObjFindMovingFloor:
 	
 	LIST_GET_HEAD MovingPlatforms,a3	; Get list head
 	@PlatformLp:						; For all platforms in list
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoPlatform
 
 	; Ignore stationary platforms
@@ -2055,7 +2061,7 @@ PhysicsObjFindMovingBarrier:
 	
 	LIST_GET_HEAD MovingBarriers,a3	; Get list head
 	@BarrierLp:						; For all barriers in list
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoBarrier
 
 	; HACK: If already colliding with this barrier, it may previously have been static, clear flag
@@ -2225,7 +2231,7 @@ PhysicsObjFindPushable:
 	; Loop over pushable objects
 	LIST_GET_HEAD PushableObjs,a2	; Get list head
 	@PushableObjLp:					; For all pushing objects in list
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPushableObj
 	
 	; Check if can be pushed

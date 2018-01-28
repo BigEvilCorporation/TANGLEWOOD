@@ -15,6 +15,7 @@ Crate_MaxVelYDown		equ 0x08*subpixels_per_pixel
 Crate_StepHeight		equ 0x4
 Crate_ProbeFloorX		equ (Crate_Width/2)		; Floor detection probe position X
 Crate_ProbeFloorY		equ (Crate_Height-8)	; Floor detection probe position X
+Crate_ProbeWallX		equ (Crate_Width/2)-8	; Distance from centre to start wall search
 Crate_MaxVelX			equ 0x080000
 Crate_Decel				equ 0x003000
 
@@ -72,6 +73,7 @@ CrateInit:
 	move.w  #Crate_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Crate_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #Crate_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)

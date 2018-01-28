@@ -595,7 +595,7 @@ MonsterCheckBarrier:
 	; Check for markers
 	LIST_GET_HEAD AIMarkers,a2	; Get list head
 	@MarkerLp:					; For all markers in list
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @ListEnd
 
 	; Check bounds

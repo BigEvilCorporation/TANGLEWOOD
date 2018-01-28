@@ -27,6 +27,7 @@ Borgus_MinWallHeight	equ 0x11				; High enough to avoid stones
 Borgus_ProbeFloorX		equ (Borgus_Width/2)	; Floor detection probe position X
 Borgus_ProbeFloorY		equ (Borgus_Height-8)	; Floor detection probe position Y
 Borgus_ProbeWallTop		equ 0x08
+Borgus_ProbeWallX		equ (Borgus_Width/2)-8	; Distance from centre to start wall search
 
 Borgus_BoundsWidth		equ Borgus_Width
 Borgus_BoundsHeight		equ (Borgus_Height-0x40)
@@ -131,8 +132,9 @@ BorgusInit:
 	move.w  #Borgus_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Borgus_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
 	move.w  #Borgus_Height-1, PhysicsObj_WallProbeBottom(a0)
-	move.w  #(Borgus_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
-	move.w  #(Borgus_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
+	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
+	move.w  #Borgus_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #Borgus_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.w  #Borgus_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Borgus_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b  #Borgus_Mass, PhysicsObj_Mass(a0)
@@ -162,7 +164,7 @@ BorgusInit:
 	PUSHL   a0
 	lea     Borgus_Spitball(a0), a0
 	jsr     PhysicsObjInit
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l  #AnimObjDraw, Entity_RenderRoutine(a0)
 	jsr     EntityAddToRenderList
 	move.w  #BorgusSpitball_Width, Entity_Width(a0)
 	move.w  #BorgusSpitball_Height, Entity_Height(a0)
@@ -173,6 +175,7 @@ BorgusInit:
 	move.w  #BorgusSpitball_BoundsHeight, PhysicsObj_BoundsHeight(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_CollideFloor(a0)
+	move.b  #0x0, PhysicsObj_CollideWalls(a0)
 	move.b  #0x1, AnimObj_UpdateOutOfView(a0)
 	POPL    a0
 
@@ -602,7 +605,7 @@ BorgusFireFuzzl:
 	PUSHM   a0-a1
 	move.l  a0, a2
 	move.l  Borgus_Fuzzl(a0), a0
-	cmp.l   #0x0, a0
+	cmpa.w #0x0, a0
 	beq     @NoFuzzl
 
 	; Activate Fuzzl

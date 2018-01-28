@@ -16,7 +16,7 @@ RasterEffectLetterboxInit:
 
 	; End prev
 	move.l raster_effect_end, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPrev
 	jsr    (a2)
 	@NoPrev:
@@ -131,7 +131,7 @@ RasterEffectUnderwaterInit:
 
 	; End prev
 	move.l raster_effect_end, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPrev
 	jsr    (a2)
 	@NoPrev:

@@ -52,7 +52,7 @@ UIWidgetSelect:
 	PUSHALL
 	move.l UIWidget_OnSelectedData(a0), a1
 	move.l UIWidget_OnSelected(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCallback
 	jsr    (a2)
 	@NoCallback:

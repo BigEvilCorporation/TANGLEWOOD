@@ -124,7 +124,7 @@ DjakkCageUpdate:
 
 	; Trigger callback
 	move.l DjakkCage_OnEndRaise(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @End
 	PUSHM  a0-a1
 	move.l DjakkCage_CallbackUserData(a0), a0

@@ -109,7 +109,7 @@ CAM_Update:
 
 	; Update camera pos from target gameobj
 	move.l  (CameraTargetGameObj), a0
-	cmp.l   #0x0, a0
+	cmpa.w #0x0, a0
 	beq     @NoCameraTarget
 	
 	;==============================================================
@@ -138,7 +138,7 @@ CAM_Update:
 
 	; If lerp source object set
 	move.l  (CameraLerpFromObj), a2
-	cmp.l   #0x0, a2
+	cmpa.w #0x0, a2
 	beq     @NoLerpStartObj
 	
 	; Get lerp source X/Y from object

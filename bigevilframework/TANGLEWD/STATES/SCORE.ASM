@@ -301,7 +301,7 @@ EndLevelScoreScreen_Update:
 	lea    GameStateEndLevelScoreData, a0
 	move.l EndLevelScore_NextLevel(a0), a1
 	move.l a1, CurrentLevel
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @EndOfGame
 	
 	; Next level gameplay state

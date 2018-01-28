@@ -77,7 +77,7 @@ LoadGame:
 	; Tick inactive physics objs in world grid
 	LIST_GET_HEAD EntityWorldGrid,a0
 	@EntityLp:
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	btst.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
 	beq    @NextObj

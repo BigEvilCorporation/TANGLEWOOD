@@ -162,7 +162,7 @@ l6a2_Init:
 	; Force every sprite object to use palette 1 (silhouette)
 	LIST_GET_HEAD EntityUpdate,a0
 	@UpdateLp:
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @UpdateListEnd
 	move.l Entity_TypeBits(a0), d0
 	andi.l #entity_type_spriteobj, d0
@@ -176,7 +176,7 @@ l6a2_Init:
 
 	LIST_GET_HEAD EntityWorldGrid,a0
 	@WorldGridLp:
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @WorldGridListEnd
 	move.l Entity_TypeBits(a0), d0
 	andi.l #entity_type_spriteobj, d0

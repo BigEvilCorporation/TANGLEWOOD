@@ -19,6 +19,7 @@ Longboat_WallProbeBottom	equ Longboat_Height+0x08
 Longboat_StepHeight			equ 0x4
 Longboat_FloorProbeX		equ (Longboat_Width/2)
 Longboat_FloorProbeY		equ (Longboat_Height-4)
+Longboat_ProbeWallX			equ (Longboat_Width/2)-8	; Distance from centre to start wall search
 Longboat_MaxVelX			equ 0x0000A000
 Longboat_PlatformOffsetX	equ 0x0000
 Longboat_PlatformOffsetY	equ 0x0000
@@ -79,6 +80,7 @@ LongboatInit:
 	move.w  #Longboat_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Longboat_WallProbeRight, PhysicsObj_WallProbeRight(a0)
 	move.w  #Longboat_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Longboat_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.b  #Longboat_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x1, PhysicsObj_AffectedByGravity(a0)

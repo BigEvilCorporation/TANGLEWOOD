@@ -58,7 +58,7 @@ UIWindowUpdate:
 
 	MLIST_GET_HEAD Widgets,a2,a0			; Get list head
 	@WidgetLp:								; For all widgets in list
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @ListEnd
 	PUSHM  a0-a2
 	move.l a2, a0							; Widget addr to a0
@@ -85,7 +85,7 @@ UIWindowRender:
 
 	MLIST_GET_HEAD Widgets,a2,a0			; Get list head
 	@WidgetLp:								; For all widgets in list
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @ListEnd
 	PUSHM  a0-a2
 	move.l a2, a0							; Widget addr to a0

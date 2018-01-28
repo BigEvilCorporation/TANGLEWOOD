@@ -77,12 +77,12 @@ WinchUpdate:
 
 	; Get attached object
 	move.l Winch_PhysObject(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @Stopped
 
 	; Check object is latched
 	move.l Winch_Mirror(a0), a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoMirror
 
 	; Combine bounds of both winches
@@ -178,7 +178,7 @@ Winch_RunClockwise:
 
 	PUSHM  a0-a1
 	move.l Winch_Mirror(a0), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoMirror
 	lea    Winch_Animation(a0), a1
 	move.b #0x0, d0
@@ -206,7 +206,7 @@ Winch_RunAntiClockwise:
 
 	PUSHM  a0-a1
 	move.l Winch_Mirror(a0), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoMirror
 	lea    Winch_Animation(a0), a1
 	move.b #0x0, d0
@@ -230,7 +230,7 @@ Winch_Stop:
 	move.l #0x0, Winch_Velocity(a0)
 
 	move.l Winch_Mirror(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoMirror
 	move.b #0x0, AnimObj_Playing(a2)
 	@NoMirror:

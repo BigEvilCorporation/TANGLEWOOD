@@ -21,7 +21,7 @@ GameStateEnter:
 	
 	; Exit prev state
 	move.l (GameStatePtr), a1
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NoPrevState
 	move.l GameState_ExitRoutine(a1), a2
 	move.l a0, -(sp)
@@ -86,7 +86,7 @@ GameStateRender:
 GameStateSerialise:
 	move.l (GameStatePtr), a0
 	move.l GameState_SerialiseRoutine(a0), a1
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NoSerialise
 	jsr    (a1)
 	@NoSerialise:

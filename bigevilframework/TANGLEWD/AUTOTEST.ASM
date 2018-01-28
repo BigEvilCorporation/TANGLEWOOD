@@ -149,7 +149,7 @@ AutotestAdvanceState:
 
 	; Find next checkpoint
 	move.l EntityPoolStart_Checkpoint, a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoCheckpoint
 
 	; Teleport to checkpoint (right hand side to activate it)

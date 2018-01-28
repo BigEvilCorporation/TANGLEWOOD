@@ -192,7 +192,7 @@ Pause_Enter:
 	lea    GameStatePauseData, a1
 	move.l EntityPoolStart_Firefly, a0
 	move.l a0, PauseState_Firefly(a1)
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoFireflies
 
 	; Backup its world grid state, position and sprite prio
@@ -271,7 +271,7 @@ Pause_Exit:
 	PUSHM  a0-a1
 	lea    GameStatePauseData, a1
 	move.l PauseState_Firefly(a1), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoFirefly
 
 	; Restore its world grid state, position and sprite prio
@@ -382,7 +382,7 @@ Pause_Update:
 	PUSHM  a0-a1
 	lea    GameStatePauseData, a1
 	move.l PauseState_Firefly(a1), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoFirefly
 	move.l Entity_UpdateRoutine(a0), a3
 	jsr    (a3)

@@ -124,7 +124,7 @@ UIWidgetCursorSelect:
 	lea    UIWidgetCursor_Widgets(a2), a2
 	add.l  d1, a2
 	move.l (a2), a2							; Deref
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCurrWidget
 	move.b #0x0, UIWidget_HasFocus(a2)		; Clear focus
 	@NoCurrWidget:
@@ -172,10 +172,10 @@ UIWidgetCursorCycleOption:
 	lea    UIWidgetCursor_Widgets(a2), a2
 	add.l  d1, a2
 	move.l (a2), a0							; Deref
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoCurrWidget
 	move.l UIWidget_OnOptionCycle(a0), a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoCallback
 	jsr    (a3)
 	@NoCurrWidget:

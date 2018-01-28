@@ -108,7 +108,7 @@ GeneratorUpdate:
 
 	; Update anim speeds
 	move.l  Generator_Cogs(a0), a2
-	cmp.l   #0x0, a2
+	cmpa.w #0x0, a2
 	beq     @NoCogs
 	move.b  #0x1, AnimObj_Playing(a2)
 	lea     Cogs_Animations+(Animation_Struct_Size*CogsAnimIdx_Spin)(a2), a2
@@ -143,7 +143,7 @@ Generator_Activate:
 
 	; Fire callback
 	move.l Generator_OnActivate(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCallback
 	PUSHL  a0
 	move.l Generator_UserData(a0), a0
@@ -164,7 +164,7 @@ Generator_Deactivate:
 
 	; If Fuzzl, remove
 	move.l Generator_Fuzzl(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoFuzzl
 
 	PUSHL  a0
@@ -185,7 +185,7 @@ Generator_Deactivate:
 	
 	; Stop cogs
 	move.l  Generator_Cogs(a0), a2
-	cmp.l   #0x0, a2
+	cmpa.w #0x0, a2
 	beq     @NoCogs
 	move.b  #0x0, AnimObj_Playing(a2)
 	@NoCogs:

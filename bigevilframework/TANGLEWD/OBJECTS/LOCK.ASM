@@ -124,7 +124,7 @@ LockUpdate:
 
 	@AtBottom:
 	move.l Lock_OnLowered(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @CallbackDone
 	PUSHL  a0
 	move.l Lock_UserData(a0), a0
@@ -134,7 +134,7 @@ LockUpdate:
 
 	@AtTop:
 	move.l Lock_OnRaised(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @CallbackDone
 	PUSHL  a0
 	move.l Lock_UserData(a0), a0

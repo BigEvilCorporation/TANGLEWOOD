@@ -122,7 +122,7 @@ SND_PlayTrack:
 	;==============================================================
 
 	; If not ambience, remove from queue
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NotQueued
 	cmp.b  #Track_Type_Ambience, Track_Type(a0)
 	beq    @Ambience
@@ -184,7 +184,7 @@ SND_StopTrackType:
 
 	; If currently playing track, stop playing5
 	move.l audio_current_track, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoTrack
 	cmp.b  Track_Type(a2), d0
 	bne    @NotCurrentTrack
@@ -222,7 +222,7 @@ SND_PlaySFX:
 
 	; Auto-stop SFX that have reach the end
 	; TODO: done here due to delay between Echo_StartTrack and Echo_GetStatus returning SFX Busy flag
-	cmp.l  #0x0, audio_current_sfx
+	tst.l  audio_current_sfx
 	beq    @EndStopCheck
 	jsr    SND_GetSFXBusy
 	tst.b  d0
@@ -239,7 +239,7 @@ SND_PlaySFX:
 	;==============================================================
 
 	; If SFX already playing
-	cmp.l  #0x0, audio_current_sfx
+	tst.l  audio_current_sfx
 	beq    @CheckTrackPriority
 
 	; Check priority
@@ -259,7 +259,7 @@ SND_PlaySFX:
 	@Replace:
 
 	; If track playing
-	cmp.l  #0x0, audio_current_track
+	tst.l  audio_current_track
 	beq    @Free
 
 	; Check priority
@@ -450,7 +450,7 @@ SND_UpdateTrack:
 	bne    @Busy
 
 	; Check if track stopped
-	cmp.l  #0x0, audio_current_track
+	tst.l  audio_current_track
 	bne    @Busy
 
 	; Determine next track
@@ -512,7 +512,7 @@ SND_UpdateTrack:
 
 	; Auto-stop track if timer elapsed
 	move.l (audio_current_track), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoCurrentTrack
 	move.w audio_track_stop_timer, d0
 	beq    @TimerNotRunning

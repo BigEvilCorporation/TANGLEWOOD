@@ -25,7 +25,7 @@ Gameplay_Enter:
 	move.l (CurrentLevel), a1
 
 	; If none, get initial level
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	bne    @LevelSet
 	move.l #InitialLevel, a1
 	move.l a1, CurrentLevel
@@ -59,7 +59,7 @@ Gameplay_Enter:
 	
 	; Get last activated checkpoint
 	move.l (LastActivatedCheckpoint), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCheckpoints
 	
 	; Set as activated, don't allow it to instigate a save
@@ -106,7 +106,7 @@ Gameplay_Enter:
 Gameplay_Exit:
 
 	move.l (CurrentLevel), a1
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NoLevel
 
 	; Store firefly count
@@ -115,7 +115,7 @@ Gameplay_Exit:
 
 	; Run end level routine
 	move.l Level_EndRoutine(a1), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoEndRoutine
 	jsr    (a2)
 	@NoEndRoutine:
@@ -169,7 +169,7 @@ Gameplay_Update:
 
 	; Check if player 2 is dead
 	move.l (Player2), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @PlayerAlive
 	tst.b  Character_Dead(a2)
 	beq    @PlayerAlive

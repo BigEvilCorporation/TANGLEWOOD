@@ -2749,7 +2749,7 @@ EchoAI_FindInterestingObj:
 
 	; Search ladders
 	jsr    EchoAI_FindLadder
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoLadder
 	jsr    EchoAI_PushInteractionLadder
 	bra    @End
@@ -2757,7 +2757,7 @@ EchoAI_FindInterestingObj:
 
 	; Search carts
 	jsr    EchoAI_FindCart
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCart
 	jsr    EchoAI_PushInteractionCart
 	bra    @End
@@ -2773,7 +2773,7 @@ EchoAI_FindInterestingObj:
 
 	; Search AI markers
 	jsr    EchoAI_FindAIMarker
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	bne    @End
 
 	;==============================================================
@@ -2786,7 +2786,7 @@ EchoAI_FindInterestingObj:
 
 	; Search Fuzzls
 	jsr    EchoAI_FindFuzzl
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoFuzzl
 	jsr    EchoAI_PushInteractionFuzzl
 	bra    @End
@@ -2794,7 +2794,7 @@ EchoAI_FindInterestingObj:
 
 	; Search logs
 	jsr    EchoAI_FindLog
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoLog
 	jsr    EchoAI_PushInteractionLog
 	bra    @End
@@ -2802,7 +2802,7 @@ EchoAI_FindInterestingObj:
 
 	; Search buttons
 	jsr    EchoAI_FindButton
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoButton
 	jsr    EchoAI_PushInteractionButton
 	bra    @End
@@ -2810,7 +2810,7 @@ EchoAI_FindInterestingObj:
 
 	; Search rafts
 	jsr    EchoAI_FindRaft
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoRaft
 	jsr    EchoAI_PushInteractionRaft
 	bra    @End
@@ -2833,7 +2833,7 @@ EchoAI_FindInterestingObj_InNodeState:
 
 	; Search ladders
 	jsr    EchoAI_FindLadder
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoLadder
 	jsr    EchoAI_PushInteractionLadder
 	bra    @End
@@ -2849,7 +2849,7 @@ EchoAI_FindInterestingObj_InNodeState:
 
 	; Search AI markers
 	jsr    EchoAI_FindAIMarker
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	bne    @End
 	
 	@End:

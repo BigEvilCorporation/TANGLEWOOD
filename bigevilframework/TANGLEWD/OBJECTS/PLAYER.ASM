@@ -883,7 +883,7 @@ PlayerStopColourAbility:
 	bne    @PetStillTamed
 
 	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPet
 
 	; If pet still alive
@@ -922,7 +922,7 @@ PlayerStopColourAbility:
 	; Give colour back to host
 	; TODO: Something better than this
 	move.l Player_ColourPowerHost(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoHost
 
 	move.l Entity_TypeBits(a2), d1
@@ -1273,7 +1273,7 @@ PlayerDismountPet:
 
 	; Get pet
 	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NotRiding
 
 	; Check riding
@@ -1370,7 +1370,7 @@ PlayerUpdateMount:
 
 	; Get pet
 	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPet
 
 	; Check in one of the beast riding states
@@ -1582,7 +1582,7 @@ PlayerCanDismountPet:
 
 	; Get pet
 	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPet
 
 	; Check if riding pet
@@ -1642,7 +1642,7 @@ PlayerStartInteract:
 	
 	; Check if near a pushable object
 	jsr    PhysicsObjFindPushable
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoPushablesNear
 	
 	; If facing in the right direction
@@ -2097,7 +2097,7 @@ PlayerInteractTest_Pet:
 
 	; Player must have a pet
 	move.l Player_Pet(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @CannotRide
 
 	; Player must not already be riding

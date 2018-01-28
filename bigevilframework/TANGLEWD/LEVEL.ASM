@@ -40,7 +40,7 @@ GameStateReset:
 
 	; Just fade out ambience and threat tracks
 	move.l audio_current_track, a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @EndResetAudio
 	cmp.b  #Track_Type_Threat, Track_Type(a0)
 	beq    @FadeOutTrack
@@ -180,10 +180,10 @@ GameStateReset:
 
 	; Clear firefly count
 	move.l (CurrentLevel), a1
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NoLevel
 	move.l Level_UserData(a1), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoUserData
 	move.w #0x0, LevelData_FireflyCount(a2)
 	@NoLevel:
@@ -250,6 +250,9 @@ LevelLoad:
 
 LevelLoadPlayers:
 
+	move.l #0x0, Player1
+	move.l #0x0, Player2
+
 	; Set default player addrs
 	tst.w  EntityCount_Nymn
 	beq    @NoNymn
@@ -298,7 +301,7 @@ LevelLoadPalettes:
 	@PaletteLoop:
 	PUSHM  d0/d7/a1/a3
 	move.l (a3), a0					; Get palette address
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @SkipPalette
 	
 	IFD DEBUG

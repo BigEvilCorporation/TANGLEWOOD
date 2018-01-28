@@ -261,7 +261,7 @@ RainUpdate:
 	dbra    d1, @ParamsLp
 	
 	@End:
-	cmp.l   #0x0, a3
+	cmpa.w #0x0, a3
 	beq     @NoChange
 	
 	; Set new rain params

@@ -15,6 +15,7 @@ Cart_MaxVelYDown		equ 0x080000
 Cart_StepHeight			equ 0x4
 Cart_ProbeFloorX		equ (Cart_Width/2)	; Floor detection probe position X
 Cart_ProbeFloorY		equ (Cart_Height-8)	; Floor detection probe position X
+Cart_ProbeWallX			equ (Cart_Width/2)-8; Distance from centre to start wall search
 Cart_MaxVelX			equ 0x080000
 Cart_Accel				equ 0x000800
 Cart_Decel				equ 0x000800
@@ -77,6 +78,7 @@ CartInit:
 	move.w  #Cart_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Cart_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #Cart_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Cart_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #Cart_Mass, PhysicsObj_Mass(a0)
@@ -157,7 +159,7 @@ CartUpdate:
 
 	; If got an occupant
 	move.l Cart_Occupant(a0), a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @Unoccupied
 	
 	; If hit wall, cart smashed

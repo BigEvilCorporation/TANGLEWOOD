@@ -62,7 +62,7 @@ PhysicsWorldPreStep:
 	; Add all moving platforms to list, clear total mass
 	LIST_GET_HEAD Platforms,a3
 	@PlatformLp:
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoPlatform
 	move.l #0x0, Platform_LastOccupant(a3)
 	move.w #0x0, Platform_TotalMass(a3)
@@ -99,7 +99,7 @@ PhysicsWorldPreStep:
 	; Add all moving barriers to list, clear total hit velocities
 	LIST_GET_HEAD Barriers,a3
 	@BarrierLp:
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoBarrier
 	move.l #0x0, Barrier_TotalHitVel(a3)
 	move.l Barrier_VelX(a3), d0
@@ -125,7 +125,7 @@ PhysicsWorldPreStep:
 	; Run all physics pre-updates
 	LIST_GET_HEAD PhysicsObjs,a0			; Get list head
 	@ObjLp:									; For all objs in list
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	jsr    PhysicsObjPreStep
 	LIST_GET_NEXT PhysicsObjs,a0,a0			; Get next ptr
@@ -172,7 +172,7 @@ PhysicsWorldFindTerrain:
 
 	LIST_GET_HEAD Platforms,a3		; Get list head
 	@PlatformLp:					; For all platforms in list
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoPlatformFound
 	
 	; Get platform Left and Right X

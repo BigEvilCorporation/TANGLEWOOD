@@ -21,6 +21,7 @@ Djubb_WallProbeLeft		equ -0x0010
 Djubb_WallProbeRight	equ Djubb_Width+0x0010
 Djubb_WallProbeTop		equ 0x0000
 Djubb_WallProbeBottom	equ Djubb_Height-1
+Djubb_ProbeWallX		equ (Djubb_Width/2)-8	; Distance from centre to start wall search
 Djubb_PlayerYViewDist	equ 0x20
 Djubb_AttackDamage		equ 0xFF
 
@@ -74,6 +75,7 @@ DjubbInit:
 	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
 	move.w  #Djubb_WallProbeTop, PhysicsObj_WallProbeTop(a0)
 	move.w  #Djubb_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
+	move.w  #Djubb_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.b  #Djubb_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)

@@ -413,11 +413,11 @@ LiftProcessCounterweight:
 	;lea    Lift_Platform(a2), a4
 	;move.l Platform_LastOccupant(a3), a5
 	;move.l Platform_LastOccupant(a4), a6
-	;cmp.l  #0x0, a5
+	;cmpa.w #0x0, a5
 	;beq    @NoOccupant1
 	;move.w PhysicsObj_LastAppliedVelY(a5), d0
 	;@NoOccupant1:
-	;cmp.l  #0x0, a6
+	;cmpa.w #0x0, a6
 	;beq    @NoOccupant2
 	;move.w PhysicsObj_LastAppliedVelY(a6), d1
 	;@NoOccupant2:
@@ -656,7 +656,7 @@ LiftUpdate:
 
 	; Process counterweight
 	move.l Lift_CounterWeight(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCounterweight
 	jsr    LiftProcessCounterweight
 	@NoCounterweight:
@@ -673,7 +673,7 @@ LiftUpdate:
 	; Update counterweight
 	PUSHL  a0
 	move.l Lift_CounterWeight(a0), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoCounterweightUpdate
 	jsr    LiftUpdateAsCounterweight
 	@NoCounterweightUpdate:

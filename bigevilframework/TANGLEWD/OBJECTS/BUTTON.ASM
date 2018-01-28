@@ -114,7 +114,7 @@ ButtonUpdate:
 
 	; If current occupier is asleep, don't change state
 	move.l Button_LastOccupant(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoOccupier
 	tst.b  PhysicsObj_Asleep(a2)
 	bne    @OccupierAsleep
@@ -156,7 +156,7 @@ ButtonUpdate:
 
 	; Trigger
 	move.l Button_OnDown(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @EndPress
 	PUSHL  a0
 	move.l Button_UserData(a0), a0
@@ -187,7 +187,7 @@ ButtonUpdate:
 
 	; Un-trigger
 	move.l Button_OnUp(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @EndPress
 	PUSHL  a0
 	move.l Button_UserData(a0), a0

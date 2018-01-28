@@ -305,7 +305,7 @@ SkivvAIUpdate_Attack:
 
 	; Get target
 	move.l Skivv_Target(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	bne    @HasTarget
 	move.l Player1, a2
 	@HasTarget:

@@ -71,7 +71,7 @@ AnimObjUpdate:
 	
 	; Get current anim
 	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoAnim
 	
 	; Get anim speed
@@ -165,7 +165,7 @@ AnimObjUpdate:
 
 	; Fire callback
 	move.l AnimObj_OnFinished(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @End
 	PUSHL  a0
 	move.l #0x0, AnimObj_OnFinished(a0)
@@ -249,7 +249,7 @@ AnimObjDraw:
 	; X position track
 	PUSHL  d2
 	move.l Animation_AnimTrackPositionX(a2), a3	; Get X position keyframe track
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoTrackPosX
 	
 	moveq #0x0, d3
@@ -267,7 +267,7 @@ AnimObjDraw:
 	; Y position track
 	PUSHL  d2
 	move.l Animation_AnimTrackPositionY(a2), a3	; Get Y position keyframe track
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoTrackPosY
 	
 	moveq #0x0, d3
@@ -282,7 +282,7 @@ AnimObjDraw:
 	; SFX track
 	PUSHL  d2
 	move.l Animation_AnimTrackSFX(a2), a3	; Get SFX keyframe track
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoTrackSFX
 	
 	lsl.w  #0x2, d2						; Frame idx to ptr size
@@ -338,7 +338,7 @@ AnimObjSetAnimation:
 	; Fire OnFinished callback
 	PUSHM  a0-a4
 	move.l AnimObj_OnFinished(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCallback
 	move.l #0x0, AnimObj_OnFinished(a0)
 	move.l AnimObj_OnFinishedData(a0), a0
@@ -385,7 +385,7 @@ AnimObjGetCurrentFrame:
 	moveq #0x0, d0
 
 	move.l AnimObj_CurrentAnim(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoAnim
 	
 	move.l AnimObj_AnimSubFrame(a0), d0

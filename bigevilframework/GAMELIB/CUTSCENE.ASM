@@ -78,7 +78,7 @@ CutsceneUpdateAll:
 
 	LIST_GET_HEAD ActiveCutscenes,a0
 	@CutsceneLp:
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	jsr    CutsceneUpdate
 	LIST_GET_NEXT ActiveCutscenes,a0,a0

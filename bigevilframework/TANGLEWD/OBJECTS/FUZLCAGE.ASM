@@ -15,6 +15,7 @@ FuzzlCage_MaxVelYDown		equ 0x08*subpixels_per_pixel
 FuzzlCage_StepHeight		equ 0x4
 FuzzlCage_ProbeFloorX		equ (FuzzlCage_Width/2)		; Floor detection probe position X
 FuzzlCage_ProbeFloorY		equ (FuzzlCage_Height-8)	; Floor detection probe position X
+FuzzlCage_ProbeWallX		equ (FuzzlCage_Width/2)-8	; Distance from centre to start wall search
 FuzzlCage_MaxVelX			equ 0x080000
 FuzzlCage_Decel				equ 0x003000
 
@@ -89,6 +90,7 @@ FuzzlCageInit:
 	move.w  #FuzzlCage_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #FuzzlCage_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #FuzzlCage_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L FuzzlCage_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L FuzzlCage_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
@@ -230,7 +232,7 @@ FuzzlCageUpdate:
 
 	; Reposition Fuzzl
 	move.l FuzzlCage_Fuzzl(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoFuzzl
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
@@ -356,7 +358,7 @@ FuzzlCageSmash:
 	; Notify Fuzzl
 	PUSHL  a0
 	move.l FuzzlCage_Fuzzl(a0), a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoFuzzl
 	jsr    FuzzlRemoveFromCage
 	@NoFuzzl:

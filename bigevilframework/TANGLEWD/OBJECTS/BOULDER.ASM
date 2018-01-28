@@ -15,6 +15,7 @@ Boulder_MaxVelYDown			equ 0x08*subpixels_per_pixel
 Boulder_StepHeight			equ 0x4
 Boulder_ProbeFloorX			equ (Boulder_Width/2)	; Floor detection probe position X
 Boulder_ProbeFloorY			equ (Boulder_Height-8)	; Floor detection probe position X
+Boulder_ProbeWallX			equ (Boulder_Width/2)-8	; Distance from centre to start wall search
 Boulder_MaxVelX				equ 0x080000
 Boulder_Decel				equ 0x003000
 
@@ -97,6 +98,7 @@ BoulderInit:
 	move.w  #Boulder_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Boulder_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #Boulder_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)

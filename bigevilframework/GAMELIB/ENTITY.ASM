@@ -419,7 +419,7 @@ EntityUpdateWorldGrid:
 		; For all entities in world grid list
 		LIST_GET_HEAD EntityWorldGrid,a0	; Get list head
 		@EntityLp:							; For all entities in list
-		cmp.l  #0x0, a0
+		cmpa.w #0x0, a0
 		beq    @ListEnd
 
 			; Get entity grid index
@@ -546,7 +546,7 @@ EntityUpdateAll:
 
 	LIST_GET_HEAD EntityUpdate,a0		; Get list head
 	@EntityLp:							; For all entities in list
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	move.l Entity_UpdateRoutine(a0), a2 ; Get update routine
 	jsr    (a2)							; Execute update routine
@@ -567,7 +567,7 @@ EntityRenderAll:
 	
 	LIST_GET_HEAD EntityRender,a0		; Get list head
 	@EntityLp:							; For all entities in list
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	move.l Entity_RenderRoutine(a0), a2 ; Get Render routine
 	jsr    (a2)							; Execute Render routine
@@ -585,7 +585,7 @@ EntitySerialiseAll:
 	
 	LIST_GET_HEAD EntitySerialise,a0		; Get list head
 	@EntityLp:								; For all entities in list
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @ListEnd
 	move.l Entity_SerialiseRoutine(a0), a2	; Get Serialise routine
 	jsr    (a2)								; Execute Serialise routine

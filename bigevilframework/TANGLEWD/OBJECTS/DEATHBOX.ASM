@@ -61,7 +61,7 @@ DeadboxUpdate:
 	; Check for occupants
 	LIST_GET_HEAD Characters,a2	; Get list head
 	@CharacterLp:				; For all characters in list
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCharacter
 
 	; If dead, don't bother

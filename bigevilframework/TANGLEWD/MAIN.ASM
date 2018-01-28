@@ -139,7 +139,7 @@ RenderEndFrame:
 	;==============================================================
 	; Update current raster effect
 	move.l raster_effect_update, a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoRasterEffect
 	jsr    (a0)
 	@NoRasterEffect:

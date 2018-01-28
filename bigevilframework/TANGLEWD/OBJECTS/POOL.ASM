@@ -215,7 +215,7 @@ PoolUpdate:
 
 	; Fire callback
 	move.l Pool_OnFinished(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @EndLimit
 	PUSHL  a0
 	move.l Pool_OnFinishedData(a0), a0

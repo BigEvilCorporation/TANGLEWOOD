@@ -490,7 +490,7 @@ DemonAIUpdate_Boss:
 
 	; If swarm active, don't bother
 	move.l Demon_Swarm(a0), a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NoSwarm
 
 	btst.b #EntityWorldGridFlag_InUpdateList, Entity_WorldGridFlags(a3)
@@ -790,7 +790,7 @@ DemonReleaseSwarm:
 
 	; If Swarm registered
 	move.l Demon_Swarm(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoSwarm
 
 	; Reposition

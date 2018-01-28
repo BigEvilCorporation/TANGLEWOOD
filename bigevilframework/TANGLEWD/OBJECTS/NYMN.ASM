@@ -536,7 +536,7 @@ NymnTalk:
 
 	; If Echo available
 	move.l Player2, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoEcho
 
 	; and active
@@ -572,7 +572,7 @@ NymnHowl:
 
 	; If Echo available
 	move.l Player2, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoEcho
 
 	; and active

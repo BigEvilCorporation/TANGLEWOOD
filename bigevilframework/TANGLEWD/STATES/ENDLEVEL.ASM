@@ -90,7 +90,7 @@ EndLevel_Update:
 
 	; If players(s) off screen, disable
 	move.l Player2, a0
-	cmp.l  #0x0, a0
+	cmpa.w #0x0, a0
 	beq    @NoP2
 	tst.b  SpriteObj_SpriteLinked(a0)
 	bne    @P2OnScreen

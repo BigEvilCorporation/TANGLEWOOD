@@ -864,7 +864,7 @@ CharacterPreventRun:
 
 CharacterStartInteractA:
 	move.l Character_InteractStartA(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)
 	@NoInteract:
@@ -872,7 +872,7 @@ CharacterStartInteractA:
 	
 CharacterCancelInteractA:
 	move.l Character_InteractCancelA(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)
 	@NoInteract:
@@ -880,7 +880,7 @@ CharacterCancelInteractA:
 
 CharacterStartInteractB:
 	move.l Character_InteractStartB(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)
 	@NoInteract:
@@ -888,7 +888,7 @@ CharacterStartInteractB:
 	
 CharacterCancelInteractB:
 	move.l Character_InteractCancelB(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoInteract
 	jsr    (a2)
 	@NoInteract:

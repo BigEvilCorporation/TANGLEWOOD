@@ -115,7 +115,7 @@ FlueOccupantUpdate:
 	
 	; Check if holding an occupant
 	move.l FlueOccupant_ObjAddr(a2), a1
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NotHolding
 
 	; Check if still ejecting an occupant
@@ -253,7 +253,7 @@ FlueOccupantUpdate:
 	
 	; Not holding anything yet, check if an object is inside
 	jsr    FlueFindOccupant
-	cmp.l  #0x0, a1
+	cmpa.w #0x0, a1
 	beq    @NoOccupantFound
 	
 	@AlreadyHolding:
@@ -270,7 +270,7 @@ FlueOccupantUpdate:
 	
 	; If linked to another flue, use as camera lerp target
 	move.l Flue_OutputFlue(a0), a3
-	cmp.l  #0x0, a3
+	cmpa.w #0x0, a3
 	beq    @NotCameraTarget
 	
 	; If occupant is also the camera target

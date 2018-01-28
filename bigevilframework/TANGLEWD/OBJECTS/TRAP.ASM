@@ -184,7 +184,7 @@ TrapUpdate:
 	tst.b  d0
 	bne    @Activated
 	move.l Player2, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @Unoccupied
 	jsr    TrapCheckOccupied
 	tst.b  d0
@@ -320,7 +320,7 @@ TrapActivate:
 
 	; Callback
 	move.l Trap_OnActivated(a0), a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	beq    @NoCallback
 	jsr    (a2)
 	@NoCallback:

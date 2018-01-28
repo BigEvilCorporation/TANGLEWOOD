@@ -26,6 +26,7 @@ Scrap_StepHeight	equ 0x3
 Scrap_MinWallHeight	equ 0x11			; High enough to avoid stones
 Scrap_ProbeFloorX	equ (Scrap_Width/2)	; Floor detection probe position X
 Scrap_ProbeFloorY	equ (Scrap_Height-8); Floor detection probe position Y
+Scrap_ProbeWallX	equ (Scrap_Width/2)-8	; Distance from centre to start wall search
 Scrap_ProbeWallTop	equ 0x08
 
 Scrap_BarkTimeMin	equ 0x0040
@@ -89,6 +90,7 @@ ScrapInit:
 	move.w #Scrap_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w #Scrap_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
 	move.w #Scrap_Height-1, PhysicsObj_WallProbeBottom(a0)
+	move.w #Scrap_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.w #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w #Scrap_Width, PhysicsObj_WallProbeRight(a0)
 	move.w #Scrap_StepHeight, PhysicsObj_StepHeight(a0)
@@ -264,7 +266,7 @@ ScrapAIUpdate_Follow:
 
 	; Follow Echo if available
 	move.l Player2, a2
-	cmp.l  #0x0, a2
+	cmpa.w #0x0, a2
 	bne    @UseEcho
 	move.l Player1, a2
 	@UseEcho:
