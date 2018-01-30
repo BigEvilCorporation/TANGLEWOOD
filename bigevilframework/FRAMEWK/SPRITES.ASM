@@ -275,6 +275,7 @@ SPR_LoadAnimFrame:
 
 	; Add DMA job
 	lsl.w   #0x4, d1	   ; Tile index to words (32 bytes, 16 words)
+	move.b  #DMAVDPQueue_VRAM, d2
 	jsr     VDP_DMAQueue_AddJob
 	
 	ELSE

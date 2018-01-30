@@ -107,42 +107,6 @@ RenderEndFrame:
 	ori.b  #vdp_reg1_enabledisplay, d0
 	VDPSETREG 1, d0
 	ENDIF
-	
-	; Get current render counter
-	move.l vblank_counter, d0
-	
-	; Wait for next VINT
-	@WaitForVINT:
-	move.l vblank_counter, d1
-	cmp.l  d0, d1
-	beq    @WaitForVINT
-
-	;==============================================================
-	; VBLANK START
-	;==============================================================
-
-	IF VBLANK_TIMING_DEBUG
-	VDPGETREG 1, d0
-	andi.b #~vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
-	ENDIF
-
-	IFD DEBUG
-	lea    Str_Render, a0
-	jsr    DBG_Profile_PushScope
-	ENDIF
-
-	;==============================================================
-	; Execute VDP job queue
-	jsr    VDP_JobQueue_ExecuteAll
-
-	;==============================================================
-	; Update current raster effect
-	move.l raster_effect_update, a0
-	cmpa.w #0x0, a0
-	beq    @NoRasterEffect
-	jsr    (a0)
-	@NoRasterEffect:
 
 	;==============================================================
 	; DMA the sprite table
@@ -151,9 +115,10 @@ RenderEndFrame:
 	moveq  #0x1, d1			; If no sprites, still need to DMA "blank" sprite
 	@SpritesValid:
 	lea    vdp_sprite_table, a0
-	move.l #vram_addr_sprite_table, d0
+	move.w #vram_addr_sprite_table, d0
 	mulu.w #Sprite_Struct_Size/size_word, d1
-	jsr    VDP_DMACopyVRAM
+	move.b  #DMAVDPQueue_VRAM, d2
+	jsr    VDP_DMAQueue_AddJob
 
 	;==============================================================
 	; DMA palettes if dirty
@@ -180,7 +145,10 @@ RenderEndFrame:
 	POPW   d0
 	ENDIF
 
-	jsr    PAL_LoadDMA
+	lsl.w  #0x5, d0				; Colour index to CRAM destination address
+	move.w #size_palette_w, d1
+	move.b #DMAVDPQueue_CRAM, d2
+	jsr    VDP_DMAQueue_AddJob
 	POPM   d0/a0
 	@NotDirty:
 	lea    size_palette_b(a0), a0
@@ -191,9 +159,45 @@ RenderEndFrame:
 	; Reset dirty palette mask
 	move.b #0x0, DirtyPalettesMask
 	
+	; Get current render counter
+	move.l vblank_counter, d0
+	
+	; Wait for next VINT
+	@WaitForVINT:
+	move.l vblank_counter, d1
+	cmp.l  d0, d1
+	beq    @WaitForVINT
+
+	;==============================================================
+	; VBLANK START
+	;==============================================================
+
+	IF VBLANK_TIMING_DEBUG
+	VDPGETREG 1, d0
+	andi.b #~vdp_reg1_enabledisplay, d0
+	VDPSETREG 1, d0
+	ENDIF
+
+	IFD DEBUG
+	lea    Str_Render, a0
+	jsr    DBG_Profile_PushScope
+	ENDIF
+
 	;==============================================================
 	; Execute DMA job queue
 	jsr    VDP_DMAQueue_ExecuteAll
+
+	;==============================================================
+	; Execute VDP job queue
+	jsr    VDP_JobQueue_ExecuteAll
+
+	;==============================================================
+	; Update current raster effect
+	move.l raster_effect_update, a0
+	cmpa.w #0x0, a0
+	beq    @NoRasterEffect
+	jsr    (a0)
+	@NoRasterEffect:
 	
 	IFD DEBUG
 	jsr    DBG_Profile_PopScope

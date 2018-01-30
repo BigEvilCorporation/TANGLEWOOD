@@ -10,6 +10,9 @@
 VDPDMAQueue_MaxSize    equ 0x40  ; Queue max size
 VDPDMAQueue_Job_size   equ 0x0E  ; Job size
 
+DMAVDPQueue_VRAM       equ 0x0
+DMAVDPQueue_CRAM       equ 0x1
+
 ; Routines
 VDP_DMAQueue_Init:
 	move.l #vdp_dma_queue, vdp_dma_queue_next
@@ -19,6 +22,9 @@ VDP_DMAQueue_AddJob:
 	; a0 --- - Source addr (68k space)
 	; d0 (w) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
+	; d2 (b) - Dest memory (DMAVDPQueue_VRAM/DMAVDPQueue_CRAM)
+
+	move.b d2, d7
 	
 	; If block crosses a 128kb boundary, split into two jobs
 	; (but simpler to do with 64kb, can just use carry flag)
@@ -73,6 +79,7 @@ VDP_DMAQueue_AddToQueue:
 	; d0 (w) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
 	; d2 (l) - Source addr (68k space)
+	; d7 (b) - Dest memory (DMAVDPQueue_VRAM/DMAVDPQueue_CRAM)
 
 	; Get queue address
 	move.l vdp_dma_queue_next, a1
@@ -107,7 +114,13 @@ VDP_DMAQueue_AddToQueue:
 	lsl.l   #0x2, d0						; Shift bits 14/15 of dest address to bits 16/17
 	lsr.w   #0x2, d0						; Shift lower word back
 	swap    d0								; Swap address hi/lo
+	cmp.b   #DMAVDPQueue_VRAM, d7
+	bne     @CRAM
 	ori.l   #vdp_cmd_dma_vram_write, d0		; OR in VRAM+DMA write command
+	bra     @VRAM
+	@CRAM:
+	ori.l   #vdp_cmd_dma_cram_write, d0		; OR in VRAM+DMA write command
+	@VRAM:
 	move.l  d0, (a1)+						; Set dest addr bytes
 
 	; Advance queue
