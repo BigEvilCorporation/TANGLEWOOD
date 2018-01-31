@@ -53,7 +53,7 @@ PHYS_GetTerrainTile:
 
 	; Blocks to byte offset
 	lsl.w  #0x1, d3
-	add.w  d3, a2
+	add.l  d3, a2
 
 	; Fetch block ID from map
 	move.w (a2), d3
