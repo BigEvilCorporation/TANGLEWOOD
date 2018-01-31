@@ -58,7 +58,7 @@ Player1LadderMaxXDist equ 0x0010   ; Max X dist from centre of ladder to use
 Player1LadderMaxYDist equ Player1Height/2   ; Max Y dist from top of ladder to jump off
 Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
-Player1WaterWaistHeight	equ (Player1Height/4) ; Depth to be considered in water
+Player1WaterWaistHeight	equ (Player1Height/8) ; Depth to be considered in water
 
 ; Player collision probes
 Player1StepHeight	 	equ 0x3
