@@ -200,28 +200,32 @@ l6a2_Init:
 	;==============================================================
 
 	; Share Djakk 1-3 VRAM around
-	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
+	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
-	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
+	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
-	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a2
-	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
-
-	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
-	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
-	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a2
+	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 	
 	rts

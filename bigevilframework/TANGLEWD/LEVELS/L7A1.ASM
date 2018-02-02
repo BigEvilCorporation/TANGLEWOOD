@@ -74,13 +74,13 @@ L7a1_Init:
 	move.w #0x3, CurrentLevelNumActs
 	
 	; Load BG map
-	;lea    map_blocks_L7, a0
-	;lea    map_blockmap_L7bg, a1
-	;move.l #(map_blockmap_L7bg_width<<16)|map_blockmap_L7bg_height, d1
-	;move.w (vram_addr_leveltiles), d2
-	;BYTES2TILES d2
-	;move.l #PaletteId_World0, d3
-	;jsr    VDP_LoadBlockMapPlaneB
+	lea    map_blocks_L7, a0
+	lea    map_blockmap_L7bg, a1
+	move.l #(map_blockmap_L7bg_width<<16)|map_blockmap_L7bg_height, d1
+	move.w (vram_addr_leveltiles), d2
+	BYTES2TILES d2
+	move.l #PaletteId_World0, d3
+	jsr    VDP_LoadBlockMapPlaneB
 
 	; Set TOD palettes
 	move.l  #palette_l7_day,	TimeOfDayPalettes+(size_long*TimeOfDay_Day)

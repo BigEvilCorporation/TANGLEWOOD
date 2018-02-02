@@ -349,6 +349,7 @@ L6A2_LoadGameObjects:
 	jsr MonsterInit
 	move.l #0x02480000, Entity_WorldPosX(a0)
 	move.l #0x02c00000, Entity_WorldPosY(a0)
+	move.b #0x1, Monster_ManualGfxLoad(a0)
 	jsr MonsterLoadGfx
 	IFND FINAL
 	lea L6A2_Djakk3_name, a3

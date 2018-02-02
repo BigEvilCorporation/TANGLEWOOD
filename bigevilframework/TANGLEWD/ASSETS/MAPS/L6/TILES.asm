@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_L6_size_b	equ 0x000047C0	; Size in bytes
+tiles_L6_size_b	equ 0x000074C0	; Size in bytes
 tiles_L6_size_w	equ (tiles_L6_size_b/2)	; Size in words
 tiles_L6_size_l	equ (tiles_L6_size_b/4)	; Size in longwords
-tiles_L6_size_t	equ 574	; Size in tiles
+tiles_L6_size_t	equ 934	; Size in tiles
