@@ -92,7 +92,7 @@ LIST_INSERT_ORDERED: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,orderoffset
 	@EntityLp\@:							 				; For all entities in list
 	cmp.l  #0x0, \tempaddrreg2								; If NULL, done
 	beq    @Found\@
-	cmp.b  Entity_WorldGridOrder(\tempaddrreg2), \order		; If < order
+	cmp.b  \orderoffset(\tempaddrreg2), \order		; If < order
 	ble    @Found\@											; Done
 	move.l \tempaddrreg2, \tempaddrreg1						; Backup prev link
 	move.l List_\name\_Next(\tempaddrreg2), \tempaddrreg2	; Get next ptr
@@ -129,15 +129,18 @@ LIST_INSERT_ORDERED: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,orderoffset
 	@InsertTail\@:
 	
 	; Set new item as prev obj's next
-	move.l a0, List_\name\_Next(\tempaddrreg1)
+	move.l \objaddrreg, List_\name\_Next(\tempaddrreg1)
 	
 	; Set new obj as tail
-	move.l a0, List_\name\_Tail
+	move.l \objaddrreg, List_\name\_Tail
 	
 	@End\@:
 	
 	; Increment count
 	addq.l #0x1, List_\name\_Size
+
+	; Set order
+	move.b \order, \orderoffset(\objaddrreg)
 
 	endm
 	

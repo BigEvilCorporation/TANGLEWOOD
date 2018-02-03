@@ -357,9 +357,14 @@ CartSetOccupant:
 	; Remove from world grid (will go off screen)
 	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
 	jsr    PhysicsWorldAddObject
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; Re-insert at head of render list (draw on top of occupant)
+	jsr    EntityRemoveFromRenderList
+	move.w #0x0, d0
+	LIST_INSERT_ORDERED EntityRender,a0,a3,a4,Entity_WorldGridOrder,d0
+	bset   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
 
 	@AlreadyOccupied:
 
