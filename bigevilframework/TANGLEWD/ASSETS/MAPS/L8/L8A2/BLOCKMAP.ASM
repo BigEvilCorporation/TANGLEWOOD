@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L8A2_size_b	equ 0x0000072A	; Size in bytes
+map_blockmap_L8A2_size_b	equ 0x00000730	; Size in bytes
 map_blockmap_L8A2_size_w	equ (map_blockmap_L8A2_size_b/2)	; Size in words
 map_blockmap_L8A2_size_l	equ (map_blockmap_L8A2_size_b/4)	; Size in longwords
 map_L8A2_width	equ 0xC0
