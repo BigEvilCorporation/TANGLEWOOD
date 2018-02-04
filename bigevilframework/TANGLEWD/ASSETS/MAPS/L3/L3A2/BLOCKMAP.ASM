@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L3A2_size_b	equ 0x00002080	; Size in bytes
+map_blockmap_L3A2_size_b	equ 0x0000207C	; Size in bytes
 map_blockmap_L3A2_size_w	equ (map_blockmap_L3A2_size_b/2)	; Size in words
 map_blockmap_L3A2_size_l	equ (map_blockmap_L3A2_size_b/4)	; Size in longwords
 map_L3A2_width	equ 0x384
@@ -221,23 +221,23 @@ map_blockmap_L3A2_coloffsets:
 	dc.w 0x1DBA
 	dc.w 0x1DD2
 	dc.w 0x1DF4
-	dc.w 0x1E18
-	dc.w 0x1E5C
-	dc.w 0x1E7C
-	dc.w 0x1E9C
-	dc.w 0x1EBC
-	dc.w 0x1ED8
-	dc.w 0x1EF4
-	dc.w 0x1F10
-	dc.w 0x1F2C
-	dc.w 0x1F4A
-	dc.w 0x1F6C
-	dc.w 0x1F8E
-	dc.w 0x1FA8
-	dc.w 0x1FC2
-	dc.w 0x1FDE
-	dc.w 0x1FFA
-	dc.w 0x2016
-	dc.w 0x2030
-	dc.w 0x204C
-	dc.w 0x2066
+	dc.w 0x1E14
+	dc.w 0x1E58
+	dc.w 0x1E78
+	dc.w 0x1E98
+	dc.w 0x1EB8
+	dc.w 0x1ED4
+	dc.w 0x1EF0
+	dc.w 0x1F0C
+	dc.w 0x1F28
+	dc.w 0x1F46
+	dc.w 0x1F68
+	dc.w 0x1F8A
+	dc.w 0x1FA4
+	dc.w 0x1FBE
+	dc.w 0x1FDA
+	dc.w 0x1FF6
+	dc.w 0x2012
+	dc.w 0x202C
+	dc.w 0x2048
+	dc.w 0x2062
