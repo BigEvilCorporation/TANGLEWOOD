@@ -11,7 +11,6 @@ Lift_Width				equ 0x40
 Lift_Height				equ 0x20
 Lift_ProbeFloorX		equ (Lift_Width/2)  ; Floor detection probe position X
 Lift_ProbeFloorY   		equ (Lift_Height-8) ; Floor detection probe position Y
-Lift_MaxVelX			equ 0x010000
 Lift_AccelY				equ 0x2000+DefaultGravity
 Lift_DecelX				equ 0x0800
 
@@ -35,11 +34,7 @@ Lift_WinchSFXFastVel	equ 0x00020000
 	rsset (PhysicsObj_Struct_Size)
 ;---------------------------------
 Lift_Platform				rs.b Platform_Struct_Size
-	IF LIFT_ROPE_SUPPORT_SWING
-Lift_RopeSegments			rs.l Lift_RopeNumSprites
-	ELSE
 Lift_RopeSegment			rs.b SpriteObj_Struct_Size
-	ENDIF
 Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
 Lift_TopLimit				rs.w 1
 Lift_BottomLimit			rs.w 1
@@ -85,10 +80,8 @@ LiftInit:
 	move.w  #Lift_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Lift_Width, PhysicsObj_WallProbeRight(a0)
-	MOVE_NTSC_L Lift_MaxVelX, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Lift_MaxSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Lift_MaxSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
-	MOVE_NTSC_ACCEL_W Lift_DecelX, PhysicsObj_DecelX(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
@@ -96,21 +89,13 @@ LiftInit:
 	move.l  #0x0, Lift_CounterWeight(a0)
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
-
-	IF !LIFT_ROPE_SUPPORT_SWING
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
-	ENDIF
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
 	move.w  #0x0, PhysicsObj_BoundsTop(a0)
 	move.w  Entity_Width(a0), PhysicsObj_BoundsWidth(a0)
 	move.w  Entity_Height(a0), PhysicsObj_BoundsHeight(a0)
-
-	; Register as pushable object
-	IF LIFT_ROPE_SUPPORT_SWING
-	LIST_APPEND_TAIL PushableObjs, a0, a3
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 	
 	;==============================================================
 	
@@ -129,25 +114,6 @@ LiftInit:
 	; Allocate rope segments
 	PUSHM  a0-a1
 
-	IF LIFT_ROPE_SUPPORT_SWING
-
-	; Animated swinging rope segments
-	move.w #(Lift_RopeNumSprites-1), d1
-	lea    Lift_RopeSegments(a0), a2
-	@RopeInitLp:
-	
-	move.l (NextFreeRopeSegment), a0
-	move.l a0, (a2)+
-	
-	PUSHM  a2/d1
-	jsr    RopeSegmentInit
-	POPM   a2/d1
-	
-	addi.l #RopeSegment_Struct_Size, NextFreeRopeSegment
-	dbra   d1, @RopeInitLp
-
-	ELSE ; LIFT_ROPE_SUPPORT_SWING
-
 	; Single, static, reusable rope segment
 	lea    Lift_RopeSegment(a0), a0
 	jsr    SpriteObjInit
@@ -155,8 +121,6 @@ LiftInit:
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.w #Rope_Width, Entity_Width(a0)
 	move.w #Rope_Height, Entity_Height(a0)
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	POPM   a0-a1
 
@@ -170,30 +134,11 @@ LiftLoadGfx:
 
 	SPRITE_LOAD_SHARED lift,lift,0,PaletteId_World0,0x0
 
-	; Load rope segments
-	IF LIFT_ROPE_SUPPORT_SWING
-
-	; Animated swinging rope segments
-	PUSHM  a0-a1
-	move.w #(Lift_RopeNumSprites-1), d1
-	lea    Lift_RopeSegments(a0), a2
-	@RopeLp:
-	move.l (a2)+, a0
-	PUSHM  a2/d1
-	jsr    RopeSegmentLoadGfx
-	POPM   a2/d1
-	dbra   d1, @RopeLp
-	POPM   a0-a1
-
-	ELSE ; LIFT_ROPE_SUPPORT_SWING
-
-	; Single, static, reusable rope segment
+	; Load rope segment
 	PUSHL a0
 	lea   Lift_RopeSegment(a0), a0
 	SPRITE_LOAD_SHARED rope,rope,0,PaletteId_World0,0x0
 	POPL  a0
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	POPL   a1
 
@@ -251,70 +196,6 @@ LiftAttachCounterweightLift:
 	POPL    a0
 
 	rts
-
-	IF LIFT_ROPE_SUPPORT_SWING
-LiftPositionRopeSegments:
-
-	; Get lift pos
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
-	
-	; Get lift origin X
-	move.l Lift_OriginX(a0), d2
-	
-	; Get X distance from origin
-	move.l d0, d3
-	sub.l  d2, d3
-	
-	; Add rope offset
-	addi.l #Lift_RopePosOffsetX, d0
-	addi.l #Lift_RopePosOffsetY, d1
-	
-	lea    Lift_RopeSegments(a0), a2
-	
-	move.w #(Lift_RopeNumSprites-1), d2
-	@RopePosLp:
-	
-	; Div rope segment offset
-	TOPIXELS d3
-	ext.l  d3
-	divs.w #0x2, d3
-	ext.l  d3
-	TOSUBPIXELS d3
-	
-	; Subtract from X pos
-	sub.l  d3, d0
-	
-	move.l (a2)+, a3
-	move.l d0, Entity_WorldPosX(a3)
-	move.l d1, Entity_WorldPosY(a3)
-	sub.l  #(Rope_Height*subpixels_per_pixel), d1
-	
-	; If +ve, flip sprite
-	move.l d3, d4
-	tst.l  d4
-	bgt    @NoFlip
-	neg.l  d4
-	move.b #0x0, SpriteObj_FlippedX(a3)
-	bra    @EndFlip
-	@NoFlip:
-	move.b #0x1, SpriteObj_FlippedX(a3)
-	@EndFlip:
-	
-	; Clamp to max dist (-1 frame) for animation
-	CLAMP  d4, #0x0, #(Lift_MaxRopeAnimFrameDist-(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes))
-	
-	; Set frame
-	DIVS1616_LOSSY_FIXED #(Lift_MaxRopeAnimFrameDist/spriteanim_rope_swing_numframes), d4
-	lsl.l  #0x8, d4
-	move.l d4, AnimObj_AnimSubFrame(a3)
-	move.b #0x1, AnimObj_Dirty(a3)
-	
-	dbra   d2, @RopePosLp
-	
-	rts
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 LiftActivateUp:
 	; a0 --- GameObj addr
@@ -532,14 +413,18 @@ LiftUpdatePlatform:
 	move.l d1, Platform_PosY(a2)
 	
 	; Set platform velocity
-	clr.l  d2
+	moveq  #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
-	move.l PhysicsObj_VelX(a0), d3
 	move.l PhysicsObj_VelY(a0), d4
-	DIVS1616_LOSSY d2, d3
 	DIVS1616_LOSSY d2, d4
-	move.l d3, Platform_VelX(a2)
 	move.l d4, Platform_VelY(a2)
+
+	; HACK - set dirty if prev vel set, or objects won't detect lift
+	; in same frame that it hits the floor
+	tst.l  PhysicsObj_LastAppliedVelY(a0)
+	beq    @NotDirty
+	move.b #0x1, Platform_Dirty(a2)
+	@NotDirty:
 
 	rts
 
@@ -583,76 +468,6 @@ LiftUpdateAsCounterweight:
 LiftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	
-	moveq #0x0, d3
-
-	IF LIFT_ROPE_SUPPORT_SWING
-
-	PUSHL  a1
-	
-	; If not on floor
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	bne    @OnFloor
-	
-	; Swing towards origin
-	move.l Lift_OriginX(a0), d0
-	move.l Entity_WorldPosX(a0), d1
-	sub.l  d1, d0
-	tst.l  d0
-	blt    @SwingRight
-	bgt    @SwingLeft
-	bra    @Resting
-	
-	@SwingLeft:
-	
-	; Only if vel < -Lift_PendulumMaxCorrectionVel
-	move.l PhysicsObj_VelX(a0), d1
-	cmp.l  #-Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
-	bgt    @NoDecelLeft
-	
-	addi.l #Lift_DecelX, PhysicsObj_VelX(a0)
-	tst.l  PhysicsObj_VelX(a0)
-	ble    @Resting
-	move.l #0x0, PhysicsObj_VelX(a0)
-	bra    @Resting
-	
-	@NoDecelLeft:
-	
-	lsr.l  #0x8, d0
-	lsr.l  #0x4, d0
-	move.w d0, d3
-	bra    @Resting
-	
-	@SwingRight:
-	
-	; Only if vel < Lift_PendulumMaxCorrectionVel
-	move.l PhysicsObj_VelX(a0), d1
-	cmp.l  #Lift_PendulumMaxCorrectionVel, PhysicsObj_VelX(a0)
-	blt    @NoDecelRight
-	
-	sub.l  #Lift_DecelX, PhysicsObj_VelX(a0)
-	tst.l  PhysicsObj_VelX(a0)
-	bge    @Resting
-	move.l #0x0, PhysicsObj_VelX(a0)
-	bra    @Resting
-	
-	@NoDecelRight:
-	
-	neg.l  d0
-	lsr.l  #0x8, d0
-	lsr.l  #0x4, d0
-	neg.w  d0
-	move.w d0, d3
-	
-	@OnFloor:
-	@Resting:
-	move.w d3, PhysicsObj_AccelX(a0)
-
-	POPL   a1
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
-
-	;==============================================================
 
 	; Process counterweight
 	move.l Lift_CounterWeight(a0), a2
@@ -682,11 +497,6 @@ LiftUpdate:
 	; Reposition platform
 	jsr    LiftUpdatePlatform
 	
-	; Reposition rope segments
-	IF LIFT_ROPE_SUPPORT_SWING
-	jsr    LiftPositionRopeSegments
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
-	
 	rts
 
 LiftDraw:
@@ -701,8 +511,6 @@ LiftDraw:
 	jsr    AnimObjDraw
 
 	;==============================================================
-
-	IF LIFT_ROPE_SUPPORT_SWING=0
 
 	PUSHMW d2-d5
 
@@ -752,8 +560,6 @@ LiftDraw:
 	@OutOfBounds:
 
 	POPMW d2-d5
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	rts
 	

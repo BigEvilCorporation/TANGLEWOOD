@@ -212,6 +212,15 @@ PhysicsObjPreStep:
 	beq    @Inactive
 
 	@ForcedUpdate:
+
+	; Save vel for attached platforms/barriers
+	move.l PhysicsObj_VelX(a0), d0
+	add.l  PhysicsObj_ImpulseX(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelX(a0)
+
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 	
 	tst.b  PhysicsObj_HasCollision(a0)
 	beq    @NoPhysics
@@ -230,6 +239,8 @@ PhysicsObjPreStep:
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.l #0x0, PhysicsObj_VelX(a0)
 	move.l #0x0, PhysicsObj_VelY(a0)
+	move.l #0x0, PhysicsObj_LastAppliedVelX(a0)
+	move.l #0x0, PhysicsObj_LastAppliedVelY(a0)
 	
 	@NoVelCancel:
 	@NoAnim:
@@ -290,15 +301,6 @@ PhysicsObjPreStep:
 	@VelXZero:
 	
 	@AppliedVel:
-	
-	; Save (collision corrected) vel for attached platforms/barriers
-	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_ImpulseX(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelX(a0)
-
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	move.l d0, PhysicsObj_LastAppliedVelY(a0)
 	
 	; Clear impulses
 	move.l #0x0, PhysicsObj_ImpulseX(a0)
@@ -1103,7 +1105,7 @@ PhysicsObjCollisionCorrectY:
 	@NoBounceY:
 
 	move.l PhysicsObj_VelY(a0), PhysicsObj_FloorImpactVelY(a0)	; Store impact velocity
-	move.l d5, PhysicsObj_VelY(a0)					; Take platform's Y velocity
+	move.l d5, PhysicsObj_VelY(a0)					; Set zero vel / platform vel / bounce vel
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
@@ -1302,9 +1304,7 @@ PhysicsObjFindFloor:
 	@CollideSpecialPlatform:
 	
 	; Found a platform within step height
-	clr.l  d2
-	move.w Platform_PosY(a3), d2			; Get platform Y
-	TOSUBPIXELS d2							; To world space
+	move.l Platform_PosY(a3), d2			; Get platform Y
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
@@ -1998,9 +1998,7 @@ PhysicsObjFindMovingFloor:
 	@CollideSpecialPlatform:
 	
 	; Success
-	clr.l  d2
-	move.w Platform_PosY(a3), d2			; Get platform Y
-	TOSUBPIXELS d2							; To world space
+	move.l Platform_PosY(a3), d2			; Get platform Y
 	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
 	
 	; Add platform X velocity

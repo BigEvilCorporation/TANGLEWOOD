@@ -6,8 +6,6 @@
 ;   rope.asm - Rope segment for lift/hoist
 ;==============================================================
 
-LIFT_ROPE_SUPPORT_SWING equ 0
-
 ; Constants
 Rope_Width				equ 0x40
 Rope_Height				equ 0x20
@@ -53,26 +51,6 @@ RopeSegmentInit:
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.w #Rope_Width, Entity_Width(a0)
 	move.w #Rope_Height, Entity_Height(a0)
-	
-	; Setup animation
-	IF LIFT_ROPE_SUPPORT_SWING
-
-	; TODO: Export Animation structs from editor, use LOAD_ANIMATION macro
-	lea    RopeSegment_Animations(a0), a2
-
-	; Default swing
-	ANIM_LOAD_DEFAULT rope,rope,swing,RopeSegment_Animations,RopeSegmentAnimIdx_Swing,1,0,0
-	
-	; Set default swing anim
-	PUSHL  a1
-	move.l a3, a1
-	move.b #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
-	ENDIF ; LIFT_ROPE_SUPPORT_SWING
 
 	rts
 	
