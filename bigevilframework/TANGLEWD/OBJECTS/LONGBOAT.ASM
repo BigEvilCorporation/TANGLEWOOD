@@ -20,7 +20,7 @@ Longboat_StepHeight			equ 0x4
 Longboat_FloorProbeX		equ (Longboat_Width/2)
 Longboat_FloorProbeY		equ (Longboat_Height-4)
 Longboat_ProbeWallX			equ (Longboat_Width/2)-8	; Distance from centre to start wall search
-Longboat_MaxVelX			equ 0x0000A000
+Longboat_MaxVelX			equ 0x00010000
 Longboat_PlatformOffsetX	equ 0x0000
 Longboat_PlatformOffsetY	equ 0x0000
 Longboat_SineAmplitude		equ 0x03
@@ -199,6 +199,7 @@ LongboatDraw:
 
 	; Draw segment
 	PUSHM  d0/d6/a2
+	move.b #0x0, d2				; X flip
 	jsr    SpriteObjAllocSprite
 	POPM   d0/d6/a2
 
