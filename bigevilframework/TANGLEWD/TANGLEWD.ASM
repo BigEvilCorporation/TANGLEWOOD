@@ -260,6 +260,10 @@ code_start
 	include 'levels\l8a5.asm'
 	include 'levels\l8a6.asm'
 	ENDIF
+
+	IF INCLUDE_LEVEL_TST1
+	include 'levels\tst1.asm'
+	ENDIF
 	
 	; Include game code
 	include 'audio.asm'

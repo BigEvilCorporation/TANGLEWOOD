@@ -41,6 +41,10 @@ level_assets_start
 	IF INCLUDE_LEVEL_8
 	INCLUDE_TEXT_ASSET assets\levels\level8.asm
 	ENDIF
+
+	IF INCLUDE_LEVEL_TST1
+	INCLUDE_TEXT_ASSET assets\levels\tst1.asm
+	ENDIF
 level_assets_end
 	
 	; ************************************
