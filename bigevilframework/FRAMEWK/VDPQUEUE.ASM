@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPQueue_MaxSize    equ 0x0020  ; Queue max elements (must be power-of-two)
+VDPQueue_MaxSize    equ 0x0040  ; Queue max elements (must be power-of-two)
 VDPQueue_NumRegs	equ 0x0C ; (d0-d6/a0-a4)
 
 ; Job struct
