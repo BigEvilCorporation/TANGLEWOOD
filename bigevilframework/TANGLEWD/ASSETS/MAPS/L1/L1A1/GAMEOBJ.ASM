@@ -429,8 +429,8 @@ L1A1_LoadGameObjects:
 	POPL   a1
 
 	jsr BoulderInit
-	move.l #0x17a00000, Entity_WorldPosX(a0)
-	move.l #0x02300000, Entity_WorldPosY(a0)
+	move.l #0x18600000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L1A1_CutsceneDemonTarget7_name, a3
