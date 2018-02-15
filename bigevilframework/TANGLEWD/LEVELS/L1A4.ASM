@@ -102,16 +102,6 @@ l1a4_Init:
 	ENTITY_GETBYNAME Flue, l1a4_Flue_EndLink_A, a0
 	ENTITY_GETBYNAME Flue, l1a4_Flue_EndLink_B, a1
 	move.l a1, Flue_OutputFlue(a0)
-	
-	; Link secret area flue A with B
-	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_A, a0
-	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_B, a1
-	move.l a1, Flue_OutputFlue(a0)
-
-	; Link secret area flue C with D
-	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_C, a0
-	ENTITY_GETBYNAME Flue, l1a4_Flue_Secret_D, a1
-	move.l a1, Flue_OutputFlue(a0)
 
 	;==============================================================
 	

@@ -167,24 +167,18 @@ L1A4_Nest_38_name	dc.b "L1A4_Nest_38",0
 	even
 	ENDIF
 
-L1A4_Flue_count equ 0x8
+L1A4_Flue_count equ 0x5
 L1A4_Flue_EndLink_A_idx	equ 0x0
 L1A4_Flue_14_idx	equ 0x1
 L1A4_Flue_Secret_D_idx	equ 0x2
 L1A4_Flue_EndLink_B_idx	equ 0x3
-L1A4_Flue_Secret_A_idx	equ 0x4
-L1A4_Flue_Secret_B_idx	equ 0x5
-L1A4_Flue_Secret_C_idx	equ 0x6
-L1A4_Flue_87_idx	equ 0x7
+L1A4_Flue_87_idx	equ 0x4
 
 	IFND FINAL
 L1A4_Flue_EndLink_A_name	dc.b "L1A4_Flue_EndLink_A",0
 L1A4_Flue_14_name	dc.b "L1A4_Flue_14",0
 L1A4_Flue_Secret_D_name	dc.b "L1A4_Flue_Secret_D",0
 L1A4_Flue_EndLink_B_name	dc.b "L1A4_Flue_EndLink_B",0
-L1A4_Flue_Secret_A_name	dc.b "L1A4_Flue_Secret_A",0
-L1A4_Flue_Secret_B_name	dc.b "L1A4_Flue_Secret_B",0
-L1A4_Flue_Secret_C_name	dc.b "L1A4_Flue_Secret_C",0
 L1A4_Flue_87_name	dc.b "L1A4_Flue_87",0
 	even
 	ENDIF
@@ -221,15 +215,17 @@ L1A4_WaterBody_55_name	dc.b "L1A4_WaterBody_55",0
 
 L1A4_Location_count equ 0x0
 
-L1A4_Deathbox_count equ 0x3
+L1A4_Deathbox_count equ 0x4
 L1A4_Deathbox_49_idx	equ 0x0
 L1A4_Deathbox_50_idx	equ 0x1
 L1A4_Deathbox_75_idx	equ 0x2
+L1A4_Deathbox_99_idx	equ 0x3
 
 	IFND FINAL
 L1A4_Deathbox_49_name	dc.b "L1A4_Deathbox_49",0
 L1A4_Deathbox_50_name	dc.b "L1A4_Deathbox_50",0
 L1A4_Deathbox_75_name	dc.b "L1A4_Deathbox_75",0
+L1A4_Deathbox_99_name	dc.b "L1A4_Deathbox_99",0
 	even
 	ENDIF
 
@@ -279,13 +275,11 @@ L1A4_Ladder_count equ 0x0
 
 L1A4_Scirus_count equ 0x0
 
-L1A4_Hogg_count equ 0x2
+L1A4_Hogg_count equ 0x1
 L1A4_Hogg_95_idx	equ 0x0
-L1A4_Hogg_96_idx	equ 0x1
 
 	IFND FINAL
 L1A4_Hogg_95_name	dc.b "L1A4_Hogg_95",0
-L1A4_Hogg_96_name	dc.b "L1A4_Hogg_96",0
 	even
 	ENDIF
 
@@ -581,8 +575,8 @@ L1A4_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x15c00000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x1c180000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A4_Firefly_76_name, a3
@@ -646,8 +640,8 @@ L1A4_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x12100000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.l #0x1a480000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A4_Firefly_77_name, a3
@@ -1007,45 +1001,6 @@ L1A4_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 
 	jsr FlueInit
-	move.l #0x1df80000, Entity_WorldPosX(a0)
-	move.l #0x04480000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	IFND FINAL
-	lea L1A4_Flue_Secret_A_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Flue_Struct_Size, a0
-
-	jsr FlueInit
-	move.l #0x15a00000, Entity_WorldPosX(a0)
-	move.l #0x04600000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	IFND FINAL
-	lea L1A4_Flue_Secret_B_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Flue_Struct_Size, a0
-
-	jsr FlueInit
-	move.l #0x12500000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
-	jsr FlueLoadGfx
-	IFND FINAL
-	lea L1A4_Flue_Secret_C_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Flue_Struct_Size, a0
-
-	jsr FlueInit
 	move.l #0x26f80000, Entity_WorldPosX(a0)
 	move.l #0x03100000, Entity_WorldPosY(a0)
 	MOVE_NTSC_L 0x0A0000, Flue_EjectForceY(a0), d0
@@ -1238,6 +1193,19 @@ L1A4_LoadGameObjects:
 	ENDIF
 	add.l #Deathbox_Struct_Size, a0
 
+	jsr DeathboxInit
+	move.l #0x1d280000, Entity_WorldPosX(a0)
+	move.l #0x04880000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L1A4_Deathbox_99_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
 
 
 
@@ -1290,19 +1258,6 @@ L1A4_LoadGameObjects:
 	jsr HoggLoadGfx
 	IFND FINAL
 	lea L1A4_Hogg_95_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Hogg_Struct_Size, a0
-
-	jsr HoggInit
-	move.l #0x12c80000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
-	jsr HoggLoadGfx
-	IFND FINAL
-	lea L1A4_Hogg_96_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0

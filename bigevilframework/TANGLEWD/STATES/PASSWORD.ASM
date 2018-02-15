@@ -419,12 +419,12 @@ LINECOUNT = LINECOUNT+1
 	ENDR
 
 LINECOUNT = LINECOUNT+1
-	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenLoad,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(LevelSelectLineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenLoad,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(PasswordScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,PasswordScreen_OnLoad,0x0
 
 LINECOUNT = LINECOUNT+1
-	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(LevelSelectLineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(PasswordScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,PasswordScreen_OnBack,0x0
 

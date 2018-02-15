@@ -39,19 +39,17 @@ L1A1_Nymn_34_name	dc.b "L1A1_Nymn_34",0
 	even
 	ENDIF
 
-L1A1_BouncePlant_count equ 0x5
+L1A1_BouncePlant_count equ 0x4
 L1A1_BouncePlant_62_idx	equ 0x0
 L1A1_BouncePlant_53_idx	equ 0x1
 L1A1_BouncePlant_72_idx	equ 0x2
 L1A1_BouncePlant_77_idx	equ 0x3
-L1A1_BouncePlant_78_idx	equ 0x4
 
 	IFND FINAL
 L1A1_BouncePlant_62_name	dc.b "L1A1_BouncePlant_62",0
 L1A1_BouncePlant_53_name	dc.b "L1A1_BouncePlant_53",0
 L1A1_BouncePlant_72_name	dc.b "L1A1_BouncePlant_72",0
 L1A1_BouncePlant_77_name	dc.b "L1A1_BouncePlant_77",0
-L1A1_BouncePlant_78_name	dc.b "L1A1_BouncePlant_78",0
 	even
 	ENDIF
 
@@ -105,15 +103,13 @@ L1A1_Fuzzl_41_name	dc.b "L1A1_Fuzzl_41",0
 	even
 	ENDIF
 
-L1A1_Stone_count equ 0x3
+L1A1_Stone_count equ 0x2
 L1A1_Stone_55_idx	equ 0x0
 L1A1_Stone_57_idx	equ 0x1
-L1A1_Stone_68_idx	equ 0x2
 
 	IFND FINAL
 L1A1_Stone_55_name	dc.b "L1A1_Stone_55",0
 L1A1_Stone_57_name	dc.b "L1A1_Stone_57",0
-L1A1_Stone_68_name	dc.b "L1A1_Stone_68",0
 	even
 	ENDIF
 
@@ -404,19 +400,6 @@ L1A1_LoadGameObjects:
 	ENDIF
 	add.l #BouncePlant_Struct_Size, a0
 
-	jsr BouncePlantInit
-	move.l #0x1b700000, Entity_WorldPosX(a0)
-	move.l #0x02f00000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	IFND FINAL
-	lea L1A1_BouncePlant_78_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #BouncePlant_Struct_Size, a0
-
 
 
 
@@ -514,8 +497,8 @@ L1A1_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x1f980000, Entity_WorldPosX(a0)
-	move.l #0x01b00000, Entity_WorldPosY(a0)
+	move.l #0x1fd80000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A1_Firefly_47_name, a3
@@ -576,7 +559,7 @@ L1A1_LoadGameObjects:
 
 	jsr FuzzlInit
 	move.l #0x1cf00000, Entity_WorldPosX(a0)
-	move.l #0x01b80000, Entity_WorldPosY(a0)
+	move.l #0x01b00000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -614,19 +597,6 @@ L1A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A1_Stone_57_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x16480000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L1A1_Stone_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -709,8 +679,8 @@ L1A1_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 
 	jsr FlueInit
-	move.l #0x21100000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x20500000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	IFND FINAL
 	lea L1A1_Flue_42_name, a3
@@ -929,7 +899,7 @@ L1A1_LoadGameObjects:
 	add.l #Scirus_Struct_Size, a0
 
 	jsr ScirusInit
-	move.l #0x15200000, Entity_WorldPosX(a0)
+	move.l #0x1c400000, Entity_WorldPosX(a0)
 	move.l #0x02f80000, Entity_WorldPosY(a0)
 	jsr ScirusLoadGfx
 	IFND FINAL

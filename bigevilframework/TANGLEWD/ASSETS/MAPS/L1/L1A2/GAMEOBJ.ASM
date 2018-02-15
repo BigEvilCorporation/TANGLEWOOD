@@ -39,19 +39,17 @@ L1A2_Nymn_137_name	dc.b "L1A2_Nymn_137",0
 	even
 	ENDIF
 
-L1A2_BouncePlant_count equ 0x5
-L1A2_BouncePlant_210_idx	equ 0x0
+L1A2_BouncePlant_count equ 0x4
+L1A2_BouncePlant_224_idx	equ 0x0
 L1A2_BouncePlant_190_idx	equ 0x1
 L1A2_BouncePlant_148_idx	equ 0x2
 L1A2_BouncePlant_144_idx	equ 0x3
-L1A2_BouncePlant_224_idx	equ 0x4
 
 	IFND FINAL
-L1A2_BouncePlant_210_name	dc.b "L1A2_BouncePlant_210",0
+L1A2_BouncePlant_224_name	dc.b "L1A2_BouncePlant_224",0
 L1A2_BouncePlant_190_name	dc.b "L1A2_BouncePlant_190",0
 L1A2_BouncePlant_148_name	dc.b "L1A2_BouncePlant_148",0
 L1A2_BouncePlant_144_name	dc.b "L1A2_BouncePlant_144",0
-L1A2_BouncePlant_224_name	dc.b "L1A2_BouncePlant_224",0
 	even
 	ENDIF
 
@@ -69,15 +67,17 @@ L1A2_Djakk_name	dc.b "L1A2_Djakk",0
 	even
 	ENDIF
 
-L1A2_Boulder_count equ 0x3
+L1A2_Boulder_count equ 0x4
 L1A2_Boulder_147_idx	equ 0x0
 L1A2_Boulder_186_idx	equ 0x1
 L1A2_Boulder_203_idx	equ 0x2
+L1A2_Boulder_227_idx	equ 0x3
 
 	IFND FINAL
 L1A2_Boulder_147_name	dc.b "L1A2_Boulder_147",0
 L1A2_Boulder_186_name	dc.b "L1A2_Boulder_186",0
 L1A2_Boulder_203_name	dc.b "L1A2_Boulder_203",0
+L1A2_Boulder_227_name	dc.b "L1A2_Boulder_227",0
 	even
 	ENDIF
 
@@ -117,17 +117,19 @@ L1A2_FuzzlYellow_name	dc.b "L1A2_FuzzlYellow",0
 	even
 	ENDIF
 
-L1A2_Stone_count equ 0x4
+L1A2_Stone_count equ 0x5
 L1A2_Stone_188_idx	equ 0x0
 L1A2_Stone_219_idx	equ 0x1
 L1A2_Stone_204_idx	equ 0x2
 L1A2_Stone_212_idx	equ 0x3
+L1A2_Stone_228_idx	equ 0x4
 
 	IFND FINAL
 L1A2_Stone_188_name	dc.b "L1A2_Stone_188",0
 L1A2_Stone_219_name	dc.b "L1A2_Stone_219",0
 L1A2_Stone_204_name	dc.b "L1A2_Stone_204",0
 L1A2_Stone_212_name	dc.b "L1A2_Stone_212",0
+L1A2_Stone_228_name	dc.b "L1A2_Stone_228",0
 	even
 	ENDIF
 
@@ -351,11 +353,11 @@ L1A2_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x05b00000, Entity_WorldPosX(a0)
-	move.l #0x01900000, Entity_WorldPosY(a0)
+	move.l #0x2a680000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L1A2_BouncePlant_210_name, a3
+	lea L1A2_BouncePlant_224_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -402,19 +404,6 @@ L1A2_LoadGameObjects:
 	ENDIF
 	add.l #BouncePlant_Struct_Size, a0
 
-	jsr BouncePlantInit
-	move.l #0x2a500000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr BouncePlantLoadGfx
-	IFND FINAL
-	lea L1A2_BouncePlant_224_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #BouncePlant_Struct_Size, a0
-
 
 
 
@@ -426,7 +415,7 @@ L1A2_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x25b00000, Entity_WorldPosX(a0)
+	move.l #0x25800000, Entity_WorldPosX(a0)
 	move.l #0x02d00000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
@@ -485,6 +474,19 @@ L1A2_LoadGameObjects:
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
 
+	jsr BoulderInit
+	move.l #0x2b200000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosY(a0)
+	jsr BoulderLoadGfx
+	IFND FINAL
+	lea L1A2_Boulder_227_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Boulder_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L1A2_Firefly_count)
@@ -506,8 +508,8 @@ L1A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x01100000, Entity_WorldPosX(a0)
-	move.l #0x01680000, Entity_WorldPosY(a0)
+	move.l #0x19280000, Entity_WorldPosX(a0)
+	move.l #0x01480000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A2_Firefly_187_name, a3
@@ -698,6 +700,19 @@ L1A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A2_Stone_212_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x2bb00000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L1A2_Stone_228_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0

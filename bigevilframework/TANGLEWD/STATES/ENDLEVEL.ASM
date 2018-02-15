@@ -158,8 +158,19 @@ EndLevel_Update:
 
 	@Credits:
 
+	IF DEMO_SHOW_THANKS
+
+	; Reset to first level and head to demo end screen
+	move.l #InitialLevel, CurrentLevel
+	lea    GameStateDemoEnd, a0
+	jsr    GameStateEnter
+
+	ELSE
+
 	lea    GameStateCredits, a0
 	jsr    GameStateEnter
+
+	ENDIF
 	
 	@TimerRunning:
 	@End:

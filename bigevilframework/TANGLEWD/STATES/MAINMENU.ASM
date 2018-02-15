@@ -322,7 +322,7 @@ MainMenu_InitUI:
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
 	move.l a3, a5
-	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
 
 	; Create widgets and add to window and cursor
 LINECOUNT = 0
@@ -407,16 +407,20 @@ MainMenu_OnSelected:
 	@LevelSelect:
 
 	; Set level select screen state
+	IF INCLUDE_LEVELSELECT
 	lea    GameStateMainMenuData, a2
 	move.l #GameStateLevelSelect, MainMenuState_NextState(a2)
+	ENDIF
 
 	bra    @BeginFade
 
 	@SoundTest:
 
+	IF INCLUDE_SOUNDTEST
 	; Set sound test screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStateSoundTest, MainMenuState_NextState(a2)
+	ENDIF
 
 	bra    @BeginFade
 
