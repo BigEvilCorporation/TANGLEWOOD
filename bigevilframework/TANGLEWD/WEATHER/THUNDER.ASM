@@ -266,6 +266,7 @@ ThunderFindTerrain:
 	move.w Level_ColMapHeightBlocks(a1), d2	; Map height (in blocks) to d2 lo
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
+	move.l Level_ColMapBlockYLookupAddr(a1), a5	; Collision block map Y offset lookup
 	move.l Level_ColTilesAddr(a1), a1		; Collision tileset to a1
 	jsr    PHYS_GetTerrainHeight
 	POPM   d1-d6/a0-a1
