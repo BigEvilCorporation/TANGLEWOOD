@@ -2457,6 +2457,7 @@ PhysicsObjPushPullObj:
 	sub.w  d1, d2
 	move.l d0, PhysicsObj_LastWall(a0)
 	add.w  d2, PhysicsObj_LastWall(a0)
+	addi.w #0x1, PhysicsObj_LastWall(a0)
 	move.b #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 
 	@HitLeft:

@@ -837,7 +837,7 @@ PlayerStopColourAbility:
 	MOVE_NTSC_L Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 	
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
-	subq.l #0x1, d1						 ; -1 for loop
+	subq.w #0x1, d1						 ; -1 for loop
 	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	
@@ -1048,7 +1048,7 @@ PlayerUpdateColourAbility:
 	
 	; TODO: Pointer array per entity type
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
-	subq.l #0x1, d1						 ; -1 for loop
+	subq.w #0x1, d1						 ; -1 for loop
 	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
 	@EntityLp:							 ; For all entities in list
 	

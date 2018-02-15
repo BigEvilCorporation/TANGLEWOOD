@@ -10,7 +10,7 @@
 LINKED_LIST: macro name
 List_\name\_Head	 	rs.l 1
 List_\name\_Tail	 	rs.l 1
-List_\name\_Size	 	rs.l 1
+List_\name\_Size	 	rs.w 1
 	endm
 	
 	; Defines a linked list node in a structure (using RS)
@@ -24,7 +24,7 @@ List_\name\_Next		rs.l 1
 	
 	; Get number of elements in list
 LIST_GET_SIZE: macro name,outreg
-	move.l List_\name\_Size,\outreg
+	move.w List_\name\_Size,\outreg
 	endm
 	
 	; Appends new link to the end of a list
@@ -71,7 +71,7 @@ LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 	@End\@:
 	
 	; Increment count
-	addq.l #0x1, List_\name\_Size
+	addq.w #0x1, List_\name\_Size
 	
 	endm
 
@@ -137,7 +137,7 @@ LIST_INSERT_ORDERED: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,orderoffset
 	@End\@:
 	
 	; Increment count
-	addq.l #0x1, List_\name\_Size
+	addq.w #0x1, List_\name\_Size
 
 	; Set order
 	move.b \order, \orderoffset(\objaddrreg)
@@ -192,7 +192,7 @@ LIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2
 	move.l #0x0, List_\name\_Next(\objaddrreg)
 
 	; Decrement count
-	subq.l #0x1, List_\name\_Size
+	subq.w #0x1, List_\name\_Size
 	
 	endm
 	
@@ -212,7 +212,7 @@ LIST_CLEAR: macro name,tempaddrreg,tempaddrreg2
 
 	move.l #0x0, List_\name\_Head
     move.l #0x0, List_\name\_Tail
-    move.l #0x0, List_\name\_Size
+    move.w #0x0, List_\name\_Size
 	endm
 	
 	; Get the head of a list
@@ -233,7 +233,7 @@ LIST_GET_NEXT: macro name,objaddrreg,outreg
 MLIST_INIT: macro name,structaddrreg
 	move.l #0x0, List_\name\_Head(\structaddrreg)
 	move.l #0x0, List_\name\_Tail(\structaddrreg)
-	move.l #0x0, List_\name\_Size(\structaddrreg)
+	move.w #0x0, List_\name\_Size(\structaddrreg)
 	endm
 	
 	; Init list link
@@ -243,7 +243,7 @@ LIST_INIT_LINK: macro name,objaddrreg
 
 	; Get number of elements in list
 MLIST_GET_SIZE: macro name,outreg,structaddrreg
-	move.l List_\name\_Size(\structaddrreg),\outreg
+	move.w List_\name\_Size(\structaddrreg),\outreg
 	endm
 
 	; Appends new link to the end of a list
@@ -290,7 +290,7 @@ MLIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg,structaddrreg
 	@End\@:
 	
 	; Increment count
-	addq.l #0x1, List_\name\_Size(\structaddrreg)
+	addq.w #0x1, List_\name\_Size(\structaddrreg)
 	
 	endm
 
@@ -342,7 +342,7 @@ MLIST_REMOVE: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,structaddrreg
 	move.l #0x0, List_\name\_Next(\objaddrreg)
 
 	; Decrement count
-	subq.l #0x1, List_\name\_Size(\structaddrreg)
+	subq.w #0x1, List_\name\_Size(\structaddrreg)
 	
 	endm
 
@@ -362,7 +362,7 @@ MLIST_CLEAR: macro name,tempaddrreg,tempaddrreg2,structaddrreg
 
 	move.l #0x0, List_\name\_Head(\structaddrreg)
     move.l #0x0, List_\name\_Tail(\structaddrreg)
-    move.l #0x0, List_\name\_Size(\structaddrreg)
+    move.w #0x0, List_\name\_Size(\structaddrreg)
 	endm
 
 	; Get the head of a list

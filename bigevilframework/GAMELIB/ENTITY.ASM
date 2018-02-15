@@ -373,13 +373,13 @@ EntityUpdateWorldGrid:
 	PUSHALL
 	move.l #((8*8)<<16)|(5*8), d1
 	jsr    DBG_DrawWord
-	move.l List_EntityUpdate_Size, d0
+	move.w List_EntityUpdate_Size, d0
 	move.l #((8*8)<<16)|(6*8), d1
 	jsr    DBG_DrawWord
-	move.l List_EntityRender_Size, d0
+	move.w List_EntityRender_Size, d0
 	move.l #((8*8)<<16)|(7*8), d1
 	jsr    DBG_DrawWord
-	move.l List_PhysicsObjs_Size, d0
+	move.w List_PhysicsObjs_Size, d0
 	move.l #((8*8)<<16)|(8*8), d1
 	jsr    DBG_DrawWord
 	POPALL
