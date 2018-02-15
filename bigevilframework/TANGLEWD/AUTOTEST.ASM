@@ -79,8 +79,12 @@ AutotestAdvanceState:
 	move.l GameStatePtr, d0
 	cmp.l  #GameStateMainMenu, d0
 	beq    @MainMenu
+	
+	IF INCLUDE_LEVELSELECT
 	cmp.l  #GameStateLevelSelect, d0
 	beq    @LevelSelect
+	ENDIF
+	
 	cmp.l  #GameStateGameplay, d0
 	beq    @Gameplay
 	cmp.l  #GameStatePause, d0
@@ -205,8 +209,12 @@ AutotestUpdateState:
 	move.l GameStatePtr, d0
 	cmp.l  #GameStateMainMenu, d0
 	beq    @MainMenu
+	
+	IF INCLUDE_LEVELSELECT
 	cmp.l  #GameStateLevelSelect, d0
 	beq    @LevelSelect
+	ENDIF
+	
 	cmp.l  #GameStateGameplay, d0
 	beq    @Gameplay
 	bra    @End
