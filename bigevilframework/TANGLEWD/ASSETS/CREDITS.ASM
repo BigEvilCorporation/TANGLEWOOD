@@ -156,6 +156,12 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
+	CREDIT_HEADING1 "Video Editing"
+	CREDIT_NAME		"Klash Productions"
+	CREDIT_NAME		"FriendlyDictator"
+	CREDIT_SPACE
+	CREDIT_SPACE
+
 	CREDIT_SPACE
 	CREDIT_HEADING1 "TANGLEWOOD uses the"
 	CREDIT_HEADING1 "Echo sound driver by Sik"
@@ -209,6 +215,10 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "retrospiel.de"
 	CREDIT_NAME		"Chris"
+	CREDIT_SPACE
+
+	CREDIT_HEADING1 "Gamers Unite"
+	CREDIT_NAME		"?"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Mega Emulator core"
