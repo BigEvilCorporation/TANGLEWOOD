@@ -399,7 +399,7 @@ L2A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x01b80000, Entity_WorldPosX(a0)
-	move.l #0x03800000, Entity_WorldPosY(a0)
+	move.l #0x03780000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A3_BouncePlant_8_name, a3
@@ -412,7 +412,7 @@ L2A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x14c80000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A3_BouncePlant_51_name, a3
@@ -425,7 +425,7 @@ L2A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x13380000, Entity_WorldPosX(a0)
-	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A3_BouncePlant_43_name, a3
@@ -438,7 +438,7 @@ L2A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x20a80000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A3_BouncePlant_44_name, a3

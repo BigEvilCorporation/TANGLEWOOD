@@ -350,7 +350,7 @@ L1A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x08280000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A1_BouncePlant_62_name, a3
@@ -376,7 +376,7 @@ L1A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x12d80000, Entity_WorldPosX(a0)
-	move.l #0x02f00000, Entity_WorldPosY(a0)
+	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A1_BouncePlant_72_name, a3
@@ -389,7 +389,7 @@ L1A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x03600000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A1_BouncePlant_77_name, a3

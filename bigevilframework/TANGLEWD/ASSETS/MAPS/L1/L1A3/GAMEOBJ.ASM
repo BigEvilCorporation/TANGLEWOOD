@@ -357,7 +357,7 @@ L1A3_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x04400000, Entity_WorldPosX(a0)
+	move.l #0x04380000, Entity_WorldPosX(a0)
 	move.l #0x01e00000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
@@ -372,7 +372,7 @@ L1A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x03800000, Entity_WorldPosX(a0)
-	move.l #0x01680000, Entity_WorldPosY(a0)
+	move.l #0x01880000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
@@ -400,7 +400,7 @@ L1A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x20a00000, Entity_WorldPosX(a0)
-	move.l #0x02780000, Entity_WorldPosY(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A3_BouncePlant_76_name, a3
@@ -413,7 +413,7 @@ L1A3_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x0b900000, Entity_WorldPosX(a0)
-	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A3_BouncePlant_70_name, a3
@@ -553,8 +553,8 @@ L1A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x1f080000, Entity_WorldPosX(a0)
-	move.l #0x02680000, Entity_WorldPosY(a0)
+	move.l #0x1f000000, Entity_WorldPosX(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A3_Firefly_62_name, a3

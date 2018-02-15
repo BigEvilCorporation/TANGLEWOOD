@@ -387,7 +387,7 @@ L2A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x04400000, Entity_WorldPosX(a0)
-	move.l #0x07980000, Entity_WorldPosY(a0)
+	move.l #0x07900000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_6_name, a3
@@ -399,8 +399,8 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x06a00000, Entity_WorldPosX(a0)
-	move.l #0x06900000, Entity_WorldPosY(a0)
+	move.l #0x06a80000, Entity_WorldPosX(a0)
+	move.l #0x06880000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_7_name, a3
@@ -412,8 +412,8 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x16780000, Entity_WorldPosX(a0)
-	move.l #0x02380000, Entity_WorldPosY(a0)
+	move.l #0x16580000, Entity_WorldPosX(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_59_name, a3
@@ -426,7 +426,7 @@ L2A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x0d680000, Entity_WorldPosX(a0)
-	move.l #0x03780000, Entity_WorldPosY(a0)
+	move.l #0x03700000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_51_name, a3
@@ -438,8 +438,8 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x11a00000, Entity_WorldPosX(a0)
-	move.l #0x03b80000, Entity_WorldPosY(a0)
+	move.l #0x11980000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_54_name, a3
@@ -452,7 +452,7 @@ L2A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x12100000, Entity_WorldPosX(a0)
-	move.l #0x04c80000, Entity_WorldPosY(a0)
+	move.l #0x04c00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_58_name, a3
@@ -465,7 +465,7 @@ L2A1_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x10800000, Entity_WorldPosX(a0)
-	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.l #0x03300000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_68_name, a3
@@ -711,7 +711,7 @@ L2A1_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x0d280000, Entity_WorldPosX(a0)
+	move.l #0x0d200000, Entity_WorldPosX(a0)
 	move.l #0x03100000, Entity_WorldPosY(a0)
 	move.l #l2a1_Trigger_WindSpeed2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -838,7 +838,7 @@ L2A1_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x11a00000, Entity_WorldPosX(a0)
+	move.l #0x11b80000, Entity_WorldPosX(a0)
 	move.l #0x03a00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL

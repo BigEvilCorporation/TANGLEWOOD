@@ -407,7 +407,7 @@ L1A4_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x1c300000, Entity_WorldPosX(a0)
-	move.l #0x01c80000, Entity_WorldPosY(a0)
+	move.l #0x01c00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_44_name, a3
@@ -419,8 +419,8 @@ L1A4_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x2d600000, Entity_WorldPosX(a0)
-	move.l #0x04a00000, Entity_WorldPosY(a0)
+	move.l #0x2d580000, Entity_WorldPosX(a0)
+	move.l #0x04980000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_56_name, a3
@@ -432,7 +432,7 @@ L1A4_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x2e980000, Entity_WorldPosX(a0)
+	move.l #0x2e900000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
@@ -446,8 +446,8 @@ L1A4_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x2c000000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x2bf80000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	move.b #BouncePlantOrient_225, BouncePlant_Orientation(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
@@ -461,7 +461,7 @@ L1A4_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x2e200000, Entity_WorldPosX(a0)
-	move.l #0x03880000, Entity_WorldPosY(a0)
+	move.l #0x03800000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_64_name, a3
@@ -474,7 +474,7 @@ L1A4_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x27e00000, Entity_WorldPosX(a0)
-	move.l #0x02700000, Entity_WorldPosY(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_90_name, a3
@@ -530,7 +530,7 @@ L1A4_LoadGameObjects:
 
 	jsr BoulderInit
 	move.l #0x2a800000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L1A4_Boulder_80_name, a3
@@ -614,8 +614,8 @@ L1A4_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x2a280000, Entity_WorldPosX(a0)
-	move.l #0x02700000, Entity_WorldPosY(a0)
+	move.l #0x2e800000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A4_Lvl3_Firefly_13_name, a3
@@ -840,8 +840,8 @@ L1A4_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x18d00000, Entity_WorldPosX(a0)
-	move.l #0x02f00000, Entity_WorldPosY(a0)
+	move.l #0x19300000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A4_Stone_48_name, a3
@@ -987,7 +987,7 @@ L1A4_LoadGameObjects:
 
 	jsr FlueInit
 	move.l #0x2b180000, Entity_WorldPosX(a0)
-	move.l #0x04b80000, Entity_WorldPosY(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
 	MOVE_NTSC_L 0x00090000, Flue_EjectForceY(a0), d0
 
 	jsr FlueLoadGfx
@@ -1024,7 +1024,7 @@ L1A4_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x2b000000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
 	move.l #L1A4_Trigger_FuzzlTreeEntrance, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx

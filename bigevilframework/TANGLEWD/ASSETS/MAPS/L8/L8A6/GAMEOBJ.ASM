@@ -219,7 +219,7 @@ L8A6_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x0b700000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L8A6_BouncePlant_2_name, a3
@@ -232,7 +232,7 @@ L8A6_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x01e00000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L8A6_MushroomEnd_name, a3
