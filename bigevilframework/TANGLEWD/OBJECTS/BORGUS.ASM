@@ -41,7 +41,7 @@ Borgus_SpitAnimFrame	equ 0x2
 Borgus_SwipeAnimFrame1	equ 0x2
 Borgus_SwipeAnimFrame2	equ 0x4
 
-Borgus_NumLives			equ 3
+Borgus_NumLives			equ 2
 Borgus_PlayerDamage		equ 0xFF
 
 ; AI
@@ -55,7 +55,7 @@ BorgusSpitball_BoundsHeight		equ (BorgusSpitball_Height-0x40)
 BorgusSpitball_BoundsOffsetX	equ (BorgusSpitball_Width/2)-(BorgusSpitball_BoundsWidth/2)
 BorgusSpitball_BoundsOffsetY	equ (BorgusSpitball_Height/2)-(BorgusSpitball_BoundsHeight/2)
 BorgusSpitball_MaxVel			equ 0x00040000
-BorgusFuzzl_MaxVel				equ 0x00010000
+BorgusFuzzl_MaxVel				equ 0x00020000
 
 ; States
 BorgusAIState_Idle		equ 0x0

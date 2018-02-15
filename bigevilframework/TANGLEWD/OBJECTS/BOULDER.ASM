@@ -25,7 +25,7 @@ Boulder_RollSFXVel			equ 0x002000
 Boulder_HitGroundSFXVel		equ 0x050000	; Min downward velocity to play thud SFX
 Boulder_MinDamageYVel		equ 0x050000	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF		; Damage dealt to characters
-Boulder_HitDamageBorgus		equ 0xFF/Borgus_NumLives	; Special case for Borgus fight
+Boulder_HitDamageBorgus		equ (0x7F/Borgus_NumLives)+1	; Special case for Borgus fight
 
 Boulder_MinCrackYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
 
