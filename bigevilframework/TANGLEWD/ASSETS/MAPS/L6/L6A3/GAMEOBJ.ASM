@@ -217,13 +217,7 @@ L6A3_Scrap_count equ 0x0
 
 L6A3_Longboat_count equ 0x0
 
-L6A3_Skivv_count equ 0x1
-L6A3_Skivv_57_idx	equ 0x0
-
-	IFND FINAL
-L6A3_Skivv_57_name	dc.b "L6A3_Skivv_57",0
-	even
-	ENDIF
+L6A3_Skivv_count equ 0x0
 
 L6A3_Ladder_count equ 0x5
 L6A3_Ladder_50_idx	equ 0x0
@@ -243,11 +237,13 @@ L6A3_Ladder_61_name	dc.b "L6A3_Ladder_61",0
 
 L6A3_Scirus_count equ 0x0
 
-L6A3_Hogg_count equ 0x1
+L6A3_Hogg_count equ 0x2
 L6A3_Hogg_58_idx	equ 0x0
+L6A3_Hogg_62_idx	equ 0x1
 
 	IFND FINAL
 L6A3_Hogg_58_name	dc.b "L6A3_Hogg_58",0
+L6A3_Hogg_62_name	dc.b "L6A3_Hogg_62",0
 	even
 	ENDIF
 
@@ -941,25 +937,6 @@ L6A3_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Skivv_Struct_Size*L6A3_Skivv_count)
-	move.l a1, EntityPoolStart_Skivv
-	move.l a1, a0
-	POPL   a1
-
-	jsr SkivvInit
-	move.l #0x08700000, Entity_WorldPosX(a0)
-	move.l #0x03d80000, Entity_WorldPosY(a0)
-	jsr SkivvLoadGfx
-	IFND FINAL
-	lea L6A3_Skivv_57_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Skivv_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Ladder_Struct_Size*L6A3_Ladder_count)
@@ -1056,6 +1033,19 @@ L6A3_LoadGameObjects:
 	jsr HoggLoadGfx
 	IFND FINAL
 	lea L6A3_Hogg_58_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
+
+	jsr HoggInit
+	move.l #0x08c00000, Entity_WorldPosX(a0)
+	move.l #0x03f00000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L6A3_Hogg_62_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
