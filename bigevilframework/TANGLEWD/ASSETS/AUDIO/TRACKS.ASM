@@ -1,6 +1,7 @@
 	IFND DEBUG
 
 bgm_titles:			include 'assets\audio\tracks\titles.asm'
+bgm_credits:		include 'assets\audio\tracks\credits.asm'
 bgm_lvlintro:		include 'assets\audio\tracks\lvlintro.asm'
 bgm_lvloutro:		include 'assets\audio\tracks\lvloutro.asm'
 bgm_dawn:			include 'assets\audio\tracks\dawn.asm'
@@ -136,6 +137,16 @@ track_bgm_boss_l6:
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
+	even
+
+track_bgm_credits:
+	dc.l	bgm_credits
+	dc.w	0x03FF
+	dc.w	0x0
+	dc.b	Track_Type_BGM
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Lowest
+	dc.b	Track_Transition_Crossfade
 	even
 
 track_bgm_gameover:

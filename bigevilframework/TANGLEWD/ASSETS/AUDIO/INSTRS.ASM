@@ -189,6 +189,14 @@ echo_instruments:
 	Echo_ListEntry InstrB1
 	Echo_ListEntry InstrB2
 	Echo_ListEntry InstrB3
+	Echo_ListEntry InstrB4
+	Echo_ListEntry InstrB5
+	Echo_ListEntry InstrB6
+	Echo_ListEntry InstrB7
+	Echo_ListEntry InstrB8
+	Echo_ListEntry InstrB9
+	Echo_ListEntry InstrBA
+	Echo_ListEntry InstrBB
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -218,7 +226,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xB4
+PCM_InstrIndex	equ 0xBC
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -401,6 +409,14 @@ InstrB0: incbin 'assets\audio\instrs\instr_B0.eif'
 InstrB1: incbin 'assets\audio\instrs\instr_B1.eif'
 InstrB2: incbin 'assets\audio\instrs\instr_B2.eif'
 InstrB3: incbin 'assets\audio\instrs\instr_B3.eif'
+InstrB4: incbin 'assets\audio\instrs\instr_B4.eif'
+InstrB5: incbin 'assets\audio\instrs\instr_B5.eif'
+InstrB6: incbin 'assets\audio\instrs\instr_B6.eif'
+InstrB7: incbin 'assets\audio\instrs\instr_B7.eif'
+InstrB8: incbin 'assets\audio\instrs\instr_B8.eif'
+InstrB9: incbin 'assets\audio\instrs\instr_B9.eif'
+InstrBA: incbin 'assets\audio\instrs\instr_BA.eif'
+InstrBB: incbin 'assets\audio\instrs\instr_BB.eif'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'

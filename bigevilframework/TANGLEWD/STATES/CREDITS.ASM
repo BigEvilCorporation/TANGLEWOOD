@@ -206,6 +206,10 @@ Credits_Enter:
 
 	; Fetch first string
 	jsr    Credits_FetchNextString
+
+	; Start music
+	lea    track_bgm_credits, a0
+	jsr    SND_PlayTrack
 	
 	rts
 	
