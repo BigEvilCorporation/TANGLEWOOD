@@ -191,9 +191,13 @@ SFX_Data_Wyrm_Attack:
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
+SFX_Data_DemonAppear:		include 'assets\audio\SFX\objects\dem_appr.asm'
 SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
 SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
 SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
+SFX_Data_BorgusDamage:		include 'assets\audio\SFX\objects\borg_dmg.asm'
+SFX_Data_BorgusFootstep:	include 'assets\audio\SFX\objects\borg_fs.asm'
+SFX_Data_BorgusSpit:		include 'assets\audio\SFX\objects\borg_spt.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
@@ -213,6 +217,8 @@ SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
+SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
+SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
 SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep2.asm'
@@ -278,6 +284,27 @@ SFX_BoulderRoll:
 
 SFX_BoulderBreak:
 	dc.l SFX_Data_BoulderBreak		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BorgusFootstep:
+	dc.l SFX_Data_BorgusFootstep	; Data
+	dc.b SFX_Priority_FootstepLrg	; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BorgusDamage:
+	dc.l SFX_Data_BorgusDamage		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BorgusSpit:
+	dc.l SFX_Data_BorgusSpit		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

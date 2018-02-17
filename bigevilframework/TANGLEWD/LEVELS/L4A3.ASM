@@ -466,7 +466,7 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_DELAY #0x0020
 
 	; Start boss music
-	CUTSCENE_PLAY_TRACK #track_bgm_boss_l6
+	CUTSCENE_PLAY_TRACK #track_bgm_boss_l4
 
 	; Wait
 	CUTSCENE_DELAY #0x0020

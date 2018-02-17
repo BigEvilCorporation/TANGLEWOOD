@@ -8,6 +8,7 @@ bgm_dusk:			include 'assets\audio\tracks\dusk.asm'
 bgm_night:			include 'assets\audio\tracks\night.asm'
 bgm_boss1_chase:	include 'assets\audio\tracks\boss_l.asm'
 bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
+bgm_boss_l4:		include 'assets\audio\tracks\boss_l4.asm'
 bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
@@ -109,6 +110,16 @@ track_bgm_boss1_chase:
 
 track_bgm_boss1_search:
 	dc.l	bgm_boss1_search
+	dc.w	0x001F
+	dc.w	0x0
+	dc.b	Track_Type_Threat
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	Track_Transition_Instant
+	even
+
+track_bgm_boss_l4:
+	dc.l	bgm_boss_l4
 	dc.w	0x001F
 	dc.w	0x0
 	dc.b	Track_Type_Threat

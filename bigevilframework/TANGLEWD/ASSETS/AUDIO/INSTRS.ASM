@@ -169,6 +169,26 @@ echo_instruments:
 	Echo_ListEntry Instr9D
 	Echo_ListEntry Instr9E
 	Echo_ListEntry Instr9F
+	Echo_ListEntry InstrA0
+	Echo_ListEntry InstrA1
+	Echo_ListEntry InstrA2
+	Echo_ListEntry InstrA3
+	Echo_ListEntry InstrA4
+	Echo_ListEntry InstrA5
+	Echo_ListEntry InstrA6
+	Echo_ListEntry InstrA7
+	Echo_ListEntry InstrA8
+	Echo_ListEntry InstrA9
+	Echo_ListEntry InstrAA
+	Echo_ListEntry InstrAB
+	Echo_ListEntry InstrAC
+	Echo_ListEntry InstrAD
+	Echo_ListEntry InstrAE
+	Echo_ListEntry InstrAF
+	Echo_ListEntry InstrB0
+	Echo_ListEntry InstrB1
+	Echo_ListEntry InstrB2
+	Echo_ListEntry InstrB3
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -198,7 +218,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xA0
+PCM_InstrIndex	equ 0xB4
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -361,8 +381,26 @@ Instr9C: incbin 'assets\audio\instrs\instr_9C.eif'
 Instr9D: incbin 'assets\audio\instrs\instr_9D.eif'
 Instr9E: incbin 'assets\audio\instrs\instr_9E.eif'
 Instr9F: incbin 'assets\audio\instrs\instr_9F.eif'
-
-
+InstrA0: incbin 'assets\audio\instrs\instr_A0.eif'
+InstrA1: incbin 'assets\audio\instrs\instr_A1.eif'
+InstrA2: incbin 'assets\audio\instrs\instr_A2.eif'
+InstrA3: incbin 'assets\audio\instrs\instr_A3.eif'
+InstrA4: incbin 'assets\audio\instrs\instr_A4.eif'
+InstrA5: incbin 'assets\audio\instrs\instr_A5.eif'
+InstrA6: incbin 'assets\audio\instrs\instr_A6.eif'
+InstrA7: incbin 'assets\audio\instrs\instr_A7.eif'
+InstrA8: incbin 'assets\audio\instrs\instr_A8.eif'
+InstrA9: incbin 'assets\audio\instrs\instr_A9.eif'
+InstrAA: incbin 'assets\audio\instrs\instr_AA.eif'
+InstrAB: incbin 'assets\audio\instrs\instr_AB.eif'
+InstrAC: incbin 'assets\audio\instrs\instr_AC.eif'
+InstrAD: incbin 'assets\audio\instrs\instr_AD.eif'
+InstrAE: incbin 'assets\audio\instrs\instr_AE.eif'
+InstrAF: incbin 'assets\audio\instrs\instr_AF.eif'
+InstrB0: incbin 'assets\audio\instrs\instr_B0.eif'
+InstrB1: incbin 'assets\audio\instrs\instr_B1.eif'
+InstrB2: incbin 'assets\audio\instrs\instr_B2.eif'
+InstrB3: incbin 'assets\audio\instrs\instr_B3.eif'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'
