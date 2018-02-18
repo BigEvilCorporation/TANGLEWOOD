@@ -151,8 +151,8 @@ GameStateReset:
 	; Reset potential flue occupants
 	move.b #0x0, FlueNumPotentialOccupants
 
-	; Reset VFX flash
-	move.w #0x0, VFXFlashTimer
+	; Reset VFX
+	jsr    VFX_Reset
 	
 	; Reset entity linked lists
 	LIST_CLEAR PhysicsObjs,a4,a3

@@ -13,6 +13,25 @@ VFXUnderwaterSubR	equ 0x6
 VFXUnderwaterSubB	equ 0x6
 VFXUnderwaterSubG	equ 0x1
 
+VFX_Reset:
+	move.w #0x0, VFXShakeAmplitudeDecay
+	move.w #0x0, VFXShakeFrequencyDecay
+	move.w #0x0, VFXFlashTimer
+	rts
+
+VFX_StartScreenShake:
+	; d0 (w) Max amplitude
+	; d1 (w) Max frequency
+	; d2 (w) Amplitude decay
+	; d3 (w) Frequency decay
+
+	move.w d0, CameraShakeAmpY
+	move.w d1, CameraShakeSpeedY
+	move.w d2, VFXShakeAmplitudeDecay
+	move.w d3, VFXShakeFrequencyDecay
+
+	rts
+
 VFX_StartFlash:
 	; d0 (w) Flash frames
 
@@ -44,6 +63,28 @@ VFX_StartFlash:
 
 VFX_Update:
 
+	; Update shake
+	move.w VFXShakeAmplitudeDecay, d0
+	beq    @NoShake
+	move.w VFXShakeFrequencyDecay, d1
+	sub.w  d0, CameraShakeAmpY				; Decay amplitude
+	blt    @EndShake
+	sub.w  d1, CameraShakeSpeedY			; Decay frequency
+	blt    @EndShake
+	bra    @FinishedShake
+	@EndShake:
+
+	; Shake finished, reset
+	move.w #0x0, VFXShakeAmplitudeDecay
+	move.w #0x0, VFXShakeFrequencyDecay
+	move.w #0x0, CameraShakeAmpY
+	move.w #0x0, CameraShakeSpeedY
+
+	@FinishedShake:
+	@NoShake:
+
+	;==============================================================
+
 	; Update flash
 	move.w VFXFlashTimer, d0
 	beq    @Flashing
@@ -56,6 +97,8 @@ VFX_Update:
 	jsr    VFX_RevertToScenePalettes
 
 	@Flashing:
+
+	;==============================================================
 
 	; Convert underwater palettes if dirty
 	move.l #0x0, d0

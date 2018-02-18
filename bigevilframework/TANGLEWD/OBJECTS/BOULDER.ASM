@@ -33,6 +33,10 @@ Boulder_PlatformWidth		equ Boulder_Width/2	; Physics platform width
 Boulder_PlatformXOffset		equ (Boulder_Width-Boulder_PlatformWidth)/2	; Offset to platform from top of boulder
 Boulder_PlatformYOffset		equ 0x0008	; Offset to platform from top of boulder
 
+Boulder_HitFloorShakeAmp	equ 0x0280
+Boulder_HitFloorShakeVel	equ 0x4000
+Boulder_HitFloorShakeDecay	equ 0x0030
+
 ;==============================================================
 
 ; Animations
@@ -259,6 +263,13 @@ BoulderUpdate:
 	
 	; Crack open
 	jsr    BoulderCrack
+
+	; Screen shake
+	move.w #Boulder_HitFloorShakeAmp, d0
+	move.w #Boulder_HitFloorShakeVel, d1
+	move.w #Boulder_HitFloorShakeDecay, d2
+	move.w #0x0, d3
+	jsr    VFX_StartScreenShake
 	
 	; Bail
 	bra    @Cracked
