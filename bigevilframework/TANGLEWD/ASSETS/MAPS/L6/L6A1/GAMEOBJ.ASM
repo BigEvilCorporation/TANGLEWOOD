@@ -495,8 +495,8 @@ L6A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x06600000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
+	move.l #0x03800000, Entity_WorldPosX(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
 	move.l #l6a1_Trigger_MusicCue, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
