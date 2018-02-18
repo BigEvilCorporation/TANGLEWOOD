@@ -732,7 +732,7 @@ PlayerStartColourAbility:
 	jsr    PlayerLightningAttack
 
 	; Start cooldown
-	move.w #Player1LightningCooldown, Player_LightningCooldown(a0)
+	MOVE_NTSC_W Player1LightningCooldown, Player_LightningCooldown(a0), d0
 
 	@NotCooledDown:
 
