@@ -114,9 +114,10 @@ MonsterState_Bucking	equ 0x9
 ; ************************************
 ; Music states
 ; ************************************
-MonsterMusicState_Off		equ 0x0
-MonsterMusicState_Chase		equ 0x1
-MonsterMusicState_Search	equ 0x2
+MonsterMusicState_Disabled	equ 0x0
+MonsterMusicState_Off		equ 0x1
+MonsterMusicState_Chase		equ 0x2
+MonsterMusicState_Search	equ 0x3
 
 ; ************************************
 ; Animations
@@ -458,6 +459,8 @@ MonsterUpdate:
 
 	; End Music
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	beq    @NotPlaying
+	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @NotPlaying
 	move.b #-1, d0
 	jsr    SND_BeginFadeTrack
@@ -1049,6 +1052,8 @@ MonsterStartSearchForPlayer:
 	bne    @PlayerDead
 	cmp.b  #MonsterMusicState_Search, Monster_MusicState(a0)
 	beq    @TrackPlaying
+	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
+	beq    @TrackPlaying
 	PUSHM  a0/d0-d1
 	lea    track_bgm_boss1_search, a0
 	jsr    SND_PlayTrack
@@ -1211,6 +1216,8 @@ MonsterStartTrackPlayer:
 
 	; Start chase theme
 	cmp.b  #MonsterMusicState_Chase, Monster_MusicState(a0)
+	beq    @TrackPlaying
+	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @TrackPlaying
 	PUSHM  a0/d0-d1
 	lea    track_bgm_boss1_chase, a0
@@ -1453,6 +1460,8 @@ MonsterUpdateBite:
 	beq    @PlayerNotDead
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 	beq    @NotPlaying
+	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
+	beq    @NotPlaying
 	move.b #-1, d0
 	jsr    SND_BeginFadeTrack
 	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
@@ -1511,6 +1520,8 @@ MonsterStartTamed:
 
 	; End chase music
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	beq    @NotPlaying
+	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @NotPlaying
 	move.b #-1, d0
 	jsr    SND_BeginFadeTrack

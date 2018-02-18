@@ -93,55 +93,64 @@ l6a2_Init:
 	
 	;==============================================================
 
-	; Don't lerp Djakk palettes, disable catchup behaviour, use silhouetted palettes
+	; Don't lerp Djakk palettes, disable catchup behaviour, use silhouetted palettes, don't change music
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
 	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
@@ -227,6 +236,14 @@ l6a2_Init:
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
+
+	;==============================================================
+
+	; Start chase music
+	PUSHM  a0/d0-d1
+	lea    track_bgm_boss_l6, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	
 	rts
 	
@@ -242,6 +259,13 @@ l6a2_Serialise:
 	rts
 
 l6a2_End:
+	rts
+
+l6a2_Trigger_EndChase:
+
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+	
 	rts
 
 l6a2_Trigger_WakeDjakk1:

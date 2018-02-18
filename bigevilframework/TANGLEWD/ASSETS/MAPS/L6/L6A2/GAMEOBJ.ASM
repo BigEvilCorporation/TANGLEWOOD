@@ -105,7 +105,7 @@ L6A2_Nest_18_name	dc.b "L6A2_Nest_18",0
 
 L6A2_Flue_count equ 0x0
 
-L6A2_TriggerBox_count equ 0xe
+L6A2_TriggerBox_count equ 0xf
 L6A2_TriggerDjakk1_idx	equ 0x0
 L6A2_TriggerDjakk2_idx	equ 0x1
 L6A2_TriggerDjakk3_idx	equ 0x2
@@ -120,6 +120,7 @@ L6A2_TriggerLog3_idx	equ 0xa
 L6A2_TriggerLevelEnd_idx	equ 0xb
 L6A2_TriggerDjakk8_idx	equ 0xc
 L6A2_TriggerDjakk9_idx	equ 0xd
+L6A2_TriggerMusicOff_idx	equ 0xe
 
 	IFND FINAL
 L6A2_TriggerDjakk1_name	dc.b "L6A2_TriggerDjakk1",0
@@ -136,6 +137,7 @@ L6A2_TriggerLog3_name	dc.b "L6A2_TriggerLog3",0
 L6A2_TriggerLevelEnd_name	dc.b "L6A2_TriggerLevelEnd",0
 L6A2_TriggerDjakk8_name	dc.b "L6A2_TriggerDjakk8",0
 L6A2_TriggerDjakk9_name	dc.b "L6A2_TriggerDjakk9",0
+L6A2_TriggerMusicOff_name	dc.b "L6A2_TriggerMusicOff",0
 	even
 	ENDIF
 
@@ -759,6 +761,22 @@ L6A2_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerDjakk9_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x22580000, Entity_WorldPosX(a0)
+	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #l6a2_Trigger_EndChase, Triggerbox_Routine(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L6A2_TriggerMusicOff_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
