@@ -57,6 +57,17 @@ BorgusSpitball_BoundsOffsetY	equ (BorgusSpitball_Height/2)-(BorgusSpitball_Bound
 BorgusSpitball_MaxVel			equ 0x00040000
 BorgusFuzzl_MaxVel				equ 0x00020000
 
+; Walk screen shake
+Borgus_WalkShakeAmp		equ 0x0280
+Borgus_WalkShakeVel		equ 0x5000
+Borgus_WalkShakeDecay	equ 0x0050
+
+; HACK: Borgus walk anim screen shake frames
+; TODO: Add animation track for VFX
+BorgusWalkShakeAnimTrack:
+	dc.b 0,0,0,1,0,0,0,1
+	even
+
 ; States
 BorgusAIState_Idle		equ 0x0
 BorgusAIState_Follow	equ 0x1
@@ -218,6 +229,11 @@ BorgusUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Base functionality
+	jsr    CharacterUpdate
+
+	;==============================================================
+
 	; If dying
 	tst.b  Character_Dead(a0)
 	beq    @NotDead
@@ -269,11 +285,6 @@ BorgusUpdate:
 	bra    @EndAI
 
 	@EndAI:
-
-	;==============================================================
-	
-	; Base functionality
-	jsr    CharacterUpdate
 
 	;==============================================================
 
@@ -398,6 +409,26 @@ BorgusAIUpdate_Follow:
 	jsr    BorgusAIStart_Spit
 
 	@TimerRunning:
+
+	; HACK: Add animation track for VFX
+	tst.b  AnimObj_UploadFrame(a0)		; Only if anim frame advanced this frame
+	beq    @NoShake
+	lea    Character_Animations+(CharacterAnimIdx_Walk*Animation_Struct_Size)(a0), a2
+	cmp.l  AnimObj_CurrentAnim(a0), a2	; Check if idle anim
+	bne    @NotWalking
+	lea    BorgusWalkShakeAnimTrack, a2	; Get track data
+	move.l AnimObj_AnimSubFrame(a0), d0	; Get subframe
+	lsr.l  #0x8, d0						; Subframes to frames
+	add.l  d0, a2						; Offset track data
+	cmp.b  #0x0, (a2)					; If shake this frame
+	beq    @NoShake
+	move.w #Borgus_WalkShakeAmp, d0
+	move.w #Borgus_WalkShakeVel, d1
+	move.w #Borgus_WalkShakeDecay, d2
+	move.w #0x0, d3
+	jsr    VFX_StartScreenShake
+	@NoShake:
+	@NotWalking:
 
 	rts
 
