@@ -81,6 +81,7 @@ Monster_AnimFrame_Bite	equ 0x2
 ; ************************************
 ; Palettes
 ; ************************************
+	IF MONSTER_STORES_COLOUR_POWER
 MonsterPalettes:
 	dc.l  palette_djakk_red		; Drained
 	dc.l  palette_djakk_red		; Orange
@@ -88,6 +89,7 @@ MonsterPalettes:
 	dc.l  palette_djakk_blue	; Blue
 	dc.l  palette_djakk_green	; Green
 	dc.l  palette_djakk_yellow	; Yellow
+	ENDIF
 
 ; ************************************
 ; Monster types
@@ -956,6 +958,17 @@ MonsterStartRoaring:
 
 	; Manually control anim
 	move.b #0x0, Character_UpdateAnim(a0)
+
+	; Restore palette (if tamed)
+	PUSHL  a0
+	lea    palette_djakk, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
+	jsr    GameScenePaletteFadeTo
+	POPL   a0
 	
 	rts
 	
@@ -1467,15 +1480,15 @@ MonsterStartTamed:
 	move.b #MonsterState_Tamed, Monster_State(a0)
 	
 	; Start palette lerp
-	;move.l a0, -(sp)
-	;lea    palette_djakk_blue, a0
-	;move.l #PaletteId_Monster, d0
-	;move.w #Monster_EmergePalLerpSpeed, d1
-	;move.b #0x1, d2
-	;move.b #0x0, d3
-	;move.b #0xF, d4
-	;jsr    GameScenePaletteFadeTo
-	;move.l (sp)+, a0
+	PUSHL  a0
+	lea    palette_djakk_blue, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
+	jsr    GameScenePaletteFadeTo
+	POPL   a0
 
 	; Start growl timer
 	MOVE_NTSC_W Monster_GrowlDelay, Monster_GrowlTimer(a0), d0
@@ -1544,6 +1557,17 @@ MonsterStartBucking:
 
 	; Override run speed
 	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
+
+	; Restore palette
+	PUSHL  a0
+	lea    palette_djakk, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
+	jsr    GameScenePaletteFadeTo
+	POPL   a0
 
 	rts
 
