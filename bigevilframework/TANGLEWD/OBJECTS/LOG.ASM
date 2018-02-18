@@ -246,8 +246,12 @@ LogUpdate:
 
 	;==============================================================
 
-	; If X vel over threshold, check if damaging player
+	; If vel over threshold, check if damaging player
 	move.l PhysicsObj_VelX(a0), d0
+	ABSL   d0
+	move.l PhysicsObj_VelY(a0), d1
+	ABSL   d1
+	add.l  d1, d0
 	MOVE_NTSC_L Log_MinDamageXVel, d1, d2
 	cmp.l  d1, d0
 	bge    @DealDamage

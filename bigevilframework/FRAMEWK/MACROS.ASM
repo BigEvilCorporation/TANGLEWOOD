@@ -269,6 +269,13 @@ ABS: macro valuereg
 	@Pos\@:
 	endm
 
+ABSL: macro valuereg
+	cmp.l #0x0, \valuereg
+	bge   @Pos\@
+	neg.l \valuereg
+	@Pos\@:
+	endm
+
 ABSW: macro valuereg
 	tst.w \valuereg
 	bge   @Pos\@
