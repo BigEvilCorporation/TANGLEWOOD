@@ -53,7 +53,7 @@ l5a4_BygoneAct4:
 	
 l5a4_DefaultPalettes:
 
-	dc.l palette_L4_night			; World (using L4 tileset)
+	dc.l palette_L4_day				; World (using L4 tileset)
 	dc.l palette_demon				; Demon
 	dc.l palette_fuzzl				; Fuzzl
 	dc.l Pal_Nymn_Red				; Player
@@ -427,6 +427,11 @@ l5a4_Cutscene_WaitAttackFrame:
 	rts
 
 l5a4_Cutscene_LightningFlash:
+
+	; Load night palette
+	lea    palette_L4_night, a0
+	move.w #PaletteId_World0, d0
+	jsr    GameScenePaletteLoad
 
 	; Flash
 	lea    Thunder, a2
