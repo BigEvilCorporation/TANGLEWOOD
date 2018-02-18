@@ -342,7 +342,7 @@ Pause_Update:
 	; Read pad
 	jsr    PAD_ReadPadA
 
-	EnDIF
+	ENDIF
 	
 	; Get prev state
 	move.w PauseState_PrevPadState(a0), d1

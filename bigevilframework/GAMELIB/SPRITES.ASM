@@ -188,6 +188,7 @@ SPR_AddSubSprite:
 	swap d1
 	move.w d1, Sprite_CoordX(a4)      ; X coord
 	move.b d0, Sprite_Dimensions_NextID(a4)  ; Dimensions (first byte in word)
+	move.b #0x0, Sprite_NextID(a4)		; Next sprite ID
 
 	; OR tile ID with palette/flip/priority bits
 	or.w   d2, d3
