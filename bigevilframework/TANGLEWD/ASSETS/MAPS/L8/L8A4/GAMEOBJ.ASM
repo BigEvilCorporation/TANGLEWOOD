@@ -47,13 +47,7 @@ L8A4_FuzzlRed1_name	dc.b "L8A4_FuzzlRed1",0
 	even
 	ENDIF
 
-L8A4_Stone_count equ 0x1
-L8A4_Stone_11_idx	equ 0x0
-
-	IFND FINAL
-L8A4_Stone_11_name	dc.b "L8A4_Stone_11",0
-	even
-	ENDIF
+L8A4_Stone_count equ 0x0
 
 L8A4_Demon_count equ 0x1
 L8A4_Demon_idx	equ 0x0
@@ -232,25 +226,6 @@ L8A4_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L8A4_Stone_count)
-	move.l a1, EntityPoolStart_Stone
-	move.l a1, a0
-	POPL   a1
-
-	jsr StoneInit
-	move.l #0x08600000, Entity_WorldPosX(a0)
-	move.l #0x01300000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L8A4_Stone_11_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A4_Demon_count)
@@ -400,8 +375,8 @@ L8A4_LoadGameObjects:
 	add.l #AIMarker_Struct_Size, a0
 
 	jsr AIMarkerInit
-	move.l #0x09a00000, Entity_WorldPosX(a0)
-	move.l #0x01300000, Entity_WorldPosY(a0)
+	move.l #0x09400000, Entity_WorldPosX(a0)
+	move.l #0x01200000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A4_MarkerDemonRightBounds_name, a3
