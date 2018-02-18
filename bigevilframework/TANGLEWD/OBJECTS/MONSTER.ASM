@@ -960,6 +960,8 @@ MonsterStartRoaring:
 	move.b #0x0, Character_UpdateAnim(a0)
 
 	; Restore palette (if tamed)
+	tst.b  Monster_LerpPalette(a0)
+	beq    @NoPaletteLerp
 	PUSHL  a0
 	lea    palette_djakk, a0
 	move.l #PaletteId_Monster, d0
@@ -969,6 +971,7 @@ MonsterStartRoaring:
 	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
 	POPL   a0
+	@NoPaletteLerp:
 	
 	rts
 	

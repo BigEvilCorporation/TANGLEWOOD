@@ -254,26 +254,13 @@ LogUpdate:
 	neg.l  d1
 	cmp.l  d1, d0
 	ble    @DealDamage
-	bra    @NoDamage
+	bra    @NotHazardous
 
 	@DealDamage:
-	
-	; Check if touching player
-	move.l (Player1), a2
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
-	PHYSICS_GETBOUNDS d3,d4,d5,a2
-	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	beq    @NoDamage
 
-	; Deal damage
-	PUSHL  a0
-	move.l (Player1), a0
-	move.l #Log_HitDamage, d0
-	jsr    CharacterDealDamage
-	POPL   a0
+	jsr    LogCheckDamagePlayer
+	jsr    LogCheckDamagedDjakks
 
-	@NoDamage:
 	@NotHazardous:
 
 	;==============================================================
@@ -302,6 +289,73 @@ LogUpdate:
 	jsr     SND_StopSFX
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	@EndRollSFX:
+
+	rts
+
+LogCheckDamagePlayer:
+	
+	; Check if touching player
+	move.l (Player1), a2
+	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NoDamage
+
+	; Deal damage
+	PUSHL  a0
+	move.l (Player1), a0
+	move.l #Log_HitDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+
+	@NoDamage:
+
+	rts
+
+LogCheckDamagedDjakks:
+
+	PUSHL  a1
+	
+	; Check if squishing a monster
+	move.l (EntityPoolStart_Monster), a1
+	move.w (EntityCount_Monster), d6
+	beq    @NoMonsters
+	subq.w #0x1, d6
+	@MonsterLoop:
+	PUSHW  d6
+	
+	; Check monster active
+	tst.b  Entity_Active(a1)
+	beq    @NextMonster
+	
+	; Check monster alive
+	tst.b  Character_Dead(a1)
+	bne    @NextMonster
+	
+	; Bounds check
+	ENTITY_GETBOUNDS d1,d2,d3,a0
+	ENTITY_GETBOUNDS d3,d4,d5,a1
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @NextMonster
+	
+	; Log hit a monster, deal damage
+	PUSHL  a0
+	move.l a1, a0
+	move.l #Log_HitDamage, d0
+	jsr    CharacterDealDamage
+	POPL   a0
+	
+	@NextMonster:
+	POPW   d6
+	lea    Monster_Struct_Size(a1), a1
+	dbra   d6, @MonsterLoop
+	
+	@NoMonsters:
+	@EndMonsterLoop:
+	
+	POPL   a1
 
 	rts
 

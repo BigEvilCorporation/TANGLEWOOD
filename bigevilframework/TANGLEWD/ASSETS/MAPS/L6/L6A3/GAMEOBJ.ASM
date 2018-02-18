@@ -29,19 +29,17 @@ L6A3_Borgus_count equ 0x0
 
 L6A3_DjakkCage_count equ 0x0
 
-L6A3_Log_count equ 0x5
+L6A3_Log_count equ 0x4
 L6A3_Log1_idx	equ 0x0
 L6A3_Log2_idx	equ 0x1
-L6A3_Log_10_idx	equ 0x2
+L6A3_Log_39_idx	equ 0x2
 L6A3_Log_19_idx	equ 0x3
-L6A3_Log_39_idx	equ 0x4
 
 	IFND FINAL
 L6A3_Log1_name	dc.b "L6A3_Log1",0
 L6A3_Log2_name	dc.b "L6A3_Log2",0
-L6A3_Log_10_name	dc.b "L6A3_Log_10",0
-L6A3_Log_19_name	dc.b "L6A3_Log_19",0
 L6A3_Log_39_name	dc.b "L6A3_Log_39",0
+L6A3_Log_19_name	dc.b "L6A3_Log_19",0
 	even
 	ENDIF
 
@@ -89,12 +87,13 @@ L6A3_FuzzlYellow1_name	dc.b "L6A3_FuzzlYellow1",0
 	even
 	ENDIF
 
-L6A3_Stone_count equ 0x5
+L6A3_Stone_count equ 0x6
 L6A3_Stone_35_idx	equ 0x0
 L6A3_Stone_13_idx	equ 0x1
 L6A3_Stone_14_idx	equ 0x2
 L6A3_Stone_17_idx	equ 0x3
 L6A3_Stone_16_idx	equ 0x4
+L6A3_Stone_63_idx	equ 0x5
 
 	IFND FINAL
 L6A3_Stone_35_name	dc.b "L6A3_Stone_35",0
@@ -102,6 +101,7 @@ L6A3_Stone_13_name	dc.b "L6A3_Stone_13",0
 L6A3_Stone_14_name	dc.b "L6A3_Stone_14",0
 L6A3_Stone_17_name	dc.b "L6A3_Stone_17",0
 L6A3_Stone_16_name	dc.b "L6A3_Stone_16",0
+L6A3_Stone_63_name	dc.b "L6A3_Stone_63",0
 	even
 	ENDIF
 
@@ -320,11 +320,11 @@ L6A3_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 
 	jsr LogInit
-	move.l #0x1af80000, Entity_WorldPosX(a0)
-	move.l #0x04800000, Entity_WorldPosY(a0)
+	move.l #0x1cc00000, Entity_WorldPosX(a0)
+	move.l #0x03b00000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
-	lea L6A3_Log_10_name, a3
+	lea L6A3_Log_39_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
@@ -338,19 +338,6 @@ L6A3_LoadGameObjects:
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A3_Log_19_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Log_Struct_Size, a0
-
-	jsr LogInit
-	move.l #0x1d180000, Entity_WorldPosX(a0)
-	move.l #0x03b00000, Entity_WorldPosY(a0)
-	jsr LogLoadGfx
-	IFND FINAL
-	lea L6A3_Log_39_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
@@ -586,11 +573,24 @@ L6A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x16980000, Entity_WorldPosX(a0)
-	move.l #0x04580000, Entity_WorldPosY(a0)
+	move.l #0x14780000, Entity_WorldPosX(a0)
+	move.l #0x04980000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L6A3_Stone_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x18c00000, Entity_WorldPosX(a0)
+	move.l #0x04580000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L6A3_Stone_63_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -676,7 +676,7 @@ L6A3_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x13e80000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
 	move.l #l6a3_Trigger_Log2, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
