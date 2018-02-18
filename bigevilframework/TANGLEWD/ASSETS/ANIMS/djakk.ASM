@@ -71,7 +71,7 @@ actor_djakk_sheet_roar_anim_roar_track_sfx:
 
 actor_djakk_sheet_idle_anim_idle:
 actor_djakk_sheet_idle_anim_idle_numframes: equ 0x1
-actor_djakk_sheet_idle_anim_idle_speed: equ 0x5
+actor_djakk_sheet_idle_anim_idle_speed: equ 0x0
 actor_djakk_sheet_idle_anim_idle_track_frames:
 	dc.l actor_djakk_sheet_idle_frame_0_header
 
