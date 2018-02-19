@@ -156,6 +156,7 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\anims\log.asm
 	INCLUDE_TEXT_ASSET assets\anims\lock.asm
 	INCLUDE_TEXT_ASSET assets\anims\leaf.asm
+	INCLUDE_TEXT_ASSET assets\anims\mushroom.asm
 	INCLUDE_TEXT_ASSET assets\anims\nymn.asm
 	INCLUDE_TEXT_ASSET assets\anims\pool.asm
 	INCLUDE_TEXT_ASSET assets\anims\rain.asm

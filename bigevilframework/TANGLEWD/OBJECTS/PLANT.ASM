@@ -16,7 +16,7 @@ BouncePlant_LaunchForceDiag equ 0x071100 ; (BouncePlant_LaunchForce * 0.707)
 
 ; Animations
 BouncePlantAnimIdx_Idle    equ 0
-BouncePlantAnimIdx_Active  equ 1
+BouncePlantAnimIdx_Bounce  equ 1
 ; ------------------------------
 BouncePlantAnimIdx_Max     equ 2
 
@@ -152,10 +152,9 @@ BOUNCEPLANT_GETBOUNDS: macro minreg,maxreg,tmpreg,addrreg
 ;==============================================================
 
 ; Struct
-	;rsset (AnimObj_Struct_Size)
-	rsset (SpriteObj_Struct_Size)
+	rsset (AnimObj_Struct_Size)
 ;------------------------------
-;BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
+BouncePlant_Animations   rs.b (Animation_Struct_Size*BouncePlantAnimIdx_Max)
 BouncePlant_BoundsLeft	 rs.w 1 ; Collision bounds offset X
 BouncePlant_BoundsTop	 rs.w 1 ; Collision bounds offset Y
 BouncePlant_BoundsWidth	 rs.w 1 ; Collision bounds offset width
@@ -174,8 +173,7 @@ BouncePlantInit:
 	; a1 --- Level addr
 
 	; Base init
-	;jsr    AnimObjInit
-	jsr    SpriteObjInit
+	jsr    AnimObjInit
 	
 	; Set type
 	;ori.l  #entity_type_BouncePlant, Entity_TypeBits(a0)
@@ -183,12 +181,7 @@ BouncePlantInit:
 	
 	; Set update and render routines
 	move.l #BouncePlantUpdate, Entity_UpdateRoutine(a0)
-	;move.l #AnimObjDraw, Entity_RenderRoutine(a0)
-	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
-	
-	; Add to update and render lists
-	;jsr    EntityAddToUpdateList
-	;jsr    EntityAddToRenderList
+	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	
 	; Default state
 	move.b  #0x1, Entity_Active(a0)
@@ -209,27 +202,54 @@ BouncePlantLoadGfx:
 
 	PUSHL  a1
 
+	; Add to world grid
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
+
 	; Alloc VRAM
-	move.w #actor_mushroom_VRAM_size_b, d0
-	jsr    VRAM_PoolAlloc
+	;move.w #actor_mushroom_VRAM_size_b, d0
+	;jsr    VRAM_PoolAlloc
 
 	; Select sprite sheet based on orientation
 	moveq #0x0, d1
 	move.b BouncePlant_Orientation(a0), d1
-	mulu   #size_long*5, d1
-	lea    BouncePlantSpriteSheets, a4
-	add.l  d1, a4
 
-	move.l (a4)+, a1	; Tiles address
-	move.l (a4)+, a2	; Subsprite dimensions table
-	move.l (a4)+, a3	; Subsprite offsets table
-	move.l (a4)+, d1	; Size (tiles)
-	move.l (a4)+, d2	; Size (subsprites)
-	
-	; Load sprite sheet
-	move.b #PaletteId_World0, d4
-	move.b #0x0, d5
-	jsr    SpriteObjLoad
+	cmp.b  #BouncePlantOrient_0, d1
+	beq    @Sprite180
+	cmp.b  #BouncePlantOrient_180, d1
+	beq    @Sprite180
+	cmp.b  #BouncePlantOrient_45, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_135, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_225, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_315, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_90, d1
+	beq    @Sprite270
+	cmp.b  #BouncePlantOrient_270, d1
+	beq    @Sprite270
+
+	@Sprite180:
+	SPRITE_LOAD_DEFAULT mushroom,mushroom_180,0,PaletteId_World0,0x0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_180,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_180,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Sprite225:
+	SPRITE_LOAD_DEFAULT mushroom,mushroom_225,0,PaletteId_World0,0x0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_225,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_225,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Sprite270:
+	SPRITE_LOAD_DEFAULT mushroom,mushroom_270,0,PaletteId_World0,0x0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_270,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_270,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Loaded:
 
 	; Configure sprite flipping based on orientation
 	moveq #0x0, d1
@@ -274,13 +294,13 @@ BouncePlantUpdate:
 	bne    @StillActive
 
 	; Back to idle
-	;PUSHL  a1
-	;lea    BouncePlant_Animations+(BouncePlantAnimIdx_Idle*Animation_Struct_Size)(a0), a1
-	;move.b #0x0, d0
-	;move.l #0x0, a2
-	;move.l #0x0, a3
-	;jsr    AnimObjSetAnimation
-	;POPL   a1
+	PUSHL  a1
+	lea    BouncePlant_Animations+(BouncePlantAnimIdx_Idle*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	; Set as inactive
 	move.b #0x0, BouncePlant_Active(a0)
@@ -288,7 +308,7 @@ BouncePlantUpdate:
 	@Inactive:
 	@StillActive:
 
-	;jsr AnimObjUpdate
+	jsr AnimObjUpdate
 	
 	rts
 
@@ -303,13 +323,13 @@ BouncePlant_Activate:
 	PLAYSFX #SFX_MushroomBounce
 
 	; Start active anim
-	;PUSHL  a1
-	;lea    BouncePlant_Animations+(BouncePlantAnimIdx_Active*Animation_Struct_Size)(a0), a1
-	;move.b #0x0, d0
-	;move.l #0x0, a2
-	;move.l #0x0, a3
-	;jsr    AnimObjSetAnimation
-	;POPL   a1
+	PUSHL  a1
+	lea    BouncePlant_Animations+(BouncePlantAnimIdx_Bounce*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	rts
 
