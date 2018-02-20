@@ -707,7 +707,9 @@ MonsterTakeColourPower:
 	PUSHM  d0/d3
 	PUSHM  a0/a1
 
-	move.l (MonsterPalettes+(ColourDrained*size_long)), a0	; Get new palette address
+	move.l (MonsterPalettes+(ColourDrained*size_long)), a1	; Get new palette address
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0	; Get destination palette ID
 	move.l #Player1ColourChangeSpeed, d1	; Get switch speed
 	move.b #0x1, d2					; Ticks per update
@@ -737,7 +739,9 @@ MonsterRestoreColourPower:
 	move.b Monster_Colour(a0), d0	; Get colour type
 	lsl.l  #0x2, d0					; To address offset
 	add.l  d0, a1					
-	move.l (a1), a0					; Get new palette address
+	move.l (a1), a1					; Get new palette address
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0	; Get destination palette ID
 	move.l #Player1ColourChangeSpeed, d1	; Get switch speed
 	move.b #0x1, d2					; Ticks per update
@@ -902,15 +906,17 @@ MonsterStartEmergeFromCave:
 	; Start palette lerp
 	tst.b  Monster_LerpPalette(a0)
 	beq    @NoPaletteLerp
-	move.l a0, -(sp)
-	lea    palette_djakk, a0
+	PUSHM  a0-a1
+	lea    palette_djakk, a1
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
-	move.l (sp)+, a0
+	POPM   a0-a1
 	@NoPaletteLerp:
 
 	rts
@@ -965,15 +971,17 @@ MonsterStartRoaring:
 	; Restore palette (if tamed)
 	tst.b  Monster_LerpPalette(a0)
 	beq    @NoPaletteLerp
-	PUSHL  a0
-	lea    palette_djakk, a0
+	PUSHM  a0-a1
+	lea    palette_djakk, a1
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
-	POPL   a0
+	POPM   a0-a1
 	@NoPaletteLerp:
 	
 	rts
@@ -1492,15 +1500,17 @@ MonsterStartTamed:
 	move.b #MonsterState_Tamed, Monster_State(a0)
 	
 	; Start palette lerp
-	PUSHL  a0
-	lea    palette_djakk_blue, a0
+	PUSHM  a0-a1
+	lea    palette_djakk_blue, a1
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
-	POPL   a0
+	POPM   a0-a1
 
 	; Start growl timer
 	MOVE_NTSC_W Monster_GrowlDelay, Monster_GrowlTimer(a0), d0
@@ -1573,15 +1583,17 @@ MonsterStartBucking:
 	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
 
 	; Restore palette
-	PUSHL  a0
-	lea    palette_djakk, a0
+	PUSHM  a0-a1
+	lea    palette_djakk, a1
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
 	move.l #PaletteId_Monster, d0
 	move.w #Monster_EmergePalLerpSpeed, d1
 	move.b #0x1, d2
 	move.b #0x0, d3
 	move.b #0xF, d4
 	jsr    GameScenePaletteFadeTo
-	POPL   a0
+	POPM   a0-a1
 
 	rts
 
