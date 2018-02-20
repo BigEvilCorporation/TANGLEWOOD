@@ -22,6 +22,10 @@ actor_djubb_sheet_swim_width		equ 0x28	; Max width of largest frame in pixels
 actor_djubb_sheet_swim_height		equ 0x18	; Max height of largest frame in pixels
 
 
+actor_djubb_sheet_death_width		equ 0x28	; Max width of largest frame in pixels
+actor_djubb_sheet_death_height		equ 0x18	; Max height of largest frame in pixels
+
+
 actor_djubb_sheet_bite_frametable:
 actor_djubb_sheet_bite_frame_0_header:
 	dc.w 0x000F	; Frame size (tiles)
@@ -108,6 +112,28 @@ actor_djubb_sheet_swim_frame_3_header:
 	dc.l actor_djubb_sheet_swim_frame_3
 	dc.l actor_djubb_sheet_swim_frame_3_subsprite_dimensions_bits
 	dc.l actor_djubb_sheet_swim_frame_3_subsprite_pos_offsets
+
+actor_djubb_sheet_death_frametable:
+actor_djubb_sheet_death_frame_0_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_death_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_death_frame_0
+	dc.l actor_djubb_sheet_death_frame_0_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_death_frame_0_subsprite_pos_offsets
+
+actor_djubb_sheet_death_frame_1_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_death_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_death_frame_1
+	dc.l actor_djubb_sheet_death_frame_1_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_death_frame_1_subsprite_pos_offsets
+
+actor_djubb_sheet_death_frame_2_header:
+	dc.w 0x000F	; Frame size (tiles)
+	dc.w actor_djubb_sheet_death_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_djubb_sheet_death_frame_2
+	dc.l actor_djubb_sheet_death_frame_2_subsprite_dimensions_bits
+	dc.l actor_djubb_sheet_death_frame_2_subsprite_pos_offsets
 
 actor_djubb_sheet_bite_frame_0_size_b		equ 0x01E0	; Size in bytes
 actor_djubb_sheet_bite_frame_0_size_t		equ 0x000F	; Size in tiles
@@ -299,6 +325,55 @@ actor_djubb_sheet_swim_frame_3_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_djubb_sheet_swim_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+
+actor_djubb_sheet_death_frame_0_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_death_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_death_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_death_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_death_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_djubb_sheet_death_frame_1_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_death_frame_1_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_death_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_death_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_death_frame_1_subsprite_dimensions_bits:
+	dc.b 0xE
+	dc.b 0x2
+	Even
+
+actor_djubb_sheet_death_frame_2_size_b		equ 0x01E0	; Size in bytes
+actor_djubb_sheet_death_frame_2_size_t		equ 0x000F	; Size in tiles
+actor_djubb_sheet_death_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_djubb_sheet_death_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	dc.l 0x00200000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_djubb_sheet_death_frame_2_subsprite_dimensions_bits:
 	dc.b 0xE
 	dc.b 0x2
 	Even
@@ -1955,6 +2030,421 @@ actor_djubb_sheet_swim_frame_3:
 	dc.l	0x11000000
 	dc.l	0x31000000
 	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
+
+spritesheet_djubb_death:
+
+actor_djubb_sheet_death_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+
+	dc.l	0x01100000
+	dc.l	0x01111010
+	dc.l	0x00166111
+	dc.l	0x01667115
+	dc.l	0x11677615
+	dc.l	0x01167711
+	dc.l	0x00163131
+	dc.l	0x00177111
+
+	dc.l	0x01137311
+	dc.l	0x01663110
+	dc.l	0x01311000
+	dc.l	0x11100000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+	dc.l	0x00000111
+	dc.l	0x00001112
+	dc.l	0x00026223
+	dc.l	0x00011242
+	dc.l	0x02111433
+
+	dc.l	0x26122554
+	dc.l	0x11322445
+	dc.l	0x32255445
+	dc.l	0x52255343
+	dc.l	0x34545432
+	dc.l	0x33332332
+	dc.l	0x12323222
+	dc.l	0x21112222
+
+	dc.l	0x11311242
+	dc.l	0x01112144
+	dc.l	0x00011117
+	dc.l	0x00001167
+	dc.l	0x00001177
+	dc.l	0x00001671
+	dc.l	0x00000110
+	dc.l	0x00000100
+
+	dc.l	0x00001710
+	dc.l	0x11117811
+	dc.l	0x62278154
+	dc.l	0x12355533
+	dc.l	0x23333322
+	dc.l	0x48333233
+	dc.l	0x42124333
+	dc.l	0x53412432
+
+	dc.l	0x24331221
+	dc.l	0x14233113
+	dc.l	0x11423332
+	dc.l	0x11143333
+	dc.l	0x11143333
+	dc.l	0x21133322
+	dc.l	0x11132218
+	dc.l	0x21132208
+
+	dc.l	0x21132200
+	dc.l	0x11332218
+	dc.l	0x21332111
+	dc.l	0x31333133
+	dc.l	0x11543342
+	dc.l	0x21334451
+	dc.l	0x11133555
+	dc.l	0x00111121
+
+	dc.l	0x11000000
+	dc.l	0x61000211
+	dc.l	0x42111131
+	dc.l	0x32433111
+	dc.l	0x33232112
+	dc.l	0x23321100
+	dc.l	0x33321200
+	dc.l	0x33221000
+
+	dc.l	0x33321000
+	dc.l	0x21110011
+	dc.l	0x13381133
+	dc.l	0x33332336
+	dc.l	0x32222223
+	dc.l	0x28111811
+	dc.l	0x10000000
+	dc.l	0x00800000
+
+	dc.l	0x22728282
+	dc.l	0x17617171
+	dc.l	0x11111113
+	dc.l	0x44344443
+	dc.l	0x21111111
+	dc.l	0x11533555
+	dc.l	0x55535221
+	dc.l	0x11111100
+
+	dc.l	0x00000000
+	dc.l	0x11111000
+	dc.l	0x11113100
+	dc.l	0x11112310
+	dc.l	0x00011211
+	dc.l	0x00001231
+	dc.l	0x00021331
+	dc.l	0x089A3320
+
+	dc.l	0x89A8A100
+	dc.l	0x89AA9200
+	dc.l	0x88998000
+	dc.l	0x18880000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x20000000
+	dc.l	0x11000000
+	dc.l	0x31200000
+	dc.l	0x13100000
+	dc.l	0x32000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_djubb_sheet_death_frame_1:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000001
+	dc.l	0x00000001
+	dc.l	0x00000112
+	dc.l	0x00011113
+	dc.l	0x00116111
+	dc.l	0x01166611
+	dc.l	0x01167711
+	dc.l	0x00166131
+
+	dc.l	0x00177151
+	dc.l	0x01167310
+	dc.l	0x01363110
+	dc.l	0x01611100
+	dc.l	0x11331000
+	dc.l	0x01131000
+	dc.l	0x00110000
+	dc.l	0x00001000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00001112
+	dc.l	0x00021113
+	dc.l	0x01111552
+	dc.l	0x02155443
+	dc.l	0x21524434
+
+	dc.l	0x11552555
+	dc.l	0x55445352
+	dc.l	0x35353532
+	dc.l	0x33232332
+	dc.l	0x32323225
+	dc.l	0x11221213
+	dc.l	0x11231214
+	dc.l	0x21332124
+
+	dc.l	0x01233227
+	dc.l	0x00111267
+	dc.l	0x00011676
+	dc.l	0x00001671
+	dc.l	0x00001621
+	dc.l	0x00006110
+	dc.l	0x00000001
+	dc.l	0x00000111
+
+	dc.l	0x00011101
+	dc.l	0x11116333
+	dc.l	0x12333322
+	dc.l	0x23334233
+	dc.l	0x48333333
+	dc.l	0x42124332
+	dc.l	0x51112411
+	dc.l	0x23441233
+
+	dc.l	0x14234113
+	dc.l	0x11423443
+	dc.l	0x11143334
+	dc.l	0x21132322
+	dc.l	0x21132218
+	dc.l	0x13322118
+	dc.l	0x23321111
+	dc.l	0x43331344
+
+	dc.l	0x15433422
+	dc.l	0x53344313
+	dc.l	0x11333333
+	dc.l	0x11111211
+	dc.l	0x11112122
+	dc.l	0x11111222
+	dc.l	0x11001111
+	dc.l	0x11000000
+
+	dc.l	0x10000000
+	dc.l	0x61100000
+	dc.l	0x42111000
+	dc.l	0x22232112
+	dc.l	0x33221331
+	dc.l	0x13323311
+	dc.l	0x33221111
+	dc.l	0x33321001
+
+	dc.l	0x21110011
+	dc.l	0x33441143
+	dc.l	0x43332336
+	dc.l	0x22822223
+	dc.l	0x18718181
+	dc.l	0x17617171
+	dc.l	0x11111113
+	dc.l	0x44344443
+
+	dc.l	0x21333331
+	dc.l	0x33322333
+	dc.l	0x52222222
+	dc.l	0x12223311
+	dc.l	0x22333111
+	dc.l	0x21111100
+	dc.l	0x11100000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x31200000
+	dc.l	0x11110000
+	dc.l	0x11311000
+
+	dc.l	0x01131200
+	dc.l	0x10133100
+	dc.l	0x10013120
+	dc.l	0x10223830
+	dc.l	0x80289980
+	dc.l	0x11389983
+	dc.l	0x91138880
+	dc.l	0x18103330
+
+	dc.l	0x31100000
+	dc.l	0x11000000
+	dc.l	0x11000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_djubb_sheet_death_frame_2:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000001
+
+	dc.l	0x00000002
+	dc.l	0x00000021
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00000123
+	dc.l	0x00061121
+	dc.l	0x00012112
+	dc.l	0x00111111
+
+	dc.l	0x00126761
+	dc.l	0x01126711
+	dc.l	0x01261613
+	dc.l	0x01237111
+	dc.l	0x00113611
+	dc.l	0x00113321
+	dc.l	0x00111163
+	dc.l	0x00010001
+
+	dc.l	0x00000000
+	dc.l	0x00000011
+	dc.l	0x00001111
+	dc.l	0x00111233
+	dc.l	0x01122414
+	dc.l	0x11134442
+	dc.l	0x11515443
+	dc.l	0x15152334
+
+	dc.l	0x35543353
+	dc.l	0x55333352
+	dc.l	0x35332121
+	dc.l	0x33353211
+	dc.l	0x23522211
+	dc.l	0x32251116
+	dc.l	0x11111117
+	dc.l	0x21001166
+
+	dc.l	0x10000166
+	dc.l	0x10000116
+	dc.l	0x00000061
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x10000000
+	dc.l	0x11000001
+
+	dc.l	0x11111111
+	dc.l	0x11333233
+	dc.l	0x34453311
+	dc.l	0x55333333
+	dc.l	0x53112432
+	dc.l	0x21344221
+	dc.l	0x31334413
+	dc.l	0x31433444
+
+	dc.l	0x11143433
+	dc.l	0x21132322
+	dc.l	0x31332218
+	dc.l	0x41332118
+	dc.l	0x73333133
+	dc.l	0x73543344
+	dc.l	0x61334444
+	dc.l	0x71133333
+
+	dc.l	0x11111122
+	dc.l	0x12112222
+	dc.l	0x11123323
+	dc.l	0x11111555
+	dc.l	0x00111111
+	dc.l	0x01120000
+	dc.l	0x11110000
+	dc.l	0x11100000
+
+	dc.l	0x11000000
+	dc.l	0x11110000
+	dc.l	0x44113100
+	dc.l	0x34421110
+	dc.l	0x31221330
+	dc.l	0x11113311
+	dc.l	0x21111111
+	dc.l	0x43431146
+
+	dc.l	0x33832333
+	dc.l	0x22822283
+	dc.l	0x18718181
+	dc.l	0x17617171
+	dc.l	0x81111114
+	dc.l	0x44444444
+	dc.l	0x33111334
+	dc.l	0x11113333
+
+	dc.l	0x23222235
+	dc.l	0x23311553
+	dc.l	0x35552111
+	dc.l	0x11111100
+	dc.l	0x11010000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000120
+	dc.l	0x00001132
+	dc.l	0x00121382
+	dc.l	0x31113882
+	dc.l	0x13283820
+
+	dc.l	0x11111200
+	dc.l	0x10110000
+	dc.l	0x30000000
+	dc.l	0x10000000
+	dc.l	0x11000000
+	dc.l	0x31000000
+	dc.l	0x41000000
+	dc.l	0x51000000
+
+	dc.l	0x51000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000

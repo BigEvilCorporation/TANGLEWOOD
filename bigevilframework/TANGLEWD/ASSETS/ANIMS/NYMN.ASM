@@ -569,6 +569,28 @@ actor_nymn_sheet_lookup_anim_lookup_static_track_sfx:
 	dc.l 0x0
 	Even
 
+actor_nymn_sheet_death_anim_death_vertical:
+actor_nymn_sheet_death_anim_death_vertical_numframes: equ 0x7
+actor_nymn_sheet_death_anim_death_vertical_speed: equ 0x1E
+actor_nymn_sheet_death_anim_death_vertical_track_frames:
+	dc.l actor_nymn_sheet_death_frame_0_header
+	dc.l actor_nymn_sheet_death_frame_1_header
+	dc.l actor_nymn_sheet_death_frame_2_header
+	dc.l actor_nymn_sheet_death_frame_3_header
+	dc.l actor_nymn_sheet_death_frame_4_header
+	dc.l actor_nymn_sheet_death_frame_5_header
+	dc.l actor_nymn_sheet_death_frame_6_header
+
+	Even
+actor_nymn_sheet_death_anim_death_vertical_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_death_anim_death_vertical_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_death_anim_death_vertical_track_sfx:
+	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
 actor_nymn_sheet_death_anim_death:
 actor_nymn_sheet_death_anim_death_numframes: equ 0xE
 actor_nymn_sheet_death_anim_death_speed: equ 0x1E

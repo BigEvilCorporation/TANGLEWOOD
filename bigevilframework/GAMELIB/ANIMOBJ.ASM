@@ -114,23 +114,24 @@ AnimObjUpdate:
 	add.l  d0, d2   ; Advance subframe
 	move.l d2, AnimObj_AnimSubframe(a0) ; Subframe back to RAM
 	
+	lsr.l  #0x8, d1 ; Prev subframe to frames
+	lsr.l  #0x8, d2 ; New subframe to frames
+	
 	; If non-looping anim
 	move.b Animation_Looping(a2), d0
 	cmp.b  #0x1, d0
 	beq    @LoopingAnim
-
-	moveq #0x0, d3
-	move.b Animation_Length(a2), d3	; Get anim length
-	lsl.l  #0x8, d3 ; To subframes
 	
-	; Check if not at end
+	; Check if reached end of anim
 	tst.b  AnimObj_Reverse(a0)
 	bne    @EndAtStart
-	cmp.l  d3, d2
-	blt    @NotAtEnd
-	bra    @AtEnd
+	move.b Animation_Length(a2), d3	; Get anim length
+	cmp.b  d3, d2					; Check at end
+	bne    @NotAtEnd
+	beq    @AtEnd
 	@EndAtStart:
-	tst.l  d2
+	tst.b  d2						; Check at start
+	bne    @NotAtEnd
 	@AtEnd:
 	
 	; End of non-looping anim, stop playing
@@ -139,9 +140,6 @@ AnimObjUpdate:
 	
 	@LoopingAnim:
 	@NotAtEnd:
-
-	lsr.l  #0x8, d1 ; Prev subframes to frames
-	lsr.l  #0x8, d2 ; New subframes to frames
 
 	; Check if dirty (new anim, set regardless of frame change)
 	tst.b  AnimObj_Dirty(a0)

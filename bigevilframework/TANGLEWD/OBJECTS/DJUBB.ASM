@@ -24,6 +24,7 @@ Djubb_WallProbeBottom	equ Djubb_Height-1
 Djubb_ProbeWallX		equ (Djubb_Width/2)-8	; Distance from centre to start wall search
 Djubb_PlayerYViewDist	equ 0x20
 Djubb_AttackDamage		equ 0xFF
+Djubb_FloatSurfaceOffset	equ 0x10
 
 Djubb_BoundsLeft		equ 0x0000
 Djubb_BoundsTop			equ 0x000A
@@ -109,6 +110,7 @@ DjubbLoadGfx:
 	ANIM_LOAD_DEFAULT djubb,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT djubb,swim,swim,Character_Animations,CharacterAnimIdx_Run,1,0,0
 	ANIM_LOAD_DEFAULT djubb,swim,swim,Character_Animations,CharacterAnimIdx_Walk,1,0,0
+	ANIM_LOAD_DEFAULT djubb,death,death,Character_Animations,CharacterAnimIdx_Dead,0,0,1
 
 	; Setup bespoke character animations
 	ANIM_LOAD_DEFAULT djubb,bite,bite,Djubb_Animations,DjubbAnimIdx_Bite,0,1,0
@@ -197,7 +199,9 @@ DjubbUpdate:
 
 	; TODO: Move to physicsobj
 	; TODO: Move floor probe to top so fish stays emerged
+	subi.w #Djubb_FloatSurfaceOffset, Entity_WorldPosY(a0)
 	jsr    DjubbTestUnderwater
+	addi.w #Djubb_FloatSurfaceOffset, Entity_WorldPosY(a0)
 	tst.b  PhysicsObj_Underwater(a0)
 	beq    @OutOfWater
 	MOVE_NTSC_ACCEL_W Djubb_FloatAccel, PhysicsObj_AccelY(a0), d0
