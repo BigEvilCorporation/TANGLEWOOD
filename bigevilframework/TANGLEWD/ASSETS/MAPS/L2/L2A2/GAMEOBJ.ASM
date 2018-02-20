@@ -169,17 +169,27 @@ L2A2_WaterBody_count equ 0x0
 
 L2A2_Location_count equ 0x0
 
-L2A2_Deathbox_count equ 0x4
+L2A2_Deathbox_count equ 0x9
 L2A2_Deathbox_9_idx	equ 0x0
 L2A2_WindFlue1_idx	equ 0x1
 L2A2_Deathbox_11_idx	equ 0x2
 L2A2_Deathbox_59_idx	equ 0x3
+L2A2_Deathbox_61_idx	equ 0x4
+L2A2_Deathbox_62_idx	equ 0x5
+L2A2_Deathbox_63_idx	equ 0x6
+L2A2_Deathbox_64_idx	equ 0x7
+L2A2_Deathbox_65_idx	equ 0x8
 
 	IFND FINAL
 L2A2_Deathbox_9_name	dc.b "L2A2_Deathbox_9",0
 L2A2_WindFlue1_name	dc.b "L2A2_WindFlue1",0
 L2A2_Deathbox_11_name	dc.b "L2A2_Deathbox_11",0
 L2A2_Deathbox_59_name	dc.b "L2A2_Deathbox_59",0
+L2A2_Deathbox_61_name	dc.b "L2A2_Deathbox_61",0
+L2A2_Deathbox_62_name	dc.b "L2A2_Deathbox_62",0
+L2A2_Deathbox_63_name	dc.b "L2A2_Deathbox_63",0
+L2A2_Deathbox_64_name	dc.b "L2A2_Deathbox_64",0
+L2A2_Deathbox_65_name	dc.b "L2A2_Deathbox_65",0
 	even
 	ENDIF
 
@@ -390,7 +400,7 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr BouncePlantInit
-	move.l #0x05f00000, Entity_WorldPosX(a0)
+	move.l #0x05d00000, Entity_WorldPosX(a0)
 	move.l #0x04200000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
@@ -512,8 +522,8 @@ L2A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x18780000, Entity_WorldPosX(a0)
-	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.l #0x18500000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A2_Firefly_48_name, a3
@@ -538,8 +548,8 @@ L2A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x0bb80000, Entity_WorldPosX(a0)
-	move.l #0x04d00000, Entity_WorldPosY(a0)
+	move.l #0x0d580000, Entity_WorldPosX(a0)
+	move.l #0x03f00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A2_Firefly_50_name, a3
@@ -857,6 +867,81 @@ L2A2_LoadGameObjects:
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L2A2_Deathbox_59_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x06380000, Entity_WorldPosX(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0038, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_61_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x0db80000, Entity_WorldPosX(a0)
+	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_62_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x0bd80000, Entity_WorldPosX(a0)
+	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_63_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x0f400000, Entity_WorldPosX(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0038, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_64_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x18b80000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A2_Deathbox_65_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
