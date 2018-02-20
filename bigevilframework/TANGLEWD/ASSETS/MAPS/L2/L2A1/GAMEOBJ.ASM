@@ -802,7 +802,7 @@ L2A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x0dc00000, Entity_WorldPosX(a0)
+	move.l #0x0da00000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
 	move.l #l2a1_Trigger_EndColourPower, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -851,8 +851,8 @@ L2A1_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x0aa80000, Entity_WorldPosX(a0)
-	move.l #0x05900000, Entity_WorldPosY(a0)
+	move.l #0x0e200000, Entity_WorldPosX(a0)
+	move.l #0x02600000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L2A1_Checkpoint_69_name, a3
