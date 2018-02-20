@@ -394,7 +394,7 @@ L1A4_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x1bb80000, Entity_WorldPosX(a0)
-	move.l #0x03000000, Entity_WorldPosY(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_43_name, a3
