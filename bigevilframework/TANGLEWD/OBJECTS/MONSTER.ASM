@@ -17,7 +17,7 @@ Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x042000   ; Max X running velocity
-Monster_MaxVelXAir    equ 0x04E000
+Monster_MaxVelXAir    equ 0x0A0000
 Monster_MaxVelXRunTamed equ 0x04E000   ; Max X running velocity (when being ridden)
 Monster_MaxVelYUp	  equ 0x060000   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x080000   ; Max Y velocity down
@@ -212,6 +212,7 @@ MonsterInit:
 	move.b  #Monster_Mass, PhysicsObj_Mass(a0)
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.b  #0x1, Character_JumpScaleX(a0)
 
 	; Default state
