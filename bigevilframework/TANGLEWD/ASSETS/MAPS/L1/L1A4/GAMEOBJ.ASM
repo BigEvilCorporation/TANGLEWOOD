@@ -473,8 +473,8 @@ L1A4_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x27e00000, Entity_WorldPosX(a0)
-	move.l #0x02680000, Entity_WorldPosY(a0)
+	move.l #0x28400000, Entity_WorldPosX(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_90_name, a3
@@ -866,8 +866,8 @@ L1A4_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x28500000, Entity_WorldPosX(a0)
-	move.l #0x02680000, Entity_WorldPosY(a0)
+	move.l #0x28080000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A4_Stone_88_name, a3

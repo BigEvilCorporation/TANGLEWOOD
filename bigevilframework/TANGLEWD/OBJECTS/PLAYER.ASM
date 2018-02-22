@@ -2717,15 +2717,6 @@ PlayerInteractTest_BouncePlants:
 	; a1 --- Level addr
 	
 	IFND DEBUG
-
-	; Check if player off floor
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	bne    @End
-
-	; Check player travelling towards plant platform
-	; TODO: Get bounce vector, dot test
-	tst.l  PhysicsObj_VelY(a0)
-	bge    @End
 	
 	move.w (EntityCount_BouncePlant), d6
 	beq    @NoPlants

@@ -39,17 +39,21 @@ L1A1_Nymn_34_name	dc.b "L1A1_Nymn_34",0
 	even
 	ENDIF
 
-L1A1_BouncePlant_count equ 0x4
+L1A1_BouncePlant_count equ 0x6
 L1A1_BouncePlant_62_idx	equ 0x0
 L1A1_BouncePlant_53_idx	equ 0x1
 L1A1_BouncePlant_72_idx	equ 0x2
 L1A1_BouncePlant_77_idx	equ 0x3
+L1A1_BouncePlant_94_idx	equ 0x4
+L1A1_BouncePlant_95_idx	equ 0x5
 
 	IFND FINAL
 L1A1_BouncePlant_62_name	dc.b "L1A1_BouncePlant_62",0
 L1A1_BouncePlant_53_name	dc.b "L1A1_BouncePlant_53",0
 L1A1_BouncePlant_72_name	dc.b "L1A1_BouncePlant_72",0
 L1A1_BouncePlant_77_name	dc.b "L1A1_BouncePlant_77",0
+L1A1_BouncePlant_94_name	dc.b "L1A1_BouncePlant_94",0
+L1A1_BouncePlant_95_name	dc.b "L1A1_BouncePlant_95",0
 	even
 	ENDIF
 
@@ -393,6 +397,34 @@ L1A1_LoadGameObjects:
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A1_BouncePlant_77_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #BouncePlant_Struct_Size, a0
+
+	jsr BouncePlantInit
+	move.l #0x26e80000, Entity_WorldPosX(a0)
+	move.l #0x02480000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_90, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	IFND FINAL
+	lea L1A1_BouncePlant_94_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #BouncePlant_Struct_Size, a0
+
+	jsr BouncePlantInit
+	move.l #0x15580000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_90, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	IFND FINAL
+	lea L1A1_BouncePlant_95_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

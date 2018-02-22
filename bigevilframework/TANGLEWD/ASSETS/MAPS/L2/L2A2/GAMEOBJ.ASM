@@ -45,17 +45,21 @@ L2A2_Nymn_18_name	dc.b "L2A2_Nymn_18",0
 	even
 	ENDIF
 
-L2A2_BouncePlant_count equ 0x4
+L2A2_BouncePlant_count equ 0x6
 L2A2_BouncePlant_5_idx	equ 0x0
 L2A2_BouncePlant_30_idx	equ 0x1
 L2A2_BouncePlant_32_idx	equ 0x2
 L2A2_BouncePlant_55_idx	equ 0x3
+L2A2_BouncePlant_66_idx	equ 0x4
+L2A2_BouncePlant_67_idx	equ 0x5
 
 	IFND FINAL
 L2A2_BouncePlant_5_name	dc.b "L2A2_BouncePlant_5",0
 L2A2_BouncePlant_30_name	dc.b "L2A2_BouncePlant_30",0
 L2A2_BouncePlant_32_name	dc.b "L2A2_BouncePlant_32",0
 L2A2_BouncePlant_55_name	dc.b "L2A2_BouncePlant_55",0
+L2A2_BouncePlant_66_name	dc.b "L2A2_BouncePlant_66",0
+L2A2_BouncePlant_67_name	dc.b "L2A2_BouncePlant_67",0
 	even
 	ENDIF
 
@@ -451,6 +455,34 @@ L2A2_LoadGameObjects:
 	ENDIF
 	add.l #BouncePlant_Struct_Size, a0
 
+	jsr BouncePlantInit
+	move.l #0x17980000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_270, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	IFND FINAL
+	lea L2A2_BouncePlant_66_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #BouncePlant_Struct_Size, a0
+
+	jsr BouncePlantInit
+	move.l #0x18300000, Entity_WorldPosX(a0)
+	move.l #0x03000000, Entity_WorldPosY(a0)
+	move.b #BouncePlantOrient_90, BouncePlant_Orientation(a0)
+	jsr BouncePlantLoadGfx
+	IFND FINAL
+	lea L2A2_BouncePlant_67_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #BouncePlant_Struct_Size, a0
+
 
 
 
@@ -522,8 +554,8 @@ L2A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x18500000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
+	move.l #0x17f00000, Entity_WorldPosX(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A2_Firefly_48_name, a3
