@@ -103,9 +103,11 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "Graphic Design"
+	CREDIT_HEADING1 "Graphic Design and Cover Art"
 	CREDIT_NAME		"Luis Martins"
 	CREDIT_NAME		"Jake Smith"
+	CREDIT_NAME		"Lily Bourne"
+	CREDIT_NAME		"Just Slightly Annoyed"
 	CREDIT_NAME		"Lauren Bamford"
 	CREDIT_SPACE
 	CREDIT_SPACE
@@ -168,8 +170,9 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "Equipment Donations"
+	CREDIT_HEADING1 "Equipment Loans and Donations"
 	CREDIT_NAME		"Adam Dobson"
+	CREDIT_NAME		"Eddy Jackman"
 	CREDIT_NAME		"Emma Hayley"
 	CREDIT_NAME		"Daniel Killeen"
 	CREDIT_NAME		"Jamie Deplacedo"
@@ -177,6 +180,7 @@ CreditsStrings:
 	CREDIT_NAME		"db Electronics"
 	CREDIT_NAME		"Dambuster Studios"
 	CREDIT_NAME		"Double Eleven Ltd"
+	CREDIT_NAME		"TT Games"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
