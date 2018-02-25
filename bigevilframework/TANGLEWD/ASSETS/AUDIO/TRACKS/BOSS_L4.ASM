@@ -2469,6 +2469,7 @@
 	dc.b $20, $09	; Set volume for channel FM 1
 	dc.b $00, $49	; Note E-2 on channel FM 1
 	dc.b $45, $a4	; Set instrument for channel FM 5
+	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
@@ -3182,6 +3183,7 @@
 	dc.b $12		; Note off channel FM 3
 	dc.b $14		; Note off channel FM 4
 	dc.b $45, $a4	; Set instrument for channel FM 5
+	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $a1	; Note C-5 on channel FM 5
 	dc.b $08, $30	; Note C-2 on channel PSG 1
 	dc.b $fe, $01	; Delay
@@ -3394,7 +3396,6 @@
 	dc.b $00, $81	; Note C-4 on channel FM 1
 	dc.b $12		; Note off channel FM 3
 	dc.b $14		; Note off channel FM 4
-	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $8b	; Note F-4 on channel FM 5
 	dc.b $09, $30	; Note C-2 on channel PSG 2
 	dc.b $fe, $01	; Delay
@@ -4207,6 +4208,7 @@
 	dc.b $20, $09	; Set volume for channel FM 1
 	dc.b $00, $49	; Note E-2 on channel FM 1
 	dc.b $45, $a4	; Set instrument for channel FM 5
+	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
@@ -4920,6 +4922,7 @@
 	dc.b $12		; Note off channel FM 3
 	dc.b $14		; Note off channel FM 4
 	dc.b $45, $a4	; Set instrument for channel FM 5
+	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $a1	; Note C-5 on channel FM 5
 	dc.b $08, $30	; Note C-2 on channel PSG 1
 	dc.b $fe, $01	; Delay
@@ -5132,7 +5135,6 @@
 	dc.b $00, $81	; Note C-4 on channel FM 1
 	dc.b $12		; Note off channel FM 3
 	dc.b $14		; Note off channel FM 4
-	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $8b	; Note F-4 on channel FM 5
 	dc.b $09, $30	; Note C-2 on channel PSG 2
 	dc.b $fe, $01	; Delay
