@@ -198,6 +198,19 @@ echo_instruments:
 	Echo_ListEntry InstrBA
 	Echo_ListEntry InstrBB
 	Echo_ListEntry InstrBC
+	Echo_ListEntry InstrBD
+	Echo_ListEntry InstrBE
+	Echo_ListEntry InstrBF
+	Echo_ListEntry InstrC0
+	Echo_ListEntry InstrC1
+	Echo_ListEntry InstrC2
+	Echo_ListEntry InstrC3
+	Echo_ListEntry InstrC4
+	Echo_ListEntry InstrC5
+	Echo_ListEntry InstrC6
+	Echo_ListEntry InstrC7
+	Echo_ListEntry InstrC8
+	Echo_ListEntry InstrC9
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -224,10 +237,11 @@ echo_instruments:
 	Echo_ListEntry PCM21
 	Echo_ListEntry PCM22
 	Echo_ListEntry PCM23
+	Echo_ListEntry PCM24
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xBD
+PCM_InstrIndex	equ 0xCA
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -419,6 +433,19 @@ InstrB9: incbin 'assets\audio\instrs\instr_B9.eif'
 InstrBA: incbin 'assets\audio\instrs\instr_BA.eif'
 InstrBB: incbin 'assets\audio\instrs\instr_BB.eif'
 InstrBC: incbin 'assets\audio\instrs\instr_BC.eif'
+InstrBD: incbin 'assets\audio\instrs\instr_BD.eif'
+InstrBE: incbin 'assets\audio\instrs\instr_BE.eif'
+InstrBF: incbin 'assets\audio\instrs\instr_BF.eif'
+InstrC0: incbin 'assets\audio\instrs\instr_C0.eif'
+InstrC1: incbin 'assets\audio\instrs\instr_C1.eif'
+InstrC2: incbin 'assets\audio\instrs\instr_C2.eif'
+InstrC3: incbin 'assets\audio\instrs\instr_C3.eif'
+InstrC4: incbin 'assets\audio\instrs\instr_C4.eif'
+InstrC5: incbin 'assets\audio\instrs\instr_C5.eif'
+InstrC6: incbin 'assets\audio\instrs\instr_C6.eif'
+InstrC7: incbin 'assets\audio\instrs\instr_C7.eif'
+InstrC8: incbin 'assets\audio\instrs\instr_C8.eif'
+InstrC9: incbin 'assets\audio\instrs\instr_C9.ewf'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'
@@ -445,5 +472,6 @@ PCM20: incbin 'assets\audio\sfx\nymn\talk_hi.ewf'
 PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
 PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
 PCM23: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
+PCM24: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
 
 	ENDIF

@@ -187,6 +187,13 @@ SFX_Data_Wyrm_Attack:
 	ESF_Delay 52
 	ESF_Stop
 	even
+
+SFX_Data_BorgusRoar:
+	ESF_Lock ESF_PCM
+	ESF_NoteOn ESF_PCM, PCM_InstrIndex+24
+	ESF_Delay 41
+	ESF_Stop
+	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -198,6 +205,7 @@ SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
 SFX_Data_BorgusDamage:		include 'assets\audio\SFX\objects\borg_dmg.asm'
 SFX_Data_BorgusFootstep:	include 'assets\audio\SFX\objects\borg_fs.asm'
 SFX_Data_BorgusSpit:		include 'assets\audio\SFX\objects\borg_spt.asm'
+SFX_Data_BorgusDie:			include 'assets\audio\SFX\objects\borg_ded.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
@@ -305,6 +313,20 @@ SFX_BorgusDamage:
 
 SFX_BorgusSpit:
 	dc.l SFX_Data_BorgusSpit		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BorgusRoar:
+	dc.l SFX_Data_BorgusRoar		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_BorgusDie:
+	dc.l SFX_Data_BorgusDie			; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

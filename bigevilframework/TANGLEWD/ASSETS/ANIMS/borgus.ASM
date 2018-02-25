@@ -69,7 +69,7 @@ actor_borgus_sheet_death_anim_death_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
 actor_borgus_sheet_death_anim_death_track_sfx:
-	dc.l 0x0, 0x0, 0x0
+	dc.l SFX_BorgusDie, 0x0, 0x0
 	Even
 
 actor_borgus_sheet_attack_anim_attack:
@@ -112,7 +112,7 @@ actor_borgus_sheet_roar_anim_roar_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
 actor_borgus_sheet_roar_anim_roar_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+	dc.l 0x0, SFX_BorgusRoar, 0x0, 0x0, 0x0, 0x0
 	Even
 
 actor_borgus_sheet_hit_anim_hit:
@@ -134,7 +134,7 @@ actor_borgus_sheet_hit_anim_hit_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
 actor_borgus_sheet_hit_anim_hit_track_sfx:
-	dc.l SFX_BorgusDamage, 0x0, 0x0, 0x0, 0x0, 0x0
+	dc.l SFX_BorgusDamage, 0x0, SFX_BorgusRoar, 0x0, 0x0, 0x0
 	Even
 
 actor_borgus_sheet_spit_anim_spit:
