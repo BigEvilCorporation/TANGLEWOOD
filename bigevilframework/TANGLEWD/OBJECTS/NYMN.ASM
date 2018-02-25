@@ -25,6 +25,7 @@ NymnCarryEcho_Carrying		equ 2
 ;---------------------------------
 Nymn_Animations	   			rs.b (Animation_Struct_Size*NymnAnimIdx_Max)
 Nymn_CarryEchoState			rs.b 1
+Nymn_CanHowl				rs.b 1
 ;---------------------------------
 	RS_ALIGN
 Nymn_Struct_Size     		rs.b 0
@@ -54,6 +55,7 @@ NymnInit:
 	
 	; Setup default state
 	move.b #NymnCarryEcho_Inactive, Nymn_CarryEchoState(a0)
+	move.b #0x1, Nymn_CanHowl(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -345,6 +347,10 @@ NymnStartInteract:
 	tst.b  Animation_Looping(a2)
 	beq    @NotIdle
 
+	; If howling enabled
+	tst.b  Nymn_CanHowl(a0)
+	beq    @NoHowl
+
 	; If both on screen, talk
 	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @Howl
@@ -362,7 +368,7 @@ NymnStartInteract:
 	jsr    NymnHowl
 
 	@Talk:
-
+	@NoHowl:
 	@Moving:
 	@NotIdle:
 

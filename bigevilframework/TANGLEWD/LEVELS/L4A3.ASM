@@ -448,6 +448,9 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
+	; Disable howling
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Nymn_CanHowl,#0x0
+
 	; Lerp camera to Borgus
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
 	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
@@ -501,6 +504,9 @@ l4a3_CutsceneRevealBorgus:
 
 	; Fade out audio track
 	CUTSCENE_FADE_TRACK
+
+	; Enable howling
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Nymn_CanHowl,#0x1
 
 	CUTSCENE_END_LETTERBOX
 
