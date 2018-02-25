@@ -104,9 +104,9 @@ l1a3_Init:
 	ENTITY_GETBYNAME Flue, l1a3_Flue_B, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
-	; Link Flue D with Flue E
+	; Link Flue D with Flue H
 	ENTITY_GETBYNAME Flue, l1a3_Flue_D, a0
-	ENTITY_GETBYNAME Flue, l1a3_Flue_E, a1
+	ENTITY_GETBYNAME Flue, l1a3_Flue_H, a1
 	move.l a1, Flue_OutputFlue(a0)
 	
 	; Link Flue F with Flue G

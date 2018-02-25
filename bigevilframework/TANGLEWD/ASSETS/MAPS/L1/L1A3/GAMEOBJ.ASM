@@ -42,16 +42,16 @@ L1A3_Nymn_30_name	dc.b "L1A3_Nymn_30",0
 L1A3_BouncePlant_count equ 0x5
 L1A3_BouncePlant_32_idx	equ 0x0
 L1A3_BouncePlant_33_idx	equ 0x1
-L1A3_BouncePlant_36_idx	equ 0x2
+L1A3_BouncePlant_70_idx	equ 0x2
 L1A3_BouncePlant_76_idx	equ 0x3
-L1A3_BouncePlant_70_idx	equ 0x4
+L1A3_BouncePlant_83_idx	equ 0x4
 
 	IFND FINAL
 L1A3_BouncePlant_32_name	dc.b "L1A3_BouncePlant_32",0
 L1A3_BouncePlant_33_name	dc.b "L1A3_BouncePlant_33",0
-L1A3_BouncePlant_36_name	dc.b "L1A3_BouncePlant_36",0
-L1A3_BouncePlant_76_name	dc.b "L1A3_BouncePlant_76",0
 L1A3_BouncePlant_70_name	dc.b "L1A3_BouncePlant_70",0
+L1A3_BouncePlant_76_name	dc.b "L1A3_BouncePlant_76",0
+L1A3_BouncePlant_83_name	dc.b "L1A3_BouncePlant_83",0
 	even
 	ENDIF
 
@@ -111,23 +111,21 @@ L1A3_Fuzzl_Yellow_name	dc.b "L1A3_Fuzzl_Yellow",0
 	even
 	ENDIF
 
-L1A3_Stone_count equ 0x7
+L1A3_Stone_count equ 0x6
 L1A3_Stone_72_idx	equ 0x0
-L1A3_Stone_55_idx	equ 0x1
+L1A3_Stone_74_idx	equ 0x1
 L1A3_Stone_56_idx	equ 0x2
 L1A3_Stone_73_idx	equ 0x3
 L1A3_Stone_59_idx	equ 0x4
 L1A3_Stone_60_idx	equ 0x5
-L1A3_Stone_74_idx	equ 0x6
 
 	IFND FINAL
 L1A3_Stone_72_name	dc.b "L1A3_Stone_72",0
-L1A3_Stone_55_name	dc.b "L1A3_Stone_55",0
+L1A3_Stone_74_name	dc.b "L1A3_Stone_74",0
 L1A3_Stone_56_name	dc.b "L1A3_Stone_56",0
 L1A3_Stone_73_name	dc.b "L1A3_Stone_73",0
 L1A3_Stone_59_name	dc.b "L1A3_Stone_59",0
 L1A3_Stone_60_name	dc.b "L1A3_Stone_60",0
-L1A3_Stone_74_name	dc.b "L1A3_Stone_74",0
 	even
 	ENDIF
 
@@ -145,7 +143,7 @@ L1A3_Nest_29_name	dc.b "L1A3_Nest_29",0
 	even
 	ENDIF
 
-L1A3_Flue_count equ 0x7
+L1A3_Flue_count equ 0x8
 L1A3_Flue_A_idx	equ 0x0
 L1A3_Flue_B_idx	equ 0x1
 L1A3_Flue_D_idx	equ 0x2
@@ -153,6 +151,7 @@ L1A3_Flue_16_idx	equ 0x3
 L1A3_Flue_E_idx	equ 0x4
 L1A3_Flue_F_idx	equ 0x5
 L1A3_Flue_G_idx	equ 0x6
+L1A3_Flue_H_idx	equ 0x7
 
 	IFND FINAL
 L1A3_Flue_A_name	dc.b "L1A3_Flue_A",0
@@ -162,6 +161,7 @@ L1A3_Flue_16_name	dc.b "L1A3_Flue_16",0
 L1A3_Flue_E_name	dc.b "L1A3_Flue_E",0
 L1A3_Flue_F_name	dc.b "L1A3_Flue_F",0
 L1A3_Flue_G_name	dc.b "L1A3_Flue_G",0
+L1A3_Flue_H_name	dc.b "L1A3_Flue_H",0
 	even
 	ENDIF
 
@@ -185,11 +185,13 @@ L1A3_Checkpoint_78_name	dc.b "L1A3_Checkpoint_78",0
 	even
 	ENDIF
 
-L1A3_WaterBody_count equ 0x1
-L1A3_WaterBody_15_idx	equ 0x0
+L1A3_WaterBody_count equ 0x2
+L1A3_WaterBody_82_idx	equ 0x0
+L1A3_WaterBody_85_idx	equ 0x1
 
 	IFND FINAL
-L1A3_WaterBody_15_name	dc.b "L1A3_WaterBody_15",0
+L1A3_WaterBody_82_name	dc.b "L1A3_WaterBody_82",0
+L1A3_WaterBody_85_name	dc.b "L1A3_WaterBody_85",0
 	even
 	ENDIF
 
@@ -385,12 +387,11 @@ L1A3_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x16780000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	move.b #BouncePlantOrient_135, BouncePlant_Orientation(a0)
+	move.l #0x0b900000, Entity_WorldPosX(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L1A3_BouncePlant_36_name, a3
+	lea L1A3_BouncePlant_70_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -412,11 +413,11 @@ L1A3_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x0b900000, Entity_WorldPosX(a0)
-	move.l #0x03080000, Entity_WorldPosY(a0)
+	move.l #0x14c80000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
-	lea L1A3_BouncePlant_70_name, a3
+	lea L1A3_BouncePlant_83_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -501,8 +502,8 @@ L1A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x0ca00000, Entity_WorldPosX(a0)
-	move.l #0x00f80000, Entity_WorldPosY(a0)
+	move.l #0x10200000, Entity_WorldPosX(a0)
+	move.l #0x00b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A3_Firefly_24_name, a3
@@ -527,8 +528,8 @@ L1A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x0b900000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #0x0c000000, Entity_WorldPosX(a0)
+	move.l #0x00c80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A3_Firefly_22_name, a3
@@ -541,7 +542,7 @@ L1A3_LoadGameObjects:
 
 	jsr FireflyInit
 	move.l #0x07480000, Entity_WorldPosX(a0)
-	move.l #0x01600000, Entity_WorldPosY(a0)
+	move.l #0x01b80000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A3_Firefly_61_name, a3
@@ -635,11 +636,11 @@ L1A3_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x14380000, Entity_WorldPosX(a0)
-	move.l #0x02e00000, Entity_WorldPosY(a0)
+	move.l #0x0aa80000, Entity_WorldPosX(a0)
+	move.l #0x00c80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
-	lea L1A3_Stone_55_name, a3
+	lea L1A3_Stone_74_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -692,19 +693,6 @@ L1A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A3_Stone_60_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xd, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Stone_Struct_Size, a0
-
-	jsr StoneInit
-	move.l #0x0aa80000, Entity_WorldPosX(a0)
-	move.l #0x00c80000, Entity_WorldPosY(a0)
-	jsr StoneLoadGfx
-	IFND FINAL
-	lea L1A3_Stone_74_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -848,6 +836,19 @@ L1A3_LoadGameObjects:
 	ENDIF
 	add.l #Flue_Struct_Size, a0
 
+	jsr FlueInit
+	move.l #0x0c380000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr FlueLoadGfx
+	IFND FINAL
+	lea L1A3_Flue_H_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Flue_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(TriggerBox_Struct_Size*L1A3_TriggerBox_count)
@@ -892,7 +893,7 @@ L1A3_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x0c900000, Entity_WorldPosX(a0)
+	move.l #0x0bf80000, Entity_WorldPosX(a0)
 	move.l #0x02500000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
@@ -925,11 +926,26 @@ L1A3_LoadGameObjects:
 	POPL   a1
 
 	jsr WaterBodyInit
-	move.l #0x14a00000, Entity_WorldPosX(a0)
+	move.l #0x15e00000, Entity_WorldPosX(a0)
 	move.l #0x02f00000, Entity_WorldPosY(a0)
 	jsr WaterBodyLoadGfx
 	IFND FINAL
-	lea L1A3_WaterBody_15_name, a3
+	lea L1A3_WaterBody_82_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #WaterBody_Struct_Size, a0
+
+	jsr WaterBodyInit
+	move.l #0x13d80000, Entity_WorldPosX(a0)
+	move.l #0x02f00000, Entity_WorldPosY(a0)
+	move.w #0x00e8, Entity_Width(a0)
+	move.w #0x0020, Entity_Height(a0)
+	jsr WaterBodyLoadGfx
+	IFND FINAL
+	lea L1A3_WaterBody_85_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
