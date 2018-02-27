@@ -166,7 +166,7 @@ actor_echo_sheet_idlesad_anim_idlesad_track_frames:
 
 	Even
 actor_echo_sheet_idlesad_anim_idlesad_track_posx:
-	dc.b 0x00
+	dc.b 0x02
 	Even
 actor_echo_sheet_idlesad_anim_idlesad_track_posy:
 	dc.b 0x00
