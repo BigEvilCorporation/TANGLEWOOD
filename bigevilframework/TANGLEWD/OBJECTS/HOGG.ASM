@@ -32,6 +32,8 @@ Hogg_AlertDistance		equ 0x0090	; Distance from the player to begin charging
 Hogg_SleepDistance		equ 0x0400	; Distance from the player to return to idle state
 Hogg_AIFollowDistance	equ 0x0010	; Target charge distance
 
+Hogg_MaxSoundDistance	equ 0x0140	; Audible distance
+
 Hogg_PlayerDamage		equ 0xFF
 
 Hogg_StuckVelocity		equ 0x00020000
@@ -264,7 +266,14 @@ HoggAIStart_Charge:
 	move.b #HoggState_Charging, Hogg_State(a0)
 
 	; Play SFX
+	PUSHL  a1
+	move.l Player1, a1
+	jsr    PHYS_EntityDistSq
+	cmp.l  #(Hogg_MaxSoundDistance*Hogg_MaxSoundDistance), d0
+	bgt    @OutOfSoundRange
 	PLAYSFX #SFX_Hogg_Grunt
+	@OutOfSoundRange:
+	POPL   a1
 
 	rts
 
@@ -359,7 +368,14 @@ HoggAIUpdate_Charge:
 	move.b SpriteObj_FlippedX(a0), d1
 	cmp.b  d0, d1
 	beq    @SameDir
+	PUSHL  a1
+	move.l Player1, a1
+	jsr    PHYS_EntityDistSq
+	cmp.l  #(Hogg_MaxSoundDistance*Hogg_MaxSoundDistance), d0
+	bgt    @OutOfSoundRange
 	PLAYSFX #SFX_Hogg_Grunt
+	@OutOfSoundRange:
+	POPL   a1
 	move.b d1, Hogg_PrevDirection(a0)
 	@SameDir:
 
@@ -390,7 +406,14 @@ HoggAIStart_Stuck:
 	move.w #Hogg_StuckTime, Hogg_StuckTimer(a0)
 
 	; Play SFX
+	PUSHL  a1
+	move.l Player1, a1
+	jsr    PHYS_EntityDistSq
+	cmp.l  #(Hogg_MaxSoundDistance*Hogg_MaxSoundDistance), d0
+	bgt    @OutOfSoundRange
 	PLAYSFX #SFX_Hogg_Stuck
+	@OutOfSoundRange:
+	POPL   a1
 
 	rts
 
