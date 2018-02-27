@@ -461,8 +461,8 @@ L2A1_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x11780000, Entity_WorldPosX(a0)
-	move.l #0x04a00000, Entity_WorldPosY(a0)
+	move.l #0x11800000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A1_BouncePlant_58_name, a3
