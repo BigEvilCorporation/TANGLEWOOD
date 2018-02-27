@@ -830,6 +830,9 @@ WyrmAIUpdate_Follow:
 	
 	@Chase:
 
+	; Play chase audio
+	PLAYSFX #SFX_Rumble
+
 	; Determine direction
 	ENTITY_GETCENTREX d0,a0
 	ENTITY_GETCENTREX d1,a2

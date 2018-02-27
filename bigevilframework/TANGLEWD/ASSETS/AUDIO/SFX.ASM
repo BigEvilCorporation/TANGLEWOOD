@@ -224,6 +224,7 @@ SFX_Data_FuzzlJump:			include 'assets\audio\SFX\fuzzl\fuzljump.asm'
 SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
+SFX_Data_Rumble:			include 'assets\audio\SFX\objects\rumble.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
 SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
 SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
@@ -346,6 +347,13 @@ SFX_CageDoorRaise:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
+SFX_DemonAppear:
+	dc.l SFX_Data_DemonAppear		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	even
+
 SFX_DjubbSwim1:
 	dc.l SFX_Data_DjubbSwim1		; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -446,6 +454,13 @@ SFX_LiftWinchSlow
 
 SFX_LiftWinchFast
 	dc.l SFX_Data_LiftWinchFast		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	even
+
+SFX_Rumble
+	dc.l SFX_Data_Rumble			; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
