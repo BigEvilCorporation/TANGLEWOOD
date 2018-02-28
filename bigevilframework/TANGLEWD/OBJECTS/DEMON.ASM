@@ -322,6 +322,9 @@ DemonEmerge:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Stop emerge SFX loop
+	jsr     SND_StopSFX
+
 	; Start emerge anim
 	PUSHL   a1
 	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Emerge)(a0), a1

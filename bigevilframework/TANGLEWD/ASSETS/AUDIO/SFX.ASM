@@ -198,7 +198,6 @@ SFX_Data_BorgusRoar:
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
-SFX_Data_DemonAppear:		include 'assets\audio\SFX\objects\dem_appr.asm'
 SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
 SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
 SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
@@ -211,6 +210,9 @@ SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
 SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
+SFX_Data_DemonAppearStart:	include 'assets\audio\SFX\objects\dem_strt.asm'
+SFX_Data_DemonAppearEnd:	include 'assets\audio\SFX\objects\dem_end.asm'
+SFX_Data_DemonOpenMouth:	include 'assets\audio\SFX\objects\dem_open.asm'
 SFX_Data_DjubbSwim1:		include 'assets\audio\SFX\objects\djubsw1.asm'
 SFX_Data_DjubbSwim2:		include 'assets\audio\SFX\objects\djubsw2.asm'
 SFX_Data_DjubbAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
@@ -347,11 +349,25 @@ SFX_CageDoorRaise:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
-SFX_DemonAppear:
-	dc.l SFX_Data_DemonAppear		; Data
+SFX_DemonAppear_Start:
+	dc.l SFX_Data_DemonAppearStart	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DemonAppear_End:
+	dc.l SFX_Data_DemonAppearEnd	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DemonOpenMouth:
+	dc.l SFX_Data_DemonOpenMouth	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
 
 SFX_DjubbSwim1:
