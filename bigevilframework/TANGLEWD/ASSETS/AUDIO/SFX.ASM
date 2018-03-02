@@ -194,13 +194,6 @@ SFX_Data_BorgusRoar:
 	ESF_Delay 41
 	ESF_Stop
 	even
-
-;SFX_Data_Echo_Call_Sad:
-;	ESF_Lock ESF_PCM
-;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+24
-;	ESF_Delay 76
-;	ESF_Stop
-;	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -266,6 +259,7 @@ SFX_FlueIn:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FlueOut:
@@ -273,6 +267,7 @@ SFX_FlueOut:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BridgeFall:
@@ -280,6 +275,7 @@ SFX_BridgeFall:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BridgeRoll:
@@ -287,6 +283,7 @@ SFX_BridgeRoll:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BridgeStop:
@@ -294,6 +291,7 @@ SFX_BridgeStop:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BoulderRoll:
@@ -301,6 +299,7 @@ SFX_BoulderRoll:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BoulderBreak:
@@ -308,6 +307,7 @@ SFX_BoulderBreak:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BorgusFootstep:
@@ -315,6 +315,7 @@ SFX_BorgusFootstep:
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BorgusDamage:
@@ -322,6 +323,7 @@ SFX_BorgusDamage:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BorgusSpit:
@@ -329,6 +331,7 @@ SFX_BorgusSpit:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BorgusRoar:
@@ -336,6 +339,7 @@ SFX_BorgusRoar:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_BorgusDie:
@@ -343,6 +347,7 @@ SFX_BorgusDie:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_ButtonFail:
@@ -350,6 +355,7 @@ SFX_ButtonFail:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_CageDoorRaise:
@@ -357,6 +363,7 @@ SFX_CageDoorRaise:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DemonAppear_Start:
@@ -364,6 +371,7 @@ SFX_DemonAppear_Start:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DemonAppear_End:
@@ -371,6 +379,7 @@ SFX_DemonAppear_End:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DemonOpenMouth:
@@ -378,6 +387,7 @@ SFX_DemonOpenMouth:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DemonAttack:
@@ -385,6 +395,7 @@ SFX_DemonAttack:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DjubbSwim1:
@@ -392,6 +403,7 @@ SFX_DjubbSwim1:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DjubbSwim2:
@@ -399,6 +411,7 @@ SFX_DjubbSwim2:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_DjubbAttack:
@@ -406,6 +419,7 @@ SFX_DjubbAttack:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_CratePush:
@@ -413,6 +427,7 @@ SFX_CratePush:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_CrateSmash:
@@ -420,6 +435,7 @@ SFX_CrateSmash:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FireflyCollect:
@@ -427,6 +443,7 @@ SFX_FireflyCollect:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FireflyCollectAll:
@@ -434,6 +451,7 @@ SFX_FireflyCollectAll:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_MushroomBounce:
@@ -441,6 +459,7 @@ SFX_MushroomBounce:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FuzzlDrop:
@@ -448,6 +467,7 @@ SFX_FuzzlDrop:
 	dc.b SFX_Priority_FootstepSml	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FuzzlAlert:
@@ -455,6 +475,7 @@ SFX_FuzzlAlert:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FuzzlInNest:
@@ -462,6 +483,7 @@ SFX_FuzzlInNest:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FuzzlJump
@@ -469,6 +491,7 @@ SFX_FuzzlJump
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_GeneratorOn
@@ -476,6 +499,7 @@ SFX_GeneratorOn
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_LiftWinchSlow
@@ -483,6 +507,7 @@ SFX_LiftWinchSlow
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_LiftWinchFast
@@ -490,6 +515,7 @@ SFX_LiftWinchFast
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Rumble
@@ -497,6 +523,7 @@ SFX_Rumble
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_SpikeDeath
@@ -504,6 +531,7 @@ SFX_SpikeDeath
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_NymnColourSwitch:
@@ -511,6 +539,7 @@ SFX_NymnColourSwitch:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_NymnColourFade
@@ -518,6 +547,7 @@ SFX_NymnColourFade
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep1:
@@ -525,6 +555,7 @@ SFX_Footstep1:
 	dc.b SFX_Priority_FootstepSml	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep2:
@@ -532,6 +563,7 @@ SFX_Footstep2:
 	dc.b SFX_Priority_FootstepSml	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep3:
@@ -539,6 +571,7 @@ SFX_Footstep3:
 	dc.b SFX_Priority_FootstepSml	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep4:
@@ -546,6 +579,7 @@ SFX_Footstep4:
 	dc.b SFX_Priority_FootstepSml	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FootstepBig:
@@ -553,6 +587,7 @@ SFX_FootstepBig:
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_FootstepHogg:
@@ -560,6 +595,7 @@ SFX_FootstepHogg:
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep_Water1:
@@ -567,6 +603,7 @@ SFX_Footstep_Water1:
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Footstep_Water2:
@@ -574,6 +611,7 @@ SFX_Footstep_Water2:
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Water_Splash1:
@@ -581,6 +619,7 @@ SFX_Water_Splash1:
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Water_Jump:
@@ -588,6 +627,7 @@ SFX_Water_Jump:
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Land:
@@ -595,6 +635,7 @@ SFX_Land:
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Ambience_Day1:
@@ -602,6 +643,7 @@ SFX_Ambience_Day1:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Ambience_Day2:
@@ -609,6 +651,7 @@ SFX_Ambience_Day2:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Ambience_Day3:
@@ -616,6 +659,7 @@ SFX_Ambience_Day3:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Ambience_Day4:
@@ -623,6 +667,7 @@ SFX_Ambience_Day4:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Ambience_Night1:
@@ -630,6 +675,7 @@ SFX_Ambience_Night1:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 ;SFX_Ambience_Night2:
@@ -637,6 +683,7 @@ SFX_Ambience_Night1:
 ;	dc.b 0							; Priority
 ;	dc.b Audio_NonExclusive			; Exclusivity
 ;	dc.b SFX_PriorityClash_Replace	; Priority clash
+;	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Djakk_Roar:
@@ -644,6 +691,7 @@ SFX_Djakk_Roar:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Djakk_Bite:
@@ -651,6 +699,7 @@ SFX_Djakk_Bite:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Elder_Roar:
@@ -658,6 +707,7 @@ SFX_Elder_Roar:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Scrap_Yap:
@@ -665,6 +715,7 @@ SFX_Scrap_Yap:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Hogg_Grunt:
@@ -672,6 +723,7 @@ SFX_Hogg_Grunt:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Hogg_Stuck:
@@ -679,6 +731,7 @@ SFX_Hogg_Stuck:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Scirus_Alert:
@@ -686,6 +739,7 @@ SFX_Scirus_Alert:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Scirus_Chatter:
@@ -693,6 +747,7 @@ SFX_Scirus_Chatter:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Scirus_Swipe:
@@ -700,6 +755,7 @@ SFX_Scirus_Swipe:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Scirus_Hiss:
@@ -707,6 +763,7 @@ SFX_Scirus_Hiss:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Wyrm_attack:
@@ -714,6 +771,7 @@ SFX_Wyrm_attack:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Chirp1:
@@ -721,6 +779,7 @@ SFX_Chirp1:
 	dc.b SFX_Priority_Ambience		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Nymn_Call_Short:
@@ -728,6 +787,7 @@ SFX_Nymn_Call_Short:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Echo_Call_Short:
@@ -735,6 +795,7 @@ SFX_Echo_Call_Short:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Nymn_Call_Long:
@@ -742,28 +803,39 @@ SFX_Nymn_Call_Long:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Echo_Call_Long:
-SFX_Echo_Call_Sad:
 	dc.l SFX_Data_Echo_Call_Long	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
-;SFX_Echo_Call_Sad:
-;	dc.l SFX_Data_Echo_Call_Sad		; Data
-;	dc.b SFX_Priority_Default		; Priority
-;	dc.b Audio_NonExclusive			; Exclusivity
-;	dc.b SFX_PriorityClash_Replace	; Priority clash
-;	even
+SFX_Echo_Call_Sad1:
+	dc.l SFX_Data_Echo_Call_Long	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default+3			; PCM frequency
+	even
+
+SFX_Echo_Call_Sad2:
+	dc.l SFX_Data_Echo_Call_Long	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default+5			; PCM frequency
+	even
 
 SFX_Thunder_Far:
 	dc.l SFX_Data_Thunder_Far		; Data
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Thunder_Near:
@@ -771,6 +843,7 @@ SFX_Thunder_Near:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Wind_Short:
@@ -778,6 +851,7 @@ SFX_Wind_Short:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_Wind_Long:
@@ -785,6 +859,7 @@ SFX_Wind_Long:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_UI_Press_Start:
@@ -792,6 +867,7 @@ SFX_UI_Press_Start:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFX_UI_Move:
@@ -799,6 +875,7 @@ SFX_UI_Move:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
 SFXTableEnd:

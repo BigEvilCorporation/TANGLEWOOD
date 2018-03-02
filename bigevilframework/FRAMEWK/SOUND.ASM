@@ -6,6 +6,22 @@
 ;   sound.asm - High level sound routines
 ;==============================================================
 
+; PCM frequencies (NTSC)
+PCM_Freq_26632Hz	equ 0x1
+PCM_Freq_17755Hz	equ 0x2
+PCM_Freq_13316Hz	equ 0x3
+PCM_Freq_10653Hz	equ 0x4
+PCM_Freq_8877Hz		equ 0x5
+PCM_Freq_7609Hz		equ 0x6
+PCM_Freq_6658Hz		equ 0x7
+PCM_Freq_5918Hz		equ 0x8
+PCM_Freq_5326Hz		equ 0x9
+PCM_Freq_4842Hz		equ 0xA
+PCM_Freq_4439Hz		equ 0xB
+PCM_Freq_4097Hz		equ 0xC
+
+PCM_Freq_Default	equ PCM_Freq_10653Hz
+
 ; Track types in priority order
 Track_Type_Cue			equ 0x0	; One-shot music cue (interrupts BGM/ambience)
 Track_Type_BGM			equ 0x1	; Looping BGM
@@ -46,6 +62,7 @@ SFX_Data				rs.l 1
 SFX_Priority			rs.b 1
 SFX_Exclusive			rs.b 1
 SFX_ClashBehaviour		rs.b 1
+SFX_PCMFrequency		rs.b 1
 ;-----------------------------
 	RS_ALIGN
 SFX_Struct_Size			rs.b 0
@@ -60,6 +77,27 @@ SND_Init:
 	move.b #0xFF, audio_volume_global
 	move.b #0x00, audio_fader_speed
 	ENDIF
+
+	; Set default PCM frequency
+	move.b #PCM_Freq_10653Hz, d0
+	jsr    SND_SetDefaultPCMFrequency
+
+	rts
+
+SND_SetDefaultPCMFrequency
+	; d0 (b) Frequency (PCMFreq_*)
+
+	move.b d0, audio_pcm_freq_default
+
+	jsr    SND_SetPCMFrequency
+
+	rts
+
+SND_SetPCMFrequency:
+	; d0 (b) Frequency (PCMFreq_*)
+
+	move.b d0, audio_pcm_freq_current	
+	jsr    Echo_SetPCMRate
 
 	rts
 
@@ -278,6 +316,13 @@ SND_PlaySFX:
 	; Set exclusivity
 	; TODO: Track playing SFX to turn off exclusive flag when finished
 	; move.b SFX_Exclusive(a0), audio_playback_locked
+	
+	; If needs new PCM rate, set it
+	move.b SFX_PCMFrequency(a0), d0
+	cmp.b  audio_pcm_freq_current, d0
+	beq    @PCMFreqCorrect
+	jsr    SND_SetPCMFrequency
+	@PCMFreqCorrect:
 
 	; Get SFX data
 	move.l SFX_Data(a0), a0
@@ -448,6 +493,27 @@ SND_UpdateTrack:
 	jsr    SND_GetEchoBusy
 	tst.b  d0
 	bne    @Busy
+
+	;==============================================================
+
+	; If PCM rate not default
+	move.b audio_pcm_freq_default, d0
+	cmp.b  audio_pcm_freq_current, d0
+	beq    @PCMFreqCorrect
+
+	; If SFX stopped, revert PCM rate back to default
+	jsr    SND_GetSFXBusy
+	tst.b  d0
+	bne    @SFXPlaying
+
+	; Set default PCM freq
+	move.b audio_pcm_freq_default, d0
+	jsr    SND_SetPCMFrequency
+
+	@SFXPlaying:
+	@PCMFreqCorrect:
+
+	;==============================================================
 
 	; Check if track stopped
 	tst.l  audio_current_track

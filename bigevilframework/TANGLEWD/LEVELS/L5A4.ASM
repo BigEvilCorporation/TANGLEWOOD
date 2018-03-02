@@ -340,7 +340,7 @@ l5a4_Cutscene:
 	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Howl
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 	CUTSCENE_DELAY #0x0040
-	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_HowlLow
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Echo stands up

@@ -91,10 +91,11 @@ EchoAnimIdx_CircleNymn		equ 7
 EchoAnimIdx_AllFours		equ 8
 EchoAnimIdx_Sit				equ 9
 EchoAnimIdx_Howl			equ 10
-EchoAnimIdx_Nudge			equ 11
-EchoAnimIdx_Stand			equ 12
+EchoAnimIdx_HowlLow			equ 11
+EchoAnimIdx_Nudge			equ 12
+EchoAnimIdx_Stand			equ 13
 ; -------------------------------
-EchoAnimIdx_Max       		equ 13
+EchoAnimIdx_Max       		equ 14
 
 ; Mount/ride Nymn state
 EchoMountNymn_Inactive		equ 0
@@ -382,6 +383,9 @@ EchoInit:
 
 	; Howl (sitting)
 	ANIM_LOAD_DEFAULT Echo,howl,howl,Echo_Animations,EchoAnimIdx_Howl,0,1,0
+
+	; Howl (sitting, low pitch)
+	ANIM_LOAD_DEFAULT Echo,howl,howl_low,Echo_Animations,EchoAnimIdx_HowlLow,0,1,0
 
 	; Nudge Nymn
 	ANIM_LOAD_DEFAULT Echo,nudge,nudge,Echo_Animations,EchoAnimIdx_Nudge,0,1,0

@@ -245,7 +245,6 @@ echo_instruments:
 	Echo_ListEntry PCM22
 	Echo_ListEntry PCM23
 	Echo_ListEntry PCM24
-	;Echo_ListEntry PCM25
 	
     Echo_ListEnd
 	
@@ -488,6 +487,5 @@ PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
 PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
 PCM23: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
 PCM24: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
-;PCM25: incbin 'assets\audio\sfx\nymn\howl_sad.ewf'
 
 	ENDIF
