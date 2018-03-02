@@ -194,6 +194,13 @@ SFX_Data_BorgusRoar:
 	ESF_Delay 41
 	ESF_Stop
 	even
+
+;SFX_Data_Echo_Call_Sad:
+;	ESF_Lock ESF_PCM
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+24
+;	ESF_Delay 76
+;	ESF_Stop
+;	even
 	
 ; FM SFX
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
@@ -213,6 +220,7 @@ SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
 SFX_Data_DemonAppearStart:	include 'assets\audio\SFX\objects\dem_strt.asm'
 SFX_Data_DemonAppearEnd:	include 'assets\audio\SFX\objects\dem_end.asm'
 SFX_Data_DemonOpenMouth:	include 'assets\audio\SFX\objects\dem_open.asm'
+SFX_Data_DemonAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
 SFX_Data_DjubbSwim1:		include 'assets\audio\SFX\objects\djubsw1.asm'
 SFX_Data_DjubbSwim2:		include 'assets\audio\SFX\objects\djubsw2.asm'
 SFX_Data_DjubbAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
@@ -232,7 +240,9 @@ SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
 SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
-SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep2.asm'
+SFX_Data_Footstep1:			;include 'assets\audio\SFX\fstep\fstep1.asm'
+	dc.b 0xFF
+	even
 SFX_Data_Footstep2:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep3:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep4:			include 'assets\audio\SFX\fstep\fstep2.asm'
@@ -365,6 +375,13 @@ SFX_DemonAppear_End:
 
 SFX_DemonOpenMouth:
 	dc.l SFX_Data_DemonOpenMouth	; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+	even
+
+SFX_DemonAttack:
+	dc.l SFX_Data_DemonAttack		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
@@ -728,11 +745,19 @@ SFX_Nymn_Call_Long:
 	even
 
 SFX_Echo_Call_Long:
+SFX_Echo_Call_Sad:
 	dc.l SFX_Data_Echo_Call_Long	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 	even
+
+;SFX_Echo_Call_Sad:
+;	dc.l SFX_Data_Echo_Call_Sad		; Data
+;	dc.b SFX_Priority_Default		; Priority
+;	dc.b Audio_NonExclusive			; Exclusivity
+;	dc.b SFX_PriorityClash_Replace	; Priority clash
+;	even
 
 SFX_Thunder_Far:
 	dc.l SFX_Data_Thunder_Far		; Data

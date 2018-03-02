@@ -217,6 +217,7 @@ echo_instruments:
 	Echo_ListEntry InstrCD
 	Echo_ListEntry InstrCE
 	Echo_ListEntry InstrCF
+	Echo_ListEntry InstrD0
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -244,10 +245,11 @@ echo_instruments:
 	Echo_ListEntry PCM22
 	Echo_ListEntry PCM23
 	Echo_ListEntry PCM24
+	;Echo_ListEntry PCM25
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xD0
+PCM_InstrIndex	equ 0xD1
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -458,6 +460,7 @@ InstrCC: incbin 'assets\audio\instrs\instr_CC.eif'
 InstrCD: incbin 'assets\audio\instrs\instr_CD.eif'
 InstrCE: incbin 'assets\audio\instrs\instr_CE.eif'
 InstrCF: incbin 'assets\audio\instrs\instr_CF.eif'
+InstrD0: incbin 'assets\audio\instrs\instr_D0.eif'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'
@@ -485,5 +488,6 @@ PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
 PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
 PCM23: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
 PCM24: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
+;PCM25: incbin 'assets\audio\sfx\nymn\howl_sad.ewf'
 
 	ENDIF

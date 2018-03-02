@@ -273,22 +273,9 @@
 ; Pattern $00, Row 14; 
 ; Pattern $00, Row 15; 
 ; Pattern $00, Row 16; 
-; Pattern $00, Row 17; 
-; Pattern $00, Row 18; 
-; Pattern $00, Row 19; 
-; Pattern $00, Row 20; 
-; Pattern $00, Row 21; 
-; Pattern $00, Row 22; 
-; Pattern $00, Row 23; 
-; Pattern $01, Row 0; 
-; Pattern $01, Row 1; 
-; Pattern $01, Row 2; 
-; Pattern $01, Row 3; 
-; Pattern $01, Row 4; 
-; Pattern $01, Row 5; 
-	dc.b $fe, $de	; Delay
+	dc.b $fe, $42	; Delay
 	dc.b $30, $12, $a6	; Set frequency '4774' (octave 2 semitone 678) for channel FM 1
-; Pattern $01, Row 6; 
+; Pattern $00, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $12, $a3	; Set frequency '4771' (octave 2 semitone 675) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -313,7 +300,7 @@
 	dc.b $30, $12, $85	; Set frequency '4741' (octave 2 semitone 645) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 1
-; Pattern $01, Row 7; 
+; Pattern $00, Row 18; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $bb	; Set frequency '3259' (octave 1 semitone 1211) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -338,7 +325,7 @@
 	dc.b $30, $0c, $9d	; Set frequency '3229' (octave 1 semitone 1181) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $9a	; Set frequency '3226' (octave 1 semitone 1178) for channel FM 1
-; Pattern $01, Row 8; 
+; Pattern $00, Row 19; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $97	; Set frequency '3223' (octave 1 semitone 1175) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -363,7 +350,7 @@
 	dc.b $30, $0c, $79	; Set frequency '3193' (octave 1 semitone 1145) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $76	; Set frequency '3190' (octave 1 semitone 1142) for channel FM 1
-; Pattern $01, Row 9; 
+; Pattern $00, Row 20; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $73	; Set frequency '3187' (octave 1 semitone 1139) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -388,7 +375,7 @@
 	dc.b $30, $0c, $55	; Set frequency '3157' (octave 1 semitone 1109) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $52	; Set frequency '3154' (octave 1 semitone 1106) for channel FM 1
-; Pattern $01, Row 10; 
+; Pattern $00, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $4f	; Set frequency '3151' (octave 1 semitone 1103) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -413,7 +400,7 @@
 	dc.b $30, $0c, $31	; Set frequency '3121' (octave 1 semitone 1073) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $2e	; Set frequency '3118' (octave 1 semitone 1070) for channel FM 1
-; Pattern $01, Row 11; 
+; Pattern $00, Row 22; 
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $2b	; Set frequency '3115' (octave 1 semitone 1067) for channel FM 1
 	dc.b $fe, $01	; Delay
@@ -438,6 +425,19 @@
 	dc.b $30, $0c, $0d	; Set frequency '3085' (octave 1 semitone 1037) for channel FM 1
 	dc.b $fe, $01	; Delay
 	dc.b $30, $0c, $0a	; Set frequency '3082' (octave 1 semitone 1034) for channel FM 1
+; Pattern $00, Row 23; 
+; Pattern $01, Row 0; 
+; Pattern $01, Row 1; 
+; Pattern $01, Row 2; 
+; Pattern $01, Row 3; 
+; Pattern $01, Row 4; 
+; Pattern $01, Row 5; 
+; Pattern $01, Row 6; 
+; Pattern $01, Row 7; 
+; Pattern $01, Row 8; 
+; Pattern $01, Row 9; 
+; Pattern $01, Row 10; 
+; Pattern $01, Row 11; 
 ; Pattern $01, Row 12; 
 ; Pattern $01, Row 13; 
 ; Pattern $01, Row 14; 
@@ -626,5 +626,6 @@
 	dc.b $fe, $00	; Delay
 	dc.b $fe, $00	; Delay
 	dc.b $fe, $00	; Delay
-	dc.b $fe, $70	; Delay
+	dc.b $fe, $00	; Delay
+	dc.b $fe, $0c	; Delay
 	dc.b $ff	; The End

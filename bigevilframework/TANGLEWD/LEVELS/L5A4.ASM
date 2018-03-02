@@ -228,6 +228,7 @@ l5a4_Cutscene:
 
 	; Demon moves into place, faces player and starts emerge sequence
 	CUTSCENE_ROUTINE l5a4_Cutscene_MoveDemon,#0x0,#0x0,#0x0
+	CUTSCENE_DELAY #0x0040
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
 	CUTSCENE_SPRITE_FLIPX a2,#0x1
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
