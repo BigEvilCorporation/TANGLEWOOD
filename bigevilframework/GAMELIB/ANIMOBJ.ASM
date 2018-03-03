@@ -117,14 +117,6 @@ AnimObjUpdate:
 	lsr.l  #0x8, d1 ; Prev subframe to frames
 	lsr.l  #0x8, d2 ; New subframe to frames
 	
-	; Check if dirty (new anim, set regardless of frame change)
-	tst.b  AnimObj_Dirty(a0)
-	bne    @SkipFrameCheck
-	
-	; Skip if no change in frame #
-	cmp.b  d1, d2
-	beq    @NoFrameChange  ; Branch if no frame change
-	
 	; If non-looping anim
 	move.b Animation_Looping(a2), d0
 	cmp.b  #0x1, d0
@@ -148,6 +140,14 @@ AnimObjUpdate:
 	
 	@LoopingAnim:
 	@NotAtEnd:
+
+	; Check if dirty (new anim, set regardless of frame change)
+	tst.b  AnimObj_Dirty(a0)
+	bne    @SkipFrameCheck
+	
+	; Skip if no change in frame #
+	cmp.b  d1, d2
+	beq    @NoFrameChange  ; Branch if no frame change
 
 	@SkipFrameCheck:
 	
