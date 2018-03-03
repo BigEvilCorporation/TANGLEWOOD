@@ -44,7 +44,7 @@ l5a4_BygoneAct4:
 	dc.w terrainmap_L5A4_top			; Collision map top bounds (tiles)
 	dc.w terrainmap_blockmap_L5A4_width	; Collision map width (blocks)
 	dc.w terrainmap_blockmap_L5A4_height; Collision map height (blocks)
-	dc.w tiles_L5_size_t				; Num tiles
+	dc.w tiles_L4_size_t				; Num tiles
 	dc.w terrainmap_L5A4_num_special_terrain_descs							; Num 'special' terrain descriptors
 	dc.b 0x0							; Background colour idx
 	dc.b 0x10							; Index
