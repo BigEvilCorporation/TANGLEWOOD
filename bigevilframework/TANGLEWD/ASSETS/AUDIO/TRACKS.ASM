@@ -25,6 +25,7 @@ bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
 bgm_amb_windrain:	include 'assets\audio\tracks\windrain.asm'
+bgm_amb_rumble:		include 'assets\audio\tracks\rumble.asm'
 bgm_enemyapproach:	include 'assets\audio\tracks\approach.asm'
 	even
 
@@ -298,6 +299,16 @@ track_amb_windrain:
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_FadeUp
+	even
+
+track_amb_rumble:
+	dc.l	bgm_amb_rumble
+	dc.w	0x0007
+	dc.w	0x0000
+	dc.b	Track_Type_Ambience
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Lowest
+	dc.b	Track_Transition_Instant
 	even
 
 TrackTableEnd:

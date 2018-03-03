@@ -220,7 +220,7 @@ SND_StopTrack:
 SND_StopTrackType:
 	; d0 (b) Track type
 
-	; If currently playing track, stop playing5
+	; If currently playing track, stop playing
 	move.l audio_current_track, a2
 	cmpa.w #0x0, a2
 	beq    @NoTrack

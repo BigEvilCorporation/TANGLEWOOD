@@ -226,16 +226,29 @@ l5a3_Trigger_End:
 	rts
 
 l5a3_Trigger_ShakeStart:
+
 	move.w #0x0, d0
 	move.w #l5a3_CamShakeVel, d1
 	move.w #0x0, d2
 	move.w #l5a3_CamShakeAmp, d3
 	move.w #0x0, d4
 	jsr    CAM_StartCameraShake
+
+	
+	; Play rumble track
+	lea    track_amb_rumble, a0
+	jsr    SND_PlayTrack
+
 	rts
 
 l5a3_Trigger_ShakeStop:
+
 	jsr    CAM_StopCameraShake
+
+	; Stop rumble track
+	move.b #Track_Type_Ambience, d0
+	jsr    SND_StopTrackType
+
 	rts
 
 l5a3_Trigger_EchoUnderground:
