@@ -100,11 +100,20 @@ l8a2_Init:
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
 
-	; Don't lerp Djakk palette, disable catchup behaviour
+	; Don't lerp Djakk palette, disable catchup behaviour, don't change music
 	ENTITY_GETBYNAME Monster, l8a2_Djakk1, a0
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
 	jsr    MonsterSkipIntro
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
+
+	;==============================================================
+
+	; Start final fight music
+	PUSHM  a0/d0-d1
+	lea    track_bgm_boss_l8, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	
 	rts
 	

@@ -142,6 +142,14 @@ l8a6_Init:
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
+
+	;==============================================================
+
+	; Start final fight music
+	PUSHM  a0/d0-d1
+	lea    track_bgm_boss_l8, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	
 	rts
 	
@@ -272,6 +280,9 @@ l8a6_CutsceneDemonStealFuzzl:
 
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a6_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
+
+	; End music
+	CUTSCENE_FADE_TRACK
 
 	; Wait
 	CUTSCENE_DELAY #0x0020

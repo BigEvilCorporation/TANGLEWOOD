@@ -104,8 +104,6 @@ l8a1_Init:
 	; HACK: Load L7 specific object sprites
 	jsr    L7_LoadObjectSprites
 	
-	;==============================================================
-	
 	rts
 	
 l8a1_Update:

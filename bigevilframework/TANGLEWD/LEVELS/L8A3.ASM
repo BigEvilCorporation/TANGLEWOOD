@@ -145,6 +145,14 @@ l8a3_Init:
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
+
+	;==============================================================
+
+	; Start final fight music
+	PUSHM  a0/d0-d1
+	lea    track_bgm_boss_l8, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
 	
 	rts
 	
