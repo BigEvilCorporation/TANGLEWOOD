@@ -19,6 +19,8 @@ Stalactite_ProbeFloorY		equ (Stalactite_Height-8)	; Floor detection probe positi
 Stalactite_PlayerDropDistance	equ 0x0060
 Stalactite_Damage			equ 0xFF
 
+Stalactite_HitSFX			equ SFX_BoulderBreak
+
 ;==============================================================
 
 ; Struct
@@ -132,6 +134,9 @@ StalactiteUpdate:
 
 	; Remove from world grid
 	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
+	; Play SFX
+	PLAYSFX #Stalactite_HitSFX
 
 	@InAir:
 	@Inactive:
