@@ -120,3 +120,14 @@ l7a2_Trigger_End:
 	jsr    GameStateEnter
 	
 	rts
+
+l7a2_Trigger_EndColourPower:
+
+	; Set power to expire next frame
+	move.l Player1, a2
+	tst.w  Player_ColourChangeTimer(a2)
+	beq    @NoPower
+	move.w #0x1, Player_ColourChangeTimer(a2)
+	@NoPower:
+
+	rts
