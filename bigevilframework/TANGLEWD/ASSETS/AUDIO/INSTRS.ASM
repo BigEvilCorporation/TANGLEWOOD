@@ -249,7 +249,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xD1
+PCM_InstrIndex	equ 0xD2
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'

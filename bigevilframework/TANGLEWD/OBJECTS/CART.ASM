@@ -24,6 +24,7 @@ Cart_PlatformOffsetY	equ 0x0018
 
 Cart_AnimSpeedVelDiv	equ 0x0008
 
+Cart_SmashSFX			equ SFX_CrateSmash
 Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
 
 Cart_WaterBobSinSpeed	equ 0x0010
@@ -277,6 +278,9 @@ CartUpdate:
 	lea    EntityArray_VFX+(VfxId_WaterTrail*VfxObj_Struct_Size), a0
 	jsr    VfxStop
 	POPM   a0-a1
+
+	; Play SFX
+	PLAYSFX #Cart_SmashSFX
 
 	; Load broken sprite
 	SPRITE_LOAD_SHARED_VRAM Cart,broken,0,PaletteId_World0,0x0,a0

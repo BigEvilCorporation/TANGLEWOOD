@@ -16,6 +16,8 @@ Pillar_BarrierWidth		equ 0x002A
 Pillar_BreakMass		equ 0x0A
 Pillar_BreakVelocity	equ 0x00010000
 
+Pillar_BreakSFX			equ SFX_BoulderBreak
+
 ;==============================================================
 
 ; Struct
@@ -106,6 +108,15 @@ PillarUpdate:
 	tst.b  Barrier_Broken(a2)
 	beq    @NotBroken
 	move.b #0x0, SpriteObj_Visible(a0)
+
+	; Play SFX
+	PLAYSFX #Pillar_BreakSFX
+
+	; Done
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+
 	@NotBroken:
 
 	rts
