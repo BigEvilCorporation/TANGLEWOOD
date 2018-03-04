@@ -46,7 +46,7 @@ l3a3_HeritageAct3:
 	dc.w terrainmap_blockmap_L3A3_height; Collision map height (blocks)
 	dc.w tiles_l3_size_t				; Num tiles
 	dc.w terrainmap_L3A3_num_special_terrain_descs							; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0xD							; Background colour idx
 	dc.b 0x9							; Index
 	
 	even

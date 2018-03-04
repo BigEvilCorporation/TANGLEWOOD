@@ -42,7 +42,7 @@ L7a1_OasisAct1:
 	dc.w terrainmap_blockmap_L7A1_height; Collision map height (blocks)
 	dc.w tiles_L7_size_t				; Num tiles
 	dc.w terrainmap_L7A1_num_special_terrain_descs	; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0xC							; Background colour idx
 	dc.b 0x14							; Index
 	
 	even

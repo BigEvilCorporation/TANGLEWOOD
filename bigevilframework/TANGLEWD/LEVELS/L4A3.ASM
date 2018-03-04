@@ -46,7 +46,7 @@ l4a3_TetheredAct3:
 	dc.w terrainmap_blockmap_l4a3_height; Collision map height (blocks)
 	dc.w tiles_l4_size_t				; Num tiles
 	dc.w terrainmap_l4a3_num_special_terrain_descs	; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0x6							; Background colour idx
 	dc.b 0xC							; Index
 	
 	even

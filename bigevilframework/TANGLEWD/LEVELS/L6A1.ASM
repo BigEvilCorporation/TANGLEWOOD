@@ -42,7 +42,7 @@ L6a1_DeadwoodAct1:
 	dc.w terrainmap_blockmap_L6A1_height; Collision map height (blocks)
 	dc.w tiles_L6_size_t				; Num tiles
 	dc.w terrainmap_L6A1_num_special_terrain_descs							; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0x7							; Background colour idx
 	dc.b 0x11							; Index
 	
 	even

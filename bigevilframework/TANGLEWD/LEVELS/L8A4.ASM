@@ -42,7 +42,7 @@ l8a4_TurntailAct4:
 	dc.w terrainmap_blockmap_l8a4_height; Collision map height (blocks)
 	dc.w tiles_L4_size_t				; Num tiles (using L4 tileset)
 	dc.w terrainmap_l8a4_num_special_terrain_descs	; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0x6							; Background colour idx
 	dc.b 0x1A							; Index
 	
 	even

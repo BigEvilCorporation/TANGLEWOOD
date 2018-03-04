@@ -42,7 +42,7 @@ L5a1_BygoneAct1:
 	dc.w terrainmap_blockmap_L5A1_height; Collision map height (blocks)
 	dc.w tiles_L5_size_t				; Num tiles
 	dc.w terrainmap_L5A1_num_special_terrain_descs							; Num 'special' terrain descriptors
-	dc.b 0x0							; Background colour idx
+	dc.b 0x1							; Background colour idx
 	dc.b 0xD							; Index
 	
 	even
