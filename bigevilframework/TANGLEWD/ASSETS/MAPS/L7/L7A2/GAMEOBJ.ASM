@@ -79,13 +79,15 @@ L7A2_Flue2_name	dc.b "L7A2_Flue2",0
 	even
 	ENDIF
 
-L7A2_TriggerBox_count equ 0x2
+L7A2_TriggerBox_count equ 0x3
 L7A2_TriggerLevelEnd_idx	equ 0x0
 L7A2_Trigger_TOD_Night_idx	equ 0x1
+L7A2_StopPower_idx	equ 0x2
 
 	IFND FINAL
 L7A2_TriggerLevelEnd_name	dc.b "L7A2_TriggerLevelEnd",0
 L7A2_Trigger_TOD_Night_name	dc.b "L7A2_Trigger_TOD_Night",0
+L7A2_StopPower_name	dc.b "L7A2_StopPower",0
 	even
 	ENDIF
 
@@ -372,6 +374,20 @@ L7A2_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x1bb80000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.l #l7a2_Trigger_EndColourPower, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L7A2_StopPower_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L7A2_Checkpoint_count)
@@ -380,7 +396,7 @@ L7A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x1bf00000, Entity_WorldPosX(a0)
+	move.l #0x1c400000, Entity_WorldPosX(a0)
 	move.l #0x02c00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
