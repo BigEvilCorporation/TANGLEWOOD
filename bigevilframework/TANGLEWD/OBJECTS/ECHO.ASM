@@ -298,7 +298,7 @@ EchoInit:
 	ANIM_LOAD_DEFAULT Echo,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 
 	; Dead
-	ANIM_LOAD_DEFAULT Echo,death,death,Character_Animations,CharacterAnimIdx_Dead,0,1,1
+	ANIM_LOAD_DEFAULT Echo,death,death,Character_Animations,CharacterAnimIdx_Dead,0,0,1
 
 	; Run
 	ANIM_LOAD_DEFAULT Echo,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
@@ -340,7 +340,7 @@ EchoInit:
 	ANIM_LOAD_DEFAULT Echo,sleep,sleep,Player_Animations,PlayerAnimIdx_Sleep,1,1,0
 	
 	; Lay down
-	ANIM_LOAD_DEFAULT Echo,laydown,laydown,Player_Animations,PlayerAnimIdx_LieDown,0,1,0
+	ANIM_LOAD_DEFAULT Echo,laydown,laydown,Player_Animations,PlayerAnimIdx_LieDown,0,0,0
 
 	; Howl
 	ANIM_LOAD_DEFAULT Echo,calllong,calllong,Player_Animations,PlayerAnimIdx_Howl,0,1,0

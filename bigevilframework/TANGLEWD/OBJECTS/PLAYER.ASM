@@ -376,6 +376,7 @@ PlayerBeginSleep:
 	; Cancel all actions
 	jsr    CharacterCancelXMovement
 	jsr    CharacterCancelJump
+	move.l #0x0, PhysicsObj_VelX(a0)
 	move.b #0x0, Character_Interacting(a0)
 	
 	; Start animation
