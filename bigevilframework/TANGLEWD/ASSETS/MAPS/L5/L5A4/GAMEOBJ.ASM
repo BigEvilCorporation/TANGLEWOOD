@@ -45,9 +45,21 @@ L5A4_Firefly_count equ 0x0
 
 L5A4_FuzzlCage_count equ 0x0
 
-L5A4_Fuzzl_count equ 0x0
+L5A4_Fuzzl_count equ 0x1
+L5A4_FuzzlYellow_idx	equ 0x0
 
-L5A4_Stone_count equ 0x0
+	IFND FINAL
+L5A4_FuzzlYellow_name	dc.b "L5A4_FuzzlYellow",0
+	even
+	ENDIF
+
+L5A4_Stone_count equ 0x1
+L5A4_Stone_17_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Stone_17_name	dc.b "L5A4_Stone_17",0
+	even
+	ENDIF
 
 L5A4_Demon_count equ 0x1
 L5A4_Demon_idx	equ 0x0
@@ -59,7 +71,13 @@ L5A4_Demon_name	dc.b "L5A4_Demon",0
 
 L5A4_Raft_count equ 0x0
 
-L5A4_Nest_count equ 0x0
+L5A4_Nest_count equ 0x1
+L5A4_Nest_18_idx	equ 0x0
+
+	IFND FINAL
+L5A4_Nest_18_name	dc.b "L5A4_Nest_18",0
+	even
+	ENDIF
 
 L5A4_Flue_count equ 0x0
 
@@ -203,6 +221,45 @@ L5A4_LoadGameObjects:
 
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L5A4_Fuzzl_count)
+	move.l a1, EntityPoolStart_Fuzzl
+	move.l a1, a0
+	POPL   a1
+
+	jsr FuzzlInit
+	move.l #0x1d200000, Entity_WorldPosX(a0)
+	move.l #0x03780000, Entity_WorldPosY(a0)
+	move.b #ColourYellow, Fuzzl_Colour(a0)
+	jsr FuzzlLoadGfx
+	IFND FINAL
+	lea L5A4_FuzzlYellow_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Fuzzl_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Stone_Struct_Size*L5A4_Stone_count)
+	move.l a1, EntityPoolStart_Stone
+	move.l a1, a0
+	POPL   a1
+
+	jsr StoneInit
+	move.l #0x1ab00000, Entity_WorldPosX(a0)
+	move.l #0x04700000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L5A4_Stone_17_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -225,6 +282,25 @@ L5A4_LoadGameObjects:
 	add.l #Demon_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L5A4_Nest_count)
+	move.l a1, EntityPoolStart_Nest
+	move.l a1, a0
+	POPL   a1
+
+	jsr NestInit
+	move.l #0x1ea80000, Entity_WorldPosX(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
+	jsr NestLoadGfx
+	IFND FINAL
+	lea L5A4_Nest_18_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Nest_Struct_Size, a0
 
 
 

@@ -164,11 +164,11 @@ track_bgm_credits:
 track_bgm_gameover:
 	dc.l	bgm_gameover
 	dc.w	0x001F
-	dc.w	0x0
+	dc.w	0x0F00
 	dc.b	Track_Type_BGM
 	dc.b	Audio_Exclusive
 	dc.b	SFX_Priority_FootstepSml-1
-	dc.b	Track_Transition_Instant
+	dc.b	Track_Transition_Crossfade
 	even
 
 track_bgm_cue_l1:
