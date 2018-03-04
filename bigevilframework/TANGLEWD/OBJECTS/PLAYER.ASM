@@ -195,6 +195,7 @@ Player_ColourChangeTimer	rs.w 1
 Player_IdleFrameCount		rs.w 1
 Player_IdleTimeoutCount		rs.w 1
 Player_LightningCooldown	rs.w 1
+Player_UseIdleAnim			rs.b 1	; Can use inactivity idle anims
 Player_ControlEnabled		rs.b 1
 Player_InteractionType 		rs.b 1	; Current interaction type
 Player_InteractionToggle	rs.b 1	; If current interaction needs a button tap to disable
@@ -281,6 +282,7 @@ PlayerInit:
 	move.b  #0x0, Player_InteractionToggle(a0)
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
+	move.b  #0x1, Player_UseIdleAnim(a0)
 	
 	; Setup collision bounds
 	move.w  #Player1BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
@@ -336,7 +338,10 @@ PlayerUpdate:
 	@Red:
 	
 	; Process idle anim
+	tst.b  Player_UseIdleAnim(a0)
+	beq    @NoIdleAnim
 	jsr    PlayerUpdateIdleAnim
+	@NoIdleAnim:
 	
 	; Base functionality
 	jsr    CharacterUpdate

@@ -245,6 +245,7 @@ EchoInit:
 	
 	; Setup default state
 	move.w #Echo_ProbeWallTop, PhysicsObj_WallProbeTop(a0)
+	move.b #0x0, Player_UseIdleAnim(a0)
 	move.l #0x0, Echo_Skivv(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
