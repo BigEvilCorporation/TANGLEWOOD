@@ -76,12 +76,26 @@ FuzzlAnimIdx_Sleep		equ 4
 ; -------------------------------
 Fuzzl_NumAnims		    equ 5
 
+; Roll sounds
+FuzzlRollSFX:
+	dc.l SFX_FuzzlRoll1
+	dc.l SFX_FuzzlRoll2
+	dc.l SFX_FuzzlRoll3
+	dc.l SFX_FuzzlRoll4
+	dc.l SFX_FuzzlRoll5
+	dc.l SFX_FuzzlRoll6
+
+FuzzlRollSFXCount		equ 6
+FuzzlRollSFXTimeMin		equ 0x0010
+FuzzlRollSFXTimeMax		equ 0x0060
+
 ;==============================================================
 
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
 Fuzzl_Animations	rs.b (Animation_Struct_Size*Fuzzl_NumAnims)
+Fuzzl_RollSFXTimer  rs.w 1	; Roll random SFX timer
 Fuzzl_Colour	    rs.b 1	; Fuzzl colour type idx
 Fuzzl_State_Bits    rs.b 1	; Fuzzl states
 Fuzzl_BounceTimer   rs.b 1	; Bounce timer, for happy Fuzzls
@@ -140,6 +154,7 @@ FuzzlInit:
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
+	move.w  #0x0, Fuzzl_RollSFXTimer(a0)
 	move.b  #0x0, Fuzzl_State_Bits(a0)
 	bset.b  #Fuzzl_State_Initial, Fuzzl_State_Bits(a0)
 	move.b  #ColourRed, Fuzzl_Colour(a0)
@@ -389,6 +404,12 @@ FuzzlUpdate:
 	jsr    FuzzlFindGenerator
 	tst.b  d0
 	bne    @InGenerator
+
+	; If moving, process roll SFX
+	tst.l  PhysicsObj_VelX(a0)
+	beq    @NotMoving
+	jsr    FuzzlUpdateRollSFX
+	@NotMoving:
 	
 	; Not home
 	bra @NotHome
@@ -540,6 +561,51 @@ FuzzlSerialise:
 	
 	@End:
 	
+	rts
+
+FuzzlUpdateRollSFX:
+
+	; Get current timer
+	move.w Fuzzl_RollSFXTimer(a0), d0
+
+	; If not initialised
+	beq    @ResetTimer
+
+	; Decrement
+	subq.w #0x1, d0
+	move.w d0, Fuzzl_RollSFXTimer(a0)
+
+	; If not elapsed, done
+	bne    @End
+
+	; Elapsed, choose random SFX from pool
+	move.w #0x0, d1
+	move.w #FuzzlRollSFXCount, d2
+	jsr    RND_GenerateWordClamped
+
+	PUSHL  a0
+
+	lea    FuzzlRollSFX, a0
+	andi.l #0xFF, d0
+	lsl.l  #0x2, d0
+	add.l  d0, a0
+	move.l (a0), a0
+
+	; Play SFX
+	jsr    SND_PlaySFX
+
+	POPL   a0
+
+	; Reset rand timer
+	@ResetTimer:
+
+	move.w #FuzzlRollSFXTimeMin, d1
+	move.w #FuzzlRollSFXTimeMax, d2
+	jsr    RND_GenerateWordClamped
+	move.w d0, Fuzzl_RollSFXTimer(a0)
+
+	@End:
+
 	rts
 
 FuzzlFindNest:

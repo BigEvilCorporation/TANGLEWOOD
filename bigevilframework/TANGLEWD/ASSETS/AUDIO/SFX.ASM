@@ -224,6 +224,12 @@ SFX_Data_FuzzlDrop:			include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
 SFX_Data_FuzzlAlert:		include 'assets\audio\SFX\fuzzl\fuzlalrt.asm'
 SFX_Data_FuzzlInNest:		include 'assets\audio\SFX\fuzzl\fuzlnest.asm'
 SFX_Data_FuzzlJump:			include 'assets\audio\SFX\fuzzl\fuzljump.asm'
+SFX_Data_FuzzlRoll1:		include 'assets\audio\SFX\fuzzl\fuzroll1.asm'
+SFX_Data_FuzzlRoll2:		include 'assets\audio\SFX\fuzzl\fuzroll2.asm'
+SFX_Data_FuzzlRoll3:		include 'assets\audio\SFX\fuzzl\fuzroll3.asm'
+SFX_Data_FuzzlRoll4:		include 'assets\audio\SFX\fuzzl\fuzroll4.asm'
+SFX_Data_FuzzlRoll5:		include 'assets\audio\SFX\fuzzl\fuzroll5.asm'
+SFX_Data_FuzzlRoll6:		include 'assets\audio\SFX\fuzzl\fuzroll6.asm'
 SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
@@ -491,6 +497,54 @@ SFX_FuzzlJump
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll1
+	dc.l SFX_Data_FuzzlRoll1		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll2
+	dc.l SFX_Data_FuzzlRoll2		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll3
+	dc.l SFX_Data_FuzzlRoll3		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll4
+	dc.l SFX_Data_FuzzlRoll4		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll5
+	dc.l SFX_Data_FuzzlRoll5		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
+	dc.b PCM_Freq_Default			; PCM frequency
+	even
+
+SFX_FuzzlRoll6
+	dc.l SFX_Data_FuzzlRoll6		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 	dc.b PCM_Freq_Default			; PCM frequency
 	even
 
