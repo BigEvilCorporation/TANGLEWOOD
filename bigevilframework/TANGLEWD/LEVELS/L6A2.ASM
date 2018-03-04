@@ -127,13 +127,13 @@ l6a2_Init:
 	jsr    MonsterSkipIntro
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
-	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
-	move.b #0x0, Monster_LerpPalette(a0)
-	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
-	move.b #0x1, Monster_CatchUpSpeedMul(a0)
-	jsr    MonsterSkipIntro
-	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
-	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	;move.b #0x0, Monster_LerpPalette(a0)
+	;move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
+	;move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	;jsr    MonsterSkipIntro
+	;move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
+	;move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
@@ -149,6 +149,13 @@ l6a2_Init:
 	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	move.b #0x0, Monster_LerpPalette(a0)
+	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
+	move.b #0x1, Monster_CatchUpSpeedMul(a0)
+	jsr    MonsterSkipIntro
+	move.l #palette_fade_black, SpriteObj_PaletteAddr(a0)
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+	ENTITY_GETBYNAME Monster, l6a2_Djakk10, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 	move.b #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	move.b #0x1, Monster_CatchUpSpeedMul(a0)
@@ -218,22 +225,26 @@ l6a2_Init:
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
-	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a2
-	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
-
-	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
+
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
+	;SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
-	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a2
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk9, a0
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a2
+	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk10, a0
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a2
 	SPRITE_LOAD_COPY djakk,idle,palette_fade_black,PaletteId_Monster,0x0,a2
 
@@ -305,6 +316,11 @@ l6a2_Trigger_WakeDjakk3:
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -319,6 +335,11 @@ l6a2_Trigger_WakeDjakk4:
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -338,11 +359,10 @@ l6a2_Trigger_WakeDjakk5:
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
 
-	; Kill 3 and 4 ready to reuse
 	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
-	move.b #0x1, Character_Dead(a0)
-	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
-	move.b #0x1, Character_Dead(a0)
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -352,11 +372,16 @@ l6a2_Trigger_WakeDjakk6:
 
 	PUSHL  a0
 	
-	ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
-	cmp.b  #MonsterState_InCave, Monster_State(a0)
-	bne    @MonsterAlreadyWoke
-	jsr    MonsterStartRoaring
-	@MonsterAlreadyWoke:
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	;cmp.b  #MonsterState_InCave, Monster_State(a0)
+	;bne    @MonsterAlreadyWoke
+	;jsr    MonsterStartRoaring
+	;@MonsterAlreadyWoke:
+
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	;jsr    EntityRemoveFromWorldGrid
+	;jsr    EntityRemoveFromUpdateList
+	;jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -371,6 +396,11 @@ l6a2_Trigger_WakeDjakk7:
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -385,6 +415,11 @@ l6a2_Trigger_WakeDjakk8:
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
+
+	;ENTITY_GETBYNAME Monster, l6a2_Djakk6, a0
+	;jsr    EntityRemoveFromWorldGrid
+	;jsr    EntityRemoveFromUpdateList
+	;jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -399,6 +434,30 @@ l6a2_Trigger_WakeDjakk9:
 	bne    @MonsterAlreadyWoke
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	
+	POPL   a0
+
+	rts
+
+l6a2_Trigger_WakeDjakk10:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l6a2_Djakk10, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartRoaring
+	@MonsterAlreadyWoke:
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
 	
 	POPL   a0
 
@@ -413,6 +472,7 @@ l6a2_Trigger_Log1:
 	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
 	neg.w  d0
 	jsr    LogBeginHazardousRoll
+	jsr    EntityAddToWorldGrid
 
 	POPL   a0
 

@@ -122,12 +122,11 @@ MonsterMusicState_Search	equ 0x3
 ; ************************************
 ; Animations
 ; ************************************
-MonsterAnimIdx_Eyes		equ 0
-MonsterAnimIdx_Bite		equ 1
-MonsterAnimIdx_Roar		equ 2
-MonsterAnimIdx_Buck		equ 3
+MonsterAnimIdx_Bite		equ 0
+MonsterAnimIdx_Roar		equ 1
+MonsterAnimIdx_Buck		equ 2
 ; -------------------------------
-Monster_NumAnims		equ 4
+Monster_NumAnims		equ 3
 
 ; ************************************
 ; Struct
@@ -151,6 +150,7 @@ Monster_RumblePlayed   rs.b 1
 Monster_MusicState     rs.b 1
 Monster_LerpPalette    rs.b 1
 Monster_ManualGfxLoad  rs.b 1	; Don't load gfx
+Monster_FirstRender    rs.b 1	; HACK for L6A2 to upload frame on first render (shared VRAM)
 ;----------------------------
 	RS_ALIGN
 Monster_Struct_Size    rs.b 0
@@ -232,6 +232,7 @@ MonsterInit:
 	move.b  #0x1, Monster_DoIntro(a0)
 	move.b  #0x1, Monster_LerpPalette(a0)
 	move.b  #0x0, Monster_ManualGfxLoad(a0)
+	move.b  #0x0, Monster_FirstRender(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
 	; Setup collision bounds
@@ -796,9 +797,9 @@ MonsterStartWaitForPlayer:
 	; Set in cave state
 	move.b  #MonsterState_InCave, Monster_State(a0)
 
-	; Start eye tracking animation
+	; Start idle animation
 	move.l a1, -(sp)
-	lea    Monster_Animations+(MonsterAnimIdx_Eyes*Animation_Struct_Size)(a0), a1
+	lea    Character_Animations+(CharacterAnimIdx_Idle*Animation_Struct_Size)(a0), a1
 	move.b #0x0, d0
 	move.l #0x0, a2
 	move.l #0x0, a3
@@ -824,6 +825,20 @@ MonsterUpdateWaitForPlayer:
 	; If player cloaked, don't bother
 	cmp.b  #ColourGreen, Player_ActiveColourAbility(a2)
 	beq    @PlayerCloaked
+
+	; HACK for L6A2 VRAM sharing
+	; If manual GFX load and just entered screen, force frame upload
+	tst.b  Monster_ManualGfxLoad(a0)
+	beq    @NoManualGfxLoad
+	tst.b  SpriteObj_SpriteLinked(a0)
+	beq    @OffScreen
+	tst.b  Monster_FirstRender(a0)
+	bne    @Refreshed
+	move.b #0x1, Monster_FirstRender(a0)
+	move.b #0x1, AnimObj_UploadFrame(a0)
+	@Refreshed:
+	@OffScreen:
+	@NoManualGfxLoad:
 
 	; Get distance to player
 	move.l a1, -(sp)
