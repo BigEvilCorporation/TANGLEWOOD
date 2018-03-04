@@ -220,6 +220,8 @@ L4_LoadObjectSprites:
 	tst.b  CargoLift_ManualGfxLoad(a0)
 	bne    @NoCargoLifts
 	SPRITE_LOAD_SHARED_VRAM cargolft,cargo_lift_l4,0,PaletteId_World0,0x0,a0
+	lea   Lift_RopeSegment(a0), a0
+	SPRITE_LOAD_SHARED_VRAM cargrope,cargo_rope_l4,0,PaletteId_World0,0x0,a0
 	@NoCargoLifts:
 
 	move.l EntityPoolStart_Generator, a0

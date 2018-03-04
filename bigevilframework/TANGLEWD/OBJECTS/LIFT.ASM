@@ -24,10 +24,8 @@ Lift_FallSpeedNoCounterweight	equ 0x00070000	; Fall speed with no counterweight
 Lift_RopeLengthDefault	equ (38*8)			; TEMP - fetch from lift destination obj
 Lift_RopeNumSprites		equ (Lift_RopeLengthDefault/Rope_Height)
 
-Lift_RopePosOffsetX		equ (-(Rope_Width/2)+(Lift_Width/2))
-Lift_RopePosOffsetY		equ -(Rope_Height)
-
 Lift_MaxRopeAnimFrameDist	equ Rope_Width
+Lift_RopeMaxDrawSprites		equ 0x10
 
 Lift_WinchSFXFastVel	equ 0x00020000
 
@@ -514,43 +512,55 @@ LiftDraw:
 
 	PUSHMW d2-d5
 
+	; Get rope
+	lea    Lift_RopeSegment(a0), a5
+
 	; Get rope pos X
 	move.w Entity_WorldPosX(a0), d0
-	addi.w #Lift_RopePosOffsetX, d0
-	sub.w  WorldScrollX, d0				; To sprite space
 	
 	; Check if out of bounds
-	cmp.w  #screen_width, d0			; Check left edge against right screen border
+	cmp.w  d3, d0						; Check left edge against right screen border
 	bgt    @OutOfBounds
 	move.w d0, d1
 	addi.w #Lift_Width, d1				; Get rope right
-	cmp.w  #0x0, d1						; Check right edge against left screen border
+	cmp.w  d2, d1						; Check right edge against left screen border
 	blt    @OutOfBounds
 	
 	; Get rope pos Y
 	move.w Entity_WorldPosY(a0), d1
-	addi.w #Lift_RopePosOffsetY, d1
-	sub.w  WorldScrollY, d1				; To sprite space
+	sub.w  Entity_Height(a5), d1
 
 	; Re-draw rope segment until off screen
+	move.w #Lift_RopeMaxDrawSprites, d7
 	@RopeDrawLp:
+
+	; If off bottom of screen, skip
+	cmp.w  d1, d5
+	blt    @Next
 
 	; If out of sprites, bail
 	cmp.w  #vdp_max_sprites-1, next_sprite_index
 	beq    @OutOfSprites
 
 	; Draw rope segment
-	PUSHM  d0-d1/a0
-	lea    Lift_RopeSegment(a0), a0
+	PUSHM  d0-d5/a0/a5
+	move.l a5, a0
+	move.b #0x0, d2
+	sub.w  WorldScrollX, d0				; To sprite space
+	sub.w  WorldScrollY, d1				; To sprite space
 	jsr    SpriteObjAllocSprite
-	POPM   d0-d1/a0
+	POPM   d0-d5/a0/a5
+
+	@Next:
 
 	; Next Y pos
-	sub.w  #Rope_Height, d1
+	sub.w  Entity_Height(a5), d1
 
-	; If off screen, bail
-	tst.w  d1
-	blt    @RopeDrawEnd
+	; If off top of screen, bail
+	move.w d1, d7
+	add.w  Entity_Height(a5), d7
+	cmp.w  d7, d4
+	bgt    @RopeDrawEnd
 
 	; Loop
 	bra    @RopeDrawLp

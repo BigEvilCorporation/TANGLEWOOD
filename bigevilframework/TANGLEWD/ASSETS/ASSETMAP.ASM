@@ -68,6 +68,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\button.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cogs.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cargolft.asm
+	INCLUDE_TEXT_ASSET assets\sprites\cargrope.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cart.asm
 	INCLUDE_TEXT_ASSET assets\sprites\crate.asm
 	INCLUDE_TEXT_ASSET assets\sprites\debris.asm

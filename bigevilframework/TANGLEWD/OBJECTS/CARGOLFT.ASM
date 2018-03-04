@@ -13,6 +13,9 @@ CargoLift_ProbeFloorX  equ (CargoLift_Width/2)
 CargoLift_ProbeFloorY  equ (CargoLift_Height-8)
 CargoLift_FloorHeight  equ 0x8
 
+CargoRope_Width			equ 0x50
+CargoRope_Height		equ 0x10
+
 ; Struct
 	rsset (Lift_Struct_Size)
 ;---------------------------------
@@ -53,6 +56,11 @@ CargoLiftInit:
 	lea    Lift_Platform(a0), a2
 	move.w #CargoLift_Width, Platform_Width(a2)
 
+	; Re-initialise rope
+	lea   Lift_RopeSegment(a0), a2
+	move.w #CargoRope_Width, Entity_Width(a2)
+	move.w #CargoRope_Height, Entity_Height(a2)
+
 	rts
 
 CargoLiftLoadGfx:
@@ -70,7 +78,7 @@ CargoLiftLoadGfx:
 	; Load rope
 	PUSHL a0
 	lea   Lift_RopeSegment(a0), a0
-	SPRITE_LOAD_DEFAULT rope,rope,0,PaletteId_World0,0x0
+	SPRITE_LOAD_DEFAULT cargrope,cargo_rope_l5,0,PaletteId_World0,0x0
 	POPL  a0
 
 	; Get origin
