@@ -288,9 +288,9 @@ PoolDraw:
 	sub.w  d3, d4								; - scroll
 	move.w d4, d5								; Backup
 	add.w  d2, d4								; + width
-	cmp.w  #(screen_width/8), d4
+	cmp.w  #(screen_width/8)+1, d4
 	ble    @NoClampRight
-	move.w #(screen_width/8), d4				; Clamp width
+	move.w #(screen_width/8)+1, d4				; Clamp width
 	sub.w  d5, d4
 	move.w d4, d2
 	@NoClampRight:
