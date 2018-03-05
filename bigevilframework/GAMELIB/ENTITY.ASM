@@ -38,7 +38,8 @@ Entity_WorldPosX          rs.l 1 ; Position X (world space)
 Entity_WorldPosY          rs.l 1 ; Position Y (world space)
 Entity_Width              rs.w 1 ; Width (pixels)
 Entity_Height             rs.w 1 ; Height(pixels)
-Entity_WorldGridIdx       rs.w 1 ; World grid index
+Entity_WorldGridIdxTL     rs.w 1 ; World grid index (top-left corner)
+Entity_WorldGridIdxBR     rs.w 1 ; World grid index (bottom-right corner)
 Entity_WorldGridFlags     rs.b 1 ; Current state in update/render grid (EntityGridFlag_*)
 Entity_WorldGridOrder     rs.b 1 ; Order to insert into world grid, for removal/reinserting
 Entity_Active             rs.b 1 ; Active flag
@@ -58,7 +59,8 @@ EntityInit:
 	move.l #0x0, Entity_WorldPosY(a0)
 	move.w #0x0, Entity_Width(a0)
 	move.w #0x0, Entity_Height(a0)
-	move.w #0x0, Entity_WorldGridIdx(a0)
+	move.w #0x0, Entity_WorldGridIdxTL(a0)
+	move.w #0x0, Entity_WorldGridIdxBR(a0)
 	move.b #0x0, Entity_WorldGridFlags(a0)
 	move.b #0x0, Entity_WorldGridOrder(a0)
 	move.b #0x0, Entity_Active(a0)
@@ -212,14 +214,27 @@ EntityUpdateWorldGridIndex:
 	; a0 --- Entity address
 	; d1 (b) Force check
 
-	; Get original grid index
-	move.w Entity_WorldGridIdx(a0), d0
+	; Get original grid indices
+	move.w Entity_WorldGridIdxTL(a0), d0
+	move.w Entity_WorldGridIdxBR(a0), d2
 
-	; Calc new grid index
-	moveq  #0x0, d6
-	move.b Entity_WorldPosY(a0), d6		; Get Y grid coord (cells are 256x256, so just read pos as byte)
-	lsl.w  #0x8, d6						; World grid is 256 cells wide
-	move.b Entity_WorldPosX(a0), d6		; Add X offset
+	; Calc new grid indices
+	moveq  #0x0, d6						; Top-left index
+	moveq  #0x0, d7						; Bottom-right index
+	move.w Entity_WorldPosX(a0), d3		; Get X
+	move.w Entity_WorldPosY(a0), d7		; Get Y
+
+	; Top-left index
+	move.w d7, d6						; Y grid coord in upper byte (cells are 256x256)
+	move.w d3, d4						; X grid coord in upper byte (cells are 256x256)
+	lsr.w  #0x8, d4						; X grid coord to lower byte
+	move.b d4, d6						; Add X offset
+
+	; Bottom-right index
+	add.w  Entity_Height(a0), d7		; Y grid coord in upper byte (cells are 256x256)
+	add.w  Entity_Width(a0), d3			; X grid coord in upper byte (cells are 256x256)
+	lsr.w  #0x8, d3						; X grid coord to lower byte
+	move.b d3, d7						; Add X offset
 
 	; If force check
 	tst.b  d1
@@ -231,12 +246,13 @@ EntityUpdateWorldGridIndex:
 
 	@ForceCheck:
 
-	; Set new
-	move.w d6, Entity_WorldGridIdx(a0)
+	; Set new indices
+	move.w d6, Entity_WorldGridIdxTL(a0)
+	move.w d7, Entity_WorldGridIdxBR(a0)
 
 	;==============================================================
 
-	; If grid index matches any camera viewport cells
+	; If grid indices match any camera viewport cells
 	move.w CameraWorldGridIndexTL, d0
 	move.w d0, d5				; Backup for X reset
 
@@ -249,7 +265,10 @@ EntityUpdateWorldGridIndex:
 	move.w #worldgrid_viewport_width-1, d2
 	@ViewportCellXLp:
 
-	cmp.w  d0, d6
+	cmp.w  d0, d6				; Check match top-left
+	beq    @InView
+
+	cmp.w  d0, d7				; Check match top-right
 	beq    @InView
 
 	addi.b #0x1, d0				; +1 X
@@ -422,10 +441,11 @@ EntityUpdateWorldGrid:
 		cmpa.w #0x0, a0
 		beq    @ListEnd
 
-			; Get entity grid index
-			move.w Entity_WorldGridIdx(a0), d6
+			; Get entity grid indices
+			move.w Entity_WorldGridIdxTL(a0), d6
+			move.w Entity_WorldGridIdxBR(a0), d7
 
-			; If grid index matches any camera viewport cells
+			; If grid indices match any camera viewport cells
 			move.w d4, d0
 			move.w d0, d5				; Backup for X reset
 
@@ -438,7 +458,10 @@ EntityUpdateWorldGrid:
 			move.w #worldgrid_viewport_width-1, d2
 			@ViewportCellXLp:
 
-			cmp.w  d0, d6
+			cmp.w  d0, d6				; Check match top-left
+			beq    @InView
+
+			cmp.w  d0, d7				; Check match top-right
 			beq    @InView
 
 			addi.b #0x1, d0				; +1 X

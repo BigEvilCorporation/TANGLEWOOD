@@ -259,7 +259,7 @@ SwarmActivate:
 	move.w #Swarm_Time, Swarm_Timer(a0)
 
 	; Re-add to world grid
-	move.w  #-1, Entity_WorldGridIdx(a0)
+	move.w  #-1, Entity_WorldGridIdxTL(a0)
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
 

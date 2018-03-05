@@ -473,7 +473,7 @@ BorgusAIStart_Spit:
 	; Add Fuzzl to world grid
 	PUSHM   a0-a1
 	move.l  Borgus_Fuzzl(a0), a0
-	move.w  #-1, Entity_WorldGridIdx(a0)
+	move.w  #-1, Entity_WorldGridIdxTL(a0)
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
 	POPM    a0-a1
