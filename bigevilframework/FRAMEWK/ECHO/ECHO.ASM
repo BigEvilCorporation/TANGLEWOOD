@@ -123,7 +123,7 @@ Echo_SendCommandEx:
 ;****************************************************************************
 
 Echo_SendCommandByte:
-    movem.l d1/a1, -(sp)            ; Save registers
+    movem.l d1-d2/a1, -(sp)            ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
 
     lea     ($A01FFF), a1           ; First try the 1st slot
@@ -135,8 +135,8 @@ Echo_SendCommandByte:
     tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
-    move.w  #$FF, d1                  ; Give it some time
-    dbf     d1, *                       ; ...
+    move.w  #$FF, d2                  ; Give it some time
+    dbf     d2, *                       ; ...
     Echo_Z80Request                   ; Get Z80 bus back
     bra.s   @Try                      ; Try again
 
@@ -145,7 +145,7 @@ Echo_SendCommandByte:
     move.b  d1, -3(a1)              ; Write parameter
     Echo_Z80Release                 ; We're done with the Z80 bus
 
-    movem.l (sp)+, d1/a1            ; Restore registers
+    movem.l (sp)+, d1-d2/a1            ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -387,7 +387,7 @@ Echo_SetVolumeEx:
 ;****************************************************************************
 
 Echo_GetStatus:
-    movem.l d1/a1, -(sp)            ; Save registers
+    movem.l d1-d2/a1, -(sp)            ; Save registers
 
     clr.w   d0                      ; Set all needed bits to 0
     Echo_Z80Request                 ; We need the Z80 bus
@@ -415,14 +415,14 @@ Echo_GetStatus:
 
     move.b  ($A01FFB), d1           ; Repeat that with 2nd pending command
     beq.s   @QueueChecked
-    move.b  (a1,d1.w), d1
-    and.b   d1, d0
+    move.b  (a1,d1.w), d2
+    and.b   d2, d0
     move.b  @OrTable-@AndTable(a1,d1.w), d1
     or.b    d1, d0
 
 @QueueChecked:
     Echo_Z80Release                 ; Let the Z80 go!
-    movem.l (sp)+, d1/a1            ; Restore registers
+    movem.l (sp)+, d1-d2/a1            ; Restore registers
     rts                             ; End of subroutine
 
 ;----------------------------------------------------------------------------
