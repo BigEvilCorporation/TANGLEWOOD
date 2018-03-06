@@ -52,6 +52,7 @@ INCLUDE_LEVEL_5			equ 1
 INCLUDE_LEVEL_6			equ 1
 INCLUDE_LEVEL_7			equ 1
 INCLUDE_LEVEL_8			equ 1
+INCLUDE_LEVEL_TST1		equ 0
 
 ; Characters
 INCLUDE_CHARACTER_ECHO	equ 1
@@ -77,7 +78,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
-;InitialLevel			equ l1a4_HarlequinForestAct4
+InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
@@ -97,7 +98,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l7a1_OasisAct1
 ;InitialLevel			equ l7a2_OasisAct2
 ;InitialLevel			equ l7a3_OasisAct3
-InitialLevel			equ l8a1_TurntailAct1
+;InitialLevel			equ l8a1_TurntailAct1
 ;InitialLevel			equ l8a2_TurntailAct2
 ;InitialLevel			equ l8a3_TurntailAct3
 ;InitialLevel			equ l8a4_TurntailAct4
@@ -108,11 +109,11 @@ InitialLevel			equ l8a1_TurntailAct1
 	IFD FINAL
 InitialState			equ  GameStateLogos
 	ELSE
-;InitialState			equ  GameStateLogos
+InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-InitialState			equ  GameStateGameplay
+;InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF
