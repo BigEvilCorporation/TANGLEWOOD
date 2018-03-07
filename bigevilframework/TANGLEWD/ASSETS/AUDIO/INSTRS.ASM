@@ -225,6 +225,10 @@ echo_instruments:
 	Echo_ListEntry InstrD5
 	Echo_ListEntry InstrD6
 	Echo_ListEntry InstrD7
+	Echo_ListEntry InstrD8
+	Echo_ListEntry InstrD9
+	Echo_ListEntry InstrDA
+	Echo_ListEntry InstrDB
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -255,7 +259,7 @@ echo_instruments:
 	
     Echo_ListEnd
 	
-PCM_InstrIndex	equ 0xD8
+PCM_InstrIndex	equ 0xDC
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.eif'
@@ -474,6 +478,10 @@ InstrD4: incbin 'assets\audio\instrs\instr_D4.eif'
 InstrD5: incbin 'assets\audio\instrs\instr_D5.eif'
 InstrD6: incbin 'assets\audio\instrs\instr_D6.eif'
 InstrD7: incbin 'assets\audio\instrs\instr_D7.eif'
+InstrD8: incbin 'assets\audio\instrs\instr_D8.eif'
+InstrD9: incbin 'assets\audio\instrs\instr_D9.eif'
+InstrDA: incbin 'assets\audio\instrs\instr_DA.eif'
+InstrDB: incbin 'assets\audio\instrs\instr_DB.eif'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'
@@ -483,7 +491,7 @@ PCM03: incbin 'assets\audio\sfx\fstep\water1.ewf'
 PCM04: incbin 'assets\audio\sfx\fstep\water2.ewf'
 PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
 PCM06: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
-PCM07: incbin 'assets\audio\sfx\weather\thndrnr.ewf'
+PCM07: ;incbin 'assets\audio\sfx\weather\thndrnr.ewf'
 PCM08: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
 PCM09: incbin 'assets\audio\sfx\djakk\elder.ewf'
 PCM10: incbin 'assets\audio\sfx\scrap\yap.ewf'

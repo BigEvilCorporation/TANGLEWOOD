@@ -69,12 +69,12 @@ SFX_Data_Thunder_Far:
 	ESF_Stop
 	even
 
-SFX_Data_Thunder_Near:
-	ESF_Lock ESF_PCM
-	ESF_NoteOn ESF_PCM, PCM_InstrIndex+7
-	ESF_Delay 232
-	ESF_Stop
-	even
+;SFX_Data_Thunder_Near:
+;	ESF_Lock ESF_PCM
+;	ESF_NoteOn ESF_PCM, PCM_InstrIndex+7
+;	ESF_Delay 232
+;	ESF_Stop
+;	even
 
 SFX_Data_CrateSmash:
 	ESF_Lock ESF_PCM
@@ -237,6 +237,7 @@ SFX_Data_Rumble:			include 'assets\audio\SFX\objects\rumble.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
 SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
 SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
+SFX_Data_Thunder_Near:		include 'assets\audio\SFX\weather\thndrnr.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
 SFX_Data_Footstep1:			;include 'assets\audio\SFX\fstep\fstep1.asm'
