@@ -75,6 +75,98 @@ EntityInit:
 	
 	rts
 
+EntitySerialise:
+	; a1 --- Level address
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	PUSHM d1/a1
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	SAVEW Entity_WorldGridIdxTL(a0)
+	SAVEW Entity_WorldGridIdxBR(a0)
+	SAVEB Entity_WorldGridOrder(a0)
+	SAVEB Entity_WorldGridFlags(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+	LOADW Entity_WorldGridIdxTL(a0)
+	LOADW Entity_WorldGridIdxBR(a0)
+	LOADB Entity_WorldGridOrder(a0)
+	LOADB d0	; World grid flags
+	
+	PUSHL  a3
+	
+	; Insert/remove from update list
+	PUSHW  d0
+	btst   #EntityWorldGridFlag_GridUpdates, d0
+	beq    @EndUpdates
+	btst   #EntityWorldGridFlag_InUpdateList, d0
+	beq    @AddToUpdateList
+	jsr    EntityRemoveFromUpdateList
+	bra    @EndUpdates
+	@AddToUpdateList:
+	jsr    EntityAddToUpdateList
+	@EndUpdates:
+	POPW   d0
+
+	; Insert/remove from render list
+	PUSHW  d0
+	btst   #EntityWorldGridFlag_GridRenders, d0
+	beq    @EndRenders
+	btst   #EntityWorldGridFlag_InRenderList, d0
+	beq    @AddToRenderList
+	jsr    EntityRemoveFromRenderList
+	bra    @EndRenders
+	@AddToRenderList:
+	jsr    EntityAddToRenderList
+	@EndRenders:
+	POPW   d0
+
+	; Insert/remove from physics list
+	PUSHW  d0
+	btst   #EntityWorldGridFlag_GridPhysics, d0
+	beq    @EndPhysics
+	btst   #EntityWorldGridFlag_InPhysicsList, d0
+	beq    @AddToPhysicList
+	jsr    PhysicsWorldRemoveObject
+	bra    @EndPhysics
+	@AddToPhysicList:
+	jsr    PhysicsWorldAddObject
+	@EndPhysics:
+	POPW   d0
+
+	; Mask out list flags, keep grid flags
+	move.b Entity_WorldGridFlags(a0), d1
+	andi.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	andi.b #~(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d1
+	or.b   d1, d0
+	move.b d0, Entity_WorldGridFlags(a0)
+	
+	POPL   a3
+	
+	;==============================================================
+	
+	@End:
+
+	POPM  d1/a1
+
+	rts
+
 ;==============================================================
 ; Game object update/render lists
 ;==============================================================
@@ -612,9 +704,9 @@ EntitySerialiseAll:
 	beq    @ListEnd
 	move.l Entity_SerialiseRoutine(a0), a2	; Get Serialise routine
 	jsr    (a2)								; Execute Serialise routine
+	ENTITY_SERIALISE_CHECK
 	LIST_GET_NEXT EntitySerialise,a0,a0		; Get next ptr
 	bra    @EntityLp						; Loop
 	@ListEnd:
 	
 	rts
-	

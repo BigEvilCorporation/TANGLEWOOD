@@ -16,3 +16,9 @@ error_vdp_queue_full		equ 0xA2
 
 error_obj_already_in_list	equ 0xB0
 error_obj_not_in_list		equ 0xB1
+
+	IFND FINAL
+Exception_Breakpoint_Hook:
+	nop
+	rts
+	ENDIF

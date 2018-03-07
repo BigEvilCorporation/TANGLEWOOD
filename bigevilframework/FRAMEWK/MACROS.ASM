@@ -426,5 +426,8 @@ BLOCKS2TILES: macro reg
 
 RAISE_EXCEPTION: macro errcode
 	PUSHL   #(\errcode)
+	IFND FINAL
+	jsr     Exception_Breakpoint_Hook
+	ENDIF
 	illegal
 	endm

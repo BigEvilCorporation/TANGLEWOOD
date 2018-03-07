@@ -78,6 +78,31 @@ LIST_APPEND_TAIL: macro name,objaddrreg,tempaddrreg
 	; Inserts new link to a list in order
 LIST_INSERT_ORDERED: macro name,objaddrreg,tempaddrreg1,tempaddrreg2,orderoffset,order
 
+	; Sanity check - make sure object isn't already in a list
+	IFND FINAL
+
+	; Check object's next ptr is null
+	cmp.l  #0x0, List_\name\_Next(\objaddrreg)
+	beq    @NoNextLink\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NoNextLink\@:
+
+	; Check object isn't the list head
+	move.l List_\name\_Head, \tempaddrreg1
+	cmp.l  \objaddrreg, \tempaddrreg1
+	bne    @NotHead\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NotHead\@:
+
+	; Check object isn't the list tail
+	move.l List_\name\_Tail, \tempaddrreg1
+	cmp.l  \objaddrreg, \tempaddrreg1
+	bne    @NotTail\@
+	RAISE_EXCEPTION error_obj_already_in_list
+	@NotTail\@:
+
+	ENDIF
+
 	; If first in list, set as head and tail
 	cmp.l  #0x0, (List_\name\_Head)
 	bne    @HasHead\@

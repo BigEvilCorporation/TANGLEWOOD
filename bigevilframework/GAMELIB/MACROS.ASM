@@ -38,6 +38,36 @@ asset_end\@:
 
 ;==============================================================
 
+ENTITY_SERIALISE_CHECK_WRITE: macro
+	SAVEL a3
+	endm
+
+ENTITY_SERIALISE_CHECK_READ: macro
+	PUSHM  a1-a2
+	move.l a3, a2
+	LOADL  a1
+	cmp.l  a1, a2
+	beq    @Ok
+	RAISE_EXCEPTION *
+	@Ok:
+	POPM   a1-a2
+	endm
+
+ENTITY_SERIALISE_CHECK: macro
+	IFND FINAL
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading\@
+	@Saving\@:
+	ENTITY_SERIALISE_CHECK_WRITE
+	bra  @End\@
+	@Loading\@:
+	ENTITY_SERIALISE_CHECK_READ
+	@End\@:
+	ENDIF
+	endm
+
+;==============================================================
+
 ENTITY_GETBYNAME: macro typename,name,addrreg
 	move.l (EntityPoolStart_\typename), \addrreg
 	addi.l #(\name\_idx*\typename\_Struct_Size), \addrreg
@@ -381,13 +411,12 @@ PLAYSFX: macro sfxAddr
 	; Save byte
 SAVEB: macro reg
     move.b \reg, (a3)+
-	addq.l #0x3, a3
+	addq.l #0x1, a3		; Align
     endm
 	
 	; Save word
 SAVEW: macro reg
     move.w \reg, (a3)+
-	addq.l #0x2, a3
     endm
 	
 	; Save long
@@ -398,13 +427,12 @@ SAVEL: macro reg
 	; Load byte
 LOADB: macro reg
     move.b (a3)+, \reg
-	addq.l #0x3, a3
+	addq.l #0x1, a3		; Align
     endm
 	
 	; Load word
 LOADW: macro reg
     move.w (a3)+, \reg
-	addq.l #0x2, a3
     endm
 	
 	; Load long

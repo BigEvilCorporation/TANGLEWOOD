@@ -855,7 +855,7 @@ PhysicsObjApplyVelocityY:
 	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
 	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
 
-	move.b #0x0, d7						; Clear collision corected flag
+	move.b #0x0, d7						; Clear collision corrected flag
 
 	tst.b  PhysicsObj_HasCollision(a0)
 	beq    @NoCheckCollision
