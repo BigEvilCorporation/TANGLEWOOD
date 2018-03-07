@@ -288,15 +288,9 @@ CartUpdate:
 	; Reset draw offset
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 
-	; Re-enable occupant physics, re-check floor, enable controls
+	; Eject occupant
 	move.l Cart_Occupant(a0), a2
-	move.b #0x1, PhysicsObj_HasCollision(a2)
-	move.b #0x0, PhysicsObj_OnFloor(a2)
-	move.b #0x0, PhysicsObj_CloseToFloor(a2)
-	move.b #0x1, Player_ControlEnabled(a2)
-
-	; Clear riding state
-	move.b #Player_RideState_None, Player_RideState(a2)
+	jsr    CartEjectOccupant
 
 	; Set smashed, remove occupant
 	move.b #0x1, Cart_Smashed(a0)
@@ -347,6 +341,9 @@ CartSetOccupant:
 	; Disable occupant controls
 	move.b #0x0, Player_ControlEnabled(a2)
 
+	; Disable AI jumping
+	move.b #0x0, Character_CanJump(a2)
+
 	; Clear occupant X vel and accel
 	move.l #0x0, PhysicsObj_VelX(a2)
 	move.w #0x0, PhysicsObj_AccelX(a2)
@@ -374,3 +371,20 @@ CartSetOccupant:
 
 	rts
 
+CartEjectOccupant:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a2 --- Occupant (Player)
+
+	; Re-enable occupant physics, re-check floor, enable controls
+	move.l Cart_Occupant(a0), a2
+	move.b #0x1, PhysicsObj_HasCollision(a2)
+	move.b #0x0, PhysicsObj_OnFloor(a2)
+	move.b #0x0, PhysicsObj_CloseToFloor(a2)
+	move.b #0x1, Player_ControlEnabled(a2)
+	move.b #0x1, Character_CanJump(a2)
+
+	; Clear riding state
+	move.b #Player_RideState_None, Player_RideState(a2)
+
+	rts
