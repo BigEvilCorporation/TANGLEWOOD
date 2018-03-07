@@ -579,6 +579,8 @@ LiftSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
@@ -586,8 +588,6 @@ LiftSerialise:
 	
 	@Saving:
 	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
 	SAVEW PhysicsObj_AccelY(a0)
 	
 	bra  @End
@@ -596,8 +596,6 @@ LiftSerialise:
 	
 	@Loading:
 	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
 	LOADW PhysicsObj_AccelY(a0)
 	
 	;==============================================================

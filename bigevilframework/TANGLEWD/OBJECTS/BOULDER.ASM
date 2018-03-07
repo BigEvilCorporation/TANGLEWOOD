@@ -425,15 +425,15 @@ BoulderSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
 	;==============================================================
 	
 	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
+
 	SAVEB Boulder_Cracked(a0)
 	
 	bra  @End
@@ -441,9 +441,7 @@ BoulderSerialise:
 	;==============================================================
 	
 	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
+
 	LOADB Boulder_Cracked(a0)
 	
 	;==============================================================

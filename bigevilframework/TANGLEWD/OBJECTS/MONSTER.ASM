@@ -490,6 +490,8 @@ MonsterSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
@@ -497,8 +499,6 @@ MonsterSerialise:
 	
 	@Saving:
 	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
 	SAVEB Monster_State(a0)
 	SAVEB Entity_Active(a0)
 	
@@ -508,8 +508,6 @@ MonsterSerialise:
 	
 	@Loading:
 	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
 	LOADB Monster_State(a0)
 	LOADB Entity_Active(a0)
 	

@@ -373,6 +373,8 @@ LogSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
@@ -380,8 +382,6 @@ LogSerialise:
 	
 	@Saving:
 	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
 	SAVEW Log_FloorRollAccel(a0)
 	SAVEB Log_Hazardous(a0)
 	
@@ -391,8 +391,6 @@ LogSerialise:
 	
 	@Loading:
 	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
 	LOADW Log_FloorRollAccel(a0)
 	LOADB Log_Hazardous(a0)
 	

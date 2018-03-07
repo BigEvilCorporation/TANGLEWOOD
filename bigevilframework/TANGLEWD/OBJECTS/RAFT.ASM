@@ -42,7 +42,7 @@ RaftInit:
 	; Set update and render routines
 	move.l #RaftUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
-	move.l #RaftSerialise, Entity_SerialiseRoutine(a0)
+	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	;jsr EntityAddToUpdateList
@@ -129,35 +129,4 @@ RaftUpdate:
 	move.l d3, Platform_VelX(a2)
 	move.l d4, Platform_VelY(a2)
 
-	rts
-
-RaftSerialise:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a3 --- Stream ptr
-	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
-
-	cmp.b #serialise_dir_in, d1
-	beq   @Loading
-	
-	;==============================================================
-	
-	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
-	
-	bra  @End
-	
-	;==============================================================
-	
-	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
-	
-	;==============================================================
-	
-	@End:
-	
 	rts

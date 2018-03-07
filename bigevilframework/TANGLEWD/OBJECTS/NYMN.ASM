@@ -46,10 +46,12 @@ NymnInit:
 	; Set update and render routines
 	move.l #NymnUpdate, Entity_UpdateRoutine(a0)
 	move.l #NymnDraw, Entity_RenderRoutine(a0)
-	
+	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
+
 	; Add to update and render lists
 	jsr EntityAddToUpdateList
 	jsr EntityAddToRenderList
+	;jsr EntityAddToSerialiseList
 	
 	;==============================================================
 	

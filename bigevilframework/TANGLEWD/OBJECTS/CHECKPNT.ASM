@@ -7,8 +7,8 @@
 ;==============================================================
 
 ; Constants
-Checkpoint_Width        equ 0x0010
-Checkpoint_Height       equ 0x0008
+Checkpoint_Width        equ 0x0038
+Checkpoint_Height       equ 0x0030
 
 ; Struct
 	rsset (Entity_Struct_Size)

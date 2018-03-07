@@ -45,7 +45,7 @@ PillarInit:
 	; Set update and render routines
 	move.l #PillarUpdate, Entity_UpdateRoutine(a0)
 	move.l #SpriteObjDraw, Entity_RenderRoutine(a0)
-	move.l #PillarSerialise, Entity_SerialiseRoutine(a0)
+	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	;jsr    EntityAddToUpdateList
@@ -119,35 +119,4 @@ PillarUpdate:
 
 	@NotBroken:
 
-	rts
-	
-PillarSerialise:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; a3 --- Stream ptr
-	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
-
-	cmp.b #serialise_dir_in, d1
-	beq   @Loading
-	
-	;==============================================================
-	
-	@Saving:
-	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
-	
-	bra  @End
-	
-	;==============================================================
-	
-	@Loading:
-	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
-	
-	;==============================================================
-	
-	@End:
-	
 	rts

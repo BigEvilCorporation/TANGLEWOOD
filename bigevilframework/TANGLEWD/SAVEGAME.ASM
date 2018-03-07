@@ -76,24 +76,18 @@ LoadGame:
 
 	; Tick inactive physics objs in world grid
 	LIST_GET_HEAD EntityWorldGrid,a0
-	@EntityLp:
+	@PhysicsLp:
 	cmpa.w #0x0, a0
-	beq    @ListEnd
+	beq    @PhysicsListEnd
 	btst.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
-	beq    @NextObj
+	beq    @NextPhysicsObj
 	btst.b #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a0)
-	bne    @NextObj
+	bne    @NextPhysicsObj
 	jsr    PhysicsObjPreStep
-	@NextObj:
+	@NextPhysicsObj:
 	LIST_GET_NEXT EntityWorldGrid,a0,a0
-	bra    @EntityLp
-	@ListEnd:
-
-	; Get current level ptr
-	move.l (CurrentLevel), a1
-
-	; Tick all entities
-	jsr    EntityUpdateAll
+	bra    @PhysicsLp
+	@PhysicsListEnd:
 	
 	POPL   a1
 	POPL   a0

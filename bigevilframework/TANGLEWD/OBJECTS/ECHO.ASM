@@ -708,6 +708,8 @@ EchoSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
@@ -715,8 +717,6 @@ EchoSerialise:
 	
 	@Saving:
 	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
 	SAVEB Entity_Active(a0)
 	SAVEB Echo_AIState(a0)
 	
@@ -726,10 +726,15 @@ EchoSerialise:
 	
 	@Loading:
 	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
 	LOADB Entity_Active(a0)
 	LOADB Echo_AIState(a0)
+
+	; Only allow None or Follow AI states on load
+	cmp.b  #EchoAIState_None, Echo_AIState(a0)
+	beq    @End
+	cmp.b  #EchoAIState_Follow, Echo_AIState(a0)
+	beq    @End
+	move.b #EchoAIState_Follow, Echo_AIState(a0)
 	
 	;==============================================================
 	

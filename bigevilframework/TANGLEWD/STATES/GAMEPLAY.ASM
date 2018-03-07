@@ -70,7 +70,11 @@ Gameplay_Enter:
 	
 	; Set player pos from checkpoint
 	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
-	move.l Entity_WorldPosY(a2), Entity_WorldPosY(a0)
+	move.w Entity_WorldPosY(a2), d0
+	add.w  Entity_Height(a2), d0
+	sub.w  Entity_Height(a0), d0
+	TOSUBPIXELS d0
+	move.l d0, Entity_WorldPosY(a0)
 
 	@NoCheckpoints:
 	

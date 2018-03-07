@@ -511,6 +511,8 @@ FuzzlSerialise:
 	; a3 --- Stream ptr
 	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
 
+	jsr   EntitySerialise
+
 	cmp.b #serialise_dir_in, d1
 	beq   @Loading
 	
@@ -518,8 +520,6 @@ FuzzlSerialise:
 	
 	@Saving:
 	
-	SAVEL Entity_WorldPosX(a0)
-	SAVEL Entity_WorldPosY(a0)
 	SAVEB Fuzzl_State_Bits(a0)
 	SAVEB Fuzzl_FlueOccupant(a0)
 	SAVEB PhysicsObj_HasCollision(a0)
@@ -527,7 +527,6 @@ FuzzlSerialise:
 	SAVEB PhysicsObj_CanBePulled(a0)
 	SAVEB PhysicsObj_AffectedByWind(a0)
 	SAVEB AnimObj_UpdateOutOfView(a0)
-	SAVEB Entity_WorldGridFlags(a0)
 	
 	bra  @End
 	
@@ -535,8 +534,6 @@ FuzzlSerialise:
 	
 	@Loading:
 	
-	LOADL Entity_WorldPosX(a0)
-	LOADL Entity_WorldPosY(a0)
 	LOADB Fuzzl_State_Bits(a0)
 	LOADB Fuzzl_FlueOccupant(a0)
 	LOADB PhysicsObj_HasCollision(a0)
@@ -544,13 +541,6 @@ FuzzlSerialise:
 	LOADB PhysicsObj_CanBePulled(a0)
 	LOADB PhysicsObj_AffectedByWind(a0)
 	LOADB AnimObj_UpdateOutOfView(a0)
-	LOADB d0
-
-	btst  #EntityWorldGridFlag_GridPhysics, d0
-	bne   @Physicalised
-	jsr   PhysicsWorldRemoveObject
-	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
-	@Physicalised:
 
 	tst.b Fuzzl_FlueOccupant(a0)
 	beq   @NotFlueOccupant
