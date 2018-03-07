@@ -80,6 +80,7 @@ l5a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per t
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l5a4Data_CutsceneCargoLift		rs.b Cutscene_Struct_Size
 l5a4Data_Cutscene				rs.b Cutscene_Struct_Size
 ;---------------------------------
 	RS_ALIGN
@@ -117,7 +118,14 @@ l5a4_Init:
 
 	;==============================================================
 
-	; Init cutscene
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L5A4, a2
+	lea    l5a4Data_CutsceneCargoLift(a2), a0
+	move.l #l5a4_CutsceneCargoLift, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
 	PUSHM  a0-a1
 	lea    LevelData_L5A4, a2
 	lea    l5a4Data_Cutscene(a2), a0
@@ -140,8 +148,12 @@ l5a4_Init:
 	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
 	move.b #0x1, Lift_RestrictHeight(a0)
 
-	; Start cargo lift
-	jsr    LiftActivateUp
+	; Start cargo lift cutscene
+	PUSHL  a0
+	lea    LevelData_L5A4, a2
+	lea    l5a4Data_CutsceneCargoLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 	
 	rts
 	
@@ -207,6 +219,32 @@ l5a4_Cutscene_Begin:
 	lea    l5a4Data_Cutscene(a2), a0
 	jsr    CutscenePlay
 	POPL   a0
+
+	rts
+
+l5a4_CutsceneCargoLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Start lift
+	CUTSCENE_GET_ENTITY CargoLift, l5a4_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateUp
+
+	; Wait until stopped
+	CUTSCENE_GET_ENTITY CargoLift, l5a4_CargoLift,a2
+	CUTSCENE_OBJECT_WAIT_STOP a2
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
 
 	rts
 

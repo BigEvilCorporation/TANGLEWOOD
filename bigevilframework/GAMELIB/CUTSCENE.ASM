@@ -434,6 +434,20 @@ CutsceneStep_WaitFade:
 
 	rts
 
+CutsceneStep_WaitObjectStop:
+	; a0 --- Cutscene
+	; a1 --- Object
+	; d0 (b) OUT: Step running
+
+	move.b #0x1, d0
+	move.l PhysicsObj_VelX(a1), d1
+	or.l   PhysicsObj_VelY(a1), d1
+	bne   @End
+	move.b #0x0, d0
+	@End:
+
+	rts
+
 CutsceneStep_WaitObjectHitFloor:
 	; a0 --- Cutscene
 	; a1 --- Object
@@ -651,6 +665,11 @@ CUTSCENE_CHARACTER_MOVE_RELATIVE: macro character,object,distancex,threshold
 CUTSCENE_CHARACTER_WAIT_DEATH: macro character
 	move.l \character, a1
 	CUTSCENE_RUN_STEP CutsceneStep_CharacterWaitDeath
+	endm
+
+CUTSCENE_OBJECT_WAIT_STOP: macro object
+	move.l \object, a1
+	CUTSCENE_RUN_STEP CutsceneStep_WaitObjectStop
 	endm
 
 CUTSCENE_OBJECT_WAIT_HIT_FLOOR: macro object
