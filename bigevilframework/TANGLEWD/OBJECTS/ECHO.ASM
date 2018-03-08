@@ -1824,7 +1824,6 @@ EchoAIUpdate_Water:
 
 	;==============================================================
 
-	
 	; Get nearest edge of water body
 	ENTITY_GETCENTREX d0,a0
 	TOPIXELS d0
@@ -1895,6 +1894,9 @@ EchoAIUpdate_Water:
 	@MoveLeft:
 	jsr    CharacterMoveLeft
 	@MoveRight:
+
+	; Search for underwater objects
+	jsr    EchoAI_FindInterestingObj_InWaterState
 
 	@NoFloor:
 	@FloorInWater:
@@ -2280,6 +2282,10 @@ EchoAIUpdate_Ladder:
 
 	@NotEnteredLadder:
 
+	; If in water, always climb up
+	tst.b  PhysicsObj_Underwater(a0)
+	bne    @InWater
+
 	; Get Y dist from P1
 	move.l Player1, a3
 	ENTITY_GETCENTREY d0,a0
@@ -2305,6 +2311,11 @@ EchoAIUpdate_Ladder:
 	; Climb down
 	jsr    CharacterMoveDown
 	bra    @Climbing
+	
+	@InWater:
+	
+	; Assume on ladder
+	move.b #0x0, Echo_EnteringLadder(a0)
 
 	@AboveNymn:
 
@@ -2866,6 +2877,20 @@ EchoAI_FindInterestingObj_InNodeState:
 
 	rts
 
+EchoAI_FindInterestingObj_InWaterState:
+
+	; Search ladders
+	jsr    EchoAI_FindLadder
+	cmpa.w #0x0, a2
+	beq    @NoLadder
+	jsr    EchoAI_PushInteractionLadder
+	bra    @End
+	@NoLadder:
+
+	@End:
+
+	rts
+
 EchoAI_FindAIMarker:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -3125,6 +3150,10 @@ EchoAI_FindLadder:
 	bne    @OnLadder
 	@OnFloor:
 
+	; If underwater, always search for ladders
+	tst.b  PhysicsObj_Underwater(a0)
+	bne    @InWater
+
 	; If within jump distance of Nymn, no need for a ladder
 	move.l (Player1), a3
 	move.w Entity_WorldPosY(a0), d3
@@ -3136,6 +3165,7 @@ EchoAI_FindLadder:
 	blt    @WithinRange
 
 	@OnLadder:
+	@InWater:
 
 	move.w (EntityCount_Ladder), d6
 	beq    @NoLadders
@@ -3154,12 +3184,16 @@ EchoAI_FindLadder:
 	
 	; Check if can start climbing immediately
 	PUSHM  a0-a3/d0-d6
+	move.b PhysicsObj_Underwater(a0), d0	; Force onto ladder if underwater
 	jsr    PlayerInteractTest_Ladder
 	POPM   a0-a3/d0-d6
 
-	; If already climbing, push state directly
+	; If already climbing, or in water, push state directly
+	tst.b  PhysicsObj_Underwater(a0)
+	bne    @Force
 	tst.b  Character_Climbing(a0)
 	beq    @CheckTop
+	@Force:
 	jsr    EchoAIStart_Ladder
 	move.l #0x0, a2				; Suppress node being pushed
 	bra    @FoundLadder			; Done

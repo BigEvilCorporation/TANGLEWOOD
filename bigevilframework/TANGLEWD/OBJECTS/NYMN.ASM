@@ -319,7 +319,7 @@ NymnStartInteract:
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	bne    @EchoOnFloor
 	tst.b  PhysicsObj_Underwater(a2)
-	bne    @InAir
+	beq    @InAir
 
 	@EchoOnFloor:
 

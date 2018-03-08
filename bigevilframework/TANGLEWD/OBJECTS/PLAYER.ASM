@@ -307,6 +307,7 @@ PlayerUpdate:
 	; a1 --- Level addr
 
 	; Test for ladders
+	move.b #0x0, d0
 	jsr    PlayerInteractTest_Ladder
 	
 	; Process sleep/snooze states
@@ -2445,8 +2446,8 @@ PlayerEnteredWater:
 	CLAMPW d3,#0x1,#screen_height-1
 	move.b d3, raster_water_level
 
-	; If not already in walk mode, use physics water movement scale
-	tst.b  Character_Walking(a0)
+	; If not in an interaction state, use physics water movement scale
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
 	bne    @NoPhysicsScale
 	move.b #0x1, PhysicsObj_Underwater(a0)
 	@NoPhysicsScale:
@@ -2510,6 +2511,7 @@ PlayerExitedWater:
 PlayerInteractTest_Ladder:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	; d0 (b) Force player on ladder, skip checks
 
 	; Backup prev climb state
 	move.b Character_Climbing(a0), d7
@@ -2520,6 +2522,9 @@ PlayerInteractTest_Ladder:
 
 	; Reset gravity effect
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
+	
+	tst.b  d0
+	bne    @Forced
 
 	; If jumping and +ve velocity, don't bother
 	tst.b  Character_Jumping(a0)
@@ -2531,6 +2536,7 @@ PlayerInteractTest_Ladder:
 	ble    @CantUseLadder
 
 	@NotJumping:
+	@Forced:
 
 	;==============================================================
 	
