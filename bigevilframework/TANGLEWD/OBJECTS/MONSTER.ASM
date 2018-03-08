@@ -41,7 +41,9 @@ Monster_StepHeight	  equ 0x3
 Monster_MinWallHeight equ 0x11				 ; High enough to avoid stones
 Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
 Monster_ProbeFloorY   equ (Monster_Height-8) ; Floor detection probe position Y
-Monster_ProbeWallTop  equ 0x08
+Monster_ProbeCeilingX equ (Monster_Width/2)	; Ceiling detection probe position X
+Monster_ProbeCeilingY equ 0x0008			; Ceiling detection probe position Y
+Monster_ProbeWallTop  equ 0x0010
 
 Monster_PlayerVisibilityBoxX	equ 0x2000
 Monster_PlayerVisibilityBoxY	equ 0x0080
@@ -207,10 +209,13 @@ MonsterInit:
 	move.w  #Monster_Height-1, PhysicsObj_WallProbeBottom(a0)
 	move.w  #0x08, PhysicsObj_WallProbeLeft(a0)
 	move.w  #Monster_Width-0x08, PhysicsObj_WallProbeRight(a0)
+	move.w  #Monster_ProbeCeilingX, PhysicsObj_CeilingProbeX(a0)
+	move.w  #Monster_ProbeCeilingY, PhysicsObj_CeilingProbeY(a0)
 	move.w  #Monster_StepHeight, PhysicsObj_StepHeight(a0)
 	move.w  #Monster_MinWallHeight, PhysicsObj_MinWallHeight(a0)
 	move.b  #Monster_Mass, PhysicsObj_Mass(a0)
-	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
+	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
+	move.b  #0x1, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_MaxVelClamp(a0)
 	move.b  #0x1, Character_JumpScaleX(a0)

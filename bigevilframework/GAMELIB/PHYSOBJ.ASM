@@ -781,7 +781,7 @@ PhysicsObjApplyVelocityX:
 	; Collision check wall (top probe)
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @NoCheckTop
-	tst.b  PhysicsObj_CollideCeilings(a0)
+	tst.b  PhysicsObj_CollideWallsTop(a0)
 	beq    @NoCheckTop
 	move.b #0x1, d0
 	move.b #0x0, d1
@@ -894,7 +894,7 @@ PhysicsObjApplyVelocityY:
 	; Collision check wall (top probe)
 	tst.b  PhysicsObj_HitWall(a0)
 	bne    @NoCheckTop
-	tst.b  PhysicsObj_CollideCeilings(a0)
+	tst.b  PhysicsObj_CollideWallsTop(a0)
 	beq    @NoCheckTop
 	move.b #0x1, d0
 	PUSHW  d1
