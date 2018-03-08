@@ -378,6 +378,10 @@ l5a3_Trigger_CargoLift1:
 	jsr    CutscenePlay
 	POPL   a0
 
+	; Enable next checkpoint
+	ENTITY_GETBYNAME Checkpoint, l5a3_CheckpointRaft, a0
+	move.b #0x1, Entity_Active(a0)
+
 	@GeneratorInactive:
 	@NoEcho:
 

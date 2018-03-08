@@ -137,11 +137,15 @@ L5A3_TriggerCargoLift1_name	dc.b "L5A3_TriggerCargoLift1",0
 	even
 	ENDIF
 
-L5A3_Checkpoint_count equ 0x1
+L5A3_Checkpoint_count equ 0x3
 L5A3_Checkpoint_47_idx	equ 0x0
+L5A3_Checkpoint_110_idx	equ 0x1
+L5A3_CheckpointRaft_idx	equ 0x2
 
 	IFND FINAL
 L5A3_Checkpoint_47_name	dc.b "L5A3_Checkpoint_47",0
+L5A3_Checkpoint_110_name	dc.b "L5A3_Checkpoint_110",0
+L5A3_CheckpointRaft_name	dc.b "L5A3_CheckpointRaft",0
 	even
 	ENDIF
 
@@ -788,6 +792,33 @@ L5A3_LoadGameObjects:
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L5A3_Checkpoint_47_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x1d800000, Entity_WorldPosX(a0)
+	move.l #0x05c00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L5A3_Checkpoint_110_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x14d00000, Entity_WorldPosX(a0)
+	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L5A3_CheckpointRaft_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
