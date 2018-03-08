@@ -344,8 +344,8 @@ L5A1_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x03680000, Entity_WorldPosX(a0)
-	move.l #0x02300000, Entity_WorldPosY(a0)
+	move.l #0x02a80000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
