@@ -223,12 +223,16 @@ HandlePlayerInput:
 	beq  @NoA
 	btst #input_power, d1			; Check A not already held
 	bne  @EndA
+	PUSHMW d0-d1
 	jsr  CharacterStartInteractA	; A
+	POPMW  d0-d1
 	bra  @EndA
 	@NoA:
 	btst #input_power, d1			; Check not already released
 	beq  @EndA
+	PUSHMW d0-d1
 	jsr  CharacterCancelInteractA	; Cancel A
+	POPMW  d0-d1
 	@EndA:
 	
 	; =====================================================================
@@ -241,10 +245,14 @@ HandlePlayerInput:
 
 	btst #input_interact, d0		; Check C button
 	beq  @NoC						; Branch if button off
+	PUSHMW d0-d1
 	jsr  CharacterStartInteractB	; Start interaction
+	POPMW  d0-d1
 	bra  @EndC
 	@NoC:
+	PUSHMW d0-d1
 	jsr  CharacterCancelInteractB
+	POPMW  d0-d1
 	bra  @EndC
 
 	@ToggleC:
@@ -253,12 +261,16 @@ HandlePlayerInput:
 	beq  @NoToggleC
 	btst #input_interact, d1		; Check C not already held
 	bne  @EndToggleC
+	PUSHMW d0-d1
 	jsr  CharacterStartInteractB	; Start interaction
+	POPMW  d0-d1
 	bra  @EndToggleC
 	@NoToggleC:
 	btst #input_interact, d1		; Check C not already released
 	beq  @EndToggleC
+	PUSHMW d0-d1
 	jsr  CharacterCancelInteractB
+	POPMW  d0-d1
 	@EndToggleC:
 
 	@EndC:

@@ -1666,6 +1666,11 @@ PlayerStartInteract:
 	
 	@Pushing:
 
+	; Debounce
+	move.w Gamepad1PrevState, d0
+	btst   #input_interact, d0
+	bne    @DebouncePush
+
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)
 	move.l a2, Player_InteractObject(a0)
@@ -1704,6 +1709,7 @@ PlayerStartInteract:
 	bra    @FoundInteraction
 	
 	@NoPushablesNear:
+	@DebouncePush:
 
 	;==============================================================
 	

@@ -65,7 +65,7 @@ L5A3_Fuzzl_56_name	dc.b "L5A3_Fuzzl_56",0
 	even
 	ENDIF
 
-L5A3_Stone_count equ 0x7
+L5A3_Stone_count equ 0x8
 L5A3_Stone_45_idx	equ 0x0
 L5A3_Stone_82_idx	equ 0x1
 L5A3_Stone_57_idx	equ 0x2
@@ -73,6 +73,7 @@ L5A3_Stone_98_idx	equ 0x3
 L5A3_Stone_59_idx	equ 0x4
 L5A3_Stone_62_idx	equ 0x5
 L5A3_Stone_107_idx	equ 0x6
+L5A3_Stone_112_idx	equ 0x7
 
 	IFND FINAL
 L5A3_Stone_45_name	dc.b "L5A3_Stone_45",0
@@ -82,6 +83,7 @@ L5A3_Stone_98_name	dc.b "L5A3_Stone_98",0
 L5A3_Stone_59_name	dc.b "L5A3_Stone_59",0
 L5A3_Stone_62_name	dc.b "L5A3_Stone_62",0
 L5A3_Stone_107_name	dc.b "L5A3_Stone_107",0
+L5A3_Stone_112_name	dc.b "L5A3_Stone_112",0
 	even
 	ENDIF
 
@@ -418,7 +420,7 @@ L5A3_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 
 	jsr FuzzlInit
-	move.l #0x20f80000, Entity_WorldPosX(a0)
+	move.l #0x20680000, Entity_WorldPosX(a0)
 	move.l #0x04700000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -548,6 +550,19 @@ L5A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L5A3_Stone_107_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x22180000, Entity_WorldPosX(a0)
+	move.l #0x05a00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L5A3_Stone_112_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
