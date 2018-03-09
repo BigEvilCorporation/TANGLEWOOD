@@ -325,17 +325,21 @@ l5a3_Trigger_Demon:
 
 	PUSHL  a0
 
-	ENTITY_GETBYNAME Demon, l5a3_Demon, a0
-	ENTITY_GETBYNAME Demon, l5a3_Djakk1, a2
+	; Remove Djakk
+	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
+	jsr EntityRemoveFromUpdateList
+	jsr EntityRemoveFromRenderList
 
 	; Load demon (wisp form) GFX into Djakk VRAM
-	SPRITE_LOAD_COPY demon,wisp,0,PaletteId_Monster,0x0,a2
+	ENTITY_GETBYNAME Demon, l5a3_Demon, a0
+	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a2
+	SPRITE_LOAD_COPY demon,wisp,palette_demon,PaletteId_Monster,0x0,a2
 
 	; Load palette
 	PUSHL  a0
 	lea    palette_demon, a0
 	move.b #PaletteId_Monster, d0
-	jsr    PAL_LoadDMA
+	jsr    GameScenePaletteLoad
 	POPL   a0
 
 	; Enable
