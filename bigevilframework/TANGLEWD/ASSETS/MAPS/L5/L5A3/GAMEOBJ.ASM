@@ -1295,7 +1295,7 @@ L5A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	jsr LadderInit
-	move.l #0x1a700000, Entity_WorldPosX(a0)
+	move.l #0x1a980000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
 	move.w #0x0028, Entity_Width(a0)
 	move.w #0x0118, Entity_Height(a0)
