@@ -21,7 +21,13 @@ L8A5_Echo_1_name	dc.b "L8A5_Echo_1",0
 	even
 	ENDIF
 
-L8A5_Nymn_count equ 0x0
+L8A5_Nymn_count equ 0x1
+L8A5_Nymn_idx	equ 0x0
+
+	IFND FINAL
+L8A5_Nymn_name	dc.b "L8A5_Nymn",0
+	even
+	ENDIF
 
 L8A5_BouncePlant_count equ 0x0
 
@@ -73,13 +79,15 @@ L8A5_Nest_count equ 0x0
 
 L8A5_Flue_count equ 0x0
 
-L8A5_TriggerBox_count equ 0x2
+L8A5_TriggerBox_count equ 0x3
 L8A5_TriggerLevelEnd_idx	equ 0x0
 L8A5_TriggerDemon_idx	equ 0x1
+L8A5_EnableEchoAI_idx	equ 0x2
 
 	IFND FINAL
 L8A5_TriggerLevelEnd_name	dc.b "L8A5_TriggerLevelEnd",0
 L8A5_TriggerDemon_name	dc.b "L8A5_TriggerDemon",0
+L8A5_EnableEchoAI_name	dc.b "L8A5_EnableEchoAI",0
 	even
 	ENDIF
 
@@ -228,6 +236,28 @@ L8A5_LoadGameObjects:
 	add.l #Echo_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L8A5_Nymn_count)
+	move.l a1, EntityPoolStart_Nymn
+	move.l a1, a0
+	POPL   a1
+
+	jsr NymnInit
+	move.l #0x09680000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr NymnLoadGfx
+	IFND FINAL
+	lea L8A5_Nymn_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x9, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -357,6 +387,21 @@ L8A5_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A5_TriggerDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x01300000, Entity_WorldPosX(a0)
+	move.l #0x00800000, Entity_WorldPosY(a0)
+	move.l #l8a5_Trigger_StartEchoAI, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L8A5_EnableEchoAI_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

@@ -2977,6 +2977,10 @@ EchoAI_FindFuzzl:
 	cmp.w  #-Echo_AIDistFuzzlY, d1
 	blt    @NextFuzzl
 
+	; Check active
+	tst.b  Entity_Active(a2)
+	beq    @NextFuzzl
+
 	; Check not in nest
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
 	bne    @NextFuzzl

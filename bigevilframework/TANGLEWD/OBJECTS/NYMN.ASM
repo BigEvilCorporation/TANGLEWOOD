@@ -314,8 +314,12 @@ NymnStartInteract:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @InAir
 
-	; Check if Echo on floor or in water
+	; Check if Echo AI enabled
 	move.l (Player2), a2
+	cmp.b  #EchoAIState_None, Echo_AIState(a2)
+	beq    @NoAI
+
+	; Check if Echo on floor or in water
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	bne    @EchoOnFloor
 	tst.b  PhysicsObj_Underwater(a2)
@@ -378,6 +382,7 @@ NymnStartInteract:
 	@AlreadyInteracting:
 	@Dead:
 	@InAir:
+	@NoAI:
 	@EchoFound:
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO

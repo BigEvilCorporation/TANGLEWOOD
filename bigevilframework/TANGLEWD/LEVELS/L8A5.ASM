@@ -162,6 +162,20 @@ l8a5_Init:
 
 	;==============================================================
 
+	; If collected all fireflies, activate Nymn, start Echo AI
+	IF L8A4_TEST_ALL_FIREFLIES
+	ENTITY_GETBYNAME Nymn,l8a5_Nymn, a0
+	move.l Player1, Player2
+	move.l a0, Player1
+	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
+
+	move.l Player2, a0
+	jsr    EchoAIStart_Follow
+	ENDIF
+
+	;==============================================================
+
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
@@ -196,6 +210,21 @@ l8a5_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l8a5_Trigger_StartEchoAI:
+
+	PUSHL  a0
+
+	; If Echo is P2
+	tst.l  Player2
+	beq    @NoEchoAI
+	move.l Player2, a0
+	jsr    EchoAIStart_Follow
+	@NoEchoAI:
+
+	POPL   a0
+
 	rts
 
 l8a5_Trigger_DemonTakeFuzzl:
@@ -246,6 +275,35 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
 	CUTSCENE_DELAY #0x0020
 
+	; If Echo is P2, run to lift and hide
+	tst.l  Player2
+	beq    NoEchoHide
+
+	; Disable Echo AI
+	move.b #EchoAIState_None, d0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAISetState
+
+	; Echo runs scared
+	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+	CUTSCENE_GET_ENTITY Lift,l8a5_Lift1,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#-0x10,#0x10
+
+	; Echo hides
+	CUTSCENE_TICKMODE_CONTINUOUS
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
+	CUTSCENE_TICKMODE_INSTR_PER_FRAME
+
+	; Lerp camera back to Demon
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
+	CUTSCENE_CAMERA_LERP Player2,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	NoEchoHide:
+
 	; Attack Fuzzl
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonAttack
@@ -282,6 +340,21 @@ l8a5_CutsceneDemonStealFuzzl:
 
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a5_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
+
+	; If Echo is P2, unhode and jump onto lift
+	tst.l  Player2
+	beq    NoEchoUnhide
+
+	; Echo emerges and jump onto lift
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartJump
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+
+	NoEchoUnhide:
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
