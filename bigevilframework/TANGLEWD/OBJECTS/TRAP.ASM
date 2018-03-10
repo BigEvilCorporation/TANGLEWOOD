@@ -298,6 +298,30 @@ TrapCheckOccupied:
 
 	rts
 
+TrapArm:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Arm
+	move.b #0x1, Entity_Active(a0)
+	
+	rts
+
+TrapDisarm:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Disarm
+	move.b #0x0, Entity_Active(a0)
+
+	; If activated, deactivate and raise
+	tst.b  Trap_Activated(a0)
+	beq    @NotActivated
+	jsr    TrapDeactivate
+	@NotActivated:
+
+	rts
+
 TrapActivate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr

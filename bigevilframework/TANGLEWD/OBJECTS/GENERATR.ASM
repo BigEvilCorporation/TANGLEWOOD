@@ -29,6 +29,7 @@ Generator_Animations		rs.b (Animation_Struct_Size*GeneratorAnimIdx_Max)
 Generator_Cogs				rs.l 1
 Generator_Fuzzl				rs.l 1
 Generator_OnActivate		rs.l 1
+Generator_OnDeactivate		rs.l 1
 Generator_UserData			rs.l 1
 Generator_Running			rs.b 1
 ;-----------------------------
@@ -66,6 +67,7 @@ GeneratorInit:
 	move.l  #0x0, Generator_Cogs(a0)
 	move.l  #0x0, Generator_Fuzzl(a0)
 	move.l  #0x0, Generator_OnActivate(a0)
+	move.l  #0x0, Generator_OnDeactivate(a0)
 	move.l  #0x0, Generator_UserData(a0)
 	move.b  #0x0, Generator_Running(a0)
 	
@@ -192,6 +194,16 @@ Generator_Deactivate:
 
 	; Play SFX
 	;PLAYSFX #SFX_GeneratorOff
+
+	; Fire callback
+	move.l Generator_OnDeactivate(a0), a2
+	cmpa.w #0x0, a2
+	beq    @NoCallback
+	PUSHL  a0
+	move.l Generator_UserData(a0), a0
+	jsr    (a2)
+	POPL   a0
+	@NoCallback:
 
 	rts
 	

@@ -9,7 +9,13 @@
 
 L8A4_Leaf_count equ 0x0
 
-L8A4_Trap_count equ 0x0
+L8A4_Trap_count equ 0x1
+L8A4_Trap1_idx	equ 0x0
+
+	IFND FINAL
+L8A4_Trap1_name	dc.b "L8A4_Trap1",0
+	even
+	ENDIF
 
 L8A4_Djubb_count equ 0x0
 
@@ -155,13 +161,7 @@ L8A4_Scirus_count equ 0x0
 
 L8A4_Hogg_count equ 0x0
 
-L8A4_Bridge_count equ 0x1
-L8A4_Bridge1_idx	equ 0x0
-
-	IFND FINAL
-L8A4_Bridge1_name	dc.b "L8A4_Bridge1",0
-	even
-	ENDIF
+L8A4_Bridge_count equ 0x0
 
 L8A4_Swarm_count equ 0x1
 L8A4_Swarm_idx	equ 0x0
@@ -175,6 +175,25 @@ L8A4_Swarm_name	dc.b "L8A4_Swarm",0
 
 L8A4_LoadGameObjects:
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Trap_Struct_Size*L8A4_Trap_count)
+	move.l a1, EntityPoolStart_Trap
+	move.l a1, a0
+	POPL   a1
+
+	jsr TrapInit
+	move.l #0x04880000, Entity_WorldPosX(a0)
+	move.l #0x01500000, Entity_WorldPosY(a0)
+	jsr TrapLoadGfx
+	IFND FINAL
+	lea L8A4_Trap1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Trap_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -184,7 +203,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr EchoInit
-	move.l #0x09700000, Entity_WorldPosX(a0)
+	move.l #0x0f100000, Entity_WorldPosX(a0)
 	move.l #0x02480000, Entity_WorldPosY(a0)
 	jsr EchoLoadGfx
 	IFND FINAL
@@ -213,7 +232,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x02000000, Entity_WorldPosX(a0)
+	move.l #0x06280000, Entity_WorldPosX(a0)
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -234,8 +253,8 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DemonInit
-	move.l #0x01f00000, Entity_WorldPosX(a0)
-	move.l #0x01d00000, Entity_WorldPosY(a0)
+	move.l #0x01600000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	jsr DemonLoadGfx
 	IFND FINAL
 	lea L8A4_Demon_name, a3
@@ -257,8 +276,8 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x00800000, Entity_WorldPosX(a0)
-	move.l #0x01880000, Entity_WorldPosY(a0)
+	move.l #0x00d80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	move.l #l8a4_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
@@ -272,8 +291,8 @@ L8A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x03d00000, Entity_WorldPosX(a0)
-	move.l #0x01580000, Entity_WorldPosY(a0)
+	move.l #0x07900000, Entity_WorldPosX(a0)
+	move.l #0x00f00000, Entity_WorldPosY(a0)
 	move.l #l8a4_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
@@ -297,7 +316,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr LocationInit
-	move.l #0x09800000, Entity_WorldPosX(a0)
+	move.l #0x0f200000, Entity_WorldPosX(a0)
 	move.l #0x00c80000, Entity_WorldPosY(a0)
 	jsr LocationLoadGfx
 	IFND FINAL
@@ -320,7 +339,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr GeneratorInit
-	move.l #0x01f80000, Entity_WorldPosX(a0)
+	move.l #0x06200000, Entity_WorldPosX(a0)
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr GeneratorLoadGfx
 	IFND FINAL
@@ -340,7 +359,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr CogsInit
-	move.l #0x02100000, Entity_WorldPosX(a0)
+	move.l #0x06380000, Entity_WorldPosX(a0)
 	move.l #0x00e80000, Entity_WorldPosY(a0)
 	jsr CogsLoadGfx
 	IFND FINAL
@@ -362,8 +381,8 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x01600000, Entity_WorldPosY(a0)
+	move.l #0x04880000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A4_MarkerDemonLeftBounds_name, a3
@@ -375,7 +394,7 @@ L8A4_LoadGameObjects:
 	add.l #AIMarker_Struct_Size, a0
 
 	jsr AIMarkerInit
-	move.l #0x09400000, Entity_WorldPosX(a0)
+	move.l #0x0ee00000, Entity_WorldPosX(a0)
 	move.l #0x01200000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
@@ -402,7 +421,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr CargoLiftInit
-	move.l #0x09600000, Entity_WorldPosX(a0)
+	move.l #0x0f000000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr CargoLiftLoadGfx
 	IFND FINAL
@@ -421,28 +440,6 @@ L8A4_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Bridge_Struct_Size*L8A4_Bridge_count)
-	move.l a1, EntityPoolStart_Bridge
-	move.l a1, a0
-	POPL   a1
-
-	jsr BridgeInit
-	move.l #0x00e80000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
-	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
-	move.b #Bridge_StateClosed, Bridge_State(a0)
-	move.b #0x1, Bridge_UpdateOutOfView(a0)
-	jsr BridgeLoadGfx
-	IFND FINAL
-	lea L8A4_Bridge1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Bridge_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A4_Swarm_count)
@@ -451,8 +448,8 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr SwarmInit
-	move.l #0x02700000, Entity_WorldPosX(a0)
-	move.l #0x01d00000, Entity_WorldPosY(a0)
+	move.l #0x01e00000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	jsr SwarmLoadGfx
 	IFND FINAL
 	lea L8A4_Swarm_name, a3

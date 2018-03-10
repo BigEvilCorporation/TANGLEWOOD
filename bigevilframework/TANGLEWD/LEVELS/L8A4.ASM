@@ -59,6 +59,7 @@ l8a4_DefaultPalettes:
 l8a4_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
 l8a4_DemonHideTime				equ 0x0100
 l8a4_DemonAttackSpeed			equ 0x0008
+l8a4_DemonTrapAttackTime		equ 0x0020
 	
 ; ************************************
 ; Runtime data
@@ -116,11 +117,15 @@ l8a4_Init:
 	ENTITY_GETBYNAME Cogs, l8a4_Cogs1, a1
 	move.l a1, Generator_Cogs(a0)
 
-	; Connect generator to bridge
+	; Connect generator to trap
 	ENTITY_GETBYNAME Generator, l8a4_Generator1, a0
-	ENTITY_GETBYNAME Bridge, l8a4_Bridge1, a1
 	move.l a1, Generator_UserData(a0)
-	move.l #BridgeBeginRoll, Generator_OnActivate(a0)
+	move.l #l8a4_DisarmTrap, Generator_OnActivate(a0)
+	move.l #l8a4_ArmTrap, Generator_OnDeactivate(a0)
+
+	; Set trap
+	ENTITY_GETBYNAME Trap, l8a4_Trap1, a0
+	move.l #l8a4_Trigger_Trapped, Trap_OnActivated(a0)
 
 	; Put Fuzzl in generator
 	ENTITY_GETBYNAME Fuzzl, l8a4_FuzzlRed1, a0
@@ -195,6 +200,49 @@ l8a4_Trigger_End:
 	
 	rts
 
+l8a4_ArmTrap:
+
+	ENTITY_GETBYNAME Trap, l8a4_Trap1, a0
+	jsr   TrapArm
+
+	rts
+
+l8a4_DisarmTrap:
+
+	ENTITY_GETBYNAME Trap, l8a4_Trap1, a0
+	jsr   TrapDisarm
+
+	rts
+
+l8a4_Trigger_Trapped:
+
+	; Disable player control
+	move.l Trap_TrappedObject(a0), a2
+	move.b #0x0, Player_ControlEnabled(a2)
+
+	; If Demon alive, just wait for him to sort the problem out
+	ENTITY_GETBYNAME Demon, l8a4_Demon, a2
+	tst.b  Character_Dead(a2)
+	beq    @DemonAlive
+
+	; else fail state
+	PUSHM  a0-a2
+	lea    GameStateFail, a0
+	jsr    GameStateEnter
+	POPM   a0-a2
+
+	bra    @End
+
+	@DemonAlive:
+
+	; Set Demon attack timer
+	ENTITY_GETBYNAME Demon, l8a4_Demon, a2
+	move.w #l8a4_DemonTrapAttackTime, Demon_AttackTimer(a2)
+
+	@End:
+
+	rts
+
 l8a4_Trigger_DemonTakeFuzzl:
 
 	; Start cutscene
@@ -246,8 +294,16 @@ l8a4_CutsceneDemonStealFuzzl:
 	; Eat Fuzzl
 	CUTSCENE_ROUTINE l8a4_Cutscene_FuzzlEaten,#0x0,#0x0,#0x0
 
-	; Lerp back
+	; Lerp to trap
+	CUTSCENE_DELAY #0x0020
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_GET_ENTITY Trap,l8a4_Trap1,a3
+	CUTSCENE_CAMERA_LERP a2,a3,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Trap,l8a4_Trap1,a2
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
 
 	; Enable player control
@@ -361,13 +417,6 @@ l8a4_Cutscene_FuzzlEaten:
 	ENTITY_GETBYNAME Fuzzl,l8a4_FuzzlRed1,a0
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
-
-	; Unroll bridge
-	ENTITY_GETBYNAME Bridge,l8a4_Bridge1,a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityAddToUpdateList
-	jsr    EntityAddToRenderList
-	jsr    BridgeBeginUnroll
 
 	POPM a0-a2
 

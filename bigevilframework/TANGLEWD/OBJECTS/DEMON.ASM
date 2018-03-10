@@ -603,7 +603,7 @@ DemonAIUpdate_Attack:
 	; If player not dead
 	move.l Player1, a2
 	tst.b  Character_Dead(a2)
-	beq    @PlayerDead
+	bne    @PlayerDead
 
 	; Release swarm
 	jsr    DemonReleaseSwarm
