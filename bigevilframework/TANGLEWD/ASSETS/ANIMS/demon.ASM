@@ -31,6 +31,27 @@ actor_demon_sheet_bite_anim_bite_track_posy:
 actor_demon_sheet_bite_anim_bite_track_sfx:
 	dc.l SFX_DemonOpenMouth, 0x0, 0x0, 0x0, 0x0, 0x0, SFX_DemonAttack
 	Even
+actor_demon_sheet_bite_anim_openmouth:
+actor_demon_sheet_bite_anim_openmouth_numframes: equ 0x6
+actor_demon_sheet_bite_anim_openmouth_speed: equ 0xF
+actor_demon_sheet_bite_anim_openmouth_track_frames:
+	dc.l actor_demon_sheet_bite_frame_0_header
+	dc.l actor_demon_sheet_bite_frame_1_header
+	dc.l actor_demon_sheet_bite_frame_2_header
+	dc.l actor_demon_sheet_bite_frame_3_header
+	dc.l actor_demon_sheet_bite_frame_4_header
+	dc.l actor_demon_sheet_bite_frame_5_header
+
+	Even
+actor_demon_sheet_bite_anim_openmouth_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_bite_anim_openmouth_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_demon_sheet_bite_anim_openmouth_track_sfx:
+	dc.l SFX_DemonOpenMouth, 0x0, 0x0, 0x0, 0x0, 0x0
+	Even
 
 actor_demon_sheet_death_anim_death:
 actor_demon_sheet_death_anim_death_numframes: equ 0x13

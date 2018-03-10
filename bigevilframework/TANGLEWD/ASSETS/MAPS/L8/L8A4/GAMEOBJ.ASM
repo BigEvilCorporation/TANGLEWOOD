@@ -27,7 +27,13 @@ L8A4_Echo_2_name	dc.b "L8A4_Echo_2",0
 	even
 	ENDIF
 
-L8A4_Nymn_count equ 0x0
+L8A4_Nymn_count equ 0x1
+L8A4_Nymn_idx	equ 0x0
+
+	IFND FINAL
+L8A4_Nymn_name	dc.b "L8A4_Nymn",0
+	even
+	ENDIF
 
 L8A4_BouncePlant_count equ 0x0
 
@@ -69,13 +75,15 @@ L8A4_Nest_count equ 0x0
 
 L8A4_Flue_count equ 0x0
 
-L8A4_TriggerBox_count equ 0x2
+L8A4_TriggerBox_count equ 0x3
 L8A4_TriggerLevelEnd_idx	equ 0x0
 L8A4_TriggerDemon_idx	equ 0x1
+L8A4_TriggerDemonReturn_idx	equ 0x2
 
 	IFND FINAL
 L8A4_TriggerLevelEnd_name	dc.b "L8A4_TriggerLevelEnd",0
 L8A4_TriggerDemon_name	dc.b "L8A4_TriggerDemon",0
+L8A4_TriggerDemonReturn_name	dc.b "L8A4_TriggerDemonReturn",0
 	even
 	ENDIF
 
@@ -216,6 +224,28 @@ L8A4_LoadGameObjects:
 	add.l #Echo_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L8A4_Nymn_count)
+	move.l a1, EntityPoolStart_Nymn
+	move.l a1, a0
+	POPL   a1
+
+	jsr NymnInit
+	move.l #0x05600000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, SpriteObj_Visible(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr NymnLoadGfx
+	IFND FINAL
+	lea L8A4_Nymn_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x9, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Nymn_Struct_Size, a0
+
 
 
 
@@ -232,7 +262,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x06280000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosX(a0)
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -291,7 +321,7 @@ L8A4_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x07900000, Entity_WorldPosX(a0)
+	move.l #0x06180000, Entity_WorldPosX(a0)
 	move.l #0x00f00000, Entity_WorldPosY(a0)
 	move.l #l8a4_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -299,6 +329,24 @@ L8A4_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A4_TriggerDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x04800000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
+	move.w #0x0048, Entity_Width(a0)
+	move.w #0x0040, Entity_Height(a0)
+	move.l #l8a4_Trigger_DemonReturn, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L8A4_TriggerDemonReturn_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -339,7 +387,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr GeneratorInit
-	move.l #0x06200000, Entity_WorldPosX(a0)
+	move.l #0x05380000, Entity_WorldPosX(a0)
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr GeneratorLoadGfx
 	IFND FINAL
@@ -359,7 +407,7 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr CogsInit
-	move.l #0x06380000, Entity_WorldPosX(a0)
+	move.l #0x05500000, Entity_WorldPosX(a0)
 	move.l #0x00e80000, Entity_WorldPosY(a0)
 	jsr CogsLoadGfx
 	IFND FINAL

@@ -35,6 +35,7 @@ Trap_LowerPlatform		rs.b Platform_Struct_Size ; Moving platform at bottom of tra
 Trap_TrappedObject		rs.l 1	; Trapped object
 Trap_OnActivated		rs.l 1	; Callback
 Trap_RaiseTarget		rs.w 1
+Trap_Armed				rs.b 1
 Trap_Activated			rs.b 1
 Trap_Raising			rs.b 1
 ;-----------------------------
@@ -84,6 +85,7 @@ TrapInit:
 	move.b  #0x0, Trap_Activated(a0)
 	move.l  #0x0, Trap_OnActivated(a0)
 	move.b  #0x0, Trap_Raising(a0)
+	move.b  #0x1, Trap_Armed(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -282,6 +284,9 @@ TrapCheckOccupied:
 
 	move.b #0x0, d0
 
+	tst.b  Trap_Armed(a0)
+	beq    @Unoccupied
+
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 	subi.w #Trap_TriggerHeight, d1
@@ -303,7 +308,7 @@ TrapArm:
 	; a1 --- Level addr
 
 	; Arm
-	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, Trap_Armed(a0)
 	
 	rts
 
@@ -312,7 +317,7 @@ TrapDisarm:
 	; a1 --- Level addr
 
 	; Disarm
-	move.b #0x0, Entity_Active(a0)
+	move.b #0x0, Trap_Armed(a0)
 
 	; If activated, deactivate and raise
 	tst.b  Trap_Activated(a0)

@@ -50,8 +50,9 @@ DemonAnimIdx_Transition		equ 0x2
 DemonAnimIdx_Emerge			equ 0x3
 DemonAnimIdx_IdleToSmirk	equ 0x4
 DemonAnimIdx_Bite			equ 0x5
+DemonAnimIdx_OpenMouth		equ 0x6
 ;----------------------------------
-DemonAnimIdx_Max			equ 0x6
+DemonAnimIdx_Max			equ 0x7
 
 ;==============================================================
 
@@ -168,6 +169,7 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT demon,emerge,emerge,Demon_Animations,DemonAnimIdx_Emerge,0,0,0
 	ANIM_LOAD_DEFAULT demon,idletosmirk,idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
 	ANIM_LOAD_DEFAULT demon,bite,bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
+	ANIM_LOAD_DEFAULT demon,bite,openmouth,Demon_Animations,DemonAnimIdx_OpenMouth,0,0,0
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Demon_Animations,0,1,0,0
 
 	rts

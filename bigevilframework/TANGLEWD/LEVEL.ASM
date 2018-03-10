@@ -257,10 +257,20 @@ LevelLoadPlayers:
 	tst.w  EntityCount_Nymn
 	beq    @NoNymn
 
+	; Check active
+	move.l (EntityPoolStart_Nymn), a2
+	tst.b  Entity_Active(a2)
+	beq    @NoNymn
+
 	; Nymn is P1
-	move.l (EntityPoolStart_Nymn), Player1
+	move.l a2, Player1
 
 	tst.w  EntityCount_Echo
+	beq    @NoEcho
+
+	; Check active
+	move.l (EntityPoolStart_Echo), a2
+	tst.b  Entity_Active(a2)
 	beq    @NoEcho
 
 	; Echo is P2

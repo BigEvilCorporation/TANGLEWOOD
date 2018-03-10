@@ -4,7 +4,9 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 ;   l8a4.asm - Level 8 - Turntail Act 4
-;==============================================================	
+;==============================================================
+
+L8A4_TEST_ALL_FIREFLIES			equ 1
 
 ; ************************************
 ; Static data
@@ -60,12 +62,17 @@ l8a4_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
 l8a4_DemonHideTime				equ 0x0100
 l8a4_DemonAttackSpeed			equ 0x0008
 l8a4_DemonTrapAttackTime		equ 0x0020
+l8a4_DemonReturnOffsetX			equ -Demon_Width
+l8a4_DemonReturnOffsetY			equ -0x18
+l8a4_ThunderDist				equ 0x1
+l8a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
 	
 ; ************************************
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
 l8a4Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
+l8a4Data_CutsceneDemonReturn		rs.b Cutscene_Struct_Size
 ;---------------------------------
 	RS_ALIGN
 l8a4Data_Struct_Size     		rs.b 0
@@ -109,6 +116,13 @@ l8a4_Init:
 	move.l #l8a4_CutsceneDemonStealFuzzl, a1
 	jsr    CutsceneInit
 	POPM   a0-a1
+
+	PUSHM  a0-a1
+	lea    LevelData_l8a4, a2
+	lea    l8a4Data_CutsceneDemonReturn(a2), a0
+	move.l #l8a4_CutsceneDemonReturn, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 	
 	;==============================================================
 
@@ -131,6 +145,10 @@ l8a4_Init:
 	ENTITY_GETBYNAME Fuzzl, l8a4_FuzzlRed1, a0
 	jsr    FuzzlFindGenerator
 
+	; Disable Demon return trigger box
+	ENTITY_GETBYNAME TriggerBox, l8a4_TriggerDemonReturn, a0
+	move.b #0x0, Entity_Active(a0)
+
 	; Set boss bounds
 	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
 	ENTITY_GETBYNAME AIMarker, l8a4_MarkerDemonLeftBounds, a1
@@ -150,6 +168,10 @@ l8a4_Init:
 	; Set swarm speed
 	ENTITY_GETBYNAME Swarm, l8a4_Swarm, a0
 	move.l #0x00014000, Swarm_SpeedMul(a0)
+
+	; Disable Nymn's idle anim
+	ENTITY_GETBYNAME Nymn, l8a4_Nymn, a0
+	move.b #0x0, Player_UseIdleAnim(a0)
 
 	;==============================================================
 
@@ -212,6 +234,14 @@ l8a4_DisarmTrap:
 	ENTITY_GETBYNAME Trap, l8a4_Trap1, a0
 	jsr   TrapDisarm
 
+	; If Demon dead, also activate Demon return trigger box
+	ENTITY_GETBYNAME Demon,l8a4_Demon,a0
+	tst.b  Character_Dead(a0)
+	beq    @DemonAlive
+	ENTITY_GETBYNAME TriggerBox,l8a4_TriggerDemonReturn,a0
+	move.b #0x1, Entity_Active(a0)
+	@DemonAlive:
+
 	rts
 
 l8a4_Trigger_Trapped:
@@ -251,6 +281,21 @@ l8a4_Trigger_DemonTakeFuzzl:
 	lea    l8a4Data_CutsceneDemonStealFuzzl(a2), a0
 	jsr    CutscenePlay
 	POPL   a0
+
+	rts
+
+l8a4_Trigger_DemonReturn:
+
+	IF L8A4_TEST_ALL_FIREFLIES
+
+	; Start cutscene
+	PUSHL  a0
+	lea    LevelData_L8A4, a2
+	lea    l8a4Data_CutsceneDemonReturn(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	ENDIF
 
 	rts
 
@@ -334,6 +379,291 @@ l8a4_CutsceneDemonStealFuzzl:
 
 	rts
 
+l8a4_CutsceneDemonReturn:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Halt player
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+
+	; Start enemy approach track
+	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
+
+	; Re-enable Demon
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#CharacterCancelXMovement
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelY,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Character_Dead,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+
+	; Ressurect Demon in front of player
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	move.l Player1, a3
+	move.w Entity_WorldPosX(a3), d0
+	move.w Entity_WorldPosY(a3), d1
+	addi.w #l8a4_DemonReturnOffsetX, d0
+	addi.w #l8a4_DemonReturnOffsetY, d1
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+	
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+	CUTSCENE_DELAY #0x0040
+
+	; Blink away
+	CUTSCENE_VFX_FLASH #0x2
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
+
+	; Lerp to Fuzzl
+	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x16
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+
+	; Blink back to Fuzzl
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a3
+	move.w Entity_WorldPosX(a3), d0
+	move.w Entity_WorldPosY(a3), d1
+	addi.w #l8a4_DemonReturnOffsetX, d0
+	addi.w #l8a4_DemonReturnOffsetY, d1
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+	CUTSCENE_DELAY #0x0040
+
+	; Eat Fuzzl, trap re-activates
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonAttack
+	CUTSCENE_ROUTINE l8a4_Cutscene_WaitAttackFrame,#0x0,#0x0,#0x0
+	CUTSCENE_ROUTINE l8a4_Cutscene_FuzzlEaten,#0x0,#0x0,#0x0
+
+	; Lerp camera back to player
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x16
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0040
+
+	; Blink back in front of player
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	move.l Player1, a3
+	move.w Entity_WorldPosX(a3), d0
+	move.w Entity_WorldPosY(a3), d1
+	addi.w #l8a4_DemonReturnOffsetX, d0
+	addi.w #l8a4_DemonReturnOffsetY, d1
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+	
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+
+	; Demon smirks
+	CUTSCENE_DELAY #0x0080
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonSmirk
+
+	; Start greyscale effect
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_ROUTINE l8a4_Cutscene_GreyscaleFade,#0x0,#0x0,#0x0
+
+	; Demon begins attack, wait for bite frame
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_CHARACTER_ANIM a2,#Demon_Animations,#DemonAnimIdx_OpenMouth
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_CHARACTER_ANIM_WAIT a2
+
+	; Start long flash
+	CUTSCENE_VFX_FLASH #0x80
+
+	; Remove Demon
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x0
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x0
+
+	; Wait half flash time
+	CUTSCENE_DELAY #0x0040
+
+	; Reinstate Fuzzl, trap disarms
+	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Entity_Active,#0x1
+	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#SpriteObj_Visible,#0x1
+	CUTSCENE_GET_ENTITY Trap,l8a4_Trap1,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#TrapDisarm
+
+	; Wait remaining flash time
+	CUTSCENE_DELAY #0x0040
+
+	; Reinstate palettes
+	CUTSCENE_GAME_PALETTE_LOAD #palette_l4_night,#0x0
+	CUTSCENE_GAME_PALETTE_LOAD #palette_demon,#0x1
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fuzzl,#0x2
+	CUTSCENE_GAME_PALETTE_LOAD #Pal_Nymn_White,#0x3
+
+	; Restore Nymn as player 1
+	CUTSCENE_ROUTINE l8a4_Cutscene_RestoreNymnAsPlayer1,#0x0,#0x0,#0x0
+
+	; Activate Nymn, howl, pan camera
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Entity_Active,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_Visible,#0x1
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x16
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_CHARACTER_ANIM Player1,#Player_Animations,#PlayerAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player1
+
+	; Echo runs over to Nymn
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x16
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-EchoPounceNymnDistOffset,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+
+	; Take anim control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_UpdateAnim,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x0
+
+	; Echo jumps up to Nymn
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_PounceNymn
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Lerp camera to Nymn
+	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+
+	; Lock Nymn sprite flipping
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_LockSpriteFlip,#0x1
+
+	; Echo pounces on Nymn, greets him, then gets off
+	CUTSCENE_CHARACTER_ANIM Player1,#Nymn_Animations,#NymnAnimIdx_GreetEcho
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_GreetNymn
+	CUTSCENE_CHARACTER_ANIM_WAIT Player1
+
+	; Restore anim control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_UpdateAnim,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_UpdateAnim,#0x1
+
+	; Run cleanup steps all at once
+	CUTSCENE_TICKMODE_CONTINUOUS
+
+	; Offset character position to match last anim frames
+	move.l Player1, a3
+	move.l Entity_WorldPosX(a3), d3
+	addi.l #NymnGreetCutsceneLastFrameOffset*subpixels_per_pixel, d3
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#Entity_WorldPosX,d3
+
+	move.l Player2, a3
+	move.l Entity_WorldPosX(a3), d3
+	addi.l #EchoGreetCutsceneLastFrameOffset*subpixels_per_pixel, d3
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#Entity_WorldPosX,d3
+
+	; Lerp camera
+	move.l  CameraWorldPosX, d0
+	move.l  CameraWorldPosY, d1
+	add.l   #(vdp_sprite_border_x*subpixels_per_pixel), d0
+	add.l   #(vdp_sprite_border_y*subpixels_per_pixel), d1
+	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#EchoToNymnCamLerpSpeed
+
+	; Restore Nymn sprite flipping
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_LockSpriteFlip,#0x0
+
+	; Restore player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Start Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
+	rts
+
+l8a4_Cutscene_GreyscaleFade:
+
+	; Begin greyscale fade
+	PUSHM  a0-a2
+	move.l #PaletteId_World0, d0
+	move.b #VFXGreyscaleLerp, d1
+	move.w #l8a4_GreyscaleLerpSpeed, d2
+	jsr    VFX_StartScreenEffectGreyscale
+	POPM   a0-a2
+
+	move.b #0x0, d0
+
+	rts
+
+l8a4_Cutscene_WaitAttackFrame:
+
+	PUSHL  a0
+
+	move.b #0x1, d0
+
+	; Wait for bite anim to finish
+	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
+	move.l AnimObj_CurrentAnim(a0), a2
+	tst.b  Animation_Looping(a2)
+	beq    @StillBiting
+	move.b #0x0, d0
+	@StillBiting:
+
+	POPL   a0
+
+	rts
+
+l8a4_Cutscene_LightningFlash:
+
+	; Load night palette
+	lea    palette_L4_night, a0
+	move.w #PaletteId_World0, d0
+	jsr    GameScenePaletteLoad
+
+	; Flash
+	lea    Thunder, a2
+	move.w #0xFFFF, d0
+	move.w #l8a4_ThunderDist, d1
+	jsr    ThunderSetParams
+	jsr    ThunderFlash
+
+	move.b #0x0, d0
+
+	rts
+
 l8a4_Cutscene_MoveDemon:
 	; a0 --- Cutscene step
 	; a2 --- Target
@@ -373,24 +703,6 @@ l8a4_Cutscene_MoveDemon:
 	move.b #0x1, d0
 	
 	@End:
-
-	POPL   a0
-
-	rts
-
-l8a4_Cutscene_WaitAttackFrame:
-
-	PUSHL  a0
-
-	move.b #0x1, d0
-
-	; Wait for bite anim to finish
-	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
-	move.l AnimObj_CurrentAnim(a0), a2
-	tst.b  Animation_Looping(a2)
-	beq    @StillBiting
-	move.b #0x0, d0
-	@StillBiting:
 
 	POPL   a0
 
@@ -444,6 +756,16 @@ l8a4_Cutscene_DemonDropFuzzl:
 	jsr    EntityUpdateWorldGridIndex
 
 	POPL   a0
+
+	move.b #0x0, d0
+
+	rts
+
+l8a4_Cutscene_RestoreNymnAsPlayer1:
+
+	ENTITY_GETBYNAME Nymn, l8a4_Nymn, a3
+	move.l Player1, Player2
+	move.l a3, Player1
 
 	move.b #0x0, d0
 
