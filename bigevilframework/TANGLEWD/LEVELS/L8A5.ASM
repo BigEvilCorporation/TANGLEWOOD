@@ -163,7 +163,11 @@ l8a5_Init:
 	;==============================================================
 
 	; If collected all fireflies, activate Nymn, start Echo AI
-	IF L8A4_TEST_ALL_FIREFLIES
+	IF !L8A4_TEST_ALL_FIREFLIES
+	cmp.w #TotalFireflyCount, FireflyPickupCountGame
+	bne   @NotCollectedAll
+	ENDIF
+
 	ENTITY_GETBYNAME Nymn,l8a5_Nymn, a0
 	move.l Player1, Player2
 	move.l a0, Player1
@@ -173,7 +177,8 @@ l8a5_Init:
 	move.l Player2, a0
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
-	ENDIF
+	
+	@NotCollectedAll:
 
 	;==============================================================
 

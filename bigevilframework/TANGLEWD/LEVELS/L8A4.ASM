@@ -6,7 +6,7 @@
 ;   l8a4.asm - Level 8 - Turntail Act 4
 ;==============================================================
 
-L8A4_TEST_ALL_FIREFLIES			equ 1
+L8A4_TEST_ALL_FIREFLIES			equ 0
 
 ; ************************************
 ; Static data
@@ -286,7 +286,10 @@ l8a4_Trigger_DemonTakeFuzzl:
 
 l8a4_Trigger_DemonReturn:
 
-	IF L8A4_TEST_ALL_FIREFLIES
+	IF !L8A4_TEST_ALL_FIREFLIES
+	cmp.w #TotalFireflyCount, FireflyPickupCountGame
+	bne   @NotCollectedAll
+	ENDIF
 
 	; Start cutscene
 	PUSHL  a0
@@ -295,7 +298,7 @@ l8a4_Trigger_DemonReturn:
 	jsr    CutscenePlay
 	POPL   a0
 
-	ENDIF
+	@NotCollectedAll:
 
 	rts
 

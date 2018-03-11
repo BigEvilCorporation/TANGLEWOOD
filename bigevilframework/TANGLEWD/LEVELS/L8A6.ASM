@@ -152,7 +152,10 @@ l8a6_Init:
 	;==============================================================
 
 	; If collected all fireflies
-	IF L8A4_TEST_ALL_FIREFLIES
+	IF !L8A4_TEST_ALL_FIREFLIES
+	cmp.w #TotalFireflyCount, FireflyPickupCountGame
+	bne   @NotCollectedAll
+	ENDIF
 
 	; Active Nymn
 	ENTITY_GETBYNAME Nymn,l8a5_Nymn, a0
@@ -169,7 +172,8 @@ l8a6_Init:
 	; Disable 1st ending trigger box
 	ENTITY_GETBYNAME TriggerBox,l8a6_TriggerEnding_NoNymn,a2
 	move.b #0x0, Entity_Active(a2)
-	ENDIF
+	
+	@NotCollectedAll:
 
 	;==============================================================
 

@@ -99,6 +99,10 @@ DemoTimeout				 equ (60*60*1)
 ; Game state stack
 GameStateStackSize		 equ 0x4
 
+; Total firefly count
+; (not the most scientific method, counting programmatically putting gameobjs into tables)
+TotalFireflyCount		 equ 0xB0	; 22 acts w/ fireflies, 8 fireflies each = 176
+
 ; Cheat codes
 CheatCodeLevelSelect	 equ 0x01020304	; 0x19851226
 
