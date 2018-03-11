@@ -25,11 +25,19 @@ L1A1_Leaf_40_name	dc.b "L1A1_Leaf_40",0
 	even
 	ENDIF
 
-L1A1_Trap_count equ 0x0
+L1A1_Demon_count equ 0x1
+L1A1_CutsceneDemon_idx	equ 0x0
+
+	IFND FINAL
+L1A1_CutsceneDemon_name	dc.b "L1A1_CutsceneDemon",0
+	even
+	ENDIF
+
+L1A1_Swarm_count equ 0x0
 
 L1A1_Djubb_count equ 0x0
 
-L1A1_Echo_count equ 0x0
+L1A1_Trap_count equ 0x0
 
 L1A1_Nymn_count equ 0x1
 L1A1_Nymn_34_idx	equ 0x0
@@ -38,6 +46,8 @@ L1A1_Nymn_34_idx	equ 0x0
 L1A1_Nymn_34_name	dc.b "L1A1_Nymn_34",0
 	even
 	ENDIF
+
+L1A1_Echo_count equ 0x0
 
 L1A1_BouncePlant_count equ 0x6
 L1A1_BouncePlant_62_idx	equ 0x0
@@ -57,13 +67,11 @@ L1A1_BouncePlant_95_name	dc.b "L1A1_BouncePlant_95",0
 	even
 	ENDIF
 
-L1A1_Borgus_count equ 0x0
-
 L1A1_DjakkCage_count equ 0x0
 
 L1A1_Log_count equ 0x0
 
-L1A1_Monster_count equ 0x0
+L1A1_Borgus_count equ 0x0
 
 L1A1_Boulder_count equ 0x1
 L1A1_CutsceneDemonTarget7_idx	equ 0x0
@@ -72,6 +80,8 @@ L1A1_CutsceneDemonTarget7_idx	equ 0x0
 L1A1_CutsceneDemonTarget7_name	dc.b "L1A1_CutsceneDemonTarget7",0
 	even
 	ENDIF
+
+L1A1_Monster_count equ 0x0
 
 L1A1_Firefly_count equ 0x8
 L1A1_Firefly_17_idx	equ 0x0
@@ -114,14 +124,6 @@ L1A1_Stone_57_idx	equ 0x1
 	IFND FINAL
 L1A1_Stone_55_name	dc.b "L1A1_Stone_55",0
 L1A1_Stone_57_name	dc.b "L1A1_Stone_57",0
-	even
-	ENDIF
-
-L1A1_Demon_count equ 0x1
-L1A1_CutsceneDemon_idx	equ 0x0
-
-	IFND FINAL
-L1A1_CutsceneDemon_name	dc.b "L1A1_CutsceneDemon",0
 	even
 	ENDIF
 
@@ -245,8 +247,6 @@ L1A1_Hogg_count equ 0x0
 
 L1A1_Bridge_count equ 0x0
 
-L1A1_Swarm_count equ 0x0
-
 
 
 L1A1_LoadGameObjects:
@@ -323,6 +323,26 @@ L1A1_LoadGameObjects:
 	add.l #Leaf_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L1A1_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x0e300000, Entity_WorldPosX(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
+	IFND FINAL
+	lea L1A1_CutsceneDemon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Demon_Struct_Size, a0
+
+
 
 
 
@@ -344,6 +364,7 @@ L1A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -436,7 +457,6 @@ L1A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L1A1_Boulder_count)
 	move.l a1, EntityPoolStart_Boulder
@@ -455,6 +475,7 @@ L1A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -635,26 +656,6 @@ L1A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L1A1_Demon_count)
-	move.l a1, EntityPoolStart_Demon
-	move.l a1, a0
-	POPL   a1
-
-	jsr DemonInit
-	move.l #0x0e300000, Entity_WorldPosX(a0)
-	move.l #0x02d80000, Entity_WorldPosY(a0)
-	jsr DemonLoadGfx
-	IFND FINAL
-	lea L1A1_CutsceneDemon_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Demon_Struct_Size, a0
 
 
 
@@ -942,7 +943,6 @@ L1A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Scirus_Struct_Size, a0
-
 
 
 

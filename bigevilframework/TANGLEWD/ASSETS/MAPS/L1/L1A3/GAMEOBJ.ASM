@@ -25,11 +25,13 @@ L1A3_Leaf_66_name	dc.b "L1A3_Leaf_66",0
 	even
 	ENDIF
 
-L1A3_Trap_count equ 0x0
+L1A3_Demon_count equ 0x0
+
+L1A3_Swarm_count equ 0x0
 
 L1A3_Djubb_count equ 0x0
 
-L1A3_Echo_count equ 0x0
+L1A3_Trap_count equ 0x0
 
 L1A3_Nymn_count equ 0x1
 L1A3_Nymn_30_idx	equ 0x0
@@ -38,6 +40,8 @@ L1A3_Nymn_30_idx	equ 0x0
 L1A3_Nymn_30_name	dc.b "L1A3_Nymn_30",0
 	even
 	ENDIF
+
+L1A3_Echo_count equ 0x0
 
 L1A3_BouncePlant_count equ 0x5
 L1A3_BouncePlant_32_idx	equ 0x0
@@ -55,25 +59,25 @@ L1A3_BouncePlant_83_name	dc.b "L1A3_BouncePlant_83",0
 	even
 	ENDIF
 
-L1A3_Borgus_count equ 0x0
-
 L1A3_DjakkCage_count equ 0x0
 
 L1A3_Log_count equ 0x0
 
-L1A3_Monster_count equ 0x1
-L1A3_Djakk_idx	equ 0x0
-
-	IFND FINAL
-L1A3_Djakk_name	dc.b "L1A3_Djakk",0
-	even
-	ENDIF
+L1A3_Borgus_count equ 0x0
 
 L1A3_Boulder_count equ 0x1
 L1A3_Boulder_11_idx	equ 0x0
 
 	IFND FINAL
 L1A3_Boulder_11_name	dc.b "L1A3_Boulder_11",0
+	even
+	ENDIF
+
+L1A3_Monster_count equ 0x1
+L1A3_Djakk_idx	equ 0x0
+
+	IFND FINAL
+L1A3_Djakk_name	dc.b "L1A3_Djakk",0
 	even
 	ENDIF
 
@@ -128,8 +132,6 @@ L1A3_Stone_59_name	dc.b "L1A3_Stone_59",0
 L1A3_Stone_60_name	dc.b "L1A3_Stone_60",0
 	even
 	ENDIF
-
-L1A3_Demon_count equ 0x0
 
 L1A3_Raft_count equ 0x0
 
@@ -251,8 +253,6 @@ L1A3_Hogg_81_name	dc.b "L1A3_Hogg_81",0
 
 L1A3_Bridge_count equ 0x0
 
-L1A3_Swarm_count equ 0x0
-
 
 
 L1A3_LoadGameObjects:
@@ -332,6 +332,7 @@ L1A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L1A3_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -350,6 +351,7 @@ L1A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -430,26 +432,6 @@ L1A3_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L1A3_Monster_count)
-	move.l a1, EntityPoolStart_Monster
-	move.l a1, a0
-	POPL   a1
-
-	jsr MonsterInit
-	move.l #0x11000000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
-	jsr MonsterLoadGfx
-	IFND FINAL
-	lea L1A3_Djakk_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Monster_Struct_Size, a0
-
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L1A3_Boulder_count)
 	move.l a1, EntityPoolStart_Boulder
 	move.l a1, a0
@@ -467,6 +449,26 @@ L1A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L1A3_Monster_count)
+	move.l a1, EntityPoolStart_Monster
+	move.l a1, a0
+	POPL   a1
+
+	jsr MonsterInit
+	move.l #0x11000000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
+	jsr MonsterLoadGfx
+	IFND FINAL
+	lea L1A3_Djakk_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Monster_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -699,7 +701,6 @@ L1A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1007,7 +1008,6 @@ L1A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
-
 
 
 

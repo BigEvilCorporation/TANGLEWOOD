@@ -9,23 +9,39 @@
 
 L8A6_Leaf_count equ 0x0
 
-L8A6_Trap_count equ 0x0
+L8A6_Demon_count equ 0x1
+L8A6_Demon_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Demon_name	dc.b "L8A6_Demon",0
+	even
+	ENDIF
+
+L8A6_Swarm_count equ 0x1
+L8A6_Swarm_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Swarm_name	dc.b "L8A6_Swarm",0
+	even
+	ENDIF
 
 L8A6_Djubb_count equ 0x0
 
-L8A6_Echo_count equ 0x1
-L8A6_Echo_3_idx	equ 0x0
-
-	IFND FINAL
-L8A6_Echo_3_name	dc.b "L8A6_Echo_3",0
-	even
-	ENDIF
+L8A6_Trap_count equ 0x0
 
 L8A6_Nymn_count equ 0x1
 L8A6_Nymn_idx	equ 0x0
 
 	IFND FINAL
 L8A6_Nymn_name	dc.b "L8A6_Nymn",0
+	even
+	ENDIF
+
+L8A6_Echo_count equ 0x1
+L8A6_Echo_3_idx	equ 0x0
+
+	IFND FINAL
+L8A6_Echo_3_name	dc.b "L8A6_Echo_3",0
 	even
 	ENDIF
 
@@ -37,15 +53,15 @@ L8A6_MushroomEnd_name	dc.b "L8A6_MushroomEnd",0
 	even
 	ENDIF
 
-L8A6_Borgus_count equ 0x0
-
 L8A6_DjakkCage_count equ 0x0
 
 L8A6_Log_count equ 0x0
 
-L8A6_Monster_count equ 0x0
+L8A6_Borgus_count equ 0x0
 
 L8A6_Boulder_count equ 0x0
+
+L8A6_Monster_count equ 0x0
 
 L8A6_Firefly_count equ 0x0
 
@@ -64,14 +80,6 @@ L8A6_Stone_6_idx	equ 0x0
 
 	IFND FINAL
 L8A6_Stone_6_name	dc.b "L8A6_Stone_6",0
-	even
-	ENDIF
-
-L8A6_Demon_count equ 0x1
-L8A6_Demon_idx	equ 0x0
-
-	IFND FINAL
-L8A6_Demon_name	dc.b "L8A6_Demon",0
 	even
 	ENDIF
 
@@ -187,39 +195,50 @@ L8A6_Hogg_count equ 0x0
 
 L8A6_Bridge_count equ 0x0
 
-L8A6_Swarm_count equ 0x1
-L8A6_Swarm_idx	equ 0x0
-
-	IFND FINAL
-L8A6_Swarm_name	dc.b "L8A6_Swarm",0
-	even
-	ENDIF
-
 
 
 L8A6_LoadGameObjects:
 
-
-
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L8A6_Echo_count)
-	move.l a1, EntityPoolStart_Echo
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A6_Demon_count)
+	move.l a1, EntityPoolStart_Demon
 	move.l a1, a0
 	POPL   a1
 
-	jsr EchoInit
-	move.l #0x0fe00000, Entity_WorldPosX(a0)
-	move.l #0x00f80000, Entity_WorldPosY(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
-	jsr EchoLoadGfx
+	jsr DemonInit
+	move.l #0x02480000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
 	IFND FINAL
-	lea L8A6_Echo_3_name, a3
+	lea L8A6_Demon_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
+	move.l #0xa, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
-	add.l #Echo_Struct_Size, a0
+	add.l #Demon_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A6_Swarm_count)
+	move.l a1, EntityPoolStart_Swarm
+	move.l a1, a0
+	POPL   a1
+
+	jsr SwarmInit
+	move.l #0x02c80000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr SwarmLoadGfx
+	IFND FINAL
+	lea L8A6_Swarm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Swarm_Struct_Size, a0
+
+
 
 
 	PUSHL  a1
@@ -243,6 +262,27 @@ L8A6_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L8A6_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+	jsr EchoInit
+	move.l #0x0fe00000, Entity_WorldPosX(a0)
+	move.l #0x00f80000, Entity_WorldPosY(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr EchoLoadGfx
+	IFND FINAL
+	lea L8A6_Echo_3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Echo_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -311,26 +351,6 @@ L8A6_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A6_Demon_count)
-	move.l a1, EntityPoolStart_Demon
-	move.l a1, a0
-	POPL   a1
-
-	jsr DemonInit
-	move.l #0x02480000, Entity_WorldPosX(a0)
-	move.l #0x02b00000, Entity_WorldPosY(a0)
-	jsr DemonLoadGfx
-	IFND FINAL
-	lea L8A6_Demon_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Demon_Struct_Size, a0
 
 
 
@@ -565,26 +585,6 @@ L8A6_LoadGameObjects:
 
 
 
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A6_Swarm_count)
-	move.l a1, EntityPoolStart_Swarm
-	move.l a1, a0
-	POPL   a1
-
-	jsr SwarmInit
-	move.l #0x02c80000, Entity_WorldPosX(a0)
-	move.l #0x02b00000, Entity_WorldPosY(a0)
-	jsr SwarmLoadGfx
-	IFND FINAL
-	lea L8A6_Swarm_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Swarm_Struct_Size, a0
 
 
 	rts

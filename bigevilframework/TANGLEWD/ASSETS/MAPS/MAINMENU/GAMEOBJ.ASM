@@ -25,11 +25,13 @@ main_menu_Leaf_8_name	dc.b "main_menu_Leaf_8",0
 	even
 	ENDIF
 
-main_menu_Trap_count equ 0x0
+main_menu_Demon_count equ 0x0
+
+main_menu_Swarm_count equ 0x0
 
 main_menu_Djubb_count equ 0x0
 
-main_menu_Echo_count equ 0x0
+main_menu_Trap_count equ 0x0
 
 main_menu_Nymn_count equ 0x1
 main_menu_Nymn_1_idx	equ 0x0
@@ -39,6 +41,8 @@ main_menu_Nymn_1_name	dc.b "main_menu_Nymn_1",0
 	even
 	ENDIF
 
+main_menu_Echo_count equ 0x0
+
 main_menu_BouncePlant_count equ 0x1
 main_menu_BouncePlant_1_idx	equ 0x0
 
@@ -47,15 +51,15 @@ main_menu_BouncePlant_1_name	dc.b "main_menu_BouncePlant_1",0
 	even
 	ENDIF
 
-main_menu_Borgus_count equ 0x0
-
 main_menu_DjakkCage_count equ 0x0
 
 main_menu_Log_count equ 0x0
 
-main_menu_Monster_count equ 0x0
+main_menu_Borgus_count equ 0x0
 
 main_menu_Boulder_count equ 0x0
+
+main_menu_Monster_count equ 0x0
 
 main_menu_Firefly_count equ 0x0
 
@@ -64,8 +68,6 @@ main_menu_FuzzlCage_count equ 0x0
 main_menu_Fuzzl_count equ 0x0
 
 main_menu_Stone_count equ 0x0
-
-main_menu_Demon_count equ 0x0
 
 main_menu_Raft_count equ 0x0
 
@@ -126,8 +128,6 @@ main_menu_Scirus_count equ 0x0
 main_menu_Hogg_count equ 0x0
 
 main_menu_Bridge_count equ 0x0
-
-main_menu_Swarm_count equ 0x0
 
 
 
@@ -208,6 +208,7 @@ main_menu_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*main_menu_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -229,6 +230,7 @@ main_menu_LoadGameObjects:
 	add.l #Nymn_Struct_Size, a0
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*main_menu_BouncePlant_count)
 	move.l a1, EntityPoolStart_BouncePlant
@@ -247,8 +249,6 @@ main_menu_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #BouncePlant_Struct_Size, a0
-
-
 
 
 

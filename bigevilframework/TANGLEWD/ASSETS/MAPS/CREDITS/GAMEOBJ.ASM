@@ -31,13 +31,17 @@ credits_Leaf_11_name	dc.b "credits_Leaf_11",0
 	even
 	ENDIF
 
-credits_Trap_count equ 0x0
+credits_Demon_count equ 0x0
+
+credits_Swarm_count equ 0x0
 
 credits_Djubb_count equ 0x0
 
-credits_Echo_count equ 0x0
+credits_Trap_count equ 0x0
 
 credits_Nymn_count equ 0x0
+
+credits_Echo_count equ 0x0
 
 credits_BouncePlant_count equ 0x1
 credits_BouncePlant_2_idx	equ 0x0
@@ -47,15 +51,15 @@ credits_BouncePlant_2_name	dc.b "credits_BouncePlant_2",0
 	even
 	ENDIF
 
-credits_Borgus_count equ 0x0
-
 credits_DjakkCage_count equ 0x0
 
 credits_Log_count equ 0x0
 
-credits_Monster_count equ 0x0
+credits_Borgus_count equ 0x0
 
 credits_Boulder_count equ 0x0
+
+credits_Monster_count equ 0x0
 
 credits_Firefly_count equ 0x0
 
@@ -70,8 +74,6 @@ credits_Fuzzl_name	dc.b "credits_Fuzzl",0
 	ENDIF
 
 credits_Stone_count equ 0x0
-
-credits_Demon_count equ 0x0
 
 credits_Raft_count equ 0x0
 
@@ -132,8 +134,6 @@ credits_Scirus_count equ 0x0
 credits_Hogg_count equ 0x0
 
 credits_Bridge_count equ 0x0
-
-credits_Swarm_count equ 0x0
 
 
 
@@ -248,6 +248,8 @@ credits_LoadGameObjects:
 
 
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(BouncePlant_Struct_Size*credits_BouncePlant_count)
 	move.l a1, EntityPoolStart_BouncePlant
@@ -295,8 +297,6 @@ credits_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
-
-
 
 
 

@@ -9,25 +9,29 @@
 
 end_level_Leaf_count equ 0x0
 
-end_level_Trap_count equ 0x0
+end_level_Demon_count equ 0x0
+
+end_level_Swarm_count equ 0x0
 
 end_level_Djubb_count equ 0x0
 
-end_level_Echo_count equ 0x0
+end_level_Trap_count equ 0x0
 
 end_level_Nymn_count equ 0x0
 
-end_level_BouncePlant_count equ 0x0
+end_level_Echo_count equ 0x0
 
-end_level_Borgus_count equ 0x0
+end_level_BouncePlant_count equ 0x0
 
 end_level_DjakkCage_count equ 0x0
 
 end_level_Log_count equ 0x0
 
-end_level_Monster_count equ 0x0
+end_level_Borgus_count equ 0x0
 
 end_level_Boulder_count equ 0x0
+
+end_level_Monster_count equ 0x0
 
 end_level_Firefly_count equ 0x1
 end_level_Firefly_2_idx	equ 0x0
@@ -48,8 +52,6 @@ end_level_Fuzzl_name	dc.b "end_level_Fuzzl",0
 	ENDIF
 
 end_level_Stone_count equ 0x0
-
-end_level_Demon_count equ 0x0
 
 end_level_Raft_count equ 0x0
 
@@ -111,11 +113,11 @@ end_level_Hogg_count equ 0x0
 
 end_level_Bridge_count equ 0x0
 
-end_level_Swarm_count equ 0x0
-
 
 
 end_level_LoadGameObjects:
+
+
 
 
 
@@ -168,8 +170,6 @@ end_level_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
-
-
 
 
 
