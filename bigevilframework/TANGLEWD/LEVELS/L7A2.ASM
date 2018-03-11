@@ -66,6 +66,9 @@ l7a2_DefaultPalettes:
 l7a2Data_Struct_Size     		rs.b 0
 	
 l7a2_Init:
+
+	; Set data for all acts in level
+	jsr    L7_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L7, a0
@@ -115,9 +118,13 @@ l7a2_End:
 	
 l7a2_Trigger_End:
 
-	; Begin end of act gamestate
-	lea    GameStateEndAct, a0
+	; Begin end of level gamestate
+	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
+
+	; Not sleeping, force fade state
+	lea    GameStateEndLevelData, a2
+	move.w #0x1, EndLevelState_Timer(a2)
 	
 	rts
 

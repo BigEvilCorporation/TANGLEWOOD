@@ -92,6 +92,9 @@ l3a3Data_ComboButton2Count		rs.b 1
 l3a3Data_Struct_Size     		rs.b 0
 	
 l3a3_Init:
+
+	; Set data for all acts in level
+	jsr    L3_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l3, a0

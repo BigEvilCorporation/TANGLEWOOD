@@ -72,6 +72,9 @@ l4a3Data_CutsceneLoadLift		rs.b Cutscene_Struct_Size
 l4a3Data_Struct_Size     		rs.b 0
 	
 l4a3_Init:
+
+	; Set data for all acts in level
+	jsr    L4_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l4, a0

@@ -68,12 +68,7 @@ L5a1Data_Struct_Size     		rs.b 0
 L5a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L5A1, (a2)+
-	move.l #LevelData_L5A2, (a2)+
-	move.l #LevelData_L5A3, (a2)+
-	move.l #LevelData_L5A4, (a2)+
-	move.w #0x4, CurrentLevelNumActs
+	jsr    L5_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L5, a0
@@ -271,4 +266,13 @@ L5_LoadObjectSprites:
 	dbra   d0, @CogsLp
 	@NoCogs:
 
+	rts
+
+L5_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L5A1, (a2)+
+	move.l #LevelData_L5A2, (a2)+
+	move.l #LevelData_L5A3, (a2)+
+	move.l #LevelData_L5A4, (a2)+
+	move.w #0x4, CurrentLevelNumActs
 	rts

@@ -66,6 +66,9 @@ l2a2Data_Struct_Size     		rs.b 0
 	
 l2a2_Init:
 	
+	; Set data for all acts in level
+	jsr    L2_SetActData
+	
 	; Load BG map
 	lea    map_blocks_l2, a0
 	lea    map_blockmap_l2bg, a1

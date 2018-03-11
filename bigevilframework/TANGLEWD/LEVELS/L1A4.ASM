@@ -70,6 +70,9 @@ l1a4_DefaultPalettes:
 l1a4Data_Struct_Size     		rs.b 0
 	
 l1a4_Init:
+
+	; Set data for all acts in level
+	jsr    L1_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l1, a0

@@ -68,11 +68,7 @@ l2a1Data_Struct_Size     		rs.b 0
 l2a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L2A1, (a2)+
-	move.l #LevelData_L2A2, (a2)+
-	move.l #LevelData_L2A3, (a2)+
-	move.w #0x3, CurrentLevelNumActs
+	jsr    L2_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l2, a0
@@ -304,4 +300,12 @@ L2_LoadObjectSprites:
 	dbra   d0, @BoulderLp
 	@NoBoulders:
 
+	rts
+
+L2_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L2A1, (a2)+
+	move.l #LevelData_L2A2, (a2)+
+	move.l #LevelData_L2A3, (a2)+
+	move.w #0x3, CurrentLevelNumActs
 	rts

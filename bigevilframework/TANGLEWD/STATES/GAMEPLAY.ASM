@@ -31,15 +31,24 @@ Gameplay_Enter:
 	move.l a1, CurrentLevel
 	@LevelSet:
 
-	; Generate current save password
-	jsr SavePasswordEncode
-	move.l d0, CurrentSavePassword
-
 	; Load assets
 	jsr LevelLoad
 	
 	; Reset all positions/velocities
 	jsr LevelReset
+
+	; If loaded from password
+	move.l CurrentSavePassword, d0
+	beq    @NoPassword
+
+	; Set firefly data
+	jsr   LoadFireflyActDataFromPassword
+
+	@NoPassword:
+
+	; Generate current save password
+	jsr    SavePasswordEncode
+	move.l d0, CurrentSavePassword
 	
 	;==============================================================
 	

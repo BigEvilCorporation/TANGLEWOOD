@@ -63,6 +63,9 @@ l1a3Data_Struct_Size     		rs.b 0
 	
 l1a3_Init:
 
+	; Set data for all acts in level
+	jsr    L1_SetActData
+
 	; Load BG map
 	lea    map_blocks_l1, a0
 	lea    map_blockmap_l1bg, a1

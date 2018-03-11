@@ -9,12 +9,12 @@
 ;==============================================================
 ; Password format:
 ;==============================================================
-;  0xFEDCFEDC - ((AB ^ 0x2612) << 16) | ((C ^ 0x19) << 8 | (D ^ 0x85))
+;  0xAABBCCDD >> 7
 ;==============================================================
-;  D = Level index
-;  C = Total fireflies
-;  B = Checksum lo (8 bits) (sum of bytes C + D ^ 85)
-;  A = Checksum hi (7 bits)
+;  D = Level index ^ 0x85
+;  C = Total fireflies ^ 0x19
+;  B = Firefly count acts 1+2 ^ 0x12
+;  A = Firefly count acts 3+4 ^ 0x26
 ;==============================================================
 
 SaveGame:
@@ -102,37 +102,61 @@ SavePasswordEncode:
 	moveq  #0x0, d0
 	move.b Level_Index(a1), d0
 
-	; ^ 0x85
-	eor.b  #0x85, d0
-
 	; Get total fireflies
 	move.w FireflyPickupCountGame, d1
 
-	; ^ 0x19
-	eor.b  #0x19, d1
+	; Get fireflies for each act
+	move.w #0x0, d6
+	move.w (CurrentLevelNumActs), d5
+	beq    @NoActSetup
+	subq.w #0x1, d5
+	lea    CurrentActDatas, a4
+	@ActLoop:
 
-	; Generate checksum
-	move.w d1, d2
-	add.w  d0, d2
+	; Shift << 1 nybble
+	lsl.w  #0x4, d6
 
-	; ^ 0x2612
-	eor.w  #0x2612, d2
+	; Get act data
+	move.l (a4)+, a3
+	
+	; Get firefly count
+	move.w LevelData_FireflyCount(a3), d4
+
+	; To bottom nybble
+	andi.b #0x0F, d4
+	or.b   d4, d6
+
+	dbra   d5, @ActLoop
+	@NoActSetup:
+
+	; Pad to 4 acts
+	move.w CurrentLevelNumActs, d5
+	cmp.w  #0x4, d5
+	beq    @ActShiftEnd
+	@ActShiftlp:
+	lsl.w  #0x4, d6
+	addi.w #0x1, d5
+	cmp.w  #0x4, d5
+	blt    @ActShiftlp
+	@ActShiftEnd:
 
 	; Level index to byte 0
-	moveq  #0x0, d3
-	move.b d0, d3
+	andi.l #0xFF, d0
 
-	; Fireflies to byte 1
+	; Total fireflies to byte 1
 	lsl.w  #0x8, d1
-	or.w   d1, d3
+	or.w   d1, d0
 
-	; Checksum to bytes 2 + 3
-	swap   d2
-	or.l   d2, d3
+	; Act fireflies to bytes 3+4
+	swap   d6
+	clr.w  d6
+	or.l   d6, d0
 
-	; 0xFEDCFEDC-password
-	move.l #0xFEDCFEDC, d0
-	sub.l  d3, d0
+	; ^ 0x26121985
+	eor.l #0x26121985, d0
+
+	; >> 7
+	ror.l #0x7, d0
 
 	rts
 
@@ -140,41 +164,49 @@ SavePasswordDecode:
 	; d0 (l) IN:  Password
 	; d0 (b) OUT: Password valid
 	; d1 (b) Level index
-	; d2 (b) Firefly count
+	; d2 (b) Firefly count (total)
+	; d3 (b) Firefly count (act 1)
+	; d4 (b) Firefly count (act 2)
+	; d5 (b) Firefly count (act 3)
+	; d6 (b) Firefly count (act 4)
 
-	; 0xFEDCFEDC-password
-	move.l #0xFEDCFEDC, d3
-	sub.l  d0, d3
-	move.l d3, d0
+	; << 7
+	rol.l  #0x7, d0
 
-	; Generate checksum
-	move.w d0, d1
-	move.w d0, d2
-	andi.w #0xFF, d1
-	lsr.w  #0x8, d2
-	add.w  d1, d2
-
-	; Extract checksum
-	move.l d0, d3
-	swap   d3
-
-	; ^ 0x2612
-	eor.w  #0x2612, d3
-	cmp.w  d2, d3
-	bne    @Invalid
+	; ^ 0x26121985
+	eor.l #0x26121985, d0
 
 	; Extract level id
 	move.b d0, d1
 
-	; ^ 0x85
-	eor.b  #0x85, d1
-
-	; Extract firefly count
+	; Extract firefly total
 	lsr.w  #0x8, d0
 	move.b d0, d2
 
-	; ^ 0x19
-	eor.b  #0x19, d2
+	; Extract firefly act counts
+	swap   d0
+	move.b d0, d3
+	andi.b #0x0F, d3
+	cmp.b  #MaxFirefliesPerAct, d3
+	bgt    @Invalid
+
+	lsr.w  #0x4, d0
+	move.b d0, d4
+	andi.b #0x0F, d4
+	cmp.b  #MaxFirefliesPerAct, d4
+	bgt    @Invalid
+
+	lsr.w  #0x4, d0
+	move.b d0, d5
+	andi.b #0x0F, d5
+	cmp.b  #MaxFirefliesPerAct, d5
+	bgt    @Invalid
+
+	lsr.w  #0x4, d0
+	move.b d0, d6
+	andi.b #0x0F, d6
+	cmp.b  #MaxFirefliesPerAct, d6
+	bgt    @Invalid
 
 	; Test level id
 	cmp.b  #MaxLevels, d1
@@ -211,6 +243,46 @@ LoadGameFromPassword:
 
 	; Set level
 	move.l (a1), CurrentLevel
+
+	@Invalid:
+
+	rts
+
+LoadFireflyActDataFromPassword:
+	; d0 (l) IN:  Password
+
+	jsr    SavePasswordDecode
+	tst.b  d0
+	beq    @Invalid
+	
+	; Set fireflies for each act
+	move.w (CurrentLevelNumActs), d1
+	beq    @EndFireflySetup
+	lea    CurrentActDatas, a4
+
+	move.l (a4)+, a3
+	andi.w #0xFF, d6
+	move.w d6, LevelData_FireflyCount(a3)
+	cmp.w  #0x1, d1
+	beq    @EndFireflySetup
+
+	move.l (a4)+, a3
+	andi.w #0xFF, d5
+	move.w d5, LevelData_FireflyCount(a3)
+	cmp.w  #0x2, d1
+	beq    @EndFireflySetup
+
+	move.l (a4)+, a3
+	andi.w #0xFF, d4
+	move.w d4, LevelData_FireflyCount(a3)
+	cmp.w  #0x3, d1
+	beq    @EndFireflySetup
+
+	move.l (a4)+, a3
+	andi.w #0xFF, d3
+	move.w d3, LevelData_FireflyCount(a3)
+
+	@EndFireflySetup:
 
 	@Invalid:
 

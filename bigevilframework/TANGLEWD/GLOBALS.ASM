@@ -99,9 +99,15 @@ DemoTimeout				 equ (60*60*1)
 ; Game state stack
 GameStateStackSize		 equ 0x4
 
-; Total firefly count
+; Max fireflies per act
+MaxFirefliesPerAct		 equ 0x8
+
+; Total levels containing fireflies
 ; (not the most scientific method, counting programmatically putting gameobjs into tables)
-TotalFireflyCount		 equ 0xB0	; 22 acts w/ fireflies, 8 fireflies each = 176
+MaxLevelsWithFireflies	 equ 22
+
+; Total firefly count
+TotalFireflyCount		 equ (MaxFirefliesPerAct*MaxLevelsWithFireflies)
 
 ; Cheat codes
 CheatCodeLevelSelect	 equ 0x01020304	; 0x19851226

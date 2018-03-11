@@ -74,11 +74,7 @@ L6a1Data_Struct_Size     		rs.b 0
 L6a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L6A1, (a2)+
-	move.l #LevelData_L6A2, (a2)+
-	move.l #LevelData_L6A3, (a2)+
-	move.w #0x3, CurrentLevelNumActs
+	jsr    L6_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L6, a0
@@ -301,4 +297,12 @@ L6a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+L6_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L6A1, (a2)+
+	move.l #LevelData_L6A2, (a2)+
+	move.l #LevelData_L6A3, (a2)+
+	move.w #0x3, CurrentLevelNumActs
 	rts

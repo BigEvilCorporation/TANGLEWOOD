@@ -88,6 +88,9 @@ l5a4Data_Struct_Size     		rs.b 0
 	
 l5a4_Init:
 	
+	; Set data for all acts in level
+	jsr    L5_SetActData
+	
 	; Load BG map (using L4 tileset)
 	lea    map_blocks_L4, a0
 	lea    map_blockmap_L4bg, a1

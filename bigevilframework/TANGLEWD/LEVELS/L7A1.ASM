@@ -67,11 +67,7 @@ L7a1Data_Struct_Size     		rs.b 0
 L7a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L7A1, (a2)+
-	move.l #LevelData_L7A2, (a2)+
-	move.l #LevelData_L7A3, (a2)+
-	move.w #0x3, CurrentLevelNumActs
+	jsr    L7_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L7, a0
@@ -142,4 +138,11 @@ L7_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM stone,stone_l7,0,PaletteId_World0,0x0,a0
 	@NoStones:
 
+	rts
+
+L7_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L7A1, (a2)+
+	move.l #LevelData_L7A2, (a2)+
+	move.w #0x3, CurrentLevelNumActs
 	rts

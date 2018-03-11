@@ -66,6 +66,9 @@ l5a2Data_Struct_Size     		rs.b 0
 	
 l5a2_Init:
 	
+	; Set data for all acts in level
+	jsr    L5_SetActData
+	
 	; Load BG map
 	lea    map_blocks_L5, a0
 	lea    map_blockmap_L5bg, a1

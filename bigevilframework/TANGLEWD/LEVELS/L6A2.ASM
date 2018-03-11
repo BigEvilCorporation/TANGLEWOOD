@@ -67,6 +67,9 @@ l6a2Data_LogRollCamLerpTimer	rs.w 1
 l6a2Data_Struct_Size     		rs.b 0
 	
 l6a2_Init:
+
+	; Set data for all acts in level
+	jsr    L6_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L6, a0

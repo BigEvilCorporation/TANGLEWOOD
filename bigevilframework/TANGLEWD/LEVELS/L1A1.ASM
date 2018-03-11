@@ -68,12 +68,7 @@ l1a1Data_Struct_Size     		rs.b 0
 l1a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_L1A1, (a2)+
-	move.l #LevelData_L1A2, (a2)+
-	move.l #LevelData_L1A3, (a2)+
-	move.l #LevelData_L1A4, (a2)+
-	move.w #0x4, CurrentLevelNumActs
+	jsr    L1_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l1, a0
@@ -213,4 +208,13 @@ l1a1_Trigger_End:
 	
 l1a1_Trigger_NearEndLevel:
 
+	rts
+
+L1_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L1A1, (a2)+
+	move.l #LevelData_L1A2, (a2)+
+	move.l #LevelData_L1A3, (a2)+
+	move.l #LevelData_L1A4, (a2)+
+	move.w #0x4, CurrentLevelNumActs
 	rts

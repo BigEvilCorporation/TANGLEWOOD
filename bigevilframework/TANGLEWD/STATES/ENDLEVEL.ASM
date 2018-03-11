@@ -62,8 +62,13 @@ EndLevel_Enter:
 EndLevel_Exit:
 
 	; Finished with checkpoint data
+	move.l #0x0, CurrentSavePassword
 	move.l #0x0, LastActivatedCheckpoint
 	move.w #0x0, LastSaveVersion
+
+	; Add firefly count to total
+	move.w FireflyPickupCountAct, d0
+	add.w  d0, FireflyPickupCountGame
 	
 	rts
 	

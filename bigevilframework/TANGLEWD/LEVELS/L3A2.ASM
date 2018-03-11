@@ -71,6 +71,9 @@ l3a2Data_LogRollCamLerpTimer	rs.w 1
 l3a2Data_Struct_Size     		rs.b 0
 	
 l3a2_Init:
+
+	; Set data for all acts in level
+	jsr    L3_SetActData
 	
 	; Load BG map
 	lea    map_blocks_l3, a0
