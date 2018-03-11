@@ -586,7 +586,7 @@ L8A5_LoadGameObjects:
 	add.l #AIMarker_Struct_Size, a0
 
 	jsr AIMarkerInit
-	move.l #0x03880000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosX(a0)
 	move.l #0x01a00000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
