@@ -171,6 +171,7 @@ l8a5_Init:
 	move.b #0x1, SpriteObj_Visible(a0)
 
 	move.l Player2, a0
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	ENDIF
 
@@ -220,6 +221,7 @@ l8a5_Trigger_StartEchoAI:
 	tst.l  Player2
 	beq    @NoEchoAI
 	move.l Player2, a0
+	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 	@NoEchoAI:
 
@@ -271,13 +273,10 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
-	CUTSCENE_DELAY #0x0020
 
 	; If Echo is P2, run to lift and hide
 	tst.l  Player2
-	beq    NoEchoHide
+	beq    l8a5_NoEchoHide
 
 	; Disable Echo AI
 	move.b #EchoAIState_None, d0
@@ -302,7 +301,12 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_CAMERA_LERP Player2,a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
-	NoEchoHide:
+	l8a5_NoEchoHide:
+
+	; Finish Demon reveal
+	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
+	CUTSCENE_DELAY #0x0020
 
 	; Attack Fuzzl
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2

@@ -607,6 +607,7 @@ l8a4_CutsceneDemonReturn:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
 	; Start Echo AI
+	move.b #0x1, d0
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
 	CUTSCENE_END_LETTERBOX

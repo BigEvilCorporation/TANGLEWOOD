@@ -475,6 +475,7 @@ l5a3_CutsceneLoadLift1:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
 	; Enable Echo AI
+	move.b #0x1, d0
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
 	; Clear follow-only behaviour

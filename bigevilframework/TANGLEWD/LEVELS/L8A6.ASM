@@ -65,7 +65,9 @@ l8a6_DemonAttackSpeed			equ 0x0020
 ; ************************************
 	rsset LevelData_Struct_Size
 l8a6Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
-l8a6Data_CutsceneEnding				rs.b Cutscene_Struct_Size
+l8a6Data_CutsceneEnding_NoNymn		rs.b Cutscene_Struct_Size
+l8a6Data_CutsceneEnding_WithNymn	rs.b Cutscene_Struct_Size
+l8a6Data_EndingTriggered			rs.b 1
 ;---------------------------------
 	RS_ALIGN
 l8a6Data_Struct_Size     			rs.b 0
@@ -107,10 +109,20 @@ l8a6_Init:
 
 	PUSHM  a0-a1
 	lea    LevelData_l8a6, a2
-	lea    l8a6Data_CutsceneEnding(a2), a0
-	move.l #l8a6_CutsceneEnding, a1
+	lea    l8a6Data_CutsceneEnding_NoNymn(a2), a0
+	move.l #l8a6_CutsceneEnding_NoNymn, a1
 	jsr    CutsceneInit
 	POPM   a0-a1
+
+	PUSHM  a0-a1
+	lea    LevelData_l8a6, a2
+	lea    l8a6Data_CutsceneEnding_WithNymn(a2), a0
+	move.l #l8a6_CutsceneEnding_WithNymn, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
+	lea    LevelData_l8a6, a2
+	move.b #0x0, l8a6Data_EndingTriggered(a2)
 	
 	;==============================================================
 
@@ -139,6 +151,28 @@ l8a6_Init:
 
 	;==============================================================
 
+	; If collected all fireflies
+	IF L8A4_TEST_ALL_FIREFLIES
+
+	; Active Nymn
+	ENTITY_GETBYNAME Nymn,l8a5_Nymn, a0
+	move.l Player1, Player2
+	move.l a0, Player1
+	move.b #0x1, Entity_Active(a0)
+	move.b #0x1, SpriteObj_Visible(a0)
+
+	; Start Echo AI
+	move.l Player2, a0
+	move.b #0x1, d0
+	jsr    EchoAIStart_Follow
+
+	; Disable 1st ending trigger box
+	ENTITY_GETBYNAME TriggerBox,l8a6_TriggerEnding_NoNymn,a2
+	move.b #0x0, Entity_Active(a2)
+	ENDIF
+
+	;==============================================================
+
 	; Set player white ability
 	move.l Player1, a2
 	move.b #ColourWhite, Player_Colour(a2)
@@ -154,6 +188,30 @@ l8a6_Init:
 	rts
 	
 l8a6_Update:
+
+	lea    LevelData_l8a6, a2
+	tst.b  l8a6Data_EndingTriggered(a2)
+	bne    @EndTriggered
+
+	; If with Nymn
+	tst.l  Player2
+	beq    @NoNymn
+
+	; Wait for Nyn to get yellow ability
+	move.l Player1, a0
+	cmp.b  #ColourYellow, Player_Colour(a0)
+	bne    @NotYellow
+
+	move.b #0x1, l8a6Data_EndingTriggered(a2)
+
+	; Trigger ending cutscene (with Nymn)
+	lea    LevelData_l8a6, a2
+	lea    l8a6Data_CutsceneEnding_WithNymn(a2), a0
+	jsr    CutscenePlay
+
+	@NotYellow:
+	@NoNymn:
+	@EndTriggered:
 
 	rts
 	
@@ -179,9 +237,9 @@ l8a6_Trigger_EndCutscene:
 
 	PUSHL  a0
 
-	; Start cutscene
+	; Start ending cutscene (without Nymn)
 	lea    LevelData_l8a6, a2
-	lea    l8a6Data_CutsceneEnding(a2), a0
+	lea    l8a6Data_CutsceneEnding_NoNymn(a2), a0
 	jsr    CutscenePlay
 
 	POPL   a0
@@ -224,9 +282,40 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_DELAY #0x0020
 	
 	; Reveal demon
-	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
 	CUTSCENE_DELAY #0x0020
+
+	; If Echo is P2, run and hide
+	tst.l  Player2
+	beq    l8a6_NoEchoHide
+
+	; Disable Echo AI
+	move.b #EchoAIState_None, d0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAISetState
+
+	; Echo runs scared
+	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+	CUTSCENE_GET_ENTITY Location,l8a6_LocationEchoHide,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x10,#0x10
+
+	; Echo hides
+	CUTSCENE_TICKMODE_CONTINUOUS
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStartHiding
+	CUTSCENE_TICKMODE_INSTR_PER_FRAME
+
+	; Lerp camera back to Demon
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
+	CUTSCENE_CAMERA_LERP Player2,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	l8a6_NoEchoHide:
+
+	; Finish Demon reveal
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonEmerge
 	CUTSCENE_DELAY #0x0020
@@ -300,7 +389,182 @@ l8a6_CutsceneDemonStealFuzzl:
 
 	rts
 
-l8a6_CutsceneEnding:
+l8a6_CutsceneEnding_WithNymn:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Disable Echo AI
+	move.b #EchoAIState_None, d0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAISetState
+
+	; Echo emerges
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo howls
+	CUTSCENE_SPRITE_FLIPX Player2,#0x1
+	CUTSCENE_CHARACTER_ANIM Player2,#Player_Animations,#PlayerAnimIdx_Howl
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+
+	; Echo runs to flue
+	CUTSCENE_GET_ENTITY Flue,l8a6_Flue1,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+
+	; Cancel X movement
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0010
+
+	; Short jump into flue
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartJump
+	CUTSCENE_DELAY #0x0004
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelJump
+
+	; Wait until on floor
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR Player2
+
+	; Echo runs to glide location
+	CUTSCENE_GET_ENTITY Location,l8a6_LocationGlideJump,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+
+	; Jump and glide
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterMoveLeft
+	move.b #0x1, d2
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartJump
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartInteractA
+
+	; Wait until on floor
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR Player2
+
+	; Cancel glide and stop
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+
+	; Lerp camera to Nymn
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x0008
+
+	; Nymn runs to glide location
+	CUTSCENE_GET_ENTITY Location,l8a6_LocationGlideJump,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+
+	; Jump and glide
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterMoveLeft
+	move.b #0x1, d2
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterStartJump
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterStartInteractA
+
+	; Wait until on floor
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR Player1
+
+	; Stop glide
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+
+	; Nymn run to mushroom
+	CUTSCENE_GET_ENTITY BouncePlant,l8a6_MushroomEnd,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#0x0,#0x08
+
+	; Cancel X movement
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0010
+
+	; Nymn short jump onto mushroom
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterStartJump
+	CUTSCENE_DELAY #0x0004
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelJump
+
+	; Echo run to mushroom
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x0008
+	CUTSCENE_GET_ENTITY BouncePlant,l8a6_MushroomEnd,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+
+	; Cancel X movement
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0010
+
+	; Echo short jump onto mushroom
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartJump
+	CUTSCENE_DELAY #0x0004
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelJump
+
+	; Wait until on floor
+	CUTSCENE_OBJECT_WAIT_HIT_FLOOR Player2
+
+	; Run to jump location
+	CUTSCENE_GET_ENTITY Location,l8a6_LocationEchoJumpSleep,a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+
+	; Cancel X movement and face right
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+	CUTSCENE_TICKMODE_CONTINUOUS
+	CUTSCENE_SPRITE_FLIPX Player2,#0x0
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_TICKMODE_INSTR_PER_FRAME
+
+	; Nymn sleep
+	CUTSCENE_TICKMODE_CONTINUOUS
+	CUTSCENE_SPRITE_FLIPX Player1,#0x1
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Character_LockSpriteFlip,#0x1
+	CUTSCENE_TICKMODE_INSTR_PER_FRAME
+	CUTSCENE_OBJECT_ROUTINE Player1,#PlayerBeginSleep
+
+	; Wait
+	CUTSCENE_DELAY #0x0040
+
+	; Echo sleep
+	CUTSCENE_OBJECT_ROUTINE Player2,#PlayerBeginSleep
+
+	; Lerp camera to Nymn
+	CUTSCENE_DELAY #0x0040
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x0008
+
+	; Play ending music
+	CUTSCENE_PLAY_TRACK #track_bgm_lvloutro
+
+	; Wait
+	CUTSCENE_DELAY #0x0400
+
+	; Fade down
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x0,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x1,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x2,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_GAME_PALETTE_FADETO #palette_fade_black,#0x3,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+
+	; Wait for fade
+	CUTSCENE_PALETTE_FADE_WAIT
+
+	; Wait
+	CUTSCENE_DELAY #0x0040
+
+	; End game
+	CUTSCENE_ROUTINE l8a6_EndGame,#0x0,#0x0,#0x0
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
+	rts
+
+l8a6_CutsceneEnding_NoNymn:
 
 	CUTSCENE_START
 	CUTSCENE_START_LETTERBOX
