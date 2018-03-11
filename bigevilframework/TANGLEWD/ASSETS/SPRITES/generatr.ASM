@@ -9,36 +9,36 @@
 
 actor_generatr:
 
-actor_generatr_VRAM_size_b		equ 0x140	; VRAM size to alloc (size of largest frame, bytes)
-actor_generatr_sheet_compressor_l4_width		equ 0x28	; Max width of largest frame in pixels
+actor_generatr_VRAM_size_b		equ 0x80	; VRAM size to alloc (size of largest frame, bytes)
+actor_generatr_sheet_compressor_l4_width		equ 0x10	; Max width of largest frame in pixels
 actor_generatr_sheet_compressor_l4_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_generatr_sheet_compressor_l5_width		equ 0x28	; Max width of largest frame in pixels
+actor_generatr_sheet_compressor_l5_width		equ 0x10	; Max width of largest frame in pixels
 actor_generatr_sheet_compressor_l5_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_generatr_sheet_compressor_width		equ 0x28	; Max width of largest frame in pixels
+actor_generatr_sheet_compressor_width		equ 0x10	; Max width of largest frame in pixels
 actor_generatr_sheet_compressor_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_generatr_sheet_compressor_l4_frametable:
 actor_generatr_sheet_compressor_l4_frame_0_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l4_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l4_frame_0
 	dc.l actor_generatr_sheet_compressor_l4_frame_0_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_l4_frame_0_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_l4_frame_1_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l4_frame_1_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l4_frame_1
 	dc.l actor_generatr_sheet_compressor_l4_frame_1_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_l4_frame_1_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_l4_frame_2_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0002	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l4_frame_2_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l4_frame_2
 	dc.l actor_generatr_sheet_compressor_l4_frame_2_subsprite_dimensions_bits
@@ -46,21 +46,21 @@ actor_generatr_sheet_compressor_l4_frame_2_header:
 
 actor_generatr_sheet_compressor_l5_frametable:
 actor_generatr_sheet_compressor_l5_frame_0_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l5_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l5_frame_0
 	dc.l actor_generatr_sheet_compressor_l5_frame_0_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_l5_frame_0_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_l5_frame_1_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l5_frame_1_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l5_frame_1
 	dc.l actor_generatr_sheet_compressor_l5_frame_1_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_l5_frame_1_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_l5_frame_2_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0002	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_l5_frame_2_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_l5_frame_2
 	dc.l actor_generatr_sheet_compressor_l5_frame_2_subsprite_dimensions_bits
@@ -68,169 +68,151 @@ actor_generatr_sheet_compressor_l5_frame_2_header:
 
 actor_generatr_sheet_compressor_frametable:
 actor_generatr_sheet_compressor_frame_0_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_frame_0
 	dc.l actor_generatr_sheet_compressor_frame_0_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_frame_0_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_frame_1_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0004	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_frame_1_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_frame_1
 	dc.l actor_generatr_sheet_compressor_frame_1_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_frame_1_subsprite_pos_offsets
 
 actor_generatr_sheet_compressor_frame_2_header:
-	dc.w 0x000A	; Frame size (tiles)
+	dc.w 0x0002	; Frame size (tiles)
 	dc.w actor_generatr_sheet_compressor_frame_2_size_subsprites	; Frame size (subsprites)
 	dc.l actor_generatr_sheet_compressor_frame_2
 	dc.l actor_generatr_sheet_compressor_frame_2_subsprite_dimensions_bits
 	dc.l actor_generatr_sheet_compressor_frame_2_subsprite_pos_offsets
 
-actor_generatr_sheet_compressor_l4_frame_0_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l4_frame_0_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l4_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l4_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_l4_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_l4_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l4_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l4_frame_0_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_l4_frame_1_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l4_frame_1_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l4_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l4_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_l4_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_l4_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l4_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l4_frame_1_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_l4_frame_2_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l4_frame_2_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l4_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l4_frame_2_size_b		equ 0x0040	; Size in bytes
+actor_generatr_sheet_compressor_l4_frame_2_size_t		equ 0x0002	; Size in tiles
+actor_generatr_sheet_compressor_l4_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l4_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l4_frame_2_subsprite_dimensions_bits:
-	dc.b 0xD
 	dc.b 0x1
 	Even
 
 
-actor_generatr_sheet_compressor_l5_frame_0_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l5_frame_0_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l5_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l5_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_l5_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_l5_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l5_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l5_frame_0_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_l5_frame_1_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l5_frame_1_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l5_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l5_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_l5_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_l5_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l5_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l5_frame_1_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_l5_frame_2_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_l5_frame_2_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_l5_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_l5_frame_2_size_b		equ 0x0040	; Size in bytes
+actor_generatr_sheet_compressor_l5_frame_2_size_t		equ 0x0002	; Size in tiles
+actor_generatr_sheet_compressor_l5_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_l5_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_l5_frame_2_subsprite_dimensions_bits:
-	dc.b 0xD
 	dc.b 0x1
 	Even
 
 
-actor_generatr_sheet_compressor_frame_0_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_frame_0_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_frame_0_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_frame_1_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_frame_1_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_frame_1_size_b		equ 0x0080	; Size in bytes
+actor_generatr_sheet_compressor_frame_1_size_t		equ 0x0004	; Size in tiles
+actor_generatr_sheet_compressor_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_1_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_frame_1_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0x1
+	dc.b 0x5
 	Even
 
-actor_generatr_sheet_compressor_frame_2_size_b		equ 0x0140	; Size in bytes
-actor_generatr_sheet_compressor_frame_2_size_t		equ 0x000A	; Size in tiles
-actor_generatr_sheet_compressor_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+actor_generatr_sheet_compressor_frame_2_size_b		equ 0x0040	; Size in bytes
+actor_generatr_sheet_compressor_frame_2_size_t		equ 0x0002	; Size in tiles
+actor_generatr_sheet_compressor_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_generatr_sheet_compressor_frame_2_subsprite_pos_offsets:
 	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_generatr_sheet_compressor_frame_2_subsprite_dimensions_bits:
-	dc.b 0xD
 	dc.b 0x1
 	Even
 
@@ -276,60 +258,6 @@ actor_generatr_sheet_compressor_l4_frame_0:
 	dc.l	0x02200000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000880
-	dc.l	0x00000880
-	dc.l	0x00000CC2
-	dc.l	0x00000CC2
-
-	dc.l	0x00000CC2
-	dc.l	0x00000CC2
-	dc.l	0x00000CC2
-	dc.l	0x00000882
-	dc.l	0x00000882
-	dc.l	0x00000880
-	dc.l	0x00000220
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x88000000
-	dc.l	0x88000000
-	dc.l	0xCC288882
-
-	dc.l	0xCC288882
-	dc.l	0xCC222222
-	dc.l	0x88288882
-	dc.l	0x88288882
-	dc.l	0x88000000
-	dc.l	0x22000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_l4_frame_1:
 	dc.l	0x00000000
@@ -368,60 +296,6 @@ actor_generatr_sheet_compressor_l4_frame_1:
 	dc.l	0x22000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x000000CC
-	dc.l	0x000000CC
-
-	dc.l	0x000000CC
-	dc.l	0x000000CC
-	dc.l	0x000000CC
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x00000022
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x08800000
-	dc.l	0x28800000
-	dc.l	0x2CC28888
-
-	dc.l	0x2CC28888
-	dc.l	0x2CC22222
-	dc.l	0x28828888
-	dc.l	0x28828888
-	dc.l	0x28800000
-	dc.l	0x02200000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_l4_frame_2:
 	dc.l	0x00000000
@@ -440,78 +314,6 @@ actor_generatr_sheet_compressor_l4_frame_2:
 	dc.l	0x00008828
 	dc.l	0x00002208
 	dc.l	0x00000002
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0xC0000000
-	dc.l	0xC0000000
-
-	dc.l	0xC0000000
-	dc.l	0xC0000000
-	dc.l	0xC0000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0x20000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x0000000C
-	dc.l	0x0000000C
-
-	dc.l	0x0000000C
-	dc.l	0x0000000C
-	dc.l	0x0000000C
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x00000002
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x80000000
-	dc.l	0x80880000
-	dc.l	0xC2880000
-	dc.l	0xC2CC2888
-
-	dc.l	0xC2CC2888
-	dc.l	0xC2CC2222
-	dc.l	0xC2882888
-	dc.l	0x82882888
-	dc.l	0x82880000
-	dc.l	0x80220000
-	dc.l	0x20000000
 	dc.l	0x00000000
 
 
@@ -556,60 +358,6 @@ actor_generatr_sheet_compressor_l5_frame_0:
 	dc.l	0x06600000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000AA0
-	dc.l	0x00000AA0
-	dc.l	0x00000DD6
-	dc.l	0x00000DD6
-
-	dc.l	0x00000DD6
-	dc.l	0x00000DD6
-	dc.l	0x00000DD6
-	dc.l	0x00000AA6
-	dc.l	0x00000AA6
-	dc.l	0x00000AA0
-	dc.l	0x00000660
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0xAA000000
-	dc.l	0xAA000000
-	dc.l	0xDD6AAAA6
-
-	dc.l	0xDD6AAAA6
-	dc.l	0xDD222662
-	dc.l	0xAA6AAAA6
-	dc.l	0xAA6AAAA6
-	dc.l	0xAA000000
-	dc.l	0x66000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_l5_frame_1:
 	dc.l	0x00000000
@@ -648,60 +396,6 @@ actor_generatr_sheet_compressor_l5_frame_1:
 	dc.l	0x66000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x000000AA
-	dc.l	0x000000AA
-	dc.l	0x000000DD
-	dc.l	0x000000DD
-
-	dc.l	0x000000DD
-	dc.l	0x000000DD
-	dc.l	0x000000DD
-	dc.l	0x000000AA
-	dc.l	0x000000AA
-	dc.l	0x000000AA
-	dc.l	0x00000066
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x0AA00000
-	dc.l	0x6AA00000
-	dc.l	0x6DD6AAAA
-
-	dc.l	0x6DD6AAAA
-	dc.l	0x6DD22266
-	dc.l	0x6AA6AAAA
-	dc.l	0x6AA6AAAA
-	dc.l	0x6AA00000
-	dc.l	0x06600000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_l5_frame_2:
 	dc.l	0x00000000
@@ -720,78 +414,6 @@ actor_generatr_sheet_compressor_l5_frame_2:
 	dc.l	0x0000AA6A
 	dc.l	0x0000660A
 	dc.l	0x00000006
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0xA0000000
-	dc.l	0xA0000000
-	dc.l	0xD0000000
-	dc.l	0xD0000000
-
-	dc.l	0xD0000000
-	dc.l	0xD0000000
-	dc.l	0xD0000000
-	dc.l	0xA0000000
-	dc.l	0xA0000000
-	dc.l	0xA0000000
-	dc.l	0x60000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x0000000A
-	dc.l	0x0000000A
-	dc.l	0x0000000D
-	dc.l	0x0000000D
-
-	dc.l	0x0000000D
-	dc.l	0x0000000D
-	dc.l	0x0000000D
-	dc.l	0x0000000A
-	dc.l	0x0000000A
-	dc.l	0x0000000A
-	dc.l	0x00000006
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0xA0000000
-	dc.l	0xA0AA0000
-	dc.l	0xD6AA0000
-	dc.l	0xD6DD6AAA
-
-	dc.l	0xD6DD6AAA
-	dc.l	0xD6DD2226
-	dc.l	0xD6AA6AAA
-	dc.l	0xA6AA6AAA
-	dc.l	0xA6AA0000
-	dc.l	0xA0660000
-	dc.l	0x60000000
 	dc.l	0x00000000
 
 
@@ -836,60 +458,6 @@ actor_generatr_sheet_compressor_frame_0:
 	dc.l	0x05500000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000880
-	dc.l	0x00000880
-	dc.l	0x00000BB5
-	dc.l	0x00000BB5
-
-	dc.l	0x00000BB5
-	dc.l	0x00000BB5
-	dc.l	0x00000BB5
-	dc.l	0x00000885
-	dc.l	0x00000885
-	dc.l	0x00000880
-	dc.l	0x00000550
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x88000000
-	dc.l	0x88000000
-	dc.l	0xBB588885
-
-	dc.l	0xBB588885
-	dc.l	0xBB222552
-	dc.l	0x88588885
-	dc.l	0x88588885
-	dc.l	0x88000000
-	dc.l	0x55000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_frame_1:
 	dc.l	0x00000000
@@ -928,60 +496,6 @@ actor_generatr_sheet_compressor_frame_1:
 	dc.l	0x55000000
 	dc.l	0x00000000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x000000BB
-	dc.l	0x000000BB
-
-	dc.l	0x000000BB
-	dc.l	0x000000BB
-	dc.l	0x000000BB
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x00000088
-	dc.l	0x00000055
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x08800000
-	dc.l	0x58800000
-	dc.l	0x5BB58888
-
-	dc.l	0x5BB58888
-	dc.l	0x5BB22255
-	dc.l	0x58858888
-	dc.l	0x58858888
-	dc.l	0x58800000
-	dc.l	0x05500000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 
 actor_generatr_sheet_compressor_frame_2:
 	dc.l	0x00000000
@@ -1000,78 +514,6 @@ actor_generatr_sheet_compressor_frame_2:
 	dc.l	0x00008858
 	dc.l	0x00005508
 	dc.l	0x00000005
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0xB0000000
-	dc.l	0xB0000000
-
-	dc.l	0xB0000000
-	dc.l	0xB0000000
-	dc.l	0xB0000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0x80000000
-	dc.l	0x50000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x0000000B
-	dc.l	0x0000000B
-
-	dc.l	0x0000000B
-	dc.l	0x0000000B
-	dc.l	0x0000000B
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x00000008
-	dc.l	0x00000005
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x80000000
-	dc.l	0x80880000
-	dc.l	0xB5880000
-	dc.l	0xB5BB5888
-
-	dc.l	0xB5BB5888
-	dc.l	0xB5BB2225
-	dc.l	0xB5885888
-	dc.l	0x85885888
-	dc.l	0x85880000
-	dc.l	0x80550000
-	dc.l	0x50000000
 	dc.l	0x00000000
 
 

@@ -51,7 +51,7 @@ GeneratorInit:
 	
 	; Set update and render routines
 	move.l #GeneratorUpdate, Entity_UpdateRoutine(a0)
-	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
+	move.l #GeneratorDraw, Entity_RenderRoutine(a0)
 	move.l #GeneratorSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
@@ -126,6 +126,30 @@ GeneratorUpdate:
 	jsr    AnimObjUpdate
 
 	@NoFuzzl:
+
+	rts
+
+GeneratorDraw:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d2 (w) Camera left
+	; d3 (w) Camera right
+	; d4 (w) Camera top
+	; d5 (w) Camera bottom
+
+	; Draw left-hand side and process anim
+	jsr  AnimObjDraw
+
+	; Draw right-hand side
+	move.w Entity_WorldPosX(a0), d0
+	PUSHW  d0
+	addi.w #Generator_Width-actor_generatr_sheet_compressor_width, d0
+	move.w d0, Entity_WorldPosX(a0)
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	jsr  SpriteObjDraw
+	move.b #0x0, SpriteObj_FlippedX(a0)
+	POPW   d0
+	move.w d0, Entity_WorldPosX(a0)
 
 	rts
 
