@@ -47,7 +47,27 @@ L5A3_Djakk1_name	dc.b "L5A3_Djakk1",0
 
 L5A3_Boulder_count equ 0x0
 
-L5A3_Firefly_count equ 0x0
+L5A3_Firefly_count equ 0x8
+L5A3_Firefly_113_idx	equ 0x0
+L5A3_Firefly_114_idx	equ 0x1
+L5A3_Firefly_115_idx	equ 0x2
+L5A3_Firefly_116_idx	equ 0x3
+L5A3_Firefly_117_idx	equ 0x4
+L5A3_Firefly_118_idx	equ 0x5
+L5A3_Firefly_119_idx	equ 0x6
+L5A3_Firefly_120_idx	equ 0x7
+
+	IFND FINAL
+L5A3_Firefly_113_name	dc.b "L5A3_Firefly_113",0
+L5A3_Firefly_114_name	dc.b "L5A3_Firefly_114",0
+L5A3_Firefly_115_name	dc.b "L5A3_Firefly_115",0
+L5A3_Firefly_116_name	dc.b "L5A3_Firefly_116",0
+L5A3_Firefly_117_name	dc.b "L5A3_Firefly_117",0
+L5A3_Firefly_118_name	dc.b "L5A3_Firefly_118",0
+L5A3_Firefly_119_name	dc.b "L5A3_Firefly_119",0
+L5A3_Firefly_120_name	dc.b "L5A3_Firefly_120",0
+	even
+	ENDIF
 
 L5A3_FuzzlCage_count equ 0x0
 
@@ -396,6 +416,116 @@ L5A3_LoadGameObjects:
 	add.l #Monster_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Firefly_Struct_Size*L5A3_Firefly_count)
+	move.l a1, EntityPoolStart_Firefly
+	move.l a1, a0
+	POPL   a1
+
+	jsr FireflyInit
+	move.l #0x03d00000, Entity_WorldPosX(a0)
+	move.l #0x00e00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_113_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x04d80000, Entity_WorldPosX(a0)
+	move.l #0x02380000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_114_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x09480000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_115_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x0e100000, Entity_WorldPosX(a0)
+	move.l #0x01480000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_116_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x10e00000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_117_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x16e00000, Entity_WorldPosX(a0)
+	move.l #0x01a00000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_118_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x20100000, Entity_WorldPosX(a0)
+	move.l #0x04180000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_119_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
+
+	jsr FireflyInit
+	move.l #0x13a00000, Entity_WorldPosX(a0)
+	move.l #0x04900000, Entity_WorldPosY(a0)
+	jsr FireflyLoadGfx
+	IFND FINAL
+	lea L5A3_Firefly_120_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Firefly_Struct_Size, a0
 
 
 
