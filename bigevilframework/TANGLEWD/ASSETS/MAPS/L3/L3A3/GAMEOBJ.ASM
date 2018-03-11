@@ -9,17 +9,13 @@
 
 L3A3_Leaf_count equ 0x0
 
-L3A3_Trap_count equ 0x0
+L3A3_Demon_count equ 0x0
+
+L3A3_Swarm_count equ 0x0
 
 L3A3_Djubb_count equ 0x0
 
-L3A3_Echo_count equ 0x1
-L3A3_Echo_idx	equ 0x0
-
-	IFND FINAL
-L3A3_Echo_name	dc.b "L3A3_Echo",0
-	even
-	ENDIF
+L3A3_Trap_count equ 0x0
 
 L3A3_Nymn_count equ 0x1
 L3A3_Nymn_idx	equ 0x0
@@ -29,9 +25,15 @@ L3A3_Nymn_name	dc.b "L3A3_Nymn",0
 	even
 	ENDIF
 
-L3A3_BouncePlant_count equ 0x0
+L3A3_Echo_count equ 0x1
+L3A3_Echo_idx	equ 0x0
 
-L3A3_Borgus_count equ 0x0
+	IFND FINAL
+L3A3_Echo_name	dc.b "L3A3_Echo",0
+	even
+	ENDIF
+
+L3A3_BouncePlant_count equ 0x0
 
 L3A3_DjakkCage_count equ 0x2
 L3A3_ElderCage2_idx	equ 0x0
@@ -45,6 +47,10 @@ L3A3_ElderCage1_name	dc.b "L3A3_ElderCage1",0
 
 L3A3_Log_count equ 0x0
 
+L3A3_Borgus_count equ 0x0
+
+L3A3_Boulder_count equ 0x0
+
 L3A3_Monster_count equ 0x3
 L3A3_DjakkEchoFight_idx	equ 0x0
 L3A3_Elder2_idx	equ 0x1
@@ -56,8 +62,6 @@ L3A3_Elder2_name	dc.b "L3A3_Elder2",0
 L3A3_Elder1_name	dc.b "L3A3_Elder1",0
 	even
 	ENDIF
-
-L3A3_Boulder_count equ 0x0
 
 L3A3_Firefly_count equ 0x8
 L3A3_Firefly_44_idx	equ 0x0
@@ -104,8 +108,6 @@ L3A3_Stone_5_name	dc.b "L3A3_Stone_5",0
 L3A3_Stone_19_name	dc.b "L3A3_Stone_19",0
 	even
 	ENDIF
-
-L3A3_Demon_count equ 0x0
 
 L3A3_Raft_count equ 0x0
 
@@ -275,32 +277,12 @@ L3A3_DrawBridge3_name	dc.b "L3A3_DrawBridge3",0
 	even
 	ENDIF
 
-L3A3_Swarm_count equ 0x0
-
 
 
 L3A3_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L3A3_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
-
-	jsr EchoInit
-	move.l #0x19c80000, Entity_WorldPosX(a0)
-	move.l #0x02f80000, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
-	IFND FINAL
-	lea L3A3_Echo_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x9, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Echo_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -322,6 +304,25 @@ L3A3_LoadGameObjects:
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L3A3_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+	jsr EchoInit
+	move.l #0x19c80000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
+	IFND FINAL
+	lea L3A3_Echo_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x9, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Echo_Struct_Size, a0
 
 
 
@@ -356,6 +357,8 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #DjakkCage_Struct_Size, a0
+
+
 
 
 
@@ -405,7 +408,6 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Monster_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -598,7 +600,6 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1132,7 +1133,6 @@ L3A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
-
 
 
 	rts

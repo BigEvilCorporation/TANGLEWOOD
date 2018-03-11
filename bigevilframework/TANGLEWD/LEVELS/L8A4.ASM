@@ -6,7 +6,7 @@
 ;   l8a4.asm - Level 8 - Turntail Act 4
 ;==============================================================
 
-L8A4_TEST_ALL_FIREFLIES			equ 1
+L8A4_TEST_ALL_FIREFLIES			equ 0
 
 ; ************************************
 ; Static data

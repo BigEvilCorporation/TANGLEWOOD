@@ -25,11 +25,13 @@ L3A1_Leaf_13_name	dc.b "L3A1_Leaf_13",0
 	even
 	ENDIF
 
-L3A1_Trap_count equ 0x0
+L3A1_Demon_count equ 0x0
+
+L3A1_Swarm_count equ 0x0
 
 L3A1_Djubb_count equ 0x0
 
-L3A1_Echo_count equ 0x0
+L3A1_Trap_count equ 0x0
 
 L3A1_Nymn_count equ 0x1
 L3A1_Nymn_21_idx	equ 0x0
@@ -39,15 +41,15 @@ L3A1_Nymn_21_name	dc.b "L3A1_Nymn_21",0
 	even
 	ENDIF
 
-L3A1_BouncePlant_count equ 0x0
+L3A1_Echo_count equ 0x0
 
-L3A1_Borgus_count equ 0x0
+L3A1_BouncePlant_count equ 0x0
 
 L3A1_DjakkCage_count equ 0x0
 
 L3A1_Log_count equ 0x0
 
-L3A1_Monster_count equ 0x0
+L3A1_Borgus_count equ 0x0
 
 L3A1_Boulder_count equ 0x1
 L3A1_BoulderCounterweight1_idx	equ 0x0
@@ -56,6 +58,8 @@ L3A1_BoulderCounterweight1_idx	equ 0x0
 L3A1_BoulderCounterweight1_name	dc.b "L3A1_BoulderCounterweight1",0
 	even
 	ENDIF
+
+L3A1_Monster_count equ 0x0
 
 L3A1_Firefly_count equ 0x8
 L3A1_Firefly_57_idx	equ 0x0
@@ -116,8 +120,6 @@ L3A1_Stone_67_name	dc.b "L3A1_Stone_67",0
 L3A1_Stone_68_name	dc.b "L3A1_Stone_68",0
 	even
 	ENDIF
-
-L3A1_Demon_count equ 0x0
 
 L3A1_Raft_count equ 0x0
 
@@ -265,8 +267,6 @@ L3A1_DropBridge1_name	dc.b "L3A1_DropBridge1",0
 	even
 	ENDIF
 
-L3A1_Swarm_count equ 0x0
-
 
 
 L3A1_LoadGameObjects:
@@ -346,6 +346,7 @@ L3A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L3A1_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -390,6 +391,7 @@ L3A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -652,7 +654,6 @@ L3A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1052,7 +1053,6 @@ L3A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
-
 
 
 	rts
