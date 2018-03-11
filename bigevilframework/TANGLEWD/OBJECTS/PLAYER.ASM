@@ -2269,8 +2269,11 @@ PlayerInteractTest_Water:
 	move.w #0x0, Player_LastWaterBodyRight(a0)
 	move.w #0x0, Player_LastWaterBodySurface(a0)
 
-	; Reset water level
+	; Reset water level (only if P1)
+	cmp.l  Player1, a0
+	bne    @NoResetWater
 	move.b #0xFF, raster_water_level
+	@NoResetWater:
 
 	;==============================================================
 	
@@ -2444,13 +2447,16 @@ PlayerEnteredWater:
 	move.w d4, Player_LastWaterBodyRight(a0)
 	move.w d2, Player_LastWaterBodySurface(a0)
 
-	; Set water level (screen space)
+	; Set water level (screen space) (only if P1)
+	cmp.l  Player1, a0
+	bne    @NoWaterLevel
 	move.w d2, d3
 	move.w (WorldScrollY), d4
 	sub.w  d4, d3
 	subi.w #vdp_sprite_border_y, d3
 	CLAMPW d3,#0x1,#screen_height-1
 	move.b d3, raster_water_level
+	@NoWaterLevel:
 
 	; If not in an interaction state, use physics water movement scale
 	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
