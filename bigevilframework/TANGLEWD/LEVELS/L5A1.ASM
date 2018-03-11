@@ -273,6 +273,5 @@ L5_SetActData:
 	move.l #LevelData_L5A1, (a2)+
 	move.l #LevelData_L5A2, (a2)+
 	move.l #LevelData_L5A3, (a2)+
-	move.l #LevelData_L5A4, (a2)+
-	move.w #0x4, CurrentLevelNumActs
+	move.w #0x3, CurrentLevelNumActs
 	rts
