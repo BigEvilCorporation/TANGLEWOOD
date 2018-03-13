@@ -27,6 +27,11 @@ VFX_Reset:
 	move.w #0x0, VFXWaveAmpShiftPlaneB
 	move.w #0x0, VFXWaveSinePlaneB
 
+	; Reset row scroll effect
+	move.w #0x0, VFXRowScrollCountPlaneB
+	move.l #0x0, VFXRowScrollPosTablePlaneB
+	move.l #0x0, VFXRowScrollSpeedTablePlaneB
+
 	; Reset scroll type
 	move.b #0x0, d0
 	VDP_SETREG 0xB,d0
@@ -72,6 +77,22 @@ VFX_StartFlash:
 	jsr    PAL_LoadDMA
 
 	POPM   a0-a2
+
+	rts
+
+VFX_StartPlaneRowScrollB:
+	; d0 (w) Num table entries
+	; a0 --- Y row position table (bytes, cells)
+	; a1 --- Row speed table (16.16 longwords, multipliers of plane A scroll)
+
+	; Set params
+	move.w d0, VFXRowScrollCountPlaneB
+	move.l a0, VFXRowScrollPosTablePlaneB
+	move.l a1, VFXRowScrollSpeedTablePlaneB
+
+	; Set cell scroll mode
+	move.b #0x2, d0
+	VDP_SETREG 0xB,d0
 
 	rts
 
@@ -186,7 +207,6 @@ VFX_Update:
 	move.b #0x4, d3
 	jsr    VDP_DMAQueue_AddJob
 
-	;VDP_SETAUTOINCREMENT 0x4
 	lea    vdp_hscroll_table_b, a0
 	move.w #vram_addr_hscroll+2, d0
 	move.w #screen_height, d1
@@ -195,6 +215,84 @@ VFX_Update:
 	jsr    VDP_DMAQueue_AddJob
 
 	@NoPlaneBWave:
+
+	;==============================================================
+
+	; Update plane B row scroll effect
+	move.w VFXRowScrollCountPlaneB, d2
+	beq    @NoPlaneBRowScroll
+
+	move.w vdp_hscroll_a, d7				; Get plane A scroll
+	lea    vdp_hscroll_table_b, a0			; Get plane B table
+	move.l VFXRowScrollPosTablePlaneB, a1	; Get pos table
+	move.l VFXRowScrollSpeedTablePlaneB, a2	; Get mul table
+	move.w VFXRowScrollCountPlaneB, d6		; Get table size
+	moveq  #0x0, d2							; Prev row count
+	move.l d7, d0							; Initial plane A scroll
+
+	; For all cell rows
+	move.w #0x0, d3
+	@PlaneBRowScrollLp:
+
+	move.l #(screen_height/8), d5	; Default to bottom row
+	move.l #0x00010000, d1			; Default to multiplier of 1
+	tst.w  d6						; If last section
+	beq    @AtEnd1
+	move.b (a1)+, d5				; Get cell row pos
+	move.l (a2)+, d1				; Get next multiplier
+	@AtEnd1:
+	
+	; Mul plane A scroll
+	move.l d7, d0
+	TOSUBPIXELS d0
+	jsr    Mulu1616
+	TOPIXELS d0
+
+	; For all rows up to this offset
+	move.w d5, d4
+	sub.w  d2, d4
+	ble    @EndPlaneBRowScroll
+	subq.w #0x1, d4
+	@PlaneBCellLp:
+	move.w d0, (a0)				; Write row scroll
+	addi.l #0x8*size_word, a0	; Increment 1 cell row
+	addq.w #0x1, d3				; Increment row counter
+	dbra   d4, @PlaneBCellLp
+	
+	tst.w  d6					; If last section, done
+	beq    @EndPlaneBRowScroll
+
+	add.w  d5, d2				; Advance row counter
+
+	dbra   d6, @PlaneBRowScrollLp
+	@EndPlaneBRowScroll:
+
+	; Write plane A scroll table
+	lea    vdp_hscroll_table_a, a0
+	move.w #(screen_height/8)-1, d0
+	move.w vdp_hscroll_a, d4
+	@PlaneACellLp:
+	move.w d4, (a0)					; Write plane A value
+	addi.l #0x8*size_word, a0		; Increment 1 cell row
+	dbra   d0, @PlaneACellLp
+
+	; DMA scroll tables
+	lea    vdp_hscroll_table_a, a0
+	move.w #vram_addr_hscroll, d0
+	move.w #screen_height, d1
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x4, d3
+	jsr    VDP_DMAQueue_AddJob
+
+	lea    vdp_hscroll_table_b, a0
+	move.w #vram_addr_hscroll+2, d0
+	move.w #screen_height, d1
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x4, d3
+	jsr    VDP_DMAQueue_AddJob
+
+
+	@NoPlaneBRowScroll:
 
 	;==============================================================
 

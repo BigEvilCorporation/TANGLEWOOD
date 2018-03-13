@@ -267,13 +267,16 @@ PaletteLerp_Array      rs.b (PaletteLerp_Struct_Size*num_palettes)
 SwitchingPalettesP1    rs.l NumSwitchingColours
 
 ; VFX
-VFXShakeAmplitudeDecay rs.w 1
-VFXShakeFrequencyDecay rs.w 1
-VFXFlashTimer          rs.w 1
-VFXWaveSpeedPlaneB     rs.w 1
-VFXWaveAmpShiftPlaneB  rs.w 1
-VFXWaveFreqPlaneB      rs.w 1
-VFXWaveSinePlaneB      rs.w 1
+VFXShakeAmplitudeDecay       rs.w 1
+VFXShakeFrequencyDecay       rs.w 1
+VFXFlashTimer                rs.w 1
+VFXWaveSpeedPlaneB           rs.w 1
+VFXWaveAmpShiftPlaneB        rs.w 1
+VFXWaveFreqPlaneB            rs.w 1
+VFXWaveSinePlaneB            rs.w 1
+VFXRowScrollCountPlaneB      rs.w 1
+VFXRowScrollPosTablePlaneB   rs.l 1
+VFXRowScrollSpeedTablePlaneB rs.l 1
 
 ; Current game state
 GameStatePtr           rs.l 1

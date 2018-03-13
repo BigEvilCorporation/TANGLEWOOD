@@ -4,7 +4,9 @@
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
 ;   l3a1.asm - Level 3 - Heritage Act 1
-;==============================================================	
+;==============================================================
+
+L3_ENABLE_MULTI_ROW_BG_SCROLL	equ 0
 
 ; ************************************
 ; Static data
@@ -55,6 +57,22 @@ l3a1_DefaultPalettes:
 	dc.l Pal_Nymn_Red				; Player
 	
 	even
+
+; ************************************
+; Background scroll rows
+; ************************************
+l3_BGRowCount	equ 2
+
+	; BG layer scroll rows
+l3_BGRowPositionTable:
+	dc.b 0x0D
+	dc.b (screen_height/8)
+	even
+
+	; BG layer scroll speeds
+l3_BGRowSpeedTable:
+	dc.l 0x00009000
+	dc.l 0x0000A000
 	
 ; ************************************
 ; Runtime data
@@ -190,6 +208,18 @@ l3a1_Init:
 	; Start level intro tune
 	lea    track_bgm_dawn, a0
 	jsr    SND_PlayTrack
+
+	;==============================================================
+
+	IF L3_ENABLE_MULTI_ROW_BG_SCROLL
+
+	; Start BG row scroll effect
+	move.w #l3_BGRowCount, d0
+	lea    l3_BGRowPositionTable, a0
+	lea    l3_BGRowSpeedTable, a1
+	jsr    VFX_StartPlaneRowScrollB
+
+	ENDIF
 
 	;==============================================================
 
