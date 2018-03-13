@@ -9,9 +9,15 @@
 
 L6A2_Leaf_count equ 0x0
 
-L6A2_Trap_count equ 0x0
+L6A2_Demon_count equ 0x0
+
+L6A2_Swarm_count equ 0x0
 
 L6A2_Djubb_count equ 0x0
+
+L6A2_Trap_count equ 0x0
+
+L6A2_Nymn_count equ 0x0
 
 L6A2_Echo_count equ 0x1
 L6A2_Echo_1_idx	equ 0x0
@@ -21,11 +27,7 @@ L6A2_Echo_1_name	dc.b "L6A2_Echo_1",0
 	even
 	ENDIF
 
-L6A2_Nymn_count equ 0x0
-
 L6A2_BouncePlant_count equ 0x0
-
-L6A2_Borgus_count equ 0x0
 
 L6A2_DjakkCage_count equ 0x0
 
@@ -40,6 +42,10 @@ L6A2_Log2_name	dc.b "L6A2_Log2",0
 L6A2_Log3_name	dc.b "L6A2_Log3",0
 	even
 	ENDIF
+
+L6A2_Borgus_count equ 0x0
+
+L6A2_Boulder_count equ 0x0
 
 L6A2_Monster_count equ 0x9
 L6A2_Djakk1_idx	equ 0x0
@@ -64,8 +70,6 @@ L6A2_Djakk9_name	dc.b "L6A2_Djakk9",0
 L6A2_Djakk10_name	dc.b "L6A2_Djakk10",0
 	even
 	ENDIF
-
-L6A2_Boulder_count equ 0x0
 
 L6A2_Firefly_count equ 0x8
 L6A2_Firefly_61_idx	equ 0x0
@@ -110,8 +114,6 @@ L6A2_Stone_42_name	dc.b "L6A2_Stone_42",0
 L6A2_Stone_55_name	dc.b "L6A2_Stone_55",0
 	even
 	ENDIF
-
-L6A2_Demon_count equ 0x0
 
 L6A2_Raft_count equ 0x0
 
@@ -257,11 +259,12 @@ L6A2_Hogg_count equ 0x0
 
 L6A2_Bridge_count equ 0x0
 
-L6A2_Swarm_count equ 0x0
-
 
 
 L6A2_LoadGameObjects:
+
+
+
 
 
 
@@ -283,8 +286,6 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
-
-
 
 
 
@@ -333,6 +334,8 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
+
+
 
 
 	PUSHL  a1
@@ -468,7 +471,6 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Monster_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -648,7 +650,6 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1130,7 +1131,6 @@ L6A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
-
 
 
 
