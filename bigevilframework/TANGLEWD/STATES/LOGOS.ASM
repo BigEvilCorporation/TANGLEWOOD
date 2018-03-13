@@ -41,7 +41,7 @@ Logos_Enter:
 	
 	; Set BG colour
 	move.w #(PaletteId_BigEvilLogo<<4), d0
-	VDPSETREG 7, d0
+	VDP_SETREG 7, d0
 
 	; Load tiles
 	lea    tiles_bigevil_logo, a0

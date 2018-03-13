@@ -29,7 +29,7 @@ DemoDisclaimerScreen_Enter:
 	
 	; Set BG colour
 	move.w #(PaletteId_DemoDisclaimerScreen<<4), d0
-	VDPSETREG 7, d0
+	VDP_SETREG 7, d0
 
 	; Load tiles
 	lea    tiles_DemoDisclaimer_screen, a0

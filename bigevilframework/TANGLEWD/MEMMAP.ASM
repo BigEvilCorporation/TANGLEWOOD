@@ -97,13 +97,23 @@ vdp_queue_consumeridx rs.w 1
 ; ************************************
 ; VDP DMA queue
 ; ************************************
-vdp_dma_queue		  rs.b (VDPDMAQueue_Job_size*VDPDmaQueue_MaxSize)
+vdp_dma_queue		  rs.b (DMVDPJob_Struct_Size*VDPDmaQueue_MaxSize)
 vdp_dma_queue_next    rs.l 1
 
 ; ************************************
 ; VDP sprite table
 ; ************************************
 vdp_sprite_table	  rs.b (Sprite_Struct_Size*vdp_max_sprites)
+
+; ************************************
+; VDP plane a/b HSCROLL
+; ************************************
+vdp_hscroll_a		  rs.w 1
+vdp_hscroll_b		  rs.w 1
+vdp_vscroll_a		  rs.w 1
+vdp_vscroll_b		  rs.w 1
+vdp_hscroll_table_a	  rs.w screen_height
+vdp_hscroll_table_b	  rs.w screen_height
 
 ; ************************************
 ; VRAM addresses
@@ -260,6 +270,10 @@ SwitchingPalettesP1    rs.l NumSwitchingColours
 VFXShakeAmplitudeDecay rs.w 1
 VFXShakeFrequencyDecay rs.w 1
 VFXFlashTimer          rs.w 1
+VFXWaveSpeedPlaneB     rs.w 1
+VFXWaveAmpShiftPlaneB  rs.w 1
+VFXWaveFreqPlaneB      rs.w 1
+VFXWaveSinePlaneB      rs.w 1
 
 ; Current game state
 GameStatePtr           rs.l 1

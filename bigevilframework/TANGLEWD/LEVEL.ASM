@@ -536,6 +536,6 @@ LevelReset:
 	clr.w  d0
 	move.b Level_BgColour(a1), d0
 	ori.w  #(PaletteId_World0<<4), d0
-	VDPSETREG 7, d0
+	VDP_SETREG 7, d0
 	
 	rts

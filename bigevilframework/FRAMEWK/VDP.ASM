@@ -128,11 +128,11 @@ VDP_DMACopyVRAM:
 	ori.l   #vdp_cmd_dma_vram_write, d0 ; OR in VRAM+DMA write command
 	
 	; Read VDP reg 1
-	VDPGETREG 1, d4
+	VDP_GETREG 1, d4
 	
 	; Enable DMA
 	ori.w   #0x10, d4  			; Set register 1 + DMA bit (5)
-	VDPSETREG 1, d4
+	VDP_SETREG 1, d4
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -141,7 +141,7 @@ VDP_DMACopyVRAM:
 	
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	VDPSETREG 1, d4
+	VDP_SETREG 1, d4
 
 	; Restore interrupts
 	POPW    sr
@@ -201,11 +201,11 @@ VDP_DMACopyCRAM:
 	ori.l   #vdp_cmd_dma_cram_write, d0 ; OR in CRAM+DMA write command
 	
 	; Read VDP reg 1
-	VDPGETREG 1, d4
+	VDP_GETREG 1, d4
 	
 	; Enable DMA
 	ori.b   #0x10, d4  			; Set register 1 + DMA bit (5)
-	VDPSETREG 1, d4
+	VDP_SETREG 1, d4
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
@@ -214,7 +214,7 @@ VDP_DMACopyCRAM:
 	
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	VDPSETREG 1, d4
+	VDP_SETREG 1, d4
 
 	; Restore interrupts
 	POPW    sr
@@ -266,16 +266,16 @@ VDP_VRAMCopy:
 	ori.l   #vdp_cmd_dma_vram_write, d1 ; OR in VRAM+DMA write command
 	
 	; Read VDP reg 1 (DMA) and 15 (autoincrement)
-	VDPGETREG 0x1, d4
-	VDPGETREG 0xF, d5
+	VDP_GETREG 0x1, d4
+	VDP_GETREG 0xF, d5
 
 	; Set autoincrement to 1
 	move.w  #0x1, d3
-	VDPSETREG 0xF, d3
+	VDP_SETREG 0xF, d3
 	
 	; Enable DMA
 	ori.w   #0x10, d4  				; Set register 1 + DMA bit (5)
-	VDPSETREG 0x1, d4
+	VDP_SETREG 0x1, d4
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d1, -(sp)
@@ -290,8 +290,8 @@ VDP_VRAMCopy:
 	
 	; Disable DMA, restore regs
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	VDPSETREG 0x1, d4
-	VDPSETREG 0xF, d5
+	VDP_SETREG 0x1, d4
+	VDP_SETREG 0xF, d5
 	
 	rts
 

@@ -303,7 +303,7 @@ DBG_DisplayError:
 ;
 ;	; Set BG colour
 ;	move.w #0x0, d0
-;	VDPSETREG 7, d0
+;	VDP_SETREG 7, d0
 ;
 ;	POPL    a0
 ;

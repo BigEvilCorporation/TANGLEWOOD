@@ -113,7 +113,7 @@ Credits_Enter:
 
 	; Set BG colour
 	move.w #(PaletteId_World0<<4)|0xD, d0
-	VDPSETREG 7, d0
+	VDP_SETREG 7, d0
 
 	; Load tiles
 	moveq #0x0, d1

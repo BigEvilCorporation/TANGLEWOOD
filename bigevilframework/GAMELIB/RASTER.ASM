@@ -34,9 +34,9 @@ RasterEffectLetterboxInit:
 	move.b #0x0, raster_letterbox_speed
 
 	; Disable HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	andi.b  #~vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	; Load HINT routine
 	lea    RasterEffectLetterboxHINT, a0
@@ -69,14 +69,14 @@ RasterEffectLetterboxUpdate:
 	move.b #0x0, raster_letterbox_counter
 
 	; Enable HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	ori.b   #vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	; Turn off screen
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	andi.b #~vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 
 	@End:
 
@@ -85,14 +85,14 @@ RasterEffectLetterboxUpdate:
 RasterEffectLetterboxEnd:
 
 	; Disble HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	andi.b  #~vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	; Enable display
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	ori.b  #vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 
 	rts
 
@@ -105,9 +105,9 @@ RasterEffectLetterboxHINT:
 	bne    @Ignore
 
 	; Toggle screen on/off
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	eor.b  #vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 
 	@Ignore:
 
@@ -155,18 +155,18 @@ RasterEffectUnderwaterUpdate:
 	jsr    VDP_SetHINTFreq
 
 	; Enable HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	ori.b   #vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	rts
 
 RasterEffectUnderwaterEnd:
 
 	; Disable HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	andi.b  #~vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	rts
 
@@ -182,9 +182,9 @@ RasterEffectUnderwaterHINT:
 	bset.b #PaletteId_WaterRaster, (DirtyPalettesMask)
 
 	; Disable HINT
-	VDPGETREG 0, d0
+	VDP_GETREG 0, d0
 	andi.b  #~vdp_reg0_enablehint, d0
-	VDPSETREG 0, d0
+	VDP_SETREG 0, d0
 
 	; Restore interrupts
 	POPW   d0

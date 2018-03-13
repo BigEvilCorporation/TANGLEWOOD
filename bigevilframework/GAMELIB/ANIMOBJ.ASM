@@ -240,7 +240,8 @@ AnimObjDraw:
 	; Load tiles
 	move.w SpriteObj_VRAMAddr(a0), d0
 	move.l a2, a0
-	move.b  #DMAVDPQueue_VRAM, d2
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x2, d3
 	jsr    VDP_DMAQueue_AddJob
 
 	POPM   d2/a0-a2

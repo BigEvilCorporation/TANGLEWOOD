@@ -153,7 +153,7 @@ RS_ALIGN: macro
 ;==============================================================
 	
 ; Set VDP register state (and update local table)
-VDPSETREG: macro regnum,valuereg
+VDP_SETREG: macro regnum,valuereg
 	move.b \valuereg,(vdp_regs+\regnum)
 	andi.w #0x00FF,\valuereg
 	ori.w  #((0x80|(\regnum))<<8),\valuereg
@@ -161,10 +161,11 @@ VDPSETREG: macro regnum,valuereg
 	endm
 	
 ; Get VDP register state from local table
-VDPGETREG: macro regnum,valuereg
+VDP_GETREG: macro regnum,valuereg
 	move.b (vdp_regs+\regnum),\valuereg
 	endm
 
+; Set VDP data address for reading/writing
 VDP_SETADDRESS: macro destreg, baseaddr, optype
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
 	add.l   \baseaddr, \destreg		; Add VRAM address offset
@@ -175,25 +176,43 @@ VDP_SETADDRESS: macro destreg, baseaddr, optype
 	move.l  \destreg, vdp_control	; Move dest address to VDP control port
 	endm
 
+; Set VDP autoincrement
+VDP_SETAUTOINCREMENT: macro value
+	PUSHW  d0
+	move.w #\value, d0
+	VDP_SETREG 0xF,d0
+	POPW   d0
+	endm
+
+; Set VDP HINT line count
 VDP_SETHINT macro line
-	move.w #(0x8A00|\line), vdp_control
+	VDP_SETREG 0xA,\line
 	endm
 
-VDP_SETVSCROLL_PLANEB macro scrollval
-	move.l #vdp_write_vscroll_b, vdp_control
-	move.w \scrollval, vdp_data
-	endm
+; DMA to VDP VRAM
+VDP_DMA_VRAM: macro src, dest, len, tmpreg
+    move.l  #0x94009300|((\len)<<7&0x00FF0000)|((\len)>>1&0xFF), vdp_control
+    move.l  #0x96009500|((\src)<<7&0x00FF0000)|((\src)>>1&0xFF), vdp_control
+    move.w  #0x9700|((\src)>>17&0x7F), vdp_control
+	VDP_GETREG 1, \tmpreg
+	ori.b   #0x10, \tmpreg
+	VDP_SETREG 1, \tmpreg
+    move.l  #vdp_cmd_dma_vram_write|((\dest)&0x3FFF)<<16|(\dest)>>14, vdp_control
+	andi.b  #0xEF, \tmpreg
+	VDP_SETREG 1, \tmpreg
+    endm
 
+; DMA to VDP CRAM
 VDP_DMA_CRAM: macro src, dest, len, tmpreg
     move.l  #0x94009300|((\len)<<7&0x00FF0000)|((\len)>>1&0xFF), vdp_control
     move.l  #0x96009500|((\src)<<7&0x00FF0000)|((\src)>>1&0xFF), vdp_control
     move.w  #0x9700|((\src)>>17&0x7F), vdp_control
-	VDPGETREG 1, \tmpreg
+	VDP_GETREG 1, \tmpreg
 	ori.b   #0x10, \tmpreg
-	VDPSETREG 1, \tmpreg
+	VDP_SETREG 1, \tmpreg
     move.l  #vdp_cmd_dma_cram_write|((\dest)&0x3FFF)<<16|(\dest)>>14, vdp_control
 	andi.b  #0xEF, \tmpreg
-	VDPSETREG 1, \tmpreg
+	VDP_SETREG 1, \tmpreg
     endm
 
 ;==============================================================

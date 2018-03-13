@@ -8,7 +8,21 @@
 
 ; Constants
 VDPDMAQueue_MaxSize    equ 0x40  ; Queue max size
-VDPDMAQueue_Job_size   equ 0x0E  ; Job size
+VDPDMAQueue_Job_Size   equ 0x10
+
+;---------------------------------
+; DMA job
+;---------------------------------
+	rsset 0
+;---------------------------------
+VDPDMAJob_SizeHiLoCmd		rs.l 1	; Set DMA size command
+VDPDMAJob_AddrMidLoCmd		rs.l 1	; Set source address mid/lo command
+VDPDMAJob_AddrHiModeCmd		rs.w 1	; Set source address hi and DMA mode command
+VDPDMAJob_AutoIncCmd		rs.w 1	; Autoincrement set reg command
+VDPDMAJob_DestAddrCmd		rs.l 1	; Set dest address command
+;---------------------------------
+DMVDPJob_Struct_Size		rs.b 0
+;---------------------------------
 
 DMAVDPQueue_VRAM       equ 0x0
 DMAVDPQueue_CRAM       equ 0x1
@@ -23,8 +37,10 @@ VDP_DMAQueue_AddJob:
 	; d0 (w) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
 	; d2 (b) - Dest memory (DMAVDPQueue_VRAM/DMAVDPQueue_CRAM)
+	; d3 (b) - Data stride
 
 	move.b d2, d7
+	move.b d3, d6
 	
 	; If block crosses a 128kb boundary, split into two jobs
 	; (but simpler to do with 64kb, can just use carry flag)
@@ -50,8 +66,7 @@ VDP_DMAQueue_AddJob:
 	; Job 1
 	moveq  #0x0, d4
 	move.l a0, d2			; Source addr to d2
-	move.w d1, d5			; Backup original size
-	move.w d0, d6			; Backup original dest
+	PUSHMW d0/d1			; Backup original size/dest
 	move.l d2, d3
 	andi.l #0xFFFF0000, d3	; Align source address down to 64kb boundary
 	addi.l #0x00010000, d3	; Align up
@@ -63,8 +78,7 @@ VDP_DMAQueue_AddJob:
 	
 	; Job 2
 	move.l a0, d2			; Source address to d2
-	move.w d5, d1			; Restore original size
-	move.w d6, d0			; Restore original dest
+	POPMW  d0/d1			; Restore original size/dest
 	add.l  d4, d2			; Offset source address (bytes)
 	add.w  d4, d0			; Offset dest address (bytes)
 	lsr.w  #0x1, d4			; Job 1 size to words
@@ -79,6 +93,7 @@ VDP_DMAQueue_AddToQueue:
 	; d0 (w) - Dest addr (VRAM space)
 	; d1 (w) - Data size (words)
 	; d2 (l) - Source addr (68k space)
+	; d6 (b) - Autoincrement
 	; d7 (b) - Dest memory (DMAVDPQueue_VRAM/DMAVDPQueue_CRAM)
 
 	; Get queue address
@@ -90,7 +105,7 @@ VDP_DMAQueue_AddToQueue:
 	RAISE_EXCEPTION error_dma_bad_param
 	@NonZero:
 	move.l a1, a2
-	addi.l #VDPDMAQueue_Job_size*VDPDMAQueue_MaxSize, a2
+	addi.l #DMVDPJob_Struct_Size*VDPDMAQueue_MaxSize, a2
 	cmp.l  a1, a2
 	bne    @NotFull
 	RAISE_EXCEPTION error_dma_queue_full
@@ -101,13 +116,18 @@ VDP_DMAQueue_AddToQueue:
 	lsr.l  #0x1, d2							; Source addr to words
 	andi.l #vdp_dma_addr_mask_write_l, d2	; Top byte mask (to fit DMA mode)
 	ori.l  #(vdp_dma_mode_write<<16), d2	; DMA mode 0
-	
+
 	; Write source addr and size stream
 	move.l  #$94009300, (a1)+				; Size hi and lo (regs 13 and 14) set commands
 	move.l  #$97009600, (a1)+				; Source addr lo and mid (regs 15 and 16) set commands
 	move.w  #$9500, (a1)+					; Source addr hi and mode (reg 17) set command
 	movep.l d2, -7(a1)						; Disperse source address and DMA mode bytes first (or will overwrite size)
 	movep.w d1, -9(a1)						; Disperse size bytes
+
+	; Write autoincrement reg set command stream
+	move.w  #0x8F00, d1
+	move.b  d6, d1
+	move.w  d1, (a1)+
 
 	; Write dest addr and command stream
 	andi.l  #0xFFFF, d0
@@ -144,12 +164,13 @@ VDP_DMAQueue_ExecuteAll:
 	PUSHW  sr
 	ori.w  #status_reg_int_disable, sr
 
-	; Read VDP reg 1
-	VDPGETREG 1, d4
+	; Backup VDP regs 1 (DMA enable) and F (autoincrement)
+	VDP_GETREG 0x1, d4
+	VDP_GETREG 0xF, d6
 	
 	; Enable DMA
 	ori.w   #0x10, d4  			; Set register 1 + DMA bit (5)
-	VDPSETREG 1, d4
+	VDP_SETREG 1, d4
 
 	; Prepare VDP control port addr
 	move.l  #vdp_control, a6
@@ -159,13 +180,16 @@ VDP_DMAQueue_ExecuteAll:
 	move.l (a1)+, (a6)	; Size hi/lo
 	move.l (a1)+, (a6)	; Source addr hi/mid + DMA mode
 	move.l (a1)+, (a6)	; Source addr lo + dest addr/DMA command hi word
-	move.w (a1)+, (a6)	; Dest addr/DMA command lo word
+	move.l (a1)+, (a6)	; Autoincrement command, and dest addr/DMA command lo word
 	cmp.l  a1, a2
 	bne    @QueueLoop
 
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
-	VDPSETREG 1, d4
+
+	; Restore VDP regs 1 (DMA enable) and F (autoincrement)
+	VDP_SETREG 0x1, d4
+	VDP_SETREG 0xF, d6
 
 	; Restore interrupts
 	POPW    sr

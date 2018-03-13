@@ -8,15 +8,29 @@
 
 VFXGreyscaleLerp	equ 0x0
 VFXGreyscaleInst	equ 0x1
-
+	
 VFXUnderwaterSubR	equ 0x6
 VFXUnderwaterSubB	equ 0x6
 VFXUnderwaterSubG	equ 0x1
 
 VFX_Reset:
+
+	; Reset screen shake
 	move.w #0x0, VFXShakeAmplitudeDecay
 	move.w #0x0, VFXShakeFrequencyDecay
+
+	; Reset flash effect
 	move.w #0x0, VFXFlashTimer
+
+	; Reset wave effect
+	move.w #0x0, VFXWaveSpeedPlaneB
+	move.w #0x0, VFXWaveAmpShiftPlaneB
+	move.w #0x0, VFXWaveSinePlaneB
+
+	; Reset scroll type
+	move.b #0x0, d0
+	VDP_SETREG 0xB,d0
+
 	rts
 
 VFX_StartScreenShake:
@@ -61,6 +75,22 @@ VFX_StartFlash:
 
 	rts
 
+VFX_StartPlaneSineWaveB:
+	; d0 (w) Speed
+	; d1 (w) Amplitude
+	; d2 (w) Frequency
+
+	; Set params
+	move.w d0, VFXWaveSpeedPlaneB
+	move.w d1, VFXWaveAmpShiftPlaneB
+	move.w d2, VFXWaveFreqPlaneB
+
+	; Set line scroll mode
+	move.b #0x3, d0
+	VDP_SETREG 0xB,d0
+
+	rts
+
 VFX_Update:
 
 	; Update shake
@@ -97,6 +127,74 @@ VFX_Update:
 	jsr    VFX_RevertToScenePalettes
 
 	@Flashing:
+
+	;==============================================================
+
+	; Update plane B sine wave
+	move.w VFXWaveSpeedPlaneB, d0
+	beq    @NoPlaneBWave
+
+	; Sine step
+	move.w VFXWaveSinePlaneB, d1
+	add.w  d0, d1
+	move.w d1, VFXWaveSinePlaneB
+
+	; Set line scroll
+	lea    sintable, a2
+	lea    vdp_hscroll_table_b, a3
+
+	; Take initial B scroll value
+	move.w vdp_hscroll_b, d4
+	move.w d4, d5		; Temp scroll value
+	move.w VFXWaveFreqPlaneB, d7		; Frequency
+	move.w VFXWaveAmpShiftPlaneB, d6	; Amplitude
+	lsr.w  #0x8, d1		; Speed to integer
+	lsr.w  #0x8, d7		; Frequency to integer
+
+	move.w #screen_height-1, d2
+	@lp:
+	move.b (a2), d3		; Get next sine
+	asr.b  d6, d3		; Shift (amplitude)
+	ext.w  d3			; Sign extend
+	add.w  d3, d5		; Add
+	add.b  d7, d1		; Advance sine offset (wrap > 255)
+	lea    sintable, a2
+	add.l  d1, a2		; Advance sine addr
+	move.w d5, (a3)+	; Apply scroll value
+	move.w d4, d5		; Reset scroll value
+	dbra   d2, @lp
+
+	; Take initial A scroll value
+	move.w vdp_hscroll_a, d4
+
+	; Duplicate word
+	swap   d4
+	move.w vdp_hscroll_a, d4
+
+	; Copy to plane A scroll table
+	lea    vdp_hscroll_table_a, a3
+	move.w #(screen_height/2)-1, d0
+	@PlaneALp:
+	move.l d4, (a3)+
+	dbra   d0, @PlaneALp
+
+	; DMA scroll tables
+	lea    vdp_hscroll_table_a, a0
+	move.w #vram_addr_hscroll, d0
+	move.w #screen_height, d1
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x4, d3
+	jsr    VDP_DMAQueue_AddJob
+
+	;VDP_SETAUTOINCREMENT 0x4
+	lea    vdp_hscroll_table_b, a0
+	move.w #vram_addr_hscroll+2, d0
+	move.w #screen_height, d1
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x4, d3
+	jsr    VDP_DMAQueue_AddJob
+
+	@NoPlaneBWave:
 
 	;==============================================================
 

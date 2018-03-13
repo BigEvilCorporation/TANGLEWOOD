@@ -311,8 +311,9 @@ CAM_Update:
 	beq     @NoChangeX
 	
 	; Scroll X - plane A
-	lea     VDP_SetHScrollPlaneA, a5
-	jsr 	VDP_JobQueue_PushJob
+	;lea     VDP_SetHScrollPlaneA, a5
+	;jsr 	VDP_JobQueue_PushJob
+	jsr     VDP_SetHScrollPlaneA
 	
 	; Scroll X - plane B
 	lsr.w   #0x1, d0

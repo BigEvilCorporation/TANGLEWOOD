@@ -98,6 +98,12 @@ L7a1_Init:
 	jsr    L7_LoadObjectSprites
 	
 	;==============================================================
+
+	; Start heatwave effect on plane B
+	move.w #0x00A0, d0	; Speed
+	move.w #0x0005, d1	; Amplitude shift
+	move.w #0x0800, d2	; Frequency
+	jsr    VFX_StartPlaneSineWaveB
 	
 	rts
 	

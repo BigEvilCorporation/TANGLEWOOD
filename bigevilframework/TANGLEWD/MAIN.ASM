@@ -80,9 +80,9 @@ GameLoop:
 RenderBeginFrame:
 
 	IF FRAME_TIMING_DEBUG
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	andi.b #~vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 	ENDIF
 
 	; Reset sprite link counter
@@ -103,9 +103,9 @@ RenderBeginFrame:
 RenderEndFrame:
 
 	IF FRAME_TIMING_DEBUG
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	ori.b  #vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 	ENDIF
 
 	;==============================================================
@@ -117,7 +117,8 @@ RenderEndFrame:
 	lea    vdp_sprite_table, a0
 	move.w #vram_addr_sprite_table, d0
 	mulu.w #Sprite_Struct_Size/size_word, d1
-	move.b  #DMAVDPQueue_VRAM, d2
+	move.b #DMAVDPQueue_VRAM, d2
+	move.b #0x2, d3
 	jsr    VDP_DMAQueue_AddJob
 
 	;==============================================================
@@ -148,6 +149,7 @@ RenderEndFrame:
 	lsl.w  #0x5, d0				; Colour index to CRAM destination address
 	move.w #size_palette_w, d1
 	move.b #DMAVDPQueue_CRAM, d2
+	move.b #0x2, d3
 	jsr    VDP_DMAQueue_AddJob
 	POPM   d0/a0
 	@NotDirty:
@@ -173,9 +175,9 @@ RenderEndFrame:
 	;==============================================================
 
 	IF VBLANK_TIMING_DEBUG
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	andi.b #~vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 	ENDIF
 
 	IFD DEBUG
@@ -213,9 +215,9 @@ RenderEndFrame:
 	ENDIF
 
 	IF VBLANK_TIMING_DEBUG
-	VDPGETREG 1, d0
+	VDP_GETREG 1, d0
 	ori.b  #vdp_reg1_enabledisplay, d0
-	VDPSETREG 1, d0
+	VDP_SETREG 1, d0
 	ENDIF
 	
 	rts
