@@ -9,9 +9,27 @@
 
 L8A3_Leaf_count equ 0x0
 
-L8A3_Trap_count equ 0x0
+L8A3_Demon_count equ 0x1
+L8A3_Demon_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Demon_name	dc.b "L8A3_Demon",0
+	even
+	ENDIF
+
+L8A3_Swarm_count equ 0x1
+L8A3_Swarm_idx	equ 0x0
+
+	IFND FINAL
+L8A3_Swarm_name	dc.b "L8A3_Swarm",0
+	even
+	ENDIF
 
 L8A3_Djubb_count equ 0x0
+
+L8A3_Trap_count equ 0x0
+
+L8A3_Nymn_count equ 0x0
 
 L8A3_Echo_count equ 0x1
 L8A3_Echo_2_idx	equ 0x0
@@ -21,19 +39,17 @@ L8A3_Echo_2_name	dc.b "L8A3_Echo_2",0
 	even
 	ENDIF
 
-L8A3_Nymn_count equ 0x0
-
 L8A3_BouncePlant_count equ 0x0
-
-L8A3_Borgus_count equ 0x0
 
 L8A3_DjakkCage_count equ 0x0
 
 L8A3_Log_count equ 0x0
 
-L8A3_Monster_count equ 0x0
+L8A3_Borgus_count equ 0x0
 
 L8A3_Boulder_count equ 0x0
+
+L8A3_Monster_count equ 0x0
 
 L8A3_Firefly_count equ 0x0
 
@@ -48,14 +64,6 @@ L8A3_FuzzlRed1_name	dc.b "L8A3_FuzzlRed1",0
 	ENDIF
 
 L8A3_Stone_count equ 0x0
-
-L8A3_Demon_count equ 0x1
-L8A3_Demon_idx	equ 0x0
-
-	IFND FINAL
-L8A3_Demon_name	dc.b "L8A3_Demon",0
-	even
-	ENDIF
 
 L8A3_Raft_count equ 0x0
 
@@ -181,17 +189,50 @@ L8A3_Bridge1_name	dc.b "L8A3_Bridge1",0
 	even
 	ENDIF
 
-L8A3_Swarm_count equ 0x1
-L8A3_Swarm_idx	equ 0x0
-
-	IFND FINAL
-L8A3_Swarm_name	dc.b "L8A3_Swarm",0
-	even
-	ENDIF
-
 
 
 L8A3_LoadGameObjects:
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A3_Demon_count)
+	move.l a1, EntityPoolStart_Demon
+	move.l a1, a0
+	POPL   a1
+
+	jsr DemonInit
+	move.l #0x02100000, Entity_WorldPosX(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
+	jsr DemonLoadGfx
+	IFND FINAL
+	lea L8A3_Demon_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Demon_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A3_Swarm_count)
+	move.l a1, EntityPoolStart_Swarm
+	move.l a1, a0
+	POPL   a1
+
+	jsr SwarmInit
+	move.l #0x02980000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	jsr SwarmLoadGfx
+	IFND FINAL
+	lea L8A3_Swarm_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Swarm_Struct_Size, a0
+
+
 
 
 
@@ -223,7 +264,6 @@ L8A3_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Fuzzl_Struct_Size*L8A3_Fuzzl_count)
 	move.l a1, EntityPoolStart_Fuzzl
@@ -244,26 +284,6 @@ L8A3_LoadGameObjects:
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
 
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Demon_Struct_Size*L8A3_Demon_count)
-	move.l a1, EntityPoolStart_Demon
-	move.l a1, a0
-	POPL   a1
-
-	jsr DemonInit
-	move.l #0x02100000, Entity_WorldPosX(a0)
-	move.l #0x02b00000, Entity_WorldPosY(a0)
-	jsr DemonLoadGfx
-	IFND FINAL
-	lea L8A3_Demon_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Demon_Struct_Size, a0
 
 
 
@@ -563,26 +583,6 @@ L8A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Swarm_Struct_Size*L8A3_Swarm_count)
-	move.l a1, EntityPoolStart_Swarm
-	move.l a1, a0
-	POPL   a1
-
-	jsr SwarmInit
-	move.l #0x02980000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr SwarmLoadGfx
-	IFND FINAL
-	lea L8A3_Swarm_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xa, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Swarm_Struct_Size, a0
 
 
 	rts

@@ -9,17 +9,13 @@
 
 L5A2_Leaf_count equ 0x0
 
-L5A2_Trap_count equ 0x0
+L5A2_Demon_count equ 0x0
+
+L5A2_Swarm_count equ 0x0
 
 L5A2_Djubb_count equ 0x0
 
-L5A2_Echo_count equ 0x1
-L5A2_Echo_6_idx	equ 0x0
-
-	IFND FINAL
-L5A2_Echo_6_name	dc.b "L5A2_Echo_6",0
-	even
-	ENDIF
+L5A2_Trap_count equ 0x0
 
 L5A2_Nymn_count equ 0x1
 L5A2_Nymn_5_idx	equ 0x0
@@ -29,9 +25,15 @@ L5A2_Nymn_5_name	dc.b "L5A2_Nymn_5",0
 	even
 	ENDIF
 
-L5A2_BouncePlant_count equ 0x0
+L5A2_Echo_count equ 0x1
+L5A2_Echo_6_idx	equ 0x0
 
-L5A2_Borgus_count equ 0x0
+	IFND FINAL
+L5A2_Echo_6_name	dc.b "L5A2_Echo_6",0
+	even
+	ENDIF
+
+L5A2_BouncePlant_count equ 0x0
 
 L5A2_DjakkCage_count equ 0x0
 
@@ -43,9 +45,11 @@ L5A2_Log1_name	dc.b "L5A2_Log1",0
 	even
 	ENDIF
 
-L5A2_Monster_count equ 0x0
+L5A2_Borgus_count equ 0x0
 
 L5A2_Boulder_count equ 0x0
+
+L5A2_Monster_count equ 0x0
 
 L5A2_Firefly_count equ 0x8
 L5A2_Firefly_48_idx	equ 0x0
@@ -90,8 +94,6 @@ L5A2_Stone_15_idx	equ 0x0
 L5A2_Stone_15_name	dc.b "L5A2_Stone_15",0
 	even
 	ENDIF
-
-L5A2_Demon_count equ 0x0
 
 L5A2_Raft_count equ 0x0
 
@@ -255,32 +257,12 @@ L5A2_Hogg_count equ 0x0
 
 L5A2_Bridge_count equ 0x0
 
-L5A2_Swarm_count equ 0x0
-
 
 
 L5A2_LoadGameObjects:
 
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L5A2_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
-
-	jsr EchoInit
-	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x02780000, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
-	IFND FINAL
-	lea L5A2_Echo_6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Echo_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -303,6 +285,25 @@ L5A2_LoadGameObjects:
 	add.l #Nymn_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L5A2_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+	jsr EchoInit
+	move.l #0x00a80000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
+	IFND FINAL
+	lea L5A2_Echo_6_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Echo_Struct_Size, a0
+
 
 
 
@@ -324,6 +325,7 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -506,7 +508,6 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -960,7 +961,6 @@ L5A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Ladder_Struct_Size, a0
-
 
 
 

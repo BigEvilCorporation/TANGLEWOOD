@@ -9,7 +9,9 @@
 
 L4A2_Leaf_count equ 0x0
 
-L4A2_Trap_count equ 0x0
+L4A2_Demon_count equ 0x0
+
+L4A2_Swarm_count equ 0x0
 
 L4A2_Djubb_count equ 0x4
 L4A2_Djubb_3_idx	equ 0x0
@@ -25,13 +27,7 @@ L4A2_Djubb_44_name	dc.b "L4A2_Djubb_44",0
 	even
 	ENDIF
 
-L4A2_Echo_count equ 0x1
-L4A2_Echo_2_idx	equ 0x0
-
-	IFND FINAL
-L4A2_Echo_2_name	dc.b "L4A2_Echo_2",0
-	even
-	ENDIF
+L4A2_Trap_count equ 0x0
 
 L4A2_Nymn_count equ 0x1
 L4A2_Nymn_1_idx	equ 0x0
@@ -41,9 +37,15 @@ L4A2_Nymn_1_name	dc.b "L4A2_Nymn_1",0
 	even
 	ENDIF
 
-L4A2_BouncePlant_count equ 0x0
+L4A2_Echo_count equ 0x1
+L4A2_Echo_2_idx	equ 0x0
 
-L4A2_Borgus_count equ 0x0
+	IFND FINAL
+L4A2_Echo_2_name	dc.b "L4A2_Echo_2",0
+	even
+	ENDIF
+
+L4A2_BouncePlant_count equ 0x0
 
 L4A2_DjakkCage_count equ 0x0
 
@@ -59,9 +61,11 @@ L4A2_Log_53_name	dc.b "L4A2_Log_53",0
 	even
 	ENDIF
 
-L4A2_Monster_count equ 0x0
+L4A2_Borgus_count equ 0x0
 
 L4A2_Boulder_count equ 0x0
+
+L4A2_Monster_count equ 0x0
 
 L4A2_Firefly_count equ 0x8
 L4A2_Firefly_67_idx	equ 0x0
@@ -114,8 +118,6 @@ L4A2_Stone_52_name	dc.b "L4A2_Stone_52",0
 L4A2_Stone_51_name	dc.b "L4A2_Stone_51",0
 	even
 	ENDIF
-
-L4A2_Demon_count equ 0x0
 
 L4A2_Raft_count equ 0x0
 
@@ -275,11 +277,10 @@ L4A2_Hogg_count equ 0x0
 
 L4A2_Bridge_count equ 0x0
 
-L4A2_Swarm_count equ 0x0
-
 
 
 L4A2_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -341,25 +342,6 @@ L4A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
-	move.l a1, EntityPoolStart_Echo
-	move.l a1, a0
-	POPL   a1
-
-	jsr EchoInit
-	move.l #0x00a80000, Entity_WorldPosX(a0)
-	move.l #0x04400000, Entity_WorldPosY(a0)
-	jsr EchoLoadGfx
-	IFND FINAL
-	lea L4A2_Echo_2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xb, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Echo_Struct_Size, a0
-
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L4A2_Nymn_count)
@@ -380,6 +362,25 @@ L4A2_LoadGameObjects:
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L4A2_Echo_count)
+	move.l a1, EntityPoolStart_Echo
+	move.l a1, a0
+	POPL   a1
+
+	jsr EchoInit
+	move.l #0x00a80000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosY(a0)
+	jsr EchoLoadGfx
+	IFND FINAL
+	lea L4A2_Echo_2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Echo_Struct_Size, a0
 
 
 
@@ -428,6 +429,7 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -662,7 +664,6 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1120,7 +1121,6 @@ L4A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Skivv_Struct_Size, a0
-
 
 
 
