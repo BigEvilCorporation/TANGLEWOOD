@@ -118,6 +118,12 @@ l5a2_Init:
 	move.l #LiftActivateUp, Button_OnDown(a0)
 	move.l #LiftActivateDown, Button_OnUp(a0)
 
+	; Set lift stop
+	ENTITY_GETBYNAME Lift, l5a2_Lift1, a0
+	ENTITY_GETBYNAME Location, l5a2_LocationLiftStop, a1
+	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
+	move.b #0x1, Lift_RestrictHeight(a0)
+
 	;==============================================================
 
 	; Update log out of view

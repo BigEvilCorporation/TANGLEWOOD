@@ -127,7 +127,13 @@ L5A2_WaterBody_64_name	dc.b "L5A2_WaterBody_64",0
 	even
 	ENDIF
 
-L5A2_Location_count equ 0x0
+L5A2_Location_count equ 0x1
+L5A2_LocationLiftStop_idx	equ 0x0
+
+	IFND FINAL
+L5A2_LocationLiftStop_name	dc.b "L5A2_LocationLiftStop",0
+	even
+	ENDIF
 
 L5A2_Deathbox_count equ 0x1
 L5A2_Deathbox_46_idx	equ 0x0
@@ -591,6 +597,25 @@ L5A2_LoadGameObjects:
 	add.l #WaterBody_Struct_Size, a0
 
 
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L5A2_Location_count)
+	move.l a1, EntityPoolStart_Location
+	move.l a1, a0
+	POPL   a1
+
+	jsr LocationInit
+	move.l #0x09c00000, Entity_WorldPosX(a0)
+	move.l #0x03340000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L5A2_LocationLiftStop_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Deathbox_Struct_Size*L5A2_Deathbox_count)
@@ -680,7 +705,7 @@ L5A2_LoadGameObjects:
 	POPL   a1
 
 	jsr ButtonInit
-	move.l #0x0a200000, Entity_WorldPosX(a0)
+	move.l #0x0a380000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
 	move.b #0x1, Button_NoAI(a0)
 	jsr ButtonLoadGfx
