@@ -300,6 +300,57 @@ L2_LoadObjectSprites:
 	dbra   d0, @BoulderLp
 	@NoBoulders:
 
+	move.l EntityPoolStart_BouncePlant, a0
+	move.w EntityCount_BouncePlant, d0
+	beq    @NoBouncePlants
+	subq   #0x1, d0
+	@BouncePlantLp:
+	PUSHW  d0
+
+	move.b BouncePlant_Orientation(a0), d1
+
+	cmp.b  #BouncePlantOrient_0, d1
+	beq    @Sprite180
+	cmp.b  #BouncePlantOrient_180, d1
+	beq    @Sprite180
+	cmp.b  #BouncePlantOrient_45, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_135, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_225, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_315, d1
+	beq    @Sprite225
+	cmp.b  #BouncePlantOrient_90, d1
+	beq    @Sprite270
+	cmp.b  #BouncePlantOrient_270, d1
+	beq    @Sprite270
+
+	@Sprite180:
+	SPRITE_LOAD_SHARED_VRAM mushroom,mushroom_180_l2,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_180_l2,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_180_l2,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Sprite225:
+	SPRITE_LOAD_SHARED_VRAM mushroom,mushroom_225,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_225,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_225,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Sprite270:
+	SPRITE_LOAD_SHARED_VRAM mushroom,mushroom_270,0,PaletteId_World0,0x0,a0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_270_l2,idle,BouncePlant_Animations,BouncePlantAnimIdx_Idle,0,0,0
+	ANIM_LOAD_DEFAULT mushroom,mushroom_270_l2,bounce,BouncePlant_Animations,BouncePlantAnimIdx_Bounce,0,0,0
+	bra    @Loaded
+
+	@Loaded:
+
+	POPW   d0
+	addi.l #BouncePlant_Struct_Size, a0
+	dbra   d0, @BouncePlantLp
+	@NoBouncePlants:
+
 	rts
 
 L2_SetActData:

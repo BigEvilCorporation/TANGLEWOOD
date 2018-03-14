@@ -31,11 +31,13 @@ L2A3_Leaf_26_name	dc.b "L2A3_Leaf_26",0
 	even
 	ENDIF
 
-L2A3_Trap_count equ 0x0
+L2A3_Demon_count equ 0x0
+
+L2A3_Swarm_count equ 0x0
 
 L2A3_Djubb_count equ 0x0
 
-L2A3_Echo_count equ 0x0
+L2A3_Trap_count equ 0x0
 
 L2A3_Nymn_count equ 0x1
 L2A3_Nymn_16_idx	equ 0x0
@@ -44,6 +46,8 @@ L2A3_Nymn_16_idx	equ 0x0
 L2A3_Nymn_16_name	dc.b "L2A3_Nymn_16",0
 	even
 	ENDIF
+
+L2A3_Echo_count equ 0x0
 
 L2A3_BouncePlant_count equ 0x4
 L2A3_BouncePlant_8_idx	equ 0x0
@@ -59,11 +63,13 @@ L2A3_BouncePlant_44_name	dc.b "L2A3_BouncePlant_44",0
 	even
 	ENDIF
 
-L2A3_Borgus_count equ 0x0
-
 L2A3_DjakkCage_count equ 0x0
 
 L2A3_Log_count equ 0x0
+
+L2A3_Borgus_count equ 0x0
+
+L2A3_Boulder_count equ 0x0
 
 L2A3_Monster_count equ 0x1
 L2A3_Djakk_idx	equ 0x0
@@ -72,8 +78,6 @@ L2A3_Djakk_idx	equ 0x0
 L2A3_Djakk_name	dc.b "L2A3_Djakk",0
 	even
 	ENDIF
-
-L2A3_Boulder_count equ 0x0
 
 L2A3_Firefly_count equ 0x8
 L2A3_Firefly_53_idx	equ 0x0
@@ -116,8 +120,6 @@ L2A3_Stone_50_idx	equ 0x0
 L2A3_Stone_50_name	dc.b "L2A3_Stone_50",0
 	even
 	ENDIF
-
-L2A3_Demon_count equ 0x0
 
 L2A3_Raft_count equ 0x0
 
@@ -261,8 +263,6 @@ L2A3_Hogg_63_name	dc.b "L2A3_Hogg_63",0
 
 L2A3_Bridge_count equ 0x0
 
-L2A3_Swarm_count equ 0x0
-
 
 
 L2A3_LoadGameObjects:
@@ -375,6 +375,7 @@ L2A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A3_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -393,6 +394,7 @@ L2A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -457,6 +459,7 @@ L2A3_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Monster_Struct_Size*L2A3_Monster_count)
 	move.l a1, EntityPoolStart_Monster
@@ -476,7 +479,6 @@ L2A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Monster_Struct_Size, a0
-
 
 
 	PUSHL  a1
@@ -644,7 +646,6 @@ L2A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1086,7 +1087,6 @@ L2A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
-
 
 
 

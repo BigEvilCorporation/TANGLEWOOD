@@ -31,11 +31,13 @@ L2A2_Leaf_28_name	dc.b "L2A2_Leaf_28",0
 	even
 	ENDIF
 
-L2A2_Trap_count equ 0x0
+L2A2_Demon_count equ 0x0
+
+L2A2_Swarm_count equ 0x0
 
 L2A2_Djubb_count equ 0x0
 
-L2A2_Echo_count equ 0x0
+L2A2_Trap_count equ 0x0
 
 L2A2_Nymn_count equ 0x1
 L2A2_Nymn_18_idx	equ 0x0
@@ -44,6 +46,8 @@ L2A2_Nymn_18_idx	equ 0x0
 L2A2_Nymn_18_name	dc.b "L2A2_Nymn_18",0
 	even
 	ENDIF
+
+L2A2_Echo_count equ 0x0
 
 L2A2_BouncePlant_count equ 0x6
 L2A2_BouncePlant_5_idx	equ 0x0
@@ -63,13 +67,11 @@ L2A2_BouncePlant_67_name	dc.b "L2A2_BouncePlant_67",0
 	even
 	ENDIF
 
-L2A2_Borgus_count equ 0x0
-
 L2A2_DjakkCage_count equ 0x0
 
 L2A2_Log_count equ 0x0
 
-L2A2_Monster_count equ 0x0
+L2A2_Borgus_count equ 0x0
 
 L2A2_Boulder_count equ 0x1
 L2A2_Boulder_3_idx	equ 0x0
@@ -78,6 +80,8 @@ L2A2_Boulder_3_idx	equ 0x0
 L2A2_Boulder_3_name	dc.b "L2A2_Boulder_3",0
 	even
 	ENDIF
+
+L2A2_Monster_count equ 0x0
 
 L2A2_Firefly_count equ 0x8
 L2A2_Firefly_45_idx	equ 0x0
@@ -126,8 +130,6 @@ L2A2_Stone_41_name	dc.b "L2A2_Stone_41",0
 L2A2_Stone_42_name	dc.b "L2A2_Stone_42",0
 	even
 	ENDIF
-
-L2A2_Demon_count equ 0x0
 
 L2A2_Raft_count equ 0x0
 
@@ -263,8 +265,6 @@ L2A2_Hogg_count equ 0x0
 
 L2A2_Bridge_count equ 0x0
 
-L2A2_Swarm_count equ 0x0
-
 
 
 L2A2_LoadGameObjects:
@@ -377,6 +377,7 @@ L2A2_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A2_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -395,6 +396,7 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -487,7 +489,6 @@ L2A2_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L2A2_Boulder_count)
 	move.l a1, EntityPoolStart_Boulder
@@ -506,6 +507,7 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -712,7 +714,6 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -1103,7 +1104,6 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Scirus_Struct_Size, a0
-
 
 
 

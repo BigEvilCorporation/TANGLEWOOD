@@ -31,11 +31,13 @@ L2A1_Leaf_22_name	dc.b "L2A1_Leaf_22",0
 	even
 	ENDIF
 
-L2A1_Trap_count equ 0x0
+L2A1_Demon_count equ 0x0
+
+L2A1_Swarm_count equ 0x0
 
 L2A1_Djubb_count equ 0x0
 
-L2A1_Echo_count equ 0x0
+L2A1_Trap_count equ 0x0
 
 L2A1_Nymn_count equ 0x1
 L2A1_Nymn_3_idx	equ 0x0
@@ -44,6 +46,8 @@ L2A1_Nymn_3_idx	equ 0x0
 L2A1_Nymn_3_name	dc.b "L2A1_Nymn_3",0
 	even
 	ENDIF
+
+L2A1_Echo_count equ 0x0
 
 L2A1_BouncePlant_count equ 0x6
 L2A1_BouncePlant_6_idx	equ 0x0
@@ -63,13 +67,11 @@ L2A1_BouncePlant_58_name	dc.b "L2A1_BouncePlant_58",0
 	even
 	ENDIF
 
-L2A1_Borgus_count equ 0x0
-
 L2A1_DjakkCage_count equ 0x0
 
 L2A1_Log_count equ 0x0
 
-L2A1_Monster_count equ 0x0
+L2A1_Borgus_count equ 0x0
 
 L2A1_Boulder_count equ 0x1
 L2A1_Boulder_67_idx	equ 0x0
@@ -78,6 +80,8 @@ L2A1_Boulder_67_idx	equ 0x0
 L2A1_Boulder_67_name	dc.b "L2A1_Boulder_67",0
 	even
 	ENDIF
+
+L2A1_Monster_count equ 0x0
 
 L2A1_Firefly_count equ 0x8
 L2A1_Firefly_43_idx	equ 0x0
@@ -114,8 +118,6 @@ L2A1_Fuzzl2_Yellow_name	dc.b "L2A1_Fuzzl2_Yellow",0
 	ENDIF
 
 L2A1_Stone_count equ 0x0
-
-L2A1_Demon_count equ 0x0
 
 L2A1_Raft_count equ 0x0
 
@@ -255,8 +257,6 @@ L2A1_Hogg_61_name	dc.b "L2A1_Hogg_61",0
 
 L2A1_Bridge_count equ 0x0
 
-L2A1_Swarm_count equ 0x0
-
 
 
 L2A1_LoadGameObjects:
@@ -369,6 +369,7 @@ L2A1_LoadGameObjects:
 
 
 
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nymn_Struct_Size*L2A1_Nymn_count)
 	move.l a1, EntityPoolStart_Nymn
@@ -387,6 +388,7 @@ L2A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Nymn_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -477,7 +479,6 @@ L2A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Boulder_Struct_Size*L2A1_Boulder_count)
 	move.l a1, EntityPoolStart_Boulder
@@ -496,6 +497,7 @@ L2A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Boulder_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -643,7 +645,6 @@ L2A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
-
 
 
 
@@ -1045,7 +1046,6 @@ L2A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
-
 
 
 

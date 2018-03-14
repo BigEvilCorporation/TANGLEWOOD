@@ -10,6 +10,10 @@
 actor_mushroom:
 
 actor_mushroom_VRAM_size_b		equ 0x200	; VRAM size to alloc (size of largest frame, bytes)
+actor_mushroom_sheet_mushroom_180_l2_width		equ 0x20	; Max width of largest frame in pixels
+actor_mushroom_sheet_mushroom_180_l2_height		equ 0x20	; Max height of largest frame in pixels
+
+
 actor_mushroom_sheet_mushroom_180_width		equ 0x20	; Max width of largest frame in pixels
 actor_mushroom_sheet_mushroom_180_height		equ 0x20	; Max height of largest frame in pixels
 
@@ -18,9 +22,49 @@ actor_mushroom_sheet_mushroom_225_width		equ 0x20	; Max width of largest frame i
 actor_mushroom_sheet_mushroom_225_height		equ 0x20	; Max height of largest frame in pixels
 
 
+actor_mushroom_sheet_mushroom_270_l2_width		equ 0x20	; Max width of largest frame in pixels
+actor_mushroom_sheet_mushroom_270_l2_height		equ 0x20	; Max height of largest frame in pixels
+
+
 actor_mushroom_sheet_mushroom_270_width		equ 0x20	; Max width of largest frame in pixels
 actor_mushroom_sheet_mushroom_270_height		equ 0x20	; Max height of largest frame in pixels
 
+
+actor_mushroom_sheet_mushroom_180_l2_frametable:
+actor_mushroom_sheet_mushroom_180_l2_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_l2_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_0
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_0_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_l2_frame_1_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_l2_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_1
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_1_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_1_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_l2_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_l2_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_2
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_2_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_2_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_l2_frame_3_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_l2_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_3
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_3_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_3_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_l2_frame_4_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_180_l2_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_4
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_4_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_180_l2_frame_4_subsprite_pos_offsets
 
 actor_mushroom_sheet_mushroom_180_frametable:
 actor_mushroom_sheet_mushroom_180_frame_0_header:
@@ -94,6 +138,42 @@ actor_mushroom_sheet_mushroom_225_frame_4_header:
 	dc.l actor_mushroom_sheet_mushroom_225_frame_4_subsprite_dimensions_bits
 	dc.l actor_mushroom_sheet_mushroom_225_frame_4_subsprite_pos_offsets
 
+actor_mushroom_sheet_mushroom_270_l2_frametable:
+actor_mushroom_sheet_mushroom_270_l2_frame_0_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_l2_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_0
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_0_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_0_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_270_l2_frame_1_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_l2_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_1
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_1_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_1_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_270_l2_frame_2_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_l2_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_2
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_2_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_2_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_270_l2_frame_3_header:
+	dc.w 0x000C	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_l2_frame_3_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_3
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_3_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_3_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_270_l2_frame_4_header:
+	dc.w 0x0008	; Frame size (tiles)
+	dc.w actor_mushroom_sheet_mushroom_270_l2_frame_4_size_subsprites	; Frame size (subsprites)
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_4
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_4_subsprite_dimensions_bits
+	dc.l actor_mushroom_sheet_mushroom_270_l2_frame_4_subsprite_pos_offsets
+
 actor_mushroom_sheet_mushroom_270_frametable:
 actor_mushroom_sheet_mushroom_270_frame_0_header:
 	dc.w 0x000C	; Frame size (tiles)
@@ -129,6 +209,77 @@ actor_mushroom_sheet_mushroom_270_frame_4_header:
 	dc.l actor_mushroom_sheet_mushroom_270_frame_4
 	dc.l actor_mushroom_sheet_mushroom_270_frame_4_subsprite_dimensions_bits
 	dc.l actor_mushroom_sheet_mushroom_270_frame_4_subsprite_pos_offsets
+
+actor_mushroom_sheet_mushroom_180_l2_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_180_l2_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_180_l2_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_180_l2_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_180_l2_frame_0_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_mushroom_sheet_mushroom_180_l2_frame_1_size_b		equ 0x0100	; Size in bytes
+actor_mushroom_sheet_mushroom_180_l2_frame_1_size_t		equ 0x0008	; Size in tiles
+actor_mushroom_sheet_mushroom_180_l2_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_180_l2_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000010, 0x00000010
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_180_l2_frame_1_subsprite_dimensions_bits:
+	dc.b 0xD
+	Even
+
+actor_mushroom_sheet_mushroom_180_l2_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_180_l2_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_180_l2_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_180_l2_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_180_l2_frame_2_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_mushroom_sheet_mushroom_180_l2_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_180_l2_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_180_l2_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_180_l2_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_180_l2_frame_3_subsprite_dimensions_bits:
+	dc.b 0xB
+	Even
+
+actor_mushroom_sheet_mushroom_180_l2_frame_4_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_180_l2_frame_4_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_180_l2_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_180_l2_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000008, 0x00000008
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_180_l2_frame_4_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
 
 actor_mushroom_sheet_mushroom_180_frame_0_size_b		equ 0x0180	; Size in bytes
 actor_mushroom_sheet_mushroom_180_frame_0_size_t		equ 0x000C	; Size in tiles
@@ -272,6 +423,77 @@ actor_mushroom_sheet_mushroom_225_frame_4_subsprite_dimensions_bits:
 	Even
 
 
+actor_mushroom_sheet_mushroom_270_l2_frame_0_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_270_l2_frame_0_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_270_l2_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_l2_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_l2_frame_0_subsprite_dimensions_bits:
+	dc.b 0xB
+	Even
+
+actor_mushroom_sheet_mushroom_270_l2_frame_1_size_b		equ 0x0100	; Size in bytes
+actor_mushroom_sheet_mushroom_270_l2_frame_1_size_t		equ 0x0008	; Size in tiles
+actor_mushroom_sheet_mushroom_270_l2_frame_1_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_l2_frame_1_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_l2_frame_1_subsprite_dimensions_bits:
+	dc.b 0x7
+	Even
+
+actor_mushroom_sheet_mushroom_270_l2_frame_2_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_270_l2_frame_2_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_270_l2_frame_2_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_l2_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00080000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_l2_frame_2_subsprite_dimensions_bits:
+	dc.b 0xB
+	Even
+
+actor_mushroom_sheet_mushroom_270_l2_frame_3_size_b		equ 0x0180	; Size in bytes
+actor_mushroom_sheet_mushroom_270_l2_frame_3_size_t		equ 0x000C	; Size in tiles
+actor_mushroom_sheet_mushroom_270_l2_frame_3_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_l2_frame_3_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_l2_frame_3_subsprite_dimensions_bits:
+	dc.b 0xE
+	Even
+
+actor_mushroom_sheet_mushroom_270_l2_frame_4_size_b		equ 0x0100	; Size in bytes
+actor_mushroom_sheet_mushroom_270_l2_frame_4_size_t		equ 0x0008	; Size in tiles
+actor_mushroom_sheet_mushroom_270_l2_frame_4_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_mushroom_sheet_mushroom_270_l2_frame_4_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00100000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_mushroom_sheet_mushroom_270_l2_frame_4_subsprite_dimensions_bits:
+	dc.b 0x7
+	Even
+
+
 actor_mushroom_sheet_mushroom_270_frame_0_size_b		equ 0x0180	; Size in bytes
 actor_mushroom_sheet_mushroom_270_frame_0_size_t		equ 0x000C	; Size in tiles
 actor_mushroom_sheet_mushroom_270_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
@@ -344,6 +566,524 @@ actor_mushroom_sheet_mushroom_270_frame_4_subsprite_dimensions_bits:
 
 
 spritesheets_mushroom:
+
+spritesheet_mushroom_mushroom_180_l2:
+
+actor_mushroom_sheet_mushroom_180_l2_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000024
+	dc.l	0x00000244
+	dc.l	0x00002444
+
+	dc.l	0x00002444
+	dc.l	0x000244A4
+	dc.l	0x00024AA4
+	dc.l	0x00024444
+	dc.l	0x00024444
+	dc.l	0x000244AA
+	dc.l	0x00024AAA
+	dc.l	0x000244A4
+
+	dc.l	0x00024444
+	dc.l	0x00022444
+	dc.l	0x00002224
+	dc.l	0x00000022
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x24424444
+	dc.l	0x4444AAAD
+	dc.l	0x44AAADDD
+	dc.l	0x4AAADDDD
+
+	dc.l	0x4AAADDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAAAADDDA
+	dc.l	0x4AAAAAAA
+	dc.l	0x4AAAAAAA
+	dc.l	0x44444AAA
+
+	dc.l	0x44444444
+	dc.l	0x44424222
+	dc.l	0x42222222
+	dc.l	0x2222288C
+	dc.l	0x0002CDDD
+	dc.l	0x0008CDDD
+	dc.l	0x0008CCDD
+	dc.l	0x000088CC
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x44442442
+	dc.l	0xDAAAA444
+	dc.l	0xDDDAAAA4
+	dc.l	0xDDDDAAAA
+
+	dc.l	0xDDDDDAAA
+	dc.l	0xDDDDDAAA
+	dc.l	0xDDDDAAAA
+	dc.l	0xDDDAAAAA
+	dc.l	0xAAAAAAAA
+	dc.l	0xAAAAAAAD
+	dc.l	0xAAAAAA4D
+	dc.l	0xAAA444AA
+
+	dc.l	0x44444444
+	dc.l	0x22242444
+	dc.l	0x22222224
+	dc.l	0xC8822222
+	dc.l	0xCDC82000
+	dc.l	0xCCC88000
+	dc.l	0xCCC88000
+	dc.l	0xCC880000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x42000000
+	dc.l	0x44200000
+	dc.l	0x44420000
+
+	dc.l	0x44420000
+	dc.l	0xA4442000
+	dc.l	0xA4442000
+	dc.l	0xA4442000
+	dc.l	0x4A442000
+	dc.l	0xD4442000
+	dc.l	0xD4442000
+	dc.l	0x44442000
+
+	dc.l	0x44442000
+	dc.l	0x44422000
+	dc.l	0x42220000
+	dc.l	0x22000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_180_l2_frame_1:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00222422
+	dc.l	0x0244AAAA
+	dc.l	0x244AADDA
+	dc.l	0x24AADADD
+	dc.l	0x24AAADDD
+
+	dc.l	0x24AAADDD
+	dc.l	0x24AADADD
+	dc.l	0x244AADAA
+	dc.l	0x2244AAAA
+	dc.l	0x02222444
+	dc.l	0x00022222
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x20000000
+	dc.l	0x44200000
+	dc.l	0xAAA24444
+	dc.l	0xDDDDDAAA
+	dc.l	0xDDDDDDDD
+
+	dc.l	0xDDDDDDDD
+	dc.l	0xDDDDDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAA422222
+	dc.l	0x42222222
+	dc.l	0x2222288C
+	dc.l	0x008CCDDC
+	dc.l	0x00088CCC
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000244
+	dc.l	0x444424AA
+	dc.l	0xAAAADDDD
+	dc.l	0xDDDDDDDD
+
+	dc.l	0xDDDDDDDD
+	dc.l	0xDDDDDDDD
+	dc.l	0xDDDDDDDD
+	dc.l	0x222224AA
+	dc.l	0x22222224
+	dc.l	0xC8822222
+	dc.l	0xCCCC8800
+	dc.l	0xCCC88000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x44422200
+	dc.l	0xAAAA4420
+	dc.l	0xAADAA442
+	dc.l	0xDDADAA42
+	dc.l	0xDDDAAA42
+
+	dc.l	0xDDDAAA42
+	dc.l	0xDDDDAA42
+	dc.l	0xAADAAD42
+	dc.l	0xAAADD422
+	dc.l	0x44422220
+	dc.l	0x22222000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_180_l2_frame_2:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000024
+	dc.l	0x00000024
+
+	dc.l	0x00000024
+	dc.l	0x00000024
+	dc.l	0x00000024
+	dc.l	0x00000024
+	dc.l	0x00000024
+	dc.l	0x00000024
+	dc.l	0x00000004
+	dc.l	0x00000004
+
+	dc.l	0x00000004
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00044444
+	dc.l	0x024444DD
+	dc.l	0x2444ADDD
+	dc.l	0x2444ADDD
+	dc.l	0x444DDDDD
+	dc.l	0x444DDDDD
+	dc.l	0x444DDADD
+	dc.l	0x44DAAAAA
+
+	dc.l	0x444AAAAA
+	dc.l	0x4444AAAA
+	dc.l	0x4444AAAA
+	dc.l	0x44444AAA
+	dc.l	0x44444A4A
+	dc.l	0x4444A4A4
+	dc.l	0x4444444A
+	dc.l	0x44444444
+
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x44444222
+	dc.l	0x02422222
+	dc.l	0x0022288C
+	dc.l	0x0002CDDD
+	dc.l	0x0008CCDD
+	dc.l	0x000088CC
+
+	dc.l	0x44444000
+	dc.l	0xDD444420
+	dc.l	0xDDDA4442
+	dc.l	0xDDDA4442
+	dc.l	0xDDDAA444
+	dc.l	0xDDDDA444
+	dc.l	0xDDADD444
+	dc.l	0xAAADD444
+
+	dc.l	0xAAAAA444
+	dc.l	0xAAAA4444
+	dc.l	0xAAAAA444
+	dc.l	0xAAA4D444
+	dc.l	0xAA4DD444
+	dc.l	0x4AADD444
+	dc.l	0x444D4444
+	dc.l	0x44444444
+
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x22444444
+	dc.l	0x22224420
+	dc.l	0xC8822200
+	dc.l	0xCDC82000
+	dc.l	0xCCC88000
+	dc.l	0xCC880000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x20000000
+	dc.l	0x20000000
+	dc.l	0x42000000
+	dc.l	0x42000000
+
+	dc.l	0x42000000
+	dc.l	0x42000000
+	dc.l	0x42000000
+	dc.l	0x42000000
+	dc.l	0x42000000
+	dc.l	0x42000000
+	dc.l	0x40000000
+	dc.l	0x40000000
+
+	dc.l	0x40000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_180_l2_frame_3:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00004444
+	dc.l	0x000444AD
+	dc.l	0x00444ADD
+	dc.l	0x02444DDD
+	dc.l	0x04444DDD
+
+	dc.l	0x0444ADDD
+	dc.l	0x2444ADDD
+	dc.l	0x2444DDDD
+	dc.l	0x2444DDDD
+	dc.l	0x4444DDDD
+	dc.l	0x4444DAAD
+	dc.l	0x444DAAAA
+	dc.l	0x4444AAAA
+
+	dc.l	0x44444AAA
+	dc.l	0x44444AAA
+	dc.l	0x444444AA
+	dc.l	0x44444A4A
+	dc.l	0x444A44A4
+	dc.l	0x44444444
+	dc.l	0x44444242
+	dc.l	0x44242222
+
+	dc.l	0x04422222
+	dc.l	0x04422222
+	dc.l	0x0242288C
+	dc.l	0x002228CD
+	dc.l	0x0002CDDD
+	dc.l	0x0008CDDD
+	dc.l	0x0008CCDD
+	dc.l	0x000088CC
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x44400000
+	dc.l	0xA4440000
+	dc.l	0xDA444000
+	dc.l	0xDD444200
+	dc.l	0xDD444400
+
+	dc.l	0xDDA44400
+	dc.l	0xDDA44420
+	dc.l	0xDDA44420
+	dc.l	0xDAA44420
+	dc.l	0xDAD44442
+	dc.l	0xAADD4442
+	dc.l	0xAADD4442
+	dc.l	0xAAAD4442
+
+	dc.l	0xAA444442
+	dc.l	0xAAAD4442
+	dc.l	0xAADD4442
+	dc.l	0xA4DD4442
+	dc.l	0x444A4440
+	dc.l	0x4D444440
+	dc.l	0x42444440
+	dc.l	0x22242440
+
+	dc.l	0x22224400
+	dc.l	0x22224400
+	dc.l	0xC8822200
+	dc.l	0xCD822000
+	dc.l	0xCDC82000
+	dc.l	0xCCC88000
+	dc.l	0xCCC88000
+	dc.l	0xCC880000
+
+
+actor_mushroom_sheet_mushroom_180_l2_frame_4:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000024
+
+	dc.l	0x00002444
+	dc.l	0x00024444
+	dc.l	0x0002444A
+	dc.l	0x00244AAA
+	dc.l	0x0024AAAA
+	dc.l	0x002444AA
+	dc.l	0x002444AA
+	dc.l	0x00244AAA
+
+	dc.l	0x0024AAAA
+	dc.l	0x00244AA4
+	dc.l	0x00224444
+	dc.l	0x00022244
+	dc.l	0x00002222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x24424444
+
+	dc.l	0x4AAAADDD
+	dc.l	0xAAAADDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAADDDDDD
+	dc.l	0xAADDDDDD
+	dc.l	0xAADDDDDD
+	dc.l	0xAAADDDDA
+	dc.l	0xAAAAAAAA
+
+	dc.l	0x4AAAAAAA
+	dc.l	0x44444AAA
+	dc.l	0x44224222
+	dc.l	0x22222222
+	dc.l	0x2222288D
+	dc.l	0x0002CDDD
+	dc.l	0x0008CCDD
+	dc.l	0x000088CC
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x44442442
+
+	dc.l	0xDDDAAAAA
+	dc.l	0xDDDDAAAA
+	dc.l	0xDDDDDAAA
+	dc.l	0xDDDDDDAA
+	dc.l	0xDDDDAAAA
+	dc.l	0xDDDAAAAA
+	dc.l	0xAAAAAAAA
+	dc.l	0xAAAAAAAD
+
+	dc.l	0xAAAAAA4D
+	dc.l	0xAAA444AA
+	dc.l	0x22242244
+	dc.l	0x22222222
+	dc.l	0xC8822222
+	dc.l	0xCCC82000
+	dc.l	0xCCC88000
+	dc.l	0xCC880000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x42000000
+
+	dc.l	0x44420000
+	dc.l	0xA4442000
+	dc.l	0xA4442000
+	dc.l	0xAA444200
+	dc.l	0xAA444200
+	dc.l	0xAAA44200
+	dc.l	0x4AA44200
+	dc.l	0xD4444200
+
+	dc.l	0xD4444200
+	dc.l	0x44444200
+	dc.l	0x44442200
+	dc.l	0x44222000
+	dc.l	0x22220000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+
 
 spritesheet_mushroom_mushroom_180:
 
@@ -1341,6 +2081,488 @@ actor_mushroom_sheet_mushroom_225_frame_4:
 	dc.l	0x27711000
 	dc.l	0x12110000
 	dc.l	0x11100000
+
+
+
+
+spritesheet_mushroom_mushroom_270_l2:
+
+actor_mushroom_sheet_mushroom_270_l2_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000022
+	dc.l	0x00000224
+	dc.l	0x00000244
+	dc.l	0x00002244
+	dc.l	0x00002444
+
+	dc.l	0x00002444
+	dc.l	0x00002244
+	dc.l	0x00002244
+	dc.l	0x08822224
+	dc.l	0x8CCC2244
+	dc.l	0x8CDD8224
+	dc.l	0xCDDD8224
+	dc.l	0xCDDDC224
+
+	dc.l	0xCCCCC224
+	dc.l	0xCCCD8224
+	dc.l	0x8CCC8224
+	dc.l	0x88882244
+	dc.l	0x08822224
+	dc.l	0x00002244
+	dc.l	0x00002244
+	dc.l	0x00002444
+
+	dc.l	0x00002444
+	dc.l	0x00002244
+	dc.l	0x00000244
+	dc.l	0x00000224
+	dc.l	0x00000022
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22222220
+	dc.l	0x44444442
+	dc.l	0x4A444A44
+	dc.l	0xAAA44AA4
+	dc.l	0x4AA44444
+
+	dc.l	0x444AAAA4
+	dc.l	0x4AAAAAAA
+	dc.l	0x4AAAAAAA
+	dc.l	0x4AAADDDA
+	dc.l	0x4AADDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAAAADDDD
+
+	dc.l	0xAAAADDDD
+	dc.l	0xAAAADDDD
+	dc.l	0xAAAADDDD
+	dc.l	0x4AAAADDD
+	dc.l	0x4AAAAADD
+	dc.l	0x4AAAAAAA
+	dc.l	0xA4AAAAAA
+	dc.l	0xADDAAAAA
+
+	dc.l	0x4DD4AAA4
+	dc.l	0x444A4444
+	dc.l	0x44444444
+	dc.l	0x44444442
+	dc.l	0x22222220
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x20000000
+	dc.l	0x42000000
+	dc.l	0x44200000
+	dc.l	0x44400000
+
+	dc.l	0x44420000
+	dc.l	0xA4440000
+	dc.l	0xAA440000
+	dc.l	0xAA420000
+	dc.l	0xDAA40000
+	dc.l	0xDDA40000
+	dc.l	0xDDA40000
+	dc.l	0xDDD40000
+
+	dc.l	0xDDD40000
+	dc.l	0xDDA40000
+	dc.l	0xDDA40000
+	dc.l	0xDAA40000
+	dc.l	0xAAA20000
+	dc.l	0xAA440000
+	dc.l	0xAA440000
+	dc.l	0xA4420000
+
+	dc.l	0x44400000
+	dc.l	0x44200000
+	dc.l	0x42000000
+	dc.l	0x20000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_270_l2_frame_1:
+	dc.l	0x00002222
+	dc.l	0x00022444
+	dc.l	0x000244AA
+	dc.l	0x00224AAA
+	dc.l	0x0022AADA
+	dc.l	0x0024ADAD
+	dc.l	0x0024AADD
+	dc.l	0x0024AADD
+
+	dc.l	0x0024AADD
+	dc.l	0x0022AADD
+	dc.l	0x08224ADD
+	dc.l	0x8C222DDD
+	dc.l	0x8C222DDD
+	dc.l	0xCD822DDD
+	dc.l	0xCD822DDD
+	dc.l	0xCCC22DDD
+
+	dc.l	0xCCC22DDD
+	dc.l	0xCC822DDD
+	dc.l	0xCC822DDD
+	dc.l	0x8C222DDD
+	dc.l	0x88222DDD
+	dc.l	0x08224DDD
+	dc.l	0x0022ADDD
+	dc.l	0x0024ADDD
+
+	dc.l	0x0024AADD
+	dc.l	0x0024AADD
+	dc.l	0x0024ADDD
+	dc.l	0x0022DADA
+	dc.l	0x0022DAAA
+	dc.l	0x00024DAA
+	dc.l	0x00022444
+	dc.l	0x00002222
+
+	dc.l	0x22200000
+	dc.l	0x44420000
+	dc.l	0xAA442000
+	dc.l	0xAAA42000
+	dc.l	0xADAA2000
+	dc.l	0xDADA4000
+	dc.l	0xDDDA2000
+	dc.l	0xDDAA2000
+
+	dc.l	0xDDA42000
+	dc.l	0xDDA40000
+	dc.l	0xDDA20000
+	dc.l	0xDD200000
+	dc.l	0xDD400000
+	dc.l	0xDA400000
+	dc.l	0xDA400000
+	dc.l	0xDA400000
+
+	dc.l	0xDA400000
+	dc.l	0xDA400000
+	dc.l	0xDA400000
+	dc.l	0xDA400000
+	dc.l	0xDD200000
+	dc.l	0xDD420000
+	dc.l	0xDDA40000
+	dc.l	0xDDA42000
+
+	dc.l	0xDDAA4000
+	dc.l	0xDDAA4000
+	dc.l	0xDADA4000
+	dc.l	0xADAA2000
+	dc.l	0xAAA42000
+	dc.l	0xAA442000
+	dc.l	0x44420000
+	dc.l	0x22200000
+
+
+actor_mushroom_sheet_mushroom_270_l2_frame_2:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000004
+
+	dc.l	0x00000444
+	dc.l	0x00002444
+	dc.l	0x00024444
+	dc.l	0x08222444
+	dc.l	0x8CC22444
+	dc.l	0x8CD82244
+	dc.l	0xCDD82244
+	dc.l	0xCDDC2244
+
+	dc.l	0xCCCC2244
+	dc.l	0xCCD82244
+	dc.l	0x8CC82444
+	dc.l	0x88822444
+	dc.l	0x08224444
+	dc.l	0x00024444
+	dc.l	0x00002444
+	dc.l	0x00000444
+
+	dc.l	0x00000004
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00222222
+	dc.l	0x44444444
+
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x4444444A
+	dc.l	0x44A44AAA
+	dc.l	0x444AAAAA
+	dc.l	0x44A4AAAA
+	dc.l	0x4A4AAAAA
+
+	dc.l	0x444AAAAA
+	dc.l	0x44AAAAAA
+	dc.l	0x44A4AAAA
+	dc.l	0x4DDD4AAA
+	dc.l	0x44DDDA4A
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x44444444
+
+	dc.l	0x44444444
+	dc.l	0x00222222
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22000000
+	dc.l	0x44220000
+
+	dc.l	0x44442200
+	dc.l	0x44444420
+	dc.l	0xD4444440
+	dc.l	0xADDD4444
+	dc.l	0xADDDAA44
+	dc.l	0xAADDDD44
+	dc.l	0xADDDDDD4
+	dc.l	0xADDDDDD4
+
+	dc.l	0xADDDDDD4
+	dc.l	0xADDDDDD4
+	dc.l	0xAADDDD44
+	dc.l	0xDDDAAA44
+	dc.l	0xDDAA4444
+	dc.l	0x44444440
+	dc.l	0x44444420
+	dc.l	0x44442200
+
+	dc.l	0x44220000
+	dc.l	0x22000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_270_l2_frame_3:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000244
+	dc.l	0x00002444
+	dc.l	0x08822222
+	dc.l	0x8CCC2222
+	dc.l	0x8CDD8822
+	dc.l	0xCDDDC822
+	dc.l	0xCDDDDC22
+
+	dc.l	0xCCCCCC22
+	dc.l	0xCCCDD822
+	dc.l	0x8CCC8822
+	dc.l	0x88882222
+	dc.l	0x08822244
+	dc.l	0x00000244
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00002222
+
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x24444444
+	dc.l	0x444A4444
+	dc.l	0x24444444
+	dc.l	0x2244A4AA
+	dc.l	0x244A4AAA
+	dc.l	0x2244AAAA
+
+	dc.l	0x2444AAAA
+	dc.l	0x22D44AAA
+	dc.l	0x2444DDA4
+	dc.l	0x444ADDD4
+	dc.l	0x24444444
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x00002222
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22220000
+
+	dc.l	0x44442220
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x4D444444
+	dc.l	0xAADDDDAA
+	dc.l	0xAAADDDDD
+	dc.l	0xAAADDDDD
+	dc.l	0xAADDDDDD
+
+	dc.l	0xAAADDDDD
+	dc.l	0xAAAAADDD
+	dc.l	0xADDDAAAA
+	dc.l	0xDDD44444
+	dc.l	0x44444444
+	dc.l	0x44444444
+	dc.l	0x44442220
+	dc.l	0x22220000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x42000000
+	dc.l	0x44400000
+	dc.l	0x44440000
+	dc.l	0x44444000
+	dc.l	0xDDA44000
+	dc.l	0xDDDA4000
+	dc.l	0xDDDD4000
+
+	dc.l	0xDDDA4000
+	dc.l	0xDDA44000
+	dc.l	0x44444000
+	dc.l	0x44440000
+	dc.l	0x44400000
+	dc.l	0x42000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_mushroom_sheet_mushroom_270_l2_frame_4:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000222
+	dc.l	0x00002244
+	dc.l	0x0002244A
+	dc.l	0x000224AA
+	dc.l	0x000244AA
+	dc.l	0x0002444A
+
+	dc.l	0x00022444
+	dc.l	0x0002244A
+	dc.l	0x0002224A
+	dc.l	0x0822224A
+	dc.l	0x8CC2244A
+	dc.l	0x8CD822AA
+	dc.l	0xCDD822AA
+	dc.l	0xCDDD22AA
+
+	dc.l	0xCCCC22AA
+	dc.l	0xCCC822AA
+	dc.l	0x8CC822AA
+	dc.l	0x8882244A
+	dc.l	0x0822224A
+	dc.l	0x0002224A
+	dc.l	0x000224A4
+	dc.l	0x000224AD
+
+	dc.l	0x0002444D
+	dc.l	0x00024444
+	dc.l	0x00022444
+	dc.l	0x00022444
+	dc.l	0x00002244
+	dc.l	0x00000222
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22222000
+	dc.l	0x44444220
+	dc.l	0x444A4442
+	dc.l	0xA44AA444
+	dc.l	0xAAAAA444
+	dc.l	0xAAAAAA44
+
+	dc.l	0xAAAAAAA4
+	dc.l	0xAAAAAAAA
+	dc.l	0xAADDDAAA
+	dc.l	0xADDDDDAA
+	dc.l	0xADDDDDDA
+	dc.l	0xADDDDDDD
+	dc.l	0xADDDDDDD
+	dc.l	0xAADDDDDD
+
+	dc.l	0xAADDDDDD
+	dc.l	0xAADDDDDD
+	dc.l	0xAADDDDDD
+	dc.l	0xAAADDDDA
+	dc.l	0xAAAADDAA
+	dc.l	0xAAAADAAA
+	dc.l	0xAAAAAAAA
+	dc.l	0xDAAAAAAA
+
+	dc.l	0xD4AAAAA4
+	dc.l	0x4AAAA444
+	dc.l	0x4AA44444
+	dc.l	0x44444442
+	dc.l	0x44444220
+	dc.l	0x22222000
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 
 
