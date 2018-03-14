@@ -66,6 +66,7 @@ L6A1_LogRollCamLerpTime		equ 0x1E
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l6a1Data_CutsceneLogRoll1		rs.b Cutscene_Struct_Size
 l6a1Data_LogRollCamLerpTimer	rs.w 1
 ;---------------------------------
 	RS_ALIGN
@@ -98,6 +99,16 @@ L6a1_Init:
 
 	; Load scene animations
 	jsr    L6_LoadSceneAnimations
+
+	;==============================================================
+
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L6A1, a2
+	lea    l6a1Data_CutsceneLogRoll1(a2), a0
+	move.l #l6a1_CutsceneLogRoll1, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 	
 	;==============================================================
 
@@ -230,19 +241,12 @@ l6a1_Trigger_MusicCue:
 
 L6a1_LogRoll1Begin
 
-	; Roll bridge
-	ENTITY_GETBYNAME Bridge, l6a1_Bridge1, a0
-	jsr    BridgeBeginRoll
-
-	; Set log rolling, update out of view, not pushable, hazardous
-	ENTITY_GETBYNAME Log, l6a1_Log1, a0
-	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
-	neg.w  d0
-	jsr    LogBeginHazardousRoll
-
-	; Disable button
-	ENTITY_GETBYNAME Button, l6a1_Button1, a0
-	move.b #0x0, Button_Active(a0)
+	; Start cutscene
+	PUSHL  a0
+	lea    LevelData_L6A1, a2
+	lea    l6a1Data_CutsceneLogRoll1(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	rts
 
@@ -297,6 +301,49 @@ L6a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+l6a1_CutsceneLogRoll1:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Camera lerp
+	CUTSCENE_GET_ENTITY Log, l6a1_Log1, a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+
+	; Roll bridge
+	CUTSCENE_GET_ENTITY Bridge, l6a1_Bridge1, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#BridgeBeginRoll
+
+	; Set log rolling, update out of view, not pushable, hazardous
+	CUTSCENE_GET_ENTITY Log, l6a1_Log1, a2
+	MOVE_NTSC_ACCEL_W L3A2_LogRollAccel, d0, d1
+	neg.w  d0
+	CUTSCENE_OBJECT_ROUTINE a2,#LogBeginHazardousRoll
+
+	; Disable button
+	CUTSCENE_GET_ENTITY Button, l6a1_Button1, a2
+	CUTSCENE_OBJECT_SET_PARAM_B a2,#Button_Active,#0x0
+
+	; Wait until log stopped
+	CUTSCENE_GET_ENTITY Log, l6a1_Log1,a2
+	CUTSCENE_OBJECT_WAIT_STOP a2
+
+	; Camera lerp back
+	CUTSCENE_GET_ENTITY Log, l6a1_Log1, a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
 	rts
 
 L6_SetActData:
