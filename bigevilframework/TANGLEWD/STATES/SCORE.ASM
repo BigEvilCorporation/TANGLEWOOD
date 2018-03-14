@@ -130,6 +130,13 @@ EndLevelScoreScreen_Enter:
 	move.l #PaletteId_World0, d3
 	jsr    VDP_LoadBlockMapPlaneA
 
+	; Load font
+	move.w #CharMap_SizeB, d0
+	jsr    VRAM_PoolAlloc
+	move.w d0, (vram_addr_systemfontb)
+	lea    tiles_twfontbs, a0
+	jsr    TXT_LoadFont
+
 	;==============================================================
 
 	; Store next level
@@ -160,7 +167,7 @@ EndLevelScoreScreen_Enter:
 
 	; Level
 	move.l Level_Name(a2), a0					; String
-	move.w (vram_addr_systemfont), d0			; Font tile ID
+	move.w (vram_addr_systemfontb), d0			; Font tile ID
 	BYTES2TILES d0
 	move.l #(EndLevelScore_LevelPosX<<16)|EndLevelScore_LevelPosY, d1	; X/Y coord
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
@@ -169,7 +176,7 @@ EndLevelScoreScreen_Enter:
 
 	; Title
 	lea    EndLevelString_Title, a0				; String
-	move.w (vram_addr_systemfont), d0			; Font tile ID
+	move.w (vram_addr_systemfontb), d0			; Font tile ID
 	BYTES2TILES d0
 	move.l #(EndLevelScore_TitlePosX<<16)|EndLevelScore_TitlePosY, d1	; X/Y coord
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
@@ -196,7 +203,7 @@ EndLevelScoreScreen_Enter:
 	PUSHM  d0/a4-a5
 
 	; Draw act string
-	move.w (vram_addr_systemfont), d0			; Font tile ID
+	move.w (vram_addr_systemfontb), d0			; Font tile ID
 	BYTES2TILES d0
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
 	move.b #0x0, d3								; Plane A
@@ -374,7 +381,7 @@ EndLevelScoreScreen_DrawFireflyCountText:
 	POPL    d1
 	
 	moveq #0x0, d0
-	move.w  (vram_addr_systemfont), d0	; Font VDP address
+	move.w  (vram_addr_systemfontb), d0	; Font VDP address
 	BYTES2TILES d0
 	move.l  a2, a0						; String
 	move.b #EndLevelScore_TextFontPaletteId, d2	; Palette
