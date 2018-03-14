@@ -460,6 +460,7 @@ PoolDMALine:
 
 	move.w d2, d1
 	move.l a0, d2
+	move.b #0x2, d6
 	move.b #DMAVDPQueue_VRAM, d7
 	jsr    VDP_DMAQueue_AddToQueue
 
