@@ -906,13 +906,13 @@ PlayerStopColourAbility:
 	; and it's no longer our friend
 	move.l #0x0, Player_Pet(a0)
 
+	; Release interaction obj
+	move.l #0x0, Player_InteractObject(a0)
+
 	@PetDead:
 	@NoPet:
 	@PetStillTamed:
 	@Dismounted:
-
-	; Release interaction obj
-	move.l #0x0, Player_InteractObject(a0)
 	
 	bra    @ReturnColour
 
