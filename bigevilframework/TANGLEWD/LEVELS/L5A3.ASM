@@ -564,21 +564,74 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
+	; Load black palette
+	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_black, #PaletteId_Monster
+
+	; Begin monster approach track
+	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
+	CUTSCENE_DELAY #0x00A0
+
+	; Lerp camera to just above scrap
+	CUTSCENE_GET_ENTITY Location,l5a3_LocationScrapCamera,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x04
+	CUTSCENE_CAMERA_LERP_WAIT
+	CUTSCENE_DELAY #0x0020
+
 	; Lerp camera to scrap
-	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_GET_ENTITY Location,l5a3_LocationScrapCamera,a2
+	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a3
+	CUTSCENE_CAMERA_LERP a2,a3,#0x10
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
 	; Begin reveal
-	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
-	CUTSCENE_OBJECT_ROUTINE a2,#ScrapAIStart_Emerge
+	;CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	;CUTSCENE_OBJECT_ROUTINE a2,#ScrapAIStart_Emerge
 
+	; Fade in palette
+	CUTSCENE_GAME_PALETTE_FADETO #palette_djakk,#PaletteId_Monster,#LevelFadeUpSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
+	CUTSCENE_PALETTE_FADE_WAIT
+	CUTSCENE_DELAY #0x0020
+
+	; Record scratch
+	CUTSCENE_STOP_TRACK
+
+	; Bark
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#ScrapBark
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp camera to Echo
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+
+	; Echo shout
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
+	CUTSCENE_DELAY #0x0020
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
+
+	; Echo run over
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#-0x10,#0x10
+
+	; Echo dance around
+	CUTSCENE_CHARACTER_ANIM Player2,#Echo_Animations,#EchoAnimIdx_CircleNymn
+	CUTSCENE_CHARACTER_ANIM_WAIT Player2
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
 	CUTSCENE_DELAY #0x0080
 
+	; Play Scrap theme
+	CUTSCENE_PLAY_TRACK #track_bgm_cue_scrap
+	CUTSCENE_DELAY #0x0020
+
 	; Lerp back
-	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+
+	; Scrap begin AI
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#ScrapBark
+	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
+	CUTSCENE_OBJECT_ROUTINE a2,#ScrapAIStart_Follow
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1

@@ -175,7 +175,13 @@ L5A3_CheckpointRaft_name	dc.b "L5A3_CheckpointRaft",0
 
 L5A3_WaterBody_count equ 0x0
 
-L5A3_Location_count equ 0x0
+L5A3_Location_count equ 0x1
+L5A3_LocationScrapCamera_idx	equ 0x0
+
+	IFND FINAL
+L5A3_LocationScrapCamera_name	dc.b "L5A3_LocationScrapCamera",0
+	even
+	ENDIF
 
 L5A3_Deathbox_count equ 0x2
 L5A3_Deathbox_23_idx	equ 0x0
@@ -866,8 +872,8 @@ L5A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x1fe00000, Entity_WorldPosX(a0)
-	move.l #0x05500000, Entity_WorldPosY(a0)
+	move.l #0x1ec00000, Entity_WorldPosX(a0)
+	move.l #0x05700000, Entity_WorldPosY(a0)
 	move.l #l5a3_Trigger_Scrap, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
@@ -973,6 +979,25 @@ L5A3_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L5A3_Location_count)
+	move.l a1, EntityPoolStart_Location
+	move.l a1, a0
+	POPL   a1
+
+	jsr LocationInit
+	move.l #0x20d00000, Entity_WorldPosX(a0)
+	move.l #0x05780000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L5A3_LocationScrapCamera_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
 
 
 	PUSHL  a1

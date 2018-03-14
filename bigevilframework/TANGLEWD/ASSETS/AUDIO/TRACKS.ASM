@@ -21,6 +21,7 @@ bgm_cue_l4:			include 'assets\audio\tracks\cue_l4.asm'
 bgm_cue_l5:			include 'assets\audio\tracks\cue_l5.asm'
 bgm_cue_l6:			include 'assets\audio\tracks\cue_l6.asm'
 bgm_cue_l7:			include 'assets\audio\tracks\cue_l7.asm'
+bgm_cue_scrap:		include 'assets\audio\tracks\scrap.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
 bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
@@ -229,6 +230,16 @@ track_bgm_cue_l5:
 	dc.b	Audio_NonExclusive
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_cue_scrap:
+	dc.l	bgm_cue_scrap
+	dc.w	0x003F
+	dc.w	0x0
+	dc.b	Track_Type_Cue
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_Ambience-1
+	dc.b	Track_Transition_Instant
 	even
 
 track_bgm_cue_l6:
