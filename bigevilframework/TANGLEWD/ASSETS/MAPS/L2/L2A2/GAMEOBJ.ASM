@@ -908,8 +908,8 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x06380000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
+	move.l #0x06400000, Entity_WorldPosX(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0038, Entity_Height(a0)
 	jsr DeathboxLoadGfx
@@ -923,8 +923,8 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x0db80000, Entity_WorldPosX(a0)
-	move.l #0x04100000, Entity_WorldPosY(a0)
+	move.l #0x0dc00000, Entity_WorldPosX(a0)
+	move.l #0x04180000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
@@ -938,8 +938,8 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x0bd80000, Entity_WorldPosX(a0)
-	move.l #0x04e00000, Entity_WorldPosY(a0)
+	move.l #0x0be00000, Entity_WorldPosX(a0)
+	move.l #0x04e80000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
@@ -953,8 +953,8 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x0f400000, Entity_WorldPosX(a0)
-	move.l #0x02980000, Entity_WorldPosY(a0)
+	move.l #0x0f380000, Entity_WorldPosX(a0)
+	move.l #0x02a00000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0038, Entity_Height(a0)
 	jsr DeathboxLoadGfx
@@ -968,8 +968,8 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x18b80000, Entity_WorldPosX(a0)
-	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.l #0x18c00000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx

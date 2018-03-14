@@ -909,8 +909,8 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x28780000, Entity_WorldPosX(a0)
-	move.l #0x02280000, Entity_WorldPosY(a0)
+	move.l #0x28800000, Entity_WorldPosX(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0038, Entity_Height(a0)
 	jsr DeathboxLoadGfx
@@ -924,8 +924,8 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x16b80000, Entity_WorldPosX(a0)
-	move.l #0x02780000, Entity_WorldPosY(a0)
+	move.l #0x16c00000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
 	move.w #0x0008, Entity_Width(a0)
 	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
