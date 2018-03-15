@@ -358,6 +358,7 @@ PhysicsObjSleepyUpdate:
 	; Floor/wall state changed, run collision correction
 	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectX
+	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectY
 	
 	; Wake up
@@ -794,6 +795,23 @@ PhysicsObjApplyVelocityX:
 	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectX
 
+	; If hitting floor and no Y vel, also re-check floors
+	move.b PhysicsObj_CloseToFloor(a0), d1
+	beq    @NoCheckFloor
+	move.l PhysicsObj_VelY(a0), d0
+	add.l  PhysicsObj_ImpulseY(a0), d0
+	bne    @NoCheckFloor
+	tst.b  PhysicsObj_CollideFloor(a0)
+	beq    @NoCheckFloor
+	move.b #0x1, d0
+	jsr    PhysicsObjFindFloor
+
+	; Collision correction
+	move.b #0x1, d1
+	jsr    PhysicsObjCollisionCorrectY
+
+	@NoCheckFloor:
+
 	@NoCheckCollision:
 
 	POPM   d0-d3
@@ -908,6 +926,7 @@ PhysicsObjApplyVelocityY:
 	@NoCheckWall:
 	
 	; Collision correction
+	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectY
 	move.b d0, d7
 
@@ -1064,6 +1083,7 @@ PhysicsObjCollisionCorrectY:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; d0 (b) OUT: Corrected
+	; d1 (b) Forced (ignore velocity check)
 
 	;==============================================================
 	; Correct floor collision
@@ -1071,8 +1091,11 @@ PhysicsObjCollisionCorrectY:
 	move.b #0x0, d0
 
 	; If not moving on Y axis, skip floor and ceiling correction
+	tst.b  d1
+	bne    @Forced
 	tst.l  PhysicsObj_VelY(a0)
 	beq    @HeadingNowhereY
+	@Forced:
 
 	move.b PhysicsObj_OnFloor(a0), d4
 
