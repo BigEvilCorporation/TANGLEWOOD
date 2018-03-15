@@ -504,6 +504,7 @@ MonsterSerialise:
 	
 	@Saving:
 	
+	SAVEL SpriteObj_PaletteAddr(a0)
 	SAVEB Monster_State(a0)
 	SAVEB Entity_Active(a0)
 	
@@ -513,8 +514,15 @@ MonsterSerialise:
 	
 	@Loading:
 	
+	LOADL SpriteObj_PaletteAddr(a0)
 	LOADB Monster_State(a0)
 	LOADB Entity_Active(a0)
+
+	; TODO: Other states
+	cmp.b #MonsterState_Chasing, Monster_State(a0)
+	bne   @NotChasing
+	jsr   MonsterStartTrackPlayer
+	@NotChasing:
 	
 	;==============================================================
 	
