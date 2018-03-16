@@ -1326,23 +1326,6 @@ EchoAIUpdate_FollowNodes:
 	move.w EchoAINode_ToleranceX(a3), d3
 	move.w EchoAINode_ToleranceY(a3), d4
 
-	; If run into a wall and next node above Echo, jump
-	PUSHL  d1
-	PHYSICS_HITFACINGWALL a0
-	POPL   d1
-	tst.b  d0
-	beq    @NotHitWall
-	ENTITY_GETCENTREY d0,a0
-	TOPIXELS d0
-	cmp.w  d0, d2
-	bgt    @NotHitWall
-	tst.b  PhysicsObj_CloseToFloor(a0)
-	beq    @InAir
-	move.b #0x0, d2
-	jsr    CharacterStartJump
-	@NotHitWall:
-	@InAir:
-
 	; Check for water
 	jsr     EchoAILookAheadWater
 	tst.b   d0
@@ -1368,11 +1351,33 @@ EchoAIUpdate_FollowNodes:
 	bra    @WithinBounds
 	
 	@TooFarleft:
+
+	; Too far left, move right
 	jsr    CharacterMoveRight
+
+	; If hit wall to right, jump
+	move.b PhysicsObj_HitWall(a0), d1
+	andi.b #PhysicsObjHitWallRight, d1
+	beq    @NoJumpRight
+	move.b #0x0, d2
+	jsr    CharacterStartJump
+	@NoJumpRight:
+
 	bra    @Moving
 	
 	@TooFarRight:
+
+	; Too far right, move left
 	jsr    CharacterMoveLeft
+
+	; If hit wall to left, jump
+	move.b PhysicsObj_HitWall(a0), d1
+	andi.b #PhysicsObjHitWallLeft, d1
+	beq    @NoJumpLeft
+	move.b #0x0, d2
+	jsr    CharacterStartJump
+	@NoJumpLeft:
+
 	bra    @Moving
 	
 	@WithinBounds:
