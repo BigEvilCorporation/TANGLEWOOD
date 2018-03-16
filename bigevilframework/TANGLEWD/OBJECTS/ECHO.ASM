@@ -660,22 +660,26 @@ EchoDraw:
 	mulu   #EchoAINode_Struct_Size, d6
 	lea    Echo_AIFollowNodes(a0), a2
 	add.l  d6, a2
-	move.w Entity_Height(a0), d3
+	;move.w Entity_Height(a0), d3
 	move.l (EntityPoolStart_Fuzzl), a0
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
-	PUSHM  d0-d1
+	move.b SpriteObj_Visible(a0), d2
+	PUSHM  d0-d2
 	move.w EchoAINode_PosX(a2), d0
 	move.w EchoAINode_PosY(a2), d1
-	add.w  d3, d1
+	;add.w  d3, d1
 	TOSUBPIXELS d0
 	TOSUBPIXELS d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
+	CAMERA_GETSCREENBOUNDS d2,d3,d4,d5
+	move.b #0x1, SpriteObj_Visible(a0)
 	jsr    SpriteObjDraw
-	POPM   d0-d1
+	POPM   d0-d2
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
+	move.b d2, SpriteObj_Visible(a0)
 	POPM   d6-d7/a0-a1
 	addq.w #0x1, d6
 	cmp.w  d6, d7
@@ -689,15 +693,16 @@ EchoDraw:
 	move.l #((8*8)<<16)|(4*8), d1
 	jsr    DBG_DrawWord
 
-	move.w Echo_AINodeProducer(a0), d0
-	move.w Echo_AINodeConsumer(a0), d1
-	cmp.w  d0, d1
+	clr.w  d0
+	move.w Echo_AINodeProducer(a0), d2
+	move.w Echo_AINodeConsumer(a0), d3
+	cmp.w  d2, d3
 	beq    @DebugNoNodes
 	jsr    EchoAIPeekNodeFront
 	move.b EchoAINode_Action(a3), d0
+	@DebugNoNodes:
 	move.l #((8*8)<<16)|(5*8), d1
 	jsr    DBG_DrawWord
-	@DebugNoNodes:
 	ENDIF
 
 	rts
