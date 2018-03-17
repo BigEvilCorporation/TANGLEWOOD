@@ -2538,14 +2538,18 @@ PlayerInteractTest_Ladder:
 	tst.b  d0
 	bne    @Forced
 
-	; If jumping and +ve velocity, don't bother
+	; If jumping and +ve velocity, or controlling left/right, don't bother
 	tst.b  Character_Jumping(a0)
 	beq    @NotJumping
 
-	; Check velocity
+	; Check Y velocity
 	MOVE_NTSC_L Player1MaxVelXWalk, d0, d1
 	cmp.l  PhysicsObj_VelY(a0), d0
 	ble    @CantUseLadder
+
+	; Check X controls
+	tst.b  Character_ControlX(a0)
+	bne    @CantUseLadder
 
 	@NotJumping:
 	@Forced:
@@ -2725,6 +2729,7 @@ PlayerInteractTest_Ladder:
 	bra    @Found
 	
 	@NoIntersect:
+	@JumpingAway:
 	
 	; Next ladder
 	lea  Ladder_Struct_Size(a2), a2

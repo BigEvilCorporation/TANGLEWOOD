@@ -529,6 +529,9 @@ CharacterUpdateAnimState:
 CharacterMoveLeft:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
+
+	; Set control
+	move.b #-1, Character_ControlX(a0)
 	
 	; Check if player dead
 	tst.b  Character_Dead(a0)
@@ -541,9 +544,6 @@ CharacterMoveLeft:
 	; Check if heading in opposite direction
 	tst.l  PhysicsObj_VelX(a0)
 	bgt    @Decelerate
-
-	; Can move left
-	move.b #-1, Character_ControlX(a0)
 	
 	; Check if running or walking
 	tst.b  Character_Walking(a0)
@@ -573,6 +573,9 @@ CharacterMoveRight:
 	; a0 --- GameObj addr
 	; NB: Gamepad state in d0-d1, leave alone
 	
+	; Set control
+	move.b #1, Character_ControlX(a0)
+
 	; Check if player dead
 	tst.b  Character_Dead(a0)
 	bne    @End
@@ -580,9 +583,6 @@ CharacterMoveRight:
 	; Check if player climbing
 	tst.b  Character_Climbing(a0)
 	bne    @End
-
-	; Can move right
-	move.b #1, Character_ControlX(a0)
 	
 	; Check if heading in opposite direction
 	tst.l  PhysicsObj_VelX(a0)
