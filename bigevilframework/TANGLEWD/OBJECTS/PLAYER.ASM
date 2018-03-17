@@ -205,6 +205,7 @@ Player_Sleeping         	rs.b 1	; Uninterruptible sleep (end of level behaviour)
 Player_Snoozing         	rs.b 1	; Interruptible sleep (idle behaviour)
 Player_RideState			rs.b 1
 Player_PetWorldGridFlags	rs.b 1
+Player_DebounceInteract		rs.b 1	; Debounce interaction input
 ;---------------------------------
 	RS_ALIGN
 Player_Struct_Size     		rs.b 0
@@ -283,6 +284,7 @@ PlayerInit:
 	move.b  #0x0, Player_Sleeping(a0)
 	move.b  #0x0, Player_Snoozing(a0)
 	move.b  #0x1, Player_UseIdleAnim(a0)
+	move.b  #0x0, Player_DebounceInteract(a0)
 	
 	; Setup collision bounds
 	move.w  #Player1BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
@@ -1667,9 +1669,12 @@ PlayerStartInteract:
 	@Pushing:
 
 	; Debounce
+	tst.b  Player_DebounceInteract(a0)
+	beq    @SkipDebounce
 	move.w Gamepad1PrevState, d0
 	btst   #input_interact, d0
 	bne    @DebouncePush
+	@SkipDebounce:
 
 	; Start pushing
 	move.b #Player_Interaction_Push, Player_InteractionType(a0)

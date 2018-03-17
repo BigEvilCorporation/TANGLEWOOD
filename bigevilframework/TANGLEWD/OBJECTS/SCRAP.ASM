@@ -444,6 +444,7 @@ ScrapAIUpdate_PlayFuzzl:
 	; Knock it out of player's hands
 	PUSHL  a0
 	move.l Player1, a0
+	move.b #0x1, Player_DebounceInteract(a0)
 	jsr    PlayerCancelInteract
 	POPL   a0
 
