@@ -2261,7 +2261,11 @@ PhysicsObjFindPushable:
 
 	; Can't collide with self
 	cmp.l  a0, a2
-	beq    @NextPushingObj 
+	beq    @NextPushingObj
+
+	; Check active
+	tst.b  Entity_Active(a2)
+	beq    @NextPushingObj
 	
 	; Get pushable obj collision bounds
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
