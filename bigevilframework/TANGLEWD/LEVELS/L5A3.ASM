@@ -309,6 +309,10 @@ l5a3_Button_Bridge1:
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
+	; Disable AI marker
+	ENTITY_GETBYNAME AIMarker,l5a3_MarkerEchoWait1, a0
+	move.b #0x0, Entity_Active(a0)
+
 	POPL  a0
 
 	rts
