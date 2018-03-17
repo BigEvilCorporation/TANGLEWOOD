@@ -210,7 +210,6 @@ DemonSetSwarmObj:
 	; Disable by default
 	PUSHL  a0
 	move.l a2, a0
-	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	POPL   a0

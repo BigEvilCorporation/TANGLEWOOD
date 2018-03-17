@@ -52,7 +52,9 @@ SwarmInit:
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
 	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
 
-	; Add to serialise list
+	; Add to update, render, serialise list
+	jsr EntityAddToUpdateList
+	jsr EntityAddToRenderList
 	jsr EntityAddToSerialiseList
 	
 	; Add to count
@@ -100,10 +102,6 @@ SwarmLoadGfx:
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
-	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
-	jsr     EntityAddToWorldGrid
-
 	rts
 	
 SwarmUpdate:
@@ -121,7 +119,6 @@ SwarmUpdate:
 	move.w d0, Swarm_Timer(a0)
 	tst.w  d0
 	bne    @TimerRunning
-	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
 	bra    @Finished
@@ -227,9 +224,8 @@ SwarmActivate:
 	; Reset timer
 	move.w #Swarm_Time, Swarm_Timer(a0)
 
-	; Re-add to world grid
-	move.w  #-1, Entity_WorldGridIdxTL(a0)
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
-	jsr     EntityAddToWorldGrid
+	; Re-add to update/render lists
+	jsr     EntityAddToUpdateList
+	jsr     EntityAddToRenderList
 
 	rts
