@@ -133,13 +133,17 @@ L8A4_Button_count equ 0x0
 
 L8A4_Wyrm_count equ 0x0
 
-L8A4_AIMarker_count equ 0x2
+L8A4_AIMarker_count equ 0x4
 L8A4_MarkerDemonLeftBounds_idx	equ 0x0
 L8A4_MarkerDemonRightBounds_idx	equ 0x1
+L8A4_MarkerDemonBottomBounds_idx	equ 0x2
+L8A4_MarkerDemonTopBounds_idx	equ 0x3
 
 	IFND FINAL
 L8A4_MarkerDemonLeftBounds_name	dc.b "L8A4_MarkerDemonLeftBounds",0
 L8A4_MarkerDemonRightBounds_name	dc.b "L8A4_MarkerDemonRightBounds",0
+L8A4_MarkerDemonBottomBounds_name	dc.b "L8A4_MarkerDemonBottomBounds",0
+L8A4_MarkerDemonTopBounds_name	dc.b "L8A4_MarkerDemonTopBounds",0
 	even
 	ENDIF
 
@@ -467,6 +471,32 @@ L8A4_LoadGameObjects:
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A4_MarkerDemonRightBounds_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x07e80000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L8A4_MarkerDemonBottomBounds_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x07e80000, Entity_WorldPosX(a0)
+	move.l #0x00a80000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L8A4_MarkerDemonTopBounds_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

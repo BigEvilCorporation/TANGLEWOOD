@@ -67,6 +67,8 @@ Demon_TargetY			rs.w 1
 Demon_AttackTimer		rs.w 1
 Demon_BossBoundsLeft	rs.w 1
 Demon_BossBoundsRight	rs.w 1
+Demon_BossBoundsTop		rs.w 1
+Demon_BossBoundsBottom	rs.w 1
 Demon_State				rs.b 1
 Demon_AtTarget			rs.b 1
 Demon_Vulnerable		rs.b 1	; Vulnerable to attacks
@@ -134,6 +136,8 @@ DemonInit:
 	move.l  #Demon_WispMaxDist*Demon_WispMaxDist, Demon_TargetDistSq(a0)
 	move.w  #0x0, Demon_BossBoundsLeft(a0)
 	move.w  #0x7FFF, Demon_BossBoundsRight(a0)
+	move.w  #0x0, Demon_BossBoundsTop(a0)
+	move.w  #0x7FFF, Demon_BossBoundsBottom(a0)
 	move.b  #0x0, Demon_ManualGfxLoad(a0)
 	move.b  #0x0, Demon_Vulnerable(a0)
 	move.b  #Demon_MaxLives, Demon_NumLives(a0)
@@ -524,22 +528,29 @@ DemonAIUpdate_Boss:
 
 	@EndAttackPos:
 
-	; If out of bounds, reposition without randomisation
+	; If last life (about to release Fuzzl) and out of bounds, reposition without randomisation
+	cmp.b   #0x1, Demon_NumLives(a0)
+	bne     @SkipBoundsCheck
 	move.w  Demon_BossBoundsLeft(a0), d1
 	move.w  Demon_BossBoundsRight(a0), d2
 	cmp.w   d0, d1
 	bgt     @AttackFromRight
 	cmp.w   d0, d2
 	blt     @AttackFromLeft
+	@SkipBoundsCheck:
 
 	; Centre Y
 	move.w Entity_WorldPosY(a2), d0
 	move.w Entity_Height(a0), d2
 	move.w Entity_Height(a2), d3
+	move.w Demon_BossBoundsTop(a0), d4
+	move.w Demon_BossBoundsBottom(a0), d5
+	sub.w  d3, d5
 	lsr.w  #0x1, d2
 	lsr.w  #0x1, d3
 	sub.w  d3, d2
 	sub.w  d2, d0
+	CLAMPW d0, d4, d5
 	move.w d0, Entity_WorldPosY(a0)
 
 	; Set visible

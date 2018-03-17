@@ -130,8 +130,12 @@ l8a6_Init:
 	ENTITY_GETBYNAME Demon, l8a6_Demon, a0
 	ENTITY_GETBYNAME AIMarker, l8a6_MarkerDemonLeftBounds, a1
 	ENTITY_GETBYNAME AIMarker, l8a6_MarkerDemonRightBounds, a2
+	ENTITY_GETBYNAME AIMarker, l8a6_MarkerDemonTopBounds, a3
+	ENTITY_GETBYNAME AIMarker, l8a6_MarkerDemonBottomBounds, a4
 	move.w Entity_WorldPosX(a1), Demon_BossBoundsLeft(a0)
 	move.w Entity_WorldPosX(a2), Demon_BossBoundsRight(a0)
+	move.w Entity_WorldPosY(a3), Demon_BossBoundsTop(a0)
+	move.w Entity_WorldPosY(a4), Demon_BossBoundsBottom(a0)
 
 	; Set boss attack speed
 	ENTITY_GETBYNAME Demon, l8a6_Demon, a0
