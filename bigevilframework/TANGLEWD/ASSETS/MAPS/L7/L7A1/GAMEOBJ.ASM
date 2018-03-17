@@ -9,9 +9,15 @@
 
 L7A1_Leaf_count equ 0x0
 
-L7A1_Trap_count equ 0x0
+L7A1_Demon_count equ 0x0
+
+L7A1_Swarm_count equ 0x0
 
 L7A1_Djubb_count equ 0x0
+
+L7A1_Trap_count equ 0x0
+
+L7A1_Nymn_count equ 0x0
 
 L7A1_Echo_count equ 0x1
 L7A1_Echo_5_idx	equ 0x0
@@ -21,11 +27,7 @@ L7A1_Echo_5_name	dc.b "L7A1_Echo_5",0
 	even
 	ENDIF
 
-L7A1_Nymn_count equ 0x0
-
 L7A1_BouncePlant_count equ 0x0
-
-L7A1_Borgus_count equ 0x0
 
 L7A1_DjakkCage_count equ 0x0
 
@@ -39,9 +41,11 @@ L7A1_Log_30_name	dc.b "L7A1_Log_30",0
 	even
 	ENDIF
 
-L7A1_Monster_count equ 0x0
+L7A1_Borgus_count equ 0x0
 
 L7A1_Boulder_count equ 0x0
+
+L7A1_Monster_count equ 0x0
 
 L7A1_Firefly_count equ 0x8
 L7A1_Firefly_39_idx	equ 0x0
@@ -94,8 +98,6 @@ L7A1_Stone_35_name	dc.b "L7A1_Stone_35",0
 L7A1_Stone_37_name	dc.b "L7A1_Stone_37",0
 	even
 	ENDIF
-
-L7A1_Demon_count equ 0x0
 
 L7A1_Raft_count equ 0x0
 
@@ -203,11 +205,12 @@ L7A1_Hogg_count equ 0x0
 
 L7A1_Bridge_count equ 0x0
 
-L7A1_Swarm_count equ 0x0
-
 
 
 L7A1_LoadGameObjects:
+
+
+
 
 
 
@@ -229,8 +232,6 @@ L7A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
-
-
 
 
 
@@ -266,6 +267,7 @@ L7A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -503,7 +505,6 @@ L7A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Nest_Struct_Size*L7A1_Nest_count)
 	move.l a1, EntityPoolStart_Nest
@@ -524,7 +525,7 @@ L7A1_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 
 	jsr NestInit
-	move.l #0x15c00000, Entity_WorldPosX(a0)
+	move.l #0x16100000, Entity_WorldPosX(a0)
 	move.l #0x02900000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
@@ -618,8 +619,8 @@ L7A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x15680000, Entity_WorldPosX(a0)
-	move.l #0x02180000, Entity_WorldPosY(a0)
+	move.l #0x15400000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L7A1_Checkpoint_33_name, a3
@@ -708,7 +709,6 @@ L7A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 

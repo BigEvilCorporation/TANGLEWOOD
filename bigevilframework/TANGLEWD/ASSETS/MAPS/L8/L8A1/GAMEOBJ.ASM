@@ -9,9 +9,15 @@
 
 L8A1_Leaf_count equ 0x0
 
-L8A1_Trap_count equ 0x0
+L8A1_Demon_count equ 0x0
+
+L8A1_Swarm_count equ 0x0
 
 L8A1_Djubb_count equ 0x0
+
+L8A1_Trap_count equ 0x0
+
+L8A1_Nymn_count equ 0x0
 
 L8A1_Echo_count equ 0x1
 L8A1_Echo_1_idx	equ 0x0
@@ -21,11 +27,7 @@ L8A1_Echo_1_name	dc.b "L8A1_Echo_1",0
 	even
 	ENDIF
 
-L8A1_Nymn_count equ 0x0
-
 L8A1_BouncePlant_count equ 0x0
-
-L8A1_Borgus_count equ 0x0
 
 L8A1_DjakkCage_count equ 0x0
 
@@ -37,9 +39,11 @@ L8A1_Log_6_name	dc.b "L8A1_Log_6",0
 	even
 	ENDIF
 
-L8A1_Monster_count equ 0x0
+L8A1_Borgus_count equ 0x0
 
 L8A1_Boulder_count equ 0x0
+
+L8A1_Monster_count equ 0x0
 
 L8A1_Firefly_count equ 0x0
 
@@ -60,8 +64,6 @@ L8A1_Stone_7_idx	equ 0x0
 L8A1_Stone_7_name	dc.b "L8A1_Stone_7",0
 	even
 	ENDIF
-
-L8A1_Demon_count equ 0x0
 
 L8A1_Raft_count equ 0x0
 
@@ -141,11 +143,12 @@ L8A1_Hogg_count equ 0x0
 
 L8A1_Bridge_count equ 0x0
 
-L8A1_Swarm_count equ 0x0
-
 
 
 L8A1_LoadGameObjects:
+
+
+
 
 
 
@@ -171,8 +174,6 @@ L8A1_LoadGameObjects:
 
 
 
-
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Log_Struct_Size*L8A1_Log_count)
 	move.l a1, EntityPoolStart_Log
@@ -191,6 +192,7 @@ L8A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Log_Struct_Size, a0
+
 
 
 
@@ -236,7 +238,6 @@ L8A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
-
 
 
 
@@ -311,7 +312,6 @@ L8A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 

@@ -9,7 +9,9 @@
 
 L8A2_Leaf_count equ 0x0
 
-L8A2_Trap_count equ 0x0
+L8A2_Demon_count equ 0x0
+
+L8A2_Swarm_count equ 0x0
 
 L8A2_Djubb_count equ 0x4
 L8A2_Djubb_4_idx	equ 0x0
@@ -25,6 +27,10 @@ L8A2_Djubb_7_name	dc.b "L8A2_Djubb_7",0
 	even
 	ENDIF
 
+L8A2_Trap_count equ 0x0
+
+L8A2_Nymn_count equ 0x0
+
 L8A2_Echo_count equ 0x1
 L8A2_Echo_1_idx	equ 0x0
 
@@ -33,15 +39,15 @@ L8A2_Echo_1_name	dc.b "L8A2_Echo_1",0
 	even
 	ENDIF
 
-L8A2_Nymn_count equ 0x0
-
 L8A2_BouncePlant_count equ 0x0
-
-L8A2_Borgus_count equ 0x0
 
 L8A2_DjakkCage_count equ 0x0
 
 L8A2_Log_count equ 0x0
+
+L8A2_Borgus_count equ 0x0
+
+L8A2_Boulder_count equ 0x0
 
 L8A2_Monster_count equ 0x1
 L8A2_Djakk1_idx	equ 0x0
@@ -51,8 +57,6 @@ L8A2_Djakk1_name	dc.b "L8A2_Djakk1",0
 	even
 	ENDIF
 
-L8A2_Boulder_count equ 0x0
-
 L8A2_Firefly_count equ 0x0
 
 L8A2_FuzzlCage_count equ 0x0
@@ -60,8 +64,6 @@ L8A2_FuzzlCage_count equ 0x0
 L8A2_Fuzzl_count equ 0x0
 
 L8A2_Stone_count equ 0x0
-
-L8A2_Demon_count equ 0x0
 
 L8A2_Raft_count equ 0x0
 
@@ -137,11 +139,10 @@ L8A2_Hogg_count equ 0x0
 
 L8A2_Bridge_count equ 0x0
 
-L8A2_Swarm_count equ 0x0
-
 
 
 L8A2_LoadGameObjects:
+
 
 
 	PUSHL  a1
@@ -203,6 +204,8 @@ L8A2_LoadGameObjects:
 	add.l #Djubb_Struct_Size, a0
 
 
+
+
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Echo_Struct_Size*L8A2_Echo_count)
 	move.l a1, EntityPoolStart_Echo
@@ -246,8 +249,6 @@ L8A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Monster_Struct_Size, a0
-
-
 
 
 
@@ -316,7 +317,6 @@ L8A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WaterBody_Struct_Size, a0
-
 
 
 

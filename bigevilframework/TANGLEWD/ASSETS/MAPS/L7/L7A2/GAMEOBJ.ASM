@@ -9,9 +9,15 @@
 
 L7A2_Leaf_count equ 0x0
 
-L7A2_Trap_count equ 0x0
+L7A2_Demon_count equ 0x0
+
+L7A2_Swarm_count equ 0x0
 
 L7A2_Djubb_count equ 0x0
+
+L7A2_Trap_count equ 0x0
+
+L7A2_Nymn_count equ 0x0
 
 L7A2_Echo_count equ 0x1
 L7A2_Echo_1_idx	equ 0x0
@@ -21,19 +27,17 @@ L7A2_Echo_1_name	dc.b "L7A2_Echo_1",0
 	even
 	ENDIF
 
-L7A2_Nymn_count equ 0x0
-
 L7A2_BouncePlant_count equ 0x0
-
-L7A2_Borgus_count equ 0x0
 
 L7A2_DjakkCage_count equ 0x0
 
 L7A2_Log_count equ 0x0
 
-L7A2_Monster_count equ 0x0
+L7A2_Borgus_count equ 0x0
 
 L7A2_Boulder_count equ 0x0
+
+L7A2_Monster_count equ 0x0
 
 L7A2_Firefly_count equ 0x8
 L7A2_Firefly_20_idx	equ 0x0
@@ -72,8 +76,6 @@ L7A2_FuzzlGreen2_name	dc.b "L7A2_FuzzlGreen2",0
 	ENDIF
 
 L7A2_Stone_count equ 0x0
-
-L7A2_Demon_count equ 0x0
 
 L7A2_Raft_count equ 0x0
 
@@ -183,11 +185,12 @@ L7A2_Hogg_count equ 0x0
 
 L7A2_Bridge_count equ 0x0
 
-L7A2_Swarm_count equ 0x0
-
 
 
 L7A2_LoadGameObjects:
+
+
+
 
 
 
@@ -209,7 +212,6 @@ L7A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Echo_Struct_Size, a0
-
 
 
 
@@ -377,7 +379,6 @@ L7A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Fuzzl_Struct_Size, a0
-
 
 
 
@@ -599,7 +600,6 @@ L7A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Wyrm_Struct_Size, a0
-
 
 
 
