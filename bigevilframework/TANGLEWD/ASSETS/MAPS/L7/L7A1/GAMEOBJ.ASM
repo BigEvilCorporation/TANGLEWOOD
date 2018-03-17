@@ -31,13 +31,15 @@ L7A1_BouncePlant_count equ 0x0
 
 L7A1_DjakkCage_count equ 0x0
 
-L7A1_Log_count equ 0x2
+L7A1_Log_count equ 0x3
 L7A1_Log_24_idx	equ 0x0
 L7A1_Log_30_idx	equ 0x1
+L7A1_Log_52_idx	equ 0x2
 
 	IFND FINAL
 L7A1_Log_24_name	dc.b "L7A1_Log_24",0
 L7A1_Log_30_name	dc.b "L7A1_Log_30",0
+L7A1_Log_52_name	dc.b "L7A1_Log_52",0
 	even
 	ENDIF
 
@@ -261,6 +263,19 @@ L7A1_LoadGameObjects:
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L7A1_Log_30_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Log_Struct_Size, a0
+
+	jsr LogInit
+	move.l #0x1a580000, Entity_WorldPosX(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
+	jsr LogLoadGfx
+	IFND FINAL
+	lea L7A1_Log_52_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xb, d0
