@@ -528,6 +528,8 @@ Echo_Init:
     Echo_Z80Reset                   ; May not work without this...
     Echo_Z80Request                 ; We need the Z80 bus
 
+	move.b  #$00, ($A01FFB)         ; Init command queue wait flag
+
     move.b  #$01, ($A01FFF)         ; Command: load pointer list
 
     move.l  a0, d0                  ; Easier to manipulate here

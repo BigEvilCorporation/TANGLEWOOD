@@ -89,15 +89,19 @@ SND_SetDefaultPCMFrequency
 
 	move.b d0, audio_pcm_freq_default
 
-	jsr    SND_SetPCMFrequency
+	; TODO: Echo bug, won't initialise properly
+	;jsr    SND_SetPCMFrequency
 
 	rts
 
 SND_SetPCMFrequency:
 	; d0 (b) Frequency (PCMFreq_*)
 
-	move.b d0, audio_pcm_freq_current	
+	cmp.b  audio_pcm_freq_current, d0
+	beq    @NoChange
+	move.b d0, audio_pcm_freq_current
 	jsr    Echo_SetPCMRate
+	@NoChange:
 
 	rts
 
