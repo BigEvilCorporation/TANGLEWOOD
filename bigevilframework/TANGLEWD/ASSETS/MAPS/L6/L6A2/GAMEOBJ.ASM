@@ -431,7 +431,7 @@ L6A2_LoadGameObjects:
 
 	jsr MonsterInit
 	move.l #0x12180000, Entity_WorldPosX(a0)
-	move.l #0x02d80000, Entity_WorldPosY(a0)
+	move.l #0x02b00000, Entity_WorldPosY(a0)
 	move.b #0x1, Monster_ManualGfxLoad(a0)
 	jsr MonsterLoadGfx
 	IFND FINAL
