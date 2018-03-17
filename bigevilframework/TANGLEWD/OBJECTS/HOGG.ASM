@@ -337,14 +337,14 @@ HoggAIUpdate_Charge:
 	move.b SpriteObj_FlippedX(a0), d1
 	cmp.b  d0, d1
 	beq    @SameDir
-	PUSHL  a1
+	PUSHM  d1/a1
 	move.l Player1, a1
 	jsr    PHYS_EntityDistSq
 	cmp.l  #(Hogg_MaxSoundDistance*Hogg_MaxSoundDistance), d0
 	bgt    @OutOfSoundRange
 	PLAYSFX #SFX_Hogg_Grunt
 	@OutOfSoundRange:
-	POPL   a1
+	POPM   d1/a1
 	move.b d1, Hogg_PrevDirection(a0)
 	@SameDir:
 
