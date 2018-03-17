@@ -282,6 +282,20 @@ l5a3_Trigger_EchoFollow:
 
 	rts
 
+l5a3_Trigger_WakeDjakk:
+
+	PUSHL  a0
+	
+	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
+	cmp.b  #MonsterState_InCave, Monster_State(a0)
+	bne    @MonsterAlreadyWoke
+	jsr    MonsterStartEmergeFromCave
+	@MonsterAlreadyWoke:
+	
+	POPL   a0
+
+	rts
+
 l5a3_Button_Bridge1:
 
 	PUSHL a0

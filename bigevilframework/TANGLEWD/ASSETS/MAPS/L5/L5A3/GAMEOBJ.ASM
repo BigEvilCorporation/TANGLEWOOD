@@ -135,7 +135,7 @@ L5A3_Nest_27_name	dc.b "L5A3_Nest_27",0
 
 L5A3_Flue_count equ 0x0
 
-L5A3_TriggerBox_count equ 0xa
+L5A3_TriggerBox_count equ 0xb
 L5A3_TriggerShakeStart1_idx	equ 0x0
 L5A3_TriggerShakeStop1_idx	equ 0x1
 L5A3_TriggerShakeStart2_idx	equ 0x2
@@ -146,6 +146,7 @@ L5A3_TriggerScrap_idx	equ 0x6
 L5A3_TriggerLevelEnd_idx	equ 0x7
 L5A3_TriggerDemon_idx	equ 0x8
 L5A3_TriggerCargoLift1_idx	equ 0x9
+L5A3_TriggerWakeDjakk_idx	equ 0xa
 
 	IFND FINAL
 L5A3_TriggerShakeStart1_name	dc.b "L5A3_TriggerShakeStart1",0
@@ -158,6 +159,7 @@ L5A3_TriggerScrap_name	dc.b "L5A3_TriggerScrap",0
 L5A3_TriggerLevelEnd_name	dc.b "L5A3_TriggerLevelEnd",0
 L5A3_TriggerDemon_name	dc.b "L5A3_TriggerDemon",0
 L5A3_TriggerCargoLift1_name	dc.b "L5A3_TriggerCargoLift1",0
+L5A3_TriggerWakeDjakk_name	dc.b "L5A3_TriggerWakeDjakk",0
 	even
 	ENDIF
 
@@ -924,6 +926,22 @@ L5A3_LoadGameObjects:
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A3_TriggerCargoLift1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x0f600000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.l #l5a3_Trigger_WakeDjakk, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A3_TriggerWakeDjakk_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
