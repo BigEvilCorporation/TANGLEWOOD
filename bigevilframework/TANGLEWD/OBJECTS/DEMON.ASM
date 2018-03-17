@@ -28,6 +28,7 @@ Demon_BoundsOffsetY	equ (Demon_Height/2)-(Demon_BoundsHeight/2)
 
 Demon_AttackDelayMin	equ 0x0100
 Demon_AttackDelayMax	equ 0x0300
+Demon_AttackRetryTime	equ 0x0080
 Demon_AttackDamage		equ 0xFF
 Demon_AttackOffsetX		equ 0x0018
 Demon_AttackAnimSpeedInc	equ 0x4
@@ -478,6 +479,17 @@ DemonAIUpdate_Boss:
 	move.w d0, Demon_AttackTimer(a0)
 	tst.w  d0
 	bne    @NoAttack
+
+	; Check player visible (might be inside a flue)
+	move.l Player1, a2
+	tst.b  SpriteObj_Visible(a2)
+	bne    @PlayerVisible
+
+	; Player invisible, retry later
+	move.w #Demon_AttackRetryTime, Demon_AttackTimer(a0)
+	bra    @NoAttack
+
+	@PlayerVisible:
 
 	; Choose random direction
 	jsr    RND_GenerateLong
