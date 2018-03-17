@@ -447,6 +447,9 @@ ScrapAIUpdate_PlayFuzzl:
 	jsr    PlayerCancelInteract
 	POPL   a0
 
+	; Play Fuzzl bounce SFX
+	PLAYSFX #SFX_FuzzlDrop
+
 	@EndPlayFuzzl:
 	
 	; Clear Fuzzl
