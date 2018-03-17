@@ -991,7 +991,7 @@ L3A1_LoadGameObjects:
 	add.l #Scirus_Struct_Size, a0
 
 	jsr ScirusInit
-	move.l #0x10480000, Entity_WorldPosX(a0)
+	move.l #0x10400000, Entity_WorldPosX(a0)
 	move.l #0x01c00000, Entity_WorldPosY(a0)
 	jsr ScirusLoadGfx
 	IFND FINAL
@@ -1029,7 +1029,7 @@ L3A1_LoadGameObjects:
 	move.l #0x01f80000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
-	move.b #0x1, SpriteObj_FlippedX(a0)
+	move.b #0x0, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
 	IFND FINAL
 	lea L3A1_Bridge2_name, a3
