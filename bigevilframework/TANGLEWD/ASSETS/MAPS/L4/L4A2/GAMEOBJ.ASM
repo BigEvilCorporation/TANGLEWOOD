@@ -519,8 +519,8 @@ L4A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x15800000, Entity_WorldPosX(a0)
-	move.l #0x03900000, Entity_WorldPosY(a0)
+	move.l #0x15300000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L4A2_Firefly_73_name, a3
@@ -532,8 +532,8 @@ L4A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x17900000, Entity_WorldPosX(a0)
-	move.l #0x02d80000, Entity_WorldPosY(a0)
+	move.l #0x16f80000, Entity_WorldPosX(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L4A2_Firefly_74_name, a3
