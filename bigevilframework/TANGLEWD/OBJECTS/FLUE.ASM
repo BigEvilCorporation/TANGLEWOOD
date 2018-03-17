@@ -190,7 +190,11 @@ FlueOccupantUpdate:
 	; If character
 	move.l Entity_TypeBits(a1), d1
 	andi.l #entity_type_character, d1
-	beq    @NotCharacter 
+	beq    @NotCharacter
+
+	; Check if dead
+	tst.b  Character_Dead(a1)
+	bne    @CharacterDead
 	
 	; Set jumping (but can't cancel)
 	move.b #0x1, Character_Jumping(a1)
@@ -314,6 +318,7 @@ FlueOccupantUpdate:
 	@NoOccupantCheck:
 	@NoOccupantFound:
 	@LerpingCamera:
+	@CharacterDead:
 	@End:
 	
 	rts
