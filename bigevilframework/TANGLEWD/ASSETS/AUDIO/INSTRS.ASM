@@ -245,21 +245,18 @@ echo_instruments:
 	Echo_ListEntry PCM07
 	Echo_ListEntry PCM08
 	Echo_ListEntry PCM09
+	Echo_ListEntry PCM0A
+	Echo_ListEntry PCM0B
+	Echo_ListEntry PCM0C
+	Echo_ListEntry PCM0D
+	Echo_ListEntry PCM0E
+	Echo_ListEntry PCM0F
 	Echo_ListEntry PCM10
 	Echo_ListEntry PCM11
 	Echo_ListEntry PCM12
 	Echo_ListEntry PCM13
 	Echo_ListEntry PCM14
 	Echo_ListEntry PCM15
-	Echo_ListEntry PCM16
-	Echo_ListEntry PCM17
-	Echo_ListEntry PCM18
-	Echo_ListEntry PCM19
-	Echo_ListEntry PCM20
-	Echo_ListEntry PCM21
-	Echo_ListEntry PCM22
-	Echo_ListEntry PCM23
-	Echo_ListEntry PCM24
 	
     Echo_ListEnd
 	
@@ -499,23 +496,43 @@ PCM03: incbin 'assets\audio\sfx\fstep\water1.ewf'
 PCM04: incbin 'assets\audio\sfx\fstep\water2.ewf'
 PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
 PCM06: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
-PCM07: ;incbin 'assets\audio\sfx\weather\thndrnr.ewf'
-PCM08: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
-PCM09: incbin 'assets\audio\sfx\djakk\elder.ewf'
-PCM10: incbin 'assets\audio\sfx\scrap\yap.ewf'
-PCM11: incbin 'assets\audio\sfx\weather\windshrt.ewf'
-PCM12: incbin 'assets\audio\sfx\weather\windlong.ewf'
-PCM13: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
-PCM14: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
-PCM15: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
-PCM16: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
-PCM17: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
-PCM18: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
-PCM19: incbin 'assets\audio\sfx\nymn\talk_low.ewf'
-PCM20: incbin 'assets\audio\sfx\nymn\talk_hi.ewf'
-PCM21: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
-PCM22: incbin 'assets\audio\sfx\nymn\howl_hi.ewf'
-PCM23: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
-PCM24: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
+PCM07: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
+PCM08: incbin 'assets\audio\sfx\djakk\elder.ewf'
+PCM09: incbin 'assets\audio\sfx\scrap\yap.ewf'
+PCM0A: incbin 'assets\audio\sfx\weather\windshrt.ewf'
+PCM0B: incbin 'assets\audio\sfx\weather\windlong.ewf'
+PCM0C: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
+PCM0D: incbin 'assets\audio\sfx\objects\hoggstck.ewf'
+PCM0E: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
+PCM0F: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
+PCM10: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
+PCM11: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
+PCM12: incbin 'assets\audio\sfx\nymn\talk_low.ewf'
+PCM13: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
+PCM14: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
+PCM15: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
+
+PCMInstr_Djakk_Roar		equ PCM_InstrIndex+0x00
+PCMInstr_Djakk_Bite		equ PCM_InstrIndex+0x01
+PCMInstr_Amb_Chirp1		equ PCM_InstrIndex+0x02
+PCMInstr_FStep_Water1	equ PCM_InstrIndex+0x03
+PCMInstr_FStep_Water2	equ PCM_InstrIndex+0x04
+PCMInstr_FStep_Splash	equ PCM_InstrIndex+0x05
+PCMInstr_Thndr_Far		equ PCM_InstrIndex+0x06
+PCMInstr_Crate_Break	equ PCM_InstrIndex+0x07
+PCMInstr_Elder_Roar		equ PCM_InstrIndex+0x08
+PCMInstr_Scrap_Yap		equ PCM_InstrIndex+0x09
+PCMInstr_Wind_Short		equ PCM_InstrIndex+0x0A
+PCMInstr_Wind_Long		equ PCM_InstrIndex+0x0B
+PCMInstr_Hogg_Grunt		equ PCM_InstrIndex+0x0C
+PCMInstr_Hogg_Stuck		equ PCM_InstrIndex+0x0D
+PCMInstr_Scirus_Alert	equ PCM_InstrIndex+0x0E
+PCMInstr_Scirus_Chatt	equ PCM_InstrIndex+0x0F
+PCMInstr_Scirus_Hiss	equ PCM_InstrIndex+0x10
+PCMInstr_Scirus_Swipe	equ PCM_InstrIndex+0x11
+PCMInstr_Nymn_Talk		equ PCM_InstrIndex+0x12
+PCMInstr_Nymn_Howl		equ PCM_InstrIndex+0x13
+PCMInstr_Wyrm_Attack	equ PCM_InstrIndex+0x14
+PCMInstr_Borgus_Roar	equ PCM_InstrIndex+0x15
 
 	ENDIF

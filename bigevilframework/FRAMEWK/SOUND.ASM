@@ -62,11 +62,14 @@ SFX_Data				rs.l 1
 SFX_Priority			rs.b 1
 SFX_Exclusive			rs.b 1
 SFX_ClashBehaviour		rs.b 1
-SFX_PCMFrequency		rs.b 1
 ;-----------------------------
 	RS_ALIGN
 SFX_Struct_Size			rs.b 0
 
+ESF_SetPCMRate: macro rate
+	ESF_SetFMReg 0, $24, ((\rate)^$3FF)>>2
+	ESF_SetFMReg 0, $25, ((\rate)^$3FF)&3
+	endm
 
 SND_Init:
 	; Initialises Echo sound system and sets default values
@@ -77,31 +80,6 @@ SND_Init:
 	move.b #0xFF, audio_volume_global
 	move.b #0x00, audio_fader_speed
 	ENDIF
-
-	; Set default PCM frequency
-	move.b #PCM_Freq_10653Hz, d0
-	jsr    SND_SetDefaultPCMFrequency
-
-	rts
-
-SND_SetDefaultPCMFrequency
-	; d0 (b) Frequency (PCMFreq_*)
-
-	move.b d0, audio_pcm_freq_default
-
-	; TODO: Echo bug, won't initialise properly
-	;jsr    SND_SetPCMFrequency
-
-	rts
-
-SND_SetPCMFrequency:
-	; d0 (b) Frequency (PCMFreq_*)
-
-	cmp.b  audio_pcm_freq_current, d0
-	beq    @NoChange
-	move.b d0, audio_pcm_freq_current
-	jsr    Echo_SetPCMRate
-	@NoChange:
 
 	rts
 
@@ -320,13 +298,6 @@ SND_PlaySFX:
 	; Set exclusivity
 	; TODO: Track playing SFX to turn off exclusive flag when finished
 	; move.b SFX_Exclusive(a0), audio_playback_locked
-	
-	; If needs new PCM rate, set it
-	move.b SFX_PCMFrequency(a0), d0
-	cmp.b  audio_pcm_freq_current, d0
-	beq    @PCMFreqCorrect
-	jsr    SND_SetPCMFrequency
-	@PCMFreqCorrect:
 
 	; Get SFX data
 	move.l SFX_Data(a0), a0
@@ -497,25 +468,6 @@ SND_UpdateTrack:
 	jsr    SND_GetEchoBusy
 	tst.b  d0
 	bne    @Busy
-
-	;==============================================================
-
-	; If PCM rate not default
-	move.b audio_pcm_freq_default, d0
-	cmp.b  audio_pcm_freq_current, d0
-	beq    @PCMFreqCorrect
-
-	; If SFX stopped, revert PCM rate back to default
-	jsr    SND_GetSFXBusy
-	tst.b  d0
-	bne    @SFXPlaying
-
-	; Set default PCM freq
-	move.b audio_pcm_freq_default, d0
-	jsr    SND_SetPCMFrequency
-
-	@SFXPlaying:
-	@PCMFreqCorrect:
 
 	;==============================================================
 

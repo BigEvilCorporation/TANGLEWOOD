@@ -60,8 +60,6 @@ audio_track_stop_timer	rs.w 1
 audio_volume_global		rs.b 1
 audio_fader_speed		rs.b 1
 audio_playback_locked	rs.b 1
-audio_pcm_freq_default	rs.b 1
-audio_pcm_freq_current	rs.b 1
 
 	RS_ALIGN
 
