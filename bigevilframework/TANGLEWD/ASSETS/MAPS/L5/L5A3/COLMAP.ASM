@@ -69,5 +69,5 @@ collisionmap_blockmap_yoffs_L5A3:
 ; Terrain bezier bounds
 terrainmap_L5A3_num_special_terrain_descs	equ 0x01
 terrainmap_L5A3_special_terrain_descs:
-	dc.w 0x1490, 0x046F, 0x1A50, 0x046F, 0x1000	; Left, top, right, bottom, flags
+	dc.w 0x14F0, 0x046F, 0x1A50, 0x046F, 0x1000	; Left, top, right, bottom, flags
 

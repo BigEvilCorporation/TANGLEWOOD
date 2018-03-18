@@ -269,7 +269,15 @@ L5A3_Pillar_39_name	dc.b "L5A3_Pillar_39",0
 
 L5A3_WindFlue_count equ 0x0
 
-L5A3_Lock_count equ 0x0
+L5A3_Lock_count equ 0x2
+L5A3_Lock2_idx	equ 0x0
+L5A3_Lock1_idx	equ 0x1
+
+	IFND FINAL
+L5A3_Lock2_name	dc.b "L5A3_Lock2",0
+L5A3_Lock1_name	dc.b "L5A3_Lock1",0
+	even
+	ENDIF
 
 L5A3_Pool_count equ 0x0
 
@@ -740,7 +748,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr RaftInit
-	move.l #0x15180000, Entity_WorldPosX(a0)
+	move.l #0x15700000, Entity_WorldPosX(a0)
 	move.l #0x04e80000, Entity_WorldPosY(a0)
 	jsr RaftLoadGfx
 	IFND FINAL
@@ -983,7 +991,7 @@ L5A3_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x14d00000, Entity_WorldPosX(a0)
+	move.l #0x14e00000, Entity_WorldPosX(a0)
 	move.l #0x04a80000, Entity_WorldPosY(a0)
 	move.b #0x0, Entity_Active(a0)
 	jsr CheckpointLoadGfx
@@ -1222,8 +1230,8 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr WinchInit
-	move.l #0x14e80000, Entity_WorldPosX(a0)
-	move.l #0x04b80000, Entity_WorldPosY(a0)
+	move.l #0x15400000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
 	jsr WinchLoadGfx
 	IFND FINAL
 	lea L5A3_Winch1_name, a3
@@ -1282,6 +1290,38 @@ L5A3_LoadGameObjects:
 	add.l #Pillar_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Lock_Struct_Size*L5A3_Lock_count)
+	move.l a1, EntityPoolStart_Lock
+	move.l a1, a0
+	POPL   a1
+
+	jsr LockInit
+	move.l #0x18300000, Entity_WorldPosX(a0)
+	move.l #0x04b80000, Entity_WorldPosY(a0)
+	jsr LockLoadGfx
+	IFND FINAL
+	lea L5A3_Lock2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Lock_Struct_Size, a0
+
+	jsr LockInit
+	move.l #0x15c80000, Entity_WorldPosX(a0)
+	move.l #0x04b80000, Entity_WorldPosY(a0)
+	jsr LockLoadGfx
+	IFND FINAL
+	lea L5A3_Lock1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xa, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Lock_Struct_Size, a0
 
 
 
@@ -1529,7 +1569,7 @@ L5A3_LoadGameObjects:
 	add.l #Ladder_Struct_Size, a0
 
 	jsr LadderInit
-	move.l #0x15700000, Entity_WorldPosX(a0)
+	move.l #0x16100000, Entity_WorldPosX(a0)
 	move.l #0x05200000, Entity_WorldPosY(a0)
 	move.w #0x0028, Entity_Width(a0)
 	move.w #0x00a0, Entity_Height(a0)

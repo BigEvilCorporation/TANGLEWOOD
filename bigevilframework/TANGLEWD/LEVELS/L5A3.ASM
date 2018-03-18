@@ -65,6 +65,7 @@ l5a3_CamShakeAmp				equ 0x0180
 	rsset LevelData_Struct_Size
 l5a3Data_CutsceneLoadLift1		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneLoadLift2		rs.b Cutscene_Struct_Size
+l5a3Data_CutsceneRaftStart		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealScrap	rs.b Cutscene_Struct_Size
 ;---------------------------------
@@ -127,6 +128,11 @@ l5a3_Init:
 	lea    l5a3Data_CutsceneRevealScrap(a2), a0
 	move.l #l5a3_CutsceneRevealScrap, a1
 	jsr    CutsceneInit
+
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRaftStart(a2), a0
+	move.l #l5a3_CutsceneRaftStart, a1
+	jsr    CutsceneInit
 	POPM   a0-a1
 
 	;==============================================================
@@ -175,6 +181,12 @@ l5a3_Init:
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
+
+	; Setup locks
+	ENTITY_GETBYNAME Lock, l5a3_Lock1, a0
+	jsr    Lock_SetRaised
+	ENTITY_GETBYNAME Lock, l5a3_Lock2, a0
+	jsr    Lock_SetRaised
 
 	;==============================================================
 
@@ -319,16 +331,12 @@ l5a3_Button_Bridge1:
 
 l5a3_ActivateWinch:
 
-	; Remove raft from world grid to update out of view
-	ENTITY_GETBYNAME Raft, l5a3_Raft1, a0
-	jsr    EntityAddToUpdateList
-	jsr    PhysicsWorldAddObject
-	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
-	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
-
-	; Start winch
-	ENTITY_GETBYNAME Winch, l5a3_Winch1, a0
-	jsr    Winch_RunClockwise
+	; Start winch cutscene
+	PUSHL  a0
+	lea    LevelData_L5A3, a2
+	lea    l5a3Data_CutsceneRaftStart(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	rts
 
@@ -656,5 +664,103 @@ l5a3_CutsceneRevealScrap:
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
+
+	rts
+
+l5a3_CutsceneRaftStart:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Remove locks from world grid
+	CUTSCENE_ROUTINE l5a3_Cutscene_SetupLocks,#0x0,#0x0,#0x0
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Camera lerp
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+
+	; Lower locks
+	CUTSCENE_GET_ENTITY Lock, l5a3_Lock1, a2
+	CUTSCENE_OBJECT_ROUTINE a2, #Lock_Lower
+	CUTSCENE_GET_ENTITY Lock, l5a3_Lock2, a2
+	CUTSCENE_OBJECT_ROUTINE a2, #Lock_Lower
+
+	; Wait for locks to lower
+	CUTSCENE_DELAY #0x0080
+
+	; Start winch
+	CUTSCENE_GET_ENTITY Winch, l5a3_Winch1, a2
+	CUTSCENE_OBJECT_ROUTINE a2, #Winch_RunClockwise
+
+	; Wait for raft to stop
+	CUTSCENE_ROUTINE l5a3_Cutscene_WaitRaft,#0x0,#0x0,#0x0
+
+	; Raise locks
+	CUTSCENE_GET_ENTITY Lock, l5a3_Lock1, a2
+	CUTSCENE_OBJECT_ROUTINE a2, #Lock_Raise
+	CUTSCENE_GET_ENTITY Lock, l5a3_Lock2, a2
+	CUTSCENE_OBJECT_ROUTINE a2, #Lock_Raise
+
+	; Camera lerp back
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Re-add locks to world grid
+	CUTSCENE_ROUTINE l5a3_Cutscene_LocksFinished,#0x0,#0x0,#0x0
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
+	rts
+
+l5a3_Cutscene_SetupLocks:
+
+	; Remove raft from world grid to update out of view
+	ENTITY_GETBYNAME Raft, l5a3_Raft1, a0
+	jsr    EntityAddToUpdateList
+	jsr    PhysicsWorldAddObject
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+
+	ENTITY_GETBYNAME Lock, l5a3_Lock1, a0
+	jsr    EntityAddToUpdateList
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
+	ENTITY_GETBYNAME Lock, l5a3_Lock2, a0
+	jsr    EntityAddToUpdateList
+	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
+	rts
+
+l5a3_Cutscene_LocksFinished:
+
+	; Done with raft and locks
+	ENTITY_GETBYNAME Raft, l5a3_Raft1, a0
+	jsr    EntityRemoveFromUpdateList
+	jsr    PhysicsWorldRemoveObject
+
+	ENTITY_GETBYNAME Lock, l5a3_Lock1, a0
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
+
+	ENTITY_GETBYNAME Lock, l5a3_Lock2, a0
+	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr     EntityAddToWorldGrid
+
+	rts
+
+l5a3_Cutscene_WaitRaft:
+
+	move.b #0x1, d0
+	ENTITY_GETBYNAME Raft, l5a3_Raft1, a0
+	tst.l  PhysicsObj_VelX(a0)
+	bne    @Moving
+	move.b #0x0, d0
+	@Moving:
 
 	rts
