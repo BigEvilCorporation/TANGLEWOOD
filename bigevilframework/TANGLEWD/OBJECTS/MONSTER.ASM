@@ -1560,9 +1560,11 @@ MonsterStartTamed:
 	beq    @NotPlaying
 	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @NotPlaying
-	move.b #-1, d0
-	jsr    SND_BeginFadeTrack
-	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
+	PUSHM  a0/d0-d1
+	lea    track_bgm_boss1_search, a0
+	jsr    SND_PlayTrack
+	POPM   a0/d0-d1
+	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
 	@NotPlaying:
 
 	rts
