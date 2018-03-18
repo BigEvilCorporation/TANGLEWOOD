@@ -99,6 +99,7 @@ PhysicsObj_MaxVelClamp			rs.b 1 ; Clamp to max velocity if exceeded, otherwise u
 PhysicsObj_CanBePushed			rs.b 1 ; Can be pushed (must also be in PushableObjs list)
 PhysicsObj_CanBePulled			rs.b 1 ; Can be pulled (must also be in PushableObjs list)
 PhysicsObj_ForceUpdate			rs.b 1 ; Force an update next frame even if sleep/out of view
+PhysicsObj_AccumPlatformMass	rs.b 1 ; Add mass to any platforms underneath
 ;---------------------------------
 	RS_ALIGN
 PhysicsObj_Struct_Size      	rs.b 0
@@ -175,6 +176,7 @@ PhysicsObjInit:
 	move.b #0x1, PhysicsObj_AffectedByGravity(a0)
 	move.b #0x1, PhysicsObj_AffectedByWind(a0)
 	move.b #0x0, PhysicsObj_ForceUpdate(a0)
+	move.b #0x0, PhysicsObj_AccumPlatformMass(a0)
 
 	; Add to physics objs
 	jsr    PhysicsWorldAddObject
@@ -248,6 +250,9 @@ PhysicsObjPreStep:
 	; Clear last impact velocity
 	move.l #0x0, PhysicsObj_WallImpactVelX(a0)
 	move.l #0x0, PhysicsObj_FloorImpactVelY(a0)
+
+	; Add mass to platforms touched
+	move.b #0x1, PhysicsObj_AccumPlatformMass(a0)
 
 	; Apply acceleration
 	jsr PhysicsObjApplyAccelDecel
@@ -1344,9 +1349,13 @@ PhysicsObjFindFloor:
 	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
+	tst.b  PhysicsObj_AccumPlatformMass(a0)
+	beq    @NoAccumPlatformMass
 	clr.w  d2
 	move.b PhysicsObj_Mass(a0), d2
 	add.w  d2, Platform_TotalMass(a3)
+	move.b #0x0, PhysicsObj_AccumPlatformMass(a0)
+	@NoAccumPlatformMass:
 
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
@@ -2036,9 +2045,13 @@ PhysicsObjFindMovingFloor:
 	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
 	; Add occupant mass
+	tst.b  PhysicsObj_AccumPlatformMass(a0)
+	beq    @NoAccumPlatformMass
 	clr.w  d2
 	move.b PhysicsObj_Mass(a0), d2
 	add.w  d2, Platform_TotalMass(a3)
+	move.b #0x0, PhysicsObj_AccumPlatformMass(a0)
+	@NoAccumPlatformMass:
 
 	; Mark platform occupied
 	move.b #0x1, Platform_Occupied(a3)
