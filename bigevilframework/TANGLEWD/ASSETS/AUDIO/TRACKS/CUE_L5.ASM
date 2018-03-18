@@ -3426,5 +3426,126 @@
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $05, $69	; Note E-3 on channel FM 5
 ; Pattern $17, Row 47; 
+; Pattern $18, Row 0; 
+	dc.b $fe, $06	; Delay
+	dc.b $00, $49	; Note E-2 on channel FM 1
+	dc.b $f0, $c0	; Set params for channel FM 1
+; Pattern $18, Row 1; 
+; Pattern $18, Row 2; 
+	dc.b $fe, $06	; Delay
+	dc.b $04, $61	; Note C-3 on channel FM 4
+	dc.b $f4, $40	; Set params for channel FM 4
+; Pattern $18, Row 3; 
+; Pattern $18, Row 4; 
+	dc.b $fe, $06	; Delay
+	dc.b $01, $4f	; Note G-2 on channel FM 2
+	dc.b $f1, $80	; Set params for channel FM 2
+; Pattern $18, Row 5; 
+; Pattern $18, Row 6; 
+	dc.b $fe, $06	; Delay
+	dc.b $05, $49	; Note E-2 on channel FM 5
+	dc.b $f5, $40	; Set params for channel FM 5
+; Pattern $18, Row 7; 
+; Pattern $18, Row 8; 
+	dc.b $fe, $06	; Delay
+	dc.b $22, $00	; Set volume for channel FM 3
+	dc.b $02, $45	; Note D-2 on channel FM 3
+	dc.b $f2, $80	; Set params for channel FM 3
+; Pattern $18, Row 9; 
+; Pattern $18, Row 10; 
+	dc.b $fe, $06	; Delay
+	dc.b $20, $1f	; Set volume for channel FM 1
+	dc.b $00, $4f	; Note G-2 on channel FM 1
+; Pattern $18, Row 11; 
+; Pattern $18, Row 12; 
+	dc.b $fe, $06	; Delay
+	dc.b $24, $10	; Set volume for channel FM 4
+	dc.b $04, $53	; Note A-2 on channel FM 4
+; Pattern $18, Row 13; 
+; Pattern $18, Row 14; 
+	dc.b $fe, $06	; Delay
+	dc.b $21, $1f	; Set volume for channel FM 2
+	dc.b $01, $45	; Note D-2 on channel FM 2
+; Pattern $18, Row 15; 
+; Pattern $18, Row 16; 
+	dc.b $fe, $06	; Delay
+	dc.b $25, $10	; Set volume for channel FM 5
+	dc.b $05, $57	; Note B-2 on channel FM 5
+; Pattern $18, Row 17; 
+; Pattern $18, Row 18; 
+	dc.b $fe, $06	; Delay
+	dc.b $22, $1f	; Set volume for channel FM 3
+	dc.b $02, $53	; Note A-2 on channel FM 3
+; Pattern $18, Row 19; 
+; Pattern $18, Row 20; 
+	dc.b $fe, $06	; Delay
+	dc.b $20, $10	; Set volume for channel FM 1
+	dc.b $00, $41	; Note C-2 on channel FM 1
+; Pattern $18, Row 21; 
+; Pattern $18, Row 22; 
+	dc.b $fe, $06	; Delay
+	dc.b $24, $1f	; Set volume for channel FM 4
+	dc.b $04, $57	; Note B-2 on channel FM 4
+; Pattern $18, Row 23; 
+; Pattern $18, Row 24; 
+	dc.b $fe, $06	; Delay
+	dc.b $21, $20	; Set volume for channel FM 2
+	dc.b $01, $49	; Note E-2 on channel FM 2
+; Pattern $18, Row 25; 
+; Pattern $18, Row 26; 
+	dc.b $fe, $06	; Delay
+	dc.b $25, $2f	; Set volume for channel FM 5
+	dc.b $05, $41	; Note C-2 on channel FM 5
+; Pattern $18, Row 27; 
+; Pattern $18, Row 28; 
+	dc.b $fe, $06	; Delay
+	dc.b $22, $20	; Set volume for channel FM 3
+	dc.b $02, $4f	; Note G-2 on channel FM 3
+; Pattern $18, Row 29; 
+; Pattern $18, Row 30; 
+	dc.b $fe, $06	; Delay
+	dc.b $20, $2f	; Set volume for channel FM 1
+	dc.b $00, $49	; Note E-2 on channel FM 1
+; Pattern $18, Row 31; 
+; Pattern $18, Row 32; 
+	dc.b $fe, $06	; Delay
+	dc.b $24, $20	; Set volume for channel FM 4
+	dc.b $04, $45	; Note D-2 on channel FM 4
+; Pattern $18, Row 33; 
+; Pattern $18, Row 34; 
+	dc.b $fe, $06	; Delay
+	dc.b $21, $2f	; Set volume for channel FM 2
+	dc.b $01, $4f	; Note G-2 on channel FM 2
+; Pattern $18, Row 35; 
+; Pattern $18, Row 36; 
+	dc.b $fe, $06	; Delay
+	dc.b $25, $30	; Set volume for channel FM 5
+	dc.b $05, $53	; Note A-2 on channel FM 5
+; Pattern $18, Row 37; 
+; Pattern $18, Row 38; 
+	dc.b $fe, $06	; Delay
+	dc.b $22, $3f	; Set volume for channel FM 3
+	dc.b $02, $45	; Note D-2 on channel FM 3
+; Pattern $18, Row 39; 
+; Pattern $18, Row 40; 
+	dc.b $fe, $06	; Delay
+	dc.b $20, $30	; Set volume for channel FM 1
+	dc.b $00, $57	; Note B-2 on channel FM 1
+; Pattern $18, Row 41; 
+; Pattern $18, Row 42; 
+	dc.b $fe, $06	; Delay
+	dc.b $24, $4f	; Set volume for channel FM 4
+	dc.b $04, $53	; Note A-2 on channel FM 4
+; Pattern $18, Row 43; 
+; Pattern $18, Row 44; 
+	dc.b $fe, $06	; Delay
+	dc.b $21, $40	; Set volume for channel FM 2
+	dc.b $01, $65	; Note D-3 on channel FM 2
+; Pattern $18, Row 45; 
+; Pattern $18, Row 46; 
+	dc.b $fe, $06	; Delay
+	dc.b $25, $4f	; Set volume for channel FM 5
+	dc.b $05, $57	; Note B-2 on channel FM 5
+; Pattern $18, Row 47; 
 	dc.b $fe, $06	; Delay
 	dc.b $ff	; The End
