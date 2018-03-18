@@ -294,7 +294,7 @@ l8a4_Trigger_DemonTakeFuzzl:
 l8a4_Trigger_DemonReturn:
 
 	IF !L8A4_TEST_ALL_FIREFLIES
-	cmp.w #TotalFireflyCount, FireflyPickupCountGame
+	cmp.w #TotalFireflyCount, FireflyPickupCountTotalSave
 	bne   @NotCollectedAll
 	ENDIF
 

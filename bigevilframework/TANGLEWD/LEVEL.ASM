@@ -20,7 +20,7 @@ LevelData_Struct_Size		rs.b 0
 GameStartNew:
 
 	; Clear total firefly count
-	move.w #0x0, FireflyPickupCountGame
+	move.w #0x0, FireflyPickupCountTotalSave
 
 	rts
 

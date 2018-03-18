@@ -58,7 +58,7 @@ EndAct_Exit:
 
 	; Add firefly count to total
 	move.w FireflyPickupCountAct, d0
-	add.w  d0, FireflyPickupCountGame
+	add.w  d0, FireflyPickupCountTotalSave
 	
 	rts
 	

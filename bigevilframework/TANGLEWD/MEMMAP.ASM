@@ -334,8 +334,9 @@ GlobalTimeDiv			 rs.b 1
 TimeSlowPaletteBackup	 rs.b (size_palette_b*num_palettes)
 
 ; Firefly count
-FireflyPickupCountAct	 rs.w 1	; Fireflies picked up in current act
-FireflyPickupCountGame	 rs.w 1	; Total fireflies picked up in game
+FireflyPickupCountAct		 rs.w 1	; Fireflies picked up in current act
+FireflyPickupCountTotalUI	 rs.w 1	; Total fireflies picked up in game (for pause UI)
+FireflyPickupCountTotalSave	 rs.w 1	; Total fireflies picked up in game (for save file)
 
 ; Death count
 DeathCount				 rs.w 1

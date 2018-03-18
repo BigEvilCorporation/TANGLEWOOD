@@ -147,8 +147,9 @@ FireflyTestObj:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 	
-	; Increment counter
+	; Increment counters
 	addq.w #0x1, FireflyPickupCountAct
+	addq.w #0x1, FireflyPickupCountTotalUI
 	
 	; Play SFX
 	move.w (EntityCount_Firefly), d0

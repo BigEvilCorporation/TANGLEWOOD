@@ -256,7 +256,8 @@ Gameplay_Serialise:
 	@Saving:
 	SAVEL (LastActivatedCheckpoint)
 	SAVEW (FireflyPickupCountAct)
-	SAVEW (FireflyPickupCountGame)
+	SAVEW (FireflyPickupCountTotalUI)
+	SAVEW (FireflyPickupCountTotalSave)
 	move.b (TimeOfDay), d6
 	SAVEB (TimeOfDay)
 	bra   @End
@@ -264,7 +265,8 @@ Gameplay_Serialise:
 	@Loading:
 	LOADL (LastActivatedCheckpoint)
 	LOADW (FireflyPickupCountAct)
-	LOADW (FireflyPickupCountGame)
+	LOADW (FireflyPickupCountTotalUI)
+	LOADW (FireflyPickupCountTotalSave)
 	LOADB (TimeOfDay)
 	
 	PUSHM  d0-d1/a0-a3

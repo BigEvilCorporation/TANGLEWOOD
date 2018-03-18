@@ -103,7 +103,7 @@ SavePasswordEncode:
 	move.b Level_Index(a1), d0
 
 	; Get total fireflies
-	move.w FireflyPickupCountGame, d1
+	move.w FireflyPickupCountTotalSave, d1
 
 	; Get fireflies for each act
 	move.w #0x0, d6
@@ -233,7 +233,8 @@ LoadGameFromPassword:
 
 	; Set firefly count
 	andi.w #0xFF, d2
-	move.w d2, FireflyPickupCountGame
+	move.w d2, FireflyPickupCountTotalSave
+	move.w d2, FireflyPickupCountTotalUI
 
 	; Get level from index
 	lea    LevelList, a1

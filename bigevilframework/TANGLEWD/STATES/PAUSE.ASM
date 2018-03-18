@@ -17,34 +17,41 @@ GameStatePause_MaxStringLen	equ 0x8
 	
 ; Struct
 	rsset	0x0
-;----------------------------------
-PauseState_FireflyTextTileBuff		rs.w GameStatePause_MaxStringLen
-PauseState_PasswordTextTileBuff		rs.w GameStatePause_MaxStringLen
-PauseState_Firefly					rs.l 1
-PauseState_FireflyPosX				rs.l 1
-PauseState_FireflyPosY				rs.l 1
-PauseState_VRAMAddr					rs.w 1
-PauseState_PrevPadState				rs.w 1
-PauseState_FireflyWorldGridFlags	rs.b 1
-PauseState_FireflySpritePrio		rs.b 1
-PauseState_FireflyVisible			rs.b 1
-PauseState_FireflyActive			rs.b 1
-PauseState_FireflyTextSpritesCount	rs.b 1
-PauseState_PasswordTextSpritesCount	rs.b 1
-PauseState_DebugDrawMode			rs.b 1
-;----------------------------------
+;---------------------------------------------
+PauseState_FireflyTextTileBuff			rs.w GameStatePause_MaxStringLen
+PauseState_FireflyTotalTextTileBuff		rs.w GameStatePause_MaxStringLen
+PauseState_PasswordTextTileBuff			rs.w GameStatePause_MaxStringLen
+PauseState_Firefly						rs.l 1
+PauseState_FireflyPosX					rs.l 1
+PauseState_FireflyPosY					rs.l 1
+PauseState_VRAMAddr						rs.w 1
+PauseState_PrevPadState					rs.w 1
+PauseState_FireflyWorldGridFlags		rs.b 1
+PauseState_FireflySpritePrio			rs.b 1
+PauseState_FireflyVisible				rs.b 1
+PauseState_FireflyActive				rs.b 1
+PauseState_FireflyTextSpritesCount		rs.b 1
+PauseState_FireflyTotalTextSpritesCount	rs.b 1
+PauseState_PasswordTextSpritesCount		rs.b 1
+PauseState_DebugDrawMode				rs.b 1
+;---------------------------------------------
 	RS_ALIGN
-PauseState_Struct_Size				rs.b 0
-;----------------------------------
+PauseState_Struct_Size					rs.b 0
+;---------------------------------------------
 
 PauseText_FontSize		equ tiles_twfont_size_t
 PauseText_FontPaletteId	equ PaletteId_Monster	; Least used palette
 PauseText_FontColourIdx	equ	0x1
 PauseText_FontColour	equ 0x0EEE
-PauseText_FireflyPosX	equ (screen_width-(8*8))
-PauseText_FireflyPosY	equ (screen_height-(4*8))
-PauseText_PasswordPosX	equ (4*8)
-PauseText_PasswordPosY	equ (screen_height-(4*8))
+
+PauseText_FireflyPosX		equ (screen_width-(10*8))
+PauseText_FireflyPosY		equ (screen_height-(4*8))
+PauseText_FireflyTotalPosX	equ (screen_width-(10*8))
+PauseText_FireflyTotalPosY	equ (screen_height-(3*8))
+PauseText_FireflySpritePosX	equ (screen_width-(10*8))
+PauseText_FireflySpritePosY	equ (screen_height-(3*8))
+PauseText_PasswordPosX		equ (4*8)
+PauseText_PasswordPosY		equ (screen_height-(4*8))
 
 	IFND FINAL
 DebugText_VRAM_PosX		equ 0x2*8
@@ -149,6 +156,37 @@ Pause_Enter:
 	; Alloc string space
 	sub.l   #0x10, sp
 	move.l  sp, a0
+	
+	; Firefly total count to string
+	PUSHL   a0
+	move.w  (FireflyPickupCountTotalUI), d0	; Get total collected firefly count
+	jsr     TXT_ItoA_w					; To string
+	subq.l  #0x1, a0					; Remove terminator
+	move.b  #'/', (a0)+					; Append '/'
+	move.w  #TotalFireflyCount, d0		; Get total firefly count
+	jsr     TXT_ItoA_w					; To string
+	POPL    a0
+	
+	PUSHL   a0
+	moveq #0x0, d0
+	move.w  (vram_addr_systemfont), d0	; Font VDP address
+	BYTES2TILES d0
+	move.l  #GameStatePauseData+PauseState_FireflyTotalTextTileBuff, a1	; Output tile ID buffer
+	jsr     TXT_CreateTileIDList
+	POPL    a0
+
+	; Store text sprites count
+	lea    GameStatePauseData, a2
+	move.b d0, PauseState_FireflyTotalTextSpritesCount(a2)
+
+	; Free string space
+	addi.l  #0x10, sp
+
+	;==============================================================
+
+	; Alloc string space
+	sub.l   #0x10, sp
+	move.l  sp, a0
 
 	; Password to string
 	PUSHL   a0
@@ -214,8 +252,8 @@ Pause_Enter:
 	; Set UI position
 	move.l (WorldScrollX), d0
 	move.l (WorldScrollY), d1
-	addi.l #((PauseText_FireflyPosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
-	addi.l #((PauseText_FireflyPosY+vdp_sprite_border_y-(Firefly_Height/2))*subpixels_per_pixel), d1
+	addi.l #((PauseText_FireflySpritePosX+vdp_sprite_border_x-Firefly_Width-4)*subpixels_per_pixel), d0
+	addi.l #((PauseText_FireflySpritePosY+vdp_sprite_border_y-(Firefly_Height/2))*subpixels_per_pixel), d1
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
 	
@@ -419,8 +457,11 @@ Pause_Render:
 	; Draw firefly text
 	tst.w   EntityCount_Firefly
 	beq     @NoDisplayFireflies
-	jsr Pause_RenderFireflyText
+	jsr     Pause_RenderFireflyText
 	@NoDisplayFireflies:
+
+	; Draw total firefly text
+	jsr     Pause_RenderFireflyTotalText
 
 	; Draw password text
 	jsr Pause_RenderPasswordText
@@ -441,6 +482,43 @@ Pause_RenderFireflyText:
 	move.b PauseState_FireflyTextSpritesCount(a0), d4				; Count
 	move.b #0x0, d0											; 1x1 sprite
 	move.l #(((PauseText_FireflyPosX+vdp_sprite_border_x)<<16)|(PauseText_FireflyPosY+vdp_sprite_border_y)), d1		; X/Y coord
+	move.w #((PauseText_FontPaletteId<<13)|1<<15), d3		; Palette/flip/priority bits
+	subq.w #0x1, d4
+	@TextLp:
+
+	; If out of sprites, bail
+	cmp.w    #vdp_max_sprites-1, next_sprite_index
+	beq      @OutOfSprites
+
+	PUSHL  d4
+	
+	; Get tile idx
+	move.w (a1)+, d2
+	
+	; Create and link sprite
+	PUSHM  d0-d3/a0-a1
+	jsr    SPR_AddSubSprite
+	POPM   d0-d3/a0-a1
+
+	; Next X
+	addi.l #0x00080000, d1
+
+	POPL   d4
+	dbra   d4, @TextLp
+	
+	@OutOfSprites:
+
+	rts
+
+Pause_RenderFireflyTotalText:
+
+	; Add all text glyphs for drawing
+	moveq #0x0, d4
+	lea    GameStatePauseData, a0
+	move.l #GameStatePauseData+PauseState_FireflyTotalTextTileBuff, a1	; Tile ID buffer
+	move.b PauseState_FireflyTotalTextSpritesCount(a0), d4				; Count
+	move.b #0x0, d0											; 1x1 sprite
+	move.l #(((PauseText_FireflyTotalPosX+vdp_sprite_border_x)<<16)|(PauseText_FireflyTotalPosY+vdp_sprite_border_y)), d1		; X/Y coord
 	move.w #((PauseText_FontPaletteId<<13)|1<<15), d3		; Palette/flip/priority bits
 	subq.w #0x1, d4
 	@TextLp:

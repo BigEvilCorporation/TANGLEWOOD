@@ -167,7 +167,7 @@ l8a5_Init:
 
 	; If collected all fireflies, activate Nymn, start Echo AI
 	IF !L8A4_TEST_ALL_FIREFLIES
-	cmp.w #TotalFireflyCount, FireflyPickupCountGame
+	cmp.w #TotalFireflyCount, FireflyPickupCountTotalSave
 	bne   @NotCollectedAll
 	ENDIF
 
