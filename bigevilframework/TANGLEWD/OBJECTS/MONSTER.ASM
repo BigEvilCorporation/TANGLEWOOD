@@ -17,8 +17,9 @@ Monster_Height	      equ 0x0058
 
 Monster_MaxVelXWalk   equ 0x010000   ; Max X walking velocity
 Monster_MaxVelXRun    equ 0x042000   ; Max X running velocity
-Monster_MaxVelXAir    equ 0x0A0000
+Monster_MaxVelXAir    equ 0x042000
 Monster_MaxVelXRunTamed equ 0x04E000   ; Max X running velocity (when being ridden)
+Monster_MaxVelXAirTamed equ 0x0A0000   ; Max X in-air velocity (when being ridden)
 Monster_MaxVelYUp	  equ 0x060000   ; Max Y velocity up
 Monster_MaxVelYDown	  equ 0x080000   ; Max Y velocity down
 Monster_WalkToRunVel  equ 0x030000   ; Walk to run transition velocity
@@ -1545,6 +1546,10 @@ MonsterStartTamed:
 	; Stand still
 	jsr    CharacterCancelXMovement
 
+	; Override run/jump speed
+	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXAirTamed, PhysicsObj_MaxVelAirX(a0), d0
+
 	; Reset catchup speed
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 
@@ -1586,6 +1591,16 @@ MonsterUpdateTamed:
 
 	rts
 
+MonsterEndTamed:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	
+	; Reset run/jump speed
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+
+	rts
+
 MonsterStartBucking:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
@@ -1608,9 +1623,6 @@ MonsterStartBucking:
 	; Take anim control
 	move.b #0x0, Character_UpdateAnim(a0)
 
-	; Override run speed
-	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
-
 	; Restore palette
 	PUSHM  a0-a1
 	lea    palette_djakk, a1
@@ -1624,6 +1636,10 @@ MonsterStartBucking:
 	jsr    GameScenePaletteFadeTo
 	POPM   a0-a1
 
+	; Reset run/jump speed
+	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+
 	rts
 
 MonsterUpdateBucking:
@@ -1636,9 +1652,6 @@ MonsterUpdateBucking:
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
-
-	; Reset run speed
-	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 	
 	; Roar and chase
 	jsr    MonsterStartRoaring

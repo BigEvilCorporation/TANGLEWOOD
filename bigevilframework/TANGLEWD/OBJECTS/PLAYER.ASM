@@ -1325,6 +1325,9 @@ PlayerDismountPet:
 	@NoPetWorldGrid:
 	POPM   d0/a0-a2
 
+	; End tamed
+	jsr    MonsterEndTamed
+
 	;==============================================================
 
 	; If involuntary dismount, monster bucks and throws player off
