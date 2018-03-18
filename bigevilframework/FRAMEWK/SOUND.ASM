@@ -563,8 +563,17 @@ SND_UpdateTrack:
 	; else just stop track
 	jsr    SND_StopTrack
 
-	@NoCurrentTrack:
 	@Stopped:
+
+	; Remove from queue
+	moveq  #0x0, d0
+	move.b Track_Type(a0), d0
+	lsl.l  #0x2, d0
+	lea    audio_queued_tracks, a2
+	add.l  d0, a2
+	move.l #0x0, (a2)
+
+	@NoCurrentTrack:
 	@TimerRunning:
 	@TimerNotRunning:
 
