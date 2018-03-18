@@ -269,6 +269,7 @@ Gameplay_Serialise:
 	
 	PUSHM  d0-d1/a0-a3
 	move.b (TimeOfDay), d0
+	move.b #0x0, d1
 	jsr    SetTimeOfDay
 	POPM   d0-d1/a0-a3
 	@End:

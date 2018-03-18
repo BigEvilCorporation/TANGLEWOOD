@@ -38,14 +38,19 @@ CycleTimeOfDay:
 	move.b #0x0, d0
 	@NoWrap:
 	
+	move.b #0x1, d1
 	jsr SetTimeOfDay
 	
 	rts
 	
 SetTimeOfDay:
 	; d0 (b) Time of Day
+	; d1 (b) Play theme
 	
 	move.b d0, TimeOfDay
+
+	tst.b  d1
+	beq    @NoTheme
 
 	; TODO: Bit messy, shove this into an array or something
 	cmp.b  #TimeOfDay_Night, d0
@@ -63,6 +68,8 @@ SetTimeOfDay:
 	jsr    SND_PlayTrack
 	POPM   a0/d0-d1
 	@NotDusk:
+
+	@NoTheme:
 	
 	andi.l #0x000000FF, d0
 	lsl.w  #0x2, d0			; Bytes to longs

@@ -775,6 +775,7 @@ L1A2_LoadGameObjects:
 	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.l #0x1, TriggerBox_RegisterD1(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L1A2_TriggerBox_60_name, a3
@@ -823,6 +824,7 @@ L1A2_LoadGameObjects:
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
+	move.l #0x1, TriggerBox_RegisterD1(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L1A2_TriggerBox_182_name, a3
