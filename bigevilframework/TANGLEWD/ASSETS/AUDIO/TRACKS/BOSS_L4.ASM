@@ -1112,6 +1112,7 @@
 ; Pattern $03, Row 63; 
 ; Pattern $04, Row 0; 
 	dc.b $fe, $08	; Delay
+	dc.b $fd	; Set loop
 	dc.b $40, $a0	; Set instrument for channel FM 1
 	dc.b $00, $81	; Note C-4 on channel FM 1
 	dc.b $41, $aa	; Set instrument for channel FM 2
@@ -8478,4 +8479,5 @@
 	dc.b $35, $03, $cc	; Set frequency '972' (octave 0 semitone 972) for channel FM 5
 	dc.b $fe, $01	; Delay
 	dc.b $35, $03, $ca	; Set frequency '970' (octave 0 semitone 970) for channel FM 5
+	dc.b $fc	; Goto loop
 	dc.b $ff	; The End
