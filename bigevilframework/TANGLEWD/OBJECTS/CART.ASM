@@ -20,6 +20,8 @@ Cart_MaxVelX			equ 0x080000
 Cart_Accel				equ 0x000800
 Cart_Decel				equ 0x000800
 
+Cart_OccupantOffsetX	equ 0x0002
+
 Cart_PlatformOffsetY	equ 0x0018
 
 Cart_AnimSpeedVelDiv	equ 0x0008
@@ -257,6 +259,7 @@ CartUpdate:
 	lsr.w  #0x1, d4
 	sub.w  d2, d4
 	sub.w  d4, d0
+	addi.w #Cart_OccupantOffsetX, d0
 	TOSUBPIXELS d0
 	move.l d0, Entity_WorldPosX(a3)
 	sub.w  d3, d5
@@ -265,6 +268,7 @@ CartUpdate:
 	add.w  SpriteObj_DrawOffsetY(a0), d1
 	TOSUBPIXELS d1
 	move.l d1, Entity_WorldPosY(a3)
+	move.b #0x0, SpriteObj_FlippedX(a3)
 	POPMW  d0-d1
 
 	bra    @End
