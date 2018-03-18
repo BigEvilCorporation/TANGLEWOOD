@@ -78,6 +78,9 @@ l8a4Data_CutsceneDemonReturn		rs.b Cutscene_Struct_Size
 l8a4Data_Struct_Size     		rs.b 0
 	
 l8a4_Init:
+
+	; Set data for all acts in level
+	jsr    L8_SetActData
 	
 	; Load BG map (using L4 tileset)
 	lea    map_blocks_L4, a0

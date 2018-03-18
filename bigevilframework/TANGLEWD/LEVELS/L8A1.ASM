@@ -67,14 +67,7 @@ l8a1Data_Struct_Size     		rs.b 0
 l8a1_Init:
 
 	; Set data for all acts in level
-	lea    CurrentActDatas, a2
-	move.l #LevelData_l8a1, (a2)+
-	move.l #LevelData_L8A2, (a2)+
-	move.l #LevelData_L8A3, (a2)+
-	move.l #LevelData_L8A4, (a2)+
-	move.l #LevelData_L8A5, (a2)+
-	move.l #LevelData_L8A6, (a2)+
-	move.w #0x6, CurrentLevelNumActs
+	jsr    L8_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L7, a0
@@ -126,4 +119,15 @@ l8a1_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+L8_SetActData:
+	lea    CurrentActDatas, a2
+	move.l #LevelData_L8A1, (a2)+
+	move.l #LevelData_L8A2, (a2)+
+	move.l #LevelData_L8A3, (a2)+
+	move.l #LevelData_L8A4, (a2)+
+	move.l #LevelData_L8A5, (a2)+
+	move.l #LevelData_L8A6, (a2)+
+	move.w #0x6, CurrentLevelNumActs
 	rts

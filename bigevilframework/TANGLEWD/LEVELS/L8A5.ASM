@@ -70,6 +70,9 @@ l8a5Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
 l8a5Data_Struct_Size     		rs.b 0
 	
 l8a5_Init:
+
+	; Set data for all acts in level
+	jsr    L8_SetActData
 	
 	; Load BG map (using L3 tileset)
 	lea    map_blocks_L3, a0

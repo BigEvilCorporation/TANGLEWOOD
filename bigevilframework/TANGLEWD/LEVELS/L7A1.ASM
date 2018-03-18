@@ -150,5 +150,5 @@ L7_SetActData:
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L7A1, (a2)+
 	move.l #LevelData_L7A2, (a2)+
-	move.w #0x3, CurrentLevelNumActs
+	move.w #0x2, CurrentLevelNumActs
 	rts

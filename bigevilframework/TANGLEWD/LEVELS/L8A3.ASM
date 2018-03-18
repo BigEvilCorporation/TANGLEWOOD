@@ -70,6 +70,9 @@ l8a3Data_CutsceneLoadLift			rs.b Cutscene_Struct_Size
 l8a3Data_Struct_Size     		rs.b 0
 	
 l8a3_Init:
+
+	; Set data for all acts in level
+	jsr    L8_SetActData
 	
 	; Load BG map (using L5 tileset)
 	lea    map_blocks_L5, a0

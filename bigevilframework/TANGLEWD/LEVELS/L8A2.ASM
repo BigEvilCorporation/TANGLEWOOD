@@ -65,6 +65,9 @@ l8a2_DefaultPalettes:
 l8a2Data_Struct_Size     		rs.b 0
 	
 l8a2_Init:
+
+	; Set data for all acts in level
+	jsr    L8_SetActData
 	
 	; Load BG map
 	lea    map_blocks_L7, a0

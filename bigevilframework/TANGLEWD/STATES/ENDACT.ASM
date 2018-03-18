@@ -39,6 +39,7 @@ EndAct_Enter:
 
 	; If collected all fireflies, play victory outro
 	move.w (EntityCount_Firefly), d0
+	beq    @NotCollectedAll
 	move.w (FireflyPickupCountAct), d1
 	cmp.w  d0, d1
 	bne    @NotCollectedAll

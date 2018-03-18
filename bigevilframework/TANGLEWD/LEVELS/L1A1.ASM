@@ -212,6 +212,7 @@ l1a1_Trigger_NearEndLevel:
 
 L1_SetActData:
 	lea    CurrentActDatas, a2
+	; l1a0 intentionally missing (don't want it on firefly score screen)
 	move.l #LevelData_L1A1, (a2)+
 	move.l #LevelData_L1A2, (a2)+
 	move.l #LevelData_L1A3, (a2)+

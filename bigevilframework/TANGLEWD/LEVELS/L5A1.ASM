@@ -273,5 +273,6 @@ L5_SetActData:
 	move.l #LevelData_L5A1, (a2)+
 	move.l #LevelData_L5A2, (a2)+
 	move.l #LevelData_L5A3, (a2)+
+		; l5a4 intentionally missing (don't want it on firefly score screen)
 	move.w #0x3, CurrentLevelNumActs
 	rts
