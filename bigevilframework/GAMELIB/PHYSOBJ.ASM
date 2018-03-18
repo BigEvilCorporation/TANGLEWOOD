@@ -1127,7 +1127,11 @@ PhysicsObjCollisionCorrectY:
 	DIVS1616_LOSSY d1, d5							; Div by bounce
 	@NoBounceY:
 
-	move.l PhysicsObj_VelY(a0), PhysicsObj_FloorImpactVelY(a0)	; Store impact velocity
+	move.l PhysicsObj_VelY(a0), d0
+	beq    @NoImpact
+	move.l d0, PhysicsObj_FloorImpactVelY(a0)		; Store impact velocity
+	@NoImpact:
+
 	move.l d5, PhysicsObj_VelY(a0)					; Set zero vel / platform vel / bounce vel
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag

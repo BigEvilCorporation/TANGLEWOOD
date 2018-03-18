@@ -9,7 +9,7 @@
 ; ************************************
 ; Constants
 ; ************************************
-Character_LandVel		    equ 0x030000
+Character_LandVel		    equ 0x020000
 Character_FallVel		    equ 0x020000
 Character_WaterSplashVel	equ 0x010000
 

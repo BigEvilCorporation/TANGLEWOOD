@@ -21,7 +21,7 @@ Log_ProbeFloorY			equ (Log_Height-8)	; Floor detection probe position X
 Log_AnimSpeedVelDiv		equ 0x0800
 
 Log_RollSFXVel			equ 0x002000
-Log_HitGroundSFXVel		equ 0x050000	; Min Y velocity to play thud SFX
+Log_HitGroundSFXVel		equ 0x020000	; Min Y velocity to play thud SFX
 Log_MinDamageXVel		equ 0x020000	; Min X velocity to deal damage to characters
 Log_MinDamageYVel		equ 0x050000	; Min Y velocity to deal damage to characters
 Log_HitDamage			equ 0xFF		; Damage dealt to characters
@@ -297,6 +297,12 @@ LogUpdate:
 	jsr     SND_StopSFX
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	@EndRollSFX:
+
+	; If hit floor at landing velocity, play land SFX
+	cmp.l  #-Log_HitGroundSFXVel, PhysicsObj_FloorImpactVelY(a0)
+	bge    @NoLandSFX
+	PLAYSFX #SFX_BoulderBreak
+	@NoLandSFX:
 
 	rts
 
