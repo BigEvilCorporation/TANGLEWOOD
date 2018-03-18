@@ -58,6 +58,8 @@ l3a1_DefaultPalettes:
 	
 	even
 
+l3a1_LiftSpeedUp				equ 0x008000+DefaultGravity
+
 ; ************************************
 ; Background scroll rows
 ; ************************************
@@ -185,6 +187,10 @@ l3a1_Init:
 	ENTITY_GETBYNAME FuzzlCage, l3a1_FuzzlCage2, a0
 	ENTITY_GETBYNAME Fuzzl, l3a1_FuzzlCaged2, a2
 	jsr    FuzzlCageSetFuzzl
+
+	; Adjust crate/lift speed
+	ENTITY_GETBYNAME Lift, l3a1_Lift3, a0
+	MOVE_NTSC_L l3a1_LiftSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
 
 	;==============================================================
 	

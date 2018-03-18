@@ -59,6 +59,8 @@ l8a5_DefaultPalettes:
 l8a5_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
 l8a5_DemonHideTime				equ 0x0100
 l8a5_DemonAttackSpeed			equ 0x0010
+
+l8a5_LiftSpeedUp				equ 0x008000+DefaultGravity
 	
 ; ************************************
 ; Runtime data
@@ -162,6 +164,9 @@ l8a5_Init:
 	ENTITY_GETBYNAME Location, l8a5_LocationLiftStop, a1
 	move.w Entity_WorldPosY(a1), Lift_TopLimit(a0)
 	move.b #0x1, Lift_RestrictHeight(a0)
+
+	; Adjust lift speed
+	MOVE_NTSC_L l8a5_LiftSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
 
 	;==============================================================
 

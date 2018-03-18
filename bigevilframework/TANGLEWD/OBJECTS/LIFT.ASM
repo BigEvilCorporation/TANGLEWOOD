@@ -260,7 +260,7 @@ LiftProcessCounterweight:
 	beq    @UnoccupiedB
 
 	; else if both occupied, use mass diff as velocity
-	swap   d3
+	TOSUBPIXELS d3
 	move.l d3, PhysicsObj_VelY(a0)
 
 	; Negate for other platform
