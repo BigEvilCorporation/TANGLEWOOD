@@ -531,10 +531,15 @@ LiftDraw:
 	sub.w  Entity_Height(a5), d1
 
 	; Re-draw rope segment until off screen
-	move.w #Lift_RopeMaxDrawSprites, d7
 	@RopeDrawLp:
+	
+	; If off top of screen, bail out
+	move.w d1, d7
+	add.w  Entity_Height(a5), d7
+	cmp.w  d7, d4
+	bgt    @RopeDrawEnd
 
-	; If off bottom of screen, skip
+	; If off bottom of screen, just skip this segment
 	cmp.w  d1, d5
 	blt    @Next
 
@@ -555,12 +560,6 @@ LiftDraw:
 
 	; Next Y pos
 	sub.w  Entity_Height(a5), d1
-
-	; If off top of screen, bail
-	move.w d1, d7
-	add.w  Entity_Height(a5), d7
-	cmp.w  d7, d4
-	bgt    @RopeDrawEnd
 
 	; Loop
 	bra    @RopeDrawLp
