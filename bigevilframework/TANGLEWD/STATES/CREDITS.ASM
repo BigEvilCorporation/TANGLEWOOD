@@ -70,6 +70,7 @@ CreditsState_OpeningTitle	equ 0
 CreditsState_OpeningCredit	equ 1
 CreditsState_Rolling		equ 2
 CreditsState_ClosingCredit	equ 3
+CreditsState_fadeOut		equ 4
 
 ; Palette
 Credits_Palette:
@@ -90,12 +91,21 @@ Credits_Palette:
 	dc.w 0x0000
 	dc.w 0x0000
 
+; Music
+Credits_Playlist_Start:
+	dc.l track_bgm_credits
+	dc.l track_bgm_cue_l4
+	dc.l track_bgm_cue_l5
+Credits_Playlist_End
+Credits_Playlist_Size	equ (Credits_Playlist_End-Credits_Playlist_Start)/size_long
+
 ; Struct
 	rsset	LevelData_Struct_Size
 ;-------------------------------------
 Credits_StreamPtr			rs.l 1
 Credits_CurrentString		rs.l 1
 Credits_VScroll				rs.l 1
+Credits_CurrTrackPtr		rs.l 1
 Credits_CurrentLineIdx		rs.w 1
 Credits_LastLineIdx			rs.w 1
 Credits_CurrentStringType	rs.b 1
@@ -208,8 +218,8 @@ Credits_Enter:
 	jsr    Credits_FetchNextString
 
 	; Start music
-	lea    track_bgm_credits, a0
-	jsr    SND_PlayTrack
+	lea    GameStateCreditsData, a2
+	move.l #Credits_Playlist_Start, Credits_CurrTrackPtr(a2)
 	
 	rts
 	
@@ -225,8 +235,28 @@ Credits_Update:
 	; Update game objects
 	jsr    EntityUpdateAll
 
-	; Scroll
+	; If music stopped, fetch next track from playlist
+	PUSHL  a1
+	tst.l  audio_current_track			; Check if playing
+	bne    @Playing
 	lea    GameStateCreditsData, a2
+	move.l Credits_CurrTrackPtr(a2), a3	; Get track ptr
+	move.l (a3), a0						; Get track
+	addi.l #size_long, a3				; Advance
+	cmp.l  #Credits_Playlist_End, a3	; Wrap
+	bne    @NotAtEnd
+	move.l #Credits_Playlist_Start, a3
+	@NotAtEnd:
+	move.l a3, Credits_CurrTrackPtr(a2)	; Set new track ptr
+	jsr    SND_PlayTrack				; Play
+	@Playing:
+	POPL   a1
+
+	lea    GameStateCreditsData, a2
+	cmp.b  #CreditsState_FadeOut, Credits_State(a2)
+	beq    @FadingOut
+
+	; Scroll
 	move.l Credits_VScroll(a2), d0
 	addi.l #Credits_ScrollSpeed, d0
 	move.l d0, Credits_VScroll(a2)
@@ -261,6 +291,56 @@ Credits_Update:
 	cmp.w  d1, d0
 	bne    @End
 
+	; Fade music out
+	move.b #-1, d0
+	jsr    SND_BeginFadeTrack
+
+	; Fade palettes out
+	lea    palette_fade_black, a0
+	move.l #PaletteId_TanglewoodLogo, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_World0, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Player, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    palette_fade_black, a0
+	move.l #PaletteId_Fuzzl, d0
+	move.l #MainMenuFadeTime, d1
+	move.b #DefaultFadeTicksPerUpdate, d2
+	move.l #0x0, d3
+	move.l #0xF, d4
+	jsr    GameScenePaletteFadeTo
+
+	lea    GameStateCreditsData, a2
+	move.b #CreditsState_FadeOut, Credits_State(a2)
+
+	bra    @End
+
+	@FadingOut:
+
+	; Wait for fade out
+	jsr    PAL_LerpActive
+	tst.b  d0
+	bne    @End
+
+	; Fade out finished
 	IF DEMO_SHOW_THANKS
 
 	; Reset to first level and head to demo end screen
