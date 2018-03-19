@@ -268,6 +268,7 @@ SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
 SFX_Data_Rumble:			include 'assets\audio\SFX\objects\rumble.asm'
+SFX_Data_SmartBomb:			include 'assets\audio\SFX\objects\smartbmb.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
 SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
 SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
@@ -626,6 +627,30 @@ SFX_Rumble
 SFX_SpikeDeath
 	dc.l SFX_Data_SpikeDeath		; Data
 	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
+SFX_SmartBomb
+	dc.l SFX_Data_SmartBomb			; Data
+	dc.b SFX_Priority_Highest		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
+SFX_SwarmMoveLoop
+	dc.l SFX_Data_SwarmMoveLoop		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
+SFX_SwarmDamageLoop
+	dc.l SFX_Data_SwarmDamageLoop	; Data
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
 

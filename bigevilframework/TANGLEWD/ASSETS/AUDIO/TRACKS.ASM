@@ -152,6 +152,16 @@ track_bgm_boss_l8:
 	dc.b	Track_Transition_Instant
 	even
 
+track_bgm_boss_l8b:
+	dc.l	bgm_boss_l4
+	dc.w	0x001F
+	dc.w	0x0
+	dc.b	Track_Type_BGM
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	Track_Transition_Instant
+	even
+
 track_bgm_credits:
 	dc.l	bgm_credits
 	dc.w	0x03FF

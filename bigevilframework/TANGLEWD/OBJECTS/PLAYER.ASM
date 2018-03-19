@@ -1906,7 +1906,7 @@ PlayerLightningAttack:
 	move.w #0x0, d1		; Distance (close)
 	jsr    ThunderSetParams
 	jsr    ThunderFlash
-	PLAYSFX #SFX_Thunder_Near
+	PLAYSFX #SFX_SmartBomb
 	POPM   a0-a1
 
 	; Find enemies on screen

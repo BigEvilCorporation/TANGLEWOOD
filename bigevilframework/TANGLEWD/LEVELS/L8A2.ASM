@@ -55,6 +55,8 @@ l8a2_DefaultPalettes:
 	dc.l Pal_Nymn_White				; Player (white ability)
 	
 	even
+
+L8_FinalBossMusic	equ track_bgm_boss_l8b
 	
 ; ************************************
 ; Runtime data
@@ -114,7 +116,7 @@ l8a2_Init:
 
 	; Start final fight music
 	PUSHM  a0/d0-d1
-	lea    track_bgm_boss_l8, a0
+	lea    L8_FinalBossMusic, a0
 	jsr    SND_PlayTrack
 	POPM   a0/d0-d1
 	

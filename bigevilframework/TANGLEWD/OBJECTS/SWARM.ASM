@@ -181,6 +181,9 @@ SwarmUpdate:
 	jsr     AnimObjSetAnimation
 	POPL    a1
 
+	; Attack SFX
+	PLAYSFX #SFX_SwarmDamageLoop
+
 	; If touching, kill
 	move.l Player1, a2
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
@@ -208,6 +211,9 @@ SwarmUpdate:
 	move.l  #0x0, a3
 	jsr     AnimObjSetAnimation
 	POPL    a1
+
+	; Non-attack SFX
+	PLAYSFX #SFX_SwarmMoveLoop
 	
 	@NoHit:
 	@AttackMode:

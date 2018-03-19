@@ -55,7 +55,7 @@ l8a1_DefaultPalettes:
 	dc.l Pal_Nymn_Red				; Player
 	
 	even
-	
+
 ; ************************************
 ; Runtime data
 ; ************************************
