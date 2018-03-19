@@ -243,6 +243,7 @@ SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
 SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
+SFX_Data_Checkpoint:		include 'assets\audio\SFX\objects\checkpnt.asm'
 SFX_Data_DemonAppearStart:	include 'assets\audio\SFX\objects\dem_strt.asm'
 SFX_Data_DemonAppearEnd:	include 'assets\audio\SFX\objects\dem_end.asm'
 SFX_Data_DemonOpenMouth:	include 'assets\audio\SFX\objects\dem_open.asm'
@@ -400,6 +401,14 @@ SFX_ButtonFail:
 
 SFX_CageDoorRaise:
 	dc.l SFX_Data_CageDoorRaise		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_Checkpoint:
+	dc.l SFX_Data_Checkpoint		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

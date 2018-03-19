@@ -576,7 +576,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x06800000, Entity_WorldPosX(a0)
+	move.l #0x06d00000, Entity_WorldPosX(a0)
 	move.l #0x01580000, Entity_WorldPosY(a0)
 	move.b #ColourBlue, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
@@ -965,8 +965,8 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x06300000, Entity_WorldPosX(a0)
-	move.l #0x01380000, Entity_WorldPosY(a0)
+	move.l #0x06680000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L5A3_Checkpoint_47_name, a3
@@ -979,7 +979,7 @@ L5A3_LoadGameObjects:
 
 	jsr CheckpointInit
 	move.l #0x1d800000, Entity_WorldPosX(a0)
-	move.l #0x05c00000, Entity_WorldPosY(a0)
+	move.l #0x05c80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L5A3_Checkpoint_110_name, a3
@@ -991,8 +991,8 @@ L5A3_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x14e00000, Entity_WorldPosX(a0)
-	move.l #0x04a80000, Entity_WorldPosY(a0)
+	move.l #0x14f00000, Entity_WorldPosX(a0)
+	move.l #0x04b00000, Entity_WorldPosY(a0)
 	move.b #0x0, Entity_Active(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL

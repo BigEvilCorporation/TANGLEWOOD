@@ -123,7 +123,13 @@ L5A1_TriggerMusicCue_name	dc.b "L5A1_TriggerMusicCue",0
 	even
 	ENDIF
 
-L5A1_Checkpoint_count equ 0x0
+L5A1_Checkpoint_count equ 0x1
+L5A1_Checkpoint_72_idx	equ 0x0
+
+	IFND FINAL
+L5A1_Checkpoint_72_name	dc.b "L5A1_Checkpoint_72",0
+	even
+	ENDIF
 
 L5A1_WaterBody_count equ 0x2
 L5A1_WaterBody_54_idx	equ 0x0
@@ -635,6 +641,25 @@ L5A1_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L5A1_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x08b80000, Entity_WorldPosX(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L5A1_Checkpoint_72_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	PUSHL  a1

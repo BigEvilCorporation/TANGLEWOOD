@@ -314,6 +314,7 @@ FlueNumPotentialOccupants	 rs.b 1
 CurrentSavePassword			 rs.l 1
 LastActivatedCheckpoint      rs.l 1
 LastSaveVersion				 rs.w 1
+CheckpointSpriteLoaded		 rs.b 1	; Active/inactive sprite currently loaded
 	RS_ALIGN
 CheckpointSerialiseMemBlock  rs.b CheckpointSerialiseBlockSize
 
@@ -375,6 +376,7 @@ SharedVRAM_Start		rs.b 0
 
 SharedVRAM_Lift			rs.w 1
 SharedVRAM_Cargolft		rs.w 1
+SharedVRAM_Checkpnt		rs.w 1
 SharedVRAM_Stone		rs.w 1
 SharedVRAM_DjakCage		rs.w 1
 SharedVRAM_Crate		rs.w 1

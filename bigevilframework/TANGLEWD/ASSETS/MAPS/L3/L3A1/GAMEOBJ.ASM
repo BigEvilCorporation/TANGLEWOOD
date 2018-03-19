@@ -704,8 +704,8 @@ L3A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x07600000, Entity_WorldPosX(a0)
-	move.l #0x03200000, Entity_WorldPosY(a0)
+	move.l #0x07680000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L3A1_Checkpoint_46_name, a3

@@ -889,7 +889,7 @@ L3A2_LoadGameObjects:
 
 	jsr CheckpointInit
 	move.l #0x0c180000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L3A2_Checkpoint_61_name, a3
@@ -902,7 +902,7 @@ L3A2_LoadGameObjects:
 
 	jsr CheckpointInit
 	move.l #0x11e00000, Entity_WorldPosX(a0)
-	move.l #0x04180000, Entity_WorldPosY(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L3A2_Checkpoint_62_name, a3

@@ -843,8 +843,8 @@ L1A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x19680000, Entity_WorldPosX(a0)
-	move.l #0x02b80000, Entity_WorldPosY(a0)
+	move.l #0x19880000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L1A2_Checkpoint_191_name, a3

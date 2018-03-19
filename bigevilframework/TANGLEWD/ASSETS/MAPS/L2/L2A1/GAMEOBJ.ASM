@@ -159,15 +159,13 @@ L2A1_TriggerStopPower_name	dc.b "L2A1_TriggerStopPower",0
 	even
 	ENDIF
 
-L2A1_Checkpoint_count equ 0x3
-L2A1_Checkpoint_63_idx	equ 0x0
+L2A1_Checkpoint_count equ 0x2
+L2A1_Checkpoint_69_idx	equ 0x0
 L2A1_Checkpoint_64_idx	equ 0x1
-L2A1_Checkpoint_69_idx	equ 0x2
 
 	IFND FINAL
-L2A1_Checkpoint_63_name	dc.b "L2A1_Checkpoint_63",0
-L2A1_Checkpoint_64_name	dc.b "L2A1_Checkpoint_64",0
 L2A1_Checkpoint_69_name	dc.b "L2A1_Checkpoint_69",0
+L2A1_Checkpoint_64_name	dc.b "L2A1_Checkpoint_64",0
 	even
 	ENDIF
 
@@ -823,37 +821,24 @@ L2A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x14680000, Entity_WorldPosX(a0)
-	move.l #0x02b00000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L2A1_Checkpoint_63_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-	jsr CheckpointInit
-	move.l #0x11000000, Entity_WorldPosX(a0)
-	move.l #0x03200000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L2A1_Checkpoint_64_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-	jsr CheckpointInit
-	move.l #0x0e200000, Entity_WorldPosX(a0)
-	move.l #0x02600000, Entity_WorldPosY(a0)
+	move.l #0x0df00000, Entity_WorldPosX(a0)
+	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L2A1_Checkpoint_69_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x10d00000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L2A1_Checkpoint_64_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

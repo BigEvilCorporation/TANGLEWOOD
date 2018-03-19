@@ -464,7 +464,7 @@ L1A1_LoadGameObjects:
 	POPL   a1
 
 	jsr BoulderInit
-	move.l #0x18600000, Entity_WorldPosX(a0)
+	move.l #0x18580000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
@@ -800,8 +800,8 @@ L1A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x16780000, Entity_WorldPosX(a0)
-	move.l #0x02400000, Entity_WorldPosY(a0)
+	move.l #0x19580000, Entity_WorldPosX(a0)
+	move.l #0x02580000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L1A1_Checkpoint_73_name, a3

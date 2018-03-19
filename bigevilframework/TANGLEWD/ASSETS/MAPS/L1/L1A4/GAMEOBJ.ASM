@@ -1103,8 +1103,8 @@ L1A4_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x1a180000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
+	move.l #0x18d00000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L1A4_Checkpoint_100_name, a3
@@ -1116,8 +1116,8 @@ L1A4_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x27880000, Entity_WorldPosX(a0)
-	move.l #0x02480000, Entity_WorldPosY(a0)
+	move.l #0x27980000, Entity_WorldPosX(a0)
+	move.l #0x02500000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L1A4_Checkpoint_101_name, a3

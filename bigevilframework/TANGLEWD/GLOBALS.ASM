@@ -91,7 +91,7 @@ ColourWhite				 equ 0x6
 NumSwitchingColours		 equ 0x7
 
 ; Checkpoint save
-CheckpointSerialiseBlockSize equ 0x0300 ; 768 bytes
+CheckpointSerialiseBlockSize equ 0x0320 ; 800 bytes
 
 ; Demo timer
 DemoTimeout				 equ (60*60*1)

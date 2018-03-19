@@ -70,6 +70,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\cargolft.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cargrope.asm
 	INCLUDE_TEXT_ASSET assets\sprites\cart.asm
+	INCLUDE_TEXT_ASSET assets\sprites\checkpnt.asm
 	INCLUDE_TEXT_ASSET assets\sprites\crate.asm
 	INCLUDE_TEXT_ASSET assets\sprites\debris.asm
 	INCLUDE_TEXT_ASSET assets\sprites\demon.asm

@@ -117,7 +117,15 @@ L5A2_TriggerBox_EndLevel_name	dc.b "L5A2_TriggerBox_EndLevel",0
 	even
 	ENDIF
 
-L5A2_Checkpoint_count equ 0x0
+L5A2_Checkpoint_count equ 0x2
+L5A2_Checkpoint_72_idx	equ 0x0
+L5A2_Checkpoint_73_idx	equ 0x1
+
+	IFND FINAL
+L5A2_Checkpoint_72_name	dc.b "L5A2_Checkpoint_72",0
+L5A2_Checkpoint_73_name	dc.b "L5A2_Checkpoint_73",0
+	even
+	ENDIF
 
 L5A2_WaterBody_count equ 0x1
 L5A2_WaterBody_64_idx	equ 0x0
@@ -573,6 +581,38 @@ L5A2_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L5A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x05d80000, Entity_WorldPosX(a0)
+	move.l #0x01400000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L5A2_Checkpoint_72_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x0e500000, Entity_WorldPosX(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L5A2_Checkpoint_73_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	PUSHL  a1

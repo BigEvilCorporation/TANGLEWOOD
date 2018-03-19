@@ -618,8 +618,8 @@ L4A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x14200000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
+	move.l #0x14000000, Entity_WorldPosX(a0)
+	move.l #0x01e80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L4A1_Checkpoint_43_name, a3

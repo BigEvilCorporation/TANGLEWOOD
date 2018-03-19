@@ -634,8 +634,8 @@ L7A1_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x15400000, Entity_WorldPosX(a0)
-	move.l #0x01e00000, Entity_WorldPosY(a0)
+	move.l #0x15c80000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L7A1_Checkpoint_33_name, a3

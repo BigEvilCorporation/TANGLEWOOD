@@ -164,10 +164,10 @@ L2A2_TriggerBox_StopPower_name	dc.b "L2A2_TriggerBox_StopPower",0
 	ENDIF
 
 L2A2_Checkpoint_count equ 0x1
-L2A2_Checkpoint_39_idx	equ 0x0
+L2A2_Checkpoint_68_idx	equ 0x0
 
 	IFND FINAL
-L2A2_Checkpoint_39_name	dc.b "L2A2_Checkpoint_39",0
+L2A2_Checkpoint_68_name	dc.b "L2A2_Checkpoint_68",0
 	even
 	ENDIF
 
@@ -835,11 +835,11 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x12600000, Entity_WorldPosX(a0)
-	move.l #0x01a00000, Entity_WorldPosY(a0)
+	move.l #0x12580000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
-	lea L2A2_Checkpoint_39_name, a3
+	lea L2A2_Checkpoint_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
