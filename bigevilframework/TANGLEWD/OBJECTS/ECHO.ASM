@@ -2107,28 +2107,19 @@ EchoAIStart_Skivv:
 	move.w #0x0, CameraLerpTime
 	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0
 
-	; Howl
-	PUSHL  a1
-	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
-	move.b #0x0, d0
-	move.l #0x0, a2
-	move.l #0x0, a3
-	jsr    AnimObjSetAnimation
-	POPL   a1
-
 	rts
 
 EchoAIUpdate_Skivv:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Wait until on floor
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
 	; If Echo not already dead
 	tst.b  Character_Dead(a0)
 	bne    @EchoDead
-
-	; If camera lerp finished
-	tst.w  CameraLerpSpeed
-	bne    @Lerping
 
 	; Get Skivv
 	move.l Echo_Skivv(a0), a2
@@ -2136,6 +2127,19 @@ EchoAIUpdate_Skivv:
 	; If skivv not alread in attack state
 	cmp.b  #SkivvState_Attacking, Skivv_State(a2)
 	beq    @AlreadyAttacking
+
+	; Howl
+	PUSHM  a0-a2
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPM   a0-a2
+
+	; If camera lerp finished
+	tst.w  CameraLerpSpeed
+	bne    @Lerping
 
 	; Position Skivv at Echo's feet, + X offset
 	move.w Entity_WorldPosX(a0), d0
@@ -2159,6 +2163,7 @@ EchoAIUpdate_Skivv:
 
 	POPL   a0
 
+	@InAir:
 	@Lerping:
 	@AlreadyAttacking:
 	@EchoDead:
