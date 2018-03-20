@@ -75,6 +75,8 @@ l5a4_DemonWaitTimeAttack		equ 0x00E0	; Time between fade and attack
 l5a4_DemonWaitTimeEchoEmerge	equ 0x0080	; Time between attack and Echo emerging
 l5a4_ThunderDist				equ 0x1
 l5a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per tick)
+l5a4_Thunder_Far_Dist			equ 0x9
+l5a4_Thunder_Far_Interval		equ 0x0300
 
 ; ************************************
 ; Runtime data
@@ -175,7 +177,13 @@ l5a4_End:
 	
 l5a4_Trigger_End:
 
+	; No music
+	lea    GameStateEndLevelData, a2
+	move.b #0x1, EndLevelState_NoMusic(a2)
+	
 	; Begin end of level gamestate
+	lea    GameStateEndLevelScoreData, a2
+	move.l #l5a4_ScoreScreenSetup, EndLevelScore_SetupCallback(a2)
 	lea    GameStateEndLevel, a0
 	jsr    GameStateEnter
 
@@ -183,6 +191,19 @@ l5a4_Trigger_End:
 	lea    GameStateEndLevelData, a2
 	move.w #0x1, EndLevelState_Timer(a2)
 	
+	rts
+
+l5a4_ScoreScreenSetup:
+
+	; Start rain
+	jsr    RainInit
+
+	; Start thunder
+	jsr    ThunderInit
+	move.w #l5a4_Thunder_Far_Interval, d0
+	move.w #l5a4_Thunder_Far_Dist, d1
+	jsr    ThunderSetParams
+
 	rts
 
 l5a4_Trigger_Storm:
@@ -196,8 +217,9 @@ l5a4_Trigger_Storm:
 	move.l #(size_palette_b/size_long), d0
 	MEMCPYL a1, a0, d0
 
-	; Start rain
+	; Start rain and thunder
 	jsr    RainInit
+	jsr    ThunderInit
 
 	; Start ambience
 	PUSHM  a0/d0-d1
@@ -212,6 +234,11 @@ l5a4_Trigger_Storm:
 	jsr    ThunderSetParams
 	jsr    ThunderFlash
 	PLAYSFX #SFX_Thunder_Near
+
+	; Continued thunder
+	move.w #l5a4_Thunder_Far_Interval, d0
+	move.w #l5a4_Thunder_Far_Dist, d1
+	jsr    ThunderSetParams
 
 	rts
 

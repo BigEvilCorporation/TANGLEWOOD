@@ -90,6 +90,7 @@ EndLevelScore_Palette:
 ; Struct
 	rsset	LevelData_Struct_Size
 ;-------------------------------------
+EndLevelScore_SetupCallback		rs.l 1
 EndLevelScore_NextLevel			rs.l 1
 ;-------------------------------------
 	RS_ALIGN
@@ -264,6 +265,18 @@ EndLevelScoreScreen_Enter:
 	
 	; Reset timer
 	MOVE_NTSC_L EndLevelScoreScreenDelayTime, TimerLogoFade, d0
+
+	; Score screen setup callback (for level specific extras)
+	lea    GameStateEndLevelScoreData, a2
+	move.l EndLevelScore_SetupCallback(a2), a3
+	cmpa   #0x0, a3
+	beq    @NoCb
+	jsr    (a3)
+	@NoCb:
+
+	; Clear callback
+	lea    GameStateEndLevelScoreData, a2
+	move.l #0x0, EndLevelScore_SetupCallback(a2)
 	
 	rts
 	
@@ -344,6 +357,9 @@ EndLevelScoreScreen_Update:
 	
 	; Update game objects
 	jsr    EntityUpdateAll
+
+	; Update weather
+	jsr    WeatherUpdate
 	
 	rts
 	

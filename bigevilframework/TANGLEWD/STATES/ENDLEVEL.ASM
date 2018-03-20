@@ -34,6 +34,7 @@ EndLevelPhase_Fade					equ 0x2
 ;---------------------------------
 EndLevelState_Timer			rs.w 1
 EndLevelState_Phase			rs.b 1
+EndLevelState_NoMusic		rs.b 1
 ;---------------------------------
 	RS_ALIGN
 EndLevelState_Struct_Size	rs.b 0
@@ -51,8 +52,14 @@ EndLevel_Enter:
 	MOVE_NTSC_W GameStateEndLevel_SleepTime, EndLevelState_Timer(a2), d0
 		
 	; Start end of level theme
+	tst.b  EndLevelState_NoMusic(a2)
+	bne    @NoMusic
 	lea    track_bgm_lvloutro, a0
+	PUSHL  a2
 	jsr    SND_PlayTrack
+	POPL   a2
+	@NoMusic:
+	move.b #0x0, EndLevelState_NoMusic(a2)
 	
 	POPL   a1
 	POPL   a0
