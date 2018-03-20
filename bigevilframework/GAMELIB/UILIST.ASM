@@ -6,7 +6,7 @@
 ;   uilist.asm - List selection widget
 ;==============================================================
 
-UIWidgetList_MaxItems			equ 0x40
+UIWidgetList_MaxItems			equ 0x60
 
 UIWidgetList_DrawPlane_PlaneA	equ 0x0
 UIWidgetList_DrawPlane_PlaneB	equ 0x1
