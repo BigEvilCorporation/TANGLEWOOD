@@ -59,6 +59,8 @@ l4a3_DefaultPalettes:
 	dc.l Pal_Nymn_Red				; Player
 	
 	even
+
+l4a3_LiftSpeedDown				equ 0x004000+DefaultGravity
 	
 ; ************************************
 ; Runtime data
@@ -187,6 +189,12 @@ l4a3_Init:
 	; Make Borgus' boulder unbreakable
 	ENTITY_GETBYNAME Boulder, l4a3_Boulder1, a0
 	move.b #0x0, Boulder_CanCrack(a0)
+
+	; Slow down Borgus' lifts
+	ENTITY_GETBYNAME Lift, l4a3_Lift1, a0
+	MOVE_NTSC_L l4a3_LiftSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
+	ENTITY_GETBYNAME Lift, l4a3_Lift2, a0
+	MOVE_NTSC_L l4a3_LiftSpeedDown, PhysicsObj_MaxVelYDown(a0), d0
 
 	; Set traps
 	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
