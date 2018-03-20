@@ -260,25 +260,20 @@ PhysicsObjPreStep:
 	; Apply gravity and wind
 	jsr PhysicsObjApplyWorldForces
 	
-	; Apply Y velocity and check floor collision
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	beq    @NoVelY
-	jsr    PhysicsObjApplyVelocityY
-	bra    @HasVelY
-	@NoVelY:
-	jsr    PhysicsObjFindMovingFloor
-	@HasVelY:
-
-	; Apply X velocity and check wall collision
+	; Apply velocity and check collision
 	move.l PhysicsObj_VelX(a0), d0
 	add.l  PhysicsObj_ImpulseX(a0), d0
-	beq    @NoVelX
-	jsr    PhysicsObjApplyVelocityX
-	bra    @HasVelX
-	@NoVelX:
+	move.l d0, d2
+	move.l PhysicsObj_VelY(a0), d1
+	add.l  PhysicsObj_ImpulseY(a0), d1
+	or.l   d1, d2
+	beq    @NoVel
+	jsr    PhysicsObjApplyVelocity
+	bra    @HasVel
+	@NoVel:
+	jsr    PhysicsObjFindMovingFloor
 	jsr    PhysicsObjFindMovingBarrier
-	@HasVelX:
+	@HasVel:
 
 	; Sleep if possible
 	jsr    PhysicsObjRest
@@ -293,17 +288,16 @@ PhysicsObjPreStep:
 	; No physics, just do the basics
 	jsr PhysicsObjApplyAccelDecel
 
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	beq    @VelYZero
-	jsr    PhysicsObjApplyVelocityY
-	@VelYZero:
-
+	; Apply velocity and check collision
 	move.l PhysicsObj_VelX(a0), d0
 	add.l  PhysicsObj_ImpulseX(a0), d0
-	beq    @VelXZero
-	jsr    PhysicsObjApplyVelocityX
-	@VelXZero:
+	move.l d0, d2
+	move.l PhysicsObj_VelY(a0), d1
+	add.l  PhysicsObj_ImpulseY(a0), d1
+	or.l   d1, d2
+	beq    @Idle
+	jsr    PhysicsObjApplyVelocity
+	@Idle:
 	
 	@AppliedVel:
 	
@@ -724,161 +718,102 @@ PhysicsObjApplyWorldForces:
 	
 	rts
 
-PhysicsObjApplyVelocityX:
+PhysicsObjApplyVelocity:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; d0 (l) X velocity
+	; d1 (l) Y velocity
 
 	; Get physics world
 	lea    PhysicsWorld, a2
 	
 	; Apply speed div
-	clr.l  d1
-	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
+	move.l d1, d5	; Y vel
+	beq    @NoDivY
+	moveq  #0x0, d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d5
+	@NoDivY:
+	
+	move.l d0, d4	; X vel
+	beq    @NoDivX
+	moveq  #0x0, d2
+	move.b AnimObj_SpeedDiv(a0), d2
+	DIVS1616_LOSSY d2, d4
+	@NoDivX:
 
 	; Apply underwater div
 	tst.b  PhysicsObj_UnderWater(a0)
 	beq    @NotInWater
+
+	; Y div
+	PUSHL  d4
+	move.l d5, d0
+	move.l PhysicsWorld_UnderwaterVelYScale(a2), d1
+	jsr    Muls1616
+	move.l d0, d5
+	POPL   d4
+
+	; X div
+	PUSHL  d5
+	move.l d4, d0
 	move.l PhysicsWorld_UnderwaterVelXScale(a2), d1
 	jsr    Muls1616
+	move.l d0, d4
+	POPL   d5
+
 	@NotInWater:
+
+	move.l d5, d1	; Y vel
+	move.l d4, d0	; X vel
 
 	;==============================================================
 
-	; Time splice X for velocities > collision tile size
-	move.l d0, d3
-
-	@TimestepX:
+	; Time splice for velocities > collision tile size
+	@Timestep:
 
 	; Next timestep
-	move.l d3, d2
+	move.l d5, d3	; Y time slice
+	move.l d4, d2	; X time slice
 
-	; Clamp to max
+	; Clamp to max timeslice
+	tst.l  d1
+	bgt    @PositiveY
+	CLAMPL d3, #-PhysicsObjVelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
+	addi.l #PhysicsObjVelocityPerTimeSplice, d5		; Advance next timestep
+	bra    @NegativeY
+	@PositiveY:
+	CLAMPL d3, #0x0, #PhysicsObjVelocityPerTimeSplice	; Clamp 0 to +ve vel
+	subi.l #PhysicsObjVelocityPerTimeSplice, d5		; Advance next timestep
+	@NegativeY:
+
 	tst.l  d0
 	bgt    @PositiveX
 	CLAMPL d2, #-PhysicsObjVelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
-	addi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
+	addi.l #PhysicsObjVelocityPerTimeSplice, d4		; Advance next timestep
 	bra    @NegativeX
 	@PositiveX:
 	CLAMPL d2, #0x0, #PhysicsObjVelocityPerTimeSplice	; Clamp 0 to +ve vel
-	subi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
+	subi.l #PhysicsObjVelocityPerTimeSplice, d4		; Advance next timestep
 	@NegativeX:
 
-	tst.l  d2
-	beq    @EndVelX
+	move.l d2, d6
+	or.l   d3, d6
+	beq    @Finished
 
-	PUSHM  d0-d3
+	PUSHM  d0-d5
 	
-	move.l Entity_WorldPosX(a0), d1		; Get pos
-	add.l  d2, d1						; Add velocity to pos
-	move.l d1, Entity_WorldPosX(a0)
+	; Apply Y vel
+	move.l Entity_WorldPosY(a0), d6		; Get Y pos
+	sub.l  d3, d6						; Sub velocity from pos (Y is upside down)
+	move.l d6, Entity_WorldPosY(a0)
 
-	tst.b  PhysicsObj_HasCollision(a0)
-	beq    @NoCheckCollision
+	; Apply X vel
+	move.l Entity_WorldPosX(a0), d6		; Get X pos
+	add.l  d2, d6						; Add X velocity to X pos
+	move.l d6, Entity_WorldPosX(a0)
 
-	; Collision check wall (bottom probe)
-	tst.b  PhysicsObj_CollideWalls(a0)
-	beq    @NoCheckWall
-	move.b #0x0, d0
-	move.b #0x0, d1
-	jsr    PhysicsObjFindWall
-
-	; Collision check wall (top probe)
-	tst.b  PhysicsObj_HitWall(a0)
-	bne    @NoCheckTop
-	tst.b  PhysicsObj_CollideWallsTop(a0)
-	beq    @NoCheckTop
-	move.b #0x1, d0
-	move.b #0x0, d1
-	jsr    PhysicsObjFindWall
-	@NoCheckTop:
-
-	@NoCheckWall:
-
-	; Collision correction
-	move.b #0x0, d1
-	jsr    PhysicsObjCollisionCorrectX
-
-	; If hitting floor and no Y vel, also re-check floors
-	move.b PhysicsObj_CloseToFloor(a0), d1
-	beq    @NoCheckFloor
-	move.l PhysicsObj_VelY(a0), d0
-	add.l  PhysicsObj_ImpulseY(a0), d0
-	bne    @NoCheckFloor
-	tst.b  PhysicsObj_CollideFloor(a0)
-	beq    @NoCheckFloor
-	move.b #0x1, d0
-	jsr    PhysicsObjFindFloor
-
-	; Collision correction
-	move.b #0x1, d1
-	jsr    PhysicsObjCollisionCorrectY
-
-	@NoCheckFloor:
-
-	@NoCheckCollision:
-
-	POPM   d0-d3
-
-	; Next timestep
-	bra    @TimestepX
-
-	@EndVelX:
-
-	rts
-	
-PhysicsObjApplyVelocityY:
-	; a0 --- GameObj addr
-	; a1 --- Level addr
-	; d0 (l) Y velocity
-
-	; Get physics world
-	lea    PhysicsWorld, a2
-	
-	; Apply speed div
-	clr.l  d1
-	move.b AnimObj_SpeedDiv(a0), d1
-	DIVS1616_LOSSY d1, d0
-
-	; Apply underwater div
-	tst.b  PhysicsObj_UnderWater(a0)
-	beq    @NotInWater
-	move.l PhysicsWorld_UnderwaterVelYScale(a2), d1
-	jsr    Muls1616
-	@NotInWater:
-
-	;==============================================================
-
-	; Time splice Y for velocities > collision tile size
-	move.l d0, d3
-
-	@TimestepY:
-
-	; Next timestep
-	move.l d3, d2
-
-	; Clamp to max
-	tst.l  d0
-	bgt    @PositiveY
-	CLAMPL d2, #-PhysicsObjVelocityPerTimeSplice, #0x0	; Clamp -ve vel to 0
-	addi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
-	bra    @NegativeY
-	@PositiveY:
-	CLAMPL d2, #0x0, #PhysicsObjVelocityPerTimeSplice	; Clamp 0 to +ve vel
-	subi.l #PhysicsObjVelocityPerTimeSplice, d3		; Advance next timestep
-	@NegativeY:
-
-	tst.l  d2
-	beq    @EndVelY
-
-	PUSHM  d0-d3
-	
-	move.l Entity_WorldPosY(a0), d1		; Get Y pos
-	sub.l  d2, d1						; Sub velocity from pos (Y is upside down)
-	move.l d1, Entity_WorldPosY(a0)		; Put new Y pos back in RAM
-
-	move.b #0x0, d7						; Clear collision corrected flag
+	move.b #0x0, d7						; Clear Y collision corrected flag
 
 	tst.b  PhysicsObj_HasCollision(a0)
 	beq    @NoCheckCollision
@@ -896,23 +831,17 @@ PhysicsObjApplyVelocityY:
 	jsr    PhysicsObjFindCeiling
 	@NoCheckCeilings:
 
-	; If hitting wall and no X vel, also re-check walls
-	move.b PhysicsObj_HitWall(a0), d1
-	beq    @NoCheckWall
-	move.l PhysicsObj_VelX(a0), d0
-	add.l  PhysicsObj_ImpulseX(a0), d0
-	bne    @NoCheckWall
-
-	; Use last wall direction
-	andi.b #0x3, d1	; Left = 1, right = 2
+	; Y collision correction
+	move.b #0x1, d1
+	jsr    PhysicsObjCollisionCorrectY
+	move.b d0, d7
 
 	; Collision check wall (bottom probe)
 	tst.b  PhysicsObj_CollideWalls(a0)
 	beq    @NoCheckWall
 	move.b #0x0, d0
-	PUSHW  d1
+	move.b #0x0, d1
 	jsr    PhysicsObjFindWall
-	POPW   d1
 
 	; Collision check wall (top probe)
 	tst.b  PhysicsObj_HitWall(a0)
@@ -920,35 +849,30 @@ PhysicsObjApplyVelocityY:
 	tst.b  PhysicsObj_CollideWallsTop(a0)
 	beq    @NoCheckTop
 	move.b #0x1, d0
-	PUSHW  d1
+	move.b #0x0, d1
 	jsr    PhysicsObjFindWall
-	POPW   d1
 	@NoCheckTop:
 
-	; Collision correction
-	jsr    PhysicsObjCollisionCorrectX
-
 	@NoCheckWall:
-	
-	; Collision correction
+
+	; X collision correction
 	move.b #0x0, d1
-	jsr    PhysicsObjCollisionCorrectY
-	move.b d0, d7
+	jsr    PhysicsObjCollisionCorrectX
 
 	@NoCheckCollision:
 
-	POPM   d0-d3
+	POPM   d0-d5
 
-	; If correction changed velocity, bail
+	; If correction changed velocity, don't apply any more Y vel
 	tst.b  d7
 	beq    @NotCorrected
-	moveq  #0x0, d3
+	moveq  #0x0, d4
 	@NotCorrected:
 
 	; Next timestep
-	bra    @TimestepY
+	bra    @Timestep
 
-	@EndVelY:
+	@Finished:
 
 	rts
 
