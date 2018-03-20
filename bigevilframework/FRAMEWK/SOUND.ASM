@@ -44,6 +44,7 @@ Audio_NonExclusive		equ 0x0	; Non-excusive - plays alongside other SFX/tracks
 Audio_Exclusive			equ 0x1	; Exclusive track - disallows other tracks/SFX
 
 Audio_DefaultFadeSpeed	equ 0x1
+Audio_MinFadeDownVol	equ 0x80	; Cut volume to 0 after fading this far
 
 	rsset 0
 Track_Data				rs.l 1
@@ -441,9 +442,10 @@ SND_UpdateFader:
 	bra    @Apply
 
 	@FadeDown:
-	; Fading down, clamp to 0 and stop
+	; Fading down, clamp to min and stop
 	add.b  d0, d1
-	bcs    @NoClamp
+	cmp.b  #Audio_MinFadeDownVol, d1
+	bhi    @NoClamp
 	move.b #0x00, d0		; Turn fader off
 	move.b #0xFF, d1		; Reset vol
 	jsr    SND_StopTrack	; Stop playback
