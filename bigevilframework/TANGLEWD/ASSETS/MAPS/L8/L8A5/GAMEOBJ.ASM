@@ -99,8 +99,6 @@ L8A5_EnableEchoAI_name	dc.b "L8A5_EnableEchoAI",0
 	even
 	ENDIF
 
-L8A5_Checkpoint_count equ 0x0
-
 L8A5_WaterBody_count equ 0x0
 
 L8A5_Location_count equ 0x1
@@ -208,6 +206,8 @@ L8A5_Bridge1_idx	equ 0x0
 L8A5_Bridge1_name	dc.b "L8A5_Bridge1",0
 	even
 	ENDIF
+
+L8A5_Checkpoint_count equ 0x0
 
 
 
@@ -428,7 +428,6 @@ L8A5_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
-
 
 
 
@@ -653,6 +652,7 @@ L8A5_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts

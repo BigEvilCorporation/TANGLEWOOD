@@ -159,16 +159,6 @@ L3A2_TriggerBoxNight_name	dc.b "L3A2_TriggerBoxNight",0
 	even
 	ENDIF
 
-L3A2_Checkpoint_count equ 0x2
-L3A2_Checkpoint_61_idx	equ 0x0
-L3A2_Checkpoint_62_idx	equ 0x1
-
-	IFND FINAL
-L3A2_Checkpoint_61_name	dc.b "L3A2_Checkpoint_61",0
-L3A2_Checkpoint_62_name	dc.b "L3A2_Checkpoint_62",0
-	even
-	ENDIF
-
 L3A2_WaterBody_count equ 0x0
 
 L3A2_Location_count equ 0x0
@@ -302,6 +292,16 @@ L3A2_RollBridge2_name	dc.b "L3A2_RollBridge2",0
 L3A2_RollBridge1_name	dc.b "L3A2_RollBridge1",0
 L3A2_RollBridge3_name	dc.b "L3A2_RollBridge3",0
 L3A2_RollBridge4_name	dc.b "L3A2_RollBridge4",0
+	even
+	ENDIF
+
+L3A2_Checkpoint_count equ 0x2
+L3A2_Checkpoint_61_idx	equ 0x0
+L3A2_Checkpoint_62_idx	equ 0x1
+
+	IFND FINAL
+L3A2_Checkpoint_61_name	dc.b "L3A2_Checkpoint_61",0
+L3A2_Checkpoint_62_name	dc.b "L3A2_Checkpoint_62",0
 	even
 	ENDIF
 
@@ -881,39 +881,6 @@ L3A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L3A2_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-	jsr CheckpointInit
-	move.l #0x0c180000, Entity_WorldPosX(a0)
-	move.l #0x02d00000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L3A2_Checkpoint_61_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-	jsr CheckpointInit
-	move.l #0x11e00000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L3A2_Checkpoint_62_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-
 
 
 	PUSHL  a1
@@ -1351,6 +1318,39 @@ L3A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L3A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x0c180000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L3A2_Checkpoint_61_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x11e00000, Entity_WorldPosX(a0)
+	move.l #0x04200000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L3A2_Checkpoint_62_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	rts
