@@ -866,7 +866,7 @@ PhysicsObjApplyVelocity:
 	; If correction changed velocity, don't apply any more Y vel
 	tst.b  d7
 	beq    @NotCorrected
-	moveq  #0x0, d4
+	moveq  #0x0, d5
 	@NotCorrected:
 
 	; Next timestep

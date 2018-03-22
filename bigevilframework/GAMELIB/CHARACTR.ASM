@@ -725,15 +725,10 @@ CharacterStartJump:
 	move.l Character_JumpVelX(a0), d1
 	jsr    Muls1616
 
-	; Clamp to max X vel * jump scale
-	PUSHL  d0
-	move.l Character_MaxVelXRun(a0), d0
-	move.l Character_JumpVelX(a0), d1
-	jsr    Muls1616
-	move.l d0, d1
-	move.l d0, d2
+	; Clamp to max X in-air vel
+	move.l PhysicsObj_MaxVelAirX(a0), d1
+	move.l d1, d2
 	neg.l  d1
-	POPL   d0
 	CLAMPL d0, d1, d2
 	move.l d0, PhysicsObj_VelX(a0)
 

@@ -1548,10 +1548,8 @@ MonsterStartTamed:
 
 	; Override run/jump speed
 	MOVE_NTSC_L Monster_MaxVelXRunTamed, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXRunTamed, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXAirTamed, PhysicsObj_MaxVelAirX(a0), d0
-
-	; Reset catchup speed
-	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
 
 	; Allow running
 	move.b #Character_WalkGeneral, d2
@@ -1597,6 +1595,7 @@ MonsterEndTamed:
 	
 	; Reset run/jump speed
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 
 	rts
