@@ -1637,6 +1637,7 @@ MonsterStartBucking:
 
 	; Reset run/jump speed
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
+	MOVE_NTSC_L Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 
 	rts

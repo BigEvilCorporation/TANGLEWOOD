@@ -1326,7 +1326,9 @@ PlayerDismountPet:
 	POPM   d0/a0-a2
 
 	; End tamed
+	PUSHW  d0
 	jsr    MonsterEndTamed
+	POPW   d0
 
 	;==============================================================
 
