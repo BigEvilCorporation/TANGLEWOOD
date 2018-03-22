@@ -38,6 +38,11 @@ Monster_BoundsHeight	equ (Monster_Height-0x40)
 Monster_BoundsOffsetX	equ (Monster_Width/2)-(Monster_BoundsWidth/2)
 Monster_BoundsOffsetY	equ (Monster_Height/2)-(Monster_BoundsHeight/2)
 
+Monster_BoundsWidthElder	equ Monster_Width
+Monster_BoundsHeightElder	equ (Monster_Height-0x50)
+Monster_BoundsOffsetXElder	equ (Monster_Width/2)-(Monster_BoundsWidthElder/2)
+Monster_BoundsOffsetYElder	equ (Monster_Height/2)-(Monster_BoundsHeightElder/2)
+
 Monster_StepHeight	  equ 0x3
 Monster_MinWallHeight equ 0x11				 ; High enough to avoid stones
 Monster_ProbeFloorX	  equ (Monster_Width/2)  ; Floor detection probe position X
@@ -241,12 +246,6 @@ MonsterInit:
 	move.b  #0x0, Monster_FirstRender(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 
-	; Setup collision bounds
-	move.w  #Monster_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
-	move.w  #Monster_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
-	move.w  #Monster_BoundsWidth, PhysicsObj_BoundsWidth(a0)
-	move.w  #Monster_BoundsHeight, PhysicsObj_BoundsHeight(a0)
-
 	;==============================================================
 	
 	; Setup default SFX
@@ -296,6 +295,12 @@ MonsterLoadGfx:
 	ANIM_LOAD_DEFAULT djakk,roar,roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
 	ANIM_LOAD_DEFAULT djakk,throw,throw,Monster_Animations,MonsterAnimIdx_Buck,0,1,0
 
+	; Setup collision bounds
+	move.w  #Monster_BoundsOffsetX, PhysicsObj_BoundsLeft(a0)
+	move.w  #Monster_BoundsOffsetY, PhysicsObj_BoundsTop(a0)
+	move.w  #Monster_BoundsWidth, PhysicsObj_BoundsWidth(a0)
+	move.w  #Monster_BoundsHeight, PhysicsObj_BoundsHeight(a0)
+
 	bra     @End
 
 	;==============================================================
@@ -317,6 +322,12 @@ MonsterLoadGfx:
 	; Setup bespoke character animations
 	ANIM_LOAD_DEFAULT elder,bite,bite,Monster_Animations,MonsterAnimIdx_Bite,0,1,0
 	ANIM_LOAD_DEFAULT elder,roar,roar,Monster_Animations,MonsterAnimIdx_Roar,0,1,0
+
+	; Setup collision bounds
+	move.w  #Monster_BoundsOffsetXElder, PhysicsObj_BoundsLeft(a0)
+	move.w  #Monster_BoundsOffsetYElder, PhysicsObj_BoundsTop(a0)
+	move.w  #Monster_BoundsWidthElder, PhysicsObj_BoundsWidth(a0)
+	move.w  #Monster_BoundsHeightElder, PhysicsObj_BoundsHeight(a0)
 
 	bra     @End
 
