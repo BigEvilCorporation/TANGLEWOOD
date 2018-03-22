@@ -751,27 +751,23 @@ VDP_ClearMapPlaneB:
 VDP_SetHScrollPlaneA:
 	; d0 (w) HScroll value
 	move.l #vdp_write_hscroll_a, vdp_control
-	move.w d0, vdp_hscroll_a
 	move.w d0, vdp_data
 	rts
 
 VDP_SetVScrollPlaneA:
 	; d0 (w) VScroll value
 	move.l #vdp_write_vscroll_a, vdp_control
-	move.w d0, vdp_vscroll_a
 	move.w d0, vdp_data
 	rts
 	
 VDP_SetHScrollPlaneB:
 	; d0 (w) HScroll value
 	move.l #vdp_write_hscroll_b, vdp_control
-	move.w d0, vdp_hscroll_b
 	move.w d0, vdp_data
 	rts
 
 VDP_SetVScrollPlaneB:
 	; d0 (w) VScroll value
 	move.l #vdp_write_vscroll_b, vdp_control
-	move.w d0, vdp_vscroll_b
 	move.w d0, vdp_data
 	rts

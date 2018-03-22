@@ -208,7 +208,7 @@ VFX_Update:
 	jsr    VDP_DMAQueue_AddJob
 
 	lea    vdp_hscroll_table_b, a0
-	move.w #vram_addr_hscroll+2, d0
+	move.w #vram_addr_hscroll+size_word, d0
 	move.w #screen_height, d1
 	move.b #DMAVDPQueue_VRAM, d2
 	move.b #0x4, d3
@@ -254,15 +254,15 @@ VFX_Update:
 	ble    @EndPlaneBRowScroll
 	subq.w #0x1, d4
 	@PlaneBCellLp:
-	move.w d0, (a0)				; Write row scroll
+	move.w d0, (a0)					; Write row scroll
 	lea    (0x8*size_word)(a0), a0	; Increment 1 cell row
-	addq.w #0x1, d3				; Increment row counter
+	addq.w #0x1, d3					; Increment row counter
 	dbra   d4, @PlaneBCellLp
 	
-	tst.w  d6					; If last section, done
+	tst.w  d6						; If last section, done
 	beq    @EndPlaneBRowScroll
 
-	add.w  d5, d2				; Advance row counter
+	add.w  d5, d2					; Advance row counter
 
 	dbra   d6, @PlaneBRowScrollLp
 	@EndPlaneBRowScroll:
@@ -273,7 +273,7 @@ VFX_Update:
 	move.w vdp_hscroll_a, d4
 	@PlaneACellLp:
 	move.w d4, (a0)					; Write plane A value
-	lea    (0x8*size_word)(a0), a0		; Increment 1 cell row
+	lea    (0x8*size_word)(a0), a0	; Increment 1 cell row
 	dbra   d0, @PlaneACellLp
 
 	; DMA scroll tables

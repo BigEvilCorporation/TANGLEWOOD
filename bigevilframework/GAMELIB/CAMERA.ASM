@@ -311,13 +311,15 @@ CAM_Update:
 	beq     @NoChangeX
 	
 	; Scroll X - plane A
-	lea     VDP_SetHScrollPlaneA, a5
-	jsr 	VDP_JobQueue_PushJob
+	move.w d0, vdp_hscroll_a
+	lea    VDP_SetHScrollPlaneA, a5
+	jsr    VDP_JobQueue_PushJob
 	
 	; Scroll X - plane B
-	lsr.w   #0x1, d0
-	lea     VDP_SetHScrollPlaneB, a5
-	jsr 	VDP_JobQueue_PushJob
+	lsr.w  #0x1, d0
+	move.w d0, vdp_hscroll_b
+	lea    VDP_SetHScrollPlaneB, a5
+	jsr    VDP_JobQueue_PushJob
 	
 	@NoChangeX:
 	
@@ -369,8 +371,9 @@ CAM_Update:
 	tst.b   d1
 	beq     @NoChangeY
 
-	lea     VDP_SetVScrollPlaneA, a5
-	jsr 	VDP_JobQueue_PushJob
+	move.w d0, vdp_vscroll_a
+	lea    VDP_SetVScrollPlaneA, a5
+	jsr    VDP_JobQueue_PushJob
 	
 	; Scroll Y - plane B
 	; Translate Y scroll from plane A range (total map height) to plane B range (VDP height)
@@ -383,8 +386,9 @@ CAM_Update:
 	andi.l #0x0000FFFF, d1
 	divu  d1, d0
 	
-	lea     VDP_SetVScrollPlaneB, a5
-	jsr 	VDP_JobQueue_PushJob
+	move.w d0, vdp_vscroll_b
+	lea    VDP_SetVScrollPlaneB, a5
+	jsr    VDP_JobQueue_PushJob
 	
 	@NoChangeY:
 	
