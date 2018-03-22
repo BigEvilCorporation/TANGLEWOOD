@@ -121,6 +121,7 @@ SwarmUpdate:
 	bne    @TimerRunning
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
+	move.b #0x0, Entity_Active(a0)
 	bra    @Finished
 	@TimerRunning:
 
@@ -230,8 +231,20 @@ SwarmActivate:
 	; Reset timer
 	move.w #Swarm_Time, Swarm_Timer(a0)
 
+	; Set active
+	move.b #0x1, Entity_Active(a0)
+
 	; Re-add to update/render lists
 	jsr     EntityAddToUpdateList
 	jsr     EntityAddToRenderList
+
+	rts
+
+SwarmReceiveDamage:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; Elapse timer next frame
+	move.w #0x1, Swarm_Timer(a0)
 
 	rts

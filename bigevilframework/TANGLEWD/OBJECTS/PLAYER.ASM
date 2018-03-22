@@ -2001,6 +2001,36 @@ PlayerLightningAttack:
 	dbra d6, @DjubbLoop
 	
 	@NoDjubbs:
+	
+	;==============================================================
+	; Swarms
+
+	move.l (EntityPoolStart_Swarm), a2
+	move.w (EntityCount_Swarm), d6
+	beq    @NoSwarms
+	subq.w #0x1, d6
+	@SwarmLoop:
+	
+	; Check on screen
+	tst.b  SpriteObj_SpriteLinked(a2)
+	beq    @NextSwarm
+
+	; Check active
+	tst.b  Entity_Active(a0)
+
+	; Kill
+	PUSHM  d6/a0
+	move.l a2, a0
+	jsr    SwarmReceiveDamage
+	POPM   d6/a0
+	
+	@NextSwarm:
+	
+	; Next Swarm
+	lea  Swarm_Struct_Size(a2), a2
+	dbra d6, @SwarmLoop
+	
+	@NoSwarms:
 
 	;==============================================================
 	; Demons
