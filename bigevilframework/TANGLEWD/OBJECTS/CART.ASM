@@ -220,7 +220,7 @@ CartUpdate:
 
 	; To Y range
 	muls   #((Cart_WaterBobMaxHeight*subpixels_per_pixel)/256), d0
-	add.l  #Cart_WaterBobMaxHeight*subpixels_per_pixel, d0
+	addi.l #Cart_WaterBobMaxHeight*subpixels_per_pixel, d0
 
 	; Draw offset
 	TOPIXELS d0

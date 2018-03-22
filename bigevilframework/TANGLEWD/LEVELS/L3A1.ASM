@@ -312,7 +312,7 @@ L3_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM boulder,roll_l3,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT boulder,roll_l3,roll_l3,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
 	POPW   d0
-	addi.l #Boulder_Struct_Size, a0
+	lea    Boulder_Struct_Size(a0), a0
 	dbra   d0, @BoulderLp
 	@NoBoulders:
 

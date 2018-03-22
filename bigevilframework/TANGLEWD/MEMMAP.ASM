@@ -88,14 +88,13 @@ vblank_counter        rs.l 1
 ; ************************************
 ; VDP job queue
 ; ************************************
-vdp_queue_jobarray    rs.b (VDPJob_Struct_Size*VDPQueue_MaxSize)
-vdp_queue_produceridx rs.w 1
-vdp_queue_consumeridx rs.w 1
+vdp_job_queue         rs.b (VDPJob_Struct_Size*VDPJobQueue_MaxSize)
+vdp_job_queue_next    rs.l 1
 
 ; ************************************
 ; VDP DMA queue
 ; ************************************
-vdp_dma_queue		  rs.b (DMVDPJob_Struct_Size*VDPDmaQueue_MaxSize)
+vdp_dma_queue		  rs.b (VDPDMAJob_Struct_Size*VDPDMAQueue_MaxSize)
 vdp_dma_queue_next    rs.l 1
 
 ; ************************************

@@ -319,32 +319,29 @@ VDP_LoadBlockMapPlaneB:
 VDP_LoadBlockPlaneA:
     ; a0 (l)  - Block address (ROM)
 	; d1 (ww) - X/Y coord
-	; d2 (w)  - First tile ID
-	; d3 (b)  - Palette ID
+	; d2 (ww) - First tile ID (repeated in upper word)
+	; d3 (ww) - Palette ID (in VDP tile ID format) (repeated in upper word)
 
 	; X/Y offset to destination address
-	moveq #0x0, d4
-	move.w  d1, d4					; Y to d4
-	lsl.w    #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
-	clr.w   d1						; Clear lower word
-	swap    d1						; X to lower word
-	add.l   d1, d4					; Add X offset
-	lsl.l   #0x1, d4				; Offset to bytes
-
-	andi.w  #0x3, d3
-	ror.w   #0x3, d3				; Shift palette ID to bits 14-13
+	moveq  #0x0, d4
+	move.w d1, d4				; Y to d4
+	lsl.w  #0x6, d4 ;mulu    #vdp_plane_width, d4	; Multiply Y by line width
+	clr.w  d1					; Clear lower word
+	swap   d1					; X to lower word
+	add.l  d1, d4				; Add X offset
+	lsl.l  #0x1, d4				; Offset to bytes
 
 	; For each row in block
 	rept map_block_height
 
 		; Fetch address offset
-		move.l  d4, d1
+		move.l d4, d1
 
 		; Set VDP dest address
 		VDP_SETADDRESS d1, #vram_addr_plane_a, #vdp_cmd_vram_write
 		
-		; For each col in block
-		rept map_block_width
+		; For each col in block (in longwords)
+		rept (map_block_width/2)
 
 			; ABBC DEEE EEEE EEEE
 			; A = Prio
@@ -353,16 +350,16 @@ VDP_LoadBlockPlaneA:
 			; D = Flip Y
 			; E = Tile ID
 			
-			move.w  (a0)+, d1              ; Move tile ID from map data to lower d1
-			and.w   #%1001111111111111, d1 ; Mask out original palette ID
-			or.w    d3, d1                 ; Replace with our own
-			add.w   d2, d1                 ; Add first tile offset to d1
-			move.w  d1, vdp_data           ; Move to VRAM
+			move.l (a0)+, d1              ; Move tile ID from map data to lower d1
+			and.l  #%10011111111111111001111111111111, d1 ; Mask out original palette ID
+			or.l   d3, d1                 ; Replace with our own
+			add.l  d2, d1                 ; Add first tile offset to d1
+			move.l d1, vdp_data           ; Move to VRAM
 			
-		endr								; Loop
+		endr							; Loop
 
 		; Offset to next row
-		addi.w  #vdp_plane_width*size_word, d4
+		addi.w #vdp_plane_width*size_word, d4
 
 	; Loop to next row
 	endr
@@ -445,8 +442,18 @@ VDP_LoadMapBlockSegmentPlaneA:
 	subq.w  #0x1, d2
 	
 	; Shift palette ID to bits 14-13
-	andi.w  #0x3, d5
-	ror.w   #0x3, d5
+	andi.w #0x3, d5
+	ror.w  #0x3, d5
+
+	; Repeat palette in upper word
+	move.w d5, d6
+	swap   d5
+	move.w d6, d5
+
+	; Repeat first tile ID in upper word
+	move.w d4, d6
+	swap   d4
+	move.w d6, d4
 
 	; Backup Y coord to reset after every col
 	move.l d1, d6
@@ -457,7 +464,7 @@ VDP_LoadMapBlockSegmentPlaneA:
 	; Loop cols
 	@ColLp:
 
-		PUSHALL
+		PUSHM  d0-d2
 
 		; If column already in decompression cache
 		move.w #0x0, d0
@@ -472,6 +479,8 @@ VDP_LoadMapBlockSegmentPlaneA:
 		move.w (a5), d1			; Get cached index
 		cmp.w  d0, d1
 		beq    @InCache
+
+		PUSHM d0-d7/a0-a2
 
 		; Cache miss, update cache index and decompress
 		move.w d0, (a5)
@@ -530,9 +539,11 @@ VDP_LoadMapBlockSegmentPlaneA:
 		@Safe:
 		ENDIF
 
+		POPM   d0-d7/a0-a2
+
 		@InCache:
-		
-		POPALL
+
+		POPM   d0-d2
 	
 		; Set decompressed col cache address
 		PUSHL  d0
@@ -551,8 +562,11 @@ VDP_LoadMapBlockSegmentPlaneA:
 		lsl.w  #0x1, d0				; To words
 		add.l  d0, a4
 
+		; VDP job routine
+		lea     VDP_LoadBlockPlaneA, a5
+
 		; Loop rows
-		PUSHL d2
+		PUSHW d2
 		@RowLp:
 		
 			moveq #0x0, d0
@@ -562,21 +576,19 @@ VDP_LoadMapBlockSegmentPlaneA:
 			add.l  d0, a0			; Add block offset
 
 			; Load block
-			PUSHM d0-d7
-			; a0 (l)  - Block address (ROM)
-			; d1 (ww) - X/Y coord
-			move.l d4, d2	; d2 (w)  - First tile ID
-			move.b d5, d3	; d3 (b)  - Palette ID
-			;jsr   VDP_LoadBlockPlaneA
-			lea     VDP_LoadBlockPlaneA, a5
-			jsr     VDP_JobQueue_PushJob
-			POPM  d0-d7
+			PUSHM d0-d3
+							; a0 (l)  - Block address (ROM)
+							; d1 (ww) - X/Y coord
+			move.l d4, d2	; d2 (ww) - First tile ID (repeated in upper word)
+			move.l d5, d3	; d3 (ww) - Palette ID (in VDP tile ID format) (repeated in upper word)
+			jsr    VDP_JobQueue_PushJob
+			POPM  d0-d3
 
 			; Increment Y coord
 			addi.w #map_block_height, d1
 		
 		dbra d2, @RowLp
-		POPL d2
+		POPW d2
 
 		POPL d0
 		

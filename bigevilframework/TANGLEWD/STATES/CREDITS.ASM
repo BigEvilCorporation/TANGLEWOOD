@@ -448,7 +448,7 @@ Credits_BakeString:
 	lsr.w  #0x1, d0					; String length / 2
 	move.w #Credits_CentrePosX, d3	; Sub from screen centre
 	sub.w  d0, d3
-	add.w  #(screen_height/8), d1	; 1 line off screen
+	addi.w #(screen_height/8), d1	; 1 line off screen
 	divu   #vdp_plane_height, d1	; Line index to scroll space
 	move.w d3, d1					; X
 	swap   d1						; Y
@@ -475,7 +475,7 @@ Credits_ClearTopLine:
 	
 	moveq #0x0, d1
 	move.w Credits_CurrentLineIdx(a2), d1
-	add.w  #(screen_height/8), d1			; 1 line off screen
+	addi.w #(screen_height/8), d1			; 1 line off screen
 	divu   #vdp_plane_height, d1			; Line index to scroll space
 	clr.w  d1
 	swap   d1

@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPDMAQueue_MaxSize    equ 0x40  ; Queue max size
+VDPDMAQueue_MaxSize    equ 0x20  ; Queue max size
 VDPDMAQueue_Job_Size   equ 0x10
 
 ;---------------------------------
@@ -21,7 +21,7 @@ VDPDMAJob_AddrHiModeCmd		rs.w 1	; Set source address hi and DMA mode command
 VDPDMAJob_AutoIncCmd		rs.w 1	; Autoincrement set reg command
 VDPDMAJob_DestAddrCmd		rs.l 1	; Set dest address command
 ;---------------------------------
-DMVDPJob_Struct_Size		rs.b 0
+VDPDMAJob_Struct_Size		rs.b 0
 ;---------------------------------
 
 DMAVDPQueue_VRAM       equ 0x0
@@ -104,10 +104,8 @@ VDP_DMAQueue_AddToQueue:
 	bne   @NonZero
 	RAISE_EXCEPTION error_dma_bad_param
 	@NonZero:
-	move.l a1, a2
-	addi.l #DMVDPJob_Struct_Size*VDPDMAQueue_MaxSize, a2
-	cmp.l  a1, a2
-	bne    @NotFull
+	cmp.l #vdp_dma_queue+(VDPDMAJob_Struct_Size*VDPDMAQueue_MaxSize), a1
+	bne   @NotFull
 	RAISE_EXCEPTION error_dma_queue_full
 	@NotFull:
 	ENDIF

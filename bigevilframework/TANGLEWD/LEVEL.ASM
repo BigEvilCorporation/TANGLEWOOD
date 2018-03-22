@@ -55,10 +55,10 @@ GameStateReset:
 
 	; Remove from queue
 	lea    audio_queued_tracks, a1
-	addi.l #(Track_Type_Threat*size_long), a1
+	lea    (Track_Type_Threat*size_long)(a1), a1
 	move.l #0x0, (a1)
 	lea    audio_queued_tracks, a1
-	addi.l #(Track_Type_Ambience*size_long), a1
+	lea    (Track_Type_Ambience*size_long)(a1), a1
 	move.l #0x0, (a1)
 
 	@EndResetAudio:
@@ -420,7 +420,9 @@ LevelPreStreamMap:
     
 	; Stream initial map section (and process VDP queue immediately)
 	move.b #0x1, d0
+	DISABLE_INTERRUPTS
 	jsr    MAP_UpdateStreaming
+	RESTORE_INTERRUPTS
 	
 	; Flush VDP job/DMA queues
 	jsr    VDP_JobQueue_ExecuteAll

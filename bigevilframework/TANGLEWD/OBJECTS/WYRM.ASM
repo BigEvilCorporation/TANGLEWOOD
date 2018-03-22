@@ -829,7 +829,7 @@ WyrmAIUpdate_Follow:
 	move.w Entity_WorldPosX(a0), d0			; Get Wyrm left
 	subi.w #vdp_sprite_border_x, d0			; To collision space
 	move.w d0, d1							; Get Wyrm right
-	add.w  #Wyrm_Width, d1
+	addi.w #Wyrm_Width, d1
 	tst.l  PhysicsObj_AccelX(a0)
 	bgt    @CheckRight
 	blt    @CheckLeft

@@ -274,7 +274,7 @@ ScrapAIUpdate_Follow:
 	
 	; Check right bounds
 	move.w d1, d2
-	add.w  #Scrap_AIFollowDistance, d2
+	addi.w #Scrap_AIFollowDistance, d2
 	cmp.w  d0, d2
 	blt    @TooFarRight
 	

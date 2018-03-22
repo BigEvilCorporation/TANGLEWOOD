@@ -108,7 +108,7 @@ l4a2_Init:
 	SPRITE_LOAD_SHARED_VRAM generatr,compressor_l4,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT generatr,compressor_l4,spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
 	POPW   d0
-	addi.l #Generator_Struct_Size, a0
+	lea    Generator_Struct_Size(a0), a0
 	dbra   d0, @GeneratorLp
 
 	move.l EntityPoolStart_Cogs, a0
@@ -119,7 +119,7 @@ l4a2_Init:
 	SPRITE_LOAD_SHARED_VRAM cogs,cogs_l4,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT cogs,cogs_l4,spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
 	POPW   d0
-	addi.l #Cogs_Struct_Size, a0
+	lea    Cogs_Struct_Size(a0), a0
 	dbra   d0, @CogsLp
 
 	;==============================================================

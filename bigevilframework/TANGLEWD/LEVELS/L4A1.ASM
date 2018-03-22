@@ -229,7 +229,7 @@ L4_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM generatr,compressor_l4,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT generatr,compressor_l4,spin,Generator_Animations,GeneratorAnimIdx_Spin,1,0,0
 	POPW   d0
-	addi.l #Generator_Struct_Size, a0
+	lea    Generator_Struct_Size(a0), a0
 	dbra   d0, @GeneratorLp
 	@NoGenerators:
 
@@ -242,7 +242,7 @@ L4_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM cogs,cogs_l4,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT cogs,cogs_l4,spin,Cogs_Animations,CogsAnimIdx_Spin,1,0,0
 	POPW   d0
-	addi.l #Cogs_Struct_Size, a0
+	lea    Cogs_Struct_Size(a0), a0
 	dbra   d0, @CogsLp
 	@NoCogs:
 
@@ -255,7 +255,7 @@ L4_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM boulder,roll_l4,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT boulder,roll_l4,roll_l4,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
 	POPW   d0
-	addi.l #Boulder_Struct_Size, a0
+	lea    Boulder_Struct_Size(a0), a0
 	dbra   d0, @BoulderLp
 	@NoBoulders:
 

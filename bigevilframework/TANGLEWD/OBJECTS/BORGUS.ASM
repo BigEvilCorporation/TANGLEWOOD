@@ -327,7 +327,7 @@ BorgusAIUpdate_Follow:
 	
 	; Check right bounds
 	move.w d1, d2
-	add.w  #Borgus_AIFollowDistance, d2
+	addi.w #Borgus_AIFollowDistance, d2
 	cmp.w  d0, d2
 	blt    @TooFarRight
 	

@@ -85,7 +85,7 @@ CargoLiftLoadGfx:
 	; If heading down, offset origin to top, disable gravity
 	move.w Entity_WorldPosY(a0), Lift_TopLimit(a0)
 	move.w Entity_WorldPosY(a0), Lift_BottomLimit(a0)
-	add.w  #Lift_RopeLengthDefault, Lift_BottomLimit(a0)
+	addi.w #Lift_RopeLengthDefault, Lift_BottomLimit(a0)
 
 	rts
 	

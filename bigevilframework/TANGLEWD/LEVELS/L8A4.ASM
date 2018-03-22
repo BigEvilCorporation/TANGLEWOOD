@@ -608,8 +608,8 @@ l8a4_CutsceneDemonReturn:
 	; Lerp camera
 	move.l  CameraWorldPosX, d0
 	move.l  CameraWorldPosY, d1
-	add.l   #(vdp_sprite_border_x*subpixels_per_pixel), d0
-	add.l   #(vdp_sprite_border_y*subpixels_per_pixel), d1
+	addi.l  #(vdp_sprite_border_x*subpixels_per_pixel), d0
+	addi.l  #(vdp_sprite_border_y*subpixels_per_pixel), d1
 	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#EchoToNymnCamLerpSpeed
 
 	; Restore Nymn sprite flipping

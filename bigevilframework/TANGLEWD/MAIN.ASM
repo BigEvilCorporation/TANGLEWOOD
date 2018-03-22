@@ -186,6 +186,14 @@ RenderEndFrame:
 	ENDIF
 
 	;==============================================================
+	; Update current raster effect
+	move.l raster_effect_update, a0
+	cmpa.w #0x0, a0
+	beq    @NoRasterEffect
+	jsr    (a0)
+	@NoRasterEffect:
+
+	;==============================================================
 	; Execute DMA job queue
 	jsr    VDP_DMAQueue_ExecuteAll
 
@@ -193,14 +201,6 @@ RenderEndFrame:
 	; Execute VDP job queue
 	jsr    VDP_JobQueue_ExecuteAll
 
-	;==============================================================
-	; Update current raster effect
-	move.l raster_effect_update, a0
-	cmpa.w #0x0, a0
-	beq    @NoRasterEffect
-	jsr    (a0)
-	@NoRasterEffect:
-	
 	IFD DEBUG
 	jsr    DBG_Profile_PopScope
 	ENDIF

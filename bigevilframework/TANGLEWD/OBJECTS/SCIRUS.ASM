@@ -386,13 +386,13 @@ ScirusAIUpdate_FollowFriend:
 
 	; Check outer right bounds
 	move.w d1, d2
-	add.w  #Scirus_AIFollowDistanceFriendOuter, d2
+	addi.w #Scirus_AIFollowDistanceFriendOuter, d2
 	cmp.w  d0, d2
 	blt    @TooFarRight
 	
 	; Check inner right bounds
 	move.w d1, d2
-	add.w  #Scirus_AIFollowDistanceFriendInner, d2
+	addi.w #Scirus_AIFollowDistanceFriendInner, d2
 	cmp.w  d2, d0
 	blt    @TooNearRight
 	
@@ -549,7 +549,7 @@ ScirusAIUpdate_FollowEnemy:
 	
 	; Check right bounds
 	move.w d1, d2
-	add.w  #Scirus_AIFollowDistanceEnemy, d2
+	addi.w #Scirus_AIFollowDistanceEnemy, d2
 	cmp.w  d0, d2
 	blt    @TooFarRight
 	

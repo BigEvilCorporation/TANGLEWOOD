@@ -296,7 +296,7 @@ L2_LoadObjectSprites:
 	SPRITE_LOAD_SHARED_VRAM boulder,roll_l2,0,PaletteId_World0,0x0,a0
 	ANIM_LOAD_DEFAULT boulder,roll_l2,roll_l2,Boulder_Animations,BoulderAnimIdx_Roll,1,0,0
 	POPW   d0
-	addi.l #Boulder_Struct_Size, a0
+	lea    Boulder_Struct_Size(a0), a0
 	dbra   d0, @BoulderLp
 	@NoBoulders:
 
@@ -347,7 +347,7 @@ L2_LoadObjectSprites:
 	@Loaded:
 
 	POPW   d0
-	addi.l #BouncePlant_Struct_Size, a0
+	lea    BouncePlant_Struct_Size(a0), a0
 	dbra   d0, @BouncePlantLp
 	@NoBouncePlants:
 

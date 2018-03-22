@@ -255,7 +255,7 @@ VFX_Update:
 	subq.w #0x1, d4
 	@PlaneBCellLp:
 	move.w d0, (a0)				; Write row scroll
-	addi.l #0x8*size_word, a0	; Increment 1 cell row
+	lea    (0x8*size_word)(a0), a0	; Increment 1 cell row
 	addq.w #0x1, d3				; Increment row counter
 	dbra   d4, @PlaneBCellLp
 	
@@ -273,7 +273,7 @@ VFX_Update:
 	move.w vdp_hscroll_a, d4
 	@PlaneACellLp:
 	move.w d4, (a0)					; Write plane A value
-	addi.l #0x8*size_word, a0		; Increment 1 cell row
+	lea    (0x8*size_word)(a0), a0		; Increment 1 cell row
 	dbra   d0, @PlaneACellLp
 
 	; DMA scroll tables

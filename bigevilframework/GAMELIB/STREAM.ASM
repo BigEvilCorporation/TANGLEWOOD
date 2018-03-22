@@ -27,9 +27,6 @@ MAP_StreamInit:
 MAP_UpdateStreaming:
 	; a1 --- Level addr
 	; d0 (b) Process VDP queue immediately (for initial loading)
-
-	; Disable interrupts
-	DISABLE_INTERRUPTS
 	
 	; Level to a1
 	move.l  (CurrentLevel), a1
@@ -115,9 +112,6 @@ MAP_UpdateStreaming:
 	bne     @WorkLoop
 	tst.w   d4
 	bne     @WorkLoop
-
-	; Restore interrupts
-	RESTORE_INTERRUPTS
 	
 	rts
 	
@@ -196,8 +190,6 @@ MAP_StreamNextRow:
 	BYTES2TILES d4
 	move.b  #PaletteId_World0, d5				; d5 (b)  Palette ID
 	jsr     VDP_LoadMapBlockSegmentPlaneA
-	;lea     VDP_LoadMapBlockSegmentPlaneA, a5
-	;jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	POPM    a0-a1/d0-d5
@@ -290,8 +282,6 @@ MAP_StreamNextColumn:
 	BYTES2TILES d4
 	move.b  #PaletteId_World0, d5			; d5 (b)  Palette ID
 	jsr     VDP_LoadMapBlockSegmentPlaneA
-	;lea     VDP_LoadMapBlockSegmentPlaneA, a5
-	;jsr     VDP_JobQueue_PushJob
 	
 	; Restore source/dest rects, width/height, loop counter and overflow
 	POPM    a0-a1/d0-d5

@@ -276,7 +276,7 @@ HoggAIUpdate_Charge:
 	
 	; Check right bounds
 	move.w d1, d2
-	add.w  #Hogg_AIFollowDistance, d2
+	addi.w #Hogg_AIFollowDistance, d2
 	cmp.w  d0, d2
 	blt    @TooFarRight
 	
