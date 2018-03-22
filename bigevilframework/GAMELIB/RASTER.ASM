@@ -15,10 +15,11 @@ LetterboxBarHeight	equ 0x18
 RasterEffectLetterboxInit:
 
 	; End prev
-	move.l raster_effect_end, a2
-	cmpa.w #0x0, a2
+	move.l raster_effect_end, a0
+	cmpa.w #0x0, a0
 	beq    @NoPrev
-	jsr    (a2)
+	lea    INT_LoadHBlank, a5
+	jsr    VDP_JobQueue_PushJob
 	@NoPrev:
 
 	; Set update func
@@ -38,9 +39,14 @@ RasterEffectLetterboxInit:
 	andi.b  #~vdp_reg0_enablehint, d0
 	VDP_SETREG 0, d0
 
-	; Load HINT routine
+	; Load HINT routine (during next blank)
 	lea    RasterEffectLetterboxHINT, a0
-	jsr    INT_LoadHBlank
+	lea    INT_LoadHBlank, a5
+	jsr    VDP_JobQueue_PushJob
+
+	; Set initial state (during next blank)
+	lea    RasterEffectLetterboxUpdate, a5
+	jsr    VDP_JobQueue_PushJob
 
 	rts
 
@@ -84,7 +90,7 @@ RasterEffectLetterboxUpdate:
 
 RasterEffectLetterboxEnd:
 
-	; Disble HINT
+	; Disable HINT
 	VDP_GETREG 0, d0
 	andi.b  #~vdp_reg0_enablehint, d0
 	VDP_SETREG 0, d0
@@ -130,10 +136,11 @@ RasterEffectLetterboxHINT:
 RasterEffectUnderwaterInit:
 
 	; End prev
-	move.l raster_effect_end, a2
-	cmpa.w #0x0, a2
+	move.l raster_effect_end, a0
+	cmpa.w #0x0, a0
 	beq    @NoPrev
-	jsr    (a2)
+	lea    INT_LoadHBlank, a5
+	jsr    VDP_JobQueue_PushJob
 	@NoPrev:
 
 	; Set update func
@@ -144,7 +151,8 @@ RasterEffectUnderwaterInit:
 
 	; Set HINT
 	lea    RasterEffectUnderwaterHINT, a0
-	jsr    INT_LoadHBlank
+	lea    INT_LoadHBlank, a5
+	jsr    VDP_JobQueue_PushJob
 
 	rts
 

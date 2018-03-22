@@ -256,6 +256,9 @@ l1a0_CutsceneIntro:
 	; Wait
 	CUTSCENE_DELAY #0x0080
 
+	; Owl hoot
+	CUTSCENE_PLAY_SFX #SFX_Ambience_Night1
+
 	; Fade out audio track
 	CUTSCENE_FADE_TRACK
 
