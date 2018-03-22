@@ -61,8 +61,6 @@ end_level_Flue_count equ 0x0
 
 end_level_TriggerBox_count equ 0x0
 
-end_level_Checkpoint_count equ 0x0
-
 end_level_WaterBody_count equ 0x0
 
 end_level_Location_count equ 0x0
@@ -112,6 +110,8 @@ end_level_Scirus_count equ 0x0
 end_level_Hogg_count equ 0x0
 
 end_level_Bridge_count equ 0x0
+
+end_level_Checkpoint_count equ 0x0
 
 
 

@@ -77,8 +77,6 @@ main_menu_Flue_count equ 0x0
 
 main_menu_TriggerBox_count equ 0x0
 
-main_menu_Checkpoint_count equ 0x0
-
 main_menu_WaterBody_count equ 0x0
 
 main_menu_Location_count equ 0x0
@@ -128,6 +126,8 @@ main_menu_Scirus_count equ 0x0
 main_menu_Hogg_count equ 0x0
 
 main_menu_Bridge_count equ 0x0
+
+main_menu_Checkpoint_count equ 0x0
 
 
 

@@ -113,16 +113,6 @@ L7A2_StopPower_name	dc.b "L7A2_StopPower",0
 	even
 	ENDIF
 
-L7A2_Checkpoint_count equ 0x2
-L7A2_Checkpoint_15_idx	equ 0x0
-L7A2_Checkpoint_16_idx	equ 0x1
-
-	IFND FINAL
-L7A2_Checkpoint_15_name	dc.b "L7A2_Checkpoint_15",0
-L7A2_Checkpoint_16_name	dc.b "L7A2_Checkpoint_16",0
-	even
-	ENDIF
-
 L7A2_WaterBody_count equ 0x1
 L7A2_WaterBody_17_idx	equ 0x0
 
@@ -184,6 +174,16 @@ L7A2_Scirus_count equ 0x0
 L7A2_Hogg_count equ 0x0
 
 L7A2_Bridge_count equ 0x0
+
+L7A2_Checkpoint_count equ 0x2
+L7A2_Checkpoint_15_idx	equ 0x0
+L7A2_Checkpoint_16_idx	equ 0x1
+
+	IFND FINAL
+L7A2_Checkpoint_15_name	dc.b "L7A2_Checkpoint_15",0
+L7A2_Checkpoint_16_name	dc.b "L7A2_Checkpoint_16",0
+	even
+	ENDIF
 
 
 
@@ -522,39 +522,6 @@ L7A2_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L7A2_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-	jsr CheckpointInit
-	move.l #0x1c400000, Entity_WorldPosX(a0)
-	move.l #0x02c00000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L7A2_Checkpoint_15_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-	jsr CheckpointInit
-	move.l #0x11580000, Entity_WorldPosX(a0)
-	move.l #0x02b80000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L7A2_Checkpoint_16_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L7A2_WaterBody_count)
 	move.l a1, EntityPoolStart_WaterBody
 	move.l a1, a0
@@ -617,6 +584,39 @@ L7A2_LoadGameObjects:
 
 
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L7A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x1c400000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L7A2_Checkpoint_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
+
+	jsr CheckpointInit
+	move.l #0x11580000, Entity_WorldPosX(a0)
+	move.l #0x02b80000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L7A2_Checkpoint_16_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	rts

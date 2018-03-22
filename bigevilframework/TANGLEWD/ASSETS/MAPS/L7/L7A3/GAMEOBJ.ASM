@@ -55,8 +55,6 @@ L7A3_Flue_count equ 0x0
 
 L7A3_TriggerBox_count equ 0x0
 
-L7A3_Checkpoint_count equ 0x0
-
 L7A3_WaterBody_count equ 0x0
 
 L7A3_Location_count equ 0x0
@@ -106,6 +104,8 @@ L7A3_Scirus_count equ 0x0
 L7A3_Hogg_count equ 0x0
 
 L7A3_Bridge_count equ 0x0
+
+L7A3_Checkpoint_count equ 0x0
 
 
 

@@ -101,6 +101,10 @@ GameStateReset:
 	jsr    VDP_SetHScrollPlaneB
 	jsr    VDP_SetVScrollPlaneA
 	jsr    VDP_SetVScrollPlaneB
+	move.w d0, vdp_hscroll_a
+	move.w d0, vdp_hscroll_b
+	move.w d0, vdp_vscroll_a
+	move.w d0, vdp_vscroll_b
 	
 	; Reset camera
 	jsr    CAM_Init

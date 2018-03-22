@@ -81,8 +81,6 @@ L8A2_TriggerDjakk_name	dc.b "L8A2_TriggerDjakk",0
 	even
 	ENDIF
 
-L8A2_Checkpoint_count equ 0x0
-
 L8A2_WaterBody_count equ 0x1
 L8A2_WaterBody_9_idx	equ 0x0
 
@@ -138,6 +136,8 @@ L8A2_Scirus_count equ 0x0
 L8A2_Hogg_count equ 0x0
 
 L8A2_Bridge_count equ 0x0
+
+L8A2_Checkpoint_count equ 0x0
 
 
 
@@ -296,7 +296,6 @@ L8A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L8A2_WaterBody_count)
 	move.l a1, EntityPoolStart_WaterBody
@@ -317,6 +316,7 @@ L8A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #WaterBody_Struct_Size, a0
+
 
 
 

@@ -83,8 +83,6 @@ credits_Flue_count equ 0x0
 
 credits_TriggerBox_count equ 0x0
 
-credits_Checkpoint_count equ 0x0
-
 credits_WaterBody_count equ 0x0
 
 credits_Location_count equ 0x0
@@ -134,6 +132,8 @@ credits_Scirus_count equ 0x0
 credits_Hogg_count equ 0x0
 
 credits_Bridge_count equ 0x0
+
+credits_Checkpoint_count equ 0x0
 
 
 

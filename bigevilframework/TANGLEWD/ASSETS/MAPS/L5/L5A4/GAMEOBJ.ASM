@@ -97,8 +97,6 @@ L5A4_TriggerBox_Storm_name	dc.b "L5A4_TriggerBox_Storm",0
 	even
 	ENDIF
 
-L5A4_Checkpoint_count equ 0x0
-
 L5A4_WaterBody_count equ 0x0
 
 L5A4_Location_count equ 0x1
@@ -166,6 +164,8 @@ L5A4_Scirus_count equ 0x0
 L5A4_Hogg_count equ 0x0
 
 L5A4_Bridge_count equ 0x0
+
+L5A4_Checkpoint_count equ 0x0
 
 
 
@@ -378,7 +378,6 @@ L5A4_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L5A4_Location_count)
 	move.l a1, EntityPoolStart_Location
@@ -453,6 +452,7 @@ L5A4_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Longboat_Struct_Size, a0
+
 
 
 

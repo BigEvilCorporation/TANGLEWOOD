@@ -95,8 +95,6 @@ L8A4_TriggerDemonReturn_name	dc.b "L8A4_TriggerDemonReturn",0
 	even
 	ENDIF
 
-L8A4_Checkpoint_count equ 0x0
-
 L8A4_WaterBody_count equ 0x0
 
 L8A4_Location_count equ 0x1
@@ -182,6 +180,8 @@ L8A4_Scirus_count equ 0x0
 L8A4_Hogg_count equ 0x0
 
 L8A4_Bridge_count equ 0x0
+
+L8A4_Checkpoint_count equ 0x0
 
 
 
@@ -380,7 +380,6 @@ L8A4_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L8A4_Location_count)
 	move.l a1, EntityPoolStart_Location
@@ -530,6 +529,7 @@ L8A4_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #CargoLift_Struct_Size, a0
+
 
 
 

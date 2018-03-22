@@ -85,8 +85,6 @@ L8A1_TriggerLevelEnd_name	dc.b "L8A1_TriggerLevelEnd",0
 	even
 	ENDIF
 
-L8A1_Checkpoint_count equ 0x0
-
 L8A1_WaterBody_count equ 0x0
 
 L8A1_Location_count equ 0x0
@@ -142,6 +140,8 @@ L8A1_Scirus_count equ 0x0
 L8A1_Hogg_count equ 0x0
 
 L8A1_Bridge_count equ 0x0
+
+L8A1_Checkpoint_count equ 0x0
 
 
 
@@ -293,7 +293,6 @@ L8A1_LoadGameObjects:
 
 
 
-
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(Wyrm_Struct_Size*L8A1_Wyrm_count)
 	move.l a1, EntityPoolStart_Wyrm
@@ -312,6 +311,7 @@ L8A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Wyrm_Struct_Size, a0
+
 
 
 

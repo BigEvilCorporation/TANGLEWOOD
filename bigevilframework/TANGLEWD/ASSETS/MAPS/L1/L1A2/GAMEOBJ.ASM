@@ -169,14 +169,6 @@ L1A2_TriggerBox_182_name	dc.b "L1A2_TriggerBox_182",0
 	even
 	ENDIF
 
-L1A2_Checkpoint_count equ 0x1
-L1A2_Checkpoint_191_idx	equ 0x0
-
-	IFND FINAL
-L1A2_Checkpoint_191_name	dc.b "L1A2_Checkpoint_191",0
-	even
-	ENDIF
-
 L1A2_WaterBody_count equ 0x4
 L1A2_WaterBody_66_idx	equ 0x0
 L1A2_WaterBody_69_idx	equ 0x1
@@ -244,6 +236,14 @@ L1A2_Hogg_226_name	dc.b "L1A2_Hogg_226",0
 	ENDIF
 
 L1A2_Bridge_count equ 0x0
+
+L1A2_Checkpoint_count equ 0x1
+L1A2_Checkpoint_191_idx	equ 0x0
+
+	IFND FINAL
+L1A2_Checkpoint_191_name	dc.b "L1A2_Checkpoint_191",0
+	even
+	ENDIF
 
 
 
@@ -837,26 +837,6 @@ L1A2_LoadGameObjects:
 
 
 	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L1A2_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-	jsr CheckpointInit
-	move.l #0x19880000, Entity_WorldPosX(a0)
-	move.l #0x02c00000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L1A2_Checkpoint_191_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
-
-
-	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L1A2_WaterBody_count)
 	move.l a1, EntityPoolStart_WaterBody
 	move.l a1, a0
@@ -956,6 +936,26 @@ L1A2_LoadGameObjects:
 	ENDIF
 	add.l #Hogg_Struct_Size, a0
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L1A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x19880000, Entity_WorldPosX(a0)
+	move.l #0x02c00000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L1A2_Checkpoint_191_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	rts

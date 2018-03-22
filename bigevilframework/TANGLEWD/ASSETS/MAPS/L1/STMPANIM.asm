@@ -19,7 +19,7 @@ L1_LoadSceneAnimations:
 
 	; Get stamp VRAM address
 	move.w (vram_addr_leveltiles), d0
-	addi.w #stampanimsheet_AnimPlants_tileoffset*size_tile_b, d0
+	add.w  #stampanimsheet_AnimPlants_tileoffset*size_tile_b, d0
 
 	; Load animation
 	lea    spritesheets_AnimPlants, a2
@@ -39,8 +39,8 @@ L1_LoadSceneAnimations:
 	jsr    AnimObjSetAnimation
 	POPM   a0-a1
 
-	addi.l #SceneAnim_Struct_Size, a0
-	addi.l #Animation_Struct_Size, a1
+	add.l  #SceneAnim_Struct_Size, a0
+	add.l  #Animation_Struct_Size, a1
 
 	; Create scene anim object
 	PUSHM  a0-a1
@@ -49,7 +49,7 @@ L1_LoadSceneAnimations:
 
 	; Get stamp VRAM address
 	move.w (vram_addr_leveltiles), d0
-	addi.w #stampanimsheet_AnimWater_tileoffset*size_tile_b, d0
+	add.w  #stampanimsheet_AnimWater_tileoffset*size_tile_b, d0
 
 	; Load animation
 	lea    spritesheets_AnimWater, a2
@@ -69,8 +69,8 @@ L1_LoadSceneAnimations:
 	jsr    AnimObjSetAnimation
 	POPM   a0-a1
 
-	addi.l #SceneAnim_Struct_Size, a0
-	addi.l #Animation_Struct_Size, a1
+	add.l  #SceneAnim_Struct_Size, a0
+	add.l  #Animation_Struct_Size, a1
 
 	POPL   a1
 	rts
