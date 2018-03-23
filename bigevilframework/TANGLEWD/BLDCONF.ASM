@@ -16,6 +16,7 @@ FORCE_NTSC_MODE			equ 0
 ; Timing testing
 FRAME_TIMING_DEBUG		equ 0
 VBLANK_TIMING_DEBUG		equ 0
+ENTITY_DEBUG_SLOW		equ 8	; Updates entities every nth frame
 
 ; Accessibility testing
 COLOURBLIND_TEST_RG		equ 0
@@ -78,7 +79,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
-InitialLevel			equ l1a4_HarlequinForestAct4
+;InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
@@ -101,7 +102,7 @@ InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l8a1_TurntailAct1
 ;InitialLevel			equ l8a2_TurntailAct2
 ;InitialLevel			equ l8a3_TurntailAct3
-;InitialLevel			equ l8a4_TurntailAct4
+InitialLevel			equ l8a4_TurntailAct4
 ;InitialLevel			equ l8a5_TurntailAct5
 ;InitialLevel			equ l8a6_TurntailAct6
 	ENDIF
@@ -109,11 +110,11 @@ InitialLevel			equ l1a4_HarlequinForestAct4
 	IFD FINAL
 InitialState			equ  GameStateLogos
 	ELSE
-InitialState			equ  GameStateLogos
+;InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-;InitialState			equ  GameStateGameplay
+InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF

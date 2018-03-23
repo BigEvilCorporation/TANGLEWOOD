@@ -52,6 +52,14 @@ PhysicsWorldRemoveObject:
 PhysicsWorldPreStep:
 	; a1 --- Level
 
+	IF ENTITY_DEBUG_SLOW
+	move.l vblank_counter, d7
+	divu   #ENTITY_DEBUG_SLOW, d7
+	swap   d7
+	tst.w  d7
+	bne    @NoUpdate
+	ENDIF
+
 	; Get moving platform count
 	LIST_GET_SIZE MovingPlatforms,d0
 	PUSHL d0
@@ -131,6 +139,8 @@ PhysicsWorldPreStep:
 	LIST_GET_NEXT PhysicsObjs,a0,a0			; Get next ptr
 	bra    @ObjLp							; Loop
 	@ListEnd:
+
+	@NoUpdate:
 
 	rts
 

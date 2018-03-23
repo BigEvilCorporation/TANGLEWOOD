@@ -659,6 +659,14 @@ EntityUpdateAll:
 	jsr DBG_Profile_PushScope
 	ENDIF
 
+	IF ENTITY_DEBUG_SLOW
+	move.l vblank_counter, d7
+	divu   #ENTITY_DEBUG_SLOW, d7
+	swap   d7
+	tst.w  d7
+	bne    @NoUpdate
+	ENDIF
+
 	LIST_GET_HEAD EntityUpdate,a0		; Get list head
 	@EntityLp:							; For all entities in list
 	cmpa.w #0x0, a0
@@ -668,6 +676,8 @@ EntityUpdateAll:
 	LIST_GET_NEXT EntityUpdate,a0,a0	; Get next ptr
 	bra    @EntityLp					; Loop
 	@ListEnd:
+
+	@NoUpdate:
 
 	IFD DEBUG
 	jsr DBG_Profile_PopScope
