@@ -15,10 +15,9 @@ LetterboxBarHeight	equ 0x18
 RasterEffectLetterboxInit:
 
 	; End prev
-	move.l raster_effect_end, a0
-	cmpa.w #0x0, a0
+	move.l raster_effect_end, a5
+	cmpa.w #0x0, a5
 	beq    @NoPrev
-	lea    INT_LoadHBlank, a5
 	jsr    VDP_JobQueue_PushJob
 	@NoPrev:
 
@@ -136,10 +135,9 @@ RasterEffectLetterboxHINT:
 RasterEffectUnderwaterInit:
 
 	; End prev
-	move.l raster_effect_end, a0
-	cmpa.w #0x0, a0
+	move.l raster_effect_end, a5
+	cmpa.w #0x0, a5
 	beq    @NoPrev
-	lea    INT_LoadHBlank, a5
 	jsr    VDP_JobQueue_PushJob
 	@NoPrev:
 
