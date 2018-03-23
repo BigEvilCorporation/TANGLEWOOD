@@ -14,12 +14,13 @@ PlatformType_Rolling	equ 0x1
 	LINKED_LIST_NODE Platforms ; Linked list entry
 	LINKED_LIST_NODE MovingPlatforms ; Linked list entry
 ;---------------------------------
+	LINKED_LIST PlatformOccupants	; Platform occupants (PhysicsObjs)
 Platform_PosX			rs.l 1
 Platform_PosY			rs.l 1
 Platform_VelX			rs.l 1
 Platform_VelY			rs.l 1
 Platform_Owner			rs.l 1
-Platform_LastOccupant	rs.l 1
+Platform_LastOccupant	rs.l 1	; (deprecated)
 Platform_Width			rs.w 1
 Platform_TotalMass		rs.w 1
 Platform_TerrainFlags	rs.w 1
@@ -36,5 +37,7 @@ PlatformInit:
 
 	move.l #Platform_Struct_Size, d0
 	MEMZEROB a0, d0
+
+	MLIST_INIT PlatformOccupants,a0
 
 	rts

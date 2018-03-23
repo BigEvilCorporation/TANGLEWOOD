@@ -25,8 +25,9 @@ PhysicsObjVelocityPerTimeSplice		equ 0x7*subpixels_per_pixel	; Min wall thicknes
 ;==============================================================
 	rsset AnimObj_Struct_Size
 ;---------------------------------
-	LINKED_LIST_NODE PhysicsObjs    ; Linked list entry for all physics objects
-	LINKED_LIST_NODE PushableObjs   ; Linked list entry for pushable objects
+	LINKED_LIST_NODE PhysicsObjs		; Linked list entry for all physics objects
+	LINKED_LIST_NODE PushableObjs		; Linked list entry for pushable objects
+	LINKED_LIST_NODE PlatformOccupants	; Linked list entry for platform occupants
 ;---------------------------------
 PhysicsObj_LastPlatform			rs.l 1 ; Last detected platform addr
 PhysicsObj_LastBarrier			rs.l 1 ; Last detected barrier addr
@@ -118,6 +119,7 @@ PhysicsObjInit:
 
 	LIST_INIT_LINK PhysicsObjs,a0
 	LIST_INIT_LINK PushableObjs,a0
+	LIST_INIT_LINK PlatformOccupants,a0
 	
 	move.w #0x0, PhysicsObj_LastWall(a0)
 	move.w #0x0, PhysicsObj_LastFloor(a0)
@@ -1058,6 +1060,8 @@ PhysicsObjCollisionCorrectY:
 	move.l d0, PhysicsObj_FloorImpactVelY(a0)		; Store impact velocity
 	@NoImpact:
 
+	move.l vblank_counter, d7
+
 	move.l d5, PhysicsObj_VelY(a0)					; Set zero vel / platform vel / bounce vel
 	move.w #0x0, PhysicsObj_AccelY(a0)				; Clear Y acceleration
 	move.b #0x1, PhysicsObj_OnFloor(a0)				; Set object on floor flag
@@ -1171,7 +1175,7 @@ PhysicsObjFindFloor:
 	
 	; Get floor probe X
 	move.w Entity_WorldPosX(a0), d1			; Get player pos X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d1			; To screen space
+	subi.w  #vdp_sprite_border_x, d1		; To screen space
 	move.w PhysicsObj_FloorProbeX(a0), d3	; Get floor probe X offset
 	add.w  d3, d1							; Add to X pos
 	
@@ -1180,7 +1184,7 @@ PhysicsObjFindFloor:
 	; Get floor probe Y
 	swap   d1								; X to upper word
 	move.w Entity_WorldPosY(a0), d2			; Get player pos Y (top word = integer part)
-	subi.w  #vdp_sprite_border_y, d2			; To screen space
+	subi.w  #vdp_sprite_border_y, d2		; To screen space
 	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
 	add.w  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
@@ -1268,12 +1272,13 @@ PhysicsObjFindFloor:
 	; Set last Y velocity
 	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
-	; Add occupant mass
+	; Add occupant mass, and add to occupants list
 	tst.b  PhysicsObj_AccumPlatformMass(a0)
 	beq    @NoAccumPlatformMass
 	clr.w  d2
 	move.b PhysicsObj_Mass(a0), d2
 	add.w  d2, Platform_TotalMass(a3)
+	MLIST_APPEND_TAIL PlatformOccupants,a0,a6,a3
 	move.b #0x0, PhysicsObj_AccumPlatformMass(a0)
 	@NoAccumPlatformMass:
 
@@ -1281,7 +1286,7 @@ PhysicsObjFindFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Set platform last occupant
-	move.l a0, Platform_LastOccupant(a3)
+	move.l a0, Platform_LastOccupant(a3)	; (deprecated)
 
 	bra    @FoundPlatform
 	
@@ -1961,12 +1966,13 @@ PhysicsObjFindMovingFloor:
 	; Set last Y velocity
 	move.l Platform_VelY(a3), PhysicsObj_LastFloorVelocity(a0)
 
-	; Add occupant mass
+	; Add occupant mass, and add to occupant list
 	tst.b  PhysicsObj_AccumPlatformMass(a0)
 	beq    @NoAccumPlatformMass
 	clr.w  d2
 	move.b PhysicsObj_Mass(a0), d2
 	add.w  d2, Platform_TotalMass(a3)
+	MLIST_APPEND_TAIL PlatformOccupants,a0,a6,a3
 	move.b #0x0, PhysicsObj_AccumPlatformMass(a0)
 	@NoAccumPlatformMass:
 
@@ -1974,7 +1980,7 @@ PhysicsObjFindMovingFloor:
 	move.b #0x1, Platform_Occupied(a3)
 
 	; Mark object on platform
-	move.l a0, Platform_LastOccupant(a3)
+	move.l a0, Platform_LastOccupant(a3)	; (deprecated)
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 

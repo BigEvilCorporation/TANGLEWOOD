@@ -72,7 +72,8 @@ PhysicsWorldPreStep:
 	@PlatformLp:
 	cmpa.w #0x0, a3
 	beq    @NoPlatform
-	move.l #0x0, Platform_LastOccupant(a3)
+	MLIST_CLEAR PlatformOccupants,a5,a6,a3
+	move.l #0x0, Platform_LastOccupant(a3)	; (deprecated)
 	move.w #0x0, Platform_TotalMass(a3)
 	move.b #0x0, Platform_Occupied(a3)
 	move.l Platform_VelX(a3), d0		; Check velocity

@@ -399,16 +399,34 @@ LiftUpdatePlatform:
 	; a1 --- Level addr
 
 	lea    Lift_Platform(a0), a2
-	move.l Entity_WorldPosX(a0), d0
-	move.l Entity_WorldPosY(a0), d1
+	move.w Entity_WorldPosX(a0), d0
+	move.w Entity_WorldPosY(a0), d1
 	move.w Entity_Height(a0), d2
-	TOSUBPIXELS d2
-	add.l  d2, d1
+	;TOSUBPIXELS d2
+	add.w  d2, d1
 	move.w Lift_PlatformOffsetY(a0), d3
-	TOSUBPIXELS d3
-	sub.l  d3, d1
-	move.l d0, Platform_PosX(a2)
-	move.l d1, Platform_PosY(a2)
+	;TOSUBPIXELS d3
+	sub.w  d3, d1
+	move.w d0, Platform_PosX(a2)
+	move.w d1, Platform_PosY(a2)
+
+	; Absolute last minute hack, but I daren't change any physics
+	; code at this point. Snaps occupant to platform to fix stuttering
+	; if occupant physics ticks before the lift entity update.
+	; TODO for next game: separate physics tick and entity update order
+	tst.l  PhysicsObj_VelY(a0)
+	beq    @NoVelY
+	MLIST_GET_HEAD PlatformOccupants,a3,a2	; Get list head
+	@OccupantLp:							; For all occupants in list
+	cmpa.w #0x0, a3
+	beq    @ListEnd
+	move.w d1, d2
+	sub.w  Entity_Height(a3), d2
+	move.w d2, Entity_WorldPosY(a3)			; Snap objec to platform floor
+	LIST_GET_NEXT PlatformOccupants,a3,a3	; Get next ptr
+	bra    @OccupantLp						; Loop
+	@ListEnd:
+	@NoVelY:
 	
 	; Set platform velocity
 	moveq  #0x0, d2
