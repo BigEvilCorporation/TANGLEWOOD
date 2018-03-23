@@ -1592,8 +1592,6 @@ PhysicsObjFindWall:
 	bgt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
-
-	TOSUBPIXELS d4							; To world space
 	
 	; Add object velocity to barrier hit velocity
 	move.l PhysicsObj_VelX(a0), d2
