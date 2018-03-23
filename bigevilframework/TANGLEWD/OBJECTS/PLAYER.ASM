@@ -1303,7 +1303,7 @@ PlayerDismountPet:
 	; Clear last floor
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
-	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_LastFloor(a0)
 
 	; Jump off (forced jump)
 	PUSHM  d0/a0-a2

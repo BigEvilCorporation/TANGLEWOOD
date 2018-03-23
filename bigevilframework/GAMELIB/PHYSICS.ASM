@@ -203,7 +203,7 @@ PhysicsWorldFindTerrain:
 	move.w Platform_TerrainFlags(a3), d1
 	
 	; Found a platform within step height
-	clr.l  d2
+	moveq  #0x0, d2
 	move.w Platform_PosY(a3), d0			; Get platform Y
 	move.l a3, a2							; Set result
 	bra    @Found

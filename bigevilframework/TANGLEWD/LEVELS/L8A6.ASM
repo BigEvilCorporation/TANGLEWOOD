@@ -734,7 +734,7 @@ l8a6_Cutscene_DemonDropFuzzl:
 	move.b #0x0, PhysicsObj_Asleep(a2)
 	move.b #0x0, PhysicsObj_OnFloor(a2)
 	move.b #0x0, PhysicsObj_CloseToFloor(a2)
-	move.l #0x0, PhysicsObj_LastFloor(a2)
+	move.w #0x0, PhysicsObj_LastFloor(a2)
 
 	move.l a2, a0
 	move.b #0x1, d1

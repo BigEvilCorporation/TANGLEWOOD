@@ -2509,24 +2509,24 @@ EchoAI_FindFloor:
 	; a1 --- Level addr
 	; d0 (l) X pos
 	; d1 (l) Y pos
-	; d2 (l) OUT: Found floor
+	; d2 (w) OUT: Found floor
 
 	PUSHL  Entity_WorldPosX(a0)
 	PUSHL  Entity_WorldPosY(a0)
-	PUSHL  PhysicsObj_LastFloor(a0)
+	PUSHW  PhysicsObj_LastFloor(a0)
 	PUSHL  PhysicsObj_LastPlatform(a0)
 
 	move.l d0, Entity_WorldPosX(a0)
 	move.l d1, Entity_WorldPosY(a0)
-	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_LastFloor(a0)
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
 
 	jsr    PhysicsObjSnapToFloor
 
-	move.l PhysicsObj_LastFloor(a0), d2
+	move.w PhysicsObj_LastFloor(a0), d2
 
 	POPL   PhysicsObj_LastPlatform(a0)
-	POPL   PhysicsObj_LastFloor(a0)
+	POPW   PhysicsObj_LastFloor(a0)
 	POPL   Entity_WorldPosY(a0)
 	POPL   Entity_WorldPosX(a0)
 

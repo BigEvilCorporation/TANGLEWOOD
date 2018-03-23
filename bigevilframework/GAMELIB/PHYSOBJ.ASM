@@ -28,9 +28,6 @@ PhysicsObjVelocityPerTimeSplice		equ 0x7*subpixels_per_pixel	; Min wall thicknes
 	LINKED_LIST_NODE PhysicsObjs    ; Linked list entry for all physics objects
 	LINKED_LIST_NODE PushableObjs   ; Linked list entry for pushable objects
 ;---------------------------------
-PhysicsObj_LastWall         	rs.l 1 ; Last detected wall X
-PhysicsObj_LastFloor        	rs.l 1 ; Last detected floor Y
-PhysicsObj_LastCeiling      	rs.l 1 ; Last detected ceiling Y
 PhysicsObj_LastPlatform			rs.l 1 ; Last detected platform addr
 PhysicsObj_LastBarrier			rs.l 1 ; Last detected barrier addr
 PhysicsObj_LastFloorVelocity	rs.l 1 ; Last detected moving platform Y velocity
@@ -49,6 +46,9 @@ PhysicsObj_MaxVelYUp	    	rs.l 1 ; Max Y velocity up
 PhysicsObj_MaxVelYDown			rs.l 1 ; Max Y velocity down
 PhysicsObj_WindResistanceFloor	rs.l 1 ; Wind resistance (on floor)
 PhysicsObj_WindResistanceAir	rs.l 1 ; Wind resistance (in air)
+PhysicsObj_LastWall         	rs.w 1 ; Last detected wall X
+PhysicsObj_LastFloor        	rs.w 1 ; Last detected floor Y
+PhysicsObj_LastCeiling      	rs.w 1 ; Last detected ceiling Y
 PhysicsObj_BoundsLeft			rs.w 1 ; Collision bounds offset X
 PhysicsObj_BoundsTop			rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth			rs.w 1 ; Collision bounds offset width
@@ -119,9 +119,9 @@ PhysicsObjInit:
 	LIST_INIT_LINK PhysicsObjs,a0
 	LIST_INIT_LINK PushableObjs,a0
 	
-	move.l #0x0, PhysicsObj_LastWall(a0)
-	move.l #0x0, PhysicsObj_LastFloor(a0)
-	move.l #0x0, PhysicsObj_LastCeiling(a0)
+	move.w #0x0, PhysicsObj_LastWall(a0)
+	move.w #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_LastCeiling(a0)
 	move.l #0x0, PhysicsObj_LastPlatform(a0)
 	move.l #0x0, PhysicsObj_LastBarrier(a0)
 	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
@@ -387,7 +387,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1							; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq  #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 
@@ -473,7 +473,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq  #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -488,7 +488,7 @@ PhysicsObjApplyAccelDecel:
 	ext.l  d1						; Sign extend word to long
 	
 	; Apply speed div
-	clr.l  d2
+	moveq  #0x0, d2
 	move.b AnimObj_SpeedDiv(a0), d2
 	DIVS1616_LOSSY d2, d1
 	
@@ -622,7 +622,7 @@ PhysicsObjApplyWorldForces:
 	lea    PhysicsWorld, a2
 
 	; Get speed div
-	clr.l  d6
+	moveq  #0x0, d6
 	move.b AnimObj_SpeedDiv(a0), d6
 
 	;==============================================================
@@ -923,7 +923,7 @@ PhysicsObjCollisionCorrectX:
 	beq    @NoWallFound
 	
 	; Get last wall collided with
-	move.l PhysicsObj_LastWall(a0), d0
+	move.w PhysicsObj_LastWall(a0), d0
 
 	cmp.b  #0x1, d1
 	beq    @HeadingLeft
@@ -945,12 +945,11 @@ PhysicsObjCollisionCorrectX:
 	tst.l  d0
 	beq    @UsingCachedWallL
 	move.w PhysicsObj_WallProbeLeft(a0), d1
-	TOSUBPIXELS d1
-	sub.l  d1, d0
-	move.l Entity_WorldPosX(a0), d1
-	cmp.l  d1, d0
+	sub.w  d1, d0
+	move.w Entity_WorldPosX(a0), d1
+	cmp.w  d1, d0
 	blt    @NoWallFound
-	move.l d0, Entity_WorldPosX(a0)
+	move.w d0, Entity_WorldPosX(a0)
 	@UsingCachedWallL:
 
 	; Wall hit
@@ -968,12 +967,11 @@ PhysicsObjCollisionCorrectX:
 	tst.l  d0
 	beq    @UsingCachedWallR
 	move.w PhysicsObj_WallProbeRight(a0), d1
-	TOSUBPIXELS d1
-	sub.l  d1, d0
-	move.l Entity_WorldPosX(a0), d1
-	cmp.l  d1, d0
+	sub.w  d1, d0
+	move.w Entity_WorldPosX(a0), d1
+	cmp.w  d1, d0
 	bgt    @NoWallFound
-	move.l d0, Entity_WorldPosX(a0)
+	move.w d0, Entity_WorldPosX(a0)
 	@UsingCachedWallR:
 
 	; Wall hit
@@ -985,7 +983,7 @@ PhysicsObjCollisionCorrectX:
 	
 	@EndWallClamp:
 	
-	clr.l  d0										; Zero X velocity by default
+	moveq  #0x0, d0										; Zero X velocity by default
 	move.w PhysicsObj_BounceX(a0), d1				; Check for bounce
 	beq    @NoBounceX
 	move.l PhysicsObj_VelX(a0), d0
@@ -1029,22 +1027,21 @@ PhysicsObjCollisionCorrectY:
 	move.b PhysicsObj_OnFloor(a0), d4
 
 	move.l PhysicsObj_LastFloorVelocity(a0), d5		; Get last floor velocity
-	move.l PhysicsObj_LastFloor(a0), d2				; Get last found floor
+	move.w PhysicsObj_LastFloor(a0), d2				; Get last found floor
 	beq    @Uninitialised							; First frame, uninitialised
-	clr.l  d3
+	moveq  #0x0, d3
 	move.b #0x0, PhysicsObj_OnFloor(a0)				; Clear object on floor flag
-	move.l Entity_WorldPosY(a0), d1					; Get Y pos
+	move.w Entity_WorldPosY(a0), d1					; Get Y pos
 	move.w Entity_Height(a0), d3					; Get height
-	TOSUBPIXELS d3									; Height to world space
-	sub.l  d3, d2									; Floor to floor probe space
-	cmp.l  d2, d1									; Check if probe is on or under floor
+	sub.w  d3, d2									; Floor to floor probe space
+	cmp.w  d2, d1									; Check if probe is on or under floor
 	blt    @AboveFloor
-	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
+	move.w d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
 	; If hit floor this frame, handle bounce
 	tst.l  d5										; Only if not a moving platform
 	bne    @NoBounceY
-	clr.l  d1
+	moveq  #0x0, d1
 	tst.b  d4
 	bne    @NoBounceY
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
@@ -1071,11 +1068,10 @@ PhysicsObjCollisionCorrectY:
 
 	; Check if close to floor
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)		; Clear object close to floor flag
-	clr.l  d3
+	moveq  #0x0, d3
 	move.w PhysicsObj_StepHeight(a0), d3			; Get step height
-	TOSUBPIXELS d3									; To world pos
-	sub.l  d3, d2									; Floor to step height space
-	cmp.l  d2, d1									; Check if object is on or under floor-step height
+	sub.w  d3, d2									; Floor to step height space
+	cmp.w  d2, d1									; Check if object is on or under floor-step height
 	blt    @NotCloseToFloor
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)		; Set object close to floor flag
 
@@ -1090,7 +1086,7 @@ PhysicsObjCollisionCorrectY:
 	beq    @EndSnapToFloor
 	@SnapToFloor:
 	add.l  d3, d2
-	move.l d2, Entity_WorldPosY(a0)					; Snap object to floor height
+	move.w d2, Entity_WorldPosY(a0)					; Snap object to floor height
 	tst.l  d5
 	ble    @PlatformDown
 	move.l d5, PhysicsObj_VelY(a0)					; Take platform's Y velocity if heading up
@@ -1107,7 +1103,7 @@ PhysicsObjCollisionCorrectY:
 	; Correct ceiling collision
 	
 	; Get last ceiling collided with
-	move.l PhysicsObj_LastCeiling(a0), d5
+	move.w PhysicsObj_LastCeiling(a0), d5
 	beq    @NoCeilingFound
 	
 	; Determine Y direction
@@ -1116,10 +1112,10 @@ PhysicsObjCollisionCorrectY:
 	ble    @HeadingDown
 	
 	; Heading up, clamp
-	move.l Entity_WorldPosY(a0), d2
-	move.l d5, Entity_WorldPosY(a0)
+	move.w Entity_WorldPosY(a0), d2
+	move.w d5, Entity_WorldPosY(a0)
 	
-	clr.l  d5										; Zero Y velocity by default
+	moveq  #0x0, d5										; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d5
@@ -1143,7 +1139,7 @@ PhysicsObjFindFloor:
 	; d0 (b) Forced (ignores velocity check)
 
 	; Fetch last floor test result
-	move.l PhysicsObj_LastFloor(a0), d2
+	move.w PhysicsObj_LastFloor(a0), d2
 	
 	;==============================================================
 
@@ -1167,7 +1163,7 @@ PhysicsObjFindFloor:
 	@SkipVelocityCheck:
 
 	; Clear last found floor and flags
-	move.l #0x0, PhysicsObj_LastFloor(a0)
+	move.w #0x0, PhysicsObj_LastFloor(a0)
 	move.l #0x0, PhysicsObj_LastFloorVelocity(a0)
 	move.w #0x0, PhysicsObj_LastTerrainFlags(a0)
 	
@@ -1186,7 +1182,7 @@ PhysicsObjFindFloor:
 	move.w Entity_WorldPosY(a0), d2			; Get player pos Y (top word = integer part)
 	subi.w  #vdp_sprite_border_y, d2			; To screen space
 	move.w PhysicsObj_FloorProbeY(a0), d3	; Get floor probe Y offset
-	add.l  d3, d2							; Add to Y pos
+	add.w  d3, d2							; Add to Y pos
 	move.w d2, d1							; Player pos XY (screen space) to d1
 	sub.w  PhysicsObj_StepHeight(a0), d1	; Sub step height
 	
@@ -1260,8 +1256,8 @@ PhysicsObjFindFloor:
 	@CollideSpecialPlatform:
 	
 	; Found a platform within step height
-	move.l Platform_PosY(a3), d2			; Get platform Y
-	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
+	move.w Platform_PosY(a3), d2			; Get platform Y
+	move.w d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
@@ -1377,30 +1373,29 @@ PhysicsObjFindFloor:
 	@ProbeOutOfBounds:
 	@DontCollide:
 	lea    PhysicsWorld, a2
-	move.l PhysicsWorld_GroundHeight(a2), d2	; No floor, hole found, or probe out of bounds, use default ground Y
+	move.w PhysicsWorld_GroundHeight(a2), d2	; No floor, hole found, or probe out of bounds, use default ground Y
 	bra	   @EndFloorTest
 	
 	;==============================================================
 	
 	@FoundFloor:
-	clr.l  d2
+	moveq  #0x0, d2
 	move.w d0, d2
 	add.w  d6, d2							; Back to map space
 	addi.w #vdp_sprite_border_y, d2			; Back to sprite space
-	TOSUBPIXELS d2							; Back to world space
 	
 	; Check if out of bounds
 	lea    PhysicsWorld, a2
-	move.l PhysicsWorld_GroundHeight(a2), d1
-	cmp.l  d1, d2
+	move.w PhysicsWorld_GroundHeight(a2), d1
+	cmp.w  d1, d2
 	ble    @EndFloorTest
-	move.l d1, d2
+	move.w d1, d2
 	
 	;==============================================================
 	
 	@EndFloorTest:
 	
-	move.l d2, PhysicsObj_LastFloor(a0)		; Store last found floor
+	move.w d2, PhysicsObj_LastFloor(a0)		; Store last found floor
 	bra    @End
 
 	@MovingFloorsOnly:
@@ -1713,13 +1708,12 @@ PhysicsObjFindWall:
 	beq    @LeftOfTile	; Forced direction flag
 	tst.l  d3
 	bgt    @LeftOfTile
-	addq.l #0x1, d4
+	addq.w #0x1, d4
 	@LeftOfTile:
 
 	TILES2PIXELS d4						; Tiles to pixels
 	add.w  d5, d4						; Back to map space
-	addi.l #vdp_sprite_border_x, d4		; Pixels to screen space
-	TOSUBPIXELS d4						; Screen space to object space
+	addi.w #vdp_sprite_border_x, d4		; Pixels to screen space
 
 	; Set static wall hit flag
 	ori.b #PhysicsObjHitStaticWall, PhysicsObj_HitWall(a0)
@@ -1729,7 +1723,7 @@ PhysicsObjFindWall:
 	@FoundBarrier:
 	
 	; Result
-	move.l d4, PhysicsObj_LastWall(a0)
+	move.w d4, PhysicsObj_LastWall(a0)
 	bra    @End
 	
 	;==============================================================
@@ -1745,7 +1739,7 @@ PhysicsObjFindWall:
 	@ProbeOutOfBounds:
 
 	; Clear last found wall
-	move.l #0x0, PhysicsObj_LastWall(a0)
+	move.w #0x0, PhysicsObj_LastWall(a0)
 
 	@End:
 
@@ -1756,8 +1750,8 @@ PhysicsObjFindCeiling:
 	; a1 --- Level addr
 	
 	; Clear last ceiling found
-	move.l #0x0, PhysicsObj_LastCeiling(a0)
-	clr.l  d4
+	move.w #0x0, PhysicsObj_LastCeiling(a0)
+	moveq  #0x0, d4
 	
 	;==============================================================
 	
@@ -1820,7 +1814,7 @@ PhysicsObjFindCeiling:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6
-	clr.l  d2
+	moveq  #0x0, d2
 	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a0
@@ -1838,15 +1832,14 @@ PhysicsObjFindCeiling:
 	; Ceiling found - tile Y in d4, translate to world space
 	TILES2PIXELS d4						; Tiles to pixels
 	add.w  d6, d4						; Back to map space
-	addi.l #vdp_sprite_border_y, d4		; Pixels to screen space
-	TOSUBPIXELS d4						; Screen space to object space
+	addi.w #vdp_sprite_border_y, d4		; Pixels to screen space
 
 	;==============================================================
 	
 	@EndCeilingTest:
 
 	; Result
-	move.l d4, PhysicsObj_LastCeiling(a0)
+	move.w d4, PhysicsObj_LastCeiling(a0)
 	
 	;==============================================================
 	
@@ -1958,8 +1951,8 @@ PhysicsObjFindMovingFloor:
 	@CollideSpecialPlatform:
 	
 	; Success
-	move.l Platform_PosY(a3), d2			; Get platform Y
-	move.l d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
+	move.w Platform_PosY(a3), d2			; Get platform Y
+	move.w d2, PhysicsObj_LastFloor(a0)		; Set platform Y as floor height
 	
 	; Add platform X velocity
 	move.l Platform_VelX(a3), d2
@@ -2115,8 +2108,6 @@ PhysicsObjFindMovingBarrier:
 	blt    @LeftOfBarrier
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
-
-	TOSUBPIXELS d4							; To world space
 	
 	; Add barrier X velocity
 	move.l Barrier_VelX(a3), d2
@@ -2133,7 +2124,7 @@ PhysicsObjFindMovingBarrier:
 	@FoundBarrier:
 	
 	; Set last found wall
-	move.l d4, PhysicsObj_LastWall(a0)
+	move.w d4, PhysicsObj_LastWall(a0)
 	move.l Barrier_VelX(a3), PhysicsObj_LastWallVelocity(a0)
 
 	; Moving barrier hit
@@ -2152,19 +2143,19 @@ PhysicsObjSnapToFloor:
 	move.b #0x1, d0							; Force check regardless of velocity
 	jsr    PhysicsObjFindFloor
 
-	move.l PhysicsObj_LastFloor(a0), d2		; Get last found floor
+	move.w PhysicsObj_LastFloor(a0), d2		; Get last found floor
 	beq    @NoFloorFound
 	
 	ENTITY_GETBOTTOM d1,a0					; Get Y bottom
-	move.l d2, d3
-	sub.l  d1, d3
-	cmp.l  #(PhysicsObjMaxSnapToFloorDist*subpixels_per_pixel), d3; Check within max snap distance
+	TOPIXELS d1
+	move.w d2, d3
+	sub.w  d1, d3
+	cmp.w  #PhysicsObjMaxSnapToFloorDist, d3; Check within max snap distance
 	bgt    @FloorTooFar
 	
 	move.w Entity_Height(a0), d3			; Get height
-	TOSUBPIXELS d3							; Height to world space
-	sub.l  d3, d2							; Floor to floor probe space
-	move.l d2, Entity_WorldPosY(a0) 		; Set Y pos
+	sub.w  d3, d2							; Floor to floor probe space
+	move.w d2, Entity_WorldPosY(a0) 		; Set Y pos
 	move.l PhysicsObj_LastFloorVelocity(a0), PhysicsObj_VelY(a0)	; Take platform's Y velocity
 	move.b #0x1, PhysicsObj_OnFloor(a0)		; Set object on floor flag
 	move.b #0x1, PhysicsObj_CloseToFloor(a0); Set object close to floor flag
@@ -2407,11 +2398,12 @@ PhysicsObjPushPullObj:
 	
 	; Obj hitting wall to the left, use obj right bounds as wall
 	ENTITY_GETRIGHT d0,a2
+	TOPIXELS d0
 	move.w PhysicsObj_WallProbeLeft(a0), d1
 	move.w PhysicsObj_BoundsLeft(a0), d2
 	sub.w  d1, d2
-	move.l d0, PhysicsObj_LastWall(a0)
-	sub.w  d2, PhysicsObj_LastWall(a0)
+	sub.w  d2, d0
+	move.w d0, PhysicsObj_LastWall(a0)
 	move.b #(PhysicsObjHitWallLeft|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 	bra    @HitLeft
 
@@ -2419,13 +2411,14 @@ PhysicsObjPushPullObj:
 
 	; Obj hitting wall to the right, use obj left bounds as wall
 	ENTITY_GETLEFT d0,a2
+	TOPIXELS d0
 	move.w PhysicsObj_WallProbeRight(a0), d2
 	move.w PhysicsObj_BoundsLeft(a0), d1
 	add.w  PhysicsObj_BoundsWidth(a0), d1
 	sub.w  d1, d2
-	move.l d0, PhysicsObj_LastWall(a0)
-	add.w  d2, PhysicsObj_LastWall(a0)
-	addi.w #0x1, PhysicsObj_LastWall(a0)
+	add.w  d2, d0
+	addi.w #0x1, d0
+	move.w d0, PhysicsObj_LastWall(a0)
 	move.b #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 
 	@HitLeft:
