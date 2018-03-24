@@ -94,8 +94,8 @@ PillarLoadGfx:
 	lea    Pillar_Barrier(a0), a2
 	move.l Entity_WorldPosX(a0), d0
 	addi.l #(Pillar_BarrierOffsetX*subpixels_per_pixel), d0
-	move.l d0, Platform_PosX(a2)
-	move.l Entity_WorldPosY(a0), Platform_PosY(a2)
+	move.l d0, Barrier_PosX(a2)
+	move.l Entity_WorldPosY(a0), Barrier_PosY(a2)
 
 	rts
 
