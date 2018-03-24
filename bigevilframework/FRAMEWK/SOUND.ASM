@@ -316,9 +316,13 @@ SND_PlaySFX:
 	rts
 
 SND_StopSFX:
+
 	IF INCLUDE_AUDIO
 	jsr   Echo_StopSFX
 	ENDIF
+
+	move.l #0x0, audio_current_sfx
+
 	rts
 
 SND_GetEchoBusy:

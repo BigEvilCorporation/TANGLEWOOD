@@ -1,3 +1,4 @@
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e4		; Lock channel FM 4
 	dc.b $e5		; Lock channel FM 5
@@ -5,6 +6,7 @@
 	dc.b $eb		; Lock channel PSG 4
 ; Pattern $00, Row 0; 
 	dc.b $44, $c8	; Set instrument for channel FM 4
+	dc.b $f4, $f7	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $13	; Note A-0 on channel FM 4
 	dc.b $45, $c6	; Set instrument for channel FM 5
 	dc.b $25, $17	; Set volume for channel FM 5

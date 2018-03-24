@@ -1,3 +1,4 @@
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e5		; Lock channel FM 5
 	dc.b $e6		; Lock channel FM 6
@@ -5,6 +6,7 @@
 	dc.b $45, $5e	; Set instrument for channel FM 5
 	dc.b $05, $4b	; Note F-2 on channel FM 5
 	dc.b $46, $5d	; Set instrument for channel FM 6
+	dc.b $f6, $c1	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $25	; Note D-1 on channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $0a, $e4	; Set frequency '2788' (octave 1 semitone 740) for channel FM 6

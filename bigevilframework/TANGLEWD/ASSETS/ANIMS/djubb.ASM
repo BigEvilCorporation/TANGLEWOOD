@@ -67,7 +67,7 @@ actor_djubb_sheet_swim_anim_swim_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
 actor_djubb_sheet_swim_anim_swim_track_sfx:
-	dc.l SFX_DjubbSwim2, 0x0, 0x0, 0x0
+	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
 
 actor_djubb_sheet_death_anim_death:

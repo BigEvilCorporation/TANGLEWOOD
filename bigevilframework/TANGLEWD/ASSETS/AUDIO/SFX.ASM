@@ -452,7 +452,7 @@ SFX_DjubbSwim1:
 	dc.l SFX_Data_DjubbSwim1		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
@@ -460,7 +460,7 @@ SFX_DjubbSwim2:
 	dc.l SFX_Data_DjubbSwim2		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 

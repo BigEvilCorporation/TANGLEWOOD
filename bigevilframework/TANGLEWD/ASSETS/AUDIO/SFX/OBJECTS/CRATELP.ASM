@@ -1,9 +1,11 @@
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e5		; Lock channel FM 5
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
 	dc.b $45, $5f	; Set instrument for channel FM 5
 	dc.b $25, $0f	; Set volume for channel FM 5
+	dc.b $f5, $c7	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $05	; Note D-0 on channel FM 5
 	dc.b $f8, $24, $fe, $f8, $25, $03	; Set PCM rate to value 4
 	dc.b $0c, $60	; Sample 96 on channel PCM

@@ -1,10 +1,11 @@
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
 	dc.b $46, $3a	; Set instrument for channel FM 6
 	dc.b $26, $2f	; Set volume for channel FM 6
+	dc.b $f6, $77	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $93	; Note A-4 on channel FM 6
-	dc.b $f6, $40	; Set params for channel FM 6
 ; Pattern $00, Row 1; 
 	dc.b $fe, $03	; Delay
 	dc.b $26, $2c	; Set volume for channel FM 6
@@ -63,7 +64,7 @@
 ; Pattern $00, Row 13; 
 	dc.b $fe, $09	; Delay
 	dc.b $26, $29	; Set volume for channel FM 6
-	dc.b $f6, $c0	; Set params for channel FM 6
+	dc.b $f6, $f7	; Set pan/AMS/FMS for channel FM 6
 ; Pattern $00, Row 14; 
 	dc.b $fe, $03	; Delay
 	dc.b $26, $1e	; Set volume for channel FM 6
@@ -154,7 +155,7 @@
 	dc.b $fe, $01	; Delay
 	dc.b $36, $24, $17	; Set frequency '9239' (octave 4 semitone 1047) for channel FM 6
 ; Pattern $00, Row 26; 
-	dc.b $f6, $80	; Set params for channel FM 6
+	dc.b $f6, $b7	; Set pan/AMS/FMS for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $24, $16	; Set frequency '9238' (octave 4 semitone 1046) for channel FM 6
 	dc.b $fe, $01	; Delay
@@ -254,7 +255,7 @@
 	dc.b $fe, $01	; Delay
 	dc.b $36, $23, $cc	; Set frequency '9164' (octave 4 semitone 972) for channel FM 6
 ; Pattern $00, Row 39; 
-	dc.b $f6, $c0	; Set params for channel FM 6
+	dc.b $f6, $f7	; Set pan/AMS/FMS for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $23, $ca	; Set frequency '9162' (octave 4 semitone 970) for channel FM 6
 	dc.b $fe, $01	; Delay

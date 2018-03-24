@@ -1,3 +1,4 @@
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $40, $11	; Set instrument for channel FM 1
@@ -5,9 +6,11 @@
 	dc.b $00, $89	; Note E-4 on channel FM 1
 	dc.b $44, $12	; Set instrument for channel FM 4
 	dc.b $24, $0b	; Set volume for channel FM 4
+	dc.b $f4, $d2	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $b3	; Note A-5 on channel FM 4
 	dc.b $46, $12	; Set instrument for channel FM 6
 	dc.b $26, $12	; Set volume for channel FM 6
+	dc.b $f6, $d2	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $cd	; Note F#6 on channel FM 6
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 
@@ -31,9 +34,11 @@
 	dc.b $01, $77	; Note B-3 on channel FM 2
 	dc.b $42, $12	; Set instrument for channel FM 3
 	dc.b $22, $12	; Set volume for channel FM 3
+	dc.b $f2, $d2	; Set pan/AMS/FMS for channel FM 3
 	dc.b $02, $c9	; Note E-6 on channel FM 3
 	dc.b $45, $12	; Set instrument for channel FM 5
 	dc.b $25, $0b	; Set volume for channel FM 5
+	dc.b $f5, $d2	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $c5	; Note D-6 on channel FM 5
 ; Pattern $00, Row 17; 
 ; Pattern $00, Row 18; 
@@ -53,6 +58,7 @@
 	dc.b $fe, $34	; Delay
 	dc.b $41, $12	; Set instrument for channel FM 2
 	dc.b $21, $02	; Set volume for channel FM 2
+	dc.b $f1, $d2	; Set pan/AMS/FMS for channel FM 2
 	dc.b $01, $89	; Note E-4 on channel FM 2
 ; Pattern $00, Row 32; 
 	dc.b $fe, $04	; Delay
@@ -62,9 +68,11 @@
 	dc.b $fe, $03	; Delay
 	dc.b $40, $12	; Set instrument for channel FM 1
 	dc.b $20, $02	; Set volume for channel FM 1
+	dc.b $f0, $d2	; Set pan/AMS/FMS for channel FM 1
 	dc.b $00, $a9	; Note E-5 on channel FM 1
 	dc.b $44, $11	; Set instrument for channel FM 4
 	dc.b $24, $02	; Set volume for channel FM 4
+	dc.b $f4, $c0	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $61	; Note C-3 on channel FM 4
 ; Pattern $00, Row 34; 
 	dc.b $fe, $04	; Delay

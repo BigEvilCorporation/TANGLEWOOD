@@ -31,6 +31,8 @@ Djubb_BoundsTop			equ 0x000A
 Djubb_BoundsWidth		equ Djubb_Width
 Djubb_BoundsHeight		equ 0x0006
 
+Djubb_SwimSFX			equ SFX_DjubbSwim2
+
 ; Animations
 DjubbAnimIdx_Bite		equ 0x0
 ; -------------------------------
@@ -40,6 +42,7 @@ Djubb_NumAnims			equ 1
 	rsset (Character_Struct_Size)
 ;-----------------------------
 Djubb_Animations		rs.b (Animation_Struct_Size*Djubb_NumAnims)
+Djubb_PlayingSFX		rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Djubb_Struct_Size		rs.b 0
@@ -82,6 +85,7 @@ DjubbInit:
 	move.b  #0x0, PhysicsObj_AffectedByGravity(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
 	move.b  #0x1, PhysicsObj_DecelInAir(a0)
+	move.b  #0x0, Djubb_PlayingSFX(a0)
 	
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Djubb_MaxSwimVel, Character_MaxVelXRun(a0), d0
@@ -219,6 +223,21 @@ DjubbUpdate:
 
 	; Base functionality
 	jsr CharacterUpdate
+
+	; Update swim SFX
+	tst.l  PhysicsObj_VelX(a0)
+	beq    @NotMoving
+	PLAYSFX #Djubb_SwimSFX
+	move.b #0x1, Djubb_PlayingSFX(a0)
+	bra    @EndSFX
+	@NotMoving:
+	tst.b  Djubb_PlayingSFX(a0)
+	beq    @EndSFX
+	cmp.l  #Djubb_SwimSFX, audio_current_sfx
+	bne    @EndSFX
+	jsr    SND_StopSFX
+	move.b #0x0, Djubb_PlayingSFX(a0)
+	@EndSFX:
 	
 	rts
 
