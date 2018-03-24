@@ -25,7 +25,7 @@ Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be p
 Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
 Echo_AIInnerScreenBoundsExt	equ 0x0030			; Extension to screen bounds to determine if 'found'
 Echo_LostTime				equ 0x0078			; Time off screen until considered lost
-Echo_NodeLostTime			equ 0x0130			; Time off screen until considered lost if following nodes
+Echo_NodeLostTime			equ 0x0160			; Time off screen until considered lost if following nodes
 Echo_SkivvLostTime			equ 0x0400			; Time off screen until considered lost if a Skivv is prowling
 Echo_CatchUpTime			equ 0x0300			; Time off screen in catchup mode until considered lost again
 Echo_NodeFailTime			equ 0x0100			; Timeout to reach next node before returning to basic follow state
@@ -212,6 +212,7 @@ Echo_AIWaitAtWater			rs.b 1	; Wait if water detected ahead
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_EnteringLadder			rs.b 1
+Echo_AIAutoEnterFollowState rs.b 1	; Auto-enter follow state if a new node pushed
 ;---------------------------------
 	RS_ALIGN
 Echo_Struct_Size     		rs.b 0
@@ -264,6 +265,7 @@ EchoInit:
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
 	move.b #0x0, Echo_AIWaitAtWater(a0)
+	move.b #0x1, Echo_AIAutoEnterFollowState(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -1115,6 +1117,9 @@ EchoAIStart_Follow:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
+	; Enter follow state if nodes added
+	move.b #0x1, Echo_AIAutoEnterFollowState(a0)
+
 	; Reset lost timer
 	tst.b  d0
 	beq    @NoResetTimer
@@ -1183,6 +1188,7 @@ EchoAIUpdate_Follow:
 	@LostTimerRunning:
 
 	; Watch Nymn's actions, create AI follow nodes
+	move.l (Player1), a2
 	jsr    EchoAI_WatchNymnMovement
 	
 	; Watch Nymn's potential safe positions
@@ -1280,6 +1286,7 @@ EchoAIUpdate_FollowNodes:
 	; a1 --- Level addr
 
 	; Watch Nymn's actions, create AI follow nodes
+	move.l (Player1), a2
 	jsr    EchoAI_WatchNymnMovement
 	
 	; Watch Nymn's potential safe positions
@@ -1317,6 +1324,8 @@ EchoAIUpdate_FollowNodes:
 
 	; Peek node queue
 	jsr    EchoAIPeekNodeFront
+
+	move.b EchoAINode_Action(a3), d7
 
 	; Set target
 	move.w EchoAINode_PosX(a3), d1
@@ -2239,6 +2248,13 @@ EchoAIStart_Ladder:
 	; Set ladder
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
+	; Reset follow nodes
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	; Collecting nodes, but don't enter state yet
+	move.b #0x0, Echo_AIAutoEnterFollowState(a0)
+
 	; Reset lost timer
 	tst.l  Echo_Skivv(a0)
 	beq    @NoSkivv
@@ -2345,6 +2361,13 @@ EchoAIUpdate_Ladder:
 	beq    @End
 
 	; Back to follow state
+	move.w Echo_AINodeConsumer(a0), d6
+	move.w Echo_AINodeProducer(a0), d7
+	cmp.w  d6, d7
+	beq    @NoNodes
+	jsr    EchoAIStart_FollowNodes
+	bra    @End
+	@NoNodes:
 	jsr    EchoAIStart_Follow
 	bra    @End
 
@@ -2372,6 +2395,14 @@ EchoAIUpdate_Ladder:
 	move.b #0x0, Character_Climbing(a0)
 
 	@Climbing:
+
+	; If Nymn is off ladder, start collecting follow nodes
+	move.l Player1, a2
+	tst.b  Character_Climbing(a2)
+	bne    @NymnOnLadder
+	jsr    EchoAI_WatchNymnMovement
+	@NymnOnLadder:
+
 	@End:
 	@Lost:
 
@@ -2612,7 +2643,29 @@ EchoAI_WatchNymnMovement:
 	move.w d5, Echo_LastNymnFloorPosX(a0)
 	move.w Entity_WorldPosY(a2), Echo_LastNymnFloorPosY(a0)
 	move.w PhysicsObj_VelX(a2), Echo_LastNymnFloorVelX(a0)
+
 	@NymnInAir:
+
+	; If Echo on ladder, Nymn is not, and no nodes, add pos as first follow node
+	tst.b  Character_Climbing(a0)
+	beq    @NotClimbing
+	tst.b  Character_Climbing(a2)
+	bne    @NotClimbing
+	move.w Echo_AINodeConsumer(a0), d4
+	cmp.w  Echo_AINodeProducer(a0), d4
+	bne    @HasPostClimbNode
+
+	jsr    EchoAIPushNode
+	ENTITY_GETCENTREX d5,a2
+	TOPIXELS d5
+	move.w d5, EchoAINode_PosX(a3)
+	move.w Echo_LastNymnFloorPosY(a0), EchoAINode_PosY(a3)
+	move.w #Echo_AIFollowDistance, EchoAINode_ToleranceX(a3)
+	move.w #0x7FFF, EchoAINode_ToleranceY(a3)
+	move.b #EchoAINode_Action_GoTo, EchoAINode_Action(a3)
+
+	@NotClimbing:
+	@HasPostClimbNode:
 
 	;==============================================================
 
@@ -3691,18 +3744,21 @@ EchoAI_PushInteractionCart:
 EchoAIPushNode:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a3 --- Node
+	; a3 --- OUT: Node
 
 	PUSHL a0
 
 	PUSHM  d0-d1
 
 	; If first node, set follow nodes state
+	tst.b  Echo_AIAutoEnterFollowState(a0)
+	beq    @NoEnterState
 	move.w Echo_AINodeProducer(a0), d0
 	move.w Echo_AINodeConsumer(a0), d1
 	cmp.w  d0, d1
 	bne    @NotFirst
 	jsr    EchoAIStart_FollowNodes
+	@NoEnterState:
 	@NotFirst:
 
 	IFND FINAL
