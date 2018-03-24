@@ -287,6 +287,17 @@ LongboatUpdateSegments:
 	add.w  d4, Longboat_Tilt(a0)
 	add.w  d5, PhysicsObj_AccelX(a0)
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
+
+	; If occupant not moving, match subpixel precision to prevent stuttering movement
+	move.l Platform_LastOccupant(a3), a6
+	tst.l  PhysicsObj_VelX(a6)
+	bne    @OccupantMoving
+	move.l Entity_WorldPosX(a0), d4
+	move.l Entity_WorldPosX(a6), d5
+	move.w d4, d5
+	move.l d5, Entity_WorldPosX(a6)
+	@OccupantMoving:
+
 	@Unoccupied:
 
 	; Next X
