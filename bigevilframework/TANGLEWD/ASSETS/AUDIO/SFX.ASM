@@ -242,6 +242,7 @@ SFX_Data_BorgusDie:			include 'assets\audio\SFX\objects\borg_ded.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
+SFX_Data_CartWaterSkip:		include 'assets\audio\SFX\objects\cartwatr.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
 SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
 SFX_Data_Checkpoint:		include 'assets\audio\SFX\objects\checkpnt.asm'
@@ -488,6 +489,14 @@ SFX_DjubbAttack:
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_CartWaterSkip:
+	dc.l SFX_Data_CartWaterSkip		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
 
 	even
 

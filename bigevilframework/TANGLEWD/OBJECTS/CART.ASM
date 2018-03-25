@@ -205,6 +205,9 @@ CartUpdate:
 	jsr    VfxPlay
 	POPM   a0-a1
 
+	; Play splash SFX
+	PLAYSFX #SFX_CartWaterSkip
+
 	; Increment sine step and wrap
 	moveq  #0x0, d0
 	move.b Cart_WaterBobSine(a0), d0
