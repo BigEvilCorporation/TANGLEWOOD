@@ -88,7 +88,7 @@
 	dc.b $15		; Note off channel FM 5
 	dc.b $18		; Note off channel PSG 1
 	dc.b $19		; Note off channel PSG 2
-	dc.b $1a		; Note off channel PSG 3
 	dc.b $1b		; Note off channel PSG 4
+	dc.b $1a		; Note off channel PSG 3
 	dc.b $fe, $06	; Delay
 	dc.b $ff	; The End

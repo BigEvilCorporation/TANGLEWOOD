@@ -9,8 +9,8 @@
 	dc.b $16		; Note off channel FM 6
 	dc.b $18		; Note off channel PSG 1
 	dc.b $19		; Note off channel PSG 2
-	dc.b $1a		; Note off channel PSG 3
 	dc.b $1b		; Note off channel PSG 4
+	dc.b $1a		; Note off channel PSG 3
 ; Pattern $00, Row 1; 
 ; Pattern $00, Row 2; 
 ; Pattern $00, Row 3; 
@@ -90,8 +90,8 @@
 	dc.b $16		; Note off channel FM 6
 	dc.b $18		; Note off channel PSG 1
 	dc.b $19		; Note off channel PSG 2
-	dc.b $1a		; Note off channel PSG 3
 	dc.b $1b		; Note off channel PSG 4
+	dc.b $1a		; Note off channel PSG 3
 ; Pattern $01, Row 25; 
 ; Pattern $01, Row 26; 
 ; Pattern $01, Row 27; 
@@ -171,8 +171,8 @@
 	dc.b $16		; Note off channel FM 6
 	dc.b $18		; Note off channel PSG 1
 	dc.b $19		; Note off channel PSG 2
-	dc.b $1a		; Note off channel PSG 3
 	dc.b $1b		; Note off channel PSG 4
+	dc.b $1a		; Note off channel PSG 3
 ; Pattern $03, Row 1; 
 ; Pattern $03, Row 2; 
 ; Pattern $03, Row 3; 
