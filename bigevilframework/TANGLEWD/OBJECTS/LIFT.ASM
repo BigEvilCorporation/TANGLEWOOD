@@ -37,6 +37,7 @@ Lift_CounterWeight			rs.l 1	; Another lift used as counterweight platform
 Lift_TopLimit				rs.w 1
 Lift_BottomLimit			rs.w 1
 Lift_PlatformOffsetY		rs.w 1
+Lift_CurrAccelY				rs.w 1
 Lift_RestrictHeight			rs.b 1	; Restrict fall height to origin
 ;---------------------------------
 	RS_ALIGN
@@ -88,6 +89,7 @@ LiftInit:
 	move.w  #Lift_FloorHeight, Lift_PlatformOffsetY(a0)
 	move.b  #0x1, Lift_RestrictHeight(a0)
 	move.b  #0x0, PhysicsObj_CollideWalls(a0)
+	move.w  #0x0, Lift_CurrAccelY(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -202,6 +204,7 @@ LiftActivateUp:
 	; Move lift up
 	MOVE_NTSC_ACCEL_W Lift_AccelY, d1, d0
 	move.w d1, PhysicsObj_AccelY(a0)
+	move.w d1, Lift_CurrAccelY(a0)
 
 	rts
 
@@ -211,6 +214,7 @@ LiftActivateDown:
 	MOVE_NTSC_ACCEL_W Lift_AccelY, d1, d0
 	neg.w  d1
 	move.w d1, PhysicsObj_AccelY(a0)
+	move.w d1, Lift_CurrAccelY(a0)
 
 	rts
 
@@ -220,6 +224,7 @@ LiftStop:
 
 	move.l #0x0, PhysicsObj_VelY(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.w #0x0, Lift_CurrAccelY(a0)
 
 	rts
 
@@ -447,24 +452,25 @@ LiftUpdatePlatform:
 LiftUpdateAudio:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	; Don't play SFX during time slow
-	cmp.b   #0x1, (GlobalTimeDiv)
-	bne     @NoWinchSFX
-
-	move.l  PhysicsObj_VelY(a0), d0
+	tst.l   PhysicsObj_VelY(a0)
 	beq     @NoWinchSFX
-	cmp.l   #Lift_WinchSFXFastVel, d0
 	bgt     @FastWinchSFX
-	cmp.l   #-Lift_WinchSFXFastVel, d0
-	bgt     @SlowWinchSFX
+	blt     @SlowWinchSFX
 
 	@FastWinchSFX:
+	cmp.b   #0x1, (GlobalTimeDiv)
+	bne     @VerySlowWinchSFX
 	PLAYSFX #SFX_LiftWinchFast
 	bra     @EndWinchSFX
 
 	@SlowWinchSFX:
+	cmp.b   #0x1, (GlobalTimeDiv)
+	bne     @VerySlowWinchSFX
 	PLAYSFX #SFX_LiftWinchSlow
+	bra     @EndWinchSFX
+
+	@VerySlowWinchSFX:
+	PLAYSFX #SFX_LiftWinchVSlow
 
 	@EndWinchSFX:
 	@NoWinchSFX:
@@ -509,6 +515,9 @@ LiftUpdate:
 	jsr    LiftUpdateAsCounterweight
 	@NoCounterweightUpdate:
 	POPL   a0
+
+	; Apply accel
+	move.w Lift_CurrAccelY(a0), PhysicsObj_AccelY(a0)
 	
 	; Reposition platform
 	jsr    LiftUpdatePlatform

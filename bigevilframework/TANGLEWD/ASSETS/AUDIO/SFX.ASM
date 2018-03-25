@@ -268,6 +268,7 @@ SFX_Data_FuzzlRoll6:		include 'assets\audio\SFX\fuzzl\fuzroll6.asm'
 SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
+SFX_Data_LiftWinchVSlow:	include 'assets\audio\SFX\objects\liftvslo.asm'
 SFX_Data_Rumble:			include 'assets\audio\SFX\objects\rumble.asm'
 SFX_Data_SmartBomb:			include 'assets\audio\SFX\objects\smartbmb.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
@@ -619,6 +620,14 @@ SFX_LiftWinchSlow
 
 SFX_LiftWinchFast
 	dc.l SFX_Data_LiftWinchFast		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
+SFX_LiftWinchVSlow
+	dc.l SFX_Data_LiftWinchVSlow	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
