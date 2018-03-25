@@ -465,18 +465,54 @@
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 34; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 35; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 36; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 37; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 38; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 39; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 40; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $01, Row 41; 
 ; Pattern $01, Row 42; 
 ; Pattern $01, Row 43; 
 ; Pattern $01, Row 44; 
-	dc.b $fe, $38	; Delay
+	dc.b $fe, $14	; Delay
 	dc.b $3a, $0b, $06	; Set frequency '107' for channel PSG 3
 ; Pattern $01, Row 45; 
 	dc.b $fe, $01	; Delay
@@ -855,20 +891,78 @@
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 22; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 23; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 24; 
-	dc.b $fe, $0b	; Delay
 	dc.b $00, $21	; Note C-1 on channel FM 1
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 25; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 26; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 27; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 28; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 29; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 30; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 31; 
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $fe, $01	; Delay
 ; Pattern $02, Row 32; 
-	dc.b $fe, $2d	; Delay
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
+	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 ; Pattern $02, Row 33; 
 	dc.b $fe, $01	; Delay
