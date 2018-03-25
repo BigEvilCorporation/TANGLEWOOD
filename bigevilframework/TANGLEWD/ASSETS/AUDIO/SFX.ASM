@@ -233,6 +233,7 @@ SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
 SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
 SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
+SFX_Data_BridgeSlow:		include 'assets\audio\SFX\objects\bridslow.asm'
 SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
 SFX_Data_BorgusDamage:		include 'assets\audio\SFX\objects\borg_dmg.asm'
 SFX_Data_BorgusFootstep:	include 'assets\audio\SFX\objects\borg_fs.asm'
@@ -327,6 +328,14 @@ SFX_BridgeRoll:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_BridgeSlow:
+	dc.l SFX_Data_BridgeSlow		; Data
+	dc.b SFX_Priority_High			; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 

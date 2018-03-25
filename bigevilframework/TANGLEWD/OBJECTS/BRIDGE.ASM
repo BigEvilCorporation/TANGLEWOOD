@@ -689,6 +689,12 @@ BridgeUpdateRoll:
 	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
 	move.l d4, Bridge_UnrollPos(a0)
 
+	; If time slow active, play slow SFX
+	cmp.b   #0x1, (GlobalTimeDiv)
+	beq     @NoTimeSlow
+	PLAYSFX #SFX_BridgeSlow
+	@NoTimeSlow:
+
 	; If at start, disable platform and set closed state
 	tst.l  d4
 	beq    @FinishedRolling
@@ -730,6 +736,12 @@ BridgeUpdateUnroll:
 	add.l  d5, d4
 	CLAMPL d4, #0x0, #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel)
 	move.l d4, Bridge_UnrollPos(a0)
+
+	; If time slow active, play slow SFX
+	cmp.b   #0x1, (GlobalTimeDiv)
+	beq     @NoTimeSlow
+	PLAYSFX #SFX_BridgeSlow
+	@NoTimeSlow:
 
 	; If at end, disable platform and set closed state
 	cmp.l  #(Bridge_NumNotches*Bridge_NotchWidth*subpixels_per_pixel), d4
