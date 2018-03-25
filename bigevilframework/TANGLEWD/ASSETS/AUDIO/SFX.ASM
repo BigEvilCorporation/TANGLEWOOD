@@ -246,6 +246,7 @@ SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
 SFX_Data_Checkpoint:		include 'assets\audio\SFX\objects\checkpnt.asm'
 SFX_Data_DemonAppearStart:	include 'assets\audio\SFX\objects\dem_strt.asm'
 SFX_Data_DemonAppearEnd:	include 'assets\audio\SFX\objects\dem_end.asm'
+SFX_Data_DemonBlink:		include 'assets\audio\SFX\objects\dem_blnk.asm'
 SFX_Data_DemonOpenMouth:	include 'assets\audio\SFX\objects\dem_open.asm'
 SFX_Data_DemonAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
 SFX_Data_DjubbSwim1:		include 'assets\audio\SFX\objects\djubsw1.asm'
@@ -427,6 +428,14 @@ SFX_DemonAppear_Start:
 SFX_DemonAppear_End:
 	dc.l SFX_Data_DemonAppearEnd	; Data
 	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_DemonBlink:
+	dc.l SFX_Data_DemonBlink		; Data
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 

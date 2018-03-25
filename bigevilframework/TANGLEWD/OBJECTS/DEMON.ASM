@@ -624,6 +624,9 @@ DemonAIUpdate_Attack:
 	; Back to boss mode
 	jsr    DemonAIStart_Boss
 
+	; Blink SFX
+	PLAYSFX #SFX_DemonBlink
+
 	; If player not dead
 	move.l Player1, a2
 	tst.b  Character_Dead(a2)
@@ -691,6 +694,9 @@ DemonAIStart_Wisp:
 
 	; Set state
 	move.b #DemonState_Wisp, Demon_State(a0)
+
+	; Blink SFX
+	PLAYSFX #SFX_DemonBlink
 
 	rts
 
