@@ -26,6 +26,14 @@ SFX_Data_Djakk_Roar:
 	ESF_Delay 93
 	ESF_Stop
 	even
+
+SFX_Data_Djakk_RoarTamed:
+	ESF_Lock ESF_PCM
+	ESF_SetPCMRate PCM_Freq_26632Hz
+	ESF_NoteOn ESF_PCM, PCMInstr_Djakk_Roar
+	ESF_Delay 120
+	ESF_Stop
+	even
 	
 SFX_Data_Djakk_Bite:
 	ESF_Lock ESF_PCM
@@ -862,6 +870,14 @@ SFX_Ambience_Night1:
 
 SFX_Djakk_Roar:
 	dc.l SFX_Data_Djakk_Roar		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_Djakk_RoarTamed:
+	dc.l SFX_Data_Djakk_RoarTamed	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

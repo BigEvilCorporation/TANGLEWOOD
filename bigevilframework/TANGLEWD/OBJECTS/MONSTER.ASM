@@ -711,7 +711,12 @@ MonsterRoar:
 	beq    @Elder
 
 	@Djakk:
+	cmp.b  #MonsterState_Tamed, Monster_State(a0)
+	beq    @TamedSFX
 	PLAYSFX #SFX_Djakk_Roar
+	bra    @EndSFX
+	@TamedSFX:
+	PLAYSFX #SFX_Djakk_RoarTamed
 	bra    @EndSFX
 
 	@Elder:
