@@ -229,6 +229,8 @@ SFX_Data_BorgusRoar:
 	even
 	
 ; FM SFX
+SFX_Data_Ability_On:		include 'assets\audio\SFX\objects\pwr_on.asm'
+SFX_Data_Ability_Off:		include 'assets\audio\SFX\objects\pwr_off.asm'
 SFX_Data_FlueIn:			include 'assets\audio\SFX\objects\flue_in.asm'
 SFX_Data_FlueOut:			include 'assets\audio\SFX\objects\flue_out.asm'
 SFX_Data_BridgeFall:		include 'assets\audio\SFX\objects\bridfall.asm'
@@ -310,6 +312,22 @@ SFX_FlueIn:
 
 SFX_FlueOut:
 	dc.l SFX_Data_FlueOut			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_AbilityOn:
+	dc.l SFX_Data_Ability_On		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_AbilityOff:
+	dc.l SFX_Data_Ability_Off		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash

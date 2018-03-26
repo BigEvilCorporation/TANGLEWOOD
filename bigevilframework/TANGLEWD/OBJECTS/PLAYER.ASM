@@ -633,6 +633,10 @@ PlayerStartColourAbility:
 
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+
+	; Play SFX
+	PLAYSFX #SFX_AbilityOn
+
 	bra    @End
 	
 	;==============================================================
@@ -665,6 +669,9 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+
+	; Play SFX
+	PLAYSFX #SFX_AbilityOn
 
 	bra    @End
 	
@@ -715,10 +722,11 @@ PlayerStartColourAbility:
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
+
 	bra    @End
 
 	;==============================================================
-	; Red - Summon lightning
+	; White - Summon lightning
 	;==============================================================
 	@White:
 
@@ -792,6 +800,9 @@ PlayerStopColourAbility:
 	; If inactive, don't bother
 	tst.b  Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
+	
+	; Play SFX
+	PLAYSFX #SFX_AbilityOff
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
@@ -864,6 +875,9 @@ PlayerStopColourAbility:
 	@NotAnimObj:
 	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
+
+	; Play SFX
+	PLAYSFX #SFX_AbilityOff
 	
 	bra    @ReturnColour
 	
@@ -1274,6 +1288,9 @@ PlayerMountPet:
 	; Set initial state
 	move.b #Player_RideState_Mounting, Player_RideState(a0)
 
+	; Play SFX
+	PLAYSFX #SFX_AbilityOn
+
 	rts
 
 PlayerDismountPet:
@@ -1356,8 +1373,15 @@ PlayerDismountPet:
 	MOVE_NTSC_L Player1DjakkBuckVelocityX, PhysicsObj_VelX(a0), d0
 	@EndBuck:
 
-	@NotRiding:
+	bra    @Bucked
+
 	@VoluntaryDismount:
+
+	; Play SFX
+	PLAYSFX #SFX_AbilityOff
+
+	@Bucked:
+	@NotRiding:
 	@PetDeadDismount:
 	@PetStillTamed:
 	@NoPet:
