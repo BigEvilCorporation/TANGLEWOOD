@@ -145,6 +145,9 @@ l5a4_Init:
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
 
+	; Disable Echo footstep SFX
+	jsr    EchoDisableFootstepSFX
+
 	;==============================================================
 
 	; Set cargo lift stop point
@@ -301,6 +304,9 @@ l5a4_Cutscene:
 	CUTSCENE_SPRITE_FLIPX a2,#0x1
 	CUTSCENE_GET_ENTITY Demon,l5a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonStartEmerge
+
+	; Enable Echo footstep SFX
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoEnableFootstepSFX
 
 	; Echo runs scared
 	CUTSCENE_DELAY #l5a4_DemonWaitTimeEchoScared

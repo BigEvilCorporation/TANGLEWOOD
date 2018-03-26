@@ -149,6 +149,9 @@ l5a2_Init:
 	move.l (Player2), a0
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
+
+	; Disable Echo footstep SFX
+	jsr    EchoDisableFootstepSFX
 	
 	rts
 	

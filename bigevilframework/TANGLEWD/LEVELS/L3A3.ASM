@@ -694,6 +694,9 @@ l3a3_CutsceneMeetEcho:
 	; Start Echo AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
+	; Disable Echo footsteps for rest of level
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoDisableFootstepSFX
+
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
 

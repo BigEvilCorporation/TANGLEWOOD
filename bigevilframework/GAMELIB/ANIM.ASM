@@ -21,6 +21,7 @@ Animation_Looping	           rs.b 1 ; Looping flag
 Animation_ZeroVelocity		   rs.b 1 ; Zero object velocity 
 Animation_NoSpeedScale		   rs.b 1 ; If set not affected by global speed scale
 Animation_NoReplay	           rs.b 1 ; Don't replay if triggered twice
+Animation_PlaySFX              rs.b 1 ; To suppress SFX
 ;------------------------------------
 	RS_ALIGN
 Animation_Struct_Size          rs.b 0

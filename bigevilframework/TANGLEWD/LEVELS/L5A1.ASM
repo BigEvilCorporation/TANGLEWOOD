@@ -168,6 +168,9 @@ L5a1_Init:
 	lea    l5a1Data_CutsceneCargoLift(a2), a0
 	jsr    CutscenePlay
 	POPL   a0
+
+	; Disable Echo footstep SFX
+	jsr    EchoDisableFootstepSFX
 	
 	rts
 	

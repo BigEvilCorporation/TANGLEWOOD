@@ -4152,3 +4152,13 @@ EchoAIPanic:
 	POPL   a0
 
 	rts
+
+EchoEnableFootstepSFX:
+	lea    Character_Animations+(CharacterAnimIdx_Run*Animation_Struct_Size)(a0), a2
+	move.b #0x1, Animation_PlaySFX(a2)
+	rts
+
+EchoDisableFootstepSFX:
+	lea    Character_Animations+(CharacterAnimIdx_Run*Animation_Struct_Size)(a0), a2
+	move.b #0x0, Animation_PlaySFX(a2)
+	rts

@@ -281,6 +281,8 @@ AnimObjDraw:
 	
 	; SFX track
 	PUSHL  d2
+	tst.b  Animation_PlaySFX(a2)
+	beq    @NoSFX
 	move.l Animation_AnimTrackSFX(a2), a3	; Get SFX keyframe track
 	cmpa.w #0x0, a3
 	beq    @NoTrackSFX

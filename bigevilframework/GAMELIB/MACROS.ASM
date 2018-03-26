@@ -308,6 +308,7 @@ ANIM_LOAD_DEFAULT: macro actor,sheet,animname,arrayoffset,index,loop,zerovel,nor
 	move.b #\loop, Animation_Looping(a0)
 	move.b #\zerovel, Animation_ZeroVelocity(a0)
 	move.b #\noreplay, Animation_NoReplay(a0)
+	move.b #0x1, Animation_PlaySFX(a0)
 	POPM   a0/d0
 	endm
 
@@ -323,6 +324,7 @@ ANIM_LOAD_MANUALCONTROL: macro actor,sheet,animname,arrayoffset,index
 	move.b #0x1, Animation_Looping(a0)
 	move.b #0x0, Animation_ZeroVelocity(a0)
 	move.b #0x0, Animation_NoReplay(a0)
+	move.b #0x1, Animation_PlaySFX(a0)
 	POPL   a0
 	endm
 	

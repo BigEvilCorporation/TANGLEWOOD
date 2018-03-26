@@ -509,10 +509,10 @@ CutsceneStep_ObjectRoutine:
 	; a2 --- Routine
 	; d0 (b) OUT: Step running
 
-	PUSHL  a0
+	PUSHM  a0-a2
 	move.l a1, a0
 	jsr    (a2)
-	POPL   a0
+	POPM   a0-a2
 
 	move.b #0x0, d0
 
