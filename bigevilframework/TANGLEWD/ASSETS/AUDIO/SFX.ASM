@@ -200,7 +200,7 @@ SFX_Data_Echo_Call_Sad1:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default+2
 	ESF_NoteOn ESF_PCM, PCMInstr_Nymn_Howl
-	ESF_Delay 68
+	ESF_Delay 88
 	ESF_Stop
 	even
 
@@ -208,7 +208,7 @@ SFX_Data_Echo_Call_Sad2:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default+3
 	ESF_NoteOn ESF_PCM, PCMInstr_Nymn_Howl
-	ESF_Delay 68
+	ESF_Delay 98
 	ESF_Stop
 	even
 
@@ -281,9 +281,7 @@ SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
 SFX_Data_Thunder_Near:		include 'assets\audio\SFX\weather\thndrnr.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
-SFX_Data_Footstep1:			;include 'assets\audio\SFX\fstep\fstep1.asm'
-	dc.b 0xFF
-	even
+SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep1.asm'
 SFX_Data_Footstep2:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep3:			include 'assets\audio\SFX\fstep\fstep2.asm'
 SFX_Data_Footstep4:			include 'assets\audio\SFX\fstep\fstep2.asm'
