@@ -86,6 +86,10 @@ Monster_SwipeDamage		equ 0xFF
 ; Event keyframes
 Monster_AnimFrame_Bite	equ 0x2
 
+; Chase music
+Monster_DefaultChaseMusic	equ track_bgm_boss1_chase
+Monster_DefaultSearchMusic	equ track_bgm_boss1_search
+
 ; ************************************
 ; Palettes
 ; ************************************
@@ -142,6 +146,8 @@ Monster_NumAnims		equ 3
 	rsset (Character_Struct_Size)
 ;--------------------------
 Monster_Animations	   rs.b (Animation_Struct_Size*Monster_NumAnims)
+Monster_ChaseMusic     rs.l 1
+Monster_SearchMusic    rs.l 1
 Monster_SearchTargetX  rs.l 1
 Monster_SearchDelay	   rs.w 1
 Monster_LoseSightTimer rs.w 1
@@ -245,6 +251,8 @@ MonsterInit:
 	move.b  #0x0, Monster_ManualGfxLoad(a0)
 	move.b  #0x0, Monster_FirstRender(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	move.l  #Monster_DefaultChaseMusic, Monster_ChaseMusic(a0)
+	move.l  #Monster_DefaultSearchMusic, Monster_SearchMusic(a0)
 
 	;==============================================================
 	
@@ -1099,6 +1107,8 @@ MonsterStartSearchForPlayer:
 	move.w #Monster_SearchRandDelayInit, Monster_SearchDelay(a0)
 
 	; Start search theme (if player not dead)
+	tst.l  Monster_SearchMusic(a0)
+	beq    @NoSearchMusic
 	move.l (Player1), a2
 	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
@@ -1107,12 +1117,13 @@ MonsterStartSearchForPlayer:
 	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @TrackPlaying
 	PUSHM  a0/d0-d1
-	lea    track_bgm_boss1_search, a0
+	move.l Monster_SearchMusic(a0), a0
 	jsr    SND_PlayTrack
 	POPM   a0/d0-d1
 	move.b #MonsterMusicState_Search, Monster_MusicState(a0)
 	@PlayerDead:
 	@TrackPlaying:
+	@NoSearchMusic:
 	
 	rts
 
@@ -1272,7 +1283,7 @@ MonsterStartTrackPlayer:
 	cmp.b  #MonsterMusicState_Disabled, Monster_MusicState(a0)
 	beq    @TrackPlaying
 	PUSHM  a0/d0-d1
-	lea    track_bgm_boss1_chase, a0
+	move.l Monster_ChaseMusic(a0), a0
 	jsr    SND_PlayTrack
 	POPM   a0/d0-d1
 	move.b #MonsterMusicState_Chase, Monster_MusicState(a0)
