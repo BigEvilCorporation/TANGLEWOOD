@@ -85,8 +85,6 @@ L8A3_TriggerDemon_name	dc.b "L8A3_TriggerDemon",0
 	even
 	ENDIF
 
-L8A3_Checkpoint_count equ 0x0
-
 L8A3_WaterBody_count equ 0x0
 
 L8A3_Location_count equ 0x0
@@ -188,6 +186,8 @@ L8A3_Bridge1_idx	equ 0x0
 L8A3_Bridge1_name	dc.b "L8A3_Bridge1",0
 	even
 	ENDIF
+
+L8A3_Checkpoint_count equ 0x0
 
 
 
@@ -355,7 +355,6 @@ L8A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
-
 
 
 
@@ -583,6 +582,7 @@ L8A3_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
 
 
 	rts
