@@ -837,6 +837,8 @@ PhysicsObjApplyVelocity:
 	move.b #0x1, d1
 	jsr    PhysicsObjCollisionCorrectY
 	move.b d0, d7
+	
+	PUSHW  d7
 
 	; Collision check wall (bottom probe)
 	tst.b  PhysicsObj_CollideWalls(a0)
@@ -860,6 +862,8 @@ PhysicsObjApplyVelocity:
 	; X collision correction
 	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectX
+	
+	POPW   d7
 
 	@NoCheckCollision:
 
