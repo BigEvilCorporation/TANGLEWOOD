@@ -12,6 +12,7 @@ bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
 bgm_boss_l4:		include 'assets\audio\tracks\boss_l4.asm'
 bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_boss_l8:		include 'assets\audio\tracks\boss_l8.asm'
+bgm_boss_l8b:		include 'assets\audio\tracks\boss_l8b.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
 bgm_cue_l1b:		include 'assets\audio\tracks\cue_l1b.asm'
@@ -153,7 +154,7 @@ track_bgm_boss_l8:
 	even
 
 track_bgm_boss_l8b:
-	dc.l	bgm_boss_l4
+	dc.l	bgm_boss_l8b
 	dc.w	0x001F
 	dc.w	0x0
 	dc.b	Track_Type_BGM
