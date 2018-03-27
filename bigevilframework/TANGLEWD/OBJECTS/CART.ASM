@@ -28,6 +28,7 @@ Cart_AnimSpeedVelDiv	equ 0x0008
 
 Cart_SmashSFX			equ SFX_CrateSmash
 Cart_HitGroundSFXVel	equ 0x0500	; Min downward velocity to play thud SFX
+Cart_MaxMoveSFXTime		equ 0x0008	; Delay (uses integer part of velocity) until next squeak
 
 Cart_WaterBobSinSpeed	equ 0x0010
 Cart_WaterBobMaxHeight	equ 0x0008
@@ -39,6 +40,7 @@ Cart_WaterBobMaxHeight	equ 0x0008
 ;--------------------------
 Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
 Cart_Occupant        rs.l 1
+Cart_SFXTimer        rs.w 1
 Cart_WaterBobSine    rs.b 1
 Cart_Smashed         rs.b 1
 ;--------------------------
@@ -91,6 +93,7 @@ CartInit:
 	move.l  #0x0, Cart_Occupant(a0)
 	move.b  #0x0, Cart_WaterBobSine(a0)
 	move.b  #0x0, Cart_Smashed(a0)
+	move.w  #Cart_MaxMoveSFXTime, Cart_SFXTimer(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -243,6 +246,23 @@ CartUpdate:
 
 	; Reset draw offset
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
+
+	; If on rails, play move SFX
+	tst.b  PhysicsObj_CloseToFloor(a0)
+	beq    @InAir
+
+	; Timing according to velocity
+	move.w Cart_SFXTimer(a0), d0
+	sub.w  PhysicsObj_VelX(a0), d0
+	bgt    @SFXTimerRunning
+	PUSHW  d0
+	PLAYSFX #SFX_CartMove
+	POPW   d0
+	move.w #Cart_MaxMoveSFXTime, d0
+	@SFXTimerRunning:
+	move.w d0, Cart_SFXTimer(a0)
+
+	@InAir:
 
 	@EndWater:
 

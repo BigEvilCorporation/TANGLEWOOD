@@ -252,6 +252,7 @@ SFX_Data_BorgusDie:			include 'assets\audio\SFX\objects\borg_ded.asm'
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
+SFX_Data_CartMove:			include 'assets\audio\SFX\objects\cartmove.asm'
 SFX_Data_CartWaterSkip:		include 'assets\audio\SFX\objects\cartwatr.asm'
 SFX_Data_CratePush:			include 'assets\audio\SFX\objects\cratelp.asm'
 SFX_Data_CageDoorRaise:		include 'assets\audio\SFX\objects\cageup.asm'
@@ -281,6 +282,7 @@ SFX_Data_GeneratorOn:		include 'assets\audio\SFX\objects\gen_on.asm'
 SFX_Data_LiftWinchSlow:		include 'assets\audio\SFX\objects\winchslo.asm'
 SFX_Data_LiftWinchFast:		include 'assets\audio\SFX\objects\winchfst.asm'
 SFX_Data_LiftWinchVSlow:	include 'assets\audio\SFX\objects\liftvslo.asm'
+SFX_Data_PillarSmash:		include 'assets\audio\SFX\objects\pillsmsh.asm'
 SFX_Data_Rumble:			include 'assets\audio\SFX\objects\rumble.asm'
 SFX_Data_SmartBomb:			include 'assets\audio\SFX\objects\smartbmb.asm'
 SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
@@ -516,6 +518,14 @@ SFX_DjubbAttack:
 
 	even
 
+SFX_CartMove:
+	dc.l SFX_Data_CartMove			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
 SFX_CartWaterSkip:
 	dc.l SFX_Data_CartWaterSkip		; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -673,6 +683,14 @@ SFX_LiftWinchVSlow
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Noplay	; Priority clash
+
+	even
+
+SFX_PillarSmash
+	dc.l SFX_Data_PillarSmash		; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
 

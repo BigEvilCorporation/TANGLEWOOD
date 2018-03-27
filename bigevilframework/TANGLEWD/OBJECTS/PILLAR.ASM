@@ -16,7 +16,7 @@ Pillar_BarrierWidth		equ 0x002A
 Pillar_BreakMass		equ 0x0A
 Pillar_BreakVelocity	equ 0x00010000
 
-Pillar_BreakSFX			equ SFX_BoulderBreak
+Pillar_BreakSFX			equ SFX_PillarSmash
 
 ;==============================================================
 
