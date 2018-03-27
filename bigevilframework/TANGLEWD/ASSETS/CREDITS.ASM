@@ -130,21 +130,22 @@ CreditsStrings:
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "QA Testing"
+	CREDIT_NAME		"Bruce Gdula"
 	CREDIT_NAME		"David Blakemore"
 	CREDIT_NAME		"Davydd Pattinson"
-	CREDIT_NAME		"Kt Thorogood"
-	CREDIT_NAME		"Rob Chambers"
-	CREDIT_NAME		"Martin Hockenhull"
-	CREDIT_NAME		"Kaiman Brown"
-	CREDIT_NAME		"Ken Talbot"
-	CREDIT_NAME		"Lex Lowndes"
-	CREDIT_NAME		"Michael Nam"
 	CREDIT_NAME		"Joel Heason"
-	CREDIT_NAME		"Bruce Gdula"
-	CREDIT_NAME		"Simon Lock"
+	CREDIT_NAME		"Kaiman Brown"
 	CREDIT_NAME		"Karl Burke"
-	CREDIT_NAME		"??? Tom Feve ???"
-	CREDIT_NAME		"??? Phil's Daughter ???"
+	CREDIT_NAME		"Ken Talbot"
+	CREDIT_NAME		"Kt Thorogood"
+	CREDIT_NAME		"Lex Lowndes"
+	CREDIT_NAME		"Maddie Bamford"
+	CREDIT_NAME		"Martin Hockenhull"
+	CREDIT_NAME		"May Robinson"
+	CREDIT_NAME		"Michael Nam"
+	CREDIT_NAME		"Rob Chambers"
+	CREDIT_NAME		"Simon Lock"
+	CREDIT_NAME		"Tom Feve"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
