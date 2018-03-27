@@ -163,14 +163,6 @@ L2A2_TriggerBox_StopPower_name	dc.b "L2A2_TriggerBox_StopPower",0
 	even
 	ENDIF
 
-L2A2_Checkpoint_count equ 0x1
-L2A2_Checkpoint_68_idx	equ 0x0
-
-	IFND FINAL
-L2A2_Checkpoint_68_name	dc.b "L2A2_Checkpoint_68",0
-	even
-	ENDIF
-
 L2A2_WaterBody_count equ 0x0
 
 L2A2_Location_count equ 0x0
@@ -264,6 +256,14 @@ L2A2_Scirus_56_name	dc.b "L2A2_Scirus_56",0
 L2A2_Hogg_count equ 0x0
 
 L2A2_Bridge_count equ 0x0
+
+L2A2_Checkpoint_count equ 0x1
+L2A2_Checkpoint_68_idx	equ 0x0
+
+	IFND FINAL
+L2A2_Checkpoint_68_name	dc.b "L2A2_Checkpoint_68",0
+	even
+	ENDIF
 
 
 
@@ -724,7 +724,7 @@ L2A2_LoadGameObjects:
 	POPL   a1
 
 	jsr NestInit
-	move.l #0x09d80000, Entity_WorldPosX(a0)
+	move.l #0x09d00000, Entity_WorldPosX(a0)
 	move.l #0x05100000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
@@ -826,26 +826,6 @@ L2A2_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A2_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-	jsr CheckpointInit
-	move.l #0x12580000, Entity_WorldPosX(a0)
-	move.l #0x01a80000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L2A2_Checkpoint_68_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
 
 
 
@@ -1107,6 +1087,26 @@ L2A2_LoadGameObjects:
 	add.l #Scirus_Struct_Size, a0
 
 
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L2A2_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x12580000, Entity_WorldPosX(a0)
+	move.l #0x01a80000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L2A2_Checkpoint_68_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	rts
