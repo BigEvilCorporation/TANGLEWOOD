@@ -6,8 +6,8 @@
 ;   audio.asm - footsteps, ambience, etc
 ;==============================================================
 
-AmbientSFXRandTimerMin	equ 0x0600
-AmbientSFXRandTimerMax	equ 0x0A00
+AmbientSFXRandTimerMin	equ 0x0200
+AmbientSFXRandTimerMax	equ 0x0600
 
 StartAmbientSFX:
 	move.w #AmbientSFXRandTimerMin, AmbientSFXTimer
