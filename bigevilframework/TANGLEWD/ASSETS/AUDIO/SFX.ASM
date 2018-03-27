@@ -80,7 +80,7 @@ SFX_Data_Thunder_Far:
 	ESF_SetPCMRate PCM_Freq_Default
 	ESF_NoteOn ESF_PCM, PCMInstr_Thndr_Far
 	ESF_Delay 100
-	ESF_Delay 181
+	ESF_Delay 25
 	ESF_Stop
 	even
 
