@@ -7,7 +7,7 @@
 ;================================================================
 
 ; Constants
-VDPDMAQueue_MaxSize    equ 0x20  ; Queue max size
+VDPDMAQueue_MaxSize    equ 0x28  ; Queue max size
 VDPDMAQueue_Job_Size   equ 0x10
 
 ;---------------------------------
