@@ -320,3 +320,8 @@ l4a2_ActivatePool3:
 	jsr    Pool_Raise
 
 	rts
+
+l4a2_EchoAIPanic:
+	ENTITY_GETBYNAME AIMarker, l4a2_EchoAIMarker1, a3
+	jsr EchoAIPanic
+	rts

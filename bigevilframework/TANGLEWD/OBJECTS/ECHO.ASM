@@ -4083,6 +4083,7 @@ EchoAISetState:
 	rts
 
 EchoAIPanic:
+	; a3 --- Optional marker
 
 	PUSHL  a0
 
@@ -4094,6 +4095,17 @@ EchoAIPanic:
 	jsr    EchoAI_CheckOuterScreenBounds
 	tst.b  d0
 	bne    @OnScreen
+
+	; If marker passed in, use it
+	cmpa   #0x0, a3
+	beq    @FindMarker
+
+	move.w Entity_WorldPosX(a3), d2
+	move.w Entity_WorldPosY(a3), d3
+
+	bra    @FoundAIMarker
+
+	@FindMarker:
 
 	; Working back from Nymn, find last AI marker
 	move.w Entity_WorldPosX(a2), d0
