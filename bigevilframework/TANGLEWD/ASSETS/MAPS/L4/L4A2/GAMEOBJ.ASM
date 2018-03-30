@@ -190,11 +190,11 @@ L4A2_ButtonLock5_name	dc.b "L4A2_ButtonLock5",0
 L4A2_Wyrm_count equ 0x0
 
 L4A2_AIMarker_count equ 0x2
-L4A2_AIMarker_15_idx	equ 0x0
+L4A2_EchoAIMarker1_idx	equ 0x0
 L4A2_MarkerEchoLockStop_idx	equ 0x1
 
 	IFND FINAL
-L4A2_AIMarker_15_name	dc.b "L4A2_AIMarker_15",0
+L4A2_EchoAIMarker1_name	dc.b "L4A2_EchoAIMarker1",0
 L4A2_MarkerEchoLockStop_name	dc.b "L4A2_MarkerEchoLockStop",0
 	even
 	ENDIF
@@ -710,7 +710,7 @@ L4A2_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x0ce80000, Entity_WorldPosX(a0)
 	move.l #0x01700000, Entity_WorldPosY(a0)
-	move.l #EchoAIPanic, TriggerBox_Routine(a0)
+	move.l #l4a2_EchoAIPanic, TriggerBox_Routine(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L4A2_TriggerBox_EchoPanic1_name, a3
@@ -889,7 +889,7 @@ L4A2_LoadGameObjects:
 	move.b #AIMarker_Type_SafePos, AIMarker_Type(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
-	lea L4A2_AIMarker_15_name, a3
+	lea L4A2_EchoAIMarker1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
