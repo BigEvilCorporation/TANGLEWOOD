@@ -1418,27 +1418,31 @@ PhysicsObjFindWall:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 	; d0 (b) 0 == Bottom, 1 = top
-	; d1 (b) Forced (1 = left, 2 = right)
 	
 	;==============================================================
 
 	move.b d0, d6
-	move.b d1, d7
 	
 	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
+
+	; If not moving on X axis, re-check last hit wall direction
+	move.l PhysicsObj_VelX(a0), d3
+	add.l  PhysicsObj_ImpulseX(a0), d3
+	bne    @UseVelDirection
 	
-	; Check forced direction flag first
+	move.b PhysicsObj_HitWall(a0), d7
+	beq    @NoWallCheck
+
+	andi.b #0x3, d7		; Left = 1, right = 2
 	cmp.b  #0x1, d7
 	beq    @HeadingLeft
 	cmp.b  #0x2, d7
 	beq    @HeadingRight
+
+	@UseVelDirection:
 	
-	; Determine direction
-	move.l PhysicsObj_VelX(a0), d3
-	add.l  PhysicsObj_ImpulseX(a0), d3
-	beq    @HeadingNowhere
-	
+	; Determine direction from velocity
 	tst.l  d3
 	blt    @HeadingLeft
 	bgt    @HeadingRight
@@ -1733,9 +1737,9 @@ PhysicsObjFindWall:
 	
 	;==============================================================
 	
-	@HeadingNowhere:
+	@NoWallCheck:
 
-	; Not heading left/right, check moving barriers instead
+	; Not heading left/right, and not already hitting wall, check moving barriers instead
 	jsr    PhysicsObjFindMovingBarrier
 
 	bra    @End
