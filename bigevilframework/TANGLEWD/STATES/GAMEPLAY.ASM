@@ -37,6 +37,10 @@ Gameplay_Enter:
 	; Reset all positions/velocities
 	jsr LevelReset
 
+	; Default firefly count to game total
+	move.w FireflyPickupCountTotalSave, d0
+	move.w d0, FireflyPickupCountTotalUI
+
 	; If loaded from password
 	move.l CurrentSavePassword, d0
 	beq    @NoPassword
