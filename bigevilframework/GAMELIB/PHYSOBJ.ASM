@@ -1449,7 +1449,7 @@ PhysicsObjFindWall:
 	
 	@HeadingLeft:
 	
-	; Search from centre to left bounds - 1 tile
+	; Search from centre -1 tile to left bounds - 1 tile
 	move.w d1, d0								; Get left
 	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get left bounds
 	subq.w #0x08, d0							; - 1 tile
@@ -1457,6 +1457,7 @@ PhysicsObjFindWall:
 	lsr.w  #0x1, d2
 	add.w  d2, d1
 	sub.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
+	subq.w #0x08, d1							; - 1 tile
 
 	; Searching backwards 1 tile at a time
 	move.w #-0x8, d3
@@ -1465,7 +1466,7 @@ PhysicsObjFindWall:
 	
 	@HeadingRight:
 	
-	; Search from centre to right bounds + 1 tile
+	; Search from centre + 1 tile to right bounds + 1 tile
 	move.w d1, d0								; Get left
 	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get right bounds
 	add.w  PhysicsObj_BoundsWidth(a0), d0
@@ -1474,6 +1475,7 @@ PhysicsObjFindWall:
 	lsr.w  #0x1, d2
 	add.w  d2, d1
 	add.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
+	addq.w #0x8, d1								; + 1 tile
 
 	; Searching forwards 1 tile at a tile
 	move.w #0x8, d3
