@@ -2,7 +2,7 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $46, $c6	; Set instrument for channel FM 6
+	dc.b $46, $c7	; Set instrument for channel FM 6
 	dc.b $06, $63	; Note C#3 on channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $1a, $ac	; Set frequency '6828' (octave 3 semitone 684) for channel FM 6
