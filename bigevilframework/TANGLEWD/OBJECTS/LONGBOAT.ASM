@@ -13,8 +13,8 @@ Longboat_SegmentWidth		equ 0x20
 Longboat_NumSegments		equ (Longboat_Width/Longboat_SegmentWidth)
 Longboat_Mass				equ 0x08
 Longboat_Decel				equ 0x00000400
-Longboat_WallProbeLeft		equ 0x0000
-Longboat_WallProbeRight		equ Longboat_Width
+Longboat_WallBoundsLeft		equ 0x0000
+Longboat_WallBoundsRight		equ Longboat_Width
 Longboat_WallProbeBottom	equ Longboat_Height+0x08
 Longboat_StepHeight			equ 0x4
 Longboat_FloorProbeX		equ (Longboat_Width/2)
@@ -77,8 +77,8 @@ LongboatInit:
 	move.w  #Longboat_FloorProbeX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Longboat_FloorProbeY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Longboat_StepHeight, PhysicsObj_StepHeight(a0)
-	move.w  #Longboat_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
-	move.w  #Longboat_WallProbeRight, PhysicsObj_WallProbeRight(a0)
+	move.w  #Longboat_WallBoundsLeft, PhysicsObj_WallBoundsLeft(a0)
+	move.w  #Longboat_WallBoundsRight, PhysicsObj_WallBoundsRight(a0)
 	move.w  #Longboat_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.w  #Longboat_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.b  #Longboat_Mass, PhysicsObj_Mass(a0)

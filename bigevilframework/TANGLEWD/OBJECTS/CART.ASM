@@ -81,8 +81,8 @@ CartInit:
 	move.w  #Cart_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Cart_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Cart_Height-1, PhysicsObj_WallProbeBottom(a0)
-	move.w  #0x0, PhysicsObj_WallProbeLeft(a0)
-	move.w  #Cart_Width, PhysicsObj_WallProbeRight(a0)
+	move.w  #0x0, PhysicsObj_WallBoundsLeft(a0)
+	move.w  #Cart_Width, PhysicsObj_WallBoundsRight(a0)
 	move.w  #Cart_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Cart_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Cart_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0

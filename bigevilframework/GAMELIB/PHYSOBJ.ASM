@@ -65,8 +65,8 @@ PhysicsObj_CeilingProbeX    	rs.w 1 ; Ceiling probe X offset
 PhysicsObj_CeilingProbeY    	rs.w 1 ; Ceiling probe Y offset
 PhysicsObj_WallProbeTop			rs.w 1 ; Top wall probe Y offset
 PhysicsObj_WallProbeBottom		rs.w 1 ; Bottom wall probe Y offset
-PhysicsObj_WallProbeLeft		rs.w 1 ; Left wall probe X offset
-PhysicsObj_WallProbeRight		rs.w 1 ; Right wall probe X offset
+PhysicsObj_WallBoundsLeft		rs.w 1 ; Left wall probe X offset
+PhysicsObj_WallBoundsRight		rs.w 1 ; Right wall probe X offset
 PhysicsObj_WallProbeCentreX		rs.w 1 ; Distance from centre to begin wall search
 PhysicsObj_BounceX		    	rs.w 1 ; Bounce X (reflection div)
 PhysicsObj_BounceY		    	rs.w 1 ; Bounce Y (reflection div)
@@ -950,7 +950,7 @@ PhysicsObjCollisionCorrectX:
 	; Heading left, clamp
 	tst.l  d0
 	beq    @UsingCachedWallL
-	move.w PhysicsObj_WallProbeLeft(a0), d1
+	move.w PhysicsObj_WallBoundsLeft(a0), d1
 	sub.w  d1, d0
 	move.w Entity_WorldPosX(a0), d1
 	cmp.w  d1, d0
@@ -972,7 +972,7 @@ PhysicsObjCollisionCorrectX:
 	; Heading right, clamp
 	tst.l  d0
 	beq    @UsingCachedWallR
-	move.w PhysicsObj_WallProbeRight(a0), d1
+	move.w PhysicsObj_WallBoundsRight(a0), d1
 	sub.w  d1, d0
 	move.w Entity_WorldPosX(a0), d1
 	cmp.w  d1, d0
@@ -1449,15 +1449,15 @@ PhysicsObjFindWall:
 	
 	@HeadingLeft:
 	
-	; Search from centre -1 tile to left bounds - 1 tile
-	move.w d1, d0								; Get left
-	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get left bounds
-	subq.w #0x08, d0							; - 1 tile
+	; Search from probe centre to left bounds - 1 tile
+	move.w d1, d0								; Get left pos
+	add.w  PhysicsObj_BoundsLeft(a0), d0		; Add left bounds
+	sub.w  #0x8, d0								; -1 tile
+
 	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
 	add.w  d2, d1
 	sub.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
-	subq.w #0x08, d1							; - 1 tile
 
 	; Searching backwards 1 tile at a time
 	move.w #-0x8, d3
@@ -1466,16 +1466,16 @@ PhysicsObjFindWall:
 	
 	@HeadingRight:
 	
-	; Search from centre + 1 tile to right bounds + 1 tile
-	move.w d1, d0								; Get left
-	add.w  PhysicsObj_BoundsLeft(a0), d0		; Get right bounds
+	; Search from probe centre to right bounds + 1 tile
+	move.w d1, d0								; Get left pos
+	add.w  PhysicsObj_BoundsLeft(a0), d0		; Add right bounds (left bounds + width)
 	add.w  PhysicsObj_BoundsWidth(a0), d0
-	addq.w #0x8, d0								; + 1 tile
+	add.w  #0x8, d0								; +1 tile
+	
 	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
 	add.w  d2, d1
 	add.w  PhysicsObj_WallProbeCentreX(a0), d1	; Get probe centre
-	addq.w #0x8, d1								; + 1 tile
 
 	; Searching forwards 1 tile at a tile
 	move.w #0x8, d3
@@ -1485,8 +1485,9 @@ PhysicsObjFindWall:
 	; Backup forced direction flag
 	swap   d7
 
-	; Clear static wall and static barrier flags
+	; Clear static wall/barrier flags, and wall velocity
 	andi.b #~(PhysicsObjHitStaticWall|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
+	move.l #0x0, PhysicsObj_LastWallVelocity(a0)
 	
 	;==============================================================
 
@@ -1606,9 +1607,29 @@ PhysicsObjFindWall:
 	add.l  PhysicsObj_ImpulseX(a0), d2
 	add.l  d2, Barrier_TotalHitVel(a3)
 
-	; Add barrier X velocity to object
+	; Add barrier X velocity to object if barrier moving towards obj
 	move.l Barrier_VelX(a3), d2
+	beq    @NoBarrierVel
+	move.w Entity_WorldPosX(a0), d0
+	add.w  PhysicsObj_WallProbeCentreX(a0), d0
+	move.w Barrier_PosX(a3), d1
+	move.w Barrier_Width(a3), d3
+	lsr.w  #0x1, d3
+	add.w  d3, d1
+	; If obj centre > barrier centre and barrier vel > 0
+	cmp.w  d0, d1
+	blt    @ObjToRight
+	tst.l  d2
+	bgt    @NoBarrierVel
 	add.l  d2, Entity_WorldPosX(a0)
+	bra    @ObjToLeft
+	; If obj centre < barrier centre and barrier vel < 0
+	@ObjToRight:
+	tst.l  d2
+	blt    @NoBarrierVel
+	add.l  d2, Entity_WorldPosX(a0)
+	@ObjToLeft:
+	@NoBarrierVel:
 	
 	; Set barrier collision
 	tst.l  d2
@@ -2015,19 +2036,22 @@ PhysicsObjFindMovingBarrier:
 	move.l #0x0, PhysicsObj_LastWallVelocity(a0)
 
 	;==============================================================
+
+	; Get floor probe X
+	move.w Entity_WorldPosX(a0), d5			; Get player pos X (top word = integer part)
+	add.w  PhysicsObj_BoundsLeft(a0), d5	; To left bounds
+	subi.w #vdp_sprite_border_x, d5			; To screen space
 	
 	; Get floor probe Y
-	move.w Entity_WorldPosY(a0), d2		; Get player pos Y (top word = integer part)
-	subi.w  #vdp_sprite_border_y, d2		; To screen space
-	move.w Entity_Height(a0), d3		; Get height
-	add.l  d3, d2						; Get floor probe
-	move.w d2, d1						; Player pos XY (screen space) to d1
-	sub.w  PhysicsObj_StepHeight(a0), d1; Sub step height
+	move.w Entity_WorldPosY(a0), d1			; Get player pos Y (top word = integer part)
+	add.w  Entity_Height(a0), d1			; To bottom
+	sub.w  PhysicsObj_StepHeight(a0), d1	; To step height
+	subi.w #vdp_sprite_border_y, d1			; To screen space
 
 	;==============================================================
 	
-	LIST_GET_HEAD MovingBarriers,a3	; Get list head
-	@BarrierLp:						; For all barriers in list
+	LIST_GET_HEAD MovingBarriers,a3			; Get list head
+	@BarrierLp:								; For all barriers in list
 	cmpa.w #0x0, a3
 	beq    @NoBarrier
 
@@ -2053,32 +2077,27 @@ PhysicsObjFindMovingBarrier:
 	blt    @HeadingLeft
 	bgt    @HeadingRight
 	
-	@HeadingRight:
-
-	; Get probe X, left hand side
-	move.w Entity_WorldPosX(a0), d2		; Get player pos X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d2		; To screen space
+	@HeadingLeft:
+	
+	; Barrier heading left, check against obj right bounds + 1 tile
+	move.w d5, d6								; Get left bounds
+	add.w  PhysicsObj_BoundsWidth(a0), d6		; To right bounds (left bounds + width)
+	add.w  #0x8, d6								; +1 tile
 	
 	bra    @EndHeadingTest
 	
-	@HeadingLeft:
+	@HeadingRight:
 	
-	; Get probe X, right hand side
-	move.w Entity_WorldPosX(a0), d2		; Get player pos X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d2		; To screen space
-	add.w  Entity_Width(a0), d2			; Right hand side
+	; Barrier heading right, check obj left bounds - 1 tile
+	move.w d5, d6								; Get left bounds
+	sub.w  #0x8, d6								; -1 tile
 
 	@EndHeadingTest:
-
-	; Set object wall probe X
-	swap   d1
-	move.w d2, d1	; X to upper d1
-	swap   d1		; Y to lower d1
 	
 	;==============================================================
 	
 	; Get barrier Top and Bottom Y
-	move.w Barrier_PosY(a3), d2				; (top word = integer part)
+	move.w Barrier_PosY(a3), d2					; (top word = integer part)
 	move.w Barrier_Height(a3), d3
 	subi.w  #vdp_sprite_border_y, d2			; To screen space
 	add.w  d2, d3
@@ -2086,29 +2105,21 @@ PhysicsObjFindMovingBarrier:
 	; + step height
 	add.w  PhysicsObj_StepHeight(a0), d3
 	
-	; Get wall probe Y
-	move.w d1, d0
-	
 	; Check if probe Y within barrier Y-height
-	cmp.w  d0, d2		; Top
+	cmp.w  d1, d2		; Top
 	bgt    @NextBarrier
-	cmp.w  d0, d3		; Bottom + step height
+	cmp.w  d1, d3		; Bottom + step height
 	blt    @NextBarrier
 	
 	; Get barrier X
 	move.w Barrier_PosX(a3), d2				; Get X (top word = integer part)
-	subi.w  #vdp_sprite_border_x, d2			; To screen space
-
-	; Get object wall probe X
-	swap   d1
-	move.w d1, d0
-	swap   d1
+	subi.w #vdp_sprite_border_x, d2			; To screen space
 	
 	; Check if probe X is between barrier left and right
-	cmp.w  d2, d0							; Compare probe with barrier left
+	cmp.w  d2, d6							; Compare probe with barrier left
 	blt    @NextBarrier
 	add.w  Barrier_Width(a3), d2
-	cmp.w  d2, d0							; Compare probe with barrier right
+	cmp.w  d2, d6							; Compare probe with barrier right
 	bgt    @NextBarrier
 	
 	; Success
@@ -2121,9 +2132,29 @@ PhysicsObjFindMovingBarrier:
 	add.w  Barrier_Width(a3), d4
 	@LeftOfBarrier:
 	
-	; Add barrier X velocity
+	; Add barrier X velocity to object if barrier moving towards obj
 	move.l Barrier_VelX(a3), d2
+	beq    @NoBarrierVel
+	move.w Entity_WorldPosX(a0), d0
+	add.w  PhysicsObj_WallProbeCentreX(a0), d0
+	move.w Barrier_PosX(a3), d1
+	move.w Barrier_Width(a3), d3
+	lsr.w  #0x1, d3
+	add.w  d3, d1
+	; If obj centre > barrier centre and barrier vel > 0
+	cmp.w  d0, d1
+	blt    @ObjToRight
+	tst.l  d2
+	bgt    @NoBarrierVel
 	add.l  d2, Entity_WorldPosX(a0)
+	bra    @ObjToLeft
+	; If obj centre < barrier centre and barrier vel < 0
+	@ObjToRight:
+	tst.l  d2
+	blt    @NoBarrierVel
+	add.l  d2, Entity_WorldPosX(a0)
+	@ObjToLeft:
+	@NoBarrierVel:
 
 	bra    @FoundBarrier
 
@@ -2411,7 +2442,7 @@ PhysicsObjPushPullObj:
 	; Obj hitting wall to the left, use obj right bounds as wall
 	ENTITY_GETRIGHT d0,a2
 	TOPIXELS d0
-	move.w PhysicsObj_WallProbeLeft(a0), d1
+	move.w PhysicsObj_WallBoundsLeft(a0), d1
 	move.w PhysicsObj_BoundsLeft(a0), d2
 	sub.w  d1, d2
 	sub.w  d2, d0
@@ -2424,7 +2455,7 @@ PhysicsObjPushPullObj:
 	; Obj hitting wall to the right, use obj left bounds as wall
 	ENTITY_GETLEFT d0,a2
 	TOPIXELS d0
-	move.w PhysicsObj_WallProbeRight(a0), d2
+	move.w PhysicsObj_WallBoundsRight(a0), d2
 	move.w PhysicsObj_BoundsLeft(a0), d1
 	add.w  PhysicsObj_BoundsWidth(a0), d1
 	sub.w  d1, d2

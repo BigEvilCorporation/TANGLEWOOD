@@ -11,8 +11,8 @@ Raft_Width				equ 0x50
 Raft_Height				equ 0x08
 Raft_Mass				equ 0x08
 Raft_Decel				equ 0x00000400
-Raft_WallProbeLeft		equ 0x0000
-Raft_WallProbeRight		equ Raft_Width
+Raft_WallBoundsLeft		equ 0x0000
+Raft_WallBoundsRight		equ Raft_Width
 Raft_WallProbeBottom	equ Raft_Height+0x08
 Raft_ProbeWallX			equ (Raft_Width/2)-8	; Distance from centre to start wall search
 Raft_PlatformOffsetX	equ 0x0000
@@ -55,8 +55,8 @@ RaftInit:
 	MOVE_NTSC_ACCEL_W Raft_Decel, PhysicsObj_DecelX(a0), d0
 	move.l  #0x0, PhysicsObj_MaxVelYUp(a0)
 	MOVE_NTSC_L DefaultGravity, PhysicsObj_MaxVelYDown(a0), d0
-	move.w  #Raft_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
-	move.w  #Raft_WallProbeRight, PhysicsObj_WallProbeRight(a0)
+	move.w  #Raft_WallBoundsLeft, PhysicsObj_WallBoundsLeft(a0)
+	move.w  #Raft_WallBoundsRight, PhysicsObj_WallBoundsRight(a0)
 	move.w  #Raft_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.w  #Raft_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	move.b  #Raft_Mass, PhysicsObj_Mass(a0)

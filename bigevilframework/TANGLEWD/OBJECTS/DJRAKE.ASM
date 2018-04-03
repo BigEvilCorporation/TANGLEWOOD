@@ -139,8 +139,8 @@ DjrakeInit:
 	move.w  #Djrake_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
 	move.w  #Djrake_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
 	move.w  #Djrake_Height-1, PhysicsObj_WallProbeBottom(a0)
-	move.w  #(Djrake_Width/2)-0x10, PhysicsObj_WallProbeLeft(a0)
-	move.w  #(Djrake_Width/2)+0x10, PhysicsObj_WallProbeRight(a0)
+	move.w  #(Djrake_Width/2)-0x10, PhysicsObj_WallBoundsLeft(a0)
+	move.w  #(Djrake_Width/2)+0x10, PhysicsObj_WallBoundsRight(a0)
 	move.w  #Djrake_StepHeight, PhysicsObj_StepHeight(a0)
 	
 	move.l  #Djrake_MaxVelXWalk, Character_MaxVelXWalk(a0)

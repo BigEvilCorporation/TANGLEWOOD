@@ -17,8 +17,8 @@ Djubb_MaxSwimVel		equ 0x03E000
 Djubb_MaxFloatVel		equ 0x010000
 Djubb_FloatAccel		equ 0x000800
 Djubb_FloatAccelTop		equ 0x000200
-Djubb_WallProbeLeft		equ -0x0010
-Djubb_WallProbeRight	equ Djubb_Width+0x0010
+Djubb_WallBoundsLeft		equ -0x0010
+Djubb_WallBoundsRight	equ Djubb_Width+0x0010
 Djubb_WallProbeTop		equ 0x0000
 Djubb_WallProbeBottom	equ Djubb_Height-1
 Djubb_ProbeWallX		equ (Djubb_Width/2)-8	; Distance from centre to start wall search
@@ -75,8 +75,8 @@ DjubbInit:
 	MOVE_NTSC_L Djubb_MaxSwimVel, PhysicsObj_MaxVelAirX(a0), d0
 	MOVE_NTSC_L Djubb_MaxFloatVel, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_ACCEL_W Djubb_SwimDecelIdle, PhysicsObj_DecelX(a0), d0
-	move.w  #Djubb_WallProbeLeft, PhysicsObj_WallProbeLeft(a0)
-	move.w  #Djubb_WallProbeRight, PhysicsObj_WallProbeRight(a0)
+	move.w  #Djubb_WallBoundsLeft, PhysicsObj_WallBoundsLeft(a0)
+	move.w  #Djubb_WallBoundsRight, PhysicsObj_WallBoundsRight(a0)
 	move.w  #Djubb_WallProbeTop, PhysicsObj_WallProbeTop(a0)
 	move.w  #Djubb_WallProbeBottom, PhysicsObj_WallProbeBottom(a0)
 	move.w  #Djubb_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
