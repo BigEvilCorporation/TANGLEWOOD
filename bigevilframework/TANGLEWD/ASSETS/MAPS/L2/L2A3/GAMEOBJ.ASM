@@ -113,11 +113,15 @@ L2A3_FuzzlBlue1_name	dc.b "L2A3_FuzzlBlue1",0
 	even
 	ENDIF
 
-L2A3_Stone_count equ 0x1
+L2A3_Stone_count equ 0x3
 L2A3_Stone_50_idx	equ 0x0
+L2A3_Stone_70_idx	equ 0x1
+L2A3_Stone_73_idx	equ 0x2
 
 	IFND FINAL
 L2A3_Stone_50_name	dc.b "L2A3_Stone_50",0
+L2A3_Stone_70_name	dc.b "L2A3_Stone_70",0
+L2A3_Stone_73_name	dc.b "L2A3_Stone_73",0
 	even
 	ENDIF
 
@@ -640,6 +644,32 @@ L2A3_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L2A3_Stone_50_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x02100000, Entity_WorldPosX(a0)
+	move.l #0x02e00000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L2A3_Stone_70_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x02400000, Entity_WorldPosX(a0)
+	move.l #0x03680000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L2A3_Stone_73_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
