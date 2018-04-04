@@ -518,8 +518,8 @@ L2A3_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x0ca80000, Entity_WorldPosX(a0)
-	move.l #0x00c80000, Entity_WorldPosY(a0)
+	move.l #0x0d000000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L2A3_Firefly_55_name, a3
