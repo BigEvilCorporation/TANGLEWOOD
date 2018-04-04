@@ -392,7 +392,7 @@ L1A2_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x2d500000, Entity_WorldPosX(a0)
+	move.l #0x2dd00000, Entity_WorldPosX(a0)
 	move.l #0x02c80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
@@ -749,7 +749,7 @@ L1A2_LoadGameObjects:
 	add.l #Flue_Struct_Size, a0
 
 	jsr FlueInit
-	move.l #0x2cc80000, Entity_WorldPosX(a0)
+	move.l #0x2d600000, Entity_WorldPosX(a0)
 	move.l #0x02e00000, Entity_WorldPosY(a0)
 	jsr FlueLoadGfx
 	IFND FINAL

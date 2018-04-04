@@ -334,6 +334,7 @@ L8A4_LoadGameObjects:
 	move.l #0x01c80000, Entity_WorldPosY(a0)
 	move.l #l8a4_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A4_TriggerLevelEnd_name, a3
