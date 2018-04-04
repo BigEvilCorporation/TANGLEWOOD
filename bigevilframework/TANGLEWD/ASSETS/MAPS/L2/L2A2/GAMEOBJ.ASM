@@ -419,8 +419,8 @@ L2A2_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x08c80000, Entity_WorldPosX(a0)
-	move.l #0x05000000, Entity_WorldPosY(a0)
+	move.l #0x08480000, Entity_WorldPosX(a0)
+	move.l #0x04a80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A2_BouncePlant_30_name, a3
@@ -432,8 +432,8 @@ L2A2_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x08880000, Entity_WorldPosX(a0)
-	move.l #0x04280000, Entity_WorldPosY(a0)
+	move.l #0x07b00000, Entity_WorldPosX(a0)
+	move.l #0x04500000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A2_BouncePlant_32_name, a3
@@ -445,8 +445,8 @@ L2A2_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x09280000, Entity_WorldPosX(a0)
-	move.l #0x03100000, Entity_WorldPosY(a0)
+	move.l #0x08a80000, Entity_WorldPosX(a0)
+	move.l #0x03280000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L2A2_BouncePlant_55_name, a3
