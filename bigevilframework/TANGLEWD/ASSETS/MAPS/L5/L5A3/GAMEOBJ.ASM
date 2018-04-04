@@ -637,7 +637,7 @@ L5A3_LoadGameObjects:
 	POPL   a1
 
 	jsr StoneInit
-	move.l #0x06f80000, Entity_WorldPosX(a0)
+	move.l #0x06b00000, Entity_WorldPosX(a0)
 	move.l #0x02680000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
