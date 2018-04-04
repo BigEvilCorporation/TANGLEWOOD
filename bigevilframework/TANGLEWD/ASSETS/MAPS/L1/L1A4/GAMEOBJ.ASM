@@ -650,8 +650,8 @@ L1A4_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x1a480000, Entity_WorldPosX(a0)
-	move.l #0x02380000, Entity_WorldPosY(a0)
+	move.l #0x18d00000, Entity_WorldPosX(a0)
+	move.l #0x02300000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A4_Firefly_77_name, a3
@@ -824,7 +824,7 @@ L1A4_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x1b200000, Entity_WorldPosX(a0)
+	move.l #0x1b300000, Entity_WorldPosX(a0)
 	move.l #0x02180000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
@@ -838,7 +838,7 @@ L1A4_LoadGameObjects:
 
 	jsr StoneInit
 	move.l #0x1b280000, Entity_WorldPosX(a0)
-	move.l #0x02900000, Entity_WorldPosY(a0)
+	move.l #0x02980000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A4_Stone_47_name, a3
