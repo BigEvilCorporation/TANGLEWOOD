@@ -483,8 +483,8 @@ L1A4_LoadGameObjects:
 	add.l #BouncePlant_Struct_Size, a0
 
 	jsr BouncePlantInit
-	move.l #0x28400000, Entity_WorldPosX(a0)
-	move.l #0x02580000, Entity_WorldPosY(a0)
+	move.l #0x25c80000, Entity_WorldPosX(a0)
+	move.l #0x01d80000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea L1A4_BouncePlant_90_name, a3
