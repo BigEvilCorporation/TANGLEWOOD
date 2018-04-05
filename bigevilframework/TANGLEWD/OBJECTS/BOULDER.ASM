@@ -235,6 +235,10 @@ BoulderUpdate:
 	; Wake physics
 	move.b #0x0, PhysicsObj_Asleep(a0)
 
+	; Recalculate world grid index
+	move.b #0x1, d1
+	jsr    EntityUpdateWorldGridIndex
+
 	;==============================================================
 	
 	@NotCracked:
