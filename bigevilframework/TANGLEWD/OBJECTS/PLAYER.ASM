@@ -1793,6 +1793,12 @@ PlayerUpdatePushInteract:
 	move.l Player_InteractObject(a0), a2
 	jsr    PhysicsObjPushPullObj
 
+	; Touched objects are no longer affected by time slow
+	cmp.b  #ColourGreen, Player_Colour(a0)
+	bne    @NoTimeSlow
+	move.b #0x1, AnimObj_SpeedDiv(a2)
+	@NoTimeSlow:
+
 	; Hit wall flag in d1
 	tst.b  d1
 	beq    @HitWall
