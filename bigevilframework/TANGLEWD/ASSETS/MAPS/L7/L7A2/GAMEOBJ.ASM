@@ -593,7 +593,7 @@ L7A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x1c400000, Entity_WorldPosX(a0)
+	move.l #0x1c580000, Entity_WorldPosX(a0)
 	move.l #0x02c00000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
