@@ -1266,6 +1266,7 @@ PlayerMountPet:
 		
 	; Set riding
 	move.b #0x1, Character_Riding(a0)
+	move.b #0x1, Monster_HasRider(a2)
 
 	; Stop processing physics, inheriting pos/vel from monster
 	move.b #0x0, PhysicsObj_HasCollision(a0)
@@ -1328,6 +1329,9 @@ PlayerDismountPet:
 	move.b #0x0, PhysicsObj_CloseToFloor(a0)
 	move.b #0x0, PhysicsObj_OnFloor(a0)
 	move.w #0x0, PhysicsObj_LastFloor(a0)
+
+	; Clear rider
+	move.b #0x0, Monster_HasRider(a2)
 
 	; Jump off (forced jump)
 	PUSHM  d0/a0-a2

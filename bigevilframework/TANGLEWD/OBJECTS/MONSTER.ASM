@@ -165,6 +165,7 @@ Monster_MusicState     rs.b 1
 Monster_LerpPalette    rs.b 1
 Monster_ManualGfxLoad  rs.b 1	; Don't load gfx
 Monster_FirstRender    rs.b 1	; HACK for L6A2 to upload frame on first render (shared VRAM)
+Monster_HasRider       rs.b 1	; Being ridden
 ;----------------------------
 	RS_ALIGN
 Monster_Struct_Size    rs.b 0
@@ -251,6 +252,7 @@ MonsterInit:
 	move.b  #0x0, Monster_ManualGfxLoad(a0)
 	move.b  #0x0, Monster_FirstRender(a0)
 	move.b  #MonsterMusicState_Off, Monster_MusicState(a0)
+	move.b  #0x0, Monster_HasRider(a0)
 	move.l  #Monster_DefaultChaseMusic, Monster_ChaseMusic(a0)
 	move.l  #Monster_DefaultSearchMusic, Monster_SearchMusic(a0)
 
@@ -646,7 +648,7 @@ MonsterCheckBarrier:
 	; Found, check heading in right direction
 	ENTITY_GETCENTREX d1, a0
 	ENTITY_GETCENTREX d2, a2
-	tst.w  PhysicsObj_AccelX(a0)
+	tst.l  PhysicsObj_VelX(a0)
 	beq    @NextMarker
 	bgt    @HeadingRight
 	cmp.l  d1, d2
@@ -1613,6 +1615,12 @@ MonsterUpdateTamed:
 	jsr    MonsterRoar
 	@TimerStillRunning:
 	@TimerNotRunning:
+
+	; If not being ridden, also check for AI barriers
+	tst.b  Monster_HasRider(a0)
+	bne    @Ridden
+	jsr    MonsterCheckBarrier
+	@Ridden:
 
 	rts
 

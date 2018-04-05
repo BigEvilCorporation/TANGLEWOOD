@@ -215,17 +215,13 @@ L1A4_WaterBody_55_name	dc.b "L1A4_WaterBody_55",0
 
 L1A4_Location_count equ 0x0
 
-L1A4_Deathbox_count equ 0x4
-L1A4_Deathbox_49_idx	equ 0x0
-L1A4_Deathbox_50_idx	equ 0x1
-L1A4_Deathbox_75_idx	equ 0x2
-L1A4_Deathbox_99_idx	equ 0x3
+L1A4_Deathbox_count equ 0x2
+L1A4_Deathbox_105_idx	equ 0x0
+L1A4_Deathbox_106_idx	equ 0x1
 
 	IFND FINAL
-L1A4_Deathbox_49_name	dc.b "L1A4_Deathbox_49",0
-L1A4_Deathbox_50_name	dc.b "L1A4_Deathbox_50",0
-L1A4_Deathbox_75_name	dc.b "L1A4_Deathbox_75",0
-L1A4_Deathbox_99_name	dc.b "L1A4_Deathbox_99",0
+L1A4_Deathbox_105_name	dc.b "L1A4_Deathbox_105",0
+L1A4_Deathbox_106_name	dc.b "L1A4_Deathbox_106",0
 	even
 	ENDIF
 
@@ -241,11 +237,17 @@ L1A4_Button_count equ 0x0
 
 L1A4_Wyrm_count equ 0x0
 
-L1A4_AIMarker_count equ 0x1
+L1A4_AIMarker_count equ 0x4
 L1A4_AIMarker_94_idx	equ 0x0
+L1A4_AIMarker_102_idx	equ 0x1
+L1A4_AIMarker_103_idx	equ 0x2
+L1A4_AIMarker_104_idx	equ 0x3
 
 	IFND FINAL
 L1A4_AIMarker_94_name	dc.b "L1A4_AIMarker_94",0
+L1A4_AIMarker_102_name	dc.b "L1A4_AIMarker_102",0
+L1A4_AIMarker_103_name	dc.b "L1A4_AIMarker_103",0
+L1A4_AIMarker_104_name	dc.b "L1A4_AIMarker_104",0
 	even
 	ENDIF
 
@@ -1163,11 +1165,13 @@ L1A4_LoadGameObjects:
 	POPL   a1
 
 	jsr DeathboxInit
-	move.l #0x22000000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.l #0x20c80000, Entity_WorldPosX(a0)
+	move.l #0x04800000, Entity_WorldPosY(a0)
+	move.w #0x0300, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L1A4_Deathbox_49_name, a3
+	lea L1A4_Deathbox_105_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1176,37 +1180,13 @@ L1A4_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x20800000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
+	move.l #0x1d480000, Entity_WorldPosX(a0)
+	move.l #0x04800000, Entity_WorldPosY(a0)
+	move.w #0x02e8, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L1A4_Deathbox_50_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x1ea80000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L1A4_Deathbox_75_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x1d280000, Entity_WorldPosX(a0)
-	move.l #0x04880000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L1A4_Deathbox_99_name, a3
+	lea L1A4_Deathbox_106_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1233,6 +1213,45 @@ L1A4_LoadGameObjects:
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L1A4_AIMarker_94_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x1fa00000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L1A4_AIMarker_102_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x21500000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L1A4_AIMarker_103_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x22c00000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L1A4_AIMarker_104_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
