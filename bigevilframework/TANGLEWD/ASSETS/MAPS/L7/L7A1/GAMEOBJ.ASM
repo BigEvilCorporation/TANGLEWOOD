@@ -589,7 +589,7 @@ L7A1_LoadGameObjects:
 
 	jsr FlueInit
 	move.l #0x19b80000, Entity_WorldPosX(a0)
-	move.l #0x02c80000, Entity_WorldPosY(a0)
+	move.l #0x02d80000, Entity_WorldPosY(a0)
 	MOVE_NTSC_L 0xA0000, Flue_EjectForceY(a0), d0
 
 	jsr FlueLoadGfx
