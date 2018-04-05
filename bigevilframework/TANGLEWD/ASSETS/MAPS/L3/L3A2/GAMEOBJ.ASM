@@ -871,6 +871,7 @@ L3A2_LoadGameObjects:
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Night, TriggerBox_RegisterD0(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.l #0x1, TriggerBox_RegisterD1(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L3A2_TriggerBoxNight_name, a3
