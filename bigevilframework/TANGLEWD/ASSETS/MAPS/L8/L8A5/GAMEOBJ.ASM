@@ -399,11 +399,11 @@ L8A5_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x03d80000, Entity_WorldPosX(a0)
 	move.l #0x01300000, Entity_WorldPosY(a0)
 	move.l #l8a5_Trigger_DemonTakeFuzzl, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
+	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L8A5_TriggerDemon_name, a3
