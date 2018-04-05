@@ -552,7 +552,7 @@ L6A2_LoadGameObjects:
 
 	jsr FireflyInit
 	move.l #0x19f00000, Entity_WorldPosX(a0)
-	move.l #0x04980000, Entity_WorldPosY(a0)
+	move.l #0x04680000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L6A2_Firefly_66_name, a3
@@ -564,8 +564,8 @@ L6A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x1ee80000, Entity_WorldPosX(a0)
-	move.l #0x05b80000, Entity_WorldPosY(a0)
+	move.l #0x1de80000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L6A2_Firefly_67_name, a3
