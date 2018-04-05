@@ -107,14 +107,6 @@ L6A1_TriggerMusicCue_name	dc.b "L6A1_TriggerMusicCue",0
 	even
 	ENDIF
 
-L6A1_Checkpoint_count equ 0x1
-L6A1_Checkpoint_25_idx	equ 0x0
-
-	IFND FINAL
-L6A1_Checkpoint_25_name	dc.b "L6A1_Checkpoint_25",0
-	even
-	ENDIF
-
 L6A1_WaterBody_count equ 0x0
 
 L6A1_Location_count equ 0x0
@@ -218,6 +210,14 @@ L6A1_Bridge3_name	dc.b "L6A1_Bridge3",0
 L6A1_Bridge4_name	dc.b "L6A1_Bridge4",0
 L6A1_Bridge5_name	dc.b "L6A1_Bridge5",0
 L6A1_Bridge6_name	dc.b "L6A1_Bridge6",0
+	even
+	ENDIF
+
+L6A1_Checkpoint_count equ 0x1
+L6A1_Checkpoint_25_idx	equ 0x0
+
+	IFND FINAL
+L6A1_Checkpoint_25_name	dc.b "L6A1_Checkpoint_25",0
 	even
 	ENDIF
 
@@ -509,26 +509,6 @@ L6A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
-
-
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L6A1_Checkpoint_count)
-	move.l a1, EntityPoolStart_Checkpoint
-	move.l a1, a0
-	POPL   a1
-
-	jsr CheckpointInit
-	move.l #0x10980000, Entity_WorldPosX(a0)
-	move.l #0x05080000, Entity_WorldPosY(a0)
-	jsr CheckpointLoadGfx
-	IFND FINAL
-	lea L6A1_Checkpoint_25_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Checkpoint_Struct_Size, a0
 
 
 
@@ -867,6 +847,26 @@ L6A1_LoadGameObjects:
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Bridge_Struct_Size, a0
+
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Checkpoint_Struct_Size*L6A1_Checkpoint_count)
+	move.l a1, EntityPoolStart_Checkpoint
+	move.l a1, a0
+	POPL   a1
+
+	jsr CheckpointInit
+	move.l #0x10980000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	jsr CheckpointLoadGfx
+	IFND FINAL
+	lea L6A1_Checkpoint_25_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Checkpoint_Struct_Size, a0
 
 
 	rts

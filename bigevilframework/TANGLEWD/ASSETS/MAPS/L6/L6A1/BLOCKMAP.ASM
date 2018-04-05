@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L6A1_size_b	equ 0x00001B6E	; Size in bytes
+map_blockmap_L6A1_size_b	equ 0x00001B6C	; Size in bytes
 map_blockmap_L6A1_size_w	equ (map_blockmap_L6A1_size_b/2)	; Size in words
 map_blockmap_L6A1_size_l	equ (map_blockmap_L6A1_size_b/4)	; Size in longwords
 map_L6A1_width	equ 0x320
@@ -189,30 +189,30 @@ map_blockmap_L6A1_coloffsets:
 	dc.w 0x1800
 	dc.w 0x181E
 	dc.w 0x183E
-	dc.w 0x1860
-	dc.w 0x1884
-	dc.w 0x18A8
-	dc.w 0x18CC
-	dc.w 0x18EE
-	dc.w 0x1908
-	dc.w 0x1922
-	dc.w 0x1946
-	dc.w 0x1966
-	dc.w 0x1984
-	dc.w 0x19A6
-	dc.w 0x19C8
-	dc.w 0x19E2
-	dc.w 0x19FC
-	dc.w 0x1A16
-	dc.w 0x1A30
-	dc.w 0x1A4A
-	dc.w 0x1A64
-	dc.w 0x1A7E
-	dc.w 0x1A98
-	dc.w 0x1AB2
-	dc.w 0x1AD4
-	dc.w 0x1AEA
-	dc.w 0x1B02
-	dc.w 0x1B28
-	dc.w 0x1B4E
-	dc.w 0x1B5E
+	dc.w 0x185E
+	dc.w 0x1882
+	dc.w 0x18A6
+	dc.w 0x18CA
+	dc.w 0x18EC
+	dc.w 0x1906
+	dc.w 0x1920
+	dc.w 0x1944
+	dc.w 0x1964
+	dc.w 0x1982
+	dc.w 0x19A4
+	dc.w 0x19C6
+	dc.w 0x19E0
+	dc.w 0x19FA
+	dc.w 0x1A14
+	dc.w 0x1A2E
+	dc.w 0x1A48
+	dc.w 0x1A62
+	dc.w 0x1A7C
+	dc.w 0x1A96
+	dc.w 0x1AB0
+	dc.w 0x1AD2
+	dc.w 0x1AE8
+	dc.w 0x1B00
+	dc.w 0x1B26
+	dc.w 0x1B4C
+	dc.w 0x1B5C
