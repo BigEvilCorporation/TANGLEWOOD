@@ -441,8 +441,8 @@ L1A2_LoadGameObjects:
 	add.l #Boulder_Struct_Size, a0
 
 	jsr BoulderInit
-	move.l #0x27500000, Entity_WorldPosX(a0)
-	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #0x26d80000, Entity_WorldPosX(a0)
+	move.l #0x01c80000, Entity_WorldPosY(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L1A2_Boulder_203_name, a3
@@ -521,8 +521,8 @@ L1A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x28d00000, Entity_WorldPosX(a0)
-	move.l #0x01900000, Entity_WorldPosY(a0)
+	move.l #0x28a00000, Entity_WorldPosX(a0)
+	move.l #0x01580000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A2_Firefly_123_name, a3
@@ -607,8 +607,8 @@ L1A2_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x29900000, Entity_WorldPosX(a0)
-	move.l #0x01280000, Entity_WorldPosY(a0)
+	move.l #0x299c0000, Entity_WorldPosX(a0)
+	move.l #0x00ea0000, Entity_WorldPosY(a0)
 	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -621,8 +621,8 @@ L1A2_LoadGameObjects:
 	add.l #Fuzzl_Struct_Size, a0
 
 	jsr FuzzlInit
-	move.l #0x28f80000, Entity_WorldPosX(a0)
-	move.l #0x01500000, Entity_WorldPosY(a0)
+	move.l #0x28f20000, Entity_WorldPosX(a0)
+	move.l #0x011a0000, Entity_WorldPosY(a0)
 	move.b #(1<<Fuzzl_State_Asleep), Fuzzl_State_Bits(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -682,8 +682,8 @@ L1A2_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x28c80000, Entity_WorldPosX(a0)
-	move.l #0x02280000, Entity_WorldPosY(a0)
+	move.l #0x28900000, Entity_WorldPosX(a0)
+	move.l #0x01f80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L1A2_Stone_204_name, a3
