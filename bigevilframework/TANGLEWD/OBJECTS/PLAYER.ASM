@@ -890,6 +890,11 @@ PlayerStopColourAbility:
 	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
+	; If on floor
+	move.l Player_Pet(a0), a2
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	beq    @CannotEndPower
+
 	; Dismount
 	move.b #Player_Dismount_Voluntary, d0
 	tst.w  Player_ColourChangeTimer(a0)
@@ -968,6 +973,8 @@ PlayerStopColourAbility:
 	
 	move.l #0x0, Player_ColourPowerHost(a0)
 	move.b #0x0, Player_ActiveColourAbility(a0)
+
+	@CannotEndPower:
 	
 	rts
 	
@@ -1894,6 +1901,17 @@ PlayerCancelInteract:
 	tst.b  Character_Riding(a0)
 	beq    @NotRiding
 
+	; If on floor
+	move.l Player_Pet(a0), a2
+	tst.b  PhysicsObj_CloseToFloor(a2)
+	bne    @CanDismount
+
+	; In air, keep interaction toggle and disallow dismount
+	move.b #0x1, Player_InteractionToggle(a0)
+	bra    @CannotEndPower
+	
+	@CanDismount:
+
 	; Dismount (voluntarily)
 	move.b #Player_Dismount_Voluntary, d0
 	jsr    PlayerDismountPet
@@ -1907,6 +1925,7 @@ PlayerCancelInteract:
 	move.l #0x0, Player_InteractObject(a0)
 	move.b #0x0, Character_Interacting(a0)
 
+	@CannotEndPower:
 	@ButtonToggle:
 	
 	rts
