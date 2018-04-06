@@ -70,6 +70,8 @@ Echo_AINodeToleranceGlideStopX	equ 0x0020
 Echo_AINodeToleranceGlideStopY	equ 0x0060
 Echo_AINodeTolerancePushObjX	equ 0x0010
 Echo_AINodeTolerancePushObjY	equ Player1Height+0x0010
+Echo_AINodeTolerancePushFuzzlX	equ 0x0008
+Echo_AINodeTolerancePushFuzzlY	equ Player1Height+0x0010
 Echo_AINodeToleranceRaftX		equ 0x0008
 Echo_AINodeToleranceRaftY		equ Player1Height+0x0008
 Echo_AINodeToleranceButtonX		equ 0x0008
@@ -142,6 +144,7 @@ EchoAINode_UserData			rs.l 1	; Node specific user data
 EchoAINode_Object			rs.l 1	; Object of interest
 EchoAINode_PosX				rs.w 1	; Target pos X
 EchoAINode_PosY				rs.w 1	; Target pos Y
+EchoAINode_PosXOffset		rs.w 1	; Target object X pos offset (if not using x/y pos)
 EchoAINode_VelX				rs.w 1	; Forced X velocity set when target reached
 EchoAINode_ToleranceX		rs.w 1	; Target distance tolerance X
 EchoAINode_ToleranceY		rs.w 1	; Target distance tolerance Y
@@ -162,6 +165,7 @@ EchoAINodeInit:
 	move.l #0x0, EchoAINode_Object(a0)
 	move.w #0x0, EchoAINode_PosX(a0)
 	move.w #0x0, EchoAINode_PosY(a0)
+	move.w #0x0, EchoAINode_PosXOffset(a0)
 	move.w #0x0, EchoAINode_VelX(a0)
 	move.w #0x0, EchoAINode_ToleranceX(a0)
 	move.w #0x0, EchoAINode_ToleranceY(a0)
@@ -1343,6 +1347,7 @@ EchoAIUpdate_FollowNodes:
 	ENTITY_GETCENTREY d2,a4
 	TOPIXELS d1
 	TOPIXELS d2
+	add.w  EchoAINode_PosXOffset(a3), d1
 	@PosOk:
 
 	; Get tolerance
@@ -1690,7 +1695,7 @@ EchoAIUpdate_PushObj:
 
 	@TouchingNymn:
 
-	; Within bounds or touching Nymn, back to follow state
+	; Within bounds or touching Nymn - back to follow state
 	jsr    PlayerCancelInteract
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
@@ -1698,12 +1703,34 @@ EchoAIUpdate_PushObj:
 	
 	@TooFarleft:
 	jsr    CharacterMoveRight
-	bra    @End
+	bra    @Pushed
 	
 	@TooFarRight:
 	jsr    CharacterMoveLeft
+	
+	@Pushed:
 
-	; If lost, back to follow state to re-evaluate
+	; If pushing object against wall - back to follow state
+	move.b PhysicsObj_HitWall(a3), d2
+	tst.w  PhysicsObj_AccelX(a0)
+	bgt    @PushingRight
+	andi.b #PhysicsObjHitWallLeft, d2
+	beq    @End
+	bra    @ObjHitWall
+	@PushingRight:
+	andi.b #PhysicsObjHitWallRight, d2
+	beq    @End
+	
+	@ObjHitWall:
+
+	; Prevent obj from bouncing and keep it against the wall,
+	; to prevent Echo considering it for pushing again next frame
+	move.l #0x0, PhysicsObj_VelX(a3)
+
+	; Back to follow state
+	jsr    PlayerCancelInteract
+	move.b #0x1, d0
+	jsr    EchoAIStart_Follow
 
 	@End:
 
@@ -3075,6 +3102,21 @@ EchoAI_FindFuzzl:
 	;btst.b #Fuzzl_State_Caged, Fuzzl_State_Bits(a2)
 	;bne    @NextFuzzl
 
+	; Check not hitting wall in push direction
+	move.b PhysicsObj_HitWall(a2), d3
+	move.l Player1, a4					; Check Fuzzl push direction to Nymn
+	ENTITY_GETCENTREX d0,a2
+	ENTITY_GETCENTREX d2,a4
+	sub.l  d0, d2
+	bgt    @FuzzlLeftOfNymn
+	andi.b #PhysicsObjHitWallLeft, d3	; Fuzzl right of Nymn, pushing left, check left wall
+	bne    @NextFuzzl
+	bra    @FuzzlRightOfNymn
+	@FuzzlLeftOfNymn:
+	andi.b #PhysicsObjHitWallRight, d3	; Fuzzl left of Nymn, pushing right, check right wall
+	bne    @NextFuzzl
+	@FuzzlRightOfNymn:
+
 	; Check not touching Nymn
 	ENTITY_GETBOUNDS d1,d2,d5,a2
 	ENTITY_GETBOUNDS d3,d4,d5,a3
@@ -3503,16 +3545,12 @@ EchoAI_PushInteractionFuzzl:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
-	; Get Fuzzl pos
-	move.w Entity_WorldPosX(a2), d0
-	move.w Entity_WorldPosY(a2), d1
-
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
-	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
+	move.w #Echo_AINodeTolerancePushFuzzlX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushFuzzlY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
@@ -3521,25 +3559,20 @@ EchoAI_PushInteractionFuzzl:
 	btst.b #Fuzzl_State_Rolling, Fuzzl_State_Bits(a2)
 	bne    @AlreadyUsed
 	move.b #0x1, EchoAINode_LerpCamera(a3)
-	PUSHMW d0-d1
 	jsr    EchoStartTalk
-	POPMW  d0-d1
 	@AlreadyUsed:
 
 	; Determine direction to roll in (towards Nymn)
 	move.l (Player1), a4
-	move.w Entity_WorldPosX(a4), d2
-	sub.w  d0, d2
+	ENTITY_GETCENTREX d0,a0
+	ENTITY_GETCENTREX d2,a4
+	sub.l  d0, d2
 	blt    @RightSide
-	subi.w #Echo_AINodeTolerancePushObjX, d0		; Left side of Fuzzl (Fuzzl pos - threshold)
+	move.w #-Echo_AINodeTolerancePushObjX, EchoAINode_PosXOffset(a3)	; Left side of Fuzzl
 	bra    @LeftSide
 	@RightSide:
-	add.w  Entity_Width(a2), d0			; Right side of Fuzzl (Fuzzl pos + Fuzzl width + threshold)
-	addi.w #Echo_AINodeTolerancePushObjX, d0
+	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_PosXOffset(a3)	; Right side of Fuzzl
 	@LeftSide:
-
-	move.w d0, EchoAINode_PosX(a3)
-	move.w d1, EchoAINode_PosY(a3)
 
 	rts
 
