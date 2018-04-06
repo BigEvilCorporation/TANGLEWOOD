@@ -74,15 +74,24 @@ TriggerBoxLoadGfx:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Add to world grid
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates), d0
-	jsr     EntityAddToWorldGrid
-
 	; Legacy settings
 	tst.b  TriggerBox_XOnly(a0)
 	beq    @NoTriggerXOnly
+
+	; Set X-only trigger type
 	move.b #TriggerType_ContainedX, TriggerBox_TriggerType(a0)
+
+	; Add to update list
+	jsr    EntityAddToUpdateList
+
+	bra    @End
 	@NoTriggerXOnly:
+
+	; Add to world grid
+	move.b #(1<<EntityWorldGridFlag_GridUpdates), d0
+	jsr    EntityAddToWorldGrid
+
+	@End:
 
 	rts
 
