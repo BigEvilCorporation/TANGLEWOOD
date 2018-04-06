@@ -2214,6 +2214,10 @@ PlayerInteractTest_Pet:
 	move.b PhysicsObj_CloseToFloor(a0), d0
 	beq    @CannotRide
 
+	; Player must not be mid jump
+	tst.l  PhysicsObj_VelY(a0)
+	bgt    @CannotRide
+
 	; Pet must be on screen
 	tst.b  SpriteObj_SpriteLinked(a2)
 	beq    @CannotRide
@@ -2839,6 +2843,14 @@ PlayerInteractTest_BouncePlants:
 	; a1 --- Level addr
 	
 	IFND DEBUG
+
+	; Not if dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
+
+	; Not if interacting
+	cmp.b  #Player_Interaction_None, Player_InteractionType(a0)
+	bne    @AlreadyInteracting
 	
 	move.w (EntityCount_BouncePlant), d6
 	beq    @NoPlants
@@ -2910,6 +2922,7 @@ PlayerInteractTest_BouncePlants:
 	move.l #0x0, Player_LastBouncePlant(a0)
 
 	@AlreadyInteracting:
+	@Dead:
 	@End:
 
 	ENDIF
