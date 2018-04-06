@@ -77,8 +77,8 @@ PhysicsWorldPreStep:
 	move.w #0x0, Platform_TotalMass(a3)
 	move.b #0x0, Platform_Occupied(a3)
 	move.l Platform_VelX(a3), d0		; Check velocity
-	add.b  Platform_Dirty(a3), d0		; and dirty flag
-	add.l  Platform_VelY(a3), d0		; Y last for longword Z check
+	or.b   Platform_Dirty(a3), d0		; and dirty flag
+	or.l   Platform_VelY(a3), d0		; Y last for longword Z check
 	beq    @NextPlatform
 	LIST_APPEND_TAIL MovingPlatforms,a3,a4
 	move.b #0x0, Platform_Dirty(a3)		; Clear dirty flag
@@ -112,7 +112,7 @@ PhysicsWorldPreStep:
 	beq    @NoBarrier
 	move.l #0x0, Barrier_TotalHitVel(a3)
 	move.l Barrier_VelX(a3), d0
-	add.l  Barrier_VelY(a3), d0
+	or.l   Barrier_VelY(a3), d0
 	beq    @NextBarrier
 	LIST_APPEND_TAIL MovingBarriers,a3,a4
 	@NextBarrier:

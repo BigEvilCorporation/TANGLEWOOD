@@ -2011,6 +2011,10 @@ PhysicsObjFindMovingFloor:
 	move.l a3, PhysicsObj_LastPlatform(a0)
 	move.b #0x1, PhysicsObj_OnPlatform(a0)
 
+	; Considered moving, update grid cell
+	move.b #0x0, d1
+	jsr    EntityUpdateWorldGridIndex
+
 	bra    @FoundPlatform
 	
 	@NextPlatform:
@@ -2155,6 +2159,10 @@ PhysicsObjFindMovingBarrier:
 	add.l  d2, Entity_WorldPosX(a0)
 	@ObjToLeft:
 	@NoBarrierVel:
+
+	; Considered moving, update grid cell
+	move.b #0x0, d1
+	jsr    EntityUpdateWorldGridIndex
 
 	bra    @FoundBarrier
 
