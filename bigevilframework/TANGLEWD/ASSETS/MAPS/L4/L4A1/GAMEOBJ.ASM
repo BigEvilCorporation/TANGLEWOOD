@@ -552,7 +552,7 @@ L4A1_LoadGameObjects:
 	move.l #0x02180000, Entity_WorldPosY(a0)
 	move.l #L4A1_Trigger_EchoUnderground, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
+	move.l #Player2, TriggerBox_WatchObject(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L4A1_TriggerBox_EchoFollowUnderground_name, a3
