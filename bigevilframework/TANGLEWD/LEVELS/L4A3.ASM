@@ -312,6 +312,10 @@ l3a3_ReleaseTraps:
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
 	jsr   TrapDeactivate
 
+	; Disable bridge (so Echo can't follow down)
+	ENTITY_GETBYNAME Bridge, l4a3_Bridge1, a0
+	jsr   BridgeBeginUnroll
+
 	; Re-enable Echo AI
 	move.l Player2, a0
 	move.b #0x1, d0
