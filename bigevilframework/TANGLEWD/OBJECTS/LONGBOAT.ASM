@@ -135,30 +135,30 @@ LongboatUpdate:
 	; Base functionality
 	jsr    PhysicsObjUpdate
 
-	move.b  #0x0, Longboat_Visible(a0)
+	; Check visibility of all segments
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	CAMERA_GETSCREENBOUNDS_VEC2 d3,d4,d5
 	jsr    PHYS_TestBoxIntersectBox
-	tst.b  d0
-	beq    @Invisible
-	move.b  #0x1, Longboat_Visible(a0)
+	move.b d0, Longboat_Visible(a0)
 
 	; Update segment positions/acceleration
 	jsr    LongboatUpdateSegments
-	bra    @Visible
 
-	@Invisible:
+	; If moving, remove from world grid
+	tst.l  PhysicsObj_VelX(a0)
+	beq    @Stationary
+	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	beq    @EndWorldGrid
+	jsr    EntityRemoveFromWorldGrid
+	bra    @EndWorldGrid
 
-	; else clear platform velocities
-	lea    Longboat_Platforms(a0), a3
-	move.w #Longboat_NumSegments-1, d6
-	@SegmentLp:
-	move.l #0x0, Platform_VelX(a3)
-	move.l #0x0, Platform_VelY(a3)
-	lea    Platform_Struct_Size(a3), a3
-	dbra   d6, @SegmentLp
-
-	@Visible:
+	; If stationary, add back to world grid
+	@Stationary:
+	btst.b #EntityWorldGridFlag_InWorldGrid, Entity_WorldGridFlags(a0)
+	bne    @EndWorldGrid
+	move.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
+	jsr    EntityAddToWorldGrid
+	@EndWorldGrid:
 
 	rts
 
