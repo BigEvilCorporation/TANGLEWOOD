@@ -1327,11 +1327,25 @@ EchoAIUpdate_FollowNodes:
 
 	move.b EchoAINode_Action(a3), d7
 
-	; Set target
-	move.w EchoAINode_PosX(a3), d1
+	; Get target
 	move.w EchoAINode_PosY(a3), d2
+	move.w EchoAINode_PosX(a3), d1
+	bne    @PosOk
+	; No pos, use object centre
+	move.l EchoAINode_Object(a3), a4
+	IFND FINAL
+	cmpa   #0x0, a4
+	bne    @ObjOk
+	RAISE_EXCEPTION *
+	@ObjOk:
+	ENDIF
+	ENTITY_GETCENTREX d1,a4
+	ENTITY_GETCENTREY d2,a4
+	TOPIXELS d1
+	TOPIXELS d2
+	@PosOk:
 
-	; Set tolerance
+	; Get tolerance
 	move.w EchoAINode_ToleranceX(a3), d3
 	move.w EchoAINode_ToleranceY(a3), d4
 
@@ -3651,14 +3665,11 @@ EchoAI_PushInteractionRaft:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
-	ENTITY_GETCENTREX d0, a2
-	TOPIXELS d0
-
 	; Push raft node
 	jsr    EchoAIPushNode
 	move.l a2, EchoAINode_UserData(a3)
-	move.w d0, EchoAINode_PosX(a3)
-	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
+	move.w #0x0, EchoAINode_PosX(a3)	; Use object to determine pos, could be moving
+	move.w #0x0, EchoAINode_PosY(a3)
 	move.w #Echo_AINoNodeVelocity, EchoAINode_VelX(a3)
 	move.w #Echo_AINodeToleranceRaftX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceRaftY, EchoAINode_ToleranceY(a3)
