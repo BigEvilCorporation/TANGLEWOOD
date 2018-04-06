@@ -523,6 +523,15 @@ l3a3TriggerEchoIntro:
 	move.w #0x1, Player_ColourChangeTimer(a2)
 	@NoPower:
 
+	; Remove crate from world grid
+	PUSHL  a0
+	ENTITY_GETBYNAME Crate, l3a3_CrateDjakkBoss, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    PhysicsWorldAddObject
+	POPL   a0
+
 	bra    @End
 
 	@DjakkDead:
