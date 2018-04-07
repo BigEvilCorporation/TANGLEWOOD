@@ -564,6 +564,10 @@ l3a3_CutsceneSaveEcho:
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+
 	; Start enemy approach track
 	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
 
@@ -631,6 +635,10 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
 
 	; Start meet Echo track
 	CUTSCENE_PLAY_TRACK #track_bgm_meetecho

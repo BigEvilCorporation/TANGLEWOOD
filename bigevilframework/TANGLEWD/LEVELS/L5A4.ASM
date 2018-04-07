@@ -265,6 +265,12 @@ l5a4_CutsceneCargoLift:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
+
 	; Start lift
 	CUTSCENE_GET_ENTITY CargoLift, l5a4_CargoLift,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateUp
@@ -290,6 +296,12 @@ l5a4_Cutscene:
 	; Stop player movement and disable control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Stop ambience SFX
 	CUTSCENE_ROUTINE StopAmbientSFX,#0x0,#0x0,#0x0

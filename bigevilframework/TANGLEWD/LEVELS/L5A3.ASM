@@ -484,6 +484,12 @@ l5a3_CutsceneLoadLift1:
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
+
 	; Disable Echo AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
 
@@ -526,6 +532,12 @@ l5a3_CutsceneLoadLift2:
 
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Disable Echo AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
@@ -592,6 +604,12 @@ l5a3_CutsceneRevealScrap:
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Load black palette
 	CUTSCENE_GAME_PALETTE_LOAD #palette_fade_black, #PaletteId_Monster
@@ -681,6 +699,12 @@ l5a3_CutsceneRaftStart:
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Camera lerp
 	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08

@@ -411,6 +411,12 @@ l4a3_CutsceneLoadLift:
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
+
 	; Disable Echo AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
 
@@ -440,6 +446,12 @@ l4a3_CutsceneEchoTrapped:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
+
 	; Wait
 	CUTSCENE_DELAY #0x0020
 
@@ -465,6 +477,12 @@ l4a3_CutsceneRevealBorgus:
 	; Disable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Disable howling
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Nymn_CanHowl,#0x0
