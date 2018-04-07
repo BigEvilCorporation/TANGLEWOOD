@@ -28,12 +28,17 @@ VDP_SetCellPlaneA:
 	lsr.w   #0x2, d3				; Shift lower word back
 	swap    d3                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d3 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d3, vdp_control        	; Move dest address to VDP control port
 
 	andi.w  #0x3, d2
 	ror.w   #0x3, d2				; Shift palette ID to bits 14-13
 	or.w     d0, d2                 ; OR in the tile ID
 	move.w   d2, vdp_data           ; Move palette and pattern ID to VDP data port
+
+	RESTORE_INTERRUPTS
 	
 	rts
 
@@ -57,12 +62,17 @@ VDP_SetCellPlaneB:
 	lsr.w   #0x2, d3				; Shift lower word back
 	swap    d3                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d3 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d3, vdp_control        	; Move dest address to VDP control port
 
 	andi.w  #0x3, d2
 	ror.w   #0x3, d2				; Shift palette ID to bits 14-13
 	or.w     d0, d2                 ; OR in the tile ID
 	move.w   d2, vdp_data           ; Move palette and pattern ID to VDP data port
+
+	RESTORE_INTERRUPTS
 	
 	rts
 	
@@ -81,6 +91,9 @@ VDP_LoadMapPlaneA:
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
 	andi.w  #0x3, d3
@@ -95,6 +108,8 @@ VDP_LoadMapPlaneA:
 	add.w   d2, d4                 ; Add first tile offset to d4
 	move.w  d4, vdp_data           ; Move to VRAM
 	dbra.w  d0, @Copy              ; Loop
+
+	RESTORE_INTERRUPTS
 
     rts
 	
@@ -113,6 +128,9 @@ VDP_LoadMapPlaneB:
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
 	andi.w  #0x3, d3
@@ -127,6 +145,8 @@ VDP_LoadMapPlaneB:
 	add.w   d2, d4                 ; Add first tile offset to d4
 	move.w  d4, vdp_data           ; Move to VRAM
 	dbra.w  d0, @Copy              ; Loop
+
+	RESTORE_INTERRUPTS
 
     rts
 
@@ -337,6 +357,8 @@ VDP_LoadBlockPlaneA:
 		; Fetch address offset
 		move.l d4, d1
 
+		DISABLE_INTERRUPTS
+
 		; Set VDP dest address
 		VDP_SETADDRESS d1, #vram_addr_plane_a, #vdp_cmd_vram_write
 		
@@ -357,6 +379,8 @@ VDP_LoadBlockPlaneA:
 			move.l d1, vdp_data           ; Move to VRAM
 			
 		endr							; Loop
+
+		RESTORE_INTERRUPTS
 
 		; Offset to next row
 		addi.w #vdp_plane_width*size_word, d4
@@ -391,6 +415,8 @@ VDP_LoadBlockPlaneB:
 		; Fetch address offset
 		move.l  d4, d1
 
+		DISABLE_INTERRUPTS
+
 		; Set VDP dest address
 		VDP_SETADDRESS d1, #vram_addr_plane_b, #vdp_cmd_vram_write
 
@@ -407,6 +433,8 @@ VDP_LoadBlockPlaneB:
 
 		; Offset to next row
 		addi.l  #vdp_plane_width*size_word, d4
+
+		RESTORE_INTERRUPTS
 
 	; Loop to next row
 	dbra.w  d5, @RowLoop
@@ -669,6 +697,9 @@ VDP_LoadMapSegmentPlaneA:
 		lsr.w   #0x2, d0				; Shift lower word back
 		swap    d0                     	; Swap address hi/lo
 		ori.l   #vdp_cmd_vram_write, d0 ; OR in VRAM write command
+
+		DISABLE_INTERRUPTS
+
 		move.l  d0, vdp_control        	; Move dest address to VDP control port
 	
 		; Loop columns
@@ -691,6 +722,8 @@ VDP_LoadMapSegmentPlaneA:
 			move.w  d0, vdp_data
 		
 		dbra d6, @ColumnLp
+
+		RESTORE_INTERRUPTS
 		
 		; Increment start of curr row (source) by 1 row (total map width)
 		add.l d3, a0
@@ -715,13 +748,18 @@ VDP_ClearMapPlaneA:
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
-	move.w  #vdp_plane_size_t, d0  ; Num words in d0, minus 1 for counter
+	move.w  #vdp_plane_size_t, d0   ; Num words in d0, minus 1 for counter
 	
 	@Copy:
-	move.w  #0x0, vdp_data           ; Move to VRAM
-	dbra.w  d0, @Copy              ; Loop
+	move.w  #0x0, vdp_data          ; Move to VRAM
+	dbra.w  d0, @Copy               ; Loop
+
+	RESTORE_INTERRUPTS
 	
 	rts
 
@@ -738,6 +776,9 @@ VDP_ClearMapPlaneB:
 	lsr.w   #0x2, d1				; Shift lower word back
 	swap    d1                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d1 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d1, vdp_control        	; Move dest address to VDP control port
 
 	move.w  #vdp_plane_size_t, d0  ; Num words in d0, minus 1 for counter
@@ -745,29 +786,39 @@ VDP_ClearMapPlaneB:
 	@Copy:
 	move.w  #0x0, vdp_data           ; Move to VRAM
 	dbra.w  d0, @Copy              ; Loop
+
+	RESTORE_INTERRUPTS
 	
 	rts
 	
 VDP_SetHScrollPlaneA:
 	; d0 (w) HScroll value
+	DISABLE_INTERRUPTS
 	move.l #vdp_write_hscroll_a, vdp_control
 	move.w d0, vdp_data
+	RESTORE_INTERRUPTS
 	rts
 
 VDP_SetVScrollPlaneA:
 	; d0 (w) VScroll value
+	DISABLE_INTERRUPTS
 	move.l #vdp_write_vscroll_a, vdp_control
 	move.w d0, vdp_data
+	RESTORE_INTERRUPTS
 	rts
 	
 VDP_SetHScrollPlaneB:
 	; d0 (w) HScroll value
+	DISABLE_INTERRUPTS
 	move.l #vdp_write_hscroll_b, vdp_control
 	move.w d0, vdp_data
+	RESTORE_INTERRUPTS
 	rts
 
 VDP_SetVScrollPlaneB:
 	; d0 (w) VScroll value
+	DISABLE_INTERRUPTS
 	move.l #vdp_write_vscroll_b, vdp_control
 	move.w d0, vdp_data
+	RESTORE_INTERRUPTS
 	rts

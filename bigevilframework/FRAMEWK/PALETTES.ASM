@@ -16,12 +16,17 @@ PAL_Load:
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_cram_write, d0 ; OR in CRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d0, vdp_control        	; Move dest address to VDP control port
 
 	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette in words (-1 for loop counter)
 	@PaletteCopy:
 	move.w (a0)+, vdp_data          ; Move word to CRAM
 	dbra.w d0, @PaletteCopy
+
+	RESTORE_INTERRUPTS
 
 	rts
 	
@@ -88,11 +93,16 @@ PAL_Clear:
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_cram_write, d0 ; OR in CRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d0, vdp_control        	; Move dest address to VDP control port
 
 	move.l #(size_palette_b/size_word)-1, d0 ; Size of palette in words (-1 for loop counter)
 	@PaletteClr:
 	move.w #0x0, vdp_data          ; Move word to CRAM
 	dbra.w d0, @PaletteClr
+
+	RESTORE_INTERRUPTS
 	
 	rts

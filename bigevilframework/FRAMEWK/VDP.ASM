@@ -18,12 +18,16 @@ VDP_Init:
 	move.l #(vdp_num_registers-1), d0 ; 24 registers to write (-1 for loop counter)
 	move.l #vdp_write_register, d1    ; 'Set register 0' command
 
+	DISABLE_INTERRUPTS
+
 	@CopyVDP:
 	move.b (a0)+, d1           ; Move register value to lower byte of d1
 	move.b d1, (a1)+		   ; Move to local table
 	move.w d1, vdp_control     ; Write command and value to VDP control port
 	addi.w #0x0100, d1          ; Increment register #
 	dbra   d0, @CopyVDP
+
+	RESTORE_INTERRUPTS
 	
 	; Clear VDP memory
 	jsr VDP_ClearVRAM
@@ -34,12 +38,16 @@ VDP_Init:
 	
 VDP_ClearVRAM:
 
+	DISABLE_INTERRUPTS
+
 	move.w #0x8F01, vdp_control     ; Set autoincrement to 1 byte
 	move.w #0x93FF, vdp_control     ; Set bytes to fill (lo) (reg 19)
 	move.w #0x94FF, vdp_control     ; Set bytes to fill (hi) (reg 20)
 	move.w #0x9780, vdp_control     ; Set DMA to Fill (reg 23, bits 0-1)
 	move.l #vdp_cmd_dma_vram_write, vdp_control ; Set destination address
 	move.w #0x0, vdp_data           ; Value to write
+
+	RESTORE_INTERRUPTS
 
 	@WaitForDMA_vram:                    
 	move.w vdp_control, d1          ; Read VDP status reg
@@ -50,11 +58,15 @@ VDP_ClearVRAM:
 	
 VDP_ClearVSRAM:
 
+	DISABLE_INTERRUPTS
+
 	move.w #0x9350, vdp_control     ; Set bytes to fill (lo) (reg 19)
 	move.w #0x9400, vdp_control     ; Set bytes to fill (hi) (reg 20)
 	move.w #0x9780, vdp_control     ; Set DMA to Fill (reg 23, bits 0-1)
 	move.l #vdp_cmd_dma_vsram_write, vdp_control ; Set destination address
 	move.w #0x0, vdp_data           ; Value to write
+
+	RESTORE_INTERRUPTS
 
 	@WaitForDMA_vsram:                    
 	move.w vdp_control, d1          ; Read VDP status reg
@@ -67,11 +79,15 @@ VDP_ClearVSRAM:
 	
 VDP_ClearCRAM:
 
+	DISABLE_INTERRUPTS
+
 	move.l #vdp_write_palettes, vdp_control ; Write to palette memory
 	move.l #0x3F, d1                        ; CRAM size (in words)
 	@ClrCRAM:
 	move.w #0x0, vdp_data                   ; Write 0 (autoincrement is 2)
 	dbra d1, @ClrCRAM
+
+	RESTORE_INTERRUPTS
 	
 	rts
 
@@ -81,8 +97,7 @@ VDP_DMACopyVRAM:
 	; d1 (w) Size (in words)
 
 	; Disable interrupts
-	PUSHW  sr
-	ori.w  #status_reg_int_disable, sr
+	DISABLE_INTERRUPTS
 	
 	; Size lo (register 13)
 	move.w d1, d2
@@ -144,7 +159,7 @@ VDP_DMACopyVRAM:
 	VDP_SETREG 1, d4
 
 	; Restore interrupts
-	POPW    sr
+	RESTORE_INTERRUPTS
 	
 	rts
 	
@@ -154,8 +169,7 @@ VDP_DMACopyCRAM:
 	; d1 (w) Size (in words)
 
 	; Disable interrupts
-	PUSHW  sr
-	ori.w  #status_reg_int_disable, sr
+	DISABLE_INTERRUPTS
 	
 	; Size lo (register 13)
 	move.w d1, d2
@@ -217,7 +231,7 @@ VDP_DMACopyCRAM:
 	VDP_SETREG 1, d4
 
 	; Restore interrupts
-	POPW    sr
+	RESTORE_INTERRUPTS
 
 	rts
 
@@ -225,6 +239,8 @@ VDP_VRAMCopy:
 	; d0 (w) Source address (VRAM)
 	; d1 (w) Dest address (VRAM)
 	; d2 (w) Size (in bytes)
+
+	DISABLE_INTERRUPTS
 	
 	; Size lo (register 13)
 	move.w d2, d5
@@ -292,6 +308,8 @@ VDP_VRAMCopy:
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
 	VDP_SETREG 0x1, d4
 	VDP_SETREG 0xF, d5
+
+	RESTORE_INTERRUPTS
 	
 	rts
 

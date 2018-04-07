@@ -191,6 +191,7 @@ VDP_SETHINT macro line
 
 ; DMA to VDP VRAM
 VDP_DMA_VRAM: macro src, dest, len, tmpreg
+	DISABLE_INTERRUPTS
     move.l  #0x94009300|((\len)<<7&0x00FF0000)|((\len)>>1&0xFF), vdp_control
     move.l  #0x96009500|((\src)<<7&0x00FF0000)|((\src)>>1&0xFF), vdp_control
     move.w  #0x9700|((\src)>>17&0x7F), vdp_control
@@ -200,10 +201,12 @@ VDP_DMA_VRAM: macro src, dest, len, tmpreg
     move.l  #vdp_cmd_dma_vram_write|((\dest)&0x3FFF)<<16|(\dest)>>14, vdp_control
 	andi.b  #0xEF, \tmpreg
 	VDP_SETREG 1, \tmpreg
+	RESTORE_INTERRUPTS
     endm
 
 ; DMA to VDP CRAM
 VDP_DMA_CRAM: macro src, dest, len, tmpreg
+	DISABLE_INTERRUPTS
     move.l  #0x94009300|((\len)<<7&0x00FF0000)|((\len)>>1&0xFF), vdp_control
     move.l  #0x96009500|((\src)<<7&0x00FF0000)|((\src)>>1&0xFF), vdp_control
     move.w  #0x9700|((\src)>>17&0x7F), vdp_control
@@ -213,6 +216,7 @@ VDP_DMA_CRAM: macro src, dest, len, tmpreg
     move.l  #vdp_cmd_dma_cram_write|((\dest)&0x3FFF)<<16|(\dest)>>14, vdp_control
 	andi.b  #0xEF, \tmpreg
 	VDP_SETREG 1, \tmpreg
+	RESTORE_INTERRUPTS
     endm
 
 ;==============================================================

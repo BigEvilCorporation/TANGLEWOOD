@@ -158,10 +158,6 @@ VDP_DMAQueue_ExecuteAll:
 	cmp.l  a1, a2
 	beq    @NoJobs
 
-	; Disable interrupts
-	PUSHW  sr
-	ori.w  #status_reg_int_disable, sr
-
 	; Backup VDP regs 1 (DMA enable) and F (autoincrement)
 	VDP_GETREG 0x1, d4
 	VDP_GETREG 0xF, d6
@@ -175,10 +171,12 @@ VDP_DMAQueue_ExecuteAll:
 	
 	; Execute jobs
 	@QueueLoop:
+	DISABLE_INTERRUPTS
 	move.l (a1)+, (a6)	; Size hi/lo
 	move.l (a1)+, (a6)	; Source addr hi/mid + DMA mode
 	move.l (a1)+, (a6)	; Source addr lo + dest addr/DMA command hi word
 	move.l (a1)+, (a6)	; Autoincrement command, and dest addr/DMA command lo word
+	RESTORE_INTERRUPTS
 	cmp.l  a1, a2
 	bne    @QueueLoop
 
@@ -188,9 +186,6 @@ VDP_DMAQueue_ExecuteAll:
 	; Restore VDP regs 1 (DMA enable) and F (autoincrement)
 	VDP_SETREG 0x1, d4
 	VDP_SETREG 0xF, d6
-
-	; Restore interrupts
-	POPW    sr
 	
 	; Clear queue
 	move.l #vdp_dma_queue, vdp_dma_queue_next

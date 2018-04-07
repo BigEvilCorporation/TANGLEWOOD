@@ -507,6 +507,9 @@ Credits_ClearTopLine:
 	lsr.w   #0x2, d4				; Shift lower word back
 	swap    d4                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d4 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+
 	move.l  d4, vdp_control        	; Move dest address to VDP control port
 
 	; Map tile bit pattern: LPPH VTTT TTTT TTTT (L=lo/hi plane, P=Palette, H=HFlip, V=VFlip, T=TileId)
@@ -523,6 +526,8 @@ Credits_ClearTopLine:
 	clr.w    d4                     ; Clear tile ID
 	move.w   d4, vdp_data           ; Move palette and tile ID to VDP data port
 	dbra     d3, @CharCopy          ; Next tile
+
+	RESTORE_INTERRUPTS
 
 	@OutOfBounds:
 

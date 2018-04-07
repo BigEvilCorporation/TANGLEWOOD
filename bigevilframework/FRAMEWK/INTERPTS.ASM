@@ -9,13 +9,13 @@
 INT_LoadHBlank:
 	; a0 --- Interrupt address
 	
-	jsr VDP_DisableVINT
+	DISABLE_INTERRUPTS
 	
 	lea HBlankInterrupt, a1
 	move.l #(hint_max_size/size_long), d0
 	MEMCPYL a1,a0,d0
 	
-	jsr VDP_EnableVINT
+	RESTORE_INTERRUPTS
 	
 	rts
 

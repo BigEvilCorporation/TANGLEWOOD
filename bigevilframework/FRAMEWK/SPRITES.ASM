@@ -27,16 +27,23 @@ VDP_LoadSpriteTable:
 	lsl.w   #0x3, d0         			 ; Offset into sprite table (sprite desc = 8 bytes)
 	swap    d0                           ; To upper word
 	or.l    #vdp_write_sprite_table, d0  ; Add to write address
+
+	DISABLE_INTERRUPTS
+
 	move.l	d0, vdp_control				 ; Set read address
 	
 	move.l	(a0)+, vdp_data    			 ; 8 bytes of data
 	move.l	(a0)+, vdp_data
+
+	RESTORE_INTERRUPTS
 	
 	rts
 	
 VDP_LoadSpriteTables:
 	; a0 --- Sprite data address
 	; d0 (b) Number of sprites
+
+	DISABLE_INTERRUPTS
 
 	move.l	#vdp_write_sprite_table, vdp_control
 	
@@ -46,6 +53,8 @@ VDP_LoadSpriteTables:
 	move.l	(a0)+, vdp_data    ; 8 bytes of data
 	move.l	(a0)+, vdp_data
 	dbra	d0, @AttrCopy
+
+	RESTORE_INTERRUPTS
 	
 	rts
 	

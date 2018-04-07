@@ -18,6 +18,9 @@ VDP_LoadTiles:
 	lsr.w   #0x2, d0				; Shift lower word back
 	swap    d0                     	; Swap address hi/lo
 	ori.l   #vdp_cmd_vram_write, d0 ; OR in VRAM write command
+
+	DISABLE_INTERRUPTS
+	
 	move.l  d0, vdp_control        	; Move dest address to VDP control port
 	
 	and.l   #0x0000FFFF, d1
@@ -35,6 +38,8 @@ VDP_LoadTiles:
 	move.l	(a0)+, vdp_data
 	
 	dbra	d1, @CharCopy
+
+	RESTORE_INTERRUPTS
 	
 	rts
 	
