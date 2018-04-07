@@ -168,6 +168,11 @@ l8a5_Init:
 	; Adjust lift speed
 	MOVE_NTSC_L l8a5_LiftSpeedUp, PhysicsObj_MaxVelYUp(a0), d0
 
+	; Don't allow Fuzzl on platforms (it could spawn on the crate and
+	; get pushed into spike pit)
+	ENTITY_GETBYNAME Fuzzl,l8a5_FuzzlRed1,a2
+	move.b #0x0, PhysicsObj_CollidePlatforms(a2)
+
 	;==============================================================
 
 	; If collected all fireflies, activate Nymn, start Echo AI
