@@ -279,8 +279,8 @@ L7A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x1d980000, Entity_WorldPosX(a0)
-	move.l #0x04c80000, Entity_WorldPosY(a0)
+	move.l #0x1cf80000, Entity_WorldPosX(a0)
+	move.l #0x04800000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L7A2_Firefly_24_name, a3
