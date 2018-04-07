@@ -80,6 +80,13 @@ ENTITY_GETCENTREX: macro destreg,addrreg
 	lsr.l   #0x1, \destreg  ; div/2
 	add.l   Entity_WorldPosX(\addrreg), \destreg
 	endm
+
+ENTITY_GETCENTREXW: macro destreg,addrreg
+	moveq #0x0,   \destreg
+	move.w  Entity_Width(\addrreg), \destreg
+	lsr.w   #0x1, \destreg  ; div/2
+	add.w   Entity_WorldPosX(\addrreg), \destreg
+	endm
 	
 ENTITY_GETCENTREY: macro destreg,addrreg
 	moveq #0x0,   \destreg
@@ -87,6 +94,13 @@ ENTITY_GETCENTREY: macro destreg,addrreg
 	TOSUBPIXELS \destreg	; To subpixels
 	lsr.l   #0x1, \destreg  ; div/2
 	add.l   Entity_WorldPosY(\addrreg), \destreg
+	endm
+
+ENTITY_GETCENTREYW: macro destreg,addrreg
+	moveq #0x0,   \destreg
+	move.w  Entity_Height(\addrreg), \destreg
+	lsr.w   #0x1, \destreg  ; div/2
+	add.w   Entity_WorldPosY(\addrreg), \destreg
 	endm
 
 ENTITY_GETDRAWPOSVEC2: macro destreg,tmpreg1,tmpreg2,addrreg

@@ -165,7 +165,7 @@ HandlePlayerInput:
 	@NotClimbing:
 
 	; =====================================================================
-	; Up/Down - Y Peek (if not climbing,a nd on floor)
+	; Up/Down - Y Peek (if not climbing, and on floor)
 	; =====================================================================
 
 	tst.b PhysicsObj_CloseToFloor(a0)
