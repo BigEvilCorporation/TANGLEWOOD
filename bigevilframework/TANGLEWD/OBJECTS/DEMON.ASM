@@ -158,7 +158,7 @@ DemonLoadGfx:
 	tst.b   Demon_ManualGfxLoad(a0)
 	bne     @ManualLoad
 
-	; Load sprite
+	; Load default sprite
 	SPRITE_LOAD_DEFAULT demon,wisp,palette_demon,PaletteId_Monster,0x0
 
 	@ManualLoad:
@@ -181,26 +181,34 @@ DemonLoadGfx:
 
 DemonLoadWispGfx:
 
-	; Load wisp sprite
-	SPRITE_LOAD_SHARED_VRAM Demon,wisp,palette_demon,PaletteId_Monster,0x0,a0
+	; Load wisp sprite at existing VRAM address
+	SPRITE_LOAD_COPY Demon,wisp,palette_demon,PaletteId_Monster,0x0,a0
 
 	; Load anims
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
 
+	; Force an animation update
+	move.b #0x1, AnimObj_Dirty(a0)
+	move.b #0x1, AnimObj_UploadFrame(a0)
+
 	rts
 
 DemonLoadPhysicalGfx:
 
-	; Load demon sprite
-	SPRITE_LOAD_SHARED_VRAM Demon,idle,palette_demon,PaletteId_Monster,0x0,a0
+	; Load demon sprite at existing VRAM address
+	SPRITE_LOAD_COPY Demon,idle,palette_demon,PaletteId_Monster,0x0,a0
 
 	; Load idle anim
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT demon,idle,idle,Character_Animations,CharacterAnimIdx_Run,1,0,0
 	ANIM_LOAD_DEFAULT demon,death,death,Character_Animations,CharacterAnimIdx_Dead,0,0,0
+
+	; Force an animation update
+	move.b #0x1, AnimObj_Dirty(a0)
+	move.b #0x1, AnimObj_UploadFrame(a0)
 
 	rts
 
