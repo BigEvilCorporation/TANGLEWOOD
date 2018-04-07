@@ -2358,6 +2358,10 @@ EchoAIUpdate_Ladder:
 	tst.b  PhysicsObj_Underwater(a0)
 	bne    @InWater
 
+	; If in linear follow mode, always climb down
+	tst.b  Echo_AILinearFollowOnly(a0)
+	bne    @LinearFollow
+
 	; Get Y dist from P1
 	move.l Player1, a3
 	ENTITY_GETCENTREY d0,a0
@@ -2379,6 +2383,8 @@ EchoAIUpdate_Ladder:
 	; Determine direction to climb
 	tst.l  d1
 	blt    @AboveNymn
+
+	@LinearFollow:
 
 	; Climb down
 	jsr    CharacterMoveDown
@@ -2438,11 +2444,12 @@ EchoAIUpdate_Ladder:
 	@Climbing:
 
 	; If Nymn is off ladder, start collecting follow nodes
-	move.l Player1, a2
-	tst.b  Character_Climbing(a2)
-	bne    @NymnOnLadder
-	jsr    EchoAI_WatchNymnMovement
-	@NymnOnLadder:
+	; TODO: erratic behaviour, disabling for now
+	;move.l Player1, a2
+	;tst.b  Character_Climbing(a2)
+	;bne    @NymnOnLadder
+	;jsr    EchoAI_WatchNymnMovement
+	;@NymnOnLadder:
 
 	@End:
 	@Lost:
