@@ -51,9 +51,9 @@ L6a1_DefaultPalettes:
 
 	; L6 is silhouetted throughout
 	dc.l palette_L6					; World
-	dc.l palette_fade_black			; Monster
-	dc.l palette_fade_black			; Fuzzl
-	dc.l palette_fade_black			; Player
+	dc.l palette_fade_black			; Monster (silhouette)
+	dc.l palette_fuzzl				; Fuzzl (used for fireflies)
+	dc.l pal_nymn_red				; Player (used for totem poles)
 	
 	even
 
@@ -99,6 +99,11 @@ L6a1_Init:
 
 	; Load scene animations
 	jsr    L6_LoadSceneAnimations
+
+	;==============================================================
+
+	; Setup silhouette palettes
+	jsr    L6_SetupSilhouetteEffect
 
 	;==============================================================
 
@@ -160,35 +165,6 @@ L6a1_Init:
 	; Don't lerp Djakk palette
 	ENTITY_GETBYNAME Monster, l6a1_Djakk1, a0
 	move.b #0x0, Monster_LerpPalette(a0)
-
-	; Force every sprite object to use palette 1 (silhouette)
-	LIST_GET_HEAD EntityUpdate,a0
-	@UpdateLp:
-	cmpa.w #0x0, a0
-	beq    @UpdateListEnd
-	move.l Entity_TypeBits(a0), d0
-	andi.l #entity_type_spriteobj, d0
-	beq    @NotSpriteUpdate
-	move.b #0x1, SpriteObj_PaletteIdx(a0)
-	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
-	@NotSpriteUpdate:
-	LIST_GET_NEXT EntityUpdate,a0,a0
-	bra    @UpdateLp
-	@UpdateListEnd:
-
-	LIST_GET_HEAD EntityWorldGrid,a0
-	@WorldGridLp:
-	cmpa.w #0x0, a0
-	beq    @WorldGridListEnd
-	move.l Entity_TypeBits(a0), d0
-	andi.l #entity_type_spriteobj, d0
-	beq    @NotSpriteWorldGrid
-	move.b #0x1, SpriteObj_PaletteIdx(a0)
-	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
-	@NotSpriteWorldGrid:
-	LIST_GET_NEXT EntityWorldGrid,a0,a0
-	bra    @WorldGridLp
-	@WorldGridListEnd:
 
 	;==============================================================
 
@@ -352,4 +328,63 @@ L6_SetActData:
 	move.l #LevelData_L6A2, (a2)+
 	move.l #LevelData_L6A3, (a2)+
 	move.w #0x3, CurrentLevelNumActs
+	rts
+
+L6_SetupSilhouetteEffect:
+
+	; Force every sprite object to use monster palette (id 1, silhouette)
+	LIST_GET_HEAD EntityUpdate,a0
+	@UpdateLp:
+	cmpa.w #0x0, a0
+	beq    @UpdateListEnd
+	move.l Entity_TypeBits(a0), d0
+	andi.l #entity_type_spriteobj, d0
+	beq    @NotSpriteUpdate
+	move.b #PaletteId_Monster, SpriteObj_PaletteIdx(a0)
+	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
+	@NotSpriteUpdate:
+	LIST_GET_NEXT EntityUpdate,a0,a0
+	bra    @UpdateLp
+	@UpdateListEnd:
+
+	LIST_GET_HEAD EntityWorldGrid,a0
+	@WorldGridLp:
+	cmpa.w #0x0, a0
+	beq    @WorldGridListEnd
+	move.l Entity_TypeBits(a0), d0
+	andi.l #entity_type_spriteobj, d0
+	beq    @NotSpriteWorldGrid
+	move.b #PaletteId_Monster, SpriteObj_PaletteIdx(a0)
+	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
+	@NotSpriteWorldGrid:
+	LIST_GET_NEXT EntityWorldGrid,a0,a0
+	bra    @WorldGridLp
+	@WorldGridListEnd:
+
+	; ...except totem poles
+	move.l EntityPoolStart_Checkpoint, a0
+	move.w EntityCount_Checkpoint, d0
+	beq    @NoCheckpoints
+	subq   #0x1, d0
+	@CheckpointLp:
+	PUSHW  d0
+	move.b #PaletteId_Player, SpriteObj_PaletteIdx(a0)
+	POPW   d0
+	lea    Checkpoint_Struct_Size(a0), a0
+	dbra   d0, @CheckpointLp
+	@NoCheckpoints:
+
+	; ...and fireflies
+	move.l EntityPoolStart_Firefly, a0
+	move.w EntityCount_Firefly, d0
+	beq    @NoFireflies
+	subq   #0x1, d0
+	@FireflyLp:
+	PUSHW  d0
+	move.b #PaletteId_Fuzzl, SpriteObj_PaletteIdx(a0)
+	POPW   d0
+	lea    Firefly_Struct_Size(a0), a0
+	dbra   d0, @FireflyLp
+	@NoFireflies:
+
 	rts

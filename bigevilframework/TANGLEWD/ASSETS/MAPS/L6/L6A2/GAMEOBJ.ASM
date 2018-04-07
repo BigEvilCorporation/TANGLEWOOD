@@ -1160,8 +1160,8 @@ L6A2_LoadGameObjects:
 	POPL   a1
 
 	jsr CheckpointInit
-	move.l #0x22a80000, Entity_WorldPosX(a0)
-	move.l #0x05000000, Entity_WorldPosY(a0)
+	move.l #0x24080000, Entity_WorldPosX(a0)
+	move.l #0x05400000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
 	lea L6A2_Checkpoint_69_name, a3

@@ -51,9 +51,9 @@ l6a2_DefaultPalettes:
 
 	; L6 is silhouetted throughout
 	dc.l palette_L6					; World
-	dc.l palette_fade_black			; Monster
-	dc.l palette_fade_black			; Fuzzl
-	dc.l palette_fade_black			; Player
+	dc.l palette_fade_black			; Monster (silhouette)
+	dc.l palette_fuzzl				; Fuzzl (used for fireflies)
+	dc.l pal_nymn_red				; Player (used for totem poles)
 	
 	even
 	
@@ -94,6 +94,11 @@ l6a2_Init:
 	; Load scene animations
 	jsr    L6_LoadSceneAnimations
 	
+	;==============================================================
+
+	; Setup silhouette palettes
+	jsr    L6_SetupSilhouetteEffect
+
 	;==============================================================
 
 	; Don't lerp Djakk palettes, disable catchup behaviour, use silhouetted palettes, don't change music
@@ -177,35 +182,6 @@ l6a2_Init:
 	jsr    PhysicsWorldRemoveObject
 	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_worldGridFlags(a0)
 	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_worldGridFlags(a0)
-
-	; Force every sprite object to use palette 1 (silhouette)
-	LIST_GET_HEAD EntityUpdate,a0
-	@UpdateLp:
-	cmpa.w #0x0, a0
-	beq    @UpdateListEnd
-	move.l Entity_TypeBits(a0), d0
-	andi.l #entity_type_spriteobj, d0
-	beq    @NotSpriteUpdate
-	move.b #0x1, SpriteObj_PaletteIdx(a0)
-	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
-	@NotSpriteUpdate:
-	LIST_GET_NEXT EntityUpdate,a0,a0
-	bra    @UpdateLp
-	@UpdateListEnd:
-
-	LIST_GET_HEAD EntityWorldGrid,a0
-	@WorldGridLp:
-	cmpa.w #0x0, a0
-	beq    @WorldGridListEnd
-	move.l Entity_TypeBits(a0), d0
-	andi.l #entity_type_spriteobj, d0
-	beq    @NotSpriteWorldGrid
-	move.b #0x1, SpriteObj_PaletteIdx(a0)
-	move.b #0x0, SpriteObj_PaletteAutoLoad(a0)
-	@NotSpriteWorldGrid:
-	LIST_GET_NEXT EntityWorldGrid,a0,a0
-	bra    @WorldGridLp
-	@WorldGridListEnd:
 
 	;==============================================================
 

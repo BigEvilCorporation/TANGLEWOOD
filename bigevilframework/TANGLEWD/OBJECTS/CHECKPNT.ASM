@@ -49,7 +49,7 @@ CheckpointLoadGfx:
 	; a1 --- Level addr
 	
 	; Load initial sprite (to alloc shared VRAM)
-	SPRITE_LOAD_SHARED checkpnt,inactive,0,PaletteId_Player,0x0
+	SPRITE_LOAD_SHARED checkpnt,inactive,Pal_Nymn_Red,PaletteId_Player,0x0
 
 	; Load correct sprite for current state
 	jsr    CheckpointLoadStateSprite
@@ -66,10 +66,10 @@ CheckpointLoadStateSprite:
 
 	tst.b  Checkpoint_Activated(a0)
 	beq    @Inactive
-	SPRITE_LOAD_SHARED_VRAM checkpnt,active,0,PaletteId_Player,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM checkpnt,active,Pal_Nymn_Red,PaletteId_Player,0x0,a0
 	bra    @Active
 	@Inactive:
-	SPRITE_LOAD_SHARED_VRAM checkpnt,inactive,0,PaletteId_Player,0x0,a0
+	SPRITE_LOAD_SHARED_VRAM checkpnt,inactive,Pal_Nymn_Red,PaletteId_Player,0x0,a0
 	@Active:
 
 	move.b Checkpoint_Activated(a0), CheckpointSpriteLoaded
