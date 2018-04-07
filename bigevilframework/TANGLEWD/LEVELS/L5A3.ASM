@@ -738,6 +738,8 @@ l5a3_Cutscene_SetupLocks:
 	jsr    EntityAddToUpdateList
 	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
 
+	move.b #0x0, d0
+
 	rts
 
 l5a3_Cutscene_LocksFinished:
@@ -748,12 +750,14 @@ l5a3_Cutscene_LocksFinished:
 	jsr    PhysicsWorldRemoveObject
 
 	ENTITY_GETBYNAME Lock, l5a3_Lock1, a0
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
-	jsr     EntityAddToWorldGrid
+	move.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr    EntityAddToWorldGrid
 
 	ENTITY_GETBYNAME Lock, l5a3_Lock2, a0
-	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
-	jsr     EntityAddToWorldGrid
+	move.b #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
+	jsr    EntityAddToWorldGrid
+
+	move.b #0x0, d0
 
 	rts
 
