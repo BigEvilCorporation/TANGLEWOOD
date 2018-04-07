@@ -128,6 +128,7 @@ WyrmInit:
 	MOVE_NTSC_L Wyrm_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x0, PhysicsObj_CollideCeilings(a0)
 	move.b  #0x0, PhysicsObj_CollideBarriers(a0)
+	move.b  #0x0, PhysicsObj_CollidePlatforms(a0)
 
 	MOVE_NTSC_L Wyrm_MaxVelXWalk, Character_MaxVelXWalk(a0), d0
 	MOVE_NTSC_L Wyrm_MaxVelXRun, Character_MaxVelXRun(a0), d0
@@ -572,9 +573,9 @@ WyrmAIStart_Emerge
 	TOPIXELS d5
 	subi.w #vdp_sprite_border_y, d5
 	cmp.w  d5, d3
-	ble    @NotInDune
-	cmp.w  d5, d4
 	bge    @NotInDune
+	cmp.w  d5, d4
+	ble    @NotInDune
 	
 	bra    @AlreadyinDune
 	
