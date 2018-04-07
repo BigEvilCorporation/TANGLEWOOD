@@ -632,6 +632,9 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 
+	; Start meet Echo track
+	CUTSCENE_PLAY_TRACK #track_bgm_meetecho
+
 	; Echo emerges
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed

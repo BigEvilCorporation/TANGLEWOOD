@@ -13,6 +13,7 @@ bgm_boss_l4:		include 'assets\audio\tracks\boss_l4.asm'
 bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_boss_l8:		include 'assets\audio\tracks\boss_l8.asm'
 bgm_boss_l8b:		include 'assets\audio\tracks\boss_l8b.asm'
+bgm_meetecho:		include 'assets\audio\tracks\meetecho.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
 bgm_cue_l1b:		include 'assets\audio\tracks\cue_l1b.asm'
@@ -181,6 +182,16 @@ track_bgm_gameover:
 	dc.b	Audio_Exclusive
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Crossfade
+	even
+
+track_bgm_meetecho:
+	dc.l	bgm_meetecho
+	dc.w	0x0000
+	dc.w	0x0000
+	dc.b	Track_Type_BGM
+	dc.b	Audio_NonExclusive
+	dc.b	SFX_Priority_FootstepSml-1
+	dc.b	Track_Transition_Instant
 	even
 
 track_bgm_cue_l1:
