@@ -7,7 +7,7 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 1
+ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
@@ -1129,9 +1129,15 @@ EchoAIStop:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Set state
 	move.b #EchoAIState_None, Echo_AIState(a0)
+
+	; Cancel movement
 	jsr    CharacterCancelXMovement
 	move.l #0x0, PhysicsObj_VelX(a0)
+
+	; Can use rolling platforms again
+	move.b #0x1, Character_CanUseRollPlatform(a0)
 
 	rts
 
@@ -1162,6 +1168,9 @@ EchoAIStart_Follow:
 	; Reset run state
 	move.b #Character_WalkAI, d2
 	jsr    CharacterAllowRun
+
+	; Can't use rolling platforms
+	move.b #0x0, Character_CanUseRollPlatform(a0)
 	
 	rts
 	
@@ -2939,6 +2948,8 @@ EchoAI_WatchNymnMovement:
 
 	@JumpNode:
 
+	; TODO: If ladder nearby, use that instead
+
 	; Create jump node
 	jsr    EchoAIPushNode
 	move.w Echo_AILastNymnFloorPosX(a0), EchoAINode_PosX(a3)
@@ -3350,10 +3361,11 @@ EchoAI_FindLog:
 	; Check if AI can use
 	tst.b  Log_NoAI(a2)
 	bne    @NextLog
-	
-	; If log on a platform, it's probably supposed to be there, leave it alone
-	;tst.l  PhysicsObj_LastPlatform(a2)
-	;bne    @NextLog
+
+	; If log's platform is occupied, don't bother
+	lea    Log_Platform(a2), a4
+	tst.b  Platform_Occupied(a4)
+	bne    @NextLog
 
 	; Edge case: if Nymn is busy with a button, help out
 	tst.l  PhysicsObj_LastPlatform(a3)

@@ -266,6 +266,7 @@ PlayerInit:
 	move.b  #Player1Mass, PhysicsObj_Mass(a0)
 	move.b  #0x1, PhysicsObj_CollideWallsTop(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
+	move.b  #0x1, Character_CanUseRollPlatform(a0)
 
 	move.b  #ColourRed, Player_Colour(a0)
 	move.b  #0x1, Player_ControlEnabled(a0)

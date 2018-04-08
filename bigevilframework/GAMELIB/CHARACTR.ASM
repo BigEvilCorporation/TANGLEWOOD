@@ -87,6 +87,7 @@ Character_ControlX			rs.b 1
 Character_ControlY			rs.b 1
 Character_CanJump			rs.b 1
 Character_CanClimb			rs.b 1
+Character_CanUseRollPlatform rs.b 1
 Character_Walking			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
@@ -129,6 +130,7 @@ CharacterInit:
 	move.l #0x0, Character_InteractCancelB(a0)
 	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_CanClimb(a0)
+	move.b #0x0, Character_CanUseRollPlatform(a0)
 	move.b #0x0, Character_Walking(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
@@ -229,6 +231,10 @@ CharacterUpdateRollingPlatform:
 
 	; Clear reverse animation
 	move.b #0x0, AnimObj_Reverse(a0)
+
+	; If can use rolling platform
+	tst.b  Character_CanUseRollPlatform(a0)
+	beq    @NotRollingPlatform
 
 	; Clear rolling platform walk flag
 	btst.b #Character_WalkRollingPlatform, Character_Walking(a0)
