@@ -327,6 +327,10 @@ NymnStartInteract:
 
 	@EchoOnFloor:
 
+	; Check if can be carried
+	tst.b  Echo_CanBeCarried(a2)
+	beq    @CannotCarry
+
 	; Bounds test with Echo
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
@@ -345,6 +349,7 @@ NymnStartInteract:
 	bra    @EchoFound
 	
 	@EchoNotFound:
+	@CannotCarry:
 
 	; If in idle state and not waiting on another anim
 	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)

@@ -62,6 +62,7 @@ l4a2_DefaultPalettes:
 	rsset LevelData_Struct_Size
 ;---------------------------------
 	RS_ALIGN
+l4a2Data_ScriptWaterLock		rs.b Cutscene_Struct_Size
 l4a2Data_Struct_Size     		rs.b 0
 	
 l4a2_Init:
@@ -96,6 +97,16 @@ l4a2_Init:
 
 	; HACK: Load L4 specific object sprites
 	jsr    L4_LoadObjectSprites
+
+	;==============================================================
+
+	; Init water lock script
+	PUSHM  a0-a1
+	lea    LevelData_L4A2, a2
+	lea    l4a2Data_ScriptWaterLock(a2), a0
+	move.l #l4a2_ScriptWaterLock, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
 
 	;==============================================================
 
@@ -214,6 +225,164 @@ l4a2_Serialise:
 
 l4a2_End:
 	rts
+
+l4a2_ScriptWaterLock:
+
+	CUTSCENE_START
+
+	; Wait for Echo to stand at AI marker
+	CUTSCENE_ROUTINE l4a2_ScriptWaitAIMarker,#0x0,#0x0,#0x0
+
+	; Disable Echo AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+
+	; Disable Echo pick-up ability
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_CanBeCarried,#0x0
+
+	; Wait for first lock to engage
+	CUTSCENE_ROUTINE l4a2_ScriptWaitFirstLock,#0x0,#0x0,#0x0
+
+	; Wait for raft to hit left-hand wall
+	CUTSCENE_ROUTINE l4a2_ScriptWaitRaftHitLeftWall,#0x0,#0x0,#0x0
+
+	; Enter cutscene mode
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player movement
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Camera lerp to Echo
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+
+	; Make sure Nymn is holding raft against wall, not backing away
+	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#-Longboat_Width/4,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+	CUTSCENE_DELAY #0x0040
+
+	; Echo talks
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
+
+	; Echo walks onto raft
+	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
+
+	; Camera lerp to Nymn
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+
+	; Enable player movement
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Exit cutscene mode
+	CUTSCENE_END_LETTERBOX
+
+	; Wait for raft to hit right-hand wall
+	CUTSCENE_ROUTINE l4a2_ScriptWaitRaftHitRightWall,#0x0,#0x0,#0x0
+
+	; Enter cutscene mode
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player movement
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Camera lerp to Echo
+	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+
+	; Make sure Nymn is holding raft against wall, not backing away
+	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#Longboat_Width/4,#0x08
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
+	CUTSCENE_DELAY #0x0040
+
+	; Echo talks
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
+
+	; Echo walks off raft
+	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#Longboat_Width,#0x08
+
+	; Camera lerp to Nymn
+	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+
+	; Enable player movement
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	; Enable Echo AI
+	move.b #0x1, d0
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
+
+	; Enable Echo pick-up ability
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_CanBeCarried,#0x1
+
+	; Exit cutscene mode
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
+	rts
+
+l4a2_ScriptWaitAIMarker:
+
+	move.b #0x0, d0	; Finished
+
+	move.l Player2, a3
+	cmp.b  #EchoAIState_Barrier, Echo_AIState(a3)
+	beq    @AtMarker
+	move.b #0x1, d0	; Wait
+	@AtMarker:
+
+	rts
+
+l4a2_ScriptWaitFirstLock:
+
+	move.b #0x0, d0	; Finished
+
+	ENTITY_GETBYNAME Pool, l4a2_Pool1, a3
+	cmp.w  #Pool_Height, Pool_WaterHeight(a3)
+	beq    @PoolRaised
+	move.b #0x1, d0	; Wait
+	@PoolRaised:
+
+	rts
+
+l4a2_ScriptWaitRaftHitLeftWall:
+
+	move.b #0x0, d0	; Finished
+
+	ENTITY_GETBYNAME Longboat, l4a2_Longboat2, a3
+	cmp.w  #0x0, PhysicsObj_AccelX(a0)	; Must be shunting the raft against wall, not tickling it
+	bgt    @MovingWrongDirection
+	move.b PhysicsObj_HitWall(a3), d3
+	andi.b #(PhysicsObjHitStaticWall|PhysicsObjHitWallLeft), d3
+	cmp.b  #(PhysicsObjHitStaticWall|PhysicsObjHitWallLeft), d3
+	beq    @HitLeftWall
+	@MovingWrongDirection:
+	move.b #0x1, d0	; Wait
+	@HitLeftWall:
+
+	rts
+
+l4a2_ScriptWaitRaftHitRightWall:
+
+	move.b #0x0, d0	; Finished
+
+	ENTITY_GETBYNAME Longboat, l4a2_Longboat2, a3
+	cmp.w  #0x0, PhysicsObj_AccelX(a0)	; Must be shunting the raft against wall, not tickling it
+	blt    @MovingWrongDirection
+	move.b PhysicsObj_HitWall(a3), d3
+	andi.b #(PhysicsObjHitStaticWall|PhysicsObjHitWallRight), d3
+	cmp.b  #(PhysicsObjHitStaticWall|PhysicsObjHitWallRight), d3
+	beq    @HitLeftWall
+	@MovingWrongDirection:
+	move.b #0x1, d0	; Wait
+	@HitLeftWall:
+
+	rts
 	
 l4a2_Trigger_End:
 
@@ -234,6 +403,13 @@ l4a2_GeneratorActivated:
 	; Enable checkpoint
 	ENTITY_GETBYNAME Checkpoint, l4a2_CheckpointGenerator, a2
 	move.b #0x1, Entity_Active(a2)
+
+	; Begin water lock script
+	PUSHL  a0
+	lea    LevelData_L4A2, a2
+	lea    l4a2Data_ScriptWaterLock(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 
 	rts
 

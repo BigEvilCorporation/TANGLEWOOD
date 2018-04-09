@@ -229,6 +229,7 @@ Echo_AIWaitAtWater			rs.b 1	; Wait if water detected ahead
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_EnteringLadder			rs.b 1
+Echo_CanBeCarried			rs.b 1
 ;---------------------------------
 	RS_ALIGN
 Echo_Struct_Size     		rs.b 0
@@ -282,6 +283,7 @@ EchoInit:
 	move.b #0x0, Echo_AIWaitingForNymnLanding(a0)
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
 	move.b #0x0, Echo_AIWaitAtWater(a0)
+	move.b #0x1, Echo_CanBeCarried(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
