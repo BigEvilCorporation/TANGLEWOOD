@@ -522,30 +522,48 @@ CutsceneStep_ObjectRoutine:
 ; Setup macros
 ;==============================================================
 
-CUTSCENE_FETCH_REGS: macro
+CutsceneFetchRegs:
 	tst.b  Cutscene_RegsStored(a0)						; If regs already stored
-	bne    \@RegsStored\@
+	bne    @RegsStored
 	movem.l a1-a6/d0-d7, Cutscene_RegsBackup(a0)		; Store regs
 	move.b #0x1, Cutscene_RegsStored(a0)				; Set as stored
-	bra    \@EndRegs\@
-	\@RegsStored\@:										; Retrieve regs
+	bra    @EndRegs
+	@RegsStored:										; Retrieve regs
 	movem.l Cutscene_RegsBackup(a0), a1-a6/d0-d7
-	\@EndRegs\@:
-	endm
+	@EndRegs:
+	rts
 
-CUTSCENE_RUN_STEP: macro address
-	CUTSCENE_FETCH_REGS									; Store regs if first tick, else restore
+CutsceneRunStep:
+	; a6 --- Routine addr
+	; d0 (b) OUT: 0=next routine, 1=return
+	; d1 (b) OUT: Routine finished
+	jsr    CutsceneFetchRegs							; Store regs if first tick, else restore
 	PUSHL  a0
-	jsr    \address										; Tick routine
+	jsr    (a6)										; Tick routine
 	POPL   a0
+	move.b #0x0, d1
 	tst.b  d0											; If routine finished
-	bne    \@Continue\@
+	bne    @Continue
 	move.l #0x0, Cutscene_TempData(a0)					; Reset for next routine
 	move.b #0x0, Cutscene_RegsStored(a0)
-	move.l #\@NextRoutine\@, Cutscene_TickRoutine(a0)	; Store end of routine as next routine
-	\@Continue\@:
+	move.b #0x1, d1
+	@Continue:
+	move.b #0x0, d0
 	cmp.b  #CutsceneTickMode_InstrPerFrame, Cutscene_TickMode(a0)
-	bne    \@NextRoutine\@
+	bne    @NextRoutine
+	move.b #0x1, d0
+	@NextRoutine:
+	rts
+
+CUTSCENE_RUN_STEP: macro address
+	move.l #\address, a6
+	jsr   CutsceneRunStep
+	tst.b  d1
+	beq   \@NotFinished\@
+	move.l #\@NextRoutine\@, Cutscene_TickRoutine(a0)	; Store end of routine as next routine
+	\@NotFinished\@:
+	tst.b d0
+	beq   \@NextRoutine\@
 	rts
 	\@NextRoutine\@:									; Next routine address
 	endm
