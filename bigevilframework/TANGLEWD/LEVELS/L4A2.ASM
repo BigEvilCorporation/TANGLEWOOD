@@ -369,6 +369,11 @@ l4a2_Trigger_End:
 	
 	rts
 
+l4a2_Trigger_SetEchoWaterEscapeLeft:
+	move.l Player2, a3
+	move.b #-1, Echo_AIWaterEscapeDirection(a3)
+	rts
+
 l4a2_GeneratorActivated:
 
 	; Enable first lock button

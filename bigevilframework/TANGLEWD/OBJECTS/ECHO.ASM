@@ -227,6 +227,7 @@ Echo_AINymnGliding			rs.b 1	; Track Nymn currently gliding
 Echo_AINymnClimbing			rs.b 1	; Track Nymn currently climbing
 Echo_AIObstacleDirection	rs.b 1	; Direction to face water waiting for Nymn to help
 Echo_AIWaitAtWater			rs.b 1	; Wait if water detected ahead
+Echo_AIWaterEscapeDirection	rs.b 1	; Direction to escape from water (0 if autodetect)
 Echo_AIState				rs.b 1
 Echo_MountedState			rs.b 1
 Echo_EnteringLadder			rs.b 1
@@ -285,6 +286,7 @@ EchoInit:
 	move.b #0x0, Echo_AILinearFollowOnly(a0)
 	move.b #0x0, Echo_AIWaitAtWater(a0)
 	move.b #0x1, Echo_CanBeCarried(a0)
+	move.b #0x0, Echo_AIWaterEscapeDirection(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)
@@ -1935,7 +1937,12 @@ EchoAIStart_Water:
 	; Clear out of water pos
 	move.w #0x0, Echo_AILastWaterEdge(a0)
 
-	; Start running towards closest shore
+	; If escape direction set
+	tst.b  Echo_AIWaterEscapeDirection(a0)
+	blt    @MoveLeft
+	bgt    @MoveRight
+
+	; else start running towards closest shore
 	ENTITY_GETCENTREXW d2, a0
 	sub.w  d2, d1	; Right bounds - X pos
 	sub.w  d0, d2	; X pos - left bounds
