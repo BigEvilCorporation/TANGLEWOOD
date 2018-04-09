@@ -480,7 +480,7 @@ L4A2_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x0ea80000, Entity_WorldPosX(a0)
+	move.l #0x0ec00000, Entity_WorldPosX(a0)
 	move.l #0x03800000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
@@ -1031,7 +1031,7 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr LongboatInit
-	move.l #0x0d080000, Entity_WorldPosX(a0)
+	move.l #0x0cd80000, Entity_WorldPosX(a0)
 	move.l #0x04500000, Entity_WorldPosY(a0)
 	jsr LongboatLoadGfx
 	IFND FINAL

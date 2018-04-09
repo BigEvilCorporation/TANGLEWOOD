@@ -283,35 +283,12 @@ l4a2_ScriptWaterLock:
 	; Wait for raft to hit right-hand wall
 	CUTSCENE_ROUTINE l4a2_ScriptWaitRaftHitRightWall,#0x0,#0x0,#0x0
 
-	; Enter cutscene mode
-	CUTSCENE_START_LETTERBOX
-
-	; Disable player movement
-	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
-	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
-
-	; Camera lerp to Echo
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
-
-	; Make sure Nymn is holding raft against wall, not backing away
-	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
-	CUTSCENE_CHARACTER_MOVE_RELATIVE Player1,a2,#Longboat_Width/4,#0x08
-	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
-	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
-	CUTSCENE_DELAY #0x0040
-
 	; Echo talks
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
 
 	; Echo walks off raft
 	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
-	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#Longboat_Width,#0x08
-
-	; Camera lerp to Nymn
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
-
-	; Enable player movement
-	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#(Longboat_Width/2)+0x10,#0x08
 
 	; Enable Echo AI
 	move.b #0x1, d0
