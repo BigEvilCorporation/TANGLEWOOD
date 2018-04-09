@@ -233,8 +233,8 @@ l4a2_ScriptWaterLock:
 	; Wait for Echo to stand at AI marker
 	CUTSCENE_ROUTINE l4a2_ScriptWaitAIMarker,#0x0,#0x0,#0x0
 
-	; Disable Echo AI
-	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
+	; Echo enter wait AI state
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Wait
 
 	; Disable Echo pick-up ability
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_CanBeCarried,#0x0

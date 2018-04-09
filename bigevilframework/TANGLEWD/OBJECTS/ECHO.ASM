@@ -115,7 +115,8 @@ EchoMountNymn_Riding		equ 3
 
 ; AI state
 EchoAIState_None			equ 0	; No AI, under player/cutscene control
-EchoAIState_Follow			equ 1	; Following Nymn directly
+EchoAIState_Wait			equ 1	; No AI, no control, but still process lost timer
+EchoAIState_Follow			equ 2	; Following Nymn directly
 EchoAIState_FollowNodes		equ 3	; Following Nymn using nodes
 EchoAIState_Lost			equ 4	; Waiting for safe place to transport to
 EchoAIState_CatchUp			equ 5	; Running directly back to Nymn
@@ -1033,6 +1034,8 @@ EchoUpdateAI:
 	beq    @End
 	cmp.b  #EchoAIState_Follow, d0
 	beq    @Follow
+	cmp.b  #EchoAIState_Wait, d0
+	beq    @Wait
 	cmp.b  #EchoAIState_FollowNodes, d0
 	beq    @FollowNodes
 	cmp.b  #EchoAIState_Lost, d0
@@ -1063,6 +1066,10 @@ EchoUpdateAI:
 	beq    @Carried
 	bra    @End
 	
+	@Wait:
+	jsr    EchoAIUpdate_Wait
+	bra    @End
+
 	@Follow:
 	jsr    EchoAIUpdate_Follow
 	bra    @End
@@ -1140,6 +1147,64 @@ EchoAIStop:
 
 	; Can use rolling platforms again
 	move.b #0x1, Character_CanUseRollPlatform(a0)
+
+	rts
+
+EchoAIStart_Wait:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) Reset lost timer
+	
+	; Set wait state
+	move.b #EchoAIState_Wait, Echo_AIState(a0)
+	
+	; Clear node queue
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	move.w #0x0, Echo_AINodeProducer(a0)
+
+	; Reset lost timer
+	tst.b  d0
+	beq    @NoResetTimer
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	MOVE_NTSC_W Echo_SkivvLostTime, Echo_AILostTimer(a0), d0
+	bra    @EndSkivv
+	@NoSkivv:
+	MOVE_NTSC_W Echo_LostTime, Echo_AILostTimer(a0), d0
+	@EndSkivv:
+	@NoResetTimer:
+
+	rts
+
+EchoAIUpdate_Wait:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+
+	; If off screen, count down lost timer
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	bne    @OnScreen
+	move.w Echo_AILostTimer(a0), d0
+	subq.w  #0x1, d0
+	move.w d0, Echo_AILostTimer(a0)
+	bne    @LostTimerRunning
+	
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivv
+	jsr    EchoAIStart_Skivv
+	bra    @Lost
+	@NoSkivv:
+
+	@OnScreen:
+
+	; On screen, reset lost timer
+	tst.l  Echo_Skivv(a0)
+	beq    @NoSkivvTime
+	MOVE_NTSC_W Echo_SkivvLostTime, Echo_AILostTimer(a0), d0
+	@NoSkivvTime:
+
+	@LostTimerRunning:
+	@Lost:
 
 	rts
 
