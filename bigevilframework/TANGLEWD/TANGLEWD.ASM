@@ -163,6 +163,9 @@ code_start
 	include 'objects\winch.asm'
 	include 'objects\windflue.asm'
 	include 'objects\wyrm.asm'
+
+	; Include AI
+	include 'ai\echoai.asm'
 	
 	; Include players
 	include 'objects\nymn.asm'

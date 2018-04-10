@@ -654,6 +654,15 @@ CharacterCancelXMovement:
 	move.b #0x0, Character_ControlY(a0)
 
 	rts
+
+CharacterCancelYMovement:
+	; a0 --- GameObj addr
+	; NB: Gamepad state in d0-d1, leave alone
+	
+	move.w #0x0, PhysicsObj_AccelY(a0)
+	move.b #0x0, Character_ControlY(a0)
+
+	rts
 	
 CharacterStartJump:
 	; a0 --- GameObj addr
