@@ -37,6 +37,7 @@ Echo_AIDistFuzzlX			equ screen_width	; X distance from Fuzzl to add a push obj n
 Echo_AIDistFuzzlY			equ Player1Height	; Y distance from Fuzzl to add a push obj node
 Echo_AIDistLogX				equ screen_width	; X distance from log to add a goto node
 Echo_AIDistLogY				equ Player1Height*2	; Y distance from log to add a goto node
+Echo_AIDistLogXNymn			equ Player1Width*2	; X min distance from log to Nymn add a goto node
 Echo_AIDistButtonX			equ screen_width	; X distance from button to add a goto node
 Echo_AIDistButtonY			equ Player1Height	; Y distance from button to add a goto node
 Echo_AIDistRaftX			equ screen_width/2	; X distance from raft to add a raft ride node
@@ -2289,10 +2290,6 @@ EchoAI_WatchNymnMovement:
 	;==============================================================
 	; IF NYMN IS TOO FAR ABOVE ECHO
 	;==============================================================
-
-	; If waiting for landing from jump, bail
-	tst.b  Echo_AIWaitingForNymnLanding(a0)
-	bne    @End
 	
 	; Get Nymn Y pos
 	ENTITY_GETCENTREYW d2,a2
@@ -2317,6 +2314,10 @@ EchoAI_WatchNymnMovement:
 	sub.w  d4, d3					; Nymn to Echo space
 	cmp.w  #Echo_AIJumpDistance, d3	; Check < jump distance
 	blt    @WithinYToleranceUp
+
+	; If waiting for landing from jump, bail
+	tst.b  Echo_AIWaitingForNymnLanding(a0)
+	bne    @End
 
 	;==============================================================
 	; FIND A LADDER (if not already found by following entry/exit)
@@ -2432,12 +2433,13 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceJumpY, EchoAINode_ToleranceY(a3)
 	move.b #EchoAINode_Action_Jump, EchoAINode_Action(a3)
 	move.b #0x0, EchoAINode_RunActionIfClimbing(a3)	; If climbing, just treat as a goto node
-	move.b #0x1, EchoAINode_RequireOnFloor(a3)		; Require on floor to run action
 
-	; If Nymn was in air because of a jump, use floor pos, set waiting for landing
+	; If Nymn was in air because of a jump, use floor pos, only jump from floor,
+	; set waiting for landing flag
 	tst.b  Character_Jumping(a2)
 	beq    @NotJumping
 	move.w Echo_AILastNymnFloorPosY(a0), EchoAINode_PosY(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.b #0x1, Echo_AIWaitingForNymnLanding(a0)
 	@NotJumping:
 
@@ -2794,6 +2796,16 @@ EchoAI_FindAIMarker:
 
 	; Jump
 	jsr    CharacterStartJump
+
+	; If in follow nodes state
+	cmp.b  #EchoAIState_FollowNodes, Echo_AIState(a0)
+	bne    @FoundAIMarker
+
+	; Clear remaining nodes and enter basic follow state
+	move.w #0x0, Echo_AINodeProducer(a0)
+	move.w #0x0, Echo_AINodeConsumer(a0)
+	jsr    EchoAIStart_Follow
+
 	bra    @FoundAIMarker
 
 	;==============================================================
@@ -2918,25 +2930,44 @@ EchoAI_FindLog:
 	tst.b  Platform_Occupied(a4)
 	bne    @NextLog
 
+	;==============================================================
+
 	; Edge case: if Nymn is busy with a button, help out
 	tst.l  PhysicsObj_LastPlatform(a3)
-	bne    @P1OnPlatform
+	beq    @P1OffPlatform
+	
+	; Check outside X threshold (of Nymn)
+	ENTITY_GETCENTREXW d0,a3
+	ENTITY_GETCENTREXW d1,a2
+	sub.w  d0, d1
+	cmp.w  #Echo_AIDistLogXNymn, d1
+	bgt    @OutsideNymnDistX
+	cmp.w  #-Echo_AIDistLogXNymn, d1
+	blt    @OutsideNymnDistX
+	bra    @NextLog
+	@OutsideNymnDistX:
+
+	; Don't do Nymn Y check
+	bra    @P1OnPlatform
+	
+	@P1OffPlatform:
+
+	;==============================================================
 
 	; Check outside Nymn Y threshold
 	ENTITY_GETCENTREYW d0,a3
 	ENTITY_GETCENTREYW d1,a2
-	sub.w    d0, d1
+	sub.w  d0, d1
 	cmp.w  #Echo_AIDistLogY, d1
-	bgt    @OutsideNymnDist
+	bgt    @OutsideNymnDistY
 	cmp.w  #-Echo_AIDistLogY, d1
-	blt    @OutsideNymnDist
+	blt    @OutsideNymnDistY
 	bra    @NextLog
+	@OutsideNymnDistY:
 
 	@P1OnPlatform:
-	
-	@OutsideNymnDist:
 
-	; Check within X threshold
+	; Check within X threshold (of Echo)
 	ENTITY_GETCENTREXW d0, a0
 	ENTITY_GETCENTREXW d1, a2
 	sub.w  d0, d1
@@ -3352,9 +3383,11 @@ EchoAI_PushInteractionLog:
 	sub.w  d0, d2
 	blt    @RightSide
 	subi.w #Echo_AINodeTolerancePushObjX, d0	; Left side of log (log centre - threshold)
+	move.w #-Echo_AINodeTolerancePushObjX, d6	; Node pos offset
 	bra    @LeftSide
 	@RightSide:
 	addi.w #Echo_AINodeTolerancePushObjX, d0	; Right side of log (log centre + threshold)
+	move.w #Echo_AINodeTolerancePushObjX, d6	; Node pos offset
 	@LeftSide:
 
 	; Terrain test
@@ -3369,27 +3402,19 @@ EchoAI_PushInteractionLog:
 	move.w d0, d7
 	POPM   d0-d6/a2/a4
 
-	move.w #Echo_AINodeTolerancePushObjX, d3	; Default distance tolerance
-	move.w #0x0, d5	; Default stop movement
-	move.b #0x0, d2	; Default walk state
-
 	; If no terrain, bail
 	tst.w  d7
 	beq    @NoTerrain
 
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
-	move.w d3, EchoAINode_ToleranceX(a3)
-	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
-	move.b d5, EchoAINode_StopMovement(a3)
-	move.b #0x1, EchoAINode_RequireOnFloor(a3)
-	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
-	move.b d2, EchoAINode_Walk(a3)
-
-	move.w d0, EchoAINode_PosX(a3)
-	move.w d1, EchoAINode_PosY(a3)
+	move.l a2, EchoAINode_UserData(a3)
+	move.l a2, EchoAINode_Object(a3)
+	move.w d6, EchoAINode_PosXOffset(a3)
+	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
+	move.w #Echo_AINodeTolerancePushObjY, EchoAINode_ToleranceY(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 
 	; Announce
 	jsr    EchoStartTalk
