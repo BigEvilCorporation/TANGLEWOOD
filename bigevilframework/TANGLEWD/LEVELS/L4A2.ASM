@@ -369,6 +369,11 @@ l4a2_Trigger_End:
 	
 	rts
 
+l4a2_Trigger_EnableCheckpoint1:
+	ENTITY_GETBYNAME Checkpoint, l4a2_Checkpoint1, a2
+	move.b #0x1, Entity_Active(a2)
+	rts
+
 l4a2_Trigger_SetEchoWaterEscapeLeft:
 	move.l Player2, a3
 	move.b #-1, Echo_AIWaterEscapeDirection(a3)

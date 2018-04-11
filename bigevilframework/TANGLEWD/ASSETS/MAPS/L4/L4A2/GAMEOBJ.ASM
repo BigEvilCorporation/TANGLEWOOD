@@ -133,17 +133,19 @@ L4A2_Nest_47_name	dc.b "L4A2_Nest_47",0
 
 L4A2_Flue_count equ 0x0
 
-L4A2_TriggerBox_count equ 0x4
+L4A2_TriggerBox_count equ 0x5
 L4A2_TriggerBox_EchoPanic1_idx	equ 0x0
 L4A2_TriggerBox_EndLevel_idx	equ 0x1
 L4A2_Trigger_TOD_Dusk_idx	equ 0x2
 L4A2_TriggerEchoWaterEscDir_idx	equ 0x3
+L4A2_TriggerEchoCheckpoint_idx	equ 0x4
 
 	IFND FINAL
 L4A2_TriggerBox_EchoPanic1_name	dc.b "L4A2_TriggerBox_EchoPanic1",0
 L4A2_TriggerBox_EndLevel_name	dc.b "L4A2_TriggerBox_EndLevel",0
 L4A2_Trigger_TOD_Dusk_name	dc.b "L4A2_Trigger_TOD_Dusk",0
 L4A2_TriggerEchoWaterEscDir_name	dc.b "L4A2_TriggerEchoWaterEscDir",0
+L4A2_TriggerEchoCheckpoint_name	dc.b "L4A2_TriggerEchoCheckpoint",0
 	even
 	ENDIF
 
@@ -268,12 +270,12 @@ L4A2_Hogg_count equ 0x0
 L4A2_Bridge_count equ 0x0
 
 L4A2_Checkpoint_count equ 0x3
-L4A2_Checkpoint_54_idx	equ 0x0
+L4A2_Checkpoint1_idx	equ 0x0
 L4A2_Checkpoint_55_idx	equ 0x1
 L4A2_CheckpointGenerator_idx	equ 0x2
 
 	IFND FINAL
-L4A2_Checkpoint_54_name	dc.b "L4A2_Checkpoint_54",0
+L4A2_Checkpoint1_name	dc.b "L4A2_Checkpoint1",0
 L4A2_Checkpoint_55_name	dc.b "L4A2_Checkpoint_55",0
 L4A2_CheckpointGenerator_name	dc.b "L4A2_CheckpointGenerator",0
 	even
@@ -773,6 +775,23 @@ L4A2_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x09280000, Entity_WorldPosX(a0)
+	move.l #0x04000000, Entity_WorldPosY(a0)
+	move.l #l4a2_Trigger_EnableCheckpoint1, TriggerBox_Routine(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
+	move.l #Player2, TriggerBox_WatchObject(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L4A2_TriggerEchoCheckpoint_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 
 
@@ -1108,9 +1127,10 @@ L4A2_LoadGameObjects:
 	jsr CheckpointInit
 	move.l #0x09f00000, Entity_WorldPosX(a0)
 	move.l #0x04480000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
-	lea L4A2_Checkpoint_54_name, a3
+	lea L4A2_Checkpoint1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
