@@ -87,11 +87,13 @@ L5A2_FuzzlYellow2_name	dc.b "L5A2_FuzzlYellow2",0
 	even
 	ENDIF
 
-L5A2_Stone_count equ 0x1
+L5A2_Stone_count equ 0x2
 L5A2_Stone_15_idx	equ 0x0
+L5A2_Stone_76_idx	equ 0x1
 
 	IFND FINAL
 L5A2_Stone_15_name	dc.b "L5A2_Stone_15",0
+L5A2_Stone_76_name	dc.b "L5A2_Stone_76",0
 	even
 	ENDIF
 
@@ -520,6 +522,19 @@ L5A2_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L5A2_Stone_15_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x04600000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L5A2_Stone_76_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
