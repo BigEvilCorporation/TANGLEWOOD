@@ -177,11 +177,15 @@ L5A2_Button1_name	dc.b "L5A2_Button1",0
 
 L5A2_Wyrm_count equ 0x0
 
-L5A2_AIMarker_count equ 0x1
+L5A2_AIMarker_count equ 0x3
 L5A2_EchoWait1_idx	equ 0x0
+L5A2_MarkerJumpLiftGap1_idx	equ 0x1
+L5A2_MarkerJumpLiftGap2_idx	equ 0x2
 
 	IFND FINAL
 L5A2_EchoWait1_name	dc.b "L5A2_EchoWait1",0
+L5A2_MarkerJumpLiftGap1_name	dc.b "L5A2_MarkerJumpLiftGap1",0
+L5A2_MarkerJumpLiftGap2_name	dc.b "L5A2_MarkerJumpLiftGap2",0
 	even
 	ENDIF
 
@@ -743,6 +747,36 @@ L5A2_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x09980000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.b #AIMarker_Type_Jump, AIMarker_Type(a0)
+	move.b #AIMarker_Direction_Right, AIMarker_Direction(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A2_MarkerJumpLiftGap1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x09e00000, Entity_WorldPosX(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
+	move.b #AIMarker_Type_Jump, AIMarker_Type(a0)
+	move.b #AIMarker_Direction_Left, AIMarker_Direction(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A2_MarkerJumpLiftGap2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
