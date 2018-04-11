@@ -7,7 +7,7 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 1
+ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
