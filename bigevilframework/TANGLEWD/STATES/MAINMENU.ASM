@@ -229,6 +229,8 @@ MainMenu_Update:
 	tst.w  d0
 	bgt    @WaitingForBgFade
 	blt    @StartedBgFade
+	
+	move.b #0xFF, MainMenuState_FadeTimer(a2)
 
 	; Start bg fade
 	lea    palette_l1_night, a0
