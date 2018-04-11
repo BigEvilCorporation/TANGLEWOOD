@@ -82,12 +82,20 @@ Gameplay_Enter:
 	move.l (Player1), a0
 	
 	; Set player pos from checkpoint
-	move.l Entity_WorldPosX(a2), Entity_WorldPosX(a0)
-	move.w Entity_WorldPosY(a2), d0
-	add.w  Entity_Height(a2), d0
-	sub.w  Entity_Height(a0), d0
-	TOSUBPIXELS d0
-	move.l d0, Entity_WorldPosY(a0)
+	move.l Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	add.w  Entity_Height(a2), d1
+	sub.w  Entity_Height(a0), d1
+	TOSUBPIXELS d1
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+
+	; If P2 present, set checkpoint pos
+	move.l Player2, a0
+	cmpa   #0x0, a0
+	beq    @NoP2
+	jsr    EchoSetCheckpointPos
+	@NoP2:
 
 	@NoCheckpoints:
 	

@@ -628,6 +628,25 @@ EchoSerialise:
 	
 	rts
 
+EchoSetCheckpointPos:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (l) Checkpoint pos X
+	; d1 (l) Checkpoint pos Y
+
+	; Only if in a follow state
+	move.b Echo_AIState(a0), d2
+	cmp.b  #EchoAIState_Follow, d2
+	beq    @SetP2Position
+	cmp.b  #EchoAIState_FollowNodes, d2
+	bne    @NoSetP2Position
+	@SetP2Position:
+	move.l d0, Entity_WorldPosX(a0)
+	move.l d1, Entity_WorldPosY(a0)
+	@NoSetP2Position:
+
+	rts
+
 EchoSetSkivv:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
