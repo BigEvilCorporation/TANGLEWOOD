@@ -467,7 +467,7 @@ L5A2_LoadGameObjects:
 	POPL   a1
 
 	jsr FuzzlInit
-	move.l #0x04000000, Entity_WorldPosX(a0)
+	move.l #0x04300000, Entity_WorldPosX(a0)
 	move.l #0x02700000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
@@ -515,7 +515,7 @@ L5A2_LoadGameObjects:
 	POPL   a1
 
 	jsr StoneInit
-	move.l #0x03c00000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosX(a0)
 	move.l #0x02e80000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
