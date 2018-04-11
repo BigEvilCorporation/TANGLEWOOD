@@ -259,9 +259,6 @@ l1a0_CutsceneIntro:
 	; Owl hoot
 	CUTSCENE_PLAY_SFX #SFX_Ambience_Night1
 
-	; Fade out audio track
-	CUTSCENE_FADE_TRACK
-
 	; Restore colour
 	CUTSCENE_GAME_PALETTE_FADETO #palette_l1_night,#0x0,#l1a0_DemonPaletteFadeSpeed,#DefaultFadeTicksPerUpdate,#0x0,#0xF
 

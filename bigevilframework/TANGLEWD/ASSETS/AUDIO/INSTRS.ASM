@@ -217,8 +217,6 @@ echo_instruments:
 	Echo_ListEntry InstrCD
 	Echo_ListEntry InstrCE
 	Echo_ListEntry InstrCF
-	Echo_ListEntry InstrD0
-	Echo_ListEntry InstrD1
 	
 	; PCM
 	Echo_ListEntry PCM00
@@ -246,7 +244,7 @@ echo_instruments:
 	
     Echo_ListEnd
 
-PCM_InstrIndex	equ 0xD2
+PCM_InstrIndex	equ 0xD0
 
 	; Music/SFX
 Instr00: incbin 'assets\audio\instrs\instr_00.ins'
@@ -457,8 +455,6 @@ InstrCC: incbin 'assets\audio\instrs\instr_CC.ins'
 InstrCD: incbin 'assets\audio\instrs\instr_CD.ins'
 InstrCE: incbin 'assets\audio\instrs\instr_CE.ins'
 InstrCF: incbin 'assets\audio\instrs\instr_CF.ins'
-InstrD0: incbin 'assets\audio\instrs\instr_D0.ins'
-InstrD1: incbin 'assets\audio\instrs\instr_D1.ins'
 	
 	; PCM
 PCM00: incbin 'assets\audio\sfx\djakk\roar.ewf'

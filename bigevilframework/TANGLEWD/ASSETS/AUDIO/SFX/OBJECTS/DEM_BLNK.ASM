@@ -3,7 +3,7 @@
 	dc.b $e6		; Lock channel FM 6
 	dc.b $eb		; Lock channel PSG 4
 ; Pattern $00, Row 0; 
-	dc.b $46, $c3	; Set instrument for channel FM 6
+	dc.b $46, $c1	; Set instrument for channel FM 6
 	dc.b $06, $e3	; Note C#7 on channel FM 6
 	dc.b $4b, $a8	; Set instrument for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4

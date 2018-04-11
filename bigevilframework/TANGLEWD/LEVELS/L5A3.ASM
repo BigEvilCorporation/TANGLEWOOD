@@ -656,6 +656,11 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
+	CUTSCENE_DELAY #0x0020
+
+	; Play Scrap theme
+	CUTSCENE_PLAY_TRACK #track_bgm_cue_scrap
+	CUTSCENE_DELAY #0x0020
 
 	; Echo run over
 	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
@@ -666,10 +671,6 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
 	CUTSCENE_DELAY #0x0080
-
-	; Play Scrap theme
-	CUTSCENE_PLAY_TRACK #track_bgm_cue_scrap
-	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
 	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
