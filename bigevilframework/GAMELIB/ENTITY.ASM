@@ -333,8 +333,11 @@ EntityUpdateWorldGridIndex:
 	bne    @ForceCheck
 
 	; If index changed
-	cmp.w  d0, d6
+	cmp.w  d0, d6						; Top-left
+	beq    @Changed
+	cmp.w  d2, d7						; Bottom-right
 	beq    @NoChange
+	@Changed:
 
 	@ForceCheck:
 
