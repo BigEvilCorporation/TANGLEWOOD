@@ -222,8 +222,8 @@ CreditsStrings:
 	CREDIT_NAME		"Chris"
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "Gamers Unite"
-	CREDIT_NAME		"?"
+	CREDIT_HEADING1 "GaminGuys"
+	CREDIT_NAME		"Neil Dyson"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Mega Emulator core"
