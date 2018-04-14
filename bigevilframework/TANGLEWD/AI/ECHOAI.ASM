@@ -3221,15 +3221,26 @@ EchoAI_FindWater:
 	move.w #0x0, d1
 	move.w #0x0, d2
 	
-	; If not already in water state
+	; If not already in water or recovery state
 	cmp.b  #EchoAIState_Water, Echo_AIState(a0)
 	beq    @InWaterState
+	cmp.b  #EchoAIState_EmergencyLadder, Echo_AIState(a0)
+	beq    @InLadderState
+
+	; If recovery state not next node
+	PUSHW  d0
+	jsr    EchoAIPeekNodeTypeFront
+	move.b d0, d3
+	POPW   d0
+	cmp.b  #EchoAINode_Action_EmergencyLadder, d3
+	beq    @InLadderState
 
 	move.w Player_LastWaterBodyLeft(a0), d0
 	move.w Player_LastWaterBodyRight(a0), d1
 	move.w Player_LastWaterBodySurface(a0), d2
 
 	@InWaterState:
+	@InLadderState:
 
 	rts
 
@@ -3505,6 +3516,7 @@ EchoAI_PushInteractionEmergencyLadder:
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.b #EchoAINode_Action_EmergencyLadder, EchoAINode_Action(a3)
+	move.b #0x1, EchoAINode_StopMovement(a3)
 
 	rts
 
