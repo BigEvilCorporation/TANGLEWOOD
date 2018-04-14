@@ -473,7 +473,7 @@ SFX_DemonAppear_End:
 SFX_DemonBlink:
 	dc.l SFX_Data_DemonBlink		; Data
 	dc.b SFX_Priority_High			; Priority
-	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b Audio_Exclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
@@ -490,6 +490,14 @@ SFX_DemonAttack:
 	dc.l SFX_Data_DemonAttack		; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_DemonDamage:
+	dc.l SFX_Data_BorgusDamage		; Data
+	dc.b SFX_Priority_Highest		; Priority
+	dc.b Audio_Exclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even

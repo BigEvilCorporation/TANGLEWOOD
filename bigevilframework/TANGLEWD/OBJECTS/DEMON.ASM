@@ -31,8 +31,10 @@ Demon_AttackDelayMax	equ 0x0300
 Demon_AttackRetryTime	equ 0x0080
 Demon_AttackDamage		equ 0xFF
 Demon_AttackOffsetX		equ 0x0018
-Demon_AttackAnimSpeedInc	equ 0x4
+Demon_AttackAnimSpeedInc equ 0x4
 Demon_AttackFlashFrames	equ 0x2
+
+Demon_PainFlinchImpulse	equ 0x00030000
 
 Demon_MaxLives			equ 0x3
 
@@ -52,8 +54,9 @@ DemonAnimIdx_Emerge			equ 0x3
 DemonAnimIdx_IdleToSmirk	equ 0x4
 DemonAnimIdx_Bite			equ 0x5
 DemonAnimIdx_OpenMouth		equ 0x6
+DemonAnimIdx_Pain			equ 0x7
 ;----------------------------------
-DemonAnimIdx_Max			equ 0x7
+DemonAnimIdx_Max			equ 0x8
 
 ;==============================================================
 
@@ -175,6 +178,7 @@ DemonLoadGfx:
 	ANIM_LOAD_DEFAULT demon,idletosmirk,idletosmirk,Demon_Animations,DemonAnimIdx_IdleToSmirk,0,0,0
 	ANIM_LOAD_DEFAULT demon,bite,bite,Demon_Animations,DemonAnimIdx_Bite,0,0,0
 	ANIM_LOAD_DEFAULT demon,bite,openmouth,Demon_Animations,DemonAnimIdx_OpenMouth,0,0,0
+	ANIM_LOAD_DEFAULT demon,death,pain,Demon_Animations,DemonAnimIdx_Pain,0,0,0
 	ANIM_LOAD_DEFAULT demon,wisp,idle,Demon_Animations,0,1,0,0
 
 	rts
@@ -369,13 +373,13 @@ DemonReceiveDamage:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Check vulnerable
-	tst.b  Demon_Vulnerable(a0)
-	beq    @Invulnerable
-
 	; Check alive
 	tst.b  Character_Dead(a0)
 	bne    @AlreadyDead
+
+	; Check vulnerable
+	tst.b  Demon_Vulnerable(a0)
+	beq    @Invulnerable
 
 	; Decrement lives
 	move.b Demon_NumLives(a0), d0
@@ -384,7 +388,48 @@ DemonReceiveDamage:
 	tst.b  d0
 	bne    @Pain
 
-	; Kkill through character interface
+	; Deal pain
+	PUSHL   a1
+	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Pain)(a0), a1
+	move.b  #0x0, d0
+	move.l  #DemonEndReceiveDamage_Death, a2
+	move.l  a0, a3
+	jsr     AnimObjSetAnimation
+	POPL    a1
+
+	bra   @Dead
+
+	@Pain:
+
+	; Deal pain
+	PUSHL   a1
+	lea     Demon_Animations+(Animation_Struct_Size*DemonAnimIdx_Pain)(a0), a1
+	move.b  #0x0, d0
+	move.l  #DemonEndReceiveDamage_Pain, a2
+	move.l  a0, a3
+	jsr     AnimObjSetAnimation
+	POPL    a1
+
+	; Lock sprite flip
+	move.b  #0x1, Character_LockSpriteFlip(a0)
+
+	; Flinch
+	move.l  #Demon_PainFlinchImpulse, d0
+	tst.b   SpriteObj_FlippedX(a0)
+	bne     @FlinchLeft
+	neg.l   d0
+	@FlinchLeft:
+	move.l  d0, PhysicsObj_VelX(a0)
+
+	@Invulnerable:
+	@AlreadyDead:
+	@Dead:
+
+	rts
+
+DemonEndReceiveDamage_Death:
+
+	; Kill through character interface
 	move.b #0xFF, d0
 	jsr    CharacterDealDamage
 
@@ -395,7 +440,7 @@ DemonReceiveDamage:
 	; Enter death state
 	jsr    DemonAIStart_Dead
 
-	bra   @Dead
+	bra    @Dead
 
 	@Disappear:
 
@@ -403,9 +448,18 @@ DemonReceiveDamage:
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
 
-	bra   @Dead
+	; Flash
+	move.w #Demon_AttackFlashFrames, d0
+	jsr    VFX_StartFlash
 
-	@Pain:
+	; Blink SFX
+	PLAYSFX #SFX_DemonBlink
+
+	@Dead:
+
+	rts
+
+DemonEndReceiveDamage_Pain:
 
 	; Screech and disappear back into boss mode
 	; TODO: Audio
@@ -414,9 +468,12 @@ DemonReceiveDamage:
 	; Release swarm
 	jsr    DemonReleaseSwarm
 
-	@Invulnerable:
-	@AlreadyDead:
-	@Dead:
+	; Flash
+	move.w #Demon_AttackFlashFrames, d0
+	jsr    VFX_StartFlash
+
+	; Blink SFX
+	PLAYSFX #SFX_DemonBlink
 
 	rts
 
@@ -462,6 +519,9 @@ DemonAIStart_Boss:
 	MOVE_NTSC_W Demon_AttackDelayMax, d2, d0
 	jsr    RND_GenerateWordClamped
 	move.w d0, Demon_AttackTimer(a0)
+
+	; Reset sprite flip
+	move.b  #0x0, Character_LockSpriteFlip(a0)
 
 	rts
 
