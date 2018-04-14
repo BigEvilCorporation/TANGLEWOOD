@@ -1047,9 +1047,6 @@ EchoAIStart_PushObj:
 	; Clear nodes
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
-
-	; Begin push interaction
-	jsr    PlayerStartInteract
 	
 	rts
 	
@@ -1065,19 +1062,43 @@ EchoAIUpdate_PushObj:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @OutOfBounds
 
-	; If Nymn is still in the push direction (push obj between Nymn and Echo)
-	move.w Entity_WorldPosX(a0), d1	; Echo
-	move.w Entity_WorldPosX(a2), d2	; Nymn
-	move.w Entity_WorldPosX(a3), d3	; Object
-	cmp.w  d1, d2					; If Echo X > Nymn X, swap
-	bgt    @NoSwap
-	move.w d1, d4
-	move.w d2, d1
-	move.w d4, d2
-	@NoSwap:
-	cmp.w  d3, d1
+	; Check obj between Nymn and Echo
+	ENTITY_GETCENTREXW d0, a0		; Echo centre
+	ENTITY_GETCENTREXW d1, a2		; Nymn centre
+	cmp.w  d0, d1
+	bgt    @NymnToRight
+
+	; Echo to right of Nymn, check obj centre < Echo centre
+	ENTITY_GETCENTREXW d2, a3		; Obj centre
+	cmp.w  d0, d2
 	bgt    @OutOfBounds
-	cmp.w  d2, d1
+
+	; Check object right > Nymn left
+	move.w Entity_Width(a2), d3
+	lsr.w  #0x1, d3
+	sub.w  d3, d1					; Nymn left
+	move.w Entity_Width(a3), d3
+	lsr.w  #0x1, d3
+	add.w  d3, d2					; Object right
+	cmp.w  d1, d2
+	blt    @OutOfBounds
+	bra    @WithinBounds
+	
+	@NymnToRight:
+
+	; Echo to left of Nymn, check obj centre > Echo centre
+	ENTITY_GETCENTREXW d2, a3		; Obj centre
+	cmp.w  d0, d2
+	blt    @OutOfBounds
+
+	; Check object left < Nymn right
+	move.w Entity_Width(a2), d3
+	lsr.w  #0x1, d3
+	add.w  d3, d1					; Nymn right
+	move.w Entity_Width(a3), d3
+	lsr.w  #0x1, d3
+	sub.w  d3, d2					; Object left
+	cmp.w  d1, d2
 	bgt    @OutOfBounds
 	bra    @WithinBounds
 
@@ -1097,9 +1118,24 @@ EchoAIUpdate_PushObj:
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	bne    @TouchingNymn
+
+	; If Echo heading in right direction
+	ENTITY_GETCENTREXW d1, a0		; Echo (centre)
+	ENTITY_GETCENTREXW d2, a2		; Nymn (centre)
+	cmp.w  d1, d2					; If Echo X > Nymn X
+	bgt    @CheckVelPositive
+	tst.l  PhysicsObj_VelX(a0)
+	bge    @NoPush
+	bra    @CheckVelNegative
+	@CheckVelPositive:
+	tst.l  PhysicsObj_VelX(a0)
+	ble    @NoPush
+	@CheckVelNegative:
 	
 	; Continue pushing towards Nymn
 	jsr    PlayerStartInteract
+
+	@NoPush:
 
 	move.w #Echo_AINodeTolerancePushObjX, d3
 	
