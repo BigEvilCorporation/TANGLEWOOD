@@ -2162,7 +2162,9 @@ PhysicsObjFindMovingBarrier:
 
 	; Considered moving, update grid cell
 	move.b #0x0, d1
+	PUSHW  d4
 	jsr    EntityUpdateWorldGridIndex
+	POPW   d4
 
 	bra    @FoundBarrier
 
