@@ -902,7 +902,12 @@ PlayerStopColourAbility:
 	bne    @VoluntaryDismount
 	move.b #Player_Dismount_Timeout, d0
 	@VoluntaryDismount:
+
 	jsr    PlayerDismountPet
+
+	; Stop interacting
+	move.b #Player_Interaction_None, Player_InteractionType(a0)
+
 	bra    @Dismounted
 
 	@NotRiding:
@@ -1214,6 +1219,7 @@ PlayerColourAbilityElapsed:
 	cmp.b  #ColourBlue, d1
 	bne    @NotBlue
 	
+	; Overwrites d0
 	jsr    PlayerCanDismountPet
 
 	@NotBlue:
