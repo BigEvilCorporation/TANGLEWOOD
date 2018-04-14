@@ -15,6 +15,7 @@ AIMarker_Type_Barrier	equ 0x0	; Barrier: AI won't walk past it
 AIMarker_Type_Wait		equ 0x1	; AI will wait for instruction
 AIMarker_Type_SafePos	equ 0x2	; Safe spawn pos
 AIMarker_Type_Jump		equ 0x3	; Jump
+AIMarker_Type_PushDest	equ 0x4	; Object push destination
 
 ; Affected directions
 AIMarker_Direction_Any		equ 0x0

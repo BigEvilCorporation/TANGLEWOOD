@@ -45,6 +45,7 @@ LogAnimIdx_Max     equ 1
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;-----------------------------
+Log_PushDestMarker	rs.l 1	; AI push destination (AIMarker)
 Log_Animations		rs.b (Animation_Struct_Size*LogAnimIdx_Max)
 Log_Platform		rs.b Platform_Struct_Size ; Moving platform on top of Log
 Log_FloorRollAccel	rs.w 1
@@ -96,6 +97,7 @@ LogInit:
 	MOVE_NTSC_L Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
+	move.l  #0x0, Log_PushDestMarker(a0)
 	move.w  #0x0, Log_FloorRollAccel(a0)
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	move.b  #0x0, Log_Hazardous(a0)

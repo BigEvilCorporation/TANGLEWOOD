@@ -143,6 +143,17 @@ l4a2_Init:
 
 	;==============================================================
 
+	; Set log push markers
+	ENTITY_GETBYNAME Log, l4a2_Log1, a2
+	ENTITY_GETBYNAME AIMArker, l4a2_AIMarkerLogPush1, a3
+	move.l a3, Log_PushDestMarker(a2)
+
+	ENTITY_GETBYNAME Log, l4a2_Log2, a2
+	ENTITY_GETBYNAME AIMArker, l4a2_AIMarkerLogPush2, a3
+	move.l a3, Log_PushDestMarker(a2)
+
+	;==============================================================
+
 	; Setup water pools and locks
 	ENTITY_GETBYNAME Lock, l4a2_Lock1, a0
 	move.l #l4a2_ActivatePool1, Lock_OnRaised(a0)

@@ -1036,13 +1036,17 @@ EchoAIUpdate_CatchUp:
 EchoAIStart_PushObj:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- Object of interest
+	; a2 --- Object to push
+	; a3 --- Destination marker
 	
 	; Set push state
 	move.b #EchoAIState_PushObj, Echo_AIState(a0)
 
 	; Set object
 	move.l a2, Echo_AIObjectOfInterest(a0)
+
+	; Set destination marker
+	move.l a3, Echo_AIPushObjMarker(a0)
 
 	; Clear nodes
 	move.w #0x0, Echo_AINodeConsumer(a0)
@@ -1054,29 +1058,38 @@ EchoAIUpdate_PushObj:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
-	; Get pushing object and Nymn
-	move.l (Player1), a2
+	; Get pushing object and destination
+	move.l Echo_AIPushObjMarker(a0), a2
+	cmpa   #0x0, a2
+	bne    @HasMarker
+	move.l Player1, a2		; No push marker, push towards Nymn
+	@HasMarker:
+
 	move.l Echo_AIObjectOfInterest(a0), a3
 
 	; If off floor, abandon
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @OutOfBounds
 
-	; Check obj between Nymn and Echo
+	bra    @WithinBounds
+
+	IF 0
+
+	; Check obj between destination and Echo
 	ENTITY_GETCENTREXW d0, a0		; Echo centre
-	ENTITY_GETCENTREXW d1, a2		; Nymn centre
+	ENTITY_GETCENTREXW d1, a2		; Dest centre
 	cmp.w  d0, d1
 	bgt    @NymnToRight
 
-	; Echo to right of Nymn, check obj centre < Echo centre
+	; Echo to right of Dest, check obj centre < Echo centre
 	ENTITY_GETCENTREXW d2, a3		; Obj centre
 	cmp.w  d0, d2
 	bgt    @OutOfBounds
 
-	; Check object right > Nymn left
+	; Check object right > Dest left
 	move.w Entity_Width(a2), d3
 	lsr.w  #0x1, d3
-	sub.w  d3, d1					; Nymn left
+	sub.w  d3, d1					; Dest left
 	move.w Entity_Width(a3), d3
 	lsr.w  #0x1, d3
 	add.w  d3, d2					; Object right
@@ -1086,15 +1099,15 @@ EchoAIUpdate_PushObj:
 	
 	@NymnToRight:
 
-	; Echo to left of Nymn, check obj centre > Echo centre
+	; Echo to left of Dest, check obj centre > Echo centre
 	ENTITY_GETCENTREXW d2, a3		; Obj centre
 	cmp.w  d0, d2
 	blt    @OutOfBounds
 
-	; Check object left < Nymn right
+	; Check object left < Dest right
 	move.w Entity_Width(a2), d3
 	lsr.w  #0x1, d3
-	add.w  d3, d1					; Nymn right
+	add.w  d3, d1					; Dest right
 	move.w Entity_Width(a3), d3
 	lsr.w  #0x1, d3
 	sub.w  d3, d2					; Object left
@@ -1102,9 +1115,11 @@ EchoAIUpdate_PushObj:
 	bgt    @OutOfBounds
 	bra    @WithinBounds
 
+	ENDIF
+
 	@OutOfBounds:
 	
-	; Object not between Nymn and Echo, abandon it
+	; Object not between Dest and Echo, abandon it
 	jsr    PlayerCancelInteract
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
@@ -1112,7 +1127,7 @@ EchoAIUpdate_PushObj:
 
 	@WithinBounds:
 
-	; If object not touching Nymn
+	; If object not touching dest
 	ENTITY_GETBOUNDS d1,d2,d5,a2
 	ENTITY_GETBOUNDS d3,d4,d5,a3
 	jsr    PHYS_TestBoxIntersectBox
@@ -1121,7 +1136,7 @@ EchoAIUpdate_PushObj:
 
 	; If Echo heading in right direction
 	ENTITY_GETCENTREXW d1, a0		; Echo (centre)
-	ENTITY_GETCENTREXW d2, a2		; Nymn (centre)
+	ENTITY_GETCENTREXW d2, a2		; Dest (centre)
 	cmp.w  d1, d2					; If Echo X > Nymn X
 	bgt    @CheckVelPositive
 	tst.l  PhysicsObj_VelX(a0)
@@ -1132,15 +1147,16 @@ EchoAIUpdate_PushObj:
 	ble    @NoPush
 	@CheckVelNegative:
 	
-	; Continue pushing towards Nymn
+	; Continue pushing towards Dest
+	PUSHM  a0-a3
 	jsr    PlayerStartInteract
+	POPM   a0-a3
 
 	@NoPush:
 
 	move.w #Echo_AINodeTolerancePushObjX, d3
 	
 	; Check if within X tolerance
-	move.l (Player1), a2
 	ENTITY_GETCENTREXW d0,a0
 	ENTITY_GETCENTREXW d1,a2
 	
@@ -1158,7 +1174,7 @@ EchoAIUpdate_PushObj:
 
 	@TouchingNymn:
 
-	; Within bounds or touching Nymn - back to follow state
+	; Within bounds or touching Dest - back to follow state
 	jsr    PlayerCancelInteract
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
@@ -2945,7 +2961,7 @@ EchoAI_FindFuzzl:
 EchoAI_FindLog:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-	; a2 --- OUT: Button addr
+	; a2 --- OUT: Log addr
 	
 	move.l #0x0, a2
 
@@ -3383,7 +3399,6 @@ EchoAI_PushInteractionFuzzl:
 
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
 	move.w #Echo_AINodeTolerancePushFuzzlX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeTolerancePushFuzzlY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_RequireOnFloor(a3)
@@ -3456,7 +3471,7 @@ EchoAI_PushInteractionLog:
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
 	move.b #EchoAINode_Action_StartPush, EchoAINode_Action(a3)
-	move.l a2, EchoAINode_UserData(a3)
+	move.l Log_PushDestMarker(a2), EchoAINode_UserData(a3)
 	move.l a2, EchoAINode_Object(a3)
 	move.w d6, EchoAINode_PosXOffset(a3)
 	move.w #Echo_AINodeTolerancePushObjX, EchoAINode_ToleranceX(a3)
@@ -3484,7 +3499,6 @@ EchoAI_PushInteractionButton:
 
 	; Push button node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
 	move.w d0, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
 	move.w #Echo_AINodeToleranceButtonX, EchoAINode_ToleranceX(a3)
@@ -3514,7 +3528,6 @@ EchoAI_PushInteractionRaft:
 
 	; Push raft node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)	; Use object to determine pos, could be moving
 	move.w #Echo_AINodeToleranceRaftX, EchoAINode_ToleranceX(a3)
 	move.w #Echo_AINodeToleranceRaftY, EchoAINode_ToleranceY(a3)
 	move.b #0x1, EchoAINode_StopMovement(a3)
@@ -3543,7 +3556,6 @@ EchoAI_PushInteractionEmergencyLadder:
 
 	; Push ladder node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
 	move.w d0, EchoAINode_PosX(a3)
 	move.w d1, EchoAINode_PosY(a3)
 	move.w #Echo_AINodeToleranceLadderEnterX, EchoAINode_ToleranceX(a3)
@@ -3569,7 +3581,6 @@ EchoAI_PushInteractionCart:
 
 	; Push cart ride node
 	jsr    EchoAIPushNode
-	move.l a2, EchoAINode_UserData(a3)
 	move.w d0, EchoAINode_PosX(a3)
 	move.w Entity_WorldPosY(a2), EchoAINode_PosY(a3)
 	move.w #Echo_AINodeToleranceCartX, EchoAINode_ToleranceX(a3)
@@ -3825,7 +3836,8 @@ EchoAIRunNodeAction:
 
 	; Determine node type and run action
 	move.b EchoAINode_Action(a3), d0
-	move.l EchoAINode_UserData(a3), a2
+	move.l EchoAINode_Object(a3), a2
+	move.l EchoAINode_UserData(a3), a3
 	cmp.b  #EchoAINode_Action_Fall, d0
 	beq    @FallAction
 	cmp.b  #EchoAINode_Action_Land, d0

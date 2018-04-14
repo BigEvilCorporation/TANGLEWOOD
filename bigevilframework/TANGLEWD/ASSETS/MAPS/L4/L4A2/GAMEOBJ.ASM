@@ -193,13 +193,17 @@ L4A2_ButtonLock5_name	dc.b "L4A2_ButtonLock5",0
 
 L4A2_Wyrm_count equ 0x0
 
-L4A2_AIMarker_count equ 0x2
+L4A2_AIMarker_count equ 0x4
 L4A2_EchoAIMarker1_idx	equ 0x0
 L4A2_MarkerEchoLockStop_idx	equ 0x1
+L4A2_AIMarkerLogPush1_idx	equ 0x2
+L4A2_AIMarkerLogPush2_idx	equ 0x3
 
 	IFND FINAL
 L4A2_EchoAIMarker1_name	dc.b "L4A2_EchoAIMarker1",0
 L4A2_MarkerEchoLockStop_name	dc.b "L4A2_MarkerEchoLockStop",0
+L4A2_AIMarkerLogPush1_name	dc.b "L4A2_AIMarkerLogPush1",0
+L4A2_AIMarkerLogPush2_name	dc.b "L4A2_AIMarkerLogPush2",0
 	even
 	ENDIF
 
@@ -941,6 +945,34 @@ L4A2_LoadGameObjects:
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L4A2_MarkerEchoLockStop_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x0a200000, Entity_WorldPosX(a0)
+	move.l #0x03f80000, Entity_WorldPosY(a0)
+	move.b #AIMarker_Type_PushDest, AIMarker_Type(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L4A2_AIMarkerLogPush1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x0c600000, Entity_WorldPosX(a0)
+	move.l #0x01500000, Entity_WorldPosY(a0)
+	move.b #AIMarker_Type_PushDest, AIMarker_Type(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L4A2_AIMarkerLogPush2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

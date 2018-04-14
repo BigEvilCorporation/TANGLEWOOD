@@ -49,6 +49,7 @@ Echo_Animations	   			rs.b (Animation_Struct_Size*EchoAnimIdx_Max)
 Echo_AIFollowNodes			rs.b (EchoAINode_Struct_Size*Echo_NumAINodes)
 Echo_Skivv					rs.l 1	; Skivv, takes Echo if he gets lost
 Echo_AIObjectOfInterest		rs.l 1	; AI current object of interest
+Echo_AIPushObjMarker		rs.l 1	; AI current object push destination
 Echo_AILastNymnFloorVelX	rs.l 1
 Echo_AINodeProducer			rs.w 1	; AI follow node queue
 Echo_AINodeConsumer			rs.w 1
