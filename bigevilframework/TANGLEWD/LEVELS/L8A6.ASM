@@ -736,6 +736,14 @@ l8a6_Cutscene_DemonDropFuzzl:
 	move.b #0x0, PhysicsObj_CloseToFloor(a2)
 	move.w #0x0, PhysicsObj_LastFloor(a2)
 
+	; Set in rolling state and add as flue occupant
+	PUSHM  a0-a2
+	move.l a2, a0
+	move.b #(1<<Fuzzl_State_Rolling), Fuzzl_State_Bits(a0)
+	jsr    FlueAddPotentialOccupant
+	move.b #0x1, Fuzzl_FlueOccupant(a0)
+	POPM   a0-a2
+
 	move.l a2, a0
 	move.b #0x1, d1
 	jsr    EntityUpdateWorldGridIndex
