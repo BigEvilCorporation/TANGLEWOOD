@@ -34,6 +34,23 @@ Thunder_Enabled			rs.b 1
 	RS_ALIGN
 Thunder_Struct_Size		rs.b 0
 
+ThunderReset:
+
+	lea    Thunder, a2
+	move.w #0x0, Thunder_StrikeTimer(a2)
+	move.w #0x0, Thunder_SoundTimer(a2)
+	move.w #0x0, Thunder_FlashTimer(a2)
+	move.w #0x0, Thunder_BoltTimer(a2)
+	move.w #0x0, Thunder_Interval(a2)
+	move.w #0x0, Thunder_StrikePointX(a2)
+	move.w #0x0, Thunder_StrikePointY(a2)
+	move.b #0x0, Thunder_Distance(a2)
+	move.b #0x0, Thunder_BoltActive(a2)
+	move.b #0x0, Thunder_PlayerTarget(a2)
+	move.b #0x0, Thunder_Enabled(a2)
+	
+	rts
+
 ThunderInit:
 	; a1 --- Level addr
 

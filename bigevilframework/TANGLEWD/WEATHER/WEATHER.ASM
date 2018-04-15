@@ -16,5 +16,6 @@ WeatherUpdate:
 WeatherInit:
 
 	jsr WindInit
+	jsr ThunderReset
 
 	rts
