@@ -28,6 +28,7 @@ Pool_FilledTileVRAM		rs.w 1	; VRAM address of the "filled" tile
 Pool_PrevScrollX		rs.w 1
 Pool_PrevScrollY		rs.w 1
 Pool_DirtyMap			rs.b 1
+Pool_TrackPlaying		rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Pool_struct_Size		rs.b 0
@@ -63,6 +64,7 @@ PoolInit:
 	move.w #0x0, Pool_FilledTileVRAM(a0)
 	move.w #0x0, Pool_PrevScrollX(a0)
 	move.w #0x0, Pool_PrevScrollY(a0)
+	move.b #0x0, Pool_TrackPlaying(a0)
 
 	; Invisible according to sprite engine (manually drawn)
 	move.b #0x0, SpriteObj_Visible(a0)
@@ -199,6 +201,15 @@ PoolUpdate:
 	bra    @EndLimit
 
 	@ReachedLimit:
+
+	; Stop SFX track
+	tst.b  Pool_TrackPlaying(a0)
+	beq    @NoSFX
+	PUSHL  a0
+	jsr    SND_StopTrack
+	POPL   a0
+	move.b #0x0, Pool_TrackPlaying(a0)
+	@NoSFX:
 
 	; Stop moving
 	move.w #0x0, Pool_WaterSpeed(a0)
@@ -499,6 +510,14 @@ Pool_Raise:
 	move.b #0x0, AnimObj_Reverse(a0)
 	POPL   a1
 
+	; Start SFX track
+	move.b #0x1, Pool_TrackPlaying(a0)
+
+	PUSHL  a0
+	lea    track_amb_watergush, a0
+	jsr    SND_PlayTrack
+	POPL   a0
+
 	rts
 
 Pool_Lower:
@@ -517,5 +536,13 @@ Pool_Lower:
 	jsr    AnimObjSetAnimation
 	move.b #0x1, AnimObj_Reverse(a0)
 	POPL   a1
+
+	; Start SFX track
+	move.b #0x1, Pool_TrackPlaying(a0)
+
+	PUSHL  a0
+	lea    track_amb_watergush, a0
+	jsr    SND_PlayTrack
+	POPL   a0
 
 	rts

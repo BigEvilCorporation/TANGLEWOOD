@@ -193,10 +193,24 @@ SND_QueueTrack:
 
 SND_StopTrack:
 	IF INCLUDE_AUDIO
-	jsr   Echo_StopBGM
+	PUSHL  a0
+	jsr    Echo_StopBGM
+
+	move.l audio_current_track, a0
+	cmpa   #0x0, a0
+	beq    @NoTrack
+	moveq  #0x0, d0
+	move.b Track_Type(a0), d0
+	lsl.l  #0x2, d0
+	lea    audio_queued_tracks, a0
+	add.l  d0, a0
+	move.l #0x0, (a0)
+	@NoTrack:
+
 	move.l #0x0, audio_current_track
 	move.w #0x0, audio_track_stop_timer
 	move.b #0x0, audio_playback_locked
+	POPL   a0
 	ENDIF
 	rts
 
@@ -217,6 +231,7 @@ SND_StopTrackType:
 	@NotCurrentTrack:
 
 	; Remove from queue
+	andi.l #0xFF, d0
 	lsl.l  #0x2, d0
 	lea    audio_queued_tracks, a2
 	add.l  d0, a2
