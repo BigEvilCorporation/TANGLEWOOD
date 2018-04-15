@@ -103,8 +103,8 @@ GameStateStackSize		 equ 0x4
 MaxFirefliesPerAct		 equ 0x8
 
 ; Total levels containing fireflies
-; (not the most scientific method, counting programmatically putting gameobjs into tables)
-MaxLevelsWithFireflies	 equ 22
+; (not the most scientific method, counting programmatically means putting gameobjs into tables)
+MaxLevelsWithFireflies	 equ 21
 
 ; Total firefly count
 TotalFireflyCount		 equ (MaxFirefliesPerAct*MaxLevelsWithFireflies)
