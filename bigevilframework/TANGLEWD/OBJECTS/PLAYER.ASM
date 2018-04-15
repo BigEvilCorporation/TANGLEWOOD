@@ -592,6 +592,9 @@ PlayerBeginColourSwitch:
 	bne    @NoActivate
 	jsr    PlayerStartColourAbility
 	@NoActivate:
+
+	; If switching to white, reset cooldown
+	move.w #0x0, Player_LightningCooldown(a0)
 	
 	@Red:
 	
