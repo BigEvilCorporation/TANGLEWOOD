@@ -539,6 +539,7 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
 
 	; Fade out audio track
+	CUTSCENE_DELAY #0x0060
 	CUTSCENE_FADE_TRACK
 
 	; Enable howling
