@@ -404,9 +404,6 @@ l8a4_CutsceneDemonReturn:
 	; Halt player
 	CUTSCENE_OBJECT_SET_PARAM_L Player1,#PhysicsObj_VelX,#0x0
 
-	; Start enemy approach track
-	CUTSCENE_PLAY_TRACK #track_bgm_enemyapproach
-
 	; Re-enable Demon
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#CharacterCancelXMovement
