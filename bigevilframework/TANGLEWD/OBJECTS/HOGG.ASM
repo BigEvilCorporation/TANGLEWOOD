@@ -73,7 +73,7 @@ HoggInit:
 	; Set update and render routines
 	move.l #HoggUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
-	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
+	move.l #HoggSerialise, Entity_SerialiseRoutine(a0)
 
 	; Add to serialise list
 	jsr EntityAddToSerialiseList
@@ -119,9 +119,6 @@ HoggInit:
 	MOVE_NTSC_ACCEL_W Hogg_DecelIdle, Character_DecelIdle(a0), d0
 	MOVE_NTSC_ACCEL_W Hogg_DecelForced, Character_DecelForced(a0), d0
 
-	; Start idle state
-	jsr    HoggAIStart_Idle
-
 	rts
 
 HoggLoadGfx:
@@ -144,6 +141,9 @@ HoggLoadGfx:
 	; Add to world grid
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders)|(1<<EntityWorldGridFlag_GridPhysics), d0
 	jsr     EntityAddToWorldGrid
+
+	; Start idle state
+	jsr    HoggAIStart_Idle
 
 	rts
 	
@@ -181,6 +181,42 @@ HoggUpdate:
 	bra    @End
 
 	@End:
+
+	rts
+
+HoggSerialise:
+	; a1 --- Level address
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	PUSHM d1/a1
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	; Don't save world grid flags - not restoring Hogg AI state on load
+	SAVEL Entity_WorldPosX(a0)
+	SAVEL Entity_WorldPosY(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADL Entity_WorldPosX(a0)
+	LOADL Entity_WorldPosY(a0)
+
+	move.b #0x1, d0
+	jsr    EntityUpdateWorldGridIndex
+
+	@End:
+
+	POPM  d1/a1
 
 	rts
 
