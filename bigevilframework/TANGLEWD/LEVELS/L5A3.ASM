@@ -345,6 +345,13 @@ l5a3_ActivateWinch:
 
 l5a3_Trigger_Scrap:
 
+	; Remove Scrap from world grid
+	ENTITY_GETBYNAME Scrap, l5a3_Scrap, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityAddToUpdateList
+	jsr    EntityAddToRenderList
+	jsr    PhysicsWorldAddObject
+
 	PUSHL  a0
 	lea    LevelData_L5A3, a2
 	lea    l5a3Data_CutsceneRevealScrap(a2), a0
