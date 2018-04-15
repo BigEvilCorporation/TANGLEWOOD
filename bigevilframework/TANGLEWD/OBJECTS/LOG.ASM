@@ -277,6 +277,7 @@ LogUpdate:
 
 	; Play roll SFX
 	move.l  PhysicsObj_VelX(a0), d0
+	add.l   PhysicsObj_ImpulseX(a0), d0
 	cmp.l   #Boulder_RollSFXVel, d0
 	bgt     @PlayRollSFX
 	cmp.l   #-Boulder_RollSFXVel, d0
