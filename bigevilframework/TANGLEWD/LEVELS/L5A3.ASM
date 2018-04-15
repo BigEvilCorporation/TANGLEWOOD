@@ -516,8 +516,7 @@ l5a3_CutsceneLoadLift1:
 	move.b #0x1, d0
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_Follow
 
-	; Clear follow-only behaviour
-	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_AILinearFollowOnly,#0x0
+	; (Keep follow-only behaviour until off raft)
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
@@ -740,6 +739,9 @@ l5a3_CutsceneRaftStart:
 
 	; Re-add locks to world grid
 	CUTSCENE_ROUTINE l5a3_Cutscene_LocksFinished,#0x0,#0x0,#0x0
+
+	; Clear Echo follow-only behaviour
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_AILinearFollowOnly,#0x0
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
