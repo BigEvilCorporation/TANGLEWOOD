@@ -120,46 +120,6 @@ RenderEndFrame:
 	move.b #DMAVDPQueue_VRAM, d2
 	move.b #0x2, d3
 	jsr    VDP_DMAQueue_AddJob
-
-	;==============================================================
-	; DMA palettes if dirty
-	move.l #0x0, d0
-	lea    CurrentPalettes, a0
-	@PaletteLp:
-	btst   d0, DirtyPalettesMask
-	beq    @NotDirty
-	PUSHM  d0/a0
-
-	; Colourblind testing
-	IF COLOURBLIND_TEST_RG
-	PUSHW  d0
-	lea    ColourblindScratchPalette, a1
-	jsr    VFX_CreateColourblindPalettePaletteRG
-	lea    ColourblindScratchPalette, a0
-	POPW   d0
-	ENDIF
-	IF COLOURBLIND_TEST_BG
-	PUSHW  d0
-	lea    ColourblindScratchPalette, a1
-	jsr    VFX_CreateColourblindPalettePaletteBG
-	lea    ColourblindScratchPalette, a0
-	POPW   d0
-	ENDIF
-
-	lsl.w  #0x5, d0				; Colour index to CRAM destination address
-	move.w #size_palette_w, d1
-	move.b #DMAVDPQueue_CRAM, d2
-	move.b #0x2, d3
-	jsr    VDP_DMAQueue_AddJob
-	POPM   d0/a0
-	@NotDirty:
-	lea    size_palette_b(a0), a0
-	addq.b #0x1, d0
-	cmp.b  #num_palettes, d0
-	bne    @PaletteLp
-
-	; Reset dirty palette mask
-	move.b #0x0, DirtyPalettesMask
 	
 	; Get current render counter
 	move.l vblank_counter, d0
@@ -184,6 +144,20 @@ RenderEndFrame:
 	lea    Str_Render, a0
 	jsr    DBG_Profile_PushScope
 	ENDIF
+	
+	;==============================================================
+	; DMA palettes if dirty
+PAL_INDEX = 0
+	REPT 4
+	btst   #PAL_INDEX, DirtyPalettesMask
+	beq    NotDirty_\#PAL_INDEX
+	VDP_DMA_CRAM CurrentPalettes+(size_palette_b*PAL_INDEX), (size_palette_b*PAL_INDEX), size_palette_b, d0
+NotDirty_\#PAL_INDEX\:
+PAL_INDEX = PAL_INDEX+1
+	ENDR
+
+	; Reset dirty palette mask
+	move.b #0x0, DirtyPalettesMask
 
 	;==============================================================
 	; Update current raster effect

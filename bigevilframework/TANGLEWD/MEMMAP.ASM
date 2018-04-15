@@ -42,6 +42,7 @@ raster_interlace_scroll2_y	rs.w 1	; Interlaced scroll Y (odd line)
 raster_interlace_scroll		rs.w 1
 raster_interlace_odd		rs.b 1	; Odd/even raster line
 raster_water_level			rs.b 1	; Current water level, sets HINT frequency
+raster_water_counter		rs.b 1	; Water level HINT counter
 raster_letterbox_top		rs.b 1	; Letterbox mode top border
 raster_letterbox_bottom		rs.b 1	; Letterbox mode bottom border
 raster_letterbox_counter	rs.b 1	; Letterbox HINT counter

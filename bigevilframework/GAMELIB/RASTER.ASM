@@ -152,18 +152,32 @@ RasterEffectUnderwaterInit:
 	lea    INT_LoadHBlank, a5
 	jsr    VDP_JobQueue_PushJob
 
+	; Enable HINT
+	lea    RasterEffectUnderwaterEnableHINT, a5
+	jsr    VDP_JobQueue_PushJob
+
+	rts
+
+RasterEffectUnderwaterEnableHINT:
+
+	VDP_GETREG 0, d0
+	ori.b   #vdp_reg0_enablehint, d0
+	VDP_SETREG 0, d0
+
 	rts
 
 RasterEffectUnderwaterUpdate:
 
 	; Set water level HINT
 	move.b (raster_water_level), d0
+	cmp.b  #0x10, d0
+	blt    @ok
+	nop
+	@ok:
 	jsr    VDP_SetHINTFreq
 
-	; Enable HINT
-	VDP_GETREG 0, d0
-	ori.b   #vdp_reg0_enablehint, d0
-	VDP_SETREG 0, d0
+	; Reset counter
+	move.b #0x0, raster_water_counter
 
 	rts
 
@@ -178,22 +192,24 @@ RasterEffectUnderwaterEnd:
 
 RasterEffectUnderwaterHINT:
 
-	; Disable interrupts
-	PUSHW  sr
 	PUSHW  d0
-	ori.w  #status_reg_int_disable, sr
+
+	; Ignore odd fires, counter is latched too late
+	btst.b #0x0, raster_water_counter
+	bne    @Ignore
 
 	; DMA underwater palette to player palette
 	VDP_DMA_CRAM (UnderwaterPalettes+(PaletteId_WaterRaster*size_palette_b)), (PaletteId_WaterRaster*size_palette_b), size_palette_b, d0
 	bset.b #PaletteId_WaterRaster, (DirtyPalettesMask)
 
-	; Disable HINT
-	VDP_GETREG 0, d0
-	andi.b  #~vdp_reg0_enablehint, d0
-	VDP_SETREG 0, d0
+	@Ignore:
 
-	; Restore interrupts
+	; Increment counter
+	addi.b #0x1, raster_water_counter
+
+	; Move next HINT off screen
+	move.w #0x8AFF, vdp_control
+
 	POPW   d0
-	POPW   sr
 
 	rte
