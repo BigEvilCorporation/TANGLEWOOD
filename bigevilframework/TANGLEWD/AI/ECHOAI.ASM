@@ -2280,6 +2280,7 @@ EchoAI_WatchNymnMovement:
 	move.w #Echo_AINodeToleranceLandY, EchoAINode_ToleranceY(a3)
 	move.l PhysicsObj_VelX(a2), EchoAINode_VelX(a3)
 	move.b #EchoAINode_Action_Land, EchoAINode_Action(a3)
+	move.b #0x1, EchoAINode_RequireOnFloor(a3)
 
 	bra    @NodePushed
 
