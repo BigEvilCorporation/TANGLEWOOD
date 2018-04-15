@@ -2274,17 +2274,13 @@ PlayerInteractTest_Fireflies:
 	; Check player against all Fireflies in level
 	move.l a0, a1							; Player in a1
 	move.l (EntityPoolStart_Firefly), a0	; Firefly in a0
-	subq.w  #0x1, d0
+	subq.w #0x1, d0
 	@FireflyLoop:
 
-	; Check on screen
-	tst.b  SpriteObj_SpriteLinked(a0)
-	beq    @NextFirefly
-
 	; Test collision
-	movem.l d0-d1/a0-a1, -(sp)
-	jsr FireflyTestObj
-	movem.l (sp)+, d0-d1/a0-a1
+	PUSHM  d0-d1/a0-a1
+	jsr    FireflyTestObj
+	POPM   d0-d1/a0-a1
 
 	@NextFirefly:
 	lea    Firefly_Struct_Size(a0), a0
