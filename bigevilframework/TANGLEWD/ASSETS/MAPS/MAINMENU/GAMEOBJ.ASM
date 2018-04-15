@@ -239,7 +239,7 @@ main_menu_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x00980000, Entity_WorldPosX(a0)
-	move.l #0x01300000, Entity_WorldPosY(a0)
+	move.l #0x01280000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea main_menu_BouncePlant_1_name, a3

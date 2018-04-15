@@ -258,7 +258,7 @@ credits_LoadGameObjects:
 
 	jsr BouncePlantInit
 	move.l #0x00f00000, Entity_WorldPosX(a0)
-	move.l #0x01400000, Entity_WorldPosY(a0)
+	move.l #0x01380000, Entity_WorldPosY(a0)
 	jsr BouncePlantLoadGfx
 	IFND FINAL
 	lea credits_BouncePlant_2_name, a3
