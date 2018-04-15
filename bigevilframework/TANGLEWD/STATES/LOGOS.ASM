@@ -59,6 +59,9 @@ Logos_Enter:
 	BYTES2TILES d4
 	move.l #PaletteId_BigEvilLogo, d5	; d5 (b)  Palette ID
 	jsr    VDP_LoadMapSegmentPlaneA
+
+	; Reset audio fader
+	move.b #0x0, audio_fader_speed
 	
 	; Start title theme
 	PUSHM  a0/d0-d1

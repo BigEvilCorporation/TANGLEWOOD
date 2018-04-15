@@ -64,7 +64,7 @@ Credits_CentrePosX			equ screen_width/8/2
 Credits_CentrePosY			equ vdp_plane_height/2
 Credits_TextColumnX			equ 7
 Credits_TextSpacingY		equ 2
-Credits_ScrollSpeed			equ 0x00003000
+Credits_ScrollSpeed			equ 0x00002D00
 
 CreditsState_OpeningTitle	equ 0
 CreditsState_OpeningCredit	equ 1
@@ -95,7 +95,6 @@ Credits_Palette:
 Credits_Playlist_Start:
 	dc.l track_bgm_credits
 	dc.l track_bgm_cue_l4
-	dc.l track_bgm_cue_l5
 Credits_Playlist_End
 Credits_Playlist_Size	equ (Credits_Playlist_End-Credits_Playlist_Start)/size_long
 
@@ -242,14 +241,13 @@ Credits_Update:
 	lea    GameStateCreditsData, a2
 	move.l Credits_CurrTrackPtr(a2), a3	; Get track ptr
 	move.l (a3), a0						; Get track
+	cmp.l  #Credits_Playlist_End, a3	; Check at end
+	beq    @AtEnd
 	addi.l #size_long, a3				; Advance
-	cmp.l  #Credits_Playlist_End, a3	; Wrap
-	bne    @NotAtEnd
-	move.l #Credits_Playlist_Start, a3
-	@NotAtEnd:
 	move.l a3, Credits_CurrTrackPtr(a2)	; Set new track ptr
 	jsr    SND_PlayTrack				; Play
 	@Playing:
+	@AtEnd:
 	POPL   a1
 
 	lea    GameStateCreditsData, a2
@@ -258,7 +256,8 @@ Credits_Update:
 
 	; Scroll
 	move.l Credits_VScroll(a2), d0
-	addi.l #Credits_ScrollSpeed, d0
+	MOVE_NTSC_L Credits_ScrollSpeed,d1,d2
+	add.l  d1, d0
 	move.l d0, Credits_VScroll(a2)
 	TOPIXELS d0
 	jsr    VDP_SetVScrollPlaneA
