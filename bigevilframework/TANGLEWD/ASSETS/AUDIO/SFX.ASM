@@ -289,6 +289,7 @@ SFX_Data_SpikeDeath:		include 'assets\audio\SFX\objects\spike.asm'
 SFX_Data_SwarmMoveLoop:		include 'assets\audio\SFX\objects\swrm_mov.asm'
 SFX_Data_SwarmDamageLoop:	include 'assets\audio\SFX\objects\swrm_dmg.asm'
 SFX_Data_Thunder_Near:		include 'assets\audio\SFX\weather\thndrnr.asm'
+SFX_Data_Winch:				include 'assets\audio\SFX\objects\winchlp.asm'
 SFX_Data_NymnColourSwitch:	include 'assets\audio\SFX\nymn\switch.asm'
 SFX_Data_NymnColourFade:	include 'assets\audio\SFX\nymn\unswitch.asm'
 SFX_Data_Footstep1:			include 'assets\audio\SFX\fstep\fstep1.asm'
@@ -1059,6 +1060,14 @@ SFX_Thunder_Near:
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
+SFX_Winch:
+	dc.l SFX_Data_Winch				; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 

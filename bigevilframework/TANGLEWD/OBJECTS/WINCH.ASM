@@ -75,6 +75,9 @@ WinchUpdate:
 	tst.l  Winch_Velocity(a0)
 	beq    @Stopped
 
+	; Play SFX
+	PLAYSFX #SFX_Winch
+
 	; Get attached object
 	move.l Winch_PhysObject(a0), a2
 	cmpa.w #0x0, a2
