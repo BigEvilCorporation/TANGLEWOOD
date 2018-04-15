@@ -897,7 +897,7 @@ SFX_Ambience_Night1:
 
 SFX_Djakk_Roar:
 	dc.l SFX_Data_Djakk_Roar		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
@@ -905,7 +905,7 @@ SFX_Djakk_Roar:
 
 SFX_Djakk_RoarTamed:
 	dc.l SFX_Data_Djakk_RoarTamed	; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
@@ -913,7 +913,7 @@ SFX_Djakk_RoarTamed:
 
 SFX_Djakk_Bite:
 	dc.l SFX_Data_Djakk_Bite		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
@@ -921,7 +921,7 @@ SFX_Djakk_Bite:
 
 SFX_Elder_Roar:
 	dc.l SFX_Data_Elder_Roar		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
