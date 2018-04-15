@@ -358,8 +358,8 @@ L6A3_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x11800000, Entity_WorldPosX(a0)
-	move.l #0x04200000, Entity_WorldPosY(a0)
+	move.l #0x11a80000, Entity_WorldPosX(a0)
+	move.l #0x04280000, Entity_WorldPosY(a0)
 	jsr MonsterLoadGfx
 	IFND FINAL
 	lea L6A3_Djakk1_name, a3
@@ -661,8 +661,8 @@ L6A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x12000000, Entity_WorldPosX(a0)
-	move.l #0x04000000, Entity_WorldPosY(a0)
+	move.l #0x12400000, Entity_WorldPosX(a0)
+	move.l #0x04080000, Entity_WorldPosY(a0)
 	move.l #l6a3_Trigger_Djakk1, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
@@ -1079,7 +1079,7 @@ L6A3_LoadGameObjects:
 	add.l #Checkpoint_Struct_Size, a0
 
 	jsr CheckpointInit
-	move.l #0x11000000, Entity_WorldPosX(a0)
+	move.l #0x10f00000, Entity_WorldPosX(a0)
 	move.l #0x03f80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
