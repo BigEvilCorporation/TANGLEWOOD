@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blocks_L2_size_b	equ 0x00011560	; Size in bytes
+map_blocks_L2_size_b	equ 0x00011420	; Size in bytes
 map_blocks_L2_size_w	equ (map_blocks_L2_size_b/2)	; Size in words
 map_blocks_L2_size_l	equ (map_blocks_L2_size_b/4)	; Size in longwords
-map_blocks_L2_num_blocks	equ 2219	; Size in blocks
+map_blocks_L2_num_blocks	equ 2209	; Size in blocks

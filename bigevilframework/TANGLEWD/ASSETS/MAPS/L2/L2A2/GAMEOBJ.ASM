@@ -850,7 +850,7 @@ L2A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x10b00000, Entity_WorldPosX(a0)
+	move.l #0x10b80000, Entity_WorldPosX(a0)
 	move.l #0x03280000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
