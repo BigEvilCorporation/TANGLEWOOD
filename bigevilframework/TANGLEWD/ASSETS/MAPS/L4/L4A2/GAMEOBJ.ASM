@@ -942,6 +942,7 @@ L4A2_LoadGameObjects:
 	move.l #0x0ca00000, Entity_WorldPosX(a0)
 	move.l #0x03f80000, Entity_WorldPosY(a0)
 	move.b #AIMarker_Type_Barrier, AIMarker_Type(a0)
+	move.b #AIMarker_Direction_Right, AIMarker_Direction(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L4A2_MarkerEchoLockStop_name, a3
