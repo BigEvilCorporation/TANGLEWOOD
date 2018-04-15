@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L1A4_size_b	equ 0x000025B2	; Size in bytes
+map_blockmap_L1A4_size_b	equ 0x000025B6	; Size in bytes
 map_blockmap_L1A4_size_w	equ (map_blockmap_L1A4_size_b/2)	; Size in words
 map_blockmap_L1A4_size_l	equ (map_blockmap_L1A4_size_b/4)	; Size in longwords
 map_L1A4_width	equ 0x5DC
@@ -386,8 +386,8 @@ map_blockmap_L1A4_coloffsets:
 	dc.w 0x2442
 	dc.w 0x246C
 	dc.w 0x248C
-	dc.w 0x24B4
-	dc.w 0x24E0
-	dc.w 0x2510
-	dc.w 0x2548
-	dc.w 0x2586
+	dc.w 0x24B6
+	dc.w 0x24E2
+	dc.w 0x2512
+	dc.w 0x254A
+	dc.w 0x2588

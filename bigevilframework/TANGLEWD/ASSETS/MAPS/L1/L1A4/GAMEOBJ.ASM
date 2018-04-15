@@ -626,8 +626,8 @@ L1A4_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x2dd00000, Entity_WorldPosX(a0)
-	move.l #0x01b00000, Entity_WorldPosY(a0)
+	move.l #0x2f280000, Entity_WorldPosX(a0)
+	move.l #0x03080000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
 	lea L1A4_Lvl3_Firefly_13_name, a3
