@@ -463,6 +463,7 @@ l8a6_CutsceneEnding_WithNymn:
 	; Cancel glide and stop
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Lerp camera to Nymn
 	CUTSCENE_CAMERA_LERP Player2,Player1,#0x0008
@@ -483,6 +484,7 @@ l8a6_CutsceneEnding_WithNymn:
 
 	; Stop glide
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
 
 	; Nymn run to mushroom
 	CUTSCENE_GET_ENTITY BouncePlant,l8a6_MushroomEnd,a2
