@@ -577,8 +577,9 @@ l3a3_CutsceneSaveEcho:
 	; Echo runs scared
 	CUTSCENE_DELAY #EchoGreetCustsceneStartDelay
 	CUTSCENE_CAMERA_LERP Player1,Player2,#EchoToNymnCamLerpSpeed
-	MOVE_NTSC_L -Player1MaxVelXRun, d1, d0
-	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,d1
+	MOVE_NTSC_L Player1MaxVelXRun, d3, d1
+	neg.l d3
+	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,d3
 	ENTITY_GETBYNAME Location, l3a3_LocEchoHide, a3
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a3,#0x10,#0x10
 
@@ -603,8 +604,8 @@ l3a3_CutsceneSaveEcho:
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
 	CUTSCENE_OBJECT_ROUTINE a2,#MonsterStartTrackPlayer
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	MOVE_NTSC_L -Monster_MaxVelXRun, d1, d0
-	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d1
+	MOVE_NTSC_L -Monster_MaxVelXRun, d3, d0
+	CUTSCENE_OBJECT_SET_PARAM_L a2,#PhysicsObj_VelX,d3
 
 	; Pan camera to Djakk
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
