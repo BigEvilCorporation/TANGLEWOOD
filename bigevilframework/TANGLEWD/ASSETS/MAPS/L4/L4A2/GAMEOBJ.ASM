@@ -249,11 +249,11 @@ L4A2_Scrap_count equ 0x0
 
 L4A2_Longboat_count equ 0x2
 L4A2_Longboat2_idx	equ 0x0
-L4A2_Longboat_58_idx	equ 0x1
+L4A2_Longboat1_idx	equ 0x1
 
 	IFND FINAL
 L4A2_Longboat2_name	dc.b "L4A2_Longboat2",0
-L4A2_Longboat_58_name	dc.b "L4A2_Longboat_58",0
+L4A2_Longboat1_name	dc.b "L4A2_Longboat1",0
 	even
 	ENDIF
 
@@ -1118,10 +1118,10 @@ L4A2_LoadGameObjects:
 	move.l #0x04700000, Entity_WorldPosY(a0)
 	jsr LongboatLoadGfx
 	IFND FINAL
-	lea L4A2_Longboat_58_name, a3
+	lea L4A2_Longboat1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Longboat_Struct_Size, a0
