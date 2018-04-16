@@ -379,7 +379,7 @@ L3A1_LoadGameObjects:
 	POPL   a1
 
 	jsr BoulderInit
-	move.l #0x0a680000, Entity_WorldPosX(a0)
+	move.l #0x0a780000, Entity_WorldPosX(a0)
 	move.l #0x02c00000, Entity_WorldPosY(a0)
 	move.b #0x10, PhysicsObj_Mass(a0)
 	jsr BoulderLoadGfx
