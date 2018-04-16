@@ -135,7 +135,7 @@ L1A4_TreeFuzzl5_name	dc.b "L1A4_TreeFuzzl5",0
 	even
 	ENDIF
 
-L1A4_Stone_count equ 0x8
+L1A4_Stone_count equ 0x9
 L1A4_Stone_45_idx	equ 0x0
 L1A4_Stone_46_idx	equ 0x1
 L1A4_Stone_47_idx	equ 0x2
@@ -144,6 +144,7 @@ L1A4_Stone_53_idx	equ 0x4
 L1A4_Stone_88_idx	equ 0x5
 L1A4_Stone_91_idx	equ 0x6
 L1A4_Stone_98_idx	equ 0x7
+L1A4_Stone_107_idx	equ 0x8
 
 	IFND FINAL
 L1A4_Stone_45_name	dc.b "L1A4_Stone_45",0
@@ -154,6 +155,7 @@ L1A4_Stone_53_name	dc.b "L1A4_Stone_53",0
 L1A4_Stone_88_name	dc.b "L1A4_Stone_88",0
 L1A4_Stone_91_name	dc.b "L1A4_Stone_91",0
 L1A4_Stone_98_name	dc.b "L1A4_Stone_98",0
+L1A4_Stone_107_name	dc.b "L1A4_Stone_107",0
 	even
 	ENDIF
 
@@ -912,6 +914,19 @@ L1A4_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x29c80000, Entity_WorldPosX(a0)
+	move.l #0x02f80000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L1A4_Stone_107_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xe, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Stone_Struct_Size, a0
