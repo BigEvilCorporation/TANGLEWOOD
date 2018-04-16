@@ -9,7 +9,7 @@
 ; Constants
 Lock_Width				equ 0x08
 Lock_Height				equ 0x68
-Lock_BarrierWidth		equ 0x10
+Lock_BarrierWidth		equ 0x08
 Lock_MinRaiseHeight		equ 0x18
 Lock_MaxRaiseHeight		equ Lock_Height
 Lock_DefaultRaiseSpeed	equ 0x1
