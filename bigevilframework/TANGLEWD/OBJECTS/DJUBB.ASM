@@ -17,7 +17,7 @@ Djubb_MaxSwimVel		equ 0x03E000
 Djubb_MaxFloatVel		equ 0x010000
 Djubb_FloatAccel		equ 0x000800
 Djubb_FloatAccelTop		equ 0x000200
-Djubb_WallBoundsLeft		equ -0x0010
+Djubb_WallBoundsLeft	equ -0x0010
 Djubb_WallBoundsRight	equ Djubb_Width+0x0010
 Djubb_WallProbeTop		equ 0x0000
 Djubb_WallProbeBottom	equ Djubb_Height-1
@@ -174,14 +174,19 @@ DjubbUpdate:
 	@NotTouching:
 
 	; Move towards
+	move.b PhysicsObj_HitWall(a0), d2
 	ENTITY_GETCENTREX d0, a0
 	ENTITY_GETCENTREX d1, a2
 	sub.l  d0, d1
 	tst.l  d1
 	bgt    @MoveRight
+	andi.b #PhysicsObjHitWallRight, d2
+	bne    @EndMove
 	jsr    CharacterMoveLeft
 	bra    @EndMove
 	@MoveRight:
+	andi.b #PhysicsObjHitWallLeft, d2
+	bne    @EndMove
 	jsr    CharacterMoveRight
 	bra    @EndMove
 
