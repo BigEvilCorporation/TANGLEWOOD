@@ -1627,6 +1627,19 @@ MonsterUpdateTamed:
 MonsterEndTamed:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; Restore palette
+	PUSHM  a0-a1
+	lea    palette_djakk, a1
+	move.l a1, SpriteObj_PaletteAddr(a0)
+	move.l a1, a0
+	move.l #PaletteId_Monster, d0
+	move.w #Monster_EmergePalLerpSpeed, d1
+	move.b #0x1, d2
+	move.b #0x0, d3
+	move.b #0xF, d4
+	jsr    GameScenePaletteFadeTo
+	POPM   a0-a1
 	
 	; Reset run/jump speed
 	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
@@ -1656,24 +1669,6 @@ MonsterStartBucking:
 
 	; Take anim control
 	move.b #0x0, Character_UpdateAnim(a0)
-
-	; Restore palette
-	PUSHM  a0-a1
-	lea    palette_djakk, a1
-	move.l a1, SpriteObj_PaletteAddr(a0)
-	move.l a1, a0
-	move.l #PaletteId_Monster, d0
-	move.w #Monster_EmergePalLerpSpeed, d1
-	move.b #0x1, d2
-	move.b #0x0, d3
-	move.b #0xF, d4
-	jsr    GameScenePaletteFadeTo
-	POPM   a0-a1
-
-	; Reset run/jump speed
-	MOVE_NTSC_L Monster_MaxVelXRun, Character_MaxVelXRun(a0), d0
-	MOVE_NTSC_L Monster_MaxVelXRun, PhysicsObj_MaxVelFloorX(a0), d0
-	MOVE_NTSC_L Monster_MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
 
 	rts
 

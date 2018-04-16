@@ -930,6 +930,7 @@ PlayerStopColourAbility:
 	; Pet no longer tamed
 	PUSHM  a0-a2
 	move.l a2, a0
+	jsr    MonsterEndTamed
 	jsr    MonsterStartRoaring
 	POPM   a0-a2
 
@@ -1124,6 +1125,26 @@ PlayerUpdateColourAbility:
 	; Blue
 	;==============================================================
 	@Blue:
+
+	; If player has a pet
+	move.l Player_Pet(a0), a2
+	cmpa   #0x0, a2
+	beq    @NoPet
+
+	; If pet is dead
+	tst.b  Character_Dead(a2)
+	beq    @PetAlive
+
+	; End colour ability
+	move.w #0x1, Player_ColourChangeTimer(a0)
+
+	; No longer tamed
+	PUSHL  a0
+	move.l a2, a0
+	jsr    MonsterEndTamed
+	POPL   a0
+
+	@PetAlive:
 	
 	; If riding a pet
 	cmp.b  #Player_Interaction_Ride, Player_InteractionType(a0)
@@ -1133,6 +1154,7 @@ PlayerUpdateColourAbility:
 	jsr    PlayerUpdateMount
 
 	@NotRiding:
+	@NoPet:
 	
 	bra    @End
 
@@ -1362,11 +1384,6 @@ PlayerDismountPet:
 	jsr    EntityAddToWorldGrid
 	@NoPetWorldGrid:
 	POPM   d0/a0-a2
-
-	; End tamed
-	PUSHW  d0
-	jsr    MonsterEndTamed
-	POPW   d0
 
 	;==============================================================
 
