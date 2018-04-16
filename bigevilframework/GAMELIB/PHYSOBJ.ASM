@@ -1420,8 +1420,9 @@ PhysicsObjFindWall:
 	; d0 (b) 0 == Bottom, 1 = top
 	
 	;==============================================================
-
+	
 	move.b d0, d6
+	move.b #0x0, d7
 	
 	move.w Entity_WorldPosX(a0), d1				; Get player pos X (top word = integer part)
 	subi.w  #vdp_sprite_border_x, d1			; To screen space
@@ -1449,10 +1450,9 @@ PhysicsObjFindWall:
 	
 	@HeadingLeft:
 	
-	; Search from probe centre to left bounds - 1 tile
+	; Search from probe centre to left bounds
 	move.w d1, d0								; Get left pos
-	add.w  PhysicsObj_BoundsLeft(a0), d0		; Add left bounds
-	sub.w  #0x8, d0								; -1 tile
+	add.w  PhysicsObj_WallBoundsLeft(a0), d0	; Add left bounds
 
 	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
@@ -1466,11 +1466,9 @@ PhysicsObjFindWall:
 	
 	@HeadingRight:
 	
-	; Search from probe centre to right bounds + 1 tile
+	; Search from probe centre to right bounds
 	move.w d1, d0								; Get left pos
-	add.w  PhysicsObj_BoundsLeft(a0), d0		; Add right bounds (left bounds + width)
-	add.w  PhysicsObj_BoundsWidth(a0), d0
-	add.w  #0x8, d0								; +1 tile
+	add.w  PhysicsObj_WallBoundsRight(a0), d0	; Add right bounds
 	
 	move.w Entity_Width(a0), d2					; Get centre
 	lsr.w  #0x1, d2
@@ -1654,6 +1652,9 @@ PhysicsObjFindWall:
 	
 	;==============================================================
 	; Find wall
+
+	; Extend search for solid walls by 1 tile (8 or -8 is in d3)
+	add.w  d3, d0				; +/- 1 tile
 
 	; Translate probe position to collision map space
 	move.w Level_ColMapHeight(a1), d4
@@ -2085,7 +2086,7 @@ PhysicsObjFindMovingBarrier:
 	
 	; Barrier heading left, check against obj right bounds + 1 tile
 	move.w d5, d6								; Get left bounds
-	add.w  PhysicsObj_BoundsWidth(a0), d6		; To right bounds (left bounds + width)
+	add.w  PhysicsObj_WallBoundsLeft(a0), d6
 	add.w  #0x8, d6								; +1 tile
 	
 	bra    @EndHeadingTest
@@ -2093,7 +2094,8 @@ PhysicsObjFindMovingBarrier:
 	@HeadingRight:
 	
 	; Barrier heading right, check obj left bounds - 1 tile
-	move.w d5, d6								; Get left bounds
+	move.w d5, d6								; Get right bounds
+	add.w  PhysicsObj_WallBoundsRight(a0), d6
 	sub.w  #0x8, d6								; -1 tile
 
 	@EndHeadingTest:
