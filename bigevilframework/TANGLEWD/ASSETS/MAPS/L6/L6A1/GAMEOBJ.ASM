@@ -307,7 +307,7 @@ L6A1_LoadGameObjects:
 	POPL   a1
 
 	jsr MonsterInit
-	move.l #0x15a80000, Entity_WorldPosX(a0)
+	move.l #0x15f80000, Entity_WorldPosX(a0)
 	move.l #0x06000000, Entity_WorldPosY(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr MonsterLoadGfx
@@ -465,7 +465,7 @@ L6A1_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x14e80000, Entity_WorldPosX(a0)
-	move.l #0x06000000, Entity_WorldPosY(a0)
+	move.l #0x05d00000, Entity_WorldPosY(a0)
 	move.l #l6a1_Trigger_WakeDjakk, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
@@ -622,7 +622,7 @@ L6A1_LoadGameObjects:
 	add.l #Button_Struct_Size, a0
 
 	jsr ButtonInit
-	move.l #0x16400000, Entity_WorldPosX(a0)
+	move.l #0x16a00000, Entity_WorldPosX(a0)
 	move.l #0x06200000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
@@ -834,7 +834,7 @@ L6A1_LoadGameObjects:
 	add.l #Bridge_Struct_Size, a0
 
 	jsr BridgeInit
-	move.l #0x15680000, Entity_WorldPosX(a0)
+	move.l #0x15b80000, Entity_WorldPosX(a0)
 	move.l #0x06600000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)

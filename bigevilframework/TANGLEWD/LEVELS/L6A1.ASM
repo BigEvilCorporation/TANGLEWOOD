@@ -166,6 +166,9 @@ L6a1_Init:
 	ENTITY_GETBYNAME Monster, l6a1_Djakk1, a0
 	move.b #0x0, Monster_LerpPalette(a0)
 
+	; Don't hold player control
+	move.b #0x0, Monster_BlockPlayerCtrl(a0)
+
 	;==============================================================
 
 	; Init camera lerp timer
