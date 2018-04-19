@@ -146,8 +146,8 @@ Logos_Update:
 	
 	@FadedOut:
 	
-	; Enter Megafounder screen state
-	lea GameStateMegafounderScreen, a0
+	; Enter legal screen state
+	lea GameStateLegalScreen, a0
 	jsr GameStateEnter
 	
 	@ColourTimerRunning:

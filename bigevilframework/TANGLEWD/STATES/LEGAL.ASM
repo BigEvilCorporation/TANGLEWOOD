@@ -3,22 +3,22 @@
 ;==============================================================
 ;   http://www.bigevilcorporation.co.uk
 ;==============================================================
-;   megafndr.asm - Megafounder advert screen state
+;   legal.asm - Legal disclaimer screen state
 ;==============================================================
 
 ; Constants
-MegafounderScreenDelayTime	equ 0x00B0
-MegafounderScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
-MegafounderScreenNumColours	equ 0xF ; For palette lerping
+LegalScreenDelayTime	equ 0x00B0
+LegalScreenFadeTime		equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
+LegalScreenNumColours	equ 0xF ; For palette lerping
 
-GameStateMegafounderScreen:
-	dc.l MegafounderScreen_Enter
-	dc.l MegafounderScreen_Exit
-	dc.l MegafounderScreen_Update
-	dc.l MegafounderScreen_Render
+GameStateLegalScreen:
+	dc.l LegalScreen_Enter
+	dc.l LegalScreen_Exit
+	dc.l LegalScreen_Update
+	dc.l LegalScreen_Render
 	dc.l 0x0
 	
-MegafounderScreen_Enter:
+LegalScreen_Enter:
 
 	; Clear all palettes
 	jsr    PAL_ClearAll
@@ -31,45 +31,45 @@ MegafounderScreen_Enter:
 	jsr    VRAM_ClearPools
 
 	; Set BG colour
-	move.w #(PaletteId_MegafounderScreen<<4), d0
+	move.w #(PaletteId_LegalScreen<<4), d0
 	VDP_SETREG 7, d0
 
 	; Load tiles
 	moveq #0x0, d1
-	lea    tiles_megafounder_screen, a0
-	move.w #tiles_megafounder_screen_size_t, d0
+	lea    tiles_Legal_screen, a0
+	move.w #tiles_Legal_screen_size_t, d0
 	jsr    LevelLoadCompressedTileset
 	
 	; Load BG map
-	lea    map_blocks_megafounder_screen, a0
-	lea    map_blockmap_megafounder_screen, a1
-	move.l #(map_blockmap_megafounder_screen_width<<16)|map_blockmap_megafounder_screen_height, d1
+	lea    map_blocks_Legal_screen, a0
+	lea    map_blockmap_Legal_screen, a1
+	move.l #(map_blockmap_Legal_screen_width<<16)|map_blockmap_Legal_screen_height, d1
 	move.w (vram_addr_leveltiles), d2
-	move.l #PaletteId_MegafounderScreen, d3
+	move.l #PaletteId_LegalScreen, d3
 	jsr    VDP_LoadBlockMapPlaneA
 	
 	; Begin fade up
-	lea    palette_megafounder_screen, a0
-	move.l #PaletteId_MegafounderScreen, d0
-	move.l #MegafounderScreenFadeTime, d1
+	lea    palette_Legal_screen, a0
+	move.l #PaletteId_LegalScreen, d0
+	move.l #LegalScreenFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
-	move.l #MegafounderScreenNumColours, d4
+	move.l #LegalScreenNumColours, d4
 	jsr    GameScenePaletteFadeTo
 	
 	; Flush VDP queue
 	jsr    VDP_JobQueue_ExecuteAll
 	
 	; Reset timer
-	MOVE_NTSC_L MegafounderScreenDelayTime, TimerLogoFade, d0
+	MOVE_NTSC_L LegalScreenDelayTime, TimerLogoFade, d0
 	
 	rts
 	
-MegafounderScreen_Exit:
+LegalScreen_Exit:
 	
 	rts
 	
-MegafounderScreen_Update:
+LegalScreen_Update:
 
 	; Wait for fade to finish
 	jsr    PAL_LerpActive
@@ -89,11 +89,11 @@ MegafounderScreen_Update:
 	
 	; Begin fade to black
 	lea    palette_fade_black, a0
-	move.l #PaletteId_MegafounderScreen, d0
-	move.l #MegafounderScreenFadeTime, d1
+	move.l #PaletteId_LegalScreen, d0
+	move.l #LegalScreenFadeTime, d1
 	move.b #DefaultFadeTicksPerUpdate, d2
 	move.l #0x0, d3
-	move.l #MegafounderScreenNumColours, d4
+	move.l #LegalScreenNumColours, d4
 	jsr    GameScenePaletteFadeTo
 	bra    @End
 	
@@ -112,6 +112,6 @@ MegafounderScreen_Update:
 	
 	rts
 	
-MegafounderScreen_Render:
+LegalScreen_Render:
 	rts
 	

@@ -180,7 +180,7 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\maps\disclmr\tiles.asm
 	INCLUDE_TEXT_ASSET assets\maps\demoend\tiles.asm
 	INCLUDE_TEXT_ASSET assets\maps\soundtst\tiles.asm
-	INCLUDE_TEXT_ASSET assets\maps\megafndr\tiles.asm
+	INCLUDE_TEXT_ASSET assets\maps\legal\tiles.asm
 
 	; ************************************
 	; Static screen maps
@@ -195,7 +195,7 @@ sprite_assets_end
 	; ************************************
 	; Palettes
 	; ************************************
-	INCLUDE_TEXT_ASSET assets\maps\megafndr\palette.asm
+	INCLUDE_TEXT_ASSET assets\maps\legal\palette.asm
 	INCLUDE_TEXT_ASSET assets\maps\bec_logo\palette.asm
 	INCLUDE_TEXT_ASSET assets\maps\controls\palette.asm
 	INCLUDE_TEXT_ASSET assets\maps\disclmr\palette.asm
@@ -205,7 +205,7 @@ sprite_assets_end
 	; ************************************
 	; Blocks
 	; ************************************
-	INCLUDE_TEXT_ASSET assets\maps\megafndr\blocks.asm
+	INCLUDE_TEXT_ASSET assets\maps\legal\blocks.asm
 	INCLUDE_TEXT_ASSET assets\maps\controls\blocks.asm
 	INCLUDE_TEXT_ASSET assets\maps\disclmr\blocks.asm
 
@@ -215,7 +215,7 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\maps\mainmenu\blockmap.asm
 	INCLUDE_TEXT_ASSET assets\maps\endlevel\blockmap.asm
 	INCLUDE_TEXT_ASSET assets\maps\credits\blockmap.asm
-	INCLUDE_TEXT_ASSET assets\maps\megafndr\blockmap.asm
+	INCLUDE_TEXT_ASSET assets\maps\legal\blockmap.asm
 	INCLUDE_TEXT_ASSET assets\maps\controls\blockmap.asm
 	INCLUDE_TEXT_ASSET assets\maps\disclmr\blockmap.asm
 
@@ -279,11 +279,8 @@ PaletteId_ControlsScreen	equ 0x0
 ; Demo end state
 PaletteId_DemoEndState		equ 0x0
 
-; Kickstarter advert screen
-PaletteId_KSLogo			equ 0x0
-
-; Megafounder advert screen
-PaletteId_MegafounderScreen	equ 0x0
+; Legal screen
+PaletteId_LegalScreen	equ 0x0
 
 ; Gameplay
 PaletteId_World0			equ 0x0

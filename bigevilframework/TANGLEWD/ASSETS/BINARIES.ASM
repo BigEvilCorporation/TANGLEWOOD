@@ -19,8 +19,8 @@ tiles_twfontbs:
 	incbin 'assets\fonts\tiles\twfontbs.bin'
 tiles_bigevil_logo:
 	incbin 'assets\maps\bec_logo\tiles.bin'
-tiles_megafounder_screen:
-	incbin 'assets\maps\megafndr\tiles.bin'
+tiles_legal_screen:
+	incbin 'assets\maps\legal\tiles.bin'
 tiles_controls_screen:
 	incbin 'assets\maps\controls\tiles.bin'
 tiles_demodisclaimer_screen:
@@ -43,8 +43,8 @@ map_soundtest:
 	; ************************************
 	; Blocks
 	; ************************************
-map_blocks_megafounder_screen:
-	incbin 'assets\maps\megafndr\blocks.bin'
+map_blocks_legal_screen:
+	incbin 'assets\maps\legal\blocks.bin'
 map_blocks_controls:
 	incbin 'assets\maps\controls\blocks.bin'
 map_blocks_demodisclaimer_screen:
@@ -59,8 +59,8 @@ map_blockmap_end_level:
 	incbin 'assets\maps\endlevel\blockmap.bin'
 map_blockmap_credits:
 	incbin 'assets\maps\credits\blockmap.bin'
-map_blockmap_megafounder_screen:
-	incbin 'assets\maps\megafndr\blockmap.bin'
+map_blockmap_legal_screen:
+	incbin 'assets\maps\legal\blockmap.bin'
 map_blockmap_controls:
 	incbin 'assets\maps\controls\blockmap.bin'
 map_blockmap_demodisclaimer_screen:

@@ -7,15 +7,15 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_megafounder_screen_size_b	equ 0x00000084	; Size in bytes
-map_blockmap_megafounder_screen_size_w	equ (map_blockmap_megafounder_screen_size_b/2)	; Size in words
-map_blockmap_megafounder_screen_size_l	equ (map_blockmap_megafounder_screen_size_b/4)	; Size in longwords
-map_megafounder_screen_width	equ 0x28
-map_megafounder_screen_height	equ 0x20
-map_blockmap_megafounder_screen_width	equ 0x0A
-map_blockmap_megafounder_screen_height	equ 0x08
+map_blockmap_legal_screen_size_b	equ 0x00000084	; Size in bytes
+map_blockmap_legal_screen_size_w	equ (map_blockmap_legal_screen_size_b/2)	; Size in words
+map_blockmap_legal_screen_size_l	equ (map_blockmap_legal_screen_size_b/4)	; Size in longwords
+map_legal_screen_width	equ 0x28
+map_legal_screen_height	equ 0x20
+map_blockmap_legal_screen_width	equ 0x0A
+map_blockmap_legal_screen_height	equ 0x08
 
-map_blockmap_megafounder_screen_coloffsets:
+map_blockmap_legal_screen_coloffsets:
 	dc.w 0x0000
 	dc.w 0x0010
 	dc.w 0x001C

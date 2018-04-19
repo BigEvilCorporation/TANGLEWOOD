@@ -188,7 +188,7 @@ code_start
 	include 'states\fail.asm'
 	include 'states\controls.asm'
 	include 'states\disclmr.asm'
-	include 'states\megafndr.asm'
+	include 'states\legal.asm'
 	include 'states\score.asm'
 	include 'states\logos.asm'
 	include 'states\password.asm'

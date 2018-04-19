@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-palette_megafounder_screen:
+palette_legal_screen:
 	dc.w	0x0000
 	dc.w	0x0200
 	dc.w	0x0002
