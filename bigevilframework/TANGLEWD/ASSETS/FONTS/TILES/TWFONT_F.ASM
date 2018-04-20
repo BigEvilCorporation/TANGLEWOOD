@@ -548,14 +548,14 @@ tiles_twfontf:
 	dc.l	0x00221000
 	dc.l	0x00222210
 
-	dc.l	0x02210000
-	dc.l	0x00221000
-	dc.l	0x00221000
-	dc.l	0x00022100
-	dc.l	0x00002210
-	dc.l	0x00002210
-	dc.l	0x00000221
-	dc.l	0x00000000
+	dc.l	0x00222210
+	dc.l	0x02100021
+	dc.l	0x21022212
+	dc.l	0x21221212
+	dc.l	0x21210002
+	dc.l	0x21022212
+	dc.l	0x02100021
+	dc.l	0x00222210
 
 	dc.l	0x00222210
 	dc.l	0x00002210
@@ -854,21 +854,12 @@ tiles_twfontf:
 	dc.l	0x00022100
 	dc.l	0x02221000
 
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x02221000
-	dc.l	0x21022102
-	dc.l	0x00002221
-	dc.l	0x00000000
-	dc.l	0x00000000
-
 	dc.l	0x00222210
 	dc.l	0x02100021
-	dc.l	0x21022212
-	dc.l	0x21221212
-	dc.l	0x21210002
-	dc.l	0x21022212
+	dc.l	0x21002212
+	dc.l	0x21021212
+	dc.l	0x21022102
+	dc.l	0x21021212
 	dc.l	0x02100021
 	dc.l	0x00222210
 
@@ -877,4 +868,4 @@ tiles_twfontf_end
 tiles_twfontf_size_b	equ (tiles_twfontf_end-tiles_twfontf)	; Size in bytes
 tiles_twfontf_size_w	equ (tiles_twfontf_size_b/2)	; Size in words
 tiles_twfontf_size_l	equ (tiles_twfontf_size_b/4)	; Size in longwords
-tiles_twfontf_size_t	equ (tiles_twfontf_size_b/32)	; Size in tiles
+tiles_twfontf_size_t	equ 95	; Size in tiles

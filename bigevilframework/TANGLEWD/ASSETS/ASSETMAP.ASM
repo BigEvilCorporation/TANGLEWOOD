@@ -50,12 +50,12 @@ level_assets_end
 	; ************************************
 	; Font tiles
 	; ************************************
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\sansfont.asm
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont.asm
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontb.asm
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfonts.asm
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontbs.asm
-	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont_f.asm
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\sansfont.asm	; System font
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont.asm	; Game font - regular
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontb.asm	; Game font - bold
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfonts.asm	; Game font - shadowed
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfontbs.asm	; Game font - bold + shadowed
+	INCLUDE_TEXT_ASSET assets\fonts\tiles\twfont_f.asm	; Game font - bold + shadowed (using Fuzzl palette)
 	
 	; ************************************
 	; Sprite tilesheets

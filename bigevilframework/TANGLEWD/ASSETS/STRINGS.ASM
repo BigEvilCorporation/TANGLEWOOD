@@ -28,12 +28,12 @@ FontTest_Msg3_B	dc.b "Accelerator, I'm sure I can do this.",0
 FontTest_Msg4	dc.b ".,!?=+-[]/\$%&()#@^_{|}~'<>`:;",0
 
 	; Legal screen
-LegalScreen_Str_00	dc.b "TANGLEWOOD is a registered trademark",0
+LegalScreen_Str_00	dc.b "TANGLEWOOD~ is a registered trademark",0
 LegalScreen_Str_01	dc.b "of Big Evil Corporation Ltd",0
-LegalScreen_Str_02	dc.b "TANGLEWOOD is not published,",0
+LegalScreen_Str_02	dc.b "TANGLEWOOD~ is not published,",0
 LegalScreen_Str_03	dc.b "sponsored, endorsed, or licensed by",0
 LegalScreen_Str_04	dc.b "SEGA Enterprises Ltd or its affiliates",0
-LegalScreen_Str_05	dc.b "Copyright (C) Big Evil Corp. 2018",0
+LegalScreen_Str_05	dc.b "Copyright \2018 Big Evil Corp.",0
 	
 Str_SoundTestLabel	dc.b "SOUND ID: ",0
 

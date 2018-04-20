@@ -50,16 +50,17 @@ LegalScreenDelayTime	equ 0x00B0
 LegalScreenFadeTime		equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 LegalScreenNumColours	equ 0xF ; For palette lerping
 
-LegalScreenTextFontPaletteId	equ 0
+LegalScreenTextFont				equ tiles_twfontf
+LegalScreenTextFontPaletteId	equ 2
 LegalScreenTextCentrePosX		equ screen_width/8/2
 
 ; Text positions
-LegalScreenTextPosY_00			equ 2
-LegalScreenTextPosY_01			equ 3
-LegalScreenTextPosY_02			equ 7
-LegalScreenTextPosY_03			equ 8
-LegalScreenTextPosY_04			equ 9
-LegalScreenTextPosY_05			equ 26
+LegalScreenTextPosY_00			equ 20
+LegalScreenTextPosY_01			equ 21
+LegalScreenTextPosY_02			equ 24
+LegalScreenTextPosY_03			equ 25
+LegalScreenTextPosY_04			equ 26
+LegalScreenTextPosY_05			equ 7
 
 ; State
 GameStateLegalScreen:
@@ -71,7 +72,7 @@ GameStateLegalScreen:
 
 ; Palettes
 LegalScreen_Palettes:
-	dc.l palette_legal_screen	; BG/text
+	dc.l palette_legal_screen	; BG
 	dc.l palette_djakk			; Djakk
 	dc.l palette_fuzzl			; Fuzzl
 	dc.l Pal_Nymn_Red			; Player
@@ -120,7 +121,7 @@ LegalScreen_Enter:
 	move.w #CharMap_SizeB, d0
 	jsr    VRAM_PoolAlloc
 	move.w d0, (vram_addr_systemfontb)
-	lea    tiles_sansfont, a0
+	lea    LegalScreenTextFont, a0
 	jsr    TXT_LoadFont
 
 	; Draw text
