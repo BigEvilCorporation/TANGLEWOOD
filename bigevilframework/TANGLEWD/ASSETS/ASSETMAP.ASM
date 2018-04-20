@@ -225,6 +225,7 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\maps\mainmenu\gameobj.asm
 	INCLUDE_TEXT_ASSET assets\maps\endlevel\gameobj.asm
 	INCLUDE_TEXT_ASSET assets\maps\credits\gameobj.asm
+	INCLUDE_TEXT_ASSET assets\maps\legal\gameobj.asm
 	
 	; ************************************
 	; Audio

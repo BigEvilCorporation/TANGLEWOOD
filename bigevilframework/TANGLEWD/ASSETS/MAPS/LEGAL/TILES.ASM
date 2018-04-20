@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_legal_screen_size_b	equ 0x00001600	; Size in bytes
+tiles_legal_screen_size_b	equ 0x000001A0	; Size in bytes
 tiles_legal_screen_size_w	equ (tiles_legal_screen_size_b/2)	; Size in words
 tiles_legal_screen_size_l	equ (tiles_legal_screen_size_b/4)	; Size in longwords
-tiles_legal_screen_size_t	equ 176	; Size in tiles
+tiles_legal_screen_size_t	equ 13	; Size in tiles

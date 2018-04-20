@@ -18,6 +18,7 @@ Lvl0_LevelSelect:
 	dc.l 0x0							; Collision tileset
 	dc.l 0x0							; Collision blocks
 	dc.l 0x0							; Collision block map
+	dc.l 0x0							; Collision block map Y offsets table
 	dc.l 0x0							; 'Special' terrain descriptor table
 	dc.l 0x0							; Palettes
 	dc.l 0x0							; Init routine

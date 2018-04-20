@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_legal_screen_size_b	equ 0x00000084	; Size in bytes
+map_blockmap_legal_screen_size_b	equ 0x00000020	; Size in bytes
 map_blockmap_legal_screen_size_w	equ (map_blockmap_legal_screen_size_b/2)	; Size in words
 map_blockmap_legal_screen_size_l	equ (map_blockmap_legal_screen_size_b/4)	; Size in longwords
 map_legal_screen_width	equ 0x28
@@ -17,12 +17,12 @@ map_blockmap_legal_screen_height	equ 0x08
 
 map_blockmap_legal_screen_coloffsets:
 	dc.w 0x0000
+	dc.w 0x0002
+	dc.w 0x0004
+	dc.w 0x0006
+	dc.w 0x0008
 	dc.w 0x0010
+	dc.w 0x0018
+	dc.w 0x001A
 	dc.w 0x001C
-	dc.w 0x0028
-	dc.w 0x0034
-	dc.w 0x0044
-	dc.w 0x0054
-	dc.w 0x0060
-	dc.w 0x006C
-	dc.w 0x0078
+	dc.w 0x001E

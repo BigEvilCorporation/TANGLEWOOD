@@ -254,6 +254,25 @@ CutsceneStep_CharacterAnimWait:
 
 	rts
 
+CutsceneStep_CharacterAnimSetSubframe:
+	; a0 --- Cutscene
+	; d0 (l) Character
+	; d1 (l) Cutscene subframe
+
+	; Get character
+	move.l d0, a2
+
+	; Set subframe
+	move.l d1, AnimObj_AnimSubFrame(a2)
+
+	; Mark as dirty
+	move.b #0x1, AnimObj_Dirty(a2)
+
+	; Done
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_SpriteFlipX:
 	; a0 --- Cutscene
 	; d0 (l) Sprite
@@ -657,6 +676,12 @@ CUTSCENE_CHARACTER_ANIM_WAIT: macro character
 	move.l \character, d0
 	move.l #0x0, d1
 	CUTSCENE_RUN_STEP CutsceneStep_CharacterAnimWait
+	endm
+
+CUTSCENE_CHARACTER_ANIM_SET_SUBFRAME: macro character,subframe
+	move.l \character, d0
+	move.l \subframe, d1
+	CUTSCENE_RUN_STEP CutsceneStep_CharacterAnimSetSubframe
 	endm
 
 CUTSCENE_SPRITE_FLIPX: macro object,flipx

@@ -286,6 +286,7 @@ GameStateStack         rs.l (GameStateStackSize)
 ; Game state data
 	IFND DEBUG
 GameStateLogoData			 rs.b LogoState_Struct_Size
+GameStateLegalScreenData	 rs.b LegalScreenState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
 GameStatePasswordScreenData	 rs.b PasswordScreenState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size
