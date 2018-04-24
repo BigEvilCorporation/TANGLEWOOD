@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-tiles_bec_logo_size_b	equ 0x00000620	; Size in bytes
+tiles_bec_logo_size_b	equ 0x00001480	; Size in bytes
 tiles_bec_logo_size_w	equ (tiles_bec_logo_size_b/2)	; Size in words
 tiles_bec_logo_size_l	equ (tiles_bec_logo_size_b/4)	; Size in longwords
-tiles_bec_logo_size_t	equ 49	; Size in tiles
+tiles_bec_logo_size_t	equ 164	; Size in tiles

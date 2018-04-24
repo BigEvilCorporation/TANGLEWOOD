@@ -260,7 +260,9 @@ all_assets_end
 	; Palette IDs
 	; ************************************
 ; Intro logos
-PaletteId_BigEvilLogo		equ 0x0
+PaletteId_BigEvilLogo0		equ 0x0
+PaletteId_BigEvilLogo1		equ 0x1
+PaletteId_BigEvilLogo2		equ 0x2
 
 ; Main menu
 PaletteId_TanglewoodLogo	equ 0x1
