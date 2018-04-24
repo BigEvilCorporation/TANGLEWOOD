@@ -109,6 +109,7 @@ CreditsStrings:
 	CREDIT_NAME		"Lily Bourne"
 	CREDIT_NAME		"Just Slightly Annoyed"
 	CREDIT_NAME		"Lauren Bamford"
+	CREDIT_NAME		"Thomas Noppers"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
