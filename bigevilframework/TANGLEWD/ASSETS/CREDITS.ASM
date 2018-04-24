@@ -125,11 +125,21 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "Kickstarter Development Team"
 	CREDIT_NAME		"Liz Hoskin"
+	CREDIT_NAME		"Lutz Osterkorn"
 	CREDIT_NAME		"Matthew Woodward"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "QA Testing"
+	CREDIT_HEADING1 "QA Team UK"
+	CREDIT_NAME		"Rhys Sampson"
+
+	CREDIT_HEADING1 "QA Team South Africa"
+	CREDIT_HEADING1 "24 Bit Games"
+	CREDIT_NAME		"Brandon Wolff"
+	CREDIT_NAME		"Lloyd Ramsamy"
+	CREDIT_NAME		"Luke Lamothe"
+
+	CREDIT_HEADING1 "Focus Testing"
 	CREDIT_NAME		"Bruce Gdula"
 	CREDIT_NAME		"David Blakemore"
 	CREDIT_NAME		"Davydd Pattinson"
@@ -165,12 +175,6 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
-	CREDIT_SPACE
-	CREDIT_HEADING1 "TANGLEWOOD uses the"
-	CREDIT_HEADING1 "Echo sound driver by Sik"
-	CREDIT_SPACE
-	CREDIT_SPACE
-
 	CREDIT_HEADING1 "Equipment Loans and Donations"
 	CREDIT_NAME		"Adam Dobson"
 	CREDIT_NAME		"Eddy Jackman"
@@ -178,6 +182,7 @@ CreditsStrings:
 	CREDIT_NAME		"Daniel Killeen"
 	CREDIT_NAME		"Jamie Deplacedo"
 	CREDIT_NAME		"Jason Birch"
+	CREDIT_NAME		"Bitmap Bureau"
 	CREDIT_NAME		"db Electronics"
 	CREDIT_NAME		"Dambuster Studios"
 	CREDIT_NAME		"Double Eleven Ltd"
@@ -185,10 +190,26 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
+	CREDIT_HEADING1 "Open Source Software Used"
+	CREDIT_NAME		"BlastEm (by Mike Pavone)"
+	CREDIT_NAME		"Bmp2Tile (by Kaneda)"
+	CREDIT_NAME		"DefleMask (by Dalek)"
+	CREDIT_NAME		"DGen (by Dave, Joe Groff, and Phil Hornung)"
+	CREDIT_NAME		"Echo Sound System (by Sik)"
+	CREDIT_NAME		"Exodus (by Nemesis)"
+	CREDIT_NAME		"GNU Image Manipulation Program"
+	CREDIT_NAME		"MDStudio (by Nicolas Hamel)"
+	CREDIT_NAME		"Mega (by Lee Hammerton and Jake Turner)"
+	CREDIT_NAME		"Notepad++ (by Don Ho)"
+	CREDIT_NAME		"SLZ Compression (by Sik)"
+	CREDIT_NAME		"z80asm (by Bas Wijnen and Jan Wilmans)"
+	CREDIT_SPACE
+
 	CREDIT_HEADING1 "Special Thanks"
 	CREDIT_NAME		"Djanine Taylor"
 	CREDIT_NAME		"Holly Elizabeth Jones"
 	CREDIT_NAME		"Kt 'Thoroughly Good' Chambers"
+	CREDIT_NAME		"Char Lee"
 	CREDIT_NAME		"Gemo Wainwright"
 	CREDIT_NAME		"Glenn Kneale"
 	CREDIT_NAME		"Kevin Purchase"
@@ -202,6 +223,12 @@ CreditsStrings:
 	CREDIT_NAME		"Darren Wall"
 	CREDIT_NAME		"Lee Hutchinson"
 	CREDIT_NAME		"Gruss Newton"
+	CREDIT_NAME		"Octav1us Kitten"
+	CREDIT_SPACE
+
+	CREDIT_HEADING1 "A very special thank you to every"
+	CREDIT_HEADING1 "Kickstarter and Megafounder backer!"
+	CREDIT_SPACE
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "The Museum of Games and Gaming"
@@ -226,9 +253,9 @@ CreditsStrings:
 	CREDIT_NAME		"Neil Dyson"
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "Mega Emulator core"
-	CREDIT_NAME		"Lee Hammerton"
-	CREDIT_NAME		"Jake Turner"
+	CREDIT_HEADING1 "Bitmap Bureau"
+	CREDIT_NAME		"Matthew Cope"
+	CREDIT_NAME		"Mike Tucker"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "All at"
