@@ -94,8 +94,8 @@
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
 	dc.b "BIG EVIL CORP.  "                                                                 ; Copyright holder and release date
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.00Q)                 " ; Domestic name
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.00Q)                 " ; International name
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; Domestic name
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
 	dc.w 0x0000                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
