@@ -955,7 +955,8 @@ PhysicsObjCollisionCorrectX:
 	move.w Entity_WorldPosX(a0), d1
 	cmp.w  d1, d0
 	blt    @NoWallFound
-	move.w d0, Entity_WorldPosX(a0)
+	TOSUBPIXELS d0						; Clears subpixel precision
+	move.l d0, Entity_WorldPosX(a0)
 	@UsingCachedWallL:
 
 	; Wall hit
@@ -977,7 +978,8 @@ PhysicsObjCollisionCorrectX:
 	move.w Entity_WorldPosX(a0), d1
 	cmp.w  d1, d0
 	bgt    @NoWallFound
-	move.w d0, Entity_WorldPosX(a0)
+	TOSUBPIXELS d0						; Clears subpixel precision
+	move.l d0, Entity_WorldPosX(a0)
 	@UsingCachedWallR:
 
 	; Wall hit
@@ -1042,7 +1044,8 @@ PhysicsObjCollisionCorrectY:
 	sub.w  d3, d2									; Floor to floor probe space
 	cmp.w  d2, d1									; Check if probe is on or under floor
 	blt    @AboveFloor
-	move.w d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
+	TOSUBPIXELS d2									; Clears subpixel precision
+	move.l d2, Entity_WorldPosY(a0) 				; Collision with ground, correct object's Y pos
 	
 	; If hit floor this frame, handle bounce
 	tst.l  d5										; Only if not a moving platform
@@ -1118,10 +1121,10 @@ PhysicsObjCollisionCorrectY:
 	ble    @HeadingDown
 	
 	; Heading up, clamp
-	move.w Entity_WorldPosY(a0), d2
-	move.w d5, Entity_WorldPosY(a0)
+	TOSUBPIXELS d5									; Clears subpixel precision
+	move.l d5, Entity_WorldPosY(a0)
 	
-	moveq  #0x0, d5										; Zero Y velocity by default
+	moveq  #0x0, d5									; Zero Y velocity by default
 	move.w PhysicsObj_BounceY(a0), d1				; Check for bounce
 	beq    @NoBounceCeil
 	move.l PhysicsObj_VelY(a0), d5
