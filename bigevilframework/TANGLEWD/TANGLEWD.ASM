@@ -303,6 +303,12 @@ code_end
 	; Include sound driver binary last
 	include '..\framewk\echo\echodrv.asm'
 
+	; Pad ROM to 4MB
+	dcb.b   $400000-*, $FF
+
+	; Checksum calc end
+checksum_end
+
 __end    ; Very last line, end of ROM address
 
 	inform 0,""

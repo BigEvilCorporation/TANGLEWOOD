@@ -8,7 +8,7 @@
 
 ; Engine features
 INCLUDE_AUDIO			equ 1
-CHECKSUM_TEST			equ 1
+CHECKSUM_TEST			equ 0
 
 ; Region testing
 FORCE_PAL_MODE			equ 0

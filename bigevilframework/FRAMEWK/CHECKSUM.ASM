@@ -38,24 +38,21 @@ Checksum_Palette:
 SYS_Checksum:
 
 	; Calculate checksum
-	move.l #0x200, a0	; ROM Start (after header)
-	move.l #__end, a1	; ROM End
+	move.l #0x200, a0		; ROM Start (after header)
+	move.l #__end, a1		; ROM End
 
-	move.l a0, d2		; Calc ROM size
-	move.l a1, d3
-	sub.l  d2, d3
-
-	subq.l #0x1, d3
-	moveq #0x0, d1
+	move.l #checksum_end, d1
+	lea    checksum_start, a0
+	moveq  #0x0, d0
 	@CheckLp:
-	add.w (a0)+, d1
-	dbra  d3, @CheckLp
+	add.w  (a0)+, d0
+	cmp.l  a0, d1
+	bne.s  @CheckLp
 
 	; Test checksum
-	move.l #header_checksum_addr, a2	; Checksum address
-	move.w (a2), d0						; Checksum
+	move.w header_checksum_addr, d0	; Checksum
 	cmp.w  d0, d1
-	;beq    @ChecksumCorrect
+	beq    @ChecksumCorrect
 
 	jsr    SYS_ChecksumError
 

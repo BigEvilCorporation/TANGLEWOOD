@@ -98,7 +98,7 @@
 	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
 header_checksum_addr:
-	dc.w 0x56B0                                                                             ; Checksum
+	dc.w 0xD867                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
 	dc.l __start                                                                            ; Start address of ROM
 	dc.l __end-1                                                                            ; End address of ROM
@@ -113,3 +113,11 @@ header_checksum_addr:
 	dc.b "                                        "                 ; Notes (unused)
 	dc.b "JUE             "                                                                 ; Country codes
 
+	IFND DEBUG
+	; Must be at 0x200 or some emulators complain, and checksum will be incorrect
+	IF !(*=0x200)
+	inform 2,"Header ends at incorrect address"
+	ENDIF
+	ENDIF
+
+checksum_start:
