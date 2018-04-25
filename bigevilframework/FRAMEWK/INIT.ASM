@@ -59,12 +59,17 @@ CPU_EntryPoint:
 	jsr SND_Init
 
 	; Cleanup registers
-	move.l  #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0
+	move.l #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0
 	movem.l (a0), d0-d7/a1-a6  ; Multiple move zero to all registers (except sp)
-	move.l  #0x00000000, a0    ; Clear a0
+	move.l #0x00000000, a0    ; Clear a0
 	
 	; Init status register
-	move.w  #status_reg_init, sr	; INT level 3 (all interrupts) + supervisor + trace (if debug)
+	move.w #status_reg_init, sr	; INT level 3 (all interrupts) + supervisor + trace (if debug)
+
+	; Run checksum test
+	IF CHECKSUM_TEST
+	jsr SYS_Checksum
+	ENDIF
 
 	; ************************************
 	; CPU_Main

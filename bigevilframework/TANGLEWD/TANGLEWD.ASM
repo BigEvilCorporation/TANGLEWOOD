@@ -34,6 +34,7 @@ code_start
 
 	; Include framework code
 	include '..\framewk\dmaqueue.asm'
+	include '..\framewk\checksum.asm'
 	include '..\framewk\collisn.asm'
 	include '..\framewk\errors.asm'
 	include '..\framewk\exceptn.asm'

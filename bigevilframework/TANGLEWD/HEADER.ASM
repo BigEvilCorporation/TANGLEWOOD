@@ -97,7 +97,8 @@
 	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; Domestic name
 	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
-	dc.w 0x0000                                                                             ; Checksum
+header_checksum_addr:
+	dc.w 0x56B0                                                                             ; Checksum
 	dc.b "J               "                                                                 ; I/O support
 	dc.l __start                                                                            ; Start address of ROM
 	dc.l __end-1                                                                            ; End address of ROM
