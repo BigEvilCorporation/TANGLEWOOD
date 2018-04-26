@@ -428,6 +428,7 @@ L4A2_LoadGameObjects:
 	jsr LogInit
 	move.l #0x16100000, Entity_WorldPosX(a0)
 	move.l #0x00d80000, Entity_WorldPosY(a0)
+	move.b #0x1, Log_NoAI(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L4A2_Log_53_name, a3
@@ -562,7 +563,7 @@ L4A2_LoadGameObjects:
 
 	jsr FuzzlInit
 	move.l #0x0a500000, Entity_WorldPosX(a0)
-	move.l #0x01780000, Entity_WorldPosY(a0)
+	move.l #0x01800000, Entity_WorldPosY(a0)
 	move.b #ColourYellow, Fuzzl_Colour(a0)
 	jsr FuzzlLoadGfx
 	IFND FINAL
@@ -716,8 +717,8 @@ L4A2_LoadGameObjects:
 	POPL   a1
 
 	jsr TriggerBoxInit
-	move.l #0x0ce80000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #0x0ce00000, Entity_WorldPosX(a0)
+	move.l #0x01600000, Entity_WorldPosY(a0)
 	move.l #l4a2_EchoAIPanic, TriggerBox_Routine(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
@@ -926,7 +927,7 @@ L4A2_LoadGameObjects:
 
 	jsr AIMarkerInit
 	move.l #0x0df00000, Entity_WorldPosX(a0)
-	move.l #0x01e80000, Entity_WorldPosY(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
 	move.b #AIMarker_Type_SafePos, AIMarker_Type(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
