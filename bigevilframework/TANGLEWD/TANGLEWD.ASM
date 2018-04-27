@@ -119,6 +119,7 @@ code_start
 	include 'objects\boulder.asm'
 	include 'objects\firefly.asm'
 	ENDIF
+	include 'objects\pushobj.asm'
 	include 'objects\actor.asm'
 	include 'objects\aimarker.asm'
 	include 'objects\borgus.asm'

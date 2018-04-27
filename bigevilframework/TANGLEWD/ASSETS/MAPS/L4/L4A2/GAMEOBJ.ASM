@@ -428,7 +428,7 @@ L4A2_LoadGameObjects:
 	jsr LogInit
 	move.l #0x16100000, Entity_WorldPosX(a0)
 	move.l #0x00d80000, Entity_WorldPosY(a0)
-	move.b #0x1, Log_NoAI(a0)
+	move.b #0x1, PushObj_NoAI(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L4A2_Log_53_name, a3

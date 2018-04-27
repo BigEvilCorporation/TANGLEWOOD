@@ -7,7 +7,7 @@
 ;==============================================================
 
 ECHO_AI_DEBUG_SAFE_POS 		equ 0
-ECHO_AI_DEBUG_NODE_POS		equ 0
+ECHO_AI_DEBUG_NODE_POS		equ 1
 ECHO_AI_DEBUG_STATE			equ 0
 
 ; Constants
@@ -392,6 +392,9 @@ EchoAIStart_Follow:
 	; Clear node queue
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
+
+	; Can collect nodes
+	move.b #0x1, Echo_AICollectNodes(a0)
 
 	; Reset lost timer
 	tst.b  d0
@@ -1042,7 +1045,7 @@ EchoAIStart_PushObj:
 	; Set push state
 	move.b #EchoAIState_PushObj, Echo_AIState(a0)
 
-	; Set object
+	; Set object (a PushObj)
 	move.l a2, Echo_AIObjectOfInterest(a0)
 
 	; Set destination marker
@@ -1071,53 +1074,14 @@ EchoAIUpdate_PushObj:
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	beq    @OutOfBounds
 
+	; If object can no longer be pushed, abandon
+	tst.b  PhysicsObj_CanBePushed(a3)
+	beq    @CannotBePushed
+
 	bra    @WithinBounds
-
-	IF 0
-
-	; Check obj between destination and Echo
-	ENTITY_GETCENTREXW d0, a0		; Echo centre
-	ENTITY_GETCENTREXW d1, a2		; Dest centre
-	cmp.w  d0, d1
-	bgt    @NymnToRight
-
-	; Echo to right of Dest, check obj centre < Echo centre
-	ENTITY_GETCENTREXW d2, a3		; Obj centre
-	cmp.w  d0, d2
-	bgt    @OutOfBounds
-
-	; Check object right > Dest left
-	move.w Entity_Width(a2), d3
-	lsr.w  #0x1, d3
-	sub.w  d3, d1					; Dest left
-	move.w Entity_Width(a3), d3
-	lsr.w  #0x1, d3
-	add.w  d3, d2					; Object right
-	cmp.w  d1, d2
-	blt    @OutOfBounds
-	bra    @WithinBounds
-	
-	@NymnToRight:
-
-	; Echo to left of Dest, check obj centre > Echo centre
-	ENTITY_GETCENTREXW d2, a3		; Obj centre
-	cmp.w  d0, d2
-	blt    @OutOfBounds
-
-	; Check object left < Dest right
-	move.w Entity_Width(a2), d3
-	lsr.w  #0x1, d3
-	add.w  d3, d1					; Dest right
-	move.w Entity_Width(a3), d3
-	lsr.w  #0x1, d3
-	sub.w  d3, d2					; Object left
-	cmp.w  d1, d2
-	bgt    @OutOfBounds
-	bra    @WithinBounds
-
-	ENDIF
 
 	@OutOfBounds:
+	@CannotBePushed:
 	
 	; Object not between Dest and Echo, abandon it
 	jsr    PlayerCancelInteract
@@ -1174,10 +1138,17 @@ EchoAIUpdate_PushObj:
 
 	@TouchingNymn:
 
-	; Within bounds or touching Dest - back to follow state
+	; Within bounds or touching dest marker/Nymn - back to follow state
 	jsr    PlayerCancelInteract
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
+
+	; If touched dest marker rather than Nymn, done pushing this object forever
+	tst.l  Echo_AIPushObjMarker(a0)
+	beq    @NotTouchingMarker
+	move.b #0x1, PushObj_NoAI(a3)
+	@NotTouchingMarker:
+
 	bra    @End
 	
 	@TooFarleft:
@@ -2168,6 +2139,9 @@ EchoAI_WatchNymnMovement:
 	; ** Nothing in here should happen based on Echo's current state, **
 	; ** only Nymn's current state.                                   **
 
+	tst.b  Echo_AICollectNodes(a0)
+	beq    @End
+
 	; If Nymn on floor or ladder, store latest floor pos
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	bne    @OnFloor
@@ -2975,7 +2949,7 @@ EchoAI_FindLog:
 	@LogLoop:
 
 	; Check if AI can use
-	tst.b  Log_NoAI(a2)
+	tst.b  PushObj_NoAI(a2)
 	bne    @NextLog
 
 	; If log's platform is occupied, don't bother
@@ -3398,6 +3372,9 @@ EchoAI_PushInteractionFuzzl:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
+	; Stop collecting nodes
+	move.b #0x0, Echo_AICollectNodes(a0)
+
 	; Push begin PushObj state node
 	jsr    EchoAIPushNode
 	move.w #Echo_AINodeTolerancePushFuzzlX, EchoAINode_ToleranceX(a3)
@@ -3435,6 +3412,9 @@ EchoAI_PushInteractionLog:
 	; Clear all nodes (interaction is a priority)
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
+
+	; Stop collecting nodes
+	move.b #0x0, Echo_AICollectNodes(a0)
 
 	; Get log pos
 	ENTITY_GETCENTREXW d0,a2
@@ -3495,6 +3475,9 @@ EchoAI_PushInteractionButton:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
+	; Stop collecting nodes
+	move.b #0x0, Echo_AICollectNodes(a0)
+
 	ENTITY_GETCENTREXW d0, a2
 	ENTITY_GETCENTREYW d1, a2
 
@@ -3527,6 +3510,9 @@ EchoAI_PushInteractionRaft:
 	move.w #0x0, Echo_AINodeConsumer(a0)
 	move.w #0x0, Echo_AINodeProducer(a0)
 
+	; Stop collecting nodes
+	move.b #0x0, Echo_AICollectNodes(a0)
+
 	; Push raft node
 	jsr    EchoAIPushNode
 	move.w #Echo_AINodeToleranceRaftX, EchoAINode_ToleranceX(a3)
@@ -3554,6 +3540,9 @@ EchoAI_PushInteractionEmergencyLadder:
 	; Clear nodes, emergency ladder is an emergency
 	move.w #0x0, Echo_AINodeProducer(a0)
 	move.w #0x0, Echo_AINodeConsumer(a0)
+
+	; Stop collecting nodes
+	move.b #0x0, Echo_AICollectNodes(a0)
 
 	; Push ladder node
 	jsr    EchoAIPushNode

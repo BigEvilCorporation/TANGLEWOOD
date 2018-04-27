@@ -70,6 +70,7 @@ Echo_AILastFloorPosY		rs.w 1
 Echo_AILastNymnFloorPosX	rs.w 1
 Echo_AILastNymnFloorPosY	rs.w 1
 Echo_AICameraLerpTimer		rs.w 1
+Echo_AICollectNodes			rs.b 1	; Watch Nymn and collect "breadcrumb" nodes
 Echo_AIAutoStartFollowNodes	rs.b 1	; Auto-start following nodes if first node added to queue
 Echo_AILinearFollowOnly		rs.b 1	; In follow state, follow X axis only and don't collect nodes
 Echo_AINymnJumping			rs.b 1	; Nymn is currently jumping
@@ -141,6 +142,7 @@ EchoInit:
 	move.b #0x1, Echo_CanBeCarried(a0)
 	move.b #0x0, Echo_AIWaterEscapeDirection(a0)
 	move.b #0x1, Echo_AIAutoStartFollowNodes(a0)
+	move.b #0x1, Echo_AICollectNodes(a0)
 	
 	; Setup interaction routines
 	move.l #PlayerStartColourAbility, Character_InteractStartA(a0)

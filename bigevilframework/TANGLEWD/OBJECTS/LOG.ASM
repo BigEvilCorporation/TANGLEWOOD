@@ -26,7 +26,7 @@ Log_MinDamageXVel		equ 0x020000	; Min X velocity to deal damage to characters
 Log_MinDamageYVel		equ 0x050000	; Min Y velocity to deal damage to characters
 Log_HitDamage			equ 0xFF		; Damage dealt to characters
 
-Log_PlatformWidth		equ Log_Width-0x10	; Physics platform width
+Log_PlatformWidth		equ Log_Width	; Physics platform width
 Log_PlatformXOffset		equ (Log_Width-Log_PlatformWidth)/2	; Offset to platform from top of Log
 Log_PlatformYOffset		equ 0x0000		; Offset to platform from top of Log
 
@@ -43,7 +43,7 @@ LogAnimIdx_Max     equ 1
 ;==============================================================
 
 ; Struct
-	rsset (PhysicsObj_Struct_Size)
+	rsset (PushObj_Struct_Size)
 ;-----------------------------
 Log_PushDestMarker	rs.l 1	; AI push destination (AIMarker)
 Log_Animations		rs.b (Animation_Struct_Size*LogAnimIdx_Max)
@@ -51,7 +51,6 @@ Log_Platform		rs.b Platform_Struct_Size ; Moving platform on top of Log
 Log_FloorRollAccel	rs.w 1
 Log_RollSFXPlaying	rs.b 1
 Log_Hazardous		rs.b 1
-Log_NoAI			rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Log_Struct_Size		rs.b 0
@@ -64,7 +63,7 @@ LogInit:
 	; a1 --- Level addr
 
 	; Base init
-	jsr    PhysicsObjInit
+	jsr    PushObjInit
 	
 	; Set type
 	addq.w #0x1, EntityCount_Log
@@ -101,7 +100,6 @@ LogInit:
 	move.w  #0x0, Log_FloorRollAccel(a0)
 	move.b  #0x0, Log_RollSFXPlaying(a0)
 	move.b  #0x0, Log_Hazardous(a0)
-	move.b  #0x0, Log_NoAI(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)

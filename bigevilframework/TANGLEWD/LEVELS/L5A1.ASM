@@ -138,7 +138,7 @@ L5a1_Init:
 
 	; Disable AI on log
 	ENTITY_GETBYNAME Log, l5a1_Log1, a0
-	move.b #0x1, Log_NoAI(a0)
+	move.b #0x1, PushObj_NoAI(a0)
 
 	;==============================================================
 
