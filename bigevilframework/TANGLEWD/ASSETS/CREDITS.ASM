@@ -141,6 +141,7 @@ CreditsStrings:
 	CREDIT_NAME		"Luke Lamothe"
 
 	CREDIT_HEADING1 "Focus Testing"
+	CREDIT_NAME		"Alexandre Miller"
 	CREDIT_NAME		"Bruce Gdula"
 	CREDIT_NAME		"David Blakemore"
 	CREDIT_NAME		"Davydd Pattinson"
