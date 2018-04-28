@@ -225,11 +225,13 @@ L5A3_Button4_name	dc.b "L5A3_Button4",0
 
 L5A3_Wyrm_count equ 0x0
 
-L5A3_AIMarker_count equ 0x1
+L5A3_AIMarker_count equ 0x2
 L5A3_MarkerEchoWait1_idx	equ 0x0
+L5A3_AIMarker_125_idx	equ 0x1
 
 	IFND FINAL
 L5A3_MarkerEchoWait1_name	dc.b "L5A3_MarkerEchoWait1",0
+L5A3_AIMarker_125_name	dc.b "L5A3_AIMarker_125",0
 	even
 	ENDIF
 
@@ -351,12 +353,12 @@ L5A3_Bridge3_name	dc.b "L5A3_Bridge3",0
 
 L5A3_Checkpoint_count equ 0x3
 L5A3_Checkpoint_47_idx	equ 0x0
-L5A3_Checkpoint_110_idx	equ 0x1
+L5A3_EchoPanicMarker1_idx	equ 0x1
 L5A3_CheckpointRaft_idx	equ 0x2
 
 	IFND FINAL
 L5A3_Checkpoint_47_name	dc.b "L5A3_Checkpoint_47",0
-L5A3_Checkpoint_110_name	dc.b "L5A3_Checkpoint_110",0
+L5A3_EchoPanicMarker1_name	dc.b "L5A3_EchoPanicMarker1",0
 L5A3_CheckpointRaft_name	dc.b "L5A3_CheckpointRaft",0
 	even
 	ENDIF
@@ -1174,6 +1176,19 @@ L5A3_LoadGameObjects:
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
 
+	jsr AIMarkerInit
+	move.l #0x1db00000, Entity_WorldPosX(a0)
+	move.l #0x05e00000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A3_AIMarker_125_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
 
 
 	PUSHL  a1
@@ -1616,7 +1631,7 @@ L5A3_LoadGameObjects:
 	move.l #0x05c80000, Entity_WorldPosY(a0)
 	jsr CheckpointLoadGfx
 	IFND FINAL
-	lea L5A3_Checkpoint_110_name, a3
+	lea L5A3_EchoPanicMarker1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

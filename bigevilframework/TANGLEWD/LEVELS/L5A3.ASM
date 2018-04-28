@@ -345,6 +345,18 @@ l5a3_ActivateWinch:
 
 l5a3_Trigger_Scrap:
 
+	; Make sure Echo is about
+	ENTITY_GETBYNAME AIMarker, l5a3_EchoPanicMarker1, a3
+	move.l Player2, a2
+
+	; If Echo to left of marker
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosX(a3), d1
+	cmp.w  d0, d1
+	blt    @NoPanic
+	jsr EchoAIPanic
+	@NoPanic:
+
 	; Remove Scrap from world grid
 	ENTITY_GETBYNAME Scrap, l5a3_Scrap, a0
 	jsr    EntityRemoveFromWorldGrid

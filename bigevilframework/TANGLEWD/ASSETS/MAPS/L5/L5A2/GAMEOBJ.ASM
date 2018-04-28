@@ -111,11 +111,15 @@ L5A2_Nest_38_name	dc.b "L5A2_Nest_38",0
 
 L5A2_Flue_count equ 0x0
 
-L5A2_TriggerBox_count equ 0x1
+L5A2_TriggerBox_count equ 0x3
 L5A2_TriggerBox_EndLevel_idx	equ 0x0
+L5A2_TriggerEchoPanic1_idx	equ 0x1
+L5A2_TriggerEchoPanic2_idx	equ 0x2
 
 	IFND FINAL
 L5A2_TriggerBox_EndLevel_name	dc.b "L5A2_TriggerBox_EndLevel",0
+L5A2_TriggerEchoPanic1_name	dc.b "L5A2_TriggerEchoPanic1",0
+L5A2_TriggerEchoPanic2_name	dc.b "L5A2_TriggerEchoPanic2",0
 	even
 	ENDIF
 
@@ -179,15 +183,19 @@ L5A2_Button1_name	dc.b "L5A2_Button1",0
 
 L5A2_Wyrm_count equ 0x0
 
-L5A2_AIMarker_count equ 0x3
+L5A2_AIMarker_count equ 0x5
 L5A2_EchoWait1_idx	equ 0x0
 L5A2_MarkerJumpLiftGap1_idx	equ 0x1
 L5A2_MarkerJumpLiftGap2_idx	equ 0x2
+L5A2_EchoPanicMarker1_idx	equ 0x3
+L5A2_EchoPanicMarker2_idx	equ 0x4
 
 	IFND FINAL
 L5A2_EchoWait1_name	dc.b "L5A2_EchoWait1",0
 L5A2_MarkerJumpLiftGap1_name	dc.b "L5A2_MarkerJumpLiftGap1",0
 L5A2_MarkerJumpLiftGap2_name	dc.b "L5A2_MarkerJumpLiftGap2",0
+L5A2_EchoPanicMarker1_name	dc.b "L5A2_EchoPanicMarker1",0
+L5A2_EchoPanicMarker2_name	dc.b "L5A2_EchoPanicMarker2",0
 	even
 	ENDIF
 
@@ -600,6 +608,34 @@ L5A2_LoadGameObjects:
 	ENDIF
 	add.l #TriggerBox_Struct_Size, a0
 
+	jsr TriggerBoxInit
+	move.l #0x04e00000, Entity_WorldPosX(a0)
+	move.l #0x01d80000, Entity_WorldPosY(a0)
+	move.l #l5a2_Trigger_EchoAIPanic2, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A2_TriggerEchoPanic1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x0ef00000, Entity_WorldPosX(a0)
+	move.l #0x05600000, Entity_WorldPosY(a0)
+	move.l #l5a2_Trigger_EchoAIPanic2, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A2_TriggerEchoPanic2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
 
 	PUSHL  a1
 	RAMPOOL_ALLOC Pool_Entities, #(WaterBody_Struct_Size*L5A2_WaterBody_count)
@@ -789,6 +825,32 @@ L5A2_LoadGameObjects:
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L5A2_MarkerJumpLiftGap2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x04080000, Entity_WorldPosX(a0)
+	move.l #0x02700000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A2_EchoPanicMarker1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x10300000, Entity_WorldPosX(a0)
+	move.l #0x05900000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A2_EchoPanicMarker2_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

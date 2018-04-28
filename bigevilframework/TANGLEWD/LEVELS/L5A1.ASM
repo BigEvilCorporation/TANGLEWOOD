@@ -277,6 +277,51 @@ L5_LoadObjectSprites:
 
 	rts
 
+l5a1_Trigger_EchoAIPanic1:
+	ENTITY_GETBYNAME AIMarker, l5a1_EchoPanicMarker1, a3
+	move.l Player2, a2
+
+	; If Echo to left of marker
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosX(a3), d1
+	cmp.w  d0, d1
+	blt    @NoPanic
+
+	jsr EchoAIPanic
+
+	@NoPanic:
+	rts
+
+l5a1_Trigger_EchoAIPanic2:
+	ENTITY_GETBYNAME AIMarker, l5a1_EchoPanicMarker2, a3
+	move.l Player2, a2
+
+	; If Echo to left of marker
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosX(a3), d1
+	cmp.w  d0, d1
+	blt    @NoPanic
+
+	jsr EchoAIPanic
+
+	@NoPanic:
+	rts
+
+l5a1_Trigger_EchoAIPanic3:
+	ENTITY_GETBYNAME AIMarker, l5a1_EchoPanicMarker3, a3
+	move.l Player2, a2
+
+	; If Echo to left of marker
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosX(a3), d1
+	cmp.w  d0, d1
+	blt    @NoPanic
+
+	jsr EchoAIPanic
+
+	@NoPanic:
+	rts
+
 L5_SetActData:
 	lea    CurrentActDatas, a2
 	move.l #LevelData_L5A1, (a2)+

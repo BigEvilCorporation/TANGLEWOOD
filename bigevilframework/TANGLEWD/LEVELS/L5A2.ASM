@@ -176,3 +176,13 @@ l5a2_Trigger_End:
 	jsr    GameStateEnter
 	
 	rts
+
+l5a2_Trigger_EchoAIPanic1:
+	ENTITY_GETBYNAME AIMarker, l5a2_EchoPanicMarker1, a3
+	jsr EchoAIPanic
+	rts
+
+l5a2_Trigger_EchoAIPanic2:
+	ENTITY_GETBYNAME AIMarker, l5a2_EchoPanicMarker2, a3
+	jsr EchoAIPanic
+	rts

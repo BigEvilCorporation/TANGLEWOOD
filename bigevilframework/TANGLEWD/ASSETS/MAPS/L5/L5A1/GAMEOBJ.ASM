@@ -113,13 +113,19 @@ L5A1_Nest_8_name	dc.b "L5A1_Nest_8",0
 
 L5A1_Flue_count equ 0x0
 
-L5A1_TriggerBox_count equ 0x2
+L5A1_TriggerBox_count equ 0x5
 L5A1_TriggerBox_end_idx	equ 0x0
 L5A1_TriggerMusicCue_idx	equ 0x1
+L5A1_TriggerEchoPanic1_idx	equ 0x2
+L5A1_TriggerEchoPanic2_idx	equ 0x3
+L5A1_TriggerEchoPanic3_idx	equ 0x4
 
 	IFND FINAL
 L5A1_TriggerBox_end_name	dc.b "L5A1_TriggerBox_end",0
 L5A1_TriggerMusicCue_name	dc.b "L5A1_TriggerMusicCue",0
+L5A1_TriggerEchoPanic1_name	dc.b "L5A1_TriggerEchoPanic1",0
+L5A1_TriggerEchoPanic2_name	dc.b "L5A1_TriggerEchoPanic2",0
+L5A1_TriggerEchoPanic3_name	dc.b "L5A1_TriggerEchoPanic3",0
 	even
 	ENDIF
 
@@ -179,11 +185,17 @@ L5A1_Button2_name	dc.b "L5A1_Button2",0
 
 L5A1_Wyrm_count equ 0x0
 
-L5A1_AIMarker_count equ 0x1
+L5A1_AIMarker_count equ 0x4
 L5A1_EchoWait1_idx	equ 0x0
+L5A1_EchoPanicMarker1_idx	equ 0x1
+L5A1_EchoPanicMarker3_idx	equ 0x2
+L5A1_EchoPanicMarker2_idx	equ 0x3
 
 	IFND FINAL
 L5A1_EchoWait1_name	dc.b "L5A1_EchoWait1",0
+L5A1_EchoPanicMarker1_name	dc.b "L5A1_EchoPanicMarker1",0
+L5A1_EchoPanicMarker3_name	dc.b "L5A1_EchoPanicMarker3",0
+L5A1_EchoPanicMarker2_name	dc.b "L5A1_EchoPanicMarker2",0
 	even
 	ENDIF
 
@@ -626,14 +638,56 @@ L5A1_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x07880000, Entity_WorldPosX(a0)
-	move.l #0x02200000, Entity_WorldPosY(a0)
+	move.l #0x08000000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
 	move.l #l5a1_Trigger_MusicCue, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A1_TriggerMusicCue_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x09280000, Entity_WorldPosX(a0)
+	move.l #0x02400000, Entity_WorldPosY(a0)
+	move.l #l5a1_Trigger_EchoAIPanic1, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A1_TriggerEchoPanic1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x07680000, Entity_WorldPosX(a0)
+	move.l #0x04300000, Entity_WorldPosY(a0)
+	move.l #l5a1_Trigger_EchoAIPanic2, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A1_TriggerEchoPanic2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #TriggerBox_Struct_Size, a0
+
+	jsr TriggerBoxInit
+	move.l #0x14780000, Entity_WorldPosX(a0)
+	move.l #0x05080000, Entity_WorldPosY(a0)
+	move.l #l5a1_Trigger_EchoAIPanic3, TriggerBox_Routine(a0)
+	jsr TriggerBoxLoadGfx
+	IFND FINAL
+	lea L5A1_TriggerEchoPanic3_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -819,6 +873,45 @@ L5A1_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x07b00000, Entity_WorldPosX(a0)
+	move.l #0x02900000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A1_EchoPanicMarker1_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x13d80000, Entity_WorldPosX(a0)
+	move.l #0x04d80000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A1_EchoPanicMarker3_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #AIMarker_Struct_Size, a0
+
+	jsr AIMarkerInit
+	move.l #0x06880000, Entity_WorldPosX(a0)
+	move.l #0x04a00000, Entity_WorldPosY(a0)
+	jsr AIMarkerLoadGfx
+	IFND FINAL
+	lea L5A1_EchoPanicMarker2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #AIMarker_Struct_Size, a0
