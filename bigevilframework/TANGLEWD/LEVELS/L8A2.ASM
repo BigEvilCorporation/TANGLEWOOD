@@ -115,10 +115,8 @@ l8a2_Init:
 	;==============================================================
 
 	; Start final fight music
-	PUSHM  a0/d0-d1
 	lea    L8_FinalBossMusic, a0
 	jsr    SND_PlayTrack
-	POPM   a0/d0-d1
 	
 	rts
 	

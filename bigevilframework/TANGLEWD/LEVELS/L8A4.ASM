@@ -200,13 +200,8 @@ l8a4_Init:
 	;==============================================================
 
 	; Start final fight music
-	tst.l  audio_current_track
-	bne    @AlreadyPlaying
-	PUSHM  a0/d0-d1
 	lea    L8_FinalBossMusic, a0
 	jsr    SND_PlayTrack
-	POPM   a0/d0-d1
-	@AlreadyPlaying:
 	
 	rts
 	
