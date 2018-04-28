@@ -7,27 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L4A3_Leaf_count equ 0x8
-L4A3_Leaf_66_idx	equ 0x0
-L4A3_Leaf_67_idx	equ 0x1
-L4A3_Leaf_68_idx	equ 0x2
-L4A3_Leaf_69_idx	equ 0x3
-L4A3_Leaf_70_idx	equ 0x4
-L4A3_Leaf_71_idx	equ 0x5
-L4A3_Leaf_72_idx	equ 0x6
-L4A3_Leaf_73_idx	equ 0x7
-
-	IFND FINAL
-L4A3_Leaf_66_name	dc.b "L4A3_Leaf_66",0
-L4A3_Leaf_67_name	dc.b "L4A3_Leaf_67",0
-L4A3_Leaf_68_name	dc.b "L4A3_Leaf_68",0
-L4A3_Leaf_69_name	dc.b "L4A3_Leaf_69",0
-L4A3_Leaf_70_name	dc.b "L4A3_Leaf_70",0
-L4A3_Leaf_71_name	dc.b "L4A3_Leaf_71",0
-L4A3_Leaf_72_name	dc.b "L4A3_Leaf_72",0
-L4A3_Leaf_73_name	dc.b "L4A3_Leaf_73",0
-	even
-	ENDIF
+L4A3_Leaf_count equ 0x0
 
 L4A3_Demon_count equ 0x0
 
@@ -310,100 +290,6 @@ L4A3_Checkpoint_57_name	dc.b "L4A3_Checkpoint_57",0
 
 
 L4A3_LoadGameObjects:
-	PUSHL  a1
-	RAMPOOL_ALLOC Pool_Entities, #(Leaf_Struct_Size*L4A3_Leaf_count)
-	move.l a1, EntityPoolStart_Leaf
-	move.l a1, a0
-	POPL   a1
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_66_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_67_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_68_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_69_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_70_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_71_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_72_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L4A3_Leaf_73_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
 
 
 
