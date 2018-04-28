@@ -150,7 +150,11 @@ l5a3_Init:
 	ENTITY_GETBYNAME Cogs, l5a3_Cogs3, a1
 	move.l a1, Generator_Cogs(a0)
 
-	; Connect generator to winch
+	; Set generator 3 to re-enable Echo AI
+	ENTITY_GETBYNAME Generator, l5a3_Generator3, a0
+	move.l #l5a3_Trigger_EchoFollow, Generator_OnActivate(a0)
+
+	; Connect generator 2 to winch
 	ENTITY_GETBYNAME Generator, l5a3_Generator2, a0
 	move.l #l5a3_ActivateWinch, Generator_OnActivate(a0)
 
@@ -698,6 +702,9 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_OBJECT_ROUTINE a2,#ScrapBark
 	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
 	CUTSCENE_OBJECT_ROUTINE a2,#ScrapAIStart_Follow
+
+	; Echo begin follow-only AI
+	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_LinearFollow
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
