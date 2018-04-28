@@ -1278,6 +1278,11 @@ MonsterStartTrackPlayer:
 	
 	; Pass anim control back to character
 	move.b #0x1, Character_UpdateAnim(a0)
+	
+	; If player not dead
+	move.l Player1, a3
+	tst.b  Character_Dead(a3)
+	bne    @PlayerDead
 
 	; Start chase theme
 	cmp.b  #MonsterMusicState_Chase, Monster_MusicState(a0)
@@ -1290,6 +1295,8 @@ MonsterStartTrackPlayer:
 	POPM   a0/d0-d1
 	move.b #MonsterMusicState_Chase, Monster_MusicState(a0)
 	@TrackPlaying:
+	
+	@PlayerDead:
 
 	rts
 
@@ -1519,9 +1526,11 @@ MonsterUpdateBite:
 	move.l (Player1), a0
 	move.b #Monster_BiteDamage, d0
 	jsr    CharacterDealDamage
+	move.l a0, a3
+	POPL   a0
 
 	; If player dead, stop attack music
-	tst.b  Character_Dead(a0)
+	tst.b  Character_Dead(a3)
 	beq    @PlayerNotDead
 	cmp.b  #MonsterMusicState_Off, Monster_MusicState(a0)
 	beq    @NotPlaying
@@ -1532,7 +1541,6 @@ MonsterUpdateBite:
 	move.b #MonsterMusicState_Off, Monster_MusicState(a0)
 	@NotPlaying:
 	@PlayerNotDead:
-	POPL   a0
 	
 	bra    @End
 
