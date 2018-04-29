@@ -747,7 +747,7 @@ SFX_NymnColourSwitch:
 	dc.l SFX_Data_NymnColourSwitch	; Data
 	dc.b SFX_Priority_Default		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
@@ -827,7 +827,7 @@ SFX_Water_Splash1:
 	dc.l SFX_Data_Footstep_Splash1	; Data
 	dc.b SFX_Priority_Water			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
