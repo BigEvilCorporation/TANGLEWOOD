@@ -80,12 +80,5 @@
 	dc.b $36, $34, $be	; Set frequency '13502' (octave 6 semitone 1214) for channel FM 6
 ; Pattern $00, Row 18; 
 	dc.b $16		; Note off channel FM 6
-; Pattern $00, Row 19; 
-; Pattern $00, Row 20; 
-; Pattern $00, Row 21; 
-; Pattern $00, Row 22; 
-; Pattern $00, Row 23; 
-; Pattern $00, Row 24; 
-; Pattern $00, Row 25; 
-	dc.b $fe, $10	; Delay
+	dc.b $fe, $02	; Delay
 	dc.b $ff	; The End

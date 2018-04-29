@@ -13,7 +13,7 @@
 	dc.b $25, $17	; Set volume for channel FM 5
 	dc.b $05, $a1	; Note C-5 on channel FM 5
 	dc.b $46, $b7	; Set instrument for channel FM 6
-	dc.b $f6, $cc	; Set pan/AMS/FMS for channel FM 6
+	dc.b $f6, $c0	; Set pan/AMS/FMS for channel FM 6
 	dc.b $f8, $24, $fe, $f8, $25, $03	; Set PCM rate to value 4
 	dc.b $0c, $b7	; Sample 183 on channel PCM
 	dc.b $4b, $a4	; Set instrument for channel PSG 4
