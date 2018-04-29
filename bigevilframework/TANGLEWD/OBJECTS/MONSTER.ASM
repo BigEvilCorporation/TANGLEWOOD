@@ -540,11 +540,15 @@ MonsterSerialise:
 	LOADB Monster_State(a0)
 	LOADB Entity_Active(a0)
 
+	PUSHM d0-d1/a3
+
 	; TODO: Other states
 	cmp.b #MonsterState_Chasing, Monster_State(a0)
 	bne   @NotChasing
 	jsr   MonsterStartTrackPlayer
 	@NotChasing:
+
+	POPM  d0-d1/a3
 	
 	;==============================================================
 	

@@ -242,11 +242,6 @@ EntityRemoveFromRenderList:
 
 	rts
 	
-EntityRemoveFromSerialiseList:
-	; a0 --- Entity addr
-	LIST_REMOVE EntitySerialise,a0,a4,a3
-	rts
-	
 EntityClearUpdateList:
 	LIST_CLEAR EntityUpdate,a4,a3
 	rts
