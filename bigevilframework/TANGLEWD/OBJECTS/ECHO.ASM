@@ -385,6 +385,25 @@ EchoUpdateHowl:
 
 	rts
 
+EchoIsHowling:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; d0 (b) Howling
+
+	move.b #0x1, d0
+	tst.w  Echo_HowlTimer(a0)
+	bne    @Howling
+
+	lea    Player_Animations+(PlayerAnimIdx_Howl*Animation_Struct_Size)(a0), a2
+	cmp.l  AnimObj_CurrentAnim(a0), a2
+	beq    @Howling
+
+	move.b #0x0, d0
+
+	@Howling:
+
+	rts
+
 EchoUpdateRiding:
 	; a0 --- GameObj addr
 	; a1 --- Level addr

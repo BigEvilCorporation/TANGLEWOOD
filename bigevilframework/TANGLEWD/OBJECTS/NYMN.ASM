@@ -362,6 +362,18 @@ NymnStartInteract:
 	tst.b  Nymn_CanHowl(a0)
 	beq    @NoHowl
 
+	; If not already howling
+	PUSHL  a0
+	move.l Player2, a0
+	jsr    EchoIsHowling
+	POPL   a0
+	tst.b  d0
+	bne    @NoHowl
+
+	; If not in a camera lerp
+	tst.w  CameraLerpSpeed
+	bne    @NoHowl
+
 	; If both on screen, talk
 	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @Howl
