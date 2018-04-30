@@ -86,32 +86,32 @@
     dc.l 0x00007000 ; Sub CPU ROM size
     dc.l 0x00000000 ; Sub CPU ROM start offset
     dc.l 0x00000000 ; Sub CPU ROM work RAM size
-    dc.b "09102014" ; Date
+    dc.b "04282018" ; Date
 	
 	ENDIF
 
     ; Genesis
 
-	dc.b "SEGA MEGA DRIVE "                                                                 ; Console name
-	dc.b "BIG EVIL CORP.  "                                                                 ; Copyright holder and release date
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; Domestic name
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.01)                  " ; International name
-	dc.b "GM XXXXXXXX-XX"                                                                   ; Version number
+	dc.b "SEGA MEGA DRIVE "                                                                 ; 16 bytes - Console name
+	dc.b "BIG EVIL CORP.  "                                                                 ; 16 bytes - Copyright holder and release date
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.03)  d637c9510106404d"                                 ; 48 bytes - Domestic name
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.03)  d637c9510106404d"                                 ; 48 bytes - International name
+	dc.b "GM XXXXXXXX-XX"                                                                   ; 14 bytes - Game type and product code
 header_checksum_addr:
-	dc.w 0xD867                                                                             ; Checksum
-	dc.b "J               "                                                                 ; I/O support
-	dc.l __start                                                                            ; Start address of ROM
-	dc.l __end-1                                                                            ; End address of ROM
-	dc.l ram_start                                                                          ; Start address of RAM
-	dc.l ram_end                                                                            ; End address of RAM
-	dc.l 0x00000000                                                                         ; SRAM enabled
-	dc.l 0x00000000                                                                         ; Unused
-	dc.l 0x00000000                                                                         ; Start address of SRAM
-	dc.l 0x00000000                                                                         ; End address of SRAM
-	dc.l 0x00000000                                                                         ; Unused
-	dc.l 0x00000000                                                                         ; Unused
-	dc.b "                                        "                 ; Notes (unused)
-	dc.b "JUE             "                                                                 ; Country codes
+	dc.w 0xD867                                                                             ; 02 bytes - Checksum
+	dc.b "J               "                                                                 ; 16 bytes - I/O support
+	dc.l __start                                                                            ; 04 bytes - Start address of ROM
+	dc.l __end-1                                                                            ; 04 bytes - End address of ROM
+	dc.l ram_start                                                                          ; 04 bytes - Start address of RAM
+	dc.l ram_end                                                                            ; 04 bytes - End address of RAM
+	dc.l 0x00000000                                                                         ; 04 bytes - SRAM enabled
+	dc.l 0x00000000                                                                         ; 04 bytes - Start address of SRAM
+	dc.l 0x00000000                                                                         ; 04 bytes - End address of SRAM
+	dc.b "            "                                                                     ; 12 bytes - Modem
+	dc.b "                                        "                                         ; 40 bytes - Notes
+	dc.b "JUE             "                                                                 ; 16 bytes - Country codes
+	                                                                                        ; ------------------------
+	                                                                                        ; 25 bytes total
 
 	IFND DEBUG
 	; Must be at 0x200 or some emulators complain, and checksum will be incorrect
