@@ -859,7 +859,10 @@ PlayerStopColourAbility:
 	; Re-enable run
 	MOVE_NTSC_L Player1MaxVelXRun, Character_MaxVelXRun(a0), d0
 	MOVE_NTSC_L Player1MaxVelXAir, PhysicsObj_MaxVelAirX(a0), d0
+
+	;==============================================================
 	
+	; Reset all objects in update list
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
 	subq.w #0x1, d1						 ; -1 for loop
 	LIST_GET_HEAD EntityUpdate, a2		 ; Get list head
@@ -879,6 +882,31 @@ PlayerStopColourAbility:
 	@NotAnimObj:
 	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
+
+	;==============================================================
+
+	; Reset all objects in world grid
+	LIST_GET_SIZE EntityWorldGrid, d1	 ; Get entity list size
+	subq.w #0x1, d1						 ; -1 for loop
+	LIST_GET_HEAD EntityWorldGrid, a2	 ; Get list head
+	@WorldGridLp:						 ; For all entities in list
+	
+	; Check type
+	move.l Entity_TypeBits(a2), d2
+	
+	; Check if animobj
+	move.l d2, d3
+	andi.l #entity_type_animobj, d3
+	beq    @NotAnimObjWorldGrid
+	
+	; Entity is an anim obj
+	move.b #0x1, AnimObj_SpeedDiv(a2)
+	
+	@NotAnimObjWorldGrid:
+	LIST_GET_NEXT EntityWorldGrid,a2,a2	 ; Get next ptr
+	dbra   d1, @WorldGridLp				 ; Loop
+
+	;==============================================================
 
 	; Play SFX
 	PLAYSFX #SFX_AbilityOff
@@ -1083,8 +1111,10 @@ PlayerUpdateColourAbility:
 	subq.b #0x1, d0
 	
 	@ApplyTime:
-	
-	; Apply to all AnimObjs (except players)
+
+	;==============================================================
+
+	; Apply to all AnimObjs in update list (except players)
 	
 	; TODO: Pointer array per entity type
 	LIST_GET_SIZE EntityUpdate, d1	 	 ; Get entity list size
@@ -1109,10 +1139,41 @@ PlayerUpdateColourAbility:
 	move.b d0, AnimObj_SpeedDiv(a2)
 	
 	@PlayerObj:
-	@NotPhysicsObj:
 	@NotAnimObj:
 	LIST_GET_NEXT EntityUpdate,a2,a2	 ; Get next ptr
 	dbra   d1, @EntityLp				 ; Loop
+
+	;==============================================================
+
+	; Apply to all AnimObjs in world grid list (except players)
+
+	LIST_GET_SIZE EntityWorldGrid, d1	 ; Get entity list size
+	subq.w #0x1, d1						 ; -1 for loop
+	LIST_GET_HEAD EntityWorldGrid, a2	 ; Get list head
+	@WorldGridLp:						 ; For all entities in list
+	
+	; Check type
+	move.l Entity_TypeBits(a2), d2
+	
+	; Check if player obj
+	move.l d2, d3
+	andi.l #entity_type_player, d3
+	bne    @PlayerObjWorldGrid
+	
+	; Check if animobj
+	move.l d2, d3
+	andi.l #entity_type_animobj, d3
+	beq    @NotAnimObjWorldGrid
+	
+	; Entity is an anim obj
+	move.b d0, AnimObj_SpeedDiv(a2)
+	
+	@PlayerObjWorldGrid:
+	@NotAnimObjWorldGrid:
+	LIST_GET_NEXT EntityWorldGrid,a2,a2	 ; Get next ptr
+	dbra   d1, @WorldGridLp				 ; Loop
+
+	;==============================================================
 
 	@EndTimeDiv:
 
