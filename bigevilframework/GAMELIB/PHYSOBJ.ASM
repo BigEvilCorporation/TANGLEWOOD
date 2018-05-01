@@ -1159,10 +1159,6 @@ PhysicsObjFindFloor:
 	; If on moving platform, skip velocity checks
 	tst.l  PhysicsObj_LastFloorVelocity(a0)
 	bne    @SkipVelocityCheck
-
-	; Check if non-zero X velocity
-	tst.l  PhysicsObj_VelX(a0)
-	bne    @SkipVelocityCheck
 	
 	; Check if positive Y velocity (don't bother finding floor)
 	move.l PhysicsObj_VelY(a0), d3
