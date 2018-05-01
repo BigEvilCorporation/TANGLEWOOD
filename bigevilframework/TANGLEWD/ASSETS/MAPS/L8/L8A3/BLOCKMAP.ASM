@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L8A3_size_b	equ 0x000005E8	; Size in bytes
+map_blockmap_L8A3_size_b	equ 0x000005DE	; Size in bytes
 map_blockmap_L8A3_size_w	equ (map_blockmap_L8A3_size_b/2)	; Size in words
 map_blockmap_L8A3_size_l	equ (map_blockmap_L8A3_size_b/4)	; Size in longwords
 map_L8A3_width	equ 0xC8
@@ -47,22 +47,22 @@ map_blockmap_L8A3_coloffsets:
 	dc.w 0x0308
 	dc.w 0x031E
 	dc.w 0x0334
-	dc.w 0x0356
-	dc.w 0x037A
-	dc.w 0x039E
-	dc.w 0x03C6
-	dc.w 0x03EA
-	dc.w 0x040E
-	dc.w 0x0424
-	dc.w 0x0448
-	dc.w 0x046E
-	dc.w 0x0496
-	dc.w 0x04C4
-	dc.w 0x04EE
-	dc.w 0x0518
-	dc.w 0x052A
-	dc.w 0x053C
-	dc.w 0x054E
-	dc.w 0x0560
-	dc.w 0x058E
-	dc.w 0x05BC
+	dc.w 0x034C
+	dc.w 0x0370
+	dc.w 0x0394
+	dc.w 0x03BC
+	dc.w 0x03E0
+	dc.w 0x0404
+	dc.w 0x041A
+	dc.w 0x043E
+	dc.w 0x0464
+	dc.w 0x048C
+	dc.w 0x04BA
+	dc.w 0x04E4
+	dc.w 0x050E
+	dc.w 0x0520
+	dc.w 0x0532
+	dc.w 0x0544
+	dc.w 0x0556
+	dc.w 0x0584
+	dc.w 0x05B2

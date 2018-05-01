@@ -1226,7 +1226,7 @@ L5A1_LoadGameObjects:
 	add.l #Bridge_Struct_Size, a0
 
 	jsr BridgeInit
-	move.l #0x14280000, Entity_WorldPosX(a0)
+	move.l #0x14300000, Entity_WorldPosX(a0)
 	move.l #0x05000000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
