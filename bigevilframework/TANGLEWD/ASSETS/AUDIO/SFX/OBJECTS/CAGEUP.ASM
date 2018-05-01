@@ -3,6 +3,7 @@
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
 	dc.b $46, $57	; Set instrument for channel FM 6
+	dc.b $f6, $c0	; Set pan/AMS/FMS for channel FM 6
 	dc.b $f8, $24, $fe, $f8, $25, $03	; Set PCM rate to value 4
 	dc.b $0c, $57	; Sample 87 on channel PCM
 ; Pattern $00, Row 1; 
