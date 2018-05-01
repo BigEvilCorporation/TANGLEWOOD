@@ -452,8 +452,23 @@ LiftUpdatePlatform:
 LiftUpdateAudio:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	; No SFX if not moving
 	tst.l   PhysicsObj_VelY(a0)
 	beq     @NoWinchSFX
+
+	; No SFX if on floor
+	tst.b   PhysicsObj_CloseToFloor(a0)
+	bne     @NoWinchSFX
+
+	; No SFX if counterweight on floor
+	move.l Lift_CounterWeight(a0), a2
+	cmpa.w #0x0, a2
+	beq    @NoCounterweight
+	tst.b   PhysicsObj_CloseToFloor(a2)
+	bne     @NoWinchSFX
+	@NoCounterweight:
+
 	bgt     @FastWinchSFX
 	blt     @SlowWinchSFX
 
@@ -491,15 +506,15 @@ LiftUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; Process audio
+	jsr    LiftUpdateAudio
+
 	; Process counterweight
 	move.l Lift_CounterWeight(a0), a2
 	cmpa.w #0x0, a2
 	beq    @NoCounterweight
 	jsr    LiftProcessCounterweight
 	@NoCounterweight:
-
-	; Process audio
-	jsr    LiftUpdateAudio
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
