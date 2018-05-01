@@ -164,11 +164,11 @@ Gameplay_Update:
 	bne    @NoUpdate
 	ENDIF
 
-	; Physics pre-step
-	jsr    PhysicsWorldPreStep
-
 	; Update world grid
 	jsr    EntityUpdateWorldGrid
+
+	; Physics pre-step
+	jsr    PhysicsWorldPreStep
 	
 	; Update game objects
 	jsr    EntityUpdateAll
