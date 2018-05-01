@@ -10,6 +10,8 @@ ECHO_AI_DEBUG_SAFE_POS 		equ 0
 ECHO_AI_DEBUG_NODE_POS		equ 0
 ECHO_AI_DEBUG_STATE			equ 0
 
+ECHOAI_ASSERT_OUT_OF_NODES	equ 0
+
 ; Constants
 Echo_NumAINodes				equ 0x20			; Num AI follow nodes to store in queue (must be power of two)
 Echo_AIOuterScreenBoundsExt	equ 0x0060			; Extension to screen bounds to determine if 'lost'
@@ -575,6 +577,22 @@ EchoAIUpdate_FollowNodes:
 	; right towards a node, and if in climbing state can move up and
 	; down towards a node.
 
+	; If out of nodes
+	tst.b  Echo_AIOutOfNodes(a0)
+	beq    @NotOutOfNodes
+
+	; Clear flag
+	move.b #0x0, Echo_AIOutOfNodes(a0)
+
+	; If on screen, clear nodes and go back to follow state
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @ClearNodes
+
+	; If off screen, start lost behaviour
+	bra    @EchoLost
+
+	@NotOutOfNodes:
+
 	; Get Nymn
 	move.l Player1, a2
 
@@ -606,6 +624,8 @@ EchoAIUpdate_FollowNodes:
 	subq.w  #0x1, d0
 	move.w d0, Echo_AILostTimer(a0)
 	bne    @LostTimerRunning
+
+	@EchoLost:
 	
 	; Timer elapsed, check if a Skivv is around
 	tst.l  Echo_Skivv(a0)
@@ -864,6 +884,8 @@ EchoAIUpdate_FollowNodes:
 	bne    @OtherNodesInQueue
 	lea    EchoAINode_Struct_Size(a3), a3	; Next node
 	dbra   d0, @GotoCheckLp
+
+	@ClearNodes:
 
 	; Clear remaining nodes and return to basic follow state
 	move.w #0x0, Echo_AINodeConsumer(a0)
@@ -3618,12 +3640,27 @@ EchoAIPushNode:
 
 	;==============================================================
 
+	IF ECHOAI_ASSERT_OUT_OF_NODES
+
 	IFND FINAL
 	sub.w  d1, d0
 	cmp.w  #Echo_NumAINodes-1, d0
 	bne    @FreeSpace
 	RAISE_EXCEPTION *
 	@FreeSpace:
+	ENDIF
+
+	ELSE
+
+	sub.w  d1, d0
+	cmp.w  #Echo_NumAINodes-2, d0
+	bne    @NotLastNode
+	
+	; Second-to-last node, raise the alarm
+	move.b #0x1, Echo_AIOutOfNodes(a0)
+	
+	@NotLastNode:
+
 	ENDIF
 
 	;==============================================================
