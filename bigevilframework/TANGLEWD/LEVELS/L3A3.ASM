@@ -220,6 +220,11 @@ l3a3_Init:
 	move.b #0x0, l3a3Data_ComboButton1Count(a2)
 	move.b #0x0, l3a3Data_ComboButton2Count(a2)
 
+	; Don't tick crate physics in world grid, breaks twin-button puzzle
+	ENTITY_GETBYNAME Crate, l3a3_Crate1, a0
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+	jsr    PhysicsWorldAddObject
+
 	; Set lift stop point
 	ENTITY_GETBYNAME Lift, l3a3_Lift1, a0
 	ENTITY_GETBYNAME Location, l3a3_LiftStop1, a1

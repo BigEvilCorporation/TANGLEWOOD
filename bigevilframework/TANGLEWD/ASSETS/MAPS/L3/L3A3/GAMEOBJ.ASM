@@ -168,11 +168,11 @@ L3A3_Lift1_name	dc.b "L3A3_Lift1",0
 	ENDIF
 
 L3A3_Crate_count equ 0x2
-L3A3_Crate_6_idx	equ 0x0
+L3A3_Crate1_idx	equ 0x0
 L3A3_CrateDjakkBoss_idx	equ 0x1
 
 	IFND FINAL
-L3A3_Crate_6_name	dc.b "L3A3_Crate_6",0
+L3A3_Crate1_name	dc.b "L3A3_Crate1",0
 L3A3_CrateDjakkBoss_name	dc.b "L3A3_CrateDjakkBoss",0
 	even
 	ENDIF
@@ -802,10 +802,10 @@ L3A3_LoadGameObjects:
 	move.l #0x03600000, Entity_WorldPosY(a0)
 	jsr CrateLoadGfx
 	IFND FINAL
-	lea L3A3_Crate_6_name, a3
+	lea L3A3_Crate1_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
+	move.l #0xb, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Crate_Struct_Size, a0
