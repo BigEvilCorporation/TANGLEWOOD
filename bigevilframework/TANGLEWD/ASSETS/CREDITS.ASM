@@ -139,6 +139,7 @@ CreditsStrings:
 	CREDIT_NAME		"Brandon Wolff"
 	CREDIT_NAME		"Lloyd Ramsamy"
 	CREDIT_NAME		"Luke Lamothe"
+	CREDIT_NAME		"Mike Levithan"
 
 	CREDIT_HEADING1 "Focus Testing"
 	CREDIT_NAME		"Alexandre Miller"
