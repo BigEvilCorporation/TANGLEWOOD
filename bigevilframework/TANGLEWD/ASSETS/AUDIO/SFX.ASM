@@ -745,7 +745,7 @@ SFX_SwarmDamageLoop
 
 SFX_NymnColourSwitch:
 	dc.l SFX_Data_NymnColourSwitch	; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
