@@ -1921,34 +1921,54 @@ PlayerUpdatePushInteract:
 	move.b  #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
 
+	;==============================================================
+
 	; Determine if light or heavy object
 	move.l Player_InteractObject(a0), a2
 	cmp.w  #Player1MaxLightPushObjHeight, Entity_Height(a2)
 	bgt    @HeavyObj
+
+	; Pushing light object
 	move.b #Character_PushLight, Character_Pushing(a0)
-	bra    @LightObj
-	@HeavyObj:
-	move.b #Character_PushHeavy, Character_Pushing(a0)
-	@LightObj:
+
+	; Scale push anim speed based on velocity (allow for reverse if pulling)
+	move.l PhysicsObj_VelX(a0), d0
+	tst.b  SpriteObj_FlippedX(a0)
+	beq    @Unflipped
+	neg.l  d0
+	@Unflipped:
+
+	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
 	
+	; Apply to light push anim
+	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Push)(a0), a2
+	move.w d0, Animation_Speed(a2)
+
+	bra    @LightObj
+
+	;==============================================================
+
+	@HeavyObj:
+
+	; Pushing heavy object
+	move.b #Character_PushHeavy, Character_Pushing(a0)
+
 	; Scale push anim speed based on velocity
-	moveq #0x0, d0
 	move.l PhysicsObj_VelX(a0), d0
 	tst.l  d0
 	bgt    @Fwd
 	neg.l  d0
 	@Fwd:
-	move.l d0, d1
-	
-	; Apply to light push anim
-	divs.w #Player1PushAnimSpeedVelocityDivLight, d0
-	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_Push)(a0), a2
-	move.w d0, Animation_Speed(a2)
-	
+
+	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d0
+
 	; Apply to heavy push anim
-	divs.w #Player1PushAnimSpeedVelocityDivHeavy, d1
 	lea    Character_Animations+(Animation_Struct_Size*CharacterAnimIdx_PushHeavy)(a0), a2
-	move.w d1, Animation_Speed(a2)
+	move.w d0, Animation_Speed(a2)
+
+	@LightObj:
+
+	;==============================================================
 
 	@NotPushing:
 	@NotInteracting:
