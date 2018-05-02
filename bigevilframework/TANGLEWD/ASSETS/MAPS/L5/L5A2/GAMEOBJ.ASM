@@ -611,7 +611,7 @@ L5A2_LoadGameObjects:
 	jsr TriggerBoxInit
 	move.l #0x04e00000, Entity_WorldPosX(a0)
 	move.l #0x01d80000, Entity_WorldPosY(a0)
-	move.l #l5a2_Trigger_EchoAIPanic2, TriggerBox_Routine(a0)
+	move.l #l5a2_Trigger_EchoAIPanic1, TriggerBox_Routine(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A2_TriggerEchoPanic1_name, a3
