@@ -312,7 +312,7 @@ NymnStartInteract:
 
 	; Check if player on floor
 	tst.b  PhysicsObj_CloseToFloor(a0)
-	beq    @InAir
+	beq    @NymnInAir
 
 	; Check if Echo AI enabled
 	move.l (Player2), a2
@@ -323,7 +323,7 @@ NymnStartInteract:
 	tst.b  PhysicsObj_CloseToFloor(a2)
 	bne    @EchoOnFloor
 	tst.b  PhysicsObj_Underwater(a2)
-	beq    @InAir
+	beq    @EchoInAir
 
 	@EchoOnFloor:
 
@@ -350,6 +350,7 @@ NymnStartInteract:
 	
 	@EchoNotFound:
 	@CannotCarry:
+	@EchoInAir:
 
 	; If in idle state and not waiting on another anim
 	cmp.b  #CharacterAnimIdx_Idle, Character_AnimIdx(a0)
@@ -394,11 +395,10 @@ NymnStartInteract:
 	@NoHowl:
 	@Moving:
 	@NotIdle:
-
+	@NymnInAir:
 	@Handled:
 	@AlreadyInteracting:
 	@Dead:
-	@InAir:
 	@NoAI:
 	@EchoFound:
 
