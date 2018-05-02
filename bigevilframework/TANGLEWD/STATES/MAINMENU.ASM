@@ -75,6 +75,7 @@ MainMenu_Str_SoundTest		dc.b "Sound Test",0
 ;---------------------------------
 MainMenuState_LogoSprite	rs.b SpriteObj_Struct_Size
 MainMenuState_UIWindow		rs.l 1
+MainMenuState_UICursor		rs.l 1
 MainMenuState_NextState		rs.l 1
 MainMenuState_FadeTimer		rs.w 1
 ;---------------------------------
@@ -285,6 +286,18 @@ MainMenu_Update:
 	@NotElapsed:
 	@End:
 
+	; If not fading palettes
+	jsr    PAL_LerpActive
+	tst.b  d0
+	bne    @Lerping
+
+	; Enable cursor
+	lea    GameStateMainMenuData, a2
+	move.l MainMenuState_UICursor(a2), a5
+	move.b #0x1, UIWidget_Enabled(a5)
+
+	@Lerping:
+
 	; Get level data
 	move.l (CurrentLevel), a1
 	
@@ -328,6 +341,12 @@ MainMenu_InitUI:
 	WINDOW_CREATE_WIDGET_CURSOR a0
 	move.l a3, a5
 	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+
+	lea    GameStateMainMenuData, a2
+	move.l a5, MainMenuState_UICursor(a2)
+
+	; Disable by default (until fade finished or interrupted)
+	move.b #0x0, UIWidget_Enabled(a5)
 
 	; Create widgets and add to window and cursor
 LINECOUNT = 0
