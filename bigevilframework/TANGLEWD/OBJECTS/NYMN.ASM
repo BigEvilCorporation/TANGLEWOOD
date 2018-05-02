@@ -375,6 +375,15 @@ NymnStartInteract:
 	tst.w  CameraLerpSpeed
 	bne    @NoHowl
 
+	; If not fully submersed underwater
+	tst.b  PhysicsObj_Underwater(a0)
+	beq    @OutOfWater
+	move.w Entity_WorldPosY(a0), d1
+	move.w Player_LastWaterBodySurface(a0), d2
+	cmp.w  d2, d1
+	bgt    @NymnInWater
+	@OutOfWater:
+
 	; If both on screen, talk
 	tst.b  SpriteObj_SpriteLinked(a0)
 	beq    @Howl
@@ -396,6 +405,7 @@ NymnStartInteract:
 	@Moving:
 	@NotIdle:
 	@NymnInAir:
+	@NymnInWater:
 	@Handled:
 	@AlreadyInteracting:
 	@Dead:
