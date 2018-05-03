@@ -35,9 +35,17 @@ Cart_WaterBobMaxHeight	equ 0x0008
 
 ;==============================================================
 
+; Player Y offset, syncs with animation
+Cart_PlayerYOffset:
+	dc.w 0x0000, 0x0000, 0x0001, 0x0001
+	even
+
+;==============================================================
+
 ; Struct
 	rsset (PhysicsObj_Struct_Size)
 ;--------------------------
+Cart_Animation       rs.b Animation_Struct_Size
 Cart_Platform        rs.b Platform_Struct_Size ; Cart floor
 Cart_Occupant        rs.l 1
 Cart_SFXTimer        rs.w 1
@@ -118,8 +126,8 @@ CartInit:
 	
 	;==============================================================
 	
-	; Setup animations
-	; TODO
+	; Setup animation
+	ANIM_LOAD_DEFAULT cart,roll,roll,Cart_Animation,0,1,0,0
 
 	rts
 
@@ -294,6 +302,24 @@ CartUpdate:
 	move.b #0x0, SpriteObj_FlippedX(a3)
 	POPMW  d0-d1
 
+	; Add animation Y offset
+	move.l AnimObj_CurrentAnim(a0), a2	; Get anim
+	move.b Animation_Length(a2), d6		; Get length
+	move.l AnimObj_AnimSubframe(a0), d2	; Get subframe
+	lsr.l  #0x8, d2						; To frames
+	andi.l #0xFFFF, d2					; Wrap
+	andi.l #0xFF, d6
+	divs   d6, d2
+	clr.w  d2
+	swap   d2							; Remainder to lower word
+	andi.l #0xFF, d2
+	lsl.w  #0x1, d2						; To words
+
+	lea    Cart_PlayerYOffset, a4
+	add.l  d2, a4
+	move.w (a4), d6
+	add.w  d6, Entity_WorldPosY(a3)
+
 	bra    @End
 
 	;==============================================================
@@ -308,6 +334,9 @@ CartUpdate:
 
 	; Play SFX
 	PLAYSFX #Cart_SmashSFX
+
+	; Stop animation
+	move.b #0x0, AnimObj_Playing(a0)
 
 	; Load broken sprite
 	SPRITE_LOAD_SHARED_VRAM Cart,broken,0,PaletteId_World0,0x0,a0
@@ -393,6 +422,15 @@ CartSetOccupant:
 	move.w #0x0, d0
 	LIST_INSERT_ORDERED EntityRender,a0,a3,a4,Entity_WorldGridOrder,d0
 	bset   #EntityWorldGridFlag_InRenderList, Entity_WorldGridFlags(a0)
+
+	; Start animation
+	PUSHL  a1
+	lea    Cart_Animation(a0), a1
+	move.b #0x0, d0
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
+	POPL   a1
 
 	@AlreadyOccupied:
 
