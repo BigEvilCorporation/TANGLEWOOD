@@ -2455,10 +2455,6 @@ PlayerInteractTest_Carts:
 PlayerInteractTest_Water:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
-	; If not riding something
-	cmp.b  #Player_RideState_None, Player_RideState(a0)
-	bne    @Riding
 	
 	; Backup current water state
 	move.b PhysicsObj_Underwater(a0), d7
@@ -2475,6 +2471,14 @@ PlayerInteractTest_Water:
 	bne    @NoResetWater
 	move.b #0xFF, raster_water_level
 	@NoResetWater:
+
+	; If not dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
+
+	; If not riding something
+	cmp.b  #Player_RideState_None, Player_RideState(a0)
+	bne    @Riding
 
 	;==============================================================
 	
@@ -2619,6 +2623,9 @@ PlayerInteractTest_Water:
 	;==============================================================
 
 	@Found:
+	
+	@Riding:
+	@Dead:
 
 	POPW   d7
 
@@ -2630,8 +2637,6 @@ PlayerInteractTest_Water:
 	jsr    PlayerExitedWater
 	@NotPrevInWater:
 	@StillInWater:
-
-	@Riding:
 	
 	rts
 
