@@ -305,7 +305,9 @@ code_end
 	include '..\framewk\echo\echodrv.asm'
 
 	; Pad ROM to 4MB
+	IF ROM_PADDING_4MB
 	dcb.b   $400000-*, $FF
+	ENDIF
 
 	; Checksum calc end
 checksum_end

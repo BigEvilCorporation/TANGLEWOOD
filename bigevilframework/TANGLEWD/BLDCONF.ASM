@@ -10,6 +10,9 @@
 INCLUDE_AUDIO			equ 1
 CHECKSUM_TEST			equ 0
 
+; ROM config
+ROM_PADDING_4MB			equ 1
+
 ; Region testing
 FORCE_PAL_MODE			equ 0
 FORCE_NTSC_MODE			equ 0
@@ -30,7 +33,7 @@ INCLUDE_PROFILER		equ 1
 INCLUDE_PROFILER		equ 0
 	ENDIF
 
-; Debug menus
+; Utility menus
 INCLUDE_LEVELSELECT		equ 1
 INCLUDE_SOUNDTEST		equ 1
 
@@ -80,7 +83,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
-;InitialLevel			equ l1a4_HarlequinForestAct4
+InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
@@ -89,7 +92,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l3a3_HeritageAct3
 ;InitialLevel			equ l4a1_TetheredAct1
 ;InitialLevel			equ l4a2_TetheredAct2
-InitialLevel			equ l4a3_TetheredAct3
+;InitialLevel			equ l4a3_TetheredAct3
 ;InitialLevel			equ l5a1_BygoneAct1
 ;InitialLevel			equ l5a2_BygoneAct2
 ;InitialLevel			equ l5a3_BygoneAct3

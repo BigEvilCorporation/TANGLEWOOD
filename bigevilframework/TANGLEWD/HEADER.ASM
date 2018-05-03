@@ -94,8 +94,8 @@
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; 16 bytes - Console name
 	dc.b "BIG EVIL CORP.  "                                                                 ; 16 bytes - Copyright holder and release date
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.03)  d637c9510106404d"                                 ; 48 bytes - Domestic name
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.03)  d637c9510106404d"                                 ; 48 bytes - International name
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.08)  d637c9510106404d"                                 ; 48 bytes - Domestic name
+	dc.b "TANGLEWOOD (BETA BUILD 0.9.08)  d637c9510106404d"                                 ; 48 bytes - International name
 	dc.b "GM XXXXXXXX-XX"                                                                   ; 14 bytes - Game type and product code
 header_checksum_addr:
 	dc.w 0xD867                                                                             ; 02 bytes - Checksum
