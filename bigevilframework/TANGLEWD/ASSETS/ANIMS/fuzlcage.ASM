@@ -17,13 +17,7 @@ actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_frames:
 	dc.l actor_fuzlcage_sheet_fuzzl_cage_frame_1_header
 
 	Even
-actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_posx equ 0
+actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_posy equ 0
+actor_fuzlcage_sheet_fuzzl_cage_anim_smash_track_sfx equ 0
 

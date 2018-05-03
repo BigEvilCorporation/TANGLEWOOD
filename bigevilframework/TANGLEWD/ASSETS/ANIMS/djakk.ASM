@@ -20,12 +20,8 @@ actor_djakk_sheet_run_anim_run_track_frames:
 	dc.l actor_djakk_sheet_run_frame_4_header
 
 	Even
-actor_djakk_sheet_run_anim_run_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_run_anim_run_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_djakk_sheet_run_anim_run_track_posx equ 0
+actor_djakk_sheet_run_anim_run_track_posy equ 0
 actor_djakk_sheet_run_anim_run_track_sfx:
 	dc.l 0x0, 0x0, SFX_FootstepBig, SFX_FootstepBig, SFX_FootstepBig
 	Even
@@ -37,15 +33,9 @@ actor_djakk_sheet_death_anim_death_track_frames:
 	dc.l actor_djakk_sheet_death_frame_0_header
 
 	Even
-actor_djakk_sheet_death_anim_death_track_posx:
-	dc.b 0x00
-	Even
-actor_djakk_sheet_death_anim_death_track_posy:
-	dc.b 0x00
-	Even
-actor_djakk_sheet_death_anim_death_track_sfx:
-	dc.l 0x0
-	Even
+actor_djakk_sheet_death_anim_death_track_posx equ 0
+actor_djakk_sheet_death_anim_death_track_posy equ 0
+actor_djakk_sheet_death_anim_death_track_sfx equ 0
 
 actor_djakk_sheet_roar_anim_roar:
 actor_djakk_sheet_roar_anim_roar_numframes: equ 0x6
@@ -59,15 +49,9 @@ actor_djakk_sheet_roar_anim_roar_track_frames:
 	dc.l actor_djakk_sheet_roar_frame_0_header
 
 	Even
-actor_djakk_sheet_roar_anim_roar_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_roar_anim_roar_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_roar_anim_roar_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_djakk_sheet_roar_anim_roar_track_posx equ 0
+actor_djakk_sheet_roar_anim_roar_track_posy equ 0
+actor_djakk_sheet_roar_anim_roar_track_sfx equ 0
 
 actor_djakk_sheet_idle_anim_idle:
 actor_djakk_sheet_idle_anim_idle_numframes: equ 0x1
@@ -76,15 +60,9 @@ actor_djakk_sheet_idle_anim_idle_track_frames:
 	dc.l actor_djakk_sheet_idle_frame_0_header
 
 	Even
-actor_djakk_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_djakk_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_djakk_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_djakk_sheet_idle_anim_idle_track_posx equ 0
+actor_djakk_sheet_idle_anim_idle_track_posy equ 0
+actor_djakk_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_djakk_sheet_bite_anim_bite:
 actor_djakk_sheet_bite_anim_bite_numframes: equ 0x4
@@ -96,15 +74,9 @@ actor_djakk_sheet_bite_anim_bite_track_frames:
 	dc.l actor_djakk_sheet_bite_frame_3_header
 
 	Even
-actor_djakk_sheet_bite_anim_bite_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_bite_anim_bite_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_bite_anim_bite_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_djakk_sheet_bite_anim_bite_track_posx equ 0
+actor_djakk_sheet_bite_anim_bite_track_posy equ 0
+actor_djakk_sheet_bite_anim_bite_track_sfx equ 0
 
 actor_djakk_sheet_jump_anim_jump:
 actor_djakk_sheet_jump_anim_jump_numframes: equ 0x7
@@ -143,15 +115,9 @@ actor_djakk_sheet_walk_anim_walk_track_frames:
 	dc.l actor_djakk_sheet_walk_frame_7_header
 
 	Even
-actor_djakk_sheet_walk_anim_walk_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_walk_anim_walk_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_walk_anim_walk_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_djakk_sheet_walk_anim_walk_track_posx equ 0
+actor_djakk_sheet_walk_anim_walk_track_posy equ 0
+actor_djakk_sheet_walk_anim_walk_track_sfx equ 0
 
 actor_djakk_sheet_throw_anim_throw:
 actor_djakk_sheet_throw_anim_throw_numframes: equ 0x9
@@ -168,13 +134,7 @@ actor_djakk_sheet_throw_anim_throw_track_frames:
 	dc.l actor_djakk_sheet_throw_frame_5_header
 
 	Even
-actor_djakk_sheet_throw_anim_throw_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_throw_anim_throw_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djakk_sheet_throw_anim_throw_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_djakk_sheet_throw_anim_throw_track_posx equ 0
+actor_djakk_sheet_throw_anim_throw_track_posy equ 0
+actor_djakk_sheet_throw_anim_throw_track_sfx equ 0
 

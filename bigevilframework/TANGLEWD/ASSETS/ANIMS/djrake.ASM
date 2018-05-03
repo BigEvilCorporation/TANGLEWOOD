@@ -16,13 +16,7 @@ actor_djrake_sheet_idle_anim_idle_track_frames:
 	dc.l actor_djrake_sheet_idle_frame_0_header
 
 	Even
-actor_djrake_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_djrake_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_djrake_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_djrake_sheet_idle_anim_idle_track_posx equ 0
+actor_djrake_sheet_idle_anim_idle_track_posy equ 0
+actor_djrake_sheet_idle_anim_idle_track_sfx equ 0
 

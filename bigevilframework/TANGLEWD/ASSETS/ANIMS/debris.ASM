@@ -25,7 +25,5 @@ actor_debris_sheet_debris_anim_debris_track_posx:
 actor_debris_sheet_debris_anim_debris_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00
 	Even
-actor_debris_sheet_debris_anim_debris_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_debris_sheet_debris_anim_debris_track_sfx equ 0
 

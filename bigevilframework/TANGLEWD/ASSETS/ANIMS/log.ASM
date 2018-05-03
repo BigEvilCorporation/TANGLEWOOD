@@ -18,13 +18,7 @@ actor_log_sheet_roll_anim_roll_track_frames:
 	dc.l actor_log_sheet_roll_frame_2_header
 
 	Even
-actor_log_sheet_roll_anim_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_log_sheet_roll_anim_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_log_sheet_roll_anim_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_log_sheet_roll_anim_roll_track_posx equ 0
+actor_log_sheet_roll_anim_roll_track_posy equ 0
+actor_log_sheet_roll_anim_roll_track_sfx equ 0
 

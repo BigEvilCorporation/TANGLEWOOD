@@ -30,9 +30,7 @@ actor_wyrm_sheet_bite_anim_bite_track_posx:
 actor_wyrm_sheet_bite_anim_bite_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8
 	Even
-actor_wyrm_sheet_bite_anim_bite_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_wyrm_sheet_bite_anim_bite_track_sfx equ 0
 
 actor_wyrm_sheet_move_anim_move:
 actor_wyrm_sheet_move_anim_move_numframes: equ 0x4
@@ -50,9 +48,7 @@ actor_wyrm_sheet_move_anim_move_track_posx:
 actor_wyrm_sheet_move_anim_move_track_posy:
 	dc.b 0xF0, 0xF0, 0xF0, 0xF0
 	Even
-actor_wyrm_sheet_move_anim_move_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_wyrm_sheet_move_anim_move_track_sfx equ 0
 
 actor_wyrm_sheet_emerge_anim_idle:
 actor_wyrm_sheet_emerge_anim_idle_numframes: equ 0x1
@@ -61,15 +57,9 @@ actor_wyrm_sheet_emerge_anim_idle_track_frames:
 	dc.l actor_wyrm_sheet_emerge_frame_0_header
 
 	Even
-actor_wyrm_sheet_emerge_anim_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_wyrm_sheet_emerge_anim_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_wyrm_sheet_emerge_anim_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_wyrm_sheet_emerge_anim_idle_track_posx equ 0
+actor_wyrm_sheet_emerge_anim_idle_track_posy equ 0
+actor_wyrm_sheet_emerge_anim_idle_track_sfx equ 0
 actor_wyrm_sheet_emerge_anim_burrow:
 actor_wyrm_sheet_emerge_anim_burrow_numframes: equ 0x3
 actor_wyrm_sheet_emerge_anim_burrow_speed: equ 0x19
@@ -85,9 +75,7 @@ actor_wyrm_sheet_emerge_anim_burrow_track_posx:
 actor_wyrm_sheet_emerge_anim_burrow_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8
 	Even
-actor_wyrm_sheet_emerge_anim_burrow_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_wyrm_sheet_emerge_anim_burrow_track_sfx equ 0
 actor_wyrm_sheet_emerge_anim_emerge:
 actor_wyrm_sheet_emerge_anim_emerge_numframes: equ 0x3
 actor_wyrm_sheet_emerge_anim_emerge_speed: equ 0x19
@@ -103,7 +91,5 @@ actor_wyrm_sheet_emerge_anim_emerge_track_posx:
 actor_wyrm_sheet_emerge_anim_emerge_track_posy:
 	dc.b 0xF8, 0xF8, 0xF8
 	Even
-actor_wyrm_sheet_emerge_anim_emerge_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_wyrm_sheet_emerge_anim_emerge_track_sfx equ 0
 

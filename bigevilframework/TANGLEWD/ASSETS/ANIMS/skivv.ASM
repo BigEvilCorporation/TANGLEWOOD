@@ -19,15 +19,9 @@ actor_skivv_sheet_move_anim_move_track_frames:
 	dc.l actor_skivv_sheet_move_frame_3_header
 
 	Even
-actor_skivv_sheet_move_anim_move_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_move_anim_move_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_move_anim_move_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_skivv_sheet_move_anim_move_track_posx equ 0
+actor_skivv_sheet_move_anim_move_track_posy equ 0
+actor_skivv_sheet_move_anim_move_track_sfx equ 0
 
 actor_skivv_sheet_attack_anim_attack:
 actor_skivv_sheet_attack_anim_attack_numframes: equ 0xE
@@ -49,15 +43,9 @@ actor_skivv_sheet_attack_anim_attack_track_frames:
 	dc.l actor_skivv_sheet_attack_frame_13_header
 
 	Even
-actor_skivv_sheet_attack_anim_attack_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_attack_anim_attack_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_attack_anim_attack_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_skivv_sheet_attack_anim_attack_track_posx equ 0
+actor_skivv_sheet_attack_anim_attack_track_posy equ 0
+actor_skivv_sheet_attack_anim_attack_track_sfx equ 0
 actor_skivv_sheet_attack_anim_chomp:
 actor_skivv_sheet_attack_anim_chomp_numframes: equ 0x4
 actor_skivv_sheet_attack_anim_chomp_speed: equ 0x1E
@@ -68,13 +56,7 @@ actor_skivv_sheet_attack_anim_chomp_track_frames:
 	dc.l actor_skivv_sheet_attack_frame_13_header
 
 	Even
-actor_skivv_sheet_attack_anim_chomp_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_attack_anim_chomp_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_skivv_sheet_attack_anim_chomp_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_skivv_sheet_attack_anim_chomp_track_posx equ 0
+actor_skivv_sheet_attack_anim_chomp_track_posy equ 0
+actor_skivv_sheet_attack_anim_chomp_track_sfx equ 0
 

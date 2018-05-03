@@ -26,15 +26,9 @@ actor_echo_sheet_colourswitch_anim_colourswitch_track_frames:
 	dc.l actor_echo_sheet_colourswitch_frame_10_header
 
 	Even
-actor_echo_sheet_colourswitch_anim_colourswitch_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_colourswitch_anim_colourswitch_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_colourswitch_anim_colourswitch_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_colourswitch_anim_colourswitch_track_posx equ 0
+actor_echo_sheet_colourswitch_anim_colourswitch_track_posy equ 0
+actor_echo_sheet_colourswitch_anim_colourswitch_track_sfx equ 0
 
 actor_echo_sheet_circle_anim_circle:
 actor_echo_sheet_circle_anim_circle_numframes: equ 0x17
@@ -82,15 +76,9 @@ actor_echo_sheet_walktorun_anim_walktorun_track_frames:
 	dc.l actor_echo_sheet_walktorun_frame_0_header
 
 	Even
-actor_echo_sheet_walktorun_anim_walktorun_track_posx:
-	dc.b 0x00
-	Even
-actor_echo_sheet_walktorun_anim_walktorun_track_posy:
-	dc.b 0x00
-	Even
-actor_echo_sheet_walktorun_anim_walktorun_track_sfx:
-	dc.l 0x0
-	Even
+actor_echo_sheet_walktorun_anim_walktorun_track_posx equ 0
+actor_echo_sheet_walktorun_anim_walktorun_track_posy equ 0
+actor_echo_sheet_walktorun_anim_walktorun_track_sfx equ 0
 
 actor_echo_sheet_mountnymn_anim_mountnymn:
 actor_echo_sheet_mountnymn_anim_mountnymn_numframes: equ 0x6
@@ -110,9 +98,7 @@ actor_echo_sheet_mountnymn_anim_mountnymn_track_posx:
 actor_echo_sheet_mountnymn_anim_mountnymn_track_posy:
 	dc.b 0x10, 0x10, 0x08, 0x08, 0x08, 0x08
 	Even
-actor_echo_sheet_mountnymn_anim_mountnymn_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_mountnymn_anim_mountnymn_track_sfx equ 0
 
 actor_echo_sheet_allfours_anim_allfours:
 actor_echo_sheet_allfours_anim_allfours_numframes: equ 0x4
@@ -124,12 +110,8 @@ actor_echo_sheet_allfours_anim_allfours_track_frames:
 	dc.l actor_echo_sheet_allfours_frame_3_header
 
 	Even
-actor_echo_sheet_allfours_anim_allfours_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_allfours_anim_allfours_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
+actor_echo_sheet_allfours_anim_allfours_track_posx equ 0
+actor_echo_sheet_allfours_anim_allfours_track_posy equ 0
 actor_echo_sheet_allfours_anim_allfours_track_sfx:
 	dc.l 0x0, 0x0, SFX_Footstep1, 0x0
 	Even
@@ -148,15 +130,9 @@ actor_echo_sheet_pushheavy_anim_pushheavy_track_frames:
 	dc.l actor_echo_sheet_pushheavy_frame_7_header
 
 	Even
-actor_echo_sheet_pushheavy_anim_pushheavy_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_pushheavy_anim_pushheavy_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_pushheavy_anim_pushheavy_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_pushheavy_anim_pushheavy_track_posx equ 0
+actor_echo_sheet_pushheavy_anim_pushheavy_track_posy equ 0
+actor_echo_sheet_pushheavy_anim_pushheavy_track_sfx equ 0
 
 actor_echo_sheet_idlesad_anim_idlesad:
 actor_echo_sheet_idlesad_anim_idlesad_numframes: equ 0x1
@@ -171,9 +147,7 @@ actor_echo_sheet_idlesad_anim_idlesad_track_posx:
 actor_echo_sheet_idlesad_anim_idlesad_track_posy:
 	dc.b 0x00
 	Even
-actor_echo_sheet_idlesad_anim_idlesad_track_sfx:
-	dc.l 0x0
-	Even
+actor_echo_sheet_idlesad_anim_idlesad_track_sfx equ 0
 
 actor_echo_sheet_afraid_anim_afraid:
 actor_echo_sheet_afraid_anim_afraid_numframes: equ 0x3
@@ -184,15 +158,9 @@ actor_echo_sheet_afraid_anim_afraid_track_frames:
 	dc.l actor_echo_sheet_afraid_frame_2_header
 
 	Even
-actor_echo_sheet_afraid_anim_afraid_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_afraid_anim_afraid_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_afraid_anim_afraid_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_afraid_anim_afraid_track_posx equ 0
+actor_echo_sheet_afraid_anim_afraid_track_posy equ 0
+actor_echo_sheet_afraid_anim_afraid_track_sfx equ 0
 
 actor_echo_sheet_wade_anim_wade:
 actor_echo_sheet_wade_anim_wade_numframes: equ 0x8
@@ -208,15 +176,9 @@ actor_echo_sheet_wade_anim_wade_track_frames:
 	dc.l actor_echo_sheet_wade_frame_7_header
 
 	Even
-actor_echo_sheet_wade_anim_wade_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_wade_anim_wade_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_wade_anim_wade_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_wade_anim_wade_track_posx equ 0
+actor_echo_sheet_wade_anim_wade_track_posy equ 0
+actor_echo_sheet_wade_anim_wade_track_sfx equ 0
 
 actor_echo_sheet_nudge_anim_nudge:
 actor_echo_sheet_nudge_anim_nudge_numframes: equ 0xA
@@ -234,15 +196,9 @@ actor_echo_sheet_nudge_anim_nudge_track_frames:
 	dc.l actor_echo_sheet_nudge_frame_0_header
 
 	Even
-actor_echo_sheet_nudge_anim_nudge_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_nudge_anim_nudge_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_nudge_anim_nudge_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_nudge_anim_nudge_track_posx equ 0
+actor_echo_sheet_nudge_anim_nudge_track_posy equ 0
+actor_echo_sheet_nudge_anim_nudge_track_sfx equ 0
 
 actor_echo_sheet_carriedwalk_anim_carriedwalk:
 actor_echo_sheet_carriedwalk_anim_carriedwalk_numframes: equ 0x8
@@ -264,9 +220,7 @@ actor_echo_sheet_carriedwalk_anim_carriedwalk_track_posx:
 actor_echo_sheet_carriedwalk_anim_carriedwalk_track_posy:
 	dc.b 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A
 	Even
-actor_echo_sheet_carriedwalk_anim_carriedwalk_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_carriedwalk_anim_carriedwalk_track_sfx equ 0
 
 actor_echo_sheet_carriedidle_anim_carriedidle:
 actor_echo_sheet_carriedidle_anim_carriedidle_numframes: equ 0x1
@@ -281,9 +235,7 @@ actor_echo_sheet_carriedidle_anim_carriedidle_track_posx:
 actor_echo_sheet_carriedidle_anim_carriedidle_track_posy:
 	dc.b 0x0A
 	Even
-actor_echo_sheet_carriedidle_anim_carriedidle_track_sfx:
-	dc.l 0x0
-	Even
+actor_echo_sheet_carriedidle_anim_carriedidle_track_sfx equ 0
 
 actor_echo_sheet_sit_anim_sit:
 actor_echo_sheet_sit_anim_sit_numframes: equ 0x3
@@ -294,15 +246,9 @@ actor_echo_sheet_sit_anim_sit_track_frames:
 	dc.l actor_echo_sheet_sit_frame_2_header
 
 	Even
-actor_echo_sheet_sit_anim_sit_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_sit_anim_sit_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_sit_anim_sit_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_sit_anim_sit_track_posx equ 0
+actor_echo_sheet_sit_anim_sit_track_posy equ 0
+actor_echo_sheet_sit_anim_sit_track_sfx equ 0
 
 actor_echo_sheet_death_anim_death:
 actor_echo_sheet_death_anim_death_numframes: equ 0xE
@@ -344,15 +290,9 @@ actor_echo_sheet_glide_anim_glide_track_frames:
 	dc.l actor_echo_sheet_glide_frame_3_header
 
 	Even
-actor_echo_sheet_glide_anim_glide_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_glide_anim_glide_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_glide_anim_glide_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_glide_anim_glide_track_posx equ 0
+actor_echo_sheet_glide_anim_glide_track_posy equ 0
+actor_echo_sheet_glide_anim_glide_track_sfx equ 0
 
 actor_echo_sheet_laydown_anim_laydown:
 actor_echo_sheet_laydown_anim_laydown_numframes: equ 0x1A
@@ -386,15 +326,9 @@ actor_echo_sheet_laydown_anim_laydown_track_frames:
 	dc.l actor_echo_sheet_laydown_frame_19_header
 
 	Even
-actor_echo_sheet_laydown_anim_laydown_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_laydown_anim_laydown_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_laydown_anim_laydown_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_laydown_anim_laydown_track_posx equ 0
+actor_echo_sheet_laydown_anim_laydown_track_posy equ 0
+actor_echo_sheet_laydown_anim_laydown_track_sfx equ 0
 
 actor_echo_sheet_calllong_anim_calllong:
 actor_echo_sheet_calllong_anim_calllong_numframes: equ 0x11
@@ -419,12 +353,8 @@ actor_echo_sheet_calllong_anim_calllong_track_frames:
 	dc.l actor_echo_sheet_calllong_frame_0_header
 
 	Even
-actor_echo_sheet_calllong_anim_calllong_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_calllong_anim_calllong_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_echo_sheet_calllong_anim_calllong_track_posx equ 0
+actor_echo_sheet_calllong_anim_calllong_track_posy equ 0
 actor_echo_sheet_calllong_anim_calllong_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0, SFX_Echo_Call_Long, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even
@@ -462,15 +392,9 @@ actor_echo_sheet_push_anim_push_track_frames:
 	dc.l actor_echo_sheet_push_frame_7_header
 
 	Even
-actor_echo_sheet_push_anim_push_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_push_anim_push_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_push_anim_push_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_push_anim_push_track_posx equ 0
+actor_echo_sheet_push_anim_push_track_posy equ 0
+actor_echo_sheet_push_anim_push_track_sfx equ 0
 
 actor_echo_sheet_climb_anim_climb:
 actor_echo_sheet_climb_anim_climb_numframes: equ 0x9
@@ -487,15 +411,9 @@ actor_echo_sheet_climb_anim_climb_track_frames:
 	dc.l actor_echo_sheet_climb_frame_8_header
 
 	Even
-actor_echo_sheet_climb_anim_climb_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_climb_anim_climb_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_climb_anim_climb_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_climb_anim_climb_track_posx equ 0
+actor_echo_sheet_climb_anim_climb_track_posy equ 0
+actor_echo_sheet_climb_anim_climb_track_sfx equ 0
 
 actor_echo_sheet_standfromhiding_anim_standfromhiding:
 actor_echo_sheet_standfromhiding_anim_standfromhiding_numframes: equ 0x6
@@ -509,15 +427,9 @@ actor_echo_sheet_standfromhiding_anim_standfromhiding_track_frames:
 	dc.l actor_echo_sheet_standfromhiding_frame_5_header
 
 	Even
-actor_echo_sheet_standfromhiding_anim_standfromhiding_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_standfromhiding_anim_standfromhiding_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_standfromhiding_anim_standfromhiding_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_standfromhiding_anim_standfromhiding_track_posx equ 0
+actor_echo_sheet_standfromhiding_anim_standfromhiding_track_posy equ 0
+actor_echo_sheet_standfromhiding_anim_standfromhiding_track_sfx equ 0
 
 actor_echo_sheet_lookup_anim_lookup:
 actor_echo_sheet_lookup_anim_lookup_numframes: equ 0x2
@@ -527,15 +439,9 @@ actor_echo_sheet_lookup_anim_lookup_track_frames:
 	dc.l actor_echo_sheet_lookup_frame_1_header
 
 	Even
-actor_echo_sheet_lookup_anim_lookup_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_echo_sheet_lookup_anim_lookup_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_echo_sheet_lookup_anim_lookup_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_echo_sheet_lookup_anim_lookup_track_posx equ 0
+actor_echo_sheet_lookup_anim_lookup_track_posy equ 0
+actor_echo_sheet_lookup_anim_lookup_track_sfx equ 0
 
 actor_echo_sheet_walk_anim_walk:
 actor_echo_sheet_walk_anim_walk_numframes: equ 0x8
@@ -551,15 +457,9 @@ actor_echo_sheet_walk_anim_walk_track_frames:
 	dc.l actor_echo_sheet_walk_frame_7_header
 
 	Even
-actor_echo_sheet_walk_anim_walk_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_walk_anim_walk_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_walk_anim_walk_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_walk_anim_walk_track_posx equ 0
+actor_echo_sheet_walk_anim_walk_track_posy equ 0
+actor_echo_sheet_walk_anim_walk_track_sfx equ 0
 
 actor_echo_sheet_jump_anim_jumptonymn:
 actor_echo_sheet_jump_anim_jumptonymn_numframes: equ 0x8
@@ -581,9 +481,7 @@ actor_echo_sheet_jump_anim_jumptonymn_track_posx:
 actor_echo_sheet_jump_anim_jumptonymn_track_posy:
 	dc.b 0x04, 0x08, 0x10, 0x18, 0x20, 0x22, 0x20, 0x18
 	Even
-actor_echo_sheet_jump_anim_jumptonymn_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_jump_anim_jumptonymn_track_sfx equ 0
 actor_echo_sheet_jump_anim_jump:
 actor_echo_sheet_jump_anim_jump_numframes: equ 0x8
 actor_echo_sheet_jump_anim_jump_speed: equ 0x42
@@ -598,15 +496,9 @@ actor_echo_sheet_jump_anim_jump_track_frames:
 	dc.l actor_echo_sheet_jump_frame_7_header
 
 	Even
-actor_echo_sheet_jump_anim_jump_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_jump_anim_jump_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_jump_anim_jump_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_jump_anim_jump_track_posx equ 0
+actor_echo_sheet_jump_anim_jump_track_posy equ 0
+actor_echo_sheet_jump_anim_jump_track_sfx equ 0
 
 actor_echo_sheet_hide_anim_hide:
 actor_echo_sheet_hide_anim_hide_numframes: equ 0x8
@@ -622,15 +514,9 @@ actor_echo_sheet_hide_anim_hide_track_frames:
 	dc.l actor_echo_sheet_hide_frame_7_header
 
 	Even
-actor_echo_sheet_hide_anim_hide_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_hide_anim_hide_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_hide_anim_hide_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_hide_anim_hide_track_posx equ 0
+actor_echo_sheet_hide_anim_hide_track_posy equ 0
+actor_echo_sheet_hide_anim_hide_track_sfx equ 0
 
 actor_echo_sheet_greetnymn_anim_greetnymn:
 actor_echo_sheet_greetnymn_anim_greetnymn_numframes: equ 0x22
@@ -699,9 +585,7 @@ actor_echo_sheet_pouncenymn_anim_pouncenymn_track_posx:
 actor_echo_sheet_pouncenymn_anim_pouncenymn_track_posy:
 	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
 	Even
-actor_echo_sheet_pouncenymn_anim_pouncenymn_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_pouncenymn_anim_pouncenymn_track_sfx equ 0
 
 actor_echo_sheet_idle_anim_idle:
 actor_echo_sheet_idle_anim_idle_numframes: equ 0x6
@@ -715,15 +599,9 @@ actor_echo_sheet_idle_anim_idle_track_frames:
 	dc.l actor_echo_sheet_idle_frame_5_header
 
 	Even
-actor_echo_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_idle_anim_idle_track_posx equ 0
+actor_echo_sheet_idle_anim_idle_track_posy equ 0
+actor_echo_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_echo_sheet_stand_anim_stand:
 actor_echo_sheet_stand_anim_stand_numframes: equ 0x3
@@ -740,9 +618,7 @@ actor_echo_sheet_stand_anim_stand_track_posx:
 actor_echo_sheet_stand_anim_stand_track_posy:
 	dc.b 0x00, 0x00, 0x00
 	Even
-actor_echo_sheet_stand_anim_stand_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_stand_anim_stand_track_sfx equ 0
 
 actor_echo_sheet_howl_anim_howl:
 actor_echo_sheet_howl_anim_howl_numframes: equ 0x13
@@ -823,12 +699,8 @@ actor_echo_sheet_run_anim_run_track_frames:
 	dc.l actor_echo_sheet_run_frame_4_header
 
 	Even
-actor_echo_sheet_run_anim_run_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_run_anim_run_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_echo_sheet_run_anim_run_track_posx equ 0
+actor_echo_sheet_run_anim_run_track_posy equ 0
 actor_echo_sheet_run_anim_run_track_sfx:
 	dc.l 0x0, 0x0, SFX_Footstep1, SFX_Footstep1, SFX_Footstep1
 	Even
@@ -846,15 +718,9 @@ actor_echo_sheet_sleep_anim_sleep_track_frames:
 	dc.l actor_echo_sheet_sleep_frame_5_header
 
 	Even
-actor_echo_sheet_sleep_anim_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_sleep_anim_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_sleep_anim_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_sleep_anim_sleep_track_posx equ 0
+actor_echo_sheet_sleep_anim_sleep_track_posy equ 0
+actor_echo_sheet_sleep_anim_sleep_track_sfx equ 0
 
 actor_echo_sheet_fall_anim_fall:
 actor_echo_sheet_fall_anim_fall_numframes: equ 0x4
@@ -866,13 +732,7 @@ actor_echo_sheet_fall_anim_fall_track_frames:
 	dc.l actor_echo_sheet_fall_frame_3_header
 
 	Even
-actor_echo_sheet_fall_anim_fall_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_fall_anim_fall_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_echo_sheet_fall_anim_fall_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_echo_sheet_fall_anim_fall_track_posx equ 0
+actor_echo_sheet_fall_anim_fall_track_posy equ 0
+actor_echo_sheet_fall_anim_fall_track_sfx equ 0
 

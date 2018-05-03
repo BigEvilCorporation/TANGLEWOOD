@@ -40,15 +40,9 @@ actor_djubb_sheet_idle_anim_idle_track_frames:
 	dc.l actor_djubb_sheet_idle_frame_3_header
 
 	Even
-actor_djubb_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djubb_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djubb_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_djubb_sheet_idle_anim_idle_track_posx equ 0
+actor_djubb_sheet_idle_anim_idle_track_posy equ 0
+actor_djubb_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_djubb_sheet_swim_anim_swim:
 actor_djubb_sheet_swim_anim_swim_numframes: equ 0x4
@@ -60,12 +54,8 @@ actor_djubb_sheet_swim_anim_swim_track_frames:
 	dc.l actor_djubb_sheet_swim_frame_3_header
 
 	Even
-actor_djubb_sheet_swim_anim_swim_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_djubb_sheet_swim_anim_swim_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
+actor_djubb_sheet_swim_anim_swim_track_posx equ 0
+actor_djubb_sheet_swim_anim_swim_track_posy equ 0
 actor_djubb_sheet_swim_anim_swim_track_sfx:
 	dc.l 0x0, 0x0, 0x0, 0x0
 	Even
@@ -79,13 +69,7 @@ actor_djubb_sheet_death_anim_death_track_frames:
 	dc.l actor_djubb_sheet_death_frame_2_header
 
 	Even
-actor_djubb_sheet_death_anim_death_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_djubb_sheet_death_anim_death_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_djubb_sheet_death_anim_death_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_djubb_sheet_death_anim_death_track_posx equ 0
+actor_djubb_sheet_death_anim_death_track_posy equ 0
+actor_djubb_sheet_death_anim_death_track_sfx equ 0
 

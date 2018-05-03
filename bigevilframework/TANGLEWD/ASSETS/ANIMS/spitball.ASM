@@ -19,15 +19,9 @@ actor_spitball_sheet_spitball_anim_hit_track_frames:
 	dc.l actor_spitball_sheet_spitball_frame_7_header
 
 	Even
-actor_spitball_sheet_spitball_anim_hit_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_spitball_sheet_spitball_anim_hit_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_spitball_sheet_spitball_anim_hit_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_spitball_sheet_spitball_anim_hit_track_posx equ 0
+actor_spitball_sheet_spitball_anim_hit_track_posy equ 0
+actor_spitball_sheet_spitball_anim_hit_track_sfx equ 0
 actor_spitball_sheet_spitball_anim_move:
 actor_spitball_sheet_spitball_anim_move_numframes: equ 0x4
 actor_spitball_sheet_spitball_anim_move_speed: equ 0x28
@@ -38,13 +32,7 @@ actor_spitball_sheet_spitball_anim_move_track_frames:
 	dc.l actor_spitball_sheet_spitball_frame_3_header
 
 	Even
-actor_spitball_sheet_spitball_anim_move_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_spitball_sheet_spitball_anim_move_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_spitball_sheet_spitball_anim_move_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_spitball_sheet_spitball_anim_move_track_posx equ 0
+actor_spitball_sheet_spitball_anim_move_track_posy equ 0
+actor_spitball_sheet_spitball_anim_move_track_sfx equ 0
 

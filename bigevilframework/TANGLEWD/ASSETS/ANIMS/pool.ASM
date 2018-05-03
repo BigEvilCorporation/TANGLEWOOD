@@ -23,14 +23,8 @@ actor_pool_sheet_filling_anim_filling_track_frames:
 	dc.l actor_pool_sheet_filling_frame_7_header
 
 	Even
-actor_pool_sheet_filling_anim_filling_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_pool_sheet_filling_anim_filling_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_pool_sheet_filling_anim_filling_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_pool_sheet_filling_anim_filling_track_posx equ 0
+actor_pool_sheet_filling_anim_filling_track_posy equ 0
+actor_pool_sheet_filling_anim_filling_track_sfx equ 0
 
 

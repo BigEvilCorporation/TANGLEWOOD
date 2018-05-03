@@ -19,15 +19,9 @@ actor_borgus_sheet_idle_anim_idle_track_frames:
 	dc.l actor_borgus_sheet_idle_frame_3_header
 
 	Even
-actor_borgus_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_borgus_sheet_idle_anim_idle_track_posx equ 0
+actor_borgus_sheet_idle_anim_idle_track_posy equ 0
+actor_borgus_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_borgus_sheet_walk_anim_walk:
 actor_borgus_sheet_walk_anim_walk_numframes: equ 0x8
@@ -43,12 +37,8 @@ actor_borgus_sheet_walk_anim_walk_track_frames:
 	dc.l actor_borgus_sheet_walk_frame_7_header
 
 	Even
-actor_borgus_sheet_walk_anim_walk_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_walk_anim_walk_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_borgus_sheet_walk_anim_walk_track_posx equ 0
+actor_borgus_sheet_walk_anim_walk_track_posy equ 0
 actor_borgus_sheet_walk_anim_walk_track_sfx:
 	dc.l 0x0, 0x0, 0x0, SFX_BorgusFootstep, 0x0, 0x0, 0x0, SFX_BorgusFootstep
 	Even
@@ -62,12 +52,8 @@ actor_borgus_sheet_death_anim_death_track_frames:
 	dc.l actor_borgus_sheet_death_frame_2_header
 
 	Even
-actor_borgus_sheet_death_anim_death_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_death_anim_death_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
+actor_borgus_sheet_death_anim_death_track_posx equ 0
+actor_borgus_sheet_death_anim_death_track_posy equ 0
 actor_borgus_sheet_death_anim_death_track_sfx:
 	dc.l SFX_BorgusDie, 0x0, 0x0
 	Even
@@ -83,15 +69,9 @@ actor_borgus_sheet_attack_anim_attack_track_frames:
 	dc.l actor_borgus_sheet_attack_frame_4_header
 
 	Even
-actor_borgus_sheet_attack_anim_attack_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_attack_anim_attack_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_attack_anim_attack_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_borgus_sheet_attack_anim_attack_track_posx equ 0
+actor_borgus_sheet_attack_anim_attack_track_posy equ 0
+actor_borgus_sheet_attack_anim_attack_track_sfx equ 0
 
 actor_borgus_sheet_roar_anim_roar:
 actor_borgus_sheet_roar_anim_roar_numframes: equ 0x6
@@ -105,12 +85,8 @@ actor_borgus_sheet_roar_anim_roar_track_frames:
 	dc.l actor_borgus_sheet_roar_frame_3_header
 
 	Even
-actor_borgus_sheet_roar_anim_roar_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_roar_anim_roar_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_borgus_sheet_roar_anim_roar_track_posx equ 0
+actor_borgus_sheet_roar_anim_roar_track_posy equ 0
 actor_borgus_sheet_roar_anim_roar_track_sfx:
 	dc.l 0x0, SFX_BorgusRoar, 0x0, 0x0, 0x0, 0x0
 	Even
@@ -127,12 +103,8 @@ actor_borgus_sheet_hit_anim_hit_track_frames:
 	dc.l actor_borgus_sheet_hit_frame_4_header
 
 	Even
-actor_borgus_sheet_hit_anim_hit_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_hit_anim_hit_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_borgus_sheet_hit_anim_hit_track_posx equ 0
+actor_borgus_sheet_hit_anim_hit_track_posy equ 0
 actor_borgus_sheet_hit_anim_hit_track_sfx:
 	dc.l SFX_BorgusDamage, 0x0, SFX_BorgusRoar, 0x0, 0x0, 0x0
 	Even
@@ -147,12 +119,8 @@ actor_borgus_sheet_spit_anim_spit_track_frames:
 	dc.l actor_borgus_sheet_spit_frame_3_header
 
 	Even
-actor_borgus_sheet_spit_anim_spit_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_borgus_sheet_spit_anim_spit_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
+actor_borgus_sheet_spit_anim_spit_track_posx equ 0
+actor_borgus_sheet_spit_anim_spit_track_posy equ 0
 actor_borgus_sheet_spit_anim_spit_track_sfx:
 	dc.l 0x0, 0x0, SFX_BorgusSpit, 0x0
 	Even

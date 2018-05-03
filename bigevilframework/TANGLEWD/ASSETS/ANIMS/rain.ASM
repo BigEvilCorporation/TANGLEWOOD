@@ -18,13 +18,7 @@ actor_rain_sheet_light_anim_fall_track_frames:
 	dc.l actor_rain_sheet_light_frame_2_header
 
 	Even
-actor_rain_sheet_light_anim_fall_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_rain_sheet_light_anim_fall_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_rain_sheet_light_anim_fall_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_rain_sheet_light_anim_fall_track_posx equ 0
+actor_rain_sheet_light_anim_fall_track_posy equ 0
+actor_rain_sheet_light_anim_fall_track_sfx equ 0
 

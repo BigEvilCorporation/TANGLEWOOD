@@ -19,15 +19,9 @@ actor_scrap_sheet_bark_anim_bark_track_frames:
 	dc.l actor_scrap_sheet_bark_frame_3_header
 
 	Even
-actor_scrap_sheet_bark_anim_bark_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_bark_anim_bark_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_bark_anim_bark_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scrap_sheet_bark_anim_bark_track_posx equ 0
+actor_scrap_sheet_bark_anim_bark_track_posy equ 0
+actor_scrap_sheet_bark_anim_bark_track_sfx equ 0
 
 actor_scrap_sheet_idle_anim_idle:
 actor_scrap_sheet_idle_anim_idle_numframes: equ 0x12
@@ -53,15 +47,9 @@ actor_scrap_sheet_idle_anim_idle_track_frames:
 	dc.l actor_scrap_sheet_idle_frame_5_header
 
 	Even
-actor_scrap_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scrap_sheet_idle_anim_idle_track_posx equ 0
+actor_scrap_sheet_idle_anim_idle_track_posy equ 0
+actor_scrap_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_scrap_sheet_run_anim_run:
 actor_scrap_sheet_run_anim_run_numframes: equ 0x5
@@ -74,13 +62,7 @@ actor_scrap_sheet_run_anim_run_track_frames:
 	dc.l actor_scrap_sheet_run_frame_4_header
 
 	Even
-actor_scrap_sheet_run_anim_run_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_run_anim_run_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scrap_sheet_run_anim_run_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scrap_sheet_run_anim_run_track_posx equ 0
+actor_scrap_sheet_run_anim_run_track_posy equ 0
+actor_scrap_sheet_run_anim_run_track_sfx equ 0
 

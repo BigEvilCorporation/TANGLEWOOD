@@ -25,15 +25,9 @@ actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_frames:
 	dc.l actor_fuzzl_sheet_yellow_sleep_frame_1_header
 
 	Even
-actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_posx equ 0
+actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_posy equ 0
+actor_fuzzl_sheet_yellow_sleep_anim_yellow_sleep_track_sfx equ 0
 
 actor_fuzzl_sheet_green_eyes_anim_green_eyes:
 actor_fuzzl_sheet_green_eyes_anim_green_eyes_numframes: equ 0x9
@@ -50,15 +44,9 @@ actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_frames:
 	dc.l actor_fuzzl_sheet_green_eyes_frame_8_header
 
 	Even
-actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_posx equ 0
+actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_posy equ 0
+actor_fuzzl_sheet_green_eyes_anim_green_eyes_track_sfx equ 0
 
 actor_fuzzl_sheet_blue_roll_anim_blue_roll:
 actor_fuzzl_sheet_blue_roll_anim_blue_roll_numframes: equ 0x8
@@ -74,15 +62,9 @@ actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_frames:
 	dc.l actor_fuzzl_sheet_blue_roll_frame_7_header
 
 	Even
-actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_posx equ 0
+actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_posy equ 0
+actor_fuzzl_sheet_blue_roll_anim_blue_roll_track_sfx equ 0
 
 actor_fuzzl_sheet_red_eyes_anim_red_eyes:
 actor_fuzzl_sheet_red_eyes_anim_red_eyes_numframes: equ 0x9
@@ -99,15 +81,9 @@ actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_frames:
 	dc.l actor_fuzzl_sheet_red_eyes_frame_8_header
 
 	Even
-actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_posx equ 0
+actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_posy equ 0
+actor_fuzzl_sheet_red_eyes_anim_red_eyes_track_sfx equ 0
 
 actor_fuzzl_sheet_white_roll_anim_white_roll:
 actor_fuzzl_sheet_white_roll_anim_white_roll_numframes: equ 0x8
@@ -123,15 +99,9 @@ actor_fuzzl_sheet_white_roll_anim_white_roll_track_frames:
 	dc.l actor_fuzzl_sheet_white_roll_frame_7_header
 
 	Even
-actor_fuzzl_sheet_white_roll_anim_white_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_roll_anim_white_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_roll_anim_white_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_white_roll_anim_white_roll_track_posx equ 0
+actor_fuzzl_sheet_white_roll_anim_white_roll_track_posy equ 0
+actor_fuzzl_sheet_white_roll_anim_white_roll_track_sfx equ 0
 
 actor_fuzzl_sheet_yellow_roll_anim_yellow_roll:
 actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_numframes: equ 0x8
@@ -147,15 +117,9 @@ actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_frames:
 	dc.l actor_fuzzl_sheet_yellow_roll_frame_7_header
 
 	Even
-actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_posx equ 0
+actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_posy equ 0
+actor_fuzzl_sheet_yellow_roll_anim_yellow_roll_track_sfx equ 0
 
 actor_fuzzl_sheet_green_sleep_anim_green_sleep:
 actor_fuzzl_sheet_green_sleep_anim_green_sleep_numframes: equ 0x6
@@ -169,15 +133,9 @@ actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_frames:
 	dc.l actor_fuzzl_sheet_green_sleep_frame_0_header
 
 	Even
-actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_posx equ 0
+actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_posy equ 0
+actor_fuzzl_sheet_green_sleep_anim_green_sleep_track_sfx equ 0
 
 actor_fuzzl_sheet_red_roll_anim_red_roll:
 actor_fuzzl_sheet_red_roll_anim_red_roll_numframes: equ 0x8
@@ -193,15 +151,9 @@ actor_fuzzl_sheet_red_roll_anim_red_roll_track_frames:
 	dc.l actor_fuzzl_sheet_red_roll_frame_7_header
 
 	Even
-actor_fuzzl_sheet_red_roll_anim_red_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_roll_anim_red_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_roll_anim_red_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_red_roll_anim_red_roll_track_posx equ 0
+actor_fuzzl_sheet_red_roll_anim_red_roll_track_posy equ 0
+actor_fuzzl_sheet_red_roll_anim_red_roll_track_sfx equ 0
 
 actor_fuzzl_sheet_blue_eyes_anim_blue_eyes:
 actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_numframes: equ 0x9
@@ -218,15 +170,9 @@ actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_frames:
 	dc.l actor_fuzzl_sheet_blue_eyes_frame_8_header
 
 	Even
-actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_posx equ 0
+actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_posy equ 0
+actor_fuzzl_sheet_blue_eyes_anim_blue_eyes_track_sfx equ 0
 
 actor_fuzzl_sheet_red_sleep_anim_red_sleep:
 actor_fuzzl_sheet_red_sleep_anim_red_sleep_numframes: equ 0x6
@@ -240,15 +186,9 @@ actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_frames:
 	dc.l actor_fuzzl_sheet_red_sleep_frame_0_header
 
 	Even
-actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_posx equ 0
+actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_posy equ 0
+actor_fuzzl_sheet_red_sleep_anim_red_sleep_track_sfx equ 0
 
 actor_fuzzl_sheet_blue_sleep_anim_blue_sleep:
 actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_numframes: equ 0x6
@@ -262,15 +202,9 @@ actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_frames:
 	dc.l actor_fuzzl_sheet_blue_sleep_frame_0_header
 
 	Even
-actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_posx equ 0
+actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_posy equ 0
+actor_fuzzl_sheet_blue_sleep_anim_blue_sleep_track_sfx equ 0
 
 actor_fuzzl_sheet_white_sleep_anim_white_sleep:
 actor_fuzzl_sheet_white_sleep_anim_white_sleep_numframes: equ 0x6
@@ -284,15 +218,9 @@ actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_frames:
 	dc.l actor_fuzzl_sheet_white_sleep_frame_0_header
 
 	Even
-actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_posx equ 0
+actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_posy equ 0
+actor_fuzzl_sheet_white_sleep_anim_white_sleep_track_sfx equ 0
 
 actor_fuzzl_sheet_red_idle_anim_red_idle:
 actor_fuzzl_sheet_red_idle_anim_red_idle_numframes: equ 0x1
@@ -301,15 +229,9 @@ actor_fuzzl_sheet_red_idle_anim_red_idle_track_frames:
 	dc.l actor_fuzzl_sheet_red_idle_frame_0_header
 
 	Even
-actor_fuzzl_sheet_red_idle_anim_red_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_red_idle_anim_red_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_red_idle_anim_red_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_fuzzl_sheet_red_idle_anim_red_idle_track_posx equ 0
+actor_fuzzl_sheet_red_idle_anim_red_idle_track_posy equ 0
+actor_fuzzl_sheet_red_idle_anim_red_idle_track_sfx equ 0
 
 actor_fuzzl_sheet_white_idle_anim_white_idle:
 actor_fuzzl_sheet_white_idle_anim_white_idle_numframes: equ 0x1
@@ -318,15 +240,9 @@ actor_fuzzl_sheet_white_idle_anim_white_idle_track_frames:
 	dc.l actor_fuzzl_sheet_white_idle_frame_0_header
 
 	Even
-actor_fuzzl_sheet_white_idle_anim_white_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_white_idle_anim_white_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_white_idle_anim_white_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_fuzzl_sheet_white_idle_anim_white_idle_track_posx equ 0
+actor_fuzzl_sheet_white_idle_anim_white_idle_track_posy equ 0
+actor_fuzzl_sheet_white_idle_anim_white_idle_track_sfx equ 0
 
 actor_fuzzl_sheet_blue_idle_anim_blue_idle:
 actor_fuzzl_sheet_blue_idle_anim_blue_idle_numframes: equ 0x1
@@ -335,15 +251,9 @@ actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_frames:
 	dc.l actor_fuzzl_sheet_blue_idle_frame_0_header
 
 	Even
-actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_posx equ 0
+actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_posy equ 0
+actor_fuzzl_sheet_blue_idle_anim_blue_idle_track_sfx equ 0
 
 actor_fuzzl_sheet_green_roll_anim_green_roll:
 actor_fuzzl_sheet_green_roll_anim_green_roll_numframes: equ 0x8
@@ -359,15 +269,9 @@ actor_fuzzl_sheet_green_roll_anim_green_roll_track_frames:
 	dc.l actor_fuzzl_sheet_green_roll_frame_7_header
 
 	Even
-actor_fuzzl_sheet_green_roll_anim_green_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_roll_anim_green_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_green_roll_anim_green_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_green_roll_anim_green_roll_track_posx equ 0
+actor_fuzzl_sheet_green_roll_anim_green_roll_track_posy equ 0
+actor_fuzzl_sheet_green_roll_anim_green_roll_track_sfx equ 0
 
 actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes:
 actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_numframes: equ 0x9
@@ -384,15 +288,9 @@ actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_frames:
 	dc.l actor_fuzzl_sheet_yellow_eyes_frame_8_header
 
 	Even
-actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_posx equ 0
+actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_posy equ 0
+actor_fuzzl_sheet_yellow_eyes_anim_yellow_eyes_track_sfx equ 0
 
 actor_fuzzl_sheet_yellow_idle_anim_yellow_idle:
 actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_numframes: equ 0x1
@@ -401,15 +299,9 @@ actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_frames:
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0_header
 
 	Even
-actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_posx equ 0
+actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_posy equ 0
+actor_fuzzl_sheet_yellow_idle_anim_yellow_idle_track_sfx equ 0
 
 actor_fuzzl_sheet_green_idle_anim_green_idle:
 actor_fuzzl_sheet_green_idle_anim_green_idle_numframes: equ 0x1
@@ -418,15 +310,9 @@ actor_fuzzl_sheet_green_idle_anim_green_idle_track_frames:
 	dc.l actor_fuzzl_sheet_green_idle_frame_0_header
 
 	Even
-actor_fuzzl_sheet_green_idle_anim_green_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_green_idle_anim_green_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_fuzzl_sheet_green_idle_anim_green_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_fuzzl_sheet_green_idle_anim_green_idle_track_posx equ 0
+actor_fuzzl_sheet_green_idle_anim_green_idle_track_posy equ 0
+actor_fuzzl_sheet_green_idle_anim_green_idle_track_sfx equ 0
 
 actor_fuzzl_sheet_white_eyes_anim_white_eyes:
 actor_fuzzl_sheet_white_eyes_anim_white_eyes_numframes: equ 0x9
@@ -443,13 +329,7 @@ actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_frames:
 	dc.l actor_fuzzl_sheet_white_eyes_frame_8_header
 
 	Even
-actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_posx equ 0
+actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_posy equ 0
+actor_fuzzl_sheet_white_eyes_anim_white_eyes_track_sfx equ 0
 

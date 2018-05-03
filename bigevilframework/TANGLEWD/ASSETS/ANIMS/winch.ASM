@@ -17,13 +17,7 @@ actor_winch_sheet_winch_anim_turn_track_frames:
 	dc.l actor_winch_sheet_winch_frame_1_header
 
 	Even
-actor_winch_sheet_winch_anim_turn_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_winch_sheet_winch_anim_turn_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_winch_sheet_winch_anim_turn_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_winch_sheet_winch_anim_turn_track_posx equ 0
+actor_winch_sheet_winch_anim_turn_track_posy equ 0
+actor_winch_sheet_winch_anim_turn_track_sfx equ 0
 

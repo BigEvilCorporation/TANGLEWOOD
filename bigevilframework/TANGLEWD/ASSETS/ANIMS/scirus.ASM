@@ -17,15 +17,9 @@ actor_scirus_sheet_sleep_anim_sleep_track_frames:
 	dc.l actor_scirus_sheet_sleep_frame_1_header
 
 	Even
-actor_scirus_sheet_sleep_anim_sleep_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_scirus_sheet_sleep_anim_sleep_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_scirus_sheet_sleep_anim_sleep_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_scirus_sheet_sleep_anim_sleep_track_posx equ 0
+actor_scirus_sheet_sleep_anim_sleep_track_posy equ 0
+actor_scirus_sheet_sleep_anim_sleep_track_sfx equ 0
 actor_scirus_sheet_sleep_anim_wake:
 actor_scirus_sheet_sleep_anim_wake_numframes: equ 0x3
 actor_scirus_sheet_sleep_anim_wake_speed: equ 0x19
@@ -35,15 +29,9 @@ actor_scirus_sheet_sleep_anim_wake_track_frames:
 	dc.l actor_scirus_sheet_sleep_frame_4_header
 
 	Even
-actor_scirus_sheet_sleep_anim_wake_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_sleep_anim_wake_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_sleep_anim_wake_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_sleep_anim_wake_track_posx equ 0
+actor_scirus_sheet_sleep_anim_wake_track_posy equ 0
+actor_scirus_sheet_sleep_anim_wake_track_sfx equ 0
 
 actor_scirus_sheet_attack_anim_attack:
 actor_scirus_sheet_attack_anim_attack_numframes: equ 0x4
@@ -55,15 +43,9 @@ actor_scirus_sheet_attack_anim_attack_track_frames:
 	dc.l actor_scirus_sheet_attack_frame_3_header
 
 	Even
-actor_scirus_sheet_attack_anim_attack_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_attack_anim_attack_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_attack_anim_attack_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_attack_anim_attack_track_posx equ 0
+actor_scirus_sheet_attack_anim_attack_track_posy equ 0
+actor_scirus_sheet_attack_anim_attack_track_sfx equ 0
 
 actor_scirus_sheet_walk_angry_anim_walk_angry:
 actor_scirus_sheet_walk_angry_anim_walk_angry_numframes: equ 0x6
@@ -77,15 +59,9 @@ actor_scirus_sheet_walk_angry_anim_walk_angry_track_frames:
 	dc.l actor_scirus_sheet_walk_angry_frame_5_header
 
 	Even
-actor_scirus_sheet_walk_angry_anim_walk_angry_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_walk_angry_anim_walk_angry_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_walk_angry_anim_walk_angry_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_walk_angry_anim_walk_angry_track_posx equ 0
+actor_scirus_sheet_walk_angry_anim_walk_angry_track_posy equ 0
+actor_scirus_sheet_walk_angry_anim_walk_angry_track_sfx equ 0
 
 actor_scirus_sheet_walk_anim_walk:
 actor_scirus_sheet_walk_anim_walk_numframes: equ 0x6
@@ -99,15 +75,9 @@ actor_scirus_sheet_walk_anim_walk_track_frames:
 	dc.l actor_scirus_sheet_walk_frame_5_header
 
 	Even
-actor_scirus_sheet_walk_anim_walk_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_walk_anim_walk_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_walk_anim_walk_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_walk_anim_walk_track_posx equ 0
+actor_scirus_sheet_walk_anim_walk_track_posy equ 0
+actor_scirus_sheet_walk_anim_walk_track_sfx equ 0
 
 actor_scirus_sheet_warn_angry_anim_warn_angry:
 actor_scirus_sheet_warn_angry_anim_warn_angry_numframes: equ 0x6
@@ -121,15 +91,9 @@ actor_scirus_sheet_warn_angry_anim_warn_angry_track_frames:
 	dc.l actor_scirus_sheet_warn_angry_frame_4_header
 
 	Even
-actor_scirus_sheet_warn_angry_anim_warn_angry_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_warn_angry_anim_warn_angry_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_warn_angry_anim_warn_angry_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_posx equ 0
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_posy equ 0
+actor_scirus_sheet_warn_angry_anim_warn_angry_track_sfx equ 0
 
 actor_scirus_sheet_run_angry_anim_run_angry:
 actor_scirus_sheet_run_angry_anim_run_angry_numframes: equ 0x6
@@ -143,15 +107,9 @@ actor_scirus_sheet_run_angry_anim_run_angry_track_frames:
 	dc.l actor_scirus_sheet_run_angry_frame_5_header
 
 	Even
-actor_scirus_sheet_run_angry_anim_run_angry_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_run_angry_anim_run_angry_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_run_angry_anim_run_angry_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_run_angry_anim_run_angry_track_posx equ 0
+actor_scirus_sheet_run_angry_anim_run_angry_track_posy equ 0
+actor_scirus_sheet_run_angry_anim_run_angry_track_sfx equ 0
 
 actor_scirus_sheet_idle_angry_anim_idle_angry:
 actor_scirus_sheet_idle_angry_anim_idle_angry_numframes: equ 0x4
@@ -163,15 +121,9 @@ actor_scirus_sheet_idle_angry_anim_idle_angry_track_frames:
 	dc.l actor_scirus_sheet_idle_angry_frame_3_header
 
 	Even
-actor_scirus_sheet_idle_angry_anim_idle_angry_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_idle_angry_anim_idle_angry_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_idle_angry_anim_idle_angry_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_idle_angry_anim_idle_angry_track_posx equ 0
+actor_scirus_sheet_idle_angry_anim_idle_angry_track_posy equ 0
+actor_scirus_sheet_idle_angry_anim_idle_angry_track_sfx equ 0
 
 actor_scirus_sheet_run_anim_run:
 actor_scirus_sheet_run_anim_run_numframes: equ 0x4
@@ -183,15 +135,9 @@ actor_scirus_sheet_run_anim_run_track_frames:
 	dc.l actor_scirus_sheet_run_frame_3_header
 
 	Even
-actor_scirus_sheet_run_anim_run_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_run_anim_run_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_run_anim_run_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_run_anim_run_track_posx equ 0
+actor_scirus_sheet_run_anim_run_track_posy equ 0
+actor_scirus_sheet_run_anim_run_track_sfx equ 0
 
 actor_scirus_sheet_idle_anim_idle:
 actor_scirus_sheet_idle_anim_idle_numframes: equ 0x4
@@ -203,15 +149,9 @@ actor_scirus_sheet_idle_anim_idle_track_frames:
 	dc.l actor_scirus_sheet_idle_frame_3_header
 
 	Even
-actor_scirus_sheet_idle_anim_idle_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_idle_anim_idle_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_idle_anim_idle_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_scirus_sheet_idle_anim_idle_track_posx equ 0
+actor_scirus_sheet_idle_anim_idle_track_posy equ 0
+actor_scirus_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_scirus_sheet_warn_anim_warn:
 actor_scirus_sheet_warn_anim_warn_numframes: equ 0x8
@@ -227,12 +167,8 @@ actor_scirus_sheet_warn_anim_warn_track_frames:
 	dc.l actor_scirus_sheet_warn_frame_5_header
 
 	Even
-actor_scirus_sheet_warn_anim_warn_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_scirus_sheet_warn_anim_warn_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
+actor_scirus_sheet_warn_anim_warn_track_posx equ 0
+actor_scirus_sheet_warn_anim_warn_track_posy equ 0
 actor_scirus_sheet_warn_anim_warn_track_sfx:
 	dc.l 0x0, 0x0, SFX_Scirus_Hiss, 0x0, 0x0, 0x0, 0x0, 0x0
 	Even

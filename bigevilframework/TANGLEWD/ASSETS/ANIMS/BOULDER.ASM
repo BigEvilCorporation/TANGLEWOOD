@@ -23,15 +23,9 @@ actor_boulder_sheet_roll_l3_anim_roll_l3_track_frames:
 	dc.l actor_boulder_sheet_roll_l3_frame_7_header
 
 	Even
-actor_boulder_sheet_roll_l3_anim_roll_l3_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l3_anim_roll_l3_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l3_anim_roll_l3_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_boulder_sheet_roll_l3_anim_roll_l3_track_posx equ 0
+actor_boulder_sheet_roll_l3_anim_roll_l3_track_posy equ 0
+actor_boulder_sheet_roll_l3_anim_roll_l3_track_sfx equ 0
 
 actor_boulder_sheet_roll_anim_roll:
 actor_boulder_sheet_roll_anim_roll_numframes: equ 0x8
@@ -47,15 +41,9 @@ actor_boulder_sheet_roll_anim_roll_track_frames:
 	dc.l actor_boulder_sheet_roll_frame_7_header
 
 	Even
-actor_boulder_sheet_roll_anim_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_anim_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_anim_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_boulder_sheet_roll_anim_roll_track_posx equ 0
+actor_boulder_sheet_roll_anim_roll_track_posy equ 0
+actor_boulder_sheet_roll_anim_roll_track_sfx equ 0
 
 actor_boulder_sheet_roll_l4_anim_roll:
 actor_boulder_sheet_roll_l4_anim_roll_numframes: equ 0x8
@@ -71,15 +59,9 @@ actor_boulder_sheet_roll_l4_anim_roll_track_frames:
 	dc.l actor_boulder_sheet_roll_l4_frame_7_header
 
 	Even
-actor_boulder_sheet_roll_l4_anim_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l4_anim_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l4_anim_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_boulder_sheet_roll_l4_anim_roll_track_posx equ 0
+actor_boulder_sheet_roll_l4_anim_roll_track_posy equ 0
+actor_boulder_sheet_roll_l4_anim_roll_track_sfx equ 0
 actor_boulder_sheet_roll_l4_anim_roll_l4:
 actor_boulder_sheet_roll_l4_anim_roll_l4_numframes: equ 0x8
 actor_boulder_sheet_roll_l4_anim_roll_l4_speed: equ 0x1E
@@ -94,15 +76,9 @@ actor_boulder_sheet_roll_l4_anim_roll_l4_track_frames:
 	dc.l actor_boulder_sheet_roll_l4_frame_7_header
 
 	Even
-actor_boulder_sheet_roll_l4_anim_roll_l4_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l4_anim_roll_l4_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l4_anim_roll_l4_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_posx equ 0
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_posy equ 0
+actor_boulder_sheet_roll_l4_anim_roll_l4_track_sfx equ 0
 
 actor_boulder_sheet_roll_l2_anim_roll_l2:
 actor_boulder_sheet_roll_l2_anim_roll_l2_numframes: equ 0x8
@@ -118,15 +94,9 @@ actor_boulder_sheet_roll_l2_anim_roll_l2_track_frames:
 	dc.l actor_boulder_sheet_roll_l2_frame_7_header
 
 	Even
-actor_boulder_sheet_roll_l2_anim_roll_l2_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l2_anim_roll_l2_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_boulder_sheet_roll_l2_anim_roll_l2_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_boulder_sheet_roll_l2_anim_roll_l2_track_posx equ 0
+actor_boulder_sheet_roll_l2_anim_roll_l2_track_posy equ 0
+actor_boulder_sheet_roll_l2_anim_roll_l2_track_sfx equ 0
 
 actor_boulder_sheet_crack_anim_crack:
 actor_boulder_sheet_crack_anim_crack_numframes: equ 0x1
@@ -135,13 +105,7 @@ actor_boulder_sheet_crack_anim_crack_track_frames:
 	dc.l actor_boulder_sheet_crack_frame_0_header
 
 	Even
-actor_boulder_sheet_crack_anim_crack_track_posx:
-	dc.b 0x00
-	Even
-actor_boulder_sheet_crack_anim_crack_track_posy:
-	dc.b 0x00
-	Even
-actor_boulder_sheet_crack_anim_crack_track_sfx:
-	dc.l 0x0
-	Even
+actor_boulder_sheet_crack_anim_crack_track_posx equ 0
+actor_boulder_sheet_crack_anim_crack_track_posy equ 0
+actor_boulder_sheet_crack_anim_crack_track_sfx equ 0
 

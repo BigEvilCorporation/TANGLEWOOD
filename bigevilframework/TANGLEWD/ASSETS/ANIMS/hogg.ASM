@@ -17,15 +17,9 @@ actor_hogg_sheet_wall_anim_recover_track_frames:
 	dc.l actor_hogg_sheet_wall_frame_6_header
 
 	Even
-actor_hogg_sheet_wall_anim_recover_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_recover_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_recover_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_hogg_sheet_wall_anim_recover_track_posx equ 0
+actor_hogg_sheet_wall_anim_recover_track_posy equ 0
+actor_hogg_sheet_wall_anim_recover_track_sfx equ 0
 actor_hogg_sheet_wall_anim_stuck:
 actor_hogg_sheet_wall_anim_stuck_numframes: equ 0x5
 actor_hogg_sheet_wall_anim_stuck_speed: equ 0x23
@@ -37,15 +31,9 @@ actor_hogg_sheet_wall_anim_stuck_track_frames:
 	dc.l actor_hogg_sheet_wall_frame_5_header
 
 	Even
-actor_hogg_sheet_wall_anim_stuck_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_stuck_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_stuck_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_hogg_sheet_wall_anim_stuck_track_posx equ 0
+actor_hogg_sheet_wall_anim_stuck_track_posy equ 0
+actor_hogg_sheet_wall_anim_stuck_track_sfx equ 0
 actor_hogg_sheet_wall_anim_hit:
 actor_hogg_sheet_wall_anim_hit_numframes: equ 0x2
 actor_hogg_sheet_wall_anim_hit_speed: equ 0x19
@@ -54,15 +42,9 @@ actor_hogg_sheet_wall_anim_hit_track_frames:
 	dc.l actor_hogg_sheet_wall_frame_1_header
 
 	Even
-actor_hogg_sheet_wall_anim_hit_track_posx:
-	dc.b 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_hit_track_posy:
-	dc.b 0x00, 0x00
-	Even
-actor_hogg_sheet_wall_anim_hit_track_sfx:
-	dc.l 0x0, 0x0
-	Even
+actor_hogg_sheet_wall_anim_hit_track_posx equ 0
+actor_hogg_sheet_wall_anim_hit_track_posy equ 0
+actor_hogg_sheet_wall_anim_hit_track_sfx equ 0
 
 actor_hogg_sheet_run_anim_idle:
 actor_hogg_sheet_run_anim_idle_numframes: equ 0x1
@@ -71,15 +53,9 @@ actor_hogg_sheet_run_anim_idle_track_frames:
 	dc.l actor_hogg_sheet_run_frame_0_header
 
 	Even
-actor_hogg_sheet_run_anim_idle_track_posx:
-	dc.b 0x00
-	Even
-actor_hogg_sheet_run_anim_idle_track_posy:
-	dc.b 0x00
-	Even
-actor_hogg_sheet_run_anim_idle_track_sfx:
-	dc.l 0x0
-	Even
+actor_hogg_sheet_run_anim_idle_track_posx equ 0
+actor_hogg_sheet_run_anim_idle_track_posy equ 0
+actor_hogg_sheet_run_anim_idle_track_sfx equ 0
 actor_hogg_sheet_run_anim_run:
 actor_hogg_sheet_run_anim_run_numframes: equ 0x5
 actor_hogg_sheet_run_anim_run_speed: equ 0x4C
@@ -91,13 +67,7 @@ actor_hogg_sheet_run_anim_run_track_frames:
 	dc.l actor_hogg_sheet_run_frame_4_header
 
 	Even
-actor_hogg_sheet_run_anim_run_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_hogg_sheet_run_anim_run_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_hogg_sheet_run_anim_run_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_hogg_sheet_run_anim_run_track_posx equ 0
+actor_hogg_sheet_run_anim_run_track_posy equ 0
+actor_hogg_sheet_run_anim_run_track_sfx equ 0
 

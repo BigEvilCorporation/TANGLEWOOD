@@ -25,7 +25,5 @@ actor_bolt_sheet_flash_anim_flash_track_posx:
 actor_bolt_sheet_flash_anim_flash_track_posy:
 	dc.b 0x00, 0xE0, 0xC0, 0xA0
 	Even
-actor_bolt_sheet_flash_anim_flash_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_bolt_sheet_flash_anim_flash_track_sfx equ 0
 

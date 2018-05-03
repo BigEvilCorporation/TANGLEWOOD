@@ -21,15 +21,9 @@ actor_water_sheet_trail_anim_trail_track_frames:
 	dc.l actor_water_sheet_trail_frame_5_header
 
 	Even
-actor_water_sheet_trail_anim_trail_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_trail_anim_trail_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_trail_anim_trail_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_water_sheet_trail_anim_trail_track_posx equ 0
+actor_water_sheet_trail_anim_trail_track_posy equ 0
+actor_water_sheet_trail_anim_trail_track_sfx equ 0
 
 actor_water_sheet_splash_anim_large:
 actor_water_sheet_splash_anim_large_numframes: equ 0x8
@@ -45,15 +39,9 @@ actor_water_sheet_splash_anim_large_track_frames:
 	dc.l actor_water_sheet_splash_frame_7_header
 
 	Even
-actor_water_sheet_splash_anim_large_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_large_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_large_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_water_sheet_splash_anim_large_track_posx equ 0
+actor_water_sheet_splash_anim_large_track_posy equ 0
+actor_water_sheet_splash_anim_large_track_sfx equ 0
 actor_water_sheet_splash_anim_tiny:
 actor_water_sheet_splash_anim_tiny_numframes: equ 0x4
 actor_water_sheet_splash_anim_tiny_speed: equ 0x33
@@ -64,15 +52,9 @@ actor_water_sheet_splash_anim_tiny_track_frames:
 	dc.l actor_water_sheet_splash_frame_7_header
 
 	Even
-actor_water_sheet_splash_anim_tiny_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_tiny_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_tiny_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_water_sheet_splash_anim_tiny_track_posx equ 0
+actor_water_sheet_splash_anim_tiny_track_posy equ 0
+actor_water_sheet_splash_anim_tiny_track_sfx equ 0
 actor_water_sheet_splash_anim_small:
 actor_water_sheet_splash_anim_small_numframes: equ 0x5
 actor_water_sheet_splash_anim_small_speed: equ 0x33
@@ -84,13 +66,7 @@ actor_water_sheet_splash_anim_small_track_frames:
 	dc.l actor_water_sheet_splash_frame_7_header
 
 	Even
-actor_water_sheet_splash_anim_small_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_small_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00, 0x00
-	Even
-actor_water_sheet_splash_anim_small_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0, 0x0
-	Even
+actor_water_sheet_splash_anim_small_track_posx equ 0
+actor_water_sheet_splash_anim_small_track_posy equ 0
+actor_water_sheet_splash_anim_small_track_sfx equ 0
 

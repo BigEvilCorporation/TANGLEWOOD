@@ -19,14 +19,8 @@ actor_cart_sheet_roll_anim_roll_track_frames:
 	dc.l actor_cart_sheet_roll_frame_3_header
 
 	Even
-actor_cart_sheet_roll_anim_roll_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_cart_sheet_roll_anim_roll_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_cart_sheet_roll_anim_roll_track_sfx:
-	dc.l 0x0, 0x0, 0x0, 0x0
-	Even
+actor_cart_sheet_roll_anim_roll_track_posx equ 0
+actor_cart_sheet_roll_anim_roll_track_posy equ 0
+actor_cart_sheet_roll_anim_roll_track_sfx equ 0
 
 
