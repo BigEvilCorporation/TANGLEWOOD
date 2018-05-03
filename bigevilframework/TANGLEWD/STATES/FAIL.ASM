@@ -33,6 +33,18 @@ Fail_Enter:
 	; Set player sprite high prio (so fading environment doesn't mask)
 	move.l (Player1), a3
 	move.b #0x1, SpriteObj_Priority(a3)
+
+	; Fade out music tracks of 'threat' type
+	move.l audio_current_track, a0
+	cmpa.w #0x0, a0
+	beq    @NoFadeTrack
+	cmp.b  #Track_Type_Threat, Track_Type(a0)
+	bne    @NoFadeTrack
+
+	move.b #-Audio_DefaultFadeSpeed, d0
+	jsr    SND_BeginFadeTrack
+
+	@NoFadeTrack:
 	
 	rts
 	
