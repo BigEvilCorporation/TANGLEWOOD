@@ -631,6 +631,10 @@ WyrmAIStart_Emerge
 	; Clear wall flags
 	move.b #0x0, PhysicsObj_HitWall(a0)
 
+	; Update world grid (forced)
+	move.b #0x1, d0
+	jsr    EntityUpdateWorldGridIndex
+
 	@AlreadyinDune:
 
 	;==============================================================
