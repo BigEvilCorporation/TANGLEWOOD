@@ -32,10 +32,10 @@ L8A1_BouncePlant_count equ 0x0
 L8A1_DjakkCage_count equ 0x0
 
 L8A1_Log_count equ 0x1
-L8A1_Log_6_idx	equ 0x0
+L8A1_Log_8_idx	equ 0x0
 
 	IFND FINAL
-L8A1_Log_6_name	dc.b "L8A1_Log_6",0
+L8A1_Log_8_name	dc.b "L8A1_Log_8",0
 	even
 	ENDIF
 
@@ -185,7 +185,7 @@ L8A1_LoadGameObjects:
 	move.l #0x01e80000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
-	lea L8A1_Log_6_name, a3
+	lea L8A1_Log_8_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xa, d0
