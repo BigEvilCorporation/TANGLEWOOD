@@ -187,6 +187,9 @@ UIWidgetCursorCycleOption:
 UIWidgetCursorUpdate:
 	; a0 --- Cursor addr
 
+	tst.b  UIWidget_Enabled(a0)
+	beq    @NoInput
+
 	IF AUTOTEST_ENABLED
 
 	; Autotest pad input
