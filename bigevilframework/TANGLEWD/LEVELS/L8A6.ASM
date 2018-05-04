@@ -274,6 +274,12 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
+
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
 	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
