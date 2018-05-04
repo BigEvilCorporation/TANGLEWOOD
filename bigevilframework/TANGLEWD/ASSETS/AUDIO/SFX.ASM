@@ -266,6 +266,7 @@ SFX_Data_DjubbSwim1:		include 'assets\audio\SFX\objects\djubsw1.asm'
 SFX_Data_DjubbSwim2:		include 'assets\audio\SFX\objects\djubsw2.asm'
 SFX_Data_DjubbAttack:		include 'assets\audio\SFX\objects\djubatak.asm'
 SFX_Data_FireflyCollect:	include 'assets\audio\SFX\objects\firefly.asm'
+SFX_Data_FireflyCollectAct:	include 'assets\audio\SFX\objects\fflyall.asm'
 SFX_Data_FireflyCollectAll:	include 'assets\audio\SFX\ui\start.asm'
 SFX_Data_MushroomBounce:	include 'assets\audio\SFX\objects\mushroom.asm'
 SFX_Data_FuzzlDrop:			include 'assets\audio\SFX\fuzzl\fuzldrop.asm'
@@ -567,9 +568,17 @@ SFX_FireflyCollect:
 
 	even
 
+SFX_FireflyCollectAct:
+	dc.l SFX_Data_FireflyCollectAct	; Data
+	dc.b SFX_Priority_Highest		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+	even
+
 SFX_FireflyCollectAll:
 	dc.l SFX_Data_FireflyCollectAll	; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_Highest		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
@@ -843,7 +852,7 @@ SFX_Land:
 	dc.l SFX_Data_Land				; Data
 	dc.b SFX_Priority_FootstepLrg	; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
@@ -899,7 +908,7 @@ SFX_Djakk_Roar:
 	dc.l SFX_Data_Djakk_Roar		; Data
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
@@ -907,7 +916,7 @@ SFX_Djakk_RoarTamed:
 	dc.l SFX_Data_Djakk_RoarTamed	; Data
 	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 

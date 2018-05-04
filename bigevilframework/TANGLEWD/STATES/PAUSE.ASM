@@ -34,6 +34,8 @@ PauseState_FireflyTextSpritesCount		rs.b 1
 PauseState_FireflyTotalTextSpritesCount	rs.b 1
 PauseState_PasswordTextSpritesCount		rs.b 1
 PauseState_DebugDrawMode				rs.b 1
+PauseState_PrevVolume					rs.b 1
+PauseState_PrevVolumeFader				rs.b 1
 ;---------------------------------------------
 	RS_ALIGN
 PauseState_Struct_Size					rs.b 0
@@ -70,6 +72,15 @@ Pause_Enter:
 	PUSHL  a1
 	
 	lea    GameStatePauseData, a0
+
+	; Backup audio state
+	move.b audio_volume_global, PauseState_PrevVolume(a0)
+	move.b audio_fader_speed, PauseState_PrevVolumeFader(a0)
+
+	; Mute audio
+	move.b #0x0, d0
+	jsr    SND_SetGlobalVolume
+	move.b #0x0, audio_fader_speed
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
@@ -272,6 +283,12 @@ Pause_Exit:
 
 	PUSHL  a0
 	PUSHL  a1
+
+	; Restore audio
+	lea    GameStatePauseData, a2
+	move.b PauseState_PrevVolume(a2), d0
+	jsr    SND_SetGlobalVolume
+	move.b PauseState_PrevVolumeFader(a2), audio_fader_speed
 
 	; Restore scene palettes
 	PUSHL  a0
