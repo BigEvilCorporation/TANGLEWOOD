@@ -203,4 +203,8 @@
 	dc.b $3a, $0d, $17	; Set frequency '381' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $18	; Set frequency '386' for channel PSG 3
+	dc.b $25, $7f	; Set volume for channel FM 5
+	dc.b $26, $7f	; Set volume for channel FM 6
+	dc.b $2a, $0f	; Set volume for channel PSG 3
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

@@ -14,4 +14,5 @@
 	dc.b $06, $73	; Note A-3 on channel FM 6
 ; Pattern $00, Row 3; 
 	dc.b $fe, $0c	; Delay
+	dc.b $26, $7f	; Set volume for channel FM 6
 	dc.b $ff	; The End

@@ -49,4 +49,6 @@
 ; Pattern $00, Row 38; 
 ; Pattern $00, Row 39; 
 	dc.b $fe, $30	; Delay
+	dc.b $25, $7f	; Set volume for channel FM 5
+	dc.b $26, $7f	; Set volume for channel FM 6
 	dc.b $ff	; The End

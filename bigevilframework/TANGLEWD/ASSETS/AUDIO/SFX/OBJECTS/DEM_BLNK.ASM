@@ -16,4 +16,6 @@
 	dc.b $fe, $06	; Delay
 	dc.b $1b		; Note off channel PSG 4
 	dc.b $fe, $03	; Delay
+	dc.b $26, $7f	; Set volume for channel FM 6
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

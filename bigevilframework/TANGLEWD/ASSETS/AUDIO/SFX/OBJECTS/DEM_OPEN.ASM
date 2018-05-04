@@ -223,4 +223,5 @@
 	dc.b $fe, $01	; Delay
 	dc.b $2b, $02	; Set volume for channel PSG 4
 	dc.b $fe, $03	; Delay
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

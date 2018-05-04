@@ -255,4 +255,7 @@
 ; Pattern $00, Row 63; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $04, $07	; Set frequency '116' for channel PSG 3
+	dc.b $26, $7f	; Set volume for channel FM 6
+	dc.b $2a, $0f	; Set volume for channel PSG 3
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

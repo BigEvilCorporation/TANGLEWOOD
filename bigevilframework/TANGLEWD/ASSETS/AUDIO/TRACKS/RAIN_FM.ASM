@@ -53,4 +53,6 @@
 ; Pattern $00, Row 41; 
 	dc.b $fe, $d2	; Delay
 	dc.b $fc	; Goto loop
+	dc.b $20, $7f	; Set volume for channel FM 1
+	dc.b $21, $7f	; Set volume for channel FM 2
 	dc.b $ff	; The End

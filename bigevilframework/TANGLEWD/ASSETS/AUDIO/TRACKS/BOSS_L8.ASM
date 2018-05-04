@@ -8935,4 +8935,14 @@
 	dc.b $38, $03, $24	; Set frequency '579' for channel PSG 1
 	dc.b $39, $0a, $24	; Set frequency '586' for channel PSG 2
 	dc.b $3a, $02, $24	; Set frequency '578' for channel PSG 3
+	dc.b $20, $7f	; Set volume for channel FM 1
+	dc.b $21, $7f	; Set volume for channel FM 2
+	dc.b $22, $7f	; Set volume for channel FM 3
+	dc.b $24, $7f	; Set volume for channel FM 4
+	dc.b $25, $7f	; Set volume for channel FM 5
+	dc.b $26, $7f	; Set volume for channel FM 6
+	dc.b $28, $0f	; Set volume for channel PSG 1
+	dc.b $29, $0f	; Set volume for channel PSG 2
+	dc.b $2a, $0f	; Set volume for channel PSG 3
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

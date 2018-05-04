@@ -151,14 +151,28 @@ FireflyTestObj:
 	addq.w #0x1, FireflyPickupCountTotalUI
 	
 	; Play SFX
+	cmp.w  #TotalFireflyCount, FireflyPickupCountTotalUI
+	beq    @CollectedAll
+
 	move.w (EntityCount_Firefly), d0
 	move.w (FireflyPickupCountAct), d1
 	cmp.w  d0, d1
-	beq    @CollectedAll
+	beq    @CollectedAct
+
+	; Collected a firefly
 	PLAYSFX #SFX_FireflyCollect
 	bra    @EndSFX
+
+	; Collected all fireflies in act
+	@CollectedAct:
+	PLAYSFX #SFX_FireflyCollectAct
+	bra    @EndSFX
+
+	; Collected all fireflies in game
 	@CollectedAll:
 	PLAYSFX #SFX_FireflyCollectAll
+	bra    @EndSFX
+
 	@EndSFX:
 
 	@NotPickedUp:

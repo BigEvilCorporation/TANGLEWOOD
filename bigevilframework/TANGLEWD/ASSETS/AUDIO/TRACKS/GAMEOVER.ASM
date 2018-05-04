@@ -1059,4 +1059,14 @@
 ; Pattern $0e, Row 47; 
 	dc.b $fe, $0e	; Delay
 	dc.b $fc	; Goto loop
+	dc.b $20, $7f	; Set volume for channel FM 1
+	dc.b $21, $7f	; Set volume for channel FM 2
+	dc.b $22, $7f	; Set volume for channel FM 3
+	dc.b $24, $7f	; Set volume for channel FM 4
+	dc.b $25, $7f	; Set volume for channel FM 5
+	dc.b $26, $7f	; Set volume for channel FM 6
+	dc.b $28, $0f	; Set volume for channel PSG 1
+	dc.b $29, $0f	; Set volume for channel PSG 2
+	dc.b $2a, $0f	; Set volume for channel PSG 3
+	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

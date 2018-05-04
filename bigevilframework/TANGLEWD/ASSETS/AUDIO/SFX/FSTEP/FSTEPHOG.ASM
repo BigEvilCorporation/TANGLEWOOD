@@ -14,4 +14,5 @@
 	dc.b $06, $03	; Note C#0 on channel FM 6
 ; Pattern $00, Row 4; 
 	dc.b $fe, $06	; Delay
+	dc.b $26, $7f	; Set volume for channel FM 6
 	dc.b $ff	; The End
