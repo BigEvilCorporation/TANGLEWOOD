@@ -56,7 +56,8 @@ l8a3_DefaultPalettes:
 	
 	even
 
-l8a3_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
+l8a3_DemonToFuzzlOffset			equ (Fuzzl_Width/2)+(Demon_Width/2)-0x10
+l8a3_DemonToFuzzlThreshold		equ 0x0010
 l8a3_DemonHideTime				equ 0x0100
 	
 ; ************************************
@@ -341,10 +342,11 @@ l8a3_Cutscene_MoveDemon:
 	ENTITY_GETCENTREY d1,a2
 	TOPIXELS d0
 	TOPIXELS d1
+	addi.w #l8a3_DemonToFuzzlOffset, d0
 	move.w d0, Demon_TargetX(a0)
 	move.w d1, Demon_TargetY(a0)
 
-	move.l #l8a3_DemonToFuzzl*l8a3_DemonToFuzzl, Demon_TargetDistSq(a0)
+	move.l #l8a3_DemonToFuzzlThreshold*l8a3_DemonToFuzzlThreshold, Demon_TargetDistSq(a0)
 	
 	tst.b  Demon_AtTarget(a0)
 	beq    @NotAtTarget

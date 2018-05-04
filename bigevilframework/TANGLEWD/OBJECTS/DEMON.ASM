@@ -846,9 +846,18 @@ DemonAIUpdate_Wisp:
 
 	@WithinRange:
 
-	move.w #0x0, PhysicsObj_AccelY(a0)   
+	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.b #0x1, Demon_AtTarget(a0)
+
+	; Face target
+	move.b #0x0, SpriteObj_FlippedX(a0)
+	move.w Demon_TargetX(a0), d0
+	move.w Entity_WorldPosX(a0), d1
+	cmp.w  d0, d1
+	bgt    @NoFlip
+	move.b #0x1, SpriteObj_FlippedX(a0)
+	@NoFlip:
 
 	@Following:
 

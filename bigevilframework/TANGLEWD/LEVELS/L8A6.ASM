@@ -56,7 +56,8 @@ l8a6_DefaultPalettes:
 	
 	even
 
-l8a6_DemonToFuzzl				equ (Fuzzl_Width/2)+(Demon_Width/2)
+l8a6_DemonToFuzzlOffset			equ (Fuzzl_Width/2)+(Demon_Width/2)-0x10
+l8a6_DemonToFuzzlThreshold		equ 0x0010
 l8a6_DemonHideTime				equ 0x0100
 l8a6_DemonAttackSpeed			equ 0x0020
 	
@@ -277,8 +278,6 @@ l8a6_CutsceneDemonStealFuzzl:
 	; Cancel all interations
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
-	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractA
-	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
@@ -659,10 +658,11 @@ l8a6_Cutscene_MoveDemon:
 	ENTITY_GETCENTREY d1,a2
 	TOPIXELS d0
 	TOPIXELS d1
+	addi.w #l8a6_DemonToFuzzlOffset, d0
 	move.w d0, Demon_TargetX(a0)
 	move.w d1, Demon_TargetY(a0)
 
-	move.l #l8a6_DemonToFuzzl*l8a6_DemonToFuzzl, Demon_TargetDistSq(a0)
+	move.l #l8a6_DemonToFuzzlThreshold*l8a6_DemonToFuzzlThreshold, Demon_TargetDistSq(a0)
 	
 	tst.b  Demon_AtTarget(a0)
 	beq    @NotAtTarget
