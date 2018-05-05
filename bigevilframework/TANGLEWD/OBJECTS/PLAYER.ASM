@@ -350,7 +350,7 @@ PlayerUpdate:
 	; Base functionality
 	jsr    CharacterUpdate
 
-	; Process pushing objects after physics update
+	; Process pushing objects
 	jsr    PlayerUpdatePushInteract
 
 	; Test for pickups
@@ -1880,14 +1880,6 @@ PlayerUpdatePushInteract:
 	
 	@Pushing:
 
-	; Clamp velocity so objects can't be flung (hack for processing order)
-	move.l PhysicsObj_VelX(a0), d0
-	move.l Character_MaxVelXWalk(a0), d1
-	move.l d1, d2
-	neg.l  d1
-	CLAMPL d0, d1, d2
-	move.l d0, PhysicsObj_VelX(a0)
-
 	; Push/pull the object
 	move.l Player_InteractObject(a0), a2
 	jsr    PhysicsObjPushPullObj
@@ -1898,22 +1890,52 @@ PlayerUpdatePushInteract:
 	move.b #0x1, AnimObj_SpeedDiv(a2)
 	@NoTimeSlow:
 
-	; Hit wall flag in d1
+	;==============================================================
+
+	; If out of bounds, stop pushing
+	tst.b  d0
+	beq    @ObjectOutOfRange
+
+	; If hit wall, unlock sprite flip/run speed but remain pushing
 	tst.b  d1
 	beq    @HitWall
 
-	; Outer bounds penetration flag in d0
-	tst.b  d0
-	bne    @StillPushing
+	bra    @StillPushing
 
-	; Cannot be pushed/no longer in range - unlock sprite flip
-	move.b #0x0, Character_LockSpriteFlip(a0)
+	;==============================================================
 
-	@HitWall:
+	@ObjectOutOfRange:
 
 	; Clear pushing flags (but keep interaction flag until button depressed)
 	move.b #0x0, Character_Pushing(a0)
+
+	; No longer in range - unlock sprite flip
+	move.b #0x0, Character_LockSpriteFlip(a0)
+
+	; Restore run
+	move.b #Character_WalkInteract, d2
+	jsr    CharacterAllowRun
+
 	bra    @NotPushing
+
+	;==============================================================
+
+	@HitWall:
+
+	; Object hitting wall - if can't be pulled, unlock sprite flip
+	tst.b  PhysicsObj_CanBePulled(a2)
+	bne    @CanPull
+	move.b #0x0, Character_LockSpriteFlip(a0)
+	@CanPull:
+
+	; Restore run
+	move.b #Character_WalkInteract, d2
+	jsr    CharacterAllowRun
+
+	; Continue to handle animation speed
+	bra    @HandleAnim
+
+	;==============================================================
 
 	@StillPushing:
 
@@ -1921,7 +1943,17 @@ PlayerUpdatePushInteract:
 	move.b  #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
 
+	; Clamp velocity so objects can't be flung (hack for processing order)
+	move.l PhysicsObj_VelX(a0), d0
+	move.l Character_MaxVelXWalk(a0), d1
+	move.l d1, d2
+	neg.l  d1
+	CLAMPL d0, d1, d2
+	move.l d0, PhysicsObj_VelX(a0)
+
 	;==============================================================
+
+	@HandleAnim:
 
 	; Determine if light or heavy object
 	move.l Player_InteractObject(a0), a2

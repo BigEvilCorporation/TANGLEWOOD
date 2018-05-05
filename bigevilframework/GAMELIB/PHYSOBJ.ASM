@@ -2455,35 +2455,37 @@ PhysicsObjPushPullObj:
 	beq    @HitRight
 	
 	; Obj hitting wall to the left, use obj right bounds as wall
-	ENTITY_GETRIGHT d0,a2
-	TOPIXELS d0
-	move.w PhysicsObj_WallBoundsLeft(a0), d1
-	move.w PhysicsObj_BoundsLeft(a0), d2
-	sub.w  d1, d2
-	sub.w  d2, d0
-	move.w d0, PhysicsObj_LastWall(a0)
+	ENTITY_GETRIGHT d2,a2
+	TOPIXELS d2
+	move.w PhysicsObj_WallBoundsLeft(a0), d3
+	move.w PhysicsObj_BoundsLeft(a0), d4
+	sub.w  d3, d4
+	sub.w  d4, d2
+	move.w d2, PhysicsObj_LastWall(a0)
 	move.b #(PhysicsObjHitWallLeft|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 	bra    @HitLeft
 
 	@HitRight:
 
 	; Obj hitting wall to the right, use obj left bounds as wall
-	ENTITY_GETLEFT d0,a2
-	TOPIXELS d0
-	move.w PhysicsObj_WallBoundsRight(a0), d2
-	move.w PhysicsObj_BoundsLeft(a0), d1
-	add.w  PhysicsObj_BoundsWidth(a0), d1
-	sub.w  d1, d2
-	add.w  d2, d0
-	addi.w #0x1, d0
-	move.w d0, PhysicsObj_LastWall(a0)
+	ENTITY_GETLEFT d2,a2
+	TOPIXELS d2
+	move.w PhysicsObj_WallBoundsRight(a0), d4
+	move.w PhysicsObj_BoundsLeft(a0), d3
+	add.w  PhysicsObj_BoundsWidth(a0), d3
+	sub.w  d3, d4
+	add.w  d4, d2
+	addi.w #0x1, d2
+	move.w d2, PhysicsObj_LastWall(a0)
 	move.b #(PhysicsObjHitWallRight|PhysicsObjHitBarrier), PhysicsObj_HitWall(a0)
 
 	@HitLeft:
 
 	; Re-run collision avoidance
+	PUSHMW d0-d1
 	move.b #0x0, d1
 	jsr    PhysicsObjCollisionCorrectX
+	POPMW  d0-d1
 
 	bra    @End
 
