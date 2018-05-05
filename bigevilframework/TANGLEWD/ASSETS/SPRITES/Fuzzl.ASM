@@ -30,10 +30,6 @@ actor_fuzzl_sheet_white_roll_width		equ 0x10	; Max width of largest frame in pix
 actor_fuzzl_sheet_white_roll_height		equ 0x10	; Max height of largest frame in pixels
 
 
-actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
-actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
-
-
 actor_fuzzl_sheet_yellow_roll_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_roll_height		equ 0x10	; Max height of largest frame in pixels
 
@@ -84,6 +80,10 @@ actor_fuzzl_sheet_yellow_eyes_height		equ 0x10	; Max height of largest frame in 
 
 actor_fuzzl_sheet_yellow_idle_width		equ 0x10	; Max width of largest frame in pixels
 actor_fuzzl_sheet_yellow_idle_height		equ 0x10	; Max height of largest frame in pixels
+
+
+actor_fuzzl_sheet_green_idle_width		equ 0x10	; Max width of largest frame in pixels
+actor_fuzzl_sheet_green_idle_height		equ 0x10	; Max height of largest frame in pixels
 
 
 actor_fuzzl_sheet_white_eyes_width		equ 0x10	; Max width of largest frame in pixels
@@ -353,14 +353,6 @@ actor_fuzzl_sheet_white_roll_frame_7_header:
 	dc.l actor_fuzzl_sheet_white_roll_frame_7
 	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets
-
-actor_fuzzl_sheet_green_idle_frametable:
-actor_fuzzl_sheet_green_idle_frame_0_header:
-	dc.w 0x0004	; Frame size (tiles)
-	dc.w actor_fuzzl_sheet_green_idle_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_fuzzl_sheet_green_idle_frame_0
-	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits
-	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets
 
 actor_fuzzl_sheet_yellow_roll_frametable:
 actor_fuzzl_sheet_yellow_roll_frame_0_header:
@@ -780,6 +772,14 @@ actor_fuzzl_sheet_yellow_idle_frame_0_header:
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_dimensions_bits
 	dc.l actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_pos_offsets
+
+actor_fuzzl_sheet_green_idle_frametable:
+actor_fuzzl_sheet_green_idle_frame_0_header:
+	dc.w 0x0004	; Frame size (tiles)
+	dc.w actor_fuzzl_sheet_green_idle_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_fuzzl_sheet_green_idle_frame_0
+	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits
+	dc.l actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets
 
 actor_fuzzl_sheet_white_eyes_frametable:
 actor_fuzzl_sheet_white_eyes_frame_0_header:
@@ -1364,21 +1364,6 @@ actor_fuzzl_sheet_white_roll_frame_7_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_fuzzl_sheet_white_roll_frame_7_subsprite_dimensions_bits:
-	dc.b 0x5
-	Even
-
-
-actor_fuzzl_sheet_green_idle_frame_0_size_b		equ 0x0080	; Size in bytes
-actor_fuzzl_sheet_green_idle_frame_0_size_t		equ 0x0004	; Size in tiles
-actor_fuzzl_sheet_green_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00000000
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -2204,6 +2189,21 @@ actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_pos_offsets:
 
 ; Subsprite dimension bits (for sprite descs)
 actor_fuzzl_sheet_yellow_idle_frame_0_subsprite_dimensions_bits:
+	dc.b 0x5
+	Even
+
+
+actor_fuzzl_sheet_green_idle_frame_0_size_b		equ 0x0080	; Size in bytes
+actor_fuzzl_sheet_green_idle_frame_0_size_t		equ 0x0004	; Size in tiles
+actor_fuzzl_sheet_green_idle_frame_0_size_subsprites		equ 0x0001	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_fuzzl_sheet_green_idle_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00000000
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_fuzzl_sheet_green_idle_frame_0_subsprite_dimensions_bits:
 	dc.b 0x5
 	Even
 
@@ -3759,48 +3759,6 @@ actor_fuzzl_sheet_white_roll_frame_7:
 	dc.l	0x222FFF00
 	dc.l	0xF22F0000
 	dc.l	0x0FF00000
-
-
-
-
-spritesheet_fuzzl_green_idle:
-
-actor_fuzzl_sheet_green_idle_frame_0:
-	dc.l	0x00000EEE
-	dc.l	0x0000DDEE
-	dc.l	0x000DDDEE
-	dc.l	0x0D0DCCEE
-	dc.l	0x0DDD222E
-	dc.l	0xEDDC222E
-	dc.l	0x0EDC221E
-	dc.l	0xEEED221E
-
-	dc.l	0xEEEDCCDD
-	dc.l	0x00EDEEDD
-	dc.l	0xEEEEEEEE
-	dc.l	0x0EEDEEEE
-	dc.l	0x00EEDDEE
-	dc.l	0x00E0DDEE
-	dc.l	0x000EEDEE
-	dc.l	0x00000E0E
-
-	dc.l	0xE0E00000
-	dc.l	0xDDEEE000
-	dc.l	0xEEEE0E00
-	dc.l	0xEECCDEE0
-	dc.l	0xE222DDE0
-	dc.l	0xE122DEEE
-	dc.l	0xD122CDE0
-	dc.l	0xE222CE00
-
-	dc.l	0xDECCEEDE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEEEEE
-	dc.l	0xEEEEE0E0
-	dc.l	0xEDEEEEE0
-	dc.l	0xEEDEEE00
-	dc.l	0x00EED000
-	dc.l	0xE0D00000
 
 
 
@@ -6057,6 +6015,48 @@ actor_fuzzl_sheet_yellow_idle_frame_0:
 	dc.l	0x55455500
 	dc.l	0x00554000
 	dc.l	0x50400000
+
+
+
+
+spritesheet_fuzzl_green_idle:
+
+actor_fuzzl_sheet_green_idle_frame_0:
+	dc.l	0x00000EEE
+	dc.l	0x0000DDEE
+	dc.l	0x000DDDEE
+	dc.l	0x0D0DCCEE
+	dc.l	0x0DDD222E
+	dc.l	0xEDDC222E
+	dc.l	0x0EDC221E
+	dc.l	0xEEED221E
+
+	dc.l	0xEEEDCCDD
+	dc.l	0x00EDEEDD
+	dc.l	0xEEEEEEEE
+	dc.l	0x0EEDEEEE
+	dc.l	0x00EEDDEE
+	dc.l	0x00E0DDEE
+	dc.l	0x000EEDEE
+	dc.l	0x00000E0E
+
+	dc.l	0xE0E00000
+	dc.l	0xDDEEE000
+	dc.l	0xEEEE0E00
+	dc.l	0xEECCDEE0
+	dc.l	0xE222DDE0
+	dc.l	0xE122DEEE
+	dc.l	0xD122CDE0
+	dc.l	0xE222CE00
+
+	dc.l	0xDECCEEDE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEEEEE
+	dc.l	0xEEEEE0E0
+	dc.l	0xEDEEEEE0
+	dc.l	0xEEDEEE00
+	dc.l	0x00EED000
+	dc.l	0xE0D00000
 
 
 
