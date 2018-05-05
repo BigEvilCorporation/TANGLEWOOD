@@ -56,7 +56,7 @@ Player1LadderGrabVel equ 0x018000 ; Min downward velocity to grab ladder
 Player1LadderExitVel equ 0x040000 ; Jump velocity when exiting ladder at top
 Player1LadderMaxXDist equ 0x0010   ; Max X dist from centre of ladder to use
 Player1LadderMaxYDist equ Player1Height/2   ; Max Y dist from top of ladder to jump off
-Player1WindResistanceFloor equ 0x0280 ; Wind resistance (on floor)
+Player1WindResistanceFloor equ 0x1FFF ; Wind resistance (on floor)
 Player1WindResistanceAir equ 0x0080 ; Wind resistance (in air)
 Player1WaterWaistHeight	equ (Player1Height/8) ; Depth to be considered in water
 
