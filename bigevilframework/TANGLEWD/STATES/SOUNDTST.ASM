@@ -53,10 +53,10 @@ SoundTestScreenLogoPosY			equ 36*8*subpixels_per_pixel
 
 SoundTestScreenListX			equ (screen_width/2)-(8*8)
 SoundTestScreenListY			equ 0x30
-SoundTestScreenLineSpacing		equ 0x10
+SoundTestScreenLineSpacing		equ 0x08
 
 SoundTestScreenTitleX			equ (screen_width/2)-(8*8)
-SoundTestScreenTitleY			equ 0x08
+SoundTestScreenTitleY			equ 0x28
 
 SoundTestScreenTitle		dc.b "Sound Test",0
 SoundTestScreenControl1		dc.b "A: Play",0
@@ -387,7 +387,7 @@ LINECOUNT = 0
 
 	; Create title text widget
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenTitle,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
-LINECOUNT = LINECOUNT+2
+LINECOUNT = LINECOUNT+3
 
 	; create instructions text widgets
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
@@ -395,7 +395,7 @@ LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl2,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl3,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
-LINECOUNT = LINECOUNT+2
+LINECOUNT = LINECOUNT+3
 
 	; Create music title
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenTitleMusic,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
@@ -456,9 +456,9 @@ LINECOUNT = LINECOUNT+1
 	; Align memory
 	RAMPOOL_ALIGN Pool_Entities
 
-LINECOUNT = LINECOUNT+2
+LINECOUNT = LINECOUNT+3
 
-	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenListX,#SoundTestScreenTitleY+(LevelSelectLineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenListX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,SoundTest_OnBack,0x0
 
