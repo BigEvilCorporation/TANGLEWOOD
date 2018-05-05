@@ -408,6 +408,10 @@ BridgeDraw:
 	cmp.w  #screen_height+vdp_sprite_border_y, d4
 	bgt    @NextNotch
 
+	; If not beyond sprite border
+	cmp.w  #vdp_sprite_plane_width, d3
+	bgt    @NextNotch
+
 	; Draw
 	PUSHMW d2-d7
 	move.w d3, d0
