@@ -75,6 +75,12 @@ WIDGET_SET_ONSELECTED: macro widgetaddr,callbackaddr,userdata
 	move.l #\userdata, UIWidget_OnSelectedData(\widgetaddr)
 	endm
 
+	; Set widget OnCancelled callback
+WIDGET_SET_ONCANCELLED: macro widgetaddr,callbackaddr,userdata
+	move.l #\callbackaddr, UIWidget_OnCancelled(\widgetaddr)
+	move.l #\userdata, UIWidget_OnCancelledData(\widgetaddr)
+	endm
+
 	; Load cursor sprite
 CURSOR_LOAD_SPRITE: macro cursoraddr,actor,sheet,width,height,palette,prio
 	PUSHM  d0-d7/a0-a3

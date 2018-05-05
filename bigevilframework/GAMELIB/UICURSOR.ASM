@@ -14,8 +14,9 @@ UIWidgetCursor_Input_Up			equ (1<<pad_button_up)
 UIWidgetCursor_Input_Down		equ (1<<pad_button_down)
 UIWidgetCursor_Input_Left		equ (1<<pad_button_left)
 UIWidgetCursor_Input_Right		equ (1<<pad_button_right)
-UIWidgetCursor_Input_Select		equ (1<<pad_button_start)|(1<<pad_button_b)|(1<<pad_button_c)
-UIWidgetCursor_Input_Back		equ (1<<pad_button_a)
+UIWidgetCursor_Input_Select		equ (1<<pad_button_start)|(1<<pad_button_a)
+UIWidgetCursor_Input_Cancel		equ (1<<pad_button_b)
+UIWidgetCursor_Input_Advance	equ (1<<pad_button_c)
 
 UIWidgetCursor_Audio_Move		equ SFX_UI_Move
 
@@ -184,6 +185,30 @@ UIWidgetCursorCycleOption:
 
 	rts
 
+UIWidgetCursorAdvanceOption:
+	; a0 --- Cursor addr
+	; d0 (b) 0 = left, 1 = right
+
+	PUSHL  a0
+	moveq  #0x0, d1
+	move.b UIWidgetCursor_CurrIndex(a0), d1	; Get curr index
+	lsl.l  #0x2, d1							; To longwords
+	move.l a0, a2							; Get widget ptr array
+	lea    UIWidgetCursor_Widgets(a2), a2
+	add.l  d1, a2
+	move.l (a2), a0							; Deref
+	cmpa.w #0x0, a0
+	beq    @NoCurrWidget
+	move.l UIWidget_OnOptionAdvance(a0), a3
+	cmpa.w #0x0, a3
+	beq    @NoCallback
+	jsr    (a3)
+	@NoCurrWidget:
+	@NoCallback:
+	POPL   a0
+
+	rts
+
 UIWidgetCursorUpdate:
 	; a0 --- Cursor addr
 
@@ -233,8 +258,12 @@ UIWidgetCursorUpdate:
 	bne    @InputSelect
 
 	move.w d0, d1
-	andi.w #UIWidgetCursor_Input_Back, d1
-	bne    @InputBack
+	andi.w #UIWidgetCursor_Input_Cancel, d1
+	bne    @InputCancel
+
+	move.w d0, d1
+	andi.w #UIWidgetCursor_Input_Advance, d1
+	bne    @InputAdvance
 
 	bra    @NoInput
 
@@ -316,9 +345,30 @@ UIWidgetCursorUpdate:
 
 	;==============================================================
 
-	@InputBack:
+	@InputCancel:
 
-	; Close window
+	; Entry selected
+	PUSHM  a0-a1
+	move.b UIWidgetCursor_CurrIndex(a0), d0	; Get selected index
+	andi.l #0xFF, d0
+	lsl.l  #0x2, d0							; To longwords
+	move.l a0, a2							; Get widget ptr array
+	lea    UIWidgetCursor_Widgets(a2), a2
+	add.l  d0, a2
+	move.l (a2), a0							; Deref
+	jsr    UIWidgetCancel					; Callback
+	POPM   a0-a1
+	bra    @EndInput
+
+	;==============================================================
+
+	@InputAdvance:
+
+	; Advance option
+	PUSHL  d0
+	move.b #0x1, d0
+	jsr    UIWidgetCursorAdvanceOption
+	POPL   d0
 	bra    @EndInput
 
 	;==============================================================

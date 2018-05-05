@@ -59,6 +59,9 @@ SoundTestScreenTitleX			equ (screen_width/2)-(8*8)
 SoundTestScreenTitleY			equ 0x18
 
 SoundTestScreenTitle		dc.b "Sound Test",0
+SoundTestScreenControl1		dc.b "A: Play",0
+SoundTestScreenControl2		dc.b "B: Stop",0
+SoundTestScreenControl3		dc.b "C: Skip +8",0
 SoundTestScreenTitleMusic	dc.b "Music",0
 SoundTestScreenTitleSFX		dc.b "SFX",0
 SoundTestScreenBack			dc.b "Back",0
@@ -342,6 +345,16 @@ SoundTest_OnPlaySFX:
 
 	rts
 
+SoundTest_OnStop:
+	; a0 --- Widget
+	; a1 (b) Index
+
+	; Stop music and SFX
+	jsr    SND_StopSFX
+	jsr    SND_StopTrack
+
+	rts
+
 SoundTest_OnBack:
 
 	; Begin fade down
@@ -376,6 +389,14 @@ LINECOUNT = 0
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenTitle,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 LINECOUNT = LINECOUNT+2
 
+	; create instructions text widgets
+	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
+LINECOUNT = LINECOUNT+1
+	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl2,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
+LINECOUNT = LINECOUNT+1
+	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenControl3,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
+LINECOUNT = LINECOUNT+2
+
 	; Create music title
 	WINDOW_CREATE_WIDGET_TEXT a0,#SoundTestScreenTitleMusic,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenTitleX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 LINECOUNT = LINECOUNT+1
@@ -389,6 +410,7 @@ LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_LIST a0,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenListX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,SoundTest_OnPlayMusic,0x0
+	WIDGET_SET_ONCANCELLED a3,SoundTest_OnStop,0x0
 
 	; Add all tracks
 	move.w #TrackTableSize-1, d0
@@ -416,6 +438,7 @@ LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_LIST a0,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#SoundTestScreenListX,#SoundTestScreenTitleY+(SoundTestScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,SoundTest_OnPlaySFX,0x0
+	WIDGET_SET_ONCANCELLED a3,SoundTest_OnStop,0x0
 
 	; Add all SFX
 	move.w #SFXTableSize-1, d0

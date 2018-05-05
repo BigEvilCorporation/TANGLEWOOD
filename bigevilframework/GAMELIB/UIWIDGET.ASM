@@ -12,8 +12,11 @@
 ;---------------------------------
 UIWidget_Window				rs.l 1	; Window owning this widget
 UIWidget_OnSelected			rs.l 1	; On selected callback
+UIWidget_OnCancelled		rs.l 1	; On cancelled callback
 UIWidget_OnSelectedData		rs.l 1	; On selected callback userdata
+UIWidget_OnCancelledData	rs.l 1	; On cancelled callback userdata
 UIWidget_OnOptionCycle		rs.l 1	; On option cycled callback
+UIWidget_OnOptionAdvance	rs.l 1	; On option advanced callback
 UIWidget_UpdateRoutine		rs.l 1	; Update subroutine address
 UIWidget_RenderRoutine		rs.l 1	; Render subroutine address
 UIWidget_PositionX			rs.w 1	; Position X (relative to window)
@@ -33,8 +36,11 @@ UIWidgetInit:
 	LIST_INIT_LINK Widgets,a0
 	move.l #0x0, UIWidget_Window(a0)
 	move.l #0x0, UIWidget_OnSelected(a0)
+	move.l #0x0, UIWidget_OnCancelled(a0)
 	move.l #0x0, UIWidget_OnSelectedData(a0)
+	move.l #0x0, UIWidget_OnCancelledData(a0)
 	move.l #0x0, UIWidget_OnOptionCycle(a0)
+	move.l #0x0, UIWidget_OnOptionAdvance(a0)
 	move.l #0x0, UIWidget_UpdateRoutine(a0)
 	move.l #0x0, UIWidget_RenderRoutine(a0)
 	move.w #0x0, UIWidget_PositionX(a0)
@@ -52,6 +58,20 @@ UIWidgetSelect:
 	PUSHALL
 	move.l UIWidget_OnSelectedData(a0), a1
 	move.l UIWidget_OnSelected(a0), a2
+	cmpa.w #0x0, a2
+	beq    @NoCallback
+	jsr    (a2)
+	@NoCallback:
+	POPALL
+
+	rts
+
+UIWidgetCancel:
+	; a0 --- Widget addr
+
+	PUSHALL
+	move.l UIWidget_OnCancelledData(a0), a1
+	move.l UIWidget_OnCancelled(a0), a2
 	cmpa.w #0x0, a2
 	beq    @NoCallback
 	jsr    (a2)
