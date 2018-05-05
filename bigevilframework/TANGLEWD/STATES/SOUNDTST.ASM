@@ -56,7 +56,7 @@ SoundTestScreenListY			equ 0x30
 SoundTestScreenLineSpacing		equ 0x10
 
 SoundTestScreenTitleX			equ (screen_width/2)-(8*8)
-SoundTestScreenTitleY			equ 0x18
+SoundTestScreenTitleY			equ 0x08
 
 SoundTestScreenTitle		dc.b "Sound Test",0
 SoundTestScreenControl1		dc.b "A: Play",0
