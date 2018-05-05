@@ -90,17 +90,17 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000004
-	dc.l	0x00000004
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000022
-	dc.l	0x00000022
-	dc.l	0x00000448
-	dc.l	0x0000044C
-	dc.l	0x0000228C
-	dc.l	0x000022CC
-	dc.l	0x000440CC
-	dc.l	0x000448CC
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000008
+	dc.l	0x0000000C
+	dc.l	0x0000008C
+	dc.l	0x000000CC
+	dc.l	0x000000CC
+	dc.l	0x000008CC
 
 	dc.l	0x00044111
 	dc.l	0x00044244
@@ -118,16 +118,16 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000004
+	dc.l	0x00000000
 
-	dc.l	0x00000224
-	dc.l	0x00000220
-	dc.l	0x0004408C
-	dc.l	0x000448CC
-	dc.l	0x0220CCC4
-	dc.l	0x0228CC48
-	dc.l	0x408C4888
-	dc.l	0x48CC8884
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x0000008C
+	dc.l	0x000008CC
+	dc.l	0x0000CCC4
+	dc.l	0x0008CC48
+	dc.l	0x008C4888
+	dc.l	0x08CC8884
 
 	dc.l	0x0CC48884
 	dc.l	0x8CC88888
@@ -153,10 +153,10 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00002124
 	dc.l	0x00002128
 	dc.l	0x00002124
-	dc.l	0x02242128
-	dc.l	0x42242128
+	dc.l	0x00002128
+	dc.l	0x00002128
 
-	dc.l	0x40088128
+	dc.l	0x00088128
 	dc.l	0x8CCCC128
 	dc.l	0xCCCCC128
 	dc.l	0xC4488128
@@ -189,8 +189,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x44221000
 	dc.l	0x44221000
 	dc.l	0x44241000
-	dc.l	0x44241224
-	dc.l	0x44241224
+	dc.l	0x44241000
+	dc.l	0x44241000
 
 	dc.l	0x48241800
 	dc.l	0x48241CCC
@@ -219,17 +219,17 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x88CFC222
 	dc.l	0x8C8C8111
 
-	dc.l	0x000448CC
-	dc.l	0x000440CC
-	dc.l	0x000022CC
-	dc.l	0x0000228C
-	dc.l	0x0000044C
-	dc.l	0x00000448
-	dc.l	0x00000022
-	dc.l	0x00000022
+	dc.l	0x000008CC
+	dc.l	0x000000CC
+	dc.l	0x000000CC
+	dc.l	0x0000008C
+	dc.l	0x0000000C
+	dc.l	0x00000008
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000004
-	dc.l	0x00000004
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -255,16 +255,16 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x8CC88888
 	dc.l	0x0CC48884
 
-	dc.l	0x48CC8884
-	dc.l	0x408C4888
-	dc.l	0x0228CC48
-	dc.l	0x0220CCC4
-	dc.l	0x000448CC
-	dc.l	0x0004408C
-	dc.l	0x00000220
-	dc.l	0x00000224
+	dc.l	0x08CC8884
+	dc.l	0x008C4888
+	dc.l	0x0008CC48
+	dc.l	0x0000CCC4
+	dc.l	0x000008CC
+	dc.l	0x0000008C
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000004
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -289,10 +289,10 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0xC4488128
 	dc.l	0xCCCCC128
 	dc.l	0x8CCCC128
-	dc.l	0x40088128
+	dc.l	0x00088128
 
-	dc.l	0x42242128
-	dc.l	0x02242128
+	dc.l	0x00002128
+	dc.l	0x00002128
 	dc.l	0x00001128
 	dc.l	0x00001128
 	dc.l	0x00001128
@@ -318,8 +318,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x48241CCC
 	dc.l	0x48241800
 
-	dc.l	0x48241224
-	dc.l	0x48241224
+	dc.l	0x48241000
+	dc.l	0x48241000
 	dc.l	0x48241000
 	dc.l	0x48241000
 	dc.l	0x48221000
@@ -333,8 +333,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x42244224
-	dc.l	0x42244224
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x80000000
@@ -369,8 +369,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x42244224
-	dc.l	0x42244224
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -417,8 +417,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x80000000
 	dc.l	0x00000000
 
-	dc.l	0x42244224
-	dc.l	0x42244224
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -444,8 +444,8 @@ actor_winch_sheet_winch_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x42244224
-	dc.l	0x42244224
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -470,17 +470,17 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000002
-	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000228
-	dc.l	0x0000022C
-	dc.l	0x0000448C
-	dc.l	0x000044CC
-	dc.l	0x000220CC
-	dc.l	0x000228CC
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000008
+	dc.l	0x0000000C
+	dc.l	0x0000008C
+	dc.l	0x000000CC
+	dc.l	0x000000CC
+	dc.l	0x000008CC
 
 	dc.l	0x00044111
 	dc.l	0x00044244
@@ -498,16 +498,16 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000002
+	dc.l	0x00000000
 
-	dc.l	0x00000442
-	dc.l	0x00000440
-	dc.l	0x0002208C
-	dc.l	0x000228CC
-	dc.l	0x0440CCC4
-	dc.l	0x0448CC48
-	dc.l	0x208C4888
-	dc.l	0x28CC8888
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x0000008C
+	dc.l	0x000008CC
+	dc.l	0x0000CCC4
+	dc.l	0x0008CC48
+	dc.l	0x008C4888
+	dc.l	0x08CC8888
 
 	dc.l	0x0CC48844
 	dc.l	0x8CC88444
@@ -533,10 +533,10 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00002124
 	dc.l	0x00002128
 	dc.l	0x00002124
-	dc.l	0x04422128
-	dc.l	0x24422128
+	dc.l	0x00002128
+	dc.l	0x00002128
 
-	dc.l	0x20088128
+	dc.l	0x00088128
 	dc.l	0x8CCCC128
 	dc.l	0xCCCCC128
 	dc.l	0xC4448128
@@ -569,8 +569,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x44221000
 	dc.l	0x44221000
 	dc.l	0x44241000
-	dc.l	0x44241442
-	dc.l	0x44241442
+	dc.l	0x44241000
+	dc.l	0x44241000
 
 	dc.l	0x48241800
 	dc.l	0x48241CCC
@@ -599,17 +599,17 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x88CFC222
 	dc.l	0x8C8C8111
 
-	dc.l	0x000228CC
-	dc.l	0x000220CC
-	dc.l	0x000044CC
-	dc.l	0x0000448C
-	dc.l	0x0000022C
-	dc.l	0x00000228
-	dc.l	0x00000044
-	dc.l	0x00000044
+	dc.l	0x000008CC
+	dc.l	0x000000CC
+	dc.l	0x000000CC
+	dc.l	0x0000008C
+	dc.l	0x0000000C
+	dc.l	0x00000008
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000002
-	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -635,16 +635,16 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x8CC88444
 	dc.l	0x0CC48844
 
-	dc.l	0x28CC8888
-	dc.l	0x208C4888
-	dc.l	0x0448CC48
-	dc.l	0x0440CCC4
-	dc.l	0x000228CC
-	dc.l	0x0002208C
-	dc.l	0x00000440
-	dc.l	0x00000442
+	dc.l	0x08CC8888
+	dc.l	0x008C4888
+	dc.l	0x0008CC48
+	dc.l	0x0000CCC4
+	dc.l	0x000008CC
+	dc.l	0x0000008C
+	dc.l	0x00000000
+	dc.l	0x00000000
 
-	dc.l	0x00000002
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -669,10 +669,10 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0xC4448128
 	dc.l	0xCCCCC128
 	dc.l	0x8CCCC128
-	dc.l	0x20088128
+	dc.l	0x00088128
 
-	dc.l	0x24422128
-	dc.l	0x04422128
+	dc.l	0x00002128
+	dc.l	0x00002128
 	dc.l	0x00001128
 	dc.l	0x00001128
 	dc.l	0x00001128
@@ -698,8 +698,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x48241CCC
 	dc.l	0x48241800
 
-	dc.l	0x48241442
-	dc.l	0x48241442
+	dc.l	0x48241000
+	dc.l	0x48241000
 	dc.l	0x48241000
 	dc.l	0x48241000
 	dc.l	0x48221000
@@ -713,8 +713,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x24422442
-	dc.l	0x24422442
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x80000000
@@ -749,8 +749,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x24422442
-	dc.l	0x24422442
+	dc.l	0x00000000
+	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -797,8 +797,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x80000000
 	dc.l	0x00000000
 
-	dc.l	0x24422442
-	dc.l	0x24422442
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -824,8 +824,8 @@ actor_winch_sheet_winch_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x24422442
-	dc.l	0x24422442
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
