@@ -604,8 +604,8 @@ L3A1_LoadGameObjects:
 	add.l #Stone_Struct_Size, a0
 
 	jsr StoneInit
-	move.l #0x0f700000, Entity_WorldPosX(a0)
-	move.l #0x01780000, Entity_WorldPosY(a0)
+	move.l #0x12300000, Entity_WorldPosX(a0)
+	move.l #0x01e00000, Entity_WorldPosY(a0)
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_69_name, a3
@@ -785,8 +785,8 @@ L3A1_LoadGameObjects:
 	add.l #Crate_Struct_Size, a0
 
 	jsr CrateInit
-	move.l #0x0ff00000, Entity_WorldPosX(a0)
-	move.l #0x01600000, Entity_WorldPosY(a0)
+	move.l #0x12a80000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	jsr CrateLoadGfx
 	IFND FINAL
 	lea L3A1_Crate_43_name, a3
