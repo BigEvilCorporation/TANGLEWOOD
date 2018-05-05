@@ -248,8 +248,8 @@ L8A1_LoadGameObjects:
 	POPL   a1
 
 	jsr NestInit
-	move.l #0x0a400000, Entity_WorldPosX(a0)
-	move.l #0x02980000, Entity_WorldPosY(a0)
+	move.l #0x0c200000, Entity_WorldPosX(a0)
+	move.l #0x02a00000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L8A1_Nest_3_name, a3
