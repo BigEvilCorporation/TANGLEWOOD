@@ -33,6 +33,12 @@ Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
 Fuzzl_WindResistanceAir     equ 0x0020 ; Wind resistance (in air)
 Fuzzl_Mass					equ 0x0001
 
+; The Mother Fuzzl
+Mother_Width				equ 0x20
+Mother_Height				equ 0x20
+Mother_ProbeFloorX			equ (Mother_Width/2)  ; Floor detection probe position X
+Mother_ProbeFloorY			equ (Mother_Height-8) ; Floor detection probe position Y
+
 ; State bits
 Fuzzl_State_Initial   equ 0x00 ; Initial state (in initial position, not seen player)
 Fuzzl_State_Asleep    equ 0x01 ; Initial state (night time, sleeping)
@@ -249,12 +255,23 @@ FuzzlSetColour:
 	bra   @End
 
 	@White:
-	SPRITE_LOAD_DEFAULT fuzzl,white_idle,0,PaletteId_Fuzzl,0x0
-	ANIM_LOAD_DEFAULT fuzzl,white_idle,white_idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
-	ANIM_LOAD_DEFAULT fuzzl,white_eyes,white_eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
-	ANIM_LOAD_DEFAULT fuzzl,white_roll,white_roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
-	ANIM_LOAD_DEFAULT fuzzl,white_roll,white_roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
-	ANIM_LOAD_DEFAULT fuzzl,white_sleep,white_sleep,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+	SPRITE_LOAD_DEFAULT mother,roll,0,PaletteId_Fuzzl,0x0
+	ANIM_LOAD_DEFAULT mother,roll,idle,Fuzzl_Animations,FuzzlAnimIdx_Idle,1,0,0
+	ANIM_LOAD_DEFAULT mother,eyes,eyes,Fuzzl_Animations,FuzzlAnimIdx_Watch,1,0,0
+	ANIM_LOAD_DEFAULT mother,roll,roll,Fuzzl_Animations,FuzzlAnimIdx_Roll,1,0,0
+	ANIM_LOAD_DEFAULT mother,roll,roll,Fuzzl_Animations,FuzzlAnimIdx_Bounce,1,0,0
+	ANIM_LOAD_DEFAULT mother,roll,roll,Fuzzl_Animations,FuzzlAnimIdx_Sleep,1,0,0
+
+	; Setup special case for Mother
+	move.w #Mother_Width, Entity_Width(a0)
+	move.w #Mother_Height, Entity_Height(a0)
+	move.w #Mother_Width, PhysicsObj_BoundsWidth(a0)
+	move.w #Mother_Height, PhysicsObj_BoundsHeight(a0)
+	move.w #Mother_ProbeFloorX, PhysicsObj_FloorProbeX(a0)
+	move.w #Mother_ProbeFloorY, PhysicsObj_FloorProbeY(a0)
+	move.w #Mother_Height-1, PhysicsObj_WallProbeBottom(a0)
+	move.w #Mother_Width, PhysicsObj_WallBoundsRight(a0)
+
 	bra   @End
 
 	@End:

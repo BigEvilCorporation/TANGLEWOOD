@@ -90,6 +90,7 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\hogg.asm
 	INCLUDE_TEXT_ASSET assets\sprites\log.asm
 	INCLUDE_TEXT_ASSET assets\sprites\lock.asm
+	INCLUDE_TEXT_ASSET assets\sprites\mother.asm
 	INCLUDE_TEXT_ASSET assets\sprites\mushroom.asm
 	INCLUDE_TEXT_ASSET assets\sprites\nymn.asm
 	INCLUDE_TEXT_ASSET assets\sprites\leaf.asm
@@ -158,6 +159,7 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\anims\log.asm
 	INCLUDE_TEXT_ASSET assets\anims\lock.asm
 	INCLUDE_TEXT_ASSET assets\anims\leaf.asm
+	INCLUDE_TEXT_ASSET assets\anims\mother.asm
 	INCLUDE_TEXT_ASSET assets\anims\mushroom.asm
 	INCLUDE_TEXT_ASSET assets\anims\nymn.asm
 	INCLUDE_TEXT_ASSET assets\anims\pool.asm
