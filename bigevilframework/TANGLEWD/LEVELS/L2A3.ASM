@@ -75,7 +75,9 @@ l2a3_DefaultPalettes:
 	rsset LevelData_Struct_Size
 ;---------------------------------
 	RS_ALIGN
-l2a3Data_Struct_Size     		rs.b 0
+l2a3Data_CutsceneLightning			rs.b Cutscene_Struct_Size
+l2a3Data_LightningCutscenePlayed	rs.b 1
+l2a3Data_Struct_Size     			rs.b 0
 	
 l2a3_Init:
 	
@@ -110,6 +112,16 @@ l2a3_Init:
 	; HACK: Load L2 specific object sprites
 	jsr    L2_LoadObjectSprites
 	
+	;==============================================================
+
+	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L2A3, a2
+	lea    l2a3Data_CutsceneLightning(a2), a0
+	move.l #l2a3_CutsceneLightning, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
 	;==============================================================
 
 	; Init weather
@@ -192,6 +204,16 @@ l2a3_Init:
 	lea    track_amb_rain, a0
 	jsr    SND_PlayTrack
 	POPM   a0/d0-d1
+
+	; If lightning cutscene already played, disable Hogg
+	lea    LevelData_L2A3, a2
+	tst.b  l2a3Data_LightningCutscenePlayed(a2)
+	beq    @NotPlayed
+	ENTITY_GETBYNAME Hogg, l2a3_HoggLightningCutscene, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	@NotPlayed:
 	
 	rts
 	
@@ -222,9 +244,34 @@ l2a3_SetThunder_Near:
 	move.w #l2a3_Thunder_Near_Interval, d0
 	move.w #l2a3_Thunder_Near_Dist, d1
 	jsr    ThunderSetParams
+	rts
 
-	; Fire warning shot
+l2a3_Trigger_ThunderCutscene:
+
+	; If lightning cutscene already played
+	lea    LevelData_L2A3, a2
+	tst.b  l2a3Data_LightningCutscenePlayed(a2)
+	beq    @NotPlayed
+
+	; Just do warning shot and set params
+	jsr    l2a3_SetThunder_Near
 	jsr    ThunderStrike
+
+	bra    @End
+
+	@NotPlayed:
+
+	; Start cutscene
+	PUSHL  a0
+	lea    LevelData_L2A3, a2
+	lea    l2a3Data_CutsceneLightning(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
+
+	lea    LevelData_L2A3, a2
+	move.b #0x1, l2a3Data_LightningCutscenePlayed(a2)
+
+	@End:
 
 	rts
 
@@ -271,4 +318,100 @@ l2a3_Trigger_End:
 	rts
 
 l2a3_End:
+	rts
+
+l2a3_CutsceneLightning:
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Cancel all interations
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractA
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
+
+	; Lerp camera up to tree branch
+	CUTSCENE_GET_ENTITY Location,l2a3_LocationLightningCameraLerp,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Lightning strike (warning shot)
+	CUTSCENE_ROUTINE l2a3_CutsceneThunderStrikePlayer,#0x0,#0x0,#0x0
+	CUTSCENE_DELAY #0x0060
+
+	; Snort!
+	CUTSCENE_STOP_SFX
+	CUTSCENE_DELAY #0x0008
+	CUTSCENE_PLAY_SFX #SFX_Hogg_Grunt
+
+	; Lerp camera to Hogg
+	CUTSCENE_GET_ENTITY Location,l2a3_LocationLightningCameraLerp,a2
+	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a3
+	CUTSCENE_CAMERA_LERP a2,a3,#0x08
+
+	; Move Hogg to marker
+	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a2
+	CUTSCENE_GET_ENTITY Location,l2a3_LocationStrikeHogg,a3
+	CUTSCENE_CHARACTER_MOVE_RELATIVE a2,a3,#0x0,#0x08
+
+	; Lightning strike (Hogg)
+	CUTSCENE_ROUTINE l2a3_CutsceneThunderStrikeHogg,#0x0,#0x0,#0x0
+	CUTSCENE_DELAY #0x0008
+
+	; Kill hogg
+	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a2
+	move.b #0xFF, d0
+	CUTSCENE_OBJECT_ROUTINE a2,#CharacterDealDamage
+
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp camera back
+	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+
+	; Set lightning params
+	CUTSCENE_ROUTINE l2a3_CutsceneThunderSetParams,#0x0,#0x0,#0x0
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
+
+	rts
+
+l2a3_CutsceneThunderStrikePlayer:
+
+	move.w #0x0, d0
+	move.w #l2a3_Thunder_Near_Dist, d1
+	jsr    ThunderSetParams
+	jsr    ThunderStrike
+
+	move.b #0x0, d0
+
+	rts
+
+l2a3_CutsceneThunderStrikeHogg:
+
+	move.w #0x0, d0
+	move.w #l2a3_Thunder_Near_Dist, d1
+	jsr    ThunderSetParams
+	jsr    ThunderStrike
+
+	move.b #0x0, d0
+
+	rts
+
+l2a3_CutsceneThunderSetParams:
+
+	move.w #l2a3_Thunder_Near_Interval, d0
+	move.w #l2a3_Thunder_Near_Dist, d1
+	jsr    ThunderSetParams
+
+	move.b #0x0, d0
+
 	rts

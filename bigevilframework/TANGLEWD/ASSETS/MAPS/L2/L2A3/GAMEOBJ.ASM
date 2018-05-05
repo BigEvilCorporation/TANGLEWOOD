@@ -165,7 +165,15 @@ L2A3_TriggerBox_EndDjakkChase_name	dc.b "L2A3_TriggerBox_EndDjakkChase",0
 
 L2A3_WaterBody_count equ 0x0
 
-L2A3_Location_count equ 0x0
+L2A3_Location_count equ 0x2
+L2A3_LocationStrikeHogg_idx	equ 0x0
+L2A3_LocationLightningCameraLerp_idx	equ 0x1
+
+	IFND FINAL
+L2A3_LocationStrikeHogg_name	dc.b "L2A3_LocationStrikeHogg",0
+L2A3_LocationLightningCameraLerp_name	dc.b "L2A3_LocationLightningCameraLerp",0
+	even
+	ENDIF
 
 L2A3_Deathbox_count equ 0x8
 L2A3_Deathbox_27_idx	equ 0x0
@@ -249,11 +257,13 @@ L2A3_Ladder_count equ 0x0
 
 L2A3_Scirus_count equ 0x0
 
-L2A3_Hogg_count equ 0x1
+L2A3_Hogg_count equ 0x2
 L2A3_Hogg_63_idx	equ 0x0
+L2A3_HoggLightningCutscene_idx	equ 0x1
 
 	IFND FINAL
 L2A3_Hogg_63_name	dc.b "L2A3_Hogg_63",0
+L2A3_HoggLightningCutscene_name	dc.b "L2A3_HoggLightningCutscene",0
 	even
 	ENDIF
 
@@ -768,9 +778,9 @@ L2A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x0e600000, Entity_WorldPosX(a0)
+	move.l #0x0e400000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
-	move.l #l2a3_SetThunder_Near, TriggerBox_Routine(a0)
+	move.l #l2a3_Trigger_ThunderCutscene, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
@@ -833,6 +843,38 @@ L2A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Location_Struct_Size*L2A3_Location_count)
+	move.l a1, EntityPoolStart_Location
+	move.l a1, a0
+	POPL   a1
+
+	jsr LocationInit
+	move.l #0x10880000, Entity_WorldPosX(a0)
+	move.l #0x02880000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L2A3_LocationStrikeHogg_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
+
+	jsr LocationInit
+	move.l #0x0ec80000, Entity_WorldPosX(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
+	jsr LocationLoadGfx
+	IFND FINAL
+	lea L2A3_LocationLightningCameraLerp_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Location_Struct_Size, a0
 
 
 	PUSHL  a1
@@ -1095,6 +1137,19 @@ L2A3_LoadGameObjects:
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Hogg_Struct_Size, a0
+
+	jsr HoggInit
+	move.l #0x11e00000, Entity_WorldPosX(a0)
+	move.l #0x02780000, Entity_WorldPosY(a0)
+	jsr HoggLoadGfx
+	IFND FINAL
+	lea L2A3_HoggLightningCutscene_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
 	MEMCPYB a2,a3,d0
 	ENDIF
 	add.l #Hogg_Struct_Size, a0

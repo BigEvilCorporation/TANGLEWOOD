@@ -176,6 +176,18 @@ CutsceneStep_PlaySfx:
 
 	rts
 
+CutsceneStep_StopSfx:
+	; a0 --- Cutscene
+	; d0 (b) OUT: Step running
+
+	PUSHM  a0/d0-d1
+	jsr    SND_StopSFX
+	POPM   a0/d0-d1
+
+	move.b #0x0, d0
+
+	rts
+
 CutsceneStep_VfxFlash:
 	; a0 --- Cutscene
 	; d0 ---- Frames
@@ -658,6 +670,10 @@ CUTSCENE_FADE_TRACK: macro
 CUTSCENE_PLAY_SFX: macro sfx
 	move.l \sfx, a2
 	CUTSCENE_RUN_STEP CutsceneStep_PlaySfx
+	endm
+
+CUTSCENE_STOP_SFX: macro
+	CUTSCENE_RUN_STEP CutsceneStep_StopSfx
 	endm
 
 CUTSCENE_VFX_FLASH: macro frames

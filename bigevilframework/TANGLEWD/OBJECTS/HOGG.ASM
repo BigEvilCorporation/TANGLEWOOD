@@ -132,6 +132,7 @@ HoggLoadGfx:
 	ANIM_LOAD_DEFAULT Hogg,run,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
 	ANIM_LOAD_DEFAULT Hogg,run,run,Character_Animations,CharacterAnimIdx_Walk,1,0,0
 	ANIM_LOAD_DEFAULT Hogg,run,run,Character_Animations,CharacterAnimIdx_Run,1,0,0
+	ANIM_LOAD_DEFAULT Hogg,dead,dead,Character_Animations,CharacterAnimIdx_Dead,1,0,0
 
 	; Load bespoke animations
 	ANIM_LOAD_DEFAULT Hogg,wall,hit,Hogg_Animations,HoggAnimIdx_Hit,0,1,0
@@ -152,7 +153,11 @@ HoggUpdate:
 	; a1 --- Level addr
 
 	; Base functionality
-	jsr   CharacterUpdate
+	jsr    CharacterUpdate
+
+	; If not dead
+	tst.b  Character_Dead(a0)
+	bne    @Dead
 
 	move.b Hogg_State(a0), d0
 	cmp.b  #HoggState_Idle, d0
@@ -181,6 +186,7 @@ HoggUpdate:
 	bra    @End
 
 	@End:
+	@Dead:
 
 	rts
 

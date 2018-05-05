@@ -80,6 +80,7 @@ ThunderSetParams:
 
 	lea Thunder, a2
 	move.w d0, Thunder_Interval(a2)
+	move.w d0, Thunder_StrikeTimer(a2)
 	move.b d1, Thunder_Distance(a2)
 	move.b #0x1, Thunder_Enabled(a2)
 

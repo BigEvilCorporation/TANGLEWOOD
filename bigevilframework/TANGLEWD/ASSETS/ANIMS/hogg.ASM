@@ -9,6 +9,17 @@
 
 spriteanims_hogg:
 
+actor_hogg_sheet_dead_anim_dead:
+actor_hogg_sheet_dead_anim_dead_numframes: equ 0x1
+actor_hogg_sheet_dead_anim_dead_speed: equ 0x5
+actor_hogg_sheet_dead_anim_dead_track_frames:
+	dc.l actor_hogg_sheet_dead_frame_0_header
+
+	Even
+actor_hogg_sheet_dead_anim_dead_track_posx equ 0
+actor_hogg_sheet_dead_anim_dead_track_posy equ 0
+actor_hogg_sheet_dead_anim_dead_track_sfx equ 0
+
 actor_hogg_sheet_wall_anim_recover:
 actor_hogg_sheet_wall_anim_recover_numframes: equ 0x2
 actor_hogg_sheet_wall_anim_recover_speed: equ 0x19
