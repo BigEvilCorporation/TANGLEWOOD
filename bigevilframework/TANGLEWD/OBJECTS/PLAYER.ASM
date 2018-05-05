@@ -638,9 +638,6 @@ PlayerStartColourAbility:
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
 
-	; Play SFX
-	PLAYSFX #SFX_AbilityOn
-
 	bra    @End
 	
 	;==============================================================
@@ -805,8 +802,11 @@ PlayerStopColourAbility:
 	tst.b  Player_ActiveColourAbility(a0)
 	beq    @ReturnColour
 	
-	; Play SFX
+	; If previously gliding, play SFX
+	tst.b  Character_Gliding(a0)
+	beq    @NoCancelGlideSFX
 	PLAYSFX #SFX_AbilityOff
+	@NoCancelGlideSFX:
 
 	; Reset gliding
 	move.b #0x0, Character_Gliding(a0)
@@ -1061,7 +1061,12 @@ PlayerUpdateColourAbility:
 
 	@CanGlide:
 
-	; Can glide
+	; Can glide - if not prevously gliding, play SFX
+	tst.b  Character_Gliding(a0)
+	bne    @NoGlideSFX
+	PLAYSFX #SFX_AbilityOn
+	@NoGlideSFX:
+
 	move.b #0x1, Character_Gliding(a0)
 	MOVE_NTSC_L Player1MaxGlideVelocityX, PhysicsObj_MaxVelFloorX(a0), d0
 	MOVE_NTSC_L Player1MaxGlideVelocityY, PhysicsObj_MaxVelYDown(a0), d0

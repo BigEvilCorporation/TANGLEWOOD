@@ -330,17 +330,17 @@ SFX_FlueOut:
 
 SFX_AbilityOn:
 	dc.l SFX_Data_Ability_On		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
 SFX_AbilityOff:
 	dc.l SFX_Data_Ability_Off		; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
@@ -562,7 +562,7 @@ SFX_CrateSmash:
 
 SFX_FireflyCollect:
 	dc.l SFX_Data_FireflyCollect	; Data
-	dc.b SFX_Priority_Default		; Priority
+	dc.b SFX_Priority_Highest		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
