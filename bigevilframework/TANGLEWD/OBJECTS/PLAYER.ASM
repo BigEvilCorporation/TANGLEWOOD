@@ -546,6 +546,51 @@ PlayerUpdateIdleAnim:
 	
 	rts
 
+PlayerFindTamableDjakk:
+	; a0 --- Character address
+
+	PUSHL  a1
+
+	; Find a Djakk
+	move.l (EntityPoolStart_Monster), a1
+	move.w (EntityCount_Monster), d6
+	beq    @NoMonsters
+	subq.w  #0x1, d6
+	@MonsterLoop:
+	
+	; Check monster active
+	tst.b  Entity_Active(a1)
+	beq    @NextMonster
+	
+	; Check monster alive
+	tst.b  Character_Dead(a1)
+	bne    @NextMonster
+	
+	; Tame it
+	PUSHL  a0
+	PUSHL  d6
+	move.l a1, a0
+	jsr    MonsterStartTamed
+	POPL   d6
+	POPL   a0
+
+	; Now a pet
+	move.l a1, Player_Pet(a0)
+	
+	; Done
+	bra    @EndMonsterLoop
+		
+	@NextMonster:
+	lea   Monster_Struct_Size(a1), a1
+	dbra  d6, @MonsterLoop
+	
+	@NoMonsters:
+	@EndMonsterLoop:
+
+	POPL  a1
+
+	rts
+
 PlayerBeginColourSwitch:
 	; a0 --- Character address
 	
@@ -587,10 +632,10 @@ PlayerBeginColourSwitch:
 	; Start countdown timer
 	MOVE_NTSC_W Player1ColourChangeTimeout, Player_ColourChangeTimer(a0), d0
 
-	; If switching to blue (beast taming), auto-activate
+	; If switching to blue (beast taming), find a beast
 	cmp.b  #ColourBlue, Player_Colour(a0)
 	bne    @NoActivate
-	jsr    PlayerStartColourAbility
+	jsr    PlayerFindTamableDjakk
 	@NoActivate:
 
 	; If switching to white, reset cooldown
@@ -681,45 +726,8 @@ PlayerStartColourAbility:
 	;==============================================================
 	@Blue:
 
-	PUSHL  a1
-
-	; Find a Djakk
-	move.l (EntityPoolStart_Monster), a1
-	move.w (EntityCount_Monster), d6
-	beq    @NoMonsters
-	subq.w  #0x1, d6
-	@MonsterLoop:
-	
-	; Check monster active
-	tst.b  Entity_Active(a1)
-	beq    @NextMonster
-	
-	; Check monster alive
-	tst.b  Character_Dead(a1)
-	bne    @NextMonster
-	
-	; Tame it
-	PUSHL  a0
-	PUSHL  d6
-	move.l a1, a0
-	jsr    MonsterStartTamed
-	POPL   d6
-	POPL   a0
-
-	; Now a pet
-	move.l a1, Player_Pet(a0)
-	
-	; Done
-	bra    @EndMonsterLoop
-		
-	@NextMonster:
-	lea   Monster_Struct_Size(a1), a1
-	dbra  d6, @MonsterLoop
-	
-	@NoMonsters:
-	@EndMonsterLoop:
-
-	POPL  a1
+	; Check for Pet
+	jsr    PlayerInteractTest_Pet
 	
 	; Set ability active
 	move.b Player_Colour(a0), Player_ActiveColourAbility(a0)
@@ -1855,13 +1863,6 @@ PlayerStartInteract:
 	jsr    PlayerInteractTest_Fuzzls
 	cmp.b  #0x1, Character_Interacting(a0)
 	beq    @FoundInteraction
-
-	;==============================================================
-	
-	; Check for Pet
-	jsr    PlayerInteractTest_Pet
-	cmp.b  #0x1, Character_Interacting(a0)
-	beq    @FoundInteraction
 	
 	;==============================================================
 
@@ -2046,26 +2047,9 @@ PlayerCancelInteract:
 
 	;==============================================================
 
-	; If riding
+	; If riding, use colour ability to stop
 	tst.b  Character_Riding(a0)
-	beq    @NotRiding
-
-	; If on floor
-	move.l Player_Pet(a0), a2
-	tst.b  PhysicsObj_CloseToFloor(a2)
-	bne    @CanDismount
-
-	; In air, keep interaction toggle and disallow dismount
-	move.b #0x1, Player_InteractionToggle(a0)
-	bra    @CannotEndPower
-	
-	@CanDismount:
-
-	; Dismount (voluntarily)
-	move.b #Player_Dismount_Voluntary, d0
-	jsr    PlayerDismountPet
-
-	@NotRiding:
+	bne    @CannotEndPower
 
 	;==============================================================
 
