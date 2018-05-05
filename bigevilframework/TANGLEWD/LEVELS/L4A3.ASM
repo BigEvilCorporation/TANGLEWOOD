@@ -206,6 +206,12 @@ l4a3_Init:
 	ENTITY_GETBYNAME Trap, l4a3_Trap3, a0
 	move.l #l4a3_Trigger_Trapped, Trap_OnActivated(a0)
 
+	; HACK: Remove trap 1 from world grid updates, or Echo will try to push a Fuzzl into it
+	; if he spots it off screen
+	ENTITY_GETBYNAME Trap, l4a3_Trap1, a0
+	jsr    EntityAddToUpdateList
+	bclr   #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+
 	;==============================================================
 
 	; Set Echo's predator Skivv
