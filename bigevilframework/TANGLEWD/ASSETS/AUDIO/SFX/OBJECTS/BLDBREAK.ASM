@@ -4,10 +4,10 @@
 	dc.b $ea		; Lock channel PSG 3
 	dc.b $eb		; Lock channel PSG 4
 ; Pattern $00, Row 0; 
-	dc.b $46, $3a	; Set instrument for channel FM 6
+	dc.b $46, $3b	; Set instrument for channel FM 6
 	dc.b $f6, $e0	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $61	; Note C-3 on channel FM 6
-	dc.b $4b, $3b	; Set instrument for channel PSG 4
+	dc.b $4b, $3c	; Set instrument for channel PSG 4
 	dc.b $2b, $00	; Set volume for channel PSG 4
 	dc.b $3a, $0a, $06	; Set frequency '106' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4

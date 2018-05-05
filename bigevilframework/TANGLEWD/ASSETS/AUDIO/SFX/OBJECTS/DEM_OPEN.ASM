@@ -2,7 +2,7 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $eb		; Lock channel PSG 4
 ; Pattern $00, Row 0; 
-	dc.b $4b, $5c	; Set instrument for channel PSG 4
+	dc.b $4b, $5e	; Set instrument for channel PSG 4
 	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $0b, $05	; Note F-0 on channel PSG 4
 ; Pattern $00, Row 1; 

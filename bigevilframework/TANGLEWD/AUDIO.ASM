@@ -21,7 +21,7 @@ StartAmbientTrack:
 	; Start playing an ambient track approriate for the environment
 
 	; TODO: Get ambient tracks from level data + TOD, choose random track + length
-	lea    track_amb_l1_night, a0
+	lea    track_amb_l1_day, a0
 	jsr    SND_PlayTrack
 
 	rts

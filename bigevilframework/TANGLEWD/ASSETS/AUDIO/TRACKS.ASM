@@ -12,7 +12,6 @@ bgm_boss1_search:	include 'assets\audio\tracks\boss_q.asm'
 bgm_boss_l4:		include 'assets\audio\tracks\boss_l4.asm'
 bgm_boss_l6:		include 'assets\audio\tracks\chase_l6.asm'
 bgm_boss_l8:		include 'assets\audio\tracks\boss_l8.asm'
-bgm_boss_l8b:		include 'assets\audio\tracks\boss_l8b.asm'
 bgm_meetecho:		include 'assets\audio\tracks\meetecho.asm'
 bgm_gameover:		include 'assets\audio\tracks\gameover.asm'
 bgm_cue_l1:			include 'assets\audio\tracks\cue_l1.asm'
@@ -25,7 +24,6 @@ bgm_cue_l6:			include 'assets\audio\tracks\cue_l6.asm'
 bgm_cue_l7:			include 'assets\audio\tracks\cue_l7.asm'
 bgm_cue_scrap:		include 'assets\audio\tracks\scrap.asm'
 bgm_amb_l1_day:		include 'assets\audio\tracks\l1ambday.asm'
-bgm_amb_l1_night:	include 'assets\audio\tracks\l1ambngt.asm'
 bgm_amb_rain:		include 'assets\audio\tracks\rain_fm.asm'
 bgm_amb_windrain:	include 'assets\audio\tracks\windrain.asm'
 bgm_amb_rumble:		include 'assets\audio\tracks\rumble.asm'
@@ -41,16 +39,6 @@ track_bgm_titles:
 	dc.w	0x0
 	dc.b	Track_Type_BGM
 	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_Lowest
-	dc.b	Track_Transition_Crossfade
-	even
-
-track_bgm_lvlintro:
-	dc.l	bgm_lvlintro
-	dc.w	0x03DF
-	dc.w	0x0
-	dc.b	Track_Type_Cue
-	dc.b	Audio_Exclusive
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_Crossfade
 	even
@@ -155,16 +143,6 @@ track_bgm_boss_l8:
 	dc.b	Track_Transition_Instant
 	even
 
-track_bgm_boss_l8b:
-	dc.l	bgm_boss_l8b
-	dc.w	0x001F
-	dc.w	0x0
-	dc.b	Track_Type_Threat
-	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_FootstepSml-1
-	dc.b	Track_Transition_Instant
-	even
-
 track_bgm_credits:
 	dc.l	bgm_credits
 	dc.w	0x03FF
@@ -178,7 +156,7 @@ track_bgm_credits:
 track_bgm_gameover:
 	dc.l	bgm_gameover
 	dc.w	0x001F
-	dc.w	0x0F00
+	dc.w	0x0000
 	dc.b	Track_Type_BGM
 	dc.b	Audio_Exclusive
 	dc.b	SFX_Priority_FootstepSml-1
@@ -304,15 +282,6 @@ track_amb_l1_day:
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_Crossfade
 	even
-
-track_amb_l1_night:
-	dc.l	bgm_amb_l1_night
-	dc.w	0x0007
-	dc.w	0x0A00
-	dc.b	Track_Type_Ambience
-	dc.b	Audio_NonExclusive
-	dc.b	SFX_Priority_Lowest
-	dc.b	Track_Transition_Crossfade
 	even
 
 track_amb_rain:

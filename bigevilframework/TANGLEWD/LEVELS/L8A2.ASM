@@ -56,7 +56,7 @@ l8a2_DefaultPalettes:
 	
 	even
 
-L8_FinalBossMusic	equ track_bgm_boss_l8b
+L8_FinalBossMusic	equ track_bgm_boss_l8
 	
 ; ************************************
 ; Runtime data

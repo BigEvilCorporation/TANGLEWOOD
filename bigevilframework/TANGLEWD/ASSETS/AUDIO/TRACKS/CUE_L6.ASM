@@ -2,16 +2,16 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $fd	; Set loop
-	dc.b $40, $6a	; Set instrument for channel FM 1
+	dc.b $40, $6c	; Set instrument for channel FM 1
 	dc.b $f0, $c2	; Set pan/AMS/FMS for channel FM 1
 	dc.b $00, $8f	; Note G-4 on channel FM 1
-	dc.b $48, $6b	; Set instrument for channel PSG 1
+	dc.b $48, $6d	; Set instrument for channel PSG 1
 	dc.b $28, $09	; Set volume for channel PSG 1
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $49, $6b	; Set instrument for channel PSG 2
+	dc.b $49, $6d	; Set instrument for channel PSG 2
 	dc.b $29, $09	; Set volume for channel PSG 2
 	dc.b $09, $3a	; Note F-2 on channel PSG 2
-	dc.b $4a, $6b	; Set instrument for channel PSG 3
+	dc.b $4a, $6d	; Set instrument for channel PSG 3
 	dc.b $2a, $09	; Set volume for channel PSG 3
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 ; Pattern $00, Row 1; 
@@ -19,7 +19,7 @@
 ; Pattern $00, Row 3; 
 ; Pattern $00, Row 4; 
 	dc.b $fe, $10	; Delay
-	dc.b $45, $6a	; Set instrument for channel FM 5
+	dc.b $45, $6c	; Set instrument for channel FM 5
 	dc.b $f5, $c2	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $85	; Note D-4 on channel FM 5
 ; Pattern $00, Row 5; 
@@ -27,7 +27,7 @@
 ; Pattern $00, Row 7; 
 ; Pattern $00, Row 8; 
 	dc.b $fe, $10	; Delay
-	dc.b $41, $6a	; Set instrument for channel FM 2
+	dc.b $41, $6c	; Set instrument for channel FM 2
 	dc.b $f1, $c2	; Set pan/AMS/FMS for channel FM 2
 	dc.b $01, $93	; Note A-4 on channel FM 2
 ; Pattern $00, Row 9; 
@@ -39,7 +39,7 @@
 ; Pattern $00, Row 15; 
 ; Pattern $00, Row 16; 
 	dc.b $fe, $20	; Delay
-	dc.b $42, $6a	; Set instrument for channel FM 3
+	dc.b $42, $6c	; Set instrument for channel FM 3
 	dc.b $f2, $c2	; Set pan/AMS/FMS for channel FM 3
 	dc.b $02, $8b	; Note F-4 on channel FM 3
 ; Pattern $00, Row 17; 
@@ -51,7 +51,7 @@
 ; Pattern $00, Row 23; 
 ; Pattern $00, Row 24; 
 	dc.b $fe, $20	; Delay
-	dc.b $44, $6a	; Set instrument for channel FM 4
+	dc.b $44, $6c	; Set instrument for channel FM 4
 	dc.b $f4, $c2	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $65	; Note D-3 on channel FM 4
 ; Pattern $00, Row 25; 
