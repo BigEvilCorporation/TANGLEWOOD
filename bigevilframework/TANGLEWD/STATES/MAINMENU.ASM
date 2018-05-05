@@ -56,7 +56,7 @@ MainMenuLogoPosY	equ (vdp_sprite_border_y+MainMenuLogoBorder)*subpixels_per_pixe
 MainMenuUIX				equ (screen_width/2)-(8*5)
 MainMenuUIY				equ (8*15)
 MainMenuUILineSpacing	equ 0x10
-MainMenuLegalTextX		equ (screen_width/2)-(8*15)
+MainMenuLegalTextX		equ (screen_width/2)-(8*10)
 MainMenuLegalTextY		equ (8*26)
 
 MainMenu_Opt_NewGame		equ 0x0
@@ -380,11 +380,11 @@ LINECOUNT = LINECOUNT+1
 LINECOUNT = LINECOUNT+1
 	bra    @NoLegalText	; Not enough VRAM from both
 	@NoLevelSelect:
-	WINDOW_CREATE_WIDGET_TEXT a0,#LegalScreen_Str_05,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuLegalTextX,#MainMenuLegalTextY
+	WINDOW_CREATE_WIDGET_TEXT a0,#Copyright_Str_short,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuLegalTextX,#MainMenuLegalTextY
 	@NoLegalText:
 
 	ELSE
-	WINDOW_CREATE_WIDGET_TEXT a0,#LegalScreen_Str_05,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuLegalTextX,#MainMenuLegalTextY
+	WINDOW_CREATE_WIDGET_TEXT a0,#Copyright_Str_short,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuLegalTextX,#MainMenuLegalTextY
 	ENDIF
 
 	rts
