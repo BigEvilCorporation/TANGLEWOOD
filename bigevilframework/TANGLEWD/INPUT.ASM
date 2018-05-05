@@ -171,20 +171,20 @@ HandlePlayerInput:
 	tst.b PhysicsObj_CloseToFloor(a0)
 	beq   @NoPeek
 
-	; Camera up
-	btst  #input_peek_up, d0
-	beq   @NoUp
+	; Camera up (if only button pressed)
+	cmp.w #(1<<input_peek_up), d0
+	bne   @NoUp
 	PUSHL d0
-	jsr   CAM_PeekUp
+	jsr   CameraHandlePeekUp
 	POPL  d0
 	bra   @YHandled
 	@NoUp:
 	
-	; Camera down
-	btst  #input_peek_down, d0
-	beq   @NoDown
+	; Camera down (if only button pressed)
+	cmp.w #(1<<input_peek_down), d0
+	bne   @NoDown
 	PUSHL d0
-	jsr   CAM_PeekDown
+	jsr   CameraHandlePeekDown
 	POPL  d0
 	bra   @YHandled
 	@NoDown:
@@ -193,7 +193,7 @@ HandlePlayerInput:
 
 	; No up/down, return peek offset
 	PUSHL d0
-	jsr   CAM_PeekReturn
+	jsr   CameraHandlePeekOff
 	POPL  d0
 
 	@YHandled:

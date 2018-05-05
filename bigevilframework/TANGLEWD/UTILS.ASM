@@ -19,6 +19,52 @@ PlayerTeleport:
 	rts
 
 ;==============================================================
+; Camera peek
+;==============================================================
+CameraHandlePeekUp:
+	; d0-d1 - gamepad input, don't touch
+
+	move.w CameraPeekInputTimer, d3
+	beq    @Handle
+
+	subq.w #0x1, d3
+	move.w d3, CameraPeekInputTimer
+
+	bra    @End
+
+	@Handle:
+
+	jsr    CAM_PeekUp
+
+	@End:
+
+	rts
+
+CameraHandlePeekDown:
+	; d0-d1 - gamepad input, don't touch
+
+	move.w CameraPeekInputTimer, d3
+	beq    @Handle
+
+	subq.w #0x1, d3
+	move.w d3, CameraPeekInputTimer
+
+	bra    @End
+
+	@Handle:
+
+	jsr    CAM_PeekDown
+
+	@End:
+
+	rts
+
+CameraHandlePeekOff:
+	move.w #CameraPeekInputHoldTime, CameraPeekInputTimer
+	jsr    CAM_PeekReturn
+	rts
+
+;==============================================================
 ; Palettes
 ;==============================================================
 
