@@ -57,7 +57,7 @@ MainMenuUIX				equ (screen_width/2)-(8*5)
 MainMenuUIY				equ (8*15)
 MainMenuUILineSpacing	equ 0x10
 MainMenuLegalTextX		equ (screen_width/2)-(8*15)
-MainMenuLegalTextY		equ (8*27)
+MainMenuLegalTextY		equ (8*26)
 
 MainMenu_Opt_NewGame		equ 0x0
 MainMenu_Opt_Continue		equ 0x1
