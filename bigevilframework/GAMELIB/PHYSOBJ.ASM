@@ -2234,10 +2234,15 @@ PhysicsObjFindPushable:
 
 	; Get collision bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
+
+	; Shrink Y by half
+	move.w Entity_Height(a0), d6
+	lsr.w  #0x1, d6
+	add.w  d6, d1
 	
 	; Grow by push detect outer box extension
 	move.w PhysicsObj_PushDetectOuter(a0), d0
-	PHYSICS_GROWBOUNDS d1,d2,d0
+	PHYSICS_GROWBOUNDSX d1,d2,d0
 	
 	; Loop over pushable objects
 	LIST_GET_HEAD PushableObjs,a2	; Get list head
@@ -2260,9 +2265,14 @@ PhysicsObjFindPushable:
 	; Get pushable obj collision bounds
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 
+	; Shrink Y by half
+	move.w Entity_Height(a2), d6
+	lsr.w  #0x1, d6
+	add.w  d6, d3
+
 	; Grow by push detect outer box extension
 	move.w PhysicsObj_PushDetectOuter(a2), d0
-	PHYSICS_GROWBOUNDS d3,d4,d0
+	PHYSICS_GROWBOUNDSX d3,d4,d0
 	
 	; Test intersection
 	PUSHM  d1-d4
@@ -2313,12 +2323,20 @@ PhysicsObjPushPullObj:
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
 
+	; Shrink Y by half
+	move.w Entity_Height(a0), d6
+	lsr.w  #0x1, d6
+	add.w  d6, d1
+	move.w Entity_Height(a2), d6
+	lsr.w  #0x1, d6
+	add.w  d6, d3
+
 	; Check outer push bounds
 	PUSHM  d1-d4
 	move.w PhysicsObj_PushDetectOuter(a0), d0
-	PHYSICS_GROWBOUNDS d1,d2,d0
+	PHYSICS_GROWBOUNDSX d1,d2,d0
 	move.w PhysicsObj_PushDetectOuter(a2), d0
-	PHYSICS_GROWBOUNDS d3,d4,d0
+	PHYSICS_GROWBOUNDSX d3,d4,d0
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
 	tst.b  d0
