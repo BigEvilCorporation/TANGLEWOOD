@@ -2237,8 +2237,8 @@ PlayerInteractTest_Fuzzls:
 	move.w (EntityCount_Fuzzl), d6
 	beq    @NoFuzzls
 	
-	; Get player collision bounds
-	PHYSICS_GETBOUNDS d1,d2,d5,a0
+	; Get player bounds
+	ENTITY_GETBOUNDS d1,d2,d5,a0
 
 	; Check player against all Fuzzls in level
 	move.l (EntityPoolStart_Fuzzl), a2
@@ -2253,8 +2253,8 @@ PlayerInteractTest_Fuzzls:
 	btst.b #Fuzzl_State_Home, Fuzzl_State_Bits(a2)
 	beq    @NextFuzzl
 
-	; Get collision bounds
-	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	; Get Fuzzl bounds
+	ENTITY_GETBOUNDS d3,d4,d5,a2
 
 	; Check collision
 	PUSHM  d1-d4
