@@ -74,9 +74,10 @@ l2a3_DefaultPalettes:
 ; ************************************
 	rsset LevelData_Struct_Size
 ;---------------------------------
-	RS_ALIGN
 l2a3Data_CutsceneLightning			rs.b Cutscene_Struct_Size
 l2a3Data_LightningCutscenePlayed	rs.b 1
+;---------------------------------
+	RS_ALIGN
 l2a3Data_Struct_Size     			rs.b 0
 	
 l2a3_Init:
