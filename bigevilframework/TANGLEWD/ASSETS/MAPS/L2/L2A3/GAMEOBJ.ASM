@@ -851,8 +851,8 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr LocationInit
-	move.l #0x10880000, Entity_WorldPosX(a0)
-	move.l #0x02880000, Entity_WorldPosY(a0)
+	move.l #0x10600000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
 	jsr LocationLoadGfx
 	IFND FINAL
 	lea L2A3_LocationStrikeHogg_name, a3
@@ -864,8 +864,8 @@ L2A3_LoadGameObjects:
 	add.l #Location_Struct_Size, a0
 
 	jsr LocationInit
-	move.l #0x0ec80000, Entity_WorldPosX(a0)
-	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.l #0x0eb80000, Entity_WorldPosX(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
 	jsr LocationLoadGfx
 	IFND FINAL
 	lea L2A3_LocationLightningCameraLerp_name, a3
