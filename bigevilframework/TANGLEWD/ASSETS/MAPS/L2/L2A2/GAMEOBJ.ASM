@@ -738,7 +738,7 @@ L2A2_LoadGameObjects:
 
 	jsr NestInit
 	move.l #0x12e80000, Entity_WorldPosX(a0)
-	move.l #0x02f00000, Entity_WorldPosY(a0)
+	move.l #0x02d00000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L2A2_Nest_43_name, a3
@@ -813,10 +813,11 @@ L2A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x13b80000, Entity_WorldPosX(a0)
-	move.l #0x01700000, Entity_WorldPosY(a0)
+	move.l #0x13000000, Entity_WorldPosX(a0)
+	move.l #0x01500000, Entity_WorldPosY(a0)
 	move.l #l2a2_Trigger_EndColourPower, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
+	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L2A2_TriggerBox_StopPower_name, a3
