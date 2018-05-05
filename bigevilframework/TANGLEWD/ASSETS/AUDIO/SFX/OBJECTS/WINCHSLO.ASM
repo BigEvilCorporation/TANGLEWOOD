@@ -2,7 +2,7 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e6		; Lock channel FM 6
 ; Pattern $00, Row 0; 
-	dc.b $46, $53	; Set instrument for channel FM 6
+	dc.b $46, $ae	; Set instrument for channel FM 6
 	dc.b $26, $1f	; Set volume for channel FM 6
 	dc.b $06, $77	; Note B-3 on channel FM 6
 ; Pattern $00, Row 1; 

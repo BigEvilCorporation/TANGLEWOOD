@@ -2,15 +2,15 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $fd	; Set loop
-	dc.b $40, $60	; Set instrument for channel FM 1
+	dc.b $40, $3a	; Set instrument for channel FM 1
 	dc.b $20, $17	; Set volume for channel FM 1
 	dc.b $f0, $57	; Set pan/AMS/FMS for channel FM 1
 	dc.b $00, $41	; Note C-2 on channel FM 1
-	dc.b $41, $60	; Set instrument for channel FM 2
+	dc.b $41, $3a	; Set instrument for channel FM 2
 	dc.b $21, $1f	; Set volume for channel FM 2
 	dc.b $f1, $97	; Set pan/AMS/FMS for channel FM 2
 	dc.b $01, $21	; Note C-1 on channel FM 2
-	dc.b $4b, $5f	; Set instrument for channel PSG 4
+	dc.b $4b, $39	; Set instrument for channel PSG 4
 	dc.b $2b, $06	; Set volume for channel PSG 4
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4

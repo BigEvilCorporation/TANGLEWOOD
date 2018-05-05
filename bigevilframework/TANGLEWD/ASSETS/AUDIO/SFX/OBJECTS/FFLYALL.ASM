@@ -5,7 +5,7 @@
 	dc.b $e9		; Lock channel PSG 2
 	dc.b $ea		; Lock channel PSG 3
 ; Pattern $00, Row 0; 
-	dc.b $46, $3e	; Set instrument for channel FM 6
+	dc.b $46, $97	; Set instrument for channel FM 6
 	dc.b $f6, $62	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $8b	; Note F-4 on channel FM 6
 	dc.b $18		; Note off channel PSG 1
@@ -50,7 +50,7 @@
 	dc.b $26, $00	; Set volume for channel FM 6
 	dc.b $f6, $a2	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $81	; Note C-4 on channel FM 6
-	dc.b $48, $cd	; Set instrument for channel PSG 1
+	dc.b $48, $d0	; Set instrument for channel PSG 1
 	dc.b $28, $07	; Set volume for channel PSG 1
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
 ; Pattern $00, Row 15; 
@@ -59,7 +59,7 @@
 	dc.b $26, $07	; Set volume for channel FM 6
 	dc.b $f6, $e2	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $89	; Note E-4 on channel FM 6
-	dc.b $49, $cd	; Set instrument for channel PSG 2
+	dc.b $49, $d0	; Set instrument for channel PSG 2
 	dc.b $29, $07	; Set volume for channel PSG 2
 	dc.b $09, $4c	; Note D-3 on channel PSG 2
 ; Pattern $00, Row 17; 
@@ -67,7 +67,7 @@
 	dc.b $fe, $03	; Delay
 	dc.b $f6, $62	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $8f	; Note G-4 on channel FM 6
-	dc.b $4a, $cd	; Set instrument for channel PSG 3
+	dc.b $4a, $d0	; Set instrument for channel PSG 3
 	dc.b $2a, $07	; Set volume for channel PSG 3
 	dc.b $0a, $56	; Note G-3 on channel PSG 3
 ; Pattern $00, Row 19; 
