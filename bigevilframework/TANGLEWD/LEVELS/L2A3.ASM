@@ -256,6 +256,7 @@ l2a3_Trigger_ThunderCutscene:
 
 	; Just do warning shot and set params
 	jsr    l2a3_SetThunder_Near
+	move.l #0x0, a3
 	jsr    ThunderStrike
 
 	bra    @End
@@ -387,6 +388,7 @@ l2a3_CutsceneLightning:
 
 l2a3_CutsceneThunderStrikePlayer:
 
+	move.l #0x0, a3
 	move.w #0x0, d0
 	move.w #l2a3_Thunder_Near_Dist, d1
 	jsr    ThunderSetParams
@@ -398,6 +400,7 @@ l2a3_CutsceneThunderStrikePlayer:
 
 l2a3_CutsceneThunderStrikeHogg:
 
+	ENTITY_GETBYNAME Hogg,l2a3_HoggLightningCutscene,a3
 	move.w #0x0, d0
 	move.w #l2a3_Thunder_Near_Dist, d1
 	jsr    ThunderSetParams

@@ -88,6 +88,7 @@ ThunderSetParams:
 
 ThunderStrike:
 	; a1 --- Level addr
+	; a3 --- Strike target (or 0x000 for player)
 
 	lea    Thunder, a2
 
@@ -99,7 +100,10 @@ ThunderStrike:
 	bgt    @UseRandX
 
 	; Strike at player X offset
+	cmpa   #0x0, a3
+	bne    @HasTarget
 	move.l (Player1), a3
+	@HasTarget:
 	ENTITY_GETCENTREX d0, a3
 	TOPIXELS d0
 	move.w d0, Thunder_StrikePointX(a2)
@@ -329,6 +333,7 @@ ThunderUpdate:
 	bne    @StrikeTimerRunning
 
 	; Timer elapsed, strike
+	move.l #0x0, a3
 	jsr    ThunderStrike
 
 	@StrikeTimerRunning:
@@ -444,6 +449,8 @@ ThunderUpdate:
 	; If harmful to player, and player is target, deal damage
 	tst.b  Thunder_PlayerTarget(a2)
 	beq    @NotHitPlayer
+	cmp.l  Player1, a3
+	bne    @NotHItPlayer
 
 	PUSHL  a0
 	move.l (Player1), a0
