@@ -24,7 +24,7 @@ actor_hogg_sheet_run_height		equ 0x18	; Max height of largest frame in pixels
 
 actor_hogg_sheet_dead_frametable:
 actor_hogg_sheet_dead_frame_0_header:
-	dc.w 0x000F	; Frame size (tiles)
+	dc.w 0x000A	; Frame size (tiles)
 	dc.w actor_hogg_sheet_dead_frame_0_size_subsprites	; Frame size (subsprites)
 	dc.l actor_hogg_sheet_dead_frame_0
 	dc.l actor_hogg_sheet_dead_frame_0_subsprite_dimensions_bits
@@ -116,20 +116,20 @@ actor_hogg_sheet_run_frame_4_header:
 	dc.l actor_hogg_sheet_run_frame_4_subsprite_dimensions_bits
 	dc.l actor_hogg_sheet_run_frame_4_subsprite_pos_offsets
 
-actor_hogg_sheet_dead_frame_0_size_b		equ 0x01E0	; Size in bytes
-actor_hogg_sheet_dead_frame_0_size_t		equ 0x000F	; Size in tiles
+actor_hogg_sheet_dead_frame_0_size_b		equ 0x0140	; Size in bytes
+actor_hogg_sheet_dead_frame_0_size_t		equ 0x000A	; Size in tiles
 actor_hogg_sheet_dead_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
 
 ; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
 actor_hogg_sheet_dead_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00080000
-	dc.l 0x00200000, 0x00000000
+	dc.l 0x00000008, 0x00080008
+	dc.l 0x00200008, 0x00000008
 	Even
 
 ; Subsprite dimension bits (for sprite descs)
 actor_hogg_sheet_dead_frame_0_subsprite_dimensions_bits:
-	dc.b 0xE
-	dc.b 0x2
+	dc.b 0xD
+	dc.b 0x1
 	Even
 
 
@@ -327,81 +327,18 @@ actor_hogg_sheet_dead_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00113000
-	dc.l	0x00110000
-	dc.l	0x00111100
-
-	dc.l	0x00011311
-	dc.l	0x00013223
-	dc.l	0x00001122
-	dc.l	0x00000122
-	dc.l	0x00000012
-	dc.l	0x00000012
-	dc.l	0x00000012
-	dc.l	0x00000113
-
-	dc.l	0x00001221
-	dc.l	0x00011130
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00300000
-	dc.l	0x03300000
-	dc.l	0x03300000
-
-	dc.l	0x03300000
-	dc.l	0x13330000
-	dc.l	0x31330000
-	dc.l	0x21130001
-	dc.l	0x22311113
-	dc.l	0x22233113
-	dc.l	0x22213311
-	dc.l	0x22223313
-
-	dc.l	0x13A2223A
-	dc.l	0x0113AAAA
-	dc.l	0x003113AA
-	dc.l	0x0000311A
-	dc.l	0x00003323
-	dc.l	0x00000012
-	dc.l	0x00000001
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00001100
-	dc.l	0x00011130
-	dc.l	0x00131000
-
-	dc.l	0x01332001
-	dc.l	0x01231011
-	dc.l	0x1A221032
-	dc.l	0x1AA211A2
-	dc.l	0x12A231AA
-	dc.l	0x12AA21AA
-	dc.l	0x1AAA112A
-	dc.l	0x12AA13AA
-
-	dc.l	0x2AAA212A
-	dc.l	0xA12A21AA
-	dc.l	0x2A2212AA
-	dc.l	0x3322AA23
-	dc.l	0x222AAA2A
-	dc.l	0x2AAAA22A
-	dc.l	0x122A223A
-	dc.l	0x31111111
+	dc.l	0x00000031
+	dc.l	0x00003211
+	dc.l	0x00031313
+	dc.l	0x00011112
+	dc.l	0x00331132
+	dc.l	0x01111322
+	dc.l	0x11113113
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -409,53 +346,71 @@ actor_hogg_sheet_dead_frame_0:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x01100000
-	dc.l	0x11130000
+	dc.l	0x00000003
+	dc.l	0x00000036
 
-	dc.l	0x21001111
-	dc.l	0x32011666
-	dc.l	0x31166688
-	dc.l	0x13668889
-	dc.l	0x23168991
-	dc.l	0x21188910
-	dc.l	0xA3189111
-	dc.l	0xA1861311
-
-	dc.l	0xA1117116
-	dc.l	0xA1311689
-	dc.l	0xA222A898
-	dc.l	0x3AAA3311
-	dc.l	0x2AA21100
-	dc.l	0xAA211000
-	dc.l	0x11100000
-	dc.l	0x00000000
+	dc.l	0x03303316
+	dc.l	0x11332123
+	dc.l	0x321112A3
+	dc.l	0x2A3AAAA2
+	dc.l	0xA2A2A233
+	dc.l	0x22213331
+	dc.l	0x31133113
+	dc.l	0x13111111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x00003311
+	dc.l	0x01631138
+	dc.l	0x18112AAA
+	dc.l	0x83982A22
 
-	dc.l	0x11100000
-	dc.l	0x66611000
-	dc.l	0x88888100
-	dc.l	0x91111610
-	dc.l	0x10000110
+	dc.l	0x182AA21A
+	dc.l	0x8212A221
+	dc.l	0xA12AAA13
+	dc.l	0xA212AA11
+	dc.l	0x2313AA21
+	dc.l	0x3112A131
+	dc.l	0x1313A232
+	dc.l	0x11111A13
+
+	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11100000
+	dc.l	0x38930000
+	dc.l	0x83311611
+	dc.l	0x23113186
+	dc.l	0xA21AA961
+
+	dc.l	0xAA121689
+	dc.l	0x2AAA6116
+	dc.l	0xAA231911
+	dc.l	0x22216698
+	dc.l	0xA2311899
+	dc.l	0x12316168
+	dc.l	0x1313A216
+	dc.l	0xA12A2321
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x10000000
 
 	dc.l	0x81000000
-	dc.l	0x10000000
-	dc.l	0x10000000
+	dc.l	0x11000000
 	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
+	dc.l	0x11000006
+	dc.l	0x86100611
+	dc.l	0x68616161
+	dc.l	0x16189810
+	dc.l	0x31161100
 
 
 
