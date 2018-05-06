@@ -243,7 +243,7 @@ CAM_Update:
 	move.l #0x0, d2
 	moveq #0x0, d3
 	move.w Level_MapWidth(a1), d3
-	lsl.l  #0x3, d3					; Map width to tiles
+	lsl.l  #0x3, d3					; Map width to pixels
 	TOSUBPIXELS  d3					; Map width to camera space
 	CLAMP  d0, d2, d3
 	
@@ -251,7 +251,7 @@ CAM_Update:
 	move.l #0x0, d2
 	moveq #0x0, d3
 	move.w Level_MapHeight(a1), d3
-	lsl.l  #0x3, d3					; Map height to tiles
+	lsl.l  #0x3, d3					; Map height to pixels
 	TOSUBPIXELS  d3					; Map height to camera space
 	CLAMP  d1, d2, d3
 

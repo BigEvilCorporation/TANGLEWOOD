@@ -46,11 +46,16 @@ MAP_UpdateStreaming:
 	PIXELS2TILES d1					; To tiles
 	TILES2BLOCKS d1					; To blocks
 	move.w  d1, d2
+
+	move.w  Level_MapHeightBlocks(a1), d6 ; Clamp to map height
+	subi.w  #MapStreamHeight-1, d6
+	cmp.w   d6, d2
+	ble     @WithinHeight
+	move.w  d6, d2
+	@WithinHeight:
+
 	sub.w   (MapStreamLoadedRow), d2
-	tst.w   d2
-	bge     @NumRowsPositive
-	neg.w   d2
-	@NumRowsPositive:
+	ABSW    d2
 	
 	;==============================================================
 	
@@ -62,11 +67,16 @@ MAP_UpdateStreaming:
 	PIXELS2TILES d3					; To tiles
 	TILES2BLOCKS d3					; To blocks
 	move.w  d3, d4
+
+	move.w  Level_MapWidthBlocks(a1), d6 ; Clamp to map width
+	subi.w  #MapStreamWidth-1, d6
+	cmp.w   d6, d4
+	ble     @WithinWidth
+	move.w  d6, d4
+	@WithinWidth:
+
 	sub.w   (MapStreamLoadedCol), d4
-	tst.w   d4
-	bge     @NumColsPositive
-	neg.w   d4
-	@NumColsPositive:
+	ABSW    d4
 	
 	;==============================================================
 	
@@ -185,6 +195,21 @@ MAP_StreamNextRow:
 	
 	; Backup source/dest rects, width/height, loop counter and overflow
 	PUSHM   a0-a1/d0-d5
+
+	; Clamp to map width
+	;move.l d0, d6						; Source top/left
+	;move.l d2, d7						; Dest width/height
+	;swap   d6							; Get X
+	;swap   d7							; Get X
+	;add.w  d6, d7						; Get right-hand col
+	;move.w Level_MapWidthBlocks(a1), d5	; Get map width
+	;cmp.w  d5, d7
+	;ble    @WidthInBounds
+	;sub.w  d6, d5
+	;swap   d2
+	;move.w d5, d2
+	;swap   d2
+	;@WidthInBounds:
 	
 	; Load map segment
 	move.w  Level_MapHeightBlocks(a1), d3		; d3 (w)  Source map total height (blocks)
@@ -280,6 +305,18 @@ MAP_StreamNextColumn:
 	
 	; Load map segment
 	move.w  Level_MapHeightBlocks(a1), d3	; d3 (w)  Source map total height (blocks)
+
+	; Clamp to map height
+	;move.w d0, d6						; Source top
+	;move.w d2, d7						; Dest height
+	;add.w  d6, d7						; Get right-hand col
+	;move.w d3, d5						; Get map height
+	;cmp.w  d5, d7
+	;blt    @HeightInBounds
+	;sub.w  d6, d5
+	;move.w d5, d2
+	;@HeightInBounds:
+
 	move.l  Level_BlocksAddr(a1), a0		; a0 ---  Source blocks address
 	move.l  Level_BlockColOffsetsAddr(a1), a2 ; a2 --- Source blockmap compressed column offsets
 	move.l  Level_BlockMapAddr(a1), a1		; a1 ---  Source block map address
