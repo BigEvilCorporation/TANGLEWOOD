@@ -516,6 +516,9 @@ NymnBeginCarryEcho:
 	move.b #Character_WalkInteract, d2
 	jsr    CharacterPreventRun
 
+	; Can't fall
+	move.b #0x0, Character_CanFall(a0)
+
 	; Interacting
 	move.b #0x1, Character_Interacting(a0)
 
@@ -565,6 +568,9 @@ NymnEndCarryEcho:
 	; Restore run
 	move.b #Character_WalkInteract, d2
 	jsr    CharacterAllowRun
+
+	; Restore fall
+	move.b #0x1, Character_CanFall(a0)
 
 	ENDIF ; INCLUDE_CHARACTER_ECHO
 

@@ -794,6 +794,9 @@ EchoBeginCarried:
 	; Stop AI
 	move.b #EchoAIState_None, Echo_AIState(a0)
 
+	; Can't fall
+	move.b #0x0, Character_CanFall(a0)
+
 	ENDIF
 
 	rts
@@ -827,6 +830,9 @@ EchoEndCarried:
 	
 	; No longer mounting
 	move.b #EchoMountNymn_Inactive, Echo_MountedState(a0)
+
+	; Restore fall
+	move.b #0x1, Character_CanFall(a0)
 	
 	; Start follow AI
 	move.b #0x1, d0

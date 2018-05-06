@@ -88,6 +88,7 @@ Character_ControlY			rs.b 1
 Character_CanJump			rs.b 1
 Character_CanClimb			rs.b 1
 Character_CanUseRollPlatform rs.b 1
+Character_CanFall			rs.b 1
 Character_Walking			rs.b 1
 Character_Jumping			rs.b 1
 Character_Falling			rs.b 1
@@ -131,6 +132,7 @@ CharacterInit:
 	move.b #0x1, Character_CanJump(a0)
 	move.b #0x0, Character_CanClimb(a0)
 	move.b #0x0, Character_CanUseRollPlatform(a0)
+	move.b #0x1, Character_CanFall(a0)
 	move.b #0x0, Character_Walking(a0)
 	move.b #0x0, Character_Jumping(a0)
 	move.b #0x0, Character_Pushing(a0)
@@ -196,6 +198,8 @@ CharacterUpdate:
 	@LowLandVel:
 	
 	; If off floor, affect by gravity, and Y vel < falling vel, set as falling
+	tst.b  Character_CanFall(a0)
+	beq    @NotFalling
 	tst.b  PhysicsObj_CloseToFloor(a0)
 	bne    @NotFalling
 	tst.b  PhysicsObj_AffectedByGravity(a0)
@@ -431,7 +435,7 @@ CharacterUpdateAnimState:
 	; Falling
 	; =====================================================================
 	move.b #CharacterAnimIdx_Fall, d1
-	tst.b  Character_Falling(a0)		; If player is falling, set jump anim
+	tst.b  Character_Falling(a0)		; If player is falling, set fall anim
 	bne    @SetAnim
 	
 	; =====================================================================
