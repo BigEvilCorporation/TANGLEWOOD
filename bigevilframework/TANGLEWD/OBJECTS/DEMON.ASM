@@ -36,7 +36,7 @@ Demon_AttackFlashFrames	equ 0x2
 
 Demon_PainFlinchImpulse	equ 0x00030000
 
-Demon_MaxLives			equ 0x1
+Demon_MaxLives			equ 0x3
 
 Demon_WispMaxDist		equ Player1Height	; Max distance from player
 
