@@ -6,17 +6,19 @@
 ;   autotest.asm - Automated testing
 ;==============================================================
 
-AutotestMode_LevelLoad	equ 0x0
+AutotestMode_LevelLoad		equ 0x0
 
-Autotest_NextLevelTime	equ 0x0100
+Autotest_NextLevelTime		equ 0x0100
+Autotest_StreamTestSpeed	equ 0x00200000
 
 AutotestLevelStage_Soak		equ 0x0	; Leave level running for a while
 AutotestLevelStage_Pause	equ 0x1	; Pause game
 AutotestLevelStage_CheckPnt	equ 0x2	; Teleport to next checkpoint
 AutotestLevelStage_Die		equ 0x3	; Die and respawn
-AutotestLevelStage_Next		equ 0x4	; Next level
+AutotestLevelStage_Stream	equ 0x4	; Move camera around edges of map
+AutotestLevelStage_Next		equ 0x5	; Next level
 ;----------------------------------
-AutotestLevelStage_Max		equ 0x5
+AutotestLevelStage_Max		equ 0x6
 
 	rsset 0
 ;-----------------------------
@@ -25,6 +27,7 @@ Autotest_PadDataB		rs.w 1
 Autotest_Timer			rs.w 1
 Autotest_Mode			rs.b 1
 Autotest_LevelStage		rs.b 1
+Autotest_StreamPoint	rs.b 1
 ;-----------------------------
 	RS_ALIGN
 Autotest_Struct_Size	rs.b 0
@@ -47,8 +50,11 @@ AutotestUpdate:
 
 	PUSHALL
 
-	lea AutotestData, a0
+	lea    AutotestData, a0
 	move.l GameStatePtr, d0
+
+	tst.w  Autotest_Timer(a0)
+	beq    @UpdateState
 
 	; Advance timer
 	subq.w #0x1, Autotest_Timer(a0)
@@ -130,6 +136,8 @@ AutotestAdvanceState:
 	beq    @GameplayCheckpoint
 	cmp.b  #AutotestLevelStage_Die, d0
 	beq    @GameplayDie
+	cmp.b  #AutotestLevelStage_Stream, d0
+	beq    @GameplayStream
 	cmp.b  #AutotestLevelStage_Next, d0
 	beq    @GameplayNext
 
@@ -158,7 +166,7 @@ AutotestAdvanceState:
 
 	; Teleport to checkpoint (right hand side to activate it)
 	move.w Entity_WorldPosX(a3), d0
-	add.w  Entity_Width(a3), a0
+	addi.w #Player1Width+Checkpoint_Width+1, d0
 	move.w Entity_WorldPosY(a3), d1
 	jsr    PlayerTeleport
 
@@ -173,6 +181,20 @@ AutotestAdvanceState:
 	; Kill player
 	move.l Player1, a3
 	move.b #0x1, Character_Dead(a3)
+
+	bra    @End
+
+	;==============================================================
+
+	@GameplayStream:
+
+	; Test map streaming
+	move.w #0x0, Autotest_Timer(a0)
+	move.b #0x0, Autotest_StreamPoint(a0)
+	move.l #0x0, CameraTargetGameObj
+	move.l #0x0, CameraWorldPosX
+	move.l #0x0, CameraWorldPosY
+	jsr    LevelPreStreamMap
 
 	bra    @End
 
@@ -204,6 +226,19 @@ AutotestAdvanceState:
 	rts
 
 AutotestUpdateState:
+
+	move.b Autotest_LevelStage(a0), d0
+
+	cmp.b  #AutotestLevelStage_Soak, d0
+	beq    @GameplaySoak
+	cmp.b  #AutotestLevelStage_Stream, d0
+	beq    @GameplayStream
+
+	bra    @End
+
+	;==============================================================
+
+	@GameplaySoak:
 
 	; Determine state
 	move.l GameStatePtr, d0
@@ -240,6 +275,54 @@ AutotestUpdateState:
 	;==============================================================
 
 	@LevelSelect:
+	bra    @End
+
+	;==============================================================
+
+	@GameplayStream:
+
+	move.l CurrentLevel, a1
+
+	move.b Autotest_StreamPoint(a0), d0
+	cmp.b  #0x0, d0
+	beq    @StreamPointTopLeft
+	cmp.b  #0x1, d0
+	beq    @StreamPointBottomLeft
+	cmp.b  #0x2, d0
+	beq    @StreamPointBottomRight
+	cmp.b  #0x3, d0
+	beq    @StreamPointTopRight
+
+	@StreamPointTopLeft:
+	addi.l #Autotest_StreamTestSpeed, CameraWorldPosY
+	move.w Level_MapHeight(a1), d3
+	lsl.l  #0x3, d3
+	cmp.w  CameraWorldPosY, d3
+	bgt    @End
+	move.b #0x1, Autotest_StreamPoint(a0)
+	bra    @End
+
+	@StreamPointBottomLeft:
+	addi.l #Autotest_StreamTestSpeed, CameraWorldPosX
+	move.w Level_MapWidth(a1), d3
+	lsl.l  #0x3, d3
+	cmp.w  CameraWorldPosX, d3
+	bgt    @End
+	move.b #0x2, Autotest_StreamPoint(a0)
+	bra    @End
+
+	@StreamPointBottomRight:
+	subi.l #Autotest_StreamTestSpeed, CameraWorldPosY
+	cmp.w  #0x0, CameraWorldPosY
+	bgt    @End
+	move.b #0x3, Autotest_StreamPoint(a0)
+	bra    @End
+
+	@StreamPointTopRight:
+	subi.l #Autotest_StreamTestSpeed, CameraWorldPosX
+	cmp.w  #0x0, CameraWorldPosX
+	bgt    @End
+	move.w #0x1, Autotest_Timer(a0)
 	bra    @End
 
 	;==============================================================

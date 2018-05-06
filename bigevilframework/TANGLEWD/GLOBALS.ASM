@@ -90,6 +90,9 @@ ColourYellow			 equ 0x5
 ColourWhite				 equ 0x6
 NumSwitchingColours		 equ 0x7
 
+; Camera peek
+CameraPeekInputHoldTime	 equ 0x0020
+
 ; Checkpoint save
 CheckpointSerialiseBlockSize equ 0x0320 ; 800 bytes
 

@@ -237,6 +237,7 @@ Gamepad1State      	   rs.w 1
 Gamepad2State      	   rs.w 1
 Gamepad1PrevState      rs.w 1
 Gamepad2PrevState      rs.w 1
+CameraPeekInputTimer   rs.w 1
 DirtyPalettesMask      rs.b 1	; Marks palettes for DMA
 UnderwaterDirtyPalettesMask rs.b 1	; Marks underwater effect conversion
 
