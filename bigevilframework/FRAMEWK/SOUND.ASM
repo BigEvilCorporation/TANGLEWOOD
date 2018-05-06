@@ -84,6 +84,18 @@ SND_Init:
 
 	rts
 
+SND_PauseBGM:
+	IF INCLUDE_AUDIO
+	jsr    Echo_PauseBGM
+	ENDIF
+	rts
+
+SND_ResumeBGM:
+	IF INCLUDE_AUDIO
+	jsr    Echo_ResumeBGM
+	ENDIF
+	rts
+
 SND_PlayTrack:
 	; a0 --- Track address
 	
