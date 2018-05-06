@@ -406,11 +406,17 @@ LevelPreStreamMap:
 
 	; Tick camera first
 	jsr    CAM_Update
+
+	move.l CurrentLevel, a1
 	
 	; Set initial streamed col
-	move.l WorldScrollX, d1			;  (top word = integer part)
+	move.w WorldScrollX, d1			;  (top word = integer part)
 	PIXELS2TILES d1					; To tiles
 	TILES2BLOCKS d1					; To blocks
+	cmp.w  Level_MapWidthBlocks(a1), d1 ; Clamp to map width
+	blt    @NoClampX
+	move.w Level_MapWidthBlocks(a1), d1
+	@NoClampX:
 	move.w d1, MapStreamLoadedCol
 
 	; Set initial streamed row
@@ -418,6 +424,10 @@ LevelPreStreamMap:
 	PIXELS2TILES d0					; To tiles
 	TILES2BLOCKS d0					; To blocks
 	addi.w #MapStreamHeight, d0		; + 1 screen, ready to stream it in (starting from bottom, streaming rows upwards)
+	cmp.w  Level_MapHeightBlocks(a1), d0 ; Clamp to map height
+	blt    @NoClampY
+	move.w Level_MapHeightBlocks(a1), d0
+	@NoClampY:
 	move.w d0, MapStreamLoadedRow
     
 	;==============================================================
