@@ -36,7 +36,7 @@ Demon_AttackFlashFrames	equ 0x2
 
 Demon_PainFlinchImpulse	equ 0x00030000
 
-Demon_MaxLives			equ 0x3
+Demon_MaxLives			equ 0x1
 
 Demon_WispMaxDist		equ Player1Height	; Max distance from player
 
@@ -606,10 +606,39 @@ DemonAIUpdate_Boss:
 	move.w  Demon_BossBoundsLeft(a0), d1
 	move.w  Demon_BossBoundsRight(a0), d2
 	cmp.w   d3, d1
-	bgt     @AttackFromRight
+	bgt     @ForceAttackFromRight
 	cmp.w   d3, d2
-	blt     @AttackFromLeft
+	blt     @ForceAttackFromLeft
+	bra     @FuzzlPosOk
 	@SkipBoundsCheck:
+	
+	@ForceAttackFromRight:
+
+	; Set flip
+	move.b #0x1, SpriteObj_FlippedX(a0)
+
+	; Position to right of player
+	move.l Player1, a2
+	move.w Entity_WorldPosX(a2), d0
+	add.w  Entity_Width(a2), d0
+	subi.w #Demon_AttackOffsetX, d0
+	move.w d0, Entity_WorldPosX(a0)
+
+	bra    @FuzzlPosOk
+
+	@ForceAttackFromLeft:
+
+	; Set flip
+	move.b #0x0, SpriteObj_FlippedX(a0)
+
+	; Position to left of player
+	move.l Player1, a2
+	move.w Entity_WorldPosX(a2), d0
+	subi.w #Demon_Width, d0
+	addi.w #Demon_AttackOffsetX, d0
+	move.w d0, Entity_WorldPosX(a0)
+	
+	@FuzzlPosOk:
 
 	; Centre Y
 	move.w Entity_WorldPosY(a2), d0
