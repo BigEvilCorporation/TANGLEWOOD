@@ -599,11 +599,15 @@ DemonAIUpdate_Boss:
 	; If last life (about to release Fuzzl) and out of bounds, reposition without randomisation
 	cmp.b   #0x1, Demon_NumLives(a0)
 	bne     @SkipBoundsCheck
+	move.w  d0, d3
+	move.w  Entity_Width(a0), d4
+	lsr.w   #0x1, d4
+	add.w   d4, d3
 	move.w  Demon_BossBoundsLeft(a0), d1
 	move.w  Demon_BossBoundsRight(a0), d2
-	cmp.w   d0, d1
+	cmp.w   d3, d1
 	bgt     @AttackFromRight
-	cmp.w   d0, d2
+	cmp.w   d3, d2
 	blt     @AttackFromLeft
 	@SkipBoundsCheck:
 
