@@ -19,11 +19,7 @@ actor_debris_sheet_debris_anim_debris_track_frames:
 	dc.l actor_debris_sheet_debris_frame_3_header
 
 	Even
-actor_debris_sheet_debris_anim_debris_track_posx:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
-actor_debris_sheet_debris_anim_debris_track_posy:
-	dc.b 0x00, 0x00, 0x00, 0x00
-	Even
+actor_debris_sheet_debris_anim_debris_track_posx equ 0
+actor_debris_sheet_debris_anim_debris_track_posy equ 0
 actor_debris_sheet_debris_anim_debris_track_sfx equ 0
 

@@ -14,12 +14,12 @@ actor_wyrm_sheet_bite_width		equ 0x40	; Max width of largest frame in pixels
 actor_wyrm_sheet_bite_height		equ 0x38	; Max height of largest frame in pixels
 
 
-actor_wyrm_sheet_move_width		equ 0x40	; Max width of largest frame in pixels
-actor_wyrm_sheet_move_height		equ 0x38	; Max height of largest frame in pixels
-
-
 actor_wyrm_sheet_emerge_width		equ 0x40	; Max width of largest frame in pixels
 actor_wyrm_sheet_emerge_height		equ 0x38	; Max height of largest frame in pixels
+
+
+actor_wyrm_sheet_move_width		equ 0x40	; Max width of largest frame in pixels
+actor_wyrm_sheet_move_height		equ 0x38	; Max height of largest frame in pixels
 
 
 actor_wyrm_sheet_bite_frametable:
@@ -65,6 +65,28 @@ actor_wyrm_sheet_bite_frame_5_header:
 	dc.l actor_wyrm_sheet_bite_frame_5_subsprite_dimensions_bits
 	dc.l actor_wyrm_sheet_bite_frame_5_subsprite_pos_offsets
 
+actor_wyrm_sheet_emerge_frametable:
+actor_wyrm_sheet_emerge_frame_0_header:
+	dc.w 0x0038	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_0_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_0
+	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets
+
+actor_wyrm_sheet_emerge_frame_1_header:
+	dc.w 0x0006	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_1_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_1
+	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets
+
+actor_wyrm_sheet_emerge_frame_2_header:
+	dc.w 0x0010	; Frame size (tiles)
+	dc.w actor_wyrm_sheet_emerge_frame_2_size_subsprites	; Frame size (subsprites)
+	dc.l actor_wyrm_sheet_emerge_frame_2
+	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits
+	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets
+
 actor_wyrm_sheet_move_frametable:
 actor_wyrm_sheet_move_frame_0_header:
 	dc.w 0x0018	; Frame size (tiles)
@@ -93,28 +115,6 @@ actor_wyrm_sheet_move_frame_3_header:
 	dc.l actor_wyrm_sheet_move_frame_3
 	dc.l actor_wyrm_sheet_move_frame_3_subsprite_dimensions_bits
 	dc.l actor_wyrm_sheet_move_frame_3_subsprite_pos_offsets
-
-actor_wyrm_sheet_emerge_frametable:
-actor_wyrm_sheet_emerge_frame_0_header:
-	dc.w 0x0038	; Frame size (tiles)
-	dc.w actor_wyrm_sheet_emerge_frame_0_size_subsprites	; Frame size (subsprites)
-	dc.l actor_wyrm_sheet_emerge_frame_0
-	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits
-	dc.l actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets
-
-actor_wyrm_sheet_emerge_frame_1_header:
-	dc.w 0x0006	; Frame size (tiles)
-	dc.w actor_wyrm_sheet_emerge_frame_1_size_subsprites	; Frame size (subsprites)
-	dc.l actor_wyrm_sheet_emerge_frame_1
-	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits
-	dc.l actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets
-
-actor_wyrm_sheet_emerge_frame_2_header:
-	dc.w 0x0010	; Frame size (tiles)
-	dc.w actor_wyrm_sheet_emerge_frame_2_size_subsprites	; Frame size (subsprites)
-	dc.l actor_wyrm_sheet_emerge_frame_2
-	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits
-	dc.l actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets
 
 actor_wyrm_sheet_bite_frame_0_size_b		equ 0x00C0	; Size in bytes
 actor_wyrm_sheet_bite_frame_0_size_t		equ 0x0006	; Size in tiles
@@ -221,6 +221,59 @@ actor_wyrm_sheet_bite_frame_5_subsprite_dimensions_bits:
 	Even
 
 
+actor_wyrm_sheet_emerge_frame_0_size_b		equ 0x0700	; Size in bytes
+actor_wyrm_sheet_emerge_frame_0_size_t		equ 0x0038	; Size in tiles
+actor_wyrm_sheet_emerge_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets:
+	dc.l 0x00000000, 0x00200000
+	dc.l 0x00000020, 0x00200020
+	dc.l 0x00200000, 0x00000000
+	dc.l 0x00200020, 0x00000020
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits:
+	dc.b 0xF
+	dc.b 0xE
+	dc.b 0xF
+	dc.b 0xE
+	Even
+
+actor_wyrm_sheet_emerge_frame_1_size_b		equ 0x00C0	; Size in bytes
+actor_wyrm_sheet_emerge_frame_1_size_t		equ 0x0006	; Size in tiles
+actor_wyrm_sheet_emerge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets:
+	dc.l 0x00080030, 0x00180030
+	dc.l 0x00280030, 0x00080030
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits:
+	dc.b 0xC
+	dc.b 0x4
+	Even
+
+actor_wyrm_sheet_emerge_frame_2_size_b		equ 0x0200	; Size in bytes
+actor_wyrm_sheet_emerge_frame_2_size_t		equ 0x0010	; Size in tiles
+actor_wyrm_sheet_emerge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
+
+; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
+actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets:
+	dc.l 0x00000028, 0x00200028
+	dc.l 0x00200028, 0x00000028
+	Even
+
+; Subsprite dimension bits (for sprite descs)
+actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits:
+	dc.b 0xD
+	dc.b 0xD
+	Even
+
+
 actor_wyrm_sheet_move_frame_0_size_b		equ 0x0300	; Size in bytes
 actor_wyrm_sheet_move_frame_0_size_t		equ 0x0018	; Size in tiles
 actor_wyrm_sheet_move_frame_0_size_subsprites		equ 0x0002	; Size in subsprites
@@ -280,59 +333,6 @@ actor_wyrm_sheet_move_frame_3_subsprite_dimensions_bits:
 	Even
 
 
-actor_wyrm_sheet_emerge_frame_0_size_b		equ 0x0700	; Size in bytes
-actor_wyrm_sheet_emerge_frame_0_size_t		equ 0x0038	; Size in tiles
-actor_wyrm_sheet_emerge_frame_0_size_subsprites		equ 0x0004	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_wyrm_sheet_emerge_frame_0_subsprite_pos_offsets:
-	dc.l 0x00000000, 0x00200000
-	dc.l 0x00000020, 0x00200020
-	dc.l 0x00200000, 0x00000000
-	dc.l 0x00200020, 0x00000020
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_wyrm_sheet_emerge_frame_0_subsprite_dimensions_bits:
-	dc.b 0xF
-	dc.b 0xE
-	dc.b 0xF
-	dc.b 0xE
-	Even
-
-actor_wyrm_sheet_emerge_frame_1_size_b		equ 0x00C0	; Size in bytes
-actor_wyrm_sheet_emerge_frame_1_size_t		equ 0x0006	; Size in tiles
-actor_wyrm_sheet_emerge_frame_1_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_wyrm_sheet_emerge_frame_1_subsprite_pos_offsets:
-	dc.l 0x00080030, 0x00180030
-	dc.l 0x00280030, 0x00080030
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_wyrm_sheet_emerge_frame_1_subsprite_dimensions_bits:
-	dc.b 0xC
-	dc.b 0x4
-	Even
-
-actor_wyrm_sheet_emerge_frame_2_size_b		equ 0x0200	; Size in bytes
-actor_wyrm_sheet_emerge_frame_2_size_t		equ 0x0010	; Size in tiles
-actor_wyrm_sheet_emerge_frame_2_size_subsprites		equ 0x0002	; Size in subsprites
-
-; Subsprite offsets from 0,0 (in pixels) - unflipped (ww) and flipped X (ww)
-actor_wyrm_sheet_emerge_frame_2_subsprite_pos_offsets:
-	dc.l 0x00000028, 0x00200028
-	dc.l 0x00200028, 0x00000028
-	Even
-
-; Subsprite dimension bits (for sprite descs)
-actor_wyrm_sheet_emerge_frame_2_subsprite_dimensions_bits:
-	dc.b 0xD
-	dc.b 0xD
-	Even
-
-
 spritesheets_wyrm:
 
 spritesheet_wyrm_bite:
@@ -358,18 +358,18 @@ actor_wyrm_sheet_bite_frame_0:
 
 	dc.l	0x00000000
 	dc.l	0x01110000
-	dc.l	0x17711120
-	dc.l	0x78989811
-	dc.l	0x88888171
-	dc.l	0x22787221
+	dc.l	0x13311120
+	dc.l	0x37A7A711
+	dc.l	0x77777131
+	dc.l	0x22373221
 	dc.l	0x11111001
 	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000021
-	dc.l	0x00000117
-	dc.l	0x20001878
-	dc.l	0x11111277
+	dc.l	0x00000113
+	dc.l	0x20001737
+	dc.l	0x11111233
 	dc.l	0x11110110
 	dc.l	0x11112000
 	dc.l	0x22000000
@@ -378,7 +378,7 @@ actor_wyrm_sheet_bite_frame_0:
 	dc.l	0x10000000
 	dc.l	0x12010000
 	dc.l	0x11111012
-	dc.l	0x71111111
+	dc.l	0x31111111
 	dc.l	0x11102000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -405,8 +405,8 @@ actor_wyrm_sheet_bite_frame_1:
 
 	dc.l	0x00000000
 	dc.l	0x00000201
-	dc.l	0x11111116
-	dc.l	0x00011016
+	dc.l	0x11111113
+	dc.l	0x00011013
 	dc.l	0x00111111
 	dc.l	0x00011111
 	dc.l	0x00000000
@@ -419,12 +419,12 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00011112
-	dc.l	0x00114771
+	dc.l	0x00115331
 
-	dc.l	0x11113441
-	dc.l	0x66311111
-	dc.l	0x67113333
-	dc.l	0x67411311
+	dc.l	0x11112551
+	dc.l	0x33211111
+	dc.l	0x33112222
+	dc.l	0x33511211
 	dc.l	0x11111111
 	dc.l	0x11000102
 	dc.l	0x00000000
@@ -440,11 +440,11 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x10000000
 
 	dc.l	0x11121100
-	dc.l	0x14411101
-	dc.l	0x33111113
-	dc.l	0x11871111
-	dc.l	0x11277144
-	dc.l	0x21222143
+	dc.l	0x15511101
+	dc.l	0x22111112
+	dc.l	0x11731111
+	dc.l	0x11233155
+	dc.l	0x21222152
 	dc.l	0x00111111
 	dc.l	0x00022200
 
@@ -458,11 +458,11 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000011
 
 	dc.l	0x11122111
-	dc.l	0x45111144
-	dc.l	0x31177111
-	dc.l	0x11789898
-	dc.l	0x41888882
-	dc.l	0x31222221
+	dc.l	0x5B111155
+	dc.l	0x21133111
+	dc.l	0x1137A7A7
+	dc.l	0x51777772
+	dc.l	0x21222221
 	dc.l	0x22121112
 	dc.l	0x00000000
 
@@ -470,16 +470,16 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000001
-	dc.l	0x00000014
-	dc.l	0x11100131
-	dc.l	0x45510114
-	dc.l	0x33111444
+	dc.l	0x00000015
+	dc.l	0x11100121
+	dc.l	0x5BB10115
+	dc.l	0x22111555
 
-	dc.l	0x11444333
-	dc.l	0x43333111
-	dc.l	0x11111716
-	dc.l	0x16187811
-	dc.l	0x71121731
+	dc.l	0x11555222
+	dc.l	0x52222111
+	dc.l	0x11111313
+	dc.l	0x13173711
+	dc.l	0x31121321
 	dc.l	0x11111111
 	dc.l	0x01211112
 	dc.l	0x00012200
@@ -488,15 +488,15 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x10000110
-	dc.l	0x51001451
-	dc.l	0x11111334
-	dc.l	0x44311133
-	dc.l	0x33117711
+	dc.l	0xB10015B1
+	dc.l	0x11111225
+	dc.l	0x55211122
+	dc.l	0x22113311
 
-	dc.l	0x31799871
-	dc.l	0x19899821
-	dc.l	0x18782711
-	dc.l	0x17777211
+	dc.l	0x213AA731
+	dc.l	0x1A7AA721
+	dc.l	0x17372311
+	dc.l	0x13333211
 	dc.l	0x12221111
 	dc.l	0x11101111
 	dc.l	0x20112200
@@ -507,14 +507,14 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000021
-	dc.l	0x10002117
-	dc.l	0x12021144
+	dc.l	0x10002113
+	dc.l	0x12021155
 	dc.l	0x11011111
 
-	dc.l	0x11141144
-	dc.l	0x11133111
+	dc.l	0x11151155
+	dc.l	0x11122111
 	dc.l	0x11111111
-	dc.l	0x11131113
+	dc.l	0x11121112
 	dc.l	0x11111111
 	dc.l	0x11110200
 	dc.l	0x00100000
@@ -525,14 +525,14 @@ actor_wyrm_sheet_bite_frame_1:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11200000
-	dc.l	0x41112000
-	dc.l	0x41111100
-	dc.l	0x11144310
+	dc.l	0x51112000
+	dc.l	0x51111100
+	dc.l	0x11155210
 
-	dc.l	0x44114431
-	dc.l	0x11111441
-	dc.l	0x11741441
-	dc.l	0x15771411
+	dc.l	0x55115521
+	dc.l	0x11111551
+	dc.l	0x11351551
+	dc.l	0x1B331511
 	dc.l	0x11111100
 	dc.l	0x11000000
 	dc.l	0x00110000
@@ -547,18 +547,18 @@ actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000011
-	dc.l	0x00001114
+	dc.l	0x00001115
 
-	dc.l	0x00011113
-	dc.l	0x00166311
-	dc.l	0x01667113
-	dc.l	0x01667411
-	dc.l	0x01667711
-	dc.l	0x01166731
-	dc.l	0x01116674
-	dc.l	0x02113173
+	dc.l	0x00011112
+	dc.l	0x00133211
+	dc.l	0x01333112
+	dc.l	0x01333511
+	dc.l	0x01333311
+	dc.l	0x01133321
+	dc.l	0x01113335
+	dc.l	0x02112132
 
-	dc.l	0x00111117
+	dc.l	0x00111113
 	dc.l	0x00211111
 	dc.l	0x22111111
 	dc.l	0x00011221
@@ -574,21 +574,21 @@ actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11200000
-	dc.l	0x77112000
+	dc.l	0x33112000
 
-	dc.l	0x44111100
-	dc.l	0x11113110
-	dc.l	0x33311441
-	dc.l	0x31111144
-	dc.l	0x11111313
-	dc.l	0x14711111
-	dc.l	0x14571111
-	dc.l	0x13441131
+	dc.l	0x55111100
+	dc.l	0x11112110
+	dc.l	0x22211551
+	dc.l	0x21111155
+	dc.l	0x11111212
+	dc.l	0x15311111
+	dc.l	0x15B31111
+	dc.l	0x12551121
 
-	dc.l	0x13111113
-	dc.l	0x11113131
-	dc.l	0x61133311
-	dc.l	0x11613318
+	dc.l	0x12111112
+	dc.l	0x11112121
+	dc.l	0x31122211
+	dc.l	0x11312217
 	dc.l	0x11111112
 	dc.l	0x22002012
 	dc.l	0x00000001
@@ -606,18 +606,18 @@ actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000002
 	dc.l	0x00011101
-	dc.l	0x10153113
-	dc.l	0x11431143
-	dc.l	0x11314333
-	dc.l	0x11133117
-	dc.l	0x11341176
+	dc.l	0x101B2112
+	dc.l	0x11521152
+	dc.l	0x11215222
+	dc.l	0x11122113
+	dc.l	0x11251133
 
-	dc.l	0x13411766
-	dc.l	0x13167666
-	dc.l	0x11136613
-	dc.l	0x71166633
-	dc.l	0x77136113
-	dc.l	0x22133311
+	dc.l	0x12511333
+	dc.l	0x12133333
+	dc.l	0x11123312
+	dc.l	0x31133322
+	dc.l	0x33123112
+	dc.l	0x22122211
 	dc.l	0x11111122
 	dc.l	0x00022100
 
@@ -627,23 +627,23 @@ actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000001
-	dc.l	0x01151011
-	dc.l	0x14531114
+	dc.l	0x011B1011
+	dc.l	0x15B21115
 
-	dc.l	0x13311444
-	dc.l	0x11144411
-	dc.l	0x13443117
-	dc.l	0x43331776
-	dc.l	0x31177666
-	dc.l	0x17766663
-	dc.l	0x76663331
-	dc.l	0x66336111
+	dc.l	0x12211555
+	dc.l	0x11155511
+	dc.l	0x12552113
+	dc.l	0x52221333
+	dc.l	0x21133333
+	dc.l	0x13333332
+	dc.l	0x33332221
+	dc.l	0x33223111
 
-	dc.l	0x63333333
-	dc.l	0x33111333
-	dc.l	0x31771113
-	dc.l	0x17898981
-	dc.l	0x18888827
+	dc.l	0x32222222
+	dc.l	0x22111222
+	dc.l	0x21331112
+	dc.l	0x137A7A71
+	dc.l	0x17777723
 	dc.l	0x12222211
 	dc.l	0x21211120
 	dc.l	0x00000000
@@ -652,78 +652,78 @@ actor_wyrm_sheet_bite_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x01110001
-	dc.l	0x14511011
-	dc.l	0x33111134
-	dc.l	0x11444331
-	dc.l	0x44331111
+	dc.l	0x15B11011
+	dc.l	0x22111125
+	dc.l	0x11555221
+	dc.l	0x55221111
 
-	dc.l	0x33111116
-	dc.l	0x17666666
-	dc.l	0x76666663
-	dc.l	0x66663333
-	dc.l	0x63333111
-	dc.l	0x31111111
-	dc.l	0x11111133
+	dc.l	0x22111113
 	dc.l	0x13333333
+	dc.l	0x33333332
+	dc.l	0x33332222
+	dc.l	0x32222111
+	dc.l	0x21111111
+	dc.l	0x11111122
+	dc.l	0x12222222
 
-	dc.l	0x33333111
-	dc.l	0x33111111
-	dc.l	0x11131171
-	dc.l	0x13318781
-	dc.l	0x11312777
+	dc.l	0x22222111
+	dc.l	0x22111111
+	dc.l	0x11121131
+	dc.l	0x12217371
+	dc.l	0x11212333
 	dc.l	0x11112221
 	dc.l	0x20111111
 	dc.l	0x00012200
 
 	dc.l	0x00000000
 	dc.l	0x01110001
-	dc.l	0x14551013
-	dc.l	0x13311111
-	dc.l	0x11144444
-	dc.l	0x44333333
-	dc.l	0x31111111
-	dc.l	0x11161777
+	dc.l	0x15BB1012
+	dc.l	0x12211111
+	dc.l	0x11155555
+	dc.l	0x55222222
+	dc.l	0x21111111
+	dc.l	0x11131333
 
-	dc.l	0x16666666
-	dc.l	0x66666633
-	dc.l	0x33633333
-	dc.l	0x33313111
+	dc.l	0x13333333
+	dc.l	0x33333322
+	dc.l	0x22322222
+	dc.l	0x22212111
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x33333333
-	dc.l	0x33331311
+	dc.l	0x22222222
+	dc.l	0x22221211
 
-	dc.l	0x11111977
-	dc.l	0x11118789
-	dc.l	0x33127789
-	dc.l	0x11122727
-	dc.l	0x11112127
+	dc.l	0x11111A33
+	dc.l	0x1111737A
+	dc.l	0x2212337A
+	dc.l	0x11122323
+	dc.l	0x11112123
 	dc.l	0x11112221
 	dc.l	0x10201211
 	dc.l	0x00000001
 
 	dc.l	0x11000011
-	dc.l	0x45100145
-	dc.l	0x11111133
-	dc.l	0x44431113
-	dc.l	0x43344441
-	dc.l	0x33333333
-	dc.l	0x11111113
-	dc.l	0x77616111
+	dc.l	0x5B10015B
+	dc.l	0x11111122
+	dc.l	0x55521112
+	dc.l	0x52255551
+	dc.l	0x22222222
+	dc.l	0x11111112
+	dc.l	0x33313111
 
-	dc.l	0x66666766
-	dc.l	0x33336666
 	dc.l	0x33333333
+	dc.l	0x22223333
+	dc.l	0x22222222
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11111112
-	dc.l	0x11131113
+	dc.l	0x11121112
 
-	dc.l	0x11331123
-	dc.l	0x97111133
-	dc.l	0x88111231
-	dc.l	0x87111313
+	dc.l	0x11221122
+	dc.l	0xA3111122
+	dc.l	0x77111221
+	dc.l	0x73111212
 	dc.l	0x11111111
 	dc.l	0x11222200
 	dc.l	0x12020000
@@ -731,24 +731,24 @@ actor_wyrm_sheet_bite_frame_2:
 
 	dc.l	0x00000000
 	dc.l	0x10000000
-	dc.l	0x41000000
-	dc.l	0x31200000
+	dc.l	0x51000000
+	dc.l	0x21200000
 	dc.l	0x11100000
-	dc.l	0x41100000
-	dc.l	0x31120000
+	dc.l	0x51100000
+	dc.l	0x21120000
 	dc.l	0x11110000
 
-	dc.l	0x66111120
-	dc.l	0x66613312
-	dc.l	0x36613431
-	dc.l	0x36613431
-	dc.l	0x11134361
-	dc.l	0x23443612
-	dc.l	0x34366112
-	dc.l	0x43661110
+	dc.l	0x33111120
+	dc.l	0x33312212
+	dc.l	0x23312521
+	dc.l	0x23312521
+	dc.l	0x11125231
+	dc.l	0x22552312
+	dc.l	0x25233112
+	dc.l	0x52331110
 
-	dc.l	0x36111120
-	dc.l	0x61112100
+	dc.l	0x23111120
+	dc.l	0x31112100
 	dc.l	0x11121110
 	dc.l	0x11210000
 	dc.l	0x11112200
@@ -772,18 +772,18 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000011
-	dc.l	0x00000114
-	dc.l	0x00011113
-	dc.l	0x00166311
+	dc.l	0x00000115
+	dc.l	0x00011112
+	dc.l	0x00133211
 
-	dc.l	0x01667113
-	dc.l	0x01667411
-	dc.l	0x01667711
-	dc.l	0x01166731
-	dc.l	0x01116673
-	dc.l	0x01161177
-	dc.l	0x00111167
-	dc.l	0x00011116
+	dc.l	0x01333112
+	dc.l	0x01333511
+	dc.l	0x01333311
+	dc.l	0x01133321
+	dc.l	0x01113332
+	dc.l	0x01131133
+	dc.l	0x00111133
+	dc.l	0x00011113
 
 	dc.l	0x00002121
 	dc.l	0x00000221
@@ -808,27 +808,27 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11000000
-	dc.l	0x77110000
-	dc.l	0x44111101
-	dc.l	0x11114411
+	dc.l	0x33110000
+	dc.l	0x55111101
+	dc.l	0x11115511
 
-	dc.l	0x33333344
-	dc.l	0x31111133
-	dc.l	0x11111311
-	dc.l	0x14711113
-	dc.l	0x14571311
-	dc.l	0x13441333
-	dc.l	0x33111133
-	dc.l	0x73411111
+	dc.l	0x22222255
+	dc.l	0x21111122
+	dc.l	0x11111211
+	dc.l	0x15311112
+	dc.l	0x15B31211
+	dc.l	0x12551222
+	dc.l	0x22111122
+	dc.l	0x32511111
 
-	dc.l	0x67341147
-	dc.l	0x16733145
-	dc.l	0x11663147
-	dc.l	0x01166314
-	dc.l	0x02116631
-	dc.l	0x00011673
-	dc.l	0x00021167
-	dc.l	0x00002117
+	dc.l	0x33251153
+	dc.l	0x1332215B
+	dc.l	0x11332153
+	dc.l	0x01133215
+	dc.l	0x02113321
+	dc.l	0x00011332
+	dc.l	0x00021133
+	dc.l	0x00002113
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -846,25 +846,25 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11110000
-	dc.l	0x14771000
+	dc.l	0x15331000
 
-	dc.l	0x11441111
-	dc.l	0x41111114
-	dc.l	0x11343114
-	dc.l	0x31134411
-	dc.l	0x33313441
-	dc.l	0x11331343
-	dc.l	0x33133133
-	dc.l	0x33313313
+	dc.l	0x11551111
+	dc.l	0x51111115
+	dc.l	0x11252115
+	dc.l	0x21125511
+	dc.l	0x22212551
+	dc.l	0x11221252
+	dc.l	0x22122122
+	dc.l	0x22212212
 
-	dc.l	0x13311331
-	dc.l	0x71331131
-	dc.l	0x71331113
-	dc.l	0x41133111
+	dc.l	0x12211221
+	dc.l	0x31221121
+	dc.l	0x31221112
+	dc.l	0x51122111
 	dc.l	0x11111111
-	dc.l	0x11471111
-	dc.l	0x31457111
-	dc.l	0x73477111
+	dc.l	0x11531111
+	dc.l	0x215B3111
+	dc.l	0x32533111
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -885,22 +885,22 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000011
 
 	dc.l	0x10000111
-	dc.l	0x71001741
-	dc.l	0x47101441
-	dc.l	0x44101431
+	dc.l	0x31001351
+	dc.l	0x53101551
+	dc.l	0x55101521
 	dc.l	0x11111111
 	dc.l	0x11111111
-	dc.l	0x41471115
-	dc.l	0x31341145
+	dc.l	0x5153111B
+	dc.l	0x2125115B
 
-	dc.l	0x33111117
-	dc.l	0x13434111
-	dc.l	0x11333114
-	dc.l	0x15711143
-	dc.l	0x17711431
-	dc.l	0x17114313
-	dc.l	0x11143177
-	dc.l	0x11431776
+	dc.l	0x22111113
+	dc.l	0x12525111
+	dc.l	0x11222115
+	dc.l	0x1B311152
+	dc.l	0x13311521
+	dc.l	0x13115212
+	dc.l	0x11152133
+	dc.l	0x11521333
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -920,8 +920,8 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00002002
 	dc.l	0x00000000
 
-	dc.l	0x02000116
-	dc.l	0x02200213
+	dc.l	0x02000113
+	dc.l	0x02200212
 	dc.l	0x02200011
 	dc.l	0x00200021
 	dc.l	0x00000021
@@ -932,45 +932,45 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x11200000
 	dc.l	0x11101120
-	dc.l	0x10018711
-	dc.l	0x11112771
+	dc.l	0x10017311
+	dc.l	0x11112331
 	dc.l	0x11012221
 	dc.l	0x20001112
 	dc.l	0x00000000
 
-	dc.l	0x73141331
-	dc.l	0x67311111
-	dc.l	0x36331111
-	dc.l	0x36631111
-	dc.l	0x13631114
-	dc.l	0x13633113
-	dc.l	0x11363113
-	dc.l	0x11363313
+	dc.l	0x32151221
+	dc.l	0x33211111
+	dc.l	0x23221111
+	dc.l	0x23321111
+	dc.l	0x12321115
+	dc.l	0x12322112
+	dc.l	0x11232112
+	dc.l	0x11232212
 
-	dc.l	0x01136311
-	dc.l	0x01136311
-	dc.l	0x21136613
-	dc.l	0x21136631
-	dc.l	0x11136111
-	dc.l	0x11333311
+	dc.l	0x01123211
+	dc.l	0x01123211
+	dc.l	0x21123312
+	dc.l	0x21123321
+	dc.l	0x11123111
+	dc.l	0x11222211
 	dc.l	0x00211120
 	dc.l	0x00011100
 
-	dc.l	0x13433766
-	dc.l	0x14317666
-	dc.l	0x43176666
-	dc.l	0x43166666
-	dc.l	0x31366636
-	dc.l	0x31666366
-	dc.l	0x11666363
-	dc.l	0x13663363
+	dc.l	0x12522333
+	dc.l	0x15213333
+	dc.l	0x52133333
+	dc.l	0x52133333
+	dc.l	0x21233323
+	dc.l	0x21333233
+	dc.l	0x11333232
+	dc.l	0x12332232
 
-	dc.l	0x16663363
-	dc.l	0x61113663
-	dc.l	0x17711163
-	dc.l	0x78989813
-	dc.l	0x88888171
-	dc.l	0x22787221
+	dc.l	0x13332232
+	dc.l	0x31112332
+	dc.l	0x13311132
+	dc.l	0x37A7A712
+	dc.l	0x77777131
+	dc.l	0x22373221
 	dc.l	0x11222122
 	dc.l	0x01111200
 
@@ -979,138 +979,138 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000111
-	dc.l	0x00001771
-	dc.l	0x00001711
-	dc.l	0x00001413
+	dc.l	0x00001331
+	dc.l	0x00001311
+	dc.l	0x00001512
 
-	dc.l	0x00011144
-	dc.l	0x11113443
-	dc.l	0x77414331
-	dc.l	0x74143313
-	dc.l	0x14433113
-	dc.l	0x11331133
-	dc.l	0x11311133
-	dc.l	0x14311133
+	dc.l	0x00011155
+	dc.l	0x11112552
+	dc.l	0x33515221
+	dc.l	0x35152212
+	dc.l	0x15522112
+	dc.l	0x11221122
+	dc.l	0x11211122
+	dc.l	0x15211122
 
-	dc.l	0x44311331
-	dc.l	0x43111331
-	dc.l	0x33111331
-	dc.l	0x31111111
-	dc.l	0x31114557
-	dc.l	0x13117771
-	dc.l	0x51311444
-	dc.l	0x57114433
+	dc.l	0x55211221
+	dc.l	0x52111221
+	dc.l	0x22111221
+	dc.l	0x21111111
+	dc.l	0x21115BB3
+	dc.l	0x12113331
+	dc.l	0xB1211555
+	dc.l	0xB3115522
 
-	dc.l	0x77443311
-	dc.l	0x14331177
-	dc.l	0x33117776
-	dc.l	0x31777666
-	dc.l	0x17766663
-	dc.l	0x77666333
-	dc.l	0x66663313
-	dc.l	0x66633333
+	dc.l	0x33552211
+	dc.l	0x15221133
+	dc.l	0x22113333
+	dc.l	0x21333333
+	dc.l	0x13333332
+	dc.l	0x33333222
+	dc.l	0x33332212
+	dc.l	0x33322222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00001110
-	dc.l	0x00017741
-	dc.l	0x00114411
-	dc.l	0x11111144
-	dc.l	0x13441111
-	dc.l	0x44111113
-
-	dc.l	0x31113311
-	dc.l	0x11331113
-	dc.l	0x33411133
-	dc.l	0x34111133
-	dc.l	0x31131333
-	dc.l	0x41311333
-	dc.l	0x11311333
-	dc.l	0x13313333
-
-	dc.l	0x13313331
-	dc.l	0x13111131
-	dc.l	0x11455411
-	dc.l	0x11777711
-	dc.l	0x11141144
-	dc.l	0x44444333
-	dc.l	0x43333111
-	dc.l	0x33111177
-
-	dc.l	0x11776666
-	dc.l	0x76666611
-	dc.l	0x66631111
-	dc.l	0x63311133
-	dc.l	0x31113333
-	dc.l	0x13333333
-	dc.l	0x33333333
-	dc.l	0x33333333
-
-	dc.l	0x00001110
-	dc.l	0x00117411
-	dc.l	0x01144411
-	dc.l	0x11111111
-	dc.l	0x41144441
-	dc.l	0x33111111
-	dc.l	0x11111117
-	dc.l	0x31113157
-
-	dc.l	0x13333177
-	dc.l	0x33331141
-	dc.l	0x33311114
-	dc.l	0x31111343
-	dc.l	0x11541443
-	dc.l	0x17741431
-	dc.l	0x14411331
-	dc.l	0x11143111
-
-	dc.l	0x11431145
+	dc.l	0x00013351
+	dc.l	0x00115511
 	dc.l	0x11111155
-	dc.l	0x47711114
-	dc.l	0x11144441
-	dc.l	0x44443333
-	dc.l	0x33311111
-	dc.l	0x11111117
-	dc.l	0x77666666
+	dc.l	0x12551111
+	dc.l	0x55111112
 
-	dc.l	0x66111111
-	dc.l	0x11111111
-	dc.l	0x13333311
-	dc.l	0x33333331
+	dc.l	0x21112211
+	dc.l	0x11221112
+	dc.l	0x22511122
+	dc.l	0x25111122
+	dc.l	0x21121222
+	dc.l	0x51211222
+	dc.l	0x11211222
+	dc.l	0x12212222
+
+	dc.l	0x12212221
+	dc.l	0x12111121
+	dc.l	0x115BB511
+	dc.l	0x11333311
+	dc.l	0x11151155
+	dc.l	0x55555222
+	dc.l	0x52222111
+	dc.l	0x22111133
+
+	dc.l	0x11333333
 	dc.l	0x33333311
-	dc.l	0x33333111
-	dc.l	0x33333110
-	dc.l	0x31331110
+	dc.l	0x33321111
+	dc.l	0x32211122
+	dc.l	0x21112222
+	dc.l	0x12222222
+	dc.l	0x22222222
+	dc.l	0x22222222
+
+	dc.l	0x00001110
+	dc.l	0x00113511
+	dc.l	0x01155511
+	dc.l	0x11111111
+	dc.l	0x51155551
+	dc.l	0x22111111
+	dc.l	0x11111113
+	dc.l	0x211121B3
+
+	dc.l	0x12222133
+	dc.l	0x22221151
+	dc.l	0x22211115
+	dc.l	0x21111252
+	dc.l	0x11B51552
+	dc.l	0x13351521
+	dc.l	0x15511221
+	dc.l	0x11152111
+
+	dc.l	0x1152115B
+	dc.l	0x111111BB
+	dc.l	0x53311115
+	dc.l	0x11155551
+	dc.l	0x55552222
+	dc.l	0x22211111
+	dc.l	0x11111113
+	dc.l	0x33333333
+
+	dc.l	0x33111111
+	dc.l	0x11111111
+	dc.l	0x12222211
+	dc.l	0x22222221
+	dc.l	0x22222211
+	dc.l	0x22222111
+	dc.l	0x22222110
+	dc.l	0x21221110
 
 	dc.l	0x00000000
 	dc.l	0x10000000
 	dc.l	0x11100000
-	dc.l	0x44310000
-	dc.l	0x14431000
-	dc.l	0x11441000
-	dc.l	0x41441000
-	dc.l	0x71411000
+	dc.l	0x55210000
+	dc.l	0x15521000
+	dc.l	0x11551000
+	dc.l	0x51551000
+	dc.l	0x31511000
 
-	dc.l	0x14131000
-	dc.l	0x41110000
-	dc.l	0x31000000
+	dc.l	0x15121000
+	dc.l	0x51110000
+	dc.l	0x21000000
 	dc.l	0x11000000
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x00000000
 	dc.l	0x10000000
 
-	dc.l	0x71000000
-	dc.l	0x74100000
-	dc.l	0x41100000
-	dc.l	0x14110000
-	dc.l	0x34431000
+	dc.l	0x31000000
+	dc.l	0x35100000
+	dc.l	0x51100000
+	dc.l	0x15110000
+	dc.l	0x25521000
 	dc.l	0x11111100
-	dc.l	0x77766310
-	dc.l	0x66666610
+	dc.l	0x33333210
+	dc.l	0x33333310
 
-	dc.l	0x33336610
-	dc.l	0x11133310
+	dc.l	0x22223310
+	dc.l	0x11122210
 	dc.l	0x11111120
 	dc.l	0x20121200
 	dc.l	0x00022000
@@ -1118,57 +1118,57 @@ actor_wyrm_sheet_bite_frame_3:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x66333333
-	dc.l	0x63313333
-	dc.l	0x63133333
-	dc.l	0x31333333
-	dc.l	0x31333333
-	dc.l	0x13333311
-	dc.l	0x13333113
-	dc.l	0x13331331
+	dc.l	0x33222222
+	dc.l	0x32212222
+	dc.l	0x32122222
+	dc.l	0x21222222
+	dc.l	0x21222222
+	dc.l	0x12222211
+	dc.l	0x12222112
+	dc.l	0x12221221
 
-	dc.l	0x33314311
-	dc.l	0x33143187
-	dc.l	0x31133127
-	dc.l	0x31331122
-	dc.l	0x11311111
+	dc.l	0x22215211
+	dc.l	0x22152173
+	dc.l	0x21122123
+	dc.l	0x21221122
+	dc.l	0x11211111
 	dc.l	0x11111111
 	dc.l	0x02211111
 	dc.l	0x00012200
 
-	dc.l	0x33333333
-	dc.l	0x33333311
-	dc.l	0x33331131
-	dc.l	0x31311311
-	dc.l	0x13111313
-	dc.l	0x31113313
-	dc.l	0x11313311
-	dc.l	0x11314211
+	dc.l	0x22222222
+	dc.l	0x22222211
+	dc.l	0x22221121
+	dc.l	0x21211211
+	dc.l	0x12111212
+	dc.l	0x21112212
+	dc.l	0x11212211
+	dc.l	0x11215211
 
-	dc.l	0x71114127
-	dc.l	0x81142127
-	dc.l	0x77142127
-	dc.l	0x21131217
+	dc.l	0x31115123
+	dc.l	0x71152123
+	dc.l	0x33152123
+	dc.l	0x21121213
 	dc.l	0x11111222
 	dc.l	0x11101111
 	dc.l	0x10000011
 	dc.l	0x00000000
 
-	dc.l	0x13311100
-	dc.l	0x13311200
-	dc.l	0x33111200
-	dc.l	0x31111000
-	dc.l	0x31111000
+	dc.l	0x12211100
+	dc.l	0x12211200
+	dc.l	0x22111200
+	dc.l	0x21111000
+	dc.l	0x21111000
 	dc.l	0x11112000
 	dc.l	0x11112000
-	dc.l	0x11310002
+	dc.l	0x11210002
 
-	dc.l	0x89110000
-	dc.l	0x78710002
-	dc.l	0x89911002
-	dc.l	0x29971202
-	dc.l	0x78871111
-	dc.l	0x12712002
+	dc.l	0x7A110000
+	dc.l	0x37310002
+	dc.l	0x7AA11002
+	dc.l	0x2AA31202
+	dc.l	0x37731111
+	dc.l	0x12312002
 	dc.l	0x11100000
 	dc.l	0x00000000
 
@@ -1260,81 +1260,81 @@ actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x00000001
 	dc.l	0x00000021
 	dc.l	0x00000011
-	dc.l	0x00000013
-	dc.l	0x00000013
-	dc.l	0x00000013
+	dc.l	0x00000012
+	dc.l	0x00000012
+	dc.l	0x00000012
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000111
-	dc.l	0x00001331
-	dc.l	0x00013631
-	dc.l	0x00136314
-	dc.l	0x00163111
-	dc.l	0x01363113
+	dc.l	0x00001221
+	dc.l	0x00012321
+	dc.l	0x00123215
+	dc.l	0x00132111
+	dc.l	0x01232112
 
-	dc.l	0x01663174
-	dc.l	0x01163144
-	dc.l	0x01163143
-	dc.l	0x01131131
-	dc.l	0x02133111
-	dc.l	0x00131145
-	dc.l	0x00131455
-	dc.l	0x00131447
+	dc.l	0x01332135
+	dc.l	0x01132155
+	dc.l	0x01132152
+	dc.l	0x01121121
+	dc.l	0x02122111
+	dc.l	0x0012115B
+	dc.l	0x001215BB
+	dc.l	0x00121553
 
-	dc.l	0x00131144
-	dc.l	0x01133111
-	dc.l	0x01131111
-	dc.l	0x01131475
-	dc.l	0x11131755
-	dc.l	0x11131477
-	dc.l	0x11631141
-	dc.l	0x11631111
+	dc.l	0x00121155
+	dc.l	0x01122111
+	dc.l	0x01121111
+	dc.l	0x0112153B
+	dc.l	0x111213BB
+	dc.l	0x11121533
+	dc.l	0x11321151
+	dc.l	0x11321111
 
-	dc.l	0x31631173
-	dc.l	0x61731774
-	dc.l	0x61711444
-	dc.l	0x11731113
-	dc.l	0x11311111
-	dc.l	0x17314731
-	dc.l	0x13145571
-	dc.l	0x13145571
+	dc.l	0x21321132
+	dc.l	0x31321335
+	dc.l	0x31311555
+	dc.l	0x11321112
+	dc.l	0x11211111
+	dc.l	0x13215321
+	dc.l	0x1215BB31
+	dc.l	0x1215BB31
 
 	dc.l	0x00111111
-	dc.l	0x11113336
-	dc.l	0x11136777
-	dc.l	0x13167776
-	dc.l	0x43176666
-	dc.l	0x43366666
-	dc.l	0x11366663
-	dc.l	0x11366633
+	dc.l	0x11112223
+	dc.l	0x11123333
+	dc.l	0x12133333
+	dc.l	0x52133333
+	dc.l	0x52233333
+	dc.l	0x11233332
+	dc.l	0x11233322
 
-	dc.l	0x11366631
-	dc.l	0x11366333
-	dc.l	0x11366333
-	dc.l	0x11666333
-	dc.l	0x31363363
-	dc.l	0x41666333
-	dc.l	0x71663363
-	dc.l	0x71663363
+	dc.l	0x11233321
+	dc.l	0x11233222
+	dc.l	0x11233222
+	dc.l	0x11333222
+	dc.l	0x21232232
+	dc.l	0x51333222
+	dc.l	0x31332232
+	dc.l	0x31332232
 
-	dc.l	0x41663663
-	dc.l	0x31663633
-	dc.l	0x11663663
-	dc.l	0x31666633
-	dc.l	0x71666633
-	dc.l	0x41666633
-	dc.l	0x11666633
-	dc.l	0x31666333
+	dc.l	0x51332332
+	dc.l	0x21332322
+	dc.l	0x11332332
+	dc.l	0x21333322
+	dc.l	0x31333322
+	dc.l	0x51333322
+	dc.l	0x11333322
+	dc.l	0x21333222
 
-	dc.l	0x11666333
-	dc.l	0x11663333
-	dc.l	0x11666333
-	dc.l	0x13663333
-	dc.l	0x13663333
-	dc.l	0x13663333
-	dc.l	0x16663333
-	dc.l	0x36633333
+	dc.l	0x11333222
+	dc.l	0x11332222
+	dc.l	0x11333222
+	dc.l	0x12332222
+	dc.l	0x12332222
+	dc.l	0x12332222
+	dc.l	0x13332222
+	dc.l	0x23322222
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1363,129 +1363,129 @@ actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x00002200
 	dc.l	0x00000000
 
-	dc.l	0x00000213
-	dc.l	0x00000133
-	dc.l	0x00000136
-	dc.l	0x00000136
-	dc.l	0x00000137
-	dc.l	0x00000136
-	dc.l	0x00000137
-	dc.l	0x00000137
+	dc.l	0x00000212
+	dc.l	0x00000122
+	dc.l	0x00000123
+	dc.l	0x00000123
+	dc.l	0x00000123
+	dc.l	0x00000123
+	dc.l	0x00000123
+	dc.l	0x00000123
 
-	dc.l	0x00000136
-	dc.l	0x00200136
-	dc.l	0x00000136
-	dc.l	0x00000136
-	dc.l	0x00000133
-	dc.l	0x00000133
-	dc.l	0x00021133
-	dc.l	0x00012133
+	dc.l	0x00000123
+	dc.l	0x00200123
+	dc.l	0x00000123
+	dc.l	0x00000123
+	dc.l	0x00000122
+	dc.l	0x00000122
+	dc.l	0x00021122
+	dc.l	0x00012122
 
-	dc.l	0x02113113
-	dc.l	0x02233213
-	dc.l	0x11233111
-	dc.l	0x01111821
-	dc.l	0x11111277
+	dc.l	0x02112112
+	dc.l	0x02222212
+	dc.l	0x11222111
+	dc.l	0x01111721
+	dc.l	0x11111233
 	dc.l	0x00201222
 	dc.l	0x00000211
 	dc.l	0x00000000
 
-	dc.l	0x17147741
-	dc.l	0x17314411
-	dc.l	0x17311313
-	dc.l	0x17311113
-	dc.l	0x17314133
-	dc.l	0x17314136
-	dc.l	0x16311136
-	dc.l	0x16311136
+	dc.l	0x13153351
+	dc.l	0x13215511
+	dc.l	0x13211212
+	dc.l	0x13211112
+	dc.l	0x13215122
+	dc.l	0x13215123
+	dc.l	0x13211123
+	dc.l	0x13211123
 
-	dc.l	0x16311136
-	dc.l	0x16311366
-	dc.l	0x16311366
-	dc.l	0x16311366
-	dc.l	0x16611166
-	dc.l	0x16631137
-	dc.l	0x11731137
-	dc.l	0x11661337
+	dc.l	0x13211123
+	dc.l	0x13211233
+	dc.l	0x13211233
+	dc.l	0x13211233
+	dc.l	0x13311133
+	dc.l	0x13321123
+	dc.l	0x11321123
+	dc.l	0x11331223
 
-	dc.l	0x31161177
-	dc.l	0x31161776
-	dc.l	0x33166366
-	dc.l	0x11116661
+	dc.l	0x21131133
+	dc.l	0x21131333
+	dc.l	0x22133233
+	dc.l	0x11113331
 	dc.l	0x11111111
 	dc.l	0x22211111
 	dc.l	0x20022221
 	dc.l	0x00000020
 
-	dc.l	0x36763333
-	dc.l	0x66633333
-	dc.l	0x67633333
-	dc.l	0x67663333
-	dc.l	0x67363333
-	dc.l	0x66363313
-	dc.l	0x66363313
-	dc.l	0x66363313
+	dc.l	0x23332222
+	dc.l	0x33322222
+	dc.l	0x33322222
+	dc.l	0x33332222
+	dc.l	0x33232222
+	dc.l	0x33232212
+	dc.l	0x33232212
+	dc.l	0x33232212
 
-	dc.l	0x66333313
-	dc.l	0x63333113
-	dc.l	0x66333313
-	dc.l	0x63333113
-	dc.l	0x63333133
-	dc.l	0x63333133
-	dc.l	0x63333131
-	dc.l	0x63333131
+	dc.l	0x33222212
+	dc.l	0x32222112
+	dc.l	0x33222212
+	dc.l	0x32222112
+	dc.l	0x32222122
+	dc.l	0x32222122
+	dc.l	0x32222121
+	dc.l	0x32222121
 
-	dc.l	0x63333131
-	dc.l	0x61113131
-	dc.l	0x17711131
-	dc.l	0x78989811
-	dc.l	0x88888171
-	dc.l	0x22787221
+	dc.l	0x32222121
+	dc.l	0x31112121
+	dc.l	0x13311121
+	dc.l	0x37A7A711
+	dc.l	0x77777131
+	dc.l	0x22373221
 	dc.l	0x11222111
 	dc.l	0x21111122
 
 	dc.l	0x11111100
-	dc.l	0x66611111
-	dc.l	0x77777661
-	dc.l	0x66666666
-	dc.l	0x66363333
-	dc.l	0x63333311
-	dc.l	0x33111111
-	dc.l	0x11133111
-
-	dc.l	0x33333311
-	dc.l	0x33333331
-	dc.l	0x33333331
+	dc.l	0x33311111
 	dc.l	0x33333331
 	dc.l	0x33333333
-	dc.l	0x33333333
-	dc.l	0x33331333
-	dc.l	0x33331333
+	dc.l	0x33232222
+	dc.l	0x32222211
+	dc.l	0x22111111
+	dc.l	0x11122111
 
-	dc.l	0x33331333
-	dc.l	0x33331133
-	dc.l	0x33333133
-	dc.l	0x33331133
-	dc.l	0x33333133
-	dc.l	0x33333113
-	dc.l	0x33331113
-	dc.l	0x33311111
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22222221
+	dc.l	0x22222221
+	dc.l	0x22222222
+	dc.l	0x22222222
+	dc.l	0x22221222
+	dc.l	0x22221222
 
-	dc.l	0x33311111
-	dc.l	0x33311131
-	dc.l	0x33313111
-	dc.l	0x33313131
-	dc.l	0x33114131
-	dc.l	0x33133133
-	dc.l	0x33134133
-	dc.l	0x31134133
+	dc.l	0x22221222
+	dc.l	0x22221122
+	dc.l	0x22222122
+	dc.l	0x22221122
+	dc.l	0x22222122
+	dc.l	0x22222112
+	dc.l	0x22221112
+	dc.l	0x22211111
+
+	dc.l	0x22211111
+	dc.l	0x22211121
+	dc.l	0x22212111
+	dc.l	0x22212121
+	dc.l	0x22115121
+	dc.l	0x22122122
+	dc.l	0x22125122
+	dc.l	0x21125122
 
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x10000000
-	dc.l	0x31000000
-	dc.l	0x31200000
-	dc.l	0x31100000
+	dc.l	0x21000000
+	dc.l	0x21200000
+	dc.l	0x21100000
 	dc.l	0x11100000
 	dc.l	0x11100000
 
@@ -1495,26 +1495,26 @@ actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x11100000
 	dc.l	0x11100000
 	dc.l	0x11100000
-	dc.l	0x31120000
-	dc.l	0x63110000
+	dc.l	0x21120000
+	dc.l	0x32110000
 
-	dc.l	0x66110000
-	dc.l	0x36311000
-	dc.l	0x36611000
-	dc.l	0x33663100
-	dc.l	0x33361100
-	dc.l	0x33366110
-	dc.l	0x33336611
-	dc.l	0x33333631
+	dc.l	0x33110000
+	dc.l	0x23211000
+	dc.l	0x23311000
+	dc.l	0x22332100
+	dc.l	0x22231100
+	dc.l	0x22233110
+	dc.l	0x22223311
+	dc.l	0x22222321
 
-	dc.l	0x13333661
-	dc.l	0x33333363
-	dc.l	0x13333336
-	dc.l	0x13313333
-	dc.l	0x11313333
-	dc.l	0x11331333
-	dc.l	0x11133133
-	dc.l	0x13113113
+	dc.l	0x12222331
+	dc.l	0x22222232
+	dc.l	0x12222223
+	dc.l	0x12212222
+	dc.l	0x11212222
+	dc.l	0x11221222
+	dc.l	0x11122122
+	dc.l	0x12112112
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1546,11 +1546,11 @@ actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x10000000
 	dc.l	0x10000000
 	dc.l	0x11000000
-	dc.l	0x31000000
-	dc.l	0x31100000
-	dc.l	0x33100000
-	dc.l	0x33120000
-	dc.l	0x33110000
+	dc.l	0x21000000
+	dc.l	0x21100000
+	dc.l	0x22100000
+	dc.l	0x22120000
+	dc.l	0x22110000
 
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -1588,82 +1588,82 @@ actor_wyrm_sheet_bite_frame_4:
 	dc.l	0x00000000
 	dc.l	0x00000000
 
-	dc.l	0x31134134
-	dc.l	0x31344134
-	dc.l	0x31334134
-	dc.l	0x31344134
-	dc.l	0x11344134
-	dc.l	0x31344134
-	dc.l	0x11444134
-	dc.l	0x11344134
+	dc.l	0x21125125
+	dc.l	0x21255125
+	dc.l	0x21225125
+	dc.l	0x21255125
+	dc.l	0x11255125
+	dc.l	0x21255125
+	dc.l	0x11555125
+	dc.l	0x11255125
 
-	dc.l	0x11444133
-	dc.l	0x11444134
-	dc.l	0x31444133
-	dc.l	0x11444133
-	dc.l	0x13444133
-	dc.l	0x13444133
-	dc.l	0x13144133
-	dc.l	0x13144113
+	dc.l	0x11555122
+	dc.l	0x11555125
+	dc.l	0x21555122
+	dc.l	0x11555122
+	dc.l	0x12555122
+	dc.l	0x12555122
+	dc.l	0x12155122
+	dc.l	0x12155112
 
-	dc.l	0x13144113
-	dc.l	0x14144311
-	dc.l	0x11144117
-	dc.l	0x11131878
-	dc.l	0x11111277
+	dc.l	0x12155112
+	dc.l	0x15155211
+	dc.l	0x11155113
+	dc.l	0x11121737
+	dc.l	0x11111233
 	dc.l	0x11221222
 	dc.l	0x22222111
 	dc.l	0x02000200
 
-	dc.l	0x13313313
-	dc.l	0x13431331
-	dc.l	0x11343131
-	dc.l	0x41343133
-	dc.l	0x41344113
-	dc.l	0x41134113
-	dc.l	0x44134311
-	dc.l	0x44113311
+	dc.l	0x12212212
+	dc.l	0x12521221
+	dc.l	0x11252121
+	dc.l	0x51252122
+	dc.l	0x51255112
+	dc.l	0x51125112
+	dc.l	0x55125211
+	dc.l	0x55112211
 
-	dc.l	0x44113411
-	dc.l	0x44413411
-	dc.l	0x44411331
-	dc.l	0x44411331
-	dc.l	0x44411341
-	dc.l	0x44411341
-	dc.l	0x44441341
-	dc.l	0x44411117
+	dc.l	0x55112511
+	dc.l	0x55512511
+	dc.l	0x55511221
+	dc.l	0x55511221
+	dc.l	0x55511251
+	dc.l	0x55511251
+	dc.l	0x55551251
+	dc.l	0x55511113
 
-	dc.l	0x44441887
-	dc.l	0x14417779
-	dc.l	0x14412772
-	dc.l	0x11411277
-	dc.l	0x71331112
-	dc.l	0x11131111
+	dc.l	0x55551773
+	dc.l	0x1551333A
+	dc.l	0x15512332
+	dc.l	0x11511233
+	dc.l	0x31221112
+	dc.l	0x11121111
 	dc.l	0x12111111
 	dc.l	0x22222220
 
-	dc.l	0x33310000
-	dc.l	0x33310000
-	dc.l	0x13312000
-	dc.l	0x13311000
-	dc.l	0x11331000
-	dc.l	0x31331000
-	dc.l	0x31331000
-	dc.l	0x31131200
+	dc.l	0x22210000
+	dc.l	0x22210000
+	dc.l	0x12212000
+	dc.l	0x12211000
+	dc.l	0x11221000
+	dc.l	0x21221000
+	dc.l	0x21221000
+	dc.l	0x21121200
 
-	dc.l	0x33131100
-	dc.l	0x33133100
-	dc.l	0x13133120
-	dc.l	0x13113110
-	dc.l	0x13313110
-	dc.l	0x13313310
-	dc.l	0x13313310
-	dc.l	0x11113310
+	dc.l	0x22121100
+	dc.l	0x22122100
+	dc.l	0x12122120
+	dc.l	0x12112110
+	dc.l	0x12212110
+	dc.l	0x12212210
+	dc.l	0x12212210
+	dc.l	0x11112210
 
-	dc.l	0x97111310
-	dc.l	0x99711211
-	dc.l	0x98711111
-	dc.l	0x72711001
+	dc.l	0xA3111210
+	dc.l	0xAA311211
+	dc.l	0xA7311111
+	dc.l	0x32311001
 	dc.l	0x11111111
 	dc.l	0x11111111
 	dc.l	0x11000200
@@ -1763,8 +1763,8 @@ actor_wyrm_sheet_bite_frame_5:
 
 	dc.l	0x00000022
 	dc.l	0x00002111
-	dc.l	0x00111771
-	dc.l	0x21298987
+	dc.l	0x00111331
+	dc.l	0x212A7A73
 	dc.l	0x00111122
 	dc.l	0x00000011
 	dc.l	0x00000000
@@ -1775,32 +1775,32 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000022
 	dc.l	0x00002111
-	dc.l	0x00021331
-	dc.l	0x00213631
-	dc.l	0x00136314
+	dc.l	0x00021221
+	dc.l	0x00212321
+	dc.l	0x00123215
 
-	dc.l	0x02163111
-	dc.l	0x01363113
-	dc.l	0x01663174
-	dc.l	0x01163144
-	dc.l	0x01163143
-	dc.l	0x01131131
-	dc.l	0x00133111
-	dc.l	0x00131145
+	dc.l	0x02132111
+	dc.l	0x01232112
+	dc.l	0x01332135
+	dc.l	0x01132155
+	dc.l	0x01132152
+	dc.l	0x01121121
+	dc.l	0x00122111
+	dc.l	0x0012115B
 
-	dc.l	0x02131455
-	dc.l	0x02131447
-	dc.l	0x02131144
-	dc.l	0x01133111
-	dc.l	0x21131111
-	dc.l	0x21131475
-	dc.l	0x11131755
-	dc.l	0x11131477
+	dc.l	0x021215BB
+	dc.l	0x02121553
+	dc.l	0x02121155
+	dc.l	0x01122111
+	dc.l	0x21121111
+	dc.l	0x2112153B
+	dc.l	0x111213BB
+	dc.l	0x11121533
 
-	dc.l	0x11631141
-	dc.l	0x11631111
-	dc.l	0x31631173
-	dc.l	0x11731171
+	dc.l	0x11321151
+	dc.l	0x11321111
+	dc.l	0x21321132
+	dc.l	0x11321131
 	dc.l	0x11111111
 	dc.l	0x02021111
 	dc.l	0x00000202
@@ -1809,35 +1809,35 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x02111111
-	dc.l	0x11113336
-	dc.l	0x11136777
-	dc.l	0x13167776
-	dc.l	0x43176666
-	dc.l	0x43366666
+	dc.l	0x11112223
+	dc.l	0x11123333
+	dc.l	0x12133333
+	dc.l	0x52133333
+	dc.l	0x52233333
 
-	dc.l	0x11366663
-	dc.l	0x11366633
-	dc.l	0x11366631
-	dc.l	0x11366333
-	dc.l	0x11366333
-	dc.l	0x11666333
-	dc.l	0x31363363
-	dc.l	0x41666333
+	dc.l	0x11233332
+	dc.l	0x11233322
+	dc.l	0x11233321
+	dc.l	0x11233222
+	dc.l	0x11233222
+	dc.l	0x11333222
+	dc.l	0x21232232
+	dc.l	0x51333222
 
-	dc.l	0x71663363
-	dc.l	0x71663363
-	dc.l	0x41663663
-	dc.l	0x31663633
-	dc.l	0x11663663
-	dc.l	0x31666633
-	dc.l	0x71666633
-	dc.l	0x41666633
+	dc.l	0x31332232
+	dc.l	0x31332232
+	dc.l	0x51332332
+	dc.l	0x21332322
+	dc.l	0x11332332
+	dc.l	0x21333322
+	dc.l	0x31333322
+	dc.l	0x51333322
 
-	dc.l	0x11666633
-	dc.l	0x31666333
-	dc.l	0x11161333
-	dc.l	0x17811131
-	dc.l	0x77216111
+	dc.l	0x11333322
+	dc.l	0x21333222
+	dc.l	0x11131222
+	dc.l	0x13711121
+	dc.l	0x33213111
 	dc.l	0x22211111
 	dc.l	0x11200102
 	dc.l	0x00000000
@@ -1845,34 +1845,34 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11111120
-	dc.l	0x66611111
-	dc.l	0x77777661
-	dc.l	0x66666666
-	dc.l	0x66363333
-	dc.l	0x63333311
-
-	dc.l	0x33111111
-	dc.l	0x11133111
-	dc.l	0x33333311
-	dc.l	0x33333331
-	dc.l	0x33333331
+	dc.l	0x33311111
 	dc.l	0x33333331
 	dc.l	0x33333333
-	dc.l	0x33333333
+	dc.l	0x33232222
+	dc.l	0x32222211
 
-	dc.l	0x33331333
-	dc.l	0x33331333
-	dc.l	0x33331333
-	dc.l	0x33331133
-	dc.l	0x33333133
-	dc.l	0x33331133
-	dc.l	0x33333113
-	dc.l	0x33331771
+	dc.l	0x22111111
+	dc.l	0x11122111
+	dc.l	0x22222211
+	dc.l	0x22222221
+	dc.l	0x22222221
+	dc.l	0x22222221
+	dc.l	0x22222222
+	dc.l	0x22222222
 
-	dc.l	0x33317899
-	dc.l	0x33312899
-	dc.l	0x33311728
-	dc.l	0x33311277
+	dc.l	0x22221222
+	dc.l	0x22221222
+	dc.l	0x22221222
+	dc.l	0x22221122
+	dc.l	0x22222122
+	dc.l	0x22221122
+	dc.l	0x22222112
+	dc.l	0x22221331
+
+	dc.l	0x222137AA
+	dc.l	0x222127AA
+	dc.l	0x22211327
+	dc.l	0x22211233
 	dc.l	0x11111212
 	dc.l	0x11111221
 	dc.l	0x21111112
@@ -1883,9 +1883,9 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x20000000
 	dc.l	0x12000000
-	dc.l	0x31000000
-	dc.l	0x31200000
-	dc.l	0x31100000
+	dc.l	0x21000000
+	dc.l	0x21200000
+	dc.l	0x21100000
 
 	dc.l	0x11100000
 	dc.l	0x11100000
@@ -1896,20 +1896,20 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x11100000
 	dc.l	0x11120000
 
-	dc.l	0x31120000
-	dc.l	0x63110000
-	dc.l	0x66112000
-	dc.l	0x36311000
-	dc.l	0x36611200
-	dc.l	0x33663100
-	dc.l	0x33361120
-	dc.l	0x13366112
+	dc.l	0x21120000
+	dc.l	0x32110000
+	dc.l	0x33112000
+	dc.l	0x23211000
+	dc.l	0x23311200
+	dc.l	0x22332100
+	dc.l	0x22231120
+	dc.l	0x12233112
 
-	dc.l	0x71336611
-	dc.l	0x89133111
-	dc.l	0x78113171
-	dc.l	0x77111187
-	dc.l	0x22111771
+	dc.l	0x31223311
+	dc.l	0x7A122111
+	dc.l	0x37112131
+	dc.l	0x33111173
+	dc.l	0x22111331
 	dc.l	0x11111112
 	dc.l	0x20200000
 	dc.l	0x00000000
@@ -1944,7 +1944,7 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x20000000
 	dc.l	0x10000000
-	dc.l	0x81020000
+	dc.l	0x71020000
 	dc.l	0x11111112
 	dc.l	0x02000000
 	dc.l	0x00000000
@@ -1982,666 +1982,6 @@ actor_wyrm_sheet_bite_frame_5:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x22000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-
-
-
-spritesheet_wyrm_move:
-
-actor_wyrm_sheet_move_frame_0:
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00200000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000043
-	dc.l	0x00000040
-	dc.l	0x00000040
-
-	dc.l	0x00000044
-	dc.l	0x40000044
-	dc.l	0x30000044
-	dc.l	0x00000043
-	dc.l	0x03500039
-	dc.l	0x00353349
-	dc.l	0x00033333
-	dc.l	0x22233333
-
-	dc.l	0x00223234
-	dc.l	0x00002122
-	dc.l	0x00000232
-	dc.l	0x00000021
-	dc.l	0x00000003
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000002
-	dc.l	0x00000002
-	dc.l	0x00002002
-
-	dc.l	0x00002002
-	dc.l	0x00002002
-	dc.l	0x00002002
-	dc.l	0x00002002
-	dc.l	0x00002022
-	dc.l	0x00022022
-	dc.l	0x00022022
-	dc.l	0x00022221
-
-	dc.l	0x40022221
-	dc.l	0x40022221
-	dc.l	0x44022211
-	dc.l	0x33052221
-	dc.l	0x88332243
-	dc.l	0x98893421
-	dc.l	0x44466344
-	dc.l	0x33332417
-
-	dc.l	0x44242474
-	dc.l	0x13354444
-	dc.l	0x22223324
-	dc.l	0x21222313
-	dc.l	0x23322221
-	dc.l	0x00331112
-	dc.l	0x00001111
-	dc.l	0x00000001
-
-	dc.l	0x00220000
-	dc.l	0x02200000
-	dc.l	0x22220000
-	dc.l	0x22220000
-	dc.l	0x22220000
-	dc.l	0x22200000
-	dc.l	0x22202000
-	dc.l	0x22002000
-
-	dc.l	0x22022000
-	dc.l	0x22022000
-	dc.l	0x22020000
-	dc.l	0x22020000
-	dc.l	0x22225303
-	dc.l	0x12224003
-	dc.l	0x12224204
-	dc.l	0x12224204
-
-	dc.l	0x12244204
-	dc.l	0x11144224
-	dc.l	0x11144214
-	dc.l	0x33112314
-	dc.l	0x41111442
-	dc.l	0x11771442
-	dc.l	0x79944442
-	dc.l	0x44444441
-
-	dc.l	0x44424444
-	dc.l	0x24244221
-	dc.l	0x41311211
-	dc.l	0x23222321
-	dc.l	0x22121322
-	dc.l	0x22131110
-	dc.l	0x12212000
-	dc.l	0x22100000
-
-	dc.l	0x04400000
-	dc.l	0x04400000
-	dc.l	0x04300000
-	dc.l	0x04000000
-	dc.l	0x34000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-
-	dc.l	0x44000000
-	dc.l	0x43000000
-	dc.l	0x43000000
-	dc.l	0x43000000
-	dc.l	0x43000000
-	dc.l	0x43000400
-	dc.l	0x43004300
-	dc.l	0x43043000
-
-	dc.l	0x43040000
-	dc.l	0x44440000
-	dc.l	0x44440000
-	dc.l	0x22430040
-	dc.l	0x22400020
-	dc.l	0x24302200
-	dc.l	0x24220053
-	dc.l	0x24335533
-
-	dc.l	0x33333220
-	dc.l	0x33312040
-	dc.l	0x11200000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x44000000
-
-	dc.l	0x44000000
-	dc.l	0x43000000
-	dc.l	0x30000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x40000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-
-actor_wyrm_sheet_move_frame_1:
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x02200000
-	dc.l	0x02000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000005
-	dc.l	0x00000005
-
-	dc.l	0x00000003
-	dc.l	0x00000003
-	dc.l	0x00000003
-	dc.l	0x00000003
-	dc.l	0x00000033
-	dc.l	0x00300094
-	dc.l	0x04230066
-	dc.l	0x23233333
-
-	dc.l	0x00023233
-	dc.l	0x00011112
-	dc.l	0x00000131
-	dc.l	0x00000012
-	dc.l	0x00000003
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000002
-	dc.l	0x00000022
-	dc.l	0x00220222
-	dc.l	0x00220222
-	dc.l	0x50022222
-
-	dc.l	0x50022221
-	dc.l	0x30222211
-	dc.l	0x35221111
-	dc.l	0x33221117
-	dc.l	0x33212178
-	dc.l	0x33322147
-	dc.l	0x33344448
-	dc.l	0x33444444
-
-	dc.l	0x32244444
-	dc.l	0x23334144
-	dc.l	0x22223324
-	dc.l	0x12211313
-	dc.l	0x13322221
-	dc.l	0x01331122
-	dc.l	0x00011211
-	dc.l	0x00000012
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x22222000
-	dc.l	0x22222200
-	dc.l	0x22222200
-	dc.l	0x22222200
-	dc.l	0x22222200
-	dc.l	0x22322200
-
-	dc.l	0x02324003
-	dc.l	0x21114204
-	dc.l	0x11771104
-	dc.l	0x79988714
-	dc.l	0x89989714
-	dc.l	0x88228711
-	dc.l	0x28217821
-	dc.l	0x77778241
-
-	dc.l	0x42422213
-	dc.l	0x44244232
-	dc.l	0x41212113
-	dc.l	0x23212323
-	dc.l	0x12121321
-	dc.l	0x21132110
-	dc.l	0x22121200
-	dc.l	0x22000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x04000000
-	dc.l	0x04400000
-	dc.l	0x04500450
-	dc.l	0x04400440
-	dc.l	0x04300330
-
-	dc.l	0x04000000
-	dc.l	0x04000000
-	dc.l	0x04000000
-	dc.l	0x04000000
-	dc.l	0x04000000
-	dc.l	0x34000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-
-	dc.l	0x44000000
-	dc.l	0x44000000
-	dc.l	0x44000000
-	dc.l	0x44400040
-	dc.l	0x34400030
-	dc.l	0x34400000
-	dc.l	0x25400000
-	dc.l	0x24442200
-
-	dc.l	0x33332000
-	dc.l	0x31110000
-	dc.l	0x11000000
-	dc.l	0x20000000
-	dc.l	0x00030000
-	dc.l	0x00000000
-	dc.l	0x40000000
-	dc.l	0x00000000
-
-
-actor_wyrm_sheet_move_frame_2:
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000550
-	dc.l	0x00000450
-	dc.l	0x00000340
-	dc.l	0x00000040
-	dc.l	0x00000045
-	dc.l	0x00000044
-
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000044
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00000034
-
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00002234
-	dc.l	0x00000132
-	dc.l	0x00000004
-	dc.l	0x00000044
-
-	dc.l	0x00000144
-	dc.l	0x00002234
-	dc.l	0x00003123
-	dc.l	0x00000011
-	dc.l	0x00000001
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000045
-	dc.l	0x00000044
-	dc.l	0x00000443
-	dc.l	0x00000440
-	dc.l	0x00004430
-	dc.l	0x30004400
-	dc.l	0x30044300
-	dc.l	0x30044000
-
-	dc.l	0x40444000
-	dc.l	0x40444000
-	dc.l	0x40443200
-	dc.l	0x40440200
-	dc.l	0x44442422
-	dc.l	0x44442221
-	dc.l	0x24152441
-	dc.l	0x42444178
-
-	dc.l	0x33444448
-	dc.l	0x44324444
-	dc.l	0x32344244
-	dc.l	0x13231444
-	dc.l	0x31111314
-	dc.l	0x11322232
-	dc.l	0x00212121
-	dc.l	0x00000102
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x55000000
-
-	dc.l	0x44400000
-	dc.l	0x33400000
-	dc.l	0x00300000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00050000
-	dc.l	0x00050000
-
-	dc.l	0x00030000
-	dc.l	0x00035000
-	dc.l	0x00035004
-	dc.l	0x50033034
-	dc.l	0x22233244
-	dc.l	0x31111244
-	dc.l	0x11771144
-	dc.l	0x49888744
-
-	dc.l	0x99897144
-	dc.l	0x82287114
-	dc.l	0x44478113
-	dc.l	0x44782321
-	dc.l	0x42222211
-	dc.l	0x31211212
-	dc.l	0x12211310
-	dc.l	0x22100000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x44000000
-	dc.l	0x34000000
-	dc.l	0x34000000
-
-	dc.l	0x04000000
-	dc.l	0x04000000
-	dc.l	0x34000000
-	dc.l	0x44030004
-	dc.l	0x44330003
-	dc.l	0x44300000
-	dc.l	0x43340000
-	dc.l	0x43340000
-
-	dc.l	0x33440000
-	dc.l	0x33332000
-	dc.l	0x33230000
-	dc.l	0x11100000
-	dc.l	0x10000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-
-actor_wyrm_sheet_move_frame_3:
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000040
-	dc.l	0x00000440
-	dc.l	0x04400440
-	dc.l	0x04400440
-
-	dc.l	0x03300340
-	dc.l	0x00000040
-	dc.l	0x00000040
-	dc.l	0x00000040
-	dc.l	0x00000040
-	dc.l	0x00000040
-	dc.l	0x00000040
-	dc.l	0x00000043
-
-	dc.l	0x00000043
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00000034
-	dc.l	0x00000035
-	dc.l	0x00000033
-	dc.l	0x00000043
-	dc.l	0x00000033
-
-	dc.l	0x00000134
-	dc.l	0x00022233
-	dc.l	0x00001112
-	dc.l	0x00000131
-	dc.l	0x00000012
-	dc.l	0x00000003
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000044
-	dc.l	0x00003444
-
-	dc.l	0x00004433
-	dc.l	0x00034333
-	dc.l	0x40043000
-	dc.l	0x40340000
-	dc.l	0x40433300
-	dc.l	0x54380633
-	dc.l	0x33961111
-	dc.l	0x34417171
-
-	dc.l	0x34474449
-	dc.l	0x43442449
-	dc.l	0x23344144
-	dc.l	0x11223324
-	dc.l	0x22211313
-	dc.l	0x23322221
-	dc.l	0x00131122
-	dc.l	0x00000221
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x40000000
-	dc.l	0x34000000
-	dc.l	0x03000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x44000000
-
-	dc.l	0x44400000
-	dc.l	0x34400000
-	dc.l	0x03400000
-	dc.l	0x03300000
-	dc.l	0x00002222
-	dc.l	0x20222223
-	dc.l	0x13222238
-	dc.l	0x71133344
-
-	dc.l	0x87433333
-	dc.l	0x84444443
-	dc.l	0x44243212
-	dc.l	0x41212113
-	dc.l	0x23212323
-	dc.l	0x12121310
-	dc.l	0x21132100
-	dc.l	0x21110000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-	dc.l	0x00000000
-
-	dc.l	0x00000000
-	dc.l	0x00000300
-	dc.l	0x00003000
-	dc.l	0x00053000
-	dc.l	0x20030000
-	dc.l	0x40530000
-	dc.l	0x43300000
-	dc.l	0x43300040
-
-	dc.l	0x33330030
-	dc.l	0x33332000
-	dc.l	0x11010000
-	dc.l	0x10000000
-	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3178,18 +2518,18 @@ actor_wyrm_sheet_emerge_frame_1:
 
 	dc.l	0x00000000
 	dc.l	0x01110000
-	dc.l	0x17711120
-	dc.l	0x78989811
-	dc.l	0x88888171
-	dc.l	0x22787221
+	dc.l	0x13311120
+	dc.l	0x37A7A711
+	dc.l	0x77777131
+	dc.l	0x22373221
 	dc.l	0x11111001
 	dc.l	0x00000000
 
 	dc.l	0x00000000
 	dc.l	0x00000021
-	dc.l	0x00000117
-	dc.l	0x20001878
-	dc.l	0x11111277
+	dc.l	0x00000113
+	dc.l	0x20001737
+	dc.l	0x11111233
 	dc.l	0x11110110
 	dc.l	0x11112000
 	dc.l	0x22000000
@@ -3198,7 +2538,7 @@ actor_wyrm_sheet_emerge_frame_1:
 	dc.l	0x10000000
 	dc.l	0x12010000
 	dc.l	0x11111012
-	dc.l	0x71111111
+	dc.l	0x31111111
 	dc.l	0x11102000
 	dc.l	0x00000000
 	dc.l	0x00000000
@@ -3225,8 +2565,8 @@ actor_wyrm_sheet_emerge_frame_2:
 
 	dc.l	0x00000000
 	dc.l	0x00000201
-	dc.l	0x11111116
-	dc.l	0x00011016
+	dc.l	0x11111113
+	dc.l	0x00011013
 	dc.l	0x00111111
 	dc.l	0x00011111
 	dc.l	0x00000000
@@ -3239,12 +2579,12 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00011112
-	dc.l	0x00114771
+	dc.l	0x00115331
 
-	dc.l	0x11113441
-	dc.l	0x66311111
-	dc.l	0x67113333
-	dc.l	0x67411311
+	dc.l	0x11112551
+	dc.l	0x33211111
+	dc.l	0x33112222
+	dc.l	0x33511211
 	dc.l	0x11111111
 	dc.l	0x11000102
 	dc.l	0x00000000
@@ -3260,11 +2600,11 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x10000000
 
 	dc.l	0x11121100
-	dc.l	0x14411101
-	dc.l	0x33111113
-	dc.l	0x11871111
-	dc.l	0x11277144
-	dc.l	0x21222143
+	dc.l	0x15511101
+	dc.l	0x22111112
+	dc.l	0x11731111
+	dc.l	0x11233155
+	dc.l	0x21222152
 	dc.l	0x00111111
 	dc.l	0x00022200
 
@@ -3278,11 +2618,11 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000011
 
 	dc.l	0x11122111
-	dc.l	0x45111144
-	dc.l	0x31177111
-	dc.l	0x11789898
-	dc.l	0x41888882
-	dc.l	0x31222221
+	dc.l	0x5B111155
+	dc.l	0x21133111
+	dc.l	0x1137A7A7
+	dc.l	0x51777772
+	dc.l	0x21222221
 	dc.l	0x22121112
 	dc.l	0x00000000
 
@@ -3290,16 +2630,16 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000001
-	dc.l	0x00000014
-	dc.l	0x11100131
-	dc.l	0x45510114
-	dc.l	0x33111444
+	dc.l	0x00000015
+	dc.l	0x11100121
+	dc.l	0x5BB10115
+	dc.l	0x22111555
 
-	dc.l	0x11444333
-	dc.l	0x43333111
-	dc.l	0x11111716
-	dc.l	0x16187811
-	dc.l	0x71121731
+	dc.l	0x11555222
+	dc.l	0x52222111
+	dc.l	0x11111313
+	dc.l	0x13173711
+	dc.l	0x31121321
 	dc.l	0x11111111
 	dc.l	0x01211112
 	dc.l	0x00012200
@@ -3308,15 +2648,15 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x10000110
-	dc.l	0x51001451
-	dc.l	0x11111334
-	dc.l	0x44311133
-	dc.l	0x33117711
+	dc.l	0xB10015B1
+	dc.l	0x11111225
+	dc.l	0x55211122
+	dc.l	0x22113311
 
-	dc.l	0x31799871
-	dc.l	0x19899821
-	dc.l	0x18782711
-	dc.l	0x17777211
+	dc.l	0x213AA731
+	dc.l	0x1A7AA721
+	dc.l	0x17372311
+	dc.l	0x13333211
 	dc.l	0x12221111
 	dc.l	0x11101111
 	dc.l	0x20112200
@@ -3327,14 +2667,14 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x00000021
-	dc.l	0x10002117
-	dc.l	0x12021144
+	dc.l	0x10002113
+	dc.l	0x12021155
 	dc.l	0x11011111
 
-	dc.l	0x11141144
-	dc.l	0x11133111
+	dc.l	0x11151155
+	dc.l	0x11122111
 	dc.l	0x11111111
-	dc.l	0x11131113
+	dc.l	0x11121112
 	dc.l	0x11111111
 	dc.l	0x11110200
 	dc.l	0x00100000
@@ -3345,17 +2685,677 @@ actor_wyrm_sheet_emerge_frame_2:
 	dc.l	0x00000000
 	dc.l	0x00000000
 	dc.l	0x11200000
-	dc.l	0x41112000
-	dc.l	0x41111100
-	dc.l	0x11144310
+	dc.l	0x51112000
+	dc.l	0x51111100
+	dc.l	0x11155210
 
-	dc.l	0x44114431
-	dc.l	0x11111441
-	dc.l	0x11741441
-	dc.l	0x15771411
+	dc.l	0x55115521
+	dc.l	0x11111551
+	dc.l	0x11351551
+	dc.l	0x1B331511
 	dc.l	0x11111100
 	dc.l	0x11000000
 	dc.l	0x00110000
+	dc.l	0x00000000
+
+
+
+
+spritesheet_wyrm_move:
+
+actor_wyrm_sheet_move_frame_0:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00200000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000055
+	dc.l	0x00000055
+	dc.l	0x00000052
+	dc.l	0x00000050
+	dc.l	0x00000050
+
+	dc.l	0x00000055
+	dc.l	0x50000055
+	dc.l	0x20000055
+	dc.l	0x00000052
+	dc.l	0x02B0002A
+	dc.l	0x002B225A
+	dc.l	0x00022222
+	dc.l	0x22222222
+
+	dc.l	0x00222225
+	dc.l	0x00002122
+	dc.l	0x00000222
+	dc.l	0x00000021
+	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00002002
+
+	dc.l	0x00002002
+	dc.l	0x00002002
+	dc.l	0x00002002
+	dc.l	0x00002002
+	dc.l	0x00002022
+	dc.l	0x00022022
+	dc.l	0x00022022
+	dc.l	0x00022221
+
+	dc.l	0x50022221
+	dc.l	0x50022221
+	dc.l	0x55022211
+	dc.l	0x220B2221
+	dc.l	0x77222252
+	dc.l	0xA77A2521
+	dc.l	0x55533255
+	dc.l	0x22222513
+
+	dc.l	0x55252535
+	dc.l	0x122B5555
+	dc.l	0x22222225
+	dc.l	0x21222212
+	dc.l	0x22222221
+	dc.l	0x00221112
+	dc.l	0x00001111
+	dc.l	0x00000001
+
+	dc.l	0x00220000
+	dc.l	0x02200000
+	dc.l	0x22220000
+	dc.l	0x22220000
+	dc.l	0x22220000
+	dc.l	0x22200000
+	dc.l	0x22202000
+	dc.l	0x22002000
+
+	dc.l	0x22022000
+	dc.l	0x22022000
+	dc.l	0x22020000
+	dc.l	0x22020000
+	dc.l	0x2222B202
+	dc.l	0x12225002
+	dc.l	0x12225205
+	dc.l	0x12225205
+
+	dc.l	0x12255205
+	dc.l	0x11155225
+	dc.l	0x11155215
+	dc.l	0x22112215
+	dc.l	0x51111552
+	dc.l	0x11331552
+	dc.l	0x3AA55552
+	dc.l	0x55555551
+
+	dc.l	0x55525555
+	dc.l	0x25255221
+	dc.l	0x51211211
+	dc.l	0x22222221
+	dc.l	0x22121222
+	dc.l	0x22121110
+	dc.l	0x12212000
+	dc.l	0x22100000
+
+	dc.l	0x05500000
+	dc.l	0x05500000
+	dc.l	0x05200000
+	dc.l	0x05000000
+	dc.l	0x25000000
+	dc.l	0x55000000
+	dc.l	0x55000000
+	dc.l	0x55000000
+
+	dc.l	0x55000000
+	dc.l	0x52000000
+	dc.l	0x52000000
+	dc.l	0x52000000
+	dc.l	0x52000000
+	dc.l	0x52000500
+	dc.l	0x52005200
+	dc.l	0x52052000
+
+	dc.l	0x52050000
+	dc.l	0x55550000
+	dc.l	0x55550000
+	dc.l	0x22520050
+	dc.l	0x22500020
+	dc.l	0x25202200
+	dc.l	0x252200B2
+	dc.l	0x2522BB22
+
+	dc.l	0x22222220
+	dc.l	0x22212050
+	dc.l	0x11200000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x55000000
+
+	dc.l	0x55000000
+	dc.l	0x52000000
+	dc.l	0x20000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x50000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_wyrm_sheet_move_frame_1:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x02200000
+	dc.l	0x02000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x0000000B
+	dc.l	0x0000000B
+
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000002
+	dc.l	0x00000022
+	dc.l	0x002000A5
+	dc.l	0x05220033
+	dc.l	0x22222222
+
+	dc.l	0x00022222
+	dc.l	0x00011112
+	dc.l	0x00000121
+	dc.l	0x00000012
+	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000002
+	dc.l	0x00000022
+	dc.l	0x00220222
+	dc.l	0x00220222
+	dc.l	0xB0022222
+
+	dc.l	0xB0022221
+	dc.l	0x20222211
+	dc.l	0x2B221111
+	dc.l	0x22221113
+	dc.l	0x22212137
+	dc.l	0x22222153
+	dc.l	0x22255557
+	dc.l	0x22555555
+
+	dc.l	0x22255555
+	dc.l	0x22225155
+	dc.l	0x22222225
+	dc.l	0x12211212
+	dc.l	0x12222221
+	dc.l	0x01221122
+	dc.l	0x00011211
+	dc.l	0x00000012
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x22222000
+	dc.l	0x22222200
+	dc.l	0x22222200
+	dc.l	0x22222200
+	dc.l	0x22222200
+	dc.l	0x22222200
+
+	dc.l	0x02225002
+	dc.l	0x21115205
+	dc.l	0x11331105
+	dc.l	0x3AA77315
+	dc.l	0x7AA7A315
+	dc.l	0x77227311
+	dc.l	0x27213721
+	dc.l	0x33337251
+
+	dc.l	0x52522212
+	dc.l	0x55255222
+	dc.l	0x51212112
+	dc.l	0x22212222
+	dc.l	0x12121221
+	dc.l	0x21122110
+	dc.l	0x22121200
+	dc.l	0x22000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x05000000
+	dc.l	0x05500000
+	dc.l	0x05B005B0
+	dc.l	0x05500550
+	dc.l	0x05200220
+
+	dc.l	0x05000000
+	dc.l	0x05000000
+	dc.l	0x05000000
+	dc.l	0x05000000
+	dc.l	0x05000000
+	dc.l	0x25000000
+	dc.l	0x55000000
+	dc.l	0x55000000
+
+	dc.l	0x55000000
+	dc.l	0x55000000
+	dc.l	0x55000000
+	dc.l	0x55500050
+	dc.l	0x25500020
+	dc.l	0x25500000
+	dc.l	0x2B500000
+	dc.l	0x25552200
+
+	dc.l	0x22222000
+	dc.l	0x21110000
+	dc.l	0x11000000
+	dc.l	0x20000000
+	dc.l	0x00020000
+	dc.l	0x00000000
+	dc.l	0x50000000
+	dc.l	0x00000000
+
+
+actor_wyrm_sheet_move_frame_2:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000BB0
+	dc.l	0x000005B0
+	dc.l	0x00000250
+	dc.l	0x00000050
+	dc.l	0x0000005B
+	dc.l	0x00000055
+
+	dc.l	0x00000055
+	dc.l	0x00000055
+	dc.l	0x00000055
+	dc.l	0x00000055
+	dc.l	0x00000055
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00000025
+
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00002225
+	dc.l	0x00000122
+	dc.l	0x00000005
+	dc.l	0x00000055
+
+	dc.l	0x00000155
+	dc.l	0x00002225
+	dc.l	0x00002122
+	dc.l	0x00000011
+	dc.l	0x00000001
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x0000005B
+	dc.l	0x00000055
+	dc.l	0x00000552
+	dc.l	0x00000550
+	dc.l	0x00005520
+	dc.l	0x20005500
+	dc.l	0x20055200
+	dc.l	0x20055000
+
+	dc.l	0x50555000
+	dc.l	0x50555000
+	dc.l	0x50552200
+	dc.l	0x50550200
+	dc.l	0x55552522
+	dc.l	0x55552221
+	dc.l	0x251B2551
+	dc.l	0x52555137
+
+	dc.l	0x22555557
+	dc.l	0x55225555
+	dc.l	0x22255255
+	dc.l	0x12221555
+	dc.l	0x21111215
+	dc.l	0x11222222
+	dc.l	0x00212121
+	dc.l	0x00000102
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0xBB000000
+
+	dc.l	0x55500000
+	dc.l	0x22500000
+	dc.l	0x00200000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x000B0000
+	dc.l	0x000B0000
+
+	dc.l	0x00020000
+	dc.l	0x0002B000
+	dc.l	0x0002B005
+	dc.l	0xB0022025
+	dc.l	0x22222255
+	dc.l	0x21111255
+	dc.l	0x11331155
+	dc.l	0x5A777355
+
+	dc.l	0xAA7A3155
+	dc.l	0x72273115
+	dc.l	0x55537112
+	dc.l	0x55372221
+	dc.l	0x52222211
+	dc.l	0x21211212
+	dc.l	0x12211210
+	dc.l	0x22100000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x55000000
+	dc.l	0x25000000
+	dc.l	0x25000000
+
+	dc.l	0x05000000
+	dc.l	0x05000000
+	dc.l	0x25000000
+	dc.l	0x55020005
+	dc.l	0x55220002
+	dc.l	0x55200000
+	dc.l	0x52250000
+	dc.l	0x52250000
+
+	dc.l	0x22550000
+	dc.l	0x22222000
+	dc.l	0x22220000
+	dc.l	0x11100000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+
+actor_wyrm_sheet_move_frame_3:
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000050
+	dc.l	0x00000550
+	dc.l	0x05500550
+	dc.l	0x05500550
+
+	dc.l	0x02200250
+	dc.l	0x00000050
+	dc.l	0x00000050
+	dc.l	0x00000050
+	dc.l	0x00000050
+	dc.l	0x00000050
+	dc.l	0x00000050
+	dc.l	0x00000052
+
+	dc.l	0x00000052
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x00000025
+	dc.l	0x0000002B
+	dc.l	0x00000022
+	dc.l	0x00000052
+	dc.l	0x00000022
+
+	dc.l	0x00000125
+	dc.l	0x00022222
+	dc.l	0x00001112
+	dc.l	0x00000121
+	dc.l	0x00000012
+	dc.l	0x00000002
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000055
+	dc.l	0x00002555
+
+	dc.l	0x00005522
+	dc.l	0x00025222
+	dc.l	0x50052000
+	dc.l	0x50250000
+	dc.l	0x50522200
+	dc.l	0xB5270322
+	dc.l	0x22A31111
+	dc.l	0x25513131
+
+	dc.l	0x2553555A
+	dc.l	0x5255255A
+	dc.l	0x22255155
+	dc.l	0x11222225
+	dc.l	0x22211212
+	dc.l	0x22222221
+	dc.l	0x00121122
+	dc.l	0x00000221
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x50000000
+	dc.l	0x25000000
+	dc.l	0x02000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x55000000
+
+	dc.l	0x55500000
+	dc.l	0x25500000
+	dc.l	0x02500000
+	dc.l	0x02200000
+	dc.l	0x00002222
+	dc.l	0x20222222
+	dc.l	0x12222227
+	dc.l	0x31122255
+
+	dc.l	0x73522222
+	dc.l	0x75555552
+	dc.l	0x55252212
+	dc.l	0x51212112
+	dc.l	0x22212222
+	dc.l	0x12121210
+	dc.l	0x21122100
+	dc.l	0x21110000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+
+	dc.l	0x00000000
+	dc.l	0x00000200
+	dc.l	0x00002000
+	dc.l	0x000B2000
+	dc.l	0x20020000
+	dc.l	0x50B20000
+	dc.l	0x52200000
+	dc.l	0x52200050
+
+	dc.l	0x22220020
+	dc.l	0x22222000
+	dc.l	0x11010000
+	dc.l	0x10000000
+	dc.l	0x00000000
+	dc.l	0x00000000
+	dc.l	0x00000000
 	dc.l	0x00000000
 
 

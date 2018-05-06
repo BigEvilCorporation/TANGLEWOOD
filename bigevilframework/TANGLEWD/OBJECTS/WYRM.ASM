@@ -178,7 +178,7 @@ WyrmLoadGfx:
 	; a1 --- Level addr
 
 	; Load sprite
-	SPRITE_LOAD_DEFAULT Wyrm,move,0,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Wyrm,move,0,PaletteId_World0,0x0
 
 	; Load character animations
 	ANIM_LOAD_DEFAULT wyrm,emerge,idle,Character_Animations,CharacterAnimIdx_Idle,1,0,0
@@ -210,7 +210,7 @@ WyrmLoadGfx:
 
 	; Load sprite
 	PUSHM  d0/a3
-	SPRITE_LOAD_DEFAULT Debris,debris,0,PaletteId_Monster,0x0
+	SPRITE_LOAD_DEFAULT Debris,debris,0,PaletteId_World0,0x0	; Uses world palette
 	POPM   d0/a3
 
 	; Set anim
