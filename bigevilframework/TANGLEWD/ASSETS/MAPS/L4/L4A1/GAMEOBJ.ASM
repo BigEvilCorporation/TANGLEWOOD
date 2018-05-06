@@ -380,7 +380,7 @@ L4A1_LoadGameObjects:
 	add.l #Firefly_Struct_Size, a0
 
 	jsr FireflyInit
-	move.l #0x21080000, Entity_WorldPosX(a0)
+	move.l #0x21580000, Entity_WorldPosX(a0)
 	move.l #0x01980000, Entity_WorldPosY(a0)
 	jsr FireflyLoadGfx
 	IFND FINAL
@@ -850,8 +850,8 @@ L4A1_LoadGameObjects:
 
 	jsr BridgeInit
 	move.l #0x20700000, Entity_WorldPosX(a0)
-	move.l #0x02480000, Entity_WorldPosY(a0)
-	move.b #Bridge_ModeRollUp, Bridge_Mode(a0)
+	move.l #0x02080000, Entity_WorldPosY(a0)
+	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateOpen, Bridge_State(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
 	jsr BridgeLoadGfx
