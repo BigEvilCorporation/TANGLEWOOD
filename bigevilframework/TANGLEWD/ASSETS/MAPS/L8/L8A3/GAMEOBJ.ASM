@@ -425,7 +425,7 @@ L8A3_LoadGameObjects:
 
 	jsr AIMarkerInit
 	move.l #0x04500000, Entity_WorldPosX(a0)
-	move.l #0x02000000, Entity_WorldPosY(a0)
+	move.l #0x01f00000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A3_MarkerDemonRightBounds_name, a3
@@ -568,7 +568,7 @@ L8A3_LoadGameObjects:
 
 	jsr BridgeInit
 	move.l #0x03a00000, Entity_WorldPosX(a0)
-	move.l #0x02100000, Entity_WorldPosY(a0)
+	move.l #0x02000000, Entity_WorldPosY(a0)
 	move.b #Bridge_ModeRollDown, Bridge_Mode(a0)
 	move.b #Bridge_StateClosed, Bridge_State(a0)
 	move.b #0x1, SpriteObj_FlippedX(a0)
