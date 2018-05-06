@@ -2367,6 +2367,14 @@ PlayerInteractTest_Pet:
 	; Bounds check
 	ENTITY_GETBOUNDS d1,d2,d5,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
+
+	move.w Entity_Height(a0), d5		; Check bottom halves of bounding boxes only
+	lsr.w  #0x1, d5
+	add.w  d5, d1
+	move.w Entity_Height(a2), d5
+	lsr.w  #0x1, d5
+	add.w  d5, d3
+
 	jsr    PHYS_TestBoxIntersectBox
 	tst.b  d0
 	beq    @CannotRide
