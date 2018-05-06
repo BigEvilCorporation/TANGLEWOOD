@@ -27,10 +27,10 @@ Player1BoundsOffsetY	equ (Player1Height/2)-(Player1BoundsHeight/2)
 Player1PushBoundsOuterDist	equ 0x4
 
 ; Player collision bounds (in jump state)
-Player1BoundsJumpWidth		equ Player1Width-0x10
-Player1BoundsJumpHeight		equ Player1Height-0x08
-Player1BoundsJumpOffsetX	equ 0x08
-Player1BoundsJumpOffsetY	equ 0x08
+Player1BoundsJumpWidth		equ 0x10
+Player1BoundsJumpHeight		equ Player1Height-0x10
+Player1BoundsJumpOffsetX	equ (Player1Width/2)-(Player1BoundsJumpWidth/2)
+Player1BoundsJumpOffsetY	equ (Player1Height/2)-(Player1BoundsJumpHeight/2)
 
 ; Player acceleration/deceleration
 Player1AccelWalk   equ 0x000600 ; Player 1 walking acceleration

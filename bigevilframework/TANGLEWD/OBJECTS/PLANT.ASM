@@ -71,11 +71,11 @@ BouncePlantVel_315:		dc.l  BouncePlant_LaunchForceDiag, -BouncePlant_LaunchForce
 BouncePlantBounds:
 BouncePlantBounds_0:	dc.w 0x0000, BouncePlant_Height/2, BouncePlant_Width, BouncePlant_Height/2
 BouncePlantBounds_45:	dc.w 0x0008, 0x0000, 0x0010, 0x0010
-BouncePlantBounds_90:	dc.w 0x0000, 0x0000, BouncePlant_Width/2, BouncePlant_Height
+BouncePlantBounds_90:	dc.w 0x0008, 0x0000, BouncePlant_Width/2, BouncePlant_Height
 BouncePlantBounds_135:	dc.w 0x0000, 0x0000, 0x0010, 0x0010
-BouncePlantBounds_180:	dc.w 0x0000, 0x0000, BouncePlant_Width, BouncePlant_Height/2
+BouncePlantBounds_180:	dc.w 0x000C, 0x0000, BouncePlant_Width-0x0C, BouncePlant_Height/2
 BouncePlantBounds_225:	dc.w 0x0000, 0x0008, 0x0010, 0x0010
-BouncePlantBounds_270:	dc.w BouncePlant_Width/2, 0x0000, BouncePlant_Width/2, BouncePlant_Height
+BouncePlantBounds_270:	dc.w BouncePlant_Width/2, 0x0000, (BouncePlant_Width/2-8), BouncePlant_Height
 BouncePlantBounds_315:	dc.w 0x0008, 0x0008, 0x0010, 0x0010
 
 ; Sprite sheets
