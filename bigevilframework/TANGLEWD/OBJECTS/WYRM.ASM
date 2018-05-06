@@ -471,7 +471,8 @@ WyrmFindSandDune:
 	dbra   d3, @TerrainLp
 
 	; Not within a marker pair, shouldn't be here if on sand
-	RAISE_EXCEPTION *
+	;RAISE_EXCEPTION *
+	nop
 
 	@NoTerrain:
 	@WithinTerrain:
@@ -501,9 +502,11 @@ WyrmAIUpdate_Idle:
 	; Get player
 	move.l (Player1), a2
 	
-	; If player dead, don't bother
+	; If player dead or invisible, don't bother
 	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
+	tst.b  SpriteObj_Visible(a2)
+	beq    @PlayerInvisible
 
 	; If player touching sand (on special terrain), wake up
 	tst.b  PhysicsObj_CloseToFloor(a2)
@@ -517,6 +520,7 @@ WyrmAIUpdate_Idle:
 	@PlayerInAir:
 	@PlayerNotOnSand:
 	@PlayerDead:
+	@PlayerInvisible:
 	
 	rts
 
