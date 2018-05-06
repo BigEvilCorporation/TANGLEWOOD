@@ -549,7 +549,7 @@ L8A6_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x07080000, Entity_WorldPosX(a0)
+	move.l #0x07380000, Entity_WorldPosX(a0)
 	move.l #0x02200000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
@@ -562,7 +562,7 @@ L8A6_LoadGameObjects:
 	add.l #AIMarker_Struct_Size, a0
 
 	jsr AIMarkerInit
-	move.l #0x0d880000, Entity_WorldPosX(a0)
+	move.l #0x0d700000, Entity_WorldPosX(a0)
 	move.l #0x02100000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL

@@ -564,15 +564,9 @@ actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_frames:
 	dc.l actor_AnimPlants_sheet_ground_plant_anim_frame_2_header
 
 	Even
-actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posx equ 0
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_posy equ 0
+actor_AnimPlants_sheet_ground_plant_anim_anim_ground_plant_anim_track_sfx equ 0
 
 stamp_AnimWater:
 
@@ -1252,13 +1246,7 @@ actor_AnimWater_sheet_water_anim_anim_water_anim_track_frames:
 	dc.l actor_AnimWater_sheet_water_anim_frame_2_header
 
 	Even
-actor_AnimWater_sheet_water_anim_anim_water_anim_track_posx:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_AnimWater_sheet_water_anim_anim_water_anim_track_posy:
-	dc.b 0x00, 0x00, 0x00
-	Even
-actor_AnimWater_sheet_water_anim_anim_water_anim_track_sfx:
-	dc.l 0x0, 0x0, 0x0
-	Even
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_posx equ 0
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_posy equ 0
+actor_AnimWater_sheet_water_anim_anim_water_anim_track_sfx equ 0
 

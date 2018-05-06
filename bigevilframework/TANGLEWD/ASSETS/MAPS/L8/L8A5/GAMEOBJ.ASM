@@ -592,7 +592,7 @@ L8A5_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x01680000, Entity_WorldPosX(a0)
+	move.l #0x01b80000, Entity_WorldPosX(a0)
 	move.l #0x01c00000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL

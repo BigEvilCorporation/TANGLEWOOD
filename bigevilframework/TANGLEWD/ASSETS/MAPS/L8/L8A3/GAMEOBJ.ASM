@@ -311,7 +311,7 @@ L8A3_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x00c80000, Entity_WorldPosX(a0)
+	move.l #0x00d00000, Entity_WorldPosX(a0)
 	move.l #0x01800000, Entity_WorldPosY(a0)
 	move.l #l8a3_Trigger_Lift, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_EachFrame(a0)
@@ -411,7 +411,7 @@ L8A3_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x00c80000, Entity_WorldPosX(a0)
+	move.l #0x00e00000, Entity_WorldPosX(a0)
 	move.l #0x01f00000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
@@ -424,7 +424,7 @@ L8A3_LoadGameObjects:
 	add.l #AIMarker_Struct_Size, a0
 
 	jsr AIMarkerInit
-	move.l #0x04500000, Entity_WorldPosX(a0)
+	move.l #0x04400000, Entity_WorldPosX(a0)
 	move.l #0x01f00000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL

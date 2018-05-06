@@ -453,8 +453,8 @@ L8A4_LoadGameObjects:
 	POPL   a1
 
 	jsr AIMarkerInit
-	move.l #0x04880000, Entity_WorldPosX(a0)
-	move.l #0x01a80000, Entity_WorldPosY(a0)
+	move.l #0x04d80000, Entity_WorldPosX(a0)
+	move.l #0x01700000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A4_MarkerDemonLeftBounds_name, a3
