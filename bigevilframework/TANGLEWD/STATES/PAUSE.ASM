@@ -34,6 +34,7 @@ PauseState_FireflyTextSpritesCount		rs.b 1
 PauseState_FireflyTotalTextSpritesCount	rs.b 1
 PauseState_PasswordTextSpritesCount		rs.b 1
 PauseState_DebugDrawMode				rs.b 1
+PauseState_PrevWaterLevel				rs.b 1
 PauseState_PrevVolume					rs.b 1
 PauseState_PrevVolumeFader				rs.b 1
 ;---------------------------------------------
@@ -84,20 +85,17 @@ Pause_Enter:
 	
 	; Backup current pad state
 	; TODO: Handle input reads globally
-
 	IF AUTOTEST_ENABLED
-
-	; Autotest pad input
 	lea AutotestData, a4
 	move.w Autotest_PadDataA(a4), d0
-	
 	ELSE
-
 	jsr    PAD_ReadPadA
-
 	ENDIF
 
 	move.w d0, PauseState_PrevPadState(a0)
+
+	; Backup water level
+	move.b raster_water_level, PauseState_PrevWaterLevel(a0)
 	
 	; Begin greyscale effect
 	PUSHL  a0
@@ -290,6 +288,9 @@ Pause_Exit:
 	jsr    SND_SetGlobalVolume
 	move.b PauseState_PrevVolumeFader(a2), audio_fader_speed
 
+	; Restore water level
+	move.b PauseState_PrevWaterLevel(a0), raster_water_level
+
 	; Restore scene palettes
 	PUSHL  a0
 
@@ -385,18 +386,13 @@ Pause_Update:
 	
 	lea    GameStatePauseData, a0
 
+	; Read pad
 	IF AUTOTEST_ENABLED
-
-	; Autotest pad input
 	lea AutotestData, a4
 	move.w Autotest_PadDataA(a4), d0
 	move.w #0x0, Autotest_PadDataA(a4)
-	
 	ELSE
-
-	; Read pad
 	jsr    PAD_ReadPadA
-
 	ENDIF
 	
 	; Get prev state
@@ -445,6 +441,9 @@ Pause_Update:
 	POPM   a0-a1
 
 	@NoDisplayFireflies:
+
+	; Force water level off
+	move.b #0xFF, raster_water_level
 	
 	POPL   a1
 	POPL   a0
