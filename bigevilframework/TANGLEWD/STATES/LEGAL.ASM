@@ -335,6 +335,8 @@ LegalScreen_Update:
 	jsr    EntityRemoveFromRenderList
 	move.b #0x0, Entity_Active(a0)
 
+	move.b #0x1, LegalFuzzlEaten
+
 	@NoEat:
 
 	@Fading:

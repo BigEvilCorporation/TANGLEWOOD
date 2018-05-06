@@ -340,7 +340,14 @@ MainMenu_InitUI:
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
 	move.l a3, a5
+
+	tst.b  LegalFuzzlEaten
+	beq    @YellowCursor
+	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	bra    @RedCursor
+	@YellowCursor:
 	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	@RedCursor:
 
 	lea    GameStateMainMenuData, a2
 	move.l a5, MainMenuState_UICursor(a2)
@@ -371,6 +378,8 @@ LINECOUNT = LINECOUNT+1
 	IF INCLUDE_LEVELSELECT
 	IF !DEMO_SHOW_LEVEL_SELECT
 	; Test for level select cheat
+	tst.b  LegalFuzzlEaten
+	beq    @NoLevelSelect
 	cmp.l  #CheatCodeLevelSelect, SoundTestHistory
 	bne    @NoLevelSelect
 	ENDIF
