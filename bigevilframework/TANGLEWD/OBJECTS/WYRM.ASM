@@ -471,8 +471,7 @@ WyrmFindSandDune:
 	dbra   d3, @TerrainLp
 
 	; Not within a marker pair, shouldn't be here if on sand
-	;RAISE_EXCEPTION *
-	nop
+	RAISE_EXCEPTION *
 
 	@NoTerrain:
 	@WithinTerrain:

@@ -166,7 +166,7 @@ AutotestAdvanceState:
 
 	; Teleport to checkpoint (right hand side to activate it)
 	move.w Entity_WorldPosX(a3), d0
-	addi.w #Player1Width+Checkpoint_Width+1, d0
+	addi.w #Checkpoint_Width+1, d0
 	move.w Entity_WorldPosY(a3), d1
 	jsr    PlayerTeleport
 
