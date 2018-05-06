@@ -743,6 +743,10 @@ WyrmAIUpdate_Follow:
 	tst.b  Character_Dead(a2)
 	bne    @PlayerDead
 
+	; If in time slow mode, assume safe (and force burrow)
+	cmp.b  #0x1, GlobalTimeDiv
+	bne    @ForceBurrow
+
 	; If player invisible, assume safe (in flue)
 	move.l (Player1), a2
 	tst.b  SpriteObj_Visible(a2)
@@ -756,10 +760,6 @@ WyrmAIUpdate_Follow:
 	beq    @PlayerSafe
 	
 	@CanBite:
-	
-	; If in time slow (player using green ability) don't bite
-	cmp.b  #0x1, GlobalTimeDiv
-	bne    @PlayerSafe
 
 	; If touching, bite
 	PHYSICS_GETBOUNDS d1,d2,d3,a0
@@ -792,6 +792,8 @@ WyrmAIUpdate_Follow:
 	; Decrement timer, carry on chasing if not elapsed
 	subq.w #0x1, Wyrm_LostPlayerTimer(a0)
 	bne    @Chase
+
+	@ForceBurrow:
 
 	; Lost player, burrow underground and sleep
 	jsr    WyrmAIStart_Burrow
