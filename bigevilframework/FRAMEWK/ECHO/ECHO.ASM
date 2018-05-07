@@ -1,3 +1,11 @@
+ECHO_ENCRYPT_Z80	equ 1
+
+	IF ECHO_ENCRYPT_Z80
+EchoDecryptKey:
+	dc.b 0xd6,0x37,0xc9,0x51,0x01,0x06,0x40,0x4d,0xb9,0xd8,0x1c,0xf2,0xbb,0x79,0xfd,0x1a
+EchoDecryptKeyEnd
+	ENDIF
+
 ;****************************************************************************
 ; Echo_Z80Request
 ; Requests the Z80 bus
@@ -548,9 +556,26 @@ Echo_Init:
 
     lea     Z80Program, a0     ; Where Z80 program starts
     lea     ($A00000), a1           ; Where Z80 RAM starts
+
+	IF ECHO_ENCRYPT_Z80
+	lea     EchoDecryptKey, a2          ; Decryption key start
+	lea     EchoDecryptKeyEnd, a3          ; Decryption key end
+	ENDIF
+
     move.w  #Z80ProgSize-1, d0     ; Size of Z80 program (DBF adjusted)
 @LoadLoop:                          ; Go through all the program
-    move.b  (a0)+, (a1)+              ; Copy byte into Z80 RAM
+	IF ECHO_ENCRYPT_Z80
+    move.b  (a0)+, d2
+	move.b  (a2)+, d3
+	add.b   d2, d3
+	move.b  d3, (a1)+
+	cmp.l   a2, a3
+	bne     @NoWrap
+	lea     EchoDecryptKey, a2
+	@NoWrap:
+	ELSE
+	move.b  (a0)+, (a1)+              ; Copy byte into Z80 RAM
+	ENDIF
     dbf     d0, @LoadLoop             ; Go for next byte
 
     moveq   #0, d0                  ; Set default global volumes
