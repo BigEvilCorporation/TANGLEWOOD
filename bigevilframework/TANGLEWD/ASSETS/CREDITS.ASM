@@ -285,6 +285,13 @@ CreditsStrings:
 	CREDIT_NAME		"Neil Dyson"
 	CREDIT_SPACE
 
+	CREDIT_HEADING1 "TigerTails Gaming"
+	CREDIT_NAME		"Thomas King"
+	CREDIT_NAME		"Hedge Hog"
+	CREDIT_NAME		"Josh Jerrard"
+	CREDIT_NAME		"Lee Denham"
+	CREDIT_SPACE
+
 	CREDIT_HEADING1 "Bitmap Bureau"
 	CREDIT_NAME		"Matthew Cope"
 	CREDIT_NAME		"Mike Tucker"
