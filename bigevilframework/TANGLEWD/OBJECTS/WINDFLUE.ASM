@@ -13,13 +13,12 @@ WindFlue_MaxBlowDist		equ 0x0010
 WindFlue_MaxBlowDistGliding	equ 0x0180
 WindFlue_MaxBlowDistFuzzl	equ 0x0040
 WindFlue_BlowAccel			equ DefaultGravity+0x1400
-WindFlue_BlowAccelGliding		equ DefaultGravity+0x2800
+WindFlue_BlowAccelGliding	equ DefaultGravity+0x2800
 WindFlue_BlowAccelFuzzl		equ DefaultGravity+0x2000
-WindFlue_MaxLeaves			equ 0x6
+WindFlue_MaxLeaves			equ 0x10
 WindFlue_LeafVel			equ 0x00080000
 WindFlue_LeafAnimSpeed		equ 0x30
 WindFlue_LeafMaxHeight		equ 0x0280
-WindFlue_DistributeX		equ (WindFlue_Width/WindFlue_MaxLeaves)
 WindFlue_DefaultOnTime		equ 0x08*frames_per_second_pal
 WindFlue_DefaultOffTime		equ 0x08*frames_per_second_pal
 
@@ -90,6 +89,11 @@ WindFlueLoadGfx:
 	move.b  #(1<<EntityWorldGridFlag_GridUpdates)|(1<<EntityWorldGridFlag_GridRenders), d0
 	;jsr     EntityAddToWorldGrid
 
+	; Calc leaf distribution
+	move.w Entity_Width(a0), d7
+	divu   #WindFlue_MaxLeaves, d7
+	TOSUBPIXELS d7
+
 	; Load all leaves
 	move.l  Entity_WorldPosX(a0), d1
 	move.l  Entity_WorldPosY(a0), d2
@@ -114,7 +118,7 @@ WindFlueLoadGfx:
 	move.l  d2, Entity_WorldPosY(a0)
 
 	; Increment X pos
-	addi.l  #WindFlue_DistributeX*subpixels_per_pixel, d1
+	add.l   d7, d1
 
 	; Randomise Y pos
 	PUSHM  d0-d2

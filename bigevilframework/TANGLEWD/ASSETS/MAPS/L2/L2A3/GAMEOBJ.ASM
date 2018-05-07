@@ -7,16 +7,12 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-L2A3_Leaf_count equ 0x9
+L2A3_Leaf_count equ 0x5
 L2A3_Leaf_18_idx	equ 0x0
 L2A3_Leaf_19_idx	equ 0x1
 L2A3_Leaf_20_idx	equ 0x2
 L2A3_Leaf_21_idx	equ 0x3
 L2A3_Leaf_22_idx	equ 0x4
-L2A3_Leaf_23_idx	equ 0x5
-L2A3_Leaf_24_idx	equ 0x6
-L2A3_Leaf_25_idx	equ 0x7
-L2A3_Leaf_26_idx	equ 0x8
 
 	IFND FINAL
 L2A3_Leaf_18_name	dc.b "L2A3_Leaf_18",0
@@ -24,10 +20,6 @@ L2A3_Leaf_19_name	dc.b "L2A3_Leaf_19",0
 L2A3_Leaf_20_name	dc.b "L2A3_Leaf_20",0
 L2A3_Leaf_21_name	dc.b "L2A3_Leaf_21",0
 L2A3_Leaf_22_name	dc.b "L2A3_Leaf_22",0
-L2A3_Leaf_23_name	dc.b "L2A3_Leaf_23",0
-L2A3_Leaf_24_name	dc.b "L2A3_Leaf_24",0
-L2A3_Leaf_25_name	dc.b "L2A3_Leaf_25",0
-L2A3_Leaf_26_name	dc.b "L2A3_Leaf_26",0
 	even
 	ENDIF
 
@@ -175,25 +167,19 @@ L2A3_LocationLightningCameraLerp_name	dc.b "L2A3_LocationLightningCameraLerp",0
 	even
 	ENDIF
 
-L2A3_Deathbox_count equ 0x8
-L2A3_Deathbox_27_idx	equ 0x0
-L2A3_Deathbox_28_idx	equ 0x1
-L2A3_Deathbox_29_idx	equ 0x2
-L2A3_Deathbox_30_idx	equ 0x3
-L2A3_Deathbox_45_idx	equ 0x4
-L2A3_Deathbox_66_idx	equ 0x5
-L2A3_Deathbox_69_idx	equ 0x6
-L2A3_Deathbox_68_idx	equ 0x7
+L2A3_Deathbox_count equ 0x5
+L2A3_Deathbox_68_idx	equ 0x0
+L2A3_Deathbox_69_idx	equ 0x1
+L2A3_Deathbox_66_idx	equ 0x2
+L2A3_Deathbox_45_idx	equ 0x3
+L2A3_Deathbox_78_idx	equ 0x4
 
 	IFND FINAL
-L2A3_Deathbox_27_name	dc.b "L2A3_Deathbox_27",0
-L2A3_Deathbox_28_name	dc.b "L2A3_Deathbox_28",0
-L2A3_Deathbox_29_name	dc.b "L2A3_Deathbox_29",0
-L2A3_Deathbox_30_name	dc.b "L2A3_Deathbox_30",0
-L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
-L2A3_Deathbox_66_name	dc.b "L2A3_Deathbox_66",0
-L2A3_Deathbox_69_name	dc.b "L2A3_Deathbox_69",0
 L2A3_Deathbox_68_name	dc.b "L2A3_Deathbox_68",0
+L2A3_Deathbox_69_name	dc.b "L2A3_Deathbox_69",0
+L2A3_Deathbox_66_name	dc.b "L2A3_Deathbox_66",0
+L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
+L2A3_Deathbox_78_name	dc.b "L2A3_Deathbox_78",0
 	even
 	ENDIF
 
@@ -217,25 +203,11 @@ L2A3_Winch_count equ 0x0
 
 L2A3_Pillar_count equ 0x0
 
-L2A3_WindFlue_count equ 0x8
+L2A3_WindFlue_count equ 0x1
 L2A3_WindFlue1_idx	equ 0x0
-L2A3_WindFlue2_idx	equ 0x1
-L2A3_WindFlue3_idx	equ 0x2
-L2A3_WindFlue4_idx	equ 0x3
-L2A3_WindFlue5_idx	equ 0x4
-L2A3_WindFlue6_idx	equ 0x5
-L2A3_WindFlue7_idx	equ 0x6
-L2A3_WindFlue8_idx	equ 0x7
 
 	IFND FINAL
 L2A3_WindFlue1_name	dc.b "L2A3_WindFlue1",0
-L2A3_WindFlue2_name	dc.b "L2A3_WindFlue2",0
-L2A3_WindFlue3_name	dc.b "L2A3_WindFlue3",0
-L2A3_WindFlue4_name	dc.b "L2A3_WindFlue4",0
-L2A3_WindFlue5_name	dc.b "L2A3_WindFlue5",0
-L2A3_WindFlue6_name	dc.b "L2A3_WindFlue6",0
-L2A3_WindFlue7_name	dc.b "L2A3_WindFlue7",0
-L2A3_WindFlue8_name	dc.b "L2A3_WindFlue8",0
 	even
 	ENDIF
 
@@ -334,50 +306,6 @@ L2A3_LoadGameObjects:
 	jsr LeafLoadGfx
 	IFND FINAL
 	lea L2A3_Leaf_22_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L2A3_Leaf_23_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L2A3_Leaf_24_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L2A3_Leaf_25_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xc, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Leaf_Struct_Size, a0
-
-	jsr LeafInit
-	jsr LeafLoadGfx
-	IFND FINAL
-	lea L2A3_Leaf_26_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xc, d0
@@ -884,76 +812,13 @@ L2A3_LoadGameObjects:
 	POPL   a1
 
 	jsr DeathboxInit
-	move.l #0x07a00000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
+	move.l #0x16c00000, Entity_WorldPosX(a0)
+	move.l #0x02800000, Entity_WorldPosY(a0)
+	move.w #0x0008, Entity_Width(a0)
+	move.w #0x0030, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L2A3_Deathbox_27_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x09200000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L2A3_Deathbox_28_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x0aa00000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L2A3_Deathbox_29_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x0c200000, Entity_WorldPosX(a0)
-	move.l #0x03d00000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L2A3_Deathbox_30_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x25080000, Entity_WorldPosX(a0)
-	move.l #0x03580000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L2A3_Deathbox_45_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #Deathbox_Struct_Size, a0
-
-	jsr DeathboxInit
-	move.l #0x22080000, Entity_WorldPosX(a0)
-	move.l #0x03180000, Entity_WorldPosY(a0)
-	jsr DeathboxLoadGfx
-	IFND FINAL
-	lea L2A3_Deathbox_66_name, a3
+	lea L2A3_Deathbox_68_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -977,13 +842,39 @@ L2A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x16c00000, Entity_WorldPosX(a0)
-	move.l #0x02800000, Entity_WorldPosY(a0)
-	move.w #0x0008, Entity_Width(a0)
-	move.w #0x0030, Entity_Height(a0)
+	move.l #0x22080000, Entity_WorldPosX(a0)
+	move.l #0x03180000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L2A3_Deathbox_68_name, a3
+	lea L2A3_Deathbox_66_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x25080000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A3_Deathbox_45_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0x10, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Deathbox_Struct_Size, a0
+
+	jsr DeathboxInit
+	move.l #0x07e00000, Entity_WorldPosX(a0)
+	move.l #0x03d00000, Entity_WorldPosY(a0)
+	move.w #0x0580, Entity_Width(a0)
+	move.w #0x0018, Entity_Height(a0)
+	jsr DeathboxLoadGfx
+	IFND FINAL
+	lea L2A3_Deathbox_78_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1010,101 +901,12 @@ L2A3_LoadGameObjects:
 
 	jsr WindFlueInit
 	move.l #0x07e00000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
+	move.l #0x03f00000, Entity_WorldPosY(a0)
+	move.w #0x0580, Entity_Width(a0)
+	move.w #0x0028, Entity_Height(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
 	lea L2A3_WindFlue1_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x08980000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue2_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x09580000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue3_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x0a100000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue4_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x0ac80000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue5_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x0b800000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue6_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x0c380000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue7_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0xe, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x0ce80000, Entity_WorldPosX(a0)
-	move.l #0x03f80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A3_WindFlue8_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xe, d0

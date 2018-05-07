@@ -197,15 +197,13 @@ L2A1_Winch_count equ 0x0
 
 L2A1_Pillar_count equ 0x0
 
-L2A1_WindFlue_count equ 0x3
+L2A1_WindFlue_count equ 0x2
 L2A1_WindFlue1_idx	equ 0x0
-L2A1_WindFlue_52_idx	equ 0x1
-L2A1_WindFlue_57_idx	equ 0x2
+L2A1_WindFlue_82_idx	equ 0x1
 
 	IFND FINAL
 L2A1_WindFlue1_name	dc.b "L2A1_WindFlue1",0
-L2A1_WindFlue_52_name	dc.b "L2A1_WindFlue_52",0
-L2A1_WindFlue_57_name	dc.b "L2A1_WindFlue_57",0
+L2A1_WindFlue_82_name	dc.b "L2A1_WindFlue_82",0
 	even
 	ENDIF
 
@@ -913,24 +911,13 @@ L2A1_LoadGameObjects:
 	add.l #WindFlue_Struct_Size, a0
 
 	jsr WindFlueInit
-	move.l #0x13080000, Entity_WorldPosX(a0)
+	move.l #0x13100000, Entity_WorldPosX(a0)
 	move.l #0x04c80000, Entity_WorldPosY(a0)
+	move.w #0x00f8, Entity_Width(a0)
+	move.w #0x0018, Entity_Height(a0)
 	jsr WindFlueLoadGfx
 	IFND FINAL
-	lea L2A1_WindFlue_52_name, a3
-	move.l a0, a2
-	add.l #Entity_DebugName, a2
-	move.l #0x10, d0
-	MEMCPYB a2,a3,d0
-	ENDIF
-	add.l #WindFlue_Struct_Size, a0
-
-	jsr WindFlueInit
-	move.l #0x13880000, Entity_WorldPosX(a0)
-	move.l #0x04c80000, Entity_WorldPosY(a0)
-	jsr WindFlueLoadGfx
-	IFND FINAL
-	lea L2A1_WindFlue_57_name, a3
+	lea L2A1_WindFlue_82_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
