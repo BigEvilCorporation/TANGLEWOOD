@@ -67,7 +67,7 @@ MainMenu_Opt_SoundTest		equ 0x4
 
 MainMenu_Str_NewGame		dc.b "New Game",0
 MainMenu_Str_Continue		dc.b "Continue",0
-MainMenu_Str_Options		dc.b "Options",0
+MainMenu_Str_Options		dc.b "Controls",0
 MainMenu_Str_LevelSelect	dc.b "Level Select",0
 MainMenu_Str_SoundTest		dc.b "Sound Test",0
 	even

@@ -19,7 +19,7 @@ Str_Render:		dc.b "RENDER",0
 
 	; Space for string concats
 StringSpace				dc.b " ",0
-StringOptionSeparator	dc.b " : ",0
+StringOptionSeparator	dc.b " - ",0
 
 	; Hack for options screen - UIText can't re-alloc strings, so alloc worst case first
 StringOptionsMaxLen	equ 20
@@ -71,14 +71,14 @@ EndLevelString_Act5		dc.b 'Act 5:',0
 EndLevelString_Act6		dc.b 'Act 6:',0
 
 	; Gamepad inputs
-GamepadButtonStr_Start			dc.b "Start",0
-GamepadButtonStr_Left			dc.b "Left",0
-GamepadButtonStr_Right			dc.b "Right",0
-GamepadButtonStr_Up				dc.b "Up",0
-GamepadButtonStr_Down			dc.b "Down",0
-GamepadButtonStr_a				dc.b "A",0
-GamepadButtonStr_b				dc.b "B",0
-GamepadButtonStr_c				dc.b "C",0
+GamepadButtonStr_Start	dc.b "Start",0
+GamepadButtonStr_Left	dc.b "Left",0
+GamepadButtonStr_Right	dc.b "Right",0
+GamepadButtonStr_Up		dc.b "Up",0
+GamepadButtonStr_Down	dc.b "Down",0
+GamepadButtonStr_a		dc.b "A",0
+GamepadButtonStr_b		dc.b "B",0
+GamepadButtonStr_c		dc.b "C",0
 
 	; Game controls
 ControlStr_Pause		dc.b "Pause",0
@@ -91,6 +91,12 @@ ControlStr_Peek_down	dc.b "Peek Down",0
 ControlStr_Interact		dc.b "Interact",0
 ControlStr_Power		dc.b "Special",0
 ControlStr_Jump			dc.b "Jump",0
+
+	; Control schemes
+ControlSchemeStr1		dc.b "Layout 1",0
+ControlSchemeStr2		dc.b "Layout 2",0
+ControlSchemeStr3		dc.b "Layout 3",0
+ControlSchemeStr4		dc.b "Layout 4",0
 
 	even
 

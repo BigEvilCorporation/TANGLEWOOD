@@ -55,14 +55,14 @@ OptionsScreenListX				equ (screen_width/2)-(8*8)
 OptionsScreenListY				equ 0x30
 OptionsScreenLineSpacing		equ 0x08
 
-OptionsScreenTitleX				equ (screen_width/2)-(8*8)
+OptionsScreenTitleX				equ (screen_width/2)-(8*4)
 OptionsScreenTitleY				equ 0x28
-OptionsScreenOptionX			equ (screen_width/2)-(8*8)+(8*1)
-OptionsScreenXInteract			equ (screen_width/2)-(8*8)+(8*1)-(8*4)
-OptionsScreenXPower				equ (screen_width/2)-(8*8)+(8*1)-(8*3)
-OptionsScreenXJump				equ (screen_width/2)-(8*8)+(8*1)
+OptionsScreenOptionX			equ (screen_width/2)-(8*4)
+OptionsScreenXInteract			equ (screen_width/2)-(8*4)-(8*4)
+OptionsScreenXPower				equ (screen_width/2)-(8*4)-(8*3)
+OptionsScreenXJump				equ (screen_width/2)-(8*4)
 
-OptionsScreenTitle				dc.b "Options",0
+OptionsScreenTitle				dc.b "Controls",0
 OptionsScreenControlInteract	dc.b "Interact",0
 OptionsScreenControlPower		dc.b "Special",0
 OptionsScreenControlJump		dc.b "Jump",0
@@ -442,11 +442,11 @@ LINECOUNT = LINECOUNT+1
 LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_TEXT a0,#StringBlankOptionsMax,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenXJump,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
 	move.l a3, OptionsState_TextJump(a6)
-LINECOUNT = LINECOUNT+2
+LINECOUNT = LINECOUNT+3
 
 	; Create control title
-	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
-LINECOUNT = LINECOUNT+1
+;	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
+;LINECOUNT = LINECOUNT+1
 
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
@@ -459,17 +459,22 @@ LINECOUNT = LINECOUNT+1
 	move.l #Options_OnCycleControls, UIWidgetList_OnCycle(a3)
 
 	; Add all control schemes
-	move.w #InputMappingsCount-1, d0
-	@MappingListLp:
-	PUSHW  d0
-	move.w #InputMappingsCount-1, d1
-	sub.w  d0, d1
-	PUSHW  d1
-	OPTIONS_ALLOC_HEX_BYTE_STRING d1
-	WIDGET_LIST_ADD_ITEM a3,a1
-	POPW   d1
-	POPW   d0
-	dbra   d0, @MappingListLp
+	;move.w #InputMappingsCount-1, d0
+	;@MappingListLp:
+	;PUSHW  d0
+	;move.w #InputMappingsCount-1, d1
+	;sub.w  d0, d1
+	;PUSHW  d1
+	;OPTIONS_ALLOC_HEX_BYTE_STRING d1
+	;WIDGET_LIST_ADD_ITEM a3,a1
+	;POPW   d1
+	;POPW   d0
+	;dbra   d0, @MappingListLp
+
+	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr1
+	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr2
+	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr3
+	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr4
 
 	; Align memory
 	RAMPOOL_ALIGN Pool_Entities
