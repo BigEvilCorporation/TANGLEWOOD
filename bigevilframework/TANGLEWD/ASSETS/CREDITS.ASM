@@ -169,7 +169,7 @@ CreditsStrings:
 	CREDIT_NAME		"Aaron Etheridge"
 	CREDIT_NAME		"Adam Vazquez"
 	CREDIT_NAME		"Agostinho Barone"
-	CREDIT_NAME		"Alexandre Miller"
+	CREDIT_NAME		"Alex Miller"
 	CREDIT_NAME		"Artemio Urbina"
 	CREDIT_NAME		"Ben Lancaster"
 	CREDIT_NAME		"Bill Rodriguez"
