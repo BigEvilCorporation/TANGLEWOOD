@@ -330,8 +330,13 @@ PlayerUpdate:
 	; Process special colour ability
 	jsr    PlayerUpdateColourAbility
 	
-	; If landing a jump, allow falling down holes
-	move.b Character_Jumping(a0), PhysicsObj_FallThroughHoles(a0)
+	; If landing a jump (and not dead), allow falling down holes
+	move.b Character_Jumping(a0), d0
+	tst.b  Character_Dead(a0)
+	beq    @NoHoles
+	move.b #0x0, d0
+	@NoHoles:
+	move.b d0, PhysicsObj_FallThroughHoles(a0)
 	
 	; If dead and not red, switch back
 	tst.b  Character_Dead(a0)
@@ -2400,6 +2405,11 @@ PlayerInteractTest_Fireflies:
 	
 	IFND DEBUG
 
+	; If moving
+	move.l PhysicsObj_VelX(a0), d0
+	or.l   PhysicsObj_VelY(a0), d0
+	beq    @NotMoving
+
 	PUSHL  a0
 	PUSHL  a1
 	
@@ -2425,6 +2435,8 @@ PlayerInteractTest_Fireflies:
 
 	POPL   a1
 	POPL   a0
+
+	@NotMoving:
 	
 	ENDIF
 
