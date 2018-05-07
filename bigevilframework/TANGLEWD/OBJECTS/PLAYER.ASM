@@ -249,6 +249,9 @@ PlayerInit:
 	MOVE_NTSC_L Player1WalkToRunVel, Character_WalkToRunVel(a0), d0
 	MOVE_NTSC_L Player1ClimbVel, Character_ClimbVel(a0), d0
 
+	; HACK for PAL 50hz - prevents stuttering when pushing objects
+	andi.l #0xFFFF0000, Character_MaxVelXWalk(a0)
+
 	move.w  #Player1Width, Entity_Width(a0)
 	move.w  #Player1Height, Entity_Height(a0)
 	move.l  #Player1WindResistanceFloor, PhysicsObj_WindResistanceFloor(a0)
