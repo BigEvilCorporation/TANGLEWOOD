@@ -107,22 +107,28 @@ PAL_LerpUpdate:
 	move.l #0x0, d0
 	@PaletteLerpLp:
 
+	tst.w  PaletteLerp_UpdateSpeed(a0)
+	beq    @NextPalette
+
 	; Tick palette lerp
 	PUSHM  d0/a0
 	jsr PAL_LerpUpdateNextComponent
 	move.b d0, d1
 	POPM   d0/a0
 
-	; Check if palette written to
+	; If palette written to, set dirty
 	tst.b  d1
 	beq    @PaletteNotWritten
-
-	; Palette written to, set dirty
-	bset   d0, (DirtyPalettesMask)
-	bset   d0, (UnderwaterDirtyPalettesMask)
+	bset   d0, DirtyPalettesMask
 	@PaletteNotWritten:
 
+	; If finished, mark for underwater conversion
+	tst.w  PaletteLerp_UpdateSpeed(a0)
+	bne    @NextPalette
+	bset   d0, UnderwaterDirtyPalettesMask
+
 	; Next palette
+	@NextPalette:
 	lea    PaletteLerp_Struct_Size(a0), a0
 	addq.b #0x1, d0
 	cmp.b  #num_palettes, d0
@@ -134,11 +140,7 @@ PAL_LerpUpdateNextComponent:
 	; a0 --- Address of PaletteLerp struct to update
 
 	moveq #0x0, d0
-	move.w PaletteLerp_UpdateSpeed(a0), d0		; Get lerp speed
-	beq    @PaletteNotWritten					; Return if disabled
-	
-	; =====================================================================
-	
+	move.w PaletteLerp_UpdateSpeed(a0), d0	; Get lerp speed
 	moveq #0x0, d2
 	move.l PaletteLerp_SubFrame(a0), d1	; Get current subframe
 	move.l d1, d3						; Keep subframe as prev
