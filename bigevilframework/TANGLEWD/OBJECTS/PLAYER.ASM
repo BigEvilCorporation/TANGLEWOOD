@@ -1816,7 +1816,8 @@ PlayerStartInteract:
 	tst.b  Player_DebounceInteract(a0)
 	beq    @SkipDebounce
 	move.w Gamepad1PrevState, d0
-	btst   #input_interact, d0
+	move.b input_interact, d7
+	btst   d7, d0
 	bne    @DebouncePush
 	@SkipDebounce:
 

@@ -22,6 +22,9 @@ __main:
 	move.l #0x0, hblank_counter
 	move.l #0x0, vblank_counter
 
+	; Apply default control mappings
+	jsr    InputApplyDefaultMapping
+
 	; Init autotest
 	IFND FINAL
 	IF AUTOTEST_ENABLED

@@ -231,6 +231,25 @@ StampAnimObjs		   rs.b (SceneAnim_Struct_Size*MaxStampAnims)
 StampAnims			   rs.b (Animation_Struct_Size*MaxStampAnims)
 
 ; ************************************
+; Gamepad mappings
+; ************************************
+InputMappingStart	rs.b 0
+input_pause			rs.b 1
+input_move_left		rs.b 1
+input_move_right	rs.b 1
+input_move_up		rs.b 1
+input_move_down		rs.b 1
+input_peek_up		rs.b 1
+input_peek_down		rs.b 1
+input_interact		rs.b 1
+input_power			rs.b 1
+input_jump			rs.b 1
+
+InputMappingScheme	rs.b 1
+
+	RS_ALIGN
+
+; ************************************
 ; Game globals
 ; ************************************
 Gamepad1State      	   rs.w 1
@@ -289,6 +308,7 @@ GameStateStack         rs.l (GameStateStackSize)
 	IFND DEBUG
 GameStateLogoData			 rs.b LogoState_Struct_Size
 GameStateLegalScreenData	 rs.b LegalScreenState_Struct_Size
+GameStateOptionsData		 rs.b OptionsState_Struct_Size
 GameStateMainMenuData		 rs.b MainMenuState_Struct_Size
 GameStatePasswordScreenData	 rs.b PasswordScreenState_Struct_Size
 GameStatePauseData		 	 rs.b PauseState_Struct_Size

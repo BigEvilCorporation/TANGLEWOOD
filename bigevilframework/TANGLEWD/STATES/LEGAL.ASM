@@ -296,12 +296,14 @@ LegalScreen_Update:
 	move.b #0x1, PhysicsObj_OnFloor(a0)
 	move.b #0x1, PhysicsObj_CloseToFloor(a0)
 
-	btst   #input_move_left, d0
+	move.b input_move_left, d7
+	btst   d7, d0
 	beq    @NoLeft
 	move.w #-Player1AccelWalk, PhysicsObj_AccelX(a0)
 	@NoLeft:
 
-	btst   #input_move_right, d0
+	move.b input_move_right, d7
+	btst   d7, d0
 	beq    @NoRight
 	move.w #Player1AccelWalk, PhysicsObj_AccelX(a0)
 	@NoRight:

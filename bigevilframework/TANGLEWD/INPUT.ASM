@@ -6,17 +6,83 @@
 ;   input.asm - Gamepad input state machine
 ;==============================================================
 
-; Controls
-input_pause			equ pad_button_start
-input_move_left		equ pad_button_left
-input_move_right	equ pad_button_right
-input_move_up		equ pad_button_up
-input_move_down		equ pad_button_down
-input_peek_up		equ pad_button_up
-input_peek_down		equ pad_button_down
-input_interact		equ pad_button_a
-input_power			equ pad_button_b
-input_jump			equ pad_button_c
+InputNumMappedButtons	equ 10
+InputMappingDefault		equ 0x0
+
+InputMappingTables:
+InputMapping1:
+	dc.b pad_button_start	; input_pause
+	dc.b pad_button_left	; input_move_left
+	dc.b pad_button_right	; input_move_right
+	dc.b pad_button_up		; input_move_up
+	dc.b pad_button_down	; input_move_down
+	dc.b pad_button_up		; input_peek_up
+	dc.b pad_button_down	; input_peek_down
+	dc.b pad_button_a		; input_interact
+	dc.b pad_button_b		; input_power
+	dc.b pad_button_c		; input_jump
+
+InputMapping2:
+	dc.b pad_button_start	; input_pause
+	dc.b pad_button_left	; input_move_left
+	dc.b pad_button_right	; input_move_right
+	dc.b pad_button_up		; input_move_up
+	dc.b pad_button_down	; input_move_down
+	dc.b pad_button_up		; input_peek_up
+	dc.b pad_button_down	; input_peek_down
+	dc.b pad_button_b		; input_interact
+	dc.b pad_button_c		; input_power
+	dc.b pad_button_a		; input_jump
+
+InputMapping3:
+	dc.b pad_button_start	; input_pause
+	dc.b pad_button_left	; input_move_left
+	dc.b pad_button_right	; input_move_right
+	dc.b pad_button_up		; input_move_up
+	dc.b pad_button_down	; input_move_down
+	dc.b pad_button_up		; input_peek_up
+	dc.b pad_button_down	; input_peek_down
+	dc.b pad_button_c		; input_interact
+	dc.b pad_button_b		; input_power
+	dc.b pad_button_a		; input_jump
+
+InputMapping4:
+	dc.b pad_button_start	; input_pause
+	dc.b pad_button_left	; input_move_left
+	dc.b pad_button_right	; input_move_right
+	dc.b pad_button_up		; input_move_up
+	dc.b pad_button_down	; input_move_down
+	dc.b pad_button_up		; input_peek_up
+	dc.b pad_button_down	; input_peek_down
+	dc.b pad_button_b		; input_interact
+	dc.b pad_button_a		; input_power
+	dc.b pad_button_c		; input_jump
+InputMappingsTablesEnd
+InputMappingsCount	equ (InputMappingsTablesEnd-InputMappingTables)/InputNumMappedButtons
+
+InputApplyDefaultMapping:
+	move.b #InputMappingDefault, d0
+	jsr    InputApplyMapping
+	rts
+
+InputApplyMapping:
+	; d0 --- Mapping index
+
+	; Set new scheme index
+	move.b d0, InputMappingScheme
+
+	; Get scheme mapping table
+	lea    InputMappingTables, a0
+	andi.l #0xFF, d0
+	mulu   #InputNumMappedButtons, d0
+	add.l  d0, a0
+
+	; Copy mappings
+	lea    InputMappingStart, a1
+	move.w #InputNumMappedButtons, d0
+	MEMCPYB a1, a0, d0
+
+	rts
 
 UpdateInput:
 	
@@ -98,9 +164,10 @@ HandlePlayerInput:
 	; =====================================================================
 	; Start - pause game (TODO: move to Gameplay state + fix conflicting debug input)
 	; =====================================================================
-	btst  #input_pause, d0
+	move.b input_pause, d7
+	btst  d7, d0
 	beq   @NoStart
-	btst  #input_pause, d1
+	btst  d7, d1
 	bne   @NoStart
 	PUSHL a0
 	PUSHL d0
@@ -123,14 +190,16 @@ HandlePlayerInput:
 	; =====================================================================
 	
 	; Move left
-	btst #input_move_right, d0  ; Check right button
+	move.b input_move_right, d7
+	btst d7, d0  ; Check right button
 	beq  @NoRight               ; Branch if button off
 	jsr  CharacterMoveRight
 	bra  @XHandled
 	@NoRight:
 	
 	; Move right
-	btst #input_move_left, d0   ; Check left button
+	move.b input_move_left, d7
+	btst d7, d0   ; Check left button
 	beq  @NoLeft                ; Branch if button off
 	jsr  CharacterMoveLeft
 	bra  @XHandled
@@ -147,14 +216,16 @@ HandlePlayerInput:
 	beq    @NotClimbing
 	
 	; Move up
-	btst #input_move_up, d0
+	move.b input_move_up, d7
+	btst d7, d0
 	beq  @NoClimbUp
 	jsr  CharacterMoveUp
 	bra  @YHandled
 	@NoClimbUp:
 	
 	; Move down
-	btst #input_move_down, d0
+	move.b input_move_down, d7
+	btst d7, d0
 	beq  @NoClimbDown
 	jsr  CharacterMoveDown
 	bra  @YHandled
@@ -172,7 +243,11 @@ HandlePlayerInput:
 	beq   @NoPeek
 
 	; Camera up (if only button pressed)
-	cmp.w #(1<<input_peek_up), d0
+	moveq  #0x0, d7
+	move.b input_peek_up, d7
+	move.w #0x1, d6
+	lsl.w  d7, d6
+	cmp.w d6, d0
 	bne   @NoUp
 	PUSHL d0
 	jsr   CameraHandlePeekUp
@@ -181,7 +256,11 @@ HandlePlayerInput:
 	@NoUp:
 	
 	; Camera down (if only button pressed)
-	cmp.w #(1<<input_peek_down), d0
+	moveq  #0x0, d7
+	move.b input_peek_down, d7
+	move.w #0x1, d6
+	lsl.w  d7, d6
+	cmp.w d6, d0
 	bne   @NoDown
 	PUSHL d0
 	jsr   CameraHandlePeekDown
@@ -201,16 +280,16 @@ HandlePlayerInput:
 	; =====================================================================
 	; Jump
 	; =====================================================================
-	
-	btst #input_jump, d0		; Check jump pressed
+	move.b input_jump, d7
+	btst d7, d0		; Check jump pressed
 	beq  @NoB
-	btst #input_jump, d1		; Check jump not already held
+	btst d7, d1		; Check jump not already held
 	bne  @EndB
 	move.b #0x0, d2
 	jsr  CharacterStartJump		; Jump
 	bra  @EndB
 	@NoB:
-	btst #input_jump, d1		; Check not already released
+	btst d7, d1		; Check not already released
 	beq  @EndB
 	jsr  CharacterCancelJump	; Cancel jump
 	@EndB:
@@ -218,17 +297,17 @@ HandlePlayerInput:
 	; =====================================================================
 	; Interact type A (colour ability)
 	; =====================================================================
-	
-	btst #input_power, d0			; Check A pressed
+	move.b input_power, d7
+	btst d7, d0			; Check A pressed
 	beq  @NoA
-	btst #input_power, d1			; Check A not already held
+	btst d7, d1			; Check A not already held
 	bne  @EndA
 	PUSHMW d0-d1
 	jsr  CharacterStartInteractA	; A
 	POPMW  d0-d1
 	bra  @EndA
 	@NoA:
-	btst #input_power, d1			; Check not already released
+	btst d7, d1			; Check not already released
 	beq  @EndA
 	PUSHMW d0-d1
 	jsr  CharacterCancelInteractA	; Cancel A
@@ -243,7 +322,8 @@ HandlePlayerInput:
 	tst.b  Player_InteractionToggle(a0)
 	bne    @ToggleC
 
-	btst #input_interact, d0		; Check C button
+	move.b input_interact, d7
+	btst d7, d0		; Check C button
 	beq  @NoC						; Branch if button off
 	PUSHMW d0-d1
 	jsr  CharacterStartInteractB	; Start interaction
@@ -257,16 +337,17 @@ HandlePlayerInput:
 
 	@ToggleC:
 	
-	btst #input_interact, d0		; Check C pressed
+	move.b input_interact, d7
+	btst d7, d0		; Check C pressed
 	beq  @NoToggleC
-	btst #input_interact, d1		; Check C not already held
+	btst d7, d1		; Check C not already held
 	bne  @EndToggleC
 	PUSHMW d0-d1
 	jsr  CharacterStartInteractB	; Start interaction
 	POPMW  d0-d1
 	bra  @EndToggleC
 	@NoToggleC:
-	btst #input_interact, d1		; Check C not already released
+	btst d7, d1		; Check C not already released
 	beq  @EndToggleC
 	PUSHMW d0-d1
 	jsr  CharacterCancelInteractB

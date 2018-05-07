@@ -20,6 +20,7 @@ UIWidgetList_AdvanceSteps		equ 0x08
 	rsset UIWidgetText_Struct_Size
 ;---------------------------------
 UIWidgetList_Items			rs.l UIWidgetList_MaxItems
+UIWidgetList_OnCycle		rs.l 1
 UIWidgetList_Orientation	rs.b 1
 UIWidgetList_NumItems		rs.b 1
 UIWidgetList_ItemIndex		rs.b 1
@@ -42,6 +43,7 @@ UIWidgetListInit:
 	move.l #UIWidgetListOnOptionCycle, UIWidget_OnOptionCycle(a0)
 	move.l #UIWidgetListOnOptionAdvance, UIWidget_OnOptionAdvance(a0)
 	move.b #UIWidgetList_Orientation_Horizontal, UIWidgetList_Orientation(a0)
+	move.l #0x0, UIWidgetList_OnCycle(a0)
 	move.b #0x0, UIWidgetList_NumItems(a0)
 	move.b #0x0, UIWidgetList_ItemIndex(a0)
 	
@@ -121,6 +123,13 @@ UIWidgetListOnOptionCycle:
 	move.b UIWidgetList_ItemIndex(a0), d0
 	move.l d0, UIWidget_OnSelectedData(a0)
 
+	; Callback
+	move.l UIWidgetList_OnCycle(a0), a2
+	cmpa   #0x0, a2
+	beq    @NoCallback
+	jsr    (a2)
+	@NoCallback:
+
 	rts
 
 UIWidgetListOnOptionAdvance:
@@ -144,6 +153,13 @@ UIWidgetListOnOptionAdvance:
 	moveq  #0x0, d0
 	move.b UIWidgetList_ItemIndex(a0), d0
 	move.l d0, UIWidget_OnSelectedData(a0)
+
+	; Callback
+	move.l UIWidgetList_OnCycle(a0), a2
+	cmpa   #0x0, a2
+	beq    @NoCallback
+	jsr    (a2)
+	@NoCallback:
 
 	rts
 

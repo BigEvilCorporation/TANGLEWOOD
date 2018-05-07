@@ -193,6 +193,7 @@ code_start
 	include 'states\legal.asm'
 	include 'states\score.asm'
 	include 'states\logos.asm'
+	include 'states\options.asm'
 	include 'states\password.asm'
 	include 'states\pause.asm'
 	include 'states\mainmenu.asm'

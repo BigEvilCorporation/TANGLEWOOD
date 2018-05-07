@@ -117,3 +117,15 @@ WIDGET_LIST_ADD_ITEM: macro listaddr,stringaddr
 	jsr    UIWidgetListAddItem
 	POPM  a0-a3
 	endm
+
+WIDGET_TEXT_SET_STRING macro widgetaddr,stringaddr
+	PUSHM  d0-d3/a0-a1
+	move.l \widgetaddr, a0
+	move.l \stringaddr, a1
+	move.l UIWidgetText_FontAddr(a0), a2
+	move.w UIWidgetText_FontAddrVRAM(a0), d0
+	move.b UIWidgetText_Palette(a0), d1
+	move.b UIWidgetText_DrawPlane(a0), d2
+	jsr    UIWidgetTextSetString
+	POPM   d0-d3/a0-a1
+	endm

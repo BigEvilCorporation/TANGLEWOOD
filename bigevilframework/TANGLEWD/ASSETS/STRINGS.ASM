@@ -17,6 +17,18 @@ Str_Flues:		dc.b "FLUES",0
 Str_Render:		dc.b "RENDER",0
 	ENDIF
 
+	; Space for string concats
+StringSpace				dc.b " ",0
+StringOptionSeparator	dc.b " : ",0
+
+	; Hack for options screen - UIText can't re-alloc strings, so alloc worst case first
+StringOptionsMaxLen	equ 20
+StringBlankOptionsMax:
+	REPT StringOptionsMaxLen
+	dc.b " "
+	ENDR
+	dc.b 0
+
 	; Font test
 FontTest_Msg1_A	dc.b "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
 FontTest_Msg1_B	dc.b "abcdefghijklmnopqrstuvwxyz",0
@@ -58,7 +70,58 @@ EndLevelString_Act4		dc.b 'Act 4:',0
 EndLevelString_Act5		dc.b 'Act 5:',0
 EndLevelString_Act6		dc.b 'Act 6:',0
 
+	; Gamepad inputs
+GamepadButtonStr_Start			dc.b "Start",0
+GamepadButtonStr_Left			dc.b "Left",0
+GamepadButtonStr_Right			dc.b "Right",0
+GamepadButtonStr_Up				dc.b "Up",0
+GamepadButtonStr_Down			dc.b "Down",0
+GamepadButtonStr_a				dc.b "A",0
+GamepadButtonStr_b				dc.b "B",0
+GamepadButtonStr_c				dc.b "C",0
+
+	; Game controls
+ControlStr_Pause		dc.b "Pause",0
+ControlStr_Move_left	dc.b "Move Left",0
+ControlStr_Move_right	dc.b "Move Right",0
+ControlStr_Move_up		dc.b "Move Upp",0
+ControlStr_Move_down	dc.b "Move Down",0
+ControlStr_Peek_up		dc.b "Peek Up",0
+ControlStr_Peek_down	dc.b "Peek Down",0
+ControlStr_Interact		dc.b "Interact",0
+ControlStr_Power		dc.b "Special",0
+ControlStr_Jump			dc.b "Jump",0
+
 	even
+
+	; Gamepad button names (matches button index)
+GamepadButtonNames:
+	dc.l GamepadButtonStr_Up
+	dc.l GamepadButtonStr_Down
+	dc.l GamepadButtonStr_Left
+	dc.l GamepadButtonStr_Right
+	dc.l GamepadButtonStr_b
+	dc.l GamepadButtonStr_c
+	dc.l 0x00000000
+	dc.l 0x00000000
+	dc.l 0x00000000
+	dc.l 0x00000000
+	dc.l 0x00000000
+	dc.l 0x00000000
+	dc.l GamepadButtonStr_a
+	dc.l GamepadButtonStr_Start
+
+ControlNames:
+	dc.l ControlStr_Pause
+	dc.l ControlStr_Move_left
+	dc.l ControlStr_Move_right
+	dc.l ControlStr_Move_up
+	dc.l ControlStr_Move_down
+	dc.l ControlStr_Peek_up
+	dc.l ControlStr_Peek_down
+	dc.l ControlStr_Interact
+	dc.l ControlStr_Power
+	dc.l ControlStr_Jump
 	
 EndLevelActNames:
 	dc.l EndLevelString_Act1

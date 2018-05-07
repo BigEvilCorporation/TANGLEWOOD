@@ -58,6 +58,61 @@ TXT_StrLen:
 
 	rts
 
+TXT_StrCpy:
+	; a0 --- String A
+	; a1 --- String B
+	; d0 (w) OUT: Length
+
+	PUSHM  a0-a1
+
+	move.w #0x0, d0
+
+	@CharLoop:
+	move.b (a1)+, d1
+	move.b d1, (a0)+
+	tst.b  d1
+	beq    @End
+	addq.w #0x1, d0
+	bra    @CharLoop
+
+	@End:
+
+	POPM   a0-a1
+
+	rts
+
+TXT_StrConcat:
+	; a0 --- String A
+	; a1 --- String B
+	; d0 (w) OUT: Length
+
+	PUSHM  a0-a1
+
+	; Find end of string A
+	PUSHL  a0
+	jsr    TXT_StrLen
+	POPL   a0
+
+	; Advance to end of string A
+	andi.l #0x0000FFFF, d0
+	add.l  d0, a0
+
+	; Find length of string B
+	PUSHL  a0
+	move.l a1, a0
+	jsr    TXT_StrLen
+	POPL   a0
+
+	; Add terminator
+	addi.w #0x1, d0
+
+	; Copy string
+	MEMCPYB a0, a1, d0
+
+	POPM   a0-a1
+
+	rts
+
 TXT_DrawPlane:
 	; a0 --- - String address
 	; d0 (w) - First tile ID of font

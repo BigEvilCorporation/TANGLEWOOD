@@ -61,11 +61,13 @@ MainMenuLegalTextY		equ (8*26)
 
 MainMenu_Opt_NewGame		equ 0x0
 MainMenu_Opt_Continue		equ 0x1
-MainMenu_Opt_LevelSelect	equ 0x2
-MainMenu_Opt_SoundTest		equ 0x3
+MainMenu_Opt_Options		equ 0x2
+MainMenu_Opt_LevelSelect	equ 0x3
+MainMenu_Opt_SoundTest		equ 0x4
 
 MainMenu_Str_NewGame		dc.b "New Game",0
 MainMenu_Str_Continue		dc.b "Continue",0
+MainMenu_Str_Options		dc.b "Options",0
 MainMenu_Str_LevelSelect	dc.b "Level Select",0
 MainMenu_Str_SoundTest		dc.b "Sound Test",0
 	even
@@ -368,6 +370,13 @@ LINECOUNT = LINECOUNT+1
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
 LINECOUNT = LINECOUNT+1
 
+	IF INCLUDE_OPTIONS
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Options,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Options
+LINECOUNT = LINECOUNT+1
+	ENDIF
+
 	IF INCLUDE_SOUNDTEST
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_SoundTest,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
@@ -408,6 +417,9 @@ MainMenu_OnSelected:
 	beq    @NewGame
 	cmp.b  #MainMenu_Opt_Continue, d0
 	beq    @Continue
+	beq    @NewGame
+	cmp.b  #MainMenu_Opt_Options, d0
+	beq    @Options
 	cmp.b  #MainMenu_Opt_LevelSelect, d0
 	beq    @LevelSelect
 	cmp.b  #MainMenu_Opt_SoundTest, d0
@@ -440,6 +452,14 @@ MainMenu_OnSelected:
 	; Set password screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStatePasswordScreen, MainMenuState_NextState(a2)
+
+	bra    @BeginFade
+
+	@Options:
+
+	; Set options screen state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStateOptions, MainMenuState_NextState(a2)
 
 	bra    @BeginFade
 
