@@ -62,6 +62,9 @@ INCLUDE_LEVEL_TST1		equ 0
 ; Characters
 INCLUDE_CHARACTER_ECHO	equ 1
 
+; All fireflies ending test
+L8A4_TEST_ALL_FIREFLIES	equ 0
+
 ; Demo mode
 DEMO_SHOW_THANKS		equ 0
 DEMO_USE_TIMEOUT		equ 0
@@ -83,13 +86,13 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
-InitialLevel			equ l1a4_HarlequinForestAct4
+;InitialLevel			equ l1a4_HarlequinForestAct4
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
 ;InitialLevel			equ l3a1_HeritageAct1
 ;InitialLevel			equ l3a2_HeritageAct2
-;InitialLevel			equ l3a3_HeritageAct3
+InitialLevel			equ l3a3_HeritageAct3
 ;InitialLevel			equ l4a1_TetheredAct1
 ;InitialLevel			equ l4a2_TetheredAct2
 ;InitialLevel			equ l4a3_TetheredAct3
@@ -119,6 +122,6 @@ InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-InitialState			equ  GameStateGameplay
-;InitialState			equ  GameStateCredits
+;InitialState			equ  GameStateGameplay
+InitialState			equ  GameStateCredits
 	ENDIF
