@@ -748,9 +748,14 @@ WyrmAIUpdate_Follow:
 	bne    @ForceBurrow
 
 	; If player invisible, assume safe (in flue)
-	move.l (Player1), a2
+	move.l Player1, a2
 	tst.b  SpriteObj_Visible(a2)
 	beq    @PlayerSafe
+
+	; If player is being flung using a flue/bounce pad, don't bother
+	MOVE_NTSC_L Monster_AttackMaxPlayerVel, d1, d0
+	cmp.l  PhysicsObj_VelY(a2), d1
+	blt    @PlayerSafe
 	
 	; If player is on a non-sand platform, assume safe (could be on a rolling log)
 	tst.b  PhysicsObj_CloseToFloor(a2)
@@ -907,9 +912,16 @@ WyrmAIUpdate_Bite:
 	
 	; Get player
 	PUSHL  a0
-	move.l (Player1), a0
+	move.l Player1, a0
 
-	; TODO: Snap player to mouth centre
+	; If player invisible, assume safe (in flue)
+	tst.b  SpriteObj_Visible(a0)
+	beq    @PlayerSafe
+
+	; If player is being flung using a flue/bounce pad, don't bother
+	MOVE_NTSC_L Monster_AttackMaxPlayerVel, d1, d0
+	cmp.l  PhysicsObj_VelY(a0), d1
+	blt    @PlayerSafe
 
 	; Hide player
 	move.b #0x0, SpriteObj_Visible(a0)
@@ -917,6 +929,8 @@ WyrmAIUpdate_Bite:
 	; Kill player
 	move.b #Wyrm_BiteDamage, d0
 	jsr    CharacterDealDamage
+
+	@PlayerSafe:
 
 	POPL   a0
 	
