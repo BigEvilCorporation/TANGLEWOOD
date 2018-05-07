@@ -644,14 +644,11 @@ DemonAIUpdate_Boss:
 	move.w Entity_WorldPosY(a2), d0
 	move.w Entity_Height(a0), d2
 	move.w Entity_Height(a2), d3
-	move.w Demon_BossBoundsTop(a0), d4
-	move.w Demon_BossBoundsBottom(a0), d5
 	sub.w  d3, d5
 	lsr.w  #0x1, d2
 	lsr.w  #0x1, d3
 	sub.w  d3, d2
 	sub.w  d2, d0
-	CLAMPW d0, d4, d5
 	move.w d0, Entity_WorldPosY(a0)
 
 	; Set visible

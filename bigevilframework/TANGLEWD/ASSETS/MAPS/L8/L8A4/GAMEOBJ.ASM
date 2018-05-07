@@ -480,7 +480,7 @@ L8A4_LoadGameObjects:
 
 	jsr AIMarkerInit
 	move.l #0x07e80000, Entity_WorldPosX(a0)
-	move.l #0x01600000, Entity_WorldPosY(a0)
+	move.l #0x01280000, Entity_WorldPosY(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
 	lea L8A4_MarkerDemonBottomBounds_name, a3

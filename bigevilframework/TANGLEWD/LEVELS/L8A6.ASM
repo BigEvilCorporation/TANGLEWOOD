@@ -732,6 +732,18 @@ l8a6_Cutscene_DemonDropFuzzl:
 	ENTITY_GETBYNAME Fuzzl, l8a6_FuzzlYellow1, a2
 	ENTITY_ALIGNCENTRE a2,a0,d0,d1
 
+	; Clamp to safe bounds
+	move.w Entity_WorldPosX(a2), d0
+	move.w Entity_WorldPosY(a2), d1
+	move.w Demon_BossBoundsLeft(a0), d2
+	move.w Demon_BossBoundsRight(a0), d3
+	move.w Demon_BossBoundsTop(a0), d4
+	move.w Demon_BossBoundsBottom(a0), d5
+	CLAMPW d0, d2, d3
+	CLAMPW d1, d4, d5
+	move.w d0, Entity_WorldPosX(a2)
+	move.w d1, Entity_WorldPosY(a2)
+
 	move.b #0x1, Entity_Active(a2)
 	move.b #0x1, SpriteObj_Visible(a2)
 	move.b #0x0, PhysicsObj_Asleep(a2)
