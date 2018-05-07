@@ -133,6 +133,8 @@ CreditsStrings:
 
 	CREDIT_HEADING1 "QA Team UK"
 	CREDIT_NAME		"Rhys Sampson"
+	CREDIT_SPACE
+	CREDIT_SPACE
 
 	CREDIT_HEADING1 "QA Team South Africa"
 	CREDIT_HEADING1 "24 Bit Games"
@@ -140,9 +142,10 @@ CreditsStrings:
 	CREDIT_NAME		"Lloyd Ramsamy"
 	CREDIT_NAME		"Luke Lamothe"
 	CREDIT_NAME		"Mike Levithan"
+	CREDIT_SPACE
+	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Focus Testing"
-	CREDIT_NAME		"Alexandre Miller"
 	CREDIT_NAME		"Bruce Gdula"
 	CREDIT_NAME		"David Blakemore"
 	CREDIT_NAME		"Davydd Pattinson"
@@ -159,6 +162,32 @@ CreditsStrings:
 	CREDIT_NAME		"Rob Chambers"
 	CREDIT_NAME		"Simon Lock"
 	CREDIT_NAME		"Tom Feve"
+	CREDIT_SPACE
+	CREDIT_SPACE
+
+	CREDIT_HEADING1 "Beta Testing"
+	CREDIT_NAME		"Aaron Etheridge"
+	CREDIT_NAME		"Adam Vazquez"
+	CREDIT_NAME		"Agostinho Barone"
+	CREDIT_NAME		"Alexandre Miller"
+	CREDIT_NAME		"Artemio Urbina"
+	CREDIT_NAME		"Ben Lancaster"
+	CREDIT_NAME		"Bill Rodriguez"
+	CREDIT_NAME		"David Howland"
+	CREDIT_NAME		"David Luis"
+	CREDIT_NAME		"Drew Michael"
+	CREDIT_NAME		"Eric Rist"
+	CREDIT_NAME		"Eric Voirin"
+	CREDIT_NAME		"Jemayel Mall"
+	CREDIT_NAME		"Karl Burnett"
+	CREDIT_NAME		"Lennart Brink-Abeler"
+	CREDIT_NAME		"Michael Becerra"
+	CREDIT_NAME		"Mike Pavone"
+	CREDIT_NAME		"Nils Muellner"
+	CREDIT_NAME		"Pierre Gosselin"
+	CREDIT_NAME		"Roman Kolchigin"
+	CREDIT_NAME		"Scott Munro"
+	CREDIT_NAME		"Thomas King"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
@@ -193,19 +222,19 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
-	CREDIT_HEADING1 "Open Source Software Used"
-	CREDIT_NAME		"BlastEm (by Mike Pavone)"
-	CREDIT_NAME		"Bmp2Tile (by Kaneda)"
-	CREDIT_NAME		"DefleMask (by Dalek)"
-	CREDIT_NAME		"DGen (by Dave, Joe Groff, and Phil Hornung)"
-	CREDIT_NAME		"Echo Sound System (by Sik)"
-	CREDIT_NAME		"Exodus (by Nemesis)"
-	CREDIT_NAME		"GNU Image Manipulation Program"
-	CREDIT_NAME		"MDStudio (by Nicolas Hamel)"
-	CREDIT_NAME		"Mega (by Lee Hammerton and Jake Turner)"
-	CREDIT_NAME		"Notepad++ (by Don Ho)"
-	CREDIT_NAME		"SLZ Compression (by Sik)"
-	CREDIT_NAME		"z80asm (by Bas Wijnen and Jan Wilmans)"
+	CREDIT_HEADING1 "Open Source Software"
+	CREDIT_NAME		"BlastEm"
+	CREDIT_NAME		"Bmp2Tile"
+	CREDIT_NAME		"DefleMask"
+	CREDIT_NAME		"DGen"
+	CREDIT_NAME		"Echo Sound System"
+	CREDIT_NAME		"Exodus"
+	CREDIT_NAME		"GIMP"
+	CREDIT_NAME		"MDStudio"
+	CREDIT_NAME		"Mega Emulation Core"
+	CREDIT_NAME		"Notepad++"
+	CREDIT_NAME		"SLZ Compression"
+	CREDIT_NAME		"z80asm"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "Special Thanks"
