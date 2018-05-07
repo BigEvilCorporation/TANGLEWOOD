@@ -370,6 +370,8 @@ ThunderUpdate:
 
 	;===============================================================
 
+	@Disabled:
+
 	; Decrement flash timer
 	move.w Thunder_FlashTimer(a2), d0
 	beq    @NoFlash
@@ -506,7 +508,5 @@ ThunderUpdate:
 	ENDIF
 
 	;===============================================================
-
-	@Disabled:
 
 	rts
