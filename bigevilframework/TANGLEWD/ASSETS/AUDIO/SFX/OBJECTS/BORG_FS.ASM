@@ -119,27 +119,16 @@
 	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 52; 
 	dc.b $16		; Note off channel FM 6
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 53; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 54; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 55; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 56; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 57; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 58; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 59; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 60; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 61; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 62; 
-	dc.b $fe, $01	; Delay
 ; Pattern $00, Row 63; 
-	dc.b $fe, $01	; Delay
+	dc.b $fe, $0c	; Delay
 	dc.b $ff	; The End

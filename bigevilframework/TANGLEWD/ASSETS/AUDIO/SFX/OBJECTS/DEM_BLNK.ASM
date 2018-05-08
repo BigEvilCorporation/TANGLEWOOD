@@ -1,4 +1,4 @@
-	dc.b $f8, $22, $00	; Set FM register 34 to value 0
+	dc.b $f8, $22, $08	; Set FM register 34 to value 8
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 	dc.b $e5		; Lock channel FM 5
 	dc.b $e6		; Lock channel FM 6
@@ -29,12 +29,10 @@
 	dc.b $16		; Note off channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $0b, $59	; Set frequency '2905' (octave 1 semitone 857) for channel FM 5
-	dc.b $36, $13, $83	; Set frequency '4995' (octave 2 semitone 899) for channel FM 6
 ; Pattern $00, Row 3; 
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $fe, $01	; Delay
 	dc.b $35, $0a, $e9	; Set frequency '2793' (octave 1 semitone 745) for channel FM 5
-	dc.b $36, $14, $82	; Set frequency '5250' (octave 2 semitone 1154) for channel FM 6
 ; Pattern $00, Row 4; 
 	dc.b $25, $12	; Set volume for channel FM 5
 	dc.b $26, $0f	; Set volume for channel FM 6

@@ -1986,14 +1986,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2015,14 +2010,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $26, $03	; Set volume for channel FM 6
@@ -2191,14 +2181,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2220,36 +2205,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2421,20 +2391,15 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
-	dc.b $36, $0a, $c0	; Set frequency '2752' (octave 1 semitone 704) for channel FM 6
 ; Pattern $08, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 5
-	dc.b $36, $04, $be	; Set frequency '1214' (octave 0 semitone 1214) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $3e	; Set frequency '7230' (octave 3 semitone 1086) for channel FM 5
-	dc.b $36, $03, $bf	; Set frequency '959' (octave 0 semitone 959) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $be	; Set frequency '7102' (octave 3 semitone 958) for channel FM 5
-	dc.b $36, $02, $c0	; Set frequency '704' (octave 0 semitone 704) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $3e	; Set frequency '6974' (octave 3 semitone 830) for channel FM 5
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1a, $be	; Set frequency '6846' (octave 3 semitone 702) for channel FM 5
 ; Pattern $08, Row 58; 
@@ -2442,14 +2407,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $08, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $46, $7c	; Set instrument for channel FM 6
@@ -2554,14 +2514,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2583,14 +2538,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $26, $03	; Set volume for channel FM 6
@@ -2759,14 +2709,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2788,36 +2733,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -2992,20 +2922,15 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $36, $0a, $c0	; Set frequency '2752' (octave 1 semitone 704) for channel FM 6
 ; Pattern $09, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 5
-	dc.b $36, $04, $be	; Set frequency '1214' (octave 0 semitone 1214) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $3e	; Set frequency '7230' (octave 3 semitone 1086) for channel FM 5
-	dc.b $36, $03, $bf	; Set frequency '959' (octave 0 semitone 959) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $be	; Set frequency '7102' (octave 3 semitone 958) for channel FM 5
-	dc.b $36, $02, $c0	; Set frequency '704' (octave 0 semitone 704) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $3e	; Set frequency '6974' (octave 3 semitone 830) for channel FM 5
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1a, $be	; Set frequency '6846' (octave 3 semitone 702) for channel FM 5
 ; Pattern $09, Row 58; 
@@ -3013,14 +2938,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $09, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $46, $7c	; Set instrument for channel FM 6
@@ -3136,14 +3056,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -3165,14 +3080,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $26, $03	; Set volume for channel FM 6
@@ -3341,14 +3251,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -3370,36 +3275,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -3575,20 +3465,15 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
-	dc.b $36, $0a, $c0	; Set frequency '2752' (octave 1 semitone 704) for channel FM 6
 ; Pattern $0a, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 5
-	dc.b $36, $04, $be	; Set frequency '1214' (octave 0 semitone 1214) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $3e	; Set frequency '7230' (octave 3 semitone 1086) for channel FM 5
-	dc.b $36, $03, $bf	; Set frequency '959' (octave 0 semitone 959) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $be	; Set frequency '7102' (octave 3 semitone 958) for channel FM 5
-	dc.b $36, $02, $c0	; Set frequency '704' (octave 0 semitone 704) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $3e	; Set frequency '6974' (octave 3 semitone 830) for channel FM 5
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1a, $be	; Set frequency '6846' (octave 3 semitone 702) for channel FM 5
 ; Pattern $0a, Row 58; 
@@ -3596,14 +3481,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0a, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $46, $7c	; Set instrument for channel FM 6
@@ -3707,14 +3587,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -3736,14 +3611,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $26, $03	; Set volume for channel FM 6
@@ -3929,14 +3799,9 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -3958,36 +3823,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4161,20 +4011,15 @@
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
-	dc.b $36, $0a, $c0	; Set frequency '2752' (octave 1 semitone 704) for channel FM 6
 ; Pattern $0b, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 5
-	dc.b $36, $04, $be	; Set frequency '1214' (octave 0 semitone 1214) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $3e	; Set frequency '7230' (octave 3 semitone 1086) for channel FM 5
-	dc.b $36, $03, $bf	; Set frequency '959' (octave 0 semitone 959) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $be	; Set frequency '7102' (octave 3 semitone 958) for channel FM 5
-	dc.b $36, $02, $c0	; Set frequency '704' (octave 0 semitone 704) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1b, $3e	; Set frequency '6974' (octave 3 semitone 830) for channel FM 5
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1a, $be	; Set frequency '6846' (octave 3 semitone 702) for channel FM 5
 ; Pattern $0b, Row 58; 
@@ -4182,14 +4027,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0b, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $46, $7c	; Set instrument for channel FM 6
@@ -4248,58 +4088,37 @@
 	dc.b $05, $61	; Note C-3 on channel FM 5
 	dc.b $16		; Note off channel FM 6
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $36, $0a, $de	; Set frequency '2782' (octave 1 semitone 734) for channel FM 6
 ; Pattern $0c, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $35, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 5
-	dc.b $36, $04, $be	; Set frequency '1214' (octave 0 semitone 1214) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 5
-	dc.b $36, $04, $1e	; Set frequency '1054' (octave 0 semitone 1054) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 5
-	dc.b $36, $03, $7e	; Set frequency '894' (octave 0 semitone 894) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $12, $de	; Set frequency '4830' (octave 2 semitone 734) for channel FM 5
-	dc.b $36, $02, $de	; Set frequency '734' (octave 0 semitone 734) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $35, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 5
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
 ; Pattern $0c, Row 2; 
 	dc.b $45, $8a	; Set instrument for channel FM 5
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 3; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 4; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 5; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 6; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4321,36 +4140,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 14; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 15; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 16; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4372,36 +4176,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 21; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 22; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 23; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 24; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4423,36 +4212,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $30	; Note C-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 27; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 28; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $38	; Note E-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 29; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 30; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4474,36 +4248,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4525,36 +4284,21 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 44; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 45; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 46; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 47; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 48; 
+	dc.b $fe, $06	; Delay
 	dc.b $02, $af	; Note G-5 on channel FM 3
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
@@ -4578,14 +4322,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 51; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 52; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4608,14 +4347,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $07	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4637,38 +4371,24 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $03	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 62; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $1c	; Note D-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0c, Row 63; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 0; 
+	dc.b $fe, $05	; Delay
 	dc.b $00, $45	; Note D-2 on channel FM 1
 	dc.b $01, $21	; Note C-1 on channel FM 2
 	dc.b $02, $b3	; Note A-5 on channel FM 3
@@ -4695,40 +4415,28 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 3; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $0a	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 4; 
+	dc.b $fe, $05	; Delay
 	dc.b $01, $25	; Note D-1 on channel FM 2
 	dc.b $25, $0b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 5; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $0c	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 6; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $0d	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 7; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $0e	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 8; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $0f	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4752,39 +4460,27 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 11; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $11	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 12; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $12	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 13; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $13	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 14; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $14	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 15; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $15	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 16; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $16	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4808,38 +4504,25 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $19	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $2a	; Note A-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 21; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $1a	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 22; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $1b	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $24	; Note F#1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 23; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $1c	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 24; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $1d	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4863,38 +4546,26 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 27; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $20	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 28; 
+	dc.b $fe, $05	; Delay
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 29; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $21	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 30; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $22	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 31; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $23	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 32; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $24	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4918,38 +4589,25 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 35; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $27	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 36; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $28	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $25, $29	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 39; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $2a	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 40; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $2b	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -4973,38 +4631,26 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 43; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $2e	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 44; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $2f	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 45; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $30	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 46; 
+	dc.b $fe, $05	; Delay
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 47; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $31	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 48; 
+	dc.b $fe, $05	; Delay
 	dc.b $01, $37	; Note B-1 on channel FM 2
 	dc.b $02, $b7	; Note B-5 on channel FM 3
 	dc.b $24, $07	; Set volume for channel FM 4
@@ -5034,15 +4680,11 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 51; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $35	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 52; 
+	dc.b $fe, $05	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $36	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -5066,14 +4708,9 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $24	; Note F#1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $45, $85	; Set instrument for channel FM 5
 	dc.b $25, $39	; Set volume for channel FM 5
 	dc.b $f5, $f7	; Set pan/AMS/FMS for channel FM 5
@@ -5097,15 +4734,11 @@
 	dc.b $f5, $c0	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 59; 
+	dc.b $fe, $01	; Delay
 	dc.b $25, $3c	; Set volume for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0d, Row 60; 
+	dc.b $fe, $05	; Delay
 	dc.b $25, $3d	; Set volume for channel FM 5
 	dc.b $05, $81	; Note C-4 on channel FM 5
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
@@ -5146,221 +4779,101 @@
 	dc.b $01, $21	; Note C-1 on channel FM 2
 	dc.b $02, $b7	; Note B-5 on channel FM 3
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 1; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 2; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 3; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 4; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 5; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 6; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 9; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 10; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 14; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 15; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 16; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 17; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 18; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 21; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 22; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 23; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 24; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 25; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 26; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $30	; Note C-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 27; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 28; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $38	; Note E-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 29; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 30; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 33; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 34; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 41; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 42; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 44; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 45; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 46; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 47; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 48; 
+	dc.b $fe, $06	; Delay
 	dc.b $01, $29	; Note E-1 on channel FM 2
 	dc.b $02, $c5	; Note D-6 on channel FM 3
 	dc.b $44, $88	; Set instrument for channel FM 4
@@ -5369,1434 +4882,810 @@
 	dc.b $08, $30	; Note C-2 on channel PSG 1
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 49; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 50; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 51; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 52; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 53; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 54; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 57; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 58; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 62; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $1c	; Note D-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0e, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 0; 
+	dc.b $fe, $06	; Delay
 	dc.b $00, $45	; Note D-2 on channel FM 1
 	dc.b $11		; Note off channel FM 2
 	dc.b $02, $b3	; Note A-5 on channel FM 3
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 1; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 2; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 3; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 4; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 5; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 6; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 9; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 10; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 14; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 15; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 16; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 17; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 18; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2a	; Note A-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 21; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 22; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $24	; Note F#1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 23; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 24; 
+	dc.b $fe, $06	; Delay
 	dc.b $02, $b3	; Note A-5 on channel FM 3
 	dc.b $44, $86	; Set instrument for channel FM 4
 	dc.b $f4, $c0	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $49	; Note E-2 on channel FM 4
 	dc.b $08, $3c	; Note F#2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 25; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 26; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 27; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 28; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 29; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 30; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 33; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 34; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 40; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 41; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 42; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 44; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 45; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 46; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 47; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 48; 
+	dc.b $fe, $06	; Delay
 	dc.b $00, $37	; Note B-1 on channel FM 1
 	dc.b $02, $af	; Note G-5 on channel FM 3
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 49; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 50; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 51; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 52; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2a	; Note A-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 53; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 54; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $24	; Note F#1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 57; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 58; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 62; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $0f, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 0; 
+	dc.b $fe, $06	; Delay
 	dc.b $00, $41	; Note C-2 on channel FM 1
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 1; 
+	dc.b $fe, $01	; Delay
 	dc.b $28, $04	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 2; 
+	dc.b $fe, $05	; Delay
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 3; 
+	dc.b $fe, $01	; Delay
 	dc.b $2a, $04	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 4; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 5; 
+	dc.b $fe, $01	; Delay
 	dc.b $29, $04	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 6; 
+	dc.b $fe, $05	; Delay
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 9; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 10; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 12; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 14; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 15; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 16; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 17; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 18; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $28, $05	; Set volume for channel PSG 1
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 21; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 22; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
 	dc.b $2a, $05	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 23; 
+	dc.b $fe, $01	; Delay
 	dc.b $29, $05	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 24; 
+	dc.b $fe, $05	; Delay
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 25; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 26; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $30	; Note C-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 27; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 28; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $38	; Note E-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 29; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 30; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 33; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 34; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 36; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 39; 
+	dc.b $fe, $01	; Delay
 	dc.b $28, $06	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 40; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 41; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 42; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
 	dc.b $29, $06	; Set volume for channel PSG 2
 	dc.b $2a, $06	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 44; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 45; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 46; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 47; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 48; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $30	; Note C-2 on channel PSG 1
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 49; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 50; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 51; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 52; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 53; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 54; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 57; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 58; 
+	dc.b $fe, $06	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 60; 
+	dc.b $fe, $06	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 62; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $1c	; Note D-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $10, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 0; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $0b	; Set volume for channel FM 1
 	dc.b $00, $45	; Note D-2 on channel FM 1
 	dc.b $24, $07	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 1; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $08	; Set volume for channel FM 3
 	dc.b $24, $08	; Set volume for channel FM 4
 	dc.b $28, $07	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 2; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $09	; Set volume for channel FM 3
 	dc.b $24, $09	; Set volume for channel FM 4
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 3; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $0a	; Set volume for channel FM 3
 	dc.b $24, $0a	; Set volume for channel FM 4
 	dc.b $2a, $07	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 4; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $0b	; Set volume for channel FM 3
 	dc.b $24, $0b	; Set volume for channel FM 4
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 5; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $0c	; Set volume for channel FM 3
 	dc.b $24, $0c	; Set volume for channel FM 4
 	dc.b $29, $07	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 6; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $0d	; Set volume for channel FM 3
 	dc.b $24, $0d	; Set volume for channel FM 4
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 7; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $0e	; Set volume for channel FM 3
 	dc.b $24, $0e	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 8; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $0f	; Set volume for channel FM 3
 	dc.b $24, $0f	; Set volume for channel FM 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 9; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $10	; Set volume for channel FM 3
 	dc.b $24, $10	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 10; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 11; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $11	; Set volume for channel FM 3
 	dc.b $24, $11	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 12; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $12	; Set volume for channel FM 3
 	dc.b $24, $12	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 13; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $13	; Set volume for channel FM 3
 	dc.b $24, $13	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 14; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $14	; Set volume for channel FM 3
 	dc.b $24, $14	; Set volume for channel FM 4
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 15; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $15	; Set volume for channel FM 3
 	dc.b $24, $15	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 16; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $16	; Set volume for channel FM 3
 	dc.b $24, $16	; Set volume for channel FM 4
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 17; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $17	; Set volume for channel FM 3
 	dc.b $24, $17	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 18; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $18	; Set volume for channel FM 3
 	dc.b $24, $18	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 19; 
+	dc.b $fe, $01	; Delay
 	dc.b $28, $08	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 20; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $19	; Set volume for channel FM 3
 	dc.b $24, $19	; Set volume for channel FM 4
 	dc.b $0a, $2a	; Note A-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 21; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $1a	; Set volume for channel FM 3
 	dc.b $24, $1a	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 22; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $1b	; Set volume for channel FM 3
 	dc.b $24, $1b	; Set volume for channel FM 4
 	dc.b $09, $24	; Note F#1 on channel PSG 2
 	dc.b $2a, $08	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 23; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $1c	; Set volume for channel FM 3
 	dc.b $24, $1c	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 24; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $1d	; Set volume for channel FM 3
 	dc.b $24, $1d	; Set volume for channel FM 4
 	dc.b $08, $3c	; Note F#2 on channel PSG 1
 	dc.b $29, $08	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 25; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $1e	; Set volume for channel FM 3
 	dc.b $24, $1e	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 26; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $1f	; Set volume for channel FM 3
 	dc.b $24, $1f	; Set volume for channel FM 4
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 27; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $20	; Set volume for channel FM 3
 	dc.b $24, $20	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 28; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 29; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $21	; Set volume for channel FM 3
 	dc.b $24, $21	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 30; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $22	; Set volume for channel FM 3
 	dc.b $24, $22	; Set volume for channel FM 4
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 31; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $23	; Set volume for channel FM 3
 	dc.b $24, $23	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 32; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $24	; Set volume for channel FM 3
 	dc.b $24, $24	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 33; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $25	; Set volume for channel FM 3
 	dc.b $24, $25	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 34; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $26	; Set volume for channel FM 3
 	dc.b $24, $26	; Set volume for channel FM 4
 	dc.b $0a, $3e	; Note G-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 35; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $27	; Set volume for channel FM 3
 	dc.b $24, $27	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 36; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $28	; Set volume for channel FM 3
 	dc.b $24, $28	; Set volume for channel FM 4
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $22, $29	; Set volume for channel FM 3
 	dc.b $24, $29	; Set volume for channel FM 4
 	dc.b $28, $09	; Set volume for channel PSG 1
 	dc.b $08, $2a	; Note A-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 39; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $2a	; Set volume for channel FM 3
 	dc.b $24, $2a	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 40; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $2b	; Set volume for channel FM 3
 	dc.b $24, $2b	; Set volume for channel FM 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 41; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $2c	; Set volume for channel FM 3
 	dc.b $24, $2c	; Set volume for channel FM 4
 	dc.b $2a, $09	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 42; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $2d	; Set volume for channel FM 3
 	dc.b $24, $2d	; Set volume for channel FM 4
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 43; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $2e	; Set volume for channel FM 3
 	dc.b $24, $2e	; Set volume for channel FM 4
 	dc.b $29, $09	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 44; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $2f	; Set volume for channel FM 3
 	dc.b $24, $2f	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 45; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $30	; Set volume for channel FM 3
 	dc.b $24, $30	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 46; 
+	dc.b $fe, $05	; Delay
 	dc.b $0a, $24	; Note F#1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 47; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $31	; Set volume for channel FM 3
 	dc.b $24, $31	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 48; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $32	; Set volume for channel FM 3
 	dc.b $24, $32	; Set volume for channel FM 4
 	dc.b $09, $3c	; Note F#2 on channel PSG 2
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 49; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $33	; Set volume for channel FM 3
 	dc.b $24, $33	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 50; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $34	; Set volume for channel FM 3
 	dc.b $24, $34	; Set volume for channel FM 4
 	dc.b $08, $34	; Note D-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 51; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $35	; Set volume for channel FM 3
 	dc.b $24, $35	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 52; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $36	; Set volume for channel FM 3
 	dc.b $24, $36	; Set volume for channel FM 4
 	dc.b $0a, $2a	; Note A-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 53; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $37	; Set volume for channel FM 3
 	dc.b $24, $37	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 54; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $38	; Set volume for channel FM 3
 	dc.b $24, $38	; Set volume for channel FM 4
 	dc.b $09, $24	; Note F#1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $22, $39	; Set volume for channel FM 3
 	dc.b $24, $39	; Set volume for channel FM 4
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 57; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $3a	; Set volume for channel FM 3
 	dc.b $24, $3a	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 58; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $3b	; Set volume for channel FM 3
 	dc.b $24, $3b	; Set volume for channel FM 4
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 59; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $3c	; Set volume for channel FM 3
 	dc.b $24, $3c	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 60; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $3d	; Set volume for channel FM 3
 	dc.b $24, $3d	; Set volume for channel FM 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 61; 
+	dc.b $fe, $01	; Delay
 	dc.b $22, $3e	; Set volume for channel FM 3
 	dc.b $24, $3e	; Set volume for channel FM 4
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 62; 
+	dc.b $fe, $05	; Delay
 	dc.b $22, $3f	; Set volume for channel FM 3
 	dc.b $24, $3f	; Set volume for channel FM 4
 	dc.b $09, $46	; Note B-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $11, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 0; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $17	; Set volume for channel FM 1
 	dc.b $00, $21	; Note C-1 on channel FM 1
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 1; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $18	; Set volume for channel FM 1
 	dc.b $28, $0a	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 2; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $19	; Set volume for channel FM 1
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 3; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $1a	; Set volume for channel FM 1
 	dc.b $2a, $0a	; Set volume for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 4; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 5; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $1b	; Set volume for channel FM 1
 	dc.b $29, $0a	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 6; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $1c	; Set volume for channel FM 1
 	dc.b $08, $20	; Note E-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 8; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $1d	; Set volume for channel FM 1
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 9; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $1e	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 10; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 11; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $1f	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 12; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $20	; Set volume for channel FM 1
 	dc.b $28, $0b	; Set volume for channel PSG 1
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 14; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $21	; Set volume for channel FM 1
 	dc.b $2a, $0b	; Set volume for channel PSG 3
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 15; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $22	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 16; 
+	dc.b $fe, $05	; Delay
 	dc.b $29, $0b	; Set volume for channel PSG 2
 	dc.b $09, $30	; Note C-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 17; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $23	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 18; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $24	; Set volume for channel FM 1
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 20; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $25	; Set volume for channel FM 1
 	dc.b $0a, $34	; Note D-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 21; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $26	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 22; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 23; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $27	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 24; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $28	; Set volume for channel FM 1
 	dc.b $28, $0c	; Set volume for channel PSG 1
 	dc.b $08, $3e	; Note G-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 25; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 26; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $29	; Set volume for channel FM 1
 	dc.b $2a, $0c	; Set volume for channel PSG 3
 	dc.b $0a, $30	; Note C-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 27; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $2a	; Set volume for channel FM 1
 	dc.b $29, $0c	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 28; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $38	; Note E-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 29; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $2b	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 30; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $2c	; Set volume for channel FM 1
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 32; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $2d	; Set volume for channel FM 1
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 33; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $2e	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 34; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 35; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $2f	; Set volume for channel FM 1
 	dc.b $28, $0d	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 36; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $30	; Set volume for channel FM 1
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 38; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $31	; Set volume for channel FM 1
 	dc.b $29, $0d	; Set volume for channel PSG 2
 	dc.b $2a, $0d	; Set volume for channel PSG 3
 	dc.b $0a, $20	; Note E-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 39; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $32	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 40; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 41; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $33	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 42; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $34	; Set volume for channel FM 1
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 44; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $35	; Set volume for channel FM 1
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 45; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $36	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 46; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $20	; Note E-1 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 47; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $37	; Set volume for channel FM 1
 	dc.b $28, $0e	; Set volume for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 48; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $38	; Set volume for channel FM 1
 	dc.b $08, $30	; Note C-2 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 49; 
+	dc.b $fe, $01	; Delay
 	dc.b $29, $0e	; Set volume for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 50; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $39	; Set volume for channel FM 1
 	dc.b $2a, $0e	; Set volume for channel PSG 3
 	dc.b $0a, $2e	; Note B-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 51; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $3a	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 52; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $34	; Note D-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 53; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $3b	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 54; 
+	dc.b $fe, $05	; Delay
 	dc.b $20, $3c	; Set volume for channel FM 1
 	dc.b $08, $26	; Note G-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 56; 
+	dc.b $fe, $06	; Delay
 	dc.b $20, $3d	; Set volume for channel FM 1
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 57; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $3e	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 58; 
+	dc.b $fe, $05	; Delay
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 59; 
+	dc.b $fe, $01	; Delay
 	dc.b $20, $3f	; Set volume for channel FM 1
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 60; 
+	dc.b $fe, $05	; Delay
 	dc.b $09, $3e	; Note G-2 on channel PSG 2
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 62; 
+	dc.b $fe, $06	; Delay
 	dc.b $0a, $1c	; Note D-1 on channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $12, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 0; 
+	dc.b $fe, $06	; Delay
 	dc.b $10		; Note off channel FM 1
 	dc.b $11		; Note off channel FM 2
 	dc.b $12		; Note off channel FM 3
@@ -6804,259 +5693,68 @@
 	dc.b $18		; Note off channel PSG 1
 	dc.b $19		; Note off channel PSG 2
 	dc.b $1a		; Note off channel PSG 3
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 1; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 2; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 3; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 4; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 5; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 6; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 7; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 8; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 9; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 10; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 11; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 12; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 13; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 14; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 15; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 16; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 17; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 18; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 19; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 20; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 21; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 22; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 23; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 24; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 25; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 26; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 27; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 28; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 29; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 30; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 31; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 32; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 33; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 34; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 35; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 36; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 37; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 38; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 39; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 40; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 41; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 42; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 43; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 44; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 45; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 46; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 47; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 48; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 49; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 50; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 51; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 52; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 53; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 54; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 56; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 57; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 58; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 59; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 60; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 61; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 62; 
-	dc.b $fe, $01	; Delay
 ; Pattern $13, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
-	dc.b $fe, $01	; Delay
+	dc.b $fe, $c0	; Delay
 	dc.b $ff	; The End

@@ -6,8 +6,8 @@
 	dc.b $26, $09	; Set volume for channel FM 6
 	dc.b $f6, $f7	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $73	; Note A-3 on channel FM 6
-; Pattern $00, Row 1; 
 	dc.b $fe, $01	; Delay
+; Pattern $00, Row 1; 
 	dc.b $06, $4b	; Note F-2 on channel FM 6
 ; Pattern $00, Row 2; 
 	dc.b $fe, $01	; Delay
@@ -41,8 +41,8 @@
 ; Pattern $00, Row 12; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $71	; Note G#3 on channel FM 6
-; Pattern $00, Row 13; 
 	dc.b $fe, $01	; Delay
+; Pattern $00, Row 13; 
 	dc.b $06, $75	; Note A#3 on channel FM 6
 ; Pattern $00, Row 14; 
 	dc.b $fe, $01	; Delay
@@ -68,8 +68,8 @@
 ; Pattern $00, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $77	; Note B-3 on channel FM 6
-; Pattern $00, Row 22; 
 	dc.b $fe, $01	; Delay
+; Pattern $00, Row 22; 
 	dc.b $26, $0b	; Set volume for channel FM 6
 	dc.b $06, $81	; Note C-4 on channel FM 6
 ; Pattern $00, Row 23; 

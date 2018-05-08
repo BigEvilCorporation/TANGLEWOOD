@@ -59,8 +59,5 @@
 ; Pattern $00, Row 8; 
 	dc.b $16		; Note off channel FM 6
 	dc.b $1b		; Note off channel PSG 4
-	dc.b $fe, $01	; Delay
-	dc.b $36, $02, $c0	; Set frequency '704' (octave 0 semitone 704) for channel FM 6
-	dc.b $fe, $01	; Delay
-	dc.b $36, $02, $84	; Set frequency '644' (octave 0 semitone 644) for channel FM 6
+	dc.b $fe, $02	; Delay
 	dc.b $ff	; The End

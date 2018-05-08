@@ -6,9 +6,15 @@
 	dc.b $26, $0f	; Set volume for channel FM 6
 	dc.b $f6, $c7	; Set pan/AMS/FMS for channel FM 6
 	dc.b $06, $6b	; Note F-3 on channel FM 6
+	dc.b $fe, $02	; Delay
 ; Pattern $00, Row 1; 
+	dc.b $fe, $01	; Delay
+	dc.b $36, $1b, $59	; Set frequency '7001' (octave 3 semitone 857) for channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $1b, $58	; Set frequency '7000' (octave 3 semitone 856) for channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $1b, $58	; Set frequency '7000' (octave 3 semitone 856) for channel FM 6
 ; Pattern $00, Row 2; 
-	dc.b $fe, $05	; Delay
 	dc.b $26, $0b	; Set volume for channel FM 6
 	dc.b $06, $53	; Note A-2 on channel FM 6
 ; Pattern $00, Row 3; 

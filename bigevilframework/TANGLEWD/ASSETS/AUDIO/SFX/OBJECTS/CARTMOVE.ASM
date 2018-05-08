@@ -22,8 +22,5 @@
 	dc.b $36, $1a, $be	; Set frequency '6846' (octave 3 semitone 702) for channel FM 6
 ; Pattern $00, Row 3; 
 	dc.b $16		; Note off channel FM 6
-	dc.b $fe, $01	; Delay
-	dc.b $36, $1a, $c1	; Set frequency '6849' (octave 3 semitone 705) for channel FM 6
-	dc.b $fe, $01	; Delay
-	dc.b $36, $1a, $c4	; Set frequency '6852' (octave 3 semitone 708) for channel FM 6
+	dc.b $fe, $02	; Delay
 	dc.b $ff	; The End
