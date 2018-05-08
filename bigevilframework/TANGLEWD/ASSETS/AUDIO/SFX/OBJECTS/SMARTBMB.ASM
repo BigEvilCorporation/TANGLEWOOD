@@ -144,9 +144,4 @@
 	dc.b $fe, $01	; Delay
 	dc.b $36, $0b, $fe	; Set frequency '3070' (octave 1 semitone 1022) for channel FM 6
 	dc.b $3a, $0a, $08	; Set frequency '138' for channel PSG 3
-	dc.b $24, $7f	; Set volume for channel FM 4
-	dc.b $25, $7f	; Set volume for channel FM 5
-	dc.b $26, $7f	; Set volume for channel FM 6
-	dc.b $2a, $0f	; Set volume for channel PSG 3
-	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

@@ -3464,11 +3464,4 @@
 ; Pattern $09, Row 62; 
 ; Pattern $09, Row 63; 
 	dc.b $fe, $76	; Delay
-	dc.b $20, $7f	; Set volume for channel FM 1
-	dc.b $21, $7f	; Set volume for channel FM 2
-	dc.b $22, $7f	; Set volume for channel FM 3
-	dc.b $24, $7f	; Set volume for channel FM 4
-	dc.b $25, $7f	; Set volume for channel FM 5
-	dc.b $2a, $0f	; Set volume for channel PSG 3
-	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

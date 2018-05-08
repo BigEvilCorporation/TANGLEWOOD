@@ -129,5 +129,4 @@
 	dc.b $fe, $01	; Delay
 	dc.b $06, $69	; Note E-3 on channel FM 6
 	dc.b $fe, $01	; Delay
-	dc.b $26, $7f	; Set volume for channel FM 6
 	dc.b $ff	; The End

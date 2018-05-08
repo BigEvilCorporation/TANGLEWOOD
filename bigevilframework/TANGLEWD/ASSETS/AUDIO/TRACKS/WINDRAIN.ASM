@@ -1199,8 +1199,4 @@
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $06, $06	; Set frequency '102' for channel PSG 3
 	dc.b $fc	; Goto loop
-	dc.b $20, $7f	; Set volume for channel FM 1
-	dc.b $21, $7f	; Set volume for channel FM 2
-	dc.b $2a, $0f	; Set volume for channel PSG 3
-	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

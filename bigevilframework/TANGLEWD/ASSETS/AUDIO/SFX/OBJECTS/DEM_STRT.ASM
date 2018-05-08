@@ -1957,7 +1957,4 @@
 ; Pattern $08, Row 69; 
 	dc.b $fe, $01	; Delay
 	dc.b $36, $2a, $cf	; Set frequency '10959' (octave 5 semitone 719) for channel FM 6
-	dc.b $26, $7f	; Set volume for channel FM 6
-	dc.b $2a, $0f	; Set volume for channel PSG 3
-	dc.b $2b, $0f	; Set volume for channel PSG 4
 	dc.b $ff	; The End

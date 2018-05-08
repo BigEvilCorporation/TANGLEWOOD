@@ -270,5 +270,4 @@
 	dc.b $36, $23, $c2	; Set frequency '9154' (octave 4 semitone 962) for channel FM 6
 	dc.b $fe, $01	; Delay
 	dc.b $36, $23, $c0	; Set frequency '9152' (octave 4 semitone 960) for channel FM 6
-	dc.b $26, $7f	; Set volume for channel FM 6
 	dc.b $ff	; The End

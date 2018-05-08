@@ -102,8 +102,4 @@
 	dc.b $29, $0b	; Set volume for channel PSG 2
 	dc.b $2a, $0b	; Set volume for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $26, $7f	; Set volume for channel FM 6
-	dc.b $28, $0f	; Set volume for channel PSG 1
-	dc.b $29, $0f	; Set volume for channel PSG 2
-	dc.b $2a, $0f	; Set volume for channel PSG 3
 	dc.b $ff	; The End
